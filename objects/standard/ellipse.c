@@ -60,14 +60,14 @@ struct _Ellipse {
   Handle center_handle;
   
   real border_width;
-  Color border_color;
-  Color inner_color;
+  GdkRGBA border_color;
+  GdkRGBA inner_color;
   gboolean show_background;
   AspectType aspect;
   LineStyle line_style;
   real dashlength;
   DiaPattern *pattern;
-  real angle; /*!< between [-45°-45°] to simplify connection point handling */
+  real angle; /*!< between [-45ï¿½-45ï¿½] to simplify connection point handling */
 };
 
 static struct _EllipseProperties {
@@ -351,7 +351,7 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
   renderer_ops->set_linewidth(renderer, ellipse->border_width);
   renderer_ops->set_linestyle(renderer, ellipse->line_style, ellipse->dashlength);
   if (ellipse->show_background) {
-    Color fill = ellipse->inner_color;
+    GdkRGBA fill = ellipse->inner_color;
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
     if (ellipse->pattern) {
       dia_pattern_get_fallback_color (ellipse->pattern, &fill);
@@ -569,11 +569,11 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, "border_width"),
 		  ellipse->border_width, ctx);
   
-  if (!color_equals(&ellipse->border_color, &color_black))
+  if (!gdk_rgba_equal(&ellipse->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
 		   &ellipse->border_color, ctx);
   
-  if (!color_equals(&ellipse->inner_color, &color_white))
+  if (!gdk_rgba_equal(&ellipse->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &ellipse->inner_color, ctx);
 

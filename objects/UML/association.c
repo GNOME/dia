@@ -137,8 +137,8 @@ struct _Association {
 
   AssociationEnd end[2];
   
-  Color text_color;
-  Color line_color;
+  GdkRGBA text_color;
+  GdkRGBA line_color;
   
   DiaFont *font;
   real     font_height;

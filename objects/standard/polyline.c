@@ -45,7 +45,7 @@
 typedef struct _Polyline {
   PolyConn poly;
 
-  Color line_color;
+  GdkRGBA line_color;
   LineStyle line_style;
   LineJoin line_join;
   LineCaps line_caps;
@@ -468,7 +468,7 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
 {
   polyconn_save(&polyline->poly, obj_node, ctx);
 
-  if (!color_equals(&polyline->line_color, &color_black))
+  if (!gdk_rgba_equal(&polyline->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
 		   &polyline->line_color, ctx);
 

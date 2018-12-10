@@ -60,7 +60,7 @@ dia_color_selector_color_set (GtkColorButton *button, gpointer user_data)
 {
   DiaColorSelector *cs = DIACOLORSELECTOR(user_data);
   gchar *entry;
-  GdkColor gcol;
+  GdkRGBA gcol;
 
   gtk_color_button_get_color (button, &gcol);
 
@@ -75,7 +75,7 @@ dia_color_selector_value_changed (DiaDynamicMenu *ddm, gpointer user_data)
 {
   DiaColorSelector *cs = DIACOLORSELECTOR(user_data);
   gchar *entry = dia_dynamic_menu_get_entry(cs->ddm);
-  GdkColor gcol;
+  GdkRGBA gcol;
 
   gdk_color_parse (entry, &gcol);
   g_free(entry);
@@ -176,7 +176,7 @@ dia_color_selector_more_ok(GtkWidget *ok, gpointer userdata)
 {
   DiaColorSelector *cs = g_object_get_data(G_OBJECT(userdata), "dia-cs");
   GtkWidget *colorsel = GTK_WIDGET(userdata);
-  GdkColor gcol;
+  GdkRGBA gcol;
   guint galpha;
   gchar *entry;
   GtkWidget *cs2 = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG(colorsel));
@@ -236,7 +236,7 @@ dia_color_selector_more_callback(GtkWidget *widget, gpointer userdata)
          tmplist != NULL || advance; 
          tmplist = g_list_next(tmplist)) {
       const gchar* spec;
-      GdkColor color;
+      GdkRGBA color;
 
       /* handle both lists */
       if (!tmplist && advance) {
@@ -316,7 +316,7 @@ dia_color_selector_new (void)
   return GTK_WIDGET ( g_object_new (dia_color_selector_get_type (), NULL));
 }
 void
-dia_color_selector_get_color(GtkWidget *widget, Color *color)
+dia_color_selector_get_color(GtkWidget *widget, GdkRGBA *color)
 {
   DiaColorSelector *cs = DIACOLORSELECTOR(widget);
   gchar *entry = dia_dynamic_menu_get_entry(cs->ddm);
@@ -337,7 +337,7 @@ dia_color_selector_get_color(GtkWidget *widget, Color *color)
 
 void
 dia_color_selector_set_color (GtkWidget *widget,
-			      const Color *color)
+			      const GdkRGBA *color)
 {
   DiaColorSelector *cs = DIACOLORSELECTOR(widget);
   gint red, green, blue;
@@ -357,11 +357,7 @@ dia_color_selector_set_color (GtkWidget *widget,
   g_free (entry);
 
   if (cs->use_alpha) {
-    GdkColor gcol;
-
-    color_convert (color, &gcol);
-    gtk_color_button_set_color (cs->color_button, &gcol);
-    gtk_color_button_set_alpha (cs->color_button, MIN(color->alpha * 65535, 65535));
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cs->color_button), color);
   }
 }
 

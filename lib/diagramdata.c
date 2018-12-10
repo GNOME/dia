@@ -107,9 +107,13 @@ _diagram_data_selection_changed (DiagramData* dia, int n)
 static void
 diagram_data_init(DiagramData *data)
 {
-  Color* color = persistence_register_color ("new_diagram_bgcolour", &color_white);
+  GdkRGBA tmp;
+  GdkRGBA* color;
   gboolean compress = persistence_register_boolean ("compress_save", TRUE);
   Layer *first_layer;
+
+  gdk_rgba_parse (&tmp, "#FFFFFF");
+  color = persistence_register_color ("new_diagram_bgcolour", &tmp);
 
   data->extents.left = 0.0; 
   data->extents.right = 10.0; 

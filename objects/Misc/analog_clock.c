@@ -35,7 +35,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
 #include "properties.h"
 #include "dynamic_obj.h"
 
@@ -48,13 +47,13 @@ typedef struct _Chronoline {
   ConnectionPoint hour_tip, min_tip, sec_tip;
   ConnectionPoint center_cp;
   
-  Color border_color;
+  GdkRGBA border_color;
   real border_line_width;
-  Color inner_color;
+  GdkRGBA inner_color;
   gboolean show_background;
-  Color arrow_color;
+  GdkRGBA arrow_color;
   real arrow_line_width;
-  Color sec_arrow_color;
+  GdkRGBA sec_arrow_color;
   real sec_arrow_line_width;
   gboolean show_ticks;
 

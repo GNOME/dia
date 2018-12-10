@@ -103,9 +103,9 @@ struct _UMLClass {
   int comment_line_length; /**< Maximum line length for comments */
   int comment_tagging; /**< bool: if the {documentation = }  tag should be used */
   
-  Color line_color;
-  Color fill_color;
-  Color text_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
+  GdkRGBA text_color;
 
   /** Attributes: aka member variables */
   GList *attributes;

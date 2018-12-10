@@ -39,7 +39,6 @@
 #include "attributes.h"
 #include "text.h"
 #include "connpoint_line.h"
-#include "color.h"
 #include "properties.h"
 
 #include "pixmaps/sadtbox.xpm"
@@ -65,8 +64,8 @@ typedef struct _Box {
   gchar *id;
   real padding;
 
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
 } Box;
 
 static real sadtbox_distance_from(Box *box, Point *point);

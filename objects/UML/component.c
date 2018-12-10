@@ -49,8 +49,8 @@ struct _Component {
 
   char *st_stereotype;
 
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
 };
 
 #define COMPONENT_BORDERWIDTH 0.1

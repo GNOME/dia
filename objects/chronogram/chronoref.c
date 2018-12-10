@@ -39,7 +39,6 @@
 #include "attributes.h"
 #include "text.h"
 #include "connpoint_line.h"
-#include "color.h"
 #include "properties.h"
 
 #include "chronogram.h"
@@ -53,7 +52,7 @@ typedef struct _Chronoref {
 
   real main_lwidth;
   real light_lwidth;
-  Color color;
+  GdkRGBA color;
   real start_time;
   real end_time;
   real time_step;
@@ -61,7 +60,7 @@ typedef struct _Chronoref {
   
   DiaFont *font;
   real font_size;
-  Color font_color;
+  GdkRGBA font_color;
 
   ConnPointLine *scale; /* not saved ; num_connections derived from
 			   start_time, end_time, time_step. */

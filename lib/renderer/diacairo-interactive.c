@@ -26,7 +26,6 @@
 #include <gtk/gtk.h> /* GTK_CHECK_VERSION */
 
 #include "intl.h"
-#include "color.h"
 #include "diatransform.h"
 #include "object.h"
 #include "textline.h"
@@ -56,7 +55,7 @@ struct _DiaCairoInteractiveRenderer
   GdkRegion *clip_region;
 
   /** If non-NULL, this rendering is a highlighting with the given color. */
-  Color *highlight_color;
+  GdkRGBA *highlight_color;
 };
 
 struct _DiaCairoInteractiveRendererClass
@@ -71,15 +70,15 @@ static void clip_region_add_rect(DiaRenderer *renderer,
 static void draw_pixel_line(DiaRenderer *renderer,
                             int x1, int y1,
                             int x2, int y2,
-                            Color *color);
+                            GdkRGBA *color);
 static void draw_pixel_rect(DiaRenderer *renderer,
                             int x, int y,
                             int width, int height,
-                            Color *color);
+                            GdkRGBA *color);
 static void fill_pixel_rect(DiaRenderer *renderer,
                             int x, int y,
                             int width, int height,
-                            Color *color);
+                            GdkRGBA *color);
 static void set_size (DiaRenderer *renderer, 
                       gpointer window,
                       int width, int height);
@@ -176,10 +175,10 @@ get_text_width(DiaRenderer *object,
   return result;
 }
 /** Used as background? for text editing */
-static Color text_edit_color = {1.0, 1.0, 0.7 };
+static GdkRGBA text_edit_color = {1.0, 1.0, 0.7 };
 
 static real
-calculate_relative_luminance (const Color *c)
+calculate_relative_luminance (const GdkRGBA *c)
 {
   real R, G, B;
 
@@ -191,7 +190,7 @@ calculate_relative_luminance (const Color *c)
 }
 static void 
 draw_text_line (DiaRenderer *self, TextLine *text_line,
-		Point *pos, Alignment alignment, Color *color)
+		Point *pos, Alignment alignment, GdkRGBA *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   DiaCairoInteractiveRenderer *interactive = DIA_CAIRO_INTERACTIVE_RENDERER (self);
@@ -200,7 +199,7 @@ draw_text_line (DiaRenderer *self, TextLine *text_line,
     /* the high_light color is just taken as a hint, alternative needs
      * to have some contrast to cursor color (curently hard coded black)
      */
-    static Color alternate_color = { 0.5, 0.5, 0.4 };
+    static GdkRGBA alternate_color = { 0.5, 0.5, 0.4 };
     real rl, cr1, cr2;
 
     /* just draw the box */
@@ -515,7 +514,7 @@ static void
 draw_pixel_line(DiaRenderer *object,
 		int x1, int y1,
 		int x2, int y2,
-		Color *color)
+		GdkRGBA *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
   double x1u = x1 + .5, y1u = y1 + .5, x2u = x2 + .5, y2u = y2 + .5;
@@ -538,7 +537,7 @@ static void
 draw_pixel_rect(DiaRenderer *object,
 		int x, int y,
 		int width, int height,
-		Color *color)
+		GdkRGBA *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
   double x1u = x + .5, y1u = y + .5, x2u = x + width + .5, y2u = y + height + .5;
@@ -560,7 +559,7 @@ static void
 fill_pixel_rect(DiaRenderer *object,
 		int x, int y,
 		int width, int height,
-		Color *color)
+		GdkRGBA *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
   double x1u = x + .5, y1u = y + .5, x2u = x + width + .5, y2u = y + height + .5;

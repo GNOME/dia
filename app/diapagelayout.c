@@ -58,7 +58,7 @@ struct _DiaPageLayout {
 
   GtkWidget *darea;
 
-  GdkColor white, black, blue;
+  GdkRGBA white, black, blue;
   gint papernum; /* index into page_metrics array */
 
   /* position of paper preview */

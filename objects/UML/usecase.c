@@ -50,8 +50,8 @@ struct _Usecase {
   int collaboration;
 
   real line_width;
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
 };
 
 

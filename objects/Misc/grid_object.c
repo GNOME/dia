@@ -36,7 +36,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
 #include "properties.h"
 
 #include "pixmaps/grid_object.xpm"
@@ -51,13 +50,13 @@ typedef struct _Grid_Object {
   gint cells_cols;
   ConnectionPoint *cells;
   
-  Color border_color;
+  GdkRGBA border_color;
   real border_line_width;
-  Color inner_color;
+  GdkRGBA inner_color;
   gboolean show_background;
   gint grid_rows;
   gint grid_cols;
-  Color gridline_color;
+  GdkRGBA gridline_color;
   real gridline_width;
 } Grid_Object;
 

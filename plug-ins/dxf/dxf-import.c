@@ -113,7 +113,7 @@ _dxf_color_get_by_layer (const Layer *layer)
   return 0;
 }
 static void
-_color_init_from_rgb (Color *color, RGB_t rgb)
+_color_init_from_rgb (GdkRGBA *color, RGB_t rgb)
 {
   color->red   = rgb.r / 255.0;
   color->green = rgb.g / 255.0;
@@ -176,7 +176,7 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Handle *h1, *h2;
     
     DiaObject *line_obj;
-    Color line_colour;
+    GdkRGBA line_colour;
     RGB_t color = { 0, };
     GPtrArray *props;
 
@@ -257,7 +257,7 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    DiaObject *polygon_obj;
    MultipointCreateData *pcd;
 
-   Color fill_colour;
+   GdkRGBA fill_colour;
 
    GPtrArray *props;
    
@@ -389,7 +389,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     DiaObject *polyline_obj;
     MultipointCreateData *pcd;
 
-    Color line_colour;
+    GdkRGBA line_colour;
 
     GPtrArray *props;
 
@@ -594,7 +594,7 @@ read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     
     DiaObject *ellipse_obj;
     RGB_t color  = { 0, };
-    Color line_colour;
+    GdkRGBA line_colour;
 
     GPtrArray *props;
 
@@ -671,7 +671,7 @@ read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
   
     DiaObject *arc_obj;
     RGB_t color  = { 0, };
-    Color line_colour;
+    GdkRGBA line_colour;
     GPtrArray *props;
 
     real line_width = DEFAULT_LINE_WIDTH;
@@ -761,7 +761,7 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     
     DiaObject *ellipse_obj; 
     RGB_t color = { 0, };
-    Color line_colour;
+    GdkRGBA line_colour;
     GPtrArray *props;
 
     real line_width = DEFAULT_LINE_WIDTH;
@@ -844,7 +844,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     Handle *h1, *h2;
     
     DiaObject *text_obj;
-    Color text_colour;
+    GdkRGBA text_colour;
 
     TextProperty *tprop;
     GPtrArray *props;

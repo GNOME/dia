@@ -50,7 +50,7 @@ typedef struct _Bezierline Bezierline;
 struct _Bezierline {
   BezierConn bez;
 
-  Color line_color;
+  GdkRGBA line_color;
   LineStyle line_style;
   LineJoin line_join;
   LineCaps line_caps;
@@ -606,7 +606,7 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
   } 
   bezierconn_save(&bezierline->bez, obj_node, ctx);
 
-  if (!color_equals(&bezierline->line_color, &color_black))
+  if (!gdk_rgba_equal(&bezierline->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
 		   &bezierline->line_color, ctx);
   

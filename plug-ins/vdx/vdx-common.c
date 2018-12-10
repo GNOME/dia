@@ -21,7 +21,6 @@
 
 #include <stdio.h>
 #include <glib.h>
-#include "color.h"
 
 #include <visio-types.h>
 

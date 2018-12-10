@@ -46,7 +46,7 @@
 static void 
 draw_empty_ellipse(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
-		   Color *fg_color);
+		  GdkRGBA *fg_color);
 static void 
 calculate_double_arrow(Point *second_to, Point *second_from, 
                        const Point *to, const Point *from, real length);
@@ -54,7 +54,7 @@ calculate_double_arrow(Point *second_to, Point *second_from,
 static void 
 draw_crow_foot(DiaRenderer *renderer, Point *to, Point *from,
 	       real length, real width, real linewidth,
-	       Color *fg_color,Color *bg_color);
+	      GdkRGBA *fg_colorGdkRGBA *bg_color);
 static int
 calculate_diamond(Point *poly/*[4]*/, const Point *to, const Point *from,
 		  real length, real width);
@@ -391,7 +391,7 @@ calculate_crow(Point *poly, const Point *to, const Point *from,
 static void
 draw_none_or_many(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
-		  Color *fg_color,Color *bg_color)
+		  GdkRGBA *fg_color,GdkRGBA *bg_color)
 {
   Point second_from, second_to;
   
@@ -424,7 +424,7 @@ draw_none_or_many(DiaRenderer *renderer, Point *to, Point *from,
 static void 
 draw_one_exactly(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
-		  Color *fg_color,Color *bg_color)
+		  GdkRGBA *fg_color,GdkRGBA *bg_color)
 {
   Point vl,vt;
   Point bs,be;
@@ -468,7 +468,7 @@ draw_one_exactly(DiaRenderer *renderer, Point *to, Point *from,
 static void 
 draw_one_or_many(DiaRenderer *renderer, Point *to, Point *from,
 		 real length, real width, real linewidth,
-		 Color *fg_color,Color *bg_color)
+		 GdkRGBA *fg_color,GdkRGBA *bg_color)
 {
 
   Point poly[6];
@@ -500,7 +500,7 @@ draw_one_or_many(DiaRenderer *renderer, Point *to, Point *from,
 static void 
 draw_one_or_none(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
-		  Color *fg_color,Color *bg_color)
+		  GdkRGBA *fg_color,GdkRGBA *bg_color)
 {
   Point vl,vt;
   Point bs,be;
@@ -540,7 +540,7 @@ draw_one_or_none(DiaRenderer *renderer, Point *to, Point *from,
 static void 
 draw_crow_foot(DiaRenderer *renderer, Point *to, Point *from,
 	       real length, real width, real linewidth,
-	       Color *fg_color,Color *bg_color)
+	       GdkRGBA *fg_color,GdkRGBA *bg_color)
 {
 
   Point poly[3];
@@ -567,7 +567,7 @@ draw_crow_foot(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_lines(DiaRenderer *renderer, Point *to, Point *from,
 	   real length, real width, real linewidth,
-	   Color *fg_color, Color *bg_color)
+	   GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   Point poly[3];
     
@@ -603,7 +603,7 @@ calculate_ellipse (Point *poly, const Point *to, const Point *from,
 static void 
 draw_fill_ellipse(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
-		  Color *fg_color,Color *bg_color)
+		  GdkRGBA *fg_color,GdkRGBA *bg_color)
 {
   BezPoint bp[5];
   Point vl,vt;
@@ -668,7 +668,7 @@ draw_fill_ellipse(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_empty_ellipse(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
-		  Color *fg_color)
+		  GdkRGBA *fg_color)
 {
   BezPoint bp[5];
   Point vl,vt;
@@ -768,7 +768,7 @@ calculate_box (Point *poly, const Point *to, const Point *from,
 static void
 draw_fill_box(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
-	      Color *fg_color,Color *bg_color)
+	      GdkRGBA *fg_color,GdkRGBA *bg_color)
 {
   Point poly[6];
   real lw_factor,clength,cwidth;
@@ -817,7 +817,7 @@ calculate_dot (Point *poly, const Point *to, const Point *from,
 static void
 draw_fill_dot(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
-	      Color *fg_color, Color *bg_color)
+	      GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   BezPoint bp[5];
   Point vl,vt;
@@ -905,7 +905,7 @@ draw_fill_dot(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_integral(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
-	      Color *fg_color)
+	      GdkRGBA *fg_color)
 {
   BezPoint bp[2];
   Point vl,vt;
@@ -994,7 +994,7 @@ calculate_slashed (Point *poly, const Point *to, const Point *from,
 static void
 draw_slashed(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
-	     Color *fg_color, Color *bg_color)
+	     GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   Point poly[6];
   
@@ -1068,7 +1068,7 @@ calculate_halfhead(Point *poly, const Point *to, const Point *from,
 static void
 draw_halfhead(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
-	      Color *fg_color, Color *bg_color)
+	      GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   Point poly[3];
 
@@ -1094,7 +1094,7 @@ draw_halfhead(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_triangle(DiaRenderer *renderer, Point *to, Point *from,
 	      real length, real width, real linewidth,
-	      Color *bg_color, Color *fg_color)
+	      GdkRGBA *bg_color, GdkRGBA *fg_color)
 {
   Point poly[3];
 
@@ -1169,7 +1169,7 @@ calculate_diamond(Point *poly, const Point *to, const Point *from,
 static void
 draw_diamond(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
   Point poly[4];
 
@@ -1195,7 +1195,7 @@ draw_diamond(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_half_diamond(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
-		  Color *fg_color, Color *bg_color)
+		  GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   Point poly[4];
 
@@ -1271,7 +1271,7 @@ calculate_slashed_cross(Point *poly, const Point *to, const Point *from,
 static void
 draw_slashed_cross(DiaRenderer *renderer, Point *to, Point *from,
 		   real length, real width, real linewidth, 
-		   Color *fg_color, Color *bg_color)
+		   GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   Point poly[6];
   
@@ -1335,7 +1335,7 @@ calculate_backslash (Point *poly, const Point *to, const Point *from,
 static void
 draw_backslash(DiaRenderer *renderer, Point *to, Point *from,
                real length, real width, real linewidth, 
-	       Color *fg_color, Color *bg_color)
+	       GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   Point poly[2];
 
@@ -1361,7 +1361,7 @@ draw_backslash(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_cross(DiaRenderer *renderer, Point *to, Point *from,
 	   real length, real width, real linewidth, 
-	   Color *fg_color, Color *bg_color)
+	   GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   Point poly[6];
   
@@ -1425,7 +1425,7 @@ calculate_double_arrow(Point *second_to, Point *second_from,
 static void 
 draw_double_triangle(DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, real linewidth, 
-		     Color *bg_color, Color *fg_color)
+		     GdkRGBA *bg_color, GdkRGBA *fg_color)
 {
   Point second_from, second_to;
   
@@ -1504,7 +1504,7 @@ calculate_concave(Point *poly, const Point *to, const Point *from,
 static void
 draw_concave_triangle(DiaRenderer *renderer, Point *to, Point *from,
 		      real length, real width, real linewidth,
-		      Color *fg_color, Color *bg_color)
+		      GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   Point poly[4];
 
@@ -1533,7 +1533,7 @@ draw_concave_triangle(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_rounded(DiaRenderer *renderer, Point *to, Point *from,
 	     real length, real width, real linewidth,
-	     Color *fg_color, Color *bg_color)
+	     GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   Point p = *to;
   Point delta;
@@ -1586,7 +1586,7 @@ draw_rounded(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
 		  real length, real width, real linewidth,
-		  Color *fg_color, Color *bg_color)
+		  GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   Point p = *to;
   Point delta;
@@ -1630,7 +1630,7 @@ draw_open_rounded(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_filled_dot_n_triangle(DiaRenderer *renderer, Point *to, Point *from,
 			   real length, real width, real linewidth,
-			   Color *fg_color, Color *bg_color)
+			   GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   Point p_dot = *to, p_tri = *to, delta;
   real len, rayon;
@@ -1680,7 +1680,7 @@ draw_filled_dot_n_triangle(DiaRenderer *renderer, Point *to, Point *from,
  */
 static void
 draw_three_dots(DiaRenderer *renderer, Point *to, Point *from,
-               real length, real width, real linewidth, Color *fg_color)
+               real length, real width, real linewidth, GdkRGBA *fg_color)
 {
 
   gdouble dot_width;
@@ -1714,7 +1714,7 @@ draw_three_dots(DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_hollow_triangle (DiaRenderer *renderer, Point *to, Point *from,
 		      real length, real width, real linewidth,
-		      Color *fg_color, Color *bg_color)
+		      GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   draw_triangle(renderer, to, from, length, width, linewidth, bg_color, fg_color);
 }
@@ -1722,14 +1722,14 @@ draw_hollow_triangle (DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_filled_triangle (DiaRenderer *renderer, Point *to, Point *from,
 		      real length, real width, real linewidth,
-		      Color *fg_color, Color *bg_color)
+		      GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   draw_triangle(renderer, to, from, length, width, linewidth, fg_color, fg_color);
 }
 static void
 draw_unfilled_triangle (DiaRenderer *renderer, Point *to, Point *from,
 		        real length, real width, real linewidth,
-		        Color *fg_color, Color *bg_color)
+		        GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   draw_triangle(renderer, to, from, length, width, linewidth, NULL, fg_color);
 }
@@ -1737,42 +1737,42 @@ draw_unfilled_triangle (DiaRenderer *renderer, Point *to, Point *from,
 static void
 draw_hollow_diamond (DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, real linewidth,
-		     Color *fg_color, Color *bg_color)
+		     GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   draw_diamond(renderer, to, from, length, width, linewidth, bg_color, fg_color);
 }
 static void
 draw_filled_diamond (DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, real linewidth,
-		     Color *fg_color, Color *bg_color)
+		     GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   draw_diamond(renderer, to, from, length, width, linewidth, fg_color, fg_color);
 }
 static void
 draw_filled_ellipse (DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, real linewidth,
-		     Color *fg_color, Color *bg_color)
+		     GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   draw_fill_ellipse(renderer,to,from,length,width,linewidth,fg_color,fg_color);
 }
 static void
 draw_filled_dot (DiaRenderer *renderer, Point *to, Point *from,
 		 real length, real width, real linewidth,
-		 Color *fg_color, Color *bg_color)
+		 GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   draw_fill_dot(renderer,to,from,length,width,linewidth,fg_color,fg_color);
 }
 static void
 draw_filled_box (DiaRenderer *renderer, Point *to, Point *from,
 		 real length, real width, real linewidth,
-		 Color *fg_color, Color *bg_color)
+		 GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   draw_fill_box(renderer,to,from,length,width,linewidth,fg_color,fg_color);
 }
 static void
 draw_filled_concave (DiaRenderer *renderer, Point *to, Point *from,
 		     real length, real width, real linewidth,
-		     Color *fg_color, Color *bg_color)
+		     GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   draw_concave_triangle(renderer, to, from, length, width, linewidth, fg_color, fg_color);
 }
@@ -1790,14 +1790,14 @@ calculate_double_triangle (Point *poly, const Point *to, const Point *from,
 static void
 draw_double_hollow_triangle (DiaRenderer *renderer, Point *to, Point *from,
 		             real length, real width, real linewidth,
-		             Color *fg_color, Color *bg_color)
+		             GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   draw_double_triangle(renderer, to, from, length, width, linewidth, bg_color, fg_color);  
 }
 static void
 draw_double_filled_triangle (DiaRenderer *renderer, Point *to, Point *from,
 		             real length, real width, real linewidth,
-		             Color *fg_color, Color *bg_color)
+		             GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   draw_double_triangle(renderer, to, from, length, width, linewidth, fg_color, fg_color);
 }
@@ -1817,8 +1817,8 @@ struct ArrowDesc {
 	        real length, 
 	        real width, 
 	        real linewidth, /* the lines width also used in many arrows */
-	        Color *fg_color, /* the main drawin color */
-	        Color *bg_color); /* not always used */
+	        GdkRGBA *fg_color, /* the main drawin color */
+	        GdkRGBA *bg_color); /* not always used */
 } arrow_types[] =
   {{NC_("Arrow", "None"),ARROW_NONE},
    {NC_("Arrow", "Lines"),ARROW_LINES, calculate_arrow, draw_lines}, 
@@ -1906,7 +1906,7 @@ void
 arrow_draw(DiaRenderer *renderer, ArrowType type,
 	   Point *to, Point *from,
 	   real length, real width, real linewidth,
-	   Color *fg_color, Color *bg_color)
+	   GdkRGBA *fg_color, GdkRGBA *bg_color)
 {
   switch(type) {
   case ARROW_NONE:
@@ -1957,7 +1957,7 @@ arrow_draw(DiaRenderer *renderer, ArrowType type,
     Arrow arrow = {type, length, width};
     Rectangle bbox = {0, };
     Point p1, p2;
-    Color col = { 1.0, 0.0, 1.0, 1.0 };
+    GdkRGBA col = { 1.0, 0.0, 1.0, 1.0 };
     
     arrow_bbox (&arrow, linewidth, to, from, &bbox);
 

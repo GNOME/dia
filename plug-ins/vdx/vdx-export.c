@@ -104,7 +104,7 @@ static gboolean export_vdx(DiagramData *data, DiaContext *ctx,
 			   void* user_data);
 
 static int
-vdxCheckColor(VDXRenderer *renderer, Color *color); 
+vdxCheckColor(VDXRenderer *renderer, GdkRGBA *color); 
 
 static gpointer parent_class = NULL;
 
@@ -159,7 +159,7 @@ static void
 begin_render(DiaRenderer *self, const Rectangle *update)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
-    Color c;
+    GdkRGBA c;
     
     renderer->depth = 0;
     
@@ -314,15 +314,15 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
  */
 
 static int
-vdxCheckColor(VDXRenderer *renderer, Color *color) 
+vdxCheckColor(VDXRenderer *renderer, GdkRGBA *color) 
 {
     int i;
 
-    Color cmp_color;
+    GdkRGBA cmp_color;
     for (i = 0; i < renderer->Colors->len; i++) 
     {
         cmp_color = g_array_index(renderer->Colors, Color, i);
-        if (color_equals(color, &cmp_color)) return i;
+        if (gdk_rgba_equal(color, &cmp_color)) return i;
     }
     /* Grow table */
     g_array_append_val(renderer->Colors, *color);
@@ -361,7 +361,7 @@ vdxCheckFont(VDXRenderer *renderer)
  * @todo join, caps, dashlength
  */
 static void 
-create_Line(VDXRenderer *renderer, Color *color, struct vdx_Line *Line,
+create_Line(VDXRenderer *renderer, GdkRGBA *color, struct vdx_Line *Line,
             Arrow *start_arrow, Arrow *end_arrow) 
 {
     /* A Line (colour etc) */
@@ -406,7 +406,7 @@ create_Line(VDXRenderer *renderer, Color *color, struct vdx_Line *Line,
  */
 
 static void 
-create_Fill(VDXRenderer *renderer, Color *color, struct vdx_Fill *Fill)
+create_Fill(VDXRenderer *renderer, GdkRGBA *color, struct vdx_Fill *Fill)
 {
     /* A Fill (colour etc) */
     memset(Fill, 0, sizeof(*Fill));
@@ -425,7 +425,7 @@ create_Fill(VDXRenderer *renderer, Color *color, struct vdx_Fill *Fill)
  */
 
 static void 
-draw_line(DiaRenderer *self, Point *start, Point *end, Color *color) 
+draw_line(DiaRenderer *self, Point *start, Point *end, GdkRGBA *color) 
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a, b;
@@ -526,7 +526,7 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
  */
 
 static void draw_polyline(DiaRenderer *self, Point *points, int num_points, 
-			  Color *color)
+			  GdkRGBA *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a, b;
@@ -632,7 +632,7 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
 static void
 _polygon (DiaRenderer *self,
 	  Point *points, int num_points,
-	  Color *fill, Color *stroke,
+	  GdkRGBA *fill, GdkRGBA *stroke,
 	  real radius)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
@@ -759,7 +759,7 @@ _polygon (DiaRenderer *self,
 static void
 draw_polygon (DiaRenderer *self,
 	      Point *points, int num_points,
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
   _polygon (self, points, num_points, fill, stroke, 0.0);
 }
@@ -767,7 +767,7 @@ draw_polygon (DiaRenderer *self,
 static void
 draw_rounded_rect (DiaRenderer *self,
 		   Point *ul_corner, Point *lr_corner,
-		   Color *fill, Color *stroke,
+		   GdkRGBA *fill, GdkRGBA *stroke,
 		   real radius)
 {
     Point points[4];            /* close path done by _polygon() */
@@ -795,7 +795,7 @@ static void draw_arc(DiaRenderer *self,
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
-		     Color *color)
+		     GdkRGBA *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a;
@@ -932,7 +932,7 @@ fill_arc (DiaRenderer *self,
 	  Point *center,
 	  real width, real height,
 	  real angle1, real angle2,
-	  Color *color)
+	  GdkRGBA *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a;
@@ -1083,7 +1083,7 @@ static void
 draw_ellipse (DiaRenderer *self, 
 	      Point *center,
 	      real width, real height,
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a;
@@ -1184,7 +1184,7 @@ draw_ellipse (DiaRenderer *self,
 static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
-			Color *color)
+			GdkRGBA *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a;
@@ -1410,7 +1410,7 @@ static void draw_image(DiaRenderer *self,
  */
 
 const char *
-vdx_string_color(const Color c)
+vdx_string_color(const GdkRGBA c)
 {
     static char buf[8];
     sprintf(buf, "#%.2X%.2X%.2X", 
@@ -1474,7 +1474,7 @@ static void
 write_header(DiagramData *data, VDXRenderer *renderer)
 {
     FILE *file = renderer->file;
-    Color c;
+    GdkRGBA c;
     const char *f;
     unsigned int i;
     struct vdx_StyleSheet StyleSheet;
@@ -1485,7 +1485,7 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     struct vdx_Char Char;
     struct vdx_Para Para;
     struct vdx_Tabs Tabs;
-    static Color color_black = { 0.0, 0.0, 0.0, 1.0 };
+    static GdkRGBA color_black = { 0.0, 0.0, 0.0, 1.0 };
 
     g_debug("write_header");
 

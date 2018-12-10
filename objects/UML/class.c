@@ -572,7 +572,7 @@ uml_underline_text(DiaRenderer  *renderer,
                DiaFont      *font,
                real          font_height,
                gchar        *string,
-               Color        *color, 
+               GdkRGBA        *color, 
                real          line_width,
                real          underline_width)
 {
@@ -720,7 +720,7 @@ static void
 uml_draw_comments(DiaRenderer *renderer, 
                   DiaFont     *font,
                   real         font_height,
-                  Color       *text_color,
+                  GdkRGBA       *text_color,
                   gchar       *comment,
 		  gboolean     comment_tagging,
                   gint         Comment_line_length, 
@@ -795,7 +795,7 @@ umlclass_draw_namebox(UMLClass *umlclass, DiaRenderer *renderer, Element *elem )
   Point   StartPoint;
   Point   LowerRightPoint;
   real    Yoffset;
-  Color   *text_color = &umlclass->text_color;
+  GdkRGBA   *text_color = &umlclass->text_color;
   
 
   
@@ -880,9 +880,9 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
   Point    StartPoint;
   Point    LowerRight;
   DiaFont *font;
-  Color   *fill_color = &umlclass->fill_color;
-  Color   *line_color = &umlclass->line_color;
-  Color   *text_color = &umlclass->text_color;
+  GdkRGBA   *fill_color = &umlclass->fill_color;
+  GdkRGBA   *line_color = &umlclass->line_color;
+  GdkRGBA   *text_color = &umlclass->text_color;
   GList   *list;
 
   StartPoint.x = elem->corner.x;
@@ -967,9 +967,9 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
   Point    LowerRight;
   DiaFont *font;
   GList   *list;
-  Color   *fill_color = &umlclass->fill_color;
-  Color   *line_color = &umlclass->line_color;
-  Color   *text_color = &umlclass->text_color;
+  GdkRGBA   *fill_color = &umlclass->fill_color;
+  GdkRGBA   *line_color = &umlclass->line_color;
+  GdkRGBA   *text_color = &umlclass->text_color;
 
 
   StartPoint.x = elem->corner.x;
@@ -1119,9 +1119,9 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
   DiaFont   *font = umlclass->normal_font;
   real       font_height = umlclass->font_height;
   real       ascent;
-  Color     *fill_color = &umlclass->fill_color;
-  Color     *line_color = &umlclass->line_color;
-  Color     *text_color = &umlclass->text_color;
+  GdkRGBA     *fill_color = &umlclass->fill_color;
+  GdkRGBA     *line_color = &umlclass->line_color;
+  GdkRGBA     *text_color = &umlclass->text_color;
 
 
   /*

@@ -109,9 +109,9 @@ static void draw_object       (DiaRenderer *renderer,
 static void draw_string       (DiaRenderer *self,
 	                       const char *text,
 			       Point *pos, Alignment alignment,
-			       Color *colour);
+			       GdkRGBA *colour);
 static void draw_text_line    (DiaRenderer *self, TextLine *text_line,
-	                       Point *pos, Alignment alignment, Color *colour);
+	                       Point *pos, Alignment alignment, GdkRGBA *colour);
 static void draw_text         (DiaRenderer *self, Text *text);
 static void draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle);
 static void draw_rotated_image (DiaRenderer *self, Point *point,
@@ -396,7 +396,7 @@ node_set_text_style (xmlNodePtr      node,
 		     const DiaFont  *font,
 		     real            font_height,
 		     Alignment       alignment,
-		     Color          *colour)
+		     GdkRGBA          *colour)
 {
   real saved_width;
   gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
@@ -477,7 +477,7 @@ static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *colour)
+	    GdkRGBA *colour)
 {    
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
@@ -500,7 +500,7 @@ draw_string(DiaRenderer *self,
  */
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
-	       Point *pos, Alignment alignment, Color *colour)
+	       Point *pos, Alignment alignment, GdkRGBA *colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;

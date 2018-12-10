@@ -117,7 +117,7 @@ static DiaPattern *
 _create_preset_pattern (guint n)
 {
   DiaPattern *pat;
-  Color       color;
+  GdkRGBA       color;
 
   g_return_val_if_fail (n < G_N_ELEMENTS (_pattern_presets), NULL);
   switch (_pattern_presets[n].type) {

@@ -32,7 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
 #include "properties.h"
 #include "geometry.h"
 #include "text.h"
@@ -62,7 +61,7 @@ typedef struct _Transition {
   Boolequation *receptivity;
   DiaFont *rcep_font;
   real rcep_fontheight;
-  Color rcep_color;
+  GdkRGBA rcep_color;
   char *rcep_value;
 
   ConnectionPoint connections[2];
@@ -374,7 +373,7 @@ transition_create(Point *startpoint,
   Element *elem;
   DiaFont *default_font = NULL; 
   real default_fontheight;
-  Color fg_color;
+  GdkRGBA fg_color;
 
   transition = g_malloc0(sizeof(Transition));
   elem = &transition->element;

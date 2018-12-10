@@ -54,8 +54,8 @@ struct _Objet {
 
   TextAttributes text_attrs; /* for both text objects */
   real line_width;
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
 
   Point ex_pos, st_pos;
   int is_active;

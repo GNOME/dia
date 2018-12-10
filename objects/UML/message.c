@@ -61,8 +61,8 @@ struct _Message {
   Point text_pos;
   real text_width;
     
-  Color text_color;
-  Color line_color;
+  GdkRGBA text_color;
+  GdkRGBA line_color;
 
   DiaFont *font;
   real     font_height;

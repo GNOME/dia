@@ -53,7 +53,7 @@ struct _MetapostRenderer
   LineCaps  saved_line_cap;
   LineJoin  saved_line_join;
 
-  Color color;
+  GdkRGBA color;
 
   real line_width;
   real dash_length;

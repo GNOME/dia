@@ -248,7 +248,7 @@ prop_list_add_line_style  (GPtrArray *plist, LineStyle line_style, real dash)
   g_ptr_array_add (plist, prop);
 }
 static void
-_prop_list_add_colour (GPtrArray *plist, const char *name, const Color *color)
+_prop_list_add_colour (GPtrArray *plist, const char *name, const GdkRGBA *color)
 {
   Property *prop = make_new_prop (name, PROP_TYPE_COLOUR, 0);
 
@@ -256,12 +256,12 @@ _prop_list_add_colour (GPtrArray *plist, const char *name, const Color *color)
   g_ptr_array_add (plist, prop);
 }
 void
-prop_list_add_line_colour (GPtrArray *plist, const Color *color)
+prop_list_add_line_colour (GPtrArray *plist, const GdkRGBA *color)
 {
   _prop_list_add_colour (plist, "line_colour", color);
 }
 void
-prop_list_add_fill_colour (GPtrArray *plist, const Color *color)
+prop_list_add_fill_colour (GPtrArray *plist, const GdkRGBA *color)
 {
   _prop_list_add_colour (plist, "fill_colour", color);
 }
@@ -347,7 +347,7 @@ prop_list_add_enum (GPtrArray *plist, const char *name, int value)
   g_ptr_array_add (plist, prop);
 }
 void
-prop_list_add_text_colour (GPtrArray *plist, const Color *color)
+prop_list_add_text_colour (GPtrArray *plist, const GdkRGBA *color)
 {
   _prop_list_add_colour (plist, "text_colour", color);
 }

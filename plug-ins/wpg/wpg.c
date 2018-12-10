@@ -161,7 +161,7 @@ fwrite_le(void* buf, size_t size, size_t count, FILE* f)
  * helper functions 
  */
 static guint8
-LookupColor(WpgRenderer *renderer, Color* colour)
+LookupColor(WpgRenderer *renderer, GdkRGBA* colour)
 {
   /* find nearest color in the renderers color map */
   /* the following hack does only work with a correctly 
@@ -211,7 +211,7 @@ WriteRecHead(WpgRenderer *renderer, WPG_Type Type, guint32 Size)
 }
 
 static void
-WriteLineAttr(WpgRenderer *renderer, Color* colour)
+WriteLineAttr(WpgRenderer *renderer, GdkRGBA* colour)
 {
   g_assert(4 == sizeof(WPGLineAttr));
 
@@ -222,7 +222,7 @@ WriteLineAttr(WpgRenderer *renderer, Color* colour)
 }
 
 static void
-WriteFillAttr(WpgRenderer *renderer, Color* colour, gboolean bFill)
+WriteFillAttr(WpgRenderer *renderer, GdkRGBA* colour, gboolean bFill)
 {
   g_assert(2 == sizeof(WPGFillAttr));
 
@@ -270,7 +270,7 @@ begin_render(DiaRenderer *self, const Rectangle *update)
 
   gint16 i;
   guint8* pPal;
-  Color color = { 1.0, 1.0, 1.0, 1.0 };
+  GdkRGBA color = { 1.0, 1.0, 1.0, 1.0 };
 
   DIAG_NOTE(g_message("begin_render"));
 
@@ -450,7 +450,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 static void
 draw_line(DiaRenderer *self, 
           Point *start, Point *end, 
-          Color *line_colour)
+          GdkRGBA *line_colour)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   gint16 pData[4];
@@ -473,7 +473,7 @@ draw_line(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
               Point *points, int num_points, 
-              Color *line_colour)
+              GdkRGBA *line_colour)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   int i;
@@ -508,7 +508,7 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
              Point *points, int num_points, 
-             Color *fill, Color *stroke)
+             GdkRGBA *fill, GdkRGBA *stroke)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   gint16* pData;
@@ -553,7 +553,7 @@ draw_polygon(DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
           Point *ul_corner, Point *lr_corner,
-          Color *fill, Color *stroke)
+          GdkRGBA *fill, GdkRGBA *stroke)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   gint16* pData;
@@ -592,7 +592,7 @@ draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   WPGEllipse ell;
@@ -632,7 +632,7 @@ fill_arc(DiaRenderer *self,
          Point *center,
          real width, real height,
          real angle1, real angle2,
-         Color *colour)
+         GdkRGBA *colour)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   WPGEllipse ell;
@@ -672,7 +672,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
              Point *center,
              real width, real height,
-             Color *fill, Color *stroke)
+             GdkRGBA *fill, GdkRGBA *stroke)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   WPGEllipse ell;
@@ -706,7 +706,7 @@ static void
 draw_bezier(DiaRenderer *self, 
             BezPoint *points,
             int numpoints,
-            Color *colour)
+            GdkRGBA *colour)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   WPGPoint* pts;
@@ -769,8 +769,8 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points,
 		int numpoints,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
   DIAG_NOTE(g_message("draw_beziezgon %d points", numpoints));
 
@@ -797,7 +797,7 @@ static void
 draw_string(DiaRenderer *self,
             const char *text,
             Point *pos, Alignment alignment,
-            Color *colour)
+            GdkRGBA *colour)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   gint16 len;

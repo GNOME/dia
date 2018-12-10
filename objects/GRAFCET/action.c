@@ -32,7 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
 #include "properties.h"
 #include "geometry.h"
 #include "text.h"
@@ -327,7 +326,7 @@ action_draw(Action *action, DiaRenderer *renderer)
   Point ul,br,p1,p2;
   int i;
   real chunksize;
-  Color cl;
+  GdkRGBA cl;
 
   renderer_ops->set_linewidth(renderer, ACTION_LINE_WIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);

@@ -91,7 +91,7 @@ struct _XfigRenderer
   real fontheight;
 
   gboolean color_pass;
-  Color user_colors[512];
+  GdkRGBA user_colors[512];
   int max_user_color;
 
   gchar *warnings[MAX_WARNING];
@@ -113,70 +113,70 @@ static void set_fillstyle(DiaRenderer *self, FillStyle mode);
 static void set_font(DiaRenderer *self, DiaFont *font, real height);
 static void draw_line(DiaRenderer *self, 
 		      Point *start, Point *end, 
-		      Color *color);
+		      GdkRGBA *color);
 static void draw_polyline(DiaRenderer *self, 
 			  Point *points, int num_points, 
-			  Color *color);
+			  GdkRGBA *color);
 static void draw_line_with_arrows(DiaRenderer *self, 
 				  Point *start, Point *end, 
 				  real line_width,
-				  Color *color,
+				  GdkRGBA *color,
 				  Arrow *start_arrow,
 				  Arrow *end_arrow);
 static void draw_polyline_with_arrows(DiaRenderer *self, 
 				      Point *points, int num_points, 
 				      real line_width,
-				      Color *color,
+				      GdkRGBA *color,
 				      Arrow *start_arrow,
 				      Arrow *end_arrow);
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
-			 Color *fill, Color *stroke);
+			 GdkRGBA *fill, GdkRGBA *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
-		      Color *fill, Color *stroke);
+		      GdkRGBA *fill, GdkRGBA *stroke);
 static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
-		     Color *colour);
+		     GdkRGBA *colour);
 static void draw_arc_with_arrows(DiaRenderer *self, 
 				 Point *startpoint,
 				 Point *endpoint,
 				 Point *midpoint,
 				 real line_width,
-				 Color *colour,
+				 GdkRGBA *colour,
 				 Arrow *start_arrow,
 				 Arrow *end_arrow);
 static void fill_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
-		     Color *colour);
+		     GdkRGBA *colour);
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
-			 Color *fill, Color *stroke);
+			 GdkRGBA *fill, GdkRGBA *stroke);
 static void draw_bezier(DiaRenderer *self, 
 			BezPoint *points,
 			int numpoints,
-			Color *colour);
+			GdkRGBA *colour);
 static void draw_bezier_with_arrows(DiaRenderer *self, 
 				    BezPoint *points,
 				    int numpoints,
 				    real line_width,
-				    Color *colour,
+				    GdkRGBA *colour,
 				    Arrow *start_arrow,
 				    Arrow *end_arrow);
 static void draw_beziergon(DiaRenderer *self, 
 			   BezPoint *points, /* Last point must be same as first point */
 			   int numpoints,
-			   Color *fill,
-			   Color *stroke);
+			   GdkRGBA *fill,
+			   GdkRGBA *stroke);
 static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
-			Color *colour);
+			GdkRGBA *colour);
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
@@ -312,15 +312,15 @@ figLineWidth(XfigRenderer *renderer)
    The color pseudo object even must be placed first in the xfig file. 
  */
 static void 
-figCheckColor(XfigRenderer *renderer, Color *color) 
+figCheckColor(XfigRenderer *renderer, GdkRGBA *color) 
 {
   int i;
 
   for (i = 0; i < FIG_MAX_DEFAULT_COLORS; i++) {
-    if (color_equals(color, &fig_default_colors[i])) return;
+    if (gdk_rgba_equal(color, &fig_default_colors[i])) return;
   }
   for (i = 0; i < renderer->max_user_color; i++) {
-    if (color_equals(color, &renderer->user_colors[i])) return;
+    if (gdk_rgba_equal(color, &renderer->user_colors[i])) return;
   }
   if (renderer->max_user_color == FIG_MAX_USER_COLORS) {
     figWarn(renderer, WARNING_OUT_OF_COLORS);
@@ -334,16 +334,16 @@ figCheckColor(XfigRenderer *renderer, Color *color)
 }
 
 static int 
-figColor(XfigRenderer *renderer, Color *color) 
+figColor(XfigRenderer *renderer, GdkRGBA *color) 
 {
   int i;
 
   for (i = 0; i < FIG_MAX_DEFAULT_COLORS; i++) {
-    if (color_equals(color, &fig_default_colors[i])) 
+    if (gdk_rgba_equal(color, &fig_default_colors[i])) 
       return i;
   }
   for (i = 0; i < renderer->max_user_color; i++) {
-    if (color_equals(color, &renderer->user_colors[i])) 
+    if (gdk_rgba_equal(color, &renderer->user_colors[i])) 
       return i + FIG_MAX_DEFAULT_COLORS;
   }
   return 0;
@@ -564,7 +564,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 static void 
 draw_line(DiaRenderer *self, 
           Point *start, Point *end, 
-          Color *color) 
+         GdkRGBA *color) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar d_buf[DTOSTR_BUF_SIZE];
@@ -588,7 +588,7 @@ static void
 draw_line_with_arrows(DiaRenderer *self, 
 		      Point *start, Point *end, 
 		      real line_width,
-		      Color *color,
+		     GdkRGBA *color,
 		      Arrow *start_arrow,
 		      Arrow *end_arrow) 
 {
@@ -622,7 +622,7 @@ draw_line_with_arrows(DiaRenderer *self,
 static void 
 draw_polyline(DiaRenderer *self, 
               Point *points, int num_points, 
-              Color *color) 
+             GdkRGBA *color) 
 {
   int i;
   XfigRenderer *renderer = XFIG_RENDERER(self);
@@ -651,7 +651,7 @@ static void
 draw_polyline_with_arrows(DiaRenderer *self, 
 			  Point *points, int num_points, 
 			  real line_width,
-			  Color *color,
+			 GdkRGBA *color,
 			  Arrow *start_arrow,
 			  Arrow *end_arrow) 
 {
@@ -689,7 +689,7 @@ draw_polyline_with_arrows(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self,
 	     Point *points, int num_points,
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
   int i;
   XfigRenderer *renderer = XFIG_RENDERER(self);
@@ -723,7 +723,7 @@ draw_polygon(DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self,
           Point *ul_corner, Point *lr_corner,
-          Color *fill, Color *stroke)
+          GdkRGBA *fill, GdkRGBA   *stroke)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar d_buf[DTOSTR_BUF_SIZE];
@@ -756,7 +756,7 @@ draw_arc(DiaRenderer *self,
          Point *center,
          real width, real height,
          real angle1, real angle2,
-         Color *color) 
+         GdkRGBA *color) 
 {
   Point first, second, last;
   int direction = angle2 > angle1 ? 1 : 0; /* Dia not always gives counterclockwise */
@@ -822,7 +822,7 @@ draw_arc_with_arrows(DiaRenderer *self,
 		     Point *endpoint,
 		     Point *midpoint,
 		     real line_width,
-		     Color *color,
+		     GdkRGBA *color,
 		     Arrow *start_arrow,
 		     Arrow *end_arrow) 
 {
@@ -875,7 +875,7 @@ fill_arc(DiaRenderer *self,
          Point *center,
          real width, real height,
          real angle1, real angle2,
-         Color *color) 
+         GdkRGBA *color) 
 {
   Point first, second, last;
   XfigRenderer *renderer = XFIG_RENDERER(self);
@@ -923,7 +923,7 @@ static void
 draw_ellipse (DiaRenderer *self,
 	      Point *center,
 	      real width, real height,
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar d_buf[DTOSTR_BUF_SIZE];
@@ -952,7 +952,7 @@ static void
 draw_bezier(DiaRenderer *self, 
             BezPoint *points,
             int numpoints,
-            Color *color) 
+            GdkRGBA *color) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
@@ -969,7 +969,7 @@ draw_bezier_with_arrows(DiaRenderer *self,
 			BezPoint *points,
 			int numpoints,
 			real line_width,
-			Color *color,
+			GdkRGBA *color,
 			Arrow *start_arrow,
 			Arrow *end_arrow) 
 {
@@ -987,8 +987,8 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points,
 		int numpoints,
-		Color *fill,
-		Color *stroke) 
+		GdkRGBA *fill,
+		GdkRGBA *stroke) 
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
@@ -1007,7 +1007,7 @@ static void
 draw_string(DiaRenderer *self,
             const char *text,
             Point *pos, Alignment alignment,
-            Color *color) 
+            GdkRGBA *color) 
 {
   guchar *figtext = NULL;
   XfigRenderer *renderer = XFIG_RENDERER(self);

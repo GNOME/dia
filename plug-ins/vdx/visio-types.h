@@ -75,7 +75,7 @@ struct vdx_Char
     struct vdx_any any;
     unsigned int AsianFont; /* F=Inh */
     gboolean Case; /* F=0,Inh =0 */
-    Color Color; /* F=0,0,0,19))",0,1,16))",1,14,15,2,4,GUARD(IF(Sheet.5!User.active,0,19)),HSL(0,0 */
+    GdkRGBA Color; /* F=0,0,0,19))",0,1,16))",1,14,15,2,4,GUARD(IF(Sheet.5!User.active,0,19)),HSL(0,0 */
     float ColorTrans; /* F=0%,Inh,No Formula */
     unsigned int ComplexScriptFont; /* F=Inh */
     float ComplexScriptSize; /* F=Inh Unit=DT */
@@ -335,9 +335,9 @@ struct vdx_Field
 struct vdx_Fill
 {
     struct vdx_any any;
-    Color FillBkgnd; /* F=0,1,14,15,18,2,8,HSL(0,0,128),HSL(0,0,181),HSL(0,0,210),HSL(0,0,240),HSL(0,0, */
+    GdkRGBA FillBkgnd; /* F=0,1,14,15,18,2,8,HSL(0,0,128),HSL(0,0,181),HSL(0,0,210),HSL(0,0,240),HSL(0,0, */
     float FillBkgndTrans; /* F=0%,Inh,No Formula */
-    Color FillForegnd; /* F=0,0,0,20)",0,1,17)",0,10,19))",1,10,11,12,13,14,15,17,18,19,2,20,21,23,3,4,5, */
+    GdkRGBA FillForegnd; /* F=0,0,0,20)",0,1,17)",0,10,19))",1,10,11,12,13,14,15,17,18,19,2,20,21,23,3,4,5, */
     float FillForegndTrans; /* F=0%,Inh,No Formula */
     unsigned int FillPattern; /* F=0,1,31,GUARD(0),GUARD(1),Guard(0),Inh */
     float ShapeShdwObliqueAngle; /* F=Inh */
@@ -347,7 +347,7 @@ struct vdx_Fill
     gboolean ShapeShdwType; /* F=Inh =0,1 */
     unsigned int ShdwBkgnd; /* F=1,GUARD(0),Inh */
     float ShdwBkgndTrans; /* F=0%,Inh,No Formula */
-    Color ShdwForegnd; /* F=0,15,8,GUARD(0),HSL(0,0,205),HSL(0,0,206),HSL(0,0,208),HSL(0,0,210),HSL(0,0,2 */
+    GdkRGBA ShdwForegnd; /* F=0,15,8,GUARD(0),HSL(0,0,205),HSL(0,0,206),HSL(0,0,208),HSL(0,0,210),HSL(0,0,2 */
     float ShdwForegndTrans; /* F=0%,Inh,No Formula */
     unsigned int ShdwPattern; /* F=0,0),1,0)',GUARD(0),Guard(0),Inh */
 };
@@ -561,7 +561,7 @@ struct vdx_Line
     unsigned int EndArrow; /* F=0,3,41,4)))',4,GUARD(0),Inh =0,1,10,11,12,13,14,15,16,4,5,9 */
     unsigned int EndArrowSize; /* F=1,2,IF(User.UMLError,0,2),Inh =0,1,2,3,4 */
     gboolean LineCap; /* F=0,1,Inh =0,1 */
-    Color LineColor; /* F=0,1,14,15,2,3,4,GUARD(Sheet.5!FillForegnd),HSL(0,0,0),HSL(0,0,240),HSL(0,0,60 */
+    GdkRGBA LineColor; /* F=0,1,14,15,2,3,4,GUARD(Sheet.5!FillForegnd),HSL(0,0,0),HSL(0,0,240),HSL(0,0,60 */
     float LineColorTrans; /* F=0%,Inh,No Formula */
     unsigned int LinePattern; /* F=0,1,1,0,1)',2,23,3,4,3,1)))',9,GUARD(1),Inh,Sheet.8!LinePattern */
     float LineWeight; /* F=0.0033333333333333DT,0.01DT,0.03DT,0.12PT,0.24PT,0.254MM,0.5MM,0PT,GUARD(0.24 Unit=IN,MM,PT */

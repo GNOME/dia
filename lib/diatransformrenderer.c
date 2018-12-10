@@ -195,7 +195,7 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
-	  Color *line_colour)
+	  GdkRGBA *line_colour)
 {
   Point p1 = *start;
   Point p2 = *end;
@@ -211,7 +211,7 @@ draw_line(DiaRenderer *self,
 static void
 _polyline(DiaRenderer *self, 
 	  Point *points, int num_points, 
-	  Color *fill, Color *stroke,
+	  GdkRGBA *fill, GdkRGBA *stroke,
 	  gboolean closed)
 {
   Point *a_pts = g_newa (Point, num_points);
@@ -236,7 +236,7 @@ _polyline(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *stroke)
+	      GdkRGBA *stroke)
 {
   _polyline (self, points, num_points, NULL, stroke, FALSE);
 }
@@ -247,7 +247,7 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
   _polyline (self, points, num_points, fill, stroke, TRUE);
 }
@@ -255,7 +255,7 @@ draw_polygon(DiaRenderer *self,
 static void
 _bezier (DiaRenderer *self, 
 	 BezPoint *points, int num_points,
-	 Color *fill, Color *stroke,
+	 GdkRGBA *fill, GdkRGBA *stroke,
 	 gboolean closed)
 {
   BezPoint *a_pts = g_newa (BezPoint, num_points);
@@ -280,7 +280,7 @@ _arc (DiaRenderer *self,
       Point *center,
       real width, real height,
       real angle1, real angle2,
-      Color *stroke, Color *fill)
+      GdkRGBA *stroke, GdkRGBA *fill)
 {
   GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
   path_build_arc (path, center, width, height, angle1, angle2, stroke == NULL);
@@ -296,7 +296,7 @@ draw_arc (DiaRenderer *self,
 	  Point *center,
 	  real width, real height,
 	  real angle1, real angle2,
-	  Color *color)
+	  GdkRGBA *color)
 {
   _arc (self, center, width, height, angle1, angle2, color, NULL);
 }
@@ -309,7 +309,7 @@ fill_arc (DiaRenderer *self,
 	  Point *center,
 	  real width, real height,
 	  real angle1, real angle2,
-	  Color *color)
+	  GdkRGBA *color)
 {
   _arc (self, center, width, height, angle1, angle2, NULL, color);
 }
@@ -321,7 +321,7 @@ static void
 draw_ellipse (DiaRenderer *self, 
 	      Point *center,
 	      real width, real height,
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
   GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
   path_build_ellipse (path, center, width, height);
@@ -336,7 +336,7 @@ static void
 draw_bezier (DiaRenderer *self, 
 	     BezPoint *points,
 	     int numpoints,
-	     Color *color)
+	     GdkRGBA *color)
 {
   _bezier(self, points, numpoints, NULL, color, FALSE);
 }
@@ -348,8 +348,8 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points, /* Last point must be same as first point */
 		int numpoints,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
   _bezier(self, points, numpoints, fill, stroke, TRUE);
 }
@@ -449,7 +449,7 @@ static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *color)
+	    GdkRGBA *color)
 {
   if (text && strlen(text)) {
     Text *text_obj;

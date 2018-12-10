@@ -19,12 +19,11 @@
 
 #include "handle_ops.h"
 #include "handle.h"
-#include "color.h"
 
 /* This value is best left odd so that the handles are centered. */
 #define HANDLE_SIZE 9
 
-static const Color handle_color[NUM_HANDLE_TYPES<<1] =
+static const GdkRGBA handle_color[NUM_HANDLE_TYPES<<1] =
 {
   { 0.0, 0.0, 0.5, 1.0 }, /* HANDLE_NON_MOVABLE */
   { 0.0, 1.0, 0.0, 1.0 }, /* HANDLE_MAJOR_CONTROL */
@@ -35,7 +34,7 @@ static const Color handle_color[NUM_HANDLE_TYPES<<1] =
   { 0.7, 0.4, 0.0, 1.0 }, /* HANDLE_MINOR_CONTROL */
 };
 
-static const Color handle_color_connected[NUM_HANDLE_TYPES<<1] =
+static const GdkRGBA handle_color_connected[NUM_HANDLE_TYPES<<1] =
 {
   { 0.0, 0.0, 0.5, 1.0 }, /* HANDLE_NON_MOVABLE */
   { 1.0, 0.0, 0.0, 1.0 }, /* HANDLE_MAJOR_CONTROL */
@@ -54,7 +53,7 @@ handle_draw(Handle *handle, DDisplay *ddisp)
   DiaRenderer *renderer = ddisp->renderer;
   DiaInteractiveRendererInterface *irenderer =
     DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
-  const Color *color;
+  const GdkRGBA *color;
 
   ddisplay_transform_coords(ddisp, handle->pos.x, handle->pos.y, &x, &y);
   /* change handle color to reflect different behaviour for multiple selected */
@@ -78,7 +77,7 @@ handle_draw(Handle *handle, DDisplay *ddisp)
 			     y - HANDLE_SIZE/2 + 1,
 			     HANDLE_SIZE-2, HANDLE_SIZE-2,
 			     /* it does not change the color, but does not reflect taht in the signature */
-			     (Color *)color);
+			     (GdkRGBA *)color);
   
   irenderer->draw_pixel_rect(renderer,
 			     x - HANDLE_SIZE/2,

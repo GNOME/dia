@@ -45,8 +45,8 @@ struct _Basestation {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
 
-  Color line_colour;
-  Color fill_colour;
+  GdkRGBA line_colour;
+  GdkRGBA fill_colour;
 
   Text *text;
 

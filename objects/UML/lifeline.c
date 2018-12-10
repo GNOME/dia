@@ -59,8 +59,8 @@ struct _Lifeline {
   int draw_focuscontrol;
   int draw_cross;
   
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
 
   ConnPointLine *northwest,*southwest,*northeast,*southeast;
 

@@ -48,7 +48,7 @@ struct _Diagram {
   char *autosavefilename;     /* Holds the name of the current autosave file
 			       * for this diagram, or NULL.  */
 
-  Color pagebreak_color; /*!< just to show page breaks */
+  GdkRGBA pagebreak_color; /*!< just to show page breaks */
   DiaGrid     grid;      /*!< the display grid */
 
   /*! almost completely unused guides (load and save code is there) */  

@@ -47,8 +47,8 @@ struct _Dependency {
   Alignment text_align;
   real text_width;
   
-  Color text_color;
-  Color line_color;
+  GdkRGBA text_color;
+  GdkRGBA line_color;
 
   int draw_arrow;
   char *name;

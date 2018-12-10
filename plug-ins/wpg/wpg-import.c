@@ -54,9 +54,9 @@ struct _WpgImportRenderer {
   WPGLineAttr  LineAttr;
   WPGColorRGB* pPal;
 
-  Color stroke;
-  Color fill;
-  Color text_color;
+  GdkRGBA stroke;
+  GdkRGBA fill;
+  GdkRGBA text_color;
   Alignment text_align;
 };
 

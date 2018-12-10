@@ -101,8 +101,8 @@ struct _Custom {
   ConnectionPoint *connections;
   /*! width calculate from line_width */
   real border_width;
-  Color border_color;
-  Color inner_color;
+  GdkRGBA border_color;
+  GdkRGBA inner_color;
   gboolean show_background;
   LineStyle line_style;
   real dashlength;
@@ -131,7 +131,7 @@ static void custom_draw_displaylist(GList *display_list, Custom *custom,
 static void custom_draw_element(GraphicElement* el, Custom *custom,
 				DiaRenderer *renderer, GArray *arr, GArray *barr, real* cur_line,
 				real* cur_dash, LineCaps* cur_caps, LineJoin* cur_join, 
-				LineStyle* cur_style, Color* fg, Color* bg);
+				LineStyle* cur_style, GdkRGBA* fg, GdkRGBA* bg);
 static void custom_update_data(Custom *custom, AnchorShape h, AnchorShape v);
 static void custom_reposition_text(Custom *custom, GraphicElementText *text);
 static DiaObject *custom_create(Point *startpoint,
@@ -820,7 +820,7 @@ custom_move(Custom *custom, Point *to)
 }
 
 static void
-get_colour(Custom *custom, Color *colour, gint32 c, real opacity)
+get_colour(Custom *custom, GdkRGBA *colour, gint32 c, real opacity)
 {
   switch (c) {
   case DIA_SVG_COLOUR_NONE:
@@ -889,7 +889,7 @@ custom_draw_displaylist(GList *display_list, Custom *custom, DiaRenderer *render
   GList *tmp;
   for (tmp = display_list; tmp; tmp = tmp->next) {
     GraphicElement *el = tmp->data;
-    Color fg, bg;
+    GdkRGBA fg, bg;
 
     /* 
      * Because we do not know if any of these values are reused in the loop, 
@@ -905,7 +905,7 @@ static void
 custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer, 
                     GArray *arr, GArray *barr, real* cur_line, real* cur_dash,
                     LineCaps* cur_caps, LineJoin* cur_join, LineStyle* cur_style,
-                    Color* fg, Color* bg)
+                    GdkRGBA* fg, GdkRGBA* bg)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point p1, p2;

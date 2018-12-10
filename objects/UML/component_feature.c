@@ -71,7 +71,7 @@ struct _Compfeat {
   Point text_pos;
   Handle text_handle;
   
-  Color line_color;
+  GdkRGBA line_color;
   real  line_width;
 };
 

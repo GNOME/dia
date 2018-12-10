@@ -48,10 +48,10 @@ struct _Implements {
 
   DiaFont *font;
   real     font_height;
-  Color    text_color;
+  GdkRGBA    text_color;
 
   real     line_width;
-  Color    line_color;
+  GdkRGBA    line_color;
 
   gchar *text;
   Point text_pos;

@@ -61,8 +61,8 @@ struct _State {
   Text *text;
   int state_type;
 
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
   
   real line_width;
   

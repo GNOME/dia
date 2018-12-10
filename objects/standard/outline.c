@@ -56,8 +56,8 @@ typedef struct _Outline {
   DiaFont *font;
   real font_height;
 
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
   gboolean show_background;
   real line_width;
   

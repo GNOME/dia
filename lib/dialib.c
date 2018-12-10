@@ -29,7 +29,6 @@
 #include "dialib.h"
 #include "message.h"
 #include "utils.h"
-#include "color.h"
 #include "object.h"
 #include "dia_dirs.h"
 #include "properties.h" /* stdprops_init() */
@@ -118,8 +117,6 @@ libdia_init (guint flags)
     dia_log_message ("Config from %s", diagtkrc);
     gtk_rc_parse(diagtkrc);
     g_free(diagtkrc);
-
-    color_init();
   }
   initialized = TRUE;
 

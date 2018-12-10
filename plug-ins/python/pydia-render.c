@@ -539,7 +539,7 @@ draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
 static void
 draw_line(DiaRenderer *renderer, 
           Point *start, Point *end, 
-          Color *line_colour)
+          GdkRGBA *line_colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -582,7 +582,7 @@ draw_line(DiaRenderer *renderer,
 static void
 draw_polyline(DiaRenderer *renderer, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      GdkRGBA *line_colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -621,7 +621,7 @@ draw_polyline(DiaRenderer *renderer,
 static void
 draw_polygon(DiaRenderer *renderer, 
 	     Point *points, int num_points, 
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -660,7 +660,7 @@ draw_polygon(DiaRenderer *renderer,
 static void
 draw_rect(DiaRenderer *renderer, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *fill, Color *stroke)
+	  GdkRGBA *fill, GdkRGBA *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -702,7 +702,7 @@ draw_rect(DiaRenderer *renderer,
 static void
 draw_rounded_rect(DiaRenderer *renderer, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *fill, Color *stroke, real rounding)
+	  GdkRGBA *fill, GdkRGBA *stroke, real rounding)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -747,7 +747,7 @@ draw_arc(DiaRenderer *renderer,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -793,7 +793,7 @@ fill_arc(DiaRenderer *renderer,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -838,7 +838,7 @@ static void
 draw_ellipse(DiaRenderer *renderer, 
 	     Point *center,
 	     real width, real height,
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -883,7 +883,7 @@ static void
 draw_bezier(DiaRenderer *renderer, 
 	    BezPoint *points,
 	    int num_points,
-	    Color *colour)
+	    GdkRGBA *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -916,7 +916,7 @@ static void
 fill_bezier(DiaRenderer *renderer, 
 	    BezPoint *points, /* Last point must be same as first point */
 	    int num_points,
-	    Color *colour)
+	    GdkRGBA *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -952,8 +952,8 @@ static void
 draw_beziergon (DiaRenderer *renderer,
 		BezPoint *points,
 		int num_points,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -1007,7 +1007,7 @@ static void
 draw_string(DiaRenderer *renderer,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *colour)
+	    GdkRGBA *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 

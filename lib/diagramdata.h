@@ -20,10 +20,10 @@
 #define DIAGRAMDATA_H
 
 #include <glib.h>
+#include <gdk/gdk.h>
 #include <string.h>
 
 #include "diatypes.h"
-#include "color.h"
 #include "geometry.h"
 #include "paper.h"
 
@@ -39,7 +39,7 @@ struct _NewDiagramData {
   gfloat scaling;
   gboolean fitto;
   gint fitwidth, fitheight;
-  Color bg_color, pagebreak_color, grid_color;
+  GdkRGBA bg_color, pagebreak_color, grid_color;
   int compress_save;
   gchar *unit, *font_unit;
 };
@@ -65,7 +65,7 @@ struct _DiagramData {
 
   Rectangle extents;      /*!< The extents of the diagram        */
 
-  Color bg_color;         /*!< The diagrams background color */
+  GdkRGBA bg_color;         /*!< The diagrams background color */
 
   PaperInfo paper;        /*!< info about the page info for the diagram */
   gboolean is_compressed; /*!< TRUE if by default it should be save compressed.

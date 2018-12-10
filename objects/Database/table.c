@@ -77,7 +77,7 @@ static DiaMenu * table_object_menu(DiaObject *, Point *);
 static ObjectChange * table_show_comments_cb(DiaObject *, Point *, gpointer);
 static void underline_table_attribute (DiaRenderer  *, Point,
                                        TableAttribute *, Table *);
-static void fill_diamond (DiaRenderer *, real, real, Point *, Color *);
+static void fill_diamond (DiaRenderer *, real, real, Point *, GdkRGBA *);
 static void table_init_fonts (Table *);
 
 static TableAttribute *table_attribute_new (void);
@@ -98,7 +98,7 @@ static gchar * create_documentation_tag (gchar * comment,
 static void draw_comments(DiaRenderer *renderer, 
                           DiaFont     *font,
                           real         font_height,
-                          Color       *text_color,
+                          GdkRGBA       *text_color,
                           gchar       *comment,
                           gboolean     comment_tagging,
                           gint         Comment_line_length, 
@@ -606,7 +606,7 @@ static void
 draw_comments(DiaRenderer *renderer, 
               DiaFont     *font,
               real         font_height,
-              Color       *text_color,
+              GdkRGBA       *text_color,
               gchar       *comment,
               gboolean     comment_tagging,
               gint         Comment_line_length, 
@@ -644,7 +644,7 @@ draw_comments(DiaRenderer *renderer,
 
 static void
 fill_diamond (DiaRenderer *renderer, real half_height, real width,
-              Point * lower_midpoint, Color * color)
+              Point * lower_midpoint, GdkRGBA * color)
 {
   Point poly[4];
 
@@ -672,9 +672,9 @@ table_draw_attributesbox (Table * table, DiaRenderer * renderer,
   Point endP;
   Point indicP;
   GList * list;
-  Color * text_color = &table->text_color;
-  Color * fill_color = &table->fill_color;
-  Color * line_color = &table->line_color;
+  GdkRGBA * text_color = &table->text_color;
+  GdkRGBA * fill_color = &table->fill_color;
+  GdkRGBA * line_color = &table->line_color;
   DiaFont * attr_font;
   real attr_font_height;
   real scale;

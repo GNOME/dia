@@ -40,7 +40,7 @@ public :
     //! one more ;)
     virtual bool get (::_Rectangle* p) const { return false; }
     //! and this one ...
-    virtual bool get (::_Color* p) const { return false; }
+    virtual bool get (::GdkRGBA* p) const { return false; }
 
     //! we can also handle vector<IProperty*>
     virtual bool get (const std::vector<IProperty*>**) const { return false; }
@@ -131,7 +131,7 @@ public :
     //! one more ;)
     virtual bool get (::_Rectangle* p) const;
     //! and this one ...
-    virtual bool get (::_Color* p) const;
+    virtual bool get (::GdkRGBA* p) const;
     //! we can also handle vector<IProperty*>
     virtual bool get (const std::vector<IProperty*>**) const;
 

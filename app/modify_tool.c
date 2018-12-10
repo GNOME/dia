@@ -297,9 +297,10 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     tool->y1 = tool->y2 = (int) event->y;
 
     if (tool->gc == NULL) {
-      GdkColor white;
+      GdkRGBA white;
 
-      color_convert(&color_white, &white);
+      gdk_rgba_parse (&white, "#FFFFFF");
+
       tool->gc = gdk_gc_new(gtk_widget_get_window(ddisp->canvas));
       gdk_gc_set_line_attributes(tool->gc, 1, GDK_LINE_ON_OFF_DASH, 
 				 GDK_CAP_BUTT, GDK_JOIN_MITER);

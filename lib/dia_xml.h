@@ -19,8 +19,8 @@
 #define DIA_XML_H
 
 #include <glib.h>
+#include <gdk/gdk.h>
 #include "geometry.h"
-#include "color.h"
 #include "font.h"
 #include "diacontext.h"
 #include <libxml/tree.h>
@@ -75,7 +75,7 @@ int data_int(DataNode data, DiaContext *ctx);
 int data_enum(DataNode data, DiaContext *ctx);
 real data_real(DataNode data, DiaContext *ctx);
 int data_boolean(DataNode data, DiaContext *ctx);
-void data_color(DataNode data, Color *col, DiaContext *ctx);
+void data_color(DataNode data, GdkRGBA *col, DiaContext *ctx);
 void data_point(DataNode data, Point *point, DiaContext *ctx);
 void data_bezpoint(DataNode data, BezPoint *point, DiaContext *ctx);
 void data_rectangle(DataNode data, Rectangle *rect, DiaContext *ctx);
@@ -90,7 +90,7 @@ void data_add_int(AttributeNode attr, int data, DiaContext *ctx);
 void data_add_enum(AttributeNode attr, int data, DiaContext *ctx);
 void data_add_real(AttributeNode attr, real data, DiaContext *ctx);
 void data_add_boolean(AttributeNode attr, int data, DiaContext *ctx);
-void data_add_color(AttributeNode attr, const Color *col, DiaContext *ctx);
+void data_add_color(AttributeNode attr, const GdkRGBA *col, DiaContext *ctx);
 void data_add_point(AttributeNode attr, const Point *point, DiaContext *ctx);
 void data_add_bezpoint(AttributeNode attr, const BezPoint *point, DiaContext *ctx);
 void data_add_rectangle(AttributeNode attr, const Rectangle *rect, DiaContext *ctx);

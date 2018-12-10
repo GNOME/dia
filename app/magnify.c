@@ -105,12 +105,12 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
   intPoint tl, br;
 
   if (tool->box_active) {
-    GdkColor white;
+    GdkRGBA white;
     cairo_t *ctx;
     double dashes[] = { 3 };
 
     tool->moved = TRUE;
-    color_convert(&color_white, &white);
+    gdk_rgba_parse (&white, "#FFFFFF");
 
     ctx = gdk_cairo_create(gtk_widget_get_window(ddisp->canvas));
 
@@ -119,7 +119,7 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
     cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
     cairo_set_dash (ctx, dashes, 1, 0);
 
-    gdk_cairo_set_source_color (ctx, &white);
+    gdk_cairo_set_source_rgba (ctx, &white);
     cairo_set_operator (ctx, CAIRO_OPERATOR_XOR);
 
     tl.x = MIN(tool->x, tool->oldx); tl.y = MIN(tool->y, tool->oldy);

@@ -47,7 +47,7 @@
 typedef struct _Zigzagline {
   OrthConn orth;
 
-  Color line_color;
+  GdkRGBA line_color;
   LineStyle line_style;
   LineJoin line_join;
   LineCaps line_caps;
@@ -480,7 +480,7 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 {
   orthconn_save(&zigzagline->orth, obj_node, ctx);
 
-  if (!color_equals(&zigzagline->line_color, &color_black))
+  if (!gdk_rgba_equal(&zigzagline->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
 		   &zigzagline->line_color, ctx);
 

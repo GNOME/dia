@@ -51,7 +51,7 @@ struct _Text {
   DiaFont *font;
   real height;
   Point position;
-  Color color;
+  GdkRGBA color;
   Alignment alignment;
 
   /* Cursor pos: */
@@ -69,8 +69,8 @@ struct _Text {
 /* makes an internal copy of the string */
 /*! \brief Text object creation \memberof _Text */
 Text *new_text(const char *string, DiaFont *font, real height,
-	       Point *pos, Color *color, Alignment align);
-Text *new_text_default(Point *pos, Color *color, Alignment align);
+	       Point *pos, GdkRGBA *color, Alignment align);
+Text *new_text_default(Point *pos, GdkRGBA *color, Alignment align);
 void text_destroy(Text *text);
 Text *text_copy(Text *text);
 gchar *text_get_line(const Text *text, int line);
@@ -80,7 +80,7 @@ void text_set_height(Text *text, real height);
 real text_get_height(const Text *text);
 void text_set_font(Text *text, DiaFont *font);
 void text_set_position(Text *text, Point *pos);
-void text_set_color(Text *text, Color *col);
+void text_set_color(Text *text, GdkRGBA *col);
 void text_set_alignment(Text *text, Alignment align);
 real text_distance_from(Text *text, Point *point);
 void text_calc_boundingbox(Text *text, Rectangle *box);

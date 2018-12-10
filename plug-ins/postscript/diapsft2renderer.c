@@ -79,7 +79,7 @@ static void dia_ps_ft2_renderer_class_init (DiaPsFt2RendererClass *klass);
 static void
 draw_text_line(DiaRenderer *self,
 	       TextLine *text_line,
-	       Point *pos, Alignment alignment, Color *color);
+	       Point *pos, Alignment alignment, GdkRGBA *color);
 
 static gpointer parent_class = NULL;
 
@@ -336,7 +336,7 @@ static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *color)
+	    GdkRGBA *color)
 {
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
   TextLine *text_line = text_line_new(text, renderer->current_font,
@@ -348,7 +348,7 @@ draw_string(DiaRenderer *self,
 static void
 draw_text_line(DiaRenderer *self,
 	       TextLine *text_line,
-	       Point *pos, Alignment alignment, Color *color)
+	       Point *pos, Alignment alignment, GdkRGBA *color)
 {
   DiaPsFt2Renderer *renderer = DIA_PS_FT2_RENDERER(self);
   PangoLayout *layout;

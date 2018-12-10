@@ -49,8 +49,8 @@ struct _Classicon {
   int stereotype;
   int is_object;
   Text *text;
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
   
   real line_width;
 };

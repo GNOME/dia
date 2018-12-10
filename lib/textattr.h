@@ -21,13 +21,12 @@
 #include "diatypes.h"
 #include "font.h"
 #include "geometry.h"
-#include "color.h"
 
 struct _TextAttributes {
   DiaFont *font;
   real height;
   Point position;
-  Color color;
+  GdkRGBA color;
   Alignment alignment;
 };
 

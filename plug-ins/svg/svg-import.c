@@ -62,10 +62,10 @@ static gboolean import_svg (xmlDocPtr doc, DiagramData *dia, DiaContext *ctx, vo
 static GPtrArray *make_element_props(real xpos, real ypos, real width, real height);
 
 /* TODO: use existing implementation in dia source */
-static Color 
+static GdkRGBA 
 get_colour(gint32 c, real opacity)
 {
-    Color colour;
+    GdkRGBA colour;
     colour.red   = ((c & 0xff0000) >> 16) / 255.0;
     colour.green = ((c & 0x00ff00) >> 8) / 255.0;
     colour.blue  =  (c & 0x0000ff) / 255.0;
@@ -1317,7 +1317,7 @@ read_gradient (xmlNodePtr node, DiaSvgStyle *parent_gs, GHashTable  *pattern_ht,
   while (child) {
     if (xmlStrcmp(child->name, (const xmlChar *)"stop")==0) {
       DiaSvgStyle gs;
-      Color color;
+      GdkRGBA color;
       real offset = 0.0;
 
       dia_svg_style_init (&gs, &gradient_gs);

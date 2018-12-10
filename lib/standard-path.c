@@ -77,13 +77,13 @@ struct _StdPath {
 
   int stroke_or_fill;
 
-  Color line_color;
+  GdkRGBA line_color;
   real line_width;
   LineStyle line_style;
   real dashlength;
   LineJoin line_join;
   LineCaps line_caps;
-  Color fill_color;
+  GdkRGBA fill_color;
 
   /*! mirroring (stdpath->stroke_or_fill & PDO_FILL) */
   gboolean show_background;
@@ -400,7 +400,7 @@ stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
 
   if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_HOLES)) {
     if (stdpath->stroke_or_fill & PDO_FILL) {
-      Color fill = stdpath->fill_color;
+      GdkRGBA fill = stdpath->fill_color;
       if (stdpath->pattern) {
 	dia_pattern_get_fallback_color (stdpath->pattern, &fill);
 	if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_PATTERN))
@@ -422,7 +422,7 @@ stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
     /* step-wise approach */
     /* if it wouldn't RENDER_HOLES it presumably also wouldn't RENDER_PATTERN ... */
     if (stdpath->stroke_or_fill & PDO_FILL) {
-      Color fill = stdpath->fill_color;
+      GdkRGBA fill = stdpath->fill_color;
       if (stdpath->pattern)
 	dia_pattern_get_fallback_color (stdpath->pattern, &fill);
       bezier_render_fill (renderer, stdpath->points, stdpath->num_points, &fill);

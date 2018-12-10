@@ -24,7 +24,6 @@
 #include <config.h>
 
 #include "geometry.h"
-#include "color.h"
 #include "diagramdata.h"
 #include "group.h"
 #include "intl.h"
@@ -126,18 +125,18 @@ _parse_bezpoints (xmlNodePtr node, const char *attrib)
   }
   return arr;
 }
-static Color *
+static GdkRGBA *
 _parse_color (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
-  Color *val = NULL;
+  GdkRGBA *val = NULL;
 
   if (str) {
     int r, g, b, a = 255;
     int n = sscanf ((gchar *)str, "#%02x%02x%02x%02x", &r, &g, &b, &a);
 
     if (n > 2) {
-      val = g_new (Color, 1);
+      val = g_new (GdkRGBA, 1);
       val->red   = r / 255.0; 
       val->green = g / 255.0; 
       val->blue  = b / 255.0;
@@ -282,8 +281,8 @@ _render_object (xmlNodePtr render, DiaContext *ctx)
       ops->set_font (ir, font, _parse_real (node, "height"));
       dia_font_unref (font);
     } else {
-      Color *stroke = _parse_color (node, "stroke");
-      Color *fill = _parse_color (node, "fill");
+      GdkRGBA *stroke = _parse_color (node, "stroke");
+      GdkRGBA *fill = _parse_color (node, "fill");
 
       if (xmlStrcmp (node->name, (const xmlChar *)"line") == 0) {
 	Point p1 = _parse_point (node, "start");

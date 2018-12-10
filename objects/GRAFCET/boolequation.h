@@ -35,7 +35,7 @@ typedef struct _Block Block;
 typedef struct {
   DiaFont *font;
   real fontheight;
-  Color color;
+  GdkRGBA color;
 
   Point pos;
 
@@ -53,7 +53,7 @@ typedef struct {
 
   
 extern Boolequation *boolequation_create(const gchar *value, DiaFont *font, 
-				       real fontheight, Color *color);
+				       real fontheight, GdkRGBA *color);
 extern void boolequation_destroy(Boolequation *rcep);
 extern void boolequation_set_value(Boolequation *rcep, const gchar *value);
 

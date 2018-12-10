@@ -91,8 +91,8 @@ static int default_int_w = 500;
 static int default_int_h = 400;
 static int default_undo_depth = 15;
 static guint default_recent_documents = 5;
-static Color default_colour = DEFAULT_GRID_COLOR;
-static Color pbreak_colour = DEFAULT_PAGEBREAK_COLOR;
+static GdkRGBA default_colour = DEFAULT_GRID_COLOR;
+static GdkRGBA pbreak_colour = DEFAULT_PAGEBREAK_COLOR;
 static const gchar *default_paper_name = NULL;
 static const gchar *default_length_unit = "Centimeter";
 static const gchar *default_fontsize_unit = "Point";
@@ -301,8 +301,8 @@ prefs_set_defaults(void)
       *(real *)ptr = persistence_register_real(prefs_data[i].name, *(real *)ptr);
       break;
     case PREF_COLOUR:
-      *(Color *)ptr = *(Color *)prefs_data[i].default_value;
-      *(Color *)ptr = *persistence_register_color(prefs_data[i].name, (Color *)ptr);
+      *(GdkRGBA *)ptr = *(GdkRGBA *)prefs_data[i].default_value;
+      *(GdkRGBA *)ptr = *persistence_register_color(prefs_data[i].name, (GdkRGBA *)ptr);
       break;
     case PREF_CHOICE:
     case PREF_STRING: 
@@ -345,7 +345,7 @@ prefs_save(void)
       persistence_set_real(prefs_data[i].name, *(real *)ptr);
       break;
     case PREF_COLOUR:
-      persistence_set_color(prefs_data[i].name, (Color *)ptr);
+      persistence_set_color(prefs_data[i].name, (GdkRGBA *)ptr);
       break;
     case PREF_CHOICE:
     case PREF_STRING:
@@ -385,7 +385,7 @@ prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
 			      (gfloat) (*((real *)ptr)));
     break;
   case PREF_COLOUR:
-    dia_color_selector_set_color(widget, (Color *)ptr);
+    dia_color_selector_set_color(widget, (GdkRGBA *)ptr);
     break;
   case PREF_CHOICE: {
     GList *names = (data->choice_list_function)(data);
@@ -436,9 +436,9 @@ prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
     }
     break;
   case PREF_COLOUR: {
-      Color prev = *(Color *)ptr;
-      dia_color_selector_get_color(widget, (Color *)ptr);
-      changed = memcmp (&prev, ptr, sizeof(Color));
+      GdkRGBA prev = *(GdkRGBA *)ptr;
+      dia_color_selector_get_color(widget, (GdkRGBA *)ptr);
+      changed = memcmp (&prev, ptr, sizeof(GdkRGBA));
     }
     break;
   case PREF_CHOICE: {

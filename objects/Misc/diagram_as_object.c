@@ -54,9 +54,9 @@ typedef struct _DiagramAsElement {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
 
-  Color border_color;
+  GdkRGBA border_color;
   real border_line_width;
-  Color inner_color;
+  GdkRGBA inner_color;
   gboolean show_background;
 
   gchar *filename;

@@ -22,7 +22,6 @@
 
 #include <stdio.h>
 
-#include "../lib/color.h"
 #include "intl.h"
 
 #include "color_area.h"
@@ -49,8 +48,8 @@ static GdkPixbuf *swap_pixmap = NULL;
 static GtkWidget *color_select = NULL;
 static int color_select_active = 0;
 static int edit_color;
-static Color stored_foreground;
-static Color stored_background;
+static GdkRGBA stored_foreground;
+static GdkRGBA stored_background;
 
 
 static void
@@ -106,9 +105,8 @@ color_area_target (int x,
 static void
 color_area_draw (cairo_t *color_area_ctx)
 {
-  Color col;
-  GdkColor *win_bg;
-  GdkColor fg, bg;
+  GdkRGBA *win_bg;
+  GdkRGBA fg, bg;
   gint rect_w, rect_h;
   gint width, height;
   gint img_width, img_height;
@@ -124,10 +122,8 @@ color_area_draw (cairo_t *color_area_ctx)
 
   style = gtk_widget_get_style(color_area);
   win_bg = &(style->bg[GTK_STATE_NORMAL]);
-  col = attributes_get_foreground();
-  color_convert(&col, &fg);
-  col = attributes_get_background();
-  color_convert(&col, &bg);
+  fg = attributes_get_foreground();
+  bg = attributes_get_background();
 
   rect_w = width * 0.65;
   rect_h = height * 0.65;
@@ -192,17 +188,12 @@ color_selection_ok (GtkWidget               *w,
                     GtkColorSelectionDialog *cs)
 {
   GtkColorSelection *colorsel;
-  GdkColor color;
+  GdkRGBA color;
   guint alpha;
-  Color col;
 
   colorsel=GTK_COLOR_SELECTION(gtk_color_selection_dialog_get_color_selection(cs));
 
-  gtk_color_selection_get_current_color(colorsel,&color);
-  GDK_COLOR_TO_DIA(color, col);
-
-  alpha = gtk_color_selection_get_current_alpha(colorsel);
-  col.alpha = alpha / 65535.0;
+  gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (colorsel), &color);
 
   if (edit_color == FOREGROUND) {
     attributes_set_foreground(&col);
@@ -255,17 +246,13 @@ color_selection_changed (GtkWidget *w,
                          GtkColorSelectionDialog *cs)
 {
   GtkColorSelection *colorsel;
-  GdkColor color;
+  GdkRGBA color;
   guint alpha;
-  Color col;
 
   colorsel=GTK_COLOR_SELECTION(gtk_color_selection_dialog_get_color_selection(cs));
 
+  gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (colorsel), &color);
   gtk_color_selection_get_current_color(colorsel,&color);
-  GDK_COLOR_TO_DIA(color, col);
-
-  alpha = gtk_color_selection_get_current_alpha(colorsel);
-  col.alpha = alpha / 65535.0;
 
   if (edit_color == FOREGROUND) {
     attributes_set_foreground(&col);
@@ -279,9 +266,8 @@ color_selection_changed (GtkWidget *w,
 static void
 color_area_edit (void)
 {
-  Color col;
   GtkWidget *window;
-  GdkColor color;
+  GdkRGBA color;
   GtkColorSelectionDialog *csd;
   GtkColorSelection *colorsel;
 
@@ -291,10 +277,10 @@ color_area_edit (void)
   }
   
   if (active_color == FOREGROUND) {
-    col = attributes_get_foreground();
+    color = attributes_get_foreground();
     edit_color = FOREGROUND;
   } else {
-    col = attributes_get_background();
+    color = attributes_get_background();
     edit_color = BACKGROUND;
   }
 
@@ -355,7 +341,6 @@ color_area_edit (void)
     /* Make sure window is shown before setting its colors: */
     gtk_widget_show_now (color_select);      
   }
-  DIA_COLOR_TO_GDK(col, color);
 
   gtk_color_selection_set_current_color(colorsel, &color);
   gtk_color_selection_set_current_alpha(colorsel, (guint)(col.alpha * 65535.0));

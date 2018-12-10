@@ -393,7 +393,7 @@ _parse_color(gint32 *color, const char *str)
  * \ingroup DiaSvg
  */
 gboolean
-dia_svg_parse_color (const gchar *str, Color *color)
+dia_svg_parse_color (const gchar *str, GdkRGBA *color)
 {
   gint32 c;
   gboolean ret = _parse_color (&c, str);

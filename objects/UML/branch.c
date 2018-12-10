@@ -48,8 +48,8 @@ struct _Branch
 {
   Element element;
   ConnectionPoint connections[NUM_CONNECTIONS];
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
 };
 
 static const double BRANCH_BORDERWIDTH = 0.1;
@@ -244,7 +244,7 @@ static void branch_update_data(Branch *branch)
   branch->connections[3].pos.y = elem->corner.y + elem->height;
   branch->connections[3].directions = DIR_SOUTH;
 
-  extra->border_trans = BRANCH_BORDERWIDTH / 1.4142;  /* not 2.0, it is rotated 45° */
+  extra->border_trans = BRANCH_BORDERWIDTH / 1.4142;  /* not 2.0, it is rotated 45ï¿½ */
   element_update_boundingbox(elem);
   obj->position = elem->corner;
 

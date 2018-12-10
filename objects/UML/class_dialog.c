@@ -95,9 +95,9 @@ struct _UMLClassState {
   int comment_tagging;
   
   real line_width;
-  Color line_color;
-  Color fill_color;
-  Color text_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
+  GdkRGBA text_color;
 
   /* Attributes: */
   GList *attributes;

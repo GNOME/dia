@@ -54,9 +54,9 @@ struct _LargePackage {
 
   real line_width;
 
-  Color text_color;
-  Color line_color;
-  Color fill_color;
+  GdkRGBA text_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
 
   real     font_height;
 

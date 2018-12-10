@@ -46,9 +46,6 @@ typedef struct _PolyBBExtras PolyBBExtras;
 typedef struct _LineBBExtras LineBBExtras;
 typedef struct _ElementBBExtras ElementBBExtras;
 
-/* In color.h: */
-typedef struct _Color Color;
-
 /* In connection.h: */
 typedef struct _Connection Connection;
 

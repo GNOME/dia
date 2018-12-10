@@ -47,8 +47,8 @@ struct _DiaPathRenderer
 
   GPtrArray *pathes;
 
-  Color stroke;
-  Color fill;
+  GdkRGBA stroke;
+  GdkRGBA fill;
 
   PathLastOp last_op;
 };
@@ -113,8 +113,8 @@ dia_path_renderer_finalize (GObject *object)
  */
 static GArray *
 _get_current_path (DiaPathRenderer *self,
-		   const Color     *stroke,
-		   const Color     *fill)
+		   const GdkRGBA     *stroke,
+		   const GdkRGBA     *fill)
 {
   GArray *path;
   /* creating a new path for every new color */
@@ -304,7 +304,7 @@ _path_arc_segment (GArray      *path,
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
-	  Color *line_colour)
+	  GdkRGBA *line_colour)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   GArray *points = _get_current_path (renderer, line_colour, NULL);
@@ -316,7 +316,7 @@ draw_line(DiaRenderer *self,
 static void
 _polyline(DiaRenderer *self, 
 	  Point *points, int num_points, 
-	  const Color *fill, const Color *stroke)
+	  const GdkRGBA *fill, const GdkRGBA *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   int i;
@@ -339,7 +339,7 @@ _polyline(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      GdkRGBA *line_colour)
 {
   _polyline (self, points, num_points, NULL, line_colour);
   _remove_duplicated_path (DIA_PATH_RENDERER (self));
@@ -351,7 +351,7 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
 
@@ -372,7 +372,7 @@ draw_polygon(DiaRenderer *self,
 static void
 draw_rect (DiaRenderer *self, 
 	   Point *ul_corner, Point *lr_corner,
-	   Color *fill, Color *stroke)
+	   GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   GArray *path = _get_current_path (renderer, stroke, fill);
@@ -448,7 +448,7 @@ _arc (DiaRenderer *self,
       Point *center,
       real width, real height,
       real angle1, real angle2,
-      const Color *stroke, const Color *fill)
+      const GdkRGBA *stroke, const GdkRGBA *fill)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   GArray *path = _get_current_path (renderer, stroke, fill);
@@ -464,7 +464,7 @@ draw_arc (DiaRenderer *self,
 	  Point *center,
 	  real width, real height,
 	  real angle1, real angle2,
-	  Color *color)
+	  GdkRGBA *color)
 {
   _arc (self, center, width, height, angle1, angle2, color, NULL);
   _remove_duplicated_path (DIA_PATH_RENDERER (self));
@@ -478,7 +478,7 @@ fill_arc (DiaRenderer *self,
 	  Point *center,
 	  real width, real height,
 	  real angle1, real angle2,
-	  Color *color)
+	  GdkRGBA *color)
 {
   _arc (self, center, width, height, angle1, angle2, NULL, color);
 }
@@ -547,7 +547,7 @@ static void
 draw_ellipse (DiaRenderer *self,
 	      Point *center,
 	      real width, real height,
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   GArray *path = _get_current_path (renderer, stroke, fill);
@@ -557,7 +557,7 @@ draw_ellipse (DiaRenderer *self,
 static void
 _bezier (DiaRenderer *self, 
 	 BezPoint *points, int numpoints,
-	 const Color *fill, const Color *stroke)
+	 const GdkRGBA *fill, const GdkRGBA *stroke)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   GArray *path = _get_current_path (renderer, stroke, fill);
@@ -581,7 +581,7 @@ static void
 draw_bezier (DiaRenderer *self, 
 	     BezPoint *points,
 	     int numpoints,
-	     Color *color)
+	     GdkRGBA *color)
 {
   _bezier(self, points, numpoints, NULL, color);
   _remove_duplicated_path (DIA_PATH_RENDERER (self));
@@ -594,8 +594,8 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points,
 		int numpoints,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
   _bezier(self, points, numpoints, fill, stroke);
 }
@@ -647,7 +647,7 @@ static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *color)
+	    GdkRGBA *color)
 {
   if (text && strlen(text)) {
     Text *text_obj;
@@ -677,8 +677,8 @@ draw_image(DiaRenderer *self,
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   /* warning colors ;) */
-  Color stroke = { 1.0, 0.0, 0.0, 0.75 };
-  Color fill = { 1.0, 1.0, 0.0, 0.5 };
+  GdkRGBA stroke = { 1.0, 0.0, 0.0, 0.75 };
+  GdkRGBA fill = { 1.0, 1.0, 0.0, 0.5 };
   GArray *path = _get_current_path (renderer, &stroke, &fill);
   Point to = *point;
 
@@ -707,7 +707,7 @@ draw_image(DiaRenderer *self,
 static void
 draw_rounded_rect (DiaRenderer *self, 
 		   Point *ul_corner, Point *lr_corner,
-		   Color *fill, Color *stroke, real radius)
+		   GdkRGBA *fill, GdkRGBA *stroke, real radius)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   real rx = (lr_corner->x - ul_corner->x) / 2;

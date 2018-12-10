@@ -55,7 +55,7 @@
   g_ascii_formatd(buf,sizeof(buf),"%g",(d)*renderer->scale)
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
-	       Point *pos, Alignment alignment, Color *colour);
+	       Point *pos, Alignment alignment, GdkRGBA *colour);
 
 /*!
  * \brief Initialize to SVG rendering defaults
@@ -85,7 +85,7 @@ _make_pattern_key (const DiaPattern *pattern)
 
 static gboolean
 _color_stop_do (real         ofs,
-		const Color *col,
+		const GdkRGBA *col,
 		gpointer     user_data)
 {
   xmlNodePtr parent = (xmlNodePtr)user_data;
@@ -391,8 +391,8 @@ set_pattern(DiaRenderer *self, DiaPattern *pattern)
  */
 static const gchar *
 get_draw_style(DiaSvgRenderer *renderer,
-	       Color *fill,
-	       Color *stroke)
+	       GdkRGBA *fill,
+	       GdkRGBA *stroke)
 {
   static GString *str = NULL;
   gchar linewidth_buf[DTOSTR_BUF_SIZE];
@@ -446,7 +446,7 @@ get_draw_style(DiaSvgRenderer *renderer,
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
-	  Color *line_colour)
+	  GdkRGBA *line_colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
@@ -473,7 +473,7 @@ draw_line(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      GdkRGBA *line_colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   int i;
@@ -502,7 +502,7 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon (DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   int i;
@@ -534,7 +534,7 @@ draw_polygon (DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *fill, Color *stroke)
+	  GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
@@ -563,7 +563,7 @@ draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
@@ -606,7 +606,7 @@ fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
@@ -650,7 +650,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
@@ -674,8 +674,8 @@ static void
 _bezier(DiaRenderer *self, 
 	BezPoint *points,
 	int numpoints,
-	Color *fill,
-	Color *stroke,
+	GdkRGBA *fill,
+	GdkRGBA *stroke,
 	gboolean closed)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
@@ -748,7 +748,7 @@ static void
 draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
 	    int numpoints,
-	    Color *stroke)
+	    GdkRGBA *stroke)
 {
   _bezier(self, points, numpoints, NULL, stroke, FALSE);
 }
@@ -761,13 +761,13 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points,
 		int numpoints,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   /* optimize for stroke-width==0 && fill==stroke */
   if (   fill && stroke && renderer->linewidth == 0.0
-      && memcmp(fill, stroke, sizeof(Color))==0)
+      && memcmp(fill, stroke, sizeof(GdkRGBA))==0)
     stroke = NULL;
   _bezier(self, points, numpoints, fill, stroke, TRUE);
 }
@@ -780,7 +780,7 @@ static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *colour)
+	    GdkRGBA *colour)
 {    
   TextLine *text_line = text_line_new(text, self->font, self->font_height);
   draw_text_line(self, text_line, pos, alignment, colour);
@@ -793,7 +793,7 @@ draw_string(DiaRenderer *self,
  */
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
-	       Point *pos, Alignment alignment, Color *colour)
+	       Point *pos, Alignment alignment, GdkRGBA *colour)
 {    
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
@@ -907,7 +907,7 @@ draw_image(DiaRenderer *self,
 static void
 draw_rounded_rect (DiaRenderer *self, 
 		   Point *ul_corner, Point *lr_corner,
-		   Color *fill, Color *stroke, real rounding)
+		   GdkRGBA *fill, GdkRGBA *stroke, real rounding)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;

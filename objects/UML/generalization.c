@@ -48,10 +48,10 @@ struct _Generalization {
   
   DiaFont *font;
   real     font_height;
-  Color    text_color;
+  GdkRGBA    text_color;
 
   real     line_width;
-  Color    line_color;
+  GdkRGBA    line_color;
 
   char *name;
   char *stereotype; /* excluding << and >> */

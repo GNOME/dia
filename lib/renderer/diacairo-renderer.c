@@ -67,7 +67,7 @@ begin_render(DiaRenderer *self, const Rectangle *update)
   real lmargin = 0.0, tmargin = 0.0;
   gboolean paginated = renderer->surface && /* only with our own pagination, not GtkPrint */
     cairo_surface_get_type (renderer->surface) == CAIRO_SURFACE_TYPE_PDF && !renderer->skip_show_page;
-  Color background = color_white;
+  GdkRGBA background = color_white;
 
   if (renderer->surface && !renderer->cr)
     renderer->cr = cairo_create (renderer->surface);
@@ -226,7 +226,7 @@ set_pattern (DiaRenderer *self, DiaPattern *pattern)
 }
 
 static gboolean
-_add_color_stop (real ofs, const Color *col, gpointer user_data)
+_add_color_stop (real ofs, const GdkRGBA *col, gpointer user_data)
 {
   cairo_pattern_t *pat = (cairo_pattern_t *)user_data;
   
@@ -529,7 +529,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 static void
 draw_line(DiaRenderer *self, 
           Point *start, Point *end, 
-          Color *color)
+          GdkRGBA *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
 
@@ -548,7 +548,7 @@ draw_line(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
               Point *points, int num_points, 
-              Color *color)
+              GdkRGBA *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   int i;
@@ -574,7 +574,7 @@ draw_polyline(DiaRenderer *self,
 static void
 _polygon(DiaRenderer *self, 
          Point *points, int num_points, 
-         Color *color,
+         GdkRGBA *color,
          gboolean fill)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
@@ -607,7 +607,7 @@ _polygon(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
              Point *points, int num_points, 
-             Color *fill, Color *stroke)
+             GdkRGBA *fill, GdkRGBA *stroke)
 {
   if (fill)
     _polygon (self, points, num_points, fill, TRUE);
@@ -618,7 +618,7 @@ draw_polygon(DiaRenderer *self,
 static void
 _rect(DiaRenderer *self, 
       Point *ul_corner, Point *lr_corner,
-      Color *color,
+      GdkRGBA *color,
       gboolean fill)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
@@ -643,7 +643,7 @@ _rect(DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
           Point *ul_corner, Point *lr_corner,
-          Color *fill, Color *stroke)
+          GdkRGBA *fill, GdkRGBA *stroke)
 {
   if (fill)
     _rect (self, ul_corner, lr_corner, fill, TRUE);
@@ -656,7 +656,7 @@ draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *color)
+	 GdkRGBA *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   Point start;
@@ -701,7 +701,7 @@ fill_arc(DiaRenderer *self,
          Point *center,
          real width, real height,
          real angle1, real angle2,
-         Color *color)
+         GdkRGBA *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   Point start;
@@ -738,7 +738,7 @@ static void
 _ellipse(DiaRenderer *self, 
          Point *center,
          real width, real height,
-         Color *color,
+         GdkRGBA *color,
          gboolean fill)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
@@ -775,7 +775,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
              Point *center,
              real width, real height,
-             Color *fill, Color *stroke)
+             GdkRGBA *fill, GdkRGBA *stroke)
 {
   if (fill)
     _ellipse (self, center, width, height, fill, TRUE);
@@ -787,7 +787,7 @@ static void
 _bezier(DiaRenderer *self, 
         BezPoint *points,
         int numpoints,
-        Color *color,
+        GdkRGBA *color,
         gboolean fill,
         gboolean closed)
 {
@@ -834,7 +834,7 @@ static void
 draw_bezier(DiaRenderer *self, 
             BezPoint *points,
             int numpoints,
-            Color *color)
+            GdkRGBA *color)
 {
   _bezier (self, points, numpoints, color, FALSE, FALSE);
 }
@@ -843,8 +843,8 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points,
 		int numpoints,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
   if (fill)
     _bezier (self, points, numpoints, fill, TRUE, TRUE);
@@ -857,7 +857,7 @@ static void
 draw_string(DiaRenderer *self,
             const char *text,
             Point *pos, Alignment alignment,
-            Color *color)
+            GdkRGBA *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   int len = strlen(text);
@@ -1086,7 +1086,7 @@ static gpointer parent_class = NULL;
 static void
 draw_rounded_rect (DiaRenderer *self, 
 		   Point *ul_corner, Point *lr_corner,
-		   Color *fill, Color *stroke,
+		   GdkRGBA *fill, GdkRGBA *stroke,
 		   real radius)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
@@ -1122,7 +1122,7 @@ draw_rounded_rect (DiaRenderer *self,
 static void
 draw_rounded_polyline (DiaRenderer *self,
                        Point *points, int num_points,
-                       Color *color, real radius)
+                       GdkRGBA *color, real radius)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
 

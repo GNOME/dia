@@ -291,7 +291,7 @@ text_set_string(Text *text, const char *string)
 
 Text *
 new_text(const char *string, DiaFont *font, real height,
-	 Point *pos, Color *color, Alignment align)
+	 Point *pos, GdkRGBA *color, Alignment align)
 {
   Text *text;
 
@@ -323,7 +323,7 @@ new_text(const char *string, DiaFont *font, real height,
  * Fallback function returning a default initialized text object.
  */
 Text *
-new_text_default(Point *pos, Color *color, Alignment align)
+new_text_default(Point *pos, GdkRGBA *color, Alignment align)
 {
   Text *text;
   DiaFont *font;
@@ -422,7 +422,7 @@ text_set_position(Text *text, Point *pos)
 }
 
 void
-text_set_color(Text *text, Color *col)
+text_set_color(Text *text, GdkRGBA *col)
 {
   text->color = *col;
 }
@@ -1109,7 +1109,7 @@ data_text(AttributeNode text_attr, DiaContext *ctx)
   DiaFont *font;
   real height;
   Point pos = {0.0, 0.0};
-  Color col;
+  GdkRGBA col;
   Alignment align;
   AttributeNode attr;
   Text *text;

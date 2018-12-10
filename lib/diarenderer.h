@@ -130,35 +130,35 @@ struct _DiaRendererClass
   /*! Draw a line from start to end, using color and the current line style */
   void (*draw_line) (DiaRenderer *renderer,
                      Point *start, Point *end,
-                     Color *color);
+                     GdkRGBA *color);
   /*! the polygon is filled using the current fill type and stroked with the current line style */
   void (*draw_polygon) (DiaRenderer *renderer,
                         Point *points, int num_points,
-                        Color *fill, Color *stroke);
+                        GdkRGBA *fill, GdkRGBA *stroke);
   /*! Draw an arc, given its center, the bounding box (widget, height),
      the start angle and the end angle. It's counter-clockwise if angle2>angle1 */
   void (*draw_arc) (DiaRenderer *renderer,
                     Point *center,
                     real width, real height,
                     real angle1, real angle2,
-                    Color *color);
+                    GdkRGBA *color);
   /*! Same a DrawArcFunc except the arc is filled (a pie-chart) */
   void (*fill_arc) (DiaRenderer *renderer,
                     Point *center,
                     real width, real height,
                     real angle1, real angle2,
-                    Color *color);
+                    GdkRGBA *color);
   /*! Draw an ellipse, given its center and the bounding box */
   void (*draw_ellipse) (DiaRenderer *renderer,
                         Point *center,
                         real width, real height,
-                        Color *fill, Color *stroke);
+                        GdkRGBA *fill, GdkRGBA *stroke);
   /*! Print a string at pos, using the current font */
   void (*draw_string) (DiaRenderer *renderer,
                        const gchar *text,
                        Point *pos,
                        Alignment alignment,
-                       Color *color);
+                       GdkRGBA *color);
   /*! Draw an image, given its bounding box */
   void (*draw_image) (DiaRenderer *renderer,
                       Point *point,
@@ -173,28 +173,28 @@ struct _DiaRendererClass
   void (*draw_bezier) (DiaRenderer *renderer,
                        BezPoint *points,
                        int numpoints,
-                       Color *color);
+                       GdkRGBA *color);
   /*! Fill and/or stroke a  closed bezier */
   void (*draw_beziergon) (DiaRenderer *renderer,
                        BezPoint *points,
                        int numpoints,
-                       Color *fill,
-                       Color *stroke);
+                       GdkRGBA *fill,
+                       GdkRGBA *stroke);
   /*! Draw a line joining multiple points, using color and the current
      line style */
   void (*draw_polyline) (DiaRenderer *renderer,
                          Point *points, int num_points,
-                         Color *color);
+                         GdkRGBA *color);
   /*! Print a Text.  It holds its own information. */
   void (*draw_text) (DiaRenderer *renderer,
                      Text *text);
   /*! Print a TextLine.  It holds its own font/size information. */
   void (*draw_text_line) (DiaRenderer *renderer,
-			  TextLine *text_line, Point *pos, Alignment alignment, Color *color);
+			  TextLine *text_line, Point *pos, Alignment alignment, GdkRGBA *color);
   /*! Draw a rectangle, given its upper-left and lower-right corners */
   void (*draw_rect) (DiaRenderer *renderer,
                      Point *ul_corner, Point *lr_corner,
-                     Color *fill, Color *stroke);
+                     GdkRGBA *fill, GdkRGBA *stroke);
 
   /*
    * Highest level functions, probably only to be implemented by 
@@ -203,18 +203,18 @@ struct _DiaRendererClass
   /*! Draw a rounded rectangle, given its upper-left and lower-right corners */
   void (*draw_rounded_rect) (DiaRenderer *renderer,
                              Point *ul_corner, Point *lr_corner,
-                             Color *fill, Color *stroke, real radius);
+                             GdkRGBA *fill, GdkRGBA *stroke, real radius);
   /*! Draw a line joining multiple points, using color and the current
      line style with rounded corners between segments */
   void (*draw_rounded_polyline) (DiaRenderer *renderer,
                          Point *points, int num_points,
-                         Color *color, real radius );
+                         GdkRGBA *color, real radius );
 
   /*! Highest level function doing specific arrow positioning */
   void (*draw_line_with_arrows)  (DiaRenderer *renderer, 
                                   Point *start, Point *end, 
                                   real line_width,
-                                  Color *line_color,
+                                  GdkRGBA *line_color,
                                   Arrow *start_arrow,
                                   Arrow *end_arrow);
   /*! Highest level function doing specific arrow positioning */
@@ -222,20 +222,20 @@ struct _DiaRendererClass
                                  Point *start, Point *end,
                                  Point *midpoint,
                                  real line_width,
-                                 Color *color,
+                                 GdkRGBA *color,
                                  Arrow *start_arrow,
                                  Arrow *end_arrow);
   /*! Highest level function doing specific arrow positioning */
   void (*draw_polyline_with_arrows) (DiaRenderer *renderer, 
                                      Point *points, int num_points,
                                      real line_width,
-                                     Color *color,
+                                     GdkRGBA *color,
                                      Arrow *start_arrow,
                                      Arrow *end_arrow);
   void (*draw_rounded_polyline_with_arrows) (DiaRenderer *renderer, 
                                      Point *points, int num_points,
                                      real line_width,
-                                     Color *color,
+                                     GdkRGBA *color,
                                      Arrow *start_arrow,
                                      Arrow *end_arrow,
                                      real radius);
@@ -244,7 +244,7 @@ struct _DiaRendererClass
                                    BezPoint *points,
                                    int num_points,
                                    real line_width,
-                                   Color *color,
+                                   GdkRGBA *color,
                                    Arrow *start_arrow,
                                    Arrow *end_arrow);
   /*! allows to adapt DiaObject implementations to certain renderer capabilities */
@@ -294,15 +294,15 @@ struct _DiaInteractiveRendererInterface
   /*! Draw a line from start to end, using color and the current line style */
   void (*draw_pixel_line)      (DiaRenderer *renderer,
                                 int x1, int y1, int x2, int y2,
-                                Color *color);
+                                GdkRGBA *color);
   /*! Draw a rectangle, given its upper-left and lower-right corners in pixels. */
   void (*draw_pixel_rect)      (DiaRenderer *renderer,
                                 int x, int y, int width, int height,
-                                Color *color);
+                                GdkRGBA *color);
   /*! Fill a rectangle, given its upper-left and lower-right corners in pixels. */
   void (*fill_pixel_rect)      (DiaRenderer *renderer,
                                 int x, int y, int width, int height,
-                                Color *color);
+                                GdkRGBA *color);
   /*! Copy already rendered content to the given window */
   void (*copy_to_window)      (DiaRenderer *renderer,
                                gpointer     window, 
@@ -331,8 +331,8 @@ int  dia_renderer_get_width_pixels  (DiaRenderer*);
 int  dia_renderer_get_height_pixels (DiaRenderer*);
 
 /* Some standalone render helper functiions */
-void bezier_render_fill   (DiaRenderer *renderer, BezPoint *pts, int total, Color *color);
-void bezier_render_stroke (DiaRenderer *renderer, BezPoint *pts, int total, Color *color);
+void bezier_render_fill   (DiaRenderer *renderer, BezPoint *pts, int total, GdkRGBA *color);
+void bezier_render_stroke (DiaRenderer *renderer, BezPoint *pts, int total, GdkRGBA *color);
 
 /*! \brief query DIA_RENDER_BOUNDING_BOXES */
 int render_bounding_boxes (void);

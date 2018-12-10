@@ -57,7 +57,7 @@ typedef struct _Line {
 
   ConnPointLine *cpl;
 
-  Color line_color;
+  GdkRGBA line_color;
   real line_width;
   LineStyle line_style;
   LineCaps line_caps;
@@ -646,7 +646,7 @@ line_save(Line *line, ObjectNode obj_node, DiaContext *ctx)
 
   connpointline_save(line->cpl, obj_node, "numcp", ctx);
 
-  if (!color_equals(&line->line_color, &color_black))
+  if (!gdk_rgba_equal(&line->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
 		   &line->line_color, ctx);
 

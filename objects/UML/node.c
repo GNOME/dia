@@ -49,8 +49,8 @@ struct _Node
   ConnectionPoint connections[NUM_CONNECTIONS];
   Text *name;
 
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
   
   real  line_width;
 };

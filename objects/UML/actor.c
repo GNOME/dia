@@ -44,8 +44,8 @@ struct _Actor {
   Text *text;
 
   real line_width;
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
 };
 
 #define ACTOR_WIDTH 2.2

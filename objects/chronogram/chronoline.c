@@ -39,7 +39,6 @@
 #include "attributes.h"
 #include "text.h"
 #include "connpoint_line.h"
-#include "color.h"
 #include "properties.h"
 
 #include "chronogram.h"
@@ -54,11 +53,11 @@ typedef struct _Chronoline {
   Element element;
 
   real main_lwidth;
-  Color color;
+  GdkRGBA color;
   real start_time;
   real end_time;
   real data_lwidth;
-  Color data_color;
+  GdkRGBA data_color;
   char *events;
   char *name;
   real rise_time;
@@ -66,7 +65,7 @@ typedef struct _Chronoline {
   gboolean multibit;
   DiaFont *font;
   real font_size;
-  Color font_color;
+  GdkRGBA font_color;
   
   /* computed values : */
   ConnPointLine *snap; /* not saved ; num_connections derived from
@@ -76,7 +75,7 @@ typedef struct _Chronoline {
   int checksum;
   real labelwidth;
   real y_down,y_up;
-  Color gray, datagray;
+  GdkRGBA gray, datagray;
 } Chronoline;
 
 
@@ -470,7 +469,7 @@ chronoline_draw(Chronoline *chronoline, DiaRenderer *renderer)
 			    &chronoline->font_color);
 }
 
-inline static void grayify(Color *col,Color *src)
+inline static void grayify(GdkRGBA *col,GdkRGBA *src)
 {
   col->red = .5 * (src->red + color_white.red);
   col->green = .5 * (src->green + color_white.green);

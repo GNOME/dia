@@ -177,7 +177,7 @@ is_capable_to (DiaRenderer *self, RenderCapability cap)
 }
 
 static void
-_node_set_color (xmlNodePtr node, const char *name, const Color *color)
+_node_set_color (xmlNodePtr node, const char *name, const GdkRGBA *color)
 {
   gchar *value;
   
@@ -405,7 +405,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 static void
 draw_line(DiaRenderer *self, 
           Point *start, Point *end, 
-          Color *color)
+          GdkRGBA *color)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -419,7 +419,7 @@ draw_line(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
               Point *points, int num_points, 
-              Color *color)
+              GdkRGBA *color)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -432,7 +432,7 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon (DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -451,7 +451,7 @@ draw_polygon (DiaRenderer *self,
 static void
 _rounded_rect(DiaRenderer *self, 
               Point *lefttop, Point *rightbottom,
-              Color *fill, Color *stroke, real *rounding)
+              GdkRGBA *fill, GdkRGBA *stroke, real *rounding)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -475,7 +475,7 @@ _rounded_rect(DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
           Point *lefttop, Point *rightbottom,
-          Color *fill, Color *stroke)
+          GdkRGBA *fill, GdkRGBA *stroke)
 {
   _rounded_rect(self, lefttop, rightbottom, fill, stroke, NULL);
 }
@@ -483,7 +483,7 @@ draw_rect(DiaRenderer *self,
 static void
 draw_rounded_rect(DiaRenderer *self, 
                   Point *lefttop, Point *rightbottom,
-                  Color *fill, Color *stroke, real rounding)
+                  GdkRGBA *fill, GdkRGBA *stroke, real rounding)
 {
   _rounded_rect(self, lefttop, rightbottom, fill, stroke, &rounding);
 }
@@ -493,7 +493,7 @@ _arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *color,
+	 GdkRGBA *color,
 	 gboolean fill)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
@@ -515,7 +515,7 @@ draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *color)
+	 GdkRGBA *color)
 {
   _arc (self, center, width, height, angle1, angle2, color, FALSE);
 }
@@ -524,7 +524,7 @@ fill_arc(DiaRenderer *self,
          Point *center,
          real width, real height,
          real angle1, real angle2,
-         Color *color)
+         GdkRGBA *color)
 {
   _arc (self, center, width, height, angle1, angle2, color, TRUE);
 }
@@ -533,7 +533,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
              Point *center,
              real width, real height,
-             Color *fill, Color *stroke)
+             GdkRGBA *fill, GdkRGBA *stroke)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -553,8 +553,8 @@ static void
 _bezier(DiaRenderer *self, 
 	BezPoint *points,
 	int numpoints,
-	Color *fill,
-	Color *stroke)
+	GdkRGBA *fill,
+	GdkRGBA *stroke)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -571,7 +571,7 @@ static void
 draw_bezier(DiaRenderer *self, 
             BezPoint *points,
             int numpoints,
-            Color *color)
+            GdkRGBA *color)
 {
   _bezier (self, points, numpoints, NULL, color);
 }
@@ -579,11 +579,11 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points,
 		int numpoints,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
   if (!fill && stroke) { /* maybe this is too clever: close path by existance of fill attribute */
-    Color transparent = { 0, };
+    GdkRGBA transparent = { 0, };
     _bezier (self, points, numpoints, &transparent, stroke);
   } else {
     _bezier (self, points, numpoints, fill, stroke);
@@ -593,7 +593,7 @@ draw_beziergon (DiaRenderer *self,
 static void 
 draw_rounded_polyline (DiaRenderer *self,
                        Point *points, int num_points,
-                       Color *color, real radius )
+                       GdkRGBA *color, real radius )
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -608,7 +608,7 @@ static void
 draw_string(DiaRenderer *self,
             const char *text,
             Point *pos, Alignment alignment,
-            Color *color)
+            GdkRGBA *color)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;

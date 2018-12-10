@@ -38,8 +38,8 @@ typedef struct _Transition Transition;
 struct _Transition {
   OrthConn orth;
   
-  Color text_color;
-  Color line_color;
+  GdkRGBA text_color;
+  GdkRGBA line_color;
 
   Handle trigger_text_handle;
   Point trigger_text_pos;

@@ -42,7 +42,6 @@
 
 #include "geometry.h"
 #include "arrows.h"
-#include "color.h"
 #include "font.h"
 #include "dia_xml.h"
 #include "intl.h"
@@ -437,10 +436,10 @@ GPtrArray *prop_list_from_single(Property *prop);
 /* Convenience functions to construct a prop list from standard properties */
 void prop_list_add_line_width  (GPtrArray *plist, real line_width);
 void prop_list_add_line_style  (GPtrArray *plist, LineStyle line_style, real dash);
-void prop_list_add_line_colour (GPtrArray *plist, const Color *color);
-void prop_list_add_fill_colour (GPtrArray *plist, const Color *color);
+void prop_list_add_line_colour (GPtrArray *plist, const GdkRGBA *color);
+void prop_list_add_fill_colour (GPtrArray *plist, const GdkRGBA *color);
 void prop_list_add_show_background (GPtrArray *plist, gboolean fill);
-void prop_list_add_text_colour (GPtrArray *plist, const Color *color);
+void prop_list_add_text_colour (GPtrArray *plist, const GdkRGBA *color);
 /* addding a text(string) property - just the string no attributes */
 void prop_list_add_text (GPtrArray *plist, const char *name, const char *value);
 

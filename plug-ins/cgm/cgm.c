@@ -97,7 +97,7 @@ write_uint32(FILE *fp, guint32 n)
 }
 
 static void
-write_colour(FILE *fp, Color *c)
+write_colour(FILE *fp, GdkRGBA *c)
 {
     putc((int)(c->red   * 255), fp);
     putc((int)(c->green * 255), fp);
@@ -203,7 +203,7 @@ typedef struct _LineAttrCGM
     int         join;
     int         style;
     real        width;
-    Color       color;
+    GdkRGBA       color;
 
 } LineAttrCGM;
 
@@ -212,14 +212,14 @@ typedef struct _FillEdgeAttrCGM
 {
 
    int          fill_style;          /* Fill style */
-   Color        fill_color;          /* Fill color */
+   GdkRGBA        fill_color;          /* Fill color */
 
    int          edgevis;             /* Edge visibility */
    int          cap;                 /* Edge cap */
    int          join;                /* Edge join */
    int          style;               /* Edge style */
    real         width;               /* Edge width */ 
-   Color        color;               /* Edge color */
+   GdkRGBA        color;               /* Edge color */
 
 } FillEdgeAttrCGM;
 
@@ -229,7 +229,7 @@ typedef struct _TextAttrCGM
 {
    int          font_num;
    real         font_height;
-   Color        color;
+   GdkRGBA        color;
 
 } TextAttrCGM;
 
@@ -336,7 +336,7 @@ swap_y( CgmRenderer *renderer, real y)
 
 
 static void
-write_line_attributes( CgmRenderer *renderer, Color *color )
+write_line_attributes( CgmRenderer *renderer, GdkRGBA *color )
 {
 LineAttrCGM    *lnew, *lold;
 
@@ -395,8 +395,8 @@ LineAttrCGM    *lnew, *lold;
 */
 
 static void
-write_filledge_attributes( CgmRenderer *renderer, Color *fill_color,
-                           Color *edge_color )
+write_filledge_attributes( CgmRenderer *renderer, GdkRGBA *fill_color,
+                           GdkRGBA *edge_color )
 {
 FillEdgeAttrCGM    *fnew, *fold;
 
@@ -500,7 +500,7 @@ FillEdgeAttrCGM    *fnew, *fold;
 
 
 static void
-write_text_attributes( CgmRenderer *renderer, Color *text_color)
+write_text_attributes( CgmRenderer *renderer, GdkRGBA *text_color)
 {
 TextAttrCGM    *tnew, *told;
 
@@ -687,7 +687,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
-	  Color *line_colour)
+	  GdkRGBA *line_colour)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
 
@@ -703,7 +703,7 @@ draw_line(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      GdkRGBA *line_colour)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
     int i;
@@ -720,7 +720,7 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon (DiaRenderer *self,
 	      Point *points, int num_points,
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
     int i;
@@ -737,7 +737,7 @@ draw_polygon (DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *fill, Color *stroke)
+	  GdkRGBA *fill, GdkRGBA *stroke)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
 
@@ -805,7 +805,7 @@ draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
 
@@ -818,7 +818,7 @@ fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
 
@@ -830,7 +830,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
     real  ynew;
@@ -900,7 +900,7 @@ static void
 draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
 	    int numpoints,
-	    Color *colour)
+	    GdkRGBA *colour)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
 
@@ -916,8 +916,8 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points, /* Last point must be same as first point */
 		int numpoints,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
 
@@ -940,7 +940,7 @@ static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *colour)
+	    GdkRGBA *colour)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
     double x = pos->x, y = swap_y(renderer, pos->y);

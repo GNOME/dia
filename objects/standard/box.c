@@ -61,8 +61,8 @@ struct _Box {
   ConnectionPoint connections[NUM_CONNECTIONS];
 
   real border_width;
-  Color border_color;
-  Color inner_color;
+  GdkRGBA border_color;
+  GdkRGBA inner_color;
   gboolean show_background;
   LineStyle line_style;
   LineJoin line_join;
@@ -360,7 +360,7 @@ box_draw(Box *box, DiaRenderer *renderer)
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (box->show_background) {
-    Color fill = box->inner_color;
+    GdkRGBA fill = box->inner_color;
     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
     if (box->pattern) {
       dia_pattern_get_fallback_color (box->pattern, &fill);
@@ -554,11 +554,11 @@ box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, "border_width"),
 		  box->border_width, ctx);
   
-  if (!color_equals(&box->border_color, &color_black))
+  if (!gdk_rgba_equal(&box->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
 		   &box->border_color, ctx);
   
-  if (!color_equals(&box->inner_color, &color_white))
+  if (!gdk_rgba_equal(&box->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &box->inner_color, ctx);
   

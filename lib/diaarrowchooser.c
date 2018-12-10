@@ -201,20 +201,17 @@ dia_arrow_preview_draw (GtkWidget *widget, cairo_t *ctx)
     renderer_ops->begin_render(DIA_RENDERER (renderer), NULL);
     renderer_ops->set_linewidth(DIA_RENDERER (renderer), linewidth);
     {
-      Color color_bg, color_fg;
       GtkStyle *style = gtk_widget_get_style (widget);
       /* the text colors are the best approximation to what we had */
-      GdkColor bg = style->base[gtk_widget_get_state(widget)];
-      GdkColor fg = style->text[gtk_widget_get_state(widget)];
+      GdkRGBA bg = style->base[gtk_widget_get_state(widget)];
+      GdkRGBA fg = style->text[gtk_widget_get_state(widget)];
 
-      GDK_COLOR_TO_DIA(bg, color_bg);
-      GDK_COLOR_TO_DIA(fg, color_fg);
-      renderer_ops->draw_line(DIA_RENDERER (renderer), &from, &to, &color_fg);
+      renderer_ops->draw_line(DIA_RENDERER (renderer), &from, &to, &fg);
       arrow_draw (DIA_RENDERER (renderer), arrow_type.type, 
                   &arrow_head, &from, 
 		  arrow_type.length, 
 		  arrow_type.width,
-                  linewidth, &color_fg, &color_bg);
+                  linewidth, &fg, &bg);
     }
     renderer_ops->end_render(DIA_RENDERER (renderer));
     g_object_unref(renderer);

@@ -93,7 +93,7 @@ layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
     if (update==NULL || rectangle_intersects(update, &obj->bounding_box)) {
       if ((render_bounding_boxes()) && (renderer->is_interactive)) {
 	Point p1, p2;
-	Color col;
+	GdkRGBA col;
 	p1.x = obj->bounding_box.left;
 	p1.y = obj->bounding_box.top;
 	p2.x = obj->bounding_box.right;

@@ -48,7 +48,7 @@ struct _DiaSvgRendererClass
 {
   DiaRendererClass parent_class;
 
-  const gchar* (*get_draw_style) (DiaSvgRenderer*, Color* fill, Color *stroke);
+  const gchar* (*get_draw_style) (DiaSvgRenderer*, GdkRGBA* fill, GdkRGBA *stroke);
 };
 
 G_END_DECLS

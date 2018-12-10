@@ -239,8 +239,8 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
   } else { /*the miniframe is very small, so we use a minimalist cursor*/
     gchar cursor_none_data[] = { 0x00 };
     GdkBitmap * bitmap;
-    GdkColor fg = { 0, 65535, 65535, 65535};
-    GdkColor bg = { 0, 0, 0, 0 };
+    GdkRGBA fg = { 0, 1, 1, 1 };
+    GdkRGBA bg = { 0, 0, 0, 0 };
 
     bitmap = gdk_bitmap_create_from_data(NULL, cursor_none_data, 1, 1);
     nav->cursor = gdk_cursor_new_from_pixmap(bitmap, bitmap, &fg, &bg, 1, 1);

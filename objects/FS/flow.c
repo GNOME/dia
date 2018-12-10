@@ -40,9 +40,9 @@
 
 #include "pixmaps/flow.xpm"
 
-Color flow_color_energy   = { 1.0f, 0.0f, 0.0f, 1.0f };
-Color flow_color_material = { 0.8f, 0.0f, 0.8f, 1.0f };
-Color flow_color_signal   = { 0.0f, 0.0f, 1.0f, 1.0f };
+GdkRGBA flow_color_energy   = { 1.0f, 0.0f, 0.0f, 1.0f };
+GdkRGBA flow_color_material = { 0.8f, 0.0f, 0.8f, 1.0f };
+GdkRGBA flow_color_signal   = { 0.0f, 0.0f, 1.0f, 1.0f };
 
 typedef struct _Flow Flow;
 typedef enum {
@@ -312,7 +312,7 @@ flow_draw(Flow *flow, DiaRenderer *renderer)
   Point *endpoints, p1, p2;
   Arrow arrow;
   int n1 = 1, n2 = 0;
-  Color* render_color = NULL;
+  GdkRGBA* render_color = NULL;
 
   assert(flow != NULL);
   assert(renderer != NULL);
@@ -464,7 +464,7 @@ flow_update_data(Flow *flow)
   Connection *conn = &flow->connection;
   DiaObject *obj = &conn->object;
   Rectangle rect;
-  Color* color = NULL;
+  GdkRGBA* color = NULL;
   
   if (connpoint_is_autogap(flow->connection.endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(flow->connection.endpoint_handles[1].connected_to)) {

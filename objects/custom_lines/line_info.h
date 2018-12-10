@@ -49,7 +49,7 @@ typedef struct _LineInfo {
   gchar *name;
   gchar *icon_filename;
   CustomLineType type;
-  Color line_color;
+  GdkRGBA line_color;
   LineStyle line_style;
   real dashlength;
   real line_width;

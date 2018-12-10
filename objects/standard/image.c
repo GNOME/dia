@@ -59,7 +59,7 @@ struct _Image {
   ConnectionPoint connections[NUM_CONNECTIONS];
 
   real border_width;
-  Color border_color;
+  GdkRGBA border_color;
   LineStyle line_style;
   real dashlength;
   
@@ -699,7 +699,7 @@ image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, "border_width"),
 		  image->border_width, ctx);
 
-  if (!color_equals(&image->border_color, &color_black))
+  if (!gdk_rgba_equal(&image->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
 		   &image->border_color, ctx);
   

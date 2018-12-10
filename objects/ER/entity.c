@@ -54,8 +54,8 @@ struct _Entity {
   ConnectionPoint connections[NUM_CONNECTIONS];
 
   real border_width;
-  Color border_color;
-  Color inner_color;
+  GdkRGBA border_color;
+  GdkRGBA inner_color;
   
   gboolean associative;
   

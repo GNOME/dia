@@ -60,8 +60,8 @@ struct _AttributeState {
   gboolean multivalue;
 
   real border_width;
-  Color border_color;
-  Color inner_color;
+  GdkRGBA border_color;
+  GdkRGBA inner_color;
 };
 
 struct _Attribute {
@@ -80,8 +80,8 @@ struct _Attribute {
   gboolean multivalue;
 
   real border_width;
-  Color border_color;
-  Color inner_color;
+  GdkRGBA border_color;
+  GdkRGBA inner_color;
 };
 
 static real attribute_distance_from(Attribute *attribute, Point *point);

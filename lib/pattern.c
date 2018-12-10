@@ -21,7 +21,6 @@
 #include <config.h> 
 #include "diatypes.h"
 #include "pattern.h"
-#include "color.h"
 #include <glib-object.h>
 
 typedef struct _DiaPatternClass DiaPatternClass;
@@ -30,7 +29,7 @@ static GType _dia_pattern_get_type (void) G_GNUC_CONST;
 
 typedef struct _ColorStop
 {
-  Color color;
+  GdkRGBA color;
   real  offset;
 } ColorStop;
 
@@ -120,10 +119,10 @@ dia_pattern_set_point (DiaPattern *self, real x, real y)
   if (self->type == DIA_RADIAL_GRADIENT) {
     real dist = distance_ellipse_point (&self->start, self->radius*2, self->radius*2, 0.0, &self->other);
     if (dist > 0) {
-      /* If the point defined by ‘fx’ and ‘fy’ lies outside the circle defined
-       * by ‘cx’, ‘cy’ and ‘r’, then the user agent shall set the focal point to
-       * the intersection of the line from (‘cx’, ‘cy’) to (‘fx’, ‘fy’) with the
-       * circle defined by ‘cx’, ‘cy’ and ‘r’
+      /* If the point defined by ï¿½fxï¿½ and ï¿½fyï¿½ lies outside the circle defined
+       * by ï¿½cxï¿½, ï¿½cyï¿½ and ï¿½rï¿½, then the user agent shall set the focal point to
+       * the intersection of the line from (ï¿½cxï¿½, ï¿½cyï¿½) to (ï¿½fxï¿½, ï¿½fyï¿½) with the
+       * circle defined by ï¿½cxï¿½, ï¿½cyï¿½ and ï¿½rï¿½
        */
       Point p1 = self->start;
       Point p2 = self->other;
@@ -191,7 +190,7 @@ dia_pattern_get_radius (DiaPattern *self, real *r)
  * \ingroup DiaPattern
  */
 void
-dia_pattern_add_color (DiaPattern *self, real pos, const Color *color)
+dia_pattern_add_color (DiaPattern *self, real pos, const GdkRGBA *color)
 {
   ColorStop stop;
   real former = 0.0;
@@ -226,7 +225,7 @@ dia_pattern_set_pattern (DiaPattern *self, DiaPattern *pat)
  * \ingroup DiaPattern
  */
 void
-dia_pattern_get_fallback_color (DiaPattern *self, Color *color)
+dia_pattern_get_fallback_color (DiaPattern *self, GdkRGBA *color)
 {
   g_return_if_fail (self != NULL && color != NULL);
   if (self->stops->len > 0)

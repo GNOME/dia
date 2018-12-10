@@ -32,7 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
 #include "properties.h"
 #include "geometry.h"
 #include "text.h"
@@ -58,7 +57,7 @@ typedef struct _Condition {
   gchar *cond_value;
   DiaFont *cond_font;
   real cond_fontheight;
-  Color cond_color;
+  GdkRGBA cond_color;
 
   /* computed values : */
   Rectangle labelbb;
@@ -330,7 +329,7 @@ condition_create(Point *startpoint,
 
   DiaFont *default_font; 
   real default_fontheight;
-  Color fg_color;
+  GdkRGBA fg_color;
 
   condition = g_malloc0(sizeof(Condition));
   conn = &condition->connection;

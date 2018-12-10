@@ -72,8 +72,6 @@ libdia_la_SOURCES =  \
 		layer.c \
 		geometry.h \
 		geometry.c \
-		color.h \
-		color.c \
 		dia_xml.c \
 		dia_xml.h \
 		dia_xml_libxml.h \

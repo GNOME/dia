@@ -165,7 +165,7 @@ dia::Property< ::Property* >::~Property ()
  * in the .swig file.
  */
 bool
-dia::Property< ::Property* >::get (::_Color* v) const 
+dia::Property< ::Property* >::get (::GdkRGBA* v) const 
 { 
     g_return_val_if_fail (self != NULL, false);
     if (strcmp (self->descr->type, PROP_TYPE_COLOUR) == 0) {

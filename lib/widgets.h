@@ -23,7 +23,6 @@
 
 #include "diatypes.h"
 #include "font.h"
-#include "color.h"
 #include "arrows.h"
 #include "units.h"
 
@@ -54,9 +53,9 @@ void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 GType      dia_color_selector_get_type  (void);
 GtkWidget* dia_color_selector_new       (void);
 void       dia_color_selector_set_use_alpha (GtkWidget *cs, gboolean use_alpha);
-void       dia_color_selector_get_color (GtkWidget *cs, Color *color);
+void       dia_color_selector_get_color (GtkWidget *cs, GdkRGBA *color);
 void       dia_color_selector_set_color (GtkWidget *cs,
-					 const Color *color);
+					 const GdkRGBA *color);
 
 
 /* DiaArrowSelector */

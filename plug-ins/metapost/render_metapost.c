@@ -164,7 +164,7 @@ end_draw_op(MetapostRenderer *renderer)
     fprintf(renderer->file, "\n    withpen pencircle scaled %sx",
             g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f", (gdouble) renderer->line_width) );
 
-    if (!color_equals(&renderer->color, &color_black))
+    if (!gdk_rgba_equal(&renderer->color, &color_black))
         fprintf(renderer->file, "\n    withcolor (%s, %s, %s)", 
                 g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f", (gdouble) renderer->color.red),
                 g_ascii_formatd(d2_buf, sizeof(d2_buf), "%5.4f", (gdouble) renderer->color.green),
@@ -175,7 +175,7 @@ end_draw_op(MetapostRenderer *renderer)
 }
 
 static void 
-set_line_color(MetapostRenderer *renderer,Color *color)
+set_line_color(MetapostRenderer *renderer,GdkRGBA *color)
 {
     gchar red_buf[DTOSTR_BUF_SIZE];
     gchar green_buf[DTOSTR_BUF_SIZE];
@@ -437,7 +437,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
-	  Color *line_color)
+	  GdkRGBA *line_color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     gchar sx_buf[DTOSTR_BUF_SIZE];
@@ -456,7 +456,7 @@ draw_line(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_color)
+	      GdkRGBA *line_color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     int i;
@@ -481,7 +481,7 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     int i;
@@ -526,7 +526,7 @@ metapost_arc(MetapostRenderer *renderer,
 	     Point *center,
 	     real width, real height,
 	     real angle1, real angle2,
-	     Color *color, int filled)
+	     GdkRGBA *color, int filled)
 {
     double radius1,radius2;
     double angle3;
@@ -571,7 +571,7 @@ draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *color)
+	 GdkRGBA *color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
 
@@ -583,7 +583,7 @@ fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *color)
+	 GdkRGBA *color)
 { 
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
 
@@ -594,7 +594,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     gchar d1_buf[DTOSTR_BUF_SIZE];
@@ -638,7 +638,7 @@ static void
 draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
 	    int numpoints, /* numpoints = 4+3*n, n=>0 */
-	    Color *color)
+	    GdkRGBA *color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     gint i;
@@ -685,8 +685,8 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points,
 		int numpoints,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     gint i;
@@ -755,7 +755,7 @@ static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *color)
+	    GdkRGBA *color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     gchar height_buf[DTOSTR_BUF_SIZE];
@@ -795,7 +795,7 @@ draw_string(DiaRenderer *self,
 	    mp_dtostr(px_buf, pos->x),
 	    mp_dtostr(py_buf, pos->y) );
 
-    if (!color_equals(&renderer->color, &color_black))
+    if (!gdk_rgba_equal(&renderer->color, &color_black))
         fprintf(renderer->file, "\n    withcolor (%s, %s, %s)", 
                 g_ascii_formatd(red_buf, sizeof(red_buf), "%5.4f", (gdouble) renderer->color.red), 
                 g_ascii_formatd(green_buf, sizeof(green_buf), "%5.4f", (gdouble) renderer->color.green),
@@ -1014,7 +1014,7 @@ export_metapost(DiagramData *data, DiaContext *ctx,
     gchar d3_buf[DTOSTR_BUF_SIZE];
     gchar d4_buf[DTOSTR_BUF_SIZE];
 
-    Color initial_color;
+    GdkRGBA initial_color;
  
     file = g_fopen(filename, "wb");
 

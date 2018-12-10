@@ -66,14 +66,14 @@ struct _Compound {
 
   gint num_arms;
   real line_width;
-  Color line_color;
+  GdkRGBA line_color;
 };
 
 struct _CompoundState {
   ArmHandleState * handle_states;
   gint num_handles; /* num_arms = num_handles-1 */
   real line_width;
-  Color line_color;
+  GdkRGBA line_color;
 };
 
 struct _ArmHandleState {
@@ -561,7 +561,7 @@ compound_draw (Compound * comp, DiaRenderer * renderer)
 #if DEBUG_DRAW_MP_DIRECTION
  {
    Point p = comp->mount_point.pos;
-   Color red = { 1.0, 0.0, 0.0, 1.0 };
+   GdkRGBA red = { 1.0, 0.0, 0.0, 1.0 };
    gchar dirs = comp->mount_point.directions;
    if (dirs & DIR_NORTH)
      p.y -= 1.0;

@@ -75,7 +75,7 @@ struct _HpglRenderer
    * The number of pens is limited. This is used to select one.
    */
   struct {
-    Color color;
+    GdkRGBA color;
     float width;
     int   has_it;
   } pen[HPGL_MAX_PENS];
@@ -100,7 +100,7 @@ struct _HpglRendererClass
 
 /* hpgl helpers */
 static void
-hpgl_select_pen(HpglRenderer* renderer, Color* color, real width)
+hpgl_select_pen(HpglRenderer* renderer, GdkRGBA* color, real width)
 {
     int nPen = 0;
     int i;
@@ -297,7 +297,7 @@ set_font(DiaRenderer *object, DiaFont *font, real height)
 static void
 draw_line(DiaRenderer *object, 
           Point *start, Point *end, 
-          Color *line_colour)
+          GdkRGBA *line_colour)
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
 
@@ -313,7 +313,7 @@ draw_line(DiaRenderer *object,
 static void
 draw_polyline(DiaRenderer *object, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      GdkRGBA *line_colour)
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
     int i;
@@ -341,9 +341,9 @@ draw_polyline(DiaRenderer *object,
 static void
 draw_polygon(DiaRenderer *object, 
 	     Point *points, int num_points, 
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
-    Color *color = fill ? fill : stroke;
+    GdkRGBA *color = fill ? fill : stroke;
     DIAG_NOTE(g_message("draw_polygon n:%d %f,%f ...", 
               num_points, points->x, points->y));
     g_return_if_fail (color != NULL);
@@ -355,9 +355,9 @@ draw_polygon(DiaRenderer *object,
 static void
 draw_rect(DiaRenderer *object, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *fill, Color *stroke)
+	  GdkRGBA *fill, GdkRGBA *stroke)
 {
-    Color *colour = fill ? fill : stroke;
+    GdkRGBA *colour = fill ? fill : stroke;
     HpglRenderer *renderer = HPGL_RENDERER (object);
 
     g_return_if_fail (colour != NULL);
@@ -377,7 +377,7 @@ draw_arc(DiaRenderer *object,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
     Point start;
@@ -410,7 +410,7 @@ fill_arc(DiaRenderer *object,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
 
@@ -436,7 +436,7 @@ static void
 draw_ellipse_by_arc (DiaRenderer *renderer, 
                      Point *center,
                      real width, real height,
-                     Color *colour)
+                     GdkRGBA *colour)
 {
   real a, b, e, d, alpha, c, x, y;
   real g, gamma, r;
@@ -484,10 +484,10 @@ static void
 draw_ellipse(DiaRenderer *object, 
 	     Point *center,
 	     real width, real height,
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
   HpglRenderer *renderer = HPGL_RENDERER (object);
-  Color *colour = fill ? fill : stroke;
+  GdkRGBA *colour = fill ? fill : stroke;
 
   DIAG_NOTE(g_message("draw_ellipse %fx%f center @ %f,%f", 
             width, height, center->x, center->y));
@@ -511,7 +511,7 @@ static void
 draw_string(DiaRenderer *object,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *colour)
+	    GdkRGBA *colour)
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
     real width, height;

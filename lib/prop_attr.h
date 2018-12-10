@@ -53,7 +53,7 @@ typedef struct {
  */
 typedef struct {
   Property common;
-  Color color_data;
+  GdkRGBA color_data;
 } ColorProperty;
 
 /*!

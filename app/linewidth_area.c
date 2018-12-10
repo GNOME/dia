@@ -65,7 +65,7 @@ linewidth_area_target (int x, int y)
 static void
 linewidth_area_draw (GtkWidget *linewidth_area)
 {
-  GdkColor *win_bg, *win_fg;
+  GdkRGBA *win_bg, *win_fg;
   int width, height;
   int i;
   int x_offs;

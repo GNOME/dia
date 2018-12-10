@@ -566,7 +566,7 @@ boolequation_set_value(Boolequation *booleq, const gchar *value)
 
 Boolequation *
 boolequation_create(const gchar *value, DiaFont *font, real fontheight,
-		   Color *color)
+		   GdkRGBA *color)
 {
   Boolequation *booleq;
 

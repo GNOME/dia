@@ -21,14 +21,13 @@
 
 #include "connectionpoint_ops.h"
 #include "object_ops.h"
-#include "color.h"
 #include "object.h"
 #include "connectionpoint.h"
 
 #define CONNECTIONPOINT_SIZE 7
 #define CHANGED_TRESHOLD 0.001
 
-static Color connectionpoint_color = { 0.4, 0.4, 1.0, 1.0 };
+static GdkRGBA connectionpoint_color = { 0.4, 0.4, 1.0, 1.0 };
 
 #define CP_SZ (CONNECTIONPOINT_SIZE/2)
 
@@ -37,7 +36,7 @@ connectionpoint_draw(ConnectionPoint *conpoint,
 		     DDisplay        *ddisp,
 		     DiaRenderer     *renderer,
 		     DiaInteractiveRendererInterface *irenderer,
-		     Color           *color)
+		     GdkRGBA         *color)
 {
   int x,y;
   Point *point = &conpoint->pos;
@@ -59,7 +58,7 @@ void
 object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
 {
   int i;
-  static Color midpoint_color = { 1.0, 0.0, 0.0, 1.0 };
+  static GdkRGBA midpoint_color = { 1.0, 0.0, 0.0, 1.0 };
   DiaRenderer *renderer = ddisp->renderer;
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (ddisp->renderer);
   DiaInteractiveRendererInterface *irenderer =

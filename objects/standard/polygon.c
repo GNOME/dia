@@ -54,10 +54,10 @@ Fix crashes:)
 typedef struct _Polygon {
   PolyShape poly;
 
-  Color line_color;
+  GdkRGBA line_color;
   LineStyle line_style;
   LineJoin line_join;
-  Color inner_color;
+  GdkRGBA inner_color;
   gboolean show_background;
   real dashlength;
   real line_width;
@@ -222,7 +222,7 @@ polygon_draw(Polygon *polygon, DiaRenderer *renderer)
   PolyShape *poly = &polygon->poly;
   Point *points;
   int n;
-  Color fill;
+  GdkRGBA fill;
   
   points = &poly->points[0];
   n = poly->numpoints;
@@ -352,7 +352,7 @@ polygon_save(Polygon *polygon, ObjectNode obj_node,
 {
   polyshape_save(&polygon->poly, obj_node, ctx);
 
-  if (!color_equals(&polygon->line_color, &color_black))
+  if (!gdk_rgba_equal(&polygon->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
 		   &polygon->line_color, ctx);
 
@@ -360,7 +360,7 @@ polygon_save(Polygon *polygon, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  polygon->line_width, ctx);
 
-  if (!color_equals(&polygon->inner_color, &color_white))
+  if (!gdk_rgba_equal(&polygon->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &polygon->inner_color, ctx);
 

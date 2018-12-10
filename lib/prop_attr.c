@@ -327,11 +327,11 @@ colorprop_get_from_offset(ColorProperty *prop,
                           void *base, guint offset, guint offset2) 
 {
   if (offset2 == 0) {
-    prop->color_data = struct_member(base,offset,Color);
+    prop->color_data = struct_member(base,offset,GdkRGBA);
   } else {
     void *base2 = struct_member(base,offset,void*);
     g_return_if_fail (base2 != NULL);
-    prop->color_data = struct_member(base2,offset2,Color);
+    prop->color_data = struct_member(base2,offset2,GdkRGBA);
   }
 }
 
@@ -340,11 +340,11 @@ colorprop_set_from_offset(ColorProperty *prop,
                           void *base, guint offset, guint offset2)
 {
   if (offset2 == 0) {
-    struct_member(base,offset,Color) = prop->color_data;
+    struct_member(base,offset,GdkRGBA) = prop->color_data;
   } else {
     void *base2 = struct_member(base,offset,void*);
     g_return_if_fail (base2 != NULL);
-    struct_member(base2,offset2,Color) = prop->color_data;
+    struct_member(base2,offset2,GdkRGBA) = prop->color_data;
     g_return_if_fail (offset2 == offsetof(Text, color));
     text_set_color ((Text *)base2, &prop->color_data);
   }

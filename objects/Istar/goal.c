@@ -43,7 +43,6 @@
 #include "attributes.h"
 #include "text.h"
 #include "connpoint_line.h"
-#include "color.h"
 #include "properties.h"
 
 #include "pixmaps/softgoal.xpm"

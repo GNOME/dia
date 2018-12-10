@@ -59,8 +59,8 @@ struct _Pgram {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
   real border_width;
-  Color border_color;
-  Color inner_color;
+  GdkRGBA border_color;
+  GdkRGBA inner_color;
   gboolean show_background;
   LineStyle line_style;
   real dashlength;
@@ -619,11 +619,11 @@ pgram_save(Pgram *pgram, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, "border_width"),
 		  pgram->border_width, ctx);
 
-  if (!color_equals(&pgram->border_color, &color_black))
+  if (!gdk_rgba_equal(&pgram->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
 		   &pgram->border_color, ctx);
 
-  if (!color_equals(&pgram->inner_color, &color_white))
+  if (!gdk_rgba_equal(&pgram->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &pgram->inner_color, ctx);
 

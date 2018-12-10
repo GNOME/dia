@@ -163,7 +163,7 @@ bezier_draw_control_lines (int          num_points,
 			   BezPoint    *points,
 			   DiaRenderer *renderer)
 {
-  Color line_colour = { 0.0, 0.0, 0.6, 1.0 };
+  GdkRGBA line_colour = { 0.0, 0.0, 0.6, 1.0 };
   Point startpoint;
   int i;
   

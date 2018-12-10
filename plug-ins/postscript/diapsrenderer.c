@@ -51,13 +51,13 @@ static gboolean renderer_is_epsi(DiaPsRenderer *renderer) {
 
 void
 lazy_setcolor(DiaPsRenderer *renderer,
-              Color *color)
+              GdkRGBA *color)
 {
   gchar r_buf[DTOSTR_BUF_SIZE];
   gchar g_buf[DTOSTR_BUF_SIZE];
   gchar b_buf[DTOSTR_BUF_SIZE];
 
-  if (!color_equals(color, &(renderer->lcolor))) {
+  if (!gdk_rgba_equal(color, &(renderer->lcolor))) {
     renderer->lcolor = *color;
     fprintf(renderer->file, "%s %s %s srgb\n",
             psrenderer_dtostr(r_buf, (gdouble) color->red),
@@ -293,7 +293,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
-	  Color *line_color)
+	  GdkRGBA *line_color)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   gchar sx_buf[DTOSTR_BUF_SIZE];
@@ -313,7 +313,7 @@ draw_line(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_color)
+	      GdkRGBA *line_color)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   int i;
@@ -339,7 +339,7 @@ static void
 psrenderer_polygon(DiaPsRenderer *renderer,
 		   Point *points,
 		   gint num_points,
-		   Color *line_color,
+		   GdkRGBA *line_color,
 		   gboolean filled)
 {
   gint i;
@@ -367,7 +367,7 @@ psrenderer_polygon(DiaPsRenderer *renderer,
 static void
 draw_polygon (DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   /* XXX: not optimized to fill and stroke at once */
@@ -382,7 +382,7 @@ psrenderer_arc(DiaPsRenderer *renderer,
 	       Point *center,
 	       real width, real height,
 	       real angle1, real angle2,
-	       Color *color,
+	       GdkRGBA *color,
 	       gboolean filled)
 {
   gchar cx_buf[DTOSTR_BUF_SIZE];
@@ -423,7 +423,7 @@ draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *color)
+	 GdkRGBA *color)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   psrenderer_arc(renderer, center, width, height, angle1, angle2, color, FALSE);
@@ -434,7 +434,7 @@ fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *color)
+	 GdkRGBA *color)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   psrenderer_arc(renderer, center, width, height, angle1, angle2, color, TRUE);
@@ -444,7 +444,7 @@ static void
 psrenderer_ellipse(DiaPsRenderer *renderer,
 		   Point *center,
 		   real width, real height,
-		   Color *color,
+		   GdkRGBA *color,
 		   gboolean filled)
 {
   gchar cx_buf[DTOSTR_BUF_SIZE];
@@ -466,7 +466,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   if (fill)
@@ -479,7 +479,7 @@ static void
 psrenderer_bezier(DiaPsRenderer *renderer,
 		  BezPoint *points,
 		  gint numpoints,
-		  Color *color,
+		  GdkRGBA *color,
 		  gboolean filled)
 {
   gint  i;
@@ -530,7 +530,7 @@ static void
 draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
 	    int numpoints, /* numpoints = 4+3*n, n=>0 */
-	    Color *color)
+	    GdkRGBA *color)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   psrenderer_bezier(renderer, points, numpoints, color, FALSE);
@@ -540,8 +540,8 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points, /* Last point must be same as first point */
 		int numpoints,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   if (fill)
@@ -616,7 +616,7 @@ static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *color)
+	    GdkRGBA *color)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   Point pos_adj;

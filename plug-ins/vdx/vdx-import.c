@@ -193,11 +193,11 @@ static PropDescription vdx_text_descs[] = {
  * @param ctx the context for error/warning messages
  * @return A Dia Color object
  */
-Color
+GdkRGBA
 vdx_parse_color(const char *s, const VDXDocument *theDoc, DiaContext *ctx)
 {
     int colorvalues;
-    Color c = {0, 0, 0, 0};
+    GdkRGBA c = {0, 0, 0, 0};
     if (s[0] == '#')
     {
         sscanf(s, "#%xd", &colorvalues);
@@ -238,7 +238,7 @@ vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx)
 
     for (ColorEntry = cur->xmlChildrenNode; ColorEntry;
          ColorEntry = ColorEntry->next) {
-        Color color;
+        GdkRGBA color;
         struct vdx_ColorEntry temp_ColorEntry;
 
         if (xmlIsBlankNode(ColorEntry)) { continue; }
@@ -613,7 +613,7 @@ vdx_simple_properties(DiaObject *obj,
 
     if (Line)
     {
-        Color color;
+        GdkRGBA color;
 
         prop_list_add_line_width (props,Line->LineWeight * vdx_Line_Scale);
 
@@ -654,7 +654,7 @@ vdx_simple_properties(DiaObject *obj,
 
     if (Fill && Fill->FillPattern)
     {
-        Color color;
+        GdkRGBA color;
 
         /* Dia can't do fill patterns, so we have to choose either the
            foreground or background colour.

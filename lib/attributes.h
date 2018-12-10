@@ -20,16 +20,18 @@
 
 #include "dia-enums.h"
 #include "geometry.h"
-#include "color.h"
 #include "arrows.h"
 #include "font.h"
 
 G_BEGIN_DECLS
 
-Color attributes_get_foreground(void);
-Color attributes_get_background(void);
-void attributes_set_foreground(Color *color);
-void attributes_set_background(Color *color);
+GdkRGBA color_black = { 0, 0, 0, 1 };
+GdkRGBA color_white = { 1, 1, 1, 1 };
+
+GdkRGBA attributes_get_foreground(void);
+GdkRGBA attributes_get_background(void);
+void attributes_set_foreground(GdkRGBA *color);
+void attributes_set_background(GdkRGBA *color);
 void attributes_swap_fgbg(void);
 void attributes_default_fgbg(void);
 

@@ -63,8 +63,8 @@ struct _Ngon {
   LineJoin   line_join;
   real       dashlength;
   real       line_width;
-  Color      stroke;
-  Color      fill;
+  GdkRGBA      stroke;
+  GdkRGBA      fill;
   gboolean   show_background;
   DiaPattern *pattern;
 
@@ -228,7 +228,7 @@ _ngon_draw(Ngon *ng, DiaRenderer *renderer)
   gboolean pattern_fill =   ng->show_background
 			 && ng->pattern != NULL
 			 && renderer_ops->is_capable_to(renderer, RENDER_PATTERN);
-  Color fill;
+  GdkRGBA fill;
 
   g_return_if_fail (ng->points->len);
 

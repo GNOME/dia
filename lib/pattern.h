@@ -45,15 +45,15 @@ DiaPattern *dia_pattern_new (DiaPatternType pt, guint flags, real x, real y);
 
 void dia_pattern_set_radius (DiaPattern *self, real r);
 void dia_pattern_set_point (DiaPattern *pattern, real x, real y); 
-void dia_pattern_add_color (DiaPattern *pattern, real pos, const Color *stop);
+void dia_pattern_add_color (DiaPattern *pattern, real pos, const GdkRGBA *stop);
 void dia_pattern_set_pattern (DiaPattern *pattern, DiaPattern *pat);
 
-void dia_pattern_get_fallback_color (DiaPattern *pattern, Color *color);
+void dia_pattern_get_fallback_color (DiaPattern *pattern, GdkRGBA *color);
 void dia_pattern_get_points (DiaPattern *pattern, Point *p1, Point *p2);
 void dia_pattern_get_radius (DiaPattern *pattern, real *r);
 void dia_pattern_get_settings (DiaPattern *pattern, DiaPatternType *type, guint *flags);
 
-typedef gboolean (*DiaColorStopFunc) (real ofs, const Color *col, gpointer user_data);
+typedef gboolean (*DiaColorStopFunc) (real ofs, const GdkRGBA *col, gpointer user_data);
 void dia_pattern_foreach (DiaPattern *pattern, DiaColorStopFunc fn, gpointer user_data);
 
 G_END_DECLS

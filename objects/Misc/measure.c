@@ -38,7 +38,7 @@ typedef struct _Measure {
   DiaFont *font;
   real font_height;
 
-  Color   line_color;
+  GdkRGBA   line_color;
   real    line_width;
   real    scale;
   DiaUnit unit;

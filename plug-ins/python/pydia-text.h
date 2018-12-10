@@ -2,7 +2,6 @@
 #define PYDIA_TEXT_H
 
 #include <Python.h>
-#include "color.h"
 
 typedef struct {
     PyObject_HEAD

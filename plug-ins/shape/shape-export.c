@@ -99,27 +99,27 @@ static void end_render(DiaRenderer *self);
 
 static void draw_line(DiaRenderer *self, 
 		      Point *start, Point *end, 
-		      Color *line_colour);
+		      GdkRGBA *line_colour);
 static void 
 draw_object(DiaRenderer *self,
             DiaObject   *object,
 	    DiaMatrix   *matrix);
 static void draw_polyline(DiaRenderer *self, 
 			  Point *points, int num_points, 
-			  Color *line_colour);
+			  GdkRGBA *line_colour);
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
-			 Color *fill, Color *stroke);
+			 GdkRGBA *fill, GdkRGBA *stroke);
 static void draw_rect(DiaRenderer *self, 
 		      Point *ul_corner, Point *lr_corner,
-		      Color *fill, Color *stroke);
+		      GdkRGBA *fill, GdkRGBA *stroke);
 static void draw_rounded_rect (DiaRenderer *self, 
 			       Point *ul_corner, Point *lr_corner,
-			       Color *fill, Color *stroke, real rounding);
+			       GdkRGBA *fill, GdkRGBA *stroke, real rounding);
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
-			 Color *fill, Color *stroke);
+			 GdkRGBA *fill, GdkRGBA *stroke);
 
 /* helper functions */
 static void add_connection_point(ShapeRenderer *renderer, 
@@ -372,7 +372,7 @@ add_connection_point (ShapeRenderer *renderer,
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
-	  Color *line_colour)
+	  GdkRGBA *line_colour)
 {
   Point center;
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
@@ -398,7 +398,7 @@ draw_line(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      GdkRGBA *line_colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   int i;
@@ -439,7 +439,7 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   int i;
@@ -526,7 +526,7 @@ add_rectangle_connection_points (ShapeRenderer *renderer,
 static void
 draw_rect (DiaRenderer *self, 
            Point *ul_corner, Point *lr_corner,
-           Color *fill, Color *stroke) 
+           GdkRGBA *fill, GdkRGBA *stroke) 
 {
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
 
@@ -545,7 +545,7 @@ draw_rect (DiaRenderer *self,
 static void
 draw_rounded_rect (DiaRenderer *self, 
 		   Point *ul_corner, Point *lr_corner,
-		   Color *fill, Color *stroke, real rounding)
+		   GdkRGBA *fill, GdkRGBA *stroke, real rounding)
 {
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
 
@@ -590,7 +590,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
              Point *center,
              real width, real height,
-             Color *fill, Color *stroke)
+             GdkRGBA *fill, GdkRGBA *stroke)
 {
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
 

@@ -39,7 +39,7 @@ export_data(DiagramData *data, DiaContext *ctx,
 	    void* user_data)
 {
   DiaCairoRenderer *renderer;
-  GdkColor color;
+  GdkRGBA color;
   int width, height;
   GdkPixbuf* pixbuf = NULL;
   GError* error = NULL;
@@ -68,8 +68,7 @@ export_data(DiagramData *data, DiaContext *ctx,
   cctx = cairo_create (renderer->surface);
 
   /* draw background */
-  color_convert (&data->bg_color, &color);
-  gdk_cairo_set_source_color (cctx, &color);
+  gdk_cairo_set_source_rgba (cctx, &data->bg_color);
   cairo_rectangle (cctx, 0, 0, width, height);
   cairo_fill (cctx);
 
@@ -219,11 +218,6 @@ dia_plugin_init(PluginInfo *info)
     else {
       GSList* formats = gdk_pixbuf_get_formats ();
       GSList* sl;
-
-      /* if we get this far we still may be running non-interactive. To avoid complains
-       * from color_convert() we are initializing ourselves ;)
-       */
-     color_init ();
 
      /*
       * Instead of hard-coding capabilities, ask GdkPixbuf what's installed

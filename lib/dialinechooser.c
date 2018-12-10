@@ -122,8 +122,8 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
   double dash_list[6];
   int line_width = 2;
   GtkStyle *style;
-  GdkColor bg;
-  GdkColor fg;
+  GdkRGBA bg;
+  GdkRGBA fg;
   cairo_t *ctx;
 
   if (gtk_widget_is_drawable(widget)) {

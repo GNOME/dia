@@ -47,7 +47,7 @@ typedef struct _Fork Fork;
 struct _Fork
 {
   Element element;
-  Color fill_color;
+  GdkRGBA fill_color;
   ConnectionPoint connections[NUM_CONNECTIONS];
 };
 

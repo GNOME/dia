@@ -47,7 +47,7 @@ typedef struct _Bus {
   Handle **handles;
   Point *parallel_points;
   Point real_ends[2];
-  Color line_color;
+  GdkRGBA line_color;
 } Bus;
 
 enum change_type {

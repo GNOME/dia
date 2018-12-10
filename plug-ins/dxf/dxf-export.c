@@ -66,7 +66,7 @@ typedef struct _LineAttrdxf
     int         join;
     char    	*style;
     real        width;
-    Color       color;
+    GdkRGBA       color;
 
 } LineAttrdxf;
 
@@ -75,14 +75,14 @@ typedef struct _FillEdgeAttrdxf
 {
 
    int          fill_style;          /* Fill style */
-   Color        fill_color;          /* Fill color */
+   GdkRGBA        fill_color;          /* Fill color */
 
    int          edgevis;             /* Edge visibility */
    int          cap;                 /* Edge cap */
    int          join;                /* Edge join */
    char         *style;               /* Edge style */
    real         width;               /* Edge width */ 
-   Color        color;               /* Edge color */
+   GdkRGBA        color;               /* Edge color */
 
 } FillEdgeAttrdxf;
 
@@ -92,7 +92,7 @@ typedef struct _TextAttrdxf
 {
    int          font_num;
    real         font_height;
-   Color        color;
+   GdkRGBA        color;
 
 } TextAttrdxf;
 
@@ -238,7 +238,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 }
 
 static int
-dxf_color (const Color *color)
+dxf_color (const GdkRGBA *color)
 {
     /* Fixed colors
      * 0 - black ?
@@ -259,7 +259,7 @@ dxf_color (const Color *color)
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
-	  Color *line_colour)
+	  GdkRGBA *line_colour)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
     gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
@@ -282,7 +282,7 @@ draw_line(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
               Point *points, int num_points, 
-              Color *color)
+              GdkRGBA *color)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
     int i;
@@ -310,9 +310,9 @@ draw_polyline(DiaRenderer *self,
 static void 
 draw_polygon (DiaRenderer *self,
               Point *points, int num_points,
-              Color *fill, Color *stroke)
+              GdkRGBA *fill, GdkRGBA *stroke)
 {
-  Color *color = fill ? fill : stroke;
+  GdkRGBA *color = fill ? fill : stroke;
   DxfRenderer *renderer = DXF_RENDERER(self);
   /* We could emulate all polygons with multiple SOLID but it might not be 
    * worth the effort. Following the easy part of polygons with 3 or 4 points.
@@ -348,7 +348,7 @@ draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
     gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
@@ -382,7 +382,7 @@ fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
     /* emulate by SOLID? */
 }
@@ -391,11 +391,11 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
     gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
-    Color *color = fill ? fill : stroke; /* emulate fill by SOLID? */
+    GdkRGBA *color = fill ? fill : stroke; /* emulate fill by SOLID? */
 
     /* draw a circle instead of an ellipse, if it's one */
     if(width == height){
@@ -426,7 +426,7 @@ static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *colour)
+	    GdkRGBA *colour)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
     gchar buf[G_ASCII_DTOSTR_BUF_SIZE];

@@ -48,7 +48,7 @@ typedef struct _Annotation {
 
   Text *text;
 
-  Color line_color;
+  GdkRGBA line_color;
 } Annotation;
 
   
@@ -120,7 +120,7 @@ static ObjectOps annotation_ops = {
 #ifdef TEMPORARY_EVENT_TEST
 static gboolean 
 handle_btn1(Annotation *annotation, Property *prop) {
-  Color col;
+  GdkRGBA col;
   col = annotation->text->color;
   /* g_message("in handle_btn1 for object %p col=%.2f:%.2f:%.2f",
      annotation,col.red,col.green,col.blue); */

@@ -21,8 +21,8 @@
 #include "intl.h"
 #include "persistence.h"
 
-static Color attributes_foreground = { 0.0f, 0.0f, 0.0f, 1.0f };
-static Color attributes_background = { 1.0f, 1.0f, 1.0f, 1.0f };
+static GdkRGBA attributes_foreground = { 0.0f, 0.0f, 0.0f, 1.0f };
+static GdkRGBA attributes_background = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 static real attributes_default_linewidth = 0.1;
 
@@ -42,7 +42,7 @@ static real attributes_font_height = 0.8;
 /** Get the foreground color attribute (lines and text)
  * @returns The current foreground color as set in the toolbox.
  */
-Color 
+GdkRGBA 
 attributes_get_foreground(void)
 {
   return attributes_foreground;
@@ -51,7 +51,7 @@ attributes_get_foreground(void)
 /** Get the background color attribute (for box background and such)
  * @returns The current background color as set in the toolbox.
  */
-Color 
+GdkRGBA 
 attributes_get_background(void)
 {
   return attributes_background;
@@ -62,7 +62,7 @@ attributes_get_background(void)
  * not stored by ths function and can be freed afterwards.
  */
 void
-attributes_set_foreground(Color *color)
+attributes_set_foreground(GdkRGBA *color)
 {
   attributes_foreground = *color;
   persistence_set_color("fg_color", color);
@@ -73,7 +73,7 @@ attributes_set_foreground(Color *color)
  * not stored by ths function and can be freed afterwards.
  */
 void
-attributes_set_background(Color *color)
+attributes_set_background(GdkRGBA *color)
 {
   attributes_background = *color;
   persistence_set_color("bg_color", color);
@@ -84,7 +84,7 @@ attributes_set_background(Color *color)
 void
 attributes_swap_fgbg(void)
 {
-  Color temp;
+  GdkRGBA temp;
   temp = attributes_foreground;
   attributes_set_foreground(&attributes_background);
   attributes_set_background(&temp);

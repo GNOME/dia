@@ -55,7 +55,7 @@
 
 #define BUFLEN 512
 
-static Color fig_colors[FIG_MAX_USER_COLORS];
+static GdkRGBA fig_colors[FIG_MAX_USER_COLORS];
 
 /** Eats the rest of the line.
  */
@@ -95,7 +95,7 @@ skip_comments(FILE *file) {
     return FALSE;
 }
 
-static Color
+static GdkRGBA
 fig_color(int color_index, DiaContext *ctx)
 {
     if (color_index <= -1) 
@@ -112,10 +112,10 @@ fig_color(int color_index, DiaContext *ctx)
     }
 }
 
-static Color
+static GdkRGBA
 fig_area_fill_color(int area_fill, int color_index, DiaContext *ctx)
 {
-    Color col;
+    GdkRGBA col;
     col = fig_color(color_index, ctx);
     if (area_fill == -1) return col;
     if (area_fill >= 0 && area_fill <= 20) {
@@ -1056,7 +1056,7 @@ fig_read_object(FILE *file, DiaContext *ctx)
     case 0: { /* Color pseudo-object. */
 	int colornumber;
 	int colorvalues;
-	Color color;
+	GdkRGBA color;
 
 	if (fscanf(file, " %d #%xd", &colornumber, &colorvalues) != 2) {
 	    dia_context_add_message_with_errno(ctx, errno, _("Couldn't read color\n"));

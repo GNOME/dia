@@ -2,7 +2,6 @@
 #define DIA_PS_RENDERER_H
 
 #include <stdio.h>
-#include "color.h"
 
 #include "diarenderer.h"
 
@@ -38,7 +37,7 @@ struct _DiaPsRenderer
   guint pstype;
   guint pagenum;
 
-  Color lcolor;
+  GdkRGBA lcolor;
 
   gchar *title;
   gchar *paper;
@@ -59,7 +58,7 @@ struct _DiaPsRendererClass
   void (*end_prolog) (DiaPsRenderer *renderer);
 };
 
-void lazy_setcolor(DiaPsRenderer *renderer, Color *color);
+void lazy_setcolor(DiaPsRenderer *renderer, GdkRGBA *color);
 
 G_END_DECLS
 

@@ -104,7 +104,7 @@ data_pattern (DataNode node, DiaContext *ctx)
       guint nvals = attribute_num_data(attr);
       guint i;
       real offset = 0.0;
-      Color color = color_black;
+      GdkRGBA color = color_black;
 
       for (i=0; (i < nvals) && data; i++, data = data_next(data)) {
 	attr = composite_find_attribute(data, "offset");
@@ -133,7 +133,7 @@ typedef struct
 } StopUserData;
 
 static gboolean
-_data_add_stop (real ofs, const Color *col, gpointer user_data)
+_data_add_stop (real ofs, const GdkRGBA *col, gpointer user_data)
 {
   StopUserData *ud = (StopUserData *)user_data;
   AttributeNode attr = ud->node;

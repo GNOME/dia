@@ -64,9 +64,9 @@ struct _Table {
   DiaFont * comment_font;
 
   /* colors */
-  Color line_color;
-  Color fill_color;
-  Color text_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
+  GdkRGBA text_color;
 
   real border_width;
 
@@ -129,8 +129,8 @@ struct _TableReference {
   real line_width;
   real dashlength;
   LineStyle line_style;
-  Color line_color;
-  Color text_color;
+  GdkRGBA line_color;
+  GdkRGBA text_color;
 
   gchar * start_point_desc;
   gchar * end_point_desc;

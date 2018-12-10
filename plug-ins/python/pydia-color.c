@@ -27,7 +27,7 @@
 /*
  * New
  */
-PyObject* PyDiaColor_New (Color* color)
+PyObject* PyDiaColor_New (GdkRGBA* color)
 {
   PyDiaColor *self;
   
@@ -55,7 +55,7 @@ static int
 PyDiaColor_Compare(PyDiaColor *self,
                   PyDiaColor *other)
 {
-  return memcmp(&(self->color), &(other->color), sizeof(Color));
+  return memcmp(&(self->color), &(other->color), sizeof(GdkRGBA));
 }
 
 /*

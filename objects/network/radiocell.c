@@ -45,12 +45,12 @@ struct _RadioCell {
   PolyShape poly;		/* always 1st! */
   real radius;			/* pseudo-radius */
   Point center;			/* point in the center */
-  Color line_colour;
+  GdkRGBA line_colour;
   LineStyle line_style;
   real dashlength;
   real line_width;
   gboolean show_background;
-  Color fill_colour;
+  GdkRGBA fill_colour;
   Text *text;
 };
 

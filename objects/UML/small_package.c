@@ -50,8 +50,8 @@ struct _SmallPackage {
   char *st_stereotype;
 
   real line_width;
-  Color line_color;
-  Color fill_color;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
 };
 
 /* The old border width, kept for compatibility with dia files created with

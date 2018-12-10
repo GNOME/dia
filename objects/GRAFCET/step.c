@@ -72,7 +72,7 @@ typedef struct _Step {
 
   DiaFont *font;
   real font_size;
-  Color font_color;
+  GdkRGBA font_color;
 
   Handle north,south;
   Point SD1,SD2,NU1,NU2;
@@ -242,7 +242,7 @@ static void step_been_renamed(const gchar *sid)
   if (*endptr == '\0') __stepnum = snum + 1; 
 }
 
-static Color color_red = { 1.0f, 0.0f, 0.0f, 1.0f };
+static GdkRGBA color_red = { 1.0f, 0.0f, 0.0f, 1.0f };
 
 static real
 step_distance_from(Step *step, Point *point)

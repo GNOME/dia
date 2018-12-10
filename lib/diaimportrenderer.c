@@ -41,38 +41,38 @@ static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
 
 static void draw_line (DiaRenderer *renderer,
 		       Point *start, Point *end,
-		       Color *color);
+		       GdkRGBA *color);
 static void draw_rect (DiaRenderer *renderer,
 		       Point *ul_corner, Point *lr_corner,
-		       Color *fill, Color *stroke);
+		       GdkRGBA *fill, GdkRGBA *stroke);
 static void draw_arc (DiaRenderer *renderer,
 		      Point *center,
 		      real width, real height,
 		      real angle1, real angle2,
-		      Color *color);
+		      GdkRGBA *color);
 static void fill_arc (DiaRenderer *renderer,
 		      Point *center,
 		      real width, real height,
 		      real angle1, real angle2,
-		      Color *color);
+		      GdkRGBA *color);
 static void draw_ellipse (DiaRenderer *renderer,
 			  Point *center,
 			  real width, real height,
-			  Color *fill, Color *stroke);
+			  GdkRGBA *fill, GdkRGBA *stroke);
 static void draw_bezier (DiaRenderer *renderer,
 			 BezPoint *points,
 			 int numpoints,
-			 Color *color);
+			 GdkRGBA *color);
 static void draw_beziergon (DiaRenderer *renderer,
 			    BezPoint *points,
 			    int numpoints,
-			    Color *fill,
-			    Color *stroke);
+			    GdkRGBA *fill,
+			    GdkRGBA *stroke);
 static void draw_string (DiaRenderer *renderer,
 			 const gchar *text,
 			 Point *pos,
 			 Alignment alignment,
-			 Color *color);
+			 GdkRGBA *color);
 static void draw_image (DiaRenderer *renderer,
 			Point *point,
 			real width, real height,
@@ -80,22 +80,22 @@ static void draw_image (DiaRenderer *renderer,
 
 static void draw_polyline (DiaRenderer *renderer,
                            Point *points, int num_points,
-                           Color *color);
+                           GdkRGBA *color);
 static void draw_rounded_polyline (DiaRenderer *renderer,
 				   Point *points, int num_points,
-				   Color *color, real radius);
+				   GdkRGBA *color, real radius);
 static void draw_polygon (DiaRenderer *renderer,
 			  Point *points, int num_points,
-			  Color *fill, Color *stroke);
+			  GdkRGBA *fill, GdkRGBA *stroke);
 
 static void draw_rounded_rect (DiaRenderer *renderer,
 			       Point *ul_corner, Point *lr_corner,
-			       Color *fill, Color *stroke, real radius);
+			       GdkRGBA *fill, GdkRGBA *stroke, real radius);
 
 static void draw_line_with_arrows  (DiaRenderer *renderer, 
 				    Point *start, Point *end, 
 				    real line_width,
-				    Color *line_color,
+				    GdkRGBA *line_color,
 				    Arrow *start_arrow,
 				    Arrow *end_arrow);
 static void draw_arc_with_arrows  (DiaRenderer *renderer, 
@@ -103,19 +103,19 @@ static void draw_arc_with_arrows  (DiaRenderer *renderer,
 				   Point *end,
 				   Point *midpoint,
 				   real line_width,
-				   Color *color,
+				   GdkRGBA *color,
 				   Arrow *start_arrow,
 				   Arrow *end_arrow);
 static void draw_polyline_with_arrows (DiaRenderer *renderer, 
 				       Point *points, int num_points,
 				       real line_width,
-				       Color *color,
+				       GdkRGBA *color,
 				       Arrow *start_arrow,
 				       Arrow *end_arrow);
 static void draw_rounded_polyline_with_arrows (DiaRenderer *renderer, 
 					       Point *points, int num_points,
 					       real line_width,
-					       Color *color,
+					       GdkRGBA *color,
 					       Arrow *start_arrow,
 					       Arrow *end_arrow,
 					       real radius);
@@ -124,7 +124,7 @@ static void draw_bezier_with_arrows (DiaRenderer *renderer,
 				     BezPoint *points,
 				     int num_points,
 				     real line_width,
-				     Color *color,
+				     GdkRGBA *color,
 				     Arrow *start_arrow,
 				     Arrow *end_arrow);
 
@@ -268,8 +268,8 @@ set_fillstyle (DiaRenderer *renderer, FillStyle mode)
 static void
 _apply_style (DiaImportRenderer *self,
 	      DiaObject *obj,
-	      const Color *fill,
-	      const Color *stroke,
+	      const GdkRGBA *fill,
+	      const GdkRGBA *stroke,
 	      real radius)
 {
   GPtrArray *props = g_ptr_array_new ();
@@ -310,7 +310,7 @@ _push_object (DiaImportRenderer *self, DiaObject *obj)
  * \memberof _DiaImportRenderer
  */
 static void 
-draw_line (DiaRenderer *renderer, Point *start, Point *end, Color *color)
+draw_line (DiaRenderer *renderer, Point *start, Point *end, GdkRGBA *color)
 {
   Point points[2];
   points[0] = *start;
@@ -361,7 +361,7 @@ _make_arc (Point *center,
 static void 
 draw_arc (DiaRenderer *renderer, Point *center, 
           real width, real height, real angle1, real angle2,
-          Color *color)
+          GdkRGBA *color)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = _make_arc (center, width, height, angle1, angle2);
@@ -377,7 +377,7 @@ draw_arc (DiaRenderer *renderer, Point *center,
 static void 
 draw_rect (DiaRenderer *renderer,
            Point *ul_corner, Point *lr_corner,
-           Color *fill, Color *stroke)
+           GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_box (ul_corner->x, ul_corner->y,
@@ -396,7 +396,7 @@ draw_rect (DiaRenderer *renderer,
 static void
 fill_arc (DiaRenderer *renderer, Point *center,
           real width, real height, real angle1, real angle2,
-          Color *color)
+          GdkRGBA *color)
 {
 #if 0 /* does not work till 'Standard - Arc' supports filling */
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
@@ -422,7 +422,7 @@ fill_arc (DiaRenderer *renderer, Point *center,
 static void 
 draw_ellipse (DiaRenderer *renderer, Point *center,
               real width, real height, 
-              Color *fill, Color *stroke)
+              GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_ellipse (center->x - width / 2, center->y - height / 2, width, height);
@@ -439,7 +439,7 @@ draw_ellipse (DiaRenderer *renderer, Point *center,
 static void 
 draw_string (DiaRenderer *renderer,
              const gchar *text, Point *pos, Alignment alignment,
-             Color *color)
+             GdkRGBA *color)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_text (pos->x, pos->y);
@@ -494,7 +494,7 @@ draw_image (DiaRenderer *renderer,
 static void 
 draw_bezier (DiaRenderer *renderer,
              BezPoint *points, int numpoints,
-             Color *color)
+             GdkRGBA *color)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_bezierline (numpoints, points, NULL, NULL);
@@ -511,8 +511,8 @@ draw_bezier (DiaRenderer *renderer,
 static void
 draw_beziergon (DiaRenderer *renderer,
                 BezPoint *points, int numpoints,
-                Color *fill,
-                Color *stroke)
+                GdkRGBA *fill,
+                GdkRGBA *stroke)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object;
@@ -531,7 +531,7 @@ draw_beziergon (DiaRenderer *renderer,
 static void 
 draw_polyline (DiaRenderer *renderer,
 	       Point *points, int num_points,
-	       Color *color)
+	       GdkRGBA *color)
 {
   draw_rounded_polyline (renderer, points, num_points, color, 0.0);
 }
@@ -544,7 +544,7 @@ draw_polyline (DiaRenderer *renderer,
 static void
 draw_rounded_polyline (DiaRenderer *renderer,
                         Point *points, int num_points,
-                        Color *color, real radius)
+                        GdkRGBA *color, real radius)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_polyline (num_points, points, NULL, NULL);
@@ -560,7 +560,7 @@ draw_rounded_polyline (DiaRenderer *renderer,
 static void
 draw_polygon (DiaRenderer *renderer,
               Point *points, int num_points,
-              Color *fill, Color *stroke)
+              GdkRGBA *fill, GdkRGBA *stroke)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_polygon (num_points, points);
@@ -576,7 +576,7 @@ draw_polygon (DiaRenderer *renderer,
 static void
 draw_rounded_rect (DiaRenderer *renderer, 
                    Point *ul_corner, Point *lr_corner,
-                   Color *fill, Color *stroke, real radius) 
+                   GdkRGBA *fill, GdkRGBA *stroke, real radius) 
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_box (ul_corner->x, ul_corner->y,
@@ -596,7 +596,7 @@ draw_line_with_arrows(DiaRenderer *renderer,
                       Point *startpoint, 
                       Point *endpoint,
                       real line_width,
-                      Color *color,
+                      GdkRGBA *color,
                       Arrow *start_arrow,
                       Arrow *end_arrow)
 {
@@ -619,7 +619,7 @@ static void
 draw_polyline_with_arrows(DiaRenderer *renderer, 
                           Point *points, int num_points,
                           real line_width,
-                          Color *color,
+                          GdkRGBA *color,
                           Arrow *start_arrow,
                           Arrow *end_arrow)
 {
@@ -638,7 +638,7 @@ static void
 draw_rounded_polyline_with_arrows(DiaRenderer *renderer, 
 				  Point *points, int num_points,
 				  real line_width,
-				  Color *color,
+				  GdkRGBA *color,
 				  Arrow *start_arrow,
 				  Arrow *end_arrow,
 				  real radius)
@@ -661,7 +661,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
                       Point *endpoint,
                       Point *midpoint,
                       real line_width,
-                      Color *color,
+                      GdkRGBA *color,
                       Arrow *start_arrow,
                       Arrow *end_arrow)
 {
@@ -688,7 +688,7 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
                         BezPoint *points,
                         int num_points,
                         real line_width,
-                        Color *color,
+                        GdkRGBA *color,
                         Arrow *start_arrow,
                         Arrow *end_arrow)
 {

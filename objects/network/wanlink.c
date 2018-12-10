@@ -44,8 +44,8 @@
 typedef struct _WanLink {
     Connection connection;
 
-    Color line_color;
-    Color fill_color;
+    GdkRGBA line_color;
+    GdkRGBA fill_color;
     
     real width;
     Point poly[WANLINK_POLY_LEN];

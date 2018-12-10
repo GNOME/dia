@@ -341,7 +341,7 @@ orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   int n = orthflow->orth.numpoints ;
-  Color* render_color = &orthflow_color_signal;
+  GdkRGBA* render_color = &orthflow_color_signal;
   Point *points;
   real linewidth;
   Arrow arrow;
@@ -424,7 +424,7 @@ orthflow_create(Point *startpoint,
     orthflow->text = text_copy( orthflow_default_label ) ;
     text_set_position( orthflow->text, &p ) ;
   } else {
-    Color* color = &orthflow_color_signal;
+    GdkRGBA* color = &orthflow_color_signal;
 
     switch (orthflow->type) {
     case ORTHFLOW_ENERGY:
@@ -502,7 +502,7 @@ orthflow_update_data(Orthflow *orthflow)
   OrthConn *orth = &orthflow->orth ;
   DiaObject *obj = &orth->object;
   Rectangle rect;
-  Color* color = &orthflow_color_signal;
+  GdkRGBA* color = &orthflow_color_signal;
   
   switch (orthflow->type) {
   case ORTHFLOW_ENERGY:

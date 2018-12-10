@@ -59,8 +59,8 @@ struct _Diamond {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
   real border_width;
-  Color border_color;
-  Color inner_color;
+  GdkRGBA border_color;
+  GdkRGBA inner_color;
   gboolean show_background;
   LineStyle line_style;
   real dashlength;
@@ -563,11 +563,11 @@ diamond_save(Diamond *diamond, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, "border_width"),
 		  diamond->border_width, ctx);
   
-  if (!color_equals(&diamond->border_color, &color_black))
+  if (!gdk_rgba_equal(&diamond->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
 		   &diamond->border_color, ctx);
   
-  if (!color_equals(&diamond->inner_color, &color_white))
+  if (!gdk_rgba_equal(&diamond->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &diamond->inner_color, ctx);
   

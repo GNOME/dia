@@ -74,40 +74,40 @@ static void set_fillstyle(DiaRenderer *self, FillStyle mode);
 static void set_font(DiaRenderer *self, DiaFont *font, real height);
 static void draw_line(DiaRenderer *self, 
 		      Point *start, Point *end, 
-		      Color *line_color);
+		      GdkRGBA *line_color);
 static void draw_polyline(DiaRenderer *self, 
 			  Point *points, int num_points, 
-			  Color *line_color);
+			  GdkRGBA *line_color);
 static void draw_polygon(DiaRenderer *self, 
 			 Point *points, int num_points, 
-			 Color *fill, Color *stroke);
+			 GdkRGBA *fill, GdkRGBA *stroke);
 static void draw_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
-		     Color *color);
+		     GdkRGBA *color);
 static void fill_arc(DiaRenderer *self, 
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
-		     Color *color);
+		     GdkRGBA *color);
 static void draw_ellipse(DiaRenderer *self, 
 			 Point *center,
 			 real width, real height,
-			 Color *fill, Color *stroke);
+			 GdkRGBA *fill, GdkRGBA *stroke);
 static void draw_bezier(DiaRenderer *self, 
 			BezPoint *points,
 			int numpoints,
-			Color *color);
+			GdkRGBA *color);
 static void draw_beziergon(DiaRenderer *self, 
 			   BezPoint *points,
 			   int numpoints,
-			   Color *fill,
-			   Color *stroke);
+			   GdkRGBA *fill,
+			   GdkRGBA *stroke);
 static void draw_string(DiaRenderer *self,
 			const char *text,
 			Point *pos, Alignment alignment,
-			Color *color);
+			GdkRGBA *color);
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
@@ -216,7 +216,7 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
 
 
 static void 
-set_line_color(PstricksRenderer *renderer,Color *color)
+set_line_color(PstricksRenderer *renderer,GdkRGBA *color)
 {
     gchar red_buf[DTOSTR_BUF_SIZE];
     gchar green_buf[DTOSTR_BUF_SIZE];
@@ -230,7 +230,7 @@ set_line_color(PstricksRenderer *renderer,Color *color)
 }
 
 static void 
-set_fill_color(PstricksRenderer *renderer,Color *color)
+set_fill_color(PstricksRenderer *renderer,GdkRGBA *color)
 {
     gchar red_buf[DTOSTR_BUF_SIZE];
     gchar green_buf[DTOSTR_BUF_SIZE];
@@ -390,7 +390,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
-	  Color *line_color)
+	  GdkRGBA *line_color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     gchar sx_buf[DTOSTR_BUF_SIZE];
@@ -410,7 +410,7 @@ draw_line(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_color)
+	      GdkRGBA *line_color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int i;
@@ -434,7 +434,7 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon (DiaRenderer *self, 
 	      Point *points, int num_points,
-	      Color *fill, Color *stroke)
+	      GdkRGBA *fill, GdkRGBA *stroke)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     gint i;
@@ -477,7 +477,7 @@ pstricks_arc(PstricksRenderer *renderer,
 	     Point *center,
 	     real width, real height,
 	     real angle1, real angle2,
-	     Color *color,int filled)
+	     GdkRGBA *color,int filled)
 {
     double radius1,radius2;
     gchar cx_buf[DTOSTR_BUF_SIZE];
@@ -525,7 +525,7 @@ draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *color)
+	 GdkRGBA *color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
@@ -537,7 +537,7 @@ fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *color)
+	 GdkRGBA *color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
@@ -548,7 +548,7 @@ static void
 pstricks_ellipse(PstricksRenderer *renderer,
 		 Point *center,
 		 real width, real height,
-		 Color *color, gboolean filled)
+		 GdkRGBA *color, gboolean filled)
 {
     gchar cx_buf[DTOSTR_BUF_SIZE];
     gchar cy_buf[DTOSTR_BUF_SIZE];
@@ -569,7 +569,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
@@ -583,8 +583,8 @@ static void
 pstricks_bezier(PstricksRenderer *renderer,
 		BezPoint *points,
 		gint numpoints,
-		Color *fill,
-		Color *stroke,
+		GdkRGBA *fill,
+		GdkRGBA *stroke,
 		gboolean closed)
 {
     gint i;
@@ -647,7 +647,7 @@ static void
 draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
 	    int numpoints, /* numpoints = 4+3*n, n=>0 */
-	    Color *color)
+	    GdkRGBA *color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
@@ -659,8 +659,8 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points,
 		int numpoints,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
 
@@ -718,7 +718,7 @@ static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *color)
+	    GdkRGBA *color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     gchar *escaped = NULL;
@@ -862,7 +862,7 @@ export_pstricks(DiagramData *data, DiaContext *ctx,
     gchar scale1_buf[DTOSTR_BUF_SIZE];
     gchar scale2_buf[DTOSTR_BUF_SIZE];
 
-    Color initial_color;
+    GdkRGBA initial_color;
  
     file = g_fopen(filename, "wb");
 

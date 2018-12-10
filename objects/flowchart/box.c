@@ -58,8 +58,8 @@ struct _Box {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
   real border_width;
-  Color border_color;
-  Color inner_color;
+  GdkRGBA border_color;
+  GdkRGBA inner_color;
   gboolean show_background;
   LineStyle line_style;
   real dashlength;
@@ -592,11 +592,11 @@ box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, "border_width"),
 		  box->border_width, ctx);
   
-  if (!color_equals(&box->border_color, &color_black))
+  if (!gdk_rgba_equal(&box->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
 		   &box->border_color, ctx);
    
-  if (!color_equals(&box->inner_color, &color_white))
+  if (!gdk_rgba_equal(&box->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &box->inner_color, ctx);
   

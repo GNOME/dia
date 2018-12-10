@@ -62,7 +62,7 @@ struct _Textobj {
   /*! vertical alignment of the whole text block */
   Valign vert_align;
   /*! bounding box filling */
-  Color fill_color;
+  GdkRGBA fill_color;
   /*! background to be filled or transparent */
   gboolean show_background;
   /*! margin used for background drawing and connection point placement */
@@ -409,7 +409,7 @@ textobj_create(Point *startpoint,
 {
   Textobj *textobj;
   DiaObject *obj;
-  Color col;
+  GdkRGBA col;
   DiaFont *font = NULL;
   real font_height;
   
@@ -566,7 +566,7 @@ _textobj_convert_to_path_callback (DiaObject *obj, Point *clicked, gpointer data
 
   if (path) {
     ObjectChange *change;
-    Color bg = textobj->fill_color;
+    GdkRGBA bg = textobj->fill_color;
 
     /* FIXME: otherwise object_substitue() will tint the text with bg */
     textobj->fill_color = text->color;

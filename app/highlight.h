@@ -22,7 +22,6 @@
 
 #include "diatypes.h"
 #include "diagram.h"
-#include "color.h"
 
 /* Each object holds the color it is highlighted with.
  */

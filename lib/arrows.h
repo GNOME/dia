@@ -20,7 +20,6 @@
 
 #include "diatypes.h"
 #include "geometry.h"
-#include "color.h"
 #include "dia_xml.h"
 #include "diacontext.h"
 
@@ -103,7 +102,7 @@ struct _Arrow {
 void arrow_draw(DiaRenderer *renderer, ArrowType type,
 		Point *to, Point *from,
 		real length, real width, real linewidth,
-		Color *fg_color, Color *bg_color);
+		GdkRGBA *fg_color, GdkRGBA *bg_color);
 
 /** following the signature pattern of lib/boundingbox.h 
  * the arrow bounding box is returned in rect

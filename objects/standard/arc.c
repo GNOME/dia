@@ -56,7 +56,7 @@ struct _Arc {
   Handle middle_handle; /*!< _Handle on the middle of the cicumference portion */
   Handle center_handle; /*!< Handle on he center of the full circle */
 
-  Color arc_color; /*!< Color of the Arc */
+  GdkRGBA arc_color; /*!< Color of the Arc */
   real curve_distance; /*!< distance between middle_handle and chord */
   real line_width; /*!< line width for the Arc */
   LineStyle line_style; /*!< line style for the Arc */
@@ -653,7 +653,7 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   if (renderer->is_interactive &&
       dia_object_is_selected(&arc->connection.object)) {
     /* draw the central angle */
-    Color line_color = { 0.0, 0.0, 0.6, 1.0 };
+    GdkRGBA line_color = { 0.0, 0.0, 0.6, 1.0 };
 
     renderer_ops->set_linewidth(renderer, 0);
     renderer_ops->set_linestyle(renderer, LINESTYLE_DOTTED, 1);
@@ -942,7 +942,7 @@ arc_save(Arc *arc, ObjectNode obj_node, DiaContext *ctx)
 {
   connection_save(&arc->connection, obj_node, ctx);
 
-  if (!color_equals(&arc->arc_color, &color_black))
+  if (!gdk_rgba_equal(&arc->arc_color, &color_black))
     data_add_color(new_attribute(obj_node, "arc_color"),
 		   &arc->arc_color, ctx);
 

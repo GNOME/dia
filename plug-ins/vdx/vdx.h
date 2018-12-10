@@ -77,11 +77,11 @@ static const ArrowType vdx_Arrows[] = { ARROW_NONE,
 #define VDX_NAMEU_LEN 30
 #define DEG_TO_RAD M_PI/180.0                  /* Degrees to radians */
 
-Color
+GdkRGBA
 vdx_parse_color(const char *s, const VDXDocument *theDoc, DiaContext *ctx);
 
 const char *
-vdx_string_color(const Color c);
+vdx_string_color(const GdkRGBA c);
 
 void *
 vdx_read_object(xmlNodePtr cur, VDXDocument *theDoc, void *p, DiaContext *ctx);

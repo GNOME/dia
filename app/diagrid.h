@@ -19,7 +19,7 @@ struct _DiaGrid  {
   gboolean dynamic;
   /* The color of the grid lines.
    */
-  Color colour;
+  GdkRGBA colour;
   /** True if this grid is a hex grid. */
   gboolean hex;
   /** Size of each edge on a hex grid. */

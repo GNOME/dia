@@ -226,7 +226,7 @@ persistence_load_color(gchar *role, xmlNodePtr node, DiaContext *ctx)
   /* Find the contents? */
   attr = composite_find_attribute(node, "colorvalue");
   if (attr != NULL) {
-    Color *colorval = g_new(Color, 1);
+    GdkRGBA *colorval = g_new(GdkRGBA, 1);
     data_color(attribute_first_data(attr), colorval, ctx);
     g_hash_table_insert(persistent_colors, role, colorval);
   }
@@ -460,7 +460,7 @@ persistence_save_color(gpointer key, gpointer value, gpointer data)
   colornode = (ObjectNode)xmlNewChild(tree, NULL, (const xmlChar *)"color", NULL);
 
   xmlSetProp(colornode, (const xmlChar *)"role", (xmlChar *)key);
-  data_add_color(new_attribute(colornode, "colorvalue"), (Color *)value, ctx);
+  data_add_color(new_attribute(colornode, "colorvalue"), (GdkRGBA *)value, ctx);
 }
 
 static void
@@ -1212,46 +1212,46 @@ persistence_set_string(gchar *role, const gchar *newvalue)
  *
  * Remember that colors returned are private, not to be deallocated.
  * They will be smashed in some undefined way by persistence_set_color */
-Color *
-persistence_register_color(gchar *role, Color *defaultvalue)
+GdkRGBA *
+persistence_register_color(gchar *role, GdkRGBA *defaultvalue)
 {
-  Color *colorval;
+  GdkRGBA *colorval;
   if (role == NULL) return 0;
   if (persistent_colors == NULL) {
     persistent_colors = _dia_hash_table_str_any_new();
   }    
-  colorval = (Color *)g_hash_table_lookup(persistent_colors, role);
+  colorval = (GdkRGBA *)g_hash_table_lookup(persistent_colors, role);
   if (colorval == NULL) {
-    colorval = g_new(Color, 1);
+    colorval = g_new(GdkRGBA, 1);
     *colorval = *defaultvalue;
     g_hash_table_insert(persistent_colors, role, colorval);
   }
   return colorval;
 }
 
-Color *
+GdkRGBA *
 persistence_get_color(gchar *role)
 {
-  Color *colorval;
+  GdkRGBA *colorval;
   if (persistent_colors == NULL) {
     g_warning("No persistent colors to get for %s!", role);
     return 0;
   }
-  colorval = (Color *)g_hash_table_lookup(persistent_colors, role);
+  colorval = (GdkRGBA *)g_hash_table_lookup(persistent_colors, role);
   if (colorval != NULL) return colorval;
   g_warning("No color to get for %s", role);
   return 0;
 }
 
 void
-persistence_set_color(gchar *role, Color *newvalue)
+persistence_set_color(gchar *role, GdkRGBA *newvalue)
 {
-  Color *colorval;
+  GdkRGBA *colorval;
   if (persistent_colors == NULL) {
     g_warning("No persistent colors yet for %s!", role);
     return;
   }
-  colorval = (Color *)g_hash_table_lookup(persistent_colors, role);
+  colorval = (GdkRGBA *)g_hash_table_lookup(persistent_colors, role);
   if (colorval != NULL) 
     *colorval = *newvalue;
   else 

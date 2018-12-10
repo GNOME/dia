@@ -653,7 +653,7 @@ hex_digit(char c, DiaContext *ctx)
  * \ingroup DiagramXmlIn
  */
 void
-data_color(DataNode data, Color *col, DiaContext *ctx)
+data_color(DataNode data, GdkRGBA *col, DiaContext *ctx)
 {
   xmlChar *val;
   int r=0, g=0, b=0, a=0;
@@ -1162,7 +1162,7 @@ convert_to_hex(float x, char *str)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_color(AttributeNode attr, const Color *col, DiaContext *ctx)
+data_add_color(AttributeNode attr, const GdkRGBA *col, DiaContext *ctx)
 {
   char buffer[1+8+1];
   DataNode data_node;

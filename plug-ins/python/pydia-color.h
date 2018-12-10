@@ -2,15 +2,14 @@
 #define PYDIA_COLOR_H
 
 #include <Python.h>
-#include "color.h"
 
 typedef struct {
     PyObject_HEAD
-    Color color;
+    GdkRGBA color;
 } PyDiaColor;
 
 extern PyTypeObject PyDiaColor_Type;
 
-PyObject* PyDiaColor_New (Color* color);
+PyObject* PyDiaColor_New (GdkRGBA* color);
 
 #endif

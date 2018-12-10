@@ -49,10 +49,10 @@
 typedef struct _Beziergon {
   BezierShape bezier;
 
-  Color line_color;
+  GdkRGBA line_color;
   LineStyle line_style;
   LineJoin line_join;
-  Color inner_color;
+  GdkRGBA inner_color;
   gboolean show_background;
   real dashlength;
   real line_width;
@@ -231,7 +231,7 @@ beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
 
   if (beziergon->show_background) {
-    Color fill = beziergon->inner_color;
+    GdkRGBA fill = beziergon->inner_color;
     if (beziergon->pattern) {
       dia_pattern_get_fallback_color (beziergon->pattern, &fill);
       if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
@@ -381,7 +381,7 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
 {
   beziershape_save(&beziergon->bezier, obj_node, ctx);
 
-  if (!color_equals(&beziergon->line_color, &color_black))
+  if (!gdk_rgba_equal(&beziergon->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
 		   &beziergon->line_color, ctx);
   
@@ -389,7 +389,7 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  beziergon->line_width, ctx);
   
-  if (!color_equals(&beziergon->inner_color, &color_white))
+  if (!gdk_rgba_equal(&beziergon->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &beziergon->inner_color, ctx);
   

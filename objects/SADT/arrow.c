@@ -32,7 +32,6 @@
 #include "connectionpoint.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "color.h"
 #include "properties.h"
 
 #include "sadt.h"
@@ -65,7 +64,7 @@ typedef struct _Sadtarrow {
   Sadtarrow_style style;
   gboolean autogray;
   
-  Color line_color;
+  GdkRGBA line_color;
 } Sadtarrow;
 
 static ObjectChange* sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
@@ -229,9 +228,9 @@ sadtarrow_move(Sadtarrow *sadtarrow, Point *to)
 }
 
 static void draw_dot(DiaRenderer *renderer,
-		     Point *end, Point *vect, Color *col);
+		     Point *end, Point *vect, GdkRGBA *col);
 static void draw_tunnel(DiaRenderer *renderer,
-			     Point *end, Point *vect, Color *col);
+			     Point *end, Point *vect, GdkRGBA *col);
 
 #define GBASE .45
 #define GMULT .55
@@ -243,7 +242,7 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
   OrthConn *orth = &sadtarrow->orth;
   Point *points;
   int n;
-  Color col;
+  GdkRGBA col;
   Arrow arrow;
 
   points = &orth->points[0];
@@ -291,7 +290,7 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
 }
 
 static void draw_dot(DiaRenderer *renderer,
-		     Point *end, Point *vect, Color *col)
+		     Point *end, Point *vect, GdkRGBA *col)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point vv,vp,vt,pt;
@@ -320,7 +319,7 @@ static void draw_dot(DiaRenderer *renderer,
 }
 
 static void draw_tunnel(DiaRenderer *renderer,
-			     Point *end, Point *vect, Color *col)
+			     Point *end, Point *vect, GdkRGBA *col)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point vv,vp,vt1,vt2;

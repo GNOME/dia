@@ -70,8 +70,8 @@ gchar *persistence_register_string(gchar *role, gchar *defaultvalue);
 gchar *persistence_get_string(gchar *role);
 void persistence_set_string(gchar *role, const gchar *newvalue);
 
-Color *persistence_register_color(gchar *role, Color *defaultvalue);
-Color *persistence_get_color(gchar *role);
-void persistence_set_color(gchar *role, Color *newvalue);
+GdkRGBA *persistence_register_color(gchar *role, GdkRGBA *defaultvalue);
+GdkRGBA *persistence_get_color(gchar *role);
+void persistence_set_color(gchar *role, GdkRGBA *newvalue);
 
 #endif

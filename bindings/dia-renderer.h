@@ -73,29 +73,29 @@ public :
     virtual void set_font (Font* font, double height);
     //! Draw a line from start to end, using color and the current line style
     //! \ingroup RendererRequired
-    virtual void draw_line (Point *start, Point *end, Color *color);
+    virtual void draw_line (Point *start, Point *end, GdkRGBA *color);
     //! Fill and/or stroke a rectangle, given its upper-left and lower-right corners
     //! \ingroup RendererRequired
-    virtual void draw_rect (Point *ul_corner, Point *lr_corner, Color *fill, Color *stroke);
+    virtual void draw_rect (Point *ul_corner, Point *lr_corner, GdkRGBA *fill, GdkRGBA *stroke);
     //! the polygon is filled using the current fill type, no border is drawn
     //! \ingroup RendererRequired
-    virtual void draw_polygon (Point *points, int num_points, Color *fill, Color *stroke);
+    virtual void draw_polygon (Point *points, int num_points, GdkRGBA *fill, GdkRGBA *stroke);
     //! Draw an arc, given its center, the bounding box (widget, height), the start angle and the end angle
     //! \ingroup RendererRequired
     virtual void draw_arc (Point *center, double width, double height,
                            double angle1, double angle2,
-                           Color *color);
+                           GdkRGBA *color);
     //! Same a DrawArcFunc except the arc is filled (a pie-chart)
     //! \ingroup RendererRequired
     virtual void fill_arc (Point *center, double width, double height,
                            double angle1, double angle2,
-                           Color *color);
+                           GdkRGBA *color);
     //! Draw an ellipse, given its center and the bounding box
     //! \ingroup RendererRequired
-    virtual void draw_ellipse (Point *center, double width, double height, Color *fill, Color *stroke);
+    virtual void draw_ellipse (Point *center, double width, double height, GdkRGBA *fill, GdkRGBA *stroke);
     //! Print a string at pos, using the current font
     //! \ingroup RendererRequired
-    virtual void draw_string (const gchar *text, Point *pos, Alignment alignment, Color *color);
+    virtual void draw_string (const gchar *text, Point *pos, Alignment alignment, GdkRGBA *color);
     //! Draw an image, given its bounding box
     //! \ingroup RendererRequired
     virtual void draw_image (Point *point, double width, double height, Image* image);
@@ -106,13 +106,13 @@ public :
 
     //! draw a bezier line - possibly as approximation consisting of straight lines
     //! \ingroup RenderMedium
-    virtual void draw_bezier (BezPoint *points, int numpoints, Color *color);
+    virtual void draw_bezier (BezPoint *points, int numpoints, GdkRGBA *color);
     //! fill and/or stroke a bezier - possibly as approximation consisting of a polygon
     //! \ingroup RenderMedium
-    virtual void draw_beziergon (BezPoint *points, int numpoints, Color *fill, Color *stroke);
+    virtual void draw_beziergon (BezPoint *points, int numpoints, GdkRGBA *fill, GdkRGBA *stroke);
     //! drawing a polyline - or fallback to single line segments
     //! \ingroup RenderMedium
-    virtual void draw_polyline (Point *points, int num_points, Color *color);
+    virtual void draw_polyline (Point *points, int num_points, GdkRGBA *color);
     //! draw a Text.  It holds its own information like position, style, ...
     //! \ingroup RenderMedium
     virtual void draw_text (Text* text);
@@ -123,30 +123,30 @@ public :
 
     //! a polyline with round coners
     //! \ingroup RenderHigh
-    virtual void draw_rounded_polyline (Point *points, int num_points, Color *color, double radius);
+    virtual void draw_rounded_polyline (Point *points, int num_points, GdkRGBA *color, double radius);
     //! specialized draw_rect() with round corners
     //! \ingroup RenderHigh
     virtual void draw_rounded_rect (Point *ul_corner, Point *lr_corner,
-				    Color *fill, Color *stroke, real radius);
+				    GdkRGBA *fill, GdkRGBA *stroke, real radius);
     //! specialized draw_line() for renderers with an own concept of Arrow
     //! \ingroup RenderHigh
-    virtual void draw_line_with_arrows  (Point *start, Point *end, real line_width, Color *line_color, 
+    virtual void draw_line_with_arrows  (Point *start, Point *end, real line_width, GdkRGBA *line_color, 
 					 Arrow *start_arrow, Arrow *end_arrow);
     //! specialized draw_line() for renderers with an own concept of Arrow
     //! \ingroup RenderHigh
-    virtual void draw_arc_with_arrows  (Point *start, Point *end, Point *midpoint, real line_width, Color *color,
+    virtual void draw_arc_with_arrows  (Point *start, Point *end, Point *midpoint, real line_width, GdkRGBA *color,
 					Arrow *start_arrow, Arrow *end_arrow);
     //! specialized draw_polyline() for renderers with an own concept of Arrow
     //! \ingroup RenderHigh
-    virtual void draw_polyline_with_arrows (Point *points, int num_points, real line_width, Color *color,
+    virtual void draw_polyline_with_arrows (Point *points, int num_points, real line_width, GdkRGBA *color,
 					    Arrow *start_arrow, Arrow *end_arrow);
     //! specialized draw_rounded_polyline() for renderers with an own concept of Arrow
     //! \ingroup RenderHigh
-    virtual void draw_rounded_polyline_with_arrows (Point *points, int num_points, real line_width, Color *color,
+    virtual void draw_rounded_polyline_with_arrows (Point *points, int num_points, real line_width, GdkRGBA *color,
 						    Arrow *start_arrow, Arrow *end_arrow, real radius);
     //! specialized draw_bezier() for renderers with an own concept of Arrow
     //! \ingroup RenderHigh
-    virtual void draw_bezier_with_arrows (BezPoint *points, int num_points, real line_width, Color *color,
+    virtual void draw_bezier_with_arrows (BezPoint *points, int num_points, real line_width, GdkRGBA *color,
 					  Arrow *start_arrow, Arrow *end_arrow);
     
 private :
