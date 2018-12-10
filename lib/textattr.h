@@ -18,6 +18,8 @@
 #ifndef TEXTATTR_H
 #define TEXTATTR_H
 
+#include <gdk/gdk.h>
+
 #include "diatypes.h"
 #include "font.h"
 #include "geometry.h"

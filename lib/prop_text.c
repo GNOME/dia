@@ -115,7 +115,7 @@ multistringprop_handle_key(GtkWidget *wid, GdkEventKey *event)
   /** Actually, this doesn't seem to work -- I guess the dialog closes
    * becore this is called :(
    */
-  if (event->keyval == GDK_Return) 
+  if (event->keyval == GDK_KEY_Return) 
     return TRUE;
   return FALSE;
 }

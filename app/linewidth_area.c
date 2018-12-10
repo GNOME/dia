@@ -89,11 +89,11 @@ linewidth_area_draw (GtkWidget *linewidth_area)
   win_bg = &(style->bg[GTK_STATE_NORMAL]);
   win_fg = &(style->fg[GTK_STATE_NORMAL]);
 
-  gdk_cairo_set_source_color (ctx, win_bg);
+  gdk_cairo_set_source_rgba (ctx, win_bg);
   cairo_rectangle (ctx, 0, 0, width, height);
   cairo_fill (ctx);
 
-  gdk_cairo_set_source_color (ctx, win_fg);
+  gdk_cairo_set_source_rgba (ctx, win_fg);
   
   for (i=0;i<=NUMLINES;i++) {
     x_offs = X_OFFSET(i);

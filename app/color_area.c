@@ -128,11 +128,11 @@ color_area_draw (cairo_t *color_area_ctx)
   rect_w = width * 0.65;
   rect_h = height * 0.65;
 
-  gdk_cairo_set_source_color (color_area_ctx, win_bg);
+  gdk_cairo_set_source_rgba (color_area_ctx, win_bg);
   cairo_rectangle (color_area_ctx, 0, 0, width, height);
   cairo_fill (color_area_ctx);
 
-  gdk_cairo_set_source_color (color_area_ctx, &bg);
+  gdk_cairo_set_source_rgba (color_area_ctx, &bg);
 
   cairo_rectangle (color_area_ctx,
                    (width - rect_w), (height - rect_h), rect_w, rect_h);
@@ -151,7 +151,7 @@ color_area_draw (cairo_t *color_area_ctx)
 		      (width - rect_w), (height - rect_h),
                       rect_w, rect_h);
 
-  gdk_cairo_set_source_color (color_area_ctx, &fg);
+  gdk_cairo_set_source_rgba (color_area_ctx, &fg);
   cairo_rectangle (color_area_ctx, 0, 0, rect_w, rect_h);
   cairo_fill (color_area_ctx);
 

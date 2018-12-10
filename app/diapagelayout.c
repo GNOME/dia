@@ -625,17 +625,17 @@ darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
   cairo_fill (ctx);
 
   /* draw the page image */
-  gdk_cairo_set_source_color (ctx, &self->black);
+  gdk_cairo_set_source_rgba (ctx, &self->black);
   cairo_rectangle(ctx, self->x+3, self->y+3, self->width, self->height);
   cairo_fill (ctx);
-  gdk_cairo_set_source_color (ctx, &self->white);
+  gdk_cairo_set_source_rgba (ctx, &self->white);
   cairo_rectangle (ctx, self->x, self->y, self->width, self->height);
   cairo_fill (ctx);
-  gdk_cairo_set_source_color (ctx, &self->black);
+  gdk_cairo_set_source_rgba (ctx, &self->black);
   cairo_rectangle (ctx, self->x + 1, self->y, self->width, self->height);
   cairo_stroke (ctx);
 
-  gdk_cairo_set_source_color (ctx, &self->blue);
+  gdk_cairo_set_source_rgba (ctx, &self->blue);
 
   /* draw margins */
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self->orient_portrait))) {

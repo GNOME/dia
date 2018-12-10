@@ -54,7 +54,7 @@ calculate_double_arrow(Point *second_to, Point *second_from,
 static void 
 draw_crow_foot(DiaRenderer *renderer, Point *to, Point *from,
 	       real length, real width, real linewidth,
-	      GdkRGBA *fg_colorGdkRGBA *bg_color);
+	      GdkRGBA *fg_color, GdkRGBA *bg_color);
 static int
 calculate_diamond(Point *poly/*[4]*/, const Point *to, const Point *from,
 		  real length, real width);

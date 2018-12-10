@@ -85,9 +85,9 @@ dia_ruler_draw (GtkWidget *widget,
       dy = (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? height/3 : 0;
 
 #if GTK_CHECK_VERSION(2,18,0)
-      gdk_cairo_set_source_color (cr, &style->text[gtk_widget_get_state(widget)]);
+      gdk_cairo_set_source_rgba (cr, &style->text[gtk_widget_get_state(widget)]);
 #else
-      gdk_cairo_set_source_color (cr, &style->text[GTK_WIDGET_STATE(widget)]);
+      gdk_cairo_set_source_rgba (cr, &style->text[GTK_WIDGET_STATE(widget)]);
 #endif
       cairo_set_line_width (cr, 1);
 

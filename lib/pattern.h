@@ -20,10 +20,12 @@
  */
 #ifndef PATTERN_H
 #define PATTERN_H
- 
+
+#include "attributes.h" 
 #include "diatypes.h"
 #include "geometry.h"
 #include <glib.h>
+#include <gdk/gdk.h>
 
 G_BEGIN_DECLS
 
