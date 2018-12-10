@@ -54,8 +54,8 @@ static void dia_arrow_preview_set(DiaArrowPreview *arrow,
 
 static void dia_arrow_preview_class_init (DiaArrowPreviewClass  *klass);
 static void dia_arrow_preview_init       (DiaArrowPreview       *arrow);
-static gint dia_arrow_preview_expose     (GtkWidget      *widget,
-					  GdkEventExpose *event);
+static gint dia_arrow_preview_draw       (GtkWidget             *widget,
+                                          cairo_t               *ctx);
 
 /** Get the class information for the arrow preview widget.
  * @return A type object (statically allocated) for the arrow preview object.
@@ -93,7 +93,7 @@ dia_arrow_preview_class_init(DiaArrowPreviewClass *class)
   GtkWidgetClass *widget_class;
 
   widget_class = GTK_WIDGET_CLASS (class);
-  widget_class->expose_event = dia_arrow_preview_expose;
+  widget_class->draw = dia_arrow_preview_draw;
 }
 
 /** Initialize an arrow preview widget.
@@ -102,14 +102,7 @@ dia_arrow_preview_class_init(DiaArrowPreviewClass *class)
 static void
 dia_arrow_preview_init(DiaArrowPreview *arrow)
 {
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_has_window (GTK_WIDGET (arrow), FALSE);
-#else
-  GTK_WIDGET_SET_FLAGS (arrow, GTK_NO_WINDOW);
-#endif
-
-  GTK_WIDGET (arrow)->requisition.width = 40 + GTK_MISC (arrow)->xpad * 2;
-  GTK_WIDGET (arrow)->requisition.height = 20 + GTK_MISC (arrow)->ypad * 2;
 
   arrow->atype = ARROW_NONE;
   arrow->left = TRUE;
@@ -156,34 +149,24 @@ dia_arrow_preview_set(DiaArrowPreview *arrow, ArrowType atype, gboolean left)
  * @return TRUE always.
  * The expose handler gets called when the Arrow needs to be drawn.
  */
-static gint
-dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
+static gboolean
+dia_arrow_preview_draw (GtkWidget *widget, cairo_t *ctx)
 {
-#if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable(widget)) {
-#else
-  if (GTK_WIDGET_DRAWABLE(widget)) {
-#endif
     Point from, to;
     Point move_arrow, move_line, arrow_head;
     DiaCairoRenderer *renderer;
     DiaArrowPreview *arrow = DIA_ARROW_PREVIEW(widget);
     Arrow arrow_type;
-    GtkMisc *misc = GTK_MISC(widget);
     gint width, height;
-    gint x, y;
-    GdkWindow *win;
+    GtkAllocation alloc;
     int linewidth = 2;
     DiaRendererClass *renderer_ops;
-    cairo_surface_t *surface;
-    cairo_t *ctx;
 
-    width = widget->allocation.width - misc->xpad * 2;
-    height = widget->allocation.height - misc->ypad * 2;
-    x = (widget->allocation.x + misc->xpad);
-    y = (widget->allocation.y + misc->ypad);
+    gtk_widget_get_allocation (widget, &alloc);
 
-    win = gtk_widget_get_window (widget);
+    width = alloc.width;
+    height = alloc.height;
 
     to.y = from.y = height/2;
     if (arrow->left) {
@@ -209,11 +192,10 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     point_add(&arrow_head, &move_arrow);
     point_add(&to, &move_line);
 
-    surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
-
     renderer = g_object_new (dia_cairo_renderer_get_type (), NULL);
     renderer->with_alpha = TRUE;
-    renderer->surface = cairo_surface_reference (surface);
+    renderer->cr = ctx;
+    renderer->surface = NULL;
 
     renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
     renderer_ops->begin_render(DIA_RENDERER (renderer), NULL);
@@ -237,9 +219,6 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     renderer_ops->end_render(DIA_RENDERER (renderer));
     g_object_unref(renderer);
 
-    ctx = gdk_cairo_create (win);
-    cairo_set_source_surface (ctx, surface, x, y);
-    cairo_paint (ctx);
   }
 
   return TRUE;
@@ -368,7 +347,7 @@ dia_arrow_chooser_dialog_new(DiaArrowChooser *chooser)
 
   chooser->dialog = gtk_dialog_new_with_buttons(_("Arrow Properties"),
                                                 NULL,
-                                                GTK_DIALOG_NO_SEPARATOR,
+                                                GTK_DIALOG_DESTROY_WITH_PARENT,
                                                 GTK_STOCK_CANCEL,
                                                 GTK_RESPONSE_CANCEL,
                                                 GTK_STOCK_OK,

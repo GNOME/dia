@@ -72,7 +72,7 @@ AC_SUBST(GMODULE_CFLAGS)
 AC_SUBST(GMODULE_LIBS)
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
-GTK_MODULES="gtk+-2.0 >= 2.16.0 glib-2.0 >= 2.20.0 libxml-2.0 gdk-pixbuf-2.0 gthread-2.0 gmodule-2.0"
+GTK_MODULES="gtk+-3.0 >= 3.10.0 glib-2.0 >= 2.20.0 libxml-2.0 gdk-pixbuf-2.0 gthread-2.0 gmodule-2.0"
 
 AC_ARG_WITH(freetype,
   AC_HELP_STRING([--without-freetype],[compile without FreeType support]),,with_freetype=yes)

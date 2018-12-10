@@ -300,7 +300,7 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
 
   lchooser->dialog = gtk_dialog_new_with_buttons(_("Line Style Properties"),
                                                  NULL,
-                                                 GTK_DIALOG_NO_SEPARATOR,
+                                                 GTK_DIALOG_DESTROY_WITH_PARENT,
                                                  GTK_STOCK_CANCEL,
                                                  GTK_RESPONSE_CANCEL,
                                                  GTK_STOCK_OK,
