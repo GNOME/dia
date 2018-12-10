@@ -212,7 +212,7 @@
     <title>Export Formats</title>
 
     <para>The following export formats are supported by
-    <command>dia</command>. Most formats are implemnted by plug-ins so their
+    <command>dia</command>. Most formats are implemented by plug-ins so their
     availability depends on compile- and runtime-configuration.</para>
 
     <itemizedlist>

@@ -19,7 +19,7 @@
 import sys, string, dia
 
 ##
-# \brief The second SvgRenderer implemntation for Dia
+# \brief The second SvgRenderer implementation for Dia
 #
 # A full blown SVG(Z) renderer. As of the initial writing less bugs in the output
 # than the Dia SVG renderer written in C. Nowadays the _SvgRenderer is on par,

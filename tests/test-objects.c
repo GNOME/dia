@@ -1,4 +1,4 @@
-/* test-objects.c -- Unit test for Dia object implmentations
+/* test-objects.c -- Unit test for Dia object implementations
  * Copyright (C) 2008-2014 Hans Breuer
  *
  * This program is free software; you can redistribute it and/or modify
