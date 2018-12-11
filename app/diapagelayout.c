@@ -80,11 +80,11 @@ enum {
 };
 
 static guint pl_signals[LAST_SIGNAL] = { 0 };
-static GtkObjectClass *parent_class;
+static GObjectClass *parent_class;
 
 static void dia_page_layout_class_init(DiaPageLayoutClass *class);
 static void dia_page_layout_init(DiaPageLayout *self);
-static void dia_page_layout_destroy(GtkObject *object);
+static void dia_page_layout_destroy(GObject *object);
 
 GType
 dia_page_layout_get_type(void)
@@ -111,9 +111,9 @@ dia_page_layout_get_type(void)
 static void
 dia_page_layout_class_init(DiaPageLayoutClass *class)
 {
-  GtkObjectClass *object_class;
+  GObjectClass *object_class;
   
-  object_class = (GtkObjectClass*) class;
+  object_class = (GObjectClass*) class;
   parent_class = g_type_class_peek_parent (class);
 
   pl_signals[CHANGED] =
@@ -125,7 +125,7 @@ dia_page_layout_class_init(DiaPageLayoutClass *class)
 		 dia_marshal_VOID__VOID,
 		 G_TYPE_NONE, 0);
 #if 0 /* FIXME ?*/
-  gtk_object_class_add_signals(object_class, pl_signals, LAST_SIGNAL);
+  g_object_class_add_signals(object_class, pl_signals, LAST_SIGNAL);
 #endif
 
   object_class->destroy = dia_page_layout_destroy;
@@ -825,7 +825,7 @@ scale_changed(DiaPageLayout *self)
 }
 
 static void
-dia_page_layout_destroy(GtkObject *object)
+dia_page_layout_destroy(GObject *object)
 {
   if (parent_class->destroy)
     (* parent_class->destroy)(object);

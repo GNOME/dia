@@ -108,7 +108,7 @@ templates_list_selection_changed_callback(GtkWidget *gtklist,
 {
   GList *list;
   UMLClassDialog *prop_dialog;
-  GtkObject *list_item;
+  GObject *list_item;
   UMLFormalParameter *param;
 
   prop_dialog = umlclass->properties_dialog;
@@ -126,7 +126,7 @@ templates_list_selection_changed_callback(GtkWidget *gtklist,
     return;
   }
   
-  list_item = GTK_OBJECT(list->data);
+  list_item = G_OBJECT(list->data);
   param = (UMLFormalParameter *)g_object_get_data(G_OBJECT(list_item), "user_data");
   templates_set_values(prop_dialog, param);
   templates_set_sensitive(prop_dialog, TRUE);
