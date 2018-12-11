@@ -52,7 +52,7 @@ struct _DiaCairoInteractiveRenderer
   cairo_surface_t *pixmap;        /* The pixmap shown in this display  */
   guint32 width;                  /* The width of the pixmap in pixels */
   guint32 height;                 /* The height of the pixmap in pixels */
-  GdkRegion *clip_region;
+  cairo_region_t *clip_region;
 
   /** If non-NULL, this rendering is a highlighting with the given color. */
   GdkRGBA *highlight_color;
@@ -481,9 +481,9 @@ clip_region_clear(DiaRenderer *object)
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
 
   if (renderer->clip_region != NULL)
-    gdk_region_destroy(renderer->clip_region);
+    cairo_region_destroy (renderer->clip_region);
 
-  renderer->clip_region =  gdk_region_new();
+  renderer->clip_region = cairo_region_create();
 }
 
 static void
@@ -491,7 +491,7 @@ clip_region_add_rect(DiaRenderer *object,
 		 Rectangle *rect)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-  GdkRectangle clip_rect;
+  cairo_rectangle_int_t clip_rect;
   int x1,y1;
   int x2,y2;
 
@@ -507,7 +507,7 @@ clip_region_add_rect(DiaRenderer *object,
   clip_rect.width = x2 - x1 + 1;
   clip_rect.height = y2 - y1 + 1;
 
-  gdk_region_union_with_rect(renderer->clip_region, &clip_rect);
+  cairo_region_union_rectangle (renderer->clip_region, &clip_rect);
 }
 
 static void
