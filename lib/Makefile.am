@@ -64,6 +64,8 @@ dia-lib-icons.h: $(ICON_PNGS)
 BUILT_SOURCES = dia-lib-icons.h diamarshal.h diamarshal.c
 
 libdia_la_SOURCES =  \
+		widgets/dialist.c \
+		widgets/dialist.h \
 		diatypes.h \
 		diavar.h \
 		diamenu.h \

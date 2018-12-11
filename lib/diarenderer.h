@@ -20,6 +20,7 @@
 #ifndef DIA_RENDERER_H
 #define DIA_RENDERER_H
 
+#include "attributes.h"
 #include "diatypes.h"
 #include <glib-object.h>
 
