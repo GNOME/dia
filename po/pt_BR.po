@@ -1,5 +1,5 @@
 # Brazilian Portuguese translation of Dia.
-# Copyright (C) 2016 Free Software Foundation, Inc.
+# Copyright (C) 2018 Free Software Foundation, Inc.
 # Francisco Petrúcio Cavalcante Junior <fpcj@impa.br>, 2000.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2003, 2006.
 # Gustavo Maciel Dias Vieira <gdvieira@zaz.com.br>, 2003.
@@ -12,119 +12,118 @@
 # Enrico Nicoletto <liverig@gmail.com>, 2013, 2014.
 # Juan Diego Martins da Costa Cruz <garotomartins10@gmail.com>, 2013.
 # Antonio Fernandes C. Neto <fernandesn@gnome.org>, 2013.
-# Rafael Fontenelle <rffontenelle@gmail.com>, 2016.
-#
+# Rafael Fontenelle <rafaelff@gnome.org>, 2016, 2018.
+#: ../objects/UML/class.c:198
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-03-05 16:26+0000\n"
-"PO-Revision-Date: 2016-03-05 19:52-0300\n"
-"Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
+"POT-Creation-Date: 2018-12-09 09:58+0000\n"
+"PO-Revision-Date: 2018-12-10 22:39-0200\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Virtaal 1.0.0-beta1\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:209
+#: ../app/app_procs.c:165
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
-msgstr "Aviso: intervalo de camada inválido %lu - %lu\n"
+msgstr "Aviso: intervalo de camada inválido %lu – %lu\n"
 
-#: ../app/app_procs.c:221
+#: ../app/app_procs.c:177
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Aviso: A camada %lu (%s) foi selecionada mais de uma vez.\n"
 
-#: ../app/app_procs.c:247
+#: ../app/app_procs.c:203
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Aviso: A camada %d (%s) foi selecionada mais de uma vez.\n"
 
-#: ../app/app_procs.c:256
+#: ../app/app_procs.c:212
 #, c-format
 msgid "Warning: There is no layer named %s.\n"
 msgstr "Aviso: Não existe nenhuma camada denominada %s\n"
 
-#: ../app/app_procs.c:339
+#: ../app/app_procs.c:295
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "erro %s: não é possível exportar para %s\n"
 
-#: ../app/app_procs.c:348
+#: ../app/app_procs.c:304
 #, c-format
 msgid "%s error: input and output filenames are identical: %s"
 msgstr "erro %s: os nomes dos arquivos de entrada e saída são idênticos: %s"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
-#: ../app/app_procs.c:354 ../objects/FS/function.c:675
+#: ../app/app_procs.c:310 ../objects/FS/function.c:675
 #: ../objects/FS/function.c:677
 msgid "Import"
 msgstr "Importar"
 
-#: ../app/app_procs.c:357
+#: ../app/app_procs.c:313
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "erro %s: é necessário um arquivo de entrada válido %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:385
+#: ../app/app_procs.c:341
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:557
+#: ../app/app_procs.c:502
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Não foi possível localizar o formato/filtro de saída %s\n"
 
-#: ../app/app_procs.c:627
+#: ../app/app_procs.c:572
 #, c-format
 msgid "Input directory '%s' must exist!\n"
-msgstr "O diretório de entrada \"%s\" deve existir!\n"
+msgstr "O diretório de entrada “%s” deve existir!\n"
 
-#: ../app/app_procs.c:644
+#: ../app/app_procs.c:589
 #, c-format
 msgid "Output directory '%s' must exist!\n"
-msgstr "O diretório de saída \"%s\" deve existir!\n"
+msgstr "O diretório de saída “%s” deve existir!\n"
 
 #. &export_file_name
-#: ../app/app_procs.c:697
+#: ../app/app_procs.c:639
 msgid "Export loaded file and exit"
 msgstr "Exporta o arquivo carregado e sair"
 
-#: ../app/app_procs.c:697
+#: ../app/app_procs.c:639
 msgid "OUTPUT"
 msgstr "SAÍDA"
 
 #. &export_file_format
-#: ../app/app_procs.c:699
+#: ../app/app_procs.c:641
 msgid "Select the export filter/format"
 msgstr "Seleciona o filtro/formato de exportação"
 
-#: ../app/app_procs.c:699
+#: ../app/app_procs.c:641
 msgid "TYPE"
 msgstr "TIPO"
 
-#: ../app/app_procs.c:701
+#: ../app/app_procs.c:643
 msgid "List export filters/formats and exit"
 msgstr "Lista filtros e formatos de exportação e sai"
 
-#: ../app/app_procs.c:703
+#: ../app/app_procs.c:645
 msgid "Export graphics size"
 msgstr "Tamanho do gráfico exportado"
 
-#: ../app/app_procs.c:703
+#: ../app/app_procs.c:645
 msgid "WxH"
 msgstr "LxA"
 
-#: ../app/app_procs.c:705
+#: ../app/app_procs.c:647
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -132,131 +131,132 @@ msgstr ""
 "Mostra apenas camadas especificadas (p. ex. ao exportar). Pode ser tanto o "
 "nome da camada quanto o intervalo dos números da camadas (X-Y)"
 
-#: ../app/app_procs.c:706
+#: ../app/app_procs.c:648
 msgid "LAYER,LAYER,..."
-msgstr "CAMADA,CAMADA,..."
+msgstr "CAMADA,CAMADA,…"
 
-#: ../app/app_procs.c:708
+#: ../app/app_procs.c:650
 msgid "Don't show the splash screen"
 msgstr "Não mostrar a tela de abertura"
 
-#: ../app/app_procs.c:710
+#: ../app/app_procs.c:652
 msgid "Don't create an empty diagram"
 msgstr "Não criar um diagrama vazio"
 
-#: ../app/app_procs.c:712
+#: ../app/app_procs.c:654
 msgid "Start classic user interface (no diagrams in tabs)"
 msgstr "Inicia interface gráfica clássica (sem diagramas tabulados)"
 
-#: ../app/app_procs.c:714
+#: ../app/app_procs.c:656
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "Envia mensagens de erro pra stderr em vez de mostrar diálogos."
 
-#: ../app/app_procs.c:716
+#: ../app/app_procs.c:658
 msgid "Directory containing input files"
 msgstr "Diretório contendo arquivos de entrada"
 
-#: ../app/app_procs.c:716 ../app/app_procs.c:718
+#: ../app/app_procs.c:658 ../app/app_procs.c:660
 msgid "DIRECTORY"
 msgstr "DIRETÓRIO"
 
-#: ../app/app_procs.c:718
+#: ../app/app_procs.c:660
 msgid "Directory containing output files"
 msgstr "Diretório contendo arquivos de saída"
 
-#: ../app/app_procs.c:720
+#: ../app/app_procs.c:662
 msgid "Display credits list and exit"
 msgstr "Mostra a lista de créditos e sai"
 
-#: ../app/app_procs.c:722
+#: ../app/app_procs.c:664
 msgid "Generate verbose output"
 msgstr "Gera saída detalhada"
 
-#: ../app/app_procs.c:724
+#: ../app/app_procs.c:666
 msgid "Display version and exit"
 msgstr "Mostra a versão e sai"
 
-#: ../app/app_procs.c:750
+#: ../app/app_procs.c:692
 msgid "[FILE...]"
-msgstr "[ARQUIVO...]"
+msgstr "[ARQUIVO…]"
 
-#: ../app/app_procs.c:764
+#: ../app/app_procs.c:704
 #, c-format
 msgid "Invalid option?"
 msgstr "Opção inválida?"
 
-#: ../app/app_procs.c:787
+#: ../app/app_procs.c:727
 #, c-format
 msgid "Filename conversion failed: %s\n"
 msgstr "Conversão do nome de arquivo falhou: %s\n"
 
-#: ../app/app_procs.c:800
+#: ../app/app_procs.c:740
 #, c-format
 msgid "Missing input: %s\n"
 msgstr "Falta entrada: %s\n"
 
-#: ../app/app_procs.c:825
-msgid "Can't connect to session manager!\n"
-msgstr "Não foi possível conectar ao gerenciador de sessão!\n"
-
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:865
+#: ../app/app_procs.c:781
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia versão %s, compilado %s %s\n"
 
-#: ../app/app_procs.c:867
+#: ../app/app_procs.c:783
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia versão %s\n"
 
-#: ../app/app_procs.c:913
+#: ../app/app_procs.c:829
 msgid "Object Defaults"
 msgstr "Padrões do objeto"
 
-#: ../app/app_procs.c:920
+#: ../app/app_procs.c:836
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "Não foi possível localizar objetos padrão ao procurar por object-libs, "
-"saindo...\n"
+"saindo…\n"
 
-#: ../app/app_procs.c:922
+#: ../app/app_procs.c:838
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
 "exiting...\n"
 msgstr ""
-"Não foi possível localizar objetos padrão ao procurar por object-libs em \"%s"
-"\"; saindo...\n"
+"Não foi possível localizar objetos padrão ao procurar por object-libs em "
+"“%s”; saindo…\n"
 
-#: ../app/app_procs.c:980
+#: ../app/app_procs.c:896
 msgid "Diagram1.dia"
 msgstr "Diagrama1.dia"
 
-#: ../app/app_procs.c:1015
+#: ../app/app_procs.c:931
+#| msgid ""
+#| "This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+#| "describing how you caused this message to appear.\n"
 msgid ""
-"This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+"This shouldn't happen.  Please file a bug report at https://gitlab.gnome.org/"
+"GNOME/dia\n"
 "describing how you caused this message to appear.\n"
 msgstr ""
 "Isso não deveria acontecer. Por favor, crie um relatório de erro em\n"
-"bugzilla.gnome.org descrevendo a situação que gerou esta mensagem.\n"
+"https://gitlab.gnome.org/GNOME/dia descrevendo como você gerou esta "
+"mensagem.\n"
 
-#: ../app/app_procs.c:1030
+#: ../app/app_procs.c:946
 msgid "Exiting Dia"
 msgstr "Saindo do Dia"
 
-#: ../app/app_procs.c:1057 ../app/display.c:1239 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:973 ../app/display.c:1239 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Salvar"
 
 #. no standard buttons
-#: ../app/app_procs.c:1099
+#: ../app/app_procs.c:1015
 msgid "Quitting without saving modified diagrams"
 msgstr "Saindo sem salvar diagramas modificados"
 
-#: ../app/app_procs.c:1101
+#: ../app/app_procs.c:1017
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -264,19 +264,19 @@ msgstr ""
 "Existem diagramas modificados. Você tem certeza de que deseja sair do Dia "
 "sem salvá-los?"
 
-#: ../app/app_procs.c:1105 ../app/menus.c:94
+#: ../app/app_procs.c:1021 ../app/menus.c:94
 msgid "Quit Dia"
 msgstr "Sair do Dia"
 
-#: ../app/app_procs.c:1135
+#: ../app/app_procs.c:1051
 msgid "Exit"
 msgstr "Sair"
 
-#: ../app/app_procs.c:1181 ../app/app_procs.c:1188
+#: ../app/app_procs.c:1097 ../app/app_procs.c:1104
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Não foi possível criar o diretório de configuração pessoal do Dia"
 
-#: ../app/app_procs.c:1191
+#: ../app/app_procs.c:1107
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -285,11 +285,11 @@ msgstr ""
 "favor, certifique-se de que a variável de ambiente HOME aponta para um "
 "diretório existente."
 
-#: ../app/app_procs.c:1214
+#: ../app/app_procs.c:1130
 msgid "Objects and filters internal to Dia"
 msgstr "Objetos e filtros internos do Dia"
 
-#: ../app/app_procs.c:1266
+#: ../app/app_procs.c:1182
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -298,7 +298,7 @@ msgstr ""
 "O autor original do Dia é:\n"
 "\n"
 
-#: ../app/app_procs.c:1271
+#: ../app/app_procs.c:1187
 #, c-format
 msgid ""
 "\n"
@@ -309,7 +309,7 @@ msgstr ""
 "Os mantenedores atuais do Dia são:\n"
 "\n"
 
-#: ../app/app_procs.c:1276
+#: ../app/app_procs.c:1192
 #, c-format
 msgid ""
 "\n"
@@ -320,7 +320,7 @@ msgstr ""
 "Os outros autores são:\n"
 "\n"
 
-#: ../app/app_procs.c:1281
+#: ../app/app_procs.c:1197
 #, c-format
 msgid ""
 "\n"
@@ -331,20 +331,20 @@ msgstr ""
 "O Dia é documentado por:\n"
 "\n"
 
-#: ../app/app_procs.c:1321
+#: ../app/app_procs.c:1237
 msgid "Available Export Filters (for --filter)"
 msgstr "Filtros de exportação disponíveis (para --filter)"
 
 #. Translators: be brief or mess up the table for --list-filters
-#: ../app/app_procs.c:1324
+#: ../app/app_procs.c:1240
 msgid "Extension"
 msgstr "Extensão"
 
-#: ../app/app_procs.c:1325 ../lib/prop_dict.c:44
+#: ../app/app_procs.c:1241 ../lib/prop_dict.c:44
 msgid "Identifier"
 msgstr "Identificador"
 
-#: ../app/app_procs.c:1326 ../app/plugin-manager.c:276
+#: ../app/app_procs.c:1242 ../app/plugin-manager.c:276
 msgid "Description"
 msgstr "Descrição"
 
@@ -381,7 +381,7 @@ msgstr "Colar da área de transferência"
 #: ../app/commands.c:337
 #, c-format
 msgid "Failed to import '%s' as SVG."
-msgstr "Falha ao importar \"%s\" como SVG."
+msgstr "Falha ao importar “%s” como SVG."
 
 #: ../app/commands.c:353
 #, c-format
@@ -504,7 +504,7 @@ msgstr "Confirmar o tamanho do diagrama"
 #: ../app/create_object.c:71
 #, c-format
 msgid "'%s' creation failed"
-msgstr "Falha ao criar \"%s\""
+msgstr "Falha ao criar “%s”"
 
 #: ../app/defaults.c:44 ../app/defaults.c:147
 msgid "Object defaults"
@@ -521,7 +521,7 @@ msgstr "Padrões: "
 #: ../app/diagram.c:237
 #, c-format
 msgid "Couldn't convert filename '%s' to UTF-8: %s\n"
-msgstr "Não foi possível converter o nome de arquivo \"%s\" para UTF-8: %s\n"
+msgstr "Não foi possível converter o nome de arquivo “%s” para UTF-8: %s\n"
 
 #: ../app/diagram.c:240 ../lib/message.c:91 ../lib/message.c:304
 msgid "Error"
@@ -787,7 +787,7 @@ msgstr[1] "Seleção de %d objetos"
 #: ../app/display.c:119
 #, c-format
 msgid "Selected '%s'"
-msgstr "Selecionado \"%s\""
+msgstr "Selecionado “%s”"
 
 #. we really should not come here but instead disable the menu command earlier
 #: ../app/display.c:1127
@@ -991,29 +991,25 @@ msgstr "Substituir _tudo"
 msgid "_Replace"
 msgstr "_Substituir"
 
-#: ../app/interface.c:521
+#: ../app/interface.c:517
 msgid "Pops up the Navigation window."
 msgstr "Abre uma janela de navegação."
 
-#: ../app/interface.c:738
+#: ../app/interface.c:734
 msgid "Diagram menu."
 msgstr "Menu do diagrama."
 
-#: ../app/interface.c:777
+#: ../app/interface.c:773
 msgid "Zoom"
 msgstr "Zoom"
 
-#: ../app/interface.c:792
+#: ../app/interface.c:788
 msgid "Toggles snap-to-grid for this window."
 msgstr "Alterna entre alinhar à grade ou não para esta janela."
 
-#: ../app/interface.c:803
+#: ../app/interface.c:799
 msgid "Toggles object snapping for this window."
 msgstr "Alterna entre alinhar aos objetos ou não para esta janela."
-
-#: ../app/interface.c:989 ../app/interface.c:1106 ../dia.desktop.in.in.h:2
-msgid "Diagram Editor"
-msgstr "Editor de diagramas"
 
 #: ../app/layer_dialog.c:166
 msgid "New Layer"
@@ -1117,7 +1113,7 @@ msgstr "Você deve especificar um arquivo, não um diretório."
 #: ../plug-ins/xslt/xslt.c:97
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
-msgstr "Não foi possível abrir \"%s\" para leitura.\n"
+msgstr "Não foi possível abrir “%s” para leitura.\n"
 
 #. this was talking about unknown file type but it could as well be broken XML
 #: ../app/load_save.c:418
@@ -1161,12 +1157,12 @@ msgstr ""
 #: ../app/load_save.c:1001
 #, c-format
 msgid "Error saving connections to layer '%s'"
-msgstr "Erro ao salvar conexões com a camada \"%s\""
+msgstr "Erro ao salvar conexões com a camada “%s”"
 
 #: ../app/load_save.c:1006
 #, c-format
 msgid "Connection saving is incomplete for layer '%s'"
-msgstr "O salvamento da conexão está incompleto para a camada '%s'"
+msgstr "O salvamento da conexão está incompleto para a camada “%s”"
 
 #: ../app/load_save.c:1059
 #, c-format
@@ -1223,7 +1219,7 @@ msgstr "Cria um novo diagrama"
 
 #: ../app/menus.c:93
 msgid "_Open…"
-msgstr "_Abrir..."
+msgstr "_Abrir…"
 
 #: ../app/menus.c:93
 msgid "Open a diagram file"
@@ -1299,7 +1295,7 @@ msgstr "Salva o diagrama"
 
 #: ../app/menus.c:120
 msgid "Save _As…"
-msgstr "Salvar _como..."
+msgstr "Salvar _como…"
 
 #: ../app/menus.c:120
 msgid "Save the diagram with a new name"
@@ -1559,7 +1555,7 @@ msgstr "_Agrupar"
 
 #: ../app/menus.c:185
 msgid "Group selected objects"
-msgstr "Agrupar objetos selecionads"
+msgstr "Agrupar objetos selecionados"
 
 #. deliberately not using Ctrl+U for Ungroup
 #: ../app/menus.c:187
@@ -2174,7 +2170,7 @@ msgstr "Por favor, selecione um arquivo .shape"
 #: ../app/sheets_dialog_callbacks.c:777
 #, c-format
 msgid "Filename must end with '%s': '%s'"
-msgstr "O nome do arquivo deve terminar com \"%s\": \"%s\""
+msgstr "O nome do arquivo deve terminar com “%s”: “%s”"
 
 #: ../app/sheets_dialog_callbacks.c:785
 #, c-format
@@ -2188,7 +2184,7 @@ msgstr "Por favor, exporte o diagrama como uma forma."
 #: ../app/sheets_dialog_callbacks.c:819
 #, c-format
 msgid "Could not interpret shape file: '%s'"
-msgstr "Não foi possível interpretar o arquivo de forma: \"%s\""
+msgstr "Não foi possível interpretar o arquivo de forma: “%s”"
 
 #: ../app/sheets_dialog_callbacks.c:887
 msgid "Sheet must have a Name"
@@ -2197,12 +2193,12 @@ msgstr "A folha dever ter um nome"
 #: ../app/sheets_dialog_callbacks.c:1579 ../app/sheets_dialog_callbacks.c:1586
 #, c-format
 msgid "Couldn't open '%s': %s"
-msgstr "Não foi possível abrir \"%s\": %s"
+msgstr "Não foi possível abrir “%s”: %s"
 
 #: ../app/sheets_dialog_callbacks.c:1640
 #, c-format
 msgid "Couldn't open: '%s' for writing"
-msgstr "Não foi possível abrir \"%s\" para escrita"
+msgstr "Não foi possível abrir “%s” para escrita"
 
 #: ../app/sheets_dialog_callbacks.c:1650
 msgid "a user"
@@ -2315,6 +2311,10 @@ msgstr ""
 #: ../dia.desktop.in.in.h:1
 msgid "Dia"
 msgstr "Dia"
+
+#: ../dia.desktop.in.in.h:2
+msgid "Diagram Editor"
+msgstr "Editor de diagramas"
 
 #: ../dia.desktop.in.in.h:3
 msgid "Dia Diagram Editor"
@@ -2678,7 +2678,7 @@ msgstr "Mais cores…"
 #: ../lib/dia_dirs.c:315
 #, c-format
 msgid "Too many \"..\"s in filename %s\n"
-msgstr "Há muitos \"..\" no nome de arquivo %s\n"
+msgstr "Há muitos “..” no nome de arquivo %s\n"
 
 #: ../lib/diadynamicmenu.c:396
 msgid "Reset menu"
@@ -2784,7 +2784,7 @@ msgstr ""
 #: ../lib/dia_xml.c:512
 #, c-format
 msgid "Unknown type of DataNode '%s'"
-msgstr "Tipo desconhecido de nó de dados '%s'"
+msgstr "Tipo desconhecido de nó de dados “%s”"
 
 #: ../lib/dia_xml.c:531
 msgid "Taking int value of non-int node."
@@ -2797,7 +2797,7 @@ msgstr "Obtendo valor de ponto de um nó que não é um ponto."
 #: ../lib/dia_xml.c:718
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
-msgstr "Valor x do ponto \"%s\" %f incorreto; descartando-o."
+msgstr "Valor x do ponto “%s” %f incorreto; descartando-o."
 
 #: ../lib/dia_xml.c:725
 msgid "Error parsing point."
@@ -2807,7 +2807,7 @@ msgstr "Erro ao analisar o ponto."
 #: ../lib/dia_xml.c:733
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
-msgstr "Valor y do ponto \"%s\" %f incorreto; descartando-o."
+msgstr "Valor y do ponto “%s” %f incorreto; descartando-o."
 
 #: ../lib/dia_xml.c:753
 msgid "Taking bezpoint value of non-point node."
@@ -2924,11 +2924,11 @@ msgstr "???"
 #: ../lib/plug-ins.c:188
 #, c-format
 msgid "Missing dependencies for '%s'?"
-msgstr "Dependências faltando para \"%s\"?"
+msgstr "Dependências faltando para “%s”?"
 
 #: ../lib/plug-ins.c:199
 msgid "Missing symbol 'dia_plugin_init'"
-msgstr "Símbolo \"dia_plugin_init\" faltando"
+msgstr "Símbolo “dia_plugin_init” faltando"
 
 #: ../lib/plug-ins.c:207 ../lib/plug-ins.c:215
 msgid "dia_plugin_init() call failed"
@@ -3106,7 +3106,7 @@ msgstr ""
 #: ../lib/proplist.c:161
 #, c-format
 msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
-msgstr "Nenhum atributo \"%s\" (%p) ou nenhum dado (%p) neste atributo"
+msgstr "Nenhum atributo “%s” (%p) ou nenhum dado (%p) neste atributo"
 
 #: ../lib/prop_pixbuf.c:110 ../lib/prop_pixbuf.c:157
 #, c-format
@@ -3250,7 +3250,7 @@ msgstr "Adicionar provedor de acesso"
 
 #: ../objects/AADL/aadlbox.c:358
 msgid "Add Access Requirer"
-msgstr "Adicionar requisitor de acesso"
+msgstr "Adicionar requerente de acesso"
 
 #: ../objects/AADL/aadlbox.c:360
 msgid "Add In Data Port"
@@ -3424,7 +3424,7 @@ msgstr "Virar na vertical"
 #: ../objects/custom/custom_object.c:1807
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
-msgstr "Não foi possível abrir ícone %s para o tipo de objeto \"%s\"."
+msgstr "Não foi possível abrir ícone %s para o tipo de objeto “%s”."
 
 #: ../objects/custom_lines/custom_lines.c:160
 msgid "CustomLines"
@@ -5201,7 +5201,7 @@ msgstr "Número de raios"
 
 #: ../objects/Misc/n_gon.c:121
 msgid "Density"
-msgstr "Desidade"
+msgstr "Densidade"
 
 #: ../objects/Misc/n_gon.c:121
 msgid "Winding number for Crossing"
@@ -5726,7 +5726,7 @@ msgstr "Pixbuf inconsistente durante gravação de imagem."
 #: ../objects/standard/image.c:839
 #, c-format
 msgid "The image file '%s' was not found.\n"
-msgstr "O arquivo de imagem \"%s\" não foi localizado.\n"
+msgstr "O arquivo de imagem “%s” não foi localizado.\n"
 
 #: ../objects/standard/line.c:118
 msgid "Arrows"
@@ -6467,17 +6467,17 @@ msgstr "Filtros de importação e exportação para o formato DXF"
 
 #: ../plug-ins/dxf/dxf-export.c:572 ../plug-ins/dxf/dxf-import.c:1389
 msgid "Drawing Interchange File"
-msgstr "Drawing Interchange File - DXF"
+msgstr "Drawing Interchange File – DXF"
 
 #: ../plug-ins/dxf/dxf-import.c:1299
 #, c-format
 msgid "read_dxf_codes failed on '%s'"
-msgstr "read_dxf_codes falhou em \"%s\""
+msgstr "read_dxf_codes falhou em “%s”"
 
 #: ../plug-ins/dxf/dxf-import.c:1306
 #, c-format
 msgid "Binary DXF from '%s' not supported"
-msgstr "Sem suporte a binário DXF de \"%s\""
+msgstr "Sem suporte a binário DXF de “%s”"
 
 #: ../plug-ins/hpgl/hpgl.c:708
 msgid "HP Graphics Language"
@@ -6538,7 +6538,7 @@ msgstr ""
 
 #: ../plug-ins/layout/layout.cpp:416
 msgid "OGDF Layout Algorithms"
-msgstr "Algorítmos OGDF de disposição"
+msgstr "Algoritmos OGDF de disposição"
 
 #: ../plug-ins/libart/dialibart.c:58
 msgid "Libart-based rendering"
@@ -6682,22 +6682,22 @@ msgstr "Arquivo"
 #: ../plug-ins/postscript/paginate_psprint.c:464
 #, c-format
 msgid "Could not run command '%s': %s"
-msgstr "Não foi possível executar o comando \"%s\": %s"
+msgstr "Não foi possível executar o comando “%s”: %s"
 
 #: ../plug-ins/postscript/paginate_psprint.c:467
 #, c-format
 msgid "Could not open '%s' for writing: %s"
-msgstr "Não foi possível abrir \"%s\" para escrita: %s"
+msgstr "Não foi possível abrir “%s” para escrita: %s"
 
 #: ../plug-ins/postscript/paginate_psprint.c:489
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
-msgstr "Erro de impressão: o comando \"%s\" retornou %d\n"
+msgstr "Erro de impressão: o comando “%s” retornou %d\n"
 
 #: ../plug-ins/postscript/paginate_psprint.c:500
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
-msgstr "Erro de impressão: o comando \"%s\" causou um sigpipe."
+msgstr "Erro de impressão: o comando “%s” causou um sigpipe."
 
 #: ../plug-ins/postscript/postscript.c:47
 msgid "Print (PS)"
@@ -6730,7 +6730,7 @@ msgstr "Macros TeX PSTricks"
 #: ../plug-ins/python/pydia-render.c:1102
 #, c-format
 msgid "Couldn't open '%s' for writing.\n"
-msgstr "Não foi possível abrir \"%s\" para escrita.\n"
+msgstr "Não foi possível abrir “%s” para escrita.\n"
 
 #: ../plug-ins/python/python.c:95
 msgid "Python scripting support"
@@ -6762,7 +6762,7 @@ msgstr ""
 #: ../plug-ins/svg/svg-import.c:220
 #, c-format
 msgid "Failed to apply transformation for '%s'"
-msgstr "Falha ao aplicar transformação para  \"%s\""
+msgstr "Falha ao aplicar transformação para  “%s”"
 
 #: ../plug-ins/svg/svg-import.c:658
 msgid ""
@@ -6779,7 +6779,7 @@ msgstr "Está faltando a forma 'Desenho da forma'"
 #: ../plug-ins/svg/svg-import.c:1929
 #, c-format
 msgid "Object '%s' creation failed"
-msgstr "Falha ao criar objeto \"%s\""
+msgstr "Falha ao criar objeto “%s”"
 
 #: ../plug-ins/svg/svg-import.c:1955
 #, c-format
@@ -6816,7 +6816,7 @@ msgstr "O espaço de nome SVG esperado não foi encontrado no arquivo"
 #: ../plug-ins/svg/svg-import.c:2032
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
-msgstr "o elemento raiz era \"%s\" -- esperava-se \"svg\"."
+msgstr "o elemento raiz era “%s” -- esperava-se “svg”."
 
 #: ../plug-ins/vdx/vdx.c:54
 msgid "Visio XML Format import and export filter"
@@ -6825,7 +6825,7 @@ msgstr "Filtro de importação e exportação do formato XML do Visio"
 #: ../plug-ins/vdx/vdx-export.c:1764
 #, c-format
 msgid "Saving file '%s' failed."
-msgstr "Ocorreu falha ao salvar arquivo \"%s\"."
+msgstr "Ocorreu falha ao salvar arquivo “%s”."
 
 #: ../plug-ins/vdx/vdx-export.c:1775
 msgid "Visio XML format"
@@ -6910,7 +6910,7 @@ msgstr ""
 
 #: ../plug-ins/wmf/wmf.cpp:1487
 msgid "Print (GDI) ..."
-msgstr "Imprimir (GDI) ..."
+msgstr "Imprimir (GDI) …"
 
 #: ../plug-ins/wmf/wmf.cpp:1503
 msgid "WMF export filter"
@@ -6959,7 +6959,7 @@ msgstr "Formato FIG não possui seta com estilo %s; usando seta simples.\n"
 
 #: ../plug-ins/xfig/xfig-export.c:493
 msgid "No more user-definable colors - using black"
-msgstr "Mais nenhuma cor definível pelo usuário - usando preto"
+msgstr "Mais nenhuma cor definível pelo usuário – usando preto"
 
 #: ../plug-ins/xfig/xfig-export.c:1154
 msgid "Xfig format"
@@ -7103,7 +7103,7 @@ msgstr "Tipo de objeto desconhecido: %d\n"
 #: ../plug-ins/xfig/xfig-import.c:1150
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
-msgstr "\"%s\" não é do tipo \"%s\" ou \"%s\"\n"
+msgstr "“%s” não é do tipo “%s” ou “%s”\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1160
 msgid "Error reading paper size."
@@ -7112,7 +7112,7 @@ msgstr "Erro ao ler tamanho do papel."
 #: ../plug-ins/xfig/xfig-import.c:1171
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
-msgstr "Tamanho de papel \"%s\" desconhecido, usando o padrão\n"
+msgstr "Tamanho de papel “%s” desconhecido, usando o padrão\n"
 
 #: ../plug-ins/xfig/xfig-import.c:1184
 msgid "Error reading paper orientation."
@@ -7338,7 +7338,7 @@ msgstr "Paralelogramo vertical"
 
 #: ../sheets/Assorted.sheet.in.h:19
 msgid "Trapezoid"
-msgstr "Trapezóide"
+msgstr "Trapézio"
 
 #: ../sheets/Assorted.sheet.in.h:20
 msgid "Four-point star"
@@ -8158,7 +8158,7 @@ msgstr "BBS"
 
 #: ../sheets/ciscocomputer.sheet.in.h:42
 msgid "MicroWebserver"
-msgstr "Microservidor Web"
+msgstr "Microsservidor Web"
 
 #: ../sheets/ciscocomputer.sheet.in.h:43
 msgid "Relational Database"
@@ -8286,7 +8286,7 @@ msgstr "Hub enfraquecido"
 
 #: ../sheets/ciscohub.sheet.in.h:23
 msgid "Cisco Hub"
-msgstr "Cisco - hub"
+msgstr "Cisco – hub"
 
 #: ../sheets/ciscohub.sheet.in.h:24
 msgid "Small Hub"
@@ -9392,7 +9392,7 @@ msgstr "Cilindro de gás"
 
 #: ../sheets/civil.sheet.in.h:22
 msgid "Frequency converter"
-msgstr "Conversor de freqüência"
+msgstr "Conversor de frequência"
 
 #: ../sheets/civil.sheet.in.h:23
 msgid "Vertically aligned propeller"
@@ -9424,7 +9424,7 @@ msgstr "Recipiente"
 
 #: ../sheets/Contact.sheet.in.h:1
 msgid "Ladder"
-msgstr "Ladder - diagrama de contatos"
+msgstr "Ladder – diagrama de contatos"
 
 #: ../sheets/Contact.sheet.in.h:2
 msgid "Components for LADDER circuits"
@@ -9432,11 +9432,11 @@ msgstr "Componentes para circuitos LADDER"
 
 #: ../sheets/Contact.sheet.in.h:3
 msgid "'if' (normally open) ladder contact"
-msgstr "Contato ladder \"se\" (normalmente aberto)"
+msgstr "Contato ladder “se” (normalmente aberto)"
 
 #: ../sheets/Contact.sheet.in.h:4
 msgid "'if not' (normally closed) ladder contact"
-msgstr "Contato ladder \"se não\" (normalmente fechado)"
+msgstr "Contato ladder “se não” (normalmente fechado)"
 
 #: ../sheets/Contact.sheet.in.h:5
 msgid "Simple output variable"
@@ -9448,15 +9448,15 @@ msgstr "Variável de saída negativa"
 
 #: ../sheets/Contact.sheet.in.h:7
 msgid "'set' output variable"
-msgstr "Variável de saída \"set\""
+msgstr "Variável de saída “set”"
 
 #: ../sheets/Contact.sheet.in.h:8
 msgid "'reset' output variable"
-msgstr "Variável de saída \"reset\""
+msgstr "Variável de saída “reset”"
 
 #: ../sheets/Contact.sheet.in.h:9
 msgid "'jump' output variable"
-msgstr "Variável de saída \"jump\""
+msgstr "Variável de saída “jump”"
 
 #: ../sheets/Contact.sheet.in.h:10
 msgid "Receptivity output variable"
@@ -9472,11 +9472,11 @@ msgstr "Variável de saída negativa com economia de energia"
 
 #: ../sheets/Contact.sheet.in.h:13
 msgid "Power-saved 'set' output variable"
-msgstr "Variável de saída \"set\" com economia de energia"
+msgstr "Variável de saída “set” com economia de energia"
 
 #: ../sheets/Contact.sheet.in.h:14
 msgid "Power-saved 'reset' output variable"
-msgstr "Variável de saída \"reset\" com economia de energia"
+msgstr "Variável de saída “reset” com economia de energia"
 
 #: ../sheets/Cybernetics.sheet.in.h:1
 msgid "Cybernetics"
@@ -10247,7 +10247,7 @@ msgstr "Um vínculo de controle KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:20
 msgid "A KAOS capable-of"
-msgstr "Uma folha \"capaz de\" do KAOS"
+msgstr "Uma folha “capaz de” do KAOS"
 
 #: ../sheets/KAOS.sheet.in.h:21
 msgid "A KAOS performs"
@@ -10898,6 +10898,9 @@ msgstr "Atividade"
 #: ../sheets/UML.sheet.in.h:31
 msgid "Fork/Union"
 msgstr "Bifurcação/união"
+
+#~ msgid "Can't connect to session manager!\n"
+#~ msgstr "Não foi possível conectar ao gerenciador de sessão!\n"
 
 #~ msgid "No clipboard handler for '%s'"
 #~ msgstr "Nenhum manipulador de área de transferência para \"%s\""
