@@ -61,7 +61,7 @@ static void dia_dynamic_menu_create_sublist(DiaDynamicMenu *ddm,
 					    GList *items, 
 					    DDMCreateItemFunc create);
 static void dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm);
-static void dia_dynamic_menu_destroy(GtkObject *object);
+static void dia_dynamic_menu_destroy(GObject *object);
 
 enum {
     DDM_VALUE_CHANGED,
@@ -98,7 +98,7 @@ dia_dynamic_menu_get_type(void)
 static void
 dia_dynamic_menu_class_init(DiaDynamicMenuClass *class)
 {
-  GtkObjectClass *object_class = (GtkObjectClass*)class;
+  GObjectClass *object_class = (GObjectClass*)class;
 
   object_class->destroy = dia_dynamic_menu_destroy;
   
@@ -117,10 +117,10 @@ dia_dynamic_menu_init(DiaDynamicMenu *self)
 }
 
 void 
-dia_dynamic_menu_destroy(GtkObject *object)
+dia_dynamic_menu_destroy(GObject *object)
 {
   DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(object);
-  GtkObjectClass *parent_class = GTK_OBJECT_CLASS(g_type_class_peek_parent(GTK_OBJECT_GET_CLASS(object)));
+  GObjectClass *parent_class = G_OBJECT_CLASS(g_type_class_peek_parent(G_OBJECT_GET_CLASS(object)));
 
   if (ddm->active)
     g_free(ddm->active);
@@ -187,7 +187,7 @@ dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, const gchar *name)
   
   g_free(ddm->active);
   ddm->active = g_strdup(name);
-  g_signal_emit(GTK_OBJECT(ddm), ddm_signals[DDM_VALUE_CHANGED], 0);
+  g_signal_emit(G_OBJECT(ddm), ddm_signals[DDM_VALUE_CHANGED], 0);
 }
 
 static void

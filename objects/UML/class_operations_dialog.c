@@ -114,7 +114,7 @@ parameters_list_selection_changed_callback(GtkWidget *gtklist,
 {
   GList *list;
   UMLClassDialog *prop_dialog;
-  GtkObject *list_item;
+  GObject *list_item;
   UMLParameter *param;
 
   prop_dialog = umlclass->properties_dialog;
@@ -132,7 +132,7 @@ parameters_list_selection_changed_callback(GtkWidget *gtklist,
     return;
   }
   
-  list_item = GTK_OBJECT(list->data);
+  list_item = G_OBJECT(list->data);
   param = (UMLParameter *)g_object_get_data(G_OBJECT(list_item), "user_data");
   parameters_set_values(prop_dialog, param);
   parameters_set_sensitive(prop_dialog, TRUE);
@@ -464,7 +464,7 @@ operations_list_selection_changed_callback(GtkWidget *gtklist,
 {
   GList *list;
   UMLClassDialog *prop_dialog;
-  GtkObject *list_item;
+  GObject *list_item;
   UMLOperation *op;
 
   prop_dialog = umlclass->properties_dialog;
@@ -482,7 +482,7 @@ operations_list_selection_changed_callback(GtkWidget *gtklist,
     return;
   }
   
-  list_item = GTK_OBJECT(list->data);
+  list_item = G_OBJECT(list->data);
   op = (UMLOperation *)g_object_get_data(G_OBJECT(list_item), "user_data");
   operations_set_values(prop_dialog, op);
   operations_set_sensitive(prop_dialog, TRUE);

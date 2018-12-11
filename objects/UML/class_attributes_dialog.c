@@ -131,7 +131,7 @@ attributes_list_selection_changed_callback(GtkWidget *gtklist,
 {
   GList *list;
   UMLClassDialog *prop_dialog;
-  GtkObject *list_item;
+  GObject *list_item;
   UMLAttribute *attr;
 
   /* Due to GtkList oddities, this may get called during destroy.
@@ -157,7 +157,7 @@ attributes_list_selection_changed_callback(GtkWidget *gtklist,
     return;
   }
   
-  list_item = GTK_OBJECT(list->data);
+  list_item = G_OBJECT(list->data);
   attr = (UMLAttribute *)g_object_get_data(G_OBJECT(list_item), "user_data");
   attributes_set_values(prop_dialog, attr);
   attributes_set_sensitive(prop_dialog, TRUE);

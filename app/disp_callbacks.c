@@ -102,7 +102,7 @@ static void
 dia_menu_free(DiaMenu *dia_menu) 
 {
   if (dia_menu->app_data)
-    gtk_object_destroy((GtkObject *)dia_menu->app_data);
+    g_object_destroy((GObject *)dia_menu->app_data);
   dia_menu->app_data = NULL;
   dia_menu->app_data_free = NULL;
 }

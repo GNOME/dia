@@ -131,7 +131,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   
   gtk_menu_set_active(GTK_MENU (menu), DEFAULT_LINESTYLE);
   gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->omenu), menu);
-  g_signal_connect(GTK_OBJECT(menu), "selection-done", 
+  g_signal_connect(G_OBJECT(menu), "selection-done", 
 		   G_CALLBACK(linestyle_type_change_callback), fs);
  
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->omenu), FALSE, TRUE, 0);

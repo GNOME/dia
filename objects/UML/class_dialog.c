@@ -284,7 +284,7 @@ create_font_props_row (GtkTable   *table,
                        GtkSpinButton   **heightsel)
 {
   GtkWidget *label;
-  GtkObject *adj;
+  GObject *adj;
 
   label = gtk_label_new (kind);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
@@ -312,7 +312,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *scrolledwindow;
   GtkWidget *checkbox;
   GtkWidget *table;
-  GtkObject *adj;
+  GObject *adj;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -434,7 +434,7 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *fill_color;
   GtkWidget *line_color;
   GtkWidget *table;
-  GtkObject *adj;
+  GObject *adj;
 
   prop_dialog = umlclass->properties_dialog;
 
