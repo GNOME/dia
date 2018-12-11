@@ -24,13 +24,14 @@
 #include "intl.h"
 #include "dialinechooser.h"
 #include "widgets.h"
+#include "diaoptionmenu.h"
 
 /************* DiaLineStyleSelector: ***************/
 struct _DiaLineStyleSelector
 {
   GtkVBox vbox;
 
-  GtkOptionMenu *omenu;
+  GtkWidget *omenu;
   GtkMenu *linestyle_menu;
   GtkLabel *lengthlabel;
   GtkSpinButton *dashlength;
@@ -112,25 +113,18 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
     once = TRUE;
   }
 
-  menu = gtk_option_menu_new();
-  fs->omenu = GTK_OPTION_MENU(menu);
+  menu = dia_option_menu_new();
+  fs->omenu = menu;
 
   menu = gtk_menu_new ();
   fs->linestyle_menu = GTK_MENU(menu);
 
   for (i = 0; i <= LINESTYLE_DOTTED; i++) {
-    menuitem = gtk_menu_item_new();
-    gtk_widget_set_tooltip_text(menuitem, _line_style_names[i]);
-    g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(i));
-    ln = dia_line_preview_new(i);
-    gtk_container_add(GTK_CONTAINER(menuitem), ln);
-    gtk_widget_show(ln);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-    gtk_widget_show(menuitem);
+    dia_option_menu_add_item (fs->omenu, _line_style_names[i], i);
+    // TODO GTK3: Show previes: ln = dia_line_preview_new(i);
   }
   
-  gtk_menu_set_active(GTK_MENU (menu), DEFAULT_LINESTYLE);
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->omenu), menu);
+  dia_option_menu_set_active (fs->omenu, DEFAULT_LINESTYLE);
   g_signal_connect(G_OBJECT(menu), "selection-done", 
 		   G_CALLBACK(linestyle_type_change_callback), fs);
  
@@ -215,7 +209,7 @@ dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 				       LineStyle linestyle, real dashlength)
 {
   gtk_menu_set_active(GTK_MENU (as->linestyle_menu), linestyle);
-  gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), linestyle);
+  dia_option_menu_set_active (as->omenu, linestyle);
 /* TODO restore this later */
 /*  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(as->linestyle_menu))), TRUE);*/
   set_linestyle_sensitivity(DIALINESTYLESELECTOR(as));

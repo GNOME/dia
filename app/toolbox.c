@@ -342,10 +342,15 @@ fill_sheet_wbox(Sheet *sheet)
 }
 
 static void
-sheet_option_menu_changed(DiaDynamicMenu *menu, gpointer user_data)
+sheet_option_menu_changed (GtkListBox    *box,
+                           GtkListBoxRow *row,
+                           gpointer       user_data)
 {
-  char *string = dia_dynamic_menu_get_entry(menu);
+  g_return_if_fail (DIA_IS_LIST_ITEM (row));
+
+  char *string = dia_list_item_get_value (DIA_LIST_ITEM (row));
   Sheet *sheet = get_sheet_by_name(string);
+
   if (sheet == NULL) {
     message_warning(_("No sheet named %s"), string);
   } else {
@@ -374,27 +379,86 @@ get_sheet_names()
   return g_list_sort (names, cmp_names);
 }
 
+#define DIA_TYPE_SHEET_META (dia_list_get_type ())
+G_DECLARE_FINAL_TYPE (DiaSheetMeta, dia_sheet_meta, DIA, SHEET_META, GObject)
+
+struct _DiaSheetMeta {
+  gchar *name;
+};
+
+G_DEFINE_TYPE (DiaSheetMeta, dia_sheet_meta, G_TYPE_OBJECT)
+
+static void
+dia_sheet_meta_class_init (DiaSheetMetaClass *klass)
+{
+
+}
+
+static void
+dia_sheet_meta_init (DiaSheetMeta *self)
+{
+  
+}
+
+static GtkWidget *
+render_row (gpointer item, gpointer user_data)
+{
+  return dia_list_item_new_with_label (DIA_SHEET_META (item)->name);
+}
+
 static void
 create_sheet_dropdown_menu(GtkWidget *parent)
 {
+  GListStore *sheets = g_list_store_new (DIA_TYPE_SHEET_META);
   GList *sheet_names = get_sheet_names();
+  DiaSheetMeta *meta
+  GList *l;
+  GtkWidget *popover;
+  GtkWidget *frame;
+  GtkWidget *wrap;
+  GtkWidget *list;
 
   if (sheet_option_menu != NULL) {
     gtk_container_remove(GTK_CONTAINER(parent), sheet_option_menu);
     sheet_option_menu = NULL;
   }
 
-  sheet_option_menu =
-    dia_dynamic_menu_new_stringlistbased(_("Other sheets"), sheet_names, 
-					 NULL, "sheets");
-  g_signal_connect(DIA_DYNAMIC_MENU(sheet_option_menu), "value-changed",
+  meta = g_object_new (DIA_TYPE_SHEET_META, NULL);
+  meta->name = "Assorted";
+  g_list_store_append (sheets, meta);
+
+  meta = g_object_new (DIA_TYPE_SHEET_META, NULL);
+  meta->name = "Flowchart";
+  g_list_store_append (sheets, meta);
+
+  meta = g_object_new (DIA_TYPE_SHEET_META, NULL);
+  meta->name = "UML";
+  g_list_store_append (sheets, meta);
+
+  for (l = sheet_names; l != NULL; l = l->next) {
+    meta = g_object_new (DIA_TYPE_SHEET_META, NULL);
+    meta->name = l->data;
+    g_list_store_append (sheets, meta);
+  }
+
+  popover = gtk_popover_new ();
+  frame = gtk_frame_new (NULL);
+  gtk_container_add (GTK_CONTAINER (popover), frame);
+  wrap = gtk_scrolled_window_new (NULL, NULL);
+  gtk_container_add (GTK_CONTAINER (frame), wrap);
+  list = gtk_list_box_new ();
+  gtk_container_add (GTK_CONTAINER (wrap), list);
+  gtk_widget_show_all (frame);
+
+  gtk_list_box_set_selection_mode (GTK_LIST_BOX (list), GTK_SELECTION_SINGLE);
+  gtk_list_box_bind_model (GTK_LIST_BOX (list), G_LIST_MODEL (sheets), render_row, NULL, NULL);
+
+  // TODO: Display selected, Show recent on top, Persistance
+  sheet_option_menu = gtk_menu_button_new ();
+  gtk_menu_button_set_popover (GTK_MENU_BUTTON (sheet_option_menu), popover);
+
+  g_signal_connect (G_OBJECT (list), "row-selected",
 		   G_CALLBACK(sheet_option_menu_changed), sheet_option_menu);
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				     "Assorted");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				     "Flowchart");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				     "UML");
   /*    gtk_widget_set_size_request(sheet_option_menu, 20, -1);*/
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
 			    TRUE, TRUE, FALSE, FALSE, TRUE);    

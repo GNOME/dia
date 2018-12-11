@@ -37,8 +37,8 @@ static void dia_line_preview_set(DiaLinePreview *line, LineStyle lstyle);
 
 static void dia_line_preview_class_init (DiaLinePreviewClass  *klass);
 static void dia_line_preview_init       (DiaLinePreview       *arrow);
-static gint dia_line_preview_expose     (GtkWidget      *widget,
-					 GdkEventExpose *event);
+static gint dia_line_preview_draw       (GtkWidget            *widget,
+                                         cairo_t              *ctx);
 
 GType
 dia_line_preview_get_type (void)
@@ -70,20 +70,13 @@ dia_line_preview_class_init (DiaLinePreviewClass *class)
   GtkWidgetClass *widget_class;
 
   widget_class = GTK_WIDGET_CLASS(class);
-  widget_class->expose_event = dia_line_preview_expose;
+  widget_class->draw = dia_line_preview_draw;
 }
 
 static void
 dia_line_preview_init (DiaLinePreview *line)
 {
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_has_window (GTK_WIDGET (line), FALSE);
-#else
-  GTK_WIDGET_SET_FLAGS (line, GTK_NO_WINDOW);
-#endif
-
-  GTK_WIDGET (line)->requisition.width = 30 + GTK_MISC (line)->xpad * 2;
-  GTK_WIDGET (line)->requisition.height = 15 + GTK_MISC (line)->ypad * 2;
 
   line->lstyle = LINESTYLE_SOLID;
 }
@@ -112,32 +105,22 @@ dia_line_preview_set(DiaLinePreview *line, LineStyle lstyle)
 }
 
 static gint
-dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
+dia_line_preview_draw(GtkWidget *widget, cairo_t *ctx)
 {
   DiaLinePreview *line = DIA_LINE_PREVIEW(widget);
-  GtkMisc *misc = GTK_MISC(widget);
+  GtkAllocation alloc;
   gint width, height;
   gint x, y;
-  GdkWindow *win;
   double dash_list[6];
-  int line_width = 2;
-  GtkStyle *style;
-  GdkRGBA bg;
-  GdkRGBA fg;
-  cairo_t *ctx;
+
+  gtk_widget_get_allocation (widget, &alloc);
 
   if (gtk_widget_is_drawable(widget)) {
-    width = widget->allocation.width - misc->xpad * 2;
-    height = widget->allocation.height - misc->ypad * 2;
-    x = (widget->allocation.x + misc->xpad);
-    y = (widget->allocation.y + misc->ypad);
+    width = alloc.width;
+    height = alloc.height;
+    x = alloc.x;
+    y = alloc.y;
 
-    win = gtk_widget_get_window (widget);
-    style = gtk_widget_get_style (widget);
-    bg = style->base[gtk_widget_get_state(widget)];
-    fg = style->text[gtk_widget_get_state(widget)];
-
-    ctx = gdk_cairo_create (win);
     cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
     cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
 

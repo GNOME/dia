@@ -19,7 +19,6 @@
 #include <config.h>
 #include <string.h>
 #include "intl.h"
-#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, ... */
 #include <gtk/gtk.h>
 #include "diadynamicmenu.h"
 #include "persistence.h"
@@ -29,7 +28,7 @@
  * - it uses deprecated stuff
  */
 struct _DiaDynamicMenu {
-  GtkOptionMenu parent;
+  GtkMenuButton parent;
 
   GList *default_entries;
 
@@ -37,7 +36,8 @@ struct _DiaDynamicMenu {
   DDMCallbackFunc activate_func;
   gpointer userdata;
 
-  GtkMenuItem *other_item;
+  GtkWidget *other;
+  GtkWidget *list;
 
   gchar *persistent_name;
   gint cols;
@@ -49,7 +49,7 @@ struct _DiaDynamicMenu {
 };
 
 struct _DiaDynamicMenuClass {
-  GtkOptionMenuClass parent_class;
+  GtkMenuButtonClass parent_class;
 };
 
 
@@ -88,7 +88,7 @@ dia_dynamic_menu_get_type(void)
       (GInstanceInitFunc)dia_dynamic_menu_init,
     };
     us_type = g_type_register_static(
-			gtk_option_menu_get_type(),
+			GTK_TYPE_MENU_BUTTON,
 			"DiaDynamicMenu",
 			&us_info, 0);
   }
@@ -98,7 +98,7 @@ dia_dynamic_menu_get_type(void)
 static void
 dia_dynamic_menu_class_init(DiaDynamicMenuClass *class)
 {
-  GObjectClass *object_class = (GObjectClass*)class;
+  GtkWidgetClass *object_class = (GtkWidgetClass*)class;
 
   object_class->destroy = dia_dynamic_menu_destroy;
   
@@ -114,13 +114,30 @@ dia_dynamic_menu_class_init(DiaDynamicMenuClass *class)
 static void
 dia_dynamic_menu_init(DiaDynamicMenu *self)
 {
+  GtkWidget *pop, *box, *wrap;
+
+  pop = gtk_popover_new (GTK_WIDGET (self));
+  
+  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
+  gtk_container_add (GTK_CONTAINER (pop), wrap);
+  
+  self->list = dia_list_new ();
+
+  wrap = gtk_scrolled_window_new (NULL, NULL);
+  gtk_container_add (GTK_CONTAINER (wrap), self->list);
+
+  gtk_container_add (GTK_CONTAINER (box), wrap);
+
+  gtk_widget_show_all (wrap);
+
+  gtk_menu_button_set_popover (GTK_MENU_BUTTON (self), pop);
 }
 
 void 
 dia_dynamic_menu_destroy(GObject *object)
 {
   DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(object);
-  GObjectClass *parent_class = G_OBJECT_CLASS(g_type_class_peek_parent(G_OBJECT_GET_CLASS(object)));
+  GtkWidgetClass *parent_class = GTK_WIDGET_CLASS(g_type_class_peek_parent(G_OBJECT_GET_CLASS(object)));
 
   if (ddm->active)
     g_free(ddm->active);
@@ -142,7 +159,7 @@ dia_dynamic_menu_destroy(GObject *object)
 GtkWidget *
 dia_dynamic_menu_new(DDMCreateItemFunc create, 
 		     gpointer userdata,
-		     GtkMenuItem *otheritem, gchar *persist)
+		     GtkWidget *otheritem, gchar *persist)
 {
   DiaDynamicMenu *ddm;
 
@@ -152,7 +169,7 @@ dia_dynamic_menu_new(DDMCreateItemFunc create,
   
   ddm->create_func = create;
   ddm->userdata = userdata;
-  ddm->other_item = otheritem;
+  ddm->other = otheritem;
   ddm->persistent_name = persist;
   ddm->cols = 1;
 
@@ -163,31 +180,39 @@ dia_dynamic_menu_new(DDMCreateItemFunc create,
   return GTK_WIDGET(ddm);
 }
 
+void
+dia_dynamic_menu_set_active (DiaDynamicMenu *self, gint itm)
+{
+  dia_list_set_active (DIA_LIST (self->list), itm);
+  gtk_button_set_label (GTK_BUTTON (self),
+                        dia_list_item_get_value (dia_list_get_selection (DIA_LIST (self->list))));
+}
+
 /** Select the given entry, adding it if necessary */
 void
 dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, const gchar *name)
 {
-  gint add_result = dia_dynamic_menu_add_entry(ddm, name);
+  gint add_result = dia_dynamic_menu_add_entry (ddm, name);
   if (add_result == 0) {
-      GList *tmp;
-      int i = 0;
-      for (tmp = ddm->default_entries; tmp != NULL;
-	   tmp = g_list_next(tmp), i++) {
-	if (!g_ascii_strcasecmp(tmp->data, name))
-	  gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), i);
-      }
-      /* Not there after all? */
+    GList *tmp;
+    int i = 0;
+    for (tmp = ddm->default_entries; tmp != NULL;
+      tmp = g_list_next (tmp), i++) {
+      if (!g_ascii_strcasecmp (tmp->data, name))
+        dia_list_select_item (ddm->list, i);
+    }
+    /* Not there after all? */
   } else {
     if (ddm->default_entries != NULL)
-      gtk_option_menu_set_history(GTK_OPTION_MENU(ddm),
-				  g_list_length(ddm->default_entries)+1);
+      dia_dynamic_menu_set_active (ddm,
+                                   g_list_length (ddm->default_entries) + 1);
     else
-      gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), 0);
+      dia_dynamic_menu_set_active (ddm, 0);
   }
   
-  g_free(ddm->active);
-  ddm->active = g_strdup(name);
-  g_signal_emit(G_OBJECT(ddm), ddm_signals[DDM_VALUE_CHANGED], 0);
+  g_free (ddm->active);
+  ddm->active = g_strdup (name);
+  g_signal_emit (G_OBJECT (ddm), ddm_signals[DDM_VALUE_CHANGED], 0);
 }
 
 static void
@@ -196,27 +221,6 @@ dia_dynamic_menu_activate(GtkWidget *item, gpointer userdata)
   DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
   gchar *name = g_object_get_data(G_OBJECT(item), "ddm_name");
   dia_dynamic_menu_select_entry(ddm, name);
-}
-
-static GtkWidget *
-dia_dynamic_menu_create_string_item(DiaDynamicMenu *ddm, gchar *string)
-{
-  GtkWidget *item = gtk_menu_item_new_with_label(gettext(string));
-  return item;
-}
-
-/** Utility function for dynamic menus that are entirely based on the
- * labels in the menu.
- */
-GtkWidget *
-dia_dynamic_menu_new_stringbased(GtkMenuItem *otheritem, 
-				 gpointer userdata,
-				 gchar *persist)
-{
-  GtkWidget *ddm = dia_dynamic_menu_new(dia_dynamic_menu_create_string_item,
-					userdata,
-					otheritem, persist);
-  return ddm;
 }
 
 /** Utility function for dynamic menus that are based on a submenu with
@@ -229,7 +233,7 @@ dia_dynamic_menu_new_listbased(DDMCreateItemFunc create,
 			       gchar *other_label, GList *items, 
 			       gchar *persist)
 {
-  GtkWidget *item = gtk_menu_item_new_with_label(other_label);
+  GtkWidget *item = dia_list_item_new_with_label(other_label);
   GtkWidget *ddm = dia_dynamic_menu_new(create, userdata,
 					GTK_MENU_ITEM(item), persist);
   dia_dynamic_menu_create_sublist(DIA_DYNAMIC_MENU(ddm), items,  create);
@@ -238,25 +242,11 @@ dia_dynamic_menu_new_listbased(DDMCreateItemFunc create,
   return ddm;
 }
 
-/** Utility function for dynamic menus that allow selection from a large
- * number of strings.
- */
-GtkWidget *
-dia_dynamic_menu_new_stringlistbased(gchar *other_label, 
-				     GList *items,
-				     gpointer userdata,
-				     gchar *persist)
-{
-  return dia_dynamic_menu_new_listbased(dia_dynamic_menu_create_string_item,
-					userdata,
-					other_label, items, persist);
-}
-
 static void
 dia_dynamic_menu_create_sublist(DiaDynamicMenu *ddm,
 				GList *items, DDMCreateItemFunc create)
 {
-  GtkWidget *item = GTK_WIDGET(ddm->other_item);
+  GtkWidget *item = GTK_WIDGET(ddm->other);
 
   GtkWidget *submenu = gtk_menu_new();
 
@@ -345,21 +335,10 @@ dia_dynamic_menu_get_entry(DiaDynamicMenu *ddm)
 static void
 dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
 {
-  GtkWidget *sep;
   GList *tmplist;
-  GtkWidget *menu;
   GtkWidget *item;
 
-  g_object_ref(G_OBJECT(ddm->other_item));
-  menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(ddm));
-  if (menu != NULL) {
-    gtk_container_remove(GTK_CONTAINER(menu), GTK_WIDGET(ddm->other_item));
-    gtk_container_foreach(GTK_CONTAINER(menu),
-			  (GtkCallback)gtk_widget_destroy, NULL);
-    gtk_option_menu_remove_menu(GTK_OPTION_MENU(ddm));
-  }
-
-  menu = gtk_menu_new();
+  dia_list_empty (DIA_LIST (ddm->list));
 
   if (ddm->default_entries != NULL) {
     for (tmplist = ddm->default_entries; tmplist != NULL; tmplist = g_list_next(tmplist)) {
@@ -367,12 +346,10 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
       g_object_set_data(G_OBJECT(item), "ddm_name", tmplist->data);
       g_signal_connect(G_OBJECT(item), "activate", 
 		       G_CALLBACK(dia_dynamic_menu_activate), ddm);
-      gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+      dia_list_add (DIA_LIST (ddm->list), GTK_LIST_BOX_ROW (item));
       gtk_widget_show(item);
     }
-    sep = gtk_separator_menu_item_new();
-    gtk_widget_show(sep);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), sep);
+    dia_list_add_seperator (DIA_LIST (ddm->list));
   }
 
   for (tmplist = persistent_list_get_glist(ddm->persistent_name);
@@ -381,26 +358,17 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
     g_object_set_data(G_OBJECT(item), "ddm_name", tmplist->data);
     g_signal_connect(G_OBJECT(item), "activate", 
 		     G_CALLBACK(dia_dynamic_menu_activate), ddm);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+    dia_list_add (DIA_LIST (ddm->list), GTK_LIST_BOX_ROW (item));
     gtk_widget_show(item);
   }
-  sep = gtk_separator_menu_item_new();
-  gtk_widget_show(sep);
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), sep);
+  dia_list_add_seperator (DIA_LIST (ddm->list));
 
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(ddm->other_item));
-  g_object_unref(G_OBJECT(ddm->other_item));
-  /* Eventually reset item here */
-  gtk_widget_show(menu);
-
-  item = gtk_menu_item_new_with_label(_("Reset menu"));
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
+  item = dia_list_item_new_with_label(_("Reset menu"));
+  dia_list_add (DIA_LIST (ddm->list), GTK_LIST_BOX_ROW (item));
   g_signal_connect(G_OBJECT(item), "activate", G_CALLBACK(dia_dynamic_menu_reset), ddm);
   gtk_widget_show(item);
 
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(ddm), menu);
-
-  gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), 0);
+  dia_dynamic_menu_set_active (ddm, 0);
 }
 
 /** Select the method used for sorting the non-default entries.
