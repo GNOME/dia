@@ -289,8 +289,8 @@ create_font_props_row (GtkTable   *table,
   label = gtk_label_new (kind);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach_defaults (table, label, 0, 1, row, row+1);
-  *fontsel = DIAFONTSELECTOR (dia_font_selector_new ());
-  dia_font_selector_set_font (DIAFONTSELECTOR (*fontsel), font);
+  *fontsel = DIA_FONT_SELECTOR (dia_font_selector_new ());
+  dia_font_selector_set_font (DIA_FONT_SELECTOR (*fontsel), font);
   gtk_table_attach_defaults (GTK_TABLE (table), GTK_WIDGET(*fontsel), 1, 2, row, row+1);
 
   adj = gtk_adjustment_new (height, 0.1, 10.0, 0.1, 1.0, 0);

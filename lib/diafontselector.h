@@ -22,15 +22,14 @@
 #include "diatypes.h"
 
 /* DiaFontSelector: */
-#define DIAFONTSELECTOR(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, dia_font_selector_get_type (), DiaFontSelector)
-#define DIAFONTSELECTOR_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, dia_font_selector_get_type (), DiaFontSelectorClass)
-#define IS_DIAFONTSELECTOR(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, dia_font_selector_get_type ())
+#define DIA_TYPE_FONT_SELECTOR (dia_font_selector_get_type ())
+G_DECLARE_FINAL_TYPE (DiaFontSelector, dia_font_selector, DIA, FONT_SELECTOR, GtkFontButton)
 
+struct _DiaFontSelector {
+};
 
-GType    dia_font_selector_get_type        (void);
 GtkWidget* dia_font_selector_new             (void);
 void       dia_font_selector_set_font        (DiaFontSelector *fs, DiaFont *font);
-void       dia_font_selector_set_preview     (DiaFontSelector *fs, gchar *text);
 DiaFont *     dia_font_selector_get_font        (DiaFontSelector *fs);
 
 #endif /* DIA_FONT_SELECTOR_H */
