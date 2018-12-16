@@ -6,6 +6,17 @@ project('dia',
         default_options : []
 )
 
+i18n = import('i18n')
+
+gettext_package = 'dia'
+subdir('po')
+
+#GTK_MODULES="gtk+-2.0 >= 2.16.0 glib-2.0 >= 2.20.0 libxml-2.0 gdk-pixbuf-2.0 gthread-2.0 gmodule-2.0"
+libgtk_dep  = dependency('gtk+-2.0', version : '>= 2.16.0')
+libglib_dep = dependency('glib-2.0', version : '>= 2.20.0')
+libxml_dep  = dependency('libxml-2.0')
+gmodule_dep = dependency('gmodule-2.0')
+
 # TODO
 #AC_PROG_INSTALL
 #AC_PROG_LN_S
@@ -36,8 +47,16 @@ conf = configuration_data()
 
 prefix = get_option('prefix')
 conf.set_quoted('VERSION', meson.project_version())
+conf.set_quoted('GETTEXT_PACKAGE', 'dia')
+conf.set_quoted('DATADIR', get_option('datadir'))
+conf.set_quoted('LIBDIR', get_option('libdir'))
+conf.set_quoted('LOCALEDIR', get_option('localedir'))
+conf.set('ENABLE_NLS', 1)
 
 configure_file(output : 'config.h',
                configuration : conf)
+configuration_inc = include_directories('.')
+
+subdir('lib')
 
 
