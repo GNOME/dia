@@ -183,8 +183,7 @@ libdia_sources = stdprop_sources + [
     'diacellrendererenum.c',
     'diacellrendererenum.h',
     'diacellrendererproperty.c',
-    'diacellrendererproperty.h',
-    'dia-lib-icons.h'
+    'diacellrendererproperty.h'
 ]
 
 libm_dep = cc.find_library(
@@ -215,6 +214,27 @@ diamarshal_h = custom_target(
                 '--header',
                 '@INPUT@'])
 
+# Generate csource for the icons.
+#TODO: the left-hand names should be extracted from the filenames.
+#      (something like 'dia_BASEFILENAME_icon')
+icon_png_pairs = [ ['dia_broken_icon'        , files('pixmaps/broken.png')],
+                   ['dia_broken_chain_icon'  , files('pixmaps/broken-chain.png')],
+                   ['dia_unbroken_chain_icon', files('pixmaps/unbroken-chain.png')],
+                   ['stdpath_icon'           , files('pixmaps/standard-path.png')] ]
+
+icon_pngs = []
+foreach name_source_pair : icon_png_pairs
+    icon_pngs += name_source_pair[1]
+endforeach
+
+dia_lib_icons_h = custom_target(
+    'dia-lib-icons.h',
+    output : 'dia-lib-icons.h',
+    capture : true,
+    command : [ find_program('gdk-pixbuf-csource'),
+                '--build-list',
+                icon_png_pairs])
+
 libdia_deps = [
     libgtk_dep,
     libglib_dep,
@@ -225,7 +245,7 @@ libdia_deps = [
 ]
 
 libdia = shared_library('dia',
-    libdia_sources + [diamarshal_c, diamarshal_h],
+    libdia_sources + [diamarshal_c, diamarshal_h, dia_lib_icons_h],
     dependencies : libdia_deps,
     include_directories : configuration_inc,
     c_args : ['-Wall'])
