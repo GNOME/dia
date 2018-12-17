@@ -133,4 +133,6 @@ libdia = shared_library('dia',
     libdia_sources + [diamarshal_c, diamarshal_h, dia_lib_icons_h],
     dependencies : libdia_deps,
     include_directories : configuration_inc,
-    c_args : ['-Wall'])
+    c_args : ['-Wall'],
+    install : true,
+    install_dir : join_paths(get_option('libdir'), 'dia'))
