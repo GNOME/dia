@@ -60,3 +60,4 @@ configuration_inc = include_directories('.')
 add_project_arguments('-DHAVE_CONFIG_H', language : 'c')
 
 subdir('lib')
+subdir('app')

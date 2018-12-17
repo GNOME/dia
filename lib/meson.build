@@ -129,6 +129,8 @@ libdia_deps = [
     gmodule_dep
 ]
 
+libdia_inc = include_directories('.')
+
 libdia = shared_library('dia',
     libdia_sources + [diamarshal_c, diamarshal_h, dia_lib_icons_h],
     dependencies : libdia_deps,
