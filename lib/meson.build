@@ -96,12 +96,6 @@ libdia_sources = stdprop_sources + [
     'diacellrendererproperty.c',
 ]
 
-libm_dep = cc.find_library(
-    'm', required : false)
-
-libzlib_dep = dependency('zlib')
-
-
 glib_genmarshal = find_program('glib-genmarshal')
 diamarshal_c = custom_target(
     'diamarshal.c',
