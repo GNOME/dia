@@ -17,6 +17,8 @@ libglib_dep = dependency('glib-2.0', version : '>= 2.20.0')
 libxml_dep  = dependency('libxml-2.0')
 gmodule_dep = dependency('gmodule-2.0')
 
+# Used in pixmap csource generation.
+gdk_pixbuf_csource = find_program('gdk-pixbuf-csource')
 # TODO
 #AC_PROG_INSTALL
 #AC_PROG_LN_S
@@ -57,6 +59,5 @@ configure_file(output : 'config.h',
                configuration : conf)
 configuration_inc = include_directories('.')
 
+
 subdir('lib')
-
-

@@ -47,7 +47,7 @@ ICON_PNG_PAIRS= \
 	dia_broken_icon $(srcdir)/pixmaps/broken.png \
 	dia_broken_chain_icon $(srcdir)/pixmaps/broken-chain.png \
 	dia_unbroken_chain_icon $(srcdir)/pixmaps/unbroken-chain.png \
-	stdpath_icon $(srcdir)/pixmaps/standard-path.png
+	dia_standard_path_icon $(srcdir)/pixmaps/standard-path.png
 
 # there is probably some smarter way than duplicating this
 # but having the right dependecy for dia-lib-icons.h was 

@@ -161,7 +161,7 @@ DiaObjectType stdpath_type =
 {
   "Standard - Path",      /* name */
   0,                      /* version */
-  (const char **) stdpath_icon, /* pixmap */
+  (const char **) dia_standard_path_icon, /* pixmap */
   
   &stdpath_type_ops,      /* ops */
   NULL,                   /* pixmap_file */

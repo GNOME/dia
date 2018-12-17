@@ -815,11 +815,11 @@ register_stock_icons (void)
   _add_stock_icon (factory, DIA_STOCK_GROUP, dia_group_icon, sizeof(dia_group_icon));
   _add_stock_icon (factory, DIA_STOCK_UNGROUP, dia_ungroup_icon, sizeof(dia_ungroup_icon));
 
-  _add_stock_icon (factory, DIA_STOCK_LAYER_ADD, dia_layer_add, sizeof(dia_layer_add));
-  _add_stock_icon (factory, DIA_STOCK_LAYER_RENAME, dia_layer_rename, sizeof(dia_layer_rename));
-  _add_stock_icon (factory, DIA_STOCK_OBJECTS_LAYER_ABOVE, dia_objects_layer_above, sizeof(dia_objects_layer_above));
-  _add_stock_icon (factory, DIA_STOCK_OBJECTS_LAYER_BELOW, dia_objects_layer_below, sizeof(dia_objects_layer_below));
-  _add_stock_icon (factory, DIA_STOCK_LAYERS, dia_layers, sizeof(dia_layers));
+  _add_stock_icon (factory, DIA_STOCK_LAYER_ADD, dia_layer_add_icon, sizeof(dia_layer_add_icon));
+  _add_stock_icon (factory, DIA_STOCK_LAYER_RENAME, dia_layer_rename_icon, sizeof(dia_layer_rename_icon));
+  _add_stock_icon (factory, DIA_STOCK_OBJECTS_LAYER_ABOVE, dia_objects_layer_above_icon, sizeof(dia_objects_layer_above_icon));
+  _add_stock_icon (factory, DIA_STOCK_OBJECTS_LAYER_BELOW, dia_objects_layer_below_icon, sizeof(dia_objects_layer_below_icon));
+  _add_stock_icon (factory, DIA_STOCK_LAYERS, dia_layers_icon, sizeof(dia_layers_icon));
 
   gtk_icon_factory_add_default (factory);
   g_object_unref (factory);
