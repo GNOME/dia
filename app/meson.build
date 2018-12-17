@@ -69,4 +69,6 @@ dia = executable('dia',
     link_with : libdia,
     include_directories : [configuration_inc, libdia_inc],
     gui_app : true,
-    install : true)
+    install : true,
+    install_rpath : join_paths(get_option('prefix'), get_option('libdir'))
+)

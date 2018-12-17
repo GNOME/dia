@@ -137,4 +137,5 @@ libdia = shared_library('dia',
     include_directories : configuration_inc,
     c_args : ['-Wall'],
     install : true,
-    install_dir : join_paths(get_option('libdir'), 'dia'))
+    install_rpath : get_option('prefix')
+)
