@@ -31,14 +31,18 @@ gdk_pixbuf_csource = find_program('gdk-pixbuf-csource')
 #AC_PROG_MAKE_SET
 #AC_ISC_POSIX
 
-
 # Specify a header configuration file
 conf = configuration_data()
 
-prefix = get_option('prefix')
+datadir = join_paths(get_option('prefix'),
+                     get_option('datadir'))
+
+pkgdatadir = join_paths(datadir, 'dia')
+
 conf.set_quoted('VERSION', meson.project_version())
 conf.set_quoted('GETTEXT_PACKAGE', 'dia')
-conf.set_quoted('DATADIR', join_paths(get_option('prefix'), get_option('datadir')))
+conf.set_quoted('DATADIR', datadir)
+conf.set_quoted('PKGDATADIR', pkgdatadir)
 conf.set_quoted('LIBDIR',  join_paths(get_option('prefix'), get_option('libdir')))
 conf.set_quoted('LOCALEDIR', get_option('localedir'))
 conf.set('ENABLE_NLS', 1)

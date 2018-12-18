@@ -85,8 +85,8 @@ libdia_la_SOURCES =  \
 		textline.h \
 		font.c \
 		font.h \
-	        group.c \
-	        group.h \
+		group.c \
+		group.h \
 		utils.c \
 		utils.h \
 		arrows.c \
@@ -236,15 +236,12 @@ AM_CPPFLAGS = \
 	$(LIBART_CFLAGS) \
 	-DLIBDIA_COMPILATION \
 	-DLIBDIR=\"$(libdir)\" \
-	-DDATADIR=\"$(pkgdatadir)\" \
+	-DPKGDATADIR=\"$(pkgdatadir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DPREFIX=\"$(prefix)\"
 
-sheetdir = $(pkgdatadir)/sheets
-
 AM_CPPFLAGS += -I$(top_srcdir)/intl $(DEBUG_FLAGS) $(GDK_PIXBUF_CFLAGS) \
   $(XML_CFLAGS) $(GTK_CFLAGS) \
-  -DDIA_SHEETDIR=\"$(sheetdir)\" \
   $(PANGOFT2_CFLAGS) $(LIBART_CFLAGS) $(UNICODE_CFLAGS)
 
 libdia_la_extra_sources = diamarshal.list

@@ -90,8 +90,8 @@ dia_get_data_directory(const gchar* subdir)
    * Calculate from executable path
    */
   gchar *sLoc = _dia_get_module_directory ();
-#  if defined(PREFIX) && defined(DATADIR)
-  tmpPath = replace_prefix(sLoc, DATADIR);
+#  if defined(PREFIX) && defined(PKGDATADIR)
+  tmpPath = replace_prefix(sLoc, PKGDATADIR);
   if (strlen (subdir) == 0)
     returnPath = g_strdup(tmpPath);
   else
@@ -104,9 +104,9 @@ dia_get_data_directory(const gchar* subdir)
   return returnPath;
 #else
   if (strlen (subdir) == 0)
-    return g_strconcat (DATADIR, NULL);
+    return g_strconcat (PKGDATADIR, NULL);
   else
-    return g_strconcat (DATADIR, G_DIR_SEPARATOR_S, subdir, NULL);
+    return g_strconcat (PKGDATADIR, G_DIR_SEPARATOR_S, subdir, NULL);
 #endif
 }
 

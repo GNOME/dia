@@ -11,11 +11,8 @@ AM_CPPFLAGS = \
 	$(GTK_MAC_CFLAGS) \
 	$(LIBART_CFLAGS) \
 	-DPREFIX=\""$(prefix)"\" \
-	-DSYSCONFDIR=\""$(sysconfdir)"\" \
 	-DDATADIR=\""$(datadir)"\" \
-	-DLIBDIR=\""$(libdir)"\" \
-	-DLOCALEDIR=\"$(localedir)\" \
-	-DUIDATADIR=\"$(uidatadir)\"
+	-DLOCALEDIR=\"$(localedir)\"
 
 
 
