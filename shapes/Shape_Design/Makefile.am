@@ -1,7 +1,7 @@
 
-shapedir = $(pkgdatadir)/Shape_Design
+shapedir = $(pkgdatadir)/shapes
 
-Shape_Designdir = $(shapedir)/Misc
+Shape_Designdir = $(shapedir)/Shape_Design
 
 SHAPES = \
 	connectionpoint.png \
