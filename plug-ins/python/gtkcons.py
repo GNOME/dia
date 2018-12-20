@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python22
 
 #   Interactive Python-GTK Console
 #   Copyright (C), 1998 James Henstridge <james@daa.com.au>

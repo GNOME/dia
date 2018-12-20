@@ -64,23 +64,23 @@ class DiaOutputDev : public OutputDev
 {
 public :
   //! Does this device use upside-down coordinates?
-  GBool upsideDown() { return gTrue; }
+  bool upsideDown() { return true; }
   //! Does this device use drawChar() or drawString()?
-  GBool useDrawChar() { return gFalse; }
+  bool useDrawChar() { return false; }
   //! Type 3 font support?
-  GBool interpretType3Chars() { return gFalse; }
+  bool interpretType3Chars() { return false; }
   //! Overwrite for single page support??
-  GBool checkPageSlice (Page *page, double hDPI, double vDPI,
-			int rotate, GBool useMediaBox, GBool crop,
+  bool checkPageSlice (Page *page, double hDPI, double vDPI,
+			int rotate, bool useMediaBox, bool crop,
 			int sliceX, int sliceY, int sliceW, int sliceH,
-			GBool printing,
-			GBool (* abortCheckCbk)(void *data),
+			bool printing,
+			bool (* abortCheckCbk)(void *data),
 			void * abortCheckCbkData,
-			GBool (*annotDisplayDecideCbk)(Annot *annot, void *user_data),
+			bool (*annotDisplayDecideCbk)(Annot *annot, void *user_data),
 			void *annotDisplayDecideCbkData)
   {
-    PDFRectangle *mediaBox = page->getMediaBox(); 
-    PDFRectangle *clipBox = page->getCropBox ();
+    const PDFRectangle *mediaBox = page->getMediaBox(); 
+    const PDFRectangle *clipBox = page->getCropBox ();
 
     if (page->isOk()) {
       real w1 = (clipBox->x2 - clipBox->x1);
@@ -101,9 +101,9 @@ public :
       // before returning false.
       // At least so documentation says, but I've found no OutputDev
       // actually following this;)
-      return gTrue;
+      return true;
     }
-    return gFalse;
+    return false;
   }
   //! Apparently no effect at all - so we translate everything to Dia space ouself
   void setDefaultCTM(double *ctm)
@@ -220,10 +220,10 @@ public :
     this->fill_color.alpha = state->getFillOpacity();
   }
   //! gradients are just emulated - but not if returning false here
-  GBool useShadedFills(int type) { return type < 4; }
-  GBool useFillColorStop() { return gTrue; }
+  bool useShadedFills(int type) { return type < 4; }
+  bool useFillColorStop() { return true; }
   //! follow the CairoOutputDev pattern once more
-  GBool axialShadedSupportExtend(GfxState *state, GfxAxialShading *shading)
+  bool axialShadedSupportExtend(GfxState *state, GfxAxialShading *shading)
   {
     return (shading->getExtend0() == shading->getExtend1());
   }
@@ -241,7 +241,7 @@ public :
     g_return_if_fail (this->pattern != NULL);
     dia_pattern_add_color (this->pattern, offset, &fill);
   }
-  GBool axialShadedFill(GfxState *state, GfxAxialShading *shading, double tMin, double tMax)
+  bool axialShadedFill(GfxState *state, GfxAxialShading *shading, double tMin, double tMax)
   {
     double x0, y0, x1, y1;
     double dx, dy;
@@ -261,13 +261,13 @@ public :
     dia_pattern_set_point (this->pattern, x0 + tMax * dx, y0 + tMax * dy);
     // continue with updateFillColorStop calls
     // although wasteful, because Poppler samples these to 256 entries 
-    return gFalse;
+    return false;
   }
-  GBool radialShadedSupportExtend(GfxState *state, GfxRadialShading *shading)
+  bool radialShadedSupportExtend(GfxState *state, GfxRadialShading *shading)
   {
     return (shading->getExtend0() == shading->getExtend1());
   }
-  GBool radialShadedFill(GfxState *state, GfxRadialShading *shading, double sMin, double sMax)
+  bool radialShadedFill(GfxState *state, GfxRadialShading *shading, double sMin, double sMax)
   {
     double x0, y0, r0, x1, y1, r1;
     double dx, dy, dr;
@@ -291,7 +291,7 @@ public :
     dia_pattern_set_point (this->pattern, x0 + sMin * dx, y0 + sMin * dy);
     // continue with updateFillColorStop calls
     // although wasteful, because Poppler samples these to 256 entries 
-    return gFalse;
+    return false;
   }
   void updateBlendMode(GfxState *state)
   {
@@ -321,10 +321,10 @@ public :
 		       | (f->isItalic() ? DIA_FONT_ITALIC : DIA_FONT_NORMAL)
 		          // mapping all the font weights is just too much code for now ;)
 		       | (f->isBold () ? DIA_FONT_BOLD : DIA_FONT_WEIGHT_NORMAL);
-    gchar *family = g_strdup (f->getFamily() ? f->getFamily()->getCString() : "sans");
+    gchar *family = g_strdup (f->getFamily() ? f->getFamily()->c_str() : "sans");
 
     // we are (not anymore) building the same font over and over again
-    g_print ("Font 0x%x: '%s' size=%g (* %g)\n",
+    g_print ("Font 0x%x: '%s'c_str size=%g (* %g)\n",
 	     GPOINTER_TO_INT (f), family, state->getTransformedFontSize(), scale);
 
     // now try to make a fontname Dia/Pango can cope with
@@ -339,7 +339,7 @@ public :
     if ((pf = strstr (family, " Oblique")) != NULL)
       *pf = 0;
 
-    double *fm = f->getFontMatrix();
+    const double *fm = f->getFontMatrix();
     double fsize = state->getTransformedFontSize();
     if (fm[0] != 0)
       fsize *= fabs(fm[3] / fm[0]);
@@ -390,7 +390,7 @@ public :
 
   void drawImage(GfxState *state, Object *ref, Stream *str,
 		 int width, int height, GfxImageColorMap *colorMap,
-		 GBool interpolate, int *maskColors, GBool inlineImg);
+		 bool interpolate, int *maskColors, bool inlineImg);
   
   //! everything on a single page it put into a Dia Group
   void startPage(int pageNum, GfxState *state)
@@ -718,7 +718,7 @@ DiaOutputDev::drawString(GfxState *state, GooString *s)
   // we have to decode the string data first
   {
     GfxFont *f = state->getFont();
-    char *p = s->getCString();
+    const char *p = s->c_str();
     CharCode code;
     int   j = 0, m, n;
     utf8 = g_new (gchar, len * 6 + 1);
@@ -774,13 +774,13 @@ DiaOutputDev::drawString(GfxState *state, GooString *s)
 void
 DiaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str,
 			int width, int height, GfxImageColorMap *colorMap,
-			GBool interpolate, int *maskColors, GBool inlineImg)
+			bool interpolate, int *maskColors, bool inlineImg)
 {
   DiaObject *obj;
   GdkPixbuf *pixbuf;
   Point pos;
   ObjectChange *change;
-  double *ctm = state->getCTM();
+  const double *ctm = state->getCTM();
 
   pos.x = ctm[4] * scale;
   // there is some undocumented magic done with the ctm for drawImage
@@ -880,9 +880,9 @@ import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
       doc->displayPage(diaOut, pg,
 		       72.0, 72.0, /* DPI, scaling elsewhere */
 		       0, /* rotate */
-		       gTrue, /* useMediaBox */
-		       gTrue, /* Crop */
-		       gFalse /* printing */
+		       true, /* useMediaBox */
+		       true, /* Crop */
+		       false /* printing */
 		       );
     }
     delete diaOut;
