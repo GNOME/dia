@@ -1,4 +1,4 @@
-#!/usr/bin/env python22
+#!/usr/bin/env python2
 
 #   Copyright (c) 2007, Hans Breuer <hans@breuer.org>
 #
