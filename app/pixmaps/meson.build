@@ -11,7 +11,6 @@ icons = [ 'connectable.png',
           'mainpoints-on.png',
           'mainpoints-off.png',
 
-
           'objects-layer-above.png',
           'objects-layer-below.png',
           'layers.png',
