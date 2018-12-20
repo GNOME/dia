@@ -19,6 +19,9 @@ libxml_dep  = dependency('libxml-2.0', version : '>= 2.6.27')
 #TODO: what are the minimum versions?
 gmodule_dep = dependency('gmodule-2.0')
 libzlib_dep = dependency('zlib')
+#TODO: this is optional.  Should it be a disabler?
+libcairo_dep = dependency('cairo', required : false)
+
 libm_dep = cc.find_library('m', required : false)
 
 
@@ -72,3 +75,4 @@ subdir('objects')
 subdir('app')
 subdir('data')
 subdir('doc')
+subdir('plug-ins')
