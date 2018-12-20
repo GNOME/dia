@@ -390,7 +390,7 @@ dia_register_plugins(void)
     }
     g_strfreev(paths);
   } else {
-    library_path = dia_get_lib_directory("dia");
+    library_path = dia_get_lib_directory();
 
     dia_register_plugins_in_dir(library_path);
     g_free((char *)library_path);

@@ -39,11 +39,15 @@ datadir = join_paths(get_option('prefix'),
 
 pkgdatadir = join_paths(datadir, 'dia')
 
+dialibdir = join_paths(get_option('prefix'),
+                       get_option('libdir'),
+                       'dia')
+
 conf.set_quoted('VERSION', meson.project_version())
 conf.set_quoted('GETTEXT_PACKAGE', 'dia')
 conf.set_quoted('DATADIR', datadir)
 conf.set_quoted('PKGDATADIR', pkgdatadir)
-conf.set_quoted('LIBDIR',  join_paths(get_option('prefix'), get_option('libdir')))
+conf.set_quoted('DIALIBDIR',  dialibdir)
 conf.set_quoted('LOCALEDIR', get_option('localedir'))
 conf.set('ENABLE_NLS', 1)
 

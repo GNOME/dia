@@ -235,7 +235,7 @@ libdia_la_LIBADD = $(GTK_LIBS)
 AM_CPPFLAGS = \
 	$(LIBART_CFLAGS) \
 	-DLIBDIA_COMPILATION \
-	-DLIBDIR=\"$(libdir)\" \
+	-DDIALIBDIR=\"$(libdir)/dia\" \
 	-DPKGDATADIR=\"$(pkgdatadir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DPREFIX=\"$(prefix)\"

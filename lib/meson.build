@@ -131,11 +131,11 @@ libdia_deps = [
 
 libdia_inc = include_directories('.')
 
-libdia = shared_library('dia',
+libdia = library('dia',
     libdia_sources + [diamarshal_c, diamarshal_h, dia_lib_icons_h],
     dependencies : libdia_deps,
     include_directories : configuration_inc,
     c_args : ['-Wall'],
     install : true,
-    install_rpath : get_option('prefix')
+    install_dir   : dialibdir
 )

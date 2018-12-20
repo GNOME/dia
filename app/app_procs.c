@@ -836,7 +836,7 @@ app_init (int argc, char **argv)
     message_error(_("Couldn't find standard objects when looking for "
 		  "object-libs; exiting...\n"));
     g_critical( _("Couldn't find standard objects when looking for "
-	    "object-libs in '%s'; exiting...\n"), dia_get_lib_directory("dia"));
+	    "object-libs in '%s'; exiting...\n"), dia_get_lib_directory());
     exit(1);
   }
 

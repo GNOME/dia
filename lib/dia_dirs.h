@@ -22,7 +22,7 @@
 #include <glib.h>
 
 gchar *dia_get_data_directory (const gchar* subdir);
-gchar *dia_get_lib_directory  (const gchar* subdir);
+gchar *dia_get_lib_directory  (void);
 gchar *dia_get_locale_directory (void);
 gchar *dia_config_filename    (const gchar* file);
 gboolean dia_config_ensure_dir  (const gchar* filename);

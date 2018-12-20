@@ -117,24 +117,20 @@ dia_get_data_directory(const gchar* subdir)
  *          freed after use.
  */
 gchar*
-dia_get_lib_directory(const gchar* subdir)
+dia_get_lib_directory(void)
 {
 #ifdef G_OS_WIN32
   gchar *sLoc = _dia_get_module_directory ();
   gchar *returnPath = NULL;
-#  if defined(PREFIX) && defined(LIBDIR)
-  {
-    gchar *tmpPath = replace_prefix(sLoc, LIBDIR);
-    returnPath = g_build_path(G_DIR_SEPARATOR_S, tmpPath, subdir, NULL);
-    g_free(tmpPath);
-  }
+#  if defined(PREFIX) && defined(DIALIBDIR)
+    returnPath = replace_prefix(sLoc, DIALIBDIR);
 #  else
-  returnPath = g_strconcat (sLoc , subdir, NULL);
+  returnPath = g_strconcat (sLoc , "dia", NULL);
 #  endif
   g_free (sLoc);
   return returnPath;
 #else
-  return g_strconcat (LIBDIR, G_DIR_SEPARATOR_S, subdir, NULL);
+  return g_strconcat (DIALIBDIR, G_DIR_SEPARATOR_S, "", NULL);
 #endif
 }
 
@@ -142,15 +138,15 @@ gchar*
 dia_get_locale_directory(void)
 {
 #ifdef G_OS_WIN32
-#  if defined(PREFIX) && defined(LOCALEDIR)
-  gchar *ret;
   gchar *sLoc = _dia_get_module_directory ();
-  ret = replace_prefix(sLoc, LOCALEDIR);
-  g_free (sLoc);
-  return  ret;
+  gchar *returnPath = NULL;
+#  if defined(PREFIX) && defined(LOCALEDIR)
+    returnPath = replace_prefix(sLoc, LOCALEDIR);
 #  else
-  return dia_get_lib_directory ("locale");
+  returnPath = g_strconcat (sLoc, "locale", NULL);
 #  endif
+  g_free (sLoc);
+  return returnPath;
 #else
   return g_strconcat (LOCALEDIR, G_DIR_SEPARATOR_S, "", NULL);
 #endif
