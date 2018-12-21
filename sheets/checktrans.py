@@ -21,12 +21,21 @@
 
 
 import os,sys,string
+print("""*** Sheet translation report: ***
+(Absence of a language code means 0% translation for that language)
+(Help for translations (and/or much more) is of course welcome !)
+""")
+
 try :
 	from xml.sax import saxexts
 	from xml.sax import saxlib
 except ImportError :
 	print "Missing dependencies: no translation report"
-	sys.exit(0)
+	print("""E: checktrans failed to run. Please check that python and python-xml are installed
+E: on your system. On some systems, python-xml is called PyXML. If in doubt,
+E: have a look at http://pyxml.sourceforge.net
+""")
+	sys.exit(1)
 
 class CounterHandler(saxlib.DocumentHandler):
 

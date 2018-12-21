@@ -2,16 +2,6 @@
 
 str=sheet-translation-report
 	
-cat <<__EOF__ >$str
-*** Sheet translation report: ***
-(Absence of a language code means 0% translation for that language)
-(Help for translations (and/or much more) is of course welcome !)
-__EOF__
-./checktrans.py $* >>$str || cat <<__EOF__ >>$str
-E: checktrans failed to run. Please check that python and python-xml are installed
-E: on your system. On some systems, python-xml is called PyXML. If in doubt,
-E: have a look at http://pyxml.sourceforge.net
-__EOF__
+./checktrans.py $* | tee $str
 
-cat sheet-translation-report
 exit 0

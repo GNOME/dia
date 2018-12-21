@@ -73,5 +73,6 @@ subdir('app')
 subdir('data')
 subdir('doc')
 subdir('plug-ins')
+subdir('sheets')
 
 meson.add_install_script('meson-helpers/post-install.py', datadir)
