@@ -6,10 +6,6 @@ project('dia',
         default_options : []
 )
 
-i18n = import('i18n')
-
-gettext_package = 'dia'
-
 cc = meson.get_compiler('c')
 
 #GTK_MODULES="gtk+-2.0 >= 2.16.0 glib-2.0 >= 2.20.0 libxml-2.0 gdk-pixbuf-2.0 gthread-2.0 gmodule-2.0"
@@ -37,16 +33,17 @@ gdk_pixbuf_csource = find_program('gdk-pixbuf-csource')
 
 datadir = join_paths(get_option('prefix'),
                      get_option('datadir'))
-pkgdatadir = join_paths(datadir, 'dia')
+
+pkgdatadir = join_paths(datadir, meson.project_name())
 
 dialibdir = join_paths(get_option('prefix'),
                        get_option('libdir'),
-                       'dia')
+                       meson.project_name())
 
 # Specify a header configuration file
 conf = configuration_data()
 conf.set_quoted('VERSION', meson.project_version())
-conf.set_quoted('GETTEXT_PACKAGE', 'dia')
+conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('DATADIR', datadir)
 conf.set_quoted('PKGDATADIR', pkgdatadir)
 conf.set_quoted('DIALIBDIR',  dialibdir)
