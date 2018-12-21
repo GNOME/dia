@@ -20,8 +20,6 @@ libcairo_dep = dependency('cairo', required : false)
 
 libm_dep = cc.find_library('m', required : false)
 
-
-
 # Used in pixmap csource generation.
 gdk_pixbuf_csource = find_program('gdk-pixbuf-csource')
 # TODO
@@ -74,5 +72,6 @@ subdir('data')
 subdir('doc')
 subdir('plug-ins')
 subdir('sheets')
+subdir('shapes')
 
 meson.add_install_script('meson-helpers/post-install.py', datadir)

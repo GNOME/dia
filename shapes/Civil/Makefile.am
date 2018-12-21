@@ -22,8 +22,8 @@ SHAPES = \
 	civil_final-settling_basin.png \
 	civil_frequency_converter.shape \
 	civil_frequency_converter.png \
-        civil_gas_bottle.png \
-        civil_gas_bottle.shape \
+	civil_gas_bottle.png \
+	civil_gas_bottle.shape \
 	civil_horizontal_limiting_line.shape \
 	civil_horizontal_limiting_line.png \
 	civil_horizontal_valve.shape \
