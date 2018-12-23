@@ -194,7 +194,7 @@ dia_arrow_preview_draw (GtkWidget *widget, cairo_t *ctx)
 
     renderer = g_object_new (dia_cairo_renderer_get_type (), NULL);
     renderer->with_alpha = TRUE;
-    renderer->cr = ctx;
+    renderer->cr = cairo_reference (ctx);
     renderer->surface = NULL;
 
     renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
@@ -346,9 +346,9 @@ dia_arrow_chooser_dialog_new(DiaArrowChooser *chooser)
   chooser->dialog = gtk_dialog_new_with_buttons(_("Arrow Properties"),
                                                 NULL,
                                                 GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                GTK_STOCK_CANCEL,
+                                                _("Cancel"),
                                                 GTK_RESPONSE_CANCEL,
-                                                GTK_STOCK_OK,
+                                                _("Okay"),
                                                 GTK_RESPONSE_OK,
                                                 NULL);
   gtk_dialog_set_default_response(GTK_DIALOG(chooser->dialog),

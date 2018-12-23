@@ -62,33 +62,20 @@ dia_ruler_draw (GtkWidget *widget,
 {
   DiaRuler *ruler = DIA_RULER(widget);
 
-#if GTK_CHECK_VERSION(2,18,0)
-  if (gtk_widget_is_drawable (widget))
-#else
-  if (GTK_WIDGET_DRAWABLE (widget))
-#endif
-    {
       GtkStyle *style = gtk_widget_get_style (widget);
       PangoLayout *layout;
       int x, y, dx, dy, width, height;
       real pos;
 
       layout = gtk_widget_create_pango_layout (widget, "012456789");
-#if GTK_CHECK_VERSION(3,0,0)
+
       width = gtk_widget_get_allocated_width (widget);
       height = gtk_widget_get_allocated_height (widget);
-#else
-      width = widget->allocation.width;
-      height = widget->allocation.height;
-#endif
+
       dx = (ruler->orientation == GTK_ORIENTATION_VERTICAL) ? width/3 : 0;
       dy = (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? height/3 : 0;
 
-#if GTK_CHECK_VERSION(2,18,0)
       gdk_cairo_set_source_rgba (cr, &style->text[gtk_widget_get_state(widget)]);
-#else
-      gdk_cairo_set_source_rgba (cr, &style->text[GTK_WIDGET_STATE(widget)]);
-#endif
       cairo_set_line_width (cr, 1);
 
       pos = ruler->lower;
@@ -154,28 +141,6 @@ dia_ruler_draw (GtkWidget *widget,
 	      cairo_fill (cr);
 	    }
 	}
-    }
-  return FALSE;
-}
-
-/* Wrapper can go with Gtk+-3.0 */
-static gboolean
-dia_ruler_expose_event (GtkWidget      *widget,
-                        GdkEventExpose *event)
-{
-#if GTK_CHECK_VERSION(2,18,0)
-  if (gtk_widget_is_drawable (widget))
-#else
-  if (GTK_WIDGET_DRAWABLE (widget))
-#endif
-    {
-      GdkWindow *window = gtk_widget_get_window(widget);
-      cairo_t *cr = gdk_cairo_create (window);
-
-      dia_ruler_draw (widget, cr);
-
-      cairo_destroy (cr);
-    }
   return FALSE;
 }
 
@@ -193,15 +158,9 @@ dia_ruler_motion_notify (GtkWidget      *widget,
   gdk_event_request_motions (event);
   x = event->x;
   y = event->y;
-#if GTK_CHECK_VERSION(3,0,0)
+
   width = gtk_widget_get_allocated_width (widget);
   height = gtk_widget_get_allocated_height (widget);
-#else
-  width = widget->allocation.width;
-  height = widget->allocation.height;
-#endif
-
-  gdk_drawable_get_size (widget->window, &width, &height);
 
   if (ruler->orientation == GTK_ORIENTATION_HORIZONTAL)
     {
@@ -248,9 +207,7 @@ dia_ruler_class_init (DiaRulerClass *klass)
 {
   GtkWidgetClass *widget_class  = GTK_WIDGET_CLASS (klass);
 
-#if !GTK_CHECK_VERSION(3,0,0)
-  widget_class->expose_event = dia_ruler_expose_event;
-#endif
+  widget_class->draw = dia_ruler_draw;
 }
 
 static void

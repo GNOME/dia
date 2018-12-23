@@ -84,7 +84,7 @@ static GObjectClass *parent_class;
 
 static void dia_page_layout_class_init(DiaPageLayoutClass *class);
 static void dia_page_layout_init(DiaPageLayout *self);
-static void dia_page_layout_destroy(GObject *object);
+static void dia_page_layout_destroy(GtkWidget *object);
 
 GType
 dia_page_layout_get_type(void)
@@ -112,8 +112,10 @@ static void
 dia_page_layout_class_init(DiaPageLayoutClass *class)
 {
   GObjectClass *object_class;
+  GtkWidgetClass *widget_class;
   
   object_class = (GObjectClass*) class;
+  widget_class = GTK_WIDGET_CLASS (class);
   parent_class = g_type_class_peek_parent (class);
 
   pl_signals[CHANGED] =
@@ -128,11 +130,11 @@ dia_page_layout_class_init(DiaPageLayoutClass *class)
   g_object_class_add_signals(object_class, pl_signals, LAST_SIGNAL);
 #endif
 
-  object_class->destroy = dia_page_layout_destroy;
+  widget_class->destroy = dia_page_layout_destroy;
 }
 
 static void darea_size_allocate(DiaPageLayout *self, GtkAllocation *alloc);
-static gint darea_expose_event(DiaPageLayout *self, GdkEventExpose *ev);
+static gint darea_draw(DiaPageLayout *self, cairo_t *ctx);
 static void paper_size_change(GtkWidget *widget, DiaPageLayout *self);
 static void orient_changed(DiaPageLayout *self);
 static void margin_changed(DiaPageLayout *self);
@@ -354,16 +356,13 @@ dia_page_layout_init(DiaPageLayout *self)
   g_signal_connect_swapped(G_OBJECT(self->darea), "size_allocate",
 			   G_CALLBACK(darea_size_allocate),
 			    G_OBJECT(self));
-  g_signal_connect_swapped(G_OBJECT(self->darea), "expose_event",
-			   G_CALLBACK(darea_expose_event),
+  g_signal_connect_swapped(G_OBJECT(self->darea), "draw",
+			   G_CALLBACK(darea_draw),
 			    G_OBJECT(self));
 
-  gdk_color_white(gtk_widget_get_colormap(GTK_WIDGET(self)), &self->white);
-  gdk_color_black(gtk_widget_get_colormap(GTK_WIDGET(self)), &self->black);
   self->blue.red = 0;
   self->blue.green = 0;
   self->blue.blue = 0x7fff;
-  gdk_color_alloc(gtk_widget_get_colormap(GTK_WIDGET(self)), &self->blue);
 
   self->block_changed = FALSE;
 }
@@ -603,25 +602,23 @@ darea_size_allocate(DiaPageLayout *self, GtkAllocation *allocation)
 }
 
 static gint
-darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
+darea_draw (DiaPageLayout *self, cairo_t *ctx)
 {
   GdkWindow *window = gtk_widget_get_window(self->darea);
   gfloat val;
   gint num;
-  cairo_t *ctx;
 
   if (!window)
     return FALSE;
 
-  ctx = gdk_cairo_create (window);
   cairo_set_line_cap (ctx, CAIRO_LINE_CAP_SQUARE);
   cairo_set_line_width (ctx, 1);
   cairo_set_antialias (ctx, CAIRO_ANTIALIAS_NONE);
 
   cairo_set_source_rgba (ctx, 0, 0, 0, 0);
   cairo_rectangle (ctx, 0, 0,
-                        self->darea->allocation.width,
-                        self->darea->allocation.height);
+                        gtk_widget_get_allocated_width (self->darea),
+                        gtk_widget_get_allocated_height (self->darea));
   cairo_fill (ctx);
 
   /* draw the page image */
@@ -719,9 +716,12 @@ static void
 paper_size_change(GtkWidget *widget, DiaPageLayout *self)
 {
   gchar buf[512];
+  GtkAllocation alloc;
+
+  gtk_widget_get_allocation (self->darea, &alloc);
 
   self->papernum = dia_option_menu_get_active (widget);
-  size_page(self, &self->darea->allocation);
+  size_page(self, &alloc);
   gtk_widget_queue_draw(self->darea);
 
   self->block_changed = TRUE;
@@ -766,7 +766,10 @@ paper_size_change(GtkWidget *widget, DiaPageLayout *self)
 static void
 orient_changed(DiaPageLayout *self)
 {
-  size_page(self, &self->darea->allocation);
+  GtkAllocation alloc;
+
+  gtk_widget_get_allocation (self->darea, &alloc);
+  size_page(self, &alloc);
   gtk_widget_queue_draw(self->darea);
 
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->orient_portrait))) {
@@ -825,10 +828,10 @@ scale_changed(DiaPageLayout *self)
 }
 
 static void
-dia_page_layout_destroy(GObject *object)
+dia_page_layout_destroy(GtkWidget *object)
 {
-  if (parent_class->destroy)
-    (* parent_class->destroy)(object);
+  if (GTK_WIDGET_CLASS (parent_class)->destroy)
+    (* GTK_WIDGET_CLASS (parent_class)->destroy)(object);
 }
 
 #ifdef PAGELAYOUT_TEST

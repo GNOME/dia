@@ -572,7 +572,9 @@ dia_list_item_class_init (DiaListItemClass * klass)
 static void
 dia_list_item_init (DiaListItem *self)
 {
-  ((DiaListItemPrivate *) dia_list_item_get_instance_private (self))->label = gtk_label_new (NULL);
+  ((DiaListItemPrivate *) dia_list_item_get_instance_private (self))->label = g_object_new (GTK_TYPE_LABEL,
+                                                                                            "xalign", 0.0,
+                                                                                            NULL);
 }
 
 static void

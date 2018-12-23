@@ -29,7 +29,7 @@ get_logo_pixmap (void)
 static GtkWidget* splash = NULL;
 
 static void
-splash_expose (GtkWidget *widget, GdkEventExpose *event)
+splash_draw (GtkWidget *widget, cairo_t *event)
 {
   /* this gets called after the splash screen gets exposed ... */
   gtk_main_quit();
@@ -71,10 +71,11 @@ app_splash_init (const gchar* fname)
 
   gtk_widget_show_all (splash);
 
-  signal_id = g_signal_connect_after(G_OBJECT(splash), "expose_event",
-				     G_CALLBACK(splash_expose), NULL);
+  signal_id = g_signal_connect_after(G_OBJECT(splash), "draw",
+				     G_CALLBACK(splash_draw), NULL);
 
-  /* splash_expose gets us out of this */
+  /* splash_draw gets us out of this */
+  /* TODO: Why? */
   gtk_main();
   g_signal_handler_disconnect(G_OBJECT(splash), signal_id);
 }
