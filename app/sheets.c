@@ -126,15 +126,12 @@ void
 sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
                          gchar *sheet_name)
 {
-  GtkWidget *optionmenu_menu;
   GSList *sheets_list;
   GList *menu_item_list;
 
   /* Delete the contents, if any, of this optionemnu first */
 
-  optionmenu_menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(option_menu));
-  gtk_container_foreach(GTK_CONTAINER(optionmenu_menu),
-                        (GtkCallback)gtk_widget_destroy, NULL);
+  gtk_combo_box_text_remove_all (GTK_COMBO_BOX_TEXT (option_menu));
 
   for (sheets_list = sheets_mods_list; sheets_list;
        sheets_list = g_slist_next(sheets_list))
@@ -151,29 +148,16 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
       continue;
 
     {
-      menu_item = gtk_menu_item_new_with_label(gettext(sheet_mod->sheet.name));
-
-      gtk_menu_append(GTK_MENU(optionmenu_menu), menu_item);
-      
-      if (sheet_mod->sheet.scope == SHEET_SCOPE_SYSTEM)
-	tip = g_strdup_printf(_("%s\nSystem sheet"), sheet_mod->sheet.description);
-      else
-	tip = g_strdup_printf(_("%s\nUser sheet"), sheet_mod->sheet.description);
-      
-      gtk_widget_set_tooltip_text(menu_item, tip);
-      g_free(tip);
+      // TODO: Don't gettext here
+      gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (option_menu), gettext(sheet_mod->sheet.name));
     }
-
-    gtk_widget_show(menu_item);
-
-    g_object_set_data(G_OBJECT(menu_item), "wrapbox", wrapbox);
-
-    g_signal_connect(G_OBJECT(menu_item), "activate",
-		     G_CALLBACK(on_sheets_dialog_optionmenu_activate),
-                       (gpointer)sheet_mod);
   }
+
+  g_signal_connect (G_OBJECT (option_menu), "changed",
+                    G_CALLBACK (on_sheets_dialog_optionmenu_activate),
+                    NULL);
  
-  menu_item_list = gtk_container_get_children(GTK_CONTAINER(optionmenu_menu));
+  menu_item_list = NULL/*gtk_container_get_children(GTK_CONTAINER(optionmenu_menu))*/;
 
   /* If we were passed a sheet_name, then make the optionmenu point to that
      name after creation */
@@ -187,14 +171,14 @@ sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
                               menu_item_compare_labels);
     if (list)
       index = g_list_position(menu_item_list, list);
-    gtk_option_menu_set_history(GTK_OPTION_MENU(option_menu), index);
+    /*gtk_option_menu_set_history(GTK_OPTION_MENU(option_menu), index);
     gtk_menu_item_activate(GTK_MENU_ITEM(g_list_nth_data(menu_item_list,
-                                                         index)));
+                                                         index)));*/
   }
   else
   {
-    gtk_option_menu_set_history(GTK_OPTION_MENU(option_menu), 0);
-    gtk_menu_item_activate(GTK_MENU_ITEM(menu_item_list->data));
+    /*gtk_option_menu_set_history(GTK_OPTION_MENU(option_menu), 0);
+    gtk_menu_item_activate(GTK_MENU_ITEM(menu_item_list->data));*/
   }
 
   g_list_free(menu_item_list);
@@ -322,24 +306,18 @@ sheets_dialog_create(void)
 
 void
 create_object_pixmap(SheetObject *so, GtkWidget *parent,
-                     GdkPixmap **pixmap, GdkBitmap **mask)
+                     GdkPixbuf **pixmap)
 {
   GtkStyle *style;
 
   g_assert(so);
   g_assert(pixmap);
-  g_assert(mask);
   
   style = gtk_widget_get_style(parent);
   
   if (so->pixmap != NULL)
   {
-    *pixmap =
-      gdk_pixmap_colormap_create_from_xpm_d(NULL,
-                                            gtk_widget_get_colormap(parent),
-                                            mask, 
-                                            &style->bg[GTK_STATE_NORMAL],
-                                            (gchar **)so->pixmap);
+    *pixmap = gdk_pixbuf_new_from_xpm_data((const gchar **)so->pixmap);
   }
   else
   {
@@ -363,23 +341,16 @@ create_object_pixmap(SheetObject *so, GtkWidget *parent,
 	  g_object_unref (pixbuf);
 	  pixbuf = cropped;
 	}
-        gdk_pixbuf_render_pixmap_and_mask(pixbuf, pixmap, mask, 1.0);
-        g_object_unref(pixbuf);
+        *pixmap = pixbuf;
       } else {
         message_warning ("%s", error->message);
         g_error_free (error);
-	*pixmap = gdk_pixmap_colormap_create_from_xpm_d
-	  (NULL,
-	   gtk_widget_get_colormap(parent),
-	   mask, 
-	   &style->bg[GTK_STATE_NORMAL],
-	   (gchar **)missing);
+	*pixmap = gdk_pixbuf_new_from_xpm_data((const gchar **)missing);
       }
     }
     else
     {
       *pixmap = NULL;
-      *mask = NULL;
     }
   }
 }
@@ -398,7 +369,7 @@ lookup_widget (GtkWidget   *widget,
       if (GTK_IS_MENU (widget))
         parent = gtk_menu_get_attach_widget (GTK_MENU (widget));
       else
-        parent = widget->parent;
+        parent = gtk_widget_get_parent (widget);
       if (parent == NULL)
         break;
       widget = parent;

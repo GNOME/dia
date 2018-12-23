@@ -74,7 +74,7 @@ SheetMod *sheets_append_sheet_mods(Sheet *sheet);
 void sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
                               gchar *sheet_name);
 void create_object_pixmap(SheetObject *so, GtkWidget *parent,
-                          GdkPixmap **pixmap, GdkBitmap **mask);
+                          GdkPixbuf **pixmap);
 
 gchar *sheet_object_mod_get_type_string(SheetObjectMod *som);
 

@@ -82,8 +82,6 @@ create_sheets_main_dialog (void)
 {
   GtkWidget *sheets_main_dialog;
   GtkWidget *optionmenu_left, *optionmenu_right;
-  GtkWidget *optionmenu_left_menu, *optionmenu_right_menu;
-  GtkWidget *glade_menuitem;
   GtkBuilder *builder;
 
   builder = builder_new_from_file ("ui/sheets-main-dialog.xml");
@@ -94,15 +92,8 @@ create_sheets_main_dialog (void)
 		    G_CALLBACK (sheets_dialog_destroyed), NULL);
 
   optionmenu_right = GTK_WIDGET (gtk_builder_get_object (builder, "optionmenu_right"));
-  optionmenu_right_menu = gtk_menu_new ();
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (optionmenu_right), optionmenu_right_menu);
 
   optionmenu_left = GTK_WIDGET (gtk_builder_get_object (builder, "optionmenu_left"));
-  optionmenu_left_menu = gtk_menu_new ();
-  glade_menuitem = gtk_menu_item_new_with_label ("");
-  gtk_widget_show (glade_menuitem);
-  gtk_menu_append (GTK_MENU (optionmenu_left_menu), glade_menuitem);
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (optionmenu_left), optionmenu_left_menu);
 
   g_signal_connect (gtk_builder_get_object (builder,"sheets_main_dialog"), "delete_event",
                       G_CALLBACK (on_sheets_main_dialog_delete_event),
@@ -250,27 +241,15 @@ create_sheets_shapeselection_dialog (void)
   GtkWidget *ok_button;
   GtkWidget *cancel_button1;
 
-  sheets_shapeselection_dialog = gtk_file_selection_new (_("Select SVG Shape File"));
+  sheets_shapeselection_dialog = gtk_file_chooser_dialog_new (_("Select SVG Shape File"),
+                                                              NULL,
+                                                              GTK_FILE_CHOOSER_ACTION_OPEN,
+                                                              NULL);
+
+  ok_button = gtk_dialog_add_button (GTK_DIALOG (sheets_shapeselection_dialog), _("Open"), GTK_RESPONSE_OK);
+  cancel_button1 = gtk_dialog_add_button (GTK_DIALOG (sheets_shapeselection_dialog), _("Open"), GTK_RESPONSE_CANCEL);
+
   g_object_set_data (G_OBJECT (sheets_shapeselection_dialog), "sheets_shapeselection_dialog", sheets_shapeselection_dialog);
-  gtk_container_set_border_width (GTK_CONTAINER (sheets_shapeselection_dialog), 10);
-
-  ok_button = GTK_FILE_SELECTION (sheets_shapeselection_dialog)->ok_button;
-  g_object_set_data (G_OBJECT (sheets_shapeselection_dialog), "ok_button", ok_button);
-  gtk_widget_show (ok_button);
-#if GTK_CHECK_VERSION(2,18,0)
-  gtk_widget_set_can_default (GTK_WIDGET (ok_button), TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS (ok_button, GTK_CAN_DEFAULT);
-#endif
-
-  cancel_button1 = GTK_FILE_SELECTION (sheets_shapeselection_dialog)->cancel_button;
-  g_object_set_data (G_OBJECT (sheets_shapeselection_dialog), "cancel_button1", cancel_button1);
-  gtk_widget_show (cancel_button1);
-#if GTK_CHECK_VERSION(2,18,0)
-  gtk_widget_set_can_default (GTK_WIDGET (cancel_button1), TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS (cancel_button1, GTK_CAN_DEFAULT);
-#endif
 
   g_signal_connect (G_OBJECT (ok_button), "clicked",
                     G_CALLBACK (on_sheets_shapeselection_dialog_button_ok_clicked),
