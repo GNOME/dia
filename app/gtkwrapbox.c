@@ -23,7 +23,6 @@
 #include "config.h"
 
 #include "gtkwrapbox.h"
-#include <gtk/gtkversion.h>
 
 
 /* --- properties --- */
@@ -73,8 +72,8 @@ static void gtk_wrap_box_get_child_property (GtkContainer    *container,
                                              GParamSpec      *pspec);
 static void gtk_wrap_box_map           (GtkWidget          *widget);
 static void gtk_wrap_box_unmap         (GtkWidget          *widget);
-static gint gtk_wrap_box_expose        (GtkWidget          *widget,
-                                        GdkEventExpose     *event);
+static gint gtk_wrap_box_draw          (GtkWidget          *widget,
+                                        cairo_t            *ctx);
 static void gtk_wrap_box_add           (GtkContainer       *container,
                                         GtkWidget          *widget);
 static void gtk_wrap_box_remove        (GtkContainer       *container,
@@ -136,7 +135,7 @@ gtk_wrap_box_class_init (GtkWrapBoxClass *class)
 
   widget_class->map = gtk_wrap_box_map;
   widget_class->unmap = gtk_wrap_box_unmap;
-  widget_class->expose_event = gtk_wrap_box_expose;
+  widget_class->draw = gtk_wrap_box_draw;
 
   container_class->add = gtk_wrap_box_add;
   container_class->remove = gtk_wrap_box_remove;
@@ -353,8 +352,8 @@ gtk_wrap_box_get_property (GObject    *object,
       g_value_set_float (value, wbox->aspect_ratio);
       break;
     case PROP_CURRENT_RATIO:
-      g_value_set_float (value, (((gfloat) widget->allocation.width) /
-                                 ((gfloat) widget->allocation.height)));
+      g_value_set_float (value, (((gfloat) gtk_widget_get_allocated_width (widget)) /
+                                 ((gfloat) gtk_widget_get_allocated_height (widget))));
       break;
     case PROP_CHILD_LIMIT:
       g_value_set_uint (value, wbox->child_limit);
@@ -576,7 +575,7 @@ gtk_wrap_box_pack (GtkWrapBox *wbox,
 {
   g_return_if_fail (GTK_IS_WRAP_BOX (wbox));
   g_return_if_fail (GTK_IS_WIDGET (child));
-  g_return_if_fail (child->parent == NULL);
+  g_return_if_fail (gtk_widget_get_parent (child) == NULL);
 
   gtk_wrap_box_pack_wrapped (wbox, child, hexpand, hfill, vexpand, vfill, FALSE);
 }
@@ -594,14 +593,9 @@ gtk_wrap_box_pack_wrapped (GtkWrapBox *wbox,
 
   g_return_if_fail (GTK_IS_WRAP_BOX (wbox));
   g_return_if_fail (GTK_IS_WIDGET (child));
-  g_return_if_fail (child->parent == NULL);
+  g_return_if_fail (gtk_widget_get_parent (child) == NULL);
 
-#if GLIB_CHECK_VERSION(2,10,0)
   child_info = g_slice_new (GtkWrapBoxChild);
-#else
-  child_info = g_new (GtkWrapBoxChild, 1);
-#endif
-
   child_info->widget = child;
   child_info->hexpand = hexpand ? TRUE : FALSE;
   child_info->hfill = hfill ? TRUE : FALSE;
@@ -623,24 +617,12 @@ gtk_wrap_box_pack_wrapped (GtkWrapBox *wbox,
 
   gtk_widget_set_parent (child, GTK_WIDGET (wbox));
 
-#if GTK_CHECK_VERSION(2,20,0)
   if (gtk_widget_get_realized (GTK_WIDGET (wbox)))
-#else
-  if (GTK_WIDGET_REALIZED (wbox))
-#endif
     gtk_widget_realize (child);
 
-#if GTK_CHECK_VERSION(2,20,0)
   if (gtk_widget_get_visible (GTK_WIDGET (wbox)) && gtk_widget_get_visible (child))
-#else
-  if (GTK_WIDGET_VISIBLE (wbox) && GTK_WIDGET_VISIBLE (child))
-#endif
     {
-#if GTK_CHECK_VERSION(2,20,0)
       if (gtk_widget_get_mapped (GTK_WIDGET (wbox)))
-#else
-      if (GTK_WIDGET_MAPPED (wbox))
-#endif
         gtk_widget_map (child);
 
       gtk_widget_queue_resize (child);
@@ -784,7 +766,7 @@ gtk_wrap_box_query_line_lengths (GtkWrapBox *wbox,
                                  guint      *_n_lines)
 {
   GtkWrapBoxChild *next_child = NULL;
-  GtkAllocation area, *allocation;
+  GtkAllocation area, allocation;
   gboolean expand_line;
   GSList *slist;
   guint max_child_size, border, n_lines = 0, *lines = NULL;
@@ -793,12 +775,12 @@ gtk_wrap_box_query_line_lengths (GtkWrapBox *wbox,
     *_n_lines = 0;
   g_return_val_if_fail (GTK_IS_WRAP_BOX (wbox), NULL);
 
-  allocation = &GTK_WIDGET (wbox)->allocation;
-  border = GTK_CONTAINER (wbox)->border_width;
-  area.x = allocation->x + border;
-  area.y = allocation->y + border;
-  area.width = MAX (1, (gint) allocation->width - border * 2);
-  area.height = MAX (1, (gint) allocation->height - border * 2);
+  gtk_widget_get_allocation (wbox, &allocation);
+  border = gtk_container_get_border_width (GTK_CONTAINER (wbox));
+  area.x = allocation.x + border;
+  area.y = allocation.y + border;
+  area.width = MAX (1, (gint) allocation.width - border * 2);
+  area.height = MAX (1, (gint) allocation.height - border * 2);
 
   next_child = wbox->children;
   slist = GTK_WRAP_BOX_GET_CLASS (wbox)->rlist_line_children (wbox,
@@ -880,10 +862,10 @@ gtk_wrap_box_unmap (GtkWidget *widget)
 }
 
 static gint
-gtk_wrap_box_expose (GtkWidget      *widget,
-                     GdkEventExpose *event)
+gtk_wrap_box_draw (GtkWidget      *widget,
+                   cairo_t        *ctx)
 {
-  return GTK_WIDGET_CLASS (parent_class)->expose_event (widget, event);
+  return GTK_WIDGET_CLASS (parent_class)->draw (widget, ctx);
 }
 
 static void

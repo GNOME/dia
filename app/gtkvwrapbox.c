@@ -23,21 +23,22 @@
 #include "config.h"
 
 #include "gtkvwrapbox.h"
-#include <gtk/gtkversion.h>
 
 
 /* --- prototypes --- */
-static void    gtk_vwrap_box_class_init    (GtkVWrapBoxClass   *klass);
-static void    gtk_vwrap_box_init          (GtkVWrapBox        *vwbox);
-static void    gtk_vwrap_box_size_request  (GtkWidget          *widget,
-                                            GtkRequisition     *requisition);
-static void    gtk_vwrap_box_size_allocate (GtkWidget          *widget,
-                                            GtkAllocation      *allocation);
-static GSList* reverse_list_col_children   (GtkWrapBox         *wbox,
-                                            GtkWrapBoxChild   **child_p,
-                                            GtkAllocation      *area,
-                                            guint              *max_width,
-                                            gboolean           *can_hexpand);
+static void    gtk_vwrap_box_class_init         (GtkVWrapBoxClass   *klass);
+static void    gtk_vwrap_box_init               (GtkVWrapBox        *vwbox);
+static void    gtk_vwrap_box_get_preferred_size (GtkWidget      *widget,
+                                                 GtkOrientation  orientation,
+                                                 gint           *minimal_size,
+                                                 gint           *natural_size);
+static void    gtk_vwrap_box_size_allocate      (GtkWidget          *widget,
+                                                 GtkAllocation      *allocation);
+static GSList* reverse_list_col_children        (GtkWrapBox         *wbox,
+                                                 GtkWrapBoxChild   **child_p,
+                                                 GtkAllocation      *area,
+                                                 guint              *max_width,
+                                                 gboolean           *can_hexpand);
 
 
 /* --- variables --- */
@@ -73,6 +74,28 @@ gtk_vwrap_box_get_type (void)
 }
 
 static void
+gtk_vwrap_box_get_preferred_width (GtkWidget *widget,
+                                   gint      *minimal_width,
+                                   gint      *natural_width)
+{
+  gtk_vwrap_box_get_preferred_size (widget,
+                                    GTK_ORIENTATION_HORIZONTAL,
+                                    minimal_width,
+                                    natural_width);
+}
+
+static void
+gtk_vwrap_box_get_preferred_height (GtkWidget *widget,
+                                    gint      *minimal_height,
+                                    gint      *natural_height)
+{
+  gtk_vwrap_box_get_preferred_size (widget,
+                                    GTK_ORIENTATION_VERTICAL,
+                                    minimal_height,
+                                    natural_height);
+}
+
+static void
 gtk_vwrap_box_class_init (GtkVWrapBoxClass *class)
 {
   GObjectClass *object_class;
@@ -87,7 +110,8 @@ gtk_vwrap_box_class_init (GtkVWrapBoxClass *class)
 
   parent_class = g_type_class_peek_parent (class);
 
-  widget_class->size_request = gtk_vwrap_box_size_request;
+  widget_class->get_preferred_width = gtk_vwrap_box_get_preferred_width;
+  widget_class->get_preferred_height = gtk_vwrap_box_get_preferred_height;
   widget_class->size_allocate = gtk_vwrap_box_size_allocate;
 
   wrap_box_class->rlist_line_children = reverse_list_col_children;
@@ -183,29 +207,27 @@ get_layout_size (GtkVWrapBox *this,
 }
 
 static void
-gtk_vwrap_box_size_request (GtkWidget      *widget,
-                            GtkRequisition *requisition)
+gtk_vwrap_box_get_preferred_size (GtkWidget      *widget,
+                                  GtkOrientation  orientation,
+                                  gint           *minimal_size,
+                                  gint           *natural_size)
 {
   GtkVWrapBox *this = GTK_VWRAP_BOX (widget);
   GtkWrapBox *wbox = GTK_WRAP_BOX (widget);
   GtkWrapBoxChild *child;
   gfloat ratio_dist, layout_height = 0;
   guint col_inc = 0;
+  gint height;
+  gint width;
 
-  g_return_if_fail (requisition != NULL);
-
-  requisition->height = 0;
-  requisition->width = 0;
+  height = 0;
+  width = 0;
   this->max_child_height = 0;
   this->max_child_width = 0;
 
   /* size_request all children */
   for (child = wbox->children; child; child = child->next)
-#if GTK_CHECK_VERSION(2,20,0)
     if (gtk_widget_get_visible (child->widget))
-#else
-    if (GTK_WIDGET_VISIBLE (child->widget))
-#endif
       {
         GtkRequisition child_requisition;
 
@@ -230,8 +252,8 @@ gtk_vwrap_box_size_request (GtkWidget      *widget,
       if (dist < ratio_dist)
         {
           ratio_dist = dist;
-          requisition->height = layout_height;
-          requisition->width = layout_width;
+          height = layout_height;
+          width = layout_width;
         }
 
       /* g_print ("ratio for height %d width %d = %f\n",
@@ -242,12 +264,20 @@ gtk_vwrap_box_size_request (GtkWidget      *widget,
     }
   while (col_inc);
 
-  requisition->width += GTK_CONTAINER (wbox)->border_width * 2; /*<h2v-skip>*/
-  requisition->height += GTK_CONTAINER (wbox)->border_width * 2; /*<h2v-skip>*/
+  width += gtk_container_get_border_width (GTK_CONTAINER (wbox)) * 2; /*<h2v-skip>*/
+  height += gtk_container_get_border_width (GTK_CONTAINER (wbox)) * 2; /*<h2v-skip>*/
   /* g_print ("chosen: height %d, width %d\n",
      requisition->height,
      requisition->width);
   */
+
+  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+    *minimal_size = width;
+    *natural_size = width;
+  } else {
+    *minimal_size = height;
+    *natural_size = height;
+  }
 }
 
 static GSList*
@@ -618,13 +648,14 @@ gtk_vwrap_box_size_allocate (GtkWidget     *widget,
 {
   GtkWrapBox *wbox = GTK_WRAP_BOX (widget);
   GtkAllocation area;
-  gint border = GTK_CONTAINER (wbox)->border_width; /*<h2v-skip>*/
+  gint border = gtk_container_get_border_width (GTK_CONTAINER (wbox)); /*<h2v-skip>*/
 
-  widget->allocation = *allocation;
   area.y = allocation->y + border;
   area.x = allocation->x + border;
   area.height = MAX (1, (gint) allocation->height - border * 2);
   area.width = MAX (1, (gint) allocation->width - border * 2);
+
+  gtk_widget_set_allocation (widget, allocation);
 
   /*<h2v-off>*/
   /* g_print ("got: width %d, height %d\n",
