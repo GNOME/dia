@@ -306,7 +306,7 @@ struct _DiaInteractiveRendererInterface
                                 GdkRGBA *color);
   /*! Copy already rendered content to the given window */
   void (*copy_to_window)      (DiaRenderer *renderer,
-                               gpointer     window, 
+                               cairo_t     *ctx, 
                                int x, int y, int width, int height);
   /*! Support for drawing selected objects highlighted */
   void (*draw_object_highlighted) (DiaRenderer *renderer,

@@ -102,7 +102,7 @@ static void
 dia_menu_free(DiaMenu *dia_menu) 
 {
   if (dia_menu->app_data)
-    g_object_destroy((GObject *)dia_menu->app_data);
+    g_object_unref((GObject *)dia_menu->app_data);
   dia_menu->app_data = NULL;
   dia_menu->app_data_free = NULL;
 }
@@ -642,19 +642,19 @@ static void
 _scroll_step (DDisplay *ddisp, guint keyval)
 {
   switch (keyval) {
-  case GDK_Up :
+  case GDK_KEY_Up :
     ddisplay_scroll_up(ddisp);
     ddisplay_flush(ddisp);
     break;
-  case GDK_Down:
+  case GDK_KEY_Down:
     ddisplay_scroll_down(ddisp);
     ddisplay_flush(ddisp);
     break;
-  case GDK_Left:
+  case GDK_KEY_Left:
     ddisplay_scroll_left(ddisp);
     ddisplay_flush(ddisp);
     break;
-  case GDK_Right:
+  case GDK_KEY_Right:
     ddisplay_scroll_right(ddisp);
     ddisplay_flush(ddisp);
     break;
@@ -924,12 +924,12 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		  GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
 	      
 	      switch (kevent->keyval) {
-		  case GDK_Tab:
+		  case GDK_KEY_Tab:
 		    focus = textedit_move_focus(ddisp, focus,
 						(state & GDK_SHIFT_MASK) == 0);
 		    obj = focus_get_object(focus);
 		    break;
-		  case GDK_Escape:
+		  case GDK_KEY_Escape:
 		    textedit_deactivate_focus();
 		    tool_reset ();
 		    ddisplay_do_update_menu_sensitivity(ddisp);
@@ -957,15 +957,15 @@ ddisplay_canvas_events (GtkWidget *canvas,
           return_val = TRUE;
           
           switch(kevent->keyval) {
-	      case GDK_Home :
-	      case GDK_KP_Home :
+	      case GDK_KEY_Home :
+	      case GDK_KEY_KP_Home :
 	        /* match upper left corner of the diagram with it's view */
 		ddisplay_set_origo(ddisp, ddisp->diagram->data->extents.left, ddisp->diagram->data->extents.top);
 		ddisplay_update_scrollbars(ddisp);
 		ddisplay_add_update_all(ddisp);
 	        break;
-	      case GDK_End :
-	      case GDK_KP_End :
+	      case GDK_KEY_End :
+	      case GDK_KEY_KP_End :
 	        /* match lower right corner of the diagram with it's view */
 		visible = &ddisp->visible;
 		ddisplay_set_origo(ddisp, 
@@ -974,24 +974,24 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		ddisplay_update_scrollbars(ddisp);
 		ddisplay_add_update_all(ddisp);
 	        break;
-	      case GDK_Page_Up :
-	      case GDK_KP_Page_Up :
+	      case GDK_KEY_Page_Up :
+	      case GDK_KEY_KP_Page_Up :
 	        _scroll_page (ddisp, !(state & GDK_CONTROL_MASK) ? DIR_UP : DIR_LEFT);
 	        break;
-	      case GDK_Page_Down :
-	      case GDK_KP_Page_Down :
+	      case GDK_KEY_Page_Down :
+	      case GDK_KEY_KP_Page_Down :
 	        _scroll_page (ddisp, !(state & GDK_CONTROL_MASK) ? DIR_DOWN : DIR_RIGHT);
 	        break;
-              case GDK_Up:
-              case GDK_Down:
-              case GDK_Left:
-              case GDK_Right:
+              case GDK_KEY_Up:
+              case GDK_KEY_Down:
+              case GDK_KEY_Left:
+              case GDK_KEY_Right:
 	        if (g_list_length (ddisp->diagram->data->selected) > 0) {
 		  Diagram *dia = ddisp->diagram;
 		  GList *objects = dia->data->selected;
-		  Direction dir = GDK_Up == kevent->keyval ? DIR_UP :
-				  GDK_Down == kevent->keyval ? DIR_DOWN :
-				  GDK_Right == kevent->keyval ? DIR_RIGHT : DIR_LEFT;
+		  Direction dir = GDK_KEY_Up == kevent->keyval ? DIR_UP :
+				  GDK_KEY_Down == kevent->keyval ? DIR_DOWN :
+				  GDK_KEY_Right == kevent->keyval ? DIR_RIGHT : DIR_LEFT;
 		  object_add_updates_list(objects, dia);
 		  object_list_nudge(objects, dia, dir, 
 				    /* step one pixel or more with <ctrl> */
@@ -1006,27 +1006,27 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		  _scroll_step (ddisp, kevent->keyval);
 		}
 		break;
-              case GDK_KP_Add:
-              case GDK_plus:
+              case GDK_KEY_KP_Add:
+              case GDK_KEY_plus:
                 ddisplay_zoom_middle(ddisp, M_SQRT2);
                 break;
-              case GDK_KP_Subtract:
-              case GDK_minus:
+              case GDK_KEY_KP_Subtract:
+              case GDK_KEY_minus:
                 ddisplay_zoom_middle(ddisp, M_SQRT1_2);
                 break;
-              case GDK_Shift_L:
-              case GDK_Shift_R:
+              case GDK_KEY_Shift_L:
+              case GDK_KEY_Shift_R:
                 if (active_tool->type == MAGNIFY_TOOL)
                   set_zoom_out(active_tool);
                 break;
-              case GDK_Escape:
+              case GDK_KEY_Escape:
                 view_unfullscreen();
                 break;
-	      case GDK_F2:
-	      case GDK_Return:
+	      case GDK_KEY_F2:
+	      case GDK_KEY_Return:
 		gtk_action_activate (menus_get_action ("ToolsTextedit"));
 		break;
-	      case GDK_Menu:
+	      case GDK_KEY_Menu:
 		popup_object_menu (ddisp, event);
 		break;
               default:
@@ -1051,8 +1051,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
           return_val = TRUE;
         } else {
           switch(kevent->keyval) {
-              case GDK_Shift_L:
-              case GDK_Shift_R:
+              case GDK_KEY_Shift_L:
+              case GDK_KEY_Shift_R:
                 if (active_tool->type == MAGNIFY_TOOL)
                   set_zoom_in(active_tool);
                 break;

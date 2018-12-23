@@ -54,7 +54,7 @@
 #define DIA_STOCK_OBJECTS_LAYER_BELOW "dia-stock-objects-layer-below"
 #define DIA_STOCK_LAYERS "dia-stock-layers"
 
-#define DIA_SHOW_TEAROFFS TRUE
+#define DIA_SHOW_TEAROFFS FALSE
 
 /* Integrated UI Toolbar Constants */
 #define DIA_INTEGRATED_TOOLBAR_ZOOM_COMBO  "dia-integrated-toolbar-zoom-combo_entry"

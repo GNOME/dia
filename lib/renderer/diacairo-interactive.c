@@ -83,7 +83,7 @@ static void set_size (DiaRenderer *renderer,
                       gpointer window,
                       int width, int height);
 static void copy_to_window (DiaRenderer *renderer, 
-                gpointer window,
+                cairo_t *ctx,
                 int x, int y, int width, int height);
 
 static void cairo_interactive_renderer_get_property (GObject         *object,
@@ -461,18 +461,16 @@ set_size(DiaRenderer *object, gpointer window,
 }
 
 static void
-copy_to_window (DiaRenderer *object, gpointer window,
+copy_to_window (DiaRenderer *object, cairo_t *ctx,
                 int x, int y, int width, int height)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-  cairo_t *cr;
 
-  cr = gdk_cairo_create (GDK_WINDOW(window));
-  cairo_set_source_surface (cr, renderer->pixmap, 0.0, 0.0);
-  cairo_rectangle (cr, x, y, width > 0 ? width : -width, height > 0 ? height : -height);
-  cairo_clip (cr);
-  cairo_paint (cr);
-  cairo_destroy (cr);
+  cairo_set_source_surface (ctx, renderer->pixmap, 0.0, 0.0);
+  cairo_rectangle (ctx, x, y, width > 0 ? width : -width, height > 0 ? height : -height);
+  cairo_clip (ctx);
+  cairo_paint (ctx);
+  cairo_destroy (ctx);
 }
 
 static void

@@ -391,15 +391,83 @@ canvas_configure_event (GtkWidget         *widget,
  * Gone with gtk+-3.0 or better replaced by "draw".
  */
 static gboolean
-canvas_expose_event (GtkWidget      *widget,
-		     GdkEventExpose *event,
-		     DDisplay       *ddisp)
+canvas_draw (GtkWidget      *widget,
+             cairo_t        *ctx,
+             DDisplay       *ddisp)
 {
+  GSList *l;
+  Rectangle *r, totrect;
+  DiaInteractiveRendererInterface *renderer;
+
+  /* Add all the area (hangover from expose) */
   ddisplay_add_display_area (ddisp,
-			     event->area.x, event->area.y,
-			     event->area.x + event->area.width,
-			     event->area.y + event->area.height);
-  ddisplay_flush(ddisp);
+                             0, 0,
+                             gtk_widget_get_allocated_width (widget),
+                             gtk_widget_get_allocated_height (widget));
+  
+  g_return_val_if_fail (ddisp->renderer != NULL, FALSE);
+
+  /* Renders updates to pixmap + copies display_areas to canvas(screen) */
+  renderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
+
+  /* Only update if update_areas exist */
+  l = ddisp->update_areas;
+  if (l != NULL)
+  {
+    totrect = *(Rectangle *) l->data;
+  
+    g_return_val_if_fail (   renderer->clip_region_clear != NULL
+                          && renderer->clip_region_add_rect != NULL, FALSE);
+
+    renderer->clip_region_clear (ddisp->renderer);
+
+    while(l!=NULL) {
+      r = (Rectangle *) l->data;
+
+      rectangle_union(&totrect, r);
+      renderer->clip_region_add_rect (ddisp->renderer, r);
+      
+      l = g_slist_next(l);
+    }
+    /* Free update_areas list: */
+    l = ddisp->display_areas;
+    while(l!=NULL) {
+      g_free(l->data);
+      l = g_slist_next(l);
+    }
+    g_slist_free(ddisp->display_areas);
+    ddisp->display_areas = NULL;
+
+    totrect.left -= 0.1;
+    totrect.right += 0.1;
+    totrect.top -= 0.1;
+    totrect.bottom += 0.1;
+    
+    ddisplay_render_pixmap(ddisp, &totrect);
+  }
+
+  l = ddisp->display_areas;
+  while(l!=NULL) {
+    g_return_val_if_fail (renderer->copy_to_window, FALSE);
+    renderer->copy_to_window(ddisp->renderer, 
+                             ctx,
+                             0, 0,
+                             gtk_widget_get_allocated_width (widget),
+                             gtk_widget_get_allocated_height (widget));
+    
+    l = g_slist_next(l);
+  }
+
+  l = ddisp->display_areas;
+  while(l!=NULL) {
+    g_free(l->data);
+    l = g_slist_next(l);
+  }
+  g_slist_free(ddisp->display_areas);
+  ddisp->display_areas = NULL;
+
+  ddisp->update_id = 0;
+
   return FALSE;
 }
 
@@ -419,8 +487,8 @@ create_canvas (DDisplay *ddisp)
 			 GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
   g_signal_connect (G_OBJECT (canvas), "configure-event",
 		    G_CALLBACK (canvas_configure_event), ddisp);
-  g_signal_connect (G_OBJECT (canvas), "expose-event",
-		    G_CALLBACK (canvas_expose_event), ddisp);
+  g_signal_connect (G_OBJECT (canvas), "draw",
+                    G_CALLBACK (canvas_draw), ddisp);
 #if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_focus (canvas, TRUE);
 #else
@@ -827,7 +895,7 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show (ddisp->shell);
 
   /* before showing up, checking canvas's REAL size */
-  if (use_mbar && ddisp->hrule->allocation.width > width) 
+  if (use_mbar && gtk_widget_get_allocated_width (ddisp->hrule) > width) 
   {
     /* The menubar is not shrinkable, so the shell will have at least
      * the menubar's width. If the diagram's requested width is smaller,
@@ -836,7 +904,7 @@ create_display_shell(DDisplay *ddisp,
      * that will be allocated, which the same as the hrule got.
      */
 
-    width = ddisp->hrule->allocation.width;
+    width = gtk_widget_get_allocated_width (ddisp->hrule);
 
     gtk_adjustment_set_upper (ddisp->hsbdata, width);
     gtk_adjustment_set_page_increment (ddisp->hsbdata, (width - 1) / 4);

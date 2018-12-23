@@ -578,8 +578,9 @@ ddisplay_flush(DDisplay *ddisp)
    * GTK_PRIORITY_RESIZE = (G_PRIORITY_HIGH_IDLE + 10)
    * Dia's canvas rendering is in between
    */
-  if (!ddisp->update_id)
-    ddisp->update_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE+15, (GSourceFunc)ddisplay_update_handler, ddisp, NULL);
+  /*if (!ddisp->update_id)
+    ddisp->update_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE+15, (GSourceFunc)ddisplay_update_handler, ddisp, NULL);*/
+  gtk_widget_queue_draw (ddisp->canvas);
   if (ddisp->display_areas) {
     IRectangle *r = (IRectangle *)ddisp->display_areas->data;
     dia_log_message ("DispUpdt: %4d,%3d - %4d,%3d\n", r->left, r->top, r->right, r->bottom);
@@ -883,14 +884,16 @@ ddisplay_autoscroll(DDisplay *ddisp, int x, int y)
 {
   guint16 width, height;
   Point scroll;
+  GtkAllocation alloc;
   
   if (! ddisp->autoscroll)
     return FALSE;
 
   scroll.x = scroll.y = 0;
 
-  width = GTK_WIDGET(ddisp->canvas)->allocation.width;
-  height = GTK_WIDGET(ddisp->canvas)->allocation.height;
+  gtk_widget_get_allocation (GTK_WIDGET (ddisp->canvas), &alloc);
+  width = alloc.width;
+  height = alloc.height;
 
   if (x < 0)
   {
@@ -1095,6 +1098,7 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
 {
   int width, height;
   GdkWindow *window = gtk_widget_get_window(ddisp->canvas);
+  GtkAllocation alloc;
 
   /* dont mix new renderer with old updates */
   if (ddisp->update_id) {
@@ -1107,8 +1111,9 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
 
   ddisp->aa_renderer = aa_renderer;
 
-  width = ddisp->canvas->allocation.width;
-  height = ddisp->canvas->allocation.height;
+  gtk_widget_get_allocation (GTK_WIDGET (ddisp->canvas), &alloc);
+  width = alloc.width;
+  height = alloc.height;
 
   if (!ddisp->aa_renderer){
     g_message ("Only antialias renderers supported");
@@ -1588,7 +1593,7 @@ ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus)
       ObjectChange *change;
       
       for (i = 0; i < g_utf8_strlen(ddisp->preedit_string, -1); i++) {
-        (focus->key_event)(focus, 0, GDK_BackSpace, NULL, 0, &change);
+        (focus->key_event)(focus, 0, GDK_KEY_BackSpace, NULL, 0, &change);
       }
     }
     
