@@ -30,9 +30,9 @@
 
   <maintainer>
     <foaf:Person>
-      <foaf:name>Hans Breuer</foaf:name>
-      <foaf:mbox rdf:resource="mailto:hans@breuer.org" />
-      <gnome:userid>hans</gnome:userid>
+      <foaf:name>Zander Brown</foaf:name>
+      <foaf:mbox rdf:resource="mailto:zbrown@gnome.org" />
+      <gnome:userid>zbrown</gnome:userid>
     </foaf:Person>
   </maintainer>
 </Project>
