@@ -29,7 +29,6 @@
 #include <assert.h>
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
-#undef GTK_DISABLE_DEPRECATED /* GtkListItem, gtk_list_new, ... */
 #include <gtk/gtk.h>
 
 #include "intl.h"
@@ -56,7 +55,7 @@ typedef struct _EditLayerDialog EditLayerDialog;
 
 struct _DiaLayerWidget
 {
-  GtkListItem list_item;
+  GtkListBoxRow parent;
 
   Diagram *dia;
   Layer *layer;
@@ -86,14 +85,13 @@ struct _EditLayerDialog {
 
 struct _DiaLayerWidgetClass
 {
-  GtkListItemClass parent_class;
+  GtkListBoxRowClass parent_class;
 };
 
 GType dia_layer_widget_get_type(void);
 
 struct LayerDialog {
   GtkWidget *dialog;
-  GtkWidget *diagram_omenu;
 
   GtkWidget *layer_list;
 
@@ -236,7 +234,7 @@ layer_list_events (GtkWidget *widget,
 
   event_widget = gtk_get_event_widget (event);
 
-  if (GTK_IS_LIST_ITEM (event_widget)) {
+  if (GTK_IS_LIST_BOX_ROW (event_widget)) {
     layer_widget = DIA_LAYER_WIDGET(event_widget);
 
     switch (event->type) {
@@ -247,10 +245,10 @@ layer_list_events (GtkWidget *widget,
     case GDK_KEY_PRESS:
       kevent = (GdkEventKey *) event;
       switch (kevent->keyval) {
-      case GDK_Up:
+      case GDK_KEY_Up:
 	/* printf ("up arrow\n"); */
 	break;
-      case GDK_Down:
+      case GDK_KEY_Down:
 	/* printf ("down arrow\n"); */
 	break;
       default:
@@ -308,8 +306,6 @@ GtkWidget * create_layer_view_widget (void)
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 2);
   gtk_widget_show (label);
   
-  layer_dialog->diagram_omenu = NULL;
-
   /* Hide Button */
   hide_button = gtk_button_new ();
   gtk_button_set_relief (GTK_BUTTON (hide_button), GTK_RELIEF_NONE);
@@ -348,9 +344,9 @@ GtkWidget * create_layer_view_widget (void)
 				  GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (vbox), scrolled_win, TRUE, TRUE, 2);
 
-  layer_dialog->layer_list = list = gtk_list_new();
+  layer_dialog->layer_list = list = gtk_list_box_new();
 
-  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_BROWSE);
+  gtk_list_box_set_selection_mode (GTK_LIST_BOX (list), GTK_SELECTION_BROWSE);
   gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
 				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
@@ -401,13 +397,6 @@ layer_dialog_create(void)
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
   gtk_widget_show (label);
   
-  layer_dialog->diagram_omenu = omenu = gtk_option_menu_new();
-  gtk_box_pack_start(GTK_BOX(hbox), omenu, TRUE, TRUE, 2);
-  gtk_widget_show (omenu);
-
-  menu = gtk_menu_new();
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(omenu), menu);
-
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
   gtk_widget_show (hbox);
 
@@ -421,9 +410,9 @@ layer_dialog_create(void)
 				  GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (vbox), scrolled_win, TRUE, TRUE, 2);
 
-  layer_dialog->layer_list = list = gtk_list_new();
+  layer_dialog->layer_list = list = gtk_list_box_new();
 
-  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_BROWSE);
+  gtk_list_box_set_selection_mode (GTK_LIST_BOX (list), GTK_SELECTION_BROWSE);
   gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
 				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
@@ -515,9 +504,9 @@ layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
 					    next_layer_num++);
     layer = new_layer(new_layer_name, dia->data);
 
-    assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
-    selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
-    pos = gtk_list_child_position(GTK_LIST(layer_dialog->layer_list), selected);
+    assert(gtk_list_box_get_selected_row (GTK_LIST_BOX (layer_dialog->layer_list)) != NULL);
+    selected = gtk_list_box_get_selected_row (GTK_LIST_BOX (layer_dialog->layer_list));
+    pos = gtk_list_box_row_get_index (GTK_LIST_BOX_ROW (selected));
 
     data_add_layer_at(dia->data, layer, dia->data->layers->len - pos);
     
@@ -529,9 +518,9 @@ layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
 
     list = g_list_prepend(list, layer_widget);
     
-    gtk_list_insert_items(GTK_LIST(layer_dialog->layer_list), list, pos);
+    gtk_list_box_insert (GTK_LIST_BOX (layer_dialog->layer_list), layer_widget, pos);
 
-    gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos);
+    gtk_list_box_select_row (GTK_LIST_BOX (layer_dialog->layer_list), GTK_LIST_BOX_ROW (selected));
 
     undo_layer(dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
     undo_set_transactionpoint(dia->undo);
@@ -545,7 +534,7 @@ layer_dialog_rename_callback(GtkWidget *widget, gpointer gdata)
   Diagram *dia;
   Layer *layer;
   dia = layer_dialog->diagram;
-  selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
+  selected = gtk_list_box_get_selected_row (GTK_LIST_BOX (layer_dialog->layer_list));
   layer = dia->data->active_layer;
   layer_dialog_edit_layer (DIA_LAYER_WIDGET (selected), dia, layer);
 }
@@ -561,8 +550,8 @@ layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata)
   dia = layer_dialog->diagram;
 
   if ((dia != NULL) && (dia->data->layers->len>1)) {
-    assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
-    selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
+    assert (gtk_list_box_get_selected_row (GTK_LIST_BOX (layer_dialog->layer_list)) != NULL);
+    selected = gtk_list_box_get_selected_row (GTK_LIST_BOX (layer_dialog->layer_list));
 
     layer = dia->data->active_layer;
 
@@ -570,7 +559,7 @@ layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata)
     diagram_add_update_all(dia);
     diagram_flush(dia);
     
-    pos = gtk_list_child_position(GTK_LIST(layer_dialog->layer_list), selected);
+    pos = gtk_list_box_row_get_index (GTK_LIST_BOX_ROW (selected));
     gtk_container_remove(GTK_CONTAINER(layer_dialog->layer_list), selected);
 
     undo_layer(dia, layer, TYPE_DELETE_LAYER,
@@ -580,7 +569,7 @@ layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata)
     if (--pos<0)
       pos = 0;
 
-    gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos);
+    gtk_list_box_select_row (GTK_LIST_BOX (layer_dialog->layer_list), GTK_LIST_BOX_ROW (selected));
   }
 }
 
@@ -596,28 +585,25 @@ layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata)
   dia = layer_dialog->diagram;
 
   if ((dia != NULL) && (dia->data->layers->len>1)) {
-    assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
-    selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
+    assert (gtk_list_box_get_selected_row (GTK_LIST_BOX (layer_dialog->layer_list)) != NULL);
+    selected = gtk_list_box_get_selected_row (GTK_LIST_BOX (layer_dialog->layer_list));
 
-    pos = gtk_list_child_position(GTK_LIST(layer_dialog->layer_list), selected);
+    pos = gtk_list_box_row_get_index (GTK_LIST_BOX_ROW (selected));
 
     if (pos > 0) {
       layer = DIA_LAYER_WIDGET(selected)->layer;
       data_raise_layer(dia->data, layer);
       
-      list = g_list_prepend(list, selected);
-
       g_object_ref(selected);
       
-      gtk_list_remove_items(GTK_LIST(layer_dialog->layer_list),
-			    list);
+      gtk_container_remove (GTK_CONTAINER (layer_dialog->layer_list), selected);
       
-      gtk_list_insert_items(GTK_LIST(layer_dialog->layer_list),
-			    list, pos - 1);
-
+      gtk_list_box_insert (GTK_LIST_BOX (layer_dialog->layer_list),
+			    selected, pos - 1);
+      
       g_object_unref(selected);
 
-      gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos-1);
+      gtk_list_box_select_row (GTK_LIST_BOX (layer_dialog->layer_list), selected);
       
       diagram_add_update_all(dia);
       diagram_flush(dia);
@@ -641,28 +627,25 @@ layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata)
   dia = layer_dialog->diagram;
 
   if ((dia != NULL) && (dia->data->layers->len>1)) {
-    assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
-    selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
+    assert (gtk_list_box_get_selected_row (GTK_LIST_BOX (layer_dialog->layer_list)) != NULL);
+    selected = gtk_list_box_get_selected_row (GTK_LIST_BOX (layer_dialog->layer_list));
 
-    pos = gtk_list_child_position(GTK_LIST(layer_dialog->layer_list), selected);
+    pos = gtk_list_box_row_get_index (GTK_LIST_BOX_ROW (selected));
 
     if (pos < dia->data->layers->len-1) {
       layer = DIA_LAYER_WIDGET(selected)->layer;
       data_lower_layer(dia->data, layer);
       
-      list = g_list_prepend(list, selected);
-
       g_object_ref(selected);
       
-      gtk_list_remove_items(GTK_LIST(layer_dialog->layer_list),
-			    list);
+      gtk_container_remove (GTK_CONTAINER (layer_dialog->layer_list), selected);
       
-      gtk_list_insert_items(GTK_LIST(layer_dialog->layer_list),
-			    list, pos + 1);
+      gtk_list_box_insert (GTK_LIST_BOX (layer_dialog->layer_list),
+			    selected, pos + 1);
 
       g_object_unref(selected);
 
-      gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos+1);
+      gtk_list_box_select_row (GTK_LIST_BOX (layer_dialog->layer_list), selected);
       
       diagram_add_update_all(dia);
       diagram_flush(dia);
@@ -701,66 +684,6 @@ layer_dialog_update_diagram_list(void)
       layer_dialog_create();
   }
   g_assert(layer_dialog != NULL); /* must be valid now */
-  /* oh this options: here integrated UI ;( */
-  if (!layer_dialog->diagram_omenu)
-    return;
-        
-  new_menu = gtk_menu_new();
-
-  current_nr = -1;
-  
-  i = 0;
-  dia_list = dia_open_diagrams();
-  while (dia_list != NULL) {
-    dia = (Diagram *) dia_list->data;
-
-    if (dia == layer_dialog->diagram) {
-      current_nr = i;
-    }
-    
-    filename = strrchr(dia->filename, G_DIR_SEPARATOR);
-    if (filename==NULL) {
-      filename = dia->filename;
-    } else {
-      filename++;
-    }
-
-    menu_item = gtk_menu_item_new_with_label(filename);
-
-    g_signal_connect (G_OBJECT (menu_item), "activate",
-		      G_CALLBACK (layer_dialog_select_diagram_callback), dia);
-
-    gtk_menu_append( GTK_MENU(new_menu), menu_item);
-    gtk_widget_show (menu_item);
-
-    dia_list = g_list_next(dia_list);
-    i++;
-  }
-
-  if (dia_open_diagrams()==NULL) {
-    menu_item = gtk_menu_item_new_with_label (_("none"));
-    g_signal_connect (G_OBJECT (menu_item), "activate",
-		      G_CALLBACK (layer_dialog_select_diagram_callback), NULL);
-    gtk_menu_append( GTK_MENU(new_menu), menu_item);
-    gtk_widget_show (menu_item);
-  }
-  
-  gtk_option_menu_remove_menu(GTK_OPTION_MENU(layer_dialog->diagram_omenu));
-
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(layer_dialog->diagram_omenu),
-			   new_menu);
-
-  gtk_option_menu_set_history(GTK_OPTION_MENU(layer_dialog->diagram_omenu),
-			      current_nr);
-  gtk_menu_set_active(GTK_MENU(new_menu), current_nr);
-
-  if (current_nr == -1) {
-    dia = NULL;
-    if (dia_open_diagrams()!=NULL) {
-      dia = (Diagram *) dia_open_diagrams()->data;
-    }
-    layer_dialog_set_diagram(dia);
-  }
 }
 
 void
@@ -786,6 +709,8 @@ _layer_widget_clear_layer (GtkWidget *widget, gpointer user_data)
 {
   DiaLayerWidget *lw = DIA_LAYER_WIDGET(widget);
   lw->layer = NULL;
+
+  gtk_container_remove (GTK_WIDGET (user_data), widget);
 }
 
 void
@@ -806,15 +731,8 @@ layer_dialog_set_diagram(Diagram *dia)
   g_assert(layer_dialog != NULL); /* must be valid now */
 
   gtk_container_foreach (GTK_CONTAINER(layer_dialog->layer_list),
-                         _layer_widget_clear_layer, NULL);
-  gtk_list_clear_items(GTK_LIST(layer_dialog->layer_list), 0, -1);
+                         _layer_widget_clear_layer, layer_dialog->layer_list);
   layer_dialog->diagram = dia;
-  if (dia != NULL) {
-    i = g_list_index(dia_open_diagrams(), dia);
-    if (i >= 0 && layer_dialog->diagram_omenu != NULL)
-      gtk_option_menu_set_history(GTK_OPTION_MENU(layer_dialog->diagram_omenu),
-				  i);
-  }
 
   if (dia != NULL) {
     data = dia->data;
@@ -828,7 +746,8 @@ layer_dialog_set_diagram(Diagram *dia)
       if (layer==active_layer)
 	sel_pos = j;
     }
-    gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), sel_pos);
+    gtk_list_box_select_row (GTK_LIST_BOX (layer_dialog->layer_list),
+                            gtk_list_box_get_row_at_index (GTK_LIST_BOX (layer_dialog->layer_list), sel_pos));
   }
 }
 
@@ -855,7 +774,7 @@ dia_layer_widget_unrealize(GtkWidget *widget)
     lw->edit_dialog = NULL;
   }
 
-  (* GTK_WIDGET_CLASS (gtk_type_class(gtk_list_item_get_type ()))->unrealize) (widget);
+  (* GTK_WIDGET_CLASS (g_type_class_peek(GTK_TYPE_LIST_BOX_ROW))->unrealize) (widget);
 }
 
 static void
@@ -890,7 +809,7 @@ dia_layer_widget_exclusive_connectable(DiaLayerWidget *layer_widget)
   }
 
   /*  Now, toggle the connectability for all layers except the specified one  */
-  list = GTK_LIST(layer_dialog->layer_list)->children;
+  list = gtk_container_get_children (GTK_CONTAINER (layer_dialog->layer_list));
   while (list) {
     lw = DIA_LAYER_WIDGET(list->data);
     if (lw != layer_widget) 
@@ -1046,7 +965,7 @@ dia_layer_widget_get_type(void)
       (GInstanceInitFunc)dia_layer_widget_init,
     };
     
-    dlw_type = g_type_register_static (gtk_list_item_get_type (), 
+    dlw_type = g_type_register_static (GTK_TYPE_LIST_BOX_ROW, 
 				       "DiaLayerWidget", 
 				       &dlw_info, 0);
   }
@@ -1059,7 +978,7 @@ dia_layer_widget_new(Diagram *dia, Layer *layer)
 {
   GtkWidget *widget;
   
-  widget = GTK_WIDGET ( gtk_type_new (dia_layer_widget_get_type ()));
+  widget = GTK_WIDGET ( g_object_new (dia_layer_widget_get_type (), NULL));
   dia_layer_set_layer(DIA_LAYER_WIDGET(widget), dia, layer);
 
   /* These may get toggled when the button is set without the widget being

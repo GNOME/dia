@@ -346,10 +346,13 @@ sheet_option_menu_changed (GtkListBox    *box,
                            GtkListBoxRow *row,
                            gpointer       user_data)
 {
+  char *string;
+  Sheet *sheet;
+
   g_return_if_fail (DIA_IS_LIST_ITEM (row));
 
-  char *string = dia_list_item_get_value (DIA_LIST_ITEM (row));
-  Sheet *sheet = get_sheet_by_name(string);
+  string = dia_list_item_get_value (DIA_LIST_ITEM (row));
+  sheet = get_sheet_by_name(string);
 
   if (sheet == NULL) {
     message_warning(_("No sheet named %s"), string);
@@ -379,10 +382,11 @@ get_sheet_names()
   return g_list_sort (names, cmp_names);
 }
 
-#define DIA_TYPE_SHEET_META (dia_list_get_type ())
+#define DIA_TYPE_SHEET_META (dia_sheet_meta_get_type ())
 G_DECLARE_FINAL_TYPE (DiaSheetMeta, dia_sheet_meta, DIA, SHEET_META, GObject)
 
 struct _DiaSheetMeta {
+  GObject parent;
   gchar *name;
 };
 
@@ -403,7 +407,9 @@ dia_sheet_meta_init (DiaSheetMeta *self)
 static GtkWidget *
 render_row (gpointer item, gpointer user_data)
 {
-  return dia_list_item_new_with_label (DIA_SHEET_META (item)->name);
+  GtkWidget *tmp = dia_list_item_new_with_label (DIA_SHEET_META (item)->name);
+  gtk_widget_show_all (tmp);
+  return tmp;
 }
 
 static void
@@ -411,7 +417,7 @@ create_sheet_dropdown_menu(GtkWidget *parent)
 {
   GListStore *sheets = g_list_store_new (DIA_TYPE_SHEET_META);
   GList *sheet_names = get_sheet_names();
-  DiaSheetMeta *meta
+  DiaSheetMeta *meta;
   GList *l;
   GtkWidget *popover;
   GtkWidget *frame;
@@ -441,10 +447,13 @@ create_sheet_dropdown_menu(GtkWidget *parent)
     g_list_store_append (sheets, meta);
   }
 
-  popover = gtk_popover_new ();
+  popover = gtk_popover_new (NULL);
   frame = gtk_frame_new (NULL);
   gtk_container_add (GTK_CONTAINER (popover), frame);
-  wrap = gtk_scrolled_window_new (NULL, NULL);
+  wrap = g_object_new (GTK_TYPE_SCROLLED_WINDOW,
+                       "min-content-width", 200,
+                       "min-content-height", 200,
+                       NULL);
   gtk_container_add (GTK_CONTAINER (frame), wrap);
   list = gtk_list_box_new ();
   gtk_container_add (GTK_CONTAINER (wrap), list);
@@ -471,10 +480,10 @@ create_sheet_dropdown_menu(GtkWidget *parent)
 void
 fill_sheet_menu(void)
 {
-  gchar *selection = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(sheet_option_menu));
+  /* TODO: gchar *selection = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(sheet_option_menu)); */
   create_sheet_dropdown_menu(gtk_widget_get_parent(sheet_option_menu));
-  dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(sheet_option_menu), selection);
-  g_free(selection);
+  /* TODO: dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(sheet_option_menu), selection);
+  g_free(selection); */
 }
 
 static void
@@ -515,8 +524,8 @@ create_sheets(GtkWidget *parent)
     /* Couldn't find it */
   } else {
     fill_sheet_wbox(sheet);
-    dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				  sheetname);
+    /* TODO: dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
+				  sheetname); */
   }
   g_free(sheetname);
 }
