@@ -26,7 +26,6 @@
  * Opens a dialog for export options
  */
 
-#undef GTK_DISABLE_DEPRECATED /* GTK_OPTION_MENU, ... */
 #include "xslt.h"
 #include <stdio.h>
 
@@ -40,19 +39,18 @@ from_deactivate(fromxsl_t *xsls);
 static void
 from_activate(GtkWidget *widget, fromxsl_t *xsls)
 {
-	toxsl_t *to_f = xsls->xsls;
+	toxsl_t *to_f;
+
+	while(xsls != NULL && xsls->name != gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (widget))) {
+		xsls = xsls->next;
+	}
+
+	to_f = xsls->xsls;
 	
 	from_deactivate(xsl_from);
 
 	xsl_from = xsls;
 	xsl_to = to_f;
-	
-	gtk_menu_item_activate(GTK_MENU_ITEM(to_f->item));
-	while(to_f != NULL)
-	{
-		gtk_widget_set_sensitive(to_f->item, 1);
-		to_f = to_f->next;
-	}
 }
 
 static void
@@ -71,6 +69,9 @@ from_deactivate(fromxsl_t *xsls)
 static void
 to_update(GtkWidget *widget, toxsl_t *lng)
 {
+	while(lng != NULL && lng->name != gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (widget))) {
+		lng = lng->next;
+	}
         /* printf("To: %s\n", lng->name); */
 	xsl_to = lng;
 }
@@ -86,7 +87,7 @@ void
 xslt_dialog_create(void) {
 	GtkWidget *box, *vbox;
 	
-	GtkWidget *omenu, *menu, *menuitem;
+	GtkWidget *omenu;
 	GSList *group;
 	GtkWidget *label;	
 
@@ -113,24 +114,19 @@ xslt_dialog_create(void) {
 
 	label = gtk_label_new(_("From:"));
 
- 	omenu = gtk_option_menu_new ();
-	menu = gtk_menu_new ();
+ 	omenu = gtk_combo_box_text_new ();
 	group = NULL;
-	
+
+	g_signal_connect (G_OBJECT (omenu), "changed",
+	                  G_CALLBACK (from_activate), cur_f);
+
 	while(cur_f != NULL)
 	{
-		menuitem = gtk_radio_menu_item_new_with_label (group, cur_f->name);
-		g_signal_connect (G_OBJECT (menuitem), "activate",
-				  G_CALLBACK (from_activate), cur_f);
-		group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-		gtk_menu_append (GTK_MENU (menu), menuitem);
-		gtk_widget_show (menuitem);
+		gtk_combo_box_text_append (GTK_COMBO_BOX_TEXT (omenu), cur_f->name, cur_f->name);
 		cur_f = cur_f->next;
 	}
 	
 
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
-	gtk_widget_show(menu);
 	gtk_widget_show(omenu);
 	gtk_widget_show(label);
 	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 0);
@@ -148,29 +144,23 @@ xslt_dialog_create(void) {
 
 	label = gtk_label_new(_("To:"));
 
- 	omenu = gtk_option_menu_new ();
-	menu = gtk_menu_new ();
+ 	omenu = gtk_combo_box_text_new ();
 	group = NULL;
+
+	g_signal_connect (G_OBJECT (omenu), "changed",
+				G_CALLBACK (to_update), cur_to );
 	
 	while(cur_f != NULL)
 	{
 		cur_to = cur_f->xsls;
 		while(cur_to != NULL)
 		{
-			menuitem = gtk_radio_menu_item_new_with_label (group, cur_to->name);
-			g_signal_connect (G_OBJECT (menuitem), "activate",
-					  G_CALLBACK (to_update), cur_to );
-			group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
-			gtk_menu_append (GTK_MENU (menu), menuitem);
-			gtk_widget_show (menuitem);
-			cur_to->item = menuitem;
+			gtk_combo_box_text_append (GTK_COMBO_BOX_TEXT (omenu), cur_to->name, cur_to->name);
 			cur_to = cur_to->next;
 		}
 		cur_f = cur_f->next;		
 	}
 
-	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
-	gtk_widget_show(menu);
 	gtk_widget_show(omenu);
 	gtk_widget_show(label);
 	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, TRUE, 0);

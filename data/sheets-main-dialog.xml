@@ -172,7 +172,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkOptionMenu" id="optionmenu_right">
+              <object class="GtkComboBoxText" id="optionmenu_right">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -201,7 +201,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkOptionMenu" id="optionmenu_left">
+              <object class="GtkComboBoxText" id="optionmenu_left">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>

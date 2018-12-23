@@ -105,14 +105,14 @@ dia::Renderer::set_font (Font* font, double height)
 }
 // Draw a line from start to end, using color and the current line style
 void 
-dia::Renderer::draw_line (Point *start, Point *end, Color *color)
+dia::Renderer::draw_line (Point *start, Point *end, GdkRGBA *color)
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_line (self, start, end, color);
 }
 // Fill and/or stroke a rectangle, given its upper-left and lower-right corners
 void 
-dia::Renderer::draw_rect (Point *ul_corner, Point *lr_corner, Color *fill, Color *stroke)
+dia::Renderer::draw_rect (Point *ul_corner, Point *lr_corner, GdkRGBA *fill, GdkRGBA *stroke)
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_rect (self, ul_corner, lr_corner, fill, stroke);
@@ -121,7 +121,7 @@ dia::Renderer::draw_rect (Point *ul_corner, Point *lr_corner, Color *fill, Color
 void 
 dia::Renderer::draw_arc (Point *center, double width, double height,
 		         double angle1, double angle2,
-		         Color *color)
+		         GdkRGBA *color)
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_arc (self, center, width, height, angle1, angle2, color);
@@ -130,21 +130,21 @@ dia::Renderer::draw_arc (Point *center, double width, double height,
 void 
 dia::Renderer::fill_arc (Point *center, double width, double height,
 		         double angle1, double angle2,
-		         Color *color)
+		         GdkRGBA *color)
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->fill_arc (self, center, width, height, angle1, angle2, color);
 }
 // Draw an ellipse, given its center and the bounding box
 void 
-dia::Renderer::draw_ellipse (Point *center, double width, double height, Color *fill, Color *stroke)
+dia::Renderer::draw_ellipse (Point *center, double width, double height, GdkRGBA *fill, GdkRGBA *stroke)
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_ellipse (self, center, width, height, fill, stroke);
 }
 // Print a string at pos, using the current font
 void 
-dia::Renderer::draw_string (const gchar *text, Point *pos, Alignment alignment, Color *color)
+dia::Renderer::draw_string (const gchar *text, Point *pos, Alignment alignment, GdkRGBA *color)
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_string (self, text, pos, alignment, color);
@@ -159,28 +159,28 @@ dia::Renderer::draw_image (Point *point, double width, double height, Image* ima
 
 // draw a bezier line - possibly as approximation consisting of straight lines
 void 
-dia::Renderer::draw_bezier (BezPoint *points, int numpoints, Color *color)
+dia::Renderer::draw_bezier (BezPoint *points, int numpoints, GdkRGBA *color)
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_bezier (self, points, numpoints, color);
 }
 // fill a bezier line - possibly as approximation consisting of a polygon
 void 
-dia::Renderer::draw_beziergon (BezPoint *points, int numpoints, Color *fill, Color *stroke)
+dia::Renderer::draw_beziergon (BezPoint *points, int numpoints, GdkRGBA *fill, GdkRGBA *stroke)
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_beziergon (self, points, numpoints, fill, stroke);
 }
 // drawing a polyline - or fallback to single line segments
 void 
-dia::Renderer::draw_polyline (Point *points, int num_points, Color *color)
+dia::Renderer::draw_polyline (Point *points, int num_points, GdkRGBA *color)
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_polyline (self, points, num_points, color);
 }
 // Draw a polygon, using the current line and/or fill style
 void 
-dia::Renderer::draw_polygon (Point *points, int num_points, Color *fill, Color *stroke)
+dia::Renderer::draw_polygon (Point *points, int num_points, GdkRGBA *fill, GdkRGBA *stroke)
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_polygon (self, points, num_points, fill, stroke);
@@ -194,7 +194,7 @@ dia::Renderer::draw_text (Text* text)
 }
 // Draw a polyline with round corners
 void
-dia::Renderer::draw_rounded_polyline (Point *points, int num_points, Color *color, double radius )
+dia::Renderer::draw_rounded_polyline (Point *points, int num_points, GdkRGBA *color, double radius )
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_rounded_polyline (self, points, num_points, color, radius);
@@ -202,14 +202,14 @@ dia::Renderer::draw_rounded_polyline (Point *points, int num_points, Color *colo
 // specialized draw_rect() with round corners
 void 
 dia::Renderer::draw_rounded_rect (Point *ul_corner, Point *lr_corner,
-				  Color *fill, Color *stroke, real radius)
+				  GdkRGBA *fill, GdkRGBA *stroke, real radius)
 {
     assert (self);
     DIA_RENDERER_GET_CLASS(self)->draw_rounded_rect (self, ul_corner, lr_corner, fill, stroke, radius);
 }
 // specialized draw_line() for renderers with an own concept of Arrow
 void 
-dia::Renderer::draw_line_with_arrows  (Point *start, Point *end, real line_width, Color *line_color, 
+dia::Renderer::draw_line_with_arrows  (Point *start, Point *end, real line_width, GdkRGBA *line_color, 
                                        Arrow *start_arrow, Arrow *end_arrow)
 {
     assert (self);
@@ -217,7 +217,7 @@ dia::Renderer::draw_line_with_arrows  (Point *start, Point *end, real line_width
 }
 // specialized draw_line() for renderers with an own concept of Arrow
 void 
-dia::Renderer::draw_arc_with_arrows  (Point *start, Point *end, Point *midpoint, real line_width, Color *color,
+dia::Renderer::draw_arc_with_arrows  (Point *start, Point *end, Point *midpoint, real line_width, GdkRGBA *color,
                                       Arrow *start_arrow, Arrow *end_arrow)
 {
     assert (self);
@@ -225,7 +225,7 @@ dia::Renderer::draw_arc_with_arrows  (Point *start, Point *end, Point *midpoint,
 }
 // specialized draw_polyline() for renderers with an own concept of Arrow
 void 
-dia::Renderer::draw_polyline_with_arrows (Point *points, int num_points, real line_width, Color *color,
+dia::Renderer::draw_polyline_with_arrows (Point *points, int num_points, real line_width, GdkRGBA *color,
                                           Arrow *start_arrow, Arrow *end_arrow)
 {
     assert (self);
@@ -233,7 +233,7 @@ dia::Renderer::draw_polyline_with_arrows (Point *points, int num_points, real li
 }
 // specialized draw_rounded_polyline() for renderers with an own concept of Arrow
 void 
-dia::Renderer::draw_rounded_polyline_with_arrows (Point *points, int num_points, real line_width, Color *color,
+dia::Renderer::draw_rounded_polyline_with_arrows (Point *points, int num_points, real line_width, GdkRGBA *color,
 					          Arrow *start_arrow, Arrow *end_arrow, real radius)
 {
     assert (self);
@@ -241,7 +241,7 @@ dia::Renderer::draw_rounded_polyline_with_arrows (Point *points, int num_points,
 }
 // specialized draw_bezier() for renderers with an own concept of Arrow
 void 
-dia::Renderer::draw_bezier_with_arrows (BezPoint *points, int num_points, real line_width, Color *color,
+dia::Renderer::draw_bezier_with_arrows (BezPoint *points, int num_points, real line_width, GdkRGBA *color,
                                         Arrow *start_arrow, Arrow *end_arrow)
 {
     assert (self);
