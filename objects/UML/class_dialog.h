@@ -1,4 +1,7 @@
 #include "widgets.h"
+#include "widgets/dialist.h"
+#include "diafontselector.h"
+
 /**
  * \brief Very special user interface for UMLClass parametrization
  *
@@ -45,8 +48,8 @@ struct _UMLClassDialog {
   GList *added_connections; 
   GList *deleted_connections; 
 
-  GtkList *attributes_list;
-  GtkListItem *current_attr;
+  DiaList *attributes_list;
+  DiaListItem *current_attr;
   GtkEntry *attr_name;
   GtkEntry *attr_type;
   GtkEntry *attr_value;
@@ -54,8 +57,8 @@ struct _UMLClassDialog {
   GtkWidget *attr_visible;
   GtkToggleButton *attr_class_scope;
   
-  GtkList *operations_list;
-  GtkListItem *current_op;
+  DiaList *operations_list;
+  DiaListItem *current_op;
   GtkEntry *op_name;
   GtkEntry *op_type;
   GtkEntry *op_stereotype;
@@ -66,8 +69,8 @@ struct _UMLClassDialog {
   GtkWidget *op_inheritance_type;
   GtkToggleButton *op_query;  
   
-  GtkList *parameters_list;
-  GtkListItem *current_param;
+  DiaList *parameters_list;
+  DiaListItem *current_param;
   GtkEntry *param_name;
   GtkEntry *param_type;
   GtkEntry *param_value;
@@ -78,8 +81,8 @@ struct _UMLClassDialog {
   GtkWidget *param_up_button;
   GtkWidget *param_down_button;
   
-  GtkList *templates_list;
-  GtkListItem *current_templ;
+  DiaList *templates_list;
+  DiaListItem *current_templ;
   GtkToggleButton *templ_template;
   GtkEntry *templ_name;
   GtkEntry *templ_type;

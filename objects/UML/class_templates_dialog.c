@@ -19,7 +19,6 @@
 #include <config.h>
 
 #include <assert.h>
-#undef GTK_DISABLE_DEPRECATED /* GtkList, ... */
 #include <gtk/gtk.h>
 
 #include "class.h"
@@ -118,20 +117,19 @@ templates_list_selection_changed_callback(GtkWidget *gtklist,
 
   _templates_get_current_values(prop_dialog);
   
-  list = GTK_LIST(gtklist)->selection;
-  if (!list) { /* No selected */
+  list_item = dia_list_get_selection (DIA_LIST(gtklist));
+  if (!list_item) { /* No selected */
     templates_set_sensitive(prop_dialog, FALSE);
     templates_clear_values(prop_dialog);
     prop_dialog->current_templ = NULL;
     return;
   }
   
-  list_item = G_OBJECT(list->data);
   param = (UMLFormalParameter *)g_object_get_data(G_OBJECT(list_item), "user_data");
   templates_set_values(prop_dialog, param);
   templates_set_sensitive(prop_dialog, TRUE);
 
-  prop_dialog->current_templ = GTK_LIST_ITEM(list_item);
+  prop_dialog->current_templ = DIA_LIST_ITEM(list_item);
   gtk_widget_grab_focus(GTK_WIDGET(prop_dialog->templ_name));
 }
 
@@ -152,7 +150,7 @@ templates_list_new_callback(GtkWidget *button,
   param = uml_formalparameter_new();
 
   utfstr = uml_get_formalparameter_string (param);
-  list_item = gtk_list_item_new_with_label (utfstr);
+  list_item = dia_list_item_new_with_label (utfstr);
   gtk_widget_show (list_item);
   g_free (utfstr);
 
@@ -161,12 +159,12 @@ templates_list_new_callback(GtkWidget *button,
 		    G_CALLBACK (templates_list_item_destroy_callback), NULL);
   
   list = g_list_append(NULL, list_item);
-  gtk_list_append_items(prop_dialog->templates_list, list);
+  dia_list_append_items(prop_dialog->templates_list, list);
 
-  if (prop_dialog->templates_list->children != NULL)
-    gtk_list_unselect_child(prop_dialog->templates_list,
-			    GTK_WIDGET(prop_dialog->templates_list->children->data));
-  gtk_list_select_child(prop_dialog->templates_list, list_item);
+  if (dia_list_get_children (prop_dialog->templates_list) != NULL)
+    dia_list_unselect_child(prop_dialog->templates_list,
+			    GTK_WIDGET(dia_list_get_children (prop_dialog->templates_list)->data));
+  dia_list_select_child(prop_dialog->templates_list, list_item);
 }
 
 static void
@@ -175,14 +173,14 @@ templates_list_delete_callback(GtkWidget *button,
 {
   GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
+  DiaList *gtklist;
 
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->templates_list);
+  gtklist = DIA_LIST(prop_dialog->templates_list);
 
-  if (gtklist->selection != NULL) {
-    list = g_list_prepend(NULL, gtklist->selection->data);
-    gtk_list_remove_items(gtklist, list);
+  if (dia_list_get_selection (gtklist) != NULL) {
+    list = g_list_prepend(NULL, dia_list_get_selection (gtklist));
+    dia_list_remove_items(gtklist, list);
     g_list_free(list);
     templates_clear_values(prop_dialog);
     templates_set_sensitive(prop_dialog, FALSE);
@@ -195,27 +193,27 @@ templates_list_move_up_callback(GtkWidget *button,
 {
   GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
+  DiaList *gtklist;
   GtkWidget *list_item;
   int i;
   
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->templates_list);
+  gtklist = DIA_LIST(prop_dialog->templates_list);
 
-  if (gtklist->selection != NULL) {
-    list_item = GTK_WIDGET(gtklist->selection->data);
+  if (dia_list_get_selection (gtklist) != NULL) {
+    list_item = GTK_WIDGET(dia_list_get_selection (gtklist));
     
-    i = gtk_list_child_position(gtklist, list_item);
+    i = dia_list_child_position(gtklist, list_item);
     if (i>0)
       i--;
 
     g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    gtk_list_remove_items(gtklist, list);
-    gtk_list_insert_items(gtklist, list, i);
+    dia_list_remove_items(gtklist, list);
+    dia_list_insert_items(gtklist, list, i);
     g_object_unref(list_item);
 
-    gtk_list_select_child(gtklist, list_item);
+    dia_list_select_child(gtklist, list_item);
   }
 }
 
@@ -225,27 +223,27 @@ templates_list_move_down_callback(GtkWidget *button,
 {
   GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
-  GtkWidget *list_item;
+  DiaList *gtklist;
+  DiaListItem *list_item;
   int i;
 
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->templates_list);
+  gtklist = DIA_LIST(prop_dialog->templates_list);
 
-  if (gtklist->selection != NULL) {
-    list_item = GTK_WIDGET(gtklist->selection->data);
+  if (dia_list_get_selection (gtklist) != NULL) {
+    list_item = dia_list_get_selection (gtklist);
     
-    i = gtk_list_child_position(gtklist, list_item);
-    if (i<(g_list_length(gtklist->children)-1))
+    i = dia_list_child_position(gtklist, list_item);
+    if (i<(g_list_length(dia_list_get_children (gtklist))-1))
       i++;
 
     g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    gtk_list_remove_items(gtklist, list);
-    gtk_list_insert_items(gtklist, list, i);
+    dia_list_remove_items(gtklist, list);
+    dia_list_insert_items(gtklist, list, i);
     g_object_unref(list_item);
 
-    gtk_list_select_child(gtklist, list_item);
+    dia_list_select_child(gtklist, list_item);
   }
 }
 
@@ -260,7 +258,7 @@ _templates_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
 
   _templates_get_current_values(prop_dialog); /* if changed, update from widgets */
 
-  umlclass->template = prop_dialog->templ_template->active;
+  umlclass->template = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->templ_template));
 
   /* Free current formal parameters: */
   list = umlclass->formal_params;
@@ -273,7 +271,7 @@ _templates_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   umlclass->formal_params = NULL;
 
   /* Insert new formal params and remove them from gtklist: */
-  list = GTK_LIST (prop_dialog->templates_list)->children;
+  list = dia_list_get_children (DIA_LIST (prop_dialog->templates_list));
   clear_list = NULL;
   while (list != NULL) {
     list_item = GTK_WIDGET(list->data);
@@ -285,7 +283,7 @@ _templates_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
     list = g_list_next(list);
   }
   clear_list = g_list_reverse (clear_list);
-  gtk_list_remove_items (GTK_LIST (prop_dialog->templates_list), clear_list);
+  dia_list_remove_items (DIA_LIST (prop_dialog->templates_list), clear_list);
   g_list_free (clear_list);
 }
 
@@ -302,14 +300,14 @@ _templates_fill_in_dialog(UMLClass *umlclass)
   gtk_toggle_button_set_active(prop_dialog->templ_template, umlclass->template);
 
   /* copy in new template-parameters: */
-  if (prop_dialog->templates_list->children == NULL) {
+  if (dia_list_get_children (prop_dialog->templates_list) == NULL) {
     i = 0;
     list = umlclass->formal_params;
     while (list != NULL) {
       UMLFormalParameter *param = (UMLFormalParameter *)list->data;
       gchar *paramstr = uml_get_formalparameter_string(param);
 
-      list_item = gtk_list_item_new_with_label (paramstr);
+      list_item = dia_list_item_new_with_label (paramstr);
       param_copy = uml_formalparameter_copy(param);
       g_object_set_data(G_OBJECT(list_item), "user_data", 
 			       (gpointer) param_copy);
@@ -385,9 +383,9 @@ _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox), scrolled_win, TRUE, TRUE, 0);
   gtk_widget_show (scrolled_win);
 
-  list = gtk_list_new ();
-  prop_dialog->templates_list = GTK_LIST(list);
-  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_SINGLE);
+  list = dia_list_new ();
+  prop_dialog->templates_list = DIA_LIST(list);
+  dia_list_set_selection_mode (DIA_LIST (list), GTK_SELECTION_SINGLE);
   gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
 				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));

@@ -32,7 +32,6 @@
 #include <config.h>
 
 #include <assert.h>
-#undef GTK_DISABLE_DEPRECATED /* GtkList, ... */
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
@@ -197,16 +196,16 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   else
     umlclass->comment = NULL;
   
-  umlclass->abstract = prop_dialog->abstract_class->active;
-  umlclass->visible_attributes = prop_dialog->attr_vis->active;
-  umlclass->visible_operations = prop_dialog->op_vis->active;
-  umlclass->wrap_operations = prop_dialog->op_wrap->active;
+  umlclass->abstract = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->abstract_class));
+  umlclass->visible_attributes = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_vis));
+  umlclass->visible_operations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_vis));
+  umlclass->wrap_operations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_wrap));
   umlclass->wrap_after_char = gtk_spin_button_get_value_as_int(prop_dialog->wrap_after_char);
   umlclass->comment_line_length = gtk_spin_button_get_value_as_int(prop_dialog->comment_line_length);
-  umlclass->comment_tagging = prop_dialog->comment_tagging->active;
-  umlclass->visible_comments = prop_dialog->comments_vis->active;
-  umlclass->suppress_attributes = prop_dialog->attr_supp->active;
-  umlclass->suppress_operations = prop_dialog->op_supp->active;
+  umlclass->comment_tagging = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->comment_tagging));
+  umlclass->visible_comments = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->comments_vis));
+  umlclass->suppress_attributes = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_supp));
+  umlclass->suppress_operations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_supp));
   umlclass->line_width = gtk_spin_button_get_value(prop_dialog->line_width);
   dia_color_selector_get_color(GTK_WIDGET(prop_dialog->text_color), &umlclass->text_color);
   dia_color_selector_get_color(GTK_WIDGET(prop_dialog->line_color), &umlclass->line_color);
@@ -287,7 +286,8 @@ create_font_props_row (GtkTable   *table,
   GObject *adj;
 
   label = gtk_label_new (kind);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
   gtk_table_attach_defaults (table, label, 0, 1, row, row+1);
   *fontsel = DIA_FONT_SELECTOR (dia_font_selector_new ());
   dia_font_selector_set_font (DIA_FONT_SELECTOR (*fontsel), font);
@@ -542,7 +542,7 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
 static void
 switch_page_callback(GtkNotebook *notebook,
-		     GtkNotebookPage *page)
+		     GtkWidget *page)
 {
   UMLClass *umlclass;
   UMLClassDialog *prop_dialog;
@@ -602,12 +602,12 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   
   /* Allocate enought connection points for attributes and operations. */
   /* (two per op/attr) */
-  if ( (prop_dialog->attr_vis->active) && (!prop_dialog->attr_supp->active))
-    num_attrib = g_list_length(prop_dialog->attributes_list->children);
+  if ( (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_vis))) && (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_supp))))
+    num_attrib = g_list_length(dia_list_get_children(prop_dialog->attributes_list));
   else
     num_attrib = 0;
-  if ( (prop_dialog->op_vis->active) && (!prop_dialog->op_supp->active))
-    num_ops = g_list_length(prop_dialog->operations_list->children);
+  if ( (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_vis))) && (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_supp))))
+    num_ops = g_list_length(dia_list_get_children(prop_dialog->operations_list));
   else
     num_ops = 0;
   obj = &umlclass->element.object;
@@ -905,7 +905,7 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
   }
   
   if (prop_dialog)
-    gtk_list_clear_items (GTK_LIST (prop_dialog->attributes_list), 0, -1);
+    dia_list_empty (DIA_LIST (prop_dialog->attributes_list));
 
   list = umlclass->operations;
   while (list != NULL) {
@@ -922,7 +922,7 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
     list = g_list_next(list);
   }
   if (prop_dialog)
-    gtk_list_clear_items (GTK_LIST (prop_dialog->operations_list), 0, -1);
+    dia_list_empty (DIA_LIST (prop_dialog->operations_list));
 
 #ifdef UML_MAINPOINT
   obj->connections[connection_index++] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];

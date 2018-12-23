@@ -19,7 +19,6 @@
 #include <config.h>
 
 #include <assert.h>
-#undef GTK_DISABLE_DEPRECATED /* GtkList, ... */
 #include <gtk/gtk.h>
 
 #include "class.h"
@@ -88,7 +87,7 @@ attributes_get_values (UMLClassDialog *prop_dialog, UMLAttribute *attr)
 
   attr->visibility = (UMLVisibility)dia_option_menu_get_active (prop_dialog->attr_visible);
     
-  attr->class_scope = prop_dialog->attr_class_scope->active;
+  attr->class_scope = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_class_scope));
 }
 
 void
@@ -129,9 +128,8 @@ static void
 attributes_list_selection_changed_callback(GtkWidget *gtklist,
 					   UMLClass *umlclass)
 {
-  GList *list;
+  DiaListItem *list;
   UMLClassDialog *prop_dialog;
-  GObject *list_item;
   UMLAttribute *attr;
 
   /* Due to GtkList oddities, this may get called during destroy.
@@ -149,7 +147,7 @@ attributes_list_selection_changed_callback(GtkWidget *gtklist,
 
   _attributes_get_current_values(prop_dialog);
   
-  list = GTK_LIST(gtklist)->selection;
+  list = dia_list_get_selection (DIA_LIST (gtklist));
   if (!list && prop_dialog) { /* No selected */
     attributes_set_sensitive(prop_dialog, FALSE);
     attributes_clear_values(prop_dialog);
@@ -157,12 +155,11 @@ attributes_list_selection_changed_callback(GtkWidget *gtklist,
     return;
   }
   
-  list_item = G_OBJECT(list->data);
-  attr = (UMLAttribute *)g_object_get_data(G_OBJECT(list_item), "user_data");
+  attr = (UMLAttribute *)g_object_get_data (G_OBJECT (list), "user_data");
   attributes_set_values(prop_dialog, attr);
   attributes_set_sensitive(prop_dialog, TRUE);
 
-  prop_dialog->current_attr = GTK_LIST_ITEM(list_item);
+  prop_dialog->current_attr = DIA_LIST_ITEM (list);
   gtk_widget_grab_focus(GTK_WIDGET(prop_dialog->attr_name));
 }
 
@@ -188,7 +185,7 @@ attributes_list_new_callback(GtkWidget *button,
     g_list_prepend(prop_dialog->added_connections, attr->right_connection);
 
   utfstr = uml_get_attribute_string (attr);
-  list_item = gtk_list_item_new_with_label (utfstr);
+  list_item = dia_list_item_new_with_label (utfstr);
   gtk_widget_show (list_item);
   g_free (utfstr);
 
@@ -197,12 +194,12 @@ attributes_list_new_callback(GtkWidget *button,
 		    G_CALLBACK (attribute_list_item_destroy_callback), NULL);
   
   list = g_list_append(NULL, list_item);
-  gtk_list_append_items(prop_dialog->attributes_list, list);
+  dia_list_append_items(prop_dialog->attributes_list, list);
 
-  if (prop_dialog->attributes_list->children != NULL)
-    gtk_list_unselect_child(prop_dialog->attributes_list,
-			    GTK_WIDGET(prop_dialog->attributes_list->children->data));
-  gtk_list_select_child(prop_dialog->attributes_list, list_item);
+  if (dia_list_get_children (prop_dialog->attributes_list) != NULL)
+    dia_list_unselect_child(prop_dialog->attributes_list,
+			    GTK_WIDGET(dia_list_get_children (prop_dialog->attributes_list)->data));
+  dia_list_select_child(prop_dialog->attributes_list, list_item);
 }
 
 static void
@@ -211,15 +208,15 @@ attributes_list_delete_callback(GtkWidget *button,
 {
   GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
+  DiaList *gtklist;
   UMLAttribute *attr;
 
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->attributes_list);
+  gtklist = DIA_LIST (prop_dialog->attributes_list);
 
-  if (gtklist->selection != NULL) {
+  if (dia_list_get_selection (gtklist) != NULL) {
     attr = (UMLAttribute *)
-      g_object_get_data(G_OBJECT(gtklist->selection->data), "user_data");
+      g_object_get_data(G_OBJECT(dia_list_get_selection (gtklist)), "user_data");
 
     if (attr->left_connection != NULL) {
       prop_dialog->deleted_connections =
@@ -230,8 +227,8 @@ attributes_list_delete_callback(GtkWidget *button,
 		       attr->right_connection);
     }
     
-    list = g_list_prepend(NULL, gtklist->selection->data);
-    gtk_list_remove_items(gtklist, list);
+    list = g_list_prepend(NULL, dia_list_get_selection (gtklist));
+    dia_list_remove_items(gtklist, list);
     g_list_free(list);
     attributes_clear_values(prop_dialog);
     attributes_set_sensitive(prop_dialog, FALSE);
@@ -244,27 +241,27 @@ attributes_list_move_up_callback(GtkWidget *button,
 {
   GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
+  DiaList *gtklist;
   GtkWidget *list_item;
   int i;
   
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->attributes_list);
+  gtklist = prop_dialog->attributes_list;
 
-  if (gtklist->selection != NULL) {
-    list_item = GTK_WIDGET(gtklist->selection->data);
+  if (dia_list_get_selection (gtklist) != NULL) {
+    list_item = GTK_WIDGET (dia_list_get_selection (gtklist));
     
-    i = gtk_list_child_position(gtklist, list_item);
+    i = dia_list_child_position (gtklist, list_item);
     if (i>0)
       i--;
 
     g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    gtk_list_remove_items(gtklist, list);
-    gtk_list_insert_items(gtklist, list, i);
+    dia_list_remove_items (gtklist, list);
+    dia_list_insert_items (gtklist, list, i);
     g_object_unref(list_item);
 
-    gtk_list_select_child(gtklist, list_item);
+    dia_list_select_child(gtklist, list_item);
   }
 }
 
@@ -274,28 +271,28 @@ attributes_list_move_down_callback(GtkWidget *button,
 {
   GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
+  DiaList *gtklist;
   GtkWidget *list_item;
   int i;
 
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->attributes_list);
+  gtklist = prop_dialog->attributes_list;
 
-  if (gtklist->selection != NULL) {
-    list_item = GTK_WIDGET(gtklist->selection->data);
+  if (dia_list_get_selection (gtklist) != NULL) {
+    list_item = GTK_WIDGET(dia_list_get_selection (gtklist));
     
-    i = gtk_list_child_position(gtklist, list_item);
-    if (i<(g_list_length(gtklist->children)-1))
+    i = dia_list_child_position (gtklist, list_item);
+    if (i<(g_list_length (dia_list_get_children (gtklist))-1))
       i++;
 
     
     g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
-    gtk_list_remove_items(gtklist, list);
-    gtk_list_insert_items(gtklist, list, i);
+    dia_list_remove_items(gtklist, list);
+    dia_list_insert_items(gtklist, list, i);
     g_object_unref(list_item);
 
-    gtk_list_select_child(gtklist, list_item);
+    dia_list_select_child(gtklist, list_item);
   }
 }
 
@@ -326,7 +323,7 @@ _attributes_read_from_dialog(UMLClass *umlclass,
   umlclass->attributes = NULL;
 
   /* Insert new attributes and remove them from gtklist: */
-  list = GTK_LIST (prop_dialog->attributes_list)->children;
+  list = dia_list_get_children (prop_dialog->attributes_list);
   clear_list = NULL;
   while (list != NULL) {
     list_item = GTK_WIDGET(list->data);
@@ -348,8 +345,8 @@ _attributes_read_from_dialog(UMLClass *umlclass,
 		       attr->right_connection);
     }
 
-    if ( (prop_dialog->attr_vis->active) &&
-	 (!prop_dialog->attr_supp->active) ) { 
+    if ( (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_vis))) &&
+	 (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_supp))) ) { 
       obj->connections[connection_index] = attr->left_connection;
       connection_index++;
       obj->connections[connection_index] = attr->right_connection;
@@ -364,7 +361,7 @@ _attributes_read_from_dialog(UMLClass *umlclass,
     list = g_list_next(list);
   }
   clear_list = g_list_reverse (clear_list);
-  gtk_list_remove_items (GTK_LIST (prop_dialog->attributes_list), clear_list);
+  dia_list_remove_items (DIA_LIST (prop_dialog->attributes_list), clear_list);
   g_list_free (clear_list);
 
 #if 0 /* UMLClass is *known* to be in an incositent state here, check later or crash ... */
@@ -388,14 +385,14 @@ _attributes_fill_in_dialog(UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   /* copy in new attributes: */
-  if (prop_dialog->attributes_list->children == NULL) {
+  if (dia_list_get_children (prop_dialog->attributes_list) == NULL) {
     i = 0;
     list = umlclass->attributes;
     while (list != NULL) {
       UMLAttribute *attr = (UMLAttribute *)list->data;
       gchar *attrstr = uml_get_attribute_string(attr);
 
-      list_item = gtk_list_item_new_with_label (attrstr);
+      list_item = dia_list_item_new_with_label (attrstr);
       attr_copy = uml_attribute_copy(attr);
       /* looks wrong but required for complicated ConnectionPoint memory management */
       attr_copy->left_connection = attr->left_connection;
@@ -466,9 +463,9 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox), scrolled_win, TRUE, TRUE, 0);
   gtk_widget_show (scrolled_win);
 
-  list = gtk_list_new ();
-  prop_dialog->attributes_list = GTK_LIST(list);
-  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_SINGLE);
+  list = dia_list_new ();
+  prop_dialog->attributes_list = DIA_LIST(list);
+  dia_list_set_selection_mode (DIA_LIST (list), GTK_SELECTION_SINGLE);
   gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
 				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
