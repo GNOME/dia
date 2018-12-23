@@ -1,7 +1,9 @@
+#include <gdk/gdk.h>
+
 #ifndef XFIG_H
 #define XFIG_H
 
-extern Color fig_default_colors[];
+extern GdkRGBA fig_default_colors[];
 extern char *fig_fonts[];
 
 int num_fig_fonts (void);

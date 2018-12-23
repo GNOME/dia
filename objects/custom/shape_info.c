@@ -39,7 +39,7 @@
 #include "intl.h"
 #include "prefs.h"
 #include "boundingbox.h"
-
+#include "attributes.h"
 #include "units.h"
 
 #define FONT_HEIGHT_DEFAULT 1

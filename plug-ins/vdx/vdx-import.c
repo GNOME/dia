@@ -214,7 +214,7 @@ vdx_parse_color(const char *s, const VDXDocument *theDoc, DiaContext *ctx)
         /* Look in colour table */
         unsigned int i = atoi(s);
         if (theDoc->Colors && i < theDoc->Colors->len)
-            return g_array_index(theDoc->Colors, Color, i);
+            return g_array_index(theDoc->Colors, GdkRGBA, i);
     }
     /* Colour 0 is always black, so don't warn (OmniGraffle) */
     if (*s != '0')
@@ -234,7 +234,7 @@ static void
 vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx)
 {
     xmlNodePtr ColorEntry;
-    theDoc->Colors = g_array_new(FALSE, TRUE, sizeof (Color));
+    theDoc->Colors = g_array_new(FALSE, TRUE, sizeof (GdkRGBA));
 
     for (ColorEntry = cur->xmlChildrenNode; ColorEntry;
          ColorEntry = ColorEntry->next) {
@@ -251,7 +251,7 @@ vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx)
             theDoc->Colors =
                 g_array_set_size(theDoc->Colors, temp_ColorEntry.IX+1);
         }
-        g_array_index(theDoc->Colors, Color, temp_ColorEntry.IX) = color;
+        g_array_index(theDoc->Colors, GdkRGBA, temp_ColorEntry.IX) = color;
         g_array_append_val(theDoc->Colors, color);
     }
 }

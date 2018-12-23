@@ -21,6 +21,9 @@
 #include "intl.h"
 #include "persistence.h"
 
+GdkRGBA color_black = { 0, 0, 0, 1 };
+GdkRGBA color_white = { 1, 1, 1, 1 };
+
 static GdkRGBA attributes_foreground = { 0.0f, 0.0f, 0.0f, 1.0f };
 static GdkRGBA attributes_background = { 1.0f, 1.0f, 1.0f, 1.0f };
 

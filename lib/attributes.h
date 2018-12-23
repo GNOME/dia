@@ -25,8 +25,8 @@
 
 G_BEGIN_DECLS
 
-GdkRGBA color_black = { 0, 0, 0, 1 };
-GdkRGBA color_white = { 1, 1, 1, 1 };
+extern GdkRGBA color_black;
+extern GdkRGBA color_white;
 
 GdkRGBA attributes_get_foreground(void);
 GdkRGBA attributes_get_background(void);

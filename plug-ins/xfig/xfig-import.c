@@ -49,7 +49,7 @@
 #include "properties.h"
 #include "propinternals.h"
 #include "group.h"
-
+#include "attributes.h"
 #include "create.h"
 #include "xfig.h"
 

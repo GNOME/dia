@@ -77,9 +77,9 @@ struct _OrthflowChange {
   char*				text ;
 };
 
-Color orthflow_color_energy   = { 1.0f, 0.0f, 0.0f, 1.0f };
-Color orthflow_color_material = { 0.8f, 0.0f, 0.8f, 1.0f };
-Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f, 1.0f };
+GdkRGBA orthflow_color_energy   = { 1.0f, 0.0f, 0.0f, 1.0f };
+GdkRGBA orthflow_color_material = { 0.8f, 0.0f, 0.8f, 1.0f };
+GdkRGBA orthflow_color_signal   = { 0.0f, 0.0f, 1.0f, 1.0f };
 
 
 #define ORTHFLOW_WIDTH 0.1

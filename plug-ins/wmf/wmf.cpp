@@ -158,7 +158,7 @@ G_END_DECLS
  * helper functions
  */
 static W32::HPEN
-UsePen(WmfRenderer* renderer, Color* colour)
+UsePen(WmfRenderer* renderer, GdkRGBA* colour)
 {
     W32::HPEN hOldPen;
     if (colour) {
@@ -601,7 +601,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 static void
 draw_line(DiaRenderer *self, 
 	  Point *start, Point *end, 
-	  Color *line_colour)
+	  GdkRGBA *line_colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
@@ -621,7 +621,7 @@ draw_line(DiaRenderer *self,
 static void
 draw_polyline(DiaRenderer *self, 
 	      Point *points, int num_points, 
-	      Color *line_colour)
+	      GdkRGBA *line_colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
@@ -651,7 +651,7 @@ draw_polyline(DiaRenderer *self,
 static void
 draw_polygon(DiaRenderer *self, 
 	     Point *points, int num_points, 
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
@@ -695,7 +695,7 @@ draw_polygon(DiaRenderer *self,
 static void
 draw_rect(DiaRenderer *self, 
 	  Point *ul_corner, Point *lr_corner,
-	  Color *fill, Color *stroke)
+	  GdkRGBA *fill, GdkRGBA *stroke)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
@@ -732,7 +732,7 @@ draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HPEN  hPen;
@@ -771,7 +771,7 @@ fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
-	 Color *colour)
+	 GdkRGBA *colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HPEN    hPen;
@@ -816,7 +816,7 @@ static void
 draw_ellipse(DiaRenderer *self, 
 	     Point *center,
 	     real width, real height,
-	     Color *fill, Color *stroke)
+	     GdkRGBA *fill, GdkRGBA *stroke)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HPEN hPen;
@@ -853,7 +853,7 @@ static void
 _bezier (DiaRenderer *self,
 	 BezPoint *points,
 	 int       numpoints,
-	 Color    *colour,
+	 GdkRGBA    *colour,
 	 gboolean  fill,
 	 gboolean  closed)
 {
@@ -913,7 +913,7 @@ static void
 draw_bezier(DiaRenderer *self, 
 	    BezPoint *points,
 	    int numpoints,
-	    Color *colour)
+	    GdkRGBA *colour)
 {
 #ifndef DIRECT_WMF
     _bezier(self, points, numpoints, colour, FALSE, FALSE);
@@ -977,8 +977,8 @@ static void
 draw_beziergon (DiaRenderer *self, 
 		BezPoint *points, /* Last point must be same as first point */
 		int numpoints,
-		Color *fill,
-		Color *stroke)
+		GdkRGBA *fill,
+		GdkRGBA *stroke)
 {
     if (fill)
 	_bezier(self, points, numpoints, fill, TRUE, TRUE);
@@ -991,7 +991,7 @@ static void
 draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
-	    Color *colour)
+	    GdkRGBA *colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
     int len;
@@ -1165,7 +1165,7 @@ draw_image(DiaRenderer *self,
 static void
 draw_rounded_rect (DiaRenderer *self, 
 	           Point *ul_corner, Point *lr_corner,
-	           Color *fill, Color *stroke, real radius)
+	           GdkRGBA *fill, GdkRGBA *stroke, real radius)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 

@@ -231,7 +231,7 @@ public :
   void updateFillColorStop(GfxState * state, double offset)
   {
     GfxRGB color;
-    Color fill = this->fill_color;
+    GdkRGBA fill = this->fill_color;
 
     state->getFillRGB(&color);
     fill.red = colToDbl(color.r);
@@ -434,13 +434,13 @@ private :
 
   DiagramData *dia;
 
-  Color stroke_color;
+  GdkRGBA stroke_color;
   real line_width;
   LineStyle line_style;
   real dash_length;
   LineJoin line_join;
   LineCaps line_caps;
-  Color fill_color;
+  GdkRGBA fill_color;
 
   Alignment alignment;
 
@@ -699,7 +699,7 @@ DiaOutputDev::eoFill (GfxState *state)
 void 
 DiaOutputDev::drawString(GfxState *state, GooString *s)
 {
-  Color text_color = this->fill_color;
+  GdkRGBA text_color = this->fill_color;
   int len = s->getLength();
   DiaObject *obj;
   gchar *utf8 = NULL;

@@ -174,7 +174,7 @@ begin_render(DiaRenderer *self, const Rectangle *update)
 
     /* Specific to VDX */
 
-    renderer->Colors = g_array_new(FALSE, TRUE, sizeof (Color));
+    renderer->Colors = g_array_new(FALSE, TRUE, sizeof (GdkRGBA));
     renderer->Fonts = g_array_new(FALSE, TRUE, sizeof (char *));
     /* Visio does not like <shape ID='0'> */
     renderer->shapeid = 1;
@@ -321,7 +321,7 @@ vdxCheckColor(VDXRenderer *renderer, GdkRGBA *color)
     GdkRGBA cmp_color;
     for (i = 0; i < renderer->Colors->len; i++) 
     {
-        cmp_color = g_array_index(renderer->Colors, Color, i);
+        cmp_color = g_array_index(renderer->Colors, GdkRGBA, i);
         if (gdk_rgba_equal(color, &cmp_color)) return i;
     }
     /* Grow table */
@@ -1520,7 +1520,7 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     fprintf(file, "  <Colors>\n");
     for (i = 0; i < renderer->Colors->len; i++) 
     {
-        c = g_array_index(renderer->Colors, Color, i);
+        c = g_array_index(renderer->Colors, GdkRGBA, i);
         fprintf(file, "    <ColorEntry IX='%d' RGB='%s'/>\n", 
                 i, vdx_string_color(c));
     }
