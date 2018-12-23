@@ -255,7 +255,7 @@ sheets_dialog_wrapbox_add_line_break(GtkWidget *wrapbox)
   SheetMod *sm;
   GtkWidget *button;
   GtkStyle *style;
-  GdkPixmap *pixmap, *mask;
+  GdkPixbuf *pixmap, *mask;
   GtkWidget *gtkpixmap;
 
   sm = g_object_get_data(G_OBJECT(wrapbox), "sheet_mod");
@@ -272,14 +272,9 @@ sheets_dialog_wrapbox_add_line_break(GtkWidget *wrapbox)
   gtk_container_set_border_width(GTK_CONTAINER(button), 0);
 
   style = gtk_widget_get_style(wrapbox);
-  pixmap =
-    gdk_pixmap_colormap_create_from_xpm_d(NULL,
-                                          gtk_widget_get_colormap(wrapbox),
-                                          &mask,
-                                          &style->bg[GTK_STATE_NORMAL],
-                                          line_break_xpm);
+  pixmap = gdk_pixbuf_new_from_xpm_data ((const gchar **) line_break_xpm);
 
-  gtkpixmap = gtk_pixmap_new(pixmap, mask);
+  gtkpixmap = gtk_image_new_from_pixbuf (pixmap);
   gtk_container_add(GTK_CONTAINER(button), gtkpixmap);
   gtk_widget_show(gtkpixmap);
 
@@ -319,7 +314,7 @@ sheets_dialog_create_object_button(SheetObjectMod *som, SheetMod *sm,
                                    GtkWidget *wrapbox)
 {
   GtkWidget *button;
-  GdkPixmap *pixmap, *mask;
+  GdkPixbuf *pixmap;
   GtkWidget *gtkpixmap;
 
   button = gtk_radio_button_new(radio_group);
@@ -328,8 +323,8 @@ sheets_dialog_create_object_button(SheetObjectMod *som, SheetMod *sm,
   gtk_toggle_button_set_mode(GTK_TOGGLE_BUTTON(button), FALSE);
   gtk_container_set_border_width(GTK_CONTAINER(button), 0);
 
-  create_object_pixmap(&som->sheet_object, wrapbox, &pixmap, &mask);
-  gtkpixmap = gtk_pixmap_new(pixmap, mask);
+  create_object_pixmap(&som->sheet_object, wrapbox, &pixmap);
+  gtkpixmap = gtk_image_new_from_pixbuf (pixmap);
   gtk_container_add(GTK_CONTAINER(button), gtkpixmap);
   gtk_widget_show(gtkpixmap);
 
@@ -946,8 +941,8 @@ on_sheets_shapeselection_dialog_button_ok_clicked
   GtkWidget *entry;
 
   filename =
-      gtk_file_selection_get_filename(
-          GTK_FILE_SELECTION(sheets_shapeselection_dialog));
+      gtk_file_chooser_get_filename(
+          GTK_FILE_CHOOSER(sheets_shapeselection_dialog));
 
   entry = lookup_widget(sheets_new_dialog, "combo_entry_from_file");
   /* Since this is a filename entry from the dialog, no utf is needed */

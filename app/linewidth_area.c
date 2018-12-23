@@ -42,7 +42,6 @@
 static void linewidth_create_dialog(GtkWindow *toplevel);
 
 static int active_linewidth = 2;
-static GdkPixmap *linewidth_area_pixmap = NULL;
 
 static GtkWidget *linewidth_area_widget = NULL;
 static GtkWidget *linewidth_dialog = NULL;
@@ -63,27 +62,22 @@ linewidth_area_target (int x, int y)
 }
 
 static void
-linewidth_area_draw (GtkWidget *linewidth_area)
+linewidth_area_draw (GtkWidget *linewidth_area, cairo_t *ctx)
 {
   GdkRGBA *win_bg, *win_fg;
   int width, height;
   int i;
   int x_offs;
   GtkStyle *style;
-  cairo_t *ctx;
   double dashes[] = { 3 };
 
-  if (!linewidth_area_pixmap)     /* we haven't gotten initial expose yet,
-                               * no point in drawing anything */
-    return;
-
-  ctx = gdk_cairo_create (gtk_widget_get_window (linewidth_area));
   cairo_set_line_width (ctx, 1);
   cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
   cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
   cairo_set_dash (ctx, dashes, 1, 0);
 
-  gdk_drawable_get_size (linewidth_area_pixmap, &width, &height);
+  width = gtk_widget_get_allocated_width (linewidth_area);
+  height = gtk_widget_get_allocated_height (linewidth_area);
 
   style = gtk_widget_get_style (linewidth_area);
   win_bg = &(style->bg[GTK_STATE_NORMAL]);
@@ -119,18 +113,6 @@ linewidth_area_events (GtkWidget *widget,
   
   switch (event->type)
     {
-    case GDK_CONFIGURE:
-      cevent = (GdkEventConfigure *)  event;
-      if (cevent->width > 1) {
-	linewidth_area_pixmap = gdk_pixmap_new (gtk_widget_get_window(widget),
-						cevent->width,
-						cevent->height, -1);
-      }
-      break;
-    case GDK_EXPOSE:
-      linewidth_area_draw (linewidth_area_widget);
-      break;
-
     case GDK_BUTTON_PRESS:
       bevent = (GdkEventButton *) event;
       if (bevent->button == 1) {
@@ -189,6 +171,8 @@ linewidth_area_create (void)
   g_signal_connect (G_OBJECT (linewidth_area), "event",
 		    G_CALLBACK(linewidth_area_events),
 		      NULL);
+  g_signal_connect (G_OBJECT (linewidth_area), "draw",
+                    G_CALLBACK(linewidth_area_draw), NULL);
 
   linewidth_area_widget = linewidth_area;
 

@@ -181,10 +181,10 @@ insert_text(DDisplay *ddisp, Focus *focus, const gchar *text)
     gchar *next_line = g_utf8_strchr(text, -1, '\n');
     if (next_line != text) {
       gint len = g_utf8_strlen(text, (next_line-text));
-      modified = (*focus->key_event)(focus, 0, GDK_A, text, len, &change);
+      modified = (*focus->key_event)(focus, 0, GDK_KEY_A, text, len, &change);
     }
     if (next_line != NULL) {
-      modified = (*focus->key_event)(focus, 0, GDK_Return, "\n", 1, &change);
+      modified = (*focus->key_event)(focus, 0, GDK_KEY_Return, "\n", 1, &change);
       text = g_utf8_next_char(next_line);
     } else {
       text = NULL;
@@ -1048,8 +1048,8 @@ help_about_callback (GtkAction *action)
         "name", "Dia",
 	"version", VERSION,
 	"comments", _("A program for drawing structured diagrams."),
-	"copyright", "(C) 1998-2011 The Free Software Foundation and the authors",
-	"website", "http://live.gnome.org/Dia",
+	"copyright", "© 2018 Zander Brown et al\n(C) 1998-2011 The Free Software Foundation and the authors",
+	"website", "https://wiki.gnome.org/Apps/Dia/",
 	"authors", authors,
 	"documenters", documentors,
 	"translator-credits", strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")

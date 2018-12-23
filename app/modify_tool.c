@@ -68,7 +68,6 @@ struct _ModifyTool {
   Point last_to;
   Point start_at;
   time_t start_time;
-  GdkGC *gc;
   int x1, y1, x2, y2;
   Point start_box;
   Point end_box;
@@ -92,7 +91,6 @@ create_modify_tool(void)
   tool->tool.button_release_func = (ButtonReleaseFunc) &modify_button_release;
   tool->tool.motion_func = (MotionFunc) &modify_motion;
   tool->tool.double_click_func = (DoubleClickFunc) &modify_double_click;
-  tool->gc = NULL;
   tool->state = STATE_NONE;
   tool->break_connections = FALSE;
   tool->auto_scrolled = FALSE;
@@ -151,8 +149,6 @@ void
 free_modify_tool(Tool *tool)
 {
   ModifyTool *mtool = (ModifyTool *)tool;
-  if (mtool->gc)
-    g_object_unref(mtool->gc);
   g_free(mtool);
 }
 
@@ -296,21 +292,20 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     tool->x1 = tool->x2 = (int) event->x;
     tool->y1 = tool->y2 = (int) event->y;
 
-    if (tool->gc == NULL) {
-      GdkRGBA white;
 
-      gdk_rgba_parse (&white, "#FFFFFF");
-
+      /* TODO: Selection Box
       tool->gc = gdk_gc_new(gtk_widget_get_window(ddisp->canvas));
       gdk_gc_set_line_attributes(tool->gc, 1, GDK_LINE_ON_OFF_DASH, 
 				 GDK_CAP_BUTT, GDK_JOIN_MITER);
-      gdk_gc_set_foreground(tool->gc, &white);
+      gdk_gc_set_foreground(tool->gc, &color_white);
       gdk_gc_set_function(tool->gc, GDK_XOR);
-    }
+      */
 
+    /* TODO: Selection Box
     gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
 			tool->x1, tool->y1,
 			tool->x2 - tool->x1, tool->y2 - tool->y1);
+    */
 
     gdk_pointer_grab (gtk_widget_get_window (ddisp->canvas), FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
@@ -640,9 +635,12 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 
     if (!auto_scroll && !tool->auto_scrolled)
     {
+          /* TODO: Selection Box
+
       gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
 			  tool->x1, tool->y1,
 			  tool->x2 - tool->x1, tool->y2 - tool->y1);
+        */
     }
 
     tool->end_box = to;
@@ -656,9 +654,13 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
 			      MAX(tool->start_box.y, tool->end_box.y),
 			      &tool->x2, &tool->y2);
 
+                /* TODO: Selection Box
+
+
     gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
 			tool->x1, tool->y1,
 			tool->x2 - tool->x1, tool->y2 - tool->y1);
+      */
     break;
   case STATE_NONE:
     
@@ -794,9 +796,12 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     gdk_pointer_ungrab (event->time);
     /* Remove last box: */
     if (!tool->auto_scrolled) {
+          /* TODO: Selection Box
+
       gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
 			tool->x1, tool->y1,
 			tool->x2 - tool->x1, tool->y2 - tool->y1);
+      */
     }
 
     {

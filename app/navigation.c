@@ -77,7 +77,7 @@ static void on_button_navigation_popup_released (GtkButton * button, gpointer un
 
 static void reset_sc_adj (GtkAdjustment * adj, gdouble lower, gdouble upper, gdouble page);
 
-static gboolean on_da_expose_event         (GtkWidget * widget, GdkEventExpose * event, gpointer unused);
+static gboolean on_da_draw                 (GtkWidget * widget, cairo_t *ctx);
 static gboolean on_da_motion_notify_event  (GtkWidget * widget, GdkEventMotion * event, gpointer unused);
 static gboolean on_da_button_release_event (GtkWidget * widget, GdkEventButton * event, gpointer popup_window);
 
@@ -104,8 +104,7 @@ navigation_popup_new (DDisplay *ddisp)
   GtkWidget * button;
 
   GtkWidget * image;
-  GdkPixmap * pixmap;
-  GdkBitmap * mask = NULL;
+  GdkPixbuf * pixbuf;
   GtkStyle  * style;
 
   button = gtk_button_new ();
@@ -118,15 +117,10 @@ navigation_popup_new (DDisplay *ddisp)
                     G_CALLBACK (on_button_navigation_popup_released), NULL);
 
   style = gtk_widget_get_style (button);
-  pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
-                                                 gtk_widget_get_colormap(button),
-                                                 &mask,
-                                                 &(style->bg[GTK_STATE_NORMAL]),
-                                                 nav_xpm);
+  pixbuf = gdk_pixbuf_new_from_xpm_data (nav_xpm);
 
-  image = gtk_image_new_from_pixmap (pixmap, mask);
-  g_object_unref(pixmap);
-  g_object_unref(mask);
+  image = gtk_image_new_from_pixbuf (pixbuf);
+  g_object_unref(pixbuf);
 
   gtk_container_add (GTK_CONTAINER (button), image);
   gtk_widget_show(image);
@@ -182,8 +176,8 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
     if (diagram_width * diagram_height == 0)
       return; /* don't crash with no size, i.e. empty diagram */
 
-    canvas_width   = nav->ddisp->canvas->allocation.width;
-    canvas_height  = nav->ddisp->canvas->allocation.height;
+    canvas_width   = gtk_widget_get_allocated_width (nav->ddisp->canvas);
+    canvas_height  = gtk_widget_get_allocated_height (nav->ddisp->canvas);
 
     nav->frame_w = nav->width  * canvas_width  / diagram_width;
     nav->frame_h = nav->height * canvas_height / diagram_height;
@@ -193,11 +187,11 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
     /*and store the ratio thumbnail/adjustement(speedup on motion)*/
     adj = nav->ddisp->hsbdata;
     reset_sc_adj (adj, rect.left, rect.right, canvas_width / nav->ddisp->zoom_factor);
-    nav->hadj_coef = (adj->upper - adj->page_size - adj->lower) / (nav->width - nav->frame_w);
+    nav->hadj_coef = (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj) - gtk_adjustment_get_lower (adj)) / (nav->width - nav->frame_w);
 
     adj = nav->ddisp->vsbdata;
     reset_sc_adj (adj, rect.top, rect.bottom, canvas_height / nav->ddisp->zoom_factor);
-    nav->vadj_coef = (adj->upper - adj->page_size - adj->lower) / (nav->height - nav->frame_h);
+    nav->vadj_coef = (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj) - gtk_adjustment_get_lower (adj)) / (nav->height - nav->frame_h);
   }
   
   /*--GUI*/
@@ -219,8 +213,8 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
                          | GDK_BUTTON_RELEASE_MASK
                          );
 
-  g_signal_connect (G_OBJECT (drawing_area), "expose_event",
-                    G_CALLBACK (on_da_expose_event), NULL);
+  g_signal_connect (G_OBJECT (drawing_area), "draw",
+                    G_CALLBACK (on_da_draw), NULL);
   g_signal_connect (G_OBJECT (drawing_area), "motion_notify_event",
                     G_CALLBACK (on_da_motion_notify_event), NULL);
   g_signal_connect (G_OBJECT (drawing_area), "button_release_event",
@@ -237,14 +231,16 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
   if (MIN(nav->frame_h, nav->frame_w) > STD_CURSOR_MIN) {
     nav->cursor = gdk_cursor_new (GDK_FLEUR);
   } else { /*the miniframe is very small, so we use a minimalist cursor*/
-    gchar cursor_none_data[] = { 0x00 };
-    GdkBitmap * bitmap;
-    GdkRGBA fg = { 0, 1, 1, 1 };
-    GdkRGBA bg = { 0, 0, 0, 0 };
+    gchar cursor_none_data[] = { 0x00, 0xFF, 0xFF };
+    GdkPixbuf * pixbuf;
 
-    bitmap = gdk_bitmap_create_from_data(NULL, cursor_none_data, 1, 1);
-    nav->cursor = gdk_cursor_new_from_pixmap(bitmap, bitmap, &fg, &bg, 1, 1);
-    g_object_unref(bitmap);
+    pixbuf = gdk_pixbuf_new_from_data (cursor_none_data,
+                                       GDK_COLORSPACE_RGB,
+                                       FALSE,
+                                       8, 1, 1, 0,
+                                       NULL, NULL);
+    nav->cursor = gdk_cursor_new_from_pixbuf (gdk_display_get_default(), pixbuf, 1, 1);
+    g_object_unref(pixbuf);
   }
 
   /*grab the pointer*/
@@ -275,42 +271,40 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
 static void
 reset_sc_adj (GtkAdjustment * adj, gdouble lower, gdouble upper, gdouble page)
 {
-  adj->page_size = page;
+  gtk_adjustment_set_page_size (adj, page);
 
-  adj->lower = lower;
-  adj->upper = upper;
+  gtk_adjustment_set_lower (adj, lower);
+  gtk_adjustment_set_upper (adj, upper);
 
-  if (adj->value < lower) adj->value = lower;
-  if (adj->value > (upper - page)) adj->value = upper - page;
+  if (gtk_adjustment_get_value (adj) < lower) gtk_adjustment_set_value (adj, lower);
+  if (gtk_adjustment_get_value (adj) > (upper - page)) gtk_adjustment_set_value (adj, upper - page);
 
   gtk_adjustment_changed(adj);
 }
 
 
 static gboolean
-on_da_expose_event (GtkWidget * widget, GdkEventExpose * event, gpointer unused)
+on_da_draw (GtkWidget * widget, cairo_t *ctx)
 {
   GtkAdjustment * adj;
   int x, y;
-  cairo_t *ctx;
 
-  ctx = gdk_cairo_create (gtk_widget_get_window (widget));
   cairo_set_line_width (ctx, FRAME_THICKNESS);
   cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
   cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
 
   /*refresh the part outdated by the event*/
-  cairo_set_source_surface (ctx, nav->surface,
-                            event->area.x, event->area.y);
-  cairo_rectangle (ctx, event->area.x, event->area.y,
-                        event->area.width, event->area.height);
+  cairo_set_source_surface (ctx, nav->surface, 0, 0);
+  cairo_rectangle (ctx, 0, 0,
+                        gtk_widget_get_allocated_width (widget),
+                        gtk_widget_get_allocated_height (widget));
   cairo_fill (ctx);
 
   adj = nav->ddisp->hsbdata;
-  x = (adj->value - adj->lower) / (adj->upper - adj->lower) * (nav->width) +1;
+  x = (gtk_adjustment_get_value (adj) - gtk_adjustment_get_lower (adj)) / (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_lower (adj)) * (nav->width) +1;
 
   adj = nav->ddisp->vsbdata;
-  y = (adj->value - adj->lower) / (adj->upper - adj->lower) * (nav->height) +1;
+  y = (gtk_adjustment_get_value (adj) - gtk_adjustment_get_lower (adj)) / (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_lower (adj)) * (nav->height) +1;
 
   /*draw directly on the window, do not buffer the miniframe*/
   cairo_set_source_rgb (ctx, 0, 0, 0);
@@ -343,15 +337,15 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
   adj = nav->ddisp->hsbdata;
   value_changed = FALSE;
   if (w/2 <= event->x && event->x <= (nav->width - w/2)){
-    adj->value = adj->lower + x * nav->hadj_coef;
+    gtk_adjustment_set_value (adj, gtk_adjustment_get_lower (adj) + x * nav->hadj_coef);
     value_changed = TRUE;
   }
-  else if (x == 0 && adj->value != adj->lower){/*you've been too fast! :)*/
-    adj->value = adj->lower;
+  else if (x == 0 && gtk_adjustment_get_value (adj) != gtk_adjustment_get_lower (adj)){/*you've been too fast! :)*/
+    gtk_adjustment_set_value (adj, gtk_adjustment_get_lower (adj));
     value_changed = TRUE;
   }
-  else if (x == (nav->width - w) && adj->value != (adj->upper - adj->page_size)){/*idem*/
-    adj->value = adj->upper - adj->page_size;
+  else if (x == (nav->width - w) && gtk_adjustment_get_value (adj) != (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj))){/*idem*/
+    gtk_adjustment_set_value (adj, gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj));
     value_changed = TRUE;
   }
   if (value_changed) gtk_adjustment_value_changed(adj);
@@ -359,15 +353,15 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
   adj = nav->ddisp->vsbdata;
   value_changed = FALSE;
   if (h/2 <= event->y && event->y <= (nav->height - h/2)){
-    adj->value = adj->lower + y * nav->vadj_coef;
+     gtk_adjustment_set_value (adj, gtk_adjustment_get_lower (adj) + y * nav->vadj_coef);
     value_changed = TRUE;
   }
-  else if (y == 0 && adj->value != adj->lower){/*you've been too fast! :)*/
-    adj->value = adj->lower;
+  else if (y == 0 && gtk_adjustment_get_value (adj) != gtk_adjustment_get_lower (adj)){/*you've been too fast! :)*/
+     gtk_adjustment_set_value (adj, gtk_adjustment_get_lower (adj));
     value_changed = TRUE;
   }
-  else if (y == (nav->height - h) && adj->value != (adj->upper - adj->page_size)){/*idem*/
-    adj->value = adj->upper - adj->page_size;
+  else if (y == (nav->height - h) && gtk_adjustment_get_value (adj) != (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj))){/*idem*/
+    gtk_adjustment_set_value (adj, gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj));
     value_changed = TRUE;
   }
   if (value_changed) gtk_adjustment_value_changed(adj);
@@ -386,7 +380,7 @@ on_da_button_release_event (GtkWidget * widget, GdkEventButton * event, gpointer
    * Protected calls to avoid crashing on second pass.
    */
   if (nav->cursor)
-    gdk_cursor_unref (nav->cursor);
+    g_object_unref (nav->cursor);
   nav->cursor = NULL;
 
   if (nav->popup_window)
