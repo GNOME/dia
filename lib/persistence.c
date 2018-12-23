@@ -606,11 +606,7 @@ persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer da
     /* silence gcc */
     break;
   }
-#if GTK_CHECK_VERSION(2,20,0)
   persistence_update_window(window, !gtk_widget_get_mapped(GTK_WIDGET(window)));
-#else
-  persistence_update_window(window, !(GTK_WIDGET_MAPPED(window)));
-#endif
   /* continue processing */
   return FALSE;
 }
@@ -624,11 +620,7 @@ persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer da
 static gboolean
 persistence_hide_show_window(GtkWindow *window, gpointer data)
 {
-#if GTK_CHECK_VERSION(2,20,0)
   persistence_update_window(window, !(gtk_widget_get_mapped(GTK_WIDGET(window))));
-#else
-  persistence_update_window(window, !GTK_WIDGET_MAPPED(window));
-#endif
   return FALSE;
 }
 
@@ -689,11 +681,7 @@ persistence_register_window(GtkWindow *window)
     gtk_window_get_position(window, &wininfo->x, &wininfo->y);
     gtk_window_get_size(window, &wininfo->width, &wininfo->height);
     /* Drawable means visible & mapped, what we usually think of as open. */
-#if GTK_CHECK_VERSION(2,18,0)
     wininfo->isopen = gtk_widget_is_drawable(GTK_WIDGET(window));
-#else
-    wininfo->isopen = GTK_WIDGET_DRAWABLE(GTK_WIDGET(window));
-#endif
     g_hash_table_insert(persistent_windows, (gchar *)name, wininfo);
   }
   if (wininfo->window != NULL && wininfo->window != window) {

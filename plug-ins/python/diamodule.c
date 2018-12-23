@@ -672,9 +672,6 @@ initdia(void)
 	Py_FatalError("can't initialize module dia");
     else {
       /* should all be no-ops when used embedded */
-#if !GLIB_CHECK_VERSION(2,36,0)
-      g_type_init ();
-#endif
       libdia_init (DIA_MESSAGE_STDERR);
     }
 }

@@ -1069,9 +1069,6 @@ main (int argc, char** argv)
   SetErrorMode(SetErrorMode(0) | SEM_NOGPFAULTERRORBOX);
 #endif
 
-#if !GLIB_CHECK_VERSION(2,36,0)
-  g_type_init ();
-#endif
   /* not using gtk_test_init() means we can only test non-gtk facilities of objects */
   g_test_init (&argc, &argv, NULL);
   

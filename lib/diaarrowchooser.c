@@ -134,11 +134,7 @@ dia_arrow_preview_set(DiaArrowPreview *arrow, ArrowType atype, gboolean left)
   if (arrow->atype != atype || arrow->left != left) {
     arrow->atype = atype;
     arrow->left = left;
-#if GTK_CHECK_VERSION(2,18,0)
     if (gtk_widget_is_drawable(GTK_WIDGET(arrow)))
-#else
-    if (GTK_WIDGET_DRAWABLE(arrow))
-#endif
       gtk_widget_queue_draw(GTK_WIDGET(arrow));
   }
 }

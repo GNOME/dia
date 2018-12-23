@@ -60,11 +60,7 @@ confirm_export_size (Diagram *dia, GtkWindow *parent, guint flags)
     return TRUE;
   
   /* message and limits depend on the flags give */
-#if GLIB_CHECK_VERSION(2,30,0)
   size = g_format_size (bytes);
-#else
-  size = g_format_size_for_display (bytes);
-#endif
   /* See: https://live.gnome.org/TranslationProject/DevGuidelines/Plurals */
   if (flags & CONFIRM_PRINT)
     msg = g_strdup_printf (g_dngettext (GETTEXT_PACKAGE,

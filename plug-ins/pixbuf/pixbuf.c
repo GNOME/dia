@@ -74,26 +74,8 @@ export_data(DiagramData *data, DiaContext *ctx,
 
   data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
-  #if GTK_CHECK_VERSION(3,0,0)
   pixbuf = gdk_pixbuf_get_from_surface (renderer->surface, 0, 0,
                                         width, height);
-  #else
-  {
-    GdkPixmap *pixmap;
-    cairo_t *cr;
-
-    pixmap = gdk_pixmap_new (NULL, width, height, 24);
-    cr = gdk_cairo_create (pixmap);
-
-    cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
-    cairo_set_source_surface (cr, renderer->surface, 0, 0);
-    cairo_paint (cr);
-    pixbuf = gdk_pixbuf_get_from_drawable (NULL,
-                                           pixmap,
-                                           gdk_colormap_get_system (),
-                                           0, 0, 0, 0, width, height);
-  }
-  #endif
   if (pixbuf)
     {
       gdk_pixbuf_save (pixbuf, filename, format, &error, NULL);

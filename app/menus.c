@@ -500,11 +500,7 @@ integrated_ui_toolbar_zoom_combo_selection_changed (GtkComboBox *combo,
     {
         float zoom_percent;
         gchar * text;
-#if GTK_CHECK_VERSION(2,24,0)
-	text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT (combo));
-#else
-	text = gtk_combo_box_get_active_text (combo);
-#endif
+        text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT (combo));
         if (sscanf (text, "%f", &zoom_percent) == 1)
         {
             view_zoom_set (zoom_percent * 10.0);
@@ -581,18 +577,13 @@ create_integrated_ui_toolbar (void)
   g_free (uifile);  
 
   /* Zoom Combo Box Entry */
-#if GTK_CHECK_VERSION(2,24,0)
   w = gtk_combo_box_text_new_with_entry ();
-#else
-  w = gtk_combo_box_entry_new_text ();
-#endif
 
   g_object_set_data (G_OBJECT (toolbar), 
                      DIA_INTEGRATED_TOOLBAR_ZOOM_COMBO,
                      w);
   integrated_ui_toolbar_add_custom_item (toolbar, w);
  
-#if GTK_CHECK_VERSION(2,24,0)
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), ZOOM_FIT);
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("800%"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("400%"));
@@ -604,19 +595,6 @@ create_integrated_ui_toolbar (void)
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("50%"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("25%"));
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("10%"));
-#else
-  gtk_combo_box_append_text (GTK_COMBO_BOX (w), ZOOM_FIT);
-  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("800%"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("400%"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("300%"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("200%"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("150%"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("100%"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("75%"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("50%"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("25%"));
-  gtk_combo_box_append_text (GTK_COMBO_BOX (w), _("10%"));
-#endif
 
   g_signal_connect (G_OBJECT (w), 
                     "changed",
@@ -1022,11 +1000,6 @@ menus_init(void)
 
   /* after creating all menu items */
   load_accels ();
-#if GTK_CHECK_VERSION(2,24,0)
-  g_print ("TODO: Check accels being saved ...");
-#else
-  gtk_quit_add(1, save_accels, NULL);
-#endif
 }
 
 void

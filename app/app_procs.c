@@ -656,11 +656,6 @@ app_init (int argc, char **argv)
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
-#if GTK_CHECK_VERSION(2,24,0)
-  /* ... use setlocale directly? */
-#else
-  gtk_set_locale();
-#endif
   setlocale(LC_NUMERIC, "C");
   _setup_textdomains ();
 
@@ -727,18 +722,9 @@ app_init (int argc, char **argv)
   }
 
   if (argv && dia_is_interactive) {
-#  if defined(G_THREADS_ENABLED) && !GLIB_CHECK_VERSION(2,32,0)
-    g_thread_init (NULL);
-#  endif
     gtk_init(&argc, &argv);
   }
   else {
-#if defined(G_THREADS_ENABLED) && !GLIB_CHECK_VERSION(2,32,0)
-    g_thread_init (NULL);
-#endif
-#if !GLIB_CHECK_VERSION(2,36,0)
-    g_type_init();
-#endif
     /*
      * On Windows there is no command line without display so that gtk_init is harmless. 
      * On X11 we need gtk_init_check() to avoid exit() just because there is no display 
@@ -997,11 +983,7 @@ app_exit(void)
   
     button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
     gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_CANCEL);
-#if GTK_CHECK_VERSION(2,18,0)
     gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
-#else
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-#endif
     gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_CANCEL);
 
     button = gtk_button_new_from_stock (GTK_STOCK_QUIT);

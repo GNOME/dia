@@ -95,11 +95,7 @@ dia_line_preview_set(DiaLinePreview *line, LineStyle lstyle)
 {
   if (line->lstyle != lstyle) {
     line->lstyle = lstyle;
-#if GTK_CHECK_VERSION(2,18,0)
     if (gtk_widget_is_drawable(GTK_WIDGET(line)))
-#else
-    if (GTK_WIDGET_DRAWABLE(line))
-#endif
       gtk_widget_queue_draw(GTK_WIDGET(line));
   }
 }

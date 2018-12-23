@@ -183,11 +183,7 @@ dia_ruler_motion_notify (GtkWidget      *widget,
       y = MAX(y - width/2, 0);
       height = width;
     }
-#if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable (GTK_WIDGET (ruler)))
-#else
-  if (GTK_WIDGET_DRAWABLE (ruler))
-#endif
     {
 #if 0
       /* this is a bit too expensive - on a slow enough computer the indicators lags */
@@ -251,11 +247,7 @@ dia_ruler_set_range (GtkWidget *self,
   ruler->position = position;
   ruler->max_size = max_size;
 
-#  if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable (GTK_WIDGET (ruler)))
-#  else
-  if (GTK_WIDGET_DRAWABLE (ruler))
-#  endif
     {
       gtk_widget_queue_draw (GTK_WIDGET (ruler));
       /* XXX: draw arrow at mouse position */

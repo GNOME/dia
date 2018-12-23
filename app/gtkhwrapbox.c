@@ -166,11 +166,7 @@ get_layout_size (GtkHWrapBox *this,
       GtkRequisition child_requisition;
       guint row_width, row_height, n = 1;
 
-#if GTK_CHECK_VERSION(2,20,0)
       if (!gtk_widget_get_visible (child->widget))
-#else
-      if (!GTK_WIDGET_VISIBLE (child->widget))
-#endif
         continue;
 
       get_child_requisition (wbox, child->widget, &child_requisition);
@@ -180,11 +176,7 @@ get_layout_size (GtkHWrapBox *this,
       row_height = child_requisition.height;
       for (row_child = child->next; row_child && n < wbox->child_limit; row_child = row_child->next)
         {
-#if GTK_CHECK_VERSION(2,20,0)
           if (gtk_widget_get_visible (row_child->widget))
-#else
-          if (GTK_WIDGET_VISIBLE (row_child->widget))
-#endif
             {
               get_child_requisition (wbox, row_child->widget, &child_requisition);
               if (row_width + wbox->hspacing + child_requisition.width > max_width)
@@ -291,11 +283,7 @@ reverse_list_row_children (GtkWrapBox       *wbox,
   *max_child_size = 0;
   *expand_line = FALSE;
 
-#if GTK_CHECK_VERSION(2,20,0)
   while (child && !gtk_widget_get_visible (child->widget))
-#else
-  while (child && !GTK_WIDGET_VISIBLE (child->widget))
-#endif
     {
       *child_p = child->next;
       child = *child_p;
@@ -316,11 +304,7 @@ reverse_list_row_children (GtkWrapBox       *wbox,
 
       while (child && n < wbox->child_limit)
         {
-#if GTK_CHECK_VERSION(2,20,0)
           if (gtk_widget_get_visible (child->widget))
-#else
-          if (GTK_WIDGET_VISIBLE (child->widget))
-#endif
             {
               get_child_requisition (wbox, child->widget, &child_requisition);
               if (width + wbox->hspacing + child_requisition.width > row_width ||
@@ -516,11 +500,7 @@ layout_rows (GtkWrapBox    *wbox,
   children_per_line = g_slist_length (slist);
   while (slist)
     {
-#if GLIB_CHECK_VERSION(2,10,0)
       Line *line = g_slice_new (Line);
-#else
-      Line *line = g_new (Line, 1);
-#endif
 
       line->children = slist;
       line->min_size = min_height;
@@ -627,15 +607,10 @@ layout_rows (GtkWrapBox    *wbox,
                       line->expand);
 
           g_slist_free (line->children);
-#if (!GLIB_CHECK_VERSION(2,10,0))
-		  g_free (line);
-#endif
           line = next_line;
         }
 
-#if GLIB_CHECK_VERSION(2,10,0)
       g_slice_free_chain (Line, line_list, next);
-#endif
     }
 }
 

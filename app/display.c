@@ -1276,11 +1276,7 @@ ddisplay_close(DDisplay *ddisp)
   /* button = gtk_button_new_with_label (_("Save and Close")); */
   button = gtk_button_new_from_stock (GTK_STOCK_SAVE);
   gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_YES);
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-#endif
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_YES);
 
   g_signal_connect (G_OBJECT (dialog), "response",
@@ -1313,11 +1309,7 @@ display_update_menu_state(DDisplay *ddisp)
 
   gtk_toggle_action_set_active (rulers, display_get_rulers_showing(ddisp));
 
-#if GTK_CHECK_VERSION(2,20,0)
   scrollbars_shown = gtk_widget_get_visible (ddisp->hsb);
-#else
-  scrollbars_shown = GTK_WIDGET_VISIBLE (ddisp->hsb);
-#endif
   gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (menus_get_action ("ViewShowscrollbars")),
 				scrollbars_shown);
 
@@ -1474,11 +1466,7 @@ void display_rulers_show (DDisplay *ddisp)
     gtk_widget_show (ddisp->hrule);
     gtk_widget_show (ddisp->vrule);
 
-#if GTK_CHECK_VERSION(2,20,0)
     if (gtk_widget_get_visible (parent))
-#else
-    if (GTK_WIDGET_VISIBLE (parent))
-#endif
       gtk_widget_queue_resize (parent);
 
     ddisp->rulers_are_showing = TRUE;
@@ -1502,11 +1490,7 @@ void display_rulers_hide (DDisplay *ddisp)
     gtk_widget_hide (ddisp->hrule);
     gtk_widget_hide (ddisp->vrule);
     
-#if GTK_CHECK_VERSION(2,20,0)
     if (gtk_widget_get_visible (parent))
-#else
-    if (GTK_WIDGET_VISIBLE (parent))
-#endif
       gtk_widget_queue_resize (parent);
 
     ddisp->rulers_are_showing = FALSE;

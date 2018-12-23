@@ -267,11 +267,7 @@ gtk_wrap_box_class_init (GtkWrapBoxClass *class)
 static void
 gtk_wrap_box_init (GtkWrapBox *wbox)
 {
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_has_window (GTK_WIDGET (wbox), FALSE);
-#else
-  GTK_WIDGET_SET_FLAGS (wbox, GTK_NO_WINDOW);
-#endif
 
   wbox->homogeneous = FALSE;
   wbox->hspacing = 0;
@@ -675,11 +671,7 @@ gtk_wrap_box_reorder_child (GtkWrapBox *wbox,
             wbox->children = child_info;
         }
 
-#if GTK_CHECK_VERSION(2,20,0)
       if (gtk_widget_get_visible (child) && gtk_widget_get_visible (GTK_WIDGET (wbox)))
-#else
-      if (GTK_WIDGET_VISIBLE (child) && GTK_WIDGET_VISIBLE (wbox))
-#endif
         gtk_widget_queue_resize (child);
     }
 }
@@ -752,11 +744,7 @@ gtk_wrap_box_set_child_packing (GtkWrapBox *wbox,
       child_info->vfill = vfill;
       child_info->wrapped = wrapped;
 
-#if GTK_CHECK_VERSION(2,20,0)
       if (gtk_widget_get_visible (child) && gtk_widget_get_visible (GTK_WIDGET (wbox)))
-#else
-      if (GTK_WIDGET_VISIBLE (child) && GTK_WIDGET_VISIBLE (wbox))
-#endif
         gtk_widget_queue_resize (child);
     }
 }
@@ -815,23 +803,11 @@ gtk_wrap_box_map (GtkWidget *widget)
   GtkWrapBox *wbox = GTK_WRAP_BOX (widget);
   GtkWrapBoxChild *child;
 
-#if GTK_CHECK_VERSION(2,20,0)
   gtk_widget_set_mapped (GTK_WIDGET (wbox), TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS (wbox, GTK_MAPPED);
-#endif
 
   for (child = wbox->children; child; child = child->next)
-#if GTK_CHECK_VERSION(2,20,0)
     if (gtk_widget_get_visible (child->widget) &&
-#else
-    if (GTK_WIDGET_VISIBLE (child->widget) &&
-#endif
-#if GTK_CHECK_VERSION(2,20,0)
         !gtk_widget_get_mapped (child->widget))
-#else
-        !GTK_WIDGET_MAPPED (child->widget))
-#endif
       gtk_widget_map (child->widget);
 }
 
@@ -841,23 +817,11 @@ gtk_wrap_box_unmap (GtkWidget *widget)
   GtkWrapBox *wbox = GTK_WRAP_BOX (widget);
   GtkWrapBoxChild *child;
 
-#if GTK_CHECK_VERSION(2,20,0)
   gtk_widget_set_mapped (GTK_WIDGET (wbox), FALSE);
-#else
-  GTK_WIDGET_UNSET_FLAGS (wbox, GTK_MAPPED);
-#endif
 
   for (child = wbox->children; child; child = child->next)
-#if GTK_CHECK_VERSION(2,20,0)
     if (gtk_widget_get_visible (child->widget) &&
-#else
-    if (GTK_WIDGET_VISIBLE (child->widget) &&
-#endif
-#if GTK_CHECK_VERSION(2,20,0)
         gtk_widget_get_mapped (child->widget))
-#else
-        GTK_WIDGET_MAPPED (child->widget))
-#endif
       gtk_widget_unmap (child->widget);
 }
 
@@ -889,22 +853,14 @@ gtk_wrap_box_remove (GtkContainer *container,
         {
           gboolean was_visible;
 
-#if GTK_CHECK_VERSION(2,20,0)
           was_visible = gtk_widget_get_visible (widget);
-#else
-          was_visible = GTK_WIDGET_VISIBLE (widget);
-#endif
           gtk_widget_unparent (widget);
 
           if (last)
             last->next = child->next;
           else
             wbox->children = child->next;
-#if GLIB_CHECK_VERSION(2,10,0)
           g_slice_free (GtkWrapBoxChild, child);
-#else
-		  g_free (child);
-#endif
           wbox->n_children--;
 
           if (was_visible)

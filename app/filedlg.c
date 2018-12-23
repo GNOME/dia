@@ -188,16 +188,8 @@ create_open_menu(void)
   GList *tmp;
   
 
-#if GTK_CHECK_VERSION(2,24,0)
   menu = gtk_combo_box_text_new ();
-#else
-  menu = gtk_combo_box_new_text ();
-#endif
-#if GTK_CHECK_VERSION(2,24,0)
   gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(menu), _("By extension"));
-#else
-  gtk_combo_box_append_text(GTK_COMBO_BOX(menu), _("By extension"));
-#endif
   
   for (tmp = filter_get_import_filters(); tmp != NULL; tmp = tmp->next) {
     DiaImportFilter *ifilter = tmp->data;
@@ -206,11 +198,7 @@ create_open_menu(void)
     if (!ifilter)
       continue;
     filter_label = filter_get_import_filter_label(ifilter);
-#if GTK_CHECK_VERSION(2,24,0)
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT(menu), filter_label);
-#else
-    gtk_combo_box_append_text (GTK_COMBO_BOX(menu), filter_label);
-#endif
     g_free(filter_label);
   }
   g_signal_connect(G_OBJECT(menu), "changed",
@@ -312,11 +300,7 @@ file_open_callback(GtkAction *action)
 		     G_CALLBACK(gtk_widget_destroyed), &opendlg);
   } else {
     gtk_widget_set_sensitive(opendlg, TRUE);
-#if GTK_CHECK_VERSION(2,20,0)
     if (gtk_widget_get_visible(opendlg))
-#else
-    if (GTK_WIDGET_VISIBLE(opendlg))
-#endif
       return;
   }
   if (!gtk_file_chooser_get_extra_widget(GTK_FILE_CHOOSER(opendlg))) {
@@ -529,11 +513,7 @@ file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp)
     g_signal_handlers_unblock_by_func(G_OBJECT(compressbutton), toggle_compress_callback, NULL);
     if (g_object_get_data (G_OBJECT (savedlg), "user_data") != NULL)
       g_object_unref (g_object_get_data (G_OBJECT (savedlg), "user_data"));
-#if GTK_CHECK_VERSION(2,20,0)
     if (gtk_widget_get_visible(savedlg)) {
-#else
-    if (GTK_WIDGET_VISIBLE(savedlg)) {
-#endif
       /* keep a refernce to the diagram */
       g_object_ref(dia);
       g_object_set_data (G_OBJECT (savedlg), "user_data", dia);
@@ -659,16 +639,8 @@ create_export_menu(void)
   GtkWidget *menu;
   GList *tmp;
 
-#if GTK_CHECK_VERSION(2,24,0)
   menu = gtk_combo_box_text_new ();
-#else
-  menu = gtk_combo_box_new_text ();
-#endif
-#if GTK_CHECK_VERSION(2,24,0)
   gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(menu), _("By extension"));
-#else
-  gtk_combo_box_append_text(GTK_COMBO_BOX(menu), _("By extension"));
-#endif
   
   for (tmp = filter_get_export_filters(); tmp != NULL; tmp = tmp->next) {
     DiaExportFilter *ef = tmp->data;
@@ -677,11 +649,7 @@ create_export_menu(void)
     if (!ef)
       continue;
     filter_label = filter_get_export_filter_label(ef);
-#if GTK_CHECK_VERSION(2,24,0)
     gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT(menu), filter_label);
-#else
-    gtk_combo_box_append_text (GTK_COMBO_BOX(menu), filter_label);
-#endif
     g_free(filter_label);
   }
   g_signal_connect(G_OBJECT(menu), "changed",
