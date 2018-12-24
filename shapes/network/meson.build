@@ -53,6 +53,8 @@ shape_sources = files(
     'genmonitor.png',
     'computer.shape',
     'computer.png',
+    'laptop.shape',
+    'laptop.png',
     'telephone.shape',
     'telephone.png',
     'firewall.shape',
