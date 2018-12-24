@@ -88,9 +88,13 @@ sheet_files = [
     'BPMN.sheet',
     'Lights.sheet',
     'Database.sheet',
-    'Sozi.sheet',
     'Shape_Design.sheet',
 ]
+
+# TODO: this needs to depend on whether we have valid instalation of sozi.
+if false
+    sheet_files += ['Sozi.sheet']
+endif
 
 # FIXME: use gettext:
 # https://github.com/mesonbuild/meson/issues/1565
