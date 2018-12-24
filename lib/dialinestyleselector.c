@@ -29,7 +29,7 @@
 /************* DiaLineStyleSelector: ***************/
 struct _DiaLineStyleSelector
 {
-  GtkVBox vbox;
+  GtkBox vbox;
 
   GtkWidget *omenu;
   GtkMenu *linestyle_menu;
@@ -40,7 +40,7 @@ struct _DiaLineStyleSelector
 
 struct _DiaLineStyleSelectorClass
 {
-  GtkVBoxClass parent_class;
+  GtkBoxClass parent_class;
 };
 
 enum {
@@ -104,6 +104,9 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   static const gchar *_line_style_names[LINESTYLE_DOTTED+1];
   static gboolean once = FALSE;
 
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (fs),
+                                  GTK_ORIENTATION_VERTICAL);
+
   if (!once) {
     _line_style_names[LINESTYLE_SOLID]        = Q_("line|Solid");
     _line_style_names[LINESTYLE_DASHED]       = Q_("line|Dashed");
@@ -131,7 +134,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->omenu), FALSE, TRUE, 0);
   gtk_widget_show(GTK_WIDGET(fs->omenu));
 
-  box = gtk_hbox_new(FALSE,0);
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
   /*  fs->sizebox = GTK_HBOX(box); */
 
   label = gtk_label_new(_("Dash length: "));
@@ -174,7 +177,7 @@ dia_line_style_selector_get_type (void)
       (GInstanceInitFunc) dia_line_style_selector_init,
     };
     
-    dfs_type = g_type_register_static (gtk_vbox_get_type (), 
+    dfs_type = g_type_register_static (GTK_TYPE_BOX, 
 				       "DiaLineStyleSelector",
 				       &dfs_info, 0);
   }

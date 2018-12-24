@@ -67,7 +67,7 @@ dialog_add_spinbutton(GtkWidget *dialog, char *title,
 		      real min, real max, real decimals) {
   GtkAdjustment *limits =
     GTK_ADJUSTMENT(gtk_adjustment_new(10.0, min, max, 1.0, 10.0, 0));
-  GtkWidget *box = gtk_hbox_new(FALSE, 10);
+  GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
   GtkWidget *label = gtk_label_new(title);
   GtkWidget *entry = gtk_spin_button_new(limits, 10.0, decimals);
 

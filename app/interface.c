@@ -243,7 +243,7 @@ create_zoom_widget(DDisplay *ddisp) {
   GtkWidget *button;
   GtkWidget *arrow;
 
-  combo = gtk_hbox_new(FALSE, 0);
+  combo = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
   entry = gtk_entry_new();
   g_signal_connect (G_OBJECT (entry), "activate",
 		    G_CALLBACK(zoom_activate_callback),
@@ -596,12 +596,12 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   ddisp->shell = GTK_WIDGET (ui.main_window);
   ddisp->modified_status = GTK_WIDGET (ui.statusbar);
  
-  tab_label_container = gtk_hbox_new(FALSE,3);
+  tab_label_container = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 3);
   label = gtk_label_new( title );
   gtk_box_pack_start( GTK_BOX(tab_label_container), label, FALSE, FALSE, 0 );
   gtk_widget_show (label);
   /* Create a new tab page */
-  ddisp->container = gtk_vbox_new(FALSE, 0);
+  ddisp->container = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 
   /* <from GEdit> */
   /* don't allow focus on the close button */
@@ -759,7 +759,7 @@ create_display_shell(DDisplay *ddisp,
   gtk_container_set_border_width (GTK_CONTAINER (table), 2);
   if (use_mbar) 
   {
-      root_vbox = gtk_vbox_new (FALSE, 1);
+      root_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
       gtk_container_add (GTK_CONTAINER (ddisp->shell), root_vbox);
       gtk_box_pack_end (GTK_BOX (root_vbox), table, TRUE, TRUE, 0);
   }
@@ -809,11 +809,11 @@ create_display_shell(DDisplay *ddisp,
   }
 
   /* the statusbars */
-  status_hbox = gtk_hbox_new (FALSE, 2);
+  status_hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 2);
 
   /* Zoom status pseudo-optionmenu */
   ddisp->zoom_status = create_zoom_widget(ddisp);
-  zoom_hbox = gtk_hbox_new(FALSE, 0);
+  zoom_hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
   zoom_label = gtk_label_new(_("Zoom"));
   gtk_box_pack_start (GTK_BOX(zoom_hbox), zoom_label,
 		      FALSE, FALSE, 0);
@@ -1045,7 +1045,7 @@ create_integrated_ui (void)
 		    G_CALLBACK (toolbox_destroy),
 		      window);
 
-  main_vbox = gtk_vbox_new (FALSE, 1);
+  main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
   gtk_widget_show (main_vbox);
@@ -1054,7 +1054,7 @@ create_integrated_ui (void)
   statusbar = gtk_statusbar_new ();
   gtk_box_pack_end (GTK_BOX (main_vbox), statusbar, FALSE, TRUE, 0);
   /* HBox for everything below the menubar and toolbars */
-  hbox = gtk_hbox_new(FALSE, 0);
+  hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
   gtk_box_pack_end (GTK_BOX (main_vbox), hbox, TRUE, TRUE, 0);
   gtk_widget_show (hbox);
   
@@ -1143,7 +1143,7 @@ create_toolbox ()
   g_signal_connect (G_OBJECT (window), "destroy",
 		    G_CALLBACK (toolbox_destroy), window);
 
-  main_vbox = gtk_vbox_new (FALSE, 1);
+  main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
 

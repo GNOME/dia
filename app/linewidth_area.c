@@ -233,7 +233,7 @@ linewidth_create_dialog(GtkWindow *toplevel)
   gtk_window_set_resizable (GTK_WINDOW (linewidth_dialog), TRUE);
   gtk_container_set_border_width (GTK_CONTAINER (linewidth_dialog), 2);
 
-  hbox = gtk_hbox_new(FALSE, 5);
+  hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
   label = gtk_label_new(_("Line width:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
   gtk_widget_show (label);

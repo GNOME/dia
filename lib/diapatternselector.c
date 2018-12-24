@@ -29,7 +29,7 @@ typedef struct _DiaPatternSelector DiaPatternSelector;
 typedef struct _DiaPatternSelectorClass DiaPatternSelectorClass;
 struct _DiaPatternSelector
 {
-  GtkHBox           hbox; /*!< just containing the other two widgets */
+  GtkBox            hbox; /*!< just containing the other two widgets */
   GtkWidget       *state; /*!< button reflecting the state */
   GtkWidget *menu_button; /*!< pop-up menu button to select presets */
 
@@ -37,7 +37,7 @@ struct _DiaPatternSelector
 };
 struct _DiaPatternSelectorClass
 {
-  GtkHBoxClass parent_class;
+  GtkBoxClass parent_class;
 };
 
 enum {
@@ -73,7 +73,7 @@ dia_pattern_selector_class_init (DiaPatternSelectorClass *klass)
 
 static GType dia_pattern_selector_get_type (void);
  
-G_DEFINE_TYPE (DiaPatternSelector, dia_pattern_selector, GTK_TYPE_HBOX);
+G_DEFINE_TYPE (DiaPatternSelector, dia_pattern_selector, GTK_TYPE_BOX);
 
 /* GUI stuff - not completely done yet 
    - add/remove color stops
@@ -181,6 +181,9 @@ _popup_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 static void
 dia_pattern_selector_init (DiaPatternSelector *ps)
 {
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (ps),
+                                  GTK_ORIENTATION_HORIZONTAL);
+
   ps->state = gtk_toggle_button_new_with_label(_("No"));
   g_signal_connect(G_OBJECT(ps->state), "toggled",
                    G_CALLBACK (_pattern_toggled), ps);

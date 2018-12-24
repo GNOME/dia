@@ -191,7 +191,8 @@ create_button_box(GtkWidget *parent, gboolean show_labels)
   GtkWidget *button_box;
   int i;
   
-  button_box = gtk_hbox_new (TRUE, 1);
+  button_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
+  gtk_box_set_homogeneous (GTK_BOX (button_box), TRUE);
 
   for (i=0;i<num_buttons;i++) {
     if (show_labels == TRUE)
@@ -298,9 +299,9 @@ GtkWidget * create_layer_view_widget (void)
 
   layer_dialog->diagram = NULL;
 
-  layer_dialog->dialog = vbox = gtk_vbox_new (FALSE, 1);
+  layer_dialog->dialog = vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
     
-  hbox = gtk_hbox_new (FALSE, 1);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
   
   label = gtk_label_new (_ ("Layers:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 2);
@@ -391,7 +392,7 @@ layer_dialog_create(void)
 
   vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
-  hbox = gtk_hbox_new(FALSE, 1);
+  hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
   
   label = gtk_label_new(_("Diagram:"));
   gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
@@ -895,7 +896,7 @@ dia_layer_widget_init(DiaLayerWidget *lw)
   GtkWidget *connectable;
   GtkWidget *label;
 
-  hbox = gtk_hbox_new(FALSE, 0);
+  hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
   lw->dia = NULL;
   lw->layer = NULL;
@@ -1150,12 +1151,12 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *laye
 		    &dialog->dialog);
   
   /*  the main vbox  */
-  vbox = gtk_vbox_new (FALSE, 1);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 2);
   gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog->dialog))), vbox, TRUE, TRUE, 0);
 
   /*  the name entry hbox, label and entry  */
-  hbox = gtk_hbox_new (FALSE, 1);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
   label = gtk_label_new (_("Layer name:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);

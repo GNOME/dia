@@ -31,9 +31,9 @@
 /* FIXME: Should these structs be in widgets.h instead? */
 struct _DiaArrowSelector
 {
-  GtkVBox vbox;
+  GtkBox vbox;
 
-  GtkHBox *sizebox;
+  GtkBox *sizebox;
   GtkLabel *sizelabel;
   DiaSizeSelector *size;
   
@@ -42,7 +42,7 @@ struct _DiaArrowSelector
 
 struct _DiaArrowSelectorClass
 {
-  GtkVBoxClass parent_class;
+  GtkBoxClass parent_class;
 };
 
 enum {
@@ -115,8 +115,11 @@ dia_arrow_selector_init (DiaArrowSelector *as,
   GtkWidget *box;
   GtkWidget *label;
   GtkWidget *size;
-  
   GList *arrow_names = get_arrow_names();
+
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (as),
+                                  GTK_ORIENTATION_VERTICAL);
+
   as->omenu = 
   omenu = dia_dynamic_menu_new_listbased(create_arrow_menu_item,
 					 as,
@@ -134,8 +137,8 @@ dia_arrow_selector_init (DiaArrowSelector *as,
 		   "value-changed", G_CALLBACK(arrow_type_change_callback),
 		   as);
 
-  box = gtk_hbox_new(FALSE,0);
-  as->sizebox = GTK_HBOX(box);
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  as->sizebox = GTK_BOX (box);
 
   label = gtk_label_new(_("Size: "));
   as->sizelabel = GTK_LABEL(label);
@@ -173,7 +176,7 @@ dia_arrow_selector_get_type        (void)
       (GInstanceInitFunc)dia_arrow_selector_init,  /* init */
     };
     
-    dfs_type = g_type_register_static (GTK_TYPE_VBOX,
+    dfs_type = g_type_register_static (GTK_TYPE_BOX,
 				       "DiaArrowSelector",
 				       &dfs_info, 0);
   }

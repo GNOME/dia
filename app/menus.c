@@ -464,7 +464,7 @@ static void integrated_ui_toolbar_add_custom_item (GtkToolbar *toolbar, GtkWidge
     GtkWidget   *c; /* container */
 
     tool_item = gtk_tool_item_new ();
-    c = gtk_vbox_new (FALSE, 0);
+    c = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add (GTK_CONTAINER (tool_item), c);
     gtk_box_set_homogeneous (GTK_BOX (c), TRUE);            /* Centers the button */
     gtk_box_pack_start (GTK_BOX (c), w, FALSE, FALSE, 0);

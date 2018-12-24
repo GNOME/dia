@@ -44,7 +44,7 @@
  */
 struct _DiaSizeSelector
 {
-  GtkHBox hbox;
+  GtkBox hbox;
   GtkSpinButton *width, *height;
   GtkToggleButton *aspect_locked;
   real ratio;
@@ -53,7 +53,7 @@ struct _DiaSizeSelector
 
 struct _DiaSizeSelectorClass
 {
-  GtkHBoxClass parent_class;
+  GtkBoxClass parent_class;
 };
 
 enum {
@@ -150,6 +150,9 @@ dia_size_selector_init (DiaSizeSelector *ss)
 {
   GtkAdjustment *adj;
 
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (ss),
+                                  GTK_ORIENTATION_HORIZONTAL);
+
   ss->ratio = 0.0;
   /* Here's where we set up the real thing */
   adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.01, 10,
@@ -212,7 +215,7 @@ dia_size_selector_get_type (void)
       (GInstanceInitFunc) dia_size_selector_init
     };
     
-    dss_type = g_type_register_static (gtk_hbox_get_type (),
+    dss_type = g_type_register_static (GTK_TYPE_BOX,
 				       "DiaSizeSelector",
 				       &dss_info, 0);
   }
@@ -289,7 +292,7 @@ dia_alignment_selector_set_alignment (GtkWidget *as,
 /************* DiaFileSelector: ***************/
 struct _DiaFileSelector
 {
-  GtkHBox hbox;
+  GtkBox hbox;
   GtkEntry *entry;
   GtkButton *browse;
   GtkWidget *dialog;
@@ -299,7 +302,7 @@ struct _DiaFileSelector
 
 struct _DiaFileSelectorClass
 {
-  GtkHBoxClass parent_class;
+  GtkBoxClass parent_class;
 };
 
 enum {
@@ -427,6 +430,9 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
 static void
 dia_file_selector_init (DiaFileSelector *fs)
 {
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (fs),
+                                  GTK_ORIENTATION_HORIZONTAL);
+
   /* Here's where we set up the real thing */
   fs->dialog = NULL;
   fs->sys_filename = NULL;
@@ -464,7 +470,7 @@ dia_file_selector_get_type (void)
       (GInstanceInitFunc)dia_file_selector_init,
     };
     
-    dfs_type = g_type_register_static (gtk_hbox_get_type (), 
+    dfs_type = g_type_register_static (GTK_TYPE_BOX, 
 				       "DiaFileSelector",
 				       &dfs_info, 0);
   }  

@@ -27,14 +27,14 @@
 /************* DiaColorSelector: ***************/
 struct _DiaColorSelector
 {
-  GtkHBox         hbox; /* just contaning the other two widgets */
+  GtkBox          hbox; /* just contaning the other two widgets */
   DiaDynamicMenu *ddm; /* the widget previously alone */
   GtkColorButton *color_button; /* to reflect alpha */
   gboolean        use_alpha;
 };
 struct _DiaColorSelectorClass
 {
-  GtkHBoxClass parent_class;
+  GtkBoxClass parent_class;
 };
 enum {
   DIA_COLORSEL_VALUE_CHANGED,
@@ -86,6 +86,9 @@ dia_color_selector_value_changed (DiaDynamicMenu *ddm, gpointer user_data)
 static void
 dia_color_selector_init (DiaColorSelector *cs)
 {
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (cs),
+                                  GTK_ORIENTATION_HORIZONTAL);
+
   cs->ddm = DIA_DYNAMIC_MENU(dia_color_selector_menu_new(cs));
   cs->color_button = GTK_COLOR_BUTTON (gtk_color_button_new ());
   
@@ -136,7 +139,7 @@ dia_color_selector_get_type (void)
       (GInstanceInitFunc) dia_color_selector_init
     };
     
-    dcs_type = g_type_register_static (gtk_hbox_get_type (),
+    dcs_type = g_type_register_static (GTK_TYPE_BOX,
 				       "DiaColorSelector", 
 				       &dcs_info, 0);
   }

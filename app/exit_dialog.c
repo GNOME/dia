@@ -137,7 +137,7 @@ exit_dialog_make (GtkWindow * parent_window,
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled), GTK_WIDGET (treeview));
 
  
-    hbox = gtk_hbox_new (FALSE, 3);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 3);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
     gtk_widget_show (hbox);
 

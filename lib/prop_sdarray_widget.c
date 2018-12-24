@@ -460,7 +460,7 @@ _make_button_box_for_view (GtkTreeView *view, GtkTreeView *master_view)
     { GTK_STOCK_GO_DOWN, G_CALLBACK (_lower_row_callback) },
     { NULL, NULL }
   };
-  GtkWidget *vbox = gtk_vbox_new (FALSE, 0);
+  GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
   GtkWidget *button;
   int i;
 
@@ -538,7 +538,7 @@ _arrayprop_get_widget (ArrayProperty *prop, PropDialog *dialog)
    *           \- branch_view
    */
   {
-    GtkWidget *hbox = gtk_hbox_new (FALSE /* less size for button column */, 0);
+    GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
     GtkWidget *vbox = _make_button_box_for_view (GTK_TREE_VIEW (view), NULL);
 
     gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE /* no expand */, FALSE, 0);
@@ -550,8 +550,8 @@ _arrayprop_get_widget (ArrayProperty *prop, PropDialog *dialog)
       gtk_box_pack_start (GTK_BOX (hbox), _make_scrollable (view), TRUE /* expand */, TRUE /* fill */, 0);
     } else {
       /* almost the same once more */
-      GtkWidget *hbox2 = gtk_hbox_new (FALSE /* less size for button column */, 0);
-      GtkWidget *vbox2 = gtk_vbox_new (FALSE, 0);
+      GtkWidget *hbox2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+      GtkWidget *vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
       GtkWidget *vbox3 = _make_button_box_for_view (GTK_TREE_VIEW (branch_view), GTK_TREE_VIEW (view));
 
       gtk_box_pack_start (GTK_BOX (vbox2), _make_scrollable (view), TRUE, TRUE, 0);
