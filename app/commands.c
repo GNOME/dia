@@ -937,9 +937,6 @@ help_manual_callback (GtkAction *action)
   ddisp = ddisplay_active();
   screen = ddisp ? gtk_widget_get_screen (GTK_WIDGET(ddisp->shell))
          : gdk_screen_get_default ();
-  if (gtk_show_uri(screen, "ghelp:dia", gtk_get_current_event_time (), NULL)) {
-    return;
-  }
 
   helpdir = dia_get_data_directory("help");
   if (!helpdir) {
