@@ -80,12 +80,13 @@ static void fill_pixel_rect(DiaRenderer *renderer,
                             int x, int y,
                             int width, int height,
                             Color *color);
-static void set_size (DiaRenderer *renderer, 
+static void set_size (DiaRenderer *renderer,
                       gpointer window,
                       int width, int height);
-static void copy_to_window (DiaRenderer *renderer, 
-                gpointer window,
-                int x, int y, int width, int height);
+static void paint        (DiaRenderer *renderer,
+                          cairo_t     *ctx,
+                          int          width,
+                          int          height);
 
 static void cairo_interactive_renderer_get_property (GObject         *object,
 			 guint            prop_id,
@@ -105,14 +106,14 @@ enum {
 
 static int
 get_width_pixels (DiaRenderer *object)
-{ 
+{
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
   return renderer->width;
 }
 
 static int
 get_height_pixels (DiaRenderer *object)
-{ 
+{
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
   return renderer->height;
 }
@@ -128,9 +129,9 @@ cairo_interactive_renderer_init (DiaCairoInteractiveRenderer *object, void *p)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
   DiaRenderer *dia_renderer = DIA_RENDERER(object);
-  
+
   dia_renderer->is_interactive = 1;
-  
+
   renderer->pixmap = NULL;
 
   renderer->highlight_color = NULL;
@@ -189,7 +190,7 @@ calculate_relative_luminance (const Color *c)
 
   return 0.2126 * R + 0.7152 * G + 0.0722 * B;
 }
-static void 
+static void
 draw_text_line (DiaRenderer *self, TextLine *text_line,
 		Point *pos, Alignment alignment, Color *color)
 {
@@ -209,7 +210,7 @@ draw_text_line (DiaRenderer *self, TextLine *text_line,
     real x = pos->x;
     real y = pos->y;
 
-    y -= text_line_get_ascent(text_line);    
+    y -= text_line_get_ascent(text_line);
     x -= text_line_get_alignment_adjustment (text_line, alignment);
 
     rl = calculate_relative_luminance (color) + 0.05;
@@ -218,17 +219,17 @@ draw_text_line (DiaRenderer *self, TextLine *text_line,
     cr2 = calculate_relative_luminance (&alternate_color) + 0.05;
     cr2 = (cr2 > rl) ? cr2 / rl : rl / cr2;
 
-    /* use color giving the better contrast ratio, if necessary 
+    /* use color giving the better contrast ratio, if necessary
      * http://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast
      */
     if (cr1 > cr2)
-      cairo_set_source_rgba (renderer->cr, 
+      cairo_set_source_rgba (renderer->cr,
 			   interactive->highlight_color->red,
 			   interactive->highlight_color->green,
 			   interactive->highlight_color->blue,
 			   1.0);
     else
-      cairo_set_source_rgba (renderer->cr, 
+      cairo_set_source_rgba (renderer->cr,
 			   alternate_color.red,
 			   alternate_color.green,
 			   alternate_color.blue,
@@ -240,7 +241,7 @@ draw_text_line (DiaRenderer *self, TextLine *text_line,
   DIA_RENDERER_CLASS (parent_class)->draw_text_line (self, text_line, pos, alignment, color);
 }
 static void
-draw_object_highlighted (DiaRenderer     *self, 
+draw_object_highlighted (DiaRenderer     *self,
 			 DiaObject       *object,
 			 DiaHighlightType type)
 {
@@ -263,7 +264,7 @@ draw_object_highlighted (DiaRenderer     *self,
   /* always reset when done with this object */
   interactive->highlight_color = NULL;
 }
-static void 
+static void
 dia_cairo_interactive_renderer_iface_init (DiaInteractiveRendererInterface* iface)
 {
   iface->clip_region_clear = clip_region_clear;
@@ -271,7 +272,7 @@ dia_cairo_interactive_renderer_iface_init (DiaInteractiveRendererInterface* ifac
   iface->draw_pixel_line = draw_pixel_line;
   iface->draw_pixel_rect = draw_pixel_rect;
   iface->fill_pixel_rect = fill_pixel_rect;
-  iface->copy_to_window = copy_to_window;
+  iface->paint = paint;
   iface->set_size = set_size;
   iface->draw_object_highlighted = draw_object_highlighted;
 }
@@ -296,7 +297,7 @@ dia_cairo_interactive_renderer_get_type (void)
 	(GInstanceInitFunc) cairo_interactive_renderer_init /* init */
       };
 
-      static const GInterfaceInfo irenderer_iface_info = 
+      static const GInterfaceInfo irenderer_iface_info =
       {
 	(GInterfaceInitFunc) dia_cairo_interactive_renderer_iface_init,
 	NULL,           /* iface_finalize */
@@ -313,7 +314,7 @@ dia_cairo_interactive_renderer_get_type (void)
                                    &irenderer_iface_info);
 
     }
-  
+
   return object_type;
 }
 
@@ -329,7 +330,7 @@ begin_render(DiaRenderer *self, const Rectangle *update)
   /* Setup clipping for this sequence of render operations */
   /* Must be done before the scaling because the clip is in pixel coords */
   gdk_cairo_region (base_renderer->cr, renderer->clip_region);
-  cairo_clip(base_renderer->cr); 
+  cairo_clip(base_renderer->cr);
 
   cairo_scale (base_renderer->cr, *renderer->zoom_factor, *renderer->zoom_factor);
   cairo_translate (base_renderer->cr, -renderer->visible->left, -renderer->visible->top);
@@ -389,7 +390,7 @@ cairo_interactive_renderer_class_init (DiaCairoInteractiveRendererClass *klass)
  							_("Visible rect pointer"),
 							_("Visible rect pointer"),
 							G_PARAM_READWRITE));
-							
+
   /* renderer members */
   renderer_class->get_width_pixels  = get_width_pixels;
   renderer_class->get_height_pixels = get_height_pixels;
@@ -430,7 +431,7 @@ cairo_interactive_renderer_get_property (GObject         *object,
 			 GParamSpec      *pspec)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-  
+
   switch (prop_id) {
     case PROP_ZOOM:
       g_value_set_pointer (value, renderer->zoom_factor);
@@ -462,18 +463,19 @@ set_size(DiaRenderer *object, gpointer window,
 }
 
 static void
-copy_to_window (DiaRenderer *object, gpointer window,
-                int x, int y, int width, int height)
+paint (DiaRenderer *object,
+       cairo_t     *ctx,
+       int          width,
+       int          height)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-  cairo_t *cr;
 
-  cr = gdk_cairo_create (GDK_WINDOW(window));
-  cairo_set_source_surface (cr, renderer->pixmap, 0.0, 0.0);
-  cairo_rectangle (cr, x, y, width > 0 ? width : -width, height > 0 ? height : -height);
-  cairo_clip (cr);
-  cairo_paint (cr);
-  cairo_destroy (cr);
+  cairo_save (ctx);
+  cairo_set_source_surface (ctx, renderer->pixmap, 0.0, 0.0);
+  cairo_rectangle (ctx, 0, 0, width > 0 ? width : -width, height > 0 ? height : -height);
+  cairo_clip (ctx);
+  cairo_paint (ctx);
+  cairo_restore (ctx);
 }
 
 static void
@@ -502,7 +504,7 @@ clip_region_add_rect(DiaRenderer *object,
   dia_transform_coords(transform, rect->left, rect->top,  &x1, &y1);
   dia_transform_coords(transform, rect->right, rect->bottom,  &x2, &y2);
   g_object_unref(transform);
-  
+
   clip_rect.x = x1;
   clip_rect.y = y1;
   clip_rect.width = x2 - x1 + 1;
@@ -521,7 +523,7 @@ draw_pixel_line(DiaRenderer *object,
   double x1u = x1 + .5, y1u = y1 + .5, x2u = x2 + .5, y2u = y2 + .5;
   double lw[2];
   lw[0] = 1; lw[1] = 0;
-  
+
   cairo_device_to_user_distance (renderer->cr, &lw[0], &lw[1]);
   cairo_set_line_width (renderer->cr, lw[0]);
 
@@ -544,7 +546,7 @@ draw_pixel_rect(DiaRenderer *object,
   double x1u = x + .5, y1u = y + .5, x2u = x + width + .5, y2u = y + height + .5;
   double lw[2];
   lw[0] = 1; lw[1] = 0;
-  
+
   cairo_device_to_user_distance (renderer->cr, &lw[0], &lw[1]);
   cairo_set_line_width (renderer->cr, lw[0]);
 
@@ -566,7 +568,7 @@ fill_pixel_rect(DiaRenderer *object,
   double x1u = x + .5, y1u = y + .5, x2u = x + width + .5, y2u = y + height + .5;
   double lw[2];
   lw[0] = 1; lw[1] = 0;
-  
+
   cairo_device_to_user_distance (renderer->cr, &lw[0], &lw[1]);
   cairo_set_line_width (renderer->cr, lw[0]);
 

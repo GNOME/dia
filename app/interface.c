@@ -385,20 +385,61 @@ canvas_configure_event (GtkWidget         *widget,
   return new_size;
 }
 
-/* Got when an area previously obscured need to be redrawn.
- * Needs GDK_EXPOSURE_MASK.
- * Gone with gtk+-3.0 or better replaced by "draw".
- */
 static gboolean
 canvas_expose_event (GtkWidget      *widget,
 		     GdkEventExpose *event,
 		     DDisplay       *ddisp)
 {
-  ddisplay_add_display_area (ddisp,
-			     event->area.x, event->area.y,
-			     event->area.x + event->area.width,
-			     event->area.y + event->area.height);
-  ddisplay_flush(ddisp);
+  GSList *l;
+  Rectangle *r, totrect;
+  DiaInteractiveRendererInterface *renderer;
+
+  g_return_val_if_fail (ddisp->renderer != NULL, FALSE);
+
+  /* Renders updates to pixmap + copies display_areas to canvas(screen) */
+  renderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
+
+  /* Only update if update_areas exist */
+  l = ddisp->update_areas;
+  if (l != NULL)
+  {
+    totrect = *(Rectangle *) l->data;
+
+    g_return_val_if_fail (   renderer->clip_region_clear != NULL
+                          && renderer->clip_region_add_rect != NULL, FALSE);
+
+    renderer->clip_region_clear (ddisp->renderer);
+
+    while(l!=NULL) {
+      r = (Rectangle *) l->data;
+
+      rectangle_union(&totrect, r);
+      renderer->clip_region_add_rect (ddisp->renderer, r);
+
+      l = g_slist_next(l);
+    }
+    /* Free update_areas list: */
+    l = ddisp->update_areas;
+    while(l!=NULL) {
+      g_free(l->data);
+      l = g_slist_next(l);
+    }
+    g_slist_free(ddisp->update_areas);
+    ddisp->update_areas = NULL;
+
+    totrect.left -= 0.1;
+    totrect.right += 0.1;
+    totrect.top -= 0.1;
+    totrect.bottom += 0.1;
+
+    ddisplay_render_pixmap(ddisp, &totrect);
+  }
+
+  dia_interactive_renderer_paint (ddisp->renderer,
+                                  ctx,
+                                  gtk_widget_get_allocated_width (widget),
+                                  gtk_widget_get_allocated_height (widget));
+
   return FALSE;
 }
 
