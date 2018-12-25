@@ -180,7 +180,8 @@ create_diagram_properties_dialog(Diagram *dia)
   gtk_widget_show(hex_check);
 
   label = gtk_label_new(_("Hex grid size"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
   gtk_grid_attach (GTK_GRID (table), label, 0, 5, 1, 1);
   gtk_widget_show (label);
 
@@ -203,7 +204,8 @@ create_diagram_properties_dialog(Diagram *dia)
   gtk_grid_set_column_spacing (GTK_GRID (table), 2);
 
   label = gtk_label_new(_("Background"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
   gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
   gtk_widget_show(label);
 
@@ -213,7 +215,8 @@ create_diagram_properties_dialog(Diagram *dia)
   gtk_widget_show (bg_colour);
 
   label = gtk_label_new(_("Grid Lines"));
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
   gtk_grid_attach (GTK_GRID (table), label, 0, 1, 1, 1);
   gtk_widget_show (label);
 
@@ -223,7 +226,8 @@ create_diagram_properties_dialog(Diagram *dia)
   gtk_widget_show (grid_colour);
 
   label = gtk_label_new(_("Page Breaks"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
   gtk_grid_attach (GTK_GRID (table), label, 0, 2, 1, 1);
   gtk_widget_show (label);
 

@@ -747,8 +747,9 @@ create_tools(GtkWidget *parent)
       image = create_widget_from_xpm_or_gdkp(tool_data[i].icon_data, button, &pixbuf);
     }
     
-    /* GTKBUG:? padding changes */
-    gtk_misc_set_padding(GTK_MISC(image), 2, 2);
+    g_object_set (G_OBJECT (image),
+                  "margin", 2,
+                  NULL);
     
     gtk_container_add (GTK_CONTAINER (button), image);
     

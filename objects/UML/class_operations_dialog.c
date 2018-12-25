@@ -1032,7 +1032,8 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
 		    G_CALLBACK (operations_update_event), umlclass);
   g_signal_connect (G_OBJECT (entry), "activate",
 		    G_CALLBACK (operations_update), umlclass);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
 
   gtk_label_set_xalign (GTK_LABEL (label), 0.0);
   gtk_label_set_yalign (GTK_LABEL (label), 0.5);
@@ -1078,7 +1079,8 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
     GtkWidget * align;
     align = gtk_alignment_new (0.0, 0.5, 0.0, 0.0);
     gtk_container_add (GTK_CONTAINER (align), omenu);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+    gtk_label_set_yalign (GTK_LABEL (label), 0.5);
     gtk_grid_attach (GTK_GRID (table), label, 2, 0, 1, 1);
     gtk_grid_attach (GTK_GRID (table), align, 3, 0, 1, 1);
   }

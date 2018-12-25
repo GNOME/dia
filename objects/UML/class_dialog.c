@@ -357,7 +357,8 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog->comment = GTK_TEXT_VIEW(entry);
   gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
  
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
   gtk_grid_attach (GTK_GRID (table), label, 0, 2, 1, 1);
   gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
 

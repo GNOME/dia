@@ -274,7 +274,8 @@ prop_dialog_add_property(PropDialog *dialog, Property *prop)
     label = gtk_label_new("");
   else
     label = gtk_label_new(_(prop->descr->description));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
 
   prop_dialog_add_widget(dialog, label, widget);
 }

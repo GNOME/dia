@@ -318,7 +318,12 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show (self->fitw);
 
   wid = gtk_label_new (_("by"));
-  gtk_misc_set_padding (GTK_MISC (wid), 5, 0);
+  g_object_set (G_OBJECT (wid),
+                "margin-start", 5,
+                "margin-end", 5,
+                "margin-top", 0,
+                "margin-bottom", 0,
+                NULL);
   gtk_widget_set_vexpand (wid, TRUE);
   gtk_grid_attach (GTK_GRID (table), wid, 2, 1, 1, 1);
   gtk_widget_show (wid);

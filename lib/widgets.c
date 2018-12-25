@@ -749,8 +749,12 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
   gtk_widget_show(images->off);
 
   /* Make border as small as possible */
-  gtk_misc_set_padding(GTK_MISC(images->on), 0, 0);
-  gtk_misc_set_padding(GTK_MISC(images->off), 0, 0);
+  g_object_set (G_OBJECT (images->on),
+                "margin", 0,
+                NULL);
+  g_object_set (G_OBJECT (images->off),
+                "margin", 0,
+                NULL);
   gtk_widget_set_can_focus (GTK_WIDGET (button), FALSE);
   gtk_widget_set_can_default (GTK_WIDGET (button), FALSE);
 
