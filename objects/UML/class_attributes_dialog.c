@@ -508,7 +508,7 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
 
-  table = gtk_table_new (5, 2, FALSE);
+  table = gtk_grid_new ();
   gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
 
   label = gtk_label_new(_("Name:"));
@@ -518,9 +518,11 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		    G_CALLBACK (attributes_update_event), umlclass);
   g_signal_connect (G_OBJECT (entry), "activate",
 		    G_CALLBACK (attributes_update), umlclass);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
+  gtk_widget_set_hexpand (entry, TRUE);
+  gtk_grid_attach (GTK_GRID (table), entry, 1, 0, 1, 1);
 
   label = gtk_label_new(_("Type:"));
   entry = gtk_entry_new();
@@ -529,9 +531,11 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		    G_CALLBACK (attributes_update_event), umlclass);
   g_signal_connect (G_OBJECT (entry), "activate",
 		    G_CALLBACK (attributes_update), umlclass);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 1, 1, 1);
+  gtk_widget_set_hexpand (entry, TRUE);
+  gtk_grid_attach (GTK_GRID (table), entry, 1, 1, 1, 1);
 
   label = gtk_label_new(_("Value:"));
   entry = gtk_entry_new();
@@ -540,9 +544,11 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		    G_CALLBACK (attributes_update_event), umlclass);
   g_signal_connect (G_OBJECT (entry), "activate",
 		    G_CALLBACK (attributes_update), umlclass);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 2, 1, 1);
+  gtk_widget_set_hexpand (entry, TRUE);
+  gtk_grid_attach (GTK_GRID (table), entry, 1, 2, 1, 1);
 
   label = gtk_label_new(_("Comment:"));
   scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
@@ -561,9 +567,11 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   g_signal_connect (G_OBJECT (entry), "activate",
 		    G_CALLBACK (attributes_update), umlclass);
 #endif
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,3,4, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), scrolledwindow, 1,2,3,4, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 3, 1, 1);
+  gtk_widget_set_hexpand (entry, TRUE);
+  gtk_grid_attach (GTK_GRID (table), scrolledwindow, 1, 3, 1, 1);
 
 
   label = gtk_label_new(_("Visibility:"));
@@ -580,9 +588,10 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
     GtkWidget * align;
     align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
     gtk_container_add(GTK_CONTAINER(align), omenu);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-    gtk_table_attach (GTK_TABLE (table), label, 0,1,4,5, GTK_FILL,0, 0,3);
-    gtk_table_attach (GTK_TABLE (table), align, 1,2,4,5, GTK_FILL,0, 0,3);
+    gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+    gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+    gtk_grid_attach (GTK_GRID (table), label, 0, 4, 1, 1);
+    gtk_grid_attach (GTK_GRID (table), align, 1, 4, 1, 1);
   }
 
   hbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);

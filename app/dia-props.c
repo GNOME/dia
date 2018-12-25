@@ -112,72 +112,68 @@ create_diagram_properties_dialog(Diagram *dia)
   gtk_widget_show(notebook);
 
   /* the grid page */
-  table = gtk_table_new(3,3,FALSE);
-  gtk_container_set_border_width(GTK_CONTAINER(table), 2);
-  gtk_table_set_row_spacings(GTK_TABLE(table), 1);
-  gtk_table_set_col_spacings(GTK_TABLE(table), 2);
+  table = gtk_grid_new ();
+  gtk_container_set_border_width (GTK_CONTAINER (table), 2);
+  gtk_grid_set_row_spacing (GTK_GRID (table), 1);
+  gtk_grid_set_column_spacing (GTK_GRID (table), 2);
 
   dynamic_check = gtk_check_button_new_with_label(_("Dynamic grid"));
-  gtk_table_attach(GTK_TABLE(table), dynamic_check, 1,2, 0,1,
-		   GTK_FILL, GTK_FILL, 0, 0);
+  gtk_grid_attach (GTK_GRID (table), dynamic_check, 1, 0, 1, 1);
   g_signal_connect(G_OBJECT(dynamic_check), "toggled", 
 		   G_CALLBACK(diagram_properties_update_sensitivity), NULL);
 	    
   gtk_widget_show(dynamic_check);
 
-  label = gtk_label_new(_("x"));
-  gtk_table_attach(GTK_TABLE(table), label, 1,2, 1,2,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
-  label = gtk_label_new(_("y"));
-  gtk_table_attach(GTK_TABLE(table), label, 2,3, 1,2,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
+  label = gtk_label_new (_("x"));
+  gtk_grid_attach (GTK_GRID (table), label, 1, 1, 1, 1);
+  gtk_widget_show (label);
+  label = gtk_label_new (_("y"));
+  gtk_grid_attach (GTK_GRID (table), label, 2, 1, 1, 1);
+  gtk_widget_show (label);
 
   label = gtk_label_new(_("Spacing"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 2,3,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 2, 1, 1);
+  gtk_widget_show (label);
 
   adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 10.0, 0.1, 10.0, 0));
   width_x_entry = gtk_spin_button_new(adj, 1.0, 3);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(width_x_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), width_x_entry, 1,2, 2,3,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(width_x_entry);
+  gtk_widget_set_hexpand (width_x_entry, TRUE);
+  gtk_grid_attach (GTK_GRID (table), width_x_entry, 1, 2, 1, 1);
+  gtk_widget_show (width_x_entry);
 
   adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 10.0, 0.1, 10.0, 0));
   width_y_entry = gtk_spin_button_new(adj, 1.0, 3);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(width_y_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), width_y_entry, 2,3, 2,3,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(width_y_entry);
+  gtk_widget_set_hexpand (width_y_entry, TRUE);
+  gtk_grid_attach (GTK_GRID (table), width_y_entry, 2, 2, 1, 1);
+  gtk_widget_show (width_y_entry);
 
   label = gtk_label_new(_("Visible spacing"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 3,4,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_grid_attach (GTK_GRID(table), label, 0, 3, 1, 1);
+  gtk_widget_show (label);
 
   adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 0));
   visible_x_entry = gtk_spin_button_new(adj, 1.0, 0);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(visible_x_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), visible_x_entry, 1,2, 3,4,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(visible_x_entry);
+  gtk_widget_set_hexpand (visible_x_entry, TRUE);
+  gtk_grid_attach (GTK_GRID (table), visible_x_entry, 1, 3, 1, 1);
+  gtk_widget_show (visible_x_entry);
 
   adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 0));
   visible_y_entry = gtk_spin_button_new(adj, 1.0, 0);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(visible_y_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), visible_y_entry, 2,3, 3,4,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(visible_y_entry);
+  gtk_widget_set_hexpand (visible_y_entry, TRUE);
+  gtk_grid_attach (GTK_GRID (table), visible_y_entry, 2, 3, 1, 1);
+  gtk_widget_show (visible_y_entry);
 
   /* Hexes! */
   hex_check = gtk_check_button_new_with_label(_("Hex grid"));
-  gtk_table_attach(GTK_TABLE(table), hex_check, 1,2, 4,5,
-		   GTK_FILL, GTK_FILL, 0, 0);
+  gtk_grid_attach (GTK_GRID (table), hex_check, 1, 4, 1, 1);
   g_signal_connect(G_OBJECT(hex_check), "toggled", 
 		   G_CALLBACK(diagram_properties_update_sensitivity), NULL);
 	    
@@ -185,59 +181,55 @@ create_diagram_properties_dialog(Diagram *dia)
 
   label = gtk_label_new(_("Hex grid size"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 5,6,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 5, 1, 1);
+  gtk_widget_show (label);
 
   adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 0));
   hex_size_entry = gtk_spin_button_new(adj, 1.0, 0);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(hex_size_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), hex_size_entry, 1,2, 5,6,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(hex_size_entry);
+  gtk_widget_set_hexpand (hex_size_entry, TRUE);
+  gtk_grid_attach (GTK_GRID (table), hex_size_entry, 1, 5, 1, 1);
+  gtk_widget_show (hex_size_entry);
 
-  label = gtk_label_new(_("Grid"));
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), table, label);
-  gtk_widget_show(table);
-  gtk_widget_show(label);
+  label = gtk_label_new (_("Grid"));
+  gtk_notebook_append_page (GTK_NOTEBOOK (notebook), table, label);
+  gtk_widget_show (table);
+  gtk_widget_show (label);
 
   /* The background page */
-  table = gtk_table_new(1,2, FALSE);
-  gtk_container_set_border_width(GTK_CONTAINER(table), 2);
-  gtk_table_set_row_spacings(GTK_TABLE(table), 1);
-  gtk_table_set_col_spacings(GTK_TABLE(table), 2);
+  table = gtk_grid_new ();
+  gtk_container_set_border_width (GTK_CONTAINER (table), 2);
+  gtk_grid_set_row_spacing (GTK_GRID (table), 1);
+  gtk_grid_set_column_spacing (GTK_GRID (table), 2);
 
   label = gtk_label_new(_("Background"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 0,1,
-		   GTK_FILL, GTK_FILL, 0, 0);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
   gtk_widget_show(label);
 
   bg_colour = dia_color_selector_new();
-  gtk_table_attach(GTK_TABLE(table), bg_colour, 1,2, 0,1,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(bg_colour);
+  gtk_widget_set_hexpand (bg_colour, TRUE);
+  gtk_grid_attach (GTK_GRID(table), bg_colour, 1, 0, 1, 1);
+  gtk_widget_show (bg_colour);
 
   label = gtk_label_new(_("Grid Lines"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 1,2,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 1, 1, 1);
+  gtk_widget_show (label);
 
   grid_colour = dia_color_selector_new();
-  gtk_table_attach(GTK_TABLE(table), grid_colour, 1,2, 1,2,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(grid_colour);
+  gtk_widget_set_hexpand (grid_colour, TRUE);
+  gtk_grid_attach (GTK_GRID (table), grid_colour, 1, 1, 1, 1);
+  gtk_widget_show (grid_colour);
 
   label = gtk_label_new(_("Page Breaks"));
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 2,3,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 2, 1, 1);
+  gtk_widget_show (label);
 
   pagebreak_colour = dia_color_selector_new();
-  gtk_table_attach(GTK_TABLE(table), pagebreak_colour, 1,2, 2,3,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
+  gtk_widget_set_hexpand (pagebreak_colour, TRUE);
+  gtk_grid_attach (GTK_GRID (table), pagebreak_colour, 1, 2, 1, 1);
   gtk_widget_show(pagebreak_colour);
 
   label = gtk_label_new(_("Colors"));

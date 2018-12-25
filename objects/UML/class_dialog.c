@@ -274,7 +274,7 @@ class_fill_in_dialog(UMLClass *umlclass)
 }
 
 static void
-create_font_props_row (GtkTable   *table,
+create_font_props_row (GtkGrid    *table,
                        const char *kind,
                        gint        row,
                        DiaFont    *font,
@@ -288,15 +288,15 @@ create_font_props_row (GtkTable   *table,
   label = gtk_label_new (kind);
   gtk_label_set_xalign (GTK_LABEL (label), 0.0);
   gtk_label_set_yalign (GTK_LABEL (label), 0.5);
-  gtk_table_attach_defaults (table, label, 0, 1, row, row+1);
+  gtk_grid_attach (table, label, 0, row, 1, 1);
   *fontsel = DIA_FONT_SELECTOR (dia_font_selector_new ());
   dia_font_selector_set_font (DIA_FONT_SELECTOR (*fontsel), font);
-  gtk_table_attach_defaults (GTK_TABLE (table), GTK_WIDGET(*fontsel), 1, 2, row, row+1);
+  gtk_grid_attach (GTK_GRID (table), GTK_WIDGET(*fontsel), 1, row, 1, 1);
 
   adj = gtk_adjustment_new (height, 0.1, 10.0, 0.1, 1.0, 0);
   *heightsel = GTK_SPIN_BUTTON (gtk_spin_button_new (GTK_ADJUSTMENT(adj), 1.0, 2));
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (*heightsel), TRUE);
-  gtk_table_attach_defaults (table, GTK_WIDGET (*heightsel), 2, 3, row, row+1);
+  gtk_grid_attach (table, GTK_WIDGET (*heightsel), 2, row, 1, 1);
 }
 
 static void 
@@ -322,29 +322,35 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
   
-  table = gtk_table_new (3, 2, FALSE);
+  table = gtk_grid_new ();
   gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 0);
 
   label = gtk_label_new(_("Class name:"));
   entry = gtk_entry_new();
   prop_dialog->classname = GTK_ENTRY(entry);
   gtk_widget_grab_focus(entry);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
+  
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
+  
+  gtk_widget_set_hexpand (label, TRUE);
+  gtk_grid_attach (GTK_GRID (table), entry, 1, 0, 1, 1);
 
   label = gtk_label_new(_("Stereotype:"));
   entry = gtk_entry_new();
   prop_dialog->stereotype = GTK_ENTRY(entry);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
+
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 1, 1, 1);
+  
+  gtk_widget_set_hexpand (label, TRUE);
+  gtk_grid_attach (GTK_GRID (table), entry, 1, 1, 1, 1);
 
   label = gtk_label_new(_("Comment:"));
   scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-  gtk_table_attach (GTK_TABLE (table), scrolledwindow, 1, 2, 2, 3,
-		    (GtkAttachOptions) (GTK_FILL),
-		    (GtkAttachOptions) (GTK_FILL), 0, 0);
+  gtk_grid_attach (GTK_GRID (table), scrolledwindow, 1, 2, 1, 1);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
 				       GTK_SHADOW_IN);
   entry = gtk_text_view_new ();
@@ -352,7 +358,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
  
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 2, 1, 1);
   gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
 
   hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
@@ -446,46 +452,45 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
   
-  table = gtk_table_new (5, 6, TRUE);
+  table = gtk_grid_new ();
   gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, TRUE, 0);
-  gtk_table_set_homogeneous (GTK_TABLE (table), FALSE);
 
   /* head line */
   label = gtk_label_new (_("Kind"));
                                                     /* L, R, T, B */
-  gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 0, 1);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
   label = gtk_label_new (_("Font"));
-  gtk_table_attach_defaults (GTK_TABLE (table), label, 1, 2, 0, 1);
+  gtk_grid_attach (GTK_GRID (table), label, 1, 0, 1, 1);
   label = gtk_label_new (_("Size"));
-  gtk_table_attach_defaults (GTK_TABLE (table), label, 2, 3, 0, 1);
+  gtk_grid_attach (GTK_GRID (table), label, 2, 0, 1, 1);
   
   /* property rows */
-  create_font_props_row (GTK_TABLE (table), _("Normal"), 1,
+  create_font_props_row (GTK_GRID (table), _("Normal"), 1,
                          umlclass->normal_font,
                          umlclass->font_height,
                          &(prop_dialog->normal_font),
                          &(prop_dialog->normal_font_height));
-  create_font_props_row (GTK_TABLE (table), _("Polymorphic"), 2,
+  create_font_props_row (GTK_GRID (table), _("Polymorphic"), 2,
                          umlclass->polymorphic_font,
                          umlclass->polymorphic_font_height,
                          &(prop_dialog->polymorphic_font),
                          &(prop_dialog->polymorphic_font_height));
-  create_font_props_row (GTK_TABLE (table), _("Abstract"), 3,
+  create_font_props_row (GTK_GRID (table), _("Abstract"), 3,
                          umlclass->abstract_font,
                          umlclass->abstract_font_height,
                          &(prop_dialog->abstract_font),
                          &(prop_dialog->abstract_font_height));
-  create_font_props_row (GTK_TABLE (table), _("Class Name"), 4,
+  create_font_props_row (GTK_GRID (table), _("Class Name"), 4,
                          umlclass->classname_font,
                          umlclass->classname_font_height,
                          &(prop_dialog->classname_font),
                          &(prop_dialog->classname_font_height));
-  create_font_props_row (GTK_TABLE (table), _("Abstract Class"), 5,
+  create_font_props_row (GTK_GRID (table), _("Abstract Class"), 5,
                          umlclass->abstract_classname_font,
                          umlclass->abstract_classname_font_height,
                          &(prop_dialog->abstract_classname_font),
                          &(prop_dialog->abstract_classname_font_height));
-  create_font_props_row (GTK_TABLE (table), _("Comment"), 6,
+  create_font_props_row (GTK_GRID (table), _("Comment"), 6,
                          umlclass->comment_font,
                          umlclass->comment_font_height,
                          &(prop_dialog->comment_font),
@@ -493,44 +498,61 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
 
 
-  table = gtk_table_new (2, 4, TRUE);
+  table = gtk_grid_new ();
+  gtk_grid_set_row_homogeneous (GTK_GRID (table), TRUE);
+  gtk_grid_set_column_homogeneous (GTK_GRID (table), TRUE);
   gtk_box_pack_start (GTK_BOX (vbox),
 		      table, FALSE, TRUE, 0);
   /* should probably be refactored too. */
   label = gtk_label_new(_("Line Width"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1, GTK_EXPAND | GTK_FILL, 0, 0, 2);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_widget_set_hexpand (label, TRUE);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
   adj = gtk_adjustment_new(umlclass->line_width, 0.0, G_MAXFLOAT, 0.1, 1.0, 0);
   line_width = gtk_spin_button_new (GTK_ADJUSTMENT(adj), 1.0, 2);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (line_width), TRUE);
   prop_dialog->line_width = GTK_SPIN_BUTTON(line_width);
-  gtk_table_attach (GTK_TABLE (table), line_width, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+  gtk_widget_set_hexpand (line_width, TRUE);
+  gtk_grid_attach (GTK_GRID (table), line_width, 1, 0, 1, 1);
 
   label = gtk_label_new(_("Text Color"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 1, 2, GTK_EXPAND | GTK_FILL, 0, 0, 2);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_widget_set_hexpand (label, TRUE);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 1, 1, 1);
   text_color = dia_color_selector_new();
   dia_color_selector_set_use_alpha (text_color, TRUE);
   dia_color_selector_set_color(text_color, &umlclass->text_color);
   prop_dialog->text_color = (DiaColorSelector *)text_color;
-  gtk_table_attach (GTK_TABLE (table), text_color, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+
+  gtk_widget_set_hexpand (text_color, TRUE);
+  gtk_grid_attach (GTK_GRID (table), text_color, 1, 1, 1, 1);
 
   label = gtk_label_new(_("Foreground Color"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 2, 3, GTK_EXPAND | GTK_FILL, 0, 0, 2);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_widget_set_hexpand (label, TRUE);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 2, 1, 1);
   line_color = dia_color_selector_new();
   dia_color_selector_set_use_alpha (line_color, TRUE);
   dia_color_selector_set_color(line_color, &umlclass->line_color);
   prop_dialog->line_color = (DiaColorSelector *)line_color;
-  gtk_table_attach (GTK_TABLE (table), line_color, 1, 2, 2, 3, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+
+  gtk_widget_set_hexpand (line_color, TRUE);
+  gtk_grid_attach (GTK_GRID (table), line_color, 1, 2, 1, 1);
   
   label = gtk_label_new(_("Background Color"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0, 1, 3, 4, GTK_EXPAND | GTK_FILL, 0, 0, 2);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_widget_set_hexpand (label, TRUE);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 3, 1, 1);
   fill_color = dia_color_selector_new();
   dia_color_selector_set_color(fill_color, &umlclass->fill_color);
   prop_dialog->fill_color = (DiaColorSelector *)fill_color;
-  gtk_table_attach (GTK_TABLE (table), fill_color, 1, 2, 3, 4, GTK_EXPAND | GTK_FILL, 0, 3, 2);
+
+  gtk_widget_set_hexpand (fill_color, TRUE);
+  gtk_grid_attach (GTK_GRID (table), fill_color, 1, 3, 1, 1);
 
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);

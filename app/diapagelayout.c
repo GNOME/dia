@@ -47,7 +47,7 @@
 typedef struct _DiaPageLayoutClass DiaPageLayoutClass;
 
 struct _DiaPageLayout {
-  GtkTable parent;
+  GtkGrid parent;
 
   /*<private>*/
   GtkWidget *paper_size, *paper_label;
@@ -68,7 +68,7 @@ struct _DiaPageLayout {
 };
 
 struct _DiaPageLayoutClass {
-  GtkTableClass parent_class;
+  GtkGridClass parent_class;
 
   void (*changed)(DiaPageLayout *pl);
 };
@@ -103,7 +103,7 @@ dia_page_layout_get_type(void)
       0,		/* n_preallocs */
       (GInstanceInitFunc) dia_page_layout_init,
     };
-    pl_type = g_type_register_static (gtk_table_get_type (), "DiaPageLayout", &pl_info, 0);
+    pl_type = g_type_register_static (GTK_TYPE_GRID, "DiaPageLayout", &pl_info, 0);
   }
   return pl_type;
 }
@@ -148,23 +148,21 @@ dia_page_layout_init(DiaPageLayout *self)
   GList *paper_names;
   gint i;
 
-  gtk_table_resize(GTK_TABLE(self), 3, 2);
-  gtk_table_set_row_spacings(GTK_TABLE(self), 5);
-  gtk_table_set_col_spacings(GTK_TABLE(self), 5);
+  gtk_grid_set_row_spacing (GTK_GRID (self), 5);
+  gtk_grid_set_column_spacing (GTK_GRID (self), 5);
 
   /* paper size */
-  frame = gtk_frame_new(_("Paper Size"));
-  gtk_table_attach(GTK_TABLE(self), frame, 0,1, 0,1,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(frame);
+  frame = gtk_frame_new (_("Paper Size"));
+  gtk_grid_attach (GTK_GRID (self), frame, 0, 0, 1, 1);
+  gtk_widget_show (frame);
 
   box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
   gtk_container_set_border_width(GTK_CONTAINER(box), 5);
   gtk_container_add(GTK_CONTAINER(frame), box);
   gtk_widget_show(box);
 
-  self->paper_size = dia_option_menu_new();
-  gtk_box_pack_start(GTK_BOX(box), self->paper_size, TRUE, FALSE, 0);
+  self->paper_size = dia_option_menu_new ();
+  gtk_box_pack_start (GTK_BOX (box), self->paper_size, TRUE, FALSE, 0);
 
   g_signal_connect (self->paper_size, "changed", 
 		    G_CALLBACK(paper_size_change), self);
@@ -182,10 +180,10 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(self->paper_label);
 
   /* orientation */
-  frame = gtk_frame_new(_("Orientation"));
-  gtk_table_attach(GTK_TABLE(self), frame, 1,2, 0,1,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(frame);
+  frame = gtk_frame_new (_("Orientation"));
+  gtk_widget_set_hexpand (frame, TRUE);
+  gtk_grid_attach (GTK_GRID (self), frame, 1, 0, 1, 1);
+  gtk_widget_show (frame);
 
   box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
   gtk_container_set_border_width(GTK_CONTAINER(box), 5);
@@ -211,124 +209,134 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(self->orient_landscape);
 
   /* margins */
-  frame = gtk_frame_new(_("Margins"));
-  gtk_table_attach(GTK_TABLE(self), frame, 0,1, 1,2,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(frame);
+  frame = gtk_frame_new (_("Margins"));
+  gtk_grid_attach (GTK_GRID (self), frame, 0, 1, 1, 1);
+  gtk_widget_show (frame);
 
-  table = gtk_table_new(4, 2, FALSE);
-  gtk_container_set_border_width(GTK_CONTAINER(table), 5);
-  gtk_table_set_row_spacings(GTK_TABLE(table), 5);
-  gtk_table_set_col_spacings(GTK_TABLE(table), 5);
+  table = gtk_grid_new ();
+  gtk_container_set_border_width (GTK_CONTAINER (table), 5);
+  gtk_grid_set_row_spacing (GTK_GRID (table), 5);
+  gtk_grid_set_column_spacing (GTK_GRID (table), 5);
   gtk_container_add(GTK_CONTAINER(frame), table);
   gtk_widget_show(table);
 
-  wid = gtk_label_new(_("Top:"));
-  gtk_misc_set_alignment(GTK_MISC(wid), 1.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), wid, 0,1, 0,1,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(wid);
+  wid = gtk_label_new (_("Top:"));
+  gtk_label_set_xalign (GTK_LABEL (wid), 1.0);
+  gtk_label_set_yalign (GTK_LABEL (wid), 0.5);
+  gtk_widget_set_vexpand (wid, TRUE);
+  gtk_grid_attach (GTK_GRID (table), wid, 0, 0, 1, 1);
+  gtk_widget_show (wid);
 
-  self->tmargin = dia_unit_spinner_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,0)),
-	prefs_get_length_unit());
-  gtk_table_attach(GTK_TABLE(table), self->tmargin, 1,2, 0,1,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(self->tmargin);
+  self->tmargin = dia_unit_spinner_new (
+    GTK_ADJUSTMENT (gtk_adjustment_new (1, 0, 100, 0.1, 10, 0)),
+    prefs_get_length_unit());
+  gtk_widget_set_vexpand (self->tmargin, TRUE);
+  gtk_widget_set_hexpand (self->tmargin, TRUE);
+  gtk_grid_attach (GTK_GRID (table), self->tmargin, 1, 0, 1, 1);
+  gtk_widget_show (self->tmargin);
 
-  wid = gtk_label_new(_("Bottom:"));
-  gtk_misc_set_alignment(GTK_MISC(wid), 1.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), wid, 0,1, 1,2,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(wid);
+  wid = gtk_label_new (_("Bottom:"));
+  gtk_label_set_xalign (GTK_LABEL (wid), 1.0);
+  gtk_label_set_yalign (GTK_LABEL (wid), 0.5);
+  gtk_widget_set_vexpand (wid, TRUE);
+  gtk_grid_attach (GTK_GRID (table), wid, 0, 1, 1, 1);
+  gtk_widget_show (wid);
 
-  self->bmargin = dia_unit_spinner_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,0)),
-	prefs_get_length_unit());
-  gtk_table_attach(GTK_TABLE(table), self->bmargin, 1,2, 1,2,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(self->bmargin);
+  self->bmargin = dia_unit_spinner_new (
+    GTK_ADJUSTMENT (gtk_adjustment_new (1, 0, 100, 0.1, 10, 0)),
+    prefs_get_length_unit());
+  gtk_widget_set_vexpand (self->bmargin, TRUE);
+  gtk_widget_set_hexpand (self->bmargin, TRUE);
+  gtk_grid_attach (GTK_GRID (table), self->bmargin, 1, 1, 1, 1);
+  gtk_widget_show (self->bmargin);
 
-  wid = gtk_label_new(_("Left:"));
-  gtk_misc_set_alignment(GTK_MISC(wid), 1.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), wid, 0,1, 2,3,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(wid);
+  wid = gtk_label_new (_("Left:"));
+  gtk_label_set_xalign (GTK_LABEL (wid), 1.0);
+  gtk_label_set_yalign (GTK_LABEL (wid), 0.5);
+  gtk_widget_set_vexpand (wid, TRUE);
+  gtk_grid_attach (GTK_GRID (table), wid, 0, 2, 1, 1);
+  gtk_widget_show (wid);
 
-  self->lmargin = dia_unit_spinner_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,0)),
-	prefs_get_length_unit());
-  gtk_table_attach(GTK_TABLE(table), self->lmargin, 1,2, 2,3,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(self->lmargin);
+  self->lmargin = dia_unit_spinner_new (
+    GTK_ADJUSTMENT (gtk_adjustment_new (1, 0, 100, 0.1, 10, 0)),
+    prefs_get_length_unit());
+  gtk_widget_set_vexpand (self->lmargin, TRUE);
+  gtk_widget_set_hexpand (self->lmargin, TRUE);
+  gtk_grid_attach (GTK_GRID (table), self->lmargin, 1, 2, 1, 1);
+  gtk_widget_show (self->lmargin);
 
-  wid = gtk_label_new(_("Right:"));
-  gtk_misc_set_alignment(GTK_MISC(wid), 1.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), wid, 0,1, 3,4,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(wid);
+  wid = gtk_label_new (_("Right:"));
+  gtk_label_set_xalign (GTK_LABEL (wid), 1.0);
+  gtk_label_set_yalign (GTK_LABEL (wid), 0.5);
+  gtk_widget_set_vexpand (wid, TRUE);
+  gtk_grid_attach (GTK_GRID (table), wid, 0, 3, 1, 1);
+  gtk_widget_show (wid);
 
-  self->rmargin = dia_unit_spinner_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 0,100, 0.1,10,0)),
-	prefs_get_length_unit());
-  gtk_table_attach(GTK_TABLE(table), self->rmargin, 1,2, 3,4,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(self->rmargin);
+  self->rmargin = dia_unit_spinner_new (
+    GTK_ADJUSTMENT (gtk_adjustment_new (1, 0, 100, 0.1, 10,0)),
+    prefs_get_length_unit());
+  gtk_widget_set_vexpand (self->rmargin, TRUE);
+  gtk_widget_set_hexpand (self->rmargin, TRUE);
+  gtk_grid_attach (GTK_GRID (table), self->rmargin, 1, 3, 1, 1);
+  gtk_widget_show (self->rmargin);
 
   /* Scaling */
-  frame = gtk_frame_new(_("Scaling"));
-  gtk_table_attach(GTK_TABLE(self), frame, 0,1, 2,3,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(frame);
+  frame = gtk_frame_new (_("Scaling"));
+  gtk_grid_attach (GTK_GRID (self), frame, 0, 2, 1, 1);
+  gtk_widget_show (frame);
 
-  table = gtk_table_new(2, 4, FALSE);
-  gtk_container_set_border_width(GTK_CONTAINER(table), 5);
-  gtk_table_set_row_spacings(GTK_TABLE(table), 5);
-  gtk_container_add(GTK_CONTAINER(frame), table);
-  gtk_widget_show(table);
+  table = gtk_grid_new ();
+  gtk_container_set_border_width (GTK_CONTAINER (table), 5);
+  gtk_grid_set_row_spacing (GTK_GRID (table), 5);
+  gtk_container_add (GTK_CONTAINER (frame), table);
+  gtk_widget_show (table);
 
-  self->scale = gtk_radio_button_new_with_label(NULL, _("Scale:"));
-  gtk_table_attach(GTK_TABLE(table), self->scale, 0,1, 0,1,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(self->scale);
+  self->scale = gtk_radio_button_new_with_label (NULL, _("Scale:"));
+  gtk_widget_set_vexpand (self->scale, TRUE);
+  gtk_grid_attach (GTK_GRID (table), self->scale, 0, 0, 1, 1);
+  gtk_widget_show (self->scale);
 
-  self->scaling = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(100,1,10000, 1,10,0)), 1, 0);
-  gtk_table_attach(GTK_TABLE(table), self->scaling, 1,4, 0,1,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(self->scaling);
+  self->scaling = gtk_spin_button_new (
+    GTK_ADJUSTMENT (gtk_adjustment_new (100, 1, 10000, 1, 10, 0)), 1, 0);
+  gtk_widget_set_vexpand (self->scaling, TRUE);
+  gtk_widget_set_hexpand (self->scaling, TRUE);
+  gtk_grid_attach (GTK_GRID (table), self->scaling, 1, 0, 3, 1);
+  gtk_widget_show (self->scaling);
 
-  self->fitto = gtk_radio_button_new_with_label(
-			gtk_radio_button_get_group(GTK_RADIO_BUTTON(self->scale)), _("Fit to:"));
-  gtk_table_attach(GTK_TABLE(table), self->fitto, 0,1, 1,2,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(self->fitto);
+  self->fitto = gtk_radio_button_new_with_label (
+    gtk_radio_button_get_group (GTK_RADIO_BUTTON (self->scale)), _("Fit to:"));
+  gtk_widget_set_vexpand (self->fitto, TRUE);
+  gtk_grid_attach (GTK_GRID (table), self->fitto, 0, 1, 1, 1);
+  gtk_widget_show (self->fitto);
 
-  self->fitw = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 1, 1000, 1, 10, 0)), 1, 0);
-  gtk_widget_set_sensitive(self->fitw, FALSE);
-  gtk_table_attach(GTK_TABLE(table), self->fitw, 1,2, 1,2,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(self->fitw);
+  self->fitw = gtk_spin_button_new (
+    GTK_ADJUSTMENT (gtk_adjustment_new (1, 1, 1000, 1, 10, 0)), 1, 0);
+  gtk_widget_set_sensitive (self->fitw, FALSE);
+  gtk_widget_set_vexpand (self->fitw, TRUE);
+  gtk_widget_set_hexpand (self->fitw, TRUE);
+  gtk_grid_attach (GTK_GRID (table), self->fitw, 1, 1, 1, 1);
+  gtk_widget_show (self->fitw);
 
-  wid = gtk_label_new(_("by"));
-  gtk_misc_set_padding(GTK_MISC(wid), 5, 0);
-  gtk_table_attach(GTK_TABLE(table), wid, 2,3, 1,2,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(wid);
+  wid = gtk_label_new (_("by"));
+  gtk_misc_set_padding (GTK_MISC (wid), 5, 0);
+  gtk_widget_set_vexpand (wid, TRUE);
+  gtk_grid_attach (GTK_GRID (table), wid, 2, 1, 1, 1);
+  gtk_widget_show (wid);
 
-  self->fith = gtk_spin_button_new(
-	GTK_ADJUSTMENT(gtk_adjustment_new(1, 1, 1000, 1, 10, 0)), 1, 0);
-  gtk_widget_set_sensitive(self->fith, FALSE);
-  gtk_table_attach(GTK_TABLE(table), self->fith, 3,4, 1,2,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(self->fith);
+  self->fith = gtk_spin_button_new (
+    GTK_ADJUSTMENT (gtk_adjustment_new (1, 1, 1000, 1, 10, 0)), 1, 0);
+  gtk_widget_set_sensitive (self->fith, FALSE);
+  gtk_widget_set_vexpand (self->fith, TRUE);
+  gtk_widget_set_hexpand (self->fith, TRUE);
+  gtk_grid_attach (GTK_GRID (table), self->fith, 3, 1, 1, 1);
+  gtk_widget_show (self->fith);
 
   /* the drawing area */
-  self->darea = gtk_drawing_area_new();
-  gtk_table_attach(GTK_TABLE(self), self->darea, 1,2, 1,3,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(self->darea);
+  self->darea = gtk_drawing_area_new ();
+  gtk_widget_set_vexpand (self->darea, TRUE);
+  gtk_widget_set_hexpand (self->darea, TRUE);
+  gtk_grid_attach (GTK_GRID (self), self->darea, 1, 1, 1, 2);
+  gtk_widget_show (self->darea);
 
   /* connect the signal handlers */
   g_signal_connect_swapped(G_OBJECT(self->orient_portrait), "toggled",
@@ -604,12 +612,8 @@ darea_size_allocate(DiaPageLayout *self, GtkAllocation *allocation)
 static gint
 darea_draw (DiaPageLayout *self, cairo_t *ctx)
 {
-  GdkWindow *window = gtk_widget_get_window(self->darea);
   gfloat val;
   gint num;
-
-  if (!window)
-    return FALSE;
 
   cairo_set_line_cap (ctx, CAIRO_LINE_CAP_SQUARE);
   cairo_set_line_width (ctx, 1);

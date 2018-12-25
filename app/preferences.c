@@ -101,7 +101,7 @@ static const char *default_favored_filter = N_("any");
 
 struct DiaPrefsTab {
   char *title;
-  GtkTable *table;
+  GtkGrid *table;
   int row;
 };
 
@@ -564,8 +564,8 @@ prefs_create_dialog(void)
   GtkWidget *label;
   GtkWidget *dialog_vbox;
   GtkWidget *notebook;
-  GtkTable *top_table = NULL; /* top level table for the tab */
-  GtkTable *current_table = NULL;
+  GtkGrid *top_table = NULL; /* top level table for the tab */
+  GtkGrid *current_table = NULL;
   int i;
   int tab_idx = -1;
 
@@ -608,10 +608,10 @@ prefs_create_dialog(void)
     label = gtk_label_new(gettext(prefs_tabs[i].title));
     gtk_widget_show(label);
 
-    table = gtk_table_new (9, 2, FALSE);
-    prefs_tabs[i].table = GTK_TABLE(table);
-    gtk_widget_set_size_request(table, -1, -1);
-    gtk_widget_show(table);
+    table = gtk_grid_new ();
+    prefs_tabs[i].table = GTK_GRID (table);
+    gtk_widget_set_size_request (table, -1, -1);
+    gtk_widget_show (table);
     
 #ifdef SCROLLED_PAGES
     notebook_page = gtk_scrolled_window_new (NULL, NULL);
@@ -652,12 +652,13 @@ prefs_create_dialog(void)
     case PREF_NONE:
       widget = gtk_frame_new(gettext(prefs_data[i].label_text));
       gtk_widget_show (widget);
-      gtk_table_attach (current_table, widget, 0, 2,
-			row, row + 1,
-			GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
-      current_table = GTK_TABLE(gtk_table_new (9, 2, FALSE));
-      gtk_container_add(GTK_CONTAINER(widget), GTK_WIDGET(current_table));
-      gtk_widget_show(GTK_WIDGET(current_table));
+      gtk_widget_set_halign (GTK_WIDGET (widget), GTK_ALIGN_FILL);
+      gtk_widget_set_hexpand (GTK_WIDGET (widget), TRUE);
+      gtk_widget_set_valign (GTK_WIDGET (widget), GTK_ALIGN_FILL);
+      gtk_grid_attach (current_table, widget, 0, row, 2, 1);
+      current_table = GTK_GRID (gtk_grid_new ());
+      gtk_container_add (GTK_CONTAINER (widget), GTK_WIDGET (current_table));
+      gtk_widget_show (GTK_WIDGET (current_table));
       break;
     case PREF_END_GROUP:
       current_table = top_table;
@@ -665,24 +666,27 @@ prefs_create_dialog(void)
     case PREF_BOOLEAN:
       widget = gtk_check_button_new_with_label (gettext(prefs_data[i].label_text));
       gtk_widget_show (widget);
-      gtk_table_attach (current_table, widget, 0, 2,
-			row, row + 1,
-			GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
+      gtk_widget_set_halign (GTK_WIDGET (widget), GTK_ALIGN_FILL);
+      gtk_widget_set_hexpand (GTK_WIDGET (widget), TRUE);
+      gtk_widget_set_valign (GTK_WIDGET (widget), GTK_ALIGN_FILL);
+      gtk_grid_attach (current_table, widget, 0, row, 2, 1);
       break;
     default:
       label = gtk_label_new (gettext(prefs_data[i].label_text));
-      gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.3);
+      gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+      gtk_label_set_yalign (GTK_LABEL (label), 0.3);
       gtk_widget_show (label);
       
-      gtk_table_attach (current_table, label, 0, 1,
-			row, row + 1,
-			GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
+      gtk_widget_set_halign (GTK_WIDGET (label), GTK_ALIGN_FILL);
+      gtk_widget_set_hexpand (GTK_WIDGET (label), TRUE);
+      gtk_widget_set_valign (GTK_WIDGET (label), GTK_ALIGN_FILL);
+      gtk_grid_attach (current_table, label, 0, row, 1, 1);
       
       widget = prefs_get_property_widget(&prefs_data[i]);
       if (widget != NULL) {
-	gtk_table_attach (current_table, widget, 1, 2,
-			  row, row + 1,
-			  GTK_FILL, GTK_FILL, 1, 1);
+        gtk_widget_set_halign (GTK_WIDGET (widget), GTK_ALIGN_FILL);
+        gtk_widget_set_valign (GTK_WIDGET (widget), GTK_ALIGN_FILL);
+        gtk_grid_attach (current_table, widget, 1, row, 1, 1);
       }
       break;
     }

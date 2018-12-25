@@ -26,6 +26,7 @@
 G_DECLARE_FINAL_TYPE (DiaFontSelector, dia_font_selector, DIA, FONT_SELECTOR, GtkFontButton)
 
 struct _DiaFontSelector {
+	GtkFontButton parent;
 };
 
 GtkWidget* dia_font_selector_new             (void);

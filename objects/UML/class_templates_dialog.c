@@ -428,7 +428,8 @@ _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
 
-  table = gtk_table_new (2, 2, FALSE);
+  table = gtk_grid_new ();
+  gtk_grid_set_row_spacing (GTK_GRID (table), 2);
   gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
 
   label = gtk_label_new(_("Name:"));
@@ -438,9 +439,15 @@ _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		    G_CALLBACK (templates_update_event), umlclass); 
   g_signal_connect (G_OBJECT (entry), "activate",
 		    G_CALLBACK (templates_update), umlclass); 
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
+
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_widget_set_halign (GTK_WIDGET (label), GTK_ALIGN_FILL);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
+
+  gtk_widget_set_halign (GTK_WIDGET (entry), GTK_ALIGN_FILL);
+  gtk_widget_set_hexpand (GTK_WIDGET (entry), TRUE);
+  gtk_grid_attach (GTK_GRID (table), entry, 1, 0, 1, 1);
 
   label = gtk_label_new(_("Type:"));
   entry = gtk_entry_new();
@@ -449,9 +456,16 @@ _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 		    G_CALLBACK (templates_update_event), umlclass);
   g_signal_connect (G_OBJECT (entry), "activate",
 		    G_CALLBACK (templates_update), umlclass);
-  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
+
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
+  gtk_widget_set_halign (GTK_WIDGET (label), GTK_ALIGN_FILL);
+  gtk_grid_attach (GTK_GRID (table), label, 0, 1, 1, 1);
+
+  gtk_widget_set_halign (GTK_WIDGET (entry), GTK_ALIGN_FILL);
+  gtk_widget_set_hexpand (GTK_WIDGET (entry), TRUE);
+  gtk_grid_attach (GTK_GRID (table), entry, 1, 1, 1, 1);
+
 
   gtk_widget_show(vbox2);
   
