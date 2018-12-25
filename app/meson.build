@@ -63,7 +63,7 @@ dia_sources = [
     'main.c'
 ]
 
-dia = executable('dia',
+executable('dia',
     dia_sources + [dia_app_icons_h],
     dependencies : [libgtk_dep, libxml_dep, libm_dep],
     link_with : libdia,
