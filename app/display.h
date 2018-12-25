@@ -83,8 +83,6 @@ struct _DDisplay {
   DiaRenderer *renderer;
   
   GSList *update_areas;           /* Update areas list                 */
-  GSList *display_areas;          /* Display areas list                */
-  guint update_id;                /* idle handler ID for redraws       */
 
   GtkIMContext *im_context;
 
@@ -135,9 +133,6 @@ void ddisplay_add_update_all(DDisplay *ddisp);
 void ddisplay_add_update_with_border(DDisplay *ddisp, const Rectangle *rect,
 				     int pixel_border);
 void ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect);
-void ddisplay_add_display_area(DDisplay *ddisp,
-			       int left, int top,
-			       int right, int bottom);
 void ddisplay_flush(DDisplay *ddisp);
 void ddisplay_update_scrollbars(DDisplay *ddisp);
 void ddisplay_set_origo(DDisplay *ddisp,

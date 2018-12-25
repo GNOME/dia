@@ -378,10 +378,6 @@ canvas_configure_event (GtkWidget         *widget,
   return new_size;
 }
 
-/* Got when an area previously obscured need to be redrawn.
- * Needs GDK_EXPOSURE_MASK.
- * Gone with gtk+-3.0 or better replaced by "draw".
- */
 static gboolean
 canvas_draw (GtkWidget      *widget,
              cairo_t        *ctx,
@@ -391,12 +387,6 @@ canvas_draw (GtkWidget      *widget,
   Rectangle *r, totrect;
   DiaInteractiveRendererInterface *renderer;
 
-  /* Add all the area (hangover from expose) */
-  ddisplay_add_display_area (ddisp,
-                             0, 0,
-                             gtk_widget_get_allocated_width (widget),
-                             gtk_widget_get_allocated_height (widget));
-  
   g_return_val_if_fail (ddisp->renderer != NULL, FALSE);
 
   /* Renders updates to pixmap + copies display_areas to canvas(screen) */
@@ -422,13 +412,13 @@ canvas_draw (GtkWidget      *widget,
       l = g_slist_next(l);
     }
     /* Free update_areas list: */
-    l = ddisp->display_areas;
+    l = ddisp->update_areas;
     while(l!=NULL) {
       g_free(l->data);
       l = g_slist_next(l);
     }
-    g_slist_free(ddisp->display_areas);
-    ddisp->display_areas = NULL;
+    g_slist_free(ddisp->update_areas);
+    ddisp->update_areas = NULL;
 
     totrect.left -= 0.1;
     totrect.right += 0.1;
@@ -438,27 +428,10 @@ canvas_draw (GtkWidget      *widget,
     ddisplay_render_pixmap(ddisp, &totrect);
   }
 
-  l = ddisp->display_areas;
-  while(l!=NULL) {
-    g_return_val_if_fail (renderer->copy_to_window, FALSE);
-    renderer->copy_to_window(ddisp->renderer, 
-                             ctx,
-                             0, 0,
-                             gtk_widget_get_allocated_width (widget),
-                             gtk_widget_get_allocated_height (widget));
-    
-    l = g_slist_next(l);
-  }
-
-  l = ddisp->display_areas;
-  while(l!=NULL) {
-    g_free(l->data);
-    l = g_slist_next(l);
-  }
-  g_slist_free(ddisp->display_areas);
-  ddisp->display_areas = NULL;
-
-  ddisp->update_id = 0;
+  dia_interactive_renderer_paint (ddisp->renderer,
+                                  ctx,
+                                  gtk_widget_get_allocated_width (widget),
+                                  gtk_widget_get_allocated_height (widget));
 
   return FALSE;
 }

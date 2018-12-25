@@ -304,10 +304,11 @@ struct _DiaInteractiveRendererInterface
   void (*fill_pixel_rect)      (DiaRenderer *renderer,
                                 int x, int y, int width, int height,
                                 GdkRGBA *color);
-  /*! Copy already rendered content to the given window */
-  void (*copy_to_window)      (DiaRenderer *renderer,
+  /*! Copy already rendered content to the given context */
+  void (*paint)               (DiaRenderer *renderer,
                                cairo_t     *ctx, 
-                               int x, int y, int width, int height);
+                               int          width,
+                               int          height);
   /*! Support for drawing selected objects highlighted */
   void (*draw_object_highlighted) (DiaRenderer *renderer,
 				   DiaObject *object,
@@ -315,6 +316,12 @@ struct _DiaInteractiveRendererInterface
 };
 
 GType dia_interactive_renderer_interface_get_type (void) G_GNUC_CONST;
+
+void dia_interactive_renderer_paint (DiaRenderer *renderer,
+                                     cairo_t     *ctx, 
+                                     int          width,
+                                     int          height);
+
 /*!
  * \brief Size adjustment to the given window
  * \memberof DiaInteractiveRendererInterface

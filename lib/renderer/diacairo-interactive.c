@@ -81,9 +81,10 @@ static void fill_pixel_rect(DiaRenderer *renderer,
 static void set_size (DiaRenderer *renderer, 
                       gpointer window,
                       int width, int height);
-static void copy_to_window (DiaRenderer *renderer, 
-                cairo_t *ctx,
-                int x, int y, int width, int height);
+static void paint        (DiaRenderer *renderer, 
+                          cairo_t     *ctx,
+                          int          width,
+                          int          height);
 
 static void cairo_interactive_renderer_get_property (GObject         *object,
 			 guint            prop_id,
@@ -269,7 +270,7 @@ dia_cairo_interactive_renderer_iface_init (DiaInteractiveRendererInterface* ifac
   iface->draw_pixel_line = draw_pixel_line;
   iface->draw_pixel_rect = draw_pixel_rect;
   iface->fill_pixel_rect = fill_pixel_rect;
-  iface->copy_to_window = copy_to_window;
+  iface->paint = paint;
   iface->set_size = set_size;
   iface->draw_object_highlighted = draw_object_highlighted;
 }
@@ -460,16 +461,19 @@ set_size(DiaRenderer *object, gpointer window,
 }
 
 static void
-copy_to_window (DiaRenderer *object, cairo_t *ctx,
-                int x, int y, int width, int height)
+paint (DiaRenderer *object,
+       cairo_t     *ctx,
+       int          width,
+       int          height)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
 
+  cairo_save (ctx);
   cairo_set_source_surface (ctx, renderer->pixmap, 0.0, 0.0);
-  cairo_rectangle (ctx, x, y, width > 0 ? width : -width, height > 0 ? height : -height);
+  cairo_rectangle (ctx, 0, 0, width > 0 ? width : -width, height > 0 ? height : -height);
   cairo_clip (ctx);
   cairo_paint (ctx);
-  cairo_destroy (ctx);
+  cairo_restore (ctx);
 }
 
 static void

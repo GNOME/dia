@@ -198,8 +198,6 @@ copy_display(DDisplay *orig_ddisp)
   ddisp->aa_renderer = orig_ddisp->aa_renderer;
   
   ddisp->update_areas = orig_ddisp->update_areas;
-  ddisp->display_areas = orig_ddisp->display_areas;
-  ddisp->update_id = 0;
 
   ddisp->clicked_position.x = ddisp->clicked_position.y = 0.0;
   
@@ -257,8 +255,6 @@ new_display(Diagram *dia)
     ddisp->aa_renderer = (preset > 0 ? TRUE : FALSE);
   
   ddisp->update_areas = NULL;
-  ddisp->display_areas = NULL;
-  ddisp->update_id = 0;
 
   ddisp->clicked_position.x = ddisp->clicked_position.y = 0.0;
 
@@ -361,20 +357,6 @@ ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
   ddisplay_add_update(ddisp, &rect);
 }
 
-/** Free display_areas list */
-static void
-ddisplay_free_display_areas(DDisplay *ddisp)
-{
-  GSList *l;
-  l = ddisp->display_areas;
-  while(l!=NULL) {
-    g_free(l->data);
-    l = g_slist_next(l);
-  }
-  g_slist_free(ddisp->display_areas);
-  ddisp->display_areas = NULL;
-}
-
 /** Free update_areas list */
 static void
 ddisplay_free_update_areas(DDisplay *ddisp)
@@ -397,9 +379,6 @@ ddisplay_add_update_all(DDisplay *ddisp)
 {
   if (ddisp->update_areas != NULL) {
     ddisplay_free_update_areas(ddisp);
-  }
-  if (ddisp->display_areas != NULL) {
-    ddisplay_free_display_areas(ddisp);
   }
   ddisplay_add_update(ddisp, &ddisp->visible);
 }
@@ -425,8 +404,6 @@ void
 ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect)
 {
   Rectangle *r;
-  int top,bottom,left,right;
-  Rectangle *visible;
   int width, height;
 
   if (!ddisp->renderer)
@@ -449,122 +426,7 @@ ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect)
     rectangle_intersection(r, &ddisp->visible);
   }
   
-  visible = &ddisp->visible;
-  left = floor( (r->left - visible->left)  * (real)width /
-		(visible->right - visible->left) ) - 1;
-  top = floor( (r->top - visible->top)  * (real)height /
-	       (visible->bottom - visible->top) ) - 1; 
-  right = ceil( (r->right - visible->left)  * (real)width /
-		(visible->right - visible->left) ) + 1;
-  bottom = ceil( (r->bottom - visible->top)  * (real)height /
-		 (visible->bottom - visible->top) ) + 1;
-
-  ddisplay_add_display_area(ddisp,
-			    left, top, 
-			    right, bottom);
-}
-
-void
-ddisplay_add_display_area(DDisplay *ddisp,
-			  int left, int top,
-			  int right, int bottom)
-{
-  IRectangle *r;
-
-  if (!ddisp->renderer)
-    return; /* if we don't have a renderer yet prefer ignoring over crashing */
-  if (left < 0)
-    left = 0;
-  if (top < 0)
-    top = 0;
-  if (right > dia_renderer_get_width_pixels (ddisp->renderer))
-    right = dia_renderer_get_width_pixels (ddisp->renderer); 
-  if (bottom > dia_renderer_get_height_pixels (ddisp->renderer))
-    bottom = dia_renderer_get_height_pixels (ddisp->renderer); 
-  
-  /* draw some rectangles to show where updates are...*/
-  /*
-  gdk_draw_rectangle(gtk_widget_get_window(ddisp->canvas), 
-		     gtk_widget_get_style(ddisp->canvas)->black_gc, TRUE, 
-		     left, top, right-left,bottom-top);
-   */
-  /* Temporarily just do a union of all Irectangles: */
-  if (ddisp->display_areas==NULL) {
-    r = g_new(IRectangle,1);
-    r->top = top; r->bottom = bottom;
-    r->left = left; r->right = right;
-    ddisp->display_areas = g_slist_prepend(ddisp->display_areas, r);
-  } else {
-    r = (IRectangle *) ddisp->display_areas->data;
-  
-    r->top = MIN( r->top, top );
-    r->bottom = MAX( r->bottom, bottom );
-    r->left = MIN( r->left, left );
-    r->right = MAX( r->right, right );
-  }
-}
-
-static gboolean
-ddisplay_update_handler(DDisplay *ddisp)
-{
-  GSList *l;
-  IRectangle *ir;
-  Rectangle *r, totrect;
-  DiaInteractiveRendererInterface *renderer;
-
-  g_return_val_if_fail (ddisp->renderer != NULL, FALSE);
-
-  /* Renders updates to pixmap + copies display_areas to canvas(screen) */
-  renderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
-
-  /* Only update if update_areas exist */
-  l = ddisp->update_areas;
-  if (l != NULL)
-  {
-    totrect = *(Rectangle *) l->data;
-  
-    g_return_val_if_fail (   renderer->clip_region_clear != NULL
-                          && renderer->clip_region_add_rect != NULL, FALSE);
-
-    renderer->clip_region_clear (ddisp->renderer);
-
-    while(l!=NULL) {
-      r = (Rectangle *) l->data;
-
-      rectangle_union(&totrect, r);
-      renderer->clip_region_add_rect (ddisp->renderer, r);
-      
-      l = g_slist_next(l);
-    }
-    /* Free update_areas list: */
-    ddisplay_free_update_areas(ddisp);
-
-    totrect.left -= 0.1;
-    totrect.right += 0.1;
-    totrect.top -= 0.1;
-    totrect.bottom += 0.1;
-    
-    ddisplay_render_pixmap(ddisp, &totrect);
-  }
-
-  l = ddisp->display_areas;
-  while(l!=NULL) {
-    ir = (IRectangle *) l->data;
-
-    g_return_val_if_fail (renderer->copy_to_window, FALSE);
-    renderer->copy_to_window(ddisp->renderer, 
-                             gtk_widget_get_window(ddisp->canvas),
-                             ir->left, ir->top,
-                             ir->right - ir->left, ir->bottom - ir->top);
-    
-    l = g_slist_next(l);
-  }
-
-  ddisplay_free_display_areas(ddisp);
-
-  ddisp->update_id = 0;
-
-  return FALSE;
+  gtk_widget_queue_draw (ddisp->canvas);
 }
 
 void
@@ -578,13 +440,7 @@ ddisplay_flush(DDisplay *ddisp)
    * GTK_PRIORITY_RESIZE = (G_PRIORITY_HIGH_IDLE + 10)
    * Dia's canvas rendering is in between
    */
-  /*if (!ddisp->update_id)
-    ddisp->update_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE+15, (GSourceFunc)ddisplay_update_handler, ddisp, NULL);*/
   gtk_widget_queue_draw (ddisp->canvas);
-  if (ddisp->display_areas) {
-    IRectangle *r = (IRectangle *)ddisp->display_areas->data;
-    dia_log_message ("DispUpdt: %4d,%3d - %4d,%3d\n", r->left, r->top, r->right, r->bottom);
-  }
 }
 
 static void
@@ -1100,12 +956,6 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
   GdkWindow *window = gtk_widget_get_window(ddisp->canvas);
   GtkAllocation alloc;
 
-  /* dont mix new renderer with old updates */
-  if (ddisp->update_id) {
-    g_source_remove (ddisp->update_id);
-    ddisp->update_id = 0;
-  }
-
   if (ddisp->renderer)
     g_object_unref (ddisp->renderer);
 
@@ -1217,10 +1067,6 @@ are_you_sure_close_dialog_respond(GtkWidget *widget, /* the dialog */
     if (close_ddisp) /* saving succeeded */
       recent_file_history_add(ddisp->diagram->filename);
 
-    if (ddisp->update_id && close_ddisp) {
-      g_source_remove (ddisp->update_id);
-      ddisp->update_id = 0;
-    }
     /* fall through */
   case GTK_RESPONSE_NO :
     if (close_ddisp)
@@ -1346,12 +1192,6 @@ ddisplay_really_destroy(DDisplay *ddisp)
 {
   if (active_display == ddisp)
     display_set_active(NULL);
-
-  /* last chance to avoid crashing in the idle update */
-  if (ddisp->update_id) {
-    g_source_remove (ddisp->update_id);
-    ddisp->update_id = 0;
-  }
   
   if (ddisp->diagram) {
     diagram_remove_ddisplay(ddisp->diagram, ddisp);
@@ -1365,8 +1205,6 @@ ddisplay_really_destroy(DDisplay *ddisp)
 
   /* Free update_areas list: */
   ddisplay_free_update_areas(ddisp);
-  /* Free display_areas list */
-  ddisplay_free_display_areas(ddisp);
 
   g_free(ddisp);
 }
