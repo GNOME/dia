@@ -58,89 +58,82 @@ G_DEFINE_TYPE (DiaRuler, dia_ruler, GTK_TYPE_DRAWING_AREA)
 
 static gboolean
 dia_ruler_draw (GtkWidget *widget,
-		cairo_t   *cr)
+                cairo_t   *cr)
 {
   DiaRuler *ruler = DIA_RULER(widget);
+  GtkStyleContext *style_context = gtk_widget_get_style_context (widget);
+  PangoLayout *layout;
+  int x, y, dx, dy, width, height;
+  GdkRGBA fg;
+  real pos;
 
-      GtkStyle *style = gtk_widget_get_style (widget);
-      PangoLayout *layout;
-      int x, y, dx, dy, width, height;
-      real pos;
+  gtk_style_context_get_color (style_context, gtk_widget_get_state (widget), &fg);
 
-      layout = gtk_widget_create_pango_layout (widget, "012456789");
+  layout = gtk_widget_create_pango_layout (widget, "012456789");
 
-      width = gtk_widget_get_allocated_width (widget);
-      height = gtk_widget_get_allocated_height (widget);
+  width = gtk_widget_get_allocated_width (widget);
+  height = gtk_widget_get_allocated_height (widget);
 
-      dx = (ruler->orientation == GTK_ORIENTATION_VERTICAL) ? width/3 : 0;
-      dy = (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? height/3 : 0;
+  dx = (ruler->orientation == GTK_ORIENTATION_VERTICAL) ? width/3 : 0;
+  dy = (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? height/3 : 0;
 
-      gdk_cairo_set_source_rgba (cr, &style->text[gtk_widget_get_state(widget)]);
-      cairo_set_line_width (cr, 1);
+  gdk_cairo_set_source_rgba (cr, &fg);
+  cairo_set_line_width (cr, 1);
 
-      pos = ruler->lower;
-      for (x = 0, y = 0; x < width && y < height;)
-        {
-	  gboolean is_major;
-	  int n;
-
-	  if (!grid_step (ruler->ddisp, ruler->orientation, &pos,
-	                  (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? &x : &y,
-			  &is_major))
-	    break;
-
-	  /* ticks */
-	  n = (is_major ? 1 : 2);
-	  /* + .5 for pixel aligned lines */
-	  cairo_move_to (cr, x + 3*dx + .5, y + 3*dy + .5);
-	  cairo_line_to (cr, x + n*dx + .5, y + n*dy + .5);
-	  cairo_stroke (cr);
-
-	  /* label */
-	  if (is_major)
-	    {
-	      gchar text[G_ASCII_DTOSTR_BUF_SIZE*2];
-
-	      g_snprintf (text, sizeof(text)-1, "<small>%g</small>", pos);
-	      pango_layout_set_markup (layout, text, -1);
-	      pango_layout_context_changed (layout);
-	      cairo_save (cr);
-	      if (ruler->orientation == GTK_ORIENTATION_VERTICAL)
-	        {
-		  cairo_translate (cr, x, y);
-		  cairo_rotate (cr, -G_PI/2.0);
-		  cairo_move_to (cr, 2, 0);
-		}
-	      else
-		{
-		  cairo_move_to (cr, x+2, 0);
-		}
-	      pango_cairo_show_layout (cr, layout);
-	      cairo_restore (cr);
-	    }
+  pos = ruler->lower;
+  for (x = 0, y = 0; x < width && y < height;) {
+    gboolean is_major;
+    int n;
+    
+    if (!grid_step (ruler->ddisp, ruler->orientation, &pos,
+                    (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? &x : &y,
+                    &is_major))
+      break;
+      
+    /* ticks */
+    n = (is_major ? 1 : 2);
+    /* + .5 for pixel aligned lines */
+    cairo_move_to (cr, x + 3*dx + .5, y + 3*dy + .5);
+    cairo_line_to (cr, x + n*dx + .5, y + n*dy + .5);
+    cairo_stroke (cr);
+    
+    /* label */
+    if (is_major) {
+      gchar text[G_ASCII_DTOSTR_BUF_SIZE*2];
+      
+      g_snprintf (text, sizeof(text)-1, "<small>%g</small>", pos);
+      pango_layout_set_markup (layout, text, -1);
+      pango_layout_context_changed (layout);
+      cairo_save (cr);
+      if (ruler->orientation == GTK_ORIENTATION_VERTICAL) {
+        cairo_translate (cr, x, y);
+        cairo_rotate (cr, -G_PI/2.0);
+        cairo_move_to (cr, 2, 0);
+      } else {
+        cairo_move_to (cr, x+2, 0);
+      }
+      pango_cairo_show_layout (cr, layout);
+      cairo_restore (cr);
+    }
 	}
-      g_object_unref (layout);
-      /* arrow */
-      if (ruler->position > ruler->lower && ruler->position < ruler->upper)
-	{
-	  real pos = ruler->position;
-	  if (ruler->orientation == GTK_ORIENTATION_VERTICAL)
-	    {
-	      ddisplay_transform_coords (ruler->ddisp, 0, pos, &x, &y);
-	      cairo_move_to (cr, 3*dx, y);
-	      cairo_line_to (cr, 2*dx, y - dx);
-	      cairo_line_to (cr, 2*dx, y + dx);
-	      cairo_fill (cr);
-	    }
-	  else
-	    {
-	      ddisplay_transform_coords (ruler->ddisp, pos, 0, &x, &y);
-	      cairo_move_to (cr, x, 3*dy);
-	      cairo_line_to (cr, x + dy, 2*dy);
-	      cairo_line_to (cr, x - dy, 2*dy);
-	      cairo_fill (cr);
-	    }
-	}
+  g_object_unref (layout);
+  /* arrow */
+  if (ruler->position > ruler->lower && ruler->position < ruler->upper) {
+    real pos = ruler->position;
+    if (ruler->orientation == GTK_ORIENTATION_VERTICAL) {
+      ddisplay_transform_coords (ruler->ddisp, 0, pos, &x, &y);
+      cairo_move_to (cr, 3*dx, y);
+      cairo_line_to (cr, 2*dx, y - dx);
+      cairo_line_to (cr, 2*dx, y + dx);
+      cairo_fill (cr);
+    } else {
+      ddisplay_transform_coords (ruler->ddisp, pos, 0, &x, &y);
+      cairo_move_to (cr, x, 3*dy);
+      cairo_line_to (cr, x + dy, 2*dy);
+      cairo_line_to (cr, x - dy, 2*dy);
+      cairo_fill (cr);
+    }
+  }
   return FALSE;
 }
 
