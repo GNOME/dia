@@ -1,6 +1,7 @@
 dblatex = find_program('dblatex')
+xsltproc = find_program('xsltproc')
 
-DBMAN = 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl'
+DB2MAN = 'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl'
 
 subdir('en')
 
