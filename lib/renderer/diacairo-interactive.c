@@ -48,9 +48,9 @@ struct _DiaCairoInteractiveRenderer
   Rectangle *visible;
   real *zoom_factor;
 
-  cairo_surface_t *pixmap;        /* The pixmap shown in this display  */
-  guint32 width;                  /* The width of the pixmap in pixels */
-  guint32 height;                 /* The height of the pixmap in pixels */
+  cairo_surface_t *surface;       /* The surface shown in this display  */
+  guint32 width;                  /* The width of the surface in pixels */
+  guint32 height;                 /* The height of the surface in pixels */
   cairo_region_t *clip_region;
 
   /** If non-NULL, this rendering is a highlighting with the given color. */
@@ -130,7 +130,7 @@ cairo_interactive_renderer_init (DiaCairoInteractiveRenderer *object, void *p)
   
   dia_renderer->is_interactive = 1;
   
-  renderer->pixmap = NULL;
+  renderer->surface = NULL;
 
   renderer->highlight_color = NULL;
 }
@@ -144,8 +144,8 @@ cairo_interactive_renderer_finalize (GObject *object)
   if (base_renderer->cr)
     cairo_destroy (base_renderer->cr);
   base_renderer->cr = NULL;
-  if (renderer->pixmap)
-    cairo_surface_destroy (renderer->pixmap);
+  if (renderer->surface)
+    cairo_surface_destroy (renderer->surface);
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -323,7 +323,7 @@ begin_render(DiaRenderer *self, const Rectangle *update)
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (self);
 
   g_return_if_fail (base_renderer->cr == NULL);
-  base_renderer->cr = cairo_create(renderer->pixmap);
+  base_renderer->cr = cairo_create (renderer->surface);
 
   /* Setup clipping for this sequence of render operations */
   /* Must be done before the scaling because the clip is in pixel coords */
@@ -452,9 +452,9 @@ set_size(DiaRenderer *object, gpointer window,
 
   renderer->width = width;
   renderer->height = height;
-  renderer->pixmap = gdk_window_create_similar_surface (GDK_WINDOW (window),
-                                                        CAIRO_CONTENT_COLOR,
-                                                        width, height);
+  renderer->surface = gdk_window_create_similar_surface (GDK_WINDOW (window),
+                                                         CAIRO_CONTENT_COLOR,
+                                                         width, height);
 
   if (base_renderer->surface != NULL)
     cairo_surface_destroy(base_renderer->surface);
@@ -469,7 +469,7 @@ paint (DiaRenderer *object,
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
 
   cairo_save (ctx);
-  cairo_set_source_surface (ctx, renderer->pixmap, 0.0, 0.0);
+  cairo_set_source_surface (ctx, renderer->surface, 0.0, 0.0);
   cairo_rectangle (ctx, 0, 0, width > 0 ? width : -width, height > 0 ? height : -height);
   cairo_clip (ctx);
   cairo_paint (ctx);
