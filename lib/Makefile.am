@@ -193,9 +193,8 @@ libdia_la_SOURCES =  \
 		diaarrowchooser.c \
 		diaarrowselector.c \
 		diacolorselector.c \
-		dialinestyleselector.c \
-		dialinechooser.h \
-		dialinechooser.c \
+		dia-line-style-selector-popover.c \
+		dia-line-style-selector.c \
 		diadynamicmenu.h \
 		diadynamicmenu.c \
 		diafontselector.h \

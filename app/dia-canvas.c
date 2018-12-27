@@ -1,6 +1,3 @@
-/* Minimal reimplementation of GtkList, prototyped in Vala */
-
-
 #include <glib.h>
 #include <gtk/gtk.h>
 

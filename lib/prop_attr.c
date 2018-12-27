@@ -72,15 +72,15 @@ linestyleprop_get_widget(LinestyleProperty *prop, PropDialog *dialog)
 static void 
 linestyleprop_reset_widget(LinestyleProperty *prop, WIDGET *widget)
 {
-  dia_line_style_selector_set_linestyle(DIALINESTYLESELECTOR(widget),
-                                        prop->style,
-                                        prop->dash);
+  dia_line_style_selector_set_line_style (DIA_LINE_STYLE_SELECTOR(widget),
+                                          prop->style,
+                                          prop->dash);
 }
 
 static void 
 linestyleprop_set_from_widget(LinestyleProperty *prop, WIDGET *widget) 
 {
-  dia_line_style_selector_get_linestyle(DIALINESTYLESELECTOR(widget),
+  dia_line_style_selector_get_line_style(DIA_LINE_STYLE_SELECTOR(widget),
                                         &prop->style,
                                         &prop->dash);
 }

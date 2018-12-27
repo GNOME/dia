@@ -25,25 +25,12 @@
 #include "font.h"
 #include "arrows.h"
 #include "units.h"
+#include "dia-line-style-selector.h"
 
 /* DiaAlignmentSelector: */
 GtkWidget* dia_alignment_selector_new           (void);
 Alignment  dia_alignment_selector_get_alignment (GtkWidget *as);
 void       dia_alignment_selector_set_alignment (GtkWidget *as, Alignment align);
-
-/* DiaLineStyleSelector: */
-#define DIALINESTYLESELECTOR(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, dia_line_style_selector_get_type (), DiaLineStyleSelector)
-#define DIALINESTYLESELECTOR_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, dia_line_style_selector_get_type (), DiaLineStyleSelectorClass)
-#define IS_DIALINESTYLESELECTOR(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, dia_line_style_selector_get_type ())
-
-GType      dia_line_style_selector_get_type      (void);
-GtkWidget* dia_line_style_selector_new           (void);
-void       dia_line_style_selector_get_linestyle (DiaLineStyleSelector *as,
-						  LineStyle *linestyle, 
-						  real *dashlength);
-void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
-						  LineStyle linestyle,
-						  real dashlength);
 
 /* DiaColorSelector: */
 #define DIACOLORSELECTOR(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, dia_color_selector_get_type (), DiaColorSelector)
