@@ -47,6 +47,7 @@
 #include "object.h"
 #include "disp_callbacks.h"
 #include "create.h"
+#include "dia-canvas.h"
 
 typedef struct {
 	GdkEvent *event; /* Button down event which may be holding */
@@ -687,8 +688,8 @@ hold_timeout_handler(gpointer data)
  */
 gint
 ddisplay_canvas_events (GtkWidget *canvas,
-			GdkEvent  *event,
-			DDisplay *ddisp)
+                        GdkEvent  *event,
+                        gpointer   data)
 {
   GdkEventMotion *mevent;
   GdkEventButton *bevent;
@@ -705,6 +706,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
   int key_handled;
   int im_context_used;
   static gboolean moving = FALSE;
+  DDisplay *ddisp = dia_canvas_get_ddisplay (DIA_CANVAS (canvas));
   
   return_val = FALSE;
  

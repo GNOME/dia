@@ -125,6 +125,8 @@ dia_core_files = \
 	connectionpoint_ops.c \
 	disp_callbacks.c \
 	disp_callbacks.h \
+	dia-canvas.c \
+	dia-canvas.h \
 	display.c \
 	display.h \
 	select.c \

@@ -27,7 +27,7 @@ gint ddisplay_focus_out_event (GtkWidget *widget, GdkEventFocus *event,
 void ddisplay_realize (GtkWidget *widget, gpointer data);
 void ddisplay_unrealize (GtkWidget *widget, gpointer data);
 
-gint ddisplay_canvas_events (GtkWidget *, GdkEvent *, DDisplay *ddisp);
+gint ddisplay_canvas_events (GtkWidget *, GdkEvent *, gpointer data);
 void ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event);
 gint ddisplay_hsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
 gint ddisplay_vsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);

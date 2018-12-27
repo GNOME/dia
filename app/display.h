@@ -112,8 +112,20 @@ struct _DDisplay {
 
 extern GdkCursor *default_cursor;
 
-DDisplay *new_display(Diagram *dia);
-DDisplay *copy_display(DDisplay *orig_ddisp);
+typedef struct _DDisplayBox DDisplayBox;
+
+struct _DDisplayBox {
+  DDisplay *ddisp;
+};
+
+#define DIA_TYPE_DISPLAY (ddisplay_get_type ())
+
+DDisplay *new_display       (Diagram  *dia);
+DDisplay *copy_display      (DDisplay *orig_ddisp);
+void      ddisp_destroy     (DDisplay *ddisp);
+GType     ddisplay_get_type ();
+DDisplayBox *display_box_new (DDisplay *ddisp);
+
 /* Normal destroy is done through shell widget destroy event. */
 void ddisplay_really_destroy(DDisplay *ddisp); 
 void ddisplay_transform_coords_double(DDisplay *ddisp,

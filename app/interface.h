@@ -59,4 +59,13 @@ void fill_sheet_menu(void);
 
 void close_notebook_page_callback (GtkButton *button, gpointer user_data);
 
+void dia_dnd_file_drag_data_received (GtkWidget        *widget,
+                                      GdkDragContext   *context,
+                                      gint              x,
+                                      gint              y,
+                                      GtkSelectionData *data,
+                                      guint             info,
+                                      guint             time,
+                                      DDisplay         *ddisp);
+
 #endif /* INTERFACE_H */

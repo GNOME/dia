@@ -48,6 +48,39 @@
 #include "recent_files.h"
 #include "filedlg.h"
 
+static gpointer
+display_box_copy (gpointer box)
+{
+  DDisplayBox *src = (DDisplayBox *) box;
+  DDisplayBox *dest = g_slice_new (DDisplayBox);
+
+  g_return_val_if_fail (src != NULL, NULL);
+
+  dest->ddisp = src->ddisp;
+
+  return dest;
+}
+
+static void
+display_box_free (gpointer box)
+{
+  g_slice_free (DDisplayBox, box);
+}
+
+DDisplayBox *
+display_box_new (DDisplay *ddisp)
+{
+  DDisplayBox *dest = g_slice_new (DDisplayBox);
+
+  g_return_val_if_fail (ddisp != NULL, NULL);
+
+  dest->ddisp = ddisp;
+
+  return dest;
+}
+
+G_DEFINE_BOXED_TYPE (DDisplayBox, ddisplay, display_box_copy, display_box_free)
+
 static GdkCursor *current_cursor = NULL;
 
 GdkCursor *default_cursor = NULL;
@@ -1016,7 +1049,7 @@ ddisplay_active_diagram(void)
   return ddisp->diagram;
 }
 
-static void 
+void 
 ddisp_destroy(DDisplay *ddisp)
 {
   g_signal_handlers_disconnect_by_func (ddisp->diagram, selection_changed, ddisp);
