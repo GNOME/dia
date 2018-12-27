@@ -576,9 +576,9 @@ prefs_create_dialog(void)
 			_("Preferences"),
 			GTK_WINDOW(interface_get_toolbox_shell()),
 			GTK_DIALOG_DESTROY_WITH_PARENT,
-			GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-			GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
-			GTK_STOCK_OK, GTK_RESPONSE_OK,
+      _("Close"), GTK_RESPONSE_CLOSE,
+      _("Apply"), GTK_RESPONSE_APPLY,
+      _("Okay"), GTK_RESPONSE_OK,
 			NULL);
   gtk_dialog_set_default_response (GTK_DIALOG(prefs_dialog), GTK_RESPONSE_OK);
   gtk_window_set_resizable (GTK_WINDOW (prefs_dialog), TRUE);

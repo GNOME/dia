@@ -161,11 +161,11 @@ static void layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_edit_layer(DiaLayerWidget *layer_widget, Diagram *dia, Layer *layer);
 
 static ButtonData buttons[] = {
-  { GTK_STOCK_ADD, layer_dialog_new_callback, N_("New Layer") },
-  { GTK_STOCK_EDIT, layer_dialog_rename_callback, N_("Rename Layer") },
-  { GTK_STOCK_GO_UP, layer_dialog_raise_callback, N_("Raise Layer") },
-  { GTK_STOCK_GO_DOWN, layer_dialog_lower_callback, N_("Lower Layer") },
-  { GTK_STOCK_DELETE, layer_dialog_delete_callback, N_("Delete Layer") },
+  { "list-add-symbolic", layer_dialog_new_callback, N_("New Layer") },
+  { "document-edit-symbolic", layer_dialog_rename_callback, N_("Rename Layer") },
+  { "go-up-symbolic", layer_dialog_raise_callback, N_("Raise Layer") },
+  { "go-down-symbolic", layer_dialog_lower_callback, N_("Lower Layer") },
+  { "list-remove-symbolic", layer_dialog_delete_callback, N_("Delete Layer") },
 };
 
 enum {
@@ -185,7 +185,7 @@ static int num_buttons = sizeof(buttons)/sizeof(ButtonData);
 #define INSENSITIVE 2
 
 static GtkWidget *
-create_button_box(GtkWidget *parent, gboolean show_labels)
+create_button_box(GtkWidget *parent)
 {
   GtkWidget *button;
   GtkWidget *button_box;
@@ -195,22 +195,9 @@ create_button_box(GtkWidget *parent, gboolean show_labels)
   gtk_box_set_homogeneous (GTK_BOX (button_box), TRUE);
 
   for (i=0;i<num_buttons;i++) {
-    if (show_labels == TRUE)
-    {
-    button = gtk_button_new_from_stock(buttons[i].stock_name);
-    }
-    else
-    {
-      GtkWidget * image;
- 
-      button = gtk_button_new ();
-      
-      image = gtk_image_new_from_stock (buttons[i].stock_name,
-                                        GTK_ICON_SIZE_BUTTON);
-
-      gtk_button_set_image (GTK_BUTTON (button), image);
-    }
-
+    button = gtk_button_new_from_icon_name (buttons[i].stock_name,
+                                            GTK_ICON_SIZE_BUTTON);
+    
     g_signal_connect_swapped (G_OBJECT (button), "clicked",
 			      G_CALLBACK(buttons[i].callback),
 			      G_OBJECT (parent));
@@ -318,8 +305,8 @@ GtkWidget * create_layer_view_widget (void)
   gtk_widget_modify_style (hide_button, rcstyle);
   g_object_unref (rcstyle);
 
-  image = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
-                                    GTK_ICON_SIZE_MENU);
+  image = gtk_image_new_from_icon_name ("window-close-symbolic",
+                                        GTK_ICON_SIZE_MENU);
 
   gtk_container_add (GTK_CONTAINER(hide_button), image);
   g_signal_connect (G_OBJECT (hide_button), "clicked", 
@@ -330,7 +317,7 @@ GtkWidget * create_layer_view_widget (void)
   gtk_box_pack_start (GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
   gtk_widget_show_all (hbox);
 
-  button_box = create_button_box(vbox, FALSE);
+  button_box = create_button_box(vbox);
   
   gtk_box_pack_start (GTK_BOX (vbox), button_box, FALSE, FALSE, 2);
   gtk_widget_show (button_box);
@@ -423,7 +410,7 @@ layer_dialog_create(void)
   g_signal_connect (G_OBJECT (list), "event",
 		    G_CALLBACK (layer_list_events), NULL);
 
-  button_box = create_button_box(dialog, TRUE);
+  button_box = create_button_box(dialog);
   
   gtk_box_pack_start (GTK_BOX (vbox), button_box, FALSE, FALSE, 2);
   gtk_widget_show (button_box);
@@ -432,7 +419,7 @@ layer_dialog_create(void)
 				 gtk_dialog_get_action_area (GTK_DIALOG(dialog))),
 				 2);
 
-  button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
+  button = gtk_button_new_with_label (_("Close"));
   gtk_box_pack_start (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG(dialog))), 
 		      button, TRUE, TRUE, 0);
   g_signal_connect_swapped(G_OBJECT (button), "clicked",
@@ -1177,7 +1164,7 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *laye
   gtk_widget_show (dialog->name_entry);
   gtk_widget_show (hbox);
 
-  button = gtk_button_new_from_stock (GTK_STOCK_OK);
+  button = gtk_button_new_with_label (_("Okay"));
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
   gtk_box_pack_start (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG (dialog->dialog))), 
 		      button, TRUE, TRUE, 0);
@@ -1194,7 +1181,7 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *laye
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
 
-  button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
+  button = gtk_button_new_with_label (_("Cancel"));
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
   gtk_box_pack_start (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG (dialog->dialog))), 
 		      button, TRUE, TRUE, 0);

@@ -454,10 +454,10 @@ _make_button_box_for_view (GtkTreeView *view, GtkTreeView *master_view)
     const gchar *stock;
     GCallback    callback;
   } _button_data[] = {
-    { GTK_STOCK_ADD,     G_CALLBACK (_insert_row_callback) },
-    { GTK_STOCK_REMOVE,  G_CALLBACK (_remove_row_callback) },
-    { GTK_STOCK_GO_UP,   G_CALLBACK (_upper_row_callback) },
-    { GTK_STOCK_GO_DOWN, G_CALLBACK (_lower_row_callback) },
+    { N_("Add"),     G_CALLBACK (_insert_row_callback) },
+    { N_("Remove"),  G_CALLBACK (_remove_row_callback) },
+    { N_("Up"),      G_CALLBACK (_upper_row_callback) },
+    { N_("Down"),    G_CALLBACK (_lower_row_callback) },
     { NULL, NULL }
   };
   GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
@@ -465,7 +465,7 @@ _make_button_box_for_view (GtkTreeView *view, GtkTreeView *master_view)
   int i;
 
   for (i = 0; _button_data[i].stock != NULL; ++i) {
-    button = gtk_button_new_from_stock (_button_data[i].stock);
+    button = gtk_button_new_with_label (_button_data[i].stock);
     /* start with everything disabled ... */
     gtk_widget_set_sensitive (button, FALSE);
     g_signal_connect (G_OBJECT (button), "clicked",

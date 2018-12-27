@@ -207,7 +207,7 @@ get_plugin_manager(void)
   dialog = gtk_dialog_new_with_buttons(
 		_("Plugins"),
 		NULL, 0,
-		GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+		_("Close"), GTK_RESPONSE_CLOSE,
 		NULL);
 
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_CLOSE);

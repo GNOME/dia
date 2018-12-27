@@ -115,7 +115,7 @@ dia_canvas_size_allocate (GtkWidget     *self,
 
   /* Only do this when size is really changing */
   if (width != alloc->width || height != alloc->height) {
-    g_message ("Canvas size change...\n");
+    g_message ("Canvas size change...");
     ddisplay_resize_canvas (ddisp, alloc->width, alloc->height);
     ddisplay_update_scrollbars(ddisp);
   }

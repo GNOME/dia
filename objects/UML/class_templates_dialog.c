@@ -396,22 +396,22 @@ _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   vbox2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
-  button = gtk_button_new_from_stock (GTK_STOCK_NEW);
+  button = gtk_button_new_with_label (_("New"));
   g_signal_connect (G_OBJECT (button), "clicked",
 		    G_CALLBACK(templates_list_new_callback), umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_DELETE);
+  button = gtk_button_new_with_label (_("Delete"));
   g_signal_connect (G_OBJECT (button), "clicked",
 		    G_CALLBACK(templates_list_delete_callback), umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_GO_UP);
+  button = gtk_button_new_with_label (_("Up"));
   g_signal_connect (G_OBJECT (button), "clicked",
 		    G_CALLBACK(templates_list_move_up_callback), umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_GO_DOWN);
+  button = gtk_button_new_with_label (_("Down"));
   g_signal_connect (G_OBJECT (button), "clicked",
 		    G_CALLBACK(templates_list_move_down_callback), umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);

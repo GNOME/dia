@@ -392,9 +392,9 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
     dialog = fs->dialog = 
       gtk_file_chooser_dialog_new (_("Select image file"), toplevel ? GTK_WINDOW(toplevel) : NULL,
                                    GTK_FILE_CHOOSER_ACTION_OPEN,
-                                   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				   GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-				   NULL);
+                                   _("Cancel"), GTK_RESPONSE_CANCEL,
+                                   _("Open"), GTK_RESPONSE_ACCEPT,
+                                   NULL);
     gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
     g_signal_connect(G_OBJECT(dialog), "response",
 		     G_CALLBACK(file_open_response_callback), NULL);     

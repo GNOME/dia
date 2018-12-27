@@ -77,9 +77,9 @@ create_page_setup_dlg(Diagram *dia)
 			_("Page Setup"),
 			GTK_WINDOW (ddisplay_active()->shell),
 			GTK_DIALOG_DESTROY_WITH_PARENT,
-			GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-			GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
-			GTK_STOCK_OK, GTK_RESPONSE_OK,
+      _("Close"), GTK_RESPONSE_CLOSE,
+      _("Apply"), GTK_RESPONSE_APPLY,
+      _("Okay"), GTK_RESPONSE_OK,
 			NULL);
   gtk_dialog_set_default_response (GTK_DIALOG(ps->window), GTK_RESPONSE_OK);
   vbox = gtk_dialog_get_content_area(GTK_DIALOG(ps->window));

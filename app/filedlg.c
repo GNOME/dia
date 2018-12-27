@@ -280,8 +280,8 @@ file_open_callback(GtkAction *action)
     persistence_register_integer ("import-filter", 0);
     opendlg = gtk_file_chooser_dialog_new(_("Open Diagram"), parent_window,
 					  GTK_FILE_CHOOSER_ACTION_OPEN,
-					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					  GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+					  _("Cancel"), GTK_RESPONSE_CANCEL,
+					  _("Open"), GTK_RESPONSE_ACCEPT,
 					  NULL);
     /* is activating gvfs really that easy - at least it works for samba shares*/
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER(opendlg), FALSE);
@@ -477,8 +477,8 @@ file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp)
     savedlg = gtk_file_chooser_dialog_new(_("Save Diagram"),
 					  GTK_WINDOW(ddisp->shell),
 					  GTK_FILE_CHOOSER_ACTION_SAVE,
-					  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					  GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+					  _("Cancel"), GTK_RESPONSE_CANCEL,
+					  _("Save"), GTK_RESPONSE_ACCEPT,
 					  NULL);
     /* vfs saving is as easy - if you see 'bad file descriptor' there is
      * something wrong with the permissions of the share ;) */
@@ -748,8 +748,8 @@ file_export_callback(GtkAction *action)
     exportdlg = gtk_file_chooser_dialog_new(_("Export Diagram"),
 					    GTK_WINDOW(ddisp->shell),
 					    GTK_FILE_CHOOSER_ACTION_SAVE,
-					    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-					    GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+					    _("Cancel"), GTK_RESPONSE_CANCEL,
+					    _("Save"), GTK_RESPONSE_ACCEPT,
 					    NULL);
     /* export via vfs gives: Permission denied - but only if you do not
      * have write permissions ;) */

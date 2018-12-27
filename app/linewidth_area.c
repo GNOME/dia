@@ -224,8 +224,8 @@ linewidth_create_dialog(GtkWindow *toplevel)
   linewidth_dialog = gtk_dialog_new_with_buttons(
 	_("Line width"), toplevel,
 	0,
-	GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-	GTK_STOCK_OK, GTK_RESPONSE_OK, 
+	_("Cancel"), GTK_RESPONSE_CANCEL,
+	_("Okay"), GTK_RESPONSE_OK, 
 	NULL);
   
   gtk_dialog_set_default_response (GTK_DIALOG(linewidth_dialog), GTK_RESPONSE_OK);

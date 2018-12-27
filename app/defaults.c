@@ -43,9 +43,9 @@ static void create_dialog()
   dialog = gtk_dialog_new_with_buttons(
              _("Object defaults"),
              NULL, 0,
-             GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-             GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
-             GTK_STOCK_OK, GTK_RESPONSE_OK,
+             _("Close"), GTK_RESPONSE_CLOSE,
+             _("Apply"), GTK_RESPONSE_APPLY,
+             _("Okay"), GTK_RESPONSE_OK,
              NULL);
 
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);

@@ -86,9 +86,9 @@ create_diagram_properties_dialog(Diagram *dia)
              _("Diagram Properties"),
              GTK_WINDOW(ddisplay_active()->shell),
              GTK_DIALOG_DESTROY_WITH_PARENT,
-             GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
-             GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
-             GTK_STOCK_OK, GTK_RESPONSE_OK,
+             _("Close"), GTK_RESPONSE_CANCEL,
+             _("Apply"), GTK_RESPONSE_APPLY,
+             _("Okay"), GTK_RESPONSE_OK,
              NULL);
 
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);

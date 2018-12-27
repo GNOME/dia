@@ -99,8 +99,8 @@ xslt_dialog_create(void) {
 	dialog = gtk_dialog_new_with_buttons(
              _("Export through XSLT"),
              NULL, 0,
-             GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-             GTK_STOCK_OK, GTK_RESPONSE_OK,
+             _("Cancel"), GTK_RESPONSE_CANCEL,
+             _("Okay"), GTK_RESPONSE_OK,
              NULL);
 	
 	gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);

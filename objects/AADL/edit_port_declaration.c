@@ -152,7 +152,7 @@ ObjectChange *edit_port_declaration_callback (DiaObject *obj,
   gtk_box_pack_start (GTK_BOX (vbox), entry, TRUE, TRUE, 0);  
   gtk_widget_show(entry);  
 
-  button = gtk_button_new_from_stock (GTK_STOCK_OK);
+  button = gtk_button_new_with_label (_("Okay"));
   gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
   gtk_widget_grab_default (button);
