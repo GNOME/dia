@@ -15,11 +15,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef COLOR_AREA_H
-#define COLOR_AREA_H
+#ifndef COLOUR_AREA_H
+#define COLOUR_AREA_H
 
 #include <gtk/gtk.h>
 
-GtkWidget *color_area_create (int width, int height);
+#include "color.h"
 
-#endif /* COLOR_AREA_H */
+#ifndef EVENT_APTR
+#define EVENT_APTR
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkEventBox, g_object_unref)
+#endif
+
+#define DIA_TYPE_COLOUR_AREA (dia_colour_area_get_type ())
+G_DECLARE_FINAL_TYPE (DiaColourArea, dia_colour_area, DIA, COLOUR_AREA, GtkEventBox)
+
+struct _DiaColourArea
+{
+  GtkEventBox parent;
+  int active_color;
+
+  GdkPixbuf *reset;
+  GdkPixbuf *swap;
+
+  GtkWidget *color_select;
+  int color_select_active;
+  int edit_color;
+  Color stored_foreground;
+  Color stored_background;
+};
+
+GtkWidget *dia_colour_area_new (int width, int height);
+
+#endif /* COLOUR_AREA_H */

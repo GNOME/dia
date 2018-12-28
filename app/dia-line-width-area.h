@@ -20,7 +20,24 @@
 
 #include <gtk/gtk.h>
 
-GtkWidget *linewidth_area_create (void);
+#ifndef EVENT_APTR
+#define EVENT_APTR
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkEventBox, g_object_unref)
+#endif
+
+#define DIA_TYPE_LINE_WIDTH_AREA (dia_line_width_area_get_type ())
+G_DECLARE_FINAL_TYPE (DiaLineWidthArea, dia_line_width_area, DIA, LINE_WIDTH_AREA, GtkEventBox)
+
+struct _DiaLineWidthArea
+{
+  GtkEventBox parent;
+
+  int active;
+  GtkWidget *dialog;
+  GtkWidget *button;
+};
+
+GtkWidget *dia_line_width_area_new ();
 
 
 #endif /* LINEWDITH_AREA_H */

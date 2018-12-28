@@ -27,13 +27,13 @@
 #include "diadynamicmenu.h"
 #include "attributes.h"
 #include "sheet.h"
-#include "color_area.h"
+#include "dia-colour-area.h"
+#include "dia-line-width-area.h"
 #include "intl.h"
 #include "message.h"
 #include "object.h"
 #include "widgets.h"
 
-#include "linewidth_area.h"
 #include "preferences.h"
 #include "persistence.h"
 
@@ -477,7 +477,7 @@ create_color_area (GtkWidget *parent)
   alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
   gtk_container_set_border_width (GTK_CONTAINER (alignment), 3);
 
-  col_area = color_area_create (54, 42);
+  col_area = dia_colour_area_new (54, 42);
   gtk_container_add (GTK_CONTAINER (alignment), col_area);
 
 
@@ -495,7 +495,7 @@ create_color_area (GtkWidget *parent)
   alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
   gtk_container_set_border_width (GTK_CONTAINER (alignment), 3);
 
-  line_area = linewidth_area_create ();
+  line_area = dia_line_width_area_new ();
   gtk_container_add (GTK_CONTAINER (alignment), line_area);
   gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
   gtk_widget_set_tooltip_text(line_area, _("Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."));
