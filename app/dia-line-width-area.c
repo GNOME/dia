@@ -243,6 +243,7 @@ dia_line_width_area_init (DiaLineWidthArea *self)
   self->active = linewidth_number_from_width (attributes_get_default_linewidth ());
 
   gtk_widget_set_events (GTK_WIDGET (self), GDK_BUTTON_PRESS_MASK);
+  gtk_widget_set_tooltip_text (GTK_WIDGET (self), _("Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."));
 }
 
 

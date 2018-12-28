@@ -866,7 +866,7 @@ create_integrated_ui (void)
   gtk_widget_show (notebook);
 
   /* Toolbox widget */
-  wrapbox = toolbox_create();
+  wrapbox = dia_toolbox_new();
   gtk_box_pack_start (GTK_BOX (hbox), wrapbox, FALSE, TRUE, 0);
 
   g_signal_connect (G_OBJECT (wrapbox), "drag_data_received",
@@ -944,7 +944,7 @@ create_toolbox ()
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
 
-  wrapbox = toolbox_create();
+  wrapbox = dia_toolbox_new();
   gtk_box_pack_end (GTK_BOX (main_vbox), wrapbox, TRUE, TRUE, 0);
   g_signal_connect (G_OBJECT (wrapbox), "drag_data_received",
 		    G_CALLBACK (dia_dnd_file_drag_data_received),

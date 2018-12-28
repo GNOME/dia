@@ -263,6 +263,12 @@ dia_colour_area_init (DiaColourArea *self)
   self->color_select_active = 0;
 
   gtk_widget_set_events (GTK_WIDGET (self), GDK_BUTTON_PRESS_MASK);
+
+  gtk_widget_set_tooltip_text (GTK_WIDGET (self), 
+      _("Foreground & background colors for new objects.  "
+        "The small black and white squares reset colors.  "
+        "The small arrows swap colors.  Double-click to "
+        "change colors."));
 }
 
 GtkWidget *

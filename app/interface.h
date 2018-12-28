@@ -55,8 +55,6 @@ extern GtkWidget *modify_tool_button;
 
 void view_zoom_set (float zoom_factor); /* zoom_factor is 10 * percentage */
 
-void fill_sheet_menu(void);
-
 void close_notebook_page_callback (GtkButton *button, gpointer user_data);
 
 void dia_dnd_file_drag_data_received (GtkWidget        *widget,

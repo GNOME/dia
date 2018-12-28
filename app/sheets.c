@@ -39,7 +39,6 @@
 #include "sheets.h"
 #include "sheets_dialog.h"
 #include "intl.h"
-#include "gtkhwrapbox.h"
 #include "preferences.h"
 #include "toolbox.h" /* just for interface_current_sheet_name */
 #include "commands.h" /* sheets_dialog_show_callback */
@@ -82,7 +81,7 @@ sheets_append_sheet_object_mod(SheetObject *so, SheetMod *sm)
 /* Given a Sheet, create a SheetMod wrapper for a list of SheetObjectMod's */
 
 SheetMod *
-sheets_append_sheet_mods(Sheet *sheet)
+sheets_append_sheet_mods(DiaSheet *sheet)
 {
   SheetMod *sheet_mod;
   GSList *sheet_objects_list;
@@ -123,8 +122,9 @@ menu_item_compare_labels(gconstpointer a, gconstpointer b)
 }
 
 void
-sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
-                         gchar *sheet_name)
+sheets_optionmenu_create (GtkWidget *option_menu,
+                          GtkWidget *wrapbox,
+                          gchar     *sheet_name)
 {
   GSList *sheets_list;
   GList *menu_item_list;
@@ -274,12 +274,10 @@ sheets_dialog_create(void)
   wrapbox = gtk_bin_get_child (GTK_BIN(sw));
   if (wrapbox)
     gtk_container_remove(GTK_CONTAINER(sw), wrapbox);
-  wrapbox = gtk_hwrap_box_new(FALSE);
+  wrapbox = gtk_grid_new ();
   g_object_ref(wrapbox);
   g_object_set_data(G_OBJECT(sheets_dialog), "wrapbox_right", wrapbox);
   gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(sw), wrapbox);
-  gtk_wrap_box_set_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_TOP);
-  gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_LEFT);
   gtk_widget_show(wrapbox);
   g_object_set_data(G_OBJECT(wrapbox), "is_left", FALSE);
   option_menu = lookup_widget(sheets_dialog, "optionmenu_right");
@@ -290,12 +288,10 @@ sheets_dialog_create(void)
   wrapbox = gtk_bin_get_child (GTK_BIN(sw));
   if (wrapbox)
     gtk_container_remove(GTK_CONTAINER(sw), wrapbox);
-  wrapbox = gtk_hwrap_box_new(FALSE);
+  wrapbox = gtk_grid_new ();
   g_object_ref(wrapbox);
   g_object_set_data(G_OBJECT(sheets_dialog), "wrapbox_left", wrapbox);
   gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(sw), wrapbox);
-  gtk_wrap_box_set_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_TOP);
-  gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_LEFT);
   gtk_widget_show(wrapbox);
   g_object_set_data(G_OBJECT(wrapbox), "is_left", (gpointer)TRUE);
   option_menu = lookup_widget(sheets_dialog, "optionmenu_left");

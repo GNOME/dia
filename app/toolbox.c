@@ -19,8 +19,6 @@
 #include <config.h>
 
 #include <gtk/gtk.h>
-#include "gtkwrapbox.h"
-#include "gtkhwrapbox.h"
 
 #include "diaarrowchooser.h"
 #include "diadynamicmenu.h"
@@ -42,6 +40,8 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "dia-app-icons.h"
+
+G_DEFINE_TYPE (DiaToolbox, dia_toolbox, GTK_TYPE_BOX)
 
 /* HB: file dnd stuff lent by The Gimp, not fully understood but working ...
  */
@@ -175,12 +175,12 @@ const int num_tools = NUM_TOOLS;
 
 static GtkWidget *tool_widgets[NUM_TOOLS];
 
-static Sheet *
+static DiaSheet *
 get_sheet_by_name(const gchar *name)
 {
   GSList *tmp;
   for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
-    Sheet *sheet = tmp->data;
+    DiaSheet *sheet = tmp->data;
     /* There is something fishy with comparing both forms: the english and the localized one.
      * But we should be on the safe side here, especially when bug #328570 gets tackled.
      */
@@ -242,8 +242,9 @@ tool_setup_drag_source(GtkWidget *button, ToolButtonData *tooldata,
 }
 
 static void
-fill_sheet_wbox(Sheet *sheet)
+fill_sheet_wbox (DiaToolbox *self, DiaSheet *sheet)
 {
+  int i = 0;
   int rows;
   GSList *tmp;
   GtkWidget *first_button = NULL;
@@ -258,8 +259,6 @@ fill_sheet_wbox(Sheet *sheet)
   /* set the aspect ratio on the wbox */
   rows = ceil(g_slist_length(sheet->objects) / (double)COLUMNS);
   if (rows<1) rows = 1;
-  gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(sheet_wbox),
-				COLUMNS * 1.0 / rows);
   for (tmp = sheet->objects; tmp != NULL; tmp = tmp->next) {
     SheetObject *sheet_obj = tmp->data;
     GdkPixbuf *pixbuf = NULL;
@@ -310,9 +309,13 @@ fill_sheet_wbox(Sheet *sheet)
     gtk_container_add (GTK_CONTAINER (button), image);
     gtk_widget_show(image);
 
-    gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(sheet_wbox), button,
-		      FALSE, TRUE, FALSE, TRUE, sheet_obj->line_break);
+    gtk_grid_attach (GTK_GRID (self->items), button, i % COLUMNS, i / COLUMNS, 1, 1);
     gtk_widget_show(button);
+
+    if (sheet_obj->line_break) {
+      g_message ("Got a line break!");
+      i += i % COLUMNS;
+    }
 
     data = g_new(ToolButtonData, 1);
     data->type = CREATE_OBJECT_TOOL;
@@ -331,6 +334,8 @@ fill_sheet_wbox(Sheet *sheet)
     g_object_unref(pixbuf);
 
     gtk_widget_set_tooltip_text (button, gettext(sheet_obj->description));
+
+    i++;
   }
   /* If the selection is in the old sheet, steal it */
   if (active_tool != NULL &&
@@ -343,23 +348,23 @@ fill_sheet_wbox(Sheet *sheet)
 static void
 sheet_option_menu_changed (GtkListBox    *box,
                            GtkListBoxRow *row,
-                           gpointer       user_data)
+                           DiaToolbox    *self)
 {
   char *string;
-  Sheet *sheet;
+  DiaSheet *sheet;
 
   g_return_if_fail (DIA_IS_LIST_ITEM (row));
 
   string = dia_list_item_get_value (DIA_LIST_ITEM (row));
-  sheet = get_sheet_by_name(string);
+  sheet = get_sheet_by_name (string);
 
   if (sheet == NULL) {
-    message_warning(_("No sheet named %s"), string);
+    message_warning (_("No sheet named %s"), string);
   } else {
-    persistence_set_string("last-sheet-selected", string);
-    fill_sheet_wbox(sheet);
+    persistence_set_string ("last-sheet-selected", string);
+    fill_sheet_wbox (self, sheet);
   }
-  g_free(string);
+  g_free (string);
 }
 
 static int
@@ -374,7 +379,7 @@ get_sheet_names()
   GSList *tmp;
   GList *names = NULL;
   for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
-    Sheet *sheet = tmp->data;
+    DiaSheet *sheet = tmp->data;
     names = g_list_append(names, sheet->name);
   }
   /* Already sorted in lib/ but here we sort by the localized (display-)name */
@@ -412,7 +417,7 @@ render_row (gpointer item, gpointer user_data)
 }
 
 static void
-create_sheet_dropdown_menu(GtkWidget *parent)
+create_sheet_dropdown_menu (DiaToolbox *self)
 {
   GListStore *sheets = g_list_store_new (DIA_TYPE_SHEET_META);
   GList *sheet_names = get_sheet_names();
@@ -424,7 +429,7 @@ create_sheet_dropdown_menu(GtkWidget *parent)
   GtkWidget *list;
 
   if (sheet_option_menu != NULL) {
-    gtk_container_remove(GTK_CONTAINER(parent), sheet_option_menu);
+    gtk_container_remove (GTK_CONTAINER (self), sheet_option_menu);
     sheet_option_menu = NULL;
   }
 
@@ -466,118 +471,78 @@ create_sheet_dropdown_menu(GtkWidget *parent)
   gtk_menu_button_set_popover (GTK_MENU_BUTTON (sheet_option_menu), popover);
 
   g_signal_connect (G_OBJECT (list), "row-selected",
-		   G_CALLBACK(sheet_option_menu_changed), sheet_option_menu);
-  /*    gtk_widget_set_size_request(sheet_option_menu, 20, -1);*/
-  gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
-			    TRUE, TRUE, FALSE, FALSE, TRUE);    
-  /* 15 was a magic number that goes beyond the standard objects and the divider. */
-  gtk_wrap_box_reorder_child(GTK_WRAP_BOX(parent),
-			     sheet_option_menu, NUM_TOOLS+1);
+                    G_CALLBACK(sheet_option_menu_changed), self);
+  gtk_box_pack_start (GTK_BOX (self), sheet_option_menu, FALSE, FALSE, 0);
   gtk_widget_show(sheet_option_menu);
 }
 
-void
-fill_sheet_menu(void)
-{
-  /* TODO: gchar *selection = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(sheet_option_menu)); */
-  create_sheet_dropdown_menu(gtk_widget_get_parent(sheet_option_menu));
-  /* TODO: dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(sheet_option_menu), selection);
-  g_free(selection); */
-}
-
 static void
-create_sheets(GtkWidget *parent)
+create_sheets (DiaToolbox *self)
 {
   GtkWidget *separator;
-  GtkWidget *label;
   GtkWidget *swin;
   gchar *sheetname;
-  Sheet *sheet;
+  DiaSheet *sheet;
   
-  separator = gtk_hseparator_new ();
-  /* add a bit of padding around the separator */
-  label = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-  gtk_box_pack_start(GTK_BOX(label), separator, TRUE, TRUE, 3);
-  gtk_widget_show(label);
+  separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+  gtk_box_pack_start (GTK_BOX (self), separator, FALSE, FALSE, 0);
+  gtk_widget_show (separator);
 
-  gtk_wrap_box_pack_wrapped (GTK_WRAP_BOX(parent), label, TRUE,TRUE, FALSE,FALSE, TRUE);
-  gtk_widget_show(separator);
+  create_sheet_dropdown_menu (self);
 
-  create_sheet_dropdown_menu(parent);
+  swin = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swin),
+                                  GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_propagate_natural_height (GTK_SCROLLED_WINDOW (swin),
+                                                    TRUE);
+  gtk_box_pack_start (GTK_BOX (self), swin, FALSE, FALSE, 0);
+  gtk_widget_show (swin);
 
-  swin = gtk_scrolled_window_new(NULL, NULL);
-  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(swin),
-				 GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-  gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), swin, TRUE, TRUE, TRUE, TRUE, TRUE);
-  gtk_widget_show(swin);
+  self->items = gtk_grid_new ();
+  gtk_container_add (GTK_CONTAINER (swin), self->items);
+  gtk_widget_show (self->items);
 
-  sheet_wbox = gtk_hwrap_box_new(FALSE);
-  gtk_wrap_box_set_justify(GTK_WRAP_BOX(sheet_wbox), GTK_JUSTIFY_TOP);
-  gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(sheet_wbox), GTK_JUSTIFY_LEFT);
-  gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(swin), sheet_wbox);
-  gtk_widget_show(sheet_wbox);
-
-  sheetname = persistence_register_string("last-sheet-selected", _("Flowchart"));
-  sheet = get_sheet_by_name(sheetname);
+  sheetname = persistence_register_string ("last-sheet-selected", _("Flowchart"));
+  sheet = get_sheet_by_name (sheetname);
   if (sheet == NULL) {
     /* Couldn't find it */
   } else {
-    fill_sheet_wbox(sheet);
+    fill_sheet_wbox (self, sheet);
     /* TODO: dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
 				  sheetname); */
   }
-  g_free(sheetname);
+  g_free (sheetname);
+
+  separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+  gtk_box_pack_end (GTK_BOX (self), separator, FALSE, FALSE, 0);
+  gtk_widget_show (separator);
 }
 
 static void
-create_color_area (GtkWidget *parent)
+create_color_area (DiaToolbox *self)
 {
-  GtkWidget *frame;
-  GtkWidget *alignment;
   GtkWidget *col_area;
   GtkWidget *line_area;
   GtkWidget *hbox;
 
-  frame = gtk_frame_new (NULL);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
-  gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), frame, TRUE, TRUE, FALSE, FALSE, TRUE);
-
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
-  gtk_container_set_border_width (GTK_CONTAINER (hbox), 0);
-  gtk_container_add (GTK_CONTAINER (frame), hbox);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 8);
+  gtk_box_pack_end (GTK_BOX (self), hbox, FALSE, FALSE, 0);
   
   /* Color area: */
-  alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
-  gtk_container_set_border_width (GTK_CONTAINER (alignment), 3);
-  
   col_area = dia_colour_area_new (54, 42);
-  gtk_container_add (GTK_CONTAINER (alignment), col_area);
-
-
-  gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
-
-  gtk_widget_set_tooltip_text (col_area, 
-			_("Foreground & background colors for new objects.  "
-			  "The small black and white squares reset colors.  "
-			  "The small arrows swap colors.  Double-click to "
-			  "change colors."));
-
-  gtk_widget_show (alignment);
+  gtk_widget_set_halign (col_area, GTK_ALIGN_CENTER);
+  gtk_widget_set_valign (col_area, GTK_ALIGN_CENTER);
+  gtk_box_pack_start (GTK_BOX (hbox), col_area, TRUE, TRUE, 0);
   
   /* Linewidth area: */
-  alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
-  gtk_container_set_border_width (GTK_CONTAINER (alignment), 3);
-  
   line_area = dia_line_width_area_new ();
-  gtk_container_add (GTK_CONTAINER (alignment), line_area);
-  gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
-  gtk_widget_set_tooltip_text(line_area, _("Line widths.  Click on a line to set the default line width for new objects.  Double-click to set the line width more precisely."));
-  gtk_widget_show (alignment);
+  gtk_widget_set_halign (col_area, GTK_ALIGN_CENTER);
+  gtk_widget_set_valign (col_area, GTK_ALIGN_CENTER);
+  gtk_box_pack_start (GTK_BOX (hbox), line_area, TRUE, TRUE, 0);
 
   gtk_widget_show (col_area);
   gtk_widget_show (line_area);
   gtk_widget_show (hbox);
-  gtk_widget_show (frame);
 }
 
 static void
@@ -600,48 +565,55 @@ change_line_style(DiaLineStyleSelector *selector, gpointer user_data)
 }
 
 static void
-create_lineprops_area(GtkWidget *parent)
+create_lineprops_area (DiaToolbox *self)
 {
+  GtkWidget *box;
   GtkWidget *chooser;
   Arrow arrow;
   real dash_length;
   LineStyle style;
   gchar *arrow_name;
 
-  chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL);
-  gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE, TRUE);
-  arrow.width = persistence_register_real("start-arrow-width", DEFAULT_ARROW_WIDTH);
-  arrow.length = persistence_register_real("start-arrow-length", DEFAULT_ARROW_LENGTH);
-  arrow_name = persistence_register_string("start-arrow-type", "None");
-  arrow.type = arrow_type_from_name(arrow_name);
-  g_free(arrow_name);
-  dia_arrow_chooser_set_arrow(DIA_ARROW_CHOOSER(chooser), &arrow);
-  attributes_set_default_start_arrow(arrow);
-  gtk_widget_set_tooltip_text(chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details\342\200\246"));
-  gtk_widget_show(chooser);
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_box_set_homogeneous (GTK_BOX (box), TRUE);
+  gtk_style_context_add_class (gtk_widget_get_style_context (box),
+                               GTK_STYLE_CLASS_LINKED);
+  gtk_box_pack_end (GTK_BOX (self), box, FALSE, FALSE, 0);
+  gtk_widget_show (box);
+
+  chooser = dia_arrow_chooser_new (TRUE, change_start_arrow_style, NULL);
+  gtk_container_add (GTK_CONTAINER (box), chooser);
+  arrow.width = persistence_register_real ("start-arrow-width", DEFAULT_ARROW_WIDTH);
+  arrow.length = persistence_register_real ("start-arrow-length", DEFAULT_ARROW_LENGTH);
+  arrow_name = persistence_register_string ("start-arrow-type", "None");
+  arrow.type = arrow_type_from_name (arrow_name);
+  g_free (arrow_name);
+  dia_arrow_chooser_set_arrow (DIA_ARROW_CHOOSER (chooser), &arrow);
+  attributes_set_default_start_arrow (arrow);
+  gtk_widget_set_tooltip_text (chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details\342\200\246"));
+  gtk_widget_show (chooser);
 
   chooser = dia_line_style_selector_new ();
   g_signal_connect (G_OBJECT (chooser), "value-changed",
                     G_CALLBACK (change_line_style), NULL);
-  gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, TRUE, TRUE, FALSE, TRUE);
+  gtk_container_add (GTK_CONTAINER (box), chooser);
   gtk_widget_set_tooltip_text (chooser, _("Line style for new lines.  Click to pick a line style, or set line style parameters with Details\342\200\246"));
-  style = persistence_register_integer("line-style", LINESTYLE_SOLID);
-  dash_length = persistence_register_real("dash-length", DEFAULT_LINESTYLE_DASHLEN);
+  style = persistence_register_integer ("line-style", LINESTYLE_SOLID);
+  dash_length = persistence_register_real ("dash-length", DEFAULT_LINESTYLE_DASHLEN);
   dia_line_style_selector_set_line_style (DIA_LINE_STYLE_SELECTOR (chooser), style, dash_length);
-  gtk_widget_show(chooser);
+  gtk_widget_show (chooser);
 
-  chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL);
-  arrow.width = persistence_register_real("end-arrow-width", DEFAULT_ARROW_WIDTH);
-  arrow.length = persistence_register_real("end-arrow-length", DEFAULT_ARROW_LENGTH);
-  arrow_name = persistence_register_string("end-arrow-type", "Filled Concave");
-  arrow.type = arrow_type_from_name(arrow_name);
-  g_free(arrow_name);
-  dia_arrow_chooser_set_arrow(DIA_ARROW_CHOOSER(chooser), &arrow);
-  attributes_set_default_end_arrow(arrow);
-
-  gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE);
-  gtk_widget_set_tooltip_text(chooser, _("Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details\342\200\246"));
-  gtk_widget_show(chooser);
+  chooser = dia_arrow_chooser_new (FALSE, change_end_arrow_style, NULL);
+  gtk_container_add (GTK_CONTAINER (box), chooser);
+  arrow.width = persistence_register_real ("end-arrow-width", DEFAULT_ARROW_WIDTH);
+  arrow.length = persistence_register_real ("end-arrow-length", DEFAULT_ARROW_LENGTH);
+  arrow_name = persistence_register_string ("end-arrow-type", "Filled Concave");
+  arrow.type = arrow_type_from_name (arrow_name);
+  g_free (arrow_name);
+  dia_arrow_chooser_set_arrow (DIA_ARROW_CHOOSER (chooser), &arrow);
+  attributes_set_default_end_arrow (arrow);
+  gtk_widget_set_tooltip_text (chooser, _("Arrow style at the end of new lines.  Click to pick an arrow, or set arrow parameters with Details\342\200\246"));
+  gtk_widget_show (chooser);
 }
 
 void
@@ -715,7 +687,7 @@ create_widget_from_xpm_or_gdkp(const char **icon_data, GtkWidget *button, GdkPix
 }
 
 static void
-create_tools(GtkWidget *parent)
+create_tools (DiaToolbox *self)
 {
   GtkWidget *button;
   GdkPixbuf *pixbuf = NULL;
@@ -724,15 +696,28 @@ create_tools(GtkWidget *parent)
   const char **pixmap_data;
   int i;
 
+  self->tools = gtk_grid_new ();
+  gtk_widget_show (self->tools);
+  gtk_box_pack_start (GTK_BOX (self), self->tools, FALSE, FALSE, 0);
+
   for (i = 0; i < NUM_TOOLS; i++) {
     tool_widgets[i] = button = gtk_radio_button_new (tool_group);
-    gtk_container_set_border_width (GTK_CONTAINER (button), 0);
-    gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_HALF);
+    gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
     tool_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (button));
     gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
 
-    gtk_wrap_box_pack(GTK_WRAP_BOX(parent), button,
-		      TRUE, TRUE, FALSE, TRUE);
+/*
+
+  0     1     2     3 
+  0, 0  0, 1  0, 2  0, 3
+  4     5     6     7 
+  1, 0  1, 1  1, 2  1, 3
+  8     9     10    11
+  2, 0  2, 1  2, 2  2, 3
+
+*/
+
+    gtk_grid_attach (GTK_GRID (self->tools), button, i % COLUMNS, i / COLUMNS, 1, 1);
 
     if (tool_data[i].callback_data.type == MODIFY_TOOL) {
       modify_tool_button = GTK_WIDGET(button);
@@ -740,12 +725,11 @@ create_tools(GtkWidget *parent)
     
     if (tool_data[i].icon_data==NULL) {
       DiaObjectType *type;
-      type =
-	object_get_type((char *)tool_data[i].callback_data.extra_data);
+      type = object_get_type((char *)tool_data[i].callback_data.extra_data);
       if (type == NULL)
-	pixmap_data = tool_data[0].icon_data;
+        pixmap_data = tool_data[0].icon_data;
       else
-	pixmap_data = type->pixmap;
+        pixmap_data = type->pixmap;
       image = create_widget_from_xpm_or_gdkp(pixmap_data, button, &pixbuf);
     } else {
       image = create_widget_from_xpm_or_gdkp(tool_data[i].icon_data, button, &pixbuf);
@@ -774,21 +758,19 @@ create_tools(GtkWidget *parent)
     tool_data[i].callback_data.widget = button;
 
     if (tool_data[i].tool_accelerator) {
-	guint key;
-	GdkModifierType mods;
-	gchar *alabel, *atip;
+      guint key;
+      GdkModifierType mods;
+      gchar *alabel, *atip;
 
-	gtk_accelerator_parse (tool_data[i].tool_accelerator, &key, &mods);
+      gtk_accelerator_parse (tool_data[i].tool_accelerator, &key, &mods);
 
-	alabel = gtk_accelerator_get_label(key, mods);
-	atip = g_strconcat(gettext(tool_data[i].tool_desc), " (", alabel, ")", NULL);
-	gtk_widget_set_tooltip_text (button, atip);
-	g_free (atip);
-	g_free (alabel);
-
+      alabel = gtk_accelerator_get_label(key, mods);
+      atip = g_strconcat(gettext(tool_data[i].tool_desc), " (", alabel, ")", NULL);
+      gtk_widget_set_tooltip_text (button, atip);
+      g_free (atip);
+      g_free (alabel);
     } else {
-	gtk_widget_set_tooltip_text (button,
-				gettext(tool_data[i].tool_desc));
+      gtk_widget_set_tooltip_text (button, gettext(tool_data[i].tool_desc));
     }
     
     gtk_widget_show (image);
@@ -796,33 +778,37 @@ create_tools(GtkWidget *parent)
   }
 }
 
-GtkWidget *
-toolbox_create(void)
+static void
+dia_toolbox_class_init (DiaToolboxClass *class)
 {
-  GtkWidget *wrapbox;
+  GtkWidgetClass *widget_class;
 
-  wrapbox = gtk_hwrap_box_new(FALSE);
-  gtk_wrap_box_set_aspect_ratio(GTK_WRAP_BOX(wrapbox), 144.0 / 318.0);
-  gtk_wrap_box_set_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_TOP);
-  gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(wrapbox), GTK_JUSTIFY_LEFT);
+  widget_class = GTK_WIDGET_CLASS (class);
+}
 
+static void
+dia_toolbox_init (DiaToolbox *self)
+{
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (self), GTK_ORIENTATION_VERTICAL);
+  gtk_box_set_spacing (GTK_BOX (self), 9);
+  gtk_widget_show (GTK_WIDGET (self));
 
-  /* pack the rest of the stuff */
-  gtk_container_set_border_width (GTK_CONTAINER (wrapbox), 0);
-  gtk_widget_show (wrapbox);
-
-  create_tools (wrapbox);
-  create_sheets (wrapbox);
-  create_color_area (wrapbox);
-  create_lineprops_area (wrapbox);
+  create_tools (self);
+  create_sheets (self);
+  create_lineprops_area (self);
+  create_color_area (self);
 
   /* Setup toolbox area as file drop destination */
-  gtk_drag_dest_set (wrapbox,
-		     GTK_DEST_DEFAULT_ALL,
-		     toolbox_target_table, toolbox_n_targets,
-		     GDK_ACTION_COPY);
+  gtk_drag_dest_set (GTK_WIDGET (self),
+                     GTK_DEST_DEFAULT_ALL,
+                     toolbox_target_table, toolbox_n_targets,
+                     GDK_ACTION_COPY);
+}
 
-  return wrapbox;
+GtkWidget *
+dia_toolbox_new ()
+{
+  return g_object_new (DIA_TYPE_TOOLBOX, NULL);
 }
 
 void

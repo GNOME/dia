@@ -1,5 +1,17 @@
 #include "tool.h"
 
+G_BEGIN_DECLS
+
+#define DIA_TYPE_TOOLBOX (dia_toolbox_get_type ())
+G_DECLARE_FINAL_TYPE (DiaToolbox, dia_toolbox, DIA, TOOLBOX, GtkBox)
+
+struct _DiaToolbox {
+  GtkBox parent;
+
+  GtkWidget *tools;
+  GtkWidget *items;
+};
+
 typedef struct _ToolButton ToolButton;
 
 typedef struct _ToolButtonData ToolButtonData;
@@ -30,7 +42,8 @@ GdkPixbuf *tool_get_pixbuf (ToolButton *tb);
 
 void toolbox_setup_drag_dest (GtkWidget *canvas);
 void canvas_setup_drag_dest (GtkWidget *canvas);
-GtkWidget *toolbox_create(void);
 
-void fill_sheet_menu(void);
+GtkWidget *dia_toolbox_new           ();
+void       dia_toolbox_update_sheets (DiaToolbox *self);
 
+G_END_DECLS

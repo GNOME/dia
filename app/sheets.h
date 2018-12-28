@@ -70,7 +70,7 @@ extern GtkWidget *sheets_dialog;
 extern GtkWidget *sheets_dialog_optionmenu_menu;
 
 SheetObjectMod *sheets_append_sheet_object_mod(SheetObject *so, SheetMod *sm);
-SheetMod *sheets_append_sheet_mods(Sheet *sheet);
+SheetMod *sheets_append_sheet_mods(DiaSheet *sheet);
 void sheets_optionmenu_create(GtkWidget *option_menu, GtkWidget *wrapbox,
                               gchar *sheet_name);
 void create_object_pixmap(SheetObject *so, GtkWidget *parent,

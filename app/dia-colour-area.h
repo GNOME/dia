@@ -20,6 +20,8 @@
 
 #include <gtk/gtk.h>
 
+G_BEGIN_DECLS
+
 #define DIA_TYPE_COLOUR_AREA (dia_colour_area_get_type ())
 G_DECLARE_FINAL_TYPE (DiaColourArea, dia_colour_area, DIA, COLOUR_AREA, GtkEventBox)
 
@@ -39,5 +41,7 @@ struct _DiaColourArea
 };
 
 GtkWidget *dia_colour_area_new (int width, int height);
+
+G_END_DECLS
 
 #endif /* COLOUR_AREA_H */
