@@ -15,12 +15,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef LINEWDITH_AREA_H
-#define LINEWDITH_AREA_H
+#ifndef COLOUR_AREA_H
+#define COLOUR_AREA_H
 
 #include <gtk/gtk.h>
 
-GtkWidget *linewidth_area_create (void);
+#define DIA_TYPE_COLOUR_AREA (dia_colour_area_get_type ())
+G_DECLARE_FINAL_TYPE (DiaColourArea, dia_colour_area, DIA, COLOUR_AREA, GtkEventBox)
 
+struct _DiaColourArea
+{
+  GtkEventBox parent;
+  int active_color;
+  
+  GdkPixbuf *reset;
+  GdkPixbuf *swap;
+  
+  GtkWidget *color_select;
+  int color_select_active;
+  int edit_color;
+  GdkRGBA stored_foreground;
+  GdkRGBA stored_background;
+};
 
-#endif /* LINEWDITH_AREA_H */
+GtkWidget *dia_colour_area_new (int width, int height);
+
+#endif /* COLOUR_AREA_H */

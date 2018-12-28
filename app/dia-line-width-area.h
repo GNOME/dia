@@ -15,11 +15,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef COLOR_AREA_H
-#define COLOR_AREA_H
+#ifndef LINEWDITH_AREA_H
+#define LINEWDITH_AREA_H
 
 #include <gtk/gtk.h>
 
-GtkWidget *color_area_create (int width, int height);
+#define DIA_TYPE_LINE_WIDTH_AREA (dia_line_width_area_get_type ())
+G_DECLARE_FINAL_TYPE (DiaLineWidthArea, dia_line_width_area, DIA, LINE_WIDTH_AREA, GtkEventBox)
 
-#endif /* COLOR_AREA_H */
+struct _DiaLineWidthArea
+{
+  GtkEventBox parent;
+
+  int active;
+  GtkWidget *dialog;
+  GtkWidget *button;
+};
+
+GtkWidget *dia_line_width_area_new ();
+
+
+#endif /* LINEWDITH_AREA_H */

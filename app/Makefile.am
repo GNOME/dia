@@ -131,10 +131,10 @@ dia_core_files = \
 	display.h \
 	select.c \
 	select.h \
-	color_area.c \
-	color_area.h \
-	linewidth_area.c \
-	linewidth_area.h \
+	dia-colour-area.c \
+	dia-colour-area.h \
+	dia-line-width-area.c \
+	dia-line-width-area.h \
 	grid.c \
 	grid.h \
 	handle_ops.c \
