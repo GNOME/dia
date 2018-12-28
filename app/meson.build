@@ -63,10 +63,15 @@ dia_sources = [
     'main.c'
 ]
 
+#FIXME: this is workaround for openbsd where libraries are in /usr/lib/local
+pkg_config = find_program('pkg-config')
+pkg_config_libdir = run_command(pkg_config, '--libs-only-L', 'libxml-2.0').stdout().strip()
+
 executable('dia',
     dia_sources + [dia_app_icons_h],
     dependencies : [libgtk_dep, libxml_dep, libm_dep],
-    link_with : libdia,
+    link_with : [libdia],
+    link_args: [pkg_config_libdir],
     include_directories : [configuration_inc, libdia_inc],
     gui_app : true,
     install : true,
