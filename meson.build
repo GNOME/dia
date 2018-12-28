@@ -6,6 +6,8 @@ project('dia',
         default_options : []
 )
 
+add_global_link_arguments('-lc', language: 'c')
+
 cc = meson.get_compiler('c')
 
 #GTK_MODULES="gtk+-2.0 >= 2.16.0 glib-2.0 >= 2.20.0 libxml-2.0 gdk-pixbuf-2.0 gthread-2.0 gmodule-2.0"
