@@ -6,7 +6,7 @@
 
 typedef struct {
     PyObject_HEAD
-    Sheet *sheet;
+    DiaSheet *sheet;
 } PyDiaSheet;
 
 extern PyTypeObject PyDiaSheet_Type;

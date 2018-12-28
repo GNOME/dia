@@ -514,7 +514,7 @@ dia_list_item_get_value (DiaListItem* self)
   g_return_val_if_fail (self != NULL, NULL);
 
   label = ((DiaListItemPrivate *) dia_list_item_get_instance_private (self))->label;
-  result = gtk_label_get_label (GTK_LABEL (label));
+  result = g_strdup (gtk_label_get_label (GTK_LABEL (label)));
 
   return result;
 }
@@ -528,7 +528,7 @@ dia_list_item_set_value (DiaListItem* self,
   g_return_if_fail (self != NULL);
 
   label = ((DiaListItemPrivate *) dia_list_item_get_instance_private (self))->label;
-  gtk_label_set_label (GTK_LABEL (label), value);
+  gtk_label_set_label (GTK_LABEL (label), g_strdup (value));
 
   g_object_notify_by_pspec ((GObject *) self, dia_list_item_properties[DIA_LIST_ITEM_VALUE_PROPERTY]);
 }

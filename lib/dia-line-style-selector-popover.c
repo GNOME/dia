@@ -23,23 +23,6 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-static gchar*
-build_ui_filename (const gchar* name)
-{
-  gchar* uifile;
-
-  if (g_getenv ("DIA_BASE_PATH") != NULL) {
-    /* a small hack cause the final destination and the local path differ */
-    const gchar* p = strrchr (name, '/');
-    if (p != NULL)
-      name = p+1;
-    uifile = g_build_filename (g_getenv ("DIA_BASE_PATH"), "data", name, NULL);
-  } else
-    uifile = dia_get_data_directory (name);
-
-  return uifile;
-}
-
 GtkWidget *
 dia_line_style_selector_popover_new ()
 {

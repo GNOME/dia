@@ -26,6 +26,7 @@
 #include "sheet.h"
 #include "dia-colour-area.h"
 #include "dia-line-width-area.h"
+#include "widgets/dia-sheet-chooser.h"
 #include "intl.h"
 #include "message.h"
 #include "object.h"
@@ -59,9 +60,6 @@ static GtkTargetEntry toolbox_target_table[] =
 
 static guint toolbox_n_targets = (sizeof (toolbox_target_table) /
                                  sizeof (toolbox_target_table[0]));
-
-static GtkWidget *sheet_option_menu;
-static GtkWidget *sheet_wbox;
 
 GtkWidget *modify_tool_button;
 gchar *interface_current_sheet_name;
@@ -245,20 +243,15 @@ static void
 fill_sheet_wbox (DiaToolbox *self, DiaSheet *sheet)
 {
   int i = 0;
-  int rows;
   GSList *tmp;
   GtkWidget *first_button = NULL;
-
-  gtk_container_foreach(GTK_CONTAINER(sheet_wbox),
-			(GtkCallback)gtk_widget_destroy, NULL);
-  tool_group = gtk_radio_button_get_group(GTK_RADIO_BUTTON(tool_widgets[0]));
+  gtk_container_foreach (GTK_CONTAINER (self->items),
+                         (GtkCallback) gtk_widget_destroy, NULL);
+  tool_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (tool_widgets[0]));
 
   /* Remember sheet 'name' for 'Sheets and Objects' dialog */
   interface_current_sheet_name = sheet->name;
 
-  /* set the aspect ratio on the wbox */
-  rows = ceil(g_slist_length(sheet->objects) / (double)COLUMNS);
-  if (rows<1) rows = 1;
   for (tmp = sheet->objects; tmp != NULL; tmp = tmp->next) {
     SheetObject *sheet_obj = tmp->data;
     GdkPixbuf *pixbuf = NULL;
@@ -273,22 +266,22 @@ fill_sheet_wbox (DiaToolbox *self, DiaSheet *sheet)
       
       pixbuf = gdk_pixbuf_new_from_file(sheet_obj->pixmap_file, &gerror);
       if (pixbuf != NULL) {
-          int width = gdk_pixbuf_get_width (pixbuf);
-          int height = gdk_pixbuf_get_height (pixbuf);
-          if (width > 22 && prefs.fixed_icon_size) {
-	    GdkPixbuf *cropped;
-	    g_warning ("Shape icon '%s' size wrong, cropped.", sheet_obj->pixmap_file);
-	    cropped = gdk_pixbuf_new_subpixbuf (pixbuf, 
-	                                       (width - 22) / 2, height > 22 ? (height - 22) / 2 : 0, 
-					       22, height > 22 ? 22 : height);
-	    g_object_unref (pixbuf);
-	    pixbuf = cropped;
-	  }
+        int width = gdk_pixbuf_get_width (pixbuf);
+        int height = gdk_pixbuf_get_height (pixbuf);
+        if (width > 22 && prefs.fixed_icon_size) {
+          GdkPixbuf *cropped;
+          g_warning ("Shape icon '%s' size wrong, cropped.", sheet_obj->pixmap_file);
+          cropped = gdk_pixbuf_new_subpixbuf (pixbuf, 
+                                            (width - 22) / 2, height > 22 ? (height - 22) / 2 : 0, 
+                    22, height > 22 ? 22 : height);
+          g_object_unref (pixbuf);
+          pixbuf = cropped;
+        }
       } else {
-          pixbuf = gdk_pixbuf_new_from_xpm_data (missing);
+        pixbuf = gdk_pixbuf_new_from_xpm_data (missing);
 
-          message_warning("failed to load icon for file\n %s\n cause=%s",
-                          sheet_obj->pixmap_file,gerror?gerror->message:"[NULL]");
+        message_warning("failed to load icon for file\n %s\n cause=%s",
+                        sheet_obj->pixmap_file,gerror?gerror->message:"[NULL]");
       }
     } else {
       DiaObjectType *type;
@@ -307,15 +300,13 @@ fill_sheet_wbox (DiaToolbox *self, DiaSheet *sheet)
     tool_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (button));
 
     gtk_container_add (GTK_CONTAINER (button), image);
-    gtk_widget_show(image);
-
-    gtk_grid_attach (GTK_GRID (self->items), button, i % COLUMNS, i / COLUMNS, 1, 1);
-    gtk_widget_show(button);
+    gtk_widget_show (image);
 
     if (sheet_obj->line_break) {
-      g_message ("Got a line break!");
-      i += i % COLUMNS;
+      i += COLUMNS - (i % COLUMNS);
     }
+    gtk_grid_attach (GTK_GRID (self->items), button, i % COLUMNS, i / COLUMNS, 1, 1);
+    gtk_widget_show (button);
 
     data = g_new(ToolButtonData, 1);
     data->type = CREATE_OBJECT_TOOL;
@@ -346,148 +337,59 @@ fill_sheet_wbox (DiaToolbox *self, DiaSheet *sheet)
 }
 
 static void
-sheet_option_menu_changed (GtkListBox    *box,
-                           GtkListBoxRow *row,
-                           DiaToolbox    *self)
+sheet_selected (DiaSheetChooser *chooser,
+                DiaSheet        *sheet,
+                DiaToolbox      *self)
 {
-  char *string;
-  DiaSheet *sheet;
-
-  g_return_if_fail (DIA_IS_LIST_ITEM (row));
-
-  string = dia_list_item_get_value (DIA_LIST_ITEM (row));
-  sheet = get_sheet_by_name (string);
-
-  if (sheet == NULL) {
-    message_warning (_("No sheet named %s"), string);
-  } else {
-    persistence_set_string ("last-sheet-selected", string);
-    fill_sheet_wbox (self, sheet);
-  }
-  g_free (string);
-}
-
-static int
-cmp_names (const void *a, const void *b)
-{
-  return g_utf8_collate(gettext( (gchar *)a ), gettext( (gchar *)b ));
-}
-
-static GList *
-get_sheet_names()
-{
-  GSList *tmp;
-  GList *names = NULL;
-  for (tmp = get_sheets_list(); tmp != NULL; tmp = tmp->next) {
-    DiaSheet *sheet = tmp->data;
-    names = g_list_append(names, sheet->name);
-  }
-  /* Already sorted in lib/ but here we sort by the localized (display-)name */
-  return g_list_sort (names, cmp_names);
-}
-
-#define DIA_TYPE_SHEET_META (dia_sheet_meta_get_type ())
-G_DECLARE_FINAL_TYPE (DiaSheetMeta, dia_sheet_meta, DIA, SHEET_META, GObject)
-
-struct _DiaSheetMeta {
-  GObject parent;
-  gchar *name;
-};
-
-G_DEFINE_TYPE (DiaSheetMeta, dia_sheet_meta, G_TYPE_OBJECT)
-
-static void
-dia_sheet_meta_class_init (DiaSheetMetaClass *klass)
-{
-
-}
-
-static void
-dia_sheet_meta_init (DiaSheetMeta *self)
-{
-  
-}
-
-static GtkWidget *
-render_row (gpointer item, gpointer user_data)
-{
-  GtkWidget *tmp = dia_list_item_new_with_label (DIA_SHEET_META (item)->name);
-  gtk_widget_show_all (tmp);
-  return tmp;
+  persistence_set_string ("last-sheet-selected", DIA_SHEET (sheet)->name);
+  fill_sheet_wbox (self, sheet);
 }
 
 static void
 create_sheet_dropdown_menu (DiaToolbox *self)
 {
-  GListStore *sheets = g_list_store_new (DIA_TYPE_SHEET_META);
-  GList *sheet_names = get_sheet_names();
-  DiaSheetMeta *meta;
-  GList *l;
-  GtkWidget *popover;
-  GtkWidget *frame;
-  GtkWidget *wrap;
-  GtkWidget *list;
+  GSList *sheets = get_sheets_list();
+  GSList *l;
+  GtkWidget *button;
+  DiaSheet *tmp;
 
-  if (sheet_option_menu != NULL) {
-    gtk_container_remove (GTK_CONTAINER (self), sheet_option_menu);
-    sheet_option_menu = NULL;
+  self->sheets = g_list_store_new (DIA_TYPE_SHEET);
+
+  /* TODO: Handle this & translations better */
+  tmp = get_sheet_by_name ("Assorted");
+  g_object_set_data (G_OBJECT (tmp), "dia-list-top", GINT_TO_POINTER (TRUE));
+  g_list_store_append (self->sheets, tmp);
+  tmp = get_sheet_by_name ("Flowchart");
+  g_object_set_data (G_OBJECT (tmp), "dia-list-top", GINT_TO_POINTER (TRUE));
+  g_list_store_append (self->sheets, tmp);
+  tmp = get_sheet_by_name ("UML");
+  g_object_set_data (G_OBJECT (tmp), "dia-list-top", GINT_TO_POINTER (TRUE));
+  g_list_store_append (self->sheets, tmp);
+
+  for (l = sheets; l != NULL; l = l->next) {
+    if (g_strcmp0 (DIA_SHEET (l->data)->name, "Assorted") == 0 ||
+        g_strcmp0 (DIA_SHEET (l->data)->name, "Flowchart") == 0 ||
+        g_strcmp0 (DIA_SHEET (l->data)->name, "UML") == 0) {
+      continue;
+    }
+    g_list_store_append (self->sheets, DIA_SHEET (l->data));
   }
 
-  meta = g_object_new (DIA_TYPE_SHEET_META, NULL);
-  meta->name = "Assorted";
-  g_list_store_append (sheets, meta);
-
-  meta = g_object_new (DIA_TYPE_SHEET_META, NULL);
-  meta->name = "Flowchart";
-  g_list_store_append (sheets, meta);
-
-  meta = g_object_new (DIA_TYPE_SHEET_META, NULL);
-  meta->name = "UML";
-  g_list_store_append (sheets, meta);
-
-  for (l = sheet_names; l != NULL; l = l->next) {
-    meta = g_object_new (DIA_TYPE_SHEET_META, NULL);
-    meta->name = l->data;
-    g_list_store_append (sheets, meta);
-  }
-
-  popover = gtk_popover_new (NULL);
-  frame = gtk_frame_new (NULL);
-  gtk_container_add (GTK_CONTAINER (popover), frame);
-  wrap = g_object_new (GTK_TYPE_SCROLLED_WINDOW,
-                       "min-content-width", 200,
-                       "min-content-height", 200,
-                       NULL);
-  gtk_container_add (GTK_CONTAINER (frame), wrap);
-  list = gtk_list_box_new ();
-  gtk_container_add (GTK_CONTAINER (wrap), list);
-  gtk_widget_show_all (frame);
-
-  gtk_list_box_set_selection_mode (GTK_LIST_BOX (list), GTK_SELECTION_SINGLE);
-  gtk_list_box_bind_model (GTK_LIST_BOX (list), G_LIST_MODEL (sheets), render_row, NULL, NULL);
-
-  // TODO: Display selected, Show recent on top, Persistance
-  sheet_option_menu = gtk_menu_button_new ();
-  gtk_menu_button_set_popover (GTK_MENU_BUTTON (sheet_option_menu), popover);
-
-  g_signal_connect (G_OBJECT (list), "row-selected",
-                    G_CALLBACK(sheet_option_menu_changed), self);
-  gtk_box_pack_start (GTK_BOX (self), sheet_option_menu, FALSE, FALSE, 0);
-  gtk_widget_show(sheet_option_menu);
+  button = dia_sheet_chooser_new ();
+  g_signal_connect (G_OBJECT (button), "sheet-selected",
+                    G_CALLBACK (sheet_selected), self);
+  dia_sheet_chooser_set_model (DIA_SHEET_CHOOSER (button), G_LIST_MODEL (self->sheets));
+  gtk_box_pack_start (GTK_BOX (self), button, FALSE, FALSE, 0);
+  gtk_widget_show (button);
 }
 
 static void
 create_sheets (DiaToolbox *self)
 {
-  GtkWidget *separator;
   GtkWidget *swin;
   gchar *sheetname;
   DiaSheet *sheet;
   
-  separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-  gtk_box_pack_start (GTK_BOX (self), separator, FALSE, FALSE, 0);
-  gtk_widget_show (separator);
-
   create_sheet_dropdown_menu (self);
 
   swin = gtk_scrolled_window_new (NULL, NULL);
@@ -498,24 +400,20 @@ create_sheets (DiaToolbox *self)
   gtk_box_pack_start (GTK_BOX (self), swin, FALSE, FALSE, 0);
   gtk_widget_show (swin);
 
-  self->items = gtk_grid_new ();
+  self->items = g_object_new (GTK_TYPE_GRID,
+                              "column-homogeneous", TRUE,
+                              "column-spacing", 4,
+                              "row-spacing", 4,
+                              NULL);
   gtk_container_add (GTK_CONTAINER (swin), self->items);
   gtk_widget_show (self->items);
 
   sheetname = persistence_register_string ("last-sheet-selected", _("Flowchart"));
   sheet = get_sheet_by_name (sheetname);
-  if (sheet == NULL) {
-    /* Couldn't find it */
-  } else {
+  if (sheet != NULL) {
     fill_sheet_wbox (self, sheet);
-    /* TODO: dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				  sheetname); */
   }
   g_free (sheetname);
-
-  separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-  gtk_box_pack_end (GTK_BOX (self), separator, FALSE, FALSE, 0);
-  gtk_widget_show (separator);
 }
 
 static void
@@ -789,8 +687,11 @@ dia_toolbox_class_init (DiaToolboxClass *class)
 static void
 dia_toolbox_init (DiaToolbox *self)
 {
-  gtk_orientable_set_orientation (GTK_ORIENTABLE (self), GTK_ORIENTATION_VERTICAL);
-  gtk_box_set_spacing (GTK_BOX (self), 9);
+  g_object_set (G_OBJECT (self),
+                "orientation", GTK_ORIENTATION_VERTICAL,
+                "spacing", 8,
+                "margin", 8,
+                NULL);
   gtk_widget_show (GTK_WIDGET (self));
 
   create_tools (self);

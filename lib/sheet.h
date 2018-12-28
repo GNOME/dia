@@ -19,6 +19,7 @@
 #define SHEET_H
 
 #include <glib.h>
+#include <glib-object.h>
 
 #include "diatypes.h"
 
@@ -43,13 +44,18 @@ typedef enum
 }
 SheetScope;
 
-struct _Sheet {
+#define DIA_TYPE_SHEET (dia_sheet_get_type ())
+G_DECLARE_FINAL_TYPE (DiaSheet, dia_sheet, DIA, SHEET, GObject)
+
+struct _DiaSheet {
+  GObject parent;
+
   char *name;
   char *description;
   char *filename;
 
   SheetScope scope;
-  Sheet *shadowing;           /* If (scope == USER), the system sheet that this
+  DiaSheet *shadowing;           /* If (scope == USER), the system sheet that this
                                  user sheet is shadowing.
                                  If (scope == SYSTEM), there has been a name
                                  collision between a system sheet and a user
@@ -60,11 +66,11 @@ struct _Sheet {
   GSList *objects; /* list of SheetObject */
 };
 
-Sheet *new_sheet(char *name, char *description, char *filename,
-                 SheetScope scope, Sheet *shadowing);
-void sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *type);
-void sheet_append_sheet_obj(Sheet *sheet, SheetObject *type);
-void register_sheet(Sheet *sheet);
+DiaSheet *dia_sheet_new (char *name, char *description, char *filename,
+                 SheetScope scope, DiaSheet *shadowing);
+void sheet_prepend_sheet_obj(DiaSheet *sheet, SheetObject *type);
+void sheet_append_sheet_obj(DiaSheet *sheet, SheetObject *type);
+void register_sheet(DiaSheet *sheet);
 GSList *get_sheets_list(void);
 
 void load_all_sheets(void);

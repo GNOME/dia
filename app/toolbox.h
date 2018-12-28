@@ -8,8 +8,9 @@ G_DECLARE_FINAL_TYPE (DiaToolbox, dia_toolbox, DIA, TOOLBOX, GtkBox)
 struct _DiaToolbox {
   GtkBox parent;
 
-  GtkWidget *tools;
-  GtkWidget *items;
+  GtkWidget  *tools;
+  GtkWidget  *items;
+  GListStore *sheets;
 };
 
 typedef struct _ToolButton ToolButton;

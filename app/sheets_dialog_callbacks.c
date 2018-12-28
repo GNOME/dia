@@ -865,7 +865,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
       entry = lookup_widget(sheets_new_dialog, "entry_sheet_description");
       sheet_descrip = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
 
-      sheet = g_new0(Sheet, 1);
+      sheet = g_object_new (DIA_TYPE_SHEET, NULL);
       sheet->name = sheet_name;
       sheet->filename = "";
       sheet->description = sheet_descrip;
@@ -1797,7 +1797,7 @@ on_sheets_dialog_button_apply_clicked  (GtkButton       *button,
       sheet_object_mods_list = sm->sheet.objects;
       sm->sheet.objects = NULL;
       /* we have to transfer 'permanent' memory */
-      new_sheet = g_new0 (Sheet, 1);
+      new_sheet = g_object_new (DIA_TYPE_SHEET, NULL);
       *new_sheet = sm->sheet;
       register_sheet(new_sheet);
 

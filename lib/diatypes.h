@@ -157,7 +157,6 @@ typedef struct _PropDescSArrayExtra PropDescSArrayExtra;
 typedef struct _PropOffset PropOffset;
 
 /* In sheet.h: */
-typedef struct _Sheet Sheet;
 typedef struct _SheetObject SheetObject;
 
 /* In text.h: */

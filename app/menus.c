@@ -60,8 +60,6 @@ create_integrated_ui_toolbar (void);
 
 static void add_plugin_actions (GtkUIManager *ui_manager, const char *base_path);
 
-gchar *build_ui_filename (const gchar* name);
-
 /* Active/inactive state is set in diagram_update_menu_sensitivity()
  * in diagram.c */
 
@@ -740,23 +738,6 @@ add_plugin_actions (GtkUIManager *ui_manager, const gchar *base_path)
 			   FALSE);
     g_free (menu_path);
   }
-}
-
-gchar*
-build_ui_filename (const gchar* name)
-{
-  gchar* uifile;
-
-  if (g_getenv ("DIA_BASE_PATH") != NULL) {
-    /* a small hack cause the final destination and the local path differ */
-    const gchar* p = strrchr (name, '/');
-    if (p != NULL)
-      name = p+1;
-    uifile = g_build_filename (g_getenv ("DIA_BASE_PATH"), "data", name, NULL);
-  } else
-    uifile = dia_get_data_directory (name);
-
-  return uifile;
 }
 
 /*!

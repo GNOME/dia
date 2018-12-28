@@ -41,15 +41,29 @@
 #include "object-alias.h"
 #include "dia_dirs.h"
 
+G_DEFINE_TYPE (DiaSheet, dia_sheet, G_TYPE_OBJECT)
+
 static GSList *sheets = NULL;
 
-Sheet *
-new_sheet(char *name, gchar *description, char *filename, SheetScope scope,
-          Sheet *shadowing)
+static void
+dia_sheet_class_init (DiaSheetClass *klass)
 {
-  Sheet *sheet;
 
-  sheet = g_new(Sheet, 1);
+}
+
+static void
+dia_sheet_init (DiaSheet *self)
+{
+  
+}
+
+DiaSheet *
+dia_sheet_new (char *name, gchar *description, char *filename, SheetScope scope,
+          DiaSheet *shadowing)
+{
+  DiaSheet *sheet;
+
+  sheet = g_object_new (DIA_TYPE_SHEET, NULL);
 
   sheet->name = g_strdup(name);
   sheet->description = g_strdup(description);
@@ -62,7 +76,7 @@ new_sheet(char *name, gchar *description, char *filename, SheetScope scope,
 }
 
 void
-sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *obj)
+sheet_prepend_sheet_obj(DiaSheet *sheet, SheetObject *obj)
 {
   DiaObjectType *type;
 
@@ -77,7 +91,7 @@ sheet_prepend_sheet_obj(Sheet *sheet, SheetObject *obj)
 }
 
 void
-sheet_append_sheet_obj(Sheet *sheet, SheetObject *obj)
+sheet_append_sheet_obj(DiaSheet *sheet, SheetObject *obj)
 {
   DiaObjectType *type;
 
@@ -92,7 +106,7 @@ sheet_append_sheet_obj(Sheet *sheet, SheetObject *obj)
 }
 
 void
-register_sheet(Sheet *sheet)
+register_sheet(DiaSheet *sheet)
 {
   sheets = g_slist_append(sheets, (gpointer) sheet);
 }
@@ -114,8 +128,8 @@ static void load_register_sheet(const gchar *directory,const gchar *filename,
 static gint
 dia_sheet_sort_callback(gconstpointer a, gconstpointer b)
 {
-  return g_utf8_collate(gettext( ((Sheet *)(a))->name ),
-			gettext( ((Sheet *)(b))->name ));
+  return g_utf8_collate(gettext( ((DiaSheet *)(a))->name ),
+			gettext( ((DiaSheet *)(b))->name ));
 }
 
 void
@@ -205,12 +219,12 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
   gchar *name = NULL, *description = NULL;
   int name_score = -1;
   int descr_score = -1;
-  Sheet *sheet = NULL;
+  DiaSheet *sheet = NULL;
   GSList *sheetp;
   gboolean set_line_break = FALSE;
   gboolean name_is_gmalloced = FALSE;
-  Sheet *shadowing = NULL;
-  Sheet *shadowing_sheet = NULL;
+  DiaSheet *shadowing = NULL;
+  DiaSheet *shadowing_sheet = NULL;
 
   /* the XML fun begins here. */
 
@@ -302,12 +316,12 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
   sheetp = get_sheets_list();
   while (sheetp)
   {
-    if (sheetp->data && !strcmp(((Sheet *)(sheetp->data))->name, name)) 
+    if (sheetp->data && !strcmp(((DiaSheet *)(sheetp->data))->name, name)) 
     {
       struct stat first_file, this_file;
       int stat_ret;
       
-      stat_ret = g_stat(((Sheet *)(sheetp->data))->filename, &first_file);
+      stat_ret = g_stat(((DiaSheet *)(sheetp->data))->filename, &first_file);
       g_assert(!stat_ret);
 
       stat_ret = g_stat(filename, &this_file);
@@ -340,7 +354,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
     sheetp = g_slist_next(sheetp);
   }
 
-  sheet = new_sheet(name, description, g_strdup(filename), scope, shadowing);
+  sheet = dia_sheet_new(name, description, g_strdup(filename), scope, shadowing);
 
   if (shadowing_sheet)
     shadowing_sheet->shadowing = sheet;                   /* Hilarious :-) */

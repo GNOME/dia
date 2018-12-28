@@ -47,6 +47,7 @@
 
 #include "intl.h"
 #include "persistence.h"
+#include "dia_dirs.h"
 
 static void
 sheets_dialog_destroyed (GtkWidget *widget, gpointer user_data)
@@ -56,9 +57,6 @@ sheets_dialog_destroyed (GtkWidget *widget, gpointer user_data)
     g_object_unref (builder);
   g_object_set_data (G_OBJECT(widget), "_sheet_dialogs_builder", NULL);
 }
-
-/* FIXME: header? */
-gchar *build_ui_filename (const gchar* name);
 
 static GtkBuilder *
 builder_new_from_file (const char *filename)

@@ -141,6 +141,8 @@ dia_core_files = \
 	handle_ops.h \
 	interface.c \
 	interface.h \
+	widgets/dia-sheet-chooser.c \
+	widgets/dia-sheet-chooser.h \
 	toolbox.c \
 	toolbox.h \
 	dia-app-icons.h \
@@ -172,12 +174,6 @@ dia_core_files = \
 	plugin-manager.h \
 	dia-props.c \
 	dia-props.h \
-	gtkwrapbox.h \
-	gtkwrapbox.c \
-	gtkhwrapbox.h \
-	gtkhwrapbox.c \
-	gtkvwrapbox.h \
-	gtkvwrapbox.c \
 	cursor.c \
 	cursor.h \
 	splash.c \

@@ -25,7 +25,7 @@
 #include <structmember.h> /* PyMemberDef */
 
 PyObject *
-PyDiaSheet_New(Sheet *sheet)
+PyDiaSheet_New(DiaSheet *sheet)
 {
     PyDiaSheet *self;
 

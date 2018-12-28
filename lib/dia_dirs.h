@@ -38,4 +38,6 @@ gchar *dia_absolutize_filename (const gchar *master, const gchar *slave);
 gchar *dia_get_canonical_path (const gchar *path);
 const gchar *dia_message_filename (const gchar *filename);
 
+gchar *build_ui_filename (const gchar* name);
+
 #endif /* DIA_DIRS_H */
