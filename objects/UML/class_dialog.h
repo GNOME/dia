@@ -110,12 +110,11 @@ void _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
 void _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
 
 #define DIA_UML_TYPE_OPERATION_DIALOG (dia_uml_operation_dialog_get_type ())
-G_DECLARE_FINAL_TYPE (DiaUmlOperationDialog, dia_uml_operation_dialog, DIA, UML_OPERATION_DIALOG, GtkDialog)
+G_DECLARE_FINAL_TYPE (DiaUmlOperationDialog, dia_uml_operation_dialog, DIA_UML, OPERATION_DIALOG, GtkDialog)
 
 struct _DiaUmlOperationDialog {
   GtkDialog parent;
 
-  GtkWidget *title;
   GtkWidget *name;
   GtkWidget *type;
   GtkWidget *stereotype;
@@ -129,4 +128,23 @@ struct _DiaUmlOperationDialog {
   DiaUmlOperation *operation;
 };
 
-GtkWidget *dia_uml_operation_dialog_new (DiaUmlOperation *op);
+GtkWidget *dia_uml_operation_dialog_new (GtkWindow       *parent,
+                                         DiaUmlOperation *op);
+
+#define DIA_UML_TYPE_OPERATION_PARAMETER_ROW (dia_uml_operation_parameter_row_get_type ())
+G_DECLARE_FINAL_TYPE (DiaUmlOperationParameterRow, dia_uml_operation_parameter_row, DIA_UML, OPERATION_PARAMETER_ROW, GtkListBoxRow)
+
+struct _DiaUmlOperationParameterRow {
+  GtkListBoxRow parent;
+
+  GtkWidget *name;
+  GtkWidget *type;
+  GtkWidget *value;
+  GtkWidget *direction;
+  GtkTextBuffer *comment;
+
+  DiaUmlParameter *parameter;
+};
+
+GtkWidget       *dia_uml_operation_parameter_row_new           (DiaUmlParameter             *parameter);
+DiaUmlParameter *dia_uml_operation_parameter_row_get_parameter (DiaUmlOperationParameterRow *self);

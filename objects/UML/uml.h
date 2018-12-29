@@ -27,8 +27,9 @@
 #include "dia_xml.h"
 
 typedef struct _UMLAttribute UMLAttribute;
-typedef struct _UMLParameter UMLParameter;
 typedef struct _UMLFormalParameter UMLFormalParameter;
+
+/* TODO: enums as GEnum for _spec_enum ext */
 
 /** the visibility (allowed acces) of (to) various UML sub elements */
 typedef enum _UMLVisibility {
@@ -92,7 +93,7 @@ struct _DiaUmlOperation {
   UMLInheritanceType inheritance_type;
   int query; /**< Do not modify the object, in C++ this is a const function */
   int class_scope;
-  GList *parameters; /**< List of UMLParameter */
+  GList *parameters; /**< List of DiaUmlParameter */
 
   ConnectionPoint* left_connection; /**< left */
   ConnectionPoint* right_connection; /**< right */
@@ -104,10 +105,15 @@ struct _DiaUmlOperation {
 };
 
 
-/** \brief A list of UMLParameter is contained in DiaUmlOperation
+#define DIA_UML_TYPE_PARAMETER (dia_uml_parameter_get_type ())
+G_DECLARE_FINAL_TYPE (DiaUmlParameter, dia_uml_parameter, DIA_UML, PARAMETER, GObject)
+
+/** \brief A list of DiaUmlParameter is contained in DiaUmlOperation
  * Some would call them functions parameters ;)
  */
-struct _UMLParameter {
+struct _DiaUmlParameter {
+  GObject parent;
+
   gchar *name; /**<  name*/
   gchar *type; /**< return value */
   gchar *value; /**< Initialization,  can be NULL => No default value */
@@ -132,14 +138,11 @@ struct _UMLFormalParameter {
 /** calculated the 'formated' representation */
 extern gchar *uml_get_attribute_string (UMLAttribute *attribute);
 /** calculated the 'formated' representation */
-extern gchar *uml_get_parameter_string(UMLParameter *param);
-/** calculated the 'formated' representation */
 extern gchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
 extern void uml_attribute_copy_into(UMLAttribute *srcattr, UMLAttribute *destattr);
 extern UMLAttribute *uml_attribute_copy(UMLAttribute *attr);
 extern UMLFormalParameter *uml_formalparameter_copy(UMLFormalParameter *param);
 extern void uml_attribute_destroy(UMLAttribute *attribute);
-extern void uml_parameter_destroy(UMLParameter *param);
 extern void uml_formalparameter_destroy(UMLFormalParameter *param);
 extern UMLAttribute *uml_attribute_new(void);
 
@@ -150,8 +153,18 @@ gchar           *dia_uml_operation_format                   (DiaUmlOperation *op
 DiaUmlOperation *dia_uml_operation_copy                     (DiaUmlOperation *op);
 void             dia_uml_operation_ensure_connection_points (DiaUmlOperation *oper,
                                                              DiaObject       *obj);
+void             dia_uml_operation_insert_parameter         (DiaUmlOperation *self,
+                                                             DiaUmlParameter *parameter,
+                                                             int              index);
+void             dia_uml_operation_remove_parameter         (DiaUmlOperation *self,
+                                                             DiaUmlParameter *parameter);
+GList           *dia_uml_operation_get_parameters           (DiaUmlOperation *self);
 
-extern UMLParameter *uml_parameter_new(void);
+
+DiaUmlParameter *dia_uml_parameter_new                      ();
+/** calculated the 'formated' representation */
+gchar           *dia_uml_parameter_format                   (DiaUmlParameter *param);
+
 extern UMLFormalParameter *uml_formalparameter_new(void);
 
 extern void uml_attribute_ensure_connection_points (UMLAttribute *attr, DiaObject* obj);

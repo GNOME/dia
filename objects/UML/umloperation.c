@@ -119,8 +119,8 @@ DiaUmlOperation *
 dia_uml_operation_copy (DiaUmlOperation *srcop)
 {
   DiaUmlOperation *destop;
-  UMLParameter *param;
-  UMLParameter *newparam;
+  DiaUmlParameter *param;
+  DiaUmlParameter *newparam;
   GList *list;
   
   destop = g_object_new (DIA_UML_TYPE_OPERATION, NULL);
@@ -166,16 +166,16 @@ dia_uml_operation_copy (DiaUmlOperation *srcop)
 
   list = destop->parameters;
   while (list != NULL) {
-    param = (UMLParameter *)list->data;
-    uml_parameter_destroy(param);
+    param = (DiaUmlParameter *)list->data;
+    g_object_unref (G_OBJECT (param));
     list = g_list_next(list);
   }
   destop->parameters = NULL;
   list = srcop->parameters;
   while (list != NULL) {
-    param = (UMLParameter *)list->data;
+    param = (DiaUmlParameter *)list->data;
 
-    newparam = g_new0(UMLParameter, 1);
+    newparam = g_new0(DiaUmlParameter, 1);
     newparam->name = g_strdup(param->name);
     newparam->type = g_strdup(param->type);
     newparam->comment = g_strdup(param->comment);
@@ -208,7 +208,7 @@ void
 uml_operation_write(AttributeNode attr_node, DiaUmlOperation *op, DiaContext *ctx)
 {
   GList *list;
-  UMLParameter *param;
+  DiaUmlParameter *param;
   DataNode composite;
   DataNode composite2;
   AttributeNode attr_node2;
@@ -239,7 +239,7 @@ uml_operation_write(AttributeNode attr_node, DiaUmlOperation *op, DiaContext *ct
   
   list = op->parameters;
   while (list != NULL) {
-    param = (UMLParameter *) list->data;
+    param = (DiaUmlParameter *) list->data;
 
     composite2 = data_add_composite(attr_node2, "umlparameter", ctx);
 
@@ -265,7 +265,7 @@ dia_uml_operation_format (DiaUmlOperation *operation)
   int len;
   char *str;
   GList *list;
-  UMLParameter *param;
+  DiaUmlParameter *param;
 
   /* Calculate length: */
   len = 1 + (operation->name ? strlen (operation->name) : 0) + 1;
@@ -275,7 +275,7 @@ dia_uml_operation_format (DiaUmlOperation *operation)
   
   list = operation->parameters;
   while (list != NULL) {
-    param = (UMLParameter  *) list->data;
+    param = (DiaUmlParameter  *) list->data;
     list = g_list_next (list);
     
     switch(param->kind)
@@ -334,7 +334,7 @@ dia_uml_operation_format (DiaUmlOperation *operation)
   
   list = operation->parameters;
   while (list != NULL) {
-    param = (UMLParameter  *) list->data;
+    param = (DiaUmlParameter  *) list->data;
     list = g_list_next (list);
     
     switch(param->kind)
@@ -416,7 +416,7 @@ static void
 dia_uml_operation_finalize (GObject *object)
 {
   GList *list;
-  UMLParameter *param;
+  DiaUmlParameter *param;
   DiaUmlOperation *self = DIA_UML_OPERATION (object);
   
   g_free (self->name);
@@ -429,8 +429,8 @@ dia_uml_operation_finalize (GObject *object)
 
   list = self->parameters;
   while (list != NULL) {
-    param = (UMLParameter *)list->data;
-    uml_parameter_destroy(param);
+    param = (DiaUmlParameter *)list->data;
+    g_object_unref (G_OBJECT (param));
     list = g_list_next(list);
   }
   if (self->wrappos) {
@@ -548,7 +548,7 @@ dia_uml_operation_class_init (DiaUmlOperationClass *klass)
   uml_op_properties[UML_OP_TYPE] = g_param_spec_string ("type",
                                                         "Type",
                                                         "Return type",
-                                                        NULL,
+                                                        "",
                                                         G_PARAM_READWRITE);
   uml_op_properties[UML_OP_COMMENT] = g_param_spec_string ("comment",
                                                            "Comment",
@@ -558,7 +558,7 @@ dia_uml_operation_class_init (DiaUmlOperationClass *klass)
   uml_op_properties[UML_OP_STEREOTYPE] = g_param_spec_string ("stereotype",
                                                               "Stereotype",
                                                               "Stereotype",
-                                                              NULL,
+                                                              "",
                                                               G_PARAM_READWRITE);
   uml_op_properties[UML_OP_VISIBILITY] = g_param_spec_int ("visibility",
                                                            "Visibility",
@@ -606,4 +606,22 @@ DiaUmlOperation *
 dia_uml_operation_new ()
 {
   return g_object_new (DIA_UML_TYPE_OPERATION, NULL);
+}
+
+void
+dia_uml_operation_insert_parameter (DiaUmlOperation *self,
+                                    DiaUmlParameter *parameter,
+                                    int              index)
+{
+  self->parameters = g_list_insert (self->parameters,
+                                    g_object_ref (G_OBJECT (parameter)),
+                                    index);
+}
+
+void
+dia_uml_operation_remove_parameter (DiaUmlOperation *self,
+                                    DiaUmlParameter *parameter)
+{
+  self->parameters = g_list_remove (self->parameters, parameter);
+  g_object_unref (G_OBJECT (parameter));
 }

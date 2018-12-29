@@ -27,6 +27,174 @@
 #include "class_dialog.h"
 #include "dia_dirs.h"
 
+G_DEFINE_TYPE (DiaUmlOperationParameterRow, dia_uml_operation_parameter_row, GTK_TYPE_LIST_BOX_ROW)
+
+enum {
+  UML_OP_PROW_PROP_PARAMETER = 1,
+  UML_OP_PROW_N_PROPS
+};
+static GParamSpec* uml_op_prow_properties[UML_OP_PROW_N_PROPS];
+
+static void
+dia_uml_operation_parameter_row_finalize (GObject *object)
+{
+  DiaUmlOperationParameterRow *self = DIA_UML_OPERATION_PARAMETER_ROW (object);
+
+  g_object_unref (G_OBJECT (self->parameter));
+}
+
+gboolean
+direction_to (GBinding *binding,
+              const GValue *from_value,
+              GValue *to_value,
+              gpointer user_data)
+{
+  gchar *name = g_value_get_string (from_value);
+
+  if (g_strcmp0 (name, "in") == 0) {
+    g_value_set_int (to_value, UML_IN);
+  } else if (g_strcmp0 (name, "out") == 0) {
+    g_value_set_int (to_value, UML_OUT);
+  } else if (g_strcmp0 (name, "inout") == 0) {
+    g_value_set_int (to_value, UML_INOUT);
+  } else {
+    g_value_set_int (to_value, UML_UNDEF_KIND);
+  }
+  
+  return TRUE;
+}
+
+gboolean
+direction_from (GBinding *binding,
+                const GValue *from_value,
+                GValue *to_value,
+                gpointer user_data)
+{
+  int mode = g_value_get_int (from_value);
+
+  if (mode == UML_IN) {
+    g_value_set_static_string (to_value, "in");
+  } else if (mode == UML_OUT) {
+    g_value_set_static_string (to_value, "out");
+  } else if (mode == UML_INOUT) {
+    g_value_set_static_string (to_value, "inout");
+  } else {
+    g_value_set_static_string (to_value, "undefined");
+  }
+  
+  return TRUE;
+}
+
+static void
+dia_uml_operation_parameter_row_set_property (GObject      *object,
+                                       guint         property_id,
+                                       const GValue *value,
+                                       GParamSpec   *pspec)
+{
+  DiaUmlOperationParameterRow *self = DIA_UML_OPERATION_PARAMETER_ROW (object);
+  switch (property_id) {
+    case UML_OP_PROW_PROP_PARAMETER:
+      self->parameter = g_value_dup_object (value);
+      g_object_bind_property (G_OBJECT (self->parameter), "name",
+                              G_OBJECT (self->name), "text",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->parameter), "type",
+                              G_OBJECT (self->type), "text",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->parameter), "value",
+                              G_OBJECT (self->value), "text",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+
+      g_object_bind_property_full (G_OBJECT (self->parameter), "kind",
+                                   G_OBJECT (self->direction), "active-id",
+                                   G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE,
+                                   direction_from,
+                                   direction_to,
+                                   NULL, NULL);
+
+      g_object_bind_property (G_OBJECT (self->parameter), "comment",
+                              G_OBJECT (self->comment), "text",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_uml_operation_parameter_row_get_property (GObject    *object,
+                                              guint       property_id,
+                                              GValue     *value,
+                                              GParamSpec *pspec)
+{
+  DiaUmlOperationParameterRow *self = DIA_UML_OPERATION_PARAMETER_ROW (object);
+  switch (property_id) {
+    case UML_OP_PROW_PROP_PARAMETER:
+      g_value_set_object (value, self->parameter);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_uml_operation_parameter_row_class_init (DiaUmlOperationParameterRowClass *klass)
+{
+  GFile *template_file;
+  GBytes *template;
+  GError *err = NULL;
+  GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+  object_class->finalize = dia_uml_operation_parameter_row_finalize;
+  object_class->set_property = dia_uml_operation_parameter_row_set_property;
+  object_class->get_property = dia_uml_operation_parameter_row_get_property;
+
+  uml_op_prow_properties[UML_OP_PROW_PROP_PARAMETER] =
+    g_param_spec_object ("parameter",
+                         "Parameter",
+                         "Parameter this editor controls",
+                         DIA_UML_TYPE_PARAMETER,
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+
+  g_object_class_install_properties (object_class,
+                                     UML_OP_PROW_N_PROPS,
+                                     uml_op_prow_properties);
+
+  /* TODO: Use GResource */
+  template_file = g_file_new_for_path (build_ui_filename ("ui/dia-uml-operation-parameter-row.ui"));
+  template = g_file_load_bytes (template_file, NULL, NULL, &err);
+
+  if (err)
+    g_critical ("Failed to load template: %s", err->message);
+
+  gtk_widget_class_set_template (widget_class, template);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationParameterRow, name);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationParameterRow, type);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationParameterRow, value);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationParameterRow, direction);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationParameterRow, comment);
+
+  g_object_unref (template_file);
+}
+
+static void
+dia_uml_operation_parameter_row_init (DiaUmlOperationParameterRow *self)
+{
+  gtk_widget_init_template (GTK_WIDGET (self));
+}
+
+GtkWidget *
+dia_uml_operation_parameter_row_new (DiaUmlParameter *op)
+{
+  return g_object_new (DIA_UML_TYPE_OPERATION_PARAMETER_ROW,
+                       "parameter", op, 
+                       NULL);
+}
+
 G_DEFINE_TYPE (DiaUmlOperationDialog, dia_uml_operation_dialog, GTK_TYPE_DIALOG)
 
 enum {
@@ -36,15 +204,106 @@ enum {
 static GParamSpec* uml_op_dlg_properties[UML_OP_DLG_N_PROPS];
 
 static void
+dia_uml_operation_dialog_finalize (GObject *object)
+{
+  DiaUmlOperationDialog *self = DIA_UML_OPERATION_DIALOG (object);
+
+  g_object_unref (G_OBJECT (self->operation));
+}
+
+gboolean
+visibility_to (GBinding *binding,
+               const GValue *from_value,
+               GValue *to_value,
+               gpointer user_data)
+{
+  gchar *name = g_value_get_string (from_value);
+
+  if (g_strcmp0 (name, "private") == 0) {
+    g_value_set_int (to_value, UML_PRIVATE);
+  } else if (g_strcmp0 (name, "protected") == 0) {
+    g_value_set_int (to_value, UML_PROTECTED);
+  } else if (g_strcmp0 (name, "implementation") == 0) {
+    g_value_set_int (to_value, UML_IMPLEMENTATION);
+  } else {
+    g_value_set_int (to_value, UML_PUBLIC);
+  }
+  
+  return TRUE;
+}
+
+gboolean
+visibility_from (GBinding *binding,
+                 const GValue *from_value,
+                 GValue *to_value,
+                 gpointer user_data)
+{
+  int mode = g_value_get_int (from_value);
+
+  if (mode == UML_ABSTRACT) {
+    g_value_set_static_string (to_value, "abstract");
+  } else if (mode == UML_POLYMORPHIC) {
+    g_value_set_static_string (to_value, "poly");
+  } else {
+    g_value_set_static_string (to_value, "leaf");
+  }
+  
+  return TRUE;
+}
+
+gboolean
+inheritance_to (GBinding *binding,
+                const GValue *from_value,
+                GValue *to_value,
+                gpointer user_data)
+{
+  gchar *name = g_value_get_string (from_value);
+
+  if (g_strcmp0 (name, "abstract") == 0) {
+    g_value_set_int (to_value, UML_ABSTRACT);
+  } else if (g_strcmp0 (name, "poly") == 0) {
+    g_value_set_int (to_value, UML_POLYMORPHIC);
+  } else {
+    g_value_set_int (to_value, UML_LEAF);
+  }
+  
+  return TRUE;
+}
+
+gboolean
+inheritance_from (GBinding *binding,
+                  const GValue *from_value,
+                  GValue *to_value,
+                  gpointer user_data)
+{
+  int mode = g_value_get_int (from_value);
+
+  if (mode == UML_PRIVATE) {
+    g_value_set_static_string (to_value, "private");
+  } else if (mode == UML_PROTECTED) {
+    g_value_set_static_string (to_value, "protected");
+  } else if (mode == UML_IMPLEMENTATION) {
+    g_value_set_static_string (to_value, "implementation");
+  } else {
+    g_value_set_static_string (to_value, "public");
+  }
+  
+  return TRUE;
+}
+
+static void
 dia_uml_operation_dialog_set_property (GObject      *object,
                                        guint         property_id,
                                        const GValue *value,
                                        GParamSpec   *pspec)
 {
   DiaUmlOperationDialog *self = DIA_UML_OPERATION_DIALOG (object);
+  GList *paras;
+  GtkWidget *row;
+
   switch (property_id) {
     case UML_OP_DLG_PROP_OPERATION:
-      self->operation = g_value_get_object (value);
+      self->operation = g_value_dup_object (value);
       g_object_bind_property (G_OBJECT (self->operation), "name",
                               G_OBJECT (self->name), "text",
                               G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
@@ -58,12 +317,34 @@ dia_uml_operation_dialog_set_property (GObject      *object,
                               G_OBJECT (self->comment), "text",
                               G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
+      g_object_bind_property_full (G_OBJECT (self->operation), "visibility",
+                                   G_OBJECT (self->visibility), "active-id",
+                                   G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE,
+                                   visibility_from,
+                                   visibility_to,
+                                   NULL, NULL);
+
+      g_object_bind_property_full (G_OBJECT (self->operation), "inheritance-type",
+                                   G_OBJECT (self->inheritance), "active-id",
+                                   G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE,
+                                   inheritance_from,
+                                   inheritance_to,
+                                   NULL, NULL);
+
       g_object_bind_property (G_OBJECT (self->operation), "query",
                               G_OBJECT (self->query), "active",
                               G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
       g_object_bind_property (G_OBJECT (self->operation), "class-scope",
                               G_OBJECT (self->scope), "active",
                               G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+
+      paras = dia_uml_operation_get_parameters (self->operation);
+      for (; paras != NULL; paras = g_list_next (paras)) {
+        // do something with l->data
+        row = dia_uml_operation_parameter_row_new (DIA_UML_PARAMETER (paras->data));
+        gtk_widget_show (row);
+        gtk_container_add (GTK_CONTAINER (self->list), row);
+      }
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -89,6 +370,50 @@ dia_uml_operation_dialog_get_property (GObject    *object,
 }
 
 static void
+dlg_add_parameter (DiaUmlOperationDialog *self)
+{
+  GtkWidget *row = dia_uml_operation_parameter_row_new (dia_uml_parameter_new ());
+
+  g_assert (DIA_UML_IS_OPERATION_DIALOG (self));
+  gtk_widget_show (row);
+  gtk_container_add (GTK_CONTAINER (self->list), row);
+}
+
+static void
+parameter_added (DiaUmlOperationDialog *self,
+                 GtkWidget             *row)
+{
+  DiaUmlParameter *para = NULL;
+  int index;
+
+  if (!DIA_UML_IS_OPERATION_PARAMETER_ROW (row))
+    return;
+
+  g_object_get (G_OBJECT (row),
+                "parameter", &para,
+                NULL);
+  index = gtk_list_box_row_get_index (GTK_LIST_BOX_ROW (row));
+
+  dia_uml_operation_insert_parameter (self->operation, para, index);
+}
+
+static void
+parameter_removed (DiaUmlOperationDialog *self,
+                   GtkWidget             *row)
+{
+  DiaUmlParameter *para = NULL;
+
+  if (!DIA_UML_IS_OPERATION_PARAMETER_ROW (row) || gtk_widget_in_destruction (GTK_WIDGET (self)))
+    return;
+
+  g_object_get (G_OBJECT (row),
+                "parameter", &para,
+                NULL);
+
+  dia_uml_operation_remove_parameter (self->operation, para);
+}
+
+static void
 dia_uml_operation_dialog_class_init (DiaUmlOperationDialogClass *klass)
 {
   GFile *template_file;
@@ -97,6 +422,7 @@ dia_uml_operation_dialog_class_init (DiaUmlOperationDialogClass *klass)
   GObjectClass   *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+  object_class->finalize = dia_uml_operation_dialog_finalize;
   object_class->set_property = dia_uml_operation_dialog_set_property;
   object_class->get_property = dia_uml_operation_dialog_get_property;
 
@@ -119,7 +445,6 @@ dia_uml_operation_dialog_class_init (DiaUmlOperationDialogClass *klass)
     g_critical ("Failed to load template: %s", err->message);
 
   gtk_widget_class_set_template (widget_class, template);
-  gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationDialog, title);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationDialog, name);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationDialog, type);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationDialog, stereotype);
@@ -129,6 +454,9 @@ dia_uml_operation_dialog_class_init (DiaUmlOperationDialogClass *klass)
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationDialog, query);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationDialog, comment);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationDialog, list);
+  gtk_widget_class_bind_template_callback (widget_class, dlg_add_parameter);
+  gtk_widget_class_bind_template_callback (widget_class, parameter_added);
+  gtk_widget_class_bind_template_callback (widget_class, parameter_removed);
 
   g_object_unref (template_file);
 }
@@ -136,18 +464,35 @@ dia_uml_operation_dialog_class_init (DiaUmlOperationDialogClass *klass)
 static void
 dia_uml_operation_dialog_init (DiaUmlOperationDialog *self)
 {
+  GtkWidget *box;
+  GtkWidget *widget;
+
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  box = g_object_new (GTK_TYPE_BOX,
+                      "orientation", GTK_ORIENTATION_VERTICAL,
+                      "spacing", 16,
+                      "margin", 16,
+                      NULL);
+  gtk_widget_show (box);
+
+  widget = gtk_label_new ("No parameters");
+  gtk_widget_show (widget);
+  gtk_container_add (GTK_CONTAINER (box), widget);
+
+  gtk_list_box_set_placeholder (GTK_LIST_BOX (self->list), box);
 }
 
 GtkWidget *
-dia_uml_operation_dialog_new (DiaUmlOperation *op)
+dia_uml_operation_dialog_new (GtkWindow       *parent,
+                              DiaUmlOperation *op)
 {
   return g_object_new (DIA_UML_TYPE_OPERATION_DIALOG,
-                       "operation", op, 
+                       "operation", op,
+                       "transient-for", parent,
+                       "modal", TRUE,
                        NULL);
 }
-
-
 
 /*************************************************************
  ******************** OPERATIONS *****************************
@@ -164,7 +509,7 @@ parameters_set_sensitive(UMLClassDialog *prop_dialog, gint val)
 }
 
 static void
-parameters_set_values(UMLClassDialog *prop_dialog, UMLParameter *param)
+parameters_set_values(UMLClassDialog *prop_dialog, DiaUmlParameter *param)
 {
   gtk_entry_set_text(prop_dialog->param_name, param->name);
   gtk_entry_set_text(prop_dialog->param_type, param->type);
@@ -192,7 +537,7 @@ parameters_clear_values(UMLClassDialog *prop_dialog)
 }
 
 static void
-parameters_get_values (UMLClassDialog *prop_dialog, UMLParameter *param)
+parameters_get_values (UMLClassDialog *prop_dialog, DiaUmlParameter *param)
 {
   g_free(param->name);
   g_free(param->type);
@@ -212,17 +557,17 @@ parameters_get_values (UMLClassDialog *prop_dialog, UMLParameter *param)
 static void
 parameters_get_current_values(UMLClassDialog *prop_dialog)
 {
-  UMLParameter *current_param;
+  DiaUmlParameter *current_param;
   GtkLabel *label;
   char *new_str;
 
   if (prop_dialog->current_param != NULL) {
-    current_param = (UMLParameter *)
+    current_param = (DiaUmlParameter *)
       g_object_get_data(G_OBJECT(prop_dialog->current_param), "user_data");
     if (current_param != NULL) {
       parameters_get_values(prop_dialog, current_param);
       label = GTK_LABEL(gtk_bin_get_child(GTK_BIN(prop_dialog->current_param)));
-      new_str = uml_get_parameter_string(current_param);
+      new_str = dia_uml_parameter_format(current_param);
       gtk_label_set_text(label, new_str);
       g_free(new_str);
     }
@@ -236,7 +581,7 @@ parameters_list_selection_changed_callback(GtkWidget *gtklist,
 {
   UMLClassDialog *prop_dialog;
   GObject *list_item;
-  UMLParameter *param;
+  DiaUmlParameter *param;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -253,7 +598,7 @@ parameters_list_selection_changed_callback(GtkWidget *gtklist,
     return;
   }
   
-  param = (UMLParameter *)g_object_get_data(G_OBJECT(list_item), "user_data");
+  param = (DiaUmlParameter *)g_object_get_data(G_OBJECT(list_item), "user_data");
   parameters_set_values(prop_dialog, param);
   parameters_set_sensitive(prop_dialog, TRUE);
 
@@ -269,7 +614,7 @@ parameters_list_new_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   GtkWidget *list_item;
   DiaUmlOperation *current_op;
-  UMLParameter *param;
+  DiaUmlParameter *param;
   char *utf;
 
   prop_dialog = umlclass->properties_dialog;
@@ -279,9 +624,9 @@ parameters_list_new_callback(GtkWidget *button,
   current_op = (DiaUmlOperation *)
     g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
   
-  param = uml_parameter_new();
+  param = dia_uml_parameter_new();
 
-  utf = uml_get_parameter_string (param);
+  utf = dia_uml_parameter_format (param);
   list_item = dia_list_item_new_with_label (utf);
   gtk_widget_show (list_item);
   g_free (utf);
@@ -310,7 +655,7 @@ parameters_list_delete_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   DiaList *gtklist;
   DiaUmlOperation *current_op;
-  UMLParameter *param;
+  DiaUmlParameter *param;
   
   prop_dialog = umlclass->properties_dialog;
   gtklist = DIA_LIST(prop_dialog->parameters_list);
@@ -320,12 +665,12 @@ parameters_list_delete_callback(GtkWidget *button,
     /* Remove from current operations parameter list: */
     current_op = (DiaUmlOperation *)
       g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
-    param = (UMLParameter *)
+    param = (DiaUmlParameter *)
       g_object_get_data(G_OBJECT(prop_dialog->current_param), "user_data");
     
     current_op->parameters = g_list_remove(current_op->parameters,
 					   (gpointer) param);
-    uml_parameter_destroy(param);
+    g_object_unref (G_OBJECT (param));
     
     /* Remove from gtk list: */
     list = g_list_prepend(NULL, prop_dialog->current_param);
@@ -346,7 +691,7 @@ parameters_list_move_up_callback(GtkWidget *button,
   DiaList *gtklist;
   DiaListItem *list_item;
   DiaUmlOperation *current_op;
-  UMLParameter *param;
+  DiaUmlParameter *param;
   int i;
   
   prop_dialog = umlclass->properties_dialog;
@@ -359,7 +704,7 @@ parameters_list_move_up_callback(GtkWidget *button,
     if (i>0)
       i--;
 
-    param = (UMLParameter *) g_object_get_data(G_OBJECT(list_item), "user_data");
+    param = (DiaUmlParameter *) g_object_get_data(G_OBJECT(list_item), "user_data");
 
     /* Move parameter in current operations list: */
     current_op = (DiaUmlOperation *)
@@ -393,7 +738,7 @@ parameters_list_move_down_callback(GtkWidget *button,
   DiaList *gtklist;
   DiaListItem *list_item;
   DiaUmlOperation *current_op;
-  UMLParameter *param;
+  DiaUmlParameter *param;
   int i;
   
   prop_dialog = umlclass->properties_dialog;
@@ -406,7 +751,7 @@ parameters_list_move_down_callback(GtkWidget *button,
     if (i<(g_list_length(dia_list_get_children (DIA_LIST (gtklist)))-1))
       i++;
 
-    param = (UMLParameter *) g_object_get_data(G_OBJECT(list_item), "user_data");
+    param = (DiaUmlParameter *) g_object_get_data(G_OBJECT(list_item), "user_data");
 
     /* Move parameter in current operations list: */
     current_op = (DiaUmlOperation *)
@@ -453,7 +798,7 @@ static void
 operations_set_values(UMLClassDialog *prop_dialog, DiaUmlOperation *op)
 {
   GList *list;
-  UMLParameter *param;
+  DiaUmlParameter *param;
   GtkWidget *list_item;
   gchar *str;
 
@@ -484,9 +829,9 @@ operations_set_values(UMLClassDialog *prop_dialog, DiaUmlOperation *op)
 
   list = op->parameters;
   while (list != NULL) {
-    param = (UMLParameter *)list->data;
+    param = (DiaUmlParameter *)list->data;
 
-    str = uml_get_parameter_string (param);
+    str = dia_uml_parameter_format (param);
     list_item = dia_list_item_new_with_label (str);
     g_free (str);
 
@@ -700,7 +1045,7 @@ operations_list_edit_callback (GtkWidget *button,
     op = (DiaUmlOperation *)
       g_object_get_data (G_OBJECT (dia_list_get_selection (DIA_LIST (gtklist))), "user_data");
 
-    edit = dia_uml_operation_dialog_new (op);
+    edit = dia_uml_operation_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (prop_dialog->dialog)), op);
     gtk_widget_show (edit);
   }
 }
@@ -719,19 +1064,19 @@ operations_list_move_up_callback(GtkWidget *button,
   gtklist = DIA_LIST(prop_dialog->operations_list);
 
   if (dia_list_get_selection (DIA_LIST (gtklist)) != NULL) {
-    list_item = GTK_WIDGET (dia_list_get_selection (DIA_LIST (gtklist)));
+    DiaListItem *list_item = dia_list_get_selection (DIA_LIST (gtklist));
     
-    i = dia_list_child_position(gtklist, list_item);
+    i = dia_list_child_position (gtklist, list_item);
     if (i>0)
       i--;
 
     g_object_ref(list_item);
-    list = g_list_prepend(NULL, list_item);
-    dia_list_remove_items(gtklist, list);
-    dia_list_insert_items(gtklist, list, i);
-    g_object_unref(list_item);
+    list = g_list_prepend (NULL, list_item);
+    dia_list_remove_items (gtklist, list);
+    dia_list_insert_items (gtklist, list, i);
+    g_object_unref (list_item);
 
-    dia_list_select_child(gtklist, list_item);
+    dia_list_select_child (gtklist, list_item);
   }
 
 }
@@ -1064,7 +1409,7 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
   list = dia_list_new ();
   prop_dialog->parameters_list = DIA_LIST(list);
   dia_list_set_selection_mode (DIA_LIST (list), GTK_SELECTION_SINGLE);
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
+  gtk_container_add (GTK_CONTAINER (scrolled_win), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
 				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
   gtk_widget_show (list);
@@ -1262,7 +1607,7 @@ _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   list = dia_list_new ();
   prop_dialog->operations_list = DIA_LIST(list);
   dia_list_set_selection_mode (DIA_LIST (list), GTK_SELECTION_SINGLE);
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
+  gtk_container_add (GTK_CONTAINER (scrolled_win), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
 				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
   gtk_widget_show (list);

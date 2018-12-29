@@ -2,16 +2,7 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkImage" id="image1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">go-up-symbolic</property>
-  </object>
-  <object class="GtkImage" id="image2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">go-down-symbolic</property>
-  </object>
+  <object class="GtkTextBuffer" id="comment"/>
   <template class="DiaUmlOperationParameterRow" parent="GtkListBoxRow">
     <property name="width_request">100</property>
     <property name="height_request">80</property>
@@ -28,7 +19,7 @@
         <property name="margin_bottom">8</property>
         <property name="hexpand">True</property>
         <property name="row_spacing">8</property>
-        <property name="column_spacing">8</property>
+        <property name="column_spacing">16</property>
         <child>
           <object class="GtkLabel">
             <property name="visible">True</property>
@@ -38,7 +29,7 @@
           </object>
           <packing>
             <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
+            <property name="top_attach">0</property>
           </packing>
         </child>
         <child>
@@ -50,7 +41,7 @@
           </object>
           <packing>
             <property name="left_attach">0</property>
-            <property name="top_attach">2</property>
+            <property name="top_attach">1</property>
           </packing>
         </child>
         <child>
@@ -62,7 +53,7 @@
           </object>
           <packing>
             <property name="left_attach">2</property>
-            <property name="top_attach">1</property>
+            <property name="top_attach">0</property>
           </packing>
         </child>
         <child>
@@ -74,7 +65,7 @@
           </object>
           <packing>
             <property name="left_attach">2</property>
-            <property name="top_attach">2</property>
+            <property name="top_attach">1</property>
           </packing>
         </child>
         <child>
@@ -86,13 +77,25 @@
           </object>
           <packing>
             <property name="left_attach">0</property>
-            <property name="top_attach">3</property>
+            <property name="top_attach">2</property>
           </packing>
         </child>
         <child>
           <object class="GtkEntry" id="name">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="type">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -100,9 +103,10 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="type">
+          <object class="GtkEntry" id="value">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -110,22 +114,13 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="value">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">3</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkScrolledWindow">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
             <property name="shadow_type">in</property>
             <child>
-              <object class="GtkTextView" id="comment">
+              <object class="GtkTextView">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="wrap_mode">word</property>
@@ -133,87 +128,14 @@
                 <property name="right_margin">8</property>
                 <property name="top_margin">8</property>
                 <property name="bottom_margin">8</property>
+                <property name="buffer">comment</property>
               </object>
             </child>
           </object>
           <packing>
             <property name="left_attach">3</property>
-            <property name="top_attach">2</property>
+            <property name="top_attach">1</property>
             <property name="height">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="label" translatable="yes">Delete</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="halign">end</property>
-            <property name="valign">center</property>
-            <style>
-              <class name="destructive-action"/>
-            </style>
-          </object>
-          <packing>
-            <property name="left_attach">3</property>
-            <property name="top_attach">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="title">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Parameter</property>
-            <property name="xalign">0</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-            <property name="width">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">end</property>
-            <property name="valign">center</property>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="image">image1</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="image">image2</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <style>
-              <class name="linked"/>
-            </style>
-          </object>
-          <packing>
-            <property name="left_attach">3</property>
-            <property name="top_attach">0</property>
           </packing>
         </child>
         <child>
@@ -232,7 +154,81 @@
           </object>
           <packing>
             <property name="left_attach">3</property>
-            <property name="top_attach">1</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="spacing">16</property>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Delete</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="halign">end</property>
+                <property name="valign">center</property>
+                <signal name="clicked" handler="gtk_widget_destroy" object="DiaUmlOperationParameterRow" swapped="yes"/>
+                <style>
+                  <class name="destructive-action"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="pack_type">end</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="valign">center</property>
+                <child>
+                  <object class="GtkButton">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="image">image1</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="image">image2</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <style>
+                  <class name="linked"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="pack_type">end</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">3</property>
+            <property name="top_attach">3</property>
           </packing>
         </child>
         <child>
@@ -250,4 +246,14 @@
       </object>
     </child>
   </template>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">go-up-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">go-down-symbolic</property>
+  </object>
 </interface>

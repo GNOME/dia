@@ -30,6 +30,18 @@
 #include "uml.h"
 #include "properties.h"
 
+G_DEFINE_TYPE (DiaUmlParameter, dia_uml_parameter, G_TYPE_OBJECT)
+
+enum {
+  UML_PARA_NAME = 1,
+  UML_PARA_TYPE,
+  UML_PARA_VALUE,
+  UML_PARA_COMMENT,
+  UML_PARA_KIND,
+  UML_PARA_N_PROPS
+};
+static GParamSpec* uml_para_properties[UML_PARA_N_PROPS];
+
 static PropEnumData _uml_parameter_kinds[] = {
   { N_("Undefined"), UML_UNDEF_KIND} ,
   { N_("In"), UML_IN },
@@ -54,49 +66,22 @@ static PropDescription umlparameter_props[] = {
 };
 
 static PropOffset umlparameter_offsets[] = {
-  { "name", PROP_TYPE_STRING, offsetof(UMLParameter, name) },
-  { "type", PROP_TYPE_STRING, offsetof(UMLParameter, type) },
-  { "value", PROP_TYPE_STRING, offsetof(UMLParameter, value) },
-  { "comment", PROP_TYPE_MULTISTRING, offsetof(UMLParameter, comment) },
-  { "kind", PROP_TYPE_ENUM, offsetof(UMLParameter, kind) },
+  { "name", PROP_TYPE_STRING, offsetof(DiaUmlParameter, name) },
+  { "type", PROP_TYPE_STRING, offsetof(DiaUmlParameter, type) },
+  { "value", PROP_TYPE_STRING, offsetof(DiaUmlParameter, value) },
+  { "comment", PROP_TYPE_MULTISTRING, offsetof(DiaUmlParameter, comment) },
+  { "kind", PROP_TYPE_ENUM, offsetof(DiaUmlParameter, kind) },
   { NULL, 0, 0 },
 };
 
 PropDescDArrayExtra umlparameter_extra = {
   { umlparameter_props, umlparameter_offsets, "umlparameter" },
-  (NewRecordFunc)uml_parameter_new,
-  (FreeRecordFunc)uml_parameter_destroy
+  (NewRecordFunc) dia_uml_parameter_new,
+  (FreeRecordFunc) g_object_unref
 };
 
-UMLParameter *
-uml_parameter_new(void)
-{
-  UMLParameter *param;
-
-  param = g_new0(UMLParameter, 1);
-  param->name = g_strdup("");
-  param->type = g_strdup("");
-  param->comment = g_strdup("");
-  param->value = NULL;
-  param->kind = UML_UNDEF_KIND;
-
-  return param;
-}
-
-void
-uml_parameter_destroy(UMLParameter *param)
-{
-  g_free(param->name);
-  g_free(param->type);
-  if (param->value != NULL) 
-    g_free(param->value);
-  g_free(param->comment);
-
-  g_free(param);
-}
-
 char *
-uml_get_parameter_string (UMLParameter *param)
+dia_uml_parameter_format (DiaUmlParameter *param)
 {
   int len;
   char *str;
@@ -157,3 +142,143 @@ uml_get_parameter_string (UMLParameter *param)
   return str;
 }
 
+static void
+dia_uml_parameter_finalize (GObject *object)
+{
+  DiaUmlParameter *self = DIA_UML_PARAMETER (object);
+
+  g_free (self->name);
+  g_free (self->type);
+  if (self->value != NULL) 
+    g_free (self->value);
+  g_free (self->comment);
+}
+
+static void
+dia_uml_parameter_set_property (GObject      *object,
+                                guint         property_id,
+                                const GValue *value,
+                                GParamSpec   *pspec)
+{
+  DiaUmlParameter *self = DIA_UML_PARAMETER (object);
+
+  switch (property_id) {
+    case UML_PARA_NAME:
+      self->name = g_value_dup_string (value);
+      g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_NAME]);
+      break;
+    case UML_PARA_TYPE:
+      self->type = g_value_dup_string (value);
+      g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_TYPE]);
+      break;
+    case UML_PARA_VALUE:
+      self->value = g_value_dup_string (value);
+      g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_VALUE]);
+      break;
+    case UML_PARA_COMMENT:
+      self->comment = g_value_dup_string (value);
+      g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_COMMENT]);
+      break;
+    case UML_PARA_KIND:
+      self->kind = g_value_get_int (value);
+      g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_KIND]);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_uml_parameter_get_property (GObject    *object,
+                                guint       property_id,
+                                GValue     *value,
+                                GParamSpec *pspec)
+{
+  DiaUmlParameter *self = DIA_UML_PARAMETER (object);
+
+  switch (property_id) {
+    case UML_PARA_NAME:
+      g_value_set_string (value, self->name);
+      break;
+    case UML_PARA_TYPE:
+      g_value_set_string (value, self->type);
+      break;
+    case UML_PARA_VALUE:
+      g_value_set_string (value, self->value);
+      break;
+    case UML_PARA_COMMENT:
+      g_value_set_string (value, self->comment);
+      break;
+    case UML_PARA_KIND:
+      g_value_set_int (value, self->kind);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_uml_parameter_class_init (DiaUmlParameterClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->finalize = dia_uml_parameter_finalize;
+  object_class->set_property = dia_uml_parameter_set_property;
+  object_class->get_property = dia_uml_parameter_get_property;
+
+  uml_para_properties[UML_PARA_NAME] = g_param_spec_string ("name",
+                                                            "Name",
+                                                            "Function name",
+                                                            "",
+                                                            G_PARAM_READWRITE);
+  uml_para_properties[UML_PARA_TYPE] = g_param_spec_string ("type",
+                                                            "Type",
+                                                            "Return type",
+                                                            "",
+                                                            G_PARAM_READWRITE);
+  uml_para_properties[UML_PARA_VALUE] = g_param_spec_string ("value",
+                                                             "Value",
+                                                             "Default value",
+                                                             "",
+                                                             G_PARAM_READWRITE);
+  uml_para_properties[UML_PARA_COMMENT] = g_param_spec_string ("comment",
+                                                               "Comment",
+                                                               "Comment",
+                                                               "",
+                                                               G_PARAM_READWRITE);
+  uml_para_properties[UML_PARA_KIND] = g_param_spec_int ("kind",
+                                                         "Kind",
+                                                         "Parameter type",
+                                                         UML_UNDEF_KIND,
+                                                         UML_INOUT,
+                                                         UML_UNDEF_KIND,
+                                                         G_PARAM_READWRITE);
+
+  g_object_class_install_properties (object_class,
+                                     UML_PARA_N_PROPS,
+                                     uml_para_properties);
+}
+
+static void
+dia_uml_parameter_init (DiaUmlParameter *self)
+{
+  self->name = g_strdup("");
+  self->type = g_strdup("");
+  self->comment = g_strdup("");
+  self->value = g_strdup("");
+  self->kind = UML_UNDEF_KIND;
+}
+
+DiaUmlParameter *
+dia_uml_parameter_new ()
+{
+  return g_object_new (DIA_UML_TYPE_PARAMETER, NULL);
+}
+
+GList *
+dia_uml_operation_get_parameters (DiaUmlOperation *self)
+{
+  return self->parameters;
+}
