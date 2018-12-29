@@ -23,7 +23,6 @@
 #include "units.h"
 #include "message.h"
 #include "dia_dirs.h"
-#include "diadynamicmenu.h"
 #include "diaoptionmenu.h"
 #include "dia-lib-icons.h"
 

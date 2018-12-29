@@ -191,11 +191,8 @@ libdia_la_SOURCES =  \
 		parent.h \
 		widgets/dia-arrow-chooser.h \
 		widgets/dia-arrow-chooser.c \
-		diacolorselector.c \
 		widgets/dia-line-chooser-popover.c \
 		widgets/dia-line-chooser.c \
-		diadynamicmenu.h \
-		diadynamicmenu.c \
 		diafontselector.h \
 		diafontselector.c \
 		persistence.c \

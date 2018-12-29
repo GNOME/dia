@@ -24,7 +24,6 @@
 
 #include <gtk/gtk.h>
 #include "diafontselector.h"
-#include "diadynamicmenu.h"
 #include "font.h"
 
 /************* DiaFontSelector: ***************/

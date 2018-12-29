@@ -209,7 +209,7 @@ create_diagram_properties_dialog(Diagram *dia)
   gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
   gtk_widget_show(label);
 
-  bg_colour = dia_color_selector_new();
+  bg_colour = gtk_color_button_new ();
   gtk_widget_set_hexpand (bg_colour, TRUE);
   gtk_grid_attach (GTK_GRID(table), bg_colour, 1, 0, 1, 1);
   gtk_widget_show (bg_colour);
@@ -220,7 +220,7 @@ create_diagram_properties_dialog(Diagram *dia)
   gtk_grid_attach (GTK_GRID (table), label, 0, 1, 1, 1);
   gtk_widget_show (label);
 
-  grid_colour = dia_color_selector_new();
+  grid_colour = gtk_color_button_new ();
   gtk_widget_set_hexpand (grid_colour, TRUE);
   gtk_grid_attach (GTK_GRID (table), grid_colour, 1, 1, 1, 1);
   gtk_widget_show (grid_colour);
@@ -231,7 +231,7 @@ create_diagram_properties_dialog(Diagram *dia)
   gtk_grid_attach (GTK_GRID (table), label, 0, 2, 1, 1);
   gtk_widget_show (label);
 
-  pagebreak_colour = dia_color_selector_new();
+  pagebreak_colour = gtk_color_button_new ();
   gtk_widget_set_hexpand (pagebreak_colour, TRUE);
   gtk_grid_attach (GTK_GRID (table), pagebreak_colour, 1, 2, 1, 1);
   gtk_widget_show(pagebreak_colour);
@@ -276,12 +276,12 @@ diagram_properties_retrieve(Diagram *dia)
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(hex_size_entry),
 			    dia->grid.hex_size);
 
-  dia_color_selector_set_color(bg_colour,
-			       &dia->data->bg_color);
-  dia_color_selector_set_color(grid_colour,
-			       &dia->grid.colour);
-  dia_color_selector_set_color(pagebreak_colour, 
-			       &dia->pagebreak_color);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (bg_colour),
+                              &dia->data->bg_color);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (grid_colour),
+                              &dia->grid.colour);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (pagebreak_colour),
+                               &dia->pagebreak_color);
 
   diagram_properties_update_sensitivity(GTK_TOGGLE_BUTTON(dynamic_check), dia);
 
@@ -339,12 +339,12 @@ diagram_properties_respond(GtkWidget *widget,
         gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(hex_check));
       active_diagram->grid.hex_size =
         gtk_spin_button_get_value(GTK_SPIN_BUTTON(hex_size_entry));
-      dia_color_selector_get_color(bg_colour,
-  				 &active_diagram->data->bg_color);
-      dia_color_selector_get_color(grid_colour,
-  				 &active_diagram->grid.colour);
-      dia_color_selector_get_color(pagebreak_colour,
-  				 &active_diagram->pagebreak_color);
+      gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (bg_colour),
+                                  &active_diagram->data->bg_color);
+      gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (grid_colour),
+                                  &active_diagram->grid.colour);
+      gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (pagebreak_colour),
+                                  &active_diagram->pagebreak_color);
       diagram_add_update_all(active_diagram);
       diagram_flush(active_diagram);
       diagram_set_modified(active_diagram, TRUE);

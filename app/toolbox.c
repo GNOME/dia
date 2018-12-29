@@ -20,7 +20,6 @@
 
 #include <gtk/gtk.h>
 
-#include "diadynamicmenu.h"
 #include "attributes.h"
 #include "sheet.h"
 #include "dia-colour-area.h"

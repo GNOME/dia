@@ -36,11 +36,8 @@ void             dia_list_remove_items        (DiaList          *self,
                                                GList            *items);
 DiaListItem     *dia_list_append              (DiaList          *self,
                                                const gchar      *item);
-void             dia_list_add                 (DiaList          *self,
-                                               GtkListBoxRow    *itm);
 void             dia_list_set_active          (DiaList          *self,
                                                gint              index);
-void             dia_list_add_seperator       (DiaList          *self);
 void             dia_list_select_item         (DiaList          *self,
                                                gint              i);
 void             dia_list_empty               (DiaList          *self);

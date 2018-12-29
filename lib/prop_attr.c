@@ -290,24 +290,24 @@ colorprop_copy(ColorProperty *src)
 static WIDGET *
 colorprop_get_widget(ColorProperty *prop, PropDialog *dialog)
 { 
-  GtkWidget *ret = dia_color_selector_new();
-  dia_color_selector_set_use_alpha (ret, TRUE);
-  prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
+  GtkWidget *ret = gtk_color_button_new();
+  gtk_color_chooser_set_use_alpha (GTK_COLOR_CHOOSER (ret), TRUE);
+  prophandler_connect(&prop->common, G_OBJECT(ret), "color-set");
   return ret;
 }
 
 static void 
 colorprop_reset_widget(ColorProperty *prop, WIDGET *widget)
 {
-  dia_color_selector_set_color(widget,
-                               &prop->color_data);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (widget),
+                              &prop->color_data);
 }
 
 static void 
 colorprop_set_from_widget(ColorProperty *prop, WIDGET *widget) 
 {
-  dia_color_selector_get_color(widget,
-                               &prop->color_data);
+  gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (widget),
+                              &prop->color_data);
 }
 
 static void 

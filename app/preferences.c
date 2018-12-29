@@ -385,7 +385,7 @@ prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
 			      (gfloat) (*((real *)ptr)));
     break;
   case PREF_COLOUR:
-    dia_color_selector_set_color(widget, (GdkRGBA *)ptr);
+    gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (widget), (GdkRGBA *)ptr);
     break;
   case PREF_CHOICE: {
     GList *names = (data->choice_list_function)(data);
@@ -437,7 +437,7 @@ prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
     break;
   case PREF_COLOUR: {
       GdkRGBA prev = *(GdkRGBA *)ptr;
-      dia_color_selector_get_color(widget, (GdkRGBA *)ptr);
+      gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (widget), (GdkRGBA *)ptr);
       changed = memcmp (&prev, ptr, sizeof(GdkRGBA));
     }
     break;
@@ -515,7 +515,7 @@ prefs_get_property_widget(DiaPrefData *data)
     gtk_widget_set_size_request (widget, 80, -1);
     break;
   case PREF_COLOUR:
-    widget = dia_color_selector_new();
+    widget = gtk_color_button_new();
     break;
   case PREF_STRING:
     widget = gtk_entry_new();

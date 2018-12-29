@@ -231,34 +231,6 @@ dia_list_append (DiaList     *self,
 }
 
 void
-dia_list_add (DiaList       *self,
-              GtkListBoxRow *item)
-{
-  GtkWidget* list;
-
-  g_return_val_if_fail (self != NULL, NULL);
-  g_return_val_if_fail (item != NULL, NULL);
-
-  list = ((DiaListPrivate *) dia_list_get_instance_private (self))->real;
-  gtk_container_add (GTK_CONTAINER (list), item);
-}
-
-void
-dia_list_add_seperator (DiaList *self)
-{
-  GtkWidget *sep;
-  GtkWidget *list;
-
-  g_return_if_fail (self != NULL);
-
-  sep = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-  gtk_widget_show_all (sep);
-
-  list = ((DiaListPrivate *) dia_list_get_instance_private (self))->real;
-  gtk_container_add (GTK_CONTAINER (list), sep);
-}
-
-void
 dia_list_select_item (DiaList *self,
                       gint     i)
 {

@@ -32,19 +32,6 @@ GtkWidget* dia_alignment_selector_new           (void);
 Alignment  dia_alignment_selector_get_alignment (GtkWidget *as);
 void       dia_alignment_selector_set_alignment (GtkWidget *as, Alignment align);
 
-/* DiaColorSelector: */
-#define DIACOLORSELECTOR(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, dia_color_selector_get_type (), DiaColorSelector)
-#define DIACOLORSELECTOR_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, dia_color_selector_get_type (), DiaColorSelectorClass)
-#define IS_DIACOLORSELECTOR(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, dia_color_selector_get_type ())
-
-GType      dia_color_selector_get_type  (void);
-GtkWidget* dia_color_selector_new       (void);
-void       dia_color_selector_set_use_alpha (GtkWidget *cs, gboolean use_alpha);
-void       dia_color_selector_get_color (GtkWidget *cs, GdkRGBA *color);
-void       dia_color_selector_set_color (GtkWidget *cs,
-					 const GdkRGBA *color);
-
-
 /* DiaArrowSelector */
 #define DEFAULT_ARROW ARROW_NONE
 #define DEFAULT_ARROW_LENGTH DEFAULT_ARROW_SIZE
