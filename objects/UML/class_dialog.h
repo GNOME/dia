@@ -108,3 +108,25 @@ void _templates_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog
 void _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
 void _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
 void _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
+
+#define DIA_UML_TYPE_OPERATION_DIALOG (dia_uml_operation_dialog_get_type ())
+G_DECLARE_FINAL_TYPE (DiaUmlOperationDialog, dia_uml_operation_dialog, DIA, UML_OPERATION_DIALOG, GtkDialog)
+
+struct _DiaUmlOperationDialog {
+  GtkDialog parent;
+
+  GtkWidget *title;
+  GtkWidget *name;
+  GtkWidget *type;
+  GtkWidget *stereotype;
+  GtkWidget *visibility;
+  GtkWidget *inheritance;
+  GtkWidget *scope;
+  GtkWidget *query;
+  GtkTextBuffer *comment;
+  GtkWidget *list;
+
+  DiaUmlOperation *operation;
+};
+
+GtkWidget *dia_uml_operation_dialog_new (DiaUmlOperation *op);

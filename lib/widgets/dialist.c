@@ -313,7 +313,7 @@ dia_list_get_children (DiaList* self)
 
   g_return_val_if_fail (self != NULL, NULL);
 
-  result = gtk_container_get_children (GTK_CONTAINER (self));
+  result = gtk_container_get_children (GTK_CONTAINER (((DiaListPrivate *) dia_list_get_instance_private (self))->real));
 
   return result;
 }
@@ -546,6 +546,7 @@ dia_list_item_init (DiaListItem *self)
 {
   ((DiaListItemPrivate *) dia_list_item_get_instance_private (self))->label = g_object_new (GTK_TYPE_LABEL,
                                                                                             "xalign", 0.0,
+                                                                                            "visible", TRUE,
                                                                                             NULL);
 }
 

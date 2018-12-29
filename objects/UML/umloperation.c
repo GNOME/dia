@@ -54,6 +54,21 @@ for c in theClasses :
 #include "uml.h"
 #include "properties.h"
 
+G_DEFINE_TYPE (DiaUmlOperation, dia_uml_operation, G_TYPE_OBJECT)
+
+enum {
+  UML_OP_NAME = 1,
+  UML_OP_TYPE,
+  UML_OP_COMMENT,
+  UML_OP_STEREOTYPE,
+  UML_OP_VISIBILITY,
+  UML_OP_INHERITANCE_TYPE,
+  UML_OP_QUERY,
+  UML_OP_CLASS_SCOPE,
+  UML_OP_N_PROPS
+};
+static GParamSpec* uml_op_properties[UML_OP_N_PROPS];
+
 extern PropEnumData _uml_visibilities[];
 extern PropEnumData _uml_inheritances[];
 
@@ -82,50 +97,33 @@ static PropDescription umloperation_props[] = {
 };
 
 static PropOffset umloperation_offsets[] = {
-  { "name", PROP_TYPE_STRING, offsetof(UMLOperation, name) },
-  { "type", PROP_TYPE_STRING, offsetof(UMLOperation, type) },
-  { "comment", PROP_TYPE_MULTISTRING, offsetof(UMLOperation, comment) },
-  { "stereotype", PROP_TYPE_STRING, offsetof(UMLOperation, stereotype) },
-  { "visibility", PROP_TYPE_ENUM, offsetof(UMLOperation, visibility) },
-  { "inheritance_type", PROP_TYPE_ENUM, offsetof(UMLOperation, inheritance_type) },
-  { "query", PROP_TYPE_BOOL, offsetof(UMLOperation, query) },
-  { "class_scope", PROP_TYPE_BOOL, offsetof(UMLOperation, class_scope) },
-  { "parameters", PROP_TYPE_DARRAY, offsetof(UMLOperation, parameters) },
+  { "name", PROP_TYPE_STRING, offsetof(DiaUmlOperation, name) },
+  { "type", PROP_TYPE_STRING, offsetof(DiaUmlOperation, type) },
+  { "comment", PROP_TYPE_MULTISTRING, offsetof(DiaUmlOperation, comment) },
+  { "stereotype", PROP_TYPE_STRING, offsetof(DiaUmlOperation, stereotype) },
+  { "visibility", PROP_TYPE_ENUM, offsetof(DiaUmlOperation, visibility) },
+  { "inheritance_type", PROP_TYPE_ENUM, offsetof(DiaUmlOperation, inheritance_type) },
+  { "query", PROP_TYPE_BOOL, offsetof(DiaUmlOperation, query) },
+  { "class_scope", PROP_TYPE_BOOL, offsetof(DiaUmlOperation, class_scope) },
+  { "parameters", PROP_TYPE_DARRAY, offsetof(DiaUmlOperation, parameters) },
   { NULL, 0, 0 },
 };
 
 PropDescDArrayExtra umloperation_extra = {
   { umloperation_props, umloperation_offsets, "umloperation" },
-  (NewRecordFunc)uml_operation_new,
-  (FreeRecordFunc)uml_operation_destroy
+  (NewRecordFunc) dia_uml_operation_new,
+  (FreeRecordFunc) g_object_unref
 };
 
-UMLOperation *
-uml_operation_new(void)
+DiaUmlOperation *
+dia_uml_operation_copy (DiaUmlOperation *srcop)
 {
-  UMLOperation *op;
-  static gint next_id = 1;
-
-  op = g_new0(UMLOperation, 1);
-  op->internal_id = next_id++;
-  op->name = g_strdup("");
-  op->comment = g_strdup("");
-  op->visibility = UML_PUBLIC;
-  op->inheritance_type = UML_LEAF;
-
-#if 0 /* setup elsewhere */
-  op->left_connection = g_new0(ConnectionPoint, 1);
-  op->right_connection = g_new0(ConnectionPoint, 1);
-#endif
-  return op;
-}
-
-void
-uml_operation_copy_into(UMLOperation *srcop, UMLOperation *destop)
-{
+  DiaUmlOperation *destop;
   UMLParameter *param;
   UMLParameter *newparam;
   GList *list;
+  
+  destop = g_object_new (DIA_UML_TYPE_OPERATION, NULL);
 
   destop->internal_id = srcop->internal_id;
 
@@ -192,16 +190,9 @@ uml_operation_copy_into(UMLOperation *srcop, UMLOperation *destop)
     
     list = g_list_next(list);
   }
-}
 
-UMLOperation *
-uml_operation_copy(UMLOperation *op)
-{
-  UMLOperation *newop;
-  
-  newop = g_new0(UMLOperation, 1);
+  return destop;
 
-  uml_operation_copy_into(op, newop);
 #if 0 /* setup elsewhere */
   newop->left_connection = g_new0(ConnectionPoint,1);
   *newop->left_connection = *op->left_connection;
@@ -211,43 +202,10 @@ uml_operation_copy(UMLOperation *op)
   *newop->right_connection = *op->right_connection;
   newop->right_connection->object = NULL; /* must be setup later */
 #endif
-  return newop;
 }
 
 void
-uml_operation_destroy(UMLOperation *op)
-{
-  GList *list;
-  UMLParameter *param;
-  
-  g_free(op->name);
-  if (op->type != NULL)
-    g_free(op->type);
-  if (op->stereotype != NULL)
-    g_free(op->stereotype);
-
-  g_free(op->comment);
-
-  list = op->parameters;
-  while (list != NULL) {
-    param = (UMLParameter *)list->data;
-    uml_parameter_destroy(param);
-    list = g_list_next(list);
-  }
-  if (op->wrappos) {
-    g_list_free(op->wrappos);
-  }
-
-#if 0 /* freed elsewhere */
-  /* These are merely temporary reminders, don't need to unconnect */
-  g_free(op->left_connection);
-  g_free(op->right_connection);
-#endif
-  g_free(op);
-}
-
-void
-uml_operation_write(AttributeNode attr_node, UMLOperation *op, DiaContext *ctx)
+uml_operation_write(AttributeNode attr_node, DiaUmlOperation *op, DiaContext *ctx)
 {
   GList *list;
   UMLParameter *param;
@@ -302,7 +260,7 @@ uml_operation_write(AttributeNode attr_node, UMLOperation *op, DiaContext *ctx)
 extern char visible_char[];
 
 char *
-uml_get_operation_string (UMLOperation *operation)
+dia_uml_operation_format (DiaUmlOperation *operation)
 {
   int len;
   char *str;
@@ -430,8 +388,8 @@ uml_get_operation_string (UMLOperation *operation)
 
 /*!
  * The ownership of these connection points is quite complicated. Instead of being part of
- * the UMLOperation as one may expect at first, they are somewhat in between the DiaObject
- * (see: DiaObject::connections and the concrete user, here UMLClass) and the UMLOperation.
+ * the DiaUmlOperation as one may expect at first, they are somewhat in between the DiaObject
+ * (see: DiaObject::connections and the concrete user, here UMLClass) and the DiaUmlOperation.
  *
  * But with taking undo state mangement into account it gets even worse. Deleted (to be
  * restored connection points) live inside the UMLClassChange until they get reverted back
@@ -444,7 +402,7 @@ uml_get_operation_string (UMLOperation *operation)
  * with C++ it would be a template function ;)
  */
 void
-uml_operation_ensure_connection_points (UMLOperation* op, DiaObject* obj)
+dia_uml_operation_ensure_connection_points (DiaUmlOperation* op, DiaObject* obj)
 {
   if (!op->left_connection)
     op->left_connection = g_new0(ConnectionPoint,1);
@@ -452,4 +410,200 @@ uml_operation_ensure_connection_points (UMLOperation* op, DiaObject* obj)
   if (!op->right_connection)
     op->right_connection = g_new0(ConnectionPoint,1);
   op->right_connection->object = obj;
+}
+
+static void
+dia_uml_operation_finalize (GObject *object)
+{
+  GList *list;
+  UMLParameter *param;
+  DiaUmlOperation *self = DIA_UML_OPERATION (object);
+  
+  g_free (self->name);
+  if (self->type != NULL)
+    g_free (self->type);
+  if (self->stereotype != NULL)
+    g_free (self->stereotype);
+
+  g_free (self->comment);
+
+  list = self->parameters;
+  while (list != NULL) {
+    param = (UMLParameter *)list->data;
+    uml_parameter_destroy(param);
+    list = g_list_next(list);
+  }
+  if (self->wrappos) {
+    g_list_free (self->wrappos);
+  }
+
+  /* freed elsewhere */
+  /* These are merely temporary reminders, don't need to unconnect */
+  /*
+  g_free(op->left_connection);
+  g_free(op->right_connection);
+  */
+}
+
+static void
+dia_uml_operation_set_property (GObject      *object,
+                                guint         property_id,
+                                const GValue *value,
+                                GParamSpec   *pspec)
+{
+  DiaUmlOperation *self = DIA_UML_OPERATION (object);
+
+  switch (property_id) {
+    case UML_OP_NAME:
+      self->name = g_value_dup_string (value);
+      g_object_notify_by_pspec (object, uml_op_properties[UML_OP_NAME]);
+      break;
+    case UML_OP_TYPE:
+      self->type = g_value_dup_string (value);
+      g_object_notify_by_pspec (object, uml_op_properties[UML_OP_TYPE]);
+      break;
+    case UML_OP_COMMENT:
+      self->comment = g_value_dup_string (value);
+      g_object_notify_by_pspec (object, uml_op_properties[UML_OP_COMMENT]);
+      break;
+    case UML_OP_STEREOTYPE:
+      self->stereotype = g_value_dup_string (value);
+      g_object_notify_by_pspec (object, uml_op_properties[UML_OP_STEREOTYPE]);
+      break;
+    case UML_OP_VISIBILITY:
+      self->visibility = g_value_get_int (value);
+      g_object_notify_by_pspec (object, uml_op_properties[UML_OP_VISIBILITY]);
+      break;
+    case UML_OP_INHERITANCE_TYPE:
+      self->inheritance_type = g_value_get_int (value);
+      g_object_notify_by_pspec (object, uml_op_properties[UML_OP_INHERITANCE_TYPE]);
+      break;
+    case UML_OP_QUERY:
+      self->query = g_value_get_boolean (value);
+      g_object_notify_by_pspec (object, uml_op_properties[UML_OP_QUERY]);
+      break;
+    case UML_OP_CLASS_SCOPE:
+      self->class_scope = g_value_get_boolean (value);
+      g_object_notify_by_pspec (object, uml_op_properties[UML_OP_CLASS_SCOPE]);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_uml_operation_get_property (GObject    *object,
+                                guint       property_id,
+                                GValue     *value,
+                                GParamSpec *pspec)
+{
+  DiaUmlOperation *self = DIA_UML_OPERATION (object);
+
+  switch (property_id) {
+    case UML_OP_NAME:
+      g_value_set_string (value, self->name);
+      break;
+    case UML_OP_TYPE:
+      g_value_set_string (value, self->type);
+      break;
+    case UML_OP_COMMENT:
+      g_value_set_string (value, self->comment);
+      break;
+    case UML_OP_STEREOTYPE:
+      g_value_set_string (value, self->stereotype);
+      break;
+    case UML_OP_VISIBILITY:
+      g_value_set_int (value, self->visibility);
+      break;
+    case UML_OP_INHERITANCE_TYPE:
+      g_value_set_int (value, self->inheritance_type);
+      break;
+    case UML_OP_QUERY:
+      g_value_set_boolean (value, self->query);
+      break;
+    case UML_OP_CLASS_SCOPE:
+      g_value_set_boolean (value, self->class_scope);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_uml_operation_class_init (DiaUmlOperationClass *klass)
+{
+  GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->finalize = dia_uml_operation_finalize;
+  object_class->set_property = dia_uml_operation_set_property;
+  object_class->get_property = dia_uml_operation_get_property;
+
+  uml_op_properties[UML_OP_NAME] = g_param_spec_string ("name",
+                                                        "Name",
+                                                        "Function name",
+                                                        "",
+                                                        G_PARAM_READWRITE);
+  uml_op_properties[UML_OP_TYPE] = g_param_spec_string ("type",
+                                                        "Type",
+                                                        "Return type",
+                                                        NULL,
+                                                        G_PARAM_READWRITE);
+  uml_op_properties[UML_OP_COMMENT] = g_param_spec_string ("comment",
+                                                           "Comment",
+                                                           "Comment",
+                                                           "",
+                                                           G_PARAM_READWRITE);
+  uml_op_properties[UML_OP_STEREOTYPE] = g_param_spec_string ("stereotype",
+                                                              "Stereotype",
+                                                              "Stereotype",
+                                                              NULL,
+                                                              G_PARAM_READWRITE);
+  uml_op_properties[UML_OP_VISIBILITY] = g_param_spec_int ("visibility",
+                                                           "Visibility",
+                                                           "Visibility",
+                                                           UML_PUBLIC,
+                                                           UML_IMPLEMENTATION,
+                                                           UML_PUBLIC,
+                                                           G_PARAM_READWRITE);
+  uml_op_properties[UML_OP_INHERITANCE_TYPE] = g_param_spec_int ("inheritance-type",
+                                                                 "Inheritance type",
+                                                                 "Inheritance type",
+                                                                 UML_ABSTRACT,
+                                                                 UML_LEAF,
+                                                                 UML_LEAF,
+                                                                 G_PARAM_READWRITE);
+  uml_op_properties[UML_OP_QUERY] = g_param_spec_boolean ("query",
+                                                          "Query",
+                                                          "Const function",
+                                                          FALSE,
+                                                          G_PARAM_READWRITE);
+  uml_op_properties[UML_OP_CLASS_SCOPE] = g_param_spec_boolean ("class-scope",
+                                                                "Class scope",
+                                                                "Class scope",
+                                                                FALSE,
+                                                                G_PARAM_READWRITE);
+
+  g_object_class_install_properties (object_class,
+                                     UML_OP_N_PROPS,
+                                     uml_op_properties);
+}
+
+static void
+dia_uml_operation_init (DiaUmlOperation *self)
+{
+  static gint next_id = 1;
+
+  self->internal_id = next_id++;
+  self->name = g_strdup("");
+  self->comment = g_strdup("");
+  self->visibility = UML_PUBLIC;
+  self->inheritance_type = UML_LEAF;
+}
+
+DiaUmlOperation *
+dia_uml_operation_new ()
+{
+  return g_object_new (DIA_UML_TYPE_OPERATION, NULL);
 }

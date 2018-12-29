@@ -470,9 +470,9 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
     }
     list = (!umlclass->visible_operations || umlclass->suppress_operations) ? NULL : umlclass->operations;
     while (list != NULL) {
-      UMLOperation *op = (UMLOperation *)list->data;
+      DiaUmlOperation *op = (DiaUmlOperation *)list->data;
 
-      uml_operation_ensure_connection_points (op, obj);
+      dia_uml_operation_ensure_connection_points (op, obj);
       obj->connections[i] = op->left_connection;
       obj->connections[i]->object = obj;
       i++;
@@ -994,8 +994,8 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
 
     list = umlclass->operations;
     while (list != NULL) {
-      UMLOperation *op = (UMLOperation *)list->data;
-      gchar* opstr = uml_get_operation_string(op);
+      DiaUmlOperation *op = (DiaUmlOperation *)list->data;
+      gchar* opstr = dia_uml_operation_format(op);
       real ascent;
 
       switch (op->inheritance_type) {
@@ -1306,7 +1306,7 @@ umlclass_update_data(UMLClass *umlclass)
     
   list = (!umlclass->visible_operations || umlclass->suppress_operations) ? NULL : umlclass->operations;
   while (list != NULL) {
-    UMLOperation *op = (UMLOperation *)list->data;
+    DiaUmlOperation *op = (DiaUmlOperation *)list->data;
 
     op->left_connection->pos.x = x;
     op->left_connection->pos.y = y;
@@ -1522,8 +1522,8 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
     list = umlclass->operations;
     while (list != NULL)
     {
-      UMLOperation *op = (UMLOperation *) list->data;
-      gchar *opstr = uml_get_operation_string(op);
+      DiaUmlOperation *op = (DiaUmlOperation *) list->data;
+      gchar *opstr = dia_uml_operation_format(op);
       DiaFont   *Font;
       real       FontHeight;
 
@@ -1906,7 +1906,7 @@ umlclass_destroy(UMLClass *umlclass)
 {
   GList *list;
   UMLAttribute *attr;
-  UMLOperation *op;
+  DiaUmlOperation *op;
   UMLFormalParameter *param;
 
 #ifdef DEBUG
@@ -1940,10 +1940,10 @@ umlclass_destroy(UMLClass *umlclass)
   
   list = umlclass->operations;
   while (list != NULL) {
-    op = (UMLOperation *)list->data;
+    op = (DiaUmlOperation *)list->data;
     g_free(op->left_connection);
     g_free(op->right_connection);
-    uml_operation_destroy(op);
+    g_object_unref (G_OBJECT (op));
     list = g_list_next(list);
   }
   g_list_free(umlclass->operations);
@@ -2048,9 +2048,9 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->operations = NULL;
   list = umlclass->operations;
   while (list != NULL) {
-    UMLOperation *op = (UMLOperation *)list->data;
-    UMLOperation *newop = uml_operation_copy(op);
-    uml_operation_ensure_connection_points (newop, newobj);
+    DiaUmlOperation *op = (DiaUmlOperation *)list->data;
+    DiaUmlOperation *newop = dia_uml_operation_copy(op);
+    dia_uml_operation_ensure_connection_points (newop, newobj);
 
     newumlclass->operations = g_list_append(newumlclass->operations,
 					     newop);
@@ -2099,7 +2099,7 @@ umlclass_copy(UMLClass *umlclass)
        (!newumlclass->suppress_operations)) {
     list = newumlclass->operations;
     while (list != NULL) {
-      UMLOperation *op = (UMLOperation *)list->data;
+      DiaUmlOperation *op = (DiaUmlOperation *)list->data;
       newobj->connections[i++] = op->left_connection;
       newobj->connections[i++] = op->right_connection;
       
@@ -2132,7 +2132,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 	      DiaContext *ctx)
 {
   UMLAttribute *attr;
-  UMLOperation *op;
+  DiaUmlOperation *op;
   UMLFormalParameter *formal_param;
   GList *list;
   AttributeNode attr_node;
@@ -2218,7 +2218,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   attr_node = new_attribute(obj_node, "operations");
   list = umlclass->operations;
   while (list != NULL) {
-    op = (UMLOperation *) list->data;
+    op = (DiaUmlOperation *) list->data;
     uml_operation_write(attr_node, op, ctx);
     list = g_list_next(list);
   }
@@ -2350,10 +2350,10 @@ umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
   /* Operations info: */
   list = umlclass->operations;
   while (list) {
-    UMLOperation *op = (UMLOperation *)list->data;
+    DiaUmlOperation *op = (DiaUmlOperation *)list->data;
     g_assert(op);
 
-    uml_operation_ensure_connection_points (op, obj);
+    dia_uml_operation_ensure_connection_points (op, obj);
     list = g_list_next(list);
   }
 

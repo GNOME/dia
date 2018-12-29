@@ -786,7 +786,7 @@ umlclass_free_state(UMLClassState *state)
 
   list = state->operations;
   while (list) {
-    uml_operation_destroy((UMLOperation *) list->data);
+    g_object_unref (G_OBJECT (list->data));
     list = g_list_next(list);
   }
   g_list_free(state->operations);
@@ -854,17 +854,13 @@ umlclass_get_state(UMLClass *umlclass)
     list = g_list_next(list);
   }
 
-  
+  /* TODO: Why? */
   state->operations = NULL;
   list = umlclass->operations;
   while (list != NULL) {
-    UMLOperation *op = (UMLOperation *)list->data;
-    UMLOperation *op_copy;
-      
-    op_copy = uml_operation_copy(op);
-    op_copy->left_connection = op->left_connection;
-    op_copy->right_connection = op->right_connection;
-    state->operations = g_list_append(state->operations, op_copy);
+    DiaUmlOperation *op = (DiaUmlOperation *)list->data;
+
+    state->operations = g_list_append(state->operations, op);
     list = g_list_next(list);
   }
 
@@ -940,7 +936,7 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
 
   list = umlclass->operations;
   while (list != NULL) {
-    UMLOperation *op = (UMLOperation *) list->data;
+    DiaUmlOperation *op = (DiaUmlOperation *) list->data;
     
     if ( (umlclass->visible_operations) &&
 	 (!umlclass->suppress_operations)) {
