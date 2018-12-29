@@ -23,8 +23,8 @@
 #include "intl.h"
 #include "widgets.h"
 #include "diaoptionmenu.h"
-#include "dia-line-style-selector.h"
-#include "dia-line-style-selector-popover.h"
+#include "dia-line-chooser.h"
+#include "dia-line-chooser-popover.h"
 
 /************* DiaLinePreview: ***************/
 
@@ -143,17 +143,17 @@ dia_line_preview_get_line_style (DiaLinePreview *self)
   return self->lstyle;
 }
 
-/************* DiaLineStyleSelector: ***************/
+/************* DiaLineChooser: ***************/
 
-typedef struct _DiaLineStyleSelectorPrivate DiaLineStyleSelectorPrivate;
+typedef struct _DiaLineChooserPrivate DiaLineChooserPrivate;
 
-struct _DiaLineStyleSelectorPrivate {
+struct _DiaLineChooserPrivate {
   GtkWidget *popover;
   GtkWidget *preview;
 };
 
-G_DEFINE_TYPE_WITH_CODE (DiaLineStyleSelector, dia_line_style_selector, GTK_TYPE_MENU_BUTTON,
-                         G_ADD_PRIVATE (DiaLineStyleSelector))
+G_DEFINE_TYPE_WITH_CODE (DiaLineChooser, dia_line_chooser, GTK_TYPE_MENU_BUTTON,
+                         G_ADD_PRIVATE (DiaLineChooser))
 
 enum {
     DLS_VALUE_CHANGED,
@@ -163,7 +163,7 @@ enum {
 static guint dls_signals[DLS_LAST_SIGNAL] = { 0 };
 
 static void
-dia_line_style_selector_class_init (DiaLineStyleSelectorClass *class)
+dia_line_chooser_class_init (DiaLineChooserClass *class)
 {
   dls_signals[DLS_VALUE_CHANGED]
       = g_signal_new("value-changed",
@@ -175,11 +175,11 @@ dia_line_style_selector_class_init (DiaLineStyleSelectorClass *class)
 }
 
 static void
-value_changed (GObject *src, DiaLineStyleSelector *self)
+value_changed (GObject *src, DiaLineChooser *self)
 {
-  DiaLineStyleSelectorPrivate *priv = dia_line_style_selector_get_instance_private (self);
+  DiaLineChooserPrivate *priv = dia_line_chooser_get_instance_private (self);
   gdouble length;
-  LineStyle style = dia_line_style_selector_popover_get_line_style (DIA_LINE_STYLE_SELECTOR_POPOVER (priv->popover),
+  LineStyle style = dia_line_chooser_popover_get_line_style (DIA_LINE_CHOOSER_POPOVER (priv->popover),
                                                                     &length);
   dia_line_preview_set_line_style (DIA_LINE_PREVIEW (priv->preview), style, length);
 
@@ -188,10 +188,10 @@ value_changed (GObject *src, DiaLineStyleSelector *self)
 }
 
 static void
-dia_line_style_selector_init (DiaLineStyleSelector *self)
+dia_line_chooser_init (DiaLineChooser *self)
 {
   GtkWidget *box;
-  DiaLineStyleSelectorPrivate *priv = dia_line_style_selector_get_instance_private (self);
+  DiaLineChooserPrivate *priv = dia_line_chooser_get_instance_private (self);
 
   box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 16);
   gtk_widget_show (box);
@@ -201,8 +201,8 @@ dia_line_style_selector_init (DiaLineStyleSelector *self)
   gtk_widget_show (priv->preview);
   gtk_box_pack_start (GTK_BOX (box), priv->preview, TRUE, TRUE, 0);
  
-  priv->popover = dia_line_style_selector_popover_new ();
-  dia_line_style_selector_popover_set_line_style (DIA_LINE_STYLE_SELECTOR_POPOVER (priv->popover),
+  priv->popover = dia_line_chooser_popover_new ();
+  dia_line_chooser_popover_set_line_style (DIA_LINE_CHOOSER_POPOVER (priv->popover),
                                                   DEFAULT_LINESTYLE);
   g_signal_connect (G_OBJECT (priv->popover), "value-changed",
                     G_CALLBACK (value_changed), self);
@@ -210,31 +210,31 @@ dia_line_style_selector_init (DiaLineStyleSelector *self)
 }
 
 GtkWidget *
-dia_line_style_selector_new ()
+dia_line_chooser_new ()
 {
-  return g_object_new (DIA_TYPE_LINE_STYLE_SELECTOR, NULL);
+  return g_object_new (DIA_TYPE_LINE_CHOOSER, NULL);
 }
 
 void 
-dia_line_style_selector_get_line_style (DiaLineStyleSelector *self,
-                                        LineStyle            *ls,
-                                        gdouble              *dl)
+dia_line_chooser_get_line_style (DiaLineChooser *self,
+                                 LineStyle       *ls,
+                                 gdouble         *dl)
 {
-  DiaLineStyleSelectorPrivate *priv = dia_line_style_selector_get_instance_private (self);
+  DiaLineChooserPrivate *priv = dia_line_chooser_get_instance_private (self);
 
-  *ls = dia_line_style_selector_popover_get_line_style (DIA_LINE_STYLE_SELECTOR_POPOVER (priv->popover),
+  *ls = dia_line_chooser_popover_get_line_style (DIA_LINE_CHOOSER_POPOVER (priv->popover),
                                                         (gdouble *) dl);
 }
 
 void
-dia_line_style_selector_set_line_style (DiaLineStyleSelector *self,
-                                        LineStyle             linestyle,
-                                        gdouble               dashlength)
+dia_line_chooser_set_line_style (DiaLineChooser *self,
+                                 LineStyle       linestyle,
+                                 gdouble         dashlength)
 {
-  DiaLineStyleSelectorPrivate *priv = dia_line_style_selector_get_instance_private (self);
+  DiaLineChooserPrivate *priv = dia_line_chooser_get_instance_private (self);
 
-  dia_line_style_selector_popover_set_line_style (DIA_LINE_STYLE_SELECTOR_POPOVER (priv->popover),
+  dia_line_chooser_popover_set_line_style (DIA_LINE_CHOOSER_POPOVER (priv->popover),
                                                   linestyle);
-  dia_line_style_selector_popover_set_length (DIA_LINE_STYLE_SELECTOR_POPOVER (priv->popover),
+  dia_line_chooser_popover_set_length (DIA_LINE_CHOOSER_POPOVER (priv->popover),
                                               dashlength);
 }

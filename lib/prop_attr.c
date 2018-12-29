@@ -64,7 +64,7 @@ linestyleprop_copy(LinestyleProperty *src)
 static WIDGET *
 linestyleprop_get_widget(LinestyleProperty *prop, PropDialog *dialog)
 {
-  GtkWidget *ret = dia_line_style_selector_new();
+  GtkWidget *ret = dia_line_chooser_new();
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
   return ret;
 }
@@ -72,17 +72,17 @@ linestyleprop_get_widget(LinestyleProperty *prop, PropDialog *dialog)
 static void 
 linestyleprop_reset_widget(LinestyleProperty *prop, WIDGET *widget)
 {
-  dia_line_style_selector_set_line_style (DIA_LINE_STYLE_SELECTOR(widget),
-                                          prop->style,
-                                          prop->dash);
+  dia_line_chooser_set_line_style (DIA_LINE_CHOOSER (widget),
+                                   prop->style,
+                                   prop->dash);
 }
 
 static void 
 linestyleprop_set_from_widget(LinestyleProperty *prop, WIDGET *widget) 
 {
-  dia_line_style_selector_get_line_style(DIA_LINE_STYLE_SELECTOR(widget),
-                                        &prop->style,
-                                        &prop->dash);
+  dia_line_chooser_get_line_style (DIA_LINE_CHOOSER (widget),
+                                   &prop->style,
+                                   &prop->dash);
 }
 
 static void 

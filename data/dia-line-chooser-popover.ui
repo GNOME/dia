@@ -8,7 +8,7 @@
     <property name="step_increment">0.10000000000000001</property>
     <property name="page_increment">1</property>
   </object>
-  <template class="DiaLineStyleSelectorPopover" parent="GtkPopover">
+  <template class="DiaLineChooserPopover" parent="GtkPopover">
     <property name="can_focus">False</property>
     <child>
       <object class="GtkBox">

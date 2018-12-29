@@ -1,20 +1,20 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include "dia-line-style-selector.h"
-#include "dia-line-style-selector-popover.h"
+#include "dia-line-chooser.h"
+#include "dia-line-chooser-popover.h"
 #include "dia_dirs.h"
 
-typedef struct _DiaLineStyleSelectorPopoverPrivate DiaLineStyleSelectorPopoverPrivate;
+typedef struct _DiaLineChooserPopoverPrivate DiaLineChooserPopoverPrivate;
 
-struct _DiaLineStyleSelectorPopoverPrivate {
+struct _DiaLineChooserPopoverPrivate {
  GtkWidget *list;
  GtkWidget *length;
  GtkWidget *length_box;
 };
 
-G_DEFINE_TYPE_WITH_CODE (DiaLineStyleSelectorPopover, dia_line_style_selector_popover, GTK_TYPE_POPOVER,
-                         G_ADD_PRIVATE (DiaLineStyleSelectorPopover))
+G_DEFINE_TYPE_WITH_CODE (DiaLineChooserPopover, dia_line_chooser_popover, GTK_TYPE_POPOVER,
+                         G_ADD_PRIVATE (DiaLineChooserPopover))
 
 enum {
   VALUE_CHANGED,
@@ -24,16 +24,16 @@ enum {
 static guint signals[LAST_SIGNAL] = { 0 };
 
 GtkWidget *
-dia_line_style_selector_popover_new ()
+dia_line_chooser_popover_new ()
 {
-  return g_object_new (DIA_TYPE_LINE_STYLE_SELECTOR_POPOVER, NULL);
+  return g_object_new (DIA_TYPE_LINE_CHOOSER_POPOVER, NULL);
 }
 
 LineStyle
-dia_line_style_selector_popover_get_line_style (DiaLineStyleSelectorPopover *self,
-                                                gdouble                     *length)
+dia_line_chooser_popover_get_line_style (DiaLineChooserPopover *self,
+                                         gdouble               *length)
 {
-  DiaLineStyleSelectorPopoverPrivate *priv = dia_line_style_selector_popover_get_instance_private (self);
+  DiaLineChooserPopoverPrivate *priv = dia_line_chooser_popover_get_instance_private (self);
   GtkListBoxRow *row;
   GtkWidget *preview;
   LineStyle style;
@@ -51,10 +51,10 @@ dia_line_style_selector_popover_get_line_style (DiaLineStyleSelectorPopover *sel
 }
 
 void
-dia_line_style_selector_popover_set_line_style (DiaLineStyleSelectorPopover *self,
-                                                LineStyle                    line_style)
+dia_line_chooser_popover_set_line_style (DiaLineChooserPopover *self,
+                                         LineStyle              line_style)
 {
-  DiaLineStyleSelectorPopoverPrivate *priv = dia_line_style_selector_popover_get_instance_private (self);
+  DiaLineChooserPopoverPrivate *priv = dia_line_chooser_popover_get_instance_private (self);
   GtkListBoxRow *row;
 
   row = gtk_list_box_get_row_at_index (GTK_LIST_BOX (priv->list), line_style);
@@ -62,16 +62,16 @@ dia_line_style_selector_popover_set_line_style (DiaLineStyleSelectorPopover *sel
 }
 
 void
-dia_line_style_selector_popover_set_length (DiaLineStyleSelectorPopover *self,
-                                            gdouble                      length)
+dia_line_chooser_popover_set_length (DiaLineChooserPopover *self,
+                                     gdouble                length)
 {
-  DiaLineStyleSelectorPopoverPrivate *priv = dia_line_style_selector_popover_get_instance_private (self);
+  DiaLineChooserPopoverPrivate *priv = dia_line_chooser_popover_get_instance_private (self);
 
   gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->length), length);
 }
 
 static void
-dia_line_style_selector_popover_class_init (DiaLineStyleSelectorPopoverClass *klass)
+dia_line_chooser_popover_class_init (DiaLineChooserPopoverClass *klass)
 {
   GFile *template_file;
   GBytes *template;
@@ -86,16 +86,16 @@ dia_line_style_selector_popover_class_init (DiaLineStyleSelectorPopoverClass *kl
                                          G_TYPE_NONE, 0);
 
   /* TODO: Use GResource */
-  template_file = g_file_new_for_path (build_ui_filename ("ui/dia-line-style-selector-popover.ui"));
+  template_file = g_file_new_for_path (build_ui_filename ("ui/dia-line-chooser-popover.ui"));
   template = g_file_load_bytes (template_file, NULL, NULL, &err);
 
   if (err)
     g_critical ("Failed to load template: %s", err->message);
 
   gtk_widget_class_set_template (widget_class, template);
-  gtk_widget_class_bind_template_child_private (widget_class, DiaLineStyleSelectorPopover, list);
-  gtk_widget_class_bind_template_child_private (widget_class, DiaLineStyleSelectorPopover, length);
-  gtk_widget_class_bind_template_child_private (widget_class, DiaLineStyleSelectorPopover, length_box);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaLineChooserPopover, list);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaLineChooserPopover, length);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaLineChooserPopover, length_box);
 
   g_object_unref (template_file);
 }
@@ -108,14 +108,14 @@ spin_change (GtkSpinButton *sb, gpointer data)
 }
 
 static void
-row_selected (GtkListBox                  *box,
-              GtkListBoxRow               *row,
-              DiaLineStyleSelectorPopover *self)
+row_selected (GtkListBox            *box,
+              GtkListBoxRow         *row,
+              DiaLineChooserPopover *self)
 {
-  DiaLineStyleSelectorPopoverPrivate *priv = dia_line_style_selector_popover_get_instance_private (self);
+  DiaLineChooserPopoverPrivate *priv = dia_line_chooser_popover_get_instance_private (self);
 
   int state;
-  state = dia_line_style_selector_popover_get_line_style (self, NULL)
+  state = dia_line_chooser_popover_get_line_style (self, NULL)
      != LINESTYLE_SOLID;
 
   gtk_widget_set_sensitive (priv->length_box, state);
@@ -124,9 +124,9 @@ row_selected (GtkListBox                  *box,
 }
 
 static void
-dia_line_style_selector_popover_init (DiaLineStyleSelectorPopover *self)
+dia_line_chooser_popover_init (DiaLineChooserPopover *self)
 {
-  DiaLineStyleSelectorPopoverPrivate *priv = dia_line_style_selector_popover_get_instance_private (self);
+  DiaLineChooserPopoverPrivate *priv = dia_line_chooser_popover_get_instance_private (self);
 
   gtk_widget_init_template (GTK_WIDGET (self));
 

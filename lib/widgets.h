@@ -25,7 +25,7 @@
 #include "font.h"
 #include "arrows.h"
 #include "units.h"
-#include "dia-line-style-selector.h"
+#include "widgets/dia-line-chooser.h"
 
 /* DiaAlignmentSelector: */
 GtkWidget* dia_alignment_selector_new           (void);

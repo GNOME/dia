@@ -307,10 +307,10 @@ EXPORTS
  
  dia_line_chooser_new
 
- dia_line_style_selector_get_linestyle
- dia_line_style_selector_get_type
- dia_line_style_selector_new
- dia_line_style_selector_set_linestyle
+ dia_line_chooser_get_linestyle
+ dia_line_chooser_get_type
+ dia_line_chooser_new
+ dia_line_chooser_set_linestyle
 
  dia_line_chooser_get_type
  dia_line_chooser_set_line_style

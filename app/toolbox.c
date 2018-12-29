@@ -460,7 +460,7 @@ change_line_style(DiaLineStyleSelector *selector, gpointer user_data)
 {
   LineStyle lstyle;
   real dash_length;
-  dia_line_style_selector_get_line_style (selector, &lstyle, &dash_length);
+  dia_line_chooser_get_line_style (selector, &lstyle, &dash_length);
   attributes_set_default_line_style (lstyle, dash_length);
 }
 
@@ -495,14 +495,14 @@ create_lineprops_area (DiaToolbox *self)
   gtk_widget_set_tooltip_text (chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details\342\200\246"));
   gtk_widget_show (chooser);
 
-  chooser = dia_line_style_selector_new ();
+  chooser = dia_line_chooser_new ();
   g_signal_connect (G_OBJECT (chooser), "value-changed",
                     G_CALLBACK (change_line_style), NULL);
   gtk_container_add (GTK_CONTAINER (box), chooser);
   gtk_widget_set_tooltip_text (chooser, _("Line style for new lines.  Click to pick a line style, or set line style parameters with Details\342\200\246"));
   style = persistence_register_integer ("line-style", LINESTYLE_SOLID);
   dash_length = persistence_register_real ("dash-length", DEFAULT_LINESTYLE_DASHLEN);
-  dia_line_style_selector_set_line_style (DIA_LINE_STYLE_SELECTOR (chooser), style, dash_length);
+  dia_line_chooser_set_line_style (DIA_LINE_CHOOSER (chooser), style, dash_length);
   gtk_widget_show (chooser);
 
   chooser = dia_arrow_chooser_new (FALSE);
