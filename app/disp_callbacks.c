@@ -445,14 +445,26 @@ popup_object_menu(DDisplay *ddisp, GdkEvent *event)
 
   menu = GTK_MENU(dia_menu->app_data);
   /* add the properties menu item to raise the properties from the contextual menu */
-  
-  if (event->type == GDK_BUTTON_PRESS)
-    gtk_menu_popup(menu, NULL, NULL, NULL, NULL,
-		   ((GdkEventButton *)event)->button, ((GdkEventButton *)event)->time);
-  else if (event->type == GDK_KEY_PRESS)
-    gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 0, ((GdkEventKey *)event)->time);
-  else /* warn about unexpected usage of this function */
+  if (event->type == GDK_BUTTON_PRESS) {
+    gtk_menu_popup_at_pointer (menu, event);
+  } else if (event->type == GDK_KEY_PRESS) {
+    Rectangle *bounds = dia_object_get_bounding_box (obj);
+    GdkRectangle rect = {
+      bounds->left,
+      bounds->top,
+      bounds->right - bounds->left,
+      bounds->bottom - bounds->top
+    };
+    gtk_menu_popup_at_rect (menu,
+                            ((GdkEventAny *)event)->window,
+                            &rect,
+                            GDK_GRAVITY_SOUTH_WEST,
+                            GDK_GRAVITY_NORTH_WEST,
+                            event);
+  } else {
+    /* warn about unexpected usage of this function */
     g_warning ("Unhandled GdkEvent type=%d", event->type);
+  }
 }
 
 gint

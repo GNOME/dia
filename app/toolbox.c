@@ -684,9 +684,6 @@ create_tools (DiaToolbox *self)
 static void
 dia_toolbox_class_init (DiaToolboxClass *class)
 {
-  GtkWidgetClass *widget_class;
-
-  widget_class = GTK_WIDGET_CLASS (class);
 }
 
 static void
