@@ -31,7 +31,7 @@
 #include "widgets.h"
 #include "properties.h"
 #include "propinternals.h"
-#include "diaarrowchooser.h"
+#include "widgets/dia-arrow-chooser.h"
 #include "diafontselector.h"
 
 /***************************/
@@ -172,7 +172,7 @@ arrowprop_copy(ArrowProperty *src)
 static WIDGET *
 arrowprop_get_widget(ArrowProperty *prop, PropDialog *dialog)
 {
-  GtkWidget *ret = dia_arrow_selector_new();
+  GtkWidget *ret = dia_arrow_chooser_new (FALSE);
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
   return ret;
 }
@@ -180,14 +180,14 @@ arrowprop_get_widget(ArrowProperty *prop, PropDialog *dialog)
 static void 
 arrowprop_reset_widget(ArrowProperty *prop, WIDGET *widget)
 {
-  dia_arrow_selector_set_arrow(DIA_ARROW_SELECTOR(widget),
-                               prop->arrow_data);
+  dia_arrow_chooser_set_arrow (DIA_ARROW_CHOOSER (widget),
+                               &prop->arrow_data);
 }
 
 static void 
-arrowprop_set_from_widget(ArrowProperty *prop, WIDGET *widget) 
+arrowprop_set_from_widget (ArrowProperty *prop, WIDGET *widget) 
 {
-  prop->arrow_data = dia_arrow_selector_get_arrow(DIA_ARROW_SELECTOR(widget));
+  prop->arrow_data = dia_arrow_chooser_get_arrow (DIA_ARROW_CHOOSER (widget));
 }
 
 static void 

@@ -189,9 +189,8 @@ libdia_la_SOURCES =  \
 		autoroute.h \
 		parent.c \
 		parent.h \
-		diaarrowchooser.h \
-		diaarrowchooser.c \
-		diaarrowselector.c \
+		widgets/dia-arrow-chooser.h \
+		widgets/dia-arrow-chooser.c \
 		diacolorselector.c \
 		dia-line-style-selector-popover.c \
 		dia-line-style-selector.c \

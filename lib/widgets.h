@@ -46,23 +46,9 @@ void       dia_color_selector_set_color (GtkWidget *cs,
 
 
 /* DiaArrowSelector */
-#define DIA_TYPE_ARROW_SELECTOR           (dia_arrow_selector_get_type())
-#define DIA_ARROW_SELECTOR(obj)           (G_TYPE_CHECK_INSTANCE_CAST (obj, dia_arrow_selector_get_type (), DiaArrowSelector))
-#define DIA_ARROW_SELECTOR_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST (klass, dia_arrow_selector_get_type (), DiaArrowSelectorClass))
-#define DIA_IS_ARROW_SELECTOR(obj)        (G_TYPE_CHECK_TYPE (obj, dia_arrow_selector_get_type ()))
-#define DIA_ARROW_SELECTOR_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_ARROW_SELECTOR, DiaArrowSelectorClass))
-
 #define DEFAULT_ARROW ARROW_NONE
 #define DEFAULT_ARROW_LENGTH DEFAULT_ARROW_SIZE
 #define DEFAULT_ARROW_WIDTH DEFAULT_ARROW_SIZE
-
-
-GType    dia_arrow_selector_get_type        (void);
-GtkWidget* dia_arrow_selector_new           (void);
-Arrow      dia_arrow_selector_get_arrow     (DiaArrowSelector *as);
-void       dia_arrow_selector_set_arrow     (DiaArrowSelector *as,
-					     Arrow arrow);
-
 
 /* DiaFileSelector: */
 #define DIAFILESELECTOR(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, dia_file_selector_get_type (), DiaFileSelector)

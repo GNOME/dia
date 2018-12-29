@@ -38,58 +38,62 @@ dia_line_preview_draw (GtkWidget *widget, cairo_t *ctx)
   gint width, height;
   double dash[6];
   int length;
+  GdkRGBA fg;
+  GtkStyleContext *context = gtk_widget_get_style_context (widget);
+
+  gtk_style_context_get_color (context, gtk_widget_get_state_flags (widget), &fg);
+  gdk_cairo_set_source_rgba (ctx, &fg);
 
   gtk_widget_get_allocation (widget, &alloc);
 
-  if (gtk_widget_is_drawable (widget)) {
-    width = alloc.width;
-    height = alloc.height;
-    length = line->length * 20;
+  width = alloc.width;
+  height = alloc.height;
+  length = line->length * 20;
 
-    cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
-    cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
+  cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
+  cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
 
-    /* Adapted from DiaCairoRenderer, TODO: Avoid duplication */
-    switch (line->lstyle) {
-      case LINESTYLE_DEFAULT:
-      case LINESTYLE_SOLID:
-        cairo_set_dash (ctx, NULL, 0, 0);
-        break;
-      case LINESTYLE_DASHED:
-        dash[0] = length;
-        dash[1] = length;
-        cairo_set_dash (ctx, dash, 2, 0);
-        break;
-      case LINESTYLE_DASH_DOT:
-        dash[0] = length;
-        dash[1] = length * 0.45;
-        dash[2] = length * 0.1;
-        dash[3] = length * 0.45;
-        cairo_set_dash (ctx, dash, 4, 0);
-        break;
-      case LINESTYLE_DASH_DOT_DOT:
-        dash[0] = length;
-        dash[1] = length * (0.8/3);
-        dash[2] = length * 0.1;
-        dash[3] = length * (0.8/3);
-        dash[4] = length * 0.1;
-        dash[5] = length * (0.8/3);
-        cairo_set_dash (ctx, dash, 6, 0);
-        break;
-      case LINESTYLE_DOTTED:
-        dash[0] = length * 0.1;
-        dash[1] = length * 0.1;
-        cairo_set_dash (ctx, dash, 2, 0);
-        break;
-      default:
-        g_warning("DiaLinePreview : Unsupported line style specified!");
-    }
-
-    cairo_move_to (ctx, 0, height / 2);
-    cairo_line_to (ctx, width, height / 2);
-    cairo_stroke (ctx);
+  /* Adapted from DiaCairoRenderer, TODO: Avoid duplication */
+  switch (line->lstyle) {
+    case LINESTYLE_DEFAULT:
+    case LINESTYLE_SOLID:
+      cairo_set_dash (ctx, NULL, 0, 0);
+      break;
+    case LINESTYLE_DASHED:
+      dash[0] = length;
+      dash[1] = length;
+      cairo_set_dash (ctx, dash, 2, 0);
+      break;
+    case LINESTYLE_DASH_DOT:
+      dash[0] = length;
+      dash[1] = length * 0.45;
+      dash[2] = length * 0.1;
+      dash[3] = length * 0.45;
+      cairo_set_dash (ctx, dash, 4, 0);
+      break;
+    case LINESTYLE_DASH_DOT_DOT:
+      dash[0] = length;
+      dash[1] = length * (0.8/3);
+      dash[2] = length * 0.1;
+      dash[3] = length * (0.8/3);
+      dash[4] = length * 0.1;
+      dash[5] = length * (0.8/3);
+      cairo_set_dash (ctx, dash, 6, 0);
+      break;
+    case LINESTYLE_DOTTED:
+      dash[0] = length * 0.1;
+      dash[1] = length * 0.1;
+      cairo_set_dash (ctx, dash, 2, 0);
+      break;
+    default:
+      g_warning("DiaLinePreview : Unsupported line style specified!");
   }
-  return TRUE;
+
+  cairo_move_to (ctx, 0, height / 2);
+  cairo_line_to (ctx, width, height / 2);
+  cairo_stroke (ctx);
+
+  return FALSE;
 }
 
 static void
@@ -105,7 +109,7 @@ static void
 dia_line_preview_init (DiaLinePreview *self)
 {
   gtk_widget_set_has_window (GTK_WIDGET (self), FALSE);
-  gtk_widget_set_size_request (GTK_WIDGET (self), -1, 16);
+  gtk_widget_set_size_request (GTK_WIDGET (self), -1, 24);
 
   self->lstyle = LINESTYLE_SOLID;
   self->length = 1; /* For clarity we default quite big */
@@ -187,7 +191,6 @@ static void
 dia_line_style_selector_init (DiaLineStyleSelector *self)
 {
   GtkWidget *box;
-  GtkWidget *arrow;
   DiaLineStyleSelectorPrivate *priv = dia_line_style_selector_get_instance_private (self);
 
   box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 16);
@@ -197,10 +200,6 @@ dia_line_style_selector_init (DiaLineStyleSelector *self)
   priv->preview = dia_line_preview_new (DEFAULT_LINESTYLE);
   gtk_widget_show (priv->preview);
   gtk_box_pack_start (GTK_BOX (box), priv->preview, TRUE, TRUE, 0);
-
-  arrow = gtk_image_new_from_icon_name ("pan-down-symbolic", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (arrow);
-  gtk_box_pack_end (GTK_BOX (box), arrow, FALSE, FALSE, 0);
  
   priv->popover = dia_line_style_selector_popover_new ();
   dia_line_style_selector_popover_set_line_style (DIA_LINE_STYLE_SELECTOR_POPOVER (priv->popover),

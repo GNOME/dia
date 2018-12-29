@@ -20,13 +20,13 @@
 
 #include <gtk/gtk.h>
 
-#include "diaarrowchooser.h"
 #include "diadynamicmenu.h"
 #include "attributes.h"
 #include "sheet.h"
 #include "dia-colour-area.h"
 #include "dia-line-width-area.h"
 #include "widgets/dia-sheet-chooser.h"
+#include "widgets/dia-arrow-chooser.h"
 #include "intl.h"
 #include "message.h"
 #include "object.h"
@@ -444,15 +444,17 @@ create_color_area (DiaToolbox *self)
 }
 
 static void
-change_start_arrow_style(Arrow arrow, gpointer user_data)
+change_start_arrow_style (DiaArrowChooser *chooser, gpointer user_data)
 {
-  attributes_set_default_start_arrow(arrow);
+  attributes_set_default_start_arrow (dia_arrow_chooser_get_arrow (chooser));
 }
+
 static void
-change_end_arrow_style(Arrow arrow, gpointer user_data)
+change_end_arrow_style (DiaArrowChooser *chooser, gpointer user_data)
 {
-  attributes_set_default_end_arrow(arrow);
+  attributes_set_default_end_arrow (dia_arrow_chooser_get_arrow (chooser));
 }
+
 static void
 change_line_style(DiaLineStyleSelector *selector, gpointer user_data)
 {
@@ -479,7 +481,9 @@ create_lineprops_area (DiaToolbox *self)
   gtk_box_pack_end (GTK_BOX (self), box, FALSE, FALSE, 0);
   gtk_widget_show (box);
 
-  chooser = dia_arrow_chooser_new (TRUE, change_start_arrow_style, NULL);
+  chooser = dia_arrow_chooser_new (TRUE);
+  g_signal_connect (G_OBJECT (chooser), "value-changed",
+                    G_CALLBACK (change_start_arrow_style), NULL);
   gtk_container_add (GTK_CONTAINER (box), chooser);
   arrow.width = persistence_register_real ("start-arrow-width", DEFAULT_ARROW_WIDTH);
   arrow.length = persistence_register_real ("start-arrow-length", DEFAULT_ARROW_LENGTH);
@@ -501,7 +505,9 @@ create_lineprops_area (DiaToolbox *self)
   dia_line_style_selector_set_line_style (DIA_LINE_STYLE_SELECTOR (chooser), style, dash_length);
   gtk_widget_show (chooser);
 
-  chooser = dia_arrow_chooser_new (FALSE, change_end_arrow_style, NULL);
+  chooser = dia_arrow_chooser_new (FALSE);
+  g_signal_connect (G_OBJECT (chooser), "value-changed",
+                    G_CALLBACK (change_end_arrow_style), NULL);
   gtk_container_add (GTK_CONTAINER (box), chooser);
   arrow.width = persistence_register_real ("end-arrow-width", DEFAULT_ARROW_WIDTH);
   arrow.length = persistence_register_real ("end-arrow-length", DEFAULT_ARROW_LENGTH);
