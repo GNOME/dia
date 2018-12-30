@@ -9,7 +9,7 @@ sources = files(
 shared_library(
     'drs_filter',
     sources,
-    dependencies: [libgtk_dep, libm_dep, libxml_dep],
+    dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep],
     include_directories: [libdia_inc, configuration_inc],
     link_with: [libdia],
     install: false,

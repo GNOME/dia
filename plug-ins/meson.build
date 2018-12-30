@@ -36,7 +36,7 @@ foreach p : install_plugins_desc
     library(
         p[0],
         p[1],
-        dependencies: [libgtk_dep, libm_dep, libxml_dep] + [p[2]],
+        dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep] + [p[2]],
         include_directories: [libdia_inc, configuration_inc],
         link_with: [libdia],
         install: true,

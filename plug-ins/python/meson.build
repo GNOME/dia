@@ -48,7 +48,7 @@ if py_dep.found()
     shared_module(
         'python_plugin',
         sources,
-        dependencies: [libxml_dep, libgtk_dep, py_dep],
+        dependencies: [libc_dep, libxml_dep, libgtk_dep, py_dep],
         include_directories: [libdia_inc, configuration_inc, diaapp_inc],
         link_with: [libdia],
         install: true,

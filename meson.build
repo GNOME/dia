@@ -6,9 +6,6 @@ project('dia',
         default_options : []
 )
 
-#TODO: use libc_dep defined below.
-add_global_link_arguments('-lc', language: 'c')
-
 cc = meson.get_compiler('c')
 conf = configuration_data()
 
