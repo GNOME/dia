@@ -15,7 +15,7 @@ endif
 library(
     'wmf_filter',
     sources,
-    dependencies: [libgtk_dep, libm_dep, libxml_dep] + deps,
+    dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep] + deps,
     include_directories: [libdia_inc, configuration_inc],
     link_with: [libdia],
     install: libemf_dep.found(),
