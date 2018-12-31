@@ -1,3 +1,9 @@
+# First element is plugin name
+# Second is source list
+# Third is additional dependences
+# Fourth is whether to install or not
+install_plugins_desc = []
+
 subdir('cairo')
 subdir('cgm')
 subdir('drs')
@@ -23,3 +29,16 @@ subdir('hpgl')
 #subdir('wpg')
 #subdir('xfig')
 #subdir('xslt')
+
+foreach p : install_plugins_desc
+    message(p[0])
+    shared_library(
+        p[0],
+        p[1],
+        dependencies: [libgtk_dep, libm_dep, libxml_dep] + [p[2]],
+        include_directories: [libdia_inc, configuration_inc],
+        link_with: [libdia],
+        install: true,
+        install_dir: dialibdir
+    )
+endforeach

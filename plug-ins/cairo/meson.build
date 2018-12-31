@@ -1,20 +1,8 @@
-plugin_sources = [
+sources = files(
     'diacairo.c',
     'diacairo-interactive.c',
     'diacairo-renderer.c',
     'diacairo-print.c'
-]
-
-shared_library(
-    'cairo_filter',
-    plugin_sources,
-    dependencies : [ libcairo_dep,
-                     libgtk_dep,
-                     libxml_dep,
-                     libm_dep ],
-    include_directories : [ libdia_inc,
-                            configuration_inc ],
-    link_with : [ libdia ],
-    install : true,
-    install_dir : dialibdir
 )
+
+install_plugins_desc += [['cairo_filter', sources, [libcairo_dep]]]
