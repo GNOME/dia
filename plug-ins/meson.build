@@ -18,13 +18,9 @@ subdir('pixbuf')
 subdir('layout')  # Non-standard: shared_module
 subdir('libart')
 subdir('metapost')
-
-# FIXME: does not compile
-#subdir('pdf')
-
+subdir('pdf')
 subdir('pgf')
-#subdir('postscript')
-
+subdir('postscript')
 subdir('pstricks')
 #subdir('python')
 #subdir('stress')
@@ -41,7 +37,7 @@ subdir('xfig')
 
 foreach p : install_plugins_desc
     message(p[0])
-    shared_library(
+    library(
         p[0],
         p[1],
         dependencies: [libgtk_dep, libm_dep, libxml_dep] + [p[2]],
