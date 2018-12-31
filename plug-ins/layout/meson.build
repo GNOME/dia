@@ -1,7 +1,28 @@
+
 sources = files(
-	'dia-graph.cpp',
-	'layout.cpp',
-    'ogdf-simple.cpp'
+    'dia-graph.cpp',
+    'layout.cpp',
 )
 
-install_plugins_desc += [['layout_filter', sources, []]]
+libogdf_dep = cc.find_library('ogdf', required: false)
+
+deps = [libgtk_dep, libm_dep, libxml_dep]
+
+#TODO: this needs to be tested.
+if libogdf_dep.found() == true
+    conf.set('HAVE_OGDF', 1)
+    deps += [libogdf_dep]
+    sources += ['ogdf-simple.cpp']
+endif
+
+# Need to define it as shared module since it depends
+# on symbols found in the dia *app* (which will be linked at run-time).
+shared_module(
+    'layout_filter',
+    sources,
+    dependencies: deps,
+    include_directories: [libdia_inc, configuration_inc, diaapp_inc],
+    link_with: [libdia],
+    install: true,
+    install_dir: dialibdir
+)

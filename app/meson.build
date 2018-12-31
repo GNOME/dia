@@ -72,6 +72,8 @@ if pkg_config_libdir != ''
     dia_link_args += pkg_config_libdir
 endif
 
+diaapp_inc = include_directories('.')
+
 executable('dia',
     dia_sources + [dia_app_icons_h],
     dependencies : [libgtk_dep, libxml_dep, libm_dep],

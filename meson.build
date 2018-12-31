@@ -58,8 +58,6 @@ foreach f : ['select', 'strcspn', 'strdup', 'strtol']
     conf.set10('HAVE_' + f.underscorify().to_upper(), cc.has_function(f))
 endforeach
 
-configure_file(output : 'config.h',
-               configuration : conf)
 configuration_inc = include_directories('.')
 
 # FIXME: I don't think this should be defined.
@@ -75,5 +73,8 @@ subdir('doc')
 subdir('plug-ins')
 subdir('sheets')
 subdir('shapes')
+
+configure_file(output : 'config.h',
+               configuration : conf)
 
 meson.add_install_script('meson-helpers/post-install.py', datadir)

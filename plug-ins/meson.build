@@ -4,21 +4,18 @@
 # Fourth is whether to install or not
 install_plugins_desc = []
 
+# Note that most of these simply append to
+# install_plugins_desc.  Some however have
+# non-standard compilations and therefore are
+# marked as such.
 subdir('cairo')
 subdir('cgm')
-
-# Note that this does not get installed
-subdir('drs')
-
+subdir('drs') # Non-standard: does not get installed.
 subdir('dxf')
 subdir('hpgl')
 subdir('shape')
 subdir('pixbuf')
-
-
-# FIXME: requires OGDF
-#subdir('layout')
-
+subdir('layout')  # Non-standard: shared_module
 subdir('libart')
 subdir('metapost')
 
