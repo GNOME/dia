@@ -6,28 +6,40 @@ install_plugins_desc = []
 
 subdir('cairo')
 subdir('cgm')
+
+# Note that this does not get installed
 subdir('drs')
+
 subdir('dxf')
 subdir('hpgl')
+subdir('shape')
+subdir('pixbuf')
 
-# TODO: enable or remove these.
+
+# FIXME: requires OGDF
 #subdir('layout')
-#subdir('libart')
 
-#subdir('metapost')
+subdir('libart')
+subdir('metapost')
+
+# FIXME: does not compile
 #subdir('pdf')
-#subdir('pgf')
-#subdir('pixbuf')
+
+subdir('pgf')
 #subdir('postscript')
-#subdir('pstricks')
+
+subdir('pstricks')
 #subdir('python')
-#subdir('shape')
 #subdir('stress')
-#subdir('svg')
+
+subdir('svg')
+# FIXME: requires visio-types.h
 #subdir('vdx')
+
 #subdir('wmf')
-#subdir('wpg')
-#subdir('xfig')
+subdir('wpg')
+subdir('xfig')
+
 #subdir('xslt')
 
 foreach p : install_plugins_desc
