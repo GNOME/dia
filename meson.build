@@ -30,6 +30,8 @@ freetype_dep = dependency('freetype2', version: '>= 11.0.5', required: false)
 conf.set('HAVE_FREETYPE', freetype_dep.found())
 libpoppler_dep = dependency('poppler', version: '<= 0.62.0', required: false)
 conf.set('HAVE_POPPLER', libpoppler_dep.found())
+libemf_dep = cc.find_library('emf', required: false)
+conf.set('HAVE_LIBEMF', libemf_dep.found())
 libogdf_dep = cc.find_library('ogdf', required: false)
 conf.set('HAVE_OGDF', libogdf_dep.found())
 

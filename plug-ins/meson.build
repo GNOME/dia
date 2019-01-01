@@ -26,10 +26,9 @@ subdir('python')  # Non-standard: shared_module
 subdir('stress')  # Non-standard: does not get installed.
 subdir('svg')
 subdir('vdx')
-#subdir('wmf')
+subdir('wmf')  # Non-standard: Only installs if libemf present.
 subdir('wpg')
 subdir('xfig')
-
 #subdir('xslt')
 
 foreach p : install_plugins_desc

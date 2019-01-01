@@ -342,7 +342,7 @@ Rectangle(HDC hdc, wmfint iLeft, wmfint iTop, wmfint iRight, wmfint iBottom)
 }
 
 BOOL
-RoundRect(HDC hdc, int iLeft, int iTop, int iRight, int iBottom, int iWidth, int iHeight)
+RoundRect(HDC hdc, wmfint iLeft, wmfint iTop, wmfint iRight, wmfint iBottom, wmfint iWidth, wmfint iHeight)
 {
   g_return_val_if_fail(hdc != NULL, FALSE);
 
