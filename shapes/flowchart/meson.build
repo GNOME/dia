@@ -51,5 +51,5 @@ shape_sources = files(
     'datasource.png'
 )
 
-#FIXME: the folder should be capitalised as well.
+#TODO: the folder should be capitalised as well.
 shapes += [[shape_sources, 'Flowchart']]

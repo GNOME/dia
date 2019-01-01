@@ -97,7 +97,7 @@ if false
 endif
 
 sheet_files_targets = []
-# FIXME: use gettext:
+# TODO: use gettext:
 # https://github.com/mesonbuild/meson/issues/1565
 # https://github.com/systemd/systemd/commit/c81217920effddc93fb780cf8f9eb699d6fe1319
 # https://wiki.gnome.org/MigratingFromIntltoolToGettext

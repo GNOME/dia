@@ -26,7 +26,7 @@ subdir('pstricks')
 #subdir('stress')
 
 subdir('svg')
-# FIXME: requires visio-types.h
+# TODO: requires visio-types.h
 #subdir('vdx')
 
 #subdir('wmf')

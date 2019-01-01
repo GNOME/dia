@@ -6,6 +6,7 @@ project('dia',
         default_options : []
 )
 
+#TODO: use libc_dep defined below.
 add_global_link_arguments('-lc', language: 'c')
 
 cc = meson.get_compiler('c')
@@ -18,18 +19,12 @@ libxml_dep  = dependency('libxml-2.0', version : '>= 2.6.27')
 gmodule_dep = dependency('gmodule-2.0')
 libzlib_dep = dependency('zlib')
 #TODO: this is optional.  Should it be a disabler?
-libcairo_dep = dependency('cairo', required : false)
-
-libm_dep = cc.find_library('m', required : false)
+libcairo_dep = dependency('cairo')
+libm_dep = cc.find_library('m')
+libc_dep = cc.find_library('c')
 
 # Used in pixmap csource generation.
 gdk_pixbuf_csource = find_program('gdk-pixbuf-csource')
-# TODO
-#AC_PROG_INSTALL
-#AC_PROG_LN_S
-#AC_PROG_MAKE_SET
-#AC_ISC_POSIX
-
 
 datadir = join_paths(get_option('prefix'),
                      get_option('datadir'))
@@ -60,7 +55,7 @@ endforeach
 
 configuration_inc = include_directories('.')
 
-# FIXME: I don't think this should be defined.
+# TODO: I don't think this should be defined.
 # To fix we should remove #ifdef HAVE_CONFIG_H checks from all source files.
 add_project_arguments('-DHAVE_CONFIG_H', language : 'c')
 

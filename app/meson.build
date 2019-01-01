@@ -63,7 +63,7 @@ dia_sources = [
     'main.c'
 ]
 
-#FIXME: this is workaround for openbsd where libraries are in /usr/lib/local
+#TODO: this is workaround for openbsd where libraries are in /usr/lib/local
 pkg_config = find_program('pkg-config')
 pkg_config_libdir = run_command(pkg_config, '--libs-only-L', 'libxml-2.0').stdout().strip()
 

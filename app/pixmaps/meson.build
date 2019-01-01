@@ -23,7 +23,7 @@ icons = [ 'connectable.png',
           'cursor-magnify-minus.png',
           'cursor-magnify-plus.png' ]
 
-#FIXME: this is duplicated from lib/pixmaps.  Any way to remove this duplication?
+#TODO: this is duplicated from lib/pixmaps.  Any way to remove this duplication?
 icon_pairs = []
 foreach icon_file : icons
     icon_pairs += ['dia_' + icon_file.split('.')[0].underscorify() + '_icon', files(icon_file)]

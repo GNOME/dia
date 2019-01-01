@@ -92,7 +92,7 @@ if xsltproc.found()
         install : true,
         install_dir : join_paths(get_option('mandir'), 'man1')
     )
-    # XXX: this should fixed in meson: https://github.com/mesonbuild/meson/issues/1550
+    # TODO: this should fixed in meson: https://github.com/mesonbuild/meson/issues/1550
     #install_data(dia_man)
 
     html_dir = join_paths(helpdir, 'en')
