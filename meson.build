@@ -6,9 +6,6 @@ project('dia',
         default_options : []
 )
 
-#TODO: use libc_dep defined below.
-add_global_link_arguments('-lc', language: 'c')
-
 cc = meson.get_compiler('c')
 conf = configuration_data()
 
@@ -35,8 +32,6 @@ conf.set('HAVE_LIBEMF', libemf_dep.found())
 libogdf_dep = cc.find_library('ogdf', required: false)
 conf.set('HAVE_OGDF', libogdf_dep.found())
 
-
-
 # Used in pixmap csource generation.
 gdk_pixbuf_csource = find_program('gdk-pixbuf-csource')
 
@@ -56,8 +51,7 @@ conf.set_quoted('DATADIR', datadir)
 conf.set_quoted('PKGDATADIR', pkgdatadir)
 conf.set_quoted('DIALIBDIR',  dialibdir)
 conf.set_quoted('LOCALEDIR', get_option('localedir'))
-conf.set('ENABLE_NLS', 1)
-
+conf.set('ENABLE_NLS', true)
 
 foreach h : ['stddef.h', 'fcntl.h', 'unistd.h', 'utime.h']
     conf.set10('HAVE_' + h.underscorify().to_upper(), cc.has_header(h))

@@ -3,7 +3,7 @@ sources = files(
     'layout.cpp',
 )
 
-deps = [libgtk_dep, libm_dep, libxml_dep]
+deps = [libc_dep, libgtk_dep, libm_dep, libxml_dep]
 
 #TODO: this needs to be tested.
 if libogdf_dep.found() == true

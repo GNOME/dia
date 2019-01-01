@@ -121,12 +121,13 @@ diamarshal_h = custom_target(
 subdir('pixmaps')
 
 libdia_deps = [
+    libc_dep,
     libgtk_dep,
     libglib_dep,
     libxml_dep,
     libm_dep,
     libzlib_dep,
-    gmodule_dep
+    gmodule_dep,
 ]
 
 libdia_inc = include_directories('.')
