@@ -1,8 +1,5 @@
-# TODO: should we use pymod.find_installation() ?
-#       this seems to work fine.
-# TODO: is just the only dependency we need?
-# Ensure that this does not require pygtk-2.0 as per
-# Makefile.am.
+# TODO: should we use pymod even though it requires more recent
+#       version of meson?
 py_dep = dependency('python2', version: '>= 2.3', required: false)
 
 sources = files(
@@ -38,7 +35,6 @@ python_scripts = [
     'diasvg_import.py',
     'dot.py',
     'doxrev.py',
-    'gtkcons.py',  # TODO: this requires python module pygtk.
     'imgmap.py',
     'otypes.py',
     'pydiadoc.py',
@@ -58,6 +54,13 @@ if py_dep.found()
         install: true,
         install_dir: dialibdir
     )
+
+    # Check for pygtk module.
+    # TODO: we should use meson python module for this.
+    python = find_program('python2')
+    if run_command(python, '-c', 'import pygtk').returncode() == 0
+        python_scripts += 'gtkcons.py'
+    endif
 
     install_data(python_scripts, install_dir: join_paths(pkgdatadir, 'python'))
     install_data('python-startup.py', install_dir: pkgdatadir)
