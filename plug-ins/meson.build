@@ -10,7 +10,7 @@ install_plugins_desc = []
 # marked as such.
 subdir('cairo')
 subdir('cgm')
-subdir('drs') # Non-standard: does not get installed.
+subdir('drs')  # Non-standard: does not get installed.
 subdir('dxf')
 subdir('hpgl')
 subdir('shape')
@@ -22,9 +22,8 @@ subdir('pdf')
 subdir('pgf')
 subdir('postscript')
 subdir('pstricks')
-subdir('python') # Non-standard: shared_module
-#subdir('stress')
-
+subdir('python')  # Non-standard: shared_module
+subdir('stress')  # Non-standard: does not get installed.
 subdir('svg')
 subdir('vdx')
 #subdir('wmf')

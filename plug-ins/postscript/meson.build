@@ -12,14 +12,9 @@ if freetype_dep.found()
     deps += [freetype_dep]
 endif
 
-# TODO: actual check for w32
-platform_is_win32 = false
-if platform_is_win32
+if host_machine.system() == 'windows'
     sources += files('win32print.c')
-    #TODO: add winspool as per Makefile.am
-    deps += []
+    deps += [cc.find_library('winspool')]
 endif
 
 install_plugins_desc += [['postscript_filter', sources, deps]]
-
-
