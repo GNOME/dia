@@ -26,9 +26,7 @@ subdir('python') # Non-standard: shared_module
 #subdir('stress')
 
 subdir('svg')
-# TODO: requires visio-types.h
-#subdir('vdx')
-
+subdir('vdx')
 #subdir('wmf')
 subdir('wpg')
 subdir('xfig')

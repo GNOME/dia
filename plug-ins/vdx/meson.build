@@ -6,4 +6,4 @@ sources = files(
     'vdx-xml.c',
 )
 
-install_plugins_desc += [['vdx_filter', sources, [], true]]
+install_plugins_desc += [['vdx_filter', sources, []]]
