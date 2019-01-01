@@ -7,8 +7,6 @@ sources = files(
 )
 deps = []
 
-# TODO: actual check for freetype lib.
-freetype_dep = dependency('freetype2', version: '>= 11.0.5', required: false)
 if freetype_dep.found()
     sources += files('diapsft2renderer.c')
     deps += [freetype_dep]

@@ -1,16 +1,12 @@
-
 sources = files(
     'dia-graph.cpp',
     'layout.cpp',
 )
 
-libogdf_dep = cc.find_library('ogdf', required: false)
-
 deps = [libgtk_dep, libm_dep, libxml_dep]
 
 #TODO: this needs to be tested.
 if libogdf_dep.found() == true
-    conf.set('HAVE_OGDF', 1)
     deps += [libogdf_dep]
     sources += ['ogdf-simple.cpp']
 endif
