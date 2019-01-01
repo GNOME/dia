@@ -31,6 +31,8 @@ libemf_dep = cc.find_library('emf', required: false)
 conf.set('HAVE_LIBEMF', libemf_dep.found())
 libogdf_dep = cc.find_library('ogdf', required: false)
 conf.set('HAVE_OGDF', libogdf_dep.found())
+libxslt_dep = dependency('libxslt', required: false)
+conf.set('HAVE_XSLT', libxslt_dep.found())
 
 # Used in pixmap csource generation.
 gdk_pixbuf_csource = find_program('gdk-pixbuf-csource')

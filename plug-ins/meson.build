@@ -29,7 +29,7 @@ subdir('vdx')
 subdir('wmf')  # Non-standard: Only installs if libemf present.
 subdir('wpg')
 subdir('xfig')
-#subdir('xslt')
+subdir('xslt')
 
 foreach p : install_plugins_desc
     message(p[0])
