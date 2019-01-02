@@ -929,10 +929,12 @@ dia_layer_widget_init(DiaLayerWidget *lw)
 
   gtk_container_add(GTK_CONTAINER(lw), hbox);
 
-  g_signal_connect (G_OBJECT (lw), "select",
+
+  /* TODO: Fix layer switching */
+  /*g_signal_connect (G_OBJECT (lw), "select"
 		    G_CALLBACK (dia_layer_select_callback), NULL);
   g_signal_connect (G_OBJECT (lw), "deselect",
-		    G_CALLBACK (dia_layer_deselect_callback), NULL);
+		    G_CALLBACK (dia_layer_deselect_callback), NULL);*/
 }
 
 GType

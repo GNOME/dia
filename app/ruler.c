@@ -67,7 +67,7 @@ dia_ruler_draw (GtkWidget *widget,
   GdkRGBA fg;
   real pos;
 
-  gtk_style_context_get_color (style_context, gtk_widget_get_state (widget), &fg);
+  gtk_style_context_get_color (style_context, gtk_widget_get_state_flags (widget), &fg);
 
   layout = gtk_widget_create_pango_layout (widget, "012456789");
 
