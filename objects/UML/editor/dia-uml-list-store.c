@@ -16,6 +16,12 @@ enum
   N_PROPERTIES
 };
 
+enum {
+  CHANGED,
+  LAST_SIGNAL
+};
+static guint signals[LAST_SIGNAL] = { 0 };
+
 static void dia_uml_list_store_iface_init (GListModelInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (DiaUmlListStore, dia_uml_list_store, G_TYPE_OBJECT,
@@ -57,6 +63,14 @@ dia_uml_list_store_class_init (DiaUmlListStoreClass *klass)
   g_object_class_install_property (object_class, PROP_ITEM_TYPE,
     g_param_spec_gtype ("item-type", "", "", DIA_UML_TYPE_LIST_DATA,
                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
+
+
+  signals[CHANGED] = g_signal_new ("changed",
+                                   G_TYPE_FROM_CLASS (klass),
+                                   G_SIGNAL_RUN_FIRST,
+                                   0, NULL, NULL, NULL,
+                                   G_TYPE_NONE, 1,
+                                   DIA_UML_TYPE_LIST_DATA);
 }
 
 static GType
@@ -108,6 +122,13 @@ dia_uml_list_store_new ()
   return g_object_new (DIA_UML_TYPE_LIST_STORE, NULL);
 }
 
+static void
+bubble_change (DiaUmlListData  *itm,
+               DiaUmlListStore *self)
+{
+  g_signal_emit (self, signals[CHANGED], 0, itm);
+}
+
 void
 dia_uml_list_store_insert (DiaUmlListStore *store,
                            DiaUmlListData  *item,
@@ -121,6 +142,7 @@ dia_uml_list_store_insert (DiaUmlListStore *store,
   }
 
   store->data = g_list_insert (store->data, g_object_ref (item), index);
+  g_signal_connect (G_OBJECT (item), "changed", G_CALLBACK (bubble_change), store);
 
   g_list_model_items_changed (G_LIST_MODEL (store), index, 0, 1);
 }
@@ -135,6 +157,7 @@ dia_uml_list_store_add (DiaUmlListStore *store,
 
   n_items = g_list_length (store->data);
   store->data = g_list_append (store->data, g_object_ref (item));
+  g_signal_connect (G_OBJECT (item), "changed", G_CALLBACK (bubble_change), store);
 
   g_list_model_items_changed (G_LIST_MODEL (store), n_items, 0, 1);
 }
@@ -149,6 +172,7 @@ dia_uml_list_store_remove (DiaUmlListStore *store,
 
   index = g_list_index (store->data, item);
   store->data = g_list_remove (store->data, item);
+  g_signal_handlers_disconnect_by_func (G_OBJECT (item), G_CALLBACK (bubble_change), store);
   g_object_unref (item);
 
   g_list_model_items_changed (G_LIST_MODEL (store), index, 1, 0);
@@ -158,11 +182,18 @@ void
 dia_uml_list_store_empty (DiaUmlListStore *store)
 {
   guint n_items;
+  GList *list;
 
   g_return_if_fail (DIA_UML_IS_LIST_STORE (store));
 
   n_items = g_list_length (store->data);
-  g_list_free_full (store->data, g_object_unref);
+  list = store->data;
+  while (list) {
+    g_signal_handlers_disconnect_by_func (G_OBJECT (list->data), G_CALLBACK (bubble_change), store);
+    g_object_unref (list->data);
+    list = g_list_next (list);
+  }
+  g_list_free (store->data);
   store->data = NULL;
 
   g_list_model_items_changed (G_LIST_MODEL (store), 0, n_items, 0);

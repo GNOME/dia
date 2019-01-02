@@ -1,11 +1,27 @@
 #include "dia-uml-parameter.h"
 #include "dia-uml-operation-parameter-row.h"
+#include "dia-uml-list-store.h"
 #include "dia_dirs.h"
+
+struct _DiaUmlOperationParameterRow {
+  GtkListBoxRow parent;
+
+  GtkWidget *title;
+  GtkWidget *name;
+  GtkWidget *type;
+  GtkWidget *value;
+  GtkWidget *direction;
+  GtkTextBuffer *comment;
+
+  DiaUmlParameter *parameter;
+  DiaUmlListStore *model;
+};
 
 G_DEFINE_TYPE (DiaUmlOperationParameterRow, dia_uml_operation_parameter_row, GTK_TYPE_LIST_BOX_ROW)
 
 enum {
   UML_OP_PROW_PROP_PARAMETER = 1,
+  UML_OP_PROW_PROP_MODEL,
   UML_OP_PROW_N_PROPS
 };
 static GParamSpec* uml_op_prow_properties[UML_OP_PROW_N_PROPS];
@@ -15,7 +31,8 @@ dia_uml_operation_parameter_row_finalize (GObject *object)
 {
   DiaUmlOperationParameterRow *self = DIA_UML_OPERATION_PARAMETER_ROW (object);
 
-  g_object_unref (self->parameter);
+  g_clear_object (&self->parameter);
+  g_clear_object (&self->model);
 }
 
 static gboolean
@@ -61,10 +78,18 @@ direction_from (GBinding *binding,
 }
 
 static void
+display_op (DiaUmlListData               *op,
+            DiaUmlOperationParameterRow  *row)
+{
+  gtk_label_set_label (GTK_LABEL (row->title),
+                       dia_uml_list_data_format (op));
+}
+
+static void
 dia_uml_operation_parameter_row_set_property (GObject      *object,
-                                       guint         property_id,
-                                       const GValue *value,
-                                       GParamSpec   *pspec)
+                                              guint         property_id,
+                                              const GValue *value,
+                                              GParamSpec   *pspec)
 {
   DiaUmlOperationParameterRow *self = DIA_UML_OPERATION_PARAMETER_ROW (object);
   switch (property_id) {
@@ -90,7 +115,12 @@ dia_uml_operation_parameter_row_set_property (GObject      *object,
       g_object_bind_property (G_OBJECT (self->parameter), "comment",
                               G_OBJECT (self->comment), "text",
                               G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
-
+      g_signal_connect (G_OBJECT (self->parameter), "changed",
+                        G_CALLBACK (display_op), self);
+      display_op (DIA_UML_LIST_DATA (self->parameter), self);
+      break;
+    case UML_OP_PROW_PROP_MODEL:
+      self->model = g_value_dup_object (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -109,6 +139,9 @@ dia_uml_operation_parameter_row_get_property (GObject    *object,
     case UML_OP_PROW_PROP_PARAMETER:
       g_value_set_object (value, self->parameter);
       break;
+    case UML_OP_PROW_PROP_MODEL:
+      g_value_set_object (value, self->model);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
       break;
@@ -118,36 +151,33 @@ dia_uml_operation_parameter_row_get_property (GObject    *object,
 static void
 move_up (DiaUmlOperationParameterRow *self)
 {
-  GtkWidget *list;
   int index;
 
-  /*
-   * If we ever find ourselves in something other than GtkListBox we are
-   * in trouble but as a GtkListBoxRow that shouldn't happen, storing the
-   * new state is left to the GtkListBox or it's owner
-   */
-  list = gtk_widget_get_parent (GTK_WIDGET (self));
   index = gtk_list_box_row_get_index (GTK_LIST_BOX_ROW (self));
 
-  g_object_ref (self);
-  gtk_container_remove (GTK_CONTAINER (list), GTK_WIDGET (self));
-  gtk_list_box_insert (GTK_LIST_BOX (list), GTK_WIDGET (self), index - 1);
-  g_object_unref (self);
+  g_object_ref (self->parameter);
+  dia_uml_list_store_remove (self->model, DIA_UML_LIST_DATA (self->parameter));
+  dia_uml_list_store_insert (self->model, DIA_UML_LIST_DATA (self->parameter), index - 1);
+  g_object_unref (self->parameter);
 }
 
 static void
 move_down (DiaUmlOperationParameterRow *self)
 {
-  GtkWidget *list;
   int index;
-  
-  list = gtk_widget_get_parent (GTK_WIDGET (self));
+
   index = gtk_list_box_row_get_index (GTK_LIST_BOX_ROW (self));
 
-  g_object_ref (self);
-  gtk_container_remove (GTK_CONTAINER (list), GTK_WIDGET (self));
-  gtk_list_box_insert (GTK_LIST_BOX (list), GTK_WIDGET (self), index + 1);
-  g_object_unref (self);
+  g_object_ref (self->parameter);
+  dia_uml_list_store_remove (self->model, DIA_UML_LIST_DATA (self->parameter));
+  dia_uml_list_store_insert (self->model, DIA_UML_LIST_DATA (self->parameter), index + 1);
+  g_object_unref (self->parameter);
+}
+
+static void
+remove_param (DiaUmlOperationParameterRow *self)
+{
+  dia_uml_list_store_remove (self->model, DIA_UML_LIST_DATA (self->parameter));
 }
 
 static void
@@ -170,6 +200,13 @@ dia_uml_operation_parameter_row_class_init (DiaUmlOperationParameterRowClass *kl
                          DIA_UML_TYPE_PARAMETER,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
+  uml_op_prow_properties[UML_OP_PROW_PROP_MODEL] =
+    g_param_spec_object ("model",
+                         "Model",
+                         "Model this for is for",
+                         DIA_UML_TYPE_LIST_STORE,
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+
   g_object_class_install_properties (object_class,
                                      UML_OP_PROW_N_PROPS,
                                      uml_op_prow_properties);
@@ -182,6 +219,7 @@ dia_uml_operation_parameter_row_class_init (DiaUmlOperationParameterRowClass *kl
     g_critical ("Failed to load template: %s", err->message);
 
   gtk_widget_class_set_template (widget_class, template);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationParameterRow, title);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationParameterRow, name);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationParameterRow, type);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationParameterRow, value);
@@ -189,6 +227,7 @@ dia_uml_operation_parameter_row_class_init (DiaUmlOperationParameterRowClass *kl
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationParameterRow, comment);
   gtk_widget_class_bind_template_callback (widget_class, move_up);
   gtk_widget_class_bind_template_callback (widget_class, move_down);
+  gtk_widget_class_bind_template_callback (widget_class, remove_param);
 
   g_object_unref (template_file);
 }
@@ -200,9 +239,11 @@ dia_uml_operation_parameter_row_init (DiaUmlOperationParameterRow *self)
 }
 
 GtkWidget *
-dia_uml_operation_parameter_row_new (DiaUmlParameter *op)
+dia_uml_operation_parameter_row_new (DiaUmlParameter *op,
+                                     DiaUmlListStore *model)
 {
   return g_object_new (DIA_UML_TYPE_OPERATION_PARAMETER_ROW,
-                       "parameter", op, 
+                       "parameter", op,
+                       "model", model,
                        NULL);
 }

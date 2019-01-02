@@ -36,7 +36,7 @@ _operations_read_from_dialog (UMLClass *umlclass,
                               UMLClassDialog *prop_dialog,
                               int connection_index)
 {
-  DiaUmlListStore *list_store;
+  GListModel *list_store;
   DiaUmlListData *itm;
   DiaObject *obj;
   DiaUmlClass *editor_state;

@@ -341,8 +341,6 @@
                             <property name="can_focus">False</property>
                             <property name="selection_mode">none</property>
                             <property name="activate_on_single_click">False</property>
-                            <signal name="add" handler="parameter_added" object="DiaUmlOperationDialog" swapped="yes"/>
-                            <signal name="remove" handler="parameter_removed" object="DiaUmlOperationDialog" swapped="yes"/>
                           </object>
                         </child>
                         <child type="label_item">

@@ -186,9 +186,7 @@ dia_uml_class_load (DiaUmlClass *self,
     DiaUmlOperation *op = (DiaUmlOperation *)list->data;
     DiaUmlOperation *copy = dia_uml_operation_copy (op);
 
-    /* Looks wrong but is required for the complicate connections memory management */
-    copy->l_connection = op->l_connection;
-    copy->r_connection = op->r_connection;
+    dia_uml_operation_connection_thing (copy, op);
 
     dia_uml_list_store_add (self->operations, DIA_UML_LIST_DATA (copy));
     list = g_list_next(list);

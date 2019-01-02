@@ -93,9 +93,13 @@ dia_uml_parameter_format (DiaUmlParameter *param)
   char *str;
 
   /* Calculate length: */
-  len = strlen (param->name) + 1 + strlen (param->type);
-  
-  if (param->value != NULL) {
+  len = strlen (param->name);
+
+  if (strlen (param->type) > 0) {
+    len += 1 + strlen (param->type) ;
+  }
+
+  if (strlen (param->value) > 0) {
     len += 1 + strlen (param->value) ;
   }
 
@@ -136,9 +140,13 @@ dia_uml_parameter_format (DiaUmlParameter *param)
   
 
   strcat (str, param->name);
-  strcat (str, ":");
-  strcat (str, param->type);
-  if (param->value != NULL) {
+
+  if (strlen (param->type) > 0) {
+    strcat (str, ":");
+    strcat (str, param->type);
+  }
+
+  if (strlen (param->value) > 0) {
     strcat (str, "=");
     strcat (str, param->value);
   }
@@ -230,10 +238,16 @@ dia_uml_parameter_get_property (GObject    *object,
   }
 }
 
+static const gchar *
+format (DiaUmlListData *self)
+{
+  return dia_uml_parameter_format (DIA_UML_PARAMETER (self));
+}
+
 static void
 dia_uml_parameter_list_data_init (DiaUmlListDataInterface *iface)
 {
-
+  iface->format = format;
 }
 
 static void

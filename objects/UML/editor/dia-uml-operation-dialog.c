@@ -1,5 +1,6 @@
 #include "dia-uml-operation-dialog.h"
 #include "dia-uml-operation-parameter-row.h"
+#include "dia-uml-list-store.h"
 #include "dia_dirs.h"
 
 G_DEFINE_TYPE (DiaUmlOperationDialog, dia_uml_operation_dialog, GTK_TYPE_DIALOG)
@@ -111,8 +112,7 @@ dia_uml_operation_dialog_set_property (GObject      *object,
                                        GParamSpec   *pspec)
 {
   DiaUmlOperationDialog *self = DIA_UML_OPERATION_DIALOG (object);
-  GList *paras;
-  GtkWidget *row;
+  GListModel *paras;
 
   switch (property_id) {
     case UML_OP_DLG_PROP_OPERATION:
@@ -153,12 +153,9 @@ dia_uml_operation_dialog_set_property (GObject      *object,
 
       self->building = TRUE;
       paras = dia_uml_operation_get_parameters (self->operation);
-      for (; paras != NULL; paras = g_list_next (paras)) {
-        // do something with l->data
-        row = dia_uml_operation_parameter_row_new (DIA_UML_PARAMETER (paras->data));
-        gtk_widget_show (row);
-        gtk_container_add (GTK_CONTAINER (self->list), row);
-      }
+      gtk_list_box_bind_model (GTK_LIST_BOX (self->list), paras,
+                              (GtkListBoxCreateWidgetFunc) dia_uml_operation_parameter_row_new,
+                              paras, NULL);
       self->building = FALSE;
       break;
     default:
@@ -187,45 +184,9 @@ dia_uml_operation_dialog_get_property (GObject    *object,
 static void
 dlg_add_parameter (DiaUmlOperationDialog *self)
 {
-  GtkWidget *row = dia_uml_operation_parameter_row_new (dia_uml_parameter_new ());
+  DiaUmlParameter *para = dia_uml_parameter_new ();
 
-  g_assert (DIA_UML_IS_OPERATION_DIALOG (self));
-  gtk_widget_show (row);
-  gtk_container_add (GTK_CONTAINER (self->list), row);
-}
-
-static void
-parameter_added (DiaUmlOperationDialog *self,
-                 GtkWidget             *row)
-{
-  DiaUmlParameter *para = NULL;
-  int index;
-
-  if (!DIA_UML_IS_OPERATION_PARAMETER_ROW (row) || self->building)
-    return;
-
-  g_object_get (G_OBJECT (row),
-                "parameter", &para,
-                NULL);
-  index = gtk_list_box_row_get_index (GTK_LIST_BOX_ROW (row));
-
-  dia_uml_operation_insert_parameter (self->operation, para, index);
-}
-
-static void
-parameter_removed (DiaUmlOperationDialog *self,
-                   GtkWidget             *row)
-{
-  DiaUmlParameter *para = NULL;
-
-  if (!DIA_UML_IS_OPERATION_PARAMETER_ROW (row) || gtk_widget_in_destruction (GTK_WIDGET (self)))
-    return;
-
-  g_object_get (G_OBJECT (row),
-                "parameter", &para,
-                NULL);
-
-  dia_uml_operation_remove_parameter (self->operation, para);
+  dia_uml_operation_insert_parameter (self->operation, para, -1);
 }
 
 static void
@@ -286,8 +247,6 @@ dia_uml_operation_dialog_class_init (DiaUmlOperationDialogClass *klass)
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationDialog, comment);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlOperationDialog, list);
   gtk_widget_class_bind_template_callback (widget_class, dlg_add_parameter);
-  gtk_widget_class_bind_template_callback (widget_class, parameter_added);
-  gtk_widget_class_bind_template_callback (widget_class, parameter_removed);
   gtk_widget_class_bind_template_callback (widget_class, remove_operation);
 
   g_object_unref (template_file);

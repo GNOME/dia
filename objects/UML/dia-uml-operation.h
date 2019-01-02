@@ -1,6 +1,7 @@
 #include <glib-object.h>
 #include "uml.h"
 #include "dia-uml-parameter.h"
+#include "editor/dia-uml-list-store.h"
 
 #ifndef UML_OP_H
 #define UML_OP_H
@@ -41,7 +42,7 @@ struct _DiaUmlOperation {
   UMLInheritanceType inheritance_type;
   int query; /**< Do not modify the object, in C++ this is a const function */
   int class_scope;
-  GList *parameters; /**< List of DiaUmlParameter */
+  DiaUmlListStore *parameters; /**< List of DiaUmlParameter */
 
   ConnectionPoint* l_connection; /**< left */
   ConnectionPoint* r_connection; /**< right */
@@ -59,11 +60,13 @@ gchar           *dia_uml_operation_format                   (DiaUmlOperation *op
 DiaUmlOperation *dia_uml_operation_copy                     (DiaUmlOperation *op);
 void             dia_uml_operation_ensure_connection_points (DiaUmlOperation *oper,
                                                              DiaObject       *obj);
+void             dia_uml_operation_connection_thing         (DiaUmlOperation *self,
+                                                             DiaUmlOperation *from);
 void             dia_uml_operation_insert_parameter         (DiaUmlOperation *self,
                                                              DiaUmlParameter *parameter,
                                                              int              index);
 void             dia_uml_operation_remove_parameter         (DiaUmlOperation *self,
                                                              DiaUmlParameter *parameter);
-GList           *dia_uml_operation_get_parameters           (DiaUmlOperation *self);
+GListModel      *dia_uml_operation_get_parameters           (DiaUmlOperation *self);
 
 #endif
