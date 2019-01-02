@@ -1,3 +1,4 @@
+#include "dia-uml-operation.h"
 #include "dia-uml-operation-row.h"
 #include "dia_dirs.h"
 
@@ -13,8 +14,6 @@ static void
 dia_uml_operation_row_finalize (GObject *object)
 {
   DiaUmlOperationRow *self = DIA_UML_OPERATION_ROW (object);
-
-  G_DEBUG_HERE();
 
   g_object_unref (self->operation);
 }

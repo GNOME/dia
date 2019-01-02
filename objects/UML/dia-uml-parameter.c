@@ -27,7 +27,7 @@
 
 #include <string.h>
 
-#include "uml.h"
+#include "dia-uml-parameter.h"
 #include "properties.h"
 
 G_DEFINE_TYPE (DiaUmlParameter, dia_uml_parameter, G_TYPE_OBJECT)
@@ -295,8 +295,3 @@ dia_uml_parameter_new ()
   return g_object_new (DIA_UML_TYPE_PARAMETER, NULL);
 }
 
-GList *
-dia_uml_operation_get_parameters (DiaUmlOperation *self)
-{
-  return self->parameters;
-}

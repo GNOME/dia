@@ -5,6 +5,8 @@ libuml_objects_la_SOURCES = \
 			uml.h \
 			uml.c \
 			dia-uml-class.c \
+			dia-uml-operation.c \
+			dia-uml-parameter.c \
 			class.c \
 			class.h \
 			class_dialog.h \
@@ -43,8 +45,6 @@ libuml_objects_la_SOURCES = \
 			stereotype.h \
 			transition.c \
 			umlattribute.c \
-			umloperation.c \
-			umlparameter.c \
 			umlformalparameter.c
 
 libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)

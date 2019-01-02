@@ -1,3 +1,4 @@
+#include "dia-uml-parameter.h"
 #include "dia-uml-operation-parameter-row.h"
 #include "dia_dirs.h"
 
@@ -23,7 +24,7 @@ direction_to (GBinding *binding,
               GValue *to_value,
               gpointer user_data)
 {
-  gchar *name = g_value_get_string (from_value);
+  const gchar *name = g_value_get_string (from_value);
 
   if (g_strcmp0 (name, "in") == 0) {
     g_value_set_int (to_value, UML_IN);

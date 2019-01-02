@@ -53,6 +53,7 @@ for c in theClasses :
 
 #include "uml.h"
 #include "properties.h"
+#include "dia-uml-operation.h"
 
 G_DEFINE_TYPE (DiaUmlOperation, dia_uml_operation, G_TYPE_OBJECT)
 
@@ -644,4 +645,10 @@ dia_uml_operation_remove_parameter (DiaUmlOperation *self,
   g_signal_handlers_disconnect_by_func (G_OBJECT (parameter), G_CALLBACK (bubble), self);
   g_object_unref (parameter);
   g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+}
+
+GList *
+dia_uml_operation_get_parameters (DiaUmlOperation *self)
+{
+  return self->parameters;
 }
