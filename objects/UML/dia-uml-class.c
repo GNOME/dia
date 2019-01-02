@@ -1,4 +1,56 @@
 #include "dia-uml-class.h"
+#include "editor/dia-uml-list-store.h"
+
+struct _DiaUmlClass {
+  GObject parent;
+
+  double font_height;
+  double abstract_font_height;
+  double polymorphic_font_height;
+  double classname_font_height;
+  double abstract_classname_font_height;
+  double comment_font_height;
+
+  DiaFont *normal_font;
+  DiaFont *abstract_font;
+  DiaFont *polymorphic_font;
+  DiaFont *classname_font;
+  DiaFont *abstract_classname_font;
+  DiaFont *comment_font;
+  
+  char *name;
+  char *stereotype;
+  char *comment;
+
+  gboolean abstract;
+  gboolean suppress_attributes;
+  gboolean suppress_operations;
+  gboolean visible_attributes;
+  gboolean visible_operations;
+  gboolean visible_comments;
+
+  int wrap_operations;
+  int wrap_after_char;
+  int comment_line_length;
+  int comment_tagging;
+  
+  double line_width;
+  GdkRGBA line_color;
+  GdkRGBA fill_color;
+  GdkRGBA text_color;
+
+  /* Maybe we could use GListStore for these? */
+
+  /* Attributes: */
+  GList *attributes;
+
+  /* Operators: */
+  DiaUmlListStore *operations;
+
+  /* Template: */
+  gboolean template_;
+  GList *formal_params;
+};
 
 G_DEFINE_TYPE (DiaUmlClass, dia_uml_class, G_TYPE_OBJECT)
 
@@ -25,12 +77,7 @@ clear_attrs (DiaUmlClass *self)
   }
   g_list_free (self->attributes);
 
-  list = self->operations;
-  while (list) {
-    g_object_unref (list->data);
-    list = g_list_next (list);
-  }
-  g_list_free (self->operations);
+  g_clear_object (&self->operations);
 
   list = self->formal_params;
   while (list) {
@@ -133,8 +180,8 @@ dia_uml_class_load (DiaUmlClass *self,
   }
 
   /* TODO: Why? */
-  self->operations = NULL;
   list = klass->operations;
+  self->operations = dia_uml_list_store_new ();
   while (list != NULL) {
     DiaUmlOperation *op = (DiaUmlOperation *)list->data;
     DiaUmlOperation *copy = dia_uml_operation_copy (op);
@@ -143,7 +190,7 @@ dia_uml_class_load (DiaUmlClass *self,
     copy->l_connection = op->l_connection;
     copy->r_connection = op->r_connection;
 
-    self->operations = g_list_append(self->operations, copy);
+    dia_uml_list_store_add (self->operations, DIA_UML_LIST_DATA (copy));
     list = g_list_next(list);
   }
 
@@ -167,6 +214,10 @@ void
 dia_uml_class_store (DiaUmlClass *self,
                      UMLClass    *klass)
 {
+  GList *list;
+  DiaUmlListData *itm;
+  int i = 0;
+
   klass->font_height = self->font_height;
   klass->abstract_font_height = self->abstract_font_height;
   klass->polymorphic_font_height = self->polymorphic_font_height;
@@ -210,31 +261,42 @@ dia_uml_class_store (DiaUmlClass *self,
 
   /* TODO: List stuff */
   klass->attributes = self->attributes;
-  klass->operations = self->operations;
+
+  list = NULL;
+  while ((itm = g_list_model_get_item (G_LIST_MODEL (self->operations), i))) {
+    list = g_list_append (list, itm);
+    i++;
+  }
+  klass->operations = list;
+
   klass->template = self->template_;
   klass->formal_params = self->formal_params;
 }
 
-GList *
+GListModel *
 dia_uml_class_get_operations (DiaUmlClass *self)
 {
-  return self->operations;
+  return G_LIST_MODEL (self->operations);
 }
+
+/*
+ * Don't rely on these two being called!
+ * 
+ * The DiaUmlListStore can/will be edited directly (e.g. by DiaUmlClassEditor)
+ * so connect to items-changed if you want to observe these!
+ */
 
 void
 dia_uml_class_insert_operation (DiaUmlClass     *self,
                                 DiaUmlOperation *operation,
                                 int              index)
 {
-  self->operations = g_list_insert (self->operations,
-                                    g_object_ref (operation),
-                                    index);
+  dia_uml_list_store_insert (self->operations, DIA_UML_LIST_DATA (operation), index);
 }
 
 void
 dia_uml_class_remove_operation (DiaUmlClass     *self,
                                 DiaUmlOperation *operation)
 {
-  self->operations = g_list_remove (self->operations, operation);
-  g_object_unref (operation);
+  dia_uml_list_store_remove (self->operations, DIA_UML_LIST_DATA (operation));
 }

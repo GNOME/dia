@@ -1,7 +1,18 @@
 #include "dia-uml-class-editor.h"
 #include "dia-uml-list-row.h"
+#include "dia-uml-list-store.h"
 #include "dia-uml-operation-dialog.h"
 #include "dia_dirs.h"
+
+struct _DiaUmlClassEditor {
+  GtkScrolledWindow parent;
+
+  GtkWidget *attributes;
+  GtkWidget *operations;
+  GtkWidget *templates;
+
+  DiaUmlClass *klass;
+};
 
 G_DEFINE_TYPE (DiaUmlClassEditor, dia_uml_class_editor, GTK_TYPE_SCROLLED_WINDOW)
 
@@ -14,36 +25,10 @@ static GParamSpec* uml_cedit_properties[UML_CEDIT_N_PROPS];
 static void
 build_list (DiaUmlClassEditor *self)
 {
-  GList *list;
-  GtkWidget *item;
-
-  gtk_container_foreach (GTK_CONTAINER (self->operations), (GtkCallback *) gtk_widget_destroy, NULL);
-
-  list = dia_uml_class_get_operations (self->klass);
-  self->building_ops = TRUE;
-  while (list != NULL) {
-    DiaUmlOperation *op = (DiaUmlOperation *)list->data;
-    item = dia_uml_list_row_new (DIA_UML_LIST_DATA (op));
-    gtk_widget_show (item);
-    gtk_container_add (GTK_CONTAINER (self->operations), item);
-    
-    list = g_list_next(list);
-  }
-  self->building_ops = FALSE;
-}
-
-static void
-remove_op_row (GtkWidget       *row,
-               DiaUmlOperation *op)
-{
-  DiaUmlOperation *curr_row;
-
-  curr_row = DIA_UML_OPERATION (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
-
-  if (op == curr_row)
-    gtk_widget_destroy (row);
-
-  g_object_unref (curr_row);
+  GListModel *store = dia_uml_class_get_operations (self->klass);
+  gtk_list_box_bind_model (GTK_LIST_BOX (self->operations), store,
+                           (GtkListBoxCreateWidgetFunc) dia_uml_list_row_new,
+                           store, NULL);
 }
 
 static void
@@ -51,24 +36,18 @@ remove_op (DiaUmlOperationDialog *dlg,
            DiaUmlOperation       *op,
            DiaUmlClassEditor     *self)
 {
-  gtk_container_foreach (GTK_CONTAINER (self->operations),
-                         (GtkCallback *) remove_op_row,
-                         op);
+  dia_uml_class_remove_operation (self->klass, op);
 }
 
 static void
 add_operation (DiaUmlClassEditor *self)
 {
   DiaUmlOperation *op;
-  GtkWidget *row;
   GtkWidget *edit;
   GtkWidget *parent;
 
   op = dia_uml_operation_new ();
-  row = dia_uml_list_row_new (DIA_UML_LIST_DATA (op));
-
-  gtk_widget_show (row);
-  gtk_container_add (GTK_CONTAINER (self->operations), row);
+  dia_uml_class_insert_operation (self->klass, op, -1);
 
   parent = gtk_widget_get_toplevel (GTK_WIDGET (self));
   edit = dia_uml_operation_dialog_new (GTK_WINDOW (parent), op);
@@ -94,38 +73,6 @@ edit_operation (DiaUmlClassEditor *self,
   g_signal_connect (dlg, "operation-deleted", G_CALLBACK (remove_op), self);
   gtk_widget_show (dlg);
   g_object_unref (op);
-}
-
-static void
-operation_added (DiaUmlClassEditor *self,
-                 GtkListBoxRow     *row)
-{
-  DiaUmlOperation *op;
-  int index;
-
-  if (self->building_ops || !DIA_UML_IS_LIST_ROW (row))
-    return;
-
-  op = DIA_UML_OPERATION (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
-  index = gtk_list_box_row_get_index (row);
-
-  dia_uml_class_insert_operation (self->klass, op, index);
-  g_object_unref (op);
-}
-
-static void
-operation_removed (DiaUmlClassEditor *self,
-                   GtkListBoxRow     *row)
-{
-  DiaUmlOperation *op;
-
-  if (!DIA_UML_IS_LIST_ROW (row) || gtk_widget_in_destruction (GTK_WIDGET (row)))
-    return;
-  
-  op = DIA_UML_OPERATION (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
-
-  dia_uml_class_remove_operation (self->klass, op);
-  /* Don't unref op, we might be being moved so must give it the change to survive */
 }
 
 static void
@@ -209,8 +156,6 @@ dia_uml_class_editor_class_init (DiaUmlClassEditorClass *klass)
   gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, templates);
   gtk_widget_class_bind_template_callback (widget_class, add_operation);
   gtk_widget_class_bind_template_callback (widget_class, edit_operation);
-  gtk_widget_class_bind_template_callback (widget_class, operation_added);
-  gtk_widget_class_bind_template_callback (widget_class, operation_removed);
 
   g_object_unref (template_file);
 }
@@ -222,8 +167,6 @@ dia_uml_class_editor_init (DiaUmlClassEditor *self)
   GtkWidget *label;
 
   gtk_widget_init_template (GTK_WIDGET (self));
-
-  self->building_ops = FALSE;
 
   box = g_object_new (GTK_TYPE_BOX,
                       "orientation", GTK_ORIENTATION_VERTICAL,
@@ -276,8 +219,8 @@ dia_uml_class_editor_new (DiaUmlClass *klass)
                        NULL);
 }
 
-DiaUmlClass 
-*dia_uml_class_editor_get_class (DiaUmlClassEditor *self)
+DiaUmlClass *
+dia_uml_class_editor_get_class (DiaUmlClassEditor *self)
 {
   return self->klass;
 }

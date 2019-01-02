@@ -13,6 +13,7 @@ libuml_objects_la_SOURCES = \
 			class_dialog.c \
 			class_attributes_dialog.c \
 			editor/dia-uml-list-data.c \
+			editor/dia-uml-list-store.c \
 			editor/dia-uml-list-row.c \
 			editor/dia-uml-class-editor.c \
 			editor/dia-uml-operation-dialog.c \

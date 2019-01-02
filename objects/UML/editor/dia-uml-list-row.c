@@ -2,10 +2,20 @@
 #include "dia-uml-list-row.h"
 #include "dia_dirs.h"
 
+struct _DiaUmlListRow {
+  GtkListBoxRow parent;
+
+  GtkWidget *title;
+
+  DiaUmlListData *data;
+  DiaUmlListStore *model;
+};
+
 G_DEFINE_TYPE (DiaUmlListRow, dia_uml_list_row, GTK_TYPE_LIST_BOX_ROW)
 
 enum {
   PROP_DATA = 1,
+  PROP_MODEL,
   N_PROPS
 };
 static GParamSpec* properties[N_PROPS];
@@ -16,6 +26,7 @@ dia_uml_list_row_finalize (GObject *object)
   DiaUmlListRow *self = DIA_UML_LIST_ROW (object);
 
   g_clear_object (&self->data);
+  g_clear_object (&self->model);
 }
 
 static void
@@ -40,6 +51,9 @@ dia_uml_list_row_set_property (GObject      *object,
                         G_CALLBACK (display_op), self);
       display_op (self->data, self);
       break;
+    case PROP_MODEL:
+      self->model = g_value_dup_object (value);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
       break;
@@ -57,6 +71,9 @@ dia_uml_list_row_get_property (GObject    *object,
     case PROP_DATA:
       g_value_set_object (value, self->data);
       break;
+    case PROP_MODEL:
+      g_value_set_object (value, self->model);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
       break;
@@ -66,36 +83,27 @@ dia_uml_list_row_get_property (GObject    *object,
 static void
 move_up (DiaUmlListRow *self)
 {
-  GtkWidget *list;
   int index;
 
-  /*
-   * If we ever find ourselves in something other than GtkListBox we are
-   * in trouble but as a GtkListBoxRow that shouldn't happen, storing the
-   * new state is left to the GtkListBox or it's owner
-   */
-  list = gtk_widget_get_parent (GTK_WIDGET (self));
   index = gtk_list_box_row_get_index (GTK_LIST_BOX_ROW (self));
 
-  g_object_ref (self);
-  gtk_container_remove (GTK_CONTAINER (list), GTK_WIDGET (self));
-  gtk_list_box_insert (GTK_LIST_BOX (list), GTK_WIDGET (self), index - 1);
-  g_object_unref (self);
+  g_object_ref (self->data);
+  dia_uml_list_store_remove (self->model, self->data);
+  dia_uml_list_store_insert (self->model, self->data, index - 1);
+  g_object_unref (self->data);
 }
 
 static void
 move_down (DiaUmlListRow *self)
 {
-  GtkWidget *list;
   int index;
   
-  list = gtk_widget_get_parent (GTK_WIDGET (self));
   index = gtk_list_box_row_get_index (GTK_LIST_BOX_ROW (self));
 
-  g_object_ref (self);
-  gtk_container_remove (GTK_CONTAINER (list), GTK_WIDGET (self));
-  gtk_list_box_insert (GTK_LIST_BOX (list), GTK_WIDGET (self), index + 1);
-  g_object_unref (self);
+  g_object_ref (self->data);
+  dia_uml_list_store_remove (self->model, self->data);
+  dia_uml_list_store_insert (self->model, self->data, index + 1);
+  g_object_unref (self->data);
 }
 
 static void
@@ -116,6 +124,13 @@ dia_uml_list_row_class_init (DiaUmlListRowClass *klass)
                          "Data",
                          "Data this row represents",
                          DIA_UML_TYPE_LIST_DATA,
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+
+  properties[PROP_MODEL] =
+    g_param_spec_object ("model",
+                         "Model",
+                         "Model this row belongs to",
+                         DIA_UML_TYPE_LIST_STORE,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
   g_object_class_install_properties (object_class,
@@ -144,10 +159,12 @@ dia_uml_list_row_init (DiaUmlListRow *self)
 }
 
 GtkWidget *
-dia_uml_list_row_new (DiaUmlListData *data)
+dia_uml_list_row_new (DiaUmlListData  *data,
+                      DiaUmlListStore *model)
 {
   return g_object_new (DIA_UML_TYPE_LIST_ROW,
                        "data", data, 
+                       "model", model,
                        NULL);
 }
 

@@ -24,6 +24,7 @@
 #include "class_dialog.h"
 #include "dia_dirs.h"
 #include "editor/dia-uml-class-editor.h"
+#include "editor/dia-uml-list-store.h"
 #include "dia-uml-class.h"
 
 /*************************************************************
@@ -35,11 +36,12 @@ _operations_read_from_dialog (UMLClass *umlclass,
                               UMLClassDialog *prop_dialog,
                               int connection_index)
 {
-  GList *list;
-  DiaUmlOperation *op;
+  DiaUmlListStore *list_store;
+  DiaUmlListData *itm;
   DiaObject *obj;
   DiaUmlClass *editor_state;
   gboolean op_visible = TRUE;
+  int i = 0;
 
   /* Cast to DiaObject (UMLClass -> Element -> DiaObject) */
   obj = &umlclass->element.object;
@@ -48,24 +50,17 @@ _operations_read_from_dialog (UMLClass *umlclass,
 
   /* Free current operations: */
   /* Clear those already stored */
-  list = umlclass->operations;
-  while (list != NULL) {
-    op = list->data;
-    g_object_unref (op);
-    list = g_list_next(list);
-  }
-  g_list_free (umlclass->operations);
+  g_list_free_full (umlclass->operations, g_object_unref);
   umlclass->operations = NULL;
 
   /* If operations visible and not suppressed */
   op_visible = ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_vis ))) &&
                (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_supp)));
 
-  list = dia_uml_class_get_operations (editor_state);
+  list_store = dia_uml_class_get_operations (editor_state);
   /* Insert new operations and remove them from gtklist: */
-  while (list != NULL) {
-    op = list->data;
-    
+  while ((itm = g_list_model_get_item (G_LIST_MODEL (list_store), i))) {
+    DiaUmlOperation *op = DIA_UML_OPERATION (itm);
     umlclass->operations = g_list_append(umlclass->operations, g_object_ref (op));
 
     if (op->l_connection == NULL) {
@@ -89,7 +84,7 @@ _operations_read_from_dialog (UMLClass *umlclass,
       object_remove_connections_to(op->r_connection);
     }
 
-    list = g_list_next (list);
+    i++;
   }
 }
 

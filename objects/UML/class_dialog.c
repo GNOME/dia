@@ -600,7 +600,7 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
     ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_vis ))) &&
     (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_supp)))
   ) {
-    num_ops = g_list_length (dia_uml_class_get_operations (editor_state));
+    num_ops = g_list_model_get_n_items (dia_uml_class_get_operations (editor_state));
   } else {
     num_ops = 0;
   }

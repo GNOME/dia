@@ -12,7 +12,7 @@
     <property name="can_focus">False</property>
     <property name="icon_name">go-down-symbolic</property>
   </object>
-  <template class="DiaUmlOperationRow" parent="GtkListBoxRow">
+  <template class="DiaUmlListRow" parent="GtkListBoxRow">
     <property name="visible">True</property>
     <property name="can_focus">True</property>
     <child>
@@ -49,7 +49,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="image">image1</property>
-                <signal name="clicked" handler="move_up" object="DiaUmlOperationRow" swapped="yes"/>
+                <signal name="clicked" handler="move_up" object="DiaUmlListRow" swapped="yes"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -63,7 +63,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="image">image2</property>
-                <signal name="clicked" handler="move_down" object="DiaUmlOperationRow" swapped="yes"/>
+                <signal name="clicked" handler="move_down" object="DiaUmlListRow" swapped="yes"/>
               </object>
               <packing>
                 <property name="expand">False</property>

@@ -108,8 +108,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="selection_mode">none</property>
-                    <signal name="add" handler="operation_added" object="DiaUmlClassEditor" swapped="yes"/>
-                    <signal name="remove" handler="operation_removed" object="DiaUmlClassEditor" swapped="yes"/>
                     <signal name="row-activated" handler="edit_operation" object="DiaUmlClassEditor" swapped="yes"/>
                   </object>
                 </child>
