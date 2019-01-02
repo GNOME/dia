@@ -1,5 +1,5 @@
 #include "dia-uml-class-editor.h"
-#include "dia-uml-operation-row.h"
+#include "dia-uml-list-row.h"
 #include "dia-uml-operation-dialog.h"
 #include "dia_dirs.h"
 
@@ -23,7 +23,7 @@ build_list (DiaUmlClassEditor *self)
   self->building_ops = TRUE;
   while (list != NULL) {
     DiaUmlOperation *op = (DiaUmlOperation *)list->data;
-    item = dia_uml_operation_row_new (op);
+    item = dia_uml_list_row_new (DIA_UML_LIST_DATA (op));
     gtk_widget_show (item);
     gtk_container_add (GTK_CONTAINER (self->operations), item);
     
@@ -38,7 +38,7 @@ remove_op_row (GtkWidget       *row,
 {
   DiaUmlOperation *curr_row;
 
-  curr_row = dia_uml_operation_row_get_operation (DIA_UML_OPERATION_ROW (row));
+  curr_row = DIA_UML_OPERATION (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
 
   if (op == curr_row)
     gtk_widget_destroy (row);
@@ -65,7 +65,7 @@ add_operation (DiaUmlClassEditor *self)
   GtkWidget *parent;
 
   op = dia_uml_operation_new ();
-  row = dia_uml_operation_row_new (op);
+  row = dia_uml_list_row_new (DIA_UML_LIST_DATA (op));
 
   gtk_widget_show (row);
   gtk_container_add (GTK_CONTAINER (self->operations), row);
@@ -85,11 +85,11 @@ edit_operation (DiaUmlClassEditor *self,
   GtkWidget *parent;
   DiaUmlOperation *op;
 
-  if (!DIA_UML_IS_OPERATION_ROW (row))
+  if (!DIA_UML_IS_LIST_ROW (row))
     return;
   
   parent = gtk_widget_get_toplevel (GTK_WIDGET (self));
-  op = dia_uml_operation_row_get_operation (DIA_UML_OPERATION_ROW (row));
+  op = DIA_UML_OPERATION (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
   dlg = dia_uml_operation_dialog_new (GTK_WINDOW (parent), op);
   g_signal_connect (dlg, "operation-deleted", G_CALLBACK (remove_op), self);
   gtk_widget_show (dlg);
@@ -103,10 +103,10 @@ operation_added (DiaUmlClassEditor *self,
   DiaUmlOperation *op;
   int index;
 
-  if (self->building_ops || !DIA_UML_IS_OPERATION_ROW (row))
+  if (self->building_ops || !DIA_UML_IS_LIST_ROW (row))
     return;
 
-  op = dia_uml_operation_row_get_operation (DIA_UML_OPERATION_ROW (row));
+  op = DIA_UML_OPERATION (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
   index = gtk_list_box_row_get_index (row);
 
   dia_uml_class_insert_operation (self->klass, op, index);
@@ -119,10 +119,10 @@ operation_removed (DiaUmlClassEditor *self,
 {
   DiaUmlOperation *op;
 
-  if (!DIA_UML_IS_OPERATION_ROW (row) || gtk_widget_in_destruction (GTK_WIDGET (row)))
+  if (!DIA_UML_IS_LIST_ROW (row) || gtk_widget_in_destruction (GTK_WIDGET (row)))
     return;
   
-  op = dia_uml_operation_row_get_operation (DIA_UML_OPERATION_ROW (row));
+  op = DIA_UML_OPERATION (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
 
   dia_uml_class_remove_operation (self->klass, op);
   /* Don't unref op, we might be being moved so must give it the change to survive */

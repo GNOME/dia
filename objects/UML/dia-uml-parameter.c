@@ -28,9 +28,15 @@
 #include <string.h>
 
 #include "dia-uml-parameter.h"
+#include "editor/dia-uml-list-data.h"
 #include "properties.h"
 
-G_DEFINE_TYPE (DiaUmlParameter, dia_uml_parameter, G_TYPE_OBJECT)
+static void
+dia_uml_parameter_list_data_init (DiaUmlListDataInterface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (DiaUmlParameter, dia_uml_parameter, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (DIA_UML_TYPE_LIST_DATA,
+                                                dia_uml_parameter_list_data_init))
 
 enum {
   UML_PARA_NAME = 1,
@@ -41,12 +47,6 @@ enum {
   UML_PARA_N_PROPS
 };
 static GParamSpec* uml_para_properties[UML_PARA_N_PROPS];
-
-enum {
-  PARAM_CHANGED,
-  PARAM_LAST_SIGNAL
-};
-static guint uml_param_signals[PARAM_LAST_SIGNAL] = { 0 };
 
 static PropEnumData _uml_parameter_kinds[] = {
   { N_("Undefined"), UML_UNDEF_KIND} ,
@@ -172,27 +172,27 @@ dia_uml_parameter_set_property (GObject      *object,
     case UML_PARA_NAME:
       self->name = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_NAME]);
-      g_signal_emit (G_OBJECT (self), uml_param_signals[PARAM_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     case UML_PARA_TYPE:
       self->type = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_TYPE]);
-      g_signal_emit (G_OBJECT (self), uml_param_signals[PARAM_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     case UML_PARA_VALUE:
       self->value = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_VALUE]);
-      g_signal_emit (G_OBJECT (self), uml_param_signals[PARAM_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     case UML_PARA_COMMENT:
       self->comment = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_COMMENT]);
-      g_signal_emit (G_OBJECT (self), uml_param_signals[PARAM_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     case UML_PARA_KIND:
       self->kind = g_value_get_int (value);
       g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_KIND]);
-      g_signal_emit (G_OBJECT (self), uml_param_signals[PARAM_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -228,6 +228,12 @@ dia_uml_parameter_get_property (GObject    *object,
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
       break;
   }
+}
+
+static void
+dia_uml_parameter_list_data_init (DiaUmlListDataInterface *iface)
+{
+
 }
 
 static void
@@ -270,13 +276,6 @@ dia_uml_parameter_class_init (DiaUmlParameterClass *klass)
   g_object_class_install_properties (object_class,
                                      UML_PARA_N_PROPS,
                                      uml_para_properties);
-
-
-  uml_param_signals[PARAM_CHANGED] = g_signal_new ("changed",
-                                                   G_TYPE_FROM_CLASS (klass),
-                                                   G_SIGNAL_RUN_FIRST,
-                                                   0, NULL, NULL, NULL,
-                                                   G_TYPE_NONE, 0);
 }
 
 static void

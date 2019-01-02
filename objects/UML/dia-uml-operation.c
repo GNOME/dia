@@ -54,8 +54,14 @@ for c in theClasses :
 #include "uml.h"
 #include "properties.h"
 #include "dia-uml-operation.h"
+#include "editor/dia-uml-list-data.h"
 
-G_DEFINE_TYPE (DiaUmlOperation, dia_uml_operation, G_TYPE_OBJECT)
+static void
+dia_uml_operation_list_data_init (DiaUmlListDataInterface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (DiaUmlOperation, dia_uml_operation, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (DIA_UML_TYPE_LIST_DATA,
+                                                dia_uml_operation_list_data_init))
 
 enum {
   UML_OP_NAME = 1,
@@ -69,12 +75,6 @@ enum {
   UML_OP_N_PROPS
 };
 static GParamSpec* uml_op_properties[UML_OP_N_PROPS];
-
-enum {
-  OP_CHANGED,
-  OP_LAST_SIGNAL
-};
-static guint uml_op_signals[OP_LAST_SIGNAL] = { 0 };
 
 extern PropEnumData _uml_visibilities[];
 extern PropEnumData _uml_inheritances[];
@@ -450,42 +450,42 @@ dia_uml_operation_set_property (GObject      *object,
     case UML_OP_NAME:
       self->name = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_NAME]);
-      g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     case UML_OP_TYPE:
       self->type = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_TYPE]);
-      g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     case UML_OP_COMMENT:
       self->comment = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_COMMENT]);
-      g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     case UML_OP_STEREOTYPE:
       self->stereotype = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_STEREOTYPE]);
-      g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     case UML_OP_VISIBILITY:
       self->visibility = g_value_get_int (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_VISIBILITY]);
-      g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     case UML_OP_INHERITANCE_TYPE:
       self->inheritance_type = g_value_get_int (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_INHERITANCE_TYPE]);
-      g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     case UML_OP_QUERY:
       self->query = g_value_get_boolean (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_QUERY]);
-      g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     case UML_OP_CLASS_SCOPE:
       self->class_scope = g_value_get_boolean (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_CLASS_SCOPE]);
-      g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -530,6 +530,18 @@ dia_uml_operation_get_property (GObject    *object,
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
       break;
   }
+}
+
+static const gchar *
+format (DiaUmlListData *self)
+{
+  return dia_uml_operation_format (DIA_UML_OPERATION (self));
+}
+
+static void
+dia_uml_operation_list_data_init (DiaUmlListDataInterface *iface)
+{
+  iface->format = format;
 }
 
 static void
@@ -589,12 +601,6 @@ dia_uml_operation_class_init (DiaUmlOperationClass *klass)
   g_object_class_install_properties (object_class,
                                      UML_OP_N_PROPS,
                                      uml_op_properties);
-
-  uml_op_signals[OP_CHANGED] = g_signal_new ("changed",
-                                             G_TYPE_FROM_CLASS (klass),
-                                             G_SIGNAL_RUN_FIRST,
-                                             0, NULL, NULL, NULL,
-                                             G_TYPE_NONE, 0);
 }
 
 static void
@@ -622,7 +628,7 @@ static void
 bubble (DiaUmlParameter *para,
         DiaUmlOperation *self)
 {
-  g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+  dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
 }
 
 void
@@ -634,7 +640,7 @@ dia_uml_operation_insert_parameter (DiaUmlOperation *self,
                                     g_object_ref (parameter),
                                     index);
   g_signal_connect (G_OBJECT (parameter), "changed", G_CALLBACK (bubble), self);
-  g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+  dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
 }
 
 void
@@ -644,7 +650,7 @@ dia_uml_operation_remove_parameter (DiaUmlOperation *self,
   self->parameters = g_list_remove (self->parameters, parameter);
   g_signal_handlers_disconnect_by_func (G_OBJECT (parameter), G_CALLBACK (bubble), self);
   g_object_unref (parameter);
-  g_signal_emit (G_OBJECT (self), uml_op_signals[OP_CHANGED], 0);
+  dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
 }
 
 GList *

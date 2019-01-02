@@ -58,31 +58,7 @@ struct _UMLClassDialog {
   GtkWidget *attr_visible;
   GtkToggleButton *attr_class_scope;
 
-  /* ------------------------------------- */
-  /* ------------------------------------- */
-  /* <<<<<<<<<<<<<<<<< Old operator dialog */
-  /* ------------------------------------- */
-  /* ------------------------------------- */
-
-  DiaListItem *current_op;
-  GtkEntry *op_name;
-  GtkEntry *op_type;
-  GtkEntry *op_stereotype;
-  GtkTextView *op_comment;
-
-  GtkWidget *op_visible;
-  GtkToggleButton *op_class_scope;
-  GtkWidget *op_inheritance_type;
-  GtkToggleButton *op_query;  
-  
-  /* ------------------------------------- */
-  /* ------------------------------------- */
-  /* Old operator dialog >>>>>>>>>>>>>>>>> */
-  /* ------------------------------------- */
-  /* ------------------------------------- */
-
   GtkWidget *editor;
-
 
   DiaList *templates_list;
   DiaListItem *current_templ;

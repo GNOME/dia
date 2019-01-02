@@ -691,7 +691,6 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
     prop_dialog->dialog = vbox;
 
     prop_dialog->current_attr = NULL;
-    prop_dialog->current_op = NULL;
     prop_dialog->current_templ = NULL;
     prop_dialog->deleted_connections = NULL;
     prop_dialog->added_connections = NULL;
