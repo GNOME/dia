@@ -1,5 +1,6 @@
 #include <gtk/gtk.h>
 #include "uml.h"
+#include "dia-uml-list-store.h"
 
 G_BEGIN_DECLS
 

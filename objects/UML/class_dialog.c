@@ -537,7 +537,6 @@ switch_page_callback(GtkNotebook *notebook,
   prop_dialog = umlclass->properties_dialog;
 
   if (prop_dialog != NULL) {
-    _attributes_get_current_values(prop_dialog);
     _templates_get_current_values(prop_dialog);
   }
 }
@@ -560,8 +559,6 @@ fill_in_dialog(UMLClass *umlclass)
   umlclass_sanity_check(umlclass, "Filling in dialog before attrs");
 #endif
   class_fill_in_dialog(umlclass);
-  _attributes_fill_in_dialog(umlclass);
-  /*_operations_fill_in_dialog(umlclass);*/
   _templates_fill_in_dialog(umlclass);
 }
 
@@ -592,7 +589,7 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
     ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_vis ))) &&
     (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_supp)))
   ) {
-    num_attrib = g_list_length(dia_list_get_children(prop_dialog->attributes_list));
+    num_attrib = g_list_model_get_n_items (dia_uml_class_get_attributes (editor_state));
   } else {
     num_attrib = 0;
   }
@@ -618,10 +615,9 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
 
   /* Read from dialog and put in object: */
   class_read_from_dialog(umlclass, prop_dialog);
-  _attributes_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS);
   /* ^^^ attribs must be called before ops, to get the right order of the
      connectionpoints. */
-  _operations_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS+num_attrib*2);
+  _operations_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS);
   _templates_read_from_dialog(umlclass, prop_dialog);
 
   /* Reestablish mainpoint */
@@ -666,7 +662,6 @@ static void
 create_dialog_pages(GtkNotebook *notebook, UMLClass *umlclass)
 {
   class_create_page(notebook, umlclass);
-  _attributes_create_page(notebook, umlclass);
   _operations_create_page(notebook, umlclass);
   _templates_create_page(notebook, umlclass);
   style_create_page(notebook, umlclass);
@@ -690,7 +685,6 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
     g_object_ref_sink(vbox);
     prop_dialog->dialog = vbox;
 
-    prop_dialog->current_attr = NULL;
     prop_dialog->current_templ = NULL;
     prop_dialog->deleted_connections = NULL;
     prop_dialog->added_connections = NULL;
@@ -729,9 +723,6 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
   DiaObject *obj;
   GList *list;
   int connection_index;
-  UMLClassDialog *prop_dialog;
-
-  prop_dialog = umlclass->properties_dialog;
   
   /* Allocate enought connection points for attributes and operations. */
   /* (two per op/attr) */
@@ -758,7 +749,7 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
   
   list = umlclass->attributes;
   while (list != NULL) {
-    UMLAttribute *attr = (UMLAttribute *) list->data;
+    DiaUmlAttribute *attr = (DiaUmlAttribute *) list->data;
     
     if ( (umlclass->visible_attributes) &&
 	 (!umlclass->suppress_attributes)) {
@@ -771,9 +762,6 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
     list = g_list_next(list);
   }
   
-  if (prop_dialog)
-    dia_list_empty (DIA_LIST (prop_dialog->attributes_list));
-
   list = umlclass->operations;
   while (list != NULL) {
     DiaUmlOperation *op = (DiaUmlOperation *) list->data;
@@ -804,6 +792,8 @@ umlclass_set_state(UMLClass *umlclass, DiaUmlClass *state)
 
   umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);
+  /* TODO: Fix undo
+  dia_uml_class_store (state, umlclass); */
 }
 
 static void

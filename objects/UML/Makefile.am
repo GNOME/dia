@@ -7,17 +7,18 @@ libuml_objects_la_SOURCES = \
 			dia-uml-class.c \
 			dia-uml-operation.c \
 			dia-uml-parameter.c \
+			dia-uml-attribute.c \
 			class.c \
 			class.h \
 			class_dialog.h \
 			class_dialog.c \
-			class_attributes_dialog.c \
 			editor/dia-uml-list-data.c \
 			editor/dia-uml-list-store.c \
 			editor/dia-uml-list-row.c \
 			editor/dia-uml-class-editor.c \
 			editor/dia-uml-operation-dialog.c \
 			editor/dia-uml-operation-parameter-row.c \
+			editor/dia-uml-attribute-dialog.c \
 			class_operations_dialog.c \
 			class_templates_dialog.c \
 			note.c \
@@ -46,7 +47,6 @@ libuml_objects_la_SOURCES = \
 			stereotype.c \
 			stereotype.h \
 			transition.c \
-			umlattribute.c \
 			umlformalparameter.c
 
 libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)

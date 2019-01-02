@@ -30,6 +30,8 @@
 #include "plug-ins.h"
 #include "properties.h"
 
+#include "dia-uml-operation.h"
+
 extern DiaObjectType umlclass_type;
 extern DiaObjectType umlclass_template_type;
 extern DiaObjectType note_type;

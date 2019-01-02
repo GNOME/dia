@@ -40,6 +40,7 @@ _operations_read_from_dialog (UMLClass *umlclass,
   DiaUmlListData *itm;
   DiaObject *obj;
   DiaUmlClass *editor_state;
+  gboolean attr_visible = TRUE;
   gboolean op_visible = TRUE;
   int i = 0;
 
@@ -48,19 +49,63 @@ _operations_read_from_dialog (UMLClass *umlclass,
 
   editor_state = dia_uml_class_editor_get_class (DIA_UML_CLASS_EDITOR (umlclass->properties_dialog->editor));
 
+  /* Free current attributes: */
+  g_list_free_full (umlclass->attributes, g_object_unref);
+  umlclass->attributes = NULL;
+
   /* Free current operations: */
   /* Clear those already stored */
   g_list_free_full (umlclass->operations, g_object_unref);
   umlclass->operations = NULL;
 
+  /* If attributes visible and not suppressed */
+  attr_visible = ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_vis ))) &&
+                 (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_supp)));
+
   /* If operations visible and not suppressed */
   op_visible = ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_vis ))) &&
                (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_supp)));
 
+
+  /* Insert new attributes and remove them from gtklist: */
+  i = 0;
+  list_store = dia_uml_class_get_attributes (editor_state);
+  /* Insert new operations and remove them from gtklist: */
+  while ((itm = g_list_model_get_item (list_store, i))) {
+    DiaUmlAttribute *attr = DIA_UML_ATTRIBUTE (itm);
+
+    umlclass->attributes = g_list_append (umlclass->attributes, g_object_ref (attr));
+    
+    if (attr->left_connection == NULL) {
+      dia_uml_attribute_ensure_connection_points (attr, obj);
+
+      prop_dialog->added_connections = g_list_prepend (prop_dialog->added_connections,
+                                                       attr->left_connection);
+      prop_dialog->added_connections = g_list_prepend (prop_dialog->added_connections,
+                                                       attr->right_connection);
+    }
+
+    if (attr_visible) { 
+      obj->connections[connection_index] = attr->left_connection;
+      connection_index++;
+      obj->connections[connection_index] = attr->right_connection;
+      connection_index++;
+    } else {
+      _umlclass_store_disconnects(prop_dialog, attr->left_connection);
+      object_remove_connections_to(attr->left_connection);
+      _umlclass_store_disconnects(prop_dialog, attr->right_connection);
+      object_remove_connections_to(attr->right_connection);
+    }
+
+    i++;
+  }
+
+  i = 0;
   list_store = dia_uml_class_get_operations (editor_state);
   /* Insert new operations and remove them from gtklist: */
-  while ((itm = g_list_model_get_item (G_LIST_MODEL (list_store), i))) {
+  while ((itm = g_list_model_get_item (list_store, i))) {
     DiaUmlOperation *op = DIA_UML_OPERATION (itm);
+
     umlclass->operations = g_list_append(umlclass->operations, g_object_ref (op));
 
     if (op->l_connection == NULL) {

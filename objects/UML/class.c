@@ -43,6 +43,9 @@
 
 #include "debug.h"
 
+#include "dia-uml-attribute.h"
+#include "dia-uml-operation.h"
+
 #define UMLCLASS_BORDER 0.1
 #define UMLCLASS_UNDERLINEWIDTH 0.05
 #define UMLCLASS_TEMPLATE_OVERLAY_X 2.3
@@ -459,9 +462,9 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
     i = UMLCLASS_CONNECTIONPOINTS;
     list = (!umlclass->visible_attributes || umlclass->suppress_attributes) ? NULL : umlclass->attributes;
     while (list != NULL) {
-      UMLAttribute *attr = (UMLAttribute *)list->data;
+      DiaUmlAttribute *attr = (DiaUmlAttribute *)list->data;
 
-      uml_attribute_ensure_connection_points (attr, obj);
+      dia_uml_attribute_ensure_connection_points (attr, obj);
       obj->connections[i] = attr->left_connection;
       obj->connections[i]->object = obj;
       i++;
@@ -906,8 +909,8 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
     list = umlclass->attributes;
     while (list != NULL)
     {
-      UMLAttribute *attr   = (UMLAttribute *)list->data;
-      gchar        *attstr = uml_get_attribute_string(attr);
+      DiaUmlAttribute *attr   = (DiaUmlAttribute *)list->data;
+      gchar        *attstr = dia_uml_attribute_format(attr);
 
       if (attr->abstract)  {
         font = umlclass->abstract_font;
@@ -1279,7 +1282,7 @@ umlclass_update_data(UMLClass *umlclass)
 
   list = (!umlclass->visible_attributes || umlclass->suppress_attributes) ? NULL : umlclass->attributes;
   while (list != NULL) {
-    UMLAttribute *attr = (UMLAttribute *)list->data;
+    DiaUmlAttribute *attr = (DiaUmlAttribute *)list->data;
 
     attr->left_connection->pos.x = x;
     attr->left_connection->pos.y = y;
@@ -1445,8 +1448,8 @@ umlclass_calculate_attribute_data(UMLClass *umlclass)
     list = umlclass->attributes;
     while (list != NULL)
     {
-      UMLAttribute *attr   = (UMLAttribute *) list->data;
-      gchar        *attstr = uml_get_attribute_string(attr);
+      DiaUmlAttribute *attr   = (DiaUmlAttribute *) list->data;
+      gchar        *attstr = dia_uml_attribute_format(attr);
 
       if (attr->abstract)
       {
@@ -1909,7 +1912,7 @@ static void
 umlclass_destroy(UMLClass *umlclass)
 {
   GList *list;
-  UMLAttribute *attr;
+  DiaUmlAttribute *attr;
   DiaUmlOperation *op;
   UMLFormalParameter *param;
 
@@ -1934,13 +1937,13 @@ umlclass_destroy(UMLClass *umlclass)
 
   list = umlclass->attributes;
   while (list != NULL) {
-    attr = (UMLAttribute *)list->data;
-    g_free(attr->left_connection);
-    g_free(attr->right_connection);
-    uml_attribute_destroy(attr);
-    list = g_list_next(list);
+    attr = (DiaUmlAttribute *)list->data;
+    g_free (attr->left_connection);
+    g_free (attr->right_connection);
+    g_object_unref (attr);
+    list = g_list_next (list);
   }
-  g_list_free(umlclass->attributes);
+  g_list_free (umlclass->attributes);
   
   list = umlclass->operations;
   while (list != NULL) {
@@ -1950,7 +1953,7 @@ umlclass_destroy(UMLClass *umlclass)
     g_object_unref (op);
     list = g_list_next(list);
   }
-  g_list_free(umlclass->operations);
+  g_list_free (umlclass->operations);
 
   list = umlclass->formal_params;
   while (list != NULL) {
@@ -2039,13 +2042,12 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->attributes = NULL;
   list = umlclass->attributes;
   while (list != NULL) {
-    UMLAttribute *attr = (UMLAttribute *)list->data;
+    DiaUmlAttribute *attr = (DiaUmlAttribute *)list->data;
     /* not copying the connection, if there was one */
-    UMLAttribute *newattr = uml_attribute_copy(attr);
-    uml_attribute_ensure_connection_points (newattr, newobj);
+    DiaUmlAttribute *newattr = dia_uml_attribute_copy (attr);
+    dia_uml_attribute_ensure_connection_points (newattr, newobj);
     
-    newumlclass->attributes = g_list_append(newumlclass->attributes,
-					    newattr);
+    newumlclass->attributes = g_list_append (newumlclass->attributes, newattr);
     list = g_list_next(list);
   }
 
@@ -2091,7 +2093,7 @@ umlclass_copy(UMLClass *umlclass)
        (!newumlclass->suppress_attributes)) {
     list = newumlclass->attributes;
     while (list != NULL) {
-      UMLAttribute *attr = (UMLAttribute *)list->data;
+      DiaUmlAttribute *attr = (DiaUmlAttribute *)list->data;
       newobj->connections[i++] = attr->left_connection;
       newobj->connections[i++] = attr->right_connection;
       
@@ -2140,7 +2142,7 @@ static void
 umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 	      DiaContext *ctx)
 {
-  UMLAttribute *attr;
+  DiaUmlAttribute *attr;
   DiaUmlOperation *op;
   UMLFormalParameter *formal_param;
   GList *list;
@@ -2218,7 +2220,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   attr_node = new_attribute(obj_node, "attributes");
   list = umlclass->attributes;
   while (list != NULL) {
-    attr = (UMLAttribute *) list->data;
+    attr = (DiaUmlAttribute *) list->data;
     uml_attribute_write(attr_node, attr, ctx);
     list = g_list_next(list);
   }
@@ -2349,10 +2351,10 @@ umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
   /* Attribute info: */
   list = umlclass->attributes;
   while (list) {
-    UMLAttribute *attr = list->data;
+    DiaUmlAttribute *attr = list->data;
     g_assert(attr);
 
-    uml_attribute_ensure_connection_points (attr, obj);
+    dia_uml_attribute_ensure_connection_points (attr, obj);
     list = g_list_next(list);
   }
 
@@ -2452,7 +2454,7 @@ umlclass_sanity_check(UMLClass *c, gchar *msg)
   /* Check that attributes are set up right. */
   i = 0;
   for (attrs = c->attributes; attrs != NULL; attrs = g_list_next(attrs)) {
-    UMLAttribute *attr = (UMLAttribute *)attrs->data;
+    DiaUmlAttribute *attr = (DiaUmlAttribute *)attrs->data;
 
     dia_assert_true(attr->name != NULL,
 		    "%s: %p attr %d has null name\n",

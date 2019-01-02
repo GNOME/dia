@@ -49,14 +49,7 @@ struct _UMLClassDialog {
   GList *added_connections; 
   GList *deleted_connections; 
 
-  DiaList *attributes_list;
-  DiaListItem *current_attr;
-  GtkEntry *attr_name;
-  GtkEntry *attr_type;
-  GtkEntry *attr_value;
-  GtkTextView *attr_comment;
   GtkWidget *attr_visible;
-  GtkToggleButton *attr_class_scope;
 
   GtkWidget *editor;
 
@@ -72,16 +65,12 @@ void _umlclass_store_disconnects(UMLClassDialog *prop_dialog, ConnectionPoint *c
 const gchar *_class_get_comment(GtkTextView *);
 void _class_set_comment(GtkTextView *, gchar *);
 
-void _attributes_get_current_values(UMLClassDialog *prop_dialog);
 void _templates_get_current_values(UMLClassDialog *prop_dialog);
 
-void _attributes_fill_in_dialog(UMLClass *umlclass);
 void _templates_fill_in_dialog(UMLClass *umlclass);
 
-void _attributes_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog, int connection_index);
 void _operations_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog, int connection_index);
 void _templates_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog);
 
-void _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
 void _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
 void _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass);

@@ -1,4 +1,6 @@
 #include "dia-uml-class.h"
+#include "dia-uml-operation.h"
+#include "dia-uml-attribute.h"
 #include "editor/dia-uml-list-store.h"
 
 struct _DiaUmlClass {
@@ -42,7 +44,7 @@ struct _DiaUmlClass {
   /* Maybe we could use GListStore for these? */
 
   /* Attributes: */
-  GList *attributes;
+  DiaUmlListStore *attributes;
 
   /* Operators: */
   DiaUmlListStore *operations;
@@ -70,13 +72,7 @@ clear_attrs (DiaUmlClass *self)
   g_free (self->stereotype);
   g_free (self->comment);
 
-  list = self->attributes;
-  while (list) {
-    uml_attribute_destroy ((UMLAttribute *) list->data);
-    list = g_list_next (list);
-  }
-  g_list_free (self->attributes);
-
+  g_clear_object (&self->attributes);
   g_clear_object (&self->operations);
 
   list = self->formal_params;
@@ -164,18 +160,18 @@ dia_uml_class_load (DiaUmlClass *self,
   self->fill_color = klass->fill_color;
   self->text_color = klass->text_color;
   
-  self->attributes = NULL;
   list = klass->attributes;
+  self->attributes = dia_uml_list_store_new ();
   while (list != NULL) {
-    UMLAttribute *attr = (UMLAttribute *)list->data;
-    UMLAttribute *attr_copy;
+    DiaUmlAttribute *attr = (DiaUmlAttribute *)list->data;
+    DiaUmlAttribute *attr_copy;
       
-    attr_copy = uml_attribute_copy(attr);
+    attr_copy = dia_uml_attribute_copy (attr);
     /* Looks wrong, but needed fro proper restore */
     attr_copy->left_connection = attr->left_connection;
     attr_copy->right_connection = attr->right_connection;
 
-    self->attributes = g_list_append(self->attributes, attr_copy);
+    dia_uml_list_store_add (self->attributes, DIA_UML_LIST_DATA (attr_copy));
     list = g_list_next(list);
   }
 
@@ -258,7 +254,13 @@ dia_uml_class_store (DiaUmlClass *self,
   klass->text_color = self->text_color;
 
   /* TODO: List stuff */
-  klass->attributes = self->attributes;
+  list = NULL;
+  while ((itm = g_list_model_get_item (G_LIST_MODEL (self->attributes), i))) {
+    list = g_list_append (list, itm);
+    i++;
+  }
+  klass->attributes = list;
+
 
   list = NULL;
   while ((itm = g_list_model_get_item (G_LIST_MODEL (self->operations), i))) {
@@ -272,13 +274,19 @@ dia_uml_class_store (DiaUmlClass *self,
 }
 
 GListModel *
+dia_uml_class_get_attributes (DiaUmlClass *self)
+{
+  return G_LIST_MODEL (self->attributes);
+}
+
+GListModel *
 dia_uml_class_get_operations (DiaUmlClass *self)
 {
   return G_LIST_MODEL (self->operations);
 }
 
 /*
- * Don't rely on these two being called!
+ * Don't rely on these four being called!
  * 
  * The DiaUmlListStore can/will be edited directly (e.g. by DiaUmlClassEditor)
  * so connect to items-changed if you want to observe these!
@@ -297,4 +305,19 @@ dia_uml_class_remove_operation (DiaUmlClass     *self,
                                 DiaUmlOperation *operation)
 {
   dia_uml_list_store_remove (self->operations, DIA_UML_LIST_DATA (operation));
+}
+
+void
+dia_uml_class_insert_attribute (DiaUmlClass     *self,
+                                DiaUmlAttribute *attribute,
+                                int              index)
+{
+  dia_uml_list_store_insert (self->attributes, DIA_UML_LIST_DATA (attribute), index);
+}
+
+void
+dia_uml_class_remove_attribute (DiaUmlClass     *self,
+                                DiaUmlAttribute *attribute)
+{
+  dia_uml_list_store_remove (self->attributes, DIA_UML_LIST_DATA (attribute));
 }

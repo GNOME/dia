@@ -54,12 +54,14 @@ visibility_from (GBinding *binding,
 {
   int mode = g_value_get_int (from_value);
 
-  if (mode == UML_ABSTRACT) {
-    g_value_set_static_string (to_value, "abstract");
-  } else if (mode == UML_POLYMORPHIC) {
-    g_value_set_static_string (to_value, "poly");
+  if (mode == UML_PRIVATE) {
+    g_value_set_static_string (to_value, "private");
+  } else if (mode == UML_PROTECTED) {
+    g_value_set_static_string (to_value, "protected");
+  } else if (mode == UML_IMPLEMENTATION) {
+    g_value_set_static_string (to_value, "implementation");
   } else {
-    g_value_set_static_string (to_value, "leaf");
+    g_value_set_static_string (to_value, "public");
   }
   
   return TRUE;
@@ -92,18 +94,15 @@ inheritance_from (GBinding *binding,
 {
   int mode = g_value_get_int (from_value);
 
-  if (mode == UML_PRIVATE) {
-    g_value_set_static_string (to_value, "private");
-  } else if (mode == UML_PROTECTED) {
-    g_value_set_static_string (to_value, "protected");
-  } else if (mode == UML_IMPLEMENTATION) {
-    g_value_set_static_string (to_value, "implementation");
+  if (mode == UML_ABSTRACT) {
+    g_value_set_static_string (to_value, "abstract");
+  } else if (mode == UML_POLYMORPHIC) {
+    g_value_set_static_string (to_value, "poly");
   } else {
-    g_value_set_static_string (to_value, "public");
+    g_value_set_static_string (to_value, "leaf");
   }
   
-  return TRUE;
-}
+  return TRUE;}
 
 static void
 dia_uml_operation_dialog_set_property (GObject      *object,
@@ -151,12 +150,10 @@ dia_uml_operation_dialog_set_property (GObject      *object,
                               G_OBJECT (self->scope), "active",
                               G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
-      self->building = TRUE;
       paras = dia_uml_operation_get_parameters (self->operation);
       gtk_list_box_bind_model (GTK_LIST_BOX (self->list), paras,
                               (GtkListBoxCreateWidgetFunc) dia_uml_operation_parameter_row_new,
                               paras, NULL);
-      self->building = FALSE;
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);

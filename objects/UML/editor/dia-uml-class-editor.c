@@ -2,6 +2,7 @@
 #include "dia-uml-list-row.h"
 #include "dia-uml-list-store.h"
 #include "dia-uml-operation-dialog.h"
+#include "dia-uml-attribute-dialog.h"
 #include "dia_dirs.h"
 
 struct _DiaUmlClassEditor {
@@ -23,9 +24,16 @@ enum {
 static GParamSpec* uml_cedit_properties[UML_CEDIT_N_PROPS];
 
 static void
-build_list (DiaUmlClassEditor *self)
+build_lists (DiaUmlClassEditor *self)
 {
-  GListModel *store = dia_uml_class_get_operations (self->klass);
+  GListModel *store;
+
+  store = dia_uml_class_get_attributes (self->klass);
+  gtk_list_box_bind_model (GTK_LIST_BOX (self->attributes), store,
+                           (GtkListBoxCreateWidgetFunc) dia_uml_list_row_new,
+                           store, NULL);
+
+  store = dia_uml_class_get_operations (self->klass);
   gtk_list_box_bind_model (GTK_LIST_BOX (self->operations), store,
                            (GtkListBoxCreateWidgetFunc) dia_uml_list_row_new,
                            store, NULL);
@@ -76,6 +84,50 @@ edit_operation (DiaUmlClassEditor *self,
 }
 
 static void
+remove_attr (DiaUmlAttributeDialog *dlg,
+             DiaUmlAttribute       *attr,
+             DiaUmlClassEditor     *self)
+{
+  dia_uml_class_remove_attribute (self->klass, attr);
+}
+
+static void
+add_attribute (DiaUmlClassEditor *self)
+{
+  DiaUmlAttribute *attr;
+  GtkWidget *edit;
+  GtkWidget *parent;
+
+  attr = dia_uml_attribute_new ();
+  dia_uml_class_insert_attribute (self->klass, attr, -1);
+
+  parent = gtk_widget_get_toplevel (GTK_WIDGET (self));
+  edit = dia_uml_attribute_dialog_new (GTK_WINDOW (parent), attr);
+  g_signal_connect (edit, "attribute-deleted", G_CALLBACK (remove_attr), self);
+
+  gtk_widget_show (edit);
+}
+
+static void
+edit_attribute (DiaUmlClassEditor *self,
+                GtkListBoxRow     *row)
+{
+  GtkWidget *dlg;
+  GtkWidget *parent;
+  DiaUmlAttribute *attr;
+
+  if (!DIA_UML_IS_LIST_ROW (row))
+    return;
+  
+  parent = gtk_widget_get_toplevel (GTK_WIDGET (self));
+  attr = DIA_UML_ATTRIBUTE (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
+  dlg = dia_uml_attribute_dialog_new (GTK_WINDOW (parent), attr);
+  g_signal_connect (dlg, "attribute-deleted", G_CALLBACK (remove_attr), self);
+  gtk_widget_show (dlg);
+  g_object_unref (attr);
+}
+
+static void
 dia_uml_class_editor_finalize (GObject *object)
 {
   DiaUmlClassEditor *self = DIA_UML_CLASS_EDITOR (object);
@@ -94,7 +146,7 @@ dia_uml_class_editor_set_property (GObject      *object,
   switch (property_id) {
     case UML_CEDIT_PROP_CLASS:
       self->klass = g_value_dup_object (value);
-      build_list (self);
+      build_lists (self);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -154,6 +206,8 @@ dia_uml_class_editor_class_init (DiaUmlClassEditorClass *klass)
   gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, attributes);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, operations);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, templates);
+  gtk_widget_class_bind_template_callback (widget_class, add_attribute);
+  gtk_widget_class_bind_template_callback (widget_class, edit_attribute);
   gtk_widget_class_bind_template_callback (widget_class, add_operation);
   gtk_widget_class_bind_template_callback (widget_class, edit_operation);
 

@@ -6,16 +6,6 @@
 #ifndef UML_OP_H
 #define UML_OP_H
 
-/* TODO: enums as GEnum for _spec_enum ext */
-
-/** the visibility (allowed acces) of (to) various UML sub elements */
-typedef enum _UMLVisibility {
-  UML_PUBLIC, /**< everyone can use it */
-  UML_PRIVATE, /**< only accessible inside the class itself */
-  UML_PROTECTED, /**< the class and its inheritants ca use this */
-  UML_IMPLEMENTATION /**< ?What's this? Means implementation decision */
-} UMLVisibility;
-
 /** In some languages there are different kinds of class inheritances */
 typedef enum _UMLInheritanceType {
   UML_ABSTRACT, /**< Pure virtual method: an object of this class cannot be instanciated */
@@ -68,5 +58,8 @@ void             dia_uml_operation_insert_parameter         (DiaUmlOperation *se
 void             dia_uml_operation_remove_parameter         (DiaUmlOperation *self,
                                                              DiaUmlParameter *parameter);
 GListModel      *dia_uml_operation_get_parameters           (DiaUmlOperation *self);
+
+void uml_operation_write(AttributeNode attr_node, DiaUmlOperation *op, DiaContext *ctx);
+
 
 #endif

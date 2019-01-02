@@ -26,28 +26,18 @@
 #include "intl.h"
 #include "connectionpoint.h"
 #include "dia_xml.h"
-#include "dia-uml-operation.h"
 
-typedef struct _UMLAttribute UMLAttribute;
+/* TODO: enums as GEnum for _spec_enum ext */
+
+/** the visibility (allowed acces) of (to) various UML sub elements */
+typedef enum _UMLVisibility {
+  UML_PUBLIC, /**< everyone can use it */
+  UML_PRIVATE, /**< only accessible inside the class itself */
+  UML_PROTECTED, /**< the class and its inheritants ca use this */
+  UML_IMPLEMENTATION /**< ?What's this? Means implementation decision */
+} UMLVisibility;
+
 typedef struct _UMLFormalParameter UMLFormalParameter;
-
-/** \brief A list of UMLAttribute is contained in UMLClass
- * Some would call them member variables ;)
- */
-struct _UMLAttribute {
-  gint internal_id; /**< Arbitrary integer to recognize attributes after 
-		     * the user has shuffled them in the dialog. */
-  gchar *name; /**< the member variables name */
-  gchar *type; /**< the return value */
-  gchar *value; /**< default parameter : Can be NULL => No default value */
-  gchar *comment; /**< comment */
-  UMLVisibility visibility; /**< attributes visibility */
-  int abstract; /**< not sure if this applicable */
-  int class_scope; /**< in C++ : static member */
-  
-  ConnectionPoint* left_connection; /**< left */
-  ConnectionPoint* right_connection; /**< right */
-};
 
 /** \brief A list of UMLFormalParameter is contained in DiaUmlOperation
  * Some would call them template parameters ;)
@@ -64,22 +54,12 @@ struct _UMLFormalParameter {
 #define UML_STEREOTYPE_END _(">>")
 
 /** calculated the 'formated' representation */
-gchar *uml_get_attribute_string (UMLAttribute *attribute);
-/** calculated the 'formated' representation */
 gchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
-void uml_attribute_copy_into(UMLAttribute *srcattr, UMLAttribute *destattr);
-UMLAttribute *uml_attribute_copy(UMLAttribute *attr);
 UMLFormalParameter *uml_formalparameter_copy(UMLFormalParameter *param);
-void uml_attribute_destroy(UMLAttribute *attribute);
 void uml_formalparameter_destroy(UMLFormalParameter *param);
-UMLAttribute *uml_attribute_new(void);
 
 UMLFormalParameter *uml_formalparameter_new(void);
 
-void uml_attribute_ensure_connection_points (UMLAttribute *attr, DiaObject* obj);
-
-void uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr, DiaContext *ctx);
-void uml_operation_write(AttributeNode attr_node, DiaUmlOperation *op, DiaContext *ctx);
 void uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param, DiaContext *ctx);
 
 void list_box_separators (GtkListBoxRow *row,
