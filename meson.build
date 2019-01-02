@@ -20,10 +20,10 @@ libzlib_dep = dependency('zlib')
 #TODO: this is optional.  Should it be a disabler?
 libcairo_dep = dependency('cairo')
 libm_dep = cc.find_library('m')
-libc_dep = cc.find_library('c')
+libc_dep = cc.find_library('c', required : false)
 
 # Optional deps
-freetype_dep = dependency('freetype2', version: '>= 11.0.5', required: false)
+freetype_dep = dependency('freetype2', version: ['>= 11.0.5', '< 22.0.0'], required: false)
 conf.set('HAVE_FREETYPE', freetype_dep.found())
 libpoppler_dep = dependency('poppler', version: '<= 0.62.0', required: false)
 conf.set('HAVE_POPPLER', libpoppler_dep.found())
@@ -49,6 +49,7 @@ dialibdir = join_paths(get_option('prefix'),
 # Specify a header configuration file
 conf.set_quoted('VERSION', meson.project_version())
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+conf.set_quoted('PREFIX', get_option('prefix'))
 conf.set_quoted('DATADIR', datadir)
 conf.set_quoted('PKGDATADIR', pkgdatadir)
 conf.set_quoted('DIALIBDIR',  dialibdir)
