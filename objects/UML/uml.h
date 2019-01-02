@@ -22,6 +22,7 @@
 #define UML_H
 
 #include <glib.h>
+#include <gtk/gtk.h>
 #include "intl.h"
 #include "connectionpoint.h"
 #include "dia_xml.h"
@@ -95,13 +96,13 @@ struct _DiaUmlOperation {
   int class_scope;
   GList *parameters; /**< List of DiaUmlParameter */
 
-  ConnectionPoint* left_connection; /**< left */
-  ConnectionPoint* right_connection; /**< right */
+  ConnectionPoint* l_connection; /**< left */
+  ConnectionPoint* r_connection; /**< right */
 
   gboolean needs_wrapping; /** Whether this operation needs wrapping */
   gint wrap_indent; /** The amount of indentation in chars */
   GList *wrappos; /** Absolute wrapping positions */
-  real ascent; /** The ascent amount used for line distance in wrapping */
+  double ascent; /** The ascent amount used for line distance in wrapping */
 };
 
 
@@ -136,15 +137,15 @@ struct _UMLFormalParameter {
 #define UML_STEREOTYPE_END _(">>")
 
 /** calculated the 'formated' representation */
-extern gchar *uml_get_attribute_string (UMLAttribute *attribute);
+gchar *uml_get_attribute_string (UMLAttribute *attribute);
 /** calculated the 'formated' representation */
-extern gchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
-extern void uml_attribute_copy_into(UMLAttribute *srcattr, UMLAttribute *destattr);
-extern UMLAttribute *uml_attribute_copy(UMLAttribute *attr);
-extern UMLFormalParameter *uml_formalparameter_copy(UMLFormalParameter *param);
-extern void uml_attribute_destroy(UMLAttribute *attribute);
-extern void uml_formalparameter_destroy(UMLFormalParameter *param);
-extern UMLAttribute *uml_attribute_new(void);
+gchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
+void uml_attribute_copy_into(UMLAttribute *srcattr, UMLAttribute *destattr);
+UMLAttribute *uml_attribute_copy(UMLAttribute *attr);
+UMLFormalParameter *uml_formalparameter_copy(UMLFormalParameter *param);
+void uml_attribute_destroy(UMLAttribute *attribute);
+void uml_formalparameter_destroy(UMLFormalParameter *param);
+UMLAttribute *uml_attribute_new(void);
 
 DiaUmlOperation *dia_uml_operation_new                      ();
 /** calculated the 'formated' representation */
@@ -165,13 +166,17 @@ DiaUmlParameter *dia_uml_parameter_new                      ();
 /** calculated the 'formated' representation */
 gchar           *dia_uml_parameter_format                   (DiaUmlParameter *param);
 
-extern UMLFormalParameter *uml_formalparameter_new(void);
+UMLFormalParameter *uml_formalparameter_new(void);
 
-extern void uml_attribute_ensure_connection_points (UMLAttribute *attr, DiaObject* obj);
+void uml_attribute_ensure_connection_points (UMLAttribute *attr, DiaObject* obj);
 
-extern void uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr, DiaContext *ctx);
-extern void uml_operation_write(AttributeNode attr_node, DiaUmlOperation *op, DiaContext *ctx);
-extern void uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param, DiaContext *ctx);
+void uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr, DiaContext *ctx);
+void uml_operation_write(AttributeNode attr_node, DiaUmlOperation *op, DiaContext *ctx);
+void uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param, DiaContext *ctx);
+
+void list_box_separators (GtkListBoxRow *row,
+                          GtkListBoxRow *before,
+                          gpointer       user_data);
 
 #endif /* UML_H */
 

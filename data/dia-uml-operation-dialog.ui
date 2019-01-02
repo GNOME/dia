@@ -289,6 +289,7 @@
                             <property name="receives_default">True</property>
                             <property name="halign">end</property>
                             <property name="valign">center</property>
+                            <signal name="clicked" handler="remove_operation" object="DiaUmlOperationDialog" swapped="yes"/>
                             <style>
                               <class name="destructive-action"/>
                             </style>

@@ -42,6 +42,7 @@
 #include "class.h"
 #include "diaoptionmenu.h"
 #include "diafontselector.h"
+#include "dia-uml-class.h"
 
 #include "class_dialog.h"
 
@@ -60,56 +61,6 @@ typedef struct _Disconnect {
   Handle *other_handle;
 } Disconnect;
 
-typedef struct _UMLClassState UMLClassState;
-
-struct _UMLClassState {
-  real font_height;
-  real abstract_font_height;
-  real polymorphic_font_height;
-  real classname_font_height;
-  real abstract_classname_font_height;
-  real comment_font_height;
-
-  DiaFont *normal_font;
-  DiaFont *abstract_font;
-  DiaFont *polymorphic_font;
-  DiaFont *classname_font;
-  DiaFont *abstract_classname_font;
-  DiaFont *comment_font;
-  
-  char *name;
-  char *stereotype;
-  char *comment;
-
-  int abstract;
-  int suppress_attributes;
-  int suppress_operations;
-  int visible_attributes;
-  int visible_operations;
-  int visible_comments;
-
-  int wrap_operations;
-  int wrap_after_char;
-  int comment_line_length;
-  int comment_tagging;
-  
-  real line_width;
-  GdkRGBA line_color;
-  GdkRGBA fill_color;
-  GdkRGBA text_color;
-
-  /* Attributes: */
-  GList *attributes;
-
-  /* Operators: */
-  GList *operations;
-
-  /* Template: */
-  int template;
-  GList *formal_params;
-};
-
-
 typedef struct _UMLClassChange UMLClassChange;
 
 struct _UMLClassChange {
@@ -123,13 +74,15 @@ struct _UMLClassChange {
 
   int applied;
   
-  UMLClassState *saved_state;
+  DiaUmlClass *saved_state;
 };
 
-static UMLClassState *umlclass_get_state(UMLClass *umlclass);
-static ObjectChange *new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
-					 GList *added, GList *deleted,
-					 GList *disconnected);
+static ObjectChange *
+new_umlclass_change (UMLClass    *obj,
+                     DiaUmlClass *saved_state,
+                     GList       *added,
+                     GList       *deleted,
+                     GList       *disconnected);
 
 /**** Utility functions ******/
 void
@@ -289,7 +242,7 @@ create_font_props_row (GtkGrid    *table,
                        GtkSpinButton   **heightsel)
 {
   GtkWidget *label;
-  GObject *adj;
+  GtkAdjustment *adj;
 
   label = gtk_label_new (kind);
   gtk_label_set_xalign (GTK_LABEL (label), 0.0);
@@ -300,7 +253,7 @@ create_font_props_row (GtkGrid    *table,
   gtk_grid_attach (GTK_GRID (table), GTK_WIDGET(*fontsel), 1, row, 1, 1);
 
   adj = gtk_adjustment_new (height, 0.1, 10.0, 0.1, 1.0, 0);
-  *heightsel = GTK_SPIN_BUTTON (gtk_spin_button_new (GTK_ADJUSTMENT(adj), 1.0, 2));
+  *heightsel = GTK_SPIN_BUTTON (gtk_spin_button_new (adj, 1.0, 2));
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (*heightsel), TRUE);
   gtk_grid_attach (table, GTK_WIDGET (*heightsel), 2, row, 1, 1);
 }
@@ -318,7 +271,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *scrolledwindow;
   GtkWidget *checkbox;
   GtkWidget *table;
-  GObject *adj;
+  GtkAdjustment *adj;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -398,8 +351,8 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   checkbox = gtk_check_button_new_with_label(_("Wrap Operations"));
   prop_dialog->op_wrap = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  adj = gtk_adjustment_new( umlclass->wrap_after_char, 0.0, 200.0, 1.0, 5.0, 0);
-  prop_dialog->wrap_after_char = GTK_SPIN_BUTTON(gtk_spin_button_new( GTK_ADJUSTMENT( adj), 0.1, 0));
+  adj = gtk_adjustment_new (umlclass->wrap_after_char, 0.0, 200.0, 1.0, 5.0, 0);
+  prop_dialog->wrap_after_char = GTK_SPIN_BUTTON (gtk_spin_button_new (adj, 0.1, 0));
   gtk_spin_button_set_numeric( GTK_SPIN_BUTTON( prop_dialog->wrap_after_char), TRUE);
   gtk_spin_button_set_snap_to_ticks( GTK_SPIN_BUTTON( prop_dialog->wrap_after_char), TRUE);
   prop_dialog->max_length_label = GTK_LABEL( gtk_label_new( _("Wrap after this length: ")));
@@ -414,8 +367,8 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   checkbox = gtk_check_button_new_with_label(_("Comments visible"));
   prop_dialog->comments_vis = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  adj = gtk_adjustment_new( umlclass->comment_line_length, 17.0, 200.0, 1.0, 5.0, 0);
-  prop_dialog->comment_line_length = GTK_SPIN_BUTTON(gtk_spin_button_new( GTK_ADJUSTMENT( adj), 0.1, 0));
+  adj = gtk_adjustment_new (umlclass->comment_line_length, 17.0, 200.0, 1.0, 5.0, 0);
+  prop_dialog->comment_line_length = GTK_SPIN_BUTTON (gtk_spin_button_new (adj, 0.1, 0));
   gtk_spin_button_set_numeric( GTK_SPIN_BUTTON( prop_dialog->comment_line_length), TRUE);
   gtk_spin_button_set_snap_to_ticks( GTK_SPIN_BUTTON( prop_dialog->comment_line_length), TRUE);
   prop_dialog->Comment_length_label = GTK_LABEL( gtk_label_new( _("Wrap comment after this length: ")));
@@ -449,7 +402,7 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *fill_color;
   GtkWidget *line_color;
   GtkWidget *table;
-  GObject *adj;
+  GtkAdjustment *adj;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -516,8 +469,8 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_label_set_yalign (GTK_LABEL (label), 0.5);
   gtk_widget_set_hexpand (label, TRUE);
   gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
-  adj = gtk_adjustment_new(umlclass->line_width, 0.0, G_MAXFLOAT, 0.1, 1.0, 0);
-  line_width = gtk_spin_button_new (GTK_ADJUSTMENT(adj), 1.0, 2);
+  adj = gtk_adjustment_new (umlclass->line_width, 0.0, G_MAXFLOAT, 0.1, 1.0, 0);
+  line_width = gtk_spin_button_new (adj, 1.0, 2);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (line_width), TRUE);
   prop_dialog->line_width = GTK_SPIN_BUTTON(line_width);
   gtk_widget_set_hexpand (line_width, TRUE);
@@ -585,7 +538,6 @@ switch_page_callback(GtkNotebook *notebook,
 
   if (prop_dialog != NULL) {
     _attributes_get_current_values(prop_dialog);
-    _operations_get_current_values(prop_dialog);
     _templates_get_current_values(prop_dialog);
   }
 }
@@ -609,7 +561,7 @@ fill_in_dialog(UMLClass *umlclass)
 #endif
   class_fill_in_dialog(umlclass);
   _attributes_fill_in_dialog(umlclass);
-  _operations_fill_in_dialog(umlclass);
+  /*_operations_fill_in_dialog(umlclass);*/
   _templates_fill_in_dialog(umlclass);
 }
 
@@ -621,7 +573,8 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   GList *list;
   int num_attrib, num_ops;
   GList *added, *deleted, *disconnected;
-  UMLClassState *old_state = NULL;
+  DiaUmlClass *old_state = NULL;
+  DiaUmlClass *editor_state;
   
 #ifdef DEBUG
   umlclass_sanity_check(umlclass, "Apply from dialog start");
@@ -629,18 +582,28 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
 
   prop_dialog = umlclass->properties_dialog;
 
-  old_state = umlclass_get_state(umlclass);
+  old_state = dia_uml_class_new (umlclass);
+
+  editor_state = dia_uml_class_editor_get_class (DIA_UML_CLASS_EDITOR (prop_dialog->editor));
   
   /* Allocate enought connection points for attributes and operations. */
   /* (two per op/attr) */
-  if ( (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_vis))) && (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_supp))))
+  if (
+    ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_vis ))) &&
+    (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_supp)))
+  ) {
     num_attrib = g_list_length(dia_list_get_children(prop_dialog->attributes_list));
-  else
+  } else {
     num_attrib = 0;
-  if ( (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_vis))) && (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_supp))))
-    num_ops = g_list_length(dia_list_get_children(prop_dialog->operations_list));
-  else
+  }
+  if (
+    ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_vis ))) &&
+    (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_supp)))
+  ) {
+    num_ops = g_list_length (dia_uml_class_get_operations (editor_state));
+  } else {
     num_ops = 0;
+  }
   obj = &umlclass->element.object;
 #ifdef UML_MAINPOINT
   obj->num_connections =
@@ -652,7 +615,7 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   obj->connections =
     g_realloc(obj->connections,
 	      obj->num_connections*sizeof(ConnectionPoint *));
-  
+
   /* Read from dialog and put in object: */
   class_read_from_dialog(umlclass, prop_dialog);
   _attributes_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS);
@@ -696,7 +659,7 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
 #ifdef DEBUG
   umlclass_sanity_check(umlclass, "Apply from dialog end");
 #endif
-  return  new_umlclass_change(umlclass, old_state, added, deleted, disconnected);
+  return new_umlclass_change(umlclass, old_state, added, deleted, disconnected);
 }
 
 static void
@@ -729,7 +692,6 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
 
     prop_dialog->current_attr = NULL;
     prop_dialog->current_op = NULL;
-    prop_dialog->current_param = NULL;
     prop_dialog->current_templ = NULL;
     prop_dialog->deleted_connections = NULL;
     prop_dialog->added_connections = NULL;
@@ -760,127 +722,6 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
 
 
 /****************** UNDO stuff: ******************/
-
-static void
-umlclass_free_state(UMLClassState *state)
-{
-  GList *list;
-
-  g_object_unref (state->normal_font);
-  g_object_unref (state->abstract_font);
-  g_object_unref (state->polymorphic_font);
-  g_object_unref (state->classname_font);
-  g_object_unref (state->abstract_classname_font);
-  g_object_unref (state->comment_font);
-  
-  g_free(state->name);
-  g_free(state->stereotype);
-  g_free(state->comment);
-
-  list = state->attributes;
-  while (list) {
-    uml_attribute_destroy((UMLAttribute *) list->data);
-    list = g_list_next(list);
-  }
-  g_list_free(state->attributes);
-
-  list = state->operations;
-  while (list) {
-    g_object_unref (G_OBJECT (list->data));
-    list = g_list_next(list);
-  }
-  g_list_free(state->operations);
-
-  list = state->formal_params;
-  while (list) {
-    uml_formalparameter_destroy((UMLFormalParameter *) list->data);
-    list = g_list_next(list);
-  }
-  g_list_free(state->formal_params);
-}
-
-static UMLClassState *
-umlclass_get_state(UMLClass *umlclass)
-{
-  UMLClassState *state = g_new0(UMLClassState, 1);
-  GList *list;
-
-  state->font_height = umlclass->font_height;
-  state->abstract_font_height = umlclass->abstract_font_height;
-  state->polymorphic_font_height = umlclass->polymorphic_font_height;
-  state->classname_font_height = umlclass->classname_font_height;
-  state->abstract_classname_font_height = umlclass->abstract_classname_font_height;
-  state->comment_font_height = umlclass->comment_font_height;
-
-  state->normal_font = g_object_ref (umlclass->normal_font);
-  state->abstract_font = g_object_ref (umlclass->abstract_font);
-  state->polymorphic_font = g_object_ref (umlclass->polymorphic_font);
-  state->classname_font = g_object_ref (umlclass->classname_font);
-  state->abstract_classname_font = g_object_ref (umlclass->abstract_classname_font);
-  state->comment_font = g_object_ref (umlclass->comment_font);
-  
-  state->name = g_strdup(umlclass->name);
-  state->stereotype = g_strdup(umlclass->stereotype);
-  state->comment = g_strdup(umlclass->comment);
-
-  state->abstract = umlclass->abstract;
-  state->suppress_attributes = umlclass->suppress_attributes;
-  state->suppress_operations = umlclass->suppress_operations;
-  state->visible_attributes = umlclass->visible_attributes;
-  state->visible_operations = umlclass->visible_operations;
-  state->visible_comments = umlclass->visible_comments;
-
-  state->wrap_operations = umlclass->wrap_operations;
-  state->wrap_after_char = umlclass->wrap_after_char;
-  state->comment_line_length = umlclass->comment_line_length;
-  state->comment_tagging = umlclass->comment_tagging;
-
-  state->line_color = umlclass->line_color;
-  state->fill_color = umlclass->fill_color;
-  state->text_color = umlclass->text_color;
-  
-  state->attributes = NULL;
-  list = umlclass->attributes;
-  while (list != NULL) {
-    UMLAttribute *attr = (UMLAttribute *)list->data;
-    UMLAttribute *attr_copy;
-      
-    attr_copy = uml_attribute_copy(attr);
-    /* Looks wrong, but needed fro proper restore */
-    attr_copy->left_connection = attr->left_connection;
-    attr_copy->right_connection = attr->right_connection;
-
-    state->attributes = g_list_append(state->attributes, attr_copy);
-    list = g_list_next(list);
-  }
-
-  /* TODO: Why? */
-  state->operations = NULL;
-  list = umlclass->operations;
-  while (list != NULL) {
-    DiaUmlOperation *op = (DiaUmlOperation *)list->data;
-
-    state->operations = g_list_append(state->operations, op);
-    list = g_list_next(list);
-  }
-
-
-  state->template = umlclass->template;
-  
-  state->formal_params = NULL;
-  list = umlclass->formal_params;
-  while (list != NULL) {
-    UMLFormalParameter *param = (UMLFormalParameter *)list->data;
-    UMLFormalParameter *param_copy;
-    
-    param_copy = uml_formalparameter_copy(param);
-    state->formal_params = g_list_append(state->formal_params, param_copy);
-    
-    list = g_list_next(list);
-  }
-
-  return state;
-}
 
 static void
 umlclass_update_connectionpoints(UMLClass *umlclass)
@@ -940,16 +781,14 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
     
     if ( (umlclass->visible_operations) &&
 	 (!umlclass->suppress_operations)) {
-      obj->connections[connection_index] = op->left_connection;
+      obj->connections[connection_index] = op->l_connection;
       connection_index++;
-      obj->connections[connection_index] = op->right_connection;
+      obj->connections[connection_index] = op->r_connection;
       connection_index++;
     }
     
     list = g_list_next(list);
   }
-  if (prop_dialog)
-    dia_list_empty (DIA_LIST (prop_dialog->operations_list));
 
 #ifdef UML_MAINPOINT
   obj->connections[connection_index++] = &umlclass->connections[UMLCLASS_CONNECTIONPOINTS];
@@ -958,55 +797,9 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
 }
 
 static void
-umlclass_set_state(UMLClass *umlclass, UMLClassState *state)
+umlclass_set_state(UMLClass *umlclass, DiaUmlClass *state)
 {
-  umlclass->font_height = state->font_height;
-  umlclass->abstract_font_height = state->abstract_font_height;
-  umlclass->polymorphic_font_height = state->polymorphic_font_height;
-  umlclass->classname_font_height = state->classname_font_height;
-  umlclass->abstract_classname_font_height = state->abstract_classname_font_height;
-  umlclass->comment_font_height = state->comment_font_height;
-
-  /* transfer ownership, but don't leak the previous font */
-  g_object_unref (umlclass->normal_font);
-  umlclass->normal_font = state->normal_font;
-  g_object_unref (umlclass->abstract_font);
-  umlclass->abstract_font = state->abstract_font;
-  g_object_unref (umlclass->polymorphic_font);
-  umlclass->polymorphic_font = state->polymorphic_font;
-  g_object_unref (umlclass->classname_font);
-  umlclass->classname_font = state->classname_font;
-  g_object_unref (umlclass->abstract_classname_font);
-  umlclass->abstract_classname_font = state->abstract_classname_font;
-  g_object_unref (umlclass->comment_font);
-  umlclass->comment_font = state->comment_font;
-  
-  umlclass->name = state->name;
-  umlclass->stereotype = state->stereotype;
-  umlclass->comment = state->comment;
-
-  umlclass->abstract = state->abstract;
-  umlclass->suppress_attributes = state->suppress_attributes;
-  umlclass->suppress_operations = state->suppress_operations;
-  umlclass->visible_attributes = state->visible_attributes;
-  umlclass->visible_operations = state->visible_operations;
-  umlclass->visible_comments = state->visible_comments;
-
-  umlclass->wrap_operations = state->wrap_operations;
-  umlclass->wrap_after_char = state->wrap_after_char;
-  umlclass->comment_line_length = state->comment_line_length;
-  umlclass->comment_tagging = state->comment_tagging;
-
-  umlclass->line_color = state->line_color;
-  umlclass->fill_color = state->fill_color;
-  umlclass->text_color = state->text_color;
-
-  umlclass->attributes = state->attributes;
-  umlclass->operations = state->operations;
-  umlclass->template = state->template;
-  umlclass->formal_params = state->formal_params;
-
-  g_free(state);
+  g_object_unref (state);
 
   umlclass_update_connectionpoints(umlclass);
 
@@ -1017,10 +810,10 @@ umlclass_set_state(UMLClass *umlclass, UMLClassState *state)
 static void
 umlclass_change_apply(UMLClassChange *change, DiaObject *obj)
 {
-  UMLClassState *old_state;
+  DiaUmlClass *old_state;
   GList *list;
   
-  old_state = umlclass_get_state(change->obj);
+  old_state = dia_uml_class_new (change->obj);
 
   umlclass_set_state(change->obj, change->saved_state);
 
@@ -1040,10 +833,10 @@ umlclass_change_apply(UMLClassChange *change, DiaObject *obj)
 static void
 umlclass_change_revert(UMLClassChange *change, DiaObject *obj)
 {
-  UMLClassState *old_state;
+  DiaUmlClass *old_state;
   GList *list;
   
-  old_state = umlclass_get_state(change->obj);
+  old_state = dia_uml_class_new(change->obj);
 
   umlclass_set_state(change->obj, change->saved_state);
   
@@ -1065,8 +858,7 @@ umlclass_change_free(UMLClassChange *change)
 {
   GList *list, *free_list;
 
-  umlclass_free_state(change->saved_state);
-  g_free(change->saved_state);
+  g_object_unref (change->saved_state);
 
   /* Doesn't this mean only one of add, delete can be done in each apply? */
   if (change->applied) 
@@ -1090,19 +882,19 @@ umlclass_change_free(UMLClassChange *change)
 }
 
 static ObjectChange *
-new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
-		    GList *added, GList *deleted, GList *disconnected)
+new_umlclass_change (UMLClass    *obj,
+                     DiaUmlClass *saved_state,
+                     GList       *added,
+                     GList       *deleted,
+                     GList       *disconnected)
 {
   UMLClassChange *change;
 
   change = g_new0(UMLClassChange, 1);
   
-  change->obj_change.apply =
-    (ObjectChangeApplyFunc) umlclass_change_apply;
-  change->obj_change.revert =
-    (ObjectChangeRevertFunc) umlclass_change_revert;
-  change->obj_change.free =
-    (ObjectChangeFreeFunc) umlclass_change_free;
+  change->obj_change.apply = (ObjectChangeApplyFunc) umlclass_change_apply;
+  change->obj_change.revert = (ObjectChangeRevertFunc) umlclass_change_revert;
+  change->obj_change.free = (ObjectChangeFreeFunc) umlclass_change_free;
 
   change->obj = obj;
   change->saved_state = saved_state;

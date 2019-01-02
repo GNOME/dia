@@ -4,11 +4,16 @@ pkglib_LTLIBRARIES = 	libuml_objects.la
 libuml_objects_la_SOURCES = \
 			uml.h \
 			uml.c \
+			dia-uml-class.c \
 			class.c \
 			class.h \
 			class_dialog.h \
 			class_dialog.c \
 			class_attributes_dialog.c \
+			editor/dia-uml-class-editor.c \
+			editor/dia-uml-operation-row.c \
+			editor/dia-uml-operation-dialog.c \
+			editor/dia-uml-operation-parameter-row.c \
 			class_operations_dialog.c \
 			class_templates_dialog.c \
 			note.c \
@@ -46,7 +51,7 @@ libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINE
 libuml_objects_la_LIBADD = $(CAIRO_LIBS) $(top_builddir)/lib/libdia.la
 
 AM_CPPFLAGS = -I$(top_srcdir)/intl -I$(srcdir)/../../lib \
-	$(DEBUG_FLAGS) $(GTK_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)
+	$(DEBUG_FLAGS) $(GTK_CFLAGS) $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS) -DG_LOG_DOMAIN=\"DimUml\"
 
 EXTRA_DIST = \
 	pixmaps/actor.xpm \

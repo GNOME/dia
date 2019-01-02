@@ -198,7 +198,7 @@ attributes_list_new_callback(GtkWidget *button,
 
   if (dia_list_get_children (prop_dialog->attributes_list) != NULL)
     dia_list_unselect_child(prop_dialog->attributes_list,
-			    GTK_WIDGET(dia_list_get_children (prop_dialog->attributes_list)->data));
+			    DIA_LIST_ITEM (dia_list_get_children (prop_dialog->attributes_list)->data));
   dia_list_select_child(prop_dialog->attributes_list, list_item);
 }
 
@@ -272,14 +272,14 @@ attributes_list_move_down_callback(GtkWidget *button,
   GList *list;
   UMLClassDialog *prop_dialog;
   DiaList *gtklist;
-  GtkWidget *list_item;
+  DiaListItem *list_item;
   int i;
 
   prop_dialog = umlclass->properties_dialog;
   gtklist = prop_dialog->attributes_list;
 
   if (dia_list_get_selection (gtklist) != NULL) {
-    list_item = GTK_WIDGET(dia_list_get_selection (gtklist));
+    list_item = dia_list_get_selection (gtklist);
     
     i = dia_list_child_position (gtklist, list_item);
     if (i<(g_list_length (dia_list_get_children (gtklist))-1))
@@ -466,7 +466,7 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   list = dia_list_new ();
   prop_dialog->attributes_list = DIA_LIST(list);
   dia_list_set_selection_mode (DIA_LIST (list), GTK_SELECTION_SINGLE);
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
+  gtk_container_add (GTK_CONTAINER (scrolled_win), list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
 				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
   gtk_widget_show (list);

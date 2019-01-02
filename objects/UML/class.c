@@ -372,6 +372,7 @@ typedef struct _CommentState {
   ObjectState state;
   gboolean    visible_comments;
 } CommentState;
+
 static ObjectState*
 _comment_get_state (DiaObject *obj)
 {
@@ -380,6 +381,7 @@ _comment_get_state (DiaObject *obj)
   state->visible_comments = ((UMLClass *)obj)->visible_comments;
   return (ObjectState *)state;
 }
+
 static void
 _comment_set_state (DiaObject *obj, ObjectState *state)
 {
@@ -473,10 +475,10 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
       DiaUmlOperation *op = (DiaUmlOperation *)list->data;
 
       dia_uml_operation_ensure_connection_points (op, obj);
-      obj->connections[i] = op->left_connection;
+      obj->connections[i] = op->l_connection;
       obj->connections[i]->object = obj;
       i++;
-      obj->connections[i] = op->right_connection;
+      obj->connections[i] = op->r_connection;
       obj->connections[i]->object = obj;
       i++;
       list = g_list_next(list);
@@ -548,6 +550,7 @@ umlclass_move(UMLClass *umlclass, Point *to)
 
   return NULL;
 }
+
 /**
  * underlines the text at the start point using the text to determine
  * the length of the underline. Draw a line under the text represented by
@@ -1308,12 +1311,12 @@ umlclass_update_data(UMLClass *umlclass)
   while (list != NULL) {
     DiaUmlOperation *op = (DiaUmlOperation *)list->data;
 
-    op->left_connection->pos.x = x;
-    op->left_connection->pos.y = y;
-    op->left_connection->directions = DIR_WEST;
-    op->right_connection->pos.x = x + elem->width;
-    op->right_connection->pos.y = y;
-    op->right_connection->directions = DIR_EAST;
+    op->l_connection->pos.x = x;
+    op->l_connection->pos.y = y;
+    op->l_connection->directions = DIR_WEST;
+    op->r_connection->pos.x = x + elem->width;
+    op->r_connection->pos.y = y;
+    op->r_connection->directions = DIR_EAST;
 
     if (op->needs_wrapping) { /* Wrapped */
       int lines = g_list_length(op->wrappos);
@@ -1782,6 +1785,7 @@ fill_in_fontdata(UMLClass *umlclass)
      umlclass->comment_font = dia_font_new_from_style(DIA_FONT_SANS | DIA_FONT_ITALIC, 0.7);
    }
 }
+
 /**
  * Create an object of type class
  * By default this will create a object of class UMLClass. Howerver there
@@ -1941,9 +1945,9 @@ umlclass_destroy(UMLClass *umlclass)
   list = umlclass->operations;
   while (list != NULL) {
     op = (DiaUmlOperation *)list->data;
-    g_free(op->left_connection);
-    g_free(op->right_connection);
-    g_object_unref (G_OBJECT (op));
+    g_free (op->l_connection);
+    g_free (op->r_connection);
+    g_object_unref (op);
     list = g_list_next(list);
   }
   g_list_free(umlclass->operations);
@@ -2100,8 +2104,8 @@ umlclass_copy(UMLClass *umlclass)
     list = newumlclass->operations;
     while (list != NULL) {
       DiaUmlOperation *op = (DiaUmlOperation *)list->data;
-      newobj->connections[i++] = op->left_connection;
-      newobj->connections[i++] = op->right_connection;
+      newobj->connections[i++] = op->l_connection;
+      newobj->connections[i++] = op->r_connection;
       
       list = g_list_next(list);
     }
@@ -2126,6 +2130,11 @@ umlclass_copy(UMLClass *umlclass)
   return &newumlclass->element.object;
 }
 
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* to/from file ------------------------------------------------------------ */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
 
 static void
 umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
@@ -2481,5 +2490,3 @@ umlclass_sanity_check(UMLClass *c, gchar *msg)
   }
   /* Check that operations are set up right. */
 }
-
-

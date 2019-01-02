@@ -1,6 +1,7 @@
 #include "widgets.h"
 #include "widgets/dialist.h"
 #include "diafontselector.h"
+#include "editor/dia-uml-class-editor.h"
 
 /**
  * \brief Very special user interface for UMLClass parametrization
@@ -56,8 +57,13 @@ struct _UMLClassDialog {
   GtkTextView *attr_comment;
   GtkWidget *attr_visible;
   GtkToggleButton *attr_class_scope;
-  
-  DiaList *operations_list;
+
+  /* ------------------------------------- */
+  /* ------------------------------------- */
+  /* <<<<<<<<<<<<<<<<< Old operator dialog */
+  /* ------------------------------------- */
+  /* ------------------------------------- */
+
   DiaListItem *current_op;
   GtkEntry *op_name;
   GtkEntry *op_type;
@@ -69,18 +75,15 @@ struct _UMLClassDialog {
   GtkWidget *op_inheritance_type;
   GtkToggleButton *op_query;  
   
-  DiaList *parameters_list;
-  DiaListItem *current_param;
-  GtkEntry *param_name;
-  GtkEntry *param_type;
-  GtkEntry *param_value;
-  GtkTextView *param_comment;
-  GtkWidget *param_kind;
-  GtkWidget *param_new_button;
-  GtkWidget *param_delete_button;
-  GtkWidget *param_up_button;
-  GtkWidget *param_down_button;
-  
+  /* ------------------------------------- */
+  /* ------------------------------------- */
+  /* Old operator dialog >>>>>>>>>>>>>>>>> */
+  /* ------------------------------------- */
+  /* ------------------------------------- */
+
+  GtkWidget *editor;
+
+
   DiaList *templates_list;
   DiaListItem *current_templ;
   GtkToggleButton *templ_template;
@@ -94,11 +97,9 @@ const gchar *_class_get_comment(GtkTextView *);
 void _class_set_comment(GtkTextView *, gchar *);
 
 void _attributes_get_current_values(UMLClassDialog *prop_dialog);
-void _operations_get_current_values(UMLClassDialog *prop_dialog);
 void _templates_get_current_values(UMLClassDialog *prop_dialog);
 
 void _attributes_fill_in_dialog(UMLClass *umlclass);
-void _operations_fill_in_dialog(UMLClass *umlclass);
 void _templates_fill_in_dialog(UMLClass *umlclass);
 
 void _attributes_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog, int connection_index);
@@ -108,43 +109,3 @@ void _templates_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog
 void _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
 void _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
 void _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
-
-#define DIA_UML_TYPE_OPERATION_DIALOG (dia_uml_operation_dialog_get_type ())
-G_DECLARE_FINAL_TYPE (DiaUmlOperationDialog, dia_uml_operation_dialog, DIA_UML, OPERATION_DIALOG, GtkDialog)
-
-struct _DiaUmlOperationDialog {
-  GtkDialog parent;
-
-  GtkWidget *name;
-  GtkWidget *type;
-  GtkWidget *stereotype;
-  GtkWidget *visibility;
-  GtkWidget *inheritance;
-  GtkWidget *scope;
-  GtkWidget *query;
-  GtkTextBuffer *comment;
-  GtkWidget *list;
-
-  DiaUmlOperation *operation;
-};
-
-GtkWidget *dia_uml_operation_dialog_new (GtkWindow       *parent,
-                                         DiaUmlOperation *op);
-
-#define DIA_UML_TYPE_OPERATION_PARAMETER_ROW (dia_uml_operation_parameter_row_get_type ())
-G_DECLARE_FINAL_TYPE (DiaUmlOperationParameterRow, dia_uml_operation_parameter_row, DIA_UML, OPERATION_PARAMETER_ROW, GtkListBoxRow)
-
-struct _DiaUmlOperationParameterRow {
-  GtkListBoxRow parent;
-
-  GtkWidget *name;
-  GtkWidget *type;
-  GtkWidget *value;
-  GtkWidget *direction;
-  GtkTextBuffer *comment;
-
-  DiaUmlParameter *parameter;
-};
-
-GtkWidget       *dia_uml_operation_parameter_row_new           (DiaUmlParameter             *parameter);
-DiaUmlParameter *dia_uml_operation_parameter_row_get_parameter (DiaUmlOperationParameterRow *self);
