@@ -8,6 +8,7 @@ libuml_objects_la_SOURCES = \
 			dia-uml-operation.c \
 			dia-uml-parameter.c \
 			dia-uml-attribute.c \
+			dia-uml-formal-parameter.c \
 			class.c \
 			class.h \
 			class_dialog.h \
@@ -19,8 +20,8 @@ libuml_objects_la_SOURCES = \
 			editor/dia-uml-operation-dialog.c \
 			editor/dia-uml-operation-parameter-row.c \
 			editor/dia-uml-attribute-dialog.c \
+			editor/dia-uml-formal-parameter-dialog.c \
 			class_operations_dialog.c \
-			class_templates_dialog.c \
 			note.c \
 			actor.c \
 			usecase.c \
@@ -46,8 +47,7 @@ libuml_objects_la_SOURCES = \
 			fork.c \
 			stereotype.c \
 			stereotype.h \
-			transition.c \
-			umlformalparameter.c
+			transition.c
 
 libuml_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEFINED)
 libuml_objects_la_LIBADD = $(CAIRO_LIBS) $(top_builddir)/lib/libdia.la

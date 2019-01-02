@@ -37,30 +37,11 @@ typedef enum _UMLVisibility {
   UML_IMPLEMENTATION /**< ?What's this? Means implementation decision */
 } UMLVisibility;
 
-typedef struct _UMLFormalParameter UMLFormalParameter;
-
-/** \brief A list of UMLFormalParameter is contained in DiaUmlOperation
- * Some would call them template parameters ;)
- */
-struct _UMLFormalParameter {
-  gchar *name; /**< name */
-  gchar *type; /**< Can be NULL => Type parameter */
-};
-
 /* Characters used to start/end stereotypes: */
 /** start stereotype symbol(like \xab) for local locale */
 #define UML_STEREOTYPE_START _("<<")
 /** end stereotype symbol(like \xbb) for local locale */
 #define UML_STEREOTYPE_END _(">>")
-
-/** calculated the 'formated' representation */
-gchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
-UMLFormalParameter *uml_formalparameter_copy(UMLFormalParameter *param);
-void uml_formalparameter_destroy(UMLFormalParameter *param);
-
-UMLFormalParameter *uml_formalparameter_new(void);
-
-void uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param, DiaContext *ctx);
 
 void list_box_separators (GtkListBoxRow *row,
                           GtkListBoxRow *before,

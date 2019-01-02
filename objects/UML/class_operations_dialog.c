@@ -58,6 +58,10 @@ _operations_read_from_dialog (UMLClass *umlclass,
   g_list_free_full (umlclass->operations, g_object_unref);
   umlclass->operations = NULL;
 
+  /* Free current formal parameters: */
+  g_list_free_full (umlclass->formal_params, g_object_unref);
+  umlclass->formal_params = NULL;
+
   /* If attributes visible and not suppressed */
   attr_visible = ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_vis ))) &&
                  (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_supp)));
@@ -128,6 +132,20 @@ _operations_read_from_dialog (UMLClass *umlclass,
       _umlclass_store_disconnects(prop_dialog, op->r_connection);
       object_remove_connections_to(op->r_connection);
     }
+
+    i++;
+  }
+
+  umlclass->template = dia_uml_class_is_template (editor_state);
+
+  /* Insert new formal params and remove them from gtklist: */
+  i = 0;
+  list_store = dia_uml_class_get_formal_parameters (editor_state);
+  /* Insert new operations and remove them from gtklist: */
+  while ((itm = g_list_model_get_item (list_store, i))) {
+    DiaUmlFormalParameter *param = DIA_UML_FORMAL_PARAMETER (itm);
+
+    umlclass->formal_params = g_list_append(umlclass->formal_params, g_object_ref (param));
 
     i++;
   }

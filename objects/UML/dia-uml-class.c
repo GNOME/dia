@@ -1,6 +1,7 @@
 #include "dia-uml-class.h"
 #include "dia-uml-operation.h"
 #include "dia-uml-attribute.h"
+#include "dia-uml-formal-parameter.h"
 #include "editor/dia-uml-list-store.h"
 
 struct _DiaUmlClass {
@@ -50,17 +51,21 @@ struct _DiaUmlClass {
   DiaUmlListStore *operations;
 
   /* Template: */
-  gboolean template_;
-  GList *formal_params;
+  gboolean is_template;
+  DiaUmlListStore *formal_params;
 };
 
 G_DEFINE_TYPE (DiaUmlClass, dia_uml_class, G_TYPE_OBJECT)
 
+enum {
+  PROP_IS_TEMPLATE = 1,
+  N_PROPS
+};
+static GParamSpec* properties[N_PROPS];
+
 static void
 clear_attrs (DiaUmlClass *self)
 {
-  GList *list;
-
   g_clear_object (&self->normal_font);
   g_clear_object (&self->abstract_font);
   g_clear_object (&self->polymorphic_font);
@@ -74,13 +79,7 @@ clear_attrs (DiaUmlClass *self)
 
   g_clear_object (&self->attributes);
   g_clear_object (&self->operations);
-
-  list = self->formal_params;
-  while (list) {
-    uml_formalparameter_destroy ((UMLFormalParameter *) list->data);
-    list = g_list_next (list);
-  }
-  g_list_free (self->formal_params);
+  g_clear_object (&self->formal_params);
 }
 
 static void
@@ -92,11 +91,59 @@ dia_uml_class_finalize (GObject *object)
 }
 
 static void
+dia_uml_class_set_property (GObject      *object,
+                            guint         property_id,
+                            const GValue *value,
+                            GParamSpec   *pspec)
+{
+  DiaUmlClass *self = DIA_UML_CLASS (object);
+
+  switch (property_id) {
+    case PROP_IS_TEMPLATE:
+      self->is_template = g_value_get_boolean (value);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_uml_class_get_property (GObject    *object,
+                            guint       property_id,
+                            GValue     *value,
+                            GParamSpec *pspec)
+{
+  DiaUmlClass *self = DIA_UML_CLASS (object);
+
+  switch (property_id) {
+    case PROP_IS_TEMPLATE:
+      g_value_set_boolean (value, self->is_template);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
 dia_uml_class_class_init (DiaUmlClassClass *klass)
 {
-  GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   object_class->finalize = dia_uml_class_finalize;
+  object_class->set_property = dia_uml_class_set_property;
+  object_class->get_property = dia_uml_class_get_property;
+
+  properties[PROP_IS_TEMPLATE] = g_param_spec_boolean ("is-template",
+                                                       "Is template",
+                                                       "Is a template class",
+                                                       FALSE,
+                                                       G_PARAM_READWRITE);
+
+  g_object_class_install_properties (object_class,
+                                     N_PROPS,
+                                     properties);
 }
 
 static void
@@ -175,7 +222,6 @@ dia_uml_class_load (DiaUmlClass *self,
     list = g_list_next(list);
   }
 
-  /* TODO: Why? */
   list = klass->operations;
   self->operations = dia_uml_list_store_new ();
   while (list != NULL) {
@@ -188,17 +234,15 @@ dia_uml_class_load (DiaUmlClass *self,
     list = g_list_next(list);
   }
 
-  self->template_ = klass->template;
-  
-  self->formal_params = NULL;
+  self->is_template = klass->template;
+
   list = klass->formal_params;
+  self->formal_params = dia_uml_list_store_new ();
   while (list != NULL) {
-    UMLFormalParameter *param = (UMLFormalParameter *) list->data;
-    UMLFormalParameter *param_copy;
-    
-    param_copy = uml_formalparameter_copy (param);
-    self->formal_params = g_list_append (self->formal_params, param_copy);
-    
+    DiaUmlFormalParameter *param = (DiaUmlFormalParameter *)list->data;
+    DiaUmlFormalParameter *copy = dia_uml_formal_parameter_copy (param);
+
+    dia_uml_list_store_add (self->formal_params, DIA_UML_LIST_DATA (copy));
     list = g_list_next(list);
   }
 }
@@ -255,6 +299,7 @@ dia_uml_class_store (DiaUmlClass *self,
 
   /* TODO: List stuff */
   list = NULL;
+  i = 0;
   while ((itm = g_list_model_get_item (G_LIST_MODEL (self->attributes), i))) {
     list = g_list_append (list, itm);
     i++;
@@ -263,14 +308,28 @@ dia_uml_class_store (DiaUmlClass *self,
 
 
   list = NULL;
+  i = 0;
   while ((itm = g_list_model_get_item (G_LIST_MODEL (self->operations), i))) {
     list = g_list_append (list, itm);
     i++;
   }
   klass->operations = list;
 
-  klass->template = self->template_;
-  klass->formal_params = self->formal_params;
+  klass->template = self->is_template;
+
+  list = NULL;
+  i = 0;
+  while ((itm = g_list_model_get_item (G_LIST_MODEL (self->formal_params), i))) {
+    list = g_list_append (list, itm);
+    i++;
+  }
+  klass->formal_params = list;
+}
+
+gboolean
+dia_uml_class_is_template (DiaUmlClass *klass)
+{
+  return klass->is_template;
 }
 
 GListModel *
@@ -285,8 +344,14 @@ dia_uml_class_get_operations (DiaUmlClass *self)
   return G_LIST_MODEL (self->operations);
 }
 
+GListModel *
+dia_uml_class_get_formal_parameters (DiaUmlClass *self)
+{
+  return G_LIST_MODEL (self->formal_params);
+}
+
 /*
- * Don't rely on these four being called!
+ * Don't rely on these six being called!
  * 
  * The DiaUmlListStore can/will be edited directly (e.g. by DiaUmlClassEditor)
  * so connect to items-changed if you want to observe these!
@@ -320,4 +385,19 @@ dia_uml_class_remove_attribute (DiaUmlClass     *self,
                                 DiaUmlAttribute *attribute)
 {
   dia_uml_list_store_remove (self->attributes, DIA_UML_LIST_DATA (attribute));
+}
+
+void
+dia_uml_class_insert_formal_parameter (DiaUmlClass           *self,
+                                       DiaUmlFormalParameter *param,
+                                       int                    index)
+{
+  dia_uml_list_store_insert (self->formal_params, DIA_UML_LIST_DATA (param), index);
+}
+
+void
+dia_uml_class_remove_formal_parameter (DiaUmlClass           *self,
+                                       DiaUmlFormalParameter *param)
+{
+  dia_uml_list_store_remove (self->formal_params, DIA_UML_LIST_DATA (param));
 }

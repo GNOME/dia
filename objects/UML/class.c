@@ -45,6 +45,7 @@
 
 #include "dia-uml-attribute.h"
 #include "dia-uml-operation.h"
+#include "dia-uml-formal-parameter.h"
 
 #define UMLCLASS_BORDER 0.1
 #define UMLCLASS_UNDERLINEWIDTH 0.05
@@ -1150,7 +1151,7 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
   list = umlclass->formal_params;
   while (list != NULL)
   {
-    gchar *paramstr = uml_get_formalparameter_string((UMLFormalParameter *)list->data);
+    gchar *paramstr = dia_uml_formal_parameter_format ((DiaUmlFormalParameter *) list->data);
     
     ascent = dia_font_ascent(paramstr, font, font_height);
     TextInsert.y += ascent;
@@ -1739,9 +1740,9 @@ umlclass_calculate_data(UMLClass *umlclass)
       list = umlclass->formal_params;
       while (list != NULL)
       {
-        UMLFormalParameter *param = (UMLFormalParameter *) list->data;
-	gchar *paramstr = uml_get_formalparameter_string(param);
-	
+        DiaUmlFormalParameter *param = (DiaUmlFormalParameter *) list->data;
+        gchar *paramstr = dia_uml_formal_parameter_format (param);
+
         width = dia_font_string_width(paramstr,
                                       umlclass->normal_font,
                                       umlclass->font_height);
@@ -1914,7 +1915,7 @@ umlclass_destroy(UMLClass *umlclass)
   GList *list;
   DiaUmlAttribute *attr;
   DiaUmlOperation *op;
-  UMLFormalParameter *param;
+  DiaUmlFormalParameter *param;
 
 #ifdef DEBUG
   umlclass_sanity_check(umlclass, "Destroying");
@@ -1957,8 +1958,8 @@ umlclass_destroy(UMLClass *umlclass)
 
   list = umlclass->formal_params;
   while (list != NULL) {
-    param = (UMLFormalParameter *)list->data;
-    uml_formalparameter_destroy(param);
+    param = (DiaUmlFormalParameter *)list->data;
+    g_object_unref (param);
     list = g_list_next(list);
   }
   g_list_free(umlclass->formal_params);
@@ -1980,7 +1981,7 @@ umlclass_copy(UMLClass *umlclass)
   Element *elem, *newelem;
   DiaObject *newobj;
   GList *list;
-  UMLFormalParameter *param;
+  DiaUmlFormalParameter *param;
   
   elem = &umlclass->element;
   
@@ -2054,12 +2055,11 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->operations = NULL;
   list = umlclass->operations;
   while (list != NULL) {
-    DiaUmlOperation *op = (DiaUmlOperation *)list->data;
-    DiaUmlOperation *newop = dia_uml_operation_copy(op);
+    DiaUmlOperation *op = (DiaUmlOperation *) list->data;
+    DiaUmlOperation *newop = dia_uml_operation_copy (op);
     dia_uml_operation_ensure_connection_points (newop, newobj);
 
-    newumlclass->operations = g_list_append(newumlclass->operations,
-					     newop);
+    newumlclass->operations = g_list_append(newumlclass->operations, newop);
     list = g_list_next(list);
   }
 
@@ -2068,10 +2068,9 @@ umlclass_copy(UMLClass *umlclass)
   newumlclass->formal_params = NULL;
   list = umlclass->formal_params;
   while (list != NULL) {
-    param = (UMLFormalParameter *)list->data;
-    newumlclass->formal_params =
-      g_list_append(newumlclass->formal_params,
-		     uml_formalparameter_copy(param));
+    param = (DiaUmlFormalParameter *) list->data;
+    newumlclass->formal_params = g_list_append (newumlclass->formal_params,
+                                                dia_uml_formal_parameter_copy (param));
     list = g_list_next(list);
   }
 
@@ -2144,7 +2143,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 {
   DiaUmlAttribute *attr;
   DiaUmlOperation *op;
-  UMLFormalParameter *formal_param;
+  DiaUmlFormalParameter *formal_param;
   GList *list;
   AttributeNode attr_node;
   
@@ -2241,7 +2240,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   attr_node = new_attribute(obj_node, "templates");
   list = umlclass->formal_params;
   while (list != NULL) {
-    formal_param = (UMLFormalParameter *) list->data;
+    formal_param = (DiaUmlFormalParameter *) list->data;
     uml_formalparameter_write(attr_node, formal_param, ctx);
     list = g_list_next(list);
   }

@@ -525,23 +525,6 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
  ******************************************************/
 
 static void
-switch_page_callback(GtkNotebook *notebook,
-		     GtkWidget *page)
-{
-  UMLClass *umlclass;
-  UMLClassDialog *prop_dialog;
-
-  umlclass = (UMLClass *)
-    g_object_get_data(G_OBJECT(notebook), "user_data");
-
-  prop_dialog = umlclass->properties_dialog;
-
-  if (prop_dialog != NULL) {
-    _templates_get_current_values(prop_dialog);
-  }
-}
-
-static void
 destroy_properties_dialog (GtkWidget* widget,
 			   gpointer user_data)
 {
@@ -559,7 +542,6 @@ fill_in_dialog(UMLClass *umlclass)
   umlclass_sanity_check(umlclass, "Filling in dialog before attrs");
 #endif
   class_fill_in_dialog(umlclass);
-  _templates_fill_in_dialog(umlclass);
 }
 
 ObjectChange *
@@ -618,7 +600,6 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   /* ^^^ attribs must be called before ops, to get the right order of the
      connectionpoints. */
   _operations_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS);
-  _templates_read_from_dialog(umlclass, prop_dialog);
 
   /* Reestablish mainpoint */
 #ifdef UML_MAINPOINT
@@ -663,7 +644,6 @@ create_dialog_pages(GtkNotebook *notebook, UMLClass *umlclass)
 {
   class_create_page(notebook, umlclass);
   _operations_create_page(notebook, umlclass);
-  _templates_create_page(notebook, umlclass);
   style_create_page(notebook, umlclass);
 }
 
@@ -685,7 +665,6 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
     g_object_ref_sink(vbox);
     prop_dialog->dialog = vbox;
 
-    prop_dialog->current_templ = NULL;
     prop_dialog->deleted_connections = NULL;
     prop_dialog->added_connections = NULL;
     prop_dialog->disconnected_connections = NULL;
@@ -697,8 +676,6 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
 
     g_object_set_data(G_OBJECT(notebook), "user_data", (gpointer) umlclass);
     
-    g_signal_connect (G_OBJECT (notebook), "switch_page",
-		      G_CALLBACK(switch_page_callback), umlclass);
     g_signal_connect (G_OBJECT (umlclass->properties_dialog->dialog), "destroy",
 		      G_CALLBACK(destroy_properties_dialog), umlclass);
     

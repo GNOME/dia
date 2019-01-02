@@ -172,7 +172,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkSwitch">
+                  <object class="GtkSwitch" id="is_template">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                   </object>
@@ -202,6 +202,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="selection_mode">none</property>
+                    <signal name="row-activated" handler="edit_template" object="DiaUmlClassEditor" swapped="yes"/>
                   </object>
                 </child>
                 <child type="label_item">
@@ -218,11 +219,11 @@
               <object class="GtkButton">
                 <property name="label" translatable="yes">Add Template</property>
                 <property name="visible">True</property>
-                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">end</property>
                 <property name="valign">center</property>
+                <signal name="clicked" handler="add_template" object="DiaUmlClassEditor" swapped="yes"/>
               </object>
               <packing>
                 <property name="expand">False</property>

@@ -3,6 +3,7 @@
 #include "dia-uml-list-store.h"
 #include "dia-uml-operation-dialog.h"
 #include "dia-uml-attribute-dialog.h"
+#include "dia-uml-formal-parameter-dialog.h"
 #include "dia_dirs.h"
 
 struct _DiaUmlClassEditor {
@@ -11,6 +12,7 @@ struct _DiaUmlClassEditor {
   GtkWidget *attributes;
   GtkWidget *operations;
   GtkWidget *templates;
+  GtkWidget *is_template;
 
   DiaUmlClass *klass;
 };
@@ -35,6 +37,11 @@ build_lists (DiaUmlClassEditor *self)
 
   store = dia_uml_class_get_operations (self->klass);
   gtk_list_box_bind_model (GTK_LIST_BOX (self->operations), store,
+                           (GtkListBoxCreateWidgetFunc) dia_uml_list_row_new,
+                           store, NULL);
+
+  store = dia_uml_class_get_formal_parameters (self->klass);
+  gtk_list_box_bind_model (GTK_LIST_BOX (self->templates), store,
                            (GtkListBoxCreateWidgetFunc) dia_uml_list_row_new,
                            store, NULL);
 }
@@ -128,6 +135,50 @@ edit_attribute (DiaUmlClassEditor *self,
 }
 
 static void
+remove_template (DiaUmlFormalParameterDialog *dlg,
+                 DiaUmlFormalParameter       *param,
+                 DiaUmlClassEditor           *self)
+{
+  dia_uml_class_remove_formal_parameter (self->klass, param);
+}
+
+static void
+add_template (DiaUmlClassEditor *self)
+{
+  DiaUmlFormalParameter *param;
+  GtkWidget *edit;
+  GtkWidget *parent;
+
+  param = dia_uml_formal_parameter_new ();
+  dia_uml_class_insert_formal_parameter (self->klass, param, -1);
+
+  parent = gtk_widget_get_toplevel (GTK_WIDGET (self));
+  edit = dia_uml_formal_parameter_dialog_new (GTK_WINDOW (parent), param);
+  g_signal_connect (edit, "template-deleted", G_CALLBACK (remove_template), self);
+
+  gtk_widget_show (edit);
+}
+
+static void
+edit_template (DiaUmlClassEditor *self,
+               GtkListBoxRow     *row)
+{
+  GtkWidget *dlg;
+  GtkWidget *parent;
+  DiaUmlFormalParameter *param;
+
+  if (!DIA_UML_IS_LIST_ROW (row))
+    return;
+  
+  parent = gtk_widget_get_toplevel (GTK_WIDGET (self));
+  param = DIA_UML_FORMAL_PARAMETER (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
+  dlg = dia_uml_formal_parameter_dialog_new (GTK_WINDOW (parent), param);
+  g_signal_connect (dlg, "template-deleted", G_CALLBACK (remove_template), self);
+  gtk_widget_show (dlg);
+  g_object_unref (param);
+}
+
+static void
 dia_uml_class_editor_finalize (GObject *object)
 {
   DiaUmlClassEditor *self = DIA_UML_CLASS_EDITOR (object);
@@ -146,6 +197,9 @@ dia_uml_class_editor_set_property (GObject      *object,
   switch (property_id) {
     case UML_CEDIT_PROP_CLASS:
       self->klass = g_value_dup_object (value);
+      g_object_bind_property (G_OBJECT (self->klass), "is-template",
+                              G_OBJECT (self->is_template), "active",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
       build_lists (self);
       break;
     default:
@@ -203,13 +257,19 @@ dia_uml_class_editor_class_init (DiaUmlClassEditorClass *klass)
     g_critical ("Failed to load template: %s", err->message);
 
   gtk_widget_class_set_template (widget_class, template);
+
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, is_template);
+
   gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, attributes);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, operations);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, templates);
+
   gtk_widget_class_bind_template_callback (widget_class, add_attribute);
   gtk_widget_class_bind_template_callback (widget_class, edit_attribute);
   gtk_widget_class_bind_template_callback (widget_class, add_operation);
   gtk_widget_class_bind_template_callback (widget_class, edit_operation);
+  gtk_widget_class_bind_template_callback (widget_class, add_template);
+  gtk_widget_class_bind_template_callback (widget_class, edit_template);
 
   g_object_unref (template_file);
 }
