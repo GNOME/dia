@@ -12,7 +12,7 @@ if host_machine.system() == 'windows'
     deps += [cc.find_library('comdlg32')]
 endif
 
-library(
+rundeps += library(
     'wmf_filter',
     sources,
     dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep] + deps,

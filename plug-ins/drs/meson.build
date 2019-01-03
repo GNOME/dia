@@ -6,7 +6,7 @@ sources = files(
 )
 
 # Prevent installation - currently a debug tool only
-shared_library(
+rundeps += shared_library(
     'drs_filter',
     sources,
     dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep],

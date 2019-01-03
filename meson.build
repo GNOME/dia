@@ -71,6 +71,8 @@ configure_file(output : 'config.h',
 # To fix we should remove #ifdef HAVE_CONFIG_H checks from all source files.
 add_project_arguments('-DHAVE_CONFIG_H', language : 'c')
 
+rundeps = []
+
 subdir('po')
 subdir('lib')
 subdir('objects')
@@ -84,6 +86,6 @@ subdir('shapes')
 # Convenience target
 run_target('run',
     command: [find_program('run_dia.sh')],
-    depends: [diaapp, diaobjects, diaplugins],
+    depends: rundeps,
 )
 meson.add_install_script('meson-helpers/post-install.py', datadir)

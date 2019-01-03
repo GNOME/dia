@@ -8,7 +8,7 @@ sources = files(
 
 # TODO: test this on Windows.
 if host_machine.system() != 'windows'
-    library(
+    rundeps += library(
         'stress_filter',
         sources,
         dependencies: [libc_dep, libgtk_dep, libm_dep],
