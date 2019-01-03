@@ -99,62 +99,21 @@ static const PropertyOps buttonprop_ops = {
 /* The FRAME_BEGIN and FRAME_END property types.  */
 /**************************************************/
 
-struct FoldButtonInfo {
-  GtkWidget *unfoldbutton;
-  GtkWidget *frame;
-};
-
-static void
-frame_fold_unfold(GtkWidget *button1, gpointer userdata)
-{
-  struct FoldButtonInfo *info = (struct FoldButtonInfo *)userdata;
-  
-  if (button1 == info->unfoldbutton) {
-    gtk_widget_set_sensitive (info->unfoldbutton, FALSE);
-    gtk_widget_hide(info->unfoldbutton);
-    gtk_widget_show(info->frame);
-  } else {
-    gtk_widget_hide(info->frame);
-    gtk_widget_show(info->unfoldbutton);
-    gtk_widget_set_sensitive (info->unfoldbutton, TRUE);
-  }
-}
-
 static GtkWidget *
 frame_beginprop_get_widget(FrameProperty *prop, PropDialog *dialog) 
 { 
-  gchar *foldstring = g_strdup_printf("%s <<<", _(prop->common.descr->description));
-  gchar *unfoldstring = g_strdup_printf("%s >>>", _(prop->common.descr->description));
-  GtkWidget *frame = gtk_frame_new(NULL);
+  GtkWidget *frame = gtk_expander_new (_(prop->common.descr->description));
   GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
-  GtkWidget *foldbutton = gtk_button_new_with_label(foldstring);
-  GtkWidget *unfoldbutton = gtk_button_new_with_label(unfoldstring);
-  
-  struct FoldButtonInfo *info = g_new(struct FoldButtonInfo, 1);
 
-  g_free(foldstring);
-  g_free(unfoldstring);
-
-  info->frame = frame;
-  info->unfoldbutton = unfoldbutton;
-
-  gtk_frame_set_label_widget(GTK_FRAME(frame), foldbutton);
+  gtk_expander_set_expanded (GTK_EXPANDER (frame), TRUE);
+  gtk_expander_set_resize_toplevel (GTK_EXPANDER (frame), TRUE);
 
   gtk_container_set_border_width (GTK_CONTAINER(frame), 2);
   gtk_container_add(GTK_CONTAINER(frame),vbox);
-  gtk_widget_set_sensitive (unfoldbutton, FALSE);
-  gtk_widget_show(foldbutton);
   gtk_widget_show(frame);
   gtk_widget_show(vbox);
   
-  prop_dialog_add_raw(dialog, frame);
-
-  prop_dialog_add_raw_with_flags(dialog, unfoldbutton, FALSE, FALSE);
-  
-  g_signal_connect(G_OBJECT (foldbutton), "clicked", 
-		   G_CALLBACK (frame_fold_unfold), info);
-  g_signal_connect(G_OBJECT (unfoldbutton), "clicked",
-		   G_CALLBACK (frame_fold_unfold), info);
+  prop_dialog_add_raw(dialog, frame);  
 
   prop_dialog_container_push(dialog,vbox);
 
@@ -298,9 +257,9 @@ notebook_beginprop_get_widget(NotebookProperty *prop, PropDialog *dialog)
 { 
   GtkWidget *notebook = gtk_notebook_new();
 
-  gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook),GTK_POS_TOP);
-  gtk_container_set_border_width (GTK_CONTAINER(notebook), 1);
-  gtk_widget_show(notebook);
+  gtk_notebook_set_tab_pos (GTK_NOTEBOOK(notebook),GTK_POS_TOP);
+  gtk_notebook_set_show_border (GTK_NOTEBOOK(notebook), FALSE);
+  gtk_widget_show (notebook);
   
   prop_dialog_add_raw(dialog,notebook);
   

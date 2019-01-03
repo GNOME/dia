@@ -468,6 +468,7 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
     
     notebook = gtk_notebook_new ();
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
+    gtk_notebook_set_show_border (GTK_NOTEBOOK (notebook), FALSE);
      prop_dialog->dialog = notebook;
 
     g_object_set_data(G_OBJECT(notebook), "user_data", (gpointer) umlclass);

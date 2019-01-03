@@ -55,19 +55,27 @@ create_dialog(GtkWidget *parent)
 {
 /*   GtkWidget *actionbox; */
 /*   GList *buttons; */
+  gboolean header;
 
-  dialog = gtk_dialog_new_with_buttons(
-             _("Object properties"),
-             parent ? GTK_WINDOW (parent) : NULL, 
-             GTK_DIALOG_DESTROY_WITH_PARENT,
-             _("Close"), GTK_RESPONSE_CLOSE,
-             _("Apply"), GTK_RESPONSE_APPLY,
-             _("Okay"), GTK_RESPONSE_OK,
-             NULL);
+  g_object_get (gtk_settings_get_default (),
+                "gtk-dialogs-use-header", &header,
+                NULL);
+  dialog = g_object_new (GTK_TYPE_DIALOG,
+                         "title", _("Object properties"),
+                         "transient-for", parent ? GTK_WINDOW (parent) : NULL, 
+                         "destroy-with-parent", TRUE,
+                         "use-header-bar", header,
+                         NULL);
+  gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+                          _("Cancel"), GTK_RESPONSE_CANCEL,
+                          _("Okay"), GTK_RESPONSE_OK,
+                          _("Apply"), GTK_RESPONSE_APPLY,
+                          NULL);
 
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
   dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG(dialog));
+  gtk_container_set_border_width (GTK_CONTAINER (dialog_vbox), 0);
 
   gtk_window_set_role(GTK_WINDOW (dialog), "properties_window");
 
@@ -133,29 +141,28 @@ properties_respond(GtkWidget *widget,
       object_add_updates_list(current_objects, current_dia);
 
       for (tmp = current_objects; tmp != NULL; tmp = tmp->next) {
-	DiaObject *current_obj = (DiaObject*)tmp->data;
-	obj_change = current_obj->ops->apply_properties_from_dialog(current_obj, object_part);
-	object_add_updates(current_obj, current_dia);
-	diagram_update_connections_object(current_dia, current_obj, TRUE);
+        DiaObject *current_obj = (DiaObject*)tmp->data;
+        obj_change = current_obj->ops->apply_properties_from_dialog(current_obj, object_part);
+        object_add_updates(current_obj, current_dia);
+        diagram_update_connections_object(current_dia, current_obj, TRUE);
     
-	if (obj_change != NULL) {
-	  undo_object_change(current_dia, current_obj, obj_change);
-	  set_tp = set_tp && TRUE;
-	} else
-	  set_tp = FALSE;
-
-	diagram_object_modified(current_dia, current_obj);
+        if (obj_change != NULL) {
+          undo_object_change(current_dia, current_obj, obj_change);
+          set_tp = set_tp && TRUE;
+        } else
+          set_tp = FALSE;
+          diagram_object_modified(current_dia, current_obj);
       }
     
       diagram_modified(current_dia);
       diagram_update_extents(current_dia);
       
       if (set_tp) {
-	undo_set_transactionpoint(current_dia->undo);
+        undo_set_transactionpoint(current_dia->undo);
       }  else {
-	message_warning(_("This object doesn't support Undo/Redo.\n"
-  			"Undo information erased."));
-	undo_clear(current_dia->undo);
+        message_warning(_("This object doesn't support Undo/Redo.\n"
+                          "Undo information erased."));
+        undo_clear(current_dia->undo);
       }
 
       diagram_flush(current_dia);

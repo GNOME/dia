@@ -152,15 +152,6 @@ static const PropertyOps charprop_ops = {
 /* The BOOL property type. */
 /***************************/
 
-static void
-bool_toggled(GtkWidget *wid)
-{
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(wid)))
-    gtk_label_set_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(wid))), _("Yes"));
-  else
-    gtk_label_set_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(wid))), _("No"));
-}
-
 static Property *
 boolprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 {
@@ -181,26 +172,66 @@ boolprop_copy(BoolProperty *src)
   return prop;
 }
 
+G_DECLARE_FINAL_TYPE (DiaSwitch, dia_switch, DIA, SWITCH, GtkSwitch)
+
+struct _DiaSwitch {
+  GtkSwitch parent;
+};
+
+G_DEFINE_TYPE (DiaSwitch, dia_switch, GTK_TYPE_SWITCH)
+
+enum {
+  CHANGED,
+  LAST_SIGNAL
+};
+static guint signals[LAST_SIGNAL] = { 0 };
+
+static void
+dia_switch_class_init (DiaSwitchClass *klass)
+{
+  signals[CHANGED] = g_signal_new ("changed",
+                                   G_TYPE_FROM_CLASS (klass),
+                                   G_SIGNAL_RUN_FIRST,
+                                   0, NULL, NULL, NULL,
+                                   G_TYPE_NONE, 0);
+}
+
+static void
+bubble (DiaSwitch *self)
+{
+  g_signal_emit (self, signals[CHANGED], 0);
+}
+
+static void
+dia_switch_init (DiaSwitch *self)
+{
+  g_signal_connect (self, "notify::active", G_CALLBACK (bubble), NULL);
+}
+
+static GtkWidget *
+dia_switch_new ()
+{
+  return g_object_new (dia_switch_get_type (), NULL);
+}
+
 static WIDGET *
 boolprop_get_widget(BoolProperty *prop, PropDialog *dialog) 
 { 
-  GtkWidget *ret = gtk_toggle_button_new_with_label(_("No"));
-  g_signal_connect(G_OBJECT(ret), "toggled",
-                   G_CALLBACK (bool_toggled), NULL);
-  prophandler_connect(&prop->common, G_OBJECT(ret), "toggled");
+  GtkWidget *ret = dia_switch_new ();
+  prophandler_connect(&prop->common, G_OBJECT(ret), "changed");
   return ret;
 }
 
 static void 
 boolprop_reset_widget(BoolProperty *prop, WIDGET *widget)
 {
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget),prop->bool_data);
+  gtk_switch_set_active (GTK_SWITCH (widget), prop->bool_data);
 }
 
 static void 
 boolprop_set_from_widget(BoolProperty *prop, WIDGET *widget) 
 {
-  prop->bool_data = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget));
+  prop->bool_data = gtk_switch_get_active (GTK_SWITCH (widget));
 }
 
 static void 

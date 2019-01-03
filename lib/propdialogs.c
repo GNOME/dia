@@ -113,8 +113,8 @@ static void
 prop_dialog_make_curtable(PropDialog *dialog) 
 {
   GtkWidget *table = gtk_grid_new ();  
-  gtk_grid_set_row_spacing (GTK_GRID (table), 2);
-  gtk_grid_set_column_spacing (GTK_GRID (table), 5);
+  gtk_grid_set_row_spacing (GTK_GRID (table), 8);
+  gtk_grid_set_column_spacing (GTK_GRID (table), 16);
   gtk_widget_show(table);
   prop_dialog_add_raw(dialog,table);
 
@@ -129,16 +129,14 @@ prop_dialog_add_widget(PropDialog *dialog, GtkWidget *label, GtkWidget *widget)
 
   gtk_label_set_xalign (GTK_LABEL (label), 0.0);
   gtk_label_set_yalign (GTK_LABEL (label), 0.5);
-  gtk_widget_set_vexpand (GTK_WIDGET (label), TRUE);
   gtk_widget_set_halign (GTK_WIDGET (label), GTK_ALIGN_FILL);
-  gtk_widget_set_valign (GTK_WIDGET (label), GTK_ALIGN_FILL);
+  gtk_widget_set_valign (GTK_WIDGET (label), GTK_ALIGN_CENTER);
   gtk_grid_attach (GTK_GRID (dialog->curtable), label, 
                    0, dialog->currow, 1, 1);
   
   gtk_widget_set_hexpand (GTK_WIDGET (widget), TRUE);
-  gtk_widget_set_vexpand (GTK_WIDGET (widget), TRUE);
-  gtk_widget_set_halign (GTK_WIDGET (widget), GTK_ALIGN_FILL);
-  gtk_widget_set_valign (GTK_WIDGET (widget), GTK_ALIGN_FILL);
+  gtk_widget_set_halign (GTK_WIDGET (widget), GTK_ALIGN_END);
+  gtk_widget_set_valign (GTK_WIDGET (widget), GTK_ALIGN_CENTER);
   gtk_grid_attach (GTK_GRID (dialog->curtable), widget, 
                    1, dialog->currow, 1, 1);
 
@@ -274,8 +272,6 @@ prop_dialog_add_property(PropDialog *dialog, Property *prop)
     label = gtk_label_new("");
   else
     label = gtk_label_new(_(prop->descr->description));
-  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
-  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
 
   prop_dialog_add_widget(dialog, label, widget);
 }

@@ -94,6 +94,7 @@ create_diagram_properties_dialog(Diagram *dia)
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
   dialog_vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+  gtk_container_set_border_width (GTK_CONTAINER (dialog_vbox), 0);
 
   gtk_window_set_role(GTK_WINDOW(dialog), "diagram_properties");
 
@@ -106,9 +107,9 @@ create_diagram_properties_dialog(Diagram *dia)
 		   G_CALLBACK(gtk_widget_destroyed), &dialog);
 
   notebook = gtk_notebook_new();
-  gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook), GTK_POS_TOP);
+  gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
+  gtk_notebook_set_show_border (GTK_NOTEBOOK (notebook), FALSE);
   gtk_box_pack_start(GTK_BOX(dialog_vbox), notebook, TRUE, TRUE, 0);
-  gtk_container_set_border_width(GTK_CONTAINER(notebook), 2);
   gtk_widget_show(notebook);
 
   /* the grid page */

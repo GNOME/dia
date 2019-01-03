@@ -65,6 +65,7 @@ static WIDGET *
 linestyleprop_get_widget(LinestyleProperty *prop, PropDialog *dialog)
 {
   GtkWidget *ret = dia_line_chooser_new();
+  gtk_widget_set_size_request (ret, 150, -1);
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
   return ret;
 }
@@ -173,6 +174,7 @@ static WIDGET *
 arrowprop_get_widget(ArrowProperty *prop, PropDialog *dialog)
 {
   GtkWidget *ret = dia_arrow_chooser_new (FALSE);
+  gtk_widget_set_size_request (ret, 150, -1);
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
   return ret;
 }
