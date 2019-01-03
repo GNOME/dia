@@ -45,7 +45,7 @@ python_scripts = [
 
 if py_dep.found()
     # Same as layout plugin.
-    shared_module(
+    rundeps += shared_module(
         'python_plugin',
         sources,
         dependencies: [libc_dep, libxml_dep, libgtk_dep, py_dep],

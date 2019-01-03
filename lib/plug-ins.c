@@ -309,7 +309,7 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
   }
 
   while ((dentry = g_dir_read_name(dp)) != NULL) {
-    gchar *name = g_strconcat(directory,G_DIR_SEPARATOR_S,dentry,NULL);
+    gchar *name = g_build_filename(directory,dentry,NULL);
 
     if (filter(name)) dofunc(name);
     g_free(name);
@@ -320,22 +320,13 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
 static gboolean 
 directory_filter(const gchar *name)
 {
-  const char *rslash = strrchr(name, G_DIR_SEPARATOR);
-  
-  if (rslash && (   0 == strcmp(rslash, G_DIR_SEPARATOR_S ".")
-		 || 0 == strcmp(rslash, G_DIR_SEPARATOR_S "..")))
-    return FALSE;
-
-  if (!g_file_test (name, G_FILE_TEST_IS_DIR))
-    return FALSE;
-
-  return TRUE;
+  return g_file_test (name, G_FILE_TEST_IS_DIR);
 }
 
 static gboolean 
 dia_plugin_filter(const gchar *name) 
 {
-  if (!g_file_test (name, G_FILE_TEST_IS_REGULAR | G_FILE_TEST_IS_DIR))
+  if (!g_file_test (name, G_FILE_TEST_IS_REGULAR))
     return FALSE;
 
   return this_is_a_plugin(name);
