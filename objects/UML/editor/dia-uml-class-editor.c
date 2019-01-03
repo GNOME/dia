@@ -9,10 +9,25 @@
 struct _DiaUmlClassEditor {
   GtkScrolledWindow parent;
 
+  GtkWidget *name;
+  GtkWidget *stereotype;
+  GtkTextBuffer *comment;
+  GtkWidget *abstract;
+  GtkWidget *comments;
+  GtkWidget *comments_wrap_point;
+  GtkWidget *doc_tag;
+
+  GtkWidget *attr_visible;
+  GtkWidget *attr_suppress;
+  GtkWidget *op_visible;
+  GtkWidget *op_suppress;
+  GtkWidget *op_wrap;
+  GtkWidget *op_wrap_point;
+  GtkWidget *is_template;
+
   GtkWidget *attributes;
   GtkWidget *operations;
   GtkWidget *templates;
-  GtkWidget *is_template;
 
   DiaUmlClass *klass;
 };
@@ -197,6 +212,45 @@ dia_uml_class_editor_set_property (GObject      *object,
   switch (property_id) {
     case UML_CEDIT_PROP_CLASS:
       self->klass = g_value_dup_object (value);
+      g_object_bind_property (G_OBJECT (self->klass), "name",
+                              G_OBJECT (self->name), "text",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "stereotype",
+                              G_OBJECT (self->stereotype), "text",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "comment",
+                              G_OBJECT (self->comment), "text",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "abstract",
+                              G_OBJECT (self->abstract), "active",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "comments",
+                              G_OBJECT (self->comments), "active",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "comment-wrap-point",
+                              G_OBJECT (self->comments_wrap_point), "value",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "documentation-tag",
+                              G_OBJECT (self->doc_tag), "active",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "attributes-visible",
+                              G_OBJECT (self->attr_visible), "active",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "attributes-suppress",
+                              G_OBJECT (self->attr_suppress), "active",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "operations-visible",
+                              G_OBJECT (self->op_visible), "active",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "operations-suppress",
+                              G_OBJECT (self->op_suppress), "active",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "operations-wrap",
+                              G_OBJECT (self->op_wrap), "active",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+      g_object_bind_property (G_OBJECT (self->klass), "operations-wrap-point",
+                              G_OBJECT (self->op_wrap_point), "value",
+                              G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
       g_object_bind_property (G_OBJECT (self->klass), "is-template",
                               G_OBJECT (self->is_template), "active",
                               G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
@@ -258,6 +312,19 @@ dia_uml_class_editor_class_init (DiaUmlClassEditorClass *klass)
 
   gtk_widget_class_set_template (widget_class, template);
 
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, name);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, stereotype);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, comment);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, abstract);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, comments);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, comments_wrap_point);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, doc_tag);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, attr_visible);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, attr_suppress);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, op_visible);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, op_suppress);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, op_wrap);
+  gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, op_wrap_point);
   gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, is_template);
 
   gtk_widget_class_bind_template_child (widget_class, DiaUmlClassEditor, attributes);

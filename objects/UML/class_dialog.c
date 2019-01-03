@@ -50,7 +50,6 @@
 void 
 umlclass_dialog_free (UMLClassDialog *dialog)
 {
-  g_list_free(dialog->deleted_connections);
   gtk_widget_destroy(dialog->dialog);
   /* destroy-signal destroy_properties_dialog already does 'g_free(dialog);' and more */
 }
@@ -86,8 +85,8 @@ new_umlclass_change (UMLClass    *obj,
 
 /**** Utility functions ******/
 void
-_umlclass_store_disconnects(UMLClassDialog *prop_dialog,
-			   ConnectionPoint *cp)
+_umlclass_store_disconnects (ConnectionPoint  *cp,
+                             GList           **disconnected)
 {
   Disconnect *dis;
   DiaObject *connected_obj;
@@ -100,13 +99,11 @@ _umlclass_store_disconnects(UMLClassDialog *prop_dialog,
     
     for (i=0;i<connected_obj->num_handles;i++) {
       if (connected_obj->handles[i]->connected_to == cp) {
-	dis = g_new0(Disconnect, 1);
-	dis->cp = cp;
-	dis->other_object = connected_obj;
-	dis->other_handle = connected_obj->handles[i];
-
-	prop_dialog->disconnected_connections =
-	  g_list_prepend(prop_dialog->disconnected_connections, dis);
+        dis = g_new0(Disconnect, 1);
+        dis->cp = cp;
+        dis->other_object = connected_obj;
+        dis->other_handle = connected_obj->handles[i];
+        *disconnected = g_list_prepend(*disconnected, dis);
       }
     }
     list = g_list_next(list);
@@ -120,45 +117,6 @@ _umlclass_store_disconnects(UMLClassDialog *prop_dialog,
 static void
 class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
 {
-  const gchar *s;
-
-  if (umlclass->name != NULL)
-    g_free(umlclass->name);
-
-  s = gtk_entry_get_text (prop_dialog->classname);
-  if (s && s[0])
-    umlclass->name = g_strdup (s);
-  else
-    umlclass->name = NULL;
-
-  if (umlclass->stereotype != NULL)
-    g_free(umlclass->stereotype);
-  
-  s = gtk_entry_get_text(prop_dialog->stereotype);
-  if (s && s[0])
-    umlclass->stereotype = g_strdup (s);
-  else
-    umlclass->stereotype = NULL;
-  
-  if (umlclass->comment != NULL)
-    g_free (umlclass->comment);
-
-  s = _class_get_comment(prop_dialog->comment);
-  if (s && s[0])
-    umlclass->comment = g_strdup (s);
-  else
-    umlclass->comment = NULL;
-  
-  umlclass->abstract = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->abstract_class));
-  umlclass->visible_attributes = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_vis));
-  umlclass->visible_operations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_vis));
-  umlclass->wrap_operations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_wrap));
-  umlclass->wrap_after_char = gtk_spin_button_get_value_as_int(prop_dialog->wrap_after_char);
-  umlclass->comment_line_length = gtk_spin_button_get_value_as_int(prop_dialog->comment_line_length);
-  umlclass->comment_tagging = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->comment_tagging));
-  umlclass->visible_comments = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->comments_vis));
-  umlclass->suppress_attributes = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_supp));
-  umlclass->suppress_operations = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_supp));
   umlclass->line_width = gtk_spin_button_get_value(prop_dialog->line_width);
   gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (prop_dialog->text_color),
                               &umlclass->text_color);
@@ -189,28 +147,6 @@ class_fill_in_dialog(UMLClass *umlclass)
 
   prop_dialog = umlclass->properties_dialog;
 
-  if (umlclass->name)
-    gtk_entry_set_text(prop_dialog->classname, umlclass->name);
-  if (umlclass->stereotype != NULL)
-    gtk_entry_set_text(prop_dialog->stereotype, umlclass->stereotype);
-  else
-    gtk_entry_set_text(prop_dialog->stereotype, "");
-
-  if (umlclass->comment != NULL)
-    _class_set_comment(prop_dialog->comment, umlclass->comment);
-  else
-    _class_set_comment(prop_dialog->comment, "");
-
-  gtk_toggle_button_set_active(prop_dialog->abstract_class, umlclass->abstract);
-  gtk_toggle_button_set_active(prop_dialog->attr_vis, umlclass->visible_attributes);
-  gtk_toggle_button_set_active(prop_dialog->op_vis, umlclass->visible_operations);
-  gtk_toggle_button_set_active(prop_dialog->op_wrap, umlclass->wrap_operations);
-  gtk_spin_button_set_value (prop_dialog->wrap_after_char, umlclass->wrap_after_char);
-  gtk_spin_button_set_value (prop_dialog->comment_line_length, umlclass->comment_line_length);
-  gtk_toggle_button_set_active(prop_dialog->comment_tagging, umlclass->comment_tagging);
-  gtk_toggle_button_set_active(prop_dialog->comments_vis, umlclass->visible_comments);
-  gtk_toggle_button_set_active(prop_dialog->attr_supp, umlclass->suppress_attributes);
-  gtk_toggle_button_set_active(prop_dialog->op_supp, umlclass->suppress_operations);
   gtk_spin_button_set_value (prop_dialog->line_width, umlclass->line_width);
   gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (prop_dialog->text_color),
                               &umlclass->text_color);
@@ -259,136 +195,20 @@ create_font_props_row (GtkGrid    *table,
 }
 
 static void 
-class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
+class_create_page(GtkNotebook *notebook, UMLClass *umlclass)
 {
-  UMLClassDialog *prop_dialog;
   GtkWidget *page_label;
-  GtkWidget *label;
-  GtkWidget *hbox;
-  GtkWidget *hbox2;
-  GtkWidget *vbox;
-  GtkWidget *entry;
-  GtkWidget *scrolledwindow;
-  GtkWidget *checkbox;
-  GtkWidget *table;
-  GtkAdjustment *adj;
-
-  prop_dialog = umlclass->properties_dialog;
-
+ 
   /* Class page: */
   page_label = gtk_label_new_with_mnemonic (_("_Class"));
   
-  vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+  umlclass->properties_dialog->editor = dia_uml_class_editor_new (dia_uml_class_new (umlclass));
   
-  table = gtk_grid_new ();
-  gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 0);
-
-  label = gtk_label_new(_("Class name:"));
-  entry = gtk_entry_new();
-  prop_dialog->classname = GTK_ENTRY(entry);
-  gtk_widget_grab_focus(entry);
-  
-  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
-  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
-  gtk_grid_attach (GTK_GRID (table), label, 0, 0, 1, 1);
-  
-  gtk_widget_set_hexpand (label, TRUE);
-  gtk_grid_attach (GTK_GRID (table), entry, 1, 0, 1, 1);
-
-  label = gtk_label_new(_("Stereotype:"));
-  entry = gtk_entry_new();
-  prop_dialog->stereotype = GTK_ENTRY(entry);
-
-  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
-  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
-  gtk_grid_attach (GTK_GRID (table), label, 0, 1, 1, 1);
-  
-  gtk_widget_set_hexpand (label, TRUE);
-  gtk_grid_attach (GTK_GRID (table), entry, 1, 1, 1, 1);
-
-  label = gtk_label_new(_("Comment:"));
-  scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-  gtk_grid_attach (GTK_GRID (table), scrolledwindow, 1, 2, 1, 1);
-  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
-				       GTK_SHADOW_IN);
-  entry = gtk_text_view_new ();
-  prop_dialog->comment = GTK_TEXT_VIEW(entry);
-  gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
- 
-  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
-  gtk_label_set_yalign (GTK_LABEL (label), 0.5);
-  gtk_grid_attach (GTK_GRID (table), label, 0, 2, 1, 1);
-  gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
-
-  hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  checkbox = gtk_check_button_new_with_label(_("Abstract"));
-  prop_dialog->abstract_class = GTK_TOGGLE_BUTTON( checkbox );
-  gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-  hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  checkbox = gtk_check_button_new_with_label(_("Attributes visible"));
-  prop_dialog->attr_vis = GTK_TOGGLE_BUTTON( checkbox );
-  gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  checkbox = gtk_check_button_new_with_label(_("Suppress Attributes"));
-  prop_dialog->attr_supp = GTK_TOGGLE_BUTTON( checkbox );
-  gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-  hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  checkbox = gtk_check_button_new_with_label(_("Operations visible"));
-  prop_dialog->op_vis = GTK_TOGGLE_BUTTON( checkbox );
-  gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  checkbox = gtk_check_button_new_with_label(_("Suppress operations"));
-  prop_dialog->op_supp = GTK_TOGGLE_BUTTON( checkbox );
-  gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-  hbox  = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
-  gtk_box_set_homogeneous (GTK_BOX (hbox), TRUE);
-  hbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  checkbox = gtk_check_button_new_with_label(_("Wrap Operations"));
-  prop_dialog->op_wrap = GTK_TOGGLE_BUTTON( checkbox );
-  gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  adj = gtk_adjustment_new (umlclass->wrap_after_char, 0.0, 200.0, 1.0, 5.0, 0);
-  prop_dialog->wrap_after_char = GTK_SPIN_BUTTON (gtk_spin_button_new (adj, 0.1, 0));
-  gtk_spin_button_set_numeric( GTK_SPIN_BUTTON( prop_dialog->wrap_after_char), TRUE);
-  gtk_spin_button_set_snap_to_ticks( GTK_SPIN_BUTTON( prop_dialog->wrap_after_char), TRUE);
-  prop_dialog->max_length_label = GTK_LABEL( gtk_label_new( _("Wrap after this length: ")));
-  gtk_box_pack_start (GTK_BOX (hbox2), GTK_WIDGET( prop_dialog->max_length_label), FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), GTK_WIDGET( prop_dialog->wrap_after_char), TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET( hbox2), TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
-  gtk_box_set_homogeneous (GTK_BOX (hbox), TRUE);
-  hbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  checkbox = gtk_check_button_new_with_label(_("Comments visible"));
-  prop_dialog->comments_vis = GTK_TOGGLE_BUTTON( checkbox );
-  gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  adj = gtk_adjustment_new (umlclass->comment_line_length, 17.0, 200.0, 1.0, 5.0, 0);
-  prop_dialog->comment_line_length = GTK_SPIN_BUTTON (gtk_spin_button_new (adj, 0.1, 0));
-  gtk_spin_button_set_numeric( GTK_SPIN_BUTTON( prop_dialog->comment_line_length), TRUE);
-  gtk_spin_button_set_snap_to_ticks( GTK_SPIN_BUTTON( prop_dialog->comment_line_length), TRUE);
-  prop_dialog->Comment_length_label = GTK_LABEL( gtk_label_new( _("Wrap comment after this length: ")));
-  gtk_box_pack_start (GTK_BOX (hbox2), GTK_WIDGET( prop_dialog->Comment_length_label), FALSE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox2), GTK_WIDGET( prop_dialog->comment_line_length), TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox),  GTK_WIDGET( hbox2), TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox),  hbox, FALSE, TRUE, 0);
-
-  hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  checkbox = gtk_check_button_new_with_label(_("Show documentation tag"));
-  prop_dialog->comment_tagging = GTK_TOGGLE_BUTTON( checkbox );
-  gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
-
-  gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);
-  gtk_notebook_append_page(notebook, vbox, page_label);
-  
-}
+  gtk_widget_show (umlclass->properties_dialog->editor);
 
+  gtk_notebook_append_page (notebook, umlclass->properties_dialog->editor, page_label);  
+}
 
 static void 
 style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
@@ -551,9 +371,10 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   DiaObject *obj;
   GList *list;
   int num_attrib, num_ops;
-  GList *added, *deleted, *disconnected;
+  GList *added = NULL, *deleted = NULL, *disconnected = NULL;
   DiaUmlClass *old_state = NULL;
   DiaUmlClass *editor_state;
+  gboolean vis, sup;
   
 #ifdef DEBUG
   umlclass_sanity_check(umlclass, "Apply from dialog start");
@@ -567,18 +388,20 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   
   /* Allocate enought connection points for attributes and operations. */
   /* (two per op/attr) */
-  if (
-    ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_vis ))) &&
-    (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->attr_supp)))
-  ) {
+  g_object_get (editor_state,
+                "attributes-visible", &vis,
+                "attributes-suppress", &sup,
+                NULL);
+  if (vis && !sup) {
     num_attrib = g_list_model_get_n_items (dia_uml_class_get_attributes (editor_state));
   } else {
     num_attrib = 0;
   }
-  if (
-    ( gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_vis ))) &&
-    (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (prop_dialog->op_supp)))
-  ) {
+  g_object_get (editor_state,
+                "operations-visible", &vis,
+                "operations-suppress", &sup,
+                NULL);
+  if (vis && !sup) {
     num_ops = g_list_model_get_n_items (dia_uml_class_get_operations (editor_state));
   } else {
     num_ops = 0;
@@ -599,7 +422,7 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   class_read_from_dialog(umlclass, prop_dialog);
   /* ^^^ attribs must be called before ops, to get the right order of the
      connectionpoints. */
-  _operations_read_from_dialog(umlclass, prop_dialog, UMLCLASS_CONNECTIONPOINTS);
+  dia_uml_class_store (editor_state, umlclass, &added, &deleted, &disconnected);
 
   /* Reestablish mainpoint */
 #ifdef UML_MAINPOINT
@@ -608,25 +431,16 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
 #endif
 
   /* unconnect from all deleted connectionpoints. */
-  list = prop_dialog->deleted_connections;
+  list = deleted;
   while (list != NULL) {
     ConnectionPoint *connection = (ConnectionPoint *) list->data;
 
-    _umlclass_store_disconnects(prop_dialog, connection);
+    _umlclass_store_disconnects (connection, &disconnected);
     object_remove_connections_to(connection);
     
     list = g_list_next(list);
   }
   
-  deleted = prop_dialog->deleted_connections;
-  prop_dialog->deleted_connections = NULL;
-  
-  added = prop_dialog->added_connections;
-  prop_dialog->added_connections = NULL;
-    
-  disconnected = prop_dialog->disconnected_connections;
-  prop_dialog->disconnected_connections = NULL;
-
   /* Update data: */
   umlclass_calculate_data(umlclass);
   umlclass_update_data(umlclass);
@@ -639,19 +453,10 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   return new_umlclass_change(umlclass, old_state, added, deleted, disconnected);
 }
 
-static void
-create_dialog_pages(GtkNotebook *notebook, UMLClass *umlclass)
-{
-  class_create_page(notebook, umlclass);
-  _operations_create_page(notebook, umlclass);
-  style_create_page(notebook, umlclass);
-}
-
 GtkWidget *
 umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
 {
   UMLClassDialog *prop_dialog;
-  GtkWidget *vbox;
   GtkWidget *notebook;
 
 #ifdef DEBUG
@@ -660,26 +465,18 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
   if (umlclass->properties_dialog == NULL) {
     prop_dialog = g_new(UMLClassDialog, 1);
     umlclass->properties_dialog = prop_dialog;
-
-    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    g_object_ref_sink(vbox);
-    prop_dialog->dialog = vbox;
-
-    prop_dialog->deleted_connections = NULL;
-    prop_dialog->added_connections = NULL;
-    prop_dialog->disconnected_connections = NULL;
     
     notebook = gtk_notebook_new ();
     gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
-    gtk_box_pack_start (GTK_BOX (vbox),	notebook, TRUE, TRUE, 0);
-    gtk_container_set_border_width (GTK_CONTAINER (notebook), 10);
+     prop_dialog->dialog = notebook;
 
     g_object_set_data(G_OBJECT(notebook), "user_data", (gpointer) umlclass);
     
     g_signal_connect (G_OBJECT (umlclass->properties_dialog->dialog), "destroy",
 		      G_CALLBACK(destroy_properties_dialog), umlclass);
     
-    create_dialog_pages(GTK_NOTEBOOK( notebook ), umlclass);
+    class_create_page(notebook, umlclass);
+    style_create_page(notebook, umlclass);
 
     gtk_widget_show (notebook);
   }
@@ -871,33 +668,4 @@ new_umlclass_change (UMLClass    *obj,
   change->disconnected = disconnected;
 
   return (ObjectChange *)change;
-}
-/*
-        get the contents of a comment text view.
-*/
-const gchar *
-_class_get_comment(GtkTextView *view)
-{
-  GtkTextBuffer * buffer = gtk_text_view_get_buffer(view);
-  GtkTextIter start;
-  GtkTextIter end;
-
-  gtk_text_buffer_get_start_iter(buffer, &start);
-  gtk_text_buffer_get_end_iter(buffer, &end);
-
-  return gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
-}
-
-void
-_class_set_comment(GtkTextView *view, gchar *text)
-{
-  GtkTextBuffer * buffer = gtk_text_view_get_buffer(view);
-  GtkTextIter start;
-  GtkTextIter end;
-
-  gtk_text_buffer_get_start_iter(buffer, &start);
-  gtk_text_buffer_get_end_iter(buffer, &end);
-  gtk_text_buffer_delete(buffer,&start,&end);
-  gtk_text_buffer_get_start_iter(buffer, &start);
-  gtk_text_buffer_insert( buffer, &start, text, strlen(text));
 }

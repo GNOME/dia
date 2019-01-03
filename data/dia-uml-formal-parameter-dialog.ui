@@ -73,7 +73,6 @@
                 <property name="can_focus">True</property>
                 <property name="valign">center</property>
                 <property name="hexpand">True</property>
-                <property name="width_chars">25</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -86,7 +85,6 @@
                 <property name="can_focus">True</property>
                 <property name="valign">center</property>
                 <property name="hexpand">True</property>
-                <property name="width_chars">25</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>

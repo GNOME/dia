@@ -17,7 +17,10 @@ DiaUmlClass     *dia_uml_class_new                     (UMLClass              *k
 void             dia_uml_class_load                    (DiaUmlClass           *self,
                                                         UMLClass              *klass);
 void             dia_uml_class_store                   (DiaUmlClass           *self,
-                                                        UMLClass              *klass);
+                                                        UMLClass              *klass,
+                                                        GList                **added,
+                                                        GList                **removed,
+                                                        GList                **disconnected);
 gboolean         dia_uml_class_is_template             (DiaUmlClass           *klass);
 GListModel      *dia_uml_class_get_attributes          (DiaUmlClass           *self);
 void             dia_uml_class_remove_attribute        (DiaUmlClass           *self,
