@@ -79,6 +79,7 @@ diaapp = executable('dia',
     dependencies : [libgtk_dep, libxml_dep, libm_dep],
     link_with : [libdia],
     link_args: dia_link_args,
+    export_dynamic: true,  # some plugins require this.
     include_directories : [configuration_inc, libdia_inc],
     gui_app : true,
     install : true,
