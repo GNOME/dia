@@ -81,4 +81,9 @@ subdir('plug-ins')
 subdir('sheets')
 subdir('shapes')
 
+# Convenience target
+run_target('run',
+    command: [find_program('run_dia.sh')],
+    depends: [diaapp, diaobjects, diaplugins],
+)
 meson.add_install_script('meson-helpers/post-install.py', datadir)

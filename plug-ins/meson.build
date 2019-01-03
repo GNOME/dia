@@ -31,9 +31,10 @@ subdir('wpg')
 subdir('xfig')
 subdir('xslt')
 
+diaplugins = []
 foreach p : install_plugins_desc
     message(p[0])
-    library(
+    diaplugins += library(
         p[0],
         p[1],
         dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep] + [p[2]],
