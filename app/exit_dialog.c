@@ -72,19 +72,15 @@ GtkWidget *
 exit_dialog_make (GtkWindow * parent_window,
                   gchar *     title)
 {
-    GtkWidget * dialog = gtk_dialog_new_with_buttons (title, parent_window,
-                                                      GTK_DIALOG_MODAL,
-                                                      _("Do Not Exit"),
-                                                      EXIT_DIALOG_EXIT_CANCEL,
-                                                      _("Exit Without Save"),
-                                                      EXIT_DIALOG_EXIT_NO_SAVE,
-                                                      _("Save Selected"),
-                                                      EXIT_DIALOG_EXIT_SAVE_SELECTED,
-                                                      NULL);
+  GtkWidget *dialog = g_object_new (GTK_TYPE_MESSAGE_DIALOG,
+                                    "title", title,
+                                    "text", _("Closing diagrams without saving"),
+                                    "secondary-text", _("Some diagrams have unsaved changes. Save changes now?"),
+                                    "transient-for", parent_window,
+                                    "modal", TRUE,
+                                    NULL);
+  GtkWidget* vbox = gtk_message_dialog_get_message_area (GTK_MESSAGE_DIALOG (dialog));
 
-    GtkBox * vbox = GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG(dialog)));
-
-    GtkWidget * label = gtk_label_new (_("The following are not saved:"));
 
     GtkWidget * scrolled;
     GtkWidget * button;
@@ -97,13 +93,22 @@ exit_dialog_make (GtkWindow * parent_window,
 
     GdkGeometry geometry = { 0 };
 
-    gtk_box_pack_start (vbox, label, FALSE, FALSE, 0);
-    
-    gtk_widget_show (label);
+  gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+                          _("Cancel"),
+                          EXIT_DIALOG_EXIT_CANCEL,
+                          _("Discard Changes"),
+                          EXIT_DIALOG_EXIT_NO_SAVE,
+                          _("Save"),
+                          EXIT_DIALOG_EXIT_SAVE_SELECTED,
+                          NULL);
 
     /* Scrolled window for displaying things which need saving */
     scrolled = gtk_scrolled_window_new (NULL, NULL);
-    gtk_box_pack_start (vbox, scrolled, TRUE, TRUE, 0);
+    g_object_set (scrolled,
+                  "height-request", 60,
+                  "shadow-type", GTK_SHADOW_IN,
+                  NULL);
+    gtk_box_pack_start (GTK_BOX (vbox), scrolled, TRUE, TRUE, 0);
     gtk_widget_show (scrolled);
 
     model = gtk_list_store_new (NUM_COL, G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
@@ -127,14 +132,10 @@ exit_dialog_make (GtkWindow * parent_window,
                                                           NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 
-    renderer = gtk_cell_renderer_text_new ();
-    column   = gtk_tree_view_column_new_with_attributes (_("Path"), renderer,
-                                                         "text", PATH_COL,
-                                                          NULL);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
+    gtk_tree_view_set_tooltip_column (GTK_TREE_VIEW (treeview), PATH_COL);
 
 
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled), GTK_WIDGET (treeview));
+    gtk_container_add (GTK_CONTAINER (scrolled), treeview);
 
  
     hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 3);
