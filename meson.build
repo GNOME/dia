@@ -82,6 +82,7 @@ subdir('doc')
 subdir('plug-ins')
 subdir('sheets')
 subdir('shapes')
+subdir('tests')
 
 # Convenience target
 run_target('run',
