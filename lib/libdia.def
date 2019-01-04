@@ -492,7 +492,7 @@ EXPORTS
  group_get_transform
  group_destroy_shallow
  group_objects
- group_type
+ ;group_type
 
  get_active_focus
  give_focus
