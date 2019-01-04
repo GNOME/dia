@@ -1,3 +1,6 @@
+
+run_dia = find_program('run_dia.sh')
+
 # TODO: minimise code duplication.
 if host_machine.system() != 'windows'
   bb = executable(
