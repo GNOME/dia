@@ -253,6 +253,8 @@ dia_register_plugin(const gchar *filename)
   GList *tmp;
   PluginInfo *info;
 
+  g_debug("Loading %s\n", filename);
+
   /* check if plugin has already been registered */
   for (tmp = plugins; tmp != NULL; tmp = tmp->next) {
     info = tmp->data;
@@ -278,12 +280,6 @@ dia_register_plugin(const gchar *filename)
     dia_plugin_load(info);
 
   plugins = g_list_prepend(plugins, info);
-}
-
-static gboolean
-this_is_a_plugin(const gchar *name) 
-{
-  return g_str_has_suffix(name, G_MODULE_SUFFIX);
 }
 
 typedef void (*ForEachInDirDoFunc)(const gchar *name);
@@ -326,35 +322,17 @@ directory_filter(const gchar *name)
 static gboolean 
 dia_plugin_filter(const gchar *name) 
 {
-  if (!g_file_test (name, G_FILE_TEST_IS_REGULAR))
-    return FALSE;
-
-  return this_is_a_plugin(name);
+  return g_str_has_suffix(name, G_MODULE_SUFFIX)
+      && g_file_test(name, G_FILE_TEST_IS_REGULAR);
 }
-
-static void
-walk_dirs_for_plugins(const gchar *dirname)
-{
-  for_each_in_dir(dirname,walk_dirs_for_plugins,directory_filter);  
-  for_each_in_dir(dirname,dia_register_plugin,dia_plugin_filter);
-}
-
-#define RECURSE (G_DIR_SEPARATOR_S G_DIR_SEPARATOR_S)
 
 void
 dia_register_plugins_in_dir(const gchar *directory)
 {
-  guint reclen = strlen(RECURSE);
-  guint len = strlen(directory);
+  g_debug("Registering plugins in %s\n", directory);
 
-  if ((len >= reclen) &&
-      (0 == strcmp(&directory[len-reclen],RECURSE))) {
-    gchar *dirbase = g_strndup(directory,len-reclen);
-    for_each_in_dir(dirbase,walk_dirs_for_plugins,directory_filter);
-    g_free(dirbase);
-  };
-  /* intentional fallback. */
-  for_each_in_dir(directory,dia_register_plugin,dia_plugin_filter);
+  for_each_in_dir(directory, dia_register_plugin, dia_plugin_filter);
+  for_each_in_dir(directory, dia_register_plugins_in_dir, directory_filter);
 }
 
 void
