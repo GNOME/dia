@@ -20,6 +20,7 @@ if host_machine.system() != 'windows'
       include_directories: [configuration_inc, libdia_inc],
   )
 endif
+
 tsvg = executable(
     'testsvg',
     'test-svg.c',
@@ -64,3 +65,5 @@ test('xmllint',
 )
 
 test('testsvg', tsvg)
+
+subdir('exports')
