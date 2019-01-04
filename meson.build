@@ -87,7 +87,8 @@ subdir('tests')
 
 # Convenience target
 run_target('run',
-    command: [find_program('run_dia.sh')],
+    command: [run_dia],
     depends: rundeps,
 )
+
 meson.add_install_script('meson-helpers/post-install.py', datadir)
