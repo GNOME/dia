@@ -17,8 +17,10 @@ libxml_dep  = dependency('libxml-2.0', version : '>= 2.6.27')
 #TODO: what are the minimum versions?
 gmodule_dep = dependency('gmodule-2.0')
 libzlib_dep = dependency('zlib')
-#TODO: this is optional.  Should it be a disabler?
 libcairo_dep = dependency('cairo')
+#TODO: this will become a hard dependency as part of GTK3 port.
+# Therefore, remove all references to HAVE_CAIRO
+conf.set('HAVE_CAIRO', 1)
 libm_dep = cc.find_library('m')
 libc_dep = cc.find_library('c', required : false)
 

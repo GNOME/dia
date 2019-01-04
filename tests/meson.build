@@ -32,4 +32,23 @@ if host_machine.system() != 'windows'
   test('boundingbox', bb)
   test('objects', objs, args: [join_paths(meson.build_root(), 'objects')])
 endif
+
+xmllint_test = find_program('xmllint_test.sh')
+render_test_dia = files(join_paths('..', 'samples', 'render-test.dia'))[0]
+shape_dtd = files(join_paths('..', 'doc', 'shape.dtd'))[0]
+
+find_program('xmllint', required: true)
+test('xmllint',
+    xmllint_test,
+    args: [
+        run_dia.path(),
+        shape_dtd,
+        render_test_dia
+    ],
+    env: [
+        'MESON_BUILD_ROOT=' + meson.build_root(),
+        'MESON_SOURCE_ROOT=' + meson.source_root(),
+    ],
+)
+
 test('testsvg', tsvg)
