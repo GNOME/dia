@@ -10,24 +10,22 @@ run_env.set('DIA_PYTHON_PATH', join_paths(meson.source_root(), 'plug-ins', 'pyth
 run_env.set('DIA_SHEET_PATH',  join_paths(meson.build_root(), 'sheets'))
 
 # TODO: minimise code duplication.
-if host_machine.system() != 'windows'
-  bb = executable(
-      'boundingbox',
-      'test-boundingbox.c',
-      dependencies: [libgtk_dep, libxml_dep, libm_dep],
-      link_with: [libdia],
-      link_args: dia_link_args,
-      include_directories: [configuration_inc, libdia_inc],
-  )
-  objs = executable(
-      'objects',
-      'test-objects.c',
-      dependencies: [libgtk_dep, libxml_dep, libm_dep],
-      link_with: [libdia],
-      link_args: dia_link_args,
-      include_directories: [configuration_inc, libdia_inc],
-  )
-endif
+bb = executable(
+    'boundingbox',
+    'test-boundingbox.c',
+    dependencies: [libgtk_dep, libxml_dep, libm_dep],
+    link_with: [libdia],
+    link_args: dia_link_args,
+    include_directories: [configuration_inc, libdia_inc],
+)
+objs = executable(
+    'objects',
+    'test-objects.c',
+    dependencies: [libgtk_dep, libxml_dep, libm_dep],
+    link_with: [libdia],
+    link_args: dia_link_args,
+    include_directories: [configuration_inc, libdia_inc],
+)
 
 tsvg = executable(
     'testsvg',
@@ -49,10 +47,8 @@ sizeof = executable(
 # Not really a test, but just a helper program.
 run_target('sizeof', command: [sizeof])
 
-if host_machine.system() != 'windows'
-  test('boundingbox', bb)
-  test('objects', objs, args: [join_paths(meson.build_root(), 'objects')])
-endif
+test('boundingbox', bb)
+test('objects', objs, args: [join_paths(meson.build_root(), 'objects')])
 
 xmllint_test = find_program('xmllint_test.sh')
 render_test_dia = files(join_paths('..', 'samples', 'render-test.dia'))[0]
