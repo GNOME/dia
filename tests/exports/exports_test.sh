@@ -20,6 +20,10 @@ for FILTER in ${EXPORT_PLUGINS}; do
             echo ${FILTER} failed for ${FILE};
             rm -r ${TEMP_DIR}
             exit 1
+        elif [ ! -f ${OUTPUT} ]; then
+            echo Unable to find output file ${OUTPUT}
+            rm -r ${TEMP_DIR}
+            exit 2
         elif ! diff -q ${OUTPUT} ${EXPECTED_OUTPUT}; then
             echo "FAILED: ${FILTER} output different from expected for ${FILE}"
             #TODO: currently this fails almost all testcases.  Why?
