@@ -2,7 +2,7 @@ project('dia',
         ['c', 'cpp'],
         version : '0.97.3+git' +
             run_command(find_program('meson-helpers/get-git-sha.sh')).stdout().strip(),
-        meson_version : '>= 0.45',
+        meson_version : '>= 0.49',
         default_options : []
 )
 
