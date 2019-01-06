@@ -1,5 +1,5 @@
 # Swedish messages for Dia.
-# Copyright © 1999-2014 Free Software Foundation, Inc.
+# Copyright © 1999-2019 Free Software Foundation, Inc.
 # Fredrik Hallenberg <hallon@lysator.liu.se>, 1999.
 # Andreas Hyden <a.hyden@cyberpoint.se>.
 # Tomas Ögren <stric@ing.umu.se>, 2000.
@@ -7,118 +7,119 @@
 # Richard Hult <rhult@codefactory.se>, 2001.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009.
 # Josef Andersson <josef.andersson@fripost.org>, 2014.
+# Sebastian Rasmussen <sebras@gmail.com>, 2015, 2017.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2015, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-22 19:53+0000\n"
-"PO-Revision-Date: 2017-09-11 11:07+0200\n"
-"Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
+"POT-Creation-Date: 2018-12-09 09:58+0000\n"
+"PO-Revision-Date: 2019-01-06 20:31+0100\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Svenska <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.2\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:209
+#: ../app/app_procs.c:165
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Varning: ogiltigt lagerintervall %lu - %lu\n"
 
-#: ../app/app_procs.c:221
+#: ../app/app_procs.c:177
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Varning: Lager %lu (%s) markerat mer än en gång.\n"
 
-#: ../app/app_procs.c:247
+#: ../app/app_procs.c:203
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Varning: Lager %d (%s) markerat mer än en gång.\n"
 
-#: ../app/app_procs.c:256
+#: ../app/app_procs.c:212
 #, c-format
 msgid "Warning: There is no layer named %s.\n"
 msgstr "Varning: Det finns inget lager med namnet %s.\n"
 
-#: ../app/app_procs.c:339
+#: ../app/app_procs.c:295
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s-fel: vet inte hur man exporterar till %s\n"
 
-#: ../app/app_procs.c:348
+#: ../app/app_procs.c:304
 #, c-format
 msgid "%s error: input and output filenames are identical: %s"
 msgstr "%s-fel: indata- och utdatafilnamn är identiska: %s"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
-#: ../app/app_procs.c:354 ../objects/FS/function.c:675
+#: ../app/app_procs.c:310 ../objects/FS/function.c:675
 #: ../objects/FS/function.c:677
 msgid "Import"
 msgstr "Importera"
 
-#: ../app/app_procs.c:357
+#: ../app/app_procs.c:313
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s-fel: behöver en giltig indatafil %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:385
+#: ../app/app_procs.c:341
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:557
+#: ../app/app_procs.c:502
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Kan inte hitta utdataformatet/-filtret %s\n"
 
-#: ../app/app_procs.c:627
+#: ../app/app_procs.c:572
 #, c-format
 msgid "Input directory '%s' must exist!\n"
 msgstr "Indatakatalogen ”%s” måste existera!\n"
 
-#: ../app/app_procs.c:644
+#: ../app/app_procs.c:589
 #, c-format
 msgid "Output directory '%s' must exist!\n"
 msgstr "Utdatakatalogen ”%s” måste existera!\n"
 
 #. &export_file_name
-#: ../app/app_procs.c:697
+#: ../app/app_procs.c:639
 msgid "Export loaded file and exit"
 msgstr "Exportera inläst fil och avsluta"
 
-#: ../app/app_procs.c:697
+#: ../app/app_procs.c:639
 msgid "OUTPUT"
 msgstr "UTDATA"
 
 #. &export_file_format
-#: ../app/app_procs.c:699
+#: ../app/app_procs.c:641
 msgid "Select the export filter/format"
 msgstr "Välj exportfilter/-format"
 
-#: ../app/app_procs.c:699
+#: ../app/app_procs.c:641
 msgid "TYPE"
 msgstr "TYP"
 
-#: ../app/app_procs.c:701
+#: ../app/app_procs.c:643
 msgid "List export filters/formats and exit"
 msgstr "Lista exportfilter/-format och avsluta"
 
-#: ../app/app_procs.c:703
+#: ../app/app_procs.c:645
 msgid "Export graphics size"
 msgstr "Exportera grafikstorlek"
 
-#: ../app/app_procs.c:703
+#: ../app/app_procs.c:645
 msgid "WxH"
 msgstr "B×H"
 
-#: ../app/app_procs.c:705
+#: ../app/app_procs.c:647
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -126,97 +127,93 @@ msgstr ""
 "Visa bara angivna lager (exempelvis under export). Kan vara antingen "
 "lagernamnet eller ett intervall av lagernummer (X-Y)"
 
-#: ../app/app_procs.c:706
+#: ../app/app_procs.c:648
 msgid "LAYER,LAYER,..."
 msgstr "LAGER,LAGER,…"
 
-#: ../app/app_procs.c:708
+#: ../app/app_procs.c:650
 msgid "Don't show the splash screen"
 msgstr "Visa inte startbilden"
 
-#: ../app/app_procs.c:710
+#: ../app/app_procs.c:652
 msgid "Don't create an empty diagram"
 msgstr "Skapa inte ett tomt diagram"
 
-#: ../app/app_procs.c:712
+#: ../app/app_procs.c:654
 msgid "Start classic user interface (no diagrams in tabs)"
 msgstr "Starta det klassiska användargränssnittet (inga diagram i flikar)"
 
-#: ../app/app_procs.c:714
+#: ../app/app_procs.c:656
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 "Skicka felmeddelanden till standard fel istället för att visa dialogrutor."
 
-#: ../app/app_procs.c:716
+#: ../app/app_procs.c:658
 msgid "Directory containing input files"
 msgstr "Katalog innehållande indatafiler"
 
-#: ../app/app_procs.c:716 ../app/app_procs.c:718
+#: ../app/app_procs.c:658 ../app/app_procs.c:660
 msgid "DIRECTORY"
 msgstr "KATALOG"
 
-#: ../app/app_procs.c:718
+#: ../app/app_procs.c:660
 msgid "Directory containing output files"
 msgstr "Katalog innehållande utdatafiler"
 
-#: ../app/app_procs.c:720
+#: ../app/app_procs.c:662
 msgid "Display credits list and exit"
 msgstr "Visa tacklista och avsluta"
 
-#: ../app/app_procs.c:722
+#: ../app/app_procs.c:664
 msgid "Generate verbose output"
 msgstr "Generera informativ utdata"
 
-#: ../app/app_procs.c:724
+#: ../app/app_procs.c:666
 msgid "Display version and exit"
 msgstr "Visa versionsnummer och avsluta"
 
-#: ../app/app_procs.c:750
+#: ../app/app_procs.c:692
 msgid "[FILE...]"
 msgstr "[FIL…]"
 
-#: ../app/app_procs.c:764
+#: ../app/app_procs.c:704
 #, c-format
 msgid "Invalid option?"
 msgstr "Ogiltig flagga?"
 
-#: ../app/app_procs.c:787
+#: ../app/app_procs.c:727
 #, c-format
 msgid "Filename conversion failed: %s\n"
 msgstr "Filnamnskonvertering misslyckades: %s\n"
 
-#: ../app/app_procs.c:800
+#: ../app/app_procs.c:740
 #, c-format
 msgid "Missing input: %s\n"
 msgstr "Saknar indata: %s\n"
 
-#: ../app/app_procs.c:825
-msgid "Can't connect to session manager!\n"
-msgstr "Kan inte få kontakt med sessionshanteraren!\n"
-
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:865
+#: ../app/app_procs.c:781
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia version %s, kompilerad %s %s\n"
 
-#: ../app/app_procs.c:867
+#: ../app/app_procs.c:783
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia version %s\n"
 
-#: ../app/app_procs.c:913
+#: ../app/app_procs.c:829
 msgid "Object Defaults"
 msgstr "Standardvärden för objekt"
 
-#: ../app/app_procs.c:920
+#: ../app/app_procs.c:836
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr ""
 "Kunde inte hitta standardobjekt vid sökning efter objektbibliotek, "
 "avslutar…\n"
 
-#: ../app/app_procs.c:922
+#: ../app/app_procs.c:838
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -225,33 +222,35 @@ msgstr ""
 "Kunde inte hitta standardobjekt vid sökning efter objektbibliotek i ”%s”, "
 "avslutar…\n"
 
-#: ../app/app_procs.c:980
+#: ../app/app_procs.c:896
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: ../app/app_procs.c:1015
+#: ../app/app_procs.c:931
 msgid ""
-"This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+"This shouldn't happen.  Please file a bug report at https://gitlab.gnome.org/"
+"GNOME/dia\n"
 "describing how you caused this message to appear.\n"
 msgstr ""
-"Detta borde aldrig inträffa. Lämna in en felrapport på bugzilla.gnome.org\n"
+"Detta borde aldrig inträffa. Lämna in en felrapport på https://gitlab.gnome."
+"org/GNOME/dia\n"
 "och beskriv hur du fick detta meddelande att visas.\n"
 
-#: ../app/app_procs.c:1030
+#: ../app/app_procs.c:946
 msgid "Exiting Dia"
 msgstr "Avslutar Dia"
 
-#: ../app/app_procs.c:1057 ../app/display.c:1239 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:973 ../app/display.c:1239 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Spara"
 
 #. no standard buttons
-#: ../app/app_procs.c:1099
+#: ../app/app_procs.c:1015
 msgid "Quitting without saving modified diagrams"
 msgstr "Avslutar utan att spara ändrade diagram"
 
-#: ../app/app_procs.c:1101
+#: ../app/app_procs.c:1017
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -259,19 +258,19 @@ msgstr ""
 "Det finns diagram som har ändrats. Är du säker på att du vill avsluta Dia "
 "utan att spara dem?"
 
-#: ../app/app_procs.c:1105 ../app/menus.c:94
+#: ../app/app_procs.c:1021 ../app/menus.c:94
 msgid "Quit Dia"
 msgstr "Avsluta Dia"
 
-#: ../app/app_procs.c:1135
+#: ../app/app_procs.c:1051
 msgid "Exit"
 msgstr "Avsluta"
 
-#: ../app/app_procs.c:1181 ../app/app_procs.c:1188
+#: ../app/app_procs.c:1097 ../app/app_procs.c:1104
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Kunde inte skapa katalog med personliga Dia-inställningar"
 
-#: ../app/app_procs.c:1191
+#: ../app/app_procs.c:1107
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -279,11 +278,11 @@ msgstr ""
 "Kunde inte skapa en personlig Dia-konfigurationskatalog. Kontrollera att "
 "miljövariabeln HOME pekar till en existerande katalog."
 
-#: ../app/app_procs.c:1214
+#: ../app/app_procs.c:1130
 msgid "Objects and filters internal to Dia"
 msgstr "Interna objekt och filter i Dia"
 
-#: ../app/app_procs.c:1266
+#: ../app/app_procs.c:1182
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -292,7 +291,7 @@ msgstr ""
 "Den ursprungliga upphovsmannen av Dia var:\n"
 "\n"
 
-#: ../app/app_procs.c:1271
+#: ../app/app_procs.c:1187
 #, c-format
 msgid ""
 "\n"
@@ -303,7 +302,7 @@ msgstr ""
 "De aktuella underhållarna av Dia är:\n"
 "\n"
 
-#: ../app/app_procs.c:1276
+#: ../app/app_procs.c:1192
 #, c-format
 msgid ""
 "\n"
@@ -314,7 +313,7 @@ msgstr ""
 "Andra upphovsmän är:\n"
 "\n"
 
-#: ../app/app_procs.c:1281
+#: ../app/app_procs.c:1197
 #, c-format
 msgid ""
 "\n"
@@ -325,20 +324,20 @@ msgstr ""
 "Dia är dokumenterad av:\n"
 "\n"
 
-#: ../app/app_procs.c:1321
+#: ../app/app_procs.c:1237
 msgid "Available Export Filters (for --filter)"
 msgstr "Tillgängliga exportfilter (för --filter)"
 
 #. Translators: be brief or mess up the table for --list-filters
-#: ../app/app_procs.c:1324
+#: ../app/app_procs.c:1240
 msgid "Extension"
 msgstr "Filändelse"
 
-#: ../app/app_procs.c:1325 ../lib/prop_dict.c:44
+#: ../app/app_procs.c:1241 ../lib/prop_dict.c:44
 msgid "Identifier"
 msgstr "Identifierare"
 
-#: ../app/app_procs.c:1326 ../app/plugin-manager.c:276
+#: ../app/app_procs.c:1242 ../app/plugin-manager.c:276
 msgid "Description"
 msgstr "Beskrivning"
 
@@ -981,29 +980,25 @@ msgstr "Ersätt _alla"
 msgid "_Replace"
 msgstr "_Ersätt"
 
-#: ../app/interface.c:521
+#: ../app/interface.c:517
 msgid "Pops up the Navigation window."
 msgstr "Visar navigeringsfönstret."
 
-#: ../app/interface.c:738
+#: ../app/interface.c:734
 msgid "Diagram menu."
 msgstr "Diagrammeny."
 
-#: ../app/interface.c:777
+#: ../app/interface.c:773
 msgid "Zoom"
 msgstr "Zooma"
 
-#: ../app/interface.c:792
+#: ../app/interface.c:788
 msgid "Toggles snap-to-grid for this window."
 msgstr "Växlar fäst-vid-rutnät för detta fönster."
 
-#: ../app/interface.c:803
+#: ../app/interface.c:799
 msgid "Toggles object snapping for this window."
 msgstr "Växlar fäst-vid-objekt för detta fönster."
-
-#: ../app/interface.c:989 ../app/interface.c:1106 ../dia.desktop.in.in.h:2
-msgid "Diagram Editor"
-msgstr "Diagramredigerare"
 
 #: ../app/layer_dialog.c:166
 msgid "New Layer"
@@ -2320,6 +2315,10 @@ msgstr ""
 #: ../dia.desktop.in.in.h:1
 msgid "Dia"
 msgstr "Dia"
+
+#: ../dia.desktop.in.in.h:2
+msgid "Diagram Editor"
+msgstr "Diagramredigerare"
 
 #: ../dia.desktop.in.in.h:3
 msgid "Dia Diagram Editor"
@@ -10882,3 +10881,6 @@ msgstr "Aktivitet"
 #: ../sheets/UML.sheet.in.h:31
 msgid "Fork/Union"
 msgstr "Förgrening/Union"
+
+#~ msgid "Can't connect to session manager!\n"
+#~ msgstr "Kan inte få kontakt med sessionshanteraren!\n"
