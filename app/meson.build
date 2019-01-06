@@ -74,7 +74,7 @@ endif
 
 diaapp_inc = include_directories('.')
 
-rundeps += executable('dia',
+diaapp = executable('dia',
     dia_sources + [dia_app_icons_h, diamarshal_h],
     dependencies : [libgtk_dep, libxml_dep, libm_dep],
     link_with : [libdia],
@@ -85,3 +85,5 @@ rundeps += executable('dia',
     install : true,
     install_rpath : dialibdir
 )
+
+rundeps += diaapp

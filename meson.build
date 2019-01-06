@@ -74,6 +74,7 @@ configure_file(output : 'config.h',
 # To fix we should remove #ifdef HAVE_CONFIG_H checks from all source files.
 add_project_arguments('-DHAVE_CONFIG_H', language : 'c')
 
+# Keep track of everything that is needed for running dia
 rundeps = []
 
 subdir('po')
@@ -87,10 +88,17 @@ subdir('sheets')
 subdir('shapes')
 subdir('tests')
 
-# Convenience target
-run_target('run',
-    command: [run_dia],
-    depends: rundeps,
+# This is a convenience target to create a way to run dia from
+# command line.
+custom_target('run_with_dia_env',
+    command: [find_program('generate_run_with_dia_env.sh'),
+              '@OUTPUT@',
+              meson.source_root(),
+              meson.build_root()
+          ],
+    output: 'run_with_dia_env',
+    # Ensure we always generate this in the build directory.
+    build_by_default: true
 )
 
 meson.add_install_script('meson-helpers/post-install.py', datadir)

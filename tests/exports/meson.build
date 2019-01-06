@@ -1,11 +1,9 @@
-exports_test = find_program('exports_test.sh')
-
 test('exports',
-    exports_test,
-    args: [run_dia.path()],
+    find_program('exports_test.sh'),
+    args: [
+        # TODO: this is a bug in meson.  We don't need to
+        # specify full_path() https://github.com/mesonbuild/meson/issues/2681
+        diaapp.full_path()],
     workdir: meson.current_source_dir(),
-    env: [
-        'MESON_BUILD_ROOT=' + meson.build_root(),
-        'MESON_SOURCE_ROOT=' + meson.source_root(),
-    ],
+    env: run_env,
 )

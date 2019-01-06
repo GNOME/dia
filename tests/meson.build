@@ -1,5 +1,13 @@
-
-run_dia = find_program('run_dia.sh')
+# Setup local environment to run dia.
+run_env = environment()
+run_env.set('DIA_BASE_PATH', meson.source_root())
+run_env.append('DIA_LIB_PATH',
+    join_paths(meson.build_root(), 'objects'),
+    join_paths(meson.build_root(), 'plug-ins'))
+run_env.set('DIA_SHAPE_PATH',  join_paths(meson.source_root(), 'shapes'))
+run_env.set('DIA_XSLT_PATH',   join_paths(meson.source_root(), 'plug-ins', 'xslt'))
+run_env.set('DIA_PYTHON_PATH', join_paths(meson.source_root(), 'plug-ins', 'python'))
+run_env.set('DIA_SHEET_PATH',  join_paths(meson.build_root(), 'sheets'))
 
 # TODO: minimise code duplication.
 if host_machine.system() != 'windows'
@@ -54,14 +62,11 @@ find_program('xmllint', required: true)
 test('xmllint',
     xmllint_test,
     args: [
-        run_dia.path(),
+        diaapp,
         shape_dtd,
         render_test_dia
     ],
-    env: [
-        'MESON_BUILD_ROOT=' + meson.build_root(),
-        'MESON_SOURCE_ROOT=' + meson.source_root(),
-    ],
+    env: run_env,
 )
 
 test('testsvg', tsvg)
