@@ -1,4 +1,4 @@
-#include "tool.h"
+#include "tools/tool.h"
 
 G_BEGIN_DECLS
 

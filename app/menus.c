@@ -27,7 +27,7 @@
 
 #include "intl.h"
 #include "menus.h"
-#include "tool.h"
+#include "tools/tool.h"
 #include "commands.h"
 #include "message.h"
 #include "interface.h"

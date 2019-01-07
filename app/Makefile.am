@@ -146,22 +146,22 @@ dia_core_files = \
 	toolbox.c \
 	toolbox.h \
 	dia-app-icons.h \
-	modify_tool.c \
-	modify_tool.h \
-	scroll_tool.c \
-	scroll_tool.h \
-	create_object.c \
-	create_object.h \
-	magnify.c \
-	magnify.h \
+	tools/modify_tool.c \
+	tools/modify_tool.h \
+	tools/scroll_tool.c \
+	tools/scroll_tool.h \
+	tools/create_object.c \
+	tools/create_object.h \
+	tools/magnify.c \
+	tools/magnify.h \
 	menus.c \
 	menus.h \
 	cut_n_paste.c \
 	cut_n_paste.h \
 	ruler.c \
 	ruler.h \
-	tool.c \
-	tool.h \
+	tools/tool.c \
+	tools/tool.h \
 	diapagelayout.c \
 	diapagelayout.h \
 	pagesetup.c \
@@ -206,8 +206,8 @@ dia_core_files = \
 	highlight.h \
 	textedit.c \
 	textedit.h \
-	textedit_tool.c \
-	textedit_tool.h \
+	tools/textedit_tool.c \
+	tools/textedit_tool.h \
 	diagrid.h
 
 dia_SOURCES = \
