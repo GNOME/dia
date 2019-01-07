@@ -1,6 +1,6 @@
 #include "dia-uml-class-editor.h"
-#include "dia-uml-list-row.h"
-#include "dia-uml-list-store.h"
+#include "list/dia-list-row.h"
+#include "list/dia-list-store.h"
 #include "dia-uml-operation-dialog.h"
 #include "dia-uml-attribute-dialog.h"
 #include "dia-uml-formal-parameter-dialog.h"
@@ -47,17 +47,17 @@ build_lists (DiaUmlClassEditor *self)
 
   store = dia_uml_class_get_attributes (self->klass);
   gtk_list_box_bind_model (GTK_LIST_BOX (self->attributes), store,
-                           (GtkListBoxCreateWidgetFunc) dia_uml_list_row_new,
+                           (GtkListBoxCreateWidgetFunc) dia_list_row_new,
                            store, NULL);
 
   store = dia_uml_class_get_operations (self->klass);
   gtk_list_box_bind_model (GTK_LIST_BOX (self->operations), store,
-                           (GtkListBoxCreateWidgetFunc) dia_uml_list_row_new,
+                           (GtkListBoxCreateWidgetFunc) dia_list_row_new,
                            store, NULL);
 
   store = dia_uml_class_get_formal_parameters (self->klass);
   gtk_list_box_bind_model (GTK_LIST_BOX (self->templates), store,
-                           (GtkListBoxCreateWidgetFunc) dia_uml_list_row_new,
+                           (GtkListBoxCreateWidgetFunc) dia_list_row_new,
                            store, NULL);
 }
 
@@ -94,11 +94,11 @@ edit_operation (DiaUmlClassEditor *self,
   GtkWidget *parent;
   DiaUmlOperation *op;
 
-  if (!DIA_UML_IS_LIST_ROW (row))
+  if (!DIA_IS_LIST_ROW (row))
     return;
   
   parent = gtk_widget_get_toplevel (GTK_WIDGET (self));
-  op = DIA_UML_OPERATION (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
+  op = DIA_UML_OPERATION (dia_list_row_get_data (DIA_LIST_ROW (row)));
   dlg = dia_uml_operation_dialog_new (GTK_WINDOW (parent), op);
   g_signal_connect (dlg, "operation-deleted", G_CALLBACK (remove_op), self);
   gtk_widget_show (dlg);
@@ -138,11 +138,11 @@ edit_attribute (DiaUmlClassEditor *self,
   GtkWidget *parent;
   DiaUmlAttribute *attr;
 
-  if (!DIA_UML_IS_LIST_ROW (row))
+  if (!DIA_IS_LIST_ROW (row))
     return;
   
   parent = gtk_widget_get_toplevel (GTK_WIDGET (self));
-  attr = DIA_UML_ATTRIBUTE (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
+  attr = DIA_UML_ATTRIBUTE (dia_list_row_get_data (DIA_LIST_ROW (row)));
   dlg = dia_uml_attribute_dialog_new (GTK_WINDOW (parent), attr);
   g_signal_connect (dlg, "attribute-deleted", G_CALLBACK (remove_attr), self);
   gtk_widget_show (dlg);
@@ -182,11 +182,11 @@ edit_template (DiaUmlClassEditor *self,
   GtkWidget *parent;
   DiaUmlFormalParameter *param;
 
-  if (!DIA_UML_IS_LIST_ROW (row))
+  if (!DIA_IS_LIST_ROW (row))
     return;
   
   parent = gtk_widget_get_toplevel (GTK_WIDGET (self));
-  param = DIA_UML_FORMAL_PARAMETER (dia_uml_list_row_get_data (DIA_UML_LIST_ROW (row)));
+  param = DIA_UML_FORMAL_PARAMETER (dia_list_row_get_data (DIA_LIST_ROW (row)));
   dlg = dia_uml_formal_parameter_dialog_new (GTK_WINDOW (parent), param);
   g_signal_connect (dlg, "template-deleted", G_CALLBACK (remove_template), self);
   gtk_widget_show (dlg);

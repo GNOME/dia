@@ -54,14 +54,14 @@ for c in theClasses :
 #include "uml.h"
 #include "properties.h"
 #include "dia-uml-operation.h"
-#include "editor/dia-uml-list-data.h"
-#include "editor/dia-uml-list-store.h"
+#include "list/dia-list-data.h"
+#include "list/dia-list-store.h"
 
 static void
-dia_uml_operation_list_data_init (DiaUmlListDataInterface *iface);
+dia_uml_operation_list_data_init (DiaListDataInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (DiaUmlOperation, dia_uml_operation, G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (DIA_UML_TYPE_LIST_DATA,
+                         G_IMPLEMENT_INTERFACE (DIA_TYPE_LIST_DATA,
                                                 dia_uml_operation_list_data_init))
 
 enum {
@@ -98,10 +98,8 @@ static PropDescription umloperation_props[] = {
   N_("Query"), NULL, N_("C++ const method") },
   { "class_scope", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Scope"), NULL, N_("Class scope (C++ static method)") },
-  /* It'a a ListModel not List now :-(
   { "parameters", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
   N_("Parameters"), NULL, NULL },
-  */
 
   PROP_DESC_END
 };
@@ -115,7 +113,7 @@ static PropOffset umloperation_offsets[] = {
   { "inheritance_type", PROP_TYPE_ENUM, offsetof(DiaUmlOperation, inheritance_type) },
   { "query", PROP_TYPE_BOOL, offsetof(DiaUmlOperation, query) },
   { "class_scope", PROP_TYPE_BOOL, offsetof(DiaUmlOperation, class_scope) },
-  /*{ "parameters", PROP_TYPE_DARRAY, offsetof(DiaUmlOperation, parameters) },*/
+  { "parameters", PROP_TYPE_DARRAY, offsetof(DiaUmlOperation, parameters_hack) },
   { NULL, 0, 0 },
 };
 
@@ -129,8 +127,9 @@ DiaUmlOperation *
 dia_uml_operation_copy (DiaUmlOperation *srcop)
 {
   DiaUmlOperation *destop;
+  GListModel *params;
   DiaUmlParameter *newparam;
-  DiaUmlListData *itm;
+  DiaListData *itm;
   int i = 0;
   
   destop = g_object_new (DIA_UML_TYPE_OPERATION, NULL);
@@ -174,7 +173,8 @@ dia_uml_operation_copy (DiaUmlOperation *srcop)
   destop->inheritance_type = srcop->inheritance_type;
   destop->query = srcop->query;
 
-  while ((itm = g_list_model_get_item (G_LIST_MODEL (srcop->parameters), i))) {
+  params = dia_uml_operation_get_parameters (srcop);
+  while ((itm = g_list_model_get_item (params, i))) {
     DiaUmlParameter *param = DIA_UML_PARAMETER (itm);
 
     newparam = dia_uml_parameter_new ();
@@ -205,11 +205,12 @@ dia_uml_operation_copy (DiaUmlOperation *srcop)
 void
 uml_operation_write(AttributeNode attr_node, DiaUmlOperation *op, DiaContext *ctx)
 {
+  GListModel *params;
   DiaUmlParameter *param;
   DataNode composite;
   DataNode composite2;
   AttributeNode attr_node2;
-  DiaUmlListData *itm;
+  DiaListData *itm;
   int i = 0;
 
   composite = data_add_composite(attr_node, "umloperation", ctx);
@@ -236,7 +237,8 @@ uml_operation_write(AttributeNode attr_node, DiaUmlOperation *op, DiaContext *ct
   
   attr_node2 = composite_add_attribute(composite, "parameters");
   
-  while ((itm = g_list_model_get_item (G_LIST_MODEL (op->parameters), i))) {
+  params = dia_uml_operation_get_parameters (op);
+  while ((itm = g_list_model_get_item (params, i))) {
     param = DIA_UML_PARAMETER (itm);
 
     composite2 = data_add_composite(attr_node2, "umlparameter", ctx);
@@ -262,9 +264,10 @@ dia_uml_operation_format (DiaUmlOperation *operation)
 {
   int len;
   char *str;
-  DiaUmlListData *itm;
+  DiaListData *itm;
   int i = 0;
   gboolean first = TRUE;
+  GListModel *params;
 
   /* Calculate length: */
   len = 1 + (operation->name ? strlen (operation->name) : 0) + 1;
@@ -273,7 +276,8 @@ dia_uml_operation_format (DiaUmlOperation *operation)
   }
   
   first = TRUE;
-  while ((itm = g_list_model_get_item (G_LIST_MODEL (operation->parameters), i))) {
+  params = dia_uml_operation_get_parameters (operation);
+  while ((itm = g_list_model_get_item (params, i))) {
     DiaUmlParameter *param = DIA_UML_PARAMETER (itm);
     i++;
     
@@ -334,7 +338,7 @@ dia_uml_operation_format (DiaUmlOperation *operation)
   
   i = 0;
   first = TRUE;
-  while ((itm = g_list_model_get_item (G_LIST_MODEL (operation->parameters), i))) {
+  while ((itm = g_list_model_get_item (params, i))) {
     DiaUmlParameter *param = DIA_UML_PARAMETER (itm);
     i++;
     
@@ -438,6 +442,7 @@ dia_uml_operation_finalize (GObject *object)
   if (self->wrappos) {
     g_list_free (self->wrappos);
   }
+  g_list_free_full (self->parameters_hack, g_object_unref);
 
   /* freed elsewhere */
   /* These are merely temporary reminders, don't need to unconnect */
@@ -459,42 +464,42 @@ dia_uml_operation_set_property (GObject      *object,
     case UML_OP_NAME:
       self->name = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_NAME]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case UML_OP_TYPE:
       self->type = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_TYPE]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case UML_OP_COMMENT:
       self->comment = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_COMMENT]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case UML_OP_STEREOTYPE:
       self->stereotype = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_STEREOTYPE]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case UML_OP_VISIBILITY:
       self->visibility = g_value_get_int (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_VISIBILITY]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case UML_OP_INHERITANCE_TYPE:
       self->inheritance_type = g_value_get_int (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_INHERITANCE_TYPE]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case UML_OP_QUERY:
       self->query = g_value_get_boolean (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_QUERY]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case UML_OP_CLASS_SCOPE:
       self->class_scope = g_value_get_boolean (value);
       g_object_notify_by_pspec (object, uml_op_properties[UML_OP_CLASS_SCOPE]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -542,13 +547,13 @@ dia_uml_operation_get_property (GObject    *object,
 }
 
 static const gchar *
-format (DiaUmlListData *self)
+format (DiaListData *self)
 {
   return dia_uml_operation_format (DIA_UML_OPERATION (self));
 }
 
 static void
-dia_uml_operation_list_data_init (DiaUmlListDataInterface *iface)
+dia_uml_operation_list_data_init (DiaListDataInterface *iface)
 {
   iface->format = format;
 }
@@ -613,11 +618,11 @@ dia_uml_operation_class_init (DiaUmlOperationClass *klass)
 }
 
 static void
-bubble (DiaUmlListStore *store,
-        DiaUmlListData  *itm,
+bubble (DiaListStore *store,
+        DiaListData  *itm,
         DiaUmlOperation *self)
 {
-  dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+  dia_list_data_changed (DIA_LIST_DATA (self));
 }
 
 static void
@@ -627,7 +632,7 @@ items_changed (GListModel      *list,
                guint            added,
                DiaUmlOperation *self)
 {
-  dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+  dia_list_data_changed (DIA_LIST_DATA (self));
 }
 
 static void
@@ -643,7 +648,7 @@ dia_uml_operation_init (DiaUmlOperation *self)
   self->stereotype = g_strdup("");
   self->visibility = UML_PUBLIC;
   self->inheritance_type = UML_LEAF;
-  self->parameters = dia_uml_list_store_new ();
+  self->parameters = dia_list_store_new ();
   g_signal_connect (self->parameters, "changed",
                     G_CALLBACK (bubble), self);
   g_signal_connect (self->parameters, "items-changed",
@@ -661,18 +666,31 @@ dia_uml_operation_insert_parameter (DiaUmlOperation *self,
                                     DiaUmlParameter *parameter,
                                     int              index)
 {
-  dia_uml_list_store_insert (self->parameters, DIA_UML_LIST_DATA (parameter), index);
+  dia_list_store_insert (self->parameters, DIA_LIST_DATA (parameter), index);
 }
 
 void
 dia_uml_operation_remove_parameter (DiaUmlOperation *self,
                                     DiaUmlParameter *parameter)
 {
-  dia_uml_list_store_remove (self->parameters, DIA_UML_LIST_DATA (parameter));
+  dia_list_store_remove (self->parameters, DIA_LIST_DATA (parameter));
 }
 
 GListModel *
 dia_uml_operation_get_parameters (DiaUmlOperation *self)
 {
+  /* Instead of teaching Dia how to read into a DiaListStore we have this hack */
+  if (g_list_model_get_n_items (G_LIST_MODEL (self->parameters)) == 0 && self->parameters_hack) {
+    GList *list = self->parameters_hack;
+    while (list) {
+      GObject *itm = list->data;
+
+      dia_list_store_add (self->parameters, DIA_LIST_DATA (itm));
+
+      list = g_list_next (list);
+    }
+    g_list_free_full (self->parameters_hack, g_object_unref);
+    self->parameters_hack = NULL;
+  }
   return G_LIST_MODEL (self->parameters);
 }

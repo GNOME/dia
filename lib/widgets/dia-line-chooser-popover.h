@@ -15,7 +15,7 @@ struct _DiaLineChooserPopoverClass {
   GtkPopoverClass parent_class;
 };
 
-GtkWidget *dia_line_chooser_popover_new                  ();
+GtkWidget *dia_line_chooser_popover_new                  (void);
 LineStyle  dia_line_chooser_popover_get_line_style       (DiaLineChooserPopover *self,
                                                           gdouble               *length);
 void       dia_line_chooser_popover_set_line_style       (DiaLineChooserPopover *self,

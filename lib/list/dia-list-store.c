@@ -1,8 +1,8 @@
-#include "dia-uml-list-store.h"
+#include "dia-list-store.h"
 #include <glib.h>
 #include <gio/gio.h>
 
-struct _DiaUmlListStore
+struct _DiaListStore
 {
   GObject parent_instance;
 
@@ -22,30 +22,30 @@ enum {
 };
 static guint signals[LAST_SIGNAL] = { 0 };
 
-static void dia_uml_list_store_iface_init (GListModelInterface *iface);
+static void dia_list_store_iface_init (GListModelInterface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (DiaUmlListStore, dia_uml_list_store, G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, dia_uml_list_store_iface_init));
+G_DEFINE_TYPE_WITH_CODE (DiaListStore, dia_list_store, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, dia_list_store_iface_init));
 
 static void
-dia_uml_list_store_dispose (GObject *object)
+dia_list_store_dispose (GObject *object)
 {
-  DiaUmlListStore *store = DIA_UML_LIST_STORE (object);
+  DiaListStore *store = DIA_LIST_STORE (object);
 
   g_list_free_full (store->data, g_object_unref);
 
-  G_OBJECT_CLASS (dia_uml_list_store_parent_class)->dispose (object);
+  G_OBJECT_CLASS (dia_list_store_parent_class)->dispose (object);
 }
 
 static void
-dia_uml_list_store_get_property (GObject    *object,
-                                 guint       property_id,
-                                 GValue     *value,
-                                 GParamSpec *pspec)
+dia_list_store_get_property (GObject    *object,
+                             guint       property_id,
+                             GValue     *value,
+                             GParamSpec *pspec)
 {
   switch (property_id) {
     case PROP_ITEM_TYPE:
-      g_value_set_gtype (value, DIA_UML_TYPE_LIST_DATA);
+      g_value_set_gtype (value, DIA_TYPE_LIST_DATA);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -53,15 +53,15 @@ dia_uml_list_store_get_property (GObject    *object,
 }
 
 static void
-dia_uml_list_store_class_init (DiaUmlListStoreClass *klass)
+dia_list_store_class_init (DiaListStoreClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  object_class->dispose = dia_uml_list_store_dispose;
-  object_class->get_property = dia_uml_list_store_get_property;
+  object_class->dispose = dia_list_store_dispose;
+  object_class->get_property = dia_list_store_get_property;
 
   g_object_class_install_property (object_class, PROP_ITEM_TYPE,
-    g_param_spec_gtype ("item-type", "", "", DIA_UML_TYPE_LIST_DATA,
+    g_param_spec_gtype ("item-type", "", "", DIA_TYPE_LIST_DATA,
                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
 
@@ -70,29 +70,29 @@ dia_uml_list_store_class_init (DiaUmlListStoreClass *klass)
                                    G_SIGNAL_RUN_FIRST,
                                    0, NULL, NULL, NULL,
                                    G_TYPE_NONE, 1,
-                                   DIA_UML_TYPE_LIST_DATA);
+                                   DIA_TYPE_LIST_DATA);
 }
 
 static GType
-dia_uml_list_store_get_item_type (GListModel *list)
+dia_list_store_get_item_type (GListModel *list)
 {
-  return DIA_UML_TYPE_LIST_DATA;
+  return DIA_TYPE_LIST_DATA;
 }
 
 static guint
-dia_uml_list_store_get_n_items (GListModel *list)
+dia_list_store_get_n_items (GListModel *list)
 {
-  DiaUmlListStore *store = DIA_UML_LIST_STORE (list);
+  DiaListStore *store = DIA_LIST_STORE (list);
 
   return g_list_length (store->data);
 }
 
 static gpointer
-dia_uml_list_store_get_item (GListModel *list,
-                             guint       position)
+dia_list_store_get_item (GListModel *list,
+                         guint       position)
 {
-  DiaUmlListStore *store = DIA_UML_LIST_STORE (list);
-  DiaUmlListData *item;
+  DiaListStore *store = DIA_LIST_STORE (list);
+  DiaListData *item;
 
   item = g_list_nth_data (store->data, position);
 
@@ -103,41 +103,41 @@ dia_uml_list_store_get_item (GListModel *list,
 }
 
 static void
-dia_uml_list_store_iface_init (GListModelInterface *iface)
+dia_list_store_iface_init (GListModelInterface *iface)
 {
-  iface->get_item_type = dia_uml_list_store_get_item_type;
-  iface->get_n_items = dia_uml_list_store_get_n_items;
-  iface->get_item = dia_uml_list_store_get_item;
+  iface->get_item_type = dia_list_store_get_item_type;
+  iface->get_n_items = dia_list_store_get_n_items;
+  iface->get_item = dia_list_store_get_item;
 }
 
 static void
-dia_uml_list_store_init (DiaUmlListStore *store)
+dia_list_store_init (DiaListStore *store)
 {
   store->data = NULL;
 }
 
-DiaUmlListStore *
-dia_uml_list_store_new ()
+DiaListStore *
+dia_list_store_new ()
 {
-  return g_object_new (DIA_UML_TYPE_LIST_STORE, NULL);
+  return g_object_new (DIA_TYPE_LIST_STORE, NULL);
 }
 
 static void
-bubble_change (DiaUmlListData  *itm,
-               DiaUmlListStore *self)
+bubble_change (DiaListData  *itm,
+               DiaListStore *self)
 {
   g_signal_emit (self, signals[CHANGED], 0, itm);
 }
 
 void
-dia_uml_list_store_insert (DiaUmlListStore *store,
-                           DiaUmlListData  *item,
-                           int              index)
+dia_list_store_insert (DiaListStore *store,
+                       DiaListData  *item,
+                       int           index)
 {
-  g_return_if_fail (DIA_UML_IS_LIST_STORE (store));
+  g_return_if_fail (DIA_IS_LIST_STORE (store));
 
   if (index >= g_list_length (store->data)) {
-    dia_uml_list_store_add (store, item);
+    dia_list_store_add (store, item);
     return;
   }
 
@@ -148,12 +148,12 @@ dia_uml_list_store_insert (DiaUmlListStore *store,
 }
 
 void
-dia_uml_list_store_add (DiaUmlListStore *store,
-                        DiaUmlListData  *item)
+dia_list_store_add (DiaListStore *store,
+                    DiaListData  *item)
 {
   guint n_items;
 
-  g_return_if_fail (DIA_UML_IS_LIST_STORE (store));
+  g_return_if_fail (DIA_IS_LIST_STORE (store));
 
   n_items = g_list_length (store->data);
   store->data = g_list_append (store->data, g_object_ref (item));
@@ -163,12 +163,12 @@ dia_uml_list_store_add (DiaUmlListStore *store,
 }
 
 void
-dia_uml_list_store_remove (DiaUmlListStore *store,
-                           DiaUmlListData  *item)
+dia_list_store_remove (DiaListStore *store,
+                       DiaListData  *item)
 {
   int index;
 
-  g_return_if_fail (DIA_UML_IS_LIST_STORE (store));
+  g_return_if_fail (DIA_IS_LIST_STORE (store));
 
   index = g_list_index (store->data, item);
   store->data = g_list_remove (store->data, item);
@@ -179,12 +179,12 @@ dia_uml_list_store_remove (DiaUmlListStore *store,
 }
 
 void
-dia_uml_list_store_empty (DiaUmlListStore *store)
+dia_list_store_empty (DiaListStore *store)
 {
   guint n_items;
   GList *list;
 
-  g_return_if_fail (DIA_UML_IS_LIST_STORE (store));
+  g_return_if_fail (DIA_IS_LIST_STORE (store));
 
   n_items = g_list_length (store->data);
   list = store->data;

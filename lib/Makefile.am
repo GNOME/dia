@@ -3,6 +3,9 @@
 SUBDIRS=pixmaps
 
 stdprop_files = \
+	list/dia-list-data.c \
+	list/dia-list-store.c \
+	list/dia-list-row.c \
 	properties.h \
 	properties.c \
 	propinternals.h \

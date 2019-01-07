@@ -17,7 +17,7 @@ struct _DiaUmlFormalParameter {
   gchar *type; /**< Can be NULL => Type parameter */
 };
 
-DiaUmlFormalParameter *dia_uml_formal_parameter_new    ();
+DiaUmlFormalParameter *dia_uml_formal_parameter_new    (void);
 /** calculated the 'formated' representation */
 gchar                 *dia_uml_formal_parameter_format (DiaUmlFormalParameter *self);
 DiaUmlFormalParameter *dia_uml_formal_parameter_copy   (DiaUmlFormalParameter *self);

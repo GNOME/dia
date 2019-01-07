@@ -26,7 +26,7 @@ struct _DiaUmlAttribute {
   ConnectionPoint* right_connection; /**< right */
 };
 
-DiaUmlAttribute *dia_uml_attribute_new                      ();
+DiaUmlAttribute *dia_uml_attribute_new                      (void);
 /** calculated the 'formated' representation */
 gchar           *dia_uml_attribute_format                   (DiaUmlAttribute *attribute);
 DiaUmlAttribute *dia_uml_attribute_copy                     (DiaUmlAttribute *attr);

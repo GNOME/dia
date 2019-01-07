@@ -112,6 +112,6 @@ gboolean cairo_export_data (DiagramData *data,
 /* FIXME: need to think about proper registration */
 GType dia_cairo_interactive_renderer_get_type (void) G_GNUC_CONST;
 
-DiaRenderer *dia_cairo_interactive_renderer_new ();
+DiaRenderer *dia_cairo_interactive_renderer_new (void);
 
 G_END_DECLS

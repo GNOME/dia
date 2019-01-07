@@ -195,7 +195,7 @@ create_font_props_row (GtkGrid    *table,
 }
 
 static void 
-class_create_page(GtkNotebook *notebook, UMLClass *umlclass)
+class_create_page(GtkWidget *notebook, UMLClass *umlclass)
 {
   GtkWidget *page_label;
  
@@ -207,7 +207,7 @@ class_create_page(GtkNotebook *notebook, UMLClass *umlclass)
   gtk_widget_show (page_label);
   gtk_widget_show (umlclass->properties_dialog->editor);
 
-  gtk_notebook_append_page (notebook, umlclass->properties_dialog->editor, page_label);  
+  gtk_notebook_append_page (GTK_NOTEBOOK (notebook), umlclass->properties_dialog->editor, page_label);  
 }
 
 static void 

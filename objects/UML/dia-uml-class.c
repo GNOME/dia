@@ -2,7 +2,7 @@
 #include "dia-uml-operation.h"
 #include "dia-uml-attribute.h"
 #include "dia-uml-formal-parameter.h"
-#include "editor/dia-uml-list-store.h"
+#include "list/dia-list-store.h"
 #include "class_dialog.h"
 
 struct _DiaUmlClass {
@@ -44,14 +44,14 @@ struct _DiaUmlClass {
   GdkRGBA text_color;
 
   /* Attributes: */
-  DiaUmlListStore *attributes;
+  DiaListStore *attributes;
 
   /* Operators: */
-  DiaUmlListStore *operations;
+  DiaListStore *operations;
 
   /* Template: */
   gboolean is_template;
-  DiaUmlListStore *formal_params;
+  DiaListStore *formal_params;
 };
 
 G_DEFINE_TYPE (DiaUmlClass, dia_uml_class, G_TYPE_OBJECT)
@@ -367,7 +367,7 @@ dia_uml_class_load (DiaUmlClass *self,
   self->text_color = klass->text_color;
   
   list = klass->attributes;
-  self->attributes = dia_uml_list_store_new ();
+  self->attributes = dia_list_store_new ();
   while (list != NULL) {
     DiaUmlAttribute *attr = (DiaUmlAttribute *)list->data;
     DiaUmlAttribute *attr_copy;
@@ -377,31 +377,31 @@ dia_uml_class_load (DiaUmlClass *self,
     attr_copy->left_connection = attr->left_connection;
     attr_copy->right_connection = attr->right_connection;
 
-    dia_uml_list_store_add (self->attributes, DIA_UML_LIST_DATA (attr_copy));
+    dia_list_store_add (self->attributes, DIA_LIST_DATA (attr_copy));
     list = g_list_next(list);
   }
 
   list = klass->operations;
-  self->operations = dia_uml_list_store_new ();
+  self->operations = dia_list_store_new ();
   while (list != NULL) {
     DiaUmlOperation *op = (DiaUmlOperation *)list->data;
     DiaUmlOperation *copy = dia_uml_operation_copy (op);
 
     dia_uml_operation_connection_thing (copy, op);
 
-    dia_uml_list_store_add (self->operations, DIA_UML_LIST_DATA (copy));
+    dia_list_store_add (self->operations, DIA_LIST_DATA (copy));
     list = g_list_next(list);
   }
 
   self->is_template = klass->template;
 
   list = klass->formal_params;
-  self->formal_params = dia_uml_list_store_new ();
+  self->formal_params = dia_list_store_new ();
   while (list != NULL) {
     DiaUmlFormalParameter *param = (DiaUmlFormalParameter *)list->data;
     DiaUmlFormalParameter *copy = dia_uml_formal_parameter_copy (param);
 
-    dia_uml_list_store_add (self->formal_params, DIA_UML_LIST_DATA (copy));
+    dia_list_store_add (self->formal_params, DIA_LIST_DATA (copy));
     list = g_list_next(list);
   }
 }
@@ -415,7 +415,7 @@ dia_uml_class_store (DiaUmlClass *self,
                      GList      **disconnected)
 {
   GListModel *list_store;
-  DiaUmlListData *itm;
+  DiaListData *itm;
   DiaObject *obj;
   gboolean attr_visible = TRUE;
   gboolean op_visible = TRUE;
@@ -588,7 +588,7 @@ dia_uml_class_get_formal_parameters (DiaUmlClass *self)
 /*
  * Don't rely on these six being called!
  * 
- * The DiaUmlListStore can/will be edited directly (e.g. by DiaUmlClassEditor)
+ * The DiaListStore can/will be edited directly (e.g. by DiaUmlClassEditor)
  * so connect to items-changed if you want to observe these!
  */
 
@@ -597,14 +597,14 @@ dia_uml_class_insert_operation (DiaUmlClass     *self,
                                 DiaUmlOperation *operation,
                                 int              index)
 {
-  dia_uml_list_store_insert (self->operations, DIA_UML_LIST_DATA (operation), index);
+  dia_list_store_insert (self->operations, DIA_LIST_DATA (operation), index);
 }
 
 void
 dia_uml_class_remove_operation (DiaUmlClass     *self,
                                 DiaUmlOperation *operation)
 {
-  dia_uml_list_store_remove (self->operations, DIA_UML_LIST_DATA (operation));
+  dia_list_store_remove (self->operations, DIA_LIST_DATA (operation));
 }
 
 void
@@ -612,14 +612,14 @@ dia_uml_class_insert_attribute (DiaUmlClass     *self,
                                 DiaUmlAttribute *attribute,
                                 int              index)
 {
-  dia_uml_list_store_insert (self->attributes, DIA_UML_LIST_DATA (attribute), index);
+  dia_list_store_insert (self->attributes, DIA_LIST_DATA (attribute), index);
 }
 
 void
 dia_uml_class_remove_attribute (DiaUmlClass     *self,
                                 DiaUmlAttribute *attribute)
 {
-  dia_uml_list_store_remove (self->attributes, DIA_UML_LIST_DATA (attribute));
+  dia_list_store_remove (self->attributes, DIA_LIST_DATA (attribute));
 }
 
 void
@@ -627,12 +627,12 @@ dia_uml_class_insert_formal_parameter (DiaUmlClass           *self,
                                        DiaUmlFormalParameter *param,
                                        int                    index)
 {
-  dia_uml_list_store_insert (self->formal_params, DIA_UML_LIST_DATA (param), index);
+  dia_list_store_insert (self->formal_params, DIA_LIST_DATA (param), index);
 }
 
 void
 dia_uml_class_remove_formal_parameter (DiaUmlClass           *self,
                                        DiaUmlFormalParameter *param)
 {
-  dia_uml_list_store_remove (self->formal_params, DIA_UML_LIST_DATA (param));
+  dia_list_store_remove (self->formal_params, DIA_LIST_DATA (param));
 }

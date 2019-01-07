@@ -2,7 +2,6 @@
 # Please keep this file sorted alphabetically.
 app/app_procs.c
 app/autosave.c
-app/color_area.c
 app/commands.c
 app/confirm.c
 app/create_object.c
@@ -19,7 +18,6 @@ app/filedlg.c
 app/find-and-replace.c
 app/interface.c
 app/layer_dialog.c
-app/linewidth_area.c
 app/load_save.c
 app/menus.c
 app/modify_tool.c
@@ -40,16 +38,10 @@ lib/arrows.c
 lib/attributes.c
 lib/bezier_conn.c
 lib/create.c
-lib/diaarrowchooser.c
-lib/diaarrowselector.c
-lib/diacolorselector.c
 lib/dia_dirs.c
-lib/diadynamicmenu.c
 lib/diafontselector.c
 lib/diagramdata.c
 lib/dia_image.c
-lib/dialinechooser.c
-lib/dialinestyleselector.c
 lib/dialogs.c
 lib/diaoptionmenu.c
 lib/diapatternselector.c
@@ -165,12 +157,10 @@ objects/standard/zigzagline.c
 objects/UML/activity.c
 objects/UML/actor.c
 objects/UML/association.c
-objects/UML/class_attributes_dialog.c
 objects/UML/class.c
 objects/UML/class_dialog.c
 objects/UML/classicon.c
 objects/UML/class_operations_dialog.c
-objects/UML/class_templates_dialog.c
 objects/UML/component.c
 objects/UML/component_feature.c
 objects/UML/constraint.c
@@ -188,11 +178,7 @@ objects/UML/small_package.c
 objects/UML/state.c
 objects/UML/state_term.c
 objects/UML/transition.c
-objects/UML/umlattribute.c
 objects/UML/uml.c
-objects/UML/umlformalparameter.c
-objects/UML/umloperation.c
-objects/UML/umlparameter.c
 objects/UML/usecase.c
 plug-ins/cairo/diacairo.c
 plug-ins/cgm/cgm.c

@@ -1,6 +1,6 @@
 #include "dia-uml-operation-dialog.h"
 #include "dia-uml-operation-parameter-row.h"
-#include "dia-uml-list-store.h"
+#include "list/dia-list-store.h"
 #include "dia_dirs.h"
 
 G_DEFINE_TYPE (DiaUmlOperationDialog, dia_uml_operation_dialog, GTK_TYPE_DIALOG)
@@ -151,6 +151,7 @@ dia_uml_operation_dialog_set_property (GObject      *object,
                               G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
       paras = dia_uml_operation_get_parameters (self->operation);
+      g_message ("Got %i", g_list_model_get_n_items (paras));
       gtk_list_box_bind_model (GTK_LIST_BOX (self->list), paras,
                               (GtkListBoxCreateWidgetFunc) dia_uml_operation_parameter_row_new,
                               paras, NULL);

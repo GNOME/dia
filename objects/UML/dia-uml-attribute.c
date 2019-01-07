@@ -29,7 +29,7 @@
 
 #include "uml.h"
 #include "dia-uml-attribute.h"
-#include "editor/dia-uml-list-data.h"
+#include "list/dia-list-data.h"
 #include "properties.h"
 
 extern PropEnumData _uml_visibilities[];
@@ -73,10 +73,10 @@ PropDescDArrayExtra umlattribute_extra = {
 };
 
 static void
-dia_uml_attribute_list_data_init (DiaUmlListDataInterface *iface);
+dia_uml_attribute_list_data_init (DiaListDataInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (DiaUmlAttribute, dia_uml_attribute, G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (DIA_UML_TYPE_LIST_DATA,
+                         G_IMPLEMENT_INTERFACE (DIA_TYPE_LIST_DATA,
                                                 dia_uml_attribute_list_data_init))
 
 enum {
@@ -121,32 +121,32 @@ dia_uml_attribute_set_property (GObject      *object,
     case PROP_NAME:
       self->name = g_value_dup_string (value);
       g_object_notify_by_pspec (object, properties[PROP_NAME]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case PROP_TYPE:
       self->type = g_value_dup_string (value);
       g_object_notify_by_pspec (object, properties[PROP_TYPE]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case PROP_VALUE:
       self->value = g_value_dup_string (value);
       g_object_notify_by_pspec (object, properties[PROP_VALUE]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case PROP_COMMENT:
       self->comment = g_value_dup_string (value);
       g_object_notify_by_pspec (object, properties[PROP_COMMENT]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case PROP_VISIBILITY:
       self->visibility = g_value_get_int (value);
       g_object_notify_by_pspec (object, properties[PROP_VISIBILITY]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case PROP_CLASS_SCOPE:
       self->class_scope = g_value_get_boolean (value);
       g_object_notify_by_pspec (object, properties[PROP_CLASS_SCOPE]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -188,13 +188,13 @@ dia_uml_attribute_get_property (GObject    *object,
 }
 
 static const gchar *
-format (DiaUmlListData *self)
+format (DiaListData *self)
 {
   return dia_uml_attribute_format (DIA_UML_ATTRIBUTE (self));
 }
 
 static void
-dia_uml_attribute_list_data_init (DiaUmlListDataInterface *iface)
+dia_uml_attribute_list_data_init (DiaListDataInterface *iface)
 {
   iface->format = format;
 }

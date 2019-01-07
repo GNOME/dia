@@ -28,14 +28,14 @@
 #include <string.h>
 
 #include "dia-uml-parameter.h"
-#include "editor/dia-uml-list-data.h"
+#include "list/dia-list-data.h"
 #include "properties.h"
 
 static void
-dia_uml_parameter_list_data_init (DiaUmlListDataInterface *iface);
+dia_uml_parameter_list_data_init (DiaListDataInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (DiaUmlParameter, dia_uml_parameter, G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (DIA_UML_TYPE_LIST_DATA,
+                         G_IMPLEMENT_INTERFACE (DIA_TYPE_LIST_DATA,
                                                 dia_uml_parameter_list_data_init))
 
 enum {
@@ -180,27 +180,27 @@ dia_uml_parameter_set_property (GObject      *object,
     case UML_PARA_NAME:
       self->name = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_NAME]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case UML_PARA_TYPE:
       self->type = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_TYPE]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case UML_PARA_VALUE:
       self->value = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_VALUE]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case UML_PARA_COMMENT:
       self->comment = g_value_dup_string (value);
       g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_COMMENT]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     case UML_PARA_KIND:
       self->kind = g_value_get_int (value);
       g_object_notify_by_pspec (object, uml_para_properties[UML_PARA_KIND]);
-      dia_uml_list_data_changed (DIA_UML_LIST_DATA (self));
+      dia_list_data_changed (DIA_LIST_DATA (self));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -239,13 +239,13 @@ dia_uml_parameter_get_property (GObject    *object,
 }
 
 static const gchar *
-format (DiaUmlListData *self)
+format (DiaListData *self)
 {
   return dia_uml_parameter_format (DIA_UML_PARAMETER (self));
 }
 
 static void
-dia_uml_parameter_list_data_init (DiaUmlListDataInterface *iface)
+dia_uml_parameter_list_data_init (DiaListDataInterface *iface)
 {
   iface->format = format;
 }

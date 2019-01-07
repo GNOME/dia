@@ -1,7 +1,7 @@
 #include <glib-object.h>
 #include "uml.h"
 #include "dia-uml-parameter.h"
-#include "editor/dia-uml-list-store.h"
+#include "list/dia-list-store.h"
 
 #ifndef UML_OP_H
 #define UML_OP_H
@@ -32,7 +32,8 @@ struct _DiaUmlOperation {
   UMLInheritanceType inheritance_type;
   int query; /**< Do not modify the object, in C++ this is a const function */
   int class_scope;
-  DiaUmlListStore *parameters; /**< List of DiaUmlParameter */
+  DiaListStore *parameters; /**< List of DiaUmlParameter */
+  GList *parameters_hack;
 
   ConnectionPoint* l_connection; /**< left */
   ConnectionPoint* r_connection; /**< right */
@@ -43,7 +44,7 @@ struct _DiaUmlOperation {
   double ascent; /** The ascent amount used for line distance in wrapping */
 };
 
-DiaUmlOperation *dia_uml_operation_new                      ();
+DiaUmlOperation *dia_uml_operation_new                      (void);
 /** calculated the 'formated' representation */
 gchar           *dia_uml_operation_format                   (DiaUmlOperation *operation);
 /* TODO: Why */

@@ -105,7 +105,7 @@ exit_dialog_make (GtkWindow * parent_window,
     /* Scrolled window for displaying things which need saving */
     scrolled = gtk_scrolled_window_new (NULL, NULL);
     g_object_set (scrolled,
-                  "height-request", 60,
+                  "height-request", 100,
                   "shadow-type", GTK_SHADOW_IN,
                   NULL);
     gtk_box_pack_start (GTK_BOX (vbox), scrolled, TRUE, TRUE, 0);
