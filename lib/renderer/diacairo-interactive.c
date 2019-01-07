@@ -53,6 +53,13 @@ struct _DiaCairoInteractiveRenderer
   guint32 height;                 /* The height of the surface in pixels */
   cairo_region_t *clip_region;
 
+  /* Selection box */
+  gboolean has_selection;
+  double selection_x;
+  double selection_y;
+  double selection_width;
+  double selection_height;
+
   /** If non-NULL, this rendering is a highlighting with the given color. */
   GdkRGBA *highlight_color;
 };
@@ -262,6 +269,24 @@ draw_object_highlighted (DiaRenderer     *self,
   /* always reset when done with this object */
   interactive->highlight_color = NULL;
 }
+
+static void
+set_selection (DiaRenderer *renderer,
+               gboolean     has_selection,
+               double       x,
+               double       y,
+               double       width,
+               double       height)
+{
+  DiaCairoInteractiveRenderer *self = DIA_CAIRO_INTERACTIVE_RENDERER (renderer);
+
+  self->has_selection = has_selection;
+  self->selection_x = x;
+  self->selection_y = y;
+  self->selection_width = width;
+  self->selection_height = height;
+}
+
 static void 
 dia_cairo_interactive_renderer_iface_init (DiaInteractiveRendererInterface* iface)
 {
@@ -273,6 +298,7 @@ dia_cairo_interactive_renderer_iface_init (DiaInteractiveRendererInterface* ifac
   iface->paint = paint;
   iface->set_size = set_size;
   iface->draw_object_highlighted = draw_object_highlighted;
+  iface->set_selection = set_selection;
 }
 
 GType
@@ -467,12 +493,36 @@ paint (DiaRenderer *object,
        int          height)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-
+  double dashes[1] = {3};
   cairo_save (ctx);
+
   cairo_set_source_surface (ctx, renderer->surface, 0.0, 0.0);
   cairo_rectangle (ctx, 0, 0, width > 0 ? width : -width, height > 0 ? height : -height);
   cairo_clip (ctx);
   cairo_paint (ctx);
+
+  /* If there should be a selection rectange */
+  if (renderer->has_selection) {
+    /* Use a dark gray */
+    cairo_set_source_rgba (ctx, 0.1, 0.1, 0.1, 0.8);
+    cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
+    cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
+    cairo_set_line_width (ctx, 1);
+    cairo_set_dash (ctx, dashes, 1, 0);
+
+    /* Set the selected area */
+    cairo_rectangle (ctx,
+                    renderer->selection_x,
+                    renderer->selection_y,
+                    renderer->selection_width,
+                    renderer->selection_height);
+    /* Add a dashed gray outline */
+    cairo_stroke_preserve (ctx);
+    /* Very light blue tint fill */
+    cairo_set_source_rgba (ctx, 0, 0, 0.85, 0.05);
+    cairo_fill (ctx);
+  }
+
   cairo_restore (ctx);
 }
 

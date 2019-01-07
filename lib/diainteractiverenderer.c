@@ -92,3 +92,20 @@ dia_interactive_renderer_paint (DiaRenderer *renderer,
 
   irenderer->paint (renderer, ctx, width, height);
 }
+
+void
+dia_interactive_renderer_set_selection (DiaRenderer *renderer,
+                                        gboolean     has_selection,
+                                        double       x,
+                                        double       y,
+                                        double       width,
+                                        double       height)
+{
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
+  
+  g_return_if_fail (irenderer != NULL);
+  g_return_if_fail (irenderer->set_selection != NULL);
+
+  irenderer->set_selection (renderer, has_selection, x, y, width, height);
+}

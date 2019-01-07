@@ -313,15 +313,27 @@ struct _DiaInteractiveRendererInterface
   void (*draw_object_highlighted) (DiaRenderer *renderer,
 				   DiaObject *object,
 				   DiaHighlightType type);
+  /* Draw a selection box */
+  void (*set_selection)       (DiaRenderer *renderer,
+                               gboolean     has_selection,
+                               double       x,
+                               double       y,
+                               double       width,
+                               double       height);
 };
 
 GType dia_interactive_renderer_interface_get_type (void) G_GNUC_CONST;
 
-void dia_interactive_renderer_paint (DiaRenderer *renderer,
-                                     cairo_t     *ctx, 
-                                     int          width,
-                                     int          height);
-
+void dia_interactive_renderer_paint              (DiaRenderer *renderer,
+                                                  cairo_t     *ctx, 
+                                                  int          width,
+                                                  int          height);
+void dia_interactive_renderer_set_selection      (DiaRenderer *renderer,
+                                                  gboolean     has_selection,
+                                                  double       x,
+                                                  double       y,
+                                                  double       width,
+                                                  double       height);
 /*!
  * \brief Size adjustment to the given window
  * \memberof DiaInteractiveRendererInterface
