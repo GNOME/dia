@@ -57,6 +57,11 @@ magnify_button_release(MagnifyTool *tool, GdkEventButton *event,
 
   tool->box_active = FALSE;
 
+  dia_interactive_renderer_set_selection (ddisp->renderer,
+                                          FALSE, 0, 0, 0, 0);
+  ddisplay_flush (ddisp);
+
+
   visible = &ddisp->visible;
 
   ddisplay_untransform_coords(ddisp, tool->x, tool->y, &p1.x, &p1.y);
@@ -105,37 +110,15 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
   intPoint tl, br;
 
   if (tool->box_active) {
-    GdkColor white;
-    cairo_t *ctx;
-    double dashes[] = { 3 };
-
     tool->moved = TRUE;
-    color_convert(&color_white, &white);
 
-    ctx = gdk_cairo_create(gtk_widget_get_window(ddisp->canvas));
+    tl.x = MIN (tool->x, event->x); tl.y = MIN (tool->y, event->y);
+    br.x = MAX (tool->x, event->x); br.y = MAX (tool->y, event->y);
 
-    cairo_set_line_width (ctx, 1);
-    cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
-    cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
-    cairo_set_dash (ctx, dashes, 1, 0);
-
-    gdk_cairo_set_source_color (ctx, &white);
-    cairo_set_operator (ctx, CAIRO_OPERATOR_XOR);
-
-    tl.x = MIN(tool->x, tool->oldx); tl.y = MIN(tool->y, tool->oldy);
-    br.x = MAX(tool->x, tool->oldx); br.y = MAX(tool->y, tool->oldy);
-
-    cairo_rectangle (ctx, tl.x, tl.y, br.x - tl.x, br.y - tl.y);
-    cairo_stroke (ctx);
-
-    tl.x = MIN(tool->x, event->x); tl.y = MIN(tool->y, event->y);
-    br.x = MAX(tool->x, event->x); br.y = MAX(tool->y, event->y);
-
-    cairo_rectangle (ctx, tl.x, tl.y, br.x - tl.x, br.y - tl.y);
-    cairo_stroke (ctx);
-
-    tool->oldx = event->x;
-    tool->oldy = event->y;
+    dia_interactive_renderer_set_selection (ddisp->renderer,
+                                            TRUE,
+                                            tl.x, tl.y, br.x - tl.x, br.y - tl.y);
+    ddisplay_flush (ddisp);
   }
 }
 
