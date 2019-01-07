@@ -8,7 +8,7 @@
   <shortdesc xml:lang="en">Dia is a program for drawing structured diagrams</shortdesc>
   <homepage rdf:resource="https://wiki.gnome.org/Apps/Dia" />
   <download-page rdf:resource="http://download.gnome.org/sources/dia/" />
-  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/dia/issues/" />
+  <bug-database rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=dia" />
   <mailing-list rdf:resource="http://mail.gnome.org/mailman/listinfo/dia-list" />
 
   <programming-language>C</programming-language>
