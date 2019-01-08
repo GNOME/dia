@@ -21,10 +21,12 @@
 #include "geometry.h"
 #include "tool.h"
 
-typedef struct _CreateObjectTool CreateObjectTool;
 
-struct _CreateObjectTool {
-  Tool tool;
+#define DIA_TYPE_CREATE_TOOL (dia_create_tool_get_type ())
+G_DECLARE_FINAL_TYPE (DiaCreateTool, dia_create_tool, DIA, CREATE_TOOL, DiaTool)
+
+struct _DiaCreateTool {
+  DiaTool tool;
 
   DiaObjectType *objtype;
   void *user_data;
@@ -36,8 +38,9 @@ struct _CreateObjectTool {
   int invert_persistence;
 };
 
-
-Tool *create_create_object_tool(DiaObjectType *objtype, void *user_date, int invert_persistence);
-void free_create_object_tool(Tool *tool);
+DiaTool *
+dia_create_tool_new (DiaObjectType *objtype,
+                     gboolean       invert_persistence,
+                     void          *user_data);
 
 #endif /* CREATE_OBJECT_H */

@@ -38,6 +38,12 @@
 
 #include "pixmaps/missing.xpm"
 
+#include "tools/textedit_tool.h"
+#include "tools/create_object.h"
+#include "tools/magnify.h"
+#include "tools/modify_tool.h"
+#include "tools/scroll_tool.h"
+
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include "dia-app-icons.h"
 
@@ -329,7 +335,7 @@ fill_sheet_wbox (DiaToolbox *self, DiaSheet *sheet)
   }
   /* If the selection is in the old sheet, steal it */
   if (active_tool != NULL &&
-      active_tool->type == CREATE_OBJECT_TOOL &&
+      DIA_IS_CREATE_TOOL (active_tool) &&
       first_button != NULL)
     g_signal_emit_by_name(G_OBJECT(first_button), "toggled",
 			  GTK_BUTTON(first_button), NULL);
@@ -455,7 +461,7 @@ change_end_arrow_style (DiaArrowChooser *chooser, gpointer user_data)
 }
 
 static void
-change_line_style(DiaLineStyleSelector *selector, gpointer user_data)
+change_line_style(DiaLineChooser *selector, gpointer user_data)
 {
   LineStyle lstyle;
   real dash_length;
@@ -551,14 +557,18 @@ tool_get_pixbuf (ToolButton *tb)
     
     type = object_get_type((char *)tb->callback_data.extra_data);
     if (type == NULL)
-      icon_data = tool_data[0].icon_data;
+      icon_data = NULL;
     else
       icon_data = type->pixmap;
   } else {
     icon_data = tb->icon_data;
   }
   
-  if (strncmp((char*)icon_data, "GdkP", 4) == 0) {
+  if (icon_data == NULL) {
+    pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
+                                       "image-missing", 22,
+                                       0, NULL);
+  } else if (strncmp((char*)icon_data, "GdkP", 4) == 0) {
     pixbuf = gdk_pixbuf_new_from_inline(-1, (guint8*)icon_data, TRUE, NULL);
   } else {
     const char **pixmap_data = icon_data;
@@ -608,17 +618,6 @@ create_tools (DiaToolbox *self)
     gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
     tool_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (button));
     gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
-
-/*
-
-  0     1     2     3 
-  0, 0  0, 1  0, 2  0, 3
-  4     5     6     7 
-  1, 0  1, 1  1, 2  1, 3
-  8     9     10    11
-  2, 0  2, 1  2, 2  2, 3
-
-*/
 
     gtk_grid_attach (GTK_GRID (self->tools), button, i % COLUMNS, i / COLUMNS, 1, 1);
 

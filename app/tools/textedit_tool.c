@@ -24,6 +24,8 @@
 #include "cursor.h"
 #include "object_ops.h"
 
+G_DEFINE_TYPE (DiaTextEditTool, dia_text_edit_tool, DIA_TYPE_TOOL)
+
 /** The text edit tool.  This tool allows the user to switch to a mode where
  * clicking on an editable text will start text edit mode.  Clicking outside
  * of editable text will revert to selection tool.  Note that clicking this
@@ -31,8 +33,9 @@
  * by clicking an object.
  */
 static DiaObject *
-click_select_object(DDisplay *ddisp, Point *clickedpoint,
-		    GdkEventButton *event)
+click_select_object (DDisplay       *ddisp,
+                     Point          *clickedpoint,
+                     GdkEventButton *event)
 {
   real click_distance = ddisplay_untransform_length(ddisp, 3.0);
   Diagram *diagram = ddisp->diagram;
@@ -52,96 +55,93 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
     already = g_list_find(diagram->data->selected, obj);
     if (already == NULL) { /* Not already selected */
       if (!(event->state & GDK_SHIFT_MASK)) {
-	/* Not Multi-select => remove current selection */
-	diagram_remove_all_selected(diagram, TRUE);
+        /* Not Multi-select => remove current selection */
+        diagram_remove_all_selected (diagram, TRUE);
       }
-      diagram_select(diagram, obj);
+      diagram_select (diagram, obj);
     }
-    ddisplay_do_update_menu_sensitivity(ddisp);
-    object_add_updates_list(diagram->data->selected, diagram);
-    diagram_flush(diagram);
+    ddisplay_do_update_menu_sensitivity (ddisp);
+    object_add_updates_list (diagram->data->selected, diagram);
+    diagram_flush (diagram);
 
     return obj;
   }
 
-  return obj;  
+  return obj;
 }
 
 static void
-textedit_button_press(TexteditTool *tool, GdkEventButton *event,
-		      DDisplay *ddisp)
+text_edit_button_press (DiaTool        *tool,
+                        GdkEventButton *event,
+                        DDisplayBox    *ddisp)
 {
+  DiaTextEditTool *self = DIA_TEXT_EDIT_TOOL (tool);
   Point clickedpoint;
-  Diagram *diagram = ddisp->diagram;
-  DiaObject *obj = click_select_object (ddisp, &clickedpoint, event);
+  Diagram *diagram = ddisp->ddisp->diagram;
+  DiaObject *obj = click_select_object (ddisp->ddisp, &clickedpoint, event);
 
   if (obj) {
-    if (obj != tool->object)
+    if (obj != self->object)
       textedit_deactivate_focus ();
 
     /*  set cursor position */
-    if (textedit_activate_object(ddisp, obj, &clickedpoint)) {
-      tool->object = obj;
-      tool->start_at = clickedpoint;
-      tool->state = STATE_TEXT_SELECT;
+    if (textedit_activate_object (ddisp->ddisp, obj, &clickedpoint)) {
+      self->object = obj;
+      self->start_at = clickedpoint;
+      self->state = STATE_TEXT_SELECT;
     } else {
       /* Clicked outside of editable object, stop editing */
-      tool_reset();
+      tool_reset ();
     }
   } else {
     textedit_deactivate_focus ();
-    diagram_remove_all_selected(diagram, TRUE);
-    tool_reset();
-  }
-}
-
-static void
-textedit_button_release(TexteditTool *tool, GdkEventButton *event,
-		        DDisplay *ddisp)
-{
-  Point clickedpoint;
-  DiaObject *obj = click_select_object (ddisp, &clickedpoint, event);
-  
-  if (obj) {
-    ddisplay_do_update_menu_sensitivity(ddisp);
-
-    tool->state = STATE_TEXT_EDIT;
-    /* no selection in the text editing yes */
-  } else {
-    /* back to modifying if we dont have an object */
-    textedit_deactivate_focus();
+    diagram_remove_all_selected (diagram, TRUE);
     tool_reset ();
   }
 }
 
 static void
-textedit_motion(TexteditTool *tool, GdkEventMotion *event,
-	        DDisplay *ddisp)
+text_edit_button_release (DiaTool        *tool,
+                          GdkEventButton *event,
+                          DDisplayBox    *ddisp)
+{
+  Point clickedpoint;
+  DiaObject *obj = click_select_object (ddisp->ddisp, &clickedpoint, event);
+  
+  if (obj) {
+    ddisplay_do_update_menu_sensitivity (ddisp->ddisp);
+
+    DIA_TEXT_EDIT_TOOL (tool)->state = STATE_TEXT_EDIT;
+    /* no selection in the text editing yes */
+  } else {
+    /* back to modifying if we dont have an object */
+    textedit_deactivate_focus ();
+    tool_reset ();
+  }
+}
+
+static void
+text_edit_motion (DiaTool        *tool,
+                  GdkEventMotion *event,
+                  DDisplayBox    *ddisp)
 {
   /* if we implement text selection here we could update the visual feedback */
 }
 
 static void
-textedit_double_click(TexteditTool *tool, GdkEventButton *event,
-		      DDisplay *ddisp)
+text_edit_double_click (DiaTool        *tool,
+                        GdkEventButton *event,
+                        DDisplayBox    *ddisp)
 {
   /* if we implment text selection this should select a word */
 }
 
-Tool *
-create_textedit_tool(void)
+static void
+activate (DiaTool *tool)
 {
-  TexteditTool *tool;
   DDisplay *ddisp;
 
-  tool = g_new0(TexteditTool, 1);
-  tool->tool.type = TEXTEDIT_TOOL;
-  tool->tool.button_press_func = (ButtonPressFunc) &textedit_button_press;
-  tool->tool.button_release_func = (ButtonReleaseFunc) &textedit_button_release;
-  tool->tool.motion_func = (MotionFunc) &textedit_motion;
-  tool->tool.double_click_func = (DoubleClickFunc) &textedit_double_click;
-  
-  ddisplay_set_all_cursor(get_cursor(CURSOR_XTERM));
+  ddisplay_set_all_cursor (get_cursor (CURSOR_XTERM));
 
   ddisp = ddisplay_active();
   if (ddisp) {
@@ -149,23 +149,38 @@ create_textedit_tool(void)
       /*  set the focus to the canvas area  */
       gtk_widget_grab_focus (ddisp->canvas);
     }
-    ddisplay_flush(ddisp);
+    ddisplay_flush (ddisp);
     /* the above may have entered the textedit mode, just update in any case */
-    ddisplay_do_update_menu_sensitivity(ddisp);
+    ddisplay_do_update_menu_sensitivity (ddisp);
   }
-
-  return (Tool *)tool;
 }
 
-void
-free_textedit_tool (Tool *tool)
+static void
+deactivate (DiaTool *tool)
 {
-  DDisplay *ddisp = ddisplay_active();
+  DDisplay *ddisp = ddisplay_active ();
   if (ddisp) {
     textedit_deactivate_focus ();
-    ddisplay_flush(ddisp);
+    ddisplay_flush (ddisp);
   }
-  ddisplay_set_all_cursor(default_cursor);
+  ddisplay_set_all_cursor (default_cursor);
+}
 
-  g_free (tool);
+static void
+dia_text_edit_tool_class_init (DiaTextEditToolClass *klass)
+{
+  DiaToolClass *tool_class = DIA_TOOL_CLASS (klass);
+
+  tool_class->activate = activate;
+  tool_class->deactivate = deactivate;
+
+  tool_class->button_press = text_edit_button_press;
+  tool_class->button_release = text_edit_button_release;
+  tool_class->motion = text_edit_motion;
+  tool_class->double_click = text_edit_double_click;
+}
+
+static void
+dia_text_edit_tool_init (DiaTextEditTool *self)
+{
 }

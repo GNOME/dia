@@ -668,69 +668,70 @@ app_init (int argc, char **argv)
 
     if (!g_option_context_parse (context, &argc, &argv, &error)) {
       if (error) { /* IMO !error here is a bug upstream, triggered e.g. with --gdk-debug=updates */
-	g_print ("%s", error->message);
-	g_error_free (error);
+        g_print ("%s", error->message);
+        g_error_free (error);
       } else {
-	g_print (_("Invalid option?"));
+        g_print (_("Invalid option?"));
       }
 
       g_option_context_free(context);
       exit(1);
     }
+
     /* second level check of command line options, existance of input files etc. */
     if (filenames) {
       while (filenames[i] != NULL) {
-	gchar *filename; 
-	gchar *testpath;	  
-
-	if (g_str_has_prefix (filenames[i], "file://")) {
-	  filename = g_filename_from_uri (filenames[i], NULL, NULL);
-	  if (!g_utf8_validate(filename, -1, NULL)) {
-	    gchar *tfn = filename;
-	    filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
-	    g_free(tfn);
-	  }
-	} else
-	  filename = g_filename_to_utf8 (filenames[i], -1, NULL, NULL, NULL);
-
-	if (!filename) {
-	  g_print (_("Filename conversion failed: %s\n"), filenames[i]);
-	  continue;
-	}
-
-	if (g_path_is_absolute(filename))
-	  testpath = filename;
-	else
-	  testpath = g_build_filename(input_directory ? input_directory : ".", filename, NULL);
-
-	/* we still have a problem here, if GLib's file name encoding would not be utf-8 */
-	if (g_file_test (testpath, G_FILE_TEST_IS_REGULAR))
-	  files = g_slist_append(files, filename);
-	else {
-	  g_print (_("Missing input: %s\n"), filename);
-	  g_free (filename);
-	}
-	if (filename != testpath)
-	  g_free (testpath);
-	++i;
+        gchar *filename;
+        gchar *testpath;
+        
+        if (g_str_has_prefix (filenames[i], "file://")) {
+          filename = g_filename_from_uri (filenames[i], NULL, NULL);
+          if (!g_utf8_validate(filename, -1, NULL)) {
+            gchar *tfn = filename;
+            filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
+            g_free(tfn);
+          }
+        } else {
+          filename = g_filename_to_utf8 (filenames[i], -1, NULL, NULL, NULL);
+        }
+        if (!filename) {
+          g_print (_("Filename conversion failed: %s\n"), filenames[i]);
+          continue;
+        }
+        
+        if (g_path_is_absolute(filename))
+          testpath = filename;
+        else
+          testpath = g_build_filename(input_directory ? input_directory : ".", filename, NULL);
+          
+        /* we still have a problem here, if GLib's file name encoding would not be utf-8 */
+        if (g_file_test (testpath, G_FILE_TEST_IS_REGULAR)) {
+          files = g_slist_append(files, filename);
+        } else {
+          g_print (_("Missing input: %s\n"), filename);
+          g_free (filename);
+        }
+        
+        if (filename != testpath)
+          g_free (testpath);
+        ++i;
       }
     }
+
     /* given some files to output (or something;)), we are not starting up the UI */
     if (export_file_name || export_file_format || size || credits || version || list_filters)
       dia_is_interactive = FALSE;
-
   }
 
   if (argv && dia_is_interactive) {
-    gtk_init(&argc, &argv);
-  }
-  else {
+    gtk_init (&argc, &argv);
+  } else {
     /*
      * On Windows there is no command line without display so that gtk_init is harmless. 
      * On X11 we need gtk_init_check() to avoid exit() just because there is no display 
      * running outside of X11.
      */
-    if (!gtk_init_check(&argc, &argv))
+    if (!gtk_init_check (&argc, &argv))
       dia_log_message ("Running without display");
   }
 
@@ -739,14 +740,14 @@ app_init (int argc, char **argv)
     gchar *ver_locale;
 #if (defined __TIME__) && (defined __DATE__)
     /* TRANSLATOR: 2nd and 3rd %s are time and date respectively. */
-    ver_utf8 = g_strdup_printf(_("Dia version %s, compiled %s %s\n"), VERSION, __TIME__, __DATE__);
+    ver_utf8 = g_strdup_printf (_("Dia version %s, compiled %s %s\n"), VERSION, __TIME__, __DATE__);
 #else
-    ver_utf8 = g_strdup_printf(_("Dia version %s\n"), VERSION);
+    ver_utf8 = g_strdup_printf (_("Dia version %s\n"), VERSION);
 #endif
-    ver_locale = g_locale_from_utf8(ver_utf8, -1, NULL, NULL, NULL);
-    printf("%s\n", ver_locale);
-    g_free(ver_locale);
-    g_free(ver_utf8);
+    ver_locale = g_locale_from_utf8 (ver_utf8, -1, NULL, NULL, NULL);
+    g_printf ("%s\n", ver_locale);
+    g_free (ver_locale);
+    g_free (ver_utf8);
     if (verbose)
       dump_dependencies();
     exit(0);
@@ -755,9 +756,9 @@ app_init (int argc, char **argv)
   if (!dia_is_interactive)
     log_to_stderr = TRUE;
 
-  libdia_init (   (dia_is_interactive ? DIA_INTERACTIVE : 0)
-	       | (log_to_stderr ? DIA_MESSAGE_STDERR : 0)
-	       | (verbose ? DIA_VERBOSE : 0) );
+  libdia_init (  (dia_is_interactive ? DIA_INTERACTIVE : 0)
+               | (log_to_stderr ? DIA_MESSAGE_STDERR : 0)
+               | (verbose ? DIA_VERBOSE : 0) );
 
   if (credits) {
     print_credits();
@@ -768,22 +769,22 @@ app_init (int argc, char **argv)
     create_user_dirs();
 
     if (!nosplash)
-      app_splash_init("");
+      app_splash_init ("");
 
     /* Init cursors: */
-    default_cursor = gdk_cursor_new(GDK_LEFT_PTR);
-    ddisplay_set_all_cursor(default_cursor);
+    default_cursor = gdk_cursor_new (GDK_LEFT_PTR);
+    ddisplay_set_all_cursor (default_cursor);
   }
 
-  dia_register_plugins();
-  dia_register_builtin_plugin(internal_plugin_init);
+  dia_register_plugins ();
+  dia_register_builtin_plugin (internal_plugin_init);
 
   if (list_filters) {
     print_filters_list (verbose);
     exit (0);
   }
 
-  load_all_sheets();     /* new mechanism */
+  load_all_sheets ();     /* new mechanism */
 
   dia_log_message ("object defaults");
   {
@@ -793,11 +794,11 @@ app_init (int argc, char **argv)
   }
   debug_break();
 
-  if (object_get_type("Standard - Box") == NULL) {
-    message_error(_("Couldn't find standard objects when looking for "
-		  "object-libs; exiting...\n"));
-    g_critical( _("Couldn't find standard objects when looking for "
-	    "object-libs in '%s'; exiting...\n"), dia_get_lib_directory("dia"));
+  if (object_get_type ("Standard - Box") == NULL) {
+    message_error (_("Couldn't find standard objects when looking for "
+                    "object-libs; exiting...\n"));
+    g_critical (_("Couldn't find standard objects when looking for "
+                  "object-libs in '%s'; exiting...\n"), dia_get_lib_directory("dia"));
     exit(1);
   }
 
@@ -809,7 +810,7 @@ app_init (int argc, char **argv)
   if (dia_is_interactive) {
 
     /* further initialization *before* reading files */  
-    active_tool = create_modify_tool();
+    active_tool = g_object_new (DIA_TYPE_MODIFY_TOOL, NULL);
 
     dia_log_message ("ui creation");
     if (use_integrated_ui) {
@@ -838,9 +839,9 @@ app_init (int argc, char **argv)
   }
 
   dia_log_message ("diagrams");
-  made_conversions = handle_all_diagrams(files, export_file_name,
-					 export_file_format, size, show_layers,
-					 input_directory, output_directory);
+  made_conversions = handle_all_diagrams (files, export_file_name,
+                                          export_file_format, size, show_layers,
+                                          input_directory, output_directory);
 
   if (dia_is_interactive && files == NULL && !nonew) {
     if (use_integrated_ui) {

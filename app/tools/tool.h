@@ -20,18 +20,16 @@
 
 #include <gdk/gdk.h>
 
-typedef struct _Tool Tool;
-typedef struct _ToolState ToolState;
+G_BEGIN_DECLS
 
-typedef enum _ToolType ToolType;
+typedef struct _ToolState ToolState;
 
 #include "display.h"
 
-typedef void (* ButtonPressFunc)   (Tool *, GdkEventButton *, DDisplay *ddisp);
-typedef void (* ButtonHoldFunc)    (Tool *, GdkEventButton *, DDisplay *ddisp);
-typedef void (* DoubleClickFunc)   (Tool *, GdkEventButton *, DDisplay *ddisp);
-typedef void (* ButtonReleaseFunc) (Tool *, GdkEventButton *, DDisplay *ddisp);
-typedef void (* MotionFunc)        (Tool *, GdkEventMotion *, DDisplay *ddisp);
+#define DIA_TYPE_TOOL (dia_tool_get_type ())
+G_DECLARE_DERIVABLE_TYPE (DiaTool, dia_tool, DIA, TOOL, GObject)
+
+typedef enum _ToolType ToolType;
 
 enum _ToolType {
   CREATE_OBJECT_TOOL,
@@ -41,36 +39,52 @@ enum _ToolType {
   TEXTEDIT_TOOL
 };
 
-struct _Tool {
-  ToolType type;
-  
-  /*  Action functions  */
-  ButtonPressFunc    button_press_func;
-  ButtonHoldFunc     button_hold_func;
-  ButtonReleaseFunc  button_release_func;
-  MotionFunc         motion_func;
-  DoubleClickFunc    double_click_func;
+struct _DiaToolClass {
+  GObjectClass parent_class;
+
+  void (* activate)       (DiaTool *);
+  void (* deactivate)     (DiaTool *);
+
+  void (* button_press)   (DiaTool *, GdkEventButton *, DDisplayBox *ddisp);
+  void (* button_hold)    (DiaTool *, GdkEventButton *, DDisplayBox *ddisp);
+  void (* double_click)   (DiaTool *, GdkEventButton *, DDisplayBox *ddisp);
+  void (* button_release) (DiaTool *, GdkEventButton *, DDisplayBox *ddisp);
+  void (* motion)         (DiaTool *, GdkEventMotion *, DDisplayBox *ddisp);
 };
 
 struct _ToolState {
-  ToolType type;
+  GType type;
   gpointer extra_data;
   gpointer user_data;
   GtkWidget *button;
   int invert_persistence;
 };
 
-extern Tool *active_tool, *transient_tool;
+extern DiaTool *active_tool, *transient_tool;
 
 void tool_get(ToolState *state);
 void tool_restore(const ToolState *state);
-void tool_free(Tool *tool);
-void tool_select(ToolType type, gpointer extra_data, gpointer user_date,
-                 GtkWidget *button, int invert_persistence);
+void tool_select              (ToolType   type,
+                               gpointer   extra_data,
+                               gpointer   user_date,
+                               GtkWidget *button,
+                               int        invert_persistence);
 void tool_select_former(void);
 void tool_reset(void);
-void tool_options_dialog_show(ToolType type, gpointer extra_data, 
-			      gpointer user_data,GtkWidget *button,
-                              int invert_persistence);
+void tool_options_dialog_show (GType      type,
+                               gpointer   extra_data, 
+                               gpointer   user_data,
+                               GtkWidget *button,
+                               gboolean   invert_persistence);
+
+void dia_tool_activate       (DiaTool *self);
+void dia_tool_deactivate     (DiaTool *self);
+void dia_tool_button_press   (DiaTool *self, GdkEventButton *, DDisplay *ddisp);
+void dia_tool_button_hold    (DiaTool *self, GdkEventButton *, DDisplay *ddisp);
+void dia_tool_double_click   (DiaTool *self, GdkEventButton *, DDisplay *ddisp);
+void dia_tool_button_release (DiaTool *self, GdkEventButton *, DDisplay *ddisp);
+void dia_tool_motion         (DiaTool *self, GdkEventMotion *, DDisplay *ddisp);
+
+G_END_DECLS
 
 #endif /* TOOL_H */

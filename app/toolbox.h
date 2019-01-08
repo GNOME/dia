@@ -1,4 +1,5 @@
 #include "tools/tool.h"
+#include "tools/create_object.h"
 
 G_BEGIN_DECLS
 
@@ -19,7 +20,7 @@ typedef struct _ToolButtonData ToolButtonData;
 
 struct _ToolButtonData
 {
-  ToolType type;
+  GType    type;
   gpointer extra_data;
   gpointer user_data; /* Used by create_object_tool */
   GtkWidget *widget;
@@ -39,12 +40,11 @@ extern ToolButton tool_data[];
 extern gchar *interface_current_sheet_name;
 
 void tool_select_update (GtkWidget *w, gpointer   data);
-GdkPixbuf *tool_get_pixbuf (ToolButton *tb);
 
 void toolbox_setup_drag_dest (GtkWidget *canvas);
 void canvas_setup_drag_dest (GtkWidget *canvas);
 
-GtkWidget *dia_toolbox_new           ();
+GtkWidget *dia_toolbox_new           (void);
 void       dia_toolbox_update_sheets (DiaToolbox *self);
 
 G_END_DECLS

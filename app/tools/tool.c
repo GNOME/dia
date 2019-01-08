@@ -27,10 +27,157 @@
 #include "defaults.h"
 #include "object.h"
 
-Tool *active_tool = NULL;
-Tool *transient_tool = NULL;
+DiaTool *active_tool = NULL;
+DiaTool *transient_tool = NULL;
 static GtkWidget *active_button = NULL;
 static GtkWidget *former_button = NULL;
+
+
+G_DEFINE_TYPE (DiaTool, dia_tool, G_TYPE_OBJECT)
+
+enum {
+  ACTIVATE,
+  DEACTIVATE,
+  BUTTON_PRESS,
+  BUTTON_HOLD,
+  DOUBLE_CLICK,
+  BUTTON_RELEASE,
+  MOTION,
+  LAST_SIGNAL
+};
+static guint signals[LAST_SIGNAL] = { 0 };
+
+static void
+dia_tool_class_init (DiaToolClass *klass)
+{
+  klass->activate = NULL;
+  klass->deactivate = NULL;
+  klass->button_press = NULL;
+  klass->button_hold = NULL;
+  klass->double_click = NULL;
+  klass->button_release = NULL;
+  klass->motion = NULL;
+
+  signals[ACTIVATE] = g_signal_new ("activate",
+                                    G_TYPE_FROM_CLASS (klass),
+                                    G_SIGNAL_RUN_FIRST,
+                                    G_STRUCT_OFFSET (DiaToolClass, activate),
+                                    NULL, NULL, NULL,
+                                    G_TYPE_NONE, 0);
+
+  signals[DEACTIVATE] = g_signal_new ("deactivate",
+                                        G_TYPE_FROM_CLASS (klass),
+                                        G_SIGNAL_RUN_FIRST,
+                                        G_STRUCT_OFFSET (DiaToolClass, activate),
+                                        NULL, NULL, NULL,
+                                        G_TYPE_NONE, 0);
+
+  signals[BUTTON_PRESS] = g_signal_new ("button-press",
+                                        G_TYPE_FROM_CLASS (klass),
+                                        G_SIGNAL_RUN_FIRST,
+                                        G_STRUCT_OFFSET (DiaToolClass, button_press),
+                                        NULL, NULL, NULL,
+                                        G_TYPE_NONE, 2,
+                                        GDK_TYPE_EVENT,
+                                        DIA_TYPE_DISPLAY);
+
+  signals[BUTTON_HOLD] = g_signal_new ("button-hold",
+                                       G_TYPE_FROM_CLASS (klass),
+                                       G_SIGNAL_RUN_FIRST,
+                                       G_STRUCT_OFFSET (DiaToolClass, button_hold),
+                                       NULL, NULL, NULL,
+                                       G_TYPE_NONE, 2,
+                                       GDK_TYPE_EVENT,
+                                       DIA_TYPE_DISPLAY);
+
+  signals[DOUBLE_CLICK] = g_signal_new ("double-click",
+                                        G_TYPE_FROM_CLASS (klass),
+                                        G_SIGNAL_RUN_FIRST,
+                                        G_STRUCT_OFFSET (DiaToolClass, double_click),
+                                        NULL, NULL, NULL,
+                                        G_TYPE_NONE, 2,
+                                        GDK_TYPE_EVENT,
+                                        DIA_TYPE_DISPLAY);
+
+  signals[BUTTON_RELEASE] = g_signal_new ("button-release",
+                                          G_TYPE_FROM_CLASS (klass),
+                                          G_SIGNAL_RUN_FIRST,
+                                          G_STRUCT_OFFSET (DiaToolClass, button_release),
+                                          NULL, NULL, NULL,
+                                          G_TYPE_NONE, 2,
+                                          GDK_TYPE_EVENT,
+                                          DIA_TYPE_DISPLAY);
+
+  signals[MOTION] = g_signal_new ("motion",
+                                  G_TYPE_FROM_CLASS (klass),
+                                  G_SIGNAL_RUN_FIRST,
+                                  G_STRUCT_OFFSET (DiaToolClass, motion),
+                                  NULL, NULL, NULL,
+                                  G_TYPE_NONE, 2,
+                                  GDK_TYPE_EVENT,
+                                  DIA_TYPE_DISPLAY);
+}
+
+static void
+dia_tool_init (DiaTool *self)
+{
+
+}
+
+void
+dia_tool_activate (DiaTool *self)
+{
+  g_signal_emit (self, signals[ACTIVATE], 0);
+}
+
+void
+dia_tool_deactivate (DiaTool *self)
+{
+  g_signal_emit (self, signals[DEACTIVATE], 0);
+}
+
+void
+dia_tool_button_press (DiaTool        *self,
+                       GdkEventButton *event,
+                       DDisplay       *ddisp)
+{
+  g_signal_emit (self, signals[BUTTON_PRESS], 0, event, display_box_new (ddisp));
+}
+
+void
+dia_tool_button_hold (DiaTool        *self,
+                      GdkEventButton *event,
+                      DDisplay       *ddisp)
+{
+  g_signal_emit (self, signals[BUTTON_HOLD], 0, event, display_box_new (ddisp));
+
+}
+
+void
+dia_tool_double_click (DiaTool        *self,
+                       GdkEventButton *event,
+                       DDisplay       *ddisp)
+{
+  g_signal_emit (self, signals[DOUBLE_CLICK], 0, event, display_box_new (ddisp));
+
+}
+
+void
+dia_tool_button_release (DiaTool        *self,
+                         GdkEventButton *event,
+                         DDisplay       *ddisp)
+{
+  g_signal_emit (self, signals[BUTTON_RELEASE], 0, event, display_box_new (ddisp));
+
+}
+
+void
+dia_tool_motion (DiaTool        *self,
+                 GdkEventMotion *event,
+                 DDisplay       *ddisp)
+{
+  g_signal_emit (self, signals[MOTION], 0, event, display_box_new (ddisp));
+}
 
 void 
 tool_select_former(void) 
@@ -51,12 +198,11 @@ tool_reset(void)
 void
 tool_get(ToolState *state)
 {
-  state->type = active_tool->type;
   state->button = active_button;
-  if (state->type == CREATE_OBJECT_TOOL) {
-    state->user_data = ((CreateObjectTool *)active_tool)->user_data;
-    state->extra_data = ((CreateObjectTool *)active_tool)->objtype->name;
-    state->invert_persistence = ((CreateObjectTool *)active_tool)->invert_persistence;
+  if (state->type == DIA_TYPE_CREATE_TOOL) {
+    state->user_data = DIA_CREATE_TOOL (active_tool)->user_data;
+    state->extra_data = DIA_CREATE_TOOL (active_tool)->objtype->name;
+    state->invert_persistence = DIA_CREATE_TOOL (active_tool)->invert_persistence;
   }
   else
   {
@@ -69,90 +215,65 @@ tool_get(ToolState *state)
 void
 tool_restore(const ToolState *state)
 {
-  tool_select(state->type, state->extra_data, state->user_data, state->button,
-              state->invert_persistence);
-}
-
-void
-tool_free(Tool *tool)
-{
-  switch(tool->type) {
-  case MODIFY_TOOL:
-    free_modify_tool(tool);
-    break;
-  case CREATE_OBJECT_TOOL:
-    free_create_object_tool(tool);
-    break;
-  case MAGNIFY_TOOL:
-    free_magnify_tool(tool);
-    break;
-  case SCROLL_TOOL:
-    free_scroll_tool(tool);
-    break;
-  case TEXTEDIT_TOOL :
-    free_textedit_tool(tool);
-    break;
-  default:
-    g_assert(0);    
-  }
+  tool_select (state->type, state->extra_data, state->user_data, state->button,
+               state->invert_persistence);
 }
 
 void 
-tool_select(ToolType type, gpointer extra_data, 
-            gpointer user_data, GtkWidget *button,
-            int invert_persistence)
+tool_select (ToolType   type,
+             gpointer   extra_data, 
+             gpointer   user_data,
+             GtkWidget *button,
+             gboolean   invert_persistence)
 {
   if (button)
     former_button = active_button;
 
-  tool_free(active_tool);
+  dia_tool_deactivate (active_tool);
+  g_object_unref (active_tool);
+  
   switch(type) {
-  case MODIFY_TOOL:
-    active_tool = create_modify_tool();
-    break;
-  case CREATE_OBJECT_TOOL:
-    active_tool =
-      create_create_object_tool(object_get_type((char *)extra_data),
-				(void *) user_data, invert_persistence);
-    break;
-  case MAGNIFY_TOOL:
-    active_tool = create_magnify_tool();
-    break;
-  case SCROLL_TOOL:
-    active_tool = create_scroll_tool();
-    break;
-  case TEXTEDIT_TOOL :
-    active_tool = create_textedit_tool();
-    break;
-  default:
-    g_assert(0);    
+    case MODIFY_TOOL:
+      active_tool = g_object_new (DIA_TYPE_MODIFY_TOOL, NULL);
+      break;
+    case CREATE_OBJECT_TOOL:
+      active_tool = dia_create_tool_new (object_get_type ((char *) extra_data),
+                                        invert_persistence,
+                                        (void *) user_data);
+      break;
+    case MAGNIFY_TOOL:
+      active_tool = g_object_new (DIA_TYPE_MAGNIFY_TOOL, NULL);
+      break;
+    case SCROLL_TOOL:
+      active_tool = g_object_new (DIA_TYPE_SCROLL_TOOL, NULL);
+      break;
+    case TEXTEDIT_TOOL :
+      active_tool = g_object_new (DIA_TYPE_TEXT_EDIT_TOOL, NULL);
+      break;
+    default:
+      g_assert_not_reached();
   }
+
+  dia_tool_activate (active_tool);
+
   if (button)
     active_button = button;
 }
 
 void
-tool_options_dialog_show(ToolType type, gpointer extra_data, 
-			 gpointer user_data, GtkWidget *button,
-                         int invert_persistence) 
+tool_options_dialog_show (GType      type,
+                          gpointer   extra_data, 
+                          gpointer   user_data,
+                          GtkWidget *button,
+                          gboolean   invert_persistence) 
 {
   DiaObjectType *objtype;
 
-  if (active_tool->type != type) 
-    tool_select(type,extra_data,user_data,button,invert_persistence);
+  if (!G_TYPE_CHECK_INSTANCE_TYPE (active_tool, type)) 
+    tool_select (type, extra_data, user_data, button, invert_persistence);
 
-  switch(type) {
-  case MODIFY_TOOL:
-      break;
-  case CREATE_OBJECT_TOOL:
-    objtype = object_get_type((char *)extra_data);
-    defaults_show(objtype, user_data);
-    break;
-  case MAGNIFY_TOOL:
-    break;
-  case SCROLL_TOOL:
-    break;
-  case TEXTEDIT_TOOL :
-    break;
+  if (DIA_IS_CREATE_TOOL (active_tool)) {
+    objtype = object_get_type ((char *) extra_data);
+    defaults_show (objtype, user_data);
   }
 }

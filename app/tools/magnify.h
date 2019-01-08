@@ -20,11 +20,10 @@
 
 #include "tool.h"
 
-typedef struct _MagnifyTool MagnifyTool;
+#define DIA_TYPE_MAGNIFY_TOOL (dia_magnify_tool_get_type ())
+G_DECLARE_FINAL_TYPE (DiaMagnifyTool, dia_magnify_tool, DIA, MAGNIFY_TOOL, DiaTool)
 
-Tool *create_magnify_tool(void);
-void free_magnify_tool(Tool *tool);
-void set_zoom_out(Tool *tool);
-void set_zoom_in(Tool *tool);
+void set_zoom_out (DiaTool *tool);
+void set_zoom_in (DiaTool *tool);
 
 #endif /* MAGNIFY_H */

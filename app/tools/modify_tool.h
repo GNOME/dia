@@ -21,7 +21,8 @@
 #include "geometry.h"
 #include "tool.h"
 
-typedef struct _ModifyTool ModifyTool;
+#define DIA_TYPE_MODIFY_TOOL (dia_modify_tool_get_type ())
+G_DECLARE_FINAL_TYPE (DiaModifyTool, dia_modify_tool, DIA, MODIFY_TOOL, DiaTool)
 
 enum ModifyToolState {
   STATE_NONE,
@@ -29,8 +30,5 @@ enum ModifyToolState {
   STATE_MOVE_HANDLE,
   STATE_BOX_SELECT
 };
-
-Tool *create_modify_tool(void);
-void free_modify_tool(Tool *tool);
 
 #endif /* MODIFY_TOOL_H */

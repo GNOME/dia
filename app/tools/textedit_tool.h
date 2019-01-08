@@ -26,17 +26,15 @@ enum TexteditToolState {
   STATE_TEXT_EDIT
 };
 
-typedef struct _TexteditTool TexteditTool;
+#define DIA_TYPE_TEXT_EDIT_TOOL (dia_text_edit_tool_get_type ())
+G_DECLARE_FINAL_TYPE (DiaTextEditTool, dia_text_edit_tool, DIA, TEXT_EDIT_TOOL, DiaTool)
 
-struct _TexteditTool {
-  Tool tool;
+struct _DiaTextEditTool {
+  DiaTool tool;
   
   enum TexteditToolState state;
   DiaObject *object;
   Point start_at;
 };
-
-Tool *create_textedit_tool(void);
-void free_textedit_tool(Tool *tool);
 
 #endif /* TEXTEDIT_TOOL_H */

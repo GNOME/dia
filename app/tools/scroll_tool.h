@@ -21,18 +21,16 @@
 #include "geometry.h"
 #include "tool.h"
 
-typedef struct _ScrollTool ScrollTool;
+#define DIA_TYPE_SCROLL_TOOL (dia_scroll_tool_get_type ())
+G_DECLARE_FINAL_TYPE (DiaScrollTool, dia_scroll_tool, DIA, SCROLL_TOOL, DiaTool)
 
-struct _ScrollTool {
-  Tool tool;
+struct _DiaScrollTool {
+  DiaTool tool;
 
   int scrolling;
   int use_hand;
   Point last_pos;
 };
-
-Tool *create_scroll_tool(void);
-void free_scroll_tool(Tool *tool);
 
 #endif /* SCROLL_TOOL_H */
 

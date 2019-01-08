@@ -32,54 +32,171 @@
 #include "intl.h"
 #include "menus.h"
 
-static void create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
-				     DDisplay *ddisp);
-static void create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
-				       DDisplay *ddisp);
-static void create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
-				 DDisplay *ddisp);
-static void create_object_double_click(CreateObjectTool *tool, GdkEventMotion *event,
-				       DDisplay *ddisp);
+static void create_button_press   (DiaTool        *tool,
+                                   GdkEventButton *event,
+                                   DDisplayBox    *ddisp);
+static void create_button_release (DiaTool        *tool,
+                                   GdkEventButton *event,
+                                   DDisplayBox    *ddisp);
+static void create_motion         (DiaTool        *tool,
+                                   GdkEventMotion *event,
+                                   DDisplayBox    *ddisp);
+static void create_double_click   (DiaTool        *tool,
+                                   GdkEventButton *event,
+                                   DDisplayBox    *ddisp);
 
+G_DEFINE_TYPE (DiaCreateTool, dia_create_tool, DIA_TYPE_TOOL)
+
+enum {
+  PROP_INVERT_PERSISTENCE = 1,
+  N_PROPS
+};
+static GParamSpec* properties[N_PROPS];
 
 static void
-create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
-			   DDisplay *ddisp)
+activate (DiaTool *tool)
 {
+  DiaCreateTool *self = DIA_CREATE_TOOL (tool);
+
+  self->moving = FALSE;
+
+  ddisplay_set_all_cursor (get_cursor (CURSOR_CREATE));
+}
+
+static void
+deactivate (DiaTool *tool)
+{
+  DiaCreateTool *real_tool = DIA_CREATE_TOOL (tool);
+
+  if (real_tool->moving) { /* should not get here, but see bug #619246 */
+    gdk_pointer_ungrab (GDK_CURRENT_TIME);
+    ddisplay_set_all_cursor (default_cursor);
+  }
+}
+
+static void
+dia_create_tool_set_property (GObject      *object,
+                              guint         property_id,
+                              const GValue *value,
+                              GParamSpec   *pspec)
+{
+  DiaCreateTool *self = DIA_CREATE_TOOL (object);
+
+  switch (property_id) {
+    case PROP_INVERT_PERSISTENCE:
+      self->invert_persistence = g_value_get_boolean (value);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_create_tool_get_property (GObject    *object,
+                              guint       property_id,
+                              GValue     *value,
+                              GParamSpec *pspec)
+{
+  DiaCreateTool *self = DIA_CREATE_TOOL (object);
+
+  switch (property_id) {
+    case PROP_INVERT_PERSISTENCE:
+      g_value_set_boolean (value, self->invert_persistence);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_create_tool_class_init (DiaCreateToolClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaToolClass *tool_class = DIA_TOOL_CLASS (klass);
+
+  object_class->set_property = dia_create_tool_set_property;
+  object_class->get_property = dia_create_tool_get_property;
+
+  properties[PROP_INVERT_PERSISTENCE] = g_param_spec_boolean ("invert-persistence",
+                                                              NULL, NULL,
+                                                              FALSE,
+                                                              G_PARAM_READWRITE);
+
+  g_object_class_install_properties (object_class,
+                                     N_PROPS,
+                                     properties);
+
+  tool_class->activate = activate;
+  tool_class->deactivate = deactivate;
+
+  tool_class->button_press = create_button_press;
+  tool_class->button_release = create_button_release;
+  tool_class->motion = create_motion;
+  tool_class->double_click = create_double_click;
+}
+
+static void
+dia_create_tool_init (DiaCreateTool *self)
+{
+}
+
+DiaTool *
+dia_create_tool_new (DiaObjectType *objtype,
+                     gboolean       invert_persistence,
+                     void          *user_data)
+{
+  DiaCreateTool *self = g_object_new (DIA_TYPE_CREATE_TOOL,
+                                      "invert-persistence", invert_persistence);
+
+  /* TODO: As properties */
+  self->objtype = objtype;
+  self->user_data = user_data;
+
+  return DIA_TOOL (self);
+}
+
+static void
+create_button_press (DiaTool        *tool,
+                     GdkEventButton *event,
+                     DDisplayBox    *ddisp)
+{
+  DiaCreateTool *self = DIA_CREATE_TOOL (tool);
   Point clickedpoint, origpoint;
   Handle *handle1;
   Handle *handle2;
   DiaObject *obj;
 
-  ddisplay_untransform_coords(ddisp,
-			      (int)event->x, (int)event->y,
-			      &clickedpoint.x, &clickedpoint.y);
+  ddisplay_untransform_coords (ddisp->ddisp,
+                               (int)event->x, (int)event->y,
+                               &clickedpoint.x, &clickedpoint.y);
 
   origpoint = clickedpoint;
 
-  snap_to_grid(ddisp, &clickedpoint.x, &clickedpoint.y);
+  snap_to_grid (ddisp->ddisp, &clickedpoint.x, &clickedpoint.y);
 
-  obj = dia_object_default_create (tool->objtype, &clickedpoint,
-                                   tool->user_data,
+  obj = dia_object_default_create (self->objtype, &clickedpoint,
+                                   self->user_data,
                                    &handle1, &handle2);
 
-  tool->obj = obj; /* ensure that tool->obj is initialised in case we
+  self->obj = obj; /* ensure that tool->obj is initialised in case we
 		      return early. */
   if (!obj) {
-    tool->moving = FALSE;
-    tool->handle = NULL;
-    message_error(_("'%s' creation failed"), tool->objtype ? tool->objtype->name : "NULL");
+    self->moving = FALSE;
+    self->handle = NULL;
+    message_error(_("'%s' creation failed"), self->objtype ? self->objtype->name : "NULL");
     return;
   }
 
-  diagram_add_object(ddisp->diagram, obj);
+  diagram_add_object (ddisp->ddisp->diagram, obj);
 
   /* Try a connect */
   if (handle1 != NULL &&
       handle1->connect_type != HANDLE_NONCONNECTABLE) {
     ConnectionPoint *connectionpoint;
-    connectionpoint =
-      object_find_connectpoint_display(ddisp, &origpoint, obj, TRUE);
+    connectionpoint = object_find_connectpoint_display (ddisp->ddisp,
+                                                        &origpoint, obj, TRUE);
     if (connectionpoint != NULL) {
       (obj->ops->move)(obj, &origpoint);
     }
@@ -87,48 +204,51 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
   
   if (!(event->state & GDK_SHIFT_MASK)) {
     /* Not Multi-select => remove current selection */
-    diagram_remove_all_selected(ddisp->diagram, TRUE);
+    diagram_remove_all_selected (ddisp->ddisp->diagram, TRUE);
   }
-  diagram_select(ddisp->diagram, obj);
+  diagram_select (ddisp->ddisp->diagram, obj);
 
   /* Connect first handle if possible: */
   if ((handle1!= NULL) &&
       (handle1->connect_type != HANDLE_NONCONNECTABLE)) {
-    object_connect_display(ddisp, obj, handle1, TRUE);
+    object_connect_display (ddisp->ddisp, obj, handle1, TRUE);
   }
 
-  object_add_updates(obj, ddisp->diagram);
-  ddisplay_do_update_menu_sensitivity(ddisp);
-  diagram_flush(ddisp->diagram);
+  object_add_updates (obj, ddisp->ddisp->diagram);
+  ddisplay_do_update_menu_sensitivity (ddisp->ddisp);
+  diagram_flush (ddisp->ddisp->diagram);
   
   if (handle2 != NULL) {
-    tool->handle = handle2;
-    tool->moving = TRUE;
-    tool->last_to = handle2->pos;
+    self->handle = handle2;
+    self->moving = TRUE;
+    self->last_to = handle2->pos;
     
-    gdk_pointer_grab (gtk_widget_get_window(ddisp->canvas), FALSE,
+    gdk_pointer_grab (gtk_widget_get_window (ddisp->ddisp->canvas), FALSE,
 		      GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
 		      NULL, NULL, event->time);
-    ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
+    ddisplay_set_all_cursor (get_cursor (CURSOR_SCROLL));
   } else {
-    diagram_update_extents(ddisp->diagram);
-    tool->moving = FALSE;
+    diagram_update_extents (ddisp->ddisp->diagram);
+    self->moving = FALSE;
   }
 
 }
 
 static void
-create_object_double_click(CreateObjectTool *tool, GdkEventMotion *event,
-			   DDisplay *ddisp)
+create_double_click (DiaTool        *tool,
+                     GdkEventButton *event,
+                     DDisplayBox    *ddisp)
 {
 }
 
 static void
-create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
-			     DDisplay *ddisp)
+create_button_release (DiaTool        *tool,
+                       GdkEventButton *event,
+                       DDisplayBox    *ddisp)
 {
+  DiaCreateTool *self = DIA_CREATE_TOOL (tool);
   GList *list = NULL;
-  DiaObject *obj = tool->obj;
+  DiaObject *obj = self->obj;
   gboolean reset;
 
   GList *parent_candidates;
@@ -137,27 +257,28 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
   if (!obj) /* not sure if this isn't enough */
     return; /* could be a legal invariant */
 
-  if (tool->moving) {
+  if (self->moving) {
     gdk_pointer_ungrab (event->time);
 
-    object_add_updates(tool->obj, ddisp->diagram);
-    tool->obj->ops->move_handle(tool->obj, tool->handle, &tool->last_to,
-				NULL, HANDLE_MOVE_CREATE_FINAL, 0);
-    object_add_updates(tool->obj, ddisp->diagram);
-
+    object_add_updates (self->obj, ddisp->ddisp->diagram);
+    self->obj->ops->move_handle (self->obj,
+                                 self->handle,
+                                 &self->last_to,
+                                 NULL,
+                                 HANDLE_MOVE_CREATE_FINAL,
+                                 0);
+    object_add_updates (self->obj, ddisp->ddisp->diagram);
   }
 
-  parent_candidates = 
-    layer_find_objects_containing_rectangle(obj->parent_layer, 
-					    &obj->bounding_box);
+  parent_candidates = layer_find_objects_containing_rectangle (obj->parent_layer,
+                                                               &obj->bounding_box);
 
   /* whole object must be within another object to parent it */
   for (; parent_candidates != NULL; parent_candidates = g_list_next(parent_candidates)) {
     DiaObject *parent_obj = (DiaObject *) parent_candidates->data;
-    if (obj != parent_obj 
-	&& object_within_parent(obj, parent_obj)) {
-      Change *change = undo_parenting(ddisp->diagram, parent_obj, obj, TRUE);
-      (change->apply)(change, ddisp->diagram);
+    if (obj != parent_obj && object_within_parent (obj, parent_obj)) {
+      Change *change = undo_parenting (ddisp->ddisp->diagram, parent_obj, obj, TRUE);
+      (change->apply)(change, ddisp->ddisp->diagram);
       break;
     /*
     obj->parent = parent_obj;
@@ -167,143 +288,109 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
   }
   g_list_free(parent_candidates);
 
-  list = g_list_prepend(list, tool->obj);
+  list = g_list_prepend (list, self->obj);
 
-  undo_insert_objects(ddisp->diagram, list, 1); 
+  undo_insert_objects (ddisp->ddisp->diagram, list, 1); 
 
-  if (tool->moving) {
-    if (tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
-      object_connect_display(ddisp, tool->obj, tool->handle, TRUE);
-      diagram_update_connections_selection(ddisp->diagram);
-      diagram_flush(ddisp->diagram);
+  if (self->moving) {
+    if (self->handle->connect_type != HANDLE_NONCONNECTABLE) {
+      object_connect_display (ddisp->ddisp, self->obj, self->handle, TRUE);
+      diagram_update_connections_selection (ddisp->ddisp->diagram);
+      diagram_flush (ddisp->ddisp->diagram);
     }
-    tool->moving = FALSE;
-    tool->handle = NULL;
-    tool->obj = NULL;    
+    self->moving = FALSE;
+    self->handle = NULL;
+    self->obj = NULL;
   }
   
   {
     /* remove position from status bar */
-    GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->modified_status);
+    GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->ddisp->modified_status);
     guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
     gtk_statusbar_pop (statusbar, context_id);
   }
   
-  highlight_reset_all(ddisp->diagram);
-  reset = prefs.reset_tools_after_create != tool->invert_persistence;
+  highlight_reset_all (ddisp->ddisp->diagram);
+  reset = prefs.reset_tools_after_create != self->invert_persistence;
   /* kind of backward: first starting editing to see if it is possible at all, than GUI reflection */
-  if (textedit_activate_object(ddisp, obj, NULL) && reset) {
+  if (textedit_activate_object (ddisp->ddisp, obj, NULL) && reset) {
     gtk_action_activate (menus_get_action ("ToolsTextedit"));
     reset = FALSE; /* don't switch off textedit below */
   }
-  diagram_update_extents(ddisp->diagram);
-  diagram_modified(ddisp->diagram);
+  diagram_update_extents (ddisp->ddisp->diagram);
+  diagram_modified (ddisp->ddisp->diagram);
 
-  undo_set_transactionpoint(ddisp->diagram->undo);
+  undo_set_transactionpoint (ddisp->ddisp->diagram->undo);
   
   if (reset)
-      tool_reset();
-  ddisplay_set_all_cursor(default_cursor);
-  ddisplay_do_update_menu_sensitivity(ddisp);
+    tool_reset();
+  ddisplay_set_all_cursor (default_cursor);
+  ddisplay_do_update_menu_sensitivity (ddisp->ddisp);
 }
 
 static void
-create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
-		   DDisplay *ddisp)
+create_motion (DiaTool        *tool,
+               GdkEventMotion *event,
+               DDisplayBox    *ddisp)
 {
+  DiaCreateTool *self = DIA_CREATE_TOOL (tool);
   Point to;
   ConnectionPoint *connectionpoint = NULL;
   gchar *postext;
   GtkStatusbar *statusbar;
   guint context_id;
 
-  if (!tool->moving)
+  if (!self->moving)
     return;
   
-  ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
+  ddisplay_untransform_coords (ddisp->ddisp, event->x, event->y, &to.x, &to.y);
 
   /* make sure the new object is restricted to its parent */
-  parent_handle_move_out_check(tool->obj, &to);
+  parent_handle_move_out_check(self->obj, &to);
 
   /* Move to ConnectionPoint if near: */
-  if (tool->handle != NULL &&
-      tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
-    connectionpoint =
-      object_find_connectpoint_display(ddisp, &to, tool->obj, TRUE);
+  if (self->handle != NULL &&
+      self->handle->connect_type != HANDLE_NONCONNECTABLE) {
+    connectionpoint = object_find_connectpoint_display (ddisp->ddisp,
+                                                        &to, self->obj, TRUE);
     
     if (connectionpoint != NULL) {
       to = connectionpoint->pos;
-      highlight_object(connectionpoint->object, DIA_HIGHLIGHT_CONNECTIONPOINT, ddisp->diagram);
+      highlight_object(connectionpoint->object, DIA_HIGHLIGHT_CONNECTIONPOINT, ddisp->ddisp->diagram);
       ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
     }
   }
   
   if (connectionpoint == NULL) {
     /* No connectionopoint near, then snap to grid (if enabled) */
-    snap_to_grid(ddisp, &to.x, &to.y);
-    highlight_reset_all(ddisp->diagram);
-    ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
+    snap_to_grid (ddisp->ddisp, &to.x, &to.y);
+    highlight_reset_all (ddisp->ddisp->diagram);
+    ddisplay_set_all_cursor (get_cursor (CURSOR_SCROLL));
   }
       
-  object_add_updates(tool->obj, ddisp->diagram);
-  tool->obj->ops->move_handle(tool->obj, tool->handle, &to, connectionpoint,
-			      HANDLE_MOVE_CREATE, 0);
-  object_add_updates(tool->obj, ddisp->diagram);
+  object_add_updates (self->obj, ddisp->ddisp->diagram);
+  self->obj->ops->move_handle (self->obj, self->handle, &to, connectionpoint,
+                               HANDLE_MOVE_CREATE, 0);
+  object_add_updates (self->obj, ddisp->ddisp->diagram);
 
   /* Put current mouse position in status bar */
-  statusbar = GTK_STATUSBAR (ddisp->modified_status);
+  statusbar = GTK_STATUSBAR (ddisp->ddisp->modified_status);
   context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
     
-  postext = g_strdup_printf("%.3f, %.3f - %.3f, %.3f",
-			    tool->obj->bounding_box.left,
-			    tool->obj->bounding_box.top,
-			    tool->obj->bounding_box.right,
-			    tool->obj->bounding_box.bottom);
-			       
+  postext = g_strdup_printf ("%.3f, %.3f - %.3f, %.3f",
+                             self->obj->bounding_box.left,
+                             self->obj->bounding_box.top,
+                             self->obj->bounding_box.right,
+                             self->obj->bounding_box.bottom);
+
   gtk_statusbar_pop (statusbar, context_id); 
   gtk_statusbar_push (statusbar, context_id, postext);
 
   g_free(postext);
   
-  diagram_flush(ddisp->diagram);
+  diagram_flush (ddisp->ddisp->diagram);
 
-  tool->last_to = to;
+  self->last_to = to;
   
   return;
-}
-
-
-
-Tool *
-create_create_object_tool(DiaObjectType *objtype, void *user_data,
-			  int invert_persistence)
-{
-  CreateObjectTool *tool;
-
-  tool = g_new0(CreateObjectTool, 1);
-  tool->tool.type = CREATE_OBJECT_TOOL;
-  tool->tool.button_press_func = (ButtonPressFunc) &create_object_button_press;
-  tool->tool.button_release_func = (ButtonReleaseFunc) &create_object_button_release;
-  tool->tool.motion_func = (MotionFunc) &create_object_motion;
-  tool->tool.double_click_func = (DoubleClickFunc) &create_object_double_click;
-    
-  tool->objtype = objtype;
-  tool->user_data = user_data;
-  tool->moving = FALSE;
-  tool->invert_persistence = invert_persistence;
-
-  ddisplay_set_all_cursor(get_cursor(CURSOR_CREATE));
-  
-  return (Tool *) tool;
-}
-
-void free_create_object_tool(Tool *tool)
-{
-  CreateObjectTool *real_tool = (CreateObjectTool *)tool;
-
-  if (real_tool->moving) { /* should not get here, but see bug #619246 */
-    gdk_pointer_ungrab (GDK_CURRENT_TIME);
-    ddisplay_set_all_cursor(default_cursor);
-  }
-  g_free(tool);
 }

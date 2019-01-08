@@ -40,6 +40,7 @@
 #include "diamenu.h"
 #include "preferences.h"
 #include "tools/scroll_tool.h"
+#include "tools/textedit_tool.h"
 #include "commands.h"
 #include "textedit.h"
 #include "lib/parent.h"
@@ -689,8 +690,7 @@ hold_remove_handler(void)
 static gboolean 
 hold_timeout_handler(gpointer data) 
 {
-  if (active_tool->button_hold_func)
-    (*active_tool->button_hold_func) (active_tool, (GdkEventButton *)(hold_data.event), hold_data.ddisp);
+  dia_tool_button_hold (active_tool, (GdkEventButton *)(hold_data.event), hold_data.ddisp);
   hold_remove_handler();
   return FALSE;
 }
@@ -785,8 +785,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
             case 1:
               if (transient_tool)
                 break;
-              if (active_tool->double_click_func)
-                (*active_tool->double_click_func) (active_tool, bevent, ddisp);
+              dia_tool_double_click (active_tool, bevent, ddisp);
               break;
 
             case 2:
@@ -812,10 +811,9 @@ ddisplay_canvas_events (GtkWidget *canvas,
               if (transient_tool)
                 break;
                   /* get the focus again, may be lost by zoom combo */
-	      moving = TRUE;
-              gtk_widget_grab_focus(canvas);
-              if (active_tool->button_press_func)
-                (*active_tool->button_press_func) (active_tool, bevent, ddisp);
+              moving = TRUE;
+              gtk_widget_grab_focus (canvas);
+              dia_tool_button_press (active_tool, bevent, ddisp);
 
 	      /* Detect user holding down the button.
 	       * Set timeout for 1sec. If timeout is called, user must still
@@ -827,12 +825,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
             case 2:
               if (ddisp->menu_bar == NULL && !is_integrated_ui()) {
                 popup_object_menu(ddisp, event);
+              } else if (!transient_tool) {
+                gtk_widget_grab_focus(canvas);
+                transient_tool = g_object_new (DIA_TYPE_SCROLL_TOOL, NULL);
+                dia_tool_button_press (transient_tool, bevent, ddisp);
               }
-	      else if (!transient_tool) {
-		gtk_widget_grab_focus(canvas);
-		transient_tool = create_scroll_tool();
-		(*transient_tool->button_press_func) (transient_tool, bevent, ddisp);
-	      }
               break;
 
             case 3:
@@ -860,33 +857,28 @@ ddisplay_canvas_events (GtkWidget *canvas,
         display_set_active(ddisp);
         bevent = (GdkEventButton *) event;
 
-        switch (bevent->button)
-        {
-            case 1:
-	      if (moving)
-  		moving = FALSE;		      
-              if (active_tool->button_release_func)
-                (*active_tool->button_release_func) (active_tool,
-                                                     bevent, ddisp);
-	      /* Button Press and Hold - remove handler then deallocate memory */
-	      hold_remove_handler();
-              break;
+        switch (bevent->button) {
+          case 1:
+            if (moving)
+              moving = FALSE;
+            dia_tool_button_release (active_tool, bevent, ddisp);
+            /* Button Press and Hold - remove handler then deallocate memory */
+            hold_remove_handler();
+            break;
 
-            case 2:
-	      if (transient_tool) {
-	        (*transient_tool->button_release_func) (transient_tool,
-  	                                             bevent, ddisp);
-								
-	        tool_free(transient_tool);
-	        transient_tool = NULL;
-	      }
-              break;
+          case 2:
+            if (transient_tool) {
+              dia_tool_button_release (transient_tool, bevent, ddisp);
+              dia_tool_deactivate (transient_tool);
+              transient_tool = NULL;
+            }
+            break;
 
-            case 3:
-              break;
+          case 3:
+            break;
 
-            default:
-              break;
+          default:
+            break;
         }
         break;
 
@@ -903,10 +895,10 @@ ddisplay_canvas_events (GtkWidget *canvas,
           mevent->state = tmask;
           mevent->is_hint = FALSE;
         }
-        if (transient_tool && (*transient_tool->motion_func)) 
-          (*transient_tool->motion_func) (transient_tool, mevent, ddisp);
-        else if (active_tool->motion_func)
-          (*active_tool->motion_func) (active_tool, mevent, ddisp);
+        if (transient_tool) 
+          dia_tool_motion (transient_tool, mevent, ddisp);
+        else
+          dia_tool_motion (active_tool, mevent, ddisp);
         break;
 
       case GDK_KEY_PRESS:
@@ -1022,7 +1014,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
                 break;
               case GDK_KEY_Shift_L:
               case GDK_KEY_Shift_R:
-                if (active_tool->type == MAGNIFY_TOOL)
+                if (DIA_IS_MAGNIFY_TOOL (active_tool))
                   set_zoom_out(active_tool);
                 break;
               case GDK_KEY_Escape:
@@ -1059,7 +1051,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
           switch(kevent->keyval) {
               case GDK_KEY_Shift_L:
               case GDK_KEY_Shift_R:
-                if (active_tool->type == MAGNIFY_TOOL)
+                if (DIA_IS_MAGNIFY_TOOL (active_tool))
                   set_zoom_in(active_tool);
                 break;
               default:
