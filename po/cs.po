@@ -8,16 +8,15 @@
 # Jakub Friedl <jfriedl@suse.cz>, 2006, 2007.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2010.
-# Marek Černocký <marek@manet.cz>, 2010, 2012, 2013, 2014, 2015.
+# Marek Černocký <marek@manet.cz>, 2010, 2012, 2013, 2014, 2015, 2019.
 #
 #: ../objects/UML/class.c:198
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dia&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-01-18 16:14+0000\n"
-"PO-Revision-Date: 2015-01-18 18:05+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
+"POT-Creation-Date: 2018-12-09 09:58+0000\n"
+"PO-Revision-Date: 2019-01-09 10:26+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -28,100 +27,100 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.6\n"
 
 #. This is not an errror
-#: ../app/app_procs.c:209
+#: ../app/app_procs.c:165
 #, c-format
 msgid "Warning: invalid layer range %lu - %lu\n"
 msgstr "Varování: neplatný rozsah vrstev %lu - %lu\n"
 
-#: ../app/app_procs.c:221
+#: ../app/app_procs.c:177
 #, c-format
 msgid "Warning: Layer %lu (%s) selected more than once.\n"
 msgstr "Varování: Vrstva %lu (%s) vybrána více než jednou.\n"
 
-#: ../app/app_procs.c:247
+#: ../app/app_procs.c:203
 #, c-format
 msgid "Warning: Layer %d (%s) selected more than once.\n"
 msgstr "Varování: Vrstva %d (%s) vybrána více než jednou.\n"
 
-#: ../app/app_procs.c:256
+#: ../app/app_procs.c:212
 #, c-format
 msgid "Warning: There is no layer named %s.\n"
 msgstr "Varování: Neexistuje vrstva nazvaná %s.\n"
 
-#: ../app/app_procs.c:339
+#: ../app/app_procs.c:295
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "Chyba %s: není známo, jak exportovat do %s\n"
 
-#: ../app/app_procs.c:348
+#: ../app/app_procs.c:304
 #, c-format
 msgid "%s error: input and output filenames are identical: %s"
 msgstr "Chyba %s: názvy vstupního a výstupního souboru jsou shodné: %s"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
-#: ../app/app_procs.c:354 ../objects/FS/function.c:675
+#: ../app/app_procs.c:310 ../objects/FS/function.c:675
 #: ../objects/FS/function.c:677
 msgid "Import"
 msgstr "Importovat"
 
-#: ../app/app_procs.c:357
+#: ../app/app_procs.c:313
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "Chyba %s: je třeba platný vstupní soubor %s\n"
 
 #. if (!quiet)
-#: ../app/app_procs.c:385
+#: ../app/app_procs.c:341
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: ../app/app_procs.c:557
+#: ../app/app_procs.c:502
 #, c-format
 msgid "Can't find output format/filter %s\n"
 msgstr "Nelze najít výstupní formát/filtr %s\n"
 
-#: ../app/app_procs.c:627
+#: ../app/app_procs.c:572
 #, c-format
 msgid "Input directory '%s' must exist!\n"
 msgstr "Vstupní složka „%s“ musí existovat!\n"
 
-#: ../app/app_procs.c:644
+#: ../app/app_procs.c:589
 #, c-format
 msgid "Output directory '%s' must exist!\n"
 msgstr "Výstupní složka „%s“ musí existovat!\n"
 
 #. &export_file_name
-#: ../app/app_procs.c:697
+#: ../app/app_procs.c:639
 msgid "Export loaded file and exit"
 msgstr "Exportovat načtený soubor a skončit"
 
-#: ../app/app_procs.c:697
+#: ../app/app_procs.c:639
 msgid "OUTPUT"
 msgstr "VÝSTUP"
 
 #. &export_file_format
-#: ../app/app_procs.c:699
+#: ../app/app_procs.c:641
 msgid "Select the export filter/format"
 msgstr "Vybrat exportní filtr/formát"
 
-#: ../app/app_procs.c:699
+#: ../app/app_procs.c:641
 msgid "TYPE"
 msgstr "TYP"
 
-#: ../app/app_procs.c:701
+#: ../app/app_procs.c:643
 msgid "List export filters/formats and exit"
 msgstr "Vypsat exportní filtry/formáty a skončit"
 
-#: ../app/app_procs.c:703
+#: ../app/app_procs.c:645
 msgid "Export graphics size"
 msgstr "Velikost exportované grafiky"
 
-#: ../app/app_procs.c:703
+#: ../app/app_procs.c:645
 msgid "WxH"
 msgstr "Š×V"
 
-#: ../app/app_procs.c:705
+#: ../app/app_procs.c:647
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -129,96 +128,92 @@ msgstr ""
 "Zobrazit jen určené vrstvy (např. při exportu). Může se jednat buď o název "
 "vrstvy nebo rozsah čísel vrstev (X-Y)"
 
-#: ../app/app_procs.c:706
+#: ../app/app_procs.c:648
 msgid "LAYER,LAYER,..."
 msgstr "VRSTVA,VRSTVA,…"
 
-#: ../app/app_procs.c:708
+#: ../app/app_procs.c:650
 msgid "Don't show the splash screen"
 msgstr "Nezobrazovat úvodní obrazovku"
 
-#: ../app/app_procs.c:710
+#: ../app/app_procs.c:652
 msgid "Don't create an empty diagram"
 msgstr "Nevytvářet prázdný diagram"
 
-#: ../app/app_procs.c:712
+#: ../app/app_procs.c:654
 msgid "Start classic user interface (no diagrams in tabs)"
 msgstr "Spustit klasické uživatelské rozhraní (bez diagramů na kartách)"
 
-#: ../app/app_procs.c:714
+#: ../app/app_procs.c:656
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 "Posílat chybové zprávy na standardní chybový výstup namísto zobrazování "
 "dialogových oken."
 
-#: ../app/app_procs.c:716
+#: ../app/app_procs.c:658
 msgid "Directory containing input files"
 msgstr "Složka obsahující vstupní soubory"
 
-#: ../app/app_procs.c:716 ../app/app_procs.c:718
+#: ../app/app_procs.c:658 ../app/app_procs.c:660
 msgid "DIRECTORY"
 msgstr "SLOŽKA"
 
-#: ../app/app_procs.c:718
+#: ../app/app_procs.c:660
 msgid "Directory containing output files"
 msgstr "Složka obsahující výstupní soubory"
 
-#: ../app/app_procs.c:720
+#: ../app/app_procs.c:662
 msgid "Display credits list and exit"
 msgstr "Zobrazit seznam zásluh a skončit"
 
-#: ../app/app_procs.c:722
+#: ../app/app_procs.c:664
 msgid "Generate verbose output"
 msgstr "Generovat podrobný výstup"
 
-#: ../app/app_procs.c:724
+#: ../app/app_procs.c:666
 msgid "Display version and exit"
 msgstr "Zobrazit verzi a skončit"
 
-#: ../app/app_procs.c:750
+#: ../app/app_procs.c:692
 msgid "[FILE...]"
 msgstr "[SOUBOR…]"
 
-#: ../app/app_procs.c:764
+#: ../app/app_procs.c:704
 #, c-format
 msgid "Invalid option?"
 msgstr "Neplatná volba?"
 
-#: ../app/app_procs.c:787
+#: ../app/app_procs.c:727
 #, c-format
 msgid "Filename conversion failed: %s\n"
 msgstr "Selhal převod názvu souboru: %s\n"
 
-#: ../app/app_procs.c:800
+#: ../app/app_procs.c:740
 #, c-format
 msgid "Missing input: %s\n"
 msgstr "Chybějící vstup: %s\n"
 
-#: ../app/app_procs.c:825
-msgid "Can't connect to session manager!\n"
-msgstr "Nelze se připojit ke správci sezení!\n"
-
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: ../app/app_procs.c:865
+#: ../app/app_procs.c:781
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Aplikace Dia verze %s, sestavená %s %s\n"
 
-#: ../app/app_procs.c:867
+#: ../app/app_procs.c:783
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Aplikace Dia verze %s\n"
 
-#: ../app/app_procs.c:913
+#: ../app/app_procs.c:829
 msgid "Object Defaults"
 msgstr "Výchozí hodnoty objektu"
 
-#: ../app/app_procs.c:920
+#: ../app/app_procs.c:836
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgstr "Nelze nalézt standardní objekty při hledání object-libs; končí se…\n"
 
-#: ../app/app_procs.c:922
+#: ../app/app_procs.c:838
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in '%s'; "
@@ -226,33 +221,35 @@ msgid ""
 msgstr ""
 "Nelze nalézt standardní objekty při hledání object-libs v „%s“; končí se…\n"
 
-#: ../app/app_procs.c:980
+#: ../app/app_procs.c:896
 msgid "Diagram1.dia"
 msgstr "Diagram1.dia"
 
-#: ../app/app_procs.c:1015
+#: ../app/app_procs.c:931
 msgid ""
-"This shouldn't happen.  Please file a bug report at bugzilla.gnome.org\n"
+"This shouldn't happen.  Please file a bug report at https://gitlab.gnome.org/"
+"GNOME/dia\n"
 "describing how you caused this message to appear.\n"
 msgstr ""
-"Toto by se nemělo stát. Ohlaste prosím chybu na bugzilla.bnome.org\n"
+"Toto by se nemělo stát. Ohlaste prosím chybu na https://gitlab.gnome.org/"
+"GNOME/dia\n"
 "a popište, jak k zobrazení této zprávy došlo.\n"
 
-#: ../app/app_procs.c:1030
+#: ../app/app_procs.c:946
 msgid "Exiting Dia"
 msgstr "Aplikace Dia se ukončuje"
 
-#: ../app/app_procs.c:1057 ../app/display.c:1239 ../app/exit_dialog.c:115
+#: ../app/app_procs.c:973 ../app/display.c:1239 ../app/exit_dialog.c:115
 #: ../app/filedlg.c:582
 msgid "Save"
 msgstr "Uložit"
 
 #. no standard buttons
-#: ../app/app_procs.c:1099
+#: ../app/app_procs.c:1015
 msgid "Quitting without saving modified diagrams"
 msgstr "Končí se bez uložení upravených diagramů"
 
-#: ../app/app_procs.c:1101
+#: ../app/app_procs.c:1017
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -260,19 +257,19 @@ msgstr ""
 "Existují pozměněné diagramy. Opravdu chcete ukončit aplikaci Dia bez uložení "
 "těchto změn?"
 
-#: ../app/app_procs.c:1105 ../app/menus.c:94
+#: ../app/app_procs.c:1021 ../app/menus.c:94
 msgid "Quit Dia"
 msgstr "Ukončit aplikaci Dia"
 
-#: ../app/app_procs.c:1135
+#: ../app/app_procs.c:1051
 msgid "Exit"
 msgstr "Ukončit"
 
-#: ../app/app_procs.c:1181 ../app/app_procs.c:1188
+#: ../app/app_procs.c:1097 ../app/app_procs.c:1104
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Nelze vytvořit složku s uživatelským nastavením Dia"
 
-#: ../app/app_procs.c:1191
+#: ../app/app_procs.c:1107
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -280,11 +277,11 @@ msgstr ""
 "Nelze vytvořit složku s uživatelským nastavením Dia. Ujistěte se prosím, že "
 "proměnná prostředí HOME ukazuje na existující složku."
 
-#: ../app/app_procs.c:1214
+#: ../app/app_procs.c:1130
 msgid "Objects and filters internal to Dia"
 msgstr "Objekty a filtry interní pro aplikaci Dia"
 
-#: ../app/app_procs.c:1266
+#: ../app/app_procs.c:1182
 #, c-format
 msgid ""
 "The original author of Dia was:\n"
@@ -293,7 +290,7 @@ msgstr ""
 "Původní autor Dia byl:\n"
 "\n"
 
-#: ../app/app_procs.c:1271
+#: ../app/app_procs.c:1187
 #, c-format
 msgid ""
 "\n"
@@ -304,7 +301,7 @@ msgstr ""
 "Současní správci Dia jsou:\n"
 "\n"
 
-#: ../app/app_procs.c:1276
+#: ../app/app_procs.c:1192
 #, c-format
 msgid ""
 "\n"
@@ -315,7 +312,7 @@ msgstr ""
 "Další autoři jsou:\n"
 "\n"
 
-#: ../app/app_procs.c:1281
+#: ../app/app_procs.c:1197
 #, c-format
 msgid ""
 "\n"
@@ -326,20 +323,20 @@ msgstr ""
 "Dokumentaci Dia napsali:\n"
 "\n"
 
-#: ../app/app_procs.c:1321
+#: ../app/app_procs.c:1237
 msgid "Available Export Filters (for --filter)"
 msgstr "Dostupné exportní filtry (pro --filter)"
 
 #. Translators: be brief or mess up the table for --list-filters
-#: ../app/app_procs.c:1324
+#: ../app/app_procs.c:1240
 msgid "Extension"
 msgstr "Přípona"
 
-#: ../app/app_procs.c:1325 ../lib/prop_dict.c:44
+#: ../app/app_procs.c:1241 ../lib/prop_dict.c:44
 msgid "Identifier"
 msgstr "Identifikátor"
 
-#: ../app/app_procs.c:1326 ../app/plugin-manager.c:276
+#: ../app/app_procs.c:1242 ../app/plugin-manager.c:276
 msgid "Description"
 msgstr "Popis"
 
@@ -981,29 +978,25 @@ msgstr "Nahradit _vše"
 msgid "_Replace"
 msgstr "Nah_radit"
 
-#: ../app/interface.c:521
+#: ../app/interface.c:517
 msgid "Pops up the Navigation window."
 msgstr "Zobrazit okno Navigace."
 
-#: ../app/interface.c:738
+#: ../app/interface.c:734
 msgid "Diagram menu."
 msgstr "Nabídka diagramu."
 
-#: ../app/interface.c:777
+#: ../app/interface.c:773
 msgid "Zoom"
 msgstr "Přiblížení"
 
-#: ../app/interface.c:792
+#: ../app/interface.c:788
 msgid "Toggles snap-to-grid for this window."
 msgstr "Přepne přichytávání k mřížce pro toto okno."
 
-#: ../app/interface.c:803
+#: ../app/interface.c:799
 msgid "Toggles object snapping for this window."
 msgstr "Přepne přichytávání k objektům pro toto okno."
-
-#: ../app/interface.c:989 ../app/interface.c:1106 ../dia.desktop.in.in.h:2
-msgid "Diagram Editor"
-msgstr "Editor diagramu"
 
 #: ../app/layer_dialog.c:166
 msgid "New Layer"
@@ -1059,8 +1052,7 @@ msgid "Layer name:"
 msgstr "Název vrstvy:"
 
 #: ../app/linewidth_area.c:246 ../lib/properties.h:626 ../lib/properties.h:629
-#: ../objects/chronogram/chronoline.c:180
-#: ../objects/chronogram/chronoref.c:159
+#: ../objects/chronogram/chronoline.c:180 ../objects/chronogram/chronoref.c:159
 msgid "Line width"
 msgstr "Tloušťka čáry"
 
@@ -1170,12 +1162,11 @@ msgid "Not allowed to write temporary files in %s\n"
 msgstr "Není povoleno zapisovat do dočasných souborů v %s\n"
 
 #: ../app/load_save.c:1114 ../plug-ins/cgm/cgm.c:1086
-#: ../plug-ins/dxf/dxf-export.c:516
-#: ../plug-ins/metapost/render_metapost.c:1022
+#: ../plug-ins/dxf/dxf-export.c:516 ../plug-ins/metapost/render_metapost.c:1022
 #: ../plug-ins/pgf/render_pgf.c:1192 ../plug-ins/postscript/render_eps.c:123
-#: ../plug-ins/pstricks/render_pstricks.c:870
-#: ../plug-ins/vdx/vdx-export.c:1706 ../plug-ins/wmf/wmf.cpp:1347
-#: ../plug-ins/wpg/wpg.c:1062 ../plug-ins/xfig/xfig-export.c:1098
+#: ../plug-ins/pstricks/render_pstricks.c:870 ../plug-ins/vdx/vdx-export.c:1706
+#: ../plug-ins/wmf/wmf.cpp:1347 ../plug-ins/wpg/wpg.c:1062
+#: ../plug-ins/xfig/xfig-export.c:1098
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Nelze otevřít výstupní soubor %s"
@@ -1767,8 +1758,8 @@ msgstr "Zobrazovat přípojné _body"
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: ../app/menus.c:274 ../objects/FS/function.c:699
-#: ../objects/FS/function.c:851 ../objects/FS/function.c:853
+#: ../app/menus.c:274 ../objects/FS/function.c:699 ../objects/FS/function.c:851
+#: ../objects/FS/function.c:853
 msgid "Remove"
 msgstr "Odstranit"
 
@@ -2308,6 +2299,10 @@ msgstr ""
 #: ../dia.desktop.in.in.h:1
 msgid "Dia"
 msgstr "Dia"
+
+#: ../dia.desktop.in.in.h:2
+msgid "Diagram Editor"
+msgstr "Editor diagramu"
 
 #: ../dia.desktop.in.in.h:3
 msgid "Dia Diagram Editor"
@@ -3016,8 +3011,7 @@ msgid "Projecting"
 msgstr "Přetažené"
 
 #: ../lib/properties.c:96 ../lib/properties.h:632 ../lib/properties.h:635
-#: ../objects/chronogram/chronoline.c:178
-#: ../objects/chronogram/chronoref.c:157
+#: ../objects/chronogram/chronoline.c:178 ../objects/chronogram/chronoref.c:157
 msgid "Line color"
 msgstr "Barva čáry"
 
@@ -3048,23 +3042,23 @@ msgid "Text alignment"
 msgstr "Zarovnání textu"
 
 #: ../lib/properties.c:104 ../lib/properties.h:688
-#: ../objects/chronogram/chronoline.c:182
-#: ../objects/chronogram/chronoref.c:163 ../objects/Database/reference.c:118
-#: ../objects/GRAFCET/condition.c:131 ../objects/GRAFCET/step.c:165
-#: ../objects/GRAFCET/transition.c:141 ../objects/UML/class_dialog.c:455
+#: ../objects/chronogram/chronoline.c:182 ../objects/chronogram/chronoref.c:163
+#: ../objects/Database/reference.c:118 ../objects/GRAFCET/condition.c:131
+#: ../objects/GRAFCET/step.c:165 ../objects/GRAFCET/transition.c:141
+#: ../objects/UML/class_dialog.c:455
 msgid "Font"
 msgstr "Písmo"
 
 #: ../lib/properties.c:105 ../lib/properties.h:696
-#: ../objects/chronogram/chronoline.c:184
-#: ../objects/chronogram/chronoref.c:165 ../objects/GRAFCET/condition.c:133
-#: ../objects/GRAFCET/step.c:167 ../objects/GRAFCET/transition.c:143
+#: ../objects/chronogram/chronoline.c:184 ../objects/chronogram/chronoref.c:165
+#: ../objects/GRAFCET/condition.c:133 ../objects/GRAFCET/step.c:167
+#: ../objects/GRAFCET/transition.c:143
 msgid "Font size"
 msgstr "Velikost písma"
 
 #: ../lib/properties.c:106 ../lib/properties.h:702
-#: ../objects/chronogram/chronoline.c:186
-#: ../objects/chronogram/chronoref.c:167 ../objects/GRAFCET/step.c:169
+#: ../objects/chronogram/chronoline.c:186 ../objects/chronogram/chronoref.c:167
+#: ../objects/GRAFCET/step.c:169
 msgid "Text color"
 msgstr "Barva textu"
 
@@ -3330,13 +3324,11 @@ msgstr ""
 "u trvání  nastaví signál na „neznámý“ stav, poté čeká po dobu „trvání“.\n"
 "příklad : @ 1.0 (2.0)1.0(2.0)\n"
 
-#: ../objects/chronogram/chronoline.c:163
-#: ../objects/chronogram/chronoref.c:145
+#: ../objects/chronogram/chronoline.c:163 ../objects/chronogram/chronoref.c:145
 msgid "Start time"
 msgstr "Počáteční čas"
 
-#: ../objects/chronogram/chronoline.c:165
-#: ../objects/chronogram/chronoref.c:147
+#: ../objects/chronogram/chronoline.c:165 ../objects/chronogram/chronoref.c:147
 msgid "End time"
 msgstr "Konečný čas"
 
@@ -3352,8 +3344,7 @@ msgstr "Čas sestupu"
 msgid "Multi-bit data"
 msgstr "Vícebitová data"
 
-#: ../objects/chronogram/chronoline.c:172
-#: ../objects/chronogram/chronoref.c:155
+#: ../objects/chronogram/chronoline.c:172 ../objects/chronogram/chronoref.c:155
 msgid "Aspect"
 msgstr "Aspekt"
 
@@ -5973,9 +5964,8 @@ msgid "Class name:"
 msgstr "Název třídy:"
 
 #: ../objects/UML/class_dialog.c:336
-#: ../objects/UML/class_operations_dialog.c:799
-#: ../objects/UML/dependency.c:134 ../objects/UML/generalization.c:131
-#: ../objects/UML/realizes.c:131
+#: ../objects/UML/class_operations_dialog.c:799 ../objects/UML/dependency.c:134
+#: ../objects/UML/generalization.c:131 ../objects/UML/realizes.c:131
 msgid "Stereotype:"
 msgstr "Stereotyp:"
 
@@ -6608,8 +6598,7 @@ msgstr ""
 msgid "LaTeX PGF export filter"
 msgstr "Exportní filtr formátu LaTeX PGF"
 
-#: ../plug-ins/pgf/render_pgf.c:1096
-#: ../plug-ins/pstricks/render_pstricks.c:686
+#: ../plug-ins/pgf/render_pgf.c:1096 ../plug-ins/pstricks/render_pstricks.c:686
 msgid "Not valid UTF-8"
 msgstr "Neplatné UTF-8"
 
