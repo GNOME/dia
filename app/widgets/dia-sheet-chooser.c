@@ -3,6 +3,13 @@
 #include "dia-sheet-chooser.h"
 #include "dia_dirs.h"
 
+struct _DiaSheetChooserPopover {
+  GtkPopover parent;
+
+  GtkWidget  *filter;
+  GtkWidget  *list;
+};
+
 G_DEFINE_TYPE (DiaSheetChooserPopover, dia_sheet_chooser_popover, GTK_TYPE_POPOVER)
 
 enum {
@@ -52,7 +59,7 @@ render_row (gpointer item, gpointer user_data)
 
   row = gtk_list_box_row_new ();
   /* TODO: Let's avoid the trap of set_data */
-  g_object_set_data (G_OBJECT (row), "dia-sheet", item);
+  g_object_set_data_full (G_OBJECT (row), "dia-sheet", item, g_object_unref);
   g_object_set_data (G_OBJECT (row),
                      "dia-list-top",
                      g_object_get_data (G_OBJECT (item), "dia-list-top"));
@@ -144,13 +151,35 @@ dia_sheet_chooser_popover_init (DiaSheetChooserPopover *self)
                     G_CALLBACK (sheet_activated), self);
 }
 
+struct find_data {
+  GtkWidget *list;
+  DiaSheet  *current;
+};
+
+static void
+find_current (GtkWidget *row, struct find_data *current)
+{
+  g_return_if_fail (GTK_IS_LIST_BOX_ROW (row));
+
+  if (g_strcmp0 (DIA_SHEET (g_object_get_data (row, "dia-sheet"))->name, current->current->name) == 0) {
+    gtk_list_box_select_row (current->list, GTK_LIST_BOX_ROW (row));
+  }
+}
+
 void
 dia_sheet_chooser_popover_set_model (DiaSheetChooserPopover *self,
-                                     GListModel             *model)
+                                     GListModel             *model,
+                                     DiaSheet               *current)
 {
+  struct find_data find = { self->list, current };
+
   gtk_list_box_bind_model (GTK_LIST_BOX (self->list),
                            G_LIST_MODEL (model),
                            render_row, NULL, NULL);
+
+  gtk_container_foreach (GTK_CONTAINER (self->list),
+                         (GtkCallback) find_current,
+                         &find);
 }
 
 GtkWidget *
@@ -158,6 +187,13 @@ dia_sheet_chooser_popover_new ()
 {
   return g_object_new (DIA_TYPE_SHEET_CHOOSER_POPOVER, NULL);
 }
+
+struct _DiaSheetChooser {
+  GtkMenuButton parent;
+
+  GtkWidget *label;
+  GtkWidget *popover;
+};
 
 G_DEFINE_TYPE (DiaSheetChooser, dia_sheet_chooser, GTK_TYPE_MENU_BUTTON)
 
@@ -213,10 +249,12 @@ dia_sheet_chooser_init (DiaSheetChooser *self)
 
 void
 dia_sheet_chooser_set_model (DiaSheetChooser *self,
-                             GListModel      *model)
+                             GListModel      *model,
+                             DiaSheet        *current)
 {
   dia_sheet_chooser_popover_set_model (DIA_SHEET_CHOOSER_POPOVER (self->popover),
-                                       model);
+                                       model,
+                                       current);
 }
 
 GtkWidget *

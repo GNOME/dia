@@ -435,6 +435,7 @@ use_integrated_ui_for_display_shell(DiaDisplay *ddisp, char *title)
                                                   tab_label_container);
 
   g_object_set_data (G_OBJECT (ddisp->container), DIA_DISPLAY_DATA_HACK, ddisp);
+  g_object_set_data (G_OBJECT (ddisp->container), "tab-label", label);
 
   /*  the table containing all widgets  */
   table = gtk_grid_new ();

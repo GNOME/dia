@@ -294,7 +294,7 @@ received_clipboard_image_handler (GtkClipboard *clipboard,
       diagram_select(dia, obj);
       object_add_updates(obj, dia);
 
-      dia_display_do_update_menu_sensitivity (disp);
+      dia_display_do_update_menu_sensitivity (ddisp);
       diagram_flush(dia);
     } else {
       message_warning (_("No selected object can take an image."));

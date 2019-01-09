@@ -356,6 +356,8 @@ create_sheet_dropdown_menu (DiaToolbox *self)
   GSList *l;
   GtkWidget *button;
   DiaSheet *tmp;
+  gchar *sheetname;
+  DiaSheet *sheet;
 
   self->sheets = g_list_store_new (DIA_TYPE_SHEET);
 
@@ -382,7 +384,13 @@ create_sheet_dropdown_menu (DiaToolbox *self)
   button = dia_sheet_chooser_new ();
   g_signal_connect (G_OBJECT (button), "sheet-selected",
                     G_CALLBACK (sheet_selected), self);
-  dia_sheet_chooser_set_model (DIA_SHEET_CHOOSER (button), G_LIST_MODEL (self->sheets));
+
+  sheetname = persistence_register_string ("last-sheet-selected", _("Flowchart"));
+  sheet = get_sheet_by_name (sheetname);
+  fill_sheet_wbox (self, sheet);
+  g_free (sheetname);
+
+  dia_sheet_chooser_set_model (DIA_SHEET_CHOOSER (button), G_LIST_MODEL (self->sheets), sheet);
   gtk_box_pack_start (GTK_BOX (self), button, FALSE, FALSE, 0);
   gtk_widget_show (button);
 }
@@ -391,9 +399,13 @@ static void
 create_sheets (DiaToolbox *self)
 {
   GtkWidget *swin;
-  gchar *sheetname;
-  DiaSheet *sheet;
   
+  self->items = g_object_new (GTK_TYPE_GRID,
+                              "column-homogeneous", TRUE,
+                              "column-spacing", 4,
+                              "row-spacing", 4,
+                              NULL);
+
   create_sheet_dropdown_menu (self);
 
   swin = gtk_scrolled_window_new (NULL, NULL);
@@ -404,20 +416,8 @@ create_sheets (DiaToolbox *self)
   gtk_box_pack_start (GTK_BOX (self), swin, FALSE, FALSE, 0);
   gtk_widget_show (swin);
 
-  self->items = g_object_new (GTK_TYPE_GRID,
-                              "column-homogeneous", TRUE,
-                              "column-spacing", 4,
-                              "row-spacing", 4,
-                              NULL);
   gtk_container_add (GTK_CONTAINER (swin), self->items);
   gtk_widget_show (self->items);
-
-  sheetname = persistence_register_string ("last-sheet-selected", _("Flowchart"));
-  sheet = get_sheet_by_name (sheetname);
-  if (sheet != NULL) {
-    fill_sheet_wbox (self, sheet);
-  }
-  g_free (sheetname);
 }
 
 static void

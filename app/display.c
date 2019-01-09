@@ -1288,7 +1288,7 @@ dia_display_set_title (DiaDisplay *ddisp, char *title)
     for (num = 0 ; num < num_pages ; num++) {
       page = gtk_notebook_get_nth_page (notebook, num);
       if (g_object_get_data (G_OBJECT (page), DIA_DISPLAY_DATA_HACK) == ddisp) {
-        GtkWidget *label = gtk_notebook_get_tab_label (GTK_NOTEBOOK (notebook), page);
+        GtkWidget *label = g_object_get_data (page, "tab-label");
         /* not using the passed in title here, because it may be too long */
         gchar *name = diagram_get_name (ddisp->diagram);
         gtk_label_set_label (GTK_LABEL (label), name);
