@@ -1,15 +1,10 @@
 xml_deps = files(
     'authors.xml',
-    'custom-shapes.xml',
-    'dia-1.xml',
-    'dia-cmdline.xml',
     'dia.xml',
-    'entities.xml',
     'intro.xml',
+    'license-documentation.xml',
     'license.xml',
     'usage-canvas.xml',
-    'usage-customization.xml',
-    'usage-layers.xml',
     'usage-loadsave.xml',
     'usage-objects-basic.xml',
     'usage-objects-selecting.xml',
@@ -19,8 +14,8 @@ xml_deps = files(
 )
 
 html_output = [
+    'apa.html',
     'ch01.html',
-    'ch01s02.html',
     'ch02.html',
     'ch02s02.html',
     'ch02s03.html',
@@ -49,51 +44,23 @@ html_output = [
     'ch08s02.html',
     'ch09.html',
     'ch10.html',
-    'ch10s02.html',
-    'ch10s03.html',
-    'ch11.html',
-    'ch11s02.html',
-    'ch11s03.html',
-    'ch11s04.html',
-    'ch11s05.html',
-    'ch11s06.html',
-    'ch11s07.html',
-    'ch11s08.html',
-    'ch12.html',
-    'ch12s02.html',
-    'ch13.html',
-    'ch14.html',
     'index.html',
-    're01.html',
 ]
 
-lang = 'en'
+lang = 'de'
 
-custom_target(lang + '-dia.pdf',
-    output : 'dia.pdf',
-    input  : 'dia.xml',
-    depend_files : xml_deps,
-    command : [dblatex, '-t', 'pdf', '-q', '-o', '@OUTPUT@', '@INPUT@'],
-    install : true,
-    install_dir : join_paths(docdir, lang)
-)
+# TODO: this requires tex-live-german
+# https://tex.stackexchange.com/questions/139700/package-babel-error-unknown-option-francais
+#custom_target(lang + '-dia.pdf',
+#    output : 'dia.pdf',
+#    input  : 'dia.xml',
+#    depend_files : xml_deps,
+#    command : [dblatex, '-t', 'pdf', '-q', '-o', '@OUTPUT@', '@INPUT@'],
+#    install : true,
+#    install_dir : join_paths(docdir, lang)
+#)
 
 if xsltproc.found()
-    dia_man = custom_target(lang + '-dia.1',
-        input: 'dia.dbk',
-        output: 'dia.1',
-        command: [
-            xsltproc, '--novalid',
-            '--output', '@OUTPUT@',
-            DB2MAN,
-            '@INPUT@'
-        ],
-        install : true,
-        install_dir : join_paths(get_option('mandir'), 'man1')
-    )
-    # TODO: this should fixed in meson: https://github.com/mesonbuild/meson/issues/1550
-    #install_man(dia_man, language : lang)
-
     html_dir = join_paths(helpdir, lang)
 
     custom_target(lang + '-dia_html',
@@ -106,18 +73,18 @@ if xsltproc.found()
             '@INPUT@'
         ],
         depend_files: xml_deps,
-        install : true,
-        install_dir : html_dir,
+        install: true,
+        install_dir: html_dir,
     )
 
     install_subdir(
         'graphics',
-        install_dir : html_dir
+        install_dir: html_dir,
     )
 
     install_subdir(
         join_paths('..', 'html'),
-        install_dir : html_dir,
-        strip_directory : true
+        install_dir: html_dir,
+        strip_directory: true,
     )
 endif

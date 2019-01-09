@@ -15,9 +15,9 @@
     <!ENTITY CANVAS SYSTEM "usage-canvas.xml">
 
     <!ENTITY OBJECTS SYSTEM "usage-objects.xml">
-    
+
     <!ENTITY BASIC-OBJECTS SYSTEM "usage-objects-basic.xml">
-    
+
     <!ENTITY SPECIAL-OBJECTS SYSTEM "usage-objects-special.xml">
 
     <!ENTITY SELECTING-OBJECTS SYSTEM "usage-objects-selecting.xml">
