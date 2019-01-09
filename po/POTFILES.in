@@ -4,7 +4,7 @@ app/app_procs.c
 app/autosave.c
 app/commands.c
 app/confirm.c
-app/create_object.c
+app/tools/create_object.c
 app/defaults.c
 app/diagram.c
 app/diagram_tree_model.c
@@ -20,7 +20,7 @@ app/interface.c
 app/layer_dialog.c
 app/load_save.c
 app/menus.c
-app/modify_tool.c
+app/tools/modify_tool.c
 app/pagesetup.c
 app/plugin-manager.c
 app/preferences.c
