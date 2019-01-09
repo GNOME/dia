@@ -37,7 +37,6 @@
 #include "paper.h"
 #include "prefs.h"
 
-#include "diamarshal.h"
 #include "diaoptionmenu.h"
 
 /* private class : noone wants to inherit and noone needs to mess with details */
@@ -119,13 +118,12 @@ dia_page_layout_class_init(DiaPageLayoutClass *class)
   parent_class = g_type_class_peek_parent (class);
 
   pl_signals[CHANGED] =
-    g_signal_new("changed",
-		 G_TYPE_FROM_CLASS (object_class),
-		 G_SIGNAL_RUN_FIRST,
-		 G_STRUCT_OFFSET(DiaPageLayoutClass, changed),
-		 NULL, NULL,
-		 dia_marshal_VOID__VOID,
-		 G_TYPE_NONE, 0);
+    g_signal_new ("changed",
+                  G_TYPE_FROM_CLASS (object_class),
+                  G_SIGNAL_RUN_FIRST,
+                  G_STRUCT_OFFSET(DiaPageLayoutClass, changed),
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE, 0);
 #if 0 /* FIXME ?*/
   g_object_class_add_signals(object_class, pl_signals, LAST_SIGNAL);
 #endif

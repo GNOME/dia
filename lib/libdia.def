@@ -767,8 +767,6 @@ EXPORTS
  libdia_init
  dia_log_message
 
- dia_marshal_VOID__OBJECT_UINT_POINTER
-
  dia_matrix_is_identity
  dia_matrix_get_angle_and_scales
  dia_matrix_set_angle_and_scales

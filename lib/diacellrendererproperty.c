@@ -30,7 +30,6 @@
 #include "diacellrendererproperty.h"
 
 #include "diarenderer.h"
-#include "diamarshal.h"
 #include "message.h"
 
 enum
@@ -96,11 +95,9 @@ dia_cell_renderer_property_class_init (DiaCellRendererPropertyClass *klass)
                   G_OBJECT_CLASS_TYPE (object_class),
                   G_SIGNAL_RUN_LAST,
                   G_STRUCT_OFFSET (DiaCellRendererPropertyClass, clicked),
-                  NULL, NULL,
-                  dia_marshal_VOID__STRING_FLAGS,
+                  NULL, NULL, NULL,
                   G_TYPE_NONE, 2,
-                  G_TYPE_STRING,
-                  GDK_TYPE_MODIFIER_TYPE);
+                  G_TYPE_STRING, GDK_TYPE_MODIFIER_TYPE);
 
   object_class->finalize     = dia_cell_renderer_property_finalize;
   object_class->get_property = dia_cell_renderer_property_get_property;

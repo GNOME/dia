@@ -11,8 +11,6 @@ diagtree_show_callback
 #include "dia-application.h"
 #include "display.h"
 
-#include <lib/diamarshal.h>
-
 enum {
   DIAGRAM_ADD,
   DIAGRAM_CHANGE,
@@ -65,31 +63,25 @@ dia_application_class_init (DiaApplicationClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
                   G_STRUCT_OFFSET (DiaApplicationClass, diagram_add),
-                  NULL, NULL,
-                  dia_marshal_VOID__OBJECT,
+                  NULL, NULL, NULL,
                   G_TYPE_NONE, 
-                  1,
-		  DIA_TYPE_DIAGRAM);
+                  1, DIA_TYPE_DIAGRAM);
   _dia_application_signals[DIAGRAM_CHANGE] =
     g_signal_new ("diagram_change",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
                   G_STRUCT_OFFSET (DiaApplicationClass, diagram_change),
-                  NULL, NULL,
-                  dia_marshal_VOID__OBJECT_UINT_POINTER,
+                  NULL, NULL, NULL,
                   G_TYPE_NONE, 
-                  3,
-		  DIA_TYPE_DIAGRAM, G_TYPE_UINT, G_TYPE_POINTER);
+                  3, DIA_TYPE_DIAGRAM, G_TYPE_UINT, G_TYPE_POINTER);
   _dia_application_signals[DIAGRAM_REMOVE] =
     g_signal_new ("diagram_remove",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
                   G_STRUCT_OFFSET (DiaApplicationClass, diagram_remove),
-                  NULL, NULL,
-                  dia_marshal_VOID__OBJECT,
+                  NULL, NULL, NULL,
                   G_TYPE_NONE, 
-                  1,
-		  DIA_TYPE_DIAGRAM);
+                  1, DIA_TYPE_DIAGRAM);
 }
 
 static void 

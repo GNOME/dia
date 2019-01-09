@@ -41,7 +41,6 @@
 #include "autosave.h"
 #include "dynamic_refresh.h"
 #include "textedit.h"
-#include "lib/diamarshal.h"
 #include "parent.h"
 #include "diacontext.h"
 
@@ -148,12 +147,10 @@ diagram_class_init (DiagramClass *klass)
 
   diagram_signals[REMOVED] =
     g_signal_new ("removed",
-	          G_TYPE_FROM_CLASS (klass),
-	          G_SIGNAL_RUN_FIRST,
-	          G_STRUCT_OFFSET (DiagramClass, removed),
-	          NULL, NULL,
-	          dia_marshal_VOID__VOID,
-		  G_TYPE_NONE, 0);
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  G_STRUCT_OFFSET (DiagramClass, removed),
+                  NULL, NULL, NULL, G_TYPE_NONE, 0);
 
   klass->removed = _diagram_removed;
 

@@ -31,7 +31,6 @@
 #include "persistence.h"
 
 #include "dynamic_obj.h"
-#include "diamarshal.h"
 
 
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
@@ -259,37 +258,29 @@ diagram_data_class_init(DiagramDataClass *klass)
 
   diagram_data_signals[OBJECT_ADD] =
     g_signal_new ("object_add",
-              G_TYPE_FROM_CLASS (klass),
-              G_SIGNAL_RUN_FIRST,
-              G_STRUCT_OFFSET (DiagramDataClass, object_add),
-              NULL, NULL,
-              dia_marshal_VOID__POINTER_POINTER,
-              G_TYPE_NONE, 
-              2,
-              G_TYPE_POINTER,
-              G_TYPE_POINTER);
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  G_STRUCT_OFFSET (DiagramDataClass, object_add),
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE, 
+                  2, G_TYPE_POINTER, G_TYPE_POINTER);
               
   diagram_data_signals[OBJECT_REMOVE] =
     g_signal_new ("object_remove",
-              G_TYPE_FROM_CLASS (klass),
-              G_SIGNAL_RUN_FIRST,
-              G_STRUCT_OFFSET (DiagramDataClass, object_remove),
-              NULL, NULL,
-              dia_marshal_VOID__POINTER_POINTER,
-              G_TYPE_NONE, 
-              2,
-              G_TYPE_POINTER,
-              G_TYPE_POINTER);
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  G_STRUCT_OFFSET (DiagramDataClass, object_remove),
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE, 
+                  2, G_TYPE_POINTER, G_TYPE_POINTER);
 
   diagram_data_signals[SELECTION_CHANGED] =
     g_signal_new ("selection_changed",
-	          G_TYPE_FROM_CLASS (klass),
-	          G_SIGNAL_RUN_FIRST,
-	          G_STRUCT_OFFSET (DiagramDataClass, selection_changed),
-	          NULL, NULL,
-	          dia_marshal_VOID__INT,
-		  G_TYPE_NONE, 1,
-		  G_TYPE_INT);
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  G_STRUCT_OFFSET (DiagramDataClass, selection_changed),
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE, 1, G_TYPE_INT);
 
   object_class->finalize = diagram_data_finalize;
   klass->object_add = _diagram_data_object_add;

@@ -64,7 +64,7 @@ ICON_PNGS= \
 dia-lib-icons.h: $(ICON_PNGS)
 	gdk-pixbuf-csource --build-list $(ICON_PNG_PAIRS) > dia-lib-icons.h
 
-BUILT_SOURCES = dia-lib-icons.h diamarshal.h diamarshal.c
+BUILT_SOURCES = dia-lib-icons.h
 
 libdia_la_SOURCES =  \
 		widgets/dialist.c \
@@ -202,8 +202,6 @@ libdia_la_SOURCES =  \
 		persistence.h \
 		diaerror.c \
 		diaerror.h \
-		diamarshal.c \
-		diamarshal.h \
 		debug.c \
 		debug.h \
 		prefs.c \
@@ -246,26 +244,11 @@ AM_CPPFLAGS += -I$(top_srcdir)/intl $(DEBUG_FLAGS) $(GDK_PIXBUF_CFLAGS) \
   -DDIA_SHEETDIR=\"$(sheetdir)\" \
   $(PANGOFT2_CFLAGS) $(UNICODE_CFLAGS)
 
-libdia_la_extra_sources = diamarshal.list
-
 #
 # rules to generate built sources
 #
 # setup autogeneration dependancies
-gen_sources = xgen-gwmh xgen-gwmc diamarshal.c diamarshal.h
+gen_sources = xgen-gwmh xgen-gwmc
 CLEANFILES = $(gen_sources)
 
-diamarshal.h: diamarshal.list
-	$(GLIB_GENMARSHAL) --prefix=dia_marshal $(srcdir)/diamarshal.list --header >> xgen-gwmh \
-	&& (cmp -s xgen-gwmh $(@F) || cp xgen-gwmh $(@F)) \
-	&& rm -f xgen-gwmh xgen-gwmh~
-
-diamarshal.c: diamarshal.h
-	echo "#include \"diamarshal.h\"" >> xgen-gwmc \
-	&& $(GLIB_GENMARSHAL) --prefix=dia_marshal $(srcdir)/diamarshal.list --body >> xgen-gwmc \
-	&& cp xgen-gwmc $(@F) \
-	&& rm -f xgen-gwmc xgen-gwmc~
-
-
-EXTRA_DIST = libdia.def makefile.msc diamarshal.list
-
+EXTRA_DIST = libdia.def makefile.msc

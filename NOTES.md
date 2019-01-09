@@ -14,3 +14,4 @@
   other than C
 * PyDia is largly broken (not least by being Py2 & using PyGtk) but with libpeas we
   could probably just drop it without loosing much
+* Navigation tool is largly broken, esp on Wayland
