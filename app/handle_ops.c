@@ -46,7 +46,7 @@ static const GdkRGBA handle_color_connected[NUM_HANDLE_TYPES<<1] =
 };
 
 void
-handle_draw(Handle *handle, DDisplay *ddisp)
+handle_draw(Handle *handle, DiaDisplay *ddisp)
 {
   gboolean some_selected;
   int x,y;
@@ -55,7 +55,7 @@ handle_draw(Handle *handle, DDisplay *ddisp)
     DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
   const GdkRGBA *color;
 
-  ddisplay_transform_coords(ddisp, handle->pos.x, handle->pos.y, &x, &y);
+  dia_display_transform_coords(ddisp, handle->pos.x, handle->pos.y, &x, &y);
   /* change handle color to reflect different behaviour for multiple selected */
   /* this code relies on the fact that only selected objects get their handles drawn */
   some_selected = g_list_length (ddisp->diagram->data->selected) > 1;
@@ -111,7 +111,7 @@ handle_add_update(Handle *handle, Diagram *dia)
 
 /* Call this after diagram_find_closest_handle() */
 int
-handle_is_clicked(DDisplay *ddisp, Handle *handle, Point *pos)
+handle_is_clicked(DiaDisplay *ddisp, Handle *handle, Point *pos)
 {
   real dx, dy;
   int idx, idy;
@@ -122,8 +122,8 @@ handle_is_clicked(DDisplay *ddisp, Handle *handle, Point *pos)
   dx = ABS(handle->pos.x - pos->x);
   dy = ABS(handle->pos.y - pos->y);
 
-  idx = ddisplay_transform_length(ddisp, dx);
-  idy = ddisplay_transform_length(ddisp, dy);
+  idx = dia_display_transform_length(ddisp, dx);
+  idy = dia_display_transform_length(ddisp, dy);
 
   return (idx<(HANDLE_SIZE+1)/2) && (idy<(HANDLE_SIZE+1)/2);
 }

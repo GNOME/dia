@@ -413,9 +413,9 @@ diagram_modified(Diagram *dia)
   g_free (extra);
   displays = dia->displays;
   while (displays!=NULL) {
-    DDisplay *ddisp = (DDisplay *) displays->data;
+    DiaDisplay *ddisp = (DiaDisplay *) displays->data;
 
-    ddisplay_set_title(ddisp, title);
+    dia_display_set_title (ddisp, title);
     
     displays = g_slist_next(displays);
   }
@@ -536,13 +536,13 @@ object_within_parent(DiaObject *obj, DiaObject *p)
 
 /*
   This is the real implementation of the sensitivity update.
-  TODO: move it to the DDisplay as it belongs to it IMHO
+  TODO: move it to the DiaDisplay as it belongs to it IMHO
  */
 void 
 diagram_update_menu_sensitivity (Diagram *dia)
 {
   gint selected_count = dia ? g_list_length (dia->data->selected) : 0;
-  DDisplay *ddisp = ddisplay_active();
+  DiaDisplay *ddisp = dia_display_active();
   gboolean focus_active = dia ? (get_active_focus(dia->data) != NULL) : FALSE;
   gboolean textedit_active = ddisp ? textedit_mode(ddisp) : FALSE;
   GtkAction *action;
@@ -656,13 +656,13 @@ diagram_update_menu_sensitivity (Diagram *dia)
     
   
 void
-diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp)
+diagram_add_display(Diagram *dia, DiaDisplay *ddisp)
 {
   dia->displays = g_slist_prepend(dia->displays, ddisp);
 }
 
 void
-diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp)
+diagram_remove_display(Diagram *dia, DiaDisplay *ddisp)
 {
   dia->displays = g_slist_remove(dia->displays, ddisp);
 
@@ -819,7 +819,7 @@ diagram_select_list(Diagram *dia, GList *list)
     list = g_list_next(list);
   }
   if (get_active_focus((DiagramData*) dia) == NULL) {
-    textedit_activate_first(ddisplay_active());
+    textedit_activate_first(dia_display_active());
   }
   g_signal_handlers_unblock_by_func (dia, DIA_DIAGRAM_DATA_GET_CLASS (dia)->selection_changed, NULL);
   g_signal_emit_by_name (dia, "selection_changed", g_list_length (dia->data->selected));
@@ -854,13 +854,13 @@ void
 diagram_add_update_all(Diagram *dia)
 {
   GSList *l;
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
   
   l = dia->displays;
   while (l!=NULL) {
-    ddisp = (DDisplay *) l->data;
+    ddisp = (DiaDisplay *) l->data;
 
-    ddisplay_add_update_all(ddisp);
+    dia_display_add_update_all(ddisp);
     
     l = g_slist_next(l);
   }
@@ -870,13 +870,13 @@ void
 diagram_add_update(Diagram *dia, const Rectangle *update)
 {
   GSList *l;
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
   
   l = dia->displays;
   while (l!=NULL) {
-    ddisp = (DDisplay *) l->data;
+    ddisp = (DiaDisplay *) l->data;
 
-    ddisplay_add_update(ddisp, update);
+    dia_display_add_update(ddisp, update);
     
     l = g_slist_next(l);
   }
@@ -892,13 +892,13 @@ diagram_add_update_with_border(Diagram *dia, const Rectangle *update,
 			       int pixel_border)
 {
   GSList *l;
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
   
   l = dia->displays;
   while (l!=NULL) {
-    ddisp = (DDisplay *) l->data;
+    ddisp = (DiaDisplay *) l->data;
 
-    ddisplay_add_update_with_border(ddisp, update, pixel_border);
+    dia_display_add_update_with_border(ddisp, update, pixel_border);
     
     l = g_slist_next(l);
   }
@@ -909,13 +909,13 @@ diagram_add_update_pixels(Diagram *dia, Point *point,
 			  int pixel_width, int pixel_height)
 {
   GSList *l;
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
 
   l = dia->displays;
   while (l!=NULL) {
-    ddisp = (DDisplay *) l->data;
+    ddisp = (DiaDisplay *) l->data;
 
-    ddisplay_add_update_pixels(ddisp, point, pixel_width, pixel_height);
+    dia_display_add_update_pixels(ddisp, point, pixel_width, pixel_height);
     
     l = g_slist_next(l);
   }
@@ -925,12 +925,12 @@ void
 diagram_flush(Diagram *dia)
 {
   GSList *l;
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
   l = dia->displays;
   while (l!=NULL) {
-    ddisp = (DDisplay *) l->data;
+    ddisp = (DiaDisplay *) l->data;
 
-    ddisplay_flush(ddisp);
+    dia_display_flush(ddisp);
     
     l = g_slist_next(l);
   }
@@ -1025,13 +1025,13 @@ diagram_update_extents(Diagram *dia)
   if (data_update_extents(dia->data)) {
     /* Update scrollbars because extents were changed: */
     GSList *l;
-    DDisplay *ddisp;
+    DiaDisplay *ddisp;
     
     l = dia->displays;
     while (l!=NULL) {
-      ddisp = (DDisplay *) l->data;
+      ddisp = (DiaDisplay *) l->data;
       
-      ddisplay_update_scrollbars(ddisp);
+      dia_display_update_scrollbars(ddisp);
       
       l = g_slist_next(l);
     }
@@ -1473,16 +1473,16 @@ static void
 diagram_update_for_filename(Diagram *dia)
 {
   GSList *l;
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
   char *title;
 
   title = diagram_get_name(dia);
 
   l = dia->displays;
   while (l!=NULL) {
-    ddisp = (DDisplay *) l->data;
+    ddisp = (DiaDisplay *) l->data;
 
-    ddisplay_set_title(ddisp, title);
+    dia_display_set_title(ddisp, title);
     
     l = g_slist_next(l);
   }

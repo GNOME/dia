@@ -26,7 +26,7 @@
 #include <structmember.h> /* PyMemberDef */
 
 PyObject *
-PyDiaDisplay_New(DDisplay *disp)
+PyDiaDisplay_New(DiaDisplay *disp)
 {
     PyDiaDisplay *self;
 
@@ -68,132 +68,132 @@ PyDiaDisplay_Str(PyDiaDisplay *self)
 static PyObject *
 PyDiaDisplay_AddUpdateAll(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Display.add_update_all"))
-	return NULL;
-    ddisplay_add_update_all(self->disp);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, ":Display.add_update_all"))
+    return NULL;
+  dia_display_add_update_all(self->disp);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaDisplay_Flush(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Display.flush"))
-	return NULL;
-    ddisplay_flush(self->disp);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, ":Display.flush"))
+    return NULL;
+  dia_display_flush(self->disp);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaDisplay_SetOrigion(PyDiaDisplay *self, PyObject *args)
 {
-    double x, y;
+  double x, y;
 
-    if (!PyArg_ParseTuple(args, "dd:Display.set_origion", &x, &y))
-	return NULL;
-    ddisplay_set_origo(self->disp, x, y);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, "dd:Display.set_origion", &x, &y))
+    return NULL;
+  dia_display_set_origo(self->disp, x, y);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaDisplay_Zoom(PyDiaDisplay *self, PyObject *args)
 {
-    Point p;
-    double zoom;
+  Point p;
+  double zoom;
 
-    if (!PyArg_ParseTuple(args, "(dd)d:Display.zoom", &p.x, &p.y, &zoom))
-	return NULL;
-    ddisplay_zoom(self->disp, &p, zoom);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, "(dd)d:Display.zoom", &p.x, &p.y, &zoom))
+    return NULL;
+  dia_display_zoom(self->disp, &p, zoom);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaDisplay_ResizeCanvas(PyDiaDisplay *self, PyObject *args)
 {
-    int width, height;
+  int width, height;
 
-    if (!PyArg_ParseTuple(args, "ii:Display.resize_canvas", &width,&height))
-	return NULL;
-    ddisplay_resize_canvas(self->disp, width, height);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, "ii:Display.resize_canvas", &width,&height))
+    return NULL;
+  dia_display_resize_canvas(self->disp, width, height);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaDisplay_Close(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Display.close"))
-	return NULL;
-    ddisplay_close(self->disp);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, ":Display.close"))
+    return NULL;
+  dia_display_close(self->disp);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaDisplay_SetTitle(PyDiaDisplay *self, PyObject *args)
 {
-    gchar *title;
+  gchar *title;
 
-    if (!PyArg_ParseTuple(args, "s:Display.set_title", &title))
-	return NULL;
-    ddisplay_set_title(self->disp, title);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, "s:Display.set_title", &title))
+    return NULL;
+  dia_display_set_title(self->disp, title);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaDisplay_Scroll(PyDiaDisplay *self, PyObject *args)
 {
-    Point delta;
+  Point delta;
 
-    if (!PyArg_ParseTuple(args, "dd:Display.scroll", &delta.x, &delta.y))
-	return NULL;
-    ddisplay_scroll(self->disp, &delta);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, "dd:Display.scroll", &delta.x, &delta.y))
+    return NULL;
+  dia_display_scroll(self->disp, &delta);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaDisplay_ScrollUp(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Display.scroll_up"))
-	return NULL;
-    ddisplay_scroll_up(self->disp);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, ":Display.scroll_up"))
+    return NULL;
+  dia_display_scroll_up(self->disp);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaDisplay_ScrollDown(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Display.scroll_down"))
-	return NULL;
-    ddisplay_scroll_down(self->disp);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, ":Display.scroll_down"))
+    return NULL;
+  dia_display_scroll_down(self->disp);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaDisplay_ScrollLeft(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Display.scroll_left"))
-	return NULL;
-    ddisplay_scroll_left(self->disp);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, ":Display.scroll_left"))
+    return NULL;
+  dia_display_scroll_left(self->disp);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaDisplay_ScrollRight(PyDiaDisplay *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Display.scroll_right"))
-	return NULL;
-    ddisplay_scroll_right(self->disp);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, ":Display.scroll_right"))
+    return NULL;
+  dia_display_scroll_right(self->disp);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyMethodDef PyDiaDisplay_Methods[] = {

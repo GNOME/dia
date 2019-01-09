@@ -380,7 +380,7 @@ fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
 {
   const gchar *search = gtk_entry_get_text (g_object_get_data (G_OBJECT (widget), "search-entry")); 
   const gchar *replace;
-  DDisplay *ddisp = (DDisplay*)data;
+  DiaDisplay *ddisp = (DiaDisplay*)data;
   SearchData sd = { 0, };
   sd.diagram = ddisp->diagram;
   sd.flags =  gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( 
@@ -410,7 +410,7 @@ fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
         diagram_flush(ddisp->diagram);
       }
       diagram_select (ddisp->diagram, sd.last);
-      ddisplay_present_object (ddisp, sd.last);
+      dia_display_present_object (ddisp, sd.last);
     }
     break;
   case RESPONSE_REPLACE :
@@ -454,7 +454,7 @@ fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
 }
 
 static void
-fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp)
+fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DiaDisplay *ddisp)
 {
   GtkWidget *vbox;
   GtkWidget *hbox;
@@ -524,10 +524,10 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
 void
 edit_find_callback(GtkAction *action)
 {
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
   GtkWidget *dialog;
 
-  ddisp = ddisplay_active();
+  ddisp = dia_display_active();
   if (!ddisp) return;
 
   /* no static var, instead we are attaching the dialog to the diplay shell */
@@ -553,10 +553,10 @@ edit_find_callback(GtkAction *action)
 void
 edit_replace_callback(GtkAction *action)
 {
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
   GtkWidget *dialog;
 
-  ddisp = ddisplay_active();
+  ddisp = dia_display_active();
   if (!ddisp) return;
 
   /* no static var, instead we are attaching the dialog to the diplay shell */

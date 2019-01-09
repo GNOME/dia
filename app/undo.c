@@ -259,7 +259,7 @@ undo_clear(UndoStack *stack)
 void 
 undo_update_menus(UndoStack *stack)
 {
-  ddisplay_do_update_menu_sensitivity(ddisplay_active());
+  dia_display_do_update_menu_sensitivity(dia_display_active());
 }
 
 /** Marks the undo stack at the time of a save. 

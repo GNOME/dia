@@ -301,7 +301,6 @@ fill_sheet_wbox (DiaToolbox *self, DiaSheet *sheet)
 
     button = gtk_radio_button_new (tool_group);
     gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (button), FALSE);
-    gtk_container_set_border_width (GTK_CONTAINER (button), 0);
     tool_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (button));
 
     gtk_container_add (GTK_CONTAINER (button), image);

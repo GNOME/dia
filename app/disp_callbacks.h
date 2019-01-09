@@ -20,25 +20,24 @@
 
 #include "display.h"
 
-gint ddisplay_focus_in_event (GtkWidget *widget, GdkEventFocus *event,
+gint dia_display_focus_in_event (GtkWidget *widget, GdkEventFocus *event,
 			      gpointer data);
-gint ddisplay_focus_out_event (GtkWidget *widget, GdkEventFocus *event,
+gint dia_display_focus_out_event (GtkWidget *widget, GdkEventFocus *event,
 			       gpointer data);
-void ddisplay_realize (GtkWidget *widget, gpointer data);
-void ddisplay_unrealize (GtkWidget *widget, gpointer data);
+void dia_display_realize (GtkWidget *widget, gpointer data);
+void dia_display_unrealize (GtkWidget *widget, gpointer data);
 
-gint ddisplay_canvas_events (GtkWidget *, GdkEvent *, gpointer data);
-void ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event);
-gint ddisplay_hsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
-gint ddisplay_vsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
-gint ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data);
-void ddisplay_destroy (GtkWidget *widget, gpointer data);
+gint dia_display_canvas_events (GtkWidget *, GdkEvent *, gpointer data);
+void dia_display_popup_menu(DiaDisplay *ddisp, GdkEventButton *event);
+gint dia_display_hsb_update (GtkAdjustment *adjustment, DiaDisplay *ddisp);
+gint dia_display_vsb_update (GtkAdjustment *adjustment, DiaDisplay *ddisp);
+gint dia_display_delete (GtkWidget *widget, GdkEvent  *event, gpointer data);
 
-DiaObject *ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
+DiaObject *dia_display_drop_object(DiaDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
 			  gpointer user_data);
-void ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
-                                DDisplay     *ddisp);
-void ddisplay_im_context_preedit_changed(GtkIMContext *context,
-                                         DDisplay *ddisp);
+void dia_display_im_context_commit(GtkIMContext *context, const gchar  *str,
+                                DiaDisplay     *ddisp);
+void dia_display_im_context_preedit_changed(GtkIMContext *context,
+                                         DiaDisplay *ddisp);
 
 #endif /* DISP_CALLBACKS_H */

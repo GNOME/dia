@@ -40,6 +40,6 @@
  *
  * Returns: a new #GtkButton.
  **/
-GtkWidget * navigation_popup_new (DDisplay *ddisp);
+GtkWidget * navigation_popup_new (DiaDisplay *ddisp);
 
 #endif

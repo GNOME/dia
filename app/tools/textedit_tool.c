@@ -33,15 +33,15 @@ G_DEFINE_TYPE (DiaTextEditTool, dia_text_edit_tool, DIA_TYPE_TOOL)
  * by clicking an object.
  */
 static DiaObject *
-click_select_object (DDisplay       *ddisp,
+click_select_object (DiaDisplay     *ddisp,
                      Point          *clickedpoint,
                      GdkEventButton *event)
 {
-  real click_distance = ddisplay_untransform_length(ddisp, 3.0);
+  real click_distance = dia_display_untransform_length(ddisp, 3.0);
   Diagram *diagram = ddisp->diagram;
   DiaObject *obj;
   
-  ddisplay_untransform_coords(ddisp,
+  dia_display_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
 			      &clickedpoint->x, &clickedpoint->y);
 
@@ -60,7 +60,7 @@ click_select_object (DDisplay       *ddisp,
       }
       diagram_select (diagram, obj);
     }
-    ddisplay_do_update_menu_sensitivity (ddisp);
+    dia_display_do_update_menu_sensitivity (ddisp);
     object_add_updates_list (diagram->data->selected, diagram);
     diagram_flush (diagram);
 
@@ -73,19 +73,19 @@ click_select_object (DDisplay       *ddisp,
 static void
 text_edit_button_press (DiaTool        *tool,
                         GdkEventButton *event,
-                        DDisplayBox    *ddisp)
+                        DiaDisplay     *ddisp)
 {
   DiaTextEditTool *self = DIA_TEXT_EDIT_TOOL (tool);
   Point clickedpoint;
-  Diagram *diagram = ddisp->ddisp->diagram;
-  DiaObject *obj = click_select_object (ddisp->ddisp, &clickedpoint, event);
+  Diagram *diagram = ddisp->diagram;
+  DiaObject *obj = click_select_object (ddisp, &clickedpoint, event);
 
   if (obj) {
     if (obj != self->object)
       textedit_deactivate_focus ();
 
     /*  set cursor position */
-    if (textedit_activate_object (ddisp->ddisp, obj, &clickedpoint)) {
+    if (textedit_activate_object (ddisp, obj, &clickedpoint)) {
       self->object = obj;
       self->start_at = clickedpoint;
       self->state = STATE_TEXT_SELECT;
@@ -103,13 +103,13 @@ text_edit_button_press (DiaTool        *tool,
 static void
 text_edit_button_release (DiaTool        *tool,
                           GdkEventButton *event,
-                          DDisplayBox    *ddisp)
+                          DiaDisplay     *ddisp)
 {
   Point clickedpoint;
-  DiaObject *obj = click_select_object (ddisp->ddisp, &clickedpoint, event);
+  DiaObject *obj = click_select_object (ddisp, &clickedpoint, event);
   
   if (obj) {
-    ddisplay_do_update_menu_sensitivity (ddisp->ddisp);
+    dia_display_do_update_menu_sensitivity (ddisp);
 
     DIA_TEXT_EDIT_TOOL (tool)->state = STATE_TEXT_EDIT;
     /* no selection in the text editing yes */
@@ -123,7 +123,7 @@ text_edit_button_release (DiaTool        *tool,
 static void
 text_edit_motion (DiaTool        *tool,
                   GdkEventMotion *event,
-                  DDisplayBox    *ddisp)
+                  DiaDisplay     *ddisp)
 {
   /* if we implement text selection here we could update the visual feedback */
 }
@@ -131,7 +131,7 @@ text_edit_motion (DiaTool        *tool,
 static void
 text_edit_double_click (DiaTool        *tool,
                         GdkEventButton *event,
-                        DDisplayBox    *ddisp)
+                        DiaDisplay     *ddisp)
 {
   /* if we implment text selection this should select a word */
 }
@@ -139,31 +139,31 @@ text_edit_double_click (DiaTool        *tool,
 static void
 activate (DiaTool *tool)
 {
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
 
-  ddisplay_set_all_cursor (get_cursor (CURSOR_XTERM));
+  dia_display_set_all_cursor (get_cursor (CURSOR_XTERM));
 
-  ddisp = ddisplay_active();
+  ddisp = dia_display_active();
   if (ddisp) {
     if (textedit_activate_first (ddisp)) {
       /*  set the focus to the canvas area  */
       gtk_widget_grab_focus (ddisp->canvas);
     }
-    ddisplay_flush (ddisp);
+    dia_display_flush (ddisp);
     /* the above may have entered the textedit mode, just update in any case */
-    ddisplay_do_update_menu_sensitivity (ddisp);
+    dia_display_do_update_menu_sensitivity (ddisp);
   }
 }
 
 static void
 deactivate (DiaTool *tool)
 {
-  DDisplay *ddisp = ddisplay_active ();
+  DiaDisplay *ddisp = dia_display_active ();
   if (ddisp) {
     textedit_deactivate_focus ();
-    ddisplay_flush (ddisp);
+    dia_display_flush (ddisp);
   }
-  ddisplay_set_all_cursor (default_cursor);
+  dia_display_set_all_cursor (default_cursor);
 }
 
 static void

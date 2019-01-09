@@ -765,7 +765,7 @@ update_floating_toolbox(DiaPrefData *pref, gpointer ptr)
       GSList *displays;
       for (displays = diagram->displays; displays != NULL; 
 	   displays = g_slist_next(displays)) {
-	DDisplay *ddisp = (DDisplay *)displays->data;
+	DiaDisplay *ddisp = (DiaDisplay *)displays->data;
 	gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
 				     GTK_WINDOW(ddisp->shell));
       }

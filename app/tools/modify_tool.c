@@ -63,27 +63,27 @@ struct _DiaModifyTool {
 
 G_DEFINE_TYPE (DiaModifyTool, dia_modify_tool, DIA_TYPE_TOOL)
 
-static DiaObject *click_select_object(DDisplayBox  *ddisp, Point *clickedpoint,
+static DiaObject *click_select_object (DiaDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
-static int  do_if_clicked_handle  (DDisplayBox    *ddisp,
+static int  do_if_clicked_handle  (DiaDisplay     *ddisp,
                                    DiaModifyTool  *tool,
                                    Point          *clickedpoint,
                                    GdkEventButton *event);
 static void modify_button_press   (DiaTool        *tool,
                                    GdkEventButton *event,
-                                   DDisplayBox    *ddisp);
+                                   DiaDisplay     *ddisp);
 static void modify_button_hold    (DiaTool        *tool,
                                    GdkEventButton *event,
-                                   DDisplayBox    *ddisp);
+                                   DiaDisplay     *ddisp);
 static void modify_button_release (DiaTool        *tool,
                                    GdkEventButton *event,
-                                   DDisplayBox    *ddisp);
+                                   DiaDisplay     *ddisp);
 static void modify_motion         (DiaTool        *tool,
                                    GdkEventMotion *event,
-                                   DDisplayBox    *ddisp);
+                                   DiaDisplay     *ddisp);
 static void modify_double_click   (DiaTool        *tool,
                                    GdkEventButton *event,
-                                   DDisplayBox    *ddisp);
+                                   DiaDisplay     *ddisp);
 
 static void
 activate (DiaTool *self)
@@ -159,18 +159,18 @@ gdk_event_to_dia_ModifierKeys(guint event_state)
 }
 
 static DiaObject *
-click_select_object(DDisplayBox  *ddisp, Point *clickedpoint,
+click_select_object(DiaDisplay *ddisp, Point *clickedpoint,
 		    GdkEventButton *event)
 {
   Diagram *diagram;
   real click_distance;
   DiaObject *obj;
   
-  diagram = ddisp->ddisp->diagram;
+  diagram = ddisp->diagram;
   
   /* Find the closest object to select it: */
 
-  click_distance = ddisplay_untransform_length (ddisp->ddisp, 3.0);
+  click_distance = dia_display_untransform_length (ddisp, 3.0);
   
   obj = diagram_find_clicked_object(diagram, clickedpoint,
 				    click_distance);
@@ -185,17 +185,17 @@ click_select_object(DDisplayBox  *ddisp, Point *clickedpoint,
       /*printf("Not already selected\n");*/
 
       if (!(event->state & GDK_SHIFT_MASK)) {
-	/* Not Multi-select => remove current selection */
-	diagram_remove_all_selected(diagram, TRUE);
+        /* Not Multi-select => remove current selection */
+        diagram_remove_all_selected(diagram, TRUE);
       }
       
       diagram_select(diagram, obj);
       /* To be removed once text edit mode is stable.  By then,
        * we don't want to automatically edit selected objects. 
-	 textedit_activate_object(ddisp, obj, clickedpoint);
-      */
+       * textedit_activate_object(ddisp, obj, clickedpoint);
+       */
 
-      ddisplay_do_update_menu_sensitivity (ddisp->ddisp);
+      dia_display_do_update_menu_sensitivity (ddisp);
       object_add_updates_list(diagram->data->selected, diagram);
       diagram_flush(diagram);
 
@@ -210,12 +210,12 @@ click_select_object(DDisplayBox  *ddisp, Point *clickedpoint,
       diagram_flush(diagram);
       
       if (event->state & GDK_SHIFT_MASK) { /* Multi-select */
-	/* Remove the selected selected */
-	ddisplay_do_update_menu_sensitivity (ddisp->ddisp);
-	diagram_unselect_object(diagram, (DiaObject *)already->data);
-	diagram_flush(ddisp->ddisp->diagram);
+        /* Remove the selected selected */
+        dia_display_do_update_menu_sensitivity (ddisp);
+        diagram_unselect_object(diagram, (DiaObject *)already->data);
+        diagram_flush (ddisp->diagram);
       } else {
-	return obj;
+        return obj;
       }
     }
   } /* Else part moved to allow union/intersection select */
@@ -232,27 +232,27 @@ time_micro()
   return tv.tv_sec*G_USEC_PER_SEC+tv.tv_usec;
 }
 
-static int do_if_clicked_handle(DDisplayBox  *ddisp, DiaModifyTool *tool,
+static int do_if_clicked_handle (DiaDisplay *ddisp, DiaModifyTool *tool,
 				Point *clickedpoint, GdkEventButton *event)
 {
   DiaObject *obj;
   Handle *handle;
   
   handle = NULL;
-  diagram_find_closest_handle(ddisp->ddisp->diagram, &handle, &obj, clickedpoint);
-  if (handle_is_clicked (ddisp->ddisp, handle, clickedpoint)) {
+  diagram_find_closest_handle (ddisp->diagram, &handle, &obj, clickedpoint);
+  if (handle_is_clicked (ddisp, handle, clickedpoint)) {
     tool->state = STATE_MOVE_HANDLE;
     tool->break_connections = TRUE;
     tool->last_to = handle->pos;
     tool->handle = handle;
     tool->object = obj;
-    gdk_pointer_grab (gtk_widget_get_window(ddisp->ddisp->canvas),
+    gdk_pointer_grab (gtk_widget_get_window (ddisp->canvas),
                       FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
     tool->start_at = handle->pos;
     tool->start_time = time_micro();
-    ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
+    dia_display_set_all_cursor(get_cursor(CURSOR_SCROLL));
     return TRUE;
   }
   return FALSE;
@@ -261,19 +261,19 @@ static int do_if_clicked_handle(DDisplayBox  *ddisp, DiaModifyTool *tool,
 static void
 modify_button_press (DiaTool        *self,
                      GdkEventButton *event,
-                     DDisplayBox    *ddisp)
+                     DiaDisplay     *ddisp)
 {
   DiaModifyTool *tool = DIA_MODIFY_TOOL (self);
   Point clickedpoint;
   DiaObject *clicked_obj;
   gboolean some_selected;
 
-  ddisplay_untransform_coords (ddisp->ddisp,
+  dia_display_untransform_coords (ddisp,
                                (int) event->x, (int) event->y,
                                &clickedpoint.x, &clickedpoint.y);
 
   /* don't got to single handle movement if there is more than one object selected */
-  some_selected = g_list_length (ddisp->ddisp->diagram->data->selected) > 1;
+  some_selected = g_list_length (ddisp->diagram->data->selected) > 1;
   if (!some_selected && do_if_clicked_handle (ddisp, tool, &clickedpoint, event))
     return;
   
@@ -288,12 +288,12 @@ modify_button_press (DiaTool        *self,
     point_sub(&tool->move_compensate, &clickedpoint);
     tool->break_connections = TRUE; /* unconnect when not grabbing handles, just setting to
 				      * FALSE is not enough. Need to refine the move op, too. */
-    gdk_pointer_grab (gtk_widget_get_window(ddisp->ddisp->canvas), FALSE,
+    gdk_pointer_grab (gtk_widget_get_window (ddisp->canvas), FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
     tool->start_at = clickedpoint;
     tool->start_time = time_micro();
-    ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
+    dia_display_set_all_cursor(get_cursor(CURSOR_SCROLL));
   } else {
     tool->state = STATE_BOX_SELECT;
     tool->start_box = clickedpoint;
@@ -301,15 +301,15 @@ modify_button_press (DiaTool        *self,
     tool->x1 = tool->x2 = (int) event->x;
     tool->y1 = tool->y2 = (int) event->y;
 
-    dia_interactive_renderer_set_selection (ddisp->ddisp->renderer,
+    dia_interactive_renderer_set_selection (ddisp->renderer,
                                             TRUE,
                                             tool->x1,
                                             tool->y1,
                                             tool->x2 - tool->x1,
                                             tool->y2 - tool->y1);
-    ddisplay_flush (ddisp->ddisp);
+    dia_display_flush (ddisp);
     
-    gdk_pointer_grab (gtk_widget_get_window (ddisp->ddisp->canvas), FALSE,
+    gdk_pointer_grab (gtk_widget_get_window (ddisp->canvas), FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
                       NULL, NULL, event->time);
   }
@@ -319,7 +319,7 @@ modify_button_press (DiaTool        *self,
 static void
 modify_button_hold (DiaTool        *self,
                     GdkEventButton *event,
-                    DDisplayBox    *ddisp)
+                    DiaDisplay     *ddisp)
 {
   DiaModifyTool *tool = DIA_MODIFY_TOOL (self);
   Point clickedpoint;
@@ -328,13 +328,13 @@ modify_button_hold (DiaTool        *self,
   case STATE_MOVE_OBJECT: 
     /* A button hold is as if user was moving object - if it is
      * a text object and can be edited, then the move is cancelled */
-    ddisplay_untransform_coords (ddisp->ddisp,
+    dia_display_untransform_coords (ddisp,
                                  (int)event->x, (int)event->y,
                                  &clickedpoint.x, &clickedpoint.y);
 
     if (tool->object != NULL &&
-        diagram_is_selected (ddisp->ddisp->diagram, tool->object)) {
-      if (textedit_activate_object (ddisp->ddisp, tool->object, &clickedpoint)) {
+        diagram_is_selected (ddisp->diagram, tool->object)) {
+      if (textedit_activate_object (ddisp, tool->object, &clickedpoint)) {
         /* Return tool to normal state - object is text and is in edit */
         gdk_pointer_ungrab (event->time);
         tool->orig_pos = NULL;
@@ -358,26 +358,26 @@ modify_button_hold (DiaTool        *self,
 static void
 modify_double_click (DiaTool        *self,
                      GdkEventButton *event,
-                     DDisplayBox    *ddisp)
+                     DiaDisplay     *ddisp)
 {
   Point clickedpoint;
   DiaObject *clicked_obj;
   
-  ddisplay_untransform_coords (ddisp->ddisp,
+  dia_display_untransform_coords (ddisp,
                                (int) event->x, (int) event->y,
                                &clickedpoint.x, &clickedpoint.y);
 
   clicked_obj = click_select_object(ddisp, &clickedpoint, event);
   
   if ( clicked_obj != NULL ) {
-    object_list_properties_show(ddisp->ddisp->diagram, ddisp->ddisp->diagram->data->selected);
+    object_list_properties_show (ddisp->diagram, ddisp->diagram->data->selected);
   } else { /* No object selected */
     /*printf("didn't select object\n");*/
     if (!(event->state & GDK_SHIFT_MASK)) {
       /* Not Multi-select => Remove all selected */
-      ddisplay_do_update_menu_sensitivity (ddisp->ddisp);
-      diagram_remove_all_selected(ddisp->ddisp->diagram, TRUE);
-      diagram_flush(ddisp->ddisp->diagram);
+      dia_display_do_update_menu_sensitivity (ddisp);
+      diagram_remove_all_selected (ddisp->diagram, TRUE);
+      diagram_flush (ddisp->diagram);
     }
   }
 }
@@ -396,7 +396,7 @@ modify_double_click (DiaTool        *self,
  */
 
 static gboolean
-modify_move_already (DiaModifyTool *tool, DDisplay *ddisp, Point *to)
+modify_move_already (DiaModifyTool *tool, DiaDisplay *ddisp, Point *to)
 {
   static gboolean settings_taken = FALSE;
   static int double_click_time = 250;
@@ -427,8 +427,8 @@ modify_move_already (DiaModifyTool *tool, DDisplay *ddisp, Point *to)
       return TRUE;
     }
   }
-  if (ddisplay_transform_length (ddisp, dist) > MIN_PIXELS) {
-    return (ddisplay_transform_length (ddisp, dist) > MIN_PIXELS);
+  if (dia_display_transform_length (ddisp, dist) > MIN_PIXELS) {
+    return (dia_display_transform_length (ddisp, dist) > MIN_PIXELS);
   } else {
     return FALSE;
   }
@@ -437,7 +437,7 @@ modify_move_already (DiaModifyTool *tool, DDisplay *ddisp, Point *to)
 static void
 modify_motion (DiaTool        *self,
                GdkEventMotion *event,
-               DDisplayBox    *ddisp)
+               DiaDisplay     *ddisp)
 {
   DiaModifyTool *tool = DIA_MODIFY_TOOL (self);
   Point to;
@@ -446,25 +446,25 @@ modify_motion (DiaTool        *self,
   ConnectionPoint *connectionpoint = NULL;
   ObjectChange *objchange = NULL;
 
-  ddisplay_untransform_coords (ddisp->ddisp, event->x, event->y, &to.x, &to.y);
+  dia_display_untransform_coords (ddisp, event->x, event->y, &to.x, &to.y);
 
   if (tool->state==STATE_NONE) {
     DiaObject *obj = NULL;
     Handle *handle = NULL;
 
-    diagram_find_closest_handle (ddisp->ddisp->diagram, &handle, &obj, &to);
+    diagram_find_closest_handle (ddisp->diagram, &handle, &obj, &to);
     if  (handle && handle->type != HANDLE_NON_MOVABLE
       && handle->id >= HANDLE_RESIZE_NW && handle->id <= HANDLE_RESIZE_SE
-      && handle_is_clicked (ddisp->ddisp, handle, &to)
-      && g_list_length (ddisp->ddisp->diagram->data->selected) == 1)
-      ddisplay_set_all_cursor(get_cursor(CURSOR_DIRECTION_0 + handle->id));
+      && handle_is_clicked (ddisp, handle, &to)
+      && g_list_length (ddisp->diagram->data->selected) == 1)
+      dia_display_set_all_cursor(get_cursor(CURSOR_DIRECTION_0 + handle->id));
     else
-      ddisplay_set_all_cursor(get_cursor(CURSOR_POINT));
+      dia_display_set_all_cursor(get_cursor(CURSOR_POINT));
     return; /* Fast path... */
   }
-  auto_scroll = ddisplay_autoscroll (ddisp->ddisp, event->x, event->y);
+  auto_scroll = dia_display_autoscroll (ddisp, event->x, event->y);
   
-  if (!modify_move_already (tool, ddisp->ddisp, &to)) return;
+  if (!modify_move_already (tool, ddisp, &to)) return;
 
   switch (tool->state) {
   case STATE_MOVE_OBJECT:
@@ -475,7 +475,7 @@ modify_motion (DiaTool        *self,
       DiaObject *obj;
 
       /* consider non-selected children affected */
-      pla = list = parent_list_affected(ddisp->ddisp->diagram->data->selected);
+      pla = list = parent_list_affected (ddisp->diagram->data->selected);
       tool->orig_pos = g_new(Point, g_list_length(list));
       i=0;
       while (list != NULL) {
@@ -487,7 +487,7 @@ modify_motion (DiaTool        *self,
     }
     
     if (tool->break_connections)
-      diagram_unconnect_selected(ddisp->ddisp->diagram); /* Pushes UNDO info */
+      diagram_unconnect_selected (ddisp->diagram); /* Pushes UNDO info */
 
     if (gdk_event_to_dia_ModifierKeys (event->state) & MODIFIER_CONTROL) {
       full_delta = to;
@@ -496,7 +496,7 @@ modify_motion (DiaTool        *self,
     }
 
     point_add(&to, &tool->move_compensate);
-    snap_to_grid (ddisp->ddisp, &to.x, &to.y);
+    snap_to_grid (ddisp, &to.x, &to.y);
   
     now = tool->object->position;
     
@@ -512,19 +512,19 @@ modify_motion (DiaTool        *self,
       }
     }
 
-    object_add_updates_list(ddisp->ddisp->diagram->data->selected, ddisp->ddisp->diagram);
-    objchange = object_list_move_delta(ddisp->ddisp->diagram->data->selected, &delta);
+    object_add_updates_list (ddisp->diagram->data->selected, ddisp->diagram);
+    objchange = object_list_move_delta (ddisp->diagram->data->selected, &delta);
     if (objchange != NULL) {
-      undo_object_change(ddisp->ddisp->diagram, tool->object, objchange);
+      undo_object_change (ddisp->diagram, tool->object, objchange);
     }
-    object_add_updates_list(ddisp->ddisp->diagram->data->selected, ddisp->ddisp->diagram);
+    object_add_updates_list (ddisp->diagram->data->selected, ddisp->diagram);
 
-    object_add_updates(tool->object, ddisp->ddisp->diagram);
+    object_add_updates (tool->object, ddisp->diagram);
 
     /* Put current mouse position in status bar */
     {
       gchar *postext;
-      GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->ddisp->modified_status);
+      GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->modified_status);
       guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
       gtk_statusbar_pop (statusbar, context_id); 
       postext = g_strdup_printf("%.3f, %.3f - %.3f, %.3f",
@@ -539,8 +539,8 @@ modify_motion (DiaTool        *self,
       g_free(postext);
     }
 
-    diagram_update_connections_selection(ddisp->ddisp->diagram);
-    diagram_flush(ddisp->ddisp->diagram);
+    diagram_update_connections_selection(ddisp->diagram);
+    diagram_flush(ddisp->diagram);
     break;
   case STATE_MOVE_HANDLE:
     full_delta = to;
@@ -556,10 +556,10 @@ modify_motion (DiaTool        *self,
     if (gdk_event_to_dia_ModifierKeys (event->state) & MODIFIER_CONTROL)
       vertical = (fabs(full_delta.x) < fabs(full_delta.y));
 
-    highlight_reset_all(ddisp->ddisp->diagram);
+    highlight_reset_all(ddisp->diagram);
     if ((tool->handle->connect_type != HANDLE_NONCONNECTABLE)) {
       /* Move to ConnectionPoint if near: */
-      connectionpoint = object_find_connectpoint_display (ddisp->ddisp,
+      connectionpoint = object_find_connectpoint_display (ddisp,
                                                           &to,
                                                           tool->object, TRUE);
       if (connectionpoint != NULL) {
@@ -570,24 +570,24 @@ modify_motion (DiaTool        *self,
         } else {
           type = DIA_HIGHLIGHT_CONNECTIONPOINT;
         }
-        highlight_object(connectionpoint->object, type, ddisp->ddisp->diagram);
-        ddisplay_set_all_cursor(get_cursor(CURSOR_CONNECT));
+        highlight_object (connectionpoint->object, type, ddisp->diagram);
+        dia_display_set_all_cursor (get_cursor (CURSOR_CONNECT));
       }
     }
     if (connectionpoint == NULL) {
       /* No connectionopoint near, then snap to grid (if enabled) */
-      snap_to_grid (ddisp->ddisp, &to.x, &to.y);
-      ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
+      snap_to_grid (ddisp, &to.x, &to.y);
+      dia_display_set_all_cursor (get_cursor (CURSOR_SCROLL));
     }
 
     if (tool->break_connections) {
       /* break connections to the handle currently selected. */
       if (tool->handle->connected_to!=NULL) {
-        Change *change = undo_unconnect (ddisp->ddisp->diagram,
+        Change *change = undo_unconnect (ddisp->diagram,
                                          tool->object,
                                          tool->handle);
 
-        (change->apply)(change, ddisp->ddisp->diagram);
+        (change->apply)(change, ddisp->diagram);
       }
     }
 
@@ -601,14 +601,14 @@ modify_motion (DiaTool        *self,
     }
 
     if (tool->orig_pos == NULL) {
-      tool->orig_pos = g_new(Point, 1);
+      tool->orig_pos = g_new (Point, 1);
       *tool->orig_pos = tool->handle->pos;
     }
 
     /* Put current mouse position in status bar */
     {
       gchar *postext;
-      GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->ddisp->modified_status);
+      GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->modified_status);
       guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
     
       if (tool->object) { /* play safe */
@@ -625,7 +625,7 @@ modify_motion (DiaTool        *self,
       g_free(postext);
     }
     
-    object_add_updates(tool->object, ddisp->ddisp->diagram);
+    object_add_updates (tool->object, ddisp->diagram);
 
     /* Handle undo */
     if (tool->object)
@@ -633,32 +633,32 @@ modify_motion (DiaTool        *self,
 					         &to, connectionpoint,
 					         HANDLE_MOVE_USER, gdk_event_to_dia_ModifierKeys(event->state));
     if (objchange != NULL) {
-      undo_object_change(ddisp->ddisp->diagram, tool->object, objchange);
+      undo_object_change (ddisp->diagram, tool->object, objchange);
     }
-    object_add_updates(tool->object, ddisp->ddisp->diagram);
+    object_add_updates (tool->object, ddisp->diagram);
   
-    diagram_update_connections_selection(ddisp->ddisp->diagram);
-    diagram_flush(ddisp->ddisp->diagram);
+    diagram_update_connections_selection (ddisp->diagram);
+    diagram_flush (ddisp->diagram);
     break;
   case STATE_BOX_SELECT:
     tool->end_box = to;
 
-    ddisplay_transform_coords (ddisp->ddisp,
+    dia_display_transform_coords (ddisp,
                                MIN (tool->start_box.x, tool->end_box.x),
                                MIN (tool->start_box.y, tool->end_box.y),
                                &tool->x1, &tool->y1);
-    ddisplay_transform_coords (ddisp->ddisp,
+    dia_display_transform_coords (ddisp,
                                MAX(tool->start_box.x, tool->end_box.x),
                                MAX(tool->start_box.y, tool->end_box.y),
                                &tool->x2, &tool->y2);
 
-    dia_interactive_renderer_set_selection (ddisp->ddisp->renderer,
+    dia_interactive_renderer_set_selection (ddisp->renderer,
                                             TRUE,
                                             tool->x1,
                                             tool->y1,
                                             tool->x2 - tool->x1,
                                             tool->y2 - tool->y1);
-    ddisplay_flush (ddisp->ddisp);
+    dia_display_flush (ddisp);
 
     break;
   case STATE_NONE:
@@ -674,7 +674,7 @@ modify_motion (DiaTool        *self,
 /** Find the list of objects selected by current rubberbanding. 
  * The list should be freed after use. */
 static GList *
-find_selected_objects(DDisplayBox  *ddisp, DiaModifyTool *tool)
+find_selected_objects(DiaDisplay *ddisp, DiaModifyTool *tool)
 {
   Rectangle r;
   r.left = MIN(tool->start_box.x, tool->end_box.x);
@@ -685,17 +685,17 @@ find_selected_objects(DDisplayBox  *ddisp, DiaModifyTool *tool)
   if (prefs.reverse_rubberbanding_intersects && 
       tool->start_box.x > tool->end_box.x) {
     return
-      layer_find_objects_intersecting_rectangle(ddisp->ddisp->diagram->data->active_layer, &r);
+      layer_find_objects_intersecting_rectangle(ddisp->diagram->data->active_layer, &r);
   } else {
     return
-      layer_find_objects_in_rectangle(ddisp->ddisp->diagram->data->active_layer, &r);
+      layer_find_objects_in_rectangle (ddisp->diagram->data->active_layer, &r);
   }
 }
 
 static void
 modify_button_release (DiaTool        *self,
                        GdkEventButton *event,
-                       DDisplayBox    *ddisp)
+                       DiaDisplay     *ddisp)
 {
   DiaModifyTool *tool = DIA_MODIFY_TOOL (self);
   Point *dest_pos, to;
@@ -704,11 +704,11 @@ modify_button_release (DiaTool        *self,
   ObjectChange *objchange;
   
   tool->break_connections = FALSE;
-  ddisplay_set_all_cursor(default_cursor);
+  dia_display_set_all_cursor(default_cursor);
 
   /* remove position from status bar */
   {
-    GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->ddisp->modified_status);
+    GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->modified_status);
     guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
     gtk_statusbar_pop (statusbar, context_id);
   }
@@ -717,36 +717,36 @@ modify_button_release (DiaTool        *self,
     /* Return to normal state */
     gdk_pointer_ungrab (event->time);
 
-    ddisplay_untransform_coords (ddisp->ddisp, event->x, event->y, &to.x, &to.y);
-    if (!modify_move_already (tool, ddisp->ddisp, &to)) {
+    dia_display_untransform_coords (ddisp, event->x, event->y, &to.x, &to.y);
+    if (!modify_move_already (tool, ddisp, &to)) {
       tool->orig_pos = NULL;
       tool->state = STATE_NONE;
       return;
     }
 
-    diagram_update_connections_selection(ddisp->ddisp->diagram);
+    diagram_update_connections_selection (ddisp->diagram);
 
     if (tool->orig_pos != NULL) {
       /* consider the non-selected children affected */
-      list = parent_list_affected (ddisp->ddisp->diagram->data->selected);
-      dest_pos = g_new(Point, g_list_length(list));
+      list = parent_list_affected (ddisp->diagram->data->selected);
+      dest_pos = g_new (Point, g_list_length(list));
       i=0;
       while (list != NULL) {
-	DiaObject *obj = (DiaObject *)  list->data;
-	dest_pos[i] = obj->position;
-	list = g_list_next(list); i++;
+        DiaObject *obj = (DiaObject *)  list->data;
+        dest_pos[i] = obj->position;
+        list = g_list_next(list); i++;
       }
 
-      undo_move_objects(ddisp->ddisp->diagram, tool->orig_pos, dest_pos,
-			parent_list_affected(ddisp->ddisp->diagram->data->selected));
+      undo_move_objects (ddisp->diagram, tool->orig_pos, dest_pos,
+			parent_list_affected (ddisp->diagram->data->selected));
     }
     
-    ddisplay_connect_selected (ddisp->ddisp); /* pushes UNDO info */
-    diagram_update_extents(ddisp->ddisp->diagram);
-    diagram_modified(ddisp->ddisp->diagram);
-    diagram_flush(ddisp->ddisp->diagram);
+    dia_display_connect_selected (ddisp); /* pushes UNDO info */
+    diagram_update_extents (ddisp->diagram);
+    diagram_modified (ddisp->diagram);
+    diagram_flush (ddisp->diagram);
 
-    undo_set_transactionpoint(ddisp->ddisp->diagram->undo);
+    undo_set_transactionpoint (ddisp->diagram->undo);
 
     tool->orig_pos = NULL;
     tool->state = STATE_NONE;
@@ -756,34 +756,34 @@ modify_button_release (DiaTool        *self,
     tool->state = STATE_NONE;
 
     if (tool->orig_pos != NULL) {
-      undo_move_handle(ddisp->ddisp->diagram, tool->handle, tool->object,
+      undo_move_handle (ddisp->diagram, tool->handle, tool->object,
 		       *tool->orig_pos, tool->last_to, gdk_event_to_dia_ModifierKeys(event->state));
     }
     
     /* Final move: */
-    object_add_updates(tool->object, ddisp->ddisp->diagram);
-    objchange = tool->object->ops->move_handle(tool->object, tool->handle,
+    object_add_updates (tool->object, ddisp->diagram);
+    objchange = tool->object->ops->move_handle (tool->object, tool->handle,
 					       &tool->last_to, NULL,
 					       HANDLE_MOVE_USER_FINAL,gdk_event_to_dia_ModifierKeys(event->state));
     if (objchange != NULL) {
-      undo_object_change(ddisp->ddisp->diagram, tool->object, objchange);
+      undo_object_change (ddisp->diagram, tool->object, objchange);
     }
 
-    object_add_updates(tool->object, ddisp->ddisp->diagram);
+    object_add_updates(tool->object, ddisp->diagram);
 
     /* Connect if possible: */
     if (tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
-      object_connect_display (ddisp->ddisp, tool->object, tool->handle, TRUE); /* pushes UNDO info */
-      diagram_update_connections_selection (ddisp->ddisp->diagram);
+      object_connect_display (ddisp, tool->object, tool->handle, TRUE); /* pushes UNDO info */
+      diagram_update_connections_selection (ddisp->diagram);
     }
     
-    highlight_reset_all(ddisp->ddisp->diagram);
-    diagram_flush(ddisp->ddisp->diagram);
+    highlight_reset_all (ddisp->diagram);
+    diagram_flush (ddisp->diagram);
     
-    diagram_modified(ddisp->ddisp->diagram);
-    diagram_update_extents(ddisp->ddisp->diagram);
+    diagram_modified (ddisp->diagram);
+    diagram_update_extents (ddisp->diagram);
 
-    undo_set_transactionpoint(ddisp->ddisp->diagram->undo);
+    undo_set_transactionpoint (ddisp->diagram->undo);
 
     if (tool->orig_pos != NULL) {
       g_free(tool->orig_pos);
@@ -795,18 +795,18 @@ modify_button_release (DiaTool        *self,
     
     gdk_pointer_ungrab (event->time);
     /* Remove last box: */
-    dia_interactive_renderer_set_selection (ddisp->ddisp->renderer,
+    dia_interactive_renderer_set_selection (ddisp->renderer,
                                             FALSE, 0, 0, 0, 0);
 
     {
       GList *list, *list_to_free;
 
-      list = list_to_free = find_selected_objects(ddisp, tool);
+      list = list_to_free = find_selected_objects (ddisp, tool);
       
       if (selection_style == SELECT_REPLACE &&
           !(event->state & GDK_SHIFT_MASK)) {
         /* Not Multi-select => Remove all selected */
-        diagram_remove_all_selected(ddisp->ddisp->diagram, TRUE);
+        diagram_remove_all_selected (ddisp->diagram, TRUE);
       }
 
       if (selection_style == SELECT_INTERSECTION) {
@@ -815,37 +815,37 @@ modify_button_release (DiaTool        *self,
         while (list != NULL) {
           DiaObject *obj = (DiaObject *)list->data;
           
-          if (diagram_is_selected(ddisp->ddisp->diagram, obj)) {
-            intersection = g_list_append(intersection, obj);
+          if (diagram_is_selected (ddisp->diagram, obj)) {
+            intersection = g_list_append (intersection, obj);
           }
           
-          list = g_list_next(list);
+          list = g_list_next (list);
         }
         list = intersection;
-        diagram_remove_all_selected(ddisp->ddisp->diagram, TRUE);
+        diagram_remove_all_selected (ddisp->diagram, TRUE);
         while (list != NULL) {
           DiaObject *obj = (DiaObject *)list->data;
 
-          diagram_select(ddisp->ddisp->diagram, obj);
+          diagram_select (ddisp->diagram, obj);
 
-          list = g_list_next(list);
+          list = g_list_next (list);
         }
-        g_list_free(intersection);
+        g_list_free (intersection);
       } else {
         while (list != NULL) {
           DiaObject *obj = (DiaObject *)list->data;
           
           if (selection_style == SELECT_REMOVE) {
-            if (diagram_is_selected(ddisp->ddisp->diagram, obj))
-              diagram_unselect_object(ddisp->ddisp->diagram, obj);
+            if (diagram_is_selected(ddisp->diagram, obj))
+              diagram_unselect_object(ddisp->diagram, obj);
           } else if (selection_style == SELECT_INVERT) { 
-            if (diagram_is_selected(ddisp->ddisp->diagram, obj))
-              diagram_unselect_object(ddisp->ddisp->diagram, obj);
+            if (diagram_is_selected(ddisp->diagram, obj))
+              diagram_unselect_object(ddisp->diagram, obj);
             else
-              diagram_select(ddisp->ddisp->diagram, obj);
+              diagram_select(ddisp->diagram, obj);
           } else {
-            if (!diagram_is_selected(ddisp->ddisp->diagram, obj))
-              diagram_select(ddisp->ddisp->diagram, obj);
+            if (!diagram_is_selected(ddisp->diagram, obj))
+              diagram_select(ddisp->diagram, obj);
           }
           
           list = g_list_next(list);
@@ -856,8 +856,8 @@ modify_button_release (DiaTool        *self,
       
     }
     
-    ddisplay_do_update_menu_sensitivity (ddisp->ddisp);
-    ddisplay_flush (ddisp->ddisp);
+    dia_display_do_update_menu_sensitivity (ddisp);
+    dia_display_flush (ddisp);
 
     tool->state = STATE_NONE;
     break;

@@ -29,6 +29,6 @@ void file_save_callback(GtkAction *action);
 void file_save_as_callback(GtkAction *action);
 void file_export_callback(GtkAction *action);
 
-gboolean file_save_as(Diagram *dia, DDisplay *ddisp);
+gboolean file_save_as (Diagram *dia, DiaDisplay *ddisp);
 
 #endif

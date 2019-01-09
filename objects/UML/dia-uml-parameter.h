@@ -27,7 +27,7 @@ struct _DiaUmlParameter {
   UMLParameterKind kind; /**< Not currently used */
 };
 
-DiaUmlParameter *dia_uml_parameter_new                      ();
+DiaUmlParameter *dia_uml_parameter_new                      (void);
 /** calculated the 'formated' representation */
 gchar           *dia_uml_parameter_format                   (DiaUmlParameter *param);
 

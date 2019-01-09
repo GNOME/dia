@@ -38,7 +38,7 @@ void     integrated_ui_layer_view_show (gboolean show);
 
 int is_integrated_ui (void);
 
-void create_display_shell(DDisplay *ddisp,
+void create_display_shell(DiaDisplay *ddisp,
 			  int width, int height,
 			  char *title, int use_mbar);
 
@@ -64,6 +64,6 @@ void dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                       GtkSelectionData *data,
                                       guint             info,
                                       guint             time,
-                                      DDisplay         *ddisp);
+                                      DiaDisplay         *ddisp);
 
 #endif /* INTERFACE_H */

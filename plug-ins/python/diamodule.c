@@ -221,15 +221,15 @@ PyDia_RegisteredSheets(PyObject *self, PyObject *args)
 static PyObject *
 PyDia_ActiveDisplay(PyObject *self, PyObject *args)
 {
-    DDisplay *disp;
+  DiaDisplay *disp;
 
-    if (!PyArg_ParseTuple(args, ":dia.active_display"))
-	return NULL;
-    disp = ddisplay_active();
-    if (disp)
-	return PyDiaDisplay_New(disp);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, ":dia.active_display"))
+    return NULL;
+  disp = dia_display_active();
+  if (disp)
+    return PyDiaDisplay_New(disp);
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *

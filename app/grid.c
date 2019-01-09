@@ -33,15 +33,15 @@
  * grid mode.
  */
 static void
-calculate_dynamic_grid(DDisplay *ddisp, real *width_x, real *width_y)
+calculate_dynamic_grid (DiaDisplay *ddisp, real *width_x, real *width_y)
 {
-  real zoom = ddisplay_untransform_length(ddisp, 1.0);
+  real zoom = dia_display_untransform_length (ddisp, 1.0);
   real ret, tmp;
   /* Twiddle zoom to make change-over appropriate */
   zoom *= 5;
   ret = pow(10, ceil(log10(zoom)));
   /* dont' make it too small or huge (this is in pixels) */
-  tmp = ddisplay_transform_length(ddisp, ret);
+  tmp = dia_display_transform_length (ddisp, ret);
   if (tmp < 10.0)
     ret *= 2.0;
   else if (tmp > 35.0)
@@ -51,7 +51,7 @@ calculate_dynamic_grid(DDisplay *ddisp, real *width_x, real *width_y)
 }
 
 gboolean
-grid_step (DDisplay *ddisp, GtkOrientation orientation,
+grid_step (DiaDisplay *ddisp, GtkOrientation orientation,
 	   real *start, int *ipos, gboolean *is_major)
 {
   real  length;
@@ -69,7 +69,7 @@ grid_step (DDisplay *ddisp, GtkOrientation orientation,
     if(major_count < 0) major_count -= major_lines * major_count;
     major_count %= major_lines;
   }
-  ddisplay_transform_coords(ddisp,
+  dia_display_transform_coords(ddisp,
 			    orientation == GTK_ORIENTATION_HORIZONTAL ? pos : 0,
 			    orientation == GTK_ORIENTATION_VERTICAL ? pos : 0,
 			    &x, &y);
@@ -82,7 +82,7 @@ grid_step (DDisplay *ddisp, GtkOrientation orientation,
 }
 
 static void
-grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length) 
+grid_draw_horizontal_lines(DiaDisplay *ddisp, Rectangle *update, real length) 
 {
   int x, y;
   real pos;
@@ -95,8 +95,8 @@ grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length)
   irenderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
 
   pos = ceil( update->top / length ) * length;
-  ddisplay_transform_coords(ddisp, update->left, pos, &x, &y);
-  ddisplay_transform_coords(ddisp, update->right, update->bottom, &width, &height);
+  dia_display_transform_coords(ddisp, update->left, pos, &x, &y);
+  dia_display_transform_coords(ddisp, update->right, update->bottom, &width, &height);
 
   /*
     Explanatory note from Lawrence Withers (lwithers@users.sf.net):
@@ -120,18 +120,18 @@ grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length)
 	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
       else
 	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED,
-							ddisplay_untransform_length(ddisp, 31));
+							dia_display_untransform_length(ddisp, 31));
       major_count = (major_count+1)%major_lines;
     }
     irenderer->draw_pixel_line(renderer, x, y, width, y,
 			       &ddisp->diagram->grid.colour);
     pos += length;
-    ddisplay_transform_coords(ddisp, update->left, pos, &x, &y);
+    dia_display_transform_coords(ddisp, update->left, pos, &x, &y);
   }
 }
 
 static void
-grid_draw_vertical_lines(DDisplay *ddisp, Rectangle *update, real length) 
+grid_draw_vertical_lines(DiaDisplay *ddisp, Rectangle *update, real length) 
 {
   int x = 0, y = 0;
   real pos;
@@ -144,7 +144,7 @@ grid_draw_vertical_lines(DDisplay *ddisp, Rectangle *update, real length)
   irenderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
 
   pos = ceil( update->left / length ) * length;
-  ddisplay_transform_coords(ddisp, update->right, update->bottom, &width, &height);
+  dia_display_transform_coords(ddisp, update->right, update->bottom, &width, &height);
 
   if (major_lines) {
     major_count = ROUND (pos/length);
@@ -153,13 +153,13 @@ grid_draw_vertical_lines(DDisplay *ddisp, Rectangle *update, real length)
   }
 
   while (x < width) {
-    ddisplay_transform_coords(ddisp, pos, update->top, &x, &y);
+    dia_display_transform_coords(ddisp, pos, update->top, &x, &y);
     if (major_lines) {
       if (major_count == 0)
 	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
       else
 	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED,
-							ddisplay_untransform_length(ddisp, 31));
+							dia_display_untransform_length(ddisp, 31));
       major_count = (major_count+1)%major_lines;
     }
     irenderer->draw_pixel_line(renderer, x, y, x, height,
@@ -169,7 +169,7 @@ grid_draw_vertical_lines(DDisplay *ddisp, Rectangle *update, real length)
 }
 
 static void
-grid_draw_hex(DDisplay *ddisp, Rectangle *update, real length)
+grid_draw_hex(DiaDisplay *ddisp, Rectangle *update, real length)
 {
   real horiz_pos, vert_pos;
   int to_x, to_y, x, y;
@@ -183,8 +183,8 @@ grid_draw_hex(DDisplay *ddisp, Rectangle *update, real length)
   while (vert_pos <= update->bottom) {
     horiz_pos = ceil( (update->left) / (3 * length) ) * length * 3 - length * 2.5;
     while (horiz_pos <= update->right) {
-      ddisplay_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
-      ddisplay_transform_coords(ddisp, horiz_pos + length, vert_pos, &to_x, &y);
+      dia_display_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
+      dia_display_transform_coords(ddisp, horiz_pos + length, vert_pos, &to_x, &y);
 	  
       irenderer->draw_pixel_line(renderer,
 				 x, y, to_x, y,
@@ -200,8 +200,8 @@ grid_draw_hex(DDisplay *ddisp, Rectangle *update, real length)
   while (vert_pos <= update->bottom) {
     horiz_pos = ceil( (update->left) / (3 * length) ) * length * 3 - length;
     while (horiz_pos <= update->right) {
-      ddisplay_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
-      ddisplay_transform_coords(ddisp, horiz_pos+length, vert_pos, &to_x, &y);
+      dia_display_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
+      dia_display_transform_coords(ddisp, horiz_pos+length, vert_pos, &to_x, &y);
 	  
       irenderer->draw_pixel_line(renderer,
 				 x, y, to_x, y,
@@ -217,15 +217,15 @@ grid_draw_hex(DDisplay *ddisp, Rectangle *update, real length)
   while (vert_pos <= update->bottom) {
     horiz_pos = ceil( (update->left) / (3 * length) ) * length * 3 - length * 2.5;
     while (horiz_pos <= update->right) {
-      ddisplay_transform_coords(ddisp, horiz_pos + length, vert_pos, &x, &y);
-      ddisplay_transform_coords(ddisp, horiz_pos + 1.5 * length, vert_pos + length * sqrt(3) * 0.5, &to_x, &to_y);
+      dia_display_transform_coords(ddisp, horiz_pos + length, vert_pos, &x, &y);
+      dia_display_transform_coords(ddisp, horiz_pos + 1.5 * length, vert_pos + length * sqrt(3) * 0.5, &to_x, &to_y);
 	  
       irenderer->draw_pixel_line(renderer,
 				 x, y, to_x, to_y,
 				 &ddisp->diagram->grid.colour);
 
-      ddisplay_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
-      ddisplay_transform_coords(ddisp, horiz_pos - 0.5 * length, vert_pos + length * sqrt(3) * 0.5, &to_x, &to_y);
+      dia_display_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
+      dia_display_transform_coords(ddisp, horiz_pos - 0.5 * length, vert_pos + length * sqrt(3) * 0.5, &to_x, &to_y);
 	  
       irenderer->draw_pixel_line(renderer,
 				 x, y, to_x, to_y,
@@ -241,15 +241,15 @@ grid_draw_hex(DDisplay *ddisp, Rectangle *update, real length)
   while (vert_pos <= update->bottom) {
     horiz_pos = ceil( (update->left) / (3 * length) ) * length * 3 - length;
     while (horiz_pos <= update->right) {
-      ddisplay_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
-      ddisplay_transform_coords(ddisp, horiz_pos - 0.5 * length, vert_pos + 0.5 * sqrt(3) * length, &to_x, &to_y);
+      dia_display_transform_coords(ddisp, horiz_pos, vert_pos, &x, &y);
+      dia_display_transform_coords(ddisp, horiz_pos - 0.5 * length, vert_pos + 0.5 * sqrt(3) * length, &to_x, &to_y);
 	  
       irenderer->draw_pixel_line(renderer,
 				 x, y, to_x, to_y,
 				 &ddisp->diagram->grid.colour);
 
-      ddisplay_transform_coords(ddisp, horiz_pos + length, vert_pos, &x, &y);
-      ddisplay_transform_coords(ddisp, horiz_pos + 1.5 * length, vert_pos + 0.5 * sqrt(3) * length, &to_x, &to_y);
+      dia_display_transform_coords(ddisp, horiz_pos + length, vert_pos, &x, &y);
+      dia_display_transform_coords(ddisp, horiz_pos + 1.5 * length, vert_pos + 0.5 * sqrt(3) * length, &to_x, &to_y);
 	  
       irenderer->draw_pixel_line(renderer,
 				 x, y, to_x, to_y,
@@ -263,7 +263,7 @@ grid_draw_hex(DDisplay *ddisp, Rectangle *update, real length)
 }
 
 void
-grid_draw(DDisplay *ddisp, Rectangle *update)
+grid_draw(DiaDisplay *ddisp, Rectangle *update)
 {
   Grid *grid = &ddisp->grid;
   DiaRenderer *renderer = ddisp->renderer;
@@ -287,8 +287,8 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
     if (ddisp->diagram->grid.hex) {
       grid_draw_hex(ddisp, update, width_w);
     } else {
-      if (ddisplay_transform_length(ddisp, width_y) >= 2.0 &&
-	  ddisplay_transform_length(ddisp, width_x) >= 2.0) {
+      if (dia_display_transform_length(ddisp, width_y) >= 2.0 &&
+	  dia_display_transform_length(ddisp, width_x) >= 2.0) {
 	/* Vertical lines: */
 	grid_draw_vertical_lines(ddisp, update, width_x);
 	/* Horizontal lines: */
@@ -299,7 +299,7 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
 }
 
 void
-pagebreak_draw(DDisplay *ddisp, Rectangle *update)
+pagebreak_draw(DiaDisplay *ddisp, Rectangle *update)
 {
   DiaRenderer *renderer = ddisp->renderer;
   DiaInteractiveRendererInterface *irenderer;
@@ -320,7 +320,7 @@ pagebreak_draw(DDisplay *ddisp, Rectangle *update)
       DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
     else
       DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED,
-						      ddisplay_untransform_length(ddisp, 31));
+						      dia_display_untransform_length(ddisp, 31));
 
     if (dia->data->paper.fitto) {
       origx = dia->data->extents.left;
@@ -330,7 +330,7 @@ pagebreak_draw(DDisplay *ddisp, Rectangle *update)
     /* vertical lines ... */
     pos = origx + ceil((update->left - origx) / pwidth) * pwidth;
     while (pos <= update->right) {
-      ddisplay_transform_coords(ddisp, pos,0,&x,&y);
+      dia_display_transform_coords(ddisp, pos,0,&x,&y);
       irenderer->draw_pixel_line(renderer,
                                  x, 0, x, height,
 				 &dia->pagebreak_color);
@@ -339,7 +339,7 @@ pagebreak_draw(DDisplay *ddisp, Rectangle *update)
     /* Horizontal lines: */
     pos = origy + ceil((update->top - origy) / pheight) * pheight;
     while (pos <= update->bottom) {
-      ddisplay_transform_coords(ddisp, 0,pos,&x,&y);
+      dia_display_transform_coords(ddisp, 0,pos,&x,&y);
       irenderer->draw_pixel_line(renderer,
 				 0, y, width, y,
 				 &dia->pagebreak_color);
@@ -349,7 +349,7 @@ pagebreak_draw(DDisplay *ddisp, Rectangle *update)
 }
 
 void
-snap_to_grid(DDisplay *ddisp, coord *x, coord *y)
+snap_to_grid(DiaDisplay *ddisp, coord *x, coord *y)
 {
   if (ddisp->grid.snap) {
     if (ddisp->diagram->grid.hex) {

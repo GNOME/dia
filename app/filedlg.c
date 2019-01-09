@@ -237,14 +237,14 @@ file_open_response_callback(GtkWidget *fs,
 	GSList *displays_head = displays;
 	diagram->displays = NULL;
 	for (; displays != NULL; displays = g_slist_next(displays)) {
-	  DDisplay *loaded_display = (DDisplay *)displays->data;
+	  DiaDisplay *loaded_display = (DiaDisplay *)displays->data;
 	  copy_display(loaded_display);
 	  g_free(loaded_display);
 	}
 	g_slist_free(displays_head);
       } else {
 */
-	new_display(diagram);
+        dia_display_new (diagram);
       }
     }
   }
@@ -260,7 +260,7 @@ void
 file_open_callback(GtkAction *action)
 {
   if (!opendlg) {
-    DDisplay *ddisp;
+    DiaDisplay *ddisp;
     Diagram *dia = NULL;
     GtkWindow *parent_window;
     gchar *filename = NULL;
@@ -270,7 +270,7 @@ file_open_callback(GtkAction *action)
      * <Display/File/Open. It wouldn't make any sense if invoked by 
      * <Toolbox>/File/Open ...
      */
-    ddisp = ddisplay_active();
+    ddisp = dia_display_active();
     if (ddisp) {
       dia = ddisp->diagram;
       parent_window = GTK_WINDOW(ddisp->shell);
@@ -425,7 +425,7 @@ file_save_as_response_callback(GtkWidget *fs,
     gtk_widget_destroy(GTK_WIDGET(fs));
 }
 
-static GtkWidget *file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp);
+static GtkWidget *file_save_as_dialog_prepare (Diagram *dia, DiaDisplay *ddisp);
 
 /**
  * Respond to the File/Save As.. menu
@@ -437,11 +437,11 @@ static GtkWidget *file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp);
 void
 file_save_as_callback(GtkAction *action)
 {
-  DDisplay  *ddisp;
+  DiaDisplay  *ddisp;
   Diagram   *dia;
   GtkWidget *dlg;
 
-  ddisp = ddisplay_active();
+  ddisp = dia_display_active();
   if (!ddisp) return;
   dia = ddisp->diagram;
 
@@ -451,7 +451,7 @@ file_save_as_callback(GtkAction *action)
 }
 
 gboolean
-file_save_as(Diagram *dia, DDisplay *ddisp)
+file_save_as (Diagram *dia, DiaDisplay *ddisp)
 {
   GtkWidget *dlg;
   gint response;
@@ -467,7 +467,7 @@ file_save_as(Diagram *dia, DDisplay *ddisp)
 }
 
 static GtkWidget *
-file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp)
+file_save_as_dialog_prepare (Diagram *dia, DiaDisplay *ddisp)
 {
   gchar *filename = NULL;
 
@@ -552,7 +552,7 @@ file_save_callback(GtkAction *action)
 {
   Diagram *diagram;
 
-  diagram = ddisplay_active_diagram();
+  diagram = dia_display_active_diagram();
   if (!diagram) return;
 
   if (diagram->unsaved) {
@@ -732,11 +732,11 @@ file_export_response_callback(GtkWidget *fs,
 void
 file_export_callback(GtkAction *action)
 {
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
   Diagram *dia;
   gchar *filename = NULL;
 
-  ddisp = ddisplay_active();
+  ddisp = dia_display_active();
   if (!ddisp) return;
   dia = ddisp->diagram;
 

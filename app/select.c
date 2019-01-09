@@ -35,7 +35,7 @@ select_all_callback(GtkAction *action)
 {
   Diagram *dia;
   GList *objects;
-  DDisplay * ddisp = ddisplay_active();
+  DiaDisplay * ddisp = dia_display_active();
 
   if (!ddisp || textedit_mode(ddisp)) return;
   dia = ddisp->diagram;
@@ -52,7 +52,7 @@ select_all_callback(GtkAction *action)
     objects = g_list_next(objects);
   }
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  dia_display_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
 }
@@ -61,14 +61,14 @@ void
 select_none_callback(GtkAction *action)
 {
   Diagram * dia;
-  DDisplay * ddisp = ddisplay_active();
+  DiaDisplay * ddisp = dia_display_active();
 
   if (!ddisp || textedit_mode(ddisp)) return;
   dia = ddisp->diagram;
 
   diagram_remove_all_selected(dia, TRUE);
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  dia_display_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
 }
@@ -78,7 +78,7 @@ select_invert_callback(GtkAction *action)
 {
   Diagram *dia;
   GList *tmp;
-  DDisplay * ddisp = ddisplay_active();
+  DiaDisplay * ddisp = dia_display_active();
 
   if (!ddisp || textedit_mode(ddisp)) return;
   dia = ddisp->diagram;
@@ -95,7 +95,7 @@ select_invert_callback(GtkAction *action)
     }
   }
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  dia_display_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
   
@@ -108,7 +108,7 @@ void
 select_connected_callback(GtkAction *action)
 {
   Diagram *dia;
-  DDisplay * ddisp = ddisplay_active();
+  DiaDisplay * ddisp = dia_display_active();
   GList *objects, *tmp;
 
   if (!ddisp || textedit_mode(ddisp)) return;
@@ -150,7 +150,7 @@ select_connected_callback(GtkAction *action)
     }
   }
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  dia_display_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
 }
@@ -201,7 +201,7 @@ select_transitively(Diagram *dia, DiaObject *obj)
 void
 select_transitive_callback(GtkAction *action)
 {
-  DDisplay *ddisp = ddisplay_active();
+  DiaDisplay *ddisp = dia_display_active();
   Diagram *dia;
   GList *objects, *tmp;
 
@@ -214,7 +214,7 @@ select_transitive_callback(GtkAction *action)
     select_transitively(dia, (DiaObject *)tmp->data);
   }
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  dia_display_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
 }
@@ -224,7 +224,7 @@ select_same_type_callback(GtkAction *action)
 {
   /* For now, do a brute force version:  Check vs. all earlier selected.
      Later, we should really sort the selecteds first to avoid n^2 */
-  DDisplay *ddisp = ddisplay_active();
+  DiaDisplay *ddisp = dia_display_active();
   Diagram *dia;
   GList *objects, *tmp, *tmp2;
 
@@ -250,7 +250,7 @@ select_same_type_callback(GtkAction *action)
     }
   }
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  dia_display_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
 }
@@ -258,7 +258,7 @@ select_same_type_callback(GtkAction *action)
 void
 select_style_callback(GtkAction *action, GtkRadioAction *current, gpointer user_data)
 {
-  DDisplay *ddisp = ddisplay_active();
+  DiaDisplay *ddisp = dia_display_active();
   if (!ddisp || textedit_mode(ddisp)) return;
 
   /* simply set the selection style to the value of `action' */

@@ -24,13 +24,13 @@
 
 G_BEGIN_DECLS
 
-void object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp);
+void object_draw_connectionpoints(DiaObject *obj, DiaDisplay *ddisp);
 void connectionpoint_add_update(ConnectionPoint *conpoint,
 				Diagram *dia);
 void diagram_update_connections_selection(Diagram *dia);
 void diagram_update_connections_object(Diagram *dia, DiaObject *obj,
 				       int update_nonmoved);
-void ddisplay_connect_selected(DDisplay *ddisp);
+void dia_display_connect_selected(DiaDisplay *ddisp);
 void diagram_unconnect_selected(Diagram *dia);
 
 G_END_DECLS

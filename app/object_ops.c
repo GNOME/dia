@@ -78,7 +78,7 @@ object_add_updates_list(GList *list, Diagram *dia)
  * in this call (anded to the display-wide setting).
  */
 ConnectionPoint *
-object_find_connectpoint_display(DDisplay *ddisp, Point *pos, 
+object_find_connectpoint_display(DiaDisplay *ddisp, Point *pos, 
 				 DiaObject *notthis, gboolean snap_to_objects)
 {
   real distance;
@@ -90,7 +90,7 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos,
     diagram_find_closest_connectionpoint(ddisp->diagram, &connectionpoint, 
 					 pos, notthis);
 
-  distance = ddisplay_transform_length(ddisp, distance);
+  distance = dia_display_transform_length(ddisp, distance);
   if (distance < OBJECT_CONNECT_DISTANCE) {
     return connectionpoint;
   }
@@ -119,7 +119,7 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos,
 
 /* pushes undo info */
 void
-object_connect_display(DDisplay *ddisp, DiaObject *obj, Handle *handle,
+object_connect_display(DiaDisplay *ddisp, DiaObject *obj, Handle *handle,
 		       gboolean snap_to_objects)
 {
   ConnectionPoint *connectionpoint;

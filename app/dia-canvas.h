@@ -14,8 +14,8 @@ struct _DiaCanvasClass {
   GtkDrawingAreaClass parent_class;
 };
 
-GtkWidget       *dia_canvas_new                 (DDisplay  *ddisp);
-DDisplay        *dia_canvas_get_ddisplay        (DiaCanvas *self);
+GtkWidget       *dia_canvas_new                 (DiaDisplay *ddisp);
+DiaDisplay      *dia_canvas_get_display         (DiaCanvas  *self);
 
 G_END_DECLS
 

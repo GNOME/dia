@@ -159,7 +159,7 @@ open_recent_file_callback(GtkWidget *widget, gpointer data)
     diagram_update_extents(diagram);
     layer_dialog_set_diagram(diagram);
     if (diagram->displays == NULL) {
-      new_display(diagram);
+      dia_display_new (diagram);
     }
   } else
     recent_file_history_remove (filename);

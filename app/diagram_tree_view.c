@@ -112,12 +112,12 @@ _dtv_button_press (GtkWidget      *widget,
       gtk_tree_model_get (model, &iter, OBJECT_COLUMN, &object, -1);
       gtk_tree_model_get (model, &iter, DIAGRAM_COLUMN, &diagram, -1);
 
-      if (object && diagram && ddisplay_active_diagram() == diagram) {
-	if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) /* double-click 'locates' */
-	  ddisplay_present_object (ddisplay_active(), object);
+      if (object && diagram && dia_display_active_diagram() == diagram) {
+        if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) /* double-click 'locates' */
+          dia_display_present_object (dia_display_active(), object);
       }
       if (diagram)
-	g_object_unref(diagram);
+        g_object_unref(diagram);
       gtk_tree_path_free (path);
     }
   }
@@ -380,9 +380,9 @@ _dtv_locate_item (GtkAction *action,
 
         for (displays = diagram->displays; 
              displays != NULL; displays = g_slist_next (displays)) {
-          DDisplay *ddisp = (DDisplay *)displays->data;
+          DiaDisplay *ddisp = (DiaDisplay *)displays->data;
 
-          ddisplay_present_object (ddisp, object);
+          dia_display_present_object (ddisp, object);
         }
       }
       /* drop all references got from the model */

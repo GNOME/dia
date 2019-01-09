@@ -38,14 +38,14 @@ G_DEFINE_TYPE (DiaMagnifyTool, dia_magnify_tool, DIA_TYPE_TOOL)
 static void
 magnify_button_press (DiaTool        *self,
                       GdkEventButton *event,
-                      DDisplayBox    *ddisp)
+                      DiaDisplay    *ddisp)
 {
   DiaMagnifyTool *tool = DIA_MAGNIFY_TOOL (self);
   tool->x = tool->oldx = event->x;
   tool->y = tool->oldy = event->y;
   tool->box_active = TRUE;
   tool->moved = FALSE;
-  gdk_pointer_grab (gtk_widget_get_window(ddisp->ddisp->canvas), FALSE,
+  gdk_pointer_grab (gtk_widget_get_window(ddisp->canvas), FALSE,
 		    GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
 		    NULL, NULL, event->time);
 }
@@ -53,7 +53,7 @@ magnify_button_press (DiaTool        *self,
 static void
 magnify_button_release (DiaTool        *self,
                         GdkEventButton *event,
-                        DDisplayBox    *ddisp)
+                        DiaDisplay    *ddisp)
 {
   DiaMagnifyTool *tool = DIA_MAGNIFY_TOOL (self);
   Rectangle *visible;
@@ -64,15 +64,15 @@ magnify_button_release (DiaTool        *self,
 
   tool->box_active = FALSE;
 
-  dia_interactive_renderer_set_selection (ddisp->ddisp->renderer,
+  dia_interactive_renderer_set_selection (ddisp->renderer,
                                           FALSE, 0, 0, 0, 0);
-  ddisplay_flush (ddisp->ddisp);
+  dia_display_flush (ddisp);
 
 
-  visible = &ddisp->ddisp->visible;
+  visible = &ddisp->visible;
   
-  ddisplay_untransform_coords (ddisp->ddisp, tool->x, tool->y, &p1.x, &p1.y);
-  ddisplay_untransform_coords (ddisp->ddisp, event->x, event->y, &p2.x, &p2.y);
+  dia_display_untransform_coords (ddisp, tool->x, tool->y, &p1.x, &p1.y);
+  dia_display_untransform_coords (ddisp, event->x, event->y, &p2.x, &p2.y);
 
   tl.x = MIN(p1.x, p2.x);
   tl.y = MIN(p1.y, p2.y);
@@ -82,8 +82,8 @@ magnify_button_release (DiaTool        *self,
 
   if (tool->moved) {
     if (idiff <= 4) {
-      ddisplay_add_update_all (ddisp->ddisp);
-      ddisplay_flush (ddisp->ddisp);
+      dia_display_add_update_all (ddisp);
+      dia_display_flush (ddisp);
     } else if (!(event->state & GDK_CONTROL_MASK)) {
       /* the whole zoom rect should be visible, not just it's square equivalent */
       real fh = fabs(p2.y - p1.y) / (visible->bottom - visible->top);
@@ -91,18 +91,18 @@ magnify_button_release (DiaTool        *self,
       factor = 1.0 / MAX(fh, fw);
       tl.x += (visible->right - visible->left)/(2.0*factor);
       tl.y += (visible->bottom - visible->top)/(2.0*factor);
-      ddisplay_zoom (ddisp->ddisp, &tl, factor);
+      dia_display_zoom (ddisp, &tl, factor);
     } else {
       factor = diff / (visible->right - visible->left);
       tl.x = tl.x * factor + tl.x;
       tl.y = tl.y * factor + tl.y;
-      ddisplay_zoom (ddisp->ddisp, &tl, factor);
+      dia_display_zoom (ddisp, &tl, factor);
     }
   } else {
     if (event->state & GDK_SHIFT_MASK)
-      ddisplay_zoom (ddisp->ddisp, &tl, 0.5);
+      dia_display_zoom (ddisp, &tl, 0.5);
     else
-      ddisplay_zoom (ddisp->ddisp, &tl, 2.0);
+      dia_display_zoom (ddisp, &tl, 2.0);
   }
 
   gdk_pointer_ungrab (event->time);
@@ -113,7 +113,7 @@ typedef struct intPoint { int x,y; } intPoint;
 static void
 magnify_motion (DiaMagnifyTool *self,
                 GdkEventMotion *event,
-                DDisplayBox    *ddisp)
+                DiaDisplay    *ddisp)
 {
   DiaMagnifyTool *tool = DIA_MAGNIFY_TOOL (self);
   intPoint tl, br;
@@ -124,10 +124,10 @@ magnify_motion (DiaMagnifyTool *self,
     tl.x = MIN (tool->x, event->x); tl.y = MIN (tool->y, event->y);
     br.x = MAX (tool->x, event->x); br.y = MAX (tool->y, event->y);
 
-    dia_interactive_renderer_set_selection (ddisp->ddisp->renderer,
+    dia_interactive_renderer_set_selection (ddisp->renderer,
                                             TRUE,
                                             tl.x, tl.y, br.x - tl.x, br.y - tl.y);
-    ddisplay_flush (ddisp->ddisp);
+    dia_display_flush (ddisp);
   }
 }
 
@@ -135,14 +135,14 @@ void
 set_zoom_out (DiaTool *tool)
 {
   ((DiaMagnifyTool *)tool)->zoom_out = TRUE;
-  ddisplay_set_all_cursor(get_cursor(CURSOR_ZOOM_OUT));
+  dia_display_set_all_cursor(get_cursor(CURSOR_ZOOM_OUT));
 }
 
 void
 set_zoom_in (DiaTool *tool)
 {
   ((DiaMagnifyTool *)tool)->zoom_out = FALSE;
-  ddisplay_set_all_cursor(get_cursor(CURSOR_ZOOM_IN));
+  dia_display_set_all_cursor(get_cursor(CURSOR_ZOOM_IN));
 }
 
 static void
@@ -151,13 +151,13 @@ activate (DiaTool *self)
   DIA_MAGNIFY_TOOL (self)->box_active = FALSE;
   DIA_MAGNIFY_TOOL (self)->zoom_out = FALSE;
 
-  ddisplay_set_all_cursor(get_cursor(CURSOR_ZOOM_IN));
+  dia_display_set_all_cursor(get_cursor(CURSOR_ZOOM_IN));
 }
 
 static void
 deactivate (DiaTool *tool)
 {
-  ddisplay_set_all_cursor(default_cursor);
+  dia_display_set_all_cursor(default_cursor);
 }
 
 static void

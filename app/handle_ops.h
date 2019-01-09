@@ -21,8 +21,8 @@
 #include "diatypes.h"
 #include "display.h"
 
-void handle_draw(Handle *handle, DDisplay *ddisp);
+void handle_draw(Handle *handle, DiaDisplay *ddisp);
 void handle_add_update(Handle *handle, Diagram *dia);
-int handle_is_clicked(DDisplay *ddisp, Handle *handle, Point *pos);
+int handle_is_clicked(DiaDisplay *ddisp, Handle *handle, Point *pos);
   
 #endif /* HANDLE_OPS_H */

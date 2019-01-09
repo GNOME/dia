@@ -211,7 +211,7 @@ class_create_page(GtkWidget *notebook, UMLClass *umlclass)
 }
 
 static void 
-style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
+style_create_page(GtkWidget *notebook,  UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
   GtkWidget *page_label;
@@ -336,7 +336,7 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);
-  gtk_notebook_append_page(notebook, vbox, page_label);
+  gtk_notebook_append_page(GTK_NOTEBOOK (notebook), vbox, page_label);
   
 }
 

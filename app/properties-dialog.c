@@ -223,7 +223,7 @@ object_list_properties_show(Diagram *dia, GList *objects)
 {
   GtkWidget *properties;
   DiaObject *one_obj;
-  GtkWidget *parent = ddisplay_active() ? ddisplay_active()->shell : NULL;
+  GtkWidget *parent = dia_display_active() ? dia_display_active()->shell : NULL;
   if (!dialog)
       create_dialog(parent);
   clear_dialog_globals();

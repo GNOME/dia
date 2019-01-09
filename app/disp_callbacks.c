@@ -51,14 +51,12 @@
 #include "dia-canvas.h"
 
 typedef struct {
-	GdkEvent *event; /* Button down event which may be holding */
-	DDisplay *ddisp; /* DDisplay where event occurred */
-	guint     tag;   /* Tag for timeout */
+  GdkEvent *event; /* Button down event which may be holding */
+  DiaDisplay *ddisp; /* DiaDisplay where event occurred */
+  guint     tag;   /* Tag for timeout */
 } HoldTimeoutData;
 
 static HoldTimeoutData hold_data = {NULL, NULL, 0};
-
-	
 
 static void
 object_menu_item_proxy(GtkWidget *widget, gpointer data)
@@ -66,12 +64,12 @@ object_menu_item_proxy(GtkWidget *widget, gpointer data)
   DiaMenuItem *dia_menu_item;
   ObjectChange *obj_change;
   DiaObject *obj;
-  DDisplay *ddisp = ddisplay_active();
+  DiaDisplay *ddisp = dia_display_active();
   Point last_clicked_pos;
 
   if (!ddisp) return;
 
-  last_clicked_pos = ddisplay_get_clicked_position(ddisp);
+  last_clicked_pos = dia_display_get_clicked_position(ddisp);
   obj = (DiaObject *)ddisp->diagram->data->selected->data;
   dia_menu_item = (DiaMenuItem *) data;
 
@@ -136,7 +134,7 @@ static void
 _follow_link_callback (GtkAction *action, gpointer data)
 {
   DiaObject *obj;
-  DDisplay *ddisp = ddisplay_active();
+  DiaDisplay *ddisp = dia_display_active();
   gchar *url;
 
   if (!ddisp) return;
@@ -175,7 +173,7 @@ add_follow_link_menu_item (GtkMenu *menu)
 static void
 _convert_to_path_callback (GtkAction *action, gpointer data)
 {
-  DDisplay *ddisp = ddisplay_active();
+  DiaDisplay *ddisp = dia_display_active();
   GList *selected, *list;
   ObjectChange *change_list = NULL;
 
@@ -223,7 +221,7 @@ add_convert_to_path_menu_item (GtkMenu *menu)
 static void
 _combine_to_path_callback (GtkAction *action, gpointer data)
 {
-  DDisplay *ddisp = ddisplay_active();
+  DiaDisplay *ddisp = dia_display_active();
   GList *cut_list;
   DiaObject *obj;
   Diagram *dia;
@@ -250,7 +248,7 @@ _combine_to_path_callback (GtkAction *action, gpointer data)
     (change->apply)(change, ddisp->diagram);
     undo_set_transactionpoint(ddisp->diagram->undo);
   }
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  dia_display_do_update_menu_sensitivity(ddisp);
   diagram_flush(dia);
   g_list_free (cut_list);
 }
@@ -363,7 +361,7 @@ static DiaMenu empty_menu = {
 };
 
 static void
-popup_object_menu(DDisplay *ddisp, GdkEvent *event)
+popup_object_menu (DiaDisplay *ddisp, GdkEvent *event)
 {
   Diagram *diagram;
   DiaObject *obj;
@@ -387,7 +385,7 @@ popup_object_menu(DDisplay *ddisp, GdkEvent *event)
     return;
   }
   
-  last_clicked_pos = ddisplay_get_clicked_position(ddisp);
+  last_clicked_pos = dia_display_get_clicked_position(ddisp);
   obj = (DiaObject *)g_list_first(selected_list)->data;
   
   /* Possibly react differently at a handle? */
@@ -469,15 +467,15 @@ popup_object_menu(DDisplay *ddisp, GdkEvent *event)
 }
 
 gint
-ddisplay_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data)
+dia_display_focus_in_event (GtkWidget *widget, GdkEventFocus *event, gpointer data)
 {
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
 
   g_return_val_if_fail (widget != NULL, FALSE);
   g_return_val_if_fail (event != NULL, FALSE);
   g_return_val_if_fail (data != NULL, FALSE);
 
-  ddisp = (DDisplay *)data;
+  ddisp = (DiaDisplay *)data;
 
   g_assert (event->in == TRUE);
 
@@ -487,9 +485,9 @@ ddisplay_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data)
 }
 
 gint
-ddisplay_focus_out_event(GtkWidget *widget, GdkEventFocus *event,gpointer data)
+dia_display_focus_out_event (GtkWidget *widget, GdkEventFocus *event,gpointer data)
 {
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
   int return_val;
   
   g_return_val_if_fail (widget != NULL, FALSE);
@@ -498,7 +496,7 @@ ddisplay_focus_out_event(GtkWidget *widget, GdkEventFocus *event,gpointer data)
 
   return_val = FALSE;
 
-  ddisp = (DDisplay *)data;
+  ddisp = (DiaDisplay *)data;
 
   g_assert (event->in == FALSE);
 
@@ -508,28 +506,28 @@ ddisplay_focus_out_event(GtkWidget *widget, GdkEventFocus *event,gpointer data)
 }
 
 void
-ddisplay_realize(GtkWidget *widget, gpointer data)
+dia_display_realize (GtkWidget *widget, gpointer data)
 {
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
 
   g_return_if_fail(widget != NULL);
   g_return_if_fail(data != NULL);
 
-  ddisp = (DDisplay *)data;
+  ddisp = (DiaDisplay *)data;
 
   gtk_im_context_set_client_window(GTK_IM_CONTEXT(ddisp->im_context),
                                    gtk_widget_get_window(widget));
 }
 
 void
-ddisplay_unrealize (GtkWidget *widget, gpointer data)
+dia_display_unrealize (GtkWidget *widget, gpointer data)
 {
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
   
   g_return_if_fail (widget != NULL);
   g_return_if_fail (data != NULL);
 
-  ddisp = (DDisplay *) data;
+  ddisp = (DiaDisplay *) data;
 
   if (ddisp->im_context)
     gtk_im_context_set_client_window(GTK_IM_CONTEXT(ddisp->im_context),
@@ -537,7 +535,7 @@ ddisplay_unrealize (GtkWidget *widget, gpointer data)
 }
 
 void
-ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
+dia_display_popup_menu (DiaDisplay *ddisp, GdkEventButton *event)
 {
   GtkWidget *menu;
 
@@ -547,7 +545,7 @@ ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
 		 event->button, event->time);
 }
 static void 
-handle_key_event(DDisplay *ddisp, Focus *focus, 
+handle_key_event (DiaDisplay *ddisp, Focus *focus, 
 		 guint keystate, guint keysym,
                  const gchar *str, int strlen) 
 {
@@ -582,8 +580,9 @@ handle_key_event(DDisplay *ddisp, Focus *focus,
   
 
 void 
-ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
-                           DDisplay     *ddisp) 
+dia_display_im_context_commit (GtkIMContext *context,
+                               const gchar  *str,
+                               DiaDisplay   *ddisp) 
 {
       /* When using IM, we'll not get many key events past the IM filter,
          mostly IM Commits.
@@ -594,20 +593,20 @@ ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
       
   Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
 
-  ddisplay_im_context_preedit_reset(ddisp, focus);
+  dia_display_im_context_preedit_reset(ddisp, focus);
   
   if (focus != NULL)
     handle_key_event(ddisp, focus, 0, 0, str, g_utf8_strlen(str,-1));
 }
 
 void 
-ddisplay_im_context_preedit_changed(GtkIMContext *context,
-                                    DDisplay *ddisp) 
+dia_display_im_context_preedit_changed(GtkIMContext *context,
+                                       DiaDisplay   *ddisp) 
 {
   gint cursor_pos;
   Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
 
-  ddisplay_im_context_preedit_reset(ddisp, focus);
+  dia_display_im_context_preedit_reset (ddisp, focus);
   
   gtk_im_context_get_preedit_string(context, &ddisp->preedit_string,
                                     &ddisp->preedit_attrs, &cursor_pos);
@@ -616,13 +615,13 @@ ddisplay_im_context_preedit_changed(GtkIMContext *context,
       handle_key_event(ddisp, focus, 0, 0, ddisp->preedit_string,
                        g_utf8_strlen(ddisp->preedit_string,-1));
     } else {
-      ddisplay_im_context_preedit_reset(ddisp, focus);
+      dia_display_im_context_preedit_reset(ddisp, focus);
     }
   }
 }
 
 static void
-_scroll_page (DDisplay *ddisp, Direction dir)
+_scroll_page (DiaDisplay *ddisp, Direction dir)
 {
   Point delta = {0, 0};
 
@@ -640,29 +639,29 @@ _scroll_page (DDisplay *ddisp, Direction dir)
     delta.y = ddisp->diagram->data->paper.height * ddisp->diagram->data->paper.scaling;
     break;
   }
-  ddisplay_scroll(ddisp, &delta);
-  ddisplay_flush(ddisp);
+  dia_display_scroll(ddisp, &delta);
+  dia_display_flush(ddisp);
 }
 
 static void
-_scroll_step (DDisplay *ddisp, guint keyval)
+_scroll_step (DiaDisplay *ddisp, guint keyval)
 {
   switch (keyval) {
   case GDK_KEY_Up :
-    ddisplay_scroll_up(ddisp);
-    ddisplay_flush(ddisp);
+    dia_display_scroll_up(ddisp);
+    dia_display_flush(ddisp);
     break;
   case GDK_KEY_Down:
-    ddisplay_scroll_down(ddisp);
-    ddisplay_flush(ddisp);
+    dia_display_scroll_down(ddisp);
+    dia_display_flush(ddisp);
     break;
   case GDK_KEY_Left:
-    ddisplay_scroll_left(ddisp);
-    ddisplay_flush(ddisp);
+    dia_display_scroll_left(ddisp);
+    dia_display_flush(ddisp);
     break;
   case GDK_KEY_Right:
-    ddisplay_scroll_right(ddisp);
-    ddisplay_flush(ddisp);
+    dia_display_scroll_right(ddisp);
+    dia_display_flush(ddisp);
     break;
   default :
     g_assert_not_reached  ();
@@ -685,7 +684,7 @@ hold_remove_handler(void)
  * If this function is called, then the button must still be down,
  * indicating that the user has pressed and held the button, but not moved
  * the pointer (mouse).
- * Dynamic data is cleaned up in ddisplay_canvas_events
+ * Dynamic data is cleaned up in dia_display_canvas_events
  */
 static gboolean 
 hold_timeout_handler(gpointer data) 
@@ -699,7 +698,7 @@ hold_timeout_handler(gpointer data)
 /** Main input handler for a diagram canvas.
  */
 gint
-ddisplay_canvas_events (GtkWidget *canvas,
+dia_display_canvas_events (GtkWidget *canvas,
                         GdkEvent  *event,
                         gpointer   data)
 {
@@ -718,7 +717,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
   int key_handled;
   int im_context_used;
   static gboolean moving = FALSE;
-  DDisplay *ddisp = dia_canvas_get_ddisplay (DIA_CANVAS (canvas));
+  DiaDisplay *ddisp = dia_canvas_get_display (DIA_CANVAS (canvas));
   
   return_val = FALSE;
  
@@ -734,45 +733,45 @@ ddisplay_canvas_events (GtkWidget *canvas,
         {
             case GDK_SCROLL_UP:
               if (sevent->state & GDK_SHIFT_MASK)
-                  ddisplay_scroll_left(ddisp);
+                  dia_display_scroll_left(ddisp);
               else if (sevent->state & GDK_CONTROL_MASK) {
-                  ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
+                  dia_display_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
 		  /* zooming with the wheel in small steps 1^(1/8) */
-                  ddisplay_zoom_centered(ddisp, &middle, 1.090508);
+                  dia_display_zoom_centered(ddisp, &middle, 1.090508);
               }
               else 
-                  ddisplay_scroll_up(ddisp);
+                  dia_display_scroll_up(ddisp);
               break;
             case GDK_SCROLL_DOWN:
               if (sevent->state & GDK_SHIFT_MASK)
-                  ddisplay_scroll_right(ddisp);
+                  dia_display_scroll_right(ddisp);
               else if (sevent->state & GDK_CONTROL_MASK) { 
-                  ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
+                  dia_display_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
 		  /* zooming with the wheel in small steps 1/(1^(1/8)) */
-                  ddisplay_zoom_centered(ddisp, &middle, 0.917004);
+                  dia_display_zoom_centered(ddisp, &middle, 0.917004);
               }
               else
-                  ddisplay_scroll_down(ddisp);
+                  dia_display_scroll_down(ddisp);
               break;
             case GDK_SCROLL_LEFT:
-              ddisplay_scroll_left(ddisp);
+              dia_display_scroll_left(ddisp);
               break;
             case GDK_SCROLL_RIGHT:
-              ddisplay_scroll_right(ddisp);
+              dia_display_scroll_right(ddisp);
               break;
             default:
               break;
         }
-        ddisplay_flush (ddisp);
+        dia_display_flush (ddisp);
         break;
 
       case GDK_FOCUS_CHANGE: {
-	GdkEventFocus *focus = (GdkEventFocus*)event;
-	hold_remove_handler();
-	if (focus->in) {
-	  display_set_active(ddisp);
-	  ddisplay_do_update_menu_sensitivity(ddisp);
-	}
+        GdkEventFocus *focus = (GdkEventFocus*)event;
+        hold_remove_handler();
+        if (focus->in) {
+          display_set_active(ddisp);
+          dia_display_do_update_menu_sensitivity(ddisp);
+        }
         break;
       }
       case GDK_2BUTTON_PRESS:
@@ -802,8 +801,8 @@ ddisplay_canvas_events (GtkWidget *canvas,
       case GDK_BUTTON_PRESS:
         display_set_active(ddisp);
         bevent = (GdkEventButton *) event;
-
-	ddisplay_set_clicked_point (ddisp, bevent->x, bevent->y);
+        
+        dia_display_set_clicked_point (ddisp, bevent->x, bevent->y);
 
         switch (bevent->button)
         {
@@ -841,7 +840,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
                   popup_object_menu(ddisp, event);
                   break;
                 }
-                ddisplay_popup_menu(ddisp, bevent);
+                dia_display_popup_menu(ddisp, bevent);
                 break;
               }
               else {
@@ -930,7 +929,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		  case GDK_KEY_Escape:
 		    textedit_deactivate_focus();
 		    tool_reset ();
-		    ddisplay_do_update_menu_sensitivity(ddisp);
+		    dia_display_do_update_menu_sensitivity(ddisp);
 		    break;
 		  default:
 		    /*! key event not swallowed by the input method ? */
@@ -958,19 +957,19 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	      case GDK_KEY_Home :
 	      case GDK_KEY_KP_Home :
 	        /* match upper left corner of the diagram with it's view */
-		ddisplay_set_origo(ddisp, ddisp->diagram->data->extents.left, ddisp->diagram->data->extents.top);
-		ddisplay_update_scrollbars(ddisp);
-		ddisplay_add_update_all(ddisp);
+		dia_display_set_origo(ddisp, ddisp->diagram->data->extents.left, ddisp->diagram->data->extents.top);
+		dia_display_update_scrollbars(ddisp);
+		dia_display_add_update_all(ddisp);
 	        break;
 	      case GDK_KEY_End :
 	      case GDK_KEY_KP_End :
 	        /* match lower right corner of the diagram with it's view */
 		visible = &ddisp->visible;
-		ddisplay_set_origo(ddisp, 
+		dia_display_set_origo(ddisp, 
 		                   ddisp->diagram->data->extents.right - (visible->right - visible->left), 
 				   ddisp->diagram->data->extents.bottom - (visible->bottom - visible->top));
-		ddisplay_update_scrollbars(ddisp);
-		ddisplay_add_update_all(ddisp);
+		dia_display_update_scrollbars(ddisp);
+		dia_display_add_update_all(ddisp);
 	        break;
 	      case GDK_KEY_Page_Up :
 	      case GDK_KEY_KP_Page_Up :
@@ -993,7 +992,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		  object_add_updates_list(objects, dia);
 		  object_list_nudge(objects, dia, dir, 
 				    /* step one pixel or more with <ctrl> */
-				    ddisplay_untransform_length (ddisp, (state & GDK_SHIFT_MASK) ? 10 : 1));
+				    dia_display_untransform_length (ddisp, (state & GDK_SHIFT_MASK) ? 10 : 1));
 		  diagram_update_connections_selection(dia);
 		  object_add_updates_list(objects, dia);
 		  diagram_modified(dia);
@@ -1006,11 +1005,11 @@ ddisplay_canvas_events (GtkWidget *canvas,
 		break;
               case GDK_KEY_KP_Add:
               case GDK_KEY_plus:
-                ddisplay_zoom_middle(ddisp, M_SQRT2);
+                dia_display_zoom_middle(ddisp, M_SQRT2);
                 break;
               case GDK_KEY_KP_Subtract:
               case GDK_KEY_minus:
-                ddisplay_zoom_middle(ddisp, M_SQRT1_2);
+                dia_display_zoom_middle(ddisp, M_SQRT1_2);
                 break;
               case GDK_KEY_Shift_L:
               case GDK_KEY_Shift_R:
@@ -1068,50 +1067,43 @@ ddisplay_canvas_events (GtkWidget *canvas,
 }
 
 gint
-ddisplay_hsb_update (GtkAdjustment *adjustment,
-		     DDisplay *ddisp)
+dia_display_hsb_update (GtkAdjustment *adjustment,
+                        DiaDisplay    *ddisp)
 {
-  ddisplay_set_origo(ddisp, gtk_adjustment_get_value (adjustment), ddisp->origo.y);
-  ddisplay_add_update_all(ddisp);
-  ddisplay_flush(ddisp);
+  dia_display_set_origo(ddisp, gtk_adjustment_get_value (adjustment), ddisp->origo.y);
+  dia_display_add_update_all(ddisp);
+  dia_display_flush(ddisp);
   return FALSE;
 }
 
 gint
-ddisplay_vsb_update (GtkAdjustment *adjustment,
-		     DDisplay *ddisp)
+dia_display_vsb_update (GtkAdjustment *adjustment,
+                        DiaDisplay    *ddisp)
 {
-  ddisplay_set_origo(ddisp, ddisp->origo.x, gtk_adjustment_get_value (adjustment));
-  ddisplay_add_update_all(ddisp);
-  ddisplay_flush(ddisp);
+  dia_display_set_origo(ddisp, ddisp->origo.x, gtk_adjustment_get_value (adjustment));
+  dia_display_add_update_all(ddisp);
+  dia_display_flush(ddisp);
   return FALSE;
 }
 
 gint
-ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data)
+dia_display_delete (GtkWidget *widget, GdkEvent  *event, gpointer data)
 {
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
 
-  ddisp = (DDisplay *)data;
+  ddisp = (DiaDisplay *)data;
   
-  ddisplay_close(ddisp);
+  dia_display_close(ddisp);
   return TRUE;
-}
-
-void
-ddisplay_destroy (GtkWidget *widget, gpointer data)
-{
-  DDisplay *ddisp;
-  
-  ddisp = (DDisplay *) data;
-
-  ddisplay_really_destroy(ddisp);
 }
 
 /* returns NULL if object cannot be created */
 DiaObject *
-ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
-		     gpointer user_data)
+dia_display_drop_object (DiaDisplay    *ddisp,
+                         gint           x,
+                         gint           y,
+                         DiaObjectType *otype,
+                         gpointer       user_data)
 {
   Point droppoint;
   Point droppoint_orig;
@@ -1121,7 +1113,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
   real click_distance;
   gboolean avoid_reset;
 
-  ddisplay_untransform_coords(ddisp, x, y, &droppoint.x, &droppoint.y);
+  dia_display_untransform_coords(ddisp, x, y, &droppoint.x, &droppoint.y);
 
   /* save it before snap_to_grid modifies it */
   droppoint_orig = droppoint;
@@ -1135,7 +1127,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
   if (!obj)
     return NULL;
 
-  click_distance = ddisplay_untransform_length(ddisp, 3.0);
+  click_distance = dia_display_untransform_length(ddisp, 3.0);
 
   /* Notice that using diagram_find_clicked_object doesn't allow any object
    * below the first to be a parent.  This should be fixed.
@@ -1216,7 +1208,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
     object_connect_display(ddisp, obj, handle1, FALSE);
   }
   object_add_updates(obj, ddisp->diagram);
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  dia_display_do_update_menu_sensitivity (ddisp);
   diagram_flush(ddisp->diagram);
 
   list = g_list_prepend(NULL, obj);

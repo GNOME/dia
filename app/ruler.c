@@ -41,7 +41,7 @@ typedef struct _DiaRuler
 {
   GtkDrawingArea parent;
 
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
 
   GtkOrientation orientation;
   gdouble lower;
@@ -121,13 +121,13 @@ dia_ruler_draw (GtkWidget *widget,
   if (ruler->position > ruler->lower && ruler->position < ruler->upper) {
     real pos = ruler->position;
     if (ruler->orientation == GTK_ORIENTATION_VERTICAL) {
-      ddisplay_transform_coords (ruler->ddisp, 0, pos, &x, &y);
+      dia_display_transform_coords (ruler->ddisp, 0, pos, &x, &y);
       cairo_move_to (cr, 3*dx, y);
       cairo_line_to (cr, 2*dx, y - dx);
       cairo_line_to (cr, 2*dx, y + dx);
       cairo_fill (cr);
     } else {
-      ddisplay_transform_coords (ruler->ddisp, pos, 0, &x, &y);
+      dia_display_transform_coords (ruler->ddisp, pos, 0, &x, &y);
       cairo_move_to (cr, x, 3*dy);
       cairo_line_to (cr, x + dy, 2*dy);
       cairo_line_to (cr, x - dy, 2*dy);
@@ -158,9 +158,9 @@ dia_ruler_motion_notify (GtkWidget      *widget,
   if (ruler->orientation == GTK_ORIENTATION_HORIZONTAL)
     {
       /* get old position in display coordinates */
-      ddisplay_transform_coords (ruler->ddisp, ruler->position, 0, &x0, &y0);
+      dia_display_transform_coords (ruler->ddisp, ruler->position, 0, &x0, &y0);
       /* update ruler position with original coords */
-      ddisplay_untransform_coords (ruler->ddisp, x, y, &ruler->position, &tmp);
+      dia_display_untransform_coords (ruler->ddisp, x, y, &ruler->position, &tmp);
       /* reuse x,y to restrict invalidation */
       y0 = y = 0;
       x0 = MAX(x0 - height/2, 0);
@@ -169,8 +169,8 @@ dia_ruler_motion_notify (GtkWidget      *widget,
     }
   else
     {
-      ddisplay_transform_coords (ruler->ddisp, 0, ruler->position, &x0, &y0);
-      ddisplay_untransform_coords (ruler->ddisp, x, y, &tmp, &ruler->position);
+      dia_display_transform_coords (ruler->ddisp, 0, ruler->position, &x0, &y0);
+      dia_display_untransform_coords (ruler->ddisp, x, y, &tmp, &ruler->position);
       x0 = x = 0;
       y0 = MAX(y0 - width/2, 0);
       y = MAX(y - width/2, 0);
@@ -205,7 +205,7 @@ dia_ruler_init (DiaRuler *rule)
 }
 
 GtkWidget *
-dia_ruler_new (GtkOrientation orientation, GtkWidget *shell, DDisplay *ddisp)
+dia_ruler_new (GtkOrientation orientation, GtkWidget *shell, DiaDisplay *ddisp)
 {
   GtkWidget *rule = g_object_new (DIA_TYPE_RULER, NULL);
   /* calculate from style settings  */

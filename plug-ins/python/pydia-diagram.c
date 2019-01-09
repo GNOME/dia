@@ -332,12 +332,13 @@ PyDiaDiagram_Save(PyDiaDiagram *self, PyObject *args)
 static PyObject *
 PyDiaDiagram_Display(PyDiaDiagram *self, PyObject *args)
 {
-    DDisplay *disp;
+  DiaDisplay *disp;
 
-    if (!PyArg_ParseTuple(args, ":Diagram.display"))
-	return NULL;
-    disp = new_display(self->dia);
-    return PyDiaDisplay_New(disp);
+  if (!PyArg_ParseTuple(args, ":Diagram.display"))
+    return NULL;
+
+  disp = dia_display_new (self->dia);
+  return PyDiaDisplay_New(disp);
 }
 
 /* 
@@ -573,7 +574,7 @@ PyDiaDiagram_GetAttr(PyDiaDiagram *self, gchar *attr)
 
 	ret = PyTuple_New(g_slist_length(self->dia->displays));
 	for (i = 0, tmp = self->dia->displays; tmp; i++, tmp = tmp->next)
-	    PyTuple_SetItem(ret, i, PyDiaDisplay_New((DDisplay *)tmp->data));
+	    PyTuple_SetItem(ret, i, PyDiaDisplay_New((DiaDisplay *)tmp->data));
 	return ret;
     }
 

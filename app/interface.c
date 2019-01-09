@@ -57,7 +57,7 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                  GtkSelectionData *data,
                                  guint             info,
                                  guint             time,
-				 DDisplay         *ddisp)
+                                 DiaDisplay       *ddisp)
 {
   switch (gdk_drag_context_get_selected_action(context))
     {
@@ -99,9 +99,9 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
             diagram_update_extents(diagram);
             layer_dialog_set_diagram(diagram);
             
-	    if (diagram->displays == NULL) {
-	      new_display(diagram);
-	    }
+            if (diagram->displays == NULL) {
+              dia_display_new (diagram);
+            }
           }
 
           pFrom = strstr(pTo, "file:");
@@ -138,28 +138,28 @@ int is_integrated_ui (void)
 static void
 grid_toggle_snap(GtkWidget *widget, gpointer data)
 {
-  DDisplay *ddisp = (DDisplay *)data;
-  ddisplay_set_snap_to_grid(ddisp, 
-			    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
+  DiaDisplay *ddisp = (DiaDisplay *)data;
+  dia_display_set_snap_to_grid (ddisp,
+                                gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
 }
 
 static void
 interface_toggle_mainpoint_magnetism(GtkWidget *widget, gpointer data)
 {
-  DDisplay *ddisp = (DDisplay *)data;
-  ddisplay_set_snap_to_objects(ddisp,
-				   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
-  ddisplay_add_update_all(ddisp);
-  ddisplay_flush(ddisp);
+  DiaDisplay *ddisp = (DiaDisplay *)data;
+  dia_display_set_snap_to_objects (ddisp,
+                                   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
+  dia_display_add_update_all(ddisp);
+  dia_display_flush(ddisp);
 }
 
 static gint
 origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  DDisplay *ddisp = (DDisplay *)data;
+  DiaDisplay *ddisp = (DiaDisplay *)data;
 
   display_set_active(ddisp);
-  ddisplay_popup_menu(ddisp, event);
+  dia_display_popup_menu (ddisp, event);
 
   /* stop the signal emission so the button doesn't grab the
    * pointer from us */
@@ -171,21 +171,21 @@ origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 void
 view_zoom_set (float factor)
 {
-  DDisplay *ddisp;
+  DiaDisplay *ddisp;
   real scale;
 
-  ddisp = ddisplay_active();
+  ddisp = dia_display_active();
   if (!ddisp) return;
 
   scale = ((real) factor)/1000.0 * DDISPLAY_NORMAL_ZOOM;
 
-  ddisplay_zoom_middle(ddisp, scale / ddisp->zoom_factor);
+  dia_display_zoom_middle(ddisp, scale / ddisp->zoom_factor);
 }
 
 static void
 zoom_activate_callback(GtkWidget *item, gpointer user_data) 
 {
-  DDisplay *ddisp = (DDisplay *)user_data;
+  DiaDisplay *ddisp = (DiaDisplay *)user_data;
   const gchar *zoom_text =
       gtk_entry_get_text(GTK_ENTRY(g_object_get_data(G_OBJECT(ddisp->zoom_status), "user_data")));
   float zoom_amount, magnify;
@@ -206,13 +206,13 @@ zoom_activate_callback(GtkWidget *item, gpointer user_data)
     g_free(zoomamount);
     magnify = (zoom_amount*DDISPLAY_NORMAL_ZOOM/100.0)/ddisp->zoom_factor;
     if (fabs(magnify - 1.0) > 0.000001) {
-      ddisplay_zoom_middle(ddisp, magnify);
+      dia_display_zoom_middle (ddisp, magnify);
     }
   }
 }
 
 static void
-zoom_add_zoom_amount(GtkWidget *menu, gchar *text, DDisplay *ddisp) 
+zoom_add_zoom_amount (GtkWidget *menu, gchar *text, DiaDisplay *ddisp) 
 {
   GtkWidget *menuitem = gtk_menu_item_new_with_label(text);
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
@@ -225,7 +225,7 @@ zoom_add_zoom_amount(GtkWidget *menu, gchar *text, DDisplay *ddisp)
 static void
 zoom_popup_menu(GtkWidget *button, GdkEventButton *event, gpointer user_data) {
   /* display_set_active(ddisp); */
-  /* ddisplay_popup_menu(ddisp, event); */
+  /* dia_display_popup_menu(ddisp, event); */
 
   GtkMenu *menu = GTK_MENU(user_data);
 
@@ -237,7 +237,7 @@ zoom_popup_menu(GtkWidget *button, GdkEventButton *event, gpointer user_data) {
 }
 
 static GtkWidget*
-create_zoom_widget(DDisplay *ddisp) { 
+create_zoom_widget(DiaDisplay *ddisp) { 
   GtkWidget *combo;
   GtkWidget *entry;
   GtkWidget *menu;
@@ -289,16 +289,16 @@ close_notebook_page_callback (GtkButton *button,
                               gpointer   user_data)
 {
   GtkBox      *page     = user_data;
-  DDisplay    *ddisp    = g_object_get_data (G_OBJECT (page), "DDisplay");
+  DiaDisplay    *ddisp    = g_object_get_data (G_OBJECT (page), DIA_DISPLAY_DATA_HACK);
 
   /* When the page widget is destroyed it removes itself from the notebook */
-  ddisplay_close (ddisp);
+  dia_display_close (ddisp);
 }
 
 /* Shared helper functions for both UI cases
  */
 static void
-_ddisplay_setup_rulers (DDisplay *ddisp, GtkWidget *shell, GtkWidget *table)
+_dia_display_setup_rulers (DiaDisplay *ddisp, GtkWidget *shell, GtkWidget *table)
 {
   ddisp->hrule = dia_ruler_new (GTK_ORIENTATION_HORIZONTAL, shell, ddisp);
   ddisp->vrule = dia_ruler_new (GTK_ORIENTATION_VERTICAL, shell, ddisp);
@@ -310,7 +310,7 @@ _ddisplay_setup_rulers (DDisplay *ddisp, GtkWidget *shell, GtkWidget *table)
   gtk_grid_attach (GTK_GRID (table), ddisp->vrule, 0, 1, 1, 1);
 }
 static void
-_ddisplay_setup_events (DDisplay *ddisp, GtkWidget *shell)
+_dia_display_setup_events (DiaDisplay *ddisp, GtkWidget *shell)
 {
   gtk_widget_set_events (shell,
                          GDK_POINTER_MOTION_MASK |
@@ -318,16 +318,16 @@ _ddisplay_setup_events (DDisplay *ddisp, GtkWidget *shell)
                          GDK_FOCUS_CHANGE_MASK);
 
   g_signal_connect (G_OBJECT (shell), "focus_out_event",
-		    G_CALLBACK (ddisplay_focus_out_event), ddisp);
+		    G_CALLBACK (dia_display_focus_out_event), ddisp);
   g_signal_connect (G_OBJECT (shell), "focus_in_event",
-		    G_CALLBACK (ddisplay_focus_in_event), ddisp);
+		    G_CALLBACK (dia_display_focus_in_event), ddisp);
   g_signal_connect (G_OBJECT (shell), "realize",
-		    G_CALLBACK (ddisplay_realize), ddisp);
+		    G_CALLBACK (dia_display_realize), ddisp);
   g_signal_connect (G_OBJECT (shell), "unrealize",
-		    G_CALLBACK (ddisplay_unrealize), ddisp);
+		    G_CALLBACK (dia_display_unrealize), ddisp);
 }
 static void
-_ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int height)
+_dia_display_setup_scrollbars (DiaDisplay *ddisp, GtkWidget *table, int width, int height)
 {
   /*  The adjustment datums  */
   ddisp->hsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, width, 1, (width-1)/4, width-1));
@@ -340,9 +340,9 @@ _ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int he
 
   /*  set up the scrollbar observers  */
   g_signal_connect (G_OBJECT (ddisp->hsbdata), "value_changed",
-		    G_CALLBACK(ddisplay_hsb_update), ddisp);
+		    G_CALLBACK(dia_display_hsb_update), ddisp);
   g_signal_connect (G_OBJECT (ddisp->vsbdata), "value_changed",
-		    G_CALLBACK(ddisplay_vsb_update), ddisp);
+		    G_CALLBACK(dia_display_vsb_update), ddisp);
 
   /* harder to change position in the table, but we did not do it for years ;) */
   gtk_widget_set_hexpand (ddisp->hsb, TRUE);
@@ -354,7 +354,7 @@ _ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int he
   gtk_widget_show (ddisp->vsb);
 }
 static void
-_ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *table, gboolean top_left)
+_dia_display_setup_navigation (DiaDisplay *ddisp, GtkWidget *table, gboolean top_left)
 {
   GtkWidget *navigation_button;
 
@@ -380,7 +380,7 @@ _ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *table, gboolean top_left
  * @param title
  */
 static void
-use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
+use_integrated_ui_for_display_shell(DiaDisplay *ddisp, char *title)
 {
   GtkWidget *table;
   GtkWidget *label;                /* Text label for the notebook page */
@@ -428,34 +428,29 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_widget_show (image);
 
   /* Set events for new tab page */
-  _ddisplay_setup_events (ddisp, ddisp->container);
+  _dia_display_setup_events (ddisp, ddisp->container);
 
   notebook_page_index = gtk_notebook_append_page (GTK_NOTEBOOK(ui.diagram_notebook),
                                                   ddisp->container,
                                                   tab_label_container);
 
-  g_object_set_data (G_OBJECT (ddisp->container), "DDisplay",  ddisp);
-  g_object_set_data (G_OBJECT (ddisp->container), "tab-label", label);
-  g_object_set_data (G_OBJECT (ddisp->container), "window",    ui.main_window);
+  g_object_set_data (G_OBJECT (ddisp->container), DIA_DISPLAY_DATA_HACK, ddisp);
 
   /*  the table containing all widgets  */
   table = gtk_grid_new ();
-  gtk_grid_set_column_spacing (GTK_GRID (table), 2);
-  gtk_grid_set_row_spacing (GTK_GRID (table), 2);
-  gtk_container_set_border_width (GTK_CONTAINER (table), 2);
 
   gtk_box_pack_start (GTK_BOX (ddisp->container), table, TRUE, TRUE, 0);
 
   /*  scrollbars, rulers, canvas, menu popup button  */
   ddisp->origin = NULL;
-  _ddisplay_setup_rulers (ddisp, ddisp->container, table);
+  _dia_display_setup_rulers (ddisp, ddisp->container, table);
 
   /* Get the width/height of the Notebook child area */
   /* TODO: Fix width/height hardcoded values */
   width = 100;
   height = 100;
-  _ddisplay_setup_scrollbars (ddisp, table, width, height);
-  _ddisplay_setup_navigation (ddisp, table, TRUE);
+  _dia_display_setup_scrollbars (ddisp, table, width, height);
+  _dia_display_setup_navigation (ddisp, table, TRUE);
 
   ddisp->canvas = dia_canvas_new (ddisp);
 
@@ -497,7 +492,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
  * @param use_mbar Flag to indicate whether to add a menubar to the window
  */
 void
-create_display_shell(DDisplay *ddisp,
+create_display_shell(DiaDisplay *ddisp,
 		     int width, int height,
 		     char *title, int use_mbar)
 {
@@ -541,18 +536,13 @@ create_display_shell(DDisplay *ddisp,
 
   g_object_set_data (G_OBJECT (ddisp->shell), "user_data", (gpointer) ddisp);
 
-  _ddisplay_setup_events (ddisp, ddisp->shell);
+  _dia_display_setup_events (ddisp, ddisp->shell);
   /* following two not shared with integrated UI */
   g_signal_connect (G_OBJECT (ddisp->shell), "delete_event",
-		    G_CALLBACK (ddisplay_delete), ddisp);
-  g_signal_connect (G_OBJECT (ddisp->shell), "destroy",
-		    G_CALLBACK (ddisplay_destroy), ddisp);
+                    G_CALLBACK (dia_display_delete), ddisp);
 
   /*  the table containing all widgets  */
   table = gtk_grid_new ();
-  gtk_grid_set_column_spacing (GTK_GRID (table), 2);
-  gtk_grid_set_row_spacing (GTK_GRID (table), 2);
-  gtk_container_set_border_width (GTK_CONTAINER (table), 2);
   if (use_mbar) 
   {
       root_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
@@ -581,9 +571,9 @@ create_display_shell(DDisplay *ddisp,
       gtk_frame_set_shadow_type (GTK_FRAME (ddisp->origin), GTK_SHADOW_OUT);
   }
   
-  _ddisplay_setup_rulers (ddisp, ddisp->shell, table);
-  _ddisplay_setup_scrollbars (ddisp, table, width, height);
-  _ddisplay_setup_navigation (ddisp, table, FALSE);
+  _dia_display_setup_rulers (ddisp, ddisp->shell, table);
+  _dia_display_setup_scrollbars (ddisp, table, width, height);
+  _dia_display_setup_navigation (ddisp, table, FALSE);
 
   ddisp->canvas = dia_canvas_new (ddisp);
 
@@ -697,7 +687,7 @@ create_display_shell(DDisplay *ddisp,
  * @param ddisp The display to hide the rulers on.
  */
 void 
-ddisplay_update_rulers (DDisplay        *ddisp,
+dia_display_update_rulers (DiaDisplay        *ddisp,
                         const Rectangle *extents,
 		        const Rectangle *visible)
 {
@@ -842,8 +832,7 @@ create_integrated_ui (void)
 		    G_CALLBACK (toolbox_destroy),
 		      window);
 
-  main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
-  gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
+  main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
   gtk_widget_show (main_vbox);
 
@@ -940,8 +929,7 @@ create_toolbox ()
   g_signal_connect (G_OBJECT (window), "destroy",
 		    G_CALLBACK (toolbox_destroy), window);
 
-  main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
-  gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
+  main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
 
   wrapbox = dia_toolbox_new();

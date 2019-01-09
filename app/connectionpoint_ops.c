@@ -32,16 +32,16 @@ static GdkRGBA connectionpoint_color = { 0.4, 0.4, 1.0, 1.0 };
 #define CP_SZ (CONNECTIONPOINT_SIZE/2)
 
 static void
-connectionpoint_draw(ConnectionPoint *conpoint,
-		     DDisplay        *ddisp,
-		     DiaRenderer     *renderer,
-		     DiaInteractiveRendererInterface *irenderer,
-		     GdkRGBA         *color)
+connectionpoint_draw (ConnectionPoint                 *conpoint,
+                      DiaDisplay                      *ddisp,
+                      DiaRenderer                     *renderer,
+                      DiaInteractiveRendererInterface *irenderer,
+                      GdkRGBA                         *color)
 {
   int x,y;
   Point *point = &conpoint->pos;
   
-  ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
+  dia_display_transform_coords (ddisp, point->x, point->y, &x, &y);
 
   irenderer->draw_pixel_line (renderer,
 			x-CP_SZ,y-CP_SZ,
@@ -55,7 +55,7 @@ connectionpoint_draw(ConnectionPoint *conpoint,
 }
 
 void 
-object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
+object_draw_connectionpoints (DiaObject *obj, DiaDisplay *ddisp)
 {
   int i;
   static GdkRGBA midpoint_color = { 1.0, 0.0, 0.0, 1.0 };
@@ -75,8 +75,8 @@ object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
   if (dia_object_get_num_connections(obj) > 1)
   {
     const Rectangle *bbox = dia_object_get_bounding_box (obj);
-    real w = ddisplay_transform_length (ddisp, bbox->right - bbox->left);
-    real h = ddisplay_transform_length (ddisp, bbox->bottom - bbox->top);
+    real w = dia_display_transform_length (ddisp, bbox->right - bbox->left);
+    real h = dia_display_transform_length (ddisp, bbox->bottom - bbox->top);
     int n = dia_object_get_num_connections(obj);
 
     /* just comparing the sizes is still drawing more CPs than useful - try 50% */
@@ -177,7 +177,7 @@ diagram_update_connections_object(Diagram *dia, DiaObject *obj,
 }
 
 void
-ddisplay_connect_selected(DDisplay *ddisp)
+dia_display_connect_selected (DiaDisplay *ddisp)
 {
   GList *list;
 
@@ -189,7 +189,7 @@ ddisplay_connect_selected(DDisplay *ddisp)
 
     for (i=0; i<selected_obj->num_handles; i++) {
       if (selected_obj->handles[i]->connect_type != HANDLE_NONCONNECTABLE) {
-	object_connect_display(ddisp, selected_obj, selected_obj->handles[i], FALSE);
+        object_connect_display(ddisp, selected_obj, selected_obj->handles[i], FALSE);
       }
     }
     

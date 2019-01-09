@@ -1040,7 +1040,7 @@ static void
 edit_layer_add_ok_callback (GtkWidget *w, gpointer client_data)
 {
   EditLayerDialog *dialog = (EditLayerDialog *) client_data;
-  Diagram *dia = ddisplay_active_diagram();
+  Diagram *dia = dia_display_active_diagram();
   Layer *layer;
   int pos = data_layer_get_index (dia->data, dia->data->active_layer) + 1;
   
@@ -1067,7 +1067,7 @@ static void
 edit_layer_rename_ok_callback (GtkWidget *w, gpointer client_data)
 {
   EditLayerDialog *dialog = (EditLayerDialog *) client_data;
-  Diagram *dia = ddisplay_active_diagram();
+  Diagram *dia = dia_display_active_diagram();
   Layer *layer = dia->data->active_layer;
   
   g_free (layer->name);
@@ -1133,11 +1133,11 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *laye
 
   /*  handle the wm close signal */
   g_signal_connect (G_OBJECT (dialog->dialog), "delete_event",
-		    G_CALLBACK (edit_layer_delete_callback),
-		    dialog);
+                    G_CALLBACK (edit_layer_delete_callback),
+                    dialog);
   g_signal_connect (G_OBJECT (dialog->dialog), "destroy",
-		    G_CALLBACK (gtk_widget_destroy),
-		    &dialog->dialog);
+                    G_CALLBACK (gtk_widget_destroy),
+                    &dialog->dialog);
   
   /*  the main vbox  */
   vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);

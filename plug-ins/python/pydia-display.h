@@ -26,12 +26,12 @@
 
 typedef struct {
     PyObject_HEAD
-    DDisplay *disp;
+    DiaDisplay *disp;
 } PyDiaDisplay;
 
 
 extern PyTypeObject PyDiaDisplay_Type;
 
-PyObject *PyDiaDisplay_New(DDisplay *disp);
+PyObject *PyDiaDisplay_New(DiaDisplay *disp);
 
 #endif

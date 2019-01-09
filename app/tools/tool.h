@@ -45,11 +45,11 @@ struct _DiaToolClass {
   void (* activate)       (DiaTool *);
   void (* deactivate)     (DiaTool *);
 
-  void (* button_press)   (DiaTool *, GdkEventButton *, DDisplayBox *ddisp);
-  void (* button_hold)    (DiaTool *, GdkEventButton *, DDisplayBox *ddisp);
-  void (* double_click)   (DiaTool *, GdkEventButton *, DDisplayBox *ddisp);
-  void (* button_release) (DiaTool *, GdkEventButton *, DDisplayBox *ddisp);
-  void (* motion)         (DiaTool *, GdkEventMotion *, DDisplayBox *ddisp);
+  void (* button_press)   (DiaTool *, GdkEventButton *, DiaDisplay *ddisp);
+  void (* button_hold)    (DiaTool *, GdkEventButton *, DiaDisplay *ddisp);
+  void (* double_click)   (DiaTool *, GdkEventButton *, DiaDisplay *ddisp);
+  void (* button_release) (DiaTool *, GdkEventButton *, DiaDisplay *ddisp);
+  void (* motion)         (DiaTool *, GdkEventMotion *, DiaDisplay *ddisp);
 };
 
 struct _ToolState {
@@ -79,11 +79,11 @@ void tool_options_dialog_show (GType      type,
 
 void dia_tool_activate       (DiaTool *self);
 void dia_tool_deactivate     (DiaTool *self);
-void dia_tool_button_press   (DiaTool *self, GdkEventButton *, DDisplay *ddisp);
-void dia_tool_button_hold    (DiaTool *self, GdkEventButton *, DDisplay *ddisp);
-void dia_tool_double_click   (DiaTool *self, GdkEventButton *, DDisplay *ddisp);
-void dia_tool_button_release (DiaTool *self, GdkEventButton *, DDisplay *ddisp);
-void dia_tool_motion         (DiaTool *self, GdkEventMotion *, DDisplay *ddisp);
+void dia_tool_button_press   (DiaTool *self, GdkEventButton *, DiaDisplay *ddisp);
+void dia_tool_button_hold    (DiaTool *self, GdkEventButton *, DiaDisplay *ddisp);
+void dia_tool_double_click   (DiaTool *self, GdkEventButton *, DiaDisplay *ddisp);
+void dia_tool_button_release (DiaTool *self, GdkEventButton *, DiaDisplay *ddisp);
+void dia_tool_motion         (DiaTool *self, GdkEventMotion *, DiaDisplay *ddisp);
 
 G_END_DECLS
 

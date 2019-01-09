@@ -11,39 +11,36 @@
 typedef struct _DiaCanvasPrivate DiaCanvasPrivate;
 
 struct _DiaCanvasPrivate {
-  DDisplayBox *disp_box;
+  DiaDisplay *display;
 };
 
 G_DEFINE_TYPE_WITH_CODE (DiaCanvas, dia_canvas, GTK_TYPE_DRAWING_AREA,
                          G_ADD_PRIVATE (DiaCanvas))
 
 enum {
-  PROP_DDISPLAY = 1,
+  PROP_DISPLAY = 1,
   N_PROPS
 };
 static GParamSpec* properties[N_PROPS];
 
-
 GtkWidget *
-dia_canvas_new (DDisplay *ddisp)
+dia_canvas_new (DiaDisplay *ddisp)
 {
   return g_object_new (DIA_TYPE_CANVAS,
-                       "ddisplay", display_box_new (ddisp),
+                       "display", ddisp,
                        NULL);
 }
 
-DDisplay *
-dia_canvas_get_ddisplay (DiaCanvas *self)
+DiaDisplay *
+dia_canvas_get_display (DiaCanvas *self)
 {
   DiaCanvasPrivate *priv;
-  DDisplayBox      *box;
 
   g_return_val_if_fail (self != NULL, NULL);
   
   priv = dia_canvas_get_instance_private (DIA_CANVAS (self));
-  box = priv->disp_box;
 
-  return box->ddisp;
+  return priv->display;
 }
 
 static gboolean
@@ -71,13 +68,13 @@ dia_canvas_drag_data_received (GtkWidget        *self,
                                guint             info,
                                guint             time)
 {
-  DDisplay *ddisp = dia_canvas_get_ddisplay (DIA_CANVAS (self));
+  DiaDisplay *ddisp = dia_canvas_get_display (DIA_CANVAS (self));
   if (gtk_selection_data_get_format (data) == 8 &&
       gtk_selection_data_get_length (data) == sizeof (ToolButtonData *) &&
       gtk_drag_get_source_widget (context) != NULL) {
     ToolButtonData *tooldata = *(ToolButtonData **) gtk_selection_data_get_data (data);
     /* g_message("Tool drop %s at (%d, %d)", (gchar *)tooldata->extra_data, x, y);*/
-    ddisplay_drop_object (ddisp, x, y,
+    dia_display_drop_object (ddisp, x, y,
                           object_get_type ((gchar *) tooldata->extra_data),
                           tooldata->user_data);
 
@@ -98,14 +95,14 @@ dia_canvas_size_allocate (GtkWidget     *self,
                           GtkAllocation *alloc)
 {
   int width, height;
-  DDisplay *ddisp = dia_canvas_get_ddisplay (DIA_CANVAS (self));
+  DiaDisplay *ddisp = dia_canvas_get_display (DIA_CANVAS (self));
 
   if (ddisp->renderer) {
     width = dia_renderer_get_width_pixels (ddisp->renderer);
     height = dia_renderer_get_height_pixels (ddisp->renderer);
   } else {
     /* We can continue even without a renderer here because
-     * ddisplay_resize_canvas () does the setup for us.
+     * dia_display_resize_canvas () does the setup for us.
      */
     width = height = 0;
   }
@@ -113,8 +110,8 @@ dia_canvas_size_allocate (GtkWidget     *self,
   /* Only do this when size is really changing */
   if (width != alloc->width || height != alloc->height) {
     g_message ("Canvas size change...");
-    ddisplay_resize_canvas (ddisp, alloc->width, alloc->height);
-    ddisplay_update_scrollbars(ddisp);
+    dia_display_resize_canvas (ddisp, alloc->width, alloc->height);
+    dia_display_update_scrollbars(ddisp);
   }
 
   /* If the UI is not integrated, resizing should set the resized
@@ -133,7 +130,7 @@ dia_canvas_draw (GtkWidget *self,
   GSList *l;
   Rectangle *r, totrect;
   DiaInteractiveRendererInterface *renderer;
-  DDisplay *ddisp = dia_canvas_get_ddisplay (DIA_CANVAS (self));
+  DiaDisplay *ddisp = dia_canvas_get_display (DIA_CANVAS (self));
 
   g_return_val_if_fail (ddisp->renderer != NULL, FALSE);
 
@@ -173,7 +170,7 @@ dia_canvas_draw (GtkWidget *self,
     totrect.top -= 0.1;
     totrect.bottom += 0.1;
     
-    ddisplay_render_pixmap(ddisp, &totrect);
+    dia_display_render_pixmap(ddisp, &totrect);
   }
 
   dia_interactive_renderer_paint (ddisp->renderer,
@@ -192,11 +189,29 @@ dia_canvas_set_property (GObject      *object,
 {
   DiaCanvas *self = DIA_CANVAS (object);
   DiaCanvasPrivate *priv = dia_canvas_get_instance_private (self);
-  DDisplayBox *box;
+
   switch (property_id) {
-    case PROP_DDISPLAY:
-      box = g_value_get_boxed (value);
-      priv->disp_box = display_box_new (box->ddisp);
+    case PROP_DISPLAY:
+      priv->display = g_value_get_object (value);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_canvas_get_property (GObject    *object,
+                         guint       property_id,
+                         GValue     *value,
+                         GParamSpec *pspec)
+{
+  DiaCanvas *self = DIA_CANVAS (object);
+  DiaCanvasPrivate *priv = dia_canvas_get_instance_private (self);
+
+  switch (property_id) {
+    case PROP_DISPLAY:
+      g_value_set_object (value, priv->display);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -211,13 +226,14 @@ dia_canvas_class_init (DiaCanvasClass *klass)
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->set_property = dia_canvas_set_property;
+  object_class->get_property = dia_canvas_get_property;
 
-  properties[PROP_DDISPLAY] =
-    g_param_spec_boxed ("ddisplay",
-                        "DDisplay",
-                        "Editor this canvas is part of",
-                        DIA_TYPE_DISPLAY,
-                        G_PARAM_CONSTRUCT_ONLY | G_PARAM_WRITABLE);
+  properties[PROP_DISPLAY] =
+    g_param_spec_object ("display",
+                         "Display",
+                         "Editor this canvas is part of",
+                         DIA_TYPE_DISPLAY,
+                         G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE);
 
   g_object_class_install_properties (object_class,
                                      N_PROPS,
@@ -242,7 +258,7 @@ dia_canvas_init (DiaCanvas * self)
                          GDK_KEY_RELEASE_MASK);
   gtk_widget_set_can_focus (GTK_WIDGET (self), TRUE);
   g_signal_connect (G_OBJECT (self), "event",
-                    G_CALLBACK (ddisplay_canvas_events), NULL);
+                    G_CALLBACK (dia_display_canvas_events), NULL);
 
   canvas_setup_drag_dest (GTK_WIDGET (self));
 }

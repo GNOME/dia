@@ -350,7 +350,7 @@ load_accels(void)
 void
 integrated_ui_toolbar_object_snap_synchronize_to_display(gpointer param)
 {
-  DDisplay *ddisp = param;
+  DiaDisplay *ddisp = param;
   if (ddisp && ddisp->common_toolbar)
   {
     GtkToggleButton *b = g_object_get_data (G_OBJECT (ddisp->common_toolbar), 
@@ -368,10 +368,10 @@ integrated_ui_toolbar_object_snap_synchronize_to_display(gpointer param)
 static void
 integrated_ui_toolbar_object_snap_toggle(GtkToggleButton *b, gpointer *not_used)
 {
-  DDisplay *ddisp = ddisplay_active ();
+  DiaDisplay *ddisp = dia_display_active ();
   if (ddisp)
   {
-    ddisplay_set_snap_to_objects (ddisp, gtk_toggle_button_get_active (b));
+    dia_display_set_snap_to_objects (ddisp, gtk_toggle_button_get_active (b));
   }
 }
 
@@ -382,7 +382,7 @@ integrated_ui_toolbar_object_snap_toggle(GtkToggleButton *b, gpointer *not_used)
 void
 integrated_ui_toolbar_grid_snap_synchronize_to_display(gpointer param)
 {
-  DDisplay *ddisp = param;
+  DiaDisplay *ddisp = param;
   if (ddisp && ddisp->common_toolbar)
   {
     GtkToggleButton *b = g_object_get_data (G_OBJECT (ddisp->common_toolbar), 
@@ -400,10 +400,10 @@ integrated_ui_toolbar_grid_snap_synchronize_to_display(gpointer param)
 static void
 integrated_ui_toolbar_grid_snap_toggle(GtkToggleButton *b, gpointer *not_used)
 {
-  DDisplay *ddisp = ddisplay_active ();
+  DiaDisplay *ddisp = dia_display_active ();
   if (ddisp)
   {
-    ddisplay_set_snap_to_grid (ddisp, gtk_toggle_button_get_active (b));
+    dia_display_set_snap_to_grid (ddisp, gtk_toggle_button_get_active (b));
   }
 }
 
@@ -1150,12 +1150,12 @@ plugin_callback (GtkWidget *widget, gpointer data)
   }
   /* and finally invoke it */
   if (cbf->callback) {
-    DDisplay *ddisp = NULL;
+    DiaDisplay *ddisp = NULL;
     DiagramData* diadata = NULL;
     ObjectChange *change;
     /* stuff from the toolbox menu should never get a diagram to modify */
     if (strncmp (cbf->menupath, TOOLBOX_MENU, strlen (TOOLBOX_MENU)) != 0) {
-      ddisp = ddisplay_active();
+      ddisp = dia_display_active();
       diadata = ddisp ? ddisp->diagram->data : NULL;
     }
     change = cbf->callback (diadata, ddisp ? ddisp->diagram->filename : NULL, 0, cbf->user_data);

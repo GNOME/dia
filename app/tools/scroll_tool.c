@@ -26,16 +26,16 @@
 
 static void scroll_button_press   (DiaTool        *tool,
                                    GdkEventButton *event,
-                                   DDisplayBox    *ddisp);
+                                   DiaDisplay     *ddisp);
 static void scroll_button_release (DiaTool        *tool,
                                    GdkEventButton *event,
-                                   DDisplayBox    *ddisp);
+                                   DiaDisplay     *ddisp);
 static void scroll_motion         (DiaTool        *tool,
                                    GdkEventMotion *event,
-                                   DDisplayBox    *ddisp);
+                                   DiaDisplay     *ddisp);
 static void scroll_double_click   (DiaTool        *tool,
                                    GdkEventButton *event,
-                                   DDisplayBox    *ddisp);
+                                   DiaDisplay     *ddisp);
 
 G_DEFINE_TYPE (DiaScrollTool, dia_scroll_tool, DIA_TYPE_TOOL)
 
@@ -47,13 +47,13 @@ activate (DiaTool *tool)
   self->scrolling = FALSE;
   self->use_hand = TRUE;
 
-  ddisplay_set_all_cursor (get_cursor (CURSOR_GRAB));
+  dia_display_set_all_cursor (get_cursor (CURSOR_GRAB));
 }
 
 static void
 deactivate (DiaTool *tool)
 {
-  ddisplay_set_all_cursor (default_cursor);
+  dia_display_set_all_cursor (default_cursor);
 }
 
 static void
@@ -78,7 +78,7 @@ dia_scroll_tool_init (DiaScrollTool *self)
 static void
 scroll_double_click (DiaTool        *tool,
                      GdkEventButton *event,
-                     DDisplayBox    *ddisp)
+                     DiaDisplay     *ddisp)
 {
   /* Do nothing */
 }
@@ -86,20 +86,20 @@ scroll_double_click (DiaTool        *tool,
 static void
 scroll_button_press (DiaTool        *tool,
                      GdkEventButton *event,
-                     DDisplayBox    *ddisp)
+                     DiaDisplay     *ddisp)
 {
   DiaScrollTool *self = DIA_SCROLL_TOOL (tool);
   Point clickedpoint;
 
   self->use_hand = (event->state & GDK_SHIFT_MASK) == 0;
   if (self->use_hand)
-    ddisplay_set_all_cursor (get_cursor(CURSOR_GRABBING));
+    dia_display_set_all_cursor (get_cursor (CURSOR_GRABBING));
   else
-    ddisplay_set_all_cursor (get_cursor(CURSOR_SCROLL));
+    dia_display_set_all_cursor (get_cursor (CURSOR_SCROLL));
 
-  ddisplay_untransform_coords (ddisp->ddisp,
-                               (int)event->x, (int)event->y,
-                               &clickedpoint.x, &clickedpoint.y);
+  dia_display_untransform_coords (ddisp,
+                                  (int)event->x, (int)event->y,
+                                  &clickedpoint.x, &clickedpoint.y);
 
   self->scrolling = TRUE;
   self->last_pos = clickedpoint;
@@ -108,7 +108,7 @@ scroll_button_press (DiaTool        *tool,
 static void
 scroll_motion (DiaTool        *tool,
                GdkEventMotion *event,
-               DDisplayBox    *ddisp)
+               DiaDisplay     *ddisp)
 {
   DiaScrollTool *self = DIA_SCROLL_TOOL (tool);
   Point to;
@@ -120,17 +120,17 @@ scroll_motion (DiaTool        *tool,
     if ((event->state & GDK_SHIFT_MASK) == 0) {
       if (!self->use_hand) {
         self->use_hand = TRUE;
-        ddisplay_set_all_cursor(get_cursor(CURSOR_GRAB));
+        dia_display_set_all_cursor (get_cursor (CURSOR_GRAB));
       }
     } else
       if (self->use_hand) {
         self->use_hand = FALSE;
-        ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
+        dia_display_set_all_cursor (get_cursor (CURSOR_SCROLL));
       }
     return;
   }
 
-  ddisplay_untransform_coords (ddisp->ddisp, event->x, event->y, &to.x, &to.y);
+  dia_display_untransform_coords (ddisp, event->x, event->y, &to.x, &to.y);
 
   if (self->use_hand) {
     delta = self->last_pos;
@@ -140,32 +140,32 @@ scroll_motion (DiaTool        *tool,
     point_add(&self->last_pos, &delta);
 
     /* we use this so you can scroll past the edge of the image */
-    point_add(&delta, &ddisp->ddisp->origo);
-    ddisplay_set_origo (ddisp->ddisp, delta.x, delta.y);
-    ddisplay_update_scrollbars (ddisp->ddisp);
-    ddisplay_add_update_all(ddisp->ddisp);
+    point_add(&delta, &ddisp->origo);
+    dia_display_set_origo (ddisp, delta.x, delta.y);
+    dia_display_update_scrollbars (ddisp);
+    dia_display_add_update_all(ddisp);
   } else {
     delta = to;
     point_sub(&delta, &self->last_pos);
     point_scale(&delta, 0.5);
 
-    ddisplay_scroll (ddisp->ddisp, &delta);
+    dia_display_scroll (ddisp, &delta);
     self->last_pos = to;
   }
-  ddisplay_flush (ddisp->ddisp);
+  dia_display_flush (ddisp);
 }
 
 static void
 scroll_button_release (DiaTool        *tool,
                        GdkEventButton *event,
-                       DDisplayBox    *ddisp)
+                       DiaDisplay     *ddisp)
 {
   DiaScrollTool *self = DIA_SCROLL_TOOL (tool);
   self->use_hand = (event->state & GDK_SHIFT_MASK) == 0;
   if (self->use_hand) {
-    ddisplay_set_all_cursor(get_cursor(CURSOR_GRAB));
+    dia_display_set_all_cursor(get_cursor(CURSOR_GRAB));
   } else
-    ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
+    dia_display_set_all_cursor(get_cursor(CURSOR_SCROLL));
 
   self->scrolling = FALSE;
 }

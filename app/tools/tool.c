@@ -139,44 +139,44 @@ dia_tool_deactivate (DiaTool *self)
 void
 dia_tool_button_press (DiaTool        *self,
                        GdkEventButton *event,
-                       DDisplay       *ddisp)
+                       DiaDisplay     *ddisp)
 {
-  g_signal_emit (self, signals[BUTTON_PRESS], 0, event, display_box_new (ddisp));
+  g_signal_emit (self, signals[BUTTON_PRESS], 0, event, ddisp);
 }
 
 void
 dia_tool_button_hold (DiaTool        *self,
                       GdkEventButton *event,
-                      DDisplay       *ddisp)
+                      DiaDisplay     *ddisp)
 {
-  g_signal_emit (self, signals[BUTTON_HOLD], 0, event, display_box_new (ddisp));
+  g_signal_emit (self, signals[BUTTON_HOLD], 0, event, ddisp);
 
 }
 
 void
 dia_tool_double_click (DiaTool        *self,
                        GdkEventButton *event,
-                       DDisplay       *ddisp)
+                       DiaDisplay     *ddisp)
 {
-  g_signal_emit (self, signals[DOUBLE_CLICK], 0, event, display_box_new (ddisp));
+  g_signal_emit (self, signals[DOUBLE_CLICK], 0, event, ddisp);
 
 }
 
 void
 dia_tool_button_release (DiaTool        *self,
                          GdkEventButton *event,
-                         DDisplay       *ddisp)
+                         DiaDisplay     *ddisp)
 {
-  g_signal_emit (self, signals[BUTTON_RELEASE], 0, event, display_box_new (ddisp));
+  g_signal_emit (self, signals[BUTTON_RELEASE], 0, event, ddisp);
 
 }
 
 void
 dia_tool_motion (DiaTool        *self,
                  GdkEventMotion *event,
-                 DDisplay       *ddisp)
+                 DiaDisplay     *ddisp)
 {
-  g_signal_emit (self, signals[MOTION], 0, event, display_box_new (ddisp));
+  g_signal_emit (self, signals[MOTION], 0, event, ddisp);
 }
 
 void 

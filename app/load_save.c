@@ -949,7 +949,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
     if (g_slist_length(diagram->displays) == 1) {
       xmlNodePtr dispinfo;
       /* store some display attributes */
-      DDisplay *ddisp = diagram->displays->data;
+      DiaDisplay *ddisp = diagram->displays->data;
 
       attr = new_attribute((ObjectNode)tree, "display");
       dispinfo = data_add_composite(attr, "display", ctx);

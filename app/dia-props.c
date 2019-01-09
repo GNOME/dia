@@ -48,7 +48,7 @@ static void
 diagram_properties_update_sensitivity(GtkToggleButton *widget,
 				      gpointer userdata)
 {
-  Diagram *dia = ddisplay_active_diagram();
+  Diagram *dia = dia_display_active_diagram();
   gboolean dyn_grid, square_grid, hex_grid;
 
   if (!dia)
@@ -84,7 +84,7 @@ create_diagram_properties_dialog(Diagram *dia)
 
   dialog = gtk_dialog_new_with_buttons(
              _("Diagram Properties"),
-             GTK_WINDOW(ddisplay_active()->shell),
+             GTK_WINDOW(dia_display_active()->shell),
              GTK_DIALOG_DESTROY_WITH_PARENT,
              _("Close"), GTK_RESPONSE_CANCEL,
              _("Apply"), GTK_RESPONSE_APPLY,
@@ -302,7 +302,7 @@ diagram_properties_show(Diagram *dia)
   diagram_properties_retrieve(dia);
   
   gtk_window_set_transient_for(GTK_WINDOW(dialog),
-			       GTK_WINDOW (ddisplay_active()->shell));
+			       GTK_WINDOW (dia_display_active()->shell));
   gtk_widget_show(dialog);
 }
 
@@ -311,7 +311,7 @@ diagram_properties_respond(GtkWidget *widget,
                            gint       response_id,
                            gpointer   user_data)
 {
-  Diagram *active_diagram = ddisplay_active_diagram();
+  Diagram *active_diagram = dia_display_active_diagram();
 
   if (response_id == GTK_RESPONSE_OK ||
       response_id == GTK_RESPONSE_APPLY) {

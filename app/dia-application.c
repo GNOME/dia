@@ -37,9 +37,9 @@ struct _DiaApplicationClass
   void (*diagram_change) (DiaApplication *app, Diagram *diagram, guint flags);
   void (*diagram_remove) (DiaApplication *app, Diagram *diagram);
   
-  void (*display_add)    (DiaApplication *app, DDisplay *display);
-  void (*display_change) (DiaApplication *app, DDisplay *display, guint flags);
-  void (*display_remove) (DiaApplication *app, DDisplay *display);
+  void (*display_add)    (DiaApplication *app, DiaDisplay *display);
+  void (*display_change) (DiaApplication *app, DiaDisplay *display, guint flags);
+  void (*display_remove) (DiaApplication *app, DiaDisplay *display);
 };
 
 /**

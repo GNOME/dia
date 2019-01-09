@@ -58,7 +58,7 @@ struct _NavigationWindow
   cairo_surface_t *surface;
 
   /*display to navigate*/
-  DDisplay * ddisp;
+  DiaDisplay * ddisp;
 };
 
 typedef struct _NavigationWindow NavigationWindow;
@@ -99,7 +99,7 @@ static char * nav_xpm[] = {
 };
 
 GtkWidget *
-navigation_popup_new (DDisplay *ddisp)
+navigation_popup_new (DiaDisplay *ddisp)
 {
   GtkWidget * button;
 
@@ -108,7 +108,6 @@ navigation_popup_new (DDisplay *ddisp)
   GtkStyle  * style;
 
   button = gtk_button_new ();
-  gtk_container_set_border_width (GTK_CONTAINER (button), 0);
   gtk_button_set_relief (GTK_BUTTON(button), GTK_RELIEF_NONE);
   g_signal_connect (G_OBJECT (button), "pressed",
                     G_CALLBACK (on_button_navigation_popup_pressed), ddisp);
@@ -147,7 +146,7 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
 
   memset (nav, 0, sizeof(NavigationWindow));
   /*--Retrieve the diagram's data*/
-  nav->ddisp  = (DDisplay *) _ddisp;
+  nav->ddisp  = (DiaDisplay *) _ddisp;
   data = nav->ddisp->diagram->data;
 
   /*--Calculate sizes*/
@@ -170,8 +169,8 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
     nav->height = MIN( nav->max_size, (rect.bottom - rect.top)  * zoom);
 
     /*size: display canvas <--> frame cursor*/
-    diagram_width  = (int) ddisplay_transform_length (nav->ddisp, (rect.right - rect.left));
-    diagram_height = (int) ddisplay_transform_length (nav->ddisp, (rect.bottom - rect.top));
+    diagram_width  = (int) dia_display_transform_length (nav->ddisp, (rect.right - rect.left));
+    diagram_height = (int) dia_display_transform_length (nav->ddisp, (rect.bottom - rect.top));
 
     if (diagram_width * diagram_height == 0)
       return; /* don't crash with no size, i.e. empty diagram */

@@ -20,10 +20,11 @@
 
 #include <gtk/gtk.h>
 
-typedef struct _DDisplay DDisplay;
-
 #include "geometry.h"
 #include "diagram.h"
+
+typedef struct _DiaDisplay DiaDisplay;
+
 #include "grid.h"
 #include "diarenderer.h"
 
@@ -37,6 +38,8 @@ G_BEGIN_DECLS
 #define DDISPLAY_NORMAL_ZOOM 20.0
 #define DDISPLAY_MIN_ZOOM 0.2
 
+#define DIA_DISPLAY_DATA_HACK "DiaDisplay"
+
 /* The zoom amount should be uniform.  Pixels per cm should be defined by the
  * renderer alone.  But that'd take a lot of fiddling in renderers. */
 /*
@@ -44,7 +47,9 @@ G_BEGIN_DECLS
 #define DDISPLAY_NORMAL_ZOOM 1.0
 #define DDISPLAY_MIN_ZOOM 0.01
 */
-struct _DDisplay {
+struct _DiaDisplay {
+  GObject parent;
+
   Diagram *diagram;                  /* pointer to the associated diagram */
 
   GtkWidget      *shell;               /* shell widget for this ddisplay    */
@@ -59,7 +64,7 @@ struct _DDisplay {
   /* menu bar widgets */
   GtkMenuItem *rulers;
 
-  GtkWidget *zoom_status;         
+  GtkWidget *zoom_status;
   GtkWidget *grid_status;
   GtkWidget *mainpoint_status;
   GtkWidget *modified_status;
@@ -75,7 +80,7 @@ struct _DDisplay {
 
   Grid grid;                      /* the grid in this display          */
 
-  gboolean show_cx_pts;		  /* Connection points toggle boolean  */
+  gboolean show_cx_pts;           /* Connection points toggle boolean  */
   gboolean autoscroll;
   gboolean mainpoint_magnetism;   /* Mainpoints snapped from entire obj*/
 
@@ -112,99 +117,90 @@ struct _DDisplay {
 
 extern GdkCursor *default_cursor;
 
-typedef struct _DDisplayBox DDisplayBox;
+#define DIA_TYPE_DISPLAY (dia_display_get_type ())
+G_DECLARE_FINAL_TYPE (DiaDisplay, dia_display, DIA, DISPLAY, GObject)
 
-struct _DDisplayBox {
-  DDisplay *ddisp;
-};
-
-#define DIA_TYPE_DISPLAY (ddisplay_get_type ())
-
-DDisplay *new_display       (Diagram  *dia);
-DDisplay *copy_display      (DDisplay *orig_ddisp);
-void      ddisp_destroy     (DDisplay *ddisp);
-GType     ddisplay_get_type ();
-DDisplayBox *display_box_new (DDisplay *ddisp);
+DiaDisplay *dia_display_new  (Diagram    *diagram);
+DiaDisplay *dia_display_copy (DiaDisplay *self);
 
 /* Normal destroy is done through shell widget destroy event. */
-void ddisplay_really_destroy(DDisplay *ddisp); 
-void ddisplay_transform_coords_double(DDisplay *ddisp,
+void dia_display_transform_coords_double(DiaDisplay *ddisp,
 				      coord x, coord y,
 				      double *xi, double *yi);
-void ddisplay_transform_coords(DDisplay *ddisp,
+void dia_display_transform_coords(DiaDisplay *ddisp,
 			       coord x, coord y,
 			       int *xi, int *yi);
-void ddisplay_untransform_coords(DDisplay *ddisp,
+void dia_display_untransform_coords(DiaDisplay *ddisp,
 				 int xi, int yi,
 				 coord *x, coord *y);
-real ddisplay_transform_length(DDisplay *ddisp, real len);
-real ddisplay_untransform_length(DDisplay *ddisp, real len);
-void ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
+real dia_display_transform_length(DiaDisplay *ddisp, real len);
+real dia_display_untransform_length(DiaDisplay *ddisp, real len);
+void dia_display_add_update_pixels(DiaDisplay *ddisp, Point *point,
 				       int pixel_width, int pixel_height);
-void ddisplay_add_update_all(DDisplay *ddisp);
-void ddisplay_add_update_with_border(DDisplay *ddisp, const Rectangle *rect,
+void dia_display_add_update_all(DiaDisplay *ddisp);
+void dia_display_add_update_with_border(DiaDisplay *ddisp, const Rectangle *rect,
 				     int pixel_border);
-void ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect);
-void ddisplay_flush(DDisplay *ddisp);
-void ddisplay_update_scrollbars(DDisplay *ddisp);
-void ddisplay_set_origo(DDisplay *ddisp,
+void dia_display_add_update(DiaDisplay *ddisp, const Rectangle *rect);
+void dia_display_flush(DiaDisplay *ddisp);
+void dia_display_update_scrollbars(DiaDisplay *ddisp);
+void dia_display_set_origo(DiaDisplay *ddisp,
 			coord x, coord y);
-void ddisplay_zoom(DDisplay *ddisp, Point *point,
+void dia_display_zoom(DiaDisplay *ddisp, Point *point,
 		   real zoom_factor);
-void ddisplay_zoom_middle(DDisplay *ddisp, real magnify);
+void dia_display_zoom_middle(DiaDisplay *ddisp, real magnify);
 
-void ddisplay_zoom_centered(DDisplay *ddisp, Point *point, real magnify);
-void ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap);
-void ddisplay_set_snap_to_objects(DDisplay *ddisp, gboolean magnetic);
-void ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer);
-void ddisplay_resize_canvas(DDisplay *ddisp,
+void dia_display_zoom_centered(DiaDisplay *ddisp, Point *point, real magnify);
+void dia_display_set_snap_to_grid(DiaDisplay *ddisp, gboolean snap);
+void dia_display_set_snap_to_objects(DiaDisplay *ddisp, gboolean magnetic);
+void dia_display_set_renderer(DiaDisplay *ddisp, int aa_renderer);
+void dia_display_resize_canvas(DiaDisplay *ddisp,
 			    int width,
 			    int height);
 
-void ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update);
+void dia_display_render_pixmap(DiaDisplay *ddisp, Rectangle *update);
 
-DDisplay *ddisplay_active(void);
-Diagram *ddisplay_active_diagram(void);
+DiaDisplay *dia_display_active(void);
+Diagram *dia_display_active_diagram(void);
 
-void ddisplay_close(DDisplay *ddisp);
+void dia_display_close(DiaDisplay *ddisp);
 
-void ddisplay_set_title(DDisplay *ddisp, char *title);
-void ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor);
-void ddisplay_set_all_cursor(GdkCursor *cursor);
+void dia_display_set_title(DiaDisplay *ddisp, char *title);
+void dia_display_set_cursor(DiaDisplay *ddisp, GdkCursor *cursor);
+void dia_display_set_all_cursor(GdkCursor *cursor);
 
-void  ddisplay_set_clicked_point(DDisplay *ddisp, int x, int y);
-Point ddisplay_get_clicked_position(DDisplay *ddisp);
+void  dia_display_set_clicked_point(DiaDisplay *ddisp, int x, int y);
+Point dia_display_get_clicked_position(DiaDisplay *ddisp);
 
-gboolean display_get_rulers_showing(DDisplay *ddisp);
-void display_rulers_show (DDisplay *ddisp);
-void display_rulers_hide (DDisplay *ddisp);
-void ddisplay_update_rulers (DDisplay *ddisp, const Rectangle *extents, const Rectangle *visible);
+gboolean display_get_rulers_showing(DiaDisplay *ddisp);
+void display_rulers_show (DiaDisplay *ddisp);
+void display_rulers_hide (DiaDisplay *ddisp);
+void dia_display_update_rulers (DiaDisplay *ddisp, const Rectangle *extents, const Rectangle *visible);
 
-gboolean ddisplay_scroll(DDisplay *ddisp, Point *delta);
-gboolean ddisplay_autoscroll(DDisplay *ddisp, int x, int y);
-void ddisplay_scroll_up(DDisplay *ddisp);
-void ddisplay_scroll_down(DDisplay *ddisp);
-void ddisplay_scroll_left(DDisplay *ddisp);
-void ddisplay_scroll_right(DDisplay *ddisp);
-gboolean ddisplay_scroll_center_point(DDisplay *ddisp, Point *p);
-gboolean ddisplay_scroll_to_object(DDisplay *ddisp, DiaObject *obj);
-gboolean ddisplay_present_object(DDisplay *ddisp, DiaObject *obj);
+gboolean dia_display_scroll(DiaDisplay *ddisp, Point *delta);
+gboolean dia_display_autoscroll(DiaDisplay *ddisp, int x, int y);
+void dia_display_scroll_up(DiaDisplay *ddisp);
+void dia_display_scroll_down(DiaDisplay *ddisp);
+void dia_display_scroll_left(DiaDisplay *ddisp);
+void dia_display_scroll_right(DiaDisplay *ddisp);
+gboolean dia_display_scroll_center_point(DiaDisplay *ddisp, Point *p);
+gboolean dia_display_scroll_to_object(DiaDisplay *ddisp, DiaObject *obj);
+gboolean dia_display_present_object(DiaDisplay *ddisp, DiaObject *obj);
 
-void ddisplay_show_all (DDisplay *ddisp);
+void dia_display_show_all (DiaDisplay *ddisp);
 
-void display_update_menu_state(DDisplay *ddisp);
-void ddisplay_update_statusbar(DDisplay *ddisp);
-void ddisplay_do_update_menu_sensitivity (DDisplay *ddisp);
+void display_update_menu_state(DiaDisplay *ddisp);
+void dia_display_update_statusbar(DiaDisplay *ddisp);
+void dia_display_do_update_menu_sensitivity (DiaDisplay *ddisp);
 
-void display_set_active(DDisplay *ddisp);
+void display_set_active(DiaDisplay *ddisp);
 
-void ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus);
+void dia_display_im_context_preedit_reset(DiaDisplay *ddisp, Focus *focus);
 
-Focus *ddisplay_active_focus(DDisplay *ddisp);
-void ddisplay_set_active_focus(DDisplay *ddisp, Focus *focus);
+Focus *dia_display_active_focus(DiaDisplay *ddisp);
+void dia_display_set_active_focus(DiaDisplay *ddisp, Focus *focus);
 
-void diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp);
-void diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp);
+void diagram_add_display(Diagram *dia, DiaDisplay *ddisp);
+void diagram_remove_display(Diagram *dia, DiaDisplay *ddisp);
 
 G_END_DECLS
 

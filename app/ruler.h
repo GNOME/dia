@@ -4,13 +4,13 @@
 
 #include "display.h"
 
-GtkWidget *dia_ruler_new (GtkOrientation  orientation,
-			  GtkWidget      *shell,
-			  DDisplay       *ddisp);
+GtkWidget *dia_ruler_new       (GtkOrientation  orientation,
+                                GtkWidget      *shell,
+                                DiaDisplay     *ddisp);
 
-void dia_ruler_set_range (GtkWidget      *ruler,
-                          gdouble         lower,
-                          gdouble         upper,
-                          gdouble         position,
-                          gdouble         max_size);
+void       dia_ruler_set_range (GtkWidget      *ruler,
+                                gdouble         lower,
+                                gdouble         upper,
+                                gdouble         position,
+                                gdouble         max_size);
 #endif

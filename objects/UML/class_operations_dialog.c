@@ -20,6 +20,8 @@
 
 #include <gtk/gtk.h>
 
+#include "uml.h"
+
 void
 list_box_separators (GtkListBoxRow *row,
                      GtkListBoxRow *before,

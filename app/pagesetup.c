@@ -75,7 +75,7 @@ create_page_setup_dlg(Diagram *dia)
   g_object_ref(ps->dia);
   ps->window = gtk_dialog_new_with_buttons(
 			_("Page Setup"),
-			GTK_WINDOW (ddisplay_active()->shell),
+			GTK_WINDOW (dia_display_active()->shell),
 			GTK_DIALOG_DESTROY_WITH_PARENT,
       _("Close"), GTK_RESPONSE_CLOSE,
       _("Apply"), GTK_RESPONSE_APPLY,
