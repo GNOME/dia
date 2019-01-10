@@ -14,7 +14,16 @@ ui_DATA = 			\
 	sheets-edit-dialog.xml \
 	sheets-main-dialog.xml \
 	sheets-new-dialog.xml \
-	sheets-remove-dialog.xml
+	sheets-remove-dialog.xml \
+	dia-arrow-chooser-popover.ui       \
+	dia-sheet-chooser-popover.ui       \
+	dia-uml-formal-parameter-dialog.ui \
+	dia-line-chooser-popover.ui        \
+	dia-uml-attribute-dialog.ui        \
+	dia-uml-operation-dialog.ui        \
+	dia-list-row.ui                    \
+	dia-uml-class-editor.ui            \
+	dia-uml-operation-parameter-row.ui
 
 EXTRA_DIST = \
 	$(ui_DATA) \
