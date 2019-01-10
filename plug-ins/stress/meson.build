@@ -8,13 +8,12 @@ sources = files(
 
 # TODO: test this on Windows.
 if host_machine.system() != 'windows'
-    rundeps += library(
+    library(
         'stress_filter',
         sources,
         dependencies: [libc_dep, libgtk_dep, libm_dep],
         include_directories: [libdia_inc, configuration_inc],
         link_with: [libdia],
         install: false,
-        install_dir: dialibdir
     )
 endif

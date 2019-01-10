@@ -85,5 +85,3 @@ diaapp = executable('dia',
     install : true,
     install_rpath : dialibdir
 )
-
-rundeps += diaapp

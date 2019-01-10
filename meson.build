@@ -73,9 +73,6 @@ configure_file(output : 'config.h',
 # To fix we should remove #ifdef HAVE_CONFIG_H checks from all source files.
 add_project_arguments('-DHAVE_CONFIG_H', language : 'c')
 
-# Keep track of everything that is needed for running dia
-rundeps = []
-
 subdir('po')
 subdir('lib')
 subdir('objects')

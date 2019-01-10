@@ -13,7 +13,7 @@ endif
 
 # Need to define it as shared module since it depends
 # on symbols found in the dia *app* (which will be linked at run-time).
-rundeps += shared_module(
+shared_module(
     'layout_filter',
     sources,
     dependencies: deps,

@@ -20,7 +20,7 @@ subdir('standard')
 subdir('UML')
 
 foreach o : dia_object_desc
-    rundeps += library(o[0],
+    library(o[0],
         o[1],
         dependencies : [libc_dep, libgtk_dep, libxml_dep, libm_dep] + o[2],
         link_with : libdia,
