@@ -83,5 +83,4 @@ diaapp = executable('dia',
     include_directories : [configuration_inc, libdia_inc],
     gui_app : true,
     install : true,
-    install_rpath : dialibdir
 )

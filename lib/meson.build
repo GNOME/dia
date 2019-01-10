@@ -139,5 +139,4 @@ libdia = library('dia',
     c_args : ['-Wall'],
     vs_module_defs: files('libdia.def')[0],
     install : true,
-    install_dir   : dialibdir
 )
