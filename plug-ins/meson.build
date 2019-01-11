@@ -8,19 +8,14 @@ install_plugins_desc = []
 # install_plugins_desc.  Some however have
 # non-standard compilations and therefore are
 # marked as such.
-if host_machine.system() != 'windows'
-  subdir('cairo')
-endif
+subdir('cairo')
 subdir('cgm')
 subdir('drs')  # Non-standard: does not get installed.
 subdir('dxf')
 subdir('hpgl')
 subdir('shape')
 subdir('pixbuf')
-#TODO: get this running on windows
-if host_machine.system() != 'windows'
-  subdir('layout')  # Non-standard: shared_module
-endif
+subdir('layout')  # Non-standard: shared_module
 subdir('libart')
 subdir('metapost')
 subdir('pdf')

@@ -50,7 +50,7 @@ if py_dep.found()
         sources,
         dependencies: [libc_dep, libxml_dep, libgtk_dep, py_dep],
         include_directories: [libdia_inc, configuration_inc, diaapp_inc],
-        link_with: [libdia],
+        link_with: [libdia, diaapp],
         install: true,
         install_dir: dialibdir
     )
