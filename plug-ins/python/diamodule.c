@@ -576,8 +576,8 @@ initdia(void)
 {
     PyObject *m, *d;
 
-#if defined (_MSC_VER)
-     /* see: Python FAQ 3.24 "Initializer not a constant." */
+    /* see: Python FAQ 3.24 "Initializer not a constant." */
+    /* https://docs.python.org/2/c-api/typeobj.html#c.PyObject.ob_type */
     PyDiaConnectionPoint_Type.ob_type = &PyType_Type;
     PyDiaDiagram_Type.ob_type = &PyType_Type;
     PyDiaDisplay_Type.ob_type = &PyType_Type;
@@ -588,9 +588,12 @@ initdia(void)
 
     PyDiaExportFilter_Type.ob_type = &PyType_Type;
     PyDiaDiagramData_Type.ob_type = &PyType_Type;
+
     PyDiaPoint_Type.ob_type = &PyType_Type;
     PyDiaRectangle_Type.ob_type = &PyType_Type;
     PyDiaBezPoint_Type.ob_type = &PyType_Type;
+    PyDiaArrow_Type.ob_type = &PyType_Type;
+    PyDiaMatrix_Type.ob_type = &PyType_Type;
 
     PyDiaFont_Type.ob_type = &PyType_Type;
     PyDiaColor_Type.ob_type = &PyType_Type;
@@ -598,13 +601,10 @@ initdia(void)
     PyDiaProperty_Type.ob_type = &PyType_Type;
     PyDiaProperties_Type.ob_type = &PyType_Type;
     PyDiaError_Type.ob_type = &PyType_Type;
-    PyDiaArrow_Type.ob_type = &PyType_Type;
-    PyDiaMatrix_Type.ob_type = &PyType_Type;
     PyDiaText_Type.ob_type = &PyType_Type;
     PyDiaPaperinfo_Type.ob_type = &PyType_Type;
     PyDiaMenuitem_Type.ob_type = &PyType_Type;
     PyDiaSheet_Type.ob_type = &PyType_Type;
-#endif
 
     m = Py_InitModule3("dia", dia_methods, dia_module_doc);
     d = PyModule_GetDict(m);

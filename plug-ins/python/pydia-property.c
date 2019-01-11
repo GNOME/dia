@@ -926,7 +926,7 @@ static PyMemberDef PyDiaProperty_Members[] = {
  * Python object
  */
 PyTypeObject PyDiaProperty_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Property",
     sizeof(PyDiaProperty),

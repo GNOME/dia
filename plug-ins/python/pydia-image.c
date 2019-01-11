@@ -177,7 +177,7 @@ static PyMemberDef PyDiaImage_Members[] = {
  * Python objetcs
  */
 PyTypeObject PyDiaImage_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Image",
     sizeof(PyDiaImage),

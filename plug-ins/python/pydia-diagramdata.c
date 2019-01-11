@@ -425,7 +425,7 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
 }
 
 PyTypeObject PyDiaDiagramData_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.DiagramData",
     sizeof(PyDiaDiagramData),

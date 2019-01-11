@@ -281,7 +281,7 @@ PyDiaProperties_GetAttr(PyDiaProperties *self, gchar *attr)
  * Python object
  */
 PyTypeObject PyDiaProperties_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Properties",
     sizeof(PyDiaProperties),
