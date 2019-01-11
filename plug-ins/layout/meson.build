@@ -18,7 +18,7 @@ shared_module(
     sources,
     dependencies: deps,
     include_directories: [libdia_inc, configuration_inc, diaapp_inc],
-    link_with: [libdia],
+    link_with: [libdia, diaapp],
     install: true,
     install_dir: dialibdir
 )
