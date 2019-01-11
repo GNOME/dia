@@ -262,7 +262,7 @@ PyDiaDisplay_GetAttr(PyDiaDisplay *self, gchar *attr)
 }
 
 PyTypeObject PyDiaDisplay_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Display",
     sizeof(PyDiaDisplay),

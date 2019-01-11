@@ -576,8 +576,7 @@ initdia(void)
 {
     PyObject *m, *d;
 
-#if defined (_MSC_VER)
-     /* see: Python FAQ 3.24 "Initializer not a constant." */
+    /* see: Python FAQ 3.24 "Initializer not a constant." */
     PyDiaConnectionPoint_Type.ob_type = &PyType_Type;
     PyDiaDiagram_Type.ob_type = &PyType_Type;
     PyDiaDisplay_Type.ob_type = &PyType_Type;
@@ -604,7 +603,6 @@ initdia(void)
     PyDiaPaperinfo_Type.ob_type = &PyType_Type;
     PyDiaMenuitem_Type.ob_type = &PyType_Type;
     PyDiaSheet_Type.ob_type = &PyType_Type;
-#endif
 
     m = Py_InitModule3("dia", dia_methods, dia_module_doc);
     d = PyModule_GetDict(m);

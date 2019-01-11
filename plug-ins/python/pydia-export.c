@@ -93,7 +93,7 @@ PyDiaExportFilter_GetAttr(PyDiaExportFilter *self, gchar *attr)
 }
 
 PyTypeObject PyDiaExportFilter_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.ExportFilter",
     sizeof(PyDiaExportFilter),

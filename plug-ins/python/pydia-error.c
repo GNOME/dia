@@ -160,7 +160,7 @@ PyDiaError_Str(PyDiaError *self)
  * Python objetcs
  */
 PyTypeObject PyDiaError_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "DiaError",
     sizeof(PyDiaError),

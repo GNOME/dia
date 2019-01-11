@@ -127,7 +127,7 @@ static PyMemberDef PyDiaPaperinfo_Members[] = {
  * Python objetcs
  */
 PyTypeObject PyDiaPaperinfo_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Paperinfo",
     sizeof(PyDiaPaperinfo),

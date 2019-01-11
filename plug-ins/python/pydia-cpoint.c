@@ -102,7 +102,7 @@ static PyMemberDef PyDiaConnectionPoint_Members[] = {
 };
 
 PyTypeObject PyDiaConnectionPoint_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.ConnectionPoint",
     sizeof(PyDiaConnectionPoint),

@@ -43,19 +43,4 @@ PyObject *PyDiaObjectType_New(DiaObjectType *otype);
 #define PyDiaObject_Check(o) ((o)->ob_type == &PyDiaObject_Type)
 #define PyDiaObjectType_Check(o) ((o)->ob_type == &PyDiaObjectType_Type)
 
-#ifdef _MSC_VER
-#  pragma warning(default:4047)
-  /* see: Python FAQ 3.24 "Initializer not a constant." */
-#  if 1 /* set to 0 to get all todos */
-#    undef PyObject_HEAD_INIT
-#    ifdef Py_TRACE_REFS
-#      define PyObject_HEAD_INIT(a) \
-         0, 0, 1, NULL, /* must be set by init function */
-#    else
-#      define PyObject_HEAD_INIT(a) \
-         1, NULL, /* must be set by init function */
-#    endif /* Py_TRACE_REFS */
-#  endif
-#endif
-
 #endif
