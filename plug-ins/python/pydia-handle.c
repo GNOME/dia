@@ -131,7 +131,7 @@ PyDiaHandle_GetAttr(PyDiaHandle *self, gchar *attr)
 }
 
 PyTypeObject PyDiaHandle_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Handle",
     sizeof(PyDiaHandle),

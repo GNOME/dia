@@ -319,7 +319,7 @@ PyDiaObject_GetAttr(PyDiaObject *self, gchar *attr)
 }
 
 PyTypeObject PyDiaObject_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Object",
     sizeof(PyDiaObject),
@@ -470,7 +470,7 @@ PyDiaObjectType_GetAttr(PyDiaObjectType *self, gchar *attr)
 }
 
 PyTypeObject PyDiaObjectType_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.ObjectType",
     sizeof(PyDiaObjectType),
