@@ -35,6 +35,7 @@ python_scripts = [
     'diasvg_import.py',
     'dot.py',
     'doxrev.py',
+    'gtkcons.py',  # Will only run if pygtk is present.
     'imgmap.py',
     'otypes.py',
     'pydiadoc.py',
@@ -54,13 +55,6 @@ if py_dep.found()
         install: true,
         install_dir: dialibdir
     )
-
-    # Check for pygtk module.
-    # TODO: we should use meson python module for this.
-    python = find_program('python2')
-    if run_command(python, '-c', 'import pygtk').returncode() == 0
-        python_scripts += 'gtkcons.py'
-    endif
 
     install_data(python_scripts, install_dir: join_paths(pkgdatadir, 'python'))
     install_data('python-startup.py', install_dir: pkgdatadir)
