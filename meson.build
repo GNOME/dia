@@ -9,11 +9,9 @@ project('dia',
 cc = meson.get_compiler('c')
 conf = configuration_data()
 
-#GTK_MODULES="gtk+-2.0 >= 2.16.0 glib-2.0 >= 2.20.0 libxml-2.0 gdk-pixbuf-2.0 gthread-2.0 gmodule-2.0"
-libgtk_dep  = dependency('gtk+-2.0', version : '>= 2.16.0')
-libglib_dep = dependency('glib-2.0', version : '>= 2.20.0')
-libxml_dep  = dependency('libxml-2.0', version : '>= 2.6.27')
-
+libglib_dep = dependency('glib-2.0', version : '>= 2.50.3')
+libgtk_dep  = dependency('gtk+-2.0', version : '>= 2.24.31')
+libxml_dep  = dependency('libxml-2.0', version : '>= 2.9.4')
 #TODO: what are the minimum versions?
 gmodule_dep = dependency('gmodule-2.0')
 libzlib_dep = dependency('zlib')
@@ -21,12 +19,16 @@ libcairo_dep = dependency('cairo')
 #TODO: this will become a hard dependency as part of GTK3 port.
 # Therefore, remove all references to HAVE_CAIRO
 conf.set('HAVE_CAIRO', 1)
+
 libm_dep = cc.find_library('m')
+
+# This is needed for some platforms (eg. BSD).
 libc_dep = cc.find_library('c', required : false)
 
 # Optional deps
 freetype_dep = dependency('freetype2', version: ['>= 11.0.5', '< 22.0.0'], required: false)
 conf.set('HAVE_FREETYPE', freetype_dep.found())
+# TODO: Until issue #23 is fixed, we need to keep version below 0.62.
 libpoppler_dep = dependency('poppler', version: '<= 0.62.0', required: false)
 conf.set('HAVE_POPPLER', libpoppler_dep.found())
 libemf_dep = cc.find_library('emf', required: false)

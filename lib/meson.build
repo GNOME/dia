@@ -96,27 +96,29 @@ libdia_sources = stdprop_sources + [
     'diacellrendererproperty.c',
 ]
 
+# Note glib-genmarshal supports --output argument, but only after version 2.53.2
 glib_genmarshal = find_program('glib-genmarshal')
 diamarshal_c = custom_target(
     'diamarshal.c',
     input : 'diamarshal.list',
     output : 'diamarshal.c',
+    capture : true,
     command : [ glib_genmarshal,
-                '--prefix=dia_marshal',
-                '--include-header', 'diamarshal.h',
-                '--output', '@OUTPUT@',
                 '--body',
-                '@INPUT@'])
+                '--prefix=dia_marshal',
+                '@INPUT@' ]
+)
 
 diamarshal_h = custom_target(
     'diamarshal.h',
     input : 'diamarshal.list',
     output : 'diamarshal.h',
+    capture : true,
     command : [ glib_genmarshal,
-                '--prefix=dia_marshal',
-                '--output', '@OUTPUT@',
                 '--header',
-                '@INPUT@'])
+                '--prefix=dia_marshal',
+                '@INPUT@' ]
+)
 
 subdir('pixmaps')
 
