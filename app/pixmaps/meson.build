@@ -1,27 +1,29 @@
-icons = [ 'connectable.png',
-          'connectable-empty.png',
-          'selectable.png',
-          'selectable-empty.png',
-          'on-grid.png',
-          'off-grid.png',
-          'visible.png',
-          'visible-empty.png',
-          'group.png',
-          'ungroup.png',
-          'mainpoints-on.png',
-          'mainpoints-off.png',
+icons = [
+    'connectable.png',
+    'connectable-empty.png',
+    'selectable.png',
+    'selectable-empty.png',
+    'on-grid.png',
+    'off-grid.png',
+    'visible.png',
+    'visible-empty.png',
+    'group.png',
+    'ungroup.png',
+    'mainpoints-on.png',
+    'mainpoints-off.png',
 
-          'objects-layer-above.png',
-          'objects-layer-below.png',
-          'layers.png',
-          'layer-add.png',
-          'layer-rename.png',
+    'objects-layer-above.png',
+    'objects-layer-below.png',
+    'layers.png',
+    'layer-add.png',
+    'layer-rename.png',
 
-          'cursor-create.png',
-          'cursor-hand-open.png',
-          'cursor-hand-closed.png',
-          'cursor-magnify-minus.png',
-          'cursor-magnify-plus.png' ]
+    'cursor-create.png',
+    'cursor-hand-open.png',
+    'cursor-hand-closed.png',
+    'cursor-magnify-minus.png',
+    'cursor-magnify-plus.png'
+]
 
 #TODO: this is duplicated from lib/pixmaps.  Any way to remove this duplication?
 icon_pairs = []

@@ -1,15 +1,17 @@
-icons = [ 'arc.png',
-          'beziergon.png',
-          'bezierline.png',
-          'box.png',
-          'ellipse.png',
-          'image.png',
-          'line.png',
-          'outline.png',
-          'polygon.png',
-          'polyline.png',
-          'text.png',
-          'zigzagline.png' ]
+icons = [
+    'arc.png',
+    'beziergon.png',
+    'bezierline.png',
+    'box.png',
+    'ellipse.png',
+    'image.png',
+    'line.png',
+    'outline.png',
+    'polygon.png',
+    'polyline.png',
+    'text.png',
+    'zigzagline.png'
+]
 
 #TODO: this is duplicated from lib/pixmaps.  Any way to remove this duplication?
 icon_pairs = []
