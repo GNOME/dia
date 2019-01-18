@@ -96,29 +96,15 @@ libdia_sources = stdprop_sources + [
     'diacellrendererproperty.c',
 ]
 
-# Note glib-genmarshal supports --output argument, but only after version 2.53.2
-glib_genmarshal = find_program('glib-genmarshal')
-diamarshal_c = custom_target(
-    'diamarshal.c',
-    input : 'diamarshal.list',
-    output : 'diamarshal.c',
-    capture : true,
-    command : [ glib_genmarshal,
-                '--body',
-                '--prefix=dia_marshal',
-                '@INPUT@' ]
+gnome = import('gnome')
+diamarshal = gnome.genmarshal(
+    'diamarshal',
+    prefix: 'dia_marshal',
+    sources: 'diamarshal.list',
 )
 
-diamarshal_h = custom_target(
-    'diamarshal.h',
-    input : 'diamarshal.list',
-    output : 'diamarshal.h',
-    capture : true,
-    command : [ glib_genmarshal,
-                '--header',
-                '--prefix=dia_marshal',
-                '@INPUT@' ]
-)
+# TODO: This is used in app/, should we install / do anything else with it?
+diamarshal_h = diamarshal[1]
 
 subdir('pixmaps')
 
@@ -135,7 +121,7 @@ libdia_deps = [
 libdia_inc = include_directories('.')
 
 libdia = library('dia',
-    libdia_sources + [diamarshal_c, diamarshal_h, dia_lib_icons_h],
+    libdia_sources + [diamarshal, dia_lib_icons_h],
     dependencies : libdia_deps,
     include_directories : configuration_inc,
     c_args : ['-Wall'],
