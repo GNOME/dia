@@ -1,7 +1,6 @@
 project('dia',
         ['c', 'cpp'],
-        version : '0.97.3+git' +
-            run_command(find_program('meson-helpers/get-git-sha.sh')).stdout().strip(),
+        version : '0.97.3',  # This is the base version, git suffix gets added to config.h.
         meson_version : '>= 0.49',
         default_options : []
 )
@@ -51,7 +50,7 @@ dialibdir = join_paths(get_option('prefix'),
                        meson.project_name())
 
 # Specify a header configuration file
-conf.set_quoted('VERSION', meson.project_version())
+conf.set_quoted('VERSION', '@VCS_TAG@')
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('PREFIX', get_option('prefix'))
 conf.set_quoted('PKGDATADIR', pkgdatadir)
@@ -68,8 +67,8 @@ foreach f : ['select', 'strcspn', 'strdup', 'strtol']
 endforeach
 
 configuration_inc = include_directories('.')
-configure_file(output : 'config.h',
-               configuration : conf)
+config_h_in = configure_file(output : 'config.h.in', configuration : conf)
+vcs_tag(input: config_h_in, output: 'config.h')
 
 # TODO: I don't think this should be defined.
 # To fix we should remove #ifdef HAVE_CONFIG_H checks from all source files.
