@@ -85,8 +85,9 @@ subdir('sheets')
 subdir('shapes')
 subdir('tests')
 
-# This is a convenience target to create a way to run dia from
-# command line.
+# TODO: idealy this should use run_env from tests/
+# Unfortunately, neither run_target or custom_target support env
+# https://github.com/mesonbuild/meson/issues/2723
 custom_target('run_with_dia_env',
     command: [find_program('generate_run_with_dia_env.sh'),
               '@OUTPUT@',
@@ -95,7 +96,7 @@ custom_target('run_with_dia_env',
           ],
     output: 'run_with_dia_env',
     # Ensure we always generate this in the build directory.
-    build_by_default: true
+    build_by_default: true,
 )
 
 meson.add_install_script('meson-helpers/post-install.py', datadir)

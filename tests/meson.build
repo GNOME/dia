@@ -1,14 +1,18 @@
 # Setup local environment to run dia.
-run_env = environment()
-run_env.set('DIA_BASE_PATH', meson.source_root())
-run_env.append('DIA_LIB_PATH',
-    join_paths(meson.build_root(), 'objects'),
-    join_paths(meson.build_root(), 'plug-ins'))
-run_env.set('DIA_SHAPE_PATH',  join_paths(meson.source_root(), 'shapes'))
-run_env.set('DIA_XSLT_PATH',   join_paths(meson.source_root(), 'plug-ins', 'xslt'))
-run_env.set('DIA_PYTHON_PATH', join_paths(meson.source_root(), 'plug-ins', 'python'))
-run_env.set('DIA_SHEET_PATH',  join_paths(meson.build_root(), 'sheets'))
+run_env_dict = {
+    'DIA_BASE_PATH'  : [meson.source_root()],
+    'DIA_LIB_PATH'   : [join_paths(meson.build_root(), 'objects'),
+                        join_paths(meson.build_root(), 'plug-ins')],
+    'DIA_SHAPE_PATH' : [join_paths(meson.source_root(), 'shapes')],
+    'DIA_XSLT_PATH'  : [join_paths(meson.source_root(), 'plug-ins', 'xslt')],
+    'DIA_PYTHON_PATH': [join_paths(meson.source_root(), 'plug-ins', 'python')],
+    'DIA_SHEET_PATH' : [join_paths(meson.build_root(), 'sheets')],
+}
 
+run_env = environment()
+foreach k, v : run_env_dict
+    run_env.set(k, v)
+endforeach
 # TODO: minimise code duplication.
 bb = executable(
     'boundingbox',
