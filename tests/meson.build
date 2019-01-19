@@ -13,51 +13,34 @@ run_env = environment()
 foreach k, v : run_env_dict
     run_env.set(k, v)
 endforeach
-# TODO: minimise code duplication.
-bb = executable(
-    'boundingbox',
-    'test-boundingbox.c',
-    dependencies: [libgtk_dep, libxml_dep, libm_dep],
-    link_with: [libdia],
-    link_args: dia_link_args,
-    include_directories: [configuration_inc, libdia_inc],
-)
-objs = executable(
-    'objects',
-    'test-objects.c',
-    dependencies: [libgtk_dep, libxml_dep, libm_dep],
-    link_with: [libdia],
-    link_args: dia_link_args,
-    include_directories: [configuration_inc, libdia_inc],
-)
 
 # Otherwise Windows won't be able to find libdia.dll in build directory.
 if host_machine.system() == 'windows'
     run_env.append('PATH', join_paths(meson.build_root(), 'lib'))
 endif
 
-tsvg = executable(
-    'testsvg',
-    'test-svg.c',
-    dependencies: [libgtk_dep, libxml_dep, libm_dep],
-    link_with: [libdia],
-    link_args: dia_link_args,
-    include_directories: [configuration_inc, libdia_inc],
-)
-sizeof = executable(
-    'sizeof',
-    'test-sizeof.c',
-    dependencies: [libgtk_dep, libxml_dep, libm_dep],
-    link_with: [libdia],
-    link_args: dia_link_args,
-    include_directories: [configuration_inc, libdia_inc],
-)
+test_exes = []
+foreach t : ['boundingbox', 'objects', 'svg', 'sizeof']
+    test_exes += [
+        executable(
+            'test-' + t,
+            'test-' + t + '.c',
+            dependencies: [libgtk_dep, libxml_dep, libm_dep],
+            link_with: [libdia],
+            link_args: dia_link_args,
+            include_directories: [configuration_inc, libdia_inc],
+        )
+    ]
+endforeach
+
+# Unfortunately dictionaries can only contain literal strings.
+# As such we have to use indeces instead.
+test('boundinbox', test_exes[0])
+test('objects', test_exes[1], args: [join_paths(meson.build_root(), 'objects')])
+test('testsvg', test_exes[2])
 
 # Not really a test, but just a helper program.
-run_target('sizeof', command: [sizeof])
-
-test('boundingbox', bb)
-test('objects', objs, args: [join_paths(meson.build_root(), 'objects')])
+run_target('sizeof', command: [test_exes[3]])
 
 xmllint_test = find_program('xmllint_test.sh')
 render_test_dia = files(join_paths('..', 'samples', 'render-test.dia'))[0]
@@ -73,7 +56,5 @@ test('xmllint',
     ],
     env: run_env,
 )
-
-test('testsvg', tsvg)
 
 subdir('exports')
