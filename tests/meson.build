@@ -27,9 +27,9 @@ objs = executable(
     include_directories: [configuration_inc, libdia_inc],
 )
 
-# TODO: is there a FIXME for this?  Windows and its lack of LD_RUN_PATH?
+# Otherwise Windows won't be able to find libdia.dll in build directory.
 if host_machine.system() == 'windows'
-    warning('Because windows searches for .dlls in specific locations, i.e. PATH variable, it is *required* that you set PATH=MESON_BUILD_DIR/lib:$PATH *before* running any tests.  This ensures Windows can find libdia.dll.')
+    run_env.append('PATH', join_paths(meson.build_root(), 'lib'))
 endif
 
 tsvg = executable(
