@@ -22,10 +22,10 @@ subdir('UML')
 foreach o : dia_object_desc
     library(o[0],
         o[1],
-        dependencies : [libc_dep, libgtk_dep, libxml_dep, libm_dep] + o[2],
-        link_with : libdia,
-        include_directories : [configuration_inc, libdia_inc],
-        install : true,
-        install_dir : dialibdir
+        dependencies: [libc_dep, libgtk_dep, libxml_dep, libm_dep] + o[2],
+        link_with: libdia,
+        include_directories: [configuration_inc, libdia_inc],
+        install: true,
+        install_dir: dialibdir
     )
 endforeach

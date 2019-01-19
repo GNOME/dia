@@ -48,7 +48,7 @@ sheet_icons_sources = [
 
 foreach icon : sheet_icons_sources
     rel_path = icon.split('/')
-    install_data(icon, install_dir : join_paths(sheetsdir, rel_path[0]))
+    install_data(icon, install_dir: join_paths(sheetsdir, rel_path[0]))
 endforeach
 
 sheet_files = [
@@ -106,11 +106,11 @@ sheet_files_targets = []
 foreach sheet : sheet_files
     sheet_files_targets += custom_target(
         sheet,
-        input : sheet + '.in',
-        output : sheet,
-        command : intltool_command,
-        install : true,
-        install_dir : sheetsdir
+        input: sheet + '.in',
+        output: sheet,
+        command: intltool_command,
+        install: true,
+        install_dir: sheetsdir
     )
 endforeach
 
@@ -118,9 +118,9 @@ checktrans_py = find_program('checktrans.py')
 
 custom_target(
     'sheet-translation-report',
-    build_by_default :  false,  # Currently broken anyway.
-    input : sheet_files_targets,
-    output : 'sheet-translation-report',
-    command : [checktrans_py, '@INPUT@'],
-    capture : true
+    build_by_default:  false,  # TODO: Currently broken anyway.
+    input: sheet_files_targets,
+    output: 'sheet-translation-report',
+    command: [checktrans_py, '@INPUT@'],
+    capture: true
 )

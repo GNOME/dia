@@ -28,6 +28,6 @@ subdir('sybase')
 foreach shape_info : shapes
     install_data(
         shape_info[0],
-        install_dir : join_paths(shapesdir, shape_info[1])
+        install_dir: join_paths(shapesdir, shape_info[1])
     )
 endforeach

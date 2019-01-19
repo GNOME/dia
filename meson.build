@@ -1,16 +1,16 @@
 project('dia',
         ['c', 'cpp'],
-        version : '0.97.3',  # This is the base version, git suffix gets added to config.h.
-        meson_version : '>= 0.49',
-        default_options : []
+        version: '0.97.3',  # This is the base version, git suffix gets added to config.h.
+        meson_version: '>= 0.49',
+        default_options: []
 )
 
 cc = meson.get_compiler('c')
 conf = configuration_data()
 
-libglib_dep = dependency('glib-2.0', version : '>= 2.50.3')
-libgtk_dep  = dependency('gtk+-2.0', version : '>= 2.24.31')
-libxml_dep  = dependency('libxml-2.0', version : '>= 2.9.4')
+libglib_dep = dependency('glib-2.0',   version: '>= 2.50.3')
+libgtk_dep  = dependency('gtk+-2.0',   version: '>= 2.24.31')
+libxml_dep  = dependency('libxml-2.0', version: '>= 2.9.4')
 #TODO: what are the minimum versions?
 gmodule_dep = dependency('gmodule-2.0')
 libzlib_dep = dependency('zlib')
@@ -22,7 +22,7 @@ conf.set('HAVE_CAIRO', 1)
 libm_dep = cc.find_library('m')
 
 # This is needed for some platforms (eg. BSD).
-libc_dep = cc.find_library('c', required : false)
+libc_dep = cc.find_library('c', required: false)
 
 # Optional deps
 freetype_dep = dependency('freetype2', version: ['>= 11.0.5', '< 22.0.0'], required: false)
@@ -67,12 +67,12 @@ foreach f : ['select', 'strcspn', 'strdup', 'strtol']
 endforeach
 
 configuration_inc = include_directories('.')
-config_h_in = configure_file(output : 'config.h.in', configuration : conf)
+config_h_in = configure_file(output: 'config.h.in', configuration: conf)
 vcs_tag(input: config_h_in, output: 'config.h')
 
 # TODO: I don't think this should be defined.
 # To fix we should remove #ifdef HAVE_CONFIG_H checks from all source files.
-add_project_arguments('-DHAVE_CONFIG_H', language : 'c')
+add_project_arguments('-DHAVE_CONFIG_H', language: 'c')
 
 subdir('po')
 subdir('lib')

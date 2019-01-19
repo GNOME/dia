@@ -70,12 +70,12 @@ html_output = [
 lang = 'en'
 
 custom_target(lang + '-dia.pdf',
-    output : 'dia.pdf',
-    input  : 'dia.xml',
-    depend_files : xml_deps,
-    command : [dblatex, '-t', 'pdf', '-q', '-o', '@OUTPUT@', '@INPUT@'],
-    install : true,
-    install_dir : join_paths(docdir, lang)
+    output: 'dia.pdf',
+    input: 'dia.xml',
+    depend_files: xml_deps,
+    command: [dblatex, '-t', 'pdf', '-q', '-o', '@OUTPUT@', '@INPUT@'],
+    install: true,
+    install_dir: join_paths(docdir, lang)
 )
 
 if xsltproc.found()
@@ -88,11 +88,11 @@ if xsltproc.found()
             DB2MAN,
             '@INPUT@'
         ],
-        install : true,
-        install_dir : join_paths(get_option('mandir'), 'man1')
+        install: true,
+        install_dir: join_paths(get_option('mandir'), 'man1')
     )
     # TODO: this should fixed in meson: https://github.com/mesonbuild/meson/issues/1550
-    #install_man(dia_man, language : lang)
+    #install_man(dia_man, language: lang)
 
     html_dir = join_paths(helpdir, lang)
 
@@ -106,18 +106,18 @@ if xsltproc.found()
             '@INPUT@'
         ],
         depend_files: xml_deps,
-        install : true,
-        install_dir : html_dir,
+        install: true,
+        install_dir: html_dir,
     )
 
     install_subdir(
         'graphics',
-        install_dir : html_dir
+        install_dir: html_dir
     )
 
     install_subdir(
         join_paths('..', 'html'),
-        install_dir : html_dir,
-        strip_directory : true
+        install_dir: html_dir,
+        strip_directory: true
     )
 endif
