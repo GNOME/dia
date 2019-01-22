@@ -8,7 +8,7 @@ sources = files(
 # Prevent installation - currently a debug tool only
 shared_library(
     'drs_filter',
-    sources,
+    sources + [config_h],
     dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep],
     include_directories: [libdia_inc, configuration_inc],
     link_with: [libdia],

@@ -38,7 +38,7 @@ foreach p : install_plugins_desc
     message(p[0])
     library(
         p[0],
-        p[1],
+        p[1] + [config_h],
         dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep] + [p[2]],
         include_directories: [libdia_inc, configuration_inc],
         link_with: [libdia],

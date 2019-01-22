@@ -75,7 +75,7 @@ endif
 diaapp_inc = include_directories('.')
 
 diaapp = executable('dia',
-    dia_sources + [dia_app_icons_h, diamarshal_h],
+    dia_sources + [dia_app_icons_h, diamarshal_h, config_h],
     dependencies: [libgtk_dep, libxml_dep, libm_dep],
     link_with: [libdia],
     link_args: dia_link_args,
