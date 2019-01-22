@@ -68,7 +68,7 @@ endforeach
 
 configuration_inc = include_directories('.')
 config_h_in = configure_file(output: 'config.h.in', configuration: conf)
-vcs_tag(input: config_h_in, output: 'config.h')
+config_h = vcs_tag(input: config_h_in, output: 'config.h')
 
 # TODO: I don't think this should be defined.
 # To fix we should remove #ifdef HAVE_CONFIG_H checks from all source files.

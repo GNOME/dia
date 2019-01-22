@@ -121,7 +121,7 @@ libdia_deps = [
 libdia_inc = include_directories('.')
 
 libdia = library('dia',
-    libdia_sources + [diamarshal, dia_lib_icons_h],
+    libdia_sources + [diamarshal, dia_lib_icons_h, config_h],
     dependencies: libdia_deps,
     include_directories: configuration_inc,
     c_args: ['-Wall'],

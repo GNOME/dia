@@ -48,7 +48,7 @@ if py_dep.found()
     # Same as layout plugin.
     shared_module(
         'python_plugin',
-        sources,
+        sources + [config_h],
         dependencies: [libc_dep, libxml_dep, libgtk_dep, py_dep],
         include_directories: [libdia_inc, configuration_inc, diaapp_inc],
         link_with: [libdia, diaapp],

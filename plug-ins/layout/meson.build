@@ -15,7 +15,7 @@ endif
 # on symbols found in the dia *app* (which will be linked at run-time).
 shared_module(
     'layout_filter',
-    sources,
+    sources + [config_h],
     dependencies: deps,
     include_directories: [libdia_inc, configuration_inc, diaapp_inc],
     link_with: [libdia, diaapp],
