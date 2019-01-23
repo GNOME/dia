@@ -26,7 +26,7 @@ subdir('python')  # Non-standard: shared_module
 subdir('stress')  # Non-standard: does not get installed.
 subdir('svg')
 subdir('vdx')
-#TODO: same here.
+# TODO: Port to Windows.
 if host_machine.system() != 'windows'
   subdir('wmf')  # Non-standard: Only installs if libemf present.
 endif

@@ -97,8 +97,8 @@ if false
 endif
 
 sheet_files_targets = []
-# TODO: use gettext:
-# https://github.com/mesonbuild/meson/issues/1565
+
+# TODO: use gettext: https://github.com/mesonbuild/meson/issues/1565
 # https://github.com/systemd/systemd/commit/c81217920effddc93fb780cf8f9eb699d6fe1319
 # https://wiki.gnome.org/MigratingFromIntltoolToGettext
 # https://www.gnu.org/software/gettext/manual/html_node/Preparing-ITS-Rules.html
@@ -118,7 +118,7 @@ checktrans_py = find_program('checktrans.py')
 
 custom_target(
     'sheet-translation-report',
-    build_by_default:  false,  # TODO: Currently broken anyway.
+    build_by_default:  false,  # TODO: tracked in issue #24.
     input: sheet_files_targets,
     output: 'sheet-translation-report',
     command: [checktrans_py, '@INPUT@'],
