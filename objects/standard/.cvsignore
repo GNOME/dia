@@ -1,7 +1,0 @@
-.deps
-.libs
-Makefile
-Makefile.in
-*.lo
-libstandard_objects.la
-tool-icons.h

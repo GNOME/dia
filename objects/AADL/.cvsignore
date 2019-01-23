@@ -1,7 +1,0 @@
-.cvsignore
-.deps
-.libs
-Makefile
-Makefile.in
-*.lo
-libaadl_objects.la
