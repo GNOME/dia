@@ -51,7 +51,6 @@ shape_sources = files(
     'datasource.png'
 )
 
-#TODO: the folder should be capitalised as well.
 shapes += {
     'name': 'Flowchart',
     'sources': shape_sources,
