@@ -13,4 +13,7 @@ shape_sources = files(
     'tacsat.png'
 )
 
-shapes += [[shape_sources, 'MSE']]
+shapes += {
+    'name': 'MSE',
+    'sources': shape_sources,
+}

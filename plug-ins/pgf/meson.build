@@ -3,4 +3,7 @@ sources = files(
     'render_pgf.c',
 )
 
-install_plugins_desc += [['pgf_filter', sources, []]]
+install_plugins_desc += {
+    'name': 'pgf_filter',
+    'sources': sources,
+}

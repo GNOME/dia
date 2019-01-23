@@ -83,4 +83,7 @@ shape_sources = files(
     'triangle-rightangle.shape'
 )
 
-shapes += [[shape_sources, 'Assorted']]
+shapes += {
+    'name': 'Assorted',
+    'sources': shape_sources,
+}

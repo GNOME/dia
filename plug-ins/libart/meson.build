@@ -5,4 +5,7 @@ sources = files(
     'export_png.c',
 )
 
-install_plugins_desc += [['art_filter', sources, []]]
+install_plugins_desc += {
+    'name': 'art_filter',
+    'sources': sources,
+}

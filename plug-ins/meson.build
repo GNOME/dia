@@ -35,11 +35,11 @@ subdir('xfig')
 subdir('xslt')
 
 foreach p : install_plugins_desc
-    message(p[0])
+    message(p.get('name'))
     library(
-        p[0],
-        p[1] + [config_h],
-        dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep] + [p[2]],
+        p.get('name'),
+        p.get('sources') + [config_h],
+        dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep] + p.get('extra_deps', []),
         include_directories: [libdia_inc, configuration_inc],
         link_with: [libdia],
         install: true,

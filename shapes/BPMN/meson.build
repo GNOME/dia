@@ -85,4 +85,7 @@ shape_sources = files(
     'Transaction.shape',
 )
 
-shapes += [[shape_sources, 'BPMN']]
+shapes += {
+    'name': 'BPMN',
+    'sources': shape_sources,
+}

@@ -14,8 +14,12 @@ has_gtypes = cc.has_header(
 )
 
 if libpoppler_dep.found() and has_gtypes
-    sources += [files('pdf-import.cpp')]
-    deps += [libpoppler_dep]
+    sources += files('pdf-import.cpp')
+    deps += libpoppler_dep
 endif
 
-install_plugins_desc += [['pdf_filter', sources, deps]]
+install_plugins_desc += {
+    'name': 'pdf_filter',
+    'sources': sources,
+    'extra_deps': deps,
+}

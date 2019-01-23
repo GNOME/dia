@@ -107,4 +107,7 @@ shape_sources = files(
     'wcoolv.shape',
 )
 
-shapes += [[shape_sources, 'ChemEng']]
+shapes += {
+    'name': 'ChemEng',
+    'sources': shape_sources,
+}

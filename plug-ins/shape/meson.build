@@ -3,4 +3,7 @@ sources = files(
     'shape-export.c',
 )
 
-install_plugins_desc += [['shape_filter', sources, []]]
+install_plugins_desc += {
+    'name': 'shape_filter',
+    'sources': sources,
+}

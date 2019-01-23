@@ -53,4 +53,7 @@ shape_sources = files(
     'water_level.png'
 )
 
-shapes += [[shape_sources, 'Civil']]
+shapes += {
+    'name': 'Civil',
+    'sources': shape_sources,
+}

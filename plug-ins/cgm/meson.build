@@ -1,1 +1,4 @@
-install_plugins_desc += [['cgm_filter', files('cgm.c'), []]]
+install_plugins_desc += {
+    'name': 'cgm_filter',
+    'sources': files('cgm.c'),
+}

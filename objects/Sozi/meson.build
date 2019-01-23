@@ -7,5 +7,8 @@ if false
         'sozi-media.c'
     )
 
-    dia_object_desc += [['sozi_objects', sources, []]]
+    dia_object_desc += {
+        'name': 'sozi_objects',
+        'sources': sources,
+    }
 endif

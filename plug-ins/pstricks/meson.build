@@ -3,4 +3,7 @@ sources = files(
     'render_pstricks.c',
 )
 
-install_plugins_desc += [['pstricks_filter', sources, []]]
+install_plugins_desc += {
+    'name': 'pstricks_filter',
+    'sources': sources,
+}

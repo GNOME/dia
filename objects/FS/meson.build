@@ -5,4 +5,7 @@ sources = files(
     'function.c'
 )
 
-dia_object_desc += [['fs_objects', sources, []]]
+dia_object_desc += {
+    'name': 'fs_objects',
+    'sources': sources,
+}

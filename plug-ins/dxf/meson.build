@@ -5,4 +5,7 @@ sources = files(
 	'autocad_pal.c'
 )
 
-install_plugins_desc += [['dxf_filter', sources, []]]
+install_plugins_desc += {
+    'name': 'dxf_filter',
+    'sources': sources,
+}

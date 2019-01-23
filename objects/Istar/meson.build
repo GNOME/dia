@@ -6,4 +6,7 @@ sources = files(
     'link.c'
 )
 
-dia_object_desc += [['istar_objects', sources, []]]
+dia_object_desc += {
+    'name': 'istar_objects',
+    'sources': sources,
+}

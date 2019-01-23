@@ -10,4 +10,7 @@ sources = files(
     'vector.c'
 )
 
-dia_object_desc += [['grafcet_objects', sources, []]]
+dia_object_desc += {
+    'name': 'grafcet_objects',
+    'sources': sources,
+}

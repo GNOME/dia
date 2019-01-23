@@ -5,4 +5,7 @@ sources = files(
     'annotation.c'
 )
 
-dia_object_desc += [['sadt_objects', sources, []]]
+dia_object_desc += {
+    'name': 'sadt_objects',
+    'sources': sources,
+}

@@ -51,5 +51,10 @@ shape_sources = files(
     'Tree1.shape',
 )
 
-shapes += [[shape_sources, join_paths('Map', 'Isometric')]]
+# TODO: There is no need to join paths.  Can we avoid it?
+name = join_paths('Map', 'Isometric')
+shapes += {
+    'sources': shape_sources,
+    'name': name,
+}
 

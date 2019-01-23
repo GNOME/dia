@@ -31,4 +31,7 @@ shape_sources = files(
     'vrelay.png'
 )
 
-shapes += [[shape_sources, 'Electric']]
+shapes += {
+    'name': 'Electric',
+    'sources': shape_sources,
+}

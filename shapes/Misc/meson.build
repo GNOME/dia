@@ -9,4 +9,7 @@ shape_sources = files(
     'expensible-node.png'
 )
 
-shapes += [[shape_sources, 'Misc']]
+shapes += {
+    'name': 'Misc',
+    'sources': shape_sources,
+}

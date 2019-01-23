@@ -669,4 +669,7 @@ shape_sources = files(
     'www_server.png'
 )
 
-shapes += [[shape_sources, 'Cisco']]
+shapes += {
+    'name': 'Cisco',
+    'sources': shape_sources,
+}

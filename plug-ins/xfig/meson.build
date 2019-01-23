@@ -5,4 +5,7 @@ sources = files(
     'xfig-common.c',
 )
 
-install_plugins_desc += [['xfig_filter', sources, []]]
+install_plugins_desc += {
+    'name': 'xfig_filter',
+    'sources': sources,
+}

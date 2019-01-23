@@ -19,4 +19,7 @@ shape_sources = files(
     'xor.png'
 )
 
-shapes += [[shape_sources, 'Logic']]
+shapes += {
+    'name': 'Logic',
+    'sources': shape_sources,
+}

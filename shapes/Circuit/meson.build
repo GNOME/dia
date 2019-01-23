@@ -65,4 +65,7 @@ shape_sources = files(
     'xtal_v.png',
 )
 
-shapes += [[shape_sources, 'Circuit']]
+shapes += {
+    'name': 'Circuit',
+    'sources': shape_sources,
+}

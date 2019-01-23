@@ -17,4 +17,7 @@ sources = files(
     'edit_port_declaration.c',
 )
 
-dia_object_desc += [['aadl_objects', sources, []]]
+dia_object_desc += {
+    'name': 'aadl_objects',
+    'sources': sources,
+}

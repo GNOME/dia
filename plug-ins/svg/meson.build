@@ -4,4 +4,7 @@ sources = files(
     'svg-import.c',
 )
 
-install_plugins_desc += [['svg_filter', sources, []]]
+install_plugins_desc += {
+    'name': 'svg_filter',
+    'sources': sources,
+}

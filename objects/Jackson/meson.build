@@ -5,4 +5,7 @@ sources = files(
     'phenomenon.c'
 )
 
-dia_object_desc += [['jackson_objects', sources, []]]
+dia_object_desc += {
+    'name': 'jackson_objects',
+    'sources': sources,
+}

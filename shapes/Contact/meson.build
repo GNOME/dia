@@ -33,4 +33,7 @@ shape_sources = files(
     'l_souts.png'
 )
 
-shapes += [[shape_sources, 'Contact']]
+shapes += {
+    'name': 'Contact',
+    'sources': shape_sources,
+}

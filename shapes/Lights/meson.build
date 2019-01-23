@@ -27,4 +27,7 @@ shape_sources = files(
     'Structure.png'
 )
 
-shapes += [[shape_sources, 'Lights']]
+shapes += {
+    'name': 'Lights',
+    'sources': shape_sources,
+}

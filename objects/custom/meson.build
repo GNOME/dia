@@ -6,4 +6,7 @@ sources = files(
     'custom.c'
 )
 
-dia_object_desc += [['custom_objects', sources, []]]
+dia_object_desc += {
+    'name': 'custom_objects',
+    'sources': sources,
+}

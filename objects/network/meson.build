@@ -6,4 +6,7 @@ sources = files(
     'wanlink.c'
 )
 
-dia_object_desc += [['network_objects', sources, []]]
+dia_object_desc += {
+    'name': 'network_objects',
+    'sources': sources,
+}

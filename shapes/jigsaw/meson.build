@@ -33,4 +33,7 @@ shape_sources = files(
     'part_oooo.png'
 )
 
-shapes += [[shape_sources, 'jigsaw']]
+shapes += {
+    'name': 'jigsaw',
+    'sources': shape_sources,
+}

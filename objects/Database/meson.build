@@ -5,4 +5,7 @@ sources = files(
     'compound.c'
 )
 
-dia_object_desc += [['db_objects', sources, []]]
+dia_object_desc += {
+    'name': 'db_objects',
+    'sources': sources,
+}

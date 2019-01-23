@@ -67,4 +67,7 @@ shape_sources = files(
     'patch-panel.png'
 )
 
-shapes += [[shape_sources, 'network']]
+shapes += {
+    'name': 'network',
+    'sources': shape_sources,
+}

@@ -6,4 +6,7 @@ sources = files(
     'metaandorrel.c'
 )
 
-dia_object_desc += [['kaos_objects', sources, []]]
+dia_object_desc += {
+    'name': 'kaos_objects',
+    'sources': sources,
+}

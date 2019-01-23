@@ -5,4 +5,7 @@ shape_sources = files(
     'mainconnectionpoint.shape'
 )
 
-shapes += [[shape_sources, 'Shape_Design']]
+shapes += {
+    'name': 'Shape_Design',
+    'sources': shape_sources,
+}

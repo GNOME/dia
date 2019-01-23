@@ -36,4 +36,7 @@ sources = files(
     'umlformalparameter.c'
 )
 
-dia_object_desc += [['uml_objects', sources, []]]
+dia_object_desc += {
+    'name': 'uml_objects',
+    'sources': sources,
+}

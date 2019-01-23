@@ -9,4 +9,7 @@ shape_sources = files(
     'process.png'
 )
 
-shapes += [[shape_sources, 'Gane_and_Sarson']]
+shapes += {
+    'name': 'Gane_and_Sarson',
+    'sources': shape_sources,
+}

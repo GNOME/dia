@@ -13,4 +13,7 @@ shape_sources = files(
     'stableq.png'
 )
 
-shapes += [[shape_sources, 'sybase']]
+shapes += {
+    'name': 'sybase',
+    'sources': shape_sources,
+}

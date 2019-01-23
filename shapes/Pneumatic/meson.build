@@ -41,4 +41,7 @@ shape_sources = files(
     'cnx.png'
 )
 
-shapes += [[shape_sources, 'Pneumatic']]
+shapes += {
+    'name': 'Pneumatic',
+    'sources': shape_sources,
+}

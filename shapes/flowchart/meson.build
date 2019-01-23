@@ -52,4 +52,7 @@ shape_sources = files(
 )
 
 #TODO: the folder should be capitalised as well.
-shapes += [[shape_sources, 'Flowchart']]
+shapes += {
+    'name': 'Flowchart',
+    'sources': shape_sources,
+}

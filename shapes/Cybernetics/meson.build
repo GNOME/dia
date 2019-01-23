@@ -61,4 +61,7 @@ shape_sources = files(
     't-sens.shape'
 )
 
-shapes += [[shape_sources, 'Cybernetics']]
+shapes += {
+    'name': 'Cybernetics',
+    'sources': shape_sources,
+}

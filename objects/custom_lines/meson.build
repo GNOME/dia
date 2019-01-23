@@ -4,4 +4,7 @@ sources = files(
     'line_info.c'
 )
 
-dia_object_desc += [['custom_lines_objects', sources, []]]
+dia_object_desc += {
+    'name': 'custom_lines_objects',
+    'sources': sources,
+}

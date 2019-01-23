@@ -27,7 +27,7 @@ subdir('sybase')
 
 foreach shape_info : shapes
     install_data(
-        shape_info[0],
-        install_dir: join_paths(shapesdir, shape_info[1])
+        shape_info.get('sources'),
+        install_dir: join_paths(shapesdir, shape_info.get('name'))
     )
 endforeach

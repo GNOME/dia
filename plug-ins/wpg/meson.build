@@ -3,4 +3,7 @@ sources = files(
     'wpg-import.c',
 )
 
-install_plugins_desc += [['wpg_filter', sources, []]]
+install_plugins_desc += {
+    'name': 'wpg_filter',
+    'sources': sources,
+}

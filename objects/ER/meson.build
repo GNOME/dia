@@ -6,4 +6,7 @@ sources = files(
     'er.c'
 )
 
-dia_object_desc += [['er_objects', sources, []]]
+dia_object_desc += {
+    'name': 'er_objects',
+    'sources': sources,
+}

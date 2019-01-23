@@ -5,4 +5,8 @@ sources = files(
     'diacairo-print.c'
 )
 
-install_plugins_desc += [['cairo_filter', sources, [libcairo_dep]]]
+install_plugins_desc += {
+    'name': 'cairo_filter',
+    'sources': sources,
+    'extra_deps': [libcairo_dep],
+}

@@ -35,4 +35,7 @@ shape_sources = files(
     'task.png'
 )
 
-shapes += [[shape_sources, 'SDL']]
+shapes += {
+    'name': 'SDL',
+    'sources': shape_sources,
+}

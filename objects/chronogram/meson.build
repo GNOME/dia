@@ -5,4 +5,7 @@ sources = files(
     'chronoline_event.c'
 )
 
-dia_object_desc += [['chronogram_objects', sources, []]]
+dia_object_desc += {
+    'name': 'chronogram_objects',
+    'sources': sources,
+}

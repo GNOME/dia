@@ -20,9 +20,9 @@ subdir('standard')
 subdir('UML')
 
 foreach o : dia_object_desc
-    library(o[0],
-        o[1] + [config_h],
-        dependencies: [libc_dep, libgtk_dep, libxml_dep, libm_dep] + o[2],
+    library(o.get('name'),
+        o.get('sources') + [config_h],
+        dependencies: [libc_dep, libgtk_dep, libxml_dep, libm_dep] + o.get('extra_deps', []),
         link_with: libdia,
         include_directories: [configuration_inc, libdia_inc],
         install: true,

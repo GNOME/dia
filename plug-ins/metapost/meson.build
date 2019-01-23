@@ -3,4 +3,7 @@ sources = files(
     'render_metapost.c',
 )
 
-install_plugins_desc += [['metapost_filter', sources, []]]
+install_plugins_desc += {
+    'name': 'metapost_filter',
+    'sources': sources,
+}

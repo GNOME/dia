@@ -1,1 +1,4 @@
-install_plugins_desc += [['pixbuf_filter', files('pixbuf.c'), []]]
+install_plugins_desc += {
+    'name': 'pixbuf_filter',
+    'sources': files('pixbuf.c'),
+}

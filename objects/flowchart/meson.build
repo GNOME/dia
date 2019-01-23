@@ -6,4 +6,7 @@ sources = files(
     'flowchart.c'
 )
 
-dia_object_desc += [['flowchart_objects', sources, []]]
+dia_object_desc += {
+    'name': 'flowchart_objects',
+    'sources': sources,
+}

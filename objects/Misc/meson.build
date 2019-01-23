@@ -8,4 +8,7 @@ sources = files(
     'tree.c'
 )
 
-dia_object_desc += [['misc_objects', sources, []]]
+dia_object_desc += {
+    'name': 'misc_objects',
+    'sources': sources,
+}

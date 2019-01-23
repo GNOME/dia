@@ -16,4 +16,7 @@ sources = files(
     'beziergon.c'
 )
 
-dia_object_desc += [['standard_objects', sources + [tool_icons_h], []]]
+dia_object_desc += {
+    'name': 'standard_objects',
+    'sources': sources + [tool_icons_h],
+}
