@@ -101,8 +101,8 @@ custom_target('run_with_dia_env',
     build_by_default: true,
 )
 
-meson.add_install_script('meson-helpers/post-install.py', datadir)
+meson.add_install_script('build-aux/post-install.py', datadir)
 
 if build_machine.system() == 'windows'
-    meson.add_install_script('meson-helpers/windows-bundler.sh')
+    meson.add_install_script('build-aux/windows-bundler.sh')
 endif
