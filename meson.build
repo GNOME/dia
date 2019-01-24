@@ -88,6 +88,8 @@ subdir('tests')
 # TODO: idealy this should use run_env from tests/
 # Unfortunately, neither run_target or custom_target support env
 # https://github.com/mesonbuild/meson/issues/2723
+# Alternatively we could use run configurations:
+# https://github.com/mesonbuild/meson/issues/1314
 custom_target('run_with_dia_env',
     command: [find_program('generate_run_with_dia_env.sh'),
               '@OUTPUT@',
