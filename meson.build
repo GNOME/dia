@@ -1,6 +1,6 @@
 project('dia',
         ['c', 'cpp'],
-        version: '0.97.3',  # This is the base version, git suffix gets added to config.h.
+        version: '0.97.3',  # This is the base version, git suffix gets added using vcs_tag().
         meson_version: '>= 0.49',
         default_options: []
 )
