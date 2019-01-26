@@ -1,6 +1,7 @@
-# TODO: should we use pymod even though it requires more recent
-#       version of meson?
-py_dep = dependency('python2', version: '>= 2.3', required: false)
+pymod = import('python')
+
+py_inst = pymod.find_installation('python2', required: false)
+py_dep = py_inst.dependency(version: '>= 2.3')
 
 sources = files(
     'pydia-color.c',
