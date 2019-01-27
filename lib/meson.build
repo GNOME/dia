@@ -125,6 +125,6 @@ libdia = library('dia',
     dependencies: libdia_deps,
     include_directories: configuration_inc,
     c_args: ['-Wall', '-DLIBDIA_COMPILATION'],
-    vs_module_defs: files('libdia.def')[0],
+    vs_module_defs: 'libdia.def',
     install: true,
 )
