@@ -64,6 +64,8 @@ dia_sources = [
 ]
 
 #TODO: this is workaround for openbsd where libraries are in /usr/lib/local
+# Potential parent issues: https://github.com/mesonbuild/meson/issues/3570
+# https://github.com/mesonbuild/meson/issues/4468
 pkg_config = find_program('pkg-config')
 pkg_config_libdir = run_command(pkg_config, '--libs-only-L', 'libxml-2.0').stdout().strip()
 
