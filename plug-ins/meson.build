@@ -10,7 +10,7 @@ install_plugins_desc = []
 # marked as such.
 subdir('cairo')
 subdir('cgm')
-subdir('drs')  # Non-standard: does not get installed.
+subdir('drs')
 subdir('dxf')
 subdir('hpgl')
 subdir('shape')
@@ -23,7 +23,7 @@ subdir('pgf')
 subdir('postscript')
 subdir('pstricks')
 subdir('python')  # Non-standard: shared_module
-subdir('stress')  # Non-standard: does not get installed.
+subdir('stress')
 subdir('svg')
 subdir('vdx')
 # TODO: Port to Windows.
@@ -42,7 +42,7 @@ foreach p : install_plugins_desc
         dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep] + p.get('extra_deps', []),
         include_directories: [libdia_inc, configuration_inc],
         link_with: [libdia],
-        install: true,
+        install: p.get('install', true),
         install_dir: dialibdir
     )
 endforeach

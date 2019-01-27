@@ -1,19 +1,13 @@
-# This is currently windows+development only
-# It should be easy to port but never get installed
-
 sources = files(
     'stress.c',
     'stress-memory.c'
 )
 
-# TODO: test this on Windows.
-if host_machine.system() != 'windows'
-    library(
-        'stress_filter',
-        sources + [config_h],
-        dependencies: [libc_dep, libgtk_dep, libm_dep],
-        include_directories: [libdia_inc, configuration_inc],
-        link_with: [libdia],
-        install: false,
-    )
+# This is a development tool for windows.
+if host_machine.system() == 'windows'
+    install_plugins_desc += {
+        'name': 'stress_filter',
+        'sources': sources,
+        'install': false,
+    }
 endif
