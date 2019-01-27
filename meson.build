@@ -19,7 +19,8 @@ libcairo_dep = dependency('cairo')
 # Therefore, remove all references to HAVE_CAIRO
 conf.set('HAVE_CAIRO', 1)
 
-libm_dep = cc.find_library('m')
+# Not required since not all platforms ship a separate libm.
+libm_dep = cc.find_library('m', required: false)
 
 # This is needed for some platforms (eg. BSD).
 libc_dep = cc.find_library('c', required: false)
