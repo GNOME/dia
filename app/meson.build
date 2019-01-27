@@ -84,3 +84,14 @@ diaapp = executable('dia',
     gui_app: true,
     install: true,
 )
+
+if build_machine.system() == 'windows'
+    dia_win_remote = executable(
+        'dia-win-remote',
+        ['dia-win-remote.c'],
+        dependencies: [libgtk_dep],
+        link_args: ['-lshlwapi'],
+        gui_app: true,
+        install: true,
+    )
+endif
