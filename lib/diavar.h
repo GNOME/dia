@@ -4,7 +4,11 @@
 #include <glib.h>
 
 #ifdef G_OS_WIN32
-#  define DIAVAR __declspec(dllexport)
+#  ifdef LIBDIA_COMPILATION
+#    define DIAVAR __declspec(dllexport)
+#  else  /* !LIBDIA_COMPILATION */
+#    define DIAVAR __declspec(dllimport)
+#  endif /* !LIBDIA_COMPILATION */
 #else  /* !G_OS_WIN32 */
 #  /* DONT: define DIAVAR extern */
 #  define DIAVAR /* empty */

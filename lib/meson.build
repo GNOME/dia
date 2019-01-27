@@ -124,7 +124,7 @@ libdia = library('dia',
     libdia_sources + [diamarshal, dia_lib_icons_h, config_h],
     dependencies: libdia_deps,
     include_directories: configuration_inc,
-    c_args: ['-Wall'],
+    c_args: ['-Wall', '-DLIBDIA_COMPILATION'],
     vs_module_defs: files('libdia.def')[0],
     install: true,
 )
