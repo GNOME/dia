@@ -528,8 +528,6 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   GtkRcStyle *rcstyle;
   gint       notebook_page_index;
 
-  ddisp->is_standalone_window = FALSE;
-
   ddisp->shell = GTK_WIDGET (ui.main_window);
   ddisp->modified_status = GTK_WIDGET (ui.statusbar);
  

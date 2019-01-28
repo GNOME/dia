@@ -1193,13 +1193,8 @@ ddisp_destroy(DDisplay *ddisp)
     gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()), NULL);
   }
 
-  /* This calls ddisplay_really_destroy */
-  if (ddisp->is_standalone_window)
-    gtk_widget_destroy (ddisp->shell);
-  else {
-    gtk_widget_destroy (ddisp->container);
-    ddisplay_really_destroy (ddisp);
-  }
+  gtk_widget_destroy (ddisp->container);
+  ddisplay_really_destroy (ddisp);
 }
 
 static void
@@ -1395,36 +1390,31 @@ ddisplay_really_destroy(DDisplay *ddisp)
 void
 ddisplay_set_title(DDisplay  *ddisp, char *title)
 {
-  if (ddisp->is_standalone_window)
-    gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
-  else
+  GtkNotebook *notebook = g_object_get_data (G_OBJECT (ddisp->shell), 
+                                              DIA_MAIN_NOTEBOOK);
+  /* Find the page with ddisp then set the label on the tab */
+  gint num_pages = gtk_notebook_get_n_pages (notebook);
+  gint num;
+  GtkWidget *page;
+  for (num = 0 ; num < num_pages ; num++)
   {
-    GtkNotebook *notebook = g_object_get_data (G_OBJECT (ddisp->shell), 
-                                               DIA_MAIN_NOTEBOOK);
-    /* Find the page with ddisp then set the label on the tab */
-    gint num_pages = gtk_notebook_get_n_pages (notebook);
-    gint num;
-    GtkWidget *page;
-    for (num = 0 ; num < num_pages ; num++)
+    page = gtk_notebook_get_nth_page (notebook,num);
+    if (g_object_get_data (G_OBJECT (page), "DDisplay") == ddisp)
     {
-      page = gtk_notebook_get_nth_page (notebook,num);
-      if (g_object_get_data (G_OBJECT (page), "DDisplay") == ddisp)
-      {
-        GtkLabel *label = g_object_get_data (G_OBJECT (page), "tab-label");
-        /* not using the passed in title here, because it may be too long */
-        gchar *name = diagram_get_name(ddisp->diagram);
-        gtk_label_set_text(label,name);
-        g_free(name);
-        break;
-      }
+      GtkLabel *label = g_object_get_data (G_OBJECT (page), "tab-label");
+      /* not using the passed in title here, because it may be too long */
+      gchar *name = diagram_get_name(ddisp->diagram);
+      gtk_label_set_text(label,name);
+      g_free(name);
+      break;
     }
-    /* now modify the application window title */
-    {
-      const gchar *pname = g_get_prgname();
-      gchar *fulltitle = g_strdup_printf ("%s - %s", title, pname ? pname : "Dia");
-      gtk_window_set_title (GTK_WINDOW (ddisp->shell), fulltitle);
-      g_free(fulltitle);
-    }
+  }
+  /* now modify the application window title */
+  {
+    const gchar *pname = g_get_prgname();
+    gchar *fulltitle = g_strdup_printf ("%s - %s", title, pname ? pname : "Dia");
+    gtk_window_set_title (GTK_WINDOW (ddisp->shell), fulltitle);
+    g_free(fulltitle);
   }
 }
 
@@ -1544,50 +1534,37 @@ display_set_active(DDisplay *ddisp)
     diagram_properties_set_diagram(ddisp ? ddisp->diagram : NULL);
 
     if (ddisp) {
-      if (ddisp->is_standalone_window)
+      GtkNotebook *notebook = g_object_get_data (G_OBJECT (ddisp->shell), 
+                                                  DIA_MAIN_NOTEBOOK);
+      /* Find the page with ddisp then set the label on the tab */
+      gint num_pages = gtk_notebook_get_n_pages (notebook);
+      gint num;
+      GtkWidget *page;
+      for (num = 0 ; num < num_pages ; num++)
       {
-        display_update_menu_state(ddisp);
-
-        if (prefs.toolbox_on_top) {
-          gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
-                                       GTK_WINDOW(ddisp->shell));
-        } else {
-          gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
-                                       NULL);
-        }
-      } else {
-        GtkNotebook *notebook = g_object_get_data (G_OBJECT (ddisp->shell), 
-                                                   DIA_MAIN_NOTEBOOK);
-        /* Find the page with ddisp then set the label on the tab */
-        gint num_pages = gtk_notebook_get_n_pages (notebook);
-        gint num;
-        GtkWidget *page;
-        for (num = 0 ; num < num_pages ; num++)
+        page = gtk_notebook_get_nth_page (notebook,num);
+        if (g_object_get_data (G_OBJECT (page), "DDisplay") == ddisp)
         {
-          page = gtk_notebook_get_nth_page (notebook,num);
-          if (g_object_get_data (G_OBJECT (page), "DDisplay") == ddisp)
-          {
-            gtk_notebook_set_current_page (notebook,num);
-            break;
-          }
+          gtk_notebook_set_current_page (notebook,num);
+          break;
         }
-        /* synchronize_ui_to_active_display (ddisp); */
-        /* updates display title, etc */
-        diagram_modified(ddisp->diagram);
-
-        /* ZOOM */
-        update_zoom_status (ddisp);
-
-        /* Snap to grid */
-        ddisplay_set_snap_to_grid (ddisp, ddisp->grid.snap); /* menus */
-
-        /* Object snapping */
-        ddisplay_set_snap_to_objects (ddisp, ddisp->mainpoint_magnetism);
-
-        display_update_menu_state (ddisp);
-
-        gtk_window_present (GTK_WINDOW(ddisp->shell));
       }
+      /* synchronize_ui_to_active_display (ddisp); */
+      /* updates display title, etc */
+      diagram_modified(ddisp->diagram);
+
+      /* ZOOM */
+      update_zoom_status (ddisp);
+
+      /* Snap to grid */
+      ddisplay_set_snap_to_grid (ddisp, ddisp->grid.snap); /* menus */
+
+      /* Object snapping */
+      ddisplay_set_snap_to_objects (ddisp, ddisp->mainpoint_magnetism);
+
+      display_update_menu_state (ddisp);
+
+      gtk_window_present (GTK_WINDOW(ddisp->shell));
     }
   }
 }

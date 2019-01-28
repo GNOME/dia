@@ -92,10 +92,6 @@ struct _DDisplay {
   gchar *preedit_string;
   PangoAttrList *preedit_attrs;
  
-  /* Is there another case?  Like I see embedded-dia modules, do these do something
-   * in addition??? */  
-  gboolean   is_standalone_window;
-
   /* Points to Integrated UI Toolbar */
   GtkToolbar *common_toolbar;
 
