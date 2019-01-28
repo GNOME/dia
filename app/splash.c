@@ -12,12 +12,11 @@ get_logo_pixmap (void)
 {
   GdkPixbuf *logo = NULL;
   GtkWidget* gpixmap = NULL;
-  gchar str[512];
-
-  gchar* datadir = dia_get_data_directory(""); 
-  g_snprintf(str, sizeof(str), "%s/dia-splash.png", datadir);
-  logo = gdk_pixbuf_new_from_file(str, NULL);
-  g_free(datadir);
+  gchar *path = g_build_filename (dia_get_data_directory(""),
+                                  "dia-splash.png",
+                                  NULL);
+  logo = gdk_pixbuf_new_from_file (path, NULL);
+  g_free(path);
 
   if (logo) {
     gpixmap = gtk_image_new_from_pixbuf (logo);

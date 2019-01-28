@@ -103,10 +103,15 @@ dia_get_data_directory(const gchar* subdir)
   g_free (sLoc);
   return returnPath;
 #else
+  gchar *base = PKGDATADIR;
+  if (g_getenv ("DIA_BASE_PATH") != NULL) {
+    /* a small hack cause the final destination and the local path differ */
+    base = g_build_filename (g_getenv ("DIA_BASE_PATH"), "data", NULL);
+  }
   if (strlen (subdir) == 0)
-    return g_strconcat (PKGDATADIR, NULL);
+    return g_strconcat (base, NULL);
   else
-    return g_strconcat (PKGDATADIR, G_DIR_SEPARATOR_S, subdir, NULL);
+    return g_strconcat (base, G_DIR_SEPARATOR_S, subdir, NULL);
 #endif
 }
 
@@ -252,7 +257,7 @@ dia_get_canonical_path(const gchar *path)
       if (strlen(list[i]) > 0) {
 
         /* win32 filenames usually don't start with a dir separator but
-         * with <drive>:\ 
+         * with <drive>:\
          */
 	if (i != 0 || list[i][1] != ':')
           g_string_append (str, G_DIR_SEPARATOR_S);
@@ -346,11 +351,11 @@ dia_relativize_filename (const gchar *master, const gchar *slave)
 			  + (g_str_has_suffix (bp1, G_DIR_SEPARATOR_S) ? 0 : 1));
     /* flip backslashes */
     for (p = rel; *p != '\0'; p++)
-      if (*p == '\\') *p = '/';    
+      if (*p == '\\') *p = '/';
   }
   g_free (bp1);
   g_free (bp2);
-  
+
   return rel;
 }
 
