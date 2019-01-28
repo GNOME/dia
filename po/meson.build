@@ -11,4 +11,5 @@ intltool_command = [
     po_dir, '@INPUT@', '@OUTPUT@'
 ]
 
-i18n.gettext(meson.project_name())
+i18n.gettext(meson.project_name(),
+             args: '--from-code=utf-8')
