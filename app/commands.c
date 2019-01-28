@@ -1417,14 +1417,6 @@ dialogs_properties_callback (GtkAction *action)
 }
 
 void
-dialogs_layers_callback (GtkAction *action)
-{
-  layer_dialog_set_diagram(ddisplay_active_diagram());
-  layer_dialog_show();
-}
-
-
-void
 objects_align_h_callback (GtkAction *action)
 {
   const gchar *a;

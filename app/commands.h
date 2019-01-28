@@ -89,7 +89,6 @@ void objects_align_v_callback           (GtkAction *action);
 void objects_align_connected_callback   (GtkAction *action);
 
 void dialogs_properties_callback (GtkAction *action);
-void dialogs_layers_callback     (GtkAction *action);
 
 /* from sheets.c */
 void sheets_dialog_show_callback(GtkAction *action);

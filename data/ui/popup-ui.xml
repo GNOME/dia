@@ -77,8 +77,6 @@
 			<separator name="LayersSep1" />
 			<menuitem name="ObjectsLayerAbove" action="ObjectsLayerAbove" />
 			<menuitem name="ObjectsLayerBelow" action="ObjectsLayerBelow" />
-			<separator name="LayersSep2" />
-			<menuitem name="DiagramLayers" action="DiagramLayers" />
 		</menu>
 		<menu name="Objects" action="Objects">
 			<menuitem name="ObjectsSendtoback" action="ObjectsSendtoback" />

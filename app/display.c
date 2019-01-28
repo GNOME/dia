@@ -147,7 +147,7 @@ initialize_display_widgets(DDisplay *ddisp)
     filename++;
   }
   create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
-		       filename, prefs.new_view.use_menu_bar);
+		       filename, TRUE);
 
   ddisplay_update_statusbar (ddisp);
 

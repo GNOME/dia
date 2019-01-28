@@ -109,7 +109,6 @@ diagram_dispose (GObject *object)
     dia_diagram_remove(dia);
 
     open_diagrams = g_list_remove(open_diagrams, dia);
-    layer_dialog_update_diagram_list();
   }
 
   if (dia->undo)
@@ -251,9 +250,6 @@ diagram_init(Diagram *dia, const char *filename)
 
   if (!g_list_find(open_diagrams, dia))
     open_diagrams = g_list_prepend(open_diagrams, dia);
-
-  if (app_is_interactive())
-    layer_dialog_update_diagram_list();
 
   g_free(newfilename);
 
@@ -1488,8 +1484,6 @@ diagram_update_for_filename(Diagram *dia)
   }
 
   g_free(title);
-
-  layer_dialog_update_diagram_list();
 
   /* signal about the change */
   dia_diagram_change (dia, DIAGRAM_CHANGE_NAME, NULL);

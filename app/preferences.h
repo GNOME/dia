@@ -42,7 +42,6 @@ struct DiaPreferences {
     int width;
     int height;
     real zoom;
-    int use_menu_bar;
   } new_view;
 
   NewDiagramData new_diagram;
@@ -65,8 +64,6 @@ struct DiaPreferences {
   } pagebreak;
 
   int fixed_icon_size;
-
-  int toolbox_on_top;
   
   /* a dedicated filter name or NULL */
   struct {

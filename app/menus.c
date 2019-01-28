@@ -150,7 +150,6 @@ static const GtkActionEntry display_entries[] =
     { "LayerRename", DIA_STOCK_LAYER_RENAME, N_("Rename Layer\342\200\246"), NULL, NULL, G_CALLBACK (layers_rename_layer_callback) },
     { "ObjectsLayerAbove", DIA_STOCK_OBJECTS_LAYER_ABOVE, N_("Move Selection to Layer above"), NULL, NULL, G_CALLBACK (objects_move_up_layer) },
     { "ObjectsLayerBelow", DIA_STOCK_OBJECTS_LAYER_BELOW, N_("Move Selection to Layer below"), NULL, NULL, G_CALLBACK (objects_move_down_layer) },
-    { "DiagramLayers", DIA_STOCK_LAYERS, N_("_Layers\342\200\246"), FIRST_MODIFIER "L", NULL, G_CALLBACK (dialogs_layers_callback) },
   { "View", NULL, N_("_View"), NULL, NULL, NULL },
     { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, FIRST_MODIFIER "plus", N_("Zoom in"), G_CALLBACK (view_zoom_in_callback) },
     { "ViewZoomout", GTK_STOCK_ZOOM_OUT, NULL, FIRST_MODIFIER "minus", N_("Zoom out"), G_CALLBACK (view_zoom_out_callback) },

@@ -77,7 +77,6 @@ typedef struct _DiaPrefData {
   const char *key;
 } DiaPrefData;
 
-static void update_floating_toolbox(DiaPrefData *pref, gpointer ptr);
 static void update_internal_prefs(DiaPrefData *pref, gpointer ptr);
 
 static int default_true = 1;
@@ -172,12 +171,6 @@ DiaPrefData prefs_data[] =
   { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), 
     &default_recent_documents, 0, N_("Recent documents list size:") },
 
-  { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), 
-    &default_true, UI_TAB, N_("Use menu bar") },
-
-  { "toolbox_on_top", PREF_BOOLEAN, PREF_OFFSET(toolbox_on_top),
-    &default_false, UI_TAB, N_("Keep tool box on top of diagram windows"),
-    NULL, FALSE, NULL, update_floating_toolbox},
   { "length_unit", PREF_CHOICE, PREF_OFFSET(length_unit),
     &default_length_unit, UI_TAB, N_("Length unit:"), NULL, FALSE,
     _get_units_name_list, update_internal_prefs },
@@ -751,33 +744,3 @@ update_internal_prefs(DiaPrefData *pref, gpointer ptr)
   if (prefs.fontsize_unit)
     prefs_set_fontsize_unit(prefs.fontsize_unit);
 }
-
-static void
-update_floating_toolbox(DiaPrefData *pref, gpointer ptr)
-{
-  g_return_if_fail (pref->key == NULL);
-
-  if (!app_is_interactive())
-    return;
-
-  if (prefs.toolbox_on_top) {
-    /* Go through all diagrams and set toolbox transient for all displays */
-    GList *diagrams;
-    for (diagrams = dia_open_diagrams(); diagrams != NULL; 
-	 diagrams = g_list_next(diagrams)) {
-      Diagram *diagram = (Diagram *)diagrams->data;
-      GSList *displays;
-      for (displays = diagram->displays; displays != NULL; 
-	   displays = g_slist_next(displays)) {
-	DDisplay *ddisp = (DDisplay *)displays->data;
-	gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
-				     GTK_WINDOW(ddisp->shell));
-      }
-    }
-  } else {
-    GtkWindow *shell = GTK_WINDOW(interface_get_toolbox_shell());
-    if (shell)
-      gtk_window_set_transient_for(shell, NULL);
-  }
-}
-

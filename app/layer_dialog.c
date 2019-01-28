@@ -266,14 +266,6 @@ layer_list_events (GtkWidget *widget,
   return FALSE;
 }
 
-static gboolean
-layer_dialog_delete(GtkWidget *widget, gpointer data)
-{
-  gtk_widget_hide(widget);
-  /* We're caching, so don't destroy */
-  return TRUE;
-}
-
 static void
 layer_view_hide_button_clicked (void * not_used)
 {
@@ -361,99 +353,6 @@ GtkWidget * create_layer_view_widget (void)
 		    G_CALLBACK (layer_list_events), NULL);
     
   return vbox;
-}
-
-void
-layer_dialog_create(void)
-{
-  GtkWidget *dialog;
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *omenu;
-  GtkWidget *menu;
-  GtkWidget *list;
-  GtkWidget *separator;
-  GtkWidget *scrolled_win;
-  GtkWidget *button_box;
-  GtkWidget *button;
-
-  layer_dialog = g_new(struct LayerDialog, 1);
-
-  layer_dialog->diagram = NULL;
-  
-  layer_dialog->dialog = dialog = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (dialog), _("Layers"));
-  gtk_window_set_role (GTK_WINDOW (dialog), "layer_window");
-  gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
-
-  g_signal_connect (G_OBJECT (dialog), "delete_event",
-                    G_CALLBACK(layer_dialog_delete), NULL);
-  g_signal_connect (G_OBJECT (dialog), "destroy",
-                    G_CALLBACK(gtk_widget_destroyed), 
-		    &(layer_dialog->dialog));
-
-  vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
-
-  hbox = gtk_hbox_new(FALSE, 1);
-  
-  label = gtk_label_new(_("Diagram:"));
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
-  gtk_widget_show (label);
-  
-  layer_dialog->diagram_omenu = omenu = gtk_option_menu_new();
-  gtk_box_pack_start(GTK_BOX(hbox), omenu, TRUE, TRUE, 2);
-  gtk_widget_show (omenu);
-
-  menu = gtk_menu_new();
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(omenu), menu);
-
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-  gtk_widget_show (hbox);
-
-  separator = gtk_hseparator_new();
-  gtk_box_pack_start(GTK_BOX(vbox), separator, FALSE, FALSE, 2);
-  gtk_widget_show (separator);
-
-  scrolled_win = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-				  GTK_POLICY_AUTOMATIC, 
-				  GTK_POLICY_AUTOMATIC);
-  gtk_box_pack_start (GTK_BOX (vbox), scrolled_win, TRUE, TRUE, 2);
-
-  layer_dialog->layer_list = list = gtk_list_new();
-
-  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_BROWSE);
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
-  gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
-				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
-  gtk_widget_show (scrolled_win);
-  gtk_widget_show (list);
-
-  g_signal_connect (G_OBJECT (list), "event",
-		    G_CALLBACK (layer_list_events), NULL);
-
-  button_box = create_button_box(dialog, TRUE);
-  
-  gtk_box_pack_start (GTK_BOX (vbox), button_box, FALSE, FALSE, 2);
-  gtk_widget_show (button_box);
-
-  gtk_container_set_border_width(GTK_CONTAINER(
-				 gtk_dialog_get_action_area (GTK_DIALOG(dialog))),
-				 2);
-
-  button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
-  gtk_box_pack_start (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG(dialog))), 
-		      button, TRUE, TRUE, 0);
-  g_signal_connect_swapped(G_OBJECT (button), "clicked",
-			   G_CALLBACK(gtk_widget_hide),
-			   G_OBJECT(dialog));
-
-  gtk_widget_show (button);
-
-  persistence_register_window(GTK_WINDOW(dialog));
-
-  layer_dialog_update_diagram_list();
 }
 
 static void
@@ -674,24 +573,6 @@ layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata)
   }
 }
 
-void
-layer_dialog_update_diagram_list(void)
-{
-  if (layer_dialog == NULL || layer_dialog->dialog == NULL) {
-    if (!dia_open_diagrams())
-      return; /* shortcut; maybe session end w/o this dialog */
-    else
-      layer_dialog_create();
-  }
-  g_assert(layer_dialog != NULL); /* must be valid now */
-}
-
-void
-layer_dialog_show()
-{
-  /* TODO: Remove */
-}
-
 /*
  * Used to avoid writing to possibly already deleted layer in
  * dia_layer_widget_connectable_toggled(). Must be called before
@@ -719,7 +600,7 @@ layer_dialog_set_diagram(Diagram *dia)
     active_layer = dia->data->active_layer;
 
   if (layer_dialog == NULL || layer_dialog->dialog == NULL) 
-    layer_dialog_create(); /* May have been destroyed */
+    create_layer_view_widget (); /* May have been destroyed */
   g_assert(layer_dialog != NULL); /* must be valid now */
 
   gtk_container_foreach (GTK_CONTAINER(layer_dialog->layer_list),
