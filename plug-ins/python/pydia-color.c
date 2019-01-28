@@ -99,7 +99,7 @@ static PyMemberDef PyDiaColor_Members[] = {
  * Python objetcs
  */
 PyTypeObject PyDiaColor_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "DiaColor",
     sizeof(PyDiaColor),

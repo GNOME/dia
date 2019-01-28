@@ -47,7 +47,7 @@ ICON_PNG_PAIRS= \
 	dia_broken_icon $(srcdir)/pixmaps/broken.png \
 	dia_broken_chain_icon $(srcdir)/pixmaps/broken-chain.png \
 	dia_unbroken_chain_icon $(srcdir)/pixmaps/unbroken-chain.png \
-	stdpath_icon $(srcdir)/pixmaps/standard-path.png
+	dia_standard_path_icon $(srcdir)/pixmaps/standard-path.png
 
 # there is probably some smarter way than duplicating this
 # but having the right dependecy for dia-lib-icons.h was 
@@ -85,8 +85,8 @@ libdia_la_SOURCES =  \
 		textline.h \
 		font.c \
 		font.h \
-	        group.c \
-	        group.h \
+		group.c \
+		group.h \
 		utils.c \
 		utils.h \
 		arrows.c \
@@ -235,16 +235,13 @@ libdia_la_LIBADD = $(GTK_LIBS)
 AM_CPPFLAGS = \
 	$(LIBART_CFLAGS) \
 	-DLIBDIA_COMPILATION \
-	-DLIBDIR=\"$(libdir)\" \
-	-DDATADIR=\"$(pkgdatadir)\" \
+	-DDIALIBDIR=\"$(libdir)/dia\" \
+	-DPKGDATADIR=\"$(pkgdatadir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
 	-DPREFIX=\"$(prefix)\"
 
-sheetdir = $(pkgdatadir)/sheets
-
 AM_CPPFLAGS += -I$(top_srcdir)/intl $(DEBUG_FLAGS) $(GDK_PIXBUF_CFLAGS) \
   $(XML_CFLAGS) $(GTK_CFLAGS) \
-  -DDIA_SHEETDIR=\"$(sheetdir)\" \
   $(PANGOFT2_CFLAGS) $(LIBART_CFLAGS) $(UNICODE_CFLAGS)
 
 libdia_la_extra_sources = diamarshal.list

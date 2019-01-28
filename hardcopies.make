@@ -81,7 +81,6 @@ if WITH_PDFDOC
 $(progname).pdf: $(progname).xml $(xml_files) $(pngfigures)
 	-$(DBLATEX) -t pdf -T  native \
 		-P 'latex.unicode.use=$(UNICODE)' \
-		-P latex.encoding='$(ENCODING)' \
 		$(LATEX_CLASS_OPTIONS) \
 		$<
 endif
@@ -105,7 +104,6 @@ $(progname).ps: $(progname).xml $(xml_files) .epsfigures
 	-$(DBLATEX) -t ps -T native \
 	        $(stylesheet) \
 		-P 'latex.unicode.use=$(UNICODE)' \
-		-P 'latex.encoding=$(ENCODING)' \
 		$(LATEX_CLASS_OPTIONS) \
 		$(srcdir)/$<
 endif

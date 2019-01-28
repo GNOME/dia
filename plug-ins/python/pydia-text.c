@@ -138,7 +138,7 @@ static PyMemberDef PyDiaText_Members[] = {
  * Python objetcs
  */
 PyTypeObject PyDiaText_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Text",
     sizeof(PyDiaText),

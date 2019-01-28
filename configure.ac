@@ -429,9 +429,6 @@ CFLAGS="${CFLAGS} ${Z_CFLAGS}"
 LIBS="${LIBS} ${Z_LIBS}"
 
 
-dnl Path to UI resources
-AC_SUBST(uidatadir, '${pkgdatadir}/ui')
-
 dnl Platform-specific fixes.
 dnl
 
@@ -686,6 +683,7 @@ plug-ins/xslt/Makefile
 tests/Makefile
 tests/exports/Makefile
 data/Makefile
+data/ui/Makefile
 data/icons/Makefile
 data/icons/16x16/Makefile
 data/icons/16x16/apps/Makefile

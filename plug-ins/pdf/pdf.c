@@ -38,7 +38,7 @@ static const gchar *pdf_extensions[] = { "pdf", NULL };
 static DiaImportFilter pdf_import_filter = {
     N_("Portable Document File"),
     pdf_extensions,
-#if HAVE_POPPLER
+#ifdef HAVE_POPPLER
     import_pdf,
 #else
     no_import_pdf,

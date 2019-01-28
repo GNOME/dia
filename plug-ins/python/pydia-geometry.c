@@ -472,7 +472,7 @@ static PyMemberDef PyDiaPoint_Members[] = {
  * Python objetcs
  */
 PyTypeObject PyDiaPoint_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Point",
     sizeof(PyDiaPoint),
@@ -517,7 +517,7 @@ static PyMemberDef PyDiaRect_Members[] = {
     { NULL }
 };
 PyTypeObject PyDiaRectangle_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Rectangle",
     sizeof(PyDiaRectangle),
@@ -562,7 +562,7 @@ static PyMemberDef PyDiaBezPoint_Members[] = {
     { NULL }
 };
 PyTypeObject PyDiaBezPoint_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.BezPoint",
     sizeof(PyDiaBezPoint),
@@ -605,7 +605,7 @@ static PyMemberDef PyDiaArrow_Members[] = {
     { NULL }
 };
 PyTypeObject PyDiaArrow_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Arrow",
     sizeof(PyDiaArrow),
@@ -648,7 +648,7 @@ static PyMemberDef PyDiaMatrix_Members[] = {
     { NULL }
 };
 PyTypeObject PyDiaMatrix_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Matrix",
     sizeof(PyDiaMatrix),

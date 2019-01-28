@@ -38,20 +38,20 @@ static struct {
 } cursors[MAX_CURSORS] = {
   { GDK_LEFT_PTR }, /* CURSOR_POINT */
   { DIA_CURSOR, /* CURSOR_CREATE */
-    dia_cursor_create,
+    dia_cursor_create_icon,
     0, 0},  
   { GDK_FLEUR }, /* CURSOR_SCROLL */
   { DIA_CURSOR, /* CURSOR_GRAB */
-    dia_cursor_hand_open,
+    dia_cursor_hand_open_icon,
     10, 10 },
   { DIA_CURSOR, /* CURSOR_GRABBING */
-    dia_cursor_hand_closed,
+    dia_cursor_hand_closed_icon,
     10, 10 },
   { DIA_CURSOR, /* CURSOR_ZOOM_OUT */
-    dia_cursor_magnify_minus,
+    dia_cursor_magnify_minus_icon,
     8, 8 },
   { DIA_CURSOR, /* CURSOR_ZOOM_IN */
-    dia_cursor_magnify_plus,
+    dia_cursor_magnify_plus_icon,
     8, 8 },
   { GDK_CROSS_REVERSE }, /* CURSOR_CONNECT */
   { GDK_XTERM }, /* CURSOR_XTERM */

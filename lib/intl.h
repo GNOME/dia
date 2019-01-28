@@ -7,6 +7,7 @@
 #  include <glib/gi18n.h>
 #else /* NLS is disabled */
 #  define _(String) (String)
+#  define Q_(String) (String)
 #  define N_(String) (String)
 #  define NC_(Context, String) (String)
 #  define gettext(String) (String)

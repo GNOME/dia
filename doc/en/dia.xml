@@ -46,11 +46,7 @@
 
 >
 
-
-
 <book id="index" lang="en"> <!-- please do not change the id -->
-
-
 
  <bookinfo>
 
@@ -192,6 +188,3 @@
 &LICENSE;
 
 </book>
-
-
-

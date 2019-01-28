@@ -23,7 +23,7 @@
 #include <glib.h>
 #include "color.h"
 
-#include <visio-types.h>
+#include "visio-types.h"
 
 char * vdx_Units[] =
 {

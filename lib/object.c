@@ -975,7 +975,13 @@ object_registry_foreach (GHFunc func, gpointer user_data)
 DiaObjectType *
 object_get_type(char *name)
 {
-  return (DiaObjectType *) g_hash_table_lookup(object_type_table, name);
+  /* FIXME: this was added here to get some visibility.  Idealy we should have a common way
+   * of ensuring g_hash_table_lookup return a non-NULL. */
+  DiaObjectType *type = (DiaObjectType *)g_hash_table_lookup(object_type_table, name);
+  if (type == NULL) {
+    g_warning("Unable to find object type: %s", name);
+  }
+  return type;
 }
 
 /** True if all the given flags are set, false otherwise.

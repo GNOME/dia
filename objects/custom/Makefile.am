@@ -15,12 +15,9 @@ libcustom_objects_la_LDFLAGS = -export-dynamic -module -avoid-version $(NO_UNDEF
 
 libcustom_objects_la_LIBADD = $(top_builddir)/lib/libdia.la
 
-shapedir = $(pkgdatadir)/shapes
-
 # add -DDEBUG_CUSTOM here to get extra debugging info.
 AM_CPPFLAGS = -I$(top_srcdir)/intl -I$(top_srcdir)/lib $(DEBUG_FLAGS) $(GTK_CFLAGS) \
-	$(PANGOFT2_CFLAGS) $(XML_CFLAGS) $(UNICODE_CFLAGS) \
-	-DDIA_SHAPEDIR=\""$(shapedir)"\"
+	$(PANGOFT2_CFLAGS) $(XML_CFLAGS) $(UNICODE_CFLAGS)
 
 EXTRA_DIST = \
 	pixmaps/custom.xpm

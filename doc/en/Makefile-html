@@ -1,0 +1,14 @@
+dia_html: dia.xml html.xsl ../html graphics
+	mkdir ./dia_html
+	mkdir ./dia_html/graphics
+	mkdir ./dia_html/images
+	mkdir ./dia_html/images/callouts
+	mkdir ./dia_html/css
+	cp ../html/images/*.png ./dia_html/images
+	cp ../html/images/callouts/*.png ./dia_html/images/callouts
+	cp ../html/css/*.css ./dia_html/css
+	cp ./graphics/*.png ./dia_html/graphics
+	cd ./dia_html \
+	  && xsltproc --stringparam graphic.default.extension png \
+	    ../html.xsl ../dia.xml
+

@@ -126,7 +126,7 @@ PyDiaSheet_GetAttr(PyDiaSheet *self, gchar *attr)
 }
 
 PyTypeObject PyDiaSheet_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
+    PyObject_HEAD_INIT(NULL)
     0,
     "dia.Sheet",
     sizeof(PyDiaSheet),

@@ -11,11 +11,8 @@ AM_CPPFLAGS = \
 	$(GTK_MAC_CFLAGS) \
 	$(LIBART_CFLAGS) \
 	-DPREFIX=\""$(prefix)"\" \
-	-DSYSCONFDIR=\""$(sysconfdir)"\" \
 	-DDATADIR=\""$(datadir)"\" \
-	-DLIBDIR=\""$(libdir)"\" \
-	-DLOCALEDIR=\"$(localedir)\" \
-	-DUIDATADIR=\"$(uidatadir)\"
+	-DLOCALEDIR=\"$(localedir)\"
 
 
 
@@ -46,17 +43,17 @@ ICON_PNG_PAIRS= \
 	dia_diagram_icon $(srcdir)/pixmaps/dia-diagram.png \
 	dia_app_icon $(srcdir)/pixmaps/dia-app.png \
 	\
-	dia_objects_layer_above $(srcdir)/pixmaps/objects-layer-above.png \
-	dia_objects_layer_below $(srcdir)/pixmaps/objects-layer-below.png \
-	dia_layers $(srcdir)/pixmaps/layers.png \
-	dia_layer_add $(srcdir)/pixmaps/layer-add.png \
-	dia_layer_rename $(srcdir)/pixmaps/layer-rename.png \
+	dia_objects_layer_above_icon $(srcdir)/pixmaps/objects-layer-above.png \
+	dia_objects_layer_below_icon $(srcdir)/pixmaps/objects-layer-below.png \
+	dia_layers_icon $(srcdir)/pixmaps/layers.png \
+	dia_layer_add_icon $(srcdir)/pixmaps/layer-add.png \
+	dia_layer_rename_icon $(srcdir)/pixmaps/layer-rename.png \
 	\
-	dia_cursor_create $(srcdir)/pixmaps/cursor-create.png \
-	dia_cursor_hand_open $(srcdir)/pixmaps/cursor-hand-open.png \
-	dia_cursor_hand_closed $(srcdir)/pixmaps/cursor-hand-closed.png \
-	dia_cursor_magnify_minus $(srcdir)/pixmaps/cursor-magnify-minus.png \
-	dia_cursor_magnify_plus $(srcdir)/pixmaps/cursor-magnify-plus.png
+	dia_cursor_create_icon $(srcdir)/pixmaps/cursor-create.png \
+	dia_cursor_hand_open_icon $(srcdir)/pixmaps/cursor-hand-open.png \
+	dia_cursor_hand_closed_icon $(srcdir)/pixmaps/cursor-hand-closed.png \
+	dia_cursor_magnify_minus_icon $(srcdir)/pixmaps/cursor-magnify-minus.png \
+	dia_cursor_magnify_plus_icon $(srcdir)/pixmaps/cursor-magnify-plus.png
 	
 
 ICON_PNGS= \

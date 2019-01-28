@@ -42,7 +42,7 @@ SHAPES = \
 	hresistor_de.png \
 	hpowersource_de.shape \
 	hpowersource_de.png \
-        vpowersource_de.shape \
+	vpowersource_de.shape \
 	vpowersource_de.png \
 	lamp_de.shape \
 	lamp_de.png \
