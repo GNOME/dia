@@ -819,29 +819,21 @@ ddisplay_canvas_events (GtkWidget *canvas,
 	      hold_data.tag = g_timeout_add(1000, hold_timeout_handler, NULL);
               break;
             case 2:
-              if (ddisp->menu_bar == NULL && !is_integrated_ui()) {
-                popup_object_menu(ddisp, event);
+              if (!transient_tool) {
+                gtk_widget_grab_focus(canvas);
+                transient_tool = create_scroll_tool();
+                (*transient_tool->button_press_func) (transient_tool, bevent, ddisp);
               }
-	      else if (!transient_tool) {
-		gtk_widget_grab_focus(canvas);
-		transient_tool = create_scroll_tool();
-		(*transient_tool->button_press_func) (transient_tool, bevent, ddisp);
-	      }
               break;
 
             case 3:
               if (transient_tool)
                 break;
               if (ddisp->menu_bar == NULL) {
-                if (bevent->state & GDK_CONTROL_MASK || is_integrated_ui ()) {
-                      /* for two button mouse users ... */
-                  popup_object_menu(ddisp, event);
-                  break;
-                }
-                ddisplay_popup_menu(ddisp, bevent);
+                /* for two button mouse users ... */
+                popup_object_menu(ddisp, event);
                 break;
-              }
-              else {
+              } else {
                 popup_object_menu(ddisp, event);
                 break;
               }

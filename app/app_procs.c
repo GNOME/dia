@@ -617,7 +617,6 @@ app_init (int argc, char **argv)
 {
   static gboolean nosplash = FALSE;
   static gboolean nonew = FALSE;
-  static gboolean use_integrated_ui = TRUE;
   static gboolean credits = FALSE;
   static gboolean list_filters = FALSE;
   static gboolean version = FALSE;
@@ -650,8 +649,6 @@ app_init (int argc, char **argv)
      N_("Don't show the splash screen"), NULL },
     {"nonew", 'n', 0, G_OPTION_ARG_NONE, &nonew,
      N_("Don't create an empty diagram"), NULL },
-    {"classic", '\0', G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &use_integrated_ui,
-     N_("Start classic user interface (no diagrams in tabs)"), NULL },
     {"log-to-stderr", 'l', 0, G_OPTION_ARG_NONE, &log_to_stderr,
      N_("Send error messages to stderr instead of showing dialogs."), NULL },
     {"input-directory", 'I', 0, G_OPTION_ARG_CALLBACK, _check_option_input_directory,
@@ -676,8 +673,8 @@ app_init (int argc, char **argv)
   options[1].arg_data = &export_file_format;
   options[3].arg_data = &size;
   options[4].arg_data = &show_layers;
-  g_assert (strcmp (options[14].long_name, G_OPTION_REMAINING) == 0);
-  options[14].arg_data = (void*)&filenames;
+  g_assert (strcmp (options[13].long_name, G_OPTION_REMAINING) == 0);
+  options[13].arg_data = (void*)&filenames;
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
@@ -851,14 +848,7 @@ app_init (int argc, char **argv)
     active_tool = create_modify_tool();
 
     dia_log_message ("ui creation");
-    if (use_integrated_ui) {
-      create_integrated_ui();
-    } else {
-      create_toolbox();
-      /* for the integrated ui case it is integrated */
-      persistence_register_window_create("layer_window",
-				         (NullaryFunc*)&layer_dialog_create);
-    }
+    create_integrated_ui();
     /*fill recent file menu */
     recent_file_history_init();
 
@@ -882,29 +872,14 @@ app_init (int argc, char **argv)
 					 input_directory, output_directory);
 
   if (dia_is_interactive && files == NULL && !nonew) {
-    if (use_integrated_ui) {
-      GList * list;
+    GList * list;
 
-      file_new_callback(NULL);  
-      list = dia_open_diagrams();
-      if (list) {
-        Diagram * diagram = list->data;
-        diagram_update_extents(diagram);
-        diagram->is_default = TRUE;
-      }
-    } else {
-      gchar *filename = g_filename_from_utf8(_("Diagram1.dia"), -1, NULL, NULL, NULL);
-      Diagram *diagram = new_diagram (filename);
-      g_free(filename);
-    
-      if (diagram != NULL) {
-        diagram_update_extents(diagram);
-        diagram->is_default = TRUE;
-        /* I think this is done in diagram_init() with a call to 
-         * layer_dialog_update_diagram_list() */
-        layer_dialog_set_diagram(diagram);
-        new_display(diagram); 
-      }
+    file_new_callback(NULL);  
+    list = dia_open_diagrams();
+    if (list) {
+      Diagram * diagram = list->data;
+      diagram_update_extents(diagram);
+      diagram->is_default = TRUE;
     }
   }
   g_slist_free(files);
@@ -934,112 +909,67 @@ app_exit(void)
   }
 
   if (diagram_modified_exists()) {
-    if (is_integrated_ui ())
-    {
-      GtkWidget                *dialog;
-      int                       result;
-      exit_dialog_item_array_t *items  = NULL;
-      GList *                   list; 
-      Diagram *                 diagram;
-      
-      dialog = exit_dialog_make (GTK_WINDOW (interface_get_toolbox_shell ()), 
-                                _("Exiting Dia"));
+    GtkWidget                *dialog;
+    int                       result;
+    exit_dialog_item_array_t *items  = NULL;
+    GList *                   list; 
+    Diagram *                 diagram;
+    
+    dialog = exit_dialog_make (GTK_WINDOW (interface_get_toolbox_shell ()), 
+                              _("Exiting Dia"));
 
-      list = dia_open_diagrams();
-      while (list)
-      {
-        diagram = list->data;
+    list = dia_open_diagrams();
+    while (list) {
+      diagram = list->data;
 
-        if (diagram_is_modified (diagram))
-        {
-          const gchar * name = diagram_get_name (diagram);
-          const gchar * path = diagram->filename;
-          exit_dialog_add_item (dialog, name, path, diagram);
+      if (diagram_is_modified (diagram)) {
+        const gchar * name = diagram_get_name (diagram);
+        const gchar * path = diagram->filename;
+        exit_dialog_add_item (dialog, name, path, diagram);
+      }
+
+      list = g_list_next (list);
+    }
+
+    result = exit_dialog_run (dialog, &items);
+
+    gtk_widget_destroy (dialog);
+
+    if (result == EXIT_DIALOG_EXIT_CANCEL) {
+      return FALSE;
+    } else if (result == EXIT_DIALOG_EXIT_SAVE_SELECTED) {
+      DiaContext *ctx = dia_context_new(_("Save"));
+      int i;
+      for (i = 0 ; i < items->array_size ; i++) {
+        gchar *filename;
+
+        diagram  = items->array[i].data;
+        filename = g_filename_from_utf8 (diagram->filename, -1, NULL, NULL, NULL);
+        diagram_update_extents (diagram);
+        dia_context_set_filename (ctx, filename);
+        if (!diagram_save (diagram, filename, ctx)) {
+          exit_dialog_free_items (items);
+          dia_context_release (ctx);
+          return FALSE;
+        } else {
+          dia_context_reset (ctx);
         }
-
+        g_free (filename);
+      }
+      dia_context_release (ctx);
+      exit_dialog_free_items (items);
+    } else if (result == EXIT_DIALOG_EXIT_NO_SAVE)  {
+      list = dia_open_diagrams();
+      while (list) {
+        diagram = list->data;
+        
+        /* slight hack: don't ask again */
+        diagram_set_modified (diagram, FALSE);
+        undo_clear(diagram->undo);
         list = g_list_next (list);
       }
-
-      result = exit_dialog_run (dialog, &items);
-  
-      gtk_widget_destroy (dialog);
-
-      if (result == EXIT_DIALOG_EXIT_CANCEL)
-      {
-        return FALSE;
-      }
-      else if (result == EXIT_DIALOG_EXIT_SAVE_SELECTED)
-      {
-	    DiaContext *ctx = dia_context_new(_("Save"));
-        int i;
-        for (i = 0 ; i < items->array_size ; i++) {
-	  gchar *filename;
-
-	  diagram  = items->array[i].data;
-	  filename = g_filename_from_utf8 (diagram->filename, -1, NULL, NULL, NULL);
-	  diagram_update_extents (diagram);
-	  dia_context_set_filename (ctx, filename);
-	  if (!diagram_save (diagram, filename, ctx)) {
-	    exit_dialog_free_items (items);
-	    dia_context_release (ctx);
-	    return FALSE;
-	  } else {
-	    dia_context_reset (ctx);
-	  }
-	  g_free (filename);
-	}
-	dia_context_release (ctx);
-	exit_dialog_free_items (items);
-      } 
-      else if (result == EXIT_DIALOG_EXIT_NO_SAVE) 
-      {
-        list = dia_open_diagrams();
-        while (list) {
-          diagram = list->data;
-
-	  /* slight hack: don't ask again */
-          diagram_set_modified (diagram, FALSE);
-	  undo_clear(diagram->undo);
-          list = g_list_next (list);
-	}
-      }
     }
-    else
-    {
-    GtkWidget *dialog;
-    GtkWidget *button;
-    dialog = gtk_message_dialog_new(
-	       NULL, GTK_DIALOG_MODAL,
-               GTK_MESSAGE_QUESTION,
-               GTK_BUTTONS_NONE, /* no standard buttons */
-	       _("Quitting without saving modified diagrams"));
-    gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
-		 _("Modified diagrams exist. "
-		 "Are you sure you want to quit Dia "
- 		 "without saving them?"));
-
-    gtk_window_set_title (GTK_WINDOW(dialog), _("Quit Dia"));
-  
-    button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
-    gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_CANCEL);
-#if GTK_CHECK_VERSION(2,18,0)
-    gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
-#else
-    GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-#endif
-    gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_CANCEL);
-
-    button = gtk_button_new_from_stock (GTK_STOCK_QUIT);
-    gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_OK);
-
-    gtk_widget_show_all (dialog);
-
-    if (gtk_dialog_run(GTK_DIALOG(dialog)) != GTK_RESPONSE_OK) {
-      gtk_widget_destroy(dialog);
-      return FALSE;
-    }
-    gtk_widget_destroy(dialog);
-    }
+    
   }
   prefs_save();
 

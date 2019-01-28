@@ -1074,19 +1074,6 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
     *accel_group = gtk_ui_manager_get_accel_group (_ui_manager);
 }
 
-void
-menus_get_toolbox_menubar (GtkWidget     **menubar,
-			   GtkAccelGroup **accel_group)
-{
-  if (initialise)
-    menus_init();
-
-  if (menubar)
-    *menubar = gtk_ui_manager_get_widget (_ui_manager, TOOLBOX_MENU);
-  if (accel_group)
-    *accel_group = gtk_ui_manager_get_accel_group (_ui_manager);
-}
-
 GtkWidget * 
 menus_get_display_popup (void)
 {
@@ -1094,18 +1081,6 @@ menus_get_display_popup (void)
     menus_init();
 
   return display_menubar;
-}
-
-GtkAccelGroup * 
-menus_get_display_accels (void)
-{
-  /* for integrated-ui the accels are delivered by menus_get_integrated_ui_menubar() */
-  g_return_val_if_fail (is_integrated_ui () == FALSE, NULL);
-
-  if (initialise)
-    menus_init();
-
-  return display_accels;
 }
 
 GtkWidget *
@@ -1201,10 +1176,7 @@ menus_set_recent (GtkActionGroup *actions)
   guint id;
   const char   *recent_path;
 
-  if (is_integrated_ui ())
-    recent_path = INTEGRATED_MENU "/File/FileRecentEnd";
-  else
-    recent_path = TOOLBOX_MENU "/File/FileRecentEnd";
+  recent_path = INTEGRATED_MENU "/File/FileRecentEnd";
 
   if (recent_actions) {
     menus_clear_recent ();

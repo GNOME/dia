@@ -41,9 +41,7 @@ integrated_ui_toolbar_object_snap_synchronize_to_display (gpointer ddisp);
 /* TODO: rename: menus_get_integrated_ui_menubar() */
 void            menus_get_integrated_ui_menubar  (GtkWidget **menubar, GtkWidget **toolbar, 
                                                   GtkAccelGroup **accel);
-void            menus_get_toolbox_menubar        (GtkWidget **menubar, GtkAccelGroup **accel);
 GtkWidget     * menus_get_display_popup          (void);
-GtkAccelGroup * menus_get_display_accels         (void);
 GtkWidget *     menus_create_display_menubar     (GtkUIManager **ui_manager, GtkActionGroup **actions);
 
 GtkActionGroup *menus_get_tool_actions (void);

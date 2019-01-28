@@ -66,22 +66,9 @@ update_zoom_status(DDisplay *ddisp)
 {
   gchar* zoom_text;
 
-  if (is_integrated_ui ())
-  {
-    zoom_text = g_strdup_printf("%.0f%%",
-	   ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
+  zoom_text = g_strdup_printf ("%.0f%%", ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
 
-    integrated_ui_toolbar_set_zoom_text (ddisp->common_toolbar, zoom_text);  
-  }
-  else
-  {
-    GtkWidget *zoomcombo;
-    zoom_text = g_strdup_printf("%.1f%%",
-	     ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
-    zoomcombo = ddisp->zoom_status;
-    gtk_entry_set_text(GTK_ENTRY (g_object_get_data (G_OBJECT(zoomcombo), "user_data")),
-		       zoom_text);
-  }
+  integrated_ui_toolbar_set_zoom_text (ddisp->common_toolbar, zoom_text);
 
   g_free(zoom_text); /* Copied by gtk_entry_set_text */
 }
@@ -833,8 +820,7 @@ ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap)
   ddisp->grid.snap = snap;
 
   snap_to_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
-  if (is_integrated_ui ())
-    integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
+  integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
   /* Currently, this can cause double emit, but that's a small problem. */
   gtk_toggle_action_set_active (snap_to_grid, ddisp->grid.snap);
   ddisplay_update_statusbar(ddisp);
@@ -860,8 +846,7 @@ ddisplay_set_snap_to_objects(DDisplay *ddisp, gboolean magnetic)
   ddisp->mainpoint_magnetism = magnetic;
 
   mainpoint_magnetism = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptoobjects"));
-  if (is_integrated_ui ())
-    integrated_ui_toolbar_object_snap_synchronize_to_display (ddisp);
+  integrated_ui_toolbar_object_snap_synchronize_to_display (ddisp);
   /* Currently, this can cause double emit, but that's a small problem. */
   gtk_toggle_action_set_active (mainpoint_magnetism, ddisp->mainpoint_magnetism);
   ddisplay_update_statusbar(ddisp);
@@ -1603,10 +1588,6 @@ display_set_active(DDisplay *ddisp)
 
         gtk_window_present (GTK_WINDOW(ddisp->shell));
       }
-    } else {
-      /* TODO: Prevent gtk_window_set_transient_for() in Integrated UI case */
-      gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
-                                   NULL);
     }
   }
 }

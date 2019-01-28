@@ -67,8 +67,6 @@ struct DiaPreferences {
   int fixed_icon_size;
 
   int toolbox_on_top;
-
-  int use_integrated_ui;
   
   /* a dedicated filter name or NULL */
   struct {

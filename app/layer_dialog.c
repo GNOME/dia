@@ -674,26 +674,9 @@ layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata)
   }
 }
 
-
-static void
-layer_dialog_select_diagram_callback(GtkWidget *widget, gpointer gdata)
-{
-  Diagram *dia = (Diagram *) gdata;
-
-  layer_dialog_set_diagram(dia);
-}
-     
 void
 layer_dialog_update_diagram_list(void)
 {
-  GtkWidget *new_menu;
-  GtkWidget *menu_item;
-  GList *dia_list;
-  Diagram *dia;
-  char *filename;
-  int i;
-  int current_nr;
-
   if (layer_dialog == NULL || layer_dialog->dialog == NULL) {
     if (!dia_open_diagrams())
       return; /* shortcut; maybe session end w/o this dialog */
@@ -701,78 +684,12 @@ layer_dialog_update_diagram_list(void)
       layer_dialog_create();
   }
   g_assert(layer_dialog != NULL); /* must be valid now */
-  /* oh this options: here integrated UI ;( */
-  if (!layer_dialog->diagram_omenu)
-    return;
-        
-  new_menu = gtk_menu_new();
-
-  current_nr = -1;
-  
-  i = 0;
-  dia_list = dia_open_diagrams();
-  while (dia_list != NULL) {
-    dia = (Diagram *) dia_list->data;
-
-    if (dia == layer_dialog->diagram) {
-      current_nr = i;
-    }
-    
-    filename = strrchr(dia->filename, G_DIR_SEPARATOR);
-    if (filename==NULL) {
-      filename = dia->filename;
-    } else {
-      filename++;
-    }
-
-    menu_item = gtk_menu_item_new_with_label(filename);
-
-    g_signal_connect (G_OBJECT (menu_item), "activate",
-		      G_CALLBACK (layer_dialog_select_diagram_callback), dia);
-
-    gtk_menu_append( GTK_MENU(new_menu), menu_item);
-    gtk_widget_show (menu_item);
-
-    dia_list = g_list_next(dia_list);
-    i++;
-  }
-
-  if (dia_open_diagrams()==NULL) {
-    menu_item = gtk_menu_item_new_with_label (_("none"));
-    g_signal_connect (G_OBJECT (menu_item), "activate",
-		      G_CALLBACK (layer_dialog_select_diagram_callback), NULL);
-    gtk_menu_append( GTK_MENU(new_menu), menu_item);
-    gtk_widget_show (menu_item);
-  }
-  
-  gtk_option_menu_remove_menu(GTK_OPTION_MENU(layer_dialog->diagram_omenu));
-
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(layer_dialog->diagram_omenu),
-			   new_menu);
-
-  gtk_option_menu_set_history(GTK_OPTION_MENU(layer_dialog->diagram_omenu),
-			      current_nr);
-  gtk_menu_set_active(GTK_MENU(new_menu), current_nr);
-
-  if (current_nr == -1) {
-    dia = NULL;
-    if (dia_open_diagrams()!=NULL) {
-      dia = (Diagram *) dia_open_diagrams()->data;
-    }
-    layer_dialog_set_diagram(dia);
-  }
 }
 
 void
 layer_dialog_show()
 {
-  if (is_integrated_ui () == FALSE)
-  {   
-  if (layer_dialog == NULL || layer_dialog->dialog == NULL)
-    layer_dialog_create();
-  g_assert(layer_dialog != NULL); /* must be valid now */
-  gtk_window_present(GTK_WINDOW(layer_dialog->dialog));
-  }
+  /* TODO: Remove */
 }
 
 /*

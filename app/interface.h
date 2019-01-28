@@ -36,19 +36,14 @@ void     integrated_ui_statusbar_show (gboolean show);
 gboolean integrated_ui_layer_view_is_showing (void);
 void     integrated_ui_layer_view_show (gboolean show);
 
-int is_integrated_ui (void);
-
 void create_display_shell(DDisplay *ddisp,
 			  int width, int height,
 			  char *title, int use_mbar);
 
-void create_toolbox (void);
 void toolbox_show(void);
 void toolbox_hide(void);
 
 GtkWidget *interface_get_toolbox_shell(void);
-
-void create_integrated_ui (void);
 
 void create_sheets(GtkWidget *parent);
 extern GtkWidget *modify_tool_button;

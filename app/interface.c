@@ -127,17 +127,6 @@ static struct
     GtkWidget    * layer_view;
 } ui;
 
-/** 
- * Used to determine if the current user interface is the integrated interface or 
- * the distributed interface.  This cannot presently be determined by the preferences
- * setting because changing that setting at run time does not change the interface.
- * @return Non-zero if the integrated interface is present, else zero.
- */
-int is_integrated_ui (void)
-{
-  return ui.main_window == NULL? 0 : 1;
-}
-
 static void
 grid_toggle_snap(GtkWidget *widget, gpointer data)
 {
@@ -376,11 +365,7 @@ canvas_configure_event (GtkWidget         *widget,
     new_size = TRUE;
   }
 
-  /* If the UI is not integrated, resizing should set the resized
-   * window as active.  With integrated UI, there is only one window.
-   */
-  if (is_integrated_ui () == 0)
-    display_set_active(ddisp);
+  display_set_active (ddisp);
 
   /* continue propagation with FALSE */
   return new_size;
@@ -651,203 +636,14 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
  * @param use_mbar Flag to indicate whether to add a menubar to the window
  */
 void
-create_display_shell(DDisplay *ddisp,
-		     int width, int height,
-		     char *title, int use_mbar)
+create_display_shell (DDisplay *ddisp,
+                      int       width,
+                      int       height,
+                      char     *title,
+                      int       use_mbar)
 {
-  GtkWidget *table, *widget;
-  GtkWidget *status_hbox;
-  GtkWidget *root_vbox = NULL;
-  GtkWidget *zoom_hbox, *zoom_label;
-  int s_width, s_height;
-
-  if (app_is_interactive() && is_integrated_ui())
-  {
-    use_integrated_ui_for_display_shell(ddisp, title);
-    return;
-  }
- 
-  ddisp->is_standalone_window = TRUE;
-  ddisp->container            = NULL;
-
-  s_width = gdk_screen_width ();
-  s_height = gdk_screen_height ();
-  if (width > s_width)
-    width = s_width;
-  if (height > s_height)
-    height = s_height;
-
-  /*  The toplevel shell */
-  ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
-  gtk_window_set_role (GTK_WINDOW (ddisp->shell), "diagram_window");
-  gtk_window_set_icon_name (GTK_WINDOW (ddisp->shell), "dia");
-  gtk_window_set_default_size(GTK_WINDOW (ddisp->shell), width, height);
-  /* set_icon_name needs registered theme icons, not always available: provide fallback */
-  if (!gtk_window_get_icon (GTK_WINDOW (ddisp->shell))) {
-    static GdkPixbuf *pixbuf = NULL;
-
-    if (!pixbuf)
-      pixbuf = gdk_pixbuf_new_from_inline(-1, dia_diagram_icon, FALSE, NULL);
-    if (pixbuf)
-      gtk_window_set_icon (GTK_WINDOW (ddisp->shell), pixbuf);
-  }
-
-  g_object_set_data (G_OBJECT (ddisp->shell), "user_data", (gpointer) ddisp);
-
-  _ddisplay_setup_events (ddisp, ddisp->shell);
-  /* following two not shared with integrated UI */
-  g_signal_connect (G_OBJECT (ddisp->shell), "delete_event",
-		    G_CALLBACK (ddisplay_delete), ddisp);
-  g_signal_connect (G_OBJECT (ddisp->shell), "destroy",
-		    G_CALLBACK (ddisplay_destroy), ddisp);
-
-  /*  the table containing all widgets  */
-  table = gtk_table_new (4, 3, FALSE);
-  gtk_table_set_col_spacing (GTK_TABLE (table), 0, 1);
-  gtk_table_set_col_spacing (GTK_TABLE (table), 1, 2);
-  gtk_table_set_row_spacing (GTK_TABLE (table), 0, 1);
-  gtk_table_set_row_spacing (GTK_TABLE (table), 1, 2);
-  gtk_container_set_border_width (GTK_CONTAINER (table), 2);
-  if (use_mbar) 
-  {
-      root_vbox = gtk_vbox_new (FALSE, 1);
-      gtk_container_add (GTK_CONTAINER (ddisp->shell), root_vbox);
-      gtk_box_pack_end (GTK_BOX (root_vbox), table, TRUE, TRUE, 0);
-  }
-  else
-  {
-      gtk_container_add (GTK_CONTAINER (ddisp->shell), table);
-  }
-  
-
-  /*  scrollbars, rulers, canvas, menu popup button  */
-  if (!use_mbar) {
-      ddisp->origin = gtk_button_new();
-#if GTK_CHECK_VERSION(2,18,0)
-      gtk_widget_set_can_focus (ddisp->origin, FALSE);
-#else
-      GTK_WIDGET_UNSET_FLAGS(ddisp->origin, GTK_CAN_FOCUS);
-#endif
-      widget = gtk_arrow_new(GTK_ARROW_RIGHT, GTK_SHADOW_OUT);
-      gtk_container_add(GTK_CONTAINER(ddisp->origin), widget);
-      gtk_widget_set_tooltip_text(widget, _("Diagram menu."));
-      gtk_widget_show(widget);
-      g_signal_connect(G_OBJECT(ddisp->origin), "button_press_event",
-		     G_CALLBACK(origin_button_press), ddisp);
-  }
-  else {
-      ddisp->origin = gtk_frame_new (NULL);
-      gtk_frame_set_shadow_type (GTK_FRAME (ddisp->origin), GTK_SHADOW_OUT);
-  }
-  
-  _ddisplay_setup_rulers (ddisp, ddisp->shell, table);
-  _ddisplay_setup_scrollbars (ddisp, table, width, height);
-  _ddisplay_setup_navigation (ddisp, table, FALSE);
-
-  ddisp->canvas = create_canvas (ddisp);
-
-  /*  pack all remaining widgets  */
-  gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
-                    GTK_FILL, GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
-
-  /* TODO rob use per window accel */
-  ddisp->accel_group = menus_get_display_accels ();
-  gtk_window_add_accel_group(GTK_WINDOW(ddisp->shell), ddisp->accel_group);
-
-  if (use_mbar) {
-    ddisp->menu_bar = menus_create_display_menubar (&ddisp->ui_manager, &ddisp->actions);
-    g_assert (ddisp->menu_bar);
-    gtk_box_pack_start (GTK_BOX (root_vbox), ddisp->menu_bar, FALSE, TRUE, 0);
-  }
-
-  /* the statusbars */
-  status_hbox = gtk_hbox_new (FALSE, 2);
-
-  /* Zoom status pseudo-optionmenu */
-  ddisp->zoom_status = create_zoom_widget(ddisp);
-  zoom_hbox = gtk_hbox_new(FALSE, 0);
-  zoom_label = gtk_label_new(_("Zoom"));
-  gtk_box_pack_start (GTK_BOX(zoom_hbox), zoom_label,
-		      FALSE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX(zoom_hbox), ddisp->zoom_status,
-		      FALSE, FALSE, 0);
-
-  gtk_box_pack_start (GTK_BOX (status_hbox), zoom_hbox, FALSE, FALSE, 0);
-
-  /* Grid on/off button */
-  ddisp->grid_status = dia_toggle_button_new_with_icons(dia_on_grid_icon,
-							dia_off_grid_icon);
-  
-  g_signal_connect(G_OBJECT(ddisp->grid_status), "toggled",
-		   G_CALLBACK (grid_toggle_snap), ddisp);
-  gtk_widget_set_tooltip_text(ddisp->grid_status,
-		       _("Toggles snap-to-grid for this window."));
-  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->grid_status,
-		      FALSE, FALSE, 0);
-
-
-  ddisp->mainpoint_status = dia_toggle_button_new_with_icons(dia_mainpoints_on_icon,
-							dia_mainpoints_off_icon);
-  
-  g_signal_connect(G_OBJECT(ddisp->mainpoint_status), "toggled",
-		   G_CALLBACK (interface_toggle_mainpoint_magnetism), ddisp);
-  gtk_widget_set_tooltip_text(ddisp->mainpoint_status,
-		       _("Toggles object snapping for this window."));
-  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->mainpoint_status,
-		      FALSE, FALSE, 0);
-
-
-  /* Statusbar */
-  ddisp->modified_status = gtk_statusbar_new ();
-
-  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->modified_status,
-		      TRUE, TRUE, 0);
-
-  gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
-                    GTK_FILL, GTK_FILL, 0, 0);
-
-  display_rulers_show (ddisp);
-  gtk_widget_show (ddisp->zoom_status);
-  gtk_widget_show (zoom_hbox);
-  gtk_widget_show (zoom_label);
-  gtk_widget_show (ddisp->grid_status);
-  gtk_widget_show (ddisp->mainpoint_status);
-  gtk_widget_show (ddisp->modified_status);
-  gtk_widget_show (status_hbox);
-  gtk_widget_show (table);
-  if (use_mbar) 
-  {
-      gtk_widget_show (ddisp->menu_bar);
-      gtk_widget_show (root_vbox);
-  }
-  gtk_widget_show (ddisp->shell);
-
-  /* before showing up, checking canvas's REAL size */
-  if (use_mbar && ddisp->hrule->allocation.width > width) 
-  {
-    /* The menubar is not shrinkable, so the shell will have at least
-     * the menubar's width. If the diagram's requested width is smaller,
-     * the canvas will be enlarged to fit the place. In this case, we
-     * need to adjust the horizontal scrollbar according to the size
-     * that will be allocated, which the same as the hrule got.
-     */
-
-    width = ddisp->hrule->allocation.width;
-
-    gtk_adjustment_set_upper (ddisp->hsbdata, width);
-    gtk_adjustment_set_page_increment (ddisp->hsbdata, (width - 1) / 4);
-    gtk_adjustment_set_page_size (ddisp->hsbdata, width - 1);
-
-    gtk_adjustment_changed (GTK_ADJUSTMENT(ddisp->hsbdata));
-  }
-  gtk_widget_show (ddisp->canvas);
-
-  /*  set the focus to the canvas area  */
-  gtk_widget_grab_focus (ddisp->canvas);
+  /* TODO: Merge function */
+  use_integrated_ui_for_display_shell (ddisp, title);
 }
 
 /**
@@ -1074,57 +870,6 @@ create_integrated_ui (void)
   toolbox_shell = window;
 }
 
-/**
- * Create toolbox component for distributed user interface 
- */
-void
-create_toolbox ()
-{
-  GtkWidget *window;
-  GtkWidget *main_vbox;
-  GtkWidget *wrapbox;
-  GtkWidget *menubar;
-  GtkAccelGroup *accel_group;
-
-  window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  g_object_ref(window);
-  gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
-  gtk_window_set_role (GTK_WINDOW (window), "toolbox_window");
-  gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
-
-  app_set_icon (GTK_WINDOW (window));
-
-  g_signal_connect (G_OBJECT (window), "delete_event",
-		    G_CALLBACK (toolbox_delete), window);
-  g_signal_connect (G_OBJECT (window), "destroy",
-		    G_CALLBACK (toolbox_destroy), window);
-
-  main_vbox = gtk_vbox_new (FALSE, 1);
-  gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
-  gtk_container_add (GTK_CONTAINER (window), main_vbox);
-
-  wrapbox = toolbox_create();
-  gtk_box_pack_end (GTK_BOX (main_vbox), wrapbox, TRUE, TRUE, 0);
-  g_signal_connect (G_OBJECT (wrapbox), "drag_data_received",
-		    G_CALLBACK (dia_dnd_file_drag_data_received),
-                    NULL); /* userdata == NULL here intentionally */
-  gtk_widget_show (main_vbox);
-
-  /* menus -- initialised afterwards, because initing the display menus
-   * uses the tool buttons*/
-  menus_get_toolbox_menubar(&menubar, &accel_group);
-  gtk_window_add_accel_group (GTK_WINDOW (window), accel_group);
-  gtk_widget_show (menubar);
-#  ifdef HAVE_MAC_INTEGRATION
-  _create_mac_integration (menubar);
-#  else
-  gtk_box_pack_start (GTK_BOX (main_vbox), menubar, FALSE, TRUE, 0);
-#  endif
-  persistence_register_window(GTK_WINDOW(window));
-
-  toolbox_shell = window;
-}
-
 void
 toolbox_show(void)
 {
@@ -1140,10 +885,7 @@ toolbox_hide(void)
 GtkWidget *
 interface_get_toolbox_shell(void)
 {
-  if (is_integrated_ui ())
-    return GTK_WIDGET(ui.main_window);
-
-  return toolbox_shell;
+  return GTK_WIDGET(ui.main_window);
 }
 
 /* Indicate if the integrated UI toolbar is showing.
