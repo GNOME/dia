@@ -42,3 +42,7 @@ doc/*/graphics/*.eps
 doc/*/.epsfigures
 doc/*/dia_html
 /build/win32/Thumbs.db
+compile
+.vscode/settings.json
+tests/sizeof
+tests/testsvg

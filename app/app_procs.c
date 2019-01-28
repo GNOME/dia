@@ -72,6 +72,8 @@
 #include "dialib.h"
 #include "diaerror.h"
 
+#include "dia-app-icons.h"
+
 static gboolean
 handle_initial_diagram(const char *input_file_name, 
 		       const char *export_file_name,
@@ -752,10 +754,22 @@ app_init (int argc, char **argv)
   }
 
   if (argv && dia_is_interactive) {
+    GdkPixbuf *pixbuf;
+
 #  if defined(G_THREADS_ENABLED) && !GLIB_CHECK_VERSION(2,32,0)
     g_thread_init (NULL);
 #  endif
+    g_set_application_name (_("Dia Diagram Editor"));
     gtk_init(&argc, &argv);
+
+    /* Set the icon for Dia windows & dialogs */
+    /* MESON: Use GResource */
+    /* GTK3: Use icon-name with GResource fallback */
+    pixbuf = gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL);
+    if (pixbuf) {
+      gtk_window_set_default_icon (pixbuf);
+      g_object_unref (pixbuf);
+    }
   }
   else {
 #if defined(G_THREADS_ENABLED) && !GLIB_CHECK_VERSION(2,32,0)

@@ -103,10 +103,15 @@ dia_get_data_directory(const gchar* subdir)
   g_free (sLoc);
   return returnPath;
 #else
+  gchar *base = DATADIR;
+  if (g_getenv ("DIA_BASE_PATH") != NULL) {
+    /* a small hack cause the final destination and the local path differ */
+    base = g_build_filename (g_getenv ("DIA_BASE_PATH"), "data", NULL);
+  }
   if (strlen (subdir) == 0)
-    return g_strconcat (DATADIR, NULL);
+    return g_strconcat (base, NULL);
   else
-    return g_strconcat (DATADIR, G_DIR_SEPARATOR_S, subdir, NULL);
+    return g_strconcat (base, G_DIR_SEPARATOR_S, subdir, NULL);
 #endif
 }
 

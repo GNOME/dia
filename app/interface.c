@@ -681,17 +681,7 @@ create_display_shell(DDisplay *ddisp,
   ddisp->shell = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
   gtk_window_set_role (GTK_WINDOW (ddisp->shell), "diagram_window");
-  gtk_window_set_icon_name (GTK_WINDOW (ddisp->shell), "dia");
   gtk_window_set_default_size(GTK_WINDOW (ddisp->shell), width, height);
-  /* set_icon_name needs registered theme icons, not always available: provide fallback */
-  if (!gtk_window_get_icon (GTK_WINDOW (ddisp->shell))) {
-    static GdkPixbuf *pixbuf = NULL;
-
-    if (!pixbuf)
-      pixbuf = gdk_pixbuf_new_from_inline(-1, dia_diagram_icon, FALSE, NULL);
-    if (pixbuf)
-      gtk_window_set_icon (GTK_WINDOW (ddisp->shell), pixbuf);
-  }
 
   g_object_set_data (G_OBJECT (ddisp->shell), "user_data", (gpointer) ddisp);
 
@@ -892,19 +882,6 @@ toolbox_delete (GtkWidget *widget, GdkEvent *event, gpointer data)
   return (!app_exit());
 }
 
-static void
-app_set_icon (GtkWindow *window)
-{
-  gtk_window_set_icon_name (window, "dia");
-  if (!gtk_window_get_icon (window)) {
-    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL);
-    if (pixbuf) {
-      gtk_window_set_icon (window, pixbuf);
-      g_object_unref (pixbuf);
-    }
-  }
-}
-
 #ifdef HAVE_MAC_INTEGRATION
 static gboolean
 _osx_app_exit (GtkosxApplication *app,
@@ -991,8 +968,6 @@ create_integrated_ui (void)
   
   gtk_window_set_default_size (GTK_WINDOW (window), 146, 349);
  
-  app_set_icon (GTK_WINDOW (window));
-
   g_signal_connect (G_OBJECT (window), "delete_event",
 		    G_CALLBACK (toolbox_delete),
 		      window);
@@ -1091,9 +1066,6 @@ create_toolbox ()
   gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
   gtk_window_set_role (GTK_WINDOW (window), "toolbox_window");
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
-
-  app_set_icon (GTK_WINDOW (window));
-
   g_signal_connect (G_OBJECT (window), "delete_event",
 		    G_CALLBACK (toolbox_delete), window);
   g_signal_connect (G_OBJECT (window), "destroy",
