@@ -1,5 +1,5 @@
 # Generate csource for the icons.
-icons =  [ 'broken.png', 'broken-chain.png', 'unbroken-chain.png', 'standard-path.png' ]
+icons =  [ 'standard-path.png' ]
 
 #TODO: this is duplicated in app/pixmaps, lib/pixmaps and objects/standard/pixmaps.
 # Remove from all three once we port from gdk_pixbuf_csource to GResource.

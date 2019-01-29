@@ -25,7 +25,6 @@
 #include "dia_dirs.h"
 #include "diadynamicmenu.h"
 #include "diaoptionmenu.h"
-#include "dia-lib-icons.h"
 
 #include <stdlib.h>
 #include <glib.h>
@@ -40,7 +39,7 @@
 /* A widget that selects two sizes, width and height, optionally keeping
  * aspect ratio.  When created, aspect ratio is locked, but the user can
  * unlock it.  The current users do not store aspect ratio, so we have
- * to give a good default.  
+ * to give a good default.
  */
 struct _DiaSizeSelector
 {
@@ -78,7 +77,7 @@ dia_size_selector_class_init (DiaSizeSelectorClass *class)
 static void
 dia_size_selector_adjust_width(DiaSizeSelector *ss)
 {
-  real height = 
+  real height =
     gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->height));
   if (fabs(ss->ratio) > 1e-6)
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->width), height*ss->ratio);
@@ -87,24 +86,24 @@ dia_size_selector_adjust_width(DiaSizeSelector *ss)
 static void
 dia_size_selector_adjust_height(DiaSizeSelector *ss)
 {
-  real width = 
+  real width =
     gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->width));
   if (fabs(ss->ratio) > 1e-6)
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->height), width/ss->ratio);
 }
 
 static void
-dia_size_selector_ratio_callback(GtkAdjustment *limits, gpointer userdata) 
+dia_size_selector_ratio_callback(GtkAdjustment *limits, gpointer userdata)
 {
   static gboolean in_progress = FALSE;
   DiaSizeSelector *ss = DIA_SIZE_SELECTOR(userdata);
 
   ss->last_adjusted = limits;
 
-  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked)) 
+  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked))
       && ss->ratio != 0.0) {
 
-    if (in_progress) 
+    if (in_progress)
       return;
     in_progress = TRUE;
 
@@ -125,11 +124,11 @@ dia_size_selector_ratio_callback(GtkAdjustment *limits, gpointer userdata)
  * If height is 0, ratio becomes 0.0.
  */
 static void
-dia_size_selector_set_ratio(DiaSizeSelector *ss, real width, real height) 
+dia_size_selector_set_ratio(DiaSizeSelector *ss, real width, real height)
 {
-  if (height > 0.0) 
+  if (height > 0.0)
     ss->ratio = width/height;
-  else 
+  else
     ss->ratio = 0.0;
 }
 
@@ -138,7 +137,7 @@ dia_size_selector_lock_pressed(GtkWidget *widget, gpointer data)
 {
   DiaSizeSelector *ss = DIA_SIZE_SELECTOR(data);
 
-  dia_size_selector_set_ratio(ss, 
+  dia_size_selector_set_ratio(ss,
 			      gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->width)),
 			      gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->height)));
 }
@@ -169,27 +168,26 @@ dia_size_selector_init (DiaSizeSelector *ss)
   gtk_widget_show(GTK_WIDGET(ss->height));
 
   /* Replace label with images */
-  /* should make sure they're both unallocated when the widget dies. 
+  /* should make sure they're both unallocated when the widget dies.
   * That should happen in the "destroy" handler, where both should
   * be unref'd */
-  ss->aspect_locked = 
-    GTK_TOGGLE_BUTTON(dia_toggle_button_new_with_icons
-		      (dia_unbroken_chain_icon,
-		       dia_broken_chain_icon));
+  ss->aspect_locked = GTK_TOGGLE_BUTTON (
+    dia_toggle_button_new_with_icon_names ("dia-chain-unbroken",
+                                           "dia-chain-broken"));
 
   gtk_container_set_border_width(GTK_CONTAINER(ss->aspect_locked), 0);
 
-  gtk_box_pack_start(GTK_BOX(ss), GTK_WIDGET(ss->aspect_locked), FALSE, TRUE, 0); 
+  gtk_box_pack_start(GTK_BOX(ss), GTK_WIDGET(ss->aspect_locked), FALSE, TRUE, 0);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ss->aspect_locked), TRUE);
   gtk_widget_show(GTK_WIDGET(ss->aspect_locked));
 
   g_signal_connect (G_OBJECT (ss->aspect_locked), "clicked",
                     G_CALLBACK (dia_size_selector_lock_pressed), ss);
   /* Make sure that the aspect ratio stays the same */
-  g_signal_connect(G_OBJECT(gtk_spin_button_get_adjustment(ss->width)), 
+  g_signal_connect(G_OBJECT(gtk_spin_button_get_adjustment(ss->width)),
 		   "value_changed",
 		   G_CALLBACK(dia_size_selector_ratio_callback), (gpointer)ss);
-  g_signal_connect(G_OBJECT(gtk_spin_button_get_adjustment(ss->height)), 
+  g_signal_connect(G_OBJECT(gtk_spin_button_get_adjustment(ss->height)),
 		   "value_changed",
 		   G_CALLBACK(dia_size_selector_ratio_callback), (gpointer)ss);
 }
@@ -211,7 +209,7 @@ dia_size_selector_get_type (void)
       0, /* n_preallocs */
       (GInstanceInitFunc) dia_size_selector_init
     };
-    
+
     dss_type = g_type_register_static (gtk_hbox_get_type (),
 				       "DiaSizeSelector",
 				       &dss_info, 0);
@@ -230,7 +228,7 @@ dia_size_selector_new (real width, real height)
 }
 
 void
-dia_size_selector_set_size(DiaSizeSelector *ss, real width, real height) 
+dia_size_selector_set_size(DiaSizeSelector *ss, real width, real height)
 {
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->width), width);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(ss->height), height);
@@ -246,7 +244,7 @@ dia_size_selector_set_locked(DiaSizeSelector *ss, gboolean locked)
 {
   if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ss->aspect_locked))
       && locked) {
-    dia_size_selector_set_ratio(ss, 
+    dia_size_selector_set_ratio(ss,
 				gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->width)),
 				gtk_spin_button_get_value(GTK_SPIN_BUTTON(ss->height)));
   }
@@ -273,7 +271,7 @@ dia_alignment_selector_new ()
   return omenu;
 }
 
-Alignment 
+Alignment
 dia_alignment_selector_get_alignment(GtkWidget *as)
 {
   return (Alignment)dia_option_menu_get_active (GTK_WIDGET (as));
@@ -334,7 +332,7 @@ static void
 dia_file_selector_class_init (DiaFileSelectorClass *class)
 {
   GtkWidgetClass *widget_class;
-  
+
   widget_class = (GtkWidgetClass*) class;
   widget_class->unrealize = dia_file_selector_unrealize;
 
@@ -356,15 +354,15 @@ dia_file_selector_entry_changed(GtkEditable *editable
 }
 
 static void
-file_open_response_callback(GtkWidget *dialog, 
-                            gint       response, 
+file_open_response_callback(GtkWidget *dialog,
+                            gint       response,
                             gpointer   user_data)
 {
   DiaFileSelector *fs =
     DIAFILESELECTOR(g_object_get_data(G_OBJECT(dialog), "user_data"));
 
-  if (response == GTK_RESPONSE_ACCEPT || response == GTK_RESPONSE_OK) { 
-    gchar *utf8 = g_filename_to_utf8(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)), 
+  if (response == GTK_RESPONSE_ACCEPT || response == GTK_RESPONSE_OK) {
+    gchar *utf8 = g_filename_to_utf8(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)),
                             -1, NULL, NULL, NULL);
     gtk_entry_set_text(GTK_ENTRY(fs->entry), utf8);
     g_free(utf8);
@@ -385,8 +383,8 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
 
   if (fs->dialog == NULL) {
     GtkFileFilter *filter;
-    
-    dialog = fs->dialog = 
+
+    dialog = fs->dialog =
       gtk_file_chooser_dialog_new (_("Select image file"), toplevel ? GTK_WINDOW(toplevel) : NULL,
                                    GTK_FILE_CHOOSER_ACTION_OPEN,
                                    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -394,10 +392,10 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
 				   NULL);
     gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
     g_signal_connect(G_OBJECT(dialog), "response",
-		     G_CALLBACK(file_open_response_callback), NULL);     
+		     G_CALLBACK(file_open_response_callback), NULL);
     g_signal_connect (G_OBJECT (fs->dialog), "destroy",
 		      G_CALLBACK (gtk_widget_destroyed), &fs->dialog);
-    
+
     filter = gtk_file_filter_new ();
     gtk_file_filter_set_name (filter, _("Supported Formats"));
     if (fs->pattern)
@@ -420,7 +418,7 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
     gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(fs->dialog), filename);
 
   g_free(filename);
-  
+
   gtk_widget_show(GTK_WIDGET(fs->dialog));
 }
 
@@ -463,11 +461,11 @@ dia_file_selector_get_type (void)
       0, /* n_preallocs */
       (GInstanceInitFunc)dia_file_selector_init,
     };
-    
-    dfs_type = g_type_register_static (gtk_hbox_get_type (), 
+
+    dfs_type = g_type_register_static (gtk_hbox_get_type (),
 				       "DiaFileSelector",
 				       &dfs_info, 0);
-  }  
+  }
   return dfs_type;
 }
 
@@ -567,15 +565,15 @@ GtkWidget *
 dia_unit_spinner_new(GtkAdjustment *adjustment, DiaUnit adj_unit)
 {
   DiaUnitSpinner *self;
-  
+
   if (adjustment) {
     g_return_val_if_fail (GTK_IS_ADJUSTMENT (adjustment), NULL);
   }
-  
+
   self = g_object_new(dia_unit_spinner_get_type(), NULL);
   gtk_entry_set_activates_default(GTK_ENTRY(self), TRUE);
   self->unit_num = adj_unit;
-  
+
   gtk_spin_button_configure(GTK_SPIN_BUTTON(self),
                             adjustment, 0.0, units[adj_unit].digits);
 
@@ -659,7 +657,7 @@ dia_unit_spinner_get_value(DiaUnitSpinner *self)
 }
 
 /* Must manipulate the limit values through this to also consider unit.
- * Given value is in centimeter. 
+ * Given value is in centimeter.
  */
 void
 dia_unit_spinner_set_upper (DiaUnitSpinner *self, gdouble val)
@@ -690,17 +688,17 @@ struct image_pair { GtkWidget *on; GtkWidget *off; };
 
 static void
 dia_toggle_button_swap_images(GtkToggleButton *widget,
-			      gpointer data) 
+			      gpointer data)
 {
   struct image_pair *images = (struct image_pair *)data;
   if (gtk_toggle_button_get_active(widget)) {
-    gtk_container_remove(GTK_CONTAINER(widget), 
+    gtk_container_remove(GTK_CONTAINER(widget),
 			 gtk_bin_get_child(GTK_BIN(widget)));
     gtk_container_add(GTK_CONTAINER(widget),
 		      images->on);
-    
+
   } else {
-    gtk_container_remove(GTK_CONTAINER(widget), 
+    gtk_container_remove(GTK_CONTAINER(widget),
 			 gtk_bin_get_child(GTK_BIN(widget)));
     gtk_container_add(GTK_CONTAINER(widget),
 		      images->off);
@@ -756,8 +754,8 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
   GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_DEFAULT);
 #endif
 
-  rcstyle = gtk_rc_style_new ();  
-  rcstyle->xthickness = rcstyle->ythickness = 0;       
+  rcstyle = gtk_rc_style_new ();
+  rcstyle->xthickness = rcstyle->ythickness = 0;
   gtk_widget_modify_style (button, rcstyle);
   g_object_unref (rcstyle);
 
@@ -767,7 +765,7 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
 
   gtk_container_add(GTK_CONTAINER(button), images->off);
 
-  g_signal_connect(G_OBJECT(button), "toggled", 
+  g_signal_connect(G_OBJECT(button), "toggled",
 		   G_CALLBACK(dia_toggle_button_swap_images), images);
   g_signal_connect(G_OBJECT(button), "destroy",
 		   G_CALLBACK(dia_toggle_button_destroy), images);
@@ -779,8 +777,8 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
  * for instance).  The icons represent on and off.
  */
 GtkWidget *
-dia_toggle_button_new_with_icons(const guint8 *on_icon,
-				 const guint8 *off_icon)
+dia_toggle_button_new_with_icons (const guint8 *on_icon,
+                                  const guint8 *off_icon)
 {
   GdkPixbuf *p1, *p2;
 
@@ -791,4 +789,48 @@ dia_toggle_button_new_with_icons(const guint8 *on_icon,
 			       gtk_image_new_from_pixbuf(p2));
 }
 
+/* GTK3: This is built-in (new_from_resource, add_resource_path....) */
+/* Adapted from Gtk */
+GdkPixbuf *
+pixbuf_from_resource (const gchar *path)
+{
+  GdkPixbufLoader *loader;
+  GdkPixbuf *pixbuf;
+  GBytes *bytes;
 
+  g_return_val_if_fail (path != NULL, NULL);
+
+  bytes = g_resources_lookup_data (path, G_RESOURCE_LOOKUP_FLAGS_NONE, NULL);
+
+  if (!bytes)
+    goto out;
+
+  loader = gdk_pixbuf_loader_new ();
+
+  if (!gdk_pixbuf_loader_write_bytes (loader, bytes, NULL))
+    goto out;
+
+  if (!gdk_pixbuf_loader_close (loader, NULL))
+    goto out;
+
+  pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader));
+
+ out:
+  gdk_pixbuf_loader_close (loader, NULL);
+  g_object_unref (loader);
+  g_bytes_unref (bytes);
+
+  return pixbuf;
+}
+
+GtkWidget *
+dia_toggle_button_new_with_icon_names (const gchar *on,
+                                       const gchar *off)
+{
+  GtkWidget *on_img, *off_img;
+
+  on_img = gtk_image_new_from_pixbuf (pixbuf_from_resource (g_strdup_printf ("/org/gnome/Dia/icons/%s.png", on)));
+  off_img = gtk_image_new_from_pixbuf (pixbuf_from_resource (g_strdup_printf ("/org/gnome/Dia/icons/%s.png", off)));
+
+  return dia_toggle_button_new (on_img, off_img);
+}

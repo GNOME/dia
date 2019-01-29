@@ -139,6 +139,11 @@ GtkWidget *
 dia_toggle_button_new_with_icons(const guint8 *on_icon,
 				 const guint8 *off_icon);
 
+GtkWidget *dia_toggle_button_new_with_icon_names (const gchar *on,
+                                                  const gchar *off);
+
+GdkPixbuf *pixbuf_from_resource (const gchar *path);
+
 /* Other common defaults */
 
 #define DEFAULT_ALIGNMENT ALIGN_LEFT
