@@ -106,7 +106,11 @@ diamarshal = gnome.genmarshal(
 # TODO: This is used in app/, should we install / do anything else with it?
 diamarshal_h = diamarshal[1]
 
-subdir('pixmaps')
+resources = gnome.compile_resources('libdia-resources', 'libdia.gresource.xml',
+                                    source_dir : '.',
+                                    c_name : 'libdia')
+
+subdir('icons')
 
 libdia_deps = [
     libc_dep,
@@ -121,7 +125,7 @@ libdia_deps = [
 libdia_inc = include_directories('.')
 
 libdia_lib = library('dia',
-    libdia_sources + [diamarshal, dia_lib_icons_h, config_h],
+    libdia_sources + [diamarshal, resources, config_h],
     dependencies: libdia_deps,
     include_directories: configuration_inc,
     c_args: ['-Wall', '-DLIBDIA_COMPILATION'],
