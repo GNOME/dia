@@ -266,7 +266,7 @@ add_combine_to_path_menu_items (GtkMenu *menu)
   };
   int i;
   for (i = 0; i < G_N_ELEMENTS (_ops); ++i) {
-    GtkWidget *menu_item = gtk_menu_item_new_with_label(_ops[i].name);
+    GtkWidget *menu_item = gtk_menu_item_new_with_label(_(_ops[i].name));
     g_signal_connect(G_OBJECT(menu_item), "activate",
 		     G_CALLBACK(_combine_to_path_callback), GINT_TO_POINTER (_ops[i].mode));
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);

@@ -25,13 +25,13 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include "intl.h"
 #include "geometry.h"
 #include "diagdkrenderer.h"
 #include "filter.h"
 #include "plug-ins.h"
 #include "properties.h"
 #include "object.h"
+#include "intl.h"
 
 static gboolean
 export_data(DiagramData *data, DiaContext *ctx,

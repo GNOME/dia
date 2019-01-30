@@ -488,7 +488,7 @@ object_get_displayname (DiaObject* object)
   else if ((prop = object_prop_by_name(object, "text")) != NULL)
     name = g_strdup (((TextProperty *)prop)->text_data);
 
-  if (!name)
+  if (!name || (0 == strcmp(name, "")))
     name = g_strdup (object->type->name);
 
   if (prop)

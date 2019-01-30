@@ -245,7 +245,7 @@ object_list_properties_show(Diagram *dia, GList *objects)
     DiaObjectType *otype = one_obj->type;
     gchar *buf;
     
-    buf = g_strconcat(_("Properties: "), otype->name, NULL);
+    buf = g_strconcat(_("Properties: "), _(otype->name), NULL);
     gtk_window_set_title(GTK_WINDOW(dialog), buf);
     g_free(buf);
   } else {

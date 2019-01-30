@@ -696,7 +696,7 @@ create_or_ref_tool_actions (void)
 			G_CALLBACK (tool_menu_select),
 			&tool_data[i].callback_data);
 
-      gtk_action_set_tooltip (action, tool_data[i].tool_desc);
+      gtk_action_set_tooltip (action, _(tool_data[i].tool_desc));
 
       {
         GdkPixbuf *pb = tool_get_pixbuf (&tool_data[i]);
