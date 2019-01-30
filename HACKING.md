@@ -1,53 +1,55 @@
-Dia is a program for drawing structured diagrams.
+Feel free to hack away at dia, but you're advised to contact
+the dia maintainers and/or the mailing list if you do any
+larger work --- this is in everyone's interest so that work is
+not duplicated.
 
-Dia is a GNU program, and is Free Software.  See the COPYING file for
-the licence.
+For more information on the authors, maintainers, etc., of dia,
+please see the file AUTHORS (dynamically generated).
 
-Documentation is a bit sparse at the moment.  Some info can be
-found in the doc/ directory.
+Visit the dia webpage at http://www.gnome.org/projects/dia/
+for more information on the dia mailing list and many other
+dia-related things.
 
 --
 
-I haven't had time to write anything here yet.
-Read INSTALL for some brief installation instructions.
+If you need to alter the list of contributors, documentors,
+etc., the authoritative list is in app/authors.h.
 
-Homepage for Dia is at:
- https://wiki.gnome.org/Apps/Dia
 
 Some comments about the source:
 -------------------------------
 
- Everything on the screen 'inherits' from the structure Object 
+ Everything on the screen 'inherits' from the structure Object
 in lib/object.h. (ps. this is a nice place to start reading the code.).
-Inherits in C means (as in gtk) that it begins with a copy of that structure. 
-Some base classes exists in lib/, like element.h (for doing 'box-like' 
-objects), connection.h (for doing 'line-like' objects), orth_conn.h (for doing 
-connections with orthogonal lines, like the uml-stuff) and render_object.h 
-(for doing picture-like objects). These base classes are then subclassed in 
-the different object in the object-libraries like objects/standard object/UML 
+Inherits in C means (as in gtk) that it begins with a copy of that structure.
+Some base classes exists in lib/, like element.h (for doing 'box-like'
+objects), connection.h (for doing 'line-like' objects), orth_conn.h (for doing
+connections with orthogonal lines, like the uml-stuff) and render_object.h
+(for doing picture-like objects). These base classes are then subclassed in
+the different object in the object-libraries like objects/standard object/UML
 and object/network.
 
- The objects work by filling out two structures that the main program (app/*) 
-uses to handle the objects. The ObjectType structure which consists of some 
-info and a pointer to the type-operations (create+load+save). There's one 
-ObjectType per object type currently loaded. Then the Object structure, there 
-exists a copy of this for each object of the kind on screen (and in 
-copy-buffers). This contains some info like: type, bounding_box, position, 
-handles (the rectangles you move with the mouse) and connections. It also 
-contains a pointer to the object-operations. These are called from the main 
-program when if wants the object to do something. All ops take an Object as 
-the first argument. This is usually casted to the subtype in the function 
-headed (gives all those pita warnings) so that you directly can use the info 
-stored in the subclasses. Most ops are quite self-describing, and the code can 
-be copy-pasted from an object like the one you're doing. Rendering to 
-screen/postscript is done through a 'Renderer' abstraction that can be found 
+ The objects work by filling out two structures that the main program (app/*)
+uses to handle the objects. The ObjectType structure which consists of some
+info and a pointer to the type-operations (create+load+save). There's one
+ObjectType per object type currently loaded. Then the Object structure, there
+exists a copy of this for each object of the kind on screen (and in
+copy-buffers). This contains some info like: type, bounding_box, position,
+handles (the rectangles you move with the mouse) and connections. It also
+contains a pointer to the object-operations. These are called from the main
+program when if wants the object to do something. All ops take an Object as
+the first argument. This is usually casted to the subtype in the function
+headed (gives all those pita warnings) so that you directly can use the info
+stored in the subclasses. Most ops are quite self-describing, and the code can
+be copy-pasted from an object like the one you're doing. Rendering to
+screen/postscript is done through a 'Renderer' abstraction that can be found
 in lib/render.h.
- 
+
 XML based objects:
 ------------------
 You can (from version 0.80) create new objects using a SVG like XML languange.
 The file doc/custom-shapes has more information about this.
- 
+
 Note on handles and connection points:
 --------------------------------------
 
