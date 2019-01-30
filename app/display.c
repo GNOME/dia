@@ -116,7 +116,7 @@ selection_changed (Diagram* dia, int n, DDisplay* ddisp)
     /* find the selected objects name - and display it */
     DiaObject *object = (DiaObject *)ddisp->diagram->data->selected->data;
     gchar *name = object_get_displayname (object);
-    gchar *msg = g_strdup_printf (_("Selected '%s'"), name);
+    gchar *msg = g_strdup_printf (_("Selected '%s'"), _(name));
 
     gtk_statusbar_pop (statusbar, context_id);
     gtk_statusbar_push (statusbar, context_id, msg);
