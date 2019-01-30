@@ -33,7 +33,7 @@ PluginInitResult
 dia_plugin_init(PluginInfo *info)
 {
   if (!dia_plugin_info_init(info, "shape",
-			    N_("Dia shape export filter"),
+			    _("Dia shape export filter"),
 			    NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
