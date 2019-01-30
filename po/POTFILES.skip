@@ -1,8 +1,8 @@
 dia.desktop.in
-data/sheets-edit-dialog.xml
-data/sheets-main-dialog.xml
-data/sheets-new-dialog.xml
-data/sheets-remove-dialog.xml
+data/ui/sheets-edit-dialog.xml
+data/ui/sheets-main-dialog.xml
+data/ui/sheets-new-dialog.xml
+data/ui/sheets-remove-dialog.xml
 sheets/EML.sheet.in
 po-checktrans.py
 plug-ins/layout/ogdf-simple.cpp
