@@ -1,88 +1,108 @@
+# About
+
 Dia is a program for drawing structured diagrams.
 
-Dia is a GNU program, and is Free Software.  See the COPYING file for
-the licence.
+Dia is a GNU program, and is Free Software.  See the COPYING file for the licence.
 
-Documentation is a bit sparse at the moment.  Some info can be
-found in the doc/ directory.
+The official homepage for Dia is at: https://gitlab.gnome.org/GNOME/dia
 
---
+General documentation can be found in the doc/ directory.
 
-I haven't had time to write anything here yet.
-Read INSTALL for some brief installation instructions.
+If you are thinking of contributing (either code or diagrams), please see (HACKING)[HACKING].
 
-Homepage for Dia is at:
- https://wiki.gnome.org/Apps/Dia
+For compilation and installation instructions please see (INSTALL)[INSTALL].
 
-Some comments about the source:
--------------------------------
+# Bug reporting
 
- Everything on the screen 'inherits' from the structure Object 
-in lib/object.h. (ps. this is a nice place to start reading the code.).
-Inherits in C means (as in gtk) that it begins with a copy of that structure. 
-Some base classes exists in lib/, like element.h (for doing 'box-like' 
-objects), connection.h (for doing 'line-like' objects), orth_conn.h (for doing 
-connections with orthogonal lines, like the uml-stuff) and render_object.h 
-(for doing picture-like objects). These base classes are then subclassed in 
-the different object in the object-libraries like objects/standard object/UML 
-and object/network.
+Please use the issue tracker on the GitLab page: https://gitlab.gnome.org/GNOME/dia/issues
 
- The objects work by filling out two structures that the main program (app/*) 
-uses to handle the objects. The ObjectType structure which consists of some 
-info and a pointer to the type-operations (create+load+save). There's one 
-ObjectType per object type currently loaded. Then the Object structure, there 
-exists a copy of this for each object of the kind on screen (and in 
-copy-buffers). This contains some info like: type, bounding_box, position, 
-handles (the rectangles you move with the mouse) and connections. It also 
-contains a pointer to the object-operations. These are called from the main 
-program when if wants the object to do something. All ops take an Object as 
-the first argument. This is usually casted to the subtype in the function 
-headed (gives all those pita warnings) so that you directly can use the info 
-stored in the subclasses. Most ops are quite self-describing, and the code can 
-be copy-pasted from an object like the one you're doing. Rendering to 
-screen/postscript is done through a 'Renderer' abstraction that can be found 
-in lib/render.h.
- 
-XML based objects:
-------------------
-You can (from version 0.80) create new objects using a SVG like XML languange.
-The file doc/custom-shapes has more information about this.
- 
-Note on handles and connection points:
---------------------------------------
+First, have a look at both the existing open & closed issues: maybe somebody has noticed the issues as
+well, or maybe it's included in a new version.
 
-An object has handles to resize it. A handle can be moved either because
-the user dragged it with the mouse, or the handle is attached to another
-object, which moved itself. The handles are diplayed as little squares
-(red: normal, green: attached to an object, blue: can't be moved).
+If the issue is not there, please report it.  If it, is give it a "thumbs-up" or "+1".  This helps us
+prioritise them.
 
-When the handle of an object is connected to another object, it's always
-on special points called connection points, displayed as crosses.
+# Contacting us
 
-Implementation:
-- each object has an array of pointer to ConnectionPoint.
-- each object has an array of pointer to Handle.
-- each Handle has a pointer to 1 ConnectionPoint (NULL if the handle if
-the Handle is not connected).
-- each ConnectionPoint has a list of all objects connected to it.
+If you use Dia, we would love to hear from you!
 
-The Object type does not manage the allocation/deallocation of handles and
-connection points. When saving a diagram the pointer from the handle to
-the connectionpoint is saved as the index of the connectionpoint. So make
-sure the order of the connectionpoints is the same when loading the saved
-object.
+Please feel free to send us comments/feedback/questions on our mailing list:
+https://mail.gnome.org/mailman/listinfo/dia-list
 
-Notes on static analysis
-------------------------
-Some of the recent changes (log message starting with [scan-build] are suggested
-by static source analysis, see http://clang-analyzer.llvm.org/scan-build
-To use it just run ./configure and make through the scan-build script, like:
+If you don't want to send a full email or just want to say "Hi!", we also hang out on IRC on GimpNet
+(irc.gimp.org)[irc.gimp.org] on `#dia-editor` channel.  Dia has been inactive for a few years now so
+it is very nice when we hear from people using it.
 
-PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH /mnt/Home/from-svn/llvm/tools/clang/tools/scan-build/scan-build ./configure --prefix=/opt --enable-debug=yes
-  and
-PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH /mnt/Home/from-svn/llvm/tools/clang/tools/scan-build/scan-build -v -v make -j3
-  view with
-PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH /mnt/Home/from-svn/llvm/tools/clang/tools/scan-view/scan-view
+# We're "hiring"
 
-(given an uninstalled checkout of llvm to /mnt/Home/from-svn/llvm)
+There is a lot of work to be done in order to bring Dia up to date.  Part of the reason why Dia has
+been around for so long is that it is very stable.  We intend to keep it that way.
 
+## General contributions
+
+We would love to have more people on-board helping improving Dia.  For that, the only requirement is
+patience :slight_smile:
+Software quality comes not from the code itself, but how people develop that code.  As such, we need
+to be very nitpicky with what we accept into master and _when_.
+
+Do not be offended: we aren't trying to be mean, control-freaks or in any way belittle your work,
+it's simply that good things take time and there's no way to rush quality.
+With that in mind, we welcome all contributions, no matter how tiny so please get in touch.
+
+## Windows build maintainer
+
+We currently need somebody to look after the Windows builds and packages.  Most of us use Linux as
+our main operating system, so if you use Windows and would like to program on Dia on Windows, for
+example, getting it running on Visual Studio + Meson, please get in touch.  Note that this involves
+doing full development on Windows and is not limited to just getting it to compile.
+
+## MacOS build maintainer
+
+Similarly to the above, we need somebody to ensure Dia builds and runs well on macOS.
+
+## Documentation writers & translators (German, French, Basque, Polish etc)
+
+Much of the documentation in doc/ is outdated.  We need somebody to go through the documents, check
+what is good, update them and then maintain them.  If you enjoy or want to practice technical writing
+or would be interested in helping with the translation we would love to hear from you!
+
+## Testers
+
+One simple way to ensure Dia works well for everybody is to test it on as many machines as possible.
+This role is simple and is a very good way to get more familiar with the Dia codebase.  Plus, the more
+people Dia works for from source, the easier it is for package maintainers and the easier it is for
+anybody to contribute patches:
+
+1. Obtain a machine (ARM, ARM64, x86_64, SPARC, doesn't matter) in one or more of the following ways:
+  1. Local laptop, desktop, etc
+  2. Premade box from https://www.osboxes.org/ or similar
+  3. Instal a virtual machine from ISO
+2. Follow the compilation & installation instructions for Dia
+3. See if you can get all the features of Dia running.
+  1. Try various meson options: https://mesonbuild.com/Configuring-a-build-directory.html
+  2. Try to install dependencies in a different order.
+  3. Try a different compiler
+4. If anything is off and hasn't been reported before, let us know!  If it has been reported,
+give the issue a "+1".
+5. If you've tried your best and haven't found anything wrong, also give us a shout :-)
+Let us know what you tried and why you think there aren't any issues on the machine you tested it on.
+
+## Code Gardeners
+
+A few issues are marked as [cleanup].  Normally programmers are interested in creating things, not
+removing them.  If you like cleanning code up and believe that "perfection is attained, not when there
+is nothing more to add, but when there's nothing left to take away" (Antoine de Saint Exupéry), then
+by all means, we look forward seeing your merge requests.
+
+## Public Relations / Marketing
+
+There are many places where people might ask questions, or discuss about Dia that are not actively
+monitored by developers.  These, for the time being, include:
+ - [SourceForge Tickets](https://sourceforge.net/p/dia-installer/_list/tickets)
+ - [SourceForge Discussion](https://sourceforge.net/p/dia-installer/discussion/)
+ - [Dia Bugzilla](https://bugzilla.gnome.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&bug_status=NEEDINFO&list_id=325564&order=Importance&product=dia&query_format=advanced)
+   - This will end up being removed, but for the time being some might still accidentally use it.
+ - Social media, reddit, etc.
+If you would like to help, you can do so by monitoring these channels and providing support to users.
+This can be as simple as redirecting them to the Gitlab issues if they have a problem
+(or reporting the problem for them), or to the mailing list / IRC if they have a question.
