@@ -1,3 +1,4 @@
+# Intro
 Feel free to hack away at dia, but you're advised to contact
 the dia maintainers and/or the mailing list if you do any
 larger work --- this is in everyone's interest so that work is
@@ -6,20 +7,16 @@ not duplicated.
 For more information on the authors, maintainers, etc., of dia,
 please see the file AUTHORS (dynamically generated).
 
-Visit the dia webpage at http://www.gnome.org/projects/dia/
+Visit the dia webpage at https://gitlab.gnome.org/GNOME/dia 
 for more information on the dia mailing list and many other
 dia-related things.
-
---
 
 If you need to alter the list of contributors, documentors,
 etc., the authoritative list is in app/authors.h.
 
 
-Some comments about the source:
--------------------------------
-
- Everything on the screen 'inherits' from the structure Object
+# Some comments about the source
+Everything on the screen 'inherits' from the structure Object
 in lib/object.h. (ps. this is a nice place to start reading the code.).
 Inherits in C means (as in gtk) that it begins with a copy of that structure.
 Some base classes exists in lib/, like element.h (for doing 'box-like'
@@ -29,7 +26,7 @@ connections with orthogonal lines, like the uml-stuff) and render_object.h
 the different object in the object-libraries like objects/standard object/UML
 and object/network.
 
- The objects work by filling out two structures that the main program (app/*)
+The objects work by filling out two structures that the main program (app/*)
 uses to handle the objects. The ObjectType structure which consists of some
 info and a pointer to the type-operations (create+load+save). There's one
 ObjectType per object type currently loaded. Then the Object structure, there
@@ -45,14 +42,11 @@ be copy-pasted from an object like the one you're doing. Rendering to
 screen/postscript is done through a 'Renderer' abstraction that can be found
 in lib/render.h.
 
-XML based objects:
-------------------
+## XML based objects
 You can (from version 0.80) create new objects using a SVG like XML languange.
 The file doc/custom-shapes has more information about this.
 
-Note on handles and connection points:
---------------------------------------
-
+## Note on handles and connection points:
 An object has handles to resize it. A handle can be moved either because
 the user dragged it with the mouse, or the handle is attached to another
 object, which moved itself. The handles are diplayed as little squares
@@ -74,17 +68,18 @@ the connectionpoint is saved as the index of the connectionpoint. So make
 sure the order of the connectionpoints is the same when loading the saved
 object.
 
-Notes on static analysis
-------------------------
-Some of the recent changes (log message starting with [scan-build] are suggested
-by static source analysis, see http://clang-analyzer.llvm.org/scan-build
+# Notes on static analysis
+Some of the recent changes (log message starting with `scan-build` are suggested
+by static source analysis, see http://clang-analyzer.llvm.org/scan-build )
+
 To use it just run ./configure and make through the scan-build script, like:
 
-PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH /mnt/Home/from-svn/llvm/tools/clang/tools/scan-build/scan-build ./configure --prefix=/opt --enable-debug=yes
-  and
-PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH /mnt/Home/from-svn/llvm/tools/clang/tools/scan-build/scan-build -v -v make -j3
-  view with
-PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH /mnt/Home/from-svn/llvm/tools/clang/tools/scan-view/scan-view
+```
+export PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH
+/mnt/Home/from-svn/llvm/tools/clang/tools/scan-build/scan-build ./configure --prefix=/opt --enable-debug=yes
+/mnt/Home/from-svn/llvm/tools/clang/tools/scan-build/scan-build -v -v make -j3
+/mnt/Home/from-svn/llvm/tools/clang/tools/scan-view/scan-view
+```
 
 (given an uninstalled checkout of llvm to /mnt/Home/from-svn/llvm)
 
