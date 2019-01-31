@@ -50,13 +50,16 @@ dialibdir = join_paths(get_option('prefix'),
                        get_option('libdir'),
                        meson.project_name())
 
+localedir = join_paths(get_option('prefix'),
+                       get_option('localedir'))
+
 # Specify a header configuration file
 conf.set_quoted('VERSION', '@VCS_TAG@')
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('PREFIX', get_option('prefix'))
 conf.set_quoted('PKGDATADIR', pkgdatadir)
 conf.set_quoted('DIALIBDIR',  dialibdir)
-conf.set_quoted('LOCALEDIR', get_option('localedir'))
+conf.set_quoted('LOCALEDIR', localedir)
 conf.set('ENABLE_NLS', true)
 
 foreach h : ['stddef.h', 'fcntl.h', 'unistd.h', 'utime.h']
