@@ -594,21 +594,13 @@ _check_option_output_directory (const gchar    *option_name,
 static void
 _setup_textdomains (void)
 {
-#ifdef G_OS_WIN32
   /* calculate runtime directory */
-  {
-    gchar* localedir = dia_get_locale_directory ();
+  gchar* localedir = dia_get_locale_directory();
 
-    bindtextdomain(GETTEXT_PACKAGE, localedir);
-    g_free (localedir);
-  }
-#else
-  bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-#endif
+  bindtextdomain(GETTEXT_PACKAGE, localedir);
+  g_free (localedir);
 
-#if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
   bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  
-#endif
   textdomain(GETTEXT_PACKAGE);
 }
 
