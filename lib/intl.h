@@ -13,6 +13,7 @@
 #  define gettext(String) (String)
 #  define textdomain(Domain)
 #  define bindtextdomain(Package, Directory)
+#  define bind_textdomain_codeset(Package, Codeset)
 #endif
 
 int    intl_score_locale      (const gchar *locale);

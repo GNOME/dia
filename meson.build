@@ -60,6 +60,8 @@ conf.set_quoted('PREFIX', get_option('prefix'))
 conf.set_quoted('PKGDATADIR', pkgdatadir)
 conf.set_quoted('DIALIBDIR',  dialibdir)
 conf.set_quoted('LOCALEDIR', localedir)
+# TODO: Should we make i18n optional?  Are there still platforms that
+# don't support it?
 conf.set('ENABLE_NLS', true)
 
 foreach h : ['stddef.h', 'fcntl.h', 'unistd.h', 'utime.h']
