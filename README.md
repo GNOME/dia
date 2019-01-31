@@ -15,7 +15,7 @@ General documentation can be found in the [doc/](doc/) directory.
 If you are thinking of contributing (either code or diagrams), please see
 [HACKING](HACKING.md).
 
-For compilation and installation instructions please see [INSTALL](INSTALL).
+For compilation and installation instructions please see [BUILDING](BUILDING.md).
 
 # Bug reporting
 
