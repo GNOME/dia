@@ -10,7 +10,7 @@ General documentation can be found in the [doc/](doc/) directory.
 
 If you are thinking of contributing (either code or diagrams), please see [HACKING](HACKING.md).
 
-For compilation and installation instructions please see [INSTALL](INSTALL).
+For compilation and installation instructions please see [BUILDING](BUILDING.md).
 
 # Bug reporting
 
@@ -30,5 +30,5 @@ Please feel free to send us comments/feedback/questions on our mailing list:
 https://mail.gnome.org/mailman/listinfo/dia-list
 
 If you don't want to send a full email or just want to say "Hi!", we also hang out on IRC on GimpNet
-[irc.gimp.org](irc.gimp.org) on `#dia-editor` channel.  Dia has been inactive for a few years now so
+[irc.gimp.org](irc://irc.gimp.org) on `#dia-editor` channel.  Dia has been inactive for a few years now so
 it is very nice when we hear from people using it.
