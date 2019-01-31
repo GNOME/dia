@@ -539,20 +539,6 @@ handle_initial_diagram(const char *in_file_name,
   return made_conversions;
 }
 
-#ifdef HAVE_FREETYPE
-/* Translators:  This is an option, not to be translated */
-#define EPS_PANGO "eps-pango, "
-#else
-#define EPS_PANGO ""
-#endif
-
-#ifdef G_OS_WIN32
-/* Translators:  This is an option, not to be translated */
-#define WMF "wmf, "
-#else
-#define WMF ""
-#endif
-
 static const gchar *input_directory = NULL;
 static const gchar *output_directory = NULL;
 
