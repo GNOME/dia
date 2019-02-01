@@ -27,7 +27,7 @@
  * To do that probably some code from pygtk.gobject needs to
  * be borrowed/shared
  */
-#include <config.h>
+#include "config.h"
 
 #include <Python.h>
 #include <glib.h>

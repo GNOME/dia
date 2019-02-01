@@ -22,9 +22,7 @@
 #ifndef SOZI_OBJECT_H
 #define SOZI_OBJECT_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include "config.h"
 
 /* dia stuff */
 #include "object.h"

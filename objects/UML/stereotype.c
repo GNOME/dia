@@ -18,7 +18,7 @@
 
 /* Separate functions to handle stereotypes in guillemots. */
 
-#include <config.h>
+#include "config.h"
 
 #include <string.h>
 #include "stereotype.h"

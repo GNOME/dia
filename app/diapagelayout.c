@@ -21,9 +21,7 @@
 
 /*#define PAGELAYOUT_TEST*/
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include "config.h"
 
 #include "diapagelayout.h"
 #include "widgets.h"

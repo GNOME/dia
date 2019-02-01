@@ -25,7 +25,7 @@
  */
 #include "ps-utf8.h"
 
-#include <config.h>
+#include "config.h"
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>

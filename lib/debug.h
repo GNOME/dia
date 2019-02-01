@@ -21,7 +21,7 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdarg.h>

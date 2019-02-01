@@ -21,7 +21,7 @@
 
 /*!  \file dia-render-script-import.c import of dia-render-script either to 
  * diagram with objects or maybe as one object */
-#include <config.h>
+#include "config.h"
 
 #include "geometry.h"
 #include "color.h"

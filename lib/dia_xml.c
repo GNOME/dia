@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 /** \file dia_xml.c  Helper function to convert Dia's basic to and from XML */
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>

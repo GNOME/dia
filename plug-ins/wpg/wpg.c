@@ -26,7 +26,7 @@
  * - the font setting needs improvement (maybe on Dia's side)
  */
 
-#include <config.h>
+#include "config.h"
 #include <stdio.h>
 #include <string.h>
 #include <math.h>

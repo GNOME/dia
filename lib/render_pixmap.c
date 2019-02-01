@@ -29,7 +29,7 @@
  * is the ported to GObject 'RendererGdk'. No more huge code duplication 
  * but only some renderer parametrization tweaking.                 --hb
  */
-#include <config.h>
+#include "config.h"
 
 #include <math.h>
 #include <stdlib.h>

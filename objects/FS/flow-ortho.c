@@ -20,9 +20,7 @@
  * please send e-mail to David Thompson <dcthomp@mail.utexas.edu>
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include "config.h"
 
 #include <assert.h>
 #include <math.h>

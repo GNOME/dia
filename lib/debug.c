@@ -18,7 +18,7 @@
 
 /* This file contains various functions to aid in debugging in general. */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <glib/gprintf.h>

@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <config.h>
+#include "config.h"
 
 #include "pydia-menuitem.h"
 #include "pydia-object.h" /* for PyObject_HEAD_INIT */

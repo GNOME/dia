@@ -23,7 +23,7 @@
 #ifndef PS_UTF8_H
 #define PS_UTF8_H
 
-#include <config.h>
+#include "config.h"
 #include <glib.h>
 
 #include "diatypes.h"

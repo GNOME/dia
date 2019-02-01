@@ -18,7 +18,7 @@
 
  /*! \file arc.c -- Implementation of "Standard - Arc" */
 
-#include <config.h>
+#include "config.h"
 
 #define _BSD_SOURCE 1 /* to get finite */
 #include <math.h>

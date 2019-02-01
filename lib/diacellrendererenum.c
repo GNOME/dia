@@ -1,4 +1,4 @@
-#include <config.h>
+#include "config.h"
 
 #include "diacellrendererenum.h"
 #include "properties.h"

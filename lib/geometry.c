@@ -20,7 +20,7 @@
  */
 
 /* include glib.h first, so we don't pick up its inline functions as well */
-#include <config.h>
+#include "config.h"
 
 #include <glib.h>
 /* include normal versions of the inlined functions here ... */
