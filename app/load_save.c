@@ -1169,7 +1169,7 @@ void
 diagram_cleanup_autosave(Diagram *dia)
 {
   gchar *savefile;
-  struct stat statbuf;
+  GStatBuf statbuf;
 
   savefile = dia->autosavefilename;
   if (savefile == NULL) return;

@@ -235,7 +235,7 @@ _dae_draw(DiagramAsElement *dae, DiaRenderer *renderer)
 static void
 _dae_update_data(DiagramAsElement *dae)
 {
-  struct stat statbuf;
+  GStatBuf statbuf;
   Element *elem = &dae->element;
   DiaObject *obj = &elem->object;
   static int working = 0;
