@@ -53,9 +53,7 @@
  what's been implemented below is something a lot simpler, just enough to
  support exisiting ArrayProp usage ;)
  */
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include "config.h"
 
 #include "properties.h"
 #include "propinternals.h"

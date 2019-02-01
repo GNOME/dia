@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#include <config.h>
+#include "config.h"
 
 /* To map an old name to a new object type the alias indirection is used.
  * Starting with the old object from file the old name will persist. So there

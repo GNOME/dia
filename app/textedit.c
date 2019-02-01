@@ -32,7 +32,7 @@
  * particular text.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include "object.h"
 #include "focus.h"

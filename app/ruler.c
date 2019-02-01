@@ -18,7 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 /* GtkRuler is deprecated by gtk-2-24, gone with gtk-3-0 because it is 
  * deemed to be too specialized for maintenance in Gtk. Maybe Dia is 

@@ -17,7 +17,7 @@
  */
 
 /* select.c -- callbacks to implement the Select menu */
-#include <config.h>
+#include "config.h"
 
 #include <assert.h>
 

@@ -21,7 +21,7 @@
 
 /* TODO: Non-modal api */
 
-#include <config.h>
+#include "config.h"
 
 #include "exit_dialog.h"
 

@@ -22,9 +22,7 @@
  *          and many arms going from the connnection point.
  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include "config.h"
 
 #include <gtk/gtk.h> /* because of GtkWidgket */
 #include "pixmaps/compound.xpm"

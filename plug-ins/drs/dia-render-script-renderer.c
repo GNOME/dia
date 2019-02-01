@@ -21,7 +21,7 @@
 
 /*! A DiaRenderer mapping every renderer method to some metafile representation */
 
-#include <config.h>
+#include "config.h"
 
 #define G_LOG_DOMAIN "DiaRenderScript"
 #include <glib.h>

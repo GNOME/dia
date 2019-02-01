@@ -22,9 +22,7 @@
  * 2003-08-13, 2003-08-15: W. Borgert <debacle@debian.org>
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include "config.h"
 
 #include <assert.h>
 #include <math.h>

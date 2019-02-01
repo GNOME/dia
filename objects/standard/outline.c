@@ -26,7 +26,7 @@
  * It should be possible to do all those fancy text effects like outline, rotate, ...
  * by converting text to pathes before rendering.
  */
-#include <config.h>
+#include "config.h"
 
 #include "object.h"
 #include "diarenderer.h"

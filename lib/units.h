@@ -18,7 +18,7 @@
 #ifndef UNITS_H
 #define UNITS_H
 
-#include <config.h>
+#include "config.h"
 #include "diavar.h"
 
 typedef enum {

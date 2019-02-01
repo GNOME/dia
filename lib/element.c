@@ -22,7 +22,7 @@
  *  handles as well as a mainpoint in the middle.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <assert.h>

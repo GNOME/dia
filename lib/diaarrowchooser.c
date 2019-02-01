@@ -22,7 +22,7 @@
 /** \file diaarrowchooser.c  A widget to choose arrowhead.  This only select arrowhead, not width  and height. 
  * \ingroup diawidgets
  */
-#include <config.h>
+#include "config.h"
 
 #include <gtk/gtk.h>
 #include "intl.h"

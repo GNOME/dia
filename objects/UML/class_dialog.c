@@ -29,7 +29,7 @@
 **                                                                          **
 **--------------------------------------------------------------------------*/
 
-#include <config.h>
+#include "config.h"
 
 #include <assert.h>
 #undef GTK_DISABLE_DEPRECATED /* GtkList, ... */
