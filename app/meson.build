@@ -76,23 +76,26 @@ endif
 
 diaapp_inc = include_directories('.')
 
-win = import('windows')
-dia_icon = win.compile_resources(
-    'dia.rc',
-    args: ['-r'],
-    depend_files: [
-        'dia.ico',
-        'dia2.ico',
-        'dia-app.ico',
-        'dia-diagram.ico'
-    ]
-)
+dia_win_rcs = []
+if build_machine.system() == 'windows'
+    win = import('windows')
+    dia_win_rcs += win.compile_resources(
+        'dia.rc',
+        args: ['-r'],
+        depend_files: [
+            'dia.ico',
+            'dia2.ico',
+            'dia-app.ico',
+            'dia-diagram.ico'
+        ]
+    )
+endif
 
 diaapp = executable('dia',
     [
         dia_sources,
         dia_app_icons_h, diamarshal_h, config_h,
-        dia_icon,
+        dia_win_rcs,
     ],
     dependencies: [libgtk_dep, libxml_dep, libm_dep],
     link_with: [libdia],
@@ -106,7 +109,7 @@ diaapp = executable('dia',
 if build_machine.system() == 'windows'
     dia_win_remote = executable(
         'dia-win-remote',
-        ['dia-win-remote.c', dia_icon],
+        ['dia-win-remote.c', dia_win_rcs],
         dependencies: [libgtk_dep],
         link_args: ['-lshlwapi'],
         gui_app: true,
