@@ -304,7 +304,7 @@ load_register_sheet(const gchar *dirname, const gchar *filename,
   {
     if (sheetp->data && !strcmp(((Sheet *)(sheetp->data))->name, name)) 
     {
-      struct stat first_file, this_file;
+      GStatBuf first_file, this_file;
       int stat_ret;
       
       stat_ret = g_stat(((Sheet *)(sheetp->data))->filename, &first_file);

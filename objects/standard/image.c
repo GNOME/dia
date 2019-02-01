@@ -225,7 +225,7 @@ image_get_props(Image *image, GPtrArray *props)
 static void
 image_set_props(Image *image, GPtrArray *props)
 {
-  struct stat st;
+  GStatBuf st;
   time_t mtime = 0;
   char *old_file = image->file ? g_strdup(image->file) : NULL;
   const GdkPixbuf *old_pixbuf = dia_image_pixbuf (image->image);
@@ -863,7 +863,7 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
   /* update mtime */
   {
-    struct stat st;
+    GStatBuf st;
     if (g_stat (image->file, &st) != 0)
       st.st_mtime = 0;
 

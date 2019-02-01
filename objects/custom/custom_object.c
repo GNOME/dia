@@ -1799,7 +1799,7 @@ custom_object_new(ShapeInfo *info, DiaObjectType **otype)
   obj->default_user_data = info;
 
   if (info->icon) {
-    struct stat buf;
+    GStatBuf buf;
     if (0==g_stat(info->icon,&buf)) {
       obj->pixmap = NULL;
       obj->pixmap_file = info->icon;

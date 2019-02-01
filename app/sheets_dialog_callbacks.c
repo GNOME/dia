@@ -745,7 +745,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     GtkWidget *entry;
     gchar *file_name;
     gchar *p;
-    struct stat stat_buf;
+    GStatBuf stat_buf;
     GList *plugin_list;
     DiaObjectType *ot;
     typedef gboolean (*CustomObjectLoadFunc) (gchar*, DiaObjectType **);
@@ -1777,7 +1777,7 @@ write_user_sheet(Sheet *sheet)
 static void
 touch_file(gchar *filename)
 {
-  struct stat stat_buf;
+  GStatBuf stat_buf;
   struct utimbuf utim_buf;
 
   g_stat(filename, &stat_buf);

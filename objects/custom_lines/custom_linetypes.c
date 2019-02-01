@@ -302,7 +302,7 @@ custom_linetype_new(LineInfo *info, DiaObjectType **otype)
   }
 
   if (info->icon_filename) {
-    struct stat buf;
+    GStatBuf buf;
     if (0==g_stat(info->icon_filename,&buf)) {
       obj->pixmap = NULL;
       obj->pixmap_file = info->icon_filename;

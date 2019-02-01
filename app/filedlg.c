@@ -371,7 +371,7 @@ file_save_as_response_callback(GtkWidget *fs,
 {
   char *filename;
   Diagram *dia;
-  struct stat stat_struct;
+  GStatBuf stat_struct;
 
   if (response == GTK_RESPONSE_ACCEPT) {
     dia = g_object_get_data (G_OBJECT(fs), "user_data");
@@ -700,7 +700,7 @@ file_export_response_callback(GtkWidget *fs,
   char *filename;
   Diagram *dia;
   DiaExportFilter *ef;
-  struct stat statbuf;
+  GStatBuf statbuf;
 
   dia = g_object_get_data (G_OBJECT (fs), "user_data");
   g_assert (dia);

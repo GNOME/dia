@@ -484,7 +484,7 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
 	g_object_unref (pixbuf);
       }
     } else {
-      struct stat st;
+      GStatBuf st;
       FILE *f;
       
       if (   g_stat (outfname, &st) == 0 

@@ -403,7 +403,7 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
       is_pipe = TRUE;
     } else {
       const gchar *filename = gtk_entry_get_text(GTK_ENTRY(ofile));
-      struct stat statbuf;
+      GStatBuf statbuf;
 
       if (g_stat(filename, &statbuf) == 0) {	/* Output file exists */
         GtkWidget *confirm_overwrite_dialog = NULL;

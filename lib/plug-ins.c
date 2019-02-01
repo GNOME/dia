@@ -289,7 +289,7 @@ static void
 for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
                 ForEachInDirFilterFunc filter)
 {
-  struct stat statbuf;
+  GStatBuf statbuf;
   const char *dentry;
   GDir *dp;
   GError *error = NULL;
