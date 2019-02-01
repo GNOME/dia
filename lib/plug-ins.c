@@ -290,26 +290,31 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
                 ForEachInDirFilterFunc filter)
 {
   GStatBuf statbuf;
-  const char *dentry;
+  const gchar *dentry;
   GDir *dp;
   GError *error = NULL;
 
-  if (g_stat(directory, &statbuf) < 0)
+  if (g_stat(directory, &statbuf) < 0) {
     return;
+  }
 
   dp = g_dir_open(directory, 0, &error);
   if (dp == NULL) {
     g_warning("Could not open `%s'\n`%s'", directory, error->message);
-    g_error_free (error);
+    g_error_free(error);
     return;
   }
 
-  while ((dentry = g_dir_read_name(dp)) != NULL) {
-    gchar *name = g_build_filename(directory,dentry,NULL);
+  while ( (dentry = g_dir_read_name(dp)) ) {
+    gchar *name = g_build_filename(directory, dentry, NULL);
 
-    if (filter(name)) dofunc(name);
+    if (filter(name)) {
+        dofunc(name);
+    }
+
     g_free(name);
   }
+
   g_dir_close(dp);
 }
 

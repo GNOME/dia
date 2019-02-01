@@ -35,9 +35,8 @@
 #include "dia_dirs.h"
 #include "intl.h"
 #include "plug-ins.h"
+#include "custom_object.h"
 
-void custom_object_new (ShapeInfo *info,
-                        DiaObjectType **otype);
 
 G_MODULE_EXPORT gboolean custom_object_load(gchar *filename, 
                                             DiaObjectType **otype);
@@ -95,9 +94,9 @@ load_shapes_from_tree(const gchar *directory)
   if (dp == NULL) {
     return;
   }
+
   while ( (dentry = g_dir_read_name(dp)) ) {
-    gchar *filename = g_strconcat(directory, G_DIR_SEPARATOR_S,
-				  dentry, NULL);
+    gchar *filename = g_build_filename(directory, dentry, NULL);
     const gchar *p;
 
     if (g_file_test(filename, G_FILE_TEST_IS_DIR)) {
