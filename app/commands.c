@@ -1017,19 +1017,19 @@ help_about_callback (GtkAction *action)
 {
   const gchar *translators = _("translator_credits-PLEASE_ADD_YOURSELF_HERE");
   const gchar *license = _(
-	"This program is free software; you can redistribute it and/or modify\n"
-	"it under the terms of the GNU General Public License as published by\n"
-	"the Free Software Foundation; either version 2 of the License, or\n"
-	"(at your option) any later version.\n"
-	"\n"
-	"This program is distributed in the hope that it will be useful,\n"
-	"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-	"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-	"GNU General Public License for more details.\n"
-	"\n"
-	"You should have received a copy of the GNU General Public License\n"
-	"along with this program; if not, write to the Free Software\n"
-	"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n");
+      "This program is free software; you can redistribute it and/or modify\n"
+      "it under the terms of the GNU General Public License as published by\n"
+      "the Free Software Foundation; either version 2 of the License, or\n"
+      "(at your option) any later version.\n"
+      "\n"
+      "This program is distributed in the hope that it will be useful,\n"
+      "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+      "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+      "GNU General Public License for more details.\n"
+      "\n"
+      "You should have received a copy of the GNU General Public License\n"
+      "along with this program; if not, write to the Free Software\n"
+      "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n");
 
   gchar *dirname = dia_get_data_directory("");
   gchar *filename = g_build_filename (dirname, "dia-splash.png", NULL);
@@ -1041,18 +1041,18 @@ help_about_callback (GtkAction *action)
   gtk_about_dialog_set_url_hook ((GtkAboutDialogActivateLinkFunc)activate_url, NULL, NULL);
 #endif
   gtk_show_about_dialog (NULL,
-	"logo", logo,
-        "name", "Dia",
-	"version", VERSION,
-	"comments", _("A program for drawing structured diagrams."),
-	"copyright", "(C) 1998-2011 The Free Software Foundation and the authors",
-	"website", "http://live.gnome.org/Dia",
-	"authors", authors,
-	"documenters", documentors,
-	"translator-credits", strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")
-			? translators : NULL,
-	"license", license,
-	NULL);
+      "logo", logo,
+      "name", "Dia",
+      "version", VERSION,
+      "comments", _("A program for drawing structured diagrams."),
+      "copyright", "(C) 1998-2019 The Free Software Foundation and the authors",
+      "website", "https://gitlab.gnome.org/GNOME/dia",
+      "authors", authors,
+      "documenters", documentors,
+      "translator-credits", strcmp (translators, "translator_credits-PLEASE_ADD_YOURSELF_HERE")
+              ? translators : NULL,
+      "license", license,
+      NULL);
   g_free (dirname);
   g_free (filename);
   if (logo)
