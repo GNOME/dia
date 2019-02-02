@@ -6,7 +6,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* low numbers are better */
+/* Compare the given locale (name) with the locale from the
+ * envoronment, and return a number on how preferable the
+ * given locale is.
+ *
+ * Lower numbers are better.
+ *
+ * Example:
+ *
+ * If the environment has set "de_CH" (swiss flavor
+ * of the german locale) as locale then intl_score_locale("C")
+ * will return a score of 2, because most prefered would be
+ * "de_CH" (= 0), next best would be de (= 1) and "C" is the
+ * least favored (= 2).
+ */
 int
 intl_score_locale(const gchar *locale)
 {
