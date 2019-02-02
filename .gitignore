@@ -41,4 +41,5 @@ stamp-h1
 doc/*/graphics/*.eps
 doc/*/.epsfigures
 doc/*/dia_html
+doc/*/dia.ps
 /build/win32/Thumbs.db
