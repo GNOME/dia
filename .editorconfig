@@ -1,0 +1,22 @@
+# EditorConfig is awesome:
+# https://EditorConfig.org
+root = true
+
+# Global rules (applies to all files).
+[*]
+end_of_line = lf
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_size = 4
+
+# Define rules for individual file names.
+[*.{py,c,h,cpp}]
+max_line_length = 80
+
+# Meson reads better with short lines.
+[meson.build]
+max_line_length = 60
+
+[*.{c,h,cpp}]
+indent_size = 2
