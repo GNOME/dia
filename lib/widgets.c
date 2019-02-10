@@ -776,18 +776,7 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
 /** Create a toggle button with two icons (created with gdk-pixbuf-csource,
  * for instance).  The icons represent on and off.
  */
-GtkWidget *
-dia_toggle_button_new_with_icons (const guint8 *on_icon,
-                                  const guint8 *off_icon)
-{
-  GdkPixbuf *p1, *p2;
 
-  p1 = gdk_pixbuf_new_from_inline(-1, on_icon, FALSE, NULL);
-  p2 = gdk_pixbuf_new_from_inline(-1, off_icon, FALSE, NULL);
-
-  return dia_toggle_button_new(gtk_image_new_from_pixbuf(p1),
-			       gtk_image_new_from_pixbuf(p2));
-}
 
 /* GTK3: This is built-in (new_from_resource, add_resource_path....) */
 /* Adapted from Gtk */

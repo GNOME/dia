@@ -1,13 +1,7 @@
 icons = [
-    'connectable.png',
-    'connectable-empty.png',
     'selectable.png',
     'selectable-empty.png',
-    'visible.png',
-    'visible-empty.png',
     'ungroup.png',
-    'mainpoints-on.png',
-    'mainpoints-off.png',
 
     'objects-layer-above.png',
     'objects-layer-below.png',

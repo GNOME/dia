@@ -649,8 +649,8 @@ create_integrated_ui_toolbar (void)
   integrated_ui_toolbar_add_custom_item (toolbar, w);
 
   /* Object Snapping */
-  w = dia_toggle_button_new_with_icons (dia_mainpoints_on_icon,
-                                        dia_mainpoints_off_icon);
+  w = dia_toggle_button_new_with_icon_names ("dia-mainpoints-on",
+                                             "dia-mainpoints-off");
   g_signal_connect (G_OBJECT (w), "toggled",
 		   G_CALLBACK (integrated_ui_toolbar_object_snap_toggle), toolbar);
   gtk_widget_set_tooltip_text (w, _("Toggles object snapping."));

@@ -5,5 +5,11 @@
     <file>icons/dia-group.png</file>
     <file>icons/dia-grid-on.png</file>
     <file>icons/dia-grid-off.png</file>
+    <file>icons/dia-connectable.png</file>
+    <file>icons/dia-connectable-empty.png</file>
+    <file>icons/dia-visible.png</file>
+    <file>icons/dia-visible-empty.png</file>
+    <file>icons/dia-mainpoints-on.png</file>
+    <file>icons/dia-mainpoints-off.png</file>
   </gresource>
 </gresources>
