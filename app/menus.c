@@ -788,18 +788,12 @@ add_plugin_actions (GtkUIManager *ui_manager, const gchar *base_path)
 }
 
 static void
-_add_stock_icon (GtkIconFactory *factory, const char *name, const guint8 *data, const size_t size)
+_add_stock_icon_name (GtkIconFactory *factory, const char *name, const gchar *icon)
 {
   GdkPixbuf      *pixbuf;
   GtkIconSet     *set;
-  GError         *err = NULL;
 
-  pixbuf = gdk_pixbuf_new_from_inline (size, data, FALSE, &err);
-  if (err) {
-    g_warning ("%s", err->message);
-    g_error_free (err);
-    err = NULL;
-  }
+  pixbuf = pixbuf_from_resource (g_strdup_printf ("/org/gnome/Dia/icons/%s.png", icon));
   set = gtk_icon_set_new_from_pixbuf (pixbuf);
   gtk_icon_factory_add (factory, name, set);
   g_object_unref (pixbuf);
@@ -813,13 +807,14 @@ register_stock_icons (void)
 
   factory = gtk_icon_factory_new ();
 
-  _add_stock_icon (factory, DIA_STOCK_UNGROUP, dia_ungroup_icon, sizeof(dia_ungroup_icon));
+  _add_stock_icon_name (factory, DIA_STOCK_GROUP, "dia-group");
+  _add_stock_icon_name (factory, DIA_STOCK_UNGROUP, "dia-ungroup");
 
-  _add_stock_icon (factory, DIA_STOCK_LAYER_ADD, dia_layer_add_icon, sizeof(dia_layer_add_icon));
-  _add_stock_icon (factory, DIA_STOCK_LAYER_RENAME, dia_layer_rename_icon, sizeof(dia_layer_rename_icon));
-  _add_stock_icon (factory, DIA_STOCK_OBJECTS_LAYER_ABOVE, dia_objects_layer_above_icon, sizeof(dia_objects_layer_above_icon));
-  _add_stock_icon (factory, DIA_STOCK_OBJECTS_LAYER_BELOW, dia_objects_layer_below_icon, sizeof(dia_objects_layer_below_icon));
-  _add_stock_icon (factory, DIA_STOCK_LAYERS, dia_layers_icon, sizeof(dia_layers_icon));
+  _add_stock_icon_name (factory, DIA_STOCK_LAYER_ADD, "dia-layer-add");
+  _add_stock_icon_name (factory, DIA_STOCK_LAYER_RENAME, "dia-layer-rename");
+  _add_stock_icon_name (factory, DIA_STOCK_OBJECTS_LAYER_ABOVE, "dia-layer-move-above");
+  _add_stock_icon_name (factory, DIA_STOCK_OBJECTS_LAYER_BELOW, "dia-layer-move-below");
+  _add_stock_icon_name (factory, DIA_STOCK_LAYERS, "dia-layers");
 
   gtk_icon_factory_add_default (factory);
   g_object_unref (factory);
