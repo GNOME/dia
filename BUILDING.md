@@ -19,7 +19,7 @@ Build requirements are documented in the root [meson.build](/meson.build) file. 
 
 As can be seen from `meson.build`, the main requirements are **GTK2**, **libxml2** and **zlib**.  Note: at the moment, **intltool** (`intltool-merge`) is also required.
 
-For reference, a number of other libraries are recommended for extra features.  However, not all these have been moved to meson.  It is recommended you run `meson build` (to configure the build directory) and then check which optional dependencies are not found: 
+For reference, a number of other libraries are recommended for extra features.  However, not all these have been moved to meson.  It is recommended you run `meson build` (to configure the build directory) and then check which optional dependencies are not found:
 
 - Cairo is used for anti-alised rendering to screen or PNG as well as PDF:
   - http://cairographics.org
