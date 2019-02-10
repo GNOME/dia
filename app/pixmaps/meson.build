@@ -1,14 +1,4 @@
 icons = [
-    'selectable.png',
-    'selectable-empty.png',
-    'ungroup.png',
-
-    'objects-layer-above.png',
-    'objects-layer-below.png',
-    'layers.png',
-    'layer-add.png',
-    'layer-rename.png',
-
     'cursor-create.png',
     'cursor-hand-open.png',
     'cursor-hand-closed.png',
