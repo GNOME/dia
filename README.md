@@ -1,4 +1,6 @@
-# About
+# Dia
+
+## About
 
 Dia is a program for drawing structured diagrams.
 
@@ -17,7 +19,7 @@ If you are thinking of contributing (either code or diagrams), please see
 
 For compilation and installation instructions please see [BUILDING](BUILDING.md).
 
-# Bug reporting
+## Bug reporting
 
 Please use the issue tracker on the GitLab page:
 https://gitlab.gnome.org/GNOME/dia/issues
@@ -28,7 +30,7 @@ noticed the issues as well, or maybe it's included in a new version.
 If the issue is not there, please report it.  Otherwise, give it a "thumbs-up".
 This will us prioritise them.
 
-# Contacting us
+## Contacting us
 
 If you use Dia, we would love to hear from you!
 
