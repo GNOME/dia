@@ -780,8 +780,8 @@ create_display_shell(DDisplay *ddisp,
 		      FALSE, FALSE, 0);
 
 
-  ddisp->mainpoint_status = dia_toggle_button_new_with_icons(dia_mainpoints_on_icon,
-							dia_mainpoints_off_icon);
+  ddisp->mainpoint_status = dia_toggle_button_new_with_icon_names ("dia-mainpoints-on",
+                                                                   "dia-mainpoints-off");
 
   g_signal_connect(G_OBJECT(ddisp->mainpoint_status), "toggled",
 		   G_CALLBACK (interface_toggle_mainpoint_magnetism), ddisp);
