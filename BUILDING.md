@@ -1,4 +1,6 @@
-# NOTE FOR WINDOWS USERS
+# Compiling Dia from source
+
+## NOTE FOR WINDOWS USERS
 
 If you are reading this and just want to use Dia rather than
 compiling/extending it, you are in the wrong place.  Please go to
@@ -7,9 +9,9 @@ installable binary.
 
 Otherwise, please read on :)
 
-# Requirements
+## Requirements
 
-## General
+### General
 
 Dia is currently built using [meson](https://github.com/mesonbuild/meson).  Meson can be installed either via a package manager or run directly from source code.  Please take 2 minutes to read their [Quick Guide](https://mesonbuild.com/Quick-guide.html).  It provides all the needed information to obtain meson and run it.
 
@@ -30,7 +32,7 @@ For reference, a number of other libraries are recommended for extra features.  
   - ftp://ftp.gnome.org/pub/GNOME/sources/libxslt/
 - **Python scripting is also possible** by installing Python 2.7 (note that meson requires python 3, therefore python2 needs to be explicitly installed) and pygtk.
 
-## Windows
+### Windows
 
 Currently (as of 1f930b94) the Windows build is under heavy development and not all features are supported.  Help is always welcome!
 
@@ -58,24 +60,24 @@ intltool
 
 You might need to install additional packages.  Please file an issue / merge request with the updated packages to ensure others know what to install also.
 
-# Building and Running
+## Building and Running
 
 Please make sure you at least skim the Meson [Quick Guide](https://mesonbuild.com/Quick-guide.html) before building.
 
 There are currently (as of 1f930b94) two ways to run Dia:
 
-## 1. Installing to a local prefix
+### 1. Installing to a local prefix
 ```
 cd path/to/dia
 path/to/meson.py build -Dprefix=`pwd`/build/install
 cd build
 ninja install
-# Wait for meson to configure, build and install
-# If missing dependencies, please check "Requirements" section
+## Wait for meson to configure, build and install
+## If missing dependencies, please check "Requirements" section
 ./install/bin/dia
 ```
 
-## 2. Using `run_with_dia_env` (recommended only on *nix) 
+### 2. Using `run_with_dia_env` (recommended only on *nix)
 ```
 cd path/to/dia
 path/to/meson.py build
@@ -84,16 +86,16 @@ ninja
 ./run_with_dia_env ./app/dia
 ```
 
-## Running tests
+### Running tests
 
 Build dia then simply do `ninja test`.
 
-## Windows issues
+### Windows issues
 The most common issue currently on MSYS2 is that paths are incorrect.  There are two potential types of issues that you need to be aware of:
 
 1. "libdia.dll not found":  This happens because PATH does not contain the directory where libdia.dll is located.  Simply add that directory to PATH, e.g. `PATH=$(pwd)/lib/:$PATH ./run_with_dia_env ./app/dia`
 2. "Python site module not found":  This is because PYTHONPATH or PYTHONHOME are not set.  Simply set both to /mingw64/lib/python2.7 and that should resolve the issue.
 
-# Installing
+## Installing
 
 Simply do `ninja install`.
