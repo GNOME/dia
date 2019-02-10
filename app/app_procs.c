@@ -768,9 +768,8 @@ app_init (int argc, char **argv)
      */
 
     /* Set the icon for Dia windows & dialogs */
-    /* MESON: Use GResource */
     /* GTK3: Use icon-name with GResource fallback */
-    pixbuf = gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL);
+    pixbuf = pixbuf_from_resource ("/org/gnome/Dia/icons/org.gnome.Dia.png");
     if (pixbuf) {
       gtk_window_set_default_icon (pixbuf);
       g_object_unref (pixbuf);

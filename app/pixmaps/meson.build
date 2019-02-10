@@ -3,11 +3,8 @@ icons = [
     'connectable-empty.png',
     'selectable.png',
     'selectable-empty.png',
-    'on-grid.png',
-    'off-grid.png',
     'visible.png',
     'visible-empty.png',
-    'group.png',
     'ungroup.png',
     'mainpoints-on.png',
     'mainpoints-off.png',
@@ -38,8 +35,7 @@ icon_pairs += [
     'dia_scroll_tool_icon', files('scroll-22.png'),
     'dia_textedit_tool_icon', files('textedit-22.png'),
     'dia_zoom_tool_icon', files('zoom-22.png'),
-    'dia_diagram_icon', files('dia-diagram.png'),
-    'dia_app_icon', files('dia-app.png')
+    'dia_diagram_icon', files('dia-diagram.png')
 ]
 
 dia_app_icons_h = custom_target(

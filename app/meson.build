@@ -76,8 +76,12 @@ endif
 
 diaapp_inc = include_directories('.')
 
+resources = gnome.compile_resources('dia-resources', 'dia.gresource.xml',
+                                    source_dir : '.',
+                                    c_name : 'dia')
+
 diaapp = executable('dia',
-    dia_sources + [dia_app_icons_h, diamarshal_h, config_h],
+    dia_sources + [resources, dia_app_icons_h, diamarshal_h, config_h],
     dependencies: [libgtk_dep, libxml_dep, libm_dep],
     link_with: [libdia],
     link_args: dia_link_args,
