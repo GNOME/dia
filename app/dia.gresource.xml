@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Dia">
+    <file>icons/org.gnome.Dia.png</file>
+    <file>icons/dia-group.png</file>
+    <file>icons/dia-grid-on.png</file>
+    <file>icons/dia-grid-off.png</file>
+  </gresource>
+</gresources>
