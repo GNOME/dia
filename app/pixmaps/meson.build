@@ -1,10 +1,4 @@
-icons = [
-    'cursor-create.png',
-    'cursor-hand-open.png',
-    'cursor-hand-closed.png',
-    'cursor-magnify-minus.png',
-    'cursor-magnify-plus.png'
-]
+icons = []
 
 #TODO: this is duplicated in app/pixmaps, lib/pixmaps and objects/standard/pixmaps.
 # Remove from all three once we port from gdk_pixbuf_csource to GResource.

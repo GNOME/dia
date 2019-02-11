@@ -2,6 +2,7 @@
 <gresources>
   <gresource prefix="/org/gnome/Dia">
     <file>icons/org.gnome.Dia.png</file>
+    <file>icons/dia-cursor-create.png</file>
     <file>icons/dia-group.png</file>
     <file>icons/dia-ungroup.png</file>
     <file>icons/dia-grid-on.png</file>
