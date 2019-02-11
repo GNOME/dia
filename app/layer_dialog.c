@@ -41,8 +41,6 @@
 
 #include "dia-application.h" /* dia_diagram_change */
 
-#include "dia-app-icons.h"
-
 /* DiaLayerWidget: */
 #define DIA_LAYER_WIDGET(obj)          \
   G_TYPE_CHECK_INSTANCE_CAST (obj, dia_layer_widget_get_type (), DiaLayerWidget)
