@@ -294,9 +294,9 @@ _dtv_cell_pixbuf_func (GtkCellLayout   *layout,
     Layer *layer;
     gtk_tree_model_get (tree_model, iter, LAYER_COLUMN, &layer, -1);
     if (layer)
-      pixbuf = gdk_pixbuf_new_from_inline(-1, dia_layers, TRUE, NULL);
+      pixbuf = pixbuf_from_resource ("/org/gnome/Dia/icons/dia-layers.png");
     else /* must be diagram */
-      pixbuf = gdk_pixbuf_new_from_inline(-1, dia_diagram_icon, TRUE, NULL);
+      pixbuf = pixbuf_from_resource ("/org/gnome/Dia/icons/dia-diagram.png");
 #endif
   }
 

@@ -71,8 +71,7 @@
 #include "exit_dialog.h"
 #include "dialib.h"
 #include "diaerror.h"
-
-#include "dia-app-icons.h"
+#include "widgets.h"
 
 static gboolean
 handle_initial_diagram(const char *input_file_name,

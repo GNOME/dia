@@ -14,7 +14,7 @@ struct _ToolButtonData
 
 struct _ToolButton
 {
-  const gchar **icon_data;
+  const gchar *icon_name;
   char  *tool_desc;
   char	*tool_accelerator;
   char  *action_name;

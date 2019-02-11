@@ -1,5 +1,3 @@
-subdir('pixmaps')
-
 dia_sources = [
     'confirm.c',
     'exit_dialog.c',
@@ -81,7 +79,7 @@ resources = gnome.compile_resources('dia-resources', 'dia.gresource.xml',
                                     c_name : 'dia')
 
 diaapp = executable('dia',
-    dia_sources + [resources, dia_app_icons_h, diamarshal_h, config_h],
+    dia_sources + [resources, diamarshal_h, config_h],
     dependencies: [libgtk_dep, libxml_dep, libm_dep],
     link_with: [libdia],
     link_args: dia_link_args,

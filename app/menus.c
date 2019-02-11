@@ -38,7 +38,6 @@
 #include "select.h"
 #include "dia_dirs.h"
 #include "object_ops.h"
-#include "dia-app-icons.h"
 #include "widgets.h"
 #include "preferences.h"
 #include "filter.h"

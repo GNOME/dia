@@ -46,7 +46,6 @@
 #include "ruler.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include "dia-app-icons.h"
 
 static void
 dia_dnd_file_drag_data_received (GtkWidget        *widget,
