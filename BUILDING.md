@@ -21,13 +21,6 @@ As can be seen from `meson.build`, the main requirements are **GTK2**, **libxml2
 
 For reference, a number of other libraries are recommended for extra features.  However, not all these have been moved to meson.  It is recommended you run `meson build` (to configure the build directory) and then check which optional dependencies are not found:
 
-- Cairo is used for anti-alised rendering to screen or PNG as well as PDF:
-  - http://cairographics.org
-  - Minimum version required (if at all) is 1.6
-- Libart allows anti-aliased rendering and anti-aliased export to PNG:
-  - http://www.artofcode.com/libart.html
-- Libpng is need for libart based anti-aliased PNG export:
-  http://download.sourceforge.net/libpng/
 - Libxslt allows export through XSLT translation schemas:
   - ftp://ftp.gnome.org/pub/GNOME/sources/libxslt/
 - **Python scripting is also possible** by installing Python 2.7 (note that meson requires python 3, therefore python2 needs to be explicitly installed) and pygtk.
