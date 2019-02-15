@@ -8,7 +8,7 @@ not duplicated.
 For more information on the authors, maintainers, etc., of dia,
 please see the file AUTHORS (dynamically generated).
 
-Visit the dia webpage at https://gitlab.gnome.org/GNOME/dia 
+Visit the dia webpage at https://gitlab.gnome.org/GNOME/dia
 for more information on the dia mailing list and many other
 dia-related things.
 
@@ -18,16 +18,20 @@ etc., the authoritative list is in app/authors.h.
 
 ## Some comments about the source
 Everything on the screen 'inherits' from the structure Object
-in lib/object.h. (ps. this is a nice place to start reading the code.).
-Inherits in C means (as in gtk) that it begins with a copy of that structure.
-Some base classes exists in lib/, like element.h (for doing 'box-like'
-objects), connection.h (for doing 'line-like' objects), orth_conn.h (for doing
-connections with orthogonal lines, like the uml-stuff) and render_object.h
-(for doing picture-like objects). These base classes are then subclassed in
-the different object in the object-libraries like objects/standard object/UML
-and object/network.
+in `lib/object.h`. (PS. this is a nice place to start reading the code).
 
-The objects work by filling out two structures that the main program (app/*)
+Inherits in C means (as in GTK) that it begins with a copy of that structure.
+Some base classes exists in `lib/`, for example:
+
+- `element.h` (for doing 'box-like' objects)
+- `connection.h` (for doing 'line-like' objects)
+- `orth_conn.h` (for doing connections with orthogonal lines, like the uml-stuff)
+- `render_object.h` (for doing picture-like objects).
+
+These base classes are then subclassed in the different object in the
+object-libraries like objects/standard object/UML and object/network.
+
+The objects work by filling out two structures that the main program (`app/*`)
 uses to handle the objects. The ObjectType structure which consists of some
 info and a pointer to the type-operations (create+load+save). There's one
 ObjectType per object type currently loaded. Then the Object structure, there
@@ -41,7 +45,7 @@ headed (gives all those pita warnings) so that you directly can use the info
 stored in the subclasses. Most ops are quite self-describing, and the code can
 be copy-pasted from an object like the one you're doing. Rendering to
 screen/postscript is done through a 'Renderer' abstraction that can be found
-in lib/render.h.
+in `lib/render.h`.
 
 ### XML based objects
 You can (from version 0.80) create new objects using a SVG like XML languange.
@@ -57,6 +61,7 @@ When the handle of an object is connected to another object, it's always
 on special points called connection points, displayed as crosses.
 
 Implementation:
+
 - each object has an array of pointer to ConnectionPoint.
 - each object has an array of pointer to Handle.
 - each Handle has a pointer to 1 ConnectionPoint (NULL if the handle if
