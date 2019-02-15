@@ -12,12 +12,9 @@ if host_machine.system() == 'windows'
     deps += [cc.find_library('comdlg32')]
 endif
 
-library(
-    'wmf_filter',
-    sources,
-    dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep] + deps,
-    include_directories: [libdia_inc, configuration_inc],
-    link_with: [libdia],
-    install: libemf_dep.found(),
-    install_dir: dialibdir
-)
+install_plugins_desc += {
+    'name': 'wmf_filter',
+    'sources': sources,
+    'extra_deps': deps,
+    'install': libemf_dep.found(),
+}

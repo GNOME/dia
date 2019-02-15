@@ -28,7 +28,7 @@ subdir('svg')
 subdir('vdx')
 # TODO: Port to Windows.
 if host_machine.system() != 'windows'
-  subdir('wmf')  # Non-standard: Only installs if libemf present.
+  subdir('wmf')
 endif
 subdir('wpg')
 subdir('xfig')

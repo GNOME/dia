@@ -13,19 +13,18 @@ xsls = files(
     'dia-uml2python.xsl',
     'dia-uml2owl.xsl',
     'stylesheets.xml',
-    'dia-uml2componentlist.xsl',	
+    'dia-uml2componentlist.xsl',
 )
 
-install_data(xsls, install_dir: join_paths(pkgdatadir, 'xslt'))
+install_data(
+    xsls,
+    install_dir: join_paths(pkgdatadir, 'xslt')
+)
 
 if libxslt_dep.found()
-    library(
-        'xslt_filter',
-        sources,
-        dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep, libxslt_dep],
-        include_directories: [libdia_inc, configuration_inc],
-        link_with: [libdia],
-        install: true,
-        install_dir: dialibdir
-    )
+    install_plugins_desc += {
+        'name': 'xslt_filter',
+        'sources': sources,
+        'extra_deps': [libxslt_dep],
+    }
 endif
