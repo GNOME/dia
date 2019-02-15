@@ -70,17 +70,28 @@ sure the order of the connectionpoints is the same when loading the saved
 object.
 
 ## Static analysis
-Some of the recent changes (log message starting with `scan-build` are suggested
-by static source analysis, see http://clang-analyzer.llvm.org/scan-build )
 
-To use it just run ./configure and make through the scan-build script, like:
+Static analysis is great!
+It is also [recommended](https://github.com/coreinfrastructure/best-practices-badge/blob/master/doc/criteria.md#static_analysis) by the Core Infrastructure Initiative.
+We currently support two static analysis tools: clang `scan-build` and coverity.
 
-```
-export PATH=/mnt/Home/from-svn/llvm/Release/bin:$PATH
-/mnt/Home/from-svn/llvm/tools/clang/tools/scan-build/scan-build ./configure --prefix=/opt --enable-debug=yes
-/mnt/Home/from-svn/llvm/tools/clang/tools/scan-build/scan-build -v -v make -j3
-/mnt/Home/from-svn/llvm/tools/clang/tools/scan-view/scan-view
-```
+### scan-build
 
-(given an uninstalled checkout of llvm to /mnt/Home/from-svn/llvm)
+Some of the changes (log message starting with `scan-build`) are suggested
+by [scan-build](http://clang-analyzer.llvm.org/scan-build)
+
+See [Meson Documentation](https://mesonbuild.com/Using-multiple-build-directories.html#specialized-uses)
+for details on how to use it.  The basic idea is that `scan-build` replaces
+environment variables like GCC and GXX custom invocations that perform the
+analysis.
+
+### Coverity
+
+Dia GNOME has a coverity web-page here: https://scan.coverity.com/projects/dia-gnome/
+
+#### Known bug: `error: identifier "_Float128" is undefined`
+See https://software.intel.com/en-us/forums/intel-c-compiler/topic/742701 for more details.
+
+Simply use clang for compilation: https://mesonbuild.com/Running-Meson.html
+
 
