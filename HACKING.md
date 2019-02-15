@@ -1,4 +1,5 @@
-# Intro
+# Coding on Dia
+
 Feel free to hack away at dia, but you're advised to contact
 the dia maintainers and/or the mailing list if you do any
 larger work --- this is in everyone's interest so that work is
@@ -15,7 +16,7 @@ If you need to alter the list of contributors, documentors,
 etc., the authoritative list is in app/authors.h.
 
 
-# Some comments about the source
+## Some comments about the source
 Everything on the screen 'inherits' from the structure Object
 in lib/object.h. (ps. this is a nice place to start reading the code.).
 Inherits in C means (as in gtk) that it begins with a copy of that structure.
@@ -42,11 +43,11 @@ be copy-pasted from an object like the one you're doing. Rendering to
 screen/postscript is done through a 'Renderer' abstraction that can be found
 in lib/render.h.
 
-## XML based objects
+### XML based objects
 You can (from version 0.80) create new objects using a SVG like XML languange.
 The file doc/custom-shapes has more information about this.
 
-## Note on handles and connection points:
+### Handles and connection points
 An object has handles to resize it. A handle can be moved either because
 the user dragged it with the mouse, or the handle is attached to another
 object, which moved itself. The handles are diplayed as little squares
@@ -68,7 +69,7 @@ the connectionpoint is saved as the index of the connectionpoint. So make
 sure the order of the connectionpoints is the same when loading the saved
 object.
 
-# Notes on static analysis
+## Static analysis
 Some of the recent changes (log message starting with `scan-build` are suggested
 by static source analysis, see http://clang-analyzer.llvm.org/scan-build )
 
