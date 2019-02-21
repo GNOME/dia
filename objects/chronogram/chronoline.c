@@ -790,12 +790,17 @@ chronoline_update_data(Chronoline *chronoline)
   shouldbe = 0;
   lst = chronoline->evtlist;
 
+  /*Calculate the number of connection points*/
   while (lst) {
     evt = (CLEvent *)lst->data;
     
     if ((evt->time >= chronoline->start_time) && 
-	(evt->time <= chronoline->end_time))
+	(evt->time <= chronoline->end_time)) {
       shouldbe++;
+      if(chronoline->multibit && evt->type!=CLE_OFF){
+        shouldbe++;
+      }
+    }
     if ((evt->time > chronoline->start_time) && 
 	(evt->time < chronoline->end_time)) {
         /*For inside (same as before but strict difference)*/
@@ -831,8 +836,17 @@ chronoline_update_data(Chronoline *chronoline)
       g_assert(i < chronoline->snap->num_connections);
       cp->pos.x = evt->x;
       if (chronoline->multibit) {
-	cp->pos.y = .5 * (chronoline->y_down + chronoline->y_up);
+	cp->pos.y =  (evt->type==CLE_OFF?
+       .5 * (chronoline->y_down + chronoline->y_up):chronoline->y_up);
 	cp->directions = DIR_ALL;
+        if(evt->type!=CLE_OFF){
+          i++;
+          conn_elem = g_slist_next(conn_elem);
+          cp =  (ConnectionPoint *)(conn_elem->data);
+          cp->pos.x = evt->x;
+          cp->pos.y =  chronoline->y_down;
+          cp->directions = DIR_ALL;
+        }
       } else {
 	cp->pos.y = (evt->type==CLE_OFF?
 		     chronoline->y_down:chronoline->y_up);
