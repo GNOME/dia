@@ -39,8 +39,6 @@
 #include "properties.h"
 #include "dia_dirs.h"
 
-#include "tool-icons.h"
-
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 2.0
 
@@ -62,10 +60,10 @@ struct _Image {
   Color border_color;
   LineStyle line_style;
   real dashlength;
-  
+
   DiaImage *image;
   gchar *file;
-  
+
   gboolean inline_data;
   /* may contain the images pixbuf pointer - if so: reference counted! */
   GdkPixbuf *pixbuf;
@@ -142,8 +140,7 @@ DiaObjectType image_type =
 {
   "Standard - Image",  /* name */
   0,                 /* version */
-  (const char **) image_icon, /* pixmap */
-
+  (const char **) "res:/org/gnome/Dia/objects/standard/image.png",
   &image_type_ops,      /* ops */
   NULL,
   0,
@@ -417,7 +414,7 @@ image_move_handle(Image *image, Handle *handle,
     default:
       message_warning("Unforeseen handle in image_move_handle: %d\n",
 		      handle->id);
-      
+
     }
   } else {
     element_move_handle(elem, handle->id, to, cp, reason, modifiers);
@@ -431,7 +428,7 @@ static ObjectChange*
 image_move(Image *image, Point *to)
 {
   image->element.corner = *to;
-  
+
   image_update_data(image);
 
   return NULL;
@@ -443,15 +440,15 @@ image_draw(Image *image, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point ul_corner, lr_corner;
   Element *elem;
-  
+
   assert(image != NULL);
   assert(renderer != NULL);
 
   elem = &image->element;
-  
+
   lr_corner.x = elem->corner.x + elem->width + image->border_width/2;
   lr_corner.y = elem->corner.y + elem->height + image->border_width/2;
-  
+
   ul_corner.x = elem->corner.x - image->border_width/2;
   ul_corner.y = elem->corner.y - image->border_width/2;
 
@@ -580,19 +577,19 @@ image_create(Point *startpoint,
   image = g_malloc0(sizeof(Image));
   elem = &image->element;
   obj = &elem->object;
-  
+
   obj->type = &image_type;
   obj->ops = &image_ops;
 
   elem->corner = *startpoint;
   elem->width = DEFAULT_WIDTH;
   elem->height = DEFAULT_HEIGHT;
-    
+
   image->border_width =  attributes_get_default_linewidth();
   image->border_color = attributes_get_foreground();
   attributes_get_default_line_style(&image->line_style,
 				    &image->dashlength);
-  
+
   element_init(elem, 8, NUM_CONNECTIONS);
 
   for (i=0; i<NUM_CONNECTIONS; i++) {
@@ -619,13 +616,13 @@ image_create(Point *startpoint,
   image->keep_aspect = default_properties.keep_aspect;
 
   image_update_data(image);
-  
+
   *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  *handle2 = obj->handles[7];
   return &image->element.object;
 }
 
-static void 
+static void
 image_destroy(Image *image)
 {
   if (image->file != NULL)
@@ -647,9 +644,9 @@ image_copy(Image *image)
   Image *newimage;
   Element *elem, *newelem;
   DiaObject *newobj;
-  
+
   elem = &image->element;
-  
+
   newimage = g_malloc0(sizeof(Image));
   newelem = &newimage->element;
   newobj = &newelem->object;
@@ -660,7 +657,7 @@ image_copy(Image *image)
   newimage->border_color = image->border_color;
   newimage->line_style = image->line_style;
   newimage->angle = image->angle;
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     newobj->connections[i] = &newimage->connections[i];
     newimage->connections[i].object = newobj;
@@ -702,7 +699,7 @@ image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
   if (!color_equals(&image->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
 		   &image->border_color, ctx);
-  
+
   if (image->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  image->line_style, ctx);
@@ -711,7 +708,7 @@ image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
       image->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  image->dashlength, ctx);
-  
+
   data_add_boolean(new_attribute(obj_node, "draw_border"), image->draw_border, ctx);
   data_add_boolean(new_attribute(obj_node, "keep_aspect"), image->keep_aspect, ctx);
 
@@ -754,16 +751,16 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
   int i;
   AttributeNode attr;
   char *diafile_dir;
-  
+
   image = g_malloc0(sizeof(Image));
   elem = &image->element;
   obj = &elem->object;
-  
+
   obj->type = &image_type;
   obj->ops = &image_ops;
 
   element_load(elem, obj_node, ctx);
-  
+
   image->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
@@ -773,7 +770,7 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &image->border_color, ctx);
-  
+
   image->line_style = LINESTYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
@@ -816,7 +813,7 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
   image->connections[8].flags = CP_FLAGS_MAIN;
 
   image->image = NULL;
-  
+
   if (strcmp(image->file, "")!=0) {
     if (   g_path_is_absolute (image->file)
 	&& g_file_test (image->file, G_FILE_TEST_IS_REGULAR)) { /* Absolute pathname */

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Dia/objects/standard/">
+    <file>arc.png</file>
+    <file>box.png</file>
+    <file>line.png</file>
+    <file>polyline.png</file>
+    <file>beziergon.png</file>
+    <file>ellipse.png</file>
+    <file>outline.png</file>
+    <file>text.png</file>
+    <file>bezierline.png</file>
+    <file>image.png</file>
+    <file>polygon.png</file>
+    <file>zigzagline.png</file>
+  </gresource>
+</gresources>

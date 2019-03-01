@@ -36,8 +36,6 @@
 #include "properties.h"
 #include "create.h"
 
-#include "tool-icons.h"
-
 #define DEFAULT_WIDTH 0.15
 
 typedef struct _Bezierline Bezierline;
@@ -104,8 +102,7 @@ static DiaObjectType bezierline_type =
 {
   "Standard - BezierLine",   /* name */
   0,                         /* version */
-  (const char **) bezierline_icon,      /* pixmap */
-  
+  (const char **) "res:/org/gnome/Dia/objects/standard/bezierline.png",
   &bezierline_type_ops,      /* ops */
   NULL,                      /* pixmap_file */
   0                          /* default_user_data */
@@ -212,7 +209,7 @@ bezierline_distance_from(Bezierline *bezierline, Point *point)
   }
 }
 
-static int 
+static int
 bezierline_closest_segment(Bezierline *bezierline, Point *point)
 {
   BezierConn *bez = &bezierline->bez;
@@ -245,7 +242,7 @@ bezierline_move_handle(Bezierline *bezierline, Handle *handle,
     point_scale(&dist, 0.332);
 
     bezierconn_move_handle(bez, handle, to, cp, reason, modifiers);
-    
+
     bez->bezier.points[1].p1 = bez->bezier.points[0].p1;
     point_sub(&bez->bezier.points[1].p1, &dist);
     bez->bezier.points[1].p2 = *to;
@@ -288,7 +285,7 @@ exchange_bez_gap_points(BezierConn * bez, Point* gap_points)
 }
 static real approx_bez_length(BezierConn *bez)
 {
-        /* Approximates the length of the bezier curve 
+        /* Approximates the length of the bezier curve
          * by the length of the polyline joining its points */
         Point *current, *last, vec;
         real length = .0;
@@ -304,7 +301,7 @@ static real approx_bez_length(BezierConn *bez)
         return length;
 }
 
-static void 
+static void
 compute_gap_points(Bezierline *bezierline, Point *gap_points)
 {
         real bez_length;
@@ -316,7 +313,7 @@ compute_gap_points(Bezierline *bezierline, Point *gap_points)
         gap_points[1] = bez->bezier.points[1].p1;
         gap_points[2] = bez->bezier.points[bez->bezier.num_points-1].p2;
         gap_points[3] = bez->bezier.points[bez->bezier.num_points-1].p3;
-        
+
         point_copy(&vec_start, &gap_points[1]);
         point_sub(&vec_start, &gap_points[0]);
         point_normalize(&vec_start); /* unit vector pointing from first point */
@@ -324,16 +321,16 @@ compute_gap_points(Bezierline *bezierline, Point *gap_points)
         point_sub(&vec_end, &gap_points[3]);
         point_normalize(&vec_end); /* unit vector pointing from last point */
 
-                
-        bez_length = approx_bez_length(bez) ; 
-        
-        if (connpoint_is_autogap(bez->object.handles[0]->connected_to) && 
-               (bez->object.handles[0])->connected_to != NULL && 
+
+        bez_length = approx_bez_length(bez) ;
+
+        if (connpoint_is_autogap(bez->object.handles[0]->connected_to) &&
+               (bez->object.handles[0])->connected_to != NULL &&
                (bez->object.handles[0])->connected_to->object != NULL ) {
-            Point end; 
+            Point end;
             point_copy(&end, &gap_points[0]);
             point_add_scaled(&end, &vec_start, bez_length); /* far away on the same slope */
-            end = calculate_object_edge(&gap_points[0], &end, 
+            end = calculate_object_edge(&gap_points[0], &end,
                             (bez->object.handles[0])->connected_to->object);
             point_sub(&end, &gap_points[0]); /* vector from old start to new start */
             /* move points */
@@ -341,13 +338,13 @@ compute_gap_points(Bezierline *bezierline, Point *gap_points)
             point_add(&gap_points[1], &end);
         }
 
-        if (connpoint_is_autogap(bez->object.handles[3*(bez->bezier.num_points-1)]->connected_to) && 
+        if (connpoint_is_autogap(bez->object.handles[3*(bez->bezier.num_points-1)]->connected_to) &&
                 (bez->object.handles[3*(bez->bezier.num_points-1)])->connected_to != NULL &&
                 (bez->object.handles[3*(bez->bezier.num_points-1)])->connected_to->object != NULL) {
-            Point end; 
+            Point end;
             point_copy(&end, &gap_points[3]);
             point_add_scaled(&end, &vec_end, bez_length); /* far away on the same slope */
-            end = calculate_object_edge(&gap_points[3], &end, 
+            end = calculate_object_edge(&gap_points[3], &end,
                             (bez->object.handles[3*(bez->bezier.num_points-1)])->connected_to->object);
             point_sub(&end, &gap_points[3]); /* vector from old end to new end */
             /* move points */
@@ -355,7 +352,7 @@ compute_gap_points(Bezierline *bezierline, Point *gap_points)
             point_add(&gap_points[2], &end);
         }
 
-        
+
         /* adds the absolute start gap  according to the slope at the first point */
         point_add_scaled(&gap_points[0], &vec_start, bezierline->absolute_start_gap);
         point_add_scaled(&gap_points[1], &vec_start, bezierline->absolute_start_gap);
@@ -370,10 +367,10 @@ static void
 bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
 {
   Point gap_points[4]; /* two first and two last bez points */
-        
+
   BezierConn *bez = &bezierline->bez;
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  
+
   renderer_ops->set_linewidth(renderer, bezierline->line_width);
   renderer_ops->set_linestyle(renderer, bezierline->line_style, bezierline->dashlength);
   renderer_ops->set_linejoin(renderer, bezierline->line_join);
@@ -446,13 +443,13 @@ bezierline_create(Point *startpoint,
   bezierline->bez.object.enclosing_box = g_new0 (Rectangle, 1);
   bez = &bezierline->bez;
   obj = &bez->object;
-  
+
   obj->type = &bezierline_type;
   obj->ops = &bezierline_ops;
 
   if (user_data == NULL) {
     bezierconn_init(bez, 2);
-    
+
     bez->bezier.points[0].p1 = *startpoint;
     bez->bezier.points[1].p1 = *startpoint;
     point_add(&bez->bezier.points[1].p1, &defaultlen);
@@ -497,9 +494,9 @@ bezierline_copy(Bezierline *bezierline)
 {
   Bezierline *newbezierline;
   BezierConn *bez, *newbez;
-  
+
   bez = &bezierline->bez;
- 
+
   newbezierline = g_new0(Bezierline, 1);
   newbezierline->bez.object.enclosing_box = g_new0 (Rectangle, 1);
   newbez = &newbezierline->bez;
@@ -529,8 +526,8 @@ bezierline_update_data(Bezierline *bezierline)
   PolyBBExtras *extra = &bez->extra_spacing;
 
   bezierconn_update_data(bez);
-    
-  extra->start_trans = extra->start_long = 
+
+  extra->start_trans = extra->start_long =
   extra->middle_trans =
   extra->end_trans = extra->end_long = (bezierline->line_width / 2.0);
 
@@ -541,7 +538,7 @@ bezierline_update_data(Bezierline *bezierline)
       bezierline->absolute_start_gap || bezierline->absolute_end_gap ||
       bezierline->start_arrow.type != ARROW_NONE || bezierline->end_arrow.type != ARROW_NONE) {
     Point gap_points[4];
-    Rectangle bbox_union = {bez->bezier.points[0].p1.x, bez->bezier.points[0].p1.y, 
+    Rectangle bbox_union = {bez->bezier.points[0].p1.x, bez->bezier.points[0].p1.y,
 			    bez->bezier.points[0].p1.x, bez->bezier.points[0].p1.y};
     compute_gap_points(bezierline, gap_points);
     exchange_bez_gap_points(bez,gap_points);
@@ -550,7 +547,7 @@ bezierline_update_data(Bezierline *bezierline)
       Rectangle bbox;
       Point move_arrow, move_line;
       Point to = bez->bezier.points[0].p1, from = bez->bezier.points[1].p1;
-      
+
       calculate_arrow_point(&bezierline->start_arrow, &to, &from, &move_arrow, &move_line, bezierline->line_width);
       point_sub(&to, &move_arrow);
       point_sub(&bez->bezier.points[0].p1, &move_line);
@@ -562,7 +559,7 @@ bezierline_update_data(Bezierline *bezierline)
       Point move_arrow, move_line;
       int num_points = bez->bezier.num_points;
       Point to = bez->bezier.points[num_points-1].p3, from = bez->bezier.points[num_points-1].p2;
-      
+
       calculate_arrow_point(&bezierline->end_arrow, &to, &from, &move_arrow, &move_line, bezierline->line_width);
       point_sub(&to, &move_arrow);
       point_sub(&bez->bezier.points[num_points-1].p3, &move_line);
@@ -571,11 +568,11 @@ bezierline_update_data(Bezierline *bezierline)
     }
     bezierconn_update_boundingbox(bez);
     rectangle_union (&obj->bounding_box, &bbox_union);
-    exchange_bez_gap_points(bez,gap_points);          
+    exchange_bez_gap_points(bez,gap_points);
   } else {
     bezierconn_update_boundingbox(bez);
   }
-    /* add control points to the bounding box, needed to make them visible when showing all 
+    /* add control points to the bounding box, needed to make them visible when showing all
       * and to remove traces from them */
   {
     int i, num_points = bez->bezier.num_points;
@@ -585,8 +582,8 @@ bezierline_update_data(Bezierline *bezierline)
     for (i = 1; i < num_points; ++i) {
       if (bez->bezier.points[i].type != BEZ_CURVE_TO)
         continue;
-      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p1);      
-      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p2);      
+      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p1);
+      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p2);
     }
   }
 }
@@ -603,17 +600,17 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
     exchange_bez_gap_points(&bezierline->bez,gap_points);
     bezierconn_update_boundingbox(&bezierline->bez);
     exchange_bez_gap_points(&bezierline->bez,gap_points);
-  } 
+  }
   bezierconn_save(&bezierline->bez, obj_node, ctx);
 
   if (!color_equals(&bezierline->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
 		   &bezierline->line_color, ctx);
-  
+
   if (bezierline->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  bezierline->line_width, ctx);
-  
+
   if (bezierline->line_style != LINESTYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  bezierline->line_style, ctx);
@@ -661,7 +658,7 @@ bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
   bez = &bezierline->bez;
   obj = &bez->object;
-  
+
   obj->type = &bezierline_type;
   obj->ops = &bezierline_ops;
 
@@ -711,12 +708,12 @@ bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   attr = object_find_attribute(obj_node, "absolute_end_gap");
   if (attr != NULL)
     bezierline->absolute_end_gap =  data_real(attribute_first_data(attr), ctx);
-  
+
   /* if "screws up the bounding box if auto_gap" it must be fixed there
    * not by copying some meaningless bounding_box before this function call!
    * But the real fix is in connectionpoint.c(connpoint_is_autogap)
    */
-  bezierline_update_data(bezierline); 
+  bezierline_update_data(bezierline);
 
   return &bezierline->bez.object;
 }
@@ -740,7 +737,7 @@ bezierline_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer dat
   int seg_nr;
   Bezierline *bezierline = (Bezierline*) obj;
   ObjectChange *change;
-  
+
   seg_nr = beziercommon_closest_segment(&bezierline->bez.bezier, clicked, bezierline->line_width);
 
   change = bezierconn_remove_segment(&bezierline->bez, seg_nr+1);
@@ -754,11 +751,11 @@ bezierline_set_corner_type_callback (DiaObject *obj, Point *clicked, gpointer da
   Handle *closest;
   Bezierline *bezierline = (Bezierline*) obj;
   ObjectChange *change;
-  
+
   closest = bezierconn_closest_major_handle(&bezierline->bez, clicked);
-  change = bezierconn_set_corner_type(&bezierline->bez, closest, 
+  change = bezierconn_set_corner_type(&bezierline->bez, closest,
 				      GPOINTER_TO_INT(data));
-  
+
   bezierline_update_data(bezierline);
   return change;
 }
@@ -767,9 +764,9 @@ static DiaMenuItem bezierline_menu_items[] = {
   { N_("Add Segment"), bezierline_add_segment_callback, NULL, 1 },
   { N_("Delete Segment"), bezierline_delete_segment_callback, NULL, 1 },
   { NULL, NULL, NULL, 1 },
-  { N_("Symmetric control"), bezierline_set_corner_type_callback, 
+  { N_("Symmetric control"), bezierline_set_corner_type_callback,
     GINT_TO_POINTER(BEZ_CORNER_SYMMETRIC), 1 },
-  { N_("Smooth control"), bezierline_set_corner_type_callback, 
+  { N_("Smooth control"), bezierline_set_corner_type_callback,
     GINT_TO_POINTER(BEZ_CORNER_SMOOTH), 1 },
   { N_("Cusp control"), bezierline_set_corner_type_callback,
     GINT_TO_POINTER(BEZ_CORNER_CUSP), 1 }
