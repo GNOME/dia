@@ -38,9 +38,6 @@ conf.set('HAVE_OGDF', libogdf_dep.found())
 libxslt_dep = dependency('libxslt', required: false)
 conf.set('HAVE_XSLT', libxslt_dep.found())
 
-# Used in pixmap csource generation.
-gdk_pixbuf_csource = find_program('gdk-pixbuf-csource')
-
 datadir = join_paths(get_option('prefix'),
                      get_option('datadir'))
 

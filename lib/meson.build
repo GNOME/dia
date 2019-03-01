@@ -110,8 +110,6 @@ resources = gnome.compile_resources('libdia-resources', 'libdia.gresource.xml',
                                     source_dir : '.',
                                     c_name : 'libdia')
 
-subdir('icons')
-
 libdia_deps = [
     libc_dep,
     libgtk_dep,

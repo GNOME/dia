@@ -25,8 +25,6 @@
 #include "message.h"
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include "pixmaps/dia-lib-icons.h"
-
 #define SCALING_CACHE
 
 GType dia_image_get_type (void);
