@@ -37,8 +37,6 @@
 #include "create.h"
 #include "pattern.h"
 
-#include "tool-icons.h"
-
 #define DEFAULT_WIDTH 0.15
 
 /*!
@@ -128,8 +126,7 @@ static DiaObjectType beziergon_type =
 {
   "Standard - Beziergon",   /* name */
   0,                         /* version */
-  (const char **) beziergon_icon,      /* pixmap */
-  
+  (const char **) "res:/org/gnome/Dia/objects/standard/beziergon.png",
   &beziergon_type_ops,      /* ops */
   NULL,                     /* pixmap_file */
   0,                        /* default_user_data */
@@ -221,7 +218,7 @@ beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
   BezierShape *bez = &beziergon->bezier;
   BezPoint *points;
   int n;
-  
+
   points = &bez->bezier.points[0];
   n = bez->bezier.num_points;
 
@@ -328,7 +325,7 @@ beziergon_copy(Beziergon *beziergon)
   BezierShape *bezier, *newbezier;
 
   bezier = &beziergon->bezier;
- 
+
   newbeziergon = g_malloc0(sizeof(Beziergon));
   newbeziergon->bezier.object.enclosing_box = g_new0 (Rectangle, 1);
   newbezier = &newbeziergon->bezier;
@@ -368,8 +365,8 @@ beziergon_update_data(Beziergon *beziergon)
     for (i = 0; i < num_points; ++i) {
       if (bez->bezier.points[i].type != BEZ_CURVE_TO)
         continue;
-      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p1);      
-      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p2);      
+      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p1);
+      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p2);
     }
   }
   obj->position = bez->bezier.points[0].p1;
@@ -384,15 +381,15 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
   if (!color_equals(&beziergon->line_color, &color_black))
     data_add_color(new_attribute(obj_node, "line_color"),
 		   &beziergon->line_color, ctx);
-  
+
   if (beziergon->line_width != 0.1)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  beziergon->line_width, ctx);
-  
+
   if (!color_equals(&beziergon->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &beziergon->inner_color, ctx);
-  
+
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   beziergon->show_background, ctx);
 
@@ -404,7 +401,7 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
       beziergon->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  beziergon->dashlength, ctx);
-  
+
   if (beziergon->line_join != LINEJOIN_MITER)
     data_add_enum(new_attribute(obj_node, "line_join"),
                   beziergon->line_join, ctx);
@@ -427,7 +424,7 @@ beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
   bez = &beziergon->bezier;
   obj = &bez->object;
-  
+
   obj->type = &beziergon_type;
   obj->ops = &beziergon_ops;
 
@@ -447,7 +444,7 @@ beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &beziergon->inner_color, ctx);
-  
+
   beziergon->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
@@ -483,7 +480,7 @@ beziergon_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
   Beziergon *bezier = (Beziergon*) obj;
   int segment;
   ObjectChange *change;
-  
+
   segment = beziergon_closest_segment(bezier, clicked);
   change = beziershape_add_segment(&bezier->bezier, segment, clicked);
 
@@ -497,7 +494,7 @@ beziergon_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer data
   int seg_nr;
   Beziergon *bezier = (Beziergon*) obj;
   ObjectChange *change;
-  
+
   seg_nr = beziergon_closest_segment(bezier, clicked);
   change = beziershape_remove_segment(&bezier->bezier, seg_nr+1);
 
@@ -511,11 +508,11 @@ beziergon_set_corner_type_callback (DiaObject *obj, Point *clicked, gpointer dat
   Handle *closest;
   Beziergon *beziergon = (Beziergon *) obj;
   ObjectChange *change;
-  
+
   closest = beziershape_closest_major_handle(&beziergon->bezier, clicked);
-  change = beziershape_set_corner_type(&beziergon->bezier, closest, 
+  change = beziershape_set_corner_type(&beziergon->bezier, closest,
 				       GPOINTER_TO_INT(data));
-  
+
   beziergon_update_data(beziergon);
   return change;
 }
@@ -524,9 +521,9 @@ static DiaMenuItem beziergon_menu_items[] = {
   { N_("Add Segment"), beziergon_add_segment_callback, NULL, 1 },
   { N_("Delete Segment"), beziergon_delete_segment_callback, NULL, 1 },
   { NULL, NULL, NULL, 1 },
-  { N_("Symmetric control"), beziergon_set_corner_type_callback, 
+  { N_("Symmetric control"), beziergon_set_corner_type_callback,
     GINT_TO_POINTER(BEZ_CORNER_SYMMETRIC), 1 },
-  { N_("Smooth control"), beziergon_set_corner_type_callback, 
+  { N_("Smooth control"), beziergon_set_corner_type_callback,
     GINT_TO_POINTER(BEZ_CORNER_SMOOTH), 1 },
   { N_("Cusp control"), beziergon_set_corner_type_callback,
     GINT_TO_POINTER(BEZ_CORNER_CUSP), 1 }

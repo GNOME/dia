@@ -34,8 +34,6 @@
 #include "diapathrenderer.h"
 #include "message.h"
 
-#include "tool-icons.h"
-
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 1.0
 #define DEFAULT_BORDER 0.15
@@ -58,7 +56,7 @@ struct _Ellipse {
 
   ConnectionPoint connections[9];
   Handle center_handle;
-  
+
   real border_width;
   Color border_color;
   Color inner_color;
@@ -67,7 +65,7 @@ struct _Ellipse {
   LineStyle line_style;
   real dashlength;
   DiaPattern *pattern;
-  real angle; /*!< between [-45°-45°] to simplify connection point handling */
+  real angle; /*!< between [-45ï¿½-45ï¿½] to simplify connection point handling */
 };
 
 static struct _EllipseProperties {
@@ -148,8 +146,7 @@ DiaObjectType ellipse_type =
 {
   "Standard - Ellipse",   /* name */
   0,                      /* version */
-  (const char **) ellipse_icon,  /* pixmap */
-  
+  (const char **) "res:/org/gnome/Dia/objects/standard/ellipse.png",
   &ellipse_type_ops,      /* ops */
   NULL,
   0,
@@ -181,8 +178,8 @@ static ObjectOps ellipse_ops = {
 static void
 ellipse_set_props(Ellipse *ellipse, GPtrArray *props)
 {
-  
-  object_set_props_from_offsets(&ellipse->element.object, 
+
+  object_set_props_from_offsets(&ellipse->element.object,
                                 ellipse_offsets, props);
 
   ellipse_update_data(ellipse);
@@ -286,17 +283,17 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
             new_width = to_width < aspect_width ? to_width : aspect_width;
             new_height = new_width / width * height;
             break;
-	default: 
+	default:
 	    new_width = width;
 	    new_height = height;
 	    break;
         }
-	
+
         nw_to.x = center.x - new_width/2;
         nw_to.y = center.y - new_height/2;
         se_to.x = center.x + new_width/2;
         se_to.y = center.y + new_height/2;
-        
+
         element_move_handle(&ellipse->element, HANDLE_RESIZE_NW, &nw_to, cp, reason, modifiers);
         element_move_handle(&ellipse->element, HANDLE_RESIZE_SE, &se_to, cp, reason, modifiers);
     } else {
@@ -309,7 +306,7 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 
         element_move_handle(&ellipse->element, handle->id, to, cp, reason, modifiers);
         /* this second move screws the intended object size, e.g. from dot2dia.py
-	 * but without it the 'centered' behaviour during edit is screwed 
+	 * but without it the 'centered' behaviour during edit is screwed
 	 */
         element_move_handle(&ellipse->element, 7-handle->id, &opposite_to, cp, reason, modifiers);
     }
@@ -392,7 +389,7 @@ ellipse_update_data(Ellipse *ellipse)
   DiaObject *obj = &elem->object;
   Point center;
   real half_x, half_y;
-  
+
   /* handle circle implies height=width */
   if (ellipse->aspect == CIRCLE_ASPECT){
 	float size = elem->height < elem->width ? elem->height : elem->width;
@@ -401,10 +398,10 @@ ellipse_update_data(Ellipse *ellipse)
 
   center.x = elem->corner.x + elem->width / 2.0;
   center.y = elem->corner.y + elem->height / 2.0;
-  
+
   half_x = elem->width * M_SQRT1_2 / 2.0;
   half_y = elem->height * M_SQRT1_2 / 2.0;
-    
+
   /* Update connections: */
   ellipse->connections[0].pos.x = center.x - half_x;
   ellipse->connections[0].pos.y = center.y - half_y;
@@ -471,7 +468,7 @@ ellipse_create(Point *startpoint,
   ellipse = g_malloc0(sizeof(Ellipse));
   elem = &ellipse->element;
   obj = &elem->object;
-  
+
   obj->type = &ellipse_type;
 
   obj->ops = &ellipse_ops;
@@ -524,9 +521,9 @@ ellipse_copy(Ellipse *ellipse)
   Ellipse *newellipse;
   Element *elem, *newelem;
   DiaObject *newobj;
-  
+
   elem = &ellipse->element;
-  
+
   newellipse = g_malloc0(sizeof(Ellipse));
   newelem = &newellipse->element;
   newobj = &newelem->object;
@@ -568,11 +565,11 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
   if (ellipse->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),
 		  ellipse->border_width, ctx);
-  
+
   if (!color_equals(&ellipse->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
 		   &ellipse->border_color, ctx);
-  
+
   if (!color_equals(&ellipse->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &ellipse->inner_color, ctx);
@@ -580,7 +577,7 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
   if (!ellipse->show_background)
     data_add_boolean(new_attribute(obj_node, "show_background"),
 		     ellipse->show_background, ctx);
-  
+
   if (ellipse->aspect != FREE_ASPECT)
     data_add_enum(new_attribute(obj_node, "aspect"),
 		  ellipse->aspect, ctx);
@@ -613,7 +610,7 @@ static DiaObject *ellipse_load(ObjectNode obj_node, int version, DiaContext *ctx
   ellipse = g_malloc0(sizeof(Ellipse));
   elem = &ellipse->element;
   obj = &elem->object;
-  
+
   obj->type = &ellipse_type;
   obj->ops = &ellipse_ops;
 
@@ -628,12 +625,12 @@ static DiaObject *ellipse_load(ObjectNode obj_node, int version, DiaContext *ctx
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &ellipse->border_color, ctx);
-  
+
   ellipse->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &ellipse->inner_color, ctx);
-  
+
   ellipse->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
@@ -752,11 +749,11 @@ ellipse_set_aspect_callback (DiaObject* obj, Point* clicked, gpointer data)
 }
 
 static DiaMenuItem ellipse_menu_items[] = {
-  { N_("Free aspect"), ellipse_set_aspect_callback, (void*)FREE_ASPECT, 
+  { N_("Free aspect"), ellipse_set_aspect_callback, (void*)FREE_ASPECT,
     DIAMENU_ACTIVE|DIAMENU_TOGGLE },
-  { N_("Fixed aspect"), ellipse_set_aspect_callback, (void*)FIXED_ASPECT, 
+  { N_("Fixed aspect"), ellipse_set_aspect_callback, (void*)FIXED_ASPECT,
     DIAMENU_ACTIVE|DIAMENU_TOGGLE },
-  { N_("Circle"), ellipse_set_aspect_callback, (void*)CIRCLE_ASPECT, 
+  { N_("Circle"), ellipse_set_aspect_callback, (void*)CIRCLE_ASPECT,
     DIAMENU_ACTIVE|DIAMENU_TOGGLE},
 };
 
@@ -775,9 +772,9 @@ ellipse_get_object_menu(Ellipse *ellipse, Point *clickedpoint)
   ellipse_menu_items[1].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE;
   ellipse_menu_items[2].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE;
 
-  ellipse_menu_items[ellipse->aspect].active = 
+  ellipse_menu_items[ellipse->aspect].active =
     DIAMENU_ACTIVE|DIAMENU_TOGGLE|DIAMENU_TOGGLE_ON;
-  
+
   return &ellipse_menu;
 }
 

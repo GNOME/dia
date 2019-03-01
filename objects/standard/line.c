@@ -36,8 +36,6 @@
 #include "properties.h"
 #include "create.h"
 
-#include "tool-icons.h"
-
 #define DEFAULT_WIDTH 0.25
 
 typedef struct _LineProperties LineProperties;
@@ -46,7 +44,7 @@ typedef struct _LineProperties LineProperties;
  * \brief Standard - Line: a straight _Connection
  *
  * The Standard - Line object implements a straight connection between two points.
- * The object can grow addtional _ConnectionPoint though the internal use 
+ * The object can grow addtional _ConnectionPoint though the internal use
  * of ConnPointLine.
  *
  * \extends _Connection
@@ -74,7 +72,7 @@ static LineProperties default_properties;
 
 static ObjectChange* line_move_handle(Line *line, Handle *handle,
 				      Point *to, ConnectionPoint *cp,
-				      HandleMoveReason reason, 
+				      HandleMoveReason reason,
 			     ModifierKeys modifiers);
 static ObjectChange* line_move(Line *line, Point *to);
 static void line_select(Line *line, Point *clicked_point,
@@ -123,14 +121,14 @@ static PropDescription line_props[] = {
     N_("Start point"), NULL },
   { "end_point", PROP_TYPE_POINT, 0,
     N_("End point"), NULL },
-  
+
   PROP_FRAME_BEGIN("gaps",0,N_("Line gaps")),
   { "absolute_start_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
     N_("Absolute start gap"), NULL, &gap_range },
   { "absolute_end_gap", PROP_TYPE_REAL, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
     N_("Absolute end gap"), NULL, &gap_range },
   PROP_FRAME_END("gaps",0),
- 
+
   PROP_DESC_END
 };
 
@@ -156,7 +154,7 @@ DiaObjectType line_type =
 {
   "Standard - Line",   /* name */
   0,                   /* version */
-  (const char **) line_icon,  /* pixmap */
+  (const char **) "res:/org/gnome/Dia/objects/standard/line.png",
   &line_type_ops,      /* ops */
   NULL,
   0,
@@ -188,7 +186,7 @@ static ObjectOps line_ops = {
 static void
 line_set_props(Line *line, GPtrArray *props)
 {
-  object_set_props_from_offsets(&line->connection.object, 
+  object_set_props_from_offsets(&line->connection.object,
                                 line_offsets, props);
   line_update_data(line);
 }
@@ -210,7 +208,7 @@ line_init_defaults() {
  * \memberof Line
  */
 static ObjectChange *
-line_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data) 
+line_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *oc;
   oc = connpointline_add_point(((Line *)obj)->cpl,clicked);
@@ -224,7 +222,7 @@ line_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
  * \memberof Line
  */
 static ObjectChange *
-line_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data) 
+line_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *oc;
   oc = connpointline_remove_point(((Line *)obj)->cpl,clicked);
@@ -337,9 +335,9 @@ line_get_object_menu(Line *line, Point *clickedpoint)
 
   cpl = line->cpl;
   /* Set entries sensitive/selected etc here */
-  object_menu_items[0].active = 
+  object_menu_items[0].active =
     connpointline_can_add_point(cpl, clickedpoint);
-  object_menu_items[1].active = 
+  object_menu_items[1].active =
     connpointline_can_remove_point(cpl,clickedpoint);
   return &object_menu;
 }
@@ -392,7 +390,7 @@ line_distance_from(Line *line, Point *point)
 {
   Point *endpoints;
 
-  endpoints = &line->connection.endpoints[0]; 
+  endpoints = &line->connection.endpoints[0];
 
   if (line->absolute_start_gap || line->absolute_end_gap ) {
     Point gap_endpoints[2];  /* Visible endpoints of line */
@@ -434,7 +432,7 @@ static ObjectChange*
 line_move(Line *line, Point *to)
 {
   Point start_to_end;
-  Point *endpoints = &line->connection.endpoints[0]; 
+  Point *endpoints = &line->connection.endpoints[0];
 
   start_to_end = endpoints[1];
   point_sub(&start_to_end, &endpoints[0]);
@@ -453,7 +451,7 @@ line_draw(Line *line, DiaRenderer *renderer)
   Point gap_endpoints[2];
 
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  
+
   assert(line != NULL);
   assert(renderer != NULL);
 
@@ -472,7 +470,7 @@ line_draw(Line *line, DiaRenderer *renderer)
 					&line->end_arrow);
   } else {
         renderer_ops->draw_line_with_arrows(renderer,
-					    &line->connection.endpoints[0], 
+					    &line->connection.endpoints[0],
 					    &line->connection.endpoints[1],
 					    line->line_width,
 					    &line->line_color,
@@ -501,19 +499,19 @@ line_create(Point *startpoint,
   line->line_color = attributes_get_foreground();
   line->absolute_start_gap = default_properties.absolute_start_gap;
   line->absolute_end_gap = default_properties.absolute_end_gap;
-    
+
   conn = &line->connection;
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
- 
+
   obj = &conn->object;
-  
+
   obj->type = &line_type;
   obj->ops = &line_ops;
 
   connection_init(conn, 2, 0);
-  
+
   line->cpl = connpointline_create(obj,1);
 
   attributes_get_default_line_style(&line->line_style, &line->dashlength);
@@ -543,15 +541,15 @@ line_copy(Line *line)
   int rcc = 0;
 
   conn = &line->connection;
-  
+
   newline = g_malloc0(sizeof(Line));
   newconn = &newline->connection;
   newobj = &newconn->object;
-  
+
   connection_copy(conn, newconn);
 
   newline->cpl = connpointline_copy(newobj,line->cpl,&rcc);
-  
+
   newline->line_color = line->line_color;
   newline->line_width = line->line_width;
   newline->line_style = line->line_style;
@@ -630,7 +628,7 @@ line_update_data(Line *line)
 
   connpointline_update(line->cpl);
   connpointline_putonaline(line->cpl, &start, &end, DIR_ALL);
-  
+
   connection_update_handles(conn);
 }
 
@@ -722,10 +720,10 @@ line_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     line->line_caps = data_enum(attribute_first_data(attr), ctx);
 
-  load_arrow(obj_node, &line->start_arrow, 
+  load_arrow(obj_node, &line->start_arrow,
 	     "start_arrow", "start_arrow_length", "start_arrow_width", ctx);
 
-  load_arrow(obj_node, &line->end_arrow, 
+  load_arrow(obj_node, &line->end_arrow,
 	     "end_arrow", "end_arrow_length", "end_arrow_width", ctx);
 
   line->absolute_start_gap = 0.0;

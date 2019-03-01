@@ -33,8 +33,6 @@
 #include "properties.h"
 #include "pattern.h"
 
-#include "tool-icons.h"
-
 #include "create.h"
 
 /*
@@ -130,8 +128,7 @@ static DiaObjectType polygon_type =
 {
   "Standard - Polygon",   /* name */
   0,                         /* version */
-  (const char **) polygon_icon,      /* pixmap */
-  
+  (const char **) "res:/org/gnome/Dia/objects/standard/polygon.png",
   &polygon_type_ops,       /* ops */
   NULL, /* pixmap_file */
   0, /* default_user_data */
@@ -164,7 +161,7 @@ static ObjectOps polygon_ops = {
 static void
 polygon_set_props(Polygon *polygon, GPtrArray *props)
 {
-  object_set_props_from_offsets(&polygon->poly.object, 
+  object_set_props_from_offsets(&polygon->poly.object,
                                 polygon_offsets, props);
   polygon_update_data(polygon);
 }
@@ -223,7 +220,7 @@ polygon_draw(Polygon *polygon, DiaRenderer *renderer)
   Point *points;
   int n;
   Color fill;
-  
+
   points = &poly->points[0];
   n = poly->numpoints;
 
@@ -277,7 +274,7 @@ polygon_create(Point *startpoint,
     point_add(&poly->points[2], &defaulty);
   } else {
     MultipointCreateData *pcd = (MultipointCreateData *)user_data;
-    
+
     polyshape_init(poly, pcd->num_points);
     polyshape_set_points(poly, pcd->num_points, pcd->points);
   }
@@ -312,7 +309,7 @@ polygon_copy(Polygon *polygon)
   PolyShape *poly, *newpoly;
 
   poly = &polygon->poly;
- 
+
   newpolygon = g_malloc0(sizeof(Polygon));
   newpoly = &newpolygon->poly;
 
@@ -339,7 +336,7 @@ polygon_update_data(Polygon *polygon)
   ElementBBExtras *extra = &poly->extra_spacing;
 
   polyshape_update_data(poly);
-  
+
   extra->border_trans = polygon->line_width / 2.0;
   polyshape_update_boundingbox(poly);
 
@@ -397,7 +394,7 @@ polygon_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
   poly = &polygon->poly;
   obj = &poly->object;
-  
+
   obj->type = &polygon_type;
   obj->ops = &polygon_ops;
 
@@ -417,7 +414,7 @@ polygon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &polygon->inner_color, ctx);
-  
+
   polygon->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
@@ -453,7 +450,7 @@ polygon_add_corner_callback (DiaObject *obj, Point *clicked, gpointer data)
   Polygon *poly = (Polygon*) obj;
   int segment;
   ObjectChange *change;
-  
+
   segment = polygon_closest_segment(poly, clicked);
   change = polyshape_add_point(&poly->poly, segment, clicked);
 
@@ -468,7 +465,7 @@ polygon_delete_corner_callback (DiaObject *obj, Point *clicked, gpointer data)
   int handle_nr, i;
   Polygon *poly = (Polygon*) obj;
   ObjectChange *change;
-  
+
   handle = polygon_closest_handle(poly, clicked);
 
   for (i = 0; i < obj->num_handles; i++) {

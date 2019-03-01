@@ -33,8 +33,6 @@
 #include "autoroute.h"
 #include "create.h"
 
-#include "tool-icons.h"
-
 #define DEFAULT_WIDTH 0.15
 
 #define HANDLE_MIDDLE HANDLE_CUSTOM1
@@ -126,7 +124,7 @@ static DiaObjectType zigzagline_type =
   "Standard - ZigZagLine",   /* name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
   1,                         /* version */
-  (const char **) zigzagline_icon, /* pixmap */
+  (const char **) "res:/org/gnome/Dia/objects/standard/zigzagline.png",
   &zigzagline_type_ops,      /* ops */
   NULL,
   0,
@@ -187,7 +185,7 @@ zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  change = orthconn_move_handle((OrthConn*)zigzagline, handle, to, cp, 
+  change = orthconn_move_handle((OrthConn*)zigzagline, handle, to, cp,
 				reason, modifiers);
 
   zigzagline_update_data(zigzagline);
@@ -212,10 +210,10 @@ zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer)
   OrthConn *orth = &zigzagline->orth;
   Point *points;
   int n;
-  
+
   points = &orth->points[0];
   n = orth->numpoints;
-  
+
   renderer_ops->set_linewidth(renderer, zigzagline->line_width);
   renderer_ops->set_linestyle(renderer, zigzagline->line_style, zigzagline->dashlength);
   renderer_ops->set_linejoin(renderer, zigzagline->line_join);
@@ -246,7 +244,7 @@ zigzagline_create(Point *startpoint,
   zigzagline = g_malloc0(sizeof(Zigzagline));
   orth = &zigzagline->orth;
   obj = &orth->object;
-  
+
   obj->type = &zigzagline_type;
   obj->ops = &zigzagline_ops;
 
@@ -289,9 +287,9 @@ zigzagline_copy(Zigzagline *zigzagline)
 {
   Zigzagline *newzigzagline;
   OrthConn *orth, *neworth;
-  
+
   orth = &zigzagline->orth;
- 
+
   newzigzagline = g_malloc0(sizeof(Zigzagline));
   neworth = &newzigzagline->orth;
 
@@ -320,10 +318,10 @@ zigzagline_update_data(Zigzagline *zigzagline)
   PolyBBExtras *extra = &orth->extra_spacing;
 
   orthconn_update_data(&zigzagline->orth);
-    
-  extra->start_long = 
-    extra->end_long = 
-    extra->middle_trans = 
+
+  extra->start_long =
+    extra->end_long =
+    extra->middle_trans =
     extra->start_trans =
     extra->end_trans = (zigzagline->line_width / 2.0);
 
@@ -381,7 +379,7 @@ zigzagline_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data
 /*!
  * \brief Upgrade the _Zigzagline to a _Bezierline
  *
- * Accessible through the object's context menu this function substitutes 
+ * Accessible through the object's context menu this function substitutes
  * the _Zigzagline with a _Bezierline. The function creates a favorable
  * representation of the original _OrthConn data of the given object.
  *
@@ -509,7 +507,7 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
 	     "end_arrow_length", "end_arrow_width", ctx);
   }
 
-  if (zigzagline->line_style != LINESTYLE_SOLID && 
+  if (zigzagline->line_style != LINESTYLE_SOLID &&
       zigzagline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
                   zigzagline->dashlength, ctx);
@@ -531,7 +529,7 @@ zigzagline_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
   orth = &zigzagline->orth;
   obj = &orth->object;
-  
+
   obj->type = &zigzagline_type;
   obj->ops = &zigzagline_ops;
 

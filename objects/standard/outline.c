@@ -35,12 +35,10 @@
 #include "boundingbox.h"
 #include "standard-path.h"
 
-#include "tool-icons.h"
-
 #ifdef HAVE_CAIRO
 #include <cairo.h>
 
-#ifdef CAIRO_HAS_SVG_SURFACE 
+#ifdef CAIRO_HAS_SVG_SURFACE
 #include <cairo-svg.h>
 #endif
 
@@ -53,7 +51,7 @@
  */
 typedef struct _Outline {
   DiaObject object; /*!< inheritance */
-  
+
   char *name;
   real rotation;
 
@@ -64,7 +62,7 @@ typedef struct _Outline {
   Color fill_color;
   gboolean show_background;
   real line_width;
-  
+
   Handle handles[NUM_HANDLES];
   /* calculated data */
   Point ink_rect[4];
@@ -98,7 +96,7 @@ static ObjectTypeOps outline_type_ops =
 static PropNumData _rotation_range = { 0.0f, 360.0f, 1.0f };
 static PropDescription outline_props[] = {
   OBJECT_COMMON_PROPERTIES,
-  { "name", PROP_TYPE_STRING,PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE, 
+  { "name", PROP_TYPE_STRING,PROP_FLAG_VISIBLE|PROP_FLAG_DONT_MERGE,
     N_("Text content"),NULL },
   { "rotation", PROP_TYPE_REAL,PROP_FLAG_VISIBLE,
     N_("Rotation"), N_("Angle to rotate the outline"), &_rotation_range},
@@ -129,8 +127,7 @@ static DiaObjectType outline_type =
 {
   "Standard - Outline",   /* name */
   0,                      /* version */
-  (const char **) outline_icon, /* pixmap */
-  
+  (const char **) "res:/org/gnome/Dia/objects/standard/outline.png",
   &outline_type_ops,      /* ops */
   NULL,                   /* pixmap_file */
   0,                      /* default_user_data */
@@ -182,7 +179,7 @@ outline_init_handles (Outline *outline)
 {
   DiaObject *obj = &outline->object;
   int i;
-  
+
   for (i = 0; i < NUM_HANDLES; ++i) {
     obj->handles[i] = &outline->handles[i];
     obj->handles[i]->type = HANDLE_MAJOR_CONTROL;
@@ -200,7 +197,7 @@ outline_create (Point *startpoint,
 {
   Outline *outline;
   DiaObject *obj;
-  
+
   outline = g_new0 (Outline,1);
   obj = &outline->object;
   obj->type = &outline_type;
@@ -210,7 +207,7 @@ outline_create (Point *startpoint,
   obj->position = *startpoint;
 
   outline_init_handles (outline);
-  
+
   attributes_get_default_font (&outline->font, &outline->font_height);
 
   outline->line_width = 0; /* Not: attributes_get_default_linewidth(); it looks ugly */
@@ -257,7 +254,7 @@ outline_update_handles(Outline *outline)
 }
 /*!
  * \brief Object update function called after property change
- * 
+ *
  * Not in the object interface but very important anyway.
  * Used to recalculate the object data after a change
  * \protected \memberof Outline
@@ -287,7 +284,7 @@ outline_update_data (Outline *outline)
   cairo_surface_destroy (surface); /* in fact: unref() */
   style = dia_font_get_style (outline->font);
   /* not exact matching but almost the best we can do with the toy api */
-  cairo_select_font_face (cr, dia_font_get_family (outline->font), 
+  cairo_select_font_face (cr, dia_font_get_family (outline->font),
                           DIA_FONT_STYLE_GET_SLANT (style) == DIA_FONT_NORMAL ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_SLANT_ITALIC,
                           DIA_FONT_STYLE_GET_WEIGHT (style) < DIA_FONT_MEDIUM ? CAIRO_FONT_WEIGHT_NORMAL : CAIRO_FONT_WEIGHT_BOLD);
   cairo_set_font_size (cr, outline->font_height);
@@ -303,7 +300,7 @@ outline_update_data (Outline *outline)
 
   /* fix point */
   outline->ink_rect[0].x = x = obj->position.x;
-  outline->ink_rect[0].y = y = obj->position.y;  
+  outline->ink_rect[0].y = y = obj->position.y;
   /* handle rotation */
   outline->ink_rect[1].x = x + extents.width * outline->mat.xx;
   outline->ink_rect[1].y = y + extents.width * outline->mat.yx;
@@ -342,7 +339,7 @@ outline_update_data (Outline *outline)
  *
  * \memberof Outline
  */
-static void 
+static void
 outline_draw(Outline *outline, DiaRenderer *renderer)
 {
   DiaObject *obj = &outline->object;
@@ -350,7 +347,7 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
   BezPoint *pts;
   real x, y;
   Point ps = {0, 0}; /* silence gcc */
-  
+
   if (!outline->path)
     return;
   DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, outline->line_width);
@@ -434,7 +431,7 @@ outline_get_object_menu(Outline *outline, Point *clickedpoint)
  * \brief Set the object state from the given proeprty vector
  * \memberof Outline
  */
-static void 
+static void
 outline_set_props (Outline *outline, GPtrArray *props)
 {
   object_set_props_from_offsets(&outline->object, outline_offsets, props);
@@ -453,7 +450,7 @@ outline_distance_from (Outline *outline, Point *point)
  * \brief Move one of the objects handles
  * \memberof Outline
  */
-static ObjectChange* 
+static ObjectChange*
 outline_move_handle (Outline *outline,
                      Handle *handle,
 		     Point *to, ConnectionPoint *cp,
@@ -481,22 +478,22 @@ outline_move_handle (Outline *outline,
   /* disallow everything below a certain level, otherwise the font-size could become invalid */
   if (dist > 0.1) {
     obj->position = start;
-    
+
     outline->font_height *= (dist / old_dist);
-  
+
     outline_update_data (outline);
   }
   return NULL;
 }
 /*!
  * \brief Move the whole object to the given position
- * 
+ *
  * If the object position does not change the whole object should not either.
  * This is used as a kludge to call the protected update_data() function
  *
  * \memberof Outline
  */
-static ObjectChange* 
+static ObjectChange*
 outline_move (Outline *outline, Point *to)
 {
   DiaObject *obj = &outline->object;
@@ -514,7 +511,7 @@ static DiaObject *
 outline_copy (Outline *from)
 {
   Outline *to;
-  
+
   to = g_new0 (Outline, 1);
   object_copy (&from->object, &to->object);
   outline_init_handles (to);
@@ -535,7 +532,7 @@ outline_copy (Outline *from)
  * \brief Destruction of the object
  * \memberof Outline
  */
-static void 
+static void
 outline_destroy (Outline *outline)
 {
   if (outline->path)
@@ -545,10 +542,10 @@ outline_destroy (Outline *outline)
   /* but not the object itself? */
 }
 /*!
- * \brief Change the object state regarding selection 
+ * \brief Change the object state regarding selection
  * \memberof Outline
  */
-static void 
+static void
 outline_select (Outline *outline, Point *clicked_point,
 		DiaRenderer *interactive_renderer)
 {

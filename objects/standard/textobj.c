@@ -35,8 +35,6 @@
 #include "create.h"
 #include "message.h" /* just dia_log_message */
 
-#include "tool-icons.h"
-
 #define HANDLE_TEXT HANDLE_CUSTOM1
 
 
@@ -108,7 +106,7 @@ static ObjectTypeOps textobj_type_ops =
   (CreateFunc) textobj_create,
   (LoadFunc)   textobj_load,
   (SaveFunc)   textobj_save,
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -135,7 +133,7 @@ static PropDescription textobj_props[] = {
   PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_STD_SHOW_BACKGROUND_OPTIONAL,
   { "text_margin", PROP_TYPE_REAL,  PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL,
-    N_("Text margin"), NULL, &text_margin_range }, 
+    N_("Text margin"), NULL, &text_margin_range },
   PROP_DESC_END
 };
 
@@ -162,7 +160,7 @@ DiaObjectType textobj_type =
 {
   "Standard - Text",   /* name */
   1,                   /* version */
-  (const char **) text_icon, /* pixmap */
+  (const char **) "res:/org/gnome/Dia/objects/standard/text.png",
   &textobj_type_ops,   /* ops */
   NULL,
   0,
@@ -247,7 +245,7 @@ textobj_distance_from(Textobj *textobj, Point *point)
   }
   if (textobj->show_background)
     return distance_rectangle_point(&textobj->object.bounding_box, point);
-  return text_distance_from(textobj->text, point); 
+  return text_distance_from(textobj->text, point);
 }
 
 static void
@@ -326,20 +324,20 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
 static void
 textobj_valign_point(Textobj *textobj, Point* p)
 {
-  Rectangle *bb  = &(textobj->object.bounding_box); 
+  Rectangle *bb  = &(textobj->object.bounding_box);
   real offset;
   switch (textobj->vert_align){
   case VALIGN_BOTTOM:
     offset = bb->bottom - textobj->object.position.y;
-    p->y -= offset; 
+    p->y -= offset;
     break;
   case VALIGN_TOP:
     offset = bb->top - textobj->object.position.y;
-    p->y -= offset; 
+    p->y -= offset;
     break;
   case VALIGN_CENTER:
     offset = (bb->bottom + bb->top)/2 - textobj->object.position.y;
-    p->y -= offset; 
+    p->y -= offset;
     break;
   case VALIGN_FIRST_LINE:
     break;
@@ -351,7 +349,7 @@ textobj_update_data(Textobj *textobj)
   Point to2;
   DiaObject *obj = &textobj->object;
   Rectangle tx_bb;
-  
+
   text_set_position(textobj->text, &obj->position);
   text_calc_boundingbox(textobj->text, &obj->bounding_box);
 
@@ -412,7 +410,7 @@ textobj_create(Point *startpoint,
   Color col;
   DiaFont *font = NULL;
   real font_height;
-  
+
   textobj = g_malloc0(sizeof(Textobj));
   obj = &textobj->object;
   obj->enclosing_box = g_new0 (Rectangle, 1);
@@ -430,11 +428,11 @@ textobj_create(Point *startpoint,
 
   dia_font_unref(font);
   textobj->vert_align = default_properties.vert_align;
-  
+
   /* default visibility must be off to keep compatibility */
   textobj->fill_color = attributes_get_background();
   textobj->show_background = FALSE;
-  
+
   object_init(obj, 1, 0);
 
   obj->handles[0] = &textobj->text_handle;
@@ -501,7 +499,7 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
   textobj = g_malloc0(sizeof(Textobj));
   obj = &textobj->object;
   obj->enclosing_box = g_new0(Rectangle,1);
-  
+
   obj->type = &textobj_type;
   obj->ops = &textobj_ops;
 
@@ -594,7 +592,7 @@ static DiaMenu *
 textobj_get_object_menu(Textobj *textobj, Point *clickedpoint)
 {
   const Text *text = textobj->text;
-  
+
   /* Set entries sensitive/selected etc here */
   textobj_menu_items[0].active = (text->numlines > 0) ? DIAMENU_ACTIVE : 0;
 
