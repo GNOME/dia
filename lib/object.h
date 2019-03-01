@@ -663,6 +663,8 @@ void          object_copy_props(DiaObject *dest, const DiaObject *src,
                                 gboolean is_default);
 void          object_copy_style(DiaObject *dest, const DiaObject *src);
 
+GdkPixbuf    *dia_object_type_get_icon (const DiaObjectType *type);
+
 G_END_DECLS
 
 #endif /* DIA_OBJECT_H */

@@ -274,19 +274,8 @@ _dtv_cell_pixbuf_func (GtkCellLayout   *layout,
 
   gtk_tree_model_get (tree_model, iter, OBJECT_COLUMN, &object, -1);
   if (object) {
-    if (object->type->pixmap != NULL) {
-      if (strncmp((char *)object->type->pixmap, "GdkP", 4) == 0)
-        pixbuf = gdk_pixbuf_new_from_inline(-1, (guint8*)object->type->pixmap, TRUE, NULL);
-      else /* must be an XPM */
-        pixbuf = gdk_pixbuf_new_from_xpm_data(object->type->pixmap);
-    } else if (object->type->pixmap_file != NULL) {
-      GError *error = NULL;
-      pixbuf = gdk_pixbuf_new_from_file (object->type->pixmap_file, &error);
-      if (error) {
-        g_warning ("%s", error->message);
-        g_error_free (error);
-      }
-    } else if (IS_GROUP(object)) {
+    pixbuf = dia_object_type_get_icon (object->type);
+    if (pixbuf == NULL && IS_GROUP(object)) {
       pixbuf = pixbuf_from_resource ("/org/gnome/Dia/icons/dia-group.png");
     }
   } else {

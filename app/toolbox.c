@@ -597,21 +597,12 @@ GdkPixbuf *
 tool_get_pixbuf (ToolButton *tb)
 {
   GdkPixbuf *pixbuf;
-  const gchar **icon_data;
 
   if (tb->icon_name == NULL) {
     DiaObjectType *type;
 
     type = object_get_type ((char *) tb->callback_data.extra_data);
-    if (type != NULL) {
-      icon_data = type->pixmap;
-    }
-    if (strncmp ((char *) icon_data, "GdkP", 4) == 0) {
-      pixbuf = gdk_pixbuf_new_from_inline (-1, (guint8 *) icon_data, TRUE, NULL);
-    } else {
-      const char **pixmap_data = icon_data;
-      pixbuf = gdk_pixbuf_new_from_xpm_data (pixmap_data);
-    }
+    pixbuf = dia_object_type_get_icon (type);
   } else {
     pixbuf = pixbuf_from_resource (g_strdup_printf ("/org/gnome/Dia/icons/%s.png", tb->icon_name));
   }
