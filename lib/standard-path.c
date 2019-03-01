@@ -28,7 +28,7 @@
  * and even worse the original file format of bezierconn_save() only works
  * with a single move-to, too.
  * Instead of breaking forward compatibility this is implementing a new bezier
- * based object, which can render holes, even if the _DiaRenderer can not. It is 
+ * based object, which can render holes, even if the _DiaRenderer can not. It is
  * using a newer file format representation through BezPointarrayProperty.
  */
 #include <config.h>
@@ -43,8 +43,6 @@
 #include "create.h"
 #include "bezier-common.h"
 #include "pattern.h"
-
-#include "dia-lib-icons.h"
 
 #define NUM_HANDLES 8
 
@@ -71,7 +69,7 @@ typedef struct _StdPath StdPath;
  */
 struct _StdPath {
   DiaObject object; /**< inheritance */
-  
+
   int num_points; /**< >= 2 */
   BezPoint *points; /**< point data */
 
@@ -154,15 +152,14 @@ static PropOffset stdpath_offsets[] = {
   { NULL, 0, 0 }
 };
 
-/*! 
+/*!
  * To make this static again we would need some registering function
  */
 DiaObjectType stdpath_type =
 {
   "Standard - Path",      /* name */
   0,                      /* version */
-  (const char **) dia_standard_path_icon, /* pixmap */
-  
+  (const char **) "res:/org/gnome/Dia/icons/standard-path.png",
   &stdpath_type_ops,      /* ops */
   NULL,                   /* pixmap_file */
   0,                      /* default_user_data */
@@ -250,7 +247,7 @@ stdpath_create (Point *startpoint,
   StdPath *stdpath;
   DiaObject *obj;
   Point sp = {0, 0};
-  
+
   stdpath = g_new0 (StdPath,1);
   obj = &stdpath->object;
   obj->type = &stdpath_type;
@@ -262,7 +259,7 @@ stdpath_create (Point *startpoint,
     sp = *startpoint;
 
   if (user_data == NULL) {
-    /* just to have something to play with 
+    /* just to have something to play with
        <bezpoint type="moveto" p1="0,1"/>
        <bezpoint type="curveto" p1="0,0" p2="2,2" p3="2,1"/>
        <bezpoint type="curveto" p1="2,0" p2="0,2" p3="0,1"/>
@@ -356,7 +353,7 @@ stdpath_update_handles(StdPath *stdpath)
 }
 /*!
  * \brief Object update function called after property change
- * 
+ *
  * Not in the object interface but very important anyway.
  * Used to recalculate the object data after a change
  * \protected \memberof _StdPath
@@ -370,7 +367,7 @@ stdpath_update_data (StdPath *stdpath)
   real lw = stdpath->stroke_or_fill & PDO_STROKE ? stdpath->line_width : 0.0;
 
   extra.start_trans =
-  extra.end_trans = 
+  extra.end_trans =
   extra.start_long =
   extra.end_long =
   extra.middle_trans = lw/2.0;
@@ -390,7 +387,7 @@ stdpath_update_data (StdPath *stdpath)
  *
  * \memberof _StdPath
  */
-static void 
+static void
 stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
 {
   DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, stdpath->line_width);
@@ -407,16 +404,16 @@ stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
 	  DIA_RENDERER_GET_CLASS (renderer)->set_pattern (renderer, stdpath->pattern);
       }
       if (stdpath->stroke_or_fill & PDO_STROKE) /* also stroke -> combine */
-        DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, stdpath->points, stdpath->num_points, 
+        DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, stdpath->points, stdpath->num_points,
 							  &fill, &stdpath->line_color);
       else
-        DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, stdpath->points, stdpath->num_points, 
+        DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, stdpath->points, stdpath->num_points,
 							  &fill, NULL);
       if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_PATTERN))
 	DIA_RENDERER_GET_CLASS (renderer)->set_pattern (renderer, NULL);
     }
     if (stdpath->stroke_or_fill == PDO_STROKE) /* stroke only */
-      DIA_RENDERER_GET_CLASS (renderer)->draw_bezier(renderer, stdpath->points, stdpath->num_points, 
+      DIA_RENDERER_GET_CLASS (renderer)->draw_bezier(renderer, stdpath->points, stdpath->num_points,
 						     &stdpath->line_color);
   } else {
     /* step-wise approach */
@@ -777,7 +774,7 @@ stdpath_get_props(StdPath *stdpath, GPtrArray *props)
  * \brief Set the object state from the given proeprty vector
  * \memberof _StdPath
  */
-static void 
+static void
 stdpath_set_props (StdPath *stdpath, GPtrArray *props)
 {
   Property *prop;
@@ -843,7 +840,7 @@ _stdpath_scale (StdPath *stdpath, real sx, real sy, const Point *around)
  * \brief Move one of the objects handles
  * \memberof _StdPath
  */
-static ObjectChange* 
+static ObjectChange*
 stdpath_move_handle (StdPath *stdpath,
 		     Handle *handle,
 		     Point *to, ConnectionPoint *cp,
@@ -974,13 +971,13 @@ stdpath_move_handle (StdPath *stdpath,
 
 /*!
  * \brief Move the whole object to the given position
- * 
+ *
  * If the object position does not change the whole object should not either.
  * This is used as a kludge to call the protected update_data() function
  *
  * \memberof _StdPath
  */
-static ObjectChange* 
+static ObjectChange*
 stdpath_move (StdPath *stdpath, Point *to)
 {
   DiaObject *obj = &stdpath->object;
@@ -988,7 +985,7 @@ stdpath_move (StdPath *stdpath, Point *to)
   int i;
 
   point_sub (&delta, &obj->position);
-  
+
   for (i = 0; i < stdpath->num_points; ++i) {
      BezPoint *bp = &stdpath->points[i];
 
@@ -1014,7 +1011,7 @@ stdpath_copy (StdPath *from)
  * \brief Destruction of the object
  * \memberof _StdPath
  */
-static void 
+static void
 stdpath_destroy (StdPath *stdpath)
 {
   object_destroy(&stdpath->object);
@@ -1024,10 +1021,10 @@ stdpath_destroy (StdPath *stdpath)
   /* but not the object itself */
 }
 /*!
- * \brief Change the object state regarding selection 
+ * \brief Change the object state regarding selection
  * \memberof _StdPath
  */
-static void 
+static void
 stdpath_select (StdPath *stdpath, Point *clicked_point,
 		DiaRenderer *interactive_renderer)
 {
@@ -1068,7 +1065,7 @@ text_to_path (const Text *text, GArray *points)
   pango_layout_set_font_description (layout, dia_font_get_description (text->font));
   pango_layout_set_indent (layout, 0);
   pango_layout_set_justify (layout, FALSE);
-  pango_layout_set_alignment (layout, 
+  pango_layout_set_alignment (layout,
 			      text->alignment == ALIGN_LEFT ? PANGO_ALIGN_LEFT :
 			      text->alignment == ALIGN_RIGHT ? PANGO_ALIGN_RIGHT : PANGO_ALIGN_CENTER);
 
