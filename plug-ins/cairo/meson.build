@@ -1,8 +1,5 @@
 sources = files(
-    'diacairo.c',
-    'diacairo-interactive.c',
-    'diacairo-renderer.c',
-    'diacairo-print.c'
+    'diacairo.c'
 )
 
 install_plugins_desc += {
