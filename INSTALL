@@ -136,9 +136,10 @@ INSTALL:
 ========
 install it by doing:
 
- make install
+    $ meson . build --prefix=/usr/local
+    $ ninja -C build
+    $ sudo ninja -C build install
 
-By default Dia is installed in /usr/local.
-You can change that by passing --prefix=/some/dir to configure.
-
+This will install Dia in /usr/local.  You can change that by passing
+--prefix=/some/dir instead.
 
