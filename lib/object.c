@@ -1240,11 +1240,13 @@ GdkPixbuf *
 dia_object_type_get_icon (const DiaObjectType *type)
 {
   GdkPixbuf *pixbuf;
-  const gchar **icon_data;
+  const gchar **icon_data = NULL;
 
-  if (type != NULL) {
-    icon_data = type->pixmap;
+  if (type == NULL) {
+    return NULL;
   }
+
+  icon_data = type->pixmap;
 
   if (icon_data == NULL && type->pixmap_file == NULL) {
     return NULL;

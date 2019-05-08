@@ -26,4 +26,4 @@ typedef enum {
   MAX_CURSORS
 } DiaCursorType;
 
-GdkCursor *direction_cursor (DiaCursorType ctype);
+GdkCursor *get_direction_cursor (DiaCursorType ctype);

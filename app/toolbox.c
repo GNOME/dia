@@ -597,6 +597,7 @@ GdkPixbuf *
 tool_get_pixbuf (ToolButton *tb)
 {
   GdkPixbuf *pixbuf;
+  char      *path;
 
   if (tb->icon_name == NULL) {
     DiaObjectType *type;
@@ -604,7 +605,9 @@ tool_get_pixbuf (ToolButton *tb)
     type = object_get_type ((char *) tb->callback_data.extra_data);
     pixbuf = dia_object_type_get_icon (type);
   } else {
-    pixbuf = pixbuf_from_resource (g_strdup_printf ("/org/gnome/Dia/icons/%s.png", tb->icon_name));
+    path = g_strdup_printf ("/org/gnome/Dia/icons/%s.png", tb->icon_name);
+    pixbuf = pixbuf_from_resource (path);
+    g_free (path);
   }
 
   return pixbuf;

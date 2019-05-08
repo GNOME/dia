@@ -104,14 +104,17 @@ dia_get_data_directory(const gchar* subdir)
   return returnPath;
 #else
   gchar *base = PKGDATADIR;
+  char  *ret;
   if (g_getenv ("DIA_BASE_PATH") != NULL) {
     /* a small hack cause the final destination and the local path differ */
     base = g_build_filename (g_getenv ("DIA_BASE_PATH"), "data", NULL);
   }
   if (strlen (subdir) == 0)
-    return g_strconcat (base, NULL);
+    ret = g_strconcat (base, NULL);
   else
-    return g_strconcat (base, G_DIR_SEPARATOR_S, subdir, NULL);
+    ret = g_strconcat (base, G_DIR_SEPARATOR_S, subdir, NULL);
+  g_free (base);
+  return ret;
 #endif
 }
 

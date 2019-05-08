@@ -23,7 +23,7 @@
 #include "display.h"
 #include "cursor.h"
 
-static int cursors[MAX_CURSORS] = {
+static int direction_cursors[MAX_CURSORS] = {
   /* for safety reasons these should be last and must be in the same order HANDLE_RESIZE_* */
   GDK_TOP_LEFT_CORNER,     /* CURSOR_DIRECTION_0 + NW */
   GDK_TOP_SIDE,            /* N */
@@ -36,11 +36,11 @@ static int cursors[MAX_CURSORS] = {
 };
 
 GdkCursor *
-direction_cursor (DiaCursorType ctype)
+get_direction_cursor (DiaCursorType ctype)
 {
-  if (ctype >= G_N_ELEMENTS (cursors)) {
+  if (ctype >= G_N_ELEMENTS (direction_cursors)) {
     return NULL;
   }
 
-  return gdk_cursor_new (cursors[ctype]);
+  return gdk_cursor_new (direction_cursors[ctype]);
 }

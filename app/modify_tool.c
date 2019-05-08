@@ -454,7 +454,7 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
       && handle->id >= HANDLE_RESIZE_NW && handle->id <= HANDLE_RESIZE_SE
       && handle_is_clicked(ddisp, handle, &to)
       && g_list_length (ddisp->diagram->data->selected) == 1)
-      ddisplay_set_all_cursor (direction_cursor (CURSOR_DIRECTION_0 + handle->id));
+      ddisplay_set_all_cursor (get_direction_cursor (CURSOR_DIRECTION_0 + handle->id));
     else
       ddisplay_set_all_cursor_name (NULL, "default");
     return; /* Fast path... */

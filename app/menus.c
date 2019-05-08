@@ -791,11 +791,14 @@ _add_stock_icon_name (GtkIconFactory *factory, const char *name, const gchar *ic
 {
   GdkPixbuf      *pixbuf;
   GtkIconSet     *set;
+  char           *path;
 
-  pixbuf = pixbuf_from_resource (g_strdup_printf ("/org/gnome/Dia/icons/%s.png", icon));
+  path = g_strdup_printf ("/org/gnome/Dia/icons/%s.png", icon);
+  pixbuf = pixbuf_from_resource (path);
   set = gtk_icon_set_new_from_pixbuf (pixbuf);
   gtk_icon_factory_add (factory, name, set);
   g_object_unref (pixbuf);
+  g_free (path);
   pixbuf = NULL;
 }
 
@@ -1220,7 +1223,7 @@ menus_set_recent (GtkActionGroup *actions)
     const gchar* aname = gtk_action_get_name (GTK_ACTION (list->data));
 
     id = gtk_ui_manager_new_merge_id (_ui_manager);
-    recent_merge_ids = g_slist_prepend (recent_merge_ids, GINT_TO_POINTER (id));
+    recent_merge_ids = g_slist_prepend (recent_merge_ids, GUINT_TO_POINTER (id));
 
     gtk_ui_manager_add_ui (_ui_manager, id,
                  recent_path,

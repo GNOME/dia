@@ -65,7 +65,7 @@ struct _Ellipse {
   LineStyle line_style;
   real dashlength;
   DiaPattern *pattern;
-  real angle; /*!< between [-45�-45�] to simplify connection point handling */
+  real angle; /*!< between [-45-45] to simplify connection point handling */
 };
 
 static struct _EllipseProperties {

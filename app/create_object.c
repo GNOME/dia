@@ -280,6 +280,9 @@ create_create_object_tool(DiaObjectType *objtype, void *user_data,
 			  int invert_persistence)
 {
   CreateObjectTool *tool;
+  GdkPixbuf *pixbuf;
+  GdkDisplay *disp;
+  GdkCursor *cursor;
 
   tool = g_new0(CreateObjectTool, 1);
   tool->tool.type = CREATE_OBJECT_TOOL;
@@ -293,19 +296,13 @@ create_create_object_tool(DiaObjectType *objtype, void *user_data,
   tool->moving = FALSE;
   tool->invert_persistence = invert_persistence;
 
-  {
-    GdkDisplay *disp;
-    GdkCursor *cursor;
+  pixbuf = pixbuf_from_resource ("/org/gnome/Dia/icons/dia-cursor-create.png");
 
-    disp = gdk_display_get_default ();
+  disp = gdk_display_get_default ();
 
-    cursor = gdk_cursor_new_from_pixbuf (disp,
-                                         pixbuf_from_resource ("/org/gnome/Dia/icons/dia-cursor-create.png"),
-                                         0, 0);
+  cursor = gdk_cursor_new_from_pixbuf (disp, pixbuf, 0, 0);
 
-
-    ddisplay_set_all_cursor (cursor);
-  }
+  ddisplay_set_all_cursor (cursor);
 
   return (Tool *) tool;
 }
