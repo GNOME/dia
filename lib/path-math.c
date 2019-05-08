@@ -502,7 +502,7 @@ _find_intersections (GArray *one, GArray *two)
 	 * Any segment might be split more than once so seg_one and seg_two
 	 * are not unique yet. Also the calculated split always refers to
 	 * the whole segment. We could avoid the _split_segments() below by
-	 * modifying `one´ and `two´ in place. But instead of later
+	 * modifying `oneï¿½ and `twoï¿½ in place. But instead of later
 	 * segmentation that would complicate the seq_* reference _and_ give
 	 * worse runtime behavior because we would need to start over with
 	 * every intersection found.

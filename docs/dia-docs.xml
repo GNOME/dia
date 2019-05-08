@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+  <!ENTITY % gtkdocentities SYSTEM "xml/gtkdocentities.ent">
+  %gtkdocentities;
+]>
+<book id="index">
+  <bookinfo>
+    <title>&package_name; Reference Manual</title>
+    <releaseinfo>
+      <para>This document is the API reference for &package_name; &package_version;</para>
+      <para>
+        If you find any issues in this API reference, please report it
+        using <ulink type="http" url="&package_bugreport;">at the
+        bugtracker</ulink>
+      </para>
+    </releaseinfo>
+
+    <copyright>
+      <year>2019</year>
+      <holder>Zander Brown</holder>
+    </copyright>
+  </bookinfo>
+
+  <part id="core-api">
+    <title>Objects</title>
+    <xi:include href="xml/diagramdata.xml"/>
+    <xi:include href="xml/group.xml"/>
+    <xi:include href="xml/prop_dict.xml"/>
+    <xi:include href="xml/diagram_tree_model.xml"/>
+    <xi:include href="xml/properties-dialog.xml"/>
+    <xi:include href="xml/app_procs.xml"/>
+    <xi:include href="xml/diagram_tree.xml"/>
+    <xi:include href="xml/gtkhwrapbox.xml"/>
+    <xi:include href="xml/properties.xml"/>
+    <xi:include href="xml/arrows.xml"/>
+    <xi:include href="xml/diagram.xml"/>
+    <xi:include href="xml/gtkvwrapbox.xml"/>
+    <xi:include href="xml/prop_geomtypes.xml"/>
+    <xi:include href="xml/attributes.xml"/>
+    <xi:include href="xml/diagrid.xml"/>
+    <xi:include href="xml/gtkwrapbox.xml"/>
+    <xi:include href="xml/propinternals.xml"/>
+    <xi:include href="xml/autoroute.xml"/>
+    <xi:include href="xml/dia_image.xml"/>
+    <xi:include href="xml/handle_ops.xml"/>
+    <xi:include href="xml/prop_inttypes.xml"/>
+    <xi:include href="xml/autosave.xml"/>
+    <xi:include href="xml/diaimportrenderer.xml"/>
+    <xi:include href="xml/handle.xml"/>
+    <xi:include href="xml/prop_matrix.xml"/>
+    <xi:include href="xml/bezier-common.xml"/>
+    <xi:include href="xml/dialib.xml"/>
+    <xi:include href="xml/highlight.xml"/>
+    <xi:include href="xml/prop_pattern.xml"/>
+    <xi:include href="xml/bezier_conn.xml"/>
+    <xi:include href="xml/dialinechooser.xml"/>
+    <xi:include href="xml/interface.xml"/>
+    <xi:include href="xml/prop_pixbuf.xml"/>
+    <xi:include href="xml/beziershape.xml"/>
+    <xi:include href="xml/dialogs.xml"/>
+    <xi:include href="xml/intl.xml"/>
+    <xi:include href="xml/prop_sdarray.xml"/>
+    <xi:include href="xml/boundingbox.xml"/>
+    <xi:include href="xml/diamenu.xml"/>
+    <xi:include href="xml/layer_dialog.xml"/>
+    <xi:include href="xml/prop_text.xml"/>
+    <xi:include href="xml/color_area.xml"/>
+    <xi:include href="xml/diaoptionmenu.xml"/>
+    <xi:include href="xml/linewidth_area.xml"/>
+    <xi:include href="xml/prop_widgets.xml"/>
+    <xi:include href="xml/color.xml"/>
+    <xi:include href="xml/diapagelayout.xml"/>
+    <xi:include href="xml/load_save.xml"/>
+    <xi:include href="xml/recent_files.xml"/>
+    <xi:include href="xml/commands.xml"/>
+    <xi:include href="xml/diapathrenderer.xml"/>
+    <xi:include href="xml/magnify.xml"/>
+    <xi:include href="xml/render_gdk.xml"/>
+    <xi:include href="xml/confirm.xml"/>
+    <xi:include href="xml/diapatternselector.xml"/>
+    <xi:include href="xml/menus.xml"/>
+    <xi:include href="xml/render_pixmap.xml"/>
+    <xi:include href="xml/connectionpoint_ops.xml"/>
+    <xi:include href="xml/dia-props.xml"/>
+    <xi:include href="xml/message.xml"/>
+    <xi:include href="xml/ruler.xml"/>
+    <xi:include href="xml/connectionpoint.xml"/>
+    <xi:include href="xml/diarenderer.xml"/>
+    <xi:include href="xml/modify_tool.xml"/>
+    <xi:include href="xml/scroll_tool.xml"/>
+    <xi:include href="xml/connection.xml"/>
+    <xi:include href="xml/diasvgrenderer.xml"/>
+    <xi:include href="xml/navigation.xml"/>
+    <xi:include href="xml/select.xml"/>
+    <xi:include href="xml/connpoint_line.xml"/>
+    <xi:include href="xml/dia_svg.xml"/>
+    <xi:include href="xml/objchange.xml"/>
+    <xi:include href="xml/sheets_dialog_callbacks.xml"/>
+    <xi:include href="xml/create_object.xml"/>
+    <xi:include href="xml/diatransformrenderer.xml"/>
+    <xi:include href="xml/object-alias.xml"/>
+    <xi:include href="xml/sheets_dialog.xml"/>
+    <xi:include href="xml/create.xml"/>
+    <xi:include href="xml/diatransform.xml"/>
+    <xi:include href="xml/object_index.sgml"/>
+    <xi:include href="xml/sheets.xml"/>
+    <xi:include href="xml/cursor.xml"/>
+    <xi:include href="xml/diatypes.xml"/>
+    <xi:include href="xml/object_ops.xml"/>
+    <xi:include href="xml/sheet.xml"/>
+    <xi:include href="xml/cut_n_paste.xml"/>
+    <xi:include href="xml/diavar.xml"/>
+    <xi:include href="xml/object.xml"/>
+    <xi:include href="xml/standard-path.xml"/>
+    <xi:include href="xml/debug.xml"/>
+    <xi:include href="xml/dia_xml_libxml.xml"/>
+    <xi:include href="xml/orth_conn.xml"/>
+    <xi:include href="xml/textattr.xml"/>
+    <xi:include href="xml/defaults.xml"/>
+    <xi:include href="xml/dia_xml.xml"/>
+    <xi:include href="xml/pagesetup.xml"/>
+    <xi:include href="xml/textedit_tool.xml"/>
+    <xi:include href="xml/dia-application.xml"/>
+    <xi:include href="xml/disp_callbacks.xml"/>
+    <xi:include href="xml/paper.xml"/>
+    <xi:include href="xml/textedit.xml"/>
+    <xi:include href="xml/diaarrowchooser.xml"/>
+    <xi:include href="xml/display.xml"/>
+    <xi:include href="xml/parent.xml"/>
+    <xi:include href="xml/textline.xml"/>
+    <xi:include href="xml/diacellrendererenum.xml"/>
+    <xi:include href="xml/dynamic_obj.xml"/>
+    <xi:include href="xml/path-math.xml"/>
+    <xi:include href="xml/text.xml"/>
+    <xi:include href="xml/diacellrendererproperty.xml"/>
+    <xi:include href="xml/dynamic_refresh.xml"/>
+    <xi:include href="xml/pattern.xml"/>
+    <xi:include href="xml/toolbox.xml"/>
+    <xi:include href="xml/diacontext.xml"/>
+    <xi:include href="xml/element.xml"/>
+    <xi:include href="xml/persistence.xml"/>
+    <xi:include href="xml/tool.xml"/>
+    <xi:include href="xml/dia_dirs.xml"/>
+    <xi:include href="xml/exit_dialog.xml"/>
+    <xi:include href="xml/plugin-manager.xml"/>  
+    <xi:include href="xml/filedlg.xml"/>
+    <xi:include href="xml/plug-ins.xml"/>
+    <xi:include href="xml/undo.xml"/>
+    <xi:include href="xml/filter.xml"/>
+    <xi:include href="xml/poly_conn.xml"/>
+    <xi:include href="xml/units.xml"/>
+    <xi:include href="xml/diadynamicmenu.xml"/>
+    <xi:include href="xml/find-and-replace.xml"/>
+    <xi:include href="xml/polyshape.xml"/>
+    <xi:include href="xml/utils.xml"/>
+    <xi:include href="xml/dia-enums.xml"/>
+    <xi:include href="xml/focus.xml"/>
+    <xi:include href="xml/preferences.xml"/>
+    <xi:include href="xml/widgets.xml"/>
+    <xi:include href="xml/diaerror.xml"/>
+    <xi:include href="xml/font.xml"/>
+    <xi:include href="xml/prefs.xml"/>
+    <xi:include href="xml/diafontselector.xml"/>
+    <xi:include href="xml/geometry.xml"/>
+    <xi:include href="xml/prop_attr.xml"/>
+    <xi:include href="xml/diagdkrenderer.xml"/>
+    <xi:include href="xml/grid.xml"/>
+    <xi:include href="xml/prop_basic.xml"/>
+  </part>
+
+  <chapter id="object-tree">
+    <title>Object Hierarchy</title>
+    <xi:include href="xml/tree_index.sgml"/>
+  </chapter>
+
+  <index id="api-index-full">
+    <title>API Index</title>
+    <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="deprecated-api-index" role="deprecated">
+    <title>Index of deprecated API</title>
+    <xi:include href="xml/api-index-deprecated.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="annotations-glossary">
+  <title>Annotations glossary</title>
+  <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
+  </index>
+
+</book>

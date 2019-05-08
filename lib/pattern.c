@@ -120,10 +120,10 @@ dia_pattern_set_point (DiaPattern *self, real x, real y)
   if (self->type == DIA_RADIAL_GRADIENT) {
     real dist = distance_ellipse_point (&self->start, self->radius*2, self->radius*2, 0.0, &self->other);
     if (dist > 0) {
-      /* If the point defined by ‘fx’ and ‘fy’ lies outside the circle defined
-       * by ‘cx’, ‘cy’ and ‘r’, then the user agent shall set the focal point to
-       * the intersection of the line from (‘cx’, ‘cy’) to (‘fx’, ‘fy’) with the
-       * circle defined by ‘cx’, ‘cy’ and ‘r’
+      /* If the point defined by ï¿½fxï¿½ and ï¿½fyï¿½ lies outside the circle defined
+       * by ï¿½cxï¿½, ï¿½cyï¿½ and ï¿½rï¿½, then the user agent shall set the focal point to
+       * the intersection of the line from (ï¿½cxï¿½, ï¿½cyï¿½) to (ï¿½fxï¿½, ï¿½fyï¿½) with the
+       * circle defined by ï¿½cxï¿½, ï¿½cyï¿½ and ï¿½rï¿½
        */
       Point p1 = self->start;
       Point p2 = self->other;

@@ -85,6 +85,7 @@ subdir('plug-ins')
 subdir('sheets')
 subdir('shapes')
 subdir('tests')
+subdir('docs')
 
 # TODO: idealy this should use run_env from tests/
 # Unfortunately, neither run_target or custom_target support env
