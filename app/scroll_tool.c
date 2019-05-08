@@ -48,8 +48,8 @@ create_scroll_tool(void)
   tool->scrolling = FALSE;
   tool->use_hand = TRUE;
 
-  ddisplay_set_all_cursor(get_cursor(CURSOR_GRAB));
-  
+  ddisplay_set_all_cursor_name (NULL, "grab");
+
   return (Tool *)tool;
 }
 
@@ -76,9 +76,9 @@ scroll_button_press(ScrollTool *tool, GdkEventButton *event,
 
   tool->use_hand = (event->state & GDK_SHIFT_MASK) == 0;
   if (tool->use_hand)
-    ddisplay_set_all_cursor(get_cursor(CURSOR_GRABBING));
+    ddisplay_set_all_cursor_name (NULL, "grabbing");
   else
-    ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
+    ddisplay_set_all_cursor_name (NULL, "move");
 
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
@@ -103,13 +103,13 @@ scroll_motion(ScrollTool *tool, GdkEventMotion *event,
     /* try to minimise the number of cursor type changes */
     if ((event->state & GDK_SHIFT_MASK) == 0) {
       if (!tool->use_hand) {
-	tool->use_hand = TRUE;
-	ddisplay_set_all_cursor(get_cursor(CURSOR_GRAB));
+        tool->use_hand = TRUE;
+        ddisplay_set_all_cursor_name (NULL, "grab");
       }
     } else
       if (tool->use_hand) {
 	tool->use_hand = FALSE;
-	ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
+        ddisplay_set_all_cursor_name (NULL, "move");
       }
     return;
   }
@@ -146,9 +146,10 @@ scroll_button_release(ScrollTool *tool, GdkEventButton *event,
 {
   tool->use_hand = (event->state & GDK_SHIFT_MASK) == 0;
   if (tool->use_hand) {
-    ddisplay_set_all_cursor(get_cursor(CURSOR_GRAB));
-  } else
-    ddisplay_set_all_cursor(get_cursor(CURSOR_SCROLL));
+    ddisplay_set_all_cursor_name (NULL, "grab");
+  } else {
+    ddisplay_set_all_cursor_name (NULL, "move");
+  }
 
   tool->scrolling = FALSE;
 }

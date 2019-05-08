@@ -21,19 +21,9 @@
    by a toolkit */
 
 typedef enum {
-  CURSOR_POINT,
-  CURSOR_CREATE,
-  CURSOR_SCROLL,
-  CURSOR_GRAB,
-  CURSOR_GRABBING,
-  CURSOR_ZOOM_OUT,
-  CURSOR_ZOOM_IN,
-  CURSOR_CONNECT,
-  CURSOR_XTERM,
   CURSOR_DIRECTION_0, /* there are eight of them */
   CURSOR_DIRECTION_7 = CURSOR_DIRECTION_0 + 7,
   MAX_CURSORS
 } DiaCursorType;
 
-/* Preferred way to get a cursor */
-GdkCursor *get_cursor(DiaCursorType ctype);
+GdkCursor *get_direction_cursor (DiaCursorType ctype);

@@ -132,12 +132,11 @@ void       dia_unit_spinner_set_upper (DiaUnitSpinner *self, gdouble val);
 GList *    get_units_name_list(void);
 
 /* **** Util functions for Gtk stuff **** */
-/** Create a toggle button with two icons (created with gdk-pixbuf-csource,
- * for instance).  The icons represent on and off.
- */
-GtkWidget *
-dia_toggle_button_new_with_icons(const guint8 *on_icon,
-				 const guint8 *off_icon);
+
+GtkWidget *dia_toggle_button_new_with_icon_names (const gchar *on,
+                                                  const gchar *off);
+
+GdkPixbuf *pixbuf_from_resource (const gchar *path);
 
 /* Other common defaults */
 

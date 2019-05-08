@@ -18,5 +18,5 @@ sources = files(
 
 dia_object_desc += {
     'name': 'standard_objects',
-    'sources': sources + [tool_icons_h],
+    'sources': sources + [resources],
 }

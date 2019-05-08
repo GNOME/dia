@@ -399,7 +399,7 @@ EXPORTS
 
  dia_transform_renderer_new
 
- dia_toggle_button_new_with_icons
+ dia_toggle_button_new_with_icon_names
 
  dia_sort_sheets
  get_sheets_list

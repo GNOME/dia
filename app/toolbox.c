@@ -42,7 +42,6 @@
 #include "pixmaps/missing.xpm"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include "dia-app-icons.h"
 
 /* HB: file dnd stuff lent by The Gimp, not fully understood but working ...
  */
@@ -70,25 +69,25 @@ static GSList *tool_group = NULL;
 
 ToolButton tool_data[] =
 {
-  { (const gchar **) dia_modify_tool_icon,
+  { "dia-tool-modify",
     N_("Modify object(s)\nUse <Space> to toggle between this and other tools"),
     NULL,
     "ToolsModify",
     { MODIFY_TOOL, NULL, NULL}
   },
-  { (const gchar **) dia_textedit_tool_icon,
+  { "dia-tool-text",
     N_("Text edit(s)\nUse <Esc> to leave this tool"),
     "F2",
     "ToolsTextedit",
     { TEXTEDIT_TOOL, NULL, NULL}
   },
-  { (const gchar **) dia_zoom_tool_icon,
+  { "dia-tool-zoom",
     N_("Magnify"),
     "M",
     "ToolsMagnify",
     { MAGNIFY_TOOL, NULL, NULL}
   },
-  { (const gchar **) dia_scroll_tool_icon,
+  { "dia-tool-scroll",
     N_("Scroll around the diagram"),
     "S",
     "ToolsScroll",
@@ -202,7 +201,7 @@ tool_button_press (GtkWidget      *w,
 
   if ((event->type == GDK_2BUTTON_PRESS) &&
       (event->button == 1)) {
-    tool_options_dialog_show (tooldata->type, tooldata->extra_data, 
+    tool_options_dialog_show (tooldata->type, tooldata->extra_data,
                               tooldata->user_data, w, event->state&1);
     return TRUE;
   }
@@ -223,7 +222,7 @@ tool_drag_data_get (GtkWidget *widget, GdkDragContext *context,
 		    guint32 time, ToolButtonData *tooldata)
 {
   if (info == 0) {
-    gtk_selection_data_set(selection_data, 
+    gtk_selection_data_set(selection_data,
 			   gtk_selection_data_get_target(selection_data),
 			   8, (guchar *)&tooldata, sizeof(ToolButtonData *));
   }
@@ -274,7 +273,7 @@ fill_sheet_wbox(Sheet *sheet)
       pixbuf = gdk_pixbuf_new_from_xpm_data (sheet_obj->pixmap);
     } else if (sheet_obj->pixmap_file != NULL) {
       GError* gerror = NULL;
-      
+
       pixbuf = gdk_pixbuf_new_from_file(sheet_obj->pixmap_file, &gerror);
       if (pixbuf != NULL) {
           int width = gdk_pixbuf_get_width (pixbuf);
@@ -282,8 +281,8 @@ fill_sheet_wbox(Sheet *sheet)
           if (width > 22 && prefs.fixed_icon_size) {
 	    GdkPixbuf *cropped;
 	    g_warning ("Shape icon '%s' size wrong, cropped.", sheet_obj->pixmap_file);
-	    cropped = gdk_pixbuf_new_subpixbuf (pixbuf, 
-	                                       (width - 22) / 2, height > 22 ? (height - 22) / 2 : 0, 
+	    cropped = gdk_pixbuf_new_subpixbuf (pixbuf,
+	                                       (width - 22) / 2, height > 22 ? (height - 22) / 2 : 0,
 					       22, height > 22 ? 22 : height);
 	    g_object_unref (pixbuf);
 	    pixbuf = cropped;
@@ -324,7 +323,7 @@ fill_sheet_wbox(Sheet *sheet)
     g_object_set_data_full(G_OBJECT(button), "Dia::ToolButtonData",
 			   data, (GDestroyNotify)g_free);
     if (first_button == NULL) first_button = button;
-    
+
     g_signal_connect (G_OBJECT (button), "clicked",
 		      G_CALLBACK (tool_select_update), data);
     g_signal_connect (G_OBJECT (button), "button_press_event",
@@ -387,7 +386,7 @@ create_sheet_dropdown_menu(GtkWidget *parent)
   }
 
   sheet_option_menu =
-    dia_dynamic_menu_new_stringlistbased(_("Other sheets"), sheet_names, 
+    dia_dynamic_menu_new_stringlistbased(_("Other sheets"), sheet_names,
 					 NULL, "sheets");
   g_signal_connect(DIA_DYNAMIC_MENU(sheet_option_menu), "value-changed",
 		   G_CALLBACK(sheet_option_menu_changed), sheet_option_menu);
@@ -399,7 +398,7 @@ create_sheet_dropdown_menu(GtkWidget *parent)
 				     "UML");
   /*    gtk_widget_set_size_request(sheet_option_menu, 20, -1);*/
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
-			    TRUE, TRUE, FALSE, FALSE, TRUE);    
+			    TRUE, TRUE, FALSE, FALSE, TRUE);
   /* 15 was a magic number that goes beyond the standard objects and the divider. */
   gtk_wrap_box_reorder_child(GTK_WRAP_BOX(parent),
 			     sheet_option_menu, NUM_TOOLS+1);
@@ -423,7 +422,7 @@ create_sheets(GtkWidget *parent)
   GtkWidget *swin;
   gchar *sheetname;
   Sheet *sheet;
-  
+
   separator = gtk_hseparator_new ();
   /* add a bit of padding around the separator */
   label = gtk_vbox_new(FALSE, 0);
@@ -479,29 +478,29 @@ create_color_area (GtkWidget *parent)
   hbox = gtk_hbox_new (FALSE, 1);
   gtk_container_set_border_width (GTK_CONTAINER (hbox), 0);
   gtk_container_add (GTK_CONTAINER (frame), hbox);
-  
+
   /* Color area: */
   alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
   gtk_container_set_border_width (GTK_CONTAINER (alignment), 3);
-  
+
   col_area = color_area_create (54, 42, parent, style);
   gtk_container_add (GTK_CONTAINER (alignment), col_area);
 
 
   gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
 
-  gtk_widget_set_tooltip_text (col_area, 
+  gtk_widget_set_tooltip_text (col_area,
 			_("Foreground & background colors for new objects.  "
 			  "The small black and white squares reset colors.  "
 			  "The small arrows swap colors.  Double-click to "
 			  "change colors."));
 
   gtk_widget_show (alignment);
-  
+
   /* Linewidth area: */
   alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
   gtk_container_set_border_width (GTK_CONTAINER (alignment), 3);
-  
+
   line_area = linewidth_area_create ();
   gtk_container_add (GTK_CONTAINER (alignment), line_area);
   gtk_box_pack_start (GTK_BOX (hbox), alignment, TRUE, TRUE, 0);
@@ -598,49 +597,20 @@ GdkPixbuf *
 tool_get_pixbuf (ToolButton *tb)
 {
   GdkPixbuf *pixbuf;
-  const gchar **icon_data;
+  char      *path;
 
-  if (tb->icon_data==NULL) {
+  if (tb->icon_name == NULL) {
     DiaObjectType *type;
-    
-    type = object_get_type((char *)tb->callback_data.extra_data);
-    if (type == NULL)
-      icon_data = tool_data[0].icon_data;
-    else
-      icon_data = type->pixmap;
+
+    type = object_get_type ((char *) tb->callback_data.extra_data);
+    pixbuf = dia_object_type_get_icon (type);
   } else {
-    icon_data = tb->icon_data;
+    path = g_strdup_printf ("/org/gnome/Dia/icons/%s.png", tb->icon_name);
+    pixbuf = pixbuf_from_resource (path);
+    g_free (path);
   }
-  
-  if (strncmp((char*)icon_data, "GdkP", 4) == 0) {
-    pixbuf = gdk_pixbuf_new_from_inline(-1, (guint8*)icon_data, TRUE, NULL);
-  } else {
-    const char **pixmap_data = icon_data;
-    pixbuf = gdk_pixbuf_new_from_xpm_data (pixmap_data);
-  }
+
   return pixbuf;
-}
-
-/*
- * Don't look too deep into this function. It is doing bad things
- * with casts to conform to the historically interface. We know
- * the difference between char* and char** - most of the time ;)
- */
-static GtkWidget *
-create_widget_from_xpm_or_gdkp(const char **icon_data, GtkWidget *button, GdkPixbuf **pb_out) 
-{
-  GtkWidget *pixmapwidget;
-
-  if (strncmp((char*)icon_data, "GdkP", 4) == 0) {
-    GdkPixbuf *p;
-    *pb_out = p = gdk_pixbuf_new_from_inline(-1, (guint8*)icon_data, TRUE, NULL);
-    pixmapwidget = gtk_image_new_from_pixbuf(p);
-  } else {
-    const char **pixmap_data = icon_data;
-    *pb_out = gdk_pixbuf_new_from_xpm_data (pixmap_data);
-    pixmapwidget = gtk_image_new_from_pixbuf (*pb_out);
-  }
-  return pixmapwidget;
 }
 
 static void
@@ -650,7 +620,6 @@ create_tools(GtkWidget *parent)
   GdkPixbuf *pixbuf = NULL;
   GtkWidget *image;
   /* GtkStyle *style; */
-  const char **pixmap_data;
   int i;
 
   for (i = 0; i < NUM_TOOLS; i++) {
@@ -666,29 +635,18 @@ create_tools(GtkWidget *parent)
     if (tool_data[i].callback_data.type == MODIFY_TOOL) {
       modify_tool_button = GTK_WIDGET(button);
     }
-    
-    if (tool_data[i].icon_data==NULL) {
-      DiaObjectType *type;
-      type =
-	object_get_type((char *)tool_data[i].callback_data.extra_data);
-      if (type == NULL)
-	pixmap_data = tool_data[0].icon_data;
-      else
-	pixmap_data = type->pixmap;
-      image = create_widget_from_xpm_or_gdkp(pixmap_data, button, &pixbuf);
-    } else {
-      image = create_widget_from_xpm_or_gdkp(tool_data[i].icon_data, button, &pixbuf);
-    }
-    
+
+    image = gtk_image_new_from_pixbuf (tool_get_pixbuf (&tool_data[i]));
+
     /* GTKBUG:? padding changes */
     gtk_misc_set_padding(GTK_MISC(image), 2, 2);
-    
+
     gtk_container_add (GTK_CONTAINER (button), image);
-    
+
     g_signal_connect (G_OBJECT (button), "clicked",
 		      G_CALLBACK (tool_select_update),
 			&tool_data[i].callback_data);
-    
+
     g_signal_connect (G_OBJECT (button), "button_press_event",
 		      G_CALLBACK (tool_button_press),
 			&tool_data[i].callback_data);
@@ -718,7 +676,7 @@ create_tools(GtkWidget *parent)
 	gtk_widget_set_tooltip_text (button,
 				gettext(tool_data[i].tool_desc));
     }
-    
+
     gtk_widget_show (image);
     gtk_widget_show (button);
   }

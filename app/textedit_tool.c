@@ -37,18 +37,18 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
   real click_distance = ddisplay_untransform_length(ddisp, 3.0);
   Diagram *diagram = ddisp->diagram;
   DiaObject *obj;
-  
+
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
 			      &clickedpoint->x, &clickedpoint->y);
 
   obj = diagram_find_clicked_object (diagram, clickedpoint, click_distance);
-  
+
   if (obj) {
     /* Selected an object. */
     GList *already;
     /*printf("Selected object!\n");*/
-      
+
     already = g_list_find(diagram->data->selected, obj);
     if (already == NULL) { /* Not already selected */
       if (!(event->state & GDK_SHIFT_MASK)) {
@@ -64,7 +64,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
     return obj;
   }
 
-  return obj;  
+  return obj;
 }
 
 static void
@@ -101,7 +101,7 @@ textedit_button_release(TexteditTool *tool, GdkEventButton *event,
 {
   Point clickedpoint;
   DiaObject *obj = click_select_object (ddisp, &clickedpoint, event);
-  
+
   if (obj) {
     ddisplay_do_update_menu_sensitivity(ddisp);
 
@@ -140,8 +140,8 @@ create_textedit_tool(void)
   tool->tool.button_release_func = (ButtonReleaseFunc) &textedit_button_release;
   tool->tool.motion_func = (MotionFunc) &textedit_motion;
   tool->tool.double_click_func = (DoubleClickFunc) &textedit_double_click;
-  
-  ddisplay_set_all_cursor(get_cursor(CURSOR_XTERM));
+
+  ddisplay_set_all_cursor_name (NULL, "text");
 
   ddisp = ddisplay_active();
   if (ddisp) {

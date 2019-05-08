@@ -71,9 +71,10 @@
 #include "exit_dialog.h"
 #include "dialib.h"
 #include "diaerror.h"
+#include "widgets.h"
 
 static gboolean
-handle_initial_diagram(const char *input_file_name, 
+handle_initial_diagram(const char *input_file_name,
 		       const char *export_file_name,
 		       const char *export_file_format,
 		       const char *size,
@@ -276,7 +277,7 @@ const char *argv0 = NULL;
  * size might be NULL.
  */
 static gboolean
-do_convert(const char *infname, 
+do_convert(const char *infname,
 	   const char *outfname, DiaExportFilter *ef,
 	   const char *size,
 	   char *show_layers)
@@ -286,7 +287,7 @@ do_convert(const char *infname,
   DiaContext *ctx;
 
   inf = filter_guess_import_filter(infname);
-  if (!inf) 
+  if (!inf)
     inf = &dia_import_filter;
 
   if (ef == NULL) {
@@ -305,7 +306,7 @@ do_convert(const char *infname,
             argv0, infname);
     exit(1);
   }
-  
+
   diagdata = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
   ctx = dia_context_new(_("Import"));
 
@@ -322,15 +323,15 @@ do_convert(const char *infname,
   /* recalculate before export */
   data_update_extents(diagdata);
 
-  /* Do our best in providing the size to the filter, but don't abuse user_data 
-   * too much for it. It _must not_ be changed after initialization and there 
+  /* Do our best in providing the size to the filter, but don't abuse user_data
+   * too much for it. It _must not_ be changed after initialization and there
    * are quite some filter selecting their output format by it. --hb
    */
   if (size) {
     if (ef == filter_export_get_by_name ("png-libart")) /* the warning we get is appropriate, don't cast */
       ef->export_func(diagdata, ctx, outfname, infname, (gpointer) size);
     else {
-      g_warning ("--size parameter unsupported for %s filter", 
+      g_warning ("--size parameter unsupported for %s filter",
                  ef->unique_name ? ef->unique_name : "selected");
       ef->export_func(diagdata, ctx, outfname, infname, ef->user_data);
     }
@@ -350,7 +351,7 @@ int debug_break_dont_optimize = 1;
 void
 debug_break(void)
 {
-  if (debug_break_dont_optimize > 0) 
+  if (debug_break_dont_optimize > 0)
     debug_break_dont_optimize -= 1;
 }
 
@@ -380,9 +381,9 @@ dump_dependencies(void)
 #endif
   "\n");
 
-  /* print out all those dependies, both compile and runtime if possible 
-   * Note: this is not meant to be complete but does only include libaries 
-   * which may or have cause(d) us trouble in some versions 
+  /* print out all those dependies, both compile and runtime if possible
+   * Note: this is not meant to be complete but does only include libaries
+   * which may or have cause(d) us trouble in some versions
    */
   g_print ("Library versions (at compile time)\n");
 #ifdef HAVE_LIBPNG
@@ -423,13 +424,13 @@ dump_dependencies(void)
 #endif
     libxml_rt_version = xmlParserVersion;
     if (atoi(libxml_rt_version))
-      g_print ("libxml  : %d.%d.%d (%s)\n", 
+      g_print ("libxml  : %d.%d.%d (%s)\n",
                atoi(libxml_rt_version) / 10000, atoi(libxml_rt_version) / 100 % 100, atoi(libxml_rt_version) % 100,
 	       LIBXML_DOTTED_VERSION);
     else /* may include "extra" */
       g_print ("libxml  : %s (%s)\n", libxml_rt_version ? libxml_rt_version : "??", LIBXML_DOTTED_VERSION);
   }
-  g_print ("glib    : %d.%d.%d (%d.%d.%d)\n", 
+  g_print ("glib    : %d.%d.%d (%d.%d.%d)\n",
            glib_major_version, glib_minor_version, glib_micro_version,
            GLIB_MAJOR_VERSION, GLIB_MINOR_VERSION, GLIB_MICRO_VERSION);
 #ifdef PANGO_VERSION_ENCODE
@@ -475,7 +476,7 @@ app_is_interactive(void)
  * even more arguments, but create a more general system.
  */
 static gboolean
-handle_initial_diagram(const char *in_file_name, 
+handle_initial_diagram(const char *in_file_name,
 		       const char *out_file_name,
 		       const char *export_file_format,
 		       const char *size,
@@ -515,7 +516,7 @@ handle_initial_diagram(const char *in_file_name,
     /* if this looks like an ugly hack to you, agreed ;)  */
     if (size && strstr(out_file_name, ".png"))
       ef = filter_export_get_by_name ("png-libart");
-    
+
     made_conversions |= do_convert(in_file_name, out_file_name, ef,
 				   size, show_layers);
   } else {
@@ -524,7 +525,7 @@ handle_initial_diagram(const char *in_file_name,
     } else {
       diagram = new_diagram (in_file_name);
     }
-	      
+
     if (diagram != NULL) {
       diagram_update_extents(diagram);
       if (app_is_interactive()) {
@@ -607,7 +608,7 @@ _setup_textdomains (void)
 #endif
 
 #if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
-  bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");  
+  bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");
 #endif
   textdomain(GETTEXT_PACKAGE);
 }
@@ -668,7 +669,7 @@ app_init (int argc, char **argv)
       NULL, NULL },
     { NULL }
   };
-  
+
   /* for users of app_init() the default is interactive */
   dia_is_interactive = TRUE;
 
@@ -710,8 +711,8 @@ app_init (int argc, char **argv)
     /* second level check of command line options, existance of input files etc. */
     if (filenames) {
       while (filenames[i] != NULL) {
-	gchar *filename; 
-	gchar *testpath;	  
+	gchar *filename;
+	gchar *testpath;
 
 	if (g_str_has_prefix (filenames[i], "file://")) {
 	  filename = g_filename_from_uri (filenames[i], NULL, NULL);
@@ -752,10 +753,26 @@ app_init (int argc, char **argv)
   }
 
   if (argv && dia_is_interactive) {
+    GdkPixbuf *pixbuf;
+
 #  if defined(G_THREADS_ENABLED) && !GLIB_CHECK_VERSION(2,32,0)
     g_thread_init (NULL);
 #  endif
+    g_set_application_name (_("Dia Diagram Editor"));
     gtk_init(&argc, &argv);
+
+    /* GTK: (Defunct with GtkApplication)
+     * gtk_icon_theme_add_resource_path (gtk_icon_theme_get_default (),
+     *                                   "/org/gnome/Dia/icons/");
+     */
+
+    /* Set the icon for Dia windows & dialogs */
+    /* GTK3: Use icon-name with GResource fallback */
+    pixbuf = pixbuf_from_resource ("/org/gnome/Dia/icons/org.gnome.Dia.png");
+    if (pixbuf) {
+      gtk_window_set_default_icon (pixbuf);
+      g_object_unref (pixbuf);
+    }
   }
   else {
 #if defined(G_THREADS_ENABLED) && !GLIB_CHECK_VERSION(2,32,0)
@@ -765,8 +782,8 @@ app_init (int argc, char **argv)
     g_type_init();
 #endif
     /*
-     * On Windows there is no command line without display so that gtk_init is harmless. 
-     * On X11 we need gtk_init_check() to avoid exit() just because there is no display 
+     * On Windows there is no command line without display so that gtk_init is harmless.
+     * On X11 we need gtk_init_check() to avoid exit() just because there is no display
      * running outside of X11.
      */
     if (!gtk_init_check(&argc, &argv))
@@ -847,7 +864,7 @@ app_init (int argc, char **argv)
 
   if (dia_is_interactive) {
 
-    /* further initialization *before* reading files */  
+    /* further initialization *before* reading files */
     active_tool = create_modify_tool();
 
     dia_log_message ("ui creation");
@@ -866,7 +883,7 @@ app_init (int argc, char **argv)
     g_timeout_add_seconds(5*60, autosave_check_autosave, NULL);
 
 #if 0 /* do we really open these automatically in the next session? */
-    persistence_register_window_create("diagram_tree", 
+    persistence_register_window_create("diagram_tree",
                                        &diagram_tree_show);
 #endif
     persistence_register_window_create("sheets_main_dialog",
@@ -885,7 +902,7 @@ app_init (int argc, char **argv)
     if (use_integrated_ui) {
       GList * list;
 
-      file_new_callback(NULL);  
+      file_new_callback(NULL);
       list = dia_open_diagrams();
       if (list) {
         Diagram * diagram = list->data;
@@ -896,14 +913,14 @@ app_init (int argc, char **argv)
       gchar *filename = g_filename_from_utf8(_("Diagram1.dia"), -1, NULL, NULL, NULL);
       Diagram *diagram = new_diagram (filename);
       g_free(filename);
-    
+
       if (diagram != NULL) {
         diagram_update_extents(diagram);
         diagram->is_default = TRUE;
-        /* I think this is done in diagram_init() with a call to 
+        /* I think this is done in diagram_init() with a call to
          * layer_dialog_update_diagram_list() */
         layer_dialog_set_diagram(diagram);
-        new_display(diagram); 
+        new_display(diagram);
       }
     }
   }
@@ -939,10 +956,10 @@ app_exit(void)
       GtkWidget                *dialog;
       int                       result;
       exit_dialog_item_array_t *items  = NULL;
-      GList *                   list; 
+      GList *                   list;
       Diagram *                 diagram;
-      
-      dialog = exit_dialog_make (GTK_WINDOW (interface_get_toolbox_shell ()), 
+
+      dialog = exit_dialog_make (GTK_WINDOW (interface_get_toolbox_shell ()),
                                 _("Exiting Dia"));
 
       list = dia_open_diagrams();
@@ -961,7 +978,7 @@ app_exit(void)
       }
 
       result = exit_dialog_run (dialog, &items);
-  
+
       gtk_widget_destroy (dialog);
 
       if (result == EXIT_DIALOG_EXIT_CANCEL)
@@ -990,8 +1007,8 @@ app_exit(void)
 	}
 	dia_context_release (ctx);
 	exit_dialog_free_items (items);
-      } 
-      else if (result == EXIT_DIALOG_EXIT_NO_SAVE) 
+      }
+      else if (result == EXIT_DIALOG_EXIT_NO_SAVE)
       {
         list = dia_open_diagrams();
         while (list) {
@@ -1019,7 +1036,7 @@ app_exit(void)
  		 "without saving them?"));
 
     gtk_window_set_title (GTK_WINDOW(dialog), _("Quit Dia"));
-  
+
     button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
     gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_CANCEL);
 #if GTK_CHECK_VERSION(2,18,0)
@@ -1068,7 +1085,7 @@ app_exit(void)
     }
     /* The diagram is freed when the last display is destroyed */
   }
-  
+
   /* save pluginrc */
   if (dia_is_interactive)
     dia_pluginrc_write();
@@ -1164,7 +1181,7 @@ handle_all_diagrams(GSList *files, char *export_file_name,
 }
 
 /* --credits option. Added by Andrew Ferrier.
-  
+
    Hopefully we're not ignoring anything too crucial by
    quitting directly after the credits.
 

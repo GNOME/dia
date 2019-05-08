@@ -6,7 +6,7 @@
  *
  * diagram_tree_view.c : complete rewrite to get rid of deprecated widgets
  * Copyright (C) 2009 Hans Breuer
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -34,18 +34,18 @@
 #include "diagram_tree_model.h"
 #include "diagram_tree.h"
 
-#include "dia-app-icons.h" /* for dia_group_icon */
 #include <lib/group.h> /* IS_GROUP */
 #include "display.h"
 #include "properties-dialog.h" /* object_list_properties_show */
 #include "dia-props.h" /* diagram_properties_show */
 #include "persistence.h"
 #include "intl.h"
+#include "widgets.h"
 
 typedef struct _DiagramTreeView DiagramTreeView;
 struct _DiagramTreeView {
   GtkTreeView parent_instance;
-  
+
   GtkUIManager *ui_manager;
   GtkMenu      *popup;
 };
@@ -83,7 +83,7 @@ _dtv_button_press (GtkWidget      *widget,
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (widget));
     model = gtk_tree_view_get_model (GTK_TREE_VIEW (widget));
 
-    if (!gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (widget), 
+    if (!gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (widget),
 					event->x, event->y,
                                         &path, NULL, NULL, NULL)) {
       return TRUE;
@@ -104,7 +104,7 @@ _dtv_button_press (GtkWidget      *widget,
   } else {
     GTK_WIDGET_CLASS (_dtv_parent_class)->button_press_event (widget, event);
 
-    if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (widget), 
+    if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (widget),
 					event->x, event->y,
                                         &path, NULL, NULL, NULL)) {
       model = gtk_tree_view_get_model (GTK_TREE_VIEW (widget));
@@ -182,9 +182,9 @@ _dtv_query_tooltip (GtkWidget  *widget,
         gchar *em = g_markup_printf_escaped ("<b>%s</b>: %s\n", _("Type"), object->type->name);
         g_string_append (markup, em);
         g_free (em);
-        g_string_append_printf (markup, "<b>%s</b>: %g,%g\n", Q_("object|Position"), 
+        g_string_append_printf (markup, "<b>%s</b>: %g,%g\n", Q_("object|Position"),
 			        object->position.x, object->position.y);
-	g_string_append_printf (markup, "%d %s", 
+	g_string_append_printf (markup, "%d %s",
 	                        g_list_length (object->children), _("Children"));
         /* and some dia_object_get_meta ? */
       } else if (layer) {
@@ -215,7 +215,7 @@ _dtv_query_tooltip (GtkWidget  *widget,
       return TRUE;
   }
 
-  return GTK_WIDGET_CLASS (_dtv_parent_class)->query_tooltip 
+  return GTK_WIDGET_CLASS (_dtv_parent_class)->query_tooltip
 						(widget, x, y, keyboard_mode, tooltip);
 }
 
@@ -274,29 +274,18 @@ _dtv_cell_pixbuf_func (GtkCellLayout   *layout,
 
   gtk_tree_model_get (tree_model, iter, OBJECT_COLUMN, &object, -1);
   if (object) {
-    if (object->type->pixmap != NULL) {
-      if (strncmp((char *)object->type->pixmap, "GdkP", 4) == 0)
-        pixbuf = gdk_pixbuf_new_from_inline(-1, (guint8*)object->type->pixmap, TRUE, NULL);
-      else /* must be an XPM */
-        pixbuf = gdk_pixbuf_new_from_xpm_data(object->type->pixmap);
-    } else if (object->type->pixmap_file != NULL) {
-      GError *error = NULL;
-      pixbuf = gdk_pixbuf_new_from_file (object->type->pixmap_file, &error);
-      if (error) {
-        g_warning ("%s", error->message);
-        g_error_free (error);
-      }
-    } else if (IS_GROUP(object)) {
-      pixbuf = gdk_pixbuf_new_from_inline(-1, dia_group_icon, TRUE, NULL);
+    pixbuf = dia_object_type_get_icon (object->type);
+    if (pixbuf == NULL && IS_GROUP(object)) {
+      pixbuf = pixbuf_from_resource ("/org/gnome/Dia/icons/dia-group.png");
     }
   } else {
 #if 0 /* these icons are not that useful */
     Layer *layer;
     gtk_tree_model_get (tree_model, iter, LAYER_COLUMN, &layer, -1);
     if (layer)
-      pixbuf = gdk_pixbuf_new_from_inline(-1, dia_layers, TRUE, NULL);
+      pixbuf = pixbuf_from_resource ("/org/gnome/Dia/icons/dia-layers.png");
     else /* must be diagram */
-      pixbuf = gdk_pixbuf_new_from_inline(-1, dia_diagram_icon, TRUE, NULL);
+      pixbuf = pixbuf_from_resource ("/org/gnome/Dia/icons/dia-diagram.png");
 #endif
   }
 
@@ -378,7 +367,7 @@ _dtv_locate_item (GtkAction *action,
          */
         GSList *displays;
 
-        for (displays = diagram->displays; 
+        for (displays = diagram->displays;
              displays != NULL; displays = g_slist_next (displays)) {
           DDisplay *ddisp = (DDisplay *)displays->data;
 
@@ -426,7 +415,7 @@ _dtv_showprops_item (GtkAction *action,
       else {
         g_object_unref (current_diagram);
 	break; /* can only handle one diagram's objects */
-      } 
+      }
     }
     r = g_list_next (r);
   }
@@ -505,7 +494,7 @@ _dtv_init (DiagramTreeView *dtv)
   gtk_tree_view_column_set_min_width (column, font_size * 10);
   gtk_tree_view_column_set_expand (column, TRUE);
   gtk_tree_view_column_set_resizable (column, TRUE);
-  
+
   gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (column), cell, TRUE);
   gtk_tree_view_column_add_attribute (column, cell, "text", NAME_COLUMN);
   gtk_tree_view_insert_column (GTK_TREE_VIEW (dtv), column, -1);
@@ -550,7 +539,7 @@ diagram_tree_view_new (void)
   return g_object_new (DIAGRAM_TREE_VIEW_TYPE, NULL);
 }
 
-/* should eventually go to it's own file, just for testing 
+/* should eventually go to it's own file, just for testing
  * The DiagramTreeView should remain integrateable with the integrated UI.
  */
 void

@@ -25,8 +25,6 @@
 #include "message.h"
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include "pixmaps/dia-lib-icons.h"
-
 #define SCALING_CACHE
 
 GType dia_image_get_type (void);
@@ -46,7 +44,7 @@ struct _DiaImageClass {
  * a downscaled variant of the underlying pixbuf. Also there is special handling
  * of 'broken' i.e. typically empty images.
  *
- * _DiaImage can be used to assemble _DiaObjects - it is also part of the 
+ * _DiaImage can be used to assemble _DiaObjects - it is also part of the
  * _DiaRenderer interface and thus provides interface to all of the exporters.
  *
  * \ingroup ObjectParts
@@ -87,7 +85,7 @@ dia_image_get_type (void)
         object_type = g_type_register_static (G_TYPE_OBJECT,
                                               "DiaImage",
                                               &object_info, 0);
-    }  
+    }
     return object_type;
 }
 
@@ -105,7 +103,7 @@ dia_image_class_init(DiaImageClass* klass)
  * \brief Constructor
  * \memberof _DiaImage
  */
-static void 
+static void
 dia_image_init_instance(DiaImage *image)
 {
   /* GObject *gobject = G_OBJECT(image);  */
@@ -148,8 +146,10 @@ dia_image_get_broken(void)
 
   image = DIA_IMAGE(g_object_new(DIA_TYPE_IMAGE, NULL));
   if (broken == NULL) {
-    /* initial refernce will finally be leaked */
-    broken = gdk_pixbuf_new_from_inline(-1, dia_broken_icon, FALSE, NULL);
+    broken = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
+                                       "image-missing",
+                                       64,
+                                       0, NULL);
   }
   image->image = g_object_ref (broken);
   /* Kinda hard to export :) */
@@ -221,7 +221,7 @@ dia_image_new_from_pixbuf (GdkPixbuf *pixbuf)
   mime_type = g_object_get_data (G_OBJECT (pixbuf), "mime-type");
   if (mime_type)
     dia_img->mime_type = g_strdup (mime_type);
-  
+
   return dia_img;
 }
 
@@ -250,7 +250,7 @@ dia_image_unref(DiaImage *image)
  * @param height Height in pixels of result.
  * \memberof _DiaImage
  */
-GdkPixbuf * 
+GdkPixbuf *
 dia_image_get_scaled_pixbuf(DiaImage *image, int width, int height)
 {
   GdkPixbuf *scaled;
@@ -273,7 +273,7 @@ dia_image_get_scaled_pixbuf(DiaImage *image, int width, int height)
     }
     scaled = image->scaled;
 #else
-    scaled = gdk_pixbuf_scale_simple(image->image, width, height, 
+    scaled = gdk_pixbuf_scale_simple(image->image, width, height,
 				     GDK_INTERP_TILES);
 #endif
   } else {
@@ -334,7 +334,7 @@ dia_image_save(DiaImage *image, const gchar *filename)
   if (image->image) {
     GError *error = NULL;
     gchar *type = _guess_format (filename);
-    
+
     if (type) /* XXX: consider image->mime_type */
       saved = gdk_pixbuf_save (image->image, filename, type, &error, NULL);
     if (saved) {
@@ -362,7 +362,7 @@ dia_image_save(DiaImage *image, const gchar *filename)
  * @return The natural width of the object in pixels.
  * \memberof _DiaImage
  */
-int 
+int
 dia_image_width(const DiaImage *image)
 {
   g_return_val_if_fail (image != NULL, 0);
@@ -375,7 +375,7 @@ dia_image_width(const DiaImage *image)
  * @return The natural height of the object in pixels.
  * \memberof _DiaImage
  */
-int 
+int
 dia_image_height(const DiaImage *image)
 {
   g_return_val_if_fail (image != NULL, 0);
@@ -400,7 +400,7 @@ dia_image_rowstride(const DiaImage *image)
  * @return The pixbuf
  * \memberof _DiaImage
  */
-const GdkPixbuf* 
+const GdkPixbuf*
 dia_image_pixbuf (const DiaImage *image)
 {
   if (!image)
@@ -474,7 +474,7 @@ dia_image_rgb_data(const DiaImage *image)
   }
 }
 
-/*! 
+/*!
  * \brief Get the mask data for an image.
  * @param image An image object.
  * @return An array of bytes (width*height) with the alpha channel information
@@ -491,7 +491,7 @@ dia_image_mask_data(const DiaImage *image)
   if (!gdk_pixbuf_get_has_alpha(image->image)) {
     return NULL;
   }
-  
+
   pixels = gdk_pixbuf_get_pixels(image->image);
 
   size = gdk_pixbuf_get_width(image->image)*
@@ -521,7 +521,7 @@ dia_image_rgba_data(const DiaImage *image)
   g_return_val_if_fail (image != NULL, 0);
   if (gdk_pixbuf_get_has_alpha(image->image)) {
     const guint8 *pixels = gdk_pixbuf_get_pixels(image->image);
-    
+
     return pixels;
   } else {
     return NULL;
