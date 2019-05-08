@@ -25,10 +25,9 @@ foreach t : ['boundingbox', 'objects', 'svg', 'sizeof']
         executable(
             'test-' + t,
             ['test-' + t + '.c', config_h],
-            dependencies: [libgtk_dep, libxml_dep, libm_dep],
-            link_with: [libdia],
+            dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep],
             link_args: dia_link_args,
-            include_directories: [configuration_inc, libdia_inc],
+            include_directories: [configuration_inc],
         )
     ]
 endforeach

@@ -1223,7 +1223,7 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
       if (last_type == PATH_CLOSE) {
 	g_warning("parse_path: argument given for implicite close path");
 	/* consume one number so we don't fall into an infinite loop */
-	while (path != '\0' && strchr("0123456789.+-", path[0])) path++;
+	while (path != NULL && strchr("0123456789.+-", path[0])) path++;
 	path_chomp(path);
 	*closed = TRUE;
 	need_next_element = TRUE;

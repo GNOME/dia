@@ -78,11 +78,10 @@ diaapp_inc = include_directories('.')
 
 diaapp = executable('dia',
     dia_sources + [dia_app_icons_h, diamarshal_h, config_h],
-    dependencies: [libgtk_dep, libxml_dep, libm_dep],
-    link_with: [libdia],
+    dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep],
     link_args: dia_link_args,
     export_dynamic: true,  # some plugins require this.
-    include_directories: [configuration_inc, libdia_inc],
+    include_directories: [configuration_inc],
     gui_app: true,
     install: true,
 )

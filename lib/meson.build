@@ -120,7 +120,7 @@ libdia_deps = [
 
 libdia_inc = include_directories('.')
 
-libdia = library('dia',
+libdia_lib = library('dia',
     libdia_sources + [diamarshal, dia_lib_icons_h, config_h],
     dependencies: libdia_deps,
     include_directories: configuration_inc,
@@ -128,3 +128,7 @@ libdia = library('dia',
     vs_module_defs: 'libdia.def',
     install: true,
 )
+
+libdia_dep = declare_dependency (include_directories: libdia_inc,
+                                 link_with: libdia_lib,
+                                 dependencies: libdia_deps)

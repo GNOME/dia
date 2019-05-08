@@ -15,9 +15,8 @@ endif
 library(
     'wmf_filter',
     sources,
-    dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep] + deps,
-    include_directories: [libdia_inc, configuration_inc],
-    link_with: [libdia],
+    dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep, libdia_dep] + deps,
+    include_directories: [configuration_inc],
     install: libemf_dep.found(),
     install_dir: dialibdir
 )

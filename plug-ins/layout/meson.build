@@ -16,9 +16,9 @@ endif
 shared_module(
     'layout_filter',
     sources + [config_h],
-    dependencies: deps,
-    include_directories: [libdia_inc, configuration_inc, diaapp_inc],
-    link_with: [libdia, diaapp],
+    dependencies: [deps, libdia_dep],
+    include_directories: [configuration_inc, diaapp_inc],
+    link_with: [diaapp],
     install: true,
     install_dir: dialibdir
 )

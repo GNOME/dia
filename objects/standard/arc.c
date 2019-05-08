@@ -20,7 +20,7 @@
 
 #include <config.h>
 
-#define _BSD_SOURCE 1 /* to get finite */
+#define _DEFAULT_SOURCE 1 /* to get finite */
 #include <math.h>
 #include <assert.h>
 

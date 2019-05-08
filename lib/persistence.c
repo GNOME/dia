@@ -1116,7 +1116,7 @@ persistence_register_boolean(const gchar *role, gboolean defaultvalue)
   if (booleanval == NULL) {
     booleanval = g_new(gboolean, 1);
     *booleanval = defaultvalue;
-    g_hash_table_insert(persistent_booleans, role, booleanval);
+    g_hash_table_insert (persistent_booleans, (gpointer) role, booleanval);
   }
   return *booleanval;
 }

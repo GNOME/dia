@@ -25,7 +25,7 @@
 #include "dia_dirs.h"
 #include "diadynamicmenu.h"
 #include "diaoptionmenu.h"
-#include "dia-lib-icons.h"
+#include "pixmaps/dia-lib-icons.h"
 
 #include <stdlib.h>
 #include <glib.h>

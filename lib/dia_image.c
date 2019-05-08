@@ -25,7 +25,7 @@
 #include "message.h"
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include "dia-lib-icons.h"
+#include "pixmaps/dia-lib-icons.h"
 
 #define SCALING_CACHE
 

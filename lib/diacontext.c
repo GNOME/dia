@@ -98,7 +98,7 @@ dia_context_release (DiaContext *context)
   if (context->messages)
     message_warning ("%s:\n%s", 
                      context->desc ? context->desc : "<no context>",
-		     context->messages->data);
+                     (char *) context->messages->data);
 
   g_object_unref (G_OBJECT (context));
 }

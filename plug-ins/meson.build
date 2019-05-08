@@ -39,9 +39,8 @@ foreach p : install_plugins_desc
     library(
         p.get('name'),
         p.get('sources') + [config_h],
-        dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep] + p.get('extra_deps', []),
-        include_directories: [libdia_inc, configuration_inc],
-        link_with: [libdia],
+        dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep, libdia_dep] + p.get('extra_deps', []),
+        include_directories: [configuration_inc],
         install: p.get('install', true),
         install_dir: dialibdir
     )

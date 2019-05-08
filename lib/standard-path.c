@@ -44,7 +44,7 @@
 #include "bezier-common.h"
 #include "pattern.h"
 
-#include "dia-lib-icons.h"
+#include "pixmaps/dia-lib-icons.h"
 
 #define NUM_HANDLES 8
 

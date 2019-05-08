@@ -19,7 +19,7 @@
 
 #include <config.h>
 
-#define _BSD_SOURCE 1
+#define _DEFAULT_SOURCE 1
 #include <math.h>
 #include <string.h> /* memcmp() */
 

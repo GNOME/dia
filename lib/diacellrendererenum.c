@@ -78,7 +78,8 @@ _enum_edited (GtkCellRenderer *renderer,
    */
   g_object_set_data (G_OBJECT (store), "modified", GINT_TO_POINTER (1));
 
-  g_print ("edited: %d - %s\n", new_string);
+  // FIXME: What should the number here be?
+  g_print ("edited: %d - %s\n", 42, new_string);
 }
 
 GtkCellRenderer *
