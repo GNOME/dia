@@ -138,7 +138,7 @@ install it by doing:
 
     $ meson . build --prefix=/usr/local
     $ ninja -C build
-    $ sudo ninja -C build install
+    $ ninja -C build install
 
 This will install Dia in /usr/local.  You can change that by passing
 --prefix=/some/dir instead.
