@@ -1226,7 +1226,7 @@ menus_set_recent (GtkActionGroup *actions)
     const gchar* aname = gtk_action_get_name (GTK_ACTION (list->data));
 
     id = gtk_ui_manager_new_merge_id (_ui_manager);
-    recent_merge_ids = g_slist_prepend (recent_merge_ids, (gpointer) id);
+    recent_merge_ids = g_slist_prepend (recent_merge_ids, GINT_TO_POINTER (id));
 
     gtk_ui_manager_add_ui (_ui_manager, id, 
                  recent_path, 
@@ -1246,7 +1246,7 @@ menus_clear_recent (void)
   if (recent_merge_ids) {
     id = recent_merge_ids;
     do {
-      gtk_ui_manager_remove_ui (_ui_manager, (guint) id->data);
+      gtk_ui_manager_remove_ui (_ui_manager, GPOINTER_TO_UINT (id->data));
       
     } while (NULL != (id = id->next));
     

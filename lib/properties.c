@@ -29,9 +29,6 @@
 #endif
 
 #include "geometry.h"
-#undef G_INLINE_FUNC
-#define G_INLINE_FUNC extern
-#define G_CAN_INLINE 1
 #include "properties.h"
 #include "propinternals.h"
 

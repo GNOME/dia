@@ -127,7 +127,7 @@ export_render_eps(DiaPsRenderer *renderer,
   renderer->file = outfile;
   renderer->scale = 28.346 * data->paper.scaling;
   renderer->extent = data->extents;
-  renderer->pstype = (guint)user_data;
+  renderer->pstype = GPOINTER_TO_UINT (user_data);
   if (renderer->pstype & PSTYPE_EPSI) {
     /* Must store the diagram for making a preview */
     renderer->diagram = data;

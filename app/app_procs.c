@@ -328,7 +328,7 @@ do_convert(const char *infname,
    */
   if (size) {
     if (ef == filter_export_get_by_name ("png-libart")) /* the warning we get is appropriate, don't cast */
-      ef->export_func(diagdata, ctx, outfname, infname, size);
+      ef->export_func(diagdata, ctx, outfname, infname, (gpointer) size);
     else {
       g_warning ("--size parameter unsupported for %s filter", 
                  ef->unique_name ? ef->unique_name : "selected");

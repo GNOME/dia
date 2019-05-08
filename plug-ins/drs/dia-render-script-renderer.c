@@ -81,9 +81,10 @@ draw_object(DiaRenderer *self,
   renderer->root = node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"object", NULL);
   xmlSetProp(node, (const xmlChar *)"type", (xmlChar *)object->type->name);
   /* if it looks like intdata store it as well */
-  if ((int)object->type->default_user_data > 0 && (int)object->type->default_user_data < 0xFF) {
+  if (GPOINTER_TO_INT (object->type->default_user_data) > 0 &&
+      GPOINTER_TO_INT (object->type->default_user_data) < 0xFF) {
     gchar buffer[30];
-    g_snprintf(buffer, sizeof(buffer), "%d", (int)object->type->default_user_data);
+    g_snprintf(buffer, sizeof(buffer), "%d", GPOINTER_TO_INT (object->type->default_user_data));
     xmlSetProp(node, (const xmlChar *)"intdata", (xmlChar *)buffer);
   }
   if (renderer->save_props) {

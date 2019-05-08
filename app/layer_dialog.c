@@ -1447,7 +1447,7 @@ layer_visibility_change_revert(struct LayerVisibilityChange *change,
 
   for (i = 0; vis != NULL && i < layers->len; vis = g_list_next(vis), i++) {
     Layer *layer = (Layer*) g_ptr_array_index(layers, i);
-    layer->visible = (gboolean)vis->data;
+    layer->visible = GPOINTER_TO_INT (vis->data);
   }
 
   if (vis != NULL || i < layers->len) {
@@ -1484,7 +1484,7 @@ undo_layer_visibility(Diagram *dia, Layer *layer, gboolean exclusive)
 
   for (i = 0; i < layers->len; i++) {
     Layer *temp_layer = (Layer *) g_ptr_array_index(layers, i);
-    visibilities = g_list_append(visibilities, (gpointer)temp_layer->visible);
+    visibilities = g_list_append(visibilities, GINT_TO_POINTER (temp_layer->visible));
   }
 
   change->original_visibility = visibilities;
