@@ -94,7 +94,7 @@ diagram_get_type (void)
                                             "Diagram",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
@@ -104,7 +104,7 @@ diagram_dispose (GObject *object)
   Diagram *dia = DIA_DIAGRAM(object);
 
   assert(dia->displays==NULL);
-  
+
   if (g_list_index(open_diagrams, dia) >= 0) {
     dia_diagram_remove(dia);
 
@@ -115,18 +115,18 @@ diagram_dispose (GObject *object)
   if (dia->undo)
     undo_destroy(dia->undo);
   dia->undo = NULL;
-  
+
   diagram_cleanup_autosave(dia);
 
   G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 static void
-diagram_finalize(GObject *object) 
+diagram_finalize(GObject *object)
 {
   Diagram *dia = DIA_DIAGRAM(object);
 
   assert(dia->displays==NULL);
-  
+
   if (dia->filename)
     g_free(dia->filename);
   dia->filename = NULL;
@@ -187,7 +187,7 @@ _object_remove(Diagram   *dia,
 }
 
 /** Initializes a diagram with standard info and sets it to be called
- * 'filename'.  
+ * 'filename'.
  * Returns TRUE if everything went ok, FALSE otherwise.
  * Will return FALSE if filename is not a legal string in the current
  * encoding.
@@ -197,11 +197,11 @@ diagram_init(Diagram *dia, const char *filename)
 {
   gchar *newfilename = NULL;
   GError *error = NULL;
- 
+
   dia->data = &dia->parent_instance; /* compatibility */
 
   dia->pagebreak_color = prefs.new_diagram.pagebreak_color;
-  
+
   get_paper_info (&dia->data->paper, -1, &prefs.new_diagram);
 
   dia->grid.width_x = prefs.grid.x;
@@ -231,7 +231,7 @@ diagram_init(Diagram *dia, const char *filename)
     filename = newfilename;
   }
   /* All Diagram functions assumes filename in filesystem encoding */
-  
+
   dia->filename = g_filename_to_utf8(filename, -1, NULL, NULL, &error);
   if (error != NULL) {
     message_error(_("Couldn't convert filename '%s' to UTF-8: %s\n"),
@@ -306,7 +306,7 @@ diagram_load_into(Diagram         *diagram,
       }
     } else {
       /* the initial diagram should have confirmed filename  */
-      diagram->unsaved = 
+      diagram->unsaved =
 	  strcmp(filename, diagram->filename) == 0 ? FALSE : was_default;
     }
     diagram_set_modified(diagram, TRUE);
@@ -331,7 +331,7 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
       diagram = old_diagram;
       was_default = TRUE;
       break;
-    }	
+    }
   }
 
   /* TODO: Make diagram not be initialized twice */
@@ -355,14 +355,14 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
       dia_diagram_add(diagram);
     }
   }
-  
+
   if (diagram != NULL && was_default && app_is_interactive()) {
     diagram_update_for_filename(diagram);
     diagram->is_default = FALSE;
     if ( g_slist_length(diagram->displays) == 1 )
       display_set_active (diagram->displays->data);
   }
-  
+
   return diagram;
 }
 
@@ -406,7 +406,7 @@ diagram_modified(Diagram *dia)
 {
   GSList *displays;
   gchar *dia_name = diagram_get_name(dia);
-  gchar *extra = g_path_get_dirname (dia->filename); 
+  gchar *extra = g_path_get_dirname (dia->filename);
   gchar *title = g_strdup_printf ("%s%s (%s)", diagram_is_modified(dia) ? "*" : "", dia_name, extra ? extra : " ");
 
   g_free (dia_name);
@@ -416,7 +416,7 @@ diagram_modified(Diagram *dia)
     DDisplay *ddisp = (DDisplay *) displays->data;
 
     ddisplay_set_title(ddisp, title);
-    
+
     displays = g_slist_next(displays);
   }
   if (diagram_is_modified(dia)) {
@@ -466,7 +466,7 @@ diagram_selected_any_parents(Diagram *dia) {
   for (selected = dia->data->selected;
        selected != NULL; selected = selected->next) {
     DiaObject *obj = (DiaObject*)selected->data;
-    if (object_flags_set(obj, DIA_OBJECT_CAN_PARENT) && obj->children != NULL) 
+    if (object_flags_set(obj, DIA_OBJECT_CAN_PARENT) && obj->children != NULL)
       return TRUE;
   }
   return FALSE;
@@ -516,7 +516,7 @@ diagram_selected_can_parent(Diagram *dia) {
   return FALSE;
 }
 
-/** Returns TRUE if an object is fully enclosed by a another object, which 
+/** Returns TRUE if an object is fully enclosed by a another object, which
  * can be a parent */
 gboolean
 object_within_parent(DiaObject *obj, DiaObject *p)
@@ -524,7 +524,7 @@ object_within_parent(DiaObject *obj, DiaObject *p)
   Rectangle obj_bb = obj->bounding_box;
   if (!object_flags_set(p, DIA_OBJECT_CAN_PARENT))
     return FALSE;
-  if (p == obj) 
+  if (p == obj)
     return FALSE;
   if (obj_bb.left > p->bounding_box.left &&
       obj_bb.right < p->bounding_box.right &&
@@ -538,7 +538,7 @@ object_within_parent(DiaObject *obj, DiaObject *p)
   This is the real implementation of the sensitivity update.
   TODO: move it to the DDisplay as it belongs to it IMHO
  */
-void 
+void
 diagram_update_menu_sensitivity (Diagram *dia)
 {
   gint selected_count = dia ? g_list_length (dia->data->selected) : 0;
@@ -653,8 +653,8 @@ diagram_update_menu_sensitivity (Diagram *dia)
 
   /* View menu - should not need disabling yet */
 }
-    
-  
+
+
 void
 diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp)
 {
@@ -671,100 +671,98 @@ diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp)
 }
 
 void
-diagram_add_object(Diagram *dia, DiaObject *obj)
+diagram_add_object (Diagram *dia, DiaObject *obj)
 {
-  layer_add_object(dia->data->active_layer, obj);
+  layer_add_object (dia->data->active_layer, obj);
 
-  diagram_modified(dia);
+  diagram_modified (dia);
 }
 
 void
-diagram_add_object_list(Diagram *dia, GList *list)
+diagram_add_object_list (Diagram *dia, GList *list)
 {
-  layer_add_objects(dia->data->active_layer, list);
+  layer_add_objects (dia->data->active_layer, list);
 
-  diagram_modified(dia);
+  diagram_modified (dia);
 }
 
 void
-diagram_selected_break_external(Diagram *dia)
+diagram_selected_break_external (Diagram *dia)
 {
   GList *list;
   GList *connected_list;
   DiaObject *obj;
   DiaObject *other_obj;
-  int i,j;
+  int i, j;
 
   list = dia->data->selected;
   while (list != NULL) {
-    obj = (DiaObject *)list->data;
-    
+    obj = (DiaObject *) list->data;
+
     /* Break connections between this object and objects not selected: */
-    for (i=0;i<obj->num_handles;i++) {
+    for (i = 0; i < obj->num_handles; i++) {
       ConnectionPoint *con_point;
       con_point = obj->handles[i]->connected_to;
-      
-      if ( con_point == NULL )
-	break; /* Not connected */
-      
+
+      if (con_point == NULL)
+        break; /* Not connected */
+
       other_obj = con_point->object;
-      if (g_list_find(dia->data->selected, other_obj) == NULL) {
-	/* other_obj is not selected, break connection */
-	Change *change = undo_unconnect(dia, obj, obj->handles[i]);
-	(change->apply)(change, dia);
-	object_add_updates(obj, dia);
+      if (g_list_find (dia->data->selected, other_obj) == NULL) {
+        /* other_obj is not selected, break connection */
+        Change *change = undo_unconnect (dia, obj, obj->handles[i]);
+        (change->apply) (change, dia);
+        object_add_updates (obj, dia);
       }
     }
-    
+
     /* Break connections from non selected objects to this object: */
-    for (i=0;i<obj->num_connections;i++) {
+    for (i = 0; i < obj->num_connections; i++) {
       connected_list = obj->connections[i]->connected;
-      
-      while (connected_list != NULL) {
-	other_obj = (DiaObject *)connected_list->data;
-	
-	if (g_list_find(dia->data->selected, other_obj) == NULL) {
-	  /* other_obj is not in list, break all connections
-	     to obj from other_obj */
-	  
-	  for (j=0;j<other_obj->num_handles;j++) {
-	    ConnectionPoint *con_point;
-	    con_point = other_obj->handles[j]->connected_to;
 
-	    if (con_point && (con_point->object == obj)) {
-	      Change *change;
-	      connected_list = g_list_previous(connected_list);
-	      change = undo_unconnect(dia, other_obj,
-					      other_obj->handles[j]);
-	      (change->apply)(change, dia);
-	      if (connected_list == NULL)
-		connected_list = obj->connections[i]->connected;
-	    }
-	  }
-	}
-	
-	connected_list = g_list_next(connected_list);
+      while (connected_list != NULL) {
+        other_obj = (DiaObject *) connected_list->data;
+
+        if (g_list_find (dia->data->selected, other_obj) == NULL) {
+          /* other_obj is not in list, break all connections
+             to obj from other_obj */
+
+          for (j = 0; j < other_obj->num_handles; j++) {
+            ConnectionPoint *con_point;
+            con_point = other_obj->handles[j]->connected_to;
+
+            if (con_point && (con_point->object == obj)) {
+              Change *change;
+              connected_list = g_list_previous (connected_list);
+              change = undo_unconnect (dia, other_obj, other_obj->handles[j]);
+              (change->apply) (change, dia);
+              if (connected_list == NULL)
+                connected_list = obj->connections[i]->connected;
+            }
+          }
+        }
+        connected_list = g_list_next (connected_list);
       }
     }
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 }
 
 void
-diagram_remove_all_selected(Diagram *diagram, int delete_empty)
+diagram_remove_all_selected (Diagram *diagram, int delete_empty)
 {
-  object_add_updates_list(diagram->data->selected, diagram);
-  textedit_remove_focus_all(diagram);
-  data_remove_all_selected(diagram->data);
+  object_add_updates_list (diagram->data->selected, diagram);
+  textedit_remove_focus_all (diagram);
+  data_remove_all_selected (diagram->data);
 }
 
 void
-diagram_unselect_object(Diagram *diagram, DiaObject *obj)
+diagram_unselect_object (Diagram *diagram, DiaObject *obj)
 {
-  object_add_updates(obj, diagram);
-  textedit_remove_focus(obj, diagram);
-  data_unselect(DIA_DIAGRAM_DATA(diagram), obj);
+  object_add_updates (obj, diagram);
+  textedit_remove_focus (obj, diagram);
+  data_unselect (DIA_DIAGRAM_DATA (diagram), obj);
 }
 
 void
@@ -855,13 +853,13 @@ diagram_add_update_all(Diagram *dia)
 {
   GSList *l;
   DDisplay *ddisp;
-  
+
   l = dia->displays;
   while (l!=NULL) {
     ddisp = (DDisplay *) l->data;
 
     ddisplay_add_update_all(ddisp);
-    
+
     l = g_slist_next(l);
   }
 }
@@ -871,13 +869,13 @@ diagram_add_update(Diagram *dia, const Rectangle *update)
 {
   GSList *l;
   DDisplay *ddisp;
-  
+
   l = dia->displays;
   while (l!=NULL) {
     ddisp = (DDisplay *) l->data;
 
     ddisplay_add_update(ddisp, update);
-    
+
     l = g_slist_next(l);
   }
 }
@@ -893,13 +891,13 @@ diagram_add_update_with_border(Diagram *dia, const Rectangle *update,
 {
   GSList *l;
   DDisplay *ddisp;
-  
+
   l = dia->displays;
   while (l!=NULL) {
     ddisp = (DDisplay *) l->data;
 
     ddisplay_add_update_with_border(ddisp, update, pixel_border);
-    
+
     l = g_slist_next(l);
   }
 }
@@ -916,7 +914,7 @@ diagram_add_update_pixels(Diagram *dia, Point *point,
     ddisp = (DDisplay *) l->data;
 
     ddisplay_add_update_pixels(ddisp, point, pixel_width, pixel_height);
-    
+
     l = g_slist_next(l);
   }
 }
@@ -931,7 +929,7 @@ diagram_flush(Diagram *dia)
     ddisp = (DDisplay *) l->data;
 
     ddisplay_flush(ddisp);
-    
+
     l = g_slist_next(l);
   }
   dynobj_refresh_kick();
@@ -941,7 +939,7 @@ DiaObject *
 diagram_find_clicked_object(Diagram *dia, Point *pos,
 			    real maxdist)
 {
-  return layer_find_closest_object_except(dia->data->active_layer, 
+  return layer_find_closest_object_except(dia->data->active_layer,
 					  pos, maxdist, NULL);
 }
 
@@ -968,9 +966,9 @@ diagram_find_closest_handle(Diagram *dia, Handle **closest,
   int i;
 
   mindist = 1000000.0; /* Realy big value... */
-  
+
   *closest = NULL;
-  
+
   l = dia->data->selected;
   while (l!=NULL) {
     obj = (DiaObject *) l->data;
@@ -979,13 +977,13 @@ diagram_find_closest_handle(Diagram *dia, Handle **closest,
       handle = obj->handles[i];
       /* Note: Uses manhattan metric for speed... */
       dist = distance_point_point_manhattan(pos, &handle->pos);
-      if (dist<=mindist) { 
+      if (dist<=mindist) {
 	mindist = dist;
 	*closest = handle;
 	*object = obj;
       }
     }
-    
+
     l = g_list_next(l);
   }
 
@@ -1026,20 +1024,20 @@ diagram_update_extents(Diagram *dia)
     /* Update scrollbars because extents were changed: */
     GSList *l;
     DDisplay *ddisp;
-    
+
     l = dia->displays;
     while (l!=NULL) {
       ddisp = (DDisplay *) l->data;
-      
+
       ddisplay_update_scrollbars(ddisp);
-      
+
       l = g_slist_next(l);
     }
     if (cur_scale != dia->data->paper.scaling) {
       diagram_add_update_all(dia);
       diagram_flush(dia);
     }
-  }  
+  }
 }
 
 /* Remove connections from obj to objects outside created group. */
@@ -1062,7 +1060,7 @@ strip_connections(DiaObject *obj, GList *not_strip_list, Diagram *dia)
 
 
 /* GCompareFunc */
-static gint 
+static gint
 diagram_parent_sort_cb(gconstpointer _a, gconstpointer _b)
 {
   ObjectExtent **a = (ObjectExtent **)_a;
@@ -1150,7 +1148,7 @@ void diagram_unparent_selected(Diagram *dia)
   {
     obj = (DiaObject *) list->data;
     parent = obj->parent;
-    
+
     if (!parent)
       continue;
 
@@ -1217,20 +1215,20 @@ void diagram_group_selected(Diagram *dia)
     message_error(_("Trying to group with no selected objects."));
     return;
   }
-  
+
 #if 0
   /* the following is wrong as it screws up the selected list, see bug #153525
      * I just don't get what was originally intented so please speak up if you know  --hb
-     */    
+     */
   dia->data->selected = parent_list_affected(dia->data->selected);
 #endif
-    
+
   orig_list = g_list_copy(dia->data->active_layer->objects);
-  
+
   /* We have to rebuild the selection list so that it is the same
      order as in the Diagram list. */
   group_list = diagram_get_sorted_selected_remove(dia);
-  
+
   list = group_list;
   while (list != NULL) {
     obj = (DiaObject *)list->data;
@@ -1239,24 +1237,24 @@ void diagram_group_selected(Diagram *dia)
     /* strip_connections sets up its own undo info. */
     /* The connections aren't reattached by ungroup. */
     strip_connections(obj, dia->data->selected, dia);
-    
+
     list = g_list_next(list);
   }
 
   /* Remove list of selected objects */
   textedit_remove_focus_all(dia);
   data_remove_all_selected(dia->data);
-  
+
   group = group_create(group_list);
   change = undo_group_objects(dia, group_list, group, orig_list);
   (change->apply)(change, dia);
 
   /* Select the created group */
   diagram_select(dia, group);
-  
+
   diagram_modified(dia);
   diagram_flush(dia);
-  
+
   undo_set_transactionpoint(dia->undo);
 }
 
@@ -1267,12 +1265,12 @@ void diagram_ungroup_selected(Diagram *dia)
   GList *selected, *selection_copy;
   int group_index;
   int any_groups = 0;
-  
+
   if (g_list_length(dia->data->selected) < 1) {
     message_error("Trying to ungroup with no selected objects.");
     return;
   }
-  
+
   selection_copy = g_list_copy(dia->data->selected);
   selected = selection_copy;
   while (selected != NULL) {
@@ -1297,7 +1295,7 @@ void diagram_ungroup_selected(Diagram *dia)
     selected = g_list_next(selected);
   }
   g_list_free(selection_copy);
-  
+
   if (any_groups) {
     diagram_modified(dia);
     diagram_flush(dia);
@@ -1336,7 +1334,7 @@ diagram_place_under_selected(Diagram *dia)
   sorted_list = diagram_get_sorted_selected_remove(dia);
   object_add_updates_list(sorted_list, dia);
   layer_add_objects_first(dia->data->active_layer, sorted_list);
-  
+
   undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
 
   diagram_modified(dia);
@@ -1354,11 +1352,11 @@ diagram_place_over_selected(Diagram *dia)
     return;
 
   orig_list = g_list_copy(dia->data->active_layer->objects);
-  
+
   sorted_list = diagram_get_sorted_selected_remove(dia);
   object_add_updates_list(sorted_list, dia);
   layer_add_objects(dia->data->active_layer, sorted_list);
-  
+
   undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
 
   diagram_modified(dia);
@@ -1378,7 +1376,7 @@ diagram_place_up_selected(Diagram *dia)
     return;
 
   orig_list = g_list_copy(dia->data->active_layer->objects);
-  
+
   sorted_list = diagram_get_sorted_selected(dia);
   object_add_updates_list(orig_list, dia);
 
@@ -1421,7 +1419,7 @@ diagram_place_down_selected(Diagram *dia)
     return;
 
   orig_list = g_list_copy(dia->data->active_layer->objects);
-  
+
   sorted_list = diagram_get_sorted_selected(dia);
   object_add_updates_list(orig_list, dia);
 
@@ -1460,7 +1458,7 @@ diagram_set_filename(Diagram *dia, const char *filename)
 {
   g_free(dia->filename);
   dia->filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
-  
+
   diagram_update_for_filename(dia);
 }
 
@@ -1483,7 +1481,7 @@ diagram_update_for_filename(Diagram *dia)
     ddisp = (DDisplay *) l->data;
 
     ddisplay_set_title(ddisp, title);
-    
+
     l = g_slist_next(l);
   }
 
@@ -1523,7 +1521,7 @@ int diagram_modified_exists(void)
   return FALSE;
 }
 
-void 
+void
 diagram_object_modified(Diagram *dia, DiaObject *object)
 {
   /* signal about the change */
