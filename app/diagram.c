@@ -705,7 +705,7 @@ diagram_selected_break_external (Diagram *dia)
       con_point = obj->handles[i]->connected_to;
 
       if (con_point == NULL)
-        break; /* Not connected */
+        continue; /* Not connected */
 
       other_obj = con_point->object;
       if (g_list_find (dia->data->selected, other_obj) == NULL) {
