@@ -39,7 +39,7 @@ G_BEGIN_DECLS
 /** Flags for DiaObject */
 typedef enum {
   /** Set this if the DiaObject can 'contain' other objects that move with
-   *  it, a.k.a. be a parent.  A parent moves its children along and 
+   *  it, a.k.a. be a parent.  A parent moves its children along and
    *  constricts its children to live inside its borders.
    */
   DIA_OBJECT_CAN_PARENT = 1
@@ -106,7 +106,7 @@ typedef DiaObject* (*CreateFunc) (Point *startpoint,
  *
  * @param obj_node A node in an XML object to load from.
  * @param version The version of the object found in the XML file.
- * @param filename The name of the file we're loading from, for use in 
+ * @param filename The name of the file we're loading from, for use in
  *                 error messages.
  *
  * \public \memberof _DiaObjectType
@@ -225,7 +225,7 @@ typedef void (*SelectFunc) (DiaObject*   obj,
  * \brief Copy constructor of _DiaObject.
  *
  *  This must be an depth-copy (pointers must be duplicated and so on)
- *  as the initial object can be deleted any time. 
+ *  as the initial object can be deleted any time.
  *
  * @param obj An object to make a copy of.
  * @return A newly allocated object copied from `obj', but without any
@@ -332,7 +332,7 @@ typedef ObjectChange *(*ApplyPropertiesDialogFunc) (DiaObject* obj, GtkWidget *w
  * \public \memberof _DiaObject
  */
  typedef ObjectChange *(*ApplyPropertiesListFunc) (DiaObject* obj, GPtrArray* props);
- 
+
 /*!
  * \brief Describe the properties that this object supports.
  *
@@ -444,7 +444,7 @@ void object_remove_handle(DiaObject *obj, Handle *handle);
 void object_add_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint);
 void object_remove_connectionpoint(DiaObject *obj,
 				   ConnectionPoint *conpoint);
-void object_add_connectionpoint_at(DiaObject *obj, 
+void object_add_connectionpoint_at(DiaObject *obj,
 				   ConnectionPoint *conpoint,
 				   int pos);
 void object_connect(DiaObject *obj, Handle *handle,
@@ -458,14 +458,14 @@ void object_registry_foreach(GHFunc func, gpointer  user_data);
 DiaObjectType *object_get_type(char *name);
 gchar *object_get_displayname (DiaObject* obj);
 gboolean object_flags_set(DiaObject* obj, gint flags);
- 
+
 /* These functions can be used as a default implementation for an object which
    can be completely described, loaded and saved through standard properties.
 */
 DiaObject *object_load_using_properties(const DiaObjectType *type,
 					ObjectNode obj_node, int version,
 					DiaContext *ctx);
-void object_save_using_properties(DiaObject *obj, ObjectNode obj_node, 
+void object_save_using_properties(DiaObject *obj, ObjectNode obj_node,
                                   DiaContext *ctx);
 DiaObject *object_copy_using_properties(DiaObject *obj);
 
@@ -494,7 +494,7 @@ struct _ObjectOps {
   SetPropsFunc        set_props;
 
   TextEditFunc        edit_text;
-  
+
   ApplyPropertiesListFunc apply_properties_list;
   /*! check for NULL before calling */
   TransformFunc       transform;
@@ -504,7 +504,7 @@ struct _ObjectOps {
     Then an older object will be binary compatible, because all new code
     checks if new ops are supported (!= NULL)
   */
-  void      (*(unused[3]))(DiaObject *obj,...);
+  void      (*unused[3])(DiaObject *obj,...);
 };
 
 /*!
@@ -524,7 +524,7 @@ struct _DiaObject {
   Point             position; /*!<  often but not necessarily the upper left corner of the object */
   /*!
    * \brief Rectangle containing the whole object
-   *   
+   *
    * The area that contains all parts of the 'real' object, i.e. the parts
    *  that would be printed, exported to pixmaps etc.  This is also used to
    *  determine the size of autofit scaling, so it should be as large as
@@ -548,7 +548,7 @@ struct _DiaObject {
 
   Layer *parent_layer; /*!< Back-pointer to the owning layer.
 			   This may only be set by functions internal to
-			   the layer, and accessed via 
+			   the layer, and accessed via
 			   dia_object_get_parent_layer() */
   DiaObject *parent; /*!< Back-pointer to DiaObject which is parenting this object. Can be NULL */
   GList *children; /*!< In case this object is a parent of other object the children are listed here */
@@ -583,7 +583,7 @@ struct _ObjectTypeOps {
     Then an older object will be binary compatible, because all new code
     checks if new ops are supported (!= NULL)
   */
-  void      (*(unused[10]))(DiaObject *obj,...); 
+  void      (*unused[10])(DiaObject *obj,...);
 };
 
 /*!
@@ -595,12 +595,12 @@ struct _ObjectTypeOps {
 struct _DiaObjectType {
 
   char *name; /*!< The type name should follow a pattern of '\<module\> - \<class\>' like "UML - Class" */
-  int version; /*!< DiaObjects must be backward compatible, i.e. support possibly older versions formats */ 
+  int version; /*!< DiaObjects must be backward compatible, i.e. support possibly older versions formats */
 
   const char **pixmap; /*!< Also put a pixmap in the sheet_object.
 		        This one is used if not in sheet but in toolbar.
 		        Stored in xpm format */
-  
+
   ObjectTypeOps *ops; /* pointer to the vtable */
 
   char *pixmap_file; /*!< fallback if pixmap is NULL */

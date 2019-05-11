@@ -750,7 +750,7 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   int i;
   AttributeNode attr;
-  char *diafile_dir;
+  // char *diafile_dir;
 
   image = g_malloc0(sizeof(Image));
   elem = &image->element;

@@ -353,6 +353,8 @@ load_accels(void)
     g_free(accelfilename);
   }
 }
+
+/* FIXME: Apparently unused
 static gint
 save_accels(gpointer data)
 {
@@ -365,6 +367,7 @@ save_accels(gpointer data)
   }
   return TRUE;
 }
+*/
 
 /**
  * Synchronized the Object snap property button with the display.

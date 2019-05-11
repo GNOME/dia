@@ -119,8 +119,8 @@ DiaGraph::AddEdge (int srcNode, int destNode, double* points, int len)
 IGraph::eResult
 DiaGraph::Layout (const char *module)
 {
-  double p1, p2;
-  int n;
+  // double p1, p2;
+  // int n;
 
   if (strcmp(module, "Grow") == 0)
     return Scale (1.4142, 1.4142) ? SUCCESS : FAILED_ALGORITHM;
