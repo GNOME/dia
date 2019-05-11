@@ -54,7 +54,7 @@ typedef struct _dia_print_options {
   int printer;
 } dia_print_options;
 
-static dia_print_options last_print_options = 
+static dia_print_options last_print_options =
 {
     1
 };
@@ -129,7 +129,7 @@ print_page(DiagramData *data, DiaRenderer *diarend, Rectangle *bounds)
 	  g_ascii_formatd(d2_buf, sizeof(d2_buf), "%f", bounds->top) );
   /* Tip from Dov Grobgeld: Clip does not destroy the path, so we should
      do a newpath afterwards */
-  fprintf(rend->file, "clip n\n"); 
+  fprintf(rend->file, "clip n\n");
 
   /* render the region */
   data_render(data, diarend, bounds, NULL, NULL);
@@ -246,11 +246,11 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
   gchar *dot = NULL;
   gboolean done = FALSE;
   gboolean write_file = TRUE;	/* Used in prompt to overwrite existing file */
-  
+
   FILE *file;
   gboolean is_pipe;
 #ifndef G_OS_WIN32
-  /* all the signal stuff below doesn't compile on win32, but it isn't 
+  /* all the signal stuff below doesn't compile on win32, but it isn't
    * needed anymore because the pipe handling - which never worked on win32
    * anyway - is replace by "native" postscript printing now ...
    */
@@ -311,26 +311,18 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
 
   box = gtk_dialog_get_action_area(GTK_DIALOG(dialog));
 
-  button = gtk_button_new_with_label(_("OK"));
-  g_signal_connect(G_OBJECT(button), "clicked", 
-		   G_CALLBACK(ok_pressed), &cont);
-#if GTK_CHECK_VERSION(2,18,0)
+  button = gtk_button_new_with_label (_("OK"));
+  g_signal_connect (G_OBJECT (button), "clicked",
+                    G_CALLBACK (ok_pressed), &cont);
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-#endif
-  gtk_box_pack_start(GTK_BOX(box), button, TRUE, TRUE, 0);
-  gtk_widget_grab_default(button);
-  gtk_widget_show(button);
+  gtk_box_pack_start (GTK_BOX (box), button, TRUE, TRUE, 0);
+  gtk_widget_grab_default (button);
+  gtk_widget_show (button);
 
   button = gtk_button_new_with_label(_("Cancel"));
-  g_signal_connect(G_OBJECT(button), "clicked", 
-		   G_CALLBACK(gtk_main_quit), NULL);
-#if GTK_CHECK_VERSION(2,18,0)
+  g_signal_connect (G_OBJECT (button), "clicked",
+                    G_CALLBACK (gtk_main_quit), NULL);
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-#endif
   gtk_box_pack_start(GTK_BOX(box), button, TRUE, TRUE, 0);
   gtk_widget_show(button);
 
@@ -340,13 +332,13 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
 #else
   {
     const gchar *printer = g_getenv("PRINTER");
-    
+
     if (printer) {
       printcmd = g_strdup_printf("lpr -P%s", printer);
     } else {
       printcmd = g_strdup("lpr");
     }
-    
+
     gtk_entry_set_text(GTK_ENTRY(cmd), printcmd);
     g_free(printcmd);
     printcmd = NULL;
@@ -368,13 +360,13 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
   gtk_entry_set_text(GTK_ENTRY(ofile), printer_filename);
   g_free(printer_filename);
   orig_file = g_strdup(gtk_entry_get_text(GTK_ENTRY(ofile)));
-    
+
   /* Scaling is already set at creation. */
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(iscmd), last_print_options.printer);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(isofile), !last_print_options.printer);
-  
+
   gtk_widget_show(dialog);
-  
+
   do {
     cont = FALSE;
     write_file = TRUE;
@@ -384,7 +376,7 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
       gtk_widget_destroy(dialog);
       return;
     }
-  
+
     if (!cont) {
       persistence_change_string_entry("printer-command", orig_command, cmd);
       gtk_widget_destroy(dialog);
@@ -418,7 +410,7 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
           }
         }
 
-        if (utf8filename == NULL) 
+        if (utf8filename == NULL)
 	  utf8filename = g_strdup(filename);
         confirm_overwrite_dialog = gtk_message_dialog_new(GTK_WINDOW (dialog),
                        GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
@@ -426,12 +418,12 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
                        _("The file '%s' already exists.\n"
                          "Do you want to overwrite it?"), utf8filename);
         g_free(utf8filename);
-        gtk_window_set_title(GTK_WINDOW (confirm_overwrite_dialog), 
+        gtk_window_set_title(GTK_WINDOW (confirm_overwrite_dialog),
 	                   _("File already exists"));
         gtk_dialog_set_default_response (GTK_DIALOG (confirm_overwrite_dialog),
 	                   GTK_RESPONSE_NO);
 
-        if (gtk_dialog_run(GTK_DIALOG(confirm_overwrite_dialog)) 
+        if (gtk_dialog_run(GTK_DIALOG(confirm_overwrite_dialog))
 	                   != GTK_RESPONSE_YES) {
           write_file = FALSE;
 		  file = 0;
@@ -457,7 +449,7 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
 
     /* Store dialog values */
     last_print_options.printer = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd));
-  
+
     if (write_file) {
       if (!file) {
         if (is_pipe) {

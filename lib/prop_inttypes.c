@@ -6,7 +6,7 @@
  * Copyright (C) 2001 Cyrille Chepelov
  * Major restructuration done in August 2001 by C. Chepelov
  *
- * Property types for integral types (and arrays thereof). 
+ * Property types for integral types (and arrays thereof).
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,9 +49,9 @@ charprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static CharProperty *
-charprop_copy(CharProperty *src) 
+charprop_copy(CharProperty *src)
 {
-  CharProperty *prop = 
+  CharProperty *prop =
     (CharProperty *)src->common.ops->new_prop(src->common.descr,
                                                src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -60,15 +60,15 @@ charprop_copy(CharProperty *src)
 }
 
 static WIDGET *
-charprop_get_widget(CharProperty *prop, PropDialog *dialog) 
-{ 
+charprop_get_widget(CharProperty *prop, PropDialog *dialog)
+{
   GtkWidget *ret = gtk_entry_new();
   gtk_entry_set_activates_default(GTK_ENTRY(ret), TRUE);
   prophandler_connect(&prop->common, G_OBJECT(ret), "changed");
   return ret;
 }
 
-static void 
+static void
 charprop_reset_widget(CharProperty *prop, WIDGET *widget)
 {
   gchar ch[7];
@@ -77,30 +77,30 @@ charprop_reset_widget(CharProperty *prop, WIDGET *widget)
   gtk_entry_set_text(GTK_ENTRY(widget), ch);
 }
 
-static void 
-charprop_set_from_widget(CharProperty *prop, WIDGET *widget) 
+static void
+charprop_set_from_widget(CharProperty *prop, WIDGET *widget)
 {
   gchar *buf = gtk_editable_get_chars(GTK_EDITABLE(widget), 0, 1);
   prop->char_data = g_utf8_get_char(buf);
   g_free(buf);
 }
 
-static void 
+static void
 charprop_load(CharProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   gchar *str = data_string(data, ctx);
-  
+
   if (str && str[0]) {
     prop->char_data = g_utf8_get_char(str);
     g_free(str);
   } else {
-    g_warning("Could not read character data for attribute %s", 
+    g_warning("Could not read character data for attribute %s",
               prop->common.descr->name);
   }
 }
 
-static void 
-charprop_save(CharProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+charprop_save(CharProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   gchar utf[7];
   gint n = g_unichar_to_utf8 (prop->char_data, utf);
@@ -108,21 +108,21 @@ charprop_save(CharProperty *prop, AttributeNode attr, DiaContext *ctx)
   data_add_string (attr, utf, ctx);
 }
 
-static void 
+static void
 charprop_get_from_offset(CharProperty *prop,
-                         void *base, guint offset, guint offset2) 
+                         void *base, guint offset, guint offset2)
 {
   prop->char_data = struct_member(base,offset,gunichar);
 }
 
-static void 
+static void
 charprop_set_from_offset(CharProperty *prop,
                          void *base, guint offset, guint offset2)
 {
   struct_member(base,offset,gunichar) = prop->char_data;
 }
 
-static int 
+static int
 charprop_get_data_size(CharProperty *prop)
 {
   return sizeof (prop->char_data);
@@ -171,9 +171,9 @@ boolprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static BoolProperty *
-boolprop_copy(BoolProperty *src) 
+boolprop_copy(BoolProperty *src)
 {
-  BoolProperty *prop = 
+  BoolProperty *prop =
     (BoolProperty *)src->common.ops->new_prop(src->common.descr,
                                                src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -182,8 +182,8 @@ boolprop_copy(BoolProperty *src)
 }
 
 static WIDGET *
-boolprop_get_widget(BoolProperty *prop, PropDialog *dialog) 
-{ 
+boolprop_get_widget(BoolProperty *prop, PropDialog *dialog)
+{
   GtkWidget *ret = gtk_toggle_button_new_with_label(_("No"));
   g_signal_connect(G_OBJECT(ret), "toggled",
                    G_CALLBACK (bool_toggled), NULL);
@@ -191,45 +191,45 @@ boolprop_get_widget(BoolProperty *prop, PropDialog *dialog)
   return ret;
 }
 
-static void 
+static void
 boolprop_reset_widget(BoolProperty *prop, WIDGET *widget)
 {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget),prop->bool_data);
 }
 
-static void 
-boolprop_set_from_widget(BoolProperty *prop, WIDGET *widget) 
+static void
+boolprop_set_from_widget(BoolProperty *prop, WIDGET *widget)
 {
   prop->bool_data = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget));
 }
 
-static void 
+static void
 boolprop_load(BoolProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   prop->bool_data = data_boolean(data,ctx);
 }
 
-static void 
-boolprop_save(BoolProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+boolprop_save(BoolProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_boolean(attr, prop->bool_data, ctx);
 }
 
-static void 
+static void
 boolprop_get_from_offset(BoolProperty *prop,
-                         void *base, guint offset, guint offset2) 
+                         void *base, guint offset, guint offset2)
 {
   prop->bool_data = struct_member(base,offset,gboolean);
 }
 
-static void 
+static void
 boolprop_set_from_offset(BoolProperty *prop,
                          void *base, guint offset, guint offset2)
 {
   struct_member(base,offset,gboolean) = prop->bool_data;
 }
 
-static int 
+static int
 boolprop_get_data_size(BoolProperty *prop)
 {
   return sizeof (prop->bool_data);
@@ -266,9 +266,9 @@ intprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static IntProperty *
-intprop_copy(IntProperty *src) 
+intprop_copy(IntProperty *src)
 {
-  IntProperty *prop = 
+  IntProperty *prop =
     (IntProperty *)src->common.ops->new_prop(src->common.descr,
                                               src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -277,19 +277,19 @@ intprop_copy(IntProperty *src)
 }
 
 static WIDGET *
-intprop_get_widget(IntProperty *prop, PropDialog *dialog) 
-{ 
+intprop_get_widget(IntProperty *prop, PropDialog *dialog)
+{
   GtkAdjustment *adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->int_data,
                                                          G_MININT, G_MAXINT,
                                                          1.0, 10.0, 0));
   GtkWidget *ret = gtk_spin_button_new(adj, 1.0, 0);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
   prophandler_connect(&prop->common, G_OBJECT(ret), "value_changed");
-  
+
   return ret;
 }
 
-static void 
+static void
 intprop_reset_widget(IntProperty *prop, WIDGET *widget)
 {
   GtkAdjustment *adj = gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON(widget));
@@ -308,39 +308,39 @@ intprop_reset_widget(IntProperty *prop, WIDGET *widget)
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
 }
 
-static void 
-intprop_set_from_widget(IntProperty *prop, WIDGET *widget) 
+static void
+intprop_set_from_widget(IntProperty *prop, WIDGET *widget)
 {
   prop->int_data = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget));
 }
 
-static void 
+static void
 intprop_load(IntProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   prop->int_data = data_int(data,ctx);
 }
 
-static void 
-intprop_save(IntProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+intprop_save(IntProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_int(attr, prop->int_data, ctx);
 }
 
-static void 
+static void
 intprop_get_from_offset(IntProperty *prop,
-                        void *base, guint offset, guint offset2) 
+                        void *base, guint offset, guint offset2)
 {
   prop->int_data = struct_member(base,offset,gint);
 }
 
-static void 
+static void
 intprop_set_from_offset(IntProperty *prop,
                         void *base, guint offset, guint offset2)
 {
   struct_member(base,offset,gint) = prop->int_data;
 }
 
-static int 
+static int
 intprop_get_data_size(IntProperty *prop)
 {
   return sizeof (prop->int_data);
@@ -367,7 +367,7 @@ static const PropertyOps intprop_ops = {
 /********************************/
 
 static IntarrayProperty *
-intarrayprop_new(const PropDescription *pdesc, 
+intarrayprop_new(const PropDescription *pdesc,
                  PropDescToPropPredicate reason)
 {
   IntarrayProperty *prop = g_new0(IntarrayProperty,1);
@@ -376,63 +376,63 @@ intarrayprop_new(const PropDescription *pdesc,
   return prop;
 }
 
-static void 
-intarrayprop_free(IntarrayProperty *prop) 
+static void
+intarrayprop_free(IntarrayProperty *prop)
 {
   g_array_free(prop->intarray_data,TRUE);
   g_free(prop);
 }
 
 static IntarrayProperty *
-intarrayprop_copy(IntarrayProperty *src) 
+intarrayprop_copy(IntarrayProperty *src)
 {
   guint i;
-  IntarrayProperty *prop = 
+  IntarrayProperty *prop =
     (IntarrayProperty *)src->common.ops->new_prop(src->common.descr,
                                                    src->common.reason);
   copy_init_property(&prop->common,&src->common);
   g_array_set_size(prop->intarray_data,src->intarray_data->len);
-  for (i = 0 ; i < src->intarray_data->len; i++) 
-    g_array_index(prop->intarray_data,gint,i) = 
+  for (i = 0 ; i < src->intarray_data->len; i++)
+    g_array_index(prop->intarray_data,gint,i) =
       g_array_index(src->intarray_data,gint,i);
   return prop;
 }
 
-static void 
+static void
 intarrayprop_load(IntarrayProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   guint nvals = attribute_num_data(attr);
   guint i;
   g_array_set_size(prop->intarray_data,nvals);
-  for (i=0; (i < nvals) && data; i++, data = data_next(data)) 
+  for (i=0; (i < nvals) && data; i++, data = data_next(data))
     g_array_index(prop->intarray_data,gint,i) = data_int(data,ctx);
-  if (i != nvals) 
+  if (i != nvals)
     g_warning("attribute_num_data() and actual data count mismatch "
               "(shouldn't happen)");
 }
 
-static void 
-intarrayprop_save(IntarrayProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+intarrayprop_save(IntarrayProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   guint i;
   for (i = 0; i < prop->intarray_data->len; i++)
     data_add_int(attr, g_array_index(prop->intarray_data,gint,i), ctx);
 }
 
-static void 
+static void
 intarrayprop_get_from_offset(IntarrayProperty *prop,
-                             void *base, guint offset, guint offset2) 
+                             void *base, guint offset, guint offset2)
 {
   guint nvals = struct_member(base,offset2,guint);
   guint i;
   void *ofs_val = struct_member(base,offset,void *);
   g_array_set_size(prop->intarray_data,nvals);
   for (i = 0; i < nvals; i++)
-    g_array_index(prop->intarray_data,gint,i) = 
+    g_array_index(prop->intarray_data,gint,i) =
       struct_member(ofs_val,i * sizeof(gint),gint);
 }
 
-static void 
+static void
 intarrayprop_set_from_offset(IntarrayProperty *prop,
                              void *base, guint offset, guint offset2)
 {
@@ -473,9 +473,9 @@ enumprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static EnumProperty *
-enumprop_copy(EnumProperty *src) 
+enumprop_copy(EnumProperty *src)
 {
-  EnumProperty *prop = 
+  EnumProperty *prop =
     (EnumProperty *)src->common.ops->new_prop(src->common.descr,
                                                src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -484,33 +484,27 @@ enumprop_copy(EnumProperty *src)
 }
 
 static WIDGET *
-enumprop_get_widget(EnumProperty *prop, PropDialog *dialog) 
-{ 
+enumprop_get_widget(EnumProperty *prop, PropDialog *dialog)
+{
   GtkWidget *ret;
 
   if (prop->common.descr->extra_data) {
     PropEnumData *enumdata = prop->common.descr->extra_data;
     guint i;
 
-#if GTK_CHECK_VERSION(2,24,0)
     ret = gtk_combo_box_text_new ();
-#else
-    ret = gtk_combo_box_new_text ();
-#endif
+
     for (i = 0; enumdata[i].name != NULL; i++)
-#if GTK_CHECK_VERSION(2,24,0)
-      gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (ret), _(enumdata[i].name)); 
-#else
-      gtk_combo_box_append_text (GTK_COMBO_BOX (ret), _(enumdata[i].name)); 
-#endif
+      gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (ret), _(enumdata[i].name));
+
     prophandler_connect(&prop->common, G_OBJECT (ret), "changed");
   } else {
     ret = gtk_entry_new(); /* should use spin button/option menu */
-  }  
+  }
   return ret;
 }
 
-static void 
+static void
 enumprop_reset_widget(EnumProperty *prop, WIDGET *widget)
 {
   if (prop->common.descr->extra_data) {
@@ -531,22 +525,22 @@ enumprop_reset_widget(EnumProperty *prop, WIDGET *widget)
   }
 }
 
-static void 
-enumprop_set_from_widget(EnumProperty *prop, WIDGET *widget) 
+static void
+enumprop_set_from_widget(EnumProperty *prop, WIDGET *widget)
 {
   if (GTK_IS_COMBO_BOX (widget)) {
     guint pos = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
     PropEnumData *enumdata = prop->common.descr->extra_data;
-    
+
     g_return_if_fail (enumdata != NULL);
-    
+
     prop->enum_data = enumdata[pos].enumv;
   } else {
     prop->enum_data = strtol(gtk_entry_get_text(GTK_ENTRY(widget)), NULL, 0);
   }
 }
 
-static void 
+static void
 enumprop_load(EnumProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   DataType dt = data_type (data, ctx);
@@ -570,15 +564,15 @@ enumprop_load(EnumProperty *prop, AttributeNode attr, DataNode data, DiaContext 
   }
 }
 
-static void 
-enumprop_save(EnumProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+enumprop_save(EnumProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_enum(attr, prop->enum_data, ctx);
 }
 
-static void 
+static void
 enumprop_get_from_offset(EnumProperty *prop,
-                         void *base, guint offset, guint offset2) 
+                         void *base, guint offset, guint offset2)
 {
   if (offset2 == 0) {
     prop->enum_data = struct_member(base,offset,gint);
@@ -589,7 +583,7 @@ enumprop_get_from_offset(EnumProperty *prop,
   }
 }
 
-static void 
+static void
 enumprop_set_from_offset(EnumProperty *prop,
                          void *base, guint offset, guint offset2)
 {
@@ -614,7 +608,7 @@ static const PropertyOps enumprop_ops = {
   (PropertyType_ResetWidget) enumprop_reset_widget,
   (PropertyType_SetFromWidget) enumprop_set_from_widget,
 
-  (PropertyType_CanMerge) noopprop_can_merge, 
+  (PropertyType_CanMerge) noopprop_can_merge,
   (PropertyType_GetFromOffset) enumprop_get_from_offset,
   (PropertyType_SetFromOffset) enumprop_set_from_offset
 };
@@ -624,7 +618,7 @@ static const PropertyOps enumprop_ops = {
 /********************************/
 
 static EnumarrayProperty *
-enumarrayprop_new(const PropDescription *pdesc, 
+enumarrayprop_new(const PropDescription *pdesc,
                   PropDescToPropPredicate reason)
 {
   EnumarrayProperty *prop = g_new0(EnumarrayProperty,1);
@@ -633,64 +627,64 @@ enumarrayprop_new(const PropDescription *pdesc,
   return prop;
 }
 
-static void 
-enumarrayprop_free(EnumarrayProperty *prop) 
+static void
+enumarrayprop_free(EnumarrayProperty *prop)
 {
   g_array_free(prop->enumarray_data,TRUE);
   g_free(prop);
 }
 
 static EnumarrayProperty *
-enumarrayprop_copy(EnumarrayProperty *src) 
+enumarrayprop_copy(EnumarrayProperty *src)
 {
   guint i;
-  EnumarrayProperty *prop = 
+  EnumarrayProperty *prop =
     (EnumarrayProperty *)src->common.ops->new_prop(src->common.descr,
                                                     src->common.reason);
   copy_init_property(&prop->common,&src->common);
   g_array_set_size(prop->enumarray_data,src->enumarray_data->len);
-  for (i = 0 ; i < src->enumarray_data->len; i++) 
-    g_array_index(prop->enumarray_data,gint,i) = 
+  for (i = 0 ; i < src->enumarray_data->len; i++)
+    g_array_index(prop->enumarray_data,gint,i) =
       g_array_index(src->enumarray_data,gint,i);
   return prop;
 }
 
-static void 
+static void
 enumarrayprop_load(EnumarrayProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   guint nvals = attribute_num_data(attr);
   guint i;
   g_array_set_size(prop->enumarray_data,nvals);
 
-  for (i=0; (i < nvals) && data; i++, data = data_next(data)) 
+  for (i=0; (i < nvals) && data; i++, data = data_next(data))
     g_array_index(prop->enumarray_data,gint,i) = data_enum(data, ctx);
-  if (i != nvals) 
+  if (i != nvals)
     g_warning("attribute_num_data() and actual data count mismatch "
               "(shouldn't happen)");
 }
 
-static void 
-enumarrayprop_save(EnumarrayProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+enumarrayprop_save(EnumarrayProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   guint i;
   for (i = 0; i < prop->enumarray_data->len; i++)
     data_add_enum(attr, g_array_index(prop->enumarray_data,gint,i), ctx);
 }
 
-static void 
+static void
 enumarrayprop_get_from_offset(EnumarrayProperty *prop,
-                              void *base, guint offset, guint offset2) 
+                              void *base, guint offset, guint offset2)
 {
   guint nvals = struct_member(base,offset2,guint);
   guint i;
   void *ofs_val = struct_member(base,offset,void *);
   g_array_set_size(prop->enumarray_data,nvals);
   for (i = 0; i < nvals; i++)
-    g_array_index(prop->enumarray_data,gint,i) = 
+    g_array_index(prop->enumarray_data,gint,i) =
       struct_member(ofs_val,i * sizeof(gint),gint);
 }
 
-static void 
+static void
 enumarrayprop_set_from_offset(EnumarrayProperty *prop,
                               void *base, guint offset, guint offset2)
 {
@@ -717,9 +711,9 @@ static const PropertyOps enumarrayprop_ops = {
   (PropertyType_SetFromOffset) enumarrayprop_set_from_offset
 };
 
-/* ************************************************************** */ 
+/* ************************************************************** */
 
-void 
+void
 prop_inttypes_register(void)
 {
   prop_type_register(PROP_TYPE_CHAR,&charprop_ops);

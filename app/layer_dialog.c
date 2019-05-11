@@ -1256,13 +1256,9 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *laye
   gtk_widget_show (hbox);
 
   button = gtk_button_new_from_stock (GTK_STOCK_OK);
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-#endif
   gtk_box_pack_start (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG (dialog->dialog))),
-		      button, TRUE, TRUE, 0);
+                      button, TRUE, TRUE, 0);
   if (layer_widget)
     g_signal_connect (G_OBJECT (button), "clicked",
 		      G_CALLBACK(edit_layer_ok_callback), dialog);
@@ -1277,16 +1273,12 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *laye
   gtk_widget_show (button);
 
   button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
-#endif
   gtk_box_pack_start (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG (dialog->dialog))),
-		      button, TRUE, TRUE, 0);
+                      button, TRUE, TRUE, 0);
   g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(edit_layer_cancel_callback),
-		    dialog);
+                    G_CALLBACK (edit_layer_cancel_callback),
+                    dialog);
   gtk_widget_show (button);
 
   gtk_widget_show (vbox);

@@ -66,7 +66,7 @@ static void GHFuncUnknownObjects(gpointer key,
 				 gpointer user_data);
 static GList *read_objects(xmlNodePtr objects,
 			   GHashTable *objects_hash,
-			   DiaContext *ctx, 
+			   DiaContext *ctx,
 			   DiaObject  *parent,
 			   GHashTable *unknown_objects_hash);
 static void hash_free_string(gpointer       key,
@@ -76,7 +76,7 @@ static xmlNodePtr find_node_named (xmlNodePtr p, const char *name);
 static gboolean diagram_data_load(const gchar *filename, DiagramData *data,
 				  DiaContext *ctx, void* user_data);
 static gboolean write_objects(GList *objects, xmlNodePtr objects_node,
-			      GHashTable *objects_hash, int *obj_nr, 
+			      GHashTable *objects_hash, int *obj_nr,
 			      const char *filename, DiaContext *ctx);
 static gboolean write_connections(GList *objects, xmlNodePtr layer_node,
 				  GHashTable *objects_hash);
@@ -104,19 +104,19 @@ GHFuncUnknownObjects(gpointer key,
  *   add the created objects to them as it does not know on which nesting level it
  *   is called. So the topmost caller must add the returned objects to the layer.
  * - Groups : groups in itself can have an arbitrary nesting level including other
- *   groups or objects or both of them. A group not containing any objects is by 
+ *   groups or objects or both of them. A group not containing any objects is by
  *   definition useless. So it is not created. This is to avoid trouble with some older
  *   diagrams which happen to be saved with empty groups.
  * - Parents : if the parent relations would have been there from the beginning of
- *   Dias file format they probably would have been added as nesting level 
+ *   Dias file format they probably would have been added as nesting level
  *   themselves. But to maintain forward compatibility (allow to let older versions
  *   of Dia to see as much as possible) they were added all on the same level and
  *   the parent child relation is reconstructed from additional attributes.
  */
 static GList *
-read_objects(xmlNodePtr objects, 
+read_objects(xmlNodePtr objects,
              GHashTable *objects_hash,
-	     DiaContext *ctx, 
+	     DiaContext *ctx,
 	     DiaObject *parent,
 	     GHashTable *unknown_objects_hash)
 {
@@ -146,7 +146,7 @@ read_objects(xmlNodePtr objects,
       typestr = (char *) xmlGetProp(obj_node, (const xmlChar *)"type");
       versionstr = (char *) xmlGetProp(obj_node, (const xmlChar *)"version");
       id = (char *) xmlGetProp(obj_node, (const xmlChar *)"id");
-      
+
       version = 0;
       if (versionstr != NULL) {
 	version = atoi(versionstr);
@@ -154,7 +154,7 @@ read_objects(xmlNodePtr objects,
       }
 
       type = object_get_type((char *)typestr);
-      
+
       if (!type) {
 	if (g_utf8_validate (typestr, -1, NULL) &&
 	    NULL == g_hash_table_lookup(unknown_objects_hash, typestr))
@@ -220,23 +220,23 @@ read_connections(GList *objects, xmlNodePtr layer_node,
   char *connstr;
   int handle, conn;
   DiaObject *to;
-  
+
   list = objects;
   obj_node = layer_node->xmlChildrenNode;
   while ((list != NULL) && (obj_node != NULL)) {
     DiaObject *obj = (DiaObject *) list->data;
 
     /* the obj and there node must stay in sync to properly setup connections */
-    while (obj_node && (xmlIsBlankNode(obj_node) || XML_COMMENT_NODE == obj_node->type)) 
+    while (obj_node && (xmlIsBlankNode(obj_node) || XML_COMMENT_NODE == obj_node->type))
       obj_node = obj_node->next;
     if (!obj_node) break;
-    
+
     if IS_GROUP(obj) {
       read_connections(group_objects(obj), obj_node, objects_hash);
     } else {
       gboolean broken = FALSE;
       /* an invalid bounding box is a good sign for some need of corrections */
-      gboolean wants_update = obj->bounding_box.right >= obj->bounding_box.left 
+      gboolean wants_update = obj->bounding_box.right >= obj->bounding_box.left
                            || obj->bounding_box.top >= obj->bounding_box.bottom;
       connections = obj_node->xmlChildrenNode;
       while ((connections!=NULL) &&
@@ -253,7 +253,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	  handlestr = (char * )xmlGetProp(connection, (const xmlChar *)"handle");
 	  tostr = (char *) xmlGetProp(connection, (const xmlChar *)"to");
  	  connstr = (char *) xmlGetProp(connection, (const xmlChar *)"connection");
-	  
+
 	  handle = atoi(handlestr);
 	  conn = strtol(connstr, &donestr, 10);
 	  if (*donestr != '\0') { /* Didn't convert it all -- use string */
@@ -312,7 +312,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	}
       }
     }
-    
+
     /* Now set up parent relationships. */
     connections = obj_node->xmlChildrenNode;
     while ((connections!=NULL) &&
@@ -323,7 +323,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
       if (tostr) {
 	obj->parent = g_hash_table_lookup(objects_hash, tostr);
 	if (obj->parent == NULL) {
-	  message_error(_("Can't find parent %s of %s object\n"), 
+	  message_error(_("Can't find parent %s of %s object\n"),
 			tostr, obj->type->name);
 	} else {
 	  obj->parent->children = g_list_prepend(obj->parent->children, obj);
@@ -336,7 +336,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
   }
 }
 
-static void 
+static void
 hash_free_string(gpointer       key,
 		 gpointer       value,
 		 gpointer       user_data)
@@ -407,7 +407,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     /* Couldn't read a single char?  Set to default. */
     data->is_compressed = prefs.new_diagram.compress_save;
   }
-  
+
   /* Note that this closing and opening means we can't read from a pipe */
   close(fd);
 
@@ -432,7 +432,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
 
   namespace = xmlSearchNs(doc, root, (const xmlChar *)"dia");
   if (xmlStrcmp (root->name, (const xmlChar *)"diagram") || (namespace == NULL)){
-    message_error(_("Error loading diagram %s.\nNot a Dia file."), 
+    message_error(_("Error loading diagram %s.\nNot a Dia file."),
 		  dia_message_filename(filename));
     xmlFreeDoc (doc);
     return FALSE;
@@ -444,7 +444,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     layer_destroy(data->active_layer);
   }
 
-  diagramdata = 
+  diagramdata =
     find_node_named (root->xmlChildrenNode, "diagramdata");
 
   /* Read in diagram data: */
@@ -478,7 +478,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
 					&data->paper.bmargin,
 					&data->paper.lmargin,
 					&data->paper.rmargin);
-    
+
     attr = composite_find_attribute(paperinfo, "tmargin");
     if (attr != NULL)
       data->paper.tmargin = data_real(attribute_first_data(attr), ctx);
@@ -576,7 +576,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
         diagram->guides.nhguides = attribute_num_data(attr);
         g_free(diagram->guides.hguides);
         diagram->guides.hguides = g_new(real, diagram->guides.nhguides);
-    
+
         guide = attribute_first_data(attr);
         for (i = 0; i < diagram->guides.nhguides; i++, guide = data_next(guide))
 	  diagram->guides.hguides[i] = data_real(guide, ctx);
@@ -586,7 +586,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
         diagram->guides.nvguides = attribute_num_data(attr);
         g_free(diagram->guides.vguides);
         diagram->guides.vguides = g_new(real, diagram->guides.nvguides);
-    
+
         guide = attribute_first_data(attr);
         for (i = 0; i < diagram->guides.nvguides; i++, guide = data_next(guide))
 	  diagram->guides.vguides[i] = data_real(guide, ctx);
@@ -605,27 +605,27 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
 
       attr = composite_find_attribute(dispinfo, "antialiased");
       if (attr != NULL)
-	g_object_set_data(G_OBJECT(diagram), 
+	g_object_set_data(G_OBJECT(diagram),
 	  "antialiased", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
 
       attr = composite_find_attribute(dispinfo, "snap-to-grid");
       if (attr != NULL)
-	g_object_set_data(G_OBJECT(diagram), 
+	g_object_set_data(G_OBJECT(diagram),
 	  "snap-to-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
 
       attr = composite_find_attribute(dispinfo, "snap-to-object");
       if (attr != NULL)
-        g_object_set_data(G_OBJECT(diagram), 
+        g_object_set_data(G_OBJECT(diagram),
 	  "snap-to-object", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
 
       attr = composite_find_attribute(dispinfo, "show-grid");
       if (attr != NULL)
-        g_object_set_data(G_OBJECT(diagram), 
+        g_object_set_data(G_OBJECT(diagram),
 	  "show-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
 
       attr = composite_find_attribute(dispinfo, "show-connection-points");
       if (attr != NULL)
-        g_object_set_data(G_OBJECT(diagram), 
+        g_object_set_data(G_OBJECT(diagram),
 	  "show-connection-points", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
     }
   }
@@ -638,14 +638,14 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
   while (layer_node != NULL) {
     gchar *name;
     gboolean active;
-    
+
     if (xmlIsBlankNode(layer_node)) {
       layer_node = layer_node->next;
       continue;
     }
 
     if (!layer_node) break;
-    
+
     name = (char *)xmlGetProp(layer_node, (const xmlChar *)"name");
     if (!name) break; /* name is mandatory */
 
@@ -691,9 +691,9 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     data_set_active_layer(data, active_layer);
 
   xmlFreeDoc(doc);
-  
+
   g_hash_table_foreach(objects_hash, hash_free_string, NULL);
-  
+
   g_hash_table_destroy(objects_hash);
 
   if (data->layers->len < 1) {
@@ -743,11 +743,11 @@ write_objects(GList *objects, xmlNodePtr objects_node,
 		    objects_hash, obj_nr, filename, ctx);
     } else {
       obj_node = xmlNewChild(objects_node, NULL, (const xmlChar *)"object", NULL);
-    
+
       xmlSetProp(obj_node, (const xmlChar *)"type", (xmlChar *)obj->type->name);
       g_snprintf(buffer, 30, "%d", obj->type->version);
       xmlSetProp(obj_node, (const xmlChar *)"version", (xmlChar *)buffer);
-      
+
       g_snprintf(buffer, 30, "O%d", *obj_nr);
       xmlSetProp(obj_node, (const xmlChar *)"id", (xmlChar *)buffer);
 
@@ -756,7 +756,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
       /* Add object -> obj_nr to hash table */
       g_hash_table_insert(objects_hash, obj, GINT_TO_POINTER(*obj_nr));
       (*obj_nr)++;
-      
+
       /*
       if (object_flags_set(obj, DIA_OBJECT_CAN_PARENT) && obj->children)
       {
@@ -775,7 +775,7 @@ write_objects(GList *objects, xmlNodePtr objects_node,
 }
 
 /* Parents broke assumption that both objects and xml nodes are laid out
- * linearly.  
+ * linearly.
  */
 
 static gboolean
@@ -801,20 +801,20 @@ write_connections(GList *objects, xmlNodePtr layer_node,
       write_connections(group_objects(obj), obj_node, objects_hash);
     } else {
       connections = NULL;
-    
+
       for (i=0;i<obj->num_handles;i++) {
 	ConnectionPoint *con_point;
 	Handle *handle;
-	
+
 	handle = obj->handles[i];
 	con_point = handle->connected_to;
-	
+
 	if ( con_point != NULL ) {
 	  DiaObject *other_obj;
 	  int con_point_nr;
-	  
+
 	  other_obj = con_point->object;
-	  
+
 	  con_point_nr=0;
 	  while (other_obj->connections[con_point_nr] != con_point) {
 	    con_point_nr++;
@@ -823,10 +823,10 @@ write_connections(GList *objects, xmlNodePtr layer_node,
 	      return FALSE;
 	    }
 	  }
-	  
+
 	  if (connections == NULL)
 	    connections = xmlNewChild(obj_node, NULL, (const xmlChar *)"connections", NULL);
-	  
+
 	  connection = xmlNewChild(connections, NULL, (const xmlChar *)"connection", NULL);
 	  /* from what handle on this object*/
 	  g_snprintf(buffer, 30, "%d", i);
@@ -852,7 +852,7 @@ write_connections(GList *objects, xmlNodePtr layer_node,
       parent = xmlNewChild(obj_node, NULL, (const xmlChar *)"childnode", NULL);
       xmlSetProp(parent, (const xmlChar *)"parent", (xmlChar *)buffer);
     }
-    
+
     list = g_list_next(list);
     obj_node = obj_node->next;
   }
@@ -882,13 +882,13 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
   doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
   doc->xmlRootNode = xmlNewDocNode(doc, NULL, (const xmlChar *)"diagram", NULL);
 
-  name_space = xmlNewNs(doc->xmlRootNode, 
+  name_space = xmlNewNs(doc->xmlRootNode,
                         (const xmlChar *)DIA_XML_NAME_SPACE_BASE,
 			(const xmlChar *)"dia");
   xmlSetNs(doc->xmlRootNode, name_space);
 
   tree = xmlNewChild(doc->xmlRootNode, name_space, (const xmlChar *)"diagramdata", NULL);
-  
+
   attr = new_attribute((ObjectNode)tree, "background");
   data_add_color(attr, &data->bg_color, ctx);
 
@@ -937,7 +937,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
     attr = new_attribute((ObjectNode)tree, "color");
     data_add_composite(gridinfo, "color", ctx);
     data_add_color(attr, &diagram->grid.colour, ctx);
-  
+
     attr = new_attribute((ObjectNode)tree, "guides");
     guideinfo = data_add_composite(attr, "guides", ctx);
     attr = composite_add_attribute(guideinfo, "hguides");
@@ -983,10 +983,10 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
 
     if (layer == data->active_layer)
       xmlSetProp(layer_node, (const xmlChar *)"active", (const xmlChar *)"true");
-      
+
     write_objects(layer->objects, layer_node,
 		  objects_hash, &obj_nr, filename, ctx);
- 
+
   }
   /* The connections are stored per layer in the file format, but connections are not any longer
    * restricted to objects on the same layer. So we iterate over all the layer (nodes) again to
@@ -1056,7 +1056,7 @@ diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
   /* not going to work with 'My Docments' - read-only but still useable, see bug #504469 */
   if (   g_file_test(filename, G_FILE_TEST_EXISTS)
       && g_access(filename, W_OK) != 0) {
-    dia_context_add_message (ctx, _("Not allowed to write to output file %s\n"), 
+    dia_context_add_message (ctx, _("Not allowed to write to output file %s\n"),
 			     dia_context_get_filename(ctx));
     goto CLEANUP;
   }
@@ -1086,9 +1086,9 @@ diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
 
 #if !defined G_OS_WIN32
   /* Check that we can create the other files */
-  if (   g_file_test(dirname, G_FILE_TEST_EXISTS) 
+  if (   g_file_test(dirname, G_FILE_TEST_EXISTS)
       && g_access(dirname, W_OK) != 0) {
-    dia_context_add_message (ctx, _("Not allowed to write temporary files in %s\n"), 
+    dia_context_add_message (ctx, _("Not allowed to write temporary files in %s\n"),
 			    dia_message_filename(dirname));
     goto CLEANUP;
   }
@@ -1103,7 +1103,7 @@ diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
 #ifndef G_OS_WIN32
   ret = fchmod(fildes,mode);
 #else
-  ret = 0; /* less paranoia on windoze */ 
+  ret = 0; /* less paranoia on windoze */
 #endif
   file = fdopen(fildes,"wb");
 
@@ -1127,13 +1127,13 @@ diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
     g_unlink(tmpname);
     goto CLEANUP;
   }
-  /* save succeeded. We kill the old backup file, move the old file into 
+  /* save succeeded. We kill the old backup file, move the old file into
      backup, and the temp file into the new saved file. */
   g_unlink(bakname);
   g_rename(filename,bakname);
   ret = g_rename(tmpname,filename);
   if (ret < 0) {
-    dia_context_add_message_with_errno(ctx, errno, _("Can't rename %s to final output file %s"), 
+    dia_context_add_message_with_errno(ctx, errno, _("Can't rename %s to final output file %s"),
 				       dia_message_filename(tmpname),
 				       dia_context_get_filename(ctx));
   }
@@ -1174,7 +1174,7 @@ diagram_cleanup_autosave(Diagram *dia)
   savefile = dia->autosavefilename;
   if (savefile == NULL) return;
 #ifdef TRACES
-  g_print("Cleaning up autosave %s for %s\n", 
+  g_print("Cleaning up autosave %s for %s\n",
           savefile, dia->filename ? dia->filename : "<no name>");
 #endif
   if (g_stat(savefile, &statbuf) == 0) { /* Success */
@@ -1233,49 +1233,46 @@ diagram_autosave(Diagram *dia)
   GList *diagrams = dia_open_diagrams();
   Diagram *diagram;
   while (diagrams != NULL) {
-    diagram = (Diagram *)diagrams->data;
+    diagram = (Diagram *) diagrams->data;
     if (diagram == dia &&
-	diagram_is_modified(diagram) && 
-	!diagram->autosaved) {
-      save_filename = g_strdup_printf("%s.autosave", dia->filename);
+        diagram_is_modified (diagram) &&
+        !diagram->autosaved) {
+      save_filename = g_strdup_printf ("%s.autosave", dia->filename);
 
-      if (dia->autosavefilename != NULL) 
-	g_free(dia->autosavefilename);
+      if (dia->autosavefilename != NULL)
+        g_free(dia->autosavefilename);
+
       dia->autosavefilename = save_filename;
 #ifdef G_THREADS_ENABLED
       if (g_thread_supported ()) {
-	AutoSaveInfo *asi = g_new (AutoSaveInfo, 1);
-	GError *error = NULL;
+        AutoSaveInfo *asi = g_new (AutoSaveInfo, 1);
+        GError *error = NULL;
 
-	asi->clone = diagram_data_clone (dia->data);
-	asi->filename = g_strdup (save_filename);
-	asi->ctx = dia_context_new (_("Auto save"));
+        asi->clone = diagram_data_clone (dia->data);
+        asi->filename = g_strdup (save_filename);
+        asi->ctx = dia_context_new (_("Auto save"));
 
-#if GLIB_CHECK_VERSION(2,32,0)
-	if (!g_thread_try_new ("Autosave", _autosave_in_thread, asi, &error)) {
-#else
-	if (!g_thread_create (_autosave_in_thread, asi, FALSE, &error)) {
-#endif
-	  message_error ("%s", error->message);
-	  g_error_free (error);
-	}
-	/* FIXME: need better synchronization */
+        if (!g_thread_try_new ("Autosave", _autosave_in_thread, asi, &error)) {
+          message_error ("%s", error->message);
+          g_error_free (error);
+        }
+        /* FIXME: need better synchronization */
         dia->autosaved = TRUE;
       } else {
-	/* no extra threads supported, stay in this one */
-	DiaContext *ctx = dia_context_new (_("Auto save"));
-	dia_context_set_filename (ctx, save_filename);
-	diagram_data_raw_save(dia->data, save_filename, ctx);
-	dia->autosaved = TRUE;
-	dia_context_release (ctx);
+        /* no extra threads supported, stay in this one */
+        DiaContext *ctx = dia_context_new (_("Auto save"));
+        dia_context_set_filename (ctx, save_filename);
+        diagram_data_raw_save (dia->data, save_filename, ctx);
+        dia->autosaved = TRUE;
+        dia_context_release (ctx);
       }
 #else
       {
-	DiaContext *ctx = dia_context_new (_("Auto save"));
-	dia_context_set_filename (ctx, save_filename);
-	diagram_data_raw_save(dia->data, save_filename, ctx);
-	dia->autosaved = TRUE;
-	dia_context_release (ctx);
+        DiaContext *ctx = dia_context_new (_("Auto save"));
+        dia_context_set_filename (ctx, save_filename);
+        diagram_data_raw_save (dia->data, save_filename, ctx);
+        dia->autosaved = TRUE;
+        dia_context_release (ctx);
       }
 #endif
       return;

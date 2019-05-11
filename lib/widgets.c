@@ -741,18 +741,10 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
   gtk_widget_show(images->off);
 
   /* Make border as small as possible */
-  gtk_misc_set_padding(GTK_MISC(images->on), 0, 0);
-  gtk_misc_set_padding(GTK_MISC(images->off), 0, 0);
-#if GTK_CHECK_VERSION(2,18,0)
+  gtk_misc_set_padding (GTK_MISC (images->on), 0, 0);
+  gtk_misc_set_padding (GTK_MISC (images->off), 0, 0);
   gtk_widget_set_can_focus (GTK_WIDGET (button), FALSE);
-#else
-  GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_FOCUS);
-#endif
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_default (GTK_WIDGET (button), FALSE);
-#else
-  GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_DEFAULT);
-#endif
 
   rcstyle = gtk_rc_style_new ();
   rcstyle->xthickness = rcstyle->ythickness = 0;

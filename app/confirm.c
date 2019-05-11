@@ -25,12 +25,12 @@
 #include "confirm.h"
 #include "intl.h"
 
-static gint 
+static gint
 confirm_respond (GtkWidget *widget, gint response_id, gpointer data)
 {
   /* just close it in any case */
   gtk_widget_hide (widget);
-  return 0;  
+  return 0;
 }
 
 /*!
@@ -44,7 +44,7 @@ confirm_export_size (Diagram *dia, GtkWindow *parent, guint flags)
   gint64 bytes = 0;
   gchar *size, *msg;
   gboolean ret;
- 
+
   pages = ceil((dia->data->extents.right - dia->data->extents.left) / dia->data->paper.width)
         * ceil((dia->data->extents.bottom - dia->data->extents.top) /  dia->data->paper.height);
   /* three guesses: 4 bytes per pixel, 20 pixels per cm; using * dia->data->paper.scaling  */
@@ -58,13 +58,9 @@ confirm_export_size (Diagram *dia, GtkWindow *parent, guint flags)
     return TRUE; /* smaller than 100MB  */
   else if ((flags & CONFIRM_PAGES) && (pages < 50))
     return TRUE;
-  
+
   /* message and limits depend on the flags give */
-#if GLIB_CHECK_VERSION(2,30,0)
   size = g_format_size (bytes);
-#else
-  size = g_format_size_for_display (bytes);
-#endif
   /* See: https://live.gnome.org/TranslationProject/DevGuidelines/Plurals */
   if (flags & CONFIRM_PRINT)
     msg = g_strdup_printf (g_dngettext (GETTEXT_PACKAGE,
@@ -84,7 +80,7 @@ confirm_export_size (Diagram *dia, GtkWindow *parent, guint flags)
 				   GTK_MESSAGE_WARNING,
 				   GTK_BUTTONS_OK_CANCEL,
 				   "%s", msg);
-  gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), 
+  gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
 					    _("You can adjust the size of the diagram by changing "
 					      "the 'Scaling' in the 'Page Setup' dialog.\n"
 					      "Alternatively use 'Best Fit' "

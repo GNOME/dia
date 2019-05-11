@@ -76,11 +76,7 @@ dia_line_preview_class_init (DiaLinePreviewClass *class)
 static void
 dia_line_preview_init (DiaLinePreview *line)
 {
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_has_window (GTK_WIDGET (line), FALSE);
-#else
-  GTK_WIDGET_SET_FLAGS (line, GTK_NO_WINDOW);
-#endif
 
   GTK_WIDGET (line)->requisition.width = 30 + GTK_MISC (line)->xpad * 2;
   GTK_WIDGET (line)->requisition.height = 15 + GTK_MISC (line)->ypad * 2;
@@ -102,11 +98,7 @@ dia_line_preview_set(DiaLinePreview *line, LineStyle lstyle)
 {
   if (line->lstyle != lstyle) {
     line->lstyle = lstyle;
-#if GTK_CHECK_VERSION(2,18,0)
     if (gtk_widget_is_drawable(GTK_WIDGET(line)))
-#else
-    if (GTK_WIDGET_DRAWABLE(line))
-#endif
       gtk_widget_queue_draw(GTK_WIDGET(line));
   }
 }
@@ -267,7 +259,7 @@ dia_line_chooser_change_line_style(GtkMenuItem *mi, DiaLineChooser *lchooser)
 }
 
 void
-dia_line_chooser_set_line_style(DiaLineChooser *lchooser, 
+dia_line_chooser_set_line_style(DiaLineChooser *lchooser,
 				LineStyle lstyle,
 				real dashlength)
 {

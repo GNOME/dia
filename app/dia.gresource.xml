@@ -23,5 +23,6 @@
     <file>icons/dia-layer-rename.png</file>
     <file>icons/dia-layer-move-above.png</file>
     <file>icons/dia-layer-move-below.png</file>
+    <file>dia-splash.png</file>
   </gresource>
 </gresources>

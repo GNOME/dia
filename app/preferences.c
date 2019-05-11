@@ -160,19 +160,19 @@ set_favored_exporter (DiaPrefData *pref, gpointer ptr)
 
 DiaPrefData prefs_data[] =
 {
-  { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create), 
+  { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create),
     &default_true, UI_TAB, N_("Reset tools after create") },
 
-  { "undo_depth",               PREF_UINT,    PREF_OFFSET(undo_depth), 
+  { "undo_depth",               PREF_UINT,    PREF_OFFSET(undo_depth),
     &default_undo_depth, UI_TAB, N_("Number of undo levels:") },
 
-  { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects), 
+  { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects),
     &default_true, UI_TAB, N_("Reverse dragging selects\nintersecting objects") },
 
-  { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size), 
+  { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size),
     &default_recent_documents, 0, N_("Recent documents list size:") },
 
-  { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar), 
+  { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar),
     &default_true, UI_TAB, N_("Use menu bar") },
 
   { "toolbox_on_top", PREF_BOOLEAN, PREF_OFFSET(toolbox_on_top),
@@ -184,14 +184,14 @@ DiaPrefData prefs_data[] =
   { "fontsize_unit", PREF_CHOICE, PREF_OFFSET(fontsize_unit),
     &default_fontsize_unit, UI_TAB, N_("Font size unit:"), NULL, FALSE,
     _get_units_name_list, update_internal_prefs },
-  
+
   { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, DIA_TAB, N_("Portrait") },
   { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype),
     &default_paper_name, DIA_TAB, N_("Paper type:"), NULL, FALSE, _get_paper_name_list },
   { "new_diagram_bgcolour", PREF_COLOUR, PREF_OFFSET(new_diagram.bg_color),
     &color_white, DIA_TAB, N_("Background Color:") },
-  { "compress_save",            PREF_BOOLEAN, PREF_OFFSET(new_diagram.compress_save), 
+  { "compress_save",            PREF_BOOLEAN, PREF_OFFSET(new_diagram.compress_save),
     &default_true, DIA_TAB, N_("Compress saved files") },
   { NULL, PREF_END_GROUP, 0, NULL, DIA_TAB, NULL },
 
@@ -211,22 +211,22 @@ DiaPrefData prefs_data[] =
   { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.pagebreak_color), &pbreak_colour, VIEW_TAB, N_("Color:") },
   { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, VIEW_TAB, N_("Solid lines") },
   { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
-  
+
   { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("Antialias:") },
   { "view_antialiased", PREF_BOOLEAN, PREF_OFFSET(view_antialiased), &default_false, VIEW_TAB, N_("view antialiased") },
   { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
 
   /* Favored Filter */
   { NULL, PREF_NONE, 0, NULL, FAVOR_TAB, N_("Export") },
-  { "favored_png_export", PREF_CHOICE, PREF_OFFSET(favored_filter.png), &default_favored_filter, 
+  { "favored_png_export", PREF_CHOICE, PREF_OFFSET(favored_filter.png), &default_favored_filter,
     FAVOR_TAB, N_("Portable Network Graphics"), NULL, FALSE, get_exporter_names, set_favored_exporter, "PNG" },
-  { "favored_svg_export", PREF_CHOICE, PREF_OFFSET(favored_filter.svg), &default_favored_filter, 
+  { "favored_svg_export", PREF_CHOICE, PREF_OFFSET(favored_filter.svg), &default_favored_filter,
     FAVOR_TAB, N_("Scalable Vector Graphics"), NULL, FALSE, get_exporter_names, set_favored_exporter, "SVG" },
-  { "favored_ps_export", PREF_CHOICE, PREF_OFFSET(favored_filter.ps), &default_favored_filter, 
+  { "favored_ps_export", PREF_CHOICE, PREF_OFFSET(favored_filter.ps), &default_favored_filter,
     FAVOR_TAB, N_("PostScript"), NULL, FALSE, get_exporter_names, set_favored_exporter, "PS" },
-  { "favored_wmf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.wmf), &default_favored_filter, 
+  { "favored_wmf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.wmf), &default_favored_filter,
     FAVOR_TAB, N_("Windows Metafile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "WMF" },
-  { "favored_emf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.emf), &default_favored_filter, 
+  { "favored_emf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.emf), &default_favored_filter,
     FAVOR_TAB, N_("Enhanced Metafile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "EMF" },
   { NULL, PREF_END_GROUP, 0, NULL, FAVOR_TAB, NULL },
 
@@ -266,7 +266,7 @@ prefs_show(void)
 {
   prefs_create_dialog();
   gtk_widget_show(prefs_dialog);
-  
+
   prefs_update_dialog_from_prefs();
 }
 
@@ -305,7 +305,7 @@ prefs_set_defaults(void)
       *(Color *)ptr = *persistence_register_color(prefs_data[i].name, (Color *)ptr);
       break;
     case PREF_CHOICE:
-    case PREF_STRING: 
+    case PREF_STRING:
       *(gchar **)ptr = *(gchar **)prefs_data[i].default_value;
       *(gchar **)ptr = persistence_register_string(prefs_data[i].name, *(gchar **)ptr);
       break;
@@ -328,7 +328,7 @@ prefs_save(void)
   for (i=0;i<NUM_PREFS_DATA;i++) {
     if ((prefs_data[i].type == PREF_NONE) || (prefs_data[i].type == PREF_END_GROUP))
       continue;
-    
+
     ptr = (char *)&prefs + prefs_data[i].offset;
 
     switch (prefs_data[i].type) {
@@ -341,7 +341,7 @@ prefs_save(void)
       break;
     case PREF_REAL:
     case PREF_UREAL:
-      
+
       persistence_set_real(prefs_data[i].name, *(real *)ptr);
       break;
     case PREF_COLOUR:
@@ -380,7 +380,7 @@ prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
 			      (gfloat) (*((int *)ptr)));
     break;
   case PREF_REAL:
-  case PREF_UREAL: 
+  case PREF_UREAL:
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(widget),
 			      (gfloat) (*((real *)ptr)));
     break;
@@ -475,7 +475,7 @@ prefs_get_property_widget(DiaPrefData *data)
 {
   GtkWidget *widget = NULL;
   GtkAdjustment *adj;
-  
+
   switch(data->type) {
   case PREF_BOOLEAN:
     widget = gtk_toggle_button_new_with_label (_("No"));
@@ -522,19 +522,11 @@ prefs_get_property_widget(DiaPrefData *data)
     break;
   case PREF_CHOICE: {
     GList *names;
-#if GTK_CHECK_VERSION(2,24,0)
     widget = gtk_combo_box_text_new ();
-#else
-    widget = gtk_combo_box_new_text ();
-#endif
-    for (names = (data->choice_list_function)(data); 
+    for (names = (data->choice_list_function)(data);
          names != NULL;
-	 names = g_list_next(names)) {
-#if GTK_CHECK_VERSION(2,24,0)
+         names = g_list_next(names)) {
       gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (widget), (gchar *)names->data);
-#else
-      gtk_combo_box_append_text (GTK_COMBO_BOX (widget), (gchar *)names->data);
-#endif
     }
     break;
   }
@@ -549,11 +541,11 @@ prefs_get_property_widget(DiaPrefData *data)
 }
 
 static gint
-prefs_respond(GtkWidget *widget, 
+prefs_respond(GtkWidget *widget,
                    gint       response_id,
                    gpointer   data)
 {
-  if (   response_id == GTK_RESPONSE_APPLY 
+  if (   response_id == GTK_RESPONSE_APPLY
       || response_id == GTK_RESPONSE_OK) {
     prefs_update_prefs_from_dialog();
     prefs_save();
@@ -592,7 +584,7 @@ prefs_create_dialog(void)
   gtk_window_set_resizable (GTK_WINDOW (prefs_dialog), TRUE);
 
   dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (prefs_dialog));
-  
+
   gtk_window_set_role (GTK_WINDOW (prefs_dialog), "preferences_window");
 
   g_signal_connect(G_OBJECT (prefs_dialog), "response",
@@ -620,7 +612,7 @@ prefs_create_dialog(void)
     prefs_tabs[i].table = GTK_TABLE(table);
     gtk_widget_set_size_request(table, -1, -1);
     gtk_widget_show(table);
-    
+
 #ifdef SCROLLED_PAGES
     notebook_page = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (notebook_page),
@@ -647,7 +639,7 @@ prefs_create_dialog(void)
     GtkWidget *widget = NULL;
     int row;
 
-    if (prefs_data[i].hidden) 
+    if (prefs_data[i].hidden)
       continue;
 
     if (tab_idx != prefs_data[i].tab) {
@@ -681,11 +673,11 @@ prefs_create_dialog(void)
       label = gtk_label_new (gettext(prefs_data[i].label_text));
       gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.3);
       gtk_widget_show (label);
-      
+
       gtk_table_attach (current_table, label, 0, 1,
 			row, row + 1,
 			GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
-      
+
       widget = prefs_get_property_widget(&prefs_data[i]);
       if (widget != NULL) {
 	gtk_table_attach (current_table, widget, 1, 2,
@@ -695,7 +687,7 @@ prefs_create_dialog(void)
       break;
     }
     prefs_data[i].widget = widget;
-    
+
   }
 
   gtk_widget_show (prefs_dialog);
@@ -707,12 +699,12 @@ prefs_update_prefs_from_dialog(void)
   GtkWidget *widget;
   int i;
   gpointer ptr;
-  
+
   for (i=0;i<NUM_PREFS_DATA;i++) {
     if (prefs_data[i].hidden) continue;
     widget = prefs_data[i].widget;
     ptr = (char *)&prefs + prefs_data[i].offset;
-    
+
     prefs_get_value_from_widget(widget, &prefs_data[i],  ptr);
   }
 }
@@ -723,12 +715,12 @@ prefs_update_dialog_from_prefs(void)
   GtkWidget *widget;
   int i;
   gpointer ptr;
-  
+
   for (i=0;i<NUM_PREFS_DATA;i++) {
     if (prefs_data[i].hidden) continue;
     widget = prefs_data[i].widget;
     ptr = (char *)&prefs + prefs_data[i].offset;
-    
+
     prefs_set_value_in_widget(widget, &prefs_data[i],  ptr);
   }
 }
@@ -741,7 +733,7 @@ update_internal_prefs(DiaPrefData *pref, gpointer ptr)
 {
 #if 0
   char *val = NULL;
-  
+
   if (!ptr)
     return;
   val = *(char **)ptr;
@@ -763,11 +755,11 @@ update_floating_toolbox(DiaPrefData *pref, gpointer ptr)
   if (prefs.toolbox_on_top) {
     /* Go through all diagrams and set toolbox transient for all displays */
     GList *diagrams;
-    for (diagrams = dia_open_diagrams(); diagrams != NULL; 
+    for (diagrams = dia_open_diagrams(); diagrams != NULL;
 	 diagrams = g_list_next(diagrams)) {
       Diagram *diagram = (Diagram *)diagrams->data;
       GSList *displays;
-      for (displays = diagram->displays; displays != NULL; 
+      for (displays = diagram->displays; displays != NULL;
 	   displays = g_slist_next(displays)) {
 	DDisplay *ddisp = (DDisplay *)displays->data;
 	gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),

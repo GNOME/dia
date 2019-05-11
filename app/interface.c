@@ -55,13 +55,9 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                  GtkSelectionData *data,
                                  guint             info,
                                  guint             time,
-				 DDisplay         *ddisp)
+                                 DDisplay         *ddisp)
 {
-#if GTK_CHECK_VERSION(2,22,0)
   switch (gdk_drag_context_get_selected_action(context))
-#else
-  switch (context->action)
-#endif
     {
     case GDK_ACTION_DEFAULT:
     case GDK_ACTION_COPY:
@@ -249,39 +245,34 @@ create_zoom_widget(DDisplay *ddisp) {
   combo = gtk_hbox_new(FALSE, 0);
   entry = gtk_entry_new();
   g_signal_connect (G_OBJECT (entry), "activate",
-		    G_CALLBACK(zoom_activate_callback),
-		      ddisp);
-  gtk_box_pack_start(GTK_BOX(combo), entry, TRUE, TRUE, 0);
-  g_object_set_data (G_OBJECT(combo), "user_data", entry);
-  gtk_entry_set_width_chars(GTK_ENTRY(entry), 8);
-  gtk_widget_show(entry);
+                    G_CALLBACK (zoom_activate_callback),
+                    ddisp);
+  gtk_box_pack_start (GTK_BOX (combo), entry, TRUE, TRUE, 0);
+  g_object_set_data (G_OBJECT (combo), "user_data", entry);
+  gtk_entry_set_width_chars (GTK_ENTRY (entry), 8);
+  gtk_widget_show (entry);
 
-  button = gtk_button_new();
-#if GTK_CHECK_VERSION(2,18,0)
+  button = gtk_button_new ();
   gtk_widget_set_can_focus (GTK_WIDGET (button), FALSE);
-#else
-  GTK_WIDGET_UNSET_FLAGS(button, GTK_CAN_FOCUS);
-#endif
-  arrow = gtk_arrow_new(GTK_ARROW_DOWN, GTK_SHADOW_OUT);
-  gtk_container_add(GTK_CONTAINER(button), arrow);
-  gtk_box_pack_start(GTK_BOX(combo), button, TRUE, TRUE, 0);
-  g_object_set_data (G_OBJECT(combo), "user_data", entry);
-  gtk_widget_show_all(button);
+  arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_OUT);
+  gtk_container_add (GTK_CONTAINER (button), arrow);
+  gtk_box_pack_start (GTK_BOX (combo), button, TRUE, TRUE, 0);
+  g_object_set_data (G_OBJECT (combo), "user_data", entry);
+  gtk_widget_show_all (button);
 
-  menu = gtk_menu_new();
-  zoom_add_zoom_amount(menu, "800%", ddisp);
-  zoom_add_zoom_amount(menu, "400%", ddisp);
-  zoom_add_zoom_amount(menu, "200%", ddisp);
-  zoom_add_zoom_amount(menu, "100%", ddisp);
-  zoom_add_zoom_amount(menu, "50%", ddisp);
-  zoom_add_zoom_amount(menu, "25%", ddisp);
-  zoom_add_zoom_amount(menu, "12%", ddisp);
+  menu = gtk_menu_new ();
+  zoom_add_zoom_amount (menu, "800%", ddisp);
+  zoom_add_zoom_amount (menu, "400%", ddisp);
+  zoom_add_zoom_amount (menu, "200%", ddisp);
+  zoom_add_zoom_amount (menu, "100%", ddisp);
+  zoom_add_zoom_amount (menu, "50%", ddisp);
+  zoom_add_zoom_amount (menu, "25%", ddisp);
+  zoom_add_zoom_amount (menu, "12%", ddisp);
 
-  gtk_widget_show_all(menu);
+  gtk_widget_show_all (menu);
 
   g_signal_connect (G_OBJECT (button), "button_press_event",
-		    G_CALLBACK(zoom_popup_menu),
-		      menu);
+                    G_CALLBACK (zoom_popup_menu), menu);
 
   return combo;
 }
@@ -456,29 +447,24 @@ create_canvas (DDisplay *ddisp)
   gtk_widget_set_double_buffered (canvas, FALSE);
 
   gtk_widget_set_events (canvas,
-			 GDK_EXPOSURE_MASK |
-			 GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
-			 GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
-			 GDK_STRUCTURE_MASK | GDK_ENTER_NOTIFY_MASK |
-			 GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
+                         GDK_EXPOSURE_MASK |
+                         GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
+                         GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
+                         GDK_STRUCTURE_MASK | GDK_ENTER_NOTIFY_MASK |
+                         GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
   g_signal_connect (G_OBJECT (canvas), "configure-event",
-		    G_CALLBACK (canvas_configure_event), ddisp);
+                    G_CALLBACK (canvas_configure_event), ddisp);
   g_signal_connect (G_OBJECT (canvas), "expose-event",
-		    G_CALLBACK (canvas_expose_event), ddisp);
-#if GTK_CHECK_VERSION(2,18,0)
+                    G_CALLBACK (canvas_expose_event), ddisp);
   gtk_widget_set_can_focus (canvas, TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS (canvas, GTK_CAN_FOCUS);
-#endif
   g_signal_connect (G_OBJECT (canvas), "event",
-                    G_CALLBACK(ddisplay_canvas_events),
-                    ddisp);
+                    G_CALLBACK (ddisplay_canvas_events), ddisp);
 
   canvas_setup_drag_dest (canvas);
   g_signal_connect (G_OBJECT (canvas), "drag_drop",
-		    G_CALLBACK(display_drop_callback), NULL);
+                    G_CALLBACK (display_drop_callback), NULL);
   g_signal_connect (G_OBJECT (canvas), "drag_data_received",
-		    G_CALLBACK(display_data_received_callback), ddisp);
+                    G_CALLBACK (display_data_received_callback), ddisp);
   g_object_set_data (G_OBJECT (canvas), "user_data", (gpointer) ddisp);
 
   return canvas;
@@ -523,23 +509,15 @@ _ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int he
   ddisp->vsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, height, 1, (height-1)/4, height-1));
 
   ddisp->hsb = gtk_hscrollbar_new (ddisp->hsbdata);
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_focus (ddisp->hsb, FALSE);
-#else
-  GTK_WIDGET_UNSET_FLAGS (ddisp->hsb, GTK_CAN_FOCUS);
-#endif
   ddisp->vsb = gtk_vscrollbar_new (ddisp->vsbdata);
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_focus (ddisp->vsb, FALSE);
-#else
-  GTK_WIDGET_UNSET_FLAGS (ddisp->vsb, GTK_CAN_FOCUS);
-#endif
 
   /*  set up the scrollbar observers  */
   g_signal_connect (G_OBJECT (ddisp->hsbdata), "value_changed",
-		    G_CALLBACK(ddisplay_hsb_update), ddisp);
+                    G_CALLBACK (ddisplay_hsb_update), ddisp);
   g_signal_connect (G_OBJECT (ddisp->vsbdata), "value_changed",
-		    G_CALLBACK(ddisplay_vsb_update), ddisp);
+                    G_CALLBACK (ddisplay_vsb_update), ddisp);
 
   /* harder to change position in the table, but we did not do it for years ;) */
   gtk_table_attach (GTK_TABLE (table), ddisp->hsb, 0, 2, 2, 3,
@@ -757,18 +735,14 @@ create_display_shell(DDisplay *ddisp,
 
   /*  scrollbars, rulers, canvas, menu popup button  */
   if (!use_mbar) {
-      ddisp->origin = gtk_button_new();
-#if GTK_CHECK_VERSION(2,18,0)
+      ddisp->origin = gtk_button_new ();
       gtk_widget_set_can_focus (ddisp->origin, FALSE);
-#else
-      GTK_WIDGET_UNSET_FLAGS(ddisp->origin, GTK_CAN_FOCUS);
-#endif
-      widget = gtk_arrow_new(GTK_ARROW_RIGHT, GTK_SHADOW_OUT);
-      gtk_container_add(GTK_CONTAINER(ddisp->origin), widget);
-      gtk_widget_set_tooltip_text(widget, _("Diagram menu."));
-      gtk_widget_show(widget);
-      g_signal_connect(G_OBJECT(ddisp->origin), "button_press_event",
-		     G_CALLBACK(origin_button_press), ddisp);
+      widget = gtk_arrow_new (GTK_ARROW_RIGHT, GTK_SHADOW_OUT);
+      gtk_container_add (GTK_CONTAINER (ddisp->origin), widget);
+      gtk_widget_set_tooltip_text (widget, _("Diagram menu."));
+      gtk_widget_show (widget);
+      g_signal_connect (G_OBJECT (ddisp->origin), "button_press_event",
+                        G_CALLBACK (origin_button_press), ddisp);
   }
   else {
       ddisp->origin = gtk_frame_new (NULL);
@@ -1168,13 +1142,8 @@ interface_get_toolbox_shell(void)
 gboolean
 integrated_ui_toolbar_is_showing (void)
 {
-  if (ui.toolbar)
-  {
-#if GTK_CHECK_VERSION(2,20,0)
-    return gtk_widget_get_visible (GTK_WIDGET (ui.toolbar))? TRUE : FALSE;
-#else
-    return GTK_WIDGET_VISIBLE (ui.toolbar)? TRUE : FALSE;
-#endif
+  if (ui.toolbar) {
+    return gtk_widget_get_visible (GTK_WIDGET (ui.toolbar));
   }
   return FALSE;
 }
@@ -1201,13 +1170,8 @@ integrated_ui_toolbar_show (gboolean show)
 gboolean
 integrated_ui_layer_view_is_showing (void)
 {
-  if (ui.layer_view)
-  {
-#if GTK_CHECK_VERSION(2,20,0)
+  if (ui.layer_view) {
     return gtk_widget_get_visible (GTK_WIDGET (ui.layer_view))? TRUE : FALSE;
-#else
-    return GTK_WIDGET_VISIBLE (ui.layer_view)? TRUE : FALSE;
-#endif
   }
   return FALSE;
 }

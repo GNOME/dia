@@ -3,21 +3,21 @@
  *
  * sheets_dialog.c : a sheets and objects dialog
  * Copyright (C) 2002 M.C. Nelson
- *  
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *  
+ *
  */
 
 /*
@@ -257,20 +257,12 @@ create_sheets_shapeselection_dialog (void)
   ok_button = GTK_FILE_SELECTION (sheets_shapeselection_dialog)->ok_button;
   gtk_object_set_data (GTK_OBJECT (sheets_shapeselection_dialog), "ok_button", ok_button);
   gtk_widget_show (ok_button);
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_default (GTK_WIDGET (ok_button), TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS (ok_button, GTK_CAN_DEFAULT);
-#endif
 
   cancel_button1 = GTK_FILE_SELECTION (sheets_shapeselection_dialog)->cancel_button;
   gtk_object_set_data (GTK_OBJECT (sheets_shapeselection_dialog), "cancel_button1", cancel_button1);
   gtk_widget_show (cancel_button1);
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_can_default (GTK_WIDGET (cancel_button1), TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS (cancel_button1, GTK_CAN_DEFAULT);
-#endif
 
   g_signal_connect (G_OBJECT (ok_button), "clicked",
                     G_CALLBACK (on_sheets_shapeselection_dialog_button_ok_clicked),

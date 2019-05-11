@@ -38,7 +38,7 @@
 #include "group.h"
 
 /*!
- * 
+ *
  *
  * \todo Dia's init function needs to be cleaned. E.g. it would be useful
  * to just initialize the plug-ins needed and not everything. Also this
@@ -47,9 +47,6 @@
  */
 void dia::register_plugins ()
 {
-#if !GLIB_CHECK_VERSION(2,36,0)
-    g_type_init();
-#endif    
     libdia_init (DIA_MESSAGE_STDERR);
 
     dia_register_plugins ();
@@ -62,10 +59,10 @@ void dia::message (int severity, const char* msg)
 
 /*!
  * \brief factory function for Group
- * 
+ *
  * Dia's group_create eats the given list, so this should to do the same,
  * i.e. passing ownership of the Object in in objects.
- * But 
+ * But
  */
 dia::Object*
 dia::group_create (Objects* objects)

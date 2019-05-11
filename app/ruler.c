@@ -20,8 +20,8 @@
 
 #include <config.h>
 
-/* GtkRuler is deprecated by gtk-2-24, gone with gtk-3-0 because it is 
- * deemed to be too specialized for maintenance in Gtk. Maybe Dia is 
+/* GtkRuler is deprecated by gtk-2-24, gone with gtk-3-0 because it is
+ * deemed to be too specialized for maintenance in Gtk. Maybe Dia is
  * too specialized to be ported?
  *
  * Or maybe not - at least the ruler part can be reimplemented quite
@@ -62,11 +62,7 @@ dia_ruler_draw (GtkWidget *widget,
 {
   DiaRuler *ruler = DIA_RULER(widget);
 
-#if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable (widget))
-#else
-  if (GTK_WIDGET_DRAWABLE (widget))
-#endif
     {
       GtkStyle *style = gtk_widget_get_style (widget);
       PangoLayout *layout;
@@ -84,11 +80,7 @@ dia_ruler_draw (GtkWidget *widget,
       dx = (ruler->orientation == GTK_ORIENTATION_VERTICAL) ? width/3 : 0;
       dy = (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? height/3 : 0;
 
-#if GTK_CHECK_VERSION(2,18,0)
       gdk_cairo_set_source_color (cr, &style->text[gtk_widget_get_state(widget)]);
-#else
-      gdk_cairo_set_source_color (cr, &style->text[GTK_WIDGET_STATE(widget)]);
-#endif
       cairo_set_line_width (cr, 1);
 
       pos = ruler->lower;
@@ -163,11 +155,7 @@ static gboolean
 dia_ruler_expose_event (GtkWidget      *widget,
                         GdkEventExpose *event)
 {
-#if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable (widget))
-#else
-  if (GTK_WIDGET_DRAWABLE (widget))
-#endif
     {
       GdkWindow *window = gtk_widget_get_window(widget);
       cairo_t *cr = gdk_cairo_create (window);
@@ -224,11 +212,7 @@ dia_ruler_motion_notify (GtkWidget      *widget,
       y = MAX(y - width/2, 0);
       height = width;
     }
-#if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable (GTK_WIDGET (ruler)))
-#else
-  if (GTK_WIDGET_DRAWABLE (ruler))
-#endif
     {
 #if 0
       /* this is a bit too expensive - on a slow enough computer the indicators lags */
@@ -280,7 +264,7 @@ dia_ruler_new (GtkOrientation orientation, GtkWidget *shell, DDisplay *ddisp)
   return rule;
 }
 
-void 
+void
 dia_ruler_set_range (GtkWidget *self,
                      gdouble    lower,
                      gdouble    upper,
@@ -294,11 +278,7 @@ dia_ruler_set_range (GtkWidget *self,
   ruler->position = position;
   ruler->max_size = max_size;
 
-#  if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable (GTK_WIDGET (ruler)))
-#  else
-  if (GTK_WIDGET_DRAWABLE (ruler))
-#  endif
     {
       gtk_widget_queue_draw (GTK_WIDGET (ruler));
       /* XXX: draw arrow at mouse position */

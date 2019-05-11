@@ -19,7 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** \file diaarrowchooser.c  A widget to choose arrowhead.  This only select arrowhead, not width  and height. 
+/** \file diaarrowchooser.c  A widget to choose arrowhead.  This only select arrowhead, not width  and height.
  * \ingroup diawidgets
  */
 #include <config.h>
@@ -37,7 +37,7 @@ static const gchar*
 _dia_translate (const gchar* term, gpointer data)
 {
   const gchar* trans = term;
-  
+
   if (term && *term) {
     /* first try our own ... */
     trans = dgettext (GETTEXT_PACKAGE, term);
@@ -49,7 +49,7 @@ _dia_translate (const gchar* term, gpointer data)
 }
 
 /* --------------- DiaArrowPreview -------------------------------- */
-static void dia_arrow_preview_set(DiaArrowPreview *arrow, 
+static void dia_arrow_preview_set(DiaArrowPreview *arrow,
                                   ArrowType atype, gboolean left);
 
 static void dia_arrow_preview_class_init (DiaArrowPreviewClass  *klass);
@@ -102,11 +102,7 @@ dia_arrow_preview_class_init(DiaArrowPreviewClass *class)
 static void
 dia_arrow_preview_init(DiaArrowPreview *arrow)
 {
-#if GTK_CHECK_VERSION(2,18,0)
   gtk_widget_set_has_window (GTK_WIDGET (arrow), FALSE);
-#else
-  GTK_WIDGET_SET_FLAGS (arrow, GTK_NO_WINDOW);
-#endif
 
   GTK_WIDGET (arrow)->requisition.width = 40 + GTK_MISC (arrow)->xpad * 2;
   GTK_WIDGET (arrow)->requisition.height = 20 + GTK_MISC (arrow)->ypad * 2;
@@ -141,11 +137,7 @@ dia_arrow_preview_set(DiaArrowPreview *arrow, ArrowType atype, gboolean left)
   if (arrow->atype != atype || arrow->left != left) {
     arrow->atype = atype;
     arrow->left = left;
-#if GTK_CHECK_VERSION(2,18,0)
     if (gtk_widget_is_drawable(GTK_WIDGET(arrow)))
-#else
-    if (GTK_WIDGET_DRAWABLE(arrow))
-#endif
       gtk_widget_queue_draw(GTK_WIDGET(arrow));
   }
 }
@@ -159,11 +151,7 @@ dia_arrow_preview_set(DiaArrowPreview *arrow, ArrowType atype, gboolean left)
 static gint
 dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 {
-#if GTK_CHECK_VERSION(2,18,0)
   if (gtk_widget_is_drawable(widget)) {
-#else
-  if (GTK_WIDGET_DRAWABLE(widget)) {
-#endif
     Point from, to;
     Point move_arrow, move_line, arrow_head;
     DiaCairoRenderer *renderer;
@@ -198,9 +186,9 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
      * variable
      */
     arrow_type.type = arrow->atype;
-    arrow_type.length = .75*((real)height-linewidth); 
+    arrow_type.length = .75*((real)height-linewidth);
     arrow_type.width = .75*((real)height-linewidth);
-    
+
     /* and here we calculate new arrow start and end of line points */
     calculate_arrow_point(&arrow_type, &from, &to,
                           &move_arrow, &move_line,
@@ -228,9 +216,9 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
       GDK_COLOR_TO_DIA(bg, color_bg);
       GDK_COLOR_TO_DIA(fg, color_fg);
       renderer_ops->draw_line(DIA_RENDERER (renderer), &from, &to, &color_fg);
-      arrow_draw (DIA_RENDERER (renderer), arrow_type.type, 
-                  &arrow_head, &from, 
-		  arrow_type.length, 
+      arrow_draw (DIA_RENDERER (renderer), arrow_type.type,
+                  &arrow_head, &from,
+		  arrow_type.length,
 		  arrow_type.width,
                   linewidth, &color_fg, &color_bg);
     }

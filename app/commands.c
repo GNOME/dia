@@ -39,6 +39,7 @@
 #include "confirm.h"
 #include "dia-application.h"
 #include "menus.h"
+#include "widgets.h"
 
 /** Functions called on menu selects.
  *  Note that GTK (at least up to 2.12) doesn't disable the keyboard shortcuts
@@ -1032,9 +1033,7 @@ help_about_callback (GtkAction *action)
 	"along with this program; if not, write to the Free Software\n"
 	"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n");
 
-  gchar *dirname = dia_get_data_directory("");
-  gchar *filename = g_build_filename (dirname, "dia-splash.png", NULL);
-  GdkPixbuf *logo = gdk_pixbuf_new_from_file(filename, NULL);
+  GdkPixbuf *logo = pixbuf_from_resource ("/org/gnome/Dia/dia-splash.png");
 
   gtk_show_about_dialog (NULL,
                          "logo", logo,
@@ -1050,8 +1049,6 @@ help_about_callback (GtkAction *action)
                                                 ? translators : NULL,
                          "license", license,
                          NULL);
-  g_free (dirname);
-  g_free (filename);
   if (logo)
     g_object_unref (logo);
 }

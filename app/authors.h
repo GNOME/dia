@@ -61,9 +61,13 @@ static const gchar *authors[] =	{
     "Alexander Larsson <alexl@redhat.com>",
 
     /* current maintainer */
+    "Zander Brown <zbrown@gnome.org>",
+
+    /* "out for lunch" maintainer */
     "Hans Breuer <hans@breuer.org>",
 
     /* other author(s) */
+    "Eduard Nicodei <eddnicodei@gmail.com>",
     "Lars R. Clausen <lrclause@cs.uiuc.edu>",
     "Cyrille Chépélov <cyrille@chepelov.org>",
     "James Henstridge <james@daa.com.au>",

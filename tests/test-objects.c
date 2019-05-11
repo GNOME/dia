@@ -61,7 +61,7 @@ _test_creation (gconstpointer user_data)
             && o->ops->move_handle != NULL
 	    && o->ops->apply_properties_from_dialog != NULL
 	    );
-  
+
   /* can we really assume everything complies with standard props nowadays? */
   g_assert (   o->ops->describe_props
             && o->ops->get_props
@@ -118,7 +118,7 @@ _test_creation (gconstpointer user_data)
       /* handles properly set up? */
       g_assert (o->handles[i] != NULL);
       g_assert (o->handles[i]->connected_to == NULL); /* starts not connected */
-      g_assert (   o->handles[i]->type != HANDLE_NON_MOVABLE 
+      g_assert (   o->handles[i]->type != HANDLE_NON_MOVABLE
 	        || (   o->handles[i]->type == HANDLE_NON_MOVABLE /* always together? */
 		    && o->handles[i]->connect_type == HANDLE_NONCONNECTABLE));
     }
@@ -304,7 +304,7 @@ _test_change (gconstpointer user_data)
     ObjectChange *change;
     /* get description */
     const PropDescription *descs = o->ops->describe_props (o);
-    /* get unset value vector */ 
+    /* get unset value vector */
     GPtrArray *props = prop_list_from_descs (descs, pdtpp_is_visible);
     /* fill it with this objects values */
     o->ops->get_props (o, props);
@@ -367,7 +367,7 @@ _test_move_handle (gconstpointer user_data)
   /* find a good handle to move */
   for (i = 0; i < o->num_handles; ++i)
     {
-      
+
       if (o->handles[i]->type == HANDLE_MAJOR_CONTROL)
         {
           h2 = o->handles[i];
@@ -586,7 +586,7 @@ _test_connectionpoint_consistency (gconstpointer user_data)
 #endif
   }
   /* finally */
-  o->ops->destroy (o);  
+  o->ops->destroy (o);
   g_free (o);
 }
 static void
@@ -632,7 +632,7 @@ _test_object_menu (gconstpointer user_data)
 	  g_test_message ("Undo/redo missing: %s\n", item->text);
 	} else {
 	  /* Don't just call _object_change_free(change);
-	   * For 'Convert to *' this will screw up (destroy) the object 
+	   * For 'Convert to *' this will screw up (destroy) the object
 	   * at hand'. So revert first, afterwards destroy the change.
 	   * The object parameter is deprecated, but still necessary!
 	   */
@@ -654,7 +654,7 @@ _test_object_menu (gconstpointer user_data)
     }
   }
   /* finally */
-  o->ops->destroy (o);  
+  o->ops->destroy (o);
   g_free (o);
 }
 
@@ -1025,7 +1025,7 @@ _ot_item (gpointer key,
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Change");
   g_test_add_data_func (testpath, type, _test_change);
   g_free (testpath);
-  
+
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "MoveHandle");
   g_test_add_data_func (testpath, type, _test_move_handle);
   g_free (testpath);
@@ -1069,19 +1069,16 @@ main (int argc, char** argv)
   SetErrorMode(SetErrorMode(0) | SEM_NOGPFAULTERRORBOX);
 #endif
 
-#if !GLIB_CHECK_VERSION(2,36,0)
-  g_type_init ();
-#endif
   /* not using gtk_test_init() means we can only test non-gtk facilities of objects */
   g_test_init (&argc, &argv, NULL);
-  
+
   libdia_init (DIA_MESSAGE_STDERR);
-  
+
   /* todo: improve command line parsing */
   if (argc > 1)
     {
       const gchar* path = argv[1];
-      
+
       if (g_file_test (path, G_FILE_TEST_IS_DIR))
         dia_register_plugins_in_dir (path);
       else
@@ -1111,7 +1108,7 @@ int _matherr( struct _exception *except )
 
 #define CASE(x) case _ ##x : type=#x; break
   switch (except->type) {
-  CASE(DOMAIN); 
+  CASE(DOMAIN);
   CASE(SING);
   CASE(UNDERFLOW);
   CASE(OVERFLOW);
