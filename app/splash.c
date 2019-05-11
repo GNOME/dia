@@ -52,8 +52,8 @@ app_splash_init (const gchar* fname)
 
   gtk_widget_show_all (splash);
 
-  signal_id = g_signal_connect_after(G_OBJECT(splash), "expose_event",
-				     G_CALLBACK(splash_expose), NULL);
+  signal_id = g_signal_connect_after (G_OBJECT (splash), "expose-event",
+                                      G_CALLBACK (splash_expose), NULL);
 
   /* splash_expose gets us out of this */
   gtk_main();

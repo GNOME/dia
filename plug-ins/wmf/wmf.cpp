@@ -1304,7 +1304,7 @@ export_data(DiagramData *data, DiaContext *ctx,
     W32::HDC  file = NULL;
     W32::HDC refDC;
     Rectangle *extent;
-    gint len;
+    // gint len;
     double scale;
 
     W32::RECT bbox;
@@ -1445,6 +1445,7 @@ export_data(DiagramData *data, DiaContext *ctx,
     return TRUE;
 }
 
+#ifdef G_OS_WIN32
 static const gchar *wmf_extensions[] = { "wmf", NULL };
 static DiaExportFilter wmf_export_filter = {
     N_("Windows Metafile"),
@@ -1463,7 +1464,6 @@ static DiaExportFilter emf_export_filter = {
     "emf"
 };
 
-#ifdef G_OS_WIN32
 static ObjectChange *
 print_callback (DiagramData *data,
                 const gchar *filename,
