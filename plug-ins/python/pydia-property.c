@@ -49,10 +49,10 @@
 PyObject* PyDiaProperty_New (Property* property)
 {
   PyDiaProperty *self;
-  
+
   self = PyObject_NEW(PyDiaProperty, &PyDiaProperty_Type);
   if (!self) return NULL;
-  
+
   self->property = property->ops->copy (property);
 
   return (PyObject *)self;
@@ -98,13 +98,13 @@ PyDiaProperty_Hash(PyObject *self)
 typedef PyObject * (*PyDiaPropGetFunc) (Property*);
 typedef int (*PyDiaPropSetFunc) (Property*, PyObject *val);
 
-static PyObject * PyDia_get_Char (CharProperty *prop) 
+static PyObject * PyDia_get_Char (CharProperty *prop)
 { return PyInt_FromLong(prop->char_data); }
-static PyObject * PyDia_get_Bool (BoolProperty *prop) 
+static PyObject * PyDia_get_Bool (BoolProperty *prop)
 { return PyInt_FromLong(prop->bool_data); }
-static PyObject * PyDia_get_Int (IntProperty *prop) 
+static PyObject * PyDia_get_Int (IntProperty *prop)
 { return PyInt_FromLong(prop->int_data); }
-static PyObject * PyDia_get_IntArray (IntarrayProperty *prop) 
+static PyObject * PyDia_get_IntArray (IntarrayProperty *prop)
 {
   PyObject *ret;
   int i, num;
@@ -113,14 +113,14 @@ static PyObject * PyDia_get_IntArray (IntarrayProperty *prop)
   ret = PyTuple_New (num);
 
   for (i = 0; i < num; i++)
-    PyTuple_SetItem(ret, i, 
+    PyTuple_SetItem(ret, i,
                     PyInt_FromLong(g_array_index(prop->intarray_data, gint, i)));
   return ret;
 }
-static PyObject * PyDia_get_Enum (EnumProperty *prop) 
+static PyObject * PyDia_get_Enum (EnumProperty *prop)
 { return PyInt_FromLong(prop->enum_data); }
-static PyObject * PyDia_get_LineStyle (LinestyleProperty *prop) 
-{ 
+static PyObject * PyDia_get_LineStyle (LinestyleProperty *prop)
+{
   PyObject *ret;
 
   ret = PyTuple_New (2);
@@ -128,14 +128,14 @@ static PyObject * PyDia_get_LineStyle (LinestyleProperty *prop)
   PyTuple_SetItem(ret, 1, PyFloat_FromDouble(prop->dash));
   return ret;
 }
-static PyObject * PyDia_get_Real (RealProperty *prop) 
+static PyObject * PyDia_get_Real (RealProperty *prop)
 { return PyFloat_FromDouble(prop->real_data); }
-static PyObject * PyDia_get_Length (LengthProperty *prop) 
+static PyObject * PyDia_get_Length (LengthProperty *prop)
 { return PyFloat_FromDouble(prop->length_data); }
-static PyObject * PyDia_get_Fontsize (FontsizeProperty *prop) 
+static PyObject * PyDia_get_Fontsize (FontsizeProperty *prop)
 { return PyFloat_FromDouble(prop->fontsize_data); }
-static PyObject * PyDia_get_String (StringProperty *prop) 
-{ 
+static PyObject * PyDia_get_String (StringProperty *prop)
+{
   if (NULL == prop->string_data)
     return PyString_FromString("(NULL)");
   else if (1 == prop->num_lines)
@@ -143,20 +143,20 @@ static PyObject * PyDia_get_String (StringProperty *prop)
   else /* FIXME: MULTISTRING ?  */
     return PyString_FromString(prop->string_data);
 }
-static PyObject * PyDia_get_StringList (StringListProperty *prop) 
-{ 
+static PyObject * PyDia_get_StringList (StringListProperty *prop)
+{
   GList *tmp;
   PyObject *ret = PyList_New(0);
 
   for (tmp = prop->string_list; tmp; tmp = tmp->next)
     PyList_Append(ret, PyString_FromString(tmp->data));
-  return ret;  
+  return ret;
 }
 static PyObject * PyDia_get_Text (TextProperty *prop)
 { return PyDiaText_New (prop->text_data, &prop->attr); }
-static PyObject * PyDia_get_Point (PointProperty *prop) 
+static PyObject * PyDia_get_Point (PointProperty *prop)
 { return PyDiaPoint_New (&prop->point_data); }
-static PyObject * PyDia_get_PointArray (PointarrayProperty *prop) 
+static PyObject * PyDia_get_PointArray (PointarrayProperty *prop)
 {
   PyObject *ret;
   int i, num;
@@ -165,12 +165,12 @@ static PyObject * PyDia_get_PointArray (PointarrayProperty *prop)
   ret = PyTuple_New (num);
 
   for (i = 0; i < num; i++)
-    PyTuple_SetItem(ret, i, 
+    PyTuple_SetItem(ret, i,
                     PyDiaPoint_New(&g_array_index(prop->pointarray_data,
                                    Point, i)));
   return ret;
 }
-static PyObject * PyDia_get_BezPoint (BezPointProperty *prop) 
+static PyObject * PyDia_get_BezPoint (BezPointProperty *prop)
 { return PyDiaBezPoint_New (&prop->bezpoint_data); }
 static PyObject * PyDia_get_BezPointArray (BezPointarrayProperty *prop)
 {
@@ -181,7 +181,7 @@ static PyObject * PyDia_get_BezPointArray (BezPointarrayProperty *prop)
   ret = PyTuple_New (num);
 
   for (i = 0; i < num; i++)
-    PyTuple_SetItem(ret, i, 
+    PyTuple_SetItem(ret, i,
                     PyDiaBezPoint_New(&g_array_index(prop->bezpointarray_data,
                                       BezPoint, i)));
   return ret;
@@ -263,7 +263,7 @@ static int
 PyDia_set_Arrow (Property *prop, PyObject *val)
 {
   ArrowProperty *p = (ArrowProperty *)prop;
-  
+
   if (val->ob_type == &PyDiaArrow_Type) {
     p->arrow_data = ((PyDiaArrow *)val)->arrow;
     return 0;
@@ -292,7 +292,7 @@ static int
 PyDia_set_Matrix (Property *prop, PyObject *val)
 {
   MatrixProperty *p = (MatrixProperty *)prop;
-  
+
   if (val->ob_type == &PyDiaMatrix_Type) {
     if (!p->matrix)
       p->matrix = g_new (DiaMatrix, 1);
@@ -309,8 +309,8 @@ PyDia_set_Color (Property *prop, PyObject *val)
     gchar *str = PyString_AsString(val);
     PangoColor color;
     if (pango_color_parse(&color, str)) {
-      p->color_data.red = color.red / 65535.0; 
-      p->color_data.green = color.green / 65535.0; 
+      p->color_data.red = color.red / 65535.0;
+      p->color_data.green = color.green / 65535.0;
       p->color_data.blue = color.blue / 65535.0;
       p->color_data.alpha = 1.0;
       return 0;
@@ -330,8 +330,8 @@ PyDia_set_Color (Property *prop, PyObject *val)
       else
 	f[i] = 0.0;
     }
-    p->color_data.red = f[0]; 
-    p->color_data.green = f[1]; 
+    p->color_data.red = f[0];
+    p->color_data.green = f[1];
     p->color_data.blue = f[2];
     p->color_data.alpha = 1.0;
     return 0;
@@ -364,8 +364,8 @@ PyDia_set_Real(Property *prop, PyObject *val)
   }
   return -1;
 }
-/* as of this writing the only difference between Real-, Length- and Fontsize-property 
- * is the widget representing them. But that may change so here are the 'type-safe' 
+/* as of this writing the only difference between Real-, Length- and Fontsize-property
+ * is the widget representing them. But that may change so here are the 'type-safe'
  * accessors.
  */
 static int
@@ -419,7 +419,7 @@ PyDia_set_String(Property *prop, PyObject *val)
     g_free (p->string_data);
     p->string_data = g_strdup (str);
     p->num_lines = 1;
-    Py_DECREF (uval); 
+    Py_DECREF (uval);
     return 0;
   }
   return -1;
@@ -439,7 +439,7 @@ PyDia_set_Text(Property *prop, PyObject *val)
     gchar *str = PyString_AsString(uval);
     g_free (p->text_data);
     p->text_data = g_strdup (str);
-    Py_DECREF (uval); 
+    Py_DECREF (uval);
     return 0;
   }
   return -1;
@@ -601,7 +601,7 @@ ensure_quarks(void)
   }
 }
 
-static PyObject * 
+static PyObject *
 PyDia_get_Array (ArrayProperty *prop)
 {
   PyObject *ret;
@@ -703,7 +703,7 @@ PyDia_set_Array (Property *prop, PyObject *val)
 	  if (Py_None == v) {
             /* use just the defaults, setters don't need to handle this */
 	  } else {
-	    g_debug ("Failed to set '%s::%s' from '%s'", 
+	    g_debug ("Failed to set '%s::%s' from '%s'",
 	      p->common.descr->name, inner->descr->name, v->ob_type->tp_name);
 	    inner->ops->free(inner);
 	    ret = -1;
@@ -730,7 +730,7 @@ _keyvalue_get (gpointer key,
   gchar *val = (gchar *)value;
   PyObject *dict = (PyObject *)user_data;
   PyObject *k, *v;
-  
+
   k = PyString_FromString(name);
   v = PyString_FromString(val);
   if (k && v)
@@ -752,18 +752,19 @@ PyDia_set_Dict (Property *prop, PyObject *val)
   DictProperty *p = (DictProperty *)prop;
 
   if PyDict_Check(val) {
-    int i = 0; /* not to be modified! */
+    Py_ssize_t i = 0; /* not to be modified! */
     PyObject *key, *value;
 
 
     if (!p->dict)
       p->dict = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+
     while (PyDict_Next(val, &i, &key, &value)) {
       /* CHECK semantics: replace or add? */
-      g_hash_table_insert (p->dict, 
-	                   g_strdup (PyString_AsString (key)), 
-			   g_strdup (PyString_AsString (value)));
+      g_hash_table_insert (p->dict, g_strdup (PyString_AsString (key)),
+      g_strdup (PyString_AsString (value)));
     }
+
     return 0;
   }
   return -1;
@@ -779,7 +780,7 @@ PyDia_get_Pixbuf (PixbufProperty *prop)
     return Py_None;
   }
   pb = PyCObject_FromVoidPtrAndDesc (prop->pixbuf, NULL, NULL);
-  
+
   return pb;
 }
 static int
@@ -838,9 +839,9 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
  * Similar to SetAttr but the property is directly applied
  * to the DiaObject
  */
-int PyDiaProperty_ApplyToObject (DiaObject   *object, 
-                                 gchar    *key, 
-                                 Property *prop, 
+int PyDiaProperty_ApplyToObject (DiaObject   *object,
+                                 gchar    *key,
+                                 Property *prop,
                                  PyObject *val)
 {
   int ret = -1;

@@ -30,23 +30,16 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#ifdef HAVE_PANGOCAIRO_H
 #include <pango/pangocairo.h>
-#endif
 
 #include <cairo.h>
 /* some backend headers, win32 missing in official Cairo */
-#ifdef CAIRO_HAS_PNG_SURFACE_FEATURE
-#include <cairo-png.h>
-#endif
+#include <cairo-svg.h>
 #ifdef  CAIRO_HAS_PS_SURFACE
 #include <cairo-ps.h>
 #endif
 #ifdef  CAIRO_HAS_PDF_SURFACE
 #include <cairo-pdf.h>
-#endif
-#ifdef CAIRO_HAS_SVG_SURFACE
-#include <cairo-svg.h>
 #endif
 
 #include "intl.h"
@@ -149,10 +142,8 @@ begin_render(DiaRenderer *self, const Rectangle *update)
                              background.blue,
                              1.0);
     }
-#ifdef HAVE_PANGOCAIRO_H
   if (!renderer->layout)
     renderer->layout = pango_cairo_create_layout (renderer->cr);
-#endif
 
   cairo_set_fill_rule (renderer->cr, CAIRO_FILL_RULE_EVEN_ODD);
 
@@ -520,26 +511,10 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
   PangoFontDescription *pfd = pango_font_description_copy (dia_font_get_description (font));
   DIAG_NOTE(g_message("set_font %f %s", height, dia_font_get_family(font)));
 
-#ifdef HAVE_PANGOCAIRO_H
   /* select font and size */
   pango_font_description_set_absolute_size (pfd, (int)(size * FONT_SIZE_TWEAK * PANGO_SCALE));
   pango_layout_set_font_description (renderer->layout, pfd);
   pango_font_description_free (pfd);
-#else
-  if (renderer->cr) {
-    DiaFontStyle style = dia_font_get_style (font);
-    const char *family_name = dia_font_get_family(font);
-
-    cairo_select_font_face (
-        renderer->cr,
-        family_name,
-        DIA_FONT_STYLE_GET_SLANT(style) == DIA_FONT_NORMAL ? CAIRO_FONT_SLANT_NORMAL : CAIRO_FONT_SLANT_ITALIC,
-        DIA_FONT_STYLE_GET_WEIGHT(style) < DIA_FONT_MEDIUM ? CAIRO_FONT_WEIGHT_NORMAL : CAIRO_FONT_WEIGHT_BOLD); 
-    cairo_set_font_size (renderer->cr, size);
-
-    DIAG_STATE(renderer->cr)
-  }
-#endif
 
   /* for the interactive case we must maintain the font field in the base class */
   if (self->is_interactive) {
@@ -893,7 +868,6 @@ draw_string(DiaRenderer *self,
   if (len < 1) return; /* shouldn't this be handled by Dia's core ? */
 
   cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
-#ifdef HAVE_PANGOCAIRO_H
   cairo_save (renderer->cr);
   /* alignment calculation done by pangocairo? */
   pango_layout_set_alignment (renderer->layout, alignment == ALIGN_CENTER ? PANGO_ALIGN_CENTER :
@@ -920,33 +894,6 @@ draw_string(DiaRenderer *self,
   pango_cairo_show_layout (renderer->cr, renderer->layout);
   /* restoring the previous scale */
   cairo_restore (renderer->cr);
-#else
-  /* using the 'toy API' */
-  {
-    cairo_text_extents_t extents;
-    double x = 0, y = 0;
-    cairo_set_source_rgba (renderer->cr, color->red, color->green, color->blue, color->alpha);
-    cairo_text_extents (renderer->cr,
-                        text,
-                        &extents);
-
-    y = pos->y; /* ?? */
-
-    switch (alignment) {
-    case ALIGN_LEFT:
-      x = pos->x;
-      break;
-    case ALIGN_CENTER:
-      x = pos->x - extents.width / 2 + +extents.x_bearing;
-      break;
-    case ALIGN_RIGHT:
-      x = pos->x - extents.width + extents.x_bearing;
-      break;
-    }
-    cairo_move_to (renderer->cr, x, y);
-    cairo_show_text (renderer->cr, text);
-  }
-#endif
 
   DIAG_STATE(renderer->cr)
 }
@@ -1239,10 +1186,8 @@ cairo_renderer_finalize (GObject *object)
   cairo_destroy (renderer->cr);
   if (renderer->surface)
     cairo_surface_destroy (renderer->surface);
-#ifdef HAVE_PANGOCAIRO_H
   if (renderer->layout)
     g_object_unref (renderer->layout);  
-#endif
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }

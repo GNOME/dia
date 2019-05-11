@@ -27,17 +27,17 @@
 /*
  * New
  */
-PyObject* 
+PyObject*
 PyDiaProperties_New (DiaObject* obj)
 {
   PyDiaProperties *self;
-  
+
   self = PyObject_NEW(PyDiaProperties, &PyDiaProperties_Type);
   if (!self) return NULL;
-  
+
   self->object = obj;  /* XXX: should be ref counted */
   self->nprops = -1;
-  
+
   return (PyObject *)self;
 }
 
@@ -100,14 +100,14 @@ PyDiaProperties_Get(PyDiaProperties *self, PyObject *args)
   if (self->object->ops->get_props != NULL) {
     Property *p;
     char* name = PyString_AsString(key);
-    p = object_prop_by_name (self->object, name);  
+    p = object_prop_by_name (self->object, name);
     if (p) {
       val = PyDiaProperty_New(p); /* makes a copy */
       p->ops->free(p);
     }
   }
- 
-  if (val == NULL) { 
+
+  if (val == NULL) {
     val = failobj;
     Py_INCREF(val);
   }
@@ -133,7 +133,7 @@ PyDiaProperties_HasKey(PyDiaProperties *self, PyObject *args)
 
     name = PyString_AsString(key);
 
-    p = object_prop_by_name (self->object, name);  
+    p = object_prop_by_name (self->object, name);
     ok = (NULL != p);
     if (p)
       p->ops->free(p);
@@ -167,7 +167,7 @@ PyDiaProperties_Keys(PyDiaProperties *self, PyObject *args)
   return list;
 }
 
-static int
+static Py_ssize_t
 PyDiaProperties_Length (PyDiaProperties* self)
 {
   if (self->nprops < 0) {
@@ -198,10 +198,10 @@ PyDiaProperties_Subscript (PyDiaProperties *self, register PyObject *key)
   }
   else {
     Property *p;
-    char     *name;  
+    char     *name;
 
     name = PyString_AsString(key);
-    p = object_prop_by_name (self->object, name);  
+    p = object_prop_by_name (self->object, name);
 
     if (p) {
       v = PyDiaProperty_New(p); /* makes a copy */
@@ -225,10 +225,10 @@ PyDiaProperties_AssSub (PyDiaProperties* self, PyObject *key, PyObject *val)
   }
   else {
     Property *p;
-    char     *name;  
+    char     *name;
 
     name = PyString_AsString(key);
-    p = object_prop_by_name (self->object, name);  
+    p = object_prop_by_name (self->object, name);
 
     /* g_print ("AssSub(key: '%s', type <%s>)\n", name, (p ? p->type : "none")); */
     if (p) {

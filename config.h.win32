@@ -9,9 +9,6 @@
 #define HAVE_FCNTL_H 1
 #define HAVE_GDK_PIXBUF 1
 
-/* #undef HAVE_CAIRO */
-#define HAVE_CAIRO 1
-
 #define ENABLE_NLS
 #define HAVE_BIND_TEXTDOMAIN_CODESET
 #define GETTEXT_PACKAGE "dia"
@@ -19,10 +16,6 @@
 /* NOT: #define LOCALEDIR "../lib/locale" */
 
 /* some non critical defines */
-#if 0
-#define HAVE_LIBART
-#define HAVE_LIBPNG
-#endif
 #define HAVE_LIBZ
 
 #define VERSION "0.97+git"

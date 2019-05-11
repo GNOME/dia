@@ -296,20 +296,13 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     tool->x1 = tool->x2 = (int) event->x;
     tool->y1 = tool->y2 = (int) event->y;
 
-    if (tool->gc == NULL) {
-      GdkColor white;
-
-      color_convert(&color_white, &white);
-      tool->gc = gdk_gc_new(gtk_widget_get_window(ddisp->canvas));
-      gdk_gc_set_line_attributes(tool->gc, 1, GDK_LINE_ON_OFF_DASH,
-				 GDK_CAP_BUTT, GDK_JOIN_MITER);
-      gdk_gc_set_foreground(tool->gc, &white);
-      gdk_gc_set_function(tool->gc, GDK_XOR);
-    }
-
-    gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
-			tool->x1, tool->y1,
-			tool->x2 - tool->x1, tool->y2 - tool->y1);
+    dia_interactive_renderer_set_selection (ddisp->renderer,
+                                            TRUE,
+                                            tool->x1,
+                                            tool->y1,
+                                            tool->x2 - tool->x1,
+                                            tool->y2 - tool->y1);
+    ddisplay_flush (ddisp);
 
     gdk_pointer_grab (gtk_widget_get_window (ddisp->canvas), FALSE,
                       GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
@@ -434,8 +427,9 @@ modify_move_already(ModifyTool *tool, DDisplay *ddisp, Point *to)
 }
 
 static void
-modify_motion(ModifyTool *tool, GdkEventMotion *event,
-	      DDisplay *ddisp)
+modify_motion (ModifyTool     *tool,
+               GdkEventMotion *event,
+               DDisplay       *ddisp)
 {
   Point to;
   Point now, delta, full_delta;
@@ -476,9 +470,9 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
       tool->orig_pos = g_new(Point, g_list_length(list));
       i=0;
       while (list != NULL) {
-	obj = (DiaObject *)  list->data;
-	tool->orig_pos[i] = obj->position;
-	list = g_list_next(list); i++;
+        obj = (DiaObject *)  list->data;
+        tool->orig_pos[i] = obj->position;
+        list = g_list_next(list); i++;
       }
       g_list_free (pla);
     }
@@ -556,17 +550,18 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     highlight_reset_all(ddisp->diagram);
     if ((tool->handle->connect_type != HANDLE_NONCONNECTABLE)) {
       /* Move to ConnectionPoint if near: */
-      connectionpoint =
-	object_find_connectpoint_display(ddisp, &to, tool->object, TRUE);
+      connectionpoint = object_find_connectpoint_display (ddisp,
+                                                          &to,
+                                                          tool->object, TRUE);
       if (connectionpoint != NULL) {
         DiaHighlightType type;
-	to = connectionpoint->pos;
-	if (connectionpoint->flags & CP_FLAGS_MAIN) {
+        to = connectionpoint->pos;
+        if (connectionpoint->flags & CP_FLAGS_MAIN) {
           type = DIA_HIGHLIGHT_CONNECTIONPOINT_MAIN;
-	} else {
+        } else {
           type = DIA_HIGHLIGHT_CONNECTIONPOINT;
-	}
-	highlight_object(connectionpoint->object, type, ddisp->diagram);
+        }
+        highlight_object(connectionpoint->object, type, ddisp->diagram);
         ddisplay_set_all_cursor_name (NULL, "crosshair");
       }
     }
@@ -579,8 +574,9 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     if (tool->break_connections) {
       /* break connections to the handle currently selected. */
       if (tool->handle->connected_to!=NULL) {
-	Change *change = undo_unconnect(ddisp->diagram, tool->object,
-					tool->handle);
+        Change *change = undo_unconnect (ddisp->diagram,
+                                         tool->object,
+                                         tool->handle);
 
         (change->apply)(change, ddisp->diagram);
       }
@@ -607,8 +603,8 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
       guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
 
       if (tool->object) { /* play safe */
-	real w = tool->object->bounding_box.right - tool->object->bounding_box.left;
-	real h = tool->object->bounding_box.bottom - tool->object->bounding_box.top;
+        real w = tool->object->bounding_box.right - tool->object->bounding_box.left;
+        real h = tool->object->bounding_box.bottom - tool->object->bounding_box.top;
         postext = g_strdup_printf("%.3f, %.3f (%.3fx%.3f)", to.x, to.y, w, h);
       } else {
         postext = g_strdup_printf("%.3f, %.3f", to.x, to.y);
@@ -636,31 +632,27 @@ modify_motion(ModifyTool *tool, GdkEventMotion *event,
     diagram_flush(ddisp->diagram);
     break;
   case STATE_BOX_SELECT:
-
-    if (!auto_scroll && !tool->auto_scrolled)
-    {
-      gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
-			  tool->x1, tool->y1,
-			  tool->x2 - tool->x1, tool->y2 - tool->y1);
-    }
-
     tool->end_box = to;
 
-    ddisplay_transform_coords(ddisp,
-			      MIN(tool->start_box.x, tool->end_box.x),
-			      MIN(tool->start_box.y, tool->end_box.y),
-			      &tool->x1, &tool->y1);
-    ddisplay_transform_coords(ddisp,
-			      MAX(tool->start_box.x, tool->end_box.x),
-			      MAX(tool->start_box.y, tool->end_box.y),
-			      &tool->x2, &tool->y2);
+    ddisplay_transform_coords (ddisp,
+                               MIN (tool->start_box.x, tool->end_box.x),
+                               MIN (tool->start_box.y, tool->end_box.y),
+                               &tool->x1, &tool->y1);
+    ddisplay_transform_coords (ddisp,
+                               MAX (tool->start_box.x, tool->end_box.x),
+                               MAX (tool->start_box.y, tool->end_box.y),
+                               &tool->x2, &tool->y2);
 
-    gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
-			tool->x1, tool->y1,
-			tool->x2 - tool->x1, tool->y2 - tool->y1);
+    dia_interactive_renderer_set_selection (ddisp->renderer,
+                                            TRUE,
+                                            tool->x1,
+                                            tool->y1,
+                                            tool->x2 - tool->x1,
+                                            tool->y2 - tool->y1);
+    ddisplay_flush (ddisp);
+
     break;
   case STATE_NONE:
-
     break;
   default:
     message_error("Internal error: Strange state in modify_tool\n");
@@ -792,11 +784,8 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 
     gdk_pointer_ungrab (event->time);
     /* Remove last box: */
-    if (!tool->auto_scrolled) {
-      gdk_draw_rectangle (gtk_widget_get_window (ddisp->canvas), tool->gc, FALSE,
-			tool->x1, tool->y1,
-			tool->x2 - tool->x1, tool->y2 - tool->y1);
-    }
+    dia_interactive_renderer_set_selection (ddisp->renderer,
+                                            FALSE, 0, 0, 0, 0);
 
     {
       GList *list, *list_to_free;

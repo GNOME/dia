@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
+
 /*!
  * \file layout.cpp - plugin for automatic diagram layout
  */
@@ -74,7 +74,7 @@ static int
 _obj_get_bends (DiaObject *obj, std::vector<double>& coords)
 {
   Property *prop = NULL;
-  
+
   coords.resize(0);
   // no need to ask for Standard - Line: start_point, end_point
   // we always drop the very first and last point
@@ -91,7 +91,7 @@ _obj_get_bends (DiaObject *obj, std::vector<double>& coords)
   } else if ((prop = object_prop_by_name(obj, "bez_points")) != NULL) {
     BezPointarrayProperty *ptp = (BezPointarrayProperty *)prop;
     int num = ptp->bezpointarray_data->len;
-    
+
     for (int i = 1; i < num-1; ++i) {
       BezPoint *bp = &g_array_index(ptp->bezpointarray_data, BezPoint, i);
 
@@ -114,7 +114,7 @@ static ObjectChange *
 _obj_set_bends (DiaObject *obj, std::vector<double>& coords)
 {
   Property *prop = NULL;
-  
+
   if ((prop = object_prop_by_name(obj, "poly_points")) != NULL) {
     PointarrayProperty *ptp = (PointarrayProperty *)prop;
     int num = ptp->pointarray_data->len;
@@ -226,7 +226,7 @@ layout_callback (DiagramData *data,
       nodes = g_list_append (nodes, o);
     //FIXME: neither 1 nor num_handles-1 is guaranteed to be the second connection
     // it entirely depends on the objects implementation
-    else if (   o->num_handles > 1 && o->handles[0]->connected_to 
+    else if (   o->num_handles > 1 && o->handles[0]->connected_to
              && (o->handles[1]->connected_to || o->handles[o->num_handles-1]->connected_to))
       edges = g_list_append (edges, o);
     list = g_list_next(list);
@@ -282,7 +282,7 @@ layout_callback (DiagramData *data,
 	  if (g->GetNodePosition (n, &pt.x, &pt.y)) {
 	    DiaObject *o = (DiaObject *)list->data;
 	    GPtrArray *props = g_ptr_array_new ();
-	    
+
 	    //FIXME: can't use "obj_pos", it is not read in usual update_data impementations
 	    // "elem_corner" will only work for Element derived classes, but that covers most
 	    // of the cases here ...
@@ -329,10 +329,12 @@ layout_callback1 (DiagramData *data,
 {
   return layout_callback (data, filename, flags, user_data, dia_graph_create);
 }
+
+/* FIXME: Apparently unused?
 static ObjectChange *
 layout_callback2 (DiagramData *data,
                   const gchar *filename,
-                  guint flags, /* further additions */
+                  guint flags, / * further additions * /
                   void *user_data)
 {
 #ifdef HAVE_OGDF
@@ -341,6 +343,7 @@ layout_callback2 (DiagramData *data,
   return NULL;
 #endif
 }
+*/
 
 #define AN_ENTRY(group, name, func) \
     { \
@@ -350,7 +353,7 @@ layout_callback2 (DiagramData *data,
       layout_callback ##func, \
       (void*)#name \
     }
-      
+
 static DiaCallbackFilter cb_layout[] = {
 #ifdef HAVE_OGDF
     AN_ENTRY(Test, NotAvailable, 2),
@@ -375,7 +378,7 @@ static DiaCallbackFilter cb_layout[] = {
     AN_ENTRY(Planar, Schnyder, 2),
     AN_ENTRY(Energy-based, SpringEmbedderFR, 2),
     AN_ENTRY(Energy-based, SpringEmbedderKK, 2),
-    //Borked(huge): 
+    //Borked(huge):
     AN_ENTRY(Energy-based, StressMajorization, 2),
     AN_ENTRY(Upward, Sugiyama, 2),
     AN_ENTRY(Tree, TreeStraight, 2),

@@ -31,7 +31,7 @@ dia_interactive_renderer_iface_init (DiaInteractiveRendererInterface *iface)
   iface->draw_pixel_line = NULL;
   iface->draw_pixel_rect = NULL;
   iface->fill_pixel_rect = NULL;
-  iface->copy_to_window = NULL;
+  iface->paint = NULL;
   iface->set_size = NULL;
   iface->draw_object_highlighted = NULL;
 }
@@ -78,3 +78,34 @@ dia_renderer_set_size (DiaRenderer* renderer, gpointer window,
   irenderer->set_size (renderer, window, width, height);
 }
 
+void
+dia_interactive_renderer_paint (DiaRenderer *renderer,
+                                cairo_t     *ctx, 
+                                int          width,
+                                int          height)
+{
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
+  
+  g_return_if_fail (irenderer != NULL);
+  g_return_if_fail (irenderer->paint != NULL);
+
+  irenderer->paint (renderer, ctx, width, height);
+}
+
+void
+dia_interactive_renderer_set_selection (DiaRenderer *renderer,
+                                        gboolean     has_selection,
+                                        double       x,
+                                        double       y,
+                                        double       width,
+                                        double       height)
+{
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
+  
+  g_return_if_fail (irenderer != NULL);
+  g_return_if_fail (irenderer->set_selection != NULL);
+
+  irenderer->set_selection (renderer, has_selection, x, y, width, height);
+}

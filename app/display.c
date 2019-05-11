@@ -44,7 +44,7 @@
 #include "layer_dialog.h"
 #include "load_save.h"
 #include "dia-props.h"
-#include "render_gdk.h"
+#include "renderer/diacairo.h"
 #include "diatransform.h"
 #include "recent_files.h"
 #include "filedlg.h"
@@ -199,8 +199,6 @@ copy_display(DDisplay *orig_ddisp)
   ddisp->aa_renderer = orig_ddisp->aa_renderer;
 
   ddisp->update_areas = orig_ddisp->update_areas;
-  ddisp->display_areas = orig_ddisp->display_areas;
-  ddisp->update_id = 0;
 
   ddisp->clicked_position.x = ddisp->clicked_position.y = 0.0;
 
@@ -258,8 +256,6 @@ new_display(Diagram *dia)
     ddisp->aa_renderer = (preset > 0 ? TRUE : FALSE);
 
   ddisp->update_areas = NULL;
-  ddisp->display_areas = NULL;
-  ddisp->update_id = 0;
 
   ddisp->clicked_position.x = ddisp->clicked_position.y = 0.0;
 
@@ -362,20 +358,6 @@ ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
   ddisplay_add_update(ddisp, &rect);
 }
 
-/** Free display_areas list */
-static void
-ddisplay_free_display_areas(DDisplay *ddisp)
-{
-  GSList *l;
-  l = ddisp->display_areas;
-  while(l!=NULL) {
-    g_free(l->data);
-    l = g_slist_next(l);
-  }
-  g_slist_free(ddisp->display_areas);
-  ddisp->display_areas = NULL;
-}
-
 /** Free update_areas list */
 static void
 ddisplay_free_update_areas(DDisplay *ddisp)
@@ -398,9 +380,6 @@ ddisplay_add_update_all(DDisplay *ddisp)
 {
   if (ddisp->update_areas != NULL) {
     ddisplay_free_update_areas(ddisp);
-  }
-  if (ddisp->display_areas != NULL) {
-    ddisplay_free_display_areas(ddisp);
   }
   ddisplay_add_update(ddisp, &ddisp->visible);
 }
@@ -426,14 +405,12 @@ void
 ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect)
 {
   Rectangle *r;
-  int top,bottom,left,right;
-  Rectangle *visible;
-  int width, height;
+  // int width, height;
 
   if (!ddisp->renderer)
     return; /* can happen at creation time of the diagram */
-  width = dia_renderer_get_width_pixels (ddisp->renderer);
-  height = dia_renderer_get_height_pixels (ddisp->renderer);
+  // width = dia_renderer_get_width_pixels (ddisp->renderer);
+  // height = dia_renderer_get_height_pixels (ddisp->renderer);
 
   if (!rectangle_intersects(rect, &ddisp->visible))
     return;
@@ -450,122 +427,7 @@ ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect)
     rectangle_intersection(r, &ddisp->visible);
   }
 
-  visible = &ddisp->visible;
-  left = floor( (r->left - visible->left)  * (real)width /
-		(visible->right - visible->left) ) - 1;
-  top = floor( (r->top - visible->top)  * (real)height /
-	       (visible->bottom - visible->top) ) - 1;
-  right = ceil( (r->right - visible->left)  * (real)width /
-		(visible->right - visible->left) ) + 1;
-  bottom = ceil( (r->bottom - visible->top)  * (real)height /
-		 (visible->bottom - visible->top) ) + 1;
-
-  ddisplay_add_display_area(ddisp,
-			    left, top,
-			    right, bottom);
-}
-
-void
-ddisplay_add_display_area(DDisplay *ddisp,
-			  int left, int top,
-			  int right, int bottom)
-{
-  IRectangle *r;
-
-  if (!ddisp->renderer)
-    return; /* if we don't have a renderer yet prefer ignoring over crashing */
-  if (left < 0)
-    left = 0;
-  if (top < 0)
-    top = 0;
-  if (right > dia_renderer_get_width_pixels (ddisp->renderer))
-    right = dia_renderer_get_width_pixels (ddisp->renderer);
-  if (bottom > dia_renderer_get_height_pixels (ddisp->renderer))
-    bottom = dia_renderer_get_height_pixels (ddisp->renderer);
-
-  /* draw some rectangles to show where updates are...*/
-  /*
-  gdk_draw_rectangle(gtk_widget_get_window(ddisp->canvas),
-		     gtk_widget_get_style(ddisp->canvas)->black_gc, TRUE,
-		     left, top, right-left,bottom-top);
-   */
-  /* Temporarily just do a union of all Irectangles: */
-  if (ddisp->display_areas==NULL) {
-    r = g_new(IRectangle,1);
-    r->top = top; r->bottom = bottom;
-    r->left = left; r->right = right;
-    ddisp->display_areas = g_slist_prepend(ddisp->display_areas, r);
-  } else {
-    r = (IRectangle *) ddisp->display_areas->data;
-
-    r->top = MIN( r->top, top );
-    r->bottom = MAX( r->bottom, bottom );
-    r->left = MIN( r->left, left );
-    r->right = MAX( r->right, right );
-  }
-}
-
-static gboolean
-ddisplay_update_handler(DDisplay *ddisp)
-{
-  GSList *l;
-  IRectangle *ir;
-  Rectangle *r, totrect;
-  DiaInteractiveRendererInterface *renderer;
-
-  g_return_val_if_fail (ddisp->renderer != NULL, FALSE);
-
-  /* Renders updates to pixmap + copies display_areas to canvas(screen) */
-  renderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
-
-  /* Only update if update_areas exist */
-  l = ddisp->update_areas;
-  if (l != NULL)
-  {
-    totrect = *(Rectangle *) l->data;
-
-    g_return_val_if_fail (   renderer->clip_region_clear != NULL
-                          && renderer->clip_region_add_rect != NULL, FALSE);
-
-    renderer->clip_region_clear (ddisp->renderer);
-
-    while(l!=NULL) {
-      r = (Rectangle *) l->data;
-
-      rectangle_union(&totrect, r);
-      renderer->clip_region_add_rect (ddisp->renderer, r);
-
-      l = g_slist_next(l);
-    }
-    /* Free update_areas list: */
-    ddisplay_free_update_areas(ddisp);
-
-    totrect.left -= 0.1;
-    totrect.right += 0.1;
-    totrect.top -= 0.1;
-    totrect.bottom += 0.1;
-
-    ddisplay_render_pixmap(ddisp, &totrect);
-  }
-
-  l = ddisp->display_areas;
-  while(l!=NULL) {
-    ir = (IRectangle *) l->data;
-
-    g_return_val_if_fail (renderer->copy_to_window, FALSE);
-    renderer->copy_to_window(ddisp->renderer,
-                             gtk_widget_get_window(ddisp->canvas),
-                             ir->left, ir->top,
-                             ir->right - ir->left, ir->bottom - ir->top);
-
-    l = g_slist_next(l);
-  }
-
-  ddisplay_free_display_areas(ddisp);
-
-  ddisp->update_id = 0;
-
-  return FALSE;
+  gtk_widget_queue_draw (ddisp->canvas);
 }
 
 void
@@ -579,12 +441,7 @@ ddisplay_flush(DDisplay *ddisp)
    * GTK_PRIORITY_RESIZE = (G_PRIORITY_HIGH_IDLE + 10)
    * Dia's canvas rendering is in between
    */
-  if (!ddisp->update_id)
-    ddisp->update_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE+15, (GSourceFunc)ddisplay_update_handler, ddisp, NULL);
-  if (ddisp->display_areas) {
-    IRectangle *r = (IRectangle *)ddisp->display_areas->data;
-    dia_log_message ("DispUpdt: %4d,%3d - %4d,%3d\n", r->left, r->top, r->right, r->bottom);
-  }
+  gtk_widget_queue_draw (ddisp->canvas);
 }
 
 static void
@@ -1091,55 +948,11 @@ ddisplay_get_clicked_position(DDisplay *ddisp)
   return ddisp->clicked_position;
 }
 
-
-/**
- * Kind of dirty way to initialize an anti-aliased renderer, maybe there
- * should be some plug-in interface to do this.
- * With the Libart renderer being a deprecated plug-in and the cairo renderer
- * offering a lot of features including proper highlighting it seems reasonable
- * to have default at cairo, although you loose a lot when it is switched off ;)
- */
-static DiaRenderer *
-new_aa_renderer (DDisplay *ddisp)
-{
-  GType renderer_type;
-
-  renderer_type = g_type_from_name ("DiaCairoInteractiveRenderer");
-  if (renderer_type) {
-    DiaRenderer *renderer = g_object_new(renderer_type, NULL);
-    g_object_set (renderer,
-                  "zoom", &ddisp->zoom_factor,
-		  "rect", &ddisp->visible,
-		  NULL);
-    return renderer;
-  }
-
-  renderer_type = g_type_from_name ("DiaLibartRenderer");
-  if (renderer_type) {
-    DiaRenderer *renderer = g_object_new(renderer_type, NULL);
-    g_object_set (renderer,
-                  "transform", dia_transform_new (&ddisp->visible, &ddisp->zoom_factor),
-		  NULL);
-    return renderer;
-  }
-
-  /* we really should not come here but instead disable the menu command earlier */
-  message_warning (_("No antialiased renderer found"));
-  /* fallback: built-in libart renderer */
-  return new_gdk_renderer (ddisp);
-}
-
 void
 ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
 {
   int width, height;
   GdkWindow *window = gtk_widget_get_window(ddisp->canvas);
-
-  /* dont mix new renderer with old updates */
-  if (ddisp->update_id) {
-    g_source_remove (ddisp->update_id);
-    ddisp->update_id = 0;
-  }
 
   if (ddisp->renderer)
     g_object_unref (ddisp->renderer);
@@ -1149,11 +962,14 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
   width = ddisp->canvas->allocation.width;
   height = ddisp->canvas->allocation.height;
 
-  if (ddisp->aa_renderer){
-    ddisp->renderer = new_aa_renderer (ddisp);
-  } else {
-    ddisp->renderer = new_gdk_renderer(ddisp);
+  if (!ddisp->aa_renderer){
+    g_message ("Only antialias renderers supported");
   }
+  ddisp->renderer = dia_cairo_interactive_renderer_new ();
+  g_object_set (ddisp->renderer,
+                "zoom", &ddisp->zoom_factor,
+                "rect", &ddisp->visible,
+                NULL);
 
   if (window)
     dia_renderer_set_size(ddisp->renderer, window, width, height);
@@ -1164,10 +980,14 @@ ddisplay_resize_canvas(DDisplay *ddisp,
 		       int width,  int height)
 {
   if (ddisp->renderer==NULL) {
-    if (ddisp->aa_renderer)
-      ddisp->renderer = new_aa_renderer (ddisp);
-    else
-      ddisp->renderer = new_gdk_renderer(ddisp);
+    if (!ddisp->aa_renderer){
+      g_message ("Only antialias renderers supported");
+    }
+    ddisp->renderer = dia_cairo_interactive_renderer_new ();
+    g_object_set (ddisp->renderer,
+                  "zoom", &ddisp->zoom_factor,
+                  "rect", &ddisp->visible,
+                  NULL);
   }
 
   dia_renderer_set_size(ddisp->renderer, gtk_widget_get_window(ddisp->canvas), width, height);
@@ -1244,10 +1064,6 @@ are_you_sure_close_dialog_respond(GtkWidget *widget, /* the dialog */
     if (close_ddisp) /* saving succeeded */
       recent_file_history_add(ddisp->diagram->filename);
 
-    if (ddisp->update_id && close_ddisp) {
-      g_source_remove (ddisp->update_id);
-      ddisp->update_id = 0;
-    }
     /* fall through */
   case GTK_RESPONSE_NO :
     if (close_ddisp)
@@ -1334,7 +1150,7 @@ display_update_menu_state(DDisplay *ddisp)
   antialiased  = GTK_TOGGLE_ACTION (menus_get_action ("ViewAntialiased"));
 
   gtk_action_set_sensitive (menus_get_action ("ViewAntialiased"),
-		            g_type_from_name ("DiaCairoInteractiveRenderer") != 0 || g_type_from_name ("DiaLibartRenderer") != 0);
+		            g_type_from_name ("DiaCairoInteractiveRenderer") != 0);
 
   ddisplay_do_update_menu_sensitivity (ddisp);
 
@@ -1382,12 +1198,6 @@ ddisplay_really_destroy(DDisplay *ddisp)
   if (active_display == ddisp)
     display_set_active(NULL);
 
-  /* last chance to avoid crashing in the idle update */
-  if (ddisp->update_id) {
-    g_source_remove (ddisp->update_id);
-    ddisp->update_id = 0;
-  }
-
   if (ddisp->diagram) {
     diagram_remove_ddisplay(ddisp->diagram, ddisp);
     /* if we are the last user of the diagram it will be unref'ed */
@@ -1400,8 +1210,6 @@ ddisplay_really_destroy(DDisplay *ddisp)
 
   /* Free update_areas list: */
   ddisplay_free_update_areas(ddisp);
-  /* Free display_areas list */
-  ddisplay_free_display_areas(ddisp);
 
   g_free(ddisp);
 }

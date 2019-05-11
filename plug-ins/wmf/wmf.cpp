@@ -3,7 +3,7 @@
  *
  * wmf.cpp -- Windows Metafile export plugin for dia
  * Copyright (C) 2000, Hans Breuer, <Hans@Breuer.Org>
- *   based on dummy plug-in. 
+ *   based on dummy plug-in.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -170,7 +170,7 @@ UsePen(WmfRenderer* renderer, Color* colour)
 	  int num_dashes = 0;
 	  int dashlen = renderer->nDashLen;
 	  int dotlen  = renderer->nDashLen / 10;
-	  
+
 	  logbrush.lbStyle = BS_SOLID;
 	  logbrush.lbColor = rgb;
 	  logbrush.lbHatch = 0;
@@ -180,7 +180,7 @@ UsePen(WmfRenderer* renderer, Color* colour)
 	    break;
 	  case PS_DASH :
 	    num_dashes = 2;
-	    dashes[0] = dashes[1] = dashlen; 
+	    dashes[0] = dashes[1] = dashlen;
 	    break;
 	  case PS_DASHDOT :
 	    num_dashes = 4;
@@ -207,10 +207,10 @@ UsePen(WmfRenderer* renderer, Color* colour)
 	    renderer->nLineWidth,
 	    &logbrush, num_dashes, num_dashes > 0 ? dashes : 0);
 	}
-	else 
+	else
 #endif /* G_OS_WIN32 */
 	{
-	  renderer->hPen = W32::CreatePen(renderer->fnPenStyle, 
+	  renderer->hPen = W32::CreatePen(renderer->fnPenStyle,
 					  renderer->nLineWidth,
 					  rgb);
 	}
@@ -225,7 +225,7 @@ static void
 DonePen(WmfRenderer* renderer, W32::HPEN hPen)
 {
     /* restore the OLD one ... */
-    if (hPen) 
+    if (hPen)
       W32::SelectObject(renderer->hFileDC, hPen);
     /* ... before deleting the last active */
     if (renderer->hPen)
@@ -246,9 +246,9 @@ my_log(WmfRenderer* renderer, const char* format, ...)
 {
     gchar *string;
     va_list args;
-  
+
     g_return_if_fail (format != NULL);
-  
+
     va_start (args, format);
     string = g_strdup_vprintf (format, args);
     va_end (args);
@@ -258,7 +258,7 @@ my_log(WmfRenderer* renderer, const char* format, ...)
 
     g_free(string);
 }
- 
+
 /*
  * renderer interface implementation
  */
@@ -274,7 +274,7 @@ begin_render(DiaRenderer *self, const Rectangle *)
       renderer->fnPenStyle = PS_GEOMETRIC;
 
     /* make unfilled the default */
-    W32::SelectObject(renderer->hFileDC, 
+    W32::SelectObject(renderer->hFileDC,
 	                W32::GetStockObject (HOLLOW_BRUSH) );
 }
 
@@ -283,10 +283,11 @@ end_render(DiaRenderer *self)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HENHMETAFILE hEmf;
+#if !defined DIRECT_WMF && defined G_OS_WIN32 /* the later offers both */
     W32::UINT nSize;
     W32::BYTE* pData = NULL;
     FILE* f;
-
+#endif
     DIAG_NOTE(renderer, "end_render\n");
     hEmf = W32::CloseEnhMetaFile(renderer->hFileDC);
 
@@ -315,9 +316,9 @@ end_render(DiaRenderer *self)
 	/* write file */
 	if (fwrite(pData,1,nSize,f) != nSize)
 	  dia_context_add_message_with_errno(renderer->ctx, errno, _("Couldn't write file %s\n%s"),
-					     dia_context_get_filename (renderer->ctx)); 
+					     dia_context_get_filename (renderer->ctx));
 	fclose(f);
-    
+
 	g_free(pData);
 
         W32::ReleaseDC(NULL, hdc);
@@ -331,7 +332,7 @@ end_render(DiaRenderer *self)
 	W32::DeleteEnhMetaFile(hEmf);
 }
 
-static gboolean 
+static gboolean
 is_capable_to (DiaRenderer *renderer, RenderCapability cap)
 {
   if (RENDER_HOLES == cap)
@@ -385,7 +386,7 @@ draw_object (DiaRenderer *self, DiaObject *object, DiaMatrix *matrix)
 
 static void
 set_linewidth(DiaRenderer *self, real linewidth)
-{  
+{
     WmfRenderer *renderer = WMF_RENDERER (self);
 
     DIAG_NOTE(renderer, "set_linewidth %f\n", linewidth);
@@ -399,7 +400,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
     WmfRenderer *renderer = WMF_RENDERER (self);
 
     DIAG_NOTE(renderer, "set_linecaps %d\n", mode);
-	
+
     // all the advanced line rendering is unsupported on win9x
     if (!renderer->platform_is_nt)
       return;
@@ -477,11 +478,11 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
     default:
 	g_warning("WmfRenderer : Unsupported fill mode specified!\n");
     }
-    
+
     if (renderer->platform_is_nt)
       return;
 
-    /* Non-solid linestyles are only displayed if width <= 1. 
+    /* Non-solid linestyles are only displayed if width <= 1.
      * Better implementation will require custom linestyles
      * not available on win9x ...
      */
@@ -524,7 +525,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
     real font_size = dia_font_get_size (font) * (height / dia_font_get_height (font));
 
 
-    DIAG_NOTE(renderer, "set_font %s %f\n", 
+    DIAG_NOTE(renderer, "set_font %s %f\n",
               dia_font_get_family (font), height);
     if (renderer->hFont) {
 	W32::DeleteObject(renderer->hFont);
@@ -534,7 +535,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
         g_object_unref (renderer->pango_context);
 	renderer->pango_context = NULL;
     }
-    
+
     if (renderer->use_pango) {
 #ifdef __PANGOWIN32_H__ /* with the pangowin32 backend there is a better way */
 	if (!renderer->pango_context)
@@ -580,34 +581,34 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 #       define BYTE unsigned char
 #       endif
 
-	renderer->hFont = (W32::HFONT)W32::CreateFont( 
-		- SC (font_size),  // logical height of font 
-		0,		// logical average character width 
+	renderer->hFont = (W32::HFONT)W32::CreateFont(
+		- SC (font_size),  // logical height of font
+		0,		// logical average character width
 		0,		// angle of escapement
-		0,		// base-line orientation angle 
+		0,		// base-line orientation angle
 		dwWeight,	// font weight
 		dwItalic,	// italic attribute flag
 		0,		// underline attribute flag
 		0,		// strikeout attribute flag
-		DEFAULT_CHARSET,	// character set identifier 
-		OUT_TT_PRECIS, 	// output precision 
+		DEFAULT_CHARSET,	// character set identifier
+		OUT_TT_PRECIS, 	// output precision
 		CLIP_DEFAULT_PRECIS,	// clipping precision
-		PROOF_QUALITY,		// output quality 
+		PROOF_QUALITY,		// output quality
 		DEFAULT_PITCH,		// pitch and family
 		sFace);		// pointer to typeface name string
     }
 }
 
 static void
-draw_line(DiaRenderer *self, 
-	  Point *start, Point *end, 
+draw_line(DiaRenderer *self,
+	  Point *start, Point *end,
 	  Color *line_colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
     W32::HPEN hPen;
 
-    DIAG_NOTE(renderer, "draw_line %f,%f -> %f, %f\n", 
+    DIAG_NOTE(renderer, "draw_line %f,%f -> %f, %f\n",
               start->x, start->y, end->x, end->y);
 
     hPen = UsePen(renderer, line_colour);
@@ -619,8 +620,8 @@ draw_line(DiaRenderer *self,
 }
 
 static void
-draw_polyline(DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polyline(DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *line_colour)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
@@ -629,7 +630,7 @@ draw_polyline(DiaRenderer *self,
     W32::POINT*  pts;
     int	    i;
 
-    DIAG_NOTE(renderer, "draw_polyline n:%d %f,%f ...\n", 
+    DIAG_NOTE(renderer, "draw_polyline n:%d %f,%f ...\n",
               num_points, points->x, points->y);
 
     if (num_points < 2)
@@ -649,8 +650,8 @@ draw_polyline(DiaRenderer *self,
 }
 
 static void
-draw_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
+draw_polygon(DiaRenderer *self,
+	     Point *points, int num_points,
 	     Color *fill, Color *stroke)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
@@ -658,10 +659,10 @@ draw_polygon(DiaRenderer *self,
     W32::HPEN    hPen;
     W32::POINT*  pts;
     int          i;
-    W32::HBRUSH  hBrush, hBrOld;
+    W32::HBRUSH  hBrush;
     W32::COLORREF rgb = fill ? W32COLOR(fill) : 0;
 
-    DIAG_NOTE(renderer, "draw_polygon n:%d %f,%f ...\n", 
+    DIAG_NOTE(renderer, "draw_polygon n:%d %f,%f ...\n",
               num_points, points->x, points->y);
 
     if (num_points < 2)
@@ -685,7 +686,7 @@ draw_polygon(DiaRenderer *self,
     if (stroke)
       DonePen(renderer, hPen);
     if (fill) {
-      W32::SelectObject(renderer->hFileDC, 
+      W32::SelectObject(renderer->hFileDC,
                         W32::GetStockObject(HOLLOW_BRUSH) );
       W32::DeleteObject(hBrush);
     }
@@ -693,7 +694,7 @@ draw_polygon(DiaRenderer *self,
 }
 
 static void
-draw_rect(DiaRenderer *self, 
+draw_rect(DiaRenderer *self,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *fill, Color *stroke)
 {
@@ -701,7 +702,7 @@ draw_rect(DiaRenderer *self,
 
     W32::HPEN hPen;
 
-    DIAG_NOTE(renderer, "draw_rect %f,%f -> %f,%f\n", 
+    DIAG_NOTE(renderer, "draw_rect %f,%f -> %f,%f\n",
               ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y);
 
     if (fill) {
@@ -712,7 +713,7 @@ draw_rect(DiaRenderer *self,
 	W32::Rectangle (renderer->hFileDC,
 			SCX(ul_corner->x), SCY(ul_corner->y),
 			SCX(lr_corner->x), SCY(lr_corner->y));
-	W32::SelectObject (renderer->hFileDC, 
+	W32::SelectObject (renderer->hFileDC,
 			   W32::GetStockObject (HOLLOW_BRUSH) );
 	W32::DeleteObject(hBrush);
     }
@@ -728,7 +729,7 @@ draw_rect(DiaRenderer *self,
 }
 
 static void
-draw_arc(DiaRenderer *self, 
+draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -738,7 +739,7 @@ draw_arc(DiaRenderer *self,
     W32::HPEN  hPen;
     W32::POINT ptStart, ptEnd;
 
-    DIAG_NOTE(renderer, "draw_arc %fx%f <%f,<%f @%f,%f\n", 
+    DIAG_NOTE(renderer, "draw_arc %fx%f <%f,<%f @%f,%f\n",
               width, height, angle1, angle2, center->x, center->y);
 
     hPen = UsePen(renderer, colour);
@@ -759,15 +760,15 @@ draw_arc(DiaRenderer *self,
     W32::Arc(renderer->hFileDC,
              SCX(center->x - width / 2), /* bbox corners */
              SCY(center->y - height / 2),
-             SCX(center->x + width / 2), 
+             SCX(center->x + width / 2),
              SCY(center->y + height / 2),
-             ptStart.x, ptStart.y, ptEnd.x, ptEnd.y); 
+             ptStart.x, ptStart.y, ptEnd.x, ptEnd.y);
 
     DonePen(renderer, hPen);
 }
 
 static void
-fill_arc(DiaRenderer *self, 
+fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -779,7 +780,7 @@ fill_arc(DiaRenderer *self,
     W32::POINT ptStart, ptEnd;
     W32::COLORREF rgb = W32COLOR(colour);
 
-    DIAG_NOTE(renderer, "fill_arc %fx%f <%f,<%f @%f,%f\n", 
+    DIAG_NOTE(renderer, "fill_arc %fx%f <%f,<%f @%f,%f\n",
               width, height, angle1, angle2, center->x, center->y);
 
     if (angle1 > angle2) {
@@ -802,18 +803,18 @@ fill_arc(DiaRenderer *self,
     W32::Pie(renderer->hFileDC,
              SCX(center->x - width / 2), /* bbox corners */
              SCY(center->y - height / 2),
-             SCX(center->x + width / 2), 
+             SCX(center->x + width / 2),
              SCY(center->y + height / 2),
-             ptStart.x, ptStart.y, ptEnd.x, ptEnd.y); 
+             ptStart.x, ptStart.y, ptEnd.x, ptEnd.y);
 
-    W32::SelectObject(renderer->hFileDC, 
+    W32::SelectObject(renderer->hFileDC,
                     W32::GetStockObject (HOLLOW_BRUSH) );
     W32::DeleteObject(hBrush);
     DonePen(renderer, hPen);
 }
 
 static void
-draw_ellipse(DiaRenderer *self, 
+draw_ellipse(DiaRenderer *self,
 	     Point *center,
 	     real width, real height,
 	     Color *fill, Color *stroke)
@@ -822,7 +823,7 @@ draw_ellipse(DiaRenderer *self,
     W32::HPEN hPen;
     W32::HGDIOBJ hBrush;
 
-    DIAG_NOTE(renderer, "draw_ellipse %fx%f @ %f,%f\n", 
+    DIAG_NOTE(renderer, "draw_ellipse %fx%f @ %f,%f\n",
               width, height, center->x, center->y);
 
     if (fill) {
@@ -836,13 +837,13 @@ draw_ellipse(DiaRenderer *self,
     W32::Ellipse(renderer->hFileDC,
                  SCX(center->x - width / 2), /* bbox corners */
                  SCY(center->y - height / 2),
-                 SCX(center->x + width / 2), 
+                 SCX(center->x + width / 2),
                  SCY(center->y + height / 2));
 
     if (stroke)
 	DonePen(renderer, hPen);
     if (fill) {
-	W32::SelectObject(renderer->hFileDC, 
+	W32::SelectObject(renderer->hFileDC,
 			  W32::GetStockObject (HOLLOW_BRUSH) );
 	W32::DeleteObject(hBrush);
     }
@@ -862,7 +863,7 @@ _bezier (DiaRenderer *self,
     W32::HPEN hPen;
     W32::COLORREF rgb = W32COLOR(colour);
 
-    DIAG_NOTE(renderer, "_bezier n:%d %fx%f ...\n", 
+    DIAG_NOTE(renderer, "_bezier n:%d %fx%f ...\n",
               numpoints, points->p1.x, points->p1.y);
 
     if (fill) {
@@ -873,7 +874,7 @@ _bezier (DiaRenderer *self,
     }
 
     W32::BeginPath (renderer->hFileDC);
-    
+
     for (int i = 0; i < numpoints; ++i) {
         switch (points[i].type) {
 	case BezPoint::BEZ_MOVE_TO :
@@ -899,7 +900,7 @@ _bezier (DiaRenderer *self,
     W32::EndPath (renderer->hFileDC);
     if (fill) {
         W32::FillPath (renderer->hFileDC);
-        W32::SelectObject(renderer->hFileDC, 
+        W32::SelectObject(renderer->hFileDC,
                           W32::GetStockObject (HOLLOW_BRUSH) );
         W32::DeleteObject(hBrush);
     } else {
@@ -910,7 +911,7 @@ _bezier (DiaRenderer *self,
 #endif
 
 static void
-draw_bezier(DiaRenderer *self, 
+draw_bezier(DiaRenderer *self,
 	    BezPoint *points,
 	    int numpoints,
 	    Color *colour)
@@ -923,7 +924,7 @@ draw_bezier(DiaRenderer *self,
     W32::POINT * pts;
     int i;
 
-    DIAG_NOTE(renderer, "draw_bezier n:%d %fx%f ...\n", 
+    DIAG_NOTE(renderer, "draw_bezier n:%d %fx%f ...\n",
               numpoints, points->p1.x, points->p1.y);
 
     pts = g_new(W32::POINT, (numpoints-1) * 3 + 1);
@@ -940,9 +941,9 @@ draw_bezier(DiaRenderer *self,
 	  break;
         case _BezPoint::BEZ_LINE_TO:
             /* everyhing the same ?*/
-            pts[i*3-2].x = pts[i*3-1].x = 
+            pts[i*3-2].x = pts[i*3-1].x =
             pts[i*3  ].x = SCX(points[i].p1.x);
-            pts[i*3-2].y = pts[i*3-1].y = 
+            pts[i*3-2].y = pts[i*3-1].y =
             pts[i*3  ].y = SCY(points[i].p1.y);
           break;
         case _BezPoint::BEZ_CURVE_TO:
@@ -974,7 +975,7 @@ draw_bezier(DiaRenderer *self,
 #ifndef DIRECT_WMF
 /* not defined in compatibility layer */
 static void
-draw_beziergon (DiaRenderer *self, 
+draw_beziergon (DiaRenderer *self,
 		BezPoint *points, /* Last point must be same as first point */
 		int numpoints,
 		Color *fill,
@@ -998,7 +999,7 @@ draw_string(DiaRenderer *self,
     W32::HGDIOBJ hOld;
     W32::COLORREF rgb = W32COLOR(colour);
 
-    DIAG_NOTE(renderer, "draw_string %f,%f %s\n", 
+    DIAG_NOTE(renderer, "draw_string %f,%f %s\n",
               pos->x, pos->y, text);
 
     W32::SetTextColor(renderer->hFileDC, rgb);
@@ -1022,7 +1023,7 @@ draw_string(DiaRenderer *self,
     hOld = W32::SelectObject(renderer->hFileDC, renderer->hFont);
     {
         // one way to go, but see below ...
-        char* scp = NULL; 
+        char* scp = NULL;
         /* convert from utf8 to active codepage */
         static char codepage[10];
 #ifndef HAVE_LIBEMF
@@ -1064,14 +1065,14 @@ draw_image(DiaRenderer *self,
 {
 #ifdef DIRECT_WMF
     /* not yet supported in compatibility mode */
-#else	
+#else
     WmfRenderer *renderer = WMF_RENDERER (self);
     W32::HBITMAP hBmp;
     int iWidth, iHeight;
     unsigned char* pData = NULL;
     unsigned char* pImg  = NULL;
 
-    DIAG_NOTE(renderer, "draw_image %fx%f @%f,%f\n", 
+    DIAG_NOTE(renderer, "draw_image %fx%f @%f,%f\n",
               width, height, point->x, point->y);
 
     iWidth  = dia_image_width(image);
@@ -1104,7 +1105,7 @@ draw_image(DiaRenderer *self,
     }
     else
     {
-        hBmp = W32::CreateBitmap ( 
+        hBmp = W32::CreateBitmap (
                         dia_image_width(image), dia_image_height(image),
                         1, 24, pImg);
     }
@@ -1128,7 +1129,7 @@ draw_image(DiaRenderer *self,
     hBmp = W32::CreateDIBSection (hMemDC, &bmi, DIB_RGB_COLORS,
                                   (void**)&pData, NULL, 0);
     /* copy data, always line by line */
-    for (int y = 0; y < iHeight; y ++) 
+    for (int y = 0; y < iHeight; y ++)
     {
         int line_offset = dia_image_rowstride(image) * y;
         for (int x = 0; x < iWidth*3; x+=3)
@@ -1163,19 +1164,19 @@ draw_image(DiaRenderer *self,
 }
 
 static void
-draw_rounded_rect (DiaRenderer *self, 
+draw_rounded_rect (DiaRenderer *self,
 	           Point *ul_corner, Point *lr_corner,
 	           Color *fill, Color *stroke, real radius)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
-    DIAG_NOTE(renderer, "draw_rounded_rect %f,%f -> %f,%f %f\n", 
+    DIAG_NOTE(renderer, "draw_rounded_rect %f,%f -> %f,%f %f\n",
               ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y, radius);
 
     if (fill) {
 	W32::COLORREF rgb = W32COLOR(fill);
 	W32::HGDIOBJ hBrush = W32::CreateSolidBrush(rgb);
-	
+
 	W32::SelectObject(renderer->hFileDC, hBrush);
 
 	W32::RoundRect (renderer->hFileDC,
@@ -1183,7 +1184,7 @@ draw_rounded_rect (DiaRenderer *self,
 			SCX(lr_corner->x), SCY(lr_corner->y),
 			SC(radius*2), SC(radius*2));
 
-	W32::SelectObject (renderer->hFileDC, 
+	W32::SelectObject (renderer->hFileDC,
 			   W32::GetStockObject (HOLLOW_BRUSH) );
 	W32::DeleteObject(hBrush);
     }
@@ -1224,7 +1225,7 @@ wmf_renderer_get_type (void)
                                             "WmfRenderer",
                                             &object_info, (GTypeFlags)0);
     }
-  
+
   return object_type;
 }
 
@@ -1321,7 +1322,7 @@ export_data(DiagramData *data, DiaContext *ctx,
     scale /= 2; // Without this there can be some smallint overflow, dunno why
 
     refDC = W32::GetDC(NULL);
-    
+
     bbox.right = (int)((data->extents.right - data->extents.left) * scale *
         100 * W32::GetDeviceCaps(refDC, HORZSIZE) / W32::GetDeviceCaps(refDC, HORZRES));
     bbox.bottom = (int)((data->extents.bottom - data->extents.top) * scale *
@@ -1341,10 +1342,10 @@ export_data(DiagramData *data, DiaContext *ctx,
                     NULL, // in memory
 #  endif
                     &bbox, // pointer to a bounding rectangle
-                    "Dia\0Diagram\0"); // pointer to an optional description string 
+                    "Dia\0Diagram\0"); // pointer to an optional description string
 #endif
     if (file == NULL) {
-	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
+	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
 					    dia_context_get_filename(ctx));
 	return FALSE;
     }
@@ -1357,7 +1358,7 @@ export_data(DiagramData *data, DiaContext *ctx,
     if (user_data == (void*)1) {
 	renderer->target_emf = TRUE;
 	renderer->hPrintDC = 0;
-#ifdef __PANGOWIN32_H__ 
+#ifdef __PANGOWIN32_H__
         renderer->use_pango = TRUE;
 #else
         renderer->use_pango = FALSE;
@@ -1383,7 +1384,7 @@ export_data(DiagramData *data, DiaContext *ctx,
 	renderer->yoff = - data->extents.top;
 	renderer->scale = scale;
     } else {
-        int  ppc = (int)(W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALWIDTH) 
+        int  ppc = (int)(W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALWIDTH)
 	            / ( data->paper.lmargin + data->paper.width + data->paper.rmargin));
 	/* respect margins */
 	renderer->margins.left   = (int)(ppc * data->paper.lmargin - W32::GetDeviceCaps (renderer->hPrintDC, PHYSICALOFFSETX));
@@ -1426,19 +1427,19 @@ export_data(DiagramData *data, DiaContext *ctx,
     W32::SetBkMode(renderer->hFileDC, TRANSPARENT);
     W32::SetMapMode(renderer->hFileDC, MM_TEXT);
 #ifndef HAVE_LIBEMF
-    W32::IntersectClipRect(renderer->hFileDC, 
+    W32::IntersectClipRect(renderer->hFileDC,
                            bbox.left, bbox.top,
                            bbox.right, bbox.bottom);
 #endif
 
     /* write extents */
-    DIAG_NOTE(renderer, "export_data extents %f,%f -> %f,%f\n", 
+    DIAG_NOTE(renderer, "export_data extents %f,%f -> %f,%f\n",
               extent->left, extent->top, extent->right, extent->bottom);
 
     data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
     g_object_unref(renderer);
-    
+
     W32::ReleaseDC (NULL, refDC);
 
     return TRUE;
@@ -1512,7 +1513,7 @@ dia_plugin_init(PluginInfo *info)
      */
     filter_register_export(&wmf_export_filter);
     filter_register_export(&emf_export_filter);
-    
+
     filter_register_callback (&cb_gdi_print);
 #elif HAVE_LIBEMF
     /* not sure if libEMF really saves EMF ;) */

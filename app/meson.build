@@ -27,7 +27,6 @@ dia_sources = [
     'magnify.c',
     'menus.c',
     'cut_n_paste.c',
-    'render_gdk.c',
     'ruler.c',
     'tool.c',
     'diapagelayout.c',

@@ -90,7 +90,28 @@ struct _DiaCairoRendererClass
   DiaRendererClass parent_class;
 };
 
+typedef enum OutputKind
+{
+  OUTPUT_PS = 1,
+  OUTPUT_PNG,
+  OUTPUT_PNGA,
+  OUTPUT_PDF,
+  OUTPUT_WMF,
+  OUTPUT_EMF,
+  OUTPUT_CLIPBOARD,
+  OUTPUT_SVG,
+  OUTPUT_CAIRO_SCRIPT
+} OutputKind;
+
+gboolean cairo_export_data (DiagramData *data,
+                            DiaContext  *ctx,
+                            const gchar *filename,
+                            const gchar *diafilename,
+                            void        *user_data);
+
 /* FIXME: need to think about proper registration */
 GType dia_cairo_interactive_renderer_get_type (void) G_GNUC_CONST;
+
+DiaRenderer *dia_cairo_interactive_renderer_new ();
 
 G_END_DECLS

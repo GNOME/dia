@@ -16,7 +16,6 @@ subdir('hpgl')
 subdir('shape')
 subdir('pixbuf')
 subdir('layout')  # Non-standard: shared_module
-subdir('libart')
 subdir('metapost')
 subdir('pdf')
 subdir('pgf')

@@ -90,7 +90,7 @@ struct _DiaRendererClass
   int (*get_height_pixels) (DiaRenderer*);
   /*! \brief Render all the visible object in the layer */
   void (*draw_layer) (DiaRenderer*, Layer *, gboolean, Rectangle *);
-  /*! Calls the objects draw function, which calls the renderer again 
+  /*! Calls the objects draw function, which calls the renderer again
    *  Affine transformation is mostly done on the renderer side for matrix!=NULL */
   void (*draw_object) (DiaRenderer*, DiaObject*, DiaMatrix*);
   /*! Returns the EXACT width of text in cm, using the current font.
@@ -102,8 +102,8 @@ struct _DiaRendererClass
                           const gchar *text, int length);
 
 
-  /* 
-   * Function which MUST be implemented by any DiaRenderer 
+  /*
+   * Function which MUST be implemented by any DiaRenderer
    */
   /*! Called before rendering begins.
      Can be used to do various pre-rendering setup. */
@@ -165,9 +165,9 @@ struct _DiaRendererClass
                       real width, real height,
                       DiaImage *image);
 
-  /* 
+  /*
    * Functions which SHOULD be implemented by specific renderer, but
-   * have a default implementation based on the above functions 
+   * have a default implementation based on the above functions
    */
   /*! Draw a bezier curve, given it's control points. */
   void (*draw_bezier) (DiaRenderer *renderer,
@@ -197,7 +197,7 @@ struct _DiaRendererClass
                      Color *fill, Color *stroke);
 
   /*
-   * Highest level functions, probably only to be implemented by 
+   * Highest level functions, probably only to be implemented by
    * special 'high level' renderers
    */
   /*! Draw a rounded rectangle, given its upper-left and lower-right corners */
@@ -211,14 +211,14 @@ struct _DiaRendererClass
                          Color *color, real radius );
 
   /*! Highest level function doing specific arrow positioning */
-  void (*draw_line_with_arrows)  (DiaRenderer *renderer, 
-                                  Point *start, Point *end, 
+  void (*draw_line_with_arrows)  (DiaRenderer *renderer,
+                                  Point *start, Point *end,
                                   real line_width,
                                   Color *line_color,
                                   Arrow *start_arrow,
                                   Arrow *end_arrow);
   /*! Highest level function doing specific arrow positioning */
-  void (*draw_arc_with_arrows)  (DiaRenderer *renderer, 
+  void (*draw_arc_with_arrows)  (DiaRenderer *renderer,
                                  Point *start, Point *end,
                                  Point *midpoint,
                                  real line_width,
@@ -226,13 +226,13 @@ struct _DiaRendererClass
                                  Arrow *start_arrow,
                                  Arrow *end_arrow);
   /*! Highest level function doing specific arrow positioning */
-  void (*draw_polyline_with_arrows) (DiaRenderer *renderer, 
+  void (*draw_polyline_with_arrows) (DiaRenderer *renderer,
                                      Point *points, int num_points,
                                      real line_width,
                                      Color *color,
                                      Arrow *start_arrow,
                                      Arrow *end_arrow);
-  void (*draw_rounded_polyline_with_arrows) (DiaRenderer *renderer, 
+  void (*draw_rounded_polyline_with_arrows) (DiaRenderer *renderer,
                                      Point *points, int num_points,
                                      real line_width,
                                      Color *color,
@@ -240,7 +240,7 @@ struct _DiaRendererClass
                                      Arrow *end_arrow,
                                      real radius);
 
-  void (*draw_bezier_with_arrows) (DiaRenderer *renderer, 
+  void (*draw_bezier_with_arrows) (DiaRenderer *renderer,
                                    BezPoint *points,
                                    int num_points,
                                    real line_width,
@@ -303,17 +303,36 @@ struct _DiaInteractiveRendererInterface
   void (*fill_pixel_rect)      (DiaRenderer *renderer,
                                 int x, int y, int width, int height,
                                 Color *color);
-  /*! Copy already rendered content to the given window */
-  void (*copy_to_window)      (DiaRenderer *renderer,
-                               gpointer     window, 
-                               int x, int y, int width, int height);
+  /*! Copy already rendered content to the given context */
+  void (*paint)               (DiaRenderer *renderer,
+                               cairo_t     *ctx,
+                               int          width,
+                               int          height);
   /*! Support for drawing selected objects highlighted */
   void (*draw_object_highlighted) (DiaRenderer *renderer,
 				   DiaObject *object,
 				   DiaHighlightType type);
+  /* Draw a selection box */
+  void (*set_selection)       (DiaRenderer *renderer,
+                               gboolean     has_selection,
+                               double       x,
+                               double       y,
+                               double       width,
+                               double       height);
 };
 
 GType dia_interactive_renderer_interface_get_type (void) G_GNUC_CONST;
+
+void dia_interactive_renderer_paint              (DiaRenderer *renderer,
+                                                  cairo_t     *ctx,
+                                                  int          width,
+                                                  int          height);
+void dia_interactive_renderer_set_selection      (DiaRenderer *renderer,
+                                                  gboolean     has_selection,
+                                                  double       x,
+                                                  double       y,
+                                                  double       width,
+                                                  double       height);
 /*!
  * \brief Size adjustment to the given window
  * \memberof DiaInteractiveRendererInterface

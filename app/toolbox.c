@@ -158,14 +158,12 @@ ToolButton tool_data[] =
     "I",
     "ToolsImage",
     { CREATE_OBJECT_TOOL, "Standard - Image", NULL }
-#ifdef HAVE_CAIRO
   },
   { NULL,
     N_("Outline"),
     NULL,
     "ToolsOutline",
     { CREATE_OBJECT_TOOL, "Standard - Outline", NULL }
-#endif
   }
 };
 
@@ -465,11 +463,7 @@ create_color_area (GtkWidget *parent)
   GtkWidget *alignment;
   GtkWidget *col_area;
   GtkWidget *line_area;
-  GtkStyle *style;
   GtkWidget *hbox;
-
-  gtk_widget_ensure_style(parent);
-  style = gtk_widget_get_style(parent);
 
   frame = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
@@ -483,7 +477,7 @@ create_color_area (GtkWidget *parent)
   alignment = gtk_alignment_new (0.5, 0.5, 0.0, 0.0);
   gtk_container_set_border_width (GTK_CONTAINER (alignment), 3);
 
-  col_area = color_area_create (54, 42, parent, style);
+  col_area = color_area_create (54, 42);
   gtk_container_add (GTK_CONTAINER (alignment), col_area);
 
 

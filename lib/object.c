@@ -1259,7 +1259,9 @@ dia_object_type_get_icon (const DiaObjectType *type)
      * compatability with 0.97.3 objects */
     g_warning ("Object '%s' has an inline icon, this is deprecated",
                type->name);
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     pixbuf = gdk_pixbuf_new_from_inline (-1, (guint8 *) icon_data, TRUE, NULL);
+    G_GNUC_END_IGNORE_DEPRECATIONS
   } else if (type->pixmap_file != NULL) {
     GError *error = NULL;
     pixbuf = gdk_pixbuf_new_from_file (type->pixmap_file, &error);

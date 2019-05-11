@@ -42,7 +42,6 @@
 static void linewidth_create_dialog(GtkWindow *toplevel);
 
 static int active_linewidth = 2;
-static GdkGC *linewidth_area_gc = NULL;
 static GdkPixmap *linewidth_area_pixmap = NULL;
 
 static GtkWidget *linewidth_area_widget = NULL;
@@ -71,19 +70,18 @@ linewidth_area_draw (GtkWidget *linewidth_area)
   int i;
   int x_offs;
   GtkStyle *style;
-  
+  cairo_t *ctx;
+  double dashes[] = { 3 };
+
   if (!linewidth_area_pixmap)     /* we haven't gotten initial expose yet,
                                * no point in drawing anything */
     return;
 
-
-  if (!linewidth_area_gc) {
-    linewidth_area_gc = gdk_gc_new (linewidth_area_pixmap);
-    gdk_gc_set_line_attributes(linewidth_area_gc, 1,
-			       GDK_LINE_ON_OFF_DASH,
-			       GDK_CAP_BUTT,
-			       GDK_JOIN_MITER);
-  }
+  ctx = gdk_cairo_create (gtk_widget_get_window (linewidth_area));
+  cairo_set_line_width (ctx, 1);
+  cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
+  cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
+  cairo_set_dash (ctx, dashes, 1, 0);
 
   gdk_drawable_get_size (linewidth_area_pixmap, &width, &height);
 
@@ -91,28 +89,24 @@ linewidth_area_draw (GtkWidget *linewidth_area)
   win_bg = &(style->bg[GTK_STATE_NORMAL]);
   win_fg = &(style->fg[GTK_STATE_NORMAL]);
 
-  gdk_gc_set_foreground (linewidth_area_gc, win_bg);
-  gdk_draw_rectangle (linewidth_area_pixmap, linewidth_area_gc, 1,
-		      0, 0, width, height);
+  gdk_cairo_set_source_color (ctx, win_bg);
+  cairo_rectangle (ctx, 0, 0, width, height);
+  cairo_fill (ctx);
 
-  gdk_gc_set_foreground (linewidth_area_gc, win_fg);
+  gdk_cairo_set_source_color (ctx, win_fg);
   
   for (i=0;i<=NUMLINES;i++) {
     x_offs = X_OFFSET(i);
 
-    gdk_draw_rectangle (linewidth_area_pixmap, linewidth_area_gc, 1,
-			x_offs, 2, i, height-4);
-    
+    cairo_rectangle (ctx, x_offs, 2, i, height - 4);
+    cairo_fill (ctx);
   }
   
   if (active_linewidth != 0) {
-  gdk_draw_rectangle (linewidth_area_pixmap, linewidth_area_gc, 0,
-		      X_OFFSET(active_linewidth)-2, 0,
-		      active_linewidth+4, height-1);
+    cairo_rectangle (ctx, X_OFFSET(active_linewidth) - 2, 0,
+                          active_linewidth + 4, height - 1);
+    cairo_stroke (ctx);
   }
-
-  gdk_draw_drawable (gtk_widget_get_window(linewidth_area), linewidth_area_gc, linewidth_area_pixmap,
-		     0, 0, 0, 0, width, height);
 }
 
 static gint
@@ -140,13 +134,13 @@ linewidth_area_events (GtkWidget *widget,
     case GDK_BUTTON_PRESS:
       bevent = (GdkEventButton *) event;
       if (bevent->button == 1) {
-	target = linewidth_area_target (bevent->x, bevent->y);
-	
-	if (target != 0) {
-	  active_linewidth = target;
-	  linewidth_area_draw(linewidth_area_widget);
-	  attributes_set_default_linewidth(BASE_WIDTH*(target-1));
-	}
+        target = linewidth_area_target (bevent->x, bevent->y);
+        if (target != 0) {
+          active_linewidth = target;
+          /* Trigger redraw */
+          gdk_window_invalidate_rect (gtk_widget_get_window (linewidth_area_widget), NULL, TRUE);
+          attributes_set_default_linewidth(BASE_WIDTH*(target-1));
+        }
       }
       break;
 
@@ -208,7 +202,8 @@ get_current_line_width()
 {
   float newvalue = gtk_spin_button_get_value (GTK_SPIN_BUTTON (linewidth_button));
   active_linewidth = linewidth_number_from_width(newvalue);
-  linewidth_area_draw(GTK_WIDGET(linewidth_area_widget));
+  /* Trigger redraw */
+  gdk_window_invalidate_rect (gtk_widget_get_window (linewidth_area_widget), NULL, TRUE);
   attributes_set_default_linewidth(newvalue);
 }
 
