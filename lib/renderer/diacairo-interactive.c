@@ -344,6 +344,30 @@ dia_cairo_interactive_renderer_get_type (void)
   return object_type;
 }
 
+/*
+ * Taken from gtk-3-24 as gtk2 gdk_cairo_region uses GdkRegion
+ *
+ * TODO: Use gtk3 implementation
+ */
+static void
+_gdk_cairo_region (cairo_t              *cr,
+                   const cairo_region_t *region)
+{
+  cairo_rectangle_int_t box;
+  gint n_boxes, i;
+
+  g_return_if_fail (cr != NULL);
+  g_return_if_fail (region != NULL);
+
+  n_boxes = cairo_region_num_rectangles (region);
+
+  for (i = 0; i < n_boxes; i++)
+    {
+      cairo_region_get_rectangle (region, i, &box);
+      cairo_rectangle (cr, box.x, box.y, box.width, box.height);
+    }
+}
+
 static void
 begin_render(DiaRenderer *self, const Rectangle *update)
 {
@@ -351,11 +375,15 @@ begin_render(DiaRenderer *self, const Rectangle *update)
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (self);
 
   g_return_if_fail (base_renderer->cr == NULL);
+  if (base_renderer->surface) {
+    cairo_surface_destroy (base_renderer->surface);
+    base_renderer->surface = NULL;
+  }
   base_renderer->cr = cairo_create (renderer->surface);
 
   /* Setup clipping for this sequence of render operations */
   /* Must be done before the scaling because the clip is in pixel coords */
-  gdk_cairo_region (base_renderer->cr, renderer->clip_region);
+  _gdk_cairo_region (base_renderer->cr, renderer->clip_region);
   cairo_clip(base_renderer->cr);
 
   cairo_scale (base_renderer->cr, *renderer->zoom_factor, *renderer->zoom_factor);

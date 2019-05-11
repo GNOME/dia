@@ -387,12 +387,16 @@ canvas_configure_event (GtkWidget         *widget,
 
 static gboolean
 canvas_expose_event (GtkWidget      *widget,
-		     GdkEventExpose *event,
-		     DDisplay       *ddisp)
+                     GdkEventExpose *event,
+                     DDisplay       *ddisp)
 {
   GSList *l;
   Rectangle *r, totrect;
   DiaInteractiveRendererInterface *renderer;
+  GtkAllocation alloc;
+  cairo_t *ctx;
+
+  ctx = gdk_cairo_create (gtk_widget_get_window (widget));
 
   g_return_val_if_fail (ddisp->renderer != NULL, FALSE);
 
@@ -435,10 +439,10 @@ canvas_expose_event (GtkWidget      *widget,
     ddisplay_render_pixmap(ddisp, &totrect);
   }
 
-  dia_interactive_renderer_paint (ddisp->renderer,
-                                  ctx,
-                                  gtk_widget_get_allocated_width (widget),
-                                  gtk_widget_get_allocated_height (widget));
+  gtk_widget_get_allocation (widget, &alloc);
+
+  dia_interactive_renderer_paint (ddisp->renderer, ctx,
+                                  alloc.width, alloc.height);
 
   return FALSE;
 }
