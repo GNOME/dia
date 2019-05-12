@@ -112,9 +112,7 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
   gint x, y;
   GdkWindow *win;
   double dash_list[6];
-  int line_width = 2;
   GtkStyle *style;
-  GdkColor bg;
   GdkColor fg;
   cairo_t *ctx;
 
@@ -126,10 +124,11 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 
     win = gtk_widget_get_window (widget);
     style = gtk_widget_get_style (widget);
-    bg = style->base[gtk_widget_get_state(widget)];
     fg = style->text[gtk_widget_get_state(widget)];
 
     ctx = gdk_cairo_create (win);
+    gdk_cairo_set_source_color (ctx, &fg);
+    cairo_set_line_width (ctx, 2);
     cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
     cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
 
