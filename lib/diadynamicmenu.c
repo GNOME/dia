@@ -24,8 +24,8 @@
 #include "diadynamicmenu.h"
 #include "persistence.h"
 
-/* hidden internals for two reasosn: 
- * - noone is supposed to mess with the internals 
+/* hidden internals for two reasosn:
+ * - noone is supposed to mess with the internals
  * - it uses deprecated stuff
  */
 struct _DiaDynamicMenu {
@@ -58,7 +58,7 @@ struct _DiaDynamicMenuClass {
 static void dia_dynamic_menu_class_init(DiaDynamicMenuClass *class);
 static void dia_dynamic_menu_init(DiaDynamicMenu *self);
 static void dia_dynamic_menu_create_sublist(DiaDynamicMenu *ddm,
-					    GList *items, 
+					    GList *items,
 					    DDMCreateItemFunc create);
 static void dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm);
 static void dia_dynamic_menu_destroy(GObject *object);
@@ -100,8 +100,8 @@ dia_dynamic_menu_class_init(DiaDynamicMenuClass *class)
 {
   GObjectClass *object_class = (GObjectClass*)class;
 
-  object_class->destroy = dia_dynamic_menu_destroy;
-  
+  object_class->dispose = dia_dynamic_menu_destroy;
+
   ddm_signals[DDM_VALUE_CHANGED]
       = g_signal_new("value-changed",
 		     G_TYPE_FROM_CLASS(class),
@@ -116,7 +116,7 @@ dia_dynamic_menu_init(DiaDynamicMenu *self)
 {
 }
 
-void 
+void
 dia_dynamic_menu_destroy(GObject *object)
 {
   DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(object);
@@ -126,8 +126,8 @@ dia_dynamic_menu_destroy(GObject *object)
     g_free(ddm->active);
   ddm->active = NULL;
 
-  if (parent_class->destroy)
-    (* parent_class->destroy) (object);
+  if (parent_class->dispose)
+    (* parent_class->dispose) (object);
 }
 
 /** Create a new dynamic menu.  The entries are represented with
@@ -140,7 +140,7 @@ dia_dynamic_menu_destroy(GObject *object)
  * @return A new menu
  */
 GtkWidget *
-dia_dynamic_menu_new(DDMCreateItemFunc create, 
+dia_dynamic_menu_new(DDMCreateItemFunc create,
 		     gpointer userdata,
 		     GtkMenuItem *otheritem, gchar *persist)
 {
@@ -149,7 +149,7 @@ dia_dynamic_menu_new(DDMCreateItemFunc create,
   g_assert(persist != NULL);
 
   ddm = DIA_DYNAMIC_MENU ( g_object_new (dia_dynamic_menu_get_type (), NULL));
-  
+
   ddm->create_func = create;
   ddm->userdata = userdata;
   ddm->other_item = otheritem;
@@ -184,7 +184,7 @@ dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, const gchar *name)
     else
       gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), 0);
   }
-  
+
   g_free(ddm->active);
   ddm->active = g_strdup(name);
   g_signal_emit(G_OBJECT(ddm), ddm_signals[DDM_VALUE_CHANGED], 0);
@@ -209,7 +209,7 @@ dia_dynamic_menu_create_string_item(DiaDynamicMenu *ddm, gchar *string)
  * labels in the menu.
  */
 GtkWidget *
-dia_dynamic_menu_new_stringbased(GtkMenuItem *otheritem, 
+dia_dynamic_menu_new_stringbased(GtkMenuItem *otheritem,
 				 gpointer userdata,
 				 gchar *persist)
 {
@@ -220,13 +220,13 @@ dia_dynamic_menu_new_stringbased(GtkMenuItem *otheritem,
 }
 
 /** Utility function for dynamic menus that are based on a submenu with
- * many entries.  This is useful for allowing the user to get a smaller 
+ * many entries.  This is useful for allowing the user to get a smaller
  * subset menu out of a set too large to be easily handled by a menu.
  */
 GtkWidget *
 dia_dynamic_menu_new_listbased(DDMCreateItemFunc create,
 			       gpointer userdata,
-			       gchar *other_label, GList *items, 
+			       gchar *other_label, GList *items,
 			       gchar *persist)
 {
   GtkWidget *item = gtk_menu_item_new_with_label(other_label);
@@ -242,7 +242,7 @@ dia_dynamic_menu_new_listbased(DDMCreateItemFunc create,
  * number of strings.
  */
 GtkWidget *
-dia_dynamic_menu_new_stringlistbased(gchar *other_label, 
+dia_dynamic_menu_new_stringlistbased(gchar *other_label,
 				     GList *items,
 				     gpointer userdata,
 				     gchar *persist)
@@ -326,11 +326,11 @@ dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, const gchar *entry)
   existed = persistent_list_add(ddm->persistent_name, entry);
 
   dia_dynamic_menu_create_menu(ddm);
-  
+
   return existed?1:2;
 }
 
-/** Returns the currently selected entry. 
+/** Returns the currently selected entry.
  * @returns The name of the entry that is currently selected.  This
  * string should be freed by the caller. */
 gchar *
@@ -365,7 +365,7 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
     for (tmplist = ddm->default_entries; tmplist != NULL; tmplist = g_list_next(tmplist)) {
       GtkWidget *item =  (ddm->create_func)(ddm, tmplist->data);
       g_object_set_data(G_OBJECT(item), "ddm_name", tmplist->data);
-      g_signal_connect(G_OBJECT(item), "activate", 
+      g_signal_connect(G_OBJECT(item), "activate",
 		       G_CALLBACK(dia_dynamic_menu_activate), ddm);
       gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
       gtk_widget_show(item);
@@ -379,7 +379,7 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
        tmplist != NULL; tmplist = g_list_next(tmplist)) {
     GtkWidget *item = (ddm->create_func)(ddm, tmplist->data);
     g_object_set_data(G_OBJECT(item), "ddm_name", tmplist->data);
-    g_signal_connect(G_OBJECT(item), "activate", 
+    g_signal_connect(G_OBJECT(item), "activate",
 		     G_CALLBACK(dia_dynamic_menu_activate), ddm);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
     gtk_widget_show(item);

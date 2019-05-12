@@ -112,23 +112,20 @@ static void
 dia_page_layout_class_init(DiaPageLayoutClass *class)
 {
   GObjectClass *object_class;
-  
+
   object_class = (GObjectClass*) class;
   parent_class = g_type_class_peek_parent (class);
 
   pl_signals[CHANGED] =
-    g_signal_new("changed",
-		 G_TYPE_FROM_CLASS (object_class),
-		 G_SIGNAL_RUN_FIRST,
-		 G_STRUCT_OFFSET(DiaPageLayoutClass, changed),
-		 NULL, NULL,
-		 dia_marshal_VOID__VOID,
-		 G_TYPE_NONE, 0);
-#if 0 /* FIXME ?*/
-  g_object_class_add_signals(object_class, pl_signals, LAST_SIGNAL);
-#endif
+    g_signal_new ("changed",
+                  G_TYPE_FROM_CLASS (object_class),
+                  G_SIGNAL_RUN_FIRST,
+                  G_STRUCT_OFFSET(DiaPageLayoutClass, changed),
+                  NULL, NULL,
+                  dia_marshal_VOID__VOID,
+                  G_TYPE_NONE, 0);
 
-  object_class->destroy = dia_page_layout_destroy;
+  object_class->dispose = dia_page_layout_destroy;
 }
 
 static void darea_size_allocate(DiaPageLayout *self, GtkAllocation *alloc);
@@ -164,11 +161,11 @@ dia_page_layout_init(DiaPageLayout *self)
   self->paper_size = dia_option_menu_new();
   gtk_box_pack_start(GTK_BOX(box), self->paper_size, TRUE, FALSE, 0);
 
-  g_signal_connect (self->paper_size, "changed", 
+  g_signal_connect (self->paper_size, "changed",
 		    G_CALLBACK(paper_size_change), self);
 
-  paper_names = get_paper_name_list();  
-  for (i = 0; paper_names != NULL; 
+  paper_names = get_paper_name_list();
+  for (i = 0; paper_names != NULL;
        i++, paper_names = g_list_next(paper_names)) {
 
     dia_option_menu_add_item (self->paper_size, paper_names->data, i);
@@ -191,7 +188,7 @@ dia_page_layout_init(DiaPageLayout *self)
   gtk_widget_show(box);
 
   self->orient_portrait = gtk_radio_button_new(NULL);
-  
+
   wid = gtk_image_new_from_pixbuf (gdk_pixbuf_new_from_xpm_data (portrait_xpm));
   gtk_container_add(GTK_CONTAINER(self->orient_portrait), wid);
   gtk_widget_show(wid);
@@ -468,7 +465,7 @@ gfloat
 dia_page_layout_get_scaling(DiaPageLayout *self)
 {
   GtkAdjustment *adj = gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON(self->scaling));
-  
+
   return gtk_adjustment_get_value (adj) / 100.0;
 }
 
@@ -704,7 +701,7 @@ darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
 }
 
 /*!
- * \brief given a (page) size calculate the maximum margin size from it 
+ * \brief given a (page) size calculate the maximum margin size from it
  *
  * The function calculation assumes that more than half the size is not useful
  * for the margin. For safety it allows a little less.
@@ -827,8 +824,8 @@ scale_changed(DiaPageLayout *self)
 static void
 dia_page_layout_destroy(GObject *object)
 {
-  if (parent_class->destroy)
-    (* parent_class->destroy)(object);
+  if (parent_class->dispose)
+    (* parent_class->dispose)(object);
 }
 
 #ifdef PAGELAYOUT_TEST
