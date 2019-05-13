@@ -91,11 +91,6 @@ sheet_files = [
     'Shape_Design.sheet',
 ]
 
-# TODO: this needs to depend on whether we have valid instalation of sozi.
-if false
-    sheet_files += ['Sozi.sheet']
-endif
-
 sheet_files_targets = []
 
 # TODO: use gettext: https://github.com/mesonbuild/meson/issues/1565

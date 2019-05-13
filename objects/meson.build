@@ -15,7 +15,6 @@ subdir('KAOS')
 subdir('Misc')
 subdir('network')
 subdir('SADT')
-subdir('Sozi')
 subdir('standard')
 subdir('UML')
 
