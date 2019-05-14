@@ -68,6 +68,15 @@ configuration_inc = include_directories('.')
 config_h_in = configure_file(output: 'config.h.in', configuration: conf)
 config_h = vcs_tag(input: config_h_in, output: 'config.h')
 
+gtk_ver = 'GDK_VERSION_2_24'
+glib_ver = 'GLIB_VERSION_2_50'
+add_project_arguments([
+  '-DGDK_VERSION_MIN_REQUIRED=@0@'.format(gtk_ver),
+  '-DGDK_VERSION_MAX_ALLOWED=@0@'.format(gtk_ver),
+  '-DGLIB_VERSION_MIN_REQUIRED=@0@'.format(glib_ver),
+  '-DGLIB_VERSION_MAX_ALLOWED=@0@'.format(glib_ver),
+], language: 'c')
+
 subdir('po')
 subdir('lib')
 subdir('objects')
