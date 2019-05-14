@@ -1,11 +1,11 @@
 /*
  * File: plug-ins/xslt/xslt.h
- * 
+ *
  * Made by Matthieu Sozeau <mattam@netcourrier.com>
- * 
+ *
  * Started on  Thu May 16 23:22:12 2002 Matthieu Sozeau
  * Last update Mon Jun  3 19:36:32 2002 Matthieu Sozeau
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -38,29 +38,27 @@
 
 /* Stylesheets for a specific primary stylesheet */
 typedef struct toxsl_s {
-	gchar *name;
-	gchar *xsl;
-	GtkWidget *item;
-	struct toxsl_s *next;
+  gchar *name;
+  gchar *xsl;
+  struct toxsl_s *next;
 } toxsl_t;
 
 /* Primary stylesheet for a dia object type */
 typedef struct fromxsl_s {
-	gchar *name;
-	gchar *xsl;
-	toxsl_t *xsls;
-	struct fromxsl_s *next;
+  gchar *name;
+  gchar *xsl;
+  toxsl_t *xsls;
 } fromxsl_t;
 
 /* Possible stylesheets */
-extern fromxsl_t *froms;
+extern GPtrArray *froms;
 
 /* Selected stylesheets */
 extern toxsl_t *xsl_to;
 extern fromxsl_t *xsl_from;
 
-void xslt_dialog_create(void);
-void xslt_ok(void);
-void xslt_clear(void);
-void xslt_unload(PluginInfo *info);
-gboolean xslt_can_unload(PluginInfo *info);
+void     xslt_dialog_create (void);
+void     xslt_ok            (void);
+void     xslt_clear         (void);
+void     xslt_unload        (PluginInfo *info);
+gboolean xslt_can_unload    (PluginInfo *info);
