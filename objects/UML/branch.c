@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -81,7 +79,7 @@ static ObjectTypeOps branch_type_ops =
   (CreateFunc) branch_create,
   (LoadFunc)   branch_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -114,9 +112,9 @@ static ObjectOps branch_ops =
 
 static PropDescription branch_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
-  
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
+
   PROP_DESC_END
 };
 
@@ -139,14 +137,14 @@ static PropOffset branch_offsets[] = {
 static void
 branch_get_props(Branch * branch, GPtrArray *props)
 {
-  object_get_props_from_offsets(&branch->element.object, 
+  object_get_props_from_offsets(&branch->element.object,
                                 branch_offsets, props);
 }
 
 static void
 branch_set_props(Branch *branch, GPtrArray *props)
 {
-  object_set_props_from_offsets(&branch->element.object, 
+  object_set_props_from_offsets(&branch->element.object,
                                 branch_offsets, props);
   branch_update_data(branch);
 }
@@ -174,11 +172,11 @@ branch_move_handle(Branch *branch, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
-  
+
   /* It smashes size info in update_data anyway.  And none of its siblings
    * resizable, so until that changes, this should be properly unresizable
    */
-    
+
   /*
   element_move_handle(&branch->element, handle->id, to, cp, reason, modifiers);
   branch_update_data(branch);
@@ -202,7 +200,7 @@ static void branch_draw(Branch *branch, DiaRenderer *renderer)
   Element *elem;
   real w, h;
   Point points[4];
-  
+
   assert(branch != NULL);
   assert(renderer != NULL);
 
@@ -213,7 +211,7 @@ static void branch_draw(Branch *branch, DiaRenderer *renderer)
   points[1].x = elem->corner.x + w,   points[1].y = elem->corner.y;
   points[2].x = elem->corner.x + 2*w, points[2].y = elem->corner.y + h;
   points[3].x = elem->corner.x + w,   points[3].y = elem->corner.y + 2*h;
-  
+
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, BRANCH_BORDERWIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
@@ -226,10 +224,10 @@ static void branch_update_data(Branch *branch)
   Element *elem = &branch->element;
   ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
- 
+
   elem->width = BRANCH_WIDTH;
   elem->height = BRANCH_HEIGHT;
-  
+
   /* Update connections: */
   branch->connections[0].pos.x = elem->corner.x;
   branch->connections[0].pos.y = elem->corner.y + elem->height / 2.;
@@ -244,7 +242,7 @@ static void branch_update_data(Branch *branch)
   branch->connections[3].pos.y = elem->corner.y + elem->height;
   branch->connections[3].directions = DIR_SOUTH;
 
-  extra->border_trans = BRANCH_BORDERWIDTH / 1.4142;  /* not 2.0, it is rotated 45° */
+  extra->border_trans = BRANCH_BORDERWIDTH / 1.4142;  /* not 2.0, it is rotated 45ï¿½ */
   element_update_boundingbox(elem);
   obj->position = elem->corner;
 
@@ -258,11 +256,11 @@ branch_create(Point *startpoint, void *user_data, Handle **handle1, Handle **han
   Element *elem;
   DiaObject *obj;
   int i;
-  
+
   branch = g_malloc0(sizeof(Branch));
   elem = &branch->element;
   obj = &elem->object;
-  
+
   obj->type = &branch_type;
 
   obj->ops = &branch_ops;

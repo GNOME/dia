@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 #include <string.h>
 
 #include "prefs.h"
@@ -27,7 +25,7 @@
 DiaUnit length_unit = DIA_UNIT_CENTIMETER;
 DiaUnit fontsize_unit = DIA_UNIT_POINT;
 
-void 
+void
 prefs_set_length_unit(gchar* unit) {
   GList *name_list = get_units_name_list();
   int i;
@@ -56,13 +54,13 @@ prefs_set_fontsize_unit(gchar* unit) {
 }
 
 DiaUnit
-prefs_get_length_unit(void) 
+prefs_get_length_unit(void)
 {
   return length_unit;
 }
 
 DiaUnit
-prefs_get_fontsize_unit(void) 
+prefs_get_fontsize_unit(void)
 {
   return fontsize_unit;
 }

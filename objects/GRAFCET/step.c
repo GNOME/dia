@@ -1,7 +1,7 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * GRAFCET charts support for Dia 
+ * GRAFCET charts support for Dia
  * Copyright (C) 2000, 2001 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -43,7 +41,7 @@
 
 #define STEP_FONT (DIA_FONT_SANS|DIA_FONT_BOLD)
 #define STEP_FONT_HEIGHT 1
-#define STEP_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH 
+#define STEP_LINE_WIDTH GRAFCET_GENERAL_LINE_WIDTH
 #define STEP_WIDTH 3.0
 #define STEP_DECLAREDWIDTH 4.0
 #define STEP_HEIGHT 4.0
@@ -77,7 +75,7 @@ typedef struct _Step {
   Handle north,south;
   Point SD1,SD2,NU1,NU2;
 
-  /* These are useful points for drawing. 
+  /* These are useful points for drawing.
      Must be in sequence, A first, Z last. */
   Point A,B,C,D,E,F,G,H,I,J,Z;
 } Step;
@@ -102,9 +100,9 @@ static void step_been_renamed(const gchar *sid);
 static DiaObject *step_load(ObjectNode obj_node, int version,
 			    DiaContext *ctx);
 static PropDescription *step_describe_props(Step *step);
-static void step_get_props(Step *step, 
+static void step_get_props(Step *step,
                                  GPtrArray *props);
-static void step_set_props(Step *step, 
+static void step_set_props(Step *step,
                                  GPtrArray *props);
 
 static ObjectTypeOps step_type_ops =
@@ -156,7 +154,7 @@ static PropDescription step_props[] = {
   { "id", PROP_TYPE_STRING,
     PROP_FLAG_VISIBLE|PROP_FLAG_NO_DEFAULTS|PROP_FLAG_DONT_MERGE,
     N_("Step name"),N_("The name of the step")},
-  { "type", PROP_TYPE_ENUM, 
+  { "type", PROP_TYPE_ENUM,
     PROP_FLAG_VISIBLE|PROP_FLAG_NO_DEFAULTS|PROP_FLAG_DONT_MERGE,
     N_("Step type"),N_("The kind of step"),step_style},
   { "active", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
@@ -173,13 +171,13 @@ static PropDescription step_props[] = {
 };
 
 static PropDescription *
-step_describe_props(Step *step) 
+step_describe_props(Step *step)
 {
   if (step_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(step_props);
   }
   return step_props;
-}    
+}
 
 static PropOffset step_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
@@ -190,13 +188,13 @@ static PropOffset step_offsets[] = {
   { "font_size", PROP_TYPE_FONTSIZE, offsetof(Step,font_size)},
   { "font_color", PROP_TYPE_COLOUR, offsetof(Step,font_color)},
   { "north_pos", PROP_TYPE_POINT, offsetof(Step,north.pos)},
-  { "south_pos", PROP_TYPE_POINT, offsetof(Step,south.pos)},  
+  { "south_pos", PROP_TYPE_POINT, offsetof(Step,south.pos)},
   { NULL,0,0 }
 };
 
 static void
 step_get_props(Step *step, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&step->element.object,
                                 step_offsets,props);
 }
@@ -210,23 +208,23 @@ step_set_props(Step *step, GPtrArray *props)
   step_update_data(step);
 }
 
-/* the following two functions try to be clever when allocating 
+/* the following two functions try to be clever when allocating
    step numbers */
 
 static int __stepnum = 0;
 static int __Astyle = 0;
-static gchar *new_step_name() 
+static gchar *new_step_name()
 {
   char snum[16];
   char *p = snum;
-  
+
   if (__Astyle) *p++ = 'A';
-  
+
   g_snprintf(p,sizeof(snum)-2,"%d",__stepnum++);
   return g_strdup(snum);
 }
 
-static void step_been_renamed(const gchar *sid) 
+static void step_been_renamed(const gchar *sid)
 {
   gchar *endptr;
   long int snum;
@@ -239,7 +237,7 @@ static void step_been_renamed(const gchar *sid)
   }
   endptr = NULL;
   snum = strtol(sid,&endptr,10);
-  if (*endptr == '\0') __stepnum = snum + 1; 
+  if (*endptr == '\0') __stepnum = snum + 1;
 }
 
 static Color color_red = { 1.0f, 0.0f, 0.0f, 1.0f };
@@ -314,7 +312,7 @@ step_move(Step *step, Point *to)
   step->element.corner = *to;
   point_add(&step->north.pos,&delta);
   point_add(&step->south.pos,&delta);
-  
+
   step_update_data(step);
 
   return NULL;
@@ -355,19 +353,19 @@ step_draw(Step *step, DiaRenderer *renderer)
   } else {
     renderer_ops->draw_rect(renderer, &step->E, &step->F, &color_white, &color_black);
   }
-  
+
   if (step->type != STEP_MACROENTRY)
     renderer_ops->draw_line(renderer,&step->A,&step->B,&color_black);
   if (step->type != STEP_MACROEXIT)
     renderer_ops->draw_line(renderer,&step->C,&step->D,&color_black);
-  
+
   renderer_ops->set_font(renderer, step->font, step->font_size);
 
-  renderer_ops->draw_string(renderer, 
-			     step->id, 
-			     &step->G, ALIGN_CENTER, 
+  renderer_ops->draw_string(renderer,
+			     step->id,
+			     &step->G, ALIGN_CENTER,
 			     &step->font_color);
-  if (step->active) 
+  if (step->active)
     renderer_ops->draw_ellipse(renderer,
 			       &step->H,
 			       STEP_DOT_RADIUS,STEP_DOT_RADIUS,
@@ -391,12 +389,12 @@ step_update_data(Step *step)
   step->E.x = 0.0; step->E.y = 0.5;
   step->F.x = STEP_WIDTH; step->F.y = STEP_HEIGHT- 0.5;
 
-  
+
   switch(step->type) {
   case STEP_INITIAL:
-    step->I.x = step->E.x - 2 * STEP_LINE_WIDTH; 
+    step->I.x = step->E.x - 2 * STEP_LINE_WIDTH;
     step->I.y = step->E.y - 2 * STEP_LINE_WIDTH;
-    step->J.x = step->F.x + 2 * STEP_LINE_WIDTH; 
+    step->J.x = step->F.x + 2 * STEP_LINE_WIDTH;
     step->J.y = step->F.y + 2 * STEP_LINE_WIDTH;
 
     step->B.x = step->A.x; step->B.y = step->I.y;
@@ -404,9 +402,9 @@ step_update_data(Step *step)
     step->Z.x = step->J.x; step->Z.y = STEP_HEIGHT / 2;
     break;
   case STEP_MACROCALL:
-    step->I.x = step->E.x; 
+    step->I.x = step->E.x;
     step->I.y = step->E.y - 2 * STEP_LINE_WIDTH;
-    step->J.x = step->F.x; 
+    step->J.x = step->F.x;
     step->J.y = step->F.y + 2 * STEP_LINE_WIDTH;
 
     step->B.x = step->A.x; step->B.y = step->I.y;
@@ -414,9 +412,9 @@ step_update_data(Step *step)
     step->Z.x = step->J.x; step->Z.y = STEP_HEIGHT / 2;
     break;
   case STEP_SUBPCALL:
-    step->I.x = step->E.x - 2 * STEP_LINE_WIDTH; 
+    step->I.x = step->E.x - 2 * STEP_LINE_WIDTH;
     step->I.y = step->E.y;
-    step->J.x = step->F.x + 2 * STEP_LINE_WIDTH; 
+    step->J.x = step->F.x + 2 * STEP_LINE_WIDTH;
     step->J.y = step->F.y;
 
     step->B.x = step->A.x; step->B.y = step->I.y;
@@ -428,12 +426,12 @@ step_update_data(Step *step)
     step->C.x = step->D.x; step->C.y = step->F.y;
     step->Z.x = step->F.x; step->Z.y = STEP_HEIGHT / 2;
   }
-  
+
   step->G.x = step->A.x;
   step->G.y = (STEP_HEIGHT / 2)  + (.3 * step->font_size);
   step->H.x = step->E.x + (1.2 * STEP_DOT_RADIUS);
   step->H.y = step->F.y - (1.2 * STEP_DOT_RADIUS);
-    
+
   for (p=&(step->A); p<=&(step->Z) ; p++)
     point_add(p,&ulc);
 
@@ -465,13 +463,13 @@ step_update_data(Step *step)
   } else {
     extra->border_trans = STEP_LINE_WIDTH / 2;
   }
-  
+
   element_update_boundingbox(elem);
   rectangle_add_point(&obj->bounding_box,&step->north.pos);
   rectangle_add_point(&obj->bounding_box,&step->south.pos);
 
   obj->position = elem->corner;
-  
+
   element_update_handles(elem);
 }
 
@@ -486,11 +484,11 @@ step_create(Point *startpoint,
   DiaObject *obj;
   int i;
   int type;
-  
+
   step = g_new0(Step,1);
   elem = &step->element;
   obj = &elem->object;
-  
+
   obj->type = &step_type;
   obj->ops = &step_ops;
 
@@ -511,7 +509,7 @@ step_create(Point *startpoint,
   step->font = dia_font_new_from_style (STEP_FONT,STEP_FONT_HEIGHT);
   step->font_size = STEP_FONT_HEIGHT;
   step->font_color = color_black;
-  
+
   type = GPOINTER_TO_INT(user_data);
   switch(type) {
   case STEP_NORMAL:
@@ -525,7 +523,7 @@ step_create(Point *startpoint,
   default:
     step->type = STEP_NORMAL;
   }
-  
+
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
@@ -543,14 +541,14 @@ step_create(Point *startpoint,
   step_update_data(step);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[0];  
+  *handle2 = obj->handles[0];
   return &step->element.object;
 }
 
 static void
 step_destroy(Step *step)
 {
-  dia_font_unref(step->font);  
+  dia_font_unref(step->font);
   g_free(step->id);
   element_destroy(&step->element);
 }
@@ -561,7 +559,7 @@ step_load(ObjectNode obj_node, int version, DiaContext *ctx)
   return object_load_using_properties(&step_type,
                                       obj_node,version,ctx);
 }
- 
+
 
 
 

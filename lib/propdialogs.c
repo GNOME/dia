@@ -22,9 +22,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <string.h>
 
@@ -41,7 +39,7 @@ static void prop_dialog_signal_destroy(GtkWidget *dialog_widget);
 static void prop_dialog_fill(PropDialog *dialog, GList *objects, gboolean is_default);
 
 PropDialog *
-prop_dialog_new(GList *objects, gboolean is_default) 
+prop_dialog_new(GList *objects, gboolean is_default)
 {
   PropDialog *dialog = g_new0(PropDialog,1);
   dialog->props = NULL;
@@ -78,7 +76,7 @@ prop_dialog_from_widget(GtkWidget *dialog_widget)
   return g_object_get_data (G_OBJECT (dialog_widget), prop_dialogdata_key);
 }
 
-static void 
+static void
 prop_dialog_signal_destroy(GtkWidget *dialog_widget)
 {
   prop_dialog_destroy(prop_dialog_from_widget(dialog_widget));
@@ -90,7 +88,7 @@ prop_dialog_get_widget(const PropDialog *dialog)
   return dialog->widget;
 }
 
-void 
+void
 prop_dialog_add_raw(PropDialog *dialog, GtkWidget *widget)
 {
   dialog->curtable = NULL;
@@ -98,7 +96,7 @@ prop_dialog_add_raw(PropDialog *dialog, GtkWidget *widget)
   gtk_container_add(GTK_CONTAINER(dialog->lastcont),widget);
 }
 
-void 
+void
 prop_dialog_add_raw_with_flags(PropDialog *dialog, GtkWidget *widget,
 			       gboolean expand, gboolean fill)
 {
@@ -110,9 +108,9 @@ prop_dialog_add_raw_with_flags(PropDialog *dialog, GtkWidget *widget,
 }
 
 static void
-prop_dialog_make_curtable(PropDialog *dialog) 
+prop_dialog_make_curtable(PropDialog *dialog)
 {
-  GtkWidget *table = gtk_table_new(1,2,FALSE);  
+  GtkWidget *table = gtk_table_new(1,2,FALSE);
   gtk_table_set_row_spacings(GTK_TABLE(table), 2);
   gtk_table_set_col_spacings(GTK_TABLE(table), 5);
   gtk_widget_show(table);
@@ -128,12 +126,12 @@ prop_dialog_add_widget(PropDialog *dialog, GtkWidget *label, GtkWidget *widget)
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
 
   if (!dialog->curtable) prop_dialog_make_curtable(dialog);
-  gtk_table_attach(GTK_TABLE(dialog->curtable),label, 
+  gtk_table_attach(GTK_TABLE(dialog->curtable),label,
                    0,1,
                    dialog->currow, dialog->currow+1,
                    GTK_FILL, GTK_FILL|GTK_EXPAND,
                    0,0);
-  gtk_table_attach(GTK_TABLE(dialog->curtable),widget, 
+  gtk_table_attach(GTK_TABLE(dialog->curtable),widget,
                    1,2,
                    dialog->currow, dialog->currow+1,
                    GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND,
@@ -144,7 +142,7 @@ prop_dialog_add_widget(PropDialog *dialog, GtkWidget *label, GtkWidget *widget)
 }
 
 /* Register a new container widget (which won't be automatically added) */
-void 
+void
 prop_dialog_container_push(PropDialog *dialog, GtkWidget *container)
 {
   g_ptr_array_add(dialog->containers,container);
@@ -165,7 +163,7 @@ prop_dialog_container_pop(PropDialog *dialog)
   return res;
 }
 
-static void 
+static void
 property_signal_handler(GObject *obj,
                         gpointer func_data)
 {
@@ -198,9 +196,9 @@ property_signal_handler(GObject *obj,
     }
 
     for (j = 0; j < dialog->prop_widgets->len; j++) {
-      PropWidgetAssoc *pwa = 
+      PropWidgetAssoc *pwa =
         &g_array_index(dialog->prop_widgets,PropWidgetAssoc,j);
-      /* The event handler above might have changed every property 
+      /* The event handler above might have changed every property
        * so we would have to mark them all as set (aka. to be applied).
        * But doing so would not work well with multiple/grouped objects
        * with unchanged and unequal object properties. Idea: keep as
@@ -222,7 +220,7 @@ property_signal_handler(GObject *obj,
   }
 }
 
-void 
+void
 prophandler_connect(const Property *prop,
                     GObject *object,
                     const gchar *signal)
@@ -231,7 +229,7 @@ prophandler_connect(const Property *prop,
     g_warning("signal type unknown for this kind of property (name is %s), \n"
               "handler ignored.",prop->descr->name);
     return;
-  } 
+  }
 
   g_signal_connect (G_OBJECT (object),
                     signal,
@@ -239,7 +237,7 @@ prophandler_connect(const Property *prop,
                     (gpointer)(&prop->self_event_data));
 }
 
-void 
+void
 prop_dialog_add_property(PropDialog *dialog, Property *prop)
 {
   GtkWidget *widget = NULL;
@@ -249,18 +247,18 @@ prop_dialog_add_property(PropDialog *dialog, Property *prop)
   prop->self_event_data.dialog = dialog;
   prop->self_event_data.self = prop;
 
-  if (prop->ops->get_widget) 
-    widget = prop->ops->get_widget(prop,dialog);  
-  if (!widget) 
+  if (prop->ops->get_widget)
+    widget = prop->ops->get_widget(prop,dialog);
+  if (!widget)
     return; /* either property has no widget or it's a container */
 
   prop->self_event_data.widget = widget;
   if (prop->ops->reset_widget) prop->ops->reset_widget(prop,widget);
   prop->experience |= PXP_NOTSET;
-  
+
   pwa.prop = prop;
-  pwa.widget = widget;  
-  g_array_append_val(dialog->prop_widgets,pwa);  
+  pwa.widget = widget;
+  g_array_append_val(dialog->prop_widgets,pwa);
 
   /* Don't let gettext translate the empty string (it would give po-info).
    * Admitted it is a hack the string is empty for meta info, but the
@@ -275,14 +273,14 @@ prop_dialog_add_property(PropDialog *dialog, Property *prop)
   prop_dialog_add_widget(dialog, label, widget);
 }
 
-static void 
+static void
 prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props)
 {
   guint i;
   gboolean scrollable = (props->len > 16);
 
   if (scrollable) {
-    GtkWidget *swin = gtk_scrolled_window_new (NULL, NULL); 
+    GtkWidget *swin = gtk_scrolled_window_new (NULL, NULL);
     GtkWidget *vbox = gtk_vbox_new(FALSE,2);
     gtk_box_pack_start(GTK_BOX (dialog->widget), swin, TRUE, TRUE, 0);
     gtk_widget_show (swin);
@@ -309,11 +307,11 @@ prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props)
 
     gtk_widget_size_request (vbox, &requisition);
     /* I'd say default size calculation for scrollable is quite broken */
-    gtk_widget_set_size_request (swin, -1, requisition.height > sheight ? sheight : requisition.height);    
+    gtk_widget_set_size_request (swin, -1, requisition.height > sheight ? sheight : requisition.height);
   }
 }
 
-void 
+void
 prop_get_data_from_widgets(PropDialog *dialog)
 {
   guint i;
@@ -321,7 +319,7 @@ prop_get_data_from_widgets(PropDialog *dialog)
     PropWidgetAssoc *pwa = &g_array_index(dialog->prop_widgets,
                                           PropWidgetAssoc,i);
     pwa->prop->ops->set_from_widget(pwa->prop,pwa->widget);
-    
+
   }
 }
 
@@ -369,7 +367,7 @@ _prop_list_extend_for_meta (GPtrArray *props)
   g_ptr_array_free (pex, FALSE);
 }
 
-static void 
+static void
 prop_dialog_fill(PropDialog *dialog, GList *objects, gboolean is_default)
 {
   const PropDescription *pdesc;

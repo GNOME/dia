@@ -1,7 +1,7 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * GRAFCET chart support 
+ * GRAFCET chart support
  * Copyright (C) 2000,2001 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -52,7 +50,7 @@
 
 typedef struct _Condition {
   Connection connection;
-  
+
   Boolequation *cond;
 
   gchar *cond_value;
@@ -81,9 +79,9 @@ static void condition_destroy(Condition *condition);
 static DiaObject *condition_load(ObjectNode obj_node, int version,
 				 DiaContext *context);
 static PropDescription *condition_describe_props(Condition *condition);
-static void condition_get_props(Condition *condition, 
+static void condition_get_props(Condition *condition,
                                 GPtrArray *props);
-static void condition_set_props(Condition *condition, 
+static void condition_set_props(Condition *condition,
                                 GPtrArray *props);
 
 static ObjectTypeOps condition_type_ops =
@@ -138,7 +136,7 @@ static PropDescription condition_props[] = {
 };
 
 static PropDescription *
-condition_describe_props(Condition *condition) 
+condition_describe_props(Condition *condition)
 {
   if (condition_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(condition_props);
@@ -157,7 +155,7 @@ static PropOffset condition_offsets[] = {
 
 static void
 condition_get_props(Condition *condition, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&condition->connection.object,
                                 condition_offsets,props);
 }
@@ -167,7 +165,7 @@ condition_set_props(Condition *condition, GPtrArray *props)
 {
   object_set_props_from_offsets(&condition->connection.object,
                                 condition_offsets,props);
-  
+
   boolequation_set_value(condition->cond,condition->cond_value);
   dia_font_unref(condition->cond->font);
   condition->cond->font = dia_font_ref(condition->cond_font);
@@ -180,7 +178,7 @@ static real
 condition_distance_from(Condition *condition, Point *point)
 {
   Connection *conn = &condition->connection;
-  real dist; 
+  real dist;
   dist = distance_rectangle_point(&condition->labelbb,point);
   dist = MIN(dist,distance_line_point(&conn->endpoints[0],
 				      &conn->endpoints[1],
@@ -206,14 +204,14 @@ condition_move_handle(Condition *condition, Handle *handle,
   g_assert(condition!=NULL);
   g_assert(handle!=NULL);
   g_assert(to!=NULL);
-  
+
   switch (handle->id) {
   case HANDLE_MOVE_STARTPOINT:
     point_copy(&s,to);
     point_copy(&e,&condition->connection.endpoints[1]);
     point_copy(&v,&e);
     point_sub(&v,&s);
-    
+
     horiz = ABS(v.x) > ABS(v.y);
     if (horiz) {
       v.y = 0.0;
@@ -225,7 +223,7 @@ condition_move_handle(Condition *condition, Handle *handle,
     point_sub(&s,&v);
     /* XXX: fix e to make it look good (what's good ?) V is a good hint ? */
     connection_move_handle(&condition->connection, HANDLE_MOVE_STARTPOINT,
-			   &s, cp, reason, modifiers);    
+			   &s, cp, reason, modifiers);
     break;
   case HANDLE_MOVE_ENDPOINT:
     point_copy(&s,&condition->connection.endpoints[0]);
@@ -237,7 +235,7 @@ condition_move_handle(Condition *condition, Handle *handle,
     point_copy(&s,to);
     point_sub(&s,&v);
     connection_move_handle(&condition->connection, HANDLE_MOVE_STARTPOINT,
-			   &s, NULL, reason, 0);    
+			   &s, NULL, reason, 0);
     break;
   default:
     g_assert_not_reached();
@@ -252,7 +250,7 @@ static ObjectChange*
 condition_move(Condition *condition, Point *to)
 {
   Point start_to_end;
-  Point *endpoints = &condition->connection.endpoints[0]; 
+  Point *endpoints = &condition->connection.endpoints[0];
 
   start_to_end = endpoints[1];
   point_sub(&start_to_end, &endpoints[0]);
@@ -275,11 +273,11 @@ condition_update_data(Condition *condition)
   connection_update_boundingbox(conn);
 
   /* compute the label's width and bounding box */
-  condition->cond->pos.x = conn->endpoints[0].x + 
+  condition->cond->pos.x = conn->endpoints[0].x +
     (.5 * dia_font_string_width("a", condition->cond->font,
 			    condition->cond->fontheight));
   condition->cond->pos.y = conn->endpoints[0].y + condition->cond->fontheight;
-  
+
   boolequation_calc_boundingbox(condition->cond, &condition->labelbb);
   rectangle_union(&obj->bounding_box,&condition->labelbb);
 
@@ -287,7 +285,7 @@ condition_update_data(Condition *condition)
 }
 
 
-static void 
+static void
 condition_draw(Condition *condition, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
@@ -328,7 +326,7 @@ condition_create(Point *startpoint,
   DiaObject *obj;
   Point defaultlen  = {0.0,CONDITION_ARROW_SIZE};
 
-  DiaFont *default_font; 
+  DiaFont *default_font;
   real default_fontheight;
   Color fg_color;
 
@@ -339,7 +337,7 @@ condition_create(Point *startpoint,
 
   obj->type = &condition_type;
   obj->ops = &condition_ops;
-  
+
   point_copy(&conn->endpoints[0],startpoint);
   point_copy(&conn->endpoints[1],startpoint);
   point_add(&conn->endpoints[1], &defaultlen);
@@ -349,7 +347,7 @@ condition_create(Point *startpoint,
   default_font = NULL;
   attributes_get_default_font(&default_font,&default_fontheight);
   fg_color = attributes_get_foreground();
-  
+
   condition->cond = boolequation_create("",default_font,default_fontheight,
 				 &fg_color);
   condition->cond_value = g_strdup("");
@@ -357,8 +355,8 @@ condition_create(Point *startpoint,
   condition->cond_fontheight = default_fontheight;
   condition->cond_color = fg_color;
 
-  extra->start_trans = 
-    extra->start_long = 
+  extra->start_trans =
+    extra->start_long =
     extra->end_long = CONDITION_LINE_WIDTH/2.0;
   extra->end_trans = MAX(CONDITION_LINE_WIDTH,CONDITION_ARROW_SIZE) / 2.0;
 
@@ -376,7 +374,7 @@ condition_create(Point *startpoint,
 static void
 condition_destroy(Condition *condition)
 {
-  dia_font_unref(condition->cond_font);  
+  dia_font_unref(condition->cond_font);
   boolequation_destroy(condition->cond);
   g_free(condition->cond_value);
   connection_destroy(&condition->connection);

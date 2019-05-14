@@ -22,9 +22,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <string.h>
 
@@ -54,9 +52,9 @@ realprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static RealProperty *
-realprop_copy(RealProperty *src) 
+realprop_copy(RealProperty *src)
 {
-  RealProperty *prop = 
+  RealProperty *prop =
     (RealProperty *)src->common.ops->new_prop(src->common.descr,
                                                src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -65,20 +63,20 @@ realprop_copy(RealProperty *src)
 }
 
 static WIDGET *
-realprop_get_widget(RealProperty *prop, PropDialog *dialog) 
-{ 
+realprop_get_widget(RealProperty *prop, PropDialog *dialog)
+{
   GtkAdjustment *adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->real_data,
-                                                         G_MINFLOAT, 
+                                                         G_MINFLOAT,
                                                          G_MAXFLOAT,
                                                          0.1, 1.0, 0));
   GtkWidget *ret = gtk_spin_button_new(adj, 1.0, 2);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);
   prophandler_connect(&prop->common, G_OBJECT(ret), "value_changed");
-  
+
   return ret;
 }
 
-static void 
+static void
 realprop_reset_widget(RealProperty *prop, WIDGET *widget)
 {
   GtkAdjustment *adj = gtk_spin_button_get_adjustment (GTK_SPIN_BUTTON(widget));
@@ -94,39 +92,39 @@ realprop_reset_widget(RealProperty *prop, WIDGET *widget)
   }
 }
 
-static void 
-realprop_set_from_widget(RealProperty *prop, WIDGET *widget) 
+static void
+realprop_set_from_widget(RealProperty *prop, WIDGET *widget)
 {
   prop->real_data = gtk_spin_button_get_value(GTK_SPIN_BUTTON(widget));
 }
 
-static void 
+static void
 realprop_load(RealProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   prop->real_data = data_real(data, ctx);
 }
 
-static void 
-realprop_save(RealProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+realprop_save(RealProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_real(attr, prop->real_data, ctx);
 }
 
-static void 
+static void
 realprop_get_from_offset(RealProperty *prop,
-                         void *base, guint offset, guint offset2) 
+                         void *base, guint offset, guint offset2)
 {
   prop->real_data = struct_member(base,offset,real);
 }
 
-static void 
+static void
 realprop_set_from_offset(RealProperty *prop,
                          void *base, guint offset, guint offset2)
 {
   struct_member(base,offset,real) = prop->real_data;
 }
 
-static int 
+static int
 realprop_get_data_size(RealProperty *prop)
 {
   return sizeof (prop->real_data);
@@ -162,9 +160,9 @@ lengthprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static LengthProperty *
-lengthprop_copy(LengthProperty *src) 
+lengthprop_copy(LengthProperty *src)
 {
-  LengthProperty *prop = 
+  LengthProperty *prop =
     (LengthProperty *)src->common.ops->new_prop(src->common.descr,
                                                src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -173,58 +171,58 @@ lengthprop_copy(LengthProperty *src)
 }
 
 static WIDGET *
-lengthprop_get_widget(LengthProperty *prop, PropDialog *dialog) 
-{ 
+lengthprop_get_widget(LengthProperty *prop, PropDialog *dialog)
+{
   GtkAdjustment *adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->length_data,
-                                                         G_MINFLOAT, 
+                                                         G_MINFLOAT,
                                                          G_MAXFLOAT,
                                                          0.1, 1.0, 0));
   GtkWidget *ret = dia_unit_spinner_new(adj, prefs_get_length_unit());
   /*  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(ret),TRUE);*/
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
-  
+
   return ret;
 }
 
-static void 
+static void
 lengthprop_reset_widget(LengthProperty *prop, WIDGET *widget)
 {
   dia_unit_spinner_set_value(DIA_UNIT_SPINNER(widget), prop->length_data);
 }
 
-static void 
-lengthprop_set_from_widget(LengthProperty *prop, WIDGET *widget) 
+static void
+lengthprop_set_from_widget(LengthProperty *prop, WIDGET *widget)
 {
   prop->length_data = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(widget));
 }
 
-static void 
+static void
 lengthprop_load(LengthProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   prop->length_data = data_real(data, ctx);
 }
 
-static void 
-lengthprop_save(LengthProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+lengthprop_save(LengthProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_real(attr, prop->length_data, ctx);
 }
 
-static void 
+static void
 lengthprop_get_from_offset(LengthProperty *prop,
-                         void *base, guint offset, guint offset2) 
+                         void *base, guint offset, guint offset2)
 {
   prop->length_data = struct_member(base,offset,real);
 }
 
-static void 
+static void
 lengthprop_set_from_offset(LengthProperty *prop,
                          void *base, guint offset, guint offset2)
 {
   struct_member(base,offset,real) = prop->length_data;
 }
 
-static int 
+static int
 lengthprop_get_data_size(LengthProperty *prop)
 {
   return sizeof (prop->length_data);
@@ -260,9 +258,9 @@ fontsizeprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static FontsizeProperty *
-fontsizeprop_copy(FontsizeProperty *src) 
+fontsizeprop_copy(FontsizeProperty *src)
 {
-  FontsizeProperty *prop = 
+  FontsizeProperty *prop =
     (FontsizeProperty *)src->common.ops->new_prop(src->common.descr,
                                                src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -271,10 +269,10 @@ fontsizeprop_copy(FontsizeProperty *src)
 }
 
 static WIDGET *
-fontsizeprop_get_widget(FontsizeProperty *prop, PropDialog *dialog) 
-{ 
+fontsizeprop_get_widget(FontsizeProperty *prop, PropDialog *dialog)
+{
   GtkAdjustment *adj = GTK_ADJUSTMENT(gtk_adjustment_new(prop->fontsize_data,
-                                                         G_MINFLOAT, 
+                                                         G_MINFLOAT,
                                                          G_MAXFLOAT,
                                                          0.1, 1.0, 0));
   GtkWidget *ret = dia_unit_spinner_new(adj, prefs_get_fontsize_unit());
@@ -282,19 +280,19 @@ fontsizeprop_get_widget(FontsizeProperty *prop, PropDialog *dialog)
   return ret;
 }
 
-static void 
+static void
 fontsizeprop_reset_widget(FontsizeProperty *prop, WIDGET *widget)
 {
   dia_unit_spinner_set_value(DIA_UNIT_SPINNER(widget), prop->fontsize_data);
 }
 
-static void 
-fontsizeprop_set_from_widget(FontsizeProperty *prop, WIDGET *widget) 
+static void
+fontsizeprop_set_from_widget(FontsizeProperty *prop, WIDGET *widget)
 {
   prop->fontsize_data = dia_unit_spinner_get_value(DIA_UNIT_SPINNER(widget));
 }
 
-static void 
+static void
 fontsizeprop_load(FontsizeProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   PropNumData *numdata = prop->common.descr->extra_data;
@@ -309,15 +307,15 @@ fontsizeprop_load(FontsizeProperty *prop, AttributeNode attr, DataNode data, Dia
   prop->fontsize_data = value;
 }
 
-static void 
-fontsizeprop_save(FontsizeProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+fontsizeprop_save(FontsizeProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_real(attr, prop->fontsize_data, ctx);
 }
 
-static void 
+static void
 fontsizeprop_get_from_offset(FontsizeProperty *prop,
-                         void *base, guint offset, guint offset2) 
+                         void *base, guint offset, guint offset2)
 {
   if (offset2 == 0) {
     prop->fontsize_data = struct_member(base,offset,real);
@@ -327,7 +325,7 @@ fontsizeprop_get_from_offset(FontsizeProperty *prop,
   }
 }
 
-static void 
+static void
 fontsizeprop_set_from_offset(FontsizeProperty *prop,
                          void *base, guint offset, guint offset2)
 {
@@ -350,7 +348,7 @@ fontsizeprop_set_from_offset(FontsizeProperty *prop,
   }
 }
 
-static int 
+static int
 fontsizeprop_get_data_size(FontsizeProperty *prop)
 {
   return sizeof (prop->fontsize_data);
@@ -387,9 +385,9 @@ pointprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static PointProperty *
-pointprop_copy(PointProperty *src) 
+pointprop_copy(PointProperty *src)
 {
-  PointProperty *prop = 
+  PointProperty *prop =
     (PointProperty *)src->common.ops->new_prop(src->common.descr,
                                                 src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -397,26 +395,26 @@ pointprop_copy(PointProperty *src)
   return prop;
 }
 
-static void 
+static void
 pointprop_load(PointProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   data_point(data,&prop->point_data, ctx);
 }
 
-static void 
-pointprop_save(PointProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+pointprop_save(PointProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_point(attr, &prop->point_data, ctx);
 }
 
-static void 
+static void
 pointprop_get_from_offset(PointProperty *prop,
-                          void *base, guint offset, guint offset2) 
+                          void *base, guint offset, guint offset2)
 {
   prop->point_data = struct_member(base,offset,Point);
 }
 
-static void 
+static void
 pointprop_set_from_offset(PointProperty *prop,
                           void *base, guint offset, guint offset2)
 {
@@ -443,7 +441,7 @@ static const PropertyOps pointprop_ops = {
 /********************************/
 
 static PointarrayProperty *
-pointarrayprop_new(const PropDescription *pdesc, 
+pointarrayprop_new(const PropDescription *pdesc,
                    PropDescToPropPredicate reason)
 {
   PointarrayProperty *prop = g_new0(PointarrayProperty,1);
@@ -452,63 +450,63 @@ pointarrayprop_new(const PropDescription *pdesc,
   return prop;
 }
 
-static void 
-pointarrayprop_free(PointarrayProperty *prop) 
+static void
+pointarrayprop_free(PointarrayProperty *prop)
 {
   g_array_free(prop->pointarray_data,TRUE);
   g_free(prop);
 }
 
 static PointarrayProperty *
-pointarrayprop_copy(PointarrayProperty *src) 
+pointarrayprop_copy(PointarrayProperty *src)
 {
   guint i;
-  PointarrayProperty *prop = 
+  PointarrayProperty *prop =
     (PointarrayProperty *)src->common.ops->new_prop(src->common.descr,
                                                      src->common.reason);
   copy_init_property(&prop->common,&src->common);
   g_array_set_size(prop->pointarray_data,src->pointarray_data->len);
-  for (i = 0 ; i < src->pointarray_data->len; i++) 
-    g_array_index(prop->pointarray_data,Point,i) = 
+  for (i = 0 ; i < src->pointarray_data->len; i++)
+    g_array_index(prop->pointarray_data,Point,i) =
       g_array_index(src->pointarray_data,Point,i);
   return prop;
 }
 
-static void 
+static void
 pointarrayprop_load(PointarrayProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   guint nvals = attribute_num_data(attr);
   guint i;
   g_array_set_size(prop->pointarray_data,nvals);
-  for (i=0; (i < nvals) && data; i++, data = data_next(data)) 
+  for (i=0; (i < nvals) && data; i++, data = data_next(data))
     data_point(data,&g_array_index(prop->pointarray_data,Point,i),ctx);
-  if (i != nvals) 
+  if (i != nvals)
     g_warning("attribute_num_data() and actual data count mismatch "
               "(shouldn't happen)");
 }
 
-static void 
-pointarrayprop_save(PointarrayProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+pointarrayprop_save(PointarrayProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   guint i;
   for (i = 0; i < prop->pointarray_data->len; i++)
     data_add_point(attr, &g_array_index(prop->pointarray_data,Point,i), ctx);
 }
 
-static void 
+static void
 pointarrayprop_get_from_offset(PointarrayProperty *prop,
-                               void *base, guint offset, guint offset2) 
+                               void *base, guint offset, guint offset2)
 {
   guint nvals = struct_member(base,offset2,guint);
   guint i;
   void *ofs_val = struct_member(base,offset,void *);
   g_array_set_size(prop->pointarray_data,nvals);
   for (i = 0; i < nvals; i++)
-    g_array_index(prop->pointarray_data,Point,i) = 
+    g_array_index(prop->pointarray_data,Point,i) =
       struct_member(ofs_val,i * sizeof(Point),Point);
 }
 
-static void 
+static void
 pointarrayprop_set_from_offset(PointarrayProperty *prop,
                                void *base, guint offset, guint offset2)
 {
@@ -541,7 +539,7 @@ static const PropertyOps pointarrayprop_ops = {
 /********************************/
 
 static BezPointProperty *
-bezpointprop_new(const PropDescription *pdesc, 
+bezpointprop_new(const PropDescription *pdesc,
                  PropDescToPropPredicate reason)
 {
   BezPointProperty *prop = g_new0(BezPointProperty,1);
@@ -551,9 +549,9 @@ bezpointprop_new(const PropDescription *pdesc,
 }
 
 static BezPointProperty *
-bezpointprop_copy(BezPointProperty *src) 
+bezpointprop_copy(BezPointProperty *src)
 {
-  BezPointProperty *prop = 
+  BezPointProperty *prop =
     (BezPointProperty *)src->common.ops->new_prop(src->common.descr,
                                                    src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -561,26 +559,26 @@ bezpointprop_copy(BezPointProperty *src)
   return prop;
 }
 
-static void 
+static void
 bezpointprop_load(BezPointProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   data_bezpoint(data,&prop->bezpoint_data,ctx);
 }
 
-static void 
-bezpointprop_save(BezPointProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+bezpointprop_save(BezPointProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_bezpoint(attr, &prop->bezpoint_data, ctx);
 }
 
-static void 
+static void
 bezpointprop_get_from_offset(BezPointProperty *prop,
-                             void *base, guint offset, guint offset2) 
+                             void *base, guint offset, guint offset2)
 {
   prop->bezpoint_data = struct_member(base,offset,BezPoint);
 }
 
-static void 
+static void
 bezpointprop_set_from_offset(BezPointProperty *prop,
                              void *base, guint offset, guint offset2)
 {
@@ -607,7 +605,7 @@ static const PropertyOps bezpointprop_ops = {
 /*************************************/
 
 static BezPointarrayProperty *
-bezpointarrayprop_new(const PropDescription *pdesc, 
+bezpointarrayprop_new(const PropDescription *pdesc,
                       PropDescToPropPredicate reason)
 {
   BezPointarrayProperty *prop = g_new0(BezPointarrayProperty,1);
@@ -616,30 +614,30 @@ bezpointarrayprop_new(const PropDescription *pdesc,
   return prop;
 }
 
-static void 
-bezpointarrayprop_free(BezPointarrayProperty *prop) 
+static void
+bezpointarrayprop_free(BezPointarrayProperty *prop)
 {
   g_array_free(prop->bezpointarray_data,TRUE);
   g_free(prop);
 }
 
 static BezPointarrayProperty *
-bezpointarrayprop_copy(BezPointarrayProperty *src) 
+bezpointarrayprop_copy(BezPointarrayProperty *src)
 {
   guint i;
-  BezPointarrayProperty *prop = 
+  BezPointarrayProperty *prop =
     (BezPointarrayProperty *)src->common.ops->new_prop(src->common.descr,
                                                         src->common.reason);
   copy_init_property(&prop->common,&src->common);
   g_array_set_size(prop->bezpointarray_data,src->bezpointarray_data->len);
-  for (i = 0 ; i < src->bezpointarray_data->len; i++) 
-    g_array_index(prop->bezpointarray_data,BezPoint,i) = 
+  for (i = 0 ; i < src->bezpointarray_data->len; i++)
+    g_array_index(prop->bezpointarray_data,BezPoint,i) =
       g_array_index(src->bezpointarray_data,BezPoint,i);
   return prop;
 }
 
-static void 
-bezpointarrayprop_load(BezPointarrayProperty *prop, 
+static void
+bezpointarrayprop_load(BezPointarrayProperty *prop,
                        AttributeNode attr, DataNode data,
 		       DiaContext *ctx)
 {
@@ -648,36 +646,36 @@ bezpointarrayprop_load(BezPointarrayProperty *prop,
 
   g_array_set_size(prop->bezpointarray_data,nvals);
 
-  for (i=0; (i < nvals) && data; i++, data = data_next(data)) 
+  for (i=0; (i < nvals) && data; i++, data = data_next(data))
     data_bezpoint(data,&g_array_index(prop->bezpointarray_data,BezPoint,i),ctx);
-  if (i != nvals) 
+  if (i != nvals)
     g_warning("attribute_num_data() and actual data count mismatch "
               "(shouldn't happen)");
 }
 
-static void 
-bezpointarrayprop_save(BezPointarrayProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+bezpointarrayprop_save(BezPointarrayProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   guint i;
   for (i = 0; i < prop->bezpointarray_data->len; i++)
-    data_add_bezpoint(attr, 
+    data_add_bezpoint(attr,
                       &g_array_index(prop->bezpointarray_data,BezPoint,i), ctx);
 }
 
-static void 
+static void
 bezpointarrayprop_get_from_offset(BezPointarrayProperty *prop,
-                                  void *base, guint offset, guint offset2) 
+                                  void *base, guint offset, guint offset2)
 {
   guint nvals = struct_member(base,offset2,guint);
   guint i;
   void *ofs_val = struct_member(base,offset,void *);
   g_array_set_size(prop->bezpointarray_data,nvals);
   for (i = 0; i < nvals; i++)
-    g_array_index(prop->bezpointarray_data,BezPoint,i) = 
+    g_array_index(prop->bezpointarray_data,BezPoint,i) =
       struct_member(ofs_val,i * sizeof(BezPoint),BezPoint);
 }
 
-static void 
+static void
 bezpointarrayprop_set_from_offset(BezPointarrayProperty *prop,
                                   void *base, guint offset, guint offset2)
 {
@@ -719,9 +717,9 @@ rectprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static RectProperty *
-rectprop_copy(RectProperty *src) 
+rectprop_copy(RectProperty *src)
 {
-  RectProperty *prop = 
+  RectProperty *prop =
     (RectProperty *)src->common.ops->new_prop(src->common.descr,
                                                src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -729,26 +727,26 @@ rectprop_copy(RectProperty *src)
   return prop;
 }
 
-static void 
+static void
 rectprop_load(RectProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   data_rectangle(data,&prop->rect_data,ctx);
 }
 
-static void 
-rectprop_save(RectProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+rectprop_save(RectProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_rectangle(attr, &prop->rect_data, ctx);
 }
 
-static void 
+static void
 rectprop_get_from_offset(RectProperty *prop,
-                         void *base, guint offset, guint offset2) 
+                         void *base, guint offset, guint offset2)
 {
   prop->rect_data = struct_member(base,offset,Rectangle);
 }
 
-static void 
+static void
 rectprop_set_from_offset(RectProperty *prop,
                          void *base, guint offset, guint offset2)
 {
@@ -775,7 +773,7 @@ static const PropertyOps rectprop_ops = {
 /*********************************/
 
 static EndpointsProperty *
-endpointsprop_new(const PropDescription *pdesc, 
+endpointsprop_new(const PropDescription *pdesc,
                   PropDescToPropPredicate reason)
 {
   EndpointsProperty *prop = g_new0(EndpointsProperty,1);
@@ -785,9 +783,9 @@ endpointsprop_new(const PropDescription *pdesc,
 }
 
 static EndpointsProperty *
-endpointsprop_copy(EndpointsProperty *src) 
+endpointsprop_copy(EndpointsProperty *src)
 {
-  EndpointsProperty *prop = 
+  EndpointsProperty *prop =
     (EndpointsProperty *)src->common.ops->new_prop(src->common.descr,
                                                     src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -797,7 +795,7 @@ endpointsprop_copy(EndpointsProperty *src)
   return prop;
 }
 
-static void 
+static void
 endpointsprop_load(EndpointsProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   data_point(data,&prop->endpoints_data[0], ctx);
@@ -805,23 +803,23 @@ endpointsprop_load(EndpointsProperty *prop, AttributeNode attr, DataNode data, D
   data_point(data,&prop->endpoints_data[1], ctx);
 }
 
-static void 
-endpointsprop_save(EndpointsProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+endpointsprop_save(EndpointsProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_point(attr, &prop->endpoints_data[0], ctx);
   data_add_point(attr, &prop->endpoints_data[1], ctx);
 }
 
-static void 
+static void
 endpointsprop_get_from_offset(EndpointsProperty *prop,
-                              void *base, guint offset, guint offset2) 
+                              void *base, guint offset, guint offset2)
 {
   memcpy(&prop->endpoints_data,
          &struct_member(base,offset,Point),
          sizeof(prop->endpoints_data));
 }
 
-static void 
+static void
 endpointsprop_set_from_offset(EndpointsProperty *prop,
                               void *base, guint offset, guint offset2)
 {
@@ -850,7 +848,7 @@ static const PropertyOps endpointsprop_ops = {
 /***************************/
 
 static Connpoint_LineProperty *
-connpoint_lineprop_new(const PropDescription *pdesc, 
+connpoint_lineprop_new(const PropDescription *pdesc,
                        PropDescToPropPredicate reason)
 {
   Connpoint_LineProperty *prop = g_new0(Connpoint_LineProperty,1);
@@ -860,9 +858,9 @@ connpoint_lineprop_new(const PropDescription *pdesc,
 }
 
 static Connpoint_LineProperty *
-connpoint_lineprop_copy(Connpoint_LineProperty *src) 
+connpoint_lineprop_copy(Connpoint_LineProperty *src)
 {
-  Connpoint_LineProperty *prop = 
+  Connpoint_LineProperty *prop =
     (Connpoint_LineProperty *)src->common.ops->new_prop(src->common.descr,
                                                          src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -870,28 +868,28 @@ connpoint_lineprop_copy(Connpoint_LineProperty *src)
   return prop;
 }
 
-static void 
-connpoint_lineprop_load(Connpoint_LineProperty *prop, AttributeNode attr, 
+static void
+connpoint_lineprop_load(Connpoint_LineProperty *prop, AttributeNode attr,
 			DataNode data, DiaContext *ctx)
 {
   prop->connpoint_line_data = data_int(data,ctx);
 }
 
-static void 
-connpoint_lineprop_save(Connpoint_LineProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+connpoint_lineprop_save(Connpoint_LineProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_int(attr, prop->connpoint_line_data, ctx);
 }
 
-static void 
+static void
 connpoint_lineprop_get_from_offset(Connpoint_LineProperty *prop,
-                                   void *base, guint offset, guint offset2) 
+                                   void *base, guint offset, guint offset2)
 {
-  prop->connpoint_line_data = 
+  prop->connpoint_line_data =
     struct_member(base,offset,ConnPointLine *)->num_connections;
 }
 
-static void 
+static void
 connpoint_lineprop_set_from_offset(Connpoint_LineProperty *prop,
                                    void *base, guint offset, guint offset2)
 {
@@ -916,9 +914,9 @@ static const PropertyOps connpoint_lineprop_ops = {
 };
 
 
-/* ************************************************************** */ 
+/* ************************************************************** */
 
-void 
+void
 prop_geomtypes_register(void)
 {
   prop_type_register(PROP_TYPE_REAL,&realprop_ops);

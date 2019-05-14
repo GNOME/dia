@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <string.h>
 #include <stdio.h>
@@ -83,25 +81,25 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(&lifeline_type);
   object_register_type(&objet_type);
   object_register_type(&umlobject_type);
-  object_register_type(&message_type);  
+  object_register_type(&message_type);
   object_register_type(&component_type);
   object_register_type(&classicon_type);
   object_register_type(&state_type);
   object_register_type(&state_term_type);
   object_register_type(&activity_type);
-  object_register_type(&node_type);    
-  object_register_type(&branch_type);    
+  object_register_type(&node_type);
+  object_register_type(&branch_type);
   object_register_type(&fork_type);
   object_register_type(&compfeat_type);
   object_register_type(&uml_transition_type);
-  
+
   return DIA_PLUGIN_INIT_OK;
 }
 
 
 PropEnumData _uml_visibilities[] = {
   { N_("Public"), UML_PUBLIC },
-  { N_("Private"), UML_PRIVATE }, 
+  { N_("Private"), UML_PRIVATE },
   { N_("Protected"), UML_PROTECTED },
   { N_("Implementation"), UML_IMPLEMENTATION },
   { NULL, 0 }

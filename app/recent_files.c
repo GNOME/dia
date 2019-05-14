@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <gdk/gdkkeysyms.h>
 
@@ -52,7 +50,7 @@ recent_file_history_clear_menu()
   menus_clear_recent ();
 }
 
-/** 
+/**
  * Build and insert the recent files menu.
  */
 static void
@@ -70,8 +68,8 @@ recent_file_history_make_menu()
   group = gtk_action_group_new ("recent-files");
   gtk_action_group_set_translation_domain (group, NULL);
 
-  for (i = 0; 
-       items != NULL && i < prefs.recent_documents_list_size; 
+  for (i = 0;
+       items != NULL && i < prefs.recent_documents_list_size;
        items = g_list_next(items), i++) {
 
     gchar *name = g_strdup_printf ("FileRecent_%d", i);
@@ -81,10 +79,10 @@ recent_file_history_make_menu()
     gchar *label = g_strdup_printf ("_%d. %s", i + 1, file_escaped);
     gchar *accel = g_strdup_printf ("<control>%d", i + 1);
 
-    action = gtk_action_new (name, label, 
+    action = gtk_action_new (name, label,
 			     (const gchar *) items->data,
 			     NULL);
-    g_signal_connect (G_OBJECT (action), "activate", 
+    g_signal_connect (G_OBJECT (action), "activate",
 		      G_CALLBACK (open_recent_file_callback),
 		      items->data);
 
@@ -113,16 +111,16 @@ recent_file_history_add(const char *fname)
   persistent_list_add("recent-files", filename);
   g_free(absname);
   g_free(filename);
-    
+
   recent_file_history_make_menu();
 }
 
 /* load the recent file history */
 void
-recent_file_history_init() 
+recent_file_history_init()
 {
   prefs.recent_documents_list_size = CLAMP(prefs.recent_documents_list_size, 0, 16);
-    
+
   persistence_register_list("recent-files");
 
   recent_file_history_make_menu();
@@ -131,11 +129,11 @@ recent_file_history_init()
 /* remove a broken file from the history and update menu accordingly
  * Xing Wang, 2002.06 */
 void
-recent_file_history_remove (const char *fname) 
+recent_file_history_remove (const char *fname)
 {
   gchar *absname = dia_get_absolute_filename(fname);
   gchar *filename = g_filename_to_utf8(absname, -1, NULL, NULL, NULL);
-  
+
   recent_file_history_clear_menu();
 
   persistent_list_remove("recent-files", filename);
@@ -144,7 +142,7 @@ recent_file_history_remove (const char *fname)
 
   recent_file_history_make_menu();
 }
-    
+
 static void
 open_recent_file_callback(GtkWidget *widget, gpointer data)
 {

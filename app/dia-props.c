@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
+#include <config.h>
 
 #include "dia-props.h"
 
@@ -53,7 +51,7 @@ diagram_properties_update_sensitivity(GtkToggleButton *widget,
 
   if (!dia)
     return; /* safety first */
-  
+
   dia->grid.dynamic =
         gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dynamic_check));
   dyn_grid = dia->grid.dynamic;
@@ -120,9 +118,9 @@ create_diagram_properties_dialog(Diagram *dia)
   dynamic_check = gtk_check_button_new_with_label(_("Dynamic grid"));
   gtk_table_attach(GTK_TABLE(table), dynamic_check, 1,2, 0,1,
 		   GTK_FILL, GTK_FILL, 0, 0);
-  g_signal_connect(G_OBJECT(dynamic_check), "toggled", 
+  g_signal_connect(G_OBJECT(dynamic_check), "toggled",
 		   G_CALLBACK(diagram_properties_update_sensitivity), NULL);
-	    
+
   gtk_widget_show(dynamic_check);
 
   label = gtk_label_new(_("x"));
@@ -178,9 +176,9 @@ create_diagram_properties_dialog(Diagram *dia)
   hex_check = gtk_check_button_new_with_label(_("Hex grid"));
   gtk_table_attach(GTK_TABLE(table), hex_check, 1,2, 4,5,
 		   GTK_FILL, GTK_FILL, 0, 0);
-  g_signal_connect(G_OBJECT(hex_check), "toggled", 
+  g_signal_connect(G_OBJECT(hex_check), "toggled",
 		   G_CALLBACK(diagram_properties_update_sensitivity), NULL);
-	    
+
   gtk_widget_show(hex_check);
 
   label = gtk_label_new(_("Hex grid size"));
@@ -284,7 +282,7 @@ diagram_properties_retrieve(Diagram *dia)
 			       &dia->data->bg_color);
   dia_color_selector_set_color(grid_colour,
 			       &dia->grid.colour);
-  dia_color_selector_set_color(pagebreak_colour, 
+  dia_color_selector_set_color(pagebreak_colour,
 			       &dia->pagebreak_color);
 
   diagram_properties_update_sensitivity(GTK_TOGGLE_BUTTON(dynamic_check), dia);
@@ -299,11 +297,11 @@ diagram_properties_show(Diagram *dia)
     gtk_widget_destroy(dialog);
     dialog = NULL;
   }
-  
+
   create_diagram_properties_dialog(dia);
- 
+
   diagram_properties_retrieve(dia);
-  
+
   gtk_window_set_transient_for(GTK_WINDOW(dialog),
 			       GTK_WINDOW (ddisplay_active()->shell));
   gtk_widget_show(dialog);
@@ -319,13 +317,13 @@ diagram_properties_respond(GtkWidget *widget,
   if (response_id == GTK_RESPONSE_OK ||
       response_id == GTK_RESPONSE_APPLY) {
     if (active_diagram) {
-      /* we do not bother for the actual change, just record the 
+      /* we do not bother for the actual change, just record the
        * whole possible change */
-      undo_change_memswap (active_diagram, 
+      undo_change_memswap (active_diagram,
         &active_diagram->grid, sizeof(active_diagram->grid));
-      undo_change_memswap (active_diagram, 
+      undo_change_memswap (active_diagram,
         &active_diagram->data->bg_color, sizeof(active_diagram->data->bg_color));
-      undo_change_memswap (active_diagram, 
+      undo_change_memswap (active_diagram,
         &active_diagram->pagebreak_color, sizeof(active_diagram->pagebreak_color));
       undo_set_transactionpoint(active_diagram->undo);
 

@@ -23,9 +23,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "properties.h"
 #include "propinternals.h"
@@ -36,33 +34,33 @@
 /* Construction of a list of properties from a filtered list of descriptors. */
 /* This is a little halfway between properties and property descriptor       */
 /* lists...                                                                  */
-gboolean pdtpp_true(const PropDescription *pdesc) 
+gboolean pdtpp_true(const PropDescription *pdesc)
 { return TRUE; }
-gboolean pdtpp_synthetic(const PropDescription *pdesc) 
+gboolean pdtpp_synthetic(const PropDescription *pdesc)
 { return TRUE; }
-gboolean pdtpp_from_object(const PropDescription *pdesc) 
+gboolean pdtpp_from_object(const PropDescription *pdesc)
 { return TRUE; }
-gboolean pdtpp_is_visible(const PropDescription *pdesc) 
-{ return (pdesc->flags & PROP_FLAG_VISIBLE) != 0; } 
-gboolean pdtpp_is_visible_no_standard(const PropDescription *pdesc) 
+gboolean pdtpp_is_visible(const PropDescription *pdesc)
+{ return (pdesc->flags & PROP_FLAG_VISIBLE) != 0; }
+gboolean pdtpp_is_visible_no_standard(const PropDescription *pdesc)
 { return (pdesc->flags & PROP_FLAG_VISIBLE) != 0 &&
-         (pdesc->flags & PROP_FLAG_STANDARD) == 0; } 
-gboolean pdtpp_is_not_visible(const PropDescription *pdesc) 
-{ return (pdesc->flags & PROP_FLAG_VISIBLE) == 0; } 
+         (pdesc->flags & PROP_FLAG_STANDARD) == 0; }
+gboolean pdtpp_is_not_visible(const PropDescription *pdesc)
+{ return (pdesc->flags & PROP_FLAG_VISIBLE) == 0; }
 gboolean pdtpp_do_save(const PropDescription *pdesc)
-{ return (pdesc->flags & (PROP_FLAG_DONT_SAVE|PROP_FLAG_LOAD_ONLY)) == 0; } 
+{ return (pdesc->flags & (PROP_FLAG_DONT_SAVE|PROP_FLAG_LOAD_ONLY)) == 0; }
 gboolean pdtpp_do_save_no_standard(const PropDescription *pdesc)
-{ return (pdesc->flags & (PROP_FLAG_DONT_SAVE|PROP_FLAG_LOAD_ONLY|PROP_FLAG_STANDARD)) == 0; } 
+{ return (pdesc->flags & (PROP_FLAG_DONT_SAVE|PROP_FLAG_LOAD_ONLY|PROP_FLAG_STANDARD)) == 0; }
 gboolean pdtpp_do_load(const PropDescription *pdesc)
 { return (((pdesc->flags & PROP_FLAG_DONT_SAVE) == 0) ||
-            ((pdesc->flags & PROP_FLAG_LOAD_ONLY) != 0)); } 
+            ((pdesc->flags & PROP_FLAG_LOAD_ONLY) != 0)); }
 gboolean pdtpp_defaults(const PropDescription *pdesc)
-{ return (pdesc->flags & PROP_FLAG_NO_DEFAULTS) == 0; } 
+{ return (pdesc->flags & PROP_FLAG_NO_DEFAULTS) == 0; }
 gboolean pdtpp_do_not_save(const PropDescription *pdesc)
-{ return (pdesc->flags & PROP_FLAG_DONT_SAVE) != 0; } 
+{ return (pdesc->flags & PROP_FLAG_DONT_SAVE) != 0; }
 
 GPtrArray *
-prop_list_from_descs(const PropDescription *plist, 
+prop_list_from_descs(const PropDescription *plist,
                      PropDescToPropPredicate pred)
 {
   GPtrArray *ret;
@@ -82,16 +80,16 @@ prop_list_from_descs(const PropDescription *plist,
       g_message("about to append property %s/%s to list"
               "predicate is %s %d %d",plist[i].type,plist[i].name,
               pred(&plist[i])?"TRUE":"FALSE",
-              plist[i].flags,plist[i].flags & PROP_FLAG_DONT_SAVE);    
-#endif    
-    if (pred(&plist[i])) {      
-      Property *prop = plist[i].ops->new_prop(&plist[i],pred);                
+              plist[i].flags,plist[i].flags & PROP_FLAG_DONT_SAVE);
+#endif
+    if (pred(&plist[i])) {
+      Property *prop = plist[i].ops->new_prop(&plist[i],pred);
       g_ptr_array_index(ret,count++) = prop;
     }
   }
-  
+
   return ret;
-}  
+}
 
 void
 prop_list_free(GPtrArray *plist)
@@ -112,7 +110,7 @@ prop_list_copy(GPtrArray *src)
 {
   guint i;
   GPtrArray *dest;
-  
+
   dest = g_ptr_array_new();
   g_ptr_array_set_size(dest, src->len);
 
@@ -130,7 +128,7 @@ prop_list_copy_empty(GPtrArray *plist)
 {
   guint i;
   GPtrArray *dest;
-  
+
   dest = g_ptr_array_new();
   g_ptr_array_set_size(dest, plist->len);
 
@@ -142,7 +140,7 @@ prop_list_copy_empty(GPtrArray *plist)
   return dest;
 }
 
-gboolean 
+gboolean
 prop_list_load(GPtrArray *props, DataNode data_node, DiaContext *ctx)
 {
   guint i;
@@ -188,7 +186,7 @@ prop_list_save(GPtrArray *props, DataNode data, DiaContext *ctx)
  * called prop_list_find_prop_by_name()
  */
 Property *
-find_prop_by_name(const GPtrArray *props, const gchar *name) 
+find_prop_by_name(const GPtrArray *props, const gchar *name)
 {
   guint i;
   GQuark prop_quark = g_quark_from_string(name);
@@ -209,10 +207,10 @@ find_prop_by_name_and_type(const GPtrArray *props, const gchar *name,
   if (!ret) return NULL;
   if (type_quark != ret->type_quark) return NULL;
   return ret;
-} 
+}
 
 void
-prop_list_add_list (GPtrArray *props, const GPtrArray *ptoadd) 
+prop_list_add_list (GPtrArray *props, const GPtrArray *ptoadd)
 {
   guint i;
   for (i = 0 ; i < ptoadd->len; i++) {

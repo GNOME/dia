@@ -21,9 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <stdio.h>
 #include <string.h>
@@ -62,7 +60,7 @@ static gboolean import_svg (xmlDocPtr doc, DiagramData *dia, DiaContext *ctx, vo
 static GPtrArray *make_element_props(real xpos, real ypos, real width, real height);
 
 /* TODO: use existing implementation in dia source */
-static Color 
+static Color
 get_colour(gint32 c, real opacity)
 {
     Color colour;
@@ -76,7 +74,7 @@ get_colour(gint32 c, real opacity)
 
 /*!
  * \brief SVG Default Scale
- * Dia default scale is 20px per cm; the user scale *should* be dynamic but this would 
+ * Dia default scale is 20px per cm; the user scale *should* be dynamic but this would
  * involve a  much more complicated approach than implemented in this importer, e.g.
  * full transformations and dynamic scale to view port (viewBox).
  * \ingroup SvgImport
@@ -85,8 +83,8 @@ const gdouble DEFAULT_SVG_SCALE = 20.0;
 static gdouble user_scale = 20.0;
 
 /*!
- * Read a numeric value from a string taking unit into account. 
- * The signature is the same as g_ascii_strtod but also reads 
+ * Read a numeric value from a string taking unit into account.
+ * The signature is the same as g_ascii_strtod but also reads
  * the unit if there is one
  * \ingroup SvgImport
  */
@@ -98,7 +96,7 @@ get_value_as_cm (const gchar *nptr,
     gdouble val = 0.0;
 
     g_return_val_if_fail (nptr != NULL, 0.0);
-    
+
     val = g_ascii_strtod (nptr, &endp);
     if (!endp || '\0' == *endp || ' ' == *endp || ',' == *endp || ';' == *endp)
         val /= user_scale;
@@ -115,10 +113,10 @@ get_value_as_cm (const gchar *nptr,
     else if (strncmp(endp, "pc", 2) == 0)
         val *= (2.54/6.0), endp+=2;
     /* the rest can't really be resolved here, passing unit to caller (who will just ignore at the moment) */
-    
+
     if (endptr)
         *endptr = endp;
-	
+
     return val;
 }
 
@@ -126,7 +124,7 @@ static PropDescription svg_line_prop_descs[] = {
     { "start_point", PROP_TYPE_POINT },
     { "end_point", PROP_TYPE_POINT },
     PROP_DESC_END};
-    
+
 static PropDescription svg_rect_prop_descs[] = {
     { "start_point", PROP_TYPE_POINT },
     { "end_point", PROP_TYPE_POINT },
@@ -254,8 +252,8 @@ use_position (DiaObject *obj, xmlNodePtr node, DiaContext *ctx)
 	      RealProperty  *pr;
 
 	      /* setting obj_pos is pointless, it is read-only in all objects */
-	      prop_list_add_point (props, "obj_pos", &pos); 
-	      prop_list_add_point (props, "elem_corner", &pos); 
+	      prop_list_add_point (props, "obj_pos", &pos);
+	      prop_list_add_point (props, "elem_corner", &pos);
 	      prop_list_add_real (props, "elem_width", 1.0);
 	      prop_list_add_real (props, "elem_height", 1.0);
 
@@ -332,7 +330,7 @@ _css_parse_style (DiaSvgStyle *s, real user_scale,
       style = g_hash_table_lookup (style_ht, key);
       g_free (key);
     }
-  } 
+  }
   if (!style && klass) {
     gchar *key = g_strdup_printf (".%s", klass);
     style = g_hash_table_lookup (style_ht, key);
@@ -453,7 +451,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
       dia_svg_parse_style(node, gs, user_scale);
       props = prop_list_from_descs(svg_style_prop_descs, pdtpp_true);
       g_assert(props->len == 7);
-  
+
       cprop = g_ptr_array_index(props,0);
       if (gs->stroke == DIA_SVG_COLOUR_DEFAULT) {
         if (init) /* no stroke */
@@ -471,7 +469,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
 
       rprop = g_ptr_array_index(props,1);
       rprop->real_data = gs->line_width * scale;
-  
+
       lsprop = g_ptr_array_index(props,2);
       if (gs->linestyle != LINESTYLE_DEFAULT)
 	lsprop->style = gs->linestyle;
@@ -515,7 +513,7 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
 	  _set_pattern_from_key (obj, bprop, pattern_ht, key);
 	  g_free (key);
 	}
-	xmlFree(str);        
+	xmlFree(str);
       } else if (gs->fill == DIA_SVG_COLOUR_NONE) {
         /* check the style again, it might contain a pattern */
 	str = xmlGetProp(node, (const xmlChar*)"style");
@@ -763,7 +761,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     }
 
     /* parse from <text/> before looking at the first <tspan/> */
-    dia_svg_parse_style(node, gs, user_scale);    
+    dia_svg_parse_style(node, gs, user_scale);
 
     {
       xmlNode *tspan = node->children;
@@ -782,7 +780,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	  g_string_append(paragraph, (gchar*)line);
 	  xmlFree(line);
           any_tspan = TRUE;
-	}        
+	}
 	tspan = tspan->next;
       }
       multiline = paragraph->str;
@@ -815,7 +813,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
       prop->attr.alignment = gs->alignment;
       prop->attr.position.x = point.x;
       prop->attr.position.y = point.y;
-      /* FIXME: looks like a leak but without this an imported svg is 
+      /* FIXME: looks like a leak but without this an imported svg is
        * crashing on release */
       prop->attr.font = dia_font_ref (gs->font);
       if (font_height > 0.0) {
@@ -866,7 +864,7 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 static GList *
 read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	      GHashTable *style_ht, GHashTable *pattern_ht,
-	      GList *list, char *object_type) 
+	      GList *list, char *object_type)
 {
     DiaObjectType *otype;
     DiaObject *new_obj;
@@ -885,7 +883,7 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
       matrix = dia_svg_parse_transform ((char *)str, user_scale);
       xmlFree (str);
     }
-    
+
     /* Uh, oh, no : apparently a fill="" in a group above make this a polygon */
     if (_node_closed_by_style (node, parent_style))
       otype = object_get_type("Standard - Polygon");
@@ -924,7 +922,7 @@ read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     g_array_free(arr, TRUE);
     if (matrix)
       g_free (matrix);
-  
+
     pcd->points = points;
     new_obj = otype->ops->create(NULL, pcd,
 				 &h1, &h2);
@@ -991,7 +989,7 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   return g_list_append (list, new_obj);
 }
 
-/*! 
+/*!
  * \brief Read a line element from SVG
  * \ingroup SvgImport
  */
@@ -1022,7 +1020,7 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 
   new_obj = otype->ops->create(&start, otype->default_user_data,
 				 &h1, &h2);
-  
+
   props = prop_list_from_descs(svg_line_prop_descs,pdtpp_true);
   g_assert(props->len == 2);
 
@@ -1116,7 +1114,7 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 
   rprop = g_ptr_array_index(props,2);
   rprop->real_data = corner_radius;
-  
+
   new_obj->ops->set_props(new_obj, props);
   prop_list_free(props);
   props = make_element_props(start.x,start.y,width,height);
@@ -1165,7 +1163,7 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
     if (strncmp ((char *)str, "data:image/", 11) == 0) {
       /* inline data - skip format description like: data:image/png;base64, */
       const char* data = strchr((char *)str, ',');
-      
+
       if (data) {
 	GdkPixbuf *pixbuf = pixbuf_decode_base64 (data+1);
 
@@ -1186,7 +1184,7 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
       if (!filename || !g_path_is_absolute (filename)) {
 	/* if image file path is relative use the main path */
 	gchar *dir = g_path_get_dirname (filename_svg);
-	gchar *absfn = g_build_path (G_DIR_SEPARATOR_S, 
+	gchar *absfn = g_build_path (G_DIR_SEPARATOR_S,
 	                             dir, filename ? filename : (gchar *)str, NULL);
 
 	g_free (filename);
@@ -1346,7 +1344,7 @@ read_gradient (xmlNodePtr node, DiaSvgStyle *parent_gs, GHashTable  *pattern_ht,
  * \brief Parse the CSS style block of the SVG
  *
  * Extract style information from the given node into a map for later use.
- * 
+ *
  * @param node  containing the style
  * @param ht    hash table with style key and style string
  *
@@ -1431,7 +1429,7 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
     gchar *remains = NULL;
     gboolean percent;
     gchar **vals;
-      
+
     width = get_value_as_cm ((const char *)swidth, &remains);
     percent = (remains && *remains == '%');
     height = get_value_as_cm ((const char *)sheight, &remains);
@@ -1455,7 +1453,7 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
 	} else {
 	  xs = ys = DEFAULT_SVG_SCALE * (100.0 / sqrt(width*height));
 	}
-	/* plausibility check, strictly speaking these are not required to be the same 
+	/* plausibility check, strictly speaking these are not required to be the same
 	 * /or/ are they and Dia is writing a bogus viewBox?
 	 */
 	if (fabs((fabs (xs/ys) - 1.0) < 0.1) && fabs((fabs (ys/xs) - 1.0) < 0.1)) {
@@ -1488,13 +1486,13 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
 
 /*!
  * Fill a GList* with objects which is to be put in a
- * diagram or a group by the caller. 
+ * diagram or a group by the caller.
  * Can be called recursively to allow groups in groups.
  *
  * @param startnode the XML node to dive into
  * @param parent_gs the graphic style inherited by parent
  * @param defs_ht a map of objects filled from 'defs' to use as templates for 'use'
- * @param style_ht map of styles 
+ * @param style_ht map of styles
  * @param pattern_ht map of patterns
  * @param filename_svg SVG filename for better error messages
  * @param ctx context to keep error messages grouped
@@ -1503,7 +1501,7 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
  * \ingroup SvgImport
  */
 static GList*
-read_items (xmlNodePtr   startnode, 
+read_items (xmlNodePtr   startnode,
 	    DiaSvgStyle *parent_gs,
 	    GHashTable  *defs_ht,
 	    GHashTable  *style_ht,
@@ -1758,7 +1756,7 @@ read_items (xmlNodePtr   startnode,
  * \ingroup SvgImport
  */
 static void
-read_defs (xmlNodePtr   startnode, 
+read_defs (xmlNodePtr   startnode,
 	    DiaSvgStyle *parent_gs,
 	    GHashTable  *defs_ht,
 	    GHashTable  *style_ht,
@@ -1915,7 +1913,7 @@ import_shape_info (xmlNodePtr start_node, DiagramData *dia, DiaContext *ctx)
 	  Handle *h1, *h2;
 	  const DiaObjectType *ot = is_main ? ot_mp : ot_cp;
 	  DiaObject *o;
-	  
+
 	  o = ot->ops->create (&pos, ot->default_user_data, &h1, &h2);
 
 	  if (o) {
@@ -1964,19 +1962,19 @@ import_memory_svg (const guchar *p, guint size, DiagramData *dia,
  * \ingroup SvgImport
  */
 static gboolean
-import_file_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data) 
+import_file_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
   xmlErrorPtr error_xml = NULL;
   xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
 
   if (!doc) {
-    dia_context_add_message(ctx, _("SVG parser error for %s\n%s"), 
+    dia_context_add_message(ctx, _("SVG parser error for %s\n%s"),
 			    dia_context_get_filename (ctx),
 			    error_xml ? error_xml->message : "");
     return FALSE;
   } else if (error_xml) {
     /* just a warning */
-    dia_context_add_message(ctx, _("SVG parser warning for %s\n%s"), 
+    dia_context_add_message(ctx, _("SVG parser warning for %s\n%s"),
 			    dia_context_get_filename (ctx),
 			    error_xml ? error_xml->message : "");
   }

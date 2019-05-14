@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * Analog clock object
- * Copyright (C) 2002 Cyrille Chepelov 
+ * Copyright (C) 2002 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -47,7 +45,7 @@ typedef struct _Chronoline {
   ConnectionPoint hours[12];
   ConnectionPoint hour_tip, min_tip, sec_tip;
   ConnectionPoint center_cp;
-  
+
   Color border_color;
   real border_line_width;
   Color inner_color;
@@ -70,8 +68,8 @@ static void analog_clock_select(Analog_Clock *analog_clock,
                                 Point *clicked_point,
                                 DiaRenderer *interactive_renderer);
 static ObjectChange* analog_clock_move_handle(Analog_Clock *analog_clock,
-					      Handle *handle, Point *to, 
-					      ConnectionPoint *cp, HandleMoveReason reason, 
+					      Handle *handle, Point *to,
+					      ConnectionPoint *cp, HandleMoveReason reason,
                                      ModifierKeys modifiers);
 static ObjectChange* analog_clock_move(Analog_Clock *analog_clock, Point *to);
 static void analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer);
@@ -81,13 +79,13 @@ static DiaObject *analog_clock_create(Point *startpoint,
                                    Handle **handle1,
                                    Handle **handle2);
 static void analog_clock_destroy(Analog_Clock *analog_clock);
-static DiaObject *analog_clock_load(ObjectNode obj_node, int version, 
+static DiaObject *analog_clock_load(ObjectNode obj_node, int version,
                                     DiaContext *ctx);
 static PropDescription *analog_clock_describe_props(
   Analog_Clock *analog_clock);
-static void analog_clock_get_props(Analog_Clock *analog_clock, 
+static void analog_clock_get_props(Analog_Clock *analog_clock,
                                    GPtrArray *props);
-static void analog_clock_set_props(Analog_Clock *analog_clock, 
+static void analog_clock_set_props(Analog_Clock *analog_clock,
                                    GPtrArray *props);
 
 static ObjectTypeOps analog_clock_type_ops =
@@ -142,18 +140,18 @@ static PropDescription analog_clock_props[] = {
     N_("Seconds arrow line width"), NULL,NULL },
   { "show_ticks", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
     N_("Show hours"), NULL, NULL },
-  
+
   {NULL}
 };
 
 static PropDescription *
-analog_clock_describe_props(Analog_Clock *analog_clock) 
+analog_clock_describe_props(Analog_Clock *analog_clock)
 {
   if (analog_clock_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(analog_clock_props);
   }
   return analog_clock_props;
-}    
+}
 
 static PropOffset analog_clock_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
@@ -170,13 +168,13 @@ static PropOffset analog_clock_offsets[] = {
     offsetof(Analog_Clock, sec_arrow_line_width) },
 
   { "show_ticks", PROP_TYPE_BOOL,offsetof(Analog_Clock,show_ticks) },
-  
+
   {NULL}
 };
 
 static void
 analog_clock_get_props(Analog_Clock *analog_clock, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&analog_clock->element.object,
                                 analog_clock_offsets,props);
 }
@@ -205,14 +203,14 @@ analog_clock_select(Analog_Clock *analog_clock, Point *clicked_point,
 
 static ObjectChange*
 analog_clock_move_handle(Analog_Clock *analog_clock, Handle *handle,
-			 Point *to, ConnectionPoint *cp, 
+			 Point *to, ConnectionPoint *cp,
 			 HandleMoveReason reason, ModifierKeys modifiers)
 {
   g_assert(analog_clock!=NULL);
   g_assert(handle!=NULL);
   g_assert(to!=NULL);
 
-  element_move_handle(&analog_clock->element, handle->id, to, cp, 
+  element_move_handle(&analog_clock->element, handle->id, to, cp,
 		      reason, modifiers);
   analog_clock_update_data(analog_clock);
 
@@ -240,7 +238,7 @@ static void make_hours(const Point *centre, unsigned hours, unsigned minutes, re
                        Point *pt)
 {
   while (hours > 11) hours -= 12;
-  
+
   make_angle(centre,((real)hours) * 360.0 / 12.0 + ((real)minutes) * 360.0 / 12.0 / 60.0 ,radius,pt);
 }
 
@@ -253,7 +251,7 @@ static void make_minutes(const Point *centre, unsigned minutes,
 static void
 analog_clock_update_arrow_tips(Analog_Clock *analog_clock)
 {
-  time_t now; 
+  time_t now;
   struct tm *local;
 
   now = time(NULL);
@@ -261,7 +259,7 @@ analog_clock_update_arrow_tips(Analog_Clock *analog_clock)
   analog_clock->hour_tip.directions = DIR_ALL;
   analog_clock->min_tip.directions = DIR_ALL;
   analog_clock->sec_tip.directions = DIR_ALL;
-  if (local) {    
+  if (local) {
     make_hours(&analog_clock->centre,local->tm_hour,local->tm_min,
                0.50 * analog_clock->radius, &analog_clock->hour_tip.pos);
     make_minutes(&analog_clock->centre,local->tm_min,
@@ -287,16 +285,16 @@ analog_clock_update_data(Analog_Clock *analog_clock)
 
   extra->border_trans = analog_clock->border_line_width / 2;
   element_update_boundingbox(elem);
-  
+
   obj->position = elem->corner;
-  
+
   element_update_handles(elem);
 
   analog_clock->centre.x = obj->position.x + elem->width/2;
   analog_clock->centre.y = obj->position.y + elem->height/2;
 
   analog_clock->radius = MIN(elem->width/2,elem->height/2);
-  
+
   /* Update connections: */
   for (i = 0; i < 12; ++i)
   {
@@ -308,13 +306,13 @@ analog_clock_update_data(Analog_Clock *analog_clock)
   analog_clock->center_cp.pos.y = elem->corner.y + elem->height/2;
 
   analog_clock_update_arrow_tips(analog_clock);
-}  
+}
 
 static void
 analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  
+
   g_assert(analog_clock != NULL);
   g_assert(renderer != NULL);
 
@@ -330,8 +328,8 @@ analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
   {
     Point out, in;
     unsigned i;
-    
-    for (i = 0; i < 12; ++i) {      
+
+    for (i = 0; i < 12; ++i) {
       real ticklen;
       switch(i) {
           case 0:
@@ -350,7 +348,7 @@ analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
   }
 
   analog_clock_update_arrow_tips(analog_clock);
-  
+
   renderer_ops->set_linewidth(renderer, analog_clock->arrow_line_width);
   renderer_ops->draw_line(renderer,
                            &analog_clock->hour_tip.pos, &analog_clock->centre,
@@ -358,7 +356,7 @@ analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
   renderer_ops->draw_line(renderer,
                            &analog_clock->min_tip.pos, &analog_clock->centre,
                            &analog_clock->arrow_color);
-  
+
   renderer_ops->set_linewidth(renderer, analog_clock->sec_arrow_line_width);
   renderer_ops->draw_line(renderer,
                            &analog_clock->sec_tip.pos, &analog_clock->centre,
@@ -381,7 +379,7 @@ analog_clock_create(Point *startpoint,
   Element *elem;
   DiaObject *obj;
   unsigned i;
-  
+
   analog_clock = g_new0(Analog_Clock,1);
   elem = &(analog_clock->element);
 
@@ -430,7 +428,7 @@ analog_clock_create(Point *startpoint,
   analog_clock->center_cp.object = obj;
   analog_clock->center_cp.connected = NULL;
   analog_clock->center_cp.flags = CP_FLAGS_MAIN;
-  
+
   analog_clock->hours[0].directions = DIR_NORTH;
   analog_clock->hours[1].directions = DIR_NORTH|DIR_EAST;
   analog_clock->hours[2].directions = DIR_NORTH|DIR_EAST;
@@ -446,9 +444,9 @@ analog_clock_create(Point *startpoint,
   analog_clock->center_cp.directions = DIR_ALL;
 
   analog_clock_update_data(analog_clock);
-  
+
   *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  *handle2 = obj->handles[7];
 
       /* We are an animated object -- special case ! */
   dynobj_list_add_object(&analog_clock->element.object,1000);
@@ -456,7 +454,7 @@ analog_clock_create(Point *startpoint,
   return &analog_clock->element.object;
 }
 
-static void 
+static void
 analog_clock_destroy(Analog_Clock *analog_clock)
 {
       /* We are an animated object -- special case ! */
@@ -468,5 +466,5 @@ static DiaObject *
 analog_clock_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&analog_clock_type,
-                                      obj_node,version,ctx);  
+                                      obj_node,version,ctx);
 }

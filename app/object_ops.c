@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <stdlib.h>
 
@@ -58,12 +56,12 @@ void
 object_add_updates_list(GList *list, Diagram *dia)
 {
   DiaObject *obj;
-  
+
   while (list != NULL) {
     obj = (DiaObject *)list->data;
 
     object_add_updates(obj, dia);
-    
+
     list = g_list_next(list);
   }
 }
@@ -78,7 +76,7 @@ object_add_updates_list(GList *list, Diagram *dia)
  * in this call (anded to the display-wide setting).
  */
 ConnectionPoint *
-object_find_connectpoint_display(DDisplay *ddisp, Point *pos, 
+object_find_connectpoint_display(DDisplay *ddisp, Point *pos,
 				 DiaObject *notthis, gboolean snap_to_objects)
 {
   real distance;
@@ -87,7 +85,7 @@ object_find_connectpoint_display(DDisplay *ddisp, Point *pos,
   DiaObject *obj_here;
 
   distance =
-    diagram_find_closest_connectionpoint(ddisp->diagram, &connectionpoint, 
+    diagram_find_closest_connectionpoint(ddisp->diagram, &connectionpoint,
 					 pos, notthis);
 
   distance = ddisplay_transform_length(ddisp, distance);
@@ -130,7 +128,7 @@ object_connect_display(DDisplay *ddisp, DiaObject *obj, Handle *handle,
   if (handle->connected_to == NULL) {
     connectionpoint = object_find_connectpoint_display(ddisp, &handle->pos,
 						       obj, snap_to_objects);
-  
+
     if (connectionpoint != NULL) {
       Change *change = undo_connect(ddisp->diagram, obj, handle,
 				    connectionpoint);
@@ -153,7 +151,7 @@ object_list_corner(GList *list)
   p.y = obj->bounding_box.top;
 
   list = g_list_next(list);
-  
+
   while (list != NULL) {
     obj = (DiaObject *)list->data;
 
@@ -161,7 +159,7 @@ object_list_corner(GList *list)
       p.x = obj->bounding_box.left;
     if (p.y > obj->bounding_box.top)
       p.y = obj->bounding_box.top;
-    
+
     list = g_list_next(list);
   }
 
@@ -199,7 +197,7 @@ filter_connected (const GList *objects,
 		  GList **unconnected)
 {
   const GList *list;
-  
+
   for (list = objects; list != NULL; list = g_list_next (list)) {
     DiaObject *obj = list->data;
     gboolean is_connected = 0;
@@ -319,7 +317,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   default:
     message_warning("Wrong argument to object_list_align_v()\n");
   }
-  
+
   dest_pos = g_new(Point, nobjs);
   orig_pos = g_new(Point, nobjs);
 
@@ -329,7 +327,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
     obj = (DiaObject *) list->data;
 
     pos.x = obj->position.x;
-    
+
     switch (align) {
     case DIA_ALIGN_TOP: /* TOP */
       pos.y = y_pos + obj->position.y - obj->bounding_box.top;
@@ -357,20 +355,20 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
 
     orig_pos[i] = obj->position;
     dest_pos[i] = pos;
-    
+
     obj->ops->move(obj, &pos);
 
     i++;
     list = g_list_next(list);
   }
-  
+
   undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects));
   g_list_free (unconnected);
 }
 
 
 static int
-object_list_sort_horizontal(const void *o1, const void *o2) 
+object_list_sort_horizontal(const void *o1, const void *o2)
 {
   DiaObject *obj1 = *(DiaObject **)o1;
   DiaObject *obj2 = *(DiaObject **)o2;
@@ -509,9 +507,9 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
       x_pos += obj->bounding_box.right - obj->bounding_box.left;
       break;
     }
-    
+
     pos.y = obj->position.y;
-    
+
     orig_pos[i] = obj->position;
     dest_pos[i] = pos;
 
@@ -520,8 +518,8 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
     i++;
     list = g_list_next(list);
   }
-    
-  undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects)); 
+
+  undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects));
   g_list_free (unconnected);
 }
 
@@ -565,7 +563,7 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
   /* for every connection check:
    * - "matching" directions of both object connection points (this also gives
    *    the direction of the move of the second object)
-   * - 
+   * -
    * - move every object only once
    */
   nobjs = g_list_length (to_be_moved);
@@ -655,7 +653,7 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
         }
       }
     }
-    
+
     list = g_list_next (list);
   }
 
@@ -701,7 +699,7 @@ object_list_nudge(GList *objects, Diagram *dia, Direction dir, real step)
   list = objects;
   while (list != NULL) {
     obj = (DiaObject *) list->data;
-    
+
     orig_pos[i] = obj->position;
     dest_pos[i].x = orig_pos[i].x + inc_x;
     dest_pos[i].y = orig_pos[i].y + inc_y;

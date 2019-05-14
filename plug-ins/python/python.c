@@ -17,9 +17,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <Python.h>
 #include <stdio.h>
@@ -61,7 +59,7 @@ on_error_report (void)
         return TRUE;
     }
     else
-        return FALSE; 
+        return FALSE;
 }
 
 static gboolean
@@ -93,7 +91,7 @@ dia_plugin_init(PluginInfo *info)
     }
     if (!dia_plugin_info_init(info, "Python",
 			      _("Python scripting support"),
-			      dia_py_plugin_can_unload, 
+			      dia_py_plugin_can_unload,
 			      dia_py_plugin_unload))
 	return DIA_PLUGIN_INIT_ERROR;
 
@@ -130,17 +128,17 @@ dia_plugin_init(PluginInfo *info)
     PyObject_SetAttrString(__main__, "__file__", __file__);
     Py_DECREF(__file__);
 #if defined(G_OS_WIN32) && (PY_VERSION_HEX >= 0x02040000)
-    /* this code should work for every supported Python version, but it is needed 
+    /* this code should work for every supported Python version, but it is needed
      * on win32 since Python 2.4 due to mixed runtime issues, i.e.
-     * crashing in PyRun_SimpleFile for python2(5|6)/msvcr(71|90) 
-     * It is not enabled by default yet, because I could not get PyGtk using 
+     * crashing in PyRun_SimpleFile for python2(5|6)/msvcr(71|90)
+     * It is not enabled by default yet, because I could not get PyGtk using
      * plug-ins to work at all with 2.5/2.6 */
     {
 	gchar *startup_string = NULL;
 	gsize i, length = 0;
 	GError *error = NULL;
 	if (!g_file_get_contents(startup_file, &startup_string, &length, &error)) {
-	    g_warning("Python: Couldn't find startup file %s\n%s\n", 
+	    g_warning("Python: Couldn't find startup file %s\n%s\n",
 		      startup_file, error->message);
 	    g_error_free(error);
 	    g_free(startup_file);

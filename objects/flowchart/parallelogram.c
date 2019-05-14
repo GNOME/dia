@@ -21,9 +21,7 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -85,7 +83,7 @@ static void pgram_select(Pgram *pgram, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* pgram_move_handle(Pgram *pgram, Handle *handle,
 				       Point *to, ConnectionPoint *cp,
-				       HandleMoveReason reason, 
+				       HandleMoveReason reason,
 			    ModifierKeys modifiers);
 static ObjectChange* pgram_move(Pgram *pgram, Point *to);
 static void pgram_draw(Pgram *pgram, DiaRenderer *renderer);
@@ -319,7 +317,7 @@ static ObjectChange*
 pgram_move(Pgram *pgram, Point *to)
 {
   pgram->element.corner = *to;
-  
+
   pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return NULL;
@@ -332,7 +330,7 @@ pgram_draw(Pgram *pgram, DiaRenderer *renderer)
   Point pts[4];
   Element *elem;
   real offs;
-  
+
   assert(pgram != NULL);
   assert(renderer != NULL);
 
@@ -360,7 +358,7 @@ pgram_draw(Pgram *pgram, DiaRenderer *renderer)
   renderer_ops->set_linestyle(renderer, pgram->line_style, pgram->dashlength);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_polygon (renderer, 
+  renderer_ops->draw_polygon (renderer,
 			      pts, 4,
 			      (pgram->show_background) ? &pgram->inner_color : NULL,
 			      &pgram->border_color);
@@ -415,7 +413,7 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
 			       * pgram->text->numlines);
   if (width > elem->width) elem->width = width;
   */
-  
+
   /* move shape if necessary ... */
   switch (horiz) {
   case ANCHOR_MIDDLE:
@@ -449,7 +447,7 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
     break;
   }
   text_set_position(pgram->text, &p);
-  
+
   /* 1/4 of how much more to the left the bottom line is */
   offs = -(elem->height / 4.0 * pgram->shear_grad);
   width = elem->width - 4.0*fabs(offs);
@@ -530,9 +528,9 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
 
   extra->border_trans = pgram->border_width/2.0;
   element_update_boundingbox(elem);
-  
+
   obj->position = elem->corner;
-  
+
   element_update_handles(elem);
 }
 
@@ -555,7 +553,7 @@ pgram_create(Point *startpoint,
   pgram = g_malloc0(sizeof(Pgram));
   elem = &pgram->element;
   obj = &elem->object;
-  
+
   obj->type = &pgram_type;
 
   obj->ops = &pgram_ops;
@@ -581,7 +579,7 @@ pgram_create(Point *startpoint,
   pgram->text = new_text("", font, font_height, &p, &pgram->border_color,
 			 ALIGN_CENTER);
   dia_font_unref(font);
-  
+
   /* new default: let the user decide the size */
   pgram->text_fitting = TEXTFIT_WHEN_NEEDED;
 
@@ -598,7 +596,7 @@ pgram_create(Point *startpoint,
   pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  *handle2 = obj->handles[7];
   return &pgram->element.object;
 }
 
@@ -662,12 +660,12 @@ pgram_load(ObjectNode obj_node, int version,DiaContext *ctx)
   pgram = g_malloc0(sizeof(Pgram));
   elem = &pgram->element;
   obj = &elem->object;
-  
+
   obj->type = &pgram_type;
   obj->ops = &pgram_ops;
 
   element_load(elem, obj_node, ctx);
-  
+
   pgram->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
@@ -677,12 +675,12 @@ pgram_load(ObjectNode obj_node, int version,DiaContext *ctx)
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &pgram->border_color, ctx);
-  
+
   pgram->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &pgram->inner_color, ctx);
-  
+
   pgram->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
@@ -708,7 +706,7 @@ pgram_load(ObjectNode obj_node, int version,DiaContext *ctx)
   attr = object_find_attribute(obj_node, "padding");
   if (attr != NULL)
     pgram->padding =  data_real(attribute_first_data(attr), ctx);
-  
+
   pgram->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)

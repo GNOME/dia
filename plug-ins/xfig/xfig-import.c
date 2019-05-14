@@ -21,10 +21,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
-#ifdef HAVE_CONFIG_H
+
 #include <config.h>
-#endif
 
 #include <stdio.h>
 /* Information used here is taken from the FIG Format 3.2 specification
@@ -82,7 +80,7 @@ skip_comments(FILE *file) {
 	if ((ch = fgetc(file)) == EOF) {
 	    return FALSE;
 	}
-    
+
 	if (ch == '\n') continue;
 	else if (ch == '#') {
 	    eat_line(file);
@@ -98,14 +96,14 @@ skip_comments(FILE *file) {
 static Color
 fig_color(int color_index, DiaContext *ctx)
 {
-    if (color_index <= -1) 
+    if (color_index <= -1)
         return color_black; /* Default color */
-    else if (color_index < FIG_MAX_DEFAULT_COLORS) 
+    else if (color_index < FIG_MAX_DEFAULT_COLORS)
         return fig_default_colors[color_index];
-    else if (color_index < FIG_MAX_USER_COLORS) 
+    else if (color_index < FIG_MAX_USER_COLORS)
 	return fig_colors[color_index-FIG_MAX_DEFAULT_COLORS];
     else {
-        dia_context_add_message(ctx, 
+        dia_context_add_message(ctx,
 	  _("Color index %d too high; only 512 colors allowed. Using black instead."),
 	  color_index);
 	return color_black;
@@ -139,7 +137,7 @@ fig_area_fill_color(int area_fill, int color_index, DiaContext *ctx)
     } else {
 	dia_context_add_message(ctx, _("Patterns are not supported by Dia"));
     }
-    
+
     return col;
 }
 
@@ -150,8 +148,8 @@ static PropDescription xfig_simple_prop_descs_line[] = {
     { "line_colour", PROP_TYPE_COLOUR },
     PROP_DESC_END};
 
-static LineStyle 
-fig_line_style_to_dia(int line_style, DiaContext *ctx) 
+static LineStyle
+fig_line_style_to_dia(int line_style, DiaContext *ctx)
 {
     switch (line_style) {
     case 0:
@@ -190,17 +188,17 @@ fig_simple_properties(DiaObject *obj,
     ColorProperty *cprop;
 
     g_assert(props->len == 2);
-    
+
     rprop = g_ptr_array_index(props,0);
     rprop->real_data = thickness/FIG_ALT_UNIT;
-    
+
     cprop = g_ptr_array_index(props,1);
     cprop->color_data = fig_color(pen_color, ctx);
 
 
     if (line_style != -1) {
-        LinestyleProperty *lsprop = 
-            (LinestyleProperty *)make_new_prop("line_style", 
+        LinestyleProperty *lsprop =
+            (LinestyleProperty *)make_new_prop("line_style",
                                                PROP_TYPE_LINESTYLE,
                                                PROP_FLAG_DONT_SAVE);
         lsprop->dash = dash_length/FIG_ALT_UNIT;
@@ -210,14 +208,14 @@ fig_simple_properties(DiaObject *obj,
     }
 
     if (area_fill == -1) {
-        BoolProperty *bprop = 
+        BoolProperty *bprop =
             (BoolProperty *)make_new_prop("show_background",
                                           PROP_TYPE_BOOL,PROP_FLAG_DONT_SAVE);
         bprop->bool_data = FALSE;
 
         g_ptr_array_add(props,bprop);
     } else {
-        ColorProperty *cprop = 
+        ColorProperty *cprop =
             (ColorProperty *)make_new_prop("fill_colour",
                                            PROP_TYPE_COLOUR,
                                            PROP_FLAG_DONT_SAVE);
@@ -388,9 +386,9 @@ add_at_depth(DiaObject *newobj, int depth, DiaContext *ctx)
 		      depth, FIG_MAX_DEPTHS-1);
 	depth = FIG_MAX_DEPTHS - 1;
     }
-    if (compound_stack == NULL) 
+    if (compound_stack == NULL)
 	depths[depth] = g_list_append(depths[depth], newobj);
-    else 
+    else
 	if (compound_depth > depth) compound_depth = depth;
 }
 
@@ -437,7 +435,7 @@ fig_read_ellipse(FILE *file, DiaContext *ctx)
 	return NULL;
     }
     setlocale(LC_NUMERIC, old_locale);
-    
+
     /* Curiously, the sub_type doesn't matter, as all info can be
        extracted this way */
     newobj = create_standard_ellipse((center_x-radius_x)/FIG_UNIT,
@@ -460,7 +458,7 @@ fig_read_ellipse(FILE *file, DiaContext *ctx)
 }
 
 static DiaObject *
-fig_read_polyline(FILE *file, DiaContext *ctx) 
+fig_read_polyline(FILE *file, DiaContext *ctx)
 {
     int sub_type;
     int line_style;
@@ -527,10 +525,10 @@ fig_read_polyline(FILE *file, DiaContext *ctx)
     if (!fig_read_n_points(file, npoints, &points, ctx)) {
 	goto exit;
     }
-     
+
     switch (sub_type) {
     case 4: {
-	RealProperty *rprop = 
+	RealProperty *rprop =
 	    (RealProperty *)make_new_prop("corner_radius",
 					  PROP_TYPE_REAL,PROP_FLAG_DONT_SAVE);
 	if (radius < 0) {
@@ -567,8 +565,8 @@ fig_read_polyline(FILE *file, DiaContext *ctx)
 	if (newobj == NULL) goto exit;
 	break;
     case 1: /* polyline */
-	newobj = create_standard_polyline(npoints, points, 
-					  forward_arrow_info, 
+	newobj = create_standard_polyline(npoints, points,
+					  forward_arrow_info,
 					  backward_arrow_info);
 	if (newobj == NULL) goto exit;
 	break;
@@ -576,7 +574,7 @@ fig_read_polyline(FILE *file, DiaContext *ctx)
 	newobj = create_standard_polygon(npoints, points);
 	if (newobj == NULL) goto exit;
 	break;
-    default: 
+    default:
 	dia_context_add_message(ctx, _("Unknown polyline subtype: %d\n"), sub_type);
 	goto exit;
     }
@@ -587,7 +585,7 @@ fig_read_polyline(FILE *file, DiaContext *ctx)
     /* Style_val (size of dots and dashes) in 1/80 inch*/
     /* Join style */
     /* Cap style */
-     
+
     /* Depth field */
     add_at_depth(newobj, depth, ctx);
  exit:
@@ -653,17 +651,17 @@ static BezPoint *transform_spline(int npoints, Point *points, gboolean closed) {
  * [ 1  4  1  0]
  * [ 0  4  2  0]*1/6
  * [ 0  2  4  0]
- * [ 0  1  4  1] 
+ * [ 0  1  4  1]
  *
  * The basis matrix for Catmull-Rom splines (M_c) is:
  * [-s 2-s s-2 s]
  * [2s s-3 3-2s -s]
  * [-s  0  s  0]
  * [ 0  1  0  0] where s = (1-t)/2 and t = 0, so s = 1/2:
- * [ -.5  1.5 -1.5   .5] 
- * [   1 -2.5    2  -.5] 
- * [ -.5    0   .5    0] 
- * [   0    1    4    1] 
+ * [ -.5  1.5 -1.5   .5]
+ * [   1 -2.5    2  -.5]
+ * [ -.5    0   .5    0]
+ * [   0    1    4    1]
  * Thus, the transformation matrix for the interpolated splines should be
  * (M_bez^-1)*M_c
  * The conversion matrix should then be:
@@ -744,7 +742,7 @@ fig_read_spline(FILE *file, DiaContext *ctx)
     if (!fig_read_n_points(file, npoints, &points, ctx)) {
 	goto exit;
     }
-     
+
     switch (sub_type) {
     case 0: /* Open approximated spline */
     case 1: /* Closed approximated spline */
@@ -802,7 +800,7 @@ fig_read_spline(FILE *file, DiaContext *ctx)
 	}
 	if (newobj == NULL) goto exit;
 	break;
-    default: 
+    default:
 	dia_context_add_message(ctx, _("Unknown spline subtype: %d\n"), sub_type);
 	goto exit;
     }
@@ -812,7 +810,7 @@ fig_read_spline(FILE *file, DiaContext *ctx)
     /* Pen style field (not used) */
     /* Style_val (size of dots and dashes) in 1/80 inch*/
     /* Cap style */
-     
+
     /* Depth field */
     add_at_depth(newobj, depth, ctx);
  exit:
@@ -885,12 +883,12 @@ fig_read_arc(FILE *file, DiaContext *ctx)
     distance = distance_point_point (&p2, &pm);
 
     switch (sub_type) {
-    case 0: 
-    case 1: 
+    case 0:
+    case 1:
     case 2: /* We can't do pie-wedge properly yet */
 	newobj = create_standard_arc(x1/FIG_UNIT, y1/FIG_UNIT,
 				     x3/FIG_UNIT, y3/FIG_UNIT,
-				     direction ? distance : -distance, 
+				     direction ? distance : -distance,
 				     forward_arrow_info,
 				     backward_arrow_info);
 	if (newobj == NULL) goto exit;
@@ -899,7 +897,7 @@ fig_read_arc(FILE *file, DiaContext *ctx)
 		dia_context_add_message(ctx, _("Filled arc treated as unfilled"));
 	}
 	break;
-    default: 
+    default:
 	dia_context_add_message(ctx, _("Unknown polyline arc: %d\n"), sub_type);
 	goto exit;
     }
@@ -911,7 +909,7 @@ fig_read_arc(FILE *file, DiaContext *ctx)
     /* Style_val (size of dots and dashes) in 1/80 inch*/
     /* Join style */
     /* Cap style */
-     
+
     /* Depth field */
     add_at_depth(newobj, depth, ctx);
 
@@ -1010,7 +1008,7 @@ fig_read_text(FILE *file, DiaContext *ctx)
     tprop->attr.height = font_size*2.54/72.0;
     tprop->attr.color = fig_color(color, ctx);
     newobj->ops->set_props(newobj, props);
-    
+
     /* Depth field */
     add_at_depth(newobj, depth, ctx);
 
@@ -1244,7 +1242,7 @@ fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
 	    dia_context_add_message_with_errno(ctx, errno, _("Error reading transparent color."));
 	    return FALSE;
 	}
-    
+
 	/* Don't know what to do with this */
     }
 
@@ -1264,19 +1262,19 @@ fig_read_meta_data(FILE *file, DiagramData *dia, DiaContext *ctx)
 	    dia_context_add_message_with_errno(ctx, errno, _("Error reading resolution."));
 	    return FALSE;
 	}
-    
+
 	/* Don't know what to do with this */
     }
     return TRUE;
 }
 
 /* imports the given fig-file, returns TRUE if successful */
-static gboolean 
+static gboolean
 import_fig(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
     FILE *figfile;
     char buf[BUFLEN];
-    int figmajor, figminor;	
+    int figmajor, figminor;
     int i;
 
     for (i = 0; i < FIG_MAX_USER_COLORS; i++) {
@@ -1288,11 +1286,11 @@ import_fig(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
 
     figfile = g_fopen(filename,"r");
     if (figfile == NULL) {
-	dia_context_add_message_with_errno(ctx, errno, _("Couldn't open: '%s' for reading.\n"), 
+	dia_context_add_message_with_errno(ctx, errno, _("Couldn't open: '%s' for reading.\n"),
 		                dia_context_get_filename(ctx));
 	return FALSE;
     }
-  
+
     /* First check magic bytes */
     if (fgets(buf, BUFLEN, figfile) == NULL ||
         sscanf(buf, "#FIG %d.%d\n", &figmajor, &figminor) != 2)
@@ -1301,9 +1299,9 @@ import_fig(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
 	fclose(figfile);
 	return FALSE;
     }
-	
+
     if (figmajor != 3 || figminor != 2) {
-	dia_context_add_message(ctx, _("This is a Fig version %d.%d file.\n It may not be importable."), 
+	dia_context_add_message(ctx, _("This is a Fig version %d.%d file.\n It may not be importable."),
 				figmajor, figminor);
     }
 
@@ -1323,7 +1321,7 @@ import_fig(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
 	fclose(figfile);
 	return FALSE;
     }
-  
+
     compound_stack = NULL;
 
     do {

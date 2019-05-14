@@ -1,7 +1,7 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * GRAFCET chart support 
+ * GRAFCET chart support
  * Copyright(C) 2000 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -47,7 +45,7 @@ typedef enum { VERGENT_OR, VERGENT_AND } VergentType;
 
 typedef struct _Vergent {
   Connection connection;
- 
+
   ConnectionPoint northeast,northwest,southwest,southeast;
   ConnPointLine *north,*south;
 
@@ -56,7 +54,7 @@ typedef struct _Vergent {
 
 static ObjectChange* vergent_move_handle(Vergent *vergent, Handle *handle,
 					 Point *to, ConnectionPoint *cp,
-					 HandleMoveReason reason, 
+					 HandleMoveReason reason,
                                 ModifierKeys modifiers);
 static ObjectChange* vergent_move(Vergent *vergent, Point *to);
 static void vergent_select(Vergent *vergent, Point *clicked_point,
@@ -71,9 +69,9 @@ static void vergent_update_data(Vergent *vergent);
 static void vergent_destroy(Vergent *vergent);
 static DiaObject *vergent_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *vergent_describe_props(Vergent *vergent);
-static void vergent_get_props(Vergent *vergent, 
+static void vergent_get_props(Vergent *vergent,
                               GPtrArray *props);
-static void vergent_set_props(Vergent *vergent, 
+static void vergent_set_props(Vergent *vergent,
                               GPtrArray *props);
 
 static DiaMenu *vergent_get_object_menu(Vergent *vergent,
@@ -84,8 +82,8 @@ static ObjectTypeOps vergent_type_ops =
   (CreateFunc)vergent_create,   /* create */
   (LoadFunc)  vergent_load,/*using properties*/     /* load */
   (SaveFunc)  object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
-  (ApplyDefaultsFunc) NULL  
+  (GetDefaultsFunc)   NULL,
+  (ApplyDefaultsFunc) NULL
 };
 
 DiaObjectType vergent_type =
@@ -134,7 +132,7 @@ static PropDescription vergent_props[] = {
 };
 
 static PropDescription *
-vergent_describe_props(Vergent *vergent) 
+vergent_describe_props(Vergent *vergent)
 {
   if (vergent_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(vergent_props);
@@ -152,7 +150,7 @@ static PropOffset vergent_offsets[] = {
 
 static void
 vergent_get_props(Vergent *vergent, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&vergent->connection.object,
                                 vergent_offsets,props);
 }
@@ -161,7 +159,7 @@ static void
 vergent_set_props(Vergent *vergent, GPtrArray *props)
 {
   object_set_props_from_offsets(&vergent->connection.object,
-                                vergent_offsets,props);  
+                                vergent_offsets,props);
   vergent_update_data(vergent);
 }
 
@@ -209,7 +207,7 @@ vergent_move_handle(Vergent *vergent, Handle *handle,
 
     to2.x = to->x;
     to2.y = vergent->connection.endpoints[0].y;
-    connection_move_handle(&vergent->connection, HANDLE_MOVE_ENDPOINT, 
+    connection_move_handle(&vergent->connection, HANDLE_MOVE_ENDPOINT,
 			   &to2, NULL, reason, 0);
   }
   connection_move_handle(&vergent->connection, handle->id, to, cp,
@@ -224,7 +222,7 @@ static ObjectChange*
 vergent_move(Vergent *vergent, Point *to)
 {
   Point start_to_end;
-  Point *endpoints = &vergent->connection.endpoints[0]; 
+  Point *endpoints = &vergent->connection.endpoints[0];
 
   start_to_end = endpoints[1];
   point_sub(&start_to_end, &endpoints[0]);
@@ -238,7 +236,7 @@ vergent_move(Vergent *vergent, Point *to)
 }
 
 
-static void 
+static void
 vergent_draw(Vergent *vergent, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
@@ -246,7 +244,7 @@ vergent_draw(Vergent *vergent, DiaRenderer *renderer)
   Point p1,p2;
 
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  
+
   switch(vergent->type) {
   case VERGENT_OR:
     renderer_ops->set_linewidth(renderer, VERGENT_LINE_WIDTH);
@@ -277,9 +275,9 @@ vergent_update_data(Vergent *vergent)
   LineBBExtras *extra = &conn->extra_spacing;
   DiaObject *obj = &conn->object;
   Point p0,p1;
-  
+
   conn->endpoints[1].y = conn->endpoints[0].y;
-  if (ABS(conn->endpoints[1].x-conn->endpoints[0].x) < 3.0) 
+  if (ABS(conn->endpoints[1].x-conn->endpoints[0].x) < 3.0)
     conn->endpoints[1].x = conn->endpoints[0].x + 3.0;
 
   obj->position = conn->endpoints[0];
@@ -290,8 +288,8 @@ vergent_update_data(Vergent *vergent)
 
   switch(vergent->type) {
   case VERGENT_OR:
-    extra->start_trans = 
-      extra->start_long = 
+    extra->start_trans =
+      extra->start_long =
       extra->end_trans =
       extra->end_long = VERGENT_LINE_WIDTH/2.0;
     connection_update_boundingbox(conn);
@@ -307,17 +305,17 @@ vergent_update_data(Vergent *vergent)
     connpointline_putonaline(vergent->south,&p0,&p1,DIR_SOUTH);
     vergent->southwest.pos = p0;
     vergent->southwest.directions = DIR_SOUTH;
-    vergent->southeast.pos = p1;    
+    vergent->southeast.pos = p1;
     vergent->southeast.directions = DIR_SOUTH;
     break;
   case VERGENT_AND:
-    extra->start_trans = 
+    extra->start_trans =
       extra->end_trans = (3 * VERGENT_LINE_WIDTH)/2.0;
-    extra->start_long = 
+    extra->start_long =
       extra->end_long = VERGENT_LINE_WIDTH/2.0;
     connection_update_boundingbox(conn);
     connection_update_boundingbox(conn);
-    
+
     /* place the connection point lines */
     p0.y = p1.y = p0.y - VERGENT_LINE_WIDTH;
     connpointline_update(vergent->north);
@@ -342,7 +340,7 @@ vergent_update_data(Vergent *vergent)
 
 typedef struct {
   ObjectChange obj_change;
-  
+
   ObjectChange *north,*south;
 } VergentChange;
 
@@ -358,7 +356,7 @@ static void vergent_change_revert(VergentChange *change, DiaObject *obj)
   change->south->revert(change->south,obj);
 }
 
-static void vergent_change_free(VergentChange *change) 
+static void vergent_change_free(VergentChange *change)
 {
   if (change->north->free) change->north->free(change->north);
   g_free(change->north);
@@ -367,15 +365,15 @@ static void vergent_change_free(VergentChange *change)
 }
 
 static ObjectChange *
-vergent_create_change(Vergent *vergent, int add, Point *clicked) 
+vergent_create_change(Vergent *vergent, int add, Point *clicked)
 {
   VergentChange *vc;
- 
+
   vc = g_new0(VergentChange,1);
   vc->obj_change.apply = (ObjectChangeApplyFunc)vergent_change_apply;
   vc->obj_change.revert = (ObjectChangeRevertFunc)vergent_change_revert;
   vc->obj_change.free = (ObjectChangeFreeFunc)vergent_change_free;
-  
+
   if (add) {
     vc->north = connpointline_add_point(vergent->north,clicked);
     vc->south = connpointline_add_point(vergent->south,clicked);
@@ -395,8 +393,8 @@ vergent_add_cp_callback(DiaObject *obj, Point *clicked, gpointer data)
 
 static ObjectChange *
 vergent_delete_cp_callback(DiaObject *obj, Point *clicked, gpointer data)
-{ 
-  return vergent_create_change((Vergent *)obj,0,clicked); 
+{
+  return vergent_create_change((Vergent *)obj,0,clicked);
 }
 
 static DiaMenuItem object_menu_items[] = {
@@ -438,10 +436,10 @@ vergent_create(Point *startpoint,
   vergent = g_malloc0(sizeof(Vergent));
   conn = &vergent->connection;
   obj = &conn->object;
-  
+
   obj->type = &vergent_type;
   obj->ops = &vergent_ops;
-  
+
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
@@ -456,10 +454,10 @@ vergent_create(Point *startpoint,
     obj->connections[i]->object = obj;
     obj->connections[i]->connected = NULL;
   }
-  
+
   vergent->north = connpointline_create(obj,1);
   vergent->south = connpointline_create(obj,1);
-  
+
   switch(GPOINTER_TO_INT(user_data)) {
   case VERGENT_OR:
   case VERGENT_AND:
@@ -469,7 +467,7 @@ vergent_create(Point *startpoint,
     g_warning("in vergent_create(): incorrect user_data %p",user_data);
     vergent->type = VERGENT_OR;
   }
-  
+
   vergent_update_data(vergent);
 
   *handle1 = &conn->endpoint_handles[0];

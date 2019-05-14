@@ -17,14 +17,12 @@
  *
  * File:    class.c
  *
- * Purpose: This file contains implementation of the "class" code. 
+ * Purpose: This file contains implementation of the "class" code.
  */
 
 /** \file objects/UML/class.c  Implementation of the 'UML - Class' type */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <gtk/gtk.h>
@@ -99,7 +97,7 @@ DiaObjectType umlclass_type =
   "UML - Class",   /* name */
   0,               /* version */
   umlclass_xpm,    /* pixmap */
-  
+
   &umlclass_type_ops, /* ops */
   NULL,
   (void*)0
@@ -261,7 +259,7 @@ umlclass_describe_props(UMLClass *umlclass)
 
     prop_desc_list_calculate_quarks(umlclass_props);
     while (umlclass_props[i].name != NULL) {
-      /* can't do this static, at least not on win32 
+      /* can't do this static, at least not on win32
        * due to relocation (initializer not a constant)
        */
       if (0 == strcmp(umlclass_props[i].name, "attributes"))
@@ -339,14 +337,14 @@ static PropOffset umlclass_offsets[] = {
 static void
 umlclass_get_props(UMLClass * umlclass, GPtrArray *props)
 {
-  object_get_props_from_offsets(&umlclass->element.object, 
+  object_get_props_from_offsets(&umlclass->element.object,
                                 umlclass_offsets, props);
 }
 
 static DiaMenuItem umlclass_menu_items[] = {
-        { N_("Show comments"), umlclass_show_comments_callback, NULL, 
+        { N_("Show comments"), umlclass_show_comments_callback, NULL,
           DIAMENU_ACTIVE|DIAMENU_TOGGLE },
-        { N_("Allow resizing"), umlclass_allow_resizing_callback, NULL, 
+        { N_("Allow resizing"), umlclass_allow_resizing_callback, NULL,
           DIAMENU_ACTIVE|DIAMENU_TOGGLE },
 };
 
@@ -402,11 +400,11 @@ umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data)
 }
 
 static ObjectChange *
-umlclass_allow_resizing_callback(DiaObject *obj, 
-                                 Point *pos G_GNUC_UNUSED, 
+umlclass_allow_resizing_callback(DiaObject *obj,
+                                 Point *pos G_GNUC_UNUSED,
                                  gpointer data G_GNUC_UNUSED)
 {
-  return object_toggle_prop(obj, "allow_resizing", !((UMLClass *)obj)->allow_resizing); 
+  return object_toggle_prop(obj, "allow_resizing", !((UMLClass *)obj)->allow_resizing);
 }
 
 static void
@@ -418,7 +416,7 @@ umlclass_reflect_resizing(UMLClass *umlclass)
 
   g_assert (elem->resize_handles[3].id == HANDLE_RESIZE_W);
   g_assert (elem->resize_handles[4].id == HANDLE_RESIZE_E);
-  
+
   elem->resize_handles[3].type = umlclass->allow_resizing ? HANDLE_MAJOR_CONTROL : HANDLE_NON_MOVABLE;
   elem->resize_handles[4].type = umlclass->allow_resizing ? HANDLE_MAJOR_CONTROL : HANDLE_NON_MOVABLE;
 }
@@ -426,7 +424,7 @@ umlclass_reflect_resizing(UMLClass *umlclass)
 static void
 umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 {
-  /* now that operations/attributes can be set here as well we need to 
+  /* now that operations/attributes can be set here as well we need to
    * take for the number of connections update as well
    * Note that due to a hack in umlclass_load, this is called before
    * the normal connection points are set up.
@@ -439,7 +437,7 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
                                 props);
 
   num = UMLCLASS_CONNECTIONPOINTS + umlclass_num_dynamic_connectionpoints(umlclass);
-  
+
 #ifdef UML_MAINPOINT
   obj->num_connections = num + 1;
 #else
@@ -447,7 +445,7 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 #endif
 
   obj->connections =  g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
-  
+
   /* Update data: */
   if (num > UMLCLASS_CONNECTIONPOINTS) {
     int i;
@@ -567,12 +565,12 @@ umlclass_move(UMLClass *umlclass, Point *to)
  *
  */
 static void
-uml_underline_text(DiaRenderer  *renderer, 
+uml_underline_text(DiaRenderer  *renderer,
                Point         StartPoint,
                DiaFont      *font,
                real          font_height,
                gchar        *string,
-               Color        *color, 
+               Color        *color,
                real          line_width,
                real          underline_width)
 {
@@ -617,7 +615,7 @@ uml_underline_text(DiaRenderer  *renderer,
  * made to rejoin any of the segments, that is all New Lines
  * are treated as hard newlines. No syllable matching is done
  * either so breaks in words will sometimes not make real
- * sense. 
+ * sense.
  * <p>
  * Finally, since this function returns newly created dynamic
  * memory the caller must free the memory to prevent memory
@@ -635,12 +633,12 @@ uml_underline_text(DiaRenderer  *renderer,
 static gchar *
 uml_create_documentation_tag (gchar * comment,
                               gboolean tagging,
-			      gint WrapPoint, 
+			      gint WrapPoint,
 			      gint *NumberOfLines)
 {
   gchar  *CommentTag           = tagging ? "{documentation = " : "";
   gint   TagLength             = strlen(CommentTag);
-  /* Make sure that there is at least some value greater then zero for the WrapPoint to 
+  /* Make sure that there is at least some value greater then zero for the WrapPoint to
    * support diagrams from earlier versions of Dia. So if the WrapPoint is zero then use
    * the taglength as the WrapPoint. If the Tag has been changed such that it has a length
    * of 0 then use 1.
@@ -662,7 +660,7 @@ uml_create_documentation_tag (gchar * comment,
   while ( *comment ) {
     /* Skip spaces */
     while ( *comment && g_unichar_isspace(g_utf8_get_char(comment)) ) {
-        comment = g_utf8_next_char(comment); 
+        comment = g_utf8_next_char(comment);
     }
     /* Copy chars */
     if ( *comment ){
@@ -671,13 +669,13 @@ uml_create_documentation_tag (gchar * comment,
       BreakCandidate = NULL;
       while ( *Scan && *Scan != '\n' && AvailSpace > 0 ) {
         ScanChar = g_utf8_get_char(Scan);
-        /* We known, that g_unichar_isspace() is not recommended for word breaking; 
+        /* We known, that g_unichar_isspace() is not recommended for word breaking;
          * but Pango usage seems too complex.
          */
         if ( g_unichar_isspace(ScanChar) )
           BreakCandidate = Scan;
         AvailSpace--; /* not valid for nonspacing marks */
-        Scan = g_utf8_next_char(Scan); 
+        Scan = g_utf8_next_char(Scan);
       }
       if ( AvailSpace==0 && BreakCandidate != NULL )
         Scan = BreakCandidate;
@@ -708,7 +706,7 @@ uml_create_documentation_tag (gchar * comment,
  * @param   renderer            The Renderer on which the comment is being drawn
  * @param   font                The font to render the comment in.
  * @param   font_height         The Y size of the font used to render the comment
- * @param   text_color          A pointer to the color to use to render the comment 
+ * @param   text_color          A pointer to the color to use to render the comment
  * @param   comment             The comment string to render
  * @param   comment_tagging     If the {documentation = } tag should be enforced
  * @param   Comment_line_length The maximum length of any one line in the comment
@@ -717,14 +715,14 @@ uml_create_documentation_tag (gchar * comment,
  * @see   uml_create_documentation
  */
 static void
-uml_draw_comments(DiaRenderer *renderer, 
+uml_draw_comments(DiaRenderer *renderer,
                   DiaFont     *font,
                   real         font_height,
                   Color       *text_color,
                   gchar       *comment,
 		  gboolean     comment_tagging,
-                  gint         Comment_line_length, 
-                  Point       *p, 
+                  gint         Comment_line_length,
+                  Point       *p,
                   gint         alignment)
 {
   gint      NumberOfLines = 0;
@@ -733,12 +731,12 @@ uml_draw_comments(DiaRenderer *renderer,
   gchar     *CommentString = 0;
   gchar     *NewLineP= NULL;
   gchar     *RenderP;
-  
+
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  
-  CommentString = 
+
+  CommentString =
         uml_create_documentation_tag(comment, comment_tagging, Comment_line_length, &NumberOfLines);
-  RenderP = CommentString;                                                       
+  RenderP = CommentString;
   renderer_ops->set_font(renderer, font, font_height);
   ascent = dia_font_ascent(RenderP, font, font_height);
   for ( Index=0; Index < NumberOfLines; Index++)
@@ -775,9 +773,9 @@ uml_draw_comments(DiaRenderer *renderer,
  * the {documentation = } tag.
  * <p>
  * Because the start point is the upper left of the class box, templates
- * tend to get lost when created. By applying an offset, they will not be 
+ * tend to get lost when created. By applying an offset, they will not be
  * lost. The offset should only be added if the elem->corner.y = 0.
- * 
+ *
  * @param umlclass  The pointer to the class being drawn
  * @param renderer  The pointer to the rendering object used to draw
  * @param elem      The pointer to the element within the class to be drawn
@@ -796,18 +794,18 @@ umlclass_draw_namebox(UMLClass *umlclass, DiaRenderer *renderer, Element *elem )
   Point   LowerRightPoint;
   real    Yoffset;
   Color   *text_color = &umlclass->text_color;
-  
 
-  
+
+
   StartPoint.x = elem->corner.x;
   StartPoint.y = elem->corner.y;
 
   Yoffset = elem->corner.y + umlclass->namebox_height;
-  
+
   LowerRightPoint = StartPoint;
   LowerRightPoint.x += elem->width;
   LowerRightPoint.y  = Yoffset;
-  
+
   /* First draw the outer box and fill color for the class name object */
   renderer_ops->draw_rect(renderer, &StartPoint, &LowerRightPoint,
 			  &umlclass->fill_color, &umlclass->line_color);
@@ -845,14 +843,14 @@ umlclass_draw_namebox(UMLClass *umlclass, DiaRenderer *renderer, Element *elem )
 
   /* comment */
   if (umlclass->visible_comments && umlclass->comment != NULL && umlclass->comment[0] != '\0'){
-    uml_draw_comments(renderer, umlclass->comment_font ,umlclass->comment_font_height, 
-                           &umlclass->text_color, umlclass->comment, umlclass->comment_tagging, 
+    uml_draw_comments(renderer, umlclass->comment_font ,umlclass->comment_font_height,
+                           &umlclass->text_color, umlclass->comment, umlclass->comment_tagging,
                            umlclass->comment_line_length, &StartPoint, ALIGN_CENTER);
   }
   return Yoffset;
 }
 
-/** 
+/**
  * Draw the attribute box.
  * This attribute box follows the name box in the class icon. If the
  * attributes are not suppress, draw each of the attributes following the
@@ -862,12 +860,12 @@ umlclass_draw_namebox(UMLClass *umlclass, DiaRenderer *renderer, Element *elem )
  * using the abstract font otherwise it will be rendered using the normal
  * font. If the attribute is of class scope, static in C++, then it will be
  * underlined. If there is a comment associated with the attribute, that is
- * within the class description, it will be rendered as a uml comment. 
+ * within the class description, it will be rendered as a uml comment.
  *
  * @param umlclass   The pointer to the class being drawn
  * @param renderer   The pointer to the rendering object used to draw
  * @param elem       The pointer to the element within the class to be drawn
- * @param Yoffset    The Y offset from the start of the class at which to draw the attributebox 
+ * @param Yoffset    The Y offset from the start of the class at which to draw the attributebox
  * @return           The offset from the start of the class to the bottom of the attributebox
  * @see uml_draw_comments
  */
@@ -921,12 +919,12 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
       StartPoint.y += font_height - ascent;
 
       if (attr->class_scope) {
-        uml_underline_text(renderer, StartPoint, font, font_height, attstr, line_color, 
+        uml_underline_text(renderer, StartPoint, font, font_height, attstr, line_color,
                         umlclass->line_width, UMLCLASS_UNDERLINEWIDTH );
       }
 
       if (umlclass->visible_comments && attr->comment != NULL && attr->comment[0] != '\0') {
-        uml_draw_comments(renderer, umlclass->comment_font ,umlclass->comment_font_height, 
+        uml_draw_comments(renderer, umlclass->comment_font ,umlclass->comment_font_height,
                                &umlclass->text_color, attr->comment, umlclass->comment_tagging,
                                umlclass->comment_line_length, &StartPoint, ALIGN_LEFT);
         StartPoint.y += umlclass->comment_font_height/2;
@@ -954,7 +952,7 @@ umlclass_draw_attributebox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
  * @param umlclass  The pointer to the class being drawn
  * @param renderer  The pointer to the rendering object used to draw
  * @param elem      The pointer to the element within the class to be drawn
- * @param Yoffset   The Y offset from the start of the class at which to draw the operationbox 
+ * @param Yoffset   The Y offset from the start of the class at which to draw the operationbox
  * @return          The offset from the start of the class to the bottom of the operationbox
  *
  */
@@ -1056,7 +1054,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
           }
           renderer_ops->draw_string(renderer, part_opstr, &StartPoint, ALIGN_LEFT, text_color);
 	  if (op->class_scope) {
-	    uml_underline_text(renderer, StartPoint, font, font_height, part_opstr, line_color, 
+	    uml_underline_text(renderer, StartPoint, font, font_height, part_opstr, line_color,
 			       umlclass->line_width, UMLCLASS_UNDERLINEWIDTH );
 	  }
           last_wrap_pos = wrap_pos;
@@ -1068,7 +1066,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
         StartPoint.y += ascent;
         renderer_ops->draw_string(renderer, opstr, &StartPoint, ALIGN_LEFT, text_color);
 	if (op->class_scope) {
-	  uml_underline_text(renderer, StartPoint, font, font_height, opstr, line_color, 
+	  uml_underline_text(renderer, StartPoint, font, font_height, opstr, line_color,
 			     umlclass->line_width, UMLCLASS_UNDERLINEWIDTH );
 	}
       }
@@ -1077,7 +1075,7 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
       StartPoint.y += font_height - ascent;
 
       if (umlclass->visible_comments && op->comment != NULL && op->comment[0] != '\0'){
-        uml_draw_comments(renderer, umlclass->comment_font ,umlclass->comment_font_height, 
+        uml_draw_comments(renderer, umlclass->comment_font ,umlclass->comment_font_height,
                                &umlclass->text_color, op->comment, umlclass->comment_tagging,
                                umlclass->comment_line_length, &StartPoint, ALIGN_LEFT);
         StartPoint.y += umlclass->comment_font_height/2;
@@ -1097,11 +1095,11 @@ umlclass_draw_operationbox(UMLClass *umlclass, DiaRenderer *renderer, Element *e
 /**
  * Draw the template parameters box in the upper right hand corner of the
  * class box for paramertize classes (aka template classes). Fill in this
- * box with the parameters for the class. 
+ * box with the parameters for the class.
  * <p>
  * At this time there is no provision for adding comments or documentation
  * to the display.
- * 
+ *
  * @param umlclass  The pointer to the class being drawn
  * @param renderer  The pointer to the rendering object used to draw
  * @param elem      The pointer to the element within the class to be drawn
@@ -1145,7 +1143,7 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
   while (list != NULL)
   {
     gchar *paramstr = uml_get_formalparameter_string((UMLFormalParameter *)list->data);
-    
+
     ascent = dia_font_ascent(paramstr, font, font_height);
     TextInsert.y += ascent;
     renderer_ops->draw_string(renderer, paramstr, &TextInsert, ALIGN_LEFT, text_color);
@@ -1163,26 +1161,26 @@ umlclass_draw_template_parameters_box(UMLClass *umlclass, DiaRenderer *renderer,
  * line width.  The object is drawn by the umlclass_draw_namebox,
  * umlclass_draw_attributebox, umlclass_draw_operationbox and
  * umlclass_draw_template_parameters_box.
- * 
+ *
  * @param  umlclass   object based on the uml class that is being rendered
  * @param   DiaRenderer  renderer used to draw the object
  *
  */
- 
+
 static void
 umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   real     y  = 0.0;
   Element *elem;
-  
+
   assert(umlclass != NULL);
   assert(renderer != NULL);
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, umlclass->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  
+
   elem = &umlclass->element;
 
   y = umlclass_draw_namebox(umlclass, renderer, elem);
@@ -1211,7 +1209,7 @@ umlclass_update_data(UMLClass *umlclass)
 
   x = elem->corner.x;
   y = elem->corner.y;
-  
+
   /* Update connections: */
   umlclass->connections[0].pos = elem->corner;
   umlclass->connections[0].directions = DIR_NORTH|DIR_WEST;
@@ -1268,7 +1266,7 @@ umlclass_update_data(UMLClass *umlclass)
   i = UMLCLASS_CONNECTIONPOINTS;
   umlclass->connections[i].pos.x = x + elem->width / 2;
   umlclass->connections[i].pos.y = y + elem->height / 2;
-  umlclass->connections[i].directions = DIR_ALL;  
+  umlclass->connections[i].directions = DIR_ALL;
   umlclass->connections[i].flags = CP_FLAGS_MAIN;
 #endif
 
@@ -1290,7 +1288,7 @@ umlclass_update_data(UMLClass *umlclass)
       gint NumberOfLines = 0;
       gchar *CommentString = 0;
 
-      CommentString = 
+      CommentString =
         uml_create_documentation_tag(attr->comment, umlclass->comment_tagging, umlclass->comment_line_length, &NumberOfLines);
       g_free(CommentString);
       y += umlclass->comment_font_height*NumberOfLines + umlclass->comment_font_height/2;
@@ -1303,7 +1301,7 @@ umlclass_update_data(UMLClass *umlclass)
   if (umlclass->visible_attributes) {
     y += umlclass->attributesbox_height;
   }
-    
+
   list = (!umlclass->visible_operations || umlclass->suppress_operations) ? NULL : umlclass->operations;
   while (list != NULL) {
     UMLOperation *op = (UMLOperation *)list->data;
@@ -1325,24 +1323,24 @@ umlclass_update_data(UMLClass *umlclass)
       gint NumberOfLines = 0;
       gchar *CommentString = 0;
 
-      CommentString = 
+      CommentString =
         uml_create_documentation_tag(op->comment, umlclass->comment_tagging, umlclass->comment_line_length, &NumberOfLines);
       g_free(CommentString);
       y += umlclass->comment_font_height*NumberOfLines + umlclass->comment_font_height/2;
     }
     list = g_list_next(list);
   }
-  
+
   element_update_boundingbox(elem);
 
   if (umlclass->template) {
     /* fix boundingumlclass for templates: */
     obj->bounding_box.top -= (umlclass->templates_height  - UMLCLASS_TEMPLATE_OVERLAY_Y) ;
     obj->bounding_box.right += (umlclass->templates_width - UMLCLASS_TEMPLATE_OVERLAY_X);
-    obj->bounding_box.left  -= (elem->width < UMLCLASS_TEMPLATE_OVERLAY_X) ? 
+    obj->bounding_box.left  -= (elem->width < UMLCLASS_TEMPLATE_OVERLAY_X) ?
 				(UMLCLASS_TEMPLATE_OVERLAY_X - elem->width) : 0;
   }
-  
+
   obj->position = elem->corner;
 
   element_update_handles(elem);
@@ -1357,7 +1355,7 @@ umlclass_update_data(UMLClass *umlclass)
  * The height is stored in the class structure. When calculating the
  * comment, if any, the comment is word wrapped and the resulting number of
  * lines is then used to calculate the height of the bounding box.
- * 
+ *
  * @param   umlclass  pointer to the object of UMLClass to calculate
  * @return            the horizontal size of the name box.
  *
@@ -1371,11 +1369,11 @@ umlclass_calculate_name_data(UMLClass *umlclass)
   /* name box: */
 
   if (umlclass->name != NULL && umlclass->name[0] != '\0') {
-    if (umlclass->abstract) { 
+    if (umlclass->abstract) {
       maxwidth = dia_font_string_width(umlclass->name,
                                        umlclass->abstract_classname_font,
                                        umlclass->abstract_classname_font_height);
-    } else { 
+    } else {
       maxwidth = dia_font_string_width(umlclass->name,
                                        umlclass->classname_font,
                                        umlclass->classname_font_height);
@@ -1406,12 +1404,12 @@ umlclass_calculate_name_data(UMLClass *umlclass)
     int NumberOfLines = 0;
     gchar *CommentString = uml_create_documentation_tag (umlclass->comment,
                                                          umlclass->comment_tagging,
-                                                         umlclass->comment_line_length, 
+                                                         umlclass->comment_line_length,
                                                          &NumberOfLines);
-    width = dia_font_string_width (CommentString, 
+    width = dia_font_string_width (CommentString,
                                     umlclass->comment_font,
                                     umlclass->comment_font_height);
- 
+
     g_free(CommentString);
     umlclass->namebox_height += umlclass->comment_font_height * NumberOfLines;
     maxwidth = MAX(width, maxwidth);
@@ -1427,7 +1425,7 @@ umlclass_calculate_name_data(UMLClass *umlclass)
  */
 
 static real
-umlclass_calculate_attribute_data(UMLClass *umlclass) 
+umlclass_calculate_attribute_data(UMLClass *umlclass)
 {
   int    i;
   real   maxwidth = 0.0;
@@ -1466,7 +1464,7 @@ umlclass_calculate_attribute_data(UMLClass *umlclass)
         int NumberOfLines = 0;
         gchar *CommentString = uml_create_documentation_tag(attr->comment,
                                                             umlclass->comment_tagging,
-                                                            umlclass->comment_line_length, 
+                                                            umlclass->comment_line_length,
                                                             &NumberOfLines);
         width = dia_font_string_width(CommentString,
                                        umlclass->comment_font,
@@ -1496,7 +1494,7 @@ umlclass_calculate_attribute_data(UMLClass *umlclass)
  * @return         the horizontial size of the operations box
  *
  */
-  
+
 static real
 umlclass_calculate_operation_data(UMLClass *umlclass)
 {
@@ -1533,7 +1531,7 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
 	g_list_free(op->wrappos);
       }
       op->wrappos = NULL;
-      
+
       switch(op->inheritance_type)
       {
 	  case UML_ABSTRACT:
@@ -1559,9 +1557,9 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
 	  op->needs_wrapping = TRUE;
 
           /* count maximal line width to create a secure buffer (part_opstr)
-          and build the sublist with the wrapping data for the current operation, which will be used by umlclass_draw(), too. 
+          and build the sublist with the wrapping data for the current operation, which will be used by umlclass_draw(), too.
 	  */
-          pos_brace = wrap_pos = offset 
+          pos_brace = wrap_pos = offset
 	    = maxlinewidth = umlclass->max_wrapped_line_width = 0;
           while( wrap_pos + offset < length)
           {
@@ -1569,14 +1567,14 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
             {
               int pos_next_comma = strcspn( (const gchar*)opstr + wrap_pos + offset, ",");
               wrap_pos += pos_next_comma + 1;
-            } while( wrap_pos < umlclass->wrap_after_char - pos_brace 
+            } while( wrap_pos < umlclass->wrap_after_char - pos_brace
 		     && wrap_pos + offset < length);
 
             if( offset == 0){
               pos_brace = strcspn( opstr, "(");
 	      op->wrap_indent = pos_brace + 1;
             }
-	    op->wrappos = g_list_append(op->wrappos, 
+	    op->wrappos = g_list_append(op->wrappos,
 					GINT_TO_POINTER(wrap_pos + offset));
 
             maxlinewidth = MAX(maxlinewidth, wrap_pos);
@@ -1645,7 +1643,7 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
         int NumberOfLines = 0;
         gchar *CommentString = uml_create_documentation_tag(op->comment,
                                                             umlclass->comment_tagging,
-                                                            umlclass->comment_line_length, 
+                                                            umlclass->comment_line_length,
                                                             &NumberOfLines);
         width = dia_font_string_width(CommentString,
                                        umlclass->comment_font,
@@ -1683,7 +1681,7 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
  * the resulting number of lines is used to calculate the size of the
  * comment within the box. The various font settings with in the class
  * properties contribute to the overall size of the resulting bounding box.
- * 
+ *
  * @param   umlclass  a pointer to an object of UMLClass
  *
  * @return  the horizontial size of the box
@@ -1735,7 +1733,7 @@ umlclass_calculate_data(UMLClass *umlclass)
       {
         UMLFormalParameter *param = (UMLFormalParameter *) list->data;
 	gchar *paramstr = uml_get_formalparameter_string(param);
-	
+
         width = dia_font_string_width(paramstr,
                                       umlclass->normal_font,
                                       umlclass->font_height);
@@ -1759,22 +1757,22 @@ fill_in_fontdata(UMLClass *umlclass)
    }
    if (umlclass->abstract_font == NULL) {
      umlclass->abstract_font_height = 0.8;
-     umlclass->abstract_font = 
+     umlclass->abstract_font =
        dia_font_new_from_style(DIA_FONT_MONOSPACE | DIA_FONT_ITALIC | DIA_FONT_BOLD, 0.8);
    }
    if (umlclass->polymorphic_font == NULL) {
      umlclass->polymorphic_font_height = 0.8;
-     umlclass->polymorphic_font = 
+     umlclass->polymorphic_font =
        dia_font_new_from_style(DIA_FONT_MONOSPACE | DIA_FONT_ITALIC, 0.8);
    }
    if (umlclass->classname_font == NULL) {
      umlclass->classname_font_height = 1.0;
-     umlclass->classname_font = 
+     umlclass->classname_font =
        dia_font_new_from_style(DIA_FONT_SANS | DIA_FONT_BOLD, 1.0);
    }
    if (umlclass->abstract_classname_font == NULL) {
      umlclass->abstract_classname_font_height = 1.0;
-     umlclass->abstract_classname_font = 
+     umlclass->abstract_classname_font =
        dia_font_new_from_style(DIA_FONT_SANS | DIA_FONT_BOLD | DIA_FONT_ITALIC, 1.0);
    }
    if (umlclass->comment_font == NULL) {
@@ -1816,7 +1814,7 @@ umlclass_create(Point *startpoint,
   umlclass = g_malloc0(sizeof(UMLClass));
   elem = &umlclass->element;
   obj = &elem->object;
-  
+
 
   elem->corner = *startpoint;
 
@@ -1830,9 +1828,9 @@ umlclass_create(Point *startpoint,
   fill_in_fontdata(umlclass);
 
 
-  /* 
-   * The following block of code may need to be converted to a switch statement if more than 
-   * two types of objects can be made - Dave Klotzbach 
+  /*
+   * The following block of code may need to be converted to a switch statement if more than
+   * two types of objects can be made - Dave Klotzbach
    */
   umlclass->template = (GPOINTER_TO_INT(user_data)==1);
 
@@ -1863,18 +1861,18 @@ umlclass_create(Point *startpoint,
   umlclass->attributes = NULL;
 
   umlclass->operations = NULL;
-  
+
   umlclass->formal_params = NULL;
-  
+
   umlclass->stereotype_string = NULL;
-  
+
   umlclass->line_width = attributes_get_default_linewidth();
   umlclass->text_color = color_black;
   umlclass->line_color = attributes_get_foreground();
   umlclass->fill_color = attributes_get_background();
 
   umlclass_calculate_data(umlclass);
-  
+
   for (i=0;i<UMLCLASS_CONNECTIONPOINTS;i++) {
     obj->connections[i] = &umlclass->connections[i];
     umlclass->connections[i].object = obj;
@@ -1922,8 +1920,8 @@ umlclass_destroy(UMLClass *umlclass)
   dia_font_unref(umlclass->abstract_classname_font);
   dia_font_unref(umlclass->comment_font);
 
-  element_destroy(&umlclass->element);  
-  
+  element_destroy(&umlclass->element);
+
   g_free(umlclass->name);
   g_free(umlclass->stereotype);
   g_free(umlclass->comment);
@@ -1937,7 +1935,7 @@ umlclass_destroy(UMLClass *umlclass)
     list = g_list_next(list);
   }
   g_list_free(umlclass->attributes);
-  
+
   list = umlclass->operations;
   while (list != NULL) {
     op = (UMLOperation *)list->data;
@@ -1974,9 +1972,9 @@ umlclass_copy(UMLClass *umlclass)
   DiaObject *newobj;
   GList *list;
   UMLFormalParameter *param;
-  
+
   elem = &umlclass->element;
-  
+
   newumlclass = g_malloc0(sizeof(UMLClass));
   newelem = &newumlclass->element;
   newobj = &newelem->object;
@@ -2039,7 +2037,7 @@ umlclass_copy(UMLClass *umlclass)
     /* not copying the connection, if there was one */
     UMLAttribute *newattr = uml_attribute_copy(attr);
     uml_attribute_ensure_connection_points (newattr, newobj);
-    
+
     newumlclass->attributes = g_list_append(newumlclass->attributes,
 					    newattr);
     list = g_list_next(list);
@@ -2058,7 +2056,7 @@ umlclass_copy(UMLClass *umlclass)
   }
 
   newumlclass->template = umlclass->template;
-  
+
   newumlclass->formal_params = NULL;
   list = umlclass->formal_params;
   while (list != NULL) {
@@ -2070,7 +2068,7 @@ umlclass_copy(UMLClass *umlclass)
   }
 
   newumlclass->properties_dialog = NULL;
-     
+
   newumlclass->stereotype_string = NULL;
 
   for (i=0;i<UMLCLASS_CONNECTIONPOINTS;i++) {
@@ -2090,11 +2088,11 @@ umlclass_copy(UMLClass *umlclass)
       UMLAttribute *attr = (UMLAttribute *)list->data;
       newobj->connections[i++] = attr->left_connection;
       newobj->connections[i++] = attr->right_connection;
-      
+
       list = g_list_next(list);
     }
   }
-  
+
   if ( (newumlclass->visible_operations) &&
        (!newumlclass->suppress_operations)) {
     list = newumlclass->operations;
@@ -2102,7 +2100,7 @@ umlclass_copy(UMLClass *umlclass)
       UMLOperation *op = (UMLOperation *)list->data;
       newobj->connections[i++] = op->left_connection;
       newobj->connections[i++] = op->right_connection;
-      
+
       list = g_list_next(list);
     }
   }
@@ -2111,9 +2109,9 @@ umlclass_copy(UMLClass *umlclass)
   newobj->connections[i] = &newumlclass->connections[UMLCLASS_CONNECTIONPOINTS];
   newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].object = newobj;
   newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].connected = NULL;
-  newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].pos = 
+  newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].pos =
     umlclass->connections[UMLCLASS_CONNECTIONPOINTS].pos;
-  newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].flags = 
+  newumlclass->connections[UMLCLASS_CONNECTIONPOINTS].flags =
     umlclass->connections[UMLCLASS_CONNECTIONPOINTS].flags;
 #endif
 
@@ -2122,7 +2120,7 @@ umlclass_copy(UMLClass *umlclass)
 #ifdef DEBUG
   umlclass_sanity_check(newumlclass, "Copied");
 #endif
-  
+
   return &newumlclass->element.object;
 }
 
@@ -2136,7 +2134,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   UMLFormalParameter *formal_param;
   GList *list;
   AttributeNode attr_node;
-  
+
 #ifdef DEBUG
   umlclass_sanity_check(umlclass, "Saving");
 #endif
@@ -2172,13 +2170,13 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
                    umlclass->comment_tagging, ctx);
   data_add_boolean(new_attribute(obj_node, "allow_resizing"),
                    umlclass->allow_resizing, ctx);
-  data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH), 
+  data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		   umlclass->line_width, ctx);
-  data_add_color(new_attribute(obj_node, "line_color"), 
+  data_add_color(new_attribute(obj_node, "line_color"),
 		   &umlclass->line_color, ctx);
-  data_add_color(new_attribute(obj_node, "fill_color"), 
+  data_add_color(new_attribute(obj_node, "fill_color"),
 		   &umlclass->fill_color, ctx);
-  data_add_color(new_attribute(obj_node, "text_color"), 
+  data_add_color(new_attribute(obj_node, "text_color"),
 		   &umlclass->text_color, ctx);
   data_add_font (new_attribute (obj_node, "normal_font"),
                  umlclass->normal_font, ctx);
@@ -2213,7 +2211,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
     uml_attribute_write(attr_node, attr, ctx);
     list = g_list_next(list);
   }
-  
+
   /* Operations info: */
   attr_node = new_attribute(obj_node, "operations");
   list = umlclass->operations;
@@ -2226,7 +2224,7 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
   /* Template info: */
   data_add_boolean(new_attribute(obj_node, "template"),
 		   umlclass->template, ctx);
-  
+
   attr_node = new_attribute(obj_node, "templates");
   list = umlclass->formal_params;
   while (list != NULL) {
@@ -2245,12 +2243,12 @@ umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
   AttributeNode attr_node;
   int i;
   GList *list;
-  
+
 
   umlclass = g_malloc0(sizeof(UMLClass));
   elem = &umlclass->element;
   obj = &elem->object;
-  
+
   obj->type = &umlclass_type;
   obj->ops = &umlclass_ops;
 
@@ -2271,13 +2269,13 @@ umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
   }
 
   fill_in_fontdata(umlclass);
-  
+
   /* kind of dirty, object_load_props() may leave us in an inconsistent state --hb */
   object_load_props(obj,obj_node, ctx);
 
-  /* parameters loaded via StdProp dont belong here anymore. In case of strings they 
-   * will produce leaks. Otherwise they are just wasting time (at runtime and while 
-   * reading the code). Except maybe for some compatibility stuff. 
+  /* parameters loaded via StdProp dont belong here anymore. In case of strings they
+   * will produce leaks. Otherwise they are just wasting time (at runtime and while
+   * reading the code). Except maybe for some compatibility stuff.
    * Although that *could* probably done via StdProp too.                      --hb
    */
 
@@ -2286,7 +2284,7 @@ umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
   attr_node = object_find_attribute(obj_node, "wrap_operations");
   if (attr_node != NULL)
     umlclass->wrap_operations = data_boolean(attribute_first_data(attr_node), ctx);
-  
+
   umlclass->wrap_after_char = UMLCLASS_WRAP_AFTER_CHAR;
   attr_node = object_find_attribute(obj_node, "wrap_after_char");
   if (attr_node != NULL)
@@ -2306,7 +2304,7 @@ umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
   attr_node = object_find_attribute(obj_node, "comment_tagging");
   if (attr_node != NULL)
     umlclass->comment_tagging = data_boolean(attribute_first_data(attr_node), ctx);
-  
+
   /* Loads the line width */
   umlclass->line_width = UMLCLASS_BORDER;
   attr_node = object_find_attribute(obj_node, PROP_STDNAME_LINE_WIDTH);
@@ -2322,7 +2320,7 @@ umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
   /* ... but prefer the new one */
   attr_node = object_find_attribute(obj_node, "line_color");
   if(attr_node != NULL)
-    data_color(attribute_first_data(attr_node), &umlclass->line_color, ctx); 
+    data_color(attribute_first_data(attr_node), &umlclass->line_color, ctx);
   attr_node = object_find_attribute(obj_node, "text_color");
   if(attr_node != NULL)
     data_color(attribute_first_data(attr_node), &umlclass->text_color, ctx);
@@ -2364,18 +2362,18 @@ umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
     umlclass->template = data_boolean(attribute_first_data(attr_node), ctx);
 
   fill_in_fontdata(umlclass);
-  
+
   umlclass->stereotype_string = NULL;
 
   umlclass_calculate_data(umlclass);
 
   elem->extra_spacing.border_trans = umlclass->line_width/2.0;
   umlclass_update_data(umlclass);
-  
+
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
-  umlclass_reflect_resizing(umlclass); 
+  umlclass_reflect_resizing(umlclass);
 
 #ifdef DEBUG
   umlclass_sanity_check(umlclass, "Loaded class");
@@ -2385,7 +2383,7 @@ umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
 }
 
 /** Returns the number of connection points used by the attributes and
- * connections in the current state of the object. 
+ * connections in the current state of the object.
  */
 static int
 umlclass_num_dynamic_connectionpoints(UMLClass *umlclass) {
@@ -2395,7 +2393,7 @@ umlclass_num_dynamic_connectionpoints(UMLClass *umlclass) {
     GList *list = umlclass->attributes;
     num += 2 * g_list_length(list);
   }
-  
+
   if ( (umlclass->visible_operations) &&
        (!umlclass->suppress_operations)) {
     GList *list = umlclass->operations;
@@ -2424,7 +2422,7 @@ umlclass_sanity_check(UMLClass *c, gchar *msg)
 		  "%s: Class %p has %d connections, but %d fixed and %d dynamic\n",
 		  msg, c, obj->num_connections, num_fixed_connections,
 		  umlclass_num_dynamic_connectionpoints(c));
-  
+
   for (i = 0; i < UMLCLASS_CONNECTIONPOINTS; i++) {
     dia_assert_true(&c->connections[i] == obj->connections[i],
 		    "%s: Class %p connection mismatch at %d: %p != %p\n",

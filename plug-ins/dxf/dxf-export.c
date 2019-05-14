@@ -20,9 +20,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <stdio.h>
 #include <string.h>
@@ -81,7 +79,7 @@ typedef struct _FillEdgeAttrdxf
    int          cap;                 /* Edge cap */
    int          join;                /* Edge join */
    char         *style;               /* Edge style */
-   real         width;               /* Edge width */ 
+   real         width;               /* Edge width */
    Color        color;               /* Edge color */
 
 } FillEdgeAttrdxf;
@@ -107,14 +105,14 @@ struct _DxfRenderer
 
     DiaFont *font;
 
-    real y0, y1; 
+    real y0, y1;
 
     LineAttrdxf  lcurrent, linfile;
 
     FillEdgeAttrdxf fcurrent, finfile;
 
     TextAttrdxf    tcurrent, tinfile;
-    
+
     char *layername;
 
 };
@@ -147,7 +145,7 @@ dxf_renderer_get_type (void)
                                             "DxfRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
@@ -257,8 +255,8 @@ dxf_color (const Color *color)
 }
 
 static void
-draw_line(DiaRenderer *self, 
-	  Point *start, Point *end, 
+draw_line(DiaRenderer *self,
+	  Point *start, Point *end,
 	  Color *line_colour)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
@@ -280,8 +278,8 @@ draw_line(DiaRenderer *self,
 }
 
 static void
-draw_polyline(DiaRenderer *self, 
-              Point *points, int num_points, 
+draw_polyline(DiaRenderer *self,
+              Point *points, int num_points,
               Color *color)
 {
     DxfRenderer *renderer = DXF_RENDERER(self);
@@ -301,23 +299,23 @@ draw_polyline(DiaRenderer *self,
 
     for (i = 0; i < num_points; ++i)
         fprintf(renderer->file, "  0\nVERTEX\n 10\n%s\n 20\n%s\n",
-	        g_ascii_formatd (buf, sizeof(buf), "%g", points[i].x), 
+	        g_ascii_formatd (buf, sizeof(buf), "%g", points[i].x),
 		g_ascii_formatd (buf2, sizeof(buf2), "%g", -points[i].y));
 
     fprintf(renderer->file, "  0\nSEQEND\n");
 }
 
-static void 
+static void
 draw_polygon (DiaRenderer *self,
               Point *points, int num_points,
               Color *fill, Color *stroke)
 {
   Color *color = fill ? fill : stroke;
   DxfRenderer *renderer = DXF_RENDERER(self);
-  /* We could emulate all polygons with multiple SOLID but it might not be 
+  /* We could emulate all polygons with multiple SOLID but it might not be
    * worth the effort. Following the easy part of polygons with 3 or 4 points.
    */
-  int idx3[4] = {0, 1, 2, 2}; /* repeating last point is by specification 
+  int idx3[4] = {0, 1, 2, 2}; /* repeating last point is by specification
                                     and should not be necessary but it helps
 				    limited importers */
   int idx4[4] = {0, 1, 3, 2}; /* SOLID point order differs from Dia's */
@@ -338,13 +336,13 @@ draw_polygon (DiaRenderer *self,
   fprintf(renderer->file, "  8\n%s\n", renderer->layername);
   fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
   for (i = 0; i < 4; ++i)
-    fprintf(renderer->file, " %d\n%s\n %d\n%s\n", 
-            10+i, g_ascii_formatd (buf, sizeof(buf), "%g", points[idx[i]].x), 
+    fprintf(renderer->file, " %d\n%s\n %d\n%s\n",
+            10+i, g_ascii_formatd (buf, sizeof(buf), "%g", points[idx[i]].x),
 	    20+i, g_ascii_formatd (buf2, sizeof(buf2), "%g", -points[idx[i]].y));
 }
 
 static void
-draw_arc(DiaRenderer *self, 
+draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -378,7 +376,7 @@ draw_arc(DiaRenderer *self,
 }
 
 static void
-fill_arc(DiaRenderer *self, 
+fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -388,7 +386,7 @@ fill_arc(DiaRenderer *self,
 }
 
 static void
-draw_ellipse(DiaRenderer *self, 
+draw_ellipse(DiaRenderer *self,
 	     Point *center,
 	     real width, real height,
 	     Color *fill, Color *stroke)
@@ -413,11 +411,11 @@ draw_ellipse(DiaRenderer *self,
         fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
         fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", center->x));
         fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*center->y));
-        fprintf(renderer->file, " 11\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", width/2)); /* Endpoint major axis relative to center X*/            
+        fprintf(renderer->file, " 11\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", width/2)); /* Endpoint major axis relative to center X*/
         fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", height/width)); /*Ratio major/minor axis*/
         fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
         fprintf(renderer->file, " 41\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 0.0)); /*Start Parameter full ellipse */
-        fprintf(renderer->file, " 42\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 2.0*3.14)); /* End Parameter full ellipse */		
+        fprintf(renderer->file, " 42\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 2.0*3.14)); /* End Parameter full ellipse */
     }
     fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
 }
@@ -449,7 +447,7 @@ draw_string(DiaRenderer *self,
     default:
    	fprintf(renderer->file, " 72\n%d\n", 1);
         break;
-    }    
+    }
     fprintf(renderer->file, "  7\n%s\n", "0"); /* Text style */
     fprintf(renderer->file, "  1\n%s\n", text);
     fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
@@ -483,7 +481,7 @@ dxf_renderer_class_init (DxfRendererClass *klass)
   renderer_class->set_linestyle = set_linestyle;
   renderer_class->set_fillstyle = set_fillstyle;
   renderer_class->set_font = set_font;
-  
+
   renderer_class->draw_line = draw_line;
   renderer_class->draw_polygon = draw_polygon;
   renderer_class->draw_polyline = draw_polyline;
@@ -513,7 +511,7 @@ export_dxf(DiagramData *data, DiaContext *ctx,
     file = g_fopen(filename, "w");
 
     if (file == NULL) {
-	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
+	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
 					    dia_context_get_filename(ctx));
 	return FALSE;
     }
@@ -521,16 +519,16 @@ export_dxf(DiagramData *data, DiaContext *ctx,
     renderer = g_object_new(DXF_TYPE_RENDERER, NULL);
 
     renderer->file = file;
-    
+
     /* drawing limits */
     fprintf(file, "  0\nSECTION\n  2\nHEADER\n");
-    fprintf(file, "  9\n$EXTMIN\n 10\n%s\n 20\n%s\n", 
-      g_ascii_formatd (buf, sizeof(buf), "%g", data->extents.left), 
+    fprintf(file, "  9\n$EXTMIN\n 10\n%s\n 20\n%s\n",
+      g_ascii_formatd (buf, sizeof(buf), "%g", data->extents.left),
       g_ascii_formatd (buf2, sizeof(buf2), "%g", -data->extents.bottom));
-    fprintf(file, "  9\n$EXTMAX\n 10\n%s\n 20\n%s\n", 
+    fprintf(file, "  9\n$EXTMAX\n 10\n%s\n 20\n%s\n",
       g_ascii_formatd (buf, sizeof(buf), "%g", data->extents.right),
       g_ascii_formatd (buf2, sizeof(buf2), "%g", -data->extents.top));
-    fprintf(file, "  0\nENDSEC\n");    
+    fprintf(file, "  0\nENDSEC\n");
 
     /* write layer description */
     fprintf(file,"  0\nSECTION\n  2\nTABLES\n  0\nTABLE\n");
@@ -545,11 +543,11 @@ export_dxf(DiagramData *data, DiaContext *ctx,
       else
         fprintf(file," 62\n%d\n",(-1)*(i+1));
     }
-    fprintf(file, "  0\nENDTAB\n  0\nENDSEC\n");    
-    
+    fprintf(file, "  0\nENDTAB\n  0\nENDSEC\n");
+
     /* write graphics */
     fprintf(file,"  0\nSECTION\n  2\nENTITIES\n");
-    
+
     init_attributes(renderer);
 
     DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
@@ -559,7 +557,7 @@ export_dxf(DiagramData *data, DiaContext *ctx,
 	    renderer->layername = layer->name;
         layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
     }
-  
+
     DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
 
     g_object_unref(renderer);

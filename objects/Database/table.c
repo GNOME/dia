@@ -17,7 +17,7 @@
  *
  * File:    table.c
  *
- * Purpose: This file contains implementation of the "table" code. 
+ * Purpose: This file contains implementation of the "table" code.
  */
 
 /*
@@ -26,9 +26,7 @@
  * template. -- pn
  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include <assert.h>
 #include <string.h>
@@ -93,16 +91,16 @@ static void table_update_primary_key_font (Table *);
 
 static gchar * create_documentation_tag (gchar * comment,
                                          gboolean tagging,
-                                         gint WrapPoint, 
+                                         gint WrapPoint,
                                          gint *NumberOfLines);
-static void draw_comments(DiaRenderer *renderer, 
+static void draw_comments(DiaRenderer *renderer,
                           DiaFont     *font,
                           real         font_height,
                           Color       *text_color,
                           gchar       *comment,
                           gboolean     comment_tagging,
-                          gint         Comment_line_length, 
-                          Point       *p, 
+                          gint         Comment_line_length,
+                          Point       *p,
                           gint         alignment);
 
 /* ----------------------------------------------------------------------- */
@@ -594,7 +592,7 @@ table_draw_namebox (Table * table, DiaRenderer * renderer, Element * elem)
  * @param   renderer            The Renderer on which the comment is being drawn
  * @param   font                The font to render the comment in.
  * @param   font_height         The Y size of the font used to render the comment
- * @param   text_color          A pointer to the color to use to render the comment 
+ * @param   text_color          A pointer to the color to use to render the comment
  * @param   comment             The comment string to render
  * @param   comment_tagging     If the {documentation = } tag should be enforced
  * @param   Comment_line_length The maximum length of any one line in the comment
@@ -603,14 +601,14 @@ table_draw_namebox (Table * table, DiaRenderer * renderer, Element * elem)
  * @see   uml_create_documentation
  */
 static void
-draw_comments(DiaRenderer *renderer, 
+draw_comments(DiaRenderer *renderer,
               DiaFont     *font,
               real         font_height,
               Color       *text_color,
               gchar       *comment,
               gboolean     comment_tagging,
-              gint         Comment_line_length, 
-              Point       *p, 
+              gint         Comment_line_length,
+              Point       *p,
               gint         alignment)
 {
   gint      NumberOfLines = 0;
@@ -618,12 +616,12 @@ draw_comments(DiaRenderer *renderer,
   gchar     *CommentString = 0;
   gchar     *NewLineP= NULL;
   gchar     *RenderP;
-  
+
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  
-  CommentString = 
+
+  CommentString =
     create_documentation_tag(comment, comment_tagging, Comment_line_length, &NumberOfLines);
-  RenderP = CommentString;                                                       
+  RenderP = CommentString;
   renderer_ops->set_font(renderer, font, font_height);
   for ( Index=0; Index < NumberOfLines; Index++)
   {
@@ -1028,7 +1026,7 @@ table_init_attributesbox_height (Table * table)
 }
 
 static void
-underline_table_attribute(DiaRenderer  *   renderer, 
+underline_table_attribute(DiaRenderer  *   renderer,
                           Point            StartPoint,
                           TableAttribute * attr,
                           Table *          table)
@@ -1085,7 +1083,7 @@ underline_table_attribute(DiaRenderer  *   renderer,
  * made to rejoin any of the segments, that is all New Lines
  * are treated as hard newlines. No syllable matching is done
  * either so breaks in words will sometimes not make real
- * sense. 
+ * sense.
  * <p>
  * Finally, since this function returns newly created dynamic
  * memory the caller must free the memory to prevent memory
@@ -1103,12 +1101,12 @@ underline_table_attribute(DiaRenderer  *   renderer,
 static gchar *
 create_documentation_tag (gchar * comment,
                           gboolean tagging,
-                          gint WrapPoint, 
+                          gint WrapPoint,
                           gint *NumberOfLines)
 {
   gchar  *CommentTag           = tagging ? "{documentation = " : "";
   gint   TagLength             = strlen(CommentTag);
-  /* Make sure that there is at least some value greater then zero for the WrapPoint to 
+  /* Make sure that there is at least some value greater then zero for the WrapPoint to
    * support diagrams from earlier versions of Dia. So if the WrapPoint is zero then use
    * the taglength as the WrapPoint. If the Tag has been changed such that it has a length
    * of 0 then use 1.
@@ -1130,7 +1128,7 @@ create_documentation_tag (gchar * comment,
   while ( *comment ) {
     /* Skip spaces */
     while ( *comment && g_unichar_isspace(g_utf8_get_char(comment)) ) {
-        comment = g_utf8_next_char(comment); 
+        comment = g_utf8_next_char(comment);
     }
     /* Copy chars */
     if ( *comment ){
@@ -1139,13 +1137,13 @@ create_documentation_tag (gchar * comment,
       BreakCandidate = NULL;
       while ( *Scan && *Scan != '\n' && AvailSpace > 0 ) {
         ScanChar = g_utf8_get_char(Scan);
-        /* We known, that g_unichar_isspace() is not recommended for word breaking; 
+        /* We known, that g_unichar_isspace() is not recommended for word breaking;
          * but Pango usage seems too complex.
          */
         if ( g_unichar_isspace(ScanChar) )
           BreakCandidate = Scan;
         AvailSpace--; /* not valid for nonspacing marks */
-        Scan = g_utf8_next_char(Scan); 
+        Scan = g_utf8_next_char(Scan);
       }
       if ( AvailSpace==0 && BreakCandidate != NULL )
         Scan = BreakCandidate;
@@ -1324,7 +1322,7 @@ table_update_connectionpoints (Table * table)
   if (num_connections != obj->num_connections)
     {
       obj->num_connections = num_connections;
-      obj->connections = 
+      obj->connections =
         g_realloc (obj->connections,
                    num_connections * sizeof (ConnectionPoint *));
     }
@@ -1499,7 +1497,7 @@ table_change_revert (TableChange *change, DiaObject *obj)
   old_state = table_state_new(change->obj);
 
   table_state_set(change->saved_state, change->obj);
-  
+
   list = change->disconnected;
   while (list) {
     Disconnect *dis = (Disconnect *)list->data;
@@ -1508,7 +1506,7 @@ table_change_revert (TableChange *change, DiaObject *obj)
 
     list = g_list_next(list);
   }
-  
+
   change->saved_state = old_state;
   change->applied = FALSE;
 }

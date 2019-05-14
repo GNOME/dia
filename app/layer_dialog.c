@@ -22,9 +22,7 @@
  * Copyright (C) 1995 Spencer Kimball and Peter Mattis
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <string.h>

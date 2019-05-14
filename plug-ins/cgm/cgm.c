@@ -21,9 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "cgm.h"
 
@@ -91,9 +89,9 @@ static void
 write_uint32(FILE *fp, guint32 n)
 {
     putc((n >> 24) & 0xff, fp);
-    putc((n >> 16) & 0xff, fp); 
-    putc((n >> 8) & 0xff, fp); 
-    putc(n & 0xff, fp); 
+    putc((n >> 16) & 0xff, fp);
+    putc((n >> 8) & 0xff, fp);
+    putc(n & 0xff, fp);
 }
 
 static void
@@ -120,7 +118,7 @@ write_real(FILE *fp, double x)
         guint16  fraction;
 
         wholepart = (gint32)x;
-   
+
         fraction = (guint16)((x - wholepart) * -65536);
         if ( fraction > 0 )
         {
@@ -174,18 +172,18 @@ init_fonts(void)
     PangoFontFamily **families;
     int n_families;
     const char *familyname;
-    
+
     if (alreadyrun) return;
     alreadyrun = TRUE;
 
     context = gdk_pango_context_get();
     pango_context_list_families(context,&families,&n_families);
-    
+
     fonthash = g_hash_table_new(g_str_hash, g_str_equal);
     str = g_string_new(NULL);
     for (i = 0; i < n_families; ++i) {
         familyname = pango_font_family_get_name(families[i]);
-        
+
         g_string_append_c(str, strlen(familyname));
         g_string_append(str, familyname);
         g_hash_table_insert(fonthash, (gpointer)familyname,
@@ -218,7 +216,7 @@ typedef struct _FillEdgeAttrCGM
    int          cap;                 /* Edge cap */
    int          join;                /* Edge join */
    int          style;               /* Edge style */
-   real         width;               /* Edge width */ 
+   real         width;               /* Edge width */
    Color        color;               /* Edge color */
 
 } FillEdgeAttrCGM;
@@ -244,7 +242,7 @@ struct _CgmRenderer
 
     DiaFont *font;
 
-    real y0, y1; 
+    real y0, y1;
 
     LineAttrCGM  lcurrent, linfile;
 
@@ -301,8 +299,8 @@ init_attributes( CgmRenderer *renderer )
     renderer->finfile.fill_color.alpha = 1.0;
 
     renderer->finfile.edgevis = -1;
-    renderer->finfile.cap   = -1;            
-    renderer->finfile.join  = -1;           
+    renderer->finfile.cap   = -1;
+    renderer->finfile.join  = -1;
     renderer->finfile.style = -1;
     renderer->finfile.width = -1.;
     renderer->finfile.color.red   = -1.0;
@@ -325,7 +323,7 @@ init_attributes( CgmRenderer *renderer )
     renderer->tinfile.color.alpha = 1.0;
 
 }
-    
+
 
 
 static real
@@ -341,7 +339,7 @@ write_line_attributes( CgmRenderer *renderer, Color *color )
 LineAttrCGM    *lnew, *lold;
 
     lnew = &renderer->lcurrent;
-    lold = &renderer->linfile; 
+    lold = &renderer->linfile;
 
     if ( lnew->cap != lold->cap )
     {
@@ -355,7 +353,7 @@ LineAttrCGM    *lnew, *lold;
     {
         write_elhead(renderer->file, CGM_ATTRIB, CGM_LINE_JOIN, 2);
         write_int16(renderer->file, lnew->join);
-        lold->join = lnew->join; 
+        lold->join = lnew->join;
     }
     if ( lnew->style != lold->style )
     {
@@ -389,7 +387,7 @@ LineAttrCGM    *lnew, *lold;
 ** fill_color		!= NULL, style solid, interrior-color is fill_color
 **                      == NULL, style empty
 **
-** edge_color           != NULL, edge on with the color and the other 
+** edge_color           != NULL, edge on with the color and the other
 **                               attributes
 **                      == NULL, edge off
 */
@@ -401,7 +399,7 @@ write_filledge_attributes( CgmRenderer *renderer, Color *fill_color,
 FillEdgeAttrCGM    *fnew, *fold;
 
     fnew = &renderer->fcurrent;
-    fold = &renderer->finfile; 
+    fold = &renderer->finfile;
     /*
     ** Set the edge attributes
     */
@@ -411,7 +409,7 @@ FillEdgeAttrCGM    *fnew, *fold;
         fnew->edgevis = 0;   /* edge off */
         if ( fnew->edgevis != fold->edgevis )
         {
-            write_elhead(renderer->file, CGM_ATTRIB, CGM_EDGE_VISIBILITY, 2);    
+            write_elhead(renderer->file, CGM_ATTRIB, CGM_EDGE_VISIBILITY, 2);
             write_int16(renderer->file, fnew->edgevis);
             fold->edgevis = fnew->edgevis;
         }
@@ -421,7 +419,7 @@ FillEdgeAttrCGM    *fnew, *fold;
         fnew->edgevis = 1;   /* edge on */
         if ( fnew->edgevis != fold->edgevis )
         {
-            write_elhead(renderer->file, CGM_ATTRIB, CGM_EDGE_VISIBILITY, 2);  
+            write_elhead(renderer->file, CGM_ATTRIB, CGM_EDGE_VISIBILITY, 2);
             write_int16(renderer->file, fnew->edgevis);
             fold->edgevis = fnew->edgevis;
         }
@@ -469,7 +467,7 @@ FillEdgeAttrCGM    *fnew, *fold;
         fnew->fill_style = 4;       /* empty */
         if ( fnew->fill_style != fold->fill_style )
         {
-            write_elhead(renderer->file, CGM_ATTRIB, CGM_INTERIOR_STYLE, 2); 
+            write_elhead(renderer->file, CGM_ATTRIB, CGM_INTERIOR_STYLE, 2);
             write_int16(renderer->file, fnew->fill_style);
             fold->fill_style = fnew->fill_style;
         }
@@ -479,7 +477,7 @@ FillEdgeAttrCGM    *fnew, *fold;
         fnew->fill_style = 1;       /* solid fill */
         if ( fnew->fill_style != fold->fill_style )
         {
-            write_elhead(renderer->file, CGM_ATTRIB, CGM_INTERIOR_STYLE, 2); 
+            write_elhead(renderer->file, CGM_ATTRIB, CGM_INTERIOR_STYLE, 2);
             write_int16(renderer->file, fnew->fill_style);
             fold->fill_style = fnew->fill_style;
         }
@@ -506,7 +504,7 @@ TextAttrCGM    *tnew, *told;
 
 
     tnew = &renderer->tcurrent;
-    told = &renderer->tinfile; 
+    told = &renderer->tinfile;
     /*
     ** Set the text attributes
     */
@@ -521,7 +519,7 @@ TextAttrCGM    *tnew, *told;
     {
         real    h_basecap;
 
-        /* in CGM we need the base-cap height, I used the 0.9 to correct */ 
+        /* in CGM we need the base-cap height, I used the 0.9 to correct */
         /* it because it was still to high. There might be a better way */
         /* but for now.... */
 
@@ -580,7 +578,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
     CgmRenderer *renderer = CGM_RENDERER(self);
     int  cap;
 
-    switch(mode) 
+    switch(mode)
     {
     case LINECAPS_DEFAULT:
     case LINECAPS_BUTT:
@@ -605,7 +603,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
     CgmRenderer *renderer = CGM_RENDERER(self);
     int    join;
 
-    switch(mode) 
+    switch(mode)
     {
     case LINEJOIN_DEFAULT:
     case LINEJOIN_MITER:
@@ -685,8 +683,8 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 }
 
 static void
-draw_line(DiaRenderer *self, 
-	  Point *start, Point *end, 
+draw_line(DiaRenderer *self,
+	  Point *start, Point *end,
 	  Color *line_colour)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
@@ -701,8 +699,8 @@ draw_line(DiaRenderer *self,
 }
 
 static void
-draw_polyline(DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polyline(DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *line_colour)
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
@@ -735,7 +733,7 @@ draw_polygon (DiaRenderer *self,
 }
 
 static void
-draw_rect(DiaRenderer *self, 
+draw_rect(DiaRenderer *self,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *fill, Color *stroke)
 {
@@ -797,11 +795,11 @@ write_ellarc (CgmRenderer   *renderer,
     */
     if ( elemid == CGM_ELLIPTICAL_ARC_CLOSE )
         write_int16(renderer->file, 0);
-} 
+}
 
 
 static void
-draw_arc(DiaRenderer *self, 
+draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -814,7 +812,7 @@ draw_arc(DiaRenderer *self,
 }
 
 static void
-fill_arc(DiaRenderer *self, 
+fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -827,7 +825,7 @@ fill_arc(DiaRenderer *self,
 }
 
 static void
-draw_ellipse(DiaRenderer *self, 
+draw_ellipse(DiaRenderer *self,
 	     Point *center,
 	     real width, real height,
 	     Color *fill, Color *stroke)
@@ -847,10 +845,10 @@ draw_ellipse(DiaRenderer *self,
     write_real(renderer->file, ynew + height/2);
 }
 
-static void 
-write_bezier(CgmRenderer *renderer, 
-             BezPoint *points, 
-             int numpoints) 
+static void
+write_bezier(CgmRenderer *renderer,
+             BezPoint *points,
+             int numpoints)
 {
     int     i;
     Point   current;
@@ -863,7 +861,7 @@ write_bezier(CgmRenderer *renderer,
 
     for (i = 1; i < numpoints; i++)
     {
-	switch (points[i].type) 
+	switch (points[i].type)
         {
 	case BEZ_MOVE_TO:
 	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
@@ -897,7 +895,7 @@ write_bezier(CgmRenderer *renderer,
 
 
 static void
-draw_bezier(DiaRenderer *self, 
+draw_bezier(DiaRenderer *self,
 	    BezPoint *points,
 	    int numpoints,
 	    Color *colour)
@@ -913,7 +911,7 @@ draw_bezier(DiaRenderer *self,
 
 
 static void
-draw_beziergon (DiaRenderer *self, 
+draw_beziergon (DiaRenderer *self,
 		BezPoint *points, /* Last point must be same as first point */
 		int numpoints,
 		Color *fill,
@@ -959,11 +957,11 @@ draw_string(DiaRenderer *self,
     case ALIGN_LEFT:
         break;
     case ALIGN_CENTER:
-        x -= dia_font_string_width(text, renderer->font, 
+        x -= dia_font_string_width(text, renderer->font,
                                    renderer->tcurrent.font_height)/2;
         break;
     case ALIGN_RIGHT:
-        x -= dia_font_string_width(text, renderer->font, 
+        x -= dia_font_string_width(text, renderer->font,
                                    renderer->tcurrent.font_height);
         break;
     }
@@ -1004,7 +1002,7 @@ draw_image(DiaRenderer *self,
 {
     CgmRenderer *renderer = CGM_RENDERER(self);
     const gint maxlen = 32767 - 6 * REALSIZE - 4 * 2;
-    double x1 = point->x, y1 = swap_y(renderer, point->y), 
+    double x1 = point->x, y1 = swap_y(renderer, point->y),
            x2 = x1+width, y2 = y1-height;
     gint rowlen = dia_image_width(image) * 3;
     gint x, y, columns = dia_image_width(image);
@@ -1017,7 +1015,7 @@ draw_image(DiaRenderer *self,
     gboolean has_alpha;
 
     if (rowlen > maxlen) {
-	dia_context_add_message(renderer->ctx, 
+	dia_context_add_message(renderer->ctx,
 				_("Image row length larger than maximum cell array.\n"
 				  "Image not exported to CGM."));
 	return;
@@ -1083,7 +1081,7 @@ export_cgm(DiagramData *data, DiaContext *ctx,
     file = g_fopen(filename, "wb");
 
     if (file == NULL) {
-	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
+	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
 					    dia_context_get_filename(ctx));
 	return FALSE;
     }
@@ -1139,7 +1137,7 @@ export_cgm(DiagramData *data, DiaContext *ctx,
     fwrite(fontlist, sizeof(char), fontlistlen, file);
     if (IS_ODD(fontlistlen))
 	putc(0, file);
- 
+
     /* begin picture */
     len = strlen(diafilename);
     write_elhead(file, CGM_DELIM, CGM_BEGIN_PICTURE, len + 1);
@@ -1163,8 +1161,8 @@ export_cgm(DiagramData *data, DiaContext *ctx,
     extent = &data->extents;
 
     /*
-    ** Change the swap Y-coordinate in the CGM, to get a more 
-    ** 'portable' CGM   
+    ** Change the swap Y-coordinate in the CGM, to get a more
+    ** 'portable' CGM
     */
     /* write extents */
     write_elhead(file, CGM_PICDESC, CGM_VDC_EXTENT, 4 * REALSIZE);
@@ -1237,7 +1235,7 @@ cgm_renderer_get_type (void)
                                             "CgmRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
@@ -1266,10 +1264,10 @@ cgm_renderer_class_init (CgmRendererClass *klass)
     renderer_class->set_linestyle = set_linestyle;
     renderer_class->set_fillstyle = set_fillstyle;
     renderer_class->set_font = set_font;
-  
+
     renderer_class->draw_line = draw_line;
     renderer_class->draw_polyline = draw_polyline;
-  
+
     renderer_class->draw_polygon = draw_polygon;
 
     renderer_class->draw_rect = draw_rect;

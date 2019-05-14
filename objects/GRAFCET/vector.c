@@ -1,7 +1,7 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * GRAFCET charts support for Dia 
+ * GRAFCET charts support for Dia
  * Copyright (C) 2000 Cyrille Chepelov
  *
  * This file is derived from objects/standard/zigzag.c
@@ -21,9 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -71,9 +69,9 @@ static DiaMenu *arc_get_object_menu(Arc *arc,
 
 static DiaObject *arc_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *arc_describe_props(Arc *arc);
-static void arc_get_props(Arc *arc, 
+static void arc_get_props(Arc *arc,
                                  GPtrArray *props);
-static void arc_set_props(Arc *arc, 
+static void arc_set_props(Arc *arc,
                                  GPtrArray *props);
 
 static ObjectTypeOps arc_type_ops =
@@ -128,13 +126,13 @@ static PropDescription arc_props[] = {
 };
 
 static PropDescription *
-arc_describe_props(Arc *arc) 
+arc_describe_props(Arc *arc)
 {
   if (arc_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(arc_props);
   }
   return arc_props;
-}    
+}
 
 static PropOffset arc_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
@@ -144,7 +142,7 @@ static PropOffset arc_offsets[] = {
 
 static void
 arc_get_props(Arc *arc, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&arc->orth.object,
                                 arc_offsets,props);
 }
@@ -202,10 +200,10 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   OrthConn *orth = &arc->orth;
   Point *points;
   int n,i;
-  
+
   points = &orth->points[0];
   n = orth->numpoints;
-  
+
   renderer_ops->set_linewidth(renderer, ARC_LINE_WIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
@@ -244,16 +242,16 @@ arc_create(Point *startpoint,
   arc = g_malloc0(sizeof(Arc));
   orth = &arc->orth;
   obj = &orth->object;
-  
+
   obj->type = &grafcet_arc_type;
   obj->ops = &arc_ops;
-  
+
   orthconn_init(orth, startpoint);
-  
+
 
   arc->uparrow = TRUE;
   arc_update_data(arc);
-  
+
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numhandles-1];
   return &arc->orth.object;
@@ -272,17 +270,17 @@ arc_update_data(Arc *arc)
   PolyBBExtras *extra = &orth->extra_spacing;
 
   orthconn_update_data(&arc->orth);
-  
-  extra->start_trans = 
+
+  extra->start_trans =
     extra->start_long =
-    extra->end_long  = 
+    extra->end_long  =
     extra->end_trans = ARC_LINE_WIDTH/2.0;
   if (arc->uparrow) {
     extra->middle_trans = (ARC_LINE_WIDTH + ARC_ARROW_WIDTH)/2.0;
   } else {
     extra->middle_trans = ARC_LINE_WIDTH/2.0;
   }
-    
+
   orthconn_update_boundingbox(orth);
 }
 

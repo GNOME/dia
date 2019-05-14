@@ -1,7 +1,7 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * GRAFCET chart support 
+ * GRAFCET chart support
  * Copyright(C) 2000,2001 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -50,7 +48,7 @@
 
 typedef struct _Action {
   Connection connection;
-  
+
   Text *text;
   gboolean macro_call;
 
@@ -80,9 +78,9 @@ static void action_update_data(Action *action);
 static void action_destroy(Action *action);
 static DiaObject *action_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *action_describe_props(Action *action);
-static void action_get_props(Action *action, 
+static void action_get_props(Action *action,
                                  GPtrArray *props);
-static void action_set_props(Action *action, 
+static void action_set_props(Action *action,
                                  GPtrArray *props);
 
 
@@ -91,7 +89,7 @@ static ObjectTypeOps action_type_ops =
   (CreateFunc)action_create,   /* create */
   (LoadFunc)  action_load,/*using_properties*/     /* load */
   (SaveFunc)  object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -134,13 +132,13 @@ static PropDescription action_props[] = {
 };
 
 static PropDescription *
-action_describe_props(Action *action) 
+action_describe_props(Action *action)
 {
   if (action_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(action_props);
   }
   return action_props;
-}    
+}
 
 static PropOffset action_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
@@ -209,11 +207,11 @@ action_move_handle(Action *action, Handle *handle,
     to2 = *to;
     point_sub(&to2,&action->connection.endpoints[0]);
     point_add(&to2,&action->connection.endpoints[1]);
-    connection_move_handle(&action->connection, HANDLE_MOVE_ENDPOINT, 
+    connection_move_handle(&action->connection, HANDLE_MOVE_ENDPOINT,
 			   to, NULL, reason, 0);
   }
 #endif
-  connection_move_handle(&action->connection, handle->id, to, cp, 
+  connection_move_handle(&action->connection, handle->id, to, cp,
 			 reason, modifiers);
   action_update_data(action);
 
@@ -225,7 +223,7 @@ static ObjectChange*
 action_move(Action *action, Point *to)
 {
   Point start_to_end;
-  Point *endpoints = &action->connection.endpoints[0]; 
+  Point *endpoints = &action->connection.endpoints[0];
 
   start_to_end = endpoints[1];
   point_sub(&start_to_end, &endpoints[0]);
@@ -257,7 +255,7 @@ action_update_data(Action *action)
 
   action->labelstart = conn->endpoints[1];
   action->labelbb.left = action->labelstart.x;
-  action->labelstart.y += .3 * action->text->height; 
+  action->labelstart.y += .3 * action->text->height;
   action->labelstart.x = action->labelbb.left + action->space_width;
   if (action->macro_call) {
     action->labelstart.x += 2.0 * action->space_width;
@@ -271,21 +269,21 @@ action_update_data(Action *action)
   }
   action->labelbb.top = conn->endpoints[1].y - .5*ACTION_HEIGHT;
   action->labelbb.bottom = action->labelstart.y + .5*ACTION_HEIGHT;
-  
-  action->label_width = action->labelbb.right - 
+
+  action->label_width = action->labelbb.right -
     action->labelbb.left;
 
 
   /* Adjust the count and positions of the condition connection points. */
-  
-  
+
+
   left = x = conn->endpoints[1].x;
   right = left + action->label_width;
   p1.x = conn->endpoints[1].x;
   p1.y = conn->endpoints[1].y - .5 * ACTION_HEIGHT;
   p2.y = p1.y + ACTION_HEIGHT;
   connpointline_adjust_count(action->cps,2+(2 * action->text->numlines), &p1);
-  
+
   for (i=0; i<action->text->numlines; i++) {
     chunksize = text_get_line_width(action->text, i);
     x1 = x + 1.0;
@@ -299,7 +297,7 @@ action_update_data(Action *action)
     obj->connections[(2*i) + 3]->pos = p2;
     obj->connections[(2*i) + 3]->directions = DIR_SOUTH;
 
-    x = x + chunksize + 2 * action->space_width; 
+    x = x + chunksize + 2 * action->space_width;
   }
   p1.y = p2.y = conn->endpoints[1].y;
   p1.x = left; p2.x = right;
@@ -319,7 +317,7 @@ action_update_data(Action *action)
 }
 
 
-static void 
+static void
 action_draw(Action *action, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
@@ -346,7 +344,7 @@ action_draw(Action *action, DiaRenderer *renderer)
     pts[1].y = pts[0].y;
     pts[2].y = pts[3].y;
     pts[1].x = pts[2].x = .5 * (pts[0].x + pts[3].x);
-    
+
     renderer_ops->draw_polyline(renderer,
 				 pts,sizeof(pts)/sizeof(pts[0]),
 				 &color_black);
@@ -362,7 +360,7 @@ action_draw(Action *action, DiaRenderer *renderer)
 
   action_text_draw(action->text,renderer);
 
-  p1.x = p2.x = ul.x; 
+  p1.x = p2.x = ul.x;
   p1.y = ul.y; p2.y = br.y;
 
   for (i=0; i<action->text->numlines-1; i++) {
@@ -395,15 +393,15 @@ action_create(Point *startpoint,
   Point defaultlen  = {1.0,0.0}, pos;
 
   DiaFont* action_font;
-  
+
   action = g_malloc0(sizeof(Action));
   conn = &action->connection;
   obj = &conn->object;
   extra = &conn->extra_spacing;
-  
+
   obj->type = &action_type;
   obj->ops = &action_ops;
-  
+
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
@@ -412,7 +410,7 @@ action_create(Point *startpoint,
   action->cps = connpointline_create(obj,0);
 
   pos = conn->endpoints[1];
-  action_font = dia_font_new_from_style(ACTION_FONT,ACTION_FONT_HEIGHT); 
+  action_font = dia_font_new_from_style(ACTION_FONT,ACTION_FONT_HEIGHT);
   action->text = new_text("",action_font, ACTION_FONT_HEIGHT,
                           &pos, /* never used */
                           &color_black, ALIGN_LEFT);
@@ -421,7 +419,7 @@ action_create(Point *startpoint,
   action->macro_call = FALSE;
 
   extra->start_long =
-    extra->start_trans = 
+    extra->start_trans =
     extra->end_trans =
     extra->end_long = ACTION_LINE_WIDTH/2.0;
 
@@ -442,7 +440,7 @@ action_destroy(Action *action)
   connpointline_destroy(action->cps);
   connection_destroy(&action->connection);
 }
- 
+
 static DiaObject *
 action_load(ObjectNode obj_node, int version,DiaContext *ctx)
 {

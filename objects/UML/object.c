@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -46,7 +44,7 @@ struct _Objet {
   Element element;
 
   ConnectionPoint connections[NUM_CONNECTIONS];
-  
+
   char *stereotype;
   Text *text;
   char *exstate;  /* used for explicit state */
@@ -60,10 +58,10 @@ struct _Objet {
   Point ex_pos, st_pos;
   int is_active;
   int show_attributes;
-  int is_multiple;  
-  
+  int is_multiple;
+
   char *attrib;
-  
+
   char *st_stereotype;
 };
 
@@ -98,7 +96,7 @@ static ObjectTypeOps objet_type_ops =
   (CreateFunc) objet_create,
   (LoadFunc)   objet_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -163,7 +161,7 @@ static PropDescription objet_props[] = {
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_STD_NOTEBOOK_END,
   PROP_DESC_END
@@ -279,7 +277,7 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
   real bw, x, y, w, h;
   Point p1, p2;
   int i;
-  
+
   assert(ob != NULL);
   assert(renderer != NULL);
 
@@ -289,7 +287,7 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
   y = elem->corner.y;
   w = elem->width;
   h = elem->height;
-  
+
   bw = (ob->is_active) ? OBJET_ACTIVEBORDERWIDTH: ob->line_width;
 
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
@@ -303,7 +301,7 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
   if (ob->is_multiple) {
     p1.x += OBJET_MARGIN_M(ob);
     p2.y -= OBJET_MARGIN_M(ob);
-    renderer_ops->draw_rect(renderer, 
+    renderer_ops->draw_rect(renderer,
 			     &p1, &p2,
 			     &ob->fill_color,
 			     &ob->line_color);
@@ -313,12 +311,12 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
     p2.y += OBJET_MARGIN_M(ob);
   }
 
-  renderer_ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer,
 			   &p1, &p2,
 			   &ob->fill_color,
 			   &ob->line_color);
 
-  
+
   text_draw(ob->text, renderer);
 
   renderer_ops->set_font(renderer, ob->text->font, ob->text->height);
@@ -342,10 +340,10 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
   p1.y = ob->text->position.y + text_get_descent(ob->text);
   p2.x = p1.x + text_get_max_width(ob->text);
   p2.y = p1.y;
-  
+
   renderer_ops->set_linewidth(renderer, ob->line_width/2);
-    
-  for (i=0; i<ob->text->numlines; i++) { 
+
+  for (i=0; i<ob->text->numlines; i++) {
     p1.x = x + (w - text_get_line_width(ob->text, i))/2;
     p2.x = p1.x + text_get_line_width(ob->text, i);
     renderer_ops->draw_line(renderer,
@@ -357,7 +355,7 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
   if (ob->show_attributes) {
       p1.x = x; p2.x = x + w;
       p1.y = p2.y = ob->attributes->position.y - ob->attributes->ascent - OBJET_MARGIN_Y(ob);
-      
+
       renderer_ops->set_linewidth(renderer, bw);
       renderer_ops->draw_line(renderer,
 			       &p1, &p2,
@@ -375,7 +373,7 @@ objet_update_data(Objet *ob)
   DiaFont *font;
   Point p1, p2;
   real h, w = 0;
-  
+
   text_calc_boundingbox(ob->text, NULL);
   ob->stereotype = remove_stereotype_from_string(ob->stereotype);
   if (!ob->st_stereotype) {
@@ -388,7 +386,7 @@ objet_update_data(Objet *ob)
   if (ob->is_multiple) {
     h += OBJET_MARGIN_M(ob);
   }
-    
+
   if ((ob->stereotype != NULL) && (ob->stereotype[0] != '\0')) {
       w = dia_font_string_width(ob->st_stereotype, font, OBJET_FONTHEIGHT(ob));
       h += OBJET_FONTHEIGHT(ob);
@@ -406,39 +404,39 @@ objet_update_data(Objet *ob)
       h += OBJET_FONTHEIGHT(ob);
       ob->ex_pos.y = h;
   }
-  
+
   h += OBJET_MARGIN_Y(ob);
 
   if (ob->show_attributes) {
       h += OBJET_MARGIN_Y(ob) + ob->attributes->ascent;
       p2.x = elem->corner.x + OBJET_MARGIN_X(ob);
-      p2.y = h;      
+      p2.y = h;
       text_set_position(ob->attributes, &p2);
 
-      h += ob->attributes->height*ob->attributes->numlines; 
+      h += ob->attributes->height*ob->attributes->numlines;
 
       text_calc_boundingbox(ob->attributes, NULL);
       w = MAX(w, ob->attributes->max_width);
   }
 
-  w += 2*OBJET_MARGIN_X(ob); 
+  w += 2*OBJET_MARGIN_X(ob);
 
   p1.x = elem->corner.x + w/2.0;
   text_set_position(ob->text, &p1);
-  
+
   ob->ex_pos.x = ob->st_pos.x = p1.x;
 
-  
+
   if (ob->is_multiple) {
     w += OBJET_MARGIN_M(ob);
   }
-    
+
   elem->width = w;
   elem->height = h - elem->corner.y;
 
   /* Update connections: */
   element_update_connections_rectangle(elem, ob->connections);
-  
+
   element_update_boundingbox(elem);
   obj->position = elem->corner;
   element_update_handles(elem);
@@ -456,11 +454,11 @@ objet_create(Point *startpoint,
   Point p;
   DiaFont *font;
   int i;
-  
+
   ob = g_malloc0(sizeof(Objet));
   elem = &ob->element;
   obj = &elem->object;
-  
+
   obj->type = &umlobject_type;
 
   obj->ops = &objet_ops;
@@ -473,7 +471,7 @@ objet_create(Point *startpoint,
   ob->fill_color = attributes_get_background();
 
   font = dia_font_new_from_style(DIA_FONT_SANS, 0.8);
-  
+
   ob->show_attributes = FALSE;
   ob->is_active = FALSE;
   ob->is_multiple = FALSE;
@@ -491,9 +489,9 @@ objet_create(Point *startpoint,
   text_get_attributes(ob->text,&ob->text_attrs);
 
   dia_font_unref(font);
-  
+
   element_init(elem, 8, NUM_CONNECTIONS);
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &ob->connections[i];
     ob->connections[i].object = obj;

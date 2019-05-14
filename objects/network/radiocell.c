@@ -19,9 +19,7 @@
 /* Copyright 2003, W. Borgert <debacle@debian.org>
    copied a lot from UML/large_package.c and standard/polygon.c */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>

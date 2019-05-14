@@ -1,6 +1,6 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
- * 
+ *
  * SADT diagrams support
  * Copyright (C) 2000 Cyrille Chepelov
  *
@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "object.h"
 

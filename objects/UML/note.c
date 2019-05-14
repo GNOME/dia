@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -80,7 +78,7 @@ static ObjectTypeOps note_type_ops =
   (CreateFunc) note_create,
   (LoadFunc)   note_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -115,10 +113,10 @@ static PropDescription note_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
-  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },   
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -217,7 +215,7 @@ note_draw(Note *note, DiaRenderer *renderer)
   Element *elem;
   real x, y, w, h;
   Point poly[5];
-  
+
   assert(note != NULL);
   assert(renderer != NULL);
 
@@ -227,7 +225,7 @@ note_draw(Note *note, DiaRenderer *renderer)
   y = elem->corner.y;
   w = elem->width;
   h = elem->height;
-  
+
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, note->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
@@ -243,7 +241,7 @@ note_draw(Note *note, DiaRenderer *renderer)
   poly[4].x = x;
   poly[4].y = y+h;
 
-  renderer_ops->draw_polygon(renderer, 
+  renderer_ops->draw_polygon(renderer,
 			      poly, 5,
 			      &note->fill_color,
 			      &note->line_color);
@@ -252,9 +250,9 @@ note_draw(Note *note, DiaRenderer *renderer)
   poly[1].x = x + w - NOTE_CORNER;
   poly[1].y = y + NOTE_CORNER;
   poly[2] = poly[2];
- 
+
   renderer_ops->set_linewidth(renderer, note->line_width / 2);
-  renderer_ops->draw_polyline(renderer, 
+  renderer_ops->draw_polyline(renderer,
 			   poly, 3,
 			   &note->line_color);
 
@@ -281,7 +279,7 @@ note_update_data(Note *note)
 
   /* Update connections: */
   element_update_connections_rectangle(elem, note->connections);
-  
+
   element_update_boundingbox(elem);
 
   obj->position = elem->corner;
@@ -300,11 +298,11 @@ note_create(Point *startpoint,
   Point p;
   DiaFont *font;
   int i;
-  
+
   note = g_malloc0(sizeof(Note));
   elem = &note->element;
   obj = &elem->object;
-  
+
   obj->type = &note_type;
 
   obj->ops = &note_ops;
@@ -319,12 +317,12 @@ note_create(Point *startpoint,
   p = *startpoint;
   p.x += note->line_width/2.0 + NOTE_MARGIN_X;
   p.y += note->line_width/2.0 + NOTE_CORNER + dia_font_ascent("A",font, 0.8);
-  
+
   note->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
   dia_font_unref(font);
 
   element_init(elem, 8, NUM_CONNECTIONS);
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &note->connections[i];
     note->connections[i].object = obj;

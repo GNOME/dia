@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -60,7 +58,7 @@ struct PointChange {
 
   enum change_type type;
   int applied;
-  
+
   Point point;
   Handle *handle; /* owning ref when not applied for ADD_POINT
 		     owning ref when applied for REMOVE_POINT */
@@ -172,7 +170,7 @@ bus_distance_from(Bus *bus, Point *point)
   Point *endpoints;
   real min_dist;
   int i;
-  
+
   endpoints = &bus->real_ends[0];
   min_dist = distance_line_point( &endpoints[0], &endpoints[1],
 				  LINE_WIDTH, point);
@@ -223,7 +221,7 @@ bus_move_handle(Bus *bus, Handle *handle,
     }
     vlen = sqrt(point_dot(&vhat, &vhat));
     point_scale(&vhat, 1.0/vlen);
-    
+
     vhatperp.x = -vhat.y;
     vhatperp.y =  vhat.x;
     for (i=0;i<num_handles;i++) {
@@ -232,8 +230,8 @@ bus_move_handle(Bus *bus, Handle *handle,
       parallel[i] = point_dot(&vhat, &u);
       perp[i] = point_dot(&vhatperp, &u);
     }
-    
-    connection_move_handle(&bus->connection, handle->id, to, cp, 
+
+    connection_move_handle(&bus->connection, handle->id, to, cp,
 			   reason, modifiers);
 
     vhat = endpoints[1];
@@ -269,10 +267,10 @@ static ObjectChange*
 bus_move(Bus *bus, Point *to)
 {
   Point delta;
-  Point *endpoints = &bus->connection.endpoints[0]; 
+  Point *endpoints = &bus->connection.endpoints[0];
   DiaObject *obj = &bus->connection.object;
   int i;
-  
+
   delta = *to;
   point_sub(&delta, &obj->position);
 
@@ -298,12 +296,12 @@ bus_draw(Bus *bus, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   int i;
-  
+
   assert(bus != NULL);
   assert(renderer != NULL);
 
   endpoints = &bus->real_ends[0];
-  
+
   renderer_ops->set_linewidth(renderer, LINE_WIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
@@ -339,7 +337,7 @@ bus_create(Point *startpoint,
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
- 
+
   obj = &conn->object;
   extra = &conn->extra_spacing;
 
@@ -364,10 +362,10 @@ bus_create(Point *startpoint,
     obj->handles[2+i] = bus->handles[i];
   }
 
-  extra->start_trans = 
-    extra->end_trans = 
+  extra->start_trans =
+    extra->end_trans =
     extra->start_long =
-    extra->end_long = LINE_WIDTH/2.0;  
+    extra->end_long = LINE_WIDTH/2.0;
   bus_update_data(bus);
 
   *handle1 = obj->handles[0];
@@ -393,13 +391,13 @@ bus_copy(Bus *bus)
   Connection *conn, *newconn;
   DiaObject *newobj;
   int i;
-  
+
   conn = &bus->connection;
-  
+
   newbus = g_malloc0(sizeof(Bus));
   newconn = &newbus->connection;
   newobj = &newconn->object;
-  
+
   connection_copy(conn, newconn);
 
   newbus->num_handles = bus->num_handles;
@@ -407,7 +405,7 @@ bus_copy(Bus *bus)
 
   newbus->handles = g_malloc(sizeof(Handle *)*newbus->num_handles);
   newbus->parallel_points = g_malloc(sizeof(Point)*newbus->num_handles);
-  
+
   for (i=0;i<newbus->num_handles;i++) {
     newbus->handles[i] = g_new0(Handle,1);
     *newbus->handles[i] = *bus->handles[i];
@@ -437,13 +435,13 @@ bus_update_data(Bus *bus)
 /*
  * This seems to break stuff wildly.
  */
-/*  
+/*
   if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
     connection_adjust_for_autogap(conn);
   }
 */
-  endpoints = &conn->endpoints[0]; 
+  endpoints = &conn->endpoints[0];
   obj->position = endpoints[0];
 
   v = endpoints[1];
@@ -465,7 +463,7 @@ bus_update_data(Bus *bus)
     point_scale(&bus->parallel_points[i], ulen);
     point_add(&bus->parallel_points[i], &endpoints[0]);
   }
-  
+
   min_par -= LINE_WIDTH/2.0;
   max_par += LINE_WIDTH/2.0;
 
@@ -490,7 +488,7 @@ static void
 bus_add_handle(Bus *bus, Point *p, Handle *handle)
 {
   int i;
-  
+
   bus->num_handles++;
 
   /* Allocate more handles */
@@ -500,7 +498,7 @@ bus_add_handle(Bus *bus, Point *p, Handle *handle)
 				   sizeof(Point)*bus->num_handles);
 
   i = bus->num_handles - 1;
-  
+
   bus->handles[i] = handle;
   bus->handles[i]->id = HANDLE_BUS;
   bus->handles[i]->type = HANDLE_MINOR_CONTROL;
@@ -514,7 +512,7 @@ static void
 bus_remove_handle(Bus *bus, Handle *handle)
 {
   int i, j;
-  
+
   for (i=0;i<bus->num_handles;i++) {
     if (bus->handles[i] == handle) {
       object_remove_handle(&bus->connection.object, handle);
@@ -586,7 +584,7 @@ bus_delete_handle_callback (DiaObject *obj, Point *clicked, gpointer data)
   handle = bus->handles[handle_num];
   p = handle->pos;
   connectionpoint = handle->connected_to;
-  
+
   object_unconnect(obj, handle);
   bus_remove_handle(bus, handle );
   bus_update_data(bus);
@@ -623,11 +621,11 @@ bus_save(Bus *bus, ObjectNode obj_node, DiaContext *ctx)
   AttributeNode attr;
 
   connection_save(&bus->connection, obj_node, ctx);
-  
+
   data_add_color( new_attribute(obj_node, "line_color"), &bus->line_color, ctx);
 
   attr = new_attribute(obj_node, "bus_handles");
-  
+
   for (i=0;i<bus->num_handles;i++) {
     data_add_point(attr, &bus->handles[i]->pos, ctx);
   }
@@ -662,7 +660,7 @@ bus_load(ObjectNode obj_node, int version,DiaContext *ctx)
     bus->num_handles = attribute_num_data(attr);
 
   connection_init(conn, 2 + bus->num_handles, 0);
-  
+
   data = attribute_first_data(attr);
   bus->handles = g_malloc(sizeof(Handle *)*bus->num_handles);
   bus->parallel_points = g_malloc(sizeof(Point)*bus->num_handles);
@@ -683,10 +681,10 @@ bus_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     data_color(attribute_first_data(attr), &bus->line_color, ctx);
 
-  extra->start_trans = 
-    extra->end_trans = 
+  extra->start_trans =
+    extra->end_trans =
     extra->start_long =
-    extra->end_long = LINE_WIDTH/2.0;  
+    extra->end_long = LINE_WIDTH/2.0;
   bus_update_data(bus);
 
   return &bus->connection.object;

@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <stdio.h>
 #include <errno.h>
@@ -2318,7 +2316,7 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
         }
     }
 
-#if 0 /* this is not utf-8 safe - see bug 683700 */ 
+#if 0 /* this is not utf-8 safe - see bug 683700 */
     /* Remove trailing line breaks */
     while (tprop->text_data[0] &&
            isspace(tprop->text_data[strlen(tprop->text_data)-1]))
@@ -2981,7 +2979,7 @@ import_vdx(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
     theDoc = g_new0(struct VDXDocument, 1);
     theDoc->ok = TRUE;
 
-    
+
     /* ugly, but still better than bogus sizes */
     old_locale = setlocale(LC_NUMERIC, "C");
 
@@ -3036,7 +3034,7 @@ import_vdx(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
     /* Get rid of internal strings before returning */
     vdx_free(theDoc);
     xmlFreeDoc(doc);
-    
+
     /* dont screw Dia's global state */
     setlocale(LC_NUMERIC, old_locale);
 

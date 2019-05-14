@@ -22,9 +22,7 @@
  * 2003-08-13, 2003-08-15: W. Borgert <debacle@debian.org>
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -70,7 +68,7 @@ struct _Compfeat {
   Text *text;
   Point text_pos;
   Handle text_handle;
-  
+
   Color line_color;
   real  line_width;
 };
@@ -161,8 +159,8 @@ static PropDescription compfeat_props[] = {
   PROP_STD_TEXT_COLOUR,
   PROP_STD_TEXT_ALIGNMENT,
   { "text_pos", PROP_TYPE_POINT, 0, NULL, NULL, NULL },
-  PROP_STD_LINE_WIDTH_OPTIONAL, 
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_WIDTH_OPTIONAL,
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -287,7 +285,7 @@ compfeat_move_handle(Compfeat *compfeat, Handle *handle,
     text_set_position(compfeat->text, to);
     change = NULL;
   } else  {
-    change = orthconn_move_handle(&compfeat->orth, handle, to, cp, 
+    change = orthconn_move_handle(&compfeat->orth, handle, to, cp,
 				  reason, modifiers);
   }
   compfeat_update_data(compfeat);

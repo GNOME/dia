@@ -19,9 +19,7 @@
 */
 
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -72,7 +70,7 @@ struct _Aadlbox
   Element element;
 
   gchar *declaration;
-  
+
   Text *name;
 
   int num_ports;
@@ -98,7 +96,7 @@ typedef enum {
   SYSTEM,
   THREAD,
   THREAD_GROUP,
-  
+
   ACCESS_PROVIDER,
   ACCESS_REQUIRER,
   IN_DATA_PORT,
@@ -110,7 +108,7 @@ typedef enum {
   IN_OUT_DATA_PORT,
   IN_OUT_EVENT_PORT,
   IN_OUT_EVENT_DATA_PORT,
-  
+
   PORT_GROUP
 } Aadl_type;
 
@@ -131,8 +129,8 @@ typedef void (*AadlDrawFunc) (Aadlbox* obj, DiaRenderer* ddisp);
 typedef void (*AadlTextPosFunc) (Aadlbox* obj, Point *p);
 typedef void (*AadlSizeFunc) (Aadlbox* obj, Point *size);
 
-/* In the abstract class system (see aadlbox.c), these are the 
-   functions an inherited class *must* define, because they are 
+/* In the abstract class system (see aadlbox.c), these are the
+   functions an inherited class *must* define, because they are
    used by aadlbox_ functions   */
 
 struct _Aadlbox_specific
@@ -179,7 +177,7 @@ void aadlbox_select(Aadlbox *aadlbox, Point *clicked_point,
 		    DiaRenderer *interactive_renderer);
 ObjectChange* aadlbox_move_handle(Aadlbox *aadlbox, Handle *handle,
 				  Point *to, ConnectionPoint *cp,
-				  HandleMoveReason reason, 
+				  HandleMoveReason reason,
 				  ModifierKeys modifiers);
 ObjectChange* aadlbox_move(Aadlbox *aadlbox, Point *to);
 void aadlbox_draw(Aadlbox *aadlbox, DiaRenderer *renderer);
@@ -198,8 +196,8 @@ void aadlbox_load(ObjectNode obj_node, int version, DiaContext *ctx,
 /* aadldata.c */
 void aadlbox_project_point_on_rectangle(Rectangle *rectangle,
 					Point *p,real *angle);
- void aadldata_project_point_on_nearest_border(Aadlbox *aadlbox, 
- 					 Point *p,real *angle); 
+ void aadldata_project_point_on_nearest_border(Aadlbox *aadlbox,
+ 					 Point *p,real *angle);
 
 /* aadlprocess.c */
 

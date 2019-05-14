@@ -21,9 +21,7 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -67,7 +65,7 @@ struct _Diamond {
 
   Text *text;
   real padding;
-  
+
   TextFitting text_fitting;
 };
 
@@ -84,7 +82,7 @@ static void diamond_select(Diamond *diamond, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* diamond_move_handle(Diamond *diamond, Handle *handle,
 					 Point *to, ConnectionPoint *cp,
-					 HandleMoveReason reason, 
+					 HandleMoveReason reason,
 			    ModifierKeys modifiers);
 static ObjectChange* diamond_move(Diamond *diamond, Point *to);
 static void diamond_draw(Diamond *diamond, DiaRenderer *renderer);
@@ -154,7 +152,7 @@ static PropDescription diamond_props[] = {
   PROP_STD_TEXT_ALIGNMENT,
   PROP_STD_TEXT_FITTING,
   PROP_STD_SAVED_TEXT,
-  
+
   { NULL, 0, 0, NULL, NULL, NULL, 0}
 };
 
@@ -282,7 +280,7 @@ diamond_move_handle(Diamond *diamond, Handle *handle,
   width = diamond->element.width;
   height = diamond->element.height;
 
-  element_move_handle(&diamond->element, handle->id, to, cp, 
+  element_move_handle(&diamond->element, handle->id, to, cp,
 		      reason, modifiers);
 
   switch (handle->id) {
@@ -317,7 +315,7 @@ static ObjectChange*
 diamond_move(Diamond *diamond, Point *to)
 {
   diamond->element.corner = *to;
-  
+
   diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return NULL;
@@ -329,7 +327,7 @@ diamond_draw(Diamond *diamond, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[4];
   Element *elem;
-  
+
   assert(diamond != NULL);
   assert(renderer != NULL);
 
@@ -350,7 +348,7 @@ diamond_draw(Diamond *diamond, DiaRenderer *renderer)
   renderer_ops->set_linestyle(renderer, diamond->line_style, diamond->dashlength);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_polygon (renderer, 
+  renderer_ops->draw_polygon (renderer,
 			      pts, 4,
 			      (diamond->show_background) ? &diamond->inner_color : NULL,
 			      &diamond->border_color);
@@ -475,9 +473,9 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
 
   extra->border_trans = diamond->border_width / 2.0;
   element_update_boundingbox(elem);
-  
+
   obj->position = elem->corner;
-  
+
   element_update_handles(elem);
 }
 
@@ -500,7 +498,7 @@ diamond_create(Point *startpoint,
   diamond = g_malloc0(sizeof(Diamond));
   elem = &diamond->element;
   obj = &elem->object;
-  
+
   obj->type = &diamond_type;
 
   obj->ops = &diamond_ops;
@@ -524,7 +522,7 @@ diamond_create(Point *startpoint,
   diamond->text = new_text("", font, font_height, &p, &diamond->border_color,
 			   ALIGN_CENTER);
   dia_font_unref(font);
-  
+
   /* new default: let the user decide the size */
   diamond->text_fitting = TEXTFIT_WHEN_NEEDED;
 
@@ -541,7 +539,7 @@ diamond_create(Point *startpoint,
   diamond_update_data(diamond, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  *handle2 = obj->handles[7];
   return &diamond->element.object;
 }
 
@@ -562,15 +560,15 @@ diamond_save(Diamond *diamond, ObjectNode obj_node, DiaContext *ctx)
   if (diamond->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),
 		  diamond->border_width, ctx);
-  
+
   if (!color_equals(&diamond->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
 		   &diamond->border_color, ctx);
-  
+
   if (!color_equals(&diamond->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &diamond->inner_color, ctx);
-  
+
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   diamond->show_background, ctx);
 
@@ -586,7 +584,7 @@ diamond_save(Diamond *diamond, ObjectNode obj_node, DiaContext *ctx)
   data_add_real(new_attribute(obj_node, "padding"), diamond->padding, ctx);
 
   data_add_text(new_attribute(obj_node, "text"), diamond->text, ctx);
-  
+
   if (diamond->text_fitting != TEXTFIT_WHEN_NEEDED)
     data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
 		  diamond->text_fitting, ctx);
@@ -604,12 +602,12 @@ diamond_load(ObjectNode obj_node, int version,DiaContext *ctx)
   diamond = g_malloc0(sizeof(Diamond));
   elem = &diamond->element;
   obj = &elem->object;
-  
+
   obj->type = &diamond_type;
   obj->ops = &diamond_ops;
 
   element_load(elem, obj_node, ctx);
-  
+
   diamond->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
@@ -624,7 +622,7 @@ diamond_load(ObjectNode obj_node, int version,DiaContext *ctx)
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &diamond->inner_color, ctx);
-  
+
   diamond->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
@@ -644,7 +642,7 @@ diamond_load(ObjectNode obj_node, int version,DiaContext *ctx)
   attr = object_find_attribute(obj_node, "padding");
   if (attr != NULL)
     diamond->padding =  data_real(attribute_first_data(attr), ctx);
-  
+
   diamond->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)

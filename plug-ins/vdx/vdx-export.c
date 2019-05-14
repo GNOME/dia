@@ -24,9 +24,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <stdio.h>
 
@@ -104,7 +102,7 @@ static gboolean export_vdx(DiagramData *data, DiaContext *ctx,
 			   void* user_data);
 
 static int
-vdxCheckColor(VDXRenderer *renderer, Color *color); 
+vdxCheckColor(VDXRenderer *renderer, Color *color);
 
 static gpointer parent_class = NULL;
 
@@ -137,7 +135,7 @@ vdx_renderer_get_type (void)
                                             "VDXRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
@@ -155,14 +153,14 @@ vdx_renderer_finalize (GObject *object)
  * @param self a renderer
  */
 
-static void 
+static void
 begin_render(DiaRenderer *self, const Rectangle *update)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Color c;
-    
+
     renderer->depth = 0;
-    
+
     renderer->linewidth = 0;
     renderer->capsmode = 0;
     renderer->joinmode = 0;
@@ -191,8 +189,8 @@ begin_render(DiaRenderer *self, const Rectangle *update)
  * @param self a renderer
  */
 
-static void 
-end_render(DiaRenderer *self) 
+static void
+end_render(DiaRenderer *self)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
 
@@ -219,8 +217,8 @@ visio_point(Point p)
  * @param length a length
  * @returns length in Visio space
  */
-  
-static double 
+
+static double
 visio_length(double length)
 {
     return length/vdx_Point_Scale;
@@ -231,8 +229,8 @@ visio_length(double length)
  * @param linewidth new line width
  */
 
-static void 
-set_linewidth(DiaRenderer *self, real linewidth) 
+static void
+set_linewidth(DiaRenderer *self, real linewidth)
 {
   VDXRenderer *renderer = VDX_RENDERER(self);
 
@@ -244,8 +242,8 @@ set_linewidth(DiaRenderer *self, real linewidth)
  * @param mode new line caps
  */
 
-static void 
-set_linecaps(DiaRenderer *self, LineCaps mode) 
+static void
+set_linecaps(DiaRenderer *self, LineCaps mode)
 {
   VDXRenderer *renderer = VDX_RENDERER(self);
 
@@ -257,8 +255,8 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
  * @param mode new line join
  */
 
-static void 
-set_linejoin(DiaRenderer *self, LineJoin mode) 
+static void
+set_linejoin(DiaRenderer *self, LineJoin mode)
 {
   VDXRenderer *renderer = VDX_RENDERER(self);
 
@@ -270,7 +268,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
  * @param mode new line style
  */
 
-static void 
+static void
 set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
   VDXRenderer *renderer = VDX_RENDERER(self);
@@ -284,8 +282,8 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
  * @param mode new file style
  */
 
-static void 
-set_fillstyle(DiaRenderer *self, FillStyle mode) 
+static void
+set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
   VDXRenderer *renderer = VDX_RENDERER(self);
 
@@ -298,8 +296,8 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
  * @param height new font height
  */
 
-static void 
-set_font(DiaRenderer *self, DiaFont *font, real height) 
+static void
+set_font(DiaRenderer *self, DiaFont *font, real height)
 {
   VDXRenderer *renderer = VDX_RENDERER(self);
 
@@ -314,12 +312,12 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
  */
 
 static int
-vdxCheckColor(VDXRenderer *renderer, Color *color) 
+vdxCheckColor(VDXRenderer *renderer, Color *color)
 {
     int i;
 
     Color cmp_color;
-    for (i = 0; i < renderer->Colors->len; i++) 
+    for (i = 0; i < renderer->Colors->len; i++)
     {
         cmp_color = g_array_index(renderer->Colors, Color, i);
         if (color_equals(color, &cmp_color)) return i;
@@ -335,13 +333,13 @@ vdxCheckColor(VDXRenderer *renderer, Color *color)
  */
 
 static int
-vdxCheckFont(VDXRenderer *renderer) 
+vdxCheckFont(VDXRenderer *renderer)
 {
     int i;
 
     const char *cmp_font;
     const char *font = dia_font_get_family(renderer->font);
-    for (i = 0; i < renderer->Fonts->len; i++) 
+    for (i = 0; i < renderer->Fonts->len; i++)
     {
         cmp_font = g_array_index(renderer->Fonts, char *, i);
         if (!strcmp(cmp_font, font))
@@ -360,9 +358,9 @@ vdxCheckFont(VDXRenderer *renderer)
  * @param end_arrow optional end arrow
  * @todo join, caps, dashlength
  */
-static void 
+static void
 create_Line(VDXRenderer *renderer, Color *color, struct vdx_Line *Line,
-            Arrow *start_arrow, Arrow *end_arrow) 
+            Arrow *start_arrow, Arrow *end_arrow)
 {
     /* A Line (colour etc) */
     memset(Line, 0, sizeof(*Line));
@@ -392,7 +390,7 @@ create_Line(VDXRenderer *renderer, Color *color, struct vdx_Line *Line,
     /* VDX only has Rounded (0) or Square (1) ends */
     if (renderer->capsmode != LINECAPS_ROUND)
 	Line->LineCap = 1; /* Square */
-    if (start_arrow || end_arrow) 
+    if (start_arrow || end_arrow)
     {
         g_debug("create_Line (ARROWS)");
     }
@@ -405,7 +403,7 @@ create_Line(VDXRenderer *renderer, Color *color, struct vdx_Line *Line,
  * @todo fillstyle
  */
 
-static void 
+static void
 create_Fill(VDXRenderer *renderer, Color *color, struct vdx_Fill *Fill)
 {
     /* A Fill (colour etc) */
@@ -424,8 +422,8 @@ create_Fill(VDXRenderer *renderer, Color *color, struct vdx_Fill *Fill)
  * @param color line colour
  */
 
-static void 
-draw_line(DiaRenderer *self, Point *start, Point *end, Color *color) 
+static void
+draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Point a, b;
@@ -439,14 +437,14 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
     char NameU[VDX_NAMEU_LEN];
 
     /* First time through, just construct the colour table */
-    if (renderer->first_pass) 
+    if (renderer->first_pass)
     {
         vdxCheckColor(renderer, color);
         return;
     }
-    
+
     g_debug("draw_line((%f,%f), (%f,%f))", start->x, start->y, end->x, end->y);
-    
+
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
     Shape.any.type = vdx_types_Shape;
@@ -494,7 +492,7 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
     memset(&LineTo, 0, sizeof(LineTo));
     LineTo.any.type = vdx_types_LineTo;
     LineTo.IX = 2;
-    LineTo.X = b.x-a.x; 
+    LineTo.X = b.x-a.x;
     LineTo.Y = b.y-a.y;
 
     /* A Line (colour etc) */
@@ -525,7 +523,7 @@ draw_line(DiaRenderer *self, Point *start, Point *end, Color *color)
  * @param color line colour
  */
 
-static void draw_polyline(DiaRenderer *self, Point *points, int num_points, 
+static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
 			  Color *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
@@ -541,14 +539,14 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
     double minX, minY, maxX, maxY;
 
     /* First time through, just construct the colour table */
-    if (renderer->first_pass) 
+    if (renderer->first_pass)
     {
         vdxCheckColor(renderer, color);
         return;
     }
-    
+
     g_debug("draw_polyline(%d)", num_points);
-    
+
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
     Shape.any.type = vdx_types_Shape;
@@ -566,7 +564,7 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
     a = visio_point(points[0]);
 
     /* Find width and height */
-    minX = points[0].x; minY = points[0].y; 
+    minX = points[0].x; minY = points[0].y;
     maxX = points[0].x; maxY = points[0].y;
     for (i=1; i<num_points; i++)
     {
@@ -602,7 +600,7 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
         LineTo[i].any.type = vdx_types_LineTo;
         LineTo[i].IX = i+2;
         b = visio_point(points[i+1]);
-        LineTo[i].X = b.x-a.x; 
+        LineTo[i].X = b.x-a.x;
         LineTo[i].Y = b.y-a.y;
     }
 
@@ -649,7 +647,7 @@ _polygon (DiaRenderer *self,
     double minX, minY, maxX, maxY;
 
     /* First time through, just construct the colour table */
-    if (renderer->first_pass) 
+    if (renderer->first_pass)
     {
 	if (fill)
 	    vdxCheckColor(renderer, fill);
@@ -657,9 +655,9 @@ _polygon (DiaRenderer *self,
 	    vdxCheckColor(renderer, stroke);
         return;
     }
-    
+
     g_debug("draw_polygon(%d)", num_points);
-    
+
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
     Shape.any.type = vdx_types_Shape;
@@ -677,7 +675,7 @@ _polygon (DiaRenderer *self,
     a = visio_point(points[0]);
 
     /* Find width and height */
-    minX = points[0].x; minY = points[0].y; 
+    minX = points[0].x; minY = points[0].y;
     maxX = points[0].x; maxY = points[0].y;
     for (i=1; i<num_points; i++)
     {
@@ -714,7 +712,7 @@ _polygon (DiaRenderer *self,
         /* Last point = first */
         if (i == num_points-1) b = a;
         else b = visio_point(points[i+1]);
-        LineTo[i].X = b.x-a.x; 
+        LineTo[i].X = b.x-a.x;
         LineTo[i].Y = b.y-a.y;
     }
 
@@ -791,7 +789,7 @@ draw_rounded_rect (DiaRenderer *self,
  * @param color line colour
  * @todo Not done yet
  */
-static void draw_arc(DiaRenderer *self, 
+static void draw_arc(DiaRenderer *self,
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
@@ -810,12 +808,12 @@ static void draw_arc(DiaRenderer *self,
     float control_angle;
 
     /* First time through, just construct the colour table */
-    if (renderer->first_pass) 
+    if (renderer->first_pass)
     {
         vdxCheckColor(renderer, color);
         return;
     }
-    
+
     g_debug("draw_arc((%f,%f),%f,%f;%f,%f)", center->x, center->y,
             width, height, angle1, angle2);
 
@@ -928,7 +926,7 @@ static void draw_arc(DiaRenderer *self,
  * @todo Not done yet - believe unused
  */
 static void
-fill_arc (DiaRenderer *self, 
+fill_arc (DiaRenderer *self,
 	  Point *center,
 	  real width, real height,
 	  real angle1, real angle2,
@@ -948,7 +946,7 @@ fill_arc (DiaRenderer *self,
     float control_angle;
 
     /* First time through, just construct the colour table */
-    if (renderer->first_pass) 
+    if (renderer->first_pass)
     {
         vdxCheckColor(renderer, color);
         return;
@@ -1080,7 +1078,7 @@ fill_arc (DiaRenderer *self,
  * @param stroke line colour
  */
 static void
-draw_ellipse (DiaRenderer *self, 
+draw_ellipse (DiaRenderer *self,
 	      Point *center,
 	      real width, real height,
 	      Color *fill, Color *stroke)
@@ -1096,7 +1094,7 @@ draw_ellipse (DiaRenderer *self,
     char NameU[VDX_NAMEU_LEN];
 
     /* First time through, just construct the colour table */
-    if (renderer->first_pass) 
+    if (renderer->first_pass)
     {
 	if (fill)
 	    vdxCheckColor(renderer, fill);
@@ -1104,9 +1102,9 @@ draw_ellipse (DiaRenderer *self,
 	    vdxCheckColor(renderer, stroke);
         return;
     }
-    
+
     g_debug("fill_ellipse");
-    
+
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
     Shape.any.type = vdx_types_Shape;
@@ -1200,7 +1198,7 @@ static void draw_string(DiaRenderer *self,
     DiaFontStyle font_style;
     real text_width;
 
-    if (renderer->first_pass) 
+    if (renderer->first_pass)
     {
         /* Add to colour and font tables */
         vdxCheckColor(renderer, color);
@@ -1322,12 +1320,12 @@ static void draw_image(DiaRenderer *self,
     struct vdx_text text;
     char NameU[VDX_NAMEU_LEN];
 
-    if (renderer->first_pass) 
+    if (renderer->first_pass)
     {
         return;
     }
 
-    g_debug("draw_image((%f,%f), %f, %f, %s", point->x, point->y, 
+    g_debug("draw_image((%f,%f), %f, %f, %s", point->x, point->y,
             width, height, dia_image_filename(image));
     /* Setup the standard shape object */
     memset(&Shape, 0, sizeof(Shape));
@@ -1413,7 +1411,7 @@ const char *
 vdx_string_color(const Color c)
 {
     static char buf[8];
-    sprintf(buf, "#%.2X%.2X%.2X", 
+    sprintf(buf, "#%.2X%.2X%.2X",
             (int)(c.red*255), (int)(c.green*255), (int)(c.blue*255));
     return buf;
 }
@@ -1495,7 +1493,7 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     fprintf(file, "<!-- Created by Dia -->\n");
     if (renderer->version == 2002)
     {
-        fprintf(file, 
+        fprintf(file,
                 "<VisioDocument "
                 "xmlns='urn:schemas-microsoft-com:office:visio'>\n");
     }
@@ -1514,14 +1512,14 @@ write_header(DiagramData *data, VDXRenderer *renderer)
         fprintf(file, "%s\n", data->paper.name);
         fprintf(file, "%f\n", data->paper.scaling*100.0);
     */
-  
+
     /* Colour table */
 
     fprintf(file, "  <Colors>\n");
-    for (i = 0; i < renderer->Colors->len; i++) 
+    for (i = 0; i < renderer->Colors->len; i++)
     {
         c = g_array_index(renderer->Colors, Color, i);
-        fprintf(file, "    <ColorEntry IX='%d' RGB='%s'/>\n", 
+        fprintf(file, "    <ColorEntry IX='%d' RGB='%s'/>\n",
                 i, vdx_string_color(c));
     }
     fprintf(file, "  </Colors>\n");
@@ -1531,7 +1529,7 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     if (renderer->version == 2002)
     {
         fprintf(file, "  <Fonts>\n");
-        for (i = 0; i < renderer->Fonts->len; i++) 
+        for (i = 0; i < renderer->Fonts->len; i++)
         {
             struct vdx_FontEntry Font;
             memset(&Font, 0, sizeof(Font));
@@ -1568,7 +1566,7 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     if (renderer->version == 2003)
     {
         fprintf(file, "  <FaceNames>\n");
-        for (i = 0; i < renderer->Fonts->len; i++) 
+        for (i = 0; i < renderer->Fonts->len; i++)
         {
             f = g_array_index(renderer->Fonts, char *, i);
 
@@ -1576,8 +1574,8 @@ write_header(DiagramData *data, VDXRenderer *renderer)
             if (!strcmp(f, "Helvetica")) f = "Arial";
             if (!strcmp(f, "Times")) f = "Times New Roman";
 
-            /* Missing attrs UnicodeRanges="31367 -2147483648 8 0" 
-               CharSets="1073742335 -65536" 
+            /* Missing attrs UnicodeRanges="31367 -2147483648 8 0"
+               CharSets="1073742335 -65536"
                Panos="2 11 6 4 2 2 2 2 2 4" Flags="325" */
             fprintf(file, "    <FaceName ID='%d' Name='%s'/>\n",
                     i, f);
@@ -1601,7 +1599,7 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     Line.any.type = vdx_types_Line;
     Line.LineWeight = 0.01;
     Line.LinePattern = 1;
-    
+
     memset(&Fill, 0, sizeof(Fill));
     Fill.any.type = vdx_types_Fill;
     Fill.FillForegnd = color_black;
@@ -1611,12 +1609,12 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     TextBlock.any.type = vdx_types_TextBlock;
     TextBlock.VerticalAlign = 1;
     TextBlock.DefaultTabStop = 0.59055118110236;
-    
+
     memset(&Char, 0, sizeof(Char));
     Char.any.type = vdx_types_Char;
     Char.FontScale = 1;
     Char.Size = 0.16666666666667;
-    
+
     memset(&Para, 0, sizeof(Para));
     Para.any.type = vdx_types_Para;
     Para.SpLine = -1.2;
@@ -1703,7 +1701,7 @@ export_vdx(DiagramData *data, DiaContext *ctx,
     file = g_fopen(filename, "w");
 
     if (file == NULL) {
-	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
+	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
 					    dia_context_get_filename(ctx));
 	return FALSE;
     }
@@ -1717,13 +1715,13 @@ export_vdx(DiagramData *data, DiaContext *ctx,
     renderer->file = file;
 
     renderer->first_pass = TRUE;
-    
+
     renderer->version = 2002;   /* For now */
 
     DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
-  
+
     /* First run through without drawing to setup tables */
-    for (i=0; i<data->layers->len; i++) 
+    for (i=0; i<data->layers->len; i++)
     {
         layer = (Layer *) g_ptr_array_index(data->layers, i);
         if (layer->visible)
@@ -1741,7 +1739,7 @@ export_vdx(DiagramData *data, DiaContext *ctx,
 
     /* Now render */
 
-    for (i=0; i<data->layers->len; i++) 
+    for (i=0; i<data->layers->len; i++)
     {
         layer = (Layer *) g_ptr_array_index(data->layers, i);
         if (layer->visible)
@@ -1761,7 +1759,7 @@ export_vdx(DiagramData *data, DiaContext *ctx,
     setlocale(LC_NUMERIC, old_locale);
 
     if (fclose(file) != 0) {
-	dia_context_add_message_with_errno (ctx, errno, _("Saving file '%s' failed."), 
+	dia_context_add_message_with_errno (ctx, errno, _("Saving file '%s' failed."),
 					    dia_context_get_filename(ctx));
 	return FALSE;
     }
@@ -1792,8 +1790,8 @@ DiaExportFilter vdx_export_filter = {
  * @param end_arrow end arrow
  */
 
-static void draw_line_with_arrows(DiaRenderer *self, 
-				  Point *start, Point *end, 
+static void draw_line_with_arrows(DiaRenderer *self,
+				  Point *start, Point *end,
 				  real line_width,
 				  Color *color,
 				  Arrow *start_arrow,
@@ -1811,8 +1809,8 @@ static void draw_line_with_arrows(DiaRenderer *self,
     char NameU[VDX_NAMEU_LEN];
 
     /* Exactly as draw_line for now */
-    
-    if (renderer->first_pass) 
+
+    if (renderer->first_pass)
     {
         vdxCheckColor(renderer, color);
         return;
@@ -1861,7 +1859,7 @@ static void draw_line_with_arrows(DiaRenderer *self,
     memset(&LineTo, 0, sizeof(LineTo));
     LineTo.any.type = vdx_types_LineTo;
     LineTo.IX = 2;
-    LineTo.X = b.x-a.x; 
+    LineTo.X = b.x-a.x;
     LineTo.Y = b.y-a.y;
 
     create_Line(renderer, color, &Line, start_arrow, end_arrow);
@@ -1891,16 +1889,16 @@ static void draw_line_with_arrows(DiaRenderer *self,
  * @todo Not done yet
  */
 
-static void draw_polyline_with_arrows(DiaRenderer *self, 
-				      Point *points, int num_points, 
+static void draw_polyline_with_arrows(DiaRenderer *self,
+				      Point *points, int num_points,
 				      real line_width,
 				      Color *color,
 				      Arrow *start_arrow,
 				      Arrow *end_arrow)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    if (renderer->first_pass) 
+
+    if (renderer->first_pass)
     {
         vdxCheckColor(renderer, color);
         return;
@@ -1920,7 +1918,7 @@ static void draw_polyline_with_arrows(DiaRenderer *self,
  * @todo Not done yet - believe unused
  */
 
-static void draw_arc_with_arrows(DiaRenderer *self, 
+static void draw_arc_with_arrows(DiaRenderer *self,
 				 Point *startpoint,
 				 Point *endpoint,
 				 Point *midpoint,
@@ -1930,8 +1928,8 @@ static void draw_arc_with_arrows(DiaRenderer *self,
 				 Arrow *end_arrow)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    if (renderer->first_pass) 
+
+    if (renderer->first_pass)
     {
         vdxCheckColor(renderer, color);
         return;
@@ -1947,14 +1945,14 @@ static void draw_arc_with_arrows(DiaRenderer *self,
  * @todo Not done yet - either convert to arcs or NURBS (Visio 2003)
  */
 
-static void draw_bezier(DiaRenderer *self, 
+static void draw_bezier(DiaRenderer *self,
 			BezPoint *points,
 			int numpoints,
 			Color *color)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    if (renderer->first_pass) 
+
+    if (renderer->first_pass)
     {
         vdxCheckColor(renderer, color);
         return;
@@ -1973,7 +1971,7 @@ static void draw_bezier(DiaRenderer *self,
  * @todo Not done yet - either convert to arcs or NURBS (Visio 2003)
  */
 
-static void draw_bezier_with_arrows(DiaRenderer *self, 
+static void draw_bezier_with_arrows(DiaRenderer *self,
 				    BezPoint *points,
 				    int numpoints,
 				    real line_width,
@@ -1982,8 +1980,8 @@ static void draw_bezier_with_arrows(DiaRenderer *self,
 				    Arrow *end_arrow)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    if (renderer->first_pass) 
+
+    if (renderer->first_pass)
     {
         vdxCheckColor(renderer, color);
         return;
@@ -1999,15 +1997,15 @@ static void draw_bezier_with_arrows(DiaRenderer *self,
  * @todo Not done yet - either convert to arcs or NURBS (Visio 2003)
  */
 static void
-draw_beziergon (DiaRenderer *self, 
+draw_beziergon (DiaRenderer *self,
 		BezPoint *points,
 		int numpoints,
 		Color *fill,
 		Color *stroke)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
-    
-    if (renderer->first_pass) 
+
+    if (renderer->first_pass)
     {
         vdxCheckColor(renderer, color);
         return;
@@ -2023,7 +2021,7 @@ draw_beziergon (DiaRenderer *self,
  * @note No work done here - perhaps should push/pop renderer state
  */
 
-static void 
+static void
 draw_object (DiaRenderer *self,
 	     DiaObject   *object,
 	     DiaMatrix   *matrix)

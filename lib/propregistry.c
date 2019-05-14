@@ -22,9 +22,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <gtk/gtk.h>
 #include "properties.h"
@@ -32,14 +30,14 @@
 
 static GHashTable *props_hash = NULL;
 
-static void check_props_hash(void) 
+static void check_props_hash(void)
 {
   if (!props_hash) {
     props_hash = g_hash_table_new(g_str_hash,g_str_equal);
   }
 }
 
-void 
+void
 prop_type_register(PropertyType type, const PropertyOps *ops)
 {
   check_props_hash();
@@ -47,7 +45,7 @@ prop_type_register(PropertyType type, const PropertyOps *ops)
 }
 
 const PropertyOps *
-prop_type_get_ops(PropertyType type) 
+prop_type_get_ops(PropertyType type)
 {
   check_props_hash();
   return g_hash_table_lookup(props_hash,type);

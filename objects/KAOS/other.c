@@ -26,9 +26,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -290,7 +288,7 @@ static void compute_agent(Other *other, Point *pl) {
      pl[5].y=ry+h;
 }
 
-static void 
+static void
 draw_agent_icon(Other *other, DiaRenderer *renderer)
 {
      DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);

@@ -20,9 +20,7 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "diatypes.h"
 
@@ -42,7 +40,7 @@
 #  endif
 #endif
 
-#ifdef _MSC_VER 
+#ifdef _MSC_VER
 /* #ifdef G_OS_WIN32  apparently _MSC_VER and mingw */
    /* there are some things more in the gcc headers */
 #  include <float.h>
@@ -102,7 +100,7 @@ struct _IntRectangle {
   int bottom; /*!< y2 */
 };
 
-/*! 
+/*!
  * \brief BezPoint is a bezier point forming _Bezierline or _Beziergon
  * \ingroup ObjectParts
  */
@@ -186,11 +184,11 @@ point_normalize(Point *p)
   real len;
 
   len = sqrt(p->x*p->x + p->y*p->y);
-  
+
   /* One could call it a bug to try normalizing a vector with
    * len 0 and the result at least requires definition. But
    * this is what makes the beziergon bounding box calculation
-   * work. What's the mathematical correct result of 0.0/0.0 ? 
+   * work. What's the mathematical correct result of 0.0/0.0 ?
    */
   if (len > 0.0) {
     p->x /= len;
@@ -214,7 +212,7 @@ point_get_normed(Point *dst, const Point *src)
   real len;
 
   len = sqrt(src->x*src->x + src->y*src->y);
-  
+
   dst->x = src->x / len;
   dst->y = src->y / len;
 }
@@ -222,25 +220,25 @@ point_get_normed(Point *dst, const Point *src)
 static inline void
 point_get_perp(Point *dst, const Point *src)
 {
-  /* dst = the src vector, rotated 90deg counter clowkwise. src *must* be 
+  /* dst = the src vector, rotated 90deg counter clowkwise. src *must* be
      normalized before. */
   dst->y = src->x;
   dst->x = -src->y;
 }
 
-static inline void 
+static inline void
 point_copy(Point *dst, const Point *src)
 {
   /* Unfortunately, the compiler is not clever enough. And copying using
      ints is faster if we don't computer based on the copied values, but
-     is slower if we have to make a FP reload afterwards. 
-     point_copy() is meant for the latter case : then, the compiler is 
+     is slower if we have to make a FP reload afterwards.
+     point_copy() is meant for the latter case : then, the compiler is
      able to shuffle and merge the FP loads. */
   dst->x = src->x;
   dst->y = src->y;
 }
 
-static inline void 
+static inline void
 point_add_scaled(Point *dst, const Point *src, real alpha)
 {
   /* especially useful if src is a normed vector... */
@@ -248,8 +246,8 @@ point_add_scaled(Point *dst, const Point *src, real alpha)
   dst->y += alpha * src->y;
 }
 
-static inline void 
-point_copy_add_scaled(Point *dst, const Point *src, 
+static inline void
+point_copy_add_scaled(Point *dst, const Point *src,
                       const Point *vct, real alpha)
 {
   /* especially useful if vct is a normed vector... */
@@ -267,13 +265,13 @@ int point_in_rectangle(const Rectangle* r, const Point *p);
 int rectangle_in_rectangle(const Rectangle* outer, const Rectangle *inner);
 void rectangle_add_point(Rectangle *r, const Point *p);
 
-static inline gboolean 
+static inline gboolean
 rectangle_equals(const Rectangle *r1, const Rectangle *r2)
 {
   return ( (r2->left == r1->left) &&
            (r2->right == r1->right) &&
            (r2->top == r1->top) &&
-           (r2->bottom == r1->bottom) );  
+           (r2->bottom == r1->bottom) );
 }
 
 static inline real

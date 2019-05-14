@@ -21,9 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <string.h>
 
@@ -88,7 +86,7 @@ uml_parameter_destroy(UMLParameter *param)
 {
   g_free(param->name);
   g_free(param->type);
-  if (param->value != NULL) 
+  if (param->value != NULL)
     g_free(param->value);
   g_free(param->comment);
 
@@ -103,7 +101,7 @@ uml_get_parameter_string (UMLParameter *param)
 
   /* Calculate length: */
   len = strlen (param->name) + 1 + strlen (param->type);
-  
+
   if (param->value != NULL) {
     len += 1 + strlen (param->value) ;
   }
@@ -120,7 +118,7 @@ uml_get_parameter_string (UMLParameter *param)
       break;
     case UML_INOUT:
       len += 6;
-      break;	  
+      break;
     }
 
   /* Generate string: */
@@ -131,7 +129,7 @@ uml_get_parameter_string (UMLParameter *param)
   switch(param->kind)
     {
     case UML_UNDEF_KIND:
-      break;     
+      break;
     case UML_IN:
       strcat (str, "in ");
       break;
@@ -142,7 +140,7 @@ uml_get_parameter_string (UMLParameter *param)
       strcat (str, "inout ");
       break;
     }
-  
+
 
   strcat (str, param->name);
   strcat (str, ":");
@@ -151,7 +149,7 @@ uml_get_parameter_string (UMLParameter *param)
     strcat (str, "=");
     strcat (str, param->value);
   }
-  
+
   g_assert (strlen (str) == len);
 
   return str;

@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -64,7 +62,7 @@ typedef struct _Sadtarrow {
 
   Sadtarrow_style style;
   gboolean autogray;
-  
+
   Color line_color;
 } Sadtarrow;
 
@@ -88,9 +86,9 @@ static DiaMenu *sadtarrow_get_object_menu(Sadtarrow *sadtarrow,
 static DiaObject *sadtarrow_load(ObjectNode obj_node, int version,
 				 DiaContext *ctx);
 static PropDescription *sadtarrow_describe_props(Sadtarrow *sadtarrow);
-static void sadtarrow_get_props(Sadtarrow *sadtarrow, 
+static void sadtarrow_get_props(Sadtarrow *sadtarrow,
                                  GPtrArray *props);
-static void sadtarrow_set_props(Sadtarrow *sadtarrow, 
+static void sadtarrow_set_props(Sadtarrow *sadtarrow,
                                  GPtrArray *props);
 
 
@@ -153,13 +151,13 @@ static PropDescription sadtarrow_props[] = {
 };
 
 static PropDescription *
-sadtarrow_describe_props(Sadtarrow *sadtarrow) 
+sadtarrow_describe_props(Sadtarrow *sadtarrow)
 {
   if (sadtarrow_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(sadtarrow_props);
   }
   return sadtarrow_props;
-}    
+}
 
 static PropOffset sadtarrow_offsets[] = {
   ORTHCONN_COMMON_PROPERTIES_OFFSETS,
@@ -171,7 +169,7 @@ static PropOffset sadtarrow_offsets[] = {
 
 static void
 sadtarrow_get_props(Sadtarrow *sadtarrow, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&sadtarrow->orth.object,
                                 sadtarrow_offsets,props);
 }
@@ -209,7 +207,7 @@ sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  change = orthconn_move_handle(&sadtarrow->orth, handle, to, cp, 
+  change = orthconn_move_handle(&sadtarrow->orth, handle, to, cp,
 				   reason, modifiers);
   sadtarrow_update_data(sadtarrow);
 
@@ -248,14 +246,14 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
 
   points = &orth->points[0];
   n = orth->numpoints;
-  
+
   renderer_ops->set_linewidth(renderer, ARROW_LINE_WIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
-  
+
   col = sadtarrow->line_color;
-  if (sadtarrow->autogray && 
-      (orth->orientation[0] == VERTICAL) && 
+  if (sadtarrow->autogray &&
+      (orth->orientation[0] == VERTICAL) &&
       (orth->orientation[orth->numpoints-2] == VERTICAL)) {
     col.red = GBASE + (GMULT*col.red);
     col.green = GBASE + (GMULT*col.green);
@@ -312,7 +310,7 @@ static void draw_dot(DiaRenderer *renderer,
   vt = vv;
   point_scale(&vt,-ARROW_DOT_LOFFSET);
   point_add(&pt,&vt);
-  
+
   renderer_ops->set_fillstyle(renderer,FILLSTYLE_SOLID);
   renderer_ops->draw_ellipse(renderer,&pt,
 			     ARROW_DOT_RADIUS,ARROW_DOT_RADIUS,
@@ -340,7 +338,7 @@ static void draw_tunnel(DiaRenderer *renderer,
   curve1[0].p1   = curve2[0].p1   = *end;
   vt1 = vv;
   point_scale(&vt1,-ARROW_PARENS_LOFFSET - (.5*ARROW_PARENS_LENGTH));
-  point_add(&curve1[0].p1,&vt1); point_add(&curve2[0].p1,&vt1); 
+  point_add(&curve1[0].p1,&vt1); point_add(&curve2[0].p1,&vt1);
                                            /* gcc, work for me, please. */
   vt2 = vp;
   point_scale(&vt2,ARROW_PARENS_WOFFSET);
@@ -352,13 +350,13 @@ static void draw_tunnel(DiaRenderer *renderer,
   point_scale(&vt2,ARROW_PARENS_LENGTH / 6.0);
   curve1[1].type = curve2[1].type = BEZ_CURVE_TO;
   curve1[1].p1 = curve1[0].p1;  curve2[1].p1 = curve2[0].p1;
-  point_add(&curve1[1].p1,&vt1);  point_add(&curve2[1].p1,&vt1); 
-  point_add(&curve1[1].p1,&vt2);  point_sub(&curve2[1].p1,&vt2); 
+  point_add(&curve1[1].p1,&vt1);  point_add(&curve2[1].p1,&vt1);
+  point_add(&curve1[1].p1,&vt2);  point_sub(&curve2[1].p1,&vt2);
   curve1[1].p2 = curve1[1].p1;  curve2[1].p2 = curve2[1].p1;
-  point_add(&curve1[1].p2,&vt1);  point_add(&curve2[1].p2,&vt1); 
+  point_add(&curve1[1].p2,&vt1);  point_add(&curve2[1].p2,&vt1);
   curve1[1].p3 = curve1[1].p2;  curve2[1].p3 = curve2[1].p2;
-  point_add(&curve1[1].p3,&vt1);  point_add(&curve2[1].p3,&vt1); 
-  point_sub(&curve1[1].p3,&vt2);  point_add(&curve2[1].p3,&vt2); 
+  point_add(&curve1[1].p3,&vt1);  point_add(&curve2[1].p3,&vt1);
+  point_sub(&curve1[1].p3,&vt2);  point_add(&curve2[1].p3,&vt2);
 
   renderer_ops->draw_bezier(renderer,curve1,2,col);
   renderer_ops->draw_bezier(renderer,curve2,2,col);
@@ -381,7 +379,7 @@ sadtarrow_create(Point *startpoint,
 
   obj->type = &sadtarrow_type;
   obj->ops = &sadtarrow_ops;
-  
+
   orthconn_init(orth, startpoint);
 
   sadtarrow_update_data(sadtarrow);
@@ -409,14 +407,14 @@ sadtarrow_update_data(Sadtarrow *sadtarrow)
 
   orthconn_update_data(&sadtarrow->orth);
 
-  extra->start_long = 
+  extra->start_long =
     extra->middle_trans = ARROW_LINE_WIDTH / 2.0;
-  
+
   extra->end_long = MAX(ARROW_HEAD_LENGTH,ARROW_LINE_WIDTH/2.0);
-  
+
   extra->start_trans = ARROW_LINE_WIDTH / 2.0;
   extra->end_trans = MAX(ARROW_LINE_WIDTH/2.0,ARROW_HEAD_WIDTH/2.0);
-  
+
   switch(sadtarrow->style) {
   case SADT_ARROW_IMPORTED:
     extra->start_trans = MAX(ARROW_LINE_WIDTH/2.0,
@@ -429,12 +427,12 @@ sadtarrow_update_data(Sadtarrow *sadtarrow)
     break;
   case SADT_ARROW_DOTTED:
     extra->start_long = extra->end_long;
-    extra->end_trans = 
+    extra->end_trans =
       extra->start_trans = MAX(MAX(MAX(ARROW_HEAD_WIDTH,ARROW_HEAD_LENGTH),
                                    ARROW_LINE_WIDTH/2.0),
                                ARROW_DOT_WOFFSET+ARROW_DOT_RADIUS);
     break;
-  default: 
+  default:
     break;
   }
   orthconn_update_boundingbox(orth);

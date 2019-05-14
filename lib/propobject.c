@@ -6,10 +6,10 @@
  * Copyright (C) 2001 Cyrille Chepelov
  * Major restructuration done in August 2001 by C. Chepelov
  *
- * Propobject.c: routines which deal with Dia Objects and affect their 
+ * Propobject.c: routines which deal with Dia Objects and affect their
  * properties.
  *
- * Most of these routines used to exist in code before the restructuration. 
+ * Most of these routines used to exist in code before the restructuration.
  * They've lost most of their meat, in favour for more modularity.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -27,9 +27,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <string.h>
 
@@ -178,7 +176,7 @@ object_toggle_prop (DiaObject *obj, const char *pname, gboolean val)
 {
   Property *prop = make_new_prop (pname, PROP_TYPE_BOOL, 0);
   GPtrArray *plist = prop_list_from_single (prop);
-  
+
   ((BoolProperty *)prop)->bool_data = val;
   return object_apply_props (obj, plist);
 }
@@ -266,8 +264,8 @@ objects_comply_with_stdprop(GList *objects)
   return TRUE;
 }
 
-gboolean 
-object_complies_with_stdprop(const DiaObject *obj) 
+gboolean
+object_complies_with_stdprop(const DiaObject *obj)
 {
   if (obj->ops->set_props == NULL) {
     g_warning("No set_props !");
@@ -305,7 +303,7 @@ pdtpp_do_save_no_standard_default (const PropDescription *pdesc)
   return pdtpp_do_save_no_standard(pdesc) && pdtpp_defaults (pdesc);
 }
 
-void 
+void
 object_copy_props(DiaObject *dest, const DiaObject *src, gboolean is_default)
 {
   GPtrArray *props;
@@ -326,7 +324,7 @@ object_copy_props(DiaObject *dest, const DiaObject *src, gboolean is_default)
                                                 a (const DiaObject *) */
   dest->ops->set_props(dest, props);
 
-  prop_list_free(props);  
+  prop_list_free(props);
 }
 
 void
@@ -339,7 +337,7 @@ object_load_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
   g_return_if_fail(object_complies_with_stdprop(obj));
 
   props = prop_list_from_descs(object_get_prop_descriptions(obj),
-                               pdtpp_do_load);  
+                               pdtpp_do_load);
 
   if (!prop_list_load(props,obj_node, ctx)) {
     /* context already has the message */
@@ -359,7 +357,7 @@ object_save_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
   g_return_if_fail(object_complies_with_stdprop(obj));
 
   props = prop_list_from_descs(object_get_prop_descriptions(obj),
-                               pdtpp_do_save);  
+                               pdtpp_do_save);
 
   obj->ops->get_props(obj, props);
   prop_list_save(props,obj_node,ctx);
@@ -380,9 +378,9 @@ object_prop_by_name_type(DiaObject *obj, const char *name, const char *type)
     if (name_quark == 0 || (pdesc->quark == name_quark)) {
       Property *prop;
       static GPtrArray *plist = NULL;
-      
+
       if (type && (0 != strcmp(pdesc->type,type))) continue;
-      
+
       if (!plist) {
         plist = g_ptr_array_new();
         g_ptr_array_set_size(plist,1);
@@ -424,7 +422,7 @@ dia_object_set_pixbuf (DiaObject *object,
   GPtrArray *props;
   PixbufProperty *pp;
   Property *prop = object_prop_by_name_type (object, "pixbuf", PROP_TYPE_PIXBUF);
-  
+
   if (!prop)
     return NULL;
   pp = (PixbufProperty *)prop;
@@ -461,7 +459,7 @@ dia_object_set_pattern (DiaObject  *object,
   GPtrArray *props;
   PatternProperty *pp;
   Property *prop = object_prop_by_name_type (object, "pattern", PROP_TYPE_PATTERN);
-  
+
   if (!prop)
     return NULL;
   pp = (PatternProperty *)prop;

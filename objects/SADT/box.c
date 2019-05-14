@@ -3,7 +3,7 @@
  *
  * SADT Activity/Data box -- objects for drawing SADT diagrams.
  * Copyright (C) 2000, 2001 Cyrille Chepelov
- * 
+ *
  * Forked from Flowchart toolbox -- objects for drawing flowcharts.
  * Copyright (C) 1999 James Henstridge.
  *
@@ -22,9 +22,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -74,7 +72,7 @@ static void sadtbox_select(Box *box, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* sadtbox_move_handle(Box *box, Handle *handle,
 					 Point *to, ConnectionPoint *cp,
-					 HandleMoveReason reason, 
+					 HandleMoveReason reason,
 			    ModifierKeys modifiers);
 static ObjectChange* sadtbox_move(Box *box, Point *to);
 static void sadtbox_draw(Box *box, DiaRenderer *renderer);
@@ -84,7 +82,7 @@ static DiaObject *sadtbox_create(Point *startpoint,
 			  Handle **handle1,
 			  Handle **handle2);
 static void sadtbox_destroy(Box *box);
-static DiaObject *sadtbox_load(ObjectNode obj_node, int version, 
+static DiaObject *sadtbox_load(ObjectNode obj_node, int version,
                                DiaContext *ctx);
 static DiaMenu *sadtbox_get_object_menu(Box *box, Point *clickedpoint);
 
@@ -151,13 +149,13 @@ static PropDescription box_props[] = {
 };
 
 static PropDescription *
-sadtbox_describe_props(Box *box) 
+sadtbox_describe_props(Box *box)
 {
   if (box_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(box_props);
   }
   return box_props;
-}    
+}
 
 static PropOffset box_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
@@ -256,7 +254,7 @@ static ObjectChange*
 sadtbox_move(Box *box, Point *to)
 {
   box->element.corner = *to;
-  
+
   sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return NULL;
@@ -283,9 +281,9 @@ sadtbox_draw(Box *box, DiaRenderer *renderer)
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer,
 			   &elem->corner,
-			   &lr_corner, 
+			   &lr_corner,
 			   &box->fill_color,
 			   &box->line_color);
 
@@ -354,9 +352,9 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 
   extra->border_trans = SADTBOX_LINE_WIDTH / 2.0;
   element_update_boundingbox(elem);
-  
+
   obj->position = elem->corner;
-  
+
   element_update_handles(elem);
 
   /* Update connections: */
@@ -368,7 +366,7 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   ne.y = nw.y;
   sw.y = se.y;
   sw.x = nw.x;
-  
+
   connpointline_update(box->north);
   connpointline_putonaline(box->north,&ne,&nw,DIR_NORTH);
   connpointline_update(box->west);
@@ -413,7 +411,7 @@ sadtbox_create_change(Box *box, ObjectChange *inner, ConnPointLine *cpl) {
 }
 
 static ObjectChange *
-sadtbox_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data) 
+sadtbox_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   ConnPointLine *cpl;
@@ -426,7 +424,7 @@ sadtbox_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
 }
 
 static ObjectChange *
-sadtbox_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data) 
+sadtbox_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *change;
   ConnPointLine *cpl;
@@ -440,7 +438,7 @@ sadtbox_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add connection point"), sadtbox_add_connpoint_callback, NULL, 1 },
-  { N_("Delete connection point"), sadtbox_remove_connpoint_callback, 
+  { N_("Delete connection point"), sadtbox_remove_connpoint_callback,
     NULL, 1 },
 };
 
@@ -475,11 +473,11 @@ sadtbox_create(Point *startpoint,
   DiaObject *obj;
   Point p;
   DiaFont* font;
-  
+
   box = g_malloc0(sizeof(Box));
   elem = &box->element;
   obj = &elem->object;
-  
+
   obj->type = &sadtbox_type;
 
   obj->ops = &sadtbox_ops;
@@ -489,37 +487,37 @@ sadtbox_create(Point *startpoint,
   elem->height = DEFAULT_HEIGHT;
 
   box->padding = 0.5; /* default_values.padding; */
-  
+
   box->line_color = color_black;
   box->fill_color = color_white;
-  
+
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + /*default_properties.font_size*/ 0.8 / 2;
 
   font = dia_font_new_from_style( DIA_FONT_SANS|DIA_FONT_BOLD ,0.8);
-  
+
   box->text = new_text("", font,
-                       0.8, &p, 
+                       0.8, &p,
                        &color_black,
                        ALIGN_CENTER);
   dia_font_unref(font);
-  
-  box->id = g_strdup("A0"); /* should be made better. 
+
+  box->id = g_strdup("A0"); /* should be made better.
                                Automatic counting ? */
 
   element_init(elem, 8, 0);
 
   box->north = connpointline_create(obj,4);
-  box->west = connpointline_create(obj,3); 
-  box->south = connpointline_create(obj,1); 
+  box->west = connpointline_create(obj,3);
+  box->south = connpointline_create(obj,1);
   box->east = connpointline_create(obj,3);
 
   box->element.extra_spacing.border_trans = SADTBOX_LINE_WIDTH/2.0;
   sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  *handle2 = obj->handles[7];
   return &box->element.object;
 }
 
@@ -527,12 +525,12 @@ static void
 sadtbox_destroy(Box *box)
 {
   text_destroy(box->text);
-  
+
   connpointline_destroy(box->east);
   connpointline_destroy(box->south);
   connpointline_destroy(box->west);
   connpointline_destroy(box->north);
-  
+
   g_free(box->id);
 
   element_destroy(&box->element);

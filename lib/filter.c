@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "filter.h"
 #include "intl.h"
@@ -89,7 +87,7 @@ GList *
 filter_get_unique_export_names(const char *ext)
 {
   GList *tmp, *res = NULL;
-  
+
   for (tmp = export_filters; tmp != NULL; tmp = tmp->next) {
     DiaExportFilter *ef = tmp->data;
     gint i;
@@ -105,18 +103,18 @@ filter_get_unique_export_names(const char *ext)
 static GHashTable *_favored_hash = NULL;
 
 /* Set the favorit 'guess' */
-void 
+void
 filter_set_favored_export(const char *ext, const char *name)
 {
   if (!_favored_hash)
     _favored_hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-    
+
   g_hash_table_insert(_favored_hash, g_ascii_strdown(ext, -1), g_strdup(name));
 }
 
-/* Guess the filter for a given filename. 
+/* Guess the filter for a given filename.
  * Returns the first filter found that matches the extension on the filename,
- * or NULL if none such are found.  
+ * or NULL if none such are found.
  * If there are multiple filters registered for the same extension some are
  * excluded from being returned here by the hint FILTER_DONT_GUESS.
  */
@@ -134,7 +132,7 @@ filter_guess_export_filter(const gchar *filename)
     ext++;
   else
     ext = "";
-  
+
   /* maybe ther is no need to guess? */
   unique_name = _favored_hash ? g_hash_table_lookup(_favored_hash, ext) : NULL;
   if (unique_name) {
@@ -164,7 +162,7 @@ filter_guess_export_filter(const gchar *filename)
 /** Get an export filter by unique name.
  */
 DiaExportFilter *
-filter_export_get_by_name(const gchar *name) 
+filter_export_get_by_name(const gchar *name)
 {
   GList *tmp;
   DiaExportFilter *filter = NULL;
@@ -173,7 +171,7 @@ filter_export_get_by_name(const gchar *name)
     DiaExportFilter *ef = tmp->data;
     if (ef->unique_name != NULL) {
       if (!g_ascii_strcasecmp(ef->unique_name, name)) {
-	if (filter) 
+	if (filter)
 	  g_warning(_("Multiple export filters with unique name %s"), name);
 	filter = ef;
       }
@@ -182,7 +180,7 @@ filter_export_get_by_name(const gchar *name)
   return filter;
 }
 DiaImportFilter *
-filter_import_get_by_name(const gchar *name) 
+filter_import_get_by_name(const gchar *name)
 {
   GList *tmp;
   DiaImportFilter *filter = NULL;
@@ -191,7 +189,7 @@ filter_import_get_by_name(const gchar *name)
     DiaImportFilter *af = tmp->data;
     if (af->unique_name != NULL) {
       if (!g_ascii_strcasecmp(af->unique_name, name)) {
-	if (filter) 
+	if (filter)
 	  g_warning(_("Multiple import filters with unique name %s"), name);
 	filter = af;
       }
@@ -253,7 +251,7 @@ filter_get_import_filter_label(DiaImportFilter *ifilter)
   return ret;
 }
 
-/* guess the filter for a given filename. 
+/* guess the filter for a given filename.
  * If there are multiple filters registered for the same extension some are
  * excluded from being returned here by the hint FILTER_DONT_GUESS.
  */
@@ -290,7 +288,7 @@ filter_guess_import_filter(const gchar *filename)
 }
 
 /* register a new callback from a plug-in */
-void 
+void
 filter_register_callback(DiaCallbackFilter *cbfilter)
 {
   /* sanity check */

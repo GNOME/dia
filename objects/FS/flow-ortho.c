@@ -20,9 +20,7 @@
  * please send e-mail to David Thompson <dcthomp@mail.utexas.edu>
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -92,7 +90,7 @@ Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f, 1.0f };
 
 static ObjectChange* orthflow_move_handle(Orthflow *orthflow, Handle *handle,
 					  Point *to, ConnectionPoint *cp,
-					  HandleMoveReason reason, 
+					  HandleMoveReason reason,
 					  ModifierKeys modifiers);
 static ObjectChange* orthflow_move(Orthflow *orthflow, Point *to);
 static void orthflow_select(Orthflow *orthflow, Point *clicked_point,
@@ -124,7 +122,7 @@ static ObjectTypeOps orthflow_type_ops =
   (SaveFunc)		orthflow_save,
   (GetDefaultsFunc)	NULL,
   (ApplyDefaultsFunc)	NULL,
-  
+
 } ;
 
 DiaObjectType orthflow_type =
@@ -158,7 +156,7 @@ static PropEnumData prop_orthflow_type_data[] = {
   { N_("Energy"),ORTHFLOW_ENERGY },
   { N_("Material"),ORTHFLOW_MATERIAL },
   { N_("Signal"),ORTHFLOW_SIGNAL },
-  { NULL, 0 } 
+  { NULL, 0 }
 };
 
 static PropDescription orthflow_props[] = {
@@ -197,14 +195,14 @@ static PropOffset orthflow_offsets[] = {
 static void
 orthflow_get_props(Orthflow * orthflow, GPtrArray *props)
 {
-  object_get_props_from_offsets(&orthflow->orth.object, 
+  object_get_props_from_offsets(&orthflow->orth.object,
                                 orthflow_offsets, props);
 }
 
 static void
 orthflow_set_props(Orthflow *orthflow, GPtrArray *props)
 {
-  object_set_props_from_offsets(&orthflow->orth.object, 
+  object_set_props_from_offsets(&orthflow->orth.object,
                                 orthflow_offsets, props);
   orthflow_update_data(orthflow);
 }
@@ -267,12 +265,12 @@ orthflow_distance_from(Orthflow *orthflow, Point *point)
   real linedist;
   real textdist;
 
-  linedist = orthconn_distance_from( &orthflow->orth, point, 
-				     orthflow->type == ORTHFLOW_MATERIAL ? 
-				     ORTHFLOW_MATERIAL_WIDTH : 
+  linedist = orthconn_distance_from( &orthflow->orth, point,
+				     orthflow->type == ORTHFLOW_MATERIAL ?
+				     ORTHFLOW_MATERIAL_WIDTH :
 				     ORTHFLOW_WIDTH ) ;
   textdist = text_distance_from( orthflow->text, point ) ;
-  
+
   return linedist > textdist ? textdist : linedist ;
 }
 
@@ -304,7 +302,7 @@ orthflow_move_handle(Orthflow *orthflow, Handle *handle,
     along = orthflow->textpos ;
     point_sub( &along, &(orthconn_get_middle_handle(&orthflow->orth)->pos) ) ;
 
-    change = orthconn_move_handle( &orthflow->orth, handle, to, cp, 
+    change = orthconn_move_handle( &orthflow->orth, handle, to, cp,
 				   reason, modifiers);
     orthconn_update_data( &orthflow->orth ) ;
 
@@ -322,7 +320,7 @@ orthflow_move(Orthflow *orthflow, Point *to)
 {
   ObjectChange *change;
 
-  Point *points = &orthflow->orth.points[0]; 
+  Point *points = &orthflow->orth.points[0];
   Point delta;
 
   delta = *to;
@@ -352,7 +350,7 @@ orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer)
   arrow.type = ARROW_FILLED_TRIANGLE;
   arrow.width = ORTHFLOW_ARROWWIDTH;
   arrow.length = ORTHFLOW_ARROWLEN;
- 
+
   points = &orthflow->orth.points[0];
 
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
@@ -382,7 +380,7 @@ orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer)
   renderer_ops->draw_polyline_with_arrows(renderer, points, n,
 					  ORTHFLOW_WIDTH,
 					  render_color,
-					  NULL, &arrow); 
+					  NULL, &arrow);
 
   text_draw(orthflow->text, renderer);
 }
@@ -403,10 +401,10 @@ orthflow_create(Point *startpoint,
   orthflow = g_new0(Orthflow,1);
   orth = &orthflow->orth ;
   orthconn_init( orth, startpoint ) ;
- 
+
   obj = &orth->object;
   extra = &orth->extra_spacing;
-  
+
   obj->type = &orthflow_type;
   obj->ops = &orthflow_ops;
 
@@ -417,7 +415,7 @@ orthflow_create(Point *startpoint,
   font = dia_font_new_from_style(DIA_FONT_SANS, ORTHFLOW_FONTHEIGHT);
 
   orthflow->text = new_text("", font, ORTHFLOW_FONTHEIGHT, &p, &color_black, ALIGN_CENTER);
-  dia_font_unref(font);  
+  dia_font_unref(font);
 
 #if 0
   if ( orthflow_default_label ) {
@@ -447,12 +445,12 @@ orthflow_create(Point *startpoint,
   orthflow->text_handle.connected_to = NULL;
   object_add_handle( obj, &orthflow->text_handle ) ;
 
-  extra->start_long = 
-    extra->start_trans = 
+  extra->start_long =
+    extra->start_trans =
     extra->middle_trans = ORTHFLOW_WIDTH/2.0;
-  extra->end_long = 
+  extra->end_long =
     extra->end_trans = ORTHFLOW_WIDTH/2 + ORTHFLOW_ARROWLEN;
-    
+
   orthflow_update_data(orthflow);
 
   /*obj->handles[1] = orth->handles[2] ;*/
@@ -477,7 +475,7 @@ orthflow_copy(Orthflow *orthflow)
   DiaObject *newobj;
 
   orth = &orthflow->orth;
-  
+
   neworthflow = g_malloc0(sizeof(Orthflow));
   neworth = &neworthflow->orth;
   newobj = &neworth->object;
@@ -503,7 +501,7 @@ orthflow_update_data(Orthflow *orthflow)
   DiaObject *obj = &orth->object;
   Rectangle rect;
   Color* color = &orthflow_color_signal;
-  
+
   switch (orthflow->type) {
   case ORTHFLOW_ENERGY:
     color = &orthflow_color_energy ;
@@ -557,7 +555,7 @@ orthflow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   orth = &orthflow->orth;
   obj = &orth->object;
   extra = &orth->extra_spacing;
-  
+
   obj->type = &orthflow_type;
   obj->ops = &orthflow_ops;
 
@@ -586,15 +584,15 @@ orthflow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   object_add_handle(obj, &orthflow->text_handle);
   obj->handles[orth->numpoints-1] = &orthflow->text_handle;
 
-  extra->start_long = 
-    extra->start_trans = 
+  extra->start_long =
+    extra->start_trans =
     extra->middle_trans = ORTHFLOW_WIDTH/2.0;
-  extra->end_long = 
+  extra->end_long =
     extra->end_trans = ORTHFLOW_WIDTH/2 + ORTHFLOW_ARROWLEN;
   orthflow->textpos = orthflow->text->position;
 
   orthflow_update_data(orthflow);
-  
+
   return &orthflow->orth.object;
 }
 

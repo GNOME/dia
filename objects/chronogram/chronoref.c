@@ -2,8 +2,8 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * Chronogram objects support
- * Copyright (C) 2000, 2001 Cyrille Chepelov 
- * 
+ * Copyright (C) 2000, 2001 Cyrille Chepelov
+ *
  * Ultimately forked from Flowchart toolbox -- objects for drawing flowcharts.
  * Copyright (C) 1999 James Henstridge.
  *
@@ -22,9 +22,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -58,7 +56,7 @@ typedef struct _Chronoref {
   real end_time;
   real time_step;
   real time_lstep;
-  
+
   DiaFont *font;
   real font_size;
   Color font_color;
@@ -76,7 +74,7 @@ static void chronoref_select(Chronoref *chronoref, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* chronoref_move_handle(Chronoref *chronoref, Handle *handle,
 					   Point *to, ConnectionPoint *cp,
-					   HandleMoveReason reason, 
+					   HandleMoveReason reason,
 			    ModifierKeys modifiers);
 static ObjectChange* chronoref_move(Chronoref *chronoref, Point *to);
 static void chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer);
@@ -86,12 +84,12 @@ static DiaObject *chronoref_create(Point *startpoint,
 			  Handle **handle1,
 			  Handle **handle2);
 static void chronoref_destroy(Chronoref *chronoref);
-static DiaObject *chronoref_load(ObjectNode obj_node, int version, 
+static DiaObject *chronoref_load(ObjectNode obj_node, int version,
 				 DiaContext *ctx);
 static PropDescription *chronoref_describe_props(Chronoref *chronoref);
-static void chronoref_get_props(Chronoref *chronoref, 
+static void chronoref_get_props(Chronoref *chronoref,
                                  GPtrArray *props);
-static void chronoref_set_props(Chronoref *chronoref, 
+static void chronoref_set_props(Chronoref *chronoref,
                                  GPtrArray *props);
 
 
@@ -172,13 +170,13 @@ static PropDescription chronoref_props[] = {
 };
 
 static PropDescription *
-chronoref_describe_props(Chronoref *chronoref) 
+chronoref_describe_props(Chronoref *chronoref)
 {
   if (chronoref_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(chronoref_props);
   }
   return chronoref_props;
-}    
+}
 
 static PropOffset chronoref_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
@@ -208,7 +206,7 @@ static PropOffset chronoref_offsets[] = {
 
 static void
 chronoref_get_props(Chronoref *chronoref, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&chronoref->element.object,
                                 chronoref_offsets,props);
 }
@@ -244,7 +242,7 @@ chronoref_move_handle(Chronoref *chronoref, Handle *handle,
   g_assert(handle!=NULL);
   g_assert(to!=NULL);
 
-  element_move_handle(&chronoref->element, handle->id, to, cp, 
+  element_move_handle(&chronoref->element, handle->id, to, cp,
 		      reason, modifiers);
   chronoref_update_data(chronoref);
 
@@ -272,7 +270,7 @@ chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer)
   assert(renderer != NULL);
 
   elem = &chronoref->element;
-  
+
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
@@ -283,17 +281,17 @@ chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer)
   p1.y = p2.y = elem->corner.y;
 
   renderer_ops->set_font(renderer, chronoref->font, chronoref->font_size);
-  p3.y = p2.y + chronoref->majgrad_height + 
+  p3.y = p2.y + chronoref->majgrad_height +
     dia_font_ascent("1",chronoref->font, chronoref->font_size);
 
   renderer_ops->set_linewidth(renderer, chronoref->light_lwidth);
   if (chronoref->time_lstep > 0.0) {
     p2.y = p1.y + chronoref->mingrad_height;
-    for (t = chronoref->firstmaj, p1.x = chronoref->firstmin_x; 
-	 p1.x <= lr_corner.x; 
+    for (t = chronoref->firstmaj, p1.x = chronoref->firstmin_x;
+	 p1.x <= lr_corner.x;
 	 t += chronoref->time_lstep, p1.x += chronoref->mingrad) {
       p2.x = p1.x;
-    
+
       renderer_ops->draw_line(renderer,&p1,&p2,&chronoref->color);
     }
   }
@@ -302,12 +300,12 @@ chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer)
   if (chronoref->time_step > 0.0) {
     p2.y = p1.y + chronoref->majgrad_height;
 
-    for (t = chronoref->firstmaj, p1.x = chronoref->firstmaj_x; 
-	 p1.x <= lr_corner.x; 
+    for (t = chronoref->firstmaj, p1.x = chronoref->firstmaj_x;
+	 p1.x <= lr_corner.x;
 	 t += chronoref->time_step, p1.x += chronoref->majgrad) {
       char time[10];
       p3.x = p2.x = p1.x;
-    
+
       renderer_ops->draw_line(renderer,&p1,&p2,&chronoref->color);
       g_snprintf(time,sizeof(time),"%.*f",chronoref->spec,t);
       renderer_ops->draw_string(renderer,time,&p3,ALIGN_CENTER,
@@ -340,7 +338,7 @@ chronoref_update_data(Chronoref *chronoref)
   /* build i = -log_{10}(time_step), then make a %.if format out of it. */
   t = 1;
   i = 0;
-  
+
   while (t > chronoref->time_step) {
     t /= 10;
     i++;
@@ -348,7 +346,7 @@ chronoref_update_data(Chronoref *chronoref)
   chronoref->spec = i; /* update precision */
   g_snprintf(biglabel,sizeof(biglabel),"%.*f", chronoref->spec,
 	   MIN(-ABS(chronoref->start_time),-ABS(chronoref->end_time)));
-  
+
   labelwidth = dia_font_string_width(biglabel,chronoref->font,
                                      chronoref->font_size);
 
@@ -363,18 +361,18 @@ chronoref_update_data(Chronoref *chronoref)
     chronoref->end_time = chronoref->start_time + time_span;
   }
 
-  chronoref->firstmaj = chronoref->time_step * 
+  chronoref->firstmaj = chronoref->time_step *
     ceil(chronoref->start_time / chronoref->time_step);
   if (chronoref->firstmaj < chronoref->start_time)
     chronoref->firstmaj += chronoref->time_step;
-  chronoref->firstmin = chronoref->time_lstep * 
+  chronoref->firstmin = chronoref->time_lstep *
     ceil(chronoref->start_time / chronoref->time_lstep);
   if (chronoref->firstmin < chronoref->start_time)
     chronoref->firstmin += chronoref->time_lstep;
 
-  chronoref->firstmaj_x = elem->corner.x + 
+  chronoref->firstmaj_x = elem->corner.x +
     elem->width*((chronoref->firstmaj-chronoref->start_time)/time_span);
-  chronoref->firstmin_x = elem->corner.x + 
+  chronoref->firstmin_x = elem->corner.x +
     elem->width*((chronoref->firstmin-chronoref->start_time)/time_span);
   chronoref->majgrad = (chronoref->time_step * elem->width) / time_span;
   chronoref->mingrad = (chronoref->time_lstep * elem->width) / time_span;
@@ -386,9 +384,9 @@ chronoref_update_data(Chronoref *chronoref)
   obj->bounding_box.left -= (chronoref->font_size + labelwidth)/2;
   obj->bounding_box.bottom += chronoref->font_size;
   obj->bounding_box.right += (chronoref->font_size + labelwidth)/2;
-  
+
   obj->position = elem->corner;
-  
+
   element_update_handles(elem);
 
   /* Update connections: */
@@ -406,7 +404,7 @@ chronoref_update_data(Chronoref *chronoref)
 
   point_copy(&p1,&elem->corner); point_copy(&p2,&ur_corner);
   p1.x -= chronoref->mingrad;
-  p2.x += chronoref->mingrad; 
+  p2.x += chronoref->mingrad;
   connpointline_putonaline(chronoref->scale,&p1,&p2, DIR_SOUTH);
 }
 
@@ -427,7 +425,7 @@ chronoref_create(Point *startpoint,
   obj->type = &chronoref_type;
   obj->ops = &chronoref_ops;
 
-  chronoref->scale = connpointline_create(obj,0); 
+  chronoref->scale = connpointline_create(obj,0);
 
   elem->corner = *startpoint;
   elem->width = 20.0;
@@ -449,7 +447,7 @@ chronoref_create(Point *startpoint,
   chronoref_update_data(chronoref);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  *handle2 = obj->handles[7];
   return &chronoref->element.object;
 }
 
@@ -465,5 +463,5 @@ static DiaObject *
 chronoref_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&chronoref_type,
-                                      obj_node,version,ctx);  
+                                      obj_node,version,ctx);
 }

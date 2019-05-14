@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "intl.h"
 #include <gtk/gtk.h>
@@ -51,9 +49,9 @@ dialog_make(char *title, char *okay_text, char *cancel_text,
   *okay_button = gtk_button_new_with_label((okay_text!=NULL?okay_text:_("OK")));
   *cancel_button = gtk_button_new_with_label((cancel_text!=NULL?cancel_text:_("Cancel")));
 
-  gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(GTK_DIALOG(dialog))), 
+  gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(GTK_DIALOG(dialog))),
 		    *okay_button);
-  gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(GTK_DIALOG(dialog))), 
+  gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(GTK_DIALOG(dialog))),
 		    *cancel_button);
 
   return dialog;

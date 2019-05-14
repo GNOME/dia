@@ -1,7 +1,7 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  * Font code completely reworked for the Pango conversion
- * Copyright (C) 2002 Cyrille Chepelov 
+ * Copyright (C) 2002 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,9 +18,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -52,11 +50,11 @@ static PangoContext* pango_context = NULL;
  * \brief Opaque type to represent a font
  * \ingroup ObjectFonts
  */
-struct _DiaFont 
+struct _DiaFont
 {
   GObject parent_instance;
 
-  PangoFontDescription* pfd;    
+  PangoFontDescription* pfd;
   /* mutable */ char* legacy_name;
 
   /* there is a difference between Pango's font size and Dia's font height */
@@ -77,7 +75,7 @@ struct _DiaFont
 static real global_zoom_factor = 20.0;
 
 static void
-dia_font_check_for_font(int font) 
+dia_font_check_for_font(int font)
 {
   DiaFont *check;
   PangoFont *loaded;
@@ -108,7 +106,7 @@ static GList *pango_contexts = NULL;
 
 /*! DEPRECATED: there should be only one "measure context" */
 void
-dia_font_push_context(PangoContext *pcontext) 
+dia_font_push_context(PangoContext *pcontext)
 {
   pango_contexts = g_list_prepend(pango_contexts, pango_context);
   pango_context = pcontext;
@@ -126,12 +124,12 @@ dia_font_pop_context() {
 }
 
 PangoContext *
-dia_font_get_context() 
+dia_font_get_context()
 {
   if (pango_context == NULL) {
 /* Maybe this one with pangocairo
      dia_font_push_context (pango_cairo_font_map_create_context (pango_cairo_font_map_get_default()));
- * but it gives: 
+ * but it gives:
      (lt-dia:30476): Pango-CRITICAL **: pango_renderer_draw_layout: assertion `PANGO_IS_RENDERER (renderer)' failed
  */
 #ifdef HAVE_FREETYPE
@@ -192,7 +190,7 @@ dia_font_get_type (void)
         object_type = g_type_register_static (G_TYPE_OBJECT,
                                               "DiaFont",
                                               &object_info, 0);
-    }  
+    }
     return object_type;
 }
 static gpointer parent_class;
@@ -205,15 +203,15 @@ dia_font_class_init(DiaFontClass* klass)
   object_class->finalize = dia_font_finalize;
 }
 
-static void 
+static void
 dia_font_init_instance(DiaFont* font)
 {
         /*GObject *gobject = G_OBJECT(font);  */
 }
 
-static void 
+static void
 dia_pfd_set_height(PangoFontDescription* pfd, real height)
-{ 
+{
   /* ONLY place for the magic factor! */
   g_return_if_fail (height > 0.0);
   pango_font_description_set_absolute_size(pfd, dcm_to_pdu(height) * 0.8);
@@ -222,14 +220,14 @@ dia_pfd_set_height(PangoFontDescription* pfd, real height)
 /*!
  * In Dia a font is usually referred to by it's (line-) height, not it's size.
  *
- * This methods "calculates" the latter from the former. This used to be some magic factor of 0.7 which did not 
+ * This methods "calculates" the latter from the former. This used to be some magic factor of 0.7 which did not
  * solve the resolution dependencance of the former calculation. In fact there is new magic factor now because
  * really calculating the font size from the height would involve two font loads which seem to be two expensive.
  */
 static void
 _dia_font_adjust_size (DiaFont *font, real height, gboolean recalc_alwways)
 {
-  
+
   if (font->height != height || !font->metrics || recalc_alwways) {
     PangoFont *loaded;
 
@@ -263,7 +261,7 @@ dia_font_new(const char *family, DiaFontStyle style, real height)
 }
 
 static void
-dia_pfd_set_family(PangoFontDescription* pfd, DiaFontFamily fam) 
+dia_pfd_set_family(PangoFontDescription* pfd, DiaFontFamily fam)
 {
   switch (fam) {
   case DIA_FONT_SANS :
@@ -283,7 +281,7 @@ dia_pfd_set_family(PangoFontDescription* pfd, DiaFontFamily fam)
 }
 
 static void
-dia_pfd_set_weight(PangoFontDescription* pfd, DiaFontWeight fw) 
+dia_pfd_set_weight(PangoFontDescription* pfd, DiaFontWeight fw)
 {
   switch (fw) {
   case DIA_FONT_ULTRALIGHT :
@@ -295,7 +293,7 @@ dia_pfd_set_weight(PangoFontDescription* pfd, DiaFontWeight fw)
   case DIA_FONT_WEIGHT_NORMAL :
     pango_font_description_set_weight(pfd, PANGO_WEIGHT_NORMAL);
     break;
-  case DIA_FONT_MEDIUM : /* Pango doesn't have this, but 
+  case DIA_FONT_MEDIUM : /* Pango doesn't have this, but
                             'intermediate values are possible' */
     pango_font_description_set_weight(pfd, 500);
     break;
@@ -317,7 +315,7 @@ dia_pfd_set_weight(PangoFontDescription* pfd, DiaFontWeight fw)
 }
 
 static void
-dia_pfd_set_slant(PangoFontDescription* pfd, DiaFontSlant fo) 
+dia_pfd_set_slant(PangoFontDescription* pfd, DiaFontSlant fo)
 {
   switch (fo) {
   case DIA_FONT_NORMAL :
@@ -347,7 +345,7 @@ dia_font_new_from_style(DiaFontStyle style, real height)
   dia_pfd_set_weight(pfd,DIA_FONT_STYLE_GET_WEIGHT(style));
   dia_pfd_set_slant(pfd,DIA_FONT_STYLE_GET_SLANT(style));
   dia_pfd_set_height(pfd,height);
-  
+
   retval = DIA_FONT(g_object_new(DIA_TYPE_FONT, NULL));
   retval->pfd = pfd;
   _dia_font_adjust_size (retval, height, FALSE);
@@ -357,7 +355,7 @@ dia_font_new_from_style(DiaFontStyle style, real height)
 
 DiaFont* dia_font_copy(const DiaFont* font)
 {
-  if (!font) 
+  if (!font)
     return NULL;
   return dia_font_new(dia_font_get_family(font),
                       dia_font_get_style(font),
@@ -368,14 +366,14 @@ void
 dia_font_finalize(GObject* object)
 {
   DiaFont* font = DIA_FONT(object);
-  
+
   if (font->pfd)
     pango_font_description_free(font->pfd);
   font->pfd = NULL;
   if (font->metrics)
     pango_font_metrics_unref(font->metrics);
   font->metrics = NULL;
-  if (font->loaded) 
+  if (font->loaded)
     g_object_unref(font->loaded);
   font->loaded = NULL;
   G_OBJECT_CLASS(parent_class)->finalize(object);
@@ -388,13 +386,13 @@ dia_font_ref(DiaFont* font)
   return font;
 }
 
-void 
+void
 dia_font_unref(DiaFont* font)
-{ 
+{
   g_object_unref(G_OBJECT(font));
 }
 
-DiaFontStyle 
+DiaFontStyle
 dia_font_get_style(const DiaFont* font)
 {
   guint style;
@@ -409,7 +407,7 @@ dia_font_get_style(const DiaFont* font)
   PangoStyle pango_style = pango_font_description_get_style(font->pfd);
   PangoWeight pango_weight = pango_font_description_get_weight(font->pfd);
 
-  g_assert(PANGO_WEIGHT_ULTRALIGHT <= pango_weight && pango_weight <= PANGO_WEIGHT_HEAVY); 
+  g_assert(PANGO_WEIGHT_ULTRALIGHT <= pango_weight && pango_weight <= PANGO_WEIGHT_HEAVY);
   g_assert(PANGO_WEIGHT_ULTRALIGHT == 200);
   g_assert(PANGO_WEIGHT_NORMAL == 400);
   g_assert(PANGO_WEIGHT_BOLD == 700);
@@ -472,17 +470,17 @@ dia_font_get_psfontname(const DiaFont *font)
     return "NewCenturySchlbk-Bold";
   else if (strcmp(fontname, "NewCenturySchoolbook-BoldItalic") == 0)
     return "NewCenturySchlbk-BoldItalic";
-  
+
   return fontname;
 }
 
-void 
+void
 dia_font_set_any_family(DiaFont* font, const char* family)
 {
   gboolean changed;
-  
+
   g_return_if_fail(font != NULL);
-  
+
   changed = strcmp (pango_font_description_get_family(font->pfd), family) != 0;
   pango_font_description_set_family(font->pfd, family);
   if (changed) /* force recalculation on name change */
@@ -493,42 +491,42 @@ dia_font_set_any_family(DiaFont* font, const char* family)
   }
 }
 
-void 
+void
 dia_font_set_family(DiaFont* font, DiaFontFamily family)
 {
   g_return_if_fail(font != NULL);
 
-  dia_pfd_set_family(font->pfd,family);  
+  dia_pfd_set_family(font->pfd,family);
   if (font->legacy_name) {
     g_free(font->legacy_name);
     font->legacy_name = NULL;
   }
 }
 
-void 
+void
 dia_font_set_weight(DiaFont* font, DiaFontWeight weight)
 {
   DiaFontWeight old_weight = DIA_FONT_STYLE_GET_WEIGHT(dia_font_get_style(font));
-  g_return_if_fail(font != NULL);    
+  g_return_if_fail(font != NULL);
   dia_pfd_set_weight(font->pfd,weight);
   if (old_weight != weight)
     _dia_font_adjust_size (font, font->height, TRUE);
 }
 
-void 
+void
 dia_font_set_slant(DiaFont* font, DiaFontSlant slant)
 {
   DiaFontSlant old_slant = DIA_FONT_STYLE_GET_SLANT(dia_font_get_style(font));
-  g_return_if_fail(font != NULL);    
+  g_return_if_fail(font != NULL);
   dia_pfd_set_slant(font->pfd,slant);
   if (slant != old_slant)
     _dia_font_adjust_size (font, font->height, TRUE);
 }
 
 
-typedef struct _WeightName { 
-  DiaFontWeight fw; 
-  const char *name; 
+typedef struct _WeightName {
+  DiaFontWeight fw;
+  const char *name;
 } WeightName;
 static const WeightName weight_names[] = {
   {DIA_FONT_ULTRALIGHT, "200"},
@@ -548,15 +546,15 @@ dia_font_get_weight_string(const DiaFont* font)
 {
     const WeightName* p;
     DiaFontWeight fw = DIA_FONT_STYLE_GET_WEIGHT(dia_font_get_style(font));
-    
+
     for (p = weight_names; p->name != NULL; ++p) {
         if (p->fw == fw) return p->name;
     }
     return "normal";
 }
 
-void 
-dia_font_set_weight_from_string(DiaFont* font, const char* weight) 
+void
+dia_font_set_weight_from_string(DiaFont* font, const char* weight)
 {
     DiaFontWeight fw = DIA_FONT_WEIGHT_NORMAL;
     const WeightName* p;
@@ -572,15 +570,15 @@ dia_font_set_weight_from_string(DiaFont* font, const char* weight)
 }
 
 
-typedef struct _SlantName { 
-  DiaFontSlant fo; 
-  const char *name; 
+typedef struct _SlantName {
+  DiaFontSlant fo;
+  const char *name;
 } SlantName;
 static const SlantName slant_names[] = {
   { DIA_FONT_NORMAL, "normal" },
   { DIA_FONT_OBLIQUE, "oblique" },
   { DIA_FONT_ITALIC, "italic" },
-  { 0, NULL} 
+  { 0, NULL}
 };
 
 const char *
@@ -589,20 +587,20 @@ dia_font_get_slant_string(const DiaFont* font)
   const SlantName* p;
   DiaFontSlant fo =
     DIA_FONT_STYLE_GET_SLANT(dia_font_get_style(font));
-    
+
   for (p = slant_names; p->name != NULL; ++p) {
-    if (p->fo == fo) 
+    if (p->fo == fo)
       return p->name;
   }
   return "normal";
 }
 
-void 
-dia_font_set_slant_from_string(DiaFont* font, const char* obli) 
+void
+dia_font_set_slant_from_string(DiaFont* font, const char* obli)
 {
   DiaFontSlant fo = DIA_FONT_NORMAL;
   const SlantName* p;
-    
+
   for (p = slant_names; p->name != NULL; ++p) {
     if (0 == strncmp(obli,p->name,8)) {
       fo = p->fo;
@@ -644,7 +642,7 @@ dia_font_ascent(const char* string, DiaFont* font, real height)
   }
 }
 
-real 
+real
 dia_font_descent(const char* string, DiaFont* font, real height)
 {
   if (font->metrics) {
@@ -674,7 +672,7 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
 
   length = string ? strlen(string) : 0;
   pango_layout_set_text(layout, string, length);
-        
+
   list = pango_attr_list_new();
 
   pfd = pango_font_description_copy (font->pfd);
@@ -687,14 +685,14 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
   attr->start_index = 0;
   attr->end_index = length;
   pango_attr_list_insert(list,attr); /* eats attr */
-    
+
   pango_layout_set_attributes(layout,list);
   pango_attr_list_unref(list);
 
   pango_layout_set_indent(layout,0);
   pango_layout_set_justify(layout,FALSE);
   pango_layout_set_alignment(layout,PANGO_ALIGN_LEFT);
-  
+
   return layout;
 }
 
@@ -726,7 +724,7 @@ get_string_offsets(PangoLayoutIter *iter, real** offsets, int* n_offsets)
 
   for (i = 0; i < string->num_glyphs; i++) {
     PangoGlyphGeometry geom = string->glyphs[i].geometry;
-    
+
     (*offsets)[i] = pdu_to_dcm(geom.width) / global_zoom_factor;
   }
 }
@@ -755,12 +753,12 @@ get_layout_offsets(PangoLayoutLine *line, PangoLayoutLine **layout_line)
     /* Make single pointer */
     PangoGlyphString *glyph_string = run->glyphs;
     PangoGlyphString *layout_glyph_string;
-      
+
     layout_run->glyphs = g_new0(PangoGlyphString, 1);
     layout_glyph_string = layout_run->glyphs;
 
     layout_glyph_string->num_glyphs = glyph_string->num_glyphs;
-    layout_glyph_string->glyphs = 
+    layout_glyph_string->glyphs =
       g_new0(PangoGlyphInfo, glyph_string->num_glyphs);
     for (j = 0; j < layout_glyph_string->num_glyphs; j++) {
       PangoGlyphInfo *info = &glyph_string->glyphs[j];
@@ -797,7 +795,7 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
     non_empty_string = string;
   }
   layout = dia_font_build_layout(non_empty_string, font, height * global_zoom_factor);
-  
+
   /* Only one line here ? */
   iter = pango_layout_get_iter(layout);
 
@@ -814,7 +812,7 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
    * to avoid text overflowing its box, like in bug #482585 */
   while (pango_layout_iter_next_line (iter)) {
     PangoRectangle more_ink_rect, more_logical_rect;
-    
+
     pango_layout_iter_get_line_extents(iter, &more_ink_rect, &more_logical_rect);
     if (more_logical_rect.width > logical_rect.width)
       logical_rect.width = more_logical_rect.width;
@@ -841,16 +839,16 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
 
 
 /**
- * Compatibility with older files out of pre Pango Time. 
+ * Compatibility with older files out of pre Pango Time.
  * Make old files look as similar as possible
  * List should be kept alphabetically sorted by oldname, in case of
  * duplicates the one with the preferred newname comes first.
  *
  * FIXME: DIA_FONT_FAMILY_ANY in the list below does mean noone knows better
  *
- * The PostScript names can be found on page 139 of 
+ * The PostScript names can be found on page 139 of
  * http://partners.adobe.com/public/developer/en/ps/PS3010and3011.Supplement.pdf
- * 
+ *
  * Note that these are not strictly the Adobe names, as a few were used
  * incorrectly and are kept for backwards compatibility.  The latin-1
  * postscript renderer mangles these.
@@ -881,9 +879,9 @@ static struct _legacy_font {
   { "Courier-Oblique",     "monospace", DIA_FONT_MONOSPACE | DIA_FONT_ITALIC},
   { "Courier-Oblique",     "Courier New", DIA_FONT_MONOSPACE | DIA_FONT_ITALIC },
   { "Dotum", "Dotum", DIA_FONT_FAMILY_ANY },
-  { "GBZenKai-Medium", "GBZenKai-Medium", DIA_FONT_FAMILY_ANY }, 
+  { "GBZenKai-Medium", "GBZenKai-Medium", DIA_FONT_FAMILY_ANY },
   { "GothicBBB-Medium", "GothicBBB-Medium", DIA_FONT_FAMILY_ANY },
-  { "Gulim", "Gulim", DIA_FONT_FAMILY_ANY }, 
+  { "Gulim", "Gulim", DIA_FONT_FAMILY_ANY },
   { "Headline", "Headline", DIA_FONT_FAMILY_ANY },
   { "Helvetica",             "sans", DIA_FONT_SANS },
   { "Helvetica",             "Arial", DIA_FONT_SANS },
@@ -902,22 +900,22 @@ static struct _legacy_font {
   { "NewCenturySchoolbook-BoldItalic", "Century Schoolbook SWA", DIA_FONT_SERIF | DIA_FONT_BOLD | DIA_FONT_ITALIC },
   { "NewCenturySchoolbook-Italic",     "Century Schoolbook SWA", DIA_FONT_SERIF | DIA_FONT_ITALIC },
   { "NewCenturySchoolbook-Roman",      "Century Schoolbook SWA", DIA_FONT_SERIF },
-  { "Palatino-Bold",       "Palatino", DIA_FONT_FAMILY_ANY | DIA_FONT_BOLD }, 
-  { "Palatino-BoldItalic", "Palatino", DIA_FONT_FAMILY_ANY | DIA_FONT_BOLD | DIA_FONT_ITALIC }, 
-  { "Palatino-Italic",     "Palatino", DIA_FONT_FAMILY_ANY | DIA_FONT_ITALIC }, 
+  { "Palatino-Bold",       "Palatino", DIA_FONT_FAMILY_ANY | DIA_FONT_BOLD },
+  { "Palatino-BoldItalic", "Palatino", DIA_FONT_FAMILY_ANY | DIA_FONT_BOLD | DIA_FONT_ITALIC },
+  { "Palatino-Italic",     "Palatino", DIA_FONT_FAMILY_ANY | DIA_FONT_ITALIC },
   { "Palatino-Roman",      "Palatino", DIA_FONT_FAMILY_ANY },
   { "Ryumin-Light",      "Ryumin", DIA_FONT_FAMILY_ANY | DIA_FONT_LIGHT },
   { "ShanHeiSun-Light",  "ShanHeiSun", DIA_FONT_FAMILY_ANY | DIA_FONT_LIGHT },
   { "Song-Medium",       "Song-Medium", DIA_FONT_FAMILY_ANY | DIA_FONT_MEDIUM },
   { "Symbol",           "Symbol", DIA_FONT_SANS | DIA_FONT_MEDIUM },
-  { "Times-Bold",       "serif", DIA_FONT_SERIF | DIA_FONT_BOLD }, 
+  { "Times-Bold",       "serif", DIA_FONT_SERIF | DIA_FONT_BOLD },
   { "Times-Bold",       "Times New Roman", DIA_FONT_SERIF | DIA_FONT_BOLD },
-  { "Times-BoldItalic", "serif", DIA_FONT_SERIF | DIA_FONT_ITALIC | DIA_FONT_BOLD }, 
+  { "Times-BoldItalic", "serif", DIA_FONT_SERIF | DIA_FONT_ITALIC | DIA_FONT_BOLD },
   { "Times-BoldItalic", "Times New Roman", DIA_FONT_SERIF | DIA_FONT_ITALIC | DIA_FONT_BOLD },
-  { "Times-Italic",     "serif", DIA_FONT_SERIF | DIA_FONT_ITALIC }, 
+  { "Times-Italic",     "serif", DIA_FONT_SERIF | DIA_FONT_ITALIC },
   { "Times-Italic",     "Times New Roman", DIA_FONT_SERIF | DIA_FONT_ITALIC },
-  { "Times-Roman",      "serif", DIA_FONT_SERIF }, 
-  { "Times-Roman",      "Times New Roman", DIA_FONT_SERIF }, 
+  { "Times-Roman",      "serif", DIA_FONT_SERIF },
+  { "Times-Roman",      "Times New Roman", DIA_FONT_SERIF },
   { "ZapfChancery-MediumItalic", "Zapf Calligraphic 801 SWA", DIA_FONT_SERIF | DIA_FONT_MEDIUM },
   { "ZapfDingbats", "Zapf Calligraphic 801 SWA", DIA_FONT_SERIF },
   { "ZenKai-Medium", "ZenKai", DIA_FONT_FAMILY_ANY | DIA_FONT_MEDIUM },
@@ -946,12 +944,12 @@ dia_font_new_from_legacy_name(const char* name)
   if (found) {
     retval = dia_font_new (found->newname, found->style, height);
     retval->legacy_name = found->oldname;
-  } else {      
+  } else {
     /* We tried our best, let Pango complain */
     retval = dia_font_new (name, DIA_FONT_WEIGHT_NORMAL, height);
     retval->legacy_name = NULL;
   }
-  
+
   return retval;
 }
 
@@ -963,7 +961,7 @@ dia_font_get_legacy_name(const DiaFont *font)
   DiaFontStyle style;
   int i;
 
-  /* if we have loaded it from an old file, use the old name */    
+  /* if we have loaded it from an old file, use the old name */
   if (font->legacy_name)
     return font->legacy_name;
 

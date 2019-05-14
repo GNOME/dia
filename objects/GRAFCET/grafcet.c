@@ -1,6 +1,6 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
- * 
+ *
  * GRAFCET charts support
  * Copyright (C) 2000 Cyrille Chepelov
  *
@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "object.h"
 
@@ -32,7 +30,7 @@
 extern DiaObjectType step_type;
 extern DiaObjectType action_type;
 extern DiaObjectType transition_type;
-extern DiaObjectType vergent_type; 
+extern DiaObjectType vergent_type;
 extern DiaObjectType grafcet_arc_type;
 extern DiaObjectType old_arc_type;
 extern DiaObjectType condition_type;
@@ -49,9 +47,9 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(&step_type);
   object_register_type(&action_type);
   object_register_type(&transition_type);
-  object_register_type(&vergent_type); 
+  object_register_type(&vergent_type);
   object_register_type(&grafcet_arc_type);
-  object_register_type(&old_arc_type); 
+  object_register_type(&old_arc_type);
   object_register_type(&condition_type);
 
   return DIA_PLUGIN_INIT_OK;

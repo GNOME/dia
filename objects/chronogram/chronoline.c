@@ -2,8 +2,8 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * Chronogram objects support
- * Copyright (C) 2000, 2001 Cyrille Chepelov 
- * 
+ * Copyright (C) 2000, 2001 Cyrille Chepelov
+ *
  * Ultimately forked from Flowchart toolbox -- objects for drawing flowcharts.
  * Copyright (C) 1999 James Henstridge.
  *
@@ -22,9 +22,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -67,7 +65,7 @@ typedef struct _Chronoline {
   DiaFont *font;
   real font_size;
   Color font_color;
-  
+
   /* computed values : */
   ConnPointLine *snap; /* not saved ; num_connections derived from
 			  the event string. */
@@ -85,7 +83,7 @@ static void chronoline_select(Chronoline *chronoline, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* chronoline_move_handle(Chronoline *chronoline, Handle *handle,
 					    Point *to, ConnectionPoint *cp,
-					    HandleMoveReason reason, 
+					    HandleMoveReason reason,
 			    ModifierKeys modifiers);
 static ObjectChange* chronoline_move(Chronoline *chronoline, Point *to);
 static void chronoline_draw(Chronoline *chronoline, DiaRenderer *renderer);
@@ -95,12 +93,12 @@ static DiaObject *chronoline_create(Point *startpoint,
 			  Handle **handle1,
 			  Handle **handle2);
 static void chronoline_destroy(Chronoline *chronoline);
-static DiaObject *chronoline_load(ObjectNode obj_node, int version, 
+static DiaObject *chronoline_load(ObjectNode obj_node, int version,
 				  DiaContext *ctx);
 static PropDescription *chronoline_describe_props(Chronoline *chronoline);
-static void chronoline_get_props(Chronoline *chronoline, 
+static void chronoline_get_props(Chronoline *chronoline,
                                  GPtrArray *props);
-static void chronoline_set_props(Chronoline *chronoline, 
+static void chronoline_set_props(Chronoline *chronoline,
                                  GPtrArray *props);
 
 static ObjectTypeOps chronoline_type_ops =
@@ -154,7 +152,7 @@ static PropDescription chronoline_props[] = {
     N_("Event specification"),N_(
    "@ time    set the pointer to an absolute time.\n"
    "( duration  set the signal up, then wait 'duration'.\n"
-   ") duration  set the signal down, then wait 'duration'.\n" 
+   ") duration  set the signal down, then wait 'duration'.\n"
    "u duration  set the signal to \"unknown\" state, then wait 'duration'.\n"
    "Example: @ 1.0 (2.0)1.0(2.0)\n" )},
 
@@ -190,13 +188,13 @@ static PropDescription chronoline_props[] = {
 };
 
 static PropDescription *
-chronoline_describe_props(Chronoline *chronoline) 
+chronoline_describe_props(Chronoline *chronoline)
 {
   if (chronoline_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(chronoline_props);
   }
   return chronoline_props;
-}    
+}
 
 static PropOffset chronoline_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
@@ -229,7 +227,7 @@ static PropOffset chronoline_offsets[] = {
 
 static void
 chronoline_get_props(Chronoline *chronoline, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&chronoline->element.object,
                                 chronoline_offsets,props);
 }
@@ -265,7 +263,7 @@ chronoline_move_handle(Chronoline *chronoline, Handle *handle,
   g_assert(handle!=NULL);
   g_assert(to!=NULL);
 
-  element_move_handle(&chronoline->element, handle->id, to, cp, 
+  element_move_handle(&chronoline->element, handle->id, to, cp,
 		      reason, modifiers);
   chronoline_update_data(chronoline);
 
@@ -281,7 +279,7 @@ chronoline_move(Chronoline *chronoline, Point *to)
   return NULL;
 }
 
-static void 
+static void
 cld_onebit(Chronoline *chronoline,
 	   DiaRenderer *renderer,
 	   real x1,CLEventType s1,
@@ -292,7 +290,7 @@ cld_onebit(Chronoline *chronoline,
   Point pts[4];
   real y_down = chronoline->y_down;
   real y_up = chronoline->y_up;
-  
+
   pts[0].x = pts[1].x = x1;
   pts[2].x = pts[3].x = x2;
 
@@ -307,7 +305,7 @@ cld_onebit(Chronoline *chronoline,
     } else {
       renderer_ops->draw_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
 				 &color_white, NULL);
-    }    
+    }
   } else {
     renderer_ops->draw_line(renderer,&pts[1],&pts[2],
 			     &chronoline->data_color);
@@ -315,7 +313,7 @@ cld_onebit(Chronoline *chronoline,
 }
 
 
-static void 
+static void
 cld_multibit(Chronoline *chronoline,
 	     DiaRenderer *renderer,
 	     real x1,CLEventType s1,
@@ -344,7 +342,7 @@ cld_multibit(Chronoline *chronoline,
     pts[2].y = y_up;
   }
 
-  if (fill) { 
+  if (fill) {
     if ((s1 == CLE_UNKNOWN) || (s2 == CLE_UNKNOWN)) {
       renderer_ops->draw_polygon(renderer,pts,sizeof(pts)/sizeof(pts[0]),
 				 &chronoline->datagray, NULL);
@@ -363,7 +361,7 @@ cld_multibit(Chronoline *chronoline,
 
 
 inline static void
-chronoline_draw_really(Chronoline *chronoline, DiaRenderer *renderer, 
+chronoline_draw_really(Chronoline *chronoline, DiaRenderer *renderer,
 		       gboolean fill)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
@@ -377,7 +375,7 @@ chronoline_draw_really(Chronoline *chronoline, DiaRenderer *renderer,
   CLEvent *evt;
   real start_time = chronoline->start_time;
   real end_time = chronoline->end_time;
-  
+
   oldx = elem->corner.x;
 
   lst = chronoline->evtlist;
@@ -392,8 +390,8 @@ chronoline_draw_really(Chronoline *chronoline, DiaRenderer *renderer,
       if (evt->time <= end_time) {
 	/* regular point */
 	newx = evt->x;
-	
-	if (chronoline->multibit) 
+
+	if (chronoline->multibit)
 	  cld_multibit(chronoline,renderer,oldx,state,newx,evt->type,fill);
 	else
 	  cld_onebit(chronoline,renderer,oldx,state,newx,evt->type,fill);
@@ -401,24 +399,24 @@ chronoline_draw_really(Chronoline *chronoline, DiaRenderer *renderer,
       } else {
 	newx = elem->corner.x + elem->width;
 	if (!finished) {
-	  if (chronoline->multibit) 
+	  if (chronoline->multibit)
 	    cld_multibit(chronoline,renderer,oldx,state,newx,evt->type,fill);
 	  else
 	    cld_onebit(chronoline,renderer,oldx,state,newx,evt->type,fill);
 	  finished = TRUE;
-	} 
-      }	
+	}
+      }
     }
     state = evt->type;
     lst = g_slist_next(lst);
   }
   if (!finished) {
     newx = chronoline->element.corner.x+chronoline->element.width;
-    if (chronoline->multibit) 
+    if (chronoline->multibit)
       cld_multibit(chronoline,renderer,oldx,state,newx,state,fill);
     else
       cld_onebit(chronoline,renderer,oldx,state,newx,state,fill);
-  }    
+  }
 }
 
 static void
@@ -460,9 +458,9 @@ chronoline_draw(Chronoline *chronoline, DiaRenderer *renderer)
   p2.y = chronoline->y_up;
   renderer_ops->draw_line(renderer,&p1,&p2,&chronoline->color);
 
-  renderer_ops->set_font(renderer, chronoline->font, 
+  renderer_ops->set_font(renderer, chronoline->font,
                           chronoline->font_size);
-  p3.y = lr_corner.y - chronoline->font_size 
+  p3.y = lr_corner.y - chronoline->font_size
       + dia_font_ascent(chronoline->name,
                         chronoline->font,chronoline->font_size);
   p3.x = p1.x - chronoline->main_lwidth;
@@ -488,7 +486,7 @@ chronoline_update_data(Chronoline *chronoline)
   int shouldbe,i;
   real realheight;
   CLEventList *lst;
-  CLEvent *evt;  
+  CLEvent *evt;
   GSList *conn_elem;
   ElementBBExtras *extra = &elem->extra_spacing;
 
@@ -501,7 +499,7 @@ chronoline_update_data(Chronoline *chronoline)
 
   chronoline->y_up = elem->corner.y;
   chronoline->y_down = elem->corner.y + elem->height;
-  
+
   /* Now, update the drawing helper counters */
   time_span = chronoline->end_time - chronoline->start_time;
   if (time_span == 0) {
@@ -519,13 +517,13 @@ chronoline_update_data(Chronoline *chronoline)
   /* fix boundingbox for special extras: */
   realheight = obj->bounding_box.bottom - obj->bounding_box.top;
   realheight = MAX(realheight,chronoline->font_size);
-  
+
   obj->bounding_box.left -= chronoline->labelwidth;
-  obj->bounding_box.bottom = obj->bounding_box.top + realheight + 
+  obj->bounding_box.bottom = obj->bounding_box.top + realheight +
     chronoline->main_lwidth;
-  
+
   obj->position = elem->corner;
-  
+
   element_update_handles(elem);
 
   /* Update connections: */
@@ -534,7 +532,7 @@ chronoline_update_data(Chronoline *chronoline)
 
   /* Update the events : count those which fit in [start_time,end_time].
    */
-  
+
   reparse_clevent(chronoline->events,
 		  &chronoline->evtlist,
 		  &chronoline->checksum,
@@ -546,8 +544,8 @@ chronoline_update_data(Chronoline *chronoline)
 
   while (lst) {
     evt = (CLEvent *)lst->data;
-    
-    if ((evt->time >= chronoline->start_time) && 
+
+    if ((evt->time >= chronoline->start_time) &&
 	(evt->time <= chronoline->end_time))
       shouldbe++;
     lst = g_slist_next(lst);
@@ -564,10 +562,10 @@ chronoline_update_data(Chronoline *chronoline)
   while (lst && lst->data && conn_elem && conn_elem->data) {
     ConnectionPoint *cp = (ConnectionPoint *)(conn_elem->data);
     evt = (CLEvent *)lst->data;
-    
-    if ((evt->time >= chronoline->start_time) && 
+
+    if ((evt->time >= chronoline->start_time) &&
 	(evt->time <= chronoline->end_time)) {
-      evt->x = elem->corner.x + 
+      evt->x = elem->corner.x +
 	elem->width*(evt->time-chronoline->start_time)/time_span;
       g_assert(cp);
       g_assert(i < chronoline->snap->num_connections);
@@ -583,7 +581,7 @@ chronoline_update_data(Chronoline *chronoline)
       i++;
       conn_elem = g_slist_next(conn_elem);
     } else if (evt->time >= chronoline->start_time) {
-      evt->x = elem->corner.x; 
+      evt->x = elem->corner.x;
     } else if (evt->time <= chronoline->end_time) {
       evt->x = elem->corner.x + elem->width;
     }
@@ -608,7 +606,7 @@ chronoline_create(Point *startpoint,
   obj->type = &chronoline_type;
   obj->ops = &chronoline_ops;
 
-  chronoline->snap = connpointline_create(obj,0); 
+  chronoline->snap = connpointline_create(obj,0);
 
   elem->corner = *startpoint;
   elem->width = 20.0;
@@ -634,16 +632,16 @@ chronoline_create(Point *startpoint,
   chronoline->data_color.blue = 0.0;
   chronoline->data_color.alpha = 1.0;
   chronoline->multibit = FALSE;
-  
+
   chronoline->evtlist = NULL;
   chronoline_update_data(chronoline);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  *handle2 = obj->handles[7];
   return &chronoline->element.object;
 }
 
-static void 
+static void
 chronoline_destroy(Chronoline *chronoline)
 {
   g_free(chronoline->name);
@@ -658,5 +656,5 @@ static DiaObject *
 chronoline_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&chronoline_type,
-                                      obj_node,version,ctx);  
+                                      obj_node,version,ctx);
 }

@@ -17,10 +17,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */ 
-#ifdef HAVE_CONFIG_H
+ */
 #include <config.h>
-#endif
 
 #include <stdio.h>
 /* Information used here is taken from the FIG Format 3.2 specification
@@ -111,36 +109,36 @@ static void set_linejoin(DiaRenderer *self, LineJoin mode);
 static void set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length);
 static void set_fillstyle(DiaRenderer *self, FillStyle mode);
 static void set_font(DiaRenderer *self, DiaFont *font, real height);
-static void draw_line(DiaRenderer *self, 
-		      Point *start, Point *end, 
+static void draw_line(DiaRenderer *self,
+		      Point *start, Point *end,
 		      Color *color);
-static void draw_polyline(DiaRenderer *self, 
-			  Point *points, int num_points, 
+static void draw_polyline(DiaRenderer *self,
+			  Point *points, int num_points,
 			  Color *color);
-static void draw_line_with_arrows(DiaRenderer *self, 
-				  Point *start, Point *end, 
+static void draw_line_with_arrows(DiaRenderer *self,
+				  Point *start, Point *end,
 				  real line_width,
 				  Color *color,
 				  Arrow *start_arrow,
 				  Arrow *end_arrow);
-static void draw_polyline_with_arrows(DiaRenderer *self, 
-				      Point *points, int num_points, 
+static void draw_polyline_with_arrows(DiaRenderer *self,
+				      Point *points, int num_points,
 				      real line_width,
 				      Color *color,
 				      Arrow *start_arrow,
 				      Arrow *end_arrow);
-static void draw_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
+static void draw_polygon(DiaRenderer *self,
+			 Point *points, int num_points,
 			 Color *fill, Color *stroke);
-static void draw_rect(DiaRenderer *self, 
+static void draw_rect(DiaRenderer *self,
 		      Point *ul_corner, Point *lr_corner,
 		      Color *fill, Color *stroke);
-static void draw_arc(DiaRenderer *self, 
+static void draw_arc(DiaRenderer *self,
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *colour);
-static void draw_arc_with_arrows(DiaRenderer *self, 
+static void draw_arc_with_arrows(DiaRenderer *self,
 				 Point *startpoint,
 				 Point *endpoint,
 				 Point *midpoint,
@@ -148,27 +146,27 @@ static void draw_arc_with_arrows(DiaRenderer *self,
 				 Color *colour,
 				 Arrow *start_arrow,
 				 Arrow *end_arrow);
-static void fill_arc(DiaRenderer *self, 
+static void fill_arc(DiaRenderer *self,
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *colour);
-static void draw_ellipse(DiaRenderer *self, 
+static void draw_ellipse(DiaRenderer *self,
 			 Point *center,
 			 real width, real height,
 			 Color *fill, Color *stroke);
-static void draw_bezier(DiaRenderer *self, 
+static void draw_bezier(DiaRenderer *self,
 			BezPoint *points,
 			int numpoints,
 			Color *colour);
-static void draw_bezier_with_arrows(DiaRenderer *self, 
+static void draw_bezier_with_arrows(DiaRenderer *self,
 				    BezPoint *points,
 				    int numpoints,
 				    real line_width,
 				    Color *colour,
 				    Arrow *start_arrow,
 				    Arrow *end_arrow);
-static void draw_beziergon(DiaRenderer *self, 
+static void draw_beziergon(DiaRenderer *self,
 			   BezPoint *points, /* Last point must be same as first point */
 			   int numpoints,
 			   Color *fill,
@@ -213,7 +211,7 @@ xfig_renderer_get_type (void)
                                             "XfigRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
@@ -242,10 +240,10 @@ xfig_renderer_class_init (XfigRendererClass *klass)
   renderer_class->set_linestyle = set_linestyle;
   renderer_class->set_fillstyle = set_fillstyle;
   renderer_class->set_font = set_font;
-  
+
   renderer_class->draw_line = draw_line;
   renderer_class->draw_polyline = draw_polyline;
-  
+
   renderer_class->draw_polygon = draw_polygon;
 
   renderer_class->draw_arc = draw_arc;
@@ -269,8 +267,8 @@ xfig_renderer_class_init (XfigRendererClass *klass)
 }
 
 /* Helper functions */
-static void 
-figWarn(XfigRenderer *renderer, int warning) 
+static void
+figWarn(XfigRenderer *renderer, int warning)
 {
   if (renderer->warnings[warning]) {
     message_warning("%s", renderer->warnings[warning]);
@@ -278,8 +276,8 @@ figWarn(XfigRenderer *renderer, int warning)
   }
 }
 
-static int 
-figLineStyle(XfigRenderer *renderer) 
+static int
+figLineStyle(XfigRenderer *renderer)
 {
   switch (renderer->stylemode) {
   case LINESTYLE_SOLID:
@@ -297,8 +295,8 @@ figLineStyle(XfigRenderer *renderer)
   }
 }
 
-static int 
-figLineWidth(XfigRenderer *renderer) 
+static int
+figLineWidth(XfigRenderer *renderer)
 {
   int width = 0;
   /* Minimal line width in fig diagrams. */
@@ -309,10 +307,10 @@ figLineWidth(XfigRenderer *renderer)
 
 /* Must be called before outputting anything that uses this color,
    in order to output a color pseudo object.
-   The color pseudo object even must be placed first in the xfig file. 
+   The color pseudo object even must be placed first in the xfig file.
  */
-static void 
-figCheckColor(XfigRenderer *renderer, Color *color) 
+static void
+figCheckColor(XfigRenderer *renderer, Color *color)
 {
   int i;
 
@@ -327,30 +325,30 @@ figCheckColor(XfigRenderer *renderer, Color *color)
     return;
   }
   renderer->user_colors[renderer->max_user_color] = *color;
-  fprintf(renderer->file, "0 %d #%02x%02x%02x\n", 
+  fprintf(renderer->file, "0 %d #%02x%02x%02x\n",
           renderer->max_user_color + FIG_MAX_DEFAULT_COLORS,
           (int)(color->red*255), (int)(color->green*255), (int)(color->blue*255));
   renderer->max_user_color++;
 }
 
-static int 
-figColor(XfigRenderer *renderer, Color *color) 
+static int
+figColor(XfigRenderer *renderer, Color *color)
 {
   int i;
 
   for (i = 0; i < FIG_MAX_DEFAULT_COLORS; i++) {
-    if (color_equals(color, &fig_default_colors[i])) 
+    if (color_equals(color, &fig_default_colors[i]))
       return i;
   }
   for (i = 0; i < renderer->max_user_color; i++) {
-    if (color_equals(color, &renderer->user_colors[i])) 
+    if (color_equals(color, &renderer->user_colors[i]))
       return i + FIG_MAX_DEFAULT_COLORS;
   }
   return 0;
 }
 
-static real 
-figCoord(XfigRenderer *renderer, real coord) 
+static real
+figCoord(XfigRenderer *renderer, real coord)
 {
   return (coord/2.54)*1200.0;
 }
@@ -361,38 +359,38 @@ figAltCoord(XfigRenderer *renderer, real coord)
   return (coord/2.54)*80.0;
 }
 
-static int 
-figDepth(XfigRenderer *renderer) 
+static int
+figDepth(XfigRenderer *renderer)
 {
   return renderer->depth;
 }
 
-static real 
-figDashLength(XfigRenderer *renderer) 
+static real
+figDashLength(XfigRenderer *renderer)
 {
   return figAltCoord(renderer, renderer->dashlength);
 }
 
-static int 
+static int
 figJoinStyle(XfigRenderer *renderer)
 {
   return renderer->joinmode;
 }
 
-static int 
-figCapsStyle(XfigRenderer *renderer) 
+static int
+figCapsStyle(XfigRenderer *renderer)
 {
   return renderer->capsmode;
 }
 
-static int 
-figAlignment(XfigRenderer *renderer, int alignment) 
+static int
+figAlignment(XfigRenderer *renderer, int alignment)
 {
   return alignment;
 }
 
-static int 
-figFont(XfigRenderer *renderer) 
+static int
+figFont(XfigRenderer *renderer)
 {
   int i;
   const char *legacy_name;
@@ -407,14 +405,14 @@ figFont(XfigRenderer *renderer)
   return -1;
 }
 
-static real 
-figFontSize(XfigRenderer *renderer) 
+static real
+figFontSize(XfigRenderer *renderer)
 {
   return (renderer->fontheight/2.54)*72.27;
 }
 
 static guchar *
-figText(XfigRenderer *renderer, const guchar *text) 
+figText(XfigRenderer *renderer, const guchar *text)
 {
   int i, j;
   int len = strlen((char *) text);
@@ -451,7 +449,7 @@ figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
   gchar lw_buf[DTOSTR_BUF_SIZE];
   gchar aw_buf[DTOSTR_BUF_SIZE];
   gchar al_buf[DTOSTR_BUF_SIZE];
-  
+
   switch (arrow->type) {
   case ARROW_NONE:
     return;
@@ -462,12 +460,12 @@ figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
     type = 1; style = 0; break;
   case ARROW_FILLED_TRIANGLE:   /* {filled arrow} */
     type = 1; style = 1; break;
-  case ARROW_HOLLOW_DIAMOND:   
+  case ARROW_HOLLOW_DIAMOND:
     type = 3; style = 0; break;
   case ARROW_FILLED_DIAMOND:
     type = 3; style = 1; break;
   default:
-    message_warning(_("Fig format has no equivalent of arrow style %s; using simple arrow.\n"), 
+    message_warning(_("Fig format has no equivalent of arrow style %s; using simple arrow.\n"),
 		    arrow_get_name_from_type(arrow->type));
     /* Notice fallthrough */
   case ARROW_FILLED_CONCAVE:
@@ -477,19 +475,19 @@ figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
   }
   fprintf(renderer->file, "  %d %d %s %s %s\n",
 	  type, style,
-	  xfig_dtostr(lw_buf, figAltCoord(renderer, line_width)), 
+	  xfig_dtostr(lw_buf, figAltCoord(renderer, line_width)),
 	  xfig_dtostr(aw_buf, figCoord(renderer, arrow->width)),
-	  xfig_dtostr(al_buf, figCoord(renderer, arrow->length)) );	  
+	  xfig_dtostr(al_buf, figCoord(renderer, arrow->length)) );
 }
 
-static void 
-begin_render(DiaRenderer *self, const Rectangle *update) 
+static void
+begin_render(DiaRenderer *self, const Rectangle *update)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
   if (renderer->color_pass) {
     /* Set up warnings */
-    renderer->warnings[WARNING_OUT_OF_COLORS] = 
+    renderer->warnings[WARNING_OUT_OF_COLORS] =
       _("No more user-definable colors - using black");
     renderer->max_user_color = 0;
   }
@@ -507,36 +505,36 @@ begin_render(DiaRenderer *self, const Rectangle *update)
 
 }
 
-static void 
-end_render(DiaRenderer *renderer) 
+static void
+end_render(DiaRenderer *renderer)
 {
 }
 
-static void 
-set_linewidth(DiaRenderer *self, real linewidth) 
+static void
+set_linewidth(DiaRenderer *self, real linewidth)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
   renderer->linewidth = linewidth;
 }
 
-static void 
-set_linecaps(DiaRenderer *self, LineCaps mode) 
+static void
+set_linecaps(DiaRenderer *self, LineCaps mode)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
   renderer->capsmode = mode;
 }
 
-static void 
-set_linejoin(DiaRenderer *self, LineJoin mode) 
+static void
+set_linejoin(DiaRenderer *self, LineJoin mode)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
   renderer->joinmode = mode;
 }
 
-static void 
+static void
 set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
@@ -545,15 +543,15 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
   renderer->dashlength = dash_length;
 }
 
-static void 
-set_fillstyle(DiaRenderer *self, FillStyle mode) 
+static void
+set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
   renderer->fillmode = mode;
 }
-static void 
-set_font(DiaRenderer *self, DiaFont *font, real height) 
+static void
+set_font(DiaRenderer *self, DiaFont *font, real height)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
@@ -561,10 +559,10 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
   renderer->fontheight = height;
 }
 
-static void 
-draw_line(DiaRenderer *self, 
-          Point *start, Point *end, 
-          Color *color) 
+static void
+draw_line(DiaRenderer *self,
+          Point *start, Point *end,
+          Color *color)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar d_buf[DTOSTR_BUF_SIZE];
@@ -575,22 +573,22 @@ draw_line(DiaRenderer *self,
   }
 
   fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 0 0 2\n",
-	  figLineStyle(renderer), figLineWidth(renderer), 
+	  figLineStyle(renderer), figLineWidth(renderer),
 	  figColor(renderer, color), figDepth(renderer),
 	  xfig_dtostr(d_buf, figDashLength(renderer)),
 	  figJoinStyle(renderer), figCapsStyle(renderer) );
   fprintf(renderer->file, "\t%d %d %d %d\n",
-	  (int)figCoord(renderer, start->x), (int)figCoord(renderer, start->y), 
+	  (int)figCoord(renderer, start->x), (int)figCoord(renderer, start->y),
 	  (int)figCoord(renderer, end->x), (int)figCoord(renderer, end->y));
 }
 
-static void 
-draw_line_with_arrows(DiaRenderer *self, 
-		      Point *start, Point *end, 
+static void
+draw_line_with_arrows(DiaRenderer *self,
+		      Point *start, Point *end,
 		      real line_width,
 		      Color *color,
 		      Arrow *start_arrow,
-		      Arrow *end_arrow) 
+		      Arrow *end_arrow)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar d_buf[DTOSTR_BUF_SIZE];
@@ -601,10 +599,10 @@ draw_line_with_arrows(DiaRenderer *self,
   }
 
   fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 %d %d 2\n",
-	  figLineStyle(renderer), figLineWidth(renderer), 
+	  figLineStyle(renderer), figLineWidth(renderer),
 	  figColor(renderer, color), figDepth(renderer),
 	  xfig_dtostr(d_buf, figDashLength(renderer)),
-	  figJoinStyle(renderer), 
+	  figJoinStyle(renderer),
 	  figCapsStyle(renderer),
 	  hasArrow(end_arrow),
 	  hasArrow(start_arrow));
@@ -615,14 +613,14 @@ draw_line_with_arrows(DiaRenderer *self,
     figArrow(renderer, start_arrow, line_width);
   }
   fprintf(renderer->file, "\t%d %d %d %d\n",
-	  (int)figCoord(renderer, start->x), (int)figCoord(renderer, start->y), 
+	  (int)figCoord(renderer, start->x), (int)figCoord(renderer, start->y),
 	  (int)figCoord(renderer, end->x), (int)figCoord(renderer, end->y));
 }
 
-static void 
-draw_polyline(DiaRenderer *self, 
-              Point *points, int num_points, 
-              Color *color) 
+static void
+draw_polyline(DiaRenderer *self,
+              Point *points, int num_points,
+              Color *color)
 {
   int i;
   XfigRenderer *renderer = XFIG_RENDERER(self);
@@ -634,7 +632,7 @@ draw_polyline(DiaRenderer *self,
   }
 
   fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 0 0 %d\n",
-	  figLineStyle(renderer), figLineWidth(renderer), 
+	  figLineStyle(renderer), figLineWidth(renderer),
 	  figColor(renderer, color), figDepth(renderer),
 	  xfig_dtostr(d_buf, figDashLength(renderer)),
 	  figJoinStyle(renderer),
@@ -647,13 +645,13 @@ draw_polyline(DiaRenderer *self,
   fprintf(renderer->file, "\n");
 }
 
-static void 
-draw_polyline_with_arrows(DiaRenderer *self, 
-			  Point *points, int num_points, 
+static void
+draw_polyline_with_arrows(DiaRenderer *self,
+			  Point *points, int num_points,
 			  real line_width,
 			  Color *color,
 			  Arrow *start_arrow,
-			  Arrow *end_arrow) 
+			  Arrow *end_arrow)
 {
   int i;
   XfigRenderer *renderer = XFIG_RENDERER(self);
@@ -665,7 +663,7 @@ draw_polyline_with_arrows(DiaRenderer *self,
   }
 
   fprintf(renderer->file, "2 1 %d %d %d 0 %d 0 -1 %s %d %d 0 %d %d %d\n",
-	  figLineStyle(renderer), figLineWidth(renderer), 
+	  figLineStyle(renderer), figLineWidth(renderer),
 	  figColor(renderer, color), figDepth(renderer),
 	  xfig_dtostr(d_buf, figDashLength(renderer)),
 	  figJoinStyle(renderer),
@@ -742,21 +740,21 @@ draw_rect(DiaRenderer *self,
 	  figDepth(renderer),
 	  fill ? 20 : -1,
 	  xfig_dtostr(d_buf, figDashLength(renderer)),
-	  figJoinStyle(renderer), 
+	  figJoinStyle(renderer),
 	  figCapsStyle(renderer));
   fprintf(renderer->file, "\t%d %d %d %d %d %d %d %d %d %d\n",
-	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, ul_corner->y), 
-	  (int)figCoord(renderer, lr_corner->x), (int)figCoord(renderer, ul_corner->y), 
-	  (int)figCoord(renderer, lr_corner->x), (int)figCoord(renderer, lr_corner->y), 
-	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, lr_corner->y), 
+	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, ul_corner->y),
+	  (int)figCoord(renderer, lr_corner->x), (int)figCoord(renderer, ul_corner->y),
+	  (int)figCoord(renderer, lr_corner->x), (int)figCoord(renderer, lr_corner->y),
+	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, lr_corner->y),
 	  (int)figCoord(renderer, ul_corner->x), (int)figCoord(renderer, ul_corner->y));
 }
-static void 
-draw_arc(DiaRenderer *self, 
+static void
+draw_arc(DiaRenderer *self,
          Point *center,
          real width, real height,
          real angle1, real angle2,
-         Color *color) 
+         Color *color)
 {
   Point first, second, last;
   int direction = angle2 > angle1 ? 1 : 0; /* Dia not always gives counterclockwise */
@@ -787,16 +785,16 @@ draw_arc(DiaRenderer *self,
   last.y -= (height/2.0)*sin(angle2);
 
   fprintf(renderer->file, "5 1 %d %d %d %d %d 0 -1 %s %d %d 0 0 %s %s %d %d %d %d %d %d\n",
-	  figLineStyle(renderer), figLineWidth(renderer), 
+	  figLineStyle(renderer), figLineWidth(renderer),
 	  figColor(renderer, color), figColor(renderer, color),
 	  figDepth(renderer),
 	  xfig_dtostr(dl_buf, figDashLength(renderer)),
 	  figCapsStyle(renderer),
 	  direction,
-	  xfig_dtostr(cx_buf, figCoord(renderer, center->x)), 
+	  xfig_dtostr(cx_buf, figCoord(renderer, center->x)),
 	  xfig_dtostr(cy_buf, figCoord(renderer, center->y)),
-	  (int)figCoord(renderer, first.x), (int)figCoord(renderer, first.y), 
-	  (int)figCoord(renderer, second.x), (int)figCoord(renderer, second.y), 
+	  (int)figCoord(renderer, first.x), (int)figCoord(renderer, first.y),
+	  (int)figCoord(renderer, second.x), (int)figCoord(renderer, second.y),
 	  (int)figCoord(renderer, last.x), (int)figCoord(renderer, last.y));
 
 }
@@ -816,15 +814,15 @@ is_right_hand (const Point *a, const Point *b, const Point *c)
   return point_cross(&dot1, &dot2) > 0;
 }
 
-static void 
-draw_arc_with_arrows(DiaRenderer *self, 
+static void
+draw_arc_with_arrows(DiaRenderer *self,
 		     Point *startpoint,
 		     Point *endpoint,
 		     Point *midpoint,
 		     real line_width,
 		     Color *color,
 		     Arrow *start_arrow,
-		     Arrow *end_arrow) 
+		     Arrow *end_arrow)
 {
   Point center;
   int direction = 0;
@@ -848,7 +846,7 @@ draw_arc_with_arrows(DiaRenderer *self,
   fprintf (renderer->file, "#draw_arc_with_arrows center=(%g,%g) radius=%g\n", center.x, center.y, radius);
 
   fprintf(renderer->file, "5 1 %d %d %d %d %d 0 -1 %s %d %d %d %d %s %s %d %d %d %d %d %d\n",
-	  figLineStyle(renderer), figLineWidth(renderer), 
+	  figLineStyle(renderer), figLineWidth(renderer),
 	  figColor(renderer, color), figColor(renderer, color),
 	  figDepth(renderer),
 	  xfig_dtostr(dl_buf, figDashLength(renderer)),
@@ -858,8 +856,8 @@ draw_arc_with_arrows(DiaRenderer *self,
 	  hasArrow(start_arrow),
 	  xfig_dtostr(cx_buf, figCoord(renderer, center.x)),
 	  xfig_dtostr(cy_buf, figCoord(renderer, center.y)),
-	  (int)figCoord(renderer, startpoint->x), (int)figCoord(renderer, startpoint->y), 
-	  (int)figCoord(renderer, midpoint->x), (int)figCoord(renderer, midpoint->y), 
+	  (int)figCoord(renderer, startpoint->x), (int)figCoord(renderer, startpoint->y),
+	  (int)figCoord(renderer, midpoint->x), (int)figCoord(renderer, midpoint->y),
 	  (int)figCoord(renderer, endpoint->x), (int)figCoord(renderer, endpoint->y));
 
   if (hasArrow(end_arrow)) {
@@ -870,12 +868,12 @@ draw_arc_with_arrows(DiaRenderer *self,
   }
 }
 
-static void 
-fill_arc(DiaRenderer *self, 
+static void
+fill_arc(DiaRenderer *self,
          Point *center,
          real width, real height,
          real angle1, real angle2,
-         Color *color) 
+         Color *color)
 {
   Point first, second, last;
   XfigRenderer *renderer = XFIG_RENDERER(self);
@@ -906,15 +904,15 @@ fill_arc(DiaRenderer *self,
   last.y -= (height/2.0)*sin(angle2);
 
   fprintf(renderer->file, "5 2 %d %d %d %d %d 20 0 %s %d 1 0 0 %s %s %d %d %d %d %d %d\n",
-	  figLineStyle(renderer), figLineWidth(renderer), 
+	  figLineStyle(renderer), figLineWidth(renderer),
 	  figColor(renderer, color), figColor(renderer, color),
 	  figDepth(renderer),
 	  xfig_dtostr(dl_buf, figDashLength(renderer)),
 	  figCapsStyle(renderer),
-	  xfig_dtostr(cx_buf, figCoord(renderer, center->x)), 
+	  xfig_dtostr(cx_buf, figCoord(renderer, center->x)),
 	  xfig_dtostr(cy_buf, figCoord(renderer, center->y)),
-	  (int)figCoord(renderer, first.x), (int)figCoord(renderer, first.y), 
-	  (int)figCoord(renderer, second.x), (int)figCoord(renderer, second.y), 
+	  (int)figCoord(renderer, first.x), (int)figCoord(renderer, first.y),
+	  (int)figCoord(renderer, second.x), (int)figCoord(renderer, second.y),
 	  (int)figCoord(renderer, last.x), (int)figCoord(renderer, last.y));
 
 }
@@ -937,7 +935,7 @@ draw_ellipse (DiaRenderer *self,
   }
 
   fprintf(renderer->file, "1 1 %d %d %d %d %d 0 %d %s 1 0.0 %d %d %d %d 0 0 0 0\n",
-	  figLineStyle(renderer), 
+	  figLineStyle(renderer),
 	  stroke ? figLineWidth(renderer) : 0,
 	  stroke ? figColor(renderer, stroke) : 0,
 	  fill ? figColor(renderer, fill) : 0,
@@ -948,11 +946,11 @@ draw_ellipse (DiaRenderer *self,
 	  (int)figCoord(renderer, width/2), (int)figCoord(renderer, height/2));
 }
 
-static void 
-draw_bezier(DiaRenderer *self, 
+static void
+draw_bezier(DiaRenderer *self,
             BezPoint *points,
             int numpoints,
-            Color *color) 
+            Color *color)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
@@ -964,14 +962,14 @@ draw_bezier(DiaRenderer *self,
   DIA_RENDERER_CLASS(parent_class)->draw_bezier(self, points, numpoints, color);
 }
 
-static void 
-draw_bezier_with_arrows(DiaRenderer *self, 
+static void
+draw_bezier_with_arrows(DiaRenderer *self,
 			BezPoint *points,
 			int numpoints,
 			real line_width,
 			Color *color,
 			Arrow *start_arrow,
-			Arrow *end_arrow) 
+			Arrow *end_arrow)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
@@ -983,12 +981,12 @@ draw_bezier_with_arrows(DiaRenderer *self,
   DIA_RENDERER_CLASS(parent_class)->draw_bezier_with_arrows(self, points, numpoints, line_width, color, start_arrow, end_arrow);
 }
 
-static void 
-draw_beziergon (DiaRenderer *self, 
+static void
+draw_beziergon (DiaRenderer *self,
 		BezPoint *points,
 		int numpoints,
 		Color *fill,
-		Color *stroke) 
+		Color *stroke)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
@@ -1003,11 +1001,11 @@ draw_beziergon (DiaRenderer *self,
   DIA_RENDERER_CLASS(parent_class)->draw_beziergon(self, points, numpoints, fill, stroke);
 }
 
-static void 
+static void
 draw_string(DiaRenderer *self,
             const char *text,
             Point *pos, Alignment alignment,
-            Color *color) 
+            Color *color)
 {
   guchar *figtext = NULL;
   XfigRenderer *renderer = XFIG_RENDERER(self);
@@ -1022,7 +1020,7 @@ draw_string(DiaRenderer *self,
   /* xfig texts are specials */
   fprintf(renderer->file, "4 %d %d %d 0 %d %s 0.0 6 0.0 0.0 %d %d %s\\001\n",
 	  figAlignment(renderer, alignment),
-	  figColor(renderer, color), 
+	  figColor(renderer, color),
 	  figDepth(renderer),
 	  figFont(renderer),
 	  xfig_dtostr(d_buf, figFontSize(renderer)),
@@ -1032,11 +1030,11 @@ draw_string(DiaRenderer *self,
   g_free(figtext);
 }
 
-static void 
+static void
 draw_image(DiaRenderer *self,
            Point *point,
            real width, real height,
-           DiaImage *image) 
+           DiaImage *image)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
   gchar d_buf[DTOSTR_BUF_SIZE];
@@ -1047,18 +1045,18 @@ draw_image(DiaRenderer *self,
   fprintf(renderer->file, "2 5 %d 0 -1 0 %d 0 -1 %s %d %d 0 0 0 5\n",
 	  figLineStyle(renderer), figDepth(renderer),
 	  xfig_dtostr(d_buf, figDashLength(renderer)),
-	  figJoinStyle(renderer), 
+	  figJoinStyle(renderer),
 	  figCapsStyle(renderer));
   fprintf(renderer->file, "\t0 %s\n", dia_image_filename(image));
   fprintf(renderer->file, "\t%d %d %d %d %d %d %d %d %d %d\n",
-	  (int)figCoord(renderer, point->x), (int)figCoord(renderer, point->y), 
-	  (int)figCoord(renderer, point->x+width), (int)figCoord(renderer, point->y), 
-	  (int)figCoord(renderer, point->x+width), (int)figCoord(renderer, point->y+height), 
-	  (int)figCoord(renderer, point->x), (int)figCoord(renderer, point->y+height), 
+	  (int)figCoord(renderer, point->x), (int)figCoord(renderer, point->y),
+	  (int)figCoord(renderer, point->x+width), (int)figCoord(renderer, point->y),
+	  (int)figCoord(renderer, point->x+width), (int)figCoord(renderer, point->y+height),
+	  (int)figCoord(renderer, point->x), (int)figCoord(renderer, point->y+height),
 	  (int)figCoord(renderer, point->x), (int)figCoord(renderer, point->y));
 }
 
-static void 
+static void
 draw_object(DiaRenderer *self,
             DiaObject   *object,
 	    DiaMatrix   *matrix)
@@ -1095,7 +1093,7 @@ export_fig(DiagramData *data, DiaContext *ctx,
   file = g_fopen(filename, "w");
 
   if (file == NULL) {
-    dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
+    dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
 					dia_context_get_filename(ctx));
     return FALSE;
   }
@@ -1117,7 +1115,7 @@ export_fig(DiagramData *data, DiaContext *ctx,
   renderer->color_pass = TRUE;
 
   DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
-  
+
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
     if (layer->visible) {
@@ -1125,13 +1123,13 @@ export_fig(DiagramData *data, DiaContext *ctx,
       renderer->depth++;
     }
   }
-  
+
   DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
 
   renderer->color_pass = FALSE;
 
   DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
-  
+
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index(data->layers, i);
     if (layer->visible) {
@@ -1139,7 +1137,7 @@ export_fig(DiagramData *data, DiaContext *ctx,
       renderer->depth++;
     }
   }
-  
+
   DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
 
   g_object_unref(renderer);

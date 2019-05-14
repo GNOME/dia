@@ -18,9 +18,7 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -135,14 +133,14 @@ static PropOffset participation_offsets[] = {
 static void
 participation_get_props(Participation *participation, GPtrArray *props)
 {
-  object_get_props_from_offsets(&participation->orth.object, 
+  object_get_props_from_offsets(&participation->orth.object,
                                 participation_offsets, props);
 }
 
 static void
 participation_set_props(Participation *participation, GPtrArray *props)
 {
-  object_set_props_from_offsets(&participation->orth.object, 
+  object_set_props_from_offsets(&participation->orth.object,
                                 participation_offsets, props);
   participation_update_data(participation);
 }
@@ -171,8 +169,8 @@ participation_move_handle(Participation *participation, Handle *handle,
   assert(participation!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
-  
-  change = orthconn_move_handle(&participation->orth, handle, to, cp, 
+
+  change = orthconn_move_handle(&participation->orth, handle, to, cp,
 				reason, modifiers);
   participation_update_data(participation);
 
@@ -200,13 +198,13 @@ participation_draw(Participation *participation, DiaRenderer *renderer)
   Point *right_points;
   int i, n;
   real last_left, last_right;
-  
+
   points = &orth->points[0];
   n = orth->numpoints;
 
   last_left = 0.0;
   last_right = 0.0;
-  
+
   renderer_ops->set_linewidth(renderer, PARTICIPATION_WIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
@@ -261,7 +259,7 @@ participation_draw(Participation *participation, DiaRenderer *renderer)
       right_points[i].x = points[i].x + last_right;
       right_points[i].y = points[i].y;
     }
-    
+
     renderer_ops->draw_polyline(renderer, left_points, n, &color_black);
     renderer_ops->draw_polyline(renderer, right_points, n, &color_black);
     g_free(left_points);
@@ -277,7 +275,7 @@ participation_update_data(Participation *participation)
   OrthConn *orth = &participation->orth;
   PolyBBExtras *extra = &orth->extra_spacing;
   real extra_width;
-  
+
   orthconn_update_data(orth);
 
   if (participation->total) {
@@ -285,12 +283,12 @@ participation_update_data(Participation *participation)
   } else {
     extra_width = 0.0;
   }
-  extra->middle_trans = 
-    extra->start_trans = 
-    extra->end_trans = 
-    extra->start_long = 
+  extra->middle_trans =
+    extra->start_trans =
+    extra->end_trans =
+    extra->start_long =
     extra->end_long = PARTICIPATION_WIDTH/2.0 + extra_width;
-  
+
   orthconn_update_boundingbox(orth);
 }
 
@@ -303,11 +301,11 @@ participation_create(Point *startpoint,
   Participation *participation;
   OrthConn *orth;
   DiaObject *obj;
-  
+
   participation = g_malloc0(sizeof(Participation));
   orth = &participation->orth;
   obj = &orth->object;
-  
+
   obj->type = &participation_type;
 
   obj->ops = &participation_ops;
@@ -317,7 +315,7 @@ participation_create(Point *startpoint,
   participation_update_data(participation);
 
   participation->total = FALSE;
-  
+
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
@@ -329,18 +327,18 @@ participation_copy(Participation *participation)
 {
   Participation *newparticipation;
   OrthConn *orth, *neworth;
-  
+
   orth = &participation->orth;
-  
+
   newparticipation = g_malloc0(sizeof(Participation));
   neworth = &newparticipation->orth;
 
   orthconn_copy(orth, neworth);
 
   newparticipation->total = participation->total;
-  
+
   participation_update_data(newparticipation);
-  
+
   return &newparticipation->orth.object;
 }
 

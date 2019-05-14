@@ -22,9 +22,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <gmodule.h>
@@ -83,7 +81,7 @@ struct _Custom {
 
   /*!
    * The sub-scale variables
-   * The old_subscale is used for interactive 
+   * The old_subscale is used for interactive
    * (shift-pressed) scaling
    * @{
    */
@@ -93,8 +91,8 @@ struct _Custom {
   /*!
    * \brief Pointer changing during the drawing of the display list
    * this is sort of a hack, passing a temporary value
-   * using this field, but otherwise 
-   * sub-shapes are going to need major code refactoring: 
+   * using this field, but otherwise
+   * sub-shapes are going to need major code refactoring:
    */
   GraphicElementSubShape* current_subshape;
   /*! Connection points need to be dynamically allocated */
@@ -111,7 +109,7 @@ struct _Custom {
 
   Text *text;
   real padding;
-  
+
   TextFitting text_fitting;
 };
 
@@ -120,17 +118,17 @@ static void custom_select(Custom *custom, Point *clicked_point,
 			  DiaRenderer *interactive_renderer);
 static ObjectChange* custom_move_handle(Custom *custom, Handle *handle,
 					Point *to, ConnectionPoint *cp,
-					HandleMoveReason reason, 
+					HandleMoveReason reason,
 					ModifierKeys modifiers);
 static ObjectChange* custom_move(Custom *custom, Point *to);
 static void custom_draw(Custom *custom, DiaRenderer *renderer);
 static void custom_draw_displaylist(GList *display_list, Custom *custom,
 				DiaRenderer *renderer, GArray *arr, GArray *barr, real* cur_line,
-				real* cur_dash, LineCaps* cur_caps, LineJoin* cur_join, 
+				real* cur_dash, LineCaps* cur_caps, LineJoin* cur_join,
 				LineStyle* cur_style);
 static void custom_draw_element(GraphicElement* el, Custom *custom,
 				DiaRenderer *renderer, GArray *arr, GArray *barr, real* cur_line,
-				real* cur_dash, LineCaps* cur_caps, LineJoin* cur_join, 
+				real* cur_dash, LineCaps* cur_caps, LineJoin* cur_join,
 				LineStyle* cur_style, Color* fg, Color* bg);
 static void custom_update_data(Custom *custom, AnchorShape h, AnchorShape v);
 static void custom_reposition_text(Custom *custom, GraphicElementText *text);
@@ -159,7 +157,7 @@ static ObjectTypeOps custom_type_ops =
 
 /* This looks like it could be static, but it can't because we key
    on it to determine if an DiaObjectType is a custom/SVG shape */
-G_MODULE_EXPORT 
+G_MODULE_EXPORT
 DiaObjectType custom_type =
   {
     "Custom - Generic",   /* name */
@@ -198,7 +196,7 @@ static PropDescription custom_props[] = {
     N_("Flip horizontal"), NULL, NULL },
   { "flip_vertical", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Flip vertical"), NULL, NULL },
-  
+
   { "subscale", PROP_TYPE_REAL, PROP_FLAG_OPTIONAL,
     N_("Scale of the sub-shapes"), NULL, NULL },
   PROP_DESC_END
@@ -220,7 +218,7 @@ static PropDescription custom_props_text[] = {
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
   /* BEWARE: the following makes the whole Text optional during load. Normally this
-   * would leave the object in an inconsistent state but here we have a proper default 
+   * would leave the object in an inconsistent state but here we have a proper default
    * initialization even in the load case. See custom_load_using_properties()  --hb
    */
   { "text", PROP_TYPE_TEXT, PROP_FLAG_OPTIONAL,
@@ -231,7 +229,7 @@ static PropDescription custom_props_text[] = {
     N_("Flip horizontal"), NULL, NULL },
   { "flip_vertical", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Flip vertical"), NULL, NULL },
-  
+
   { "subscale", PROP_TYPE_REAL, PROP_FLAG_OPTIONAL,
     N_("Scale of the sub-shapes"), NULL, NULL },
   PROP_DESC_END
@@ -366,7 +364,7 @@ custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
       info->prop_offsets[i].type = info->props[i].type;
       info->prop_offsets[i].offset = offs;
       /* FIXME:
-	 custom_object.c:328: warning: passing arg 1 of pointer to function 
+	 custom_object.c:328: warning: passing arg 1 of pointer to function
 	 from incompatible pointer type
 	 We don't have a Property* here so there is not much we can do about.
 	 Maybe it even works cause the sizeof() in *_get_data_size can be
@@ -418,7 +416,7 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
     real svg_height = info->shape_bounds.bottom - info->shape_bounds.top;
     real h_scale = info->default_height / svg_height;
     real v_scale = info->default_width / svg_width;
-    
+
     subshape->default_scale = (v_scale > h_scale ? h_scale : v_scale);
   }
 
@@ -426,7 +424,7 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
 
   xoffs = custom->xoffs;
   yoffs = custom->yoffs;
-  
+
   /* step 1: calculate boundaries */
   orig_bounds = custom->info->shape_bounds;
 
@@ -454,7 +452,7 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
       cx = new_bounds.left + (subshape->center.x * scale);
     }
   }
-    
+
   if (subshape->v_anchor_method == OFFSET_METHOD_PROPORTIONAL) {
     /* handle proportional offset in y direction */
     cy = subshape->center.y * custom->yscale;
@@ -705,7 +703,7 @@ static void
 custom_adjust_scale(Custom *custom, Handle *handle,
 		   Point *to, ConnectionPoint *cp,
 		   HandleMoveReason reason, ModifierKeys modifiers)
-{  
+{
   static int uniform_scale = FALSE;
   static Point orig_pos;
 
@@ -717,7 +715,7 @@ custom_adjust_scale(Custom *custom, Handle *handle,
       orig_pos.x = to->x;
       orig_pos.y = to->y;
     }
-    
+
     if ((modifiers & MODIFIER_SHIFT) != 0) {
       if (!uniform_scale) /* transition */
         custom->old_subscale = MAX(custom->subscale, 0.0);
@@ -727,7 +725,7 @@ custom_adjust_scale(Custom *custom, Handle *handle,
     }
 
     delta_max = (to->x - orig_pos.x);
-    
+
 #ifdef USE_DELTA_MAX
     /* This may yield some awkard effects for new-comers.
      * Maybe we should make it a configurable option.
@@ -735,7 +733,7 @@ custom_adjust_scale(Custom *custom, Handle *handle,
     if (ABS(to->y - orig_pos.y) > ABS(delta_max))
     	delta_max = (to->y - orig_pos.y);
 #endif
-    
+
     if (uniform_scale)
       custom->subscale =
         custom->old_subscale + (SUBSCALE_ACCELERATION * delta_max);
@@ -749,7 +747,7 @@ custom_adjust_scale(Custom *custom, Handle *handle,
     break;
   default:
     break;
-  } 
+  }
 }
 
 static ObjectChange*
@@ -778,7 +776,7 @@ custom_move_handle(Custom *custom, Handle *handle,
   case HANDLE_MOVE_CREATE_FINAL : /* silence gcc */
     custom_adjust_scale(custom, handle, to, cp, reason, modifiers);
   }
-  
+
   element_move_handle(&custom->element, handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
@@ -868,7 +866,7 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
   renderer_ops->set_linecaps(renderer, cur_caps);
   renderer_ops->set_linejoin(renderer, cur_join);
 
-  /* 
+  /*
    * Because we do not know if any of these values are reused in the loop, we pass
    * them all by reference.
    * If anyone does know this, please correct/simplify.
@@ -891,8 +889,8 @@ custom_draw_displaylist(GList *display_list, Custom *custom, DiaRenderer *render
     GraphicElement *el = tmp->data;
     Color fg, bg;
 
-    /* 
-     * Because we do not know if any of these values are reused in the loop, 
+    /*
+     * Because we do not know if any of these values are reused in the loop,
      * we pass them all by reference.
      * If anyone does know this, please correct/simplify.
      */
@@ -902,7 +900,7 @@ custom_draw_displaylist(GList *display_list, Custom *custom, DiaRenderer *render
 }
 
 static void
-custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer, 
+custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
                     GArray *arr, GArray *barr, real* cur_line, real* cur_dash,
                     LineCaps* cur_caps, LineJoin* cur_join, LineStyle* cur_style,
                     Color* fg, Color* bg)
@@ -947,7 +945,7 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
     renderer_ops->set_linestyle(renderer, (*cur_style),
 				custom->dashlength*(*cur_dash));
   }
-      
+
   (*cur_line) = el->any.s.line_width;
   get_colour(custom, fg, el->any.s.stroke, el->any.s.stroke_opacity);
   get_colour(custom, bg, el->any.s.fill, el->any.s.fill_opacity);
@@ -1063,7 +1061,7 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
   case GE_SUBSHAPE:
     {
       GraphicElementSubShape* subshape = (GraphicElementSubShape*)el;
-      
+
       custom->current_subshape = subshape;
       custom_draw_displaylist(subshape->display_list, custom, renderer, arr, barr, cur_line, cur_dash, cur_caps, cur_join, cur_style);
       custom->current_subshape = NULL;
@@ -1188,14 +1186,14 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 				   info->shape_bounds.top);
 
   /* resize shape if text does not fit inside text_bounds */
-  if (   (info->has_text) 
+  if (   (info->has_text)
       && (custom->text_fitting != TEXTFIT_NEVER)) {
     real text_width, text_height;
     real xscale = 0.0, yscale = 0.0;
     Rectangle tb;
 
     text_calc_boundingbox(custom->text, NULL);
-    text_width = 
+    text_width =
       custom->text->max_width + 2*custom->padding+custom->border_width;
     text_height = custom->text->height * custom->text->numlines +
       2 * custom->padding + custom->border_width;
@@ -1342,9 +1340,9 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
      * in a complex shape (and not break backward compatibility). With
     real lwfactor = custom->border_width / 2;
      * we get traces in the diagram at high zoom levels, so use something more
-     * safe for the bounding box calculation     
+     * safe for the bounding box calculation
      */
-    real lwfactor = el->any.s.line_width == custom->border_width 
+    real lwfactor = el->any.s.line_width == custom->border_width
                   ? 1.0 : custom->border_width;
 
     switch(el->type) {
@@ -1362,13 +1360,13 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       transform_coord(custom, &el->line.p2, &p2);
 
       line_bbox(&p1,&p2,&extra,&rect);
-      break; 
+      break;
     }
     case GE_POLYGON:
     case GE_POLYLINE: {
       PolyBBExtras extra;
 
-      extra.start_trans = extra.end_trans = extra.middle_trans = 
+      extra.start_trans = extra.end_trans = extra.middle_trans =
         el->polyline.s.line_width * lwfactor;
       extra.start_long = extra.end_long = 0;
 
@@ -1384,7 +1382,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     case GE_SHAPE:
     case GE_PATH: {
       PolyBBExtras extra;
-      extra.start_trans = extra.end_trans = extra.middle_trans = 
+      extra.start_trans = extra.end_trans = extra.middle_trans =
         el->path.s.line_width * lwfactor;
       extra.start_long = extra.end_long = 0;
 
@@ -1416,7 +1414,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
                    el->ellipse.width * fabs(custom->xscale),
                    el->ellipse.height * fabs(custom->yscale),
                    &extra,&rect);
-      break; 
+      break;
     }
     case GE_RECT: {
       ElementBBExtras extra;
@@ -1429,7 +1427,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
       extra.border_trans = el->rect.s.line_width * lwfactor;
       rectangle_bbox(&trin,&extra,&rect);
-      break; 
+      break;
     }
     case GE_IMAGE: {
       Rectangle bounds;
@@ -1474,8 +1472,8 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 }
 
 /* reposition the text element to the new text bounding box ... */
-static void 
-custom_reposition_text(Custom *custom, GraphicElementText *text) 
+static void
+custom_reposition_text(Custom *custom, GraphicElementText *text)
 {
   Element *elem = &custom->element;
   Point p;
@@ -1605,7 +1603,7 @@ custom_create(Point *startpoint,
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  *handle2 = obj->handles[7];
   return &custom->element.object;
 }
 
@@ -1617,7 +1615,7 @@ custom_destroy(Custom *custom)
 
   /*
    * custom_destroy is called per object. It _must not_ destroy class stuff
-   * (ShapeInfo) cause it does not hold a reference to it. Fixes e.g. 
+   * (ShapeInfo) cause it does not hold a reference to it. Fixes e.g.
    * bug #158288, #160550, ...
    * DONT TOUCH : custom->info->display_list
    */
@@ -1638,7 +1636,7 @@ custom_copy(Custom *custom)
   DiaObject *newobj;
 
   elem = &custom->element;
-  /* can't use object_copy_using_properties() becauses there is no way 
+  /* can't use object_copy_using_properties() becauses there is no way
    * to pass in our creation data (info) ... */
   newcustom = g_new0_ext (Custom, custom->info->ext_attr_size);
   newelem = &newcustom->element;
@@ -1654,7 +1652,7 @@ custom_copy(Custom *custom)
 
   if (custom->info->has_text) {
     newcustom->text = text_copy(custom->text);
-  } 
+  }
 
   newcustom->connections = g_new0(ConnectionPoint, custom->info->nconnections);
   for (i = 0; i < custom->info->nconnections; i++) {
@@ -1742,7 +1740,7 @@ custom_flip_h_callback (DiaObject *obj, Point *clicked, gpointer data)
 
   custom->flip_h = !custom->flip_h;
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  
+
   return &change->objchange;
 }
 
@@ -1779,7 +1777,7 @@ static DiaMenu custom_menu = {
 static DiaMenu *
 custom_get_object_menu(Custom *custom, Point *clickedpoint)
 {
-  if (custom_menu.title && custom->info->name && 
+  if (custom_menu.title && custom->info->name &&
       (0 != strcmp(custom_menu.title,custom->info->name))) {
     if (custom_menu.app_data_free) custom_menu.app_data_free(&custom_menu);
   }

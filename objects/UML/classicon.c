@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -45,13 +43,13 @@ struct _Classicon {
   Element element;
 
   ConnectionPoint connections[NUM_CONNECTIONS];
-  
+
   int stereotype;
   int is_object;
   Text *text;
   Color line_color;
   Color fill_color;
-  
+
   real line_width;
 };
 
@@ -93,7 +91,7 @@ static ObjectTypeOps classicon_type_ops =
   (CreateFunc) classicon_create,
   (LoadFunc)   classicon_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -144,9 +142,9 @@ static PropDescription classicon_props[] = {
   PROP_STD_TEXT_COLOUR_OPTIONAL,
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
-  
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
+
   PROP_DESC_END
 };
 
@@ -225,9 +223,9 @@ static ObjectChange*
 classicon_move(Classicon *cicon, Point *to)
 {
   Element *elem = &cicon->element;
-  
+
   elem->corner = *to;
-  elem->corner.x -= elem->width/2.0; 
+  elem->corner.x -= elem->width/2.0;
   elem->corner.y -= CLASSICON_RADIOUS + CLASSICON_ARROW;
 
   if (cicon->stereotype==CLASSICON_BOUNDARY)
@@ -246,7 +244,7 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
   real r, x, y, w;
   Point center, p1, p2;
   int i;
-  
+
   assert(icon != NULL);
   assert(renderer != NULL);
 
@@ -314,7 +312,7 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
 			       &icon->line_color);
       break;
   }
-  
+
   text_draw(icon->text, renderer);
 
   if (icon->is_object) {
@@ -322,7 +320,7 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
     if (icon->stereotype==CLASSICON_BOUNDARY)
       x += r/2.0;
     p1.y = p2.y = icon->text->position.y + text_get_descent(icon->text);
-    for (i=0; i<icon->text->numlines; i++) { 
+    for (i=0; i<icon->text->numlines; i++) {
       p1.x = x + (w - text_get_line_width(icon->text, i))/2;
       p2.x = p1.x + text_get_line_width(icon->text, i);
       renderer_ops->draw_line(renderer,
@@ -341,7 +339,7 @@ classicon_update_data(Classicon *cicon)
   Point p1;
   real h, wt, w = 0;
   int is_boundary = (cicon->stereotype==CLASSICON_BOUNDARY);
-	
+
   text_calc_boundingbox(cicon->text, NULL);
   h = CLASSICON_AIR + CLASSICON_MARGIN + CLASSICON_ARROW + 2*CLASSICON_RADIOUS;
 
@@ -355,18 +353,18 @@ classicon_update_data(Classicon *cicon)
 
   w = MAX(w, wt) + CLASSICON_AIR;
 
-  p1.y = h + elem->corner.y; 
+  p1.y = h + elem->corner.y;
   h += cicon->text->height*cicon->text->numlines + CLASSICON_AIR;
-  
+
   p1.y += cicon->text->ascent;
   p1.x = elem->corner.x + w/2.0;
   if (cicon->stereotype==CLASSICON_BOUNDARY)
       p1.x += CLASSICON_RADIOUS/2.0;
   text_set_position(cicon->text, &p1);
-    
+
   elem->width = w;
   elem->height = h;
-	
+
   p1.x = elem->corner.x + elem->width / 2.0;
   p1.y = elem->corner.y + CLASSICON_RADIOUS + CLASSICON_ARROW;
   w = CLASSICON_RADIOUS + CLASSICON_ARROW;
@@ -374,7 +372,7 @@ classicon_update_data(Classicon *cicon)
 
   if (is_boundary)
     p1.x += CLASSICON_RADIOUS/2.0;
-	
+
   /* Update connections: */
   cicon->connections[0].pos.x = (is_boundary) ? p1.x-2*w: p1.x - h;
   cicon->connections[0].pos.y = (is_boundary) ? elem->corner.y: p1.y - h;
@@ -383,9 +381,9 @@ classicon_update_data(Classicon *cicon)
   cicon->connections[1].pos.y = p1.y - w;
   cicon->connections[1].directions = DIR_NORTH;
   cicon->connections[2].pos.x = p1.x + h;
-  cicon->connections[2].pos.y = p1.y - h; 
+  cicon->connections[2].pos.y = p1.y - h;
   cicon->connections[2].directions = DIR_NORTH|DIR_EAST;
-	
+
   cicon->connections[3].pos.x = (is_boundary) ? p1.x-2*w: p1.x - w;
   cicon->connections[3].pos.y = p1.y;
   cicon->connections[3].directions = DIR_WEST;
@@ -404,7 +402,7 @@ classicon_update_data(Classicon *cicon)
   cicon->connections[8].pos.x = elem->corner.x + elem->width/2;
   cicon->connections[8].pos.y = elem->corner.y + elem->height/2;
   cicon->connections[8].directions = DIR_ALL;
-  
+
   element_update_boundingbox(elem);
 
   obj->position = elem->corner;
@@ -426,7 +424,7 @@ classicon_create(Point *startpoint,
   Point p;
   DiaFont *font;
   int i;
-  
+
   cicon = g_malloc0(sizeof(Classicon));
 
   /* old default */
@@ -434,7 +432,7 @@ classicon_create(Point *startpoint,
 
   elem = &cicon->element;
   obj = &elem->object;
-  
+
   obj->type = &classicon_type;
 
   obj->ops = &classicon_ops;
@@ -444,7 +442,7 @@ classicon_create(Point *startpoint,
   cicon->fill_color = attributes_get_background();
 
   font = dia_font_new_from_style (DIA_FONT_SANS, 0.8);
-  
+
   cicon->stereotype = 0;
   cicon->is_object = 0;
 
@@ -454,9 +452,9 @@ classicon_create(Point *startpoint,
   cicon->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
 
   dia_font_unref(font);
-  
+
   element_init(elem, 8, NUM_CONNECTIONS);
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &cicon->connections[i];
     cicon->connections[i].object = obj;

@@ -48,9 +48,7 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -98,7 +96,7 @@ typedef struct _AssociationEnd {
   real multi_descent;
   Alignment text_align;
   UMLVisibility visibility;	/* This value is only relevant if role is not null */
-  
+
   int arrow;
   AggregateType aggregate; /* Note: Can only be != NONE on ONE side! */
 } AssociationEnd;
@@ -128,18 +126,18 @@ struct _Association {
   real text_width;
   real ascent;
   real descent;
-    
+
   gchar *name;
   AssociationDirection direction;
   AggregateType assoc_type;
-  
+
   gboolean show_direction;
 
   AssociationEnd end[2];
-  
+
   Color text_color;
   Color line_color;
-  
+
   DiaFont *font;
   real     font_height;
   real     line_width;
@@ -234,35 +232,35 @@ static PropDescription association_props[] = {
   PROP_NOTEBOOK_PAGE("assoc", PROP_FLAG_DONT_MERGE, N_("General")),
   ORTHCONN_COMMON_PROPERTIES,
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE, N_("Name"), NULL, NULL },
-  { "direction", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE, 
+  { "direction", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE,
     N_("Direction"), NULL, prop_assoc_direction_data },
-  { "show_direction", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL|PROP_FLAG_NO_DEFAULTS, 
+  { "show_direction", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL|PROP_FLAG_NO_DEFAULTS,
     N_("Show direction"), N_("Show the small arrow denoting the reading direction"), 0 },
-  { "assoc_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL|PROP_FLAG_NO_DEFAULTS, 
+  { "assoc_type", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL|PROP_FLAG_NO_DEFAULTS,
     N_("Type"), NULL, prop_assoc_type_data },
 
   PROP_MULTICOL_BEGIN("sides"),
   PROP_MULTICOL_COLUMN("side_a"),
   { "help", PROP_TYPE_STATIC, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE,
     N_(" "), N_("Side A") },
-  { "role_a", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+  { "role_a", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Role"), NULL, NULL },
-  { "multipicity_a", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+  { "multipicity_a", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Multiplicity"), NULL, NULL },
-  { "visibility_a", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+  { "visibility_a", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Visibility"), NULL, _uml_visibilities },
-  { "show_arrow_a", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+  { "show_arrow_a", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_("Show arrow"), NULL, 0 },
   PROP_MULTICOL_COLUMN("side_b"),
   { "help", PROP_TYPE_STATIC, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE|PROP_FLAG_DONT_MERGE,
     N_(" "), N_("Side B") },
-  { "role_b", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+  { "role_b", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_(" "), NULL, NULL },
-  { "multipicity_b", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+  { "multipicity_b", PROP_TYPE_STRING, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_(" "), NULL, NULL },
-  { "visibility_b", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+  { "visibility_b", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_(" "), NULL, _uml_visibilities },
-  { "show_arrow_b", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL, 
+  { "show_arrow_b", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL,
     N_(" "), NULL, 0 },
   PROP_MULTICOL_END("sides"),
 
@@ -272,7 +270,7 @@ static PropDescription association_props[] = {
   PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_STD_NOTEBOOK_END,
 
   PROP_DESC_END
@@ -287,13 +285,13 @@ static PropOffset association_offsets[] = {
   PROP_OFFSET_MULTICOL_BEGIN("sides"),
   PROP_OFFSET_MULTICOL_COLUMN("side_a"),
   { "role_a", PROP_TYPE_STRING, offsetof(Association, end[0].role) },
-  { "multipicity_a", PROP_TYPE_STRING, offsetof(Association, end[0].multiplicity) }, 
+  { "multipicity_a", PROP_TYPE_STRING, offsetof(Association, end[0].multiplicity) },
   { "visibility_a", PROP_TYPE_ENUM, offsetof(Association, end[0].visibility) },
   { "show_arrow_a", PROP_TYPE_BOOL, offsetof(Association, end[0].arrow) },
 
   PROP_OFFSET_MULTICOL_COLUMN("side_b"),
   { "role_b", PROP_TYPE_STRING, offsetof(Association, end[1].role) },
-  { "multipicity_b", PROP_TYPE_STRING, offsetof(Association, end[1].multiplicity) }, 
+  { "multipicity_b", PROP_TYPE_STRING, offsetof(Association, end[1].multiplicity) },
   { "visibility_b", PROP_TYPE_ENUM, offsetof(Association, end[1].visibility) },
   { "show_arrow_b", PROP_TYPE_BOOL, offsetof(Association, end[1].arrow) },
   PROP_OFFSET_MULTICOL_END("sides"),
@@ -326,7 +324,7 @@ association_get_props(Association *assoc, GPtrArray *props)
 static void
 association_set_props(Association *assoc, GPtrArray *props)
 {
-  object_set_props_from_offsets(&assoc->orth.object, 
+  object_set_props_from_offsets(&assoc->orth.object,
                                 association_offsets, props);
   /* force an internal state update after changing properties */
   association_set_state(assoc, association_get_state(assoc));
@@ -356,7 +354,7 @@ association_move_handle(Association *assoc, Handle *handle,
   assert(assoc!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
-  
+
   change = orthconn_move_handle(&assoc->orth, handle, to, cp, reason, modifiers);
   association_update_data(assoc);
 
@@ -414,15 +412,15 @@ association_draw(Association *assoc, DiaRenderer *renderer)
   int n,i;
   Point pos;
   Arrow startarrow, endarrow;
-  
+
   points = &orth->points[0];
   n = orth->numpoints;
-  
+
   renderer_ops->set_linewidth(renderer, assoc->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
-  
+
   startarrow.length = ASSOCIATION_TRIANGLESIZE;
   startarrow.width = ASSOCIATION_TRIANGLESIZE;
   if (assoc->end[0].arrow) {
@@ -454,7 +452,7 @@ association_draw(Association *assoc, DiaRenderer *renderer)
 
   /* Name: */
   renderer_ops->set_font(renderer, assoc->font, assoc->font_height);
- 
+
   if (assoc->name != NULL) {
     pos = assoc->text_pos;
     renderer_ops->draw_string(renderer, assoc->name,
@@ -474,9 +472,9 @@ association_draw(Association *assoc, DiaRenderer *renderer)
 
     if (end->role != NULL && *end->role) {
       gchar *role_name = g_strdup_printf ("%c%s", visible_char[(int) end->visibility], end->role);
-      renderer_ops->draw_string(renderer, 
+      renderer_ops->draw_string(renderer,
                                 role_name,
-				&pos, 
+				&pos,
 				end->text_align,
 				&assoc->text_color);
       g_free (role_name);
@@ -515,7 +513,7 @@ association_get_state(Association *assoc)
 
   state->name = g_strdup(assoc->name);
   state->direction = assoc->direction;
-  
+
   for (i=0;i<2;i++) {
     end = &assoc->end[i];
     state->end[i].role = g_strdup(end->role);
@@ -533,7 +531,7 @@ association_set_state(Association *assoc, AssociationState *state)
 {
   int i;
   AssociationEnd *end;
-  
+
   g_free(assoc->name);
   assoc->name = state->name;
   assoc->text_width = 0.0;
@@ -542,14 +540,14 @@ association_set_state(Association *assoc, AssociationState *state)
   if (assoc->name != NULL) {
     assoc->text_width =
       dia_font_string_width(assoc->name, assoc->font, assoc->font_height);
-    assoc->ascent = 
+    assoc->ascent =
       dia_font_ascent(assoc->name, assoc->font, assoc->font_height);
-    assoc->descent =     
+    assoc->descent =
       dia_font_descent(assoc->name, assoc->font, assoc->font_height);
-  } 
-  
+  }
+
   assoc->direction = state->direction;
-  
+
   for (i=0;i<2;i++) {
     end = &assoc->end[i];
     g_free(end->role);
@@ -566,12 +564,12 @@ association_set_state(Association *assoc, AssociationState *state)
     end->multi_ascent = 0.0;
     end->multi_descent = 0.0;
     if (end->role != NULL && *end->role) {
-      end->text_width = 
+      end->text_width =
           dia_font_string_width(end->role, assoc->font, assoc->font_height);
       end->role_ascent =
           dia_font_ascent(end->role, assoc->font, assoc->font_height);
       end->role_descent =
-          dia_font_ascent(end->role, assoc->font, assoc->font_height);          
+          dia_font_ascent(end->role, assoc->font, assoc->font_height);
     }
     if (end->multiplicity != NULL) {
       end->text_width = MAX(end->text_width,
@@ -586,7 +584,7 @@ association_set_state(Association *assoc, AssociationState *state)
   }
 
   g_free(state);
-  
+
   association_update_data(assoc);
 }
 
@@ -622,7 +620,7 @@ association_update_data_end(Association *assoc, int endnum)
 	  sp = n;
       if (points[fp].y != points[sp].y)
 	  dir = VERTICAL;
-      else      
+      else
 	  dir = HORIZONTAL;
   }
 
@@ -636,7 +634,7 @@ association_update_data_end(Association *assoc, int endnum)
       end->text_align = ALIGN_LEFT;
       end->text_pos.x += (get_aggregate_pos_diff(end, assoc) + ASSOCIATION_END_SPACE);
     } else {
-      end->text_align = ALIGN_RIGHT;    
+      end->text_align = ALIGN_RIGHT;
       end->text_pos.x -= (get_aggregate_pos_diff(end, assoc) + ASSOCIATION_END_SPACE);
     }
     break;
@@ -662,9 +660,9 @@ association_update_data_end(Association *assoc, int endnum)
   rect.right = rect.left + end->text_width;
   rect.top = end->text_pos.y - end->role_ascent;
   rect.bottom = rect.top + 2*assoc->font_height;
-  
+
   rectangle_union(&obj->bounding_box, &rect);
-  
+
   if (assoc_get_direction_poly (assoc, dir_poly)) {
     int i;
     for (i = 0; i < 3; ++i)
@@ -685,8 +683,8 @@ association_update_data(Association *assoc)
   Point *points;
   Rectangle rect;
   Orientation dir;
-  
-  orthconn_update_data(orth);  
+
+  orthconn_update_data(orth);
 
   /* translate new assoc state to old assoc ends */
   if (assoc->direction == ASSOC_NODIR) {
@@ -700,13 +698,13 @@ association_update_data(Association *assoc)
     assoc->end[1].aggregate = assoc->assoc_type;
     assoc->end[0].aggregate = AGGREGATE_NONE;
   }
-  
-  extra->start_trans = 
+
+  extra->start_trans =
     extra->start_long = (assoc->end[0].aggregate == AGGREGATE_NONE?
                          assoc->line_width/2.0:
                          (assoc->line_width + ASSOCIATION_DIAMONDLEN)/2.0);
   extra->middle_trans = assoc->line_width/2.0;
-  extra->end_trans = 
+  extra->end_trans =
     extra->end_long = (assoc->end[1].aggregate == AGGREGATE_NONE?
                          assoc->line_width/2.0:
                          (assoc->line_width + ASSOCIATION_DIAMONDLEN)/2.0);
@@ -717,12 +715,12 @@ association_update_data(Association *assoc)
     extra->end_trans = MAX(extra->end_trans, ASSOCIATION_TRIANGLESIZE);
 
   orthconn_update_boundingbox(orth);
-  
+
   /* Calc text pos: */
   num_segm = assoc->orth.numpoints - 1;
   points = assoc->orth.points;
   i = num_segm / 2;
-  
+
   if ((num_segm % 2) == 0) { /* If no middle segment, use horizontal */
     if (assoc->orth.orientation[i]==VERTICAL)
       i--;
@@ -761,7 +759,7 @@ association_update_data(Association *assoc)
   association_update_data_end(assoc, 1);
 }
 
-static coord 
+static coord
 get_aggregate_pos_diff(AssociationEnd *end, const Association *assoc)
 {
   coord width=0;
@@ -800,7 +798,7 @@ association_create(Point *startpoint,
   obj->ops = &association_ops;
 
   orthconn_init(orth, startpoint);
-  
+
   /* old defaults */
   assoc->font_height = 0.8;
   assoc->font = dia_font_new_from_style(DIA_FONT_MONOSPACE, assoc->font_height);
@@ -820,7 +818,7 @@ association_create(Point *startpoint,
     assoc->end[i].text_width = 0.0;
     assoc->end[i].visibility = UML_IMPLEMENTATION;
   }
-  
+
   assoc->text_width = 0.0;
 
   user_d = GPOINTER_TO_INT(user_data);
@@ -836,7 +834,7 @@ association_create(Point *startpoint,
   }
 
   association_update_data(assoc);
-  
+
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 
@@ -892,7 +890,7 @@ static void
 association_destroy(Association *assoc)
 {
   int i;
-  
+
   orthconn_destroy(&assoc->orth);
   dia_font_unref(assoc->font);
   g_free(assoc->name);
@@ -909,9 +907,9 @@ association_copy(Association *assoc)
   Association *newassoc;
   OrthConn *orth, *neworth;
   int i;
-  
+
   orth = &assoc->orth;
-  
+
   newassoc = g_malloc0(sizeof(Association));
   neworth = &newassoc->orth;
 
@@ -935,9 +933,9 @@ association_copy(Association *assoc)
   }
 
   newassoc->text_width = assoc->text_width;
-  
+
   association_update_data(newassoc);
-  
+
   return &newassoc->orth.object;
 }
 
@@ -950,7 +948,7 @@ association_load(ObjectNode obj_node, int version, DiaContext *ctx)
   OrthConn *orth;
   DiaObject *obj;
   int i;
-  
+
   /* first calls our _create() method */
   obj = object_load_using_properties(&association_type, obj_node, version, ctx);
   assoc = (Association *)obj;
@@ -974,12 +972,12 @@ association_load(ObjectNode obj_node, int version, DiaContext *ctx)
       if (attr != NULL) {
         assoc->end[i].role = data_string(attribute_first_data(attr), ctx);
       }
-      if (   assoc->end[i].role != NULL 
+      if (   assoc->end[i].role != NULL
           && 0 == strcmp(assoc->end[i].role, "")) {
         g_free(assoc->end[i].role);
         assoc->end[i].role = NULL;
       }
-    
+
       assoc->end[i].multiplicity = NULL;
       attr = composite_find_attribute(composite, "multiplicity");
       if (attr != NULL) {
@@ -990,7 +988,7 @@ association_load(ObjectNode obj_node, int version, DiaContext *ctx)
         g_free(assoc->end[i].multiplicity);
         assoc->end[i].multiplicity = NULL;
       }
-    
+
       assoc->end[i].arrow = FALSE;
       attr = composite_find_attribute(composite, "arrow");
       if (attr != NULL)
@@ -1008,7 +1006,7 @@ association_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
       assoc->end[i].text_width = 0.0;
       if (assoc->end[i].role != NULL) {
-        assoc->end[i].text_width = 
+        assoc->end[i].text_width =
           dia_font_string_width(assoc->end[i].role, assoc->font,
                                 assoc->font_height);
       }
@@ -1036,7 +1034,7 @@ association_load(ObjectNode obj_node, int version, DiaContext *ctx)
       assoc->direction = ASSOC_LEFT;
     }
   } /* version < 2 */
-  
+
   association_set_state(assoc, association_get_state(assoc));
 
   return &assoc->orth.object;

@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -47,7 +45,7 @@ struct _Realizes {
 
   Color text_color;
   Color line_color;
-  
+
   DiaFont *font;
   real     font_height;
   real     line_width;
@@ -90,7 +88,7 @@ static ObjectTypeOps realizes_type_ops =
   (CreateFunc) realizes_create,
   (LoadFunc)   realizes_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -128,13 +126,13 @@ static PropDescription realizes_props[] = {
   { "name", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
     N_("Name:"), NULL, NULL },
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
-    N_("Stereotype:"), NULL, NULL },  
+    N_("Stereotype:"), NULL, NULL },
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
   PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -169,7 +167,7 @@ realizes_get_props(Realizes * realizes, GPtrArray *props)
 static void
 realizes_set_props(Realizes *realizes, GPtrArray *props)
 {
-  object_set_props_from_offsets(&realizes->orth.object, 
+  object_set_props_from_offsets(&realizes->orth.object,
                                 realizes_offsets, props);
   g_free(realizes->st_stereotype);
   realizes->st_stereotype = NULL;
@@ -200,7 +198,7 @@ realizes_move_handle(Realizes *realize, Handle *handle,
   assert(realize!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
-  
+
   change = orthconn_move_handle(&realize->orth, handle, to, cp, reason, modifiers);
   realizes_update_data(realize);
 
@@ -225,10 +223,10 @@ realizes_draw(Realizes *realize, DiaRenderer *renderer)
   int n;
   Point pos;
   Arrow arrow;
-  
+
   points = &orth->points[0];
   n = orth->numpoints;
-  
+
   renderer_ops->set_linewidth(renderer, realize->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, REALIZES_DASHLEN);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
@@ -244,7 +242,7 @@ realizes_draw(Realizes *realize, DiaRenderer *renderer)
 
   renderer_ops->set_font(renderer, realize->font, realize->font_height);
   pos = realize->text_pos;
-  
+
   if (realize->st_stereotype != NULL && realize->st_stereotype[0] != '\0') {
     renderer_ops->draw_string(renderer,
 			       realize->st_stereotype,
@@ -253,14 +251,14 @@ realizes_draw(Realizes *realize, DiaRenderer *renderer)
 
     pos.y += realize->font_height;
   }
-  
+
   if (realize->name != NULL && realize->name[0] != '\0') {
     renderer_ops->draw_string(renderer,
 			       realize->name,
 			       &pos, realize->text_align,
 			       &realize->text_color);
   }
-  
+
 }
 
 static void
@@ -274,7 +272,7 @@ realizes_update_data(Realizes *realize)
   PolyBBExtras *extra;
 
   orthconn_update_data(orth);
-  
+
   realize->text_width = 0.0;
 
   realize->stereotype = remove_stereotype_from_string(realize->stereotype);
@@ -292,20 +290,20 @@ realizes_update_data(Realizes *realize)
 						realize->font_height));
 
   extra = &orth->extra_spacing;
-  
+
   extra->start_trans = realize->line_width/2.0 + REALIZES_TRIANGLESIZE;
-  extra->start_long = 
-    extra->middle_trans = 
-    extra->end_trans = 
+  extra->start_long =
+    extra->middle_trans =
+    extra->end_trans =
     extra->end_long = realize->line_width/2.0;
 
   orthconn_update_boundingbox(orth);
-  
+
   /* Calc text pos: */
   num_segm = realize->orth.numpoints - 1;
   points = realize->orth.points;
   i = num_segm / 2;
-  
+
   if ((num_segm % 2) == 0) { /* If no middle segment, use horizontal */
     if (realize->orth.orientation[i]==VERTICAL)
       i--;
@@ -425,13 +423,13 @@ realizes_create(Point *startpoint,
   realize->text_width = 0;
 
   extra->start_trans = realize->line_width/2.0 + REALIZES_TRIANGLESIZE;
-  extra->start_long = 
-    extra->middle_trans = 
-    extra->end_trans = 
+  extra->start_long =
+    extra->middle_trans =
+    extra->end_trans =
     extra->end_long = realize->line_width/2.0;
 
   realizes_update_data(realize);
-  
+
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
   return &realize->orth.object;

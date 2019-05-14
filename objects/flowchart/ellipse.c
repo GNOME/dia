@@ -21,9 +21,7 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -83,7 +81,7 @@ static void ellipse_select(Ellipse *ellipse, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static ObjectChange* ellipse_move_handle(Ellipse *ellipse, Handle *handle,
 					 Point *to, ConnectionPoint *cp,
-					 HandleMoveReason reason, 
+					 HandleMoveReason reason,
 			    ModifierKeys modifiers);
 static ObjectChange* ellipse_move(Ellipse *ellipse, Point *to);
 static void ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer);
@@ -153,7 +151,7 @@ static PropDescription ellipse_props[] = {
   PROP_STD_TEXT_ALIGNMENT,
   PROP_STD_TEXT_FITTING,
   PROP_STD_SAVED_TEXT,
-  
+
   { NULL, 0, 0, NULL, NULL, NULL, 0}
 };
 
@@ -277,7 +275,7 @@ ellipse_move_handle(Ellipse *ellipse, Handle *handle,
   width = ellipse->element.width;
   height = ellipse->element.height;
 
-  element_move_handle(&ellipse->element, handle->id, to, cp, 
+  element_move_handle(&ellipse->element, handle->id, to, cp,
 		      reason, modifiers);
 
   switch (handle->id) {
@@ -312,7 +310,7 @@ static ObjectChange*
 ellipse_move(Ellipse *ellipse, Point *to)
 {
   ellipse->element.corner = *to;
-  
+
   ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return NULL;
@@ -324,7 +322,7 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   Point center;
-  
+
   assert(ellipse != NULL);
   assert(renderer != NULL);
 
@@ -334,7 +332,7 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
   center.y = elem->corner.y + elem->height/2;
 
   if (ellipse->show_background)
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);  
+    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, ellipse->border_width);
   renderer_ops->set_linestyle(renderer, ellipse->line_style, ellipse->dashlength);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
@@ -385,7 +383,7 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   p.y = c.y - height / 2;
   radius1 = ellipse_radius(ellipse, p.x, p.y) - ellipse->border_width/2;
   radius2 = distance_point_point(&c, &p);
-  
+
   if (   (radius1 < radius2 && ellipse->text_fitting == TEXTFIT_WHEN_NEEDED)
       /* stop infinite resizing with 5% tolerance obsvered with _test_movement */
       || (fabs(1.0 - radius2 / radius1) > 0.05 && ellipse->text_fitting == TEXTFIT_ALWAYS)) {
@@ -450,7 +448,7 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   element_update_boundingbox(elem);
 
   obj->position = elem->corner;
-  
+
   element_update_handles(elem);
 }
 
@@ -473,7 +471,7 @@ ellipse_create(Point *startpoint,
   ellipse = g_malloc0(sizeof(Ellipse));
   elem = &ellipse->element;
   obj = &elem->object;
-  
+
   obj->type = &fc_ellipse_type;
 
   obj->ops = &ellipse_ops;
@@ -497,7 +495,7 @@ ellipse_create(Point *startpoint,
   ellipse->text = new_text("", font, font_height, &p, &ellipse->border_color,
 			   ALIGN_CENTER);
   dia_font_unref(font);
-  
+
   /* new default: let the user decide the size */
   ellipse->text_fitting = TEXTFIT_WHEN_NEEDED;
 
@@ -514,7 +512,7 @@ ellipse_create(Point *startpoint,
   ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  *handle2 = obj->handles[7];
   return &ellipse->element.object;
 }
 
@@ -534,15 +532,15 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
   if (ellipse->border_width != 0.1)
     data_add_real(new_attribute(obj_node, "border_width"),
 		  ellipse->border_width, ctx);
-  
+
   if (!color_equals(&ellipse->border_color, &color_black))
     data_add_color(new_attribute(obj_node, "border_color"),
 		   &ellipse->border_color, ctx);
-  
+
   if (!color_equals(&ellipse->inner_color, &color_white))
     data_add_color(new_attribute(obj_node, "inner_color"),
 		   &ellipse->inner_color, ctx);
-  
+
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   ellipse->show_background, ctx);
 
@@ -576,12 +574,12 @@ ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx)
   ellipse = g_malloc0(sizeof(Ellipse));
   elem = &ellipse->element;
   obj = &elem->object;
-  
+
   obj->type = &fc_ellipse_type;
   obj->ops = &ellipse_ops;
 
   element_load(elem, obj_node, ctx);
-  
+
   ellipse->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
@@ -591,12 +589,12 @@ ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx)
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &ellipse->border_color, ctx);
-  
+
   ellipse->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &ellipse->inner_color, ctx);
-  
+
   ellipse->show_background = TRUE;
   attr = object_find_attribute(obj_node, "show_background");
   if (attr != NULL)
@@ -616,7 +614,7 @@ ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx)
   attr = object_find_attribute(obj_node, "padding");
   if (attr != NULL)
     ellipse->padding =  data_real(attribute_first_data(attr), ctx);
-  
+
   ellipse->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)

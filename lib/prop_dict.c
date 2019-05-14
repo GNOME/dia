@@ -23,9 +23,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
@@ -47,24 +45,24 @@ static WellKnownKeys _well_known[] = {
   { "url", N_("URL") },
   { NULL, NULL }
 };
- 
+
 static DictProperty *
 dictprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 {
   DictProperty *prop = g_new0(DictProperty,1);
 
-  initialize_property(&prop->common, pdesc, reason);  
+  initialize_property(&prop->common, pdesc, reason);
   prop->dict = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
   return prop;
 }
 
 static void
-dictprop_free(DictProperty *prop) 
+dictprop_free(DictProperty *prop)
 {
   if (prop->dict)
     g_hash_table_destroy(prop->dict);
   g_free(prop);
-} 
+}
 
 static void
 _keyvalue_copy (gpointer key,
@@ -74,22 +72,22 @@ _keyvalue_copy (gpointer key,
   gchar *name = (gchar *)key;
   gchar *val = (gchar *)value;
   GHashTable *dest = (GHashTable *)user_data;
-  
+
   g_hash_table_insert (dest, g_strdup (name), g_strdup (val));
 }
 static DictProperty *
-dictprop_copy(DictProperty *src) 
+dictprop_copy(DictProperty *src)
 {
-  DictProperty *prop = 
+  DictProperty *prop =
     (DictProperty *)src->common.ops->new_prop(src->common.descr,
                                               src->common.reason);
   if (src->dict)
     g_hash_table_foreach (src->dict, _keyvalue_copy, prop->dict);
-  
+
   return prop;
 }
 
-static void 
+static void
 dictprop_load(DictProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   DataNode kv;
@@ -121,7 +119,7 @@ _hash_dup (const GHashTable *src)
     dest = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
     g_hash_table_foreach ((GHashTable *)src, _keyvalue_copy, dest);
   }
-  return dest;  
+  return dest;
 }
 typedef struct
 {
@@ -141,24 +139,24 @@ _keyvalue_save (gpointer key,
 
   data_add_string(new_attribute(node, name), val, ctx);
 }
-static void 
-dictprop_save(DictProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+dictprop_save(DictProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   DictUserData ud;
   ud.node = data_add_composite(attr, "dict", ctx);
   ud.ctx = ctx;
   if (prop->dict)
-    g_hash_table_foreach (prop->dict, _keyvalue_save, &ud); 
+    g_hash_table_foreach (prop->dict, _keyvalue_save, &ud);
 }
 
-static void 
+static void
 dictprop_get_from_offset(DictProperty *prop,
-                         void *base, guint offset, guint offset2) 
+                         void *base, guint offset, guint offset2)
 {
   prop->dict = _hash_dup (struct_member(base,offset,GHashTable *));
 }
 
-static void 
+static void
 dictprop_set_from_offset(DictProperty *prop,
                          void *base, guint offset, guint offset2)
 {
@@ -230,7 +228,7 @@ _create_view (GtkTreeModel *model)
   GtkWidget *tree_view;
   GtkTreeViewColumn *col;
   GtkCellRenderer *renderer;
- 
+
   widget = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (widget), GTK_SHADOW_ETCHED_IN);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (widget), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
@@ -238,7 +236,7 @@ _create_view (GtkTreeModel *model)
   tree_view = gtk_tree_view_new_with_model (model);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (tree_view), TRUE);
   gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (tree_view), TRUE);
-  
+
   col = gtk_tree_view_column_new_with_attributes(
 		   _("Key"), gtk_cell_renderer_text_new (),
 		   "text", KEY_COLUMN, NULL);
@@ -262,8 +260,8 @@ _create_view (GtkTreeModel *model)
   return widget;
 }
 static GtkWidget *
-dictprop_get_widget (DictProperty *prop, PropDialog *dialog) 
-{ 
+dictprop_get_widget (DictProperty *prop, PropDialog *dialog)
+{
   GtkWidget *ret;
   ret = _create_view (_create_model (prop));
   gtk_widget_show_all (ret);
@@ -272,7 +270,7 @@ dictprop_get_widget (DictProperty *prop, PropDialog *dialog)
    */
   return ret;
 }
-static void 
+static void
 dictprop_reset_widget(DictProperty *prop, GtkWidget *widget)
 {
   GtkTreeModel *model = g_object_get_data (G_OBJECT (widget), TREE_MODEL_KEY);
@@ -305,19 +303,19 @@ dictprop_reset_widget(DictProperty *prop, GtkWidget *widget)
 			-1);
   }
 }
-static void 
-dictprop_set_from_widget(DictProperty *prop, GtkWidget *widget) 
+static void
+dictprop_set_from_widget(DictProperty *prop, GtkWidget *widget)
 {
   GtkTreeModel *model = g_object_get_data (G_OBJECT (widget), TREE_MODEL_KEY);
   GtkTreeIter   iter;
-  
+
   if (gtk_tree_model_get_iter_first (model, &iter)) {
     gchar *key, *val;
-    
+
     do {
-      gtk_tree_model_get (model, &iter, 
+      gtk_tree_model_get (model, &iter,
                           KEY_COLUMN, &key,
-			  VALUE_COLUMN, &val, 
+			  VALUE_COLUMN, &val,
 			  -1);
 
       if (key && val) {
@@ -350,7 +348,7 @@ static const PropertyOps dictprop_ops = {
   (PropertyType_SetFromOffset) dictprop_set_from_offset
 };
 
-void 
+void
 prop_dicttypes_register(void)
 {
   prop_type_register(PROP_TYPE_DICT, &dictprop_ops);
@@ -361,7 +359,7 @@ data_dict (DataNode data, DiaContext *ctx)
 {
   GHashTable *ht = NULL;
   int nvals = attribute_num_data (data);
-  
+
   if (nvals) {
     DataNode kv = attribute_first_data (data);
     gchar *val = NULL;

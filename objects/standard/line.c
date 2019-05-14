@@ -18,9 +18,7 @@
  */
 
 /*! \file line.c -- Implements the "Standard - Line" object */
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>

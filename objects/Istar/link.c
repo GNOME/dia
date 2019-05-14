@@ -20,9 +20,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -212,7 +210,7 @@ link_select(Link *link, Point *clicked_point,
 
 static ObjectChange*
 link_move_handle(Link *link, Handle *handle,
-		 Point *to, ConnectionPoint *cp, 
+		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point p1, p2;
@@ -261,8 +259,8 @@ link_move(Link *link, Point *to)
   return NULL;
 }
 
-static Point 
-bezier_line_eval(BezPoint *line,int p,real u) 
+static Point
+bezier_line_eval(BezPoint *line,int p,real u)
 {
   real bx[4],by[4];
   Point res;
@@ -289,8 +287,8 @@ bezier_line_eval(BezPoint *line,int p,real u)
   d is lateral offset
   cx,cy are text width/height
 */
-static Point 
-compute_annot(Point* p1, Point* p2, Point* pm, double f, double d) 
+static Point
+compute_annot(Point* p1, Point* p2, Point* pm, double f, double d)
 {
   Point res;
   double dx,dy,k;

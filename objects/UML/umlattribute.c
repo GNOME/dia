@@ -21,9 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <string.h>
 
@@ -76,7 +74,7 @@ uml_attribute_new(void)
 {
   UMLAttribute *attr;
   static gint next_id = 1;
-  
+
   attr = g_new0(UMLAttribute, 1);
   attr->internal_id = next_id++;
   attr->name = g_strdup("");
@@ -93,7 +91,7 @@ uml_attribute_new(void)
   return attr;
 }
 
-/** Copy the data of an attribute into another, but not the connections. 
+/** Copy the data of an attribute into another, but not the connections.
  * Frees up any strings in the attribute being copied into. */
 void
 uml_attribute_copy_into(UMLAttribute *attr, UMLAttribute *newattr)
@@ -122,7 +120,7 @@ uml_attribute_copy_into(UMLAttribute *attr, UMLAttribute *newattr)
   }
   if (attr->comment != NULL)
     newattr->comment = g_strdup (attr->comment);
-  else 
+  else
     newattr->comment = NULL;
 
   newattr->visibility = attr->visibility;
@@ -183,7 +181,7 @@ uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr, DiaContext *ctx
 		  attr->class_scope, ctx);
 }
 
-/* Warning, the following *must* be strictly ASCII characters (or fix the 
+/* Warning, the following *must* be strictly ASCII characters (or fix the
    following code for UTF-8 cleanliness */
 
 char visible_char[] = { '+', '-', '#', ' ' };
@@ -194,7 +192,7 @@ uml_get_attribute_string (UMLAttribute *attribute)
   int len;
   char *str;
 
-  len = 1 + (attribute->name ? strlen (attribute->name) : 0) 
+  len = 1 + (attribute->name ? strlen (attribute->name) : 0)
           + (attribute->type ? strlen (attribute->type) : 0);
   if (attribute->name && attribute->name[0] && attribute->type && attribute->type[0]) {
     len += 2;
@@ -202,7 +200,7 @@ uml_get_attribute_string (UMLAttribute *attribute)
   if (attribute->value != NULL && attribute->value[0] != '\0') {
     len += 3 + strlen (attribute->value);
   }
-  
+
   str = g_malloc (sizeof (char) * (len + 1));
 
   str[0] = visible_char[(int) attribute->visibility];
@@ -217,7 +215,7 @@ uml_get_attribute_string (UMLAttribute *attribute)
     strcat (str, " = ");
     strcat (str, attribute->value);
   }
-    
+
   g_assert (strlen (str) == len);
 
   return str;

@@ -22,9 +22,7 @@
  *          and many arms going from the connnection point.
  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include <gtk/gtk.h> /* because of GtkWidgket */
 #include "pixmaps/compound.xpm"
@@ -749,7 +747,7 @@ compound_get_props (Compound * comp, GPtrArray * props)
 
 /**
  * Everything I know about is initialize so that this function get called
- * only when the user is applying the default dialog. 
+ * only when the user is applying the default dialog.
  */
 static void
 compound_set_props (Compound * comp, GPtrArray * props)
@@ -893,7 +891,7 @@ setup_handle (Handle *h, HandleId id, HandleType type, HandleConnectType ctype)
   h->connected_to = NULL;
 }
 
-/* 
+/*
  * Update the directions fields of our mount point, so that when an
  * object is connected to it, let's say an OrthConn object, the
  * connected object will automatically be placed at that side which

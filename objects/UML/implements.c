@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -58,7 +56,7 @@ struct _Implements {
   real text_width;
 
 };
-  
+
 #define IMPLEMENTS_WIDTH 0.1
 
 #define HANDLE_CIRCLE_SIZE (HANDLE_CUSTOM1)
@@ -91,7 +89,7 @@ static ObjectTypeOps implements_type_ops =
   (CreateFunc) implements_create,
   (LoadFunc)   implements_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -163,14 +161,14 @@ static PropOffset implements_offsets[] = {
 static void
 implements_get_props(Implements * implements, GPtrArray *props)
 {
-  object_get_props_from_offsets(&implements->connection.object, 
+  object_get_props_from_offsets(&implements->connection.object,
                                 implements_offsets, props);
 }
 
 static void
 implements_set_props(Implements *implements, GPtrArray *props)
 {
-  object_set_props_from_offsets(&implements->connection.object, 
+  object_set_props_from_offsets(&implements->connection.object,
                                 implements_offsets, props);
   implements_update_data(implements);
 }
@@ -180,7 +178,7 @@ implements_distance_from(Implements *implements, Point *point)
 {
   Point *endpoints;
   real dist1, dist2;
-  
+
   endpoints = &implements->connection.endpoints[0];
   dist1 = distance_line_point( &endpoints[0], &endpoints[1],
 			      implements->line_width, point);
@@ -188,7 +186,7 @@ implements_distance_from(Implements *implements, Point *point)
     - implements->circle_diameter/2.0;
   if (dist2<0)
     dist2 = 0;
-  
+
   return MIN(dist1, dist2);
 }
 
@@ -205,7 +203,7 @@ implements_move_handle(Implements *implements, Handle *handle,
 		       HandleMoveReason reason, ModifierKeys modifiers)
 {
   Point v1, v2;
-  
+
   assert(implements!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -223,7 +221,7 @@ implements_move_handle(Implements *implements, Handle *handle,
       implements->circle_diameter = 0.03;
   } else {
     v1 = implements->connection.endpoints[1];
-    connection_move_handle(&implements->connection, handle->id, to, cp, 
+    connection_move_handle(&implements->connection, handle->id, to, cp,
 			   reason, modifiers);
     connection_adjust_for_autogap(&implements->connection);
     point_sub(&v1, &implements->connection.endpoints[1]);
@@ -240,11 +238,11 @@ implements_move(Implements *implements, Point *to)
 {
   Point start_to_end;
   Point delta;
-  Point *endpoints = &implements->connection.endpoints[0]; 
+  Point *endpoints = &implements->connection.endpoints[0];
 
   delta = *to;
   point_sub(&delta, &endpoints[0]);
-  
+
   start_to_end = endpoints[1];
   point_sub(&start_to_end, &endpoints[0]);
 
@@ -252,7 +250,7 @@ implements_move(Implements *implements, Point *to)
   point_add(&endpoints[1], &start_to_end);
 
   point_add(&implements->text_pos, &delta);
-  
+
   implements_update_data(implements);
 
   return NULL;
@@ -263,12 +261,12 @@ implements_draw(Implements *implements, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
-  
+
   assert(implements != NULL);
   assert(renderer != NULL);
 
   endpoints = &implements->connection.endpoints[0];
-  
+
   renderer_ops->set_linewidth(renderer, implements->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
@@ -313,12 +311,12 @@ implements_create(Point *startpoint,
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
- 
+
   obj = &conn->object;
 
   obj->type = &implements_type;
   obj->ops = &implements_ops;
-  
+
   connection_init(conn, 4, 0);
 
   implements->line_color = attributes_get_foreground();
@@ -334,7 +332,7 @@ implements_create(Point *startpoint,
   implements->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   implements->text_handle.connected_to = NULL;
   obj->handles[2] = &implements->text_handle;
-  
+
   implements->circle_handle.id = HANDLE_CIRCLE_SIZE;
   implements->circle_handle.type = HANDLE_MINOR_CONTROL;
   implements->circle_handle.connect_type = HANDLE_NONCONNECTABLE;
@@ -401,11 +399,11 @@ implements_update_data(Implements *implements)
   connection_update_handles(conn);
 
   /* Boundingbox: */
-  extra->start_long = 
-    extra->start_trans = 
+  extra->start_long =
+    extra->start_trans =
     extra->end_long = implements->line_width/2.0;
   extra->end_trans = (implements->line_width + implements->circle_diameter)/2.0;
-  
+
   connection_update_boundingbox(conn);
 
   /* Add boundingbox for text: */

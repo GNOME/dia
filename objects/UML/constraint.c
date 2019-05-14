@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -50,13 +48,13 @@ struct _Constraint {
 
   Color text_color;
   Color line_color;
-  
+
   DiaFont *font;
   real     font_height;
   real     line_width;
 };
 
-  
+
 #define CONSTRAINT_DASHLEN 0.4
 #define CONSTRAINT_ARROWLEN (constraint->font_height)
 #define CONSTRAINT_ARROWWIDTH (constraint->font_height*5./8.)
@@ -90,7 +88,7 @@ static ObjectTypeOps constraint_type_ops =
   (CreateFunc) constraint_create,
   (LoadFunc)   constraint_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -158,14 +156,14 @@ static PropOffset constraint_offsets[] = {
 static void
 constraint_get_props(Constraint * constraint, GPtrArray *props)
 {
-  object_get_props_from_offsets(&constraint->connection.object, 
+  object_get_props_from_offsets(&constraint->connection.object,
                                 constraint_offsets, props);
 }
 
 static void
 constraint_set_props(Constraint *constraint, GPtrArray *props)
 {
-  object_set_props_from_offsets(&constraint->connection.object, 
+  object_set_props_from_offsets(&constraint->connection.object,
                                 constraint_offsets, props);
   g_free(constraint->brtext);
   constraint->brtext = NULL;
@@ -177,11 +175,11 @@ constraint_distance_from(Constraint *constraint, Point *point)
 {
   Point *endpoints;
   real dist;
-  
+
   endpoints = &constraint->connection.endpoints[0];
-  
-  dist = distance_line_point(&endpoints[0], &endpoints[1], 
-                             constraint->line_width, point);  
+
+  dist = distance_line_point(&endpoints[0], &endpoints[1],
+                             constraint->line_width, point);
   return dist;
 }
 
@@ -199,7 +197,7 @@ constraint_move_handle(Constraint *constraint, Handle *handle,
 {
   Point p1, p2;
   Point *endpoints;
-  
+
   assert(constraint!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -207,10 +205,10 @@ constraint_move_handle(Constraint *constraint, Handle *handle,
   if (handle->id == HANDLE_MOVE_TEXT) {
     constraint->text_pos = *to;
   } else  {
-    endpoints = &constraint->connection.endpoints[0]; 
+    endpoints = &constraint->connection.endpoints[0];
     p1.x = 0.5*(endpoints[0].x + endpoints[1].x);
     p1.y = 0.5*(endpoints[0].y + endpoints[1].y);
-    connection_move_handle(&constraint->connection, handle->id, to, cp, 
+    connection_move_handle(&constraint->connection, handle->id, to, cp,
 			   reason, modifiers);
     connection_adjust_for_autogap(&constraint->connection);
     p2.x = 0.5*(endpoints[0].x + endpoints[1].x);
@@ -228,12 +226,12 @@ static ObjectChange*
 constraint_move(Constraint *constraint, Point *to)
 {
   Point start_to_end;
-  Point *endpoints = &constraint->connection.endpoints[0]; 
+  Point *endpoints = &constraint->connection.endpoints[0];
   Point delta;
 
   delta = *to;
   point_sub(&delta, &endpoints[0]);
- 
+
   start_to_end = endpoints[1];
   point_sub(&start_to_end, &endpoints[0]);
 
@@ -241,7 +239,7 @@ constraint_move(Constraint *constraint, Point *to)
   point_add(&endpoints[1], &start_to_end);
 
   point_add(&constraint->text_pos, &delta);
-  
+
   constraint_update_data(constraint);
 
   return NULL;
@@ -258,7 +256,7 @@ constraint_draw(Constraint *constraint, DiaRenderer *renderer)
   assert(renderer != NULL);
 
   endpoints = &constraint->connection.endpoints[0];
-  
+
   renderer_ops->set_linewidth(renderer, constraint->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, CONSTRAINT_DASHLEN);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
@@ -272,7 +270,7 @@ constraint_draw(Constraint *constraint, DiaRenderer *renderer)
 				       constraint->line_width,
 				       &constraint->line_color,
 				       NULL, &arrow);
-  
+
   renderer_ops->set_font(renderer, constraint->font,
 			  constraint->font_height);
   renderer_ops->draw_string(renderer,
@@ -309,7 +307,7 @@ constraint_create(Point *startpoint,
 
   obj->type = &constraint_type;
   obj->ops = &constraint_ops;
-  
+
   connection_init(conn, 3, 0);
 
   constraint->text_color = color_black;
@@ -323,7 +321,7 @@ constraint_create(Point *startpoint,
   constraint->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   constraint->text_handle.connected_to = NULL;
   obj->handles[2] = &constraint->text_handle;
-  
+
   constraint->brtext = NULL;
   constraint_update_data(constraint);
 
@@ -358,17 +356,17 @@ constraint_update_data(Constraint *constraint)
   } else if (!constraint->brtext) {
     constraint->brtext = string_to_bracketted(constraint->text, "{", "}");
   }
-  
+
   if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
     connection_adjust_for_autogap(conn);
   }
   obj->position = conn->endpoints[0];
 
-  constraint->text_width = dia_font_string_width(constraint->brtext, 
-                                                 constraint->font, 
+  constraint->text_width = dia_font_string_width(constraint->brtext,
+                                                 constraint->font,
                                                  constraint->font_height);
-  
+
   constraint->text_handle.pos = constraint->text_pos;
 
   connection_update_handles(conn);
@@ -376,11 +374,11 @@ constraint_update_data(Constraint *constraint)
   /* Boundingbox: */
   extra = &conn->extra_spacing;
 
-  extra->start_long = 
-    extra->start_trans = 
+  extra->start_long =
+    extra->start_trans =
     extra->end_long = constraint->line_width/2.0;
   extra->end_trans = MAX(constraint->line_width,CONSTRAINT_ARROWLEN)/2.0;
-  
+
   connection_update_boundingbox(conn);
 
   /* Add boundingbox for text: */

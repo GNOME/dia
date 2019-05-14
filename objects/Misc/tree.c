@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -60,7 +58,7 @@ struct PointChange {
 
   enum change_type type;
   int applied;
-  
+
   Point point;
   Handle *handle; /* owning ref when not applied for ADD_POINT
 		     owning ref when applied for REMOVE_POINT */
@@ -172,7 +170,7 @@ tree_distance_from(Tree *tree, Point *point)
   Point *endpoints;
   real min_dist;
   int i;
-  
+
   endpoints = &tree->real_ends[0];
   min_dist = distance_line_point( &endpoints[0], &endpoints[1],
 				  LINE_WIDTH, point);
@@ -223,7 +221,7 @@ tree_move_handle(Tree *tree, Handle *handle,
     }
     vlen = sqrt(point_dot(&vhat, &vhat));
     point_scale(&vhat, 1.0/vlen);
-    
+
     vhatperp.y = -vhat.x;
     vhatperp.x =  vhat.y;
     for (i=0;i<num_handles;i++) {
@@ -232,8 +230,8 @@ tree_move_handle(Tree *tree, Handle *handle,
       parallel[i] = point_dot(&vhat, &u);
       perp[i] = point_dot(&vhatperp, &u);
     }
-    
-    connection_move_handle(&tree->connection, handle->id, to, cp, 
+
+    connection_move_handle(&tree->connection, handle->id, to, cp,
 			   reason, modifiers);
 
     vhat = endpoints[1];
@@ -269,10 +267,10 @@ static ObjectChange*
 tree_move(Tree *tree, Point *to)
 {
   Point delta;
-  Point *endpoints = &tree->connection.endpoints[0]; 
+  Point *endpoints = &tree->connection.endpoints[0];
   DiaObject *obj = &tree->connection.object;
   int i;
-  
+
   delta = *to;
   point_sub(&delta, &obj->position);
 
@@ -298,12 +296,12 @@ tree_draw(Tree *tree, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   int i;
-  
+
   assert(tree != NULL);
   assert(renderer != NULL);
 
   endpoints = &tree->real_ends[0];
-  
+
   renderer_ops->set_linewidth(renderer, LINE_WIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
@@ -339,7 +337,7 @@ tree_create(Point *startpoint,
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
- 
+
   obj = &conn->object;
   extra = &conn->extra_spacing;
 
@@ -364,10 +362,10 @@ tree_create(Point *startpoint,
     obj->handles[2+i] = tree->handles[i];
   }
 
-  extra->start_trans = 
-    extra->end_trans = 
+  extra->start_trans =
+    extra->end_trans =
     extra->start_long =
-    extra->end_long = LINE_WIDTH/2.0;  
+    extra->end_long = LINE_WIDTH/2.0;
   tree_update_data(tree);
 
   *handle1 = obj->handles[0];
@@ -393,13 +391,13 @@ tree_copy(Tree *tree)
   Connection *conn, *newconn;
   DiaObject *newobj;
   int i;
-  
+
   conn = &tree->connection;
-  
+
   newtree = g_malloc0(sizeof(Tree));
   newconn = &newtree->connection;
   newobj = &newconn->object;
-  
+
   connection_copy(conn, newconn);
 
   newtree->num_handles = tree->num_handles;
@@ -407,7 +405,7 @@ tree_copy(Tree *tree)
 
   newtree->handles = g_malloc(sizeof(Handle *)*newtree->num_handles);
   newtree->parallel_points = g_malloc(sizeof(Point)*newtree->num_handles);
-  
+
   for (i=0;i<newtree->num_handles;i++) {
     newtree->handles[i] = g_new0(Handle,1);
     *newtree->handles[i] = *tree->handles[i];
@@ -437,13 +435,13 @@ tree_update_data(Tree *tree)
 /*
  * This seems to break stuff wildly.
  */
-/*  
+/*
   if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
     connection_adjust_for_autogap(conn);
   }
 */
-  endpoints = &conn->endpoints[0]; 
+  endpoints = &conn->endpoints[0];
   obj->position = endpoints[0];
 
   v = endpoints[1];
@@ -465,7 +463,7 @@ tree_update_data(Tree *tree)
     point_scale(&tree->parallel_points[i], ulen);
     point_add(&tree->parallel_points[i], &endpoints[0]);
   }
-  
+
   min_par -= LINE_WIDTH/2.0;
   max_par += LINE_WIDTH/2.0;
 
@@ -490,7 +488,7 @@ static void
 tree_add_handle(Tree *tree, Point *p, Handle *handle)
 {
   int i;
-  
+
   tree->num_handles++;
 
   /* Allocate more handles */
@@ -500,7 +498,7 @@ tree_add_handle(Tree *tree, Point *p, Handle *handle)
 				   sizeof(Point)*tree->num_handles);
 
   i = tree->num_handles - 1;
-  
+
   tree->handles[i] = handle;
   tree->handles[i]->id = HANDLE_BUS;
   tree->handles[i]->type = HANDLE_MINOR_CONTROL;
@@ -514,7 +512,7 @@ static void
 tree_remove_handle(Tree *tree, Handle *handle)
 {
   int i, j;
-  
+
   for (i=0;i<tree->num_handles;i++) {
     if (tree->handles[i] == handle) {
       object_remove_handle(&tree->connection.object, handle);
@@ -586,7 +584,7 @@ tree_delete_handle_callback (DiaObject *obj, Point *clicked, gpointer data)
   handle = tree->handles[handle_num];
   p = handle->pos;
   connectionpoint = handle->connected_to;
-  
+
   object_unconnect(obj, handle);
   tree_remove_handle(tree, handle );
   tree_update_data(tree);
@@ -623,11 +621,11 @@ tree_save(Tree *tree, ObjectNode obj_node, DiaContext *ctx)
   AttributeNode attr;
 
   connection_save(&tree->connection, obj_node, ctx);
-  
+
   data_add_color( new_attribute(obj_node, "line_color"), &tree->line_color, ctx);
 
   attr = new_attribute(obj_node, "tree_handles");
-  
+
   for (i=0;i<tree->num_handles;i++) {
     data_add_point(attr, &tree->handles[i]->pos, ctx);
   }
@@ -662,7 +660,7 @@ tree_load(ObjectNode obj_node, int version,DiaContext *ctx)
     tree->num_handles = attribute_num_data(attr);
 
   connection_init(conn, 2 + tree->num_handles, 0);
-  
+
   data = attribute_first_data(attr);
   tree->handles = g_malloc(sizeof(Handle *)*tree->num_handles);
   tree->parallel_points = g_malloc(sizeof(Point)*tree->num_handles);
@@ -683,10 +681,10 @@ tree_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     data_color(attribute_first_data(attr), &tree->line_color, ctx);
 
-  extra->start_trans = 
-    extra->end_trans = 
+  extra->start_trans =
+    extra->end_trans =
     extra->start_long =
-    extra->end_long = LINE_WIDTH/2.0;  
+    extra->end_long = LINE_WIDTH/2.0;
   tree_update_data(tree);
 
   return &tree->connection.object;

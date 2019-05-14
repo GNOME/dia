@@ -22,9 +22,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <gtk/gtk.h>
 #include "dia_xml.h"
@@ -39,7 +37,7 @@
 /***************************/
 
 static LinestyleProperty *
-linestyleprop_new(const PropDescription *pdesc, 
+linestyleprop_new(const PropDescription *pdesc,
                   PropDescToPropPredicate reason)
 {
   LinestyleProperty *prop = g_new0(LinestyleProperty,1);
@@ -50,9 +48,9 @@ linestyleprop_new(const PropDescription *pdesc,
 }
 
 static LinestyleProperty *
-linestyleprop_copy(LinestyleProperty *src) 
+linestyleprop_copy(LinestyleProperty *src)
 {
-  LinestyleProperty *prop = 
+  LinestyleProperty *prop =
     (LinestyleProperty *)src->common.ops->new_prop(src->common.descr,
                                                     src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -69,7 +67,7 @@ linestyleprop_get_widget(LinestyleProperty *prop, PropDialog *dialog)
   return ret;
 }
 
-static void 
+static void
 linestyleprop_reset_widget(LinestyleProperty *prop, WIDGET *widget)
 {
   dia_line_style_selector_set_linestyle(DIALINESTYLESELECTOR(widget),
@@ -77,15 +75,15 @@ linestyleprop_reset_widget(LinestyleProperty *prop, WIDGET *widget)
                                         prop->dash);
 }
 
-static void 
-linestyleprop_set_from_widget(LinestyleProperty *prop, WIDGET *widget) 
+static void
+linestyleprop_set_from_widget(LinestyleProperty *prop, WIDGET *widget)
 {
   dia_line_style_selector_get_linestyle(DIALINESTYLESELECTOR(widget),
                                         &prop->style,
                                         &prop->dash);
 }
 
-static void 
+static void
 linestyleprop_load(LinestyleProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   prop->style = data_enum(data, ctx);
@@ -105,22 +103,22 @@ linestyleprop_load(LinestyleProperty *prop, AttributeNode attr, DataNode data, D
   }
 }
 
-static void 
-linestyleprop_save(LinestyleProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+linestyleprop_save(LinestyleProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_enum(attr, prop->style, ctx);
   data_add_real(attr, prop->dash, ctx);
 }
 
-static void 
+static void
 linestyleprop_get_from_offset(LinestyleProperty *prop,
-                              void *base, guint offset, guint offset2) 
+                              void *base, guint offset, guint offset2)
 {
   prop->style = struct_member(base, offset, LineStyle);
   prop->dash = struct_member(base, offset2, real);
 }
 
-static void 
+static void
 linestyleprop_set_from_offset(LinestyleProperty *prop,
                               void *base, guint offset, guint offset2)
 {
@@ -159,9 +157,9 @@ arrowprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static ArrowProperty *
-arrowprop_copy(ArrowProperty *src) 
+arrowprop_copy(ArrowProperty *src)
 {
-  ArrowProperty *prop = 
+  ArrowProperty *prop =
     (ArrowProperty *)src->common.ops->new_prop(src->common.descr,
                                                 src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -177,20 +175,20 @@ arrowprop_get_widget(ArrowProperty *prop, PropDialog *dialog)
   return ret;
 }
 
-static void 
+static void
 arrowprop_reset_widget(ArrowProperty *prop, WIDGET *widget)
 {
   dia_arrow_selector_set_arrow(DIA_ARROW_SELECTOR(widget),
                                prop->arrow_data);
 }
 
-static void 
-arrowprop_set_from_widget(ArrowProperty *prop, WIDGET *widget) 
+static void
+arrowprop_set_from_widget(ArrowProperty *prop, WIDGET *widget)
 {
   prop->arrow_data = dia_arrow_selector_get_arrow(DIA_ARROW_SELECTOR(widget));
 }
 
-static void 
+static void
 arrowprop_load(ArrowProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   /* Maybe it would be better to store arrows as a single composite
@@ -214,8 +212,8 @@ arrowprop_load(ArrowProperty *prop, AttributeNode attr, DataNode data, DiaContex
   }
 }
 
-static void 
-arrowprop_save(ArrowProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+arrowprop_save(ArrowProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_enum(attr, prop->arrow_data.type, ctx);
   if (prop->arrow_data.type != ARROW_NONE) {
@@ -231,14 +229,14 @@ arrowprop_save(ArrowProperty *prop, AttributeNode attr, DiaContext *ctx)
   }
 }
 
-static void 
+static void
 arrowprop_get_from_offset(ArrowProperty *prop,
-                          void *base, guint offset, guint offset2) 
+                          void *base, guint offset, guint offset2)
 {
   prop->arrow_data = struct_member(base,offset,Arrow);
 }
 
-static void 
+static void
 arrowprop_set_from_offset(ArrowProperty *prop,
                           void *base, guint offset, guint offset2)
 {
@@ -277,9 +275,9 @@ colorprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static ColorProperty *
-colorprop_copy(ColorProperty *src) 
+colorprop_copy(ColorProperty *src)
 {
-  ColorProperty *prop = 
+  ColorProperty *prop =
     (ColorProperty *)src->common.ops->new_prop(src->common.descr,
                                                 src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -289,42 +287,42 @@ colorprop_copy(ColorProperty *src)
 
 static WIDGET *
 colorprop_get_widget(ColorProperty *prop, PropDialog *dialog)
-{ 
+{
   GtkWidget *ret = dia_color_selector_new();
   dia_color_selector_set_use_alpha (ret, TRUE);
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
   return ret;
 }
 
-static void 
+static void
 colorprop_reset_widget(ColorProperty *prop, WIDGET *widget)
 {
   dia_color_selector_set_color(widget,
                                &prop->color_data);
 }
 
-static void 
-colorprop_set_from_widget(ColorProperty *prop, WIDGET *widget) 
+static void
+colorprop_set_from_widget(ColorProperty *prop, WIDGET *widget)
 {
   dia_color_selector_get_color(widget,
                                &prop->color_data);
 }
 
-static void 
+static void
 colorprop_load(ColorProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   data_color(data,&prop->color_data, ctx);
 }
 
-static void 
-colorprop_save(ColorProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+colorprop_save(ColorProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_color(attr,&prop->color_data, ctx);
 }
 
-static void 
+static void
 colorprop_get_from_offset(ColorProperty *prop,
-                          void *base, guint offset, guint offset2) 
+                          void *base, guint offset, guint offset2)
 {
   if (offset2 == 0) {
     prop->color_data = struct_member(base,offset,Color);
@@ -335,7 +333,7 @@ colorprop_get_from_offset(ColorProperty *prop,
   }
 }
 
-static void 
+static void
 colorprop_set_from_offset(ColorProperty *prop,
                           void *base, guint offset, guint offset2)
 {
@@ -388,9 +386,9 @@ fontprop_free(FontProperty *prop)
 }
 
 static FontProperty *
-fontprop_copy(FontProperty *src) 
+fontprop_copy(FontProperty *src)
 {
-  FontProperty *prop = 
+  FontProperty *prop =
     (FontProperty *)src->common.ops->new_prop(src->common.descr,
                                                src->common.reason);
   copy_init_property(&prop->common,&src->common);
@@ -404,26 +402,26 @@ fontprop_copy(FontProperty *src)
 
 static WIDGET *
 fontprop_get_widget(FontProperty *prop, PropDialog *dialog)
-{ 
+{
   GtkWidget *ret = dia_font_selector_new();
   prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
   return ret;
 }
 
-static void 
+static void
 fontprop_reset_widget(FontProperty *prop, WIDGET *widget)
 {
   dia_font_selector_set_font(DIAFONTSELECTOR(widget),
                              prop->font_data);
 }
 
-static void 
-fontprop_set_from_widget(FontProperty *prop, WIDGET *widget) 
+static void
+fontprop_set_from_widget(FontProperty *prop, WIDGET *widget)
 {
   prop->font_data = dia_font_selector_get_font(DIAFONTSELECTOR(widget));
 }
 
-static void 
+static void
 fontprop_load(FontProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   if (prop->font_data)
@@ -431,15 +429,15 @@ fontprop_load(FontProperty *prop, AttributeNode attr, DataNode data, DiaContext 
   prop->font_data = data_font(data, ctx);
 }
 
-static void 
-fontprop_save(FontProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+fontprop_save(FontProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   data_add_font(attr,prop->font_data, ctx);
 }
 
-static void 
+static void
 fontprop_get_from_offset(FontProperty *prop,
-                         void *base, guint offset, guint offset2) 
+                         void *base, guint offset, guint offset2)
 {
   /* if we get the same font dont unref before reuse */
   DiaFont *old_font = prop->font_data;
@@ -454,7 +452,7 @@ fontprop_get_from_offset(FontProperty *prop,
     dia_font_unref(old_font);
 }
 
-static void 
+static void
 fontprop_set_from_offset(FontProperty *prop,
                          void *base, guint offset, guint offset2)
 {
@@ -492,9 +490,9 @@ static const PropertyOps fontprop_ops = {
   (PropertyType_SetFromOffset) fontprop_set_from_offset
 };
 
-/* ************************************************************** */ 
+/* ************************************************************** */
 
-void 
+void
 prop_attr_register(void)
 {
   prop_type_register(PROP_TYPE_LINESTYLE,&linestyleprop_ops);

@@ -19,16 +19,14 @@
 /* Autosave */
 
 /* Automatically save a copy with the .autosave extension after idle time.
- * Don't autosave unmodified diagrams, and remove the autosave file when 
+ * Don't autosave unmodified diagrams, and remove the autosave file when
  * the diagram is saved successfully.  Also remove autosave file when the
  * diagram is closed, even if it was modified.
  * If (auto)saving crashes you, this will really fuck you over!
  *
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "autosave.h"
 #include "diagram.h"
@@ -57,7 +55,7 @@ autosave_check_autosave(gpointer data)
 
   while (diagrams != NULL) {
     diagram = (Diagram *)diagrams->data;
-    if (diagram_is_modified(diagram) && 
+    if (diagram_is_modified(diagram) &&
 	!diagram->autosaved) {
       /* Diagram has been modified.  At next idleness, save it */
       g_idle_add ((GSourceFunc)autosave_save_diagram, diagram);

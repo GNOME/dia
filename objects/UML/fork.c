@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -81,7 +79,7 @@ static ObjectTypeOps fork_type_ops =
   (CreateFunc) fork_create,
   (LoadFunc)   fork_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -114,7 +112,7 @@ static ObjectOps fork_ops =
 
 static PropDescription fork_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_FILL_COLOUR_OPTIONAL,   
+  PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -136,14 +134,14 @@ static PropOffset fork_offsets[] = {
 static void
 fork_get_props(Fork * branch, GPtrArray *props)
 {
-  object_get_props_from_offsets(&branch->element.object, 
+  object_get_props_from_offsets(&branch->element.object,
                                 fork_offsets, props);
 }
 
 static void
 fork_set_props(Fork *branch, GPtrArray *props)
 {
-  object_set_props_from_offsets(&branch->element.object, 
+  object_set_props_from_offsets(&branch->element.object,
                                 fork_offsets, props);
   fork_update_data(branch);
 }
@@ -168,15 +166,15 @@ fork_move_handle(Fork *branch, Handle *handle,
 {
   coord dx;
   Point c;
-   
+
   assert(branch!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
   assert(handle->id < 8);
-   
+
   /* Only orizontal E/W movement are allowed */
-  if (handle->id==3 || handle->id==4) {	
+  if (handle->id==3 || handle->id==4) {
      c.y = to->y;
      c.x = branch->element.corner.x + branch->element.width / 2.;
      dx = fabs(to->x - c.x);
@@ -185,7 +183,7 @@ fork_move_handle(Fork *branch, Handle *handle,
      to->x = c.x + dx;
      element_move_handle(&branch->element, 4, to, cp, reason, modifiers);
      fork_update_data(branch);
-  }   
+  }
 
   return NULL;
 }
@@ -206,7 +204,7 @@ fork_draw(Fork *branch, DiaRenderer *renderer)
   Element *elem;
   real w, h;
   Point p1, p2;
-  
+
   assert(branch != NULL);
   assert(renderer != NULL);
 
@@ -222,8 +220,8 @@ fork_draw(Fork *branch, DiaRenderer *renderer)
   p1.y = elem->corner.y;
   p2.x = elem->corner.x + w;
   p2.y = elem->corner.y + h;
-   
-  renderer_ops->draw_rect(renderer, 
+
+  renderer_ops->draw_rect(renderer,
 			   &p1, &p2,
 			   &branch->fill_color, NULL);
 }
@@ -233,7 +231,7 @@ fork_update_data(Fork *branch)
 {
   Element *elem = &branch->element;
   DiaObject *obj = &elem->object;
-     
+
   /* Update connections: */
   branch->connections[0].pos.x = elem->corner.x + FORK_MARGIN*elem->width;
   branch->connections[0].pos.y = elem->corner.y;
@@ -261,11 +259,11 @@ fork_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handl
   Element *elem;
   DiaObject *obj;
   int i;
-  
+
   branch = g_malloc0(sizeof(Fork));
   elem = &branch->element;
   obj = &elem->object;
-  
+
   obj->type = &fork_type;
 
   obj->ops = &fork_ops;
@@ -288,12 +286,12 @@ fork_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handl
   }
   elem->extra_spacing.border_trans = FORK_BORDERWIDTH / 2.0;
   fork_update_data(branch);
-  
+
   for (i=0;i<8;i++) {
      if (i!=3 && i!=4)
        obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
-   
+
   *handle1 = NULL;
   *handle2 = obj->handles[0];
   return &branch->element.object;

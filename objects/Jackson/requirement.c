@@ -25,9 +25,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -186,7 +184,7 @@ req_select(Requirement *req, Point *clicked_point,
   element_update_handles(&req->element);
 }
 
-static ObjectChange* 
+static ObjectChange*
 req_move_handle(Requirement *req, Handle *handle,
                 Point *to, ConnectionPoint *cp,
 		HandleMoveReason reason, ModifierKeys modifiers)

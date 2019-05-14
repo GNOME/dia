@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -51,7 +49,7 @@ struct _Node
 
   Color line_color;
   Color fill_color;
-  
+
   real  line_width;
 };
 
@@ -87,7 +85,7 @@ static ObjectTypeOps node_type_ops =
   (CreateFunc) node_create,
   (LoadFunc)   node_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -124,7 +122,7 @@ static PropDescription node_props[] = {
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
   /* how it used to be before 0.96+SVN */
-  { "name", PROP_TYPE_TEXT, PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL }, 
+  { "name", PROP_TYPE_TEXT, PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL },
   /* new name matching "same name, same type"  rule */
   { "text", PROP_TYPE_TEXT, PROP_FLAG_NO_DEFAULTS|PROP_FLAG_LOAD_ONLY|PROP_FLAG_OPTIONAL, N_("Text"), NULL, NULL },
   PROP_STD_LINE_WIDTH_OPTIONAL,
@@ -201,7 +199,7 @@ node_move_handle(Node *node, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
-  
+
   element_move_handle(&node->element, handle->id, to, cp, reason, modifiers);
   node_update_data(node);
 
@@ -212,7 +210,7 @@ static ObjectChange*
 node_move(Node *node, Point *to)
 {
   Point p;
-  
+
   node->element.corner = *to;
 
   p = *to;
@@ -232,7 +230,7 @@ static void node_draw(Node *node, DiaRenderer *renderer)
   real x, y, w, h;
   Point points[7];
   int i;
-  
+
   assert(node != NULL);
   assert(renderer != NULL);
 
@@ -242,7 +240,7 @@ static void node_draw(Node *node, DiaRenderer *renderer)
   y = elem->corner.y;
   w = elem->width;
   h = elem->height;
-  
+
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, node->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
@@ -273,20 +271,20 @@ static void node_draw(Node *node, DiaRenderer *renderer)
 
   /* Draw text */
   text_draw(node->name, renderer);
-  
+
   /* Draw underlines (!) */
   renderer_ops->set_linewidth(renderer, NODE_LINEWIDTH);
   points[0].x = node->name->position.x;
   points[0].y = points[1].y = node->name->position.y + node->name->descent;
   for (i = 0; i < node->name->numlines; i++)
-    { 
+    {
       points[1].x = points[0].x + text_get_line_width(node->name, i);
       renderer_ops->draw_line(renderer, points, points + 1, &node->name->color);
       points[0].y = points[1].y += node->name->height;
     }
 }
 
-static void 
+static void
 node_update_data(Node *node)
 {
   Element *elem = &node->element;
@@ -304,10 +302,10 @@ node_update_data(Node *node)
 
   elem->width = MAX(elem->width, node->name->max_width + 2*NODE_TEXT_MARGIN);
   elem->height = MAX(elem->height, node->name->height * node->name->numlines + 2*NODE_TEXT_MARGIN);
-  
+
   /* Update connections: */
   element_update_connections_rectangle(elem, node->connections);
-  
+
   element_update_boundingbox(elem);
   /* fix boundingbox for depth: */
   obj->bounding_box.top -= NODE_DEPTH;
@@ -326,15 +324,15 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
   Point p;
   DiaFont *font;
   int i;
-  
+
   node = g_malloc0(sizeof(Node));
-  
+
   /* old defaults */
   node->line_width = NODE_BORDERWIDTH;
 
   elem = &node->element;
   obj = &elem->object;
-  
+
   obj->type = &node_type;
 
   obj->ops = &node_ops;
@@ -350,7 +348,7 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
   p.y = 0.0;
   node->name = new_text("", font, NODE_FONTHEIGHT, &p, &color_black, ALIGN_LEFT);
   dia_font_unref(font);
-  
+
   element_init(elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {

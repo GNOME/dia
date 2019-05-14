@@ -1,9 +1,9 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * SADT diagram support 
+ * SADT diagram support
  * Copyright (C) 2000 Cyrille Chepelov
- * 
+ *
  * This file has been forked from Alexander Larsson's objects/UML/constraint.c
  *
  * This program is free software; you can redistribute it and/or modify
@@ -21,9 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -51,7 +49,7 @@ typedef struct _Annotation {
   Color line_color;
 } Annotation;
 
-  
+
 #define ANNOTATION_LINE_WIDTH 0.05
 #define ANNOTATION_BORDER 0.2
 #define ANNOTATION_FONTHEIGHT 0.8
@@ -75,9 +73,9 @@ static void annotation_update_data(Annotation *annotation);
 static void annotation_destroy(Annotation *annotation);
 static DiaObject *annotation_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static PropDescription *annotation_describe_props(Annotation *annotation);
-static void annotation_get_props(Annotation *annotation, 
+static void annotation_get_props(Annotation *annotation,
                                  GPtrArray *props);
-static void annotation_set_props(Annotation *annotation, 
+static void annotation_set_props(Annotation *annotation,
                                  GPtrArray *props);
 
 static ObjectTypeOps annotation_type_ops =
@@ -118,7 +116,7 @@ static ObjectOps annotation_ops = {
 #undef TEMPORARY_EVENT_TEST
 
 #ifdef TEMPORARY_EVENT_TEST
-static gboolean 
+static gboolean
 handle_btn1(Annotation *annotation, Property *prop) {
   Color col;
   col = annotation->text->color;
@@ -138,8 +136,8 @@ handle_btn1(Annotation *annotation, Property *prop) {
 static PropDescription annotation_props[] = {
   CONNECTION_COMMON_PROPERTIES,
 #ifdef TEMPORARY_EVENT_TEST
-  {"btn1", PROP_TYPE_BUTTON, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE, 
-   NULL, "Click Me !", NULL, 
+  {"btn1", PROP_TYPE_BUTTON, PROP_FLAG_VISIBLE|PROP_FLAG_DONT_SAVE,
+   NULL, "Click Me !", NULL,
    (PropEventHandler)handle_btn1},
 #endif
   { "text", PROP_TYPE_TEXT, 0,NULL,NULL},
@@ -153,13 +151,13 @@ static PropDescription annotation_props[] = {
 };
 
 static PropDescription *
-annotation_describe_props(Annotation *annotation) 
+annotation_describe_props(Annotation *annotation)
 {
   if (annotation_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(annotation_props);
   }
   return annotation_props;
-}    
+}
 
 static PropOffset annotation_offsets[] = {
   CONNECTION_COMMON_PROPERTIES_OFFSETS,
@@ -194,9 +192,9 @@ annotation_distance_from(Annotation *annotation, Point *point)
   Point *endpoints;
   Rectangle bbox;
   endpoints = &annotation->connection.endpoints[0];
-  
+
   text_calc_boundingbox(annotation->text,&bbox);
-  return MIN(distance_line_point(&endpoints[0], &endpoints[1], 
+  return MIN(distance_line_point(&endpoints[0], &endpoints[1],
 				 ANNOTATION_LINE_WIDTH, point),
 	     distance_rectangle_point(&bbox,point));
 }
@@ -207,7 +205,7 @@ annotation_select(Annotation *annotation, Point *clicked_point,
 {
   text_set_cursor(annotation->text, clicked_point, interactive_renderer);
   text_grab_focus(annotation->text, &annotation->connection.object);
-  
+
   connection_update_handles(&annotation->connection);
 }
 
@@ -227,7 +225,7 @@ annotation_move_handle(Annotation *annotation, Handle *handle,
   if (handle->id == HANDLE_MOVE_TEXT) {
     annotation->text->position = *to;
   } else  {
-    endpoints = &(conn->endpoints[0]); 
+    endpoints = &(conn->endpoints[0]);
     if (handle->id == HANDLE_MOVE_STARTPOINT) {
       p1 = endpoints[0];
       connection_move_handle(conn, handle->id, to, cp, reason, modifiers);
@@ -237,7 +235,7 @@ annotation_move_handle(Annotation *annotation, Handle *handle,
       point_add(&annotation->text->position, &p2);
       point_add(&p2,&(endpoints[1]));
       connection_move_handle(conn, HANDLE_MOVE_ENDPOINT, &p2, NULL, reason, 0);
-    } else {      
+    } else {
       p1 = endpoints[1];
       connection_move_handle(conn, handle->id, to, cp, reason, modifiers);
       connection_adjust_for_autogap(conn);
@@ -255,12 +253,12 @@ static ObjectChange*
 annotation_move(Annotation *annotation, Point *to)
 {
   Point start_to_end;
-  Point *endpoints = &annotation->connection.endpoints[0]; 
+  Point *endpoints = &annotation->connection.endpoints[0];
   Point delta;
 
   delta = *to;
   point_sub(&delta, &endpoints[0]);
- 
+
   start_to_end = endpoints[1];
   point_sub(&start_to_end, &endpoints[0]);
 
@@ -268,7 +266,7 @@ annotation_move(Annotation *annotation, Point *to)
   point_add(&endpoints[1], &start_to_end);
 
   point_add(&annotation->text->position, &delta);
-  
+
   annotation_update_data(annotation);
 
   return NULL;
@@ -298,7 +296,7 @@ annotation_draw(Annotation *annotation, DiaRenderer *renderer)
     point_scale(&vect,1/vlen);
     rvect.y = vect.x;
     rvect.x = -vect.y;
-  
+
     pts[0] = annotation->connection.endpoints[0];
     pts[1] = annotation->connection.endpoints[0];
     v1 = vect;
@@ -330,7 +328,7 @@ annotation_create(Point *startpoint,
   Annotation *annotation;
   Connection *conn;
   LineBBExtras *extra;
-  DiaObject *obj; 
+  DiaObject *obj;
   Point offs;
   Point defaultlen = { 1.0, 1.0 };
   DiaFont* font;
@@ -341,13 +339,13 @@ annotation_create(Point *startpoint,
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
- 
+
   obj = &conn->object;
   extra = &conn->extra_spacing;
 
   obj->type = &sadtannotation_type;
   obj->ops = &annotation_ops;
-  
+
   connection_init(conn, 3, 0);
 
   annotation->line_color = color_black;
@@ -366,16 +364,16 @@ annotation_create(Point *startpoint,
   else
     offs.y = -.3 * ANNOTATION_FONTHEIGHT;
   point_add(&annotation->text->position,&offs);
-  
+
   annotation->text_handle.id = HANDLE_MOVE_TEXT;
   annotation->text_handle.type = HANDLE_MINOR_CONTROL;
   annotation->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   annotation->text_handle.connected_to = NULL;
   obj->handles[2] = &annotation->text_handle;
 
-  extra->start_trans = 
+  extra->start_trans =
     extra->end_trans = ANNOTATION_ZLEN;
-  extra->start_long = 
+  extra->start_long =
     extra->end_long = ANNOTATION_LINE_WIDTH/2.0;
   annotation_update_data(annotation);
 
@@ -399,7 +397,7 @@ annotation_update_data(Annotation *annotation)
   Connection *conn = &annotation->connection;
   DiaObject *obj = &conn->object;
   Rectangle textrect;
-  
+
   if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
     connection_adjust_for_autogap(conn);

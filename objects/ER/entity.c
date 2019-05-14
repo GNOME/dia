@@ -18,9 +18,7 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -56,16 +54,16 @@ struct _Entity {
   real border_width;
   Color border_color;
   Color inner_color;
-  
+
   gboolean associative;
-  
+
   DiaFont *font;
   real font_height;
   char *name;
   real name_width;
-  
+
   int weak;
-  
+
 };
 
 static real entity_distance_from(Entity *entity, Point *point);
@@ -169,14 +167,14 @@ static PropOffset entity_offsets[] = {
 static void
 entity_get_props(Entity *entity, GPtrArray *props)
 {
-  object_get_props_from_offsets(&entity->element.object, 
+  object_get_props_from_offsets(&entity->element.object,
                                 entity_offsets, props);
 }
 
 static void
 entity_set_props(Entity *entity, GPtrArray *props)
 {
-  object_set_props_from_offsets(&entity->element.object, 
+  object_set_props_from_offsets(&entity->element.object,
                                 entity_offsets, props);
   entity_update_data(entity);
 }
@@ -221,7 +219,7 @@ static ObjectChange*
 entity_move(Entity *entity, Point *to)
 {
   entity->element.corner = *to;
-  
+
   entity_update_data(entity);
 
   return NULL;
@@ -245,26 +243,26 @@ entity_draw(Entity *entity, DiaRenderer *renderer)
   ul_corner.y = elem->corner.y;
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
-  
+
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  
+
   renderer_ops->set_linewidth(renderer, entity->border_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer,
 			   &ul_corner,
-			   &lr_corner, 
+			   &lr_corner,
 			   &entity->inner_color,
 			   &entity->border_color);
 
   if(entity->weak) {
     diff = WEAK_BORDER_WIDTH/*MIN(elem->width / 2.0 * 0.20, elem->height / 2.0 * 0.20)*/;
-    ul_corner.x += diff; 
+    ul_corner.x += diff;
     ul_corner.y += diff;
     lr_corner.x -= diff;
     lr_corner.y -= diff;
-    renderer_ops->draw_rect(renderer, 
+    renderer_ops->draw_rect(renderer,
 			     &ul_corner, &lr_corner,
 			     NULL,
 			     &entity->border_color);
@@ -294,9 +292,9 @@ entity_draw(Entity *entity, DiaRenderer *renderer)
   p.y = elem->corner.y + (elem->height - entity->font_height)/2.0 +
       dia_font_ascent(entity->name,entity->font, entity->font_height);
   renderer_ops->set_font(renderer, entity->font, entity->font_height);
-  renderer_ops->draw_string(renderer, 
-                             entity->name, 
-                             &p, ALIGN_CENTER, 
+  renderer_ops->draw_string(renderer,
+                             entity->name,
+                             &p, ALIGN_CENTER,
                              &color_black);
 }
 
@@ -359,9 +357,9 @@ entity_update_data(Entity *entity)
 
   extra->border_trans = entity->border_width/2.0;
   element_update_boundingbox(elem);
-  
+
   obj->position = elem->corner;
-  
+
   element_update_handles(elem);
 }
 
@@ -379,7 +377,7 @@ entity_create(Point *startpoint,
   entity = g_malloc0(sizeof(Entity));
   elem = &entity->element;
   obj = &elem->object;
-  
+
   obj->type = &entity_type;
 
   obj->ops = &entity_ops;
@@ -391,7 +389,7 @@ entity_create(Point *startpoint,
   entity->border_width =  attributes_get_default_linewidth();
   entity->border_color = attributes_get_foreground();
   entity->inner_color = attributes_get_background();
-  
+
   element_init(elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
@@ -408,7 +406,7 @@ entity_create(Point *startpoint,
 
   entity->name_width =
     dia_font_string_width(entity->name, entity->font, entity->font_height);
-  
+
   entity_update_data(entity);
 
   for (i=0;i<8;i++) {
@@ -416,7 +414,7 @@ entity_create(Point *startpoint,
   }
 
   *handle1 = NULL;
-  *handle2 = obj->handles[0];  
+  *handle2 = obj->handles[0];
   return &entity->element.object;
 }
 
@@ -435,9 +433,9 @@ entity_copy(Entity *entity)
   Entity *newentity;
   Element *elem, *newelem;
   DiaObject *newobj;
-  
+
   elem = &entity->element;
-  
+
   newentity = g_malloc0(sizeof(Entity));
   newelem = &newentity->element;
   newobj = &newelem->object;
@@ -447,7 +445,7 @@ entity_copy(Entity *entity)
   newentity->border_width = entity->border_width;
   newentity->border_color = entity->border_color;
   newentity->inner_color = entity->inner_color;
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     newobj->connections[i] = &newentity->connections[i];
     newentity->connections[i].object = newobj;
@@ -501,7 +499,7 @@ entity_load(ObjectNode obj_node, int version,DiaContext *ctx)
   entity = g_malloc0(sizeof(Entity));
   elem = &entity->element;
   obj = &elem->object;
-  
+
   obj->type = &entity_type;
   obj->ops = &entity_ops;
 
@@ -516,12 +514,12 @@ entity_load(ObjectNode obj_node, int version,DiaContext *ctx)
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &entity->border_color, ctx);
-  
+
   entity->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &entity->inner_color, ctx);
-  
+
   entity->name = NULL;
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)

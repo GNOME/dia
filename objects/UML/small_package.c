@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -46,7 +44,7 @@ struct _SmallPackage {
 
   char *stereotype;
   Text *text;
-  
+
   char *st_stereotype;
 
   real line_width;
@@ -89,7 +87,7 @@ static ObjectTypeOps smallpackage_type_ops =
   (CreateFunc) smallpackage_create,
   (LoadFunc)   smallpackage_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -126,9 +124,9 @@ static PropDescription smallpackage_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },     
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
@@ -148,7 +146,7 @@ static PropOffset smallpackage_offsets[] = {
   {"text",PROP_TYPE_TEXT,offsetof(SmallPackage,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(SmallPackage,text),offsetof(Text,font)},
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(SmallPackage,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(SmallPackage,text),offsetof(Text,color)},  
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(SmallPackage,text),offsetof(Text,color)},
   { PROP_STDNAME_LINE_WIDTH, PROP_STDTYPE_LINE_WIDTH, offsetof(SmallPackage, line_width) },
   {"line_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, line_color) },
   {"fill_colour", PROP_TYPE_COLOUR, offsetof(SmallPackage, fill_color) },
@@ -156,7 +154,7 @@ static PropOffset smallpackage_offsets[] = {
 };
 
 static void
-smallpackage_get_props(SmallPackage * smallpackage, 
+smallpackage_get_props(SmallPackage * smallpackage,
                        GPtrArray *props)
 {
   object_get_props_from_offsets(&smallpackage->element.object,
@@ -164,10 +162,10 @@ smallpackage_get_props(SmallPackage * smallpackage,
 }
 
 static void
-smallpackage_set_props(SmallPackage *smallpackage, 
+smallpackage_set_props(SmallPackage *smallpackage,
                        GPtrArray *props)
 {
-  object_set_props_from_offsets(&smallpackage->element.object, 
+  object_set_props_from_offsets(&smallpackage->element.object,
                                 smallpackage_offsets, props);
   g_free(smallpackage->st_stereotype);
   smallpackage->st_stereotype = NULL;
@@ -219,14 +217,14 @@ static ObjectChange*
 smallpackage_move(SmallPackage *pkg, Point *to)
 {
   Point p;
-  
+
   pkg->element.corner = *to;
 
   p = *to;
   p.x += SMALLPACKAGE_MARGIN_X;
   p.y += pkg->text->ascent + SMALLPACKAGE_MARGIN_Y;
   text_set_position(pkg->text, &p);
-  
+
   smallpackage_update_data(pkg);
 
   return NULL;
@@ -239,7 +237,7 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
-  
+
   assert(pkg != NULL);
   assert(renderer != NULL);
 
@@ -249,7 +247,7 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
   y = elem->corner.y;
   w = elem->width;
   h = elem->height;
-  
+
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, pkg->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
@@ -257,7 +255,7 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
-  renderer_ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer,
 			   &p1, &p2,
 			   &pkg->fill_color,
 			   &pkg->line_color);
@@ -265,7 +263,7 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
   p1.x= x; p1.y = y-SMALLPACKAGE_TOPHEIGHT;
   p2.x = x+SMALLPACKAGE_TOPWIDTH; p2.y = y;
 
-  renderer_ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer,
 			   &p1, &p2,
 			   &pkg->fill_color,
 			   &pkg->line_color);
@@ -277,7 +275,7 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
 
     p1 = pkg->text->position;
     p1.y -= pkg->text->height;
-    renderer_ops->draw_string(renderer, pkg->st_stereotype, &p1, 
+    renderer_ops->draw_string(renderer, pkg->st_stereotype, &p1,
 			       ALIGN_LEFT, &pkg->text->color);
   }
 }
@@ -341,11 +339,11 @@ smallpackage_create(Point *startpoint,
   Point p;
   DiaFont *font;
   int i;
-  
+
   pkg = g_malloc0(sizeof(SmallPackage));
   elem = &pkg->element;
   obj = &elem->object;
-  
+
   obj->type = &smallpackage_type;
 
   obj->ops = &smallpackage_ops;
@@ -356,12 +354,12 @@ smallpackage_create(Point *startpoint,
   p = *startpoint;
   p.x += SMALLPACKAGE_MARGIN_X;
   p.y += SMALLPACKAGE_MARGIN_Y+ dia_font_ascent("A",font, 0.8);
-  
+
   pkg->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
   dia_font_unref(font);
-  
+
   element_init(elem, 8, NUM_CONNECTIONS);
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &pkg->connections[i];
     pkg->connections[i].object = obj;
@@ -392,7 +390,7 @@ static void
 smallpackage_destroy(SmallPackage *pkg)
 {
   text_destroy(pkg->text);
-  
+
   g_free(pkg->stereotype);
   g_free(pkg->st_stereotype);
 

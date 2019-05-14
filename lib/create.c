@@ -20,12 +20,8 @@
  * standard objects.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
-#include <string.h>
-#include <math.h>
 #include <glib.h>
 #include <stdlib.h>
 
@@ -56,7 +52,7 @@ create_standard_text(real xpos, real ypos) {
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    
+
     return new_obj;
 }
 
@@ -67,7 +63,7 @@ static PropDescription create_element_prop_descs[] = {
     PROP_DESC_END};
 
 static GPtrArray *make_element_props(real xpos, real ypos,
-                                     real width, real height) 
+                                     real width, real height)
 {
     GPtrArray *props;
     PointProperty *pprop;
@@ -75,7 +71,7 @@ static GPtrArray *make_element_props(real xpos, real ypos,
 
     props = prop_list_from_descs(create_element_prop_descs,pdtpp_true);
     g_assert(props->len == 3);
-    
+
     pprop = g_ptr_array_index(props,0);
     pprop->point_data.x = xpos;
     pprop->point_data.y = ypos;
@@ -83,7 +79,7 @@ static GPtrArray *make_element_props(real xpos, real ypos,
     rprop->real_data = width;
     rprop = g_ptr_array_index(props,2);
     rprop->real_data = height;
-    
+
     return props;
 }
 
@@ -92,7 +88,7 @@ create_standard_ellipse(real xpos, real ypos, real width, real height) {
     DiaObjectType *otype = object_get_type("Standard - Ellipse");
     DiaObject *new_obj;
     Handle *h1, *h2;
-    
+
     GPtrArray *props;
     Point point;
 
@@ -106,7 +102,7 @@ create_standard_ellipse(real xpos, real ypos, real width, real height) {
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-  
+
     props = make_element_props(xpos,ypos,width,height);
     new_obj->ops->set_props(new_obj, props);
     prop_list_free(props);
@@ -133,7 +129,7 @@ create_standard_box(real xpos, real ypos, real width, real height) {
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-  
+
     props = make_element_props(xpos,ypos,width,height);
     new_obj->ops->set_props(new_obj, props);
     prop_list_free(props);
@@ -168,7 +164,7 @@ create_standard_zigzagline(int num_points, const Point *points,
 
     props = prop_list_from_descs(create_line_prop_descs,pdtpp_true);
     g_assert(props->len == 2);
-    
+
     if (start_arrow != NULL)
 	((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data = *start_arrow;
     if (end_arrow != NULL)
@@ -176,12 +172,12 @@ create_standard_zigzagline(int num_points, const Point *points,
 
     new_obj->ops->set_props(new_obj, props);
     prop_list_free(props);
-    
+
     return new_obj;
 }
 
 DiaObject *
-create_standard_polyline(int num_points, 
+create_standard_polyline(int num_points,
 			 Point *points,
 			 Arrow *end_arrow,
 			 Arrow *start_arrow)
@@ -204,7 +200,7 @@ create_standard_polyline(int num_points,
 
     props = prop_list_from_descs(create_line_prop_descs,pdtpp_true);
     g_assert(props->len == 2);
-    
+
     if (start_arrow != NULL)
 	((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data = *start_arrow;
     if (end_arrow != NULL)
@@ -212,12 +208,12 @@ create_standard_polyline(int num_points,
 
     new_obj->ops->set_props(new_obj, props);
     prop_list_free(props);
-    
+
     return new_obj;
 }
 
 DiaObject *
-create_standard_polygon(int num_points, 
+create_standard_polygon(int num_points,
 			Point *points) {
     DiaObjectType *otype = object_get_type("Standard - Polygon");
     DiaObject *new_obj;
@@ -233,12 +229,12 @@ create_standard_polygon(int num_points,
     pcd.points = points;
 
     new_obj = otype->ops->create(NULL, &pcd, &h1, &h2);
-    
+
     return new_obj;
 }
 
 DiaObject *
-create_standard_bezierline(int num_points, 
+create_standard_bezierline(int num_points,
 			   BezPoint *points,
 			   Arrow *end_arrow,
 			   Arrow *start_arrow) {
@@ -260,7 +256,7 @@ create_standard_bezierline(int num_points,
 
     props = prop_list_from_descs(create_line_prop_descs,pdtpp_true);
     g_assert(props->len == 2);
-    
+
     if (start_arrow != NULL)
 	((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data = *start_arrow;
     if (end_arrow != NULL)
@@ -268,12 +264,12 @@ create_standard_bezierline(int num_points,
 
     new_obj->ops->set_props(new_obj, props);
     prop_list_free(props);
-    
+
     return new_obj;
 }
 
 DiaObject *
-create_standard_beziergon(int num_points, 
+create_standard_beziergon(int num_points,
 			  BezPoint *points) {
     DiaObjectType *otype = object_get_type("Standard - Beziergon");
     DiaObject *new_obj;
@@ -289,7 +285,7 @@ create_standard_beziergon(int num_points,
     bcd.points = points;
 
     new_obj = otype->ops->create(NULL, &bcd, &h1, &h2);
-    
+
     return new_obj;
 }
 
@@ -310,7 +306,7 @@ create_standard_path(int num_points, BezPoint *points)
     bcd.points = points;
 
     new_obj = otype->ops->create(NULL, &bcd, &h1, &h2);
-    
+
     return new_obj;
 }
 
@@ -322,7 +318,7 @@ static PropDescription create_arc_prop_descs[] = {
 
 DiaObject *
 create_standard_arc(real x1, real y1, real x2, real y2,
-		    real distance, 
+		    real distance,
 		    Arrow *end_arrow,
 		    Arrow *start_arrow) {
     DiaObjectType *otype = object_get_type("Standard - Arc");
@@ -347,7 +343,7 @@ create_standard_arc(real x1, real y1, real x2, real y2,
     new_obj->ops->move_handle(new_obj, h2, &p2, NULL, HANDLE_MOVE_USER_FINAL,0);
     props = prop_list_from_descs(create_arc_prop_descs,pdtpp_true);
     g_assert(props->len == 3);
-    
+
     ((RealProperty *)g_ptr_array_index(props,0))->real_data = distance;
     if (start_arrow != NULL)
 	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *start_arrow;
@@ -384,14 +380,14 @@ create_standard_image(real xpos, real ypos, real width, real height,
 
     new_obj = otype->ops->create(&point, otype->default_user_data,
 				 &h1, &h2);
-    
+
     props = make_element_props(xpos,ypos,width,height);
     new_obj->ops->set_props(new_obj, props);
     prop_list_free(props);
 
 
     props = prop_list_from_descs(create_file_prop_descs,pdtpp_true);
-    g_assert(props->len == 1);    
+    g_assert(props->len == 1);
     sprop = g_ptr_array_index(props,0);
     g_free(sprop->string_data);
     sprop->string_data = g_strdup(file);

@@ -18,9 +18,7 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -180,14 +178,14 @@ static PropOffset relationship_offsets[] = {
 static void
 relationship_get_props(Relationship *relationship, GPtrArray *props)
 {
-  object_get_props_from_offsets(&relationship->element.object, 
+  object_get_props_from_offsets(&relationship->element.object,
                                 relationship_offsets, props);
 }
 
 static void
 relationship_set_props(Relationship *relationship, GPtrArray *props)
 {
-  object_set_props_from_offsets(&relationship->element.object, 
+  object_set_props_from_offsets(&relationship->element.object,
                                 relationship_offsets, props);
   relationship_update_data(relationship);
 }
@@ -233,7 +231,7 @@ static ObjectChange*
 relationship_move(Relationship *relationship, Point *to)
 {
   relationship->element.corner = *to;
-  
+
   relationship_update_data(relationship);
 
   return NULL;
@@ -273,7 +271,7 @@ relationship_draw(Relationship *relationship, DiaRenderer *renderer)
   renderer_ops->draw_polygon(renderer, corners, 4,
 			     &relationship->inner_color,
 			     &relationship->border_color);
-  
+
   if (relationship->rotate) {
     lc.x = corners[1].x + 0.2;
     lc.y = corners[1].y - 0.3;
@@ -290,7 +288,7 @@ relationship_draw(Relationship *relationship, DiaRenderer *renderer)
 
   if (relationship->identifying) {
     diff = IDENTIFYING_BORDER_WIDTH;
-    corners[0].x += diff; 
+    corners[0].x += diff;
     corners[1].y += diff*DIAMOND_RATIO;
     corners[2].x -= diff;
     corners[3].y -= diff*DIAMOND_RATIO;
@@ -313,10 +311,10 @@ relationship_draw(Relationship *relationship, DiaRenderer *renderer)
   p.y = elem->corner.y + (elem->height - relationship->font_height)/2.0 +
          dia_font_ascent(relationship->name,
                          relationship->font, relationship->font_height);
-  
-  renderer_ops->draw_string(renderer, 
-			     relationship->name, 
-			     &p, ALIGN_CENTER, 
+
+  renderer_ops->draw_string(renderer,
+			     relationship->name,
+			     &p, ALIGN_CENTER,
 			     &color_black);
 }
 
@@ -338,20 +336,20 @@ relationship_update_data(Relationship *relationship)
   elem->height = elem->width * DIAMOND_RATIO;
 
   /* Update connections: */
-  /*   	
+  /*
        	2
-       	* 
+       	*
     1  / \  3
-      *	  *  
-     /	   \ 
+      *	  *
+     /	   \
   0 *	* 8 * 4
-     \	   /   	     
-      *	  *    	     
+     \	   /
+      *	  *
     7  \ /  5
-        *    
-        6    
+        *
+        6
    */
-  
+
   connpoint_update(&relationship->connections[0],
 		   elem->corner.x,
 		   elem->corner.y + elem->height / 2.0,
@@ -366,12 +364,12 @@ relationship_update_data(Relationship *relationship)
 		   elem->corner.x + elem->width / 2.0,
 		   elem->corner.y,
 		   DIR_NORTH);
-  
+
   connpoint_update(&relationship->connections[3],
 		   elem->corner.x + 3.0 * elem->width / 4.0,
 		   elem->corner.y + elem->height / 4.0,
 		   DIR_NORTHEAST);
-  
+
   connpoint_update(&relationship->connections[4],
 		   elem->corner.x + elem->width,
 		   elem->corner.y + elem->height / 2.0,
@@ -381,7 +379,7 @@ relationship_update_data(Relationship *relationship)
 		   elem->corner.x + 3.0 * elem->width / 4.0,
 		   elem->corner.y + 3.0 * elem->height / 4.0,
 		   DIR_SOUTHEAST);
-  
+
   connpoint_update(&relationship->connections[6],
 		   elem->corner.x + elem->width / 2.0,
 		   elem->corner.y + elem->height,
@@ -399,7 +397,7 @@ relationship_update_data(Relationship *relationship)
 
   extra->border_trans = relationship->border_width / 2.0;
   element_update_boundingbox(elem);
-  
+
   /* fix boundingrelationship for line_width: */
   if(relationship->rotate) {
     obj->bounding_box.top -= relationship->font_height + CARDINALITY_DISTANCE;
@@ -410,7 +408,7 @@ relationship_update_data(Relationship *relationship)
     obj->bounding_box.right += CARDINALITY_DISTANCE + relationship->right_card_width;
   }
   obj->position = elem->corner;
-  
+
   element_update_handles(elem);
 }
 
@@ -428,7 +426,7 @@ relationship_create(Point *startpoint,
   relationship = g_malloc0(sizeof(Relationship));
   elem = &relationship->element;
   obj = &elem->object;
-  
+
   obj->type = &relationship_type;
   obj->ops = &relationship_ops;
 
@@ -439,7 +437,7 @@ relationship_create(Point *startpoint,
   relationship->border_width =  attributes_get_default_linewidth();
   relationship->border_color = attributes_get_foreground();
   relationship->inner_color = attributes_get_background();
-  
+
   element_init(elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
@@ -464,14 +462,14 @@ relationship_create(Point *startpoint,
   }
 
   *handle1 = NULL;
-  *handle2 = obj->handles[0];  
+  *handle2 = obj->handles[0];
   return &relationship->element.object;
 }
 
 static void
 relationship_destroy(Relationship *relationship)
 {
-  dia_font_unref(relationship->font);  
+  dia_font_unref(relationship->font);
   element_destroy(&relationship->element);
   g_free(relationship->name);
   g_free(relationship->left_cardinality);
@@ -485,9 +483,9 @@ relationship_copy(Relationship *relationship)
   Relationship *newrelationship;
   Element *elem, *newelem;
   DiaObject *newobj;
-  
+
   elem = &relationship->element;
-  
+
   newrelationship = g_malloc0(sizeof(Relationship));
   newelem = &newrelationship->element;
   newobj = &newelem->object;
@@ -497,7 +495,7 @@ relationship_copy(Relationship *relationship)
   newrelationship->border_width = relationship->border_width;
   newrelationship->border_color = relationship->border_color;
   newrelationship->inner_color = relationship->inner_color;
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     newobj->connections[i] = &newrelationship->connections[i];
     newrelationship->connections[i].object = newobj;
@@ -518,7 +516,7 @@ relationship_copy(Relationship *relationship)
 
   newrelationship->identifying = relationship->identifying;
   newrelationship->rotate = relationship->rotate;
-  
+
   return &newrelationship->element.object;
 }
 
@@ -562,12 +560,12 @@ relationship_load(ObjectNode obj_node, int version,DiaContext *ctx)
   relationship = g_malloc0(sizeof(Relationship));
   elem = &relationship->element;
   obj = &elem->object;
-  
+
   obj->type = &relationship_type;
   obj->ops = &relationship_ops;
 
   element_load(elem, obj_node, ctx);
-  
+
   relationship->border_width = 0.1;
   attr = object_find_attribute(obj_node, "border_width");
   if (attr != NULL)
@@ -577,7 +575,7 @@ relationship_load(ObjectNode obj_node, int version,DiaContext *ctx)
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &relationship->border_color, ctx);
-  
+
   relationship->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)

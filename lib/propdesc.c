@@ -6,9 +6,9 @@
  * Copyright (C) 2001 Cyrille Chepelov
  * Major restructuration done in August 2001 by C. Chepelov
  *
- * propdesc.c: This module handles operations on property descriptors and 
+ * propdesc.c: This module handles operations on property descriptors and
  * property descriptor lists.
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -24,9 +24,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <glib.h>
 
@@ -43,7 +41,7 @@ prop_desc_list_calculate_quarks(PropDescription *plist)
       plist[i].quark = g_quark_from_static_string(plist[i].name);
     if (plist[i].type_quark == 0)
       plist[i].type_quark = g_quark_from_static_string(plist[i].type);
-    if (!plist[i].ops) 
+    if (!plist[i].ops)
       plist[i].ops = prop_type_get_ops(plist[i].type);
   }
 }
@@ -63,7 +61,7 @@ prop_desc_list_find_prop(const PropDescription *plist, const gchar *name)
 }
 
 /* finds the real handler in case there are several levels of indirection */
-PropEventHandler 
+PropEventHandler
 prop_desc_find_real_handler(const PropDescription *pdesc)
 {
   PropEventHandler ret = pdesc->event_handler;
@@ -77,7 +75,7 @@ prop_desc_find_real_handler(const PropDescription *pdesc)
 }
 
 /* free a handler indirection list */
-void 
+void
 prop_desc_free_handler_chain(PropDescription *pdesc)
 {
   if (pdesc) {
@@ -86,15 +84,15 @@ prop_desc_free_handler_chain(PropDescription *pdesc)
       PropEventHandlerChain *next = chain->chain;
       g_free(chain);
       chain = next;
-    } 
+    }
     pdesc->chain_handler.chain = NULL;
     pdesc->chain_handler.handler = NULL;
   }
 }
 
 /* free a handler indirection list in a list of descriptors */
-void 
-prop_desc_list_free_handler_chain(PropDescription *pdesc) 
+void
+prop_desc_list_free_handler_chain(PropDescription *pdesc)
 {
   if (!pdesc) return;
   while (pdesc->name) {
@@ -104,8 +102,8 @@ prop_desc_list_free_handler_chain(PropDescription *pdesc)
 }
 
 /* insert an event handler */
-void 
-prop_desc_insert_handler(PropDescription *pdesc, 
+void
+prop_desc_insert_handler(PropDescription *pdesc,
                          PropEventHandler handler)
 {
   if ((pdesc->chain_handler.handler) || (pdesc->chain_handler.chain)) {
@@ -162,7 +160,7 @@ prop_desc_lists_union(GList *plists)
   return ret;
 }
 
-gboolean 
+gboolean
 propdescs_can_be_merged(const PropDescription *p1,
                         const PropDescription *p2) {
   PropEventHandler peh1 = prop_desc_find_real_handler(p1);
@@ -173,7 +171,7 @@ propdescs_can_be_merged(const PropDescription *p1,
   if (peh1 != peh2) return FALSE;
   if ((p1->ops->can_merge && !(p1->ops->can_merge(p1,p2))) ||
       (p2->ops->can_merge && !(p2->ops->can_merge(p2,p1)))) return FALSE;
-  
+
   return TRUE;
 }
 

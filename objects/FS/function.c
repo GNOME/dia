@@ -18,9 +18,7 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -47,11 +45,11 @@ struct _Function {
   Element element;
 
   ConnectionPoint connections[NUM_CONNECTIONS];
-  
+
   Text *text;
 
   int is_wish;
-  int is_user;  
+  int is_user;
 };
 
 enum FuncChangeType {
@@ -171,14 +169,14 @@ static PropOffset function_offsets[] = {
 static void
 function_get_props(Function * function, GPtrArray *props)
 {
-  object_get_props_from_offsets(&function->element.object, 
+  object_get_props_from_offsets(&function->element.object,
                                 function_offsets, props);
 }
 
 static void
 function_set_props(Function *function, GPtrArray *props)
 {
-  object_set_props_from_offsets(&function->element.object, 
+  object_set_props_from_offsets(&function->element.object,
                                 function_offsets, props);
   function_update_data(function);
 }
@@ -238,7 +236,7 @@ function_create_change( Function* fcn, enum FuncChangeType change_type )
      change->text = text_get_string_copy( fcn->text ) ;
   return (ObjectChange*) change ;
 }
-  
+
 static real
 function_distance_from(Function *pkg, Point *point)
 {
@@ -286,7 +284,7 @@ function_draw(Function *pkg, DiaRenderer *renderer)
   real x, y, w, h;
   Point p1, p2;
   real font_height ;
-  
+
   assert(pkg != NULL);
   assert(pkg->text != NULL);
   assert(renderer != NULL);
@@ -311,7 +309,7 @@ function_draw(Function *pkg, DiaRenderer *renderer)
   p2.x = x+w; p2.y = y+h;
 
   if (pkg->is_user) {
-    renderer_ops->draw_rect(renderer, 
+    renderer_ops->draw_rect(renderer,
 			     &p1, &p2,
 			     &color_white,
 			     &color_black);
@@ -321,12 +319,12 @@ function_draw(Function *pkg, DiaRenderer *renderer)
     p2.x -= font_height / FUNCTION_MARGIN_SCALE;
     /* y += FUNCTION_MARGIN_M; */
   }
-  renderer_ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer,
 			   &p1, &p2,
 			   &color_white,
 			   &color_black);
 
-  
+
   text_draw(pkg->text, renderer);
 
 }
@@ -338,7 +336,7 @@ function_update_data(Function *pkg)
   DiaObject *obj = &elem->object;
   Point p1;
   real h, w = 0, font_height;
-  
+
   text_calc_boundingbox(pkg->text, NULL) ;
   font_height = pkg->text->height ;
   pkg->element.extra_spacing.border_trans = (font_height / FUNCTION_BORDERWIDTH_SCALE) / 2.0;
@@ -347,7 +345,7 @@ function_update_data(Function *pkg)
   if (pkg->is_user) {
     h += 2*font_height/FUNCTION_MARGIN_SCALE;
   }
-    
+
   w = MAX(w, pkg->text->max_width);
   p1.y = h + pkg->text->ascent - ( pkg->is_user ? font_height/FUNCTION_MARGIN_SCALE : 0 );  /* position of text */
 
@@ -355,15 +353,15 @@ function_update_data(Function *pkg)
 
   h += font_height/FUNCTION_MARGIN_Y;
 
-  w += 2*font_height/FUNCTION_MARGIN_X; 
+  w += 2*font_height/FUNCTION_MARGIN_X;
 
   p1.x = elem->corner.x + w/2.0 + ( pkg->is_user ? font_height/FUNCTION_MARGIN_SCALE : 0 );
   text_set_position(pkg->text, &p1);
-  
+
   if (pkg->is_user) {
     w += 2*font_height/FUNCTION_MARGIN_SCALE;
   }
-    
+
   elem->width = w;
   elem->height = h - elem->corner.y;
 
@@ -404,7 +402,7 @@ function_update_data(Function *pkg)
 		   elem->corner.x + elem->width / 2.0,
 		   elem->corner.y + elem->height / 2.0,
 		   DIR_SOUTHEAST);
-  
+
   element_update_boundingbox(elem);
 
   obj->position = elem->corner;
@@ -424,11 +422,11 @@ function_create(Point *startpoint,
   Point p;
   DiaFont *font;
   int i;
-  
+
   pkg = g_malloc0(sizeof(Function));
   elem = &pkg->element;
   obj = &elem->object;
-  
+
   obj->type = &function_type;
 
   obj->ops = &function_ops;
@@ -436,7 +434,7 @@ function_create(Point *startpoint,
   elem->corner = *startpoint;
 
   font = dia_font_new_from_style (DIA_FONT_SANS,FUNCTION_FONTHEIGHT);
-  
+
   pkg->is_wish = FALSE;
   pkg->is_user = FALSE;
 
@@ -446,9 +444,9 @@ function_create(Point *startpoint,
   pkg->text = new_text("", font, FUNCTION_FONTHEIGHT, &p, &color_black,
                        ALIGN_CENTER);
   dia_font_unref(font);
-  
+
   element_init(elem, 8, NUM_CONNECTIONS);
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &pkg->connections[i];
     pkg->connections[i].object = obj;
@@ -484,9 +482,9 @@ function_copy(Function *pkg)
   Function *newpkg;
   Element *elem, *newelem;
   DiaObject *newobj;
-  
+
   elem = &pkg->element;
-  
+
   newpkg = g_malloc0(sizeof(Function));
   newelem = &newpkg->element;
   newobj = &newelem->object;
@@ -494,7 +492,7 @@ function_copy(Function *pkg)
   element_copy(elem, newelem);
 
   newpkg->text = text_copy(pkg->text);
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     newobj->connections[i] = &newpkg->connections[i];
     newpkg->connections[i].object = newobj;
@@ -508,7 +506,7 @@ function_copy(Function *pkg)
   newpkg->element.extra_spacing.border_trans = pkg->element.extra_spacing.border_trans ;
 
   function_update_data(newpkg);
-  
+
   return &newpkg->element.object;
 }
 
@@ -536,16 +534,16 @@ function_load(ObjectNode obj_node, int version, DiaContext *ctx)
   Element *elem;
   DiaObject *obj;
   int i;
-  
+
   pkg = g_malloc0(sizeof(Function));
   elem = &pkg->element;
   obj = &elem->object;
-  
+
   obj->type = &function_type;
   obj->ops = &function_ops;
 
   element_load(elem, obj_node, ctx);
-  
+
   pkg->text = NULL;
   attr = object_find_attribute(obj_node, "text");
   if (attr != NULL)
@@ -652,7 +650,7 @@ struct _IndentedMenus {
    ; Elisp functions to generate comments:)
    (setq q nil)
    (defun q-pop () (setq q (cdr q)))
-   (defun q-push () 
+   (defun q-push ()
      (re-search-forward "(\"\\([^\"]*\\)\")" (+ (point) 30))
      (setq word (buffer-substring (match-beginning 1) (match-end 1)))
      (setq q (cons word q)))

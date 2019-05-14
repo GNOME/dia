@@ -18,9 +18,7 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -89,7 +87,7 @@ static void attribute_select(Attribute *attribute, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
 static ObjectChange* attribute_move_handle(Attribute *attribute, Handle *handle,
 					   Point *to, ConnectionPoint *cp,
-					   HandleMoveReason reason, 
+					   HandleMoveReason reason,
 					   ModifierKeys modifiers);
 static ObjectChange* attribute_move(Attribute *attribute, Point *to);
 static void attribute_draw(Attribute *attribute, DiaRenderer *renderer);
@@ -193,14 +191,14 @@ static PropOffset attribute_offsets[] = {
 static void
 attribute_get_props(Attribute *attribute, GPtrArray *props)
 {
-  object_get_props_from_offsets(&attribute->element.object, 
+  object_get_props_from_offsets(&attribute->element.object,
                                 attribute_offsets, props);
 }
 
 static void
 attribute_set_props(Attribute *attribute, GPtrArray *props)
 {
-  object_set_props_from_offsets(&attribute->element.object, 
+  object_set_props_from_offsets(&attribute->element.object,
                                 attribute_offsets, props);
   attribute_update_data(attribute);
 }
@@ -235,7 +233,7 @@ attribute_move_handle(Attribute *attribute, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
-  element_move_handle(&attribute->element, handle->id, to, cp, 
+  element_move_handle(&attribute->element, handle->id, to, cp,
 		      reason, modifiers);
   attribute_update_data(attribute);
 
@@ -260,7 +258,7 @@ attribute_draw(Attribute *attribute, DiaRenderer *renderer)
   Point p;
   Element *elem;
   real width;
-  
+
   assert(attribute != NULL);
   assert(renderer != NULL);
 
@@ -268,7 +266,7 @@ attribute_draw(Attribute *attribute, DiaRenderer *renderer)
 
   center.x = elem->corner.x + elem->width/2;
   center.y = elem->corner.y + elem->height/2;
-  
+
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->draw_ellipse (renderer, &center,
 			      elem->width, elem->height,
@@ -298,8 +296,8 @@ attribute_draw(Attribute *attribute, DiaRenderer *renderer)
                          attribute->font, attribute->font_height);
 
   renderer_ops->set_font(renderer,  attribute->font, attribute->font_height);
-  renderer_ops->draw_string(renderer, attribute->name, 
-			     &p, ALIGN_CENTER, 
+  renderer_ops->draw_string(renderer, attribute->name,
+			     &p, ALIGN_CENTER,
 			     &color_black);
 
   if (attribute->key || attribute->weakkey) {
@@ -336,10 +334,10 @@ attribute_update_data(Attribute *attribute)
 
   center.x = elem->corner.x + elem->width / 2.0;
   center.y = elem->corner.y + elem->height / 2.0;
-  
+
   half_x = elem->width * M_SQRT1_2 / 2.0;
   half_y = elem->height * M_SQRT1_2 / 2.0;
-    
+
   /* Update connections: */
   connpoint_update(&attribute->connections[0],
 		    center.x - half_x,
@@ -384,7 +382,7 @@ attribute_update_data(Attribute *attribute)
   obj->position = elem->corner;
 
   element_update_handles(elem);
-  
+
 }
 
 static DiaObject *
@@ -401,7 +399,7 @@ attribute_create(Point *startpoint,
   attribute = g_malloc0(sizeof(Attribute));
   elem = &attribute->element;
   obj = &elem->object;
-  
+
   obj->type = &attribute_type;
   obj->ops = &attribute_ops;
 
@@ -459,9 +457,9 @@ attribute_copy(Attribute *attribute)
   Attribute *newattribute;
   Element *elem, *newelem;
   DiaObject *newobj;
-  
+
   elem = &attribute->element;
-  
+
   newattribute = g_malloc0(sizeof(Attribute));
   newelem = &newattribute->element;
   newobj = &newelem->object;
@@ -479,7 +477,7 @@ attribute_copy(Attribute *attribute)
     newattribute->connections[i].pos = attribute->connections[i].pos;
     newattribute->connections[i].flags = attribute->connections[i].flags;
   }
-  
+
   newattribute->font = dia_font_ref(attribute->font);
   newattribute->font_height = attribute->font_height;
   newattribute->name = g_strdup(attribute->name);
@@ -534,7 +532,7 @@ attribute_load(ObjectNode obj_node, int version,DiaContext *ctx)
   attribute = g_malloc0(sizeof(Attribute));
   elem = &attribute->element;
   obj = &elem->object;
-  
+
   obj->type = &attribute_type;
   obj->ops = &attribute_ops;
 
@@ -549,12 +547,12 @@ attribute_load(ObjectNode obj_node, int version,DiaContext *ctx)
   attr = object_find_attribute(obj_node, "border_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &attribute->border_color, ctx);
-  
+
   attribute->inner_color = color_white;
   attr = object_find_attribute(obj_node, "inner_color");
   if (attr != NULL)
     data_color(attribute_first_data(attr), &attribute->inner_color, ctx);
-  
+
   attribute->name = NULL;
   attr = object_find_attribute(obj_node, "name");
   if (attr != NULL)
@@ -567,7 +565,7 @@ attribute_load(ObjectNode obj_node, int version,DiaContext *ctx)
   attr = object_find_attribute(obj_node, "weak_key");
   if (attr != NULL)
     attribute->weakkey = data_boolean(attribute_first_data(attr), ctx);
-  
+
   attr = object_find_attribute(obj_node, "derived");
   if (attr != NULL)
     attribute->derived = data_boolean(attribute_first_data(attr), ctx);

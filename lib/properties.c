@@ -6,7 +6,7 @@
  * Copyright (C) 2001 Cyrille Chepelov
  * Major restructuration done in August 2001 by C. Chepelov
  *
- * properties.c: initialisation routines and stuff that didn't fit anywhere 
+ * properties.c: initialisation routines and stuff that didn't fit anywhere
  * else. Most of what used to be here has been moved elsewhere !
  *
  * This program is free software; you can redistribute it and/or modify
@@ -24,9 +24,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "geometry.h"
 #include "properties.h"
@@ -34,7 +32,7 @@
 
 /* --------------------------------------- */
 
-void 
+void
 stdprops_init(void)
 {
   prop_basic_register();

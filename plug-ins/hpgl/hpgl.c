@@ -3,8 +3,8 @@
  *
  * hpgl.c -- HPGL export plugin for dia
  * Copyright (C) 2000, Hans Breuer, <Hans@Breuer.Org>
- *   based on dummy.c 
- *   based on CGM plug-in Copyright (C) 1999 James Henstridge. 
+ *   based on dummy.c
+ *   based on CGM plug-in Copyright (C) 1999 James Henstridge.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,9 +27,7 @@
  *   interested renderers ?
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <stdio.h>
 #include <string.h>
@@ -50,8 +48,8 @@
 /* format specific */
 #define HPGL_MAX_PENS 8
 
-#define PEN_HAS_COLOR (1 << 0) 
-#define PEN_HAS_WIDTH (1 << 1) 
+#define PEN_HAS_COLOR (1 << 0)
+#define PEN_HAS_WIDTH (1 << 1)
 
 /* GObject boiler plate */
 #define HPGL_TYPE_RENDERER           (hpgl_renderer_get_type ())
@@ -118,7 +116,7 @@ hpgl_select_pen(HpglRenderer* renderer, Color* color, real width)
             }
         }
     }
- 
+
     if (NULL != color) {
         for (i = nPen; i < HPGL_MAX_PENS; i++) {
             if (!(renderer->pen[i].has_it & PEN_HAS_COLOR)) {
@@ -160,7 +158,7 @@ hpgl_scale(HpglRenderer *renderer, real val)
     return (int)((val + renderer->offset) * renderer->scale);
 }
 
-/* render functions */ 
+/* render functions */
 static void
 begin_render(DiaRenderer *object, const Rectangle *update)
 {
@@ -189,7 +187,7 @@ end_render(DiaRenderer *object)
 
 static void
 set_linewidth(DiaRenderer *object, real linewidth)
-{  
+{
     HpglRenderer *renderer = HPGL_RENDERER (object);
 
     DIAG_NOTE(g_message("set_linewidth %f", linewidth));
@@ -289,36 +287,36 @@ set_font(DiaRenderer *object, DiaFont *font, real height)
 }
 
 /* Need to translate coord system:
- * 
+ *
  *   Dia x,y -> Hpgl x,-y
  *
  * doing it before scaling.
  */
 static void
-draw_line(DiaRenderer *object, 
-          Point *start, Point *end, 
+draw_line(DiaRenderer *object,
+          Point *start, Point *end,
           Color *line_colour)
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
 
-    DIAG_NOTE(g_message("draw_line %f,%f -> %f, %f", 
+    DIAG_NOTE(g_message("draw_line %f,%f -> %f, %f",
               start->x, start->y, end->x, end->y));
     hpgl_select_pen(renderer, line_colour, 0.0);
-    fprintf (renderer->file, 
+    fprintf (renderer->file,
              "PU%d,%d;PD%d,%d;\n",
              hpgl_scale(renderer, start->x), hpgl_scale(renderer, -start->y),
              hpgl_scale(renderer, end->x), hpgl_scale(renderer, -end->y));
 }
 
 static void
-draw_polyline(DiaRenderer *object, 
-	      Point *points, int num_points, 
+draw_polyline(DiaRenderer *object,
+	      Point *points, int num_points,
 	      Color *line_colour)
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
     int i;
 
-    DIAG_NOTE(g_message("draw_polyline n:%d %f,%f ...", 
+    DIAG_NOTE(g_message("draw_polyline n:%d %f,%f ...",
               num_points, points->x, points->y));
 
     g_return_if_fail(1 < num_points);
@@ -339,12 +337,12 @@ draw_polyline(DiaRenderer *object,
 }
 
 static void
-draw_polygon(DiaRenderer *object, 
-	     Point *points, int num_points, 
+draw_polygon(DiaRenderer *object,
+	     Point *points, int num_points,
 	     Color *fill, Color *stroke)
 {
     Color *color = fill ? fill : stroke;
-    DIAG_NOTE(g_message("draw_polygon n:%d %f,%f ...", 
+    DIAG_NOTE(g_message("draw_polygon n:%d %f,%f ...",
               num_points, points->x, points->y));
     g_return_if_fail (color != NULL);
     draw_polyline(object,points,num_points, color);
@@ -353,7 +351,7 @@ draw_polygon(DiaRenderer *object,
 }
 
 static void
-draw_rect(DiaRenderer *object, 
+draw_rect(DiaRenderer *object,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *fill, Color *stroke)
 {
@@ -362,7 +360,7 @@ draw_rect(DiaRenderer *object,
 
     g_return_if_fail (colour != NULL);
 
-    DIAG_NOTE(g_message("draw_rect %f,%f -> %f,%f", 
+    DIAG_NOTE(g_message("draw_rect %f,%f -> %f,%f",
               ul_corner->x, ul_corner->y, lr_corner->x, lr_corner->y));
     hpgl_select_pen(renderer, colour, 0.0);
     fprintf (renderer->file, "PU%d,%d;PD;EA%d,%d;\n",
@@ -373,7 +371,7 @@ draw_rect(DiaRenderer *object,
 }
 
 static void
-draw_arc(DiaRenderer *object, 
+draw_arc(DiaRenderer *object,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -382,7 +380,7 @@ draw_arc(DiaRenderer *object,
     HpglRenderer *renderer = HPGL_RENDERER (object);
     Point start;
 
-    DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f", 
+    DIAG_NOTE(g_message("draw_arc %fx%f <%f,<%f",
               width, height, angle1, angle2));
     hpgl_select_pen(renderer, colour, 0.0);
 
@@ -393,7 +391,7 @@ draw_arc(DiaRenderer *object,
 	angle2 = tmp;
     }
     /* move to start point */
-    start.x = center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1);  
+    start.x = center->x + (width / 2.0)  * cos((M_PI / 180.0) * angle1);
     start.y = - center->y + (height / 2.0) * sin((M_PI / 180.0) * angle1);
     fprintf (renderer->file, "PU%d,%d;PD;",
              hpgl_scale(renderer, start.x),
@@ -406,7 +404,7 @@ draw_arc(DiaRenderer *object,
 }
 
 static void
-fill_arc(DiaRenderer *object, 
+fill_arc(DiaRenderer *object,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -414,7 +412,7 @@ fill_arc(DiaRenderer *object,
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
 
-    DIAG_NOTE(g_message("fill_arc %fx%f <%f,<%f", 
+    DIAG_NOTE(g_message("fill_arc %fx%f <%f,<%f",
               width, height, angle1, angle2));
     g_assert (width == height);
 
@@ -430,10 +428,10 @@ fill_arc(DiaRenderer *object,
 
 /* may go into lib/diarenderer.c if another renderer would be interested */
 /* Draw an ellipse approximation consisting out of
- * four arcs. 
+ * four arcs.
  */
 static void
-draw_ellipse_by_arc (DiaRenderer *renderer, 
+draw_ellipse_by_arc (DiaRenderer *renderer,
                      Point *center,
                      real width, real height,
                      Color *colour)
@@ -481,7 +479,7 @@ draw_ellipse_by_arc (DiaRenderer *renderer,
 }
 
 static void
-draw_ellipse(DiaRenderer *object, 
+draw_ellipse(DiaRenderer *object,
 	     Point *center,
 	     real width, real height,
 	     Color *fill, Color *stroke)
@@ -489,13 +487,13 @@ draw_ellipse(DiaRenderer *object,
   HpglRenderer *renderer = HPGL_RENDERER (object);
   Color *colour = fill ? fill : stroke;
 
-  DIAG_NOTE(g_message("draw_ellipse %fx%f center @ %f,%f", 
+  DIAG_NOTE(g_message("draw_ellipse %fx%f center @ %f,%f",
             width, height, center->x, center->y));
 
   if (width != height)
     {
       draw_ellipse_by_arc(object, center, width, height, colour);
-    }  
+    }
   else
     {
       hpgl_select_pen(renderer, colour, 0.0);
@@ -516,7 +514,7 @@ draw_string(DiaRenderer *object,
     HpglRenderer *renderer = HPGL_RENDERER (object);
     real width, height;
 
-    DIAG_NOTE(g_message("draw_string %f,%f %s", 
+    DIAG_NOTE(g_message("draw_string %f,%f %s",
               pos->x, pos->y, text));
 
     /* set position */
@@ -542,9 +540,9 @@ draw_string(DiaRenderer *object,
      *    set the capital letter box width and height as a percentage of
      *    P2X-P1X  and P2Y-P1Y
      */
-    height = (127.999 * renderer->font_height * renderer->scale) / renderer->size.y; 
+    height = (127.999 * renderer->font_height * renderer->scale) / renderer->size.y;
     width  = 0.75 * height; /* FIXME: */
-    fprintf(renderer->file, "SR%d.%03d,%d.%03d;", 
+    fprintf(renderer->file, "SR%d.%03d,%d.%03d;",
             (int)width, (int)((width * 1000) % 1000),
             (int)height, (int)((height * 1000) % 1000));
 #else
@@ -554,7 +552,7 @@ draw_string(DiaRenderer *object,
      */
     width = renderer->font_height * renderer->scale * 0.75 * 0.0025;
     height = renderer->font_height * renderer->scale * 0.0025;
-    fprintf(renderer->file, "SI%d.%03d,%d.%03d;", 
+    fprintf(renderer->file, "SI%d.%03d,%d.%03d;",
             (int)width, ((int)(width * 1000) % 1000),
             (int)height, ((int)(height * 1000) % 1000));
 #endif
@@ -568,7 +566,7 @@ draw_image(DiaRenderer *object,
 	   real width, real height,
 	   DiaImage *image)
 {
-    DIAG_NOTE(g_message("draw_image %fx%f @%f,%f", 
+    DIAG_NOTE(g_message("draw_image %fx%f @%f,%f",
               width, height, point->x, point->y));
     g_warning("HPGL: images unsupported!");
 }
@@ -602,7 +600,7 @@ hpgl_renderer_get_type (void)
                                             "HpglRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
@@ -662,7 +660,7 @@ export_data(DiagramData *data, DiaContext *ctx,
     file = g_fopen(filename, "w"); /* "wb" for binary! */
 
     if (!file) {
-	dia_context_add_message_with_errno(ctx, errno, _("Can't open output file %s."), 
+	dia_context_add_message_with_errno(ctx, errno, _("Can't open output file %s."),
 					   dia_context_get_filename(ctx));
 	return FALSE;
     }
@@ -674,7 +672,7 @@ export_data(DiagramData *data, DiaContext *ctx,
     extent = &data->extents;
 
     /* use extents */
-    DIAG_NOTE(g_message("export_data extents %f,%f -> %f,%f", 
+    DIAG_NOTE(g_message("export_data extents %f,%f -> %f,%f",
               extent->left, extent->top, extent->right, extent->bottom));
 
     width  = extent->right - extent->left;

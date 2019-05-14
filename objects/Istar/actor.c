@@ -22,9 +22,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -207,7 +205,7 @@ actor_select(Actor *actor, Point *clicked_point,
 
 static ObjectChange*
 actor_move_handle(Actor *actor, Handle *handle,
-		Point *to, ConnectionPoint *cp, 
+		Point *to, ConnectionPoint *cp,
 		HandleMoveReason reason, ModifierKeys modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
@@ -340,11 +338,11 @@ actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
   mradius=width;
   if (mradius<height) mradius=height;
   if (mradius<ACTOR_RADIUS) mradius=ACTOR_RADIUS;
-  
+
   /* radius */
   radius=elem->width;
   if (radius<elem->height) radius=elem->height;
-  
+
   /* enforce (minimal or resized) radius */
   if (radius<mradius) radius=mradius;
   elem->width=elem->height=radius;

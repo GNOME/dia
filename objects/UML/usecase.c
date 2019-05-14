@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -57,7 +55,7 @@ struct _Usecase {
 
 struct _UsecasePropertiesDialog {
   GtkWidget *dialog;
-  
+
   GtkToggleButton *text_out;
   GtkToggleButton *collaboration;
 };
@@ -94,7 +92,7 @@ static ObjectTypeOps usecase_type_ops =
   (CreateFunc) usecase_create,
   (LoadFunc)   usecase_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -133,11 +131,11 @@ static PropDescription usecase_props[] = {
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
-  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
-  
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
+
   PROP_DESC_END
 };
 
@@ -214,10 +212,10 @@ usecase_move(Usecase *usecase, Point *to)
 {
   real h;
   Point p;
-  
+
   usecase->element.corner = *to;
   h = usecase->text->height*usecase->text->numlines;
-  
+
   p = *to;
   p.x += usecase->element.width/2.0;
   if (usecase->text_outside) {
@@ -251,12 +249,12 @@ usecase_draw(Usecase *usecase, DiaRenderer *renderer)
       w = USECASE_WIDTH;
       h = USECASE_HEIGHT;
       c.x = x + elem->width/2.0;
-      c.y = y + USECASE_HEIGHT / 2.0;     
+      c.y = y + USECASE_HEIGHT / 2.0;
    } else {
       w = elem->width;
       h = elem->height;
       c.x = x + w/2.0;
-      c.y = y + h/2.0;    
+      c.y = y + h/2.0;
   }
 
 
@@ -265,14 +263,14 @@ usecase_draw(Usecase *usecase, DiaRenderer *renderer)
 
   if (usecase->collaboration)
     renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, 1.0);
-  else 
+  else
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
-  renderer_ops->draw_ellipse(renderer, 
+  renderer_ops->draw_ellipse(renderer,
 			     &c,
 			     w, h,
-			     &usecase->fill_color, &usecase->line_color);  
-  
+			     &usecase->fill_color, &usecase->line_color);
+
   text_draw(usecase->text, renderer);
 }
 
@@ -282,21 +280,21 @@ usecase_update_data(Usecase *usecase)
 {
   real w, h, ratio;
   Point c, half, r,p;
-  
+
   Element *elem = &usecase->element;
   ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
-  
+
   text_calc_boundingbox(usecase->text, NULL);
   w = usecase->text->max_width;
   h = usecase->text->height*usecase->text->numlines;
 
-  if (!usecase->text_outside) { 
+  if (!usecase->text_outside) {
       ratio = w/h;
 
-      if (ratio > USECASE_MAX_RATIO) 
+      if (ratio > USECASE_MAX_RATIO)
 	  ratio = USECASE_MAX_RATIO;
-  
+
       if (ratio < USECASE_MIN_RATIO) {
 	  ratio = USECASE_MIN_RATIO;
 	  r.y = w / ratio + h;
@@ -305,7 +303,7 @@ usecase_update_data(Usecase *usecase)
 	  r.x = ratio*h + w;
 	  r.y = r.x / ratio;
       }
-      if (r.x < USECASE_WIDTH) 
+      if (r.x < USECASE_WIDTH)
 	      r.x = USECASE_WIDTH;
       if (r.y < USECASE_HEIGHT)
 	      r.y = USECASE_HEIGHT;
@@ -318,7 +316,7 @@ usecase_update_data(Usecase *usecase)
   elem->height = r.y;
   extra->border_trans = usecase->line_width / 2.0;
 
-  if (usecase->text_outside) { 
+  if (usecase->text_outside) {
 	  elem->width = MAX(elem->width, w);
 	  elem->height += h + USECASE_MARGIN_Y;
   }
@@ -341,8 +339,8 @@ usecase_update_data(Usecase *usecase)
   usecase->connections[3].pos.y = c.y;
   usecase->connections[4].pos.x = c.x + r.x;
   usecase->connections[4].pos.y = c.y;
-                                                                                            
-  if (usecase->text_outside) { 
+
+  if (usecase->text_outside) {
       usecase->connections[5].pos.x = elem->corner.x;
       usecase->connections[5].pos.y = elem->corner.y + elem->height;
       usecase->connections[6].pos.x = c.x;
@@ -400,11 +398,11 @@ usecase_create(Point *startpoint,
   Point p;
   DiaFont *font;
   int i;
-  
+
   usecase = g_malloc0(sizeof(Usecase));
   elem = &usecase->element;
   obj = &elem->object;
-  
+
   obj->type = &usecase_type;
   obj->ops = &usecase_ops;
   elem->corner = *startpoint;
@@ -419,14 +417,14 @@ usecase_create(Point *startpoint,
   p = *startpoint;
   p.x += USECASE_WIDTH/2.0;
   p.y += USECASE_HEIGHT/2.0;
-  
+
   usecase->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
-  dia_font_unref(font);  
+  dia_font_unref(font);
 
   usecase->text_outside = 0;
   usecase->collaboration = 0;
   element_init(elem, 8, NUM_CONNECTIONS);
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &usecase->connections[i];
     usecase->connections[i].object = obj;

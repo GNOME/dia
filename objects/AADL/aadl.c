@@ -19,9 +19,7 @@
 */
 
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "object.h"
 
@@ -64,7 +62,7 @@ dia_plugin_init(PluginInfo *info)
   object_register_type(&aadlbus_type);
   object_register_type(&aadlmemory_type);
   object_register_type(&aadlpackage_type);
-  
+
   return DIA_PLUGIN_INIT_OK;
 }
 

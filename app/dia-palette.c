@@ -1,8 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Copyright (C) 1998 Alexander Larsson
- *
- * Chronogram objects support
- * Copyright (C) 2000 Cyrille Chepelov
+ * Copyright © 2019 Zander Brown <zbrown@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,26 +18,39 @@
 
 #include <config.h>
 
-#include "object.h"
+#include "dia-palette.h"
 
-#include "intl.h"
-#include "chronogram.h"
-#include "plug-ins.h"
-
-extern DiaObjectType chronoref_type;
-extern DiaObjectType chronoline_type;
-
-DIA_PLUGIN_CHECK_INIT
-
-PluginInitResult
-dia_plugin_init(PluginInfo *info)
+struct _DiaPalette
 {
-  if (!dia_plugin_info_init(info, "Chronogram",_("Chronogram diagram objects"),
-			    NULL, NULL))
-    return DIA_PLUGIN_INIT_ERROR;
+  GtkGrid parent;
 
-  object_register_type(&chronoref_type);
-  object_register_type(&chronoline_type);
+  int active;
+  GtkWidget *dialog;
+  GtkWidget *button;
+};
 
-  return DIA_PLUGIN_INIT_OK;
+
+G_DEFINE_TYPE (DiaPalette, dia_palette, GTK_TYPE_GRID)
+
+static void
+dia_palette_dialog_ok (GtkWidget *widget, DiaPalette *self)
+{
+  gtk_dialog_response (GTK_DIALOG (self->dialog), GTK_RESPONSE_OK);
+}
+
+static void
+dia_palette_class_init (DiaPaletteClass *class)
+{
+}
+
+static void
+dia_palette_init (DiaPalette *self)
+{
+}
+
+
+GtkWidget *
+dia_palette_new ()
+{
+  return g_object_new (DIA_TYPE_PALETTE, NULL);
 }

@@ -1,7 +1,7 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * GRAFCET chart support 
+ * GRAFCET chart support
  * Copyright(C) 2000,2001 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -58,7 +56,7 @@
 
 typedef struct _Transition {
   Element element;
-  
+
   Boolequation *receptivity;
   DiaFont *rcep_font;
   real rcep_fontheight;
@@ -68,7 +66,7 @@ typedef struct _Transition {
   ConnectionPoint connections[2];
   Handle north,south;
   Point SD1,SD2,NU1,NU2;
-  
+
   /* computed values : */
   Rectangle rceptbb; /* The bounding box of the receptivity */
   Point A,B,C,D,Z;
@@ -92,9 +90,9 @@ static void transition_destroy(Transition *transition);
 static DiaObject *transition_load(ObjectNode obj_node, int version,
 				  DiaContext *ctx);
 static PropDescription *transition_describe_props(Transition *transition);
-static void transition_get_props(Transition *transition, 
+static void transition_get_props(Transition *transition,
                                  GPtrArray *props);
-static void transition_set_props(Transition *transition, 
+static void transition_set_props(Transition *transition,
                                  GPtrArray *props);
 
 static ObjectTypeOps transition_type_ops =
@@ -146,17 +144,17 @@ static PropDescription transition_props[] = {
     N_("Color"),N_("The receptivity's color")},
   { "north_pos",PROP_TYPE_POINT,0,N_("North point"),NULL },
   { "south_pos",PROP_TYPE_POINT,0,N_("South point"),NULL },
-  PROP_DESC_END 
+  PROP_DESC_END
 };
 
 static PropDescription *
-transition_describe_props(Transition *transition) 
+transition_describe_props(Transition *transition)
 {
   if (transition_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(transition_props);
   }
   return transition_props;
-}    
+}
 
 static PropOffset transition_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
@@ -171,7 +169,7 @@ static PropOffset transition_offsets[] = {
 
 static void
 transition_get_props(Transition *transition, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&transition->element.object,
                                 transition_offsets,props);
 }
@@ -206,22 +204,22 @@ transition_update_data(Transition *transition)
 
   /* compute the useful points' positions : */
   transition->A.x = transition->B.x = (TRANSITION_DECLAREDWIDTH / 2.0);
-  transition->A.y = (TRANSITION_DECLAREDHEIGHT / 2.0) 
+  transition->A.y = (TRANSITION_DECLAREDHEIGHT / 2.0)
     - (TRANSITION_HEIGHT / 2.0);
   transition->B.y = transition->A.y + TRANSITION_HEIGHT;
   transition->C.y = transition->D.y = (TRANSITION_DECLAREDHEIGHT / 2.0);
-  transition->C.x = 
+  transition->C.x =
     (TRANSITION_DECLAREDWIDTH / 2.0) - (TRANSITION_WIDTH / 2.0);
   transition->D.x = transition->C.x + TRANSITION_WIDTH;
-  
-  transition->Z.y = (TRANSITION_DECLAREDHEIGHT / 2.0) 
+
+  transition->Z.y = (TRANSITION_DECLAREDHEIGHT / 2.0)
     + (.3 * transition->receptivity->fontheight);
 
-  transition->Z.x = transition->D.x + 
+  transition->Z.x = transition->D.x +
     dia_font_string_width("_",transition->receptivity->font,
                           transition->receptivity->fontheight);
 
-  for (p = &transition->A; p <= &transition->Z; p++) 
+  for (p = &transition->A; p <= &transition->Z; p++)
     point_add(p,&elem->corner);
 
   transition->receptivity->pos = transition->Z;
@@ -234,11 +232,11 @@ transition_update_data(Transition *transition)
   }
   transition->NU1.x = transition->north.pos.x;
   transition->NU2.x = transition->A.x;
-  transition->NU1.y = transition->NU2.y = 
+  transition->NU1.y = transition->NU2.y =
     (transition->north.pos.y + transition->A.y) / 2.0;
   transition->SD1.x = transition->B.x;
   transition->SD2.x = transition->south.pos.x;
-  transition->SD1.y = transition->SD2.y = 
+  transition->SD1.y = transition->SD2.y =
     (transition->south.pos.y + transition->B.y) / 2.0;
 
   obj->connections[0]->pos = transition->A;
@@ -291,7 +289,7 @@ transition_select(Transition *transition, Point *clicked_point,
 static ObjectChange*
 transition_move_handle(Transition *transition, Handle *handle,
 		       Point *to, ConnectionPoint *cp,
-		       HandleMoveReason reason, 
+		       HandleMoveReason reason,
 		       ModifierKeys modifiers)
 {
   g_assert(transition!=NULL);
@@ -301,16 +299,16 @@ transition_move_handle(Transition *transition, Handle *handle,
   switch(handle->id) {
   case HANDLE_NORTH:
     transition->north.pos = *to;
-    if (transition->north.pos.y > transition->A.y) 
+    if (transition->north.pos.y > transition->A.y)
       transition->north.pos.y = transition->A.y;
     break;
   case HANDLE_SOUTH:
     transition->south.pos = *to;
-    if (transition->south.pos.y < transition->B.y) 
+    if (transition->south.pos.y < transition->B.y)
       transition->south.pos.y = transition->B.y;
     break;
   default:
-    element_move_handle(&transition->element, handle->id, to, cp, 
+    element_move_handle(&transition->element, handle->id, to, cp,
 			reason, modifiers);
   }
 
@@ -337,7 +335,7 @@ transition_move(Transition *transition, Point *to)
 }
 
 
-static void 
+static void
 transition_draw(Transition *transition, DiaRenderer *renderer)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
@@ -358,7 +356,7 @@ transition_draw(Transition *transition, DiaRenderer *renderer)
   renderer_ops->draw_line(renderer,
 			     &transition->C,&transition->D,
 			     &color_black);
-  
+
   boolequation_draw(transition->receptivity,renderer);
 }
 
@@ -372,17 +370,17 @@ transition_create(Point *startpoint,
   DiaObject *obj;
   int i;
   Element *elem;
-  DiaFont *default_font = NULL; 
+  DiaFont *default_font = NULL;
   real default_fontheight;
   Color fg_color;
 
   transition = g_malloc0(sizeof(Transition));
   elem = &transition->element;
   obj = &elem->object;
-  
+
   obj->type = &transition_type;
   obj->ops = &transition_ops;
-  
+
   elem->corner = *startpoint;
   elem->width = TRANSITION_DECLAREDWIDTH;
   elem->height = TRANSITION_DECLAREDHEIGHT;
@@ -391,8 +389,8 @@ transition_create(Point *startpoint,
 
   attributes_get_default_font(&default_font,&default_fontheight);
   fg_color = attributes_get_foreground();
-  
-  transition->receptivity = 
+
+  transition->receptivity =
     boolequation_create("",
                         default_font,
                         default_fontheight,
@@ -404,7 +402,7 @@ transition_create(Point *startpoint,
   transition->rcep_color = fg_color;
 
   dia_font_unref(default_font);
-  
+
 
   for (i=0;i<8;i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
@@ -428,7 +426,7 @@ transition_create(Point *startpoint,
   transition_update_data(transition);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[0];  
+  *handle2 = obj->handles[0];
 
   return &transition->element.object;
 }

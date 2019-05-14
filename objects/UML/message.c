@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -60,7 +58,7 @@ struct _Message {
   gchar *text;
   Point text_pos;
   real text_width;
-    
+
   Color text_color;
   Color line_color;
 
@@ -102,7 +100,7 @@ static ObjectTypeOps message_type_ops =
   (CreateFunc) message_create,
   (LoadFunc)   message_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -155,10 +153,10 @@ static PropDescription message_props[] = {
   PROP_STD_TEXT_FONT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  { "text_pos", PROP_TYPE_POINT, 0, 
+  { "text_pos", PROP_TYPE_POINT, 0,
     "text_pos:", NULL,NULL },
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -181,7 +179,7 @@ static PropOffset message_offsets[] = {
   { "text_font", PROP_TYPE_FONT, offsetof(Message, font) },
   { PROP_STDNAME_TEXT_HEIGHT, PROP_STDTYPE_TEXT_HEIGHT, offsetof(Message, font_height) },
   { "text_colour",PROP_TYPE_COLOUR,offsetof(Message,text_color) },
-  { "text_pos", PROP_TYPE_POINT, offsetof(Message,text_pos) }, 
+  { "text_pos", PROP_TYPE_POINT, offsetof(Message,text_pos) },
   { PROP_STDNAME_LINE_WIDTH,PROP_TYPE_LENGTH,offsetof(Message, line_width) },
   { "line_colour",PROP_TYPE_COLOUR,offsetof(Message,line_color) },
   { NULL, 0, 0 }
@@ -190,14 +188,14 @@ static PropOffset message_offsets[] = {
 static void
 message_get_props(Message * message, GPtrArray *props)
 {
-  object_get_props_from_offsets(&message->connection.object, 
+  object_get_props_from_offsets(&message->connection.object,
                                 message_offsets, props);
 }
 
 static void
 message_set_props(Message *message, GPtrArray *props)
 {
-  object_set_props_from_offsets(&message->connection.object, 
+  object_set_props_from_offsets(&message->connection.object,
                                 message_offsets, props);
   message_update_data(message);
 }
@@ -208,11 +206,11 @@ message_distance_from(Message *message, Point *point)
 {
   Point *endpoints;
   real dist;
-  
+
   endpoints = &message->connection.endpoints[0];
-  
+
   dist = distance_line_point(&endpoints[0], &endpoints[1], message->line_width, point);
-  
+
   return dist;
 }
 
@@ -230,7 +228,7 @@ message_move_handle(Message *message, Handle *handle,
 {
   Point p1, p2;
   Point *endpoints;
-  
+
   assert(message!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -238,7 +236,7 @@ message_move_handle(Message *message, Handle *handle,
   if (handle->id == HANDLE_MOVE_TEXT) {
     message->text_pos = *to;
   } else  {
-    endpoints = &message->connection.endpoints[0]; 
+    endpoints = &message->connection.endpoints[0];
     p1.x = 0.5*(endpoints[0].x + endpoints[1].x);
     p1.y = 0.5*(endpoints[0].y + endpoints[1].y);
     connection_move_handle(&message->connection, handle->id, to, cp, reason, modifiers);
@@ -258,12 +256,12 @@ static ObjectChange*
 message_move(Message *message, Point *to)
 {
   Point start_to_end;
-  Point *endpoints = &message->connection.endpoints[0]; 
+  Point *endpoints = &message->connection.endpoints[0];
   Point delta;
 
   delta = *to;
   point_sub(&delta, &endpoints[0]);
- 
+
   start_to_end = endpoints[1];
   point_sub(&start_to_end, &endpoints[0]);
 
@@ -271,7 +269,7 @@ message_move(Message *message, Point *to)
   point_add(&endpoints[1], &start_to_end);
 
   point_add(&message->text_pos, &delta);
-  
+
   message_update_data(message);
 
   return NULL;
@@ -289,17 +287,17 @@ message_draw(Message *message, DiaRenderer *renderer)
   assert(message != NULL);
   assert(renderer != NULL);
 
-  if (message->type==MESSAGE_SEND) 
+  if (message->type==MESSAGE_SEND)
       arrow.type = ARROW_HALF_HEAD;
-  else if (message->type==MESSAGE_SIMPLE) 
+  else if (message->type==MESSAGE_SIMPLE)
       arrow.type = ARROW_LINES;
-  else 
+  else
       arrow.type = ARROW_FILLED_TRIANGLE;
   arrow.length = MESSAGE_ARROWLEN;
   arrow.width = MESSAGE_ARROWWIDTH;
 
   endpoints = &message->connection.endpoints[0];
-  
+
   renderer_ops->set_linewidth(renderer, message->line_width);
 
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
@@ -330,13 +328,13 @@ message_draw(Message *message, DiaRenderer *renderer)
 			   &px, &p2,
 			   &message->line_color);
       p1.y = p2.y;
-  } 
+  }
 
   renderer_ops->draw_line_with_arrows(renderer,
 				       &p1, &p2,
 				       message->line_width,
 				       &message->line_color,
-				       &arrow, NULL); 
+				       &arrow, NULL);
 
   renderer_ops->set_font(renderer, message->font,
 			  message->font_height);
@@ -348,7 +346,7 @@ message_draw(Message *message, DiaRenderer *renderer)
   else
 	  mname = message->text;
 
-  if (mname && strlen(mname) != 0) 
+  if (mname && strlen(mname) != 0)
       renderer_ops->draw_string(renderer,
 				 mname, /*message->text,*/
 				 &message->text_pos, ALIGN_CENTER,
@@ -357,7 +355,7 @@ message_draw(Message *message, DiaRenderer *renderer)
   {
 	  g_free(mname);
   }
-	  
+
 
 }
 
@@ -384,13 +382,13 @@ message_create(Point *startpoint,
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
   conn->endpoints[1].x += 1.5;
- 
+
   obj = &conn->object;
   extra = &conn->extra_spacing;
 
   obj->type = &message_type;
   obj->ops = &message_ops;
-  
+
   connection_init(conn, 3, 0);
 
   message->text_color = color_black;
@@ -405,12 +403,12 @@ message_create(Point *startpoint,
   message->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   message->text_handle.connected_to = NULL;
   obj->handles[2] = &message->text_handle;
-  
-  extra->start_long = 
-    extra->start_trans = 
+
+  extra->start_long =
+    extra->start_trans =
     extra->end_long = message->line_width/2.0;
   extra->end_trans = MAX(message->line_width,MESSAGE_ARROWLEN)/2.0;
-  
+
   message_update_data(message);
 
   *handle1 = obj->handles[0];
@@ -432,7 +430,7 @@ message_update_data(Message *message)
   Connection *conn = &message->connection;
   DiaObject *obj = &conn->object;
   Rectangle rect;
-  
+
   if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
     connection_adjust_for_autogap(conn);

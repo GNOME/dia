@@ -21,9 +21,7 @@
  *
  */
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
+#include <config.h>
 
 #include <errno.h>
 #include <string.h>
@@ -84,12 +82,12 @@ on_sheets_main_dialog_delete_event     (GtkWidget       *widget,
                                         gpointer         user_data)
 {
   sheets_dialog_hide();
-  return TRUE; 
+  return TRUE;
 }
 
 
 static void
-sheets_dialog_up_down_set_sensitive(GList *wrapbox_button_list, 
+sheets_dialog_up_down_set_sensitive(GList *wrapbox_button_list,
                                     GtkToggleButton *togglebutton)
 {
   GtkWidget *button;
@@ -302,10 +300,10 @@ sheets_dialog_object_set_tooltip(SheetObjectMod *som, GtkWidget *button)
    case OBJECT_TYPE_SVG:
     tip = g_strdup_printf(_("%s\nShape"), som->sheet_object.description);
     break;
-   case OBJECT_TYPE_PROGRAMMED:    
+   case OBJECT_TYPE_PROGRAMMED:
     tip = g_strdup_printf(_("%s\nObject"), som->sheet_object.description);
     break;
-   default:    
+   default:
     tip = g_strdup_printf(_("%s\nUnassigned type"), som->sheet_object.description);
     break;
   }
@@ -358,7 +356,7 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
   GList *button_list;
 
   sheet = &(((SheetMod *)(user_data))->sheet);
- 
+
   wrapbox = g_object_get_data(G_OBJECT(menuitem), "wrapbox");
   g_assert(wrapbox);
 
@@ -414,7 +412,7 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
       sheets_dialog_wrapbox_add_line_break(wrapbox);
 
     button = sheets_dialog_create_object_button(som, user_data, wrapbox);
-   
+
     gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(wrapbox), button,
 		      FALSE, TRUE, FALSE, TRUE, som->sheet_object.line_break);
 
@@ -456,14 +454,14 @@ SheetsDialogMoveDir;
   SHEETS_DIALOG_MOVE_NONE   SHEETS_DIALOG_MOVE_UP
 
 static void
-_gtk_wrap_box_set_child_forced_break (GtkWrapBox* box, GtkWidget* child, 
+_gtk_wrap_box_set_child_forced_break (GtkWrapBox* box, GtkWidget* child,
                                       gboolean wrapped)
 {
   gboolean hexpand, hfill, vexpand, vfill, dummy;
 
-  gtk_wrap_box_query_child_packing (box, child, &hexpand, &hfill, 
+  gtk_wrap_box_query_child_packing (box, child, &hexpand, &hfill,
                                     &vexpand, &vfill, &dummy);
-  gtk_wrap_box_set_child_packing (box, child, hexpand, hfill, 
+  gtk_wrap_box_set_child_packing (box, child, hexpand, hfill,
                                   vexpand, vfill, wrapped);
 }
 static void
@@ -608,12 +606,12 @@ sheets_dialog_move_up_or_down(SheetsDialogMoveDir dir)
     som_next = g_object_get_data(G_OBJECT(next_button_list->data),
                                    "sheet_object_mod");
   else
-    som_next = NULL; /* either 1) no button after 'active_button' 
+    som_next = NULL; /* either 1) no button after 'active_button'
                             or 2) button after 'active_button' is line break */
 
   /* This is all a little hairy, but the idea is that we don't need
      to reorder the backing store if the button was moved to the other
-     side of a line break button since a line break button doesn't 
+     side of a line break button since a line break button doesn't
      exist in the backing store.  Starting to look a little like lisp... */
 
   if (som && (((dir == SHEETS_DIALOG_MOVE_DOWN)
@@ -630,7 +628,7 @@ sheets_dialog_move_up_or_down(SheetsDialogMoveDir dir)
     sm = g_object_get_data(G_OBJECT(active_button), "sheet_mod");
     if (sm->mod == SHEETMOD_MOD_NONE)
       sm->mod = SHEETMOD_MOD_CHANGED;
-    
+
     object_list = g_slist_find(sm->sheet.objects, som);
     g_assert(object_list);
 
@@ -668,7 +666,7 @@ on_sheets_dialog_button_close_clicked  (GtkButton       *button,
 
 static GtkWidget *sheets_new_dialog;
 
-typedef enum 
+typedef enum
 {
   SHEETS_NEW_DIALOG_TYPE_SVG_SHAPE = 1,   /* allows g_assert() */
   SHEETS_NEW_DIALOG_TYPE_LINE_BREAK,
@@ -782,7 +780,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 
     if (g_stat(file_name, &stat_buf) == -1)
     {
-      message_error(_("Error examining %s: %s"), 
+      message_error(_("Error examining %s: %s"),
 		    dia_message_filename(file_name), strerror(errno));
       g_free(file_name);
       return;
@@ -794,7 +792,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     {
        PluginInfo *info = plugin_list->data;
 
-       custom_object_load_fn = 
+       custom_object_load_fn =
          (CustomObjectLoadFunc)dia_plugin_get_symbol (info, "custom_object_load");
        if (custom_object_load_fn)
          break;
@@ -805,8 +803,8 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     {
     	xmlDoc *doc = NULL;
 	xmlNode *root_element = NULL;
-	
-	/* See if the user tries to open a diagram as a shape */	
+
+	/* See if the user tries to open a diagram as a shape */
 	doc = xmlReadFile(file_name, NULL, 0);
 	if(doc != NULL)
 	{
@@ -816,7 +814,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 				_("Please export the diagram as a shape."));
 		xmlFreeDoc(doc);
 	}
-	message_error(_("Could not interpret shape file: '%s'"), 
+	message_error(_("Could not interpret shape file: '%s'"),
 		    dia_message_filename(file_name));
         g_free(file_name);
       return;
@@ -863,13 +861,13 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
                                                                  ->data), TRUE);
     gtk_wrap_box_reorder_child(GTK_WRAP_BOX(wrapbox),
                                g_list_last(button_list)->data, pos + 1);
-    
+
     sheets_dialog_normalize_line_breaks(wrapbox, SHEETS_DIALOG_MOVE_NONE);
 
     sm = g_object_get_data(G_OBJECT(wrapbox), "sheet_mod");
     if (sm->mod == SHEETMOD_MOD_NONE)
       sm->mod = SHEETMOD_MOD_CHANGED;
-    
+
     g_list_free(button_list);
     break;
 
@@ -983,13 +981,13 @@ on_sheets_dialog_button_edit_clicked   (GtkButton       *button,
     descrip = som->sheet_object.description;
     type = sheet_object_mod_get_type_string(som);
   }
-  
+
   entry = lookup_widget(sheets_edit_dialog, "entry_object_description");
   if (som)
     gtk_entry_set_text(GTK_ENTRY(entry), descrip);
-  else 
+  else
     gtk_widget_set_sensitive(entry, FALSE);
-    
+
   entry = lookup_widget(sheets_edit_dialog, "entry_object_type");
   if (som)
     gtk_entry_set_text(GTK_ENTRY(entry), type);
@@ -1049,7 +1047,7 @@ on_sheets_dialog_button_remove_clicked (GtkButton       *button,
 
   active_button = sheets_dialog_get_active_button(&wrapbox, &button_list);
   g_assert(active_button);
-  
+
   /* Force a change in state in the radio button for set sensitive */
 
   radio_button = lookup_widget(sheets_remove_dialog, "radiobutton_sheet");
@@ -1065,7 +1063,7 @@ on_sheets_dialog_button_remove_clicked (GtkButton       *button,
   else
   {
     SheetObjectMod *som;
-    
+
     som = g_object_get_data(G_OBJECT(active_button), "sheet_object_mod");
     if (!som)
       gtk_entry_set_text(GTK_ENTRY(entry), _("Line Break"));
@@ -1095,7 +1093,7 @@ on_sheets_dialog_button_remove_clicked (GtkButton       *button,
     gtk_widget_set_sensitive(entry, FALSE);
   }
   gtk_entry_set_text(GTK_ENTRY(entry), sm->sheet.name);
-  
+
   gtk_widget_show(sheets_remove_dialog);
 }
 
@@ -1157,12 +1155,12 @@ on_sheets_new_dialog_radiobutton_sheet_toggled
   {
     "entry_sheet_name",
     "entry_sheet_description",
-    "label_description", 
+    "label_description",
     NULL
   };
 
   sheets_dialog_togglebutton_set_sensitive(togglebutton, sheets_new_dialog,
-                                           widget_names, 
+                                           widget_names,
                                            SHEETS_NEW_DIALOG_TYPE_SHEET);
 }
 
@@ -1254,7 +1252,7 @@ on_sheets_remove_dialog_button_ok_clicked
 
   type = (SheetsRemoveDialogType)g_object_get_data(G_OBJECT(button),
                                                    "active_type");
-                                                     
+
   active_button = sheets_dialog_get_active_button(&wrapbox, &button_list);
 
   switch (type)
@@ -1266,7 +1264,7 @@ on_sheets_remove_dialog_button_ok_clicked
     GtkWidget *optionmenu;
 
   case SHEETS_REMOVE_DIALOG_TYPE_OBJECT:
-  
+
     som = g_object_get_data(G_OBJECT(active_button), "sheet_object_mod");
     if (som)
     {
@@ -1281,7 +1279,7 @@ on_sheets_remove_dialog_button_ok_clicked
 
     sheets_dialog_normalize_line_breaks(wrapbox, SHEETS_DIALOG_MOVE_NONE);
     break;
-    
+
   case SHEETS_REMOVE_DIALOG_TYPE_SHEET:
 
     sm = g_object_get_data(G_OBJECT(active_button), "sheet_mod");
@@ -1330,7 +1328,7 @@ on_sheets_edit_dialog_button_ok_clicked
     SheetObjectMod *som;
 
     som = g_object_get_data(G_OBJECT(active_button), "sheet_object_mod");
-    som->sheet_object.description = 
+    som->sheet_object.description =
       gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
     sheets_dialog_object_set_tooltip(som, active_button);
 
@@ -1339,7 +1337,7 @@ on_sheets_edit_dialog_button_ok_clicked
     sm = g_object_get_data(G_OBJECT(active_button), "sheet_mod");
     if (sm->mod == SHEETMOD_MOD_NONE)
       sm->mod = SHEETMOD_MOD_CHANGED;
-    
+
     something_changed = TRUE;
   }
 
@@ -1349,17 +1347,17 @@ on_sheets_edit_dialog_button_ok_clicked
     SheetMod *sm;
 
     sm = g_object_get_data(G_OBJECT(active_button), "sheet_mod");
-    sm->sheet.description = 
+    sm->sheet.description =
       gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
 
     if (sm->mod == SHEETMOD_MOD_NONE)
       sm->mod = SHEETMOD_MOD_CHANGED;
     something_changed = TRUE;
   }
-  
+
 #ifdef CAN_EDIT_SHEET_NAME
   /* This must be last because we reload the sheets if changed */
-  
+
   entry = lookup_widget(sheets_edit_dialog, "entry_sheet_name");
   if ((gboolean)g_object_get_data(G_OBJECT(entry), "changed") == TRUE)
   {
@@ -1376,7 +1374,7 @@ on_sheets_edit_dialog_button_ok_clicked
     optionmenu = g_object_get_data(G_OBJECT(table_sheets),
                                    "active_optionmenu");
     sheets_optionmenu_create(optionmenu, wrapbox, NULL);
-    
+
     something_changed = TRUE;
   }
 #endif
@@ -1560,7 +1558,7 @@ on_sheets_dialog_button_move_all_clicked
 
     /* MCNFIXME:  do we have to resanitize the radio_group? */
   }
-  
+
   /* Force the 1st button in the target wrapbox to be active after moving */
 
   button_list = gtk_container_get_children(GTK_CONTAINER(target_wrapbox));
@@ -1576,14 +1574,14 @@ copy_file(gchar *src, gchar *dst)
 
   if ((fp_src = g_fopen(src, "rb")) == NULL)
   {
-    message_error(_("Couldn't open '%s': %s"), 
+    message_error(_("Couldn't open '%s': %s"),
 		  dia_message_filename(src), strerror(errno));
     return FALSE;
   }
- 
+
   if ((fp_dst = g_fopen(dst, "wb")) == NULL)
   {
-    message_error(_("Couldn't open '%s': %s"), 
+    message_error(_("Couldn't open '%s': %s"),
 		  dia_message_filename(dst), strerror(errno));
     return FALSE;
   }
@@ -1615,7 +1613,7 @@ write_user_sheet(Sheet *sheet)
   gchar *filename;
   SheetObject *sheetobject;
   GSList *sheet_objects;
-    
+
   dir_user_sheets = dia_config_filename("sheets");
   if (!*(sheet->filename)) {
     gchar *basename;
@@ -1634,10 +1632,10 @@ write_user_sheet(Sheet *sheet)
     g_free(basename);
   }
   file = g_fopen(filename, "w");
-   
+
   if (file==NULL)
   {
-    message_error(_("Couldn't open: '%s' for writing"), 
+    message_error(_("Couldn't open: '%s' for writing"),
 		  dia_message_filename(filename));
     g_free(filename);
     return FALSE;
@@ -1688,7 +1686,7 @@ write_user_sheet(Sheet *sheet)
   xmlAddChild(node, xmlNewText((const xmlChar *)"\n"));
 
   /* objects */
-  for (sheet_objects = sheet->objects; sheet_objects; 
+  for (sheet_objects = sheet->objects; sheet_objects;
        sheet_objects = g_slist_next(sheet_objects))
   {
     SheetObjectMod *som;
@@ -1700,7 +1698,7 @@ write_user_sheet(Sheet *sheet)
 
     /* If its a new shape, then copy the .shape and .xpm files from
        their current location to ~/.dia/shapes/ */
-       
+
     if (som->mod == SHEET_OBJECT_MOD_NEW)
     {
       gchar *dia_user_shapes;
@@ -1727,9 +1725,9 @@ write_user_sheet(Sheet *sheet)
 
     sheetobject = &som->sheet_object;
     object_node = xmlNewChild(node, NULL, (const xmlChar *)"object", NULL);
-    
+
     xmlSetProp(object_node, (const xmlChar *)"name", (xmlChar *)sheetobject->object_type);
-    
+
     if (sheetobject->user_data_type == USER_DATA_IS_INTDATA)
     {
       gchar *user_data;
@@ -1738,7 +1736,7 @@ write_user_sheet(Sheet *sheet)
       xmlSetProp(object_node, (const xmlChar *)"intdata", (xmlChar *) user_data);
       g_free(user_data);
     }
-      
+
     xmlAddChild(object_node, xmlNewText((const xmlChar *)"\n"));
     desc_node = xmlNewChild(object_node, NULL, (const xmlChar *)"description", NULL);
     xmlAddChild(desc_node, xmlNewText((xmlChar *) sheetobject->description));
@@ -1760,7 +1758,7 @@ write_user_sheet(Sheet *sheet)
       if(g_str_has_prefix(icon, canonical_user_sheets))
         icon += strlen(canonical_user_sheets) + 1;
       if(g_str_has_prefix(icon, canonical_sheets))
-        icon += strlen(canonical_sheets) + 1; 
+        icon += strlen(canonical_sheets) + 1;
       xmlAddChild(icon_node, xmlNewText((xmlChar *) icon));
       xmlAddChild(object_node, xmlNewText((const xmlChar *)"\n"));
       g_free(canonical_icon);
@@ -1841,7 +1839,7 @@ on_sheets_dialog_button_apply_clicked  (GtkButton       *button,
         sheet_append_sheet_obj(new_sheet, new_object);
       }
 
-      dia_sort_sheets();      
+      dia_sort_sheets();
       fill_sheet_menu();
       break;
 

@@ -15,9 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -82,7 +80,7 @@ static ObjectTypeOps actor_type_ops =
   (CreateFunc) actor_create,
   (LoadFunc)   actor_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -119,8 +117,8 @@ static PropDescription actor_props[] = {
   PROP_STD_TEXT_COLOUR_OPTIONAL,
   { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -182,7 +180,7 @@ actor_move_handle(Actor *actor, Handle *handle,
 		  HandleMoveReason reason, ModifierKeys modifiers)
 {
   ObjectChange* oc;
-  
+
   assert(actor!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -198,7 +196,7 @@ static ObjectChange*
 actor_move(Actor *actor, Point *to)
 {
   Element *elem = &actor->element;
-  
+
   elem->corner = *to;
   elem->corner.x -= elem->width/2.0;
   elem->corner.y -= elem->height / 2.0;
@@ -214,7 +212,7 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w;
-  real r, r1;  
+  real r, r1;
   Point ch, cb, p1, p2;
   real actor_height;
 
@@ -227,7 +225,7 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   y = elem->corner.y;
   w = elem->width;
   actor_height = elem->height - actor->text->height;
-  
+
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, actor->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
@@ -238,9 +236,9 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   ch.y = y + r + ACTOR_MARGIN_Y;
   cb.x = ch.x;
   cb.y = ch.y + r1 + r;
-  
+
   /* head */
-  renderer_ops->draw_ellipse(renderer, 
+  renderer_ops->draw_ellipse(renderer,
 			     &ch,
 			     r, r,
 			     &actor->fill_color, &actor->line_color);
@@ -249,28 +247,28 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   p1.x = ch.x - r1;
   p2.x = ch.x + r1;
   p1.y = p2.y = ch.y + r;
-  renderer_ops->draw_line(renderer, 
+  renderer_ops->draw_line(renderer,
 			   &p1, &p2,
 			   &actor->line_color);
 
   p1.x = ch.x;
   p1.y = ch.y + r*0.5;
   /* body & legs  */
-  renderer_ops->draw_line(renderer, 
+  renderer_ops->draw_line(renderer,
 			   &p1, &cb,
 			   &actor->line_color);
 
   p2.x = ch.x - r1;
   p2.y = y + ACTOR_BODY(actor_height);
-  renderer_ops->draw_line(renderer, 
+  renderer_ops->draw_line(renderer,
 			   &cb, &p2,
 			   &actor->line_color);
-  
+
   p2.x =  ch.x + r1;
-  renderer_ops->draw_line(renderer, 
+  renderer_ops->draw_line(renderer,
 			   &cb, &p2,
 			   &actor->line_color);
-  
+
   text_draw(actor->text, renderer);
 }
 
@@ -282,7 +280,7 @@ actor_update_data(Actor *actor)
   Rectangle text_box;
   Point p;
   real actor_height;
-  
+
   text_calc_boundingbox(actor->text, &text_box);
 
   /* minimum size */
@@ -294,7 +292,7 @@ actor_update_data(Actor *actor)
 
   /* Update connections: */
   element_update_connections_rectangle(elem, actor->connections);
-  
+
   element_update_boundingbox(elem);
 
   p = elem->corner;
@@ -326,11 +324,11 @@ actor_create(Point *startpoint,
   Point p;
   DiaFont *font;
   int i;
-  
+
   actor = g_malloc0(sizeof(Actor));
   elem = &actor->element;
   obj = &elem->object;
-  
+
   obj->type = &actor_type;
   obj->ops = &actor_ops;
   elem->corner = *startpoint;
@@ -346,12 +344,12 @@ actor_create(Point *startpoint,
   p.x += ACTOR_MARGIN_X;
   p.y += ACTOR_HEIGHT - dia_font_descent(_("Actor"),font, 0.8);
 
-  actor->text = new_text(_("Actor"), 
+  actor->text = new_text(_("Actor"),
                          font, 0.8, &p, &color_black, ALIGN_CENTER);
   dia_font_unref(font);
-  
+
   element_init(elem, 8, NUM_CONNECTIONS);
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &actor->connections[i];
     actor->connections[i].object = obj;

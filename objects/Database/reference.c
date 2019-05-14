@@ -21,9 +21,7 @@
  *          code.
  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include "database.h"
 #include "arrows.h"
@@ -332,7 +330,7 @@ reference_get_props (TableReference *ref, GPtrArray *props)
 static void
 reference_set_props (TableReference *ref, GPtrArray *props)
 {
-  object_set_props_from_offsets(&ref->orth.object, 
+  object_set_props_from_offsets(&ref->orth.object,
                                 reference_offsets,
                                 props);
   reference_update_data (ref);

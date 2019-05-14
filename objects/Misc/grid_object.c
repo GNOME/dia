@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -50,7 +48,7 @@ typedef struct _Grid_Object {
   gint cells_rows;
   gint cells_cols;
   ConnectionPoint *cells;
-  
+
   Color border_color;
   real border_line_width;
   Color inner_color;
@@ -68,8 +66,8 @@ static void grid_object_select(Grid_Object *grid_object,
                                 Point *clicked_point,
                                 DiaRenderer *interactive_renderer);
 static ObjectChange* grid_object_move_handle(Grid_Object *grid_object,
-					      Handle *handle, Point *to, 
-					      ConnectionPoint *cp, HandleMoveReason reason, 
+					      Handle *handle, Point *to,
+					      ConnectionPoint *cp, HandleMoveReason reason,
                                      ModifierKeys modifiers);
 static ObjectChange* grid_object_move(Grid_Object *grid_object, Point *to);
 static void grid_object_draw(Grid_Object *grid_object, DiaRenderer *renderer);
@@ -80,13 +78,13 @@ static DiaObject *grid_object_create(Point *startpoint,
                                    Handle **handle2);
 static void grid_object_reallocate_cells (Grid_Object* grid_object);
 static void grid_object_destroy(Grid_Object *grid_object);
-static DiaObject *grid_object_load(ObjectNode obj_node, int version, 
+static DiaObject *grid_object_load(ObjectNode obj_node, int version,
                                    DiaContext *ctx);
 static PropDescription *grid_object_describe_props(
   Grid_Object *grid_object);
-static void grid_object_get_props(Grid_Object *grid_object, 
+static void grid_object_get_props(Grid_Object *grid_object,
                                    GPtrArray *props);
-static void grid_object_set_props(Grid_Object *grid_object, 
+static void grid_object_set_props(Grid_Object *grid_object,
                                    GPtrArray *props);
 
 static ObjectTypeOps grid_object_type_ops =
@@ -141,18 +139,18 @@ static PropDescription grid_object_props[] = {
     N_("Grid line color"), NULL, NULL },
   { "gridline_width", PROP_TYPE_REAL, PROP_FLAG_VISIBLE,
     N_("Grid line width"), NULL, &prop_std_line_width_data },
-  
+
   {NULL}
 };
 
 static PropDescription *
-grid_object_describe_props(Grid_Object *grid_object) 
+grid_object_describe_props(Grid_Object *grid_object)
 {
   if (grid_object_props[0].quark == 0) {
     prop_desc_list_calculate_quarks(grid_object_props);
   }
   return grid_object_props;
-}    
+}
 
 static PropOffset grid_object_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
@@ -165,13 +163,13 @@ static PropOffset grid_object_offsets[] = {
   { "gridline_colour", PROP_TYPE_COLOUR, offsetof(Grid_Object, gridline_color) },
   { "gridline_width", PROP_TYPE_REAL, offsetof(Grid_Object,
                                                  gridline_width) },
-  
+
   {NULL}
 };
 
 static void
 grid_object_get_props(Grid_Object *grid_object, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&grid_object->element.object,
                                 grid_object_offsets,props);
 }
@@ -204,14 +202,14 @@ grid_object_select(Grid_Object *grid_object, Point *clicked_point,
 
 static ObjectChange*
 grid_object_move_handle(Grid_Object *grid_object, Handle *handle,
-			 Point *to, ConnectionPoint *cp, 
+			 Point *to, ConnectionPoint *cp,
 			 HandleMoveReason reason, ModifierKeys modifiers)
 {
   g_assert(grid_object!=NULL);
   g_assert(handle!=NULL);
   g_assert(to!=NULL);
 
-  element_move_handle(&grid_object->element, handle->id, to, cp, 
+  element_move_handle(&grid_object->element, handle->id, to, cp,
 		      reason, modifiers);
   grid_object_update_data(grid_object);
 
@@ -263,9 +261,9 @@ grid_object_update_data(Grid_Object *grid_object)
       grid_object->cells[cell].pos.y =
 			top + inset + j*cell_height + cell_height/2.0;
     }
-}  
+}
 
-static void 
+static void
 grid_object_draw_gridlines (Grid_Object *grid_object, DiaRenderer *renderer,
     		Point* lr_corner)
 {
@@ -322,7 +320,7 @@ grid_object_draw(Grid_Object *grid_object, DiaRenderer *renderer)
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   Point lr_corner;
-  
+
   g_assert(grid_object != NULL);
   g_assert(renderer != NULL);
 
@@ -337,7 +335,7 @@ grid_object_draw(Grid_Object *grid_object, DiaRenderer *renderer)
   /* draw gridlines */
   renderer_ops->set_linewidth(renderer, grid_object->gridline_width);
   grid_object_draw_gridlines(grid_object, renderer, &lr_corner);
-  
+
   /* draw outline */
   renderer_ops->set_linewidth(renderer, grid_object->border_line_width);
   renderer_ops->draw_rect(renderer,&elem->corner,
@@ -397,9 +395,9 @@ grid_object_create(Point *startpoint,
   grid_object_reallocate_cells(grid_object);
 
   grid_object_update_data(grid_object);
-  
+
   *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  *handle2 = obj->handles[7];
 
   return &grid_object->element.object;
 }
@@ -502,7 +500,7 @@ grid_object_reallocate_cells (Grid_Object* grid_object)
   grid_object->cells_cols = new_cols;
 }
 
-static void 
+static void
 grid_object_destroy(Grid_Object *grid_object)
 {
   element_destroy(&grid_object->element);
@@ -513,5 +511,5 @@ static DiaObject *
 grid_object_load(ObjectNode obj_node, int version, DiaContext *ctx)
 {
   return object_load_using_properties(&grid_object_type,
-                                      obj_node,version,ctx);  
+                                      obj_node,version,ctx);
 }

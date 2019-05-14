@@ -21,9 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <string.h>
 
@@ -111,7 +109,7 @@ uml_get_formalparameter_string (UMLFormalParameter *parameter)
 
   /* Calculate length: */
   len = parameter->name ? strlen (parameter->name) : 0;
-  
+
   if (parameter->type != NULL) {
     len += 1 + strlen (parameter->type);
   }

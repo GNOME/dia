@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <string.h>
@@ -37,7 +35,7 @@ typedef struct _Transition Transition;
 
 struct _Transition {
   OrthConn orth;
-  
+
   Color text_color;
   Color line_color;
 
@@ -73,7 +71,7 @@ static void transition_draw(Transition* transition, DiaRenderer* ddisp);
 static real transition_distance(Transition* transition, Point* point);
 static DiaMenu* transition_get_object_menu(Transition* transition,
                                            Point* clickedpoint);
-static void transition_select(Transition* obj, 
+static void transition_select(Transition* obj,
                               Point* clicked_point,
                               DiaRenderer* interactive_renderer);
 static ObjectChange* transition_move(Transition* transition, Point* pos);
@@ -92,22 +90,22 @@ static ObjectChange* transition_add_segment_cb(DiaObject *obj,
                                                gpointer data);
 static ObjectChange* transition_del_segment_cb(DiaObject *obj,
                                                Point *clicked_point,
-                                               gpointer data);          
+                                               gpointer data);
 
 static ObjectTypeOps uml_transition_type_ops = {
   (CreateFunc)transition_create,
   (LoadFunc)transition_load,
   (SaveFunc)object_save_using_properties,
-  (GetDefaultsFunc)NULL, 
+  (GetDefaultsFunc)NULL,
   (ApplyDefaultsFunc)NULL
 };
 
-/* The "uml_" prefix is used to avoid clashing with the 
+/* The "uml_" prefix is used to avoid clashing with the
    GRAFCET transition */
 DiaObjectType uml_transition_type = {
   "UML - Transition",       /* Name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
-  /* version 0 and 1 expects the arrow to be drawn on the wrong end */ 
+  /* version 0 and 1 expects the arrow to be drawn on the wrong end */
   2,                      /* version */
   transition_xpm, /* Pixmap */
   &uml_transition_type_ops
@@ -116,7 +114,7 @@ DiaObjectType uml_transition_type = {
 
 /* These methods are described in the object.h file */
 static ObjectOps uml_transition_ops = {
-  (DestroyFunc)         transition_destroy,                        
+  (DestroyFunc)         transition_destroy,
   (DrawFunc)            transition_draw,
   (DistanceFunc)        transition_distance,
   (SelectFunc)          transition_select,
@@ -137,12 +135,12 @@ static PropDescription transition_props[] = {
   ORTHCONN_COMMON_PROPERTIES,
   /* can't use PROP_STD_TEXT_COLOUR_OPTIONAL cause it has PROP_FLAG_DONT_SAVE. It is designed to fill the Text object - not some subset */
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  { "trigger", PROP_TYPE_STRING, PROP_FLAG_VISIBLE, N_("Trigger"), 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  { "trigger", PROP_TYPE_STRING, PROP_FLAG_VISIBLE, N_("Trigger"),
     N_("The event that causes this transition to be taken"), NULL },
   { "action", PROP_TYPE_STRING, PROP_FLAG_VISIBLE, N_("Action"),
     N_("Action to perform when this transition is taken"), NULL },
-  { "guard", PROP_TYPE_STRING, PROP_FLAG_VISIBLE, N_("Guard"), 
+  { "guard", PROP_TYPE_STRING, PROP_FLAG_VISIBLE, N_("Guard"),
     N_("Condition for taking this transition when the event is fired"), NULL },
   { "trigger_text_pos", PROP_TYPE_POINT, 0, "trigger_text_pos:", NULL, NULL },
   { "guard_text_pos", PROP_TYPE_POINT, 0, "guard_text_pos:", NULL, NULL },
@@ -165,7 +163,7 @@ static PropOffset transition_offsets[] = {
 };
 
 
-#define TRANSITION_MENU_ADD_SEGMENT_OFFSET 0 
+#define TRANSITION_MENU_ADD_SEGMENT_OFFSET 0
 #define TRANSITION_MENU_DEL_SEGMENT_OFFSET 1
 #define TRANSITION_MENU_OFFSET_TO_ORTH_COMMON 2
 static DiaMenuItem transition_menu_items[] = {
@@ -193,21 +191,21 @@ transition_create(Point *startpoint,
   OrthConn *orth;
   DiaObject *obj;
   Point temp_point;
-  
+
   if (transition_font == NULL) {
-    transition_font = 
+    transition_font =
       dia_font_new_from_style (DIA_FONT_SANS, TRANSITION_FONTHEIGHT);
   }
 
   transition = g_malloc0(sizeof(Transition));
-  
+
   orth = &transition->orth;
   obj = &orth->object;
   obj->type = &uml_transition_type;
   obj->ops = &uml_transition_ops;
-  
+
   orthconn_init(orth, startpoint);
-  
+
   transition->text_color = color_black;
   transition->line_color = attributes_get_foreground();
   /* Prepare the handles for trigger and guard text */
@@ -219,8 +217,8 @@ transition_create(Point *startpoint,
   temp_point.y -= TEXT_HANDLE_DISTANCE_FROM_STARTPOINT;
   transition->trigger_text_pos = temp_point;
   transition->trigger_text_handle.pos = temp_point;
-  object_add_handle(obj, &transition->trigger_text_handle);  
-  
+  object_add_handle(obj, &transition->trigger_text_handle);
+
   transition->guard_text_handle.id = HANDLE_MOVE_GUARD_TEXT;
   transition->guard_text_handle.type = HANDLE_MINOR_CONTROL;
   transition->guard_text_handle.connect_type = HANDLE_NONCONNECTABLE;
@@ -229,13 +227,13 @@ transition_create(Point *startpoint,
   temp_point.y += TEXT_HANDLE_DISTANCE_FROM_STARTPOINT;
   transition->guard_text_pos = transition->guard_text_handle.pos = temp_point;
   object_add_handle(obj, &transition->guard_text_handle);
-  
+
   transition->guard_text = NULL;
   transition->trigger_text = NULL;
   transition->action_text = NULL;
-  
+
   uml_transition_update_data(transition);
-   
+
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
   return obj;
@@ -271,7 +269,7 @@ transition_set_props(Transition *transition, GPtrArray *props)
 static void
 transition_get_props(Transition *transition, GPtrArray *props)
 {
-  object_get_props_from_offsets(&transition->orth.object, 
+  object_get_props_from_offsets(&transition->orth.object,
                                 transition_offsets, props);
 }
 
@@ -297,21 +295,21 @@ static DiaMenu*
 transition_get_object_menu(Transition* transition, Point* clickedpoint)
 {
   OrthConn *orth = &transition->orth;
-  /* Set/clear the active flag of the add/remove segment according to the 
+  /* Set/clear the active flag of the add/remove segment according to the
      placement of mouse pointer and placement of the transition and its handles */
   transition_menu_items[TRANSITION_MENU_ADD_SEGMENT_OFFSET].active =
       orthconn_can_add_segment(orth, clickedpoint);
   transition_menu_items[TRANSITION_MENU_DEL_SEGMENT_OFFSET].active =
       orthconn_can_delete_segment(orth, clickedpoint);
-      
-  orthconn_update_object_menu(orth, clickedpoint, 
+
+  orthconn_update_object_menu(orth, clickedpoint,
              &transition_menu_items[TRANSITION_MENU_OFFSET_TO_ORTH_COMMON]);
   return &transition_menu;
 }
 
 static gchar* create_event_action_text(Transition* transition)
 {
-  gchar *temp_text;  
+  gchar *temp_text;
   if (transition->action_text && strlen(transition->action_text) != 0)
   {
     temp_text = g_strdup_printf("%s/%s", transition->trigger_text,
@@ -326,8 +324,8 @@ static gchar* create_event_action_text(Transition* transition)
 
 static gchar* create_guard_text(Transition* transition)
 {
-  gchar *temp_text;  
-  temp_text = g_strdup_printf("[%s]", transition->guard_text); 
+  gchar *temp_text;
+  temp_text = g_strdup_printf("[%s]", transition->guard_text);
   return temp_text;
 }
 
@@ -348,17 +346,17 @@ static void transition_draw(Transition* transition, DiaRenderer* renderer)
   /* Draw the arrow / line */
   points = &orth->points[0];
   num_points = orth->numpoints;
-  
+
   arrow.type = ARROW_LINES;
   arrow.length = TRANSITION_ARROWLEN;
   arrow.width = TRANSITION_ARROWWIDTH;
-  
-  
+
+
   /* Is it necessary to call set_linewidth? The draw_line_with_arrows() method
      got a linewidth parameter... */
   renderer_ops->set_linewidth(renderer, TRANSITION_WIDTH);
   /* TODO, find out about the meaning of this... */
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT); 
+  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
 
   if (transition->direction_inverted) {
@@ -377,7 +375,7 @@ static void transition_draw(Transition* transition, DiaRenderer* renderer)
 
   renderer_ops->set_font(renderer, transition_font,
                          TRANSITION_FONTHEIGHT);
-                                      
+
   /* Draw the guard text */
   if (transition->guard_text && strlen(transition->guard_text) != 0)
   {
@@ -389,7 +387,7 @@ static void transition_draw(Transition* transition, DiaRenderer* renderer)
                               &transition->text_color);
     g_free(text);
   }
-  
+
   /* Draw the trigger text */
   if (transition->trigger_text && strlen(transition->trigger_text) != 0)
   {
@@ -401,46 +399,46 @@ static void transition_draw(Transition* transition, DiaRenderer* renderer)
                               &transition->text_color);
     g_free(text);
   }
-  
+
 }
-                                                     
+
 static real
 transition_distance(Transition* transition, Point* point)
 {
   return orthconn_distance_from(&transition->orth, point, TRANSITION_WIDTH);
 }
 
-static void                                                          
+static void
 transition_select(Transition* transition,
-                  Point* clicked_point,                      
+                  Point* clicked_point,
                   DiaRenderer* interactive_renderer)
-{                                                                             
+{
   uml_transition_update_data(transition);
 }
-                                       
+
 static ObjectChange*
 transition_move(Transition* transition, Point* newpos)
 {
   Point delta;
   ObjectChange *change;
 
-  
+
   /* Find a delta in order to move the text handles along with the transition */
   delta = *newpos;
   point_sub(&delta, &transition->orth.points[0]);
-  
+
   change = orthconn_move(&transition->orth, newpos);
 
-  /* Move the text handles */ 
+  /* Move the text handles */
   point_add(&transition->trigger_text_pos, &delta);
   point_add(&transition->guard_text_pos, &delta);
-  
+
   uml_transition_update_data(transition);
 
   return change;
 }
 
-static ObjectChange* 
+static ObjectChange*
 transition_move_handle(Transition*      transition,
                        Handle*          handle,
                        Point*           newpos,
@@ -449,30 +447,30 @@ transition_move_handle(Transition*      transition,
                        ModifierKeys     modifiers)
 {
   ObjectChange *change = NULL;
-  
+
   assert(transition != NULL);
   assert(handle != NULL);
   assert(newpos != NULL);
-  
+
   switch (handle->id)
   {
     case HANDLE_MOVE_TRIGGER_TEXT:
       /* The trigger text is being moved */
       transition->trigger_text_pos = *newpos;
       break;
-    
+
     case HANDLE_MOVE_GUARD_TEXT:
       /* The guard text is being moved */
       transition->guard_text_pos = *newpos;
       break;
-    
+
     default:
       {
         int n = transition->orth.numpoints/2;
         Point p1, p2;
 	p1.x = 0.5 * (transition->orth.points[n-1].x + transition->orth.points[n].x);
 	p1.y = 0.5 * (transition->orth.points[n-1].y + transition->orth.points[n].y);
-	
+
         /* Tell the connection that one of its handles is being moved */
         change = orthconn_move_handle(&transition->orth, handle, newpos, cp, reason, modifiers);
 	/* with auto-routing the number of points may have changed */
@@ -480,13 +478,13 @@ transition_move_handle(Transition*      transition,
 	p2.x = 0.5 * (transition->orth.points[n-1].x + transition->orth.points[n].x);
 	p2.y = 0.5 * (transition->orth.points[n-1].y + transition->orth.points[n].y);
         point_sub(&p2, &p1);
-	
+
         point_add(&transition->trigger_text_pos, &p2);
         point_add(&transition->guard_text_pos, &p2);
       }
       break;
   }
-  
+
   /* Update ourselves to reflect the new handle position */
   uml_transition_update_data(transition);
 
@@ -502,11 +500,11 @@ static ObjectChange* transition_add_segment_cb(DiaObject *obj,
   uml_transition_update_data((Transition*)obj);
   return change;
 }
-                                               
-                                            
+
+
 static ObjectChange* transition_del_segment_cb(DiaObject *obj,
                                                Point *clickedpoint,
-                                               gpointer data)             
+                                               gpointer data)
 {
   ObjectChange *change;
   change = orthconn_delete_segment((OrthConn*)obj, clickedpoint);
@@ -527,34 +525,34 @@ static void expand_bbox_for_text(Rectangle* bbox,
                                      TRANSITION_FONTHEIGHT);
   text_box.left = text_pos->x - text_width/2;
   text_box.right = text_box.left + text_width;
-  text_box.top = text_pos->y - dia_font_ascent(text, transition_font, 
+  text_box.top = text_pos->y - dia_font_ascent(text, transition_font,
                                               TRANSITION_FONTHEIGHT);
   text_box.bottom = text_box.top + TRANSITION_FONTHEIGHT;
   rectangle_union(bbox, &text_box);
-    
+
 }
 
 static void
 uml_transition_update_data(Transition *transition)
 {
-  gchar *temp_text;  
+  gchar *temp_text;
   Point *points;
-  
+
   /* Setup helpful pointers as shortcuts */
   OrthConn *orth = &transition->orth;
   DiaObject *obj = &orth->object;
   PolyBBExtras *extra = &orth->extra_spacing;
   points = &orth->points[0];
-  
+
   /* Set the transitions position */
   obj->position = points[0];
   transition->trigger_text_handle.pos = transition->trigger_text_pos;
   transition->guard_text_handle.pos = transition->guard_text_pos;
-  
+
   /* Update the orthogonal connection to match the new data */
   orthconn_update_data(orth);
 
-  extra->start_long = extra->end_long 
+  extra->start_long = extra->end_long
                     = extra->middle_trans
                     = TRANSITION_WIDTH/2.0;
   extra->start_trans = extra->end_trans
@@ -563,14 +561,14 @@ uml_transition_update_data(Transition *transition)
   /* Update the bounding box to match the new connection data */
   orthconn_update_boundingbox(orth);
   /* Update the bounding box to match the new trigger text size and position */
-  temp_text = create_event_action_text(transition); 
-  expand_bbox_for_text(&obj->bounding_box, &transition->trigger_text_pos, 
+  temp_text = create_event_action_text(transition);
+  expand_bbox_for_text(&obj->bounding_box, &transition->trigger_text_pos,
                        temp_text);
   g_free(temp_text);
   /* Update the bounding box to match the new guard text size and position */
-  temp_text = g_strdup_printf("[%s]", transition->guard_text ? transition->guard_text : ""); 
-  expand_bbox_for_text(&obj->bounding_box, &transition->guard_text_pos, 
-                       temp_text); 
+  temp_text = g_strdup_printf("[%s]", transition->guard_text ? transition->guard_text : "");
+  expand_bbox_for_text(&obj->bounding_box, &transition->guard_text_pos,
+                       temp_text);
   g_free(temp_text);
 }
 

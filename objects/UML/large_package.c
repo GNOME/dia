@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -48,7 +46,7 @@ struct _LargePackage {
 
   char *name;
   char *stereotype; /* Can be NULL, including << and >> */
-  char *st_stereotype; 
+  char *st_stereotype;
 
   DiaFont *font;
 
@@ -95,7 +93,7 @@ static ObjectTypeOps largepackage_type_ops =
   (CreateFunc) largepackage_create,
   (LoadFunc)   largepackage_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -141,8 +139,8 @@ static PropDescription largepackage_props[] = {
   PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -172,14 +170,14 @@ static PropOffset largepackage_offsets[] = {
 static void
 largepackage_get_props(LargePackage * largepackage, GPtrArray *props)
 {
-  object_get_props_from_offsets(&largepackage->element.object, 
+  object_get_props_from_offsets(&largepackage->element.object,
                                 largepackage_offsets, props);
 }
 
 static void
 largepackage_set_props(LargePackage *largepackage, GPtrArray *props)
 {
-  object_set_props_from_offsets(&largepackage->element.object, 
+  object_set_props_from_offsets(&largepackage->element.object,
                                 largepackage_offsets, props);
   g_free(largepackage->st_stereotype);
   largepackage->st_stereotype = NULL;
@@ -221,7 +219,7 @@ largepackage_move_handle(LargePackage *pkg, Handle *handle,
   assert(to!=NULL);
 
   assert(handle->id < 8);
-  
+
   element_move_handle(&pkg->element, handle->id, to, cp, reason, modifiers);
   largepackage_update_data(pkg);
 
@@ -245,7 +243,7 @@ largepackage_draw(LargePackage *pkg, DiaRenderer *renderer)
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
-  
+
   assert(pkg != NULL);
   assert(renderer != NULL);
 
@@ -255,7 +253,7 @@ largepackage_draw(LargePackage *pkg, DiaRenderer *renderer)
   y = elem->corner.y;
   w = elem->width;
   h = elem->height;
-  
+
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, pkg->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
@@ -263,14 +261,14 @@ largepackage_draw(LargePackage *pkg, DiaRenderer *renderer)
 
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;
-  renderer_ops->draw_rect (renderer, 
+  renderer_ops->draw_rect (renderer,
 			   &p1, &p2,
 			   &pkg->fill_color,
 			   &pkg->line_color);
 
   p1.x= x; p1.y = y - pkg->topheight;
   p2.x = x + pkg->topwidth; p2.y = y;
-  renderer_ops->draw_rect (renderer, 
+  renderer_ops->draw_rect (renderer,
 			   &p1, &p2,
 			   &pkg->fill_color,
 			   &pkg->line_color);
@@ -305,7 +303,7 @@ largepackage_update_data(LargePackage *pkg)
   if (!pkg->st_stereotype) {
     pkg->st_stereotype = string_to_stereotype(pkg->stereotype);
   }
-  
+
   pkg->topheight = pkg->font_height + 0.1*2;
 
   pkg->topwidth = 2.0;
@@ -324,7 +322,7 @@ largepackage_update_data(LargePackage *pkg)
     elem->width = pkg->topwidth + 0.2;
   if (elem->height < 1.0)
     elem->height = 1.0;
-  
+
   /* Update connections: */
   element_update_connections_rectangle(elem, pkg->connections);
 
@@ -347,11 +345,11 @@ largepackage_create(Point *startpoint,
   Element *elem;
   DiaObject *obj;
   int i;
-  
+
   pkg = g_malloc0(sizeof(LargePackage));
   elem = &pkg->element;
   obj = &elem->object;
-  
+
   obj->type = &largepackage_type;
 
   obj->ops = &largepackage_ops;
@@ -362,7 +360,7 @@ largepackage_create(Point *startpoint,
 
   elem->width = 4.0;
   elem->height = 4.0;
-  
+
   pkg->line_width = attributes_get_default_linewidth();
   pkg->text_color = color_black;
   pkg->line_color = attributes_get_foreground();
@@ -400,7 +398,7 @@ largepackage_destroy(LargePackage *pkg)
   g_free(pkg->stereotype);
   g_free(pkg->st_stereotype);
   g_free(pkg->name);
-  
+
   element_destroy(&pkg->element);
 }
 

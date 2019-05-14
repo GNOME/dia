@@ -3,7 +3,7 @@
  *
  * State terminal type for UML diagrams
  * Copyright (C) 2002 Alejandro Sierra <asierra@servidor.unam.mx>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -46,7 +44,7 @@ struct _State {
   ConnectionPoint connections[NUM_CONNECTIONS];
 
   int is_final;
-  
+
   Color line_color;
   Color fill_color;
 };
@@ -84,7 +82,7 @@ static ObjectTypeOps state_type_ops =
   (CreateFunc) state_create,
   (LoadFunc)   state_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -116,8 +114,8 @@ static ObjectOps state_ops = {
 
 static PropDescription state_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
   { "is_final", PROP_TYPE_BOOL, PROP_FLAG_VISIBLE,
   N_("Is final"), NULL, NULL },
   PROP_DESC_END
@@ -137,7 +135,7 @@ static PropOffset state_offsets[] = {
   { "line_colour",PROP_TYPE_COLOUR,offsetof(State, line_color) },
   { "fill_colour",PROP_TYPE_COLOUR,offsetof(State, fill_color) },
   { "is_final", PROP_TYPE_BOOL, offsetof(State, is_final) },
-  
+
   { NULL, 0, 0 },
 };
 
@@ -210,7 +208,7 @@ state_draw(State *state, DiaRenderer *renderer)
   y = elem->corner.y;
   w = elem->width;
   h = elem->height;
-  
+
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, STATE_LINEWIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
@@ -218,14 +216,14 @@ state_draw(State *state, DiaRenderer *renderer)
    p1.x = x + w/2;
    p1.y = y + h/2;
    if (state->is_final==1) {
-      r = STATE_ENDRATIO;      
-      renderer_ops->draw_ellipse (renderer, 
+      r = STATE_ENDRATIO;
+      renderer_ops->draw_ellipse (renderer,
 				  &p1,
 				  r, r,
 				  &state->fill_color, &state->line_color);
-   }  
+   }
    r = STATE_RATIO;
-   renderer_ops->draw_ellipse (renderer, 
+   renderer_ops->draw_ellipse (renderer,
 			       &p1,
 			       r, r,
 			       &state->line_color, NULL); /* line_color not a typo! */
@@ -240,9 +238,9 @@ state_update_data(State *state)
   Element *elem = &state->element;
   ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
-  
+
   w = h = (state->is_final) ? STATE_ENDRATIO: STATE_RATIO;
-   
+
   elem->width = w;
   elem->height = h;
   extra->border_trans = STATE_LINEWIDTH / 2.0;
@@ -268,11 +266,11 @@ state_create(Point *startpoint,
   DiaObject *obj;
   Point p;
   int i;
-  
+
   state = g_malloc0(sizeof(State));
   elem = &state->element;
   obj = &elem->object;
-  
+
   obj->type = &state_term_type;
   obj->ops = &state_ops;
   elem->corner = *startpoint;
@@ -282,12 +280,12 @@ state_create(Point *startpoint,
   p = *startpoint;
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;
-  
+
   state->line_color = attributes_get_foreground();
   state->fill_color = attributes_get_background();
   state->is_final = 0;
   element_init(elem, 8, NUM_CONNECTIONS);
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &state->connections[i];
     state->connections[i].object = obj;

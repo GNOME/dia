@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <gtk/gtk.h>
 
@@ -44,13 +42,13 @@ static void pagesetup_changed  (GtkWidget *wid, PageSetup *ps);
 static void pagesetup_apply    (GtkWidget *wid, PageSetup *ps);
 
 static gint
-pagesetup_respond(GtkWidget *widget, 
+pagesetup_respond(GtkWidget *widget,
                    gint       response_id,
                    gpointer   data)
 {
   PageSetup *ps = (PageSetup *)data;
 
-  if (   response_id == GTK_RESPONSE_APPLY 
+  if (   response_id == GTK_RESPONSE_APPLY
       || response_id == GTK_RESPONSE_OK) {
     if (ps->changed)
       pagesetup_apply(widget, ps);
@@ -181,7 +179,7 @@ pagesetup_apply(GtkWidget *wid, PageSetup *ps)
 			      &ps->dia->data->paper.bmargin,
 			      &ps->dia->data->paper.lmargin,
 			      &ps->dia->data->paper.rmargin);
-  
+
   ps->dia->data->paper.is_portrait =
     dia_page_layout_get_orientation(DIA_PAGE_LAYOUT(ps->paper)) ==
     DIA_PAGE_ORIENT_PORTRAIT;
@@ -202,7 +200,7 @@ pagesetup_apply(GtkWidget *wid, PageSetup *ps)
   gtk_dialog_set_response_sensitive(GTK_DIALOG(ps->window), GTK_RESPONSE_APPLY, FALSE);
   ps->changed = FALSE;
 
-  
+
   /* update diagram -- this is needed to reposition page boundaries */
   diagram_set_modified(ps->dia, TRUE);
   diagram_add_update_all(ps->dia);

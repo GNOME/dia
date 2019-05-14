@@ -24,38 +24,36 @@
  */
 
 /*
- The basic idea is to register *every* Dia property within the GType system. 
+ The basic idea is to register *every* Dia property within the GType system.
  Thus we could just put these into e.g. a list-store, but some range checking
  may also be possible for load/bindings/etc.
- 
- The registered type could replace the type quark as it would give a fast 
+
+ The registered type could replace the type quark as it would give a fast
  unique number as well.
- 
- Prop names with namespces like UML? No. they would by nothing new, a simple 
- 'dia__' should be enough to make them unique. Also the basic idea of Dia's 
- property type system always was: same name, same type. 
+
+ Prop names with namespces like UML? No. they would by nothing new, a simple
+ 'dia__' should be enough to make them unique. Also the basic idea of Dia's
+ property type system always was: same name, same type.
 
  Stuff like 'line_width' should mean the same everywhere ...
  *BUT* does the same assumption hold for 'attributes (UML::Class|Database::Table)' ??
- 
+
  First iteration:
    - dia prop type (PROP_TYPE_*) plus member name ('line_width') give a unique GType
    + PROP_TYPE_INT also may include a range
    + PROP_TYPE_ENUM
-   - 
-   
+   -
+
  WHEN TO REGISTER?
   - during prop_desc_list_calculate_quarks() that is on firts access of *_describe_props()
-  - (eralier?) during object_register_type() - 
+  - (eralier?) during object_register_type() -
 
  SO MUCH FOR THE ORIGINAL IDEA.
 
  what's been implemented below is something a lot simpler, just enough to
  support exisiting ArrayProp usage ;)
  */
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "properties.h"
 #include "propinternals.h"
@@ -84,7 +82,7 @@ _cell_renderer_real_new (const Property *p)
   /* must be non NULL to make it editable */
   adj = GTK_ADJUSTMENT (gtk_adjustment_new (prop->real_data,
 			    numdata->min, numdata->max,
-			    numdata->step, 
+			    numdata->step,
 			    10.0 * numdata->step, 0));
 
   g_object_set (G_OBJECT (cren), "adjustment", adj, NULL);
@@ -113,9 +111,9 @@ _toggle_callback (GtkCellRendererToggle *renderer,
 
   column = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (renderer), COLUMN_KEY));
 
-  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
                       column, &value, -1);
-  gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
+  gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
                       column, !value, -1);
   g_object_set_data (G_OBJECT (model), "modified", GINT_TO_POINTER (1));
 }
@@ -124,7 +122,7 @@ _cell_renderer_toggle_new (const Property *p, GtkTreeView *view)
 {
   GtkCellRenderer *cren = gtk_cell_renderer_toggle_new ();
 
-  g_object_set (G_OBJECT (cren), 
+  g_object_set (G_OBJECT (cren),
 		"mode", GTK_CELL_RENDERER_MODE_ACTIVATABLE,
 		"activatable", TRUE,
 		NULL);
@@ -155,10 +153,10 @@ _text_edited (GtkCellRenderer *renderer,
 
   column = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (renderer), COLUMN_KEY));
 
-  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
                       column, &value, -1);
   g_free (value);
-  gtk_tree_store_set (GTK_TREE_STORE (model), &iter, 
+  gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
                       column, g_strdup (new_text), -1);
   g_object_set_data (G_OBJECT (model), "modified", GINT_TO_POINTER (1));
 }
@@ -585,7 +583,7 @@ _write_store (GtkTreeStore *store, GtkTreeIter *parent_iter, ArrayProperty *prop
   for (j = 0; j < rows; ++j) {
     GtkTreeIter iter;
     GPtrArray *r = g_ptr_array_index(prop->records, j);
- 
+
     gtk_tree_store_append (store, &iter, parent_iter);
 
     for (i = 0; i < cols; ++i) {
@@ -621,7 +619,7 @@ _write_store (GtkTreeStore *store, GtkTreeIter *parent_iter, ArrayProperty *prop
   }
 }
 
-/*! 
+/*!
  * PropertyType_ResetWidget: get the value of the property into the widget
  */
 void
@@ -680,7 +678,7 @@ _array_prop_adjust_len (ArrayProperty *prop, guint len)
   return TRUE;
 }
 /*!
- * \brief Transfer from the view model to the property 
+ * \brief Transfer from the view model to the property
  */
 static void
 _read_store (GtkTreeStore *store, GtkTreeIter *iter, ArrayProperty *prop)
@@ -691,7 +689,7 @@ _read_store (GtkTreeStore *store, GtkTreeIter *iter, ArrayProperty *prop)
   gboolean modified;
 
   cols = prop->ex_props->len;
-  
+
   if (gtk_tree_model_iter_parent (model, &parent_iter, iter))
     modified = _array_prop_adjust_len (prop, gtk_tree_model_iter_n_children (model, &parent_iter));
   else
@@ -747,12 +745,12 @@ _read_store (GtkTreeStore *store, GtkTreeIter *iter, ArrayProperty *prop)
   }
 }
 
-/*! 
- * PropertyType_SetFromWidget: set the value of the property from the 
+/*!
+ * PropertyType_SetFromWidget: set the value of the property from the
  * current value of the widget
  */
-void 
-_arrayprop_set_from_widget(ArrayProperty *prop, WIDGET *widget) 
+void
+_arrayprop_set_from_widget(ArrayProperty *prop, WIDGET *widget)
 {
   GtkWidget *view = widget;
   GtkTreeView *tree_view = g_object_get_data (G_OBJECT (view), "tree-view");

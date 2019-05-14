@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -45,7 +43,7 @@ struct _Generalization {
   Point text_pos;
   Alignment text_align;
   real text_width;
-  
+
   DiaFont *font;
   real     font_height;
   Color    text_color;
@@ -90,7 +88,7 @@ static ObjectTypeOps generalization_type_ops =
   (CreateFunc) generalization_create,
   (LoadFunc)   generalization_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -134,7 +132,7 @@ static PropDescription generalization_props[] = {
   PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -169,7 +167,7 @@ generalization_get_props(Generalization * generalization, GPtrArray *props)
 static void
 generalization_set_props(Generalization *generalization, GPtrArray *props)
 {
-  object_set_props_from_offsets(&generalization->orth.object, 
+  object_set_props_from_offsets(&generalization->orth.object,
                                 generalization_offsets, props);
   g_free(generalization->st_stereotype);
   generalization->st_stereotype = NULL;
@@ -199,7 +197,7 @@ generalization_move_handle(Generalization *genlz, Handle *handle,
   assert(genlz!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
-  
+
   change = orthconn_move_handle(&genlz->orth, handle, to, cp, reason, modifiers);
   generalization_update_data(genlz);
 
@@ -226,10 +224,10 @@ generalization_draw(Generalization *genlz, DiaRenderer *renderer)
   int n;
   Point pos;
   Arrow arrow;
-  
+
   points = &orth->points[0];
   n = orth->numpoints;
-  
+
   renderer_ops->set_linewidth(renderer, genlz->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
@@ -247,7 +245,7 @@ generalization_draw(Generalization *genlz, DiaRenderer *renderer)
 
   renderer_ops->set_font(renderer, genlz->font, genlz->font_height);
   pos = genlz->text_pos;
-  
+
   if (genlz->st_stereotype != NULL && genlz->st_stereotype[0] != '\0') {
     renderer_ops->draw_string(renderer,
 			       genlz->st_stereotype,
@@ -256,14 +254,14 @@ generalization_draw(Generalization *genlz, DiaRenderer *renderer)
 
     pos.y += genlz->font_height;
   }
-  
+
   if (genlz->name != NULL && genlz->name[0] != '\0') {
     renderer_ops->draw_string(renderer,
 			       genlz->name,
 			       &pos, genlz->text_align,
 			       &genlz->text_color);
   }
-  
+
 }
 
 static void
@@ -277,9 +275,9 @@ generalization_update_data(Generalization *genlz)
   PolyBBExtras *extra;
   real descent;
   real ascent;
-  
+
   orthconn_update_data(orth);
-  
+
   genlz->stereotype = remove_stereotype_from_string(genlz->stereotype);
   if (!genlz->st_stereotype) {
     genlz->st_stereotype =  string_to_stereotype(genlz->stereotype);
@@ -288,8 +286,8 @@ generalization_update_data(Generalization *genlz)
   genlz->text_width = 0.0;
   descent = 0.0;
   ascent = 0.0;
-  
-  if (genlz->name) {      
+
+  if (genlz->name) {
     genlz->text_width = dia_font_string_width(genlz->name, genlz->font,
                                               genlz->font_height);
     descent = dia_font_descent(genlz->name,
@@ -309,22 +307,22 @@ generalization_update_data(Generalization *genlz)
     ascent = dia_font_ascent(genlz->stereotype,
                              genlz->font,genlz->font_height);
   }
-  
+
   extra = &orth->extra_spacing;
-  
+
   extra->start_trans = genlz->line_width/2.0 + GENERALIZATION_TRIANGLESIZE;
-  extra->start_long = 
-    extra->middle_trans = 
-    extra->end_trans = 
+  extra->start_long =
+    extra->middle_trans =
+    extra->end_trans =
     extra->end_long = genlz->line_width/2.0;
-  
+
   orthconn_update_boundingbox(orth);
 
   /* Calc text pos: */
   num_segm = genlz->orth.numpoints - 1;
   points = genlz->orth.points;
   i = num_segm / 2;
-  
+
   if ((num_segm % 2) == 0) { /* If no middle segment, use horizontal */
     if (genlz->orth.orientation[i]==VERTICAL)
       i--;
@@ -392,7 +390,7 @@ generalization_get_object_menu(Generalization *genlz, Point *clickedpoint)
   OrthConn *orth;
 
   orth = &genlz->orth;
-  
+
   /* Set entries sensitive/selected etc here */
   object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
   object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
@@ -434,7 +432,7 @@ generalization_create(Point *startpoint,
   genlz->st_stereotype = NULL;
 
   generalization_update_data(genlz);
-  
+
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 

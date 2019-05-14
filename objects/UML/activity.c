@@ -3,7 +3,7 @@
  *
  * Activity type for UML diagrams
  * Copyright (C) 2002 Alejandro Sierra <asierra@servidor.unam.mx>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -94,7 +92,7 @@ DiaObjectType activity_type =
   "UML - Activity",   /* name */
   0,                      /* version */
   activity_xpm,  /* pixmap */
-  
+
   &activity_type_ops       /* ops */
 };
 
@@ -121,13 +119,13 @@ static ObjectOps state_ops = {
 static PropDescription activity_props[] = {
   ELEMENT_COMMON_PROPERTIES,
 
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR_OPTIONAL,
-  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL }, 
-  
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
+
   PROP_DESC_END
 };
 
@@ -222,7 +220,7 @@ state_draw(State *state, DiaRenderer *renderer)
   y = elem->corner.y;
   w = elem->width;
   h = elem->height;
-  
+
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, STATE_LINEWIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
@@ -246,7 +244,7 @@ state_update_data(State *state)
   ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
   Point p;
-  
+
   text_calc_boundingbox(state->text, NULL);
   w = state->text->max_width + 2*STATE_MARGIN_X;
   h = state->text->height*state->text->numlines +2*STATE_MARGIN_Y;
@@ -262,7 +260,7 @@ state_update_data(State *state)
 
   /* Update connections: */
   element_update_connections_rectangle (elem, state->connections);
-                                                                                          
+
   element_update_boundingbox(elem);
 
   obj->position = elem->corner;
@@ -283,11 +281,11 @@ state_create_activity(Point *startpoint,
   Point p;
   DiaFont *font;
   int i;
-  
+
   state = g_malloc0(sizeof(State));
   elem = &state->element;
   obj = &elem->object;
-  
+
   obj->type = &activity_type;
   obj->ops = &state_ops;
   elem->corner = *startpoint;
@@ -301,11 +299,11 @@ state_create_activity(Point *startpoint,
   p = *startpoint;
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;
-  
+
   state->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
   dia_font_unref(font);
   element_init(elem, 8, NUM_CONNECTIONS);
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &state->connections[i];
     state->connections[i].object = obj;

@@ -32,7 +32,7 @@ for c in theClasses :
 		oper, _h1, _h2 = operType.create (0,0)
 		oper.properties["name"] = f.name
 		oper.properties["type"] = f.type
-		
+
 		for p in f.parameters :
 			param, _h1, _h2 = paramType.create(0,0)
 			param.properties["name"] = p.name
@@ -40,13 +40,11 @@ for c in theClasses :
 
 			oper.insert(param, -1)
 		klass.insert(oper, -1)
-	layer.add_object(klass)			
+	layer.add_object(klass)
 
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <math.h>
 #include <string.h>
@@ -133,7 +131,7 @@ uml_operation_copy_into(UMLOperation *srcop, UMLOperation *destop)
     g_free(destop->name);
   }
   destop->name = g_strdup(srcop->name);
-  
+
   if (destop->type != NULL) {
     g_free(destop->type);
   }
@@ -151,7 +149,7 @@ uml_operation_copy_into(UMLOperation *srcop, UMLOperation *destop)
   } else {
     destop->stereotype = NULL;
   }
-  
+
   if (destop->comment != NULL) {
     g_free(destop->comment);
   }
@@ -187,9 +185,9 @@ uml_operation_copy_into(UMLOperation *srcop, UMLOperation *destop)
     else
       newparam->value = NULL;
     newparam->kind = param->kind;
-    
+
     destop->parameters = g_list_append(destop->parameters, newparam);
-    
+
     list = g_list_next(list);
   }
 }
@@ -198,7 +196,7 @@ UMLOperation *
 uml_operation_copy(UMLOperation *op)
 {
   UMLOperation *newop;
-  
+
   newop = g_new0(UMLOperation, 1);
 
   uml_operation_copy_into(op, newop);
@@ -219,7 +217,7 @@ uml_operation_destroy(UMLOperation *op)
 {
   GList *list;
   UMLParameter *param;
-  
+
   g_free(op->name);
   if (op->type != NULL)
     g_free(op->type);
@@ -276,9 +274,9 @@ uml_operation_write(AttributeNode attr_node, UMLOperation *op, DiaContext *ctx)
 		   op->query, ctx);
   data_add_boolean(composite_add_attribute(composite, "class_scope"),
 		   op->class_scope, ctx);
-  
+
   attr_node2 = composite_add_attribute(composite, "parameters");
-  
+
   list = op->parameters;
   while (list != NULL) {
     param = (UMLParameter *) list->data;
@@ -313,17 +311,17 @@ uml_get_operation_string (UMLOperation *operation)
   len = 1 + (operation->name ? strlen (operation->name) : 0) + 1;
   if(operation->stereotype != NULL && operation->stereotype[0] != '\0') {
     len += 5 + strlen (operation->stereotype);
-  }   
-  
+  }
+
   list = operation->parameters;
   while (list != NULL) {
     param = (UMLParameter  *) list->data;
     list = g_list_next (list);
-    
+
     switch(param->kind)
       {
       case UML_UNDEF_KIND:
-	break;  
+	break;
       case UML_IN:
 	len += 3;
 	break;
@@ -332,7 +330,7 @@ uml_get_operation_string (UMLOperation *operation)
 	break;
       case UML_INOUT:
 	len += 6;
-	break;	  
+	break;
       }
     len += (param->name ? strlen (param->name) : 0);
     if (param->type != NULL) {
@@ -344,7 +342,7 @@ uml_get_operation_string (UMLOperation *operation)
     if (param->value != NULL && param->value[0] != '\0') {
       len += 1 + strlen (param->value);
     }
-    
+
     if (list != NULL) {
       len += 1; /* ',' */
     }
@@ -373,12 +371,12 @@ uml_get_operation_string (UMLOperation *operation)
 
   strcat (str, operation->name ? operation->name : "");
   strcat (str, "(");
-  
+
   list = operation->parameters;
   while (list != NULL) {
     param = (UMLParameter  *) list->data;
     list = g_list_next (list);
-    
+
     switch(param->kind)
       {
       case UML_UNDEF_KIND:
@@ -401,7 +399,7 @@ uml_get_operation_string (UMLOperation *operation)
       }
       strcat (str, param->type);
     }
-    
+
     if (param->value != NULL && param->value[0] != '\0') {
       strcat (str, "=");
       strcat (str, param->value);
@@ -418,13 +416,13 @@ uml_get_operation_string (UMLOperation *operation)
     strcat (str, ": ");
     strcat (str, operation->type);
   }
- 
+
   if (operation->query != 0) {
     strcat(str, " const");
   }
 
   g_assert (strlen (str) == len);
-  
+
   return str;
 }
 

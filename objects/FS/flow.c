@@ -18,9 +18,7 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -60,7 +58,7 @@ struct _Flow {
   FlowType type;
   Point textpos; /* This is the master position, but overridden in load */
 };
-  
+
 #define FLOW_WIDTH 0.1
 #define FLOW_MATERIAL_WIDTH 0.2
 #define FLOW_DASHLEN 0.4
@@ -71,7 +69,7 @@ struct _Flow {
 
 static ObjectChange* flow_move_handle(Flow *flow, Handle *handle,
 				      Point *to, ConnectionPoint *cp,
-				      HandleMoveReason reason, 
+				      HandleMoveReason reason,
 				      ModifierKeys modifiers);
 static ObjectChange* flow_move(Flow *flow, Point *to);
 static void flow_select(Flow *flow, Point *clicked_point,
@@ -135,7 +133,7 @@ static PropEnumData prop_flow_type_data[] = {
   { N_("Energy"),FLOW_ENERGY },
   { N_("Material"),FLOW_MATERIAL },
   { N_("Signal"),FLOW_SIGNAL },
-  { NULL, 0 } 
+  { NULL, 0 }
 };
 
 static PropDescription flow_props[] = {
@@ -174,14 +172,14 @@ static PropOffset flow_offsets[] = {
 static void
 flow_get_props(Flow * flow, GPtrArray *props)
 {
-  object_get_props_from_offsets(&flow->connection.object, 
+  object_get_props_from_offsets(&flow->connection.object,
                                 flow_offsets, props);
 }
 
 static void
 flow_set_props(Flow *flow, GPtrArray *props)
 {
-  object_set_props_from_offsets(&flow->connection.object, 
+  object_set_props_from_offsets(&flow->connection.object,
                                 flow_offsets, props);
   flow_update_data(flow);
 }
@@ -193,14 +191,14 @@ flow_distance_from(Flow *flow, Point *point)
   Point *endpoints;
   real linedist;
   real textdist;
-  
+
   endpoints = &flow->connection.endpoints[0];
-  
-  linedist = distance_line_point(&endpoints[0], &endpoints[1], 
-				 flow->type == FLOW_MATERIAL ? FLOW_MATERIAL_WIDTH : FLOW_WIDTH, 
+
+  linedist = distance_line_point(&endpoints[0], &endpoints[1],
+				 flow->type == FLOW_MATERIAL ? FLOW_MATERIAL_WIDTH : FLOW_WIDTH,
 				 point);
   textdist = text_distance_from( flow->text, point ) ;
-  
+
   return linedist > textdist ? textdist : linedist ;
 }
 
@@ -221,7 +219,7 @@ flow_move_handle(Flow *flow, Handle *handle,
 {
   Point p1, p2;
   Point *endpoints;
-  
+
   assert(flow!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -234,7 +232,7 @@ flow_move_handle(Flow *flow, Handle *handle,
     real along_mag, norm_mag ;
     Point along ;
 
-    endpoints = &flow->connection.endpoints[0]; 
+    endpoints = &flow->connection.endpoints[0];
     p1 = flow->textpos ;
     point_sub( &p1, &endpoints[0] ) ;
 
@@ -255,7 +253,7 @@ flow_move_handle(Flow *flow, Handle *handle,
       norm_mag = (real)sqrt( (double) point_dot( &p1, &p1 ) ) ;
     }
 
-    connection_move_handle(&flow->connection, handle->id, to, cp, 
+    connection_move_handle(&flow->connection, handle->id, to, cp,
 			   reason, modifiers);
     connection_adjust_for_autogap(&flow->connection);
 
@@ -269,7 +267,7 @@ flow_move_handle(Flow *flow, Handle *handle,
     if ( dest_length > 1e-5 ) {
       point_normalize( &p2 ) ;
     } else {
-      p2.x = 0.0 ; p2.y = -1.0 ; 
+      p2.x = 0.0 ; p2.y = -1.0 ;
     }
     point_scale( &p2, norm_mag ) ;
     point_scale( &along, along_mag ) ;
@@ -286,12 +284,12 @@ static ObjectChange*
 flow_move(Flow *flow, Point *to)
 {
   Point start_to_end;
-  Point *endpoints = &flow->connection.endpoints[0]; 
+  Point *endpoints = &flow->connection.endpoints[0];
   Point delta;
 
   delta = *to;
   point_sub(&delta, &endpoints[0]);
- 
+
   start_to_end = endpoints[1];
   point_sub(&start_to_end, &endpoints[0]);
 
@@ -320,9 +318,9 @@ flow_draw(Flow *flow, DiaRenderer *renderer)
   arrow.type = ARROW_FILLED_TRIANGLE;
   arrow.width = FLOW_ARROWWIDTH;
   arrow.length = FLOW_ARROWLEN;
- 
+
   endpoints = &flow->connection.endpoints[0];
-  
+
   renderer_ops->set_linewidth(renderer, FLOW_WIDTH);
 
   renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
@@ -349,7 +347,7 @@ flow_draw(Flow *flow, DiaRenderer *renderer)
 				       &p1, &p2,
 				       FLOW_WIDTH,
 				       render_color,
-				       &arrow, NULL); 
+				       &arrow, NULL);
 
   text_draw(flow->text, renderer);
 }
@@ -374,13 +372,13 @@ flow_create(Point *startpoint,
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
   conn->endpoints[1].x += 1.5;
- 
+
   obj = &conn->object;
   extra = &conn->extra_spacing;
 
   obj->type = &flow_type;
   obj->ops = &flow_ops;
-  
+
   connection_init(conn, 3, 0);
 
   p = conn->endpoints[1] ;
@@ -403,7 +401,7 @@ flow_create(Point *startpoint,
   font = dia_font_new_from_style(DIA_FONT_SANS, FLOW_FONTHEIGHT);
 
   flow->text = new_text("", font, FLOW_FONTHEIGHT, &p, &color_black, ALIGN_CENTER);
-  dia_font_unref(font);  
+  dia_font_unref(font);
 
   flow->text_handle.id = HANDLE_MOVE_TEXT;
   flow->text_handle.type = HANDLE_MINOR_CONTROL;
@@ -412,14 +410,14 @@ flow_create(Point *startpoint,
   flow->text_handle.pos = p;
   obj->handles[2] = &flow->text_handle;
 
-  extra->start_long = 
+  extra->start_long =
     extra->end_long =
     extra->start_trans = FLOW_WIDTH/2.0;
   extra->end_trans = MAX(FLOW_WIDTH, FLOW_ARROWLEN) / 2.0;
   flow_update_data(flow);
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-  
+
   return &flow->connection.object;
 }
 
@@ -437,9 +435,9 @@ flow_copy(Flow *flow)
   Flow *newflow;
   Connection *conn, *newconn;
   DiaObject *newobj;
-  
+
   conn = &flow->connection;
-  
+
   newflow = g_malloc0(sizeof(Flow));
   newconn = &newflow->connection;
   newobj = &newconn->object;
@@ -465,7 +463,7 @@ flow_update_data(Flow *flow)
   DiaObject *obj = &conn->object;
   Rectangle rect;
   Color* color = NULL;
-  
+
   if (connpoint_is_autogap(flow->connection.endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(flow->connection.endpoint_handles[1].connected_to)) {
     connection_adjust_for_autogap(conn);
@@ -529,7 +527,7 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   obj->ops = &flow_ops;
 
   connection_load(conn, obj_node, ctx);
-  
+
   connection_init(conn, 3, 0);
 
   flow->text = NULL;
@@ -540,7 +538,7 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
     DiaFont *font = dia_font_new_from_style(DIA_FONT_SANS, FLOW_FONTHEIGHT);
 
     flow->text = new_text("", font, FLOW_FONTHEIGHT, &obj->position, &color_black, ALIGN_CENTER);
-    dia_font_unref(font);  
+    dia_font_unref(font);
   }
 
   attr = object_find_attribute(obj_node, "type");
@@ -554,14 +552,14 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   flow->text_handle.pos = flow->text->position;
   obj->handles[2] = &flow->text_handle;
 
-  extra->start_long = 
+  extra->start_long =
     extra->end_long =
     extra->start_trans = FLOW_WIDTH/2.0;
   extra->end_trans = MAX(FLOW_WIDTH, FLOW_ARROWLEN) / 2.0;
-  
+
   flow->textpos = flow->text->position;
   flow_update_data(flow);
-  
+
   return &flow->connection.object;
 }
 

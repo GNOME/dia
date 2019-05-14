@@ -5,7 +5,7 @@
  * Copyright (C) 2000 James Henstridge
  * almost complete rewrite for gtk2
  * Copyright (C) 2002 Hans Breuer
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -21,9 +21,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
-#  include <config.h>
-#endif
+#include <config.h>
 
 #include <string.h>
 
@@ -72,9 +70,9 @@ toggle_loaded_callback (GtkCellRendererToggle *celltoggle,
     }
   gtk_tree_path_free (path);
 
-  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
                       LOADED_COLUMN, &loaded, -1);
-  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
                       PLUGIN_COLUMN, &info, -1);
 
   if (loaded && dia_plugin_can_unload(info))
@@ -89,7 +87,7 @@ toggle_loaded_callback (GtkCellRendererToggle *celltoggle,
     }
   else
     message_notice("Can't unload plugin '%s'!", dia_plugin_get_name(info));
-  gtk_list_store_set (GTK_LIST_STORE (model), &iter, 
+  gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                       LOADED_COLUMN, loaded, -1);
 }
 
@@ -103,13 +101,13 @@ can_unload (GtkTreeViewColumn *tree_column,
   PluginInfo *info;
   gboolean loaded;
 
-  gtk_tree_model_get(tree_model, iter, 
+  gtk_tree_model_get(tree_model, iter,
                      PLUGIN_COLUMN, &info, -1);
-  gtk_tree_model_get(tree_model, iter, 
+  gtk_tree_model_get(tree_model, iter,
                      LOADED_COLUMN, &loaded, -1);
   if (!loaded || (loaded && dia_plugin_can_unload(info)))
     {
-      g_object_set (cell, 
+      g_object_set (cell,
 		    "mode", GTK_CELL_RENDERER_MODE_ACTIVATABLE,
 		    "activatable", TRUE,
 		    NULL);
@@ -142,9 +140,9 @@ toggle_autoload_callback (GtkCellRendererToggle *celltoggle,
     }
   gtk_tree_path_free (path);
 
-  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
                       AUTOLOAD_COLUMN, &load, -1);
-  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 
+  gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
                       PLUGIN_COLUMN, &info, -1);
 
   /* Disabling 'Standard' is fatal at next startup, while
@@ -156,7 +154,7 @@ toggle_autoload_callback (GtkCellRendererToggle *celltoggle,
                    "of plugin '%s'!", dia_plugin_get_name(info));
   else {
     dia_plugin_set_inhibit_load(info, load);
-    gtk_list_store_set (GTK_LIST_STORE (model), &iter, 
+    gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                         AUTOLOAD_COLUMN, !load, -1);
   }
 }
@@ -170,7 +168,7 @@ can_inhibit (GtkTreeViewColumn *tree_column,
 {
   PluginInfo *info;
 
-  gtk_tree_model_get(tree_model, iter, 
+  gtk_tree_model_get(tree_model, iter,
                      PLUGIN_COLUMN, &info, -1);
   if (   0 == strcmp(dia_plugin_get_name(info), "Standard")
       || 0 == strcmp(dia_plugin_get_name(info), "Internal"))
@@ -182,7 +180,7 @@ can_inhibit (GtkTreeViewColumn *tree_column,
     }
   else
     {
-      g_object_set (cell, 
+      g_object_set (cell,
 		    "mode", GTK_CELL_RENDERER_MODE_ACTIVATABLE,
 		    "activatable", TRUE,
 		    NULL);
@@ -231,8 +229,8 @@ get_plugin_manager(void)
 
   /* create the TreeStore */
   store = gtk_list_store_new (NUM_COLUMNS,
-                              G_TYPE_BOOLEAN, 
-                              G_TYPE_STRING, 
+                              G_TYPE_BOOLEAN,
+                              G_TYPE_STRING,
                               G_TYPE_STRING,
                               G_TYPE_STRING,
                               G_TYPE_BOOLEAN,

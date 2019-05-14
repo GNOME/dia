@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -46,7 +44,7 @@ struct _Dependency {
   Point text_pos;
   Alignment text_align;
   real text_width;
-  
+
   Color text_color;
   Color line_color;
 
@@ -93,7 +91,7 @@ static ObjectTypeOps dependency_type_ops =
   (CreateFunc) dependency_create,
   (LoadFunc)   dependency_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -139,7 +137,7 @@ static PropDescription dependency_props[] = {
   PROP_STD_TEXT_HEIGHT_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_TEXT_COLOUR_OPTIONS(PROP_FLAG_VISIBLE|PROP_FLAG_STANDARD|PROP_FLAG_OPTIONAL),
   PROP_STD_LINE_WIDTH_OPTIONAL,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
   PROP_DESC_END
 };
 
@@ -175,7 +173,7 @@ dependency_get_props(Dependency * dependency, GPtrArray *props)
 static void
 dependency_set_props(Dependency *dependency, GPtrArray *props)
 {
-  object_set_props_from_offsets(&dependency->orth.object, 
+  object_set_props_from_offsets(&dependency->orth.object,
                                 dependency_offsets, props);
   g_free(dependency->st_stereotype);
   dependency->st_stereotype = NULL;
@@ -205,7 +203,7 @@ dependency_move_handle(Dependency *dep, Handle *handle,
   assert(dep!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
-  
+
   change = orthconn_move_handle(&dep->orth, handle, to, cp, reason, modifiers);
   dependency_update_data(dep);
 
@@ -235,7 +233,7 @@ dependency_draw(Dependency *dep, DiaRenderer *renderer)
 
   points = &orth->points[0];
   n = orth->numpoints;
-  
+
   renderer_ops->set_linewidth(renderer, dep->line_width);
   renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, DEPENDENCY_DASHLEN);
   renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
@@ -253,7 +251,7 @@ dependency_draw(Dependency *dep, DiaRenderer *renderer)
 
   renderer_ops->set_font(renderer, dep->font, dep->font_height);
   pos = dep->text_pos;
-  
+
   if (dep->st_stereotype != NULL && dep->st_stereotype[0] != '\0') {
     renderer_ops->draw_string(renderer,
 			       dep->st_stereotype,
@@ -262,14 +260,14 @@ dependency_draw(Dependency *dep, DiaRenderer *renderer)
 
     pos.y += dep->font_height;
   }
-  
+
   if (dep->name != NULL && dep->name[0] != '\0') {
     renderer_ops->draw_string(renderer,
 			       dep->name,
 			       &pos, dep->text_align,
 			       &dep->text_color);
   }
-  
+
 }
 
 static void
@@ -281,7 +279,7 @@ dependency_update_data(Dependency *dep)
   int num_segm, i;
   Point *points;
   Rectangle rect;
-  
+
   orthconn_update_data(orth);
 
   dep->stereotype = remove_stereotype_from_string(dep->stereotype);
@@ -297,23 +295,23 @@ dependency_update_data(Dependency *dep)
     dep->text_width = MAX(dep->text_width,
 			  dia_font_string_width(dep->stereotype, dep->font,
 					    dep->font_height));
-  
-  extra->start_trans = 
-    extra->start_long = 
+
+  extra->start_trans =
+    extra->start_long =
     extra->middle_trans = dep->line_width/2.0;
-  
-  extra->end_trans = 
+
+  extra->end_trans =
     extra->end_long = (dep->draw_arrow?
                        (dep->line_width + DEPENDENCY_ARROWLEN)/2.0:
                        dep->line_width/2.0);
 
   orthconn_update_boundingbox(orth);
-  
+
   /* Calc text pos: */
   num_segm = dep->orth.numpoints - 1;
   points = dep->orth.points;
   i = num_segm / 2;
-  
+
   if ((num_segm % 2) == 0) { /* If no middle segment, use horizontal */
     if (dep->orth.orientation[i]==VERTICAL)
       i--;
@@ -411,7 +409,7 @@ dependency_create(Point *startpoint,
   Dependency *dep;
   OrthConn *orth;
   DiaObject *obj;
-  
+
   dep = g_new0(Dependency, 1);
 
   /* old defaults */
@@ -421,7 +419,7 @@ dependency_create(Point *startpoint,
 
   orth = &dep->orth;
   obj = (DiaObject *)dep;
-  
+
   obj->type = &dependency_type;
 
   obj->ops = &dependency_ops;
@@ -437,7 +435,7 @@ dependency_create(Point *startpoint,
   dep->text_width = 0;
 
   dependency_update_data(dep);
-  
+
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
 

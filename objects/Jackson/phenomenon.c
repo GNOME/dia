@@ -25,9 +25,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -358,7 +356,7 @@ message_create(Point *startpoint,
     case 2: message->type=MSG_REQ; break;
     default: message->type=MSG_SHARED; break;
   }
-    
+
   if (GPOINTER_TO_INT(user_data)!=0) message->init=-1; else message->init=0;
   return &message->connection.object;
 }

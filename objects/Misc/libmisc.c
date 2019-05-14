@@ -1,6 +1,6 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
- * 
+ *
  * Miscellaneous objects
  * Copyright (C) 2002 Cyrille Chépélov
  *
@@ -19,9 +19,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include "object.h"
 
@@ -44,8 +42,8 @@ dia_plugin_init(PluginInfo *info)
 			    NULL, NULL))
     return DIA_PLUGIN_INIT_ERROR;
 
-  object_register_type(&analog_clock_type);  
-  object_register_type(&grid_object_type);  
+  object_register_type(&analog_clock_type);
+  object_register_type(&grid_object_type);
   object_register_type(&tree_type);
   object_register_type(&measure_type);
   object_register_type(&diagram_as_element_type);

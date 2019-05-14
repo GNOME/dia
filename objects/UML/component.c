@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <math.h>
@@ -85,7 +83,7 @@ static ObjectTypeOps component_type_ops =
   (CreateFunc) component_create,
   (LoadFunc)   component_load,/*using_properties*/     /* load */
   (SaveFunc)   object_save_using_properties,      /* save */
-  (GetDefaultsFunc)   NULL, 
+  (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
 
@@ -123,14 +121,14 @@ static ObjectOps component_ops = {
 
 static PropDescription component_props[] = {
   ELEMENT_COMMON_PROPERTIES,
-  PROP_STD_LINE_COLOUR_OPTIONAL, 
-  PROP_STD_FILL_COLOUR_OPTIONAL, 
+  PROP_STD_LINE_COLOUR_OPTIONAL,
+  PROP_STD_FILL_COLOUR_OPTIONAL,
   { "stereotype", PROP_TYPE_STRING, PROP_FLAG_VISIBLE,
   N_("Stereotype"), NULL, NULL },
   PROP_STD_TEXT_FONT,
   PROP_STD_TEXT_HEIGHT,
   PROP_STD_TEXT_COLOUR,
-  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },   
+  { "text", PROP_TYPE_TEXT, 0, N_("Text"), NULL, NULL },
   PROP_DESC_END
 };
 
@@ -151,7 +149,7 @@ static PropOffset component_offsets[] = {
   {"text",PROP_TYPE_TEXT,offsetof(Component,text)},
   {"text_font",PROP_TYPE_FONT,offsetof(Component,text),offsetof(Text,font)},
   {PROP_STDNAME_TEXT_HEIGHT,PROP_STDTYPE_TEXT_HEIGHT,offsetof(Component,text),offsetof(Text,height)},
-  {"text_colour",PROP_TYPE_COLOUR,offsetof(Component,text),offsetof(Text,color)},  
+  {"text_colour",PROP_TYPE_COLOUR,offsetof(Component,text),offsetof(Text,color)},
   { NULL, 0, 0 },
 };
 
@@ -166,7 +164,7 @@ component_get_props(Component * component, GPtrArray *props)
 static void
 component_set_props(Component *component, GPtrArray *props)
 {
-  object_set_props_from_offsets(&component->element.object, 
+  object_set_props_from_offsets(&component->element.object,
                                 component_offsets, props);
   g_free(component->st_stereotype);
   component->st_stereotype = NULL;
@@ -230,7 +228,7 @@ component_draw(Component *cmp, DiaRenderer *renderer)
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
-  
+
   assert(cmp != NULL);
   assert(renderer != NULL);
 
@@ -240,7 +238,7 @@ component_draw(Component *cmp, DiaRenderer *renderer)
   y = elem->corner.y;
   w = elem->width;
   h = elem->height;
-  
+
   renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
   renderer_ops->set_linewidth(renderer, COMPONENT_BORDERWIDTH);
   renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
@@ -248,7 +246,7 @@ component_draw(Component *cmp, DiaRenderer *renderer)
   p1.x = x + COMPONENT_CWIDTH/2; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
-  renderer_ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer,
 			   &p1, &p2,
 			   &cmp->fill_color,
 			   &cmp->line_color);
@@ -256,15 +254,15 @@ component_draw(Component *cmp, DiaRenderer *renderer)
   p1.x= x; p1.y = y +(h - 3*COMPONENT_CHEIGHT)/2.0;
   p2.x = x+COMPONENT_CWIDTH; p2.y = p1.y + COMPONENT_CHEIGHT;
 
-  renderer_ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer,
 			   &p1, &p2,
 			   &cmp->fill_color,
 			   &cmp->line_color);
-  
+
   p1.y = p2.y + COMPONENT_CHEIGHT;
   p2.y = p1.y + COMPONENT_CHEIGHT;
 
-  renderer_ops->draw_rect(renderer, 
+  renderer_ops->draw_rect(renderer,
 			   &p1, &p2,
 			   &cmp->fill_color,
 			   &cmp->line_color);
@@ -274,7 +272,7 @@ component_draw(Component *cmp, DiaRenderer *renderer)
     p1 = cmp->text->position;
     p1.y -= cmp->text->height;
     renderer_ops->set_font(renderer, cmp->text->font, cmp->text->height);
-    renderer_ops->draw_string(renderer, cmp->st_stereotype, &p1, 
+    renderer_ops->draw_string(renderer, cmp->st_stereotype, &p1,
 			       ALIGN_LEFT, &cmp->text->color);
   }
 
@@ -388,11 +386,11 @@ component_create(Point *startpoint,
   Point p;
   DiaFont *font;
   int i;
-  
+
   cmp = g_malloc0(sizeof(Component));
   elem = &cmp->element;
   obj = &elem->object;
-  
+
   obj->type = &component_type;
 
   obj->ops = &component_ops;
@@ -405,13 +403,13 @@ component_create(Point *startpoint,
   p = *startpoint;
   p.x += COMPONENT_CWIDTH + COMPONENT_MARGIN_X;
   p.y += 2*COMPONENT_CHEIGHT;
-  
+
   cmp->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
 
   dia_font_unref(font);
-  
+
   element_init(elem, 8, NUM_CONNECTIONS);
-  
+
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &cmp->connections[i];
     cmp->connections[i].object = obj;
