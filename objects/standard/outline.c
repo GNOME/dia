@@ -35,7 +35,6 @@
 #include "boundingbox.h"
 #include "standard-path.h"
 
-#include "tool-icons.h"
 
 #include <cairo.h>
 #include <cairo-svg.h>
