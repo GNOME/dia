@@ -3,9 +3,9 @@
   <_name>AADL</_name>
   <_description>AADL Shapes</_description>
   <contents>
-    <object name="AADL - Box">  
+    <!--<object name="AADL - Box">
       <_description>Process</_description>
-    </object>
+    </object>-->
     <object name="AADL - Process">
       <_description>Process</_description>
     </object>
