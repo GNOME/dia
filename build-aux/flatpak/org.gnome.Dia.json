@@ -131,6 +131,15 @@
                         "url": "https://github.com/ibus/ibus/releases/download/1.5.20/ibus-1.5.20.tar.gz",
                         "sha256": "4cf1e5ca4b067a3bed3cdfa658d49ac597d817b2de627a1095214565f862d034"
                     }]
+                },
+                {
+                    "name": "pygtk",
+                    "sources": [{
+                        "type": "archive",
+                        "url": "https://ftp.gnome.org/pub/GNOME/sources/pygtk/2.10/pygtk-2.10.6.tar.gz",
+                        "sha256": "b4ab03eb315f6dcccc809e119461ecc3f2c3ec433d4effa0f630f3b145c49e43"
+                    }]
+                    
                 }
             ]
         },
