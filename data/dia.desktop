@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Dia
+GenericName=Diagram Editor
+Comment=Edit your Diagrams
+Type=Application
+Exec=dia %F
+Icon=dia
+Terminal=false
+Categories=GNOME;Graphics;
+StartupNotify=true
+MimeType=application/x-dia-diagram;
