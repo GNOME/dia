@@ -86,7 +86,9 @@ subdir('doc')
 subdir('plug-ins')
 subdir('sheets')
 subdir('shapes')
-subdir('tests')
+if get_option('tests')
+    subdir('tests')
+endif
 subdir('docs')
 
 # TODO: idealy this should use run_env from tests/
