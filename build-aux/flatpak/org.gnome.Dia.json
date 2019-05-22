@@ -138,6 +138,14 @@
                         "type": "archive",
                         "url": "https://ftp.gnome.org/pub/GNOME/sources/pygtk/2.10/pygtk-2.10.6.tar.gz",
                         "sha256": "b4ab03eb315f6dcccc809e119461ecc3f2c3ec433d4effa0f630f3b145c49e43"
+                    }],
+                    "modules": [{
+                        "name": "python-gobject",
+                        "sources": [{
+                            "type": "archive",
+                            "url": "https://ftp.gnome.org/pub/GNOME/sources/pygobject/2.90/pygobject-2.90.4.tar.xz",
+                            "sha256": "8407b6997181bbca4783798e21d7d63ca41708a6c05a3b08c953d64e7b97b2a1"
+                        }]
                     }]
                     
                 }
