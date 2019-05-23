@@ -34,7 +34,7 @@ app/sheets_dialog_callbacks.c
 app/splash.c
 app/toolbox.c
 app/winmain.c
-dia.desktop.in.in
+data/dia.desktop
 installer/win32/gennsh.c
 lib/arrows.c
 lib/attributes.c

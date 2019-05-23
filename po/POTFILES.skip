@@ -1,4 +1,3 @@
-dia.desktop.in
 data/ui/sheets-edit-dialog.xml
 data/ui/sheets-main-dialog.xml
 data/ui/sheets-new-dialog.xml
@@ -16,5 +15,3 @@ plug-ins/python/doxrev.py
 plug-ins/stress/stress.c
 plug-ins/stress/stress-memory.c
 plug-ins/stress/stress-memory.h
-
-
