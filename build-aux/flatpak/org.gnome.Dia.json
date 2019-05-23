@@ -133,13 +133,27 @@
                     }]
                 },
                 {
+                    "name": "python2-pycairo",
+                    "buildsystem": "simple",
+                    "build-commands": [
+                        "pip2 install --no-index --find-links=\"file://${PWD}\" --install-option=\"--prefix=${FLATPAK_DEST}\" pycairo"
+                    ],
+                    "sources": [
+                        {
+                            "type": "file",
+                            "url": "https://files.pythonhosted.org/packages/a6/54/23d6cf3e8d8f1eb30e0e58f171b6f62b2ea75c024935492373639a1a08e4/pycairo-1.18.0.tar.gz",
+                            "sha256": "abd42a4c9c2069febb4c38fe74bfc4b4a9d3a89fea3bc2e4ba7baff7a20f783f"
+                        }
+                    ]
+                },
+                {
                     "name": "pygtk",
                     "sources": [{
                         "type": "archive",
                         "url": "https://ftp.gnome.org/pub/GNOME/sources/pygtk/2.10/pygtk-2.10.6.tar.gz",
                         "sha256": "b4ab03eb315f6dcccc809e119461ecc3f2c3ec433d4effa0f630f3b145c49e43"
                     }]
-                    
+
                 }
             ]
         },
