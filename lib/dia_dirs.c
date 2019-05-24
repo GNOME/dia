@@ -103,9 +103,10 @@ dia_get_data_directory(const gchar* subdir)
   g_free (sLoc);
   return returnPath;
 #else
-  gchar *base = PKGDATADIR;
+  gchar *base = g_strdup (PKGDATADIR);
   char  *ret;
   if (g_getenv ("DIA_BASE_PATH") != NULL) {
+    g_free (base);
     /* a small hack cause the final destination and the local path differ */
     base = g_build_filename (g_getenv ("DIA_BASE_PATH"), "data", NULL);
   }
