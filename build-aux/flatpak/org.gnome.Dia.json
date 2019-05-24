@@ -32,6 +32,75 @@
         "*.a"
     ],
     "modules": [{
+            "name": "gtk2",
+            "cleanup": [
+                "/bin",
+                "/share/gtk-2.0",
+                "/share/aclocal",
+                "/share/gtk-doc",
+                "/lib/pkgconfig",
+                "/lib/gtk-2.0/include",
+                "/include",
+                "*.la"
+            ],
+            "x-cpe": {
+                "product": "gtk+"
+            },
+            "config-opts": [
+                "--disable-dependency-tracking",
+                "--disable-gtk-doc-html",
+                "--disable-introspection",
+                "--with-xinput=xfree"
+            ],
+            "sources": [{
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/gtk+/2.24/gtk+-2.24.32.tar.xz",
+                    "sha256": "b6c8a93ddda5eabe3bfee1eb39636c9a03d2a56c7b62828b359bf197943c582e"
+                },
+                {
+                    "type": "patch",
+                    "path": "gtk2-use-adwaita-theme.patch"
+                }
+            ]
+        },
+        {
+            "name": "ibus-gtk2",
+            "no-make-install": true,
+            "config-opts": [
+                "--disable-xim",
+                "--disable-dconf",
+                "--disable-gconf",
+                "--disable-memconf",
+                "--disable-schemas-compile",
+                "--disable-schemas-install",
+                "--disable-gtk3",
+                "--disable-setup",
+                "--disable-ui",
+                "--disable-engine",
+                "--disable-python-library",
+                "--disable-libnotify",
+                "--disable-emoji-dict",
+                "--disable-appindicator",
+                "--disable-glibtest",
+                "--disable-tests",
+                "--disable-unicode-dict",
+                "--disable-introspection",
+                "--disable-python2"
+            ],
+            "ensure-writable": [
+                "/lib/gtk-2.0/2.10.0/immodules.cache"
+            ],
+            "post-install": [
+                "install -m644 --target-directory=/app/lib/gtk-2.0/2.10.0/immodules client/gtk2/.libs/im-ibus.so",
+                "gtk-query-immodules-2.0 > /app/lib/gtk-2.0/2.10.0/immodules.cache"
+            ],
+            "sources": [{
+                "type": "archive",
+                "url": "https://github.com/ibus/ibus/releases/download/1.5.20/ibus-1.5.20.tar.gz",
+                "sha256": "4cf1e5ca4b067a3bed3cdfa658d49ac597d817b2de627a1095214565f862d034"
+            }]
+        },
+        {
             "name": "gnome-themes-extra",
             "rm-configure": true,
             "config-opts": [
@@ -62,102 +131,56 @@
                         "autoreconf -fsi"
                     ]
                 }
-            ],
+            ]
+        },
+        {
+            "name": "pygtk",
+            "sources": [{
+                "type": "archive",
+                "url": "https://ftp.gnome.org/pub/GNOME/sources/pygtk/2.24/pygtk-2.24.0.tar.gz",
+                "sha256": "6e3e54fa6e65a69ac60bd58cb2e60a57f3346ac52efe995f3d10b6c38c972fd8"
+            },
+            {
+                "type": "shell",
+                "commands": [ "cp -p /usr/share/automake-*/config.{sub,guess} ." ]
+            }],
             "modules": [{
-                    "name": "gtk2",
-                    "cleanup": [
-                        "/bin",
-                        "/share/gtk-2.0",
-                        "/share/aclocal",
-                        "/share/gtk-doc",
-                        "/lib/pkgconfig",
-                        "/lib/gtk-2.0/include",
-                        "/include",
-                        "*.la"
-                    ],
-                    "x-cpe": {
-                        "product": "gtk+"
-                    },
-                    "config-opts": [
-                        "--disable-dependency-tracking",
-                        "--disable-gtk-doc-html",
-                        "--disable-introspection",
-                        "--with-xinput=xfree"
-                    ],
-                    "sources": [{
-                            "type": "archive",
-                            "url": "https://download.gnome.org/sources/gtk+/2.24/gtk+-2.24.32.tar.xz",
-                            "sha256": "b6c8a93ddda5eabe3bfee1eb39636c9a03d2a56c7b62828b359bf197943c582e"
-                        },
-                        {
-                            "type": "patch",
-                            "path": "gtk2-use-adwaita-theme.patch"
-                        }
-                    ]
-                },
-                {
-                    "name": "ibus-gtk2",
-                    "no-make-install": true,
-                    "config-opts": [
-                        "--disable-xim",
-                        "--disable-dconf",
-                        "--disable-gconf",
-                        "--disable-memconf",
-                        "--disable-schemas-compile",
-                        "--disable-schemas-install",
-                        "--disable-gtk3",
-                        "--disable-setup",
-                        "--disable-ui",
-                        "--disable-engine",
-                        "--disable-python-library",
-                        "--disable-libnotify",
-                        "--disable-emoji-dict",
-                        "--disable-appindicator",
-                        "--disable-glibtest",
-                        "--disable-tests",
-                        "--disable-unicode-dict",
-                        "--disable-introspection",
-                        "--disable-python2"
-                    ],
-                    "ensure-writable": [
-                        "/lib/gtk-2.0/2.10.0/immodules.cache"
-                    ],
-                    "post-install": [
-                        "install -m644 --target-directory=/app/lib/gtk-2.0/2.10.0/immodules client/gtk2/.libs/im-ibus.so",
-                        "gtk-query-immodules-2.0 > /app/lib/gtk-2.0/2.10.0/immodules.cache"
-                    ],
+                    "name": "python2-pycairo",
+                    "rm-configure": true,
                     "sources": [{
                         "type": "archive",
-                        "url": "https://github.com/ibus/ibus/releases/download/1.5.20/ibus-1.5.20.tar.gz",
-                        "sha256": "4cf1e5ca4b067a3bed3cdfa658d49ac597d817b2de627a1095214565f862d034"
+                        "url": "http://cairographics.org/releases/py2cairo-1.10.0.tar.bz2",
+                        "sha256": "d30439f06c2ec1a39e27464c6c828b6eface3b22ee17b2de05dc409e429a7431"
+                    },
+                    {
+                        "type": "script",
+                        "commands": [
+                            "libtoolize --force",
+                            "aclocal",
+                            "autoheader",
+                            "automake --force-missing --add-missing --foreign",
+                            "autoconf"
+                        ],
+                        "dest-filename": "autogen.sh"
                     }]
                 },
                 {
-                    "name": "python2-pygobject",
-                    "buildsystem": "simple",
-                    "build-commands": [
-                        "pip2 install --no-index --find-links=\"file://${PWD}\" --install-option=\"--prefix=${FLATPAK_DEST}\" pygobject"
+                    "name": "pygobject",
+                    "config-opts": [ "--disable-introspection" ],
+                    "cleanup": [
+                        "/bin"
                     ],
                     "sources": [
                         {
-                            "type": "file",
-                            "url": "https://files.pythonhosted.org/packages/a6/54/23d6cf3e8d8f1eb30e0e58f171b6f62b2ea75c024935492373639a1a08e4/pycairo-1.18.0.tar.gz",
-                            "sha256": "abd42a4c9c2069febb4c38fe74bfc4b4a9d3a89fea3bc2e4ba7baff7a20f783f"
+                            "type": "archive",
+                            "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pygobject/2.21/pygobject-2.21.5.tar.gz",
+                            "sha256": "5be816798ee2a35037474e5186af7d04e9dc2b8d502c99443d359b883f026767"
                         },
                         {
-                            "type": "archive",
-                            "url": "https://ftp.gnome.org/pub/GNOME/sources/pygobject/2.90/pygobject-2.90.4.tar.xz",
-                            "sha256": "8407b6997181bbca4783798e21d7d63ca41708a6c05a3b08c953d64e7b97b2a1"
+                            "type": "shell",
+                            "commands": [ "cp -p /usr/share/automake-*/config.{sub,guess} ." ]
                         }
                     ]
-                },
-                {
-                    "name": "pygtk",
-                    "sources": [{
-                        "type": "archive",
-                        "url": "https://ftp.gnome.org/pub/GNOME/sources/pygtk/2.10/pygtk-2.10.6.tar.gz",
-                        "sha256": "b4ab03eb315f6dcccc809e119461ecc3f2c3ec433d4effa0f630f3b145c49e43"
-                    }]
                 }
             ]
         },
