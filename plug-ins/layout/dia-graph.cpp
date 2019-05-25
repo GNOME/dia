@@ -74,6 +74,7 @@ public :
   eResult Layout (const char *module);
   bool GetNodePosition (int node, double* x, double* y);
   int GetEdgeBends (int e, double *coords, int len);
+  virtual ~DiaGraph();
 protected :
   bool Scale (double xfactor, double yfactor);
 private :
@@ -137,7 +138,7 @@ DiaGraph::Layout (const char *module)
 bool
 DiaGraph::GetNodePosition (int node, double* x, double* y)
 {
-  if (node >= 0 && node < m_nodes.size()) {
+  if (node >= 0 && ((size_t) node) < m_nodes.size()) {
     Node &n = m_nodes[node];
     if (x)
       *x = n.center.x - n.width / 2;
@@ -151,11 +152,11 @@ DiaGraph::GetNodePosition (int node, double* x, double* y)
 int
 DiaGraph::GetEdgeBends (int e, double *coords, int len)
 {
-  if (e >= m_edges.size() || e < 0)
+  if (((size_t) e) >= m_edges.size() || e < 0)
     return 0;
   Edge &edge = m_edges[e];
   if (coords && len > 0) {
-    for (int i = 0, j = 0; i < len && j < edge.size(); i+=2, ++j) {
+    for (size_t i = 0, j = 0; i < ((size_t) len) && j < edge.size(); i+=2, ++j) {
       coords[i  ] = edge[j].x;
       coords[i+1] = edge[j].y;
     }

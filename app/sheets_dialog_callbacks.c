@@ -1807,13 +1807,13 @@ on_sheets_dialog_button_apply_clicked  (GtkButton       *button,
     SheetMod *sm;
     GSList *sheets_list;
     GSList *find_list;
+    Sheet *new_sheet = NULL;
 
     sm = iter_list->data;
     switch (sm->mod)
     {
       GSList *sheet_object_mods_list;
       GSList *list;
-      Sheet *new_sheet = NULL;
 
     case SHEETMOD_MOD_NEW:
       write_user_sheet(&sm->sheet);

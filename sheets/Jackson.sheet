@@ -8,11 +8,11 @@
     </object>
     <object name="Jackson - domain" intdata="2">
       <description>A Jackson designed domain</description>
-      <icon>res:/org/gnome/Dia/Jackson/designeddomain.png</icon>
+      <icon>res:/org/gnome/Dia/Jackson/designed_domain.png</icon>
     </object>
     <object name="Jackson - domain" intdata="3">
       <description>A Jackson machine domain</description>
-      <icon>res:/org/gnome/Dia/Jackson/machinedomain.png</icon>
+      <icon>res:/org/gnome/Dia/Jackson/machine_domain.png</icon>
     </object>
     <object name="Jackson - requirement" intdata="1">
       <description>A Jackson requirement</description>
@@ -22,7 +22,7 @@
     </object>
     <object name="Jackson - phenomenon" intdata="2">
       <description>A Jackson requirement phenomenon</description>
-      <icon>res:/org/gnome/Dia/Jackson/reqphen.png</icon>
+      <icon>res:/org/gnome/Dia/Jackson/req_phen.png</icon>
     </object>
   </contents>
 </sheet>

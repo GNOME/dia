@@ -6,7 +6,7 @@
     <object name="Lights - PAR">
       <description>PAR</description>
     </object>
-    <object name="Lights - PARfloor">
+    <object name="Lights - PAR_floor">
       <description>PAR on the floor</description>
     </object>
     <object name="Lights - ACL">
@@ -34,7 +34,7 @@
     <object name="Lights - Stroboscope">
       <description>Stroboscope light</description>
     </object>
-    <object name="Lights - Movinghead">
+    <object name="Lights - Moving_head">
       <description>Moving head</description>
     </object>
     <object name="Lights - Scanner">

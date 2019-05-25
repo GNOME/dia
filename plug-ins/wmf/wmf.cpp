@@ -72,9 +72,10 @@ wmf.cpp:1383:40: error: cast from 'void*' to 'W32::HDC' loses precision
 #  define DIRECT_WMF
 #endif
 
+#ifdef G_OS_WIN32
 /* force linking with gdi32 */
 #pragma comment( lib, "gdi32" )
-
+#endif
 
 // #define DIRECT_WMF
 
@@ -241,6 +242,7 @@ static void _nada(WmfRenderer*, const char*, ...) { }
 #else
 #  define DIAG_NOTE my_log
 #endif
+#ifdef G_OS_WIN32
 static void
 my_log(WmfRenderer* renderer, const char* format, ...)
 {
@@ -258,6 +260,7 @@ my_log(WmfRenderer* renderer, const char* format, ...)
 
     g_free(string);
 }
+#endif
 
 /*
  * renderer interface implementation
@@ -1294,6 +1297,7 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->is_capable_to = is_capable_to;
 }
 
+#ifdef G_OS_WIN32
 /* plug-in export api */
 static gboolean
 export_data(DiagramData *data, DiaContext *ctx,
@@ -1445,7 +1449,6 @@ export_data(DiagramData *data, DiaContext *ctx,
     return TRUE;
 }
 
-#ifdef G_OS_WIN32
 static const gchar *wmf_extensions[] = { "wmf", NULL };
 static DiaExportFilter wmf_export_filter = {
     N_("Windows Metafile"),
