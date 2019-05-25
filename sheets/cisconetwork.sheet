@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Cisco — Network</name>
+  <description>Network shapes by Cisco</description>
+  <contents>
+<object name="Cisco - Network Management"><description>Network Management</description></object>
+<object name="Cisco - Detector"><description>Detector</description></object>
+<object name="Cisco - Protocol Translator"><description>Protocol Translator</description></object>
+<object name="Cisco - IP"><description>IP</description></object>
+<object name="Cisco - IP Old-style"><description>IP Old-style</description></object>
+<object name="Cisco - NAT"><description>NAT</description></object>
+<object name="Cisco - VIP"><description>VIP</description></object>
+<object name="Cisco - Terminal Server"><description>Terminal Server</description></object>
+<object name="Cisco - Access server"><description>Access Server</description></object>
+<object name="Cisco - System controller"><description>System controller</description></object>
+<object name="Cisco - Directory Server"><description>Directory Server</description></object>
+<object name="Cisco - Firewall"><description>Firewall</description></object>
+<object name="Cisco - Firewall subdued"><description>Firewall subdued</description></object>
+<object name="Cisco - Firewall horizontal"><description>Firewall horizontal</description></object>
+<object name="Cisco - Firewall Service Module"><description>Firewall Service Module</description></object>
+<object name="Cisco - IOS Firewall"><description>IOS Firewall</description></object>
+<object name="Cisco - PIX Firewall">
+  <alias name="Cisco - PIX Firewall Left"/>
+  <description>PIX Firewall</description>
+</object>
+<object name="Cisco - Centri Firewall"><description>Centri Firewall</description></object>
+<object name="Cisco - Guard"><description>Guard</description></object>
+<object name="Cisco - Security appliance"><description>Security appliance</description></object>
+<object name="Cisco - VPN concentrator"><description>VPN Concentrator</description></object>
+<object name="Cisco - VPN Gateway"><description>VPN Gateway</description></object>
+<object name="Cisco - LAN to LAN"><description>LAN to LAN</description></object>
+<object name="Cisco - SSL Terminator"><description>SSL Terminator</description></object>
+<object name="Cisco - IP DSL"><description>IP DSL Switch</description></object>
+<object name="Cisco - DSLAM"><description>DSLAM</description></object>
+<object name="Cisco - Cable Modem"><description>Cable Modem</description></object>
+<object name="Cisco - Wireless Connectivity"><description>Wireless Connectivity</description></object>
+<object name="Cisco - Wireless Transport"><description>Wireless Transport</description></object>
+<object name="Cisco - AccessPoint"><description>AccessPoint</description></object>
+<object name="Cisco - Wireless Bridge"><description>Wireless Bridge</description></object>
+<object name="Cisco - Dual Mode AccessPoint"><description>Dual Mode AccessPoint</description></object>
+<object name="Cisco - Wi-Fi Tag"><description>Wi-Fi Tag</description></object>
+<object name="Cisco - Wireless Location Appliance"><description>Wireless Location Appliance</description></object>
+<object name="Cisco - Location server"><description>Location server</description></object>
+<object name="Cisco - Lightweight AP"><description>Lightweight AP</description></object>
+<object name="Cisco - WLAN controller"><description>WLAN controller</description></object>
+<object name="Cisco - BBFW"><description>BBFW</description></object>
+<object name="Cisco - BBFW media"><description>BBFW media</description></object>
+<object name="Cisco - Channelized Pipe"><description>Channelized Pipe</description></object>
+<object name="Cisco - Concatenated Payload"><description>Concatenated Payload</description></object>
+<object name="Cisco - Optical Cross-Connect"><description>Optical Cross-Connect</description></object>
+<object name="Cisco - Optical Transport"><description>Optical Transport</description></object>
+<object name="Cisco - Optical Fiber"><description>Optical Fiber</description></object>
+<object name="Cisco - Optical Amplifier"><description>Optical Amplifier</description></object>
+<object name="Cisco - Digital Cross-Connect"><description>Digital Cross-Connect</description></object>
+<object name="Cisco - IPTC"><description>IP Transport Concentrator</description></object>
+<object name="Cisco - DWDM Filter"><description>DWDM Filter</description></object>
+<object name="Cisco - WDM"><description>WDM</description></object>
+<object name="Cisco - 15200"><description>15200</description></object>
+<object name="Cisco - 15800"><description>15800</description></object>
+<object name="Cisco - ONS15104"><description>ONS15104</description></object>
+<object name="Cisco - 10700"><description>10700</description></object>
+<object name="Cisco - Metro 1500"><description>Metro 1500</description></object>
+<object name="Cisco - ONS15500"><description>ONS15540</description></object>
+<object name="Cisco - Automatic Protection Switching"><description>Automatic Protection Switching</description></object>
+<object name="Cisco - RPS"><description>RPS</description></object>
+<object name="Cisco - UPS"><description>UPS</description></object>
+<object name="Cisco - LongReach CPE"><description>LongReach CPE</description></object>
+<object name="Cisco - 3X74 (floor) cluster controller"><description>3X74 (floor) cluster controller</description></object>
+<object name="Cisco - 3174 (desktop) cluster controller"><description>3174 (desktop) cluster controller</description></object>
+<object name="Cisco - CSU/DSU"><description>CSU/DSU</description></object>
+<object name="Cisco - WAN"><description>WAN</description></object>
+<object name="Cisco - Cloud"><description>Cloud</description></object>
+<object name="Cisco - Cloud Gold"><description>Cloud Gold</description></object>
+<object name="Cisco - Cloud White"><description>Cloud White</description></object>
+<object name="Cisco - Cloud Dark"><description>Cloud Dark</description></object>
+<object name="Cisco - Distributed Director"><description>Distributed Director</description></object>
+<object name="Cisco - LocalDirector"><description>LocalDirector</description></object>
+<object name="Cisco - IOS SLB"><description>IOS SLB</description></object>
+<object name="Cisco - MUX"><description>MUX</description></object>
+<object name="Cisco - General appliance"><description>General Appliance</description></object>
+<object name="Cisco - PAD X.28">
+  <!-- compatibility
+  <alias name="Cisco - PAD"/> -->
+  <description>PAD</description>
+</object>
+<object name="Cisco - CDDI-FDDI"><description>CDDI/FDDI Concentrator</description></object>
+<object name="Cisco - FDDI Ring"><description>FDDI Ring</description></object>
+<object name="Cisco - TokenRing"><description>TokenRing</description></object>
+<object name="Cisco - MAU"><description>MAU</description></object>
+<object name="Cisco - Repeater"><description>Repeater</description></object>
+<object name="Cisco - Bridge"><description>Bridge</description></object>
+<object name="Cisco - Breakout box"><description>Breakout box</description></object>
+<object name="Cisco - STB (set top box)"><description>STB (set top box)</description></object>
+<object name="Cisco - TV"><description>TV</description></object>
+<object name="Cisco - IPTV broadcast server"><description>IPTV broadcast server</description></object>
+<object name="Cisco - IPTV content manager"><description>IPTV content manager</description></object>
+<object name="Cisco - VN2900"><description>VN2900</description></object>
+<object name="Cisco - VN5902"><description>VN5902</description></object>
+<object name="Cisco - VN5900"><description>VN5900</description></object>
+<object name="Cisco - Catalyst Access Gateway"><description>Catalyst Access Gateway</description></object>
+<object name="Cisco - Generic gateway"><description>Generic Gateway</description></object>
+<object name="Cisco - Transpath"><description>TransPath</description></object>
+<object name="Cisco - uBR910"><description>uBR910 Cable DSU</description></object>
+<object name="Cisco - Storage Solution Engine"><description>Storage Solution Engine</description></object>
+<object name="Cisco - Content Engine (Cache Director)"><description>Content Engine (Cache Director)</description></object>
+<object name="Cisco - CDM Content Distribution Manager"><description>CDM Content Distribution Manager</description></object>
+<object name="Cisco - Content Transformation Engine (CTE)"><description>Content Transformation Engine (CTE)</description></object>
+<object name="Cisco - ME 1100"><description>ME 1100</description></object>
+<object name="Cisco - MAS Gateway"><description>MAS Gateway</description></object>
+<object name="Cisco - File Engine"><description>File Engine</description></object>
+<object name="Cisco - Service Control"><description>Service Control</description></object>
+  </contents>
+</sheet>

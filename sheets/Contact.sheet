@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Ladder</name>
+  <description>Components for LADDER circuits</description>
+  <contents>
+    <object name="LADDER - if">
+      <description>'if' (normally open) ladder contact</description>
+    </object>
+    <object name="LADDER - ifnot">
+      <description>'if not' (normally closed) ladder contact</description>
+    </object>
+    <br/>
+    <object name="LADDER - out">
+      <description>Simple output variable</description>
+    </object>
+    <object name="LADDER - outnot">
+      <description>Negative output variable</description>
+    </object>
+    <object name="LADDER - outs">
+      <description>'set' output variable</description>
+    </object>
+    <object name="LADDER - outr">
+      <description>'reset' output variable</description>
+    </object>
+    <object name="LADDER - outj">
+      <description>'jump' output variable</description>
+    </object>
+    <object name="LADDER - outrcep">
+      <description>Receptivity output variable</description>
+    </object>
+    <br/>
+    <object name="LADDER - sout">
+      <description>Power-saved simple output variable</description>
+    </object>
+    <object name="LADDER - soutnot">
+      <description>Power-saved negative output variable</description>
+    </object>
+    <object name="LADDER - souts">
+      <description>Power-saved 'set' output variable</description>
+    </object>
+    <object name="LADDER - soutr">
+      <description>Power-saved 'reset' output variable</description>
+    </object>
+    <!-- TODO : OPERATE, COMPARE, PULSE, TXT, TIMER and various sizes of
+         general-purpose blocks
+         -->
+  </contents>
+</sheet>

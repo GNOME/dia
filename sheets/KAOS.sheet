@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>RE-KAOS</name>
+  <description>Objects to design KAOS diagrams</description>
+  <contents>
+    <object name="KAOS - goal" intdata="2">
+      <description>A KAOS softgoal</description>
+      <icon>res:/org/gnome/Dia/KAOS/softgoal.png</icon>
+    </object>
+    <object name="KAOS - goal" intdata="1">
+      <description>A KAOS goal</description>
+    </object>
+    <object name="KAOS - goal" intdata="3">
+      <description>A KAOS requirement</description>
+      <icon>res:/org/gnome/Dia/KAOS/requirement.png</icon>
+    </object>
+    <object name="KAOS - goal" intdata="4">
+      <description>A KAOS assumption</description>
+      <icon>res:/org/gnome/Dia/KAOS/assumption.png</icon>
+    </object>
+    <object name="KAOS - goal" intdata="5">
+      <description>A KAOS obstacle</description>
+      <icon>res:/org/gnome/Dia/KAOS/obstacle.png</icon>
+    </object>
+    <object name="KAOS - maor" intdata="1">
+      <description>A KAOS AND refinement</description>
+      <icon>res:/org/gnome/Dia/KAOS/and-ref.png</icon>
+    </object>
+    <object name="KAOS - maor" intdata="2">
+      <description>A KAOS complete AND refinement</description>
+      <icon>res:/org/gnome/Dia/KAOS/and-complete-ref.png</icon>
+    </object>
+    <object name="KAOS - maor" intdata="3">
+      <description>A KAOS OR refinement</description>
+      <icon>res:/org/gnome/Dia/KAOS/or-ref.png</icon>
+    </object>
+    <object name="KAOS - maor" intdata="4">
+      <description>A KAOS complete OR refinement</description>
+      <icon>res:/org/gnome/Dia/KAOS/or-complete-ref.png</icon>
+    </object>
+    <object name="KAOS - maor" intdata="5">
+      <description>A KAOS operationalization</description>
+      <icon>res:/org/gnome/Dia/KAOS/op-ref.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="1">
+      <description>A KAOS contribution</description>
+    </object>
+    <object name="KAOS - mbr" intdata="2">
+      <description>A KAOS obstruction</description>
+      <icon>res:/org/gnome/Dia/KAOS/obstructs.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="3">
+      <description>A KAOS binary conflict</description>
+      <icon>res:/org/gnome/Dia/KAOS/conflicts.png</icon>
+    </object>
+    <object name="KAOS - other" intdata="1">
+      <description>A KAOS agent</description>
+    </object>
+    <object name="KAOS - mbr" intdata="4">
+      <description>A KAOS responsibility</description>
+      <icon>res:/org/gnome/Dia/KAOS/responsibility.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="5">
+      <description>A KAOS monitor link</description>
+      <icon>res:/org/gnome/Dia/KAOS/monitors.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="6">
+      <description>A KAOS control link</description>
+      <icon>res:/org/gnome/Dia/KAOS/controls.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="7">
+      <description>A KAOS capable-of</description>
+      <icon>res:/org/gnome/Dia/KAOS/capable-of.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="8">
+      <description>A KAOS performs</description>
+      <icon>res:/org/gnome/Dia/KAOS/performs.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="9">
+      <description>A KAOS input</description>
+      <icon>res:/org/gnome/Dia/KAOS/input.png</icon>
+    </object>
+    <object name="KAOS - mbr" intdata="10">
+      <description>A KAOS output</description>
+      <icon>res:/org/gnome/Dia/KAOS/output.png</icon>
+    </object>
+  </contents>
+</sheet>

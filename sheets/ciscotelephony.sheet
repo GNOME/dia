@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Cisco — Telephony</name>
+  <description>Telephony shapes by Cisco</description>
+  <contents>
+<object name="Cisco - Phone"><description>Phone</description></object>
+<object name="Cisco - Phone 2"><description>Phone 2</description></object>
+<object name="Cisco - Phone Ethernet"><description>Phone Ethernet</description></object>
+<object name="Cisco - Phone Appliance"><description>Phone Appliance</description></object>
+<object name="Cisco - Phone Feature"><description>Phone Feature</description></object>
+<object name="Cisco - Phone/Fax"><description>Phone/Fax</description></object>
+<object name="Cisco - HootPhone"><description>HootPhone</description></object>
+<object name="Cisco - IP Phone"><description>IP Phone</description></object>
+<object name="Cisco - IP Softphone"><description>IP Softphone</description></object>
+<object name="Cisco - Softphone"><description>Softphone</description></object>
+<object name="Cisco - Cellular phone"><description>Cellular Phone</description></object>
+<object name="Cisco - Mobile Access IP Phone"><description>Mobile Access IP Phone</description></object>
+<object name="Cisco - Pager"><description>Pager</description></object>
+<object name="Cisco - Fax"><description>Fax</description></object>
+<object name="Cisco - Turret"><description>Turret</description></object>
+<object name="Cisco - Octel"><description>Octel</description></object>
+<object name="Cisco - Radio Tower"><description>Radio Tower</description></object>
+<object name="Cisco - PBX"><description>PBX</description></object>
+<object name="Cisco - PBX Switch"><description>PBX Switch</description></object>
+<object name="Cisco - Class 4/5 switch"><description>Class 4/5 switch</description></object>
+<object name="Cisco - SONET MUX"><description>SONET MUX</description></object>
+<object name="Cisco - ADM"><description>ADM</description></object>
+<object name="Cisco - ITP"><description>ITP</description></object>
+<object name="Cisco - ATA"><description>ATA</description></object>
+<object name="Cisco - SIP Proxy server"><description>SIP Proxy Server</description></object>
+<object name="Cisco - Gatekeeper"><description>Gatekeeper</description></object>
+<object name="Cisco - MGX 8000 Series Voice Gateway"><description>MGX 8000 Series Voice Gateway</description></object>
+<object name="Cisco - End Office"><description>End Office</description></object>
+<object name="Cisco - Voice commserver"><description>Voice-Enabled Access Server</description></object>
+<object name="Cisco - Voice router"><description>Voice-Enabled Router</description></object>
+<object name="Cisco - Voice ATM Switch"><description>Voice-Enabled ATM Switch</description></object>
+<object name="Cisco - CallManager"><description>CallManager</description></object>
+<object name="Cisco - IP Telephony Router"><description>IP Telephony Router</description></object>
+<object name="Cisco - Mobile Access Router"><description>Mobile Access Router</description></object>
+<object name="Cisco - H.323"><description>H.323</description></object>
+<object name="Cisco - STP"><description>STP</description></object>
+<object name="Cisco - BTS 10200"><description>BTS 10200</description></object>
+<object name="Cisco - Generic softswitch"><description>Generic softswitch</description></object>
+<object name="Cisco - SC2200/VSC3000 host"><description>SC2200/VSC3000 host</description></object>
+<object name="Cisco - Virtual switch controller (VSC 3000)"><description>Virtual switch controller (VSC 3000)</description></object>
+<object name="Cisco - SC2200 (Signalling Controller)"><description>SC2200 (Signalling Controller)</description></object>
+<object name="Cisco - MoH server (Music on Hold)"><description>MoH server (Music on Hold)</description></object>
+<object name="Cisco - TDM router"><description>TDM router</description></object>
+<object name="Cisco - 6701"><description>6701</description></object>
+<object name="Cisco - 6705"><description>6705</description></object>
+<object name="Cisco - 6732"><description>6732</description></object>
+<object name="Cisco - IAD router"><description>IAD router</description></object>
+<object name="Cisco - ICS"><description>ICS</description></object>
+<object name="Cisco - ICM"><description>ICM</description></object>
+<object name="Cisco - IntelliSwitch Stack"><description>IntelliSwitch Stack</description></object>
+<object name="Cisco - Unity server"><description>Unity server</description></object>
+<object name="Cisco - Unity Express"><description>Unity Express</description></object>
+<object name="Cisco - MCU"><description>MCU</description></object>
+<object name="Cisco - uMG series"><description>uMG series</description></object>
+  </contents>
+</sheet>

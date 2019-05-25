@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>UML</name>
+  <description>Editor for UML Static Structure Diagrams</description>
+  <contents>
+    <object name="UML - Class" intdata="0">
+      <description>Class</description>
+    </object>
+    <object name="UML - Class" intdata="1">
+      <description>Template class</description>
+      <icon>res:/org/gnome/Dia/UML/umlclass_template.png</icon>
+    </object>
+    <object name="UML - Note">
+      <description>Note</description>
+    </object>
+    <object name="UML - Dependency">
+      <description>Dependency</description>
+    </object>
+    <object name="UML - Realizes">
+      <description>Realizes, implements a specific interface</description>
+    </object>
+    <object name="UML - Generalization">
+      <description>Generalization, class inheritance</description>
+    </object>
+    <object name="UML - Association" intdata="0">
+      <description>Association, two classes are associated</description>
+    </object>
+    <object name="UML - Association" intdata="1">
+      <description>Aggregation, one class is part of another</description>
+      <icon>res:/org/gnome/Dia/UML/aggregation.png</icon>
+    </object>
+    <object name="UML - Implements">
+      <description>Implements, class implements a specific interface</description>
+    </object>
+    <object name="UML - Constraint">
+      <description>Constraint, place a constraint on something</description>
+    </object>
+    <object name="UML - SmallPackage">
+      <description>Small package</description>
+    </object>
+    <object name="UML - LargePackage">
+      <description>Large package</description>
+    </object>
+    <object name="UML - Actor">
+      <description>Actor</description>
+    </object>
+    <object name="UML - Usecase">
+      <description>Use case</description>
+    </object>
+    <object name="UML - Lifeline">
+      <description>Lifeline</description>
+    </object>
+    <object name="UML - Object">
+      <description>Object</description>
+    </object>
+    <object name="UML - Message">
+      <description>Message</description>
+    </object>
+    <object name="UML - Component">
+      <description>Component</description>
+    </object>
+    <object name="UML - Component Feature" intdata="0">
+      <description>Facet</description>
+    </object>
+    <object name="UML - Component Feature" intdata="1">
+      <description>Receptacle</description>
+      <icon>res:/org/gnome/Dia/UML/receptacle.png</icon>
+    </object>
+    <object name="UML - Component Feature" intdata="2">
+      <description>Event Source</description>
+      <icon>res:/org/gnome/Dia/UML/eventsource.png</icon>
+    </object>
+    <object name="UML - Component Feature" intdata="3">
+      <description>Event Sink</description>
+      <icon>res:/org/gnome/Dia/UML/eventsink.png</icon>
+    </object>
+    <object name="UML - Node">
+      <description>Node</description>
+    </object>
+    <object name="UML - Classicon">
+      <description>Class stereotype icon</description>
+    </object>
+    <object name="UML - State Term">
+      <description>Initial/End state</description>
+    </object>
+    <object name="UML - State">
+      <description>State</description>
+    </object>
+    <object name="UML - Activity">
+       <description>Activity</description>
+    </object>
+    <object name="UML - Branch">
+      <description>Branch</description>
+    </object>
+    <object name="UML - Fork">
+      <description>Fork/Union</description>
+    </object>
+    <object name="UML - Transition">
+      <description>Transition</description>
+    </object>
+  </contents>
+</sheet>

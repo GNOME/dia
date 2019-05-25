@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns" xmlns:dc="http://purl.org/dc/elements/1.1">
+
+<!-- Dia-Version: 0.90-->
+<dc:creator>Alan Horkan</dc:creator>
+<dc:rights>Copyright Alan Horkan 2003</dc:rights>
+
+<!-- use dc:title instead? -->
+  <name>Map, Isometric</name>
+  <!-- Visio calls theses Map, Directional Map 3D.  -->
+  <!-- use dc:description instead? -->
+  <description>Isometric Directional Map Shapes</description><!-- Pseudo Three Dimensional -->
+
+<contents>
+<!--add shapes here-->
+<object name="Road1"><description>Road Section</description></object>
+<object name="StraightRoad1"><description>Long Straight Road Section</description></object>
+
+<object name="Crossroads"><description>Crossroads</description></object>
+
+<object name="T-Junction"><description>T-Junction</description></object>
+<!-- also known as an Intersection -->
+
+<object name="Elevated"><description>Elevated Road</description></object>
+
+<object name="Corner1"><description>Corner 1</description></object>
+<object name="Corner2"><description>Corner 2</description></object>
+
+<object name="River"><description>River</description></object>
+
+<object name="Roof1"><description>Roof 1</description></object>
+<object name="Block1"><description>Block 1, 2:4</description></object>
+<object name="Block2"><description>Block 2, 2:8</description></object>
+<object name="Block3"><description>Block 3, 4:4</description></object>
+<object name="Block4"><description>Block 4, 4:8</description></object>
+<object name="Block5"><description>Block 5, 3:3</description></object>
+<object name="Block6"><description>Block 6, 4:6</description></object>
+
+<!-- A Building, not really a block but Visio called it Block 7.
+Need to think of a better name.  -->
+<object name="Block7"><description>Block 7</description></object>
+
+<object name="Factory"><description>Factory</description></object>
+
+<!-- Cars and Vehicles -->
+<object name="Car1"><description>Car 1, Front View</description></object>
+<object name="Car2"><description>Car 2, Rear View</description></object>
+
+
+<!-- Deprecated
+object name="RedCar"  description Red Car
+-->
+<!-- RedCar, colour hardcoded.
+Car 1 can be changed to whatever colour the user wants,
+but by using the foreground+background variables I cannot
+set the default colours.  bug ###### ? -->
+
+<object name="Train1"><description>Train 1, angled downward</description></object>
+<object name="Train2"><description>Train 2, angled upward</description></object>
+
+<!-- Trees & Scenery -->
+<object name="Tree1"><description>Tree 1</description></object>
+
+<object name="FootBridge"><description>Footbridge, Pedestrian Bridge</description></object>
+<object name="OneWay"><description>One Way Road Sign</description></object>
+
+
+</contents>
+
+</sheet>

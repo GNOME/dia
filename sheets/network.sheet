@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Network</name>
+  <description>Objects to design network diagrams with</description>
+  <contents>
+    <object name="Network - General Computer (Tower)">
+      <description>Computer</description>
+    </object>
+    <object name="Network - General Monitor (With Stand)">
+      <description>Monitor</description>
+    </object>
+    <object name="Network - Storage">
+      <description>Storage</description>
+    </object>
+    <object name="Network - Bus">
+      <!-- very old name kept for compatibility -->
+      <alias name="Standard - Bus"/>
+      <description>Ethernet bus</description>
+    </object>
+    <object name="Network - General Printer">
+      <description>Simple printer</description>
+    </object>
+    <object name="Network - WAN Connection">
+      <description>WAN connection</description>
+    </object>
+    <object name="Network - WAN Link">
+      <description>WAN link</description>
+    </object>
+    <object name="Network - Hub">
+      <description>Stackable hub or switch</description>
+    </object>
+    <object name="Network - Modular Switch">
+      <description>Modular switching system</description>
+    </object>
+    <object name="Network - Patch Panel">
+      <description>24 Port Patch Panel</description>
+    </object>
+    <object name="Network - RJ45 Wall-Plug">
+      <description>RJ45 wall-plug</description>
+    </object>
+    <object name="Network - scEAD Wall-Plug">
+      <description>Wall-plug for the scEAD cabling system</description>
+    </object>
+    <object name="Network - Modem">
+      <description>Simple modem</description>
+    </object>
+    <object name="Network - Antenna">
+      <description>Antenna for wireless transmission</description>
+    </object>
+    <object name="Network - Base Station">
+      <description>Mobile telephony base station</description>
+    </object>
+    <object name="Network - Cloud">
+      <description>Network cloud</description>
+    </object>
+    <object name="Network - Radio Cell">
+      <description>Mobile telephony cell</description>
+    </object>
+    <object name="Network - Router Symbol">
+      <description>Router symbol</description>
+    </object>
+    <object name="Network - Switch Symbol">
+      <description>Switch symbol</description>
+    </object>
+    <object name="Network - Switch ATM Symbol">
+      <description>ATM switch symbol</description>
+    </object>
+    <object name="Network - Firewall">
+      <description>Firewall router</description>
+    </object>
+    <object name="Network - A Workstation Monitor">
+      <description>Workstation monitor</description>
+    </object>
+    <object name="Network - A Workstation">
+      <description>UNIX workstation</description>
+    </object>
+    <object name="Network - A Desktop PC">
+      <description>Desktop PC</description>
+    </object>
+    <object name="Network - Laptop Computer">
+      <description>Laptop PC</description>
+    </object>
+    <object name="Network - A Bigtower PC">
+      <description>Bigtower PC</description>
+    </object>
+    <object name="Network - A Miditower PC">
+      <description>Miditower PC</description>
+    </object>
+    <object name="Network - A Minitower PC">
+      <description>Minitower PC</description>
+    </object>
+    <object name="Network - An amplifier speaker">
+      <description>Speaker with integrated amplifier</description>
+    </object>
+    <object name="Network - A speaker">
+     <description>Speaker without amplifier</description>
+    </object>
+    <object name="Network - A Diskette">
+      <description>3 1/2 inch diskette</description>
+    </object>
+    <object name="Network - A ZIP Disk">
+      <description>ZIP disk</description>
+    </object>
+    <object name="Network - An external DAT drive">
+      <description>External DAT drive</description>
+    </object>
+    <object name="Network - A Mobile Phone">
+      <description>Mobile phone</description>
+    </object>
+    <object name="Network - A Telephone">
+      <description>Telephone</description>
+    </object>
+    <object name="Network - Plotter">
+      <description>Plotter</description>
+    </object>
+    <object name="Network - Digitizing Board">
+      <description>Digitizing board</description>
+      </object>
+  </contents>
+</sheet>

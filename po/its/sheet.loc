@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<locatingRules>
+  <locatingRule name="sheet" pattern="*.sheet">
+    <documentRule localName="sheet" target="sheet.its"/>
+  </locatingRule>
+</locatingRules>

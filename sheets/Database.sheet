@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Database</name>
+  <description>Editor for Database Table Relation Diagrams</description>
+  <contents>
+    <object name="Database - Table">
+      <description>Table</description>
+    </object>
+    <object name="Database - Reference">
+      <description>Reference</description>
+    </object>
+    <object name="Database - Compound">
+      <description>Attribute compound</description>
+    </object>
+  </contents>
+</sheet>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+<!--Dia-Version: 0.94-->
+<!--Date: Sun Oct 23 17:12:11 2005-->
+<!--Author: Nicholas Moore, 2005. mailto: shiny.nickel@gmail.com -->
+
+<name>Gane and Sarson</name>
+<description>Gane and Sarson DFD</description>
+<contents>
+<!--add shapes here-->
+<object name="G&amp;S - Alternative External Entity">
+<description>Alternate external entity</description>
+</object>
+<object name="G&amp;S - Data Store">
+<description>Data store</description>
+</object>
+<object name="G&amp;S - External Entity">
+<description>External entity</description>
+</object>
+<object name="G&amp;S - Process">
+<description>Process</description>
+</object>
+</contents>
+</sheet>

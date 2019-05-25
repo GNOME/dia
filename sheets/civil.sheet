@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Civil</name>
+  <description>Civil Engineering Components</description>
+  <contents>
+    <object name="Civil - Vertical Rest">
+      <description>Vertical rest</description>
+    </object>
+    <object name="Civil - Horizontal Rest">
+      <description>Horizontal rest</description>
+    </object>
+    <object name="Civil - Bivalent Vertical Rest">
+      <description>Bivalent vertical rest</description>
+    </object>
+    <object name="Civil - Reference Line">
+      <description>Reference line</description>
+    </object>
+    <object name="Civil - Water Level">
+      <description>Water level</description>
+    </object>
+    <object name="Civil - Soil">
+      <description>Soil</description>
+    </object>
+    <object name="Civil - Right Arrow">
+      <description>Horizontally aligned arrow</description>
+    </object>
+    <object name="Civil - Up Arrow">
+      <description>Vertically aligned arrow</description>
+    </object>
+    <object name="Civil - Horizontal Limiting Line">
+      <description>Horizontal limiting line</description>
+    </object>
+    <object name="Civil - Vertical Limiting Line">
+      <description>Vertical limiting line</description>
+    </object>
+    <object name="Civil - Horizontal Pump">
+      <description>Horizontally aligned pump</description>
+    </object>
+    <object name="Civil - Vertical Pump">
+      <description>Vertically aligned pump</description>
+    </object>
+    <object name="Civil - Horizontal Compressor">
+      <description>Horizontally aligned compressor</description>
+    </object>
+    <object name="Civil - Vertical Compressor">
+      <description>Vertically aligned compressor</description>
+    </object>
+    <object name="Flowchart - Collate">
+      <description>Vertically aligned valve</description>
+    </object>
+    <object name="Civil - Horizontal Valve">
+      <description>Horizontally aligned valve</description>
+    </object>
+    <object name="Civil - Backflow Preventer">
+      <description>Backflow preventer</description>
+    </object>
+    <object name="Civil - Motor">
+      <description>Motor</description>
+    </object>
+    <object name="Civil - Gas Bottle">
+      <description>Gas bottle</description>
+    </object>
+    <object name="Civil - Frequency Converter">
+      <description>Frequency converter</description>
+    </object>
+    <object name="Civil - Vertical Propeller">
+      <description>Vertically aligned propeller</description>
+    </object>
+    <object name="Civil - Aerator">
+      <description>Aerator with bubbles</description>
+    </object>
+    <object name="Civil - Rotor">
+      <description>Rotor</description>
+    </object>
+    <object name="Civil - Final-Settling Basin">
+      <description>Final-settling basin</description>
+    </object>
+    <object name="Civil - Preliminary Clarification Tank">
+      <description>Preliminary clarification tank</description>
+    </object>
+    <object name="Civil - Basin">
+      <description>Basin</description>
+    </object>
+    <object name="Civil - Container">
+      <description>Container</description>
+    </object>
+  </contents>
+</sheet>

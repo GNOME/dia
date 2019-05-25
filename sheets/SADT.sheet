@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>SADT/IDEF0</name>
+  <description>Objects to design SADT diagrams</description>
+  <contents>
+    <object name="SADT - arrow">
+      <description>Activity/data flow arrow</description>
+    </object>
+    <object name="SADT - box">
+      <description>Activity/data box</description>
+    </object>
+    <object name="SADT - annotation">
+      <description>Flow label</description>
+    </object>
+  </contents>
+</sheet>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+<!--Dia-Version: 0.91-->
+<!--File: /home/zenith/.dia/sheets/Chemeng.sheet-->
+<!--Date: Wed Jun 25 14:15:42 2003-->
+<!--For: zenith-->
+
+<name>ChemEng</name>
+<description>Collection for chemical engineering</description>
+<contents>
+<!--add shapes here-->
+<object name="chemeng - fan">
+<description>Fan or Stirrer</description></object><object name="chemeng - spray">
+<description>Spraying Device</description></object><object name="chemeng - pneum">
+<description>Pneumatic Line</description></object><object name="chemeng - pneumv">
+<description>Pneumatic Line, vertical</description></object><object name="chemeng - measure">
+<description>Measurement</description></object><object name="chemeng - hx">
+<description>Simple Heat Exchanger</description></object><object name="chemeng - hxv">
+<description>Simple Heat Exchanger, vertical</description></object><object name="chemeng - wcool">
+<description>Water Cooler</description></object><object name="chemeng - wcoolv">
+<description>Water Cooler, vertical</description></object><object name="chemeng - SaT-fixedtube">
+<description>Fixed-Sheet Exchanger</description></object><object name="chemeng - SaT-floatinghead">
+<description>Floating-Head or U-Tube Exchanger</description></object><object name="chemeng - kettle">
+<description>Kettle Reboiler</description></object><object name="chemeng - aircooler">
+<description>Air Cooler</description></object><object name="chemeng - airforced">
+<description>Forced-Flow Air Cooler</description></object><object name="chemeng - airinduced">
+<description>Induced-Flow Air Cooler</description></object><object name="chemeng - plate">
+<description>Plate Exchanger</description></object><object name="chemeng - doublepipe">
+<description>Double-Pipe Exchanger</description></object><object name="chemeng - coil">
+<description>Heating/Cooling Coil</description></object><object name="chemeng - coilv">
+<description>Heating/Cooling Coil, vertical</description></object><object name="chemeng - furnace">
+<description>Simple Furnace</description></object><object name="chemeng - vessel">
+<description>Simple Vessel</description></object><object name="chemeng - knockout">
+<description>Knock-out Drum (with demister pad)</description></object><object name="chemeng - traycol">
+<description>Tray Column, simple</description></object><object name="chemeng - bigtraycol">
+<description>Tray Column, detailed</description></object><object name="chemeng - fluidcont">
+<description>Fluid Contacting Vessel, simple</description></object><object name="chemeng - reactor">
+<description>Reactor or Absorption Vessel, simple</description></object><object name="chemengtmp - autoclave">
+<description>Autoclave</description></object><object name="chemengtmp - tank">
+<description>Open Tank</description></object><object name="chemengtmp - settling">
+<description>Clarifier or Settling Tank</description></object><object name="chemengtmp - sealedtank">
+<description>Sealed Tank</description></object><object name="chemengtmp - coveredtank">
+<description>Covered tank</description></object><object name="chemengtmp - fixedroof">
+<description>Tank with Fixed Roof</description></object><object name="chemengtmp - floatingroof">
+<description>Tank with Floating Roof</description></object><object name="chemengtmp - storagesphere">
+<description>Storage Sphere</description></object><object name="chemengtmp - gasholder">
+<description>Gas Holder, basic</description></object><object name="chemeng - pump">
+<description>Centrifugal Pump or Fan</description></object><object name="chemeng - displa">
+<description>Positive Displacement Rotary Pump or Compressor</description></object><object name="chemeng - recipr">
+<description>Reciprocating Compressor or Pump</description></object><object name="chemeng - flowfan">
+<description>Axial Flow Fan</description></object><object name="chemeng - compr">
+<description>Compressor or Turbine</description></object><object name="chemeng - ejector">
+<description>Ejector or Injector</description></object><object name="chemeng - ACgen">
+<description>AC Generator</description></object><object name="chemeng - val">
+<description>Valve</description></object><object name="chemeng - valv">
+<description>Valve, vertical</description></object><object name="chemeng - regval">
+<description>Regulable Valve</description></object><object name="chemeng - regvalv">
+<description>Regulable Valve, vertical</description></object><object name="chemengtmp - filter">
+<description>Basic Filter</description></object><object name="chemengtmp - mixer">
+<description>Mixer</description></object><object name="chemengtmp - cyclone">
+<description>Cyclone and hydrocyclone</description></object><object name="chemengtmp - spraydrier">
+<description>Spray Drier</description></object><object name="chemengtmp - centrifuge">
+<description>Centrifuge</description></object>
+<object name="chemeng - prv"><description>Pressure Relief Valve</description></object></contents></sheet>

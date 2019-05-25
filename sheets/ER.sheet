@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>ER</name>
+  <description>Editor for Entity Relations Diagrams</description>
+  <contents>
+    <object name="ER - Entity" intdata="0">
+      <description>Entity</description>
+    </object>
+    <object name="ER - Entity" intdata="1">
+      <description>Weak entity</description>
+      <icon>res:/org/gnome/Dia/ER/weakentity.png</icon>
+    </object>
+    <object name="ER - Relationship">
+      <description>Relationship</description>
+    </object>
+    <object name="ER - Attribute">
+      <description>Attribute</description>
+    </object>
+    <object name="ER - Participation">
+      <description>Participation</description>
+    </object>
+  </contents>
+</sheet>

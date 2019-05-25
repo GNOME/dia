@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Flowchart</name>
+  <description>Objects to draw flowcharts</description>
+  <contents>
+    <object name="Flowchart - Box">
+      <description>Process/Auxiliary Operation</description>
+    </object>
+    <object name="Flowchart - Parallelogram">
+      <description>Input/Output</description>
+    </object>
+    <object name="Flowchart - Diamond">
+      <description>Decision</description>
+    </object>
+    <object name="Flowchart - Ellipse">
+      <description>Connector</description>
+    </object>
+    <object name="Flowchart - Display">
+      <description>Display</description>
+    </object>
+    <object name="Flowchart - Transaction File">
+      <description>Transaction file</description>
+    </object>
+    <object name="Flowchart - Off Page Connector">
+      <!-- XXX -->
+      <description>Off page connector</description>
+    </object>
+    <object name="Flowchart - Document">
+      <description>Document</description>
+    </object>
+    <object name="Flowchart - Manual Operation">
+      <description>Manual operation</description>
+    </object>
+    <object name="Flowchart - Preparation">
+      <description>Preparation</description>
+    </object>
+    <object name="Flowchart - Manual Input">
+      <description>Manual input</description>
+    </object>
+    <object name="Flowchart - Predefined Process">
+      <description>Predefined process</description>
+    </object>
+    <object name="Flowchart - Terminal">
+      <description>Terminal Interrupt</description>
+    </object>
+    <object name="Flowchart - Magnetic Disk">
+      <description>Magnetic disk</description>
+    </object>
+    <object name="Flowchart - Magnetic Drum">
+      <description>Magnetic drum</description>
+    </object>
+    <object name="Flowchart - Magnetic Tape">
+      <description>Magnetic tape</description>
+    </object>
+    <object name="Flowchart - Internal Storage">
+      <description>Internal storage</description>
+    </object>
+    <object name="Flowchart - Merge">
+      <description>Merge</description>
+    </object>
+    <object name="Flowchart - Extract">
+      <description>Extract</description>
+    </object>
+    <object name="Flowchart - Delay">
+      <description>Delay</description>
+    </object>
+    <object name="Flowchart - Summing Junction">
+      <!-- XXX -->
+      <description>Summing junction</description>
+    </object>
+    <object name="Flowchart - Collate">
+      <!-- XXX -->
+      <description>Collate</description>
+    </object>
+    <object name="Flowchart - Sort">
+      <description>Sort</description>
+    </object>
+    <object name="Flowchart - Or">
+      <description>Or</description>
+    </object>
+    <object name="Flowchart - Punched Card">
+      <description>Punched card</description>
+    </object>
+    <object name="Flowchart - Punched Tape">
+      <description>Punched tape</description>
+    </object>
+    <object name="Flowchart - Transmittal Tape">
+      <description>Transmittal tape</description>
+    </object>
+    <object name="Flowchart - Offline Storage">
+      <description>Offline storage</description>
+    </object>
+    <object name="Flowchart - Data Source">
+      <description>Data source</description>
+    </object>
+ </contents>
+</sheet>

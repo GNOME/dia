@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Electric</name>
+  <description>Components for electric circuits</description>
+  <contents>
+    <object name="Electric - contact_o">
+      <description>Normally open contact (horizontal)</description>
+    </object>
+    <object name="Electric - contact_f">
+      <description>Normally closed contact (horizontal)</description>
+    </object>
+    <object name="Electric - intpos_o">
+      <description>Normally open position switch (horizontal)</description>
+    </object>
+    <object name="Electric - intpos_f">
+      <description>Normally closed position switch (horizontal)</description>
+    </object>
+    <br/>
+    <object name="Electric - vcontact_o">
+      <description>Normally open contact (vertical)</description>
+    </object>
+    <object name="Electric - vcontact_f">
+      <description>Normally closed contact (vertical)</description>
+    </object>
+    <object name="Electric - vintpos_o">
+      <description>Normally open position switch (vertical)</description>
+    </object>
+    <object name="Electric - vintpos_f">
+      <description>Normally closed position switch (vertical)</description>
+    </object>
+    <br/>
+    <object name="Electric - command">
+      <description>The command organ of a relay (horizontal)</description>
+    </object>
+    <object name="Electric - relay">
+      <description>Relay (horizontal)</description>
+    </object>
+    <object name="Electric - lamp">
+      <description>Lamp or indicator light (horizontal)</description>
+    </object>
+    <br/>
+    <object name="Electric - vcommand">
+      <description>The command organ of a relay (vertical)</description>
+    </object>
+    <object name="Electric - vrelay">
+      <description>Relay (vertical)</description>
+    </object>
+    <object name="Electric - vlamp">
+      <description>Lamp or indicator light (vertical)</description>
+    </object>
+    <br/>
+
+
+    <object name="Electric - connpoint">
+      <description>Connection point</description>
+    </object>
+    <!-- TODO: various detectors (proximity, light, heat), motors, starters,
+    ... Maybe also a nice type of line with automatic (printed) connection
+	points -->
+  </contents>
+</sheet>

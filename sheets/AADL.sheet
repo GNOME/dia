@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>AADL</name>
+  <description>AADL Shapes</description>
+  <contents>
+    <!--<object name="AADL - Box">
+      <description>Process</description>
+    </object>-->
+    <object name="AADL - Process">
+      <description>Process</description>
+    </object>
+    <object name="AADL - Thread">
+      <description>Thread</description>
+    </object>
+    <object name="AADL - Data">
+      <description>Data</description>
+    </object>
+    <object name="AADL - Processor">
+      <description>Processor</description>
+    </object>
+    <object name="AADL - Memory">
+      <description>Memory</description>
+    </object>
+    <object name="AADL - Bus">
+      <description>Bus</description>
+    </object>
+    <object name="AADL - System">
+      <description>System</description>
+    </object>
+    <object name="AADL - Subprogram">
+      <description>Subprogram</description>
+    </object>
+    <object name="AADL - Thread Group">
+      <description>Thread Group</description>
+    </object>
+    <object name="AADL - Device">
+      <description>Device</description>
+    </object>
+    <object name="AADL - Package">
+      <description>Package</description>
+    </object>
+  </contents>
+</sheet>

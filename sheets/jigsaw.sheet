@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Jigsaw</name>
+  <description>Pieces of a jigsaw</description>
+  <contents>
+    <object name="Jigsaw - part_oioi">
+      <description>Jigsaw — part_oioi</description>
+    </object>
+    <object name="Jigsaw - part_ioio">
+      <description>Jigsaw — part_ioio</description>
+    </object>
+    <object name="Jigsaw - part_iiii">
+      <description>Jigsaw — part_iiii</description>
+    </object>
+    <object name="Jigsaw - part_oooo">
+      <description>Jigsaw — part_oooo</description>
+    </object>
+    <br/>
+    <object name="Jigsaw - part_oooi">
+      <description>Jigsaw — part_oooi</description>
+    </object>
+    <object name="Jigsaw - part_iooo">
+      <description>Jigsaw — part_iooo</description>
+    </object>
+    <object name="Jigsaw - part_oioo">
+      <description>Jigsaw — part_oioo</description>
+    </object>
+    <object name="Jigsaw - part_ooio">
+      <description>Jigsaw — part_ooio</description>
+    </object>
+    <br/>
+    <object name="Jigsaw - part_iioo">
+      <description>Jigsaw — part_iioo</description>
+    </object>
+    <object name="Jigsaw - part_oiio">
+      <description>Jigsaw — part_oiio</description>
+    </object>
+    <object name="Jigsaw - part_ooii">
+      <description>Jigsaw — part_ooii</description>
+    </object>
+    <object name="Jigsaw - part_iooi">
+      <description>Jigsaw — part_iooi</description>
+    </object>
+    <br/>
+    <object name="Jigsaw - part_oiii">
+      <description>Jigsaw — part_oiii</description>
+    </object>
+    <object name="Jigsaw - part_ioii">
+      <description>Jigsaw — part_ioii</description>
+    </object>
+    <object name="Jigsaw - part_iioi">
+      <description>Jigsaw — part_iioi</description>
+    </object>
+    <object name="Jigsaw - part_iiio">
+      <description>Jigsaw — part_iiio</description>
+    </object>
+  </contents>
+</sheet>

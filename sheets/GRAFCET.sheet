@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>GRAFCET</name>
+  <description>Objects to design GRAFCET charts</description>
+  <contents>
+    <object name="GRAFCET - Step" intdata="0">
+      <description>Regular step</description>
+    </object>
+    <object name="GRAFCET - Step" intdata="1">
+      <description>Initial step</description>
+      <icon>res:/org/gnome/Dia/GRAFCET/etapei.png</icon>
+    </object>
+    <object name="GRAFCET - Step" intdata="2">
+      <description>Macro entry step</description>
+      <icon>res:/org/gnome/Dia/GRAFCET/etapeme.png</icon>
+    </object>
+    <object name="GRAFCET - Step" intdata="3">
+      <description>Macro exit step</description>
+      <icon>res:/org/gnome/Dia/GRAFCET/etapems.png</icon>
+    </object>
+    <object name="GRAFCET - Step" intdata="4">
+      <description>Macro call step</description>
+      <icon>res:/org/gnome/Dia/GRAFCET/etapemc.png</icon>
+    </object>
+    <object name="GRAFCET - Step" intdata="5">
+      <description>Macro sub-program call step</description>
+      <icon>res:/org/gnome/Dia/GRAFCET/etapesp.png</icon>
+    </object>
+    <br/>
+    <object name="GRAFCET - Action">
+      <description>Action to associate to a step</description>
+    </object>
+    <object name="GRAFCET - Condition">
+      <description>Condition (of an action)</description>
+    </object>
+    <br/>
+    <object name="GRAFCET - Transition">
+      <description>Transition</description>
+    </object>
+    <object name="GRAFCET - Vergent" intdata="0">
+      <description>OR vergent</description>
+    </object>
+    <object name="GRAFCET - Vergent" intdata="1">
+      <description>AND vergent</description>
+      <icon>res:/org/gnome/Dia/GRAFCET/vergent_and.png</icon>
+    </object>
+    <br/>
+    <object name="GRAFCET - Arc">
+      <description>Arc (upward)</description>
+    </object>
+  </contents>
+</sheet>

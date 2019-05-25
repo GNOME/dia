@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>RE-Jackson</name>
+  <description>Objects to design Jackson diagrams</description>
+  <contents>
+    <object name="Jackson - domain" intdata="1">
+      <description>A Jackson given domain</description>
+    </object>
+    <object name="Jackson - domain" intdata="2">
+      <description>A Jackson designed domain</description>
+      <icon>res:/org/gnome/Dia/Jackson/designeddomain.png</icon>
+    </object>
+    <object name="Jackson - domain" intdata="3">
+      <description>A Jackson machine domain</description>
+      <icon>res:/org/gnome/Dia/Jackson/machinedomain.png</icon>
+    </object>
+    <object name="Jackson - requirement" intdata="1">
+      <description>A Jackson requirement</description>
+    </object>
+    <object name="Jackson - phenomenon" intdata="1">
+      <description>A Jackson shared phenomenon</description>
+    </object>
+    <object name="Jackson - phenomenon" intdata="2">
+      <description>A Jackson requirement phenomenon</description>
+      <icon>res:/org/gnome/Dia/Jackson/reqphen.png</icon>
+    </object>
+  </contents>
+</sheet>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>RE-i*</name>
+  <description>Objects to design i* diagrams</description>
+  <contents>
+    <object name="Istar - goal" intdata="1">
+      <description>An i* softgoal</description>
+    </object>
+    <object name="Istar - goal" intdata="2">
+      <description>An i* goal</description>
+      <icon>res:/org/gnome/Dia/Istar/goal.png</icon>
+    </object>
+    <object name="Istar - other" intdata="1">
+      <description>An i* resource</description>
+    </object>
+    <object name="Istar - other" intdata="2">
+      <description>An i* task</description>
+      <icon>res:/org/gnome/Dia/Istar/task.png</icon>
+    </object>
+    <object name="Istar - actor" intdata="1">
+      <description>An i* unspecified actor</description>
+    </object>
+    <object name="Istar - actor" intdata="2">
+      <description>An i* agent</description>
+      <icon>res:/org/gnome/Dia/Istar/agent.png</icon>
+    </object>
+    <object name="Istar - actor" intdata="3">
+      <description>An i* position</description>
+      <icon>res:/org/gnome/Dia/Istar/position.png</icon>
+    </object>
+    <object name="Istar - actor" intdata="4">
+      <description>An i* role</description>
+      <icon>res:/org/gnome/Dia/Istar/role.png</icon>
+    </object>
+    <object name="Istar - link" intdata="1">
+      <description>An i* unspecified link</description>
+    </object>
+    <object name="Istar - link" intdata="2">
+      <description>An i* positive contribution</description>
+      <icon>res:/org/gnome/Dia/Istar/pos_contrib.png</icon>
+    </object>
+    <object name="Istar - link" intdata="3">
+      <description>An i* negative contribution</description>
+      <icon>res:/org/gnome/Dia/Istar/neg_contrib.png</icon>
+    </object>
+    <object name="Istar - link" intdata="4">
+      <description>An i* dependency link</description>
+      <icon>res:/org/gnome/Dia/Istar/dependency.png</icon>
+    </object>
+    <object name="Istar - link" intdata="5">
+      <description>An i* decomposition link</description>
+      <icon>res:/org/gnome/Dia/Istar/decomposition.png</icon>
+    </object>
+    <object name="Istar - link" intdata="6">
+      <description>An i* means-ends link</description>
+      <icon>res:/org/gnome/Dia/Istar/means_ends.png</icon>
+    </object>
+  </contents>
+</sheet>

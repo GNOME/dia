@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Miscellaneous</name>
+  <description>Miscellaneous Shapes</description>
+  <contents>
+    <object name="Misc - Tree">
+      <description>Tree</description>
+    </object>
+    <object name="Filesystem - Folder">
+      <description>Folder</description>
+    </object>
+    <object name="Filesystem - File">
+      <description>File</description>
+    </object>
+    <object name="Misc - expensible node">
+      <description>expansible node</description>
+    </object>
+    <object name="Misc - expended node">
+      <description>expanded node</description>
+    </object>
+    <object name="Misc - Analog Clock">
+      <description>Traditional clock</description>
+    </object>
+    <object name="Misc - Measure" intdata="0">
+      <description>Measure distance</description>
+    </object>
+    <object name="Misc - Grid">
+      <description>Resizable grid</description>
+    </object>
+    <object name="Misc - Diagram">
+      <description>Diagram object</description>
+    </object>
+    <object name="Misc - Ngon">
+      <description>N-gon or Star object</description>
+    </object>
+  </contents>
+</sheet>
+
+

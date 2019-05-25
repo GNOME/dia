@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Circuit</name>
+  <description>Components for circuit diagrams</description>
+  <contents>
+    <object name="Circuit - Vertical Resistor">
+      <description>Vertically aligned resistor</description>
+    </object>
+    <object name="Circuit - Horizontal Inductor">
+      <description>Horizontally aligned inductor</description>
+    </object>
+    <object name="Circuit - Vertical Inductor">
+      <description>Vertically aligned inductor</description>
+    </object>
+    <object name="Circuit - Horizontal Resistor">
+      <description>Horizontally aligned resistor</description>
+    </object>
+    <br/>
+    <object name="Circuit - Vertical Resistor (European)">
+      <description>Vertically aligned resistor (European)</description>
+    </object>
+    <object name="Circuit - Horizontal Inductor (European)">
+      <description>Horizontally aligned inductor (European)</description>
+    </object>
+    <object name="Circuit - Vertical Inductor (European)">
+      <description>Vertically aligned inductor (European)</description>
+    </object>
+    <object name="Circuit - Horizontal Resistor (European)">
+      <description>Horizontally aligned resistor (European)</description>
+    </object>
+    <br/>
+    <object name="Circuit - Horizontal Capacitor">
+      <description>Horizontally aligned capacitor</description>
+    </object>
+    <object name="Circuit - Vertical Capacitor">
+      <description>Vertically aligned capacitor</description>
+    </object>
+    <br/>
+     <object name="Circuit - NPN Transistor">
+      <!--
+      -->
+      <description>NPN bipolar transistor</description>
+    </object>
+    <object name="Circuit - PNP Transistor">
+      <!--
+      -->
+      <description>PNP bipolar transistor</description>
+    </object>
+    <br/>
+    <object name="Circuit - Horizontal Diode">
+      <description>Horizontally aligned diode</description>
+    </object>
+    <object name="Circuit - Vertical Diode">
+      <description>Vertically aligned diode</description>
+    </object>
+    <object name="Circuit - Horizontal Zener Diode">
+      <description>Horizontally aligned zener diode</description>
+    </object>
+    <object name="Circuit - Vertical Zener Diode">
+      <description>Vertically aligned zener diode</description>
+    </object>
+    <br/>
+    <object name="Circuit - Ground">
+      <description>Ground point</description>
+    </object>
+    <object name="Circuit - Op Amp">
+      <description>Operational amplifier</description>
+    </object>
+    <object name="Circuit - Horizontal Fuse (European)">
+      <description>Horizontally aligned fuse</description>
+    </object>
+    <object name="Circuit - Vertical Fuse (European)">
+      <description>Vertically aligned fuse</description>
+    </object>
+    <object name="Circuit - Horizontal Powersource (European)">
+      <description>Horizontally aligned power source</description>
+    </object>
+    <object name="Circuit - Vertical Powersource (European)">
+      <description>Vertically aligned power source</description>
+    </object>
+    <object name="Circuit - Lamp (European)">
+      <description>Lamp</description>
+    </object>
+    <object name="Circuit - Speaker (European)">
+      <description>Speaker</description>
+    </object>
+    <object name="Circuit - Microphone (European)">
+      <description>Microphone</description>
+    </object>
+    <br/>
+    <object name="Circuit - Horizontal Led (European)">
+      <description>Horizontally aligned LED</description>
+    </object>
+    <object name="Circuit - Vertical Led (European)">
+      <description>Vertically aligned LED</description>
+    </object>
+    <br/>
+    <object name="Circuit - NMOS Transistor (European)">
+      <description>NMOS transistor</description>
+    </object>
+    <object name="Circuit - PMOS Transistor (European)">
+      <description>PMOS transistor</description>
+    </object>
+    <object name="Circuit - Horizontal Jumper">
+      <description>Horizontal jumper</description>
+    </object>
+    <object name="Circuit - Horizontal Xtal">
+     <description>Horizontal xtal</description>
+    </object>
+    <object name="Circuit - Vertical Xtal">
+      <description>Vertical xtal</description>
+    </object>
+  </contents>
+</sheet>

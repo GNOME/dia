@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Pneumatic/Hydraulic</name>
+  <description>Components for pneumatic and hydraulic circuits</description>
+  <contents>
+    <object name="Pneum - DEJack">
+      <description>Double-effect jack</description>
+    </object>
+    <object name="Pneum - SEIJack">
+      <description>Normally-in simple-effect jack</description>
+    </object>
+    <object name="Pneum - SEOJack">
+      <description>Normally-out simple-effect jack</description>
+    </object>
+    <!-- TODO : shaftless double-effect jacks, shock-absorbed jacks
+    (all types, with fixed and variable shock absorption), rotary jacks ... -->
+    <br/>
+    <object name="Pneum - press">
+      <description>Generic pressure source</description>
+    </object>
+    <object name="Pneum - presshy">
+      <description>Hydraulic pressure source</description>
+    </object>
+    <object name="Pneum - presspn">
+      <description>Pneumatic pressure source</description>
+    </object>
+    <object name="Pneum - drain">
+      <description>Air exhaust orifice</description>
+    </object>
+      <br/>
+    <object name="Pneum - dist22">
+      <description>2/2 distributor</description>
+    </object>
+    <object name="Pneum - dist32">
+      <description>3/2 distributor</description>
+    </object>
+  <!--  <object name="Pneum - dist33">
+      <description>3/3 distributor</description>
+    </object> -->
+    <object name="Pneum - dist42">
+      <description>4/2 distributor</description>
+    </object>
+    <object name="Pneum - dist52">
+      <description>5/2 distributor</description>
+    </object>
+<!--    <object name="Pneum - dist53">
+      <description>5/3 distributor</description>
+    </object> -->
+      <br/>
+    <object name="Pneum - commusc">
+      <description>Muscular command</description>
+    </object>
+    <object name="Pneum - compb">
+      <description>Push-button command</description>
+    </object>
+    <object name="Pneum - compush">
+      <description>Mechanical command by tappet</description>
+    </object>
+    <object name="Pneum - comspr">
+      <description>Mechanical command by spring</description>
+    </object>
+    <object name="Pneum - comelec1">
+      <description>Electric command (single coil)</description>
+    </object>
+    <object name="Pneum - comelec2">
+      <description>Electric command (double coil)</description>
+    </object>
+    <object name="Pneum - compilh">
+      <description>Indirect command by hydraulic driver</description>
+    </object>
+    <object name="Pneum - compilp">
+      <description>Indirect command by pneumatic driver</description>
+    </object>
+	<br/>
+    <object name="Pneum - connpoint">
+      <description>Connection point</description>
+    </object>
+    <!-- TODO: anti-return valves, variable and non-variable stranglers,
+         combinations of these, pressure limiters (a whole family !), pressure
+ exchanger, silent exhaust, hydraulic filters, purges, etc. -->
+  </contents>
+</sheet>

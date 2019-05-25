@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Sybase</name>
+  <description>Objects to design Sybase replication domain diagrams with</description>
+  <contents>
+    <object name="Sybase - Dataserver">
+      <description>Sybase dataserver</description>
+    </object>
+    <object name="Sybase - Replication Server">
+      <description>Sybase replication server</description>
+    </object>
+    <object name="Sybase - Log Transfer Manager/Rep Agent">
+      <description>Log transfer manager or rep agent</description>
+    </object>
+    <object name="Sybase - Stable Queue">
+      <description>Stable storage device</description>
+    </object>
+    <object name="Sybase - Client Application">
+      <description>Sybase client application</description>
+    </object>
+    <object name="Sybase - Replication Server Manager">
+      <description>Replication server manager</description>
+    </object>
+  </contents>
+</sheet>

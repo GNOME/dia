@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>SDL</name>
+  <description>Specification and Description Language.</description>
+  <contents>
+    <object name="SDL - Block">
+      <description>Block type reference</description>
+    </object>
+    <object name="SDL - Service">
+      <description>Service type reference</description>
+    </object>
+    <object name="SDL - Process">
+      <description>Process type reference</description>
+    </object>
+    <object name="SDL - State">
+      <description>State</description>
+    </object>
+    <object name="SDL - Function Header">
+      <description>Function header</description>
+    </object>
+    <object name="SDL - Send">
+      <description>Send message</description>
+    </object>
+    <object name="SDL - Receive">
+      <description>Receive message</description>
+    </object>
+    <object name="SDL - Function">
+      <description>Function call</description>
+    </object>
+    <object name="SDL - Macro">
+      <description>Macro call</description>
+    </object>
+    <object name="SDL - Task">
+      <description>Action being executed</description>
+    </object>
+    <object name="SDL - Save">
+      <description>Save state</description>
+    </object>
+    <object name="SDL - Decision">
+      <description>Decision</description>
+    </object>
+    <object name="SDL - InOut">
+      <description>In/Out connector</description>
+    </object>
+    <object name="SDL - Stop">
+      <description>Stop</description>
+    </object>
+    <object name="SDL - Return">
+      <description>Procedure return</description>
+    </object>
+    <object name="SDL - Comment">
+      <description>Comment</description>
+    </object>
+    <object name="SDL - Note">
+      <description>Generic text note</description>
+    </object>
+    <!-- TODO : All other objects ... -->
+    <br/>
+  </contents>
+</sheet>

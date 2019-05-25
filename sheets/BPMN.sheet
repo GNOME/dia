@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <!--Dia-Version: 0.92-pre7-->
+  <!--File: /home/anthonym/.dia/sheets/BPMN.sheet-->
+  <!--Date: Tue Apr 13 23:07:18 2004-->
+  <!--For: anthonym-->
+  <name>BPMN</name>
+  <description>Business Process Modeling Notation</description>
+  <contents>
+  <!--add shapes here-->
+    <object name="BPMN - Start-Event">
+      <description>Start Event</description>
+    </object>
+    <object name="BPMN - Start-Event-Message">
+      <description>Start Event — Message</description>
+    </object>
+    <object name="BPMN - Start-Event-Timer">
+      <description>Start Event — Timer</description>
+    </object>
+    <object name="BPMN - Start-Event-Rule">
+      <description>Start Event — Rule</description>
+    </object>
+    <object name="BPMN - Start-Event-Link">
+      <description>Start Event — Link</description>
+    </object>
+    <object name="BPMN - Start-Event-Multiple">
+      <description>Start Event — Multiple</description>
+    </object>
+    <object name="BPMN - Intermediate-Event">
+      <description>Intermediate Event</description>
+    </object>
+    <object name="BPMN - Intermediate-Event-Message">
+      <description>Intermediate Event — Message</description>
+    </object>
+    <object name="BPMN - Intermediate-Event-Timer">
+      <description>Intermediate Event — Timer</description>
+    </object>
+    <object name="BPMN - Intermediate-Event-Error">
+      <description>Intermediate Event — Error</description>
+    </object>
+    <object name="BPMN - Intermediate-Event-Cancel">
+      <description>Intermediate Event — Cancel</description>
+    </object>
+    <object name="BPMN - Intermediate-Event-Compensation">
+      <description>Intermediate Event — Compensation</description>
+    </object>
+    <object name="BPMN - Intermediate-Event-Rule">
+      <description>Intermediate Event — Rule</description>
+    </object>
+    <object name="BPMN - Intermediate-Event-Link">
+      <description>Intermediate Event — Link</description>
+    </object>
+    <object name="BPMN - Intermediate-Event-Multiple">
+      <description>Intermediate Event — Multiple</description>
+    </object>
+    <object name="BPMN - End-Event">
+      <description>End Event</description>
+    </object>
+    <object name="BPMN - End-Event-Message">
+      <description>End Event — Message</description>
+    </object>
+    <object name="BPMN - End-Event-Error">
+      <description>End Event — Error</description>
+    </object>
+    <object name="BPMN - End-Event-Cancel">
+      <description>End Event — Cancel</description>
+    </object>
+    <object name="BPMN - End-Event-Compensation">
+      <description>End Event — Compensation</description>
+    </object>
+    <object name="BPMN - End-Event-Link">
+      <description>End Event — Link</description>
+    </object>
+    <object name="BPMN - End-Event-Multiple">
+      <description>End Event — Multiple</description>
+    </object>
+    <object name="BPMN - End-Event-Terminate">
+      <description>End Event — Terminate</description>
+    </object>
+    <object name="BPMN - Gateway">
+      <description>Gateway</description>
+    </object>
+    <object name="BPMN - Gateway-Exclusive-XOR-Data-Based">
+      <description>Exclusive (XOR) Data Based</description>
+    </object>
+    <object name="BPMN - Gateway-Exclusive-XOR-Event-Based">
+      <description>Exclusive (XOR) Event Based</description>
+    </object>
+    <object name="BPMN - Gateway-Inclusive-OR">
+      <description>Inclusive (OR)</description>
+    </object>
+    <object name="BPMN - Gateway-Complex">
+      <description>Complex</description>
+    </object>
+    <object name="BPMN - Gateway-Parallel-AND">
+      <description>Parallel (AND)</description>
+    </object>
+    <object name="BPMN - Task">
+      <description>Task</description>
+    </object>
+    <object name="BPMN - Activity-Looping">
+      <description>Activity Looping</description>
+    </object>
+    <object name="BPMN - Multiple-Instance-Task">
+      <description>Multiple Instance Task</description>
+    </object>
+    <object name="BPMN - Compensation">
+      <description>Compensation Task</description>
+    </object>
+    <object name="BPMN - Collapsed-Sub-Process">
+      <description>Collapsed Sub-Process</description>
+    </object>
+    <object name="BPMN - Looping-Collapsed-Sub-Process">
+      <description>Looping Collapsed Sub-Process</description>
+    </object>
+    <object name="BPMN - Multiple-Instance-Collapsed-Sub-Process">
+      <description>Multiple Instance Collapsed Sub-Process</description>
+    </object>
+    <object name="BPMN - Ad-Hoc-Collapsed-Sub-Process">
+      <description>Ad-Hoc Collapsed Sub-Process</description>
+    </object>
+    <object name="BPMN - Compensation-Collapsed-Sub-Process">
+      <description>Compensation Collapsed Sub-Process</description>
+    </object>
+    <object name="BPMN - Group">
+      <description>Group</description>
+    </object>
+    <object name="BPMN - Transaction">
+      <description>Transaction</description>
+    </object>
+    <object name="BPMN - Data-Object">
+      <description>Data Object</description>
+    </object>
+    <object name="BPMN - Text-Annotation">
+      <description>Text Annotation</description>
+    </object>
+  </contents>
+</sheet>

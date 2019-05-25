@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Shape Design</name>
+  <description>Design Dia objects with individual connection points</description>
+  <contents>
+    <object name="Shape Design - Connection Point">
+      <description>Connection Point</description>
+   </object>
+   <object name="Shape Design - Main Connection Point">
+     <description>Main Connection Point</description>
+   </object>
+  </contents>
+</sheet>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+<!-- Author: Alan Horkan, 2002, mailto:horkana@tcd.ie -->
+<!-- Please talk to me before making any changes to this sheet -->
+<name>Assorted</name>
+<!-- Sheet Name: Assorted, was Geometric, maybe Basic Shapes instead?
+Leave as is for now, renaming too much hassle.
+Will probably need to split into seperate sheets soon anyway.  -->
+
+<description>An Assorted Collection of Polygons, Beziergons and other Miscellaneous Geometric Shapes</description>
+<!-- I drew a lot of these shapes based on the Autoshapes from Powerpoint 97.
+Also got some ideas from what the rivals
+http://www.microsoft.com/office/visio/evaluation/indepth/samples.asp -->
+
+<contents>
+
+<!-- All Icons 22x22 pixels.  Edited them with the Gimp (and mspaint)
+to get really clean crisp clear looking icons.  Icons should probably
+be numbered to make is easier to identify the shapes.
+Vertically or Horizontally Flipped versions of various shapes
+have been included to save users the effort of flipping them
+-->
+
+<!-- Triangles -->
+<object name="Geometric - Right Angle Triangle"><description>Right angle triangle</description></object>
+<object name="Geometric - Isosceles Triangle">
+  <!-- mainatain original typo for compatibility -->
+  <alias name="Geometric - Isoceles Triangle"/>
+  <description>Isosceles triangle</description>
+</object>
+<!-- I am not sure if a Perfect Equilateral Triangle is doable -->
+
+<object name="Geometric - Perfect Square"><description>Perfect square, height equals width</description></object>
+<object name="Geometric - Perfect Circle"><description>Perfect circle</description></object>
+<object name="Geometric - Quarter Circle"><description>Quarter circle</description></object>
+
+<object name="Geometric - Diamond"><description>Diamond</description></object>
+<!-- Other Polygons -->
+<object name="Geometric - Pentagon"><description>Pentagon.  Five-point shape</description></object>
+<object name="Geometric - Hexagon"><description>Hexagon.  Six-point shape</description></object>
+<object name="Geometric - Heptagon"><description>Heptagon.  Seven-point shape</description></object>
+<object name="Geometric - Octagon"><description>Octagon.  Eight-point shape</description></object>
+<!-- Alan Horkan was here 2002 -->
+<object name="Geometric - Horizontal Parallelogram"><description>Horizontal parallelogram</description></object>
+<object name="Geometric - Vertical Parallelogram"><description>Vertical parallelogram</description></object>
+<object name="Geometric - Trapezoid"><description>Trapezoid</description></object>
+<!-- Description, like a cut off Isoceles Triangle, quadrangle with two parallel sides ... -->
+
+<!-- Stars.  Odd numbered sides were particulary hard to draw.  -->
+<object name="Geometric - Four Point Star"><description>Four-point star</description></object>
+<object name="Geometric - Curved Four Point Star"><description>Curved four-point star</description></object>
+<object name="Geometric - Five Point Star"><description>Five-point star</description></object>
+<object name="Geometric - Six Point Star"><description>Six-point star</description></object>
+<object name="Geometric - Seven Point Star"><description>Seven-point star</description></object>
+<object name="Geometric - Eight Point Star"><description>Eight-point star</description></object>
+<object name="Geometric - Sharp Eight Point Star"><description>Sharp eight-point star</description></object>
+<object name="Geometric - Curved Eight Point Star"><description>Curved eight-point star</description></object>
+<!-- TODO: 16 Point Star? 24,32?  9,11,13?  -->
+
+<!-- Crosses -->
+<object name="Geometric - Swiss Cross"><description>Swiss cross</description></object>
+<!-- removed temporarily: Geometric - Cross aka cross pattee formee -->
+<object name="Geometric - Maltese Cross"><description>Maltese cross</description></object>
+
+<!-- Block Arrows -->
+<object name="Geometric - Down Arrow"><description>Down arrow</description></object>
+<object name="Geometric - Up Arrow"><description>Up arrow</description></object>
+<object name="Geometric - Left Arrow"><description>Left arrow</description></object>
+<object name="Geometric - Right Arrow"><description>Right arrow</description></object>
+
+<object name="Geometric - Notched Left Arrow"><description>Notched left arrow</description></object>
+<object name="Geometric - Notched Right Arrow"><description>Notched right arrow</description></object>
+
+<object name="Assorted - Left-Up Arrow"><description>Left-up arrow</description></object>
+<object name="Assorted - Turn-Up Arrow"><description>Turn-up arrow</description></object>
+<object name="Geometric - Left-Right Arrow"><description>Left-right arrow</description></object>
+<object name="Geometric - Up-Down Arrow"><description>Up-down arrow</description></object>
+
+<object name="Geometric - Quad Arrow"><description>Quad arrow</description></object><!-- Four -->
+<object name="Geometric - Left-Right-Up Arrow"><description>Left-right-up arrow</description></object><!-- Three -->
+<object name="Geometric - Up-Down-Left Arrow"><description>Up-down-left arrow</description></object><!-- Three -->
+
+<object name="Block Arrow - Pentagon"><description>Pentagon block arrow</description></object>
+<object name="Block Arrow - Chevron"><description>Chevron</description></object>
+
+<!-- Block Arc.  removed, needs fixing -->
+<!-- object name="Geometric - Block Arc"  description Block Arc /description  /object -->
+
+<!-- Heart Shape -->
+<object name="Assorted - Heart"><description>Heart</description></object>
+
+<!-- Sun, Moon.  -->
+<object name="Assorted - Sun"><description>Sun</description></object>
+<object name="Assorted - Quarter Moon"><description>Quarter moon</description></object>
+
+<!-- Drop or Droplet Shape -->
+<!-- Flower Shape (with Petals) -->
+<!-- Alien Head shape -->
+
+</contents>
+</sheet>
+<!-- Author: Alan Horkan, 2002, mailto:horkana@tcd.ie -->

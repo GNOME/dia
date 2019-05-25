@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Lights</name>
+  <description>Objects to design simple lighting plots</description>
+  <contents>
+    <object name="Lights - PAR">
+      <description>PAR</description>
+    </object>
+    <object name="Lights - PARfloor">
+      <description>PAR on the floor</description>
+    </object>
+    <object name="Lights - ACL">
+      <description>ACL</description>
+    </object>
+    <object name="Lights - PC">
+      <description>Pebble Convex lantern</description>
+    </object>
+    <object name="Lights - Fresnel">
+      <description>Fresnel lantern</description>
+    </object>
+    <object name="Lights - Striplight">
+      <description>Striplight</description>
+    </object>
+    <object name="Lights - ERS">
+      <description>Ellipsoidal Reflector Spotlight</description>
+    </object>
+    <object name="Lights - Blinders">
+      <description>Blinders</description>
+    </object>
+    <br/>
+    <object name="Lights - Blacklight">
+      <description>Black light</description>
+    </object>
+    <object name="Lights - Stroboscope">
+      <description>Stroboscope light</description>
+    </object>
+    <object name="Lights - Movinghead">
+      <description>Moving head</description>
+    </object>
+    <object name="Lights - Scanner">
+      <description>Scanner</description>
+    </object>
+    <br/>
+    <object name="Lights - Structure">
+      <description>Structure</description>
+    </object>
+  </contents>
+</sheet>

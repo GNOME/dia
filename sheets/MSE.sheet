@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>MSE</name>
+  <description>U.S. Army Mobile Subscriber Equipment Components</description>
+  <contents>
+    <object name="Node Center">
+      <description>Node center</description>
+    </object>
+    <object name="Large Extension Node">
+      <description>Large extension node</description>
+    </object>
+    <object name="Small Extension Node">
+      <description>Small extension node</description>
+    </object>
+    <object name="Tactical Satellite Communications Terminal">
+      <description>Tactical satellite communications terminal</description>
+    </object>
+    <object name="Multiplexer">
+      <description>Multiplexer</description>
+    </object>
+    <object name="Demultiplexer">
+      <description>Demultiplexer</description>
+    </object>
+  </contents>
+</sheet>

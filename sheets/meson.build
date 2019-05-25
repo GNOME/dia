@@ -42,17 +42,13 @@ sheet_files = [
 
 sheet_files_targets = []
 
-# TODO: use gettext: https://github.com/mesonbuild/meson/issues/1565
-# https://github.com/systemd/systemd/commit/c81217920effddc93fb780cf8f9eb699d6fe1319
-# https://wiki.gnome.org/MigratingFromIntltoolToGettext
-# https://www.gnu.org/software/gettext/manual/html_node/Preparing-ITS-Rules.html
-# https://www.w3.org/TR/its20/ (2013) standard!
 foreach sheet : sheet_files
-    sheet_files_targets += custom_target(
+    sheet_files_targets += i18n.merge_file(
         sheet,
-        input: sheet + '.in',
+        input: sheet,
         output: sheet,
-        command: intltool_command,
+        po_dir: po_dir,
+        data_dirs: po_dir,
         install: true,
         install_dir: sheetsdir
     )

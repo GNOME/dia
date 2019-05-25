@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Cisco — Miscellaneous</name>
+  <description>Miscellaneous shapes by Cisco</description>
+  <contents>
+<object name="Cisco - Government Building"><description>Government Building</description></object>
+<object name="Cisco - University"><description>University</description></object>
+<object name="Cisco - Small Business"><description>Small Business</description></object>
+<object name="Cisco - Home office"><description>Home office</description></object>
+<object name="Cisco - Branch office"><description>Branch office</description></object>
+<object name="Cisco - Branch office subdued"><description>Branch office subdued</description></object>
+<object name="Cisco - Branch office blue"><description>Branch office blue</description></object>
+<object name="Cisco - Generic Building"><description>Generic Building</description></object>
+<object name="Cisco - Generic Building subdued"><description>Generic Building subdued</description></object>
+<object name="Cisco - Generic Building blue"><description>Generic Building blue</description></object>
+<object name="Cisco - Medium Building"><description>Medium Building</description></object>
+<object name="Cisco - Medium Building subdued"><description>Medium Building subdued</description></object>
+<object name="Cisco - Medium Building blue"><description>Medium Building blue</description></object>
+<object name="Cisco - House"><description>House</description></object>
+<object name="Cisco - House blue"><description>House blue</description></object>
+<object name="Cisco - Telecommuter house"><description>Telecommuter house</description></object>
+<object name="Cisco - Telecommuter house subdued"><description>Telecommuter house subdued</description></object>
+<object name="Cisco - MDU"><description>MDU</description></object>
+<object name="Cisco - Man"><description>Man</description></object>
+<object name="Cisco - Man red"><description>Man red</description></object>
+<object name="Cisco - Man gold"><description>Man gold</description></object>
+<object name="Cisco - Man blue"><description>Man blue</description></object>
+<object name="Cisco - Standing Man"><description>Standing Man</description></object>
+<object name="Cisco - Standing woman"><description>Standing woman</description></object>
+<object name="Cisco - Woman"><description>Woman</description></object>
+<object name="Cisco - Woman red"><description>Woman red</description></object>
+<object name="Cisco - Woman gold"><description>Woman gold</description></object>
+<object name="Cisco - Woman blue"><description>Woman blue</description></object>
+<object name="Cisco - Running man"><description>Running man</description></object>
+<object name="Cisco - Running man subdued"><description>Running man subdued</description></object>
+<object name="Cisco - Telecommuter"><description>Telecommuter</description></object>
+<object name="Cisco - Running woman"><description>Running woman</description></object>
+<object name="Cisco - CiscoWorks Man"><description>CiscoWorks Man</description></object>
+<object name="Cisco - PC Man">
+  <alias name="Cisco - PC Man left"/>
+  <description>PC Man</description>
+</object>
+<object name="Cisco - Sitting woman">
+  <alias name="Cisco - Sitting Woman right"/>
+  <description>Sitting Woman</description>
+</object>
+<object name="Cisco - Mac Woman"><description>Mac Woman</description></object>
+<object name="Cisco - Androgynous Person"><description>Androgynous Person</description></object>
+<object name="Cisco - Lock"><description>Lock</description></object>
+<object name="Cisco - Key"><description>Key</description></object>
+<object name="Cisco - Lock and Key"><description>Lock and Key</description></object>
+<object name="Cisco - Satellite dish"><description>Satellite dish</description></object>
+<object name="Cisco - Satellite"><description>Satellite</description></object>
+<object name="Cisco - Antenna"><description>Antenna</description></object>
+<object name="Cisco - File cabinet"><description>File cabinet</description></object>
+<object name="Cisco - Car"><description>Car</description></object>
+<object name="Cisco - Truck"><description>Truck</description></object>
+<object name="Cisco - Video camera">
+  <alias name="Cisco - Video Camera right"/>
+  <description>Video Camera</description>
+</object>
+<object name="Cisco - Microphone"><description>Microphone</description></object>
+<object name="Cisco - Headphones"><description>Headphones</description></object>
+<object name="Cisco - Speaker"><description>Speaker</description></object>
+  </contents>
+</sheet>
+

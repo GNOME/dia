@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Cisco — Computer</name>
+  <description>Computer shapes by Cisco</description>
+  <contents>
+<object name="Cisco - PC"><description>PC</description></object>
+<object name="Cisco - Macintosh"><description>Macintosh</description></object>
+    <object name="Cisco - Terminal">
+    <description>Terminal</description>
+    </object>
+<object name="Cisco - SUN workstation"><description>SUN workstation</description></object>
+<object name="Cisco - CiscoWorks workstation"><description>CiscoWorks workstation</description></object>
+<object name="Cisco - PC Router Card"><description>PC Router Card</description></object>
+<object name="Cisco - PC Software"><description>PC Software</description></object>
+<object name="Cisco - PC with Router-Based Software"><description>PC with Router-Based Software</description></object>
+<object name="Cisco - Workgroup director"><description>Workgroup director</description></object>
+<object name="Cisco - CiscoSecurity"><description>CiscoSecurity</description></object>
+<object name="Cisco - Cisco CA"><description>Cisco CA</description></object>
+<object name="Cisco - WWW server"><description>WWW server</description></object>
+<object name="Cisco - Web browser"><description>Web browser</description></object>
+<object name="Cisco - File Server"><description>File Server</description></object>
+<object name="Cisco - Software based server"><description>Software-Based Router on File Server</description></object>
+<object name="Cisco - Server with PC Router"><description>Server with PC Router</description></object>
+<object name="Cisco - IBM Tower"><description>IBM Tower</description></object>
+<object name="Cisco - IBM Mini (AS400)"><description>IBM Mini (AS400)</description></object>
+<object name="Cisco - Front End Processor"><description>Front End Processor</description></object>
+<object name="Cisco - IBM mainframe"><description>IBM mainframe</description></object>
+<object name="Cisco - IBM mainframe with FEP"><description>IBM mainframe with FEP</description></object>
+<object name="Cisco - HP Mini"><description>HP Mini</description></object>
+<object name="Cisco - Supercomputer"><description>Supercomputer</description></object>
+<object name="Cisco - Web cluster"><description>Web cluster</description></object>
+<object name="Cisco - Mini VAX"><description>Mini VAX</description></object>
+<object name="Cisco - PC Card"><description>PC Card</description></object>
+<object name="Cisco - Scanner"><description>Scanner</description></object>
+<object name="Cisco - Tablet"><description>Tablet</description></object>
+<object name="Cisco - EtherClient"><description>EtherClient</description></object>
+<object name="Cisco - Handheld"><description>Handheld</description></object>
+<object name="Cisco - Wireless"><description>Wireless</description></object>
+<object name="Cisco - PDA"><description>PDA</description></object>
+<object name="Cisco - Newton"><description>Newton</description></object>
+<object name="Cisco - Laptop"><description>Laptop</description></object>
+    <object name="Cisco - Printer">
+    <description>Printer</description>
+    </object>
+<object name="Cisco - Monitor"><description>Monitor</description></object>
+<object name="Cisco - PC Video"><description>PC Video</description></object>
+<object name="Cisco - Modem"><description>Modem</description></object>
+<object name="Cisco - BBS"><description>BBS</description></object>
+<object name="Cisco - MicroWebserver"><description>MicroWebserver</description></object>
+<object name="Cisco - Relational Database"><description>Relational Database</description></object>
+<object name="Cisco - Diskette"><description>Diskette</description></object>
+<object name="Cisco - Host"><description>Host</description></object>
+<object name="Cisco - Tape array"><description>Tape array</description></object>
+<object name="Cisco - Disk subsystem"><description>Disk subsystem</description></object>
+<object name="Cisco - JBOD"><description>JBOD</description></object>
+<object name="Cisco - Storage array"><description>Storage array</description></object>
+<object name="Cisco - FC Storage"><description>FC Storage</description></object>
+<object name="Cisco - PC Adapter Card"><description>PC Adapter Card</description></object>
+  </contents>
+</sheet>

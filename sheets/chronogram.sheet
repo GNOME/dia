@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+  <name>Chronogram</name>
+  <description>Objects to design chronogram charts</description>
+  <contents>
+    <object name="chronogram - reference">
+      <description>Time scale</description>
+    </object>
+    <object name="chronogram - line">
+      <description>Data line</description>
+    </object>
+  </contents>
+</sheet>

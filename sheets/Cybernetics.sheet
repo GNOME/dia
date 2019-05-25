@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?> <!-- -*- xml -*- -->
+
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+	<name>Cybernetics</name>
+	<description>Elements of cybernetic circuits</description>
+	<contents>
+
+		<object name="Cybernetics - l-sens">
+			<description>Sensor — left</description>
+		</object>
+		<object name="Cybernetics - r-sens">
+			<description>Sensor — right</description>
+		</object>
+		<object name="Cybernetics - b-sens">
+			<description>Sensor — bottom</description>
+		</object>
+		<object name="Cybernetics - t-sens">
+			<description>Sensor — top</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - l-minus">
+			<description>Sum, subtracting left input</description>
+		</object>
+		<object name="Cybernetics - r-minus">
+			<description>Sum, subtracting right input</description>
+		</object>
+		<object name="Cybernetics - b-minus">
+			<description>Sum, subtracting bottom input</description>
+		</object>
+		<object name="Cybernetics - t-minus">
+			<description>Sum, subtracting top input</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - l-integrator">
+			<description>Integrator — input left</description>
+		</object>
+		<object name="Cybernetics - r-integrator">
+			<description>Integrator — input right</description>
+		</object>
+		<object name="Cybernetics - b-integrator">
+			<description>Integrator — input bottom</description>
+		</object>
+		<object name="Cybernetics - t-integrator">
+			<description>Integrator — input top</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - sum">
+			<description>Sum</description>
+		</object>
+		<object name="Cybernetics - product">
+			<description>Product</description>
+		</object>
+
+		<object name="Cybernetics - hpf">
+			<description>High pass filter</description>
+		</object>
+		<object name="Cybernetics - lpf">
+			<description>Low pass filter</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - sine">
+			<description>Sine characteristic or input</description>
+		</object>
+		<object name="Cybernetics - sigmoid">
+			<description>Sigmoid characteristic</description>
+		</object>
+		<object name="Cybernetics - saturation">
+			<description>Saturation characteristic</description>
+		</object>
+		<object name="Cybernetics - relay">
+			<description>Relay characteristic (sigma)</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - half-wave-rectifier">
+			<description>Half wave rectifier or ramp input</description>
+		</object>
+		<object name="Cybernetics - full-wave-rectifier">
+			<description>Full wave rectifier (absolute value)</description>
+		</object>
+
+		<object name="Cybernetics - positive-shift">
+			<description>Constant positive shift on the y-axis</description>
+		</object>
+		<object name="Cybernetics - negative-shift">
+			<description>Constant negative shift on the y-axis</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - factor-greater1">
+			<description>Constant factor greater 1</description>
+		</object>
+		<object name="Cybernetics - factor-0to1">
+			<description>Constant factor between 0 and 1</description>
+		</object>
+		<object name="Cybernetics - factor-0to-1">
+			<description>Constant factor between 0 and -1</description>
+		</object>
+		<object name="Cybernetics - factor-smaller-1">
+			<description>Constant factor below -1</description>
+		</object>
+
+		<br/>
+
+		<object name="Cybernetics - empty-func">
+			<description>Template for custom characteristics</description>
+		</object>
+		<object name="Cybernetics - delta-t">
+			<description>Time delay</description>
+		</object>
+
+	</contents>
+</sheet>
+
