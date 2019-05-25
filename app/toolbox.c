@@ -268,7 +268,11 @@ fill_sheet_wbox(Sheet *sheet)
     ToolButtonData *data;
 
     if (sheet_obj->pixmap != NULL) {
-      pixbuf = gdk_pixbuf_new_from_xpm_data (sheet_obj->pixmap);
+      if (g_str_has_prefix ((const char *) sheet_obj->pixmap, "res:")) {
+        pixbuf = pixbuf_from_resource ((const char *) sheet_obj->pixmap + 4);
+      } else {
+        pixbuf = gdk_pixbuf_new_from_xpm_data (sheet_obj->pixmap);
+      }
     } else if (sheet_obj->pixmap_file != NULL) {
       GError* gerror = NULL;
 

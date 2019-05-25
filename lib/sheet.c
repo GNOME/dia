@@ -402,6 +402,8 @@ load_register_sheet (const gchar *dirname,
 
     xmlChar *ot_name = NULL;
 
+    gchar *sheetdir = dia_get_data_directory ("sheets");
+
     if (xmlIsBlankNode (node)) {
       continue;
     }
@@ -474,18 +476,20 @@ load_register_sheet (const gchar *dirname,
           objdesc = xmlNodeGetContent (subnode);
         }
       } else if (subnode->ns == ns && !xmlStrcmp (subnode->name, (const xmlChar *) "icon")) {
-          tmp = xmlNodeGetContent (subnode);
-          iconname = g_strconcat (dirname, G_DIR_SEPARATOR_S, (char *) tmp, NULL);
+        tmp = xmlNodeGetContent (subnode);
+        if (g_str_has_prefix ((char *) tmp, "res:")) {
+          iconname = g_strdup ((char *) tmp);
+        } else {
+          iconname = g_build_filename (dirname, (char *) tmp, NULL);
           if (!shadowing_sheet && !g_file_test (iconname, G_FILE_TEST_EXISTS)) {
             /* Fall back to system directory if there is no user icon */
-            gchar *sheetdir = dia_get_data_directory ("sheets");
-            iconname = g_strconcat (sheetdir, G_DIR_SEPARATOR_S, (char *) tmp, NULL);
-            g_free (sheetdir);
+            iconname = g_build_filename (sheetdir, (char *) tmp, NULL);
           }
-          has_icon_on_sheet = TRUE;
-          if (tmp) {
-            xmlFree (tmp);
-          }
+        }
+        has_icon_on_sheet = TRUE;
+        if (tmp) {
+          xmlFree (tmp);
+        }
       } else if (subnode->ns == ns && !xmlStrcmp (subnode->name, (const xmlChar *) "alias")) {
         if (ot_name) {
           object_register_alias_type (object_get_type ((char *) ot_name), subnode);
@@ -493,17 +497,25 @@ load_register_sheet (const gchar *dirname,
       }
     }
 
+    g_free (sheetdir);
+
     sheet_obj = g_new (SheetObject, 1);
     sheet_obj->object_type = g_strdup ((char *) ot_name);
-    sheet_obj->description = g_strdup ((gchar *)objdesc);
+    sheet_obj->description = g_strdup ((char *) objdesc);
     xmlFree (objdesc);
     objdesc = NULL;
 
-    sheet_obj->pixmap = NULL;
     sheet_obj->user_data = GINT_TO_POINTER (intdata); /* XXX modify user_data type ? */
     sheet_obj->user_data_type = has_intdata ? USER_DATA_IS_INTDATA /* sure,   */
                                             : USER_DATA_IS_OTHER;  /* why not */
-    sheet_obj->pixmap_file = iconname;
+    if (iconname && g_str_has_prefix (iconname, "res:")) {
+      // Apparently we hate the world
+      sheet_obj->pixmap = (const char **) iconname;
+      sheet_obj->pixmap_file = NULL;
+    } else {
+      sheet_obj->pixmap = NULL;
+      sheet_obj->pixmap_file = iconname;
+    }
     sheet_obj->has_icon_on_sheet = has_icon_on_sheet;
     sheet_obj->line_break = set_line_break;
     set_line_break = FALSE;
@@ -524,7 +536,8 @@ load_register_sheet (const gchar *dirname,
     }
 
     /* set defaults */
-    if (sheet_obj->pixmap_file == NULL) {
+    if (sheet_obj->pixmap_file == NULL &&
+        sheet_obj->pixmap == NULL) {
       g_assert (otype->pixmap || otype->pixmap_file);
       sheet_obj->pixmap = otype->pixmap;
       sheet_obj->pixmap_file = otype->pixmap_file;

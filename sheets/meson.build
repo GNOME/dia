@@ -1,11 +1,6 @@
 sheetsdir = join_paths(pkgdatadir, 'sheets')
 
 sheet_icons_sources = [
-    'UML/umlclass_template.png',
-    'UML/aggregation.png',
-    'UML/receptacle.png',
-    'UML/eventsource.png',
-    'UML/eventsink.png',
     'ER/weakentity.png',
     'GRAFCET/etapei.png',
     'GRAFCET/etapems.png',

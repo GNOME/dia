@@ -36,6 +36,10 @@ sources = files(
     'umlformalparameter.c'
 )
 
+sources += gnome.compile_resources('dia-uml-resources', 'dia-uml.gresource.xml',
+                                   source_dir : '.',
+                                   c_name : 'dia_uml')
+
 dia_object_desc += {
     'name': 'uml_objects',
     'sources': sources,

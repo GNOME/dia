@@ -783,8 +783,10 @@ pixbuf_from_resource (const gchar *path)
 
   bytes = g_resources_lookup_data (path, G_RESOURCE_LOOKUP_FLAGS_NONE, NULL);
 
-  if (!bytes)
+  if (!bytes) {
+    g_critical ("Missing resource %s", path);
     goto out;
+  }
 
   loader = gdk_pixbuf_loader_new ();
 
