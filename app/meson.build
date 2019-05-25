@@ -46,9 +46,10 @@ dia_sources = [
     'diagram_tree_model.c',
     'diagram_tree_view.c',
 
-    'sheets.c',
-    'sheets_dialog.c',
-    'sheets_dialog_callbacks.c',
+    'sheet-editor/sheets.c',
+    'sheet-editor/sheets_dialog.c',
+    'sheet-editor/sheets_dialog_callbacks.c',
+
     'autosave.c',
     'dynamic_refresh.c',
     'navigation.c',

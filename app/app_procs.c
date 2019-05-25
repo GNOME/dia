@@ -67,7 +67,7 @@
 #include "autosave.h"
 #include "dynamic_refresh.h"
 #include "persistence.h"
-#include "sheets.h"
+#include "sheet-editor/sheets.h"
 #include "exit_dialog.h"
 #include "dialib.h"
 #include "diaerror.h"
