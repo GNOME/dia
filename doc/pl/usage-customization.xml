@@ -4,14 +4,14 @@
  <sect1 id="prefs">
  <title>Dostosowywanie</title>
  <para>
-  Program <application>Dia</application> mo¿e byæ zmieniany na wiele
-  sposobów, umo¿liwiaj±c u¿ytkownikowi dostosowanie go do w³asnych potrzeb.
+  Program <application>Dia</application> moï¿½e byï¿½ zmieniany na wiele
+  sposobï¿½w, umoï¿½liwiajï¿½c uï¿½ytkownikowi dostosowanie go do wï¿½asnych potrzeb.
  </para>
  <para>
-  Aby zmieniæ preferencje zachowania aplikacji nale¿y wybraæ
+  Aby zmieniï¿½ preferencje zachowania aplikacji naleï¿½y wybraï¿½
   <menuchoice>
    <guimenu>File</guimenu> <guimenuitem>Preferencje...</guimenuitem>
-   </menuchoice> z <interface>g³ównego paska menu</interface>. 
+   </menuchoice> z <interface>gï¿½ï¿½wnego paska menu</interface>.
  This opens the    <interface>Preferences</interface> dialog, shown in <!--[TODO: add
    screenshot].--> <!-- <xref linkend="preferences-fig">. -->
  </para>
@@ -52,12 +52,12 @@
     <para>
       Snap To allows makes objects attract to a grid created by the program.
       This makes it easier for the user to align objects, as separate objects
-      snap to the same line. 
+      snap to the same line.
     </para>
    </listitem>
    <listitem>
      <para>
-       X Size lets the user set a multiplier which sets how far the horizontal 
+       X Size lets the user set a multiplier which sets how far the horizontal
        grid lines are from eachother.
      </para>
    </listitem>

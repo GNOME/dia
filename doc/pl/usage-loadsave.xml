@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <chapter label="7" id="loadsave-chapter">
-<title>Wczytywanie i zapisywanie diagramów</title>
+<title>Wczytywanie i zapisywanie diagramďż˝w</title>
 <sect1 id="loadsave-intro">
  <title>Wprowadzenie do wczytywania i zapisywania</title>
   <para>
    <application>Dia</application> korzysta z modelu zapisu wkorzystywanego
-   przez wiele aplikacji nabiurkowych: 
-   należy zapisać odpowiednio dowolne płótna, które mają być zachowane 
-   do późniejszego użycia. Aby zapisać plik należy wybrać opcje
+   przez wiele aplikacji nabiurkowych:
+   naleďż˝y zapisaďż˝ odpowiednio dowolne pďż˝ďż˝tna, ktďż˝re majďż˝ byďż˝ zachowane
+   do pďż˝niejszego uďż˝ycia. Aby zapisaďż˝ plik naleďż˝y wybraďż˝ opcje
     <menuchoice>
      <guimenu>Plik</guimenu>
       <guimenuitem>Zapisz</guimenuitem>
     </menuchoice>
-   z <interface>głównego menu podręcznego</interface>. Otwarte zostanie
-   okno zapisu. Płótno jest zapisywane w formacie XML
-   <application>Dia</application>. Nie jest dodawane automatycznie 
-   żadne rozszerzenie, więc dobrym pomysłem jest odpowiednie dodanie
+   z <interface>gďż˝ďż˝wnego menu podrďż˝cznego</interface>. Otwarte zostanie
+   okno zapisu. Pďż˝ďż˝tno jest zapisywane w formacie XML
+   <application>Dia</application>. Nie jest dodawane automatycznie
+   ďż˝adne rozszerzenie, wiďż˝c dobrym pomysďż˝em jest odpowiednie dodanie
    rozszerzenia '.dia' do wprowadzonej nazwy.
   </para>
   <para>
-   Aby wczytać płótno z pliku poprzednio zapisanego przez
-   <application>Dia</application> lub stworzonego przez inną aplikację
-   należy wybrać opcje
+   Aby wczytaďż˝ pďż˝ďż˝tno z pliku poprzednio zapisanego przez
+   <application>Dia</application> lub stworzonego przez innďż˝ aplikacjďż˝
+   naleďż˝y wybraďż˝ opcje
     <menuchoice>
      <guimenu>Plik</guimenu>
-     <guimenuitem>Otwórz...</guimenuitem>
+     <guimenuitem>Otwďż˝rz...</guimenuitem>
     </menuchoice>
-   z <interface>głównego menu podręcznego</interface>. Wyświetlone zostanie
-   <interface>okno otwierania</interface>; należy wybrać plik
-   i kliknąć przycisk <guibutton>Otwórz</guibutton>. <interface>Okno
-  otwierania</interface> jest standardowe z wyjątkiem podręcznego menu
+   z <interface>gďż˝ďż˝wnego menu podrďż˝cznego</interface>. Wyďż˝wietlone zostanie
+   <interface>okno otwierania</interface>; naleďż˝y wybraďż˝ plik
+   i kliknďż˝ďż˝ przycisk <guibutton>Otwďż˝rz</guibutton>. <interface>Okno
+  otwierania</interface> jest standardowe z wyjďż˝tkiem podrďż˝cznego menu
    z napisem
-   <guimenu>Określ typ pliku</guimenu>. Należy wybrać format otwieranego
+   <guimenu>Okreďż˝l typ pliku</guimenu>. Naleďż˝y wybraďż˝ format otwieranego
     pliku (<application>Dia</application> XML lub Drawing Interchange)
-   jeśli <application>Dia</application> automatycznie nie wykryje 
+   jeďż˝li <application>Dia</application> automatycznie nie wykryje
    formatu pliku.
   </para>
-  <para>Alternatywną metodą wczytania pliku jest uruchomienie
-  <application>Dia</application> z wiersza poleceń z nazwą poliku
-   podaną jako argument.
+  <para>Alternatywnďż˝ metodďż˝ wczytania pliku jest uruchomienie
+  <application>Dia</application> z wiersza poleceďż˝ z nazwďż˝ poliku
+   podanďż˝ jako argument.
   </para>
  </sect1>
    <sect1 id="loadsave-filetypes">
-   <title>Typy plików</title>
+   <title>Typy plikďż˝w</title>
     <para>
-     Należy się klika słów na temat typów plików. Zalecana jest ostrożność
-     gdyż nie wszystkie typy plików mogą być ponownie wczytane do
-     <application>Dia</application> po ich zapisaniu i wiele obsługiwanych
-     formatów traci w pewnym stopniu zapisywaną informację.
+     Naleďż˝y siďż˝ klika sďż˝ďż˝w na temat typďż˝w plikďż˝w. Zalecana jest ostroďż˝noďż˝ďż˝
+     gdyďż˝ nie wszystkie typy plikďż˝w mogďż˝ byďż˝ ponownie wczytane do
+     <application>Dia</application> po ich zapisaniu i wiele obsďż˝ugiwanych
+     formatďż˝w traci w pewnym stopniu zapisywanďż˝ informacjďż˝.
     </para>
     <sect2 id="loadsave-filetypes-dia">
-    <title>Własne pliki formatu Dia</title>
+    <title>Wďż˝asne pliki formatu Dia</title>
      <para>
-      Jedynym gwarantującym zachowanie wszystkich informacji formatem jest
-      <application>Dia</application> XML. Na szczęście rzadko będzie
-     zachodziła potrzeba zapisu pliku w stratnym formacie gdyż opcja
+      Jedynym gwarantujďż˝cym zachowanie wszystkich informacji formatem jest
+      <application>Dia</application> XML. Na szczďż˝cie rzadko bďż˝dzie
+     zachodziďż˝a potrzeba zapisu pliku w stratnym formacie gdyďż˝ opcja
        <menuchoice>
         <guimenu>Plik</guimenu>
          <guimenuitem>Zapisz</guimenuitem>
@@ -62,21 +62,21 @@
       zawsze tworzy plik w formacie <application>Dia</application> XML.
      </para>
      <para>
-      Pliki w formacie <application>Dia</application> XML są automatycznie
-      kompresowane przy użyciu programu gzip i zapisywane na dysk. To jest
-      konieczne gdyż, bez kompresji, nawet proste diagramy byłyby bardzo
-     duże z powodu przechowywana powielonych informacji.
-     Ponieważ pliki 
-      <application>Dia</application> XML są już skompresowane nie należy
-       próbować kompresować ich ręcznie &mdash;to nic nie da.
+      Pliki w formacie <application>Dia</application> XML sďż˝ automatycznie
+      kompresowane przy uďż˝yciu programu gzip i zapisywane na dysk. To jest
+      konieczne gdyďż˝, bez kompresji, nawet proste diagramy byďż˝yby bardzo
+     duďż˝e z powodu przechowywana powielonych informacji.
+     Poniewaďż˝ pliki
+      <application>Dia</application> XML sďż˝ juďż˝ skompresowane nie naleďż˝y
+       prďż˝bowaďż˝ kompresowaďż˝ ich rďż˝cznie &mdash;to nic nie da.
      </para>
     </sect2>
 <!-- Add loadsave-filestypes-dif section in future -->
     <sect2 id="loadsave-filetypes-export">
-    <title>Eksportowanie: Obsługa innych formatów</title>
+    <title>Eksportowanie: Obsďż˝uga innych formatďż˝w</title>
      <para>
-     <application>Dia</application> obsługuje eksportowanie do wielu
-     innych typów plików takich jak:
+     <application>Dia</application> obsďż˝uguje eksportowanie do wielu
+     innych typďż˝w plikďż˝w takich jak:
      <itemizedlist>
       <listitem>
        <para>
@@ -114,26 +114,26 @@
        </para>
       </listitem>
      </itemizedlist>
-     <application>Dia</application> nie potrafi wczytać plików w tych
-     formatach. Te formaty są użyteczne przy diagramach nie wymagających
-     innych aplikacji lub do rozpowszechniania dla użytkowników innych
-     systemów operacyjnych nie obsługiwanych przez
+     <application>Dia</application> nie potrafi wczytaďż˝ plikďż˝w w tych
+     formatach. Te formaty sďż˝ uďż˝yteczne przy diagramach nie wymagajďż˝cych
+     innych aplikacji lub do rozpowszechniania dla uďż˝ytkownikďż˝w innych
+     systemďż˝w operacyjnych nie obsďż˝ugiwanych przez
      <application>Dia</application>.
 
-     <!-- Idźmy dalej i stwórzmy listę zmiennych oraz zalety każdego 
-    z tych formatów  -->
+     <!-- Idďż˝my dalej i stwďż˝rzmy listďż˝ zmiennych oraz zalety kaďż˝dego
+    z tych formatďż˝w  -->
      </para>
      <para>
-      Aby ustworzyć plik w jednym z tych formatów, należy wybrać
-       <menuchoice>                                                                             
+      Aby ustworzyďż˝ plik w jednym z tych formatďż˝w, naleďż˝y wybraďż˝
+       <menuchoice>
          <guimenu>Plik</guimenu>
-         <guimenuitem>Otwórz...</guimenuitem>
+         <guimenuitem>Otwďż˝rz...</guimenuitem>
        </menuchoice>
-      z <interface>głównego menu podręcznego</interface>. 
-      Należy wybrac także nazwę oraz żądany format w oknie wyników
-      zachowującym się podobnie jak okno <interface>zapisu</interface>. 
+      z <interface>gďż˝ďż˝wnego menu podrďż˝cznego</interface>.
+      Naleďż˝y wybrac takďż˝e nazwďż˝ oraz ďż˝ďż˝dany format w oknie wynikďż˝w
+      zachowujďż˝cym siďż˝ podobnie jak okno <interface>zapisu</interface>.
       Odpowiednie rozszerzenie pliku dodawane jest automatycznie.
      </para>
    </sect2>
   </sect1>
-</chapter> 
+</chapter>

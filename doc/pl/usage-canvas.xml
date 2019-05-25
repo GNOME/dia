@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <chapter label="2" id="canvas-chapter">
-<title>Płótna</title>
+<title>Pďż˝ďż˝tna</title>
  <sect1 id="canvas">
-  <title>Wprowadzenie do płócien</title>
+  <title>Wprowadzenie do pďż˝ďż˝cien</title>
    <para>
-    Płótna są główną częścią Dia. Płótno Dia jest oknem gdzie umieszczane
-    i przemieszczane są wszystkie obiekty użytkownika. Gdy diagram
-    jest drukowany lub zapisywany, zostaje także zapisana treść płótna.
+    Pďż˝ďż˝tna sďż˝ gďż˝ďż˝wnďż˝ czďż˝ciďż˝ Dia. Pďż˝ďż˝tno Dia jest oknem gdzie umieszczane
+    i przemieszczane sďż˝ wszystkie obiekty uďż˝ytkownika. Gdy diagram
+    jest drukowany lub zapisywany, zostaje takďż˝e zapisana treďż˝ďż˝ pďż˝ďż˝tna.
    </para>
   </sect1>
   <sect1 id="gridlines">
   <title>Siatki</title>
    <para>
-    Siatki przypominają linie papieru w kratkę. Umożliwiają
-    użytkownikowi łatwe wyrównanie obiektów na płótnie. 
-    Linie siatki mogą być ukrywane przez przejście do menu
+    Siatki przypominajďż˝ linie papieru w kratkďż˝. Umoďż˝liwiajďż˝
+    uďż˝ytkownikowi ďż˝atwe wyrďż˝wnanie obiektďż˝w na pďż˝ďż˝tnie.
+    Linie siatki mogďż˝ byďż˝ ukrywane przez przejďż˝cie do menu
     <menuchoice>
      <guimenu>
       Plik
@@ -23,59 +23,59 @@
       Preferencje
      </guimenuitem>
     </menuchoice>.
-    i w zakładce Linie siatki, użytkownik powinien ustawić odpowiednią opcję.
+    i w zakďż˝adce Linie siatki, uďż˝ytkownik powinien ustawiďż˝ odpowiedniďż˝ opcjďż˝.
    </para>
   </sect1>
   <sect1 id="Rulers">
   <title>Suwaki</title>
    <para>
-    Suwaki pojawiają się na górze i po lewej stronie płótna <application>Dia</application>
-    Wyświetlają w centymetrach wielkość płótna.
+    Suwaki pojawiajďż˝ siďż˝ na gďż˝rze i po lewej stronie pďż˝ďż˝tna <application>Dia</application>
+    Wyďż˝wietlajďż˝ w centymetrach wielkoďż˝ďż˝ pďż˝ďż˝tna.
    </para>
    <para>
-    Każdy suwak posiada strzałkę. Strzałka przesuwa suwak do pozycji
-    wskaźnika myszy. Na przykład jeśli użytkownik przesunie mysz w górę,
-    strzałka suwaka przesunie się do góry wskazując zmianę. Strzałki
-    są użyteczne w przypadku, gdy obiekt powinien zostać ustawiony dokładnie
-    w określonym punkcie diagramu.
+    Kaďż˝dy suwak posiada strzaďż˝kďż˝. Strzaďż˝ka przesuwa suwak do pozycji
+    wskaďż˝nika myszy. Na przykďż˝ad jeďż˝li uďż˝ytkownik przesunie mysz w gďż˝rďż˝,
+    strzaďż˝ka suwaka przesunie siďż˝ do gďż˝ry wskazujďż˝c zmianďż˝. Strzaďż˝ki
+    sďż˝ uďż˝yteczne w przypadku, gdy obiekt powinien zostaďż˝ ustawiony dokďż˝adnie
+    w okreďż˝lonym punkcie diagramu.
 	</para>
    <para>
-    Suwaki, w przeciwieństwie do linii siatki, nie mogą być usunięte.
+    Suwaki, w przeciwieďż˝stwie do linii siatki, nie mogďż˝ byďż˝ usuniďż˝te.
    </para>
   </sect1>
   <sect1 id="background-color">
-  <title>Kolor tła</title>
+  <title>Kolor tďż˝a</title>
    <para>
-    Opcja koloru tła umożliwia zmianę wyglądu tła na płótnie. Domyślnie
-    kolorem tła jest biały, jednak można to zmienić za pomocą opcji menu
+    Opcja koloru tďż˝a umoďż˝liwia zmianďż˝ wyglďż˝du tďż˝a na pďż˝ďż˝tnie. Domyďż˝lnie
+    kolorem tďż˝a jest biaďż˝y, jednak moďż˝na to zmieniďż˝ za pomocďż˝ opcji menu
     <menuchoice>
       <guimenu>
         Widok
       </guimenu>
       <guimenu>
-        Właściwości diagramu
+        Wďż˝aďż˝ciwoďż˝ci diagramu
       </guimenu>
       <guimenuitem>
-        Tło
+        Tďż˝o
       </guimenuitem>
     </menuchoice>
-    i klikając na pasek. Pasek wyświetla aktualny kolor tła. Linie siatki
-    zmienią swój kolor automatycznie, aby być widocznymi jeśli kolor
-    tła zostanie zmieniony na czarny.
+    i klikajďż˝c na pasek. Pasek wyďż˝wietla aktualny kolor tďż˝a. Linie siatki
+    zmieniďż˝ swďż˝j kolor automatycznie, aby byďż˝ widocznymi jeďż˝li kolor
+    tďż˝a zostanie zmieniony na czarny.
    </para>
   </sect1>
   <sect1 id="zooming">
   <title>Skalowanie</title>
    <para>
-    Skalowanie umożliwia użytkownikowi wykonanie zbliżenia diagramu. To
-    pomaga w precyzyjnym rysowaniu elementów diagramu.
+    Skalowanie umoďż˝liwia uďż˝ytkownikowi wykonanie zbliďż˝enia diagramu. To
+    pomaga w precyzyjnym rysowaniu elementďż˝w diagramu.
    </para>
    <para>
-    Płótna mogą być powiększane do 400%. Powiększenia można dokonać poprzez
-    kliknięcie lupy powiększenia w skrzynce narzędziowej i następnie 
-    klikniecie na płótnie. Aby
-    pomniejszyć diagram należy przytrzymać klawisz shift i 
-    ponownie kliknąć przycisk myszy na płótnie.
+    Pďż˝ďż˝tna mogďż˝ byďż˝ powiďż˝kszane do 400%. Powiďż˝kszenia moďż˝na dokonaďż˝ poprzez
+    klikniďż˝cie lupy powiďż˝kszenia w skrzynce narzďż˝dziowej i nastďż˝pnie
+    klikniecie na pďż˝ďż˝tnie. Aby
+    pomniejszyďż˝ diagram naleďż˝y przytrzymaďż˝ klawisz shift i
+    ponownie kliknďż˝ďż˝ przycisk myszy na pďż˝ďż˝tnie.
    </para>
   </sect1>
 </chapter>

@@ -43,34 +43,34 @@ static void aadlbus_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  points[0].x = x;                                    
+  points[0].x = x;
   points[0].y = y + h*0.5;
 
   points[1].x = x + w*AADL_BUS_ARROW_SIZE_FACTOR;
   points[1].y = y;
-  
-  points[2].x = x + w*AADL_BUS_ARROW_SIZE_FACTOR;     
+
+  points[2].x = x + w*AADL_BUS_ARROW_SIZE_FACTOR;
   points[2].y = y + h*AADL_BUS_HEIGHT_FACTOR;
-  
-  points[3].x = x + w - w*AADL_BUS_ARROW_SIZE_FACTOR; 
+
+  points[3].x = x + w - w*AADL_BUS_ARROW_SIZE_FACTOR;
   points[3].y = y + h*AADL_BUS_HEIGHT_FACTOR;
 
-  points[4].x = x + w - w*AADL_BUS_ARROW_SIZE_FACTOR; 
+  points[4].x = x + w - w*AADL_BUS_ARROW_SIZE_FACTOR;
   points[4].y = y;
-  
-  points[5].x = x + w;                                
+
+  points[5].x = x + w;
   points[5].y = y + h*0.5;
-  
-  points[6].x = x + w - w*AADL_BUS_ARROW_SIZE_FACTOR; 
+
+  points[6].x = x + w - w*AADL_BUS_ARROW_SIZE_FACTOR;
   points[6].y = y + h ;
-  
-  points[7].x = x + w - w*AADL_BUS_ARROW_SIZE_FACTOR; 
+
+  points[7].x = x + w - w*AADL_BUS_ARROW_SIZE_FACTOR;
   points[7].y = y + h*(1-AADL_BUS_HEIGHT_FACTOR);
-  
-  points[8].x = x + w*AADL_BUS_ARROW_SIZE_FACTOR;     
+
+  points[8].x = x + w*AADL_BUS_ARROW_SIZE_FACTOR;
   points[8].y = y + h*(1-AADL_BUS_HEIGHT_FACTOR);
-  
-  points[9].x = x + w*AADL_BUS_ARROW_SIZE_FACTOR;     
+
+  points[9].x = x + w*AADL_BUS_ARROW_SIZE_FACTOR;
   points[9].y = y + h;
 
 
@@ -92,7 +92,7 @@ aadlbus_project_point_on_nearest_border(Aadlbox *aadlbox,Point *p,
 					       real *angle)
 {
   Element *element = &aadlbox->element;
-  
+
   real w = element->width;
   real h = element->height;
 
@@ -105,67 +105,67 @@ aadlbus_project_point_on_nearest_border(Aadlbox *aadlbox,Point *p,
   coord y2 = element->corner.y + h;
 
 
-  if ( p->x >= x1 + w*AADL_BUS_ARROW_SIZE_FACTOR 
-       && p->x <= x2 - w*AADL_BUS_ARROW_SIZE_FACTOR) 
+  if ( p->x >= x1 + w*AADL_BUS_ARROW_SIZE_FACTOR
+       && p->x <= x2 - w*AADL_BUS_ARROW_SIZE_FACTOR)
   {
     Rectangle rectangle;
-    
+
     rectangle.left = x1 + w*AADL_BUS_ARROW_SIZE_FACTOR;
     rectangle.top  = y1 + h*AADL_BUS_HEIGHT_FACTOR;
     rectangle.right  = x2 - w*AADL_BUS_ARROW_SIZE_FACTOR;
     rectangle.bottom = y2 - h*AADL_BUS_HEIGHT_FACTOR;
-    
+
     aadlbox_project_point_on_rectangle(&rectangle, p, angle);
   }
-  else 
+  else
   {
     Point a, b, c, m;
     real k1, k2;
-    
+
     /* left arrow */
     if (p->x < x1 + w*AADL_BUS_ARROW_SIZE_FACTOR) {
 
       *angle = M_PI;
-      
+
       /*        m      b
-                 °    /|
+                 ï¿½    /|
                      / |
                     /  |
                    a---c
       */
 
-      a.x = x1;                                 
+      a.x = x1;
       a.y = y1 + h*0.5;
-      
-      b.x = x1 + w*AADL_BUS_ARROW_SIZE_FACTOR;  
+
+      b.x = x1 + w*AADL_BUS_ARROW_SIZE_FACTOR;
       b.y = (p->y<y1+0.5*h)?y1:y2;                /* up or down */
-      
-      c.x = b.x;                                
+
+      c.x = b.x;
       c.y = a.y;
     }
-      
+
     /* right arrow */
     else {
-      
+
       *angle = 0;
-      
-      a.x = x2;                                 
+
+      a.x = x2;
       a.y = y1 + h*0.5;
-      
-      b.x = x2 - w*AADL_BUS_ARROW_SIZE_FACTOR;  
+
+      b.x = x2 - w*AADL_BUS_ARROW_SIZE_FACTOR;
       b.y = (p->y<y1+0.5*h)?y1:y2;               /* up or down */
-      
-      c.x = b.x;                                
+
+      c.x = b.x;
       c.y = a.y;
     }
-    
+
     point_copy(&m, p);
-  
+
     /* intersection between (AB) and (MC) */
-  
+
     k1 = (b.y - a.y) / (b.x - a.x);
     k2 = (m.y - c.y) / (m.x - c.x);
-    
+
     p->x = (m.y - a.y + k1*a.x - k2*m.x) / (k1 - k2);
     p->y = a.y + k1 * (p->x - a.x);
   }
@@ -223,7 +223,7 @@ static DiaObject *aadlbus_create(Point *startpoint, void *user_data, Handle **ha
 
   obj->type = &aadlbus_type;
   obj->ops  = &aadlbus_ops;
-      
+
   return obj;
 }
 
@@ -232,7 +232,7 @@ static DiaObject *aadlbus_load(ObjectNode obj_node, int version,DiaContext *ctx)
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
-  
+
   obj = aadlbus_create(&startpoint,&aadlbus_specific, &handle1,&handle2);
   aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
   return obj;

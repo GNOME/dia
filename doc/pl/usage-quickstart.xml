@@ -2,21 +2,21 @@
 <chapter label="1" id="quickstart-chapter">
 <title>Quickstart</title>
   <sect1 id="what-can-you-do">
-  <title>Co mo¿na zrobiæ?</title>
+  <title>Co moï¿½na zrobiï¿½?</title>
     <para>
-    <application>Dia</application> jest aplikacj± do tworzenia diagramów
-    tworzon± przez wiele osób.
+    <application>Dia</application> jest aplikacjï¿½ do tworzenia diagramï¿½w
+    tworzonï¿½ przez wiele osï¿½b.
 
-   <application>Dia</application> jest ³atwym do nauczenia programem
-   oraz elastyczn± na tyle aby zadowoliæ wymagaj±cych u¿ytkowników
-   nie czuj±cych siê dobrze w domu bez swoich komercyjnych narzêdzi.
-   Poni¿ej przedstawiony zosta³ przyk³ad co mo¿na osi±gn±æ w  piêæ minut 
-   pos³uguj±c siê programem <application>Dia</application>.
+   <application>Dia</application> jest ï¿½atwym do nauczenia programem
+   oraz elastycznï¿½ na tyle aby zadowoliï¿½ wymagajï¿½cych uï¿½ytkownikï¿½w
+   nie czujï¿½cych siï¿½ dobrze w domu bez swoich komercyjnych narzï¿½dzi.
+   Poniï¿½ej przedstawiony zostaï¿½ przykï¿½ad co moï¿½na osiï¿½gnï¿½ï¿½ w  piï¿½ï¿½ minut
+   posï¿½ugujï¿½c siï¿½ programem <application>Dia</application>.
     <figure>
     <title>Demo</title>
       <screenshot>
         <screeninfo>To jest diagram sieci domowej stworzonym w 5 minut
-        przy u¿yciu <application>Dia</application>.
+        przy uï¿½yciu <application>Dia</application>.
         </screeninfo>
         <graphic format="PNG" fileref="graphics/home_network" srccredit="Kevin Breit" />
       </screenshot>
@@ -26,77 +26,77 @@
   <sect1 id="starting-dia">
   <title>Uruchamianie Dia</title>
    <para>
-    Mo¿na uruchomiæ Dia przechodz±c do sekcji Aplikacji w g³ównym Menu
-    oraz klikaj±c ikonê Dia. Lub te¿ mo¿na wpisaæ polecenie
+    Moï¿½na uruchomiï¿½ Dia przechodzï¿½c do sekcji Aplikacji w gï¿½ï¿½wnym Menu
+    oraz klikajï¿½c ikonï¿½ Dia. Lub teï¿½ moï¿½na wpisaï¿½ polecenie
     <command>dia</command> w oknie terminala.
    </para>
   </sect1>
   <sect1 id="quickstart-intro">
-  <title>Szybkie rozpoczêcie</title>
+  <title>Szybkie rozpoczï¿½cie</title>
    <para>
-    Szybkie rozpoczêcie pracy z Dia dla osób, które nie chc± czytaæ
-    ca³ego podrêcznika aby stworzyæ prosty diagram.
+    Szybkie rozpoczï¿½cie pracy z Dia dla osï¿½b, ktï¿½re nie chcï¿½ czytaï¿½
+    caï¿½ego podrï¿½cznika aby stworzyï¿½ prosty diagram.
    </para>
   </sect1>
   <sect1 id="creating-canvas">
-  <title>Tworzenie p³ócien</title>
+  <title>Tworzenie pï¿½ï¿½cien</title>
    <para>
-    Wczystkie diagramy s± rysowane na swoich w³asnych 
-   <emphasis>p³ótnach</emphasis>. Aby utworzyæ nowe p³ótno
-    nale¿y wybraæ
+    Wczystkie diagramy sï¿½ rysowane na swoich wï¿½asnych
+   <emphasis>pï¿½ï¿½tnach</emphasis>. Aby utworzyï¿½ nowe pï¿½ï¿½tno
+    naleï¿½y wybraï¿½
     <menuchoice>
      <guimenu>Plik</guimenu>
      <guimenuitem>Nowy diagram</guimenuitem>
     </menuchoice>
-    Pojawi siê nowe p³ótno okna.
+    Pojawi siï¿½ nowe pï¿½ï¿½tno okna.
    </para>
   </sect1>
   <sect1 id="making-diagram">
   <title>Tworzenie diagramu</title>
    <para>
-    Diagram jest zbudowany z obiektów. Obiekty mieæ ró¿ne kolory, kszta³ty oraz rozmiary.
-   Zawieraj± one wszystko od 2-bitowych obrazów przez pe³nokolorowe obrazy
+    Diagram jest zbudowany z obiektï¿½w. Obiekty mieï¿½ rï¿½ne kolory, ksztaï¿½ty oraz rozmiary.
+   Zawierajï¿½ one wszystko od 2-bitowych obrazï¿½w przez peï¿½nokolorowe obrazy
    z tekstem.
    </para>
    <para>
-    Aby dodaæ obiekt do p³ótna, kliknij obiekt w skrzynce narzêdziowej i
-    kliknij na p³ótno. Pojawi siê wybrany obiekt. Obiektem mo¿na manipulowaæ 
-    g³ównie za pomoc± klikania i przeci±gania naro¿nych zielonych
-    przycisków.
-   </para>
-   <para> 
-    W skrzynce narzêdziowej mo¿na klikn±c podwójnie dowolny obiekt aby
-    zobaczyæ jego zaawansowane w³a¶ciwo¶ci. Umo¿liwia to dostosowanie
-    kszta³tu stosu do wymagañ u¿ytkownika.                                                                    
+    Aby dodaï¿½ obiekt do pï¿½ï¿½tna, kliknij obiekt w skrzynce narzï¿½dziowej i
+    kliknij na pï¿½ï¿½tno. Pojawi siï¿½ wybrany obiekt. Obiektem moï¿½na manipulowaï¿½
+    gï¿½ï¿½wnie za pomocï¿½ klikania i przeciï¿½gania naroï¿½nych zielonych
+    przyciskï¿½w.
    </para>
    <para>
-    Warstwy umo¿liwiaj± tworzenie wielu obrazów  tak jakby by³y jednym
-    obrazem. U¿ytkownik mo¿e modyfikowaæ jedn± warstwê bez martwienia siê
-    ¿e wp³ynie to na inne warstwy.
+    W skrzynce narzï¿½dziowej moï¿½na kliknï¿½c podwï¿½jnie dowolny obiekt aby
+    zobaczyï¿½ jego zaawansowane wï¿½aï¿½ciwoï¿½ci. Umoï¿½liwia to dostosowanie
+    ksztaï¿½tu stosu do wymagaï¿½ uï¿½ytkownika.
    </para>
    <para>
-    Przezroczysto¶æ umo¿liwia obiektom posiadanie przezroczystych czê¶ci,
-    wiêc wszystko co znajduje siê pod przezroczystym obszarem obiektu jest
+    Warstwy umoï¿½liwiajï¿½ tworzenie wielu obrazï¿½w  tak jakby byï¿½y jednym
+    obrazem. Uï¿½ytkownik moï¿½e modyfikowaï¿½ jednï¿½ warstwï¿½ bez martwienia siï¿½
+    ï¿½e wpï¿½ynie to na inne warstwy.
+   </para>
+   <para>
+    Przezroczystoï¿½ï¿½ umoï¿½liwia obiektom posiadanie przezroczystych czï¿½ci,
+    wiï¿½c wszystko co znajduje siï¿½ pod przezroczystym obszarem obiektu jest
     widoczne.
    </para>
    <para>
-    Wtyczki umo¿liwiaj± przeciêtnemu u¿ytkownikowi na ³atwe dodawanie
-    nowych typów obiektów do Dia, aby pomóc rozwin±æ funkcjonalno¶c
-    programu. 
+    Wtyczki umoï¿½liwiajï¿½ przeciï¿½tnemu uï¿½ytkownikowi na ï¿½atwe dodawanie
+    nowych typï¿½w obiektï¿½w do Dia, aby pomï¿½c rozwinï¿½ï¿½ funkcjonalnoï¿½c
+    programu.
    </para>
   </sect1>
   <sect1 id="save-print-diagram">
-  <title>Zapisywanie i drukowanie diagramów</title>
+  <title>Zapisywanie i drukowanie diagramï¿½w</title>
    <para>
-    Dia obs³uguje zapisywanie i drukowanie ich za pomoc± drukarek. Je¶li 
+    Dia obsï¿½uguje zapisywanie i drukowanie ich za pomocï¿½ drukarek. Jeï¿½li
     w systemie zainstalowan gnome-print, drukowanie jest bardzo proste!
    </para>
    <para>
-    Polecenie drukowania mo¿na znale¼æ w menu Plik po klikniêciu prawym
-    przyciskiem myszy na p³ótno diagramu.
+    Polecenie drukowania moï¿½na znaleï¿½ï¿½ w menu Plik po klikniï¿½ciu prawym
+    przyciskiem myszy na pï¿½ï¿½tno diagramu.
    </para>
    <para>
-    Dia obs³uguje eksportowanie do wielu formatów przydaj±cych siê 
+    Dia obsï¿½uguje eksportowanie do wielu formatï¿½w przydajï¿½cych siï¿½
     m.inn. przy publikacjach na strony www.
     Kilka z nich:
     <itemizedlist>
@@ -111,7 +111,7 @@
      </listitem>
      <listitem>
       <para>
-       W³asny format Dia (.dia)
+       Wï¿½asny format Dia (.dia)
       </para>
      </listitem>
      <listitem>
@@ -129,28 +129,28 @@
    </sect1>
    <sect1 id="who-appeal-too">                                                     <title>Who Does Dia Appeal To?</title>
     <para>
-     Dia przydaje siê wielu osobom pracuj±cym w wielu ró¿nych dziedzinach.
+     Dia przydaje siï¿½ wielu osobom pracujï¿½cym w wielu rï¿½nych dziedzinach.
      <itemizedlist>
       <listitem>
        <para>
-        In¿ynier od spraw elektrycznych mo¿e u¿ywaæ
-       <application>Dia</application> do tworzenia diagramu opisuj±cego
-       sposób pracy swojego obwodu.
+        Inï¿½ynier od spraw elektrycznych moï¿½e uï¿½ywaï¿½
+       <application>Dia</application> do tworzenia diagramu opisujï¿½cego
+       sposï¿½b pracy swojego obwodu.
        </para>
       </listitem>
       <listitem>
        <para>
-        Programista komputerowy mo¿e u¿yæ wykresu przep³ywu aby opisaæ
-        ¶cie¿kê wykonywania swojego programu.
+        Programista komputerowy moï¿½e uï¿½yï¿½ wykresu przepï¿½ywu aby opisaï¿½
+        ï¿½cieï¿½kï¿½ wykonywania swojego programu.
        </para>
       </listitem>
       <listitem>
        <para>
-        Administrator sieci mo¿e ustowrzyæ diagram wy¶wietlaj±cy
-        uk³ad sieci korporacyjnej.
+        Administrator sieci moï¿½e ustowrzyï¿½ diagram wyï¿½wietlajï¿½cy
+        ukï¿½ad sieci korporacyjnej.
        </para>
-      </listitem>                                                             
+      </listitem>
      </itemizedlist>
     </para>
  </sect1>
-</chapter>                                              
+</chapter>

@@ -2,36 +2,36 @@
 <chapter label="5" id="special-objects-chapter">
 <title>Obiekty specjalne</title>
  <sect1 id="special-objects">
- <title>Wprowadzenie do obiektów specjalnych</title>
+ <title>Wprowadzenie do obiektï¿½w specjalnych</title>
    <para>
-     Poprzedni rozdzia³ wyja¶nia³ czym jest obiekt podstawowy.
-     Nastêpny rozdzia³ wyja¶ni sposób tworzenia obietków, sposób u¿ywania
-     stworzonych obiektów, które s± bardziej szczegó³owe ni¿ kszta³ty
+     Poprzedni rozdziaï¿½ wyjaï¿½niaï¿½ czym jest obiekt podstawowy.
+     Nastï¿½pny rozdziaï¿½ wyjaï¿½ni sposï¿½b tworzenia obietkï¿½w, sposï¿½b uï¿½ywania
+     stworzonych obiektï¿½w, ktï¿½re sï¿½ bardziej szczegï¿½owe niï¿½ ksztaï¿½ty
      oraz wiele innych rzeczy!
    </para>
  </sect1>
    <sect1 id="special-object-categories">
-   <title>Kategorie obiektów specjalnych</title>
+   <title>Kategorie obiektï¿½w specjalnych</title>
      <para>
-       Obiekty specjalne mo¿na podzieliæ na ró¿ne kategorie. Dziêki temu,
-       u¿ytkownik mo¿e stworzyæ diagram obwodu elektrycznego z elementów
+       Obiekty specjalne moï¿½na podzieliï¿½ na rï¿½ne kategorie. Dziï¿½ki temu,
+       uï¿½ytkownik moï¿½e stworzyï¿½ diagram obwodu elektrycznego z elementï¿½w
        przypisanych do danej kategorii.
-       <application>Dia</application> obs³uguje wiele wstêpnie zdefiniowanych
+       <application>Dia</application> obsï¿½uguje wiele wstï¿½pnie zdefiniowanych
        kategorii.
        <variablelist>
          <varlistentry>
            <term>Obwody elektryczne</term>
            <listitem>
              <para>
-               Grupa dla osób zainteresowanych tworzeniem diagramów obwodów elektrycznych.
+               Grupa dla osï¿½b zainteresowanych tworzeniem diagramï¿½w obwodï¿½w elektrycznych.
              </para>
            </listitem>
          </varlistentry>
          <varlistentry>
-           <term>Uk³ady drabinkowe</term>
+           <term>Ukï¿½ady drabinkowe</term>
            <listitem>
              <para>
-               Ten rozdzia³ jest pod kontrol± autora dokumentacji.
+               Ten rozdziaï¿½ jest pod kontrolï¿½ autora dokumentacji.
              </para>
            </listitem>
          </varlistentry>
@@ -39,7 +39,7 @@
            <term>ER</term>
            <listitem>
              <para>
-               Edytor do tworzenia diagramów relacji ERD.
+               Edytor do tworzenia diagramï¿½w relacji ERD.
              </para>
            </listitem>
          </varlistentry>
@@ -47,19 +47,19 @@
            <term>FS</term>
            <listitem>
              <para>
-		Edytor do tworzenia diagramów struktury funkcji.
+		Edytor do tworzenia diagramï¿½w struktury funkcji.
              </para>
            </listitem>
          </varlistentry>
          <varlistentry>
-           <term>Diagramy przep³ywów</term>
+           <term>Diagramy przepï¿½ywï¿½w</term>
            <listitem>
              <para>
-               Grupa przeznaczona do udostêpniania kszta³tów
-               u¿ywanych przy tworzeniu diagramów przep³ywu.
-               Diagramy przep³ywu mo¿na czêsto spotkaæ przy programowaniu,
-               w marketingu, ekonomii oraz innych pó³liniowych dzia³aniach
-               wymagaj±cych planowania.
+               Grupa przeznaczona do udostï¿½pniania ksztaï¿½tï¿½w
+               uï¿½ywanych przy tworzeniu diagramï¿½w przepï¿½ywu.
+               Diagramy przepï¿½ywu moï¿½na czï¿½sto spotkaï¿½ przy programowaniu,
+               w marketingu, ekonomii oraz innych pï¿½liniowych dziaï¿½aniach
+               wymagajï¿½cych planowania.
              </para>
            </listitem>
          </varlistentry>
@@ -67,8 +67,8 @@
            <term>GRAFCET</term>
            <listitem>
              <para>
-		Wykres diagramów kroku, akcji, przesy³ania oraz warunków
-                zwi±zanych z przesy³aniem.
+		Wykres diagramï¿½w kroku, akcji, przesyï¿½ania oraz warunkï¿½w
+                zwiï¿½zanych z przesyï¿½aniem.
              </para>
            </listitem>
          </varlistentry>
@@ -84,7 +84,7 @@
            <term>UML</term>
            <listitem>
              <para>
-               Odno¶nik poni¿ej
+               Odnoï¿½nik poniï¿½ej
              </para>
            </listitem>
          </varlistentry>
@@ -92,17 +92,17 @@
            <term>Wykres zegarowy</term>
            <listitem>
              <para>
-               U¿ywa obiektów przy projektowaniu wykresów zegarowych.
-               Najczê¶ciej bazuj±ce na liniach czasu.
+               Uï¿½ywa obiektï¿½w przy projektowaniu wykresï¿½w zegarowych.
+               Najczï¿½ciej bazujï¿½ce na liniach czasu.
              </para>
            </listitem>
          </varlistentry>
          <varlistentry>
-           <term>Sieæ</term>
+           <term>Sieï¿½</term>
            <listitem>
              <para>
-               Kategoria u¿ywana przez administratorów sieci 
-               do tworzenia projektów swoich sieci.
+               Kategoria uï¿½ywana przez administratorï¿½w sieci
+               do tworzenia projektï¿½w swoich sieci.
              </para>
            </listitem>
          </varlistentry>
@@ -110,7 +110,7 @@
            <term>Sybase</term>
            <listitem>
              <para>
-               Tworzenie diagramów przep³ywu sieci komputerowej Sybase.
+               Tworzenie diagramï¿½w przepï¿½ywu sieci komputerowej Sybase.
              </para>
            </listitem>
          </varlistentry>
@@ -118,7 +118,7 @@
            <term>Obwody elektryczne</term>
            <listitem>
              <para>
-               Wy¶wielanie obwodu elektrycznego.
+               Wyï¿½wielanie obwodu elektrycznego.
              </para>
            </listitem>
          </varlistentry>
@@ -126,11 +126,11 @@
            <term>Pnumatyka/Hydraulika</term>
            <listitem>
              <para>
-               Umo¿liwia tworzenie diagramów urz±dzeñ daj±cych pracê hydraulikom.
+               Umoï¿½liwia tworzenie diagramï¿½w urzï¿½dzeï¿½ dajï¿½cych pracï¿½ hydraulikom.
              </para>
            </listitem>
          </varlistentry>
        </variablelist>
-     </para> 
+     </para>
  </sect1>
-</chapter>                   
+</chapter>

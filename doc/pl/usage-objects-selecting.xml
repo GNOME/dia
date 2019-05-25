@@ -1,143 +1,143 @@
 <?xml version="1.0" encoding="iso-8859-2"?>
 <chapter label="6" id="selecting-chapter">
-<title>Wybieranie obiektów</title>
+<title>Wybieranie obiektďż˝w</title>
   <sect1 id="selecting-introduction">
-  <title>Wprowadzenie do wybierania obiektów</title>
+  <title>Wprowadzenie do wybierania obiektďż˝w</title>
    <para>
-       Wybieranie obiektów jest prawdopodobnie najczęstszą operacją
-       w trakcie pracy z programem <application>Dia</application>. 
-       Od chwili stworzenia obiektu do obmyślania wyglądu tworzonego
-       diagramu zawsze można wybrierać obiekty aby poprawnie je ustawić.
-       <!-- Muszę przyznać że to intro naprawdę nie jest dobre -->
+       Wybieranie obiektďż˝w jest prawdopodobnie najczďż˝stszďż˝ operacjďż˝
+       w trakcie pracy z programem <application>Dia</application>.
+       Od chwili stworzenia obiektu do obmyďż˝lania wyglďż˝du tworzonego
+       diagramu zawsze moďż˝na wybrieraďż˝ obiekty aby poprawnie je ustawiďż˝.
+       <!-- Muszďż˝ przyznaďż˝ ďż˝e to intro naprawdďż˝ nie jest dobre -->
    </para>
    <para>
-       Po wybraniu obiektów, należy przemieścić zaznaczenie na obiekt
-       do modyfikacji. Nieznaznaczony obiekt nie może być modyfikowany.
+       Po wybraniu obiektďż˝w, naleďż˝y przemieďż˝ciďż˝ zaznaczenie na obiekt
+       do modyfikacji. Nieznaznaczony obiekt nie moďż˝e byďż˝ modyfikowany.
    </para>
    <para>
-       Wybieranie obiektów może być dokonywane na wiele różnych sposobów,
-       także można przeprowadzić wiele działań na wybranych obiektach.
+       Wybieranie obiektďż˝w moďż˝e byďż˝ dokonywane na wiele rďż˝nych sposobďż˝w,
+       takďż˝e moďż˝na przeprowadziďż˝ wiele dziaďż˝aďż˝ na wybranych obiektach.
    </para>
    <para>
-       Można wybierać obiekty w celu przemieszczenia ich w diagramie lub
-       do pogrupowania ich w logiczny sposób w celu łatwiejszej ich 
-       manipulacji, łączenia z innymi lub po prostu w celu usunięcia ich
+       Moďż˝na wybieraďż˝ obiekty w celu przemieszczenia ich w diagramie lub
+       do pogrupowania ich w logiczny sposďż˝b w celu ďż˝atwiejszej ich
+       manipulacji, ďż˝ďż˝czenia z innymi lub po prostu w celu usuniďż˝cia ich
        z diagramu.
    </para>
   </sect1>
- 
+
   <!-- +How to Select Objects  -->
   <sect1 id="how-to-select">
-  <title>Jak wybierać obiekty</title>
+  <title>Jak wybieraďż˝ obiekty</title>
     <sect2 id="basic-selection">
     <title>Zaznaczanie podstawowe</title>
      <para>
-         Podstawowym sposobem wybierania obiektów jest klikanie na nich.
+         Podstawowym sposobem wybierania obiektďż˝w jest klikanie na nich.
      </para>
      <para>
-         Po wybraniu obiektu pojawia się on z małymi zielonymi punktami
-         przy wierzchołkach oraz na brzegach.
+         Po wybraniu obiektu pojawia siďż˝ on z maďż˝ymi zielonymi punktami
+         przy wierzchoďż˝kach oraz na brzegach.
      </para>
      <para>
-         Po pojawieniu się zielonych punktów, można rozpocząć manipulację
-         tymi obiektami. Po jej zakończeniu można odznaczyć obiekty klikając
-         wolną przestrzeń diagramu, wówczas zielone punkty znikną
-         umożliwiając wybór innych obiektów.
+         Po pojawieniu siďż˝ zielonych punktďż˝w, moďż˝na rozpoczďż˝ďż˝ manipulacjďż˝
+         tymi obiektami. Po jej zakoďż˝czeniu moďż˝na odznaczyďż˝ obiekty klikajďż˝c
+         wolnďż˝ przestrzeďż˝ diagramu, wďż˝wczas zielone punkty zniknďż˝
+         umoďż˝liwiajďż˝c wybďż˝r innych obiektďż˝w.
      </para>
     </sect2>
- 
+
     <sect2 id="multi-selection">
-    <title>Wybieranie wielu obiektów</title>
+    <title>Wybieranie wielu obiektďż˝w</title>
      <para>
-         Najprostszym sposobem wybierania więcej niż jednego obiektu na raz
-         jest kliknięcie na wolną przestrzeń diagramu z wciśniętym lewym
-         przyciskiem myszy oraz przesunięcie kursora z przytrzymanym
-         klawiszem. Spowoduje to narysowanie prostokąta na płaszczyźnie diagramu
-         i zaznaczenie obiektów obecnych w jego obrębie po zwolnieniu przycisku.
+         Najprostszym sposobem wybierania wiďż˝cej niďż˝ jednego obiektu na raz
+         jest klikniďż˝cie na wolnďż˝ przestrzeďż˝ diagramu z wciďż˝niďż˝tym lewym
+         przyciskiem myszy oraz przesuniďż˝cie kursora z przytrzymanym
+         klawiszem. Spowoduje to narysowanie prostokďż˝ta na pďż˝aszczyďż˝nie diagramu
+         i zaznaczenie obiektďż˝w obecnych w jego obrďż˝bie po zwolnieniu przycisku.
      </para>
      <para>
          Innym sposobem na zaznaczenie jest przytrzymanie klawisza Shift w
-         trakcie wybierania obiektów klikając je pojedynczo.
+         trakcie wybierania obiektďż˝w klikajďż˝c je pojedynczo.
      </para>
      <para>
-         Po zakończeniu wybierania, każdy wybrany obiekt musi pojawić się
-         ze swoimi zielonymi punktami opisanymi powyżej.
+         Po zakoďż˝czeniu wybierania, kaďż˝dy wybrany obiekt musi pojawiďż˝ siďż˝
+         ze swoimi zielonymi punktami opisanymi powyďż˝ej.
      </para>
      <para>
-         Zaznaczanie wielu plików jest użyteczne przy przeprowadzaniu tej
-         samej operacji na różnych obiektach, dzięki temu można zaoszczędzić
-         więcej czasu niż w przypadku zaznaczania obiektów po kolei.
+         Zaznaczanie wielu plikďż˝w jest uďż˝yteczne przy przeprowadzaniu tej
+         samej operacji na rďż˝nych obiektach, dziďż˝ki temu moďż˝na zaoszczďż˝dziďż˝
+         wiďż˝cej czasu niďż˝ w przypadku zaznaczania obiektďż˝w po kolei.
      </para>
      <para>
-         Po zaznaczeniu, obiekty zachowują się jak grupa. Oznacza to, że
-         podczas ich przemieszczania, przemieszczona zostaje cała grupa.
-         To samo dotyczy ich usuwania - cała grupa zostanie usunięta z
+         Po zaznaczeniu, obiekty zachowujďż˝ siďż˝ jak grupa. Oznacza to, ďż˝e
+         podczas ich przemieszczania, przemieszczona zostaje caďż˝a grupa.
+         To samo dotyczy ich usuwania - caďż˝a grupa zostanie usuniďż˝ta z
          diagramu po wybraniu tej operacji.
      </para>
      <para>
-         Następnie jeśli kliknięta zostanie pusta płaszczyzna diagramu lub
-         też warstwa zostanie zmieniona na inną, zaznaczenie zostanie
-         anulowane. Jeśli trzeba dodać więcej obiektów do zaznaczenia, należy
-         po prostu przytrzymać klawisz Shift i kliknąć na obiekt do dodania.
+         Nastďż˝pnie jeďż˝li klikniďż˝ta zostanie pusta pďż˝aszczyzna diagramu lub
+         teďż˝ warstwa zostanie zmieniona na innďż˝, zaznaczenie zostanie
+         anulowane. Jeďż˝li trzeba dodaďż˝ wiďż˝cej obiektďż˝w do zaznaczenia, naleďż˝y
+         po prostu przytrzymaďż˝ klawisz Shift i kliknďż˝ďż˝ na obiekt do dodania.
      </para>
      <note>
       <para>
-         Przy założeniu, że wybrano kilka obiektów na diagramie, wciąż
-         możliwa jest zmiana rozmiaru jednego z nich bez zmiany rozmiaru czy pozycji
-         innych wybranych obiektów. Aby dowiedzieć się jak zmieniać rozmiary
-         obiektów należy zajrzeć do rozdziału opisującego zmianę rozmiarów obiektów.
-         <!-- tutaj trzeba ustawić dowiązanie -->
+         Przy zaďż˝oďż˝eniu, ďż˝e wybrano kilka obiektďż˝w na diagramie, wciďż˝ďż˝
+         moďż˝liwa jest zmiana rozmiaru jednego z nich bez zmiany rozmiaru czy pozycji
+         innych wybranych obiektďż˝w. Aby dowiedzieďż˝ siďż˝ jak zmieniaďż˝ rozmiary
+         obiektďż˝w naleďż˝y zajrzeďż˝ do rozdziaďż˝u opisujďż˝cego zmianďż˝ rozmiarďż˝w obiektďż˝w.
+         <!-- tutaj trzeba ustawiďż˝ dowiďż˝zanie -->
       </para>
      </note>
     </sect2>
- 
+
     <sect2 id="other-selection">
-    <title>Inne metody wybierania obiektów</title>
+    <title>Inne metody wybierania obiektďż˝w</title>
     <para>
-       Inne metody wybierania obiektów są opisane poniżej, do wszystkich
-       tych opcji można dostać się przez
-       <interface>główne menu podręczne</interface> z menu
+       Inne metody wybierania obiektďż˝w sďż˝ opisane poniďż˝ej, do wszystkich
+       tych opcji moďż˝na dostaďż˝ siďż˝ przez
+       <interface>gďż˝ďż˝wne menu podrďż˝czne</interface> z menu
        <menuchoice><guimenu>Wybierz</guimenu></menuchoice> :
     </para>
     <variablelist>
       <varlistentry>
-         <term>Wybieranie wszystkich obiektów</term>
+         <term>Wybieranie wszystkich obiektďż˝w</term>
          <listitem>
           <para>
             Wybranie opcji <menuchoice><guimenuitem>Wszystko</guimenuitem></menuchoice>
-            pozwala na wybranie obiektów obecnych w bieżącej warstwie w taki
-            sam sposób jakbyśmy zrobili to ręcznie.
+            pozwala na wybranie obiektďż˝w obecnych w bieďż˝ďż˝cej warstwie w taki
+            sam sposďż˝b jakbyďż˝my zrobili to rďż˝cznie.
           </para>
           <para>
-            Ta opcja jest skrótem przydatnym gdy diagram zawiera wiele
-            obiektów i użytkownik nie chce tracić czasu na wybieranie ich pojedynczo.
+            Ta opcja jest skrďż˝tem przydatnym gdy diagram zawiera wiele
+            obiektďż˝w i uďż˝ytkownik nie chce traciďż˝ czasu na wybieranie ich pojedynczo.
           </para>
          </listitem>
       </varlistentry>
       <varlistentry>
-         <term>Odznaczanie wszystkich obiektów</term>
+         <term>Odznaczanie wszystkich obiektďż˝w</term>
          <listitem>
           <para>
              Wybranie opcji <menuchoice><guimenuitem>Nic</guimenuitem></menuchoice>
-             spowoduje odznaczenie wcześniej wybranych obiektów. Ten sam
-             efekt daje kliknięcie każdej wolnej części diagramu.
+             spowoduje odznaczenie wczeďż˝niej wybranych obiektďż˝w. Ten sam
+             efekt daje klikniďż˝cie kaďż˝dej wolnej czďż˝ci diagramu.
           </para>
           <para>
-             Po odznaczeniu obiektów nie można przeprowadzić na nich żadnej
-             operacji. Więc należy je wybrać ponownie aby kontynuować.                                                                                     
+             Po odznaczeniu obiektďż˝w nie moďż˝na przeprowadziďż˝ na nich ďż˝adnej
+             operacji. Wiďż˝c naleďż˝y je wybraďż˝ ponownie aby kontynuowaďż˝.
           </para>
           <tip>
             <para>
-              Często zachodzi potrzeba trwałego wybrania obiektów, aby to
-              zrobić, można utworzyć dowolną grupę z dowolnych obiektów lub wyciąć i
-              wkleić je jako nową warstwę, która będzie zawierała obiekty zaznaczenia.
+              Czďż˝sto zachodzi potrzeba trwaďż˝ego wybrania obiektďż˝w, aby to
+              zrobiďż˝, moďż˝na utworzyďż˝ dowolnďż˝ grupďż˝ z dowolnych obiektďż˝w lub wyciďż˝ďż˝ i
+              wkleiďż˝ je jako nowďż˝ warstwďż˝, ktďż˝ra bďż˝dzie zawieraďż˝a obiekty zaznaczenia.
             </para>
             <para>
-              Aby dowiedzieć się więcej na temat zarządzania grupami należy zajrzeć
-              do odpowiedniego rozdziału podręcznika poświęconego temu zagadnieniu.
-              Informacje na temat warstw również umieszczone są w osobnym rozdziale
-              poświęceonym warstwom.
-              <!-- trzeba tutaj dodać dowiązania -->
+              Aby dowiedzieďż˝ siďż˝ wiďż˝cej na temat zarzďż˝dzania grupami naleďż˝y zajrzeďż˝
+              do odpowiedniego rozdziaďż˝u podrďż˝cznika poďż˝wiďż˝conego temu zagadnieniu.
+              Informacje na temat warstw rďż˝wnieďż˝ umieszczone sďż˝ w osobnym rozdziale
+              poďż˝wiďż˝ceonym warstwom.
+              <!-- trzeba tutaj dodaďż˝ dowiďż˝zania -->
             </para>
           </tip>
          </listitem>
@@ -146,143 +146,143 @@
          <term>Odwracanie zaznaczenia</term>
          <listitem>
            <para>
-              Załóżmy że diagram zawiera dziesięć obiektów a my chcemy
-              wybrać tylko osiem z nich. Jedną z metod zaznaczenia tych ośmiu obiektów
-              jest wybranie opcji 
-              <menuchoice><guimenuitem>Odwróć</guimenuitem></menuchoice> z
+              Zaďż˝ďż˝my ďż˝e diagram zawiera dziesiďż˝ďż˝ obiektďż˝w a my chcemy
+              wybraďż˝ tylko osiem z nich. Jednďż˝ z metod zaznaczenia tych oďż˝miu obiektďż˝w
+              jest wybranie opcji
+              <menuchoice><guimenuitem>Odwrďż˝ďż˝</guimenuitem></menuchoice> z
              menu
               <menuchoice><guimenu>Wybierz</guimenu></menuchoice>.
            </para>
            <para>
-              Po prostu należy zaznaczyć dwa niepotrzebne obiekty ręcznie, a
-              potem zaznaczyć opcję
-              <menuchoice><guimenuitem>Odwróć</guimenuitem></menuchoice>.
-              Wówczas zostanie wybrane osiem pozostałych obiektów a
-              wcześniej zaznaczone dwa zostaną pominięte.
+              Po prostu naleďż˝y zaznaczyďż˝ dwa niepotrzebne obiekty rďż˝cznie, a
+              potem zaznaczyďż˝ opcjďż˝
+              <menuchoice><guimenuitem>Odwrďż˝ďż˝</guimenuitem></menuchoice>.
+              Wďż˝wczas zostanie wybrane osiem pozostaďż˝ych obiektďż˝w a
+              wczeďż˝niej zaznaczone dwa zostanďż˝ pominiďż˝te.
            </para>
            <tip>
              <para>
-                Inną metodą jest wybranie za pomocą opcji
-                <menuchoice><guimenuitem>Wszystko</guimenuitem></menuchoice> 
-                obiektów opisanych powyżej a następnie wraz z przytrzymanym
-                klawiszem Shift wybranie obiektów, które nie są potrzebne.
+                Innďż˝ metodďż˝ jest wybranie za pomocďż˝ opcji
+                <menuchoice><guimenuitem>Wszystko</guimenuitem></menuchoice>
+                obiektďż˝w opisanych powyďż˝ej a nastďż˝pnie wraz z przytrzymanym
+                klawiszem Shift wybranie obiektďż˝w, ktďż˝re nie sďż˝ potrzebne.
              </para>
            </tip>
    <note>
      <para>
-              Wybierać można tylko obiekty obecne w bieżącej warstwie. Jeśli
-              obiekt nie chce się wybrać, oznacza to prawdopodobnie, że jest umieszczony w
-              innej warstwie. Aby dowiedzieć się jak zmienić bieżącą wartstwę oraz jak
-              manipulować wieloma warstwami, zajrzyj do rozdziału Zarządzanie warstwami.
-              <!-- Trzeba tu dodać hiperłącze -->
+              Wybieraďż˝ moďż˝na tylko obiekty obecne w bieďż˝ďż˝cej warstwie. Jeďż˝li
+              obiekt nie chce siďż˝ wybraďż˝, oznacza to prawdopodobnie, ďż˝e jest umieszczony w
+              innej warstwie. Aby dowiedzieďż˝ siďż˝ jak zmieniďż˝ bieďż˝ďż˝cďż˝ wartstwďż˝ oraz jak
+              manipulowaďż˝ wieloma warstwami, zajrzyj do rozdziaďż˝u Zarzďż˝dzanie warstwami.
+              <!-- Trzeba tu dodaďż˝ hiperďż˝ďż˝cze -->
      </para>
     </note>
          </listitem>
       </varlistentry>
     </variablelist>
     </sect2>
- 
+
     <sect2 id="selection-connected">
-    <title>Wybieranie połączonych obiektów</title>
+    <title>Wybieranie poďż˝ďż˝czonych obiektďż˝w</title>
      <para>
-       Jedną z użytecznych i wydajnych funkcji <application>Dia</application> 
-       jest jej możliwość zarządzania połączeniami między obiektami.
+       Jednďż˝ z uďż˝ytecznych i wydajnych funkcji <application>Dia</application>
+       jest jej moďż˝liwoďż˝ďż˝ zarzďż˝dzania poďż˝ďż˝czeniami miďż˝dzy obiektami.
      </para>
      <para>
-       Połączenia w <application>Dia</application>, mogą być wykorzystywane
-       do wielu celów. Pierwszym, ale nie ostatnim, jest odpowiednie określenie
-       bezpośrednich związków pomiędzy dwoma obiektami.
+       Poďż˝ďż˝czenia w <application>Dia</application>, mogďż˝ byďż˝ wykorzystywane
+       do wielu celďż˝w. Pierwszym, ale nie ostatnim, jest odpowiednie okreďż˝lenie
+       bezpoďż˝rednich zwiďż˝zkďż˝w pomiďż˝dzy dwoma obiektami.
      </para>
      <para>
-       Drugi to łatwiejsze zarządzanie obiektami które zachowują się
-       bardziej efektywnie po ustaleniu odpowiednich zasad i można uzyskać do nich
-       dostęp poprzez kilka kliknięć przycisku myszy.
+       Drugi to ďż˝atwiejsze zarzďż˝dzanie obiektami ktďż˝re zachowujďż˝ siďż˝
+       bardziej efektywnie po ustaleniu odpowiednich zasad i moďż˝na uzyskaďż˝ do nich
+       dostďż˝p poprzez kilka klikniďż˝ďż˝ przycisku myszy.
      </para>
      <note>
       <para>
-        Aby poznać więcej korzyści, które daje łączenie różnych obiektów
-        razem, należy przeczytać rozdział Łączenie obiektów.
+        Aby poznaďż˝ wiďż˝cej korzyďż˝ci, ktďż˝re daje ďż˝ďż˝czenie rďż˝nych obiektďż˝w
+        razem, naleďż˝y przeczytaďż˝ rozdziaďż˝ ďż˝ďż˝czenie obiektďż˝w.
       </para>
      </note>
      <para>
-       Wybieranie obiektów połączonych z pewnym obiektem jest tak proste jak
-       wybieranie tego określonego obiektu. Należy kliknąć prawym
-       przyciskiem myszy na płótnie aby otworzyć
-       <interface>główne menu podręczne</interface> i kliknąć opcję
+       Wybieranie obiektďż˝w poďż˝ďż˝czonych z pewnym obiektem jest tak proste jak
+       wybieranie tego okreďż˝lonego obiektu. Naleďż˝y kliknďż˝ďż˝ prawym
+       przyciskiem myszy na pďż˝ďż˝tnie aby otworzyďż˝
+       <interface>gďż˝ďż˝wne menu podrďż˝czne</interface> i kliknďż˝ďż˝ opcjďż˝
        <menuchoice>
           <guimenu>Wybierz</guimenu>
-          <guimenuitem>Połączone</guimenuitem>
+          <guimenuitem>Poďż˝ďż˝czone</guimenuitem>
        </menuchoice>
      </para>
      <para>
-       Jeśli ten obiekt nie jest połączony z innym obiektem, operacja ta
-       nie przyniesie efektów. W innym przypadku połączone obiekty zostaną
-       magicznie wybrane i uformują nową grupę tymczasowo wybranych
-       obiektów.
+       Jeďż˝li ten obiekt nie jest poďż˝ďż˝czony z innym obiektem, operacja ta
+       nie przyniesie efektďż˝w. W innym przypadku poďż˝ďż˝czone obiekty zostanďż˝
+       magicznie wybrane i uformujďż˝ nowďż˝ grupďż˝ tymczasowo wybranych
+       obiektďż˝w.
      </para>
      <note>
       <para>
-        Jeśli operacja zostanie ponownie powtódzona, wszystkie połączone
-        obiekty do tej nowej grupy zostaną dodane do zaznaczenia.
+        Jeďż˝li operacja zostanie ponownie powtďż˝dzona, wszystkie poďż˝ďż˝czone
+        obiekty do tej nowej grupy zostanďż˝ dodane do zaznaczenia.
       </para>
       <para>
-        Można powtarzać operację do czasu aż zostaną wybrane wszystkie
-        połączone ze sobą obiekty.
+        Moďż˝na powtarzaďż˝ operacjďż˝ do czasu aďż˝ zostanďż˝ wybrane wszystkie
+        poďż˝ďż˝czone ze sobďż˝ obiekty.
       </para>
      </note>
     </sect2>
     <sect2 id="selection-transitive">
-    <title>Wybieranie przechodnich obiektów</title>
+    <title>Wybieranie przechodnich obiektďż˝w</title>
      <para>
-      Technika pokazana wyżej jest dobra jeśli w pewnym momencie zachodzi
-      potrzeba wybrania małej liczby połączonych obiektów.
+      Technika pokazana wyďż˝ej jest dobra jeďż˝li w pewnym momencie zachodzi
+      potrzeba wybrania maďż˝ej liczby poďż˝ďż˝czonych obiektďż˝w.
      </para>
      <para>
-       Czasami trzeba wybrać całą grupę obiektów połączonych ze sobą. Ten
-       sposób wybierania obiektów krok po kroku nie jest wydajny.
+       Czasami trzeba wybraďż˝ caďż˝ďż˝ grupďż˝ obiektďż˝w poďż˝ďż˝czonych ze sobďż˝. Ten
+       sposďż˝b wybierania obiektďż˝w krok po kroku nie jest wydajny.
        efficient.
      </para>
      <para>
-       To jest powód tego, że <application>Dia</application> oferuje
-       możliwość przeprowadzenia wszystkich kroków za jednym razem.
+       To jest powďż˝d tego, ďż˝e <application>Dia</application> oferuje
+       moďż˝liwoďż˝ďż˝ przeprowadzenia wszystkich krokďż˝w za jednym razem.
      </para>
      <para>
-        Aby to uczynić, należy wybrać główny obiekt do zaznaczenia a
-        następnie kliknąć płótno aby rozwinąć na ekranie
-       <interface>główne menu podręczne</interface>, lecz tym razem należy
-       wybrać 
+        Aby to uczyniďż˝, naleďż˝y wybraďż˝ gďż˝ďż˝wny obiekt do zaznaczenia a
+        nastďż˝pnie kliknďż˝ďż˝ pďż˝ďż˝tno aby rozwinďż˝ďż˝ na ekranie
+       <interface>gďż˝ďż˝wne menu podrďż˝czne</interface>, lecz tym razem naleďż˝y
+       wybraďż˝
        <menuchoice>
           <guimenu>Wybierz</guimenu>
           <guimenuitem>Przechodnie</guimenuitem>
-       </menuchoice> zamiast <guimenuitem>Połączone</guimenuitem>.
+       </menuchoice> zamiast <guimenuitem>Poďż˝ďż˝czone</guimenuitem>.
      </para>
      <para>
-       I to wszystko, wszystkie obiekty, które były połączone do obiektu 
-       początkowego zostały wybrane i można na nich wykonywać różne działania,
-       których zażyczy sobie użytkownik.
+       I to wszystko, wszystkie obiekty, ktďż˝re byďż˝y poďż˝ďż˝czone do obiektu
+       poczďż˝tkowego zostaďż˝y wybrane i moďż˝na na nich wykonywaďż˝ rďż˝ne dziaďż˝ania,
+       ktďż˝rych zaďż˝yczy sobie uďż˝ytkownik.
      </para>
     </sect2>
     <sect2 id="selection-same-type">
-    <title>Wybieranie obiektów tego samego typu</title>  
+    <title>Wybieranie obiektďż˝w tego samego typu</title>
     <para>
-        <application>Dia</application> implementuje różne triki
-        umożliwiające wybór obiektów wskazanego typu.
+        <application>Dia</application> implementuje rďż˝ne triki
+        umoďż˝liwiajďż˝ce wybďż˝r obiektďż˝w wskazanego typu.
      </para>
      <para>
-        Oznacza to, na przykład, że jeśli użytkownik chce wybrać obiekty
-        spełniające to samo kryterium przynależności do typu (wszystkie prostokąty,
-        linie lub własne kształty), można to uczynić wybierając obiekt
-         żądanego typu i klikając w
-        <interface>głównym menu podręcznym</interface>, opcję
+        Oznacza to, na przykďż˝ad, ďż˝e jeďż˝li uďż˝ytkownik chce wybraďż˝ obiekty
+        speďż˝niajďż˝ce to samo kryterium przynaleďż˝noďż˝ci do typu (wszystkie prostokďż˝ty,
+        linie lub wďż˝asne ksztaďż˝ty), moďż˝na to uczyniďż˝ wybierajďż˝c obiekt
+         ďż˝ďż˝danego typu i klikajďż˝c w
+        <interface>gďż˝ďż˝wnym menu podrďż˝cznym</interface>, opcjďż˝
         <menuchoice>
           <guimenu>Wybierz</guimenu>
           <guimenuitem>Ten sam typ</guimenuitem>
        </menuchoice>.
      </para>
      <para>
-       Obiekty tego samego typu co wybrany zostaną automatycznie zaznaczone.
-       W skład zaznaczenia będą wchodziły tylko obiekty obecne w bieżącej warstwie.
+       Obiekty tego samego typu co wybrany zostanďż˝ automatycznie zaznaczone.
+       W skďż˝ad zaznaczenia bďż˝dďż˝ wchodziďż˝y tylko obiekty obecne w bieďż˝ďż˝cej warstwie.
      </para>
    </sect2>
 </sect1>
-</chapter> 
+</chapter>

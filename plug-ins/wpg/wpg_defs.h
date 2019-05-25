@@ -66,7 +66,7 @@ typedef struct
 {
   guint8  Version;
   guint8  Flag;
-  guint16  Width; 
+  guint16  Width;
   guint16  Height;
 }
 WPGStartData;
@@ -77,7 +77,7 @@ typedef struct
   guint16  rx, ry; /* radius */
 
   guint16  RotAngle; /* rotation */
-  guint16  StartAngle, EndAngle; /* 0 - 360° */
+  guint16  StartAngle, EndAngle; /* 0 - 360ï¿½ */
   guint16 Flags;
 }
 WPGEllipse;
@@ -145,7 +145,7 @@ typedef struct
 }
 WPGColorRGB;
 
-typedef enum 
+typedef enum
 {
   WPG_FILLATTR = 1,
   WPG_LINEATTR = 2,

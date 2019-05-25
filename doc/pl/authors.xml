@@ -2,41 +2,41 @@
 <chapter label="9" id="authors-chap">
 <title>Authors</title>
   <para>
-   <application>Dia</application> - aplikacja zosta³a napisana przez
-   Alexandra Larssona za¶ aktualnie zarz±dzana przez Jamesa Henstridge'a. 
-   Aby otrzymaæ wiêcej informacji dotycz±cych
-   <application>Dia</application>, odwied¼ oficjaln± stronê projektu, <ulink
+   <application>Dia</application> - aplikacja zostaï¿½a napisana przez
+   Alexandra Larssona zaï¿½ aktualnie zarzï¿½dzana przez Jamesa Henstridge'a.
+   Aby otrzymaï¿½ wiï¿½cej informacji dotyczï¿½cych
+   <application>Dia</application>, odwiedï¿½ oficjalnï¿½ stronï¿½ projektu, <ulink
    url="http://live.gnome.org/Dia" type="http">
    live.gnome.org/Dia</ulink>. Wszelkie komentarze,
-   sugestie oraz informacje o znalezionych b³êdach mo¿na wysy³aæ do  
+   sugestie oraz informacje o znalezionych bï¿½ï¿½dach moï¿½na wysyï¿½aï¿½ do
    <ulink url="http://bugs.gnome.org"
-   type="http">bazy danych ¶ledzienia b³êdów GNOME</ulink>. 
-   (Instrukcje dotycz±ce wysy³ania b³êdu mo¿na znale¼æ <ulink
+   type="http">bazy danych ï¿½ledzienia bï¿½ï¿½dï¿½w GNOME</ulink>.
+   (Instrukcje dotyczï¿½ce wysyï¿½ania bï¿½ï¿½du moï¿½na znaleï¿½ï¿½ <ulink
    url="http://bugs.gnome.org/Reporting.html" type="http">w Internecie</ulink>.)
-   Je¶li u¿ywasz ¶rodowiska GNOME 1.1 lub pó¼niejszej wersji, mo¿esz tak¿e
-   u¿ywaæ <application>Narzêdzia do Raportowania B³êdów</application> 
-   (<command>bug-buddy</command>), dostêpnego w podmenu
-   <guisubmenu>Narzêdzia</guisubmenu> <guimenu>Menu g³ówne</guimenu>,
-   aby bezpo¶rednio wys³aæ informacje o napotkanych b³êdach.
+   Jeï¿½li uï¿½ywasz ï¿½rodowiska GNOME 1.1 lub pï¿½niejszej wersji, moï¿½esz takï¿½e
+   uï¿½ywaï¿½ <application>Narzï¿½dzia do Raportowania Bï¿½ï¿½dï¿½w</application>
+   (<command>bug-buddy</command>), dostï¿½pnego w podmenu
+   <guisubmenu>Narzï¿½dzia</guisubmenu> <guimenu>Menu gï¿½ï¿½wne</guimenu>,
+   aby bezpoï¿½rednio wysï¿½aï¿½ informacje o napotkanych bï¿½ï¿½dach.
   </para>
- 
+
   <para>
-   Podrêcznik zosta³ stworzony przez Henry'ego House (<email>hajhouse@houseag.com</email>)
+   Podrï¿½cznik zostaï¿½ stworzony przez Henry'ego House (<email>hajhouse@houseag.com</email>)
    , Judith Samson (<email>judith@samsonsource.com</email>), oraz Kevina Breita
    (<email>battery841@mypad.com</email>).
-   Wszystkie komentarze dotycz±ce tego podrêcznika mozna przesy³aæ w jêzyku
-   angielskim do 
-   <ulink type="http" url="http://developer.gnome.org/projects/gdp">Projektu Dokumentacji 
-   GNOME</ulink> za po¶rednictwem adresu pocztowego 
-   <email>docs@gnome.org</email>. Mo¿na tak¿e dodawaæ swoje komentarze
-   przez Internet dziêki <ulink type="http"
+   Wszystkie komentarze dotyczï¿½ce tego podrï¿½cznika mozna przesyï¿½aï¿½ w jï¿½zyku
+   angielskim do
+   <ulink type="http" url="http://developer.gnome.org/projects/gdp">Projektu Dokumentacji
+   GNOME</ulink> za poï¿½rednictwem adresu pocztowego
+   <email>docs@gnome.org</email>. Moï¿½na takï¿½e dodawaï¿½ swoje komentarze
+   przez Internet dziï¿½ki <ulink type="http"
    url="http://developer.gnome.org/projects/gdp/doctable/">Tabeli stanu dokumentacji GNOME</ulink>.
   </para>
- 
+
   <para>
-   Tumaczenie polskie zosta³o stworzone w ramach zespo³u GNOME PL Team
-   przez Arkadiusza Lipca (<email>alipiec@elka.pw.edu.pl</email>). 
-   Wszelkie sugestie dotycz±ce niniejszego t³umaczenia mo¿na przesy³aæ
+   Tumaczenie polskie zostaï¿½o stworzone w ramach zespoï¿½u GNOME PL Team
+   przez Arkadiusza Lipca (<email>alipiec@elka.pw.edu.pl</email>).
+   Wszelkie sugestie dotyczï¿½ce niniejszego tï¿½umaczenia moï¿½na przesyï¿½aï¿½
    na adres translators@gnome.pl</para>
- 
+
 </chapter>

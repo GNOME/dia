@@ -4,24 +4,24 @@
  <sect1 id="intro">
   <title>Wprowadzenie</title>
   <para>
-   <application>Dia</application> jest aplikacj± s³u¿±c± do tworzenia
-   diagramów technicznych. Jej interfejs oraz mo¿liwo¶ci s± wzorowane
-   na programie Visio pracuj±cym w ¶rodowisku Windows
-   Do wa¿niejszych mo¿liwo¶ci Dia mo¿na zaliczyæ drukowanie 
-   wielostronnicowe, eksport do wielu formatów (EPS, SVG, CGM oraz PNG),
-   oraz mo¿liwo¶æ u¿ywania w³asnych kszta³tów opisanych za pomoc± prostych
+   <application>Dia</application> jest aplikacjï¿½ sï¿½uï¿½ï¿½cï¿½ do tworzenia
+   diagramï¿½w technicznych. Jej interfejs oraz moï¿½liwoï¿½ci sï¿½ wzorowane
+   na programie Visio pracujï¿½cym w ï¿½rodowisku Windows
+   Do waï¿½niejszych moï¿½liwoï¿½ci Dia moï¿½na zaliczyï¿½ drukowanie
+   wielostronnicowe, eksport do wielu formatï¿½w (EPS, SVG, CGM oraz PNG),
+   oraz moï¿½liwoï¿½ï¿½ uï¿½ywania wï¿½asnych ksztaï¿½tï¿½w opisanych za pomocï¿½ prostych
    definicji XML.
-   <application>Dia</application> jest przydatnym narzêdziem przy rysowaniu
-   diagramów UML, map sieci oraz diagramów przep³ywu.
+   <application>Dia</application> jest przydatnym narzï¿½dziem przy rysowaniu
+   diagramï¿½w UML, map sieci oraz diagramï¿½w przepï¿½ywu.
   </para>
 <!--
-   Nie s±dze aby to by³o w jakimkolwiek oficjalnym pakiecie
-   <application>Dia</application> do³±czona do pakietu
-   <filename>GNOME-PACKAGE</filename> , bêd±cego czê¶ci±
-   ¶rodowiska graficznego GNOME.
+   Nie sï¿½dze aby to byï¿½o w jakimkolwiek oficjalnym pakiecie
+   <application>Dia</application> doï¿½ï¿½czona do pakietu
+   <filename>GNOME-PACKAGE</filename> , bï¿½dï¿½cego czï¿½ciï¿½
+   ï¿½rodowiska graficznego GNOME.
 -->
   <para>
-   Niniejszy dokument opisuje wersjê &VERSION; programu <application>Dia</application>.
+   Niniejszy dokument opisuje wersjï¿½ &VERSION; programu <application>Dia</application>.
   </para>
  </sect1>
-</chapter>                                                                       
+</chapter>
