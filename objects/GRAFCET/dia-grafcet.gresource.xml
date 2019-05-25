@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Dia/GRAFCET">
+    <file>etapei.png</file>
+    <file>etapemc.png</file>
+    <file>etapeme.png</file>
+    <file>etapems.png</file>
+    <file>etapesp.png</file>
+    <file>vergent_and.png</file>
+  </gresource>
+</gresources>

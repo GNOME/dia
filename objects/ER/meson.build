@@ -6,6 +6,10 @@ sources = files(
     'er.c'
 )
 
+sources += gnome.compile_resources('dia-er-resources', 'dia-er.gresource.xml',
+                                   source_dir : '.',
+                                   c_name : 'dia_er')
+
 dia_object_desc += {
     'name': 'er_objects',
     'sources': sources,

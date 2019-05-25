@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Dia/Istar">
+    <file>agent.png</file>
+    <file>dependency.png</file>
+    <file>means_ends.png</file>
+    <file>pos_contrib.png</file>
+    <file>role.png</file>
+    <file>decomposition.png</file>
+    <file>goal.png</file>
+    <file>neg_contrib.png</file>
+    <file>position.png</file>
+    <file>task.png</file>
+  </gresource>
+</gresources>

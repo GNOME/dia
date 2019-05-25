@@ -1,51 +1,5 @@
 sheetsdir = join_paths(pkgdatadir, 'sheets')
 
-sheet_icons_sources = [
-    'ER/weakentity.png',
-    'GRAFCET/etapei.png',
-    'GRAFCET/etapems.png',
-    'GRAFCET/etapeme.png',
-    'GRAFCET/etapemc.png',
-    'GRAFCET/etapesp.png',
-    'GRAFCET/vergent_and.png',
-    'Jackson/designed_domain.png',
-    'Jackson/machine_domain.png',
-    'Jackson/req_phen.png',
-    'Istar/agent.png',
-    'Istar/decomposition.png',
-    'Istar/dependency.png',
-    'Istar/goal.png',
-    'Istar/means_ends.png',
-    'Istar/neg_contrib.png',
-    'Istar/pos_contrib.png',
-    'Istar/position.png',
-    'Istar/role.png',
-    'Istar/task.png',
-    'KAOS/and-complete-ref.png',
-    'KAOS/and-ref.png',
-    'KAOS/assumption.png',
-    'KAOS/capable-of.png',
-    'KAOS/conflicts.png',
-    'KAOS/controls.png',
-    'KAOS/input.png',
-    'KAOS/monitors.png',
-    'KAOS/obstacle.png',
-    'KAOS/obstructs.png',
-    'KAOS/op-ref.png',
-    'KAOS/or-complete-ref.png',
-    'KAOS/or-ref.png',
-    'KAOS/output.png',
-    'KAOS/performs.png',
-    'KAOS/requirement.png',
-    'KAOS/responsibility.png',
-    'KAOS/softgoal.png'
-]
-
-foreach icon : sheet_icons_sources
-    rel_path = icon.split('/')
-    install_data(icon, install_dir: join_paths(sheetsdir, rel_path[0]))
-endforeach
-
 sheet_files = [
     'UML.sheet',
     'ER.sheet',

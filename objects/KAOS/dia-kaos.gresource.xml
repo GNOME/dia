@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Dia/KAOS">
+    <file>and-complete-ref.png</file>
+    <file>controls.png</file>
+    <file>op-ref.png</file>
+    <file>requirement.png</file>
+    <file>and-ref.png</file>
+    <file>input.png</file>
+    <file>or-complete-ref.png</file>
+    <file>responsibility.png</file>
+    <file>assumption.png</file>
+    <file>monitors.png</file>
+    <file>or-ref.png</file>
+    <file>softgoal.png</file>
+    <file>capable-of.png</file>
+    <file>obstacle.png</file>
+    <file>output.png</file>
+    <file>conflicts.png</file>
+    <file>obstructs.png</file>
+    <file>performs.png</file>
+  </gresource>
+</gresources>

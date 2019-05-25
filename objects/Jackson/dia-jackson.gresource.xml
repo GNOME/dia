@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Dia/Jackson">
+    <file>designed_domain.png</file>
+    <file>machine_domain.png</file>
+    <file>req_phen.png</file>
+  </gresource>
+</gresources>
