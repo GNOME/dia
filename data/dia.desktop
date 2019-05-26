@@ -4,6 +4,7 @@ GenericName=Diagram Editor
 Comment=Edit your Diagrams
 Type=Application
 Exec=dia %F
+# Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 Icon=dia
 Terminal=false
 Categories=GNOME;Graphics;
