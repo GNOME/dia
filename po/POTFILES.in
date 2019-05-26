@@ -28,9 +28,9 @@ app/plugin-manager.c
 app/preferences.c
 app/properties-dialog.c
 app/recent_files.c
-app/sheets.c
-app/sheets_dialog.c
-app/sheets_dialog_callbacks.c
+app/sheet-editor/sheets.c
+app/sheet-editor/sheets_dialog.c
+app/sheet-editor/sheets_dialog_callbacks.c
 app/splash.c
 app/toolbox.c
 app/winmain.c
