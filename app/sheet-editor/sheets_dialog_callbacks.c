@@ -711,7 +711,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
   table_sheets = lookup_widget (sheets_dialog, "table_sheets");
   wrapbox = g_object_get_data (G_OBJECT (table_sheets), "active_wrapbox");
 
-  active_type = (SheetsNewDialogType)g _object_get_data (G_OBJECT (button),
+  active_type = (SheetsNewDialogType) g_object_get_data (G_OBJECT (button),
                                                          "active_type");
   g_assert (active_type);
 
