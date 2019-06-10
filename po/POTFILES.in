@@ -210,7 +210,6 @@ plug-ins/pdf/pdf-import.cpp
 plug-ins/pgf/pgf.c
 plug-ins/pgf/render_pgf.c
 plug-ins/pixbuf/pixbuf.c
-plug-ins/postscript/diapsft2renderer.c
 plug-ins/postscript/diapsrenderer.c
 plug-ins/postscript/paginate_psprint.c
 plug-ins/postscript/postscript.c
