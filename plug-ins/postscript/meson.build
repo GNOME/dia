@@ -7,11 +7,6 @@ sources = files(
 )
 deps = []
 
-if freetype_dep.found()
-    sources += files('diapsft2renderer.c')
-    deps += freetype_dep
-endif
-
 if host_machine.system() == 'windows'
     sources += files('win32print.c')
     deps += cc.find_library('winspool')

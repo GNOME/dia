@@ -21,9 +21,6 @@
 #include <config.h>
 
 #include <pango/pango.h>
-#ifdef HAVE_FREETYPE
-#include <pango/pangoft2.h>
-#endif
 #include <gdk/gdk.h>
 #ifdef GDK_WINDOWING_WIN32
 /* avoid namespace clashes caused by inclusion of windows.h */

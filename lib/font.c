@@ -27,9 +27,6 @@
 
 #include <pango/pango.h>
 #undef PANGO_DISABLE_DEPRECATED /* pango_ft_get_context */
-#ifdef HAVE_FREETYPE
-#include <pango/pangoft2.h>
-#endif
 #include <gdk/gdk.h>
 #include <gtk/gtk.h> /* just for gtk_get_default_language() */
 #ifdef GDK_WINDOWING_WIN32

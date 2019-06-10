@@ -29,17 +29,8 @@
 #include <unistd.h>
 #endif
 
-/* wants to be included early to avoid complains about setjmp.h */
-#ifdef HAVE_LIBPNG
-#include <png.h> /* just for the version stuff */
-#endif
-
 #include <gtk/gtk.h>
 #include <gmodule.h>
-
-#ifdef HAVE_FREETYPE
-#include <pango/pangoft2.h>
-#endif
 
 #include <libxml/parser.h>
 #include <libxml/xmlerror.h>
@@ -375,29 +366,6 @@ dump_dependencies(void)
    * which may or have cause(d) us trouble in some versions
    */
   g_print ("Library versions (at compile time)\n");
-#ifdef HAVE_LIBPNG
-  g_print ("libpng  : %s (%s)\n", png_get_header_ver(NULL), PNG_LIBPNG_VER_STRING);
-#endif
-#ifdef HAVE_FREETYPE
-  {
-    FT_Library ft_library;
-    FT_Int     ft_major_version;
-    FT_Int     ft_minor_version;
-    FT_Int     ft_micro_version;
-
-    if (FT_Init_FreeType (&ft_library) == 0) {
-      FT_Library_Version (ft_library,
-                          &ft_major_version,
-                          &ft_minor_version,
-                          &ft_micro_version);
-
-      g_print ("freetype: %d.%d.%d\n", ft_major_version, ft_minor_version, ft_micro_version);
-      FT_Done_FreeType (ft_library);
-    }
-    else
-      g_print ("freetype: ?.?.?\n");
-  }
-#endif
   {
     const gchar* libxml_rt_version = "?";
 #if 0
@@ -513,13 +481,6 @@ handle_initial_diagram(const char *in_file_name,
   }
   return made_conversions;
 }
-
-#ifdef HAVE_FREETYPE
-/* Translators:  This is an option, not to be translated */
-#define EPS_PANGO "eps-pango, "
-#else
-#define EPS_PANGO ""
-#endif
 
 #ifdef G_OS_WIN32
 /* Translators:  This is an option, not to be translated */

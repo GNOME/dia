@@ -19,7 +19,7 @@
 /* The eps_dump_truetype_body function and much inspiration for font dumping
  * came from ttfps, which bears the following license notice:
 
- Copyright (c) 1997 by Juliusz Chroboczek 
+ Copyright (c) 1997 by Juliusz Chroboczek
 
  Copying
  *******
@@ -63,42 +63,25 @@
 #include "font.h"
 #include "diapsrenderer.h"
 
-#ifdef HAVE_FREETYPE
-#include "diapsft2renderer.h"
-#endif
+static gboolean export_eps        (DiagramData *data,
+                                   DiaContext  *ctx,
+                                   const gchar *filename,
+                                   const gchar *diafilename,
+                                   void        *user_data);
 
-static gboolean export_eps(DiagramData *data, DiaContext *ctx,
-			   const gchar *filename, const gchar *diafilename, 
-			   void* user_data);
-static gboolean export_render_eps(DiaPsRenderer *renderer, 
-				  DiagramData *data, DiaContext *ctx,
-				  const gchar *filename, const gchar *diafilename, 
-				  void* user_data);
-
-#ifdef HAVE_FREETYPE
-static gboolean export_ft2_eps(DiagramData *data, DiaContext *ctx,
-			       const gchar *filename, const gchar *diafilename,
-			       void* user_data);
-static gboolean
-export_ft2_eps(DiagramData *data, DiaContext *ctx,
-	       const gchar *filename, const gchar *diafilename,
-	       void* user_data)
-{
-  gboolean ret;
-  DiaPsRenderer *renderer = g_object_new (DIA_TYPE_PS_FT2_RENDERER, NULL);
-
-  renderer->ctx = ctx;
-  ret = export_render_eps(renderer, data, ctx, filename, diafilename, user_data);
-  g_object_unref (renderer);
-
-  return ret;
-}
-#endif
+static gboolean export_render_eps (DiaPsRenderer *renderer,
+                                   DiagramData   *data,
+                                   DiaContext    *ctx,
+                                   const gchar   *filename,
+                                   const gchar   *diafilename,
+                                   void          *user_data);
 
 static gboolean
-export_eps(DiagramData *data, DiaContext *ctx,
-	   const gchar *filename, const gchar *diafilename,
-	   void* user_data)
+export_eps (DiagramData *data,
+            DiaContext  *ctx,
+            const gchar *filename,
+            const gchar *diafilename,
+            void        *user_data)
 {
   gboolean ret;
   DiaPsRenderer *renderer = g_object_new (DIA_TYPE_PS_RENDERER, NULL);
@@ -111,17 +94,19 @@ export_eps(DiagramData *data, DiaContext *ctx,
 }
 
 static gboolean
-export_render_eps(DiaPsRenderer *renderer, 
-		  DiagramData *data, DiaContext *ctx,
-		  const gchar *filename, const gchar *diafilename,
-		  void* user_data)
+export_render_eps (DiaPsRenderer *renderer,
+                   DiagramData   *data,
+                   DiaContext    *ctx,
+                   const gchar   *filename,
+                   const gchar   *diafilename,
+                   void          *user_data)
 {
   FILE *outfile;
 
-  outfile = g_fopen(filename, "w");
+  outfile = g_fopen (filename, "w");
   if (outfile == NULL) {
-    dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
-					dia_context_get_filename(ctx));
+    dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
+                                        dia_context_get_filename(ctx));
     return FALSE;
   }
   renderer->file = outfile;
@@ -148,11 +133,7 @@ new_psprint_renderer(DiagramData *dia, FILE *file)
 {
   DiaPsRenderer *renderer;
 
-#ifdef HAVE_FREETYPE
-  renderer = g_object_new (DIA_TYPE_PS_FT2_RENDERER, NULL);
-#else
   renderer = g_object_new (DIA_TYPE_PS_RENDERER, NULL);
-#endif
   renderer->file = file;
   renderer->pstype = PSTYPE_PS;
 
@@ -162,25 +143,6 @@ new_psprint_renderer(DiagramData *dia, FILE *file)
 static const gchar *eps_extensions[] = { "eps", NULL };
 #if 0
 static const gchar *epsi_extensions[] = { "epsi", NULL };
-#endif
-#ifdef HAVE_FREETYPE
-DiaExportFilter eps_ft2_export_filter = {
-  N_("Encapsulated PostScript (using Pango fonts)"),
-  eps_extensions,
-  export_ft2_eps,
-  GINT_TO_POINTER(PSTYPE_EPS), /* user_data */
-  "eps-pango"
-};
-/* Disabled until we can actually make the preview. */
-#  if 0
-DiaExportFilter epsi_ft2_export_filter = {
-  N_("Encapsulated PostScript with preview (using Pango fonts)"),
-  epsi_extensions,
-  export_ft2_eps,
-  GINT_TO_POINTER(PSTYPE_EPSI), /* user_data */
-  "epsi-pango"
-};
-#  endif
 #endif
 
 DiaExportFilter eps_export_filter = {

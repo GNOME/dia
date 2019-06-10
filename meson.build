@@ -26,8 +26,6 @@ libm_dep = cc.find_library('m', required: false)
 libc_dep = cc.find_library('c', required: false)
 
 # Optional deps
-freetype_dep = dependency('freetype2', version: ['>= 11.0.5', '< 22.0.0'], required: false)
-conf.set('HAVE_FREETYPE', freetype_dep.found())
 # TODO: Until issue #23 is fixed, we need to keep version below 0.62.
 libpoppler_dep = dependency('poppler', version: '<= 0.62.0', required: false)
 conf.set('HAVE_POPPLER', libpoppler_dep.found())

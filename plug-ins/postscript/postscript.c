@@ -62,10 +62,6 @@ _plugin_unload (PluginInfo *info)
 {
   /* EPS with PS fonts */
   filter_unregister_export(&eps_export_filter);
-#ifdef HAVE_FREETYPE
-  /* EPS with Pango rendering */
-  filter_unregister_export(&eps_ft2_export_filter);
-#endif
 
 #ifndef G_OS_WIN32
   /* on win32 this is too uncommon, can only print to postscript printers */
@@ -86,10 +82,6 @@ dia_plugin_init(PluginInfo *info)
 
   /* EPS with PS fonts */
   filter_register_export(&eps_export_filter);
-#ifdef HAVE_FREETYPE
-  /* EPS with Pango rendering */
-  filter_register_export(&eps_ft2_export_filter);
-#endif
 
 #ifndef G_OS_WIN32
   /* on win32 this is too uncommon, can only print to postscript printers */
