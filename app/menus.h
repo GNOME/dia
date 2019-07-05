@@ -29,34 +29,35 @@ struct zoom_pair { const gchar *string; const gint value; };
 
 extern const struct zoom_pair zooms[10];
 
-void 
-integrated_ui_toolbar_set_zoom_text (GtkToolbar *toolbar, const gchar * text);
-
-void 
-integrated_ui_toolbar_grid_snap_synchronize_to_display (gpointer ddisp);
-
-void
-integrated_ui_toolbar_object_snap_synchronize_to_display (gpointer ddisp);
+void            integrated_ui_toolbar_set_zoom_text                      (GtkToolbar  *toolbar,
+                                                                          const gchar *text);
+void            integrated_ui_toolbar_grid_snap_synchronize_to_display   (gpointer     ddisp);
+void            integrated_ui_toolbar_object_snap_synchronize_to_display (gpointer     ddisp);
 
 /* TODO: rename: menus_get_integrated_ui_menubar() */
-void            menus_get_integrated_ui_menubar  (GtkWidget **menubar, GtkWidget **toolbar, 
-                                                  GtkAccelGroup **accel);
-void            menus_get_toolbox_menubar        (GtkWidget **menubar, GtkAccelGroup **accel);
+void            menus_get_integrated_ui_menubar  (GtkWidget      **menubar,
+                                                  GtkWidget      **toolbar,
+                                                  GtkAccelGroup  **accel);
+void            menus_get_toolbox_menubar        (GtkWidget      **menubar,
+                                                  GtkAccelGroup  **accel);
 GtkWidget     * menus_get_display_popup          (void);
 GtkAccelGroup * menus_get_display_accels         (void);
-GtkWidget *     menus_create_display_menubar     (GtkUIManager **ui_manager, GtkActionGroup **actions);
+GtkWidget *     menus_create_display_menubar     (GtkUIManager   **ui_manager,
+                                                  GtkActionGroup **actions);
 
-GtkActionGroup *menus_get_tool_actions (void);
-GtkActionGroup *menus_get_display_actions (void);
+GtkActionGroup *menus_get_tool_actions           (void);
+GtkActionGroup *menus_get_display_actions        (void);
 
-GtkAction *     menus_get_action       (const gchar *name);
-GtkWidget *     menus_get_widget       (const gchar *name);
-void            menus_set_recent       (GtkActionGroup *actions);
-void            menus_clear_recent     (void);
+GtkAction *     menus_get_action                 (const gchar *name);
+GtkWidget *     menus_get_widget                 (const gchar *name);
+void            menus_set_recent                 (GtkActionGroup *actions);
+void            menus_clear_recent               (void);
 
 #define VIEW_MAIN_TOOLBAR_ACTION     "ViewMainToolbar"
 #define VIEW_MAIN_STATUSBAR_ACTION   "ViewMainStatusbar"
 #define VIEW_LAYERS_ACTION           "ViewLayers"
+
+GtkBuilder *builder_new_from_file (const char *filename);
 
 #endif /* MENUS_H */
 

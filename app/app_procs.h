@@ -20,16 +20,16 @@
 
 #include <glib.h>
 
-void app_init(int argc, char **argv);
+void app_init (int argc, char **argv);
 /** Exit the application, but asking the user for confirmation
  * if there are changed diagrams.
  * Returns TRUE if the application exits.
  */
-gboolean app_exit(void);
+gboolean app_exit (void);
 
-void app_splash_init(const gchar* name);
-void app_splash_done(void);
+void app_splash_init (const gchar* name);
+void app_splash_done (void);
 
-gboolean app_is_interactive(void);
+gboolean app_is_interactive (void);
 
 #endif /* APP_PROCS_H */
