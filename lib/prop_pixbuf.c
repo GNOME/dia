@@ -98,7 +98,7 @@ pixbuf_decode_base64 (const gchar *b64)
       gchar  *format_name = gdk_pixbuf_format_get_name (format);
       gchar **mime_types = gdk_pixbuf_format_get_mime_types (format);
 
-      dia_log_message ("Loaded pixbuf from '%s' with '%s'\n", format_name, mime_types[0]);
+      dia_log_message ("Loaded pixbuf from '%s' with '%s'", format_name, mime_types[0]);
       pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader));
       /* attach the mime-type to the pixbuf */
       g_object_set_data_full (G_OBJECT (pixbuf), "mime-type",

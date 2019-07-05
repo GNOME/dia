@@ -559,7 +559,7 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
 
   /* find all elements to be moved directly */
   filter_connected (objects, 2, &connected, &to_be_moved);
-  dia_log_message ("Moves %d - Connections %d\n", g_list_length (to_be_moved), g_list_length (connected));
+  dia_log_message ("Moves %d - Connections %d", g_list_length (to_be_moved), g_list_length (connected));
   /* for every connection check:
    * - "matching" directions of both object connection points (this also gives
    *    the direction of the move of the second object)
@@ -638,15 +638,15 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
           orig_pos[i] = o2->position;
           dest_pos[i] = pos;
 
-          dia_log_message ("Move '%s' by %g,%g\n", o2->type->name, delta.x, delta.y);
+          dia_log_message ("Move '%s' by %g,%g", o2->type->name, delta.x, delta.y);
 #if 0
           o2->ops->move (o2, &pos);
 #else
-	  {
-	    GList *move_list = g_list_append (NULL, o2);
-	    object_list_move_delta (move_list, &delta);
-	    g_list_free (move_list);
-	  }
+          {
+            GList *move_list = g_list_append (NULL, o2);
+            object_list_move_delta (move_list, &delta);
+            g_list_free (move_list);
+          }
 #endif
           diagram_update_connections_object (dia, o2, TRUE);
           movelist = g_list_append (movelist, o2);
