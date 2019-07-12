@@ -1356,6 +1356,15 @@ ddisplay_update_statusbar(DDisplay *ddisp)
   update_mainpoint_status (ddisp);
 }
 
+// only set the active display
+void set_display(DDisplay *ddisp)
+{
+  if (ddisp != active_display)
+  {
+    active_display = ddisp;
+  }
+}
+
 void
 display_set_active(DDisplay *ddisp)
 {

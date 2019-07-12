@@ -185,6 +185,7 @@ void display_update_menu_state(DDisplay *ddisp);
 void ddisplay_update_statusbar(DDisplay *ddisp);
 void ddisplay_do_update_menu_sensitivity (DDisplay *ddisp);
 
+void set_display(DDisplay *ddisp);
 void display_set_active(DDisplay *ddisp);
 
 void ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus);

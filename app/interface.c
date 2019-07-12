@@ -332,6 +332,15 @@ close_notebook_page_callback (GtkButton *button,
   ddisplay_close (ddisp);
 }
 
+void switch_notebook_page_callback(GtkNotebook *notebook,
+                                   GtkWidget *page,
+                                   guint page_num,
+                                   gpointer user_data)
+{
+  DDisplay *ddisp = g_object_get_data (G_OBJECT (page), "DDisplay");
+  set_display(ddisp);
+}
+
 /*!
  * Called when the widget's window "size, position or stacking"
  * changes. Needs GDK_STRUCTURE_MASK set.
@@ -607,6 +616,8 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   notebook_page_index = gtk_notebook_append_page (GTK_NOTEBOOK(ui.diagram_notebook),
                                                   ddisp->container,
                                                   tab_label_container);
+  
+  g_signal_connect(G_OBJECT(ui.diagram_notebook), "switch-page", G_CALLBACK(switch_notebook_page_callback), NULL);
 
   g_object_set_data (G_OBJECT (ddisp->container), "DDisplay",  ddisp);
   g_object_set_data (G_OBJECT (ddisp->container), "tab-label", label);
