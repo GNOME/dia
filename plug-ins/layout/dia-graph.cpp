@@ -82,6 +82,10 @@ private :
   Edges m_edges;
 };
 
+DiaGraph::~DiaGraph() {
+
+}
+
 IGraph *
 dia_graph_create ()
 {

@@ -266,8 +266,6 @@ EXPORTS
  dia_font_selector_new
  dia_font_selector_set_font
 
- dia_gdk_renderer_get_type
- dia_gdk_renderer_set_dashes
 
  dia_get_data_directory
  dia_get_lib_directory
@@ -421,8 +419,6 @@ EXPORTS
  distance_bez_shape_point
  distance_ellipse_point
  distance_line_point
- distance_point_point
- distance_point_point_manhattan
  distance_polygon_point
  distance_rectangle_point
 
@@ -635,21 +631,12 @@ EXPORTS
  persistence_get_integer
  persistence_get_real
 
- point_add
- point_add_scaled
  point_convex
- point_copy
  point_cross
- point_dot
- point_len
- point_normalize
- point_scale
- point_sub
  transform_length
  transform_point
  transform_bezpoint
 
- point_get_perp
  three_point_circle
 
  polybezier_bbox
@@ -812,3 +799,13 @@ EXPORTS
  dia_option_menu_get_active
  dia_option_menu_new
  dia_option_menu_set_active
+
+ pixbuf_from_resource
+ dia_cairo_interactive_renderer_new
+ dia_interactive_renderer_paint
+ dia_object_type_get_icon
+ dia_interactive_renderer_set_selection
+ cairo_export_data
+ cairo_print_callback
+ dia_cairo_renderer_get_type
+ 

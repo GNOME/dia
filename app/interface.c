@@ -443,9 +443,6 @@ create_canvas (DDisplay *ddisp)
 {
   GtkWidget *canvas = gtk_drawing_area_new();
 
-  /* Dia's canvas does it's double buffering alone so switch off GTK's */
-  gtk_widget_set_double_buffered (canvas, FALSE);
-
   gtk_widget_set_events (canvas,
                          GDK_EXPOSURE_MASK |
                          GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
