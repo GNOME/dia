@@ -47,8 +47,8 @@ _dia_to_gtk_page_setup (const DiagramData *data, GtkPageSetup *setup)
   if (index < 0)
     index = get_default_paper ();
   paper_size = gtk_paper_size_new_from_ppd (
-		 paper->name, paper->name, 
-                 get_paper_pswidth (index) * points_per_cm, 
+		 paper->name, paper->name,
+                 get_paper_pswidth (index) * points_per_cm,
 		 get_paper_psheight (index) * points_per_cm);
 
   gtk_page_setup_set_orientation (setup, data->paper.is_portrait ?
@@ -59,7 +59,7 @@ _dia_to_gtk_page_setup (const DiagramData *data, GtkPageSetup *setup)
   gtk_page_setup_set_top_margin (setup, data->paper.tmargin * 10, GTK_UNIT_MM);
   gtk_page_setup_set_right_margin (setup, data->paper.rmargin * 10, GTK_UNIT_MM);
   gtk_page_setup_set_bottom_margin (setup, data->paper.bmargin * 10, GTK_UNIT_MM);
-  
+
 }
 
 static void
@@ -84,7 +84,7 @@ begin_print (GtkPrintOperation *operation,
 
   /* scaling - as usual I don't get it, or do I? */
   cairo_renderer->scale = (
-      gtk_page_setup_get_paper_width (gtk_print_context_get_page_setup (context), GTK_UNIT_MM) 
+      gtk_page_setup_get_paper_width (gtk_print_context_get_page_setup (context), GTK_UNIT_MM)
       - gtk_page_setup_get_left_margin( gtk_print_context_get_page_setup (context), GTK_UNIT_MM)
       - gtk_page_setup_get_right_margin( gtk_print_context_get_page_setup (context), GTK_UNIT_MM)
       ) / print_data->data->paper.width;
@@ -111,7 +111,7 @@ draw_page (GtkPrintOperation *operation,
   if (data->paper.fitto) {
     x = page_nr % data->paper.fitwidth;
     y = page_nr / data->paper.fitwidth;
-    
+
     bounds.left = dp_width * x + data->extents.left;
     bounds.top = dp_height * y + data->extents.top;
     bounds.right = bounds.left + dp_width;
@@ -123,7 +123,7 @@ draw_page (GtkPrintOperation *operation,
     y = page_nr / nx;
 
     /* Respect the original pagination as shown by the page guides.
-     * Caclulate the offset between page origin 0,0 and data.extents.topleft. 
+     * Caclulate the offset between page origin 0,0 and data.extents.topleft.
      * For the usual first page this boils down to lefttop=(0,0) but beware
      * the origin being negative.
      */
@@ -153,9 +153,9 @@ draw_page (GtkPrintOperation *operation,
     GtkPageSetup *setup = gtk_print_context_get_page_setup (context);
     double left = gtk_page_setup_get_left_margin (setup, GTK_UNIT_MM);
     double top = gtk_page_setup_get_top_margin (setup, GTK_UNIT_MM);
-    double width = gtk_page_setup_get_paper_width (setup, GTK_UNIT_MM) 
+    double width = gtk_page_setup_get_paper_width (setup, GTK_UNIT_MM)
 		   - left - gtk_page_setup_get_right_margin (setup, GTK_UNIT_MM);
-    double height = gtk_page_setup_get_paper_height (setup, GTK_UNIT_MM) 
+    double height = gtk_page_setup_get_paper_height (setup, GTK_UNIT_MM)
 		    - top - gtk_page_setup_get_bottom_margin (setup, GTK_UNIT_MM);
     cairo_save (cairo_renderer->cr);
     /* we are still in the gtk-print coordinate system */
@@ -164,7 +164,7 @@ draw_page (GtkPrintOperation *operation,
     top = left = 0;
 #endif
     cairo_rectangle (cairo_renderer->cr, left, top, width, height);
-    
+
     cairo_clip (cairo_renderer->cr);
   }
 
@@ -201,10 +201,10 @@ create_print_operation (DiagramData *data, const char *name)
   /* gets deleted in end_print */
   print_data = g_new0 (PrintData, 1);
   print_data->data = g_object_ref (data);
-  print_data->renderer = g_object_new (DIA_TYPE_CAIRO_RENDERER, NULL);
-  
+  print_data->renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
+
   operation = gtk_print_operation_new ();
-  
+
   gtk_print_operation_set_job_name (operation, name);
 
   setup = gtk_print_operation_get_default_page_setup (operation);
@@ -229,7 +229,7 @@ create_print_operation (DiagramData *data, const char *name)
   g_signal_connect (operation, "draw_page", G_CALLBACK (draw_page), print_data);
   g_signal_connect (operation, "begin_print", G_CALLBACK (begin_print), print_data);
   g_signal_connect (operation, "end_print", G_CALLBACK (end_print), print_data);
-  
+
   return operation;
 }
 
@@ -242,7 +242,7 @@ cairo_print_callback (DiagramData *data,
   GtkPrintOperation *op = create_print_operation (data, filename ? filename : "diagram");
   GtkPrintOperationResult res;
   GError *error = NULL;
-  
+
   res = gtk_print_operation_run (op, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG, NULL, &error);
   if (GTK_PRINT_OPERATION_RESULT_ERROR == res) {
     message_error ("%s", error->message);

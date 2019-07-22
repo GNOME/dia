@@ -309,9 +309,9 @@ struct _DiaInteractiveRendererInterface
                                int          width,
                                int          height);
   /*! Support for drawing selected objects highlighted */
-  void (*draw_object_highlighted) (DiaRenderer *renderer,
-				   DiaObject *object,
-				   DiaHighlightType type);
+  void (*draw_object_highlighted) (DiaRenderer      *renderer,
+                                   DiaObject        *object,
+                                   DiaHighlightType  type);
   /* Draw a selection box */
   void (*set_selection)       (DiaRenderer *renderer,
                                gboolean     has_selection,

@@ -330,7 +330,7 @@ dia_cairo_interactive_renderer_get_type (void)
 	NULL            /* iface_data     */
       };
 
-      object_type = g_type_register_static (DIA_TYPE_CAIRO_RENDERER,
+      object_type = g_type_register_static (DIA_CAIRO_TYPE_RENDERER,
                                             "DiaCairoInteractiveRenderer",
                                             &object_info, 0);
 

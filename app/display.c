@@ -464,7 +464,8 @@ ddisplay_obj_render(DiaObject *obj, DiaRenderer *renderer,
 }
 
 void
-ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
+ddisplay_render_pixmap (DDisplay  *ddisp,
+                        Rectangle *update)
 {
   GList *list;
   DiaObject *obj;
@@ -483,21 +484,22 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
 
   /* Erase background */
   g_return_if_fail (renderer->fill_pixel_rect != NULL);
-  DIA_RENDERER_GET_CLASS(ddisp->renderer)->begin_render(ddisp->renderer, update);
+  DIA_RENDERER_GET_CLASS (ddisp->renderer)->begin_render (ddisp->renderer, update);
   if (update) {
     int x0, y0, x1, y1;
 
     ddisplay_transform_coords (ddisp, update->left, update->top, &x0, &y0);
     ddisplay_transform_coords (ddisp, update->right, update->bottom, &x1, &y1);
     renderer->fill_pixel_rect (ddisp->renderer,
-			       x0, y0, x1-x0, y1-y0,
-			       &ddisp->diagram->data->bg_color);
-  } else
+                               x0, y0, x1-x0, y1-y0,
+                               &ddisp->diagram->data->bg_color);
+  } else {
     renderer->fill_pixel_rect (ddisp->renderer,
-			       0, 0,
-		               dia_renderer_get_width_pixels (ddisp->renderer),
-			       dia_renderer_get_height_pixels (ddisp->renderer),
-			       &ddisp->diagram->data->bg_color);
+                               0, 0,
+                               dia_renderer_get_width_pixels (ddisp->renderer),
+                               dia_renderer_get_height_pixels (ddisp->renderer),
+                               &ddisp->diagram->data->bg_color);
+  }
 
   /* Draw grid */
   grid_draw(ddisp, update);
@@ -506,8 +508,10 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
 #ifdef TRACES
   timer = g_timer_new();
 #endif
-  data_render(ddisp->diagram->data, ddisp->renderer, update,
-	      ddisplay_obj_render, (gpointer) ddisp);
+  data_render (ddisp->diagram->data,
+               ddisp->renderer, update,
+               ddisplay_obj_render,
+               (gpointer) ddisp);
 #ifdef TRACES
   g_print ("data_render(%g%%) took %g seconds\n", ddisp->zoom_factor * 5.0, g_timer_elapsed (timer, NULL));
   g_timer_destroy (timer);
@@ -518,11 +522,11 @@ ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update)
     obj = (DiaObject *) list->data;
 
     for (i=0;i<obj->num_handles;i++) {
-       handle_draw(obj->handles[i], ddisp);
-     }
+      handle_draw(obj->handles[i], ddisp);
+    }
     list = g_list_next(list);
   }
-  DIA_RENDERER_GET_CLASS(ddisp->renderer)->end_render(ddisp->renderer);
+  DIA_RENDERER_GET_CLASS (ddisp->renderer)->end_render (ddisp->renderer);
 }
 
 void

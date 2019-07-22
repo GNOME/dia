@@ -41,16 +41,11 @@
 /* --- the renderer base class --- */
 G_BEGIN_DECLS
 
-#define DIA_TYPE_CAIRO_RENDERER           (dia_cairo_renderer_get_type ())
-#define DIA_CAIRO_RENDERER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CAIRO_RENDERER, DiaCairoRenderer))
-#define DIA_CAIRO_RENDERER_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_CAIRO_RENDERER, DiaCairoRendererClass))
-#define DIA_IS_CAIRO_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_CAIRO_RENDERER))
-#define DIA_CAIRO_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_CAIRO_TYPE_RENDERER, DiaCairoRendererClass))
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (DiaRenderer, g_object_unref)
 
-GType dia_cairo_renderer_get_type (void) G_GNUC_CONST;
+#define DIA_CAIRO_TYPE_RENDERER dia_cairo_renderer_get_type ()
 
-typedef struct _DiaCairoRenderer DiaCairoRenderer;
-typedef struct _DiaCairoRendererClass DiaCairoRendererClass;
+G_DECLARE_FINAL_TYPE (DiaCairoRenderer, dia_cairo_renderer, DIA_CAIRO, RENDERER, DiaRenderer)
 
 /*!
  * \brief Multi format renderer based on cairo API (http://cairographics.org)
@@ -58,7 +53,7 @@ typedef struct _DiaCairoRendererClass DiaCairoRendererClass;
  * The DiaCairoRenderer supports various output formats depending on the build
  * configuration of libcairo. Typically these include SVG, PNG, PDF, PostScript
  * and the display of the windowing system in use.
- * Also - with a recent enough GTK+ version the cairo renderer is interfacing 
+ * Also - with a recent enough GTK+ version the cairo renderer is interfacing
  * the native printing subsystem.
  * Finally - only on Windows - there is usually support for Windows Metafiles
 * (WMF and EMF), the latter used for Clipboard transport of the whole diagram.
@@ -83,11 +78,6 @@ struct _DiaCairoRenderer
 
   /*! If set use for fill */
   DiaPattern *pattern;
-};
-
-struct _DiaCairoRendererClass
-{
-  DiaRendererClass parent_class;
 };
 
 typedef enum OutputKind
