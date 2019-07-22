@@ -94,7 +94,7 @@ ShellExecuteA (long        hwnd,
 void
 file_quit_callback (GtkAction *action)
 {
-  app_exit();
+  app_exit ();
 }
 
 void
@@ -102,9 +102,11 @@ file_pagesetup_callback (GtkAction *action)
 {
   Diagram *dia;
 
-  dia = ddisplay_active_diagram();
-  if (!dia) return;
-  create_page_setup_dlg(dia);
+  dia = ddisplay_active_diagram ();
+  if (!dia) {
+    return;
+  }
+  create_page_setup_dlg (dia);
 }
 
 void
@@ -114,20 +116,27 @@ file_print_callback (GtkAction *_action)
   DDisplay *ddisp;
   GtkAction *action;
 
-  dia = ddisplay_active_diagram();
-  if (!dia) return;
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  dia = ddisplay_active_diagram ();
+  if (!dia) {
+    return;
+  }
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
   action = menus_get_action ("FilePrintGTK");
-  if (!action)
+  if (!action) {
     action = menus_get_action ("FilePrintGDI");
-  if (!action)
+  }
+  if (!action) {
     action = menus_get_action ("FilePrintPS");
+  }
 
   if (action) {
-    if (confirm_export_size (dia, GTK_WINDOW(ddisp->shell), CONFIRM_PRINT|CONFIRM_PAGES))
+    if (confirm_export_size (dia, GTK_WINDOW(ddisp->shell), CONFIRM_PRINT|CONFIRM_PAGES)) {
       gtk_action_activate (action);
+    }
   } else {
     message_error (_("No print plugin found!"));
   }
@@ -137,8 +146,9 @@ void
 file_close_callback (GtkAction *action)
 {
   /* some people use tear-off menus and insist to close non existing displays */
-  if (ddisplay_active())
-    ddisplay_close(ddisplay_active());
+  if (ddisplay_active ()) {
+    ddisplay_close (ddisplay_active());
+  }
 }
 
 void
@@ -148,10 +158,10 @@ file_new_callback (GtkAction *action)
   static int untitled_nr = 1;
   gchar *name, *filename;
 
-  name = g_strdup_printf(_("Diagram%d.dia"), untitled_nr++);
-  filename = g_filename_from_utf8(name, -1, NULL, NULL, NULL);
-  dia = new_diagram(filename);
-  new_display(dia);
+  name = g_strdup_printf (_("Diagram%d.dia"), untitled_nr++);
+  filename = g_filename_from_utf8 (name, -1, NULL, NULL, NULL);
+  dia = new_diagram (filename);
+  new_display (dia);
   dia_diagram_add (dia); /* notify DiagramTree etc. */
   g_free (name);
   g_free (filename);
@@ -160,7 +170,7 @@ file_new_callback (GtkAction *action)
 void
 file_preferences_callback (GtkAction *action)
 {
-  prefs_show();
+  prefs_show ();
 }
 
 
@@ -172,76 +182,85 @@ file_preferences_callback (GtkAction *action)
 */
 
 static void
-insert_text(DDisplay *ddisp, Focus *focus, const gchar *text)
+insert_text (DDisplay *ddisp, Focus *focus, const gchar *text)
 {
   ObjectChange *change = NULL;
   int modified = FALSE, any_modified = FALSE;
-  DiaObject *obj = focus_get_object(focus);
+  DiaObject *obj = focus_get_object (focus);
 
   while (text != NULL) {
-    gchar *next_line = g_utf8_strchr(text, -1, '\n');
+    gchar *next_line = g_utf8_strchr (text, -1, '\n');
+
     if (next_line != text) {
-      gint len = g_utf8_strlen(text, (next_line-text));
-      modified = (*focus->key_event)(focus, 0, GDK_A, text, len, &change);
+      gint len = g_utf8_strlen (text, (next_line-text));
+      modified = (*focus->key_event) (focus, 0, GDK_A, text, len, &change);
     }
+
     if (next_line != NULL) {
-      modified = (*focus->key_event)(focus, 0, GDK_Return, "\n", 1, &change);
-      text = g_utf8_next_char(next_line);
+      modified = (*focus->key_event) (focus, 0, GDK_Return, "\n", 1, &change);
+      text = g_utf8_next_char (next_line);
     } else {
       text = NULL;
     }
-    { /* Make sure object updates its data: */
+
+    {
+      /* Make sure object updates its data: */
       Point p = obj->position;
-      (obj->ops->move)(obj,&p);  }
+      (obj->ops->move) (obj, &p);
+    }
 
     /* Perhaps this can be improved */
-    object_add_updates(obj, ddisp->diagram);
+    object_add_updates (obj, ddisp->diagram);
 
     if (modified && (change != NULL)) {
-      undo_object_change(ddisp->diagram, obj, change);
+      undo_object_change (ddisp->diagram, obj, change);
       any_modified = TRUE;
     }
 
-    diagram_flush(ddisp->diagram);
+    diagram_flush (ddisp->diagram);
   }
 
   if (any_modified) {
-    diagram_modified(ddisp->diagram);
-    diagram_update_extents(ddisp->diagram);
-    undo_set_transactionpoint(ddisp->diagram->undo);
+    diagram_modified (ddisp->diagram);
+    diagram_update_extents (ddisp->diagram);
+    undo_set_transactionpoint (ddisp->diagram->undo);
   }
 }
 
 
 static void
-received_clipboard_text_handler(GtkClipboard *clipboard,
-			        const gchar *text,
-			        gpointer data)
+received_clipboard_text_handler (GtkClipboard *clipboard,
+                                 const gchar  *text,
+                                 gpointer      data)
 {
-  DDisplay *ddisp = (DDisplay *)data;
-  Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
+  DDisplay *ddisp = (DDisplay *) data;
+  Focus *focus = get_active_focus ((DiagramData *) ddisp->diagram);
 
-  if (text == NULL) return;
-
-  if ((focus == NULL) || (!focus->has_focus)) return;
-
-  if (!g_utf8_validate(text, -1, NULL)) {
-    message_error("Not valid UTF8");
+  if (text == NULL) {
     return;
   }
 
-  insert_text(ddisp, focus, text);
+  if ((focus == NULL) || (!focus->has_focus)) {
+    return;
+  }
+
+  if (!g_utf8_validate (text, -1, NULL)) {
+    message_error ("Not valid UTF8");
+    return;
+  }
+
+  insert_text (ddisp, focus, text);
 }
 
 /*
  * Callback for gtk_clipboard_request_image
  */
 static void
-received_clipboard_image_handler(GtkClipboard *clipboard,
-			        GdkPixbuf *pixbuf,
-			        gpointer data)
+received_clipboard_image_handler (GtkClipboard *clipboard,
+                                  GdkPixbuf    *pixbuf,
+                                  gpointer      data)
 {
-  DDisplay *ddisp = (DDisplay *)data;
+  DDisplay *ddisp = (DDisplay *) data;
   Diagram  *dia = ddisp->diagram;
   GList *list = dia->data->selected;
   ObjectChange *change = NULL;
@@ -258,7 +277,7 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
     object_add_updates (obj, dia);
     change = dia_object_set_pixbuf (obj, pixbuf);
     if (change) {
-      undo_object_change(dia, obj, change);
+      undo_object_change (dia, obj, change);
       /* ... and after the change */
       object_add_updates (obj, dia);
       diagram_modified (dia);
@@ -275,46 +294,48 @@ received_clipboard_image_handler(GtkClipboard *clipboard,
     Handle *handle2;
     DiaObject *obj;
 
-    pt = ddisplay_get_clicked_position(ddisp);
-    snap_to_grid(ddisp, &pt.x, &pt.y);
+    pt = ddisplay_get_clicked_position (ddisp);
+    snap_to_grid (ddisp, &pt.x, &pt.y);
 
     if (   ((type = object_get_type ("Standard - Image")) != NULL)
-        && ((obj = dia_object_default_create (type, &pt,
-					     type->default_user_data,
-					     &handle1, &handle2)) != NULL)) {
+        && ((obj = dia_object_default_create (type,
+                                              &pt,
+                                              type->default_user_data,
+                                              &handle1,
+                                              &handle2)) != NULL)) {
       /* as above, transfer the data */
       change = dia_object_set_pixbuf (obj, pixbuf);
       if (change) { /* ... but drop undo info */
-	change->free (change);
-	g_free (change);
+        change->free (change);
+        g_free (change);
       }
       /* allow undo of the whole thing */
-      undo_insert_objects(dia, g_list_prepend(NULL, obj), 1);
+      undo_insert_objects (dia, g_list_prepend (NULL, obj), 1);
 
       diagram_add_object (dia, obj);
-      diagram_select(dia, obj);
-      object_add_updates(obj, dia);
+      diagram_select (dia, obj);
+      object_add_updates (obj, dia);
 
-      ddisplay_do_update_menu_sensitivity(ddisp);
-      diagram_flush(dia);
+      ddisplay_do_update_menu_sensitivity (ddisp);
+      diagram_flush (dia);
     } else {
       message_warning (_("No selected object can take an image."));
     }
   }
   /* although freed above it is still the indicator of diagram modification */
   if (change) {
-    diagram_update_extents(dia);
-    undo_set_transactionpoint(dia->undo);
-    diagram_modified(dia);
+    diagram_update_extents (dia);
+    undo_set_transactionpoint (dia->undo);
+    diagram_modified (dia);
   }
 }
 
 static void
 received_clipboard_content_handler (GtkClipboard     *clipboard,
-				    GtkSelectionData *selection_data,
-				    gpointer          user_data)
+                                    GtkSelectionData *selection_data,
+                                    gpointer          user_data)
 {
-  DDisplay *ddisp = (DDisplay *)user_data;
+  DDisplay *ddisp = (DDisplay *) user_data;
   GdkAtom type_atom;
   gchar *type_name;
   gint len;
@@ -324,32 +345,37 @@ received_clipboard_content_handler (GtkClipboard     *clipboard,
     type_atom = gtk_selection_data_get_data_type (selection_data);
     type_name = gdk_atom_name (type_atom);
     if (type_name && (   strcmp (type_name, "image/svg") == 0
-		      || strcmp (type_name, "image/svg+xml") == 0
-		      || strcmp (type_name, "UTF8_STRING") == 0)) {
+                      || strcmp (type_name, "image/svg+xml") == 0
+                      || strcmp (type_name, "UTF8_STRING") == 0)) {
       DiaImportFilter *ifilter = filter_import_get_by_name ("dia-svg");
       DiaContext *ctx = dia_context_new (_("Clipboard Paste"));
 
       if (ifilter->import_mem_func) {
-	Change *change = undo_import_change_setup (ddisp->diagram);
+        Change *change = undo_import_change_setup (ddisp->diagram);
 
-	if (!ifilter->import_mem_func (data, len, DIA_DIAGRAM_DATA (ddisp->diagram),
-				      ctx, ifilter->user_data)) {
-	  /* might become more right some day ;) */
-	  dia_context_add_message (ctx, _("Failed to import '%s' as SVG."), type_name);
-	  dia_context_release (ctx);
-	}
-	if (undo_import_change_done (ddisp->diagram, change)) {
-	  undo_set_transactionpoint(ddisp->diagram->undo);
-	  diagram_modified(ddisp->diagram);
-	  diagram_flush(ddisp->diagram);
-	}
+        if (!ifilter->import_mem_func (data,
+                                       len,
+                                       DIA_DIAGRAM_DATA (ddisp->diagram),
+                                       ctx,
+                                       ifilter->user_data)) {
+          /* might become more right some day ;) */
+          dia_context_add_message (ctx,
+                                   _("Failed to import '%s' as SVG."),
+                                   type_name);
+          dia_context_release (ctx);
+        }
+        if (undo_import_change_done (ddisp->diagram, change)) {
+          undo_set_transactionpoint (ddisp->diagram->undo);
+          diagram_modified (ddisp->diagram);
+          diagram_flush (ddisp->diagram);
+        }
       }
     } else {
       /* fallback to pixbuf loader */
       GdkPixbuf *pixbuf = gtk_selection_data_get_pixbuf (selection_data);
       if (pixbuf) {
-	received_clipboard_image_handler (clipboard, pixbuf, ddisp);
-	g_object_unref (pixbuf);
+        received_clipboard_image_handler (clipboard, pixbuf, ddisp);
+        g_object_unref (pixbuf);
       } else {
         message_error (_("Paste failed: %s"), type_name);
       }
@@ -362,49 +388,58 @@ received_clipboard_content_handler (GtkClipboard     *clipboard,
 void
 edit_paste_image_callback (GtkAction *action)
 {
-  GtkClipboard *clipboard = gtk_clipboard_get(GDK_NONE);
+  GtkClipboard *clipboard = gtk_clipboard_get (GDK_NONE);
   DDisplay *ddisp;
   GdkAtom *targets;
   gint n_targets;
   gboolean done = FALSE;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
   if (gtk_clipboard_wait_for_targets (clipboard, &targets, &n_targets)) {
     int i;
     for (i = 0; i < n_targets; ++i) {
       gchar *aname = gdk_atom_name (targets[i]);
       if (   strcmp (aname, "image/svg") == 0
-	  || strcmp (aname, "image/svg+xml") == 0
-	  || strcmp (aname, "UTF8_STRING") == 0) {
-	gtk_clipboard_request_contents (clipboard, targets[i],
-					received_clipboard_content_handler, ddisp);
-	done = TRUE;
+          || strcmp (aname, "image/svg+xml") == 0
+          || strcmp (aname, "UTF8_STRING") == 0) {
+        gtk_clipboard_request_contents (clipboard,
+                                        targets[i],
+                                        received_clipboard_content_handler,
+                                        ddisp);
+        done = TRUE;
       }
       dia_log_message ("clipboard-targets %d: %s", i, aname);
       g_free (aname);
-      if (done)
-	break;
+      if (done) {
+        break;
+      }
     }
-    if (!done)
-      gtk_clipboard_request_image (clipboard, received_clipboard_image_handler, ddisp);
+    if (!done) {
+      gtk_clipboard_request_image (clipboard,
+                                   received_clipboard_image_handler,
+                                   ddisp);
+    }
     g_free (targets);
   }
 }
 
 static PropDescription text_prop_singleton_desc[] = {
-    { "text", PROP_TYPE_TEXT },
-    PROP_DESC_END};
+  { "text", PROP_TYPE_TEXT },
+  PROP_DESC_END
+};
 
 static void
-make_text_prop_singleton(GPtrArray **props, TextProperty **prop)
+make_text_prop_singleton (GPtrArray **props, TextProperty **prop)
 {
-  *props = prop_list_from_descs(text_prop_singleton_desc,pdtpp_true);
-  g_assert((*props)->len == 1);
+  *props = prop_list_from_descs (text_prop_singleton_desc, pdtpp_true);
+  g_assert ((*props)->len == 1);
 
-  *prop = g_ptr_array_index((*props),0);
-  g_free((*prop)->text_data);
+  *prop = g_ptr_array_index ((*props),0);
+  g_free ((*prop)->text_data);
   (*prop)->text_data = NULL;
 }
 
@@ -423,14 +458,15 @@ static GtkTargetEntry target_entries[] = {
 #endif
 };
 
-/** This gets called by Gtk+ if some other application is asking
+/**
+ * This gets called by Gtk+ if some other application is asking
  * for the clipboard content.
  */
 static void
 _clipboard_get_data_callback (GtkClipboard     *clipboard,
-			      GtkSelectionData *selection_data,
-			      guint             info,
-			      gpointer          owner_or_user_data)
+                              GtkSelectionData *selection_data,
+                              guint             info,
+                              gpointer          owner_or_user_data)
 {
   DiaContext *ctx = dia_context_new (_("Clipboard Copy"));
   DiagramData *dia = owner_or_user_data; /* todo: check it's still valid */
@@ -469,38 +505,44 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
 
   if (ef) {
     /* for png use alpha-rendering if available */
-    if (strcmp(ext, "png") == 0 && filter_export_get_by_name ("cairo-alpha-png") != NULL)
+    if (strcmp(ext, "png") == 0 &&
+        filter_export_get_by_name ("cairo-alpha-png") != NULL) {
       ef = filter_export_get_by_name ("cairo-alpha-png");
+    }
     dia_context_set_filename (ctx, outfname);
-    ef->export_func(DIA_DIAGRAM_DATA(dia), ctx,
-		    outfname, "clipboard-copy", ef->user_data);
+    ef->export_func (DIA_DIAGRAM_DATA (dia),
+                     ctx,
+                     outfname,
+                     "clipboard-copy",
+                     ef->user_data);
     /* If we have a vector format, don't convert it to pixbuf.
      * Or even better: only use pixbuf transport when asked
      * for 'OS native bitmaps' BMP (win32), TIFF(osx), ...?
      */
     if (strcmp (ext, "bmp") == 0 || strcmp (ext, "tiff") == 0) {
-      GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file(outfname, &error);
+      GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file (outfname, &error);
       if (pixbuf) {
-	gtk_selection_data_set_pixbuf (selection_data, pixbuf);
-	g_object_unref (pixbuf);
+        gtk_selection_data_set_pixbuf (selection_data, pixbuf);
+        g_object_unref (pixbuf);
       }
     } else {
       struct stat st;
       FILE *f;
 
       if (   g_stat (outfname, &st) == 0
-	  && ((f = g_fopen (outfname, "rb")) != NULL)) {
-	gchar *buf = g_try_malloc (st.st_size);
+          && ((f = g_fopen (outfname, "rb")) != NULL)) {
+        gchar *buf = g_try_malloc (st.st_size);
 
-	if (buf) {
-	  if (fread (buf, 1, st.st_size, f) == st.st_size)
-	    gtk_selection_data_set (selection_data,
-	                            gdk_atom_intern_static_string (target_entries[info-1].target), 8,
-	                            (guint8 *)buf, st.st_size);
-	}
-	g_free (buf);
-	fclose (f);
-	g_unlink (outfname);
+        if (buf) {
+          if (fread (buf, 1, st.st_size, f) == st.st_size) {
+            gtk_selection_data_set (selection_data,
+                                    gdk_atom_intern_static_string (target_entries[info-1].target), 8,
+                                    (guint8 *)buf, st.st_size);
+          }
+        }
+        g_free (buf);
+        fclose (f);
+        g_unlink (outfname);
       }
     }
   }
@@ -518,8 +560,9 @@ _clipboard_clear_data_callback (GtkClipboard *clipboard,
 {
   DiagramData *dia = owner_or_user_data; /* todo: check it's still valid */
 
-  if (dia)
+  if (dia) {
     g_object_unref (dia);
+  }
 }
 
 void
@@ -528,21 +571,24 @@ edit_copy_callback (GtkAction *action)
   GList *copy_list;
   DDisplay *ddisp;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
-  if (textedit_mode(ddisp)) {
-    Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
-    DiaObject *obj = focus_get_object(focus);
+  if (textedit_mode (ddisp)) {
+    Focus *focus = get_active_focus ((DiagramData *) ddisp->diagram);
+    DiaObject *obj = focus_get_object (focus);
     GPtrArray *textprops;
     TextProperty *prop;
 
-    if (obj->ops->get_props == NULL)
+    if (obj->ops->get_props == NULL) {
       return;
+    }
 
-    make_text_prop_singleton(&textprops,&prop);
+    make_text_prop_singleton (&textprops, &prop);
     /* Get the first text property */
-    obj->ops->get_props(obj, textprops);
+    obj->ops->get_props (obj, textprops);
 
     /* GTK docs claim the selection clipboard is ignored on Win32.
      * The "clipboard" clipboard is (was) mostly ignored in Unix.
@@ -550,13 +596,13 @@ edit_copy_callback (GtkAction *action)
      * for many programs on Linux, too.
      */
 #ifndef GDK_WINDOWING_X11
-    gtk_clipboard_set_text(gtk_clipboard_get(GDK_NONE),
-			   prop->text_data, -1);
+    gtk_clipboard_set_text (gtk_clipboard_get (GDK_NONE),
+                            prop->text_data, -1);
 #else
-    gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY),
-			   prop->text_data, -1);
+    gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_PRIMARY),
+                            prop->text_data, -1);
 #endif
-    prop_list_free(textprops);
+    prop_list_free (textprops);
   } else {
     /* create a diagram of currently selected to the clipboard - it's rendered on request */
     DiagramData *data = diagram_data_clone_selected (ddisp->diagram->data);
@@ -567,18 +613,19 @@ edit_copy_callback (GtkAction *action)
     data->paper.scaling = (ddisp->zoom_factor / 20.0);
 
     gtk_clipboard_set_with_data (gtk_clipboard_get(GDK_NONE),
-                                 target_entries, G_N_ELEMENTS (target_entries),
-				 _clipboard_get_data_callback,
-				 _clipboard_clear_data_callback,
-				 data);
+                                 target_entries,
+                                 G_N_ELEMENTS (target_entries),
+                                 _clipboard_get_data_callback,
+                                 _clipboard_clear_data_callback,
+                                 data);
 
     /* just internal copy of the selected objects */
-    copy_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
+    copy_list = parent_list_affected (diagram_get_sorted_selected (ddisp->diagram));
 
-    cnp_store_objects(object_copy_list(copy_list), 1);
-    g_list_free(copy_list);
+    cnp_store_objects (object_copy_list (copy_list), 1);
+    g_list_free (copy_list);
 
-    ddisplay_do_update_menu_sensitivity(ddisp);
+    ddisplay_do_update_menu_sensitivity (ddisp);
   }
 }
 
@@ -589,26 +636,28 @@ edit_cut_callback (GtkAction *action)
   DDisplay *ddisp;
   Change *change;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
-  if (textedit_mode(ddisp)) {
+  if (textedit_mode (ddisp)) {
   } else {
-    diagram_selected_break_external(ddisp->diagram);
+    diagram_selected_break_external (ddisp->diagram);
 
-    cut_list = parent_list_affected(diagram_get_sorted_selected(ddisp->diagram));
+    cut_list = parent_list_affected (diagram_get_sorted_selected (ddisp->diagram));
 
-    cnp_store_objects(object_copy_list(cut_list), 0);
+    cnp_store_objects (object_copy_list (cut_list), 0);
 
-    change = undo_delete_objects_children(ddisp->diagram, cut_list);
-    (change->apply)(change, ddisp->diagram);
+    change = undo_delete_objects_children (ddisp->diagram, cut_list);
+    (change->apply) (change, ddisp->diagram);
 
-    ddisplay_do_update_menu_sensitivity(ddisp);
-    diagram_flush(ddisp->diagram);
+    ddisplay_do_update_menu_sensitivity (ddisp);
+    diagram_flush (ddisp->diagram);
 
-    diagram_modified(ddisp->diagram);
-    diagram_update_extents(ddisp->diagram);
-    undo_set_transactionpoint(ddisp->diagram->undo);
+    diagram_modified (ddisp->diagram);
+    diagram_update_extents (ddisp->diagram);
+    undo_set_transactionpoint (ddisp->diagram->undo);
   }
 }
 
@@ -623,24 +672,29 @@ edit_paste_callback (GtkAction *action)
   int generation = 0;
 
   ddisp = ddisplay_active();
-  if (!ddisp) return;
-  if (textedit_mode(ddisp)) {
+  if (!ddisp) {
+    return;
+  }
+
+  if (textedit_mode (ddisp)) {
 #ifndef GDK_WINDOWING_X11
-    gtk_clipboard_request_text(gtk_clipboard_get(GDK_NONE),
-			       received_clipboard_text_handler, ddisp);
+    gtk_clipboard_request_text (gtk_clipboard_get (GDK_NONE),
+                                received_clipboard_text_handler,
+                                ddisp);
 #else
-    gtk_clipboard_request_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY),
-			       received_clipboard_text_handler, ddisp);
+    gtk_clipboard_request_text (gtk_clipboard_get (GDK_SELECTION_PRIMARY),
+                                received_clipboard_text_handler,
+                                ddisp);
 #endif
   } else {
-    if (!cnp_exist_stored_objects()) {
-      message_warning(_("No existing object to paste.\n"));
+    if (!cnp_exist_stored_objects ()) {
+      message_warning (_("No existing object to paste.\n"));
       return;
     }
 
-    paste_list = cnp_get_stored_objects(&generation); /* Gets a copy */
+    paste_list = cnp_get_stored_objects (&generation); /* Gets a copy */
 
-    paste_corner = object_list_corner(paste_list);
+    paste_corner = object_list_corner (paste_list);
 
     delta.x = ddisp->visible.left - paste_corner.x;
     delta.y = ddisp->visible.top - paste_corner.y;
@@ -649,20 +703,21 @@ edit_paste_callback (GtkAction *action)
     delta.x += (ddisp->visible.right - ddisp->visible.left) * 0.1 * generation;
     delta.y += (ddisp->visible.bottom - ddisp->visible.top) * 0.1 * generation;
 
-    if (generation)
-      object_list_move_delta(paste_list, &delta);
+    if (generation) {
+      object_list_move_delta (paste_list, &delta);
+    }
 
-    change = undo_insert_objects(ddisp->diagram, paste_list, 0);
-    (change->apply)(change, ddisp->diagram);
+    change = undo_insert_objects (ddisp->diagram, paste_list, 0);
+    (change->apply) (change, ddisp->diagram);
 
-    diagram_modified(ddisp->diagram);
-    undo_set_transactionpoint(ddisp->diagram->undo);
+    diagram_modified (ddisp->diagram);
+    undo_set_transactionpoint (ddisp->diagram->undo);
 
-    diagram_remove_all_selected(ddisp->diagram, TRUE);
-    diagram_select_list(ddisp->diagram, paste_list);
+    diagram_remove_all_selected (ddisp->diagram, TRUE);
+    diagram_select_list (ddisp->diagram, paste_list);
 
-    diagram_update_extents(ddisp->diagram);
-    diagram_flush(ddisp->diagram);
+    diagram_update_extents (ddisp->diagram);
+    diagram_flush (ddisp->diagram);
   }
 }
 
@@ -683,111 +738,122 @@ edit_duplicate_callback (GtkAction *action)
   Point delta;
   Change *change;
 
-  ddisp = ddisplay_active();
-  if (!ddisp || textedit_mode(ddisp)) return;
-  duplicate_list = object_copy_list(diagram_get_sorted_selected(ddisp->diagram));
+  ddisp = ddisplay_active ();
+  if (!ddisp || textedit_mode (ddisp)) {
+    return;
+  }
+  duplicate_list = object_copy_list (diagram_get_sorted_selected (ddisp->diagram));
 
   /* Move down some 10% of the visible area. */
   delta.x = (ddisp->visible.right - ddisp->visible.left)*0.05;
   delta.y = (ddisp->visible.bottom - ddisp->visible.top)*0.05;
 
-  object_list_move_delta(duplicate_list, &delta);
+  object_list_move_delta (duplicate_list, &delta);
 
-  change = undo_insert_objects(ddisp->diagram, duplicate_list, 0);
-  (change->apply)(change, ddisp->diagram);
+  change = undo_insert_objects (ddisp->diagram, duplicate_list, 0);
+  (change->apply) (change, ddisp->diagram);
 
-  diagram_modified(ddisp->diagram);
-  undo_set_transactionpoint(ddisp->diagram->undo);
+  diagram_modified (ddisp->diagram);
+  undo_set_transactionpoint (ddisp->diagram->undo);
 
-  diagram_remove_all_selected(ddisp->diagram, TRUE);
-  diagram_select_list(ddisp->diagram, duplicate_list);
+  diagram_remove_all_selected (ddisp->diagram, TRUE);
+  diagram_select_list (ddisp->diagram, duplicate_list);
 
-  diagram_flush(ddisp->diagram);
+  diagram_flush (ddisp->diagram);
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  ddisplay_do_update_menu_sensitivity (ddisp);
 }
 
 void
-objects_move_up_layer(GtkAction *action)
+objects_move_up_layer (GtkAction *action)
 {
-  DDisplay *ddisp = ddisplay_active();
+  DDisplay *ddisp = ddisplay_active ();
   GList *selected_list;
   Change *change;
 
-  if (!ddisp || textedit_mode(ddisp)) return;
-  selected_list = diagram_get_sorted_selected(ddisp->diagram);
+  if (!ddisp || textedit_mode (ddisp)) {
+    return;
+  }
+  selected_list = diagram_get_sorted_selected (ddisp->diagram);
 
-  change = undo_move_object_other_layer(ddisp->diagram, selected_list, TRUE);
+  change = undo_move_object_other_layer (ddisp->diagram, selected_list, TRUE);
 
-  (change->apply)(change, ddisp->diagram);
+  (change->apply) (change, ddisp->diagram);
 
-  diagram_modified(ddisp->diagram);
-  undo_set_transactionpoint(ddisp->diagram->undo);
+  diagram_modified (ddisp->diagram);
+  undo_set_transactionpoint (ddisp->diagram->undo);
 
-  diagram_flush(ddisp->diagram);
+  diagram_flush (ddisp->diagram);
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  ddisplay_do_update_menu_sensitivity (ddisp);
 }
 
  void
-objects_move_down_layer(GtkAction *action)
+objects_move_down_layer (GtkAction *action)
 {
-  DDisplay *ddisp = ddisplay_active();
+  DDisplay *ddisp = ddisplay_active ();
   GList *selected_list;
   Change *change;
 
-  if (!ddisp || textedit_mode(ddisp)) return;
-  selected_list = diagram_get_sorted_selected(ddisp->diagram);
+  if (!ddisp || textedit_mode(ddisp)) {
+    return;
+  }
+  selected_list = diagram_get_sorted_selected (ddisp->diagram);
 
   /* Must check if move is legal here */
 
-  change = undo_move_object_other_layer(ddisp->diagram, selected_list, FALSE);
+  change = undo_move_object_other_layer (ddisp->diagram, selected_list, FALSE);
 
-  (change->apply)(change, ddisp->diagram);
+  (change->apply) (change, ddisp->diagram);
 
-  diagram_modified(ddisp->diagram);
-  undo_set_transactionpoint(ddisp->diagram->undo);
+  diagram_modified (ddisp->diagram);
+  undo_set_transactionpoint (ddisp->diagram->undo);
 
-  diagram_flush(ddisp->diagram);
+  diagram_flush (ddisp->diagram);
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  ddisplay_do_update_menu_sensitivity (ddisp);
 }
 
 void
 edit_copy_text_callback (GtkAction *action)
 {
   Focus *focus;
-  DDisplay *ddisp = ddisplay_active();
+  DDisplay *ddisp = ddisplay_active ();
   DiaObject *obj;
   GPtrArray *textprops;
   TextProperty *prop;
 
-  if (ddisp == NULL) return;
-
-  focus = get_active_focus((DiagramData *) ddisp->diagram);
-
-  if ((focus == NULL) || (!focus->has_focus)) return;
-
-  obj = focus_get_object(focus);
-
-  if (obj->ops->get_props == NULL)
+  if (ddisp == NULL) {
     return;
+  }
 
-  make_text_prop_singleton(&textprops,&prop);
+  focus = get_active_focus ((DiagramData *) ddisp->diagram);
+
+  if ((focus == NULL) || (!focus->has_focus)) {
+    return;
+  }
+
+  obj = focus_get_object (focus);
+
+  if (obj->ops->get_props == NULL) {
+    return;
+  }
+
+  make_text_prop_singleton (&textprops,&prop);
   /* Get the first text property */
-  obj->ops->get_props(obj, textprops);
+  obj->ops->get_props (obj, textprops);
 
   /* GTK docs claim the selection clipboard is ignored on Win32.
    * The "clipboard" clipboard is mostly ignored in Unix
    */
 #ifndef GDK_WINDOWING_X11
-  gtk_clipboard_set_text(gtk_clipboard_get(GDK_NONE),
-			 prop->text_data, -1);
+  gtk_clipboard_set_text (gtk_clipboard_get (GDK_NONE),
+                          prop->text_data, -1);
 #else
-  gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY),
-			 prop->text_data, -1);
+  gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_PRIMARY),
+                          prop->text_data, -1);
 #endif
-  prop_list_free(textprops);
+  prop_list_free (textprops);
 }
 
 void
@@ -800,40 +866,45 @@ edit_cut_text_callback (GtkAction *action)
   TextProperty *prop;
   ObjectChange *change;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
-
-  focus = get_active_focus((DiagramData *) ddisp->diagram);
-  if ((focus == NULL) || (!focus->has_focus)) return;
-
-  obj = focus_get_object(focus);
-
-  if (obj->ops->get_props == NULL)
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
     return;
+  }
 
-  make_text_prop_singleton(&textprops,&prop);
+  focus = get_active_focus ((DiagramData *) ddisp->diagram);
+  if ((focus == NULL) || (!focus->has_focus)) {
+    return;
+  }
+
+  obj = focus_get_object (focus);
+
+  if (obj->ops->get_props == NULL) {
+    return;
+  }
+
+  make_text_prop_singleton (&textprops,&prop);
   /* Get the first text property */
-  obj->ops->get_props(obj, textprops);
+  obj->ops->get_props (obj, textprops);
 
   /* GTK docs claim the selection clipboard is ignored on Win32.
    * The "clipboard" clipboard is mostly ignored in Unix
    */
 #ifndef GDK_WINDOWING_X11
-  gtk_clipboard_set_text(gtk_clipboard_get(GDK_NONE),
-			 prop->text_data, -1);
+  gtk_clipboard_set_text (gtk_clipboard_get (GDK_NONE),
+                          prop->text_data, -1);
 #else
-  gtk_clipboard_set_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY),
-			 prop->text_data, -1);
+  gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_PRIMARY),
+                          prop->text_data, -1);
 #endif
 
-  prop_list_free(textprops);
+  prop_list_free (textprops);
 
-  if (text_delete_all(focus->text, &change, obj)) {
-    object_add_updates(obj, ddisp->diagram);
-    undo_object_change(ddisp->diagram, obj, change);
-    undo_set_transactionpoint(ddisp->diagram->undo);
-    diagram_modified(ddisp->diagram);
-    diagram_flush(ddisp->diagram);
+  if (text_delete_all (focus->text, &change, obj)) {
+    object_add_updates (obj, ddisp->diagram);
+    undo_object_change (ddisp->diagram, obj, change);
+    undo_set_transactionpoint (ddisp->diagram->undo);
+    diagram_modified (ddisp->diagram);
+    diagram_flush (ddisp->diagram);
   }
 }
 
@@ -842,15 +913,17 @@ edit_paste_text_callback (GtkAction *action)
 {
   DDisplay *ddisp;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
 #ifndef GDK_WINDOWING_X11
-  gtk_clipboard_request_text(gtk_clipboard_get(GDK_NONE),
-			     received_clipboard_text_handler, ddisp);
+  gtk_clipboard_request_text (gtk_clipboard_get (GDK_NONE),
+                              received_clipboard_text_handler, ddisp);
 #else
-  gtk_clipboard_request_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY),
-			     received_clipboard_text_handler, ddisp);
+  gtk_clipboard_request_text (gtk_clipboard_get (GDK_SELECTION_PRIMARY),
+                              received_clipboard_text_handler, ddisp);
 #endif
 }
 
@@ -866,31 +939,33 @@ edit_delete_callback (GtkAction *action)
     return;
   }
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
-  if (textedit_mode(ddisp)) {
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
+  if (textedit_mode (ddisp)) {
     ObjectChange *change = NULL;
-    Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
-    if (!text_delete_key_handler(focus, &change)) {
+    Focus *focus = get_active_focus ((DiagramData *) ddisp->diagram);
+    if (!text_delete_key_handler (focus, &change)) {
       return;
     }
-    object_add_updates(focus->obj, ddisp->diagram);
+    object_add_updates (focus->obj, ddisp->diagram);
   } else {
     Change *change = NULL;
-    diagram_selected_break_external(ddisp->diagram);
+    diagram_selected_break_external (ddisp->diagram);
 
-    delete_list = diagram_get_sorted_selected(ddisp->diagram);
-    change = undo_delete_objects_children(ddisp->diagram, delete_list);
-    g_list_free(delete_list);
-    (change->apply)(change, ddisp->diagram);
+    delete_list = diagram_get_sorted_selected (ddisp->diagram);
+    change = undo_delete_objects_children (ddisp->diagram, delete_list);
+    g_list_free (delete_list);
+    (change->apply) (change, ddisp->diagram);
   }
-  diagram_modified(ddisp->diagram);
-  diagram_update_extents(ddisp->diagram);
+  diagram_modified (ddisp->diagram);
+  diagram_update_extents (ddisp->diagram);
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
-  diagram_flush(ddisp->diagram);
+  ddisplay_do_update_menu_sensitivity (ddisp);
+  diagram_flush (ddisp->diagram);
 
-  undo_set_transactionpoint(ddisp->diagram->undo);
+  undo_set_transactionpoint (ddisp->diagram->undo);
 }
 
 void
@@ -898,15 +973,17 @@ edit_undo_callback (GtkAction *action)
 {
   Diagram *dia;
 
-  dia = ddisplay_active_diagram();
-  if (!dia) return;
+  dia = ddisplay_active_diagram ();
+  if (!dia) {
+    return;
+  }
 
-/* Handle text undo edit here! */
-  undo_revert_to_last_tp(dia->undo);
-  diagram_modified(dia);
-  diagram_update_extents(dia);
+  /* Handle text undo edit here! */
+  undo_revert_to_last_tp (dia->undo);
+  diagram_modified (dia);
+  diagram_update_extents (dia);
 
-  diagram_flush(dia);
+  diagram_flush (dia);
 }
 
 void
@@ -915,14 +992,16 @@ edit_redo_callback (GtkAction *action)
   Diagram *dia;
 
 /* Handle text undo edit here! */
-  dia = ddisplay_active_diagram();
-  if (!dia) return;
+  dia = ddisplay_active_diagram ();
+  if (!dia) {
+    return;
+  }
 
-  undo_apply_to_next_tp(dia->undo);
-  diagram_modified(dia);
-  diagram_update_extents(dia);
+  undo_apply_to_next_tp (dia->undo);
+  diagram_modified (dia);
+  diagram_update_extents (dia);
 
-  diagram_flush(dia);
+  diagram_flush (dia);
 }
 
 void
@@ -935,51 +1014,61 @@ help_manual_callback (GtkAction *action)
   GError *error = NULL;
   GdkScreen *screen;
   DDisplay *ddisp;
-  ddisp = ddisplay_active();
-  screen = ddisp ? gtk_widget_get_screen (GTK_WIDGET(ddisp->shell))
-         : gdk_screen_get_default ();
+  ddisp = ddisplay_active ();
+  screen = ddisp ? gtk_widget_get_screen (GTK_WIDGET (ddisp->shell))
+                 : gdk_screen_get_default ();
 
-  helpdir = dia_get_data_directory("help");
+  helpdir = dia_get_data_directory ("help");
   if (!helpdir) {
-    message_warning(_("Could not find help directory"));
+    message_warning (_("Could not find help directory"));
     return;
   }
 
   /* search through helpdir for the helpfile that matches the user's locale */
   dp = g_dir_open (helpdir, 0, &error);
   if (!dp) {
-    message_warning(_("Could not open help directory:\n%s"),
-                    error->message);
+    message_warning (_("Could not open help directory:\n%s"),
+                     error->message);
     g_error_free (error);
     return;
   }
 
-  while ((dentry = g_dir_read_name(dp)) != NULL) {
+  while ((dentry = g_dir_read_name (dp)) != NULL) {
     guint score;
 
-    score = intl_score_locale(dentry);
+    score = intl_score_locale (dentry);
     if (score < bestscore) {
-      if (helpindex)
-	g_free(helpindex);
+      if (helpindex) {
+        g_free(helpindex);
+      }
 #ifdef G_OS_WIN32
       /* use HTML Help on win32 if available */
-      helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
-			      G_DIR_SEPARATOR_S "dia-manual.chm", NULL);
-      if (!g_file_test(helpindex, G_FILE_TEST_EXISTS)) {
-	helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
-			      G_DIR_SEPARATOR_S "index.html", NULL);
+      helpindex = g_strconcat (helpdir,
+                               G_DIR_SEPARATOR_S,
+                               dentry,
+                               G_DIR_SEPARATOR_S "dia-manual.chm",
+                               NULL);
+      if (!g_file_test (helpindex, G_FILE_TEST_EXISTS)) {
+        helpindex = g_strconcat (helpdir,
+                                 G_DIR_SEPARATOR_S,
+                                 dentry,
+                                 G_DIR_SEPARATOR_S "index.html",
+                                 NULL);
       }
 #else
-      helpindex = g_strconcat(helpdir, G_DIR_SEPARATOR_S, dentry,
-			      G_DIR_SEPARATOR_S "index.html", NULL);
+      helpindex = g_strconcat (helpdir,
+                               G_DIR_SEPARATOR_S,
+                               dentry,
+                               G_DIR_SEPARATOR_S "index.html",
+                               NULL);
 #endif
       bestscore = score;
     }
   }
   g_dir_close (dp);
-  g_free(helpdir);
+  g_free (helpdir);
   if (!helpindex) {
-    message_warning(_("Could not find help directory"));
+    message_warning (_("Could not find help directory"));
     return;
   }
 
@@ -987,29 +1076,30 @@ help_manual_callback (GtkAction *action)
 # define SW_SHOWNORMAL 1
   ShellExecuteA (0, "open", helpindex, NULL, helpdir, SW_SHOWNORMAL);
 #else
-  command = g_strdup_printf("file://%s", helpindex);
-  gtk_show_uri(screen, command, gtk_get_current_event_time (), NULL);
-  g_free(command);
+  command = g_strdup_printf ("file://%s", helpindex);
+  gtk_show_uri (screen, command, gtk_get_current_event_time (), NULL);
+  g_free (command);
 #endif
 
-  g_free(helpindex);
+  g_free (helpindex);
 }
 
 void
 activate_url (GtkWidget   *parent,
               const gchar *link,
-	      gpointer     data)
+              gpointer     data)
 {
 #ifdef G_OS_WIN32
   ShellExecuteA (0, "open", link, NULL, NULL, SW_SHOWNORMAL);
 #else
   GdkScreen *screen;
 
-  if (parent)
+  if (parent) {
     screen = gtk_widget_get_screen (GTK_WIDGET(parent));
-  else
+  } else {
     screen = gdk_screen_get_default ();
-  gtk_show_uri(screen, link, gtk_get_current_event_time (), NULL);
+  }
+  gtk_show_uri (screen, link, gtk_get_current_event_time (), NULL);
 #endif
 }
 
@@ -1019,19 +1109,19 @@ help_about_callback (GtkAction *action)
   const gchar *translators = _("translator_credits-PLEASE_ADD_YOURSELF_HERE");
   // TODO: Gtk3 has license-type
   const gchar *license = _(
-	"This program is free software; you can redistribute it and/or modify\n"
-	"it under the terms of the GNU General Public License as published by\n"
-	"the Free Software Foundation; either version 2 of the License, or\n"
-	"(at your option) any later version.\n"
-	"\n"
-	"This program is distributed in the hope that it will be useful,\n"
-	"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-	"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-	"GNU General Public License for more details.\n"
-	"\n"
-	"You should have received a copy of the GNU General Public License\n"
-	"along with this program; if not, write to the Free Software\n"
-	"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n");
+    "This program is free software; you can redistribute it and/or modify\n"
+    "it under the terms of the GNU General Public License as published by\n"
+    "the Free Software Foundation; either version 2 of the License, or\n"
+    "(at your option) any later version.\n"
+    "\n"
+    "This program is distributed in the hope that it will be useful,\n"
+    "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+    "GNU General Public License for more details.\n"
+    "\n"
+    "You should have received a copy of the GNU General Public License\n"
+    "along with this program; if not, write to the Free Software\n"
+    "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n");
 
   GdkPixbuf *logo = pixbuf_from_resource ("/org/gnome/Dia/dia-splash.png");
 
@@ -1049,8 +1139,9 @@ help_about_callback (GtkAction *action)
                                                 ? translators : NULL,
                          "license", license,
                          NULL);
-  if (logo)
+  if (logo) {
     g_object_unref (logo);
+  }
 }
 
 void
@@ -1058,10 +1149,12 @@ view_zoom_in_callback (GtkAction *action)
 {
   DDisplay *ddisp;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
-  ddisplay_zoom_middle(ddisp, M_SQRT2);
+  ddisplay_zoom_middle (ddisp, M_SQRT2);
 }
 
 void
@@ -1069,10 +1162,12 @@ view_zoom_out_callback (GtkAction *action)
 {
   DDisplay *ddisp;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
-  ddisplay_zoom_middle(ddisp, M_SQRT1_2);
+  ddisplay_zoom_middle (ddisp, M_SQRT1_2);
 }
 
 void
@@ -1090,15 +1185,17 @@ view_show_cx_pts_callback (GtkToggleAction *action)
   DDisplay *ddisp;
   int old_val;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
   old_val = ddisp->show_cx_pts;
   ddisp->show_cx_pts = gtk_toggle_action_get_active (action);
 
   if (old_val != ddisp->show_cx_pts) {
-    ddisplay_add_update_all(ddisp);
-    ddisplay_flush(ddisp);
+    ddisplay_add_update_all (ddisp);
+    ddisplay_flush (ddisp);
   }
 }
 
@@ -1108,8 +1205,10 @@ view_unfullscreen (void)
   DDisplay *ddisp;
   GtkToggleAction *item;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
   /* find the menuitem */
   item = GTK_TOGGLE_ACTION (menus_get_action ("ViewFullscreen"));
@@ -1124,15 +1223,18 @@ view_fullscreen_callback (GtkToggleAction *action)
   DDisplay *ddisp;
   int fs;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
   fs = gtk_toggle_action_get_active (action);
 
-  if (fs) /* it is already toggled */
-    gtk_window_fullscreen(GTK_WINDOW(ddisp->shell));
-  else
-    gtk_window_unfullscreen(GTK_WINDOW(ddisp->shell));
+  if (fs) { /* it is already toggled */
+    gtk_window_fullscreen (GTK_WINDOW (ddisp->shell));
+  } else {
+    gtk_window_unfullscreen (GTK_WINDOW (ddisp->shell));
+  }
 }
 
 void
@@ -1141,15 +1243,17 @@ view_aa_callback (GtkToggleAction *action)
   DDisplay *ddisp;
   int aa;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
   aa = gtk_toggle_action_get_active (action);
 
   if (aa != ddisp->aa_renderer) {
-    ddisplay_set_renderer(ddisp, aa);
-    ddisplay_add_update_all(ddisp);
-    ddisplay_flush(ddisp);
+    ddisplay_set_renderer (ddisp, aa);
+    ddisplay_add_update_all (ddisp);
+    ddisplay_flush (ddisp);
   }
 }
 
@@ -1159,15 +1263,17 @@ view_visible_grid_callback (GtkToggleAction *action)
   DDisplay *ddisp;
   guint old_val;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
   old_val = ddisp->grid.visible;
   ddisp->grid.visible = gtk_toggle_action_get_active (action);
 
   if (old_val != ddisp->grid.visible) {
-    ddisplay_add_update_all(ddisp);
-    ddisplay_flush(ddisp);
+    ddisplay_add_update_all (ddisp);
+    ddisplay_flush (ddisp);
   }
 }
 
@@ -1176,10 +1282,12 @@ view_snap_to_grid_callback (GtkToggleAction *action)
 {
   DDisplay *ddisp;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
-  ddisplay_set_snap_to_grid(ddisp, gtk_toggle_action_get_active (action));
+  ddisplay_set_snap_to_grid (ddisp, gtk_toggle_action_get_active (action));
 }
 
 void
@@ -1187,10 +1295,12 @@ view_snap_to_objects_callback (GtkToggleAction *action)
 {
   DDisplay *ddisp;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
-  ddisplay_set_snap_to_objects(ddisp, gtk_toggle_action_get_active (action));
+  ddisplay_set_snap_to_objects (ddisp, gtk_toggle_action_get_active (action));
 }
 
 void
@@ -1198,15 +1308,17 @@ view_toggle_rulers_callback (GtkToggleAction *action)
 {
   DDisplay *ddisp;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
   if (!gtk_toggle_action_get_active (action)) {
-    if (display_get_rulers_showing(ddisp)) {
+    if (display_get_rulers_showing (ddisp)) {
       display_rulers_hide (ddisp);
     }
   } else {
-    if (!display_get_rulers_showing(ddisp)) {
+    if (!display_get_rulers_showing (ddisp)) {
       display_rulers_show (ddisp);
     }
   }
@@ -1217,8 +1329,10 @@ view_toggle_scrollbars_callback (GtkToggleAction *action)
 {
   DDisplay *ddisp;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
   if (gtk_toggle_action_get_active (action)) {
     gtk_widget_show (ddisp->hsb);
@@ -1233,10 +1347,12 @@ view_new_view_callback (GtkAction *action)
 {
   Diagram *dia;
 
-  dia = ddisplay_active_diagram();
-  if (!dia) return;
+  dia = ddisplay_active_diagram ();
+  if (!dia) {
+    return;
+  }
 
-  new_display(dia);
+  new_display (dia);
 }
 
 extern void
@@ -1244,10 +1360,12 @@ view_clone_view_callback (GtkAction *action)
 {
   DDisplay *ddisp;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
-  copy_display(ddisp);
+  copy_display (ddisp);
 }
 
 void
@@ -1255,8 +1373,10 @@ view_show_all_callback (GtkAction *action)
 {
   DDisplay *ddisp;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
 
   ddisplay_show_all (ddisp);
 }
@@ -1265,10 +1385,12 @@ void
 view_redraw_callback (GtkAction *action)
 {
   DDisplay *ddisp;
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
-  ddisplay_add_update_all(ddisp);
-  ddisplay_flush(ddisp);
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
+  ddisplay_add_update_all (ddisp);
+  ddisplay_flush (ddisp);
 }
 
 void
@@ -1276,27 +1398,29 @@ view_diagram_properties_callback (GtkAction *action)
 {
   DDisplay *ddisp;
 
-  ddisp = ddisplay_active();
-  if (!ddisp) return;
-  diagram_properties_show(ddisp->diagram);
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
+  diagram_properties_show (ddisp->diagram);
 }
 
 void
 view_main_toolbar_callback (GtkAction *action)
 {
-  integrated_ui_toolbar_show (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)));
+  integrated_ui_toolbar_show (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action)));
 }
 
 void
 view_main_statusbar_callback (GtkAction *action)
 {
-  integrated_ui_statusbar_show (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)));
+  integrated_ui_statusbar_show (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action)));
 }
 
 void
 view_layers_callback (GtkAction *action)
 {
-  integrated_ui_layer_view_show (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION(action)));
+  integrated_ui_layer_view_show (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action)));
 }
 
 void
@@ -1304,8 +1428,10 @@ layers_add_layer_callback (GtkAction *action)
 {
   Diagram *dia;
 
-  dia = ddisplay_active_diagram();
-  if (!dia) return;
+  dia = ddisplay_active_diagram ();
+  if (!dia) {
+    return;
+  }
 
   diagram_edit_layer (dia, NULL);
 }
@@ -1315,8 +1441,10 @@ layers_rename_layer_callback (GtkAction *action)
 {
   Diagram *dia;
 
-  dia = ddisplay_active_diagram();
-  if (!dia) return;
+  dia = ddisplay_active_diagram ();
+  if (!dia) {
+    return;
+  }
 
   diagram_edit_layer (dia, dia->data->active_layer);
 }
@@ -1324,75 +1452,87 @@ layers_rename_layer_callback (GtkAction *action)
 void
 objects_place_over_callback (GtkAction *action)
 {
-  diagram_place_over_selected(ddisplay_active_diagram());
+  diagram_place_over_selected (ddisplay_active_diagram ());
 }
 
 void
 objects_place_under_callback (GtkAction *action)
 {
-  diagram_place_under_selected(ddisplay_active_diagram());
+  diagram_place_under_selected (ddisplay_active_diagram ());
 }
 
 void
 objects_place_up_callback (GtkAction *action)
 {
-  diagram_place_up_selected(ddisplay_active_diagram());
+  diagram_place_up_selected (ddisplay_active_diagram ());
 }
 
 void
 objects_place_down_callback (GtkAction *action)
 {
-  DDisplay *ddisp = ddisplay_active();
-  if (!ddisp || textedit_mode(ddisp)) return;
+  DDisplay *ddisp = ddisplay_active ();
+  if (!ddisp || textedit_mode (ddisp)) {
+    return;
+  }
 
-  diagram_place_down_selected(ddisplay_active_diagram());
+  diagram_place_down_selected (ddisplay_active_diagram ());
 }
 
 void
 objects_parent_callback (GtkAction *action)
 {
-  DDisplay *ddisp = ddisplay_active();
-  if (!ddisp || textedit_mode(ddisp)) return;
+  DDisplay *ddisp = ddisplay_active ();
+  if (!ddisp || textedit_mode (ddisp)) {
+    return;
+  }
 
-  diagram_parent_selected(ddisplay_active_diagram());
+  diagram_parent_selected (ddisplay_active_diagram ());
 }
 
 void
 objects_unparent_callback (GtkAction *action)
 {
-  DDisplay *ddisp = ddisplay_active();
-  if (!ddisp || textedit_mode(ddisp)) return;
+  DDisplay *ddisp = ddisplay_active ();
+  if (!ddisp || textedit_mode (ddisp)) {
+    return;
+  }
 
-  diagram_unparent_selected(ddisplay_active_diagram());
+  diagram_unparent_selected (ddisplay_active_diagram ());
 }
 
 void
 objects_unparent_children_callback (GtkAction *action)
 {
-  DDisplay *ddisp = ddisplay_active();
-  if (!ddisp || textedit_mode(ddisp)) return;
+  DDisplay *ddisp = ddisplay_active ();
+  if (!ddisp || textedit_mode (ddisp)) {
+    return;
+  }
 
-  diagram_unparent_children_selected(ddisplay_active_diagram());
+  diagram_unparent_children_selected (ddisplay_active_diagram ());
 }
 
 void
 objects_group_callback (GtkAction *action)
 {
-  DDisplay *ddisp = ddisplay_active();
-  if (!ddisp || textedit_mode(ddisp)) return;
+  DDisplay *ddisp = ddisplay_active ();
+  if (!ddisp || textedit_mode (ddisp)) {
+    return;
+  }
 
-  diagram_group_selected(ddisplay_active_diagram());
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  diagram_group_selected (ddisplay_active_diagram ());
+  ddisplay_do_update_menu_sensitivity (ddisp);
 }
 
 void
 objects_ungroup_callback (GtkAction *action)
 {
-  DDisplay *ddisp = ddisplay_active();
-  if (!ddisp || textedit_mode(ddisp)) return;
+  DDisplay *ddisp = ddisplay_active ();
+  if (!ddisp || textedit_mode (ddisp)) {
+    return;
+  }
 
-  diagram_ungroup_selected(ddisplay_active_diagram());
-  ddisplay_do_update_menu_sensitivity(ddisp);
+  diagram_ungroup_selected (ddisplay_active_diagram ());
+  ddisplay_do_update_menu_sensitivity (ddisp);
 }
 
 void
@@ -1400,21 +1540,23 @@ dialogs_properties_callback (GtkAction *action)
 {
   Diagram *dia;
 
-  dia = ddisplay_active_diagram();
-  if (!dia || textedit_mode(ddisplay_active())) return;
+  dia = ddisplay_active_diagram ();
+  if (!dia || textedit_mode (ddisplay_active ())) {
+    return;
+  }
 
   if (dia->data->selected != NULL) {
-    object_list_properties_show(dia, dia->data->selected);
+    object_list_properties_show (dia, dia->data->selected);
   } else {
-    diagram_properties_show(dia);
+    diagram_properties_show (dia);
   }
 }
 
 void
 dialogs_layers_callback (GtkAction *action)
 {
-  layer_dialog_set_diagram(ddisplay_active_diagram());
-  layer_dialog_show();
+  layer_dialog_set_diagram (ddisplay_active_diagram ());
+  layer_dialog_show ();
 }
 
 
@@ -1426,43 +1568,42 @@ objects_align_h_callback (GtkAction *action)
   Diagram *dia;
   GList *objects;
 
-  DDisplay *ddisp = ddisplay_active();
-  if (!ddisp || textedit_mode(ddisp)) return;
+  DDisplay *ddisp = ddisplay_active ();
+  if (!ddisp || textedit_mode (ddisp)) {
+    return;
+  }
 
   /* HACK align is suffix to action name */
   a = gtk_action_get_name (action) + strlen ("ObjectsAlign");
   if (0 == strcmp ("Left", a)) {
-	align = DIA_ALIGN_LEFT;
-  }
-  else if (0 == strcmp ("Center", a)) {
-	align = DIA_ALIGN_CENTER;
-  }
-  else if (0 == strcmp ("Right", a)) {
-	align = DIA_ALIGN_RIGHT;
-  }
-  else if (0 == strcmp ("Spreadouthorizontally", a)) {
-	align = DIA_ALIGN_EQUAL;
-  }
-  else if (0 == strcmp ("Adjacent", a)) {
-	align = DIA_ALIGN_ADJACENT;
-  }
-  else {
-	g_warning ("objects_align_v_callback() called without appropriate align");
-	return;
+    align = DIA_ALIGN_LEFT;
+  } else if (0 == strcmp ("Center", a)) {
+    align = DIA_ALIGN_CENTER;
+  } else if (0 == strcmp ("Right", a)) {
+    align = DIA_ALIGN_RIGHT;
+  } else if (0 == strcmp ("Spreadouthorizontally", a)) {
+    align = DIA_ALIGN_EQUAL;
+  } else if (0 == strcmp ("Adjacent", a)) {
+    align = DIA_ALIGN_ADJACENT;
+  } else {
+    g_warning ("objects_align_v_callback() called without appropriate align");
+    return;
   }
 
-  dia = ddisplay_active_diagram();
-  if (!dia) return;
+  dia = ddisplay_active_diagram ();
+  if (!dia) {
+    return;
+  }
   objects = dia->data->selected;
 
-  object_add_updates_list(objects, dia);
-  object_list_align_h(objects, dia, align);
-  diagram_update_connections_selection(dia);
-  object_add_updates_list(objects, dia);
-  diagram_modified(dia);
-  diagram_flush(dia);
+  object_add_updates_list (objects, dia);
+  object_list_align_h (objects, dia, align);
+  diagram_update_connections_selection (dia);
+  object_add_updates_list (objects, dia);
+  diagram_modified (dia);
+  diagram_flush (dia);
 
-  undo_set_transactionpoint(dia->undo);
+  undo_set_transactionpoint (dia->undo);
 }
 
 void
@@ -1473,43 +1614,42 @@ objects_align_v_callback (GtkAction *action)
   Diagram *dia;
   GList *objects;
 
-  DDisplay *ddisp = ddisplay_active();
-  if (!ddisp || textedit_mode(ddisp)) return;
+  DDisplay *ddisp = ddisplay_active ();
+  if (!ddisp || textedit_mode (ddisp)) {
+    return;
+  }
 
   /* HACK align is suffix to action name */
   a = gtk_action_get_name (action) + strlen ("ObjectsAlign");
   if (0 == strcmp ("Top", a)) {
-	align = DIA_ALIGN_TOP;
-  }
-  else if (0 == strcmp ("Middle", a)) {
-	align = DIA_ALIGN_CENTER;
-  }
-  else if (0 == strcmp ("Bottom", a)) {
-	align = DIA_ALIGN_BOTTOM;
-  }
-  else if (0 == strcmp ("Spreadoutvertically", a)) {
-	align = DIA_ALIGN_EQUAL;
-  }
-  else if (0 == strcmp ("Stacked", a)) {
-	align = DIA_ALIGN_ADJACENT;
-  }
-  else {
-	g_warning ("objects_align_v_callback() called without appropriate align");
-	return;
+    align = DIA_ALIGN_TOP;
+  } else if (0 == strcmp ("Middle", a)) {
+    align = DIA_ALIGN_CENTER;
+  } else if (0 == strcmp ("Bottom", a)) {
+    align = DIA_ALIGN_BOTTOM;
+  } else if (0 == strcmp ("Spreadoutvertically", a)) {
+    align = DIA_ALIGN_EQUAL;
+  } else if (0 == strcmp ("Stacked", a)) {
+    align = DIA_ALIGN_ADJACENT;
+  } else {
+    g_warning ("objects_align_v_callback() called without appropriate align");
+    return;
   }
 
-  dia = ddisplay_active_diagram();
-  if (!dia) return;
+  dia = ddisplay_active_diagram ();
+  if (!dia) {
+    return;
+  }
   objects = dia->data->selected;
 
-  object_add_updates_list(objects, dia);
-  object_list_align_v(objects, dia, align);
-  diagram_update_connections_selection(dia);
-  object_add_updates_list(objects, dia);
-  diagram_modified(dia);
-  diagram_flush(dia);
+  object_add_updates_list (objects, dia);
+  object_list_align_v (objects, dia, align);
+  diagram_update_connections_selection (dia);
+  object_add_updates_list (objects, dia);
+  diagram_modified (dia);
+  diagram_flush (dia);
 
-  undo_set_transactionpoint(dia->undo);
+  undo_set_transactionpoint (dia->undo);
 }
 
 void
@@ -1518,34 +1658,37 @@ objects_align_connected_callback (GtkAction *action)
   Diagram *dia;
   GList *objects;
 
-  dia = ddisplay_active_diagram();
-  if (!dia) return;
+  dia = ddisplay_active_diagram ();
+  if (!dia) {
+    return;
+  }
   objects = dia->data->selected;
 
-  object_add_updates_list(objects, dia);
-  object_list_align_connected(objects, dia, 0);
-  diagram_update_connections_selection(dia);
-  object_add_updates_list(objects, dia);
-  diagram_modified(dia);
-  diagram_flush(dia);
+  object_add_updates_list (objects, dia);
+  object_list_align_connected (objects, dia, 0);
+  diagram_update_connections_selection (dia);
+  object_add_updates_list (objects, dia);
+  diagram_modified (dia);
+  diagram_flush (dia);
 
-  undo_set_transactionpoint(dia->undo);
+  undo_set_transactionpoint (dia->undo);
 }
 
 /*! Open a file and show it in a new display */
 void
-dia_file_open (const gchar *filename,
+dia_file_open (const gchar     *filename,
                DiaImportFilter *ifilter)
 {
   Diagram *diagram;
 
-  if (!ifilter)
-    ifilter = filter_guess_import_filter(filename);
+  if (!ifilter) {
+    ifilter = filter_guess_import_filter (filename);
+  }
 
-  diagram = diagram_load(filename, ifilter);
+  diagram = diagram_load (filename, ifilter);
   if (diagram != NULL) {
-    diagram_update_extents(diagram);
-    layer_dialog_set_diagram(diagram);
-    new_display(diagram);
+    diagram_update_extents (diagram);
+    layer_dialog_set_diagram (diagram);
+    new_display (diagram);
   }
 }
