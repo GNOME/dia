@@ -93,15 +93,16 @@ typedef enum OutputKind
   OUTPUT_CAIRO_SCRIPT
 } OutputKind;
 
+#define DIA_CAIRO_TYPE_INTERACTIVE_RENDERER dia_cairo_interactive_renderer_get_type ()
+
+G_DECLARE_FINAL_TYPE (DiaCairoInteractiveRenderer, dia_cairo_interactive_renderer, DIA_CAIRO, INTERACTIVE_RENDERER, DiaCairoRenderer)
+
+DiaRenderer *dia_cairo_interactive_renderer_new ();
+
 gboolean cairo_export_data (DiagramData *data,
                             DiaContext  *ctx,
                             const gchar *filename,
                             const gchar *diafilename,
                             void        *user_data);
-
-/* FIXME: need to think about proper registration */
-GType dia_cairo_interactive_renderer_get_type (void) G_GNUC_CONST;
-
-DiaRenderer *dia_cairo_interactive_renderer_new ();
 
 G_END_DECLS
