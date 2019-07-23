@@ -1064,54 +1064,6 @@ dia_cairo_renderer_draw_string (DiaRenderer *self,
   DIAG_STATE (renderer->cr)
 }
 
-static cairo_surface_t *
-_image_to_mime_surface (DiaCairoRenderer *renderer,
-                        DiaImage         *image)
-{
-  cairo_surface_type_t st;
-  const char *fname = dia_image_filename (image);
-  int w = dia_image_width (image);
-  int h = dia_image_height (image);
-  const char *mime_type = NULL;
-
-  if (!renderer->surface) {
-    return NULL;
-  }
-
-  /* We only use the "mime" surface if:
-   *  - the target supports it
-   *  - we have a file name with a supported format
-   *  - the cairo version is new enough including
-   *    http://cgit.freedesktop.org/cairo/commit/?id=35e0a2685134
-   */
-  if (g_str_has_suffix (fname, ".jpg") || g_str_has_suffix (fname, ".jpeg")) {
-    mime_type = CAIRO_MIME_TYPE_JPEG;
-  } else if (g_str_has_suffix (fname, ".png")) {
-    mime_type = CAIRO_MIME_TYPE_PNG;
-  }
-  st = cairo_surface_get_type (renderer->surface);
-  if (   mime_type
-      && cairo_version () >= CAIRO_VERSION_ENCODE (1, 12, 18)
-      && (CAIRO_SURFACE_TYPE_PDF == st || CAIRO_SURFACE_TYPE_SVG == st)) {
-    cairo_surface_t *surface;
-    gchar *data = NULL;
-    gsize  length = 0;
-
-    /* we still ned to create the image surface, but dont need to fill it */
-    surface = cairo_image_surface_create (CAIRO_FORMAT_RGB24, w, h);
-    cairo_surface_mark_dirty (surface); /* no effect */
-    if (   g_file_get_contents (fname, &data, &length, NULL)
-        && cairo_surface_set_mime_data (surface, mime_type,
-                                        (unsigned char *) data,
-                                        length, g_free, data) == CAIRO_STATUS_SUCCESS) {
-      return surface;
-    }
-    cairo_surface_destroy (surface);
-    g_free (data);
-  }
-  return NULL;
-}
-
 static void
 dia_cairo_renderer_draw_rotated_image (DiaRenderer *self,
                                        Point       *point,
@@ -1121,98 +1073,21 @@ dia_cairo_renderer_draw_rotated_image (DiaRenderer *self,
                                        DiaImage    *image)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
-  cairo_surface_t *surface;
-  guint8 *data;
   int w = dia_image_width (image);
   int h = dia_image_height (image);
-  int rs = dia_image_rowstride (image);
 
   DIAG_NOTE (g_message ("draw_image %fx%f [%d(%d),%d] @%f,%f",
                         width, height, w, rs, h, point->x, point->y));
 
-  if ((surface = _image_to_mime_surface (renderer, image)) != NULL) {
-    data = NULL;
-  } else if (dia_image_rgba_data (image)) {
-    const guint8 *p1 = dia_image_rgba_data (image);
-    /* we need to make a copy to rearrange channels ... */
-    guint8 *p2 = data = g_try_malloc (h * rs);
-    int i;
-
-    if (!data) {
-      message_warning (_("Not enough memory for image drawing."));
-      return;
-    }
-
-    for (i = 0; i < (h * rs) / 4; i++) {
-#  if G_BYTE_ORDER == G_LITTLE_ENDIAN
-      p2[0] = p1[2]; /* b */
-      p2[1] = p1[1]; /* g */
-      p2[2] = p1[0]; /* r */
-      p2[3] = p1[3]; /* a */
-#  else
-      p2[3] = p1[2]; /* b */
-      p2[2] = p1[1]; /* g */
-      p2[1] = p1[0]; /* r */
-      p2[0] = p1[3]; /* a */
-#  endif
-      p1+=4;
-      p2+=4;
-    }
-
-    surface = cairo_image_surface_create_for_data (data,
-                                                   CAIRO_FORMAT_ARGB32,
-                                                   w,
-                                                   h,
-                                                   rs);
-  } else {
-    guint8 *p = NULL, *p2;
-    guint8 *p1 = data = dia_image_rgb_data (image);
-    /* cairo wants RGB24 32 bit aligned, so copy ... */
-    int x, y;
-
-    if (data) {
-      p = p2 = g_try_malloc(h*w*4);
-    }
-
-    if (!p) {
-      message_warning (_("Not enough memory for image drawing."));
-      return;
-    }
-
-    for (y = 0; y < h; y++) {
-      for (x = 0; x < w; x++) {
-#if G_BYTE_ORDER == G_LITTLE_ENDIAN
-        /* apparently BGR is required */
-        p2[x*4  ] = p1[x*3+2];
-        p2[x*4+1] = p1[x*3+1];
-        p2[x*4+2] = p1[x*3  ];
-        p2[x*4+3] = 0x80; /* should not matter */
-#else
-        p2[x*4+3] = p1[x*3+2];
-        p2[x*4+2] = p1[x*3+1];
-        p2[x*4+1] = p1[x*3  ];
-        p2[x*4+0] = 0x80; /* should not matter */
-#endif
-      }
-      p2 += (w*4);
-      p1 += rs;
-    }
-    surface = cairo_image_surface_create_for_data (p,
-                                                   CAIRO_FORMAT_RGB24,
-                                                   w,
-                                                   h,
-                                                   w * 4);
-    g_free (data);
-    data = p;
-  }
   cairo_save (renderer->cr);
   cairo_translate (renderer->cr, point->x, point->y);
-  cairo_scale (renderer->cr, width/w, height/h);
+  cairo_scale (renderer->cr, width / w, height / h);
   cairo_move_to (renderer->cr, 0.0, 0.0);
-  cairo_set_source_surface (renderer->cr, surface, 0.0, 0.0);
+  cairo_set_source_surface (renderer->cr, dia_image_get_surface (image), 0.0, 0.0);
+
   if (angle != 0.0) {
     DiaMatrix rotate;
-    Point center = { w/2, h/2  };
+    Point center = { w / 2, h / 2  };
 
     dia_matrix_set_rotate_around (&rotate, -G_PI * angle / 180.0, &center);
     cairo_pattern_set_matrix (cairo_get_source (renderer->cr), (cairo_matrix_t *) &rotate);
@@ -1227,9 +1102,6 @@ dia_cairo_renderer_draw_rotated_image (DiaRenderer *self,
 #endif
   cairo_paint (renderer->cr);
   cairo_restore (renderer->cr);
-  cairo_surface_destroy (surface);
-
-  g_free (data);
 
   DIAG_STATE (renderer->cr);
 }

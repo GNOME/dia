@@ -66,7 +66,7 @@ void             dia_image_set_mime_type     (DiaImage       *image,
 GdkPixbuf       *dia_image_get_scaled_pixbuf (DiaImage       *image,
                                               int             width,
                                               int             height);
-GdkPixbuf *dia_image_get_scaled_pixbuf (DiaImage *image, int width, int height);
+cairo_surface_t *dia_image_get_surface       (DiaImage       *self);
 
 G_END_DECLS
 
