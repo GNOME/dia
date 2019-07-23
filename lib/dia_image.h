@@ -26,37 +26,46 @@
 
 G_BEGIN_DECLS
 
-DiaImage *dia_image_get_broken(void);
+#define DIA_TYPE_IMAGE dia_image_get_type ()
 
-DiaImage *dia_image_load(const gchar *filename);
-DiaImage *dia_image_new_from_pixbuf(GdkPixbuf *pixbuf);
-void dia_image_add_ref(DiaImage *image);
-void dia_image_unref(DiaImage *image);
+G_DECLARE_FINAL_TYPE (DiaImage, dia_image, DIA, IMAGE, GObject)
 
-gboolean dia_image_save(DiaImage *image, const gchar *filename);
+DiaImage        *dia_image_get_broken        (void);
 
-int dia_image_width(const DiaImage *image);
-int dia_image_rowstride(const DiaImage *image);
-int dia_image_height(const DiaImage *image);
-/** Returns a copy of the RGB data in this image with any alpha stripped 
+DiaImage        *dia_image_load              (const gchar    *filename);
+DiaImage        *dia_image_new_from_pixbuf   (GdkPixbuf      *pixbuf);
+void             dia_image_add_ref           (DiaImage       *image);
+void             dia_image_unref             (DiaImage       *image);
+
+gboolean         dia_image_save              (DiaImage       *image,
+                                              const gchar    *filename);
+
+int              dia_image_width             (const DiaImage *image);
+int              dia_image_rowstride         (const DiaImage *image);
+int              dia_image_height            (const DiaImage *image);
+/** Returns a copy of the RGB data in this image with any alpha stripped
  * The returned buffer must be freed after use.
  * The buffer is laid out as dia_image_width*dia_image_rowstride*3 bytes.
  */
-guint8 *dia_image_rgb_data(const DiaImage *image);
+guint8          *dia_image_rgb_data          (const DiaImage *image);
 /** Returns a copy of the alpha data in this image, or NULL if none
  * The returned buffer must be freed after use.
  * The buffer is laid out as dia_image_width*dia_image_height bytes.
  */
-guint8 *dia_image_mask_data(const DiaImage *image);
+guint8          *dia_image_mask_data         (const DiaImage *image);
 /** Returns the RGBA data in this image, or NULL if there's no alpha.
  * Note that this is the raw data, not a copy.
  */
-const guint8 *dia_image_rgba_data(const DiaImage *image);
-const char *dia_image_filename(const DiaImage *image);
-const GdkPixbuf *dia_image_pixbuf (const DiaImage *image);
-const gchar *dia_image_get_mime_type (const DiaImage *image);
-void dia_image_set_mime_type (DiaImage *image, const gchar *mime_type);
+const guint8    *dia_image_rgba_data         (const DiaImage *image);
+const char      *dia_image_filename          (const DiaImage *image);
+const GdkPixbuf *dia_image_pixbuf            (const DiaImage *image);
+const gchar     *dia_image_get_mime_type     (const DiaImage *image);
+void             dia_image_set_mime_type     (DiaImage       *image,
+                                              const gchar    *mime_type);
 
+GdkPixbuf       *dia_image_get_scaled_pixbuf (DiaImage       *image,
+                                              int             width,
+                                              int             height);
 GdkPixbuf *dia_image_get_scaled_pixbuf (DiaImage *image, int width, int height);
 
 G_END_DECLS
