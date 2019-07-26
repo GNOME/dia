@@ -907,7 +907,7 @@ msgstr ""
 
 #: ../app/filedlg.c:425
 msgid "Save as"
-msgstr "Desa com"
+msgstr "Anomena i desa"
 
 #: ../app/filedlg.c:493
 msgid "Save Diagram"
@@ -8182,7 +8182,7 @@ msgstr "Targeta d'ordinador"
 
 #: ../sheets/ciscocomputer.sheet.in.h:29 ../sheets/Lights.sheet.in.h:14
 msgid "Scanner"
-msgstr "Escànner"
+msgstr "Escàner"
 
 #: ../sheets/ciscocomputer.sheet.in.h:30
 msgid "Tablet"
@@ -10384,7 +10384,7 @@ msgstr "Fluorescent"
 
 #: ../sheets/Lights.sheet.in.h:9
 msgid "Ellipsoidal Reflector Spotlight"
-msgstr "Projector amb reflector el·lipsoïdal"
+msgstr "Projector amb reflector el·lipsoidal"
 
 #: ../sheets/Lights.sheet.in.h:10
 msgid "Blinders"
