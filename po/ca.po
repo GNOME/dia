@@ -748,7 +748,7 @@ msgstr "Unió"
 
 #: ../app/disp_callbacks.c:263
 msgid "Difference"
-msgstr "Diferencia"
+msgstr "Diferència"
 
 #: ../app/disp_callbacks.c:264 ../app/menus.c:273
 msgid "Intersection"
