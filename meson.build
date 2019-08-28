@@ -2,22 +2,19 @@ project('dia',
         ['c', 'cpp'],
         version: '0.97.3',  # This is the base version, git suffix gets added using vcs_tag().
         meson_version: '>= 0.49',
-        default_options: []
+        default_options: ['warning_level=1']
 )
 
 cc = meson.get_compiler('c')
 conf = configuration_data()
 
-libglib_dep = dependency('glib-2.0',   version: '>= 2.50.3')
+libglib_dep = dependency('glib-2.0',   version: '>= 2.58')
 libgtk_dep  = dependency('gtk+-2.0',   version: '>= 2.24.31')
 libxml_dep  = dependency('libxml-2.0', version: '>= 2.9.4')
 #TODO: what are the minimum versions?
 gmodule_dep = dependency('gmodule-2.0')
 libzlib_dep = dependency('zlib')
 libcairo_dep = dependency('cairo')
-#TODO: this will become a hard dependency as part of GTK3 port.
-# Therefore, remove all references to HAVE_CAIRO
-conf.set('HAVE_CAIRO', 1)
 
 # Not required since not all platforms ship a separate libm.
 libm_dep = cc.find_library('m', required: false)
@@ -67,7 +64,7 @@ config_h_in = configure_file(output: 'config.h.in', configuration: conf)
 config_h = vcs_tag(input: config_h_in, output: 'config.h')
 
 gtk_ver = 'GDK_VERSION_2_24'
-glib_ver = 'GLIB_VERSION_2_50'
+glib_ver = 'GLIB_VERSION_2_58'
 add_project_arguments([
   '-DGDK_VERSION_MIN_REQUIRED=@0@'.format(gtk_ver),
   '-DGDK_VERSION_MAX_ALLOWED=@0@'.format(gtk_ver),
