@@ -48,9 +48,11 @@
             },
             "config-opts": [
                 "--disable-dependency-tracking",
+                "--disable-gtk-doc",
                 "--disable-gtk-doc-html",
                 "--disable-introspection",
-                "--with-xinput=xfree"
+                "--with-xinput=xfree",
+                "--disable-glibtest"
             ],
             "sources": [{
                     "type": "archive",
@@ -99,6 +101,16 @@
                 "url": "https://github.com/ibus/ibus/releases/download/1.5.20/ibus-1.5.20.tar.gz",
                 "sha256": "4cf1e5ca4b067a3bed3cdfa658d49ac597d817b2de627a1095214565f862d034"
             }]
+        },
+        {
+            "name": "intltool",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
+                    "md5": "12e517cac2b57a0121cda351570f1e63"
+                }
+            ]
         },
         {
             "name": "gnome-themes-extra",
