@@ -3,3 +3,5 @@ build/
 build-release/
 .vscode
 *.pyc
+build-aux/flatpak/build/
+.flatpak-builder

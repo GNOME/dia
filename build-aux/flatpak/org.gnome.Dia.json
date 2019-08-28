@@ -146,6 +146,16 @@
             ]
         },
         {
+            "name": "python2",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz",
+                    "md5": "f1a2ace631068444831d01485466ece0"
+                }
+            ]
+        },
+        {
             "name": "pygtk",
             "sources": [{
                 "type": "archive",
