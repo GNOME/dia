@@ -19,7 +19,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*!  \file dia-render-script-import.c import of dia-render-script either to 
+#define G_LOG_DOMAIN "DiaRS"
+
+/*!  \file dia-render-script-import.c import of dia-render-script either to
  * diagram with objects or maybe as one object */
 #include <config.h>
 
@@ -37,7 +39,7 @@
 /*!
  * \defgroup DiaRenderScriptImport Dia Render Script Import
  * \ingroup ImportFilters
- * \brief Importing _Layer, _DiaObject from their XML representation saved with _DrsRenderer 
+ * \brief Importing _Layer, _DiaObject from their XML representation saved with _DrsRenderer
  */
 
 static real
@@ -72,7 +74,7 @@ _parse_points (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
   GArray *arr = NULL;
-  
+
   if (str) {
     gint i;
     gchar **split = g_strsplit ((gchar *)str, " ", -1);
@@ -97,7 +99,7 @@ _parse_bezpoints (xmlNodePtr node, const char *attrib)
 {
   xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
   GArray *arr = NULL;
-  
+
   if (str) {
     gint i;
     gchar **split = g_strsplit ((gchar *)str, " ", -1);
@@ -111,7 +113,7 @@ _parse_bezpoints (xmlNodePtr node, const char *attrib)
       val = split[i];
       pt->type = val[0] == 'M' ? BEZ_MOVE_TO : (val[0] == 'L' ? BEZ_LINE_TO : BEZ_CURVE_TO);
       ep = (gchar *)val + 1;
-      
+
       pt->p1.x = ep ? g_ascii_strtod (ep, &ep) : 0;
       pt->p1.y = ep ? ++ep, g_ascii_strtod (ep, &ep) : 0;
       if (pt->type == BEZ_CURVE_TO) {
@@ -120,7 +122,7 @@ _parse_bezpoints (xmlNodePtr node, const char *attrib)
 	pt->p3.x = ep ? ++ep, g_ascii_strtod (ep, &ep) : 0;
 	pt->p3.y = ep ? ++ep, g_ascii_strtod (ep, &ep) : 0;
       }
-    }    
+    }
     g_strfreev(split);
     xmlFree(str);
   }
@@ -138,8 +140,8 @@ _parse_color (xmlNodePtr node, const char *attrib)
 
     if (n > 2) {
       val = g_new (Color, 1);
-      val->red   = r / 255.0; 
-      val->green = g / 255.0; 
+      val->red   = r / 255.0;
+      val->green = g / 255.0;
       val->blue  = b / 255.0;
       val->alpha = a / 255.0;
     }
@@ -370,7 +372,7 @@ find_child_named (xmlNodePtr node, const char *name)
 /*!
  * \brief Parse _DiaObject from the given node
  * Fill a GList* with objects which is to be put in a
- * diagram or a group by the caller. 
+ * diagram or a group by the caller.
  * Can be called recursively to allow groups in groups.
  * This is only using the render branch of the file, if the
  * object type is not registered with Dia. Otherwise the objects
@@ -384,7 +386,7 @@ read_items (xmlNodePtr startnode, DiaContext *ctx)
   GList *items = NULL;
 
   for (node = startnode; node != NULL; node = node->next) {
-    if (xmlIsBlankNode(node)) 
+    if (xmlIsBlankNode(node))
       continue;
     if (node->type != XML_ELEMENT_NODE)
       continue;
@@ -392,7 +394,7 @@ read_items (xmlNodePtr startnode, DiaContext *ctx)
       xmlChar *sType = xmlGetProp(node, (const xmlChar *)"type");
       const DiaObjectType *ot = object_get_type ((gchar *)sType);
       xmlNodePtr props = NULL, render = NULL;
-      
+
       props = find_child_named (node, "properties");
       render = find_child_named (node, "render");
 
@@ -412,8 +414,8 @@ read_items (xmlNodePtr startnode, DiaContext *ctx)
         Handle *handle1,*handle2;
 	DiaObject *o;
 
-	o = ot->ops->create(&startpoint, 
-                            ot->default_user_data, 
+	o = ot->ops->create(&startpoint,
+                            ot->default_user_data,
 			    &handle1,&handle2);
 	if (o) {
 	  object_load_props (o, props, ctx);
@@ -421,13 +423,14 @@ read_items (xmlNodePtr startnode, DiaContext *ctx)
 	}
       } else if (render) {
         DiaObject *o = _render_object (render, ctx);
-	if (o)
-	  items = g_list_append (items, o);
+        if (o) {
+          items = g_list_append (items, o);
+        }
       } else {
-	g_debug ("DRS-Import: %s?", node->name);
+        g_debug ("%s: DRS-Import: %s?", G_STRLOC, node->name);
       }
     } else {
-      g_debug ("DRS-Import: %s?", node->name);
+      g_debug ("%s: DRS-Import: %s?", G_STRLOC, node->name);
     }
   }
   return items;
@@ -441,7 +444,7 @@ read_items (xmlNodePtr startnode, DiaContext *ctx)
  * \ingroup DiaRenderScriptImport
  */
 gboolean
-import_drs (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data) 
+import_drs (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
   GList *item, *items;
   xmlDocPtr doc = xmlParseFile(filename);

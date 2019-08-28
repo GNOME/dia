@@ -21,6 +21,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#define G_LOG_DOMAIN "DiaSVG"
+
 #include <config.h>
 
 #include <stdio.h>
@@ -1443,34 +1445,49 @@ _node_read_viewbox (xmlNodePtr root, DiaMatrix **mat)
       y1 = g_ascii_strtod (vals[1], NULL);
       x2 = g_ascii_strtod (vals[2], NULL);
       y2 = g_ascii_strtod (vals[3], NULL);
-      g_debug ("viewBox(%f %f %f %f) = (%f,%f)\n", x1, y1, x2, y2, width, height);
+      g_debug ("%s: viewBox(%f %f %f %f) = (%f,%f)",
+               G_STRLOC,
+               x1,
+               y1,
+               x2,
+               y2,
+               width,
+               height);
       /* some basic sanity check */
       if (x2 > x1 && y2 > y1 && width > 0 && height > 0) {
-	if (!percent) {
-	  /* viwBox is x-min y-min width height - so only use the latter for scaling */
-	  xs = (real)x2 / width;
-	  ys = (real)y2 / height;
-	} else {
-	  xs = ys = DEFAULT_SVG_SCALE * (100.0 / sqrt(width*height));
-	}
-	/* plausibility check, strictly speaking these are not required to be the same
-	 * /or/ are they and Dia is writing a bogus viewBox?
-	 */
-	if (fabs((fabs (xs/ys) - 1.0) < 0.1) && fabs((fabs (ys/xs) - 1.0) < 0.1)) {
-	  user_scale = xs;
-	  g_debug ("viewBox(%f %f %f %f) scaling (%f,%f) -> %f\n", x1, y1, x2, y2, xs, ys, user_scale);
-	} else {
-	  /* the bigger the scale the smaller the objects */
-	  user_scale = MAX(xs, ys);
-#if 0 /* need to think about - might fly with preserveAspectRatio handling */
-	  if (mat) {
-	    DiaMatrix *m = g_new0 (DiaMatrix, 1);
-	    m->xx = xs > ys ? xs/ys : 1.0;
-	    m->yy = ys > xs ? ys/xs : 1.0;
-	    *mat = m;
-	  }
-#endif
-	}
+        if (!percent) {
+          /* viwBox is x-min y-min width height - so only use the latter for scaling */
+          xs = (real) x2 / width;
+          ys = (real) y2 / height;
+        } else {
+          xs = ys = DEFAULT_SVG_SCALE * (100.0 / sqrt(width*height));
+        }
+        /* plausibility check, strictly speaking these are not required to be the same
+        * /or/ are they and Dia is writing a bogus viewBox?
+        */
+        if (fabs ((fabs (xs/ys) - 1.0) < 0.1) && fabs ((fabs (ys/xs) - 1.0) < 0.1)) {
+          user_scale = xs;
+          g_debug ("%s: viewBox(%f %f %f %f) scaling (%f,%f) -> %f",
+                   G_STRLOC,
+                   x1,
+                   y1,
+                   x2,
+                   y2,
+                   xs,
+                   ys,
+                   user_scale);
+        } else {
+          /* the bigger the scale the smaller the objects */
+          user_scale = MAX (xs, ys);
+      #if 0 /* need to think about - might fly with preserveAspectRatio handling */
+          if (mat) {
+            DiaMatrix *m = g_new0 (DiaMatrix, 1);
+            m->xx = xs > ys ? xs/ys : 1.0;
+            m->yy = ys > xs ? ys/xs : 1.0;
+            *mat = m;
+          }
+      #endif
+        }
       }
     }
     g_strfreev (vals);

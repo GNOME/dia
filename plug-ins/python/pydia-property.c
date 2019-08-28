@@ -17,6 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#define G_LOG_DOMAIN "DiaPython"
+
 #include <config.h>
 
 #include <Python.h>
@@ -314,8 +316,9 @@ PyDia_set_Color (Property *prop, PyObject *val)
       p->color_data.blue = color.blue / 65535.0;
       p->color_data.alpha = 1.0;
       return 0;
-    } else
-      g_debug("Failed to parse color string '%s'", str);
+    } else {
+      g_debug ("%s: Failed to parse color string '%s'", G_STRLOC, str);
+    }
   } else if (PyTuple_Check (val)) {
     int i, len = PyTuple_Size(val);
     real f[3];
@@ -512,10 +515,13 @@ PyDia_set_BezPointArray(Property *prop, PyObject *val)
         bpt.p3.x = PyFloat_AsDouble(PyTuple_GetItem(o, 5));
         bpt.p3.y = PyFloat_AsDouble(PyTuple_GetItem(o, 6));
       } else {
-        if (0 == i && tp != BEZ_MOVE_TO)
-          g_debug("First bezpoint must be BEZ_MOVE_TO");
-        if (0 < i && tp != BEZ_LINE_TO)
-          g_debug("Further bezpoint must be BEZ_LINE_TO or BEZ_CURVE_TO");
+        if (0 == i && tp != BEZ_MOVE_TO) {
+          g_debug ("%s: First bezpoint must be BEZ_MOVE_TO", G_STRLOC);
+        }
+        if (0 < i && tp != BEZ_LINE_TO) {
+          g_debug ("%s: Further bezpoint must be BEZ_LINE_TO or BEZ_CURVE_TO",
+                   G_STRLOC);
+        }
 
         bpt.type = (0 == i) ? BEZ_MOVE_TO : BEZ_LINE_TO;
         /* not strictly needed */
@@ -665,7 +671,7 @@ PyDia_set_Array (Property *prop, PyObject *val)
 	setters[i] = (PyDiaPropSetFunc)prop_type_map[j].propset;
     }
     if (!setters[i]) {
-      g_debug("No setter for '%s'", ex->descr->type);
+      g_debug ("%s: No setter for '%s'", G_STRLOC, ex->descr->type);
       g_free(setters);
       return -1;
     }
@@ -689,28 +695,33 @@ PyDia_set_Array (Property *prop, PyObject *val)
       GPtrArray *record = g_ptr_array_new();
       guint j;
       if (!PyTuple_Check(t) || PyTuple_Size(t) != num_props) {
-        g_debug("PyDia_set_Array: %s.", !PyTuple_Check(t) ? "no tuple" : " wrong size");
-	ret = -1;
-	break;
+        g_debug ("%s: PyDia_set_Array: %s.",
+                 G_STRLOC,
+                 !PyTuple_Check(t) ? "no tuple" : " wrong size");
+        ret = -1;
+        break;
       }
       g_ptr_array_set_size(record, 0);
       for (j = 0; j < num_props; j++) {
-	Property *ex = g_ptr_array_index(p->ex_props, j);
-	Property *inner = ex->ops->copy(ex);
-	PyObject *v = PyTuple_GetItem(t, j);
+        Property *ex = g_ptr_array_index (p->ex_props, j);
+        Property *inner = ex->ops->copy (ex);
+        PyObject *v = PyTuple_GetItem (t, j);
 
-	if (0 != setters[j] (inner, v)) {
-	  if (Py_None == v) {
-            /* use just the defaults, setters don't need to handle this */
-	  } else {
-	    g_debug ("Failed to set '%s::%s' from '%s'",
-	      p->common.descr->name, inner->descr->name, v->ob_type->tp_name);
-	    inner->ops->free(inner);
-	    ret = -1;
-	    break;
-	  }
-	}
-	g_ptr_array_add(record, inner);
+        if (0 != setters[j] (inner, v)) {
+          if (Py_None == v) {
+                  /* use just the defaults, setters don't need to handle this */
+          } else {
+            g_debug ("%s: Failed to set '%s::%s' from '%s'",
+                     G_STRLOC,
+                     p->common.descr->name,
+                     inner->descr->name,
+                     v->ob_type->tp_name);
+            inner->ops->free (inner);
+            ret = -1;
+            break;
+          }
+        }
+        g_ptr_array_add (record, inner);
       }
       g_ptr_array_add(p->records, record);
       if (ret != 0)
@@ -821,11 +832,16 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
     int i;
 
     ensure_quarks();
-    for (i = 0; i < G_N_ELEMENTS(prop_type_map); i++)
-      if (prop_type_map[i].quark == self->property->type_quark)
-        return prop_type_map[i].propget(self->property);
-    if (0 == (PROP_FLAG_WIDGET_ONLY & self->property->descr->flags))
-      g_debug ("No handler for type '%s'", self->property->descr->type);
+    for (i = 0; i < G_N_ELEMENTS (prop_type_map); i++) {
+      if (prop_type_map[i].quark == self->property->type_quark) {
+        return prop_type_map[i].propget (self->property);
+      }
+    }
+    if (0 == (PROP_FLAG_WIDGET_ONLY & self->property->descr->flags)) {
+      g_debug ("%s: No handler for type '%s'",
+               G_STRLOC,
+               self->property->descr->type);
+    }
 
     Py_INCREF(Py_None);
     return Py_None;
@@ -861,24 +877,32 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
       prop_list_free (plist);
       return 0;
     } else {
-      g_debug("PyDiaProperty_ApplyToObject : no property conversion %s -> %s",
-	             inprop->descr->type, prop->descr->type);
+      g_debug ("%s: PyDiaProperty_ApplyToObject : no property conversion %s -> %s",
+               G_STRLOC,
+               inprop->descr->type,
+               prop->descr->type);
     }
   } else {
     int i;
     ensure_quarks();
     for (i = 0; i < G_N_ELEMENTS(prop_type_map); i++) {
       if (prop_type_map[i].quark == prop->type_quark) {
-	if (!prop_type_map[i].propset)
-	  g_debug("Setter for '%s' not implemented.", prop_type_map[i].type);
-	else if (0 == prop_type_map[i].propset(prop, val))
-	  ret = 0;
-	break;
+        if (!prop_type_map[i].propset) {
+          g_debug ("%s: Setter for '%s' not implemented.",
+                   G_STRLOC,
+                   prop_type_map[i].type);
+        } else if (0 == prop_type_map[i].propset(prop, val)) {
+          ret = 0;
+        }
+        break;
       }
     }
-    if (ret != 0)
-      g_debug("PyDiaProperty_ApplyToObject : no conversion %s -> %s",
-	             key, prop->descr->type);
+    if (ret != 0) {
+      g_debug ("%s: PyDiaProperty_ApplyToObject : no conversion %s -> %s",
+               G_STRLOC,
+               key,
+               prop->descr->type);
+    }
   }
 
   if (0 == ret) {

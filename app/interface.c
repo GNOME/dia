@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#define G_LOG_DOMAIN "Dia"
+
 #include <config.h>
 
 #include <gtk/gtk.h>
@@ -359,7 +361,7 @@ canvas_configure_event (GtkWidget         *widget,
 
   /* Only do this when size is really changing */
   if (width != cevent->width || height != cevent->height) {
-    g_print ("Canvas size change...\n");
+    g_debug ("%s: Canvas size change...", G_STRLOC);
     ddisplay_resize_canvas (ddisp, cevent->width, cevent->height);
     ddisplay_update_scrollbars(ddisp);
     /* on resize stop further propagation - does not help */
@@ -481,6 +483,7 @@ _ddisplay_setup_rulers (DDisplay *ddisp, GtkWidget *shell, GtkWidget *table)
   gtk_table_attach (GTK_TABLE (table), ddisp->vrule, 0, 1, 1, 2,
                     GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
 }
+
 static void
 _ddisplay_setup_events (DDisplay *ddisp, GtkWidget *shell)
 {
@@ -489,15 +492,24 @@ _ddisplay_setup_events (DDisplay *ddisp, GtkWidget *shell)
                          GDK_POINTER_MOTION_HINT_MASK |
                          GDK_FOCUS_CHANGE_MASK);
 
-  g_signal_connect (G_OBJECT (shell), "focus_out_event",
-		    G_CALLBACK (ddisplay_focus_out_event), ddisp);
-  g_signal_connect (G_OBJECT (shell), "focus_in_event",
-		    G_CALLBACK (ddisplay_focus_in_event), ddisp);
-  g_signal_connect (G_OBJECT (shell), "realize",
-		    G_CALLBACK (ddisplay_realize), ddisp);
-  g_signal_connect (G_OBJECT (shell), "unrealize",
-		    G_CALLBACK (ddisplay_unrealize), ddisp);
+  g_signal_connect (G_OBJECT (shell),
+                    "focus_out_event",
+                    G_CALLBACK (ddisplay_focus_out_event),
+                    ddisp);
+  g_signal_connect (G_OBJECT (shell),
+                    "focus_in_event",
+                    G_CALLBACK (ddisplay_focus_in_event),
+                    ddisp);
+  g_signal_connect (G_OBJECT (shell),
+                    "realize",
+                    G_CALLBACK (ddisplay_realize),
+                    ddisp);
+  g_signal_connect (G_OBJECT (shell),
+                    "unrealize",
+                    G_CALLBACK (ddisplay_unrealize),
+                    ddisp);
 }
+
 static void
 _ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int height)
 {
@@ -546,6 +558,7 @@ _ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *table, gboolean top_left
   if (!ddisp->origin)
     ddisp->origin = g_object_ref (navigation_button);
 }
+
 /**
  * @param ddisp The diagram display object that a window is created for
  * @param title

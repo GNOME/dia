@@ -19,6 +19,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#define G_LOG_DOMAIN "Dia"
+
 #include <config.h>
 
 #include <stdlib.h>
@@ -76,7 +78,7 @@ gboolean
 dia_plugin_info_init(PluginInfo *info,
 		     const gchar *name,
 		     const gchar *description,
-		     PluginCanUnloadFunc can_unload_func, 
+		     PluginCanUnloadFunc can_unload_func,
 		     PluginUnloadFunc unload_func)
 {
   g_free(info->name);
@@ -168,7 +170,7 @@ dia_plugin_load(PluginInfo *info)
 
   if (info->is_loaded)
     return;
-    
+
 #ifdef G_OS_WIN32
   /* suppress the systems error dialog, we can handle a plug-in not loadable */
   error_mode = SetErrorMode (SEM_FAILCRITICALERRORS|SEM_NOOPENFILEERRORBOX);
@@ -253,7 +255,7 @@ dia_register_plugin(const gchar *filename)
   GList *tmp;
   PluginInfo *info;
 
-  g_debug("Loading %s\n", filename);
+  g_debug ("%s: Loading %s", G_STRLOC, filename);
 
   /* check if plugin has already been registered */
   for (tmp = plugins; tmp != NULL; tmp = tmp->next) {
@@ -285,7 +287,7 @@ dia_register_plugin(const gchar *filename)
 typedef void (*ForEachInDirDoFunc)(const gchar *name);
 typedef gboolean (*ForEachInDirFilterFunc)(const gchar *name);
 
-static void 
+static void
 for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
                 ForEachInDirFilterFunc filter)
 {
@@ -313,14 +315,14 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
   g_dir_close(dp);
 }
 
-static gboolean 
+static gboolean
 directory_filter(const gchar *name)
 {
   return g_file_test (name, G_FILE_TEST_IS_DIR);
 }
 
-static gboolean 
-dia_plugin_filter(const gchar *name) 
+static gboolean
+dia_plugin_filter(const gchar *name)
 {
   return g_str_has_suffix(name, G_MODULE_SUFFIX)
       && g_file_test(name, G_FILE_TEST_IS_REGULAR);
@@ -329,7 +331,7 @@ dia_plugin_filter(const gchar *name)
 void
 dia_register_plugins_in_dir(const gchar *directory)
 {
-  g_debug("Registering plugins in %s\n", directory);
+  g_debug ("%s: Registering plugins in %s", G_STRLOC, directory);
 
   for_each_in_dir(directory, dia_register_plugin, dia_plugin_filter);
   for_each_in_dir(directory, dia_register_plugins_in_dir, directory_filter);
@@ -419,7 +421,7 @@ ensure_pluginrc(void)
     pluginrc = diaXmlParseFile(filename, ctx, FALSE);
   else
     pluginrc = NULL;
-  
+
   g_free(filename);
 
   if (!pluginrc) {
@@ -447,8 +449,8 @@ plugin_load_inhibited(const gchar *filename)
   xmlNodePtr node;
 
   ensure_pluginrc();
-  for (node = pluginrc->xmlRootNode->xmlChildrenNode; 
-       node != NULL; 
+  for (node = pluginrc->xmlRootNode->xmlChildrenNode;
+       node != NULL;
        node = node->next) {
     xmlChar *node_filename;
 
@@ -461,8 +463,8 @@ plugin_load_inhibited(const gchar *filename)
       xmlNodePtr node2;
 
       xmlFree(node_filename);
-      for (node2 = node->xmlChildrenNode; 
-           node2 != NULL; 
+      for (node2 = node->xmlChildrenNode;
+           node2 != NULL;
            node2 = node2->next) {
         if (xmlIsBlankNode(node2)) continue;
 	if (node2->type == XML_ELEMENT_NODE &&
@@ -491,8 +493,8 @@ info_fill_from_pluginrc(PluginInfo *info)
   info->unload_func = NULL;
 
   ensure_pluginrc();
-  for (node = pluginrc->xmlRootNode->xmlChildrenNode; 
-       node != NULL; 
+  for (node = pluginrc->xmlRootNode->xmlChildrenNode;
+       node != NULL;
        node = node->next) {
     xmlChar *node_filename;
 
@@ -505,8 +507,8 @@ info_fill_from_pluginrc(PluginInfo *info)
       xmlNodePtr node2;
 
       xmlFree(node_filename);
-      for (node2 = node->xmlChildrenNode; 
-           node2 != NULL; 
+      for (node2 = node->xmlChildrenNode;
+           node2 != NULL;
            node2 = node2->next) {
 	gchar *content;
 
@@ -557,8 +559,8 @@ dia_pluginrc_write(void)
     if (info->inhibit_load)
       (void)xmlNewChild(pluginnode, NULL, (const xmlChar *)"inhibit-load", NULL);
 
-    for (node = pluginrc->xmlRootNode->xmlChildrenNode; 
-         node != NULL; 
+    for (node = pluginrc->xmlRootNode->xmlChildrenNode;
+         node != NULL;
          node = node->next) {
       xmlChar *node_filename;
 
@@ -583,9 +585,9 @@ dia_pluginrc_write(void)
   }
 
   filename = dia_config_filename("pluginrc");
-  
+
   xmlDiaSaveFile(filename, pluginrc);
-  
+
   g_free(filename);
   free_pluginrc();
 }

@@ -21,6 +21,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+#define G_LOG_DOMAIN "DiaCustom"
+
 #include <config.h>
 
 #include <stdlib.h>
@@ -100,7 +103,7 @@ shape_info_getbyname(const gchar *name)
 /*!
  * \brief After loading and before drawing ShapeInfo needs to be realised
  * @param : the shape to realise
- * 
+ *
  * Puts the ShapeInfo into a form suitable for actual use (lazy loading)
  *
  * \extends _ShapeInfo
@@ -109,7 +112,7 @@ void
 shape_info_realise(ShapeInfo* info)
 {
   GList* tmp;
-  
+
   for (tmp = info->display_list; tmp != NULL; tmp = tmp->next) {
     GraphicElement *el = tmp->data;
     if (el->type == GE_TEXT) {
@@ -130,7 +133,7 @@ shape_info_realise(ShapeInfo* info)
       }
       text_calc_boundingbox(el->text.object, &el->text.text_bounds);
     }
-  }  
+  }
 }
 
 real
@@ -138,7 +141,7 @@ shape_info_get_default_width(ShapeInfo *info)
 {
   if (info->default_width == 0.0)
     info->default_width = DEFAULT_WIDTH;
-  
+
   return( info->default_width );
 }
 
@@ -147,7 +150,7 @@ shape_info_get_default_height(ShapeInfo *info)
 {
   if (info->default_height == 0.0)
     info->default_height = DEFAULT_HEIGHT;
-  
+
   return( info->default_height );
 }
 
@@ -205,10 +208,10 @@ is_subshape(xmlNode* node)
 
   if (xmlHasProp(node, (const xmlChar*)"subshape")) {
     xmlChar* value = xmlGetProp(node, (const xmlChar*)"subshape");
-    
+
     if (!strcmp((const char*)value, "true"))
       res = TRUE;
-    
+
     xmlFree(value);
   }
 
@@ -217,7 +220,7 @@ is_subshape(xmlNode* node)
 
 /*!
  * \brief Parse the SVG node from a shape file
- * 
+ *
  * Fill the ShapeInfo display list with GraphicElement each got from
  * a single node within the shape's SVG part.
  *
@@ -283,7 +286,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       }
       xmlFree(str);
       val = 0;
-      if (arr->len % 2 == 1) 
+      if (arr->len % 2 == 1)
         g_array_append_val(arr, val);
       poly = g_malloc0(sizeof(GraphicElementPoly) + arr->len/2*sizeof(Point));
       el = (GraphicElement *)poly;
@@ -314,7 +317,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       }
       xmlFree(str);
       val = 0;
-      if (arr->len % 2 == 1) 
+      if (arr->len % 2 == 1)
         g_array_append_val(arr, val);
       poly = g_malloc0(sizeof(GraphicElementPoly) + arr->len/2*sizeof(Point));
       el = (GraphicElement *)poly;
@@ -495,8 +498,11 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 
           image->image = dia_image_load(imgfn);
 	}
-        if (!image->image)
-          g_debug("failed to load image file %s", imgfn ? imgfn : "(data:)");
+        if (!image->image) {
+          g_debug ("%s: failed to load image file %s",
+                   G_STRLOC,
+                   imgfn ? imgfn : "(data:)");
+        }
         g_free(imgfn);
         xmlFree(str);
       }
@@ -513,9 +519,9 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         ShapeInfo* tmpinfo = g_new0(ShapeInfo, 1);
         xmlChar *v_anchor_attr = xmlGetProp(node, (const xmlChar*)"v_anchor");
         xmlChar *h_anchor_attr = xmlGetProp(node, (const xmlChar*)"h_anchor");
-      
+
         parse_svg_node(tmpinfo, node, svg_ns, &s, filename);
-        
+
         tmpinfo->shape_bounds.top = DBL_MAX;
         tmpinfo->shape_bounds.left = DBL_MAX;
         tmpinfo->shape_bounds.bottom = -DBL_MAX;
@@ -523,18 +529,18 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
 
         update_bounds( tmpinfo );
         update_bounds( info );
-        
+
         subshape->half_width = (tmpinfo->shape_bounds.right-tmpinfo->shape_bounds.left) / 2.0;
         subshape->half_height = (tmpinfo->shape_bounds.bottom-tmpinfo->shape_bounds.top) / 2.0;
         subshape->center.x = tmpinfo->shape_bounds.left + subshape->half_width;
         subshape->center.y = tmpinfo->shape_bounds.top + subshape->half_height;
-            
+
         subshape->type = GE_SUBSHAPE;
         subshape->display_list = tmpinfo->display_list;
         subshape->v_anchor_method = OFFSET_METHOD_FIXED;
         subshape->h_anchor_method = OFFSET_METHOD_FIXED;
         subshape->default_scale = 0.0;
-                
+
         if (!v_anchor_attr || !strcmp((const char*)v_anchor_attr,"fixed.top"))
           subshape->v_anchor_method = OFFSET_METHOD_FIXED;
         else if (v_anchor_attr && !strcmp((const char*)v_anchor_attr,"fixed.bottom"))
@@ -544,7 +550,7 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         else
           fprintf( stderr, "illegal v_anchor `%s', defaulting to fixed.top\n",
                    v_anchor_attr );
-          
+
         if (!h_anchor_attr || !strcmp((const char*)h_anchor_attr,"fixed.left"))
           subshape->h_anchor_method = OFFSET_METHOD_FIXED;
         else if (h_anchor_attr && !strcmp((const char*)h_anchor_attr,"fixed.right"))
@@ -554,15 +560,15 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
         else
           fprintf( stderr, "illegal h_anchor `%s', defaulting to fixed.left\n",
                    h_anchor_attr );
-        
+
         info->subshapes = g_list_append(info->subshapes, subshape);
-        
+
         /* gfree( tmpinfo );*/
         xmlFree(v_anchor_attr);
         xmlFree(h_anchor_attr);
-        
+
         el = (GraphicElement *)subshape;
-      }    
+      }
     }
     if (el) {
       el->any.s = s;
@@ -661,22 +667,22 @@ update_bounds(ShapeInfo *info)
       break;
     }
   }
-  
+
   {
     real width = info->shape_bounds.right-info->shape_bounds.left;
     real height = info->shape_bounds.bottom-info->shape_bounds.top;
-    
+
     if (info->default_width > 0.0 && info->default_height == 0.0) {
       info->default_height = (info->default_width / width) * height;
     } else if (info->default_height > 0.0 && info->default_width == 0.0) {
-      info->default_width = (info->default_height / height) * width;      
+      info->default_width = (info->default_height / height) * width;
     }
   }
 }
 
 /*!
  * \brief Contructor for ShapeInfo from file
- * 
+ *
  * Load the full shape info from file potentially reusing the preloaded
  * ShapeInfo loaded by shape_typeinfo_load()
  *
@@ -692,7 +698,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
   ShapeInfo *info;
   gchar *tmp;
   int i;
-  
+
   if (!doc) {
     g_warning("Custom shape parser error for %s\n%s", filename,
 	      error_xml ? error_xml->message : "");
@@ -723,14 +729,14 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
 
   if (preload)
     info = preload;
-  else 
+  else
     info = g_new0(ShapeInfo, 1);
   info->loaded = TRUE;
   info->shape_bounds.top = DBL_MAX;
   info->shape_bounds.left = DBL_MAX;
   info->shape_bounds.bottom = -DBL_MAX;
   info->shape_bounds.right = -DBL_MAX;
-  info->aspect_type = SHAPE_ASPECT_FREE; 
+  info->aspect_type = SHAPE_ASPECT_FREE;
   info->default_width = 0.0;
   info->default_height = 0.0;
   info->main_cp = -1;
@@ -742,7 +748,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
     if (node->type != XML_ELEMENT_NODE) continue;
     if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"name")) {
       tmp = (gchar *) xmlNodeGetContent(node);
-      if (preload) { 
+      if (preload) {
         if (strcmp (tmp, info->name) != 0)
           g_warning ("Shape(preload) '%s' can't change name '%s'", info->name, tmp);
         /* the key name is already used as key in name_to_info */
@@ -753,7 +759,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
       xmlFree(tmp);
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"icon")) {
       tmp = (gchar *) xmlNodeGetContent(node);
-      if (preload) { 
+      if (preload) {
         if (strstr (info->icon, tmp) == NULL) /* the left including the absolute path */
           g_warning ("Shape(preload) '%s' can't change icon '%s'", info->icon, tmp);
         /* the key name is already used as key in name_to_info */
@@ -766,8 +772,8 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
       GArray *arr = g_array_new(FALSE, FALSE, sizeof(Point));
       xmlNodePtr pt_node;
 
-      for (pt_node = node->xmlChildrenNode; 
-           pt_node != NULL; 
+      for (pt_node = node->xmlChildrenNode;
+           pt_node != NULL;
            pt_node = pt_node->next) {
         if (xmlIsBlankNode(pt_node)) continue;
 
@@ -806,7 +812,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
       info->object_flags |= DIA_OBJECT_CAN_PARENT;
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"textbox")) {
       xmlChar *str;
-      
+
       str = xmlGetProp(node, (const xmlChar *)"x1");
       if (str) {
 	info->text_bounds.left = g_ascii_strtod((gchar *) str, NULL);
@@ -838,7 +844,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
       info->text_align = ALIGN_CENTER;
       str = xmlGetProp(node, (const xmlChar *)"align");
       if (str) {
-	if (!xmlStrcmp(str, (const xmlChar *)"left")) 
+	if (!xmlStrcmp(str, (const xmlChar *)"left"))
 	  info->text_align = ALIGN_LEFT;
 	else if (!xmlStrcmp(str, (const xmlChar *)"right"))
 	  info->text_align = ALIGN_RIGHT;
@@ -877,12 +883,12 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
 	xmlFree(tmp);
       }
     } else if (node->ns == shape_ns && (!xmlStrcmp(node->name, (const xmlChar *)"default-width") || !xmlStrcmp(node->name, (const xmlChar *)"default-height"))) {
-      
+
       int j = 0;
       DiaUnitDef ud;
-      
+
       gdouble val = 0.0;
-      
+
       int unit_ssize = 0;
       int ssize = 0;
       tmp = (gchar *) xmlNodeGetContent(node);
@@ -903,7 +909,7 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
       } else {
         info->default_height = val;
       }
-      
+
       xmlFree(tmp);
     } else if (node->ns == svg_ns && !xmlStrcmp(node->name, (const xmlChar *)"svg")) {
       DiaSvgStyle s = {
