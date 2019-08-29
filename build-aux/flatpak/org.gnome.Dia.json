@@ -31,132 +31,24 @@
         "*.la",
         "*.a"
     ],
-    "modules": [{
-            "name": "gtk2",
-            "cleanup": [
-                "/bin",
-                "/share/gtk-2.0",
-                "/share/aclocal",
-                "/share/gtk-doc",
-                "/lib/pkgconfig",
-                "/lib/gtk-2.0/include",
-                "/include",
-                "*.la"
-            ],
-            "x-cpe": {
-                "product": "gtk+"
-            },
-            "config-opts": [
-                "--disable-dependency-tracking",
-                "--disable-gtk-doc",
-                "--disable-gtk-doc-html",
-                "--disable-introspection",
-                "--with-xinput=xfree",
-                "--disable-glibtest"
-            ],
-            "sources": [{
-                    "type": "archive",
-                    "url": "https://download.gnome.org/sources/gtk+/2.24/gtk+-2.24.32.tar.xz",
-                    "sha256": "b6c8a93ddda5eabe3bfee1eb39636c9a03d2a56c7b62828b359bf197943c582e"
-                },
-                {
-                    "type": "patch",
-                    "path": "gtk2-use-adwaita-theme.patch"
-                }
-            ]
-        },
+    "modules": [
+        "shared-modules/gtk2/gtk2.json",
+        "shared-modules/python2.7/python-2.7.json",
         {
-            "name": "ibus-gtk2",
-            "no-make-install": true,
-            "config-opts": [
-                "--disable-xim",
-                "--disable-dconf",
-                "--disable-gconf",
-                "--disable-memconf",
-                "--disable-schemas-compile",
-                "--disable-schemas-install",
-                "--disable-gtk3",
-                "--disable-setup",
-                "--disable-ui",
-                "--disable-engine",
-                "--disable-python-library",
-                "--disable-libnotify",
-                "--disable-emoji-dict",
-                "--disable-appindicator",
-                "--disable-glibtest",
-                "--disable-tests",
-                "--disable-unicode-dict",
-                "--disable-introspection",
-                "--disable-python2"
-            ],
-            "ensure-writable": [
-                "/lib/gtk-2.0/2.10.0/immodules.cache"
-            ],
-            "post-install": [
-                "install -m644 --target-directory=/app/lib/gtk-2.0/2.10.0/immodules client/gtk2/.libs/im-ibus.so",
-                "gtk-query-immodules-2.0 > /app/lib/gtk-2.0/2.10.0/immodules.cache"
-            ],
-            "sources": [{
-                "type": "archive",
-                "url": "https://github.com/ibus/ibus/releases/download/1.5.20/ibus-1.5.20.tar.gz",
-                "sha256": "4cf1e5ca4b067a3bed3cdfa658d49ac597d817b2de627a1095214565f862d034"
-            }]
-        },
-        {
-            "name": "intltool",
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
-                    "md5": "12e517cac2b57a0121cda351570f1e63"
-                }
-            ]
-        },
-        {
-            "name": "gnome-themes-extra",
-            "rm-configure": true,
-            "config-opts": [
-                "--disable-dependency-tracking",
-                "--disable-gtk3-engine"
-            ],
-            "cleanup": [
-                "/share/themes/Adwaita/gtk-3.0",
-                "/share/themes/Adwaita-dark/gtk-3.0",
-                "/share/themes/HighContrast/gtk-3.0",
-                "*.la"
-            ],
-            "sources": [{
-                    "type": "archive",
-                    "url": "https://download.gnome.org/sources/gnome-themes-extra/3.28/gnome-themes-extra-3.28.tar.xz",
-                    "sha256": "7c4ba0bff001f06d8983cfc105adaac42df1d1267a2591798a780bac557a5819"
-                },
-                {
-                    "type": "shell",
-                    "//": "We want to avoid generating icons as its 99% of the build time and gnome runtime has it",
-                    "commands": [
-                        "sed -i 's/icons//' themes/HighContrast/Makefile.am"
-                    ]
-                },
-                {
-                    "type": "script",
-                    "commands": [
-                        "autoreconf -fsi"
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "python2",
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz",
-                    "md5": "f1a2ace631068444831d01485466ece0"
-                }
-            ]
+        	"name": "pango",
+        	"sources": [
+        		{
+        			"type": "archive",
+        			"url": "https://ftp.acc.umu.se/pub/GNOME/sources/pango/1.38/pango-1.38.1.tar.xz",
+                	"sha256": "1320569f6c6d75d6b66172b2d28e59c56ee864ee9df202b76799c4506a214eb7"
+        		}
+        	]
         },
         {
             "name": "pygtk",
+            "config-opts": [
+                "--disable-docs"
+            ],
             "sources": [{
                 "type": "archive",
                 "url": "https://ftp.gnome.org/pub/GNOME/sources/pygtk/2.24/pygtk-2.24.0.tar.gz",
@@ -168,39 +60,29 @@
             }],
             "modules": [{
                     "name": "python2-pycairo",
-                    "rm-configure": true,
+                    "buildsystem": "meson",
+                    "config-opts": [
+                        "-Dpython=python2"
+                    ],
                     "sources": [{
                         "type": "archive",
-                        "url": "http://cairographics.org/releases/py2cairo-1.10.0.tar.bz2",
-                        "sha256": "d30439f06c2ec1a39e27464c6c828b6eface3b22ee17b2de05dc409e429a7431"
-                    },
-                    {
-                        "type": "script",
-                        "commands": [
-                            "libtoolize --force",
-                            "aclocal",
-                            "autoheader",
-                            "automake --force-missing --add-missing --foreign",
-                            "autoconf"
-                        ],
-                        "dest-filename": "autogen.sh"
+                        "url": "https://github.com/pygobject/pycairo/releases/download/v1.18.1/pycairo-1.18.1.tar.gz",
+                        "sha256": "70172e58b6bad7572a3518c26729b074acdde15e6fee6cbab6d3528ad552b786"
                     }]
                 },
                 {
                     "name": "pygobject",
-                    "config-opts": [ "--disable-introspection" ],
+                    "config-opts": [
+                    	"--disable-glibtest"
+                    ],
                     "cleanup": [
                         "/bin"
                     ],
                     "sources": [
                         {
                             "type": "archive",
-                            "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pygobject/2.21/pygobject-2.21.5.tar.gz",
-                            "sha256": "5be816798ee2a35037474e5186af7d04e9dc2b8d502c99443d359b883f026767"
-                        },
-                        {
-                            "type": "shell",
-                            "commands": [ "cp -p /usr/share/automake-*/config.{sub,guess} ." ]
+                            "url": "https://ftp.acc.umu.se/pub/GNOME/sources/pygobject/2.28/pygobject-2.28.7.tar.xz",
+                            "sha256": "bb9d25a3442ca7511385a7c01b057492095c263784ef31231ffe589d83a96a5a"
                         }
                     ]
                 }
