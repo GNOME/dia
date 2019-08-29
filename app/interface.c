@@ -334,6 +334,21 @@ close_notebook_page_callback (GtkButton *button,
   ddisplay_close (ddisp);
 }
 
+static void
+notebook_switch_page (GtkNotebook *notebook,
+                      GtkWidget   *page,
+                      guint        page_num,
+                      gpointer     user_data)
+{
+  DDisplay *ddisp = g_object_get_data (G_OBJECT (page), "DDisplay");
+
+  g_return_if_fail (ddisp != NULL);
+
+  display_set_active (ddisp);
+
+  gtk_widget_grab_focus (ddisp->canvas);
+}
+
 /*!
  * Called when the widget's window "size, position or stacking"
  * changes. Needs GDK_STRUCTURE_MASK set.
@@ -444,6 +459,8 @@ static GtkWidget *
 create_canvas (DDisplay *ddisp)
 {
   GtkWidget *canvas = gtk_drawing_area_new();
+
+  gtk_widget_set_can_focus (canvas, TRUE);
 
   gtk_widget_set_events (canvas,
                          GDK_EXPOSURE_MASK |
@@ -614,10 +631,6 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   /* Set events for new tab page */
   _ddisplay_setup_events (ddisp, ddisp->container);
 
-  notebook_page_index = gtk_notebook_append_page (GTK_NOTEBOOK(ui.diagram_notebook),
-                                                  ddisp->container,
-                                                  tab_label_container);
-
   g_object_set_data (G_OBJECT (ddisp->container), "DDisplay",  ddisp);
   g_object_set_data (G_OBJECT (ddisp->container), "tab-label", label);
   g_object_set_data (G_OBJECT (ddisp->container), "window",    ui.main_window);
@@ -666,6 +679,9 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_widget_show (ddisp->canvas);
 
   /* Show new page */
+  notebook_page_index = gtk_notebook_append_page (GTK_NOTEBOOK (ui.diagram_notebook),
+                                                  ddisp->container,
+                                                  tab_label_container);
   gtk_notebook_set_current_page (ui.diagram_notebook, notebook_page_index);
 
   integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
@@ -1025,6 +1041,12 @@ create_integrated_ui (void)
   notebook = gtk_notebook_new ();
   gtk_box_pack_end (GTK_BOX (hbox), notebook, TRUE, TRUE, 0);
   gtk_notebook_set_scrollable (GTK_NOTEBOOK (notebook), TRUE);
+
+  g_signal_connect (G_OBJECT (notebook),
+                    "switch-page",
+                    G_CALLBACK (notebook_switch_page),
+                    NULL);
+
   gtk_widget_show (notebook);
 
   /* Toolbox widget */
