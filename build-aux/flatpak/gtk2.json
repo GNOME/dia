@@ -65,7 +65,6 @@
         }
       ]
     },
-    "../intltool/intltool-0.51.json",
     {
       "name": "ibus-gtk2",
       "no-make-install": true,
