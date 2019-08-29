@@ -5,7 +5,7 @@ index 186a8f5cb2..f5c39b5afe 100644
 @@ -3000,6 +3000,50 @@ check_transform (const gchar *xsettings_name,
      return TRUE;
  }
-
+ 
 +static gchar *
 +gtk_rc_get_theme_dir (void)
 +{
@@ -56,7 +56,7 @@ index 186a8f5cb2..f5c39b5afe 100644
 @@ -3050,6 +3094,11 @@ gdk_screen_get_setting (GdkScreen   *screen,
    if (result != XSETTINGS_SUCCESS)
      goto out;
-
+ 
 +  if (strcmp (name, "gtk-theme-name") == 0 &&
 +      (setting->type != XSETTINGS_TYPE_STRING ||
 +       !theme_name_valid (setting)))
@@ -78,4 +78,3 @@ index 3fbbf00548..5c0a4b33d2 100644
  #endif
  								  GTK_PARAM_READWRITE),
                                               NULL);
-

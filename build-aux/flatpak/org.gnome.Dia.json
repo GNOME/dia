@@ -32,7 +32,7 @@
         "*.a"
     ],
     "modules": [
-        "shared-modules/gtk2/gtk2.json",
+        "gtk2.json",
         "shared-modules/python2.7/python-2.7.json",
         {
         	"name": "pango",
