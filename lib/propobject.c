@@ -37,30 +37,29 @@
 #include "object.h"
 
 const PropDescription *
-object_get_prop_descriptions(const DiaObject *obj) {
+object_get_prop_descriptions (const DiaObject *obj) {
   const PropDescription *pdesc;
-  if (!obj->ops->describe_props) return NULL;
 
-  pdesc = obj->ops->describe_props((DiaObject *)obj); /* Yes... */
+  pdesc = dia_object_describe_properties ((DiaObject *) obj); /* Yes... */
   if (!pdesc) return NULL;
 
   if (pdesc[0].quark != 0) return pdesc;
 
-  prop_desc_list_calculate_quarks((PropDescription *)pdesc); /* Yes again... */
+  prop_desc_list_calculate_quarks ((PropDescription *) pdesc); /* Yes again... */
   return pdesc;
 }
 
 const PropDescription *
-object_list_get_prop_descriptions(GList *objects, PropMergeOption option)
+object_list_get_prop_descriptions (GList *objects, PropMergeOption option)
 {
   GList *descs = NULL, *tmp;
   const PropDescription *pdesc;
 
   for (tmp = objects; tmp != NULL; tmp = tmp->next) {
     DiaObject *obj = tmp->data;
-    const PropDescription *desc = object_get_prop_descriptions(obj);
+    const PropDescription *desc = object_get_prop_descriptions (obj);
 
-    if (desc) descs = g_list_append(descs, (gpointer)desc);
+    if (desc) descs = g_list_append (descs, (gpointer)desc);
   }
 
   /* use intersection for single object's list because it is more
@@ -112,21 +111,19 @@ struct _ObjectPropChange {
 };
 
 static void
-object_prop_change_apply_revert(ObjectPropChange *change, DiaObject *obj)
+object_prop_change_apply_revert (ObjectPropChange *change, DiaObject *obj)
 {
   GPtrArray *old_props;
 
-  old_props = prop_list_copy_empty(change->saved_props);
+  old_props = prop_list_copy_empty (change->saved_props);
 
-  if (change->obj->ops->get_props)
-    change->obj->ops->get_props(change->obj, old_props);
+  dia_object_get_properties (change->obj, old_props);
 
   /* set saved property values */
-  if (change->obj->ops->set_props)
-    change->obj->ops->set_props(change->obj, change->saved_props);
+  dia_object_set_properties (change->obj, change->saved_props);
 
   /* move old props to saved properties */
-  prop_list_free(change->saved_props);
+  prop_list_free (change->saved_props);
   change->saved_props = old_props;
 }
 
@@ -137,12 +134,12 @@ object_prop_change_free(ObjectPropChange *change)
 }
 
 ObjectChange *
-object_apply_props(DiaObject *obj, GPtrArray *props)
+object_apply_props (DiaObject *obj, GPtrArray *props)
 {
   ObjectPropChange *change;
   GPtrArray *old_props;
 
-  change = g_new0(ObjectPropChange, 1);
+  change = g_new0 (ObjectPropChange, 1);
 
   change->obj_change.apply =
     (ObjectChangeApplyFunc) object_prop_change_apply_revert;
@@ -154,18 +151,16 @@ object_apply_props(DiaObject *obj, GPtrArray *props)
   change->obj = obj;
 
   /* create new properties structure with current values */
-  old_props = prop_list_copy_empty(props);
+  old_props = prop_list_copy_empty (props);
 
-  if (obj->ops->get_props)
-    obj->ops->get_props(obj, old_props);
+  dia_object_get_properties (obj, old_props);
 
   /* set saved property values */
-  if (obj->ops->set_props)
-    obj->ops->set_props(obj, props);
+  dia_object_set_properties (obj, props);
 
   change->saved_props = old_props;
 
-  return (ObjectChange *)change;
+  return (ObjectChange *) change;
 }
 
 /*!
@@ -236,17 +231,8 @@ object_apply_props_from_dialog(DiaObject *obj, WIDGET *dialog_widget)
     if ((p->experience & PXP_NOTSET) == 0)
       g_ptr_array_add(props, p);
   }
-  /* with an empty list there is no change at all but simply
-   * returning NULL is against the contract ...
-   */
-  if (!obj->ops->apply_properties_list) {
-    g_warning("using a fallback function to apply properties;"
-              " undo may not work correctly");
-    change = object_apply_props(obj, props);
-  } else {
-    change = obj->ops->apply_properties_list(obj, props);
-  }
-  g_ptr_array_free(props, TRUE);
+  change = dia_object_apply_properties (obj, props);
+  g_ptr_array_free (props, TRUE);
   return change;
 }
 
@@ -267,18 +253,6 @@ objects_comply_with_stdprop(GList *objects)
 gboolean
 object_complies_with_stdprop(const DiaObject *obj)
 {
-  if (obj->ops->set_props == NULL) {
-    g_warning("No set_props !");
-    return FALSE;
-  }
-  if (obj->ops->get_props == NULL) {
-    g_warning("No get_props !");
-    return FALSE;
-  }
-  if (obj->ops->describe_props == NULL) {
-    g_warning("No describe_props !");
-    return FALSE;
-  }
   if (object_get_prop_descriptions(obj) == NULL) {
     g_warning("No properties !");
     return FALSE;
@@ -287,13 +261,13 @@ object_complies_with_stdprop(const DiaObject *obj)
 }
 
 void
-object_list_get_props(GList *objects, GPtrArray *props)
+object_list_get_props (GList *objects, GPtrArray *props)
 {
   GList *tmp = objects;
 
   for (; tmp != NULL; tmp = tmp->next) {
-    DiaObject *obj = (DiaObject*)tmp->data;
-    obj->ops->get_props(obj,props);
+    DiaObject *obj = (DiaObject*) tmp->data;
+    dia_object_get_properties (obj, props);
   }
 }
 
@@ -304,27 +278,24 @@ pdtpp_do_save_no_standard_default (const PropDescription *pdesc)
 }
 
 void
-object_copy_props(DiaObject *dest, const DiaObject *src, gboolean is_default)
+object_copy_props (DiaObject *dest, const DiaObject *src, gboolean is_default)
 {
   GPtrArray *props;
 
-  g_return_if_fail(src != NULL);
-  g_return_if_fail(dest != NULL);
-  g_return_if_fail(strcmp(src->type->name,dest->type->name)==0);
-  g_return_if_fail(src->ops == dest->ops);
-  g_return_if_fail(object_complies_with_stdprop(src));
-  g_return_if_fail(object_complies_with_stdprop(dest));
+  g_return_if_fail (src != NULL);
+  g_return_if_fail (dest != NULL);
+  g_return_if_fail (g_strcmp0 (src->type->name, dest->type->name) == 0);
+  g_return_if_fail (object_complies_with_stdprop (src));
+  g_return_if_fail (object_complies_with_stdprop (dest));
 
-  props = prop_list_from_descs(object_get_prop_descriptions(src),
-                               (is_default?pdtpp_do_save_no_standard_default:
-				pdtpp_do_save));
+  props = prop_list_from_descs (object_get_prop_descriptions (src),
+                                (is_default ? pdtpp_do_save_no_standard_default:
+                                              pdtpp_do_save));
 
-  src->ops->get_props((DiaObject *)src, props); /* FIXME: really should make
-                                                get_props' first argument
-                                                a (const DiaObject *) */
-  dest->ops->set_props(dest, props);
+  dia_object_get_properties ((DiaObject *) src, props);
+  dia_object_set_properties (dest, props);
 
-  prop_list_free(props);
+  prop_list_free (props);
 }
 
 void
@@ -343,8 +314,8 @@ object_load_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
     /* context already has the message */
   }
 
-  obj->ops->set_props(obj, props);
-  prop_list_free(props);
+  dia_object_set_properties (obj, props);
+  prop_list_free (props);
 }
 
 void
@@ -359,9 +330,9 @@ object_save_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
   props = prop_list_from_descs(object_get_prop_descriptions(obj),
                                pdtpp_do_save);
 
-  obj->ops->get_props(obj, props);
-  prop_list_save(props,obj_node,ctx);
-  prop_list_free(props);
+  dia_object_get_properties (obj, props);
+  prop_list_save (props, obj_node, ctx);
+  prop_list_free (props);
 }
 
 Property *
@@ -385,9 +356,9 @@ object_prop_by_name_type(DiaObject *obj, const char *name, const char *type)
         plist = g_ptr_array_new();
         g_ptr_array_set_size(plist,1);
       }
-      prop = pdesc->ops->new_prop(pdesc,pdtpp_from_object);
-      g_ptr_array_index(plist,0) = prop;
-      obj->ops->get_props(obj,plist);
+      prop = pdesc->ops->new_prop (pdesc, pdtpp_from_object);
+      g_ptr_array_index (plist, 0) = prop;
+      dia_object_get_properties (obj, plist);
       return prop;
     }
   }

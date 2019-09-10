@@ -461,7 +461,7 @@ layer_find_closest_object_except(Layer *layer, Point *pos,
     obj = (DiaObject *) l->data;
 
     /* Check bounding box here too. Might give speedup. */
-    dist = obj->ops->distance_from(obj, pos);
+    dist = dia_object_distance_from (obj, pos);
 
     if (maxdist-dist > 0.00000001) {
       for (avoid_tmp = avoid; avoid_tmp != NULL; avoid_tmp = avoid_tmp->next) {

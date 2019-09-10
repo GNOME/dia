@@ -23,6 +23,8 @@
 
 G_BEGIN_DECLS
 
+#define DIA_GROUP(object) ((Group *) object)
+
 extern DIAVAR DiaObjectType group_type;
 
 /* Make sure there are no connections from objects to objects

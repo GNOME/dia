@@ -364,7 +364,7 @@ dia_cairo_renderer_draw_object (DiaRenderer *self,
     g_assert (sizeof (cairo_matrix_t) == sizeof (DiaMatrix));
     cairo_transform (renderer->cr, (cairo_matrix_t *) matrix);
   }
-  object->ops->draw (object, DIA_RENDERER (renderer));
+  dia_object_draw (object, DIA_RENDERER (renderer));
   if (matrix) {
     cairo_set_matrix (renderer->cr, &before);
   }

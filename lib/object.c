@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#define _DIA_OBJECT_BUILD 1
 #include "object.h"
 #include "diagramdata.h" /* for Layer */
 #include "message.h"
@@ -1275,4 +1276,441 @@ dia_object_type_get_icon (const DiaObjectType *type)
   }
 
   return pixbuf;
+}
+
+/**
+ * dia_object_draw:
+ * @self: The object to draw.
+ * @renderer: The #DiaRenderer object to draw with.
+ *
+ * Function responsible for drawing the object.
+ *
+ * Every drawing must be done through the use of the Renderer, so that we
+ * can render the picture on screen, in an eps file, ...
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+void
+dia_object_draw (DiaObject   *self,
+                 DiaRenderer *renderer)
+{
+  g_return_if_fail (self != NULL);
+  g_return_if_fail (self->ops->draw != NULL);
+
+  self->ops->draw (self, renderer);
+}
+
+/**
+ * dia_object_distance_from:
+ * @self: The object.
+ * @point: A #Point to give the distance to.
+ *
+ * Calculate the distance between the #DiaObject and the #Point.
+ *
+ * Several functions are provided in geometry.h to facilitate this calculus.
+ *
+ * Returns: The distance from the point to the nearest part of the object.
+ *          If the point is inside a closed object, return 0.0.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+double
+dia_object_distance_from (DiaObject *self,
+                          Point     *point)
+{
+  g_return_val_if_fail (self != NULL, 0.0);
+  g_return_val_if_fail (self->ops->distance_from != NULL, 0.0);
+
+  return self->ops->distance_from (self, point);
+}
+
+
+/**
+ * dia_object_select:
+ * @self: An object that is being selected.
+ * @point: is the point on the screen where the user has clicked
+ * @renderer: is a renderer that has some extra functions
+ *           most notably the possibility to get EXACT
+ *           measures of strings. Used to place cursors
+ *           and other interactive stuff.
+ *           (Don't draw to the renderer)
+ *
+ * Activate the selected state of the #DiaObject
+ *
+ * Function called once the object has been selected.
+ * Basically, this function should update the object (position of the
+ * handles,...)
+ * This function should not redraw the object.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+void
+dia_object_select (DiaObject   *self,
+                   Point       *point,
+                   DiaRenderer *renderer)
+{
+  g_return_if_fail (self != NULL);
+  g_return_if_fail (self->ops->selectf != NULL);
+
+  self->ops->selectf (self, point, renderer);
+}
+
+/**
+ * dia_object_clone:
+ * @self: An object to make a copy of.
+ *
+ * Copy constructor of #DiaObject.
+ *
+ * This must be an depth-copy (pointers must be duplicated and so on)
+ * as the initial object can be deleted any time.
+ *
+ * Returns: A newly allocated object copied from @self, but without any
+ *          connections to other objects.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+DiaObject *
+dia_object_clone (DiaObject *self)
+{
+  g_return_val_if_fail (self != NULL, NULL);
+  g_return_val_if_fail (self->ops->copy != NULL, NULL);
+
+  return self->ops->copy (self);
+}
+
+/**
+ * dia_object_move:
+ * @self: The object being moved.
+ * @to: Where the object is being moved to.
+ *      Its exact definition depends on the object. It is the point on the
+ *      object that 'snaps' to the grid if that is enabled. (generally it
+ *      is the upper left corner)
+ *
+ * Function called to move the entire object.
+ *
+ * Returns: An #ObjectChange with additional undo information, or
+ *          (in most cases) %NULL.  Undo for moving the object itself is
+ *          handled elsewhere.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+ObjectChange *
+dia_object_move (DiaObject *self,
+                 Point     *to)
+{
+  g_return_val_if_fail (self != NULL, NULL);
+  g_return_val_if_fail (self->ops->move != NULL, NULL);
+
+  return self->ops->move (self, to);
+}
+
+/**
+ * dia_object_move_handle:
+ * @self: The object whose handle is being moved.
+ * @handle: The handle being moved.
+ * @to: The position it has been moved to (corrected for
+ *      vertical/horizontal only movement).
+ * @cp: If non-%NULL, the connectionpoint found at this position.
+ *      If @a cp is %NULL, there may or may not be a connectionpoint.
+ * @reason: The reason the handle was moved.
+ * - %HANDLE_MOVE_USER means the user is dragging the point.
+ * - %HANDLE_MOVE_USER_FINAL means the user let go of the point.
+ * - %HANDLE_MOVE_CONNECTED means it was moved because something
+ *   it was connected to moved.
+ * - %HANDLE_MOVE_CREATE_FINAL: is given for resizing during creation
+ *   None of the given reasons is a reason to decline movement, typical
+ *   object implementations can safely ignore this parameter.
+ * @modifiers: gives a bitset of modifier keys currently held down
+ * - %MODIFIER_SHIFT is either shift key
+ * - %MODIFIER_ALT is either alt key
+ * - %MODIFIER_CONTROL is either control key
+ * Each has MODIFIER_LEFT_* and MODIFIER_RIGHT_* variants
+ *
+ * Function called to move one of the handles associated with the object.
+ *
+ * Returns: An #ObjectChange with additional undo information, or
+ *          (in most cases) %NULL.  Undo for moving the handle itself is handled
+ *          elsewhere.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+ObjectChange *
+dia_object_move_handle (DiaObject              *self,
+                        Handle                 *handle,
+                        Point                  *to,
+                        ConnectionPoint        *cp,
+                        HandleMoveReason        reason,
+                        ModifierKeys            modifiers)
+{
+  g_return_val_if_fail (self != NULL, NULL);
+  g_return_val_if_fail (self->ops->move_handle != NULL, NULL);
+
+  return self->ops->move_handle (self, handle, to, cp, reason, modifiers);
+}
+
+/**
+ * dia_object_get_editor:
+ * @self: An obj that this dialog is being made for.
+ * @is_default: If %TRUE, this dialog is for object defaults, and
+ *              the toolbox options should not be shown.
+ *
+ * Function called when the user has double clicked on an DiaObject.
+ *
+ * When this function is called and the dialog already is created,
+ * make sure to update the values in the widgets so that it
+ * accurately describes the current state of the object.
+ * Remember to destroy this dialog when the object is destroyed!
+
+ * Note that if you want to use the same dialog multiple times,
+ * you should ref it first.  Just run the following on the widget
+ * when you create it:
+ *   g_object_ref_sink(widget);
+ * If you don't do this, the widget will be destroyed when the
+ * properties dialog is closed.
+ *
+ * Returns: A dialog to edit the properties of the object.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+GtkWidget *
+dia_object_get_editor (DiaObject *self,
+                       gboolean   is_default)
+{
+  g_return_val_if_fail (self != NULL, NULL);
+  g_return_val_if_fail (self->ops->get_properties != NULL, NULL);
+
+  return self->ops->get_properties (self, is_default);
+}
+
+/**
+ * dia_object_apply_editor:
+ * @self: The object whose dialog has had its Apply button clicked.
+ * @editor: The properties dialog being applied.
+ *
+ * Function is called when the user clicks on the "Apply" button.
+ *
+ * The widget parameter is the one created by
+ * the get_properties function.
+ *
+ * Returns: a #Change that can be used for undo/redo, The returned change is
+ *          already applied.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+ObjectChange *
+dia_object_apply_editor (DiaObject *self,
+                         GtkWidget *editor)
+{
+  g_return_val_if_fail (self != NULL, NULL);
+  g_return_val_if_fail (self->ops->apply_properties_from_dialog != NULL, NULL);
+
+  return self->ops->apply_properties_from_dialog (self, editor);
+}
+
+/**
+ * dia_object_get_menu:
+ * @self: The object that is selected when the object menu is asked for.
+ * @at: Where the user clicked. This can be used to place whatever
+ *      the menu point may create, such as new segment corners.
+ *
+ * Return an object-specific menu with toggles etc. properly set.
+ *
+ * Returns: A menu description with values set appropriately for this object.
+ * The description object must not be freed by the caller.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+DiaMenu *
+dia_object_get_menu (DiaObject *self,
+                     Point     *at)
+{
+  g_return_val_if_fail (self != NULL, NULL);
+  g_return_val_if_fail (self->ops->get_object_menu != NULL, NULL);
+
+  return self->ops->get_object_menu (self, at);
+}
+
+/**
+ * dia_object_describe_properties:
+ * @self: The object whose properties we want described.
+ *
+ * Describe the properties that this object supports.
+ *
+ * Returns: a %NULL-terminated array of property descriptions.
+ * As the const return implies the returned data is not owned by the
+ * caller. If this function returns a dynamically created description,
+ * then DestroyFunc must free the description.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+const PropDescription *
+dia_object_describe_properties (DiaObject *self)
+{
+  g_return_val_if_fail (self != NULL, NULL);
+  g_return_val_if_fail (self->ops->describe_props != NULL, NULL);
+
+  return self->ops->describe_props (self);
+}
+
+/**
+ * dia_object_get_properties:
+ * @self: An object that delivers the values.
+ * @list: (out): A list of #Property objects whose values are to be set based
+ *         on the objects internal data. The types for the objects are
+ *         also being set as a side-effect.
+ *
+ * Get the actual values of the properties given.
+ *
+ * Note that the props array need not contain all the properties
+ * defined for the object, nor do all the properties in the array need be
+ * defined for the object. All properties in the props array that are
+ * actually set will be set.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+void
+dia_object_get_properties (DiaObject *self,
+                           GPtrArray *list)
+{
+  g_return_if_fail (self != NULL);
+  g_return_if_fail (self->ops->get_props != NULL);
+
+  self->ops->get_props (self, list);
+}
+
+/**
+ * dia_object_set_properties:
+ * @self: An object to update values on.
+ * @list: An array of #Property objects whose values are to be set on
+ *        the object.
+ *
+ * Set the object to have the values defined in the properties list.
+ *
+ * Note that the props array may contain more or fewer properties than the
+ * object defines, but only and all the ones defined for the object will
+ * be applied to the object.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+void
+dia_object_set_properties (DiaObject *self,
+                           GPtrArray *list)
+{
+  g_return_if_fail (self != NULL);
+  g_return_if_fail (self->ops->set_props != NULL);
+
+  self->ops->set_props (self, list);
+}
+
+
+/**
+ * dia_object_apply_properties:
+ * @self: The object to which properties are to be applied
+ * @list: The list of properties that are to be applied
+ *
+ * Function used to apply a list of properties to the object.
+ *
+ * It is typically called by ApplyPropertiesDialogFunc. This
+ * is different from SetPropsFunc since this is used to implement
+ * undo/redo.
+ *
+ * Returns: a #Change for undo/redo
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+ObjectChange *
+dia_object_apply_properties (DiaObject *self,
+                             GPtrArray *list)
+{
+  g_return_val_if_fail (self != NULL, NULL);
+  g_return_val_if_fail (self->ops->apply_properties_list != NULL, NULL);
+
+  return self->ops->apply_properties_list (self, list);
+}
+
+/**
+ * dia_object_edit_text:
+ * @self: The self object
+ * @text: The text entry being edited
+ * @state: The state of the editing, either %TEXT_EDIT_START,
+ * %TEXT_EDIT_INSERT, %TEXT_EDIT_DELETE, or %TEXT_EDIT_END.
+ * @textchange: For %TEXT_EDIT_INSERT, the text about to be inserted.
+ * For %TEXT_EDIT_DELETE, the text about to be deleted.
+ *
+ * Update the text part of an object
+ *
+ * This function, if not null, will be called every time the text is changed
+ * or editing starts or stops.
+ *
+ * Returns: For %TEXT_EDIT_INSERT and %TEXT_EDIT_DELETE, %TRUE this change
+ * will be allowed, %FALSE otherwise. For %TEXT_EDIT_START and %TEXT_EDIT_END,
+ * the return value is ignored.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+gboolean
+dia_object_edit_text (DiaObject     *self,
+                      Text          *text,
+                      TextEditState  state,
+                      gchar         *textchange)
+{
+  g_return_val_if_fail (self != NULL, FALSE);
+  g_return_val_if_fail (self->ops->edit_text != NULL, FALSE);
+
+  return self->ops->edit_text (self, text, state, textchange);
+}
+
+/**
+ * dia_object_transform:
+ * @self: Explicit this pointer
+ * @m: The transformation matrix
+ *
+ * Transform the object with the given matrix
+ *
+ * This function - if not null - will apply the transformation matrix to the
+ * object. It should be implemented for every standard object, because it's
+ * main use-case is the support of transformations from SVG.
+ *
+ * Returns: %TRUE if the matrix can be applied to the object, %FALSE otherwise.
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+gboolean
+dia_object_transform (DiaObject       *self,
+                      const DiaMatrix *m)
+{
+  g_return_val_if_fail (self != NULL, FALSE);
+  g_return_val_if_fail (self->ops->transform != NULL, FALSE);
+
+  return self->ops->transform (self, m);
 }

@@ -30,7 +30,7 @@
  * \brief Renderer which does affine transform rendering
  *
  * The transform renderer does not produce any external output by itself. It
- * directly delegates it's results to the worker renderer. 
+ * directly delegates it's results to the worker renderer.
  *
  * \extends _DiaRenderer
  */
@@ -40,7 +40,7 @@ struct _DiaTransformRenderer
 
   DiaRenderer *worker; /*!< the renderer with real output */
 
-  GQueue *matrices; 
+  GQueue *matrices;
 };
 
 struct _DiaTransformRendererClass
@@ -193,8 +193,8 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_line(DiaRenderer *self, 
-	  Point *start, Point *end, 
+draw_line(DiaRenderer *self,
+	  Point *start, Point *end,
 	  Color *line_colour)
 {
   Point p1 = *start;
@@ -209,8 +209,8 @@ draw_line(DiaRenderer *self,
   DIA_RENDERER_GET_CLASS (renderer->worker)->draw_line (renderer->worker, &p1, &p2, line_colour);
 }
 static void
-_polyline(DiaRenderer *self, 
-	  Point *points, int num_points, 
+_polyline(DiaRenderer *self,
+	  Point *points, int num_points,
 	  Color *fill, Color *stroke,
 	  gboolean closed)
 {
@@ -234,8 +234,8 @@ _polyline(DiaRenderer *self,
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_polyline(DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polyline(DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *stroke)
 {
   _polyline (self, points, num_points, NULL, stroke, FALSE);
@@ -245,15 +245,15 @@ draw_polyline(DiaRenderer *self,
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_polygon(DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polygon(DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *fill, Color *stroke)
 {
   _polyline (self, points, num_points, fill, stroke, TRUE);
 }
 /* ToDo: arc and ellipse to be emulated by bezier - in base class? */
 static void
-_bezier (DiaRenderer *self, 
+_bezier (DiaRenderer *self,
 	 BezPoint *points, int num_points,
 	 Color *fill, Color *stroke,
 	 gboolean closed)
@@ -276,7 +276,7 @@ _bezier (DiaRenderer *self,
     g_return_if_fail (fill == NULL && "fill for stroke?");
 }
 static void
-_arc (DiaRenderer *self, 
+_arc (DiaRenderer *self,
       Point *center,
       real width, real height,
       real angle1, real angle2,
@@ -292,7 +292,7 @@ _arc (DiaRenderer *self,
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_arc (DiaRenderer *self, 
+draw_arc (DiaRenderer *self,
 	  Point *center,
 	  real width, real height,
 	  real angle1, real angle2,
@@ -305,7 +305,7 @@ draw_arc (DiaRenderer *self,
  * \memberof _DiaTransformRenderer
  */
 static void
-fill_arc (DiaRenderer *self, 
+fill_arc (DiaRenderer *self,
 	  Point *center,
 	  real width, real height,
 	  real angle1, real angle2,
@@ -318,7 +318,7 @@ fill_arc (DiaRenderer *self,
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_ellipse (DiaRenderer *self, 
+draw_ellipse (DiaRenderer *self,
 	      Point *center,
 	      real width, real height,
 	      Color *fill, Color *stroke)
@@ -333,7 +333,7 @@ draw_ellipse (DiaRenderer *self,
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_bezier (DiaRenderer *self, 
+draw_bezier (DiaRenderer *self,
 	     BezPoint *points,
 	     int numpoints,
 	     Color *color)
@@ -345,7 +345,7 @@ draw_bezier (DiaRenderer *self,
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_beziergon (DiaRenderer *self, 
+draw_beziergon (DiaRenderer *self,
 		BezPoint *points, /* Last point must be same as first point */
 		int numpoints,
 		Color *fill,
@@ -357,9 +357,9 @@ draw_beziergon (DiaRenderer *self,
  * \brief Transform the text object while drawing
  * \memberof _DiaTransformRenderer
  */
-static void 
+static void
 draw_text (DiaRenderer *self,
-	   Text        *text) 
+	   Text        *text)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
@@ -496,12 +496,12 @@ draw_image(DiaRenderer *self,
 static void
 draw_object (DiaRenderer *self,
 	     DiaObject   *object,
-	     DiaMatrix   *matrix) 
+	     DiaMatrix   *matrix)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
   g_return_if_fail (renderer->worker != NULL);
-  
+
   if (matrix) {
     DiaMatrix *m2 = g_new (DiaMatrix, 1);
     if (m)
@@ -511,9 +511,10 @@ draw_object (DiaRenderer *self,
     g_queue_push_tail (renderer->matrices, m2);
   }
   /* This will call us again */
-  object->ops->draw(object, DIA_RENDERER (renderer));
-  if (matrix)
+  dia_object_draw (object, DIA_RENDERER (renderer));
+  if (matrix) {
     g_free (g_queue_pop_tail (renderer->matrices));
+  }
 }
 
 /*!

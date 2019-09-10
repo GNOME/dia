@@ -94,7 +94,7 @@ rectangle_in_rectangle(const Rectangle* outer, const Rectangle *inner)
        (inner->top < outer->top) ||
        (inner->bottom > outer->bottom))
     return FALSE;
-  
+
   return TRUE;
 }
 
@@ -171,11 +171,11 @@ distance_line_point(const Point *line_start, const Point *line_end,
   }
 
   projlen = point_dot(&v1,&v2) / v1_lensq;
-  
+
   if (projlen<0.0) {
     return sqrt(point_dot(&v2,&v2));
   }
-  
+
   if (projlen>1.0) {
     Point v3 = *point;
     point_sub(&v3,line_end);
@@ -191,7 +191,7 @@ distance_line_point(const Point *line_start, const Point *line_end,
   if (perp_dist < 0.0) {
     perp_dist = 0.0;
   }
-  
+
   return perp_dist;
 }
 
@@ -239,10 +239,10 @@ distance_polygon_point(const Point *poly, guint npoints, real line_width,
 
 /* if cross is not NULL, it will be incremented for each ray crossing */
 static real
-bez_point_distance_and_ray_crosses(const Point *b1, 
-                                   const Point *b2, const Point *b3, 
+bez_point_distance_and_ray_crosses(const Point *b1,
+                                   const Point *b2, const Point *b3,
                                    const Point *b4,
-				   real line_width, const Point *point, 
+				   real line_width, const Point *point,
                                    guint *cross)
 {
   static gboolean calculated_coeff = FALSE;
@@ -287,7 +287,7 @@ bez_point_distance_and_ray_crosses(const Point *b1,
 }
 
 real
-distance_bez_seg_point(const Point *b1, const BezPoint *b2, 
+distance_bez_seg_point(const Point *b1, const BezPoint *b2,
 		       real line_width, const Point *point)
 {
   if (b2->type == BEZ_CURVE_TO)
@@ -296,7 +296,7 @@ distance_bez_seg_point(const Point *b1, const BezPoint *b2,
   else
     return distance_line_point(b1, &b2->p1, line_width, point);
 }
-			     
+
 real
 distance_bez_line_point(const BezPoint *b, guint npoints,
 			real line_width, const Point *point)
@@ -395,7 +395,7 @@ distance_ellipse_point(const Point *centre, real width, real height,
 		       real line_width, const Point *point)
 {
   /* A faster intersection method would be to scaled the ellipse and the
-   * point to where the ellipse is a circle, intersect with the circle, 
+   * point to where the ellipse is a circle, intersect with the circle,
    * then scale back.
    */
   real w2 = width*width, h2 = height*height;
@@ -616,7 +616,7 @@ fillet(Point *p1, Point *p2, Point *p3, Point *p4,
   return TRUE;
 }
 
-int 
+int
 three_point_circle (const Point *p1, const Point *p2, const Point *p3,
                     Point* center, real* radius)
 {
@@ -649,7 +649,7 @@ three_point_circle (const Point *p1, const Point *p2, const Point *p3,
 
 
 /* moved this here since it is being reused by rounded polyline code*/
-real 
+real
 point_cross(Point *p1, Point *p2)
 {
   return p1->x * p2->y - p2->x * p1->y;
@@ -659,7 +659,7 @@ point_cross(Point *p1, Point *p2)
 /* Computes one point between end and objmid which
  * touches the edge of the object */
 Point
-calculate_object_edge(Point *objmid, Point *end, DiaObject *obj) 
+calculate_object_edge(Point *objmid, Point *end, DiaObject *obj)
 {
 #define MAXITER 25
 #ifdef TRACE_DIST
@@ -676,12 +676,12 @@ calculate_object_edge(Point *objmid, Point *end, DiaObject *obj)
   mid3 = *end;
 
   /* If the other end is inside the object */
-  dist = obj->ops->distance_from(obj, &mid3);
+  dist = dia_object_distance_from (obj, &mid3);
   if (dist < 0.001) return mid1;
 
 
   do {
-    dist = obj->ops->distance_from(obj, &mid2);
+    dist = dia_object_distance_from (obj, &mid2);
     if (dist < 0.0000001) {
       mid1 = mid2;
     } else {
@@ -695,7 +695,7 @@ calculate_object_edge(Point *objmid, Point *end, DiaObject *obj)
 #endif
     i++;
   } while (i < MAXITER && (dist < 0.0000001 || dist > 0.001));
-  
+
 #ifdef TRACE_DIST
   if (i == MAXITER) {
     for (i = 0; i < MAXITER; i++) {
@@ -713,7 +713,7 @@ calculate_object_edge(Point *objmid, Point *end, DiaObject *obj)
  * @param matrix matrix to check
  * \extends _DiaMatrix
  */
-gboolean 
+gboolean
 dia_matrix_is_identity (const DiaMatrix *matrix)
 {
   const real epsilon = 1e-6;
@@ -788,7 +788,7 @@ dia_matrix_get_angle_and_scales (const DiaMatrix *m,
   len1 = sqrt(rxx * rxx + ryx * ryx);
   len2 = sqrt(rxy * rxy + ryy * ryy);
   no_skew = fabs(len1 - len2) < epsilon;
-  
+
   angle = atan2(ryx, rxx);
   if (a)
     *a = angle;
@@ -810,7 +810,7 @@ dia_matrix_get_angle_and_scales (const DiaMatrix *m,
  * @param sy vertical scale
  * \extends _DiaMatrix
  */
-void 
+void
 dia_matrix_set_angle_and_scales (DiaMatrix *m,
                                  real       a,
 				 real       sx,

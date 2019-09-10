@@ -104,7 +104,7 @@ group_distance_from(Group *group, Point *point)
   Point tp = *point;
 
   dist = 100000.0;
-  
+
   if (group->matrix) {
     DiaMatrix mi = *group->matrix;
 
@@ -117,12 +117,12 @@ group_distance_from(Group *group, Point *point)
   list = group->objects;
   while (list != NULL) {
     obj = (DiaObject *) list->data;
-    
-    dist = MIN(dist, obj->ops->distance_from(obj, &tp));
 
-    list = g_list_next(list);
+    dist = MIN (dist, dia_object_distance_from (obj, &tp));
+
+    list = g_list_next (list);
   }
-  
+
   return dist;
 }
 
@@ -136,7 +136,7 @@ static void
 group_update_handles(Group *group)
 {
   Rectangle *bb = &group->object.bounding_box;
-  
+
   group->handles[0].id = HANDLE_RESIZE_NW;
   group->handles[0].pos.x = bb->left;
   group->handles[0].pos.y = bb->top;
@@ -173,7 +173,7 @@ group_update_handles(Group *group)
 /*! \brief Update connection points positions of contained objects
  *  BEWARE: must only be called _once_ per update run!
  */
-static void 
+static void
 group_update_connectionpoints(Group *group)
 {
 #if 0
@@ -223,7 +223,7 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
   /* before and after width and height */
   real w0, h0, w1, h1;
   Point fixed;
-  
+
   assert(handle->id>=HANDLE_RESIZE_NW);
   assert(handle->id<=HANDLE_RESIZE_SE);
 
@@ -318,12 +318,12 @@ group_move(Group *group, Point *to)
   delta = *to;
   pos = group->object.position;
   point_sub(&delta, &pos);
-  
-  /* We don't need any transformation of delta, because 
+
+  /* We don't need any transformation of delta, because
    * group_update_data () maintains the relative position.
    */
   group_objects_move_delta(group, &delta);
-  
+
   group_update_data(group);
 
   return NULL;
@@ -344,7 +344,7 @@ group_draw(Group *group, DiaRenderer *renderer)
   }
 }
 
-void 
+void
 group_destroy_shallow(DiaObject *obj)
 {
   Group *group = (Group *)obj;
@@ -364,7 +364,7 @@ group_destroy_shallow(DiaObject *obj)
   g_free(group);
 }
 
-static void 
+static void
 group_destroy(Group *group)
 {
   DiaObject *obj = &group->object;
@@ -374,7 +374,7 @@ group_destroy(Group *group)
   /* ConnectionPoints in the inner objects have already
      been unconnected and freed. */
   obj->num_connections = 0;
-  
+
   prop_desc_list_free_handler_chain((PropDescription *)group->pdesc);
   g_free((PropDescription *)group->pdesc);
 
@@ -382,7 +382,7 @@ group_destroy(Group *group)
 
   object_destroy(obj);
 }
-/*! Accessor for visible/usable number of connections for app/ 
+/*! Accessor for visible/usable number of connections for app/
  *
  * Should probably become a DiaObject member when more objects need
  * such special handling.
@@ -406,19 +406,19 @@ group_copy(Group *group)
   DiaObject *listobj;
   GList *list;
   int num_conn, i;
-    
+
   obj = &group->object;
-  
+
   newgroup =  g_new0(Group,1);
   newobj = &newgroup->object;
 
   object_copy(obj, newobj);
-  
+
   for (i=0;i<8;i++) {
     newobj->handles[i] = &newgroup->handles[i];
     newgroup->handles[i] = group->handles[i];
   }
-  
+
   newgroup->matrix = g_memdup(group->matrix, sizeof(DiaMatrix));
 
   newgroup->objects = object_copy_list(group->objects);
@@ -433,7 +433,7 @@ group_copy(Group *group)
       /* Make connectionpoints be that of the 'inner' objects: */
       newobj->connections[num_conn++] = listobj->connections[i];
     }
-    
+
     list = g_list_next(list);
   }
 
@@ -458,14 +458,14 @@ group_update_data(Group *group)
     list = g_list_next(list);
     while (list != NULL) {
       obj = (DiaObject *) list->data;
-      
+
       rectangle_union(&group->object.bounding_box, &obj->bounding_box);
-      
+
       list = g_list_next(list);
     }
 
     obj = (DiaObject *) group->objects->data;
-    
+
     /* Move group by the point of the first object, otherwise a group
        with all objects on grid might be moved off grid. */
     group->object.position = obj->position;
@@ -539,10 +539,10 @@ group_create(GList *objects)
   g_return_val_if_fail (objects != NULL, NULL);
 
   group = g_new0(Group,1);
-  obj = &group->object;
+  obj = DIA_OBJECT (group);
 
   obj->type = &group_type;
-  
+
   obj->ops = &group_ops;
 
   group->objects = objects;
@@ -558,10 +558,10 @@ group_create(GList *objects)
     part_obj = (DiaObject *) list->data;
 
     num_conn += dia_object_get_num_connections(part_obj);
-    
+
     list = g_list_next(list);
   }
-  
+
   object_init(obj, 8, num_conn);
 
   /* Make connectionpoints be that of the 'inner' objects: */
@@ -573,7 +573,7 @@ group_create(GList *objects)
     for (i=0;i<dia_object_get_num_connections(part_obj);i++) {
       obj->connections[num_conn++] = part_obj->connections[i];
     }
-    
+
     list = g_list_next(list);
   }
 
@@ -598,32 +598,31 @@ group_objects(DiaObject *group)
 }
 
 static gboolean
-group_prop_event_deliver(Group *group, Property *prop)
+group_prop_event_deliver (Group *group, Property *prop)
 {
   GList *tmp;
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
     DiaObject *obj = tmp->data;
+    const PropDescription *pdesc,*plist;
 
-    if (obj->ops->describe_props) {
-      const PropDescription *pdesc,*plist;
-
-      /* I'm sorry. I haven't found a working less ugly solution :( */
-      plist = obj->ops->describe_props(obj);
-      pdesc = prop_desc_list_find_prop(plist,prop->descr->name);
-      if (pdesc && pdesc->event_handler) {
-        /* deliver */
-        PropEventHandler hdl = prop_desc_find_real_handler(pdesc);
-        if (hdl) {
-          return hdl(obj,prop);
-        } else {
-          g_warning("dropped group event on prop %s, "
-                    "final handler was NULL",prop->descr->name);
-          return FALSE;
-        }
+    /* I'm sorry. I haven't found a working less ugly solution :( */
+    plist = dia_object_describe_properties (obj);
+    pdesc = prop_desc_list_find_prop (plist, prop->descr->name);
+    if (pdesc && pdesc->event_handler) {
+      /* deliver */
+      PropEventHandler hdl = prop_desc_find_real_handler (pdesc);
+      if (hdl) {
+        return hdl (obj,prop);
+      } else {
+        g_warning ("dropped group event on prop %s, "
+                   "final handler was NULL",prop->descr->name);
+        return FALSE;
       }
     }
   }
-  g_warning("undelivered group property event for prop %s",prop->descr->name); 
+
+  g_warning ("undelivered group property event for prop %s", prop->descr->name);
+
   return FALSE;
 }
 
@@ -673,7 +672,7 @@ group_describe_props(Group *group)
       /* hijack event delivery */
       for (i=0; i < n_other; i++) {
 	/* Ensure we have no duplicates with our own properties */
-        if (group->pdesc[i].event_handler) 
+        if (group->pdesc[i].event_handler)
           prop_desc_insert_handler((PropDescription *)&group->pdesc[i],
                                    (PropEventHandler)group_prop_event_deliver);
       }
@@ -681,7 +680,7 @@ group_describe_props(Group *group)
       {
 	int n_own = G_N_ELEMENTS(_group_props) - 1;
         PropDescription *arr = g_new (PropDescription, n_other+n_own+1);
-	
+
 	for (i = 0; i < n_own; ++i)
 	  arr[i] = _group_props[i];
 	memcpy (&arr[n_own], group->pdesc, (n_other+1) * sizeof(PropDescription));
@@ -725,18 +724,16 @@ group_get_props(Group *group, GPtrArray *props)
       g_ptr_array_add(props_list, p);
   }
 
-  object_get_props_from_offsets(&group->object, _group_offsets, props_self);
+  object_get_props_from_offsets (&group->object, _group_offsets, props_self);
 
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
     DiaObject *obj = tmp->data;
 
-    if (obj->ops->get_props) {
-      obj->ops->get_props(obj, props_list);
-    }
+    dia_object_get_properties (obj, props_list);
   }
 
-  g_ptr_array_free(props_list, TRUE);
-  g_ptr_array_free(props_self, TRUE);
+  g_ptr_array_free (props_list, TRUE);
+  g_ptr_array_free (props_self, TRUE);
 }
 
 static void
@@ -765,9 +762,7 @@ group_set_props(Group *group, GPtrArray *props)
   for (tmp = group->objects; tmp != NULL; tmp = tmp->next) {
     DiaObject *obj = tmp->data;
 
-    if (obj->ops->set_props) {
-      obj->ops->set_props(obj, props_list);
-    }
+    dia_object_set_properties (obj, props_list);
   }
 
   g_ptr_array_free(props_list, TRUE);
@@ -814,16 +809,16 @@ group_apply_properties_list(Group *group, GPtrArray *props)
       g_ptr_array_add(props_list, p);
   }
 
-  for (tmp = group->objects; tmp != NULL; tmp = g_list_next(tmp)) {
-    DiaObject *obj = (DiaObject*)tmp->data;
+  for (tmp = group->objects; tmp != NULL; tmp = g_list_next (tmp)) {
+    DiaObject *obj = (DiaObject*) tmp->data;
     objchange = NULL;
-    
-    objchange = obj->ops->apply_properties_list(obj, props_list);
-    clist = g_list_append(clist, objchange);
+
+    objchange = dia_object_apply_properties (obj, props_list);
+    clist = g_list_append (clist, objchange);
   }
   /* finally ourself */
   objchange = object_apply_props (&group->object, props_self);
-  clist = g_list_append(clist, objchange);
+  clist = g_list_append (clist, objchange);
 
   g_ptr_array_free(props_list, TRUE);
   g_ptr_array_free(props_self, TRUE);
@@ -877,7 +872,7 @@ group_prop_change_revert(GroupPropChange *change, DiaObject *obj)
   }
 }
 
-static void 
+static void
 group_prop_change_free(GroupPropChange *change)
 {
   GList *tmp;

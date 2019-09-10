@@ -34,7 +34,7 @@
 #include "attributes.h"
 #include "object.h"
 
-static int text_key_event(Focus *focus, 
+static int text_key_event(Focus *focus,
 			  guint keystate, guint keysym,
 			  const gchar *str, int strlen,
 			  ObjectChange **change);
@@ -93,7 +93,7 @@ text_set_line_text(Text *text, int line_no, gchar *line)
 }
 
 /** Delete the line, freeing appropriately and moving stuff up.
- * This function circumvents the normal free/alloc cycle of 
+ * This function circumvents the normal free/alloc cycle of
  * text_set_line_text. */
 static void
 text_delete_line(Text *text, int line_no)
@@ -109,7 +109,7 @@ text_delete_line(Text *text, int line_no)
 }
 
 /** Insert a new (empty) line at line_no.
- * This function circumvents the normal free/alloc cycle of 
+ * This function circumvents the normal free/alloc cycle of
  * text_set_line_text. */
 static void
 text_insert_line(Text *text, int line_no)
@@ -186,7 +186,7 @@ calc_width(Text *text)
   for (i = 0; i < text->numlines; i++) {
     width = MAX(width, text_get_line_width(text, i));
   }
-  
+
   text->max_width = width;
 }
 
@@ -195,12 +195,12 @@ calc_ascent_descent(Text *text)
 {
   real sig_a = 0.0,sig_d = 0.0;
   gint i;
-    
+
   for ( i = 0; i < text->numlines; i++) {
     sig_a += text_line_get_ascent(text->lines[i]);
     sig_d += text_line_get_descent(text->lines[i]);
   }
-  
+
   text->ascent = sig_a / (real)text->numlines;
   text->descent = sig_d / (real)text->numlines;
 }
@@ -236,7 +236,7 @@ set_string(Text *text, const char *string)
     s = string;
   }
   numlines = 1;
-  if (s != NULL) 
+  if (s != NULL)
     while ( (s = g_utf8_strchr(s, -1, '\n')) != NULL ) {
       numlines++;
       if (*s) {
@@ -273,7 +273,7 @@ set_string(Text *text, const char *string)
   if (text->cursor_row >= text->numlines) {
     text->cursor_row = text->numlines - 1;
   }
-  
+
   if (text->cursor_pos > text_get_line_strlen(text, text->cursor_row)) {
     text->cursor_pos = text_get_line_strlen(text, text->cursor_row);
   }
@@ -285,7 +285,7 @@ text_set_string(Text *text, const char *string)
 {
   if (text->lines != NULL)
     free_string(text);
-  
+
   set_string(text, string);
 }
 
@@ -306,12 +306,12 @@ new_text(const char *string, DiaFont *font, real height,
 
   text->cursor_pos = 0;
   text->cursor_row = 0;
-  
+
   text->focus.obj = NULL;
   text->focus.has_focus = FALSE;
   text->focus.key_event = text_key_event;
   text->focus.text = text;
-  
+
   set_string(text, string);
 
   calc_ascent_descent(text);
@@ -330,7 +330,7 @@ new_text_default(Point *pos, Color *color, Alignment align)
   real font_height;
 
   attributes_get_default_font(&font, &font_height);
-  text = new_text("", font, font_height, pos, color, align); 
+  text = new_text("", font, font_height, pos, color, align);
   dia_font_unref(font);
   return text;
 }
@@ -344,7 +344,7 @@ text_copy(Text *text)
   copy = g_new(Text, 1);
   copy->numlines = text->numlines;
   copy->lines = g_new(TextLine *, text->numlines);
-  
+
   copy->font = dia_font_copy(text->font);
   copy->height = text->height;
   copy->position = text->position;
@@ -364,11 +364,11 @@ text_copy(Text *text)
   copy->focus.has_focus = FALSE;
   copy->focus.key_event = text_key_event;
   copy->focus.text = copy;
-  
+
   copy->ascent = text->ascent;
   copy->descent = text->descent;
   copy->max_width = text->max_width;
-  
+
   return copy;
 }
 
@@ -410,7 +410,7 @@ text_set_font(Text *text, DiaFont *font)
   for (i = 0; i < text->numlines; i++) {
     text_line_set_font(text->lines[i], font);
   }
-  
+
   calc_width(text);
   calc_ascent_descent(text);
 }
@@ -454,7 +454,7 @@ text_calc_boundingbox(Text *text, Rectangle *box)
   }
 
   box->right = box->left + text->max_width;
-  
+
   box->top = text->position.y - text->ascent;
 #if 0
   box->bottom = box->top + text->height*text->numlines + text->descent;
@@ -469,11 +469,11 @@ text_calc_boundingbox(Text *text, Rectangle *box)
       box->left -= height/(CURSOR_HEIGHT_RATIO*2);
     } else {
       /* Half the cursor width. Assume that
-	 if it isn't at position zero, it might be 
+	 if it isn't at position zero, it might be
 	 at the last position possible. */
       box->right += height/(CURSOR_HEIGHT_RATIO*2);
     }
-   
+
     /* Account for the size of the cursor top and bottom */
     box->top -= height/(CURSOR_HEIGHT_RATIO*2);
     box->bottom += height/CURSOR_HEIGHT_RATIO;
@@ -485,24 +485,24 @@ text_get_string_copy(const Text *text)
 {
   int num,i;
   char *str;
-  
+
   num = 0;
   for (i=0;i<text->numlines;i++) {
     /* This is for allocation, so it should not use g_utf8_strlen() */
-    num += strlen(text_get_line(text, i))+1; 
+    num += strlen(text_get_line(text, i))+1;
   }
 
   str = g_malloc(num);
 
   *str = 0;
-  
+
   for (i=0;i<text->numlines;i++) {
     strcat(str, text_get_line(text, i));
     if (i != (text->numlines-1)) {
       strcat(str, "\n");
     }
   }
-  
+
   return str;
 }
 
@@ -513,7 +513,7 @@ text_distance_from(Text *text, Point *point)
   real topy, bottomy;
   real left, right;
   int line;
-  
+
   topy = text->position.y - text->ascent;
   bottomy = text->position.y + text->descent + text->height*(text->numlines-1);
   if (point->y <= topy) {
@@ -564,7 +564,7 @@ text_draw(Text *text, DiaRenderer *renderer)
     real str_width_whole;
     Point p1, p2;
     real height = text->ascent+text->descent;
-    curs_y = text->position.y - text->ascent + text->cursor_row*text->height; 
+    curs_y = text->position.y - text->ascent + text->cursor_row*text->height;
 
     DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
 
@@ -593,7 +593,7 @@ text_draw(Text *text, DiaRenderer *renderer)
     p1.y = curs_y;
     p2.x = curs_x;
     p2.y = curs_y + height;
-    
+
     DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
     DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, height/CURSOR_HEIGHT_RATIO);
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &p1, &p2, &color_black);
@@ -629,7 +629,7 @@ text_move_cursor(Text *text, CursorMovement mv)
     int i;
     for (i = 0; i < text->cursor_pos; ++i)
       p = g_utf8_next_char (p);
-  } 
+  }
   if (WORD_START == mv && text->cursor_pos < 1) {
     if (text->cursor_row) {
       text->cursor_row--;
@@ -676,7 +676,7 @@ text_set_cursor(Text *text, Point *clicked_point,
 
   if (clicked_point != NULL) {
     top = text->position.y - text->ascent;
-  
+
     row = (int)floor((clicked_point->y - top) / text->height);
 
     if (row < 0)
@@ -684,7 +684,7 @@ text_set_cursor(Text *text, Point *clicked_point,
 
     if (row >= text->numlines)
       row = text->numlines - 1;
-    
+
     text->cursor_row = row;
     text->cursor_pos = 0;
 
@@ -740,10 +740,10 @@ text_join_lines(Text *text, int first_line)
 {
   gchar *combined_line;
   int len1;
-  
+
   len1 = text_get_line_strlen(text, first_line);
 
-  combined_line = g_strconcat(text_get_line(text, first_line), 
+  combined_line = g_strconcat(text_get_line(text, first_line),
 			      text_get_line(text, first_line + 1), NULL);
   text_delete_line(text, first_line);
   text_set_line_text(text, first_line, combined_line);
@@ -764,9 +764,9 @@ text_delete_forward(Text *text)
   gchar *line;
   gchar *utf8_before, *utf8_after;
   gchar *str1, *str;
-  
+
   row = text->cursor_row;
-  
+
   if (text->cursor_pos >= text_get_line_strlen(text, row)) {
     if (row + 1 < text->numlines)
       text_join_lines(text, row);
@@ -801,9 +801,9 @@ text_delete_backward(Text *text)
   gchar *line;
   gchar *utf8_before, *utf8_after;
   gchar *str1, *str;
-  
+
   row = text->cursor_row;
-  
+
   if (text->cursor_pos <= 0) {
     if (row > 0)
       text_join_lines(text, row-1);
@@ -838,7 +838,7 @@ text_split_line(Text *text)
   real width;
   gchar *utf8_before;
   gchar *str1, *str2;
-  
+
   /* Split the lines at cursor_pos */
   line = text_get_line(text, text->cursor_row);
   text_insert_line(text, text->cursor_row);
@@ -873,7 +873,7 @@ text_insert_char(Text *text, gunichar c)
   /* Make a string of the the char */
   unilen = g_unichar_to_utf8 (c, ch);
   ch[unilen] = 0;
-  
+
   row = text->cursor_row;
 
   /* Copy the before and after parts with the new char in between */
@@ -919,8 +919,8 @@ text_delete_key_handler(Focus *focus, ObjectChange ** change)
 }
 
 static int
-text_key_event(Focus *focus, 
-	       guint keystate, guint keyval, 
+text_key_event(Focus *focus,
+	       guint keystate, guint keyval,
 	       const gchar *str, int strlen,
                ObjectChange **change)
 {
@@ -931,7 +931,7 @@ text_key_event(Focus *focus,
   gunichar c;
 
   *change = NULL;
-  
+
   text = focus->text;
 
   switch(keyval) {
@@ -953,7 +953,7 @@ text_key_event(Focus *focus,
 
         if (text->cursor_pos > text_get_line_strlen(text, text->cursor_row))
           text->cursor_pos = text_get_line_strlen(text, text->cursor_row);
-    
+
         break;
       case GDK_Left:
       case GDK_KP_Left:
@@ -1037,7 +1037,7 @@ text_key_event(Focus *focus,
 	       utf = g_utf8_next_char (utf), strlen--) {
 	    ObjectChange *step;
             c = g_utf8_get_char (utf);
-            
+
             step = text_create_change (text, TYPE_INSERT_CHAR, c,
                                        text->cursor_pos, text->cursor_row,
 				       focus->obj);
@@ -1046,8 +1046,8 @@ text_key_event(Focus *focus,
           }
         }
         break;
-  }  
-  
+  }
+
   return return_val;
 }
 
@@ -1069,7 +1069,7 @@ text_delete_all(Text *text, ObjectChange **change, DiaObject *obj)
     *change = text_create_change(text, TYPE_DELETE_ALL,
 				 0, text->cursor_pos, text->cursor_row,
 				 obj);
-    
+
     text_set_string(text, "");
     calc_ascent_descent(text);
     return TRUE;
@@ -1129,7 +1129,7 @@ data_text(AttributeNode text_attr, DiaContext *ctx)
   } else {
     font = dia_font_new_from_style(DIA_FONT_SANS,1.0);
   }
-  
+
   attr = composite_find_attribute(text_attr, "pos");
   if (attr != NULL)
     data_point(attribute_first_data(attr), &pos, ctx);
@@ -1143,7 +1143,7 @@ data_text(AttributeNode text_attr, DiaContext *ctx)
   attr = composite_find_attribute(text_attr, "alignment");
   if (attr != NULL)
     align = data_enum(attribute_first_data(attr), ctx);
-  
+
   text = new_text(string ? string : "", font, height, &pos, &col, align);
   if (font) dia_font_unref(font);
   if (string) g_free(string);
@@ -1152,7 +1152,7 @@ data_text(AttributeNode text_attr, DiaContext *ctx)
 
 void
 text_get_attributes(Text *text, TextAttributes *attr)
-{    
+{
   DiaFont *old_font;
   old_font = attr->font;
   attr->font = dia_font_ref(text->font);
@@ -1176,43 +1176,41 @@ text_set_attributes(Text *text, TextAttributes *attr)
 }
 
 static void
-text_change_apply(struct TextObjectChange *change, DiaObject *obj)
+text_change_apply (struct TextObjectChange *change, DiaObject *obj)
 {
   Text *text = change->text;
 
-  /* remember previous position/size */
-  if (change->obj->ops->get_props)
-    change->obj->ops->get_props(change->obj, change->props);
+  dia_object_get_properties (change->obj, change->props);
 
   switch (change->type) {
-  case TYPE_INSERT_CHAR:
-    text->cursor_pos = change->pos;
-    text->cursor_row = change->row;
-    text_insert_char(text, change->ch);
-    break;
-  case TYPE_DELETE_BACKWARD:
-    text->cursor_pos = change->pos+1;
-    text->cursor_row = change->row;
-    text_delete_backward(text);
-    break;
-  case TYPE_DELETE_FORWARD:
-    text->cursor_pos = change->pos;
-    text->cursor_row = change->row;
-    text_delete_forward(text);
-    break;
-  case TYPE_SPLIT_ROW:
-    text->cursor_pos = change->pos;
-    text->cursor_row = change->row;
-    text_split_line(text);
-    break;
-  case TYPE_JOIN_ROW:
-    text_join_lines(text, change->row);
-    break;
-  case TYPE_DELETE_ALL:
-    set_string(text, "");
-    text->cursor_pos = 0;
-    text->cursor_row = 0;
-    break;
+    case TYPE_INSERT_CHAR:
+      text->cursor_pos = change->pos;
+      text->cursor_row = change->row;
+      text_insert_char (text, change->ch);
+      break;
+    case TYPE_DELETE_BACKWARD:
+      text->cursor_pos = change->pos+1;
+      text->cursor_row = change->row;
+      text_delete_backward (text);
+      break;
+    case TYPE_DELETE_FORWARD:
+      text->cursor_pos = change->pos;
+      text->cursor_row = change->row;
+      text_delete_forward (text);
+      break;
+    case TYPE_SPLIT_ROW:
+      text->cursor_pos = change->pos;
+      text->cursor_row = change->row;
+      text_split_line (text);
+      break;
+    case TYPE_JOIN_ROW:
+      text_join_lines (text, change->row);
+      break;
+    case TYPE_DELETE_ALL:
+      set_string (text, "");
+      text->cursor_pos = 0;
+      text->cursor_row = 0;
+      break;
   }
 }
 
@@ -1253,12 +1251,11 @@ text_change_revert(struct TextObjectChange *change, DiaObject *obj)
     break;
   }
   /* restore previous position/size */
-  if (change->obj->ops->set_props)
-    change->obj->ops->set_props(change->obj, change->props);
+  dia_object_set_properties (change->obj, change->props);
 }
 
 static void
-text_change_free(struct TextObjectChange *change) 
+text_change_free(struct TextObjectChange *change)
 {
   g_free(change->str);
   prop_list_free(change->props);
@@ -1298,8 +1295,7 @@ text_create_change(Text *text, TextChangeType type,
   change->obj = obj;
   change->props = make_posision_and_size_prop_list ();
   /* remember previous position/size */
-  if (change->obj->ops->get_props)
-    change->obj->ops->get_props(change->obj, change->props);
+  dia_object_get_properties (change->obj, change->props);
 
   change->obj_change.apply = (ObjectChangeApplyFunc) text_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) text_change_revert;
@@ -1317,36 +1313,36 @@ text_create_change(Text *text, TextChangeType type,
   return (ObjectChange *)change;
 }
 
-gboolean 
+gboolean
 apply_textattr_properties(GPtrArray *props,
                           Text *text, const gchar *textname,
                           TextAttributes *attrs)
 {
-  TextProperty *textprop = 
+  TextProperty *textprop =
     (TextProperty *)find_prop_by_name_and_type(props,textname,PROP_TYPE_TEXT);
 
-  if ((!textprop) || 
+  if ((!textprop) ||
       ((textprop->common.experience & (PXP_LOADED|PXP_SFO))==0 )) {
     /* most likely we're called after the dialog box has been applied */
     text_set_attributes(text,attrs);
-    return TRUE; 
+    return TRUE;
   }
   return FALSE;
 }
 
-gboolean 
+gboolean
 apply_textstr_properties(GPtrArray *props,
                          Text *text, const gchar *textname,
                          const gchar *str)
 {
-  TextProperty *textprop = 
+  TextProperty *textprop =
     (TextProperty *)find_prop_by_name_and_type(props,textname,PROP_TYPE_TEXT);
 
-  if ((!textprop) || 
+  if ((!textprop) ||
       ((textprop->common.experience & (PXP_LOADED|PXP_SFO))==0 )) {
     /* most likely we're called after the dialog box has been applied */
     text_set_string(text,str);
-    return TRUE; 
+    return TRUE;
   }
   return FALSE;
 }

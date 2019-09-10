@@ -130,27 +130,27 @@ static real get_text_width (DiaRenderer *renderer,
 static void draw_rounded_rect (DiaRenderer *renderer,
                                Point *ul_corner, Point *lr_corner,
                                Color *fill, Color *stroke, real radius);
-static void draw_line_with_arrows  (DiaRenderer *renderer, 
-                                    Point *start, Point *end, 
+static void draw_line_with_arrows  (DiaRenderer *renderer,
+                                    Point *start, Point *end,
                                     real line_width,
                                     Color *line_color,
                                     Arrow *start_arrow,
                                     Arrow *end_arrow);
-static void draw_arc_with_arrows  (DiaRenderer *renderer, 
-                                  Point *start, 
+static void draw_arc_with_arrows  (DiaRenderer *renderer,
+                                  Point *start,
 				  Point *end,
                                   Point *midpoint,
                                   real line_width,
                                   Color *color,
                                   Arrow *start_arrow,
                                   Arrow *end_arrow);
-static void draw_polyline_with_arrows (DiaRenderer *renderer, 
+static void draw_polyline_with_arrows (DiaRenderer *renderer,
                                        Point *points, int num_points,
                                        real line_width,
                                        Color *color,
                                        Arrow *start_arrow,
                                        Arrow *end_arrow);
-static void draw_rounded_polyline_with_arrows (DiaRenderer *renderer, 
+static void draw_rounded_polyline_with_arrows (DiaRenderer *renderer,
                                                Point *points, int num_points,
                                                real line_width,
                                                Color *color,
@@ -158,7 +158,7 @@ static void draw_rounded_polyline_with_arrows (DiaRenderer *renderer,
                                                Arrow *end_arrow,
                                                real radius);
 
-static void draw_bezier_with_arrows (DiaRenderer *renderer, 
+static void draw_bezier_with_arrows (DiaRenderer *renderer,
                                     BezPoint *points,
                                     int num_points,
                                     real line_width,
@@ -196,11 +196,11 @@ dia_renderer_get_type (void)
                                             "DiaRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
-/*! 
+/*!
  * \brief Render all the visible object in the layer
  *
  * @param renderer explicit this pointer
@@ -250,7 +250,7 @@ draw_layer (DiaRenderer *renderer,
 static void
 draw_object (DiaRenderer *renderer,
 	     DiaObject   *object,
-	     DiaMatrix   *matrix) 
+	     DiaMatrix   *matrix)
 {
   if (matrix) {
 #if 1
@@ -272,7 +272,7 @@ draw_object (DiaRenderer *renderer,
     pt[2].y = matrix->yx * bb->right + matrix->yy * bb->bottom + matrix->y0;
     pt[3].x = matrix->xx * bb->left + matrix->xy * bb->bottom + matrix->x0;
     pt[3].y = matrix->yx * bb->left + matrix->yy * bb->bottom + matrix->y0;
-    
+
     DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.0);
     DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED, 1.0);
     DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, pt, 4, NULL, &red);
@@ -280,7 +280,7 @@ draw_object (DiaRenderer *renderer,
     DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &pt[1], &pt[3], &red);
 #endif
   }
-  object->ops->draw(object, renderer);
+  dia_object_draw (object, renderer);
 }
 
 static void
@@ -353,7 +353,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->draw_polyline_with_arrows = draw_polyline_with_arrows;
   renderer_class->draw_rounded_polyline_with_arrows = draw_rounded_polyline_with_arrows;
   renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows;
-  
+
   /* other */
   renderer_class->is_capable_to = is_capable_to;
   renderer_class->set_pattern = set_pattern;
@@ -373,10 +373,10 @@ dia_renderer_class_init (DiaRendererClass *klass)
  *
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 begin_render (DiaRenderer *object, const Rectangle *update)
 {
-  g_warning ("%s::begin_render not implemented!", 
+  g_warning ("%s::begin_render not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
 }
 
@@ -387,10 +387,10 @@ begin_render (DiaRenderer *object, const Rectangle *update)
  *
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 end_render (DiaRenderer *object)
 {
-  g_warning ("%s::end_render not implemented!", 
+  g_warning ("%s::end_render not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
 }
 
@@ -398,10 +398,10 @@ end_render (DiaRenderer *object)
  * \brief Change the line width for the strokes to come
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 set_linewidth (DiaRenderer *object, real linewidth)
 {
-  g_warning ("%s::set_line_width not implemented!", 
+  g_warning ("%s::set_line_width not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
 }
 
@@ -409,10 +409,10 @@ set_linewidth (DiaRenderer *object, real linewidth)
  * \brief Change the line caps for the strokes to come
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 set_linecaps (DiaRenderer *object, LineCaps mode)
 {
-  g_warning ("%s::set_line_caps not implemented!", 
+  g_warning ("%s::set_line_caps not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
 }
 
@@ -420,10 +420,10 @@ set_linecaps (DiaRenderer *object, LineCaps mode)
  * \brief Change the line join mode for the strokes to come
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 set_linejoin (DiaRenderer *renderer, LineJoin mode)
 {
-  g_warning ("%s::set_line_join not implemented!", 
+  g_warning ("%s::set_line_join not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
@@ -431,10 +431,10 @@ set_linejoin (DiaRenderer *renderer, LineJoin mode)
  * \brief Change line style and dash length for the strokes to come
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 set_linestyle (DiaRenderer *renderer, LineStyle mode, real dash_length)
 {
-  g_warning ("%s::set_line_style not implemented!", 
+  g_warning ("%s::set_line_style not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
@@ -446,10 +446,10 @@ set_linestyle (DiaRenderer *renderer, LineStyle mode, real dash_length)
  *
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 set_fillstyle (DiaRenderer *renderer, FillStyle mode)
 {
-  g_warning ("%s::set_fill_style not implemented!", 
+  g_warning ("%s::set_fill_style not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
@@ -457,10 +457,10 @@ set_fillstyle (DiaRenderer *renderer, FillStyle mode)
  * \brief Draw a single line segment
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 draw_line (DiaRenderer *renderer, Point *start, Point *end, Color *color)
 {
-  g_warning ("%s::draw_line not implemented!", 
+  g_warning ("%s::draw_line not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
@@ -472,7 +472,7 @@ draw_line (DiaRenderer *renderer, Point *start, Point *end, Color *color)
  *
  * \memberof _DiaRenderer
  */
-static void 
+static void
 draw_polygon (DiaRenderer *renderer,
               Point *points, int num_points,
               Color *fill, Color *stroke)
@@ -487,7 +487,7 @@ draw_polygon (DiaRenderer *renderer,
   for (i = 0; i < num_points - 1; i++)
     klass->draw_line (renderer, &points[i+0], &points[i+1], color);
   /* close it in any case */
-  if (   (points[0].x != points[num_points-1].x) 
+  if (   (points[0].x != points[num_points-1].x)
       || (points[0].y != points[num_points-1].y))
     klass->draw_line (renderer, &points[num_points-1], &points[0], color);
 }
@@ -500,7 +500,7 @@ draw_polygon (DiaRenderer *renderer,
  *
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 draw_arc (DiaRenderer *renderer, Point *center,
           real width, real height, real angle1, real angle2,
           Color *color)
@@ -513,24 +513,24 @@ draw_arc (DiaRenderer *renderer, Point *center,
  * \brief Fill an arc (a pie-chart)
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 fill_arc (DiaRenderer *renderer, Point *center,
           real width, real height, real angle1, real angle2,
           Color *color)
 {
-  g_warning ("%s::fill_arc not implemented!", 
+  g_warning ("%s::fill_arc not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 /*!
  * \brief Fill and/or stroke an ellipse
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 draw_ellipse (DiaRenderer *renderer, Point *center,
-              real width, real height, 
+              real width, real height,
               Color *fill, Color *stroke)
 {
-  g_warning ("%s::draw_ellipse not implemented!", 
+  g_warning ("%s::draw_ellipse not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
@@ -557,12 +557,12 @@ set_font (DiaRenderer *renderer, DiaFont *font, real height)
  * \brief Draw a string
  * \memberof _DiaRenderer \pure
  */
-static void 
+static void
 draw_string (DiaRenderer *renderer,
              const gchar *text, Point *pos, Alignment alignment,
              Color *color)
 {
-  g_warning ("%s::draw_string not implemented!", 
+  g_warning ("%s::draw_string not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
@@ -590,9 +590,9 @@ draw_image (DiaRenderer *renderer,
  *
  * \memberof _DiaRenderer
  */
-static void 
+static void
 draw_text (DiaRenderer *renderer,
-	   Text *text) 
+	   Text *text)
 {
   Point pos;
   int i;
@@ -736,14 +736,14 @@ draw_rotated_image (DiaRenderer *renderer,
  *
  * \memberof _DiaRenderer
  */
-static void 
+static void
 draw_text_line (DiaRenderer *renderer,
-		TextLine *text_line, Point *pos, Alignment alignment, Color *color) 
+		TextLine *text_line, Point *pos, Alignment alignment, Color *color)
 {
-  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, 
+  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer,
 					     text_line_get_font(text_line),
 					     text_line_get_height(text_line));
-  
+
   DIA_RENDERER_GET_CLASS(renderer)->draw_string(renderer,
 						text_line_get_string(text_line),
 						pos, alignment,
@@ -774,9 +774,9 @@ bezier_add_point(BezierApprox *bezier,
     bezier->points = g_realloc(bezier->points,
                                bezier->numpoints*sizeof(Point));
   }
-  
+
   bezier->points[bezier->currpoint] = *point;
-  
+
   bezier->currpoint++;
 }
 
@@ -831,9 +831,9 @@ bezier_add_lines(BezierApprox *bezier,
   middle = points[1];
   point_add(&middle, &points[2]);
   point_scale(&middle, 0.5);
-  
+
   r[0] = points[0];
-  
+
   r[1] = points[0];
   point_add(&r[1], &points[1]);
   point_scale(&r[1], 0.5);
@@ -847,7 +847,7 @@ bezier_add_lines(BezierApprox *bezier,
   s[2] = points[2];
   point_add(&s[2], &points[3]);
   point_scale(&s[2], 0.5);
-  
+
   s[1] = s[2];
   point_add(&s[1], &middle);
   point_scale(&s[1], 0.5);
@@ -855,7 +855,7 @@ bezier_add_lines(BezierApprox *bezier,
   r[3] = r[2];
   point_add(&r[3], &s[1]);
   point_scale(&r[3], 0.5);
-  
+
   s[0] = r[3];
 
   bezier_add_lines(bezier, r);
@@ -872,7 +872,7 @@ bezier_add_curve(BezierApprox *bezier,
        (distance_point_point(&points[0], &points[3]) < 0.00001)) {
     bezier_add_point(bezier, &points[3]);
   }
-  
+
   bezier_add_lines(bezier, points);
 }
 
@@ -929,7 +929,7 @@ approximate_bezier (BezierApprox *bezier,
  *
  * \memberof _DiaRenderer
  */
-static void 
+static void
 draw_bezier (DiaRenderer *renderer,
              BezPoint *points, int numpoints,
              Color *color)
@@ -964,7 +964,7 @@ draw_bezier (DiaRenderer *renderer,
  *
  * \memberof _DiaRenderer
  */
-static void 
+static void
 draw_beziergon (DiaRenderer *renderer,
                 BezPoint *points, int numpoints,
                 Color *fill, Color *stroke)
@@ -1032,7 +1032,7 @@ draw_rect (DiaRenderer *renderer,
  *
  * \memberof _DiaRenderer
  */
-static void 
+static void
 draw_polyline (DiaRenderer *renderer,
                Point *points, int num_points,
                Color *color)
@@ -1116,7 +1116,7 @@ draw_rounded_polyline (DiaRenderer *renderer,
     /* adjust the radius if it would cause odd rendering */
     min_radius = MIN(radius, calculate_min_radius(&p1,&p2,&p4));
     arc_it = fillet(&p1,&p2,&p3,&p4, min_radius, &c, &start_angle, &stop_angle);
-    /* start with the line drawing to allow joining in backend */    
+    /* start with the line drawing to allow joining in backend */
     klass->draw_line(renderer, &p1, &p2, color);
     if (arc_it)
       klass->draw_arc(renderer, &c, min_radius*2, min_radius*2,
@@ -1137,16 +1137,16 @@ draw_rounded_polyline (DiaRenderer *renderer,
  *
  * \memberof _DiaRenderer
  */
-static void 
-draw_rounded_rect (DiaRenderer *renderer, 
+static void
+draw_rounded_rect (DiaRenderer *renderer,
                    Point *ul_corner, Point *lr_corner,
-                   Color *fill, Color *stroke, real radius) 
+                   Color *fill, Color *stroke, real radius)
 {
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   /* clip radius per axis to use the full API;) */
   real rw = MIN(radius, (lr_corner->x-ul_corner->x)/2);
   real rh = MIN(radius, (lr_corner->y-ul_corner->y)/2);
-  
+
   if (rw < 0.00001 || rh < 0.00001) {
     renderer_ops->draw_rect(renderer, ul_corner, lr_corner, fill, stroke);
   } else {
@@ -1175,7 +1175,7 @@ draw_rounded_rect (DiaRenderer *renderer,
     pts[6].x = brx - rw; pts[6].y = tly; /* left */
     pts[7].x = tlx + rw; pts[7].y = tly;
 
- 
+
     /* If line_width would be available we could approximate small radius with:
      * renderer_ops->draw_polygon (renderer, pts, 8, fill, stroke);
      */
@@ -1215,8 +1215,8 @@ draw_rounded_rect (DiaRenderer *renderer,
  * \memberof _DiaRenderer
  */
 static void
-draw_line_with_arrows(DiaRenderer *renderer, 
-                      Point *startpoint, 
+draw_line_with_arrows(DiaRenderer *renderer,
+                      Point *startpoint,
                       Point *endpoint,
                       real line_width,
                       Color *color,
@@ -1231,7 +1231,7 @@ draw_line_with_arrows(DiaRenderer *renderer,
   /* Calculate how to more the line to account for arrow heads */
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
-    calculate_arrow_point(start_arrow, startpoint, endpoint, 
+    calculate_arrow_point(start_arrow, startpoint, endpoint,
 			  &move_arrow, &move_line,
 			  line_width);
     start_arrow_head = *startpoint;
@@ -1274,7 +1274,7 @@ draw_line_with_arrows(DiaRenderer *renderer,
  * \memberof _DiaRenderer
  */
 static void
-draw_polyline_with_arrows(DiaRenderer *renderer, 
+draw_polyline_with_arrows(DiaRenderer *renderer,
                           Point *points, int num_points,
                           real line_width,
                           Color *color,
@@ -1292,14 +1292,14 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
     while (firstline < num_points-1 &&
-	   distance_point_point(&points[firstline], 
+	   distance_point_point(&points[firstline],
 				&points[firstline+1]) < 0.0000001)
       firstline++;
     if (firstline == num_points-1)
       firstline = 0; /* No non-zero lines, it doesn't matter. */
     oldstart = points[firstline];
-    calculate_arrow_point(start_arrow, 
-			  &points[firstline], &points[firstline+1], 
+    calculate_arrow_point(start_arrow,
+			  &points[firstline], &points[firstline+1],
 			  &move_arrow, &move_line,
 			  line_width);
     start_arrow_head = points[firstline];
@@ -1308,14 +1308,14 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
   }
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
-    while (lastline > 0 && 
-	   distance_point_point(&points[lastline-1], 
+    while (lastline > 0 &&
+	   distance_point_point(&points[lastline-1],
 				&points[lastline-2]) < 0.0000001)
       lastline--;
     if (lastline == 0)
       firstline = num_points; /* No non-zero lines, it doesn't matter. */
     oldend = points[lastline-1];
-    calculate_arrow_point(end_arrow, &points[lastline-1], 
+    calculate_arrow_point(end_arrow, &points[lastline-1],
 			  &points[lastline-2],
  			  &move_arrow, &move_line,
 			  line_width);
@@ -1326,7 +1326,7 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
   /* Don't draw degenerate line segments at end of line */
   if (lastline-firstline > 1) /* probably hiding a bug above, but don't try to draw a negative
 			       * number of points at all, fixes bug #148139 */
-    DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, &points[firstline], 
+    DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, &points[firstline],
                                                     lastline-firstline, color);
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
     arrow_draw(renderer, start_arrow->type,
@@ -1351,7 +1351,7 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
  * \memberof _DiaRenderer
  */
 static void
-draw_rounded_polyline_with_arrows(DiaRenderer *renderer, 
+draw_rounded_polyline_with_arrows(DiaRenderer *renderer,
 				  Point *points, int num_points,
 				  real line_width,
 				  Color *color,
@@ -1370,14 +1370,14 @@ draw_rounded_polyline_with_arrows(DiaRenderer *renderer,
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
     while (firstline < num_points-1 &&
-	   distance_point_point(&points[firstline], 
+	   distance_point_point(&points[firstline],
 				&points[firstline+1]) < 0.0000001)
       firstline++;
     if (firstline == num_points-1)
       firstline = 0; /* No non-zero lines, it doesn't matter. */
     oldstart = points[firstline];
-    calculate_arrow_point(start_arrow, 
-			  &points[firstline], &points[firstline+1], 
+    calculate_arrow_point(start_arrow,
+			  &points[firstline], &points[firstline+1],
 			  &move_arrow, &move_line,
 			  line_width);
     start_arrow_head = points[firstline];
@@ -1386,14 +1386,14 @@ draw_rounded_polyline_with_arrows(DiaRenderer *renderer,
   }
   if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
     Point move_arrow, move_line;
-    while (lastline > 0 && 
-	   distance_point_point(&points[lastline-1], 
+    while (lastline > 0 &&
+	   distance_point_point(&points[lastline-1],
 				&points[lastline-2]) < 0.0000001)
       lastline--;
     if (lastline == 0)
       firstline = num_points; /* No non-zero lines, it doesn't matter. */
     oldend = points[lastline-1];
-    calculate_arrow_point(end_arrow, &points[lastline-1], 
+    calculate_arrow_point(end_arrow, &points[lastline-1],
 			  &points[lastline-2],
  			  &move_arrow, &move_line,
 			  line_width);
@@ -1492,7 +1492,7 @@ intersection_line_line(Point *cross,
  * The renderer should disappear once the debugging is done.
  */
 static gboolean
-find_center_point(Point *center, const Point *p1, const Point *p2, const Point *p3) 
+find_center_point(Point *center, const Point *p1, const Point *p2, const Point *p3)
 {
   Point mid1;
   Point mid2;
@@ -1531,7 +1531,7 @@ find_center_point(Point *center, const Point *p1, const Point *p2, const Point *
 	fabs((p1->y + p2->y + p3->y)/3 - p1->y) < 0.0000001) {
       return FALSE;
     }
-    
+
     /* Case 2: Two points are on top of each other.  Midpoint of
      * non-degenerate line is center. */
     if (distance_point_point_manhattan(p1, p2) < 0.0000001) {
@@ -1568,8 +1568,8 @@ is_right_hand (const Point *a, const Point *b, const Point *c)
  * \memberof _DiaRenderer
  */
 static void
-draw_arc_with_arrows (DiaRenderer *renderer, 
-                      Point *startpoint, 
+draw_arc_with_arrows (DiaRenderer *renderer,
+                      Point *startpoint,
                       Point *endpoint,
                       Point *midpoint,
                       real line_width,
@@ -1618,7 +1618,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
     }
     point_add(&start_arrow_end, startpoint);
 
-    calculate_arrow_point(start_arrow, startpoint, &start_arrow_end, 
+    calculate_arrow_point(start_arrow, startpoint, &start_arrow_end,
 			  &move_arrow, &move_line,
 			  line_width);
     start_arrow_head = *startpoint;
@@ -1651,8 +1651,8 @@ draw_arc_with_arrows (DiaRenderer *renderer,
 
   /* Now we possibly have new start- and endpoint. We must not
    * recalculate the center cause the new points lie on the tangential
-   * approximation of the original arc arrow lines not on the arc itself. 
-   * The one thing we need to deal with is calculating the (new) angles 
+   * approximation of the original arc arrow lines not on the arc itself.
+   * The one thing we need to deal with is calculating the (new) angles
    * and get rid of the arc drawing altogether if got degenerated.
    */
   angle1 = -atan2(new_startpoint.y - center.y, new_startpoint.x - center.x)*180.0/G_PI;
@@ -1690,7 +1690,7 @@ draw_arc_with_arrows (DiaRenderer *renderer,
  * \memberof _DiaRenderer
  */
 static void
-draw_bezier_with_arrows(DiaRenderer *renderer, 
+draw_bezier_with_arrows(DiaRenderer *renderer,
                         BezPoint *points,
                         int num_points,
                         real line_width,
@@ -1742,7 +1742,7 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
 
   points[0].p1 = startpoint;
   points[num_points-1].p3 = endpoint;
-  
+
 }
 /*! @} */
 
@@ -1760,7 +1760,7 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
  *
  * \memberof _DiaRenderer
  */
-static real 
+static real
 get_text_width (DiaRenderer *renderer,
                 const gchar *text, int length)
 {
@@ -1769,12 +1769,12 @@ get_text_width (DiaRenderer *renderer,
   if (renderer->font) {
     char *str = g_strndup (text, length);
 
-    ret = dia_font_string_width (str, 
+    ret = dia_font_string_width (str,
                                  renderer->font,
                                  renderer->font_height);
     g_free (str);
   } else {
-    g_warning ("%s::get_text_width not implemented (and renderer->font==NULL)!", 
+    g_warning ("%s::get_text_width not implemented (and renderer->font==NULL)!",
                G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
   }
 
@@ -1785,7 +1785,7 @@ get_text_width (DiaRenderer *renderer,
  * \brief Get drawing width in pixels if any
  * \memberof _DiaRenderer \pure
  */
-static int 
+static int
 get_width_pixels (DiaRenderer *renderer)
 {
   g_return_val_if_fail (renderer->is_interactive, 0);
@@ -1796,7 +1796,7 @@ get_width_pixels (DiaRenderer *renderer)
  * \brief Get drawing height in pixels if any
  * \memberof _DiaRenderer \pure
  */
-static int 
+static int
 get_height_pixels (DiaRenderer *renderer)
 {
   g_return_val_if_fail (renderer->is_interactive, 0);
@@ -1821,7 +1821,7 @@ get_height_pixels (DiaRenderer *renderer)
  *
  * \memberof _DiaRenderer
  */
-static gboolean 
+static gboolean
 is_capable_to (DiaRenderer *renderer, RenderCapability cap)
 {
   return FALSE;
@@ -1835,7 +1835,7 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
 static void
 set_pattern (DiaRenderer *renderer, DiaPattern *pat)
 {
-  g_warning ("%s::set_pattern not implemented!", 
+  g_warning ("%s::set_pattern not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
@@ -1944,7 +1944,7 @@ bezier_render_fill_old (DiaRenderer *renderer, BezPoint *pts, int total, Color *
   int s2 = 0;
   for (i = 1; i < total; ++i) {
     if (BEZ_MOVE_TO == pts[i].type) {
-      /* check whether the start point of the second outline is within the first outline. 
+      /* check whether the start point of the second outline is within the first outline.
        * If so it need to be subtracted - currently blanked. */
       real dist = distance_bez_shape_point (&pts[s1],  n1 > 0 ? n1 : i - s1, 0, &pts[i].p1);
       if (s2 > s1) { /* blanking the previous one */

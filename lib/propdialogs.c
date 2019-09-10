@@ -189,10 +189,10 @@ property_signal_handler(GObject *obj,
     prop_get_data_from_widgets(dialog);
 
     for (tmp = list; tmp != NULL; tmp = tmp->next) {
-      DiaObject *obj = (DiaObject*)tmp->data;
-      obj->ops->set_props(obj,dialog->props);
-      prop->event_handler(obj,prop);
-      obj->ops->get_props(obj,dialog->props);
+      DiaObject *obj = (DiaObject*) tmp->data;
+      dia_object_set_properties (obj, dialog->props);
+      prop->event_handler (obj, prop);
+      dia_object_get_properties (obj, dialog->props);
     }
 
     for (j = 0; j < dialog->prop_widgets->len; j++) {

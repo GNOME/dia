@@ -17,9 +17,9 @@
  *
  * File:    class.h
  *
- * Purpose: This is the interface file for the class icon and dialog. 
+ * Purpose: This is the interface file for the class icon and dialog.
  */
- 
+
 /** \file objects/UML/class.h  Declaration of the 'UML - Class' type */
 #ifndef CLASS_H
 #define CLASS_H
@@ -30,8 +30,6 @@
 
 #include "uml.h"
 
-#define DIA_OBJECT(x) (DiaObject*)(x)
-
 /** The number of regular connectionpoints on the class (not cps for
  * attributes and operands and not the mainpoint). */
 #define UMLCLASS_CONNECTIONPOINTS 8
@@ -40,10 +38,10 @@
 /** default wrap length for comments */
 #define UMLCLASS_COMMENT_LINE_LENGTH 40
 
-/* The code behind the following preprocessor symbol should stay disabled until 
- * the dynamic relocation of connection points (caused by attribute and 
- * operation changes) is taken into account. It probably has other issues we are 
- * not aware of yet. Some more information maybe available at 
+/* The code behind the following preprocessor symbol should stay disabled until
+ * the dynamic relocation of connection points (caused by attribute and
+ * operation changes) is taken into account. It probably has other issues we are
+ * not aware of yet. Some more information maybe available at
  * http://bugzilla.gnome.org/show_bug.cgi?id=303301
  *
  * Enabling 29/7 2005: Not known to cause any problems.
@@ -56,7 +54,7 @@
 typedef struct _UMLClass UMLClass;
 typedef struct _UMLClassDialog UMLClassDialog;
 
-/** 
+/**
  * \brief The most complex object Dia has
  *
  * What should I say? Don't try this at home :)
@@ -87,13 +85,13 @@ struct _UMLClass {
   DiaFont *classname_font;
   DiaFont *abstract_classname_font;
   DiaFont *comment_font;
-  
+
   char *name;
   char *stereotype; /**< NULL if no stereotype */
   char *comment; /**< Comments on the class */
   int abstract;
-  int suppress_attributes; 
-  int suppress_operations; 
+  int suppress_attributes;
+  int suppress_operations;
   int visible_attributes; /**< ie. don't draw strings. */
   int visible_operations;
   int visible_comments;
@@ -102,7 +100,7 @@ struct _UMLClass {
   int wrap_after_char;
   int comment_line_length; /**< Maximum line length for comments */
   int comment_tagging; /**< bool: if the {documentation = }  tag should be used */
-  
+
   Color line_color;
   Color fill_color;
   Color text_color;
@@ -120,10 +118,10 @@ struct _UMLClass {
 
   gboolean allow_resizing;
   /* Calculated variables: */
-  
+
   real namebox_height;
   char *stereotype_string;
-  
+
   real attributesbox_height;
 
   real operationsbox_height;
@@ -142,7 +140,7 @@ struct _UMLClass {
    * destroyed, and don't do umlclass_calculate_data when it is set.
    * This is to avoid a half-way destroyed list being updated.
    */
-  gboolean destroyed; 
+  gboolean destroyed;
 };
 
 void umlclass_dialog_free (UMLClassDialog *dialog);

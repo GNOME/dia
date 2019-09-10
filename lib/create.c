@@ -100,12 +100,14 @@ create_standard_ellipse(real xpos, real ypos, real width, real height) {
     point.x = xpos;
     point.y = ypos;
 
-    new_obj = otype->ops->create(&point, otype->default_user_data,
-				 &h1, &h2);
+    new_obj = otype->ops->create (&point,
+                                  otype->default_user_data,
+                                  &h1,
+                                  &h2);
 
-    props = make_element_props(xpos,ypos,width,height);
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
+    props = make_element_props (xpos, ypos, width, height);
+    dia_object_set_properties (new_obj, props);
+    prop_list_free (props);
 
     return new_obj;
 }
@@ -127,12 +129,14 @@ create_standard_box(real xpos, real ypos, real width, real height) {
     point.x = xpos;
     point.y = ypos;
 
-    new_obj = otype->ops->create(&point, otype->default_user_data,
-				 &h1, &h2);
+    new_obj = otype->ops->create (&point,
+                                  otype->default_user_data,
+                                  &h1,
+                                  &h2);
 
-    props = make_element_props(xpos,ypos,width,height);
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
+    props = make_element_props (xpos, ypos, width, height);
+    dia_object_set_properties (new_obj, props);
+    prop_list_free (props);
 
     return new_obj;
 }
@@ -162,16 +166,18 @@ create_standard_zigzagline(int num_points, const Point *points,
 
     new_obj = otype->ops->create(NULL, &pcd, &h1, &h2);
 
-    props = prop_list_from_descs(create_line_prop_descs,pdtpp_true);
-    g_assert(props->len == 2);
+    props = prop_list_from_descs (create_line_prop_descs, pdtpp_true);
+    g_assert (props->len == 2);
 
-    if (start_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data = *start_arrow;
-    if (end_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *end_arrow;
+    if (start_arrow != NULL) {
+      ((ArrowProperty *) g_ptr_array_index (props, 0))->arrow_data = *start_arrow;
+    }
+    if (end_arrow != NULL) {
+      ((ArrowProperty *) g_ptr_array_index (props, 1))->arrow_data = *end_arrow;
+    }
 
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
+    dia_object_set_properties (new_obj, props);
+    prop_list_free (props);
 
     return new_obj;
 }
@@ -198,16 +204,18 @@ create_standard_polyline(int num_points,
 
     new_obj = otype->ops->create(NULL, &pcd, &h1, &h2);
 
-    props = prop_list_from_descs(create_line_prop_descs,pdtpp_true);
-    g_assert(props->len == 2);
+    props = prop_list_from_descs (create_line_prop_descs, pdtpp_true);
+    g_assert (props->len == 2);
 
-    if (start_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data = *start_arrow;
-    if (end_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *end_arrow;
+    if (start_arrow != NULL) {
+      ((ArrowProperty *) g_ptr_array_index (props, 0))->arrow_data = *start_arrow;
+    }
+    if (end_arrow != NULL) {
+      ((ArrowProperty *) g_ptr_array_index (props, 1))->arrow_data = *end_arrow;
+    }
 
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
+    dia_object_set_properties (new_obj, props);
+    prop_list_free (props);
 
     return new_obj;
 }
@@ -254,16 +262,18 @@ create_standard_bezierline(int num_points,
 
     new_obj = otype->ops->create(NULL, &bcd, &h1, &h2);
 
-    props = prop_list_from_descs(create_line_prop_descs,pdtpp_true);
-    g_assert(props->len == 2);
+    props = prop_list_from_descs (create_line_prop_descs, pdtpp_true);
+    g_assert (props->len == 2);
 
-    if (start_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data = *start_arrow;
-    if (end_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *end_arrow;
+    if (start_arrow != NULL) {
+      ((ArrowProperty *) g_ptr_array_index (props, 0))->arrow_data = *start_arrow;
+    }
+    if (end_arrow != NULL) {
+      ((ArrowProperty *) g_ptr_array_index (props, 1))->arrow_data = *end_arrow;
+    }
 
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
+    dia_object_set_properties (new_obj, props);
+    prop_list_free (props);
 
     return new_obj;
 }
@@ -338,20 +348,24 @@ create_standard_arc(real x1, real y1, real x2, real y2,
     p2.y = y2;
 
 
-    new_obj = otype->ops->create(&p1, otype->default_user_data,
-				 &h1, &h2);
-    new_obj->ops->move_handle(new_obj, h2, &p2, NULL, HANDLE_MOVE_USER_FINAL,0);
-    props = prop_list_from_descs(create_arc_prop_descs,pdtpp_true);
-    g_assert(props->len == 3);
+    new_obj = otype->ops->create (&p1,
+                                  otype->default_user_data,
+                                  &h1,
+                                  &h2);
+    dia_object_move_handle (new_obj, h2, &p2, NULL, HANDLE_MOVE_USER_FINAL, 0);
+    props = prop_list_from_descs (create_arc_prop_descs, pdtpp_true);
+    g_assert (props->len == 3);
 
-    ((RealProperty *)g_ptr_array_index(props,0))->real_data = distance;
-    if (start_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 1))->arrow_data = *start_arrow;
-    if (end_arrow != NULL)
-	((ArrowProperty *)g_ptr_array_index(props, 2))->arrow_data = *end_arrow;
+    ((RealProperty *) g_ptr_array_index (props, 0))->real_data = distance;
+    if (start_arrow != NULL) {
+      ((ArrowProperty *) g_ptr_array_index (props, 1))->arrow_data = *start_arrow;
+    }
+    if (end_arrow != NULL) {
+      ((ArrowProperty *) g_ptr_array_index (props, 2))->arrow_data = *end_arrow;
+    }
 
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
+    dia_object_set_properties (new_obj, props);
+    prop_list_free (props);
 
     return new_obj;
 }
@@ -378,21 +392,23 @@ create_standard_image(real xpos, real ypos, real width, real height,
     point.x = xpos;
     point.y = ypos;
 
-    new_obj = otype->ops->create(&point, otype->default_user_data,
-				 &h1, &h2);
+    new_obj = otype->ops->create (&point,
+                                  otype->default_user_data,
+                                  &h1,
+                                  &h2);
 
-    props = make_element_props(xpos,ypos,width,height);
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
+    props = make_element_props (xpos, ypos, width, height);
+    dia_object_set_properties (new_obj, props);
+    prop_list_free (props);
 
 
-    props = prop_list_from_descs(create_file_prop_descs,pdtpp_true);
-    g_assert(props->len == 1);
-    sprop = g_ptr_array_index(props,0);
-    g_free(sprop->string_data);
-    sprop->string_data = g_strdup(file);
-    new_obj->ops->set_props(new_obj, props);
-    prop_list_free(props);
+    props = prop_list_from_descs (create_file_prop_descs, pdtpp_true);
+    g_assert (props->len == 1);
+    sprop = g_ptr_array_index (props, 0);
+    g_free (sprop->string_data);
+    sprop->string_data = g_strdup (file);
+    dia_object_set_properties (new_obj, props);
+    prop_list_free (props);
 
     return new_obj;
 }
