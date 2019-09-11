@@ -26,19 +26,23 @@
 
 #include "debug.h"
 
-/** Output a message if the given value is not true. 
- * @param val A value to test. 
- * @param format A printf-style message to output if the value is false.
- * @return val
+/**
+ * dia_assert_true:
+ * @val: A value to test.
+ * @format: A printf-style message to output if the value is false.
+ *
+ * Output a message if the given value is not true.
+ *
+ * Returns: @val
  */
 gboolean
-dia_assert_true(gboolean val, const gchar *format, ...)
+dia_assert_true (gboolean val, const gchar *format, ...)
 {
   va_list args;
   if (!val) {
-    va_start(args, format);
-    g_vprintf(format, args);
-    va_end(args);
+    va_start (args, format);
+    g_vprintf (format, args);
+    va_end (args);
   }
   return val;
 }

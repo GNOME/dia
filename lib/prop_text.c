@@ -109,8 +109,8 @@ stringprop_set_from_widget(StringProperty *prop, GtkWidget *widget)
 static gboolean
 multistringprop_handle_key(GtkWidget *wid, GdkEventKey *event)
 {
-  /** Normal textview doesn't grab return, so to avoid closing the dialog...*/
-  /** Actually, this doesn't seem to work -- I guess the dialog closes
+  /* Normal textview doesn't grab return, so to avoid closing the dialog...*/
+  /* Actually, this doesn't seem to work -- I guess the dialog closes
    * becore this is called :(
    */
   if (event->keyval == GDK_Return)

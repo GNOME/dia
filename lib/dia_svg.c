@@ -65,7 +65,7 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
   gs->dashlength = parent_style ? parent_style->dashlength : 1;
   /* http://www.w3.org/TR/SVG/painting.html#FillProperty - default black
    * but we still have to see the difference
-   */ 
+   */
   gs->fill = parent_style ? parent_style->fill : DIA_SVG_COLOUR_DEFAULT;
   gs->fill_opacity = parent_style ? parent_style->fill_opacity : 1.0;
   gs->linecap = parent_style ? parent_style->linecap : LINECAPS_DEFAULT;
@@ -299,7 +299,7 @@ svg_named_color (const char *name, gint32 *color)
 
   return FALSE;
 }
-/*! 
+/*!
  * \brief Parse an SVG color description.
  *
  * @param color A place to store the color information (0RGB)
@@ -513,8 +513,8 @@ _style_adjust_font (DiaSvgStyle *s, const char *family, const char *style, const
      */
     s->font = dia_font_new_from_style(DIA_FONT_SANS, s->font_height > 0 ? s->font_height : 1.0);
     if (family) {
-      /* SVG allows a list of families here, also there is some strange formatting 
-       * seen, like 'Arial'. If the given family name can not be resolved by 
+      /* SVG allows a list of families here, also there is some strange formatting
+       * seen, like 'Arial'. If the given family name can not be resolved by
        * Pango it complaints loudly with g_warning().
        */
       gchar **families = g_strsplit(family, ",", -1);
@@ -833,7 +833,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
       _parse_linecap (s, (gchar *)str);
     xmlFree(str);
   }
-  
+
   /* text-props, again ;( */
   str = xmlGetProp(node, (const xmlChar *)"font-size");
   if (str) {
@@ -931,25 +931,34 @@ _path_arc_segment(GArray* points,
   g_array_append_val(points, bez);
 }
 
-/** Parse an SVG description of a full arc.
- * @param points
- * @param cpx
- * @param cpy
- * @param rx
- * @param ry
- * @param x_axis_rotation
- * @param large_arc_flag
- * @param sweep_flag
- * @param x
- * @param y
- * @param last_p2
+/**
+ * _path_arc:
+ * @points:
+ * @cpx:
+ * @cpy:
+ * @rx:
+ * @ry:
+ * @x_axis_rotation:
+ * @large_arc_flag:
+ * @sweep_flag:
+ * @x:
+ * @y:
+ * @last_p2:
+ *
+ * Parse an SVG description of a full arc.
  */
 static void
-_path_arc(GArray *points, double cpx, double cpy,
-	   double rx, double ry, double x_axis_rotation,
-	   int large_arc_flag, int sweep_flag,
-	   double x, double y,
-	   Point *last_p2)
+_path_arc (GArray *points,
+           double  cpx,
+           double  cpy,
+           double  rx,
+           double  ry,
+           double  x_axis_rotation,
+           int     large_arc_flag,
+           int     sweep_flag,
+           double  x,
+           double  y,
+           Point  *last_p2)
 {
     double sin_th, cos_th;
     double a00, a01, a10, a11;
@@ -1049,7 +1058,7 @@ _path_arc(GArray *points, double cpx, double cpy,
  * zigzaglines into their appropriate objects?  Could either be done by
  * returning an object or by having functions that try parsing as
  * specific simple paths.
- * NOPE: Dia is capable to handle beziers and the file has given us some so 
+ * NOPE: Dia is capable to handle beziers and the file has given us some so
  * WHY should be break it in to pieces ???
  */
 gboolean
@@ -1259,8 +1268,8 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 	g_array_index(points,BezPoint,0) = bez;
       else
         g_array_append_val(points, bez);
-      /* [SVG11 8.3.2] If a moveto is followed by multiple pairs of coordinates, 
-       * the subsequent pairs are treated as implicit lineto commands 
+      /* [SVG11 8.3.2] If a moveto is followed by multiple pairs of coordinates,
+       * the subsequent pairs are treated as implicit lineto commands
        */
       last_type = PATH_LINE;
       break;
@@ -1274,8 +1283,8 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 	bez.p1.x += last_point.x;
 	bez.p1.y += last_point.y;
       }
-      /* Strictly speeaking it should not be necessary to assign the other 
-       * two points. But it helps hiding a serious limitation with the 
+      /* Strictly speeaking it should not be necessary to assign the other
+       * two points. But it helps hiding a serious limitation with the
        * standard bezier serialization, namely only saving one move-to
        * and the rest as curve-to */
 #define INIT_LINE_TO_AS_CURVE_TO bez.p3 = bez.p1; bez.p2 = last_point
@@ -1475,7 +1484,7 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 	}
 
 	/* avoid matherr with bogus values - just ignore them
-	 * does happen e.g. with 'Chem-Widgets - clamp-large' 
+	 * does happen e.g. with 'Chem-Widgets - clamp-large'
 	 */
 	if (last_point.x != dest.x || last_point.y != dest.y)
 	  _path_arc (points, last_point.x, last_point.y,
@@ -1539,7 +1548,7 @@ _parse_transform (const gchar *trans, DiaMatrix *m, real scale)
   gchar *p = strchr (trans, '(');
   int i = 0;
 
-  while (   (*trans != '\0') 
+  while (   (*trans != '\0')
          && (*trans == ' ' || *trans == ',' || *trans == '\t' || *trans == '\n' || *trans == '\r'))
     ++trans; /* skip whitespace */
 
@@ -1576,7 +1585,7 @@ _parse_transform (const gchar *trans, DiaMatrix *m, real scale)
   } else if (strncmp (trans, "rotate", 6) == 0) {
     DiaMatrix translate = {1, 0, 0, 1, 0, 0 };
     real angle;
-    
+
     if (list[i])
       angle = g_ascii_strtod (list[i], NULL), ++i;
     else {
@@ -1670,7 +1679,7 @@ dia_svg_from_matrix(const DiaMatrix *matrix, real scale)
   g_string_append (sm, buf); g_string_append (sm, ",");
   g_ascii_formatd (buf, sizeof(buf), "%g", matrix->y0 * scale);
   g_string_append (sm, buf); g_string_append (sm, ")");
-  
+
   s = sm->str;
   g_string_free (sm, FALSE);
   return s;

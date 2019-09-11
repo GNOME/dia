@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
+
 #include <config.h>
 
 #include <stdio.h>
@@ -26,22 +26,25 @@
 
 static GdkColormap *colormap = NULL;
 
-#ifndef G_OS_WIN32 
+#ifndef G_OS_WIN32
 Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
 Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
 #endif
 
 gboolean _color_initialized = FALSE;
 
-/** Initialize color access (gdk) and set up default colors.
+/**
+ * color_init:
+ *
+ * Initialize color access (gdk) and set up default colors.
  */
-void 
-color_init(void)
+void
+color_init (void)
 {
   if (!_color_initialized) {
 #if !defined(GDK_WINDOWING_QUARTZ)
     GdkVisual *visual = gtk_widget_get_default_visual();
-    colormap = gdk_colormap_new (visual, FALSE); 
+    colormap = gdk_colormap_new (visual, FALSE);
 #else
     /* gdk/quartz does not implement gdk_colormap_new () */
     colormap = gdk_screen_get_system_colormap (gdk_screen_get_default ());
@@ -51,17 +54,21 @@ color_init(void)
   }
 }
 
-/** Allocate a new color object wtih the given values.
+/**
+ * color_new_rgb:
+ * @r: Red component (0 <= r <= 1)
+ * @g: Green component (0 <= g <= 1)
+ * @b: Blue component (0 <= b <= 1)
+ *
+ * Allocate a new color object wtih the given values.
  * Initializes alpha component to 1.0
- * @param r Red component (0 <= r <= 1)
- * @param g Green component (0 <= g <= 1)
- * @param b Blue component (0 <= b <= 1)
- * @returns A newly allocated color object.  This should be freed after use.
+ *
+ * Returns: A newly allocated color object.  This should be freed after use.
  */
 Color *
-color_new_rgb(float r, float g, float b)
+color_new_rgb (float r, float g, float b)
 {
-  Color *col = g_new(Color, 1);
+  Color *col = g_new (Color, 1);
   col->red = r;
   col->green = g;
   col->blue = b;
@@ -69,17 +76,21 @@ color_new_rgb(float r, float g, float b)
   return col;
 }
 
-/** Allocate a new color object wtih the given values.
- * @param r Red component (0 <= r <= 1)
- * @param g Green component (0 <= g <= 1)
- * @param b Blue component (0 <= b <= 1)
- * @param alpha Alpha component (0 <= alpha <= 1)
- * @returns A newly allocated color object.  This should be freed after use.
+/**
+ * color_new_rgba:
+ * @r: Red component (0 <= r <= 1)
+ * @g: Green component (0 <= g <= 1)
+ * @b: Blue component (0 <= b <= 1)
+ * @alpha: Alpha component (0 <= alpha <= 1)
+ *
+ * Allocate a new color object wtih the given values.
+ *
+ * Returns: A newly allocated color object.  This should be freed after use.
  */
 Color *
-color_new_rgba(float r, float g, float b, float alpha)
+color_new_rgba (float r, float g, float b, float alpha)
 {
-  Color *col = g_new(Color, 1);
+  Color *col = g_new (Color, 1);
   col->red = r;
   col->green = g;
   col->blue = b;
@@ -87,35 +98,43 @@ color_new_rgba(float r, float g, float b, float alpha)
   return col;
 }
 
-/** Convert a Dia color object to GDK style, including handling allocation.
- * @param color A color object.  This will not be kept by this function.
- * @param gdkcolor Return value: GDK color object to fill in.
+/**
+ * color_convert:
+ * @color: A #Color object. This will not be kept by this function.
+ * @gdkcolor: (out): GDK color object to fill in.
+ *
+ * Convert a Dia color object to GDK style, including handling allocation.
  */
 void
-color_convert(const Color *color, GdkColor *gdkcolor)
+color_convert (const Color *color, GdkColor *gdkcolor)
 {
   gdkcolor->red = (guint16)(color->red*65535);
   gdkcolor->green = (guint16)(color->green*65535);
   gdkcolor->blue = (guint16)(color->blue*65535);
 
   if (_color_initialized) {
-    if (!gdk_colormap_alloc_color (colormap, gdkcolor, TRUE, TRUE))
+    if (!gdk_colormap_alloc_color (colormap, gdkcolor, TRUE, TRUE)) {
       g_warning ("color_convert failed.");
+    }
   } else {
     g_warning("Can't color_convert in non-interactive app (w/o color_init())");
   }
 }
 
-/** Compare two color objects.
- * @param color1 One color object
- * @param color2 Another color object.
- * @returns TRUE if the color objects are the same color.
+/**
+ * color_equals:
+ * @color1: One #Color object
+ * @color2: Another #Color object.
+ *
+ * Compare two colour objects.
+ *
+ * Returns: %TRUE if the colour objects are the same colour.
  */
 gboolean
-color_equals(const Color *color1, const Color *color2)
+color_equals (const Color *color1, const Color *color2)
 {
   return (color1->red == color2->red) &&
-    (color1->green == color2->green) &&
-    (color1->blue == color2->blue) &&
-    (color1->alpha == color2->alpha);
+         (color1->green == color2->green) &&
+         (color1->blue == color2->blue) &&
+         (color1->alpha == color2->alpha);
 }

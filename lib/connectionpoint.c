@@ -19,27 +19,39 @@
 #include "config.h"
 #include "connectionpoint.h"
 
-/** Returns the available directions on a slope.
+/**
+ * SECTION:dia-connectionpoint
+ * @title: ConnectionPoint
+ * @short_description: Connections between #DiaObjects
+ *
+ * #ConnectionPoints together with #Handles allow to connect objects
+ */
+
+/**
+ * find_slope_directions:
+ * @from: Beginning of the slope line.
+ * @to: End of the slope line.
+ *
+ * Returns the available directions on a slope.
  * The right-hand side of the line is assumed to be within the object,
  * and thus not available.
- * @param from Beginning of the slope line.
- * @param to End of the slope line.
- * @returns The directions open (@see connectionpoint.h) open on the left-hand
+ *
+ * Returns: The directions open (see #ConnectionPointDirection) open on the left-hand
  *  side of the slope.
  */
 gint
-find_slope_directions(Point from, Point to)
+find_slope_directions (Point from, Point to)
 {
   gint dirs;
   gint slope;
 
-  if (fabs(from.y-to.y) < 0.0000001)
+  if (fabs (from.y-to.y) < 0.0000001)
     return (from.x > to.x?DIR_SOUTH:DIR_NORTH);
-  if (fabs(from.x-to.x) < 0.0000001)
+  if (fabs (from.x-to.x) < 0.0000001)
     return (from.y > to.y?DIR_WEST:DIR_EAST);
 
-  point_sub(&to, &from);
-  slope = fabs(to.y/to.x);
+  point_sub (&to, &from);
+  slope = fabs (to.y/to.x);
 
   dirs = 0;
   if (slope < 2) { /* Flat enough to allow north-south */
@@ -60,28 +72,35 @@ find_slope_directions(Point from, Point to)
 }
 
 
-/** Update the object-settable parts of a connectionpoints.
- * @param p A ConnectionPoint pointer (non-NULL).
- * @param x The x coordinate of the connectionpoint.
- * @param y The y coordinate of the connectionpoint.
- * @param dirs The directions that are open for connections on this point.
+/**
+ * connpoint_update:
+ * @p: A ConnectionPoint pointer (non-%NULL).
+ * @x: The x coordinate of the connectionpoint.
+ * @y: The y coordinate of the connectionpoint.
+ * @dirs: The directions that are open for connections on this point.
+ *
+ * Update the object-settable parts of a connectionpoints.
  */
-void 
-connpoint_update(ConnectionPoint *p, real x, real y, gint dirs)
+void
+connpoint_update (ConnectionPoint *p, real x, real y, gint dirs)
 {
   p->pos.x = x;
   p->pos.y = y;
   p->directions = dirs;
 }
 
-/** Returns TRUE if the given connection point is non-null and autogapped.
- * @param cp A connectionpoint.
- * @returns TRUE if the given connection point is non-null and has the
- *  CP_FLAG_AUTOGAP flag set (i.e. lines connecting to it should try to end
+/**
+ * connpoint_is_autogap:
+ * @cp: A #ConnectionPoint.
+ *
+ * Returns %TRUE if the given connection point is non-null and autogapped.
+ *
+ * Returns: %TRUE if the given connection point is non-null and has the
+ *  %CP_FLAG_AUTOGAP flag set (i.e. lines connecting to it should try to end
  *  at the border of the object instead of at the connection point.
  */
 gboolean
-connpoint_is_autogap(ConnectionPoint *cp)
+connpoint_is_autogap (ConnectionPoint *cp)
 {
   return cp != NULL && (cp->flags & CP_FLAG_AUTOGAP) && (cp->connected != NULL);
 }

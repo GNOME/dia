@@ -22,7 +22,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include "config.h" 
+#include "config.h"
 
 #include "bezier-common.h"
 #include "diarenderer.h"
@@ -47,7 +47,7 @@ bezier_calc_corner_types (BezierCommon *bezier)
   bezier->corner_types = g_realloc (bezier->corner_types, bezier->num_points * sizeof(BezCornerType));
   bezier->corner_types[0] = BEZ_CORNER_CUSP;
   bezier->corner_types[num-1] = BEZ_CORNER_CUSP;
-  
+
   for (i = 0; i < num - 2; ++i) {
     const Point *start = &bezier->points[i].p2;
     const Point *major = &bezier->points[i].p3;
@@ -59,7 +59,7 @@ bezier_calc_corner_types (BezierCommon *bezier)
       bezier->corner_types[i+1] = BEZ_CORNER_CUSP;
     else if (distance_line_point (start, end, 0, major) > tolerance)
       bezier->corner_types[i+1] = BEZ_CORNER_CUSP;
-    else if (fabs (   distance_point_point (start, major) 
+    else if (fabs (   distance_point_point (start, major)
 		   -  distance_point_point (end, major) > tolerance))
       bezier->corner_types[i+1] = BEZ_CORNER_SMOOTH;
     else
@@ -67,14 +67,19 @@ bezier_calc_corner_types (BezierCommon *bezier)
   }
 }
 
-/** Set a bezier to use the given array of points.
+/**
+ * beziercommon_set_points:
+ * @bezier: A #BezierCommon to operate on
+ * @num_points: The number of points in the `points' array.
+ * @points: The new points that this bezier should be set to use.
+ *
+ * Set a bezier to use the given array of points.
  * This function does *not* set up handles
- * @param bezier A bezier to operate on
- * @param num_points The number of points in the `points' array.
- * @param points The new points that this bezier should be set to use.
  */
 void
-beziercommon_set_points (BezierCommon *bezier, int num_points, const BezPoint *points)
+beziercommon_set_points (BezierCommon   *bezier,
+                         int             num_points,
+                         const BezPoint *points)
 {
   int i;
 
@@ -166,7 +171,7 @@ bezier_draw_control_lines (int          num_points,
   Color line_colour = { 0.0, 0.0, 0.6, 1.0 };
   Point startpoint;
   int i;
-  
+
   /* setup renderer ... */
   DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0);
   DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED, 1);

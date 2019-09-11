@@ -159,7 +159,11 @@ filter_guess_export_filter(const gchar *filename)
   return (no_guess == 1) ? dont_guess : NULL;
 }
 
-/** Get an export filter by unique name.
+/**
+ * filter_export_get_by_name:
+ * @name: the filter name
+ *
+ * Get an export filter by unique name.
  */
 DiaExportFilter *
 filter_export_get_by_name(const gchar *name)

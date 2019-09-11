@@ -19,12 +19,17 @@
 #include "diaerror.h"
 
 
-/** Get the error quark
+/**
+ * dia_error_quark:
+ *
+ * Get the error quark
+ *
  * This quark is apparently only used in proplist_load.
- * @return An quark for GError creation.
+ *
+ * Returns: An quark for %GError creation.
  */
 GQuark
-dia_error_quark(void)
+dia_error_quark (void)
 {
   static GQuark q = 0;
   if (!q)

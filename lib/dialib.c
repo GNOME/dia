@@ -52,16 +52,16 @@ stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
   if (len >= alloc) {
     if (buf)
       g_free (buf);
-    
+
     alloc = nearest_pow (MAX(len + 1, 1024));
-    
+
     buf = g_new (char, alloc);
   }
-  
+
   vsprintf (buf, fmt, args2);
-  
+
   fprintf(stderr,
-          "%s: %s\n", 
+          "%s: %s\n",
           title,buf);
 }
 
@@ -82,21 +82,24 @@ myXmlErrorReporting (void *ctx, const char* msg, ...)
 #endif
 
 /**
- * Basic (i.e. minimal) initialization of libdia. 
+ * libdia_init:
+ * @flags: a set of %DIA_INTERACTIVE, %DIA_MESSAGE_STDERR
  *
- * It does not load any plug-ins but instead brings libdia to a state that plug-in loading can take place.
- * @param flags a set of DIA_INTERACTIVE, DIA_MESSAGE_STDERR
+ * Basic (i.e. minimal) initialization of libdia.
+ *
+ * It does not load any plug-ins but instead brings libdia to a state that
+ * plug-in loading can take place.
  */
 void
 libdia_init (guint flags)
 {
   static gboolean initialized = FALSE;
-  
+
   if (initialized)
     return;
 
   if (flags & DIA_MESSAGE_STDERR)
-    set_message_func(stderr_message_internal);    
+    set_message_func(stderr_message_internal);
   LIBXML_TEST_VERSION;
 
 #ifdef G_OS_WIN32

@@ -234,7 +234,12 @@ persistence_load_color(gchar *role, xmlNodePtr node, DiaContext *ctx)
 
 static GHashTable *type_handlers;
 
-/** Load the named type of entries using the given function.
+/**
+ * persistence_load_type:
+ * @node:
+ * @ctx:
+ *
+ * Load the named type of entries using the given function.
  * func is a void (*func)(gchar *role, xmlNodePtr *node, DiaContext *ctx)
  */
 static void

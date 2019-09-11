@@ -16,7 +16,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** This file contains functions for importers in particular to create
+/**
+ * SECTION:dia-create
+ * @title: Create
+ * @short_description: Construct objects
+ *
+ * This file contains functions for importers in particular to create
  * standard objects.
  */
 

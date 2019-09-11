@@ -79,11 +79,12 @@ _obj_destroy (gpointer val)
 }
 
 /**
- * @param filename the file to load from or NULL for default
- * @param create_lazy if FALSE creates default objects for
+ * dia_object_defaults_load:
+ * @filename: the file to load from or NULL for default
+ * @create_lazy: if %FALSE creates default objects for
  *             every known type. Otherwise default objects
  *             are created on demand
- * @param ctx The context in which this function is called
+ * @ctx: The context in which this function is called
  *
  * Create all the default objects.
  */

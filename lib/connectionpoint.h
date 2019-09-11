@@ -16,10 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*!
- * \file connectionpoint.h -- Connection Points together with Handles allow to connect objects
- * \ingroup ObjectConnects
- */
 #ifndef CONNECTIONPOINT_H
 #define CONNECTIONPOINT_H
 
@@ -27,10 +23,22 @@
 #include <glib.h>
 #include "geometry.h"
 
-/*! \brief Connections directions, used as hints to e.g. zigzaglines 
+/**
+ * ConnectionPointDirection:
+ * @DIR_NONE: None
+ * @DIR_NORTH: North
+ * @DIR_EAST: East
+ * @DIR_SOUTH: South
+ * @DIR_WEST: West
+ * @DIR_NORTHEAST: %DIR_NORTH + %DIR_EAST
+ * @DIR_SOUTHEAST: %DIR_SOUTH + %DIR_EAST
+ * @DIR_NORTHWEST: %DIR_NORTH + %DIR_WEST
+ * @DIR_SOUTHWEST: %DIR_SOUTH + %DIR_WEST
+ * @DIR_ALL: All directions
+ *
+ * Connections directions, used as hints to e.g. zigzaglines
  * Ordered this way to let *2 be rotate clockwise, /2 rotate counterclockwise.
  * Used as bits
- * \ingroup ObjectConnects
  */
 typedef enum {
   DIR_NONE  = 0,
@@ -46,56 +54,53 @@ typedef enum {
   DIR_ALL       = (DIR_NORTH|DIR_SOUTH|DIR_EAST|DIR_WEST)
 } ConnectionPointDirection;
 
-/*!
- * \brief Additional behaviour flags for connection points
- * \ingroup ObjectConnects
+/**
+ * ConnectionPointFlags:
+ * @CP_FLAG_ANYPLACE: Set if this connpoint is the one that
+                      is connected to when a connection is
+                      dropped on an object.
+ * @CP_FLAG_AUTOGAP: Set if this connpoint is internal
+                     and so should force a gap on the lines.
+ * @CP_FLAGS_MAIN: Use this for the central CP that
+                   takes connections from all over the
+                   object and has autogap.
+ *
+ * Additional behaviour flags for connection points
+ *
+ * Most non-connection objects want exactly one %CP_FLAGS_MAIN #ConnectionPoint
+ * in the middle.
  */
 typedef enum {
-  CP_FLAG_ANYPLACE = (1<<0), /*!< Set if this connpoint is the one that
-			          is connected to when a connection is
-			          dropped on an object. */
-  CP_FLAG_AUTOGAP =  (1<<1), /*!< Set if this connpoint is internal
-			          and so should force a gap on the lines. */
-
-  /*! Most non-connection objects want exactly one CP with this, in the middle. */
-  CP_FLAGS_MAIN	=   (CP_FLAG_ANYPLACE|CP_FLAG_AUTOGAP) /*!< Use this for the central CP that
-							    takes connections from all over the
-							    object and has autogap. */
+  CP_FLAG_ANYPLACE = (1<<0),
+  CP_FLAG_AUTOGAP  = (1<<1),
+  CP_FLAGS_MAIN    = (CP_FLAG_ANYPLACE|CP_FLAG_AUTOGAP)
 } ConnectionPointFlags;
 
-/*!
- * \brief To connect object with other objects handles
- * \ingroup ObjectConnects
+/**
+ * ConnectionPoint:
+ * @pos: position of this connection point
+ * @object: pointer to the object having this point
+ * @connected: list of #DiaObject connected to this point
+ * @directions: Directions that this connection point is open to
+ * @flags: Flags set for this connpoint. See #ConnectionPointFlags
+ *
+ * To connect object with other objects handles
  */
 struct _ConnectionPoint {
-  Point pos;         /*!< position of this connection point */
-  DiaObject *object; /*!< pointer to the object having this point */
-  GList *connected;  /*!< list of 'DiaObject *' connected to this point*/
-  guint8 directions; /*!< Directions that this connection point is open to */
-  guint8 flags;      /*!< Flags set for this connpoint.  See CP_FLAGS_* above. */
+  Point      pos;
+  DiaObject *object;
+  GList     *connected;
+  guint8     directions;
+  guint8     flags;
 };
 
-/** 
- * \brief Returns the available directions on a slope.
- * The right-hand side of the line is assumed to be within the object,
- * and thus not available. 
- * \ingroup ObjectConnects
- */
-gint find_slope_directions(Point from, Point to);
-/*!
- * \brief Update the object-settable parts of a connectionpoints.
- * @param p A ConnectionPoint pointer (non-NULL).
- * @param x The x coordinate of the connectionpoint.
- * @param y The y coordinate of the connectionpoint.
- * @param dirs The directions that are open for connections on this point.
- * \ingroup ObjectConnects
- */
-void connpoint_update(ConnectionPoint *p, real x, real y, gint dirs);
-/*!
- * \brief Adaptive rendering to the boundary of the connected object
- * \ingroup ObjectConnects
- */
-gboolean connpoint_is_autogap(ConnectionPoint *cp);
+gint     find_slope_directions (Point            from,
+                                Point            to);
+void     connpoint_update      (ConnectionPoint *p,
+                                real             x,
+                                real             y,
+                                gint             dirs);
+gboolean connpoint_is_autogap  (ConnectionPoint *cp);
 
 
 #endif /* CONNECTIONPOINT_H */

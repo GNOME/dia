@@ -192,8 +192,11 @@ dia_image_new_from_pixbuf (GdkPixbuf *pixbuf)
   return dia_img;
 }
 
-/** Reference an image.
- * @param image Image that we want a reference to.
+/**
+ * dia_image_add_ref:
+ * @image: Image that we want a reference to.
+ *
+ * Reference an image.
  */
 void
 dia_image_add_ref (DiaImage *image)
@@ -202,8 +205,11 @@ dia_image_add_ref (DiaImage *image)
   g_object_ref (image);
 }
 
-/** Release a reference to an image.
- * @param image Image to unreference.
+/**
+ * dia_image_unref:
+ * @image: Image to unreference.
+ *
+ * Release a reference to an image.
  */
 void
 dia_image_unref (DiaImage *image)
