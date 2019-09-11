@@ -29,6 +29,7 @@
 #include "beziershape.h"
 #include "connectionpoint.h"
 #include "diarenderer.h"
+#include "diainteractiverenderer.h"
 #include "attributes.h"
 #include "diamenu.h"
 #include "properties.h"
@@ -241,8 +242,8 @@ beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
   /* these lines should only be displayed when object is selected.
    * Unfortunately the draw function is not aware of the selected
    * state.  This is a compromise until I fix this properly. */
-  if (renderer->is_interactive &&
-      dia_object_is_selected((DiaObject*)beziergon)) {
+  if (DIA_IS_INTERACTIVE_RENDERER (renderer) &&
+      dia_object_is_selected (DIA_OBJECT (beziergon))) {
     bezier_draw_control_lines (beziergon->bezier.bezier.num_points, beziergon->bezier.bezier.points, renderer);
   }
 }

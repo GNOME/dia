@@ -25,6 +25,7 @@
 #include "intl.h"
 #include "diagramdata.h"
 #include "diarenderer.h"
+#include "diainteractiverenderer.h"
 #include "paper.h"
 #include "persistence.h"
 
@@ -802,28 +803,34 @@ data_emit(DiagramData *data, Layer *layer, DiaObject* obj,
  * \memberof _DiagramData
  */
 void
-data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
-	    ObjectRenderer obj_renderer, gpointer gdata)
+data_render (DiagramData    *data,
+             DiaRenderer    *renderer,
+             Rectangle      *update,
+             ObjectRenderer  obj_renderer,
+             gpointer        gdata)
 {
   Layer *layer;
   guint i, active_layer;
 
-  if (!renderer->is_interactive)
-    (DIA_RENDERER_GET_CLASS(renderer)->begin_render)(renderer, update);
+  if (DIA_IS_INTERACTIVE_RENDERER (renderer)) {
+    (DIA_RENDERER_GET_CLASS (renderer)->begin_render) (renderer, update);
+  }
 
-  for (i=0; i<data->layers->len; i++) {
-    layer = (Layer *) g_ptr_array_index(data->layers, i);
+  for (i = 0; i < data->layers->len; i++) {
+    layer = (Layer *) g_ptr_array_index (data->layers, i);
     active_layer = (layer == data->active_layer);
     if (layer->visible) {
-      if (obj_renderer)
-        layer_render(layer, renderer, update, obj_renderer, gdata, active_layer);
-      else
-        (DIA_RENDERER_GET_CLASS(renderer)->draw_layer)(renderer, layer, active_layer, update);
+      if (obj_renderer) {
+        layer_render (layer, renderer, update, obj_renderer, gdata, active_layer);
+      } else {
+        (DIA_RENDERER_GET_CLASS (renderer)->draw_layer) (renderer, layer, active_layer, update);
+      }
     }
   }
 
-  if (!renderer->is_interactive)
-    (DIA_RENDERER_GET_CLASS(renderer)->end_render)(renderer);
+  if (DIA_IS_INTERACTIVE_RENDERER (renderer)) {
+    (DIA_RENDERER_GET_CLASS (renderer)->end_render) (renderer);
+  }
 }
 
 /*!

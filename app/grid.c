@@ -26,6 +26,7 @@
 #include "intl.h"
 #include "grid.h"
 #include "preferences.h"
+#include "diainteractiverenderer.h"
 
 /** Calculate the width (in cm) of the gap between grid lines in dynamic
  * grid mode.
@@ -90,7 +91,7 @@ grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length)
   DiaInteractiveRendererInterface *irenderer;
   int major_count = 0;
 
-  irenderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
+  irenderer = DIA_INTERACTIVE_RENDERER_GET_IFACE (renderer);
 
   pos = ceil( update->top / length ) * length;
   ddisplay_transform_coords(ddisp, update->left, pos, &x, &y);
@@ -108,23 +109,28 @@ grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length)
 
   if (major_lines) {
     major_count = ROUND (pos/length);
-    if(major_count < 0) major_count -= major_lines * major_count;
+    if (major_count < 0) major_count -= major_lines * major_count;
     major_count %= major_lines;
   }
 
   while (y < height) {
     if (major_lines) {
-      if (major_count == 0)
-	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-      else
-	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED,
-							ddisplay_untransform_length(ddisp, 31));
-      major_count = (major_count+1)%major_lines;
+      if (major_count == 0) {
+        DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+      } else {
+        DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, LINESTYLE_DOTTED,
+                                                          ddisplay_untransform_length (ddisp, 31));
+      }
+      major_count = (major_count + 1) % major_lines;
     }
-    irenderer->draw_pixel_line(renderer, x, y, width, y,
-			       &ddisp->diagram->grid.colour);
+    irenderer->draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                x,
+                                y,
+                                width,
+                                y,
+                                &ddisp->diagram->grid.colour);
     pos += length;
-    ddisplay_transform_coords(ddisp, update->left, pos, &x, &y);
+    ddisplay_transform_coords (ddisp, update->left, pos, &x, &y);
   }
 }
 
@@ -139,7 +145,7 @@ grid_draw_vertical_lines(DDisplay *ddisp, Rectangle *update, real length)
   DiaInteractiveRendererInterface *irenderer;
   int major_count = 0;
 
-  irenderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
+  irenderer = DIA_INTERACTIVE_RENDERER_GET_IFACE (renderer);
 
   pos = ceil( update->left / length ) * length;
   ddisplay_transform_coords(ddisp, update->right, update->bottom, &width, &height);
@@ -151,17 +157,25 @@ grid_draw_vertical_lines(DDisplay *ddisp, Rectangle *update, real length)
   }
 
   while (x < width) {
-    ddisplay_transform_coords(ddisp, pos, update->top, &x, &y);
+    ddisplay_transform_coords (ddisp, pos, update->top, &x, &y);
     if (major_lines) {
-      if (major_count == 0)
-	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-      else
-	DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED,
-							ddisplay_untransform_length(ddisp, 31));
-      major_count = (major_count+1)%major_lines;
+      if (major_count == 0) {
+        DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (DIA_INTERACTIVE_RENDERER (renderer),
+                                                          LINESTYLE_SOLID,
+                                                          0.0);
+      } else {
+        DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (DIA_INTERACTIVE_RENDERER (renderer),
+                                                          LINESTYLE_DOTTED,
+                                                          ddisplay_untransform_length (ddisp, 31));
+      }
+      major_count = (major_count + 1) % major_lines;
     }
-    irenderer->draw_pixel_line(renderer, x, y, x, height,
-			       &ddisp->diagram->grid.colour);
+    irenderer->draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                x,
+                                y,
+                                x,
+                                height,
+                                &ddisp->diagram->grid.colour);
     pos += length;
   }
 }
@@ -174,7 +188,7 @@ grid_draw_hex(DDisplay *ddisp, Rectangle *update, real length)
   DiaRenderer *renderer = ddisp->renderer;
   DiaInteractiveRendererInterface *irenderer;
 
-  irenderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
+  irenderer = DIA_INTERACTIVE_RENDERER_GET_IFACE (renderer);
 
   /* First horizontal lines: */
   vert_pos = ceil( update->top / (length * sqrt(3)) ) * length * sqrt(3);
@@ -297,28 +311,29 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
 }
 
 void
-pagebreak_draw(DDisplay *ddisp, Rectangle *update)
+pagebreak_draw (DDisplay *ddisp, Rectangle *update)
 {
   DiaRenderer *renderer = ddisp->renderer;
   DiaInteractiveRendererInterface *irenderer;
 
-  int width = dia_renderer_get_width_pixels(ddisp->renderer);
-  int height = dia_renderer_get_height_pixels(ddisp->renderer);
+  int width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
+  int height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
-  irenderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
+  irenderer = DIA_INTERACTIVE_RENDERER_GET_IFACE (renderer);
   if (prefs.pagebreak.visible) {
     Diagram *dia = ddisp->diagram;
     real origx = 0, origy = 0, pos;
     real pwidth = dia->data->paper.width;
     real pheight = dia->data->paper.height;
-    int x,y;
+    int x, y;
 
-    DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.0);
-    if (prefs.pagebreak.solid)
-      DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-    else
-      DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED,
-						      ddisplay_untransform_length(ddisp, 31));
+    DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, 0.0);
+    if (prefs.pagebreak.solid) {
+      DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+    } else {
+      DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, LINESTYLE_DOTTED,
+                                                        ddisplay_untransform_length (ddisp, 31));
+    }
 
     if (dia->data->paper.fitto) {
       origx = dia->data->extents.left;
@@ -326,61 +341,61 @@ pagebreak_draw(DDisplay *ddisp, Rectangle *update)
     }
 
     /* vertical lines ... */
-    pos = origx + ceil((update->left - origx) / pwidth) * pwidth;
+    pos = origx + ceil ((update->left - origx) / pwidth) * pwidth;
     while (pos <= update->right) {
-      ddisplay_transform_coords(ddisp, pos,0,&x,&y);
-      irenderer->draw_pixel_line(renderer,
-                                 x, 0, x, height,
-				 &dia->pagebreak_color);
+      ddisplay_transform_coords (ddisp, pos, 0, &x, &y);
+      irenderer->draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                  x, 0, x, height,
+                                  &dia->pagebreak_color);
       pos += pwidth;
     }
     /* Horizontal lines: */
-    pos = origy + ceil((update->top - origy) / pheight) * pheight;
+    pos = origy + ceil ((update->top - origy) / pheight) * pheight;
     while (pos <= update->bottom) {
-      ddisplay_transform_coords(ddisp, 0,pos,&x,&y);
-      irenderer->draw_pixel_line(renderer,
-				 0, y, width, y,
-				 &dia->pagebreak_color);
+      ddisplay_transform_coords (ddisp, 0,pos,&x,&y);
+      irenderer->draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                  0, y, width, y,
+                                  &dia->pagebreak_color);
       pos += pheight;
     }
   }
 }
 
 void
-snap_to_grid(DDisplay *ddisp, coord *x, coord *y)
+snap_to_grid (DDisplay *ddisp, coord *x, coord *y)
 {
   if (ddisp->grid.snap) {
     if (ddisp->diagram->grid.hex) {
       real width_x = ddisp->diagram->grid.width_w;
-      real x_mod = (*x - 1*width_x) - floor((*x - 1*width_x) / (3*width_x)) * 3 * width_x;
-      real y_mod = (*y - 0.25*sqrt(3) * width_x) -
-	floor((*y - 0.25 * sqrt(3) * width_x) / (sqrt(3)*width_x)) * sqrt(3) * width_x;
+      real x_mod = (*x - 1 * width_x) - floor ((*x - 1 * width_x) / (3 * width_x)) * 3 * width_x;
+      real y_mod = (*y - 0.25 * sqrt (3) * width_x) -
+        floor ((*y - 0.25 * sqrt (3) * width_x) / (sqrt (3) * width_x)) * sqrt (3) * width_x;
 
       if ( x_mod < (1.5 * width_x) ) {
-	if ( y_mod < 0.5 * sqrt(3) * width_x ) {
-	  *x = floor((*x + 0.5*width_x) / (3*width_x)) * 3 * width_x + 2 * width_x;
-	  *y = floor((*y - 0.25 * sqrt(3) * width_x) / (sqrt(3)*width_x)) * sqrt(3) * width_x + 0.5 * sqrt(3) * width_x;
-	} else {
-	  *x = floor((*x + 0.5*width_x) / (3*width_x)) * 3 * width_x + 1.5 * width_x;
-	  *y = floor((*y - 0.25 * sqrt(3) * width_x) / (sqrt(3)*width_x)) * sqrt(3) * width_x + sqrt(3) * width_x;
-	}
+        if ( y_mod < 0.5 * sqrt (3) * width_x ) {
+          *x = floor ((*x + 0.5 * width_x) / (3 * width_x)) * 3 * width_x + 2 * width_x;
+          *y = floor ((*y - 0.25 * sqrt (3) * width_x) / (sqrt (3)*width_x)) * sqrt (3) * width_x + 0.5 * sqrt (3) * width_x;
+        } else {
+          *x = floor ((*x + 0.5 * width_x) / (3 * width_x)) * 3 * width_x + 1.5 * width_x;
+          *y = floor ((*y - 0.25 * sqrt (3) * width_x) / (sqrt (3)*width_x)) * sqrt (3) * width_x + sqrt (3) * width_x;
+        }
       } else {
-	if ( y_mod < 0.5 * sqrt(3) * width_x ) {
-	  *x = floor((*x + 0.5*width_x) / (3*width_x)) * 3 * width_x ;
-	  *y = floor((*y - 0.25 * sqrt(3) * width_x) / (sqrt(3)*width_x)) * sqrt(3) * width_x + 0.5 * sqrt(3) * width_x;
-	} else {
-	  *x = floor((*x + 0.5*width_x) / (3*width_x)) * 3 * width_x + 0.5 * width_x;
-	  *y = floor((*y - 0.25 * sqrt(3) * width_x) / (sqrt(3)*width_x)) * sqrt(3) * width_x + sqrt(3) * width_x;
-	}
+        if ( y_mod < 0.5 * sqrt (3) * width_x ) {
+          *x = floor ((*x + 0.5 * width_x) / (3 * width_x)) * 3 * width_x ;
+          *y = floor ((*y - 0.25 * sqrt (3) * width_x) / (sqrt (3) * width_x)) * sqrt (3) * width_x + 0.5 * sqrt (3) * width_x;
+        } else {
+          *x = floor ((*x + 0.5 * width_x) / (3 * width_x)) * 3 * width_x + 0.5 * width_x;
+          *y = floor ((*y - 0.25 * sqrt (3) * width_x) / (sqrt (3) * width_x)) * sqrt (3) * width_x + sqrt (3) * width_x;
+        }
       }
     } else {
       real width_x = ddisp->diagram->grid.width_x;
       real width_y = ddisp->diagram->grid.width_y;
       if (ddisp->diagram->grid.dynamic) {
-	calculate_dynamic_grid(ddisp, &width_x, &width_y);
+          calculate_dynamic_grid (ddisp, &width_x, &width_y);
       }
-      *x = ROUND((*x) / width_x) * width_x;
-      *y = ROUND((*y) / width_y) * width_y;
+      *x = ROUND ((*x) / width_x) * width_x;
+      *y = ROUND ((*y) / width_y) * width_y;
     }
   }
 }

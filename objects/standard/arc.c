@@ -29,6 +29,7 @@
 #include "connection.h"
 #include "connectionpoint.h"
 #include "diarenderer.h"
+#include "diainteractiverenderer.h"
 #include "attributes.h"
 #include "arrows.h"
 #include "properties.h"
@@ -629,36 +630,41 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
     real angle1 = arc->curve_distance > 0.0 ? arc->angle1 : arc->angle2;
     real angle2 = arc->curve_distance > 0.0 ? arc->angle2 : arc->angle1;
     /* make it direction aware */
-    if (arc->curve_distance > 0.0 && angle2 < angle1)
+    if (arc->curve_distance > 0.0 && angle2 < angle1) {
       angle1 -= 360.0;
-    else if (arc->curve_distance < 0.0 && angle2 > angle1)
+    } else if (arc->curve_distance < 0.0 && angle2 > angle1) {
       angle2 -= 360.0;
-    renderer_ops->draw_arc(renderer, &arc->center_handle.pos,
-			   arc->radius*2.0, arc->radius*2.0,
-			   angle1, angle2,
-			   &arc->arc_color);
+    }
+    renderer_ops->draw_arc (renderer,
+                            &arc->center_handle.pos,
+                            arc->radius*2.0,
+                            arc->radius*2.0,
+                            angle1,
+                            angle2,
+                            &arc->arc_color);
   } else {
-    renderer_ops->draw_arc_with_arrows(renderer,
-					&gaptmp[0],
-					&gaptmp[1],
-					&gaptmp[2],
-					arc->line_width,
-					&arc->arc_color,
-					&arc->start_arrow,
-					&arc->end_arrow);
+    renderer_ops->draw_arc_with_arrows (renderer,
+                                        &gaptmp[0],
+                                        &gaptmp[1],
+                                        &gaptmp[2],
+                                        arc->line_width,
+                                        &arc->arc_color,
+                                        &arc->start_arrow,
+                                        &arc->end_arrow);
   }
-  if (renderer->is_interactive &&
-      dia_object_is_selected(&arc->connection.object)) {
+
+  if (DIA_IS_INTERACTIVE_RENDERER (renderer) &&
+      dia_object_is_selected (&arc->connection.object)) {
     /* draw the central angle */
     Color line_color = { 0.0, 0.0, 0.6, 1.0 };
 
-    renderer_ops->set_linewidth(renderer, 0);
-    renderer_ops->set_linestyle(renderer, LINESTYLE_DOTTED, 1);
-    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-    renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+    renderer_ops->set_linewidth (renderer, 0);
+    renderer_ops->set_linestyle (renderer, LINESTYLE_DOTTED, 1);
+    renderer_ops->set_linejoin (renderer, LINEJOIN_MITER);
+    renderer_ops->set_linecaps (renderer, LINECAPS_BUTT);
 
-    renderer_ops->draw_line(renderer, &endpoints[0], &arc->center, &line_color);
-    renderer_ops->draw_line(renderer, &endpoints[1], &arc->center, &line_color);
+    renderer_ops->draw_line (renderer, &endpoints[0], &arc->center, &line_color);
+    renderer_ops->draw_line (renderer, &endpoints[1], &arc->center, &line_color);
   }
 }
 

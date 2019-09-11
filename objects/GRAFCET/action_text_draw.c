@@ -29,10 +29,11 @@
 
 #include "geometry.h"
 #include "diarenderer.h"
+#include "diainteractiverenderer.h"
 #include "text.h"
 #include "action_text_draw.h"
 
-/* This used to be really horrible code. Really. 
+/* This used to be really horrible code. Really.
    Now it's just a code fork. */
 
 void
@@ -44,7 +45,7 @@ action_text_draw(Text *text, DiaRenderer *renderer)
   real space_width;
 
   renderer_ops->set_font(renderer, text->font, text->height);
-  
+
   pos = text->position;
 
   space_width = action_text_spacewidth(text);
@@ -59,7 +60,7 @@ action_text_draw(Text *text, DiaRenderer *renderer)
       2 * space_width;
   }
 
-  if ((renderer->is_interactive) && (text->focus.has_focus)) {
+  if (DIA_IS_INTERACTIVE_RENDERER (renderer) && (text->focus.has_focus)) {
     real curs_x, curs_y;
     real str_width_first;
     real str_width_whole;
@@ -97,7 +98,7 @@ action_text_draw(Text *text, DiaRenderer *renderer)
     p1.y = curs_y;
     p2.x = curs_x;
     p2.y = curs_y + text->height;
-    
+
     renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
     renderer_ops->set_linewidth(renderer, 0.1);
     renderer_ops->draw_line(renderer, &p1, &p2, &color_black);

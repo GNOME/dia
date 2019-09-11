@@ -21,6 +21,7 @@
 #include "intl.h"
 #include "diagramdata.h"
 #include "diarenderer.h"
+#include "diainteractiverenderer.h"
 #include "dynamic_obj.h"
 
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
@@ -59,23 +60,26 @@ render_bounding_boxes (void)
 }
 
 /*!
- * \brief Render all components of a single layer.
+ * layer_render:
+ * @layer: The layer to render.
+ * @renderer: The renderer to draw things with.
+ * @update: The rectangle that requires update.  Only objects that
+ *  intersect with this rectangle will actually be get rendered.
+ * @obj_renderer: A function that will render an object.
+ * @data: The diagram that the layer belongs to.
+ * @active_layer: Which number layer in the diagram is currently active.
+ *
+ * Render all components of a single layer.
  *
  * This function also handles rendering of bounding boxes for debugging purposes.
- * @param layer The layer to render.
- * @param renderer The renderer to draw things with.
- * @param update The rectangle that requires update.  Only objects that
- *  intersect with this rectangle will actually be get rendered.
- * @param obj_renderer A function that will render an object.
- * @param data The diagram that the layer belongs to.
- * @param active_layer Which number layer in the diagram is currently active.
- * \memberof _Layer
  */
 void
-layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
-	     ObjectRenderer obj_renderer,
-	     gpointer data,
-	     int active_layer)
+layer_render (Layer          *layer,
+              DiaRenderer    *renderer,
+              Rectangle      *update,
+              ObjectRenderer  obj_renderer,
+              gpointer        data,
+              int             active_layer)
 {
   GList *list;
   DiaObject *obj;
@@ -85,29 +89,29 @@ layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
 
   /* Draw all objects: */
   list = layer->objects;
-  while (list!=NULL) {
+  while (list != NULL) {
     obj = (DiaObject *) list->data;
 
-    if (update==NULL || rectangle_intersects(update, &obj->bounding_box)) {
-      if ((render_bounding_boxes()) && (renderer->is_interactive)) {
-	Point p1, p2;
-	Color col;
-	p1.x = obj->bounding_box.left;
-	p1.y = obj->bounding_box.top;
-	p2.x = obj->bounding_box.right;
-	p2.y = obj->bounding_box.bottom;
-	col.red = 1.0;
-	col.green = 0.0;
-	col.blue = 1.0;
-	col.alpha = 1.0;
+    if (update==NULL || rectangle_intersects (update, &obj->bounding_box)) {
+      if ((render_bounding_boxes ()) && DIA_IS_INTERACTIVE_RENDERER (renderer)) {
+        Point p1, p2;
+        Color col;
+        p1.x = obj->bounding_box.left;
+        p1.y = obj->bounding_box.top;
+        p2.x = obj->bounding_box.right;
+        p2.y = obj->bounding_box.bottom;
+        col.red = 1.0;
+        col.green = 0.0;
+        col.blue = 1.0;
+        col.alpha = 1.0;
 
-        DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer,0.01);
-	DIA_RENDERER_GET_CLASS(renderer)->draw_rect(renderer, &p1, &p2, NULL, &col);
+        DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer,0.01);
+        DIA_RENDERER_GET_CLASS (renderer)->draw_rect (renderer, &p1, &p2, NULL, &col);
       }
-      (*obj_renderer)(obj, renderer, active_layer, data);
+      (*obj_renderer) (obj, renderer, active_layer, data);
     }
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 }
 

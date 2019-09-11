@@ -28,6 +28,7 @@
 #include "propinternals.h"
 #include "text.h"
 #include "diarenderer.h"
+#include "diainteractiverenderer.h"
 #include "diagramdata.h"
 #include "objchange.h"
 #include "textline.h"
@@ -556,9 +557,9 @@ text_distance_from(Text *text, Point *point)
 void
 text_draw(Text *text, DiaRenderer *renderer)
 {
-  DIA_RENDERER_GET_CLASS(renderer)->draw_text(renderer, text);
+  DIA_RENDERER_GET_CLASS (renderer)->draw_text (renderer, text);
 
-  if ((renderer->is_interactive) && (text->focus.has_focus)) {
+  if (DIA_IS_INTERACTIVE_RENDERER (renderer) && (text->focus.has_focus)) {
     real curs_x, curs_y;
     real str_width_first;
     real str_width_whole;
@@ -566,16 +567,16 @@ text_draw(Text *text, DiaRenderer *renderer)
     real height = text->ascent+text->descent;
     curs_y = text->position.y - text->ascent + text->cursor_row*text->height;
 
-    DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
+    DIA_RENDERER_GET_CLASS (renderer)->set_font (renderer, text->font, text->height);
 
     str_width_first =
-      DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer,
-						       text_get_line(text, text->cursor_row),
-						       text->cursor_pos);
+      DIA_RENDERER_GET_CLASS (renderer)->get_text_width (renderer,
+                                                         text_get_line (text, text->cursor_row),
+                                                         text->cursor_pos);
     str_width_whole =
-      DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer,
-						       text_get_line(text, text->cursor_row),
-						       text_get_line_strlen(text, text->cursor_row));
+      DIA_RENDERER_GET_CLASS (renderer)->get_text_width (renderer,
+                                                         text_get_line (text, text->cursor_row),
+                                                         text_get_line_strlen (text, text->cursor_row));
     curs_x = text->position.x + str_width_first;
 
     switch (text->alignment) {
@@ -664,8 +665,9 @@ text_move_cursor(Text *text, CursorMovement mv)
 /* The renderer is only used to determine where the click is, so is not
  * required when no point is given. */
 void
-text_set_cursor(Text *text, Point *clicked_point,
-		DiaRenderer *renderer)
+text_set_cursor (Text        *text,
+                 Point       *clicked_point,
+                 DiaRenderer *renderer)
 {
   real str_width_whole;
   real str_width_first;
@@ -688,18 +690,18 @@ text_set_cursor(Text *text, Point *clicked_point,
     text->cursor_row = row;
     text->cursor_pos = 0;
 
-    if (!renderer->is_interactive) {
-      g_warning("Internal error: Select gives non interactive renderer!\n"
-		"val: %d\n", renderer->is_interactive);
+    if (!DIA_IS_INTERACTIVE_RENDERER (renderer)) {
+      g_warning ("Internal error: Select gives non interactive renderer!\n"
+                 "renderer: %s", g_type_name (G_TYPE_FROM_INSTANCE (renderer)));
       return;
     }
 
 
-    DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer, text->font, text->height);
+    DIA_RENDERER_GET_CLASS (renderer)->set_font (renderer, text->font, text->height);
     str_width_whole =
-      DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer,
-						       text_get_line(text, row),
-						       text_get_line_strlen(text, row));
+      DIA_RENDERER_GET_CLASS (renderer)->get_text_width (renderer,
+                                                         text_get_line (text, row),
+                                                         text_get_line_strlen (text, row));
     start_x = text->position.x;
     switch (text->alignment) {
     case ALIGN_LEFT:

@@ -562,7 +562,7 @@ dia_cairo_renderer_set_font (DiaRenderer *self, DiaFont *font, real height)
   pango_font_description_free (pfd);
 
   /* for the interactive case we must maintain the font field in the base class */
-  if (self->is_interactive) {
+  if (DIA_IS_INTERACTIVE_RENDERER (self)) {
     dia_font_ref (font);
     if (self->font) {
       dia_font_unref (self->font);

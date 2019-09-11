@@ -25,6 +25,7 @@
 
 #include <glib.h>
 #include "diacontext.h"
+#include "diainteractiverenderer.h"
 #include "boundingbox.h"
 
 #ifdef G_OS_WIN32
@@ -2375,7 +2376,7 @@ arrow_draw (DiaRenderer *renderer,
         break;
       }
   }
-  if ((type != ARROW_NONE) && (render_bounding_boxes ()) && (renderer->is_interactive)) {
+  if ((type != ARROW_NONE) && (render_bounding_boxes ()) && DIA_IS_INTERACTIVE_RENDERER (renderer)) {
     Arrow arrow = {type, length, width};
     Rectangle bbox = {0, };
     Point p1, p2;

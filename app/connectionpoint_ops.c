@@ -24,6 +24,7 @@
 #include "color.h"
 #include "object.h"
 #include "connectionpoint.h"
+#include "diainteractiverenderer.h"
 
 #define CONNECTIONPOINT_SIZE 7
 #define CHANGED_TRESHOLD 0.001
@@ -33,29 +34,29 @@ static Color connectionpoint_color = { 0.4, 0.4, 1.0, 1.0 };
 #define CP_SZ (CONNECTIONPOINT_SIZE/2)
 
 static void
-connectionpoint_draw(ConnectionPoint *conpoint,
-		     DDisplay        *ddisp,
-		     DiaRenderer     *renderer,
-		     DiaInteractiveRendererInterface *irenderer,
-		     Color           *color)
+connectionpoint_draw (ConnectionPoint                 *conpoint,
+                      DDisplay                        *ddisp,
+                      DiaRenderer                     *renderer,
+                      DiaInteractiveRendererInterface *irenderer,
+                      Color                           *color)
 {
   int x,y;
   Point *point = &conpoint->pos;
-  
-  ddisplay_transform_coords(ddisp, point->x, point->y, &x, &y);
 
-  irenderer->draw_pixel_line (renderer,
-			x-CP_SZ,y-CP_SZ,
-			x+CP_SZ,y+CP_SZ,
-			color);
+  ddisplay_transform_coords (ddisp, point->x, point->y, &x, &y);
 
-  irenderer->draw_pixel_line (renderer,
-			x+CP_SZ,y-CP_SZ,
-			x-CP_SZ,y+CP_SZ,
-			color);
+  irenderer->draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                              x-CP_SZ,y-CP_SZ,
+                              x+CP_SZ,y+CP_SZ,
+                              color);
+
+  irenderer->draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                              x+CP_SZ,y-CP_SZ,
+                              x-CP_SZ,y+CP_SZ,
+                              color);
 }
 
-void 
+void
 object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
 {
   int i;
@@ -63,14 +64,14 @@ object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
   DiaRenderer *renderer = ddisp->renderer;
   DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (ddisp->renderer);
   DiaInteractiveRendererInterface *irenderer =
-    DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
+    DIA_INTERACTIVE_RENDERER_GET_IFACE (ddisp->renderer);
 
   /* this does not change for any of the points */
   renderer_ops->set_linewidth (renderer, 0.0);
   renderer_ops->set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   /* optimization to only draw the connection points at all if the size
-   * of the object (bounding box) is bigger than the summed size of the 
+   * of the object (bounding box) is bigger than the summed size of the
    * connection points - or some variation thereof ;)
    */
   if (dia_object_get_num_connections(obj) > 1)
@@ -119,16 +120,16 @@ diagram_update_connections_selection(Diagram *dia)
 
   while (list!=NULL) {
     DiaObject * selected_obj = (DiaObject *) list->data;
-    
+
     diagram_update_connections_object(dia, selected_obj, TRUE);
-    
+
     list = g_list_next(list);
   }
 }
 
 /* Updates all objects connected to the 'obj' object.
    Calls this function recursively for objects modified.
-   
+
    If update_nonmoved is TRUE, also objects that have not
    moved since last time is updated. This is not propagated
    in the recursion.
@@ -163,7 +164,7 @@ diagram_update_connections_object(Diagram *dia, DiaObject *obj,
 	  object_add_updates(connected_obj, dia);
 
 	  diagram_update_connections_object(dia, connected_obj, FALSE);
-	}	
+	}
 	list = g_list_next(list);
       }
     }
@@ -173,7 +174,7 @@ diagram_update_connections_object(Diagram *dia, DiaObject *obj,
     for (child = obj->children; child != NULL; child = child->next) {
       DiaObject *child_obj = (DiaObject *)child->data;
       diagram_update_connections_object(dia, child_obj, update_nonmoved);
-    }    
+    }
   }
 }
 
@@ -183,7 +184,7 @@ ddisplay_connect_selected(DDisplay *ddisp)
   GList *list;
 
   list = ddisp->diagram->data->selected;
-    
+
   while (list!=NULL) {
     DiaObject *selected_obj = (DiaObject *) list->data;
     int i;
@@ -193,7 +194,7 @@ ddisplay_connect_selected(DDisplay *ddisp)
 	object_connect_display(ddisp, selected_obj, selected_obj->handles[i], FALSE);
       }
     }
-    
+
     list = g_list_next(list);
   }
 }
@@ -204,14 +205,14 @@ diagram_unconnect_selected(Diagram *dia)
   GList *list;
 
   list = dia->data->selected;
-    
+
   while (list!=NULL) {
     DiaObject *selected_obj = (DiaObject *) list->data;
     int i;
 
     for (i=0; i<selected_obj->num_handles; i++) {
       Handle *handle = selected_obj->handles[i];
-      
+
       if ((handle->connected_to != NULL) &&
 	  (handle->connect_type == HANDLE_CONNECTABLE)){
 	  /* don't do this if type is HANDLE_CONNECTABLE_BREAK */

@@ -46,6 +46,7 @@
 #include "widgets.h"
 #include "message.h"
 #include "ruler.h"
+#include "diainteractiverenderer.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
@@ -355,18 +356,17 @@ notebook_switch_page (GtkNotebook *notebook,
  */
 static gboolean
 canvas_configure_event (GtkWidget         *widget,
-			GdkEventConfigure *cevent,
-			DDisplay          *ddisp)
+                        GdkEventConfigure *cevent,
+                        DDisplay          *ddisp)
 {
   gboolean new_size = FALSE;
   int width, height;
 
   g_return_val_if_fail (widget == ddisp->canvas, FALSE);
 
-
   if (ddisp->renderer) {
-    width = dia_renderer_get_width_pixels (ddisp->renderer);
-    height = dia_renderer_get_height_pixels (ddisp->renderer);
+    width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
+    height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
   } else {
     /* We can continue even without a renderer here because
      * ddisplay_resize_canvas () does the setup for us.
@@ -378,7 +378,7 @@ canvas_configure_event (GtkWidget         *widget,
   if (width != cevent->width || height != cevent->height) {
     g_debug ("%s: Canvas size change...", G_STRLOC);
     ddisplay_resize_canvas (ddisp, cevent->width, cevent->height);
-    ddisplay_update_scrollbars(ddisp);
+    ddisplay_update_scrollbars (ddisp);
     /* on resize stop further propagation - does not help */
     new_size = TRUE;
   }
@@ -386,8 +386,9 @@ canvas_configure_event (GtkWidget         *widget,
   /* If the UI is not integrated, resizing should set the resized
    * window as active.  With integrated UI, there is only one window.
    */
-  if (is_integrated_ui () == 0)
-    display_set_active(ddisp);
+  if (is_integrated_ui () == 0) {
+    display_set_active (ddisp);
+  }
 
   /* continue propagation with FALSE */
   return new_size;
@@ -409,7 +410,7 @@ canvas_expose_event (GtkWidget      *widget,
   g_return_val_if_fail (ddisp->renderer != NULL, FALSE);
 
   /* Renders updates to pixmap + copies display_areas to canvas(screen) */
-  renderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
+  renderer = DIA_INTERACTIVE_RENDERER_GET_IFACE (ddisp->renderer);
 
   /* Only update if update_areas exist */
   l = ddisp->update_areas;
@@ -420,15 +421,15 @@ canvas_expose_event (GtkWidget      *widget,
     g_return_val_if_fail (   renderer->clip_region_clear != NULL
                           && renderer->clip_region_add_rect != NULL, FALSE);
 
-    renderer->clip_region_clear (ddisp->renderer);
+    renderer->clip_region_clear (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
-    while(l!=NULL) {
+    while ( l!= NULL) {
       r = (Rectangle *) l->data;
 
-      rectangle_union(&totrect, r);
-      renderer->clip_region_add_rect (ddisp->renderer, r);
+      rectangle_union (&totrect, r);
+      renderer->clip_region_add_rect (DIA_INTERACTIVE_RENDERER (ddisp->renderer), r);
 
-      l = g_slist_next(l);
+      l = g_slist_next (l);
     }
     /* Free update_areas list: */
     l = ddisp->update_areas;
@@ -449,8 +450,10 @@ canvas_expose_event (GtkWidget      *widget,
 
   gtk_widget_get_allocation (widget, &alloc);
 
-  dia_interactive_renderer_paint (ddisp->renderer, ctx,
-                                  alloc.width, alloc.height);
+  dia_interactive_renderer_paint (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
+                                  ctx,
+                                  alloc.width,
+                                  alloc.height);
 
   return FALSE;
 }

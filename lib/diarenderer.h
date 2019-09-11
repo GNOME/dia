@@ -51,20 +51,23 @@ typedef enum {
 
 GType dia_renderer_get_type (void) G_GNUC_CONST;
 
-/*!
- * \brief The member variables part of _DiaRenderer
+/**
+ * DiaRenderer:
+ * @font: the current #DiaFont
+ * @font_height: the height of @font
+ * @bezier: ???
+ *
+ * The member variables part of _DiaRenderer
  *
  * The Dia renderers are already realized with the GObject type system.
  * Most of the renderers are only used for export, but there are also
  * some renderers capable of interaction (i.e. display). These are
- * extended versions providing also the _DiaInteractiveRendererInterface
- *
- * \ingroup Renderers
+ * extended versions providing also the #DiaInteractiveRenderer
  */
 struct _DiaRenderer
 {
   GObject parent_instance; /*!< inheritance in object oriented C */
-  gboolean is_interactive; /*!< if the user can interact */
+
   /*< private >*/
   DiaFont *font;
   real font_height; /* IMO It should be possible use the font's size to keep
@@ -84,10 +87,6 @@ struct _DiaRendererClass
 {
   GObjectClass parent_class; /*!< the base class */
 
-  /*! return width in pixels, only for interactive renderers */
-  int (*get_width_pixels) (DiaRenderer*);
-  /*! return width in pixels, only for interactive renderers */
-  int (*get_height_pixels) (DiaRenderer*);
   /*! \brief Render all the visible object in the layer */
   void (*draw_layer) (DiaRenderer*, Layer *, gboolean, Rectangle *);
   /*! Calls the objects draw function, which calls the renderer again
@@ -262,92 +261,6 @@ struct _DiaRendererClass
 			      real angle,
 			      DiaImage *image);
 };
-
-/*
- * Declare the Interactive Renderer Interface, which get's added
- * to some renderer classes by app/
- */
-#define DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE     (dia_interactive_renderer_interface_get_type ())
-#define DIA_GET_INTERACTIVE_RENDERER_INTERFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE, DiaInteractiveRendererInterface))
-
-/*!
- * \brief Interface to be provide by interactive renderers
- *
- * The interactive renderer interface extends a renderer with clipping
- * and drawing with pixel coordinates.
- *
- * \ingroup Renderers
- */
-struct _DiaInteractiveRendererInterface
-{
-  GTypeInterface base_iface;
-
-  /*! Clear the current clipping region. */
-  void (*set_size)            (DiaRenderer *renderer, gpointer, int, int);
-
-  /*! Clear the current clipping region. */
-  void (*clip_region_clear)    (DiaRenderer *renderer);
-
-  /*! Add a rectangle to the current clipping region. */
-  void (*clip_region_add_rect) (DiaRenderer *renderer, Rectangle *rect);
-
-  /*! Draw a line from start to end, using color and the current line style */
-  void (*draw_pixel_line)      (DiaRenderer *renderer,
-                                int x1, int y1, int x2, int y2,
-                                Color *color);
-  /*! Draw a rectangle, given its upper-left and lower-right corners in pixels. */
-  void (*draw_pixel_rect)      (DiaRenderer *renderer,
-                                int x, int y, int width, int height,
-                                Color *color);
-  /*! Fill a rectangle, given its upper-left and lower-right corners in pixels. */
-  void (*fill_pixel_rect)      (DiaRenderer *renderer,
-                                int x, int y, int width, int height,
-                                Color *color);
-  /*! Copy already rendered content to the given context */
-  void (*paint)               (DiaRenderer *renderer,
-                               cairo_t     *ctx,
-                               int          width,
-                               int          height);
-  /*! Support for drawing selected objects highlighted */
-  void (*draw_object_highlighted) (DiaRenderer      *renderer,
-                                   DiaObject        *object,
-                                   DiaHighlightType  type);
-  /* Draw a selection box */
-  void (*set_selection)       (DiaRenderer *renderer,
-                               gboolean     has_selection,
-                               double       x,
-                               double       y,
-                               double       width,
-                               double       height);
-};
-
-GType dia_interactive_renderer_interface_get_type (void) G_GNUC_CONST;
-
-void dia_interactive_renderer_paint              (DiaRenderer *renderer,
-                                                  cairo_t     *ctx,
-                                                  int          width,
-                                                  int          height);
-void dia_interactive_renderer_set_selection      (DiaRenderer *renderer,
-                                                  gboolean     has_selection,
-                                                  double       x,
-                                                  double       y,
-                                                  double       width,
-                                                  double       height);
-/*!
- * \brief Size adjustment to the given window
- * \memberof DiaInteractiveRendererInterface
- */
-void dia_renderer_set_size          (DiaRenderer*, gpointer window, int, int);
-/*!
- * \brief Get the width in pixels
- * \memberof DiaInteractiveRendererInterface
- */
-int  dia_renderer_get_width_pixels  (DiaRenderer*);
-/*!
- * \brief Get the height in pixels
- * \memberof DiaInteractiveRendererInterface
- */
-int  dia_renderer_get_height_pixels (DiaRenderer*);
 
 /* Some standalone render helper functiions */
 void bezier_render_fill   (DiaRenderer *renderer, BezPoint *pts, int total, Color *color);

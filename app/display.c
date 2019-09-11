@@ -281,57 +281,63 @@ new_display(Diagram *dia)
 }
 
 void
-ddisplay_transform_coords_double(DDisplay *ddisp,
-				 coord x, coord y,
-				 double *xi, double *yi)
+ddisplay_transform_coords_double (DDisplay *ddisp,
+                                  coord     x,
+                                  coord     y,
+                                  double   *xi,
+                                  double   *yi)
 {
   Rectangle *visible = &ddisp->visible;
-  double width = dia_renderer_get_width_pixels (ddisp->renderer);
-  double height = dia_renderer_get_height_pixels (ddisp->renderer);
+  double width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
+  double height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
-  *xi = (x - visible->left)  * (real)width / (visible->right - visible->left);
-  *yi = (y - visible->top)  * (real)height / (visible->bottom - visible->top);
+  *xi = (x - visible->left)  * (real) width / (visible->right - visible->left);
+  *yi = (y - visible->top)  * (real) height / (visible->bottom - visible->top);
 }
 
 
 void
-ddisplay_transform_coords(DDisplay *ddisp,
-			  coord x, coord y,
-			  int *xi, int *yi)
+ddisplay_transform_coords (DDisplay *ddisp,
+                           coord     x,
+                           coord     y,
+                           int      *xi,
+                           int      *yi)
 {
   Rectangle *visible = &ddisp->visible;
-  int width = dia_renderer_get_width_pixels (ddisp->renderer);
-  int height = dia_renderer_get_height_pixels (ddisp->renderer);
+  int width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
+  int height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
-  *xi = ROUND ( (x - visible->left)  * (real)width /
-		(visible->right - visible->left) );
-  *yi = ROUND ( (y - visible->top)  * (real)height /
-		(visible->bottom - visible->top) );
+  *xi = ROUND ( (x - visible->left) * (real) width /
+                (visible->right - visible->left) );
+  *yi = ROUND ( (y - visible->top) * (real) height /
+                (visible->bottom - visible->top) );
 }
 
 /* Takes real length and returns pixel length */
 real
-ddisplay_transform_length(DDisplay *ddisp, real len)
+ddisplay_transform_length (DDisplay *ddisp, real len)
 {
   return len * ddisp->zoom_factor;
 }
 
 /* Takes pixel length and returns real length */
 real
-ddisplay_untransform_length(DDisplay *ddisp, real len)
+ddisplay_untransform_length (DDisplay *ddisp, real len)
 {
   return len / ddisp->zoom_factor;
 }
 
 
 void
-ddisplay_untransform_coords(DDisplay *ddisp,
-			    int xi, int yi,
-			    coord *x, coord *y)
+ddisplay_untransform_coords (DDisplay *ddisp,
+                             int       xi,
+                             int       yi,
+                             coord    *x,
+                             coord    *y)
 {
   Rectangle *visible = &ddisp->visible;
-  int width = dia_renderer_get_width_pixels (ddisp->renderer);
-  int height = dia_renderer_get_height_pixels (ddisp->renderer);
+  int width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
+  int height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
   *x = visible->left + xi*(visible->right - visible->left) / (real)width;
   *y = visible->top +  yi*(visible->bottom - visible->top) / (real)height;
@@ -443,23 +449,26 @@ ddisplay_flush(DDisplay *ddisp)
 }
 
 static void
-ddisplay_obj_render(DiaObject *obj, DiaRenderer *renderer,
-		    int active_layer,
-		    gpointer data)
+ddisplay_obj_render (DiaObject   *obj,
+                     DiaRenderer *renderer,
+                     int          active_layer,
+                     gpointer     data)
 {
-  DDisplay *ddisp = (DDisplay *)data;
+  DDisplay *ddisp = (DDisplay *) data;
   DiaInteractiveRendererInterface *irenderer =
-    DIA_GET_INTERACTIVE_RENDERER_INTERFACE (renderer);
-  DiaHighlightType hltype = data_object_get_highlight(DIA_DIAGRAM_DATA(ddisp->diagram), obj);
+    DIA_INTERACTIVE_RENDERER_GET_IFACE (renderer);
+  DiaHighlightType hltype = data_object_get_highlight (DIA_DIAGRAM_DATA (ddisp->diagram), obj);
 
-  if (hltype != DIA_HIGHLIGHT_NONE && irenderer->draw_object_highlighted != NULL)
-    irenderer->draw_object_highlighted(renderer, obj, hltype);
-  else /* maybe the renderer does not support highlighting */
-    DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj, NULL);
+  if (hltype != DIA_HIGHLIGHT_NONE && irenderer->draw_object_highlighted != NULL) {
+    irenderer->draw_object_highlighted (DIA_INTERACTIVE_RENDERER (renderer), obj, hltype);
+  } else  {
+    /* maybe the renderer does not support highlighting */
+    DIA_RENDERER_GET_CLASS (renderer)->draw_object (renderer, obj, NULL);
+  }
 
   if (ddisp->show_cx_pts &&
       obj->parent_layer != NULL && obj->parent_layer->connectable) {
-    object_draw_connectionpoints(obj, ddisp);
+    object_draw_connectionpoints (obj, ddisp);
   }
 }
 
@@ -480,7 +489,7 @@ ddisplay_render_pixmap (DDisplay  *ddisp,
     return;
   }
 
-  renderer = DIA_GET_INTERACTIVE_RENDERER_INTERFACE (ddisp->renderer);
+  renderer = DIA_INTERACTIVE_RENDERER_GET_IFACE (ddisp->renderer);
 
   /* Erase background */
   g_return_if_fail (renderer->fill_pixel_rect != NULL);
@@ -490,14 +499,14 @@ ddisplay_render_pixmap (DDisplay  *ddisp,
 
     ddisplay_transform_coords (ddisp, update->left, update->top, &x0, &y0);
     ddisplay_transform_coords (ddisp, update->right, update->bottom, &x1, &y1);
-    renderer->fill_pixel_rect (ddisp->renderer,
+    renderer->fill_pixel_rect (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
                                x0, y0, x1-x0, y1-y0,
                                &ddisp->diagram->data->bg_color);
   } else {
-    renderer->fill_pixel_rect (ddisp->renderer,
+    renderer->fill_pixel_rect (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
                                0, 0,
-                               dia_renderer_get_width_pixels (ddisp->renderer),
-                               dia_renderer_get_height_pixels (ddisp->renderer),
+                               dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer)),
+                               dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer)),
                                &ddisp->diagram->data->bg_color);
   }
 
@@ -562,7 +571,7 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
 }
 
 void
-ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
+ddisplay_set_origo (DDisplay *ddisp, coord x, coord y)
 {
   Rectangle *extents = &ddisp->diagram->data->extents;
   Rectangle *visible = &ddisp->visible;
@@ -574,19 +583,19 @@ ddisplay_set_origo(DDisplay *ddisp, coord x, coord y)
   ddisp->origo.x = x;
   ddisp->origo.y = y;
 
-  if (ddisp->zoom_factor<DDISPLAY_MIN_ZOOM)
+  if (ddisp->zoom_factor < DDISPLAY_MIN_ZOOM)
     ddisp->zoom_factor = DDISPLAY_MIN_ZOOM;
 
   if (ddisp->zoom_factor > DDISPLAY_MAX_ZOOM)
     ddisp->zoom_factor = DDISPLAY_MAX_ZOOM;
 
-  width = dia_renderer_get_width_pixels (ddisp->renderer);
-  height = dia_renderer_get_height_pixels (ddisp->renderer);
+  width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
+  height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
   visible->left = ddisp->origo.x;
   visible->top = ddisp->origo.y;
-  visible->right = ddisp->origo.x + ddisplay_untransform_length(ddisp, width);
-  visible->bottom = ddisp->origo.y + ddisplay_untransform_length(ddisp, height);
+  visible->right = ddisp->origo.x + ddisplay_untransform_length (ddisp, width);
+  visible->bottom = ddisp->origo.y + ddisplay_untransform_length (ddisp, height);
 
   ddisplay_update_rulers (ddisp, extents, visible);
 }
@@ -973,8 +982,12 @@ ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
                 "rect", &ddisp->visible,
                 NULL);
 
-  if (window)
-    dia_renderer_set_size(ddisp->renderer, window, width, height);
+  if (window) {
+    dia_interactive_renderer_set_size (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
+                                       window,
+                                       width,
+                                       height);
+  }
 }
 
 void
@@ -992,12 +1005,15 @@ ddisplay_resize_canvas(DDisplay *ddisp,
                   NULL);
   }
 
-  dia_renderer_set_size(ddisp->renderer, gtk_widget_get_window(ddisp->canvas), width, height);
+  dia_interactive_renderer_set_size (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
+                                     gtk_widget_get_window (ddisp->canvas),
+                                     width,
+                                     height);
 
-  ddisplay_set_origo(ddisp, ddisp->origo.x, ddisp->origo.y);
+  ddisplay_set_origo (ddisp, ddisp->origo.x, ddisp->origo.y);
 
-  ddisplay_add_update_all(ddisp);
-  ddisplay_flush(ddisp);
+  ddisplay_add_update_all (ddisp);
+  ddisplay_flush (ddisp);
 }
 
 DDisplay *
@@ -1489,8 +1505,8 @@ ddisplay_show_all (DDisplay *ddisp)
 
   dia = ddisp->diagram;
 
-  width = dia_renderer_get_width_pixels (ddisp->renderer);
-  height = dia_renderer_get_height_pixels (ddisp->renderer);
+  width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
+  height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
   /* if there is something selected show that instead of all exisiting objects */
   if (dia->data->selected) {

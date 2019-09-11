@@ -25,6 +25,7 @@
 #include "object.h"
 #include "connectionpoint.h"
 #include "diarenderer.h"
+#include "diainteractiverenderer.h"
 #include "font.h"
 #include "text.h"
 #include "attributes.h"
@@ -309,9 +310,9 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
     DIA_RENDERER_GET_CLASS (renderer)->draw_rotated_text (renderer, textobj->text,
 							  &textobj->text_handle.pos, textobj->text_angle);
     /* XXX: interactive case not working correctly */
-    if (renderer->is_interactive &&
+    if (DIA_IS_INTERACTIVE_RENDERER (renderer) &&
         dia_object_is_selected(&textobj->object) &&
-	textobj->text->focus.has_focus) {
+        textobj->text->focus.has_focus) {
       /* editing is not rotated */
       text_draw(textobj->text, renderer);
     }

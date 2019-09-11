@@ -30,6 +30,7 @@
 #include "diatransform.h"
 #include "object.h"
 #include "textline.h"
+#include "diainteractiverenderer.h"
 
 struct _DiaCairoInteractiveRenderer {
   DiaCairoRenderer parent_instance;
@@ -57,7 +58,7 @@ struct _DiaCairoInteractiveRenderer {
 static void dia_cairo_interactive_renderer_iface_init (DiaInteractiveRendererInterface* iface);
 
 G_DEFINE_TYPE_WITH_CODE (DiaCairoInteractiveRenderer, dia_cairo_interactive_renderer, DIA_CAIRO_TYPE_RENDERER,
-                         G_IMPLEMENT_INTERFACE (DIA_TYPE_INTERACTIVE_RENDERER_INTERFACE, dia_cairo_interactive_renderer_iface_init))
+                         G_IMPLEMENT_INTERFACE (DIA_TYPE_INTERACTIVE_RENDERER, dia_cairo_interactive_renderer_iface_init))
 
 enum {
   PROP_0,
@@ -69,9 +70,6 @@ static void
 dia_cairo_interactive_renderer_init (DiaCairoInteractiveRenderer *object)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
-  DiaRenderer *dia_renderer = DIA_RENDERER (object);
-
-  dia_renderer->is_interactive = 1;
 
   renderer->surface = NULL;
 
@@ -139,7 +137,7 @@ dia_cairo_interactive_renderer_get_property (GObject    *object,
 }
 
 static int
-dia_cairo_interactive_renderer_get_width_pixels (DiaRenderer *object)
+dia_cairo_interactive_renderer_get_width_pixels (DiaInteractiveRenderer *object)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
 
@@ -147,7 +145,7 @@ dia_cairo_interactive_renderer_get_width_pixels (DiaRenderer *object)
 }
 
 static int
-dia_cairo_interactive_renderer_get_height_pixels (DiaRenderer *object)
+dia_cairo_interactive_renderer_get_height_pixels (DiaInteractiveRenderer *object)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
 
@@ -350,9 +348,6 @@ dia_cairo_interactive_renderer_class_init (DiaCairoInteractiveRendererClass *kla
                                                          G_PARAM_READWRITE));
 
   /* renderer members */
-  renderer_class->get_width_pixels  = dia_cairo_interactive_renderer_get_width_pixels;
-  renderer_class->get_height_pixels = dia_cairo_interactive_renderer_get_height_pixels;
-
   renderer_class->begin_render = dia_cairo_interactive_renderer_begin_render;
   renderer_class->end_render   = dia_cairo_interactive_renderer_end_render;
 
@@ -363,7 +358,7 @@ dia_cairo_interactive_renderer_class_init (DiaCairoInteractiveRendererClass *kla
 }
 
 static void
-dia_cairo_interactive_renderer_clip_region_clear (DiaRenderer *object)
+dia_cairo_interactive_renderer_clip_region_clear (DiaInteractiveRenderer *object)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
 
@@ -375,8 +370,8 @@ dia_cairo_interactive_renderer_clip_region_clear (DiaRenderer *object)
 }
 
 static void
-dia_cairo_interactive_renderer_clip_region_add_rect (DiaRenderer *object,
-                                                     Rectangle   *rect)
+dia_cairo_interactive_renderer_clip_region_add_rect (DiaInteractiveRenderer *object,
+                                                     Rectangle              *rect)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
   cairo_rectangle_int_t clip_rect;
@@ -399,12 +394,12 @@ dia_cairo_interactive_renderer_clip_region_add_rect (DiaRenderer *object,
 }
 
 static void
-dia_cairo_interactive_renderer_draw_pixel_line (DiaRenderer *object,
-                                                int          x1,
-                                                int          y1,
-                                                int          x2,
-                                                int          y2,
-                                                Color       *color)
+dia_cairo_interactive_renderer_draw_pixel_line (DiaInteractiveRenderer *object,
+                                                int                     x1,
+                                                int                     y1,
+                                                int                     x2,
+                                                int                     y2,
+                                                Color                  *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
   double x1u = x1 + .5, y1u = y1 + .5, x2u = x2 + .5, y2u = y2 + .5;
@@ -424,12 +419,12 @@ dia_cairo_interactive_renderer_draw_pixel_line (DiaRenderer *object,
 }
 
 static void
-dia_cairo_interactive_renderer_draw_pixel_rect (DiaRenderer *object,
-                                                int          x,
-                                                int          y,
-                                                int          width,
-                                                int          height,
-                                                Color       *color)
+dia_cairo_interactive_renderer_draw_pixel_rect (DiaInteractiveRenderer *object,
+                                                int                     x,
+                                                int                     y,
+                                                int                     width,
+                                                int                     height,
+                                                Color                  *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
   double x1u = x + .5, y1u = y + .5, x2u = x + width + .5, y2u = y + height + .5;
@@ -448,12 +443,12 @@ dia_cairo_interactive_renderer_draw_pixel_rect (DiaRenderer *object,
 }
 
 static void
-dia_cairo_interactive_renderer_fill_pixel_rect (DiaRenderer *object,
-                                                int          x,
-                                                int          y,
-                                                int          width,
-                                                int          height,
-                                                Color       *color)
+dia_cairo_interactive_renderer_fill_pixel_rect (DiaInteractiveRenderer *object,
+                                                int                     x,
+                                                int                     y,
+                                                int                     width,
+                                                int                     height,
+                                                Color                  *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
   double x1u = x + .5, y1u = y + .5, x2u = x + width + .5, y2u = y + height + .5;
@@ -472,10 +467,10 @@ dia_cairo_interactive_renderer_fill_pixel_rect (DiaRenderer *object,
 }
 
 static void
-dia_cairo_interactive_renderer_paint (DiaRenderer *object,
-                                      cairo_t     *ctx,
-                                      int          width,
-                                      int          height)
+dia_cairo_interactive_renderer_paint (DiaInteractiveRenderer *object,
+                                      cairo_t                *ctx,
+                                      int                     width,
+                                      int                     height)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
   double dashes[1] = {3};
@@ -512,10 +507,10 @@ dia_cairo_interactive_renderer_paint (DiaRenderer *object,
 }
 
 static void
-dia_cairo_interactive_renderer_set_size (DiaRenderer *object,
-                                         gpointer     window,
-                                         int          width,
-                                         int          height)
+dia_cairo_interactive_renderer_set_size (DiaInteractiveRenderer *object,
+                                         gpointer                window,
+                                         int                     width,
+                                         int                      height)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (object);
@@ -535,9 +530,9 @@ dia_cairo_interactive_renderer_set_size (DiaRenderer *object,
 static Color text_edit_color = {1.0, 1.0, 0.7 };
 
 static void
-dia_cairo_interactive_renderer_draw_object_highlighted (DiaRenderer      *self,
-                                                        DiaObject        *object,
-                                                        DiaHighlightType  type)
+dia_cairo_interactive_renderer_draw_object_highlighted (DiaInteractiveRenderer *self,
+                                                        DiaObject              *object,
+                                                        DiaHighlightType        type)
 {
   DiaCairoInteractiveRenderer *interactive = DIA_CAIRO_INTERACTIVE_RENDERER (self);
 
@@ -555,18 +550,18 @@ dia_cairo_interactive_renderer_draw_object_highlighted (DiaRenderer      *self,
   /* usually this method would need to draw the object twice,
    * once with highlight and once without. But due to our
    * draw_text_line implementation we only need one run */
-  dia_object_draw (object, self);
+  dia_object_draw (object, DIA_RENDERER (self));
   /* always reset when done with this object */
   interactive->highlight_color = NULL;
 }
 
 static void
-dia_cairo_interactive_renderer_set_selection (DiaRenderer *renderer,
-                                              gboolean     has_selection,
-                                              double       x,
-                                              double       y,
-                                              double       width,
-                                              double       height)
+dia_cairo_interactive_renderer_set_selection (DiaInteractiveRenderer *renderer,
+                                              gboolean                has_selection,
+                                              double                  x,
+                                              double                  y,
+                                              double                  width,
+                                              double                  height)
 {
   DiaCairoInteractiveRenderer *self = DIA_CAIRO_INTERACTIVE_RENDERER (renderer);
 
@@ -580,6 +575,8 @@ dia_cairo_interactive_renderer_set_selection (DiaRenderer *renderer,
 static void
 dia_cairo_interactive_renderer_iface_init (DiaInteractiveRendererInterface* iface)
 {
+  iface->get_width_pixels        = dia_cairo_interactive_renderer_get_width_pixels;
+  iface->get_height_pixels       = dia_cairo_interactive_renderer_get_height_pixels;
   iface->clip_region_clear       = dia_cairo_interactive_renderer_clip_region_clear;
   iface->clip_region_add_rect    = dia_cairo_interactive_renderer_clip_region_add_rect;
   iface->draw_pixel_line         = dia_cairo_interactive_renderer_draw_pixel_line;

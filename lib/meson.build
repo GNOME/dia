@@ -69,6 +69,7 @@ libdia_sources = stdprop_sources + [
     'diarenderer.c',
     'diaimportrenderer.c',
     'diainteractiverenderer.c',
+    'diainteractiverenderer.h',
     'renderer/diacairo.c',
     'renderer/diacairo-renderer.c',
     'renderer/diacairo-interactive.c',

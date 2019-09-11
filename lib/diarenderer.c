@@ -51,9 +51,6 @@ struct _BezierApprox {
 
 static void dia_renderer_class_init (DiaRendererClass *klass);
 
-static int get_width_pixels (DiaRenderer *);
-static int get_height_pixels (DiaRenderer *);
-
 static void begin_render (DiaRenderer *, const Rectangle *update);
 static void end_render (DiaRenderer *);
 
@@ -311,8 +308,6 @@ dia_renderer_class_init (DiaRendererClass *klass)
 
   object_class->finalize = renderer_finalize;
 
-  renderer_class->get_width_pixels  = get_width_pixels;
-  renderer_class->get_height_pixels = get_height_pixels;
   renderer_class->draw_layer = draw_layer;
   renderer_class->draw_object = draw_object;
   renderer_class->get_text_width = get_text_width;
@@ -1424,49 +1419,62 @@ draw_rounded_polyline_with_arrows(DiaRenderer *renderer,
   points[lastline-1] = oldend;
 }
 
-/** Figure the equation for a line given by two points.
- * Returns FALSE if the line is vertical (infinite a).
+/**
+ * points_to_line:
+ *
+ * Figure the equation for a line given by two points.
+ *
+ * Returns: %FALSE if the line is vertical (infinite a).
  */
 static gboolean
-points_to_line(real *a, real *b, Point *p1, Point *p2)
+points_to_line (real *a, real *b, Point *p1, Point *p2)
 {
-    if (fabs(p1->x - p2->x) < 0.000000001)
-      return FALSE;
-    *a = (p2->y-p1->y)/(p2->x-p1->x);
-    *b = p1->y-(*a)*p1->x;
-    return TRUE;
+  if (fabs (p1->x - p2->x) < 0.000000001) {
+    return FALSE;
+  }
+  *a = (p2->y-p1->y)/(p2->x-p1->x);
+  *b = p1->y-(*a)*p1->x;
+  return TRUE;
 }
 
-/** Find the intersection between two lines.
- * Returns TRUE if the lines intersect in a single point.
+/**
+ * intersection_line_line:
+ *
+ * Find the intersection between two lines.
+ *
+ * Returns: %TRUE if the lines intersect in a single point.
  */
 static gboolean
-intersection_line_line(Point *cross,
-		       Point *p1a, Point *p1b,
-		       Point *p2a, Point *p2b)
+intersection_line_line (Point *cross,
+                        Point *p1a,
+                        Point *p1b,
+                        Point *p2a,
+                        Point *p2b)
 {
   real a1, b1, a2, b2;
 
   /* Find coefficients of lines */
-  if (!(points_to_line(&a1, &b1, p1a, p1b))) {
-    if (!(points_to_line(&a2, &b2, p2a, p2b))) {
-      if (fabs(p1a->x-p2a->x) < 0.00000001) {
-	*cross = *p1a;
-	return TRUE;
-      } else return FALSE;
+  if (!(points_to_line (&a1, &b1, p1a, p1b))) {
+    if (!(points_to_line (&a2, &b2, p2a, p2b))) {
+      if (fabs (p1a->x-p2a->x) < 0.00000001) {
+        *cross = *p1a;
+        return TRUE;
+      } else {
+        return FALSE;
+      }
     }
     cross->x = p1a->x;
     cross->y = a2*(p1a->x)+b2;
     return TRUE;
   }
-  if (!(points_to_line(&a2, &b2, p2a, p2b))) {
+  if (!(points_to_line (&a2, &b2, p2a, p2b))) {
     cross->x = p2a->x;
     cross->y = a1*(p2a->x)+b1;
     return TRUE;
   }
   /* Solve */
-  if (fabs(a1-a2) < 0.000000001) {
-    if (fabs(b1-b2) < 0.000000001) {
+  if (fabs (a1-a2) < 0.000000001) {
+    if (fabs (b1-b2) < 0.000000001) {
       *cross = *p1a;
       return TRUE;
     } else {
@@ -1486,13 +1494,21 @@ intersection_line_line(Point *cross,
   }
 }
 
-/** Given three points, find the center of the circle they describe.
- * Returns FALSE if the center could not be determined (i.e. the points
- * all lie really close together).
+/**
+ * find_center_point:
+ *
+ * Given three points, find the center of the circle they describe.
+ *
  * The renderer should disappear once the debugging is done.
+ *
+ * Returns: %FALSE if the center could not be determined (i.e. the points
+ * all lie really close together).
  */
 static gboolean
-find_center_point(Point *center, const Point *p1, const Point *p2, const Point *p3)
+find_center_point (Point       *center,
+                   const Point *p1,
+                   const Point *p2,
+                   const Point *p3)
 {
   Point mid1;
   Point mid2;
@@ -1781,27 +1797,6 @@ get_text_width (DiaRenderer *renderer,
   return ret;
 }
 
-/*!
- * \brief Get drawing width in pixels if any
- * \memberof _DiaRenderer \pure
- */
-static int
-get_width_pixels (DiaRenderer *renderer)
-{
-  g_return_val_if_fail (renderer->is_interactive, 0);
-  return 0;
-}
-
-/*!
- * \brief Get drawing height in pixels if any
- * \memberof _DiaRenderer \pure
- */
-static int
-get_height_pixels (DiaRenderer *renderer)
-{
-  g_return_val_if_fail (renderer->is_interactive, 0);
-  return 0;
-}
 /*! @} */
 
 /*!
@@ -1837,28 +1832,6 @@ set_pattern (DiaRenderer *renderer, DiaPattern *pat)
 {
   g_warning ("%s::set_pattern not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-}
-
-/*!
- * \brief Get the width in pixels of the drawing area (if any)
- *
- * \relates _DiaRenderer
- */
-int
-dia_renderer_get_width_pixels (DiaRenderer *renderer)
-{
-  return DIA_RENDERER_GET_CLASS(renderer)->get_width_pixels (renderer);
-}
-
-/*!
- * \brief Get the height in pixels of the drawing area (if any)
- *
- * \relates _DiaRenderer
- */
-int
-dia_renderer_get_height_pixels (DiaRenderer *renderer)
-{
-  return DIA_RENDERER_GET_CLASS(renderer)->get_height_pixels (renderer);
 }
 
 /*!

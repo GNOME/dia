@@ -35,6 +35,7 @@
 #include "textedit.h"
 #include "textline.h"
 #include "menus.h"
+#include "diainteractiverenderer.h"
 
 #include "parent.h"
 #include "prop_text.h"
@@ -296,7 +297,7 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     tool->x1 = tool->x2 = (int) event->x;
     tool->y1 = tool->y2 = (int) event->y;
 
-    dia_interactive_renderer_set_selection (ddisp->renderer,
+    dia_interactive_renderer_set_selection (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
                                             TRUE,
                                             tool->x1,
                                             tool->y1,
@@ -643,7 +644,7 @@ modify_motion (ModifyTool     *tool,
                                MAX (tool->start_box.y, tool->end_box.y),
                                &tool->x2, &tool->y2);
 
-    dia_interactive_renderer_set_selection (ddisp->renderer,
+    dia_interactive_renderer_set_selection (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
                                             TRUE,
                                             tool->x1,
                                             tool->y1,
@@ -784,7 +785,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 
     gdk_pointer_ungrab (event->time);
     /* Remove last box: */
-    dia_interactive_renderer_set_selection (ddisp->renderer,
+    dia_interactive_renderer_set_selection (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
                                             FALSE, 0, 0, 0, 0);
 
     {

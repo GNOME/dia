@@ -21,6 +21,7 @@
 
 #include <cairo.h>
 #include "diarenderer.h"
+#include "diainteractiverenderer.h"
 
 /*
 #define DEBUG_CAIRO
@@ -40,8 +41,6 @@
 
 /* --- the renderer base class --- */
 G_BEGIN_DECLS
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (DiaRenderer, g_object_unref)
 
 #define DIA_CAIRO_TYPE_RENDERER dia_cairo_renderer_get_type ()
 

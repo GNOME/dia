@@ -29,6 +29,7 @@
 #include "bezier_conn.h"
 #include "connectionpoint.h"
 #include "diarenderer.h"
+#include "diainteractiverenderer.h"
 #include "attributes.h"
 #include "diamenu.h"
 #include "properties.h"
@@ -420,7 +421,7 @@ bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
    * whether the object is currently selected in bezierline_select, and
    * only checking while selected.  But we'll do that if needed.
    */
-  if (renderer->is_interactive &&
+  if (DIA_IS_INTERACTIVE_RENDERER (renderer) &&
       dia_object_is_selected(&bezierline->bez.object)) {
     bezier_draw_control_lines(bezierline->bez.bezier.num_points, bezierline->bez.bezier.points, renderer);
   }
