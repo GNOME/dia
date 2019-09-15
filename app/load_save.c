@@ -972,21 +972,31 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
   obj_nr = 0;
 
   for (i = 0; i < data->layers->len; i++) {
-    layer_node = xmlNewChild(doc->xmlRootNode, name_space, (const xmlChar *)"layer", NULL);
-    layer = (Layer *) g_ptr_array_index(data->layers, i);
-    xmlSetProp(layer_node, (const xmlChar *)"name", (xmlChar *)layer->name);
+    layer_node = xmlNewChild (doc->xmlRootNode,
+                              name_space,
+                              (const xmlChar *) "layer", NULL);
+    layer = (Layer *) g_ptr_array_index (data->layers, i);
+    xmlSetProp (layer_node, (const xmlChar *) "name", (xmlChar *) layer->name);
 
-    xmlSetProp(layer_node, (const xmlChar *)"visible",
-	       (const xmlChar *)(layer->visible ? "true" : "false"));
-    xmlSetProp(layer_node, (const xmlChar *)"connectable",
-	       (const xmlChar *)(layer->visible ? "true" : "false"));
+    xmlSetProp (layer_node,
+                (const xmlChar *) "visible",
+                (const xmlChar *) (layer->visible ? "true" : "false"));
+    xmlSetProp (layer_node,
+                (const xmlChar *) "connectable",
+                (const xmlChar *) (layer->connectable ? "true" : "false"));
 
-    if (layer == data->active_layer)
-      xmlSetProp(layer_node, (const xmlChar *)"active", (const xmlChar *)"true");
+    if (layer == data->active_layer) {
+      xmlSetProp (layer_node,
+                  (const xmlChar *) "active",
+                  (const xmlChar *) "true");
+    }
 
-    write_objects(layer->objects, layer_node,
-		  objects_hash, &obj_nr, filename, ctx);
-
+    write_objects (layer->objects,
+                   layer_node,
+                   objects_hash,
+                   &obj_nr,
+                   filename,
+                   ctx);
   }
   /* The connections are stored per layer in the file format, but connections are not any longer
    * restricted to objects on the same layer. So we iterate over all the layer (nodes) again to
