@@ -786,54 +786,55 @@ ddisplay_canvas_events (GtkWidget *canvas,
         break;
 
       case GDK_BUTTON_PRESS:
-        display_set_active(ddisp);
+        display_set_active (ddisp);
         bevent = (GdkEventButton *) event;
 
-	ddisplay_set_clicked_point (ddisp, bevent->x, bevent->y);
+        ddisplay_set_clicked_point (ddisp, bevent->x, bevent->y);
 
-        switch (bevent->button)
-        {
+        switch (bevent->button) {
             case 1:
-              if (transient_tool)
+              if (transient_tool) {
                 break;
-                  /* get the focus again, may be lost by zoom combo */
-	      moving = TRUE;
-              gtk_widget_grab_focus(canvas);
-              if (active_tool->button_press_func)
+              }
+              /* get the focus again, may be lost by zoom combo */
+              moving = TRUE;
+              gtk_widget_grab_focus (canvas);
+              if (active_tool->button_press_func) {
                 (*active_tool->button_press_func) (active_tool, bevent, ddisp);
+              }
 
-	      /* Detect user holding down the button.
-	       * Set timeout for 1sec. If timeout is called, user must still
-	       * be holding. If user releases button, remove timeout. */
-	      hold_data.event = gdk_event_copy(event); /* need to free later */
-	      hold_data.ddisp = ddisp;
-	      hold_data.tag = g_timeout_add(1000, hold_timeout_handler, NULL);
+              /* Detect user holding down the button.
+              * Set timeout for 1sec. If timeout is called, user must still
+              * be holding. If user releases button, remove timeout. */
+              hold_data.event = gdk_event_copy (event); /* need to free later */
+              hold_data.ddisp = ddisp;
+              hold_data.tag = g_timeout_add (1000, hold_timeout_handler, NULL);
               break;
             case 2:
-              if (ddisp->menu_bar == NULL && !is_integrated_ui()) {
-                popup_object_menu(ddisp, event);
+              if (ddisp->menu_bar == NULL && !is_integrated_ui ()) {
+                popup_object_menu (ddisp, event);
+              } else if (!transient_tool) {
+                tool_reset ();
+                gtk_widget_grab_focus (canvas);
+                transient_tool = create_scroll_tool ();
+                (*transient_tool->button_press_func) (transient_tool, bevent, ddisp);
               }
-	      else if (!transient_tool) {
-		gtk_widget_grab_focus(canvas);
-		transient_tool = create_scroll_tool();
-		(*transient_tool->button_press_func) (transient_tool, bevent, ddisp);
-	      }
               break;
 
             case 3:
-              if (transient_tool)
+              if (transient_tool) {
                 break;
+              }
               if (ddisp->menu_bar == NULL) {
                 if (bevent->state & GDK_CONTROL_MASK || is_integrated_ui ()) {
                       /* for two button mouse users ... */
-                  popup_object_menu(ddisp, event);
+                  popup_object_menu (ddisp, event);
                   break;
                 }
-                ddisplay_popup_menu(ddisp, bevent);
+                ddisplay_popup_menu (ddisp, bevent);
                 break;
-              }
-              else {
-                popup_object_menu(ddisp, event);
+              } else {
+                popup_object_menu (ddisp, event);
                 break;
               }
             default:
@@ -845,31 +846,30 @@ ddisplay_canvas_events (GtkWidget *canvas,
         display_set_active(ddisp);
         bevent = (GdkEventButton *) event;
 
-        switch (bevent->button)
-        {
+        switch (bevent->button) {
             case 1:
-	      if (moving)
-  		moving = FALSE;
-              if (active_tool->button_release_func)
+              if (moving) {
+                moving = FALSE;
+              }
+              if (active_tool->button_release_func) {
                 (*active_tool->button_release_func) (active_tool,
                                                      bevent, ddisp);
-	      /* Button Press and Hold - remove handler then deallocate memory */
-	      hold_remove_handler();
+              }
+              /* Button Press and Hold - remove handler then deallocate memory */
+              hold_remove_handler ();
               break;
-
             case 2:
-	      if (transient_tool) {
-	        (*transient_tool->button_release_func) (transient_tool,
-  	                                             bevent, ddisp);
+              if (transient_tool) {
+                (*transient_tool->button_release_func) (transient_tool,
+                                                        bevent,
+                                                        ddisp);
 
-	        tool_free(transient_tool);
-	        transient_tool = NULL;
-	      }
+                tool_free (transient_tool);
+                transient_tool = NULL;
+              }
               break;
-
             case 3:
               break;
-
             default:
               break;
         }
