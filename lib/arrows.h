@@ -23,6 +23,7 @@
 #include "color.h"
 #include "dia_xml.h"
 #include "diacontext.h"
+#include "diarenderer.h"
 
 /* NOTE: Add new arrow types at the end, or the enums
    will change order leading to file incompatibilities. */

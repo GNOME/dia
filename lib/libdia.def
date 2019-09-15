@@ -31,8 +31,8 @@ EXPORTS
  new_attribute
 
  bezier_draw_control_lines
- bezier_render_stroke
- bezier_render_fill
+ dia_renderer_bezier_stroke
+ dia_renderer_bezier_fill
  beziercommon_set_points
  beziercommon_closest_segment
 
@@ -98,7 +98,7 @@ EXPORTS
 
  connpoint_is_autogap
  connpoint_update
- 
+
  connpointline_add_points
  connpointline_adjust_count
  connpointline_can_add_point
@@ -160,7 +160,7 @@ EXPORTS
  data_get_sorted_selected_remove
  data_highlight_add
  data_highlight_remove
- data_object_get_highlight 
+ data_object_get_highlight
  data_int
  data_layer_count
  data_layer_get_index
@@ -315,10 +315,10 @@ EXPORTS
  dia_object_set_pattern
 
  dia_interactive_renderer_interface_get_type
- 
+
  dialog_make
  dialog_add_spinbutton
- 
+
  dia_line_chooser_new
 
  dia_line_style_selector_get_linestyle
@@ -406,7 +406,7 @@ EXPORTS
  sheet_append_sheet_obj
 
  diagram_data_get_type
- 
+
  dia_unit_spinner_get_type
  dia_unit_spinner_get_value
  dia_unit_spinner_new
@@ -464,12 +464,12 @@ EXPORTS
 
  find_paper
  find_slope_directions
- 
+
  focus_get_object
  focus_get_first_on_object
  focus_previous_on_diagram
  focus_next_on_diagram
- 
+
 
  get_default_paper
  get_paper_bmargin
@@ -493,7 +493,7 @@ EXPORTS
  get_active_focus
  give_focus
 ; give_focus_to_object
- 
+
  int_rectangle_union
 
  intl_score_locale
@@ -526,7 +526,7 @@ EXPORTS
  line_line_intersection
 
  dia_error_quark
- 
+
  message_error
  message_notice
  message_warning
@@ -715,7 +715,7 @@ EXPORTS
  rectangle_union
 
  remove_focus_on_diagram
- remove_focus_object 
+ remove_focus_object
 
  reset_foci_on_diagram
 
@@ -778,12 +778,12 @@ EXPORTS
 
  calculate_object_edge
 
-; exported for libart renderer only 
+; exported for libart renderer only
  dia_font_pop_context
  dia_font_push_context
  dia_transform_coords_double
  text_line_adjust_layout_line
- 
+
  libdia_init
  dia_log_message
 
@@ -808,4 +808,3 @@ EXPORTS
  cairo_export_data
  cairo_print_callback
  dia_cairo_renderer_get_type
- 

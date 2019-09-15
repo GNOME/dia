@@ -289,81 +289,79 @@ static void compute_agent(Other *other, Point *pl) {
 }
 
 static void
-draw_agent_icon(Other *other, DiaRenderer *renderer)
+draw_agent_icon (Other *other, DiaRenderer *renderer)
 {
-     DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-     double rx,ry,h;
-     Point c,p1,p2;
-     Element *elem;
+  double rx,ry,h;
+  Point c,p1,p2;
+  Element *elem;
 
-     elem=&other->element;
-     h=elem->height;
-     rx=elem->corner.x+h/2;
-     ry=elem->corner.y+3*h/10;
+  elem=&other->element;
+  h=elem->height;
+  rx=elem->corner.x+h/2;
+  ry=elem->corner.y+3*h/10;
 
-     /* head */
-     c.x=rx;
-     c.y=ry;
-     renderer_ops->draw_ellipse(renderer,&c,h/5,h/5,&OTHER_FG_COLOR, NULL);
+  /* head */
+  c.x=rx;
+  c.y=ry;
+  dia_renderer_draw_ellipse (renderer, &c, h/5, h/5, &OTHER_FG_COLOR, NULL);
 
-     /* body */
-     p1.x=rx;
-     p1.y=ry;
-     p2.x=p1.x;
-     p2.y=p1.y+3.5*h/10;
-     renderer_ops->draw_line(renderer,&p1,&p2,&OTHER_FG_COLOR);
+  /* body */
+  p1.x=rx;
+  p1.y=ry;
+  p2.x=p1.x;
+  p2.y=p1.y+3.5*h/10;
+  dia_renderer_draw_line (renderer, &p1, &p2, &OTHER_FG_COLOR);
 
-     /* arms */
-     p1.x=rx-1.5*h/10;
-     p1.y=ry+2.2*h/10;
-     p2.x=rx+1.5*h/10;
-     p2.y=p1.y;
-     renderer_ops->draw_line(renderer,&p1,&p2,&OTHER_FG_COLOR);
+  /* arms */
+  p1.x=rx-1.5*h/10;
+  p1.y=ry+2.2*h/10;
+  p2.x=rx+1.5*h/10;
+  p2.y=p1.y;
+  dia_renderer_draw_line (renderer, &p1, &p2, &OTHER_FG_COLOR);
 
-     /* left leg */
-     p1.x=rx;
-     p1.y=ry+3.5*h/10;
-     p2.x=p1.x-h/10;
-     p2.y=p1.y+2*h/10;
-     renderer_ops->draw_line(renderer,&p1,&p2,&OTHER_FG_COLOR);
+  /* left leg */
+  p1.x=rx;
+  p1.y=ry+3.5*h/10;
+  p2.x=p1.x-h/10;
+  p2.y=p1.y+2*h/10;
+  dia_renderer_draw_line (renderer, &p1, &p2, &OTHER_FG_COLOR);
 
-     /* right leg */
-     p1.x=rx;
-     p1.y=ry+3.5*h/10;
-     p2.x=p1.x+h/10;
-     p2.y=p1.y+2*h/10;
-     renderer_ops->draw_line(renderer,&p1,&p2,&OTHER_FG_COLOR);
+  /* right leg */
+  p1.x=rx;
+  p1.y=ry+3.5*h/10;
+  p2.x=p1.x+h/10;
+  p2.y=p1.y+2*h/10;
+  dia_renderer_draw_line (renderer, &p1, &p2, &OTHER_FG_COLOR);
 }
 
 /* drawing stuff */
 static void
-other_draw(Other *other, DiaRenderer *renderer)
+other_draw (Other *other, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pl[6];
 
   /* some asserts */
   assert(other != NULL);
   assert(renderer != NULL);
 
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
   if (other->type==AGENT) {
-    compute_agent(other,pl);
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-    renderer_ops->set_linewidth(renderer, OTHER_LINE_SIMPLE_WIDTH);
-    renderer_ops->draw_polygon(renderer,
-			   pl,
-			   6,
-			   &OTHER_BG_COLOR,
-			   &OTHER_FG_COLOR);
+    compute_agent (other,pl);
+    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_linewidth (renderer, OTHER_LINE_SIMPLE_WIDTH);
+    dia_renderer_draw_polygon (renderer,
+                               pl,
+                               6,
+                               &OTHER_BG_COLOR,
+                               &OTHER_FG_COLOR);
 
-    draw_agent_icon(other,renderer);
+    draw_agent_icon (other,renderer);
   }
 
   /* drawing text */
-  text_draw(other->text, renderer);
+  text_draw (other->text, renderer);
 }
 
 static void

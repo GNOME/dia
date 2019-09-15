@@ -444,37 +444,35 @@ line_move(Line *line, Point *to)
 }
 
 static void
-line_draw(Line *line, DiaRenderer *renderer)
+line_draw (Line *line, DiaRenderer *renderer)
 {
   Point gap_endpoints[2];
-
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
 
   assert(line != NULL);
   assert(renderer != NULL);
 
-  renderer_ops->set_linewidth(renderer, line->line_width);
-  renderer_ops->set_linestyle(renderer, line->line_style, line->dashlength);
-  renderer_ops->set_linecaps(renderer, line->line_caps);
+  dia_renderer_set_linewidth (renderer, line->line_width);
+  dia_renderer_set_linestyle (renderer, line->line_style, line->dashlength);
+  dia_renderer_set_linecaps (renderer, line->line_caps);
 
   if (line->absolute_start_gap || line->absolute_end_gap ) {
-    line_adjust_for_absolute_gap(line, gap_endpoints);
+    line_adjust_for_absolute_gap (line, gap_endpoints);
 
-    renderer_ops->draw_line_with_arrows(renderer,
-					&gap_endpoints[0], &gap_endpoints[1],
-					line->line_width,
-					&line->line_color,
-					&line->start_arrow,
-					&line->end_arrow);
+    dia_renderer_draw_line_with_arrows (renderer,
+                                        &gap_endpoints[0],
+                                        &gap_endpoints[1],
+                                        line->line_width,
+                                        &line->line_color,
+                                        &line->start_arrow,
+                                        &line->end_arrow);
   } else {
-        renderer_ops->draw_line_with_arrows(renderer,
-					    &line->connection.endpoints[0],
-					    &line->connection.endpoints[1],
-					    line->line_width,
-					    &line->line_color,
-					    &line->start_arrow,
-					    &line->end_arrow);
-
+    dia_renderer_draw_line_with_arrows (renderer,
+                                        &line->connection.endpoints[0],
+                                        &line->connection.endpoints[1],
+                                        line->line_width,
+                                        &line->line_color,
+                                        &line->start_arrow,
+                                        &line->end_arrow);
   }
 }
 

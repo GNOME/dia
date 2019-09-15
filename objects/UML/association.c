@@ -403,9 +403,8 @@ assoc_get_direction_poly (Association *assoc, Point* poly)
 }
 
 static void
-association_draw(Association *assoc, DiaRenderer *renderer)
+association_draw (Association *assoc, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &assoc->orth;
   Point *points;
   Point poly[3];
@@ -416,10 +415,10 @@ association_draw(Association *assoc, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
 
-  renderer_ops->set_linewidth(renderer, assoc->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, assoc->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   startarrow.length = ASSOCIATION_TRIANGLESIZE;
   startarrow.width = ASSOCIATION_TRIANGLESIZE;
@@ -429,7 +428,7 @@ association_draw(Association *assoc, DiaRenderer *renderer)
     startarrow.length = ASSOCIATION_DIAMONDLEN;
     startarrow.width = ASSOCIATION_TRIANGLESIZE*0.6;
     startarrow.type = assoc->end[0].aggregate == AGGREGATE_NORMAL ?
-      ARROW_HOLLOW_DIAMOND : ARROW_FILLED_DIAMOND;
+                          ARROW_HOLLOW_DIAMOND : ARROW_FILLED_DIAMOND;
   } else {
     startarrow.type = ARROW_NONE;
   }
@@ -441,49 +440,57 @@ association_draw(Association *assoc, DiaRenderer *renderer)
     endarrow.length = ASSOCIATION_DIAMONDLEN;
     endarrow.width = ASSOCIATION_TRIANGLESIZE*0.6;
     endarrow.type = assoc->end[1].aggregate == AGGREGATE_NORMAL ?
-      ARROW_HOLLOW_DIAMOND : ARROW_FILLED_DIAMOND;
+                        ARROW_HOLLOW_DIAMOND : ARROW_FILLED_DIAMOND;
   } else {
     endarrow.type = ARROW_NONE;
   }
-  renderer_ops->draw_polyline_with_arrows(renderer, points, n,
-					   assoc->line_width,
-					   &assoc->line_color,
-					   &startarrow, &endarrow);
+  dia_renderer_draw_polyline_with_arrows (renderer,
+                                          points,
+                                          n,
+                                          assoc->line_width,
+                                          &assoc->line_color,
+                                          &startarrow,
+                                          &endarrow);
 
   /* Name: */
-  renderer_ops->set_font(renderer, assoc->font, assoc->font_height);
+  dia_renderer_set_font (renderer, assoc->font, assoc->font_height);
 
   if (assoc->name != NULL) {
     pos = assoc->text_pos;
-    renderer_ops->draw_string(renderer, assoc->name,
-			       &pos, assoc->text_align,
-			       &assoc->text_color);
+    dia_renderer_draw_string (renderer,
+                              assoc->name,
+                              &pos,
+                              assoc->text_align,
+                              &assoc->text_color);
   }
 
   /* Direction: */
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
 
-  if (assoc_get_direction_poly (assoc, poly))
-    renderer_ops->draw_polygon(renderer, poly, 3, &assoc->line_color, NULL);
+  if (assoc_get_direction_poly (assoc, poly)) {
+    dia_renderer_draw_polygon (renderer, poly, 3, &assoc->line_color, NULL);
+  }
 
-  for (i=0;i<2;i++) {
+  for (i = 0; i < 2; i++) {
     AssociationEnd *end = &assoc->end[i];
     pos = end->text_pos;
 
     if (end->role != NULL && *end->role) {
       gchar *role_name = g_strdup_printf ("%c%s", visible_char[(int) end->visibility], end->role);
-      renderer_ops->draw_string(renderer,
+      dia_renderer_draw_string (renderer,
                                 role_name,
-				&pos,
-				end->text_align,
-				&assoc->text_color);
+                                &pos,
+                                end->text_align,
+                                &assoc->text_color);
       g_free (role_name);
       pos.y += assoc->font_height;
     }
     if (end->multiplicity != NULL) {
-      renderer_ops->draw_string(renderer, end->multiplicity,
-				 &pos, end->text_align,
-				 &assoc->text_color);
+      dia_renderer_draw_string (renderer,
+                                end->multiplicity,
+                                &pos,
+                                end->text_align,
+                                &assoc->text_color);
     }
   }
 }

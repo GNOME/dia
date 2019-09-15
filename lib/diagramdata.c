@@ -812,8 +812,8 @@ data_render (DiagramData    *data,
   Layer *layer;
   guint i, active_layer;
 
-  if (DIA_IS_INTERACTIVE_RENDERER (renderer)) {
-    (DIA_RENDERER_GET_CLASS (renderer)->begin_render) (renderer, update);
+  if (!DIA_IS_INTERACTIVE_RENDERER (renderer)) {
+    dia_renderer_begin_render (renderer, update);
   }
 
   for (i = 0; i < data->layers->len; i++) {
@@ -823,13 +823,13 @@ data_render (DiagramData    *data,
       if (obj_renderer) {
         layer_render (layer, renderer, update, obj_renderer, gdata, active_layer);
       } else {
-        (DIA_RENDERER_GET_CLASS (renderer)->draw_layer) (renderer, layer, active_layer, update);
+        dia_renderer_draw_layer (renderer, layer, active_layer, update);
       }
     }
   }
 
-  if (DIA_IS_INTERACTIVE_RENDERER (renderer)) {
-    (DIA_RENDERER_GET_CLASS (renderer)->end_render) (renderer);
+  if (!DIA_IS_INTERACTIVE_RENDERER (renderer)) {
+    dia_renderer_end_render (renderer);
   }
 }
 

@@ -26,6 +26,7 @@
 
 #include "diatypes.h"
 #include "geometry.h" /* for real */
+#include "diarenderer.h"
 
 typedef enum {
   BEZ_CORNER_SYMMETRIC,

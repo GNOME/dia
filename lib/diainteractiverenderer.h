@@ -25,10 +25,9 @@
 #include "dia-enums.h"
 
 #include "diagramdata.h"
+#include "diarenderer.h"
 
 G_BEGIN_DECLS
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (DiaRenderer, g_object_unref)
 
 #define DIA_TYPE_INTERACTIVE_RENDERER dia_interactive_renderer_get_type ()
 G_DECLARE_INTERFACE (DiaInteractiveRenderer, dia_interactive_renderer, DIA, INTERACTIVE_RENDERER, DiaRenderer)

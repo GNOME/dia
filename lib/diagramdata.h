@@ -26,6 +26,7 @@
 #include "color.h"
 #include "geometry.h"
 #include "paper.h"
+#include "diarenderer.h"
 
 G_BEGIN_DECLS
 
@@ -102,8 +103,8 @@ typedef struct _DiagramDataClass {
 
 } DiagramDataClass;
 
-/*! 
- * \brief A diagram consists of layers holding objects 
+/*!
+ * \brief A diagram consists of layers holding objects
  *
  * \ingroup DiagramStructure
  * \todo : make this a GObject as well

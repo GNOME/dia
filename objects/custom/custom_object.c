@@ -842,9 +842,8 @@ get_colour(Custom *custom, Color *colour, gint32 c, real opacity)
 }
 
 static void
-custom_draw(Custom *custom, DiaRenderer *renderer)
+custom_draw (Custom *custom, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   static GArray *arr = NULL, *barr = NULL;
   real cur_line = 1.0, cur_dash = 1.0;
   LineCaps cur_caps = LINECAPS_BUTT;
@@ -854,28 +853,36 @@ custom_draw(Custom *custom, DiaRenderer *renderer)
   assert(custom != NULL);
   assert(renderer != NULL);
 
-  if (!arr)
-    arr = g_array_new(FALSE, FALSE, sizeof(Point));
-  if (!barr)
-    barr = g_array_new(FALSE, FALSE, sizeof(BezPoint));
+  if (!arr) {
+    arr = g_array_new (FALSE, FALSE, sizeof(Point));
+  }
+  if (!barr) {
+    barr = g_array_new (FALSE, FALSE, sizeof(BezPoint));
+  }
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, custom->border_width);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, custom->border_width);
   cur_line = custom->border_width;
-  renderer_ops->set_linestyle(renderer, cur_style, custom->dashlength);
-  renderer_ops->set_linecaps(renderer, cur_caps);
-  renderer_ops->set_linejoin(renderer, cur_join);
+  dia_renderer_set_linestyle (renderer, cur_style, custom->dashlength);
+  dia_renderer_set_linecaps (renderer, cur_caps);
+  dia_renderer_set_linejoin (renderer, cur_join);
 
   /*
    * Because we do not know if any of these values are reused in the loop, we pass
    * them all by reference.
    * If anyone does know this, please correct/simplify.
    */
-  custom_draw_displaylist(custom->info->display_list, custom, renderer, arr, barr,
-                          &cur_line, &cur_dash, &cur_caps, &cur_join, &cur_style);
+  custom_draw_displaylist (custom->info->display_list,
+                           custom,
+                           renderer, arr, barr,
+                           &cur_line,
+                           &cur_dash,
+                           &cur_caps,
+                           &cur_join,
+                           &cur_style);
 
   if (custom->info->has_text) {
-    text_draw(custom->text, renderer);
+    text_draw (custom->text, renderer);
   }
 }
 
@@ -900,12 +907,19 @@ custom_draw_displaylist(GList *display_list, Custom *custom, DiaRenderer *render
 }
 
 static void
-custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
-                    GArray *arr, GArray *barr, real* cur_line, real* cur_dash,
-                    LineCaps* cur_caps, LineJoin* cur_join, LineStyle* cur_style,
-                    Color* fg, Color* bg)
+custom_draw_element (GraphicElement *el,
+                     Custom         *custom,
+                     DiaRenderer    *renderer,
+                     GArray         *arr,
+                     GArray         *barr,
+                     real           *cur_line,
+                     real           *cur_dash,
+                     LineCaps       *cur_caps,
+                     LineJoin       *cur_join,
+                     LineStyle      *cur_style,
+                     Color          *fg,
+                     Color          *bg)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point p1, p2;
   real width, height;
   real coord;
@@ -918,155 +932,197 @@ custom_draw_element(GraphicElement* el, Custom *custom, DiaRenderer *renderer,
    */
   if (fabs (el->any.s.line_width - (*cur_line)) > 0.001) {
     (*cur_line) = el->any.s.line_width;
-    renderer_ops->set_linewidth(renderer,
-		  custom->border_width*(*cur_line));
+    dia_renderer_set_linewidth (renderer,
+                                custom->border_width * (*cur_line));
   }
   if ((el->any.s.linecap == LINECAPS_DEFAULT && (*cur_caps) != LINECAPS_BUTT) ||
-    el->any.s.linecap != (*cur_caps)) {
-      (*cur_caps) = (el->any.s.linecap!=LINECAPS_DEFAULT) ?
-      el->any.s.linecap : LINECAPS_BUTT;
-      renderer_ops->set_linecaps(renderer, (*cur_caps));
-    }
+      el->any.s.linecap != (*cur_caps)) {
+    (*cur_caps) = (el->any.s.linecap!=LINECAPS_DEFAULT) ?
+                      el->any.s.linecap : LINECAPS_BUTT;
+    dia_renderer_set_linecaps (renderer, (*cur_caps));
+  }
   if ((el->any.s.linejoin==LINEJOIN_DEFAULT && (*cur_join)!=LINEJOIN_MITER) ||
       el->any.s.linejoin != (*cur_join)) {
     (*cur_join) = (el->any.s.linejoin!=LINEJOIN_DEFAULT) ?
-    el->any.s.linejoin : LINEJOIN_MITER;
-    renderer_ops->set_linejoin(renderer, (*cur_join));
+                      el->any.s.linejoin : LINEJOIN_MITER;
+    dia_renderer_set_linejoin (renderer, (*cur_join));
   }
   if ((el->any.s.linestyle == LINESTYLE_DEFAULT &&
       (*cur_style) != custom->line_style) || el->any.s.linestyle != (*cur_style)) {
     (*cur_style) = (el->any.s.linestyle!=LINESTYLE_DEFAULT) ?
-    el->any.s.linestyle : custom->line_style;
-    renderer_ops->set_linestyle(renderer, (*cur_style),
-				custom->dashlength*(*cur_dash));
+                      el->any.s.linestyle : custom->line_style;
+    dia_renderer_set_linestyle (renderer, (*cur_style),
+                                custom->dashlength*(*cur_dash));
   }
   if (el->any.s.dashlength != (*cur_dash)) {
     (*cur_dash) = el->any.s.dashlength;
-    renderer_ops->set_linestyle(renderer, (*cur_style),
-				custom->dashlength*(*cur_dash));
+    dia_renderer_set_linestyle (renderer,
+                                (*cur_style),
+                                custom->dashlength*(*cur_dash));
   }
 
   (*cur_line) = el->any.s.line_width;
-  get_colour(custom, fg, el->any.s.stroke, el->any.s.stroke_opacity);
-  get_colour(custom, bg, el->any.s.fill, el->any.s.fill_opacity);
+  get_colour (custom, fg, el->any.s.stroke, el->any.s.stroke_opacity);
+  get_colour (custom, bg, el->any.s.fill, el->any.s.fill_opacity);
   switch (el->type) {
-  case GE_LINE:
-    transform_coord(custom, &el->line.p1, &p1);
-    transform_coord(custom, &el->line.p2, &p2);
-    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-      renderer_ops->draw_line(renderer, &p1, &p2, fg);
-    break;
-  case GE_POLYLINE:
-    g_array_set_size(arr, el->polyline.npoints);
-    for (i = 0; i < el->polyline.npoints; i++)
-      transform_coord(custom, &el->polyline.points[i],
-			&g_array_index(arr, Point, i));
-    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-      renderer_ops->draw_polyline(renderer,
-              (Point *)arr->data, el->polyline.npoints,
-				    fg);
-    break;
-  case GE_POLYGON:
-    g_array_set_size(arr, el->polygon.npoints);
-    for (i = 0; i < el->polygon.npoints; i++)
-      transform_coord(custom, &el->polygon.points[i],
-			&g_array_index(arr, Point, i));
-    renderer_ops->draw_polygon(renderer,
-				   (Point *)arr->data, el->polygon.npoints,
-				   (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) ? bg : NULL,
-				   (el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL);
-    break;
-  case GE_RECT:
-    transform_coord(custom, &el->rect.corner1, &p1);
-    transform_coord(custom, &el->rect.corner2, &p2);
-    radius = custom_transform_length(custom, el->rect.corner_radius);
-    if (p1.x > p2.x) {
-      coord = p1.x;
-      p1.x = p2.x;
-      p2.x = coord;
-    }
-    if (p1.y > p2.y) {
-      coord = p1.y;
-      p1.y = p2.y;
-      p2.y = coord;
-    }
-    /* the renderer implementation will use simple rect with a small enough radius */
-    renderer_ops->draw_rounded_rect(renderer, &p1, &p2,
-				    (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) ? bg : NULL,
-				    (el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL,
-				    radius);
-    break;
-  case GE_TEXT:
-    text_set_height (el->text.object, custom_transform_length (custom, el->text.s.font_height));
-    custom_reposition_text(custom, &el->text);
-    get_colour(custom, &el->text.object->color, el->any.s.fill, el->any.s.fill_opacity);
-    text_draw(el->text.object, renderer);
-    text_set_position(el->text.object, &el->text.anchor);
-    break;
-  case GE_ELLIPSE:
-    transform_coord(custom, &el->ellipse.center, &p1);
-    transform_size(custom, el->ellipse.width, el->ellipse.height, &width, &height);
-    renderer_ops->draw_ellipse (renderer, &p1, width, height,
-				(custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) ? bg : NULL,
-				(el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL);
-    break;
-  case GE_IMAGE:
-    transform_coord(custom, &el->image.topleft, &p1);
-    /* to scale correctly also for sub-shape some extra hoops */
-    transform_size(custom, el->image.width, el->image.height, &width, &height);
-    renderer_ops->draw_image(renderer, &p1,
-			     width, height,
-			     el->image.image);
-    break;
-  case GE_PATH:
-    g_array_set_size(barr, el->path.npoints);
-    for (i = 0; i < el->path.npoints; i++)
-      switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
-        case BEZ_CURVE_TO:
-            transform_coord(custom, &el->path.points[i].p3,
-              &g_array_index(barr, BezPoint, i).p3);
-            transform_coord(custom, &el->path.points[i].p2,
-              &g_array_index(barr, BezPoint, i).p2);
-        case BEZ_MOVE_TO:
-        case BEZ_LINE_TO:
-          transform_coord(custom, &el->path.points[i].p1,
-            &g_array_index(barr, BezPoint, i).p1);
-    }
-    if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-      renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
-				  el->path.npoints, fg);
-    break;
-  case GE_SHAPE:
-    g_array_set_size(barr, el->path.npoints);
-    for (i = 0; i < el->path.npoints; i++)
-      switch (g_array_index(barr,BezPoint,i).type=el->path.points[i].type) {
-        case BEZ_CURVE_TO:
-          transform_coord(custom, &el->path.points[i].p3,
-			  &g_array_index(barr, BezPoint, i).p3);
-          transform_coord(custom, &el->path.points[i].p2,
-			  &g_array_index(barr, BezPoint, i).p2);
-        case BEZ_MOVE_TO:
-        case BEZ_LINE_TO:
-          transform_coord(custom, &el->path.points[i].p1,
-              &g_array_index(barr, BezPoint, i).p1);
-    }
-    if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE)
-      renderer_ops->draw_beziergon(renderer,
-				   (BezPoint *)barr->data, el->path.npoints,
-				   bg, (el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL);
-    else if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
-      renderer_ops->draw_bezier(renderer, (BezPoint *)barr->data,
-				  el->path.npoints, fg);
-    break;
-  case GE_SUBSHAPE:
-    {
-      GraphicElementSubShape* subshape = (GraphicElementSubShape*)el;
+    case GE_LINE:
+      transform_coord (custom, &el->line.p1, &p1);
+      transform_coord (custom, &el->line.p2, &p2);
+      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE)
+        dia_renderer_draw_line (renderer, &p1, &p2, fg);
+      break;
+    case GE_POLYLINE:
+      g_array_set_size (arr, el->polyline.npoints);
+      for (i = 0; i < el->polyline.npoints; i++) {
+        transform_coord (custom,
+                         &el->polyline.points[i],
+                         &g_array_index (arr, Point, i));
+      }
+      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE) {
+        dia_renderer_draw_polyline (renderer,
+                                    (Point *) arr->data,
+                                    el->polyline.npoints,
+                                    fg);
+      }
+      break;
+    case GE_POLYGON:
+      g_array_set_size (arr, el->polygon.npoints);
+      for (i = 0; i < el->polygon.npoints; i++) {
+        transform_coord (custom,
+                         &el->polygon.points[i],
+                         &g_array_index (arr, Point, i));
+      }
+      dia_renderer_draw_polygon (renderer,
+                                 (Point *)arr->data,
+                                 el->polygon.npoints,
+                                 (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) ? bg : NULL,
+                                 (el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL);
+      break;
+    case GE_RECT:
+      transform_coord (custom, &el->rect.corner1, &p1);
+      transform_coord (custom, &el->rect.corner2, &p2);
+      radius = custom_transform_length (custom, el->rect.corner_radius);
+      if (p1.x > p2.x) {
+        coord = p1.x;
+        p1.x = p2.x;
+        p2.x = coord;
+      }
+      if (p1.y > p2.y) {
+        coord = p1.y;
+        p1.y = p2.y;
+        p2.y = coord;
+      }
+      /* the renderer implementation will use simple rect with a small enough radius */
+      dia_renderer_draw_rounded_rect (renderer,
+                                      &p1,
+                                      &p2,
+                                      (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) ? bg : NULL,
+                                      (el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL,
+                                      radius);
+      break;
+    case GE_TEXT:
+      text_set_height (el->text.object,
+                       custom_transform_length (custom, el->text.s.font_height));
+      custom_reposition_text (custom, &el->text);
+      get_colour (custom,
+                  &el->text.object->color,
+                  el->any.s.fill,
+                  el->any.s.fill_opacity);
+      text_draw (el->text.object, renderer);
+      text_set_position (el->text.object, &el->text.anchor);
+      break;
+    case GE_ELLIPSE:
+      transform_coord (custom, &el->ellipse.center, &p1);
+      transform_size (custom,
+                      el->ellipse.width,
+                      el->ellipse.height,
+                      &width,
+                      &height);
+      dia_renderer_draw_ellipse (renderer,
+                                 &p1,
+                                 width,
+                                 height,
+                                 (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) ? bg : NULL,
+                                 (el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL);
+      break;
+    case GE_IMAGE:
+      transform_coord (custom, &el->image.topleft, &p1);
+      /* to scale correctly also for sub-shape some extra hoops */
+      transform_size (custom, el->image.width, el->image.height, &width, &height);
+      dia_renderer_draw_image (renderer,
+                               &p1,
+                               width,
+                               height,
+                               el->image.image);
+      break;
+    case GE_PATH:
+      g_array_set_size (barr, el->path.npoints);
+      for (i = 0; i < el->path.npoints; i++)
+        switch (g_array_index (barr,BezPoint,i).type=el->path.points[i].type) {
+          case BEZ_CURVE_TO:
+            transform_coord (custom,
+                             &el->path.points[i].p3,
+                             &g_array_index (barr, BezPoint, i).p3);
+            transform_coord (custom, &el->path.points[i].p2,
+                             &g_array_index (barr, BezPoint, i).p2);
+          case BEZ_MOVE_TO:
+          case BEZ_LINE_TO:
+            transform_coord (custom, &el->path.points[i].p1,
+                             &g_array_index (barr, BezPoint, i).p1);
+      }
+      if (el->any.s.stroke != DIA_SVG_COLOUR_NONE) {
+        dia_renderer_draw_bezier (renderer,
+                                  (BezPoint *) barr->data,
+                                  el->path.npoints,
+                                  fg);
+      }
+      break;
+    case GE_SHAPE:
+      g_array_set_size (barr, el->path.npoints);
+      for (i = 0; i < el->path.npoints; i++)
+        switch (g_array_index (barr,BezPoint,i).type=el->path.points[i].type) {
+          case BEZ_CURVE_TO:
+            transform_coord (custom,
+                             &el->path.points[i].p3,
+                             &g_array_index (barr, BezPoint, i).p3);
+            transform_coord (custom,
+                             &el->path.points[i].p2,
+                             &g_array_index (barr, BezPoint, i).p2);
+          case BEZ_MOVE_TO:
+          case BEZ_LINE_TO:
+            transform_coord (custom,
+                             &el->path.points[i].p1,
+                             &g_array_index (barr, BezPoint, i).p1);
+      }
+      if (custom->show_background && el->any.s.fill != DIA_SVG_COLOUR_NONE) {
+        dia_renderer_draw_beziergon(renderer,
+            (BezPoint *)barr->data, el->path.npoints,
+            bg, (el->any.s.stroke != DIA_SVG_COLOUR_NONE) ? fg : NULL);
+      } else if (el->any.s.stroke != DIA_SVG_COLOUR_NONE) {
+        dia_renderer_draw_bezier (renderer,
+                                  (BezPoint *) barr->data,
+                                  el->path.npoints,
+                                  fg);
+      }
+      break;
+    case GE_SUBSHAPE:
+      {
+        GraphicElementSubShape* subshape = (GraphicElementSubShape*)el;
 
-      custom->current_subshape = subshape;
-      custom_draw_displaylist(subshape->display_list, custom, renderer, arr, barr, cur_line, cur_dash, cur_caps, cur_join, cur_style);
-      custom->current_subshape = NULL;
-    }
-    break;
+        custom->current_subshape = subshape;
+        custom_draw_displaylist (subshape->display_list,
+                                 custom,
+                                 renderer,
+                                 arr,
+                                 barr,
+                                 cur_line,
+                                 cur_dash,
+                                 cur_caps,
+                                 cur_join,
+                                 cur_style);
+        custom->current_subshape = NULL;
+      }
+      break;
   }
 }
 

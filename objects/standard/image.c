@@ -435,9 +435,8 @@ image_move(Image *image, Point *to)
 }
 
 static void
-image_draw(Image *image, DiaRenderer *renderer)
+image_draw (Image *image, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point ul_corner, lr_corner;
   Element *elem;
 
@@ -453,35 +452,48 @@ image_draw(Image *image, DiaRenderer *renderer)
   ul_corner.y = elem->corner.y - image->border_width/2;
 
   if (image->draw_border) {
-    renderer_ops->set_linewidth(renderer, image->border_width);
-    renderer_ops->set_linestyle(renderer, image->line_style, image->dashlength);
-    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+    dia_renderer_set_linewidth (renderer, image->border_width);
+    dia_renderer_set_linestyle (renderer, image->line_style, image->dashlength);
+    dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
     if (image->angle != 0.0) {
       Point poly[4];
       element_get_poly (elem, image->angle, poly);
       /* need to grow the poly, XXX: done here by growing the border width */
-      renderer_ops->set_linewidth(renderer, image->border_width * 2);
-      renderer_ops->draw_polygon (renderer, poly, 4, NULL, &image->border_color);
+      dia_renderer_set_linewidth (renderer, image->border_width * 2);
+      dia_renderer_draw_polygon (renderer, poly, 4, NULL, &image->border_color);
     } else {
-      renderer_ops->draw_rect (renderer,
-			       &ul_corner, &lr_corner,
-			       NULL, &image->border_color);
+      dia_renderer_draw_rect (renderer,
+                              &ul_corner,
+                              &lr_corner,
+                              NULL,
+                              &image->border_color);
     }
   }
   /* Draw the image */
   if (image->image) {
-    if (image->angle == 0.0)
-      renderer_ops->draw_image (renderer, &elem->corner, elem->width,
-			        elem->height, image->image);
-    else
-      renderer_ops->draw_rotated_image (renderer, &elem->corner, elem->width,
-					elem->height, image->angle, image->image);
+    if (image->angle == 0.0) {
+      dia_renderer_draw_image (renderer,
+                               &elem->corner,
+                               elem->width,
+                               elem->height,
+                               image->image);
+    } else {
+      dia_renderer_draw_rotated_image (renderer,
+                                       &elem->corner,
+                                       elem->width,
+                                       elem->height,
+                                       image->angle,
+                                       image->image);
+    }
   } else {
-    DiaImage *broken = dia_image_get_broken();
-    renderer_ops->draw_image (renderer, &elem->corner, elem->width,
-			      elem->height, broken);
-    dia_image_unref(broken);
+    DiaImage *broken = dia_image_get_broken ();
+    dia_renderer_draw_image (renderer,
+                             &elem->corner,
+                             elem->width,
+                             elem->height,
+                             broken);
+    dia_image_unref (broken);
   }
 }
 

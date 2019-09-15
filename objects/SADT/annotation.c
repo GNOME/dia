@@ -273,50 +273,50 @@ annotation_move(Annotation *annotation, Point *to)
 }
 
 static void
-annotation_draw(Annotation *annotation, DiaRenderer *renderer)
+annotation_draw (Annotation *annotation, DiaRenderer *renderer)
 {
   Point vect,rvect,v1,v2;
   Point pts[4];
   real vlen;
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
 
   assert(annotation != NULL);
   assert(renderer != NULL);
 
-  renderer_ops->set_linewidth(renderer, ANNOTATION_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, ANNOTATION_LINE_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   vect = annotation->connection.endpoints[1];
-  point_sub(&vect,&annotation->connection.endpoints[0]);
-  vlen = distance_point_point(&annotation->connection.endpoints[0],
-			      &annotation->connection.endpoints[1]);
+  point_sub (&vect,&annotation->connection.endpoints[0]);
+  vlen = distance_point_point (&annotation->connection.endpoints[0],
+                               &annotation->connection.endpoints[1]);
   if (vlen > 0.0) {
     /* draw the squiggle */
-    point_scale(&vect,1/vlen);
+    point_scale (&vect,1/vlen);
     rvect.y = vect.x;
     rvect.x = -vect.y;
 
     pts[0] = annotation->connection.endpoints[0];
     pts[1] = annotation->connection.endpoints[0];
     v1 = vect;
-    point_scale(&v1,.5*vlen);
-    point_add(&pts[1],&v1);
+    point_scale (&v1,.5*vlen);
+    point_add (&pts[1],&v1);
     pts[2] = pts[1];
     /* pts[1] and pts[2] are currently both at the middle of (pts[0],pts[3]) */
     v1 = vect;
-    point_scale(&v1,ANNOTATION_ZLEN);
+    point_scale (&v1,ANNOTATION_ZLEN);
     v2 = rvect;
-    point_scale(&v2,ANNOTATION_ZLEN);
-    point_sub(&v1,&v2);
-    point_add(&pts[1],&v1);
-    point_sub(&pts[2],&v1);
+    point_scale (&v2,ANNOTATION_ZLEN);
+    point_sub (&v1,&v2);
+    point_add (&pts[1],&v1);
+    point_sub (&pts[2],&v1);
     pts[3] = annotation->connection.endpoints[1];
-    renderer_ops->draw_polyline(renderer,
-			     pts, sizeof(pts) / sizeof(pts[0]),
-			     &annotation->line_color);
+    dia_renderer_draw_polyline (renderer,
+                                pts,
+                                sizeof(pts) / sizeof(pts[0]),
+                                &annotation->line_color);
   }
-  text_draw(annotation->text,renderer);
+  text_draw (annotation->text,renderer);
 }
 
 static DiaObject *

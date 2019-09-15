@@ -2,7 +2,7 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * diapsrenderer.c -- implements the base class for Postscript rendering
- *   It is mostly refactoring of render_eps.c (some stuff not from the 
+ *   It is mostly refactoring of render_eps.c (some stuff not from the
  *   latest version but from 1.24) before PS rendering became multi-pass
  *   and text rendering became (necessary) complicated.
  * Refatoring: Copyright (C) 2002 Hans Breuer
@@ -36,6 +36,14 @@
 #define psrenderer_dtostr(buf,d) \
 	g_ascii_formatd(buf, sizeof(buf), "%f", d)
 
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+
 /* Returns TRUE if this file is an encapsulated postscript file
  * (including e.g. epsi).
  */
@@ -62,7 +70,7 @@ lazy_setcolor(DiaPsRenderer *renderer,
     fprintf(renderer->file, "%s %s %s srgb\n",
             psrenderer_dtostr(r_buf, (gdouble) color->red),
             psrenderer_dtostr(g_buf, (gdouble) color->green),
-            psrenderer_dtostr(b_buf, (gdouble) color->blue) );    
+            psrenderer_dtostr(b_buf, (gdouble) color->blue) );
   }
 }
 
@@ -102,9 +110,9 @@ begin_render(DiaRenderer *self, const Rectangle *update)
     fprintf(renderer->file,
             "%%%%Magnification: 1.0000\n"
 	  "%%%%BoundingBox: 0 0 %d %d\n",
-            (int) ceil(  (renderer->extent.right - renderer->extent.left) 
+            (int) ceil(  (renderer->extent.right - renderer->extent.left)
                        * renderer->scale),
-            (int) ceil(  (renderer->extent.bottom - renderer->extent.top) 
+            (int) ceil(  (renderer->extent.bottom - renderer->extent.top)
                        * renderer->scale) );
 
   else
@@ -126,16 +134,17 @@ begin_render(DiaRenderer *self, const Rectangle *update)
 }
 
 static void
-end_render(DiaRenderer *self)
+end_render (DiaRenderer *self)
 {
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
+  DiaPsRenderer *renderer = DIA_PS_RENDERER (self);
 
-  if (renderer_is_eps(renderer))
-    fprintf(renderer->file, "showpage\n");
+  if (renderer_is_eps (renderer)) {
+    fprintf (renderer->file, "showpage\n");
+  }
 
-  if (self->font != NULL) {
-    dia_font_unref(self->font);
-    self->font = NULL;
+  if (renderer->font != NULL) {
+    dia_font_unref (renderer->font);
+    renderer->font = NULL;
   }
 }
 
@@ -158,7 +167,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   int ps_mode;
-  
+
   switch(mode) {
   case LINECAPS_DEFAULT:
   case LINECAPS_BUTT:
@@ -182,7 +191,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   int ps_mode;
-  
+
   switch(mode) {
   case LINEJOIN_DEFAULT:
   case LINEJOIN_MITER:
@@ -269,30 +278,31 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 }
 
 static void
-set_font(DiaRenderer *self, DiaFont *font, real height)
+set_font (DiaRenderer *self, DiaFont *font, real height)
 {
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
+  DiaPsRenderer *renderer = DIA_PS_RENDERER (self);
   gchar h_buf[DTOSTR_BUF_SIZE];
 
-  if (font != self->font || height != self->font_height) {
+  if (font != renderer->font || height != renderer->font_height) {
     DiaFont *old_font;
 
-    fprintf(renderer->file, "/%s-latin1 ff %s scf sf\n",
-	    dia_font_get_psfontname(font),
-	    psrenderer_dtostr(h_buf, (gdouble) height*0.7) );
-    old_font = self->font;
-    self->font = font;
-    dia_font_ref(self->font);
+    fprintf (renderer->file,
+             "/%s-latin1 ff %s scf sf\n",
+             dia_font_get_psfontname (font),
+             psrenderer_dtostr (h_buf, (gdouble) height*0.7));
+    old_font = renderer->font;
+    renderer->font = font;
+    dia_font_ref (renderer->font);
     if (old_font != NULL) {
-      dia_font_unref(old_font);
+      dia_font_unref (old_font);
     }
-    self->font_height = height;
+    renderer->font_height = height;
   }
 }
 
 static void
-draw_line(DiaRenderer *self, 
-	  Point *start, Point *end, 
+draw_line(DiaRenderer *self,
+	  Point *start, Point *end,
 	  Color *line_color)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
@@ -311,8 +321,8 @@ draw_line(DiaRenderer *self,
 }
 
 static void
-draw_polyline(DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polyline(DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *line_color)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
@@ -321,7 +331,7 @@ draw_polyline(DiaRenderer *self,
   gchar py_buf[DTOSTR_BUF_SIZE];
 
   lazy_setcolor(renderer,line_color);
-  
+
   fprintf(renderer->file, "n %s %s m ",
 	  psrenderer_dtostr(px_buf, points[0].x),
 	  psrenderer_dtostr(py_buf, points[0].y) );
@@ -365,8 +375,8 @@ psrenderer_polygon(DiaPsRenderer *renderer,
 }
 
 static void
-draw_polygon (DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polygon (DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *fill, Color *stroke)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
@@ -430,7 +440,7 @@ draw_arc(DiaRenderer *self,
 }
 
 static void
-fill_arc(DiaRenderer *self, 
+fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -451,7 +461,7 @@ psrenderer_ellipse(DiaPsRenderer *renderer,
   gchar cy_buf[DTOSTR_BUF_SIZE];
   gchar w_buf[DTOSTR_BUF_SIZE];
   gchar h_buf[DTOSTR_BUF_SIZE];
-  
+
   lazy_setcolor(renderer,color);
 
   fprintf(renderer->file, "n %s %s %s %s 0 360 ellipse %s\n",
@@ -463,7 +473,7 @@ psrenderer_ellipse(DiaPsRenderer *renderer,
 }
 
 static void
-draw_ellipse(DiaRenderer *self, 
+draw_ellipse(DiaRenderer *self,
 	     Point *center,
 	     real width, real height,
 	     Color *fill, Color *stroke)
@@ -498,7 +508,7 @@ psrenderer_bezier(DiaPsRenderer *renderer,
   fprintf(renderer->file, "n %s %s m",
 	  psrenderer_dtostr(p1x_buf, (gdouble) points[0].p1.x),
 	  psrenderer_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
-  
+
   for (i = 1; i < numpoints; i++)
     switch (points[i].type) {
     case BEZ_MOVE_TO:
@@ -519,7 +529,7 @@ psrenderer_bezier(DiaPsRenderer *renderer,
 	      psrenderer_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
       break;
     }
-  
+
   if (filled)
     fprintf(renderer->file, " ef\n");
   else
@@ -527,7 +537,7 @@ psrenderer_bezier(DiaPsRenderer *renderer,
 }
 
 static void
-draw_bezier(DiaRenderer *self, 
+draw_bezier(DiaRenderer *self,
 	    BezPoint *points,
 	    int numpoints, /* numpoints = 4+3*n, n=>0 */
 	    Color *color)
@@ -537,7 +547,7 @@ draw_bezier(DiaRenderer *self,
 }
 
 static void
-draw_beziergon (DiaRenderer *self, 
+draw_beziergon (DiaRenderer *self,
 		BezPoint *points, /* Last point must be same as first point */
 		int numpoints,
 		Color *fill,
@@ -609,7 +619,7 @@ put_text_alignment (DiaPsRenderer *renderer,
 	    psrenderer_dtostr(px_buf, pos->x),
 	    psrenderer_dtostr(py_buf, pos->y) );
     break;
-  }  
+  }
 }
 
 static void
@@ -633,7 +643,7 @@ draw_string(DiaRenderer *self,
   g_free(buffer);
 
   pos_adj.x = pos->x;
-  pos_adj.y = pos->y - dia_font_descent("", self->font, self->font_height);
+  pos_adj.y = pos->y - dia_font_descent ("", renderer->font, renderer->font_height);
   put_text_alignment (renderer, alignment, &pos_adj);
 
   fprintf(renderer->file, " gs 1 -1 sc sh gr\n");
@@ -705,7 +715,7 @@ draw_image(DiaRenderer *self,
   }
   fprintf(renderer->file, "gr\n");
   fprintf(renderer->file, "\n");
-   
+
   g_free(rgb_data);
   g_free(mask_data);
 }
@@ -812,7 +822,7 @@ begin_prolog (DiaPsRenderer *renderer)
 }
 
 /* helper function */
-static void 
+static void
 print_reencode_font(FILE *file, char *fontname)
 {
   /* Don't reencode the Symbol font, as it doesn't work in latin1 encoding.
@@ -878,7 +888,7 @@ end_prolog (DiaPsRenderer *renderer)
 {
   gchar d1_buf[DTOSTR_BUF_SIZE];
   gchar d2_buf[DTOSTR_BUF_SIZE];
-  
+
   if (renderer_is_eps(renderer)) {
     fprintf(renderer->file,
             "%s %s scale\n",
@@ -905,7 +915,7 @@ ps_renderer_init (GTypeInstance *instance, gpointer g_class)
   renderer->file = NULL;
 
   renderer->lcolor.red = -1.0;
-  
+
   renderer->is_portrait = TRUE;
 
   renderer->scale = 28.346;
@@ -940,8 +950,54 @@ dia_ps_renderer_get_type (void)
                                             "DiaPsRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
+}
+
+static void
+dia_ps_renderer_set_property (GObject      *object,
+                              guint         property_id,
+                              const GValue *value,
+                              GParamSpec   *pspec)
+{
+  DiaPsRenderer *self = DIA_PS_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      set_font (DIA_RENDERER (self),
+                DIA_FONT (g_value_get_object (value)),
+                self->font_height);
+      break;
+    case PROP_FONT_HEIGHT:
+      set_font (DIA_RENDERER (self),
+                self->font,
+                g_value_get_double (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_ps_renderer_get_property (GObject    *object,
+                              guint       property_id,
+                              GValue     *value,
+                              GParamSpec *pspec)
+{
+  DiaPsRenderer *self = DIA_PS_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, self->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, self->font_height);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
 }
 
 static void
@@ -950,6 +1006,7 @@ dia_ps_renderer_finalize (GObject *object)
   DiaPsRenderer *renderer = DIA_PS_RENDERER (object);
 
   g_free(renderer->title);
+  g_clear_object (&renderer->font);
   /*  fclose(renderer->file);*/
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -964,6 +1021,8 @@ dia_ps_renderer_class_init (DiaPsRendererClass *klass)
 
   parent_class = g_type_class_peek_parent (klass);
 
+  object_class->set_property = dia_ps_renderer_set_property;
+  object_class->get_property = dia_ps_renderer_get_property;
   object_class->finalize = dia_ps_renderer_finalize;
 
   renderer_class->begin_render = begin_render;
@@ -974,7 +1033,6 @@ dia_ps_renderer_class_init (DiaPsRendererClass *klass)
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_fillstyle  = set_fillstyle;
-  renderer_class->set_font       = set_font;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;
@@ -993,5 +1051,7 @@ dia_ps_renderer_class_init (DiaPsRendererClass *klass)
   ps_renderer_class->begin_prolog = begin_prolog;
   ps_renderer_class->dump_fonts = dump_fonts;
   ps_renderer_class->end_prolog = end_prolog;
-}
 
+  g_object_class_override_property (object_class, PROP_FONT, "font");
+  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
+}

@@ -336,13 +336,12 @@ transition_move(Transition *transition, Point *to)
 
 
 static void
-transition_draw(Transition *transition, DiaRenderer *renderer)
+transition_draw (Transition *transition, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[6];
-  renderer_ops->set_linewidth(renderer, TRANSITION_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, TRANSITION_LINE_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   pts[0] = transition->north.pos;
   pts[1] = transition->NU1;
@@ -350,14 +349,17 @@ transition_draw(Transition *transition, DiaRenderer *renderer)
   pts[3] = transition->SD1;
   pts[4] = transition->SD2;
   pts[5] = transition->south.pos;
-  renderer_ops->draw_polyline(renderer,pts,sizeof(pts)/sizeof(pts[0]),
-			       &color_black);
+  dia_renderer_draw_polyline (renderer,
+                              pts,
+                              sizeof(pts)/sizeof(pts[0]),
+                              &color_black);
 
-  renderer_ops->draw_line(renderer,
-			     &transition->C,&transition->D,
-			     &color_black);
+  dia_renderer_draw_line (renderer,
+                          &transition->C,
+                          &transition->D,
+                          &color_black);
 
-  boolequation_draw(transition->receptivity,renderer);
+  boolequation_draw (transition->receptivity,renderer);
 }
 
 static DiaObject *

@@ -261,95 +261,113 @@ static DiaObject *
 _render_object (xmlNodePtr render, DiaContext *ctx)
 {
   DiaRenderer *ir = g_object_new (DIA_TYPE_IMPORT_RENDERER, NULL);
-  DiaRendererClass *ops = DIA_RENDERER_GET_CLASS (ir);
   DiaObject *o;
   xmlNodePtr node;
 
-  g_return_val_if_fail (ops != NULL, NULL);
-
   for (node = render->children; node; node = node->next) {
-    if (xmlStrcmp (node->name, (const xmlChar *)"set-linewidth") == 0)
-      ops->set_linewidth (ir, _parse_real (node, "width"));
-    else if (xmlStrcmp (node->name, (const xmlChar *)"set-linestyle") == 0)
-      ops->set_linestyle (ir, _parse_linestyle (node, "mode"), _parse_real (node, "dash-length"));
-    else if (xmlStrcmp (node->name, (const xmlChar *)"set-linecaps") == 0)
-      ops->set_linecaps (ir, _parse_linecaps (node, "mode"));
-    else if (xmlStrcmp (node->name, (const xmlChar *)"set-linejoin") == 0)
-      ops->set_linejoin (ir, _parse_linejoin (node, "mode"));
-    else if (xmlStrcmp (node->name, (const xmlChar *)"set-fillstyle") == 0)
-      ops->set_fillstyle (ir, _parse_fillstyle (node, "mode"));
+    if (xmlStrcmp (node->name, (const xmlChar *) "set-linewidth") == 0) {
+      dia_renderer_set_linewidth (ir, _parse_real (node, "width"));
+    } else if (xmlStrcmp (node->name, (const xmlChar *) "set-linestyle") == 0) {
+      dia_renderer_set_linestyle (ir,
+                                  _parse_linestyle (node, "mode"),
+                                  _parse_real (node, "dash-length"));
+    } else if (xmlStrcmp (node->name, (const xmlChar *) "set-linecaps") == 0) {
+      dia_renderer_set_linecaps (ir, _parse_linecaps (node, "mode"));
+    } else if (xmlStrcmp (node->name, (const xmlChar *) "set-linejoin") == 0) {
+      dia_renderer_set_linejoin (ir, _parse_linejoin (node, "mode"));
+    } else if (xmlStrcmp (node->name, (const xmlChar *) "set-fillstyle") == 0) {
+      dia_renderer_set_fillstyle (ir, _parse_fillstyle (node, "mode"));
     /* ToDo: set-linejoin, set-fillstyle */
-    else if (xmlStrcmp (node->name, (const xmlChar *)"set-font") == 0) {
+    } else if (xmlStrcmp (node->name, (const xmlChar *) "set-font") == 0) {
       DiaFont *font = _parse_font (node);
-      ops->set_font (ir, font, _parse_real (node, "height"));
+      dia_renderer_set_font (ir, font, _parse_real (node, "height"));
       dia_font_unref (font);
     } else {
       Color *stroke = _parse_color (node, "stroke");
       Color *fill = _parse_color (node, "fill");
 
       if (xmlStrcmp (node->name, (const xmlChar *)"line") == 0) {
-	Point p1 = _parse_point (node, "start");
-	Point p2 = _parse_point (node, "end");
-	if (stroke)
-	  ops->draw_line (ir, &p1, &p2, stroke);
-      } else if (   xmlStrcmp (node->name, (const xmlChar *)"polyline") == 0
-	         || xmlStrcmp (node->name, (const xmlChar *)"rounded-polyline") == 0) {
-	GArray *path = _parse_points (node, "points");
-	real r = _parse_real (node,"r");
-	if (path) {
-	  if (stroke)
-	    ops->draw_rounded_polyline (ir, &g_array_index(path,Point,0), path->len, stroke, r);
-	  g_array_free (path, TRUE);
-	}
-      } else if (   xmlStrcmp (node->name, (const xmlChar *)"polygon") == 0) {
-	GArray *path = _parse_points (node, "points");
-	if (path) {
-	  if (fill || stroke)
-	    ops->draw_polygon (ir, &g_array_index(path,Point,0), path->len, fill, stroke);
-	  g_array_free (path, TRUE);
-	}
+        Point p1 = _parse_point (node, "start");
+        Point p2 = _parse_point (node, "end");
+        if (stroke) {
+          dia_renderer_draw_line (ir, &p1, &p2, stroke);
+        }
+      } else if (   xmlStrcmp (node->name, (const xmlChar *) "polyline") == 0
+                 || xmlStrcmp (node->name, (const xmlChar *) "rounded-polyline") == 0) {
+        GArray *path = _parse_points (node, "points");
+        real r = _parse_real (node,"r");
+        if (path) {
+          if (stroke) {
+            dia_renderer_draw_rounded_polyline (ir, &g_array_index (path,Point,0), path->len, stroke, r);
+          }
+          g_array_free (path, TRUE);
+        }
+      } else if (   xmlStrcmp (node->name, (const xmlChar *) "polygon") == 0) {
+        GArray *path = _parse_points (node, "points");
+        if (path) {
+          if (fill || stroke) {
+            dia_renderer_draw_polygon (ir, &g_array_index (path,Point,0), path->len, fill, stroke);
+          }
+          g_array_free (path, TRUE);
+        }
       } else if (xmlStrcmp (node->name, (const xmlChar *)"arc") == 0) {
-	Point center = _parse_point (node, "center");
-	if (fill)
-	  ops->fill_arc (ir, &center, _parse_real (node, "width"), _parse_real (node, "height"),
-			 _parse_real (node, "angle1"),  _parse_real (node, "angle2"), fill);
-	if (stroke)
-	  ops->draw_arc (ir, &center, _parse_real (node, "width"), _parse_real (node, "height"),
-			 _parse_real (node, "angle1"),  _parse_real (node, "angle2"), stroke);
-      } else if (xmlStrcmp (node->name, (const xmlChar *)"ellipse") == 0) {
-	Point center = _parse_point (node, "center");
-	ops->draw_ellipse (ir, &center,
-			   _parse_real (node, "width"),
-			   _parse_real (node, "height"),
-			   fill, stroke);
-      } else if (xmlStrcmp (node->name, (const xmlChar *)"bezier") == 0) {
-	GArray *path = _parse_bezpoints (node, "bezpoints");
-	if (path) {
-	  if (fill && stroke)
-	    ops->draw_beziergon (ir, &g_array_index(path,BezPoint,0), path->len, fill, stroke);
-	  else if (fill)
-	    ops->draw_beziergon (ir, &g_array_index(path,BezPoint,0), path->len, fill, NULL);
-	  else if (stroke)
-	    ops->draw_bezier (ir, &g_array_index(path,BezPoint,0), path->len, stroke);
-	  g_array_free (path, TRUE);
-	}
-      } else if (   xmlStrcmp (node->name, (const xmlChar *)"rect") == 0
-	         || xmlStrcmp (node->name, (const xmlChar *)"rounded-rect") == 0) {
-	Point ul = _parse_point (node, "lefttop");
-	Point lr = _parse_point (node, "rightbottom");
-	real r = _parse_real (node,"r");
-	if (fill || stroke)
-	  ops->draw_rounded_rect (ir, &ul, &lr, fill, stroke, r);
-      } else if (   xmlStrcmp (node->name, (const xmlChar *)"string") == 0) {
-	Point pos = _parse_point (node, "pos");
-	Alignment align = _parse_alignment (node, "alignment");
-	xmlChar *text = xmlNodeGetContent(node);
-	if (text) {
-	  ops->draw_string (ir, (const char*)text, &pos, align, fill);
-	  xmlFree (text);
-	}
+        Point center = _parse_point (node, "center");
+        if (fill) {
+          dia_renderer_fill_arc (ir,
+                                 &center,
+                                 _parse_real (node, "width"),
+                                 _parse_real (node, "height"),
+                                 _parse_real (node, "angle1"),
+                                 _parse_real (node, "angle2"),
+                                 fill);
+        }
+        if (stroke) {
+          dia_renderer_draw_arc (ir,
+                                 &center,
+                                 _parse_real (node, "width"),
+                                 _parse_real (node, "height"),
+                                 _parse_real (node, "angle1"),
+                                 _parse_real (node, "angle2"),
+                                 stroke);
+        }
+      } else if (xmlStrcmp (node->name, (const xmlChar *) "ellipse") == 0) {
+        Point center = _parse_point (node, "center");
+        dia_renderer_draw_ellipse (ir,
+                                   &center,
+                                   _parse_real (node, "width"),
+                                   _parse_real (node, "height"),
+                                   fill,
+                                   stroke);
+      } else if (xmlStrcmp (node->name, (const xmlChar *) "bezier") == 0) {
+        GArray *path = _parse_bezpoints (node, "bezpoints");
+        if (path) {
+          if (fill && stroke) {
+            dia_renderer_draw_beziergon (ir, &g_array_index (path,BezPoint,0), path->len, fill, stroke);
+          } else if (fill) {
+            dia_renderer_draw_beziergon (ir, &g_array_index (path,BezPoint,0), path->len, fill, NULL);
+          } else if (stroke) {
+            dia_renderer_draw_bezier (ir, &g_array_index (path,BezPoint,0), path->len, stroke);
+          }
+          g_array_free (path, TRUE);
+        }
+      } else if (   xmlStrcmp (node->name, (const xmlChar *) "rect") == 0
+                 || xmlStrcmp (node->name, (const xmlChar *) "rounded-rect") == 0) {
+        Point ul = _parse_point (node, "lefttop");
+        Point lr = _parse_point (node, "rightbottom");
+        real r = _parse_real (node,"r");
+        if (fill || stroke) {
+          dia_renderer_draw_rounded_rect (ir, &ul, &lr, fill, stroke, r);
+        }
+      } else if (   xmlStrcmp (node->name, (const xmlChar *) "string") == 0) {
+        Point pos = _parse_point (node, "pos");
+        Alignment align = _parse_alignment (node, "alignment");
+        xmlChar *text = xmlNodeGetContent (node);
+        if (text) {
+          dia_renderer_draw_string (ir, (const char*) text, &pos, align, fill);
+          xmlFree (text);
+        }
       } else if (node->type == XML_ELEMENT_NODE) {
-	g_warning ("%s not handled", node->name);
+        g_warning ("%s not handled", node->name);
       }
       g_free (fill);
       g_free (stroke);
@@ -363,9 +381,11 @@ _render_object (xmlNodePtr render, DiaContext *ctx)
 static xmlNodePtr
 find_child_named (xmlNodePtr node, const char *name)
 {
-  for (node = node->children; node; node = node->next)
-    if (xmlStrcmp (node->name, (const xmlChar *)name) == 0)
+  for (node = node->children; node; node = node->next) {
+    if (xmlStrcmp (node->name, (const xmlChar *)name) == 0) {
       return node;
+    }
+  }
   return NULL;
 }
 

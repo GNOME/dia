@@ -33,6 +33,7 @@
 #include "dia_xml.h"
 #include "text.h"
 #include "diacontext.h"
+#include "diarenderer.h"
 
 G_BEGIN_DECLS
 

@@ -246,9 +246,8 @@ constraint_move(Constraint *constraint, Point *to)
 }
 
 static void
-constraint_draw(Constraint *constraint, DiaRenderer *renderer)
+constraint_draw (Constraint *constraint, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   Arrow arrow;
 
@@ -257,26 +256,30 @@ constraint_draw(Constraint *constraint, DiaRenderer *renderer)
 
   endpoints = &constraint->connection.endpoints[0];
 
-  renderer_ops->set_linewidth(renderer, constraint->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, CONSTRAINT_DASHLEN);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, constraint->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, CONSTRAINT_DASHLEN);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   arrow.type = ARROW_LINES;
   arrow.length = CONSTRAINT_ARROWLEN;
   arrow.width = CONSTRAINT_ARROWWIDTH;
 
-  renderer_ops->draw_line_with_arrows(renderer,
-				       &endpoints[0], &endpoints[1],
-				       constraint->line_width,
-				       &constraint->line_color,
-				       NULL, &arrow);
+  dia_renderer_draw_line_with_arrows (renderer,
+                                      &endpoints[0],
+                                      &endpoints[1],
+                                      constraint->line_width,
+                                      &constraint->line_color,
+                                      NULL,
+                                      &arrow);
 
-  renderer_ops->set_font(renderer, constraint->font,
-			  constraint->font_height);
-  renderer_ops->draw_string(renderer,
-			     constraint->brtext,
-			     &constraint->text_pos, ALIGN_LEFT,
-			     &constraint->text_color);
+  dia_renderer_set_font (renderer,
+                         constraint->font,
+                         constraint->font_height);
+  dia_renderer_draw_string (renderer,
+                            constraint->brtext,
+                            &constraint->text_pos,
+                            ALIGN_LEFT,
+                            &constraint->text_color);
 }
 
 static DiaObject *

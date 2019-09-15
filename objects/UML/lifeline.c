@@ -358,9 +358,8 @@ lifeline_move(Lifeline *lifeline, Point *to)
 }
 
 static void
-lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
+lifeline_draw (Lifeline *lifeline, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints, p1, p2;
 
   assert(lifeline != NULL);
@@ -368,8 +367,8 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
 
   endpoints = &lifeline->connection.endpoints[0];
 
-  renderer_ops->set_linewidth(renderer, LIFELINE_LINEWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, LIFELINE_DASHLEN);
+  dia_renderer_set_linewidth (renderer, LIFELINE_LINEWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, LIFELINE_DASHLEN);
 
   /* Ok, instead rendering one big line between two endpoints we just
      from endpoints to rtop and rbottom respectively.
@@ -379,16 +378,18 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
   p1.x = p2.x = endpoints[0].x;
   p1.y = endpoints[0].y + lifeline->rtop;
   p2.y = endpoints[0].y + lifeline->rbot;
-  renderer_ops->draw_line(renderer,
-			   &endpoints[0], &p1,
-			   &lifeline->line_color);
-  renderer_ops->draw_line(renderer,
-			   &p2, &endpoints[1],
-			   &lifeline->line_color);
+  dia_renderer_draw_line (renderer,
+                          &endpoints[0],
+                          &p1,
+                          &lifeline->line_color);
+  dia_renderer_draw_line (renderer,
+                          &p2,
+                          &endpoints[1],
+                          &lifeline->line_color);
 
 
-  renderer_ops->set_linewidth(renderer, LIFELINE_BOXWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linewidth (renderer, LIFELINE_BOXWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   p1.x = endpoints[0].x - LIFELINE_WIDTH/2.0;
   p1.y = endpoints[0].y + lifeline->rtop;
@@ -396,27 +397,29 @@ lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer)
   p2.y = endpoints[0].y + lifeline->rbot;
 
   if (lifeline->draw_focuscontrol) {
-      renderer_ops->draw_rect(renderer,
-			       &p1, &p2,
-			       &lifeline->fill_color,
-			       &lifeline->line_color);
+    dia_renderer_draw_rect (renderer,
+                            &p1,
+                            &p2,
+                            &lifeline->fill_color,
+                            &lifeline->line_color);
   }
 
   if (lifeline->draw_cross) {
-      renderer_ops->set_linewidth(renderer, LIFELINE_CROSSWIDTH);
-      p1.x = endpoints[1].x + LIFELINE_CROSSLEN;
-      p2.x = endpoints[1].x - LIFELINE_CROSSLEN;
-      p1.y = endpoints[1].y + LIFELINE_CROSSLEN;
-      p2.y = endpoints[1].y - LIFELINE_CROSSLEN;
-      renderer_ops->draw_line(renderer,
-			       &p1, &p2,
-			       &lifeline->line_color);
-      p1.y = p2.y;
-      p2.y = endpoints[1].y + LIFELINE_CROSSLEN;
-      renderer_ops->draw_line(renderer,
-			       &p1, &p2,
-			       &lifeline->line_color);
-
+    dia_renderer_set_linewidth (renderer, LIFELINE_CROSSWIDTH);
+    p1.x = endpoints[1].x + LIFELINE_CROSSLEN;
+    p2.x = endpoints[1].x - LIFELINE_CROSSLEN;
+    p1.y = endpoints[1].y + LIFELINE_CROSSLEN;
+    p2.y = endpoints[1].y - LIFELINE_CROSSLEN;
+    dia_renderer_draw_line (renderer,
+                            &p1,
+                            &p2,
+                            &lifeline->line_color);
+    p1.y = p2.y;
+    p2.y = endpoints[1].y + LIFELINE_CROSSLEN;
+    dia_renderer_draw_line (renderer,
+                            &p1,
+                            &p2,
+                            &lifeline->line_color);
   }
 }
 

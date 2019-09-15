@@ -222,9 +222,8 @@ basestation_move(Basestation *basestation, Point *to)
 }
 
 static void
-basestation_draw(Basestation *basestation, DiaRenderer *renderer)
+basestation_draw (Basestation *basestation, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   real r = BASESTATION_WIDTH/2.0;
@@ -241,10 +240,10 @@ basestation_draw(Basestation *basestation, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height - r;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_ROUND);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
-  renderer_ops->set_linewidth(renderer, BASESTATION_LINEWIDTH);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_ROUND);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0);
+  dia_renderer_set_linewidth (renderer, BASESTATION_LINEWIDTH);
 
   ct.x = x + w/2.0;
   ct.y = y + r/2.0;
@@ -256,38 +255,61 @@ basestation_draw(Basestation *basestation, DiaRenderer *renderer)
   points[1] = ct; points[1].x += r/4.0; points[1].y -= 3.0*r/4.0;
   points[2] = ct; points[2].x += r/4.0; points[2].y += 1.0;
   points[3] = ct; points[3].x -= r/4.0; points[3].y += 1.0;
-  renderer_ops->draw_polygon(renderer, points, 4,
+  dia_renderer_draw_polygon (renderer,
+                             points,
+                             4,
                              &basestation->fill_colour,
                              &basestation->line_colour);
   /* bottom */
-  renderer_ops->draw_ellipse(renderer, &cb, r, r/2.0,
-                             &basestation->fill_colour, NULL);
-  renderer_ops->draw_arc(renderer, &cb, r, r/2.0, 180, 0,
+  dia_renderer_draw_ellipse (renderer,
+                             &cb,
+                             r,
+                             r/2.0,
+                             &basestation->fill_colour,
+                             NULL);
+  dia_renderer_draw_arc (renderer,
+                         &cb,
+                         r,
+                         r/2.0,
+                         180,
+                         0,
                          &basestation->line_colour);
   /* bar */
   p1 = ct;
   p1.x -= r/2.0;
   p2 = cb;
   p2.x += r/2.0;
-  renderer_ops->draw_rect(renderer, &p1, &p2,
-                          &basestation->fill_colour, NULL);
+  dia_renderer_draw_rect (renderer,
+                          &p1,
+                          &p2,
+                          &basestation->fill_colour,
+                          NULL);
   p2.x -= r;
-  renderer_ops->draw_line(renderer, &p1, &p2,
+  dia_renderer_draw_line (renderer,
+                          &p1,
+                          &p2,
                           &basestation->line_colour);
   p1.x += r;
   p2.x += r;
-  renderer_ops->draw_line(renderer, &p1, &p2,
+  dia_renderer_draw_line (renderer,
+                          &p1,
+                          &p2,
                           &basestation->line_colour);
   /* top */
-  renderer_ops->draw_ellipse(renderer, &ct, r, r/2.0,
-			     &basestation->fill_colour,
-			     &basestation->line_colour);
+  dia_renderer_draw_ellipse (renderer,
+                             &ct,
+                             r,
+                             r/2.0,
+                             &basestation->fill_colour,
+                             &basestation->line_colour);
   /* antenna 2 */
   points[0] = ct; points[0].x += r/4.0;   points[0].y -= 0;
   points[1] = ct; points[1].x += 3.0*r/4.0; points[1].y -= r/2.0;
   points[2] = ct; points[2].x += 3.0*r/4.0; points[2].y += 1.0 - r/2.0;
   points[3] = ct; points[3].x += r/4.0;   points[3].y += 1.0;
-  renderer_ops->draw_polygon(renderer, points, 4,
+  dia_renderer_draw_polygon (renderer,
+                             points,
+                             4,
                              &basestation->fill_colour,
                              &basestation->line_colour);
   /* antenna 3 */
@@ -295,10 +317,12 @@ basestation_draw(Basestation *basestation, DiaRenderer *renderer)
   points[1] = ct; points[1].x -= 3.0*r/4.0; points[1].y -= r/2.0;
   points[2] = ct; points[2].x -= 3.0*r/4.0; points[2].y += 1.0 - r/2.0;
   points[3] = ct; points[3].x -= r/4.0;   points[3].y += 1.0;
-  renderer_ops->draw_polygon(renderer, points, 4,
+  dia_renderer_draw_polygon (renderer,
+                             points,
+                             4,
                              &basestation->fill_colour,
                              &basestation->line_colour);
-  text_draw(basestation->text, renderer);
+  text_draw (basestation->text, renderer);
 }
 
 static void

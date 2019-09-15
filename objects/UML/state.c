@@ -245,25 +245,23 @@ state_move(State *state, Point *to)
 }
 
 static void
-state_draw_action_string(State *state, DiaRenderer *renderer, StateAction action)
+state_draw_action_string (State *state, DiaRenderer *renderer, StateAction action)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pos;
-  gchar* action_text = state_get_action_text(state, action);
-  state_calc_action_text_pos(state, action, &pos);
-  renderer_ops->set_font(renderer, state->text->font, state->text->height);
-  renderer_ops->draw_string(renderer,
+  gchar* action_text = state_get_action_text (state, action);
+  state_calc_action_text_pos (state, action, &pos);
+  dia_renderer_set_font (renderer, state->text->font, state->text->height);
+  dia_renderer_draw_string (renderer,
                             action_text,
                             &pos,
                             ALIGN_LEFT,
                             &state->text->color);
-  g_free(action_text);
+  g_free (action_text);
 }
 
 static void
-state_draw(State *state, DiaRenderer *renderer)
+state_draw (State *state, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h, r;
   Point p1, p2, split_line_left, split_line_right;
@@ -279,58 +277,67 @@ state_draw(State *state, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, state->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, state->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   if (state->state_type!=STATE_NORMAL) {
-      p1.x = x + w/2;
-      p1.y = y + h/2;
-      if (state->state_type==STATE_END) {
-	  r = STATE_ENDRATIO;
-	  renderer_ops->draw_ellipse (renderer,
-				      &p1,
-				      r, r,
-				      &state->fill_color, &state->line_color);
-      }
-      r = STATE_RATIO;
-      renderer_ops->draw_ellipse (renderer,
-				  &p1,
-				  r, r,
-				  NULL, &state->line_color);
+    p1.x = x + w/2;
+    p1.y = y + h/2;
+    if (state->state_type==STATE_END) {
+      r = STATE_ENDRATIO;
+      dia_renderer_draw_ellipse (renderer,
+                                 &p1,
+                                 r,
+                                 r,
+                                 &state->fill_color,
+                                 &state->line_color);
+    }
+    r = STATE_RATIO;
+    dia_renderer_draw_ellipse (renderer,
+                               &p1,
+                               r,
+                               r,
+                               NULL,
+                               &state->line_color);
   } else {
-      p1.x = x;
-      p1.y = y;
-      p2.x = x + w;
-      p2.y = y + h;
-      renderer_ops->draw_rounded_rect(renderer, &p1, &p2,
-				      &state->fill_color, &state->line_color,
-				      0.5);
+    p1.x = x;
+    p1.y = y;
+    p2.x = x + w;
+    p2.y = y + h;
+    dia_renderer_draw_rounded_rect (renderer,
+                                    &p1,
+                                    &p2,
+                                    &state->fill_color,
+                                    &state->line_color,
+                                    0.5);
 
-      text_draw(state->text, renderer);
-      has_actions = FALSE;
-      if (state->entry_action && strlen(state->entry_action) != 0) {
-          state_draw_action_string(state, renderer, ENTRY_ACTION);
-          has_actions = TRUE;
-      }
-      if (state->do_action && strlen(state->do_action) != 0) {
-          state_draw_action_string(state, renderer, DO_ACTION);
-          has_actions = TRUE;
-      }
-      if (state->exit_action && strlen(state->exit_action) != 0) {
-          state_draw_action_string(state, renderer, EXIT_ACTION);
-          has_actions = TRUE;
-      }
+    text_draw (state->text, renderer);
+    has_actions = FALSE;
+    if (state->entry_action && strlen (state->entry_action) != 0) {
+      state_draw_action_string (state, renderer, ENTRY_ACTION);
+      has_actions = TRUE;
+    }
+    if (state->do_action && strlen (state->do_action) != 0) {
+      state_draw_action_string (state, renderer, DO_ACTION);
+      has_actions = TRUE;
+    }
+    if (state->exit_action && strlen (state->exit_action) != 0) {
+      state_draw_action_string (state, renderer, EXIT_ACTION);
+      has_actions = TRUE;
+    }
 
-      if (has_actions) {
-        split_line_left.x = x;
-        split_line_right.x = x+w;
-        split_line_left.y = split_line_right.y
-                          = state->element.corner.y + STATE_MARGIN_Y +
-                            state->text->numlines*state->text->height;
-        renderer_ops->draw_line(renderer, &split_line_left, &split_line_right,
-                                &state->line_color);
-      }
+    if (has_actions) {
+      split_line_left.x = x;
+      split_line_right.x = x+w;
+      split_line_left.y = split_line_right.y
+                        = state->element.corner.y + STATE_MARGIN_Y +
+                          state->text->numlines*state->text->height;
+      dia_renderer_draw_line (renderer,
+                              &split_line_left,
+                              &split_line_right,
+                              &state->line_color);
+    }
   }
 }
 

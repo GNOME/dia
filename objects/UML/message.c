@@ -276,9 +276,8 @@ message_move(Message *message, Point *to)
 }
 
 static void
-message_draw(Message *message, DiaRenderer *renderer)
+message_draw (Message *message, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints, p1, p2, px;
   Arrow arrow;
   int n1 = 1, n2 = 0;
@@ -288,75 +287,80 @@ message_draw(Message *message, DiaRenderer *renderer)
   assert(renderer != NULL);
 
   if (message->type==MESSAGE_SEND)
-      arrow.type = ARROW_HALF_HEAD;
+    arrow.type = ARROW_HALF_HEAD;
   else if (message->type==MESSAGE_SIMPLE)
-      arrow.type = ARROW_LINES;
+    arrow.type = ARROW_LINES;
   else
-      arrow.type = ARROW_FILLED_TRIANGLE;
+    arrow.type = ARROW_FILLED_TRIANGLE;
   arrow.length = MESSAGE_ARROWLEN;
   arrow.width = MESSAGE_ARROWWIDTH;
 
   endpoints = &message->connection.endpoints[0];
 
-  renderer_ops->set_linewidth(renderer, message->line_width);
+  dia_renderer_set_linewidth (renderer, message->line_width);
 
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   if (message->type==MESSAGE_RECURSIVE) {
-      n1 = 0;
-      n2 = 1;
+    n1 = 0;
+    n2 = 1;
   }
 
   if (message->type==MESSAGE_RETURN) {
-      renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, MESSAGE_DASHLEN);
-      n1 = 0;
-      n2 = 1;
+    dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, MESSAGE_DASHLEN);
+    n1 = 0;
+    n2 = 1;
   } else {
-      renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
   }
   p1 = endpoints[n1];
   p2 = endpoints[n2];
 
   if (message->type==MESSAGE_RECURSIVE) {
-      px.x = p2.x;
-      px.y = p1.y;
-      renderer_ops->draw_line(renderer,
-			       &p1, &px,
-			       &message->line_color);
+    px.x = p2.x;
+    px.y = p1.y;
+    dia_renderer_draw_line (renderer,
+                            &p1,
+                            &px,
+                            &message->line_color);
 
-      renderer_ops->draw_line(renderer,
-			   &px, &p2,
-			   &message->line_color);
-      p1.y = p2.y;
+    dia_renderer_draw_line (renderer,
+                            &px,
+                            &p2,
+                            &message->line_color);
+    p1.y = p2.y;
   }
 
-  renderer_ops->draw_line_with_arrows(renderer,
-				       &p1, &p2,
-				       message->line_width,
-				       &message->line_color,
-				       &arrow, NULL);
+  dia_renderer_draw_line_with_arrows (renderer,
+                                      &p1,
+                                      &p2,
+                                      message->line_width,
+                                      &message->line_color,
+                                      &arrow,
+                                      NULL);
 
-  renderer_ops->set_font(renderer, message->font,
-			  message->font_height);
+  dia_renderer_set_font (renderer,
+                         message->font,
+                         message->font_height);
 
   if (message->type==MESSAGE_CREATE)
-	  mname = g_strdup_printf ("%s%s%s", UML_STEREOTYPE_START, "create", UML_STEREOTYPE_END);
+    mname = g_strdup_printf ("%s%s%s", UML_STEREOTYPE_START, "create", UML_STEREOTYPE_END);
   else if (message->type==MESSAGE_DESTROY)
-	  mname = g_strdup_printf ("%s%s%s", UML_STEREOTYPE_START, "destroy", UML_STEREOTYPE_END);
+    mname = g_strdup_printf ("%s%s%s", UML_STEREOTYPE_START, "destroy", UML_STEREOTYPE_END);
   else
-	  mname = message->text;
+    mname = message->text;
 
-  if (mname && strlen(mname) != 0)
-      renderer_ops->draw_string(renderer,
-				 mname, /*message->text,*/
-				 &message->text_pos, ALIGN_CENTER,
-				 &message->text_color);
-  if (message->type == MESSAGE_CREATE || message->type == MESSAGE_DESTROY)
-  {
-	  g_free(mname);
+  if (mname && strlen (mname) != 0) {
+    dia_renderer_draw_string (renderer,
+                              mname, /*message->text,*/
+                              &message->text_pos,
+                              ALIGN_CENTER,
+                              &message->text_color);
   }
 
-
+  if (message->type == MESSAGE_CREATE || message->type == MESSAGE_DESTROY) {
+    g_free(mname);
+  }
 }
 
 static DiaObject *

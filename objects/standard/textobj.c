@@ -296,27 +296,28 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
     lr.x = box.right + textobj->margin;
     lr.y = box.bottom + textobj->margin;
     if (textobj->text_angle == 0) {
-      DIA_RENDERER_GET_CLASS (renderer)->draw_rect (renderer, &ul, &lr, &textobj->fill_color, NULL);
+      dia_renderer_draw_rect (renderer, &ul, &lr, &textobj->fill_color, NULL);
     } else {
       Point poly[4];
 
       _textobj_get_poly (textobj, poly);
-      DIA_RENDERER_GET_CLASS (renderer)->draw_polygon (renderer, poly, 4, &textobj->fill_color, NULL);
+      dia_renderer_draw_polygon (renderer, poly, 4, &textobj->fill_color, NULL);
     }
   }
   if (textobj->text_angle == 0) {
-    text_draw(textobj->text, renderer);
+    text_draw (textobj->text, renderer);
   } else {
-    DIA_RENDERER_GET_CLASS (renderer)->draw_rotated_text (renderer, textobj->text,
-							  &textobj->text_handle.pos, textobj->text_angle);
+    dia_renderer_draw_rotated_text (renderer,
+                                    textobj->text,
+                                    &textobj->text_handle.pos,
+                                    textobj->text_angle);
     /* XXX: interactive case not working correctly */
     if (DIA_IS_INTERACTIVE_RENDERER (renderer) &&
-        dia_object_is_selected(&textobj->object) &&
+        dia_object_is_selected (&textobj->object) &&
         textobj->text->focus.has_focus) {
       /* editing is not rotated */
-      text_draw(textobj->text, renderer);
+      text_draw (textobj->text, renderer);
     }
-
   }
 }
 

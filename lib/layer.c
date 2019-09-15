@@ -34,11 +34,12 @@ static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
  * \ingroup DiagramStructure
  */
 static void
-normal_render(DiaObject *obj, DiaRenderer *renderer,
-	      int active_layer,
-	      gpointer data)
+normal_render (DiaObject   *obj,
+               DiaRenderer *renderer,
+               int          active_layer,
+               gpointer     data)
 {
-  DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj, NULL);
+  dia_renderer_draw_object (renderer, obj, NULL);
 }
 
 
@@ -105,8 +106,8 @@ layer_render (Layer          *layer,
         col.blue = 1.0;
         col.alpha = 1.0;
 
-        DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer,0.01);
-        DIA_RENDERER_GET_CLASS (renderer)->draw_rect (renderer, &p1, &p2, NULL, &col);
+        dia_renderer_set_linewidth (renderer,0.01);
+        dia_renderer_draw_rect (renderer, &p1, &p2, NULL, &col);
       }
       (*obj_renderer) (obj, renderer, active_layer, data);
     }

@@ -231,9 +231,8 @@ smallpackage_move(SmallPackage *pkg, Point *to)
 }
 
 static void
-smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
+smallpackage_draw (SmallPackage *pkg, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
@@ -248,35 +247,40 @@ smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, pkg->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, pkg->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
-  renderer_ops->draw_rect(renderer,
-			   &p1, &p2,
-			   &pkg->fill_color,
-			   &pkg->line_color);
+  dia_renderer_draw_rect (renderer,
+                          &p1,
+                          &p2,
+                          &pkg->fill_color,
+                          &pkg->line_color);
 
   p1.x= x; p1.y = y-SMALLPACKAGE_TOPHEIGHT;
   p2.x = x+SMALLPACKAGE_TOPWIDTH; p2.y = y;
 
-  renderer_ops->draw_rect(renderer,
-			   &p1, &p2,
-			   &pkg->fill_color,
-			   &pkg->line_color);
+  dia_renderer_draw_rect (renderer,
+                          &p1,
+                          &p2,
+                          &pkg->fill_color,
+                          &pkg->line_color);
 
   text_draw(pkg->text, renderer);
 
   if ((pkg->st_stereotype != NULL) && (pkg->st_stereotype[0] != '\0')) {
-    renderer_ops->set_font(renderer, pkg->text->font, pkg->text->height);
+    dia_renderer_set_font (renderer, pkg->text->font, pkg->text->height);
 
     p1 = pkg->text->position;
     p1.y -= pkg->text->height;
-    renderer_ops->draw_string(renderer, pkg->st_stereotype, &p1,
-			       ALIGN_LEFT, &pkg->text->color);
+    dia_renderer_draw_string (renderer,
+                              pkg->st_stereotype,
+                              &p1,
+                              ALIGN_LEFT,
+                              &pkg->text->color);
   }
 }
 

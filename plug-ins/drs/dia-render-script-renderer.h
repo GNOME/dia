@@ -60,6 +60,9 @@ struct _DrsRenderer
   DiaRenderer *transformer;
   /* initially NULL, only to be used during export_data */
   DiaContext *ctx;
+
+  DiaFont *font;
+  double font_height;
 };
 
 struct _DrsRendererClass

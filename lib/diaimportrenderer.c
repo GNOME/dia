@@ -406,11 +406,13 @@ fill_arc (DiaRenderer *renderer, Point *center,
   _apply_style (self, object, color, NULL, 0.0);
   _push_object (self, object);
 #else
-  GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
+  GArray *path = g_array_new (FALSE, FALSE, sizeof (BezPoint));
   path_build_arc (path, center, width, height, angle1, angle2, TRUE);
-  DIA_RENDERER_GET_CLASS(renderer)->draw_beziergon (renderer,
-						    &g_array_index (path, BezPoint, 0),
-						    path->len, color, NULL);
+  dia_renderer_draw_beziergon (renderer,
+                               &g_array_index (path, BezPoint, 0),
+                               path->len,
+                               color,
+                               NULL);
   g_array_free (path, TRUE);
 #endif
 }
@@ -439,16 +441,22 @@ draw_ellipse (DiaRenderer *renderer, Point *center,
  */
 static void
 draw_string (DiaRenderer *renderer,
-             const gchar *text, Point *pos, Alignment alignment,
-             Color *color)
+             const gchar *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *color)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_text (pos->x, pos->y);
   GPtrArray *props = g_ptr_array_new ();
+  DiaFont *font;
+  double font_height;
 
-  prop_list_add_font (props, "text_font", renderer->font);
+  font = dia_renderer_get_font (renderer, &font_height);
+
+  prop_list_add_font (props, "text_font", font);
   prop_list_add_text_colour (props, color);
-  prop_list_add_fontsize (props, PROP_STDNAME_TEXT_HEIGHT, renderer->font_height);
+  prop_list_add_fontsize (props, PROP_STDNAME_TEXT_HEIGHT, font_height);
   prop_list_add_enum (props, "text_alignment", alignment);
   prop_list_add_text (props, "text", text); /* must be last! */
 

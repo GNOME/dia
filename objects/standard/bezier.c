@@ -359,44 +359,45 @@ compute_gap_points(Bezierline *bezierline, Point *gap_points)
         /* adds the absolute end gap  according to the slope at the last point */
         point_add_scaled(&gap_points[2], &vec_end, bezierline->absolute_end_gap);
         point_add_scaled(&gap_points[3], &vec_end, bezierline->absolute_end_gap);
-
-
 }
+
 static void
-bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
+bezierline_draw (Bezierline *bezierline, DiaRenderer *renderer)
 {
   Point gap_points[4]; /* two first and two last bez points */
-
   BezierConn *bez = &bezierline->bez;
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
 
-  renderer_ops->set_linewidth(renderer, bezierline->line_width);
-  renderer_ops->set_linestyle(renderer, bezierline->line_style, bezierline->dashlength);
-  renderer_ops->set_linejoin(renderer, bezierline->line_join);
-  renderer_ops->set_linecaps(renderer, bezierline->line_caps);
+  dia_renderer_set_linewidth (renderer, bezierline->line_width);
+  dia_renderer_set_linestyle (renderer, bezierline->line_style, bezierline->dashlength);
+  dia_renderer_set_linejoin (renderer, bezierline->line_join);
+  dia_renderer_set_linecaps (renderer, bezierline->line_caps);
 
-  if (connpoint_is_autogap(bez->object.handles[0]->connected_to) ||
-      connpoint_is_autogap(bez->object.handles[3*(bez->bezier.num_points-1)]->connected_to) ||
+  if (connpoint_is_autogap (bez->object.handles[0]->connected_to) ||
+      connpoint_is_autogap (bez->object.handles[3*(bez->bezier.num_points-1)]->connected_to) ||
       bezierline->absolute_start_gap || bezierline->absolute_end_gap) {
 
-    compute_gap_points(bezierline,gap_points);
-    exchange_bez_gap_points(bez,gap_points);
-    renderer_ops->draw_bezier_with_arrows(renderer, bez->bezier.points, bez->bezier.num_points,
-					 bezierline->line_width,
-					 &bezierline->line_color,
-					 &bezierline->start_arrow,
-					 &bezierline->end_arrow);
-    exchange_bez_gap_points(bez,gap_points);
+    compute_gap_points (bezierline,gap_points);
+    exchange_bez_gap_points (bez,gap_points);
+    dia_renderer_draw_bezier_with_arrows (renderer,
+                                          bez->bezier.points,
+                                          bez->bezier.num_points,
+                                          bezierline->line_width,
+                                          &bezierline->line_color,
+                                          &bezierline->start_arrow,
+                                          &bezierline->end_arrow);
+    exchange_bez_gap_points (bez,gap_points);
   } else {
-    renderer_ops->draw_bezier_with_arrows(renderer, bez->bezier.points, bez->bezier.num_points,
-					  bezierline->line_width,
-					  &bezierline->line_color,
-					  &bezierline->start_arrow,
-					  &bezierline->end_arrow);
+    dia_renderer_draw_bezier_with_arrows (renderer,
+                                          bez->bezier.points,
+                                          bez->bezier.num_points,
+                                          bezierline->line_width,
+                                          &bezierline->line_color,
+                                          &bezierline->start_arrow,
+                                          &bezierline->end_arrow);
   }
 
 #if 0
-  renderer_ops->draw_bezier(renderer, bez->bezier.points, bez->bezier.num_points,
+  dia_renderer_draw_bezier(renderer, bez->bezier.points, bez->bezier.num_points,
 			     &bezierline->line_color);
 
   if (bezierline->start_arrow.type != ARROW_NONE) {
@@ -422,8 +423,10 @@ bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer)
    * only checking while selected.  But we'll do that if needed.
    */
   if (DIA_IS_INTERACTIVE_RENDERER (renderer) &&
-      dia_object_is_selected(&bezierline->bez.object)) {
-    bezier_draw_control_lines(bezierline->bez.bezier.num_points, bezierline->bez.bezier.points, renderer);
+      dia_object_is_selected (&bezierline->bez.object)) {
+    bezier_draw_control_lines (bezierline->bez.bezier.num_points,
+                               bezierline->bez.bezier.points,
+                               renderer);
   }
 }
 

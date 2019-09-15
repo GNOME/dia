@@ -21,6 +21,7 @@
 
 #include "magnify.h"
 #include "cursor.h"
+#include "diainteractiverenderer.h"
 
 struct _MagnifyTool {
   Tool tool;
@@ -46,8 +47,9 @@ magnify_button_press(MagnifyTool *tool, GdkEventButton *event,
 }
 
 static void
-magnify_button_release(MagnifyTool *tool, GdkEventButton *event,
-		       DDisplay *ddisp)
+magnify_button_release (MagnifyTool    *tool,
+                        GdkEventButton *event,
+                        DDisplay       *ddisp)
 {
   Rectangle *visible;
   Point p1, p2, tl;
@@ -57,7 +59,7 @@ magnify_button_release(MagnifyTool *tool, GdkEventButton *event,
 
   tool->box_active = FALSE;
 
-  dia_interactive_renderer_set_selection (ddisp->renderer,
+  dia_interactive_renderer_set_selection (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
                                           FALSE, 0, 0, 0, 0);
   ddisplay_flush (ddisp);
 
@@ -115,7 +117,7 @@ magnify_motion(MagnifyTool *tool, GdkEventMotion *event,
     tl.x = MIN (tool->x, event->x); tl.y = MIN (tool->y, event->y);
     br.x = MAX (tool->x, event->x); br.y = MAX (tool->y, event->y);
 
-    dia_interactive_renderer_set_selection (ddisp->renderer,
+    dia_interactive_renderer_set_selection (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
                                             TRUE,
                                             tl.x, tl.y, br.x - tl.x, br.y - tl.y);
     ddisplay_flush (ddisp);

@@ -27,223 +27,223 @@
 #include "dia-renderer.h"
 
 // return width in pixels, only for interactive renderers
-int 
+int
 dia::Renderer::get_width_pixels () const
 {
     assert (self);
-    return DIA_RENDERER_GET_CLASS(self)->get_width_pixels (self);
+    return dia_renderer_get_width_pixels (self);
 }
 //  return width in pixels, only for interactive renderers
-int 
+int
 dia::Renderer::get_height_pixels () const
 {
     assert (self);
-    return DIA_RENDERER_GET_CLASS(self)->get_height_pixels (self);
+    return dia_renderer_get_height_pixels (self);
 }
 // simply calls the objects draw function, which calls this again
-void 
+void
 dia::Renderer::draw_object (Object* o)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_object (self, o->Self(), NULL);
+    dia_renderer_draw_object (self, o->Self(), NULL);
 }
 // Returns the EXACT width of text in cm, using the current font.
-double 
+double
 dia::Renderer::get_text_width (const gchar *text, int length) const
 {
     assert (self);
-    return DIA_RENDERER_GET_CLASS(self)->get_text_width (self, text, length);
+    return dia_renderer_get_text_width (self, text, length);
 }
 // called before any rendering takes palce
-void 
+void
 dia::Renderer::begin_render (const Rectangle *update)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->begin_render (self, update);
+    dia_renderer_begin_render (self, update);
 }
 // finished rendering
-void 
+void
 dia::Renderer::end_render ()
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->end_render (self);
+    dia_renderer_end_render (self);
 }
 // set current linewidth
-void 
+void
 dia::Renderer::set_linewidth (double w)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->set_linewidth (self, w);
+    dia_renderer_set_linewidth (self, w);
 }
 // set current linecaps
-void 
+void
 dia::Renderer::set_linecaps (LineCaps mode)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->set_linecaps (self, mode);
+    dia_renderer_set_linecaps (self, mode);
 }
 // set current linejoin
-void 
+void
 dia::Renderer::set_linejoin (LineJoin join)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->set_linejoin (self, join);
+    dia_renderer_set_linejoin (self, join);
 }
 // set current linestyle
-void 
+void
 dia::Renderer::set_linestyle (LineStyle style, real dash_length)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->set_linestyle (self, style, dash_length);
+    dia_renderer_set_linestyle (self, style, dash_length);
 }
 // set current font
-void 
+void
 dia::Renderer::set_font (Font* font, double height)
 {
     assert (self);
     //FIXME: implement
 }
 // Draw a line from start to end, using color and the current line style
-void 
+void
 dia::Renderer::draw_line (Point *start, Point *end, Color *color)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_line (self, start, end, color);
+    dia_renderer_draw_line (self, start, end, color);
 }
 // Fill and/or stroke a rectangle, given its upper-left and lower-right corners
-void 
+void
 dia::Renderer::draw_rect (Point *ul_corner, Point *lr_corner, Color *fill, Color *stroke)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_rect (self, ul_corner, lr_corner, fill, stroke);
+    dia_renderer_draw_rect (self, ul_corner, lr_corner, fill, stroke);
 }
 // Draw an arc, given its center, the bounding box (widget, height), the start angle and the end angle
-void 
+void
 dia::Renderer::draw_arc (Point *center, double width, double height,
 		         double angle1, double angle2,
 		         Color *color)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_arc (self, center, width, height, angle1, angle2, color);
+    dia_renderer_draw_arc (self, center, width, height, angle1, angle2, color);
 }
 // Same a DrawArcFunc except the arc is filled (a pie-chart)
-void 
+void
 dia::Renderer::fill_arc (Point *center, double width, double height,
 		         double angle1, double angle2,
 		         Color *color)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->fill_arc (self, center, width, height, angle1, angle2, color);
+    dia_renderer_fill_arc (self, center, width, height, angle1, angle2, color);
 }
 // Draw an ellipse, given its center and the bounding box
-void 
+void
 dia::Renderer::draw_ellipse (Point *center, double width, double height, Color *fill, Color *stroke)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_ellipse (self, center, width, height, fill, stroke);
+    dia_renderer_draw_ellipse (self, center, width, height, fill, stroke);
 }
 // Print a string at pos, using the current font
-void 
+void
 dia::Renderer::draw_string (const gchar *text, Point *pos, Alignment alignment, Color *color)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_string (self, text, pos, alignment, color);
+    dia_renderer_draw_string (self, text, pos, alignment, color);
 }
 // Draw an image, given its bounding box
-void 
+void
 dia::Renderer::draw_image (Point *point, double width, double height, Image* image)
 {
     assert (self);
-    //FIXME: DIA_RENDERER_GET_CLASS(self)->draw_image (self, point, width, height, image);
+    //FIXME: dia_renderer_draw_image (self, point, width, height, image);
 }
 
 // draw a bezier line - possibly as approximation consisting of straight lines
-void 
+void
 dia::Renderer::draw_bezier (BezPoint *points, int numpoints, Color *color)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_bezier (self, points, numpoints, color);
+    dia_renderer_draw_bezier (self, points, numpoints, color);
 }
 // fill a bezier line - possibly as approximation consisting of a polygon
-void 
+void
 dia::Renderer::draw_beziergon (BezPoint *points, int numpoints, Color *fill, Color *stroke)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_beziergon (self, points, numpoints, fill, stroke);
+    dia_renderer_draw_beziergon (self, points, numpoints, fill, stroke);
 }
 // drawing a polyline - or fallback to single line segments
-void 
+void
 dia::Renderer::draw_polyline (Point *points, int num_points, Color *color)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_polyline (self, points, num_points, color);
+    dia_renderer_draw_polyline (self, points, num_points, color);
 }
 // Draw a polygon, using the current line and/or fill style
-void 
+void
 dia::Renderer::draw_polygon (Point *points, int num_points, Color *fill, Color *stroke)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_polygon (self, points, num_points, fill, stroke);
+    dia_renderer_draw_polygon (self, points, num_points, fill, stroke);
 }
 // draw a Text.  It holds its own information like position, style, ...
-void 
+void
 dia::Renderer::draw_text (Text* text)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_text (self, text);
+    dia_renderer_draw_text (self, text);
 }
 // Draw a polyline with round corners
 void
 dia::Renderer::draw_rounded_polyline (Point *points, int num_points, Color *color, double radius )
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_rounded_polyline (self, points, num_points, color, radius);
+    dia_renderer_draw_rounded_polyline (self, points, num_points, color, radius);
 }
 // specialized draw_rect() with round corners
-void 
+void
 dia::Renderer::draw_rounded_rect (Point *ul_corner, Point *lr_corner,
 				  Color *fill, Color *stroke, real radius)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_rounded_rect (self, ul_corner, lr_corner, fill, stroke, radius);
+    dia_renderer_draw_rounded_rect (self, ul_corner, lr_corner, fill, stroke, radius);
 }
 // specialized draw_line() for renderers with an own concept of Arrow
-void 
-dia::Renderer::draw_line_with_arrows  (Point *start, Point *end, real line_width, Color *line_color, 
+void
+dia::Renderer::draw_line_with_arrows  (Point *start, Point *end, real line_width, Color *line_color,
                                        Arrow *start_arrow, Arrow *end_arrow)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_line_with_arrows (self, start, end, line_width, line_color, start_arrow, end_arrow);
+    dia_renderer_draw_line_with_arrows (self, start, end, line_width, line_color, start_arrow, end_arrow);
 }
 // specialized draw_line() for renderers with an own concept of Arrow
-void 
+void
 dia::Renderer::draw_arc_with_arrows  (Point *start, Point *end, Point *midpoint, real line_width, Color *color,
                                       Arrow *start_arrow, Arrow *end_arrow)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_arc_with_arrows (self, start, end, midpoint, line_width, color, start_arrow, end_arrow);
+    dia_renderer_draw_arc_with_arrows (self, start, end, midpoint, line_width, color, start_arrow, end_arrow);
 }
 // specialized draw_polyline() for renderers with an own concept of Arrow
-void 
+void
 dia::Renderer::draw_polyline_with_arrows (Point *points, int num_points, real line_width, Color *color,
                                           Arrow *start_arrow, Arrow *end_arrow)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_polyline_with_arrows (self, points, num_points, line_width, color, start_arrow, end_arrow);
+    dia_renderer_draw_polyline_with_arrows (self, points, num_points, line_width, color, start_arrow, end_arrow);
 }
 // specialized draw_rounded_polyline() for renderers with an own concept of Arrow
-void 
+void
 dia::Renderer::draw_rounded_polyline_with_arrows (Point *points, int num_points, real line_width, Color *color,
 					          Arrow *start_arrow, Arrow *end_arrow, real radius)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_rounded_polyline_with_arrows (self, points, num_points, line_width, color, start_arrow, end_arrow, radius);
+    dia_renderer_draw_rounded_polyline_with_arrows (self, points, num_points, line_width, color, start_arrow, end_arrow, radius);
 }
 // specialized draw_bezier() for renderers with an own concept of Arrow
-void 
+void
 dia::Renderer::draw_bezier_with_arrows (BezPoint *points, int num_points, real line_width, Color *color,
                                         Arrow *start_arrow, Arrow *end_arrow)
 {
     assert (self);
-    DIA_RENDERER_GET_CLASS(self)->draw_bezier_with_arrows (self, points, num_points, line_width, color, start_arrow, end_arrow);
+    dia_renderer_draw_bezier_with_arrows (self, points, num_points, line_width, color, start_arrow, end_arrow);
 }

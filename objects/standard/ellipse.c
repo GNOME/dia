@@ -325,9 +325,8 @@ ellipse_move(Ellipse *ellipse, Point *to)
 }
 
 static void
-ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
+ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point center;
   Element *elem;
   GArray *path = NULL;
@@ -340,43 +339,57 @@ ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer)
   center.x = elem->corner.x + elem->width/2;
   center.y = elem->corner.y + elem->height/2;
 
-  if (ellipse->angle != 0)
+  if (ellipse->angle != 0) {
     path = _ellipse_to_path (ellipse, &center);
+  }
 
-  renderer_ops->set_linewidth(renderer, ellipse->border_width);
-  renderer_ops->set_linestyle(renderer, ellipse->line_style, ellipse->dashlength);
+  dia_renderer_set_linewidth (renderer, ellipse->border_width);
+  dia_renderer_set_linestyle (renderer, ellipse->line_style, ellipse->dashlength);
   if (ellipse->show_background) {
     Color fill = ellipse->inner_color;
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
     if (ellipse->pattern) {
       dia_pattern_get_fallback_color (ellipse->pattern, &fill);
-      if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
-        renderer_ops->set_pattern (renderer, ellipse->pattern);
+      if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+        dia_renderer_set_pattern (renderer, ellipse->pattern);
+      }
     }
-    if (!path)
-      renderer_ops->draw_ellipse (renderer,
-				  &center,
-				  elem->width, elem->height,
-				  &fill, &ellipse->border_color);
-    else
-      renderer_ops->draw_beziergon (renderer,
-				    &g_array_index (path, BezPoint, 0), path->len,
-				    &fill, &ellipse->border_color);
-    if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
-      renderer_ops->set_pattern (renderer, NULL);
+    if (!path) {
+      dia_renderer_draw_ellipse (renderer,
+                                 &center,
+                                 elem->width,
+                                 elem->height,
+                                 &fill,
+                                 &ellipse->border_color);
+    } else {
+      dia_renderer_draw_beziergon (renderer,
+                                   &g_array_index (path, BezPoint, 0),
+                                   path->len,
+                                   &fill, &ellipse->border_color);
+    }
+    if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+      dia_renderer_set_pattern (renderer, NULL);
+    }
   } else {
-    if (!path)
-      renderer_ops->draw_ellipse (renderer,
-				  &center,
-				  elem->width, elem->height,
-				  NULL, &ellipse->border_color);
-    else
-      renderer_ops->draw_beziergon (renderer,
-				    &g_array_index (path, BezPoint, 0), path->len,
-				    NULL, &ellipse->border_color);
+    if (!path) {
+      dia_renderer_draw_ellipse (renderer,
+                                 &center,
+                                 elem->width,
+                                 elem->height,
+                                 NULL,
+                                 &ellipse->border_color);
+    } else {
+      dia_renderer_draw_beziergon (renderer,
+                                   &g_array_index (path, BezPoint, 0),
+                                   path->len,
+                                   NULL,
+                                   &ellipse->border_color);
+    }
   }
-  if (path)
+
+  if (path) {
     g_array_free (path, TRUE);
+  }
 }
 
 static void

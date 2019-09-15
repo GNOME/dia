@@ -330,7 +330,7 @@ group_move(Group *group, Point *to)
 }
 
 static void
-group_draw(Group *group, DiaRenderer *renderer)
+group_draw (Group *group, DiaRenderer *renderer)
 {
   GList *list;
   DiaObject *obj;
@@ -339,7 +339,7 @@ group_draw(Group *group, DiaRenderer *renderer)
   while (list != NULL) {
     obj = (DiaObject *) list->data;
 
-    DIA_RENDERER_GET_CLASS(renderer)->draw_object(renderer, obj, group->matrix);
+    dia_renderer_draw_object (renderer, obj, group->matrix);
     list = g_list_next(list);
   }
 }

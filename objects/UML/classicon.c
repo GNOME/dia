@@ -237,9 +237,8 @@ classicon_move(Classicon *cicon, Point *to)
 }
 
 static void
-classicon_draw(Classicon *icon, DiaRenderer *renderer)
+classicon_draw (Classicon *icon, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real r, x, y, w;
   Point center, p1, p2;
@@ -258,74 +257,75 @@ classicon_draw(Classicon *icon, DiaRenderer *renderer)
   center.x = x + elem->width/2;
   center.y = y + r + CLASSICON_ARROW;
 
-  if (icon->stereotype==CLASSICON_BOUNDARY)
-      center.x += r/2.0;
+  if (icon->stereotype==CLASSICON_BOUNDARY) {
+    center.x += r/2.0;
+  }
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, icon->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, icon->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
-  renderer_ops->draw_ellipse(renderer,
-			      &center,
-			      2*r, 2*r,
-			      &icon->fill_color,
-			      &icon->line_color);
-
+  dia_renderer_draw_ellipse (renderer,
+                             &center,
+                             2*r, 2*r,
+                             &icon->fill_color,
+                             &icon->line_color);
 
   switch (icon->stereotype) {
-  case CLASSICON_CONTROL:
+    case CLASSICON_CONTROL:
       p1.x = center.x - r*0.258819045102521;
       p1.y = center.y-r*0.965925826289068;
 
       p2.x = p1.x + CLASSICON_ARROW;
       p2.y = p1.y + CLASSICON_ARROW/1.5;
-      renderer_ops->draw_line(renderer,
-			       &p1, &p2,
-			       &icon->line_color);
+      dia_renderer_draw_line (renderer,
+                              &p1, &p2,
+                              &icon->line_color);
       p2.x = p1.x + CLASSICON_ARROW;
       p2.y = p1.y - CLASSICON_ARROW/1.5;
-      renderer_ops->draw_line(renderer,
-			       &p1, &p2,
-			       &icon->line_color);
+      dia_renderer_draw_line (renderer,
+                              &p1, &p2,
+                              &icon->line_color);
       break;
 
-  case CLASSICON_BOUNDARY:
+    case CLASSICON_BOUNDARY:
       p1.x = center.x - r;
       p2.x = p1.x - r;
       p1.y = p2.y = center.y;
-      renderer_ops->draw_line(renderer,
-			       &p1, &p2,
-			       &icon->line_color);
+      dia_renderer_draw_line (renderer,
+                              &p1, &p2,
+                              &icon->line_color);
       p1.x = p2.x;
       p1.y = center.y - r;
       p2.y = center.y + r;
-      renderer_ops->draw_line(renderer,
-			       &p1, &p2,
-			       &icon->line_color);
+      dia_renderer_draw_line (renderer,
+                              &p1, &p2,
+                              &icon->line_color);
       break;
-  case CLASSICON_ENTITY:
+    case CLASSICON_ENTITY:
       p1.x = center.x - r;
       p2.x = center.x + r;
       p1.y = p2.y = center.y + r;
-      renderer_ops->draw_line(renderer,
-			       &p1, &p2,
-			       &icon->line_color);
+      dia_renderer_draw_line (renderer,
+                              &p1, &p2,
+                              &icon->line_color);
       break;
   }
 
-  text_draw(icon->text, renderer);
+  text_draw (icon->text, renderer);
 
   if (icon->is_object) {
-    renderer_ops->set_linewidth(renderer, 0.01);
-    if (icon->stereotype==CLASSICON_BOUNDARY)
+    dia_renderer_set_linewidth (renderer, 0.01);
+    if (icon->stereotype==CLASSICON_BOUNDARY) {
       x += r/2.0;
-    p1.y = p2.y = icon->text->position.y + text_get_descent(icon->text);
+    }
+    p1.y = p2.y = icon->text->position.y + text_get_descent (icon->text);
     for (i=0; i<icon->text->numlines; i++) {
-      p1.x = x + (w - text_get_line_width(icon->text, i))/2;
-      p2.x = p1.x + text_get_line_width(icon->text, i);
-      renderer_ops->draw_line(renderer,
-			       &p1, &p2,
-			       &icon->line_color);
+      p1.x = x + (w - text_get_line_width (icon->text, i))/2;
+      p2.x = p1.x + text_get_line_width (icon->text, i);
+      dia_renderer_draw_line (renderer,
+                              &p1, &p2,
+                              &icon->line_color);
       p1.y = p2.y += icon->text->height;
     }
   }

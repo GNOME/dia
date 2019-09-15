@@ -286,32 +286,34 @@ condition_update_data(Condition *condition)
 
 
 static void
-condition_draw(Condition *condition, DiaRenderer *renderer)
+condition_draw (Condition *condition, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Connection *conn = &condition->connection;
 
-  renderer_ops->set_linewidth(renderer, CONDITION_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, CONDITION_LINE_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   if (CONDITION_ARROW_SIZE > (CONDITION_LINE_WIDTH/2.0)) {
     Arrow arrow;
     arrow.type = ARROW_FILLED_TRIANGLE;
     arrow.width = CONDITION_ARROW_SIZE;
     arrow.length = CONDITION_ARROW_SIZE/2;
-    renderer_ops->draw_line_with_arrows(renderer,
-					 &conn->endpoints[0],&conn->endpoints[1],
-					 CONDITION_LINE_WIDTH,
-					 &color_black,
-					 &arrow, NULL);
+    dia_renderer_draw_line_with_arrows (renderer,
+                                        &conn->endpoints[0],
+                                        &conn->endpoints[1],
+                                        CONDITION_LINE_WIDTH,
+                                        &color_black,
+                                        &arrow,
+                                        NULL);
   } else {
-    renderer_ops->draw_line(renderer,
-			     &conn->endpoints[0],&conn->endpoints[1],
-			     &color_black);
+    dia_renderer_draw_line (renderer,
+                            &conn->endpoints[0],
+                            &conn->endpoints[1],
+                            &color_black);
   }
 
-  boolequation_draw(condition->cond,renderer);
+  boolequation_draw (condition->cond, renderer);
 }
 
 static DiaObject *

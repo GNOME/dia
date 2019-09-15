@@ -28,9 +28,8 @@
 
 
 static void
-aadldata_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
+aadldata_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point points[2];
@@ -45,21 +44,25 @@ aadldata_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, AADLBOX_BORDERWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   points[0].x = x;     points[0].y = y;
   points[1].x = x + w; points[1].y = y + h;
 
-  renderer_ops->draw_rect(renderer, points, points + 1, &aadlbox->fill_color, &aadlbox->line_color);
+  dia_renderer_draw_rect (renderer,
+                          points,
+                          points + 1,
+                          &aadlbox->fill_color,
+                          &aadlbox->line_color);
 }
 
-static void 
-aadldata_draw(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadldata_draw (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  aadldata_draw_borders(aadlbox, renderer);
-  aadlbox_draw(aadlbox, renderer);
+  aadldata_draw_borders (aadlbox, renderer);
+  aadlbox_draw (aadlbox, renderer);
 }
 
 void
@@ -176,7 +179,7 @@ static DiaObject *aadldata_create(Point *startpoint, void *user_data, Handle **h
 
   obj->type = &aadldata_type;
   obj->ops  = &aadldata_ops;
-      
+
   return obj;
 }
 
@@ -185,10 +188,10 @@ static DiaObject *aadldata_load(ObjectNode obj_node, int version, DiaContext *ct
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
-  
+
   obj = aadldata_create(&startpoint,&aadldata_specific, &handle1,&handle2);
   aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
-  
+
   return obj;
 }
 

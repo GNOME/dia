@@ -211,9 +211,8 @@ polygon_move(Polygon *polygon, Point *to)
 }
 
 static void
-polygon_draw(Polygon *polygon, DiaRenderer *renderer)
+polygon_draw (Polygon *polygon, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   PolyShape *poly = &polygon->poly;
   Point *points;
   int n;
@@ -222,25 +221,29 @@ polygon_draw(Polygon *polygon, DiaRenderer *renderer)
   points = &poly->points[0];
   n = poly->numpoints;
 
-  renderer_ops->set_linewidth(renderer, polygon->line_width);
-  renderer_ops->set_linestyle(renderer, polygon->line_style, polygon->dashlength);
-  renderer_ops->set_linejoin(renderer, polygon->line_join);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, polygon->line_width);
+  dia_renderer_set_linestyle (renderer, polygon->line_style, polygon->dashlength);
+  dia_renderer_set_linejoin (renderer, polygon->line_join);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   if (polygon->show_background) {
     fill = polygon->inner_color;
     if (polygon->pattern) {
       dia_pattern_get_fallback_color (polygon->pattern, &fill);
-      if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
-        renderer_ops->set_pattern (renderer, polygon->pattern);
+      if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+        dia_renderer_set_pattern (renderer, polygon->pattern);
+      }
     }
   }
-  renderer_ops->draw_polygon (renderer, points, n,
-			      (polygon->show_background) ? &fill : NULL,
-			      &polygon->line_color);
+  dia_renderer_draw_polygon (renderer,
+                             points,
+                             n,
+                             (polygon->show_background) ? &fill : NULL,
+                             &polygon->line_color);
   if (polygon->show_background && polygon->pattern &&
-      renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
-    renderer_ops->set_pattern (renderer, NULL); /* reset*/
+      dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+    dia_renderer_set_pattern (renderer, NULL); /* reset*/
+  }
 }
 
 static DiaObject *

@@ -329,9 +329,9 @@ static gchar* create_guard_text(Transition* transition)
   return temp_text;
 }
 
-static void transition_draw(Transition* transition, DiaRenderer* renderer)
+static void
+transition_draw (Transition* transition, DiaRenderer* renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS(renderer);
   Arrow arrow;
   Arrow *start_arrow;
   Arrow *end_arrow;
@@ -354,52 +354,51 @@ static void transition_draw(Transition* transition, DiaRenderer* renderer)
 
   /* Is it necessary to call set_linewidth? The draw_line_with_arrows() method
      got a linewidth parameter... */
-  renderer_ops->set_linewidth(renderer, TRANSITION_WIDTH);
+  dia_renderer_set_linewidth (renderer, TRANSITION_WIDTH);
   /* TODO, find out about the meaning of this... */
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   if (transition->direction_inverted) {
-      start_arrow = &arrow;
-      end_arrow = NULL;
+    start_arrow = &arrow;
+    end_arrow = NULL;
+  } else {
+    start_arrow = NULL;
+    end_arrow = & arrow;
   }
-  else {
-      start_arrow = NULL;
-      end_arrow = & arrow;
-  }
-  renderer_ops->draw_polyline_with_arrows(renderer, points, num_points,
+  dia_renderer_draw_polyline_with_arrows (renderer,
+                                          points,
+                                          num_points,
                                           TRANSITION_WIDTH,
                                           &transition->line_color,
                                           start_arrow, end_arrow);
 
 
-  renderer_ops->set_font(renderer, transition_font,
+  dia_renderer_set_font (renderer,
+                         transition_font,
                          TRANSITION_FONTHEIGHT);
 
   /* Draw the guard text */
-  if (transition->guard_text && strlen(transition->guard_text) != 0)
-  {
-    gchar *text = create_guard_text(transition);
-    renderer_ops->draw_string(renderer,
+  if (transition->guard_text && strlen (transition->guard_text) != 0) {
+    gchar *text = create_guard_text (transition);
+    dia_renderer_draw_string (renderer,
                               text,
                               &transition->guard_text_pos,
                               ALIGN_CENTER,
                               &transition->text_color);
-    g_free(text);
+    g_free (text);
   }
 
   /* Draw the trigger text */
-  if (transition->trigger_text && strlen(transition->trigger_text) != 0)
-  {
-    gchar *text = create_event_action_text(transition);
-    renderer_ops->draw_string(renderer,
+  if (transition->trigger_text && strlen (transition->trigger_text) != 0) {
+    gchar *text = create_event_action_text (transition);
+    dia_renderer_draw_string (renderer,
                               text,
                               &transition->trigger_text_pos,
                               ALIGN_CENTER,
                               &transition->text_color);
     g_free(text);
   }
-
 }
 
 static real

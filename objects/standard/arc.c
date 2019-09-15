@@ -569,10 +569,10 @@ calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj
   arc_get_point_at_angle(arc,target,mid2);
   return ;
 }
+
 static void
-arc_draw(Arc *arc, DiaRenderer *renderer)
+arc_draw (Arc *arc, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   Point gaptmp[3];
   ConnectionPoint *start_cp, *end_cp;
@@ -589,37 +589,38 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
 
   TRACE(printf("drawing arc:\n start:%f°:%f,%f \tend:%f°:%f,%f\n",arc->angle1,endpoints[0].x,endpoints[0].y, arc->angle2,endpoints[1].x,endpoints[1].y));
 
-  if (connpoint_is_autogap(start_cp)) {
-     TRACE(printf("computing start intersection\ncurve_distance: %f\n",arc->curve_distance));
+  if (connpoint_is_autogap (start_cp)) {
+     TRACE (printf ("computing start intersection\ncurve_distance: %f\n", arc->curve_distance));
      if (arc->curve_distance < 0)
-             calculate_arc_object_edge(arc, arc->angle1, arc->angle2, start_cp->object, &gaptmp[0], FALSE);
+        calculate_arc_object_edge (arc, arc->angle1, arc->angle2, start_cp->object, &gaptmp[0], FALSE);
      else
-             calculate_arc_object_edge(arc, arc->angle2, arc->angle1, start_cp->object, &gaptmp[0], TRUE);
+        calculate_arc_object_edge (arc, arc->angle2, arc->angle1, start_cp->object, &gaptmp[0], TRUE);
   }
-  if (connpoint_is_autogap(end_cp)) {
-     TRACE(printf("computing end intersection\ncurve_distance: %f\n",arc->curve_distance));
-     if (arc->curve_distance < 0)
-             calculate_arc_object_edge(arc, arc->angle2, arc->angle1, end_cp->object, &gaptmp[1], TRUE);
-     else
-             calculate_arc_object_edge(arc, arc->angle1, arc->angle2, end_cp->object, &gaptmp[1], FALSE);
+  if (connpoint_is_autogap (end_cp)) {
+    TRACE(printf("computing end intersection\ncurve_distance: %f\n",arc->curve_distance));
+    if (arc->curve_distance < 0)
+      calculate_arc_object_edge (arc, arc->angle2, arc->angle1, end_cp->object, &gaptmp[1], TRUE);
+    else
+      calculate_arc_object_edge (arc, arc->angle1, arc->angle2, end_cp->object, &gaptmp[1], FALSE);
   }
 
   /* compute new middle_point */
-  arc_compute_midpoint(arc, &gaptmp[0], &gaptmp[1], &gaptmp[2]);
+  arc_compute_midpoint (arc, &gaptmp[0], &gaptmp[1], &gaptmp[2]);
 
-  renderer_ops->set_linewidth(renderer, arc->line_width);
-  renderer_ops->set_linestyle(renderer, arc->line_style, arc->dashlength);
-  renderer_ops->set_linecaps(renderer, arc->line_caps);
+  dia_renderer_set_linewidth (renderer, arc->line_width);
+  dia_renderer_set_linestyle (renderer, arc->line_style, arc->dashlength);
+  dia_renderer_set_linecaps (renderer, arc->line_caps);
 
   /* Special case when almost line: */
   if (arc_is_line (arc)) {
-          TRACE(printf("drawing like a line\n"));
-    renderer_ops->draw_line_with_arrows(renderer,
-					 &gaptmp[0], &gaptmp[1],
-					 arc->line_width,
-					 &arc->arc_color,
-					 &arc->start_arrow,
-					 &arc->end_arrow);
+    TRACE (printf ("drawing like a line\n"));
+    dia_renderer_draw_line_with_arrows (renderer,
+                                        &gaptmp[0],
+                                        &gaptmp[1],
+                                        arc->line_width,
+                                        &arc->arc_color,
+                                        &arc->start_arrow,
+                                        &arc->end_arrow);
     return;
   }
 
@@ -635,22 +636,22 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
     } else if (arc->curve_distance < 0.0 && angle2 > angle1) {
       angle2 -= 360.0;
     }
-    renderer_ops->draw_arc (renderer,
-                            &arc->center_handle.pos,
-                            arc->radius*2.0,
-                            arc->radius*2.0,
-                            angle1,
-                            angle2,
-                            &arc->arc_color);
+    dia_renderer_draw_arc (renderer,
+                           &arc->center_handle.pos,
+                           arc->radius*2.0,
+                           arc->radius*2.0,
+                           angle1,
+                           angle2,
+                           &arc->arc_color);
   } else {
-    renderer_ops->draw_arc_with_arrows (renderer,
-                                        &gaptmp[0],
-                                        &gaptmp[1],
-                                        &gaptmp[2],
-                                        arc->line_width,
-                                        &arc->arc_color,
-                                        &arc->start_arrow,
-                                        &arc->end_arrow);
+    dia_renderer_draw_arc_with_arrows (renderer,
+                                       &gaptmp[0],
+                                       &gaptmp[1],
+                                       &gaptmp[2],
+                                       arc->line_width,
+                                       &arc->arc_color,
+                                       &arc->start_arrow,
+                                       &arc->end_arrow);
   }
 
   if (DIA_IS_INTERACTIVE_RENDERER (renderer) &&
@@ -658,13 +659,13 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
     /* draw the central angle */
     Color line_color = { 0.0, 0.0, 0.6, 1.0 };
 
-    renderer_ops->set_linewidth (renderer, 0);
-    renderer_ops->set_linestyle (renderer, LINESTYLE_DOTTED, 1);
-    renderer_ops->set_linejoin (renderer, LINEJOIN_MITER);
-    renderer_ops->set_linecaps (renderer, LINECAPS_BUTT);
+    dia_renderer_set_linewidth (renderer, 0);
+    dia_renderer_set_linestyle (renderer, LINESTYLE_DOTTED, 1);
+    dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+    dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
-    renderer_ops->draw_line (renderer, &endpoints[0], &arc->center, &line_color);
-    renderer_ops->draw_line (renderer, &endpoints[1], &arc->center, &line_color);
+    dia_renderer_draw_line (renderer, &endpoints[0], &arc->center, &line_color);
+    dia_renderer_draw_line (renderer, &endpoints[1], &arc->center, &line_color);
   }
 }
 

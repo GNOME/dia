@@ -49,13 +49,16 @@ struct _PstricksRendererClass
 
 struct _PstricksRenderer
 {
-    DiaRenderer parent_instance;
+  DiaRenderer parent_instance;
 
-    FILE *file;
-    int is_ps;
-    int pagenum;
+  FILE *file;
+  int is_ps;
+  int pagenum;
 
-    DiaContext *ctx;
+  DiaContext *ctx;
+
+  DiaFont *font;
+  double font_height;
 };
 
 extern DiaExportFilter pstricks_export_filter;

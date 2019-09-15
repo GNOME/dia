@@ -58,6 +58,14 @@
 #define HPGL_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HPGL_TYPE_RENDERER))
 #define HPGL_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), HPGL_TYPE_RENDERER, HpglRendererClass))
 
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+
 GType hpgl_renderer_get_type (void) G_GNUC_CONST;
 
 typedef struct _HpglRenderer HpglRenderer;
@@ -78,6 +86,8 @@ struct _HpglRenderer
     int   has_it;
   } pen[HPGL_MAX_PENS];
   int last_pen;
+
+  DiaFont *font;
   real font_height;
 
   Point size;  /* extent size */
@@ -278,12 +288,15 @@ set_fillstyle(DiaRenderer *object, FillStyle mode)
 }
 
 static void
-set_font(DiaRenderer *object, DiaFont *font, real height)
+set_font (DiaRenderer *object, DiaFont *font, real height)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
+  HpglRenderer *renderer = HPGL_RENDERER (object);
 
-    DIAG_NOTE(g_message("set_font %f", height));
-    renderer->font_height = height;
+  DIAG_NOTE (g_message ("set_font %f", height));
+
+  g_clear_object (&renderer->font);
+  renderer->font = g_object_ref (font);
+  renderer->font_height = height;
 }
 
 /* Need to translate coord system:
@@ -605,8 +618,58 @@ hpgl_renderer_get_type (void)
 }
 
 static void
+hpgl_renderer_set_property (GObject      *object,
+                            guint         property_id,
+                            const GValue *value,
+                            GParamSpec   *pspec)
+{
+  HpglRenderer *self = HPGL_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      set_font (DIA_RENDERER (self),
+                DIA_FONT (g_value_get_object (value)),
+                self->font_height);
+      break;
+    case PROP_FONT_HEIGHT:
+      set_font (DIA_RENDERER (self),
+                self->font,
+                g_value_get_double (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+hpgl_renderer_get_property (GObject    *object,
+                            guint       property_id,
+                            GValue     *value,
+                            GParamSpec *pspec)
+{
+  HpglRenderer *self = HPGL_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, self->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, self->font_height);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
 hpgl_renderer_finalize (GObject *object)
 {
+  HpglRenderer *self = HPGL_RENDERER (object);
+
+  g_clear_object (&self->font);
+
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -618,6 +681,8 @@ hpgl_renderer_class_init (HpglRendererClass *klass)
 
   parent_class = g_type_class_peek_parent (klass);
 
+  object_class->get_property = hpgl_renderer_get_property;
+  object_class->set_property = hpgl_renderer_set_property;
   object_class->finalize = hpgl_renderer_finalize;
 
   /* renderer members */
@@ -629,8 +694,6 @@ hpgl_renderer_class_init (HpglRendererClass *klass)
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_fillstyle  = set_fillstyle;
-
-  renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;
@@ -644,6 +707,9 @@ hpgl_renderer_class_init (HpglRendererClass *klass)
   /* medium level functions */
   renderer_class->draw_rect = draw_rect;
   renderer_class->draw_polyline  = draw_polyline;
+
+  g_object_class_override_property (object_class, PROP_FONT, "font");
+  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 /* plug-in interface : export function */

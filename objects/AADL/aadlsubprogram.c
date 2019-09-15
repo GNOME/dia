@@ -26,9 +26,9 @@
  **               AADL SUBPROGRAM             **
  ***********************************************/
 
-static void aadlsubprogram_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadlsubprogram_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point center;
@@ -46,12 +46,16 @@ static void aadlsubprogram_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   center.x = x + 0.5*w;
   center.y = y + 0.5*h;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, AADLBOX_BORDERWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
-  renderer_ops->draw_ellipse(renderer, &center, w, h,
-			     &aadlbox->fill_color, &aadlbox->line_color);
+  dia_renderer_draw_ellipse (renderer,
+                             &center,
+                             w,
+                             h,
+                             &aadlbox->fill_color,
+                             &aadlbox->line_color);
 }
 
 #define heavyside(n) (n>0?1:0)
@@ -97,10 +101,11 @@ static Aadlbox_specific aadlsubprogram_specific =
 };
 
 
-static void aadlsubprogram_draw(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadlsubprogram_draw (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  aadlsubprogram_draw_borders(aadlbox, renderer);
-  aadlbox_draw(aadlbox, renderer);
+  aadlsubprogram_draw_borders (aadlbox, renderer);
+  aadlbox_draw (aadlbox, renderer);
 }
 
 ObjectTypeOps aadlsubprogram_type_ops;
@@ -146,7 +151,7 @@ static DiaObject *aadlsubprogram_create(Point *startpoint, void *user_data, Hand
 
   obj->type = &aadlsubprogram_type;
   obj->ops  = &aadlsubprogram_ops;
-      
+
   return obj;
 }
 
@@ -156,7 +161,7 @@ aadlsubprogram_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
-  
+
   obj = aadlsubprogram_create(&startpoint,&aadlsubprogram_specific, &handle1,&handle2);
   aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
   return obj;

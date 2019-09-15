@@ -189,9 +189,8 @@ participation_move(Participation *participation, Point *to)
 }
 
 static void
-participation_draw(Participation *participation, DiaRenderer *renderer)
+participation_draw (Participation *participation, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &participation->orth;
   Point *points;
   Point *left_points;
@@ -205,54 +204,54 @@ participation_draw(Participation *participation, DiaRenderer *renderer)
   last_left = 0.0;
   last_right = 0.0;
 
-  renderer_ops->set_linewidth(renderer, PARTICIPATION_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, PARTICIPATION_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   if (participation->total) {
-    left_points = g_new0(Point, n);
-    right_points = g_new0(Point, n);
+    left_points = g_new0 (Point, n);
+    right_points = g_new0 (Point, n);
     for(i = 0; i < n - 1; i++) {
       if(orth->orientation[i] == HORIZONTAL) { /* HORIZONTAL */
-	if (points[i].x < points[i+1].x) { /* RIGHT */
-	  left_points[i].x = points[i].x + last_left;
-	  left_points[i].y = points[i].y - TOTAL_SEPARATION / 2.0;
-	  last_left = - TOTAL_SEPARATION/2.0;
-	  right_points[i].x = points[i].x + last_right;
-	  right_points[i].y = points[i].y + TOTAL_SEPARATION / 2.0;
-	  last_right = TOTAL_SEPARATION/2.0;
-	} else { /* LEFT */
-	  left_points[i].x = points[i].x + last_left;
-	  left_points[i].y = points[i].y + TOTAL_SEPARATION / 2.0;
-	  last_left = TOTAL_SEPARATION/2.0;
-	  right_points[i].x = points[i].x + last_right;
-	  right_points[i].y = points[i].y - TOTAL_SEPARATION / 2.0;
-	  last_right = - TOTAL_SEPARATION/2.0;
-	}
+        if (points[i].x < points[i+1].x) { /* RIGHT */
+          left_points[i].x = points[i].x + last_left;
+          left_points[i].y = points[i].y - TOTAL_SEPARATION / 2.0;
+          last_left = - TOTAL_SEPARATION/2.0;
+          right_points[i].x = points[i].x + last_right;
+          right_points[i].y = points[i].y + TOTAL_SEPARATION / 2.0;
+          last_right = TOTAL_SEPARATION/2.0;
+        } else { /* LEFT */
+          left_points[i].x = points[i].x + last_left;
+          left_points[i].y = points[i].y + TOTAL_SEPARATION / 2.0;
+          last_left = TOTAL_SEPARATION/2.0;
+          right_points[i].x = points[i].x + last_right;
+          right_points[i].y = points[i].y - TOTAL_SEPARATION / 2.0;
+          last_right = - TOTAL_SEPARATION/2.0;
+        }
       } else { /* VERTICAL */
-	if (points[i].y < points[i+1].y) { /* DOWN */
-	  left_points[i].x = points[i].x + TOTAL_SEPARATION / 2.0;
-	  left_points[i].y = points[i].y + last_left;
-	  last_left = TOTAL_SEPARATION/2.0;
-	  right_points[i].x = points[i].x - TOTAL_SEPARATION / 2.0;
-	  right_points[i].y = points[i].y + last_right;
-	  last_right = - TOTAL_SEPARATION/2.0;
-	} else { /* UP */
-	  left_points[i].x = points[i].x - TOTAL_SEPARATION / 2.0;
-	  left_points[i].y = points[i].y + last_left;
-	  last_left = - TOTAL_SEPARATION/2.0;
-	  right_points[i].x = points[i].x + TOTAL_SEPARATION / 2.0;
-	  right_points[i].y = points[i].y + last_right;
-	  last_right = TOTAL_SEPARATION/2.0;
-	}
+        if (points[i].y < points[i+1].y) { /* DOWN */
+          left_points[i].x = points[i].x + TOTAL_SEPARATION / 2.0;
+          left_points[i].y = points[i].y + last_left;
+          last_left = TOTAL_SEPARATION/2.0;
+          right_points[i].x = points[i].x - TOTAL_SEPARATION / 2.0;
+          right_points[i].y = points[i].y + last_right;
+          last_right = - TOTAL_SEPARATION/2.0;
+        } else { /* UP */
+          left_points[i].x = points[i].x - TOTAL_SEPARATION / 2.0;
+          left_points[i].y = points[i].y + last_left;
+          last_left = - TOTAL_SEPARATION/2.0;
+          right_points[i].x = points[i].x + TOTAL_SEPARATION / 2.0;
+          right_points[i].y = points[i].y + last_right;
+          last_right = TOTAL_SEPARATION/2.0;
+        }
       }
     }
     if(orth->orientation[i-1] == HORIZONTAL) { /* HORIZONTAL */
-	left_points[i].x = points[i].x;
-	left_points[i].y = points[i].y + last_left;
-	right_points[i].x = points[i].x;
-	right_points[i].y = points[i].y + last_right;
+      left_points[i].x = points[i].x;
+      left_points[i].y = points[i].y + last_left;
+      right_points[i].x = points[i].x;
+      right_points[i].y = points[i].y + last_right;
     } else { /* VERTICAL */
       left_points[i].x = points[i].x + last_left;
       left_points[i].y = points[i].y;
@@ -260,12 +259,12 @@ participation_draw(Participation *participation, DiaRenderer *renderer)
       right_points[i].y = points[i].y;
     }
 
-    renderer_ops->draw_polyline(renderer, left_points, n, &color_black);
-    renderer_ops->draw_polyline(renderer, right_points, n, &color_black);
-    g_free(left_points);
-    g_free(right_points);
+    dia_renderer_draw_polyline (renderer, left_points, n, &color_black);
+    dia_renderer_draw_polyline (renderer, right_points, n, &color_black);
+    g_free (left_points);
+    g_free (right_points);
   }  else {
-    renderer_ops->draw_polyline(renderer, points, n, &color_black);
+    dia_renderer_draw_polyline (renderer, points, n, &color_black);
   }
 }
 

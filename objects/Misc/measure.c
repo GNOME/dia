@@ -34,7 +34,7 @@
 /* Object definition */
 typedef struct _Measure {
   Connection connection;
-  
+
   DiaFont *font;
   real font_height;
 
@@ -44,7 +44,7 @@ typedef struct _Measure {
   DiaUnit unit;
   int     precision;
 
-  /* caclculated data */  
+  /* caclculated data */
   char *name; /* the calculated measurment */
   Point text_pos;
 } Measure;
@@ -127,7 +127,7 @@ measure_create (Point *startpoint,
   Connection *conn;
   DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
- 
+
   measure = g_new0 (Measure,1);
   obj = &measure->connection.object;
   obj->type = &measure_type;
@@ -141,7 +141,7 @@ measure_create (Point *startpoint,
   connection_init(conn, 2, 0);
 
   /* kind of measurement can only be set via user data */
-  
+
   attributes_get_default_font (&measure->font, &measure->font_height);
 
   measure->line_width = attributes_get_default_linewidth();
@@ -180,7 +180,7 @@ static PropNumData precision_data = {1, 9, 1};
 /* Class/Object implementation */
 static PropDescription measure_props[] = {
   CONNECTION_COMMON_PROPERTIES,
-  { "name", PROP_TYPE_STRING,/*PROP_FLAG_VISIBLE|*/PROP_FLAG_DONT_MERGE, 
+  { "name", PROP_TYPE_STRING,/*PROP_FLAG_VISIBLE|*/PROP_FLAG_DONT_MERGE,
     N_("Measurement"),NULL }, /* FIXME: mark read-only */
   { "scale", PROP_TYPE_REAL, PROP_FLAG_VISIBLE, N_("Scale"), NULL, &scale_range},
   { "unit", PROP_TYPE_ENUM, PROP_FLAG_VISIBLE, N_("Unit"), NULL, &unit_data },
@@ -217,10 +217,10 @@ measure_update_data (Measure *measure)
   Rectangle bbox;
   Arrow arrow = MEASURE_ARROW(measure);
   real ascent, width, theta;
-  
+
   g_return_if_fail (obj->handles != NULL);
   connection_update_handles(conn);
-  
+
   extra->start_trans =
   extra->end_trans   =
   extra->start_long  =
@@ -231,20 +231,20 @@ measure_update_data (Measure *measure)
   value *= measure->scale;
   value *= (28.346457 / units[measure->unit].factor);
   measure->name = g_strdup_printf ("%.*g %s", measure->precision, value, units[measure->unit].unit);
-  
+
   ascent = dia_font_ascent (measure->name, measure->font, measure->font_height);
   width = dia_font_string_width (measure->name, measure->font, measure->font_height);
   theta = atan2(ends[1].y-ends[0].y, ends[1].x-ends[0].x);
   theta = (0 >= theta ? theta + M_PI : theta);
 
-  if (theta >= M_PI * 3/4) { 
+  if (theta >= M_PI * 3/4) {
     measure->text_pos.x = (ends[0].x + ends[1].x) / 2 - sin(theta) * measure->font_height/2 - width * (2.5 - 2/M_PI * ( theta - 3/4 * M_PI ));
     measure->text_pos.y = (ends[0].y + ends[1].y) / 2 + cos(theta) * measure->font_height/2;
   } else  {
     measure->text_pos.x = (ends[0].x + ends[1].x) / 2 + sin(theta) * measure->font_height/2;
     measure->text_pos.y = (ends[0].y + ends[1].y) / 2 - cos(theta) * measure->font_height/2;
   }
-  
+
   line_bbox (&ends[0], &ends[0], &conn->extra_spacing,&conn->object.bounding_box);
   arrow_bbox (&arrow, measure->line_width, &ends[0], &ends[1], &bbox);
   rectangle_union(&obj->bounding_box, &bbox);
@@ -259,29 +259,33 @@ measure_update_data (Measure *measure)
 
   obj->position = conn->endpoints[0];
 }
-static void 
-measure_draw(Measure *measure, DiaRenderer *renderer)
+
+static void
+measure_draw (Measure *measure, DiaRenderer *renderer)
 {
   Arrow arrow = MEASURE_ARROW(measure);
 
-  DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, measure->line_width);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linejoin(renderer, LINEJOIN_MITER);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linecaps(renderer, LINECAPS_ROUND);
-  
-  DIA_RENDERER_GET_CLASS (renderer)->draw_line_with_arrows (
-					renderer,
-					&measure->connection.endpoints[0], &measure->connection.endpoints[1],
-					measure->line_width, &measure->line_color,
-					&arrow, &arrow);
+  dia_renderer_set_linewidth (renderer, measure->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linecaps (renderer, LINECAPS_ROUND);
 
-  DIA_RENDERER_GET_CLASS (renderer)->set_font(renderer, 
-                                        measure->font, measure->font_height);
-  DIA_RENDERER_GET_CLASS (renderer)->draw_string (
-					renderer, measure->name, 
-					&measure->text_pos, ALIGN_LEFT, 
-					&measure->line_color);
+  dia_renderer_draw_line_with_arrows (renderer,
+                                      &measure->connection.endpoints[0],
+                                      &measure->connection.endpoints[1],
+                                      measure->line_width,
+                                      &measure->line_color,
+                                      &arrow,
+                                      &arrow);
+
+  dia_renderer_set_font (renderer, measure->font, measure->font_height);
+  dia_renderer_draw_string (renderer,
+                            measure->name,
+                            &measure->text_pos,
+                            ALIGN_LEFT,
+                            &measure->line_color);
 }
+
 /*! A standard props compliant object needs to describe its parameters */
 static const PropDescription *
 measure_describe_props (Measure *measure)
@@ -290,12 +294,12 @@ measure_describe_props (Measure *measure)
     prop_desc_list_calculate_quarks(measure_props);
   return measure_props;
 }
-static void 
+static void
 measure_get_props (Measure *measure, GPtrArray *props)
 {
   object_get_props_from_offsets(&measure->connection.object, measure_offsets, props);
 }
-static void 
+static void
 measure_set_props (Measure *measure, GPtrArray *props)
 {
   object_set_props_from_offsets(&measure->connection.object, measure_offsets, props);
@@ -315,7 +319,7 @@ measure_select(Measure *measure, Point *clicked_point,
 {
   connection_update_handles(&measure->connection);
 }
-static ObjectChange* 
+static ObjectChange*
 measure_move_handle (Measure *measure,
                      Handle *handle,
 		     Point *to, ConnectionPoint *cp,
@@ -332,11 +336,11 @@ measure_get_object_menu(Measure *measure,
   return NULL;
 }
 
-static ObjectChange* 
+static ObjectChange*
 measure_move (Measure *measure, Point *to)
 {
   Point start_to_end;
-  Point *ends = &measure->connection.endpoints[0]; 
+  Point *ends = &measure->connection.endpoints[0];
 
   start_to_end = ends[1];
   point_sub(&start_to_end, &ends[0]);

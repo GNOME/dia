@@ -24,9 +24,9 @@
  * - scale: overall scaling of the 'object diagram' done on the renderer level
  * - tweaking renderer parameters otherwise not in the UI, e.g. LineCaps
  *
- * The format is similar to Windows MetaFile.i.e a serialization of function calls together 
+ * The format is similar to Windows MetaFile.i.e a serialization of function calls together
  * with their parameters.
- * An XML representation as well as some binary variant could be provided. 
+ * An XML representation as well as some binary variant could be provided.
  *
  * <diagram>
  *   <meta />
@@ -45,7 +45,7 @@
  *   </layer>
  * </diagram>
  */
- 
+
 #include <config.h>
 
 #include <stdlib.h>
@@ -72,7 +72,6 @@ drs_render_layer (DiaRenderer *self, Layer *layer, gboolean active)
   xmlNodePtr node;
   GList *list;
   DiaObject *obj;
-  DiaRendererClass *renderer_class = DIA_RENDERER_GET_CLASS(renderer);
 
   g_queue_push_tail (renderer->parents, renderer->root);
   renderer->root = node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"layer", NULL);
@@ -85,8 +84,8 @@ drs_render_layer (DiaRenderer *self, Layer *layer, gboolean active)
   list = layer->objects;
   while (list!=NULL) {
     obj = (DiaObject *) list->data;
-    renderer_class->draw_object(self, obj, NULL);
-    list = g_list_next(list);
+    dia_renderer_draw_object (self, obj, NULL);
+    list = g_list_next (list);
   }
 
   renderer->root = g_queue_pop_tail (renderer->parents);
@@ -97,13 +96,13 @@ static void
 drs_data_render (DiagramData *data, DiaRenderer *renderer)
 {
   int i;
-  
-  DIA_RENDERER_GET_CLASS(renderer)->begin_render(renderer, NULL);
-  for (i=0; i<data->layers->len; i++) {
-    Layer *layer = (Layer *) g_ptr_array_index(data->layers, i);
+
+  dia_renderer_begin_render (renderer, NULL);
+  for (i=0; i < data->layers->len; i++) {
+    Layer *layer = (Layer *) g_ptr_array_index (data->layers, i);
     drs_render_layer (renderer, layer, layer == data->active_layer);
   }
-  DIA_RENDERER_GET_CLASS(renderer)->end_render(renderer);
+  dia_renderer_end_render (renderer);
 }
 
 /* dia export funtion */
@@ -115,13 +114,13 @@ export_data(DiagramData *data, DiaContext *ctx,
   DrsRenderer *renderer;
   xmlDtdPtr dtd;
   xmlDocPtr doc;
-  
+
   /* write check - almost same code in every renderer */
   {
     FILE *file = g_fopen(filename, "w");
 
     if (!file) {
-      dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s."), 
+      dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s."),
 					  dia_context_get_filename(ctx));
       return FALSE;
     }
@@ -143,7 +142,7 @@ export_data(DiagramData *data, DiaContext *ctx,
   xmlAddChild((xmlNodePtr) doc, (xmlNodePtr) dtd);
   renderer->root = xmlNewDocNode(doc, NULL, (const xmlChar *)"drs", NULL);
   xmlAddSibling(doc->children, (xmlNodePtr) renderer->root);
-  
+
   drs_data_render(data, DIA_RENDERER(renderer));
 
   xmlSetDocCompressMode(doc, 1);

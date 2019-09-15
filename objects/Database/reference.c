@@ -214,7 +214,6 @@ reference_load (ObjectNode obj_node, int version,DiaContext *ctx)
 static void
 reference_draw (TableReference *ref, DiaRenderer *renderer)
 {
-  DiaRendererClass * renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn * orth = &ref->orth;
   Point * points;
   gint num_points;
@@ -222,33 +221,36 @@ reference_draw (TableReference *ref, DiaRenderer *renderer)
   points = &orth->points[0];
   num_points = orth->numpoints;
 
-  renderer_ops->set_linewidth (renderer, ref->line_width);
-  renderer_ops->set_linestyle (renderer, ref->line_style, ref->dashlength);
-  renderer_ops->set_linejoin (renderer, LINEJOIN_MITER);
-  renderer_ops->set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, ref->line_width);
+  dia_renderer_set_linestyle (renderer, ref->line_style, ref->dashlength);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
-  renderer_ops->draw_rounded_polyline_with_arrows
-    (renderer, points, num_points, ref->line_width,
-     &ref->line_color, NULL, &ref->end_arrow, ref->corner_radius);
+  dia_renderer_draw_rounded_polyline_with_arrows (renderer,
+                                                  points,
+                                                  num_points,
+                                                  ref->line_width,
+                                                  &ref->line_color,
+                                                  NULL,
+                                                  &ref->end_arrow,
+                                                  ref->corner_radius);
 
-  renderer_ops->set_font (renderer, ref->normal_font, ref->normal_font_height);
+  dia_renderer_set_font (renderer, ref->normal_font, ref->normal_font_height);
 
-  if (IS_NOT_EMPTY(ref->start_point_desc))
-    {
-      renderer_ops->draw_string (renderer,
-                                 ref->start_point_desc,
-                                 &ref->sp_desc_pos,
-                                 ref->sp_desc_text_align,
-                                 &ref->text_color);
-    }
-  if (IS_NOT_EMPTY(ref->end_point_desc))
-    {
-      renderer_ops->draw_string (renderer,
-                                 ref->end_point_desc,
-                                 &ref->ep_desc_pos,
-                                 ref->ep_desc_text_align,
-                                 &ref->text_color);
-    }
+  if (IS_NOT_EMPTY (ref->start_point_desc)) {
+    dia_renderer_draw_string (renderer,
+                              ref->start_point_desc,
+                              &ref->sp_desc_pos,
+                              ref->sp_desc_text_align,
+                              &ref->text_color);
+  }
+  if (IS_NOT_EMPTY (ref->end_point_desc)) {
+    dia_renderer_draw_string (renderer,
+                              ref->end_point_desc,
+                              &ref->ep_desc_pos,
+                              ref->ep_desc_text_align,
+                              &ref->text_color);
+  }
 }
 
 static real

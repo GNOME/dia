@@ -521,13 +521,12 @@ table_destroy (Table * table)
 static void
 table_draw (Table *table, DiaRenderer *renderer)
 {
-  DiaRendererClass * renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   real y = 0.0;
   Element * elem;
 
-  renderer_ops->set_linewidth (renderer, table->border_width);
-  renderer_ops->set_fillstyle (renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linewidth (renderer, table->border_width);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   elem = &table->element;
 
@@ -536,9 +535,8 @@ table_draw (Table *table, DiaRenderer *renderer)
 }
 
 static real
-table_draw_namebox (Table * table, DiaRenderer * renderer, Element * elem)
+table_draw_namebox (Table *table, DiaRenderer *renderer, Element *elem)
 {
-  DiaRendererClass * renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point startP;
   Point endP;
 
@@ -550,28 +548,32 @@ table_draw_namebox (Table * table, DiaRenderer * renderer, Element * elem)
   endP.y = startP.y + table->namebox_height;
 
   /* first draw the outer box and fill for the class name object */
-  renderer_ops->draw_rect (renderer, &startP, &endP, &table->fill_color, &table->line_color);
+  dia_renderer_draw_rect (renderer, &startP, &endP, &table->fill_color, &table->line_color);
 
-  if (IS_NOT_EMPTY(table->name))
-    {
-      startP.x += elem->width / 2.0;
-      startP.y += table->name_font_height;
-      renderer_ops->set_font (renderer,
-                              table->name_font,
-                              table->name_font_height);
-      renderer_ops->draw_string (renderer,
-                                 table->name,
-                                 &startP,
-                                 ALIGN_CENTER,
-                                 &table->text_color);
-    }
+  if (IS_NOT_EMPTY (table->name)) {
+    startP.x += elem->width / 2.0;
+    startP.y += table->name_font_height;
+    dia_renderer_set_font (renderer,
+                           table->name_font,
+                           table->name_font_height);
+    dia_renderer_draw_string (renderer,
+                              table->name,
+                              &startP,
+                              ALIGN_CENTER,
+                              &table->text_color);
+  }
 
-  if (table->visible_comment && IS_NOT_EMPTY(table->comment))
-    {
-      draw_comments (renderer, table->comment_font, table->comment_font_height,
-                     &table->text_color, table->comment, table->tagging_comment,
-                     TABLE_COMMENT_MAXWIDTH, &startP, ALIGN_CENTER);
-    }
+  if (table->visible_comment && IS_NOT_EMPTY (table->comment)) {
+    draw_comments (renderer,
+                   table->comment_font,
+                   table->comment_font_height,
+                   &table->text_color,
+                   table->comment,
+                   table->tagging_comment,
+                   TABLE_COMMENT_MAXWIDTH,
+                   &startP,
+                   ALIGN_CENTER);
+  }
 
   return endP.y;
 }
@@ -601,15 +603,15 @@ table_draw_namebox (Table * table, DiaRenderer * renderer, Element * elem)
  * @see   uml_create_documentation
  */
 static void
-draw_comments(DiaRenderer *renderer,
-              DiaFont     *font,
-              real         font_height,
-              Color       *text_color,
-              gchar       *comment,
-              gboolean     comment_tagging,
-              gint         Comment_line_length,
-              Point       *p,
-              gint         alignment)
+draw_comments (DiaRenderer *renderer,
+               DiaFont     *font,
+               real         font_height,
+               Color       *text_color,
+               gchar       *comment,
+               gboolean     comment_tagging,
+               gint         Comment_line_length,
+               Point       *p,
+               gint         alignment)
 {
   gint      NumberOfLines = 0;
   gint      Index;
@@ -617,32 +619,31 @@ draw_comments(DiaRenderer *renderer,
   gchar     *NewLineP= NULL;
   gchar     *RenderP;
 
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-
   CommentString =
-    create_documentation_tag(comment, comment_tagging, Comment_line_length, &NumberOfLines);
+    create_documentation_tag (comment, comment_tagging, Comment_line_length, &NumberOfLines);
   RenderP = CommentString;
-  renderer_ops->set_font(renderer, font, font_height);
-  for ( Index=0; Index < NumberOfLines; Index++)
-  {
+  dia_renderer_set_font (renderer, font, font_height);
+  for ( Index=0; Index < NumberOfLines; Index++) {
     p->y += font_height;                    /* Advance to the next line */
-    NewLineP = strchr(RenderP, '\n');
-    if ( NewLineP != NULL)
-    {
+    NewLineP = strchr (RenderP, '\n');
+    if ( NewLineP != NULL) {
       *NewLineP++ = '\0';
     }
-    renderer_ops->draw_string(renderer, RenderP, p, alignment, text_color);
+    dia_renderer_draw_string (renderer, RenderP, p, alignment, text_color);
     RenderP = NewLineP;
     if ( NewLineP == NULL){
-        break;
+      break;
     }
   }
-  g_free(CommentString);
+  g_free (CommentString);
 }
 
 static void
-fill_diamond (DiaRenderer *renderer, real half_height, real width,
-              Point * lower_midpoint, Color * color)
+fill_diamond (DiaRenderer *renderer,
+              real         half_height,
+              real         width,
+              Point       *lower_midpoint,
+              Color       *color)
 {
   Point poly[4];
 
@@ -655,17 +656,18 @@ fill_diamond (DiaRenderer *renderer, real half_height, real width,
   poly[3].x = poly[1].x;
   poly[3].y = lower_midpoint->y - half_height;
 
-  DIA_RENDERER_GET_CLASS (renderer)->set_fillstyle (renderer, FILLSTYLE_SOLID);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
-  DIA_RENDERER_GET_CLASS (renderer)->draw_polygon (renderer, poly, 4, color, NULL);
+  dia_renderer_draw_polygon (renderer, poly, 4, color, NULL);
 }
 
 static real
-table_draw_attributesbox (Table * table, DiaRenderer * renderer,
-                          Element * elem, real Yoffset)
+table_draw_attributesbox (Table         *table,
+                          DiaRenderer   *renderer,
+                          Element       *elem,
+                          real           Yoffset)
 {
-  DiaRendererClass * renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point startP, startTypeP;
   Point endP;
   Point indicP;
@@ -683,7 +685,7 @@ table_draw_attributesbox (Table * table, DiaRenderer * renderer,
   endP.x = startP.x + elem->width;
   endP.y = startP.y + table->attributesbox_height;
 
-  renderer_ops->draw_rect (renderer, &startP, &endP, fill_color, line_color);
+  dia_renderer_draw_rect (renderer, &startP, &endP, fill_color, line_color);
 
   startP.x += TABLE_ATTR_NAME_OFFSET;
   startP.x += (table->border_width/2.0 + 0.1);
@@ -691,97 +693,87 @@ table_draw_attributesbox (Table * table, DiaRenderer * renderer,
   list = table->attributes;
   /* adjust size of symbols with font height */
   scale = table->normal_font_height/TABLE_NORMAL_FONT_HEIGHT;
-  while (list != NULL)
-    {
-      TableAttribute * attr = (TableAttribute *) list->data;
+  while (list != NULL) {
+    TableAttribute * attr = (TableAttribute *) list->data;
 
-      if (attr->primary_key)
-        {
-          attr_font = table->primary_key_font;
-          attr_font_height = table->primary_key_font_height;
-        }
-      else
-        {
-          attr_font = table->normal_font;
-          attr_font_height = table->normal_font_height;
-        }
-
-      startP.y += attr_font_height;
-      renderer_ops->set_font (renderer,
-                              attr_font,
-                              attr_font_height);
-
-      renderer_ops->set_linewidth (renderer, TABLE_ATTR_INDIC_LINE_WIDTH);
-      indicP = startP;
-      indicP.x -= ((TABLE_ATTR_NAME_OFFSET/2.0)
-                   + (TABLE_ATTR_INDIC_WIDTH*scale/4.0));
-      indicP.y -= (attr_font_height/2.0);
-      indicP.y += TABLE_ATTR_INDIC_WIDTH*scale/2.0;
-      if (attr->primary_key)
-        {
-          fill_diamond (renderer,
-                        0.75*TABLE_ATTR_INDIC_WIDTH*scale,
-                        TABLE_ATTR_INDIC_WIDTH*scale,
-                        &indicP,
-                        &table->line_color);
-        }
-      else if (attr->nullable)
-        {
-          renderer_ops->draw_ellipse (renderer,
-                                      &indicP,
-                                      TABLE_ATTR_INDIC_WIDTH*scale,
-                                      TABLE_ATTR_INDIC_WIDTH*scale,
-                                      NULL, &table->line_color);
-        }
-      else
-        {
-          renderer_ops->draw_ellipse (renderer,
-                                      &indicP,
-                                      TABLE_ATTR_INDIC_WIDTH*scale,
-                                      TABLE_ATTR_INDIC_WIDTH*scale,
-                                      &table->line_color, NULL);
-        }
-
-      if (IS_NOT_EMPTY(attr->name))
-        {
-          renderer_ops->draw_string (renderer,
-                                     attr->name,
-                                     &startP,
-                                     ALIGN_LEFT,
-                                     text_color);
-        }
-      if (IS_NOT_EMPTY(attr->type))
-        {
-          startTypeP = startP;
-          startTypeP.x += table->maxwidth_attr_name + TABLE_ATTR_NAME_TYPE_GAP;
-          renderer_ops->draw_string (renderer,
-                                     attr->type,
-                                     &startTypeP,
-                                     ALIGN_LEFT,
-                                     text_color);
-        }
-
-      if (table->underline_primary_key && attr->primary_key)
-        underline_table_attribute (renderer, startP, attr, table);
-
-      if (table->visible_comment && IS_NOT_EMPTY(attr->comment))
-        {
-          startP.x += TABLE_ATTR_COMMENT_OFFSET;
-          draw_comments (renderer,
-                         table->comment_font,
-                         table->comment_font_height,
-                         text_color,
-                         attr->comment,
-                         table->tagging_comment,
-                         TABLE_COMMENT_MAXWIDTH,
-                         &startP,
-                         ALIGN_LEFT);
-          startP.x -= TABLE_ATTR_COMMENT_OFFSET;
-          startP.y += table->comment_font_height/2;
-        }
-
-      list = g_list_next (list);
+    if (attr->primary_key) {
+      attr_font = table->primary_key_font;
+      attr_font_height = table->primary_key_font_height;
+    } else {
+      attr_font = table->normal_font;
+      attr_font_height = table->normal_font_height;
     }
+
+    startP.y += attr_font_height;
+    dia_renderer_set_font (renderer,
+                           attr_font,
+                           attr_font_height);
+
+    dia_renderer_set_linewidth (renderer, TABLE_ATTR_INDIC_LINE_WIDTH);
+    indicP = startP;
+    indicP.x -= ((TABLE_ATTR_NAME_OFFSET/2.0)
+                  + (TABLE_ATTR_INDIC_WIDTH*scale/4.0));
+    indicP.y -= (attr_font_height/2.0);
+    indicP.y += TABLE_ATTR_INDIC_WIDTH*scale/2.0;
+    if (attr->primary_key) {
+      fill_diamond (renderer,
+                    0.75*TABLE_ATTR_INDIC_WIDTH*scale,
+                    TABLE_ATTR_INDIC_WIDTH*scale,
+                    &indicP,
+                    &table->line_color);
+    } else if (attr->nullable) {
+      dia_renderer_draw_ellipse (renderer,
+                                 &indicP,
+                                 TABLE_ATTR_INDIC_WIDTH*scale,
+                                 TABLE_ATTR_INDIC_WIDTH*scale,
+                                 NULL,
+                                 &table->line_color);
+    } else {
+      dia_renderer_draw_ellipse (renderer,
+                                 &indicP,
+                                 TABLE_ATTR_INDIC_WIDTH*scale,
+                                 TABLE_ATTR_INDIC_WIDTH*scale,
+                                 &table->line_color,
+                                 NULL);
+    }
+
+    if (IS_NOT_EMPTY (attr->name)) {
+      dia_renderer_draw_string (renderer,
+                                attr->name,
+                                &startP,
+                                ALIGN_LEFT,
+                                text_color);
+    }
+    if (IS_NOT_EMPTY (attr->type)) {
+      startTypeP = startP;
+      startTypeP.x += table->maxwidth_attr_name + TABLE_ATTR_NAME_TYPE_GAP;
+      dia_renderer_draw_string (renderer,
+                                attr->type,
+                                &startTypeP,
+                                ALIGN_LEFT,
+                                text_color);
+    }
+
+    if (table->underline_primary_key && attr->primary_key)
+      underline_table_attribute (renderer, startP, attr, table);
+
+    if (table->visible_comment && IS_NOT_EMPTY (attr->comment)) {
+      startP.x += TABLE_ATTR_COMMENT_OFFSET;
+      draw_comments (renderer,
+                     table->comment_font,
+                     table->comment_font_height,
+                     text_color,
+                     attr->comment,
+                     table->tagging_comment,
+                     TABLE_COMMENT_MAXWIDTH,
+                     &startP,
+                     ALIGN_LEFT);
+      startP.x -= TABLE_ATTR_COMMENT_OFFSET;
+      startP.y += table->comment_font_height/2;
+    }
+
+    list = g_list_next (list);
+  }
 
   return Yoffset;
 }
@@ -1026,40 +1018,35 @@ table_init_attributesbox_height (Table * table)
 }
 
 static void
-underline_table_attribute(DiaRenderer  *   renderer,
-                          Point            StartPoint,
-                          TableAttribute * attr,
-                          Table *          table)
+underline_table_attribute (DiaRenderer     *renderer,
+                           Point            StartPoint,
+                           TableAttribute  *attr,
+                           Table           *table)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point    UnderlineStartPoint;
   Point    UnderlineEndPoint;
   DiaFont * font;
   real font_height;
 
-  if (attr->primary_key)
-    {
-      font = table->primary_key_font;
-      font_height = table->primary_key_font_height;
-    }
-  else
-    {
-      font = table->normal_font;
-      font_height = table->normal_font_height;
-    }
+  if (attr->primary_key) {
+    font = table->primary_key_font;
+    font_height = table->primary_key_font_height;
+  } else {
+    font = table->normal_font;
+    font_height = table->normal_font_height;
+  }
 
   UnderlineStartPoint = StartPoint;
   UnderlineStartPoint.y += font_height * 0.1;
   UnderlineEndPoint = UnderlineStartPoint;
   UnderlineEndPoint.x += table->maxwidth_attr_name + TABLE_ATTR_NAME_TYPE_GAP;
-  if (IS_NOT_EMPTY(attr->type))
-    {
-      UnderlineEndPoint.x += dia_font_string_width(attr->type,
-                                                   font,
-                                                   font_height);
-    }
-  renderer_ops->set_linewidth(renderer, TABLE_UNDERLINE_WIDTH);
-  renderer_ops->draw_line(renderer,
+  if (IS_NOT_EMPTY (attr->type)) {
+    UnderlineEndPoint.x += dia_font_string_width (attr->type,
+                                                  font,
+                                                  font_height);
+  }
+  dia_renderer_set_linewidth (renderer, TABLE_UNDERLINE_WIDTH);
+  dia_renderer_draw_line (renderer,
                           &UnderlineStartPoint,
                           &UnderlineEndPoint,
                           &table->text_color);

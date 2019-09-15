@@ -251,9 +251,8 @@ actor_move(Actor *actor, Point *to)
 
 /* drawing stuff */
 static void
-actor_draw(Actor *actor, DiaRenderer *renderer)
+actor_draw (Actor *actor, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   Point center;
   double dx,dy,r,th;
@@ -268,15 +267,19 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   center.y = elem->corner.y + elem->height/2;
 
   /* background */
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   /* foreground */
-  renderer_ops->set_linewidth(renderer, ACTOR_BORDER_WIDTH);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->draw_ellipse(renderer, &center, elem->width, elem->height,
-			     &ACTOR_BG_COLOR, &ACTOR_FG_COLOR);
+  dia_renderer_set_linewidth (renderer, ACTOR_BORDER_WIDTH);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_draw_ellipse (renderer,
+                             &center,
+                             elem->width,
+                             elem->height,
+                             &ACTOR_BG_COLOR,
+                             &ACTOR_FG_COLOR);
 
   /* text */
-  text_draw(actor->text, renderer);
+  text_draw (actor->text, renderer);
 
   /* computing and drawing decorations */
   r  = elem->height/2.0;
@@ -294,17 +297,17 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   pi2.x=ps2.x;
   pi2.y=pi1.y;
 
-  renderer_ops->set_linewidth(renderer, ACTOR_BORDER_WIDTH);
+  dia_renderer_set_linewidth (renderer, ACTOR_BORDER_WIDTH);
   switch (actor->type) {
     case ACTOR_AGENT:
-      renderer_ops->draw_line(renderer, &ps1, &ps2, &ACTOR_FG_COLOR);
+      dia_renderer_draw_line (renderer, &ps1, &ps2, &ACTOR_FG_COLOR);
       break;
     case ACTOR_POSITION:
-      renderer_ops->draw_line(renderer, &ps1, &ps2, &ACTOR_FG_COLOR);
-      renderer_ops->draw_line(renderer, &pi1, &pi2, &ACTOR_FG_COLOR);
+      dia_renderer_draw_line (renderer, &ps1, &ps2, &ACTOR_FG_COLOR);
+      dia_renderer_draw_line (renderer, &pi1, &pi2, &ACTOR_FG_COLOR);
       break;
     case ACTOR_ROLE:
-      renderer_ops->draw_line(renderer, &pi1, &pi2, &ACTOR_FG_COLOR);
+      dia_renderer_draw_line (renderer, &pi1, &pi2, &ACTOR_FG_COLOR);
       break;
     case ACTOR_UNSPECIFIED:
       break;

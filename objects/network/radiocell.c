@@ -242,9 +242,8 @@ radiocell_move(RadioCell *radiocell, Point *to)
 }
 
 static void
-radiocell_draw(RadioCell *radiocell, DiaRenderer *renderer)
+radiocell_draw (RadioCell *radiocell, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   PolyShape *poly;
   Point *points;
   int n;
@@ -256,17 +255,18 @@ radiocell_draw(RadioCell *radiocell, DiaRenderer *renderer)
   points = &poly->points[0];
   n = poly->numpoints;
 
-  if (radiocell->show_background)
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linestyle(renderer, radiocell->line_style, radiocell->dashlength);
-  renderer_ops->set_linewidth(renderer, radiocell->line_width);
-  renderer_ops->draw_polygon(renderer, points, n,
-			     (radiocell->show_background) ? &radiocell->fill_colour : NULL,
-			     &radiocell->line_colour);
+  if (radiocell->show_background) {
+    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  }
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linestyle (renderer, radiocell->line_style, radiocell->dashlength);
+  dia_renderer_set_linewidth (renderer, radiocell->line_width);
+  dia_renderer_draw_polygon (renderer, points, n,
+                             (radiocell->show_background) ? &radiocell->fill_colour : NULL,
+                             &radiocell->line_colour);
 
-  text_draw(radiocell->text, renderer);
+  text_draw (radiocell->text, renderer);
 }
 
 static void

@@ -61,6 +61,15 @@
 #define xfig_dtostr(buf,d) \
 	g_ascii_formatd(buf, sizeof(buf), "%f", d)
 
+
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+
 GType xfig_renderer_get_type (void) G_GNUC_CONST;
 
 typedef struct _XfigRenderer XfigRenderer;
@@ -216,8 +225,58 @@ xfig_renderer_get_type (void)
 }
 
 static void
+xfig_renderer_set_property (GObject      *object,
+                            guint         property_id,
+                            const GValue *value,
+                            GParamSpec   *pspec)
+{
+  XfigRenderer *self = XFIG_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      set_font (DIA_RENDERER (self),
+                DIA_FONT (g_value_get_object (value)),
+                self->fontheight);
+      break;
+    case PROP_FONT_HEIGHT:
+      set_font (DIA_RENDERER (self),
+                self->font,
+                g_value_get_double (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+xfig_renderer_get_property (GObject    *object,
+                            guint       property_id,
+                            GValue     *value,
+                            GParamSpec *pspec)
+{
+  XfigRenderer *self = XFIG_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, self->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, self->fontheight);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
 xfig_renderer_finalize (GObject *object)
 {
+  XfigRenderer *self = XFIG_RENDERER (object);
+
+  g_clear_object (&self->font);
+
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -229,6 +288,8 @@ xfig_renderer_class_init (XfigRendererClass *klass)
 
   parent_class = g_type_class_peek_parent (klass);
 
+  object_class->set_property = xfig_renderer_set_property;
+  object_class->get_property = xfig_renderer_get_property;
   object_class->finalize = xfig_renderer_finalize;
 
   renderer_class->begin_render = begin_render;
@@ -239,7 +300,6 @@ xfig_renderer_class_init (XfigRendererClass *klass)
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
   renderer_class->set_fillstyle = set_fillstyle;
-  renderer_class->set_font = set_font;
 
   renderer_class->draw_line = draw_line;
   renderer_class->draw_polyline = draw_polyline;
@@ -264,6 +324,9 @@ xfig_renderer_class_init (XfigRendererClass *klass)
   renderer_class->draw_arc_with_arrows = draw_arc_with_arrows;
   renderer_class->draw_bezier_with_arrows = draw_bezier_with_arrows;
   renderer_class->draw_object = draw_object;
+
+  g_object_class_override_property (object_class, PROP_FONT, "font");
+  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 /* Helper functions */
@@ -550,12 +613,14 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 
   renderer->fillmode = mode;
 }
+
 static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
-  renderer->font = font;
+  g_clear_object (&renderer->font);
+  renderer->font = g_object_ref (font);
   renderer->fontheight = height;
 }
 
@@ -1065,15 +1130,15 @@ draw_object(DiaRenderer *self,
 
   if (renderer->color_pass) {
     /* color pass does not need transformation */
-    object->ops->draw(object, DIA_RENDERER(renderer));
+    dia_object_draw (object, DIA_RENDERER (renderer));
   } else {
     fprintf(renderer->file, "6 0 0 0 0\n");
     if (matrix) {
       DiaRenderer *tr = dia_transform_renderer_new (self);
-      DIA_RENDERER_GET_CLASS(tr)->draw_object (tr, object, matrix);
+      dia_renderer_draw_object (tr, object, matrix);
       g_object_unref (tr);
     } else {
-      object->ops->draw(object, DIA_RENDERER(renderer));
+      dia_object_draw (object, DIA_RENDERER (renderer));
     }
     fprintf(renderer->file, "-6\n");
   }
@@ -1114,35 +1179,35 @@ export_fig(DiagramData *data, DiaContext *ctx,
 
   renderer->color_pass = TRUE;
 
-  DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
+  dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
-  for (i=0; i<data->layers->len; i++) {
-    layer = (Layer *) g_ptr_array_index(data->layers, i);
+  for (i = 0; i < data->layers->len; i++) {
+    layer = (Layer *) g_ptr_array_index (data->layers, i);
     if (layer->visible) {
-      layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
+      layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       renderer->depth++;
     }
   }
 
-  DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
+  dia_renderer_end_render (DIA_RENDERER (renderer));
 
   renderer->color_pass = FALSE;
 
-  DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
+  dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
   for (i=0; i<data->layers->len; i++) {
-    layer = (Layer *) g_ptr_array_index(data->layers, i);
+    layer = (Layer *) g_ptr_array_index (data->layers, i);
     if (layer->visible) {
-      layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
+      layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       renderer->depth++;
     }
   }
 
-  DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
+  dia_renderer_end_render (DIA_RENDERER (renderer));
 
-  g_object_unref(renderer);
+  g_object_unref (renderer);
 
-  fclose(file);
+  fclose (file);
 
   return TRUE;
 }

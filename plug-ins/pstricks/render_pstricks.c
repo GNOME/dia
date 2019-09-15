@@ -31,7 +31,7 @@ TODO:
 4. Maybe draw and fill in a single move?? Will solve the problems
    with visible thin white line between the border and the fill
 5. Verify the Pango stuff isn't spitting out things TeX is unable to read
-   
+
 NOT WORKING (exporting macros):
  1. linecaps
  2. linejoins
@@ -64,6 +64,14 @@ NOT WORKING (exporting macros):
 #define pstricks_dtostr(buf,d) \
 	g_ascii_formatd(buf,sizeof(buf),"%f",d)
 
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+
 static void begin_render(DiaRenderer *self, const Rectangle *update);
 static void end_render(DiaRenderer *self);
 static void set_linewidth(DiaRenderer *self, real linewidth);
@@ -72,34 +80,34 @@ static void set_linejoin(DiaRenderer *self, LineJoin mode);
 static void set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length);
 static void set_fillstyle(DiaRenderer *self, FillStyle mode);
 static void set_font(DiaRenderer *self, DiaFont *font, real height);
-static void draw_line(DiaRenderer *self, 
-		      Point *start, Point *end, 
+static void draw_line(DiaRenderer *self,
+		      Point *start, Point *end,
 		      Color *line_color);
-static void draw_polyline(DiaRenderer *self, 
-			  Point *points, int num_points, 
+static void draw_polyline(DiaRenderer *self,
+			  Point *points, int num_points,
 			  Color *line_color);
-static void draw_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
+static void draw_polygon(DiaRenderer *self,
+			 Point *points, int num_points,
 			 Color *fill, Color *stroke);
-static void draw_arc(DiaRenderer *self, 
+static void draw_arc(DiaRenderer *self,
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *color);
-static void fill_arc(DiaRenderer *self, 
+static void fill_arc(DiaRenderer *self,
 		     Point *center,
 		     real width, real height,
 		     real angle1, real angle2,
 		     Color *color);
-static void draw_ellipse(DiaRenderer *self, 
+static void draw_ellipse(DiaRenderer *self,
 			 Point *center,
 			 real width, real height,
 			 Color *fill, Color *stroke);
-static void draw_bezier(DiaRenderer *self, 
+static void draw_bezier(DiaRenderer *self,
 			BezPoint *points,
 			int numpoints,
 			Color *color);
-static void draw_beziergon(DiaRenderer *self, 
+static void draw_beziergon(DiaRenderer *self,
 			   BezPoint *points,
 			   int numpoints,
 			   Color *fill,
@@ -122,7 +130,7 @@ static void draw_image(DiaRenderer *self,
  *
  * \memberof _PstricksRenderer
  */
-static gboolean 
+static gboolean
 is_capable_to (DiaRenderer *renderer, RenderCapability cap)
 {
   if (RENDER_HOLES == cap)
@@ -165,13 +173,63 @@ pstricks_renderer_get_type (void)
                                             "PstricksRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
+}
+
+static void
+pstricks_renderer_set_property (GObject      *object,
+                                guint         property_id,
+                                const GValue *value,
+                                GParamSpec   *pspec)
+{
+  PstricksRenderer *self = PSTRICKS_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      set_font (DIA_RENDERER (self),
+                DIA_FONT (g_value_get_object (value)),
+                self->font_height);
+      break;
+    case PROP_FONT_HEIGHT:
+      set_font (DIA_RENDERER (self),
+                self->font,
+                g_value_get_double (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+pstricks_renderer_get_property (GObject    *object,
+                                guint       property_id,
+                                GValue     *value,
+                                GParamSpec *pspec)
+{
+  PstricksRenderer *self = PSTRICKS_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, self->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, self->font_height);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
 }
 
 static void
 pstricks_renderer_finalize (GObject *object)
 {
+  PstricksRenderer *self = PSTRICKS_RENDERER (object);
+
+  g_clear_object (&self->font);
+
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -183,6 +241,8 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
 
   parent_class = g_type_class_peek_parent (klass);
 
+  object_class->set_property = pstricks_renderer_set_property;
+  object_class->get_property = pstricks_renderer_get_property;
   object_class->finalize = pstricks_renderer_finalize;
 
   renderer_class->begin_render = begin_render;
@@ -194,11 +254,10 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
   renderer_class->set_fillstyle = set_fillstyle;
-  renderer_class->set_font = set_font;
-  
+
   renderer_class->draw_line = draw_line;
   renderer_class->draw_polyline = draw_polyline;
-  
+
   renderer_class->draw_polygon = draw_polygon;
 
   renderer_class->draw_arc = draw_arc;
@@ -212,10 +271,13 @@ pstricks_renderer_class_init (PstricksRendererClass *klass)
   renderer_class->draw_string = draw_string;
 
   renderer_class->draw_image = draw_image;
+
+  g_object_class_override_property (object_class, PROP_FONT, "font");
+  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 
-static void 
+static void
 set_line_color(PstricksRenderer *renderer,Color *color)
 {
     gchar red_buf[DTOSTR_BUF_SIZE];
@@ -229,7 +291,7 @@ set_line_color(PstricksRenderer *renderer,Color *color)
     fprintf(renderer->file,"\\psset{linecolor=dialinecolor}\n");
 }
 
-static void 
+static void
 set_fill_color(PstricksRenderer *renderer,Color *color)
 {
     gchar red_buf[DTOSTR_BUF_SIZE];
@@ -252,7 +314,7 @@ static void
 end_render(DiaRenderer *self)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-  
+
     fprintf(renderer->file,"}\\endpspicture");
     fclose(renderer->file);
 }
@@ -273,7 +335,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int ps_mode;
-  
+
     switch(mode) {
     case LINECAPS_DEFAULT:
     case LINECAPS_BUTT:
@@ -297,7 +359,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int ps_mode;
-  
+
     switch(mode) {
     case LINEJOIN_DEFAULT:
     case LINEJOIN_MITER:
@@ -338,7 +400,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 	break;
     case LINESTYLE_DASHED:
 	pstricks_dtostr(dash_length_buf, dash_length);
-	fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%s %s}\n", 
+	fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%s %s}\n",
 		dash_length_buf, dash_length_buf);
 	break;
     case LINESTYLE_DASH_DOT:
@@ -377,19 +439,24 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 }
 
 static void
-set_font(DiaRenderer *self, DiaFont *font, real height)
+set_font (DiaRenderer *self, DiaFont *font, real height)
 {
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-    gchar d_buf[DTOSTR_BUF_SIZE];
+  PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
-    fprintf(renderer->file, "\\setfont{%s}{%s}\n",
-            dia_font_get_psfontname(font),
-	    pstricks_dtostr(d_buf, (gdouble) height) );
+  g_clear_object (&renderer->font);
+  renderer->font = g_object_ref (font);
+  renderer->font_height = height;
+
+  fprintf (renderer->file,
+           "\\setfont{%s}{%s}\n",
+           dia_font_get_psfontname (font),
+           pstricks_dtostr (d_buf, (gdouble) height) );
 }
 
 static void
-draw_line(DiaRenderer *self, 
-	  Point *start, Point *end, 
+draw_line(DiaRenderer *self,
+	  Point *start, Point *end,
 	  Color *line_color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
@@ -408,16 +475,16 @@ draw_line(DiaRenderer *self,
 }
 
 static void
-draw_polyline(DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polyline(DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *line_color)
 {
     PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
     int i;
     gchar px_buf[DTOSTR_BUF_SIZE];
     gchar py_buf[DTOSTR_BUF_SIZE];
-  
-    set_line_color(renderer,line_color);  
+
+    set_line_color(renderer,line_color);
     fprintf(renderer->file, "\\psline(%s,%s)",
 	    pstricks_dtostr(px_buf,points[0].x),
 	    pstricks_dtostr(py_buf,points[0].y) );
@@ -432,7 +499,7 @@ draw_polyline(DiaRenderer *self,
 }
 
 static void
-draw_polygon (DiaRenderer *self, 
+draw_polygon (DiaRenderer *self,
 	      Point *points, int num_points,
 	      Color *fill, Color *stroke)
 {
@@ -463,7 +530,7 @@ draw_polygon (DiaRenderer *self,
 	    style,
 	    pstricks_dtostr(px_buf,points[0].x),
 	    pstricks_dtostr(py_buf,points[0].y) );
-    
+
     for (i=1;i<num_points;i++) {
 	fprintf(renderer->file, "(%s,%s)",
 		pstricks_dtostr(px_buf,points[i].x),
@@ -473,7 +540,7 @@ draw_polygon (DiaRenderer *self,
 }
 
 static void
-pstricks_arc(PstricksRenderer *renderer, 
+pstricks_arc(PstricksRenderer *renderer,
 	     Point *center,
 	     real width, real height,
 	     real angle1, real angle2,
@@ -487,7 +554,7 @@ pstricks_arc(PstricksRenderer *renderer,
     gchar sqrt_buf[DTOSTR_BUF_SIZE];
     gchar angle1_buf[DTOSTR_BUF_SIZE];
     gchar angle2_buf[DTOSTR_BUF_SIZE];
-    
+
     radius1=(double) width/2.0;
     radius2=(double) height/2.0;
 
@@ -511,7 +578,7 @@ pstricks_arc(PstricksRenderer *renderer,
 	    cx_buf, cy_buf,
 	    sqrt_buf,
 	    angle2_buf, angle1_buf);
-  
+
     fprintf(renderer->file,"\\psellipse%s(%s,%s)(%s,%s)\n",
 	    (filled?"*":""),
 	    cx_buf, cy_buf,
@@ -521,7 +588,7 @@ pstricks_arc(PstricksRenderer *renderer,
 }
 
 static void
-draw_arc(DiaRenderer *self, 
+draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -533,7 +600,7 @@ draw_arc(DiaRenderer *self,
 }
 
 static void
-fill_arc(DiaRenderer *self, 
+fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -566,7 +633,7 @@ pstricks_ellipse(PstricksRenderer *renderer,
 }
 
 static void
-draw_ellipse(DiaRenderer *self, 
+draw_ellipse(DiaRenderer *self,
 	     Point *center,
 	     real width, real height,
 	     Color *fill, Color *stroke)
@@ -631,7 +698,7 @@ pstricks_bezier(PstricksRenderer *renderer,
 		    pstricks_dtostr(p3y_buf,points[i].p3.y) );
 	    break;
 	}
-    
+
     if (closed)
 	fprintf(renderer->file, "\\closepath\n");
 
@@ -644,7 +711,7 @@ pstricks_bezier(PstricksRenderer *renderer,
 }
 
 static void
-draw_bezier(DiaRenderer *self, 
+draw_bezier(DiaRenderer *self,
 	    BezPoint *points,
 	    int numpoints, /* numpoints = 4+3*n, n=>0 */
 	    Color *color)
@@ -656,7 +723,7 @@ draw_bezier(DiaRenderer *self,
 
 
 static void
-draw_beziergon (DiaRenderer *self, 
+draw_beziergon (DiaRenderer *self,
 		BezPoint *points,
 		int numpoints,
 		Color *fill,
@@ -667,7 +734,7 @@ draw_beziergon (DiaRenderer *self,
     pstricks_bezier(renderer,points,numpoints,fill,stroke,TRUE);
 }
 
-/* Do we really want to do this?  What if the text is intended as 
+/* Do we really want to do this?  What if the text is intended as
  * TeX text?  Jacek says leave it as a TeX string.  TeX uses should know
  * how to escape stuff anyway.  Later versions will get an export option.
  *
@@ -702,7 +769,7 @@ tex_escape_string(const gchar *src, DiaContext *ctx)
 	case '}': g_string_append(dest, "\\}"); break;
 	case '[': g_string_append(dest, "\\ensuremath{\\left[\\right.}"); break;
 	case ']': g_string_append(dest, "\\ensuremath{\\left.\\right]}"); break;
-	default: 
+	default:
             /* if we really have utf8 append the whole 'glyph' */
             g_string_append_len(dest, p, g_utf8_skip[(unsigned char)*p]);
 	}
@@ -863,11 +930,11 @@ export_pstricks(DiagramData *data, DiaContext *ctx,
     gchar scale2_buf[DTOSTR_BUF_SIZE];
 
     Color initial_color;
- 
+
     file = g_fopen(filename, "wb");
 
     if (file == NULL) {
-	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
+	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
 					    dia_context_get_filename(ctx));
 	return FALSE;
     }
@@ -880,9 +947,9 @@ export_pstricks(DiagramData *data, DiaContext *ctx,
 
     time_now  = time(NULL);
     extent = &data->extents;
-  
+
     name = g_get_user_name();
-  
+
     fprintf(file,
 	"%% PSTricks TeX macro\n"
 	"%% Title: %s\n"

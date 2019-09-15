@@ -335,9 +335,8 @@ orthflow_move(Orthflow *orthflow, Point *to)
 }
 
 static void
-orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer)
+orthflow_draw (Orthflow *orthflow, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   int n = orthflow->orth.numpoints ;
   Color* render_color = &orthflow_color_signal;
   Point *points;
@@ -353,36 +352,39 @@ orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer)
 
   points = &orthflow->orth.points[0];
 
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   switch (orthflow->type) {
-  case ORTHFLOW_SIGNAL:
-    linewidth = ORTHFLOW_WIDTH;
-    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, ORTHFLOW_DASHLEN);
-    render_color = &orthflow_color_signal ;
-    break ;
-  case ORTHFLOW_MATERIAL:
-    linewidth = ORTHFLOW_MATERIAL_WIDTH;
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-    render_color = &orthflow_color_material ;
-    break ;
-  case ORTHFLOW_ENERGY:
-    linewidth = ORTHFLOW_WIDTH;
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-    render_color = &orthflow_color_energy ;
-    break ;
-  default:
-    linewidth = 0.001;
-    break;
+    case ORTHFLOW_SIGNAL:
+      linewidth = ORTHFLOW_WIDTH;
+      dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, ORTHFLOW_DASHLEN);
+      render_color = &orthflow_color_signal;
+      break ;
+    case ORTHFLOW_MATERIAL:
+      linewidth = ORTHFLOW_MATERIAL_WIDTH;
+      dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+      render_color = &orthflow_color_material;
+      break ;
+    case ORTHFLOW_ENERGY:
+      linewidth = ORTHFLOW_WIDTH;
+      dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+      render_color = &orthflow_color_energy;
+      break ;
+    default:
+      linewidth = 0.001;
+      break;
   }
 
-  renderer_ops->set_linewidth(renderer, linewidth);
-  renderer_ops->draw_polyline_with_arrows(renderer, points, n,
-					  ORTHFLOW_WIDTH,
-					  render_color,
-					  NULL, &arrow);
+  dia_renderer_set_linewidth (renderer, linewidth);
+  dia_renderer_draw_polyline_with_arrows (renderer,
+                                          points,
+                                          n,
+                                          ORTHFLOW_WIDTH,
+                                          render_color,
+                                          NULL,
+                                          &arrow);
 
-  text_draw(orthflow->text, renderer);
+  text_draw (orthflow->text, renderer);
 }
 
 static DiaObject *

@@ -314,9 +314,8 @@ jackson_box_move(Box *box, Point *to)
 
 /* draw method */
 static void
-jackson_box_draw(Box *box, DiaRenderer *renderer)
+jackson_box_draw (Box *box, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point b0,b1,b2,b3,p1t,p1b,p2t,p2b;
   Element *elem;
   real idfontheight;
@@ -345,26 +344,26 @@ jackson_box_draw(Box *box, DiaRenderer *renderer)
   p2b.y= p1b.y;
 
   /* drawing main box */
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
 
-  renderer_ops->set_linewidth(renderer, JACKSON_BOX_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  dia_renderer_set_linewidth (renderer, JACKSON_BOX_LINE_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_rect(renderer, &b0, &b1, &JACKSON_BOX_BG_COLOR, &JACKSON_BOX_FG_COLOR);
+  dia_renderer_draw_rect (renderer, &b0, &b1, &JACKSON_BOX_BG_COLOR, &JACKSON_BOX_FG_COLOR);
 
   /* adding lines for designed/machine domains */
   if (box->domtype!=DOMAIN_GIVEN) {
-      renderer_ops->draw_line(renderer, &p1t, &p1b, &JACKSON_BOX_FG_COLOR);
+    dia_renderer_draw_line (renderer, &p1t, &p1b, &JACKSON_BOX_FG_COLOR);
   }
 
   if (box->domtype==DOMAIN_MACHINE) {
-      renderer_ops->draw_line(renderer, &p2t, &p2b, &JACKSON_BOX_FG_COLOR);
+    dia_renderer_draw_line (renderer, &p2t, &p2b, &JACKSON_BOX_FG_COLOR);
   }
 
   /* adding corner for optional qualifier */
   idfontheight = box->text->height;
-  renderer_ops->set_font(renderer, box->text->font, idfontheight);
+  dia_renderer_set_font (renderer, box->text->font, idfontheight);
   b2 = b3 = b1;
   b2.x -= .2 * idfontheight;
   b2.y -= .2 * idfontheight;
@@ -378,12 +377,12 @@ jackson_box_draw(Box *box, DiaRenderer *renderer)
     default: s=NULL;
   }
 
-  if (s!=NULL) {
-    renderer_ops->draw_rect(renderer, &b3, &b1, NULL, &JACKSON_BOX_FG_COLOR);
-    renderer_ops->draw_string(renderer, s, &b2, ALIGN_RIGHT, &box->text->color);
+  if (s != NULL) {
+    dia_renderer_draw_rect (renderer, &b3, &b1, NULL, &JACKSON_BOX_FG_COLOR);
+    dia_renderer_draw_string (renderer, s, &b2, ALIGN_RIGHT, &box->text->color);
   }
 
-  text_draw(box->text, renderer);
+  text_draw (box->text, renderer);
 }
 
 /* resize stuff */

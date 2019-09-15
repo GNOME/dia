@@ -264,10 +264,10 @@ grid_object_update_data(Grid_Object *grid_object)
 }
 
 static void
-grid_object_draw_gridlines (Grid_Object *grid_object, DiaRenderer *renderer,
-    		Point* lr_corner)
+grid_object_draw_gridlines (Grid_Object *grid_object,
+                            DiaRenderer *renderer,
+                            Point       *lr_corner)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   Point st, fn;
   real cell_size;
@@ -294,7 +294,7 @@ grid_object_draw_gridlines (Grid_Object *grid_object, DiaRenderer *renderer,
   for (i = 1; i < grid_object->grid_rows; ++i) {
     st.y += cell_size;
     fn.y += cell_size;
-    renderer_ops->draw_line(renderer,&st,&fn,&grid_object->gridline_color);
+    dia_renderer_draw_line (renderer,&st,&fn,&grid_object->gridline_color);
   }
 
   /* vertical gridlines */
@@ -310,14 +310,13 @@ grid_object_draw_gridlines (Grid_Object *grid_object, DiaRenderer *renderer,
   for (i = 1; i < grid_object->grid_cols; ++i) {
     st.x += cell_size;
     fn.x += cell_size;
-    renderer_ops->draw_line(renderer,&st,&fn,&grid_object->gridline_color);
+    dia_renderer_draw_line (renderer, &st, &fn, &grid_object->gridline_color);
   }
 }
 
 static void
-grid_object_draw(Grid_Object *grid_object, DiaRenderer *renderer)
+grid_object_draw (Grid_Object *grid_object, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   Point lr_corner;
 
@@ -329,19 +328,24 @@ grid_object_draw(Grid_Object *grid_object, DiaRenderer *renderer)
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
 
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   /* draw gridlines */
-  renderer_ops->set_linewidth(renderer, grid_object->gridline_width);
-  grid_object_draw_gridlines(grid_object, renderer, &lr_corner);
+  dia_renderer_set_linewidth (renderer,
+                              grid_object->gridline_width);
+  grid_object_draw_gridlines (grid_object,
+                              renderer,
+                              &lr_corner);
 
   /* draw outline */
-  renderer_ops->set_linewidth(renderer, grid_object->border_line_width);
-  renderer_ops->draw_rect(renderer,&elem->corner,
-			  &lr_corner,
-			  (grid_object->show_background) ? &grid_object->inner_color : NULL,
-			  &grid_object->border_color);
+  dia_renderer_set_linewidth (renderer,
+                              grid_object->border_line_width);
+  dia_renderer_draw_rect (renderer,
+                          &elem->corner,
+                          &lr_corner,
+                          (grid_object->show_background) ? &grid_object->inner_color : NULL,
+                          &grid_object->border_color);
 }
 
 

@@ -279,28 +279,28 @@ static void
 polyline_draw(Polyline *polyline, DiaRenderer *renderer)
 {
   Point gap_endpoints[2];
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   PolyConn *poly = &polyline->poly;
   Point *points;
   int n;
 
   points = &poly->points[0];
   n = poly->numpoints;
-  renderer_ops->set_linewidth(renderer, polyline->line_width);
-  renderer_ops->set_linestyle(renderer, polyline->line_style, polyline->dashlength);
-  renderer_ops->set_linejoin(renderer, polyline->line_join);
-  renderer_ops->set_linecaps(renderer, polyline->line_caps);
+  dia_renderer_set_linewidth (renderer, polyline->line_width);
+  dia_renderer_set_linestyle (renderer, polyline->line_style, polyline->dashlength);
+  dia_renderer_set_linejoin (renderer, polyline->line_join);
+  dia_renderer_set_linecaps (renderer, polyline->line_caps);
 
-  polyline_calculate_gap_endpoints(polyline, gap_endpoints);
-  polyline_exchange_gap_points(polyline, gap_endpoints);
-  renderer_ops->draw_rounded_polyline_with_arrows(renderer,
-						  points, n,
-						  polyline->line_width,
-						  &polyline->line_color,
-						  &polyline->start_arrow,
-						  &polyline->end_arrow,
-						  polyline->corner_radius);
-  polyline_exchange_gap_points(polyline, gap_endpoints);
+  polyline_calculate_gap_endpoints (polyline, gap_endpoints);
+  polyline_exchange_gap_points (polyline, gap_endpoints);
+  dia_renderer_draw_rounded_polyline_with_arrows (renderer,
+                                                  points,
+                                                  n,
+                                                  polyline->line_width,
+                                                  &polyline->line_color,
+                                                  &polyline->start_arrow,
+                                                  &polyline->end_arrow,
+                                                  polyline->corner_radius);
+  polyline_exchange_gap_points (polyline, gap_endpoints);
 }
 
 /** user_data is a struct polyline_create_data, containing an array of

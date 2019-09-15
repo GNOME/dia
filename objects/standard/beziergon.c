@@ -210,10 +210,8 @@ beziergon_move(Beziergon *beziergon, Point *to)
 }
 
 static void
-beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
+beziergon_draw (Beziergon *beziergon, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-
   BezierShape *bez = &beziergon->bezier;
   BezPoint *points;
   int n;
@@ -221,23 +219,25 @@ beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer)
   points = &bez->bezier.points[0];
   n = bez->bezier.num_points;
 
-  renderer_ops->set_linewidth(renderer, beziergon->line_width);
-  renderer_ops->set_linestyle(renderer, beziergon->line_style, beziergon->dashlength);
-  renderer_ops->set_linejoin(renderer, beziergon->line_join);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, beziergon->line_width);
+  dia_renderer_set_linestyle (renderer, beziergon->line_style, beziergon->dashlength);
+  dia_renderer_set_linejoin (renderer, beziergon->line_join);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   if (beziergon->show_background) {
     Color fill = beziergon->inner_color;
     if (beziergon->pattern) {
       dia_pattern_get_fallback_color (beziergon->pattern, &fill);
-      if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
-        renderer_ops->set_pattern (renderer, beziergon->pattern);
+      if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+        dia_renderer_set_pattern (renderer, beziergon->pattern);
+      }
     }
-    renderer_ops->draw_beziergon(renderer, points, n, &fill, &beziergon->line_color);
-    if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
-      renderer_ops->set_pattern (renderer, NULL);
+    dia_renderer_draw_beziergon (renderer, points, n, &fill, &beziergon->line_color);
+    if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+      dia_renderer_set_pattern (renderer, NULL);
+    }
   } else { /* still to be closed */
-    renderer_ops->draw_beziergon(renderer, points, n, NULL, &beziergon->line_color);
+    dia_renderer_draw_beziergon (renderer, points, n, NULL, &beziergon->line_color);
   }
   /* these lines should only be displayed when object is selected.
    * Unfortunately the draw function is not aware of the selected

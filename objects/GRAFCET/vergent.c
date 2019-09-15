@@ -237,34 +237,35 @@ vergent_move(Vergent *vergent, Point *to)
 
 
 static void
-vergent_draw(Vergent *vergent, DiaRenderer *renderer)
+vergent_draw (Vergent *vergent, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Connection *conn = &vergent->connection;
   Point p1,p2;
 
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   switch(vergent->type) {
-  case VERGENT_OR:
-    renderer_ops->set_linewidth(renderer, VERGENT_LINE_WIDTH);
-    renderer_ops->draw_line(renderer,
-			     &conn->endpoints[0],&conn->endpoints[1],
-			     &color_black);
-    break;
-  case VERGENT_AND:
-    renderer_ops->set_linewidth(renderer, 2.0 * VERGENT_LINE_WIDTH);
-    renderer_ops->draw_line(renderer,
-			     &conn->endpoints[0],&conn->endpoints[1],
-			     &color_white);
-    renderer_ops->set_linewidth(renderer, VERGENT_LINE_WIDTH);
-    p1.x = conn->endpoints[0].x;
-    p2.x = conn->endpoints[1].x;
-    p1.y = p2.y = conn->endpoints[0].y - VERGENT_LINE_WIDTH;
-    renderer_ops->draw_line(renderer,&p1,&p2,&color_black);
-    p1.y = p2.y = conn->endpoints[0].y + VERGENT_LINE_WIDTH;
-    renderer_ops->draw_line(renderer,&p1,&p2,&color_black);
-    break;
+    case VERGENT_OR:
+      dia_renderer_set_linewidth (renderer, VERGENT_LINE_WIDTH);
+      dia_renderer_draw_line (renderer,
+                              &conn->endpoints[0],
+                              &conn->endpoints[1],
+                              &color_black);
+      break;
+    case VERGENT_AND:
+      dia_renderer_set_linewidth (renderer, 2.0 * VERGENT_LINE_WIDTH);
+      dia_renderer_draw_line (renderer,
+                              &conn->endpoints[0],
+                              &conn->endpoints[1],
+                              &color_white);
+      dia_renderer_set_linewidth (renderer, VERGENT_LINE_WIDTH);
+      p1.x = conn->endpoints[0].x;
+      p2.x = conn->endpoints[1].x;
+      p1.y = p2.y = conn->endpoints[0].y - VERGENT_LINE_WIDTH;
+      dia_renderer_draw_line (renderer,&p1,&p2,&color_black);
+      p1.y = p2.y = conn->endpoints[0].y + VERGENT_LINE_WIDTH;
+      dia_renderer_draw_line (renderer,&p1,&p2,&color_black);
+      break;
   }
 }
 

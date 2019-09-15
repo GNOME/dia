@@ -79,7 +79,7 @@ struct _DiaPyRenderer
   DiaRenderer parent_instance;
 
   char*     filename;
-  PyObject* self; 
+  PyObject* self;
   PyObject* diagram_data;
   char*     old_locale;
 };
@@ -118,8 +118,8 @@ begin_render(DiaRenderer *renderer, const Rectangle *update)
   if (func && PyCallable_Check(func)) {
     Py_INCREF(self);
     Py_INCREF(func);
-    arg = Py_BuildValue ("(Os)", 
-                         DIA_PY_RENDERER(renderer)->diagram_data, 
+    arg = Py_BuildValue ("(Os)",
+                         DIA_PY_RENDERER(renderer)->diagram_data,
                          DIA_PY_RENDERER(renderer)->filename);
     if (arg) {
       res = PyEval_CallObject (func, arg);
@@ -167,7 +167,7 @@ end_render(DiaRenderer *renderer)
  */
 static void
 set_linewidth(DiaRenderer *renderer, real linewidth)
-{  
+{
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "set_linewidth");
@@ -351,38 +351,6 @@ set_fillstyle(DiaRenderer *renderer, FillStyle mode)
     PyErr_Clear();
 }
 
-/*!
- * \brief Set font for later use
- *
- * Optional on the PyDia side.
- *
- * \memberof _DiaPyRenderer
- */
-static void
-set_font(DiaRenderer *renderer, DiaFont *font, real height)
-{
-  PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
-
-  func = PyObject_GetAttrString (self, "set_font");
-  if (func && PyCallable_Check(func)) {
-    PyObject *ofont = PyDiaFont_New (font);
-
-    Py_INCREF(self);
-    Py_INCREF(func);
-    arg = Py_BuildValue ("(Od)", ofont, height);
-    if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
-    }
-    Py_XDECREF (arg);
-    Py_XDECREF (ofont);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  }
-  else /* member optional */
-    PyErr_Clear();
-}
-
 static gpointer parent_class = NULL;
 
 /*!
@@ -419,7 +387,7 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
   return bRet;
 }
 
-/*! 
+/*!
  * \brief Render all the visible object in the layer
  * @param renderer explicit this pointer
  * @param layer    layer to draw
@@ -471,8 +439,8 @@ draw_layer (DiaRenderer *renderer,
  * Optional on the PyDia side. If not implemented the base class method
  * will be called.
  *
- * Intercepting this method on the Python side allows to create per 
- * object information in the drawing. It is also necessary if the PyDia 
+ * Intercepting this method on the Python side allows to create per
+ * object information in the drawing. It is also necessary if the PyDia
  * renderer should support transformations.
  *
  * If implementing a drawing export filter and overwriting draw_object()
@@ -531,14 +499,14 @@ draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
 /*!
  * \brief Draw line
  *
- * Not optional on the PyDia side. If not implemented a runtime warning 
+ * Not optional on the PyDia side. If not implemented a runtime warning
  * will be generated when called.
  *
  * \memberof _DiaPyRenderer
  */
 static void
-draw_line(DiaRenderer *renderer, 
-          Point *start, Point *end, 
+draw_line(DiaRenderer *renderer,
+          Point *start, Point *end,
           Color *line_colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
@@ -580,8 +548,8 @@ draw_line(DiaRenderer *renderer,
  * \memberof _DiaPyRenderer
  */
 static void
-draw_polyline(DiaRenderer *renderer, 
-	      Point *points, int num_points, 
+draw_polyline(DiaRenderer *renderer,
+	      Point *points, int num_points,
 	      Color *line_colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
@@ -619,8 +587,8 @@ draw_polyline(DiaRenderer *renderer,
  * \memberof _DiaPyRenderer
  */
 static void
-draw_polygon(DiaRenderer *renderer, 
-	     Point *points, int num_points, 
+draw_polygon(DiaRenderer *renderer,
+	     Point *points, int num_points,
 	     Color *fill, Color *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
@@ -658,7 +626,7 @@ draw_polygon(DiaRenderer *renderer,
 }
 
 static void
-draw_rect(DiaRenderer *renderer, 
+draw_rect(DiaRenderer *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *fill, Color *stroke)
 {
@@ -700,7 +668,7 @@ draw_rect(DiaRenderer *renderer,
 }
 
 static void
-draw_rounded_rect(DiaRenderer *renderer, 
+draw_rounded_rect(DiaRenderer *renderer,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *fill, Color *stroke, real rounding)
 {
@@ -743,7 +711,7 @@ draw_rounded_rect(DiaRenderer *renderer,
 }
 
 static void
-draw_arc(DiaRenderer *renderer, 
+draw_arc(DiaRenderer *renderer,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -783,13 +751,13 @@ draw_arc(DiaRenderer *renderer,
 /*!
  * \brief Fill arc
  *
- * Not optional on the PyDia side. If not implemented a runtime warning 
+ * Not optional on the PyDia side. If not implemented a runtime warning
  * will be generated when called.
  *
  * \memberof _DiaPyRenderer
  */
 static void
-fill_arc(DiaRenderer *renderer, 
+fill_arc(DiaRenderer *renderer,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -829,13 +797,13 @@ fill_arc(DiaRenderer *renderer,
 /*!
  * \brief Draw ellipse
  *
- * Not optional on the PyDia side. If not implemented a runtime warning 
+ * Not optional on the PyDia side. If not implemented a runtime warning
  * will be generated when called.
  *
  * \memberof _DiaPyRenderer
  */
 static void
-draw_ellipse(DiaRenderer *renderer, 
+draw_ellipse(DiaRenderer *renderer,
 	     Point *center,
 	     real width, real height,
 	     Color *fill, Color *stroke)
@@ -880,7 +848,7 @@ draw_ellipse(DiaRenderer *renderer,
 }
 
 static void
-draw_bezier(DiaRenderer *renderer, 
+draw_bezier(DiaRenderer *renderer,
 	    BezPoint *points,
 	    int num_points,
 	    Color *colour)
@@ -913,7 +881,7 @@ draw_bezier(DiaRenderer *renderer,
 
 /* kept for backward compatibility, not any longer in the renderer interface */
 static void
-fill_bezier(DiaRenderer *renderer, 
+fill_bezier(DiaRenderer *renderer,
 	    BezPoint *points, /* Last point must be same as first point */
 	    int num_points,
 	    Color *colour)
@@ -998,7 +966,7 @@ draw_beziergon (DiaRenderer *renderer,
 /*!
  * \brief Draw string
  *
- * Not optional on the PyDia side. If not implemented a runtime warning 
+ * Not optional on the PyDia side. If not implemented a runtime warning
  * will be generated when called.
  *
  * \memberof _DiaPyRenderer
@@ -1049,7 +1017,7 @@ draw_string(DiaRenderer *renderer,
 /*!
  * \brief Draw image
  *
- * Not optional on the PyDia side. If not implemented a runtime warning 
+ * Not optional on the PyDia side. If not implemented a runtime warning
  * will be generated when called.
  *
  * \memberof _DiaPyRenderer
@@ -1099,7 +1067,7 @@ PyDia_export_data(DiagramData *data, DiaContext *ctx,
     file = g_fopen(filename, "w"); /* "wb" for binary! */
 
     if (file == NULL) {
-      dia_context_add_message_with_errno(ctx, errno, _("Couldn't open '%s' for writing.\n"), 
+      dia_context_add_message_with_errno(ctx, errno, _("Couldn't open '%s' for writing.\n"),
 				         dia_context_get_filename(ctx));
       return FALSE;
     }
@@ -1127,10 +1095,10 @@ DiaRenderer *
 PyDia_new_renderer_wrapper (PyObject *self)
 {
   DiaPyRenderer *wrapper;
-  
+
   wrapper = g_object_new (DIA_TYPE_PY_RENDERER, NULL);
   wrapper->self = self;
-  
+
   return DIA_RENDERER (wrapper);
 }
 
@@ -1163,7 +1131,7 @@ dia_py_renderer_get_type (void)
                                             "DiaPyRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
@@ -1201,8 +1169,6 @@ dia_py_renderer_class_init (DiaPyRendererClass *klass)
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_fillstyle  = set_fillstyle;
-
-  renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;

@@ -309,63 +309,64 @@ analog_clock_update_data(Analog_Clock *analog_clock)
 }
 
 static void
-analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer)
+analog_clock_draw (Analog_Clock *analog_clock, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-
   g_assert(analog_clock != NULL);
   g_assert(renderer != NULL);
 
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
-  renderer_ops->set_linewidth(renderer, analog_clock->border_line_width);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0);
+  dia_renderer_set_linewidth (renderer, analog_clock->border_line_width);
 
-  renderer_ops->draw_ellipse(renderer,&analog_clock->centre,
-			      2*analog_clock->radius,2*analog_clock->radius,
-			      (analog_clock->show_background) ? &analog_clock->inner_color : NULL,
-			      &analog_clock->border_color);
-  if (analog_clock->show_ticks)
-  {
+  dia_renderer_draw_ellipse (renderer,
+                             &analog_clock->centre,
+                             2*analog_clock->radius,2*analog_clock->radius,
+                             (analog_clock->show_background) ? &analog_clock->inner_color : NULL,
+                             &analog_clock->border_color);
+  if (analog_clock->show_ticks) {
     Point out, in;
     unsigned i;
 
     for (i = 0; i < 12; ++i) {
       real ticklen;
       switch(i) {
-          case 0:
-            ticklen = 3.5 * analog_clock->border_line_width; break;
-          case 3: case 6: case 9:
-            ticklen = 3 * analog_clock->border_line_width; break;
-          default:
-            ticklen = 2 * analog_clock->border_line_width; break;
+        case 0:
+          ticklen = 3.5 * analog_clock->border_line_width; break;
+        case 3: case 6: case 9:
+          ticklen = 3 * analog_clock->border_line_width; break;
+        default:
+          ticklen = 2 * analog_clock->border_line_width; break;
       }
-      make_hours(&analog_clock->centre, i, 0,
-                 analog_clock->radius, &out);
-      make_hours(&analog_clock->centre, i, 0,
-                 analog_clock->radius-ticklen, &in);
-      renderer_ops->draw_line(renderer,&out,&in,&analog_clock->border_color);
+      make_hours (&analog_clock->centre, i, 0,
+                  analog_clock->radius, &out);
+      make_hours (&analog_clock->centre, i, 0,
+                  analog_clock->radius-ticklen, &in);
+      dia_renderer_draw_line (renderer, &out, &in, &analog_clock->border_color);
     }
   }
 
-  analog_clock_update_arrow_tips(analog_clock);
+  analog_clock_update_arrow_tips (analog_clock);
 
-  renderer_ops->set_linewidth(renderer, analog_clock->arrow_line_width);
-  renderer_ops->draw_line(renderer,
-                           &analog_clock->hour_tip.pos, &analog_clock->centre,
-                           &analog_clock->arrow_color);
-  renderer_ops->draw_line(renderer,
-                           &analog_clock->min_tip.pos, &analog_clock->centre,
-                           &analog_clock->arrow_color);
+  dia_renderer_set_linewidth (renderer, analog_clock->arrow_line_width);
+  dia_renderer_draw_line (renderer,
+                          &analog_clock->hour_tip.pos,
+                          &analog_clock->centre,
+                          &analog_clock->arrow_color);
+  dia_renderer_draw_line (renderer,
+                          &analog_clock->min_tip.pos,
+                          &analog_clock->centre,
+                          &analog_clock->arrow_color);
 
-  renderer_ops->set_linewidth(renderer, analog_clock->sec_arrow_line_width);
-  renderer_ops->draw_line(renderer,
-                           &analog_clock->sec_tip.pos, &analog_clock->centre,
-                           &analog_clock->sec_arrow_color);
-  renderer_ops->draw_ellipse (renderer,&analog_clock->centre,
-                              analog_clock->arrow_line_width*2.25,
-                              analog_clock->arrow_line_width*2.25,
-                              &analog_clock->sec_arrow_color, NULL);
-
+  dia_renderer_set_linewidth (renderer, analog_clock->sec_arrow_line_width);
+  dia_renderer_draw_line (renderer,
+                          &analog_clock->sec_tip.pos,
+                          &analog_clock->centre,
+                          &analog_clock->sec_arrow_color);
+  dia_renderer_draw_ellipse (renderer,
+                             &analog_clock->centre,
+                             analog_clock->arrow_line_width*2.25,
+                             analog_clock->arrow_line_width*2.25,
+                             &analog_clock->sec_arrow_color, NULL);
 }
 
 

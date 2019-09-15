@@ -324,7 +324,6 @@ diamond_move(Diamond *diamond, Point *to)
 static void
 diamond_draw(Diamond *diamond, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[4];
   Element *elem;
 
@@ -341,19 +340,21 @@ diamond_draw(Diamond *diamond, DiaRenderer *renderer)
   pts[2].y += elem->height;
   pts[3].y += elem->height / 2.0;
 
-  if (diamond->show_background)
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  if (diamond->show_background) {
+    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  }
 
-  renderer_ops->set_linewidth(renderer, diamond->border_width);
-  renderer_ops->set_linestyle(renderer, diamond->line_style, diamond->dashlength);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  dia_renderer_set_linewidth (renderer, diamond->border_width);
+  dia_renderer_set_linestyle (renderer, diamond->line_style, diamond->dashlength);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_polygon (renderer,
-			      pts, 4,
-			      (diamond->show_background) ? &diamond->inner_color : NULL,
-			      &diamond->border_color);
+  dia_renderer_draw_polygon (renderer,
+                             pts,
+                             4,
+                             (diamond->show_background) ? &diamond->inner_color : NULL,
+                             &diamond->border_color);
 
-  text_draw(diamond->text, renderer);
+  text_draw (diamond->text, renderer);
 }
 
 static void

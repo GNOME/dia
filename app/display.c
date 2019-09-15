@@ -463,7 +463,7 @@ ddisplay_obj_render (DiaObject   *obj,
     irenderer->draw_object_highlighted (DIA_INTERACTIVE_RENDERER (renderer), obj, hltype);
   } else  {
     /* maybe the renderer does not support highlighting */
-    DIA_RENDERER_GET_CLASS (renderer)->draw_object (renderer, obj, NULL);
+    dia_renderer_draw_object (renderer, obj, NULL);
   }
 
   if (ddisp->show_cx_pts &&
@@ -492,8 +492,7 @@ ddisplay_render_pixmap (DDisplay  *ddisp,
   renderer = DIA_INTERACTIVE_RENDERER_GET_IFACE (ddisp->renderer);
 
   /* Erase background */
-  g_return_if_fail (renderer->fill_pixel_rect != NULL);
-  DIA_RENDERER_GET_CLASS (ddisp->renderer)->begin_render (ddisp->renderer, update);
+  dia_renderer_begin_render (ddisp->renderer, update);
   if (update) {
     int x0, y0, x1, y1;
 
@@ -535,7 +534,7 @@ ddisplay_render_pixmap (DDisplay  *ddisp,
     }
     list = g_list_next(list);
   }
-  DIA_RENDERER_GET_CLASS (ddisp->renderer)->end_render (ddisp->renderer);
+  dia_renderer_end_render (ddisp->renderer);
 }
 
 void

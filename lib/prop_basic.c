@@ -29,6 +29,7 @@
 
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
+
 #include "properties.h"
 #include "prop_basic.h"
 #include "propinternals.h"

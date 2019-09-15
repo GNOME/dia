@@ -46,7 +46,7 @@ typedef struct _WanLink {
 
     Color line_color;
     Color fill_color;
-    
+
     real width;
     Point poly[WANLINK_POLY_LEN];
 } WanLink;
@@ -64,7 +64,7 @@ static DiaObject *wanlink_copy(WanLink *wanlink);
 static ObjectChange* wanlink_move(WanLink *wanlink, Point *to);
 static ObjectChange* wanlink_move_handle(WanLink *wanlink, Handle *handle,
 					 Point *to, ConnectionPoint *cp,
-					 HandleMoveReason reason, 
+					 HandleMoveReason reason,
 			      ModifierKeys modifiers);
 
 static PropDescription *wanlink_describe_props(WanLink *wanlink);
@@ -180,9 +180,9 @@ wanlink_create(Point *startpoint,
   conn->endpoints[0] = *startpoint;
   conn->endpoints[1] = *startpoint;
   point_add(&conn->endpoints[1], &defaultlen);
- 
+
   obj = (DiaObject *) wanlink;
-  
+
   obj->type = &wanlink_type;
   obj->ops = &wanlink_ops;
 
@@ -190,7 +190,7 @@ wanlink_create(Point *startpoint,
 
   for (i = 0; i < WANLINK_POLY_LEN ; i++)
       wanlink->poly[i] = defaultpoly;
-  
+
   wanlink->width = FLASH_WIDTH;
   /* both colors where black at the time this was hardcoded ... */
   wanlink->line_color = color_black;
@@ -198,7 +198,7 @@ wanlink_create(Point *startpoint,
 
   wanlink->line_color = attributes_get_foreground();
   wanlink->fill_color = attributes_get_foreground();
-  
+
   wanlink_update_data(wanlink);
 
   *handle1 = obj->handles[0];
@@ -215,20 +215,21 @@ wanlink_destroy(WanLink *wanlink)
 }
 
 
-static void 
+static void
 wanlink_draw (WanLink *wanlink, DiaRenderer *renderer)
 {
-    DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
+  assert (wanlink != NULL);
+  assert (renderer != NULL);
 
-    assert (wanlink != NULL);
-    assert (renderer != NULL);
+  dia_renderer_set_linewidth (renderer, FLASH_LINE);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
-    renderer_ops->set_linewidth(renderer, FLASH_LINE);
-    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-
-    renderer_ops->draw_polygon (renderer, wanlink->poly,  WANLINK_POLY_LEN,
-				&wanlink->fill_color, &wanlink->line_color);
+  dia_renderer_draw_polygon (renderer,
+                             wanlink->poly,
+                             WANLINK_POLY_LEN,
+                             &wanlink->fill_color,
+                             &wanlink->line_color);
 }
 
 static real
@@ -249,12 +250,12 @@ wanlink_copy(WanLink *wanlink)
 {
   WanLink *newwanlink;
   Connection *conn, *newconn;
-  
+
   conn = &wanlink->connection;
-  
+
   newwanlink = g_malloc0(sizeof(WanLink));
   newconn = &newwanlink->connection;
-  
+
   connection_copy(conn, newconn);
 
   newwanlink->width = wanlink->width;
@@ -268,10 +269,10 @@ static ObjectChange*
 wanlink_move(WanLink *wanlink, Point *to)
 {
   Point delta;
-  Point *endpoints = &wanlink->connection.endpoints[0]; 
+  Point *endpoints = &wanlink->connection.endpoints[0];
   DiaObject *obj = (DiaObject *) wanlink;
   int i;
-    
+
   delta = *to;
   point_sub(&delta, &obj->position);
 
@@ -303,12 +304,12 @@ wanlink_save(WanLink *wanlink, ObjectNode obj_node,
 	     DiaContext *ctx)
 {
     AttributeNode attr;
-  
+
     connection_save((Connection *)wanlink, obj_node, ctx);
-    
+
     attr = new_attribute(obj_node, "width");
     data_add_real(attr, wanlink->width, ctx);
-    
+
     data_add_color( new_attribute(obj_node, "line_color"), &wanlink->line_color, ctx);
     data_add_color( new_attribute(obj_node, "fill_color"), &wanlink->fill_color, ctx);
 }
@@ -321,18 +322,18 @@ wanlink_load(ObjectNode obj_node, int version,DiaContext *ctx)
     DiaObject *obj;
     AttributeNode attr;
     DataNode data;
-    
+
     wanlink = g_malloc0(sizeof(WanLink));
 
     conn = &wanlink->connection;
     obj = (DiaObject *) wanlink;
-    
+
     obj->type = &wanlink_type;
     obj->ops = &wanlink_ops;
 
     connection_load(conn, obj_node, ctx);
     connection_init(conn, 2, 0);
-    
+
     attr = object_find_attribute(obj_node, "width");
     if (attr != NULL) {
 	data = attribute_first_data(attr);
@@ -350,7 +351,7 @@ wanlink_load(ObjectNode obj_node, int version,DiaContext *ctx)
       data_color(attribute_first_data(attr), &wanlink->fill_color, ctx);
 
     wanlink_update_data (wanlink);
-    
+
     return obj;
 }
 
@@ -430,16 +431,16 @@ wanlink_update_data(WanLink *wanlink)
   Point origin;
   int i;
   Matrix m;
-  
+
 
   width = wanlink->width;
   width_2 = width / 2.0;
-  
+
   if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
     connection_adjust_for_autogap(conn);
   }
-  endpoints = &conn->endpoints[0]; 
+  endpoints = &conn->endpoints[0];
   obj->position = endpoints[0];
 
   v = endpoints[1];
@@ -471,7 +472,7 @@ wanlink_update_data(WanLink *wanlink)
   wanlink->poly[4].y = (len * 0.55);
   wanlink->poly[5].x = (width * 0.06) - width_2;
   wanlink->poly[5].y = (len * 0.55);
-  
+
   /* rotate */
   _identity_matrix (m);
   _rotate_matrix (m, angle);
@@ -480,11 +481,11 @@ wanlink_update_data(WanLink *wanlink)
   obj->bounding_box.left = origin.x;
   obj->bounding_box.bottom = conn->endpoints[1].y;
   obj->bounding_box.right = conn->endpoints[1].x;
-  for (i = 0; i <  WANLINK_POLY_LEN; i++) 
+  for (i = 0; i <  WANLINK_POLY_LEN; i++)
   {
       Point new_pt;
-      
-      _transform_point (m, &wanlink->poly[i], 
+
+      _transform_point (m, &wanlink->poly[i],
 		        &new_pt);
       point_add (&new_pt, &origin);
       wanlink->poly[i] = new_pt;

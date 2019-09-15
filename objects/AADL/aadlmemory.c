@@ -25,9 +25,9 @@
  **               AADL MEMORY             **
  ***********************************************/
 
-static void aadlmemory_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadlmemory_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   BezPoint bez[5];
@@ -70,11 +70,15 @@ static void aadlmemory_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
 
   point_copy(&bez[4].p1, &bez[0].p1);
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, AADLBOX_BORDERWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
-  renderer_ops->draw_beziergon(renderer, bez, 5, &aadlbox->fill_color, &aadlbox->line_color);
+  dia_renderer_draw_beziergon (renderer,
+                               bez,
+                               5,
+                               &aadlbox->fill_color,
+                               &aadlbox->line_color);
 
   bez[1].p1.x = x;
   bez[1].p1.y = y + 2*h*AADL_MEMORY_FACTOR;
@@ -83,7 +87,7 @@ static void aadlmemory_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   bez[1].p3.x = x + w;
   bez[1].p3.y = y + h*AADL_MEMORY_FACTOR;
 
-  renderer_ops->draw_bezier(renderer, bez, 3, &aadlbox->line_color);
+  dia_renderer_draw_bezier (renderer, bez, 3, &aadlbox->line_color);
 
 }
 
@@ -96,10 +100,11 @@ static Aadlbox_specific aadlmemory_specific =
 
 
 
-static void aadlmemory_draw(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadlmemory_draw (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  aadlmemory_draw_borders(aadlbox, renderer);
-  aadlbox_draw(aadlbox, renderer);
+  aadlmemory_draw_borders (aadlbox, renderer);
+  aadlbox_draw (aadlbox, renderer);
 }
 
 ObjectTypeOps aadlmemory_type_ops;
@@ -145,7 +150,7 @@ static DiaObject *aadlmemory_create(Point *startpoint, void *user_data, Handle *
 
   obj->type = &aadlmemory_type;
   obj->ops  = &aadlmemory_ops;
-      
+
   return obj;
 }
 
@@ -155,7 +160,7 @@ aadlmemory_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
-  
+
   obj = aadlmemory_create(&startpoint,&aadlmemory_specific, &handle1,&handle2);
   aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
   return obj;

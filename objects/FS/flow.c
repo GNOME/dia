@@ -304,9 +304,8 @@ flow_move(Flow *flow, Point *to)
 }
 
 static void
-flow_draw(Flow *flow, DiaRenderer *renderer)
+flow_draw (Flow *flow, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints, p1, p2;
   Arrow arrow;
   int n1 = 1, n2 = 0;
@@ -321,35 +320,37 @@ flow_draw(Flow *flow, DiaRenderer *renderer)
 
   endpoints = &flow->connection.endpoints[0];
 
-  renderer_ops->set_linewidth(renderer, FLOW_WIDTH);
+  dia_renderer_set_linewidth (renderer, FLOW_WIDTH);
 
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   switch (flow->type) {
-  case FLOW_SIGNAL:
-    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, FLOW_DASHLEN);
-    render_color = &flow_color_signal ;
-    break ;
-  case FLOW_MATERIAL:
-    renderer_ops->set_linewidth(renderer, FLOW_MATERIAL_WIDTH ) ;
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-    render_color = &flow_color_material ;
-    break ;
-  case FLOW_ENERGY:
-    render_color = &flow_color_energy ;
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+    case FLOW_SIGNAL:
+      dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, FLOW_DASHLEN);
+      render_color = &flow_color_signal ;
+      break ;
+    case FLOW_MATERIAL:
+      dia_renderer_set_linewidth (renderer, FLOW_MATERIAL_WIDTH);
+      dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+      render_color = &flow_color_material;
+      break ;
+    case FLOW_ENERGY:
+      render_color = &flow_color_energy;
+      dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
   }
 
   p1 = endpoints[n1];
   p2 = endpoints[n2];
 
-  renderer_ops->draw_line_with_arrows(renderer,
-				       &p1, &p2,
-				       FLOW_WIDTH,
-				       render_color,
-				       &arrow, NULL);
+  dia_renderer_draw_line_with_arrows (renderer,
+                                      &p1,
+                                      &p2,
+                                      FLOW_WIDTH,
+                                      render_color,
+                                      &arrow,
+                                      NULL);
 
-  text_draw(flow->text, renderer);
+  text_draw (flow->text, renderer);
 }
 
 static DiaObject *

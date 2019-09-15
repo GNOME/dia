@@ -223,9 +223,9 @@ node_move(Node *node, Point *to)
   return NULL;
 }
 
-static void node_draw(Node *node, DiaRenderer *renderer)
+static void
+node_draw (Node *node, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point points[7];
@@ -241,9 +241,9 @@ static void node_draw(Node *node, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, node->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, node->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   /* Draw outer box */
   points[0].x = x;                  points[0].y = y;
@@ -254,34 +254,33 @@ static void node_draw(Node *node, DiaRenderer *renderer)
   points[5].x = x;                  points[5].y = y + h;
   points[6].x = x;                  points[6].y = y;
 
-  renderer_ops->draw_polygon(renderer, points, 7, &node->fill_color, &node->line_color);
+  dia_renderer_draw_polygon (renderer, points, 7, &node->fill_color, &node->line_color);
 
   /* Draw interior lines */
   points[0].x = x;                  points[0].y = y;
   points[1].x = x + w;              points[1].y = y;
-  renderer_ops->draw_line(renderer, &points[0], &points[1], &node->line_color);
+  dia_renderer_draw_line (renderer, &points[0], &points[1], &node->line_color);
 
   points[0].x = x + w;              points[0].y = y;
   points[1].x = x + w + NODE_DEPTH; points[1].y = y - NODE_DEPTH;
-  renderer_ops->draw_line(renderer, &points[0], &points[1], &node->line_color);
+  dia_renderer_draw_line (renderer, &points[0], &points[1], &node->line_color);
 
   points[0].x = x + w;              points[0].y = y;
   points[1].x = x + w;              points[1].y = y + h;
-  renderer_ops->draw_line(renderer, &points[0], &points[1], &node->line_color);
+  dia_renderer_draw_line (renderer, &points[0], &points[1], &node->line_color);
 
   /* Draw text */
-  text_draw(node->name, renderer);
+  text_draw (node->name, renderer);
 
   /* Draw underlines (!) */
-  renderer_ops->set_linewidth(renderer, NODE_LINEWIDTH);
+  dia_renderer_set_linewidth (renderer, NODE_LINEWIDTH);
   points[0].x = node->name->position.x;
   points[0].y = points[1].y = node->name->position.y + node->name->descent;
-  for (i = 0; i < node->name->numlines; i++)
-    {
-      points[1].x = points[0].x + text_get_line_width(node->name, i);
-      renderer_ops->draw_line(renderer, points, points + 1, &node->name->color);
-      points[0].y = points[1].y += node->name->height;
-    }
+  for (i = 0; i < node->name->numlines; i++) {
+    points[1].x = points[0].x + text_get_line_width (node->name, i);
+    dia_renderer_draw_line (renderer, points, points + 1, &node->name->color);
+    points[0].y = points[1].y += node->name->height;
+  }
 }
 
 static void

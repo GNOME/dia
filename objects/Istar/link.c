@@ -451,9 +451,8 @@ compute_line(Point* p1, Point* p2, Point *pm, BezPoint* line) {
 
 /* drawing here -- TBD inverse flow ??  */
 static void
-link_draw(Link *link, DiaRenderer *renderer)
+link_draw (Link *link, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints, p1, p2, pa;
   Arrow arrow;
   gchar *annot;
@@ -503,21 +502,28 @@ link_draw(Link *link, DiaRenderer *renderer)
   }
 
   /** drawing line **/
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linewidth(renderer, w);
-  renderer_ops->draw_bezier_with_arrows(renderer, link->line, 3, w, &LINK_FG_COLOR, NULL, &arrow);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linewidth (renderer, w);
+  dia_renderer_draw_bezier_with_arrows (renderer,
+                                        link->line,
+                                        3,
+                                        w,
+                                        &LINK_FG_COLOR,
+                                        NULL,
+                                        &arrow);
 
   /** drawing decoration **/
-  renderer_ops->set_font(renderer, link_font, LINK_FONTHEIGHT);
-  if ((annot!=NULL)&& strlen(annot) != 0)
-    renderer_ops->draw_string(renderer, annot, &pa, ALIGN_CENTER, &color_black);
+  dia_renderer_set_font (renderer, link_font, LINK_FONTHEIGHT);
+  if ((annot != NULL) && strlen (annot) != 0) {
+    dia_renderer_draw_string (renderer, annot, &pa, ALIGN_CENTER, &color_black);
+  }
   if (annot!=NULL) g_free(annot);
 
   /** special stuff for dependency **/
-  if (link->type==DEPENDENCY) {
-    compute_dependency(link->line,bpl);
-    renderer_ops->draw_bezier(renderer, bpl, 4, &LINK_FG_COLOR);
+  if (link->type == DEPENDENCY) {
+    compute_dependency (link->line,bpl);
+    dia_renderer_draw_bezier (renderer, bpl, 4, &LINK_FG_COLOR);
   }
 }
 

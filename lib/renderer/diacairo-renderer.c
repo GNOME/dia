@@ -57,6 +57,14 @@
 
 G_DEFINE_TYPE (DiaCairoRenderer, dia_cairo_renderer, DIA_TYPE_RENDERER)
 
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+
 static void ensure_minimum_one_device_unit (DiaCairoRenderer *renderer,
                                             real             *value);
 
@@ -561,15 +569,12 @@ dia_cairo_renderer_set_font (DiaRenderer *self, DiaFont *font, real height)
   pango_layout_set_font_description (renderer->layout, pfd);
   pango_font_description_free (pfd);
 
-  /* for the interactive case we must maintain the font field in the base class */
-  if (DIA_IS_INTERACTIVE_RENDERER (self)) {
-    dia_font_ref (font);
-    if (self->font) {
-      dia_font_unref (self->font);
-    }
-    self->font = font;
-    self->font_height = height;
+  dia_font_ref (font);
+  if (renderer->font) {
+    dia_font_unref (renderer->font);
   }
+  renderer->font = font;
+  renderer->font_height = height;
 }
 
 static void
@@ -1201,6 +1206,52 @@ dia_cairo_renderer_init (DiaCairoRenderer *renderer)
 }
 
 static void
+dia_cairo_renderer_set_property (GObject      *object,
+                                 guint         property_id,
+                                 const GValue *value,
+                                 GParamSpec   *pspec)
+{
+  DiaCairoRenderer *self = DIA_CAIRO_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      dia_cairo_renderer_set_font (DIA_RENDERER (self),
+                                   g_value_get_object (value),
+                                   self->font_height);
+      break;
+    case PROP_FONT_HEIGHT:
+      dia_cairo_renderer_set_font (DIA_RENDERER (self),
+                                   self->font,
+                                   g_value_get_double (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dia_cairo_renderer_get_property (GObject    *object,
+                                 guint       property_id,
+                                 GValue     *value,
+                                 GParamSpec *pspec)
+{
+  DiaCairoRenderer *self = DIA_CAIRO_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, self->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, self->font_height);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
 cairo_renderer_finalize (GObject *object)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
@@ -1213,6 +1264,8 @@ cairo_renderer_finalize (GObject *object)
     g_object_unref (renderer->layout);
   }
 
+  g_clear_object (&renderer->font);
+
   G_OBJECT_CLASS (dia_cairo_renderer_parent_class)->finalize (object);
 }
 
@@ -1222,6 +1275,8 @@ dia_cairo_renderer_class_init (DiaCairoRendererClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
+  object_class->set_property = dia_cairo_renderer_set_property;
+  object_class->get_property = dia_cairo_renderer_get_property;
   object_class->finalize = cairo_renderer_finalize;
 
   /* renderer members */
@@ -1234,8 +1289,6 @@ dia_cairo_renderer_class_init (DiaCairoRendererClass *klass)
   renderer_class->set_linejoin   = dia_cairo_renderer_set_linejoin;
   renderer_class->set_linestyle  = dia_cairo_renderer_set_linestyle;
   renderer_class->set_fillstyle  = dia_cairo_renderer_set_fillstyle;
-
-  renderer_class->set_font = dia_cairo_renderer_set_font;
 
   renderer_class->draw_line    = dia_cairo_renderer_draw_line;
   renderer_class->draw_polygon = dia_cairo_renderer_draw_polygon;
@@ -1261,4 +1314,7 @@ dia_cairo_renderer_class_init (DiaCairoRendererClass *klass)
   /* other */
   renderer_class->is_capable_to = dia_cairo_renderer_is_capable_to;
   renderer_class->set_pattern   = dia_cairo_renderer_set_pattern;
+
+  g_object_class_override_property (object_class, PROP_FONT, "font");
+  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }

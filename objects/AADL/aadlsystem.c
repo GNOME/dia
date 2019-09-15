@@ -26,10 +26,11 @@
  **                 AADL SYSTEM               **
  ***********************************************/
 
-void aadlbox_draw_rounded_box (Aadlbox *aadlbox, DiaRenderer *renderer,
-			       LineStyle linestyle)
+void
+aadlbox_draw_rounded_box (Aadlbox     *aadlbox,
+                          DiaRenderer *renderer,
+                          LineStyle    linestyle)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   BezPoint bez[9];
@@ -85,18 +86,23 @@ void aadlbox_draw_rounded_box (Aadlbox *aadlbox, DiaRenderer *renderer,
   bez[8].p1.y = bez[8].p2.y = bez[8].p3.y = y;
   bez[8].p3.x = x + w * AADL_ROUNDEDBOX_CORNER_SIZE_FACTOR;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, AADLBOX_BORDERWIDTH);
-  renderer_ops->set_linestyle(renderer, linestyle, AADLBOX_DASH_LENGTH);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
+  dia_renderer_set_linestyle (renderer, linestyle, AADLBOX_DASH_LENGTH);
 
-  renderer_ops->draw_beziergon(renderer, bez, 9, &aadlbox->fill_color, &aadlbox->line_color);
+  dia_renderer_draw_beziergon (renderer,
+                               bez,
+                               9,
+                               &aadlbox->fill_color,
+                               &aadlbox->line_color);
 }
 
 
 
-static void aadlsystem_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadlsystem_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  aadlbox_draw_rounded_box(aadlbox, renderer, LINESTYLE_SOLID);
+  aadlbox_draw_rounded_box (aadlbox, renderer, LINESTYLE_SOLID);
 }
 
 static Aadlbox_specific aadlsystem_specific =
@@ -156,7 +162,7 @@ static DiaObject *aadlsystem_create(Point *startpoint, void *user_data, Handle *
 
   obj->type = &aadlsystem_type;
   obj->ops  = &aadlsystem_ops;
-      
+
   return obj;
 }
 
@@ -166,7 +172,7 @@ aadlsystem_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
-  
+
   obj = aadlsystem_create(&startpoint,&aadlsystem_specific, &handle1,&handle2);
   aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
   return obj;

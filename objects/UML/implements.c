@@ -257,9 +257,8 @@ implements_move(Implements *implements, Point *to)
 }
 
 static void
-implements_draw(Implements *implements, DiaRenderer *renderer)
+implements_draw (Implements *implements, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
 
   assert(implements != NULL);
@@ -267,25 +266,30 @@ implements_draw(Implements *implements, DiaRenderer *renderer)
 
   endpoints = &implements->connection.endpoints[0];
 
-  renderer_ops->set_linewidth(renderer, implements->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, implements->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
-  renderer_ops->draw_line(renderer,
-			   &endpoints[0], &endpoints[1],
-			   &implements->line_color);
-  renderer_ops->draw_ellipse(renderer, &implements->circle_center,
-			      implements->circle_diameter,
-			      implements->circle_diameter,
-			      &color_white, &implements->line_color);
+  dia_renderer_draw_line (renderer,
+                          &endpoints[0],
+                          &endpoints[1],
+                          &implements->line_color);
+  dia_renderer_draw_ellipse (renderer,
+                             &implements->circle_center,
+                             implements->circle_diameter,
+                             implements->circle_diameter,
+                             &color_white,
+                             &implements->line_color);
 
 
-  renderer_ops->set_font(renderer, implements->font, implements->font_height);
-  if (implements->text)
-    renderer_ops->draw_string(renderer,
-			       implements->text,
-			       &implements->text_pos, ALIGN_LEFT,
-			       &implements->text_color);
+  dia_renderer_set_font (renderer, implements->font, implements->font_height);
+  if (implements->text) {
+    dia_renderer_draw_string (renderer,
+                              implements->text,
+                              &implements->text_pos,
+                              ALIGN_LEFT,
+                              &implements->text_color);
+  }
 }
 
 static DiaObject *

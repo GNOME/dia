@@ -63,13 +63,13 @@ typedef struct _font_lookup_entry {
         /* Dia's name for the font. */
 
     char            *mp_name;
-        /* Second argument for the \usefont command in the embedded TeX 
+        /* Second argument for the \usefont command in the embedded TeX
          * we'll pass to MetaPost. */
 
     real            size_mult;
         /* Converts from a Dia font size to a MetaPost font "scaling factor".
          * If x is the size of your Dia font, then the size of your MetaPost
-         * font will be (x * size_mult) / (10 pts), and you'll have to use 
+         * font will be (x * size_mult) / (10 pts), and you'll have to use
          * (x * size_mult) as the "scale" argument to the label() command. */
 
 } _font_lookup_entry;
@@ -86,7 +86,7 @@ typedef struct _font_lookup_entry {
 /* TODO: Make the fonts in this table map more closely. */
 static _font_lookup_entry FONT_LOOKUP_TABLE[] =
 {
-    /* Since Dia doesn't usually have a "computer modern" font, we map Century 
+    /* Since Dia doesn't usually have a "computer modern" font, we map Century
      * Schoolbook to that font. */
     {"century schoolbook l", DEFAULT_MP_FONT, DEFAULT_SIZE_MULT},
 
@@ -107,16 +107,16 @@ static _font_lookup_entry FONT_LOOKUP_TABLE[] =
 /* An entry in the font weight lookup table. */
 typedef struct _weight_lookup_entry {
     DiaFontStyle    weight;
-        /* Mask your style with DIA_FONT_STYLE_GET_WEIGHT() and compare 
+        /* Mask your style with DIA_FONT_STYLE_GET_WEIGHT() and compare
          * to this... */
 
     char            *mp_weight;
-        /* Third argument for the \usefont command in the embedded TeX 
+        /* Third argument for the \usefont command in the embedded TeX
          * we'll pass to MetaPost. */
 } _weight_lookup_entry;
 
 #define STYLE_TERMINATOR ((DiaFontStyle)0xffffffff)
-static _weight_lookup_entry WEIGHT_LOOKUP_TABLE[] = 
+static _weight_lookup_entry WEIGHT_LOOKUP_TABLE[] =
 {
     {DIA_FONT_ULTRALIGHT,       "m"},
     {DIA_FONT_LIGHT,            "m"},
@@ -136,7 +136,7 @@ typedef struct _slant_lookup_entry {
     char            *mp_slant;
 } _slant_lookup_entry;
 
-static _slant_lookup_entry SLANT_LOOKUP_TABLE[] = 
+static _slant_lookup_entry SLANT_LOOKUP_TABLE[] =
 {
     {DIA_FONT_NORMAL,   "n"},
     {DIA_FONT_OBLIQUE,  "sl"},
@@ -145,6 +145,12 @@ static _slant_lookup_entry SLANT_LOOKUP_TABLE[] =
         /* Terminator */
 };
 
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
 
 
 static void end_draw_op(MetapostRenderer *renderer);
@@ -165,7 +171,7 @@ end_draw_op(MetapostRenderer *renderer)
             g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f", (gdouble) renderer->line_width) );
 
     if (!color_equals(&renderer->color, &color_black))
-        fprintf(renderer->file, "\n    withcolor (%s, %s, %s)", 
+        fprintf(renderer->file, "\n    withcolor (%s, %s, %s)",
                 g_ascii_formatd(d1_buf, sizeof(d1_buf), "%5.4f", (gdouble) renderer->color.red),
                 g_ascii_formatd(d2_buf, sizeof(d2_buf), "%5.4f", (gdouble) renderer->color.green),
                 g_ascii_formatd(d3_buf, sizeof(d3_buf), "%5.4f", (gdouble) renderer->color.blue) );
@@ -174,15 +180,15 @@ end_draw_op(MetapostRenderer *renderer)
     fprintf(renderer->file, ";\n");
 }
 
-static void 
+static void
 set_line_color(MetapostRenderer *renderer,Color *color)
 {
     gchar red_buf[DTOSTR_BUF_SIZE];
     gchar green_buf[DTOSTR_BUF_SIZE];
     gchar blue_buf[DTOSTR_BUF_SIZE];
-    
+
     renderer->color = *color;
-    fprintf(renderer->file, "%% set_line_color %s, %s, %s\n", 
+    fprintf(renderer->file, "%% set_line_color %s, %s, %s\n",
             mp_dtostr(red_buf, (gdouble)color->red),
 	    mp_dtostr(green_buf, (gdouble)color->green),
 	    mp_dtostr(blue_buf, (gdouble)color->blue) );
@@ -197,7 +203,7 @@ static void
 end_render(DiaRenderer *self)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
-  
+
     fprintf(renderer->file,"endfig;\n");
     fprintf(renderer->file,"end;\n");
     fclose(renderer->file);
@@ -216,7 +222,7 @@ end_render(DiaRenderer *self)
  *
  * \memberof _MetapostRenderer
  */
-static gboolean 
+static gboolean
 is_capable_to (DiaRenderer *renderer, RenderCapability cap)
 {
   if (RENDER_HOLES == cap)
@@ -248,7 +254,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
 
     if(mode == renderer->saved_line_cap)
 	return;
-  
+
     switch(mode) {
     case LINECAPS_DEFAULT:
     case LINECAPS_BUTT:
@@ -294,7 +300,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
     renderer->saved_line_join = mode;
 }
 
-static void 
+static void
 set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
@@ -321,7 +327,7 @@ draw_with_linestyle(MetapostRenderer *renderer)
 	break;
     case LINESTYLE_DASHED:
 	mp_dtostr(dash_length_buf, renderer->dash_length);
-	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx)", 
+	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx)",
 		dash_length_buf, dash_length_buf);
 	break;
     case LINESTYLE_DASH_DOT:
@@ -330,7 +336,7 @@ draw_with_linestyle(MetapostRenderer *renderer)
 	mp_dtostr(dash_length_buf, renderer->dash_length);
 	mp_dtostr(dot_lenght_buf, renderer->dot_length);
 	mp_dtostr(hole_width_buf, hole_width);
-	
+
 	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx on %sx off %sx)",
 		dash_length_buf, hole_width_buf,
 		dot_lenght_buf, hole_width_buf);
@@ -352,7 +358,7 @@ draw_with_linestyle(MetapostRenderer *renderer)
 	mp_dtostr(dot_lenght_buf, renderer->dot_length);
 	mp_dtostr(hole_width_buf, hole_width);
 
-	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx)", 
+	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx)",
 		dot_lenght_buf, hole_width_buf);
 	break;
     }
@@ -389,8 +395,8 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
         dia_font_name = "sans";
     } else if (DIA_FONT_STYLE_GET_FAMILY(dia_font_style) == DIA_FONT_SERIF) {
         dia_font_name = "serif";
-    } else if (DIA_FONT_STYLE_GET_FAMILY(dia_font_style) 
-            == DIA_FONT_MONOSPACE) 
+    } else if (DIA_FONT_STYLE_GET_FAMILY(dia_font_style)
+            == DIA_FONT_MONOSPACE)
     {
         dia_font_name = "monospace";
     }
@@ -405,7 +411,7 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
      * table. */
     for (i = 0; FONT_LOOKUP_TABLE[i].dia_name != NULL; i++) {
         if (0 == strncmp(FONT_LOOKUP_TABLE[i].dia_name, dia_font_name,
-                            MAX_FONT_NAME_LEN)) 
+                            MAX_FONT_NAME_LEN))
         {
             /* Found a match. */
             renderer->mp_font = FONT_LOOKUP_TABLE[i].mp_name;
@@ -417,13 +423,13 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 
     /* Do the same for the weight and size. */
     for (i = 0; WEIGHT_LOOKUP_TABLE[i].weight != STYLE_TERMINATOR; i++) {
-        if (DIA_FONT_STYLE_GET_WEIGHT(dia_font_style) 
+        if (DIA_FONT_STYLE_GET_WEIGHT(dia_font_style)
                 == WEIGHT_LOOKUP_TABLE[i].weight) {
             renderer->mp_weight = WEIGHT_LOOKUP_TABLE[i].mp_weight;
         }
     }
     for (i = 0; SLANT_LOOKUP_TABLE[i].slant != STYLE_TERMINATOR; i++) {
-        if (DIA_FONT_STYLE_GET_SLANT(dia_font_style) 
+        if (DIA_FONT_STYLE_GET_SLANT(dia_font_style)
                 == SLANT_LOOKUP_TABLE[i].slant) {
             renderer->mp_slant = SLANT_LOOKUP_TABLE[i].mp_slant;
         }
@@ -435,8 +441,8 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 }
 
 static void
-draw_line(DiaRenderer *self, 
-	  Point *start, Point *end, 
+draw_line(DiaRenderer *self,
+	  Point *start, Point *end,
 	  Color *line_color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
@@ -454,18 +460,18 @@ draw_line(DiaRenderer *self,
 }
 
 static void
-draw_polyline(DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polyline(DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *line_color)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
     int i;
     gchar px_buf[DTOSTR_BUF_SIZE];
     gchar py_buf[DTOSTR_BUF_SIZE];
-    
+
     set_line_color(renderer,line_color);
-  
-    fprintf(renderer->file, 
+
+    fprintf(renderer->file,
 	    "  draw (%sx,%sy)",
 	    mp_dtostr(px_buf, points[0].x),
 	    mp_dtostr(py_buf, points[0].y) );
@@ -479,8 +485,8 @@ draw_polyline(DiaRenderer *self,
 }
 
 static void
-draw_polygon(DiaRenderer *self, 
-	     Point *points, int num_points, 
+draw_polygon(DiaRenderer *self,
+	     Point *points, int num_points,
 	     Color *fill, Color *stroke)
 {
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
@@ -494,8 +500,8 @@ draw_polygon(DiaRenderer *self,
     fprintf(renderer->file, "%% draw_polygon\n");
     if (stroke)
 	set_line_color(renderer,stroke);
-    
-    fprintf(renderer->file, 
+
+    fprintf(renderer->file,
 	    "  path p;\n"
 	    "  p = (%sx,%sy)",
 	    mp_dtostr(px_buf, points[0].x),
@@ -522,7 +528,7 @@ draw_polygon(DiaRenderer *self,
 }
 
 static void
-metapost_arc(MetapostRenderer *renderer, 
+metapost_arc(MetapostRenderer *renderer,
 	     Point *center,
 	     real width, real height,
 	     real angle1, real angle2,
@@ -567,7 +573,7 @@ metapost_arc(MetapostRenderer *renderer,
 }
 
 static void
-draw_arc(DiaRenderer *self, 
+draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -579,19 +585,19 @@ draw_arc(DiaRenderer *self,
 }
 
 static void
-fill_arc(DiaRenderer *self, 
+fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
 	 Color *color)
-{ 
+{
     MetapostRenderer *renderer = METAPOST_RENDERER (self);
 
     metapost_arc(renderer,center,width,height,angle1,angle2,color,1);
 }
 
 static void
-draw_ellipse(DiaRenderer *self, 
+draw_ellipse(DiaRenderer *self,
 	     Point *center,
 	     real width, real height,
 	     Color *fill, Color *stroke)
@@ -606,7 +612,7 @@ draw_ellipse(DiaRenderer *self,
     if (stroke)
 	set_line_color(renderer,stroke);
 
-    fprintf(renderer->file, 
+    fprintf(renderer->file,
 	    "  path p;\n"
 	    "  p = (%sx,%sy)..",
 	    mp_dtostr(d1_buf, (gdouble) center->x+width/2.0),
@@ -635,7 +641,7 @@ draw_ellipse(DiaRenderer *self,
 }
 
 static void
-draw_bezier(DiaRenderer *self, 
+draw_bezier(DiaRenderer *self,
 	    BezPoint *points,
 	    int numpoints, /* numpoints = 4+3*n, n=>0 */
 	    Color *color)
@@ -657,7 +663,7 @@ draw_bezier(DiaRenderer *self,
     fprintf(renderer->file, "  draw (%sx,%sy)",
 	    mp_dtostr(p1x_buf, (gdouble) points[0].p1.x),
 	    mp_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
-  
+
     for (i = 1; i < numpoints; i++)
 	switch (points[i].type) {
 	case BEZ_MOVE_TO:
@@ -682,7 +688,7 @@ draw_bezier(DiaRenderer *self,
 }
 
 static void
-draw_beziergon (DiaRenderer *self, 
+draw_beziergon (DiaRenderer *self,
 		BezPoint *points,
 		int numpoints,
 		Color *fill,
@@ -796,25 +802,25 @@ draw_string(DiaRenderer *self,
 	    mp_dtostr(py_buf, pos->y) );
 
     if (!color_equals(&renderer->color, &color_black))
-        fprintf(renderer->file, "\n    withcolor (%s, %s, %s)", 
-                g_ascii_formatd(red_buf, sizeof(red_buf), "%5.4f", (gdouble) renderer->color.red), 
+        fprintf(renderer->file, "\n    withcolor (%s, %s, %s)",
+                g_ascii_formatd(red_buf, sizeof(red_buf), "%5.4f", (gdouble) renderer->color.red),
                 g_ascii_formatd(green_buf, sizeof(green_buf), "%5.4f", (gdouble) renderer->color.green),
                 g_ascii_formatd(blue_buf, sizeof(blue_buf), "%5.4f", (gdouble) renderer->color.blue) );
 
     fprintf(renderer->file,";\n");
 }
 
-static void 
-draw_text (DiaRenderer *self, 
+static void
+draw_text (DiaRenderer *self,
 	   Text *text)
 {
   Point pos;
   int i;
   pos = text->position;
-  
+
 
   set_font(self, text->font, text->height);
-  
+
   for (i=0;i<text->numlines;i++) {
     TextLine *text_line = text->lines[i];
 
@@ -912,7 +918,7 @@ draw_image(DiaRenderer *self,
             fprintf(renderer->file, "\n");
         }
     }
-    
+
     g_free(mask_data);
     g_free(rgb_data);
 }
@@ -947,14 +953,62 @@ metapost_renderer_get_type (void)
                                             "MetapostRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
 static void
+metapost_renderer_set_property (GObject      *object,
+                                guint         property_id,
+                                const GValue *value,
+                                GParamSpec   *pspec)
+{
+  MetapostRenderer *self = METAPOST_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      set_font (DIA_RENDERER (self),
+                DIA_FONT (g_value_get_object (value)),
+                self->font_height);
+      break;
+    case PROP_FONT_HEIGHT:
+      set_font (DIA_RENDERER (self),
+                self->font,
+                g_value_get_double (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+metapost_renderer_get_property (GObject    *object,
+                                guint       property_id,
+                                GValue     *value,
+                                GParamSpec *pspec)
+{
+  MetapostRenderer *self = METAPOST_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, self->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, self->font_height);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
 metapost_renderer_finalize (GObject *object)
-{ 
-/*  MetapostRenderer *metapost_renderer = METAPOST_RENDERER (object); */
+{
+  MetapostRenderer *metapost_renderer = METAPOST_RENDERER (object);
+
+  g_clear_object (&metapost_renderer->font);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
@@ -967,6 +1021,8 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
 
   parent_class = g_type_class_peek_parent (klass);
 
+  object_class->get_property = metapost_renderer_get_property;
+  object_class->set_property = metapost_renderer_set_property;
   object_class->finalize = metapost_renderer_finalize;
 
   renderer_class->begin_render = begin_render;
@@ -977,11 +1033,10 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
   renderer_class->set_fillstyle = set_fillstyle;
-  renderer_class->set_font = set_font;
-  
+
   renderer_class->draw_line = draw_line;
   renderer_class->draw_polyline = draw_polyline;
-  
+
   renderer_class->draw_polygon = draw_polygon;
 
   renderer_class->draw_arc = draw_arc;
@@ -996,6 +1051,9 @@ metapost_renderer_class_init (MetapostRendererClass *klass)
   renderer_class->draw_text = draw_text;
 
   renderer_class->draw_image = draw_image;
+
+  g_object_class_override_property (object_class, PROP_FONT, "font");
+  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 /* --- export filter interface --- */
@@ -1015,11 +1073,11 @@ export_metapost(DiagramData *data, DiaContext *ctx,
     gchar d4_buf[DTOSTR_BUF_SIZE];
 
     Color initial_color;
- 
+
     file = g_fopen(filename, "wb");
 
     if (file == NULL) {
-	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"), 
+	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
 					    dia_context_get_filename(ctx));
 	return FALSE;
     }
@@ -1032,12 +1090,12 @@ export_metapost(DiagramData *data, DiaContext *ctx,
     renderer->dash_length = 1.0;
     renderer->dot_length = 0.2;
     renderer->saved_line_style = LINESTYLE_SOLID;
-  
+
     time_now  = time(NULL);
     extent = &data->extents;
-  
+
     name = g_get_user_name();
-  
+
     fprintf(file,
 	    "%% Metapost TeX macro\n"
 	    "%% Title: %s\n"
@@ -1071,8 +1129,8 @@ export_metapost(DiagramData *data, DiaContext *ctx,
 			"vardef rjust primary P =\n"
 			"  P shifted -(xpart (lrcorner P - llcorner P), 0)\n"
 			"enddef;\n");
-	
- 
+
+
     fprintf(renderer->file,"  %% picture(%s,%s)(%s,%s)\n",
 	    mp_dtostr(d1_buf, extent->left * data->paper.scaling),
 	    mp_dtostr(d2_buf, -extent->bottom * data->paper.scaling),
@@ -1085,7 +1143,7 @@ export_metapost(DiagramData *data, DiaContext *ctx,
 	/* Create a variable for Text Scaling  't' */
     fprintf(renderer->file,"  t = %s;\n\n",
 	    mp_dtostr(d1_buf, data->paper.scaling));
-   
+
     initial_color.red=0.;
     initial_color.green=0.;
     initial_color.blue=0.;

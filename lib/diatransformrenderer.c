@@ -121,26 +121,32 @@ is_capable_to (DiaRenderer *self, RenderCapability cap)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
 
-  if (RENDER_AFFINE == cap)
+  if (RENDER_AFFINE == cap) {
     return TRUE; /* reason for existence */
+  }
+
   g_return_val_if_fail (renderer->worker != NULL, FALSE);
-  return DIA_RENDERER_GET_CLASS (renderer->worker)->is_capable_to (renderer->worker, cap);
+
+  return dia_renderer_is_capable_of (renderer->worker, cap);
 }
+
 /*!
  * \brief Transform line-width and pass through
  * \memberof _DiaTransformRenderer
  */
 static void
-set_linewidth(DiaRenderer *self, real linewidth)
+set_linewidth (DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   real lw = linewidth;
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
   g_return_if_fail (renderer->worker != NULL);
-  if (m)
+  if (m) {
     transform_length (&lw, m);
-  DIA_RENDERER_GET_CLASS (renderer->worker)->set_linewidth (renderer->worker, lw);
+  }
+  dia_renderer_set_linewidth (renderer->worker, lw);
 }
+
 /*!
  * \brief Pass through line caps
  * \memberof _DiaTransformRenderer
@@ -149,9 +155,12 @@ static void
 set_linecaps(DiaRenderer *self, LineCaps mode)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
+
   g_return_if_fail (renderer->worker != NULL);
-  DIA_RENDERER_GET_CLASS (renderer->worker)->set_linecaps (renderer->worker, mode);
+
+  dia_renderer_set_linecaps (renderer->worker, mode);
 }
+
 /*!
  * \brief Pass through line join
  * \memberof _DiaTransformRenderer
@@ -160,9 +169,12 @@ static void
 set_linejoin(DiaRenderer *self, LineJoin mode)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
+
   g_return_if_fail (renderer->worker != NULL);
-  DIA_RENDERER_GET_CLASS (renderer->worker)->set_linejoin (renderer->worker, mode);
+
+  dia_renderer_set_linejoin (renderer->worker, mode);
 }
+
 /*!
  * \brief Pass through line style, transform dash length and pass through
  * \memberof _DiaTransformRenderer
@@ -172,11 +184,16 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
+
   g_return_if_fail (renderer->worker != NULL);
-  if (m)
+
+  if (m) {
     transform_length (&dash_length, m);
-  DIA_RENDERER_GET_CLASS (renderer->worker)->set_linestyle (renderer->worker, mode, dash_length);
+  }
+
+  dia_renderer_set_linestyle (renderer->worker, mode, dash_length);
 }
+
 /*!
  * \brief Pass through fill style
  * \memberof _DiaTransformRenderer
@@ -185,17 +202,21 @@ static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
+
   g_return_if_fail (renderer->worker != NULL);
-  DIA_RENDERER_GET_CLASS (renderer->worker)->set_fillstyle (renderer->worker, mode);
+
+  dia_renderer_set_fillstyle (renderer->worker, mode);
 }
+
 /*!
  * \brief Transform line and delegate draw
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_line(DiaRenderer *self,
-	  Point *start, Point *end,
-	  Color *line_colour)
+draw_line (DiaRenderer *self,
+           Point       *start,
+           Point       *end,
+           Color       *line_colour)
 {
   Point p1 = *start;
   Point p2 = *end;
@@ -203,16 +224,19 @@ draw_line(DiaRenderer *self,
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
   g_return_if_fail (renderer->worker != NULL);
   if (m) {
-    transform_point(&p1, m);
-    transform_point(&p2, m);
+    transform_point (&p1, m);
+    transform_point (&p2, m);
   }
-  DIA_RENDERER_GET_CLASS (renderer->worker)->draw_line (renderer->worker, &p1, &p2, line_colour);
+  dia_renderer_draw_line (renderer->worker, &p1, &p2, line_colour);
 }
+
 static void
-_polyline(DiaRenderer *self,
-	  Point *points, int num_points,
-	  Color *fill, Color *stroke,
-	  gboolean closed)
+_polyline (DiaRenderer *self,
+           Point       *points,
+           int          num_points,
+           Color       *fill,
+           Color       *stroke,
+           gboolean     closed)
 {
   Point *a_pts = g_newa (Point, num_points);
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
@@ -221,60 +245,76 @@ _polyline(DiaRenderer *self,
   memcpy (a_pts, points, sizeof(Point)*num_points);
   if (m) {
     int i;
-    for (i = 0; i < num_points; ++i)
+    for (i = 0; i < num_points; ++i) {
       transform_point (&a_pts[i], m);
+    }
   }
-  if (closed)
-    DIA_RENDERER_GET_CLASS (renderer->worker)->draw_polygon (renderer->worker, a_pts, num_points, fill, stroke);
-  else
-    DIA_RENDERER_GET_CLASS (renderer->worker)->draw_polyline (renderer->worker, a_pts, num_points, stroke);
+  if (closed) {
+    dia_renderer_draw_polygon (renderer->worker, a_pts, num_points, fill, stroke);
+  } else {
+    dia_renderer_draw_polyline (renderer->worker, a_pts, num_points, stroke);
+  }
 }
+
 /*!
  * \brief Transform polyline and delegate draw
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_polyline(DiaRenderer *self,
-	      Point *points, int num_points,
-	      Color *stroke)
+draw_polyline (DiaRenderer *self,
+               Point       *points,
+               int          num_points,
+               Color       *stroke)
 {
   _polyline (self, points, num_points, NULL, stroke, FALSE);
 }
+
 /*!
  * \brief Transform polygon and delegate draw
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_polygon(DiaRenderer *self,
-	      Point *points, int num_points,
-	      Color *fill, Color *stroke)
+draw_polygon (DiaRenderer *self,
+              Point       *points,
+              int          num_points,
+              Color       *fill,
+              Color       *stroke)
 {
   _polyline (self, points, num_points, fill, stroke, TRUE);
 }
+
 /* ToDo: arc and ellipse to be emulated by bezier - in base class? */
 static void
 _bezier (DiaRenderer *self,
-	 BezPoint *points, int num_points,
-	 Color *fill, Color *stroke,
-	 gboolean closed)
+         BezPoint    *points,
+         int          num_points,
+         Color       *fill,
+         Color       *stroke,
+         gboolean     closed)
 {
   BezPoint *a_pts = g_newa (BezPoint, num_points);
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
+
   g_return_if_fail (renderer->worker != NULL);
+
   memcpy (a_pts, points, sizeof(BezPoint)*num_points);
   if (m) {
     int i;
-    for (i = 0; i < num_points; ++i)
+    for (i = 0; i < num_points; ++i) {
       transform_bezpoint (&a_pts[i], m);
+    }
   }
-  if (closed)
-    DIA_RENDERER_GET_CLASS (renderer->worker)->draw_beziergon (renderer->worker, a_pts, num_points, fill, stroke);
-  else
-    DIA_RENDERER_GET_CLASS (renderer->worker)->draw_bezier (renderer->worker, a_pts, num_points, stroke);
-  if (!closed)
+  if (closed) {
+    dia_renderer_draw_beziergon (renderer->worker, a_pts, num_points, fill, stroke);
+  } else {
+    dia_renderer_draw_bezier (renderer->worker, a_pts, num_points, stroke);
+  }
+  if (!closed) {
     g_return_if_fail (fill == NULL && "fill for stroke?");
+  }
 }
+
 static void
 _arc (DiaRenderer *self,
       Point *center,
@@ -287,6 +327,7 @@ _arc (DiaRenderer *self,
   _bezier (self, &g_array_index (path, BezPoint, 0), path->len, fill, stroke, fill!=NULL);
   g_array_free (path, TRUE);
 }
+
 /*!
  * \brief Transform arc and delegate draw
  * \memberof _DiaTransformRenderer
@@ -373,8 +414,10 @@ draw_text (DiaRenderer *self,
     transform_point (&pos, m);
     text_set_position (tc, &pos);
     text_set_height (tc, text_get_height (text) * MIN(sx,sy));
-    DIA_RENDERER_GET_CLASS(renderer->worker)->draw_rotated_text (renderer->worker, tc,
-								 NULL, 180.0 * angle / G_PI);
+    dia_renderer_draw_rotated_text (renderer->worker,
+                                    tc,
+                                    NULL,
+                                    180.0 * angle / G_PI);
     text_destroy (tc);
   } else {
     for (i=0;i<text->numlines;i++) {
@@ -386,9 +429,11 @@ draw_text (DiaRenderer *self,
         transform_point (&pt, m);
         /* ToDo: font-size and angle */
       }
-      DIA_RENDERER_GET_CLASS(renderer->worker)->draw_text_line(renderer->worker, text_line,
-							       &pt, text->alignment,
-							       &text->color);
+      dia_renderer_draw_text_line (renderer->worker,
+                                   text_line,
+                                   &pt,
+                                   text->alignment,
+                                   &text->color);
       pos.y += text->height;
     }
   }
@@ -428,16 +473,20 @@ draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
       transform_point (&pos, m);
       text_set_position (tc, &pos);
       text_set_height (tc, text_get_height (text) * MIN(sx,sy));
-      DIA_RENDERER_GET_CLASS(renderer->worker)->draw_rotated_text (renderer->worker, tc,
-								   NULL, 180.0 * angle2 / G_PI);
+      dia_renderer_draw_rotated_text (renderer->worker,
+                                      tc,
+                                      NULL,
+                                      180.0 * angle2 / G_PI);
       text_destroy (tc);
     } else {
       g_warning ("DiaTransformRenderer::draw_rotated_text() bad matrix.");
     }
   } else {
     /* just pass through */
-    DIA_RENDERER_GET_CLASS(renderer->worker)->draw_rotated_text (renderer->worker, text,
-								 center, G_PI * angle / 180.0);
+    dia_renderer_draw_rotated_text (renderer->worker,
+                                    text,
+                                    center,
+                                    G_PI * angle / 180.0);
   }
 }
 
@@ -446,21 +495,31 @@ draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *color)
+draw_string (DiaRenderer *self,
+             const char  *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *color)
 {
-  if (text && strlen(text)) {
+  if (text && strlen (text)) {
     Text *text_obj;
+    DiaFont *font;
+    double font_height;
+
+    font = dia_renderer_get_font (self, &font_height);
+
     /* it could have been so easy without the context switch */
     text_obj = new_text (text,
-			 self->font, self->font_height,
-			 pos, color, alignment);
+                         font,
+                         font_height,
+                         pos,
+                         color,
+                         alignment);
     draw_text (self, text_obj);
     text_destroy (text_obj);
   }
 }
+
 /*!
  * \brief Draw a potentially transformed image
  * \memberof _DiaTransformRenderer
@@ -486,7 +545,7 @@ draw_image(DiaRenderer *self,
     p1.y = pc.y - height/2.0;
   }
   /* FIXME: for now only the position is transformed */
-  DIA_RENDERER_GET_CLASS (renderer->worker)->draw_image (renderer->worker, &p1, width, height, image);
+  dia_renderer_draw_image (renderer->worker, &p1, width, height, image);
 }
 
 /*!

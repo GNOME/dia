@@ -48,7 +48,7 @@ struct _MetapostRenderer
   DiaRenderer parent_instance;
 
   FILE *file;
-    
+
   LineStyle saved_line_style;
   LineCaps  saved_line_cap;
   LineJoin  saved_line_join;
@@ -63,6 +63,9 @@ struct _MetapostRenderer
   char *mp_weight;
   char *mp_slant;
   real mp_font_height;
+
+  DiaFont *font;
+  double font_height;
 
   DiaContext *ctx;
 };

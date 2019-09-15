@@ -194,9 +194,8 @@ arc_move(Arc *arc, Point *to)
 }
 
 static void
-arc_draw(Arc *arc, DiaRenderer *renderer)
+arc_draw (Arc *arc, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &arc->orth;
   Point *points;
   int n,i;
@@ -204,26 +203,30 @@ arc_draw(Arc *arc, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
 
-  renderer_ops->set_linewidth(renderer, ARC_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, ARC_LINE_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
-  renderer_ops->draw_polyline(renderer, points, n, &color_black);
+  dia_renderer_draw_polyline (renderer, points, n, &color_black);
 
   if (arc->uparrow) {
     for (i=0;i<n-1; i++) {
       if ((points[i].y > points[i+1].y) &&
-	  (ABS(points[i+1].y-points[i].y) > 5 * ARC_ARROW_LENGTH)) {
-	/* Draw an arrow on the middle of the line */
-	Point m;
-	m.x = points[i].x; /* == points[i+1].x */
-	m.y = .5 * (points[i].y + points[i+1].y) - (.5 * ARC_ARROW_LENGTH);
-	arrow_draw(renderer, ARC_ARROW_TYPE,
-		   &m,&points[i],
-		   ARC_ARROW_LENGTH, ARC_ARROW_WIDTH,
-		   ARC_LINE_WIDTH,
-		   &color_black, &color_white);
+          (ABS (points[i+1].y-points[i].y) > 5 * ARC_ARROW_LENGTH)) {
+        /* Draw an arrow on the middle of the line */
+        Point m;
+        m.x = points[i].x; /* == points[i+1].x */
+        m.y = .5 * (points[i].y + points[i+1].y) - (.5 * ARC_ARROW_LENGTH);
+        arrow_draw (renderer,
+                    ARC_ARROW_TYPE,
+                    &m,
+                    &points[i],
+                    ARC_ARROW_LENGTH,
+                    ARC_ARROW_WIDTH,
+                    ARC_LINE_WIDTH,
+                    &color_black,
+                    &color_white);
       }
     }
   }

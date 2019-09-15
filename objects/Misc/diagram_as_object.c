@@ -65,7 +65,7 @@ typedef struct _DiagramAsElement {
 
   /* for indirect rendering*/
   DiaImage *image;
-  
+
   real scale;
 } DiagramAsElement;
 
@@ -130,7 +130,7 @@ static PropOffset _dae_offsets[] = {
 };
 static void
 _dae_get_props(DiagramAsElement *dae, GPtrArray *props)
-{  
+{
   object_get_props_from_offsets(&dae->element.object, _dae_offsets, props);
 }
 static void
@@ -152,7 +152,7 @@ _dae_select(DiagramAsElement *dae, Point *clicked_point, DiaRenderer *interactiv
 }
 static ObjectChange*
 _dae_move_handle(DiagramAsElement *dae, Handle *handle,
-		 Point *to, ConnectionPoint *cp, 
+		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
 {
   Element *elem = &dae->element;
@@ -174,21 +174,24 @@ _dae_move(DiagramAsElement *dae, Point *to)
 
   return NULL;
 }
+
 static void
-_dae_draw(DiagramAsElement *dae, DiaRenderer *renderer)
+_dae_draw (DiagramAsElement *dae, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem = &dae->element;
 
   if (!dae->data) {
     /* just draw the box */
     Point lower_right = {
       elem->corner.x + elem->width,
-      elem->corner.y + elem->height 
+      elem->corner.y + elem->height
     };
 
-    renderer_ops->draw_rect(renderer,&elem->corner, &lower_right, 
-                            NULL, &dae->border_color);
+    dia_renderer_draw_rect (renderer,
+                            &elem->corner,
+                            &lower_right,
+                            NULL,
+                            &dae->border_color);
 
   } else {
     if (FALSE) {
@@ -200,38 +203,45 @@ _dae_draw(DiagramAsElement *dae, DiaRenderer *renderer)
     } else {
       /* we have to render to an image and draw that */
       if (!dae->image) { /* lazy creation */
-	gchar *imgfname = NULL;
-	gint fd = g_file_open_tmp ("diagram-as-elementXXXXXX.png", &imgfname, NULL);
-	if (fd != -1) {
+        gchar *imgfname = NULL;
+        gint fd = g_file_open_tmp ("diagram-as-elementXXXXXX.png", &imgfname, NULL);
+        if (fd != -1) {
           DiaExportFilter *ef = filter_export_get_by_name ("cairo-alpha-png");
-	  if (!ef) /* prefer cairo with alpha, but don't require it */
-	    ef = filter_guess_export_filter (imgfname);
-	  close(fd);
-	  if (ef) {
-	    DiaContext *ctx = dia_context_new ("Diagram as Object");
+          if (!ef) { /* prefer cairo with alpha, but don't require it */
+            ef = filter_guess_export_filter (imgfname);
+          }
+          close(fd);
+          if (ef) {
+            DiaContext *ctx = dia_context_new ("Diagram as Object");
 
-	    dia_context_set_filename (ctx, imgfname);
-	    if (ef->export_func (dae->data, ctx, imgfname, dae->filename, ef->user_data)) {
-	      DiaImage *tmp_image = dia_image_load (imgfname);
+            dia_context_set_filename (ctx, imgfname);
+            if (ef->export_func (dae->data, ctx, imgfname, dae->filename, ef->user_data)) {
+              DiaImage *tmp_image = dia_image_load (imgfname);
 
-	      /* some extra gymnastics to create an image w/o filename */
-	      if (tmp_image) {
-	        dae->image = dia_image_new_from_pixbuf ((GdkPixbuf *)dia_image_pixbuf (tmp_image));
-	        g_object_unref (tmp_image);
-	      }
-	      /* FIXME: where to put the message in case of an error? */
-	      dia_context_release (ctx);
-	    }
-	  } /* found a filter */
-	  g_unlink (imgfname);
-	  g_free (imgfname);
-	} /* temporary file created*/
+              /* some extra gymnastics to create an image w/o filename */
+              if (tmp_image) {
+                dae->image = dia_image_new_from_pixbuf ((GdkPixbuf *) dia_image_pixbuf (tmp_image));
+                g_object_unref (tmp_image);
+              }
+              /* FIXME: where to put the message in case of an error? */
+              dia_context_release (ctx);
+            }
+          } /* found a filter */
+          g_unlink (imgfname);
+          g_free (imgfname);
+        } /* temporary file created*/
       } /* only if we have no image yet */
-      if (dae->image)
-	renderer_ops->draw_image (renderer, &elem->corner, elem->width, elem->height, dae->image);
+      if (dae->image) {
+        dia_renderer_draw_image (renderer,
+                                 &elem->corner,
+                                 elem->width,
+                                 elem->height,
+                                 dae->image);
+      }
     }
   }
 }
+
 static void
 _dae_update_data(DiagramAsElement *dae)
 {
@@ -239,7 +249,7 @@ _dae_update_data(DiagramAsElement *dae)
   Element *elem = &dae->element;
   DiaObject *obj = &elem->object;
   static int working = 0;
-  
+
   if (working > 2)
     return; /* protect against infinite recursion */
   ++working;
@@ -287,14 +297,14 @@ _dae_update_data(DiagramAsElement *dae)
 
   --working;
 }
-static void 
-_dae_destroy(DiagramAsElement *dae) 
+static void
+_dae_destroy(DiagramAsElement *dae)
 {
   if (dae->data)
     g_object_unref(dae->data);
 
   g_free(dae->filename);
-  
+
   if (dae->image)
     g_object_unref (dae->image);
 
@@ -341,7 +351,7 @@ _dae_create (Point *startpoint,
   elem->corner = *startpoint;
   elem->width = DEFAULT_WIDTH;
   elem->height = DEFAULT_HEIGHT;
-  
+
   element_init(elem, 8, NUM_CONNECTIONS);
 
   for (i=0; i<NUM_CONNECTIONS; i++) {
@@ -356,7 +366,7 @@ _dae_create (Point *startpoint,
   _dae_update_data(dae);
 
   *handle1 = NULL;
-  *handle2 = obj->handles[7];  
+  *handle2 = obj->handles[7];
   return &dae->element.object;
 }
 
@@ -365,7 +375,7 @@ _dae_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   DiaObject *obj;
   DiagramAsElement *dae;
- 
+
   obj = object_load_using_properties (&diagram_as_element_type,
                                        obj_node, version, ctx);
   /* filename de-normalization */

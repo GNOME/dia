@@ -45,6 +45,14 @@
 #define DXF_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DXF_TYPE_RENDERER))
 #define DXF_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DXF_TYPE_RENDERER, DxfRendererClass))
 
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+
 GType dxf_renderer_get_type (void) G_GNUC_CONST;
 
 typedef struct _DxfRenderer DxfRenderer;
@@ -99,22 +107,21 @@ typedef struct _TextAttrdxf
 
 struct _DxfRenderer
 {
-    DiaRenderer parent_instance;
+  DiaRenderer parent_instance;
 
-    FILE *file;
+  FILE *file;
 
-    DiaFont *font;
+  DiaFont *font;
 
-    real y0, y1;
+  real y0, y1;
 
-    LineAttrdxf  lcurrent, linfile;
+  LineAttrdxf  lcurrent, linfile;
 
-    FillEdgeAttrdxf fcurrent, finfile;
+  FillEdgeAttrdxf fcurrent, finfile;
 
-    TextAttrdxf    tcurrent, tinfile;
+  TextAttrdxf    tcurrent, tinfile;
 
-    char *layername;
-
+  char *layername;
 };
 
 static void dxf_renderer_class_init (DxfRendererClass *klass);
@@ -150,8 +157,68 @@ dxf_renderer_get_type (void)
 }
 
 static void
+set_font (DiaRenderer *self, DiaFont *font, real height)
+{
+  DxfRenderer *renderer = DXF_RENDERER (self);
+
+  g_clear_object (&renderer->font);
+  renderer->font = g_object_ref (font);
+  renderer->tcurrent.font_height = height;
+}
+
+static void
+dxf_renderer_set_property (GObject      *object,
+                           guint         property_id,
+                           const GValue *value,
+                           GParamSpec   *pspec)
+{
+  DxfRenderer *self = DXF_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      set_font (DIA_RENDERER (self),
+                DIA_FONT (g_value_get_object (value)),
+                self->tcurrent.font_height);
+      break;
+    case PROP_FONT_HEIGHT:
+      set_font (DIA_RENDERER (self),
+                self->font,
+                g_value_get_double (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+dxf_renderer_get_property (GObject    *object,
+                           guint       property_id,
+                           GValue     *value,
+                           GParamSpec *pspec)
+{
+  DxfRenderer *self = DXF_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, self->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, self->tcurrent.font_height);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
 dxf_renderer_finalize (GObject *object)
 {
+  DxfRenderer *self = DXF_RENDERER (object);
+
+  g_clear_object (&self->font);
+
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -225,14 +292,6 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
-}
-
-static void
-set_font(DiaRenderer *self, DiaFont *font, real height)
-{
-    DxfRenderer *renderer = DXF_RENDERER(self);
-
-    renderer->tcurrent.font_height = height;
 }
 
 static int
@@ -470,6 +529,8 @@ dxf_renderer_class_init (DxfRendererClass *klass)
 
   parent_class = g_type_class_peek_parent (klass);
 
+  object_class->set_property = dxf_renderer_set_property;
+  object_class->get_property = dxf_renderer_get_property;
   object_class->finalize = dxf_renderer_finalize;
 
   renderer_class->begin_render = begin_render;
@@ -480,7 +541,6 @@ dxf_renderer_class_init (DxfRendererClass *klass)
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
   renderer_class->set_fillstyle = set_fillstyle;
-  renderer_class->set_font = set_font;
 
   renderer_class->draw_line = draw_line;
   renderer_class->draw_polygon = draw_polygon;
@@ -494,6 +554,9 @@ dxf_renderer_class_init (DxfRendererClass *klass)
   renderer_class->draw_string = draw_string;
 
   renderer_class->draw_image = draw_image;
+
+  g_object_class_override_property (object_class, PROP_FONT, "font");
+  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 static gboolean
@@ -550,17 +613,17 @@ export_dxf(DiagramData *data, DiaContext *ctx,
 
     init_attributes(renderer);
 
-    DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
+    dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
     for (i=0; i<data->layers->len; i++) {
-        layer = (Layer *) g_ptr_array_index(data->layers, i);
-	    renderer->layername = layer->name;
-        layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
+        layer = (Layer *) g_ptr_array_index (data->layers, i);
+        renderer->layername = layer->name;
+        layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
     }
 
-    DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
+    dia_renderer_end_render (DIA_RENDERER (renderer));
 
-    g_object_unref(renderer);
+    g_object_unref (renderer);
 
     return TRUE;
 }

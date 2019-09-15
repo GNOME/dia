@@ -29,6 +29,7 @@ typedef enum {
 #include "textattr.h"
 #include "focus.h"
 #include "dia_xml.h" /* for AttributeNode */
+#include "diarenderer.h"
 
 /*!
  * \brief Multiline text representation
@@ -42,7 +43,7 @@ typedef enum {
  */
 struct _Text {
   /* don't change these values directly, use the text_set* functions */
-  
+
   /* Text data: */
   int numlines;
   TextLine **lines;
@@ -58,7 +59,7 @@ struct _Text {
   int cursor_pos;
   int cursor_row;
   Focus focus;
-  
+
   /* Computed values:  */
   real ascent; /* **average** ascent */
   real descent; /* **average** descent */
@@ -100,7 +101,7 @@ real text_get_max_width(Text *text);
 real text_get_ascent(Text *text);
 real text_get_descent(Text *text);
 
-/** Exposing this is a hack, but currently GTK still captures the key 
+/** Exposing this is a hack, but currently GTK still captures the key
  * events of insensitive clods^H^H^H^H^Hmenu items. LC 21/10 2007*/
 gboolean text_delete_key_handler(Focus *focus, ObjectChange **change);
 void data_add_text(AttributeNode attr, Text *text, DiaContext *ctx);

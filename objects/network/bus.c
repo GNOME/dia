@@ -291,9 +291,8 @@ bus_move(Bus *bus, Point *to)
 }
 
 static void
-bus_draw(Bus *bus, DiaRenderer *renderer)
+bus_draw (Bus *bus, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   int i;
 
@@ -302,19 +301,20 @@ bus_draw(Bus *bus, DiaRenderer *renderer)
 
   endpoints = &bus->real_ends[0];
 
-  renderer_ops->set_linewidth(renderer, LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, LINE_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
-  renderer_ops->draw_line(renderer,
-			   &endpoints[0], &endpoints[1],
- 			   &bus->line_color);
+  dia_renderer_draw_line (renderer,
+                          &endpoints[0],
+                          &endpoints[1],
+                          &bus->line_color);
 
-  for (i=0;i<bus->num_handles;i++) {
-    renderer_ops->draw_line(renderer,
-			     &bus->parallel_points[i],
-			     &bus->handles[i]->pos,
-			     &bus->line_color);
+  for (i = 0; i < bus->num_handles; i++) {
+    dia_renderer_draw_line (renderer,
+                            &bus->parallel_points[i],
+                            &bus->handles[i]->pos,
+                            &bus->line_color);
   }
 }
 

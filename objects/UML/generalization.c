@@ -216,9 +216,8 @@ generalization_move(Generalization *genlz, Point *to)
 }
 
 static void
-generalization_draw(Generalization *genlz, DiaRenderer *renderer)
+generalization_draw (Generalization *genlz, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &genlz->orth;
   Point *points;
   int n;
@@ -228,40 +227,42 @@ generalization_draw(Generalization *genlz, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
 
-  renderer_ops->set_linewidth(renderer, genlz->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, genlz->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   arrow.type = ARROW_HOLLOW_TRIANGLE;
   arrow.length = GENERALIZATION_TRIANGLESIZE;
   arrow.width = GENERALIZATION_TRIANGLESIZE;
 
-  renderer_ops->draw_polyline_with_arrows(renderer,
-					   points, n,
-					   genlz->line_width,
-					   &genlz->line_color,
-					   &arrow, NULL);
+  dia_renderer_draw_polyline_with_arrows (renderer,
+                                          points,
+                                          n,
+                                          genlz->line_width,
+                                          &genlz->line_color,
+                                          &arrow, NULL);
 
-  renderer_ops->set_font(renderer, genlz->font, genlz->font_height);
+  dia_renderer_set_font (renderer, genlz->font, genlz->font_height);
   pos = genlz->text_pos;
 
   if (genlz->st_stereotype != NULL && genlz->st_stereotype[0] != '\0') {
-    renderer_ops->draw_string(renderer,
-			       genlz->st_stereotype,
-			       &pos, genlz->text_align,
-			       &genlz->text_color);
+    dia_renderer_draw_string (renderer,
+                              genlz->st_stereotype,
+                              &pos,
+                              genlz->text_align,
+                              &genlz->text_color);
 
     pos.y += genlz->font_height;
   }
 
   if (genlz->name != NULL && genlz->name[0] != '\0') {
-    renderer_ops->draw_string(renderer,
-			       genlz->name,
-			       &pos, genlz->text_align,
-			       &genlz->text_color);
+    dia_renderer_draw_string (renderer,
+                              genlz->name,
+                              &pos,
+                              genlz->text_align,
+                              &genlz->text_color);
   }
-
 }
 
 static void

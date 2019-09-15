@@ -57,6 +57,15 @@
 #define VDX_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), VDX_TYPE_RENDERER))
 #define VDX_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), VDX_TYPE_RENDERER, VDXRendererClass))
 
+
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+
 GType vdx_renderer_get_type (void) G_GNUC_CONST;
 
 typedef struct _VDXRenderer VDXRenderer;
@@ -139,6 +148,68 @@ vdx_renderer_get_type (void)
   return object_type;
 }
 
+/** Set font
+ * @param self a renderer
+ * @param font new font
+ * @param height new font height
+ */
+
+static void
+set_font (DiaRenderer *self, DiaFont *font, real height)
+{
+  VDXRenderer *renderer = VDX_RENDERER(self);
+
+  g_clear_object (&renderer->font);
+  renderer->font = g_object_ref (font);
+  renderer->fontheight = height;
+}
+
+static void
+vdx_renderer_set_property (GObject      *object,
+                           guint         property_id,
+                           const GValue *value,
+                           GParamSpec   *pspec)
+{
+  VDXRenderer *self = VDX_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      set_font (DIA_RENDERER (self),
+                DIA_FONT (g_value_get_object (value)),
+                self->fontheight);
+      break;
+    case PROP_FONT_HEIGHT:
+      set_font (DIA_RENDERER (self),
+                self->font,
+                g_value_get_double (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+vdx_renderer_get_property (GObject    *object,
+                           guint       property_id,
+                           GValue     *value,
+                           GParamSpec *pspec)
+{
+  VDXRenderer *self = VDX_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, self->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, self->fontheight);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
 /** Finalise a renderer
  * @param object a renderer
  */
@@ -146,6 +217,10 @@ vdx_renderer_get_type (void)
 static void
 vdx_renderer_finalize (GObject *object)
 {
+  VDXRenderer *self = VDX_RENDERER (object);
+
+  g_clear_object (&self->font);
+
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -288,21 +363,6 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
   VDXRenderer *renderer = VDX_RENDERER(self);
 
   renderer->fillmode = mode;
-}
-
-/** Set font
- * @param self a renderer
- * @param font new font
- * @param height new font height
- */
-
-static void
-set_font(DiaRenderer *self, DiaFont *font, real height)
-{
-  VDXRenderer *renderer = VDX_RENDERER(self);
-
-  renderer->font = font;
-  renderer->fontheight = height;
 }
 
 /** Get colour number from colour table
@@ -1718,36 +1778,36 @@ export_vdx(DiagramData *data, DiaContext *ctx,
 
     renderer->version = 2002;   /* For now */
 
-    DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
+    dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
     /* First run through without drawing to setup tables */
-    for (i=0; i<data->layers->len; i++)
-    {
-        layer = (Layer *) g_ptr_array_index(data->layers, i);
-        if (layer->visible)
-            layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
-        renderer->depth++;
+    for (i = 0; i < data->layers->len; i++) {
+      layer = (Layer *) g_ptr_array_index (data->layers, i);
+      if (layer->visible) {
+        layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
+      }
+      renderer->depth++;
     }
 
-    write_header(data, renderer);
+    write_header (data, renderer);
 
-    DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
+    dia_renderer_end_render (DIA_RENDERER (renderer));
 
     renderer->first_pass = FALSE;
 
-    DIA_RENDERER_GET_CLASS(renderer)->begin_render(DIA_RENDERER(renderer), NULL);
+    dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
     /* Now render */
 
-    for (i=0; i<data->layers->len; i++)
-    {
-        layer = (Layer *) g_ptr_array_index(data->layers, i);
-        if (layer->visible)
-            layer_render(layer, DIA_RENDERER(renderer), NULL, NULL, data, 0);
+    for (i = 0; i < data->layers->len; i++) {
+        layer = (Layer *) g_ptr_array_index (data->layers, i);
+        if (layer->visible) {
+            layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
+        }
         renderer->depth++;
     }
 
-    DIA_RENDERER_GET_CLASS(renderer)->end_render(DIA_RENDERER(renderer));
+    dia_renderer_end_render (DIA_RENDERER (renderer));
 
     /* Done */
 
@@ -2047,6 +2107,8 @@ vdx_renderer_class_init (VDXRendererClass *klass)
 
   parent_class = g_type_class_peek_parent (klass);
 
+  object_class->set_property = vdx_renderer_set_property;
+  object_class->get_property = vdx_renderer_get_property;
   object_class->finalize = vdx_renderer_finalize;
 
   renderer_class->begin_render = begin_render;
@@ -2057,7 +2119,6 @@ vdx_renderer_class_init (VDXRendererClass *klass)
   renderer_class->set_linejoin = set_linejoin;
   renderer_class->set_linestyle = set_linestyle;
   renderer_class->set_fillstyle = set_fillstyle;
-  renderer_class->set_font = set_font;
 
   renderer_class->draw_line = draw_line;
   renderer_class->draw_polyline = draw_polyline;
@@ -2080,4 +2141,7 @@ vdx_renderer_class_init (VDXRendererClass *klass)
 
   renderer_class->draw_rounded_rect = draw_rounded_rect;
   /* Further high level methods not required (or desired?) */
+
+  g_object_class_override_property (object_class, PROP_FONT, "font");
+  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }

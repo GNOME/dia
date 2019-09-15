@@ -192,9 +192,8 @@ state_move(State *state, Point *to)
 }
 
 static void
-state_draw(State *state, DiaRenderer *renderer)
+state_draw (State *state, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h, r;
   Point p1;
@@ -209,24 +208,28 @@ state_draw(State *state, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, STATE_LINEWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, STATE_LINEWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0);
 
-   p1.x = x + w/2;
-   p1.y = y + h/2;
-   if (state->is_final==1) {
-      r = STATE_ENDRATIO;
-      renderer_ops->draw_ellipse (renderer,
-				  &p1,
-				  r, r,
-				  &state->fill_color, &state->line_color);
-   }
-   r = STATE_RATIO;
-   renderer_ops->draw_ellipse (renderer,
-			       &p1,
-			       r, r,
-			       &state->line_color, NULL); /* line_color not a typo! */
+  p1.x = x + w/2;
+  p1.y = y + h/2;
+  if (state->is_final==1) {
+    r = STATE_ENDRATIO;
+    dia_renderer_draw_ellipse (renderer,
+                                &p1,
+                                r,
+                                r,
+                                &state->fill_color,
+                                &state->line_color);
+  }
+  r = STATE_RATIO;
+  dia_renderer_draw_ellipse (renderer,
+                            &p1,
+                            r,
+                            r,
+                            &state->line_color,
+                            NULL); /* line_color not a typo! */
 }
 
 

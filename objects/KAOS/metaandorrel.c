@@ -371,56 +371,56 @@ static void compute_oper(Point *p, double w, double h, Point *pl) {
 }
 
 static void
-draw_agent_icon(Maor *maor, double w, double h,
-		DiaRenderer *renderer)
+draw_agent_icon (Maor        *maor,
+                 double       w,
+                 double       h,
+                 DiaRenderer *renderer)
 {
-     DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-     double rx,ry;
-     Point ref,c,p1,p2;
+  double rx,ry;
+  Point ref,c,p1,p2;
 
-     ref=maor->connection.endpoints[0];
-     rx=ref.x;
-     ry=ref.y-h*0.2;
+  ref=maor->connection.endpoints[0];
+  rx=ref.x;
+  ry=ref.y-h*0.2;
 
-     /* head */
-     c.x=rx;
-     c.y=ry;
-     renderer_ops->draw_ellipse(renderer,&c,h/5,h/5,&MAOR_FG_COLOR, NULL);
+  /* head */
+  c.x=rx;
+  c.y=ry;
+  dia_renderer_draw_ellipse (renderer,&c,h/5,h/5,&MAOR_FG_COLOR, NULL);
 
-     /* body */
-     p1.x=rx;
-     p1.y=ry;
-     p2.x=p1.x;
-     p2.y=p1.y+3.5*h/10;
-     renderer_ops->draw_line(renderer,&p1,&p2,&MAOR_FG_COLOR);
+  /* body */
+  p1.x=rx;
+  p1.y=ry;
+  p2.x=p1.x;
+  p2.y=p1.y+3.5*h/10;
+  dia_renderer_draw_line (renderer,&p1,&p2,&MAOR_FG_COLOR);
 
-     /* arms */
-     p1.x=rx-1.5*h/10;
-     p1.y=ry+2.2*h/10;
-     p2.x=rx+1.5*h/10;
-     p2.y=p1.y;
-     renderer_ops->draw_line(renderer,&p1,&p2,&MAOR_FG_COLOR);
+  /* arms */
+  p1.x=rx-1.5*h/10;
+  p1.y=ry+2.2*h/10;
+  p2.x=rx+1.5*h/10;
+  p2.y=p1.y;
+  dia_renderer_draw_line (renderer,&p1,&p2,&MAOR_FG_COLOR);
 
-     /* left leg */
-     p1.x=rx;
-     p1.y=ry+3.5*h/10;
-     p2.x=p1.x-h/10;
-     p2.y=p1.y+2*h/10;
-     renderer_ops->draw_line(renderer,&p1,&p2,&MAOR_FG_COLOR);
+  /* left leg */
+  p1.x=rx;
+  p1.y=ry+3.5*h/10;
+  p2.x=p1.x-h/10;
+  p2.y=p1.y+2*h/10;
+  dia_renderer_draw_line (renderer,&p1,&p2,&MAOR_FG_COLOR);
 
-     /* right leg */
-     p1.x=rx;
-     p1.y=ry+3.5*h/10;
-     p2.x=p1.x+h/10;
-     p2.y=p1.y+2*h/10;
-     renderer_ops->draw_line(renderer,&p1,&p2,&MAOR_FG_COLOR);
+  /* right leg */
+  p1.x=rx;
+  p1.y=ry+3.5*h/10;
+  p2.x=p1.x+h/10;
+  p2.y=p1.y+2*h/10;
+  dia_renderer_draw_line (renderer,&p1,&p2,&MAOR_FG_COLOR);
 }
 
 /* drawing here -- TBD inverse flow ??  */
 static void
-maor_draw(Maor *maor, DiaRenderer *renderer)
+maor_draw (Maor *maor, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints, p1, p2;
   Arrow arrow;
   BezPoint bpl[6];
@@ -443,49 +443,48 @@ maor_draw(Maor *maor, DiaRenderer *renderer)
   p2 = endpoints[1];
 
   /** drawing directed line **/
-  renderer_ops->set_linewidth(renderer, MAOR_WIDTH);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
-  renderer_ops->draw_line_with_arrows(renderer,&p1,&p2,MAOR_WIDTH,&MAOR_FG_COLOR,NULL,&arrow);
+  dia_renderer_set_linewidth (renderer, MAOR_WIDTH);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0);
+  dia_renderer_draw_line_with_arrows (renderer,&p1,&p2,MAOR_WIDTH,&MAOR_FG_COLOR,NULL,&arrow);
 
   /** drawing vector decoration  **/
   /* and ref */
   switch (maor->type) {
     case MAOR_AND_REF:
-      compute_and(&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
-      renderer_ops->draw_beziergon(renderer,bpl,6,&MAOR_BG_COLOR,&MAOR_FG_COLOR);
+      compute_and (&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
+      dia_renderer_draw_beziergon (renderer,bpl,6,&MAOR_BG_COLOR,&MAOR_FG_COLOR);
       break;
 
     case MAOR_AND_COMP_REF:
-      compute_and(&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
-      renderer_ops->draw_beziergon(renderer,bpl,6,&MAOR_FG_COLOR,NULL);
+      compute_and (&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
+      dia_renderer_draw_beziergon (renderer,bpl,6,&MAOR_FG_COLOR,NULL);
       break;
 
     case MAOR_OR_REF:
-      compute_or(&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
-      renderer_ops->draw_beziergon(renderer,bpl,4,&MAOR_BG_COLOR,&MAOR_FG_COLOR);
+      compute_or (&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
+      dia_renderer_draw_beziergon (renderer,bpl,4,&MAOR_BG_COLOR,&MAOR_FG_COLOR);
       break;
 
     case MAOR_OR_COMP_REF:
-      compute_or(&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
-      renderer_ops->draw_beziergon(renderer,bpl,4,&MAOR_FG_COLOR,NULL);
+      compute_or (&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,bpl);
+      dia_renderer_draw_beziergon (renderer,bpl,4,&MAOR_FG_COLOR,NULL);
       break;
 
     case MAOR_OPER_REF:
-      compute_oper(&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,pl);
-      renderer_ops->draw_polygon(renderer,pl,7,&MAOR_BG_COLOR,&MAOR_FG_COLOR);
-      draw_agent_icon(maor,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,renderer);
+      compute_oper (&p1,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,pl);
+      dia_renderer_draw_polygon (renderer,pl,7,&MAOR_BG_COLOR,&MAOR_FG_COLOR);
+      draw_agent_icon (maor,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,renderer);
       break;
   }
 
   /** writing text on arrow (maybe not a good idea) **/
-  renderer_ops->set_font(renderer,maor_font,MAOR_FONTHEIGHT);
+  dia_renderer_set_font (renderer,maor_font,MAOR_FONTHEIGHT);
 
-  if (mname && strlen(mname) != 0)
-      renderer_ops->draw_string(renderer,mname,&maor->text_pos, ALIGN_CENTER,&color_black);
+  if (mname && strlen (mname) != 0)
+    dia_renderer_draw_string (renderer,mname,&maor->text_pos, ALIGN_CENTER,&color_black);
 
   if (mname) g_free(mname);
-
 }
 
 /* creation here */

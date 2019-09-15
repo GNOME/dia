@@ -388,47 +388,62 @@ stdpath_update_data (StdPath *stdpath)
  * \memberof _StdPath
  */
 static void
-stdpath_draw(StdPath *stdpath, DiaRenderer *renderer)
+stdpath_draw (StdPath *stdpath, DiaRenderer *renderer)
 {
-  DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, stdpath->line_width);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, stdpath->line_style, stdpath->dashlength);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linejoin(renderer, stdpath->line_join);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linecaps(renderer, stdpath->line_caps);
+  dia_renderer_set_linewidth (renderer, stdpath->line_width);
+  dia_renderer_set_linestyle (renderer, stdpath->line_style, stdpath->dashlength);
+  dia_renderer_set_linejoin (renderer, stdpath->line_join);
+  dia_renderer_set_linecaps (renderer, stdpath->line_caps);
 
-  if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_HOLES)) {
+  if (dia_renderer_is_capable_of (renderer, RENDER_HOLES)) {
     if (stdpath->stroke_or_fill & PDO_FILL) {
       Color fill = stdpath->fill_color;
       if (stdpath->pattern) {
-	dia_pattern_get_fallback_color (stdpath->pattern, &fill);
-	if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_PATTERN))
-	  DIA_RENDERER_GET_CLASS (renderer)->set_pattern (renderer, stdpath->pattern);
+        dia_pattern_get_fallback_color (stdpath->pattern, &fill);
+        if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+          dia_renderer_set_pattern (renderer, stdpath->pattern);
+        }
       }
-      if (stdpath->stroke_or_fill & PDO_STROKE) /* also stroke -> combine */
-        DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, stdpath->points, stdpath->num_points,
-							  &fill, &stdpath->line_color);
-      else
-        DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, stdpath->points, stdpath->num_points,
-							  &fill, NULL);
-      if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_PATTERN))
-	DIA_RENDERER_GET_CLASS (renderer)->set_pattern (renderer, NULL);
+      if (stdpath->stroke_or_fill & PDO_STROKE) { /* also stroke -> combine */
+        dia_renderer_draw_beziergon (renderer,
+                                     stdpath->points,
+                                     stdpath->num_points,
+                                     &fill,
+                                     &stdpath->line_color);
+      } else {
+        dia_renderer_draw_beziergon (renderer,
+                                     stdpath->points,
+                                     stdpath->num_points,
+                                     &fill,
+                                     NULL);
+      }
+      if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+        dia_renderer_set_pattern (renderer, NULL);
+      }
     }
-    if (stdpath->stroke_or_fill == PDO_STROKE) /* stroke only */
-      DIA_RENDERER_GET_CLASS (renderer)->draw_bezier(renderer, stdpath->points, stdpath->num_points,
-						     &stdpath->line_color);
+    if (stdpath->stroke_or_fill == PDO_STROKE) { /* stroke only */
+      dia_renderer_draw_bezier (renderer,
+                                stdpath->points,
+                                stdpath->num_points,
+                                &stdpath->line_color);
+    }
   } else {
     /* step-wise approach */
     /* if it wouldn't RENDER_HOLES it presumably also wouldn't RENDER_PATTERN ... */
     if (stdpath->stroke_or_fill & PDO_FILL) {
       Color fill = stdpath->fill_color;
-      if (stdpath->pattern)
-	dia_pattern_get_fallback_color (stdpath->pattern, &fill);
-      bezier_render_fill (renderer, stdpath->points, stdpath->num_points, &fill);
+      if (stdpath->pattern) {
+        dia_pattern_get_fallback_color (stdpath->pattern, &fill);
+      }
+      dia_renderer_bezier_fill (renderer, stdpath->points, stdpath->num_points, &fill);
     }
-    if (stdpath->stroke_or_fill & PDO_STROKE)
-      bezier_render_stroke (renderer, stdpath->points, stdpath->num_points, &stdpath->line_color);
+    if (stdpath->stroke_or_fill & PDO_STROKE) {
+      dia_renderer_bezier_stroke (renderer, stdpath->points, stdpath->num_points, &stdpath->line_color);
+    }
   }
-  if (stdpath->show_control_lines)
+  if (stdpath->show_control_lines) {
     bezier_draw_control_lines (stdpath->num_points, stdpath->points, renderer);
+  }
 }
 
 static ObjectChange *_path_object_invert_change_create (DiaObject *obj);

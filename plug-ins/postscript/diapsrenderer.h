@@ -47,6 +47,9 @@ struct _DiaPsRenderer
   Rectangle extent;
 
   DiaContext *ctx;
+
+  DiaFont *font;
+  double font_height;
 };
 
 struct _DiaPsRendererClass

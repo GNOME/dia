@@ -194,9 +194,9 @@ branch_move(Branch *branch, Point *to)
   return NULL;
 }
 
-static void branch_draw(Branch *branch, DiaRenderer *renderer)
+static void
+branch_draw (Branch *branch, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real w, h;
   Point points[4];
@@ -212,11 +212,11 @@ static void branch_draw(Branch *branch, DiaRenderer *renderer)
   points[2].x = elem->corner.x + 2*w, points[2].y = elem->corner.y + h;
   points[3].x = elem->corner.x + w,   points[3].y = elem->corner.y + 2*h;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, BRANCH_BORDERWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, BRANCH_BORDERWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
-  renderer_ops->draw_polygon(renderer, points, 4, &branch->fill_color, &branch->line_color);
+  dia_renderer_draw_polygon (renderer, points, 4, &branch->fill_color, &branch->line_color);
 }
 
 static void branch_update_data(Branch *branch)

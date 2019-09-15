@@ -165,24 +165,24 @@ beziercommon_closest_segment (BezierCommon *bezier,
  */
 void
 bezier_draw_control_lines (int          num_points,
-			   BezPoint    *points,
-			   DiaRenderer *renderer)
+                           BezPoint    *points,
+                           DiaRenderer *renderer)
 {
   Color line_colour = { 0.0, 0.0, 0.6, 1.0 };
   Point startpoint;
   int i;
 
   /* setup renderer ... */
-  DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED, 1);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linejoin(renderer, LINEJOIN_MITER);
-  DIA_RENDERER_GET_CLASS(renderer)->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, 0);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_DOTTED, 1);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   startpoint = points[0].p1;
   for (i = 1; i < num_points; i++) {
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &startpoint, &points[i].p1, &line_colour);
+    dia_renderer_draw_line (renderer, &startpoint, &points[i].p1, &line_colour);
     if (points[i].type == BEZ_CURVE_TO) {
-      DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &points[i].p2, &points[i].p3, &line_colour);
+      dia_renderer_draw_line  (renderer, &points[i].p2, &points[i].p3, &line_colour);
       startpoint = points[i].p3;
     } else {
       startpoint = points[i].p1;

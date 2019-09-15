@@ -250,9 +250,8 @@ attribute_move(Attribute *attribute, Point *to)
 }
 
 static void
-attribute_draw(Attribute *attribute, DiaRenderer *renderer)
+attribute_draw (Attribute *attribute, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point center;
   Point start, end;
   Point p;
@@ -267,52 +266,64 @@ attribute_draw(Attribute *attribute, DiaRenderer *renderer)
   center.x = elem->corner.x + elem->width/2;
   center.y = elem->corner.y + elem->height/2;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->draw_ellipse (renderer, &center,
-			      elem->width, elem->height,
-			      &attribute->inner_color, NULL);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_draw_ellipse (renderer,
+                             &center,
+                             elem->width,
+                             elem->height,
+                             &attribute->inner_color,
+                             NULL);
 
-  renderer_ops->set_linewidth(renderer, attribute->border_width);
+  dia_renderer_set_linewidth (renderer, attribute->border_width);
   if (attribute->derived) {
-    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, 0.3);
+    dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, 0.3);
   } else {
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
   }
 
-  renderer_ops->draw_ellipse (renderer, &center,
-			      elem->width, elem->height,
-			      NULL, &attribute->border_color);
+  dia_renderer_draw_ellipse (renderer,
+                             &center,
+                             elem->width,
+                             elem->height,
+                             NULL,
+                             &attribute->border_color);
 
   if(attribute->multivalue) {
-    renderer_ops->draw_ellipse (renderer, &center,
-				elem->width - 2*MULTIVALUE_BORDER_WIDTH_X,
-				elem->height - 2*MULTIVALUE_BORDER_WIDTH_Y,
-				NULL, &attribute->border_color);
+    dia_renderer_draw_ellipse (renderer,
+                               &center,
+                               elem->width - 2*MULTIVALUE_BORDER_WIDTH_X,
+                               elem->height - 2*MULTIVALUE_BORDER_WIDTH_Y,
+                               NULL,
+                               &attribute->border_color);
   }
 
   p.x = elem->corner.x + elem->width / 2.0;
   p.y = elem->corner.y + (elem->height - attribute->font_height)/2.0 +
-         dia_font_ascent(attribute->name,
-                         attribute->font, attribute->font_height);
+         dia_font_ascent (attribute->name,
+                          attribute->font,
+                          attribute->font_height);
 
-  renderer_ops->set_font(renderer,  attribute->font, attribute->font_height);
-  renderer_ops->draw_string(renderer, attribute->name,
-			     &p, ALIGN_CENTER,
-			     &color_black);
+  dia_renderer_set_font (renderer, attribute->font, attribute->font_height);
+  dia_renderer_draw_string (renderer,
+                            attribute->name,
+                            &p,
+                            ALIGN_CENTER,
+                            &color_black);
 
   if (attribute->key || attribute->weakkey) {
     if (attribute->weakkey) {
-      renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, 0.3);
+      dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, 0.3);
     } else {
-      renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+      dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
     }
-    width = dia_font_string_width(attribute->name,
-                                  attribute->font, attribute->font_height);
+    width = dia_font_string_width (attribute->name,
+                                   attribute->font,
+                                   attribute->font_height);
     start.x = center.x - width / 2;
     start.y = center.y + 0.4;
     end.x = center.x + width / 2;
     end.y = center.y + 0.4;
-    renderer_ops->draw_line(renderer, &start, &end, &color_black);
+    dia_renderer_draw_line (renderer, &start, &end, &color_black);
   }
 }
 

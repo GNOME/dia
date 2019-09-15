@@ -101,6 +101,14 @@ G_BEGIN_DECLS
 #define WMF_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), WMF_TYPE_RENDERER))
 #define WMF_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), WMF_TYPE_RENDERER, WmfRendererClass))
 
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+
 GType wmf_renderer_get_type (void) G_GNUC_CONST;
 
 typedef struct _WmfRenderer WmfRenderer;
@@ -108,32 +116,35 @@ typedef struct _WmfRendererClass WmfRendererClass;
 
 struct _WmfRenderer
 {
-    DiaRenderer parent_instance;
+  DiaRenderer parent_instance;
 
-    W32::HDC  hFileDC;
-    gchar*    sFileName;
+  DiaFont *font;
+  double font_height;
 
-    W32::HDC  hPrintDC;
+  W32::HDC  hFileDC;
+  gchar*    sFileName;
 
-    /* if applicable everything is scaled to 0.01 mm */
-    int nLineWidth;  /* need to cache these, because ... */
-    int fnPenStyle;  /* ... both are needed at the same time */
-    W32::HPEN  hPen; /* ugliness by concept, see DonePen() */
+  W32::HDC  hPrintDC;
 
-    W32::HFONT hFont;
-    PLACEABLEMETAHEADER pmh;
-    double xoff, yoff;
-    double scale;
+  /* if applicable everything is scaled to 0.01 mm */
+  int nLineWidth;  /* need to cache these, because ... */
+  int fnPenStyle;  /* ... both are needed at the same time */
+  W32::HPEN  hPen; /* ugliness by concept, see DonePen() */
 
-    int nDashLen; /* the scaled dash length */
-    gboolean platform_is_nt; /* advanced line styles supported */
-    gboolean target_emf; /* write enhanced metafile */
-    W32::RECT margins;
+  W32::HFONT hFont;
+  PLACEABLEMETAHEADER pmh;
+  double xoff, yoff;
+  double scale;
 
-    gboolean use_pango;
-    PangoContext* pango_context;
+  int nDashLen; /* the scaled dash length */
+  gboolean platform_is_nt; /* advanced line styles supported */
+  gboolean target_emf; /* write enhanced metafile */
+  W32::RECT margins;
 
-    DiaContext* ctx;
+  gboolean use_pango;
+  PangoContext* pango_context;
+
+  DiaContext* ctx;
 };
 
 struct _WmfRendererClass
@@ -517,29 +528,32 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 }
 
 static void
-set_font(DiaRenderer *self, DiaFont *font, real height)
+set_font (DiaRenderer *self, DiaFont *font, real height)
 {
-    WmfRenderer *renderer = WMF_RENDERER (self);
+  WmfRenderer *renderer = WMF_RENDERER (self);
 
-    W32::LPCTSTR sFace;
-    W32::DWORD dwItalic = 0;
-    W32::DWORD dwWeight = FW_DONTCARE;
-    DiaFontStyle style = dia_font_get_style(font);
-    real font_size = dia_font_get_size (font) * (height / dia_font_get_height (font));
+  W32::LPCTSTR sFace;
+  W32::DWORD dwItalic = 0;
+  W32::DWORD dwWeight = FW_DONTCARE;
+  DiaFontStyle style = dia_font_get_style (font);
+  real font_size = dia_font_get_size (font) * (height / dia_font_get_height (font));
 
+  g_clear_object (&renderer->font);
+  renderer->font = DIA_FONT (g_object_ref (font));
+  renderer->font_height = height;
 
-    DIAG_NOTE(renderer, "set_font %s %f\n",
-              dia_font_get_family (font), height);
-    if (renderer->hFont) {
-	W32::DeleteObject(renderer->hFont);
-	renderer->hFont = NULL;
-    }
-    if (renderer->pango_context) {
-        g_object_unref (renderer->pango_context);
-	renderer->pango_context = NULL;
-    }
+  DIAG_NOTE (renderer, "set_font %s %f\n",
+             dia_font_get_family (font), height);
+  if (renderer->hFont) {
+    W32::DeleteObject (renderer->hFont);
+    renderer->hFont = NULL;
+  }
+  if (renderer->pango_context) {
+    g_object_unref (renderer->pango_context);
+    renderer->pango_context = NULL;
+  }
 
-    if (renderer->use_pango) {
+  if (renderer->use_pango) {
 #ifdef __PANGOWIN32_H__ /* with the pangowin32 backend there is a better way */
 	if (!renderer->pango_context)
 	    renderer->pango_context = pango_win32_get_context ();
@@ -562,44 +576,44 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 	    g_free (desc);
 	}
 #else
-	g_assert_not_reached();
+    g_assert_not_reached();
 #endif
-    } else {
-	sFace = dia_font_get_family (font);
-	dwItalic = DIA_FONT_STYLE_GET_SLANT(style) != DIA_FONT_NORMAL;
+  } else {
+    sFace = dia_font_get_family (font);
+    dwItalic = DIA_FONT_STYLE_GET_SLANT (style) != DIA_FONT_NORMAL;
 
-	/* although there is a known algorithm avoid it for cleanness */
-	switch (DIA_FONT_STYLE_GET_WEIGHT(style)) {
-	case DIA_FONT_ULTRALIGHT    : dwWeight = FW_ULTRALIGHT; break;
-	case DIA_FONT_LIGHT         : dwWeight = FW_LIGHT; break;
-	case DIA_FONT_MEDIUM        : dwWeight = FW_MEDIUM; break;
-	case DIA_FONT_DEMIBOLD      : dwWeight = FW_DEMIBOLD; break;
-	case DIA_FONT_BOLD          : dwWeight = FW_BOLD; break;
-	case DIA_FONT_ULTRABOLD     : dwWeight = FW_ULTRABOLD; break;
-	case DIA_FONT_HEAVY         : dwWeight = FW_HEAVY; break;
-	default : dwWeight = FW_NORMAL; break;
-	}
-	//Hack to get BYTE out of namespace W32
+    /* although there is a known algorithm avoid it for cleanness */
+    switch (DIA_FONT_STYLE_GET_WEIGHT (style)) {
+      case DIA_FONT_ULTRALIGHT    : dwWeight = FW_ULTRALIGHT; break;
+      case DIA_FONT_LIGHT         : dwWeight = FW_LIGHT; break;
+      case DIA_FONT_MEDIUM        : dwWeight = FW_MEDIUM; break;
+      case DIA_FONT_DEMIBOLD      : dwWeight = FW_DEMIBOLD; break;
+      case DIA_FONT_BOLD          : dwWeight = FW_BOLD; break;
+      case DIA_FONT_ULTRABOLD     : dwWeight = FW_ULTRABOLD; break;
+      case DIA_FONT_HEAVY         : dwWeight = FW_HEAVY; break;
+      default : dwWeight = FW_NORMAL; break;
+    }
+    //Hack to get BYTE out of namespace W32
 #       ifndef BYTE
 #       define BYTE unsigned char
 #       endif
 
-	renderer->hFont = (W32::HFONT)W32::CreateFont(
-		- SC (font_size),  // logical height of font
-		0,		// logical average character width
-		0,		// angle of escapement
-		0,		// base-line orientation angle
-		dwWeight,	// font weight
-		dwItalic,	// italic attribute flag
-		0,		// underline attribute flag
-		0,		// strikeout attribute flag
-		DEFAULT_CHARSET,	// character set identifier
-		OUT_TT_PRECIS, 	// output precision
-		CLIP_DEFAULT_PRECIS,	// clipping precision
-		PROOF_QUALITY,		// output quality
-		DEFAULT_PITCH,		// pitch and family
-		sFace);		// pointer to typeface name string
-    }
+  renderer->hFont = (W32::HFONT) W32::CreateFont (
+        - SC (font_size),     // logical height of font
+        0,                    // logical average character width
+        0,                    // angle of escapement
+        0,                    // base-line orientation angle
+        dwWeight,             // font weight
+        dwItalic,             // italic attribute flag
+        0,                    // underline attribute flag
+        0,                    // strikeout attribute flag
+        DEFAULT_CHARSET,      // character set identifier
+        OUT_TT_PRECIS,        // output precision
+        CLIP_DEFAULT_PRECIS,  // clipping precision
+        PROOF_QUALITY,        // output quality
+        DEFAULT_PITCH,        // pitch and family
+        sFace);               // pointer to typeface name string
+  }
 }
 
 static void
@@ -1233,9 +1247,57 @@ wmf_renderer_get_type (void)
 }
 
 static void
+wmf_renderer_set_property (GObject      *object,
+                           guint         property_id,
+                           const GValue *value,
+                           GParamSpec   *pspec)
+{
+  WmfRenderer *self = WMF_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      set_font (DIA_RENDERER (self),
+                DIA_FONT (g_value_get_object (value)),
+                self->font_height);
+      break;
+    case PROP_FONT_HEIGHT:
+      set_font (DIA_RENDERER (self),
+                self->font,
+                g_value_get_double (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+wmf_renderer_get_property (GObject    *object,
+                           guint       property_id,
+                           GValue     *value,
+                           GParamSpec *pspec)
+{
+  WmfRenderer *self = WMF_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, self->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, self->font_height);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
 wmf_renderer_finalize (GObject *object)
 {
   WmfRenderer *renderer = WMF_RENDERER (object);
+
+  g_clear_object (&renderer->font);
 
   if (renderer->hFont)
     W32::DeleteObject(renderer->hFont);
@@ -1253,6 +1315,8 @@ wmf_renderer_class_init (WmfRendererClass *klass)
 
   parent_class = g_type_class_peek_parent (klass);
 
+  object_class->set_property = wmf_renderer_set_property;
+  object_class->get_property = wmf_renderer_get_property;
   object_class->finalize = wmf_renderer_finalize;
 
   /* renderer members */
@@ -1267,8 +1331,6 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_fillstyle  = set_fillstyle;
-
-  renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;
@@ -1295,6 +1357,9 @@ wmf_renderer_class_init (WmfRendererClass *klass)
 #endif
   /* other */
   renderer_class->is_capable_to = is_capable_to;
+
+  g_object_class_override_property (object_class, PROP_FONT, "font");
+  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 #ifdef G_OS_WIN32

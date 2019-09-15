@@ -555,9 +555,9 @@ text_distance_from(Text *text, Point *point)
 }
 
 void
-text_draw(Text *text, DiaRenderer *renderer)
+text_draw (Text *text, DiaRenderer *renderer)
 {
-  DIA_RENDERER_GET_CLASS (renderer)->draw_text (renderer, text);
+  dia_renderer_draw_text (renderer, text);
 
   if (DIA_IS_INTERACTIVE_RENDERER (renderer) && (text->focus.has_focus)) {
     real curs_x, curs_y;
@@ -567,27 +567,25 @@ text_draw(Text *text, DiaRenderer *renderer)
     real height = text->ascent+text->descent;
     curs_y = text->position.y - text->ascent + text->cursor_row*text->height;
 
-    DIA_RENDERER_GET_CLASS (renderer)->set_font (renderer, text->font, text->height);
+    dia_renderer_set_font (renderer, text->font, text->height);
 
-    str_width_first =
-      DIA_RENDERER_GET_CLASS (renderer)->get_text_width (renderer,
-                                                         text_get_line (text, text->cursor_row),
-                                                         text->cursor_pos);
-    str_width_whole =
-      DIA_RENDERER_GET_CLASS (renderer)->get_text_width (renderer,
-                                                         text_get_line (text, text->cursor_row),
-                                                         text_get_line_strlen (text, text->cursor_row));
+    str_width_first = dia_renderer_get_text_width (renderer,
+                                                   text_get_line (text, text->cursor_row),
+                                                   text->cursor_pos);
+    str_width_whole = dia_renderer_get_text_width (renderer,
+                                                   text_get_line (text, text->cursor_row),
+                                                   text_get_line_strlen (text, text->cursor_row));
     curs_x = text->position.x + str_width_first;
 
     switch (text->alignment) {
-    case ALIGN_LEFT:
-      break;
-    case ALIGN_CENTER:
-      curs_x -= str_width_whole / 2.0;
-      break;
-    case ALIGN_RIGHT:
-      curs_x -= str_width_whole;
-      break;
+      case ALIGN_LEFT:
+        break;
+      case ALIGN_CENTER:
+        curs_x -= str_width_whole / 2.0;
+        break;
+      case ALIGN_RIGHT:
+        curs_x -= str_width_whole;
+        break;
     }
 
     p1.x = curs_x;
@@ -595,9 +593,9 @@ text_draw(Text *text, DiaRenderer *renderer)
     p2.x = curs_x;
     p2.y = curs_y + height;
 
-    DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-    DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, height/CURSOR_HEIGHT_RATIO);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &p1, &p2, &color_black);
+    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+    dia_renderer_set_linewidth (renderer, height/CURSOR_HEIGHT_RATIO);
+    dia_renderer_draw_line (renderer, &p1, &p2, &color_black);
   }
 }
 
@@ -697,41 +695,39 @@ text_set_cursor (Text        *text,
     }
 
 
-    DIA_RENDERER_GET_CLASS (renderer)->set_font (renderer, text->font, text->height);
-    str_width_whole =
-      DIA_RENDERER_GET_CLASS (renderer)->get_text_width (renderer,
-                                                         text_get_line (text, row),
-                                                         text_get_line_strlen (text, row));
+    dia_renderer_set_font (renderer, text->font, text->height);
+    str_width_whole = dia_renderer_get_text_width (renderer,
+                                                   text_get_line (text, row),
+                                                   text_get_line_strlen (text, row));
     start_x = text->position.x;
     switch (text->alignment) {
-    case ALIGN_LEFT:
-      break;
-    case ALIGN_CENTER:
-      start_x -= str_width_whole / 2.0;
-      break;
-    case ALIGN_RIGHT:
-      start_x -= str_width_whole;
-      break;
+      case ALIGN_LEFT:
+        break;
+      case ALIGN_CENTER:
+        start_x -= str_width_whole / 2.0;
+        break;
+      case ALIGN_RIGHT:
+        start_x -= str_width_whole;
+        break;
     }
 
     /* Do an ugly linear search for the cursor index:
        TODO: Change to binary search */
     {
       real min_dist = G_MAXDOUBLE;
-      for (i=0;i<=text_get_line_strlen(text, row);i++) {
-	real dist;
-	str_width_first =
-	  DIA_RENDERER_GET_CLASS(renderer)->get_text_width(renderer, text_get_line(text, row), i);
-	dist = fabs(clicked_point->x - (start_x + str_width_first));
-	if (dist < min_dist) {
-	  min_dist = dist;
-	  text->cursor_pos = i;
-	} else {
-	  return;
-	}
+      for (i = 0; i <= text_get_line_strlen (text, row); i++) {
+        real dist;
+        str_width_first = dia_renderer_get_text_width (renderer, text_get_line (text, row), i);
+        dist = fabs (clicked_point->x - (start_x + str_width_first));
+        if (dist < min_dist) {
+          min_dist = dist;
+          text->cursor_pos = i;
+        } else {
+          return;
+        }
       }
     }
-    text->cursor_pos = text_get_line_strlen(text, row);
+    text->cursor_pos = text_get_line_strlen (text, row);
   } else {
     /* No clicked point, leave cursor where it is */
   }

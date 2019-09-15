@@ -291,9 +291,8 @@ tree_move(Tree *tree, Point *to)
 }
 
 static void
-tree_draw(Tree *tree, DiaRenderer *renderer)
+tree_draw (Tree *tree, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   int i;
 
@@ -302,19 +301,20 @@ tree_draw(Tree *tree, DiaRenderer *renderer)
 
   endpoints = &tree->real_ends[0];
 
-  renderer_ops->set_linewidth(renderer, LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, LINE_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
-  renderer_ops->draw_line(renderer,
-			   &endpoints[0], &endpoints[1],
- 			   &tree->line_color);
+  dia_renderer_draw_line (renderer,
+                          &endpoints[0],
+                          &endpoints[1],
+                          &tree->line_color);
 
   for (i=0;i<tree->num_handles;i++) {
-    renderer_ops->draw_line(renderer,
-			     &tree->parallel_points[i],
-			     &tree->handles[i]->pos,
-			     &tree->line_color);
+    dia_renderer_draw_line (renderer,
+                            &tree->parallel_points[i],
+                            &tree->handles[i]->pos,
+                            &tree->line_color);
   }
 }
 

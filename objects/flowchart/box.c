@@ -312,9 +312,8 @@ box_move(Box *box, Point *to)
 }
 
 static void
-box_draw(Box *box, DiaRenderer *renderer)
+box_draw (Box *box, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point lr_corner;
   Element *elem;
 
@@ -325,18 +324,22 @@ box_draw(Box *box, DiaRenderer *renderer)
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
 
-  if (box->show_background)
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  if (box->show_background) {
+    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  }
 
-  renderer_ops->set_linewidth(renderer, box->border_width);
-  renderer_ops->set_linestyle(renderer, box->line_style, box->dashlength);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  dia_renderer_set_linewidth (renderer, box->border_width);
+  dia_renderer_set_linestyle (renderer, box->line_style, box->dashlength);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
   /* Problem:  How do we make the fill with rounded corners?
    * It's solved in the base class ...
    */
-  renderer_ops->draw_rounded_rect (renderer, &elem->corner, &lr_corner,
-				   &box->inner_color, &box->border_color,
-				   box->corner_radius);
+  dia_renderer_draw_rounded_rect (renderer,
+                                  &elem->corner,
+                                  &lr_corner,
+                                  &box->inner_color,
+                                  &box->border_color,
+                                  box->corner_radius);
   text_draw(box->text, renderer);
 }
 

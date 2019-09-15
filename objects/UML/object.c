@@ -270,9 +270,8 @@ objet_move(Objet *ob, Point *to)
 }
 
 static void
-objet_draw(Objet *ob, DiaRenderer *renderer)
+objet_draw (Objet *ob, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real bw, x, y, w, h;
   Point p1, p2;
@@ -290,78 +289,84 @@ objet_draw(Objet *ob, DiaRenderer *renderer)
 
   bw = (ob->is_active) ? OBJET_ACTIVEBORDERWIDTH: ob->line_width;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, bw);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, bw);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
 
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
   if (ob->is_multiple) {
-    p1.x += OBJET_MARGIN_M(ob);
-    p2.y -= OBJET_MARGIN_M(ob);
-    renderer_ops->draw_rect(renderer,
-			     &p1, &p2,
-			     &ob->fill_color,
-			     &ob->line_color);
-    p1.x -= OBJET_MARGIN_M(ob);
-    p1.y += OBJET_MARGIN_M(ob);
-    p2.x -= OBJET_MARGIN_M(ob);
-    p2.y += OBJET_MARGIN_M(ob);
+    p1.x += OBJET_MARGIN_M (ob);
+    p2.y -= OBJET_MARGIN_M (ob);
+    dia_renderer_draw_rect (renderer,
+                            &p1,
+                            &p2,
+                            &ob->fill_color,
+                            &ob->line_color);
+    p1.x -= OBJET_MARGIN_M (ob);
+    p1.y += OBJET_MARGIN_M (ob);
+    p2.x -= OBJET_MARGIN_M (ob);
+    p2.y += OBJET_MARGIN_M (ob);
   }
 
-  renderer_ops->draw_rect(renderer,
-			   &p1, &p2,
-			   &ob->fill_color,
-			   &ob->line_color);
+  dia_renderer_draw_rect (renderer,
+                          &p1,
+                          &p2,
+                          &ob->fill_color,
+                          &ob->line_color);
 
 
-  text_draw(ob->text, renderer);
+  text_draw (ob->text, renderer);
 
-  renderer_ops->set_font(renderer, ob->text->font, ob->text->height);
+  dia_renderer_set_font (renderer, ob->text->font, ob->text->height);
 
   if ((ob->st_stereotype != NULL) && (ob->st_stereotype[0] != '\0')) {
-      renderer_ops->draw_string(renderer,
-				 ob->st_stereotype,
-				 &ob->st_pos, ALIGN_CENTER,
-				 &ob->text_attrs.color);
+    dia_renderer_draw_string (renderer,
+                              ob->st_stereotype,
+                              &ob->st_pos,
+                              ALIGN_CENTER,
+                              &ob->text_attrs.color);
   }
 
   if ((ob->exstate != NULL) && (ob->exstate[0] != '\0')) {
-      renderer_ops->draw_string(renderer,
-				 ob->exstate,
-				 &ob->ex_pos, ALIGN_CENTER,
-				 &ob->text_attrs.color);
+    dia_renderer_draw_string (renderer,
+                              ob->exstate,
+                              &ob->ex_pos,
+                              ALIGN_CENTER,
+                              &ob->text_attrs.color);
   }
 
   /* Is there a better way to underline? */
-  p1.x = x + (w - text_get_max_width(ob->text))/2;
-  p1.y = ob->text->position.y + text_get_descent(ob->text);
-  p2.x = p1.x + text_get_max_width(ob->text);
+  p1.x = x + (w - text_get_max_width (ob->text))/2;
+  p1.y = ob->text->position.y + text_get_descent (ob->text);
+  p2.x = p1.x + text_get_max_width (ob->text);
   p2.y = p1.y;
 
-  renderer_ops->set_linewidth(renderer, ob->line_width/2);
+  dia_renderer_set_linewidth (renderer, ob->line_width/2);
 
   for (i=0; i<ob->text->numlines; i++) {
-    p1.x = x + (w - text_get_line_width(ob->text, i))/2;
-    p2.x = p1.x + text_get_line_width(ob->text, i);
-    renderer_ops->draw_line(renderer,
-			     &p1, &p2,
-			     &ob->text_attrs.color);
+    p1.x = x + (w - text_get_line_width (ob->text, i))/2;
+    p2.x = p1.x + text_get_line_width (ob->text, i);
+    dia_renderer_draw_line (renderer,
+                            &p1,
+                            &p2,
+                            &ob->text_attrs.color);
     p1.y = p2.y += ob->text->height;
   }
 
   if (ob->show_attributes) {
-      p1.x = x; p2.x = x + w;
-      p1.y = p2.y = ob->attributes->position.y - ob->attributes->ascent - OBJET_MARGIN_Y(ob);
+    p1.x = x; p2.x = x + w;
+    p1.y = p2.y = ob->attributes->position.y - ob->attributes->ascent - OBJET_MARGIN_Y (ob);
 
-      renderer_ops->set_linewidth(renderer, bw);
-      renderer_ops->draw_line(renderer,
-			       &p1, &p2,
-			       &ob->line_color);
+    dia_renderer_set_linewidth (renderer, bw);
+    dia_renderer_draw_line (renderer,
+                            &p1,
+                            &p2,
+                            &ob->line_color);
 
-      text_draw(ob->attributes, renderer);
+    text_draw (ob->attributes, renderer);
   }
 }
 

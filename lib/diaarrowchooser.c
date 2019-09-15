@@ -162,7 +162,6 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     gint x, y;
     GdkWindow *win;
     int linewidth = 2;
-    DiaRendererClass *renderer_ops;
     cairo_surface_t *surface;
     cairo_t *ctx;
 
@@ -203,9 +202,8 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     renderer->with_alpha = TRUE;
     renderer->surface = cairo_surface_reference (surface);
 
-    renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-    renderer_ops->begin_render(DIA_RENDERER (renderer), NULL);
-    renderer_ops->set_linewidth(DIA_RENDERER (renderer), linewidth);
+    dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
+    dia_renderer_set_linewidth (DIA_RENDERER (renderer), linewidth);
     {
       Color color_bg, color_fg;
       GtkStyle *style = gtk_widget_get_style (widget);
@@ -215,15 +213,15 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
 
       GDK_COLOR_TO_DIA(bg, color_bg);
       GDK_COLOR_TO_DIA(fg, color_fg);
-      renderer_ops->draw_line(DIA_RENDERER (renderer), &from, &to, &color_fg);
+      dia_renderer_draw_line (DIA_RENDERER (renderer), &from, &to, &color_fg);
       arrow_draw (DIA_RENDERER (renderer), arrow_type.type,
                   &arrow_head, &from,
-		  arrow_type.length,
-		  arrow_type.width,
+                  arrow_type.length,
+                  arrow_type.width,
                   linewidth, &color_fg, &color_bg);
     }
-    renderer_ops->end_render(DIA_RENDERER (renderer));
-    g_object_unref(renderer);
+    dia_renderer_end_render (DIA_RENDERER (renderer));
+    g_object_unref (renderer);
 
     ctx = gdk_cairo_create (win);
     cairo_set_source_surface (ctx, surface, x, y);

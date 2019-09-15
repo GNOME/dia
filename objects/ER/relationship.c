@@ -238,9 +238,8 @@ relationship_move(Relationship *relationship, Point *to)
 }
 
 static void
-relationship_draw(Relationship *relationship, DiaRenderer *renderer)
+relationship_draw (Relationship *relationship, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point corners[4];
   Point lc, rc;
   Point p;
@@ -262,15 +261,17 @@ relationship_draw(Relationship *relationship, DiaRenderer *renderer)
   corners[3].x = elem->corner.x + elem->width / 2;
   corners[3].y = elem->corner.y + elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
 
-  renderer_ops->set_linewidth(renderer, relationship->border_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  dia_renderer_set_linewidth (renderer, relationship->border_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_polygon(renderer, corners, 4,
-			     &relationship->inner_color,
-			     &relationship->border_color);
+  dia_renderer_draw_polygon (renderer,
+                             corners,
+                             4,
+                             &relationship->inner_color,
+                             &relationship->border_color);
 
   if (relationship->rotate) {
     lc.x = corners[1].x + 0.2;
@@ -293,29 +294,38 @@ relationship_draw(Relationship *relationship, DiaRenderer *renderer)
     corners[2].x -= diff;
     corners[3].y -= diff*DIAMOND_RATIO;
 
-    renderer_ops->draw_polygon(renderer, corners, 4,
-			       NULL, &relationship->border_color);
+    dia_renderer_draw_polygon (renderer,
+                               corners,
+                               4,
+                               NULL,
+                               &relationship->border_color);
   }
 
-  renderer_ops->set_font(renderer, relationship->font, relationship->font_height);
-  renderer_ops->draw_string(renderer,
-			     relationship->left_cardinality,
-			     &lc, left_align,
-			     &color_black);
-  renderer_ops->draw_string(renderer,
-			     relationship->right_cardinality,
-			     &rc, ALIGN_LEFT,
-			     &color_black);
+  dia_renderer_set_font (renderer,
+                         relationship->font,
+                         relationship->font_height);
+  dia_renderer_draw_string (renderer,
+                            relationship->left_cardinality,
+                            &lc,
+                            left_align,
+                            &color_black);
+  dia_renderer_draw_string (renderer,
+                            relationship->right_cardinality,
+                            &rc,
+                            ALIGN_LEFT,
+                            &color_black);
 
   p.x = elem->corner.x + elem->width / 2.0;
   p.y = elem->corner.y + (elem->height - relationship->font_height)/2.0 +
-         dia_font_ascent(relationship->name,
-                         relationship->font, relationship->font_height);
+         dia_font_ascent (relationship->name,
+                          relationship->font,
+                          relationship->font_height);
 
-  renderer_ops->draw_string(renderer,
-			     relationship->name,
-			     &p, ALIGN_CENTER,
-			     &color_black);
+  dia_renderer_draw_string (renderer,
+                            relationship->name,
+                            &p,
+                            ALIGN_CENTER,
+                            &color_black);
 }
 
 static void

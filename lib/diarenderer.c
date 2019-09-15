@@ -43,13 +43,34 @@ static inline int isnan_d  (double      x) { return x != x; }
 static inline int isnan_ld (long double x) { return x != x; }
 #endif
 
+typedef struct _DiaRendererPrivate DiaRendererPrivate;
+struct _DiaRendererPrivate
+{
+  DiaFont *font;
+  double   font_height; /* IMO It should be possible use the font's size to keep
+                         * this info, but currently _not_ : multi-line text is
+                         * growing on every line when zoomed: BUG in font.c  --hb
+                         */
+  BezierApprox *bezier;
+};
+
+G_DEFINE_TYPE_WITH_PRIVATE (DiaRenderer, dia_renderer, G_TYPE_OBJECT)
+
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+static GParamSpec *pspecs[LAST_PROP] = { NULL, };
+
+
 struct _BezierApprox {
   Point *points;
   int numpoints;
   int currpoint;
 };
-
-static void dia_renderer_class_init (DiaRendererClass *klass);
 
 static void begin_render (DiaRenderer *, const Rectangle *update);
 static void end_render (DiaRenderer *);
@@ -59,7 +80,6 @@ static void set_linecaps (DiaRenderer *renderer, LineCaps mode);
 static void set_linejoin (DiaRenderer *renderer, LineJoin mode);
 static void set_linestyle (DiaRenderer *renderer, LineStyle mode, real length);
 static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
-static void set_font (DiaRenderer *renderer, DiaFont *font, real height);
 
 static void draw_line (DiaRenderer *renderer,
                        Point *start, Point *end,
@@ -167,35 +187,51 @@ static gboolean is_capable_to (DiaRenderer *renderer, RenderCapability cap);
 
 static void set_pattern (DiaRenderer *renderer, DiaPattern *pat);
 
-static gpointer parent_class = NULL;
-
-GType
-dia_renderer_get_type (void)
+static void
+dia_renderer_set_property (GObject      *object,
+                           guint         property_id,
+                           const GValue *value,
+                           GParamSpec   *pspec)
 {
-  static GType object_type = 0;
+  DiaRenderer *self = DIA_RENDERER (object);
+  DiaRendererPrivate *priv = dia_renderer_get_instance_private (self);
 
-  if (!object_type)
-    {
-      static const GTypeInfo object_info =
-      {
-        sizeof (DiaRendererClass),
-        (GBaseInitFunc) NULL,
-        (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) dia_renderer_class_init,
-        NULL,           /* class_finalize */
-        NULL,           /* class_data */
-        sizeof (DiaRenderer),
-        0,              /* n_preallocs */
-	NULL            /* init */
-      };
-
-      object_type = g_type_register_static (G_TYPE_OBJECT,
-                                            "DiaRenderer",
-                                            &object_info, 0);
-    }
-
-  return object_type;
+  switch (property_id) {
+    case PROP_FONT:
+      g_clear_object (&priv->font);
+      priv->font = g_value_dup_object (value);
+      break;
+    case PROP_FONT_HEIGHT:
+      priv->font_height = g_value_get_double (value);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
 }
+
+static void
+dia_renderer_get_property (GObject    *object,
+                           guint       property_id,
+                           GValue     *value,
+                           GParamSpec *pspec)
+{
+  DiaRenderer *self = DIA_RENDERER (object);
+  DiaRendererPrivate *priv = dia_renderer_get_instance_private (self);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, priv->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, priv->font_height);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
 
 /*!
  * \brief Render all the visible object in the layer
@@ -246,13 +282,13 @@ draw_layer (DiaRenderer *renderer,
  */
 static void
 draw_object (DiaRenderer *renderer,
-	     DiaObject   *object,
-	     DiaMatrix   *matrix)
+             DiaObject   *object,
+             DiaMatrix   *matrix)
 {
   if (matrix) {
 #if 1
     DiaRenderer *tr = dia_transform_renderer_new (renderer);
-    DIA_RENDERER_GET_CLASS(tr)->draw_object (tr, object, matrix);
+    dia_renderer_draw_object (tr, object, matrix);
     g_object_unref (tr);
     return;
 #else
@@ -270,32 +306,31 @@ draw_object (DiaRenderer *renderer,
     pt[3].x = matrix->xx * bb->left + matrix->xy * bb->bottom + matrix->x0;
     pt[3].y = matrix->yx * bb->left + matrix->yy * bb->bottom + matrix->y0;
 
-    DIA_RENDERER_GET_CLASS(renderer)->set_linewidth(renderer, 0.0);
-    DIA_RENDERER_GET_CLASS(renderer)->set_linestyle(renderer, LINESTYLE_DOTTED, 1.0);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon(renderer, pt, 4, NULL, &red);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &pt[0], &pt[2], &red);
-    DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, &pt[1], &pt[3], &red);
+    dia_renderer_set_linewidth(renderer, 0.0);
+    dia_renderer_set_linestyle(renderer, LINESTYLE_DOTTED, 1.0);
+    dia_renderer_draw_polygon(renderer, pt, 4, NULL, &red);
+    dia_renderer_draw_line(renderer, &pt[0], &pt[2], &red);
+    dia_renderer_draw_line(renderer, &pt[1], &pt[3], &red);
 #endif
   }
   dia_object_draw (object, renderer);
 }
 
 static void
-renderer_finalize (GObject *object)
+dia_renderer_finalize (GObject *object)
 {
   DiaRenderer *renderer = DIA_RENDERER (object);
+  DiaRendererPrivate *priv = dia_renderer_get_instance_private (renderer);
 
-  if (renderer->font)
-    dia_font_unref (renderer->font);
+  g_clear_object (&priv->font);
 
-  if (renderer->bezier)
-    {
-      if (renderer->bezier->points)
-        g_free (renderer->bezier->points);
-      g_free (renderer->bezier);
-    }
+  if (priv->bezier) {
+    if (priv->bezier->points)
+      g_free (priv->bezier->points);
+    g_free (priv->bezier);
+  }
 
-  G_OBJECT_CLASS (parent_class)->finalize (object);
+  G_OBJECT_CLASS (dia_renderer_parent_class)->finalize (object);
 }
 
 static void
@@ -304,9 +339,9 @@ dia_renderer_class_init (DiaRendererClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = renderer_finalize;
+  object_class->set_property= dia_renderer_set_property;
+  object_class->get_property= dia_renderer_get_property;
+  object_class->finalize = dia_renderer_finalize;
 
   renderer_class->draw_layer = draw_layer;
   renderer_class->draw_object = draw_object;
@@ -320,7 +355,6 @@ dia_renderer_class_init (DiaRendererClass *klass)
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_fillstyle  = set_fillstyle;
-  renderer_class->set_font       = set_font;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_rect    = draw_rect;
@@ -352,6 +386,33 @@ dia_renderer_class_init (DiaRendererClass *klass)
   /* other */
   renderer_class->is_capable_to = is_capable_to;
   renderer_class->set_pattern = set_pattern;
+
+  /**
+   * DiaRenderer:font:
+   *
+   * Since: 0.98
+   */
+  pspecs[PROP_FONT] =
+    g_param_spec_object ("font", "Font", "The active font",
+                         DIA_TYPE_FONT,
+                         G_PARAM_READWRITE);
+
+
+  /**
+   * DiaRenderer:font-height:
+   *
+   * Since: 0.98
+   */
+  pspecs[PROP_FONT_HEIGHT] =
+    g_param_spec_double ("font-height",
+                         "Font height",
+                         "Height of the font",
+                         0.0,
+                         G_MAXDOUBLE,
+                         0.0,
+                         G_PARAM_READWRITE);
+
+  g_object_class_install_properties (object_class, LAST_PROP, pspecs);
 }
 
 /*!
@@ -469,22 +530,25 @@ draw_line (DiaRenderer *renderer, Point *start, Point *end, Color *color)
  */
 static void
 draw_polygon (DiaRenderer *renderer,
-              Point *points, int num_points,
-              Color *fill, Color *stroke)
+              Point       *points,
+              int          num_points,
+              Color       *fill,
+              Color       *stroke)
 {
-  DiaRendererClass *klass = DIA_RENDERER_GET_CLASS (renderer);
   int i;
   Color *color = fill ? fill : stroke;
 
   g_return_if_fail (num_points > 1);
   g_return_if_fail (color != NULL);
 
-  for (i = 0; i < num_points - 1; i++)
-    klass->draw_line (renderer, &points[i+0], &points[i+1], color);
+  for (i = 0; i < num_points - 1; i++) {
+    dia_renderer_draw_line (renderer, &points[i+0], &points[i+1], color);
+  }
   /* close it in any case */
   if (   (points[0].x != points[num_points-1].x)
-      || (points[0].y != points[num_points-1].y))
-    klass->draw_line (renderer, &points[num_points-1], &points[0], color);
+      || (points[0].y != points[num_points-1].y)) {
+    dia_renderer_draw_line (renderer, &points[num_points-1], &points[0], color);
+  }
 }
 
 /*!
@@ -537,16 +601,7 @@ draw_ellipse (DiaRenderer *renderer, Point *center,
  *
  * \memberof _DiaRenderer \pure
  */
-static void
-set_font (DiaRenderer *renderer, DiaFont *font, real height)
-{
-  /* if it's the same font we must ref it first */
-  dia_font_ref (font);
-  if (renderer->font)
-    dia_font_unref (renderer->font);
-  renderer->font = font;
-  renderer->font_height = height;
-}
+
 
 /*!
  * \brief Draw a string
@@ -597,36 +652,42 @@ draw_text (DiaRenderer *renderer,
   for (i=0;i<text->numlines;i++) {
     TextLine *text_line = text->lines[i];
 
-    DIA_RENDERER_GET_CLASS(renderer)->draw_text_line(renderer,
-						     text_line,
-						     &pos,
-						     text->alignment,
-						     &text->color);
+    dia_renderer_draw_text_line (renderer,
+                                 text_line,
+                                 &pos,
+                                 text->alignment,
+                                 &text->color);
     pos.y += text->height;
   }
 }
 
-/*!
- * \brief Default implementation to draw rotated text
+/**
+ * draw_rotated_text:
+ * @renderer: the #DiaRenderer
+ * @text: the #Text
+ * @center: where to draw @text
+ * @angle: how much to rotate @text about @center
  *
- * The default implementation converts the given _Text object to a
+ * Default implementation to draw rotated text
+ *
+ * The default implementation converts the given #Text object to a
  * path and passes it to draw_beziergon() if the renderer support
  * rendering wih holes. If not a fallback implementation is used.
  *
  * A Renderer with a good own concept of rotated text should
  * overwrite it.
- *
- * \memberof _DiaRenderer
  */
 static void
-draw_rotated_text (DiaRenderer *renderer, Text *text,
-		   Point *center, real angle)
+draw_rotated_text (DiaRenderer *renderer,
+                   Text        *text,
+                   Point       *center,
+                   real         angle)
 {
   if (angle == 0.0) {
     /* maybe the fallback should also consider center? */
     draw_text (renderer, text);
   } else {
-    GArray *path = g_array_new (FALSE, FALSE, sizeof(BezPoint));
+    GArray *path = g_array_new (FALSE, FALSE, sizeof (BezPoint));
     if (!text_is_empty (text) && text_to_path (text, path)) {
       /* Scaling and transformation here */
       Rectangle bz_bb, tx_bb;
@@ -644,41 +705,46 @@ draw_rotated_text (DiaRenderer *renderer, Text *text,
       sy = (tx_bb.bottom - tx_bb.top) / (bz_bb.bottom - bz_bb.top);
 
       /* move center to origin */
-      if (ALIGN_LEFT == text->alignment)
-	t.x0 = -bz_bb.left;
-      else if (ALIGN_RIGHT == text->alignment)
-	t.x0 = - bz_bb.right;
-      else
-	t.x0 = -(bz_bb.left + bz_bb.right) / 2.0;
+      if (ALIGN_LEFT == text->alignment) {
+        t.x0 = -bz_bb.left;
+      } else if (ALIGN_RIGHT == text->alignment) {
+        t.x0 = - bz_bb.right;
+      } else {
+        t.x0 = -(bz_bb.left + bz_bb.right) / 2.0;
+      }
       t.x0 -= dx / sx;
       t.y0 = - bz_bb.top - (text_get_ascent (text) - dy) / sy;
       dia_matrix_set_angle_and_scales (&m, G_PI * angle / 180.0, sx, sx);
       dia_matrix_multiply (&m, &t, &m);
       /* move back center from origin */
-      if (ALIGN_LEFT == text->alignment)
-	t.x0 = tx_bb.left;
-      else if (ALIGN_RIGHT == text->alignment)
-	t.x0 = tx_bb.right;
-      else
-	t.x0 = (tx_bb.left + tx_bb.right) / 2.0;
+      if (ALIGN_LEFT == text->alignment) {
+        t.x0 = tx_bb.left;
+      } else if (ALIGN_RIGHT == text->alignment) {
+        t.x0 = tx_bb.right;
+      } else {
+        t.x0 = (tx_bb.left + tx_bb.right) / 2.0;
+      }
       t.x0 += dx;
       t.y0 = tx_bb.top + (text_get_ascent (text) - dy);
       dia_matrix_multiply (&m, &m, &t);
 
       for (i = 0; i < path->len; ++i) {
-	BezPoint *bp = &g_array_index (path, BezPoint, i);
-	transform_bezpoint (bp, &m);
+        BezPoint *bp = &g_array_index (path, BezPoint, i);
+        transform_bezpoint (bp, &m);
       }
 
-      if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_HOLES))
-	DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer,
-							  &g_array_index (path, BezPoint, 0),
-							  path->len,
-							  &text->color, NULL);
-      else
-	bezier_render_fill (renderer,
-			    &g_array_index (path, BezPoint, 0), path->len,
-			    &text->color);
+      if (dia_renderer_is_capable_of (renderer, RENDER_HOLES)) {
+        dia_renderer_draw_beziergon (renderer,
+                                      &g_array_index (path, BezPoint, 0),
+                                      path->len,
+                                      &text->color,
+                                      NULL);
+      } else {
+        dia_renderer_bezier_fill (renderer,
+                                  &g_array_index (path, BezPoint, 0),
+                                  path->len,
+                                  &text->color);
+      }
     } else {
       Color magenta = { 1.0, 0.0, 1.0, 1.0 };
       Point pt = center ? *center : text->position;
@@ -697,12 +763,16 @@ draw_rotated_text (DiaRenderer *renderer, Text *text,
       dia_matrix_set_angle_and_scales (&m, G_PI * angle / 180.0, 1.0, 1.0);
       dia_matrix_multiply (&m, &t, &m);
 
-      for (i = 0; i < 4; ++i)
-	transform_point (&poly[i], &m);
+      for (i = 0; i < 4; ++i) {
+        transform_point (&poly[i], &m);
+      }
 
-      DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, 0.0);
-      DIA_RENDERER_GET_CLASS (renderer)->draw_polygon (renderer, poly, 4,
-						       NULL, &magenta);
+      dia_renderer_set_linewidth (renderer, 0.0);
+      dia_renderer_draw_polygon (renderer,
+                                 poly,
+                                 4,
+                                 NULL,
+                                 &magenta);
     }
     g_array_free (path, TRUE);
   }
@@ -710,39 +780,49 @@ draw_rotated_text (DiaRenderer *renderer, Text *text,
 
 static void
 draw_rotated_image (DiaRenderer *renderer,
-		    Point *point,
-		    real width, real height,
-		    real angle,
-		    DiaImage *image)
+                    Point       *point,
+                    real         width,
+                    real         height,
+                    real         angle,
+                    DiaImage    *image)
 {
   if (angle == 0.0) {
-    DIA_RENDERER_GET_CLASS (renderer)->draw_image (renderer, point, width, height, image);
+    dia_renderer_draw_image (renderer, point, width, height, image);
   } else {
     /* XXX: implement fallback */
-    DIA_RENDERER_GET_CLASS (renderer)->draw_image (renderer, point, width, height, image);
+    dia_renderer_draw_image (renderer, point, width, height, image);
   }
 }
 
-/*!
- * \brief Default implementation of draw_text_line
+/**
+ * draw_text_line:
+ * @renderer: the #DiaRenderer
+ * @text_line: the #TextLine to draw
+ * @pos: where to draw @text_line
+ * @alignment: text #Alignment
+ * @color: text #Color
  *
- * The default implementation of draw_text_line() just calls set_font() and
- * draw_string().
+ * Default implementation of draw_text_line
  *
- * \memberof _DiaRenderer
+ * The default implementation of dia_renderer_draw_text_line() just calls
+ * dia_renderer_set_font() and dia_renderer_draw_string().
  */
 static void
 draw_text_line (DiaRenderer *renderer,
-		TextLine *text_line, Point *pos, Alignment alignment, Color *color)
+                TextLine    *text_line,
+                Point       *pos,
+                Alignment    alignment,
+                Color       *color)
 {
-  DIA_RENDERER_GET_CLASS(renderer)->set_font(renderer,
-					     text_line_get_font(text_line),
-					     text_line_get_height(text_line));
+  dia_renderer_set_font (renderer,
+                         text_line_get_font (text_line),
+                         text_line_get_height (text_line));
 
-  DIA_RENDERER_GET_CLASS(renderer)->draw_string(renderer,
-						text_line_get_string(text_line),
-						pos, alignment,
-						color);
+  dia_renderer_draw_string (renderer,
+                            text_line_get_string (text_line),
+                            pos,
+                            alignment,
+                            color);
 }
 
 /*
@@ -926,15 +1006,17 @@ approximate_bezier (BezierApprox *bezier,
  */
 static void
 draw_bezier (DiaRenderer *renderer,
-             BezPoint *points, int numpoints,
-             Color *color)
+             BezPoint    *points,
+             int          numpoints,
+             Color       *color)
 {
+  DiaRendererPrivate *priv = dia_renderer_get_instance_private (renderer);
   BezierApprox *bezier;
 
-  if (renderer->bezier)
-    bezier = renderer->bezier;
+  if (priv->bezier)
+    bezier = priv->bezier;
   else
-    renderer->bezier = bezier = g_new0 (BezierApprox, 1);
+    priv->bezier = bezier = g_new0 (BezierApprox, 1);
 
   if (bezier->points == NULL) {
     bezier->numpoints = 30;
@@ -944,10 +1026,10 @@ draw_bezier (DiaRenderer *renderer,
   bezier->currpoint = 0;
   approximate_bezier (bezier, points, numpoints);
 
-  DIA_RENDERER_GET_CLASS (renderer)->draw_polyline (renderer,
-                                                    bezier->points,
-                                                    bezier->currpoint,
-                                                    color);
+  dia_renderer_draw_polyline (renderer,
+                              bezier->points,
+                              bezier->currpoint,
+                              color);
 }
 
 /*!
@@ -961,17 +1043,20 @@ draw_bezier (DiaRenderer *renderer,
  */
 static void
 draw_beziergon (DiaRenderer *renderer,
-                BezPoint *points, int numpoints,
-                Color *fill, Color *stroke)
+                BezPoint    *points,
+                int          numpoints,
+                Color       *fill,
+                Color       *stroke)
 {
+  DiaRendererPrivate *priv = dia_renderer_get_instance_private (renderer);
   BezierApprox *bezier;
 
   g_return_if_fail (fill != NULL || stroke != NULL);
 
-  if (renderer->bezier)
-    bezier = renderer->bezier;
+  if (priv->bezier)
+    bezier = priv->bezier;
   else
-    renderer->bezier = bezier = g_new0 (BezierApprox, 1);
+    priv->bezier = bezier = g_new0 (BezierApprox, 1);
 
   if (bezier->points == NULL) {
     bezier->numpoints = 30;
@@ -982,11 +1067,13 @@ draw_beziergon (DiaRenderer *renderer,
   approximate_bezier (bezier, points, numpoints);
 
   if (fill || stroke)
-    DIA_RENDERER_GET_CLASS (renderer)->draw_polygon (renderer,
-                                                     bezier->points,
-                                                     bezier->currpoint,
-                                                     fill, stroke);
+    dia_renderer_draw_polygon (renderer,
+                               bezier->points,
+                               bezier->currpoint,
+                               fill,
+                               stroke);
 }
+
 /*!
  * \brief Stroke and/or fill a rectangle
  *
@@ -1002,7 +1089,7 @@ draw_rect (DiaRenderer *renderer,
            Point *ul_corner, Point *lr_corner,
            Color *fill, Color *stroke)
 {
-  if (DIA_RENDERER_GET_CLASS(renderer)->draw_polygon == &draw_polygon) {
+  if (DIA_RENDERER_GET_CLASS (renderer)->draw_polygon == &draw_polygon) {
     g_warning ("%s::draw_rect and draw_polygon not implemented!",
                G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
   } else {
@@ -1015,7 +1102,7 @@ draw_rect (DiaRenderer *renderer,
     corner[3].x = ul_corner->x;
     corner[3].y = lr_corner->y;
     /* delegate transformation and drawing */
-    DIA_RENDERER_GET_CLASS(renderer)->draw_polygon (renderer, corner, 4, fill, stroke);
+    dia_renderer_draw_polygon (renderer, corner, 4, fill, stroke);
   }
 }
 
@@ -1029,14 +1116,15 @@ draw_rect (DiaRenderer *renderer,
  */
 static void
 draw_polyline (DiaRenderer *renderer,
-               Point *points, int num_points,
-               Color *color)
+               Point       *points,
+               int          num_points,
+               Color       *color)
 {
-  DiaRendererClass *klass = DIA_RENDERER_GET_CLASS (renderer);
   int i;
 
-  for (i = 0; i < num_points - 1; i++)
-    klass->draw_line (renderer, &points[i+0], &points[i+1], color);
+  for (i = 0; i < num_points - 1; i++) {
+    dia_renderer_draw_line (renderer, &points[i+0], &points[i+1], color);
+  }
 }
 
 
@@ -1072,17 +1160,18 @@ calculate_min_radius( Point *p1, Point *p2, Point *p3 )
  */
 static void
 draw_rounded_polyline (DiaRenderer *renderer,
-                        Point *points, int num_points,
-                        Color *color, real radius)
+                       Point       *points,
+                       int          num_points,
+                       Color       *color,
+                       real         radius)
 {
-  DiaRendererClass *klass = DIA_RENDERER_GET_CLASS (renderer);
   int i = 0;
   Point p1,p2,p3,p4 ;
   Point *p;
   p = points;
 
   if (radius < 0.00001) {
-    klass->draw_polyline(renderer, points, num_points, color);
+    dia_renderer_draw_polyline (renderer, points, num_points, color);
     return;
   }
 
@@ -1091,7 +1180,7 @@ draw_rounded_polyline (DiaRenderer *renderer,
     i = 0;
     p1.x = p[i].x; p1.y = p[i].y;
     p2.x = p[i+1].x; p2.y = p[i+1].y;
-    klass->draw_line(renderer,&p1,&p2,color);
+    dia_renderer_draw_line (renderer, &p1, &p2, color);
     return;
   }
 
@@ -1112,15 +1201,20 @@ draw_rounded_polyline (DiaRenderer *renderer,
     min_radius = MIN(radius, calculate_min_radius(&p1,&p2,&p4));
     arc_it = fillet(&p1,&p2,&p3,&p4, min_radius, &c, &start_angle, &stop_angle);
     /* start with the line drawing to allow joining in backend */
-    klass->draw_line(renderer, &p1, &p2, color);
-    if (arc_it)
-      klass->draw_arc(renderer, &c, min_radius*2, min_radius*2,
-		      start_angle,
-		      stop_angle, color);
+    dia_renderer_draw_line (renderer, &p1, &p2, color);
+    if (arc_it) {
+      dia_renderer_draw_arc (renderer,
+                             &c,
+                             min_radius*2,
+                             min_radius*2,
+                             start_angle,
+                             stop_angle,
+                             color);
+    }
     p1.x = p3.x; p1.y = p3.y;
     p2.x = p4.x; p2.y = p4.y;
   }
-  klass->draw_line(renderer, &p3, &p4, color);
+  dia_renderer_draw_line (renderer, &p3, &p4, color);
 }
 
 /*!
@@ -1134,16 +1228,18 @@ draw_rounded_polyline (DiaRenderer *renderer,
  */
 static void
 draw_rounded_rect (DiaRenderer *renderer,
-                   Point *ul_corner, Point *lr_corner,
-                   Color *fill, Color *stroke, real radius)
+                   Point       *ul_corner,
+                   Point       *lr_corner,
+                   Color       *fill,
+                   Color       *stroke,
+                   real         radius)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   /* clip radius per axis to use the full API;) */
   real rw = MIN(radius, (lr_corner->x-ul_corner->x)/2);
   real rh = MIN(radius, (lr_corner->y-ul_corner->y)/2);
 
   if (rw < 0.00001 || rh < 0.00001) {
-    renderer_ops->draw_rect(renderer, ul_corner, lr_corner, fill, stroke);
+    dia_renderer_draw_rect (renderer, ul_corner, lr_corner, fill, stroke);
   } else {
     real tlx = ul_corner->x; /* top-left x */
     real tly = ul_corner->y; /* top-left y */
@@ -1176,18 +1272,23 @@ draw_rounded_rect (DiaRenderer *renderer,
      */
     /* a filled cross w/ overlap : might not be desirable with alpha */
     if (fill) {
-      if (pts[3].x > pts[7].x)
-        renderer_ops->draw_rect (renderer, &pts[7], &pts[3], fill, NULL);
-      if (pts[4].y > pts[0].y)
-        renderer_ops->draw_rect (renderer, &pts[0], &pts[4], fill, NULL);
+      if (pts[3].x > pts[7].x) {
+        dia_renderer_draw_rect (renderer, &pts[7], &pts[3], fill, NULL);
+      }
+      if (pts[4].y > pts[0].y) {
+        dia_renderer_draw_rect (renderer, &pts[0], &pts[4], fill, NULL);
+      }
     }
     for (i = 0; i < 4; ++i) {
-      if (fill)
-	renderer_ops->fill_arc (renderer, &cts[i], 2*rw, 2*rh, (i+1)*90.0, (i+2)*90.0, fill);
-      if (stroke)
-	renderer_ops->draw_arc (renderer, &cts[i], 2*rw, 2*rh, (i+1)*90.0, (i+2)*90.0, stroke);
-      if (stroke)
-        renderer_ops->draw_line (renderer, &pts[i*2], &pts[i*2+1], stroke);
+      if (fill) {
+        dia_renderer_fill_arc (renderer, &cts[i], 2*rw, 2*rh, (i+1)*90.0, (i+2)*90.0, fill);
+      }
+      if (stroke) {
+        dia_renderer_draw_arc (renderer, &cts[i], 2*rw, 2*rh, (i+1)*90.0, (i+2)*90.0, stroke);
+      }
+      if (stroke) {
+        dia_renderer_draw_line (renderer, &pts[i*2], &pts[i*2+1], stroke);
+      }
     }
   }
 }
@@ -1243,7 +1344,7 @@ draw_line_with_arrows(DiaRenderer *renderer,
     point_sub(endpoint, &move_line);
   }
 
-  DIA_RENDERER_GET_CLASS(renderer)->draw_line(renderer, startpoint, endpoint, color);
+  dia_renderer_draw_line (renderer, startpoint, endpoint, color);
 
   /* Actual arrow drawing down here so line styles aren't disturbed */
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
@@ -1319,10 +1420,14 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
     point_sub(&points[lastline-1], &move_line);
   }
   /* Don't draw degenerate line segments at end of line */
-  if (lastline-firstline > 1) /* probably hiding a bug above, but don't try to draw a negative
-			       * number of points at all, fixes bug #148139 */
-    DIA_RENDERER_GET_CLASS(renderer)->draw_polyline(renderer, &points[firstline],
-                                                    lastline-firstline, color);
+  if (lastline-firstline > 1) {
+    /* probably hiding a bug above, but don't try to draw a negative
+     * number of points at all, fixes bug #148139 */
+    dia_renderer_draw_polyline (renderer,
+                                &points[firstline],
+                                lastline-firstline,
+                                color);
+  }
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
     arrow_draw(renderer, start_arrow->type,
 	       &start_arrow_head, &points[firstline+1],
@@ -1397,11 +1502,12 @@ draw_rounded_polyline_with_arrows(DiaRenderer *renderer,
     point_sub(&points[lastline-1], &move_line);
   }
   /* Don't draw degenerate line segments at end of line */
-  if (lastline-firstline > 1) /* only if there is something */
-    DIA_RENDERER_GET_CLASS(renderer)->draw_rounded_polyline(renderer,
-                                                            &points[firstline],
-                                                            lastline-firstline,
-                                                            color, radius);
+  if (lastline-firstline > 1) { /* only if there is something */
+    dia_renderer_draw_rounded_polyline (renderer,
+                                        &points[firstline],
+                                        lastline-firstline,
+                                        color, radius);
+  }
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
     arrow_draw(renderer, start_arrow->type,
 	       &start_arrow_head, &points[firstline+1],
@@ -1683,8 +1789,13 @@ draw_arc_with_arrows (DiaRenderer *renderer,
       angle1 -= 360.0;
     else if (righthand && angle2 > angle1)
       angle2 -= 360.0;
-    DIA_RENDERER_GET_CLASS(renderer)->draw_arc(renderer, &center, width, width,
-					       angle1, angle2, color);
+    dia_renderer_draw_arc (renderer,
+                           &center,
+                           width,
+                           width,
+                           angle1,
+                           angle2,
+                           color);
   }
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
     arrow_draw(renderer, start_arrow->type,
@@ -1742,7 +1853,7 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
     point_sub(&end_arrow_head, &move_arrow);
     point_sub(&points[num_points-1].p3, &move_line);
   }
-  DIA_RENDERER_GET_CLASS(renderer)->draw_bezier(renderer, points, num_points, color);
+  dia_renderer_draw_bezier (renderer, points, num_points, color);
   if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
     arrow_draw(renderer, start_arrow->type,
 	       &start_arrow_head, &points[1].p1,
@@ -1778,19 +1889,22 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
  */
 static real
 get_text_width (DiaRenderer *renderer,
-                const gchar *text, int length)
+                const gchar *text,
+                int          length)
 {
   real ret = 0;
+  DiaFont *font;
+  double font_height;
 
-  if (renderer->font) {
+  font = dia_renderer_get_font (renderer, &font_height);
+
+  if (font) {
     char *str = g_strndup (text, length);
 
-    ret = dia_font_string_width (str,
-                                 renderer->font,
-                                 renderer->font_height);
+    ret = dia_font_string_width (str, font, font_height);
     g_free (str);
   } else {
-    g_warning ("%s::get_text_width not implemented (and renderer->font==NULL)!",
+    g_warning ("%s::get_text_width not implemented (and font == NULL)!",
                G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
   }
 
@@ -1834,16 +1948,32 @@ set_pattern (DiaRenderer *renderer, DiaPattern *pat)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
-/*!
- * \brief Helper function to fill bezier with multiple BEZ_MOVE_TO
+static void
+dia_renderer_init (DiaRenderer *self)
+{
+
+}
+
+/**
+ * dia_renderer_bezier_fill
+ * @self: the #DiaRenderer
+ * @pts: the #BezPoint s of the bezier
+ * @total: the length of @pts
+ * @color: colour to fill with
+ *
+ * Helper function to fill bezier with multiple %BEZ_MOVE_TO
  * A slightly improved version to split a bezier with multiple move-to into
- * a form which can be used with _DiaRenderer not supporting RENDER_HOLES.
+ * a form which can be used with #DiaRenderer not supporting %RENDER_HOLES.
  * With reasonable placement of the second movement it works well for single
  * holes at least. There are artifacts for more complex path to render.
- * \relates _DiaRenderer
+ *
+ * Since: 0.98
  */
 void
-bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)
+dia_renderer_bezier_fill (DiaRenderer *self,
+                          BezPoint    *pts,
+                          int          total,
+                          Color       *color)
 {
   int i;
   gboolean needs_split = FALSE;
@@ -1855,50 +1985,54 @@ bezier_render_fill (DiaRenderer *renderer, BezPoint *pts, int total, Color *colo
     }
   }
   if (!needs_split) {
-    DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer, pts, total, color, NULL);
+    dia_renderer_draw_beziergon (self, pts, total, color, NULL);
   } else {
     GArray *points = g_array_new (FALSE, FALSE, sizeof(BezPoint));
     Point close_to;
     gboolean needs_close = FALSE;
     /* start with move-to */
-    g_array_append_val(points, pts[0]);
+    g_array_append_val (points, pts[0]);
     for (i = 1; i < total; ++i) {
       if (BEZ_MOVE_TO == pts[i].type) {
-	/* check whether the start point of the second outline is within the first outline. */
-	real dist = distance_bez_shape_point (&g_array_index (points, BezPoint, 0), points->len, 0, &pts[i].p1);
-	if (dist > 0) { /* outside, just create a new one? */
-	  /* flush what we have */
-	  if (needs_close) {
-	    BezPoint bp;
-	    bp.type = BEZ_LINE_TO;
-	    bp.p1 = close_to;
-	    g_array_append_val(points, bp);
-	  }
-	  DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer,
-							     &g_array_index(points, BezPoint, 0), points->len,
-							     color, NULL);
-	  g_array_set_size (points, 0);
-	  g_array_append_val(points, pts[i]); /* new needs move-to */
-	  needs_close = FALSE;
-	} else {
-	  BezPoint bp = pts[i];
-	  bp.type = BEZ_LINE_TO;
-	  /* just turn the move- to a line-to */
-	  g_array_append_val(points, bp);
-	  /* and remember the point we lined from */
-	  close_to = (pts[i-1].type == BEZ_CURVE_TO ? pts[i-1].p3 : pts[i-1].p1);
-	  needs_close = TRUE;
-	}
+        /* check whether the start point of the second outline is within the first outline. */
+        real dist = distance_bez_shape_point (&g_array_index (points, BezPoint, 0), points->len, 0, &pts[i].p1);
+        if (dist > 0) { /* outside, just create a new one? */
+          /* flush what we have */
+          if (needs_close) {
+            BezPoint bp;
+            bp.type = BEZ_LINE_TO;
+            bp.p1 = close_to;
+            g_array_append_val(points, bp);
+          }
+          dia_renderer_draw_beziergon (self,
+                                       &g_array_index (points, BezPoint, 0),
+                                       points->len,
+                                       color,
+                                       NULL);
+          g_array_set_size (points, 0);
+          g_array_append_val (points, pts[i]); /* new needs move-to */
+          needs_close = FALSE;
+        } else {
+          BezPoint bp = pts[i];
+          bp.type = BEZ_LINE_TO;
+          /* just turn the move- to a line-to */
+          g_array_append_val (points, bp);
+          /* and remember the point we lined from */
+          close_to = (pts[i-1].type == BEZ_CURVE_TO ? pts[i-1].p3 : pts[i-1].p1);
+          needs_close = TRUE;
+        }
       } else {
-        g_array_append_val(points, pts[i]);
+        g_array_append_val (points, pts[i]);
       }
     }
     if (points->len > 1) {
       /* actually most renderers need at least three points, but having only one
        * point is an artifact coming from the algorithm above: "new needs move-to" */
-      DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer,
-							 &g_array_index(points, BezPoint, 0), points->len,
-							 color, NULL);
+      dia_renderer_draw_beziergon (self,
+                                   &g_array_index (points, BezPoint, 0),
+                                   points->len,
+                                   color,
+                                   NULL);
     }
     g_array_free (points, TRUE);
   }
@@ -1921,46 +2055,595 @@ bezier_render_fill_old (DiaRenderer *renderer, BezPoint *pts, int total, Color *
        * If so it need to be subtracted - currently blanked. */
       real dist = distance_bez_shape_point (&pts[s1],  n1 > 0 ? n1 : i - s1, 0, &pts[i].p1);
       if (s2 > s1) { /* blanking the previous one */
-	n = i - s2 - 1;
-	DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer, &pts[s2], n, &color_white, NULL);
+        n = i - s2 - 1;
+        dia_renderer_draw_beziergon (renderer, &pts[s2], n, &color_white, NULL);
       } else { /* fill the outer shape */
-	n1 = n = i - s1;
-	DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer, &pts[s1], n, color, NULL);
+        n1 = n = i - s1;
+        dia_renderer_draw_beziergon (renderer, &pts[s1], n, color, NULL);
       }
       if (dist > 0) { /* remember as new outer outline */
-	s1 = i;
-	n1 = 0;
-	s2 = 0;
+        s1 = i;
+        n1 = 0;
+        s2 = 0;
       } else {
-	s2 = i;
+        s2 = i;
       }
     }
   }
   /* the last one is not drawn yet, i is pointing to the last element */
   if (s2 > s1) { /* blanking the previous one */
-    if (i - s2 - 1 > 1) /* depending on the above we may be ready */
-      DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer, &pts[s2], i - s2, &color_white, NULL);
+    if (i - s2 - 1 > 1) { /* depending on the above we may be ready */
+      dia_renderer_draw_beziergon (renderer, &pts[s2], i - s2, &color_white, NULL);
+    }
   } else {
-    if (i - s1 - 1 > 1)
-      DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon (renderer, &pts[s1], i - s1, color, NULL);
+    if (i - s1 - 1 > 1) {
+      dia_renderer_draw_beziergon (renderer, &pts[s1], i - s1, color, NULL);
+    }
   }
 }
 
-/*!
- * \brief Helper function to stroke a bezier with multiple BEZ_MOVE_TO
- * \relates _DiaRenderer
+/**
+ * dia_renderer_bezier_stroke:
+ * @self: the #DiaRenderer
+ * @pts: the #BezPoint s to draw
+ * @total: length of @pts
+ * @color: colour of the stroke
+ *
+ * Helper function to stroke a bezier with multiple %BEZ_MOVE_TO
+ *
+ * Since: 0.98
  */
 void
-bezier_render_stroke (DiaRenderer *renderer, BezPoint *pts, int total, Color *color)
+dia_renderer_bezier_stroke (DiaRenderer *self,
+                            BezPoint    *pts,
+                            int          total,
+                            Color       *color)
 {
   int i, n = 0;
   for (i = 1; i < total; ++i) {
     if (BEZ_MOVE_TO == pts[i].type) {
-      DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n, color);
+      dia_renderer_draw_bezier (self, &pts[n], i - n, color);
       n = i;
     }
   }
   /* the last one, if there is one */
-  if (i - n > 1)
-    DIA_RENDERER_GET_CLASS (renderer)->draw_bezier (renderer, &pts[n], i - n, color);
+  if (i - n > 1) {
+    dia_renderer_draw_bezier (self, &pts[n], i - n, color);
+  }
+}
+
+
+void
+dia_renderer_draw_layer (DiaRenderer      *self,
+                         Layer            *layer,
+                         gboolean          active,
+                         Rectangle        *update)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_layer (self, layer, active, update);
+}
+
+
+void
+dia_renderer_draw_object (DiaRenderer      *self,
+                          DiaObject        *object,
+                          DiaMatrix        *matrix)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_object (self, object, matrix);
+}
+
+
+real
+dia_renderer_get_text_width (DiaRenderer      *self,
+                             const gchar      *text,
+                             int               length)
+{
+  g_return_val_if_fail (DIA_IS_RENDERER (self), 0);
+
+  return DIA_RENDERER_GET_CLASS (self)->get_text_width (self, text, length);
+}
+
+
+void
+dia_renderer_begin_render (DiaRenderer      *self,
+                           const Rectangle  *update)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->begin_render (self, update);
+}
+
+
+void
+dia_renderer_end_render (DiaRenderer      *self)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->end_render (self);
+}
+
+
+void
+dia_renderer_set_linewidth (DiaRenderer      *self,
+                            real              linewidth)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->set_linewidth (self, linewidth);
+}
+
+
+void
+dia_renderer_set_linecaps (DiaRenderer      *self,
+                           LineCaps          mode)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->set_linecaps (self, mode);
+}
+
+
+void
+dia_renderer_set_linejoin (DiaRenderer      *self,
+                           LineJoin          mode)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->set_linejoin (self, mode);
+}
+
+
+void
+dia_renderer_set_linestyle (DiaRenderer      *self,
+                            LineStyle         mode,
+                            real              length)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->set_linestyle (self, mode, length);
+}
+
+
+void
+dia_renderer_set_fillstyle (DiaRenderer      *self,
+                            FillStyle         mode)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->set_fillstyle (self, mode);
+}
+
+
+void
+dia_renderer_set_font (DiaRenderer      *self,
+                       DiaFont          *font,
+                       real              height)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  g_object_set (self,
+                "font", font,
+                "font-height", height,
+                NULL);
+}
+
+DiaFont *
+dia_renderer_get_font (DiaRenderer      *self,
+                       double           *height)
+{
+  DiaFont *font;
+  double font_height;
+
+  g_object_get (self,
+                "font", &font,
+                "font-height", &font_height,
+                NULL);
+
+  if (height) {
+    *height = font_height;
+  }
+
+  return font;
+}
+
+void
+dia_renderer_draw_line (DiaRenderer      *self,
+                        Point            *start,
+                        Point            *end,
+                        Color            *color)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_line (self, start, end, color);
+}
+
+
+void
+dia_renderer_draw_polygon (DiaRenderer      *self,
+                           Point            *points,
+                           int               num_points,
+                           Color            *fill,
+                           Color            *stroke)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_polygon (self,
+                                               points,
+                                               num_points,
+                                               fill,
+                                               stroke);
+}
+
+
+void
+dia_renderer_draw_arc (DiaRenderer      *self,
+                       Point            *center,
+                       real              width,
+                       real              height,
+                       real              angle1,
+                       real              angle2,
+                       Color            *color)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_arc (self,
+                                           center,
+                                           width,
+                                           height,
+                                           angle1,
+                                           angle2,
+                                           color);
+}
+
+
+void
+dia_renderer_fill_arc (DiaRenderer      *self,
+                       Point            *center,
+                       real              width,
+                       real              height,
+                       real              angle1,
+                       real              angle2,
+                       Color            *color)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->fill_arc (self,
+                                           center,
+                                           width,
+                                           height,
+                                           angle1,
+                                           angle2,
+                                           color);
+}
+
+
+void
+dia_renderer_draw_ellipse (DiaRenderer      *self,
+                           Point            *center,
+                           real              width,
+                           real              height,
+                           Color            *fill,
+                           Color            *stroke)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_ellipse (self,
+                                               center,
+                                               width,
+                                               height,
+                                               fill,
+                                               stroke);
+}
+
+
+void
+dia_renderer_draw_string (DiaRenderer      *self,
+                          const gchar      *text,
+                          Point            *pos,
+                          Alignment         alignment,
+                          Color            *color)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_string (self, text, pos, alignment, color);
+}
+
+
+void
+dia_renderer_draw_image (DiaRenderer      *self,
+                         Point            *point,
+                         real              width,
+                         real              height,
+                         DiaImage         *image)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_image (self, point, width, height, image);
+}
+
+
+void
+dia_renderer_draw_bezier (DiaRenderer      *self,
+                          BezPoint         *points,
+                          int               numpoints,
+                          Color            *color)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_bezier (self, points, numpoints, color);
+}
+
+
+void
+dia_renderer_draw_beziergon (DiaRenderer      *self,
+                             BezPoint         *points,
+                             int               numpoints,
+                             Color            *fill,
+                             Color            *stroke)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_beziergon (self,
+                                                 points,
+                                                 numpoints,
+                                                 fill,
+                                                 stroke);
+}
+
+
+void
+dia_renderer_draw_polyline (DiaRenderer      *self,
+                            Point            *points,
+                            int               num_points,
+                            Color            *color)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_polyline (self,
+                                                points,
+                                                num_points,
+                                                color);
+}
+
+
+void
+dia_renderer_draw_text (DiaRenderer      *self,
+                        Text             *text)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_text (self, text);
+}
+
+
+void
+dia_renderer_draw_text_line (DiaRenderer      *self,
+                             TextLine         *text_line,
+                             Point            *pos,
+                             Alignment         alignment,
+                             Color            *color)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_text_line (self,
+                                                 text_line,
+                                                 pos,
+                                                 alignment,
+                                                 color);
+}
+
+
+void
+dia_renderer_draw_rect (DiaRenderer      *self,
+                        Point            *ul_corner,
+                        Point            *lr_corner,
+                        Color            *fill,
+                        Color            *stroke)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_rect (self,
+                                            ul_corner,
+                                            lr_corner,
+                                            fill,
+                                            stroke);
+}
+
+
+void
+dia_renderer_draw_rounded_rect (DiaRenderer      *self,
+                                Point            *ul_corner,
+                                Point            *lr_corner,
+                                Color            *fill,
+                                Color            *stroke,
+                                real              radius)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_rounded_rect (self,
+                                                    ul_corner,
+                                                    lr_corner,
+                                                    fill,
+                                                    stroke,
+                                                    radius);
+}
+
+
+void
+dia_renderer_draw_rounded_polyline (DiaRenderer      *self,
+                                    Point            *points,
+                                    int               num_points,
+                                    Color            *color,
+                                    real              radius)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_rounded_polyline (self,
+                                                        points,
+                                                        num_points,
+                                                        color,
+                                                        radius);
+}
+
+
+void
+dia_renderer_draw_line_with_arrows (DiaRenderer      *self,
+                                    Point            *start,
+                                    Point            *end,
+                                    real              line_width,
+                                    Color            *line_color,
+                                    Arrow            *start_arrow,
+                                    Arrow            *end_arrow)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_line_with_arrows (self,
+                                                        start,
+                                                        end,
+                                                        line_width,
+                                                        line_color,
+                                                        start_arrow,
+                                                        end_arrow);
+}
+
+
+void
+dia_renderer_draw_arc_with_arrows (DiaRenderer      *self,
+                                   Point            *start,
+                                   Point            *end,
+                                   Point            *midpoint,
+                                   real              line_width,
+                                   Color            *color,
+                                   Arrow            *start_arrow,
+                                   Arrow            *end_arrow)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_arc_with_arrows (self,
+                                                       start,
+                                                       end,
+                                                       midpoint,
+                                                       line_width,
+                                                       color,
+                                                       start_arrow,
+                                                       end_arrow);
+}
+
+
+void
+dia_renderer_draw_polyline_with_arrows (DiaRenderer      *self,
+                                        Point            *points,
+                                        int               num_points,
+                                        real              line_width,
+                                        Color            *color,
+                                        Arrow            *start_arrow,
+                                        Arrow            *end_arrow)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_polyline_with_arrows (self,
+                                                            points,
+                                                            num_points,
+                                                            line_width,
+                                                            color,
+                                                            start_arrow,
+                                                            end_arrow);
+}
+
+
+void
+dia_renderer_draw_rounded_polyline_with_arrows (DiaRenderer      *self,
+                                                Point            *points,
+                                                int               num_points,
+                                                real              line_width,
+                                                Color            *color,
+                                                Arrow            *start_arrow,
+                                                Arrow            *end_arrow,
+                                                real              radius)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_rounded_polyline_with_arrows (self,
+                                                                    points,
+                                                                    num_points,
+                                                                    line_width,
+                                                                    color,
+                                                                    start_arrow,
+                                                                    end_arrow,
+                                                                    radius);
+}
+
+
+void
+dia_renderer_draw_bezier_with_arrows (DiaRenderer      *self,
+                                      BezPoint         *points,
+                                      int               num_points,
+                                      real              line_width,
+                                      Color            *color,
+                                      Arrow            *start_arrow,
+                                      Arrow            *end_arrow)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_bezier_with_arrows (self,
+                                                          points,
+                                                          num_points,
+                                                          line_width,
+                                                          color,
+                                                          start_arrow,
+                                                          end_arrow);
+}
+
+
+gboolean
+dia_renderer_is_capable_of (DiaRenderer      *self,
+                            RenderCapability  cap)
+{
+  g_return_val_if_fail (DIA_IS_RENDERER (self), FALSE);
+
+  return DIA_RENDERER_GET_CLASS (self)->is_capable_to (self, cap);
+}
+
+
+void
+dia_renderer_set_pattern (DiaRenderer      *self,
+                          DiaPattern       *pat)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->set_pattern (self, pat);
+}
+
+
+void
+dia_renderer_draw_rotated_text (DiaRenderer      *self,
+                                Text             *text,
+                                Point            *center,
+                                real              angle)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_rotated_text (self, text, center, angle);
+}
+
+
+void
+dia_renderer_draw_rotated_image (DiaRenderer      *self,
+                                 Point            *point,
+                                 real              width,
+                                 real              height,
+                                 real              angle,
+                                 DiaImage         *image)
+{
+  g_return_if_fail (DIA_IS_RENDERER (self));
+
+  DIA_RENDERER_GET_CLASS (self)->draw_rotated_image (self,
+                                                     point,
+                                                     width,
+                                                     height,
+                                                     angle,
+                                                     image);
 }

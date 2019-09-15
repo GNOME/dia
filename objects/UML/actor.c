@@ -209,7 +209,6 @@ actor_move(Actor *actor, Point *to)
 static void
 actor_draw(Actor *actor, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w;
   real r, r1;
@@ -226,11 +225,11 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   w = elem->width;
   actor_height = elem->height - actor->text->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, actor->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, actor->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
-  r = ACTOR_HEAD(actor_height);
+  r = ACTOR_HEAD (actor_height);
   r1 = 2*r;
   ch.x = x + w*0.5;
   ch.y = y + r + ACTOR_MARGIN_Y;
@@ -238,38 +237,44 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   cb.y = ch.y + r1 + r;
 
   /* head */
-  renderer_ops->draw_ellipse(renderer,
-			     &ch,
-			     r, r,
-			     &actor->fill_color, &actor->line_color);
+  dia_renderer_draw_ellipse (renderer,
+                             &ch,
+                             r,
+                             r,
+                             &actor->fill_color,
+                             &actor->line_color);
 
   /* Arms */
   p1.x = ch.x - r1;
   p2.x = ch.x + r1;
   p1.y = p2.y = ch.y + r;
-  renderer_ops->draw_line(renderer,
-			   &p1, &p2,
-			   &actor->line_color);
+  dia_renderer_draw_line (renderer,
+                          &p1,
+                          &p2,
+                          &actor->line_color);
 
   p1.x = ch.x;
   p1.y = ch.y + r*0.5;
   /* body & legs  */
-  renderer_ops->draw_line(renderer,
-			   &p1, &cb,
-			   &actor->line_color);
+  dia_renderer_draw_line (renderer,
+                          &p1,
+                          &cb,
+                          &actor->line_color);
 
   p2.x = ch.x - r1;
-  p2.y = y + ACTOR_BODY(actor_height);
-  renderer_ops->draw_line(renderer,
-			   &cb, &p2,
-			   &actor->line_color);
+  p2.y = y + ACTOR_BODY (actor_height);
+  dia_renderer_draw_line (renderer,
+                          &cb,
+                          &p2,
+                          &actor->line_color);
 
   p2.x =  ch.x + r1;
-  renderer_ops->draw_line(renderer,
-			   &cb, &p2,
-			   &actor->line_color);
+  dia_renderer_draw_line (renderer,
+                          &cb,
+                          &p2,
+                          &actor->line_color);
 
-  text_draw(actor->text, renderer);
+  text_draw (actor->text, renderer);
 }
 
 static void

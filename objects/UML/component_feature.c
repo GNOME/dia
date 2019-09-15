@@ -313,9 +313,8 @@ compfeat_move(Compfeat *compfeat, Point *to)
 }
 
 static void
-compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer)
+compfeat_draw (Compfeat *compfeat, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *points;
   OrthConn *orth = &compfeat->orth;
   int n;
@@ -328,9 +327,9 @@ compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
 
-  renderer_ops->set_linewidth(renderer, compfeat->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, compfeat->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   if (compfeat->orth.orientation[orth->numorient - 1] == HORIZONTAL) {
     directions = (points[n - 1].x > points[n - 2].x)? DIR_EAST: DIR_WEST;
@@ -348,12 +347,12 @@ compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer)
   endarrow.length = COMPPROP_DIAMETER;
   endarrow.width = COMPPROP_DIAMETER;
   endarrow.type = compprop_arrow[compfeat->role];
-  renderer_ops->draw_polyline_with_arrows(renderer, points, n,
- 					  compfeat->line_width,
- 					  &compfeat->line_color,
- 					  &startarrow, &endarrow);
+  dia_renderer_draw_polyline_with_arrows (renderer, points, n,
+                                          compfeat->line_width,
+                                          &compfeat->line_color,
+                                          &startarrow, &endarrow);
 
-  text_draw(compfeat->text, renderer);
+  text_draw (compfeat->text, renderer);
 }
 
 static DiaObject *

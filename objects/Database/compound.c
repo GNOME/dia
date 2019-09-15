@@ -526,23 +526,20 @@ compound_destroy (Compound * comp)
 static void
 compound_draw (Compound * comp, DiaRenderer * renderer)
 {
-  DiaRendererClass * renderer_ops;
   gint num_handles;
   Point * mount_point_pos;
   gint i;
 
-  renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   num_handles = comp->object.num_handles;
   mount_point_pos = &comp->mount_point.pos;
 
-  renderer_ops->set_linewidth (renderer, comp->line_width);
+  dia_renderer_set_linewidth (renderer, comp->line_width);
 
-  for (i = 1; i < num_handles; i++)
-    {
-      renderer_ops->draw_line (renderer,
-                               mount_point_pos,
-                               &comp->handles[i].pos,
-                               &comp->line_color);
+  for (i = 1; i < num_handles; i++) {
+    dia_renderer_draw_line (renderer,
+                            mount_point_pos,
+                            &comp->handles[i].pos,
+                            &comp->line_color);
 #if DEBUG_DRAW_BOUNDING_BOX
  {
    Point ul, br;
@@ -551,10 +548,10 @@ compound_draw (Compound * comp, DiaRenderer * renderer)
    br.x = comp->object.bounding_box.right;
    br.y = comp->object.bounding_box.bottom;
 
-   renderer_ops->draw_rect (renderer, &ul, &br, &comp->line_color);
+   dia_renderer_draw_rect (renderer, &ul, &br, &comp->line_color);
  }
 #endif
-    }
+  }
 
 #if DEBUG_DRAW_MP_DIRECTION
  {
@@ -570,7 +567,7 @@ compound_draw (Compound * comp, DiaRenderer * renderer)
    if (dirs & DIR_EAST)
      p.x += 1.0;
 
-   renderer_ops->draw_line (renderer, &comp->mount_point.pos, &p, &red);
+   dia_renderer_draw_line (renderer, &comp->mount_point.pos, &p, &red);
  }
 #endif
 

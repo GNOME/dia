@@ -261,9 +261,8 @@ sadtbox_move(Box *box, Point *to)
 }
 
 static void
-sadtbox_draw(Box *box, DiaRenderer *renderer)
+sadtbox_draw (Box *box, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point lr_corner,pos;
   Element *elem;
   real idfontheight;
@@ -276,29 +275,29 @@ sadtbox_draw(Box *box, DiaRenderer *renderer)
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, SADTBOX_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, SADTBOX_LINE_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_rect(renderer,
-			   &elem->corner,
-			   &lr_corner,
-			   &box->fill_color,
-			   &box->line_color);
+  dia_renderer_draw_rect (renderer,
+                          &elem->corner,
+                          &lr_corner,
+                          &box->fill_color,
+                          &box->line_color);
 
 
-  text_draw(box->text, renderer);
+  text_draw (box->text, renderer);
 
   idfontheight = .75 * box->text->height;
-  renderer_ops->set_font(renderer, box->text->font, idfontheight);
+  dia_renderer_set_font (renderer, box->text->font, idfontheight);
   pos = lr_corner;
   pos.x -= .3 * idfontheight;
   pos.y -= .3 * idfontheight;
-  renderer_ops->draw_string(renderer,
-			     box->id,
-			     &pos, ALIGN_RIGHT,
-			     &box->text->color);
+  dia_renderer_draw_string (renderer,
+                            box->id,
+                            &pos, ALIGN_RIGHT,
+                            &box->text->color);
 }
 
 static void

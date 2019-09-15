@@ -320,56 +320,64 @@ step_move(Step *step, Point *to)
 
 
 static void
-step_draw(Step *step, DiaRenderer *renderer)
+step_draw (Step *step, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[4];
   assert(step != NULL);
   assert(renderer != NULL);
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, STEP_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, STEP_LINE_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
   pts[0] = step->north.pos;
   pts[1] = step->NU1;
   pts[2] = step->NU2;
   pts[3] = step->A;
-  renderer_ops->draw_polyline(renderer,pts,sizeof(pts)/sizeof(pts[0]),
-			       &color_black);
+  dia_renderer_draw_polyline (renderer,
+                              pts,
+                              sizeof(pts)/sizeof(pts[0]),
+                              &color_black);
   pts[0] = step->D;
   pts[1] = step->SD1;
   pts[2] = step->SD2;
   pts[3] = step->south.pos;
-  renderer_ops->draw_polyline(renderer,pts,sizeof(pts)/sizeof(pts[0]),
-			       &color_black);
+  dia_renderer_draw_polyline (renderer,
+                              pts,
+                              sizeof(pts)/sizeof(pts[0]),
+                              &color_black);
 
   if ((step->type == STEP_INITIAL) ||
       (step->type == STEP_MACROCALL) ||
       (step->type == STEP_SUBPCALL)) {
-    renderer_ops->draw_rect(renderer, &step->I, &step->J, &color_white, &color_black);
-    renderer_ops->draw_rect(renderer, &step->E, &step->F, NULL, &color_black);
+    dia_renderer_draw_rect (renderer, &step->I, &step->J, &color_white, &color_black);
+    dia_renderer_draw_rect (renderer, &step->E, &step->F, NULL, &color_black);
   } else {
-    renderer_ops->draw_rect(renderer, &step->E, &step->F, &color_white, &color_black);
+    dia_renderer_draw_rect (renderer, &step->E, &step->F, &color_white, &color_black);
   }
 
-  if (step->type != STEP_MACROENTRY)
-    renderer_ops->draw_line(renderer,&step->A,&step->B,&color_black);
-  if (step->type != STEP_MACROEXIT)
-    renderer_ops->draw_line(renderer,&step->C,&step->D,&color_black);
+  if (step->type != STEP_MACROENTRY) {
+    dia_renderer_draw_line (renderer,&step->A,&step->B,&color_black);
+  }
+  if (step->type != STEP_MACROEXIT) {
+    dia_renderer_draw_line (renderer,&step->C,&step->D,&color_black);
+  }
 
-  renderer_ops->set_font(renderer, step->font, step->font_size);
+  dia_renderer_set_font (renderer, step->font, step->font_size);
 
-  renderer_ops->draw_string(renderer,
-			     step->id,
-			     &step->G, ALIGN_CENTER,
-			     &step->font_color);
-  if (step->active)
-    renderer_ops->draw_ellipse(renderer,
-			       &step->H,
-			       STEP_DOT_RADIUS,STEP_DOT_RADIUS,
-			       &color_red, NULL);
+  dia_renderer_draw_string (renderer,
+                            step->id,
+                            &step->G,
+                            ALIGN_CENTER,
+                            &step->font_color);
+  if (step->active) {
+    dia_renderer_draw_ellipse (renderer,
+                               &step->H,
+                               STEP_DOT_RADIUS,STEP_DOT_RADIUS,
+                               &color_red,
+                               NULL);
+  }
 }
 
 static void

@@ -350,9 +350,8 @@ static void compute_cloud(Goal *goal, BezPoint* bpl) {
 
 /* drawing stuff */
 static void
-goal_draw(Goal *goal, DiaRenderer *renderer)
+goal_draw (Goal *goal, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   double dx,ix;
   Point pl[4],p1,p2;
   BezPoint bpl[9];
@@ -392,39 +391,41 @@ goal_draw(Goal *goal, DiaRenderer *renderer)
       break;
   }
 
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
-  if (goal->type!=SOFTGOAL) {
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  if (goal->type != SOFTGOAL) {
+    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
 
-    if ((goal->type==REQUIREMENT) || (goal->type==ASSUMPTION)) {
-      renderer_ops->set_linewidth(renderer, GOAL_LINE_DOUBLE_WIDTH);
+    if ((goal->type == REQUIREMENT) || (goal->type == ASSUMPTION)) {
+      dia_renderer_set_linewidth (renderer, GOAL_LINE_DOUBLE_WIDTH);
     } else {
-      renderer_ops->set_linewidth(renderer, GOAL_LINE_SIMPLE_WIDTH);
+      dia_renderer_set_linewidth (renderer, GOAL_LINE_SIMPLE_WIDTH);
     }
 
-    renderer_ops->draw_polygon(renderer, pl, 4, &GOAL_BG_COLOR, &GOAL_FG_COLOR);
+    dia_renderer_draw_polygon (renderer, pl, 4, &GOAL_BG_COLOR, &GOAL_FG_COLOR);
 
     /* adding decoration for assumption */
-    if (goal->type==ASSUMPTION) {
+    if (goal->type == ASSUMPTION) {
       dx=GOAL_OFFSET+elem->height/10;
-      if (dx+GOAL_OFFSET>elem->height) dx=elem->height-GOAL_OFFSET; /* min size */
+      if (dx + GOAL_OFFSET > elem->height) {
+        dx=elem->height-GOAL_OFFSET; /* min size */
+      }
       p1.x=elem->corner.x+ GOAL_OFFSET + dx;
       p1.y=elem->corner.y;
       ix=GOAL_OFFSET*(GOAL_OFFSET+dx-elem->height)/(GOAL_OFFSET-elem->height);
       p2.x=elem->corner.x+ix;
       p2.y=elem->corner.y+GOAL_OFFSET+dx-ix;
-      renderer_ops->draw_line(renderer,&p1,&p2,&GOAL_FG_COLOR);
+      dia_renderer_draw_line (renderer, &p1, &p2, &GOAL_FG_COLOR);
     }
   } else { /* SOFTGOAL IS HERE */
-     compute_cloud(goal,bpl);
-     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-     renderer_ops->draw_beziergon(renderer,bpl,9,&GOAL_BG_COLOR,&GOAL_FG_COLOR);
+    compute_cloud (goal,bpl);
+    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_draw_beziergon (renderer, bpl, 9, &GOAL_BG_COLOR, &GOAL_FG_COLOR);
   }
 
   /* drawing text */
-  text_draw(goal->text, renderer);
+  text_draw (goal->text, renderer);
 }
 
 static void

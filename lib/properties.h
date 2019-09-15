@@ -30,7 +30,7 @@
 #else
 #define WIDGET void
 #endif
-#endif 
+#endif
 
 
 #ifdef HAVE_STDDEF_H
@@ -40,6 +40,7 @@
 #include <glib.h>
 #include "diatypes.h"
 
+#include "diarenderer.h"
 #include "geometry.h"
 #include "arrows.h"
 #include "color.h"
@@ -69,8 +70,8 @@ struct _PropDialog {
   WIDGET *widget; /* widget of self */
 
   GPtrArray *props; /* of Property * */
-  GArray *prop_widgets; /* of PropWidgetAssoc. This is a "flat" listing of 
-                           properties and widgets (no nesting information is 
+  GArray *prop_widgets; /* of PropWidgetAssoc. This is a "flat" listing of
+                           properties and widgets (no nesting information is
                            kept here) */
   GList *objects; /* a copy of the objects, to be used as scratch. */
   GList *copies;  /* The original objects. */
@@ -84,7 +85,7 @@ struct _PropDialog {
 struct _PropEventData {
   PropDialog *dialog;
   WIDGET *widget;
-  Property *self; 
+  Property *self;
 };
 
 typedef gboolean (*PropEventHandler) (DiaObject *obj, Property *prop);
@@ -117,7 +118,7 @@ typedef void (*PropertyType_Load)(Property *prop, AttributeNode attr, DataNode d
 /*! save a property to XML node */
 typedef void (*PropertyType_Save)(Property *prop, AttributeNode attr, DiaContext *ctx);
 
-/* If a property descriptor can be merged with another 
+/* If a property descriptor can be merged with another
    (DONT_MERGE has already been handled) */
 typedef gboolean (*PropertyType_CanMerge)(const PropDescription *pd1,const PropDescription *pd2);
 typedef void (*PropertyType_GetFromOffset)(const Property *prop,
@@ -213,7 +214,7 @@ typedef const gchar *PropertyType;
 #define PROP_TYPE_FRAME_BEGIN "f_begin" /* FrameProperty */
 #define PROP_TYPE_FRAME_END "f_end"     /* FrameProperty */
 #define PROP_TYPE_LIST "list"  /* ListProperty */
-/* (offset is a GPtrArray of (const gchar *). offset2 is a gint, index of the 
+/* (offset is a GPtrArray of (const gchar *). offset2 is a gint, index of the
    active item, -1 if none active.) */
 
 /* Special types : */
@@ -256,13 +257,13 @@ struct _PropDescription {
    */
   gpointer extra_data;
 
-  /*! 
+  /*!
    * \brief Optional event handler
    *
    * If the property widget can send events when it's somehow interacted with,
-   * control will be passed to object_type-supplied event_handler, and 
+   * control will be passed to object_type-supplied event_handler, and
    * event->dialog->obj_copy will be current with the dialog's values.
-   * When control comes back, event->dialog->obj_copy's properties will be 
+   * When control comes back, event->dialog->obj_copy's properties will be
    * brought back into the dialog.
    */
   PropEventHandler event_handler;
@@ -270,10 +271,10 @@ struct _PropDescription {
   GQuark quark; /* quark for property name -- helps speed up lookups. */
   GQuark type_quark;
 
-  /* only used by dynamically constructed property descriptors (eg. groups) */ 
+  /* only used by dynamically constructed property descriptors (eg. groups) */
   PropEventHandlerChain chain_handler;
 
-  const PropertyOps *ops;      
+  const PropertyOps *ops;
 };
 
 /*!
@@ -331,17 +332,17 @@ struct _PropEnumData {
 typedef gpointer (*NewRecordFunc)(void);
 typedef void (*FreeRecordFunc)(gpointer rec);
 
-struct _PropDescCommonArrayExtra { /* don't use this directly. 
+struct _PropDescCommonArrayExtra { /* don't use this directly.
                                       Use one of below */
   PropDescription *record;
   PropOffset      *offsets; /* the offsets into the structs in the list/array */
-  const gchar     *composite_type; /* can be NULL. */ 
+  const gchar     *composite_type; /* can be NULL. */
 };
 
 struct _PropDescDArrayExtra {
   PropDescCommonArrayExtra common; /* must be first */
-  NewRecordFunc newrec;        
-  FreeRecordFunc freerec; 
+  NewRecordFunc newrec;
+  FreeRecordFunc freerec;
 };
 
 struct  _PropDescSArrayExtra {
@@ -356,7 +357,7 @@ struct  _PropDescSArrayExtra {
  */
 struct _Property {
   /*! Calculated unique key for the name of the property */
-  GQuark name_quark; 
+  GQuark name_quark;
   /*! Calculated unique key for the type of the property */
   GQuark type_quark;
   /*! Description of the property - almost alway constant (exception is Group) */
@@ -367,7 +368,7 @@ struct _Property {
   PropDescToPropPredicate reason;
   /*! property experience, e.g. loaded, \sa PropExperience */
   guint experience;       /* flags PXP_.... */
- 
+
   const PropertyOps *ops;       /* points to common_prop_ops */
   const PropertyOps *real_ops;  /* == descr->ops */
 };
@@ -390,7 +391,7 @@ struct _Property {
 
 void prop_desc_list_calculate_quarks(PropDescription *plist);
 /*! plist must have all quarks calculated in advance */
-const PropDescription *prop_desc_list_find_prop(const PropDescription *plist, 
+const PropDescription *prop_desc_list_find_prop(const PropDescription *plist,
                                                 const gchar *name);
 /*! finds the real handler in case there are several levels of indirection */
 PropEventHandler prop_desc_find_real_handler(const PropDescription *pdesc);
@@ -399,7 +400,7 @@ void prop_desc_free_handler_chain(PropDescription *pdesc);
 /*! free a handler indirection list in a list of descriptors */
 void prop_desc_list_free_handler_chain(PropDescription *pdesc);
 /*! insert an event handler */
-void prop_desc_insert_handler(PropDescription *pdesc, 
+void prop_desc_insert_handler(PropDescription *pdesc,
                               PropEventHandler handler);
 
 /*! operations on lists of property description lists */
@@ -424,11 +425,11 @@ GPtrArray *prop_list_copy_empty(GPtrArray *plist);
 /*! Appends copies of the properties in the second list to the first. */
 void prop_list_add_list (GPtrArray *props, const GPtrArray *ptoadd);
 
-GPtrArray *prop_list_from_descs(const PropDescription *plist, 
+GPtrArray *prop_list_from_descs(const PropDescription *plist,
                                 PropDescToPropPredicate pred);
 
-/* Swallows the property into a single property list. Can be given NULL. 
-   Don't free yourself the property afterwards; prop_list_free() the list 
+/* Swallows the property into a single property list. Can be given NULL.
+   Don't free yourself the property afterwards; prop_list_free() the list
    instead.
    You regain responsibility for the property if you g_ptr_array_destroy() the
    list. */
@@ -463,22 +464,22 @@ void prop_list_add_matrix (GPtrArray *plist, const DiaMatrix *m);
 
 /* Some predicates: */
 gboolean pdtpp_true(const PropDescription *pdesc); /* always true */
-gboolean pdtpp_is_visible(const PropDescription *pdesc); 
-gboolean pdtpp_is_visible_no_standard(const PropDescription *pdesc); 
-gboolean pdtpp_is_not_visible(const PropDescription *pdesc); 
-gboolean pdtpp_do_save(const PropDescription *pdesc); 
+gboolean pdtpp_is_visible(const PropDescription *pdesc);
+gboolean pdtpp_is_visible_no_standard(const PropDescription *pdesc);
+gboolean pdtpp_is_not_visible(const PropDescription *pdesc);
+gboolean pdtpp_do_save(const PropDescription *pdesc);
 gboolean pdtpp_do_save_no_standard(const PropDescription *pdesc);
 gboolean pdtpp_do_load(const PropDescription *pdesc);
-gboolean pdtpp_do_not_save(const PropDescription *pdesc); 
+gboolean pdtpp_do_not_save(const PropDescription *pdesc);
 /* all but DONT_MERGE and NO_DEFAULTS: */
-gboolean pdtpp_defaults(const PropDescription *pdesc); 
+gboolean pdtpp_defaults(const PropDescription *pdesc);
 /* actually used for the "reason" parameter, not as predicates (synonyms for pdtpp_true) */
 gboolean pdtpp_synthetic(const PropDescription *pdesc);
 gboolean pdtpp_from_object(const PropDescription *pdesc);
 
 
 /* Create a new property of the required type, with the required name.
-   A PropDescription might be created on the fly. The property's value is not 
+   A PropDescription might be created on the fly. The property's value is not
    initialised (actually, it's zero). */
 Property *make_new_prop(const char *name, PropertyType type, guint flags);
 
@@ -510,7 +511,7 @@ gboolean objects_comply_with_stdprop(GList *objects);
 
 void object_list_get_props(GList *objects, GPtrArray *props);
 
-/* will do whatever is needed to make the PropDescription * list look good to 
+/* will do whatever is needed to make the PropDescription * list look good to
    the rest of the properties code. Can return NULL. */
 const PropDescription *object_get_prop_descriptions(const DiaObject *obj);
 const PropDescription *object_list_get_prop_descriptions(GList *objects,
@@ -564,24 +565,24 @@ ObjectChange *dia_object_set_pattern (DiaObject *object, DiaPattern *pat);
 /* Set the string property if there is one */
 ObjectChange *dia_object_set_string (DiaObject *object, const char *name, const char *value);
 
-/* ************************************************************* */ 
+/* ************************************************************* */
 
 void stdprops_init(void);
 
-/* ************************************************************* */ 
+/* ************************************************************* */
 
 /* standard properties.  By using these, the intersection of the properties
  * of a number of objects should be greater, making setting properties on
  * groups better. */
 
-/* HB: exporting the following two vars by GIMPVAR==dllexport/dllimport, 
- * does mean the pointers used below have to be calculated 
+/* HB: exporting the following two vars by GIMPVAR==dllexport/dllimport,
+ * does mean the pointers used below have to be calculated
  * at run-time by the loader, because they will exist
  * only once in the process space and dynamic link libraries may be
- * relocated. As a result their address is no longer constant. 
- * Indeed it causes compile time errors with MSVC (initialzer 
+ * relocated. As a result their address is no longer constant.
+ * Indeed it causes compile time errors with MSVC (initialzer
  * not a constant).
- * To fix it they are moved form properties.c and declared as static 
+ * To fix it they are moved form properties.c and declared as static
  * on Win32
  */
 #ifdef G_OS_WIN32

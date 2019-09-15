@@ -26,9 +26,9 @@
  **               AADL BUS             **
  ***********************************************/
 
-static void aadlbus_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadlbus_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point points[10];
@@ -74,17 +74,22 @@ static void aadlbus_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   points[9].y = y + h;
 
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, AADLBOX_BORDERWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
-  renderer_ops->draw_polygon(renderer, points, 10, &aadlbox->fill_color, &aadlbox->line_color);
+  dia_renderer_draw_polygon (renderer,
+                             points,
+                             10,
+                             &aadlbox->fill_color,
+                             &aadlbox->line_color);
 }
 
-static void aadlbus_draw(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadlbus_draw (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  aadlbus_draw_borders(aadlbox, renderer);
-  aadlbox_draw(aadlbox, renderer);
+  aadlbus_draw_borders (aadlbox, renderer);
+  aadlbox_draw (aadlbox, renderer);
 }
 
 static void

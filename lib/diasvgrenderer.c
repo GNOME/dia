@@ -411,7 +411,7 @@ get_draw_style(DiaSvgRenderer *renderer,
     } else {
       g_string_printf(str, "fill: #%02x%02x%02x; fill-opacity: %s",
 		      (int)(255*fill->red), (int)(255*fill->green),
-		      (int)(255*fill->blue), 
+		      (int)(255*fill->blue),
 		      g_ascii_formatd(alpha_buf, sizeof(alpha_buf), "%g", fill->alpha));
     }
   } else {
@@ -420,7 +420,7 @@ get_draw_style(DiaSvgRenderer *renderer,
 
   if (stroke) {
     g_string_append_printf(str, "; stroke-opacity: %s; stroke-width: %s",
-			   g_ascii_formatd (alpha_buf, sizeof(alpha_buf), "%g", stroke->alpha), 
+			   g_ascii_formatd (alpha_buf, sizeof(alpha_buf), "%g", stroke->alpha),
 			   dia_svg_dtostr(linewidth_buf, renderer->linewidth) );
     if (strcmp(renderer->linecap, "butt"))
       g_string_append_printf(str, "; stroke-linecap: %s", renderer->linecap);
@@ -430,7 +430,7 @@ get_draw_style(DiaSvgRenderer *renderer,
       g_string_append_printf(str, "; stroke-dasharray: %s", renderer->linestyle);
 
     g_string_append_printf(str, "; stroke: #%02x%02x%02x",
-			   (int)(255*stroke->red), 
+			   (int)(255*stroke->red),
 			   (int)(255*stroke->green),
 			   (int)(255*stroke->blue));
   } else {
@@ -444,8 +444,8 @@ get_draw_style(DiaSvgRenderer *renderer,
  * \memberof _DiaSvgRenderer
  */
 static void
-draw_line(DiaRenderer *self, 
-	  Point *start, Point *end, 
+draw_line(DiaRenderer *self,
+	  Point *start, Point *end,
 	  Color *line_colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
@@ -471,8 +471,8 @@ draw_line(DiaRenderer *self,
  * \memberof _DiaSvgRenderer
  */
 static void
-draw_polyline(DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polyline(DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *line_colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
@@ -500,8 +500,8 @@ draw_polyline(DiaRenderer *self,
  * \memberof _DiaSvgRenderer
  */
 static void
-draw_polygon (DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polygon (DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *fill, Color *stroke)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
@@ -532,7 +532,7 @@ draw_polygon (DiaRenderer *self,
  * \memberof _DiaSvgRenderer
  */
 static void
-draw_rect(DiaRenderer *self, 
+draw_rect(DiaRenderer *self,
 	  Point *ul_corner, Point *lr_corner,
 	  Color *fill, Color *stroke)
 {
@@ -559,7 +559,7 @@ draw_rect(DiaRenderer *self,
  * \memberof _DiaSvgRenderer
  */
 static void
-draw_arc(DiaRenderer *self, 
+draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -585,7 +585,7 @@ draw_arc(DiaRenderer *self,
   large_arc = (fabs(angle2 - angle1) >= 180);
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"path", NULL);
-  
+
   xmlSetProp(node, (const xmlChar *)"style", (xmlChar *) get_draw_style(renderer, NULL, colour));
 
   g_snprintf(buf, sizeof(buf), "M %s,%s A %s,%s 0 %d %d %s,%s",
@@ -602,7 +602,7 @@ draw_arc(DiaRenderer *self,
  * \memberof _DiaSvgRenderer
  */
 static void
-fill_arc(DiaRenderer *self, 
+fill_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -628,7 +628,7 @@ fill_arc(DiaRenderer *self,
   gchar cy_buf[DTOSTR_BUF_SIZE];
 
   node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"path", NULL);
-  
+
   xmlSetProp(node, (const xmlChar *)"style", (xmlChar *)get_draw_style(renderer, colour, NULL));
 
   g_snprintf(buf, sizeof(buf), "M %s,%s A %s,%s 0 %d %d %s,%s L %s,%s z",
@@ -647,7 +647,7 @@ fill_arc(DiaRenderer *self,
  * \memberof _DiaSvgRenderer
  */
 static void
-draw_ellipse(DiaRenderer *self, 
+draw_ellipse(DiaRenderer *self,
 	     Point *center,
 	     real width, real height,
 	     Color *fill, Color *stroke)
@@ -671,7 +671,7 @@ draw_ellipse(DiaRenderer *self,
 }
 
 static void
-_bezier(DiaRenderer *self, 
+_bezier(DiaRenderer *self,
 	BezPoint *points,
 	int numpoints,
 	Color *fill,
@@ -706,11 +706,11 @@ _bezier(DiaRenderer *self,
   for (i = 1; i < numpoints; i++)
     switch (points[i].type) {
     case BEZ_MOVE_TO:
-      if (!DIA_RENDERER_GET_CLASS (self)->is_capable_to(self, RENDER_HOLES)) {
+      if (!dia_renderer_is_capable_of (self, RENDER_HOLES)) {
         g_warning("only first BezPoint should be a BEZ_MOVE_TO");
-        g_string_printf(str, "M %s %s",
-		        dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-		        dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
+        g_string_printf (str, "M %s %s",
+                         dia_svg_dtostr (p1x_buf, (gdouble) points[i].p1.x),
+                         dia_svg_dtostr (p1y_buf, (gdouble) points[i].p1.y) );
       } else {
         g_string_append_printf(str, "M %s %s",
 		        dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
@@ -745,7 +745,7 @@ _bezier(DiaRenderer *self,
  * \memberof _DiaSvgRenderer
  */
 static void
-draw_bezier(DiaRenderer *self, 
+draw_bezier(DiaRenderer *self,
 	    BezPoint *points,
 	    int numpoints,
 	    Color *stroke)
@@ -758,7 +758,7 @@ draw_bezier(DiaRenderer *self,
  * \memberof _DiaSvgRenderer
  */
 static void
-draw_beziergon (DiaRenderer *self, 
+draw_beziergon (DiaRenderer *self,
 		BezPoint *points,
 		int numpoints,
 		Color *fill,
@@ -777,14 +777,21 @@ draw_beziergon (DiaRenderer *self,
  * \memberof _DiaSvgRenderer
  */
 static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *colour)
-{    
-  TextLine *text_line = text_line_new(text, self->font, self->font_height);
-  draw_text_line(self, text_line, pos, alignment, colour);
-  text_line_destroy(text_line);
+draw_string (DiaRenderer *self,
+             const char  *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *colour)
+{
+  TextLine *text_line;
+  DiaFont *font;
+  double font_height;
+
+  font = dia_renderer_get_font (self, &font_height);
+  text_line = text_line_new (text, font, font_height);
+
+  draw_text_line (self, text_line, pos, alignment, colour);
+  text_line_destroy (text_line);
 }
 
 /*!
@@ -794,7 +801,7 @@ draw_string(DiaRenderer *self,
 static void
 draw_text_line(DiaRenderer *self, TextLine *text_line,
 	       Point *pos, Alignment alignment, Color *colour)
-{    
+{
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   real saved_width;
@@ -802,7 +809,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   DiaFont *font;
   GString *style;
 
-  node = xmlNewTextChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text", 
+  node = xmlNewTextChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text",
 		         (xmlChar *) text_line_get_string(text_line));
 
   saved_width = renderer->linewidth;
@@ -813,7 +820,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   style = g_strdup_printf("%s; font-size: %s", get_draw_style(renderer, colour, NULL),
 			dia_svg_dtostr(d_buf, text_line_get_height(text_line)));
 #else
-  /* get_draw_style: the return value of this function must not be saved 
+  /* get_draw_style: the return value of this function must not be saved
    * anywhere. And of course it must not be free'd */
   style = g_string_new (get_draw_style(renderer, colour, NULL));
 #endif
@@ -881,7 +888,7 @@ draw_image(DiaRenderer *self,
   dia_svg_dtostr(d_buf, height);
   xmlSetProp(node, (const xmlChar *)"height", (xmlChar *) d_buf);
 
-  /* if the image file location is relative to the SVG file's store 
+  /* if the image file location is relative to the SVG file's store
    * a relative path - if it does not have a path: inline it */
   if (strcmp (dia_image_filename(image), "(null)") == 0) {
     gchar *prefix = g_strdup_printf ("data:%s;base64,", dia_image_get_mime_type (image));
@@ -905,7 +912,7 @@ draw_image(DiaRenderer *self,
  * \memberof _DiaSvgRenderer
  */
 static void
-draw_rounded_rect (DiaRenderer *self, 
+draw_rounded_rect (DiaRenderer *self,
 		   Point *ul_corner, Point *lr_corner,
 		   Color *fill, Color *stroke, real rounding)
 {
@@ -936,9 +943,9 @@ static void
 dia_svg_renderer_init (GTypeInstance *self, gpointer g_class)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-  
+
   renderer->scale = 1.0;
-  
+
 }
 
 static gpointer parent_class = NULL;
@@ -977,7 +984,7 @@ dia_svg_renderer_get_type (void)
                                             "DiaSvgRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 

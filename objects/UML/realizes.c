@@ -215,9 +215,8 @@ realizes_move(Realizes *realize, Point *to)
 }
 
 static void
-realizes_draw(Realizes *realize, DiaRenderer *renderer)
+realizes_draw (Realizes *realize, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &realize->orth;
   Point *points;
   int n;
@@ -227,38 +226,42 @@ realizes_draw(Realizes *realize, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
 
-  renderer_ops->set_linewidth(renderer, realize->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, REALIZES_DASHLEN);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, realize->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, REALIZES_DASHLEN);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   arrow.type = ARROW_HOLLOW_TRIANGLE;
   arrow.width = REALIZES_TRIANGLESIZE;
   arrow.length = REALIZES_TRIANGLESIZE;
-  renderer_ops->draw_polyline_with_arrows(renderer, points, n,
-					   realize->line_width,
-					   &realize->line_color,
-					   &arrow, NULL);
+  dia_renderer_draw_polyline_with_arrows (renderer,
+                                          points,
+                                          n,
+                                          realize->line_width,
+                                          &realize->line_color,
+                                          &arrow,
+                                          NULL);
 
-  renderer_ops->set_font(renderer, realize->font, realize->font_height);
+  dia_renderer_set_font (renderer, realize->font, realize->font_height);
   pos = realize->text_pos;
 
   if (realize->st_stereotype != NULL && realize->st_stereotype[0] != '\0') {
-    renderer_ops->draw_string(renderer,
-			       realize->st_stereotype,
-			       &pos, realize->text_align,
-			       &realize->text_color);
+    dia_renderer_draw_string (renderer,
+                              realize->st_stereotype,
+                              &pos,
+                              realize->text_align,
+                              &realize->text_color);
 
     pos.y += realize->font_height;
   }
 
   if (realize->name != NULL && realize->name[0] != '\0') {
-    renderer_ops->draw_string(renderer,
-			       realize->name,
-			       &pos, realize->text_align,
-			       &realize->text_color);
+    dia_renderer_draw_string (renderer,
+                              realize->name,
+                              &pos,
+                              realize->text_align,
+                              &realize->text_color);
   }
-
 }
 
 static void

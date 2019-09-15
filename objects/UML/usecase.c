@@ -230,9 +230,8 @@ usecase_move(Usecase *usecase, Point *to)
 }
 
 static void
-usecase_draw(Usecase *usecase, DiaRenderer *renderer)
+usecase_draw (Usecase *usecase, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point c;
@@ -258,20 +257,22 @@ usecase_draw(Usecase *usecase, DiaRenderer *renderer)
   }
 
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, usecase->line_width);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, usecase->line_width);
 
   if (usecase->collaboration)
-    renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, 1.0);
+    dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, 1.0);
   else
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
-  renderer_ops->draw_ellipse(renderer,
-			     &c,
-			     w, h,
-			     &usecase->fill_color, &usecase->line_color);
+  dia_renderer_draw_ellipse (renderer,
+                             &c,
+                             w,
+                             h,
+                             &usecase->fill_color,
+                             &usecase->line_color);
 
-  text_draw(usecase->text, renderer);
+  text_draw (usecase->text, renderer);
 }
 
 

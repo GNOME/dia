@@ -324,9 +324,8 @@ pgram_move(Pgram *pgram, Point *to)
 }
 
 static void
-pgram_draw(Pgram *pgram, DiaRenderer *renderer)
+pgram_draw (Pgram *pgram, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pts[4];
   Element *elem;
   real offs;
@@ -351,19 +350,21 @@ pgram_draw(Pgram *pgram, DiaRenderer *renderer)
     pts[3].x -= offs;
   }
 
-  if (pgram->show_background)
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  if (pgram->show_background) {
+    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  }
 
-  renderer_ops->set_linewidth(renderer, pgram->border_width);
-  renderer_ops->set_linestyle(renderer, pgram->line_style, pgram->dashlength);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  dia_renderer_set_linewidth (renderer, pgram->border_width);
+  dia_renderer_set_linestyle (renderer, pgram->line_style, pgram->dashlength);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_polygon (renderer,
-			      pts, 4,
-			      (pgram->show_background) ? &pgram->inner_color : NULL,
-			      &pgram->border_color);
+  dia_renderer_draw_polygon (renderer,
+                             pts,
+                             4,
+                             (pgram->show_background) ? &pgram->inner_color : NULL,
+                             &pgram->border_color);
 
-  text_draw(pgram->text, renderer);
+  text_draw (pgram->text, renderer);
 }
 
 

@@ -48,6 +48,14 @@
 #define CGM_IS_RENDERER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), CGM_TYPE_RENDERER))
 #define CGM_RENDERER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), CGM_TYPE_RENDERER, CgmRendererClass))
 
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+
 /* Noise reduction for
  * return value of 'fwrite', declared with attribute warn_unused_result
  * discussion: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=25509
@@ -670,16 +678,16 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 }
 
 static void
-set_font(DiaRenderer *self, DiaFont *font, real height)
+set_font (DiaRenderer *self, DiaFont *font, real height)
 {
-    CgmRenderer *renderer = CGM_RENDERER(self);
-    DiaFont *oldfont = renderer->font;
+  CgmRenderer *renderer = CGM_RENDERER(self);
+  DiaFont *oldfont = renderer->font;
 
-    renderer->font = dia_font_ref(font);
-    if (oldfont != NULL)
-	dia_font_unref(oldfont);
-    renderer->tcurrent.font_num = FONT_NUM(font);
-    renderer->tcurrent.font_height = height;
+  renderer->font = dia_font_ref(font);
+  if (oldfont != NULL)
+    dia_font_unref(oldfont);
+  renderer->tcurrent.font_num = FONT_NUM (font);
+  renderer->tcurrent.font_height = height;
 }
 
 static void
@@ -1240,48 +1248,102 @@ cgm_renderer_get_type (void)
 }
 
 static void
+cgm_renderer_set_property (GObject      *object,
+                           guint         property_id,
+                           const GValue *value,
+                           GParamSpec   *pspec)
+{
+  CgmRenderer *self = CGM_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      set_font (DIA_RENDERER (self),
+                g_value_get_object (value),
+                self->tcurrent.font_height);
+      break;
+    case PROP_FONT_HEIGHT:
+      set_font (DIA_RENDERER (self),
+                self->font,
+                g_value_get_double (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+cgm_renderer_get_property (GObject    *object,
+                           guint       property_id,
+                           GValue     *value,
+                           GParamSpec *pspec)
+{
+  CgmRenderer *self = CGM_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, self->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, self->tcurrent.font_height);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
 cgm_renderer_finalize (GObject *object)
 {
+  CgmRenderer *self = CGM_RENDERER (object);
+
+  g_clear_object (&self->font);
+
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 static void
 cgm_renderer_class_init (CgmRendererClass *klass)
 {
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-    DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  DiaRendererClass *renderer_class = DIA_RENDERER_CLASS (klass);
 
-    parent_class = g_type_class_peek_parent (klass);
+  parent_class = g_type_class_peek_parent (klass);
 
-    object_class->finalize = cgm_renderer_finalize;
+  object_class->set_property = cgm_renderer_set_property;
+  object_class->get_property = cgm_renderer_get_property;
+  object_class->finalize = cgm_renderer_finalize;
 
-    renderer_class->begin_render = begin_render;
-    renderer_class->end_render = end_render;
+  renderer_class->begin_render = begin_render;
+  renderer_class->end_render = end_render;
 
-    renderer_class->set_linewidth = set_linewidth;
-    renderer_class->set_linecaps = set_linecaps;
-    renderer_class->set_linejoin = set_linejoin;
-    renderer_class->set_linestyle = set_linestyle;
-    renderer_class->set_fillstyle = set_fillstyle;
-    renderer_class->set_font = set_font;
+  renderer_class->set_linewidth = set_linewidth;
+  renderer_class->set_linecaps = set_linecaps;
+  renderer_class->set_linejoin = set_linejoin;
+  renderer_class->set_linestyle = set_linestyle;
+  renderer_class->set_fillstyle = set_fillstyle;
 
-    renderer_class->draw_line = draw_line;
-    renderer_class->draw_polyline = draw_polyline;
+  renderer_class->draw_line = draw_line;
+  renderer_class->draw_polyline = draw_polyline;
 
-    renderer_class->draw_polygon = draw_polygon;
+  renderer_class->draw_polygon = draw_polygon;
 
-    renderer_class->draw_rect = draw_rect;
+  renderer_class->draw_rect = draw_rect;
 
-    renderer_class->draw_arc = draw_arc;
-    renderer_class->fill_arc = fill_arc;
-    renderer_class->draw_ellipse = draw_ellipse;
+  renderer_class->draw_arc = draw_arc;
+  renderer_class->fill_arc = fill_arc;
+  renderer_class->draw_ellipse = draw_ellipse;
 
-    renderer_class->draw_bezier = draw_bezier;
-    renderer_class->draw_beziergon = draw_beziergon;
+  renderer_class->draw_bezier = draw_bezier;
+  renderer_class->draw_beziergon = draw_beziergon;
 
-    renderer_class->draw_string = draw_string;
+  renderer_class->draw_string = draw_string;
 
-    renderer_class->draw_image = draw_image;
+  renderer_class->draw_image = draw_image;
+
+  g_object_class_override_property (object_class, PROP_FONT, "font");
+  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
 

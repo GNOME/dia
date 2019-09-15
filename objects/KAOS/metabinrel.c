@@ -348,9 +348,8 @@ static gchar* compute_text(Mbr *mbr) {
 
 /* drawing here -- TBD inverse flow ??  */
 static void
-mbr_draw(Mbr *mbr, DiaRenderer *renderer)
+mbr_draw (Mbr *mbr, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints;
   Point p1,p2,pm1,pm2;
   Point pa1,pa2;
@@ -363,10 +362,11 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
   assert(renderer != NULL);
 
   /* arrow type */
-  if (mbr->type!=MBR_CONFLICTS)
+  if (mbr->type!=MBR_CONFLICTS) {
     arrow.type = ARROW_FILLED_TRIANGLE;
-  else
+  } else {
     arrow.type = ARROW_NONE;
+  }
   arrow.length = MBR_ARROWLEN;
   arrow.width = MBR_ARROWWIDTH;
 
@@ -377,18 +377,18 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
   p2 = endpoints[1];
 
   /** drawing directed line **/
-  renderer_ops->set_linewidth(renderer, MBR_WIDTH);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linewidth (renderer, MBR_WIDTH);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   dx=p1.x-p2.x;
   dy=p1.y-p2.y;
   k=sqrt(dx*dx+dy*dy)*2/MBR_DEC_SIZE;
 
   if (k<0.05) {  /* bug fix for closed bezier */
-    renderer_ops->draw_line_with_arrows(renderer,&p1,&p2,MBR_WIDTH,&MBR_FG_COLOR,NULL, &arrow);
+    dia_renderer_draw_line_with_arrows (renderer,&p1,&p2,MBR_WIDTH,&MBR_FG_COLOR,NULL, &arrow);
   } else {
-    renderer_ops->draw_bezier_with_arrows(renderer, mbr->line, 3, MBR_WIDTH, &MBR_FG_COLOR, NULL, &arrow);
+    dia_renderer_draw_bezier_with_arrows (renderer, mbr->line, 3, MBR_WIDTH, &MBR_FG_COLOR, NULL, &arrow);
   }
 
   /** drawing vector decoration  **/
@@ -406,8 +406,8 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
     pm2.x=mbr->pm.x+dxp;
     pm2.y=mbr->pm.y+dyp;
 
-    renderer_ops->set_linewidth(renderer, MBR_WIDTH*2);
-    renderer_ops->draw_line_with_arrows(renderer,&pm1,&pm2,MBR_WIDTH,&MBR_RED_COLOR,NULL,NULL);
+    dia_renderer_set_linewidth (renderer, MBR_WIDTH*2);
+    dia_renderer_draw_line_with_arrows (renderer,&pm1,&pm2,MBR_WIDTH,&MBR_RED_COLOR,NULL,NULL);
   }
 
   if (mbr->type==MBR_CONFLICTS) {
@@ -416,32 +416,32 @@ mbr_draw(Mbr *mbr, DiaRenderer *renderer)
     pm2.x=mbr->pm.x+dxn+dxp;
     pm2.y=mbr->pm.y+dyn+dyp;
 
-    renderer_ops->set_linewidth(renderer, MBR_WIDTH*2);
-    renderer_ops->draw_line_with_arrows(renderer,&pm1,&pm2,MBR_WIDTH,&MBR_RED_COLOR,NULL,NULL);
+    dia_renderer_set_linewidth (renderer, MBR_WIDTH*2);
+    dia_renderer_draw_line_with_arrows (renderer,&pm1,&pm2,MBR_WIDTH,&MBR_RED_COLOR,NULL,NULL);
 
     pm1.x=mbr->pm.x-dxn+dxp;
     pm1.y=mbr->pm.y-dyn+dyp;
     pm2.x=mbr->pm.x+dxn-dxp;
     pm2.y=mbr->pm.y+dyn-dyp;
 
-    renderer_ops->draw_line_with_arrows(renderer,&pm1,&pm2,MBR_WIDTH,&MBR_RED_COLOR,NULL,NULL);
+    dia_renderer_draw_line_with_arrows (renderer,&pm1,&pm2,MBR_WIDTH,&MBR_RED_COLOR,NULL,NULL);
   }
 
 
   /** writing decoration text **/
-  annot=compute_text(mbr);
-  renderer_ops->set_font(renderer, mbr_font, MBR_DECFONTHEIGHT);
+  annot = compute_text (mbr);
+  dia_renderer_set_font (renderer, mbr_font, MBR_DECFONTHEIGHT);
 
   if (annot && strlen(annot) != 0) {
-      pa1.x=mbr->pm.x-mbr->text_width/2;
-      pa1.y=mbr->pm.y-mbr->text_ascent +0.1;  /* with some fix... */
-      pa2.x=pa1.x+mbr->text_width;
-      pa2.y=pa1.y+MBR_DECFONTHEIGHT    +0.1;  /* with some fix... */
-      renderer_ops->draw_rect(renderer,&pa1,&pa2,&color_white, NULL);
-      renderer_ops->draw_string(renderer,annot,&mbr->pm,ALIGN_CENTER,&MBR_FG_COLOR);
+    pa1.x=mbr->pm.x-mbr->text_width/2;
+    pa1.y=mbr->pm.y-mbr->text_ascent +0.1;  /* with some fix... */
+    pa2.x=pa1.x+mbr->text_width;
+    pa2.y=pa1.y+MBR_DECFONTHEIGHT    +0.1;  /* with some fix... */
+    dia_renderer_draw_rect (renderer,&pa1,&pa2,&color_white, NULL);
+    dia_renderer_draw_string (renderer,annot,&mbr->pm,ALIGN_CENTER,&MBR_FG_COLOR);
   }
 
-  g_free(annot);
+  g_free (annot);
 }
 
 /* creation here */

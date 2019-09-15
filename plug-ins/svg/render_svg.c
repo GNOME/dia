@@ -82,7 +82,7 @@ typedef struct _SvgRendererClass SvgRendererClass;
 struct _SvgRenderer
 {
   DiaSvgRenderer parent_instance;
-  
+
   /*! track the parents while grouping in draw_object() */
   GQueue *parents;
 };
@@ -155,7 +155,7 @@ svg_renderer_get_type (void)
                                             "SvgRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
@@ -185,7 +185,7 @@ end_render (DiaRenderer *self)
  *
  * \memberof _SvgRenderer
  */
-static gboolean 
+static gboolean
 is_capable_to (DiaRenderer *renderer, RenderCapability cap)
 {
   if (RENDER_HOLES == cap)
@@ -207,7 +207,7 @@ svg_renderer_finalize (GObject *object)
 
   g_queue_free (svg_renderer->parents);
 
-  G_OBJECT_CLASS (parent_class)->finalize (object);  
+  G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 static void
@@ -248,7 +248,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
   gchar buf[512];
   Rectangle *extent;
   xmlDtdPtr dtd;
- 
+
   /* we need access to our base object */
   renderer = DIA_SVG_RENDERER (g_object_new(SVG_TYPE_RENDERER, NULL));
 
@@ -325,7 +325,7 @@ draw_layer (DiaRenderer *self,
  *
  * \memberof _SvgRenderer
  */
-static void 
+static void
 draw_object(DiaRenderer *self,
             DiaObject   *object,
 	    DiaMatrix   *matrix)
@@ -368,7 +368,7 @@ draw_object(DiaRenderer *self,
     }
 
     object->ops->draw(object, DIA_RENDERER (renderer));
-  
+
     /* no easy way to count? */
     child = renderer->root->children;
     while (child != NULL) {
@@ -478,20 +478,27 @@ draw_string(DiaRenderer *self,
 	    const char *text,
 	    Point *pos, Alignment alignment,
 	    Color *colour)
-{    
+{
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
   gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaFont *font;
+  double font_height;
 
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, (xmlChar *)"text", (xmlChar *)text);
+  font = dia_renderer_get_font (self, &font_height);
+
+  node = xmlNewChild (renderer->root,
+                      renderer->svg_name_space,
+                      (xmlChar *) "text",
+                      (xmlChar *) text);
   _adjust_space_preserve (node, text);
 
-  node_set_text_style(node, renderer, self->font, self->font_height, alignment, colour);
-  
-  dia_svg_dtostr(d_buf, pos->x);
-  xmlSetProp(node, (xmlChar *)"x", (xmlChar *)d_buf);
-  dia_svg_dtostr(d_buf, pos->y);
-  xmlSetProp(node, (xmlChar *)"y", (xmlChar *)d_buf);
+  node_set_text_style (node, renderer, font, font_height, alignment, colour);
+
+  dia_svg_dtostr (d_buf, pos->x);
+  xmlSetProp (node, (xmlChar *) "x", (xmlChar *)d_buf);
+  dia_svg_dtostr (d_buf, pos->y);
+  xmlSetProp (node, (xmlChar *) "y", (xmlChar *)d_buf);
 }
 
 /*!
@@ -507,8 +514,8 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   DiaFont *font = text_line_get_font(text_line); /* no reference? */
   real font_height = text_line_get_height(text_line);
   gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
-  
-  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text", 
+
+  node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text",
 		     (xmlChar *) text_line_get_string(text_line));
   _adjust_space_preserve (node, text_line_get_string(text_line));
 
@@ -584,7 +591,7 @@ draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
     xmlSetProp(node_tspan, (const xmlChar *)"x", (xmlChar *) d_buf);
     dia_svg_dtostr(d_buf, pos.y);
     xmlSetProp(node_tspan, (const xmlChar *)"y", (xmlChar *) d_buf);
-    
+
     pos.y += text->height;
   }
 }

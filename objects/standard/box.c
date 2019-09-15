@@ -332,11 +332,10 @@ box_move(Box *box, Point *to)
 }
 
 static void
-box_draw(Box *box, DiaRenderer *renderer)
+box_draw (Box *box, DiaRenderer *renderer)
 {
   Point lr_corner;
   Element *elem;
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
 
   assert(box != NULL);
   assert(renderer != NULL);
@@ -346,44 +345,55 @@ box_draw(Box *box, DiaRenderer *renderer)
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
 
-  renderer_ops->set_linewidth(renderer, box->border_width);
-  renderer_ops->set_linestyle(renderer, box->line_style, box->dashlength);
-  if (box->corner_radius > 0)
-    renderer_ops->set_linejoin(renderer, LINEJOIN_ROUND);
-  else
-    renderer_ops->set_linejoin(renderer, box->line_join);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, box->border_width);
+  dia_renderer_set_linestyle (renderer, box->line_style, box->dashlength);
+  if (box->corner_radius > 0) {
+    dia_renderer_set_linejoin (renderer, LINEJOIN_ROUND);
+  } else {
+    dia_renderer_set_linejoin (renderer, box->line_join);
+  }
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   if (box->show_background) {
     Color fill = box->inner_color;
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
     if (box->pattern) {
       dia_pattern_get_fallback_color (box->pattern, &fill);
-      if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
-        renderer_ops->set_pattern (renderer, box->pattern);
+      if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+        dia_renderer_set_pattern (renderer, box->pattern);
+      }
     }
     if (box->angle == 0) {
-      renderer_ops->draw_rounded_rect (renderer,
-				       &elem->corner, &lr_corner,
-				       &fill, &box->border_color,
-				       box->corner_radius);
+      dia_renderer_draw_rounded_rect (renderer,
+                                      &elem->corner,
+                                      &lr_corner,
+                                      &fill,
+                                      &box->border_color,
+                                      box->corner_radius);
     } else {
       Point poly[4];
       _box_get_poly (box, poly);
-      renderer_ops->draw_polygon (renderer, poly, 4, &fill, &box->border_color);
+      dia_renderer_draw_polygon (renderer, poly, 4, &fill, &box->border_color);
     }
-    if (renderer_ops->is_capable_to(renderer, RENDER_PATTERN))
-      renderer_ops->set_pattern (renderer, NULL);
+    if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
+      dia_renderer_set_pattern (renderer, NULL);
+    }
   } else {
     if (box->angle == 0) {
-      renderer_ops->draw_rounded_rect (renderer,
-				       &elem->corner, &lr_corner,
-				       NULL, &box->border_color,
-				       box->corner_radius);
+      dia_renderer_draw_rounded_rect (renderer,
+                                      &elem->corner,
+                                      &lr_corner,
+                                      NULL,
+                                      &box->border_color,
+                                      box->corner_radius);
     } else {
       Point poly[4];
       _box_get_poly (box, poly);
-      renderer_ops->draw_polygon (renderer, poly, 4, &box->inner_color, &box->border_color);
+      dia_renderer_draw_polygon (renderer,
+                                 poly,
+                                 4,
+                                 &box->inner_color,
+                                 &box->border_color);
     }
   }
 }

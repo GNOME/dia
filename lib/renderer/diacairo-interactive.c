@@ -235,6 +235,10 @@ dia_cairo_interactive_renderer_get_text_width (DiaRenderer *object,
 {
   real result;
   TextLine *text_line;
+  DiaFont *font;
+  double font_height;
+
+  font = dia_renderer_get_font (object, &font_height);
 
   if (length != g_utf8_strlen (text, -1)) {
     char *shorter;
@@ -244,13 +248,14 @@ dia_cairo_interactive_renderer_get_text_width (DiaRenderer *object,
       g_warning ("Text at char %d not valid\n", length);
     }
     shorter = g_strndup (text, ulen);
-    text_line = text_line_new (shorter, object->font, object->font_height);
+    text_line = text_line_new (shorter, font, font_height);
     g_free (shorter);
   } else {
-    text_line = text_line_new (text, object->font, object->font_height);
+    text_line = text_line_new (text, font, font_height);
   }
   result = text_line_get_width (text_line);
   text_line_destroy (text_line);
+
   return result;
 }
 

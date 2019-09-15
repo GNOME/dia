@@ -185,7 +185,7 @@ _ngon_select(Ngon *ng, Point *clicked_point, DiaRenderer *interactive_renderer)
 }
 static ObjectChange*
 _ngon_move_handle (Ngon *ng, Handle *handle,
-		   Point *to, ConnectionPoint *cp, 
+		   Point *to, ConnectionPoint *cp,
 		   HandleMoveReason reason, ModifierKeys modifiers)
 {
   Element *elem = &ng->element;
@@ -221,34 +221,37 @@ _ngon_move(Ngon *ng, Point *to)
 
   return NULL;
 }
+
 static void
-_ngon_draw(Ngon *ng, DiaRenderer *renderer)
+_ngon_draw (Ngon *ng, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
-  gboolean pattern_fill =   ng->show_background
-			 && ng->pattern != NULL
-			 && renderer_ops->is_capable_to(renderer, RENDER_PATTERN);
+  gboolean pattern_fill = ng->show_background
+              && ng->pattern != NULL
+              && dia_renderer_is_capable_of (renderer, RENDER_PATTERN);
   Color fill;
 
   g_return_if_fail (ng->points->len);
 
-  renderer_ops->set_linewidth(renderer, ng->line_width);
-  renderer_ops->set_linestyle(renderer, ng->line_style, ng->dashlength);
-  renderer_ops->set_linejoin(renderer, ng->line_join);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
-  if (ng->pattern)
+  dia_renderer_set_linewidth (renderer, ng->line_width);
+  dia_renderer_set_linestyle (renderer, ng->line_style, ng->dashlength);
+  dia_renderer_set_linejoin (renderer, ng->line_join);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  if (ng->pattern) {
     dia_pattern_get_fallback_color (ng->pattern, &fill);
-  else
+  } else {
     fill = ng->fill;
-  if (pattern_fill)
-    renderer_ops->set_pattern (renderer, ng->pattern);
-  renderer_ops->draw_polygon(renderer,
-			     &g_array_index (ng->points, Point, 0),
-			     ng->points->len,
-			     ng->show_background ? &fill : NULL,
-			     &ng->stroke);
-  if (pattern_fill)
-    renderer_ops->set_pattern (renderer, NULL);
+  }
+  if (pattern_fill) {
+    dia_renderer_set_pattern (renderer, ng->pattern);
+  }
+  dia_renderer_draw_polygon (renderer,
+                             &g_array_index (ng->points, Point, 0),
+                             ng->points->len,
+                             ng->show_background ? &fill : NULL,
+                             &ng->stroke);
+  if (pattern_fill) {
+    dia_renderer_set_pattern (renderer, NULL);
+  }
 }
 
 /* greatest common divider */
@@ -484,10 +487,10 @@ _ngon_update_data (Ngon *ng)
   elem->corner.y = ng->center.y - ng->ray_len;
   elem->width = elem->height = 2 * ng->ray_len;
   element_update_handles(elem);
-  
+
 }
-static void 
-_ngon_destroy(Ngon *ng) 
+static void
+_ngon_destroy(Ngon *ng)
 {
   g_array_free (ng->points, TRUE);
   if (ng->pattern)
@@ -600,7 +603,7 @@ _ngon_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   DiaObject *obj;
   Ngon *ng;
- 
+
   obj = object_load_using_properties (&_ngon_type, obj_node, version, ctx);
   ng = (Ngon *)obj;
   if (version == 0) { /* default to maximum */

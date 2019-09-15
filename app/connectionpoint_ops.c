@@ -62,13 +62,12 @@ object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
   int i;
   static Color midpoint_color = { 1.0, 0.0, 0.0, 1.0 };
   DiaRenderer *renderer = ddisp->renderer;
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (ddisp->renderer);
   DiaInteractiveRendererInterface *irenderer =
     DIA_INTERACTIVE_RENDERER_GET_IFACE (ddisp->renderer);
 
   /* this does not change for any of the points */
-  renderer_ops->set_linewidth (renderer, 0.0);
-  renderer_ops->set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linewidth (renderer, 0.0);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   /* optimization to only draw the connection points at all if the size
    * of the object (bounding box) is bigger than the summed size of the

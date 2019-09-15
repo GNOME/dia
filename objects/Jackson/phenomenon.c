@@ -254,13 +254,12 @@ message_move(Message *message, Point *to)
 
 /* drawing here -- TBD inverse flow ??  */
 static void
-message_draw(Message *message, DiaRenderer *renderer)
+message_draw (Message *message, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point *endpoints, p1, p2;
   Arrow arrow;
   int n1 = 1, n2 = 0;
-  gchar *mname = g_strdup(message->text);
+  gchar *mname = g_strdup (message->text);
 
   /* some asserts */
   assert(message != NULL);
@@ -269,15 +268,15 @@ message_draw(Message *message, DiaRenderer *renderer)
   /* arrow type */
   endpoints = &message->connection.endpoints[0];
 
-  renderer_ops->set_linewidth(renderer, MESSAGE_WIDTH);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, MESSAGE_WIDTH);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   if (message->type==MSG_REQ) {
-      renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, MESSAGE_DASHLEN);
-      arrow.type = ARROW_FILLED_TRIANGLE;
+    dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, MESSAGE_DASHLEN);
+    arrow.type = ARROW_FILLED_TRIANGLE;
   } else {
-      renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-      arrow.type = ARROW_NONE;
+    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+    arrow.type = ARROW_NONE;
   }
 
   arrow.length = MESSAGE_ARROWLEN;
@@ -288,15 +287,22 @@ message_draw(Message *message, DiaRenderer *renderer)
   p2 = endpoints[n2];
 
   /* drawing directed line */
-  renderer_ops->draw_line_with_arrows(renderer, &p1, &p2, MESSAGE_WIDTH, &color_black, &arrow, NULL);
+  dia_renderer_draw_line_with_arrows (renderer,
+                                      &p1,
+                                      &p2,
+                                      MESSAGE_WIDTH,
+                                      &color_black,
+                                      &arrow,
+                                      NULL);
 
   /* writing text on arrow (maybe not a good idea) */
-  renderer_ops->set_font(renderer, message_font, MESSAGE_FONTHEIGHT);
+  dia_renderer_set_font (renderer, message_font, MESSAGE_FONTHEIGHT);
 
-  if (mname && strlen(mname) != 0)
-      renderer_ops->draw_string(renderer, mname, &message->text_pos, ALIGN_CENTER, &color_black);
+  if (mname && strlen (mname) != 0) {
+    dia_renderer_draw_string (renderer, mname, &message->text_pos, ALIGN_CENTER, &color_black);
+  }
 
-  if (mname) g_free(mname);
+  if (mname) g_free (mname);
 }
 
 /* creation here */

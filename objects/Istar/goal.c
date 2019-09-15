@@ -306,9 +306,8 @@ static void compute_cloud(Goal *goal, BezPoint* bpl) {
 
 /* drawing stuff */
 static void
-goal_draw(Goal *goal, DiaRenderer *renderer)
+goal_draw (Goal *goal, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point p1,p2;
   BezPoint bpl[5];
   Element *elem;
@@ -319,26 +318,29 @@ goal_draw(Goal *goal, DiaRenderer *renderer)
 
   elem = &goal->element;
 
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
-  renderer_ops->set_linewidth(renderer, GOAL_LINE_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linewidth (renderer, GOAL_LINE_WIDTH);
 
   if (goal->type==GOAL) {  /* goal */
     p1.x=elem->corner.x;
     p1.y= elem->corner.y;
     p2.x=p1.x+elem->width;
     p2.y=p1.y+elem->height;
-    renderer_ops->draw_rounded_rect (renderer,&p1,&p2,
-				     &GOAL_BG_COLOR, &GOAL_FG_COLOR,
-				     elem->height/2.0);
+    dia_renderer_draw_rounded_rect (renderer,
+                                    &p1,
+                                    &p2,
+                                    &GOAL_BG_COLOR,
+                                    &GOAL_FG_COLOR,
+                                    elem->height/2.0);
   } else {                 /* softgoal */
-     compute_cloud(goal,bpl);
-     renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-     renderer_ops->draw_beziergon(renderer,bpl,5,&GOAL_BG_COLOR,&GOAL_FG_COLOR);
+    compute_cloud (goal,bpl);
+    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_draw_beziergon (renderer, bpl, 5, &GOAL_BG_COLOR, &GOAL_FG_COLOR);
   }
 
   /* drawing text */
-  text_draw(goal->text, renderer);
+  text_draw (goal->text, renderer);
 }
 
 static void

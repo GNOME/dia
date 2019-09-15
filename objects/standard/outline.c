@@ -332,7 +332,7 @@ outline_update_data (Outline *outline)
  * \memberof Outline
  */
 static void
-outline_draw(Outline *outline, DiaRenderer *renderer)
+outline_draw (Outline *outline, DiaRenderer *renderer)
 {
   DiaObject *obj = &outline->object;
   int i, n = 0, total;
@@ -342,10 +342,11 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
 
   if (!outline->path)
     return;
-  DIA_RENDERER_GET_CLASS (renderer)->set_linewidth (renderer, outline->line_width);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linejoin(renderer, LINEJOIN_MITER);
-  DIA_RENDERER_GET_CLASS (renderer)->set_linecaps(renderer, LINECAPS_ROUND);
+
+  dia_renderer_set_linewidth (renderer, outline->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linecaps (renderer, LINECAPS_ROUND);
 
   /* the cairo text path is position independent, Dia's bezier are not */
   x = obj->position.x;
@@ -395,16 +396,19 @@ outline_draw(Outline *outline, DiaRenderer *renderer)
   if (pts[n-1].type == BEZ_MOVE_TO)
     --total; /* remove a potential last move which would otherwise be rendered as a dot */
 
-  if (DIA_RENDERER_GET_CLASS (renderer)->is_capable_to(renderer, RENDER_HOLES)) {
-    DIA_RENDERER_GET_CLASS (renderer)->draw_beziergon(renderer, pts, total,
-			    outline->show_background ? &outline->fill_color : NULL,
-			    &outline->line_color);
+  if (dia_renderer_is_capable_of (renderer, RENDER_HOLES)) {
+    dia_renderer_draw_beziergon (renderer,
+                                 pts,
+                                 total,
+                                 outline->show_background ? &outline->fill_color : NULL,
+                                 &outline->line_color);
     return; /* that was easy ;) */
   }
   /* otherwise split the path data into piece which can be handled by Dia's standard bezier rendering */
-  if (outline->show_background)
-    bezier_render_fill (renderer, pts, total, &outline->fill_color);
-  bezier_render_stroke (renderer, pts, total, &outline->line_color);
+  if (outline->show_background) {
+    dia_renderer_bezier_fill (renderer, pts, total, &outline->fill_color);
+  }
+  dia_renderer_bezier_stroke (renderer, pts, total, &outline->line_color);
 }
 /*!
  * \brief Optionally deliver an object specific menu

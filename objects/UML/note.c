@@ -209,9 +209,8 @@ note_move(Note *note, Point *to)
 }
 
 static void
-note_draw(Note *note, DiaRenderer *renderer)
+note_draw (Note *note, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point poly[5];
@@ -226,9 +225,9 @@ note_draw(Note *note, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, note->line_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, note->line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   poly[0].x = x;
   poly[0].y = y;
@@ -241,22 +240,24 @@ note_draw(Note *note, DiaRenderer *renderer)
   poly[4].x = x;
   poly[4].y = y+h;
 
-  renderer_ops->draw_polygon(renderer,
-			      poly, 5,
-			      &note->fill_color,
-			      &note->line_color);
+  dia_renderer_draw_polygon (renderer,
+                             poly,
+                             5,
+                             &note->fill_color,
+                             &note->line_color);
 
   poly[0] = poly[1];
   poly[1].x = x + w - NOTE_CORNER;
   poly[1].y = y + NOTE_CORNER;
   poly[2] = poly[2];
 
-  renderer_ops->set_linewidth(renderer, note->line_width / 2);
-  renderer_ops->draw_polyline(renderer,
-			   poly, 3,
-			   &note->line_color);
+  dia_renderer_set_linewidth (renderer, note->line_width / 2);
+  dia_renderer_draw_polyline (renderer,
+                              poly,
+                              3,
+                              &note->line_color);
 
-  text_draw(note->text, renderer);
+  text_draw (note->text, renderer);
 }
 
 static void

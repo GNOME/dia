@@ -226,9 +226,8 @@ entity_move(Entity *entity, Point *to)
 }
 
 static void
-entity_draw(Entity *entity, DiaRenderer *renderer)
+entity_draw (Entity *entity, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point ul_corner, lr_corner;
   Point p;
   Element *elem;
@@ -244,28 +243,29 @@ entity_draw(Entity *entity, DiaRenderer *renderer)
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
 
-  renderer_ops->set_linewidth(renderer, entity->border_width);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  dia_renderer_set_linewidth (renderer, entity->border_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
-  renderer_ops->draw_rect(renderer,
-			   &ul_corner,
-			   &lr_corner,
-			   &entity->inner_color,
-			   &entity->border_color);
+  dia_renderer_draw_rect (renderer,
+                          &ul_corner,
+                          &lr_corner,
+                          &entity->inner_color,
+                          &entity->border_color);
 
-  if(entity->weak) {
+  if (entity->weak) {
     diff = WEAK_BORDER_WIDTH/*MIN(elem->width / 2.0 * 0.20, elem->height / 2.0 * 0.20)*/;
     ul_corner.x += diff;
     ul_corner.y += diff;
     lr_corner.x -= diff;
     lr_corner.y -= diff;
-    renderer_ops->draw_rect(renderer,
-			     &ul_corner, &lr_corner,
-			     NULL,
-			     &entity->border_color);
+    dia_renderer_draw_rect (renderer,
+                            &ul_corner,
+                            &lr_corner,
+                            NULL,
+                            &entity->border_color);
   }
   if(entity->associative){
     Point corners[4];
@@ -277,25 +277,26 @@ entity_draw(Entity *entity, DiaRenderer *renderer)
     corners[2].y = elem->corner.y + elem->height / 2;
     corners[3].x = elem->corner.x + elem->width / 2;
     corners[3].y = elem->corner.y + elem->height;
-    renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
 
-    renderer_ops->set_linewidth(renderer, entity->border_width);
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-    renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+    dia_renderer_set_linewidth (renderer, entity->border_width);
+    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+    dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
-    renderer_ops->draw_polygon (renderer, corners, 4,
-				&entity->inner_color,
-				&entity->border_color);
+    dia_renderer_draw_polygon (renderer, corners, 4,
+                               &entity->inner_color,
+                               &entity->border_color);
   }
 
   p.x = elem->corner.x + elem->width / 2.0;
   p.y = elem->corner.y + (elem->height - entity->font_height)/2.0 +
-      dia_font_ascent(entity->name,entity->font, entity->font_height);
-  renderer_ops->set_font(renderer, entity->font, entity->font_height);
-  renderer_ops->draw_string(renderer,
-                             entity->name,
-                             &p, ALIGN_CENTER,
-                             &color_black);
+      dia_font_ascent (entity->name,entity->font, entity->font_height);
+  dia_renderer_set_font (renderer, entity->font, entity->font_height);
+  dia_renderer_draw_string (renderer,
+                            entity->name,
+                            &p,
+                            ALIGN_CENTER,
+                            &color_black);
 }
 
 static void

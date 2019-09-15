@@ -202,9 +202,8 @@ zigzagline_move(Zigzagline *zigzagline, Point *to)
 }
 
 static void
-zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer)
+zigzagline_draw (Zigzagline *zigzagline, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &zigzagline->orth;
   Point *points;
   int n;
@@ -212,19 +211,19 @@ zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
 
-  renderer_ops->set_linewidth(renderer, zigzagline->line_width);
-  renderer_ops->set_linestyle(renderer, zigzagline->line_style, zigzagline->dashlength);
-  renderer_ops->set_linejoin(renderer, zigzagline->line_join);
-  renderer_ops->set_linecaps(renderer, zigzagline->line_caps);
+  dia_renderer_set_linewidth (renderer, zigzagline->line_width);
+  dia_renderer_set_linestyle (renderer, zigzagline->line_style, zigzagline->dashlength);
+  dia_renderer_set_linejoin (renderer, zigzagline->line_join);
+  dia_renderer_set_linecaps (renderer, zigzagline->line_caps);
 
-  renderer_ops->draw_rounded_polyline_with_arrows(renderer,
-						  points, n,
-						  zigzagline->line_width,
-						  &zigzagline->line_color,
-						  &zigzagline->start_arrow,
-						  &zigzagline->end_arrow,
-						  zigzagline->corner_radius);
-
+  dia_renderer_draw_rounded_polyline_with_arrows (renderer,
+                                                  points,
+                                                  n,
+                                                  zigzagline->line_width,
+                                                  &zigzagline->line_color,
+                                                  &zigzagline->start_arrow,
+                                                  &zigzagline->end_arrow,
+                                                  zigzagline->corner_radius);
 }
 
 static DiaObject *

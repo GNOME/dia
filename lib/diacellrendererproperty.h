@@ -28,6 +28,7 @@
 
 #include <gtk/gtk.h>
 #include "diatypes.h"
+#include "diarenderer.h"
 
 #define DIA_TYPE_CELL_RENDERER_PROPERTY            (dia_cell_renderer_property_get_type ())
 #define DIA_CELL_RENDERER_PROPERTY(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CELL_RENDERER_PROPERTY, DiaCellRendererProperty))
@@ -42,7 +43,7 @@ typedef struct _DiaCellRendererPropertyClass DiaCellRendererPropertyClass;
 struct _DiaCellRendererProperty
 {
   GtkCellRenderer   parent_instance;
-  
+
   /*< private >*/
   DiaRenderer      *renderer;
 };

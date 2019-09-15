@@ -644,17 +644,25 @@ draw_text (DiaRenderer *self,
  * \memberof _DiaPathRenderer
  */
 static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *color)
+draw_string (DiaRenderer *self,
+             const char  *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *color)
 {
   if (text && strlen(text)) {
     Text *text_obj;
+    DiaFont *font;
+    double font_height;
+
+    font = dia_renderer_get_font (self, &font_height);
     /* it could have been so easy without the context switch */
     text_obj = new_text (text,
-			 self->font, self->font_height,
-			 pos, color, alignment);
+                         font,
+                         font_height,
+                         pos,
+                         color,
+                         alignment);
     draw_text (self, text_obj);
     text_destroy (text_obj);
   }

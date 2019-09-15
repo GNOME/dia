@@ -286,9 +286,8 @@ static void compute_task(Other *other, Point *pl) {
 
 /* drawing stuff */
 static void
-other_draw(Other *other, DiaRenderer *renderer)
+other_draw (Other *other, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point pl[6],p1,p2;
   Element *elem;
 
@@ -298,8 +297,8 @@ other_draw(Other *other, DiaRenderer *renderer)
 
   elem = &other->element;
 
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
-  renderer_ops->set_linejoin(renderer, LINEJOIN_MITER);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
   switch (other->type) {
     case RESOURCE:
@@ -307,19 +306,19 @@ other_draw(Other *other, DiaRenderer *renderer)
       p1.y= elem->corner.y;
       p2.x=p1.x+elem->width;
       p2.y=p1.y+elem->height;
-      renderer_ops->set_linewidth(renderer, OTHER_LINE_WIDTH);
-      renderer_ops->draw_rect(renderer,&p1,&p2, &OTHER_BG_COLOR, &OTHER_FG_COLOR);
+      dia_renderer_set_linewidth (renderer, OTHER_LINE_WIDTH);
+      dia_renderer_draw_rect (renderer,&p1,&p2, &OTHER_BG_COLOR, &OTHER_FG_COLOR);
       break;
     case TASK:
-      compute_task(other,pl);
-      renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-      renderer_ops->set_linewidth(renderer, OTHER_LINE_WIDTH);
-      renderer_ops->draw_polygon(renderer, pl, 6, &OTHER_BG_COLOR, &OTHER_FG_COLOR);
+      compute_task (other, pl);
+      dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+      dia_renderer_set_linewidth (renderer, OTHER_LINE_WIDTH);
+      dia_renderer_draw_polygon (renderer, pl, 6, &OTHER_BG_COLOR, &OTHER_FG_COLOR);
       break;
   }
 
   /* drawing text */
-  text_draw(other->text, renderer);
+  text_draw (other->text, renderer);
 }
 
 static void

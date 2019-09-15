@@ -71,9 +71,6 @@ typedef struct _DiaContext DiaContext;
 
 /* In diarenderer.h: */
 typedef struct _BezierApprox BezierApprox;
-typedef struct _DiaRenderer DiaRenderer;
-typedef struct _DiaRendererClass DiaRendererClass;
-typedef struct _DiaInteractiveRendererInterface DiaInteractiveRendererInterface;
 
 /* In diacellrendererproperty.h: */
 typedef struct _DiaCellRendererProperty DiaCellRendererProperty;
@@ -151,7 +148,7 @@ typedef struct _PropEventData PropEventData;
 typedef struct _PropDialog PropDialog;
 typedef struct _PropEventHandlerChain PropEventHandlerChain;
 typedef struct _PropWidgetAssoc PropWidgetAssoc;
-typedef struct _PropertyOps PropertyOps; 
+typedef struct _PropertyOps PropertyOps;
 typedef struct _PropNumData PropNumData;
 typedef struct _PropEnumData PropEnumData;
 typedef struct _PropDescCommonArrayExtra PropDescCommonArrayExtra;

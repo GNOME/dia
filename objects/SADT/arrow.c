@@ -235,9 +235,8 @@ static void draw_tunnel(DiaRenderer *renderer,
 #define GMULT .55
 
 static void
-sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
+sadtarrow_draw (Sadtarrow *sadtarrow, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   OrthConn *orth = &sadtarrow->orth;
   Point *points;
   int n;
@@ -247,9 +246,9 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
   points = &orth->points[0];
   n = orth->numpoints;
 
-  renderer_ops->set_linewidth(renderer, ARROW_LINE_WIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0);
-  renderer_ops->set_linecaps(renderer, LINECAPS_BUTT);
+  dia_renderer_set_linewidth (renderer, ARROW_LINE_WIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0);
+  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   col = sadtarrow->line_color;
   if (sadtarrow->autogray &&
@@ -264,102 +263,112 @@ sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer)
   arrow.length = ARROW_HEAD_LENGTH;
   arrow.width = ARROW_HEAD_WIDTH;
 
-  renderer_ops->draw_rounded_polyline_with_arrows
-    (renderer, points, n, ARROW_LINE_WIDTH, &col,
-     sadtarrow->style == SADT_ARROW_DOTTED?&arrow:NULL,
-     sadtarrow->style != SADT_ARROW_DISABLED?&arrow:NULL,
-     ARROW_CORNER_RADIUS);
+  dia_renderer_draw_rounded_polyline_with_arrows (renderer,
+                                                  points,
+                                                  n,
+                                                  ARROW_LINE_WIDTH,
+                                                  &col,
+                                                  sadtarrow->style == SADT_ARROW_DOTTED?&arrow:NULL,
+                                                  sadtarrow->style != SADT_ARROW_DISABLED?&arrow:NULL,
+                                                  ARROW_CORNER_RADIUS);
 
   /* Draw the extra stuff. */
   switch (sadtarrow->style) {
-  case SADT_ARROW_IMPORTED:
-    draw_tunnel(renderer,&points[0],&points[1],&col);
-    break;
-  case SADT_ARROW_IMPLIED:
-    draw_tunnel(renderer,&points[n-1],&points[n-2],&col);
-    break;
-  case SADT_ARROW_DOTTED:
-    draw_dot(renderer,&points[n-1], &points[n-2],&col);
-    draw_dot(renderer,&points[0], &points[1],&col);
-    break;
-  case SADT_ARROW_NORMAL:
-  case SADT_ARROW_DISABLED:
-    break;
+    case SADT_ARROW_IMPORTED:
+      draw_tunnel (renderer,&points[0],&points[1],&col);
+      break;
+    case SADT_ARROW_IMPLIED:
+      draw_tunnel (renderer,&points[n-1],&points[n-2],&col);
+      break;
+    case SADT_ARROW_DOTTED:
+      draw_dot (renderer,&points[n-1], &points[n-2],&col);
+      draw_dot (renderer,&points[0], &points[1],&col);
+      break;
+    case SADT_ARROW_NORMAL:
+    case SADT_ARROW_DISABLED:
+      break;
   }
 }
 
-static void draw_dot(DiaRenderer *renderer,
-		     Point *end, Point *vect, Color *col)
+static void
+draw_dot (DiaRenderer *renderer,
+          Point       *end,
+          Point       *vect,
+          Color       *col)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point vv,vp,vt,pt;
   real vlen;
   vv = *end;
-  point_sub(&vv,vect);
-  vlen = distance_point_point(vect,end);
+  point_sub (&vv,vect);
+  vlen = distance_point_point (vect,end);
   if (vlen < 1E-7) return;
-  point_scale(&vv,1/vlen);
+  point_scale (&vv,1/vlen);
 
   vp.y = vv.x;
   vp.x = -vv.y;
 
   pt = *end;
     vt = vp;
-  point_scale(&vt,ARROW_DOT_WOFFSET);
-  point_add(&pt,&vt);
+  point_scale (&vt,ARROW_DOT_WOFFSET);
+  point_add (&pt,&vt);
   vt = vv;
-  point_scale(&vt,-ARROW_DOT_LOFFSET);
-  point_add(&pt,&vt);
+  point_scale (&vt,-ARROW_DOT_LOFFSET);
+  point_add (&pt,&vt);
 
-  renderer_ops->set_fillstyle(renderer,FILLSTYLE_SOLID);
-  renderer_ops->draw_ellipse(renderer,&pt,
-			     ARROW_DOT_RADIUS,ARROW_DOT_RADIUS,
-			     col, NULL);
+  dia_renderer_set_fillstyle (renderer,FILLSTYLE_SOLID);
+  dia_renderer_draw_ellipse (renderer,
+                             &pt,
+                             ARROW_DOT_RADIUS,
+                             ARROW_DOT_RADIUS,
+                             col,
+                             NULL);
 }
 
-static void draw_tunnel(DiaRenderer *renderer,
-			     Point *end, Point *vect, Color *col)
+static void
+draw_tunnel (DiaRenderer *renderer,
+             Point       *end,
+             Point       *vect,
+             Color       *col)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Point vv,vp,vt1,vt2;
   BezPoint curve1[2];
   BezPoint curve2[2];
 
   real vlen;
   vv = *end;
-  point_sub(&vv,vect);
-  vlen = distance_point_point(vect,end);
+  point_sub (&vv,vect);
+  vlen = distance_point_point (vect,end);
   if (vlen < 1E-7) return;
-  point_scale(&vv,1/vlen);
+  point_scale (&vv,1/vlen);
   vp.y = vv.x;
   vp.x = -vv.y;
 
   curve1[0].type = curve2[0].type = BEZ_MOVE_TO;
   curve1[0].p1   = curve2[0].p1   = *end;
   vt1 = vv;
-  point_scale(&vt1,-ARROW_PARENS_LOFFSET - (.5*ARROW_PARENS_LENGTH));
-  point_add(&curve1[0].p1,&vt1); point_add(&curve2[0].p1,&vt1);
+  point_scale (&vt1,-ARROW_PARENS_LOFFSET - (.5*ARROW_PARENS_LENGTH));
+  point_add (&curve1[0].p1,&vt1); point_add (&curve2[0].p1,&vt1);
                                            /* gcc, work for me, please. */
   vt2 = vp;
-  point_scale(&vt2,ARROW_PARENS_WOFFSET);
-  point_add(&curve1[0].p1,&vt2);  point_sub(&curve2[0].p1,&vt2);
+  point_scale (&vt2,ARROW_PARENS_WOFFSET);
+  point_add (&curve1[0].p1,&vt2);  point_sub (&curve2[0].p1,&vt2);
 
   vt2 = vp;
   vt1 = vv;
-  point_scale(&vt1,2.0*ARROW_PARENS_LENGTH / 6.0);
-  point_scale(&vt2,ARROW_PARENS_LENGTH / 6.0);
+  point_scale (&vt1,2.0*ARROW_PARENS_LENGTH / 6.0);
+  point_scale (&vt2,ARROW_PARENS_LENGTH / 6.0);
   curve1[1].type = curve2[1].type = BEZ_CURVE_TO;
   curve1[1].p1 = curve1[0].p1;  curve2[1].p1 = curve2[0].p1;
-  point_add(&curve1[1].p1,&vt1);  point_add(&curve2[1].p1,&vt1);
-  point_add(&curve1[1].p1,&vt2);  point_sub(&curve2[1].p1,&vt2);
+  point_add (&curve1[1].p1,&vt1);  point_add (&curve2[1].p1,&vt1);
+  point_add (&curve1[1].p1,&vt2);  point_sub (&curve2[1].p1,&vt2);
   curve1[1].p2 = curve1[1].p1;  curve2[1].p2 = curve2[1].p1;
-  point_add(&curve1[1].p2,&vt1);  point_add(&curve2[1].p2,&vt1);
+  point_add (&curve1[1].p2,&vt1);  point_add (&curve2[1].p2,&vt1);
   curve1[1].p3 = curve1[1].p2;  curve2[1].p3 = curve2[1].p2;
-  point_add(&curve1[1].p3,&vt1);  point_add(&curve2[1].p3,&vt1);
-  point_sub(&curve1[1].p3,&vt2);  point_add(&curve2[1].p3,&vt2);
+  point_add (&curve1[1].p3,&vt1);  point_add (&curve2[1].p3,&vt1);
+  point_sub (&curve1[1].p3,&vt2);  point_add (&curve2[1].p3,&vt2);
 
-  renderer_ops->draw_bezier(renderer,curve1,2,col);
-  renderer_ops->draw_bezier(renderer,curve2,2,col);
+  dia_renderer_draw_bezier (renderer,curve1,2,col);
+  dia_renderer_draw_bezier (renderer,curve2,2,col);
 }
 
 

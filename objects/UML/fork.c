@@ -198,9 +198,8 @@ fork_move(Fork *branch, Point *to)
 }
 
 static void
-fork_draw(Fork *branch, DiaRenderer *renderer)
+fork_draw (Fork *branch, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real w, h;
   Point p1, p2;
@@ -212,18 +211,20 @@ fork_draw(Fork *branch, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, FORK_BORDERWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, FORK_BORDERWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   p1.x = elem->corner.x;
   p1.y = elem->corner.y;
   p2.x = elem->corner.x + w;
   p2.y = elem->corner.y + h;
 
-  renderer_ops->draw_rect(renderer,
-			   &p1, &p2,
-			   &branch->fill_color, NULL);
+  dia_renderer_draw_rect (renderer,
+                          &p1,
+                          &p2,
+                          &branch->fill_color,
+                          NULL);
 }
 
 static void

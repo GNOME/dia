@@ -42,13 +42,91 @@
 
 G_DEFINE_TYPE (DrsRenderer, drs_renderer, DIA_TYPE_RENDERER);
 
-/* constructor */
+enum {
+  PROP_0,
+  PROP_FONT,
+  PROP_FONT_HEIGHT,
+  LAST_PROP
+};
+
+
 static void
-drs_renderer_init (DrsRenderer *renderer)
+_node_set_real (xmlNodePtr node, const char *name, real v)
 {
-  renderer->parents = g_queue_new ();
-  renderer->save_props = FALSE;
-  renderer->matrices = g_queue_new ();
+  gchar value[G_ASCII_DTOSTR_BUF_SIZE];
+
+  g_ascii_formatd (value, sizeof (value), "%g", v);
+  xmlSetProp (node, (const xmlChar *) name, (xmlChar *) value);
+}
+
+static void
+set_font (DiaRenderer *self, DiaFont *font, real height)
+{
+  DrsRenderer *renderer = DRS_RENDERER (self);
+  xmlNodePtr node;
+  const PangoFontDescription *pfd = dia_font_get_description (font);
+  char *desc = pango_font_description_to_string (pfd);
+
+  g_clear_object (&renderer->font);
+  renderer->font = font;
+  renderer->font_height = height;
+
+  node =  xmlNewChild (renderer->root, NULL, (const xmlChar *) "set-font", NULL);
+  xmlSetProp (node, (const xmlChar *) "description", (xmlChar *) desc);
+
+  xmlSetProp (node, (const xmlChar *) "family", (xmlChar *) dia_font_get_family (font));
+  xmlSetProp (node, (const xmlChar *) "weight", (xmlChar *) dia_font_get_weight_string (font));
+  xmlSetProp (node, (const xmlChar *) "slant", (xmlChar *) dia_font_get_slant_string (font));
+  _node_set_real (node, "size", dia_font_get_size (font));
+  _node_set_real (node, "height", height);
+
+  g_free (desc);
+}
+
+static void
+drs_renderer_set_property (GObject      *object,
+                           guint         property_id,
+                           const GValue *value,
+                           GParamSpec   *pspec)
+{
+  DrsRenderer *self = DRS_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      set_font (DIA_RENDERER (self),
+                DIA_FONT (g_value_get_object (value)),
+                self->font_height);
+      break;
+    case PROP_FONT_HEIGHT:
+      set_font (DIA_RENDERER (self),
+                self->font,
+                g_value_get_double (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+static void
+drs_renderer_get_property (GObject    *object,
+                           guint       property_id,
+                           GValue     *value,
+                           GParamSpec *pspec)
+{
+  DrsRenderer *self = DRS_RENDERER (object);
+
+  switch (property_id) {
+    case PROP_FONT:
+      g_value_set_object (value, self->font);
+      break;
+    case PROP_FONT_HEIGHT:
+      g_value_set_double (value, self->font_height);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
 }
 
 /* destructor */
@@ -57,18 +135,20 @@ drs_renderer_finalize (GObject *object)
 {
   DrsRenderer *renderer = DRS_RENDERER (object);
 
+  g_clear_object (&renderer->font);
+
   g_queue_free (renderer->parents);
   g_queue_free (renderer->matrices);
   if (renderer->ctx)
     dia_context_release (renderer->ctx);
 
-  G_OBJECT_CLASS (drs_renderer_parent_class)->finalize (object);  
+  G_OBJECT_CLASS (drs_renderer_parent_class)->finalize (object);
 }
 
-/* 
- * renderer methods 
- */ 
-static void 
+/*
+ * renderer methods
+ */
+static void
 draw_object(DiaRenderer *self,
             DiaObject   *object,
 	    DiaMatrix   *matrix)
@@ -119,23 +199,23 @@ draw_object(DiaRenderer *self,
       DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
 
       if (IS_GROUP (object)) {
-	/* reimplementation of group_draw to use this draw_object method */
-	GList *list;
-	DiaObject *obj;
+        /* reimplementation of group_draw to use this draw_object method */
+        GList *list;
+        DiaObject *obj;
 
-	list = group_objects (object);
-	while (list != NULL) {
-	  obj = (DiaObject *) list->data;
+        list = group_objects (object);
+        while (list != NULL) {
+          obj = (DiaObject *) list->data;
 
-	  DIA_RENDERER_GET_CLASS(self)->draw_object(self, obj, m);
-	  list = g_list_next(list);
-	}
+          dia_renderer_draw_object (self, obj, m);
+          list = g_list_next (list);
+        }
       } else {
-	/* just the leaf */
-	DIA_RENDERER_GET_CLASS(renderer->transformer)->draw_object(renderer->transformer, object, m);
+        /* just the leaf */
+        dia_renderer_draw_object (renderer->transformer, object, m);
       }
     } else {
-      object->ops->draw(object, DIA_RENDERER (renderer));
+      dia_object_draw (object, DIA_RENDERER (renderer));
     }
     renderer->root = g_queue_pop_tail (renderer->parents);
   }
@@ -157,7 +237,7 @@ begin_render(DiaRenderer *self, const Rectangle *update)
   xmlNodePtr node;
 
   renderer->root = node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"diagram", NULL);
-#if 0  
+#if 0
   _node_set_color (node, "bg_color", &data->bg_color);
 #endif
 }
@@ -181,21 +261,14 @@ static void
 _node_set_color (xmlNodePtr node, const char *name, const Color *color)
 {
   gchar *value;
-  
+
   value = g_strdup_printf ("#%02x%02x%02x%02x",
 			   (int)(255*color->red), (int)(255*color->green),
 			   (int)(255*color->blue), (int)(255*color->alpha));
   xmlSetProp(node, (const xmlChar *)name, (xmlChar *)value);
   g_free (value);
 }
-static void
-_node_set_real (xmlNodePtr node, const char *name, real v)
-{
-  gchar value[G_ASCII_DTOSTR_BUF_SIZE];
 
-  g_ascii_formatd (value, sizeof(value), "%g", v);
-  xmlSetProp (node, (const xmlChar *)name, (xmlChar *)value);
-}
 static void
 _string_append_point (GString *str, Point *pt, gboolean first)
 {
@@ -227,7 +300,7 @@ _node_set_points (xmlNodePtr node, Point *points, int num_points)
   int i;
 
   str = g_string_new (NULL);
-  
+
   for (i = 0; i < num_points; ++i)
     _string_append_point (str, &points[i], i == 0);
   xmlSetProp(node, (const xmlChar *)"points", (xmlChar *) str->str);
@@ -241,7 +314,7 @@ _node_set_bezpoints (xmlNodePtr node, BezPoint *points, int num_points)
   int i;
 
   str = g_string_new (NULL);
-  
+
   for (i = 0; i < num_points; ++i) {
     BezPoint *bpt = &points[i];
     if (i != 0)
@@ -273,7 +346,7 @@ _node_set_bezpoints (xmlNodePtr node, BezPoint *points, int num_points)
 
 static void
 set_linewidth(DiaRenderer *self, real width)
-{  
+{
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
 
@@ -302,7 +375,7 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   /* intentionally no default to let 'good' compilers warn about new constants*/
   }
   node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-linecaps", NULL);
-  xmlSetProp(node, (const xmlChar *)"mode", 
+  xmlSetProp(node, (const xmlChar *)"mode",
              value ? (xmlChar *)value : (xmlChar *)"?");
 }
 
@@ -327,7 +400,7 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   /* intentionally no default to let 'good' compilers warn about new constants*/
   }
   node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-linejoin", NULL);
-  xmlSetProp(node, (const xmlChar *)"mode", 
+  xmlSetProp(node, (const xmlChar *)"mode",
              value ? (xmlChar *)value : (xmlChar *)"?");
 }
 
@@ -359,7 +432,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
   /* intentionally no default to let 'good' compilers warn about new constants*/
   }
   node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-linestyle", NULL);
-  xmlSetProp(node, (const xmlChar *)"mode", 
+  xmlSetProp(node, (const xmlChar *)"mode",
              value ? (xmlChar *)value : (xmlChar *)"?");
   if (mode != LINESTYLE_SOLID)
     _node_set_real (node, "dash-length", dash_length);
@@ -379,33 +452,13 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
   /* intentionally no default to let 'good' compilers warn about new constants*/
   }
   node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-fillstyle", NULL);
-  xmlSetProp(node, (const xmlChar *)"mode", 
+  xmlSetProp(node, (const xmlChar *)"mode",
              value ? (xmlChar *)value : (xmlChar *)"?");
 }
 
 static void
-set_font(DiaRenderer *self, DiaFont *font, real height)
-{
-  DrsRenderer *renderer = DRS_RENDERER (self);
-  xmlNodePtr node;
-  const PangoFontDescription *pfd = dia_font_get_description (font);
-  char *desc = pango_font_description_to_string (pfd);
-
-  node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-font", NULL);
-  xmlSetProp(node, (const xmlChar *)"description", (xmlChar *)desc);
-  
-  xmlSetProp(node, (const xmlChar *)"family", (xmlChar *)dia_font_get_family (font));
-  xmlSetProp(node, (const xmlChar *)"weight", (xmlChar *)dia_font_get_weight_string (font));
-  xmlSetProp(node, (const xmlChar *)"slant", (xmlChar *)dia_font_get_slant_string (font));
-  _node_set_real (node, "size", dia_font_get_size (font));
-  _node_set_real (node, "height", height);
-
-  g_free(desc);
-}
-
-static void
-draw_line(DiaRenderer *self, 
-          Point *start, Point *end, 
+draw_line(DiaRenderer *self,
+          Point *start, Point *end,
           Color *color)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
@@ -418,8 +471,8 @@ draw_line(DiaRenderer *self,
 }
 
 static void
-draw_polyline(DiaRenderer *self, 
-              Point *points, int num_points, 
+draw_polyline(DiaRenderer *self,
+              Point *points, int num_points,
               Color *color)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
@@ -431,16 +484,16 @@ draw_polyline(DiaRenderer *self,
 }
 
 static void
-draw_polygon (DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polygon (DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *fill, Color *stroke)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
-  
+
   g_return_if_fail(1 < num_points);
 
-  node = xmlNewChild(renderer->root, NULL, 
+  node = xmlNewChild(renderer->root, NULL,
                      (const xmlChar *)"polygon", NULL);
   _node_set_points (node, points, num_points);
   if (fill)
@@ -450,7 +503,7 @@ draw_polygon (DiaRenderer *self,
 }
 
 static void
-_rounded_rect(DiaRenderer *self, 
+_rounded_rect(DiaRenderer *self,
               Point *lefttop, Point *rightbottom,
               Color *fill, Color *stroke, real *rounding)
 {
@@ -458,10 +511,10 @@ _rounded_rect(DiaRenderer *self,
   xmlNodePtr node;
 
   if (rounding)
-    node = xmlNewChild(renderer->root, NULL, 
+    node = xmlNewChild(renderer->root, NULL,
                        (const xmlChar *)"rounded-rect", NULL);
   else
-    node = xmlNewChild(renderer->root, NULL, 
+    node = xmlNewChild(renderer->root, NULL,
                        (const xmlChar *)"rect", NULL);
 
   _node_set_point (node, "lefttop", lefttop);
@@ -474,7 +527,7 @@ _rounded_rect(DiaRenderer *self,
     _node_set_color (node, "stroke", stroke);
 }
 static void
-draw_rect(DiaRenderer *self, 
+draw_rect(DiaRenderer *self,
           Point *lefttop, Point *rightbottom,
           Color *fill, Color *stroke)
 {
@@ -482,7 +535,7 @@ draw_rect(DiaRenderer *self,
 }
 
 static void
-draw_rounded_rect(DiaRenderer *self, 
+draw_rounded_rect(DiaRenderer *self,
                   Point *lefttop, Point *rightbottom,
                   Color *fill, Color *stroke, real rounding)
 {
@@ -490,7 +543,7 @@ draw_rounded_rect(DiaRenderer *self,
 }
 
 static void
-_arc(DiaRenderer *self, 
+_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -499,7 +552,7 @@ _arc(DiaRenderer *self,
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
-  
+
   node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"arc", NULL);
   _node_set_point (node, "center", center);
   _node_set_real (node, "width", width);
@@ -512,7 +565,7 @@ _arc(DiaRenderer *self,
     _node_set_color (node, "stroke", color);
 }
 static void
-draw_arc(DiaRenderer *self, 
+draw_arc(DiaRenderer *self,
 	 Point *center,
 	 real width, real height,
 	 real angle1, real angle2,
@@ -521,7 +574,7 @@ draw_arc(DiaRenderer *self,
   _arc (self, center, width, height, angle1, angle2, color, FALSE);
 }
 static void
-fill_arc(DiaRenderer *self, 
+fill_arc(DiaRenderer *self,
          Point *center,
          real width, real height,
          real angle1, real angle2,
@@ -531,15 +584,15 @@ fill_arc(DiaRenderer *self,
 }
 
 static void
-draw_ellipse(DiaRenderer *self, 
+draw_ellipse(DiaRenderer *self,
              Point *center,
              real width, real height,
              Color *fill, Color *stroke)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
-  
-  node = xmlNewChild(renderer->root, NULL, 
+
+  node = xmlNewChild(renderer->root, NULL,
                      (const xmlChar *)"ellipse", NULL);
   _node_set_point (node, "center", center);
   _node_set_real (node, "width", width);
@@ -551,7 +604,7 @@ draw_ellipse(DiaRenderer *self,
 }
 
 static void
-_bezier(DiaRenderer *self, 
+_bezier(DiaRenderer *self,
 	BezPoint *points,
 	int numpoints,
 	Color *fill,
@@ -559,8 +612,8 @@ _bezier(DiaRenderer *self,
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
-  
-  node = xmlNewChild (renderer->root, NULL, 
+
+  node = xmlNewChild (renderer->root, NULL,
                       (const xmlChar *)"bezier", NULL);
   _node_set_bezpoints (node, points, numpoints);
   if (fill)
@@ -569,7 +622,7 @@ _bezier(DiaRenderer *self,
     _node_set_color (node, "stroke", stroke);
 }
 static void
-draw_bezier(DiaRenderer *self, 
+draw_bezier(DiaRenderer *self,
             BezPoint *points,
             int numpoints,
             Color *color)
@@ -577,7 +630,7 @@ draw_bezier(DiaRenderer *self,
   _bezier (self, points, numpoints, NULL, color);
 }
 static void
-draw_beziergon (DiaRenderer *self, 
+draw_beziergon (DiaRenderer *self,
 		BezPoint *points,
 		int numpoints,
 		Color *fill,
@@ -591,14 +644,14 @@ draw_beziergon (DiaRenderer *self,
   }
 }
 
-static void 
+static void
 draw_rounded_polyline (DiaRenderer *self,
                        Point *points, int num_points,
                        Color *color, real radius )
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
-  
+
   node = xmlNewChild (renderer->root, NULL, (const xmlChar *)"rounded-polyline", NULL);
   _node_set_points (node, points, num_points);
   _node_set_color (node, "stroke", color);
@@ -614,7 +667,7 @@ draw_string(DiaRenderer *self,
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
   gchar *align = NULL;
-  
+
   node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"string", NULL);
   _node_set_point (node, "pos", pos);
   _node_set_color (node, "fill", color);
@@ -665,6 +718,8 @@ drs_renderer_class_init (DrsRendererClass *klass)
 
   drs_renderer_parent_class = g_type_class_peek_parent (klass);
 
+  object_class->set_property = drs_renderer_set_property;
+  object_class->get_property = drs_renderer_get_property;
   object_class->finalize = drs_renderer_finalize;
 
   /* renderer members */
@@ -678,8 +733,6 @@ drs_renderer_class_init (DrsRendererClass *klass)
   renderer_class->set_linejoin   = set_linejoin;
   renderer_class->set_linestyle  = set_linestyle;
   renderer_class->set_fillstyle  = set_fillstyle;
-
-  renderer_class->set_font  = set_font;
 
   renderer_class->draw_line    = draw_line;
   renderer_class->draw_polygon = draw_polygon;
@@ -707,4 +760,16 @@ drs_renderer_class_init (DrsRendererClass *klass)
 #endif
   /* other */
   renderer_class->is_capable_to = is_capable_to;
+
+  g_object_class_override_property (object_class, PROP_FONT, "font");
+  g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
+}
+
+/* constructor */
+static void
+drs_renderer_init (DrsRenderer *renderer)
+{
+  renderer->parents = g_queue_new ();
+  renderer->save_props = FALSE;
+  renderer->matrices = g_queue_new ();
 }

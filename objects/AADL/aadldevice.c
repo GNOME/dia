@@ -27,9 +27,9 @@
 
 #define AADL_DEVICE_DEPTH 0.5
 
-static void aadldevice_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadldevice_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point points[4];
@@ -44,14 +44,18 @@ static void aadldevice_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, AADLBOX_BORDERWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   points[0].x = x;     points[0].y = y;
   points[1].x = x + w; points[1].y = y + h;
 
-  renderer_ops->draw_rect(renderer, points, points + 1, &aadlbox->fill_color, &aadlbox->line_color);
+  dia_renderer_draw_rect (renderer,
+                          points,
+                          points + 1,
+                          &aadlbox->fill_color,
+                          &aadlbox->line_color);
 
   points[1].x = x - AADL_DEVICE_DEPTH;
   points[1].y = y - AADL_DEVICE_DEPTH;
@@ -61,7 +65,11 @@ static void aadldevice_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
 
   points[3].x = x + w, points[3].y = y;
 
-  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->fill_color, &aadlbox->line_color);
+  dia_renderer_draw_polygon (renderer,
+                             points,
+                             4,
+                             &aadlbox->fill_color,
+                             &aadlbox->line_color);
 
   points[0].x = points[3].x, points[0].y = points[3].y;
   points[1].x = points[0].x + AADL_DEVICE_DEPTH;
@@ -72,7 +80,11 @@ static void aadldevice_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
 
   points[3].x = points[0].x, points[3].y = points[0].y + h;
 
-  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->fill_color, &aadlbox->line_color);
+  dia_renderer_draw_polygon (renderer,
+                             points,
+                             4,
+                             &aadlbox->fill_color,
+                             &aadlbox->line_color);
 
   points[0].x = x + w;
   points[0].y = y + h;
@@ -86,7 +98,11 @@ static void aadldevice_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   points[3].x = x;
   points[3].y = y + h;
 
-  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->fill_color, &aadlbox->line_color);
+  dia_renderer_draw_polygon (renderer,
+                             points,
+                             4,
+                             &aadlbox->fill_color,
+                             &aadlbox->line_color);
 
   points[0].x = x;
   points[0].y = y;
@@ -94,8 +110,11 @@ static void aadldevice_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
   points[1].x = x - AADL_DEVICE_DEPTH;
   points[1].y = y - AADL_DEVICE_DEPTH;
 
-  renderer_ops->draw_polygon(renderer, points, 4, &aadlbox->fill_color, &aadlbox->line_color);
-
+  dia_renderer_draw_polygon (renderer,
+                             points,
+                             4,
+                             &aadlbox->fill_color,
+                             &aadlbox->line_color);
 }
 
 static Aadlbox_specific aadldevice_specific =
@@ -107,10 +126,11 @@ static Aadlbox_specific aadldevice_specific =
 
 
 
-static void aadldevice_draw(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadldevice_draw (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  aadldevice_draw_borders(aadlbox, renderer);
-  aadlbox_draw(aadlbox, renderer);
+  aadldevice_draw_borders (aadlbox, renderer);
+  aadlbox_draw (aadlbox, renderer);
 }
 
 ObjectTypeOps aadldevice_type_ops;
@@ -156,7 +176,7 @@ static DiaObject *aadldevice_create(Point *startpoint, void *user_data, Handle *
 
   obj->type = &aadldevice_type;
   obj->ops  = &aadldevice_ops;
-      
+
   return obj;
 }
 
@@ -166,7 +186,7 @@ aadldevice_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
-  
+
   obj = aadldevice_create(&startpoint,&aadldevice_specific, &handle1,&handle2);
   aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
   return obj;

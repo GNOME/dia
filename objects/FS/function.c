@@ -277,9 +277,8 @@ function_move(Function *pkg, Point *to)
 }
 
 static void
-function_draw(Function *pkg, DiaRenderer *renderer)
+function_draw (Function *pkg, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
@@ -298,35 +297,39 @@ function_draw(Function *pkg, DiaRenderer *renderer)
 
   font_height = pkg->text->height ;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, font_height / FUNCTION_BORDERWIDTH_SCALE );
-  if (pkg->is_wish)
-    renderer_ops->set_linestyle( renderer, LINESTYLE_DASHED, font_height / FUNCTION_DASHLENGTH_SCALE ) ;
-  else
-    renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer,
+                              font_height / FUNCTION_BORDERWIDTH_SCALE);
+  if (pkg->is_wish) {
+    dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED,
+                                font_height / FUNCTION_DASHLENGTH_SCALE);
+  } else {
+    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  }
 
   p1.x = x; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
   if (pkg->is_user) {
-    renderer_ops->draw_rect(renderer,
-			     &p1, &p2,
-			     &color_white,
-			     &color_black);
+    dia_renderer_draw_rect (renderer,
+                            &p1,
+                            &p2,
+                            &color_white,
+                            &color_black);
     p1.x += font_height / FUNCTION_MARGIN_SCALE;
     p1.y += font_height / FUNCTION_MARGIN_SCALE;
     p2.y -= font_height / FUNCTION_MARGIN_SCALE;
     p2.x -= font_height / FUNCTION_MARGIN_SCALE;
     /* y += FUNCTION_MARGIN_M; */
   }
-  renderer_ops->draw_rect(renderer,
-			   &p1, &p2,
-			   &color_white,
-			   &color_black);
+  dia_renderer_draw_rect (renderer,
+                          &p1,
+                          &p2,
+                          &color_white,
+                          &color_black);
 
 
-  text_draw(pkg->text, renderer);
-
+  text_draw (pkg->text, renderer);
 }
 
 static void

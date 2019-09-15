@@ -217,9 +217,8 @@ req_move(Requirement *req, Point *to)
 
 /** draw is here */
 static void
-req_draw(Requirement *req, DiaRenderer *renderer)
+req_draw (Requirement *req, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point c;
@@ -237,14 +236,14 @@ req_draw(Requirement *req, DiaRenderer *renderer)
   c.x = x + w/2.0;
   c.y = y + h/2.0;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, REQ_LINEWIDTH);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, REQ_LINEWIDTH);
 
-  renderer_ops->set_linestyle(renderer, LINESTYLE_DASHED, REQ_DASHLEN);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, REQ_DASHLEN);
 
-  renderer_ops->draw_ellipse(renderer, &c, w, h, &color_white, &color_black);
+  dia_renderer_draw_ellipse (renderer, &c, w, h, &color_white, &color_black);
 
-  text_draw(req->text, renderer);
+  text_draw (req->text, renderer);
 }
 
 

@@ -206,7 +206,6 @@ state_move(State *state, Point *to)
 static void
 state_draw(State *state, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
@@ -221,17 +220,21 @@ state_draw(State *state, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, STATE_LINEWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, STATE_LINEWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   p1.x = x;
   p1.y = y;
   p2.x = x + w;
   p2.y = y + h;
-  renderer_ops->draw_rounded_rect(renderer, &p1, &p2,
-				  &state->fill_color, &state->line_color, 1.0);
-  text_draw(state->text, renderer);
+  dia_renderer_draw_rounded_rect (renderer,
+                                  &p1,
+                                  &p2,
+                                  &state->fill_color,
+                                  &state->line_color,
+                                  1.0);
+  text_draw (state->text, renderer);
 }
 
 

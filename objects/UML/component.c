@@ -222,9 +222,8 @@ component_move(Component *cmp, Point *to)
 }
 
 static void
-component_draw(Component *cmp, DiaRenderer *renderer)
+component_draw (Component *cmp, DiaRenderer *renderer)
 {
-  DiaRendererClass *renderer_ops = DIA_RENDERER_GET_CLASS (renderer);
   Element *elem;
   real x, y, w, h;
   Point p1, p2;
@@ -239,44 +238,50 @@ component_draw(Component *cmp, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  renderer_ops->set_fillstyle(renderer, FILLSTYLE_SOLID);
-  renderer_ops->set_linewidth(renderer, COMPONENT_BORDERWIDTH);
-  renderer_ops->set_linestyle(renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_linewidth (renderer, COMPONENT_BORDERWIDTH);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
 
   p1.x = x + COMPONENT_CWIDTH/2; p1.y = y;
   p2.x = x+w; p2.y = y+h;
 
-  renderer_ops->draw_rect(renderer,
-			   &p1, &p2,
-			   &cmp->fill_color,
-			   &cmp->line_color);
+  dia_renderer_draw_rect (renderer,
+                          &p1,
+                          &p2,
+                          &cmp->fill_color,
+                          &cmp->line_color);
 
   p1.x= x; p1.y = y +(h - 3*COMPONENT_CHEIGHT)/2.0;
   p2.x = x+COMPONENT_CWIDTH; p2.y = p1.y + COMPONENT_CHEIGHT;
 
-  renderer_ops->draw_rect(renderer,
-			   &p1, &p2,
-			   &cmp->fill_color,
-			   &cmp->line_color);
+  dia_renderer_draw_rect (renderer,
+                          &p1,
+                          &p2,
+                          &cmp->fill_color,
+                          &cmp->line_color);
 
   p1.y = p2.y + COMPONENT_CHEIGHT;
   p2.y = p1.y + COMPONENT_CHEIGHT;
 
-  renderer_ops->draw_rect(renderer,
-			   &p1, &p2,
-			   &cmp->fill_color,
-			   &cmp->line_color);
+  dia_renderer_draw_rect (renderer,
+                          &p1,
+                          &p2,
+                          &cmp->fill_color,
+                          &cmp->line_color);
 
   if (cmp->st_stereotype != NULL &&
       cmp->st_stereotype[0] != '\0') {
     p1 = cmp->text->position;
     p1.y -= cmp->text->height;
-    renderer_ops->set_font(renderer, cmp->text->font, cmp->text->height);
-    renderer_ops->draw_string(renderer, cmp->st_stereotype, &p1,
-			       ALIGN_LEFT, &cmp->text->color);
+    dia_renderer_set_font (renderer, cmp->text->font, cmp->text->height);
+    dia_renderer_draw_string (renderer,
+                              cmp->st_stereotype,
+                              &p1,
+                              ALIGN_LEFT,
+                              &cmp->text->color);
   }
 
-  text_draw(cmp->text, renderer);
+  text_draw (cmp->text, renderer);
 }
 
 static void
