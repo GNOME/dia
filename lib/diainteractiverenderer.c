@@ -23,6 +23,8 @@
 #include "diarenderer.h"
 #include "diainteractiverenderer.h"
 
+G_DEFINE_INTERFACE (DiaInteractiveRenderer, dia_interactive_renderer, DIA_TYPE_RENDERER)
+
 /**
  * SECTION:dia-interactive-renderer
  * @title: DiaInteractiveRenderer
@@ -57,7 +59,7 @@ get_height_pixels (DiaInteractiveRenderer *self)
 }
 
 static void
-dia_interactive_renderer_iface_init (DiaInteractiveRendererInterface *iface)
+dia_interactive_renderer_default_init (DiaInteractiveRendererInterface *iface)
 {
   /* NULL initialization probably already done by GObject */
   iface->get_width_pixels = get_width_pixels;
@@ -72,31 +74,52 @@ dia_interactive_renderer_iface_init (DiaInteractiveRendererInterface *iface)
   iface->draw_object_highlighted = NULL;
 }
 
-GType
-dia_interactive_renderer_get_type (void)
+
+/**
+ * dia_interactive_renderer_get_width_pixels:
+ * @self: the #DiaInteractiveRenderer
+ *
+ * Get the width in pixels of the drawing area (if any)
+ *
+ * Returns: the width
+ *
+ * Since: 0.98
+ */
+int
+dia_interactive_renderer_get_width_pixels (DiaInteractiveRenderer *self)
 {
-  static GType iface_type = 0;
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_INTERACTIVE_RENDERER_GET_IFACE (self);
 
-  if (!iface_type)
-    {
-      static const GTypeInfo iface_info =
-      {
-        sizeof (DiaInteractiveRendererInterface),
-	(GBaseInitFunc)     dia_interactive_renderer_iface_init,
-	(GBaseFinalizeFunc) NULL,
-      };
+  g_return_val_if_fail (irenderer != NULL, 0);
+  g_return_val_if_fail (irenderer->get_width_pixels != NULL, 0);
 
-      iface_type = g_type_register_static (G_TYPE_INTERFACE,
-                                           "DiaInteractiveRendererInterface",
-                                           &iface_info,
-                                           0);
-
-      g_type_interface_add_prerequisite (iface_type,
-                                         DIA_TYPE_RENDERER);
-    }
-
-  return iface_type;
+  return irenderer->get_width_pixels (self);
 }
+
+
+/**
+ * dia_interactive_renderer_get_height_pixels:
+ * @self: the #DiaInteractiveRenderer
+ *
+ * Get the height in pixels of the drawing area (if any)
+ *
+ * Returns: the height
+ *
+ * Since: 0.98
+ */
+int
+dia_interactive_renderer_get_height_pixels (DiaInteractiveRenderer *self)
+{
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_INTERACTIVE_RENDERER_GET_IFACE (self);
+
+  g_return_val_if_fail (irenderer != NULL, 0);
+  g_return_val_if_fail (irenderer->get_height_pixels != NULL, 0);
+
+  return irenderer->get_height_pixels (self);
+}
+
 
 /**
  * dia_interactive_renderer_set_size:
@@ -124,6 +147,134 @@ dia_interactive_renderer_set_size (DiaInteractiveRenderer *self,
   irenderer->set_size (self, window, width, height);
 }
 
+
+/**
+ * dia_interactive_renderer_clip_region_clear:
+ * @self: the #DiaInteractiveRenderer
+ *
+ * Since: 0.98
+ */
+void
+dia_interactive_renderer_clip_region_clear (DiaInteractiveRenderer *self)
+{
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_INTERACTIVE_RENDERER_GET_IFACE (self);
+
+  g_return_if_fail (irenderer != NULL);
+  g_return_if_fail (irenderer->clip_region_clear != NULL);
+
+  irenderer->clip_region_clear (self);
+}
+
+
+/**
+ * dia_interactive_renderer_clip_region_add_rect:
+ * @self: the #DiaInteractiveRenderer
+ * @rect: the #Rectangle to add
+ *
+ * Since: 0.98
+ */
+void
+dia_interactive_renderer_clip_region_add_rect (DiaInteractiveRenderer *self,
+                                               Rectangle              *rect)
+{
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_INTERACTIVE_RENDERER_GET_IFACE (self);
+
+  g_return_if_fail (irenderer != NULL);
+  g_return_if_fail (irenderer->clip_region_add_rect != NULL);
+
+  irenderer->clip_region_add_rect (self, rect);
+}
+
+
+/**
+ * dia_interactive_renderer_draw_pixel_line:
+ * @self: the #DiaInteractiveRenderer
+ * @x1: starting horizontal position
+ * @y1: starting vertical position
+ * @x2: ending horizontal position
+ * @y2: ending vertical position
+ * @color: #Color to draw with
+ *
+ * Since: 0.98
+ */
+void
+dia_interactive_renderer_draw_pixel_line (DiaInteractiveRenderer *self,
+                                          int                     x1,
+                                          int                     y1,
+                                          int                     x2,
+                                          int                     y2,
+                                          Color                  *color)
+{
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_INTERACTIVE_RENDERER_GET_IFACE (self);
+
+  g_return_if_fail (irenderer != NULL);
+  g_return_if_fail (irenderer->draw_pixel_line != NULL);
+
+  irenderer->draw_pixel_line (self, x1, y1, x2, y2, color);
+}
+
+
+/**
+ * dia_interactive_renderer_draw_pixel_rect:
+ * @self: the #DiaInteractiveRenderer
+ * @x: horizontal position
+ * @y: vertical position
+ * @width: width of the rectangle
+ * @height: height of the rectangle
+ * @color: #Color to outline with
+ *
+ * Since: 0.98
+ */
+void
+dia_interactive_renderer_draw_pixel_rect (DiaInteractiveRenderer *self,
+                                          int                     x,
+                                          int                     y,
+                                          int                     width,
+                                          int                     height,
+                                          Color                  *color)
+{
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_INTERACTIVE_RENDERER_GET_IFACE (self);
+
+  g_return_if_fail (irenderer != NULL);
+  g_return_if_fail (irenderer->draw_pixel_rect != NULL);
+
+  irenderer->draw_pixel_rect (self, x, y, width, height, color);
+}
+
+
+/**
+ * dia_interactive_renderer_fill_pixel_rect:
+ * @self: the #DiaInteractiveRenderer
+ * @x: horizontal position
+ * @y: vertical position
+ * @width: width of the rectangle
+ * @height: height of the rectangle
+ * @color: #Color to fill with
+ *
+ * Since: 0.98
+ */
+void
+dia_interactive_renderer_fill_pixel_rect (DiaInteractiveRenderer *self,
+                                          int                     x,
+                                          int                     y,
+                                          int                     width,
+                                          int                     height,
+                                          Color                  *color)
+{
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_INTERACTIVE_RENDERER_GET_IFACE (self);
+
+  g_return_if_fail (irenderer != NULL);
+  g_return_if_fail (irenderer->fill_pixel_rect != NULL);
+
+  irenderer->fill_pixel_rect (self, x, y, width, height, color);
+}
+
+
 /**
  * dia_interactive_renderer_paint:
  * @self: the #DiaInteractiveRenderer
@@ -149,6 +300,30 @@ dia_interactive_renderer_paint (DiaInteractiveRenderer *self,
 
   irenderer->paint (self, ctx, width, height);
 }
+
+
+/**
+ * dia_interactive_renderer_draw_object_highlighted:
+ * @self: the #DiaInteractiveRenderer
+ * @object: the #DiaObject to draw
+ * @type: the #DiaHighlightType style
+ *
+ * Since: 0.98
+ */
+void
+dia_interactive_renderer_draw_object_highlighted (DiaInteractiveRenderer *self,
+                                                  DiaObject              *object,
+                                                  DiaHighlightType        type)
+{
+  DiaInteractiveRendererInterface *irenderer =
+    DIA_INTERACTIVE_RENDERER_GET_IFACE (self);
+
+  g_return_if_fail (irenderer != NULL);
+  g_return_if_fail (irenderer->draw_object_highlighted != NULL);
+
+  irenderer->draw_object_highlighted (self, object, type);
+}
+
 
 /**
  * dia_interactive_renderer_set_selection:
@@ -176,36 +351,4 @@ dia_interactive_renderer_set_selection (DiaInteractiveRenderer *self,
   g_return_if_fail (irenderer->set_selection != NULL);
 
   irenderer->set_selection (self, has_selection, x, y, width, height);
-}
-
-/**
- * dia_interactive_renderer_get_width_pixels:
- * @self: the #DiaInteractiveRenderer
- *
- * Get the width in pixels of the drawing area (if any)
- *
- * Returns: the width
- *
- * Since: 0.98
- */
-int
-dia_interactive_renderer_get_width_pixels (DiaInteractiveRenderer *self)
-{
-  return DIA_INTERACTIVE_RENDERER_GET_IFACE (self)->get_width_pixels (self);
-}
-
-/**
- * dia_interactive_renderer_get_height_pixels:
- * @self: the #DiaInteractiveRenderer
- *
- * Get the height in pixels of the drawing area (if any)
- *
- * Returns: the height
- *
- * Since: 0.98
- */
-int
-dia_interactive_renderer_get_height_pixels (DiaInteractiveRenderer *self)
-{
-  return DIA_INTERACTIVE_RENDERER_GET_IFACE (self)->get_height_pixels (self);
 }

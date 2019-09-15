@@ -98,21 +98,47 @@ struct _DiaInteractiveRendererInterface
                                    double                  height);
 };
 
-void dia_interactive_renderer_paint              (DiaInteractiveRenderer *self,
-                                                  cairo_t                *ctx,
-                                                  int                     width,
-                                                  int                     height);
-void dia_interactive_renderer_set_selection      (DiaInteractiveRenderer *self,
-                                                  gboolean                has_selection,
-                                                  double                  x,
-                                                  double                  y,
-                                                  double                  width,
-                                                  double                  height);
-void dia_interactive_renderer_set_size           (DiaInteractiveRenderer *self,
-                                                  gpointer                window,
-                                                  int                     width,
-                                                  int                     height);
-int  dia_interactive_renderer_get_width_pixels   (DiaInteractiveRenderer *self);
-int  dia_interactive_renderer_get_height_pixels  (DiaInteractiveRenderer *self);
+
+int  dia_interactive_renderer_get_width_pixels        (DiaInteractiveRenderer *self);
+int  dia_interactive_renderer_get_height_pixels       (DiaInteractiveRenderer *self);
+void dia_interactive_renderer_set_size                (DiaInteractiveRenderer *self,
+                                                       gpointer                window,
+                                                       int                     width,
+                                                       int                     height);
+void dia_interactive_renderer_clip_region_clear       (DiaInteractiveRenderer *self);
+void dia_interactive_renderer_clip_region_add_rect    (DiaInteractiveRenderer *self,
+                                                       Rectangle              *rect);
+void dia_interactive_renderer_draw_pixel_line         (DiaInteractiveRenderer *self,
+                                                       int                     x1,
+                                                       int                     y1,
+                                                       int                     x2,
+                                                       int                     y2,
+                                                       Color                  *color);
+void dia_interactive_renderer_draw_pixel_rect         (DiaInteractiveRenderer *self,
+                                                       int                     x,
+                                                       int                     y,
+                                                       int                     width,
+                                                       int                     height,
+                                                       Color                  *color);
+void dia_interactive_renderer_fill_pixel_rect         (DiaInteractiveRenderer *self,
+                                                       int                     x,
+                                                       int                     y,
+                                                       int                     width,
+                                                       int                     height,
+                                                       Color                  *color);
+void dia_interactive_renderer_paint                   (DiaInteractiveRenderer *self,
+                                                       cairo_t                *ctx,
+                                                       int                     width,
+                                                       int                     height);
+void dia_interactive_renderer_draw_object_highlighted (DiaInteractiveRenderer *self,
+                                                       DiaObject              *object,
+                                                       DiaHighlightType        type);
+void dia_interactive_renderer_set_selection           (DiaInteractiveRenderer *self,
+                                                       gboolean                has_selection,
+                                                       double                  x,
+                                                       double                  y,
+                                                       double                  width,
+                                                       double                  height);
+
 
 G_END_DECLS

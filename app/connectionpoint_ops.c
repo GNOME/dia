@@ -34,36 +34,33 @@ static Color connectionpoint_color = { 0.4, 0.4, 1.0, 1.0 };
 #define CP_SZ (CONNECTIONPOINT_SIZE/2)
 
 static void
-connectionpoint_draw (ConnectionPoint                 *conpoint,
-                      DDisplay                        *ddisp,
-                      DiaRenderer                     *renderer,
-                      DiaInteractiveRendererInterface *irenderer,
-                      Color                           *color)
+connectionpoint_draw (ConnectionPoint *conpoint,
+                      DDisplay        *ddisp,
+                      DiaRenderer     *renderer,
+                      Color           *color)
 {
   int x,y;
   Point *point = &conpoint->pos;
 
   ddisplay_transform_coords (ddisp, point->x, point->y, &x, &y);
 
-  irenderer->draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
-                              x-CP_SZ,y-CP_SZ,
-                              x+CP_SZ,y+CP_SZ,
-                              color);
+  dia_interactive_renderer_draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                            x - CP_SZ, y - CP_SZ,
+                                            x + CP_SZ, y + CP_SZ,
+                                            color);
 
-  irenderer->draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
-                              x+CP_SZ,y-CP_SZ,
-                              x-CP_SZ,y+CP_SZ,
-                              color);
+  dia_interactive_renderer_draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                            x + CP_SZ, y - CP_SZ,
+                                            x - CP_SZ, y + CP_SZ,
+                                            color);
 }
 
 void
-object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
+object_draw_connectionpoints (DiaObject *obj, DDisplay *ddisp)
 {
   int i;
   static Color midpoint_color = { 1.0, 0.0, 0.0, 1.0 };
   DiaRenderer *renderer = ddisp->renderer;
-  DiaInteractiveRendererInterface *irenderer =
-    DIA_INTERACTIVE_RENDERER_GET_IFACE (ddisp->renderer);
 
   /* this does not change for any of the points */
   dia_renderer_set_linewidth (renderer, 0.0);
@@ -73,42 +70,46 @@ object_draw_connectionpoints(DiaObject *obj, DDisplay *ddisp)
    * of the object (bounding box) is bigger than the summed size of the
    * connection points - or some variation thereof ;)
    */
-  if (dia_object_get_num_connections(obj) > 1)
-  {
+  if (dia_object_get_num_connections (obj) > 1) {
     const Rectangle *bbox = dia_object_get_bounding_box (obj);
     real w = ddisplay_transform_length (ddisp, bbox->right - bbox->left);
     real h = ddisplay_transform_length (ddisp, bbox->bottom - bbox->top);
-    int n = dia_object_get_num_connections(obj);
+    int n = dia_object_get_num_connections (obj);
 
     /* just comparing the sizes is still drawing more CPs than useful - try 50% */
     if (w * h < n * CONNECTIONPOINT_SIZE * CONNECTIONPOINT_SIZE * 2) {
-      if (ddisp->mainpoint_magnetism)
+      if (ddisp->mainpoint_magnetism) {
         return;
+      }
       /* just draw the main point */
       for (i = 0; i < n; ++i) {
-        if (obj->connections[i]->flags & CP_FLAG_ANYPLACE)
-          connectionpoint_draw(obj->connections[i], ddisp, renderer, irenderer, &midpoint_color);
+        if (obj->connections[i]->flags & CP_FLAG_ANYPLACE) {
+          connectionpoint_draw (obj->connections[i], ddisp, renderer, &midpoint_color);
+        }
       }
       return;
     }
   }
 
-  for (i=0;i<dia_object_get_num_connections(obj);i++) {
-    if ((obj->connections[i]->flags & CP_FLAG_ANYPLACE) == 0)
-      connectionpoint_draw(obj->connections[i], ddisp, renderer, irenderer, &connectionpoint_color);
-    else if (!ddisp->mainpoint_magnetism)
+  for (i = 0; i < dia_object_get_num_connections (obj); i++) {
+    if ((obj->connections[i]->flags & CP_FLAG_ANYPLACE) == 0) {
+      connectionpoint_draw (obj->connections[i], ddisp, renderer, &connectionpoint_color);
+    } else if (!ddisp->mainpoint_magnetism) {
       /* draw the "whole object"/center connpoints, but only when we don't
        * have snap-to-grid */
-      connectionpoint_draw(obj->connections[i], ddisp, renderer, irenderer, &midpoint_color);
+      connectionpoint_draw (obj->connections[i], ddisp, renderer, &midpoint_color);
+    }
   }
 }
 
 void
-connectionpoint_add_update(ConnectionPoint *conpoint,
-			   Diagram *dia)
+connectionpoint_add_update (ConnectionPoint *conpoint,
+                            Diagram         *dia)
 {
-  diagram_add_update_pixels(dia, &conpoint->pos,
-			    CONNECTIONPOINT_SIZE, CONNECTIONPOINT_SIZE);
+  diagram_add_update_pixels (dia,
+                             &conpoint->pos,
+                             CONNECTIONPOINT_SIZE,
+                             CONNECTIONPOINT_SIZE);
 }
 
 /* run diagram_update_connections_object on all selected objects. */

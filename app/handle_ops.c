@@ -53,8 +53,6 @@ handle_draw (Handle *handle, DDisplay *ddisp)
   gboolean some_selected;
   int x,y;
   DiaRenderer *renderer = ddisp->renderer;
-  DiaInteractiveRendererInterface *irenderer =
-    DIA_INTERACTIVE_RENDERER_GET_IFACE (ddisp->renderer);
   const Color *color;
 
   ddisplay_transform_coords (ddisp, handle->pos.x, handle->pos.y, &x, &y);
@@ -74,28 +72,34 @@ handle_draw (Handle *handle, DDisplay *ddisp)
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
 
 
-  irenderer->fill_pixel_rect (DIA_INTERACTIVE_RENDERER (renderer),
-                              x - HANDLE_SIZE/2 + 1,
-                              y - HANDLE_SIZE/2 + 1,
-                              HANDLE_SIZE-2, HANDLE_SIZE-2,
-                              /* it does not change the color, but does not reflect taht in the signature */
-                              (Color *) color);
+  dia_interactive_renderer_fill_pixel_rect (DIA_INTERACTIVE_RENDERER (renderer),
+                                            x - HANDLE_SIZE/2 + 1,
+                                            y - HANDLE_SIZE/2 + 1,
+                                            HANDLE_SIZE-2,
+                                            HANDLE_SIZE-2,
+                                            /* it does not change the color, but does not reflect taht in the signature */
+                                            (Color *) color);
 
-  irenderer->draw_pixel_rect (DIA_INTERACTIVE_RENDERER (renderer),
-                              x - HANDLE_SIZE/2,
-                              y - HANDLE_SIZE/2,
-                              HANDLE_SIZE-1, HANDLE_SIZE-1,
-                              &color_black);
+  dia_interactive_renderer_draw_pixel_rect (DIA_INTERACTIVE_RENDERER (renderer),
+                                            x - HANDLE_SIZE/2,
+                                            y - HANDLE_SIZE/2,
+                                            HANDLE_SIZE-1,
+                                            HANDLE_SIZE-1,
+                                            &color_black);
 
   if (handle->connect_type != HANDLE_NONCONNECTABLE) {
-    irenderer->draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
-                                x - HANDLE_SIZE/2, y - HANDLE_SIZE/2,
-                                x + HANDLE_SIZE/2, y + HANDLE_SIZE/2,
-                                &color_black);
-    irenderer->draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
-                                x - HANDLE_SIZE/2, y + HANDLE_SIZE/2,
-                                x + HANDLE_SIZE/2, y - HANDLE_SIZE/2,
-                                &color_black);
+    dia_interactive_renderer_draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                              x - HANDLE_SIZE/2,
+                                              y - HANDLE_SIZE/2,
+                                              x + HANDLE_SIZE/2,
+                                              y + HANDLE_SIZE/2,
+                                              &color_black);
+    dia_interactive_renderer_draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                              x - HANDLE_SIZE/2,
+                                              y + HANDLE_SIZE/2,
+                                              x + HANDLE_SIZE/2,
+                                              y - HANDLE_SIZE/2,
+                                              &color_black);
   }
 }
 

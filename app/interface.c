@@ -401,7 +401,6 @@ canvas_expose_event (GtkWidget      *widget,
 {
   GSList *l;
   Rectangle *r, totrect;
-  DiaInteractiveRendererInterface *renderer;
   GtkAllocation alloc;
   cairo_t *ctx;
 
@@ -409,35 +408,28 @@ canvas_expose_event (GtkWidget      *widget,
 
   g_return_val_if_fail (ddisp->renderer != NULL, FALSE);
 
-  /* Renders updates to pixmap + copies display_areas to canvas(screen) */
-  renderer = DIA_INTERACTIVE_RENDERER_GET_IFACE (ddisp->renderer);
-
   /* Only update if update_areas exist */
   l = ddisp->update_areas;
-  if (l != NULL)
-  {
+  if (l != NULL) {
     totrect = *(Rectangle *) l->data;
 
-    g_return_val_if_fail (   renderer->clip_region_clear != NULL
-                          && renderer->clip_region_add_rect != NULL, FALSE);
-
-    renderer->clip_region_clear (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
+    dia_interactive_renderer_clip_region_clear (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
     while ( l!= NULL) {
       r = (Rectangle *) l->data;
 
       rectangle_union (&totrect, r);
-      renderer->clip_region_add_rect (DIA_INTERACTIVE_RENDERER (ddisp->renderer), r);
+      dia_interactive_renderer_clip_region_add_rect (DIA_INTERACTIVE_RENDERER (ddisp->renderer), r);
 
       l = g_slist_next (l);
     }
     /* Free update_areas list: */
     l = ddisp->update_areas;
-    while(l!=NULL) {
-      g_free(l->data);
-      l = g_slist_next(l);
+    while (l!=NULL) {
+      g_free (l->data);
+      l = g_slist_next (l);
     }
-    g_slist_free(ddisp->update_areas);
+    g_slist_free (ddisp->update_areas);
     ddisp->update_areas = NULL;
 
     totrect.left -= 0.1;
@@ -445,7 +437,7 @@ canvas_expose_event (GtkWidget      *widget,
     totrect.top -= 0.1;
     totrect.bottom += 0.1;
 
-    ddisplay_render_pixmap(ddisp, &totrect);
+    ddisplay_render_pixmap (ddisp, &totrect);
   }
 
   gtk_widget_get_allocation (widget, &alloc);

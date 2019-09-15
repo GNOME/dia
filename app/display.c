@@ -455,13 +455,13 @@ ddisplay_obj_render (DiaObject   *obj,
                      gpointer     data)
 {
   DDisplay *ddisp = (DDisplay *) data;
-  DiaInteractiveRendererInterface *irenderer =
-    DIA_INTERACTIVE_RENDERER_GET_IFACE (renderer);
   DiaHighlightType hltype = data_object_get_highlight (DIA_DIAGRAM_DATA (ddisp->diagram), obj);
 
-  if (hltype != DIA_HIGHLIGHT_NONE && irenderer->draw_object_highlighted != NULL) {
-    irenderer->draw_object_highlighted (DIA_INTERACTIVE_RENDERER (renderer), obj, hltype);
-  } else  {
+  if (hltype != DIA_HIGHLIGHT_NONE) {
+    dia_interactive_renderer_draw_object_highlighted (DIA_INTERACTIVE_RENDERER (renderer),
+                                                      obj,
+                                                      hltype);
+  } else {
     /* maybe the renderer does not support highlighting */
     dia_renderer_draw_object (renderer, obj, NULL);
   }
@@ -479,7 +479,6 @@ ddisplay_render_pixmap (DDisplay  *ddisp,
   GList *list;
   DiaObject *obj;
   int i;
-  DiaInteractiveRendererInterface *renderer;
 #ifdef TRACES
   GTimer *timer;
 #endif
@@ -489,8 +488,6 @@ ddisplay_render_pixmap (DDisplay  *ddisp,
     return;
   }
 
-  renderer = DIA_INTERACTIVE_RENDERER_GET_IFACE (ddisp->renderer);
-
   /* Erase background */
   dia_renderer_begin_render (ddisp->renderer, update);
   if (update) {
@@ -498,20 +495,24 @@ ddisplay_render_pixmap (DDisplay  *ddisp,
 
     ddisplay_transform_coords (ddisp, update->left, update->top, &x0, &y0);
     ddisplay_transform_coords (ddisp, update->right, update->bottom, &x1, &y1);
-    renderer->fill_pixel_rect (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
-                               x0, y0, x1-x0, y1-y0,
-                               &ddisp->diagram->data->bg_color);
+    dia_interactive_renderer_fill_pixel_rect (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
+                                              x0,
+                                              y0,
+                                              x1 - x0,
+                                              y1 - y0,
+                                              &ddisp->diagram->data->bg_color);
   } else {
-    renderer->fill_pixel_rect (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
-                               0, 0,
-                               dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer)),
-                               dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer)),
-                               &ddisp->diagram->data->bg_color);
+    dia_interactive_renderer_fill_pixel_rect (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
+                                              0,
+                                              0,
+                                              dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer)),
+                                              dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer)),
+                                              &ddisp->diagram->data->bg_color);
   }
 
   /* Draw grid */
-  grid_draw(ddisp, update);
-  pagebreak_draw(ddisp, update);
+  grid_draw (ddisp, update);
+  pagebreak_draw (ddisp, update);
 
 #ifdef TRACES
   timer = g_timer_new();
