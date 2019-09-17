@@ -314,7 +314,6 @@ EXPORTS
  data_pattern
  dia_object_set_pattern
 
- dia_interactive_renderer_interface_get_type
 
  dialog_make
  dialog_add_spinbutton
@@ -367,10 +366,54 @@ EXPORTS
  dia_register_plugins
  dia_register_plugins_in_dir
 
+ dia_font_get_type
+ dia_object_draw
+
+ dia_renderer_fill_arc
  dia_renderer_get_type
- dia_renderer_get_width_pixels
- dia_renderer_get_height_pixels
- dia_renderer_set_size
+ dia_renderer_get_text_width
+ dia_renderer_get_font
+ dia_renderer_set_font
+ dia_renderer_set_fillstyle
+ dia_renderer_set_linewidth
+ dia_renderer_set_linestyle
+ dia_renderer_set_linecaps
+ dia_renderer_set_linejoin
+ dia_renderer_set_pattern
+ dia_renderer_draw_arc
+ dia_renderer_draw_arc_with_arrows
+ dia_renderer_draw_object
+ dia_renderer_draw_line
+ dia_renderer_draw_line_with_arrows
+ dia_renderer_draw_string
+ dia_renderer_draw_polygon
+ dia_renderer_draw_polyline
+ dia_renderer_draw_polyline_with_arrows
+ dia_renderer_draw_rounded_polyline
+ dia_renderer_draw_rounded_polyline_with_arrows
+ dia_renderer_draw_rounded_rect
+ dia_renderer_draw_rotated_text
+ dia_renderer_draw_rotated_image
+ dia_renderer_draw_ellipse
+ dia_renderer_draw_image
+ dia_renderer_draw_bezier
+ dia_renderer_draw_bezier_with_arrows
+ dia_renderer_draw_beziergon
+ dia_renderer_draw_rect
+ dia_renderer_begin_render
+ dia_renderer_end_render
+ dia_renderer_is_capable_of
+ 
+ dia_interactive_renderer_get_type
+ dia_interactive_renderer_draw_pixel_line
+ dia_interactive_renderer_get_width_pixels
+ dia_interactive_renderer_get_height_pixels
+ dia_interactive_renderer_draw_object_highlighted
+ dia_interactive_renderer_fill_pixel_rect
+ dia_interactive_renderer_set_size
+ dia_interactive_renderer_draw_pixel_rect
+ dia_interactive_renderer_clip_region_clear
+ dia_interactive_renderer_clip_region_add_rect
 
  dia_size_selector_get_type
  dia_size_selector_new
