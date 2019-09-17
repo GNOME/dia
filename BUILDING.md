@@ -1,14 +1,5 @@
 # Compiling Dia from source
 
-## NOTE FOR WINDOWS USERS
-
-If you are reading this and just want to use Dia rather than
-compiling/extending it, you are in the wrong place.  Please go to
-http://dia-installer.sourceforge.net and download the precompiled, easily
-installable binary.
-
-Otherwise, please read on :)
-
 ## Requirements
 
 ### General
@@ -23,23 +14,14 @@ For reference, a number of other libraries are recommended for extra features.  
 
 - Libxslt allows export through XSLT translation schemas:
   - ftp://ftp.gnome.org/pub/GNOME/sources/libxslt/
-- **Python scripting is also possible** by installing Python 2.7 (note that meson requires python 3, therefore python2 needs to be explicitly installed) and pygtk.
+- **Python scripting is also possible** by installing Python 2.7 and pygtk.
+    - Note this will be replaced with libpeas based scripting at some point enabling support for python3 and javascript
 
 ### Windows
 
 Currently (as of 1f930b94) the Windows build is under heavy development and not all features are supported.  Help is always welcome!
 
-The following configuration is supported however: MSYS2 (Pacman v5.1.2) + Mingw64 on Windows 10.
-
-It is recommended you develop Dia in a Virtual Machine since Windows 10 is free to download.
-
-For all git-related operations, it is recommended you use https://gitforwindows.org/ instead of MSYS2.
-
 Please read MSYS2 instructions on https://www.msys2.org/ and their wiki carefully before installing MSYS2.  They have three different environments: MSYS2, Mingw64 and Mingw32.  **ALL** packages must be installed from MSYS2 environment, and all development needs to be performed from Mingw64 one.
-
-It is also recommended you use the source version of meson (https://github.com/mesonbuild/meson) rather than using the MSYS2 one.  However, it is still recommended you install meson from `pacman` since it has a few dependencies, most notably `ninja`
-
-It is also recommended you read https://www.gtk.org/download/windows.php, even though it is for GTK3 instead of GTK2.
 
 Assuming you are all set and that pacman is up to date, you'll need to install at least the following packages:
 ```
