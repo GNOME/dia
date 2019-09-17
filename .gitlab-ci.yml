@@ -23,3 +23,20 @@ review:
 stop_review:
     stage: deploy
     extends: '.stop_review'
+
+.mingw-defaults: &mingw-defaults
+    stage: build
+    tags:
+        - win32
+    script:
+        - C:\msys64\usr\bin\pacman --noconfirm -Syyuu
+        - C:\msys64\usr\bin\bash -lc "bash -x ./.gitlab-ci/msys2.sh"
+    cache:
+        key: "%CI_JOB_NAME%"
+        <<: *cache-paths
+
+msys2-mingw32:
+    variables:
+        MSYSTEM: "MINGW32"
+        CHERE_INVOKING: "yes"
+    <<: *mingw-defaults
