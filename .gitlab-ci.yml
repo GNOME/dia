@@ -4,6 +4,11 @@ include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_
   paths:
     - _ccache/
 
+stages:
+  - test
+  - deploy
+
+
 variables:
     BUNDLE: "dia-dev.flatpak"
     GIT_SUBMODULE_STRATEGY: recursive
@@ -19,14 +24,16 @@ flatpak:
     extends: .flatpak
 
 review:
-    stage: deploy
-    dependencies:
-        - 'flatpak'
-    extends: '.review'
+  dependencies:
+    - 'flatpak'
+  extends: '.review'
 
 stop_review:
-    stage: deploy
-    extends: '.stop_review'
+  extends: '.stop_review'
+
+nightly:
+  extends: '.publish_nightly'
+
 
 .mingw-defaults: &mingw-defaults
     stage: build
