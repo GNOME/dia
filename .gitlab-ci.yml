@@ -6,7 +6,7 @@ include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_
 
 stages:
   - test
-  - deploy
+  - win32_build
 
 
 variables:
@@ -36,7 +36,7 @@ nightly:
 
 
 .mingw-defaults: &mingw-defaults
-    stage: build
+    stage: win32_build
     tags:
         - win32
     script:
