@@ -6,6 +6,7 @@ include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_
 
 stages:
   - test
+  - deploy
   - win32_build
 
 
