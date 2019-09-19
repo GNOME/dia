@@ -8,6 +8,7 @@ desktop_file = i18n.merge_file(
   install_dir: join_paths(datadir, 'applications')
 )
 # Validate Desktop file
+desktop_file_validate = find_program('desktop-file-validate', required: false)
 if desktop_file_validate.found()
   test(
     'validate-desktop',
@@ -26,6 +27,7 @@ appdata_file = i18n.merge_file (
   install_dir: join_paths(datadir, 'metainfo')
 )
 # Validate Appdata
+appstream_util = find_program('appstream-util', required: false)
 if appstream_util.found()
   test(
     'validate-appdata', appstream_util,
