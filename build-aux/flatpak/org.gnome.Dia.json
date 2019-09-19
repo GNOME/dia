@@ -4,7 +4,6 @@
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",
     "command": "dia",
-    "appstream-compose": false,
     "finish-args": [
         "--filesystem=home",
         "--device=dri",
