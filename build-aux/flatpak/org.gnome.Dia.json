@@ -4,20 +4,12 @@
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",
     "command": "dia",
-    "rename-icon": "dia",
-    "copy-icon": true,
-    "rename-desktop-file": "dia.desktop",
     "appstream-compose": false,
     "finish-args": [
         "--filesystem=home",
         "--device=dri",
         "--share=ipc",
-        "--socket=x11",
-        "--socket=wayland",
-        "--filesystem=xdg-run/dconf",
-        "--filesystem=~/.config/dconf:ro",
-        "--talk-name=ca.desrt.dconf",
-        "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
+        "--socket=x11"
     ],
     "cleanup": [
         "/include",
