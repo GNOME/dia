@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Bilal Elmoussaoui 2019 <bilal.elmoussaoui@gnome.org> -->
+<component type="desktop-application">
+  <id>org.gnome.Dia</id>
+  <metadata_license>CC0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>Dia</name>
+  <summary>Dia is a program for drawing diagrams</summary>
+  <description>
+    <p>Dia is a GTK+ based diagram creation program for GNU/Linux, MacOS X, Unix, and Windows, and is released under the GPL license.</p>
+
+    <p>Dia is roughly inspired by the commercial Windows program 'Visio,' though more geared towards informal diagrams for casual use. It can be used to draw many different kinds of diagrams. It currently has special objects to help draw entity relationship diagrams, UML diagrams, flowcharts, network diagrams, and many other diagrams. It is also possible to add support for new shapes by writing simple XML files, using a subset of SVG to draw the shape.</p>
+
+    <p>It can load and save diagrams to a custom XML format (gzipped by default, to save space), can export diagrams to a number of formats, including EPS, SVG, XFIG, WMF and PNG, and can print diagrams (including ones that span multiple pages). </p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://gitlab.gnome.org/GNOME/dia/raw/master/data/screenshots/screenshot1.png</image>
+      <caption>Main Window</caption>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://wiki.gnome.org/Apps/Dia</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/dia/issues</url>
+  <url type="donation">http://www.gnome.org/friends/</url>
+  <url type="translate">https://l10n.gnome.org/module/dia/</url>
+  <content_rating type="oars-1.0" />
+  <provides>
+    <id>dia.desktop</id>
+  </provides>
+  <releases>
+    <release version="0.97.2" date="2011-12-18">
+      <description>
+        <p>Updated translations</p>
+      </description>
+    </release>
+  </releases>
+  <kudos>
+    <!--
+    GNOME Software kudos:
+    https://gitlab.gnome.org/GNOME/gnome-software/blob/master/doc/kudos.md
+    -->
+    <kudo>HiDpiIcon</kudo>
+  </kudos>
+  <developer_name>The GNOME Project</developer_name>
+  <project_group>GNOME</project_group>
+  <update_contact>zbrown@gnome.org</update_contact>
+  <translation type="gettext">dia</translation>
+  <launchable type="desktop-id">org.gnome.Dia.desktop</launchable>
+</component>
+
+
