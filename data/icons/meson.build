@@ -1,10 +1,10 @@
 icon_files = {
-    '16x16': 'dia.png',
-    '22x22': 'dia.png',
-    '24x24': 'dia.png',
-    '32x32': 'dia.png',
-    '48x48': 'dia.png',
-    'scalable': 'dia.svg',
+    '16x16': 'org.gnome.Dia.png',
+    '22x22': 'org.gnome.Dia.png',
+    '24x24': 'org.gnome.Dia.png',
+    '32x32': 'org.gnome.Dia.png',
+    '48x48': 'org.gnome.Dia.png',
+    'scalable': 'org.gnome.Dia.svg',
 }
 
 icondir = join_paths(datadir, 'icons', 'hicolor')

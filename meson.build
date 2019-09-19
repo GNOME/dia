@@ -36,6 +36,7 @@ conf.set('HAVE_XSLT', libxslt_dep.found())
 datadir = join_paths(get_option('prefix'),
                      get_option('datadir'))
 
+po_dir = join_paths(meson.current_source_dir(), 'po')
 pkgdatadir = join_paths(datadir, meson.project_name())
 
 dialibdir = join_paths(get_option('prefix'),

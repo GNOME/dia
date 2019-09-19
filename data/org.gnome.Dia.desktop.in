@@ -5,7 +5,7 @@ Comment=Edit your Diagrams
 Type=Application
 Exec=dia %F
 # Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-Icon=dia
+Icon=org.gnome.Dia
 Terminal=false
 Categories=GNOME;Graphics;
 StartupNotify=true
