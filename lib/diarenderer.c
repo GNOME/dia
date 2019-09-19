@@ -28,6 +28,7 @@
 #include "diatransformrenderer.h"
 #include "standard-path.h" /* text_to_path */
 #include "boundingbox.h" /* PolyBBextra */
+#include "dia-layer.h"
 /*
  * redefinition of isnan, for portability, as explained in :
  * http://www.gnu.org/software/autoconf/manual/html_node/Function-Portability.html

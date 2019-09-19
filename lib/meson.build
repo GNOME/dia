@@ -23,6 +23,7 @@ stdprop_sources = [
 libdia_sources = stdprop_sources + [
     'diagramdata.c',
     'layer.c',
+    'dia-layer.h',
     'geometry.c',
     'color.c',
     'dia_xml.c',

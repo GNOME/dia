@@ -27,6 +27,7 @@
 #include "object_ops.h"
 #include "textedit.h"
 #include "object.h"
+#include "dia-layer.h"
 
 SelectionStyle selection_style = SELECT_REPLACE;
 
@@ -44,11 +45,11 @@ select_all_callback(GtkAction *action)
 
   while (objects != NULL) {
     DiaObject *obj = (DiaObject *)objects->data;
-    
+
     if (!diagram_is_selected(dia, obj)) {
       diagram_select(dia, obj);
     }
-    
+
     objects = g_list_next(objects);
   }
 
@@ -87,7 +88,7 @@ select_invert_callback(GtkAction *action)
 
   for (; tmp != NULL; tmp = g_list_next(tmp)) {
     DiaObject *obj = (DiaObject *)tmp->data;
-    
+
     if (!diagram_is_selected(dia, obj)) {
       diagram_select(dia, obj);
     } else {
@@ -98,7 +99,7 @@ select_invert_callback(GtkAction *action)
   ddisplay_do_update_menu_sensitivity(ddisp);
   object_add_updates_list(dia->data->selected, dia);
   diagram_flush(dia);
-  
+
 }
 
 /** Select objects that are directly connected to the currently selected
@@ -122,12 +123,12 @@ select_connected_callback(GtkAction *action)
 
     for (i = 0; i < obj->num_handles; i++) {
       Handle *handle = obj->handles[i];
-      
+
       if (handle->connected_to != NULL
 	  && dia_object_is_selectable(handle->connected_to->object)
 	  && !diagram_is_selected(dia, handle->connected_to->object)) {
 	diagram_select(dia, handle->connected_to->object);
-      }      
+      }
     }
   }
 
@@ -142,11 +143,11 @@ select_connected_callback(GtkAction *action)
       for (; conns != NULL; conns = g_list_next(conns)) {
         DiaObject *obj2 = (DiaObject *)conns->data;
 
-	if (dia_object_is_selectable(obj2) 
+	if (dia_object_is_selectable(obj2)
 	    && !diagram_is_selected(dia, obj2)) {
           diagram_select(dia, obj2);
 	}
-      }      
+      }
     }
   }
 
@@ -164,7 +165,7 @@ select_transitively(Diagram *dia, DiaObject *obj)
 
   for (i = 0; i < obj->num_handles; i++) {
     Handle *handle = obj->handles[i];
-    
+
     if (handle->connected_to != NULL &&
 	dia_object_is_selectable(handle->connected_to->object)) {
       DiaObject *connected_object = handle->connected_to->object;
@@ -172,7 +173,7 @@ select_transitively(Diagram *dia, DiaObject *obj)
 	diagram_select(dia, connected_object);
 	newly_selected = g_list_prepend(newly_selected, connected_object);
       }
-    }      
+    }
   }
 
   for (i = 0; i < dia_object_get_num_connections(obj); i++) {
@@ -188,7 +189,7 @@ select_transitively(Diagram *dia, DiaObject *obj)
       }
     }
   }
-  
+
   while (newly_selected != NULL) {
     select_transitively(dia, (DiaObject *)newly_selected->data);
     newly_selected = g_list_next(newly_selected);
@@ -241,7 +242,7 @@ select_same_type_callback(GtkAction *action)
     if (!diagram_is_selected(dia, obj)) {
       for (tmp2 = objects; tmp2 != NULL; tmp2 = g_list_next(tmp2)) {
         DiaObject *obj2 = (DiaObject *)tmp2->data;
-       
+
         if (obj->type == obj2->type) {
           diagram_select(dia, obj);
           break;

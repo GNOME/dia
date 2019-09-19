@@ -63,6 +63,7 @@
 #include "dialib.h"
 #include "diaerror.h"
 #include "widgets.h"
+#include "dia-layer.h"
 
 static gboolean         handle_initial_diagram (const char *input_file_name,
                                                 const char *export_file_name,

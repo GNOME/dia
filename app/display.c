@@ -46,6 +46,7 @@
 #include "diatransform.h"
 #include "recent_files.h"
 #include "filedlg.h"
+#include "dia-layer.h"
 
 static GdkCursor *current_cursor = NULL;
 

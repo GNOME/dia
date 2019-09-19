@@ -47,6 +47,7 @@
 #include "properties.h"
 #include "propinternals.h"
 #include "group.h"
+#include "dia-layer.h"
 
 #include "create.h"
 #include "xfig.h"
@@ -1338,12 +1339,12 @@ import_fig(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
 	}
     } while (TRUE);
 
-    /* Now we can reorder for the depth fields */
-    for (i = 0; i < FIG_MAX_DEPTHS; i++) {
-	if (depths[i] != NULL)
-	    layer_add_objects_first(dia->active_layer, depths[i]);
-    }
-    return TRUE;
+  /* Now we can reorder for the depth fields */
+  for (i = 0; i < FIG_MAX_DEPTHS; i++) {
+    if (depths[i] != NULL)
+      dia_layer_add_objects_first (dia->active_layer, depths[i]);
+  }
+  return TRUE;
 }
 
 /* interface from filter.h */

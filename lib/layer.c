@@ -23,6 +23,7 @@
 #include "diarenderer.h"
 #include "diainteractiverenderer.h"
 #include "dynamic_obj.h"
+#include "dia-layer.h"
 
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 
@@ -75,12 +76,12 @@ render_bounding_boxes (void)
  * This function also handles rendering of bounding boxes for debugging purposes.
  */
 void
-layer_render (Layer          *layer,
-              DiaRenderer    *renderer,
-              Rectangle      *update,
-              ObjectRenderer  obj_renderer,
-              gpointer        data,
-              int             active_layer)
+dia_layer_render (Layer          *layer,
+                  DiaRenderer    *renderer,
+                  Rectangle      *update,
+                  ObjectRenderer  obj_renderer,
+                  gpointer        data,
+                  int             active_layer)
 {
   GList *list;
   DiaObject *obj;
@@ -124,11 +125,11 @@ layer_render (Layer          *layer,
  * \memberof _Layer
  */
 Layer *
-new_layer(gchar *name, DiagramData *parent)
+dia_layer_new (gchar *name, DiagramData *parent)
 {
   Layer *layer;
 
-  layer = g_new(Layer, 1);
+  layer = g_new (Layer, 1);
 
   layer->name = name;
 
@@ -152,11 +153,11 @@ new_layer(gchar *name, DiagramData *parent)
  * \memberof _Layer
  */
 void
-layer_destroy(Layer *layer)
+dia_layer_destroy (Layer *layer)
 {
-  g_free(layer->name);
-  destroy_object_list(layer->objects);
-  g_free(layer);
+  g_free (layer->name);
+  destroy_object_list (layer->objects);
+  g_free (layer);
 }
 
 /*!
@@ -166,7 +167,7 @@ layer_destroy(Layer *layer)
  * \protected \memberof _Layer
  */
 static void
-set_parent_layer(gpointer element, gpointer user_data)
+set_parent_layer (gpointer element, gpointer user_data)
 {
   ((DiaObject*)element)->parent_layer = (Layer*)user_data;
   /* FIXME: even group members need a parent_layer and what about parent objects  ???
@@ -184,9 +185,9 @@ set_parent_layer(gpointer element, gpointer user_data)
  * \memberof _Layer
  */
 int
-layer_object_get_index(Layer *layer, DiaObject *obj)
+dia_layer_object_get_index (Layer *layer, DiaObject *obj)
 {
-  return (int)g_list_index(layer->objects, (gpointer) obj);
+  return (int) g_list_index (layer->objects, (gpointer) obj);
 }
 
 /*!
@@ -196,24 +197,27 @@ layer_object_get_index(Layer *layer, DiaObject *obj)
  * \memberof _Layer
  */
 DiaObject *
-layer_object_get_nth (Layer *layer, guint index)
+dia_layer_object_get_nth (Layer *layer, guint index)
 {
-  if (g_list_length(layer->objects) > index) {
-    g_assert(g_list_nth(layer->objects, index));
-    return (DiaObject *)g_list_nth(layer->objects, index)->data;
+  if (g_list_length (layer->objects) > index) {
+    g_assert (g_list_nth (layer->objects, index));
+    return (DiaObject *) g_list_nth (layer->objects, index)->data;
   }
   return NULL;
 }
+
 int
-layer_object_count (Layer *layer)
+dia_layer_object_count (Layer *layer)
 {
-  return g_list_length(layer->objects);
+  return g_list_length (layer->objects);
 }
+
 gchar *
-layer_get_name (Layer *layer)
+dia_layer_get_name (Layer *layer)
 {
   return g_strdup (layer->name);
 }
+
 /*!
  * \brief Add an object to the top of a layer.
  * @param layer The layer to add the object to.
@@ -221,13 +225,13 @@ layer_get_name (Layer *layer)
  * \memberof _Layer
  */
 void
-layer_add_object(Layer *layer, DiaObject *obj)
+dia_layer_add_object(Layer *layer, DiaObject *obj)
 {
   layer->objects = g_list_append(layer->objects, (gpointer) obj);
   set_parent_layer(obj, layer);
 
   /* send a signal that we have added a object to the diagram */
-  data_emit (layer_get_parent_diagram(layer), layer, obj, "object_add");
+  data_emit (dia_layer_get_parent_diagram(layer), layer, obj, "object_add");
 }
 
 /*!
@@ -238,13 +242,13 @@ layer_add_object(Layer *layer, DiaObject *obj)
  * \memberof _Layer
  */
 void
-layer_add_object_at(Layer *layer, DiaObject *obj, int pos)
+dia_layer_add_object_at (Layer *layer, DiaObject *obj, int pos)
 {
-  layer->objects = g_list_insert(layer->objects, (gpointer) obj, pos);
-  set_parent_layer(obj, layer);
+  layer->objects = g_list_insert (layer->objects, (gpointer) obj, pos);
+  set_parent_layer (obj, layer);
 
   /* send a signal that we have added a object to the diagram */
-  data_emit (layer_get_parent_diagram(layer), layer, obj, "object_add");
+  data_emit (dia_layer_get_parent_diagram (layer), layer, obj, "object_add");
 }
 
 /*!
@@ -255,18 +259,17 @@ layer_add_object_at(Layer *layer, DiaObject *obj, int pos)
  * \memberof _Layer
  */
 void
-layer_add_objects(Layer *layer, GList *obj_list)
+dia_layer_add_objects (Layer *layer, GList *obj_list)
 {
   GList *list = obj_list;
 
-  layer->objects = g_list_concat(layer->objects, obj_list);
-  g_list_foreach(obj_list, set_parent_layer, layer);
+  layer->objects = g_list_concat (layer->objects, obj_list);
+  g_list_foreach (obj_list, set_parent_layer, layer);
 
-  while (list != NULL)
-  {
+  while (list != NULL) {
     DiaObject *obj = (DiaObject *)list->data;
     /* send a signal that we have added a object to the diagram */
-    data_emit (layer_get_parent_diagram(layer), layer, obj, "object_add");
+    data_emit (dia_layer_get_parent_diagram (layer), layer, obj, "object_add");
 
     list = g_list_next(list);
   }
@@ -280,23 +283,20 @@ layer_add_objects(Layer *layer, GList *obj_list)
  * \memberof _Layer
  */
 void
-layer_add_objects_first(Layer *layer, GList *obj_list)
-{
+dia_layer_add_objects_first (Layer *layer, GList *obj_list) {
   GList *list = obj_list;
 
-  layer->objects = g_list_concat(obj_list, layer->objects);
-  g_list_foreach(obj_list, set_parent_layer, layer);
+  layer->objects = g_list_concat (obj_list, layer->objects);
+  g_list_foreach (obj_list, set_parent_layer, layer);
 
   /* Send one signal per object added */
-  while (list != NULL)
-  {
+  while (list != NULL) {
     DiaObject *obj = (DiaObject *)list->data;
     /* send a signal that we have added a object to the diagram */
-    data_emit (layer_get_parent_diagram(layer), layer, obj, "object_add");
+    data_emit (dia_layer_get_parent_diagram (layer), layer, obj, "object_add");
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
-
 }
 
 /*!
@@ -306,14 +306,14 @@ layer_add_objects_first(Layer *layer, GList *obj_list)
  * \memberof _Layer
  */
 void
-layer_remove_object(Layer *layer, DiaObject *obj)
+dia_layer_remove_object (Layer *layer, DiaObject *obj)
 {
   /* send a signal that we'll remove a object from the diagram */
-  data_emit (layer_get_parent_diagram(layer), layer, obj, "object_remove");
+  data_emit (dia_layer_get_parent_diagram (layer), layer, obj, "object_remove");
 
-  layer->objects = g_list_remove(layer->objects, obj);
-  dynobj_list_remove_object(obj);
-  set_parent_layer(obj, NULL);
+  layer->objects = g_list_remove (layer->objects, obj);
+  dynobj_list_remove_object (obj);
+  set_parent_layer (obj, NULL);
 }
 
 /*!
@@ -323,15 +323,15 @@ layer_remove_object(Layer *layer, DiaObject *obj)
  * \memberof _Layer
  */
 void
-layer_remove_objects(Layer *layer, GList *obj_list)
+dia_layer_remove_objects (Layer *layer, GList *obj_list)
 {
   DiaObject *obj;
   while (obj_list != NULL) {
     obj = (DiaObject *) obj_list->data;
 
-    layer_remove_object (layer, obj);
+    dia_layer_remove_object (layer, obj);
 
-    obj_list = g_list_next(obj_list);
+    obj_list = g_list_next (obj_list);
   }
 }
 
@@ -344,7 +344,7 @@ layer_remove_objects(Layer *layer, GList *obj_list)
  * \memberof _Layer
  */
 GList *
-layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle *rect)
+dia_layer_find_objects_intersecting_rectangle (Layer *layer, Rectangle *rect)
 {
   GList *list;
   GList *selected_list;
@@ -379,7 +379,7 @@ layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle *rect)
  * \memberof _Layer
  */
 GList *
-layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
+dia_layer_find_objects_in_rectangle (Layer *layer, Rectangle *rect)
 {
   GList *list;
   GList *selected_list;
@@ -411,7 +411,7 @@ layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect)
  * \memberof _Layer
  */
 GList *
-layer_find_objects_containing_rectangle(Layer *layer, Rectangle *rect)
+dia_layer_find_objects_containing_rectangle (Layer *layer, Rectangle *rect)
 {
   GList *list;
   GList *selected_list;
@@ -451,8 +451,10 @@ layer_find_objects_containing_rectangle(Layer *layer, Rectangle *rect)
  * \memberof _Layer
  */
 DiaObject *
-layer_find_closest_object_except(Layer *layer, Point *pos,
-				 real maxdist, GList *avoid)
+dia_layer_find_closest_object_except (Layer *layer,
+                                      Point *pos,
+                                      real   maxdist,
+                                      GList *avoid)
 {
   GList *l;
   DiaObject *closest;
@@ -493,9 +495,9 @@ layer_find_closest_object_except(Layer *layer, Point *pos,
  * @return The closest object, or NULL if none are closer than maxdist.
  */
 DiaObject *
-layer_find_closest_object(Layer *layer, Point *pos, real maxdist)
+dia_layer_find_closest_object(Layer *layer, Point *pos, real maxdist)
 {
-  return layer_find_closest_object_except(layer, pos, maxdist, NULL);
+  return dia_layer_find_closest_object_except(layer, pos, maxdist, NULL);
 }
 
 
@@ -509,10 +511,10 @@ layer_find_closest_object(Layer *layer, Point *pos, real maxdist)
  * \memberof _Layer
  */
 real
-layer_find_closest_connectionpoint(Layer *layer,
-					ConnectionPoint **closest,
-					Point *pos,
-					DiaObject *notthis)
+dia_layer_find_closest_connectionpoint (Layer            *layer,
+                                        ConnectionPoint **closest,
+                                        Point            *pos,
+                                        DiaObject        *notthis)
 {
   GList *l;
   DiaObject *obj;
@@ -532,10 +534,10 @@ layer_find_closest_connectionpoint(Layer *layer,
     for (i=0;i<obj->num_connections;i++) {
       cp = obj->connections[i];
       /* Note: Uses manhattan metric for speed... */
-      dist = distance_point_point_manhattan(pos, &cp->pos);
+      dist = distance_point_point_manhattan (pos, &cp->pos);
       if (dist<mindist) {
-	mindist = dist;
-	*closest = cp;
+        mindist = dist;
+        *closest = cp;
       }
     }
 
@@ -549,7 +551,7 @@ layer_find_closest_connectionpoint(Layer *layer,
  * \memberof _Layer
  */
 int
-layer_update_extents(Layer *layer)
+dia_layer_update_extents (Layer *layer)
 {
   GList *l;
   DiaObject *obj;
@@ -559,22 +561,22 @@ layer_update_extents(Layer *layer)
   if (l!=NULL) {
     obj = (DiaObject *) l->data;
     new_extents = obj->bounding_box;
-    l = g_list_next(l);
+    l = g_list_next (l);
 
-    while(l!=NULL) {
+    while (l!=NULL) {
       const Rectangle *bbox;
       obj = (DiaObject *) l->data;
       /* don't consider empty (or broken) objects in the overall extents */
       bbox = &obj->bounding_box;
       if (bbox->right > bbox->left && bbox->bottom > bbox->top)
-        rectangle_union(&new_extents, &obj->bounding_box);
-      l = g_list_next(l);
+        rectangle_union (&new_extents, &obj->bounding_box);
+      l = g_list_next (l);
     }
   } else {
     new_extents = invalid_extents;
   }
 
-  if (rectangle_equals(&new_extents,&layer->extents)) return FALSE;
+  if (rectangle_equals (&new_extents, &layer->extents)) return FALSE;
 
   layer->extents = new_extents;
   return TRUE;
@@ -589,18 +591,19 @@ layer_update_extents(Layer *layer)
  * \memberof _Layer
  */
 void
-layer_replace_object_with_list(Layer *layer, DiaObject *remove_obj,
-			       GList *insert_list)
+dia_layer_replace_object_with_list (Layer     *layer,
+                                    DiaObject *remove_obj,
+                                    GList     *insert_list)
 {
   GList *list, *il;
 
-  list = g_list_find(layer->objects, remove_obj);
+  list = g_list_find (layer->objects, remove_obj);
 
-  g_assert(list!=NULL);
-  dynobj_list_remove_object(remove_obj);
-  data_emit (layer_get_parent_diagram(layer), layer, remove_obj, "object_remove");
-  set_parent_layer(remove_obj, NULL);
-  g_list_foreach(insert_list, set_parent_layer, layer);
+  g_assert (list!=NULL);
+  dynobj_list_remove_object (remove_obj);
+  data_emit (dia_layer_get_parent_diagram (layer), layer, remove_obj, "object_remove");
+  set_parent_layer (remove_obj, NULL);
+  g_list_foreach (insert_list, set_parent_layer, layer);
 
   if (list->prev == NULL) {
     layer->objects = insert_list;
@@ -610,58 +613,58 @@ layer_replace_object_with_list(Layer *layer, DiaObject *remove_obj,
   }
   if (list->next != NULL) {
     GList *last;
-    last = g_list_last(insert_list);
+    last = g_list_last (insert_list);
     last->next = list->next;
     list->next->prev = last;
   }
   il = insert_list;
   while (il) {
-    data_emit (layer_get_parent_diagram(layer), layer, il->data, "object_add");
-    il = g_list_next(il);
+    data_emit (dia_layer_get_parent_diagram (layer), layer, il->data, "object_add");
+    il = g_list_next (il);
   }
-  g_list_free_1(list);
+  g_list_free_1 (list);
 
   /* with transformed groups the list and the single object are not necessarily
    * of the same size */
-  layer_update_extents (layer);
+  dia_layer_update_extents (layer);
 }
 
 static void
-layer_remove_dynobj(gpointer obj, gpointer userdata)
+layer_remove_dynobj (gpointer obj, gpointer userdata)
 {
-  dynobj_list_remove_object((DiaObject*)obj);
+  dynobj_list_remove_object ((DiaObject*)obj);
 }
 
 void
-layer_set_object_list(Layer *layer, GList *list)
+dia_layer_set_object_list (Layer *layer, GList *list)
 {
   GList *ol;
   /* signal removal on all objects */
   ol = layer->objects;
   while (ol) {
     if (!g_list_find (list, ol->data)) /* only if it really vanishes */
-      data_emit (layer_get_parent_diagram(layer), layer, ol->data, "object_remove");
+      data_emit (dia_layer_get_parent_diagram(layer), layer, ol->data, "object_remove");
     ol = g_list_next (ol);
   }
   /* restore old list */
   ol = layer->objects;
-  g_list_foreach(layer->objects, set_parent_layer, NULL);
-  g_list_foreach(layer->objects, layer_remove_dynobj, NULL);
+  g_list_foreach (layer->objects, set_parent_layer, NULL);
+  g_list_foreach (layer->objects, layer_remove_dynobj, NULL);
 
   layer->objects = list;
-  g_list_foreach(layer->objects, set_parent_layer, layer);
+  g_list_foreach (layer->objects, set_parent_layer, layer);
   /* signal addition on all objects */
   list = layer->objects;
   while (list) {
     if (!g_list_find (ol, list->data)) /* only if it is new */
-      data_emit (layer_get_parent_diagram(layer), layer, list->data, "object_add");
+      data_emit (dia_layer_get_parent_diagram (layer), layer, list->data, "object_add");
     list = g_list_next (list);
   }
-  g_list_free(ol);
+  g_list_free (ol);
 }
 
 DiagramData *
-layer_get_parent_diagram(Layer *layer)
+dia_layer_get_parent_diagram (Layer *layer)
 {
   return layer->parent_diagram;
 }

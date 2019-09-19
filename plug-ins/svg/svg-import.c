@@ -49,6 +49,7 @@
 #include "font.h"
 #include "attributes.h"
 #include "pattern.h"
+#include "dia-layer.h"
 
 /*!
  * \defgroup SvgImport Import SVG
@@ -1910,7 +1911,7 @@ import_shape_info (xmlNodePtr start_node, DiagramData *dia, DiaContext *ctx)
     dia_context_add_message (ctx, _("'Shape Design' shapes missing."));
     return FALSE;
   }
-  layer = new_layer (g_strdup ("Shape Design"), dia);
+  layer = dia_layer_new (g_strdup ("Shape Design"), dia);
   data_add_layer (dia, layer);
 
   for (node = start_node; node != NULL; node = node->next) {
@@ -1923,27 +1924,27 @@ import_shape_info (xmlNodePtr start_node, DiagramData *dia, DiaContext *ctx)
       xmlNodePtr cp_node;
 
       for (cp_node = node->xmlChildrenNode; cp_node != NULL; cp_node = cp_node->next) {
-	Point pos;
-	gboolean is_main = FALSE;
+        Point pos;
+        gboolean is_main = FALSE;
 
-	if (_parse_shape_cp (cp_node, &pos.x, &pos.y, &is_main)) {
-	  Handle *h1, *h2;
-	  const DiaObjectType *ot = is_main ? ot_mp : ot_cp;
-	  DiaObject *o;
+        if (_parse_shape_cp (cp_node, &pos.x, &pos.y, &is_main)) {
+          Handle *h1, *h2;
+          const DiaObjectType *ot = is_main ? ot_mp : ot_cp;
+          DiaObject *o;
 
-	  o = ot->ops->create (&pos, ot->default_user_data, &h1, &h2);
+          o = ot->ops->create (&pos, ot->default_user_data, &h1, &h2);
 
-	  if (o) {
-	    /* we have to adjust the position to be centered */
-	    g_return_val_if_fail (o->num_handles == 8, FALSE);
-	    pos.x -= (o->handles[1]->pos.x - o->handles[0]->pos.x);
-	    pos.y -= (o->handles[3]->pos.y - o->handles[0]->pos.y);
-	    o->ops->move (o, &pos);
-	    layer_add_object (layer, o);
-	  } else {
-	    dia_context_add_message (ctx, _("Object '%s' creation failed"), ot->name);
-	  }
-	}
+          if (o) {
+            /* we have to adjust the position to be centered */
+            g_return_val_if_fail (o->num_handles == 8, FALSE);
+            pos.x -= (o->handles[1]->pos.x - o->handles[0]->pos.x);
+            pos.y -= (o->handles[3]->pos.y - o->handles[0]->pos.y);
+            o->ops->move (o, &pos);
+            dia_layer_add_object (layer, o);
+          } else {
+            dia_context_add_message (ctx, _("Object '%s' creation failed"), ot->name);
+          }
+        }
       }
     } else if (   !xmlStrcmp(node->name, (const xmlChar *)"default-width")
 	       || !xmlStrcmp(node->name, (const xmlChar *)"default-height")) {
@@ -2104,15 +2105,15 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
     if (groups_to_layers) {
       gchar *name = dia_object_get_meta (obj, "id");
       /* new_layer() is taking ownership of the name */
-      Layer *layer = new_layer (name, dia);
+      Layer *layer = dia_layer_new (name, dia);
 
       /* keep the group for potential transformation */
-      layer_add_object (layer, obj);
+      dia_layer_add_object (layer, obj);
       data_add_layer (dia, layer);
     } else {
       /* Just as before: throw it in the active layer */
-      layer_add_object(dia->active_layer, obj);
-      layer_update_extents(dia->active_layer);
+      dia_layer_add_object (dia->active_layer, obj);
+      dia_layer_update_extents (dia->active_layer);
     }
 
   }

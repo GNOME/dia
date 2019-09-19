@@ -39,6 +39,7 @@
 #include "font.h"
 #include "vdx.h"
 #include "visio-types.h"
+#include "dia-layer.h"
 
 /** Parses an XML object into internal representation
  * @param cur the current XML node

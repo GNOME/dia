@@ -51,6 +51,7 @@
 #include "visio-types.h"
 #include "bezier_conn.h"
 #include "connection.h"
+#include "dia-layer.h"
 
 void static vdx_get_colors(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx);
 void static vdx_get_facenames(xmlNodePtr cur, VDXDocument* theDoc, DiaContext *ctx);
@@ -2747,10 +2748,9 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
     /* Add the objects straight into the diagram */
     /* This isn't strictly correct as a child object can be on a
        different layer from its parent. */
-    for (object = objects; object; object = object->next)
-    {
-        if (!object->data) continue;
-        layer_add_object(diaLayer, (DiaObject *)object->data);
+    for (object = objects; object; object = object->next) {
+      if (!object->data) continue;
+      dia_layer_add_object (diaLayer, (DiaObject *)object->data);
     }
 
     free_children(&theShape);
@@ -2824,7 +2824,7 @@ vdx_setup_layers(struct vdx_PageSheet* PageSheet, VDXDocument* theDoc,
         if (!found)
         {
             g_array_append_val(theDoc->LayerNames, layername->data);
-            diaLayer = new_layer(g_strdup((char*)layername->data), dia);
+            diaLayer = dia_layer_new (g_strdup ((char*)layername->data), dia);
             data_add_layer(dia, diaLayer);
         }
         page_layer++;

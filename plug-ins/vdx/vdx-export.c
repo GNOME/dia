@@ -45,6 +45,7 @@
 #include "prop_pixbuf.h"
 #include "dia_image.h"
 #include "group.h"
+#include "dia-layer.h"
 
 #include "vdx.h"
 #include "visio-types.h"
@@ -1784,7 +1785,7 @@ export_vdx(DiagramData *data, DiaContext *ctx,
     for (i = 0; i < data->layers->len; i++) {
       layer = (Layer *) g_ptr_array_index (data->layers, i);
       if (layer->visible) {
-        layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
+        dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       }
       renderer->depth++;
     }
@@ -1800,11 +1801,11 @@ export_vdx(DiagramData *data, DiaContext *ctx,
     /* Now render */
 
     for (i = 0; i < data->layers->len; i++) {
-        layer = (Layer *) g_ptr_array_index (data->layers, i);
-        if (layer->visible) {
-            layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
-        }
-        renderer->depth++;
+      layer = (Layer *) g_ptr_array_index (data->layers, i);
+      if (layer->visible) {
+        dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
+      }
+      renderer->depth++;
     }
 
     dia_renderer_end_render (DIA_RENDERER (renderer));

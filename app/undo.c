@@ -27,6 +27,7 @@
 #include "preferences.h"
 #include "textedit.h"
 #include "parent.h"
+#include "dia-layer.h"
 
 #if 0
 #define DEBUG_PRINTF(args) printf args
@@ -58,7 +59,7 @@ new_transactionpoint(void)
     transaction->revert = transaction_point_pointer;
     transaction->free = NULL;
   }
-  
+
   return transaction;
 }
 
@@ -67,7 +68,7 @@ new_undo_stack(Diagram *dia)
 {
   UndoStack *stack;
   Change *transaction;
-  
+
   stack = g_new(UndoStack, 1);
   if (stack!=NULL){
     stack->dia = dia;
@@ -96,11 +97,11 @@ undo_remove_redo_info(UndoStack *stack)
   Change *next_change;
 
   DEBUG_PRINTF(("UNDO: Removing redo info\n"));
-  
+
   change = stack->current_change->next;
   stack->current_change->next = NULL;
   stack->last_change = stack->current_change;
-    
+
   while (change != NULL) {
     next_change = change->next;
     if (change->free)
@@ -118,7 +119,7 @@ undo_push_change(UndoStack *stack, Change *change)
     undo_remove_redo_info(stack);
 
   DEBUG_PRINTF(("UNDO: Push new change at %d\n", stack->depth));
-  
+
   change->prev = stack->last_change;
   change->next = NULL;
   stack->last_change->next = change;
@@ -154,7 +155,7 @@ undo_delete_lowest_transaction(UndoStack *stack)
     g_free(change);
     change = next_change;
   } while (!is_transactionpoint(change));
-  
+
   if (is_transactionpoint(change)) {
     stack->depth--;
     DEBUG_PRINTF(("Decreasing stack depth to: %d\n", stack->depth));
@@ -191,7 +192,7 @@ undo_revert_to_last_tp(UndoStack *stack)
 {
   Change *change;
   Change *prev_change;
-  
+
   if (stack->current_change->prev == NULL)
     return; /* Can't revert first transactionpoint */
 
@@ -212,12 +213,12 @@ undo_apply_to_next_tp(UndoStack *stack)
 {
   Change *change;
   Change *next_change;
-  
+
   change = stack->current_change;
 
   if (change->next == NULL)
     return /* Already at top. */;
-  
+
   do {
     next_change = change->next;
     (change->apply)(change, stack->dia);
@@ -239,13 +240,13 @@ undo_clear(UndoStack *stack)
   Change *change;
 
   DEBUG_PRINTF(("undo_clear()\n"));
-  
+
   change = stack->current_change;
-    
+
   while (change->prev != NULL) {
     change = change->prev;
   }
-  
+
   stack->current_change = change;
   stack->depth = 0;
   undo_remove_redo_info(stack);
@@ -256,13 +257,13 @@ undo_clear(UndoStack *stack)
  *  Currently just changes sensitivity, but should in the future also
  *  include changing the labels.
  */
-void 
+void
 undo_update_menus(UndoStack *stack)
 {
   ddisplay_do_update_menu_sensitivity(ddisplay_active());
 }
 
-/** Marks the undo stack at the time of a save. 
+/** Marks the undo stack at the time of a save.
  */
 void
 undo_mark_save(UndoStack *stack)
@@ -283,7 +284,7 @@ undo_is_saved(UndoStack *stack)
  * If undo is true, returns TRUE if there's something to undo, otherwise
  * returns TRUE if there's something to redo.
  */
-gboolean 
+gboolean
 undo_available(UndoStack *stack, gboolean undo)
 {
   if (undo) {
@@ -295,7 +296,7 @@ undo_available(UndoStack *stack, gboolean undo)
 
 /** Remove items from the undo stack until we hit an undo item of a given
  *  type (indicated by its apply function).  Beware that the items are not
- *  just reverted, but totally removed.  This also takes with it all the 
+ *  just reverted, but totally removed.  This also takes with it all the
  *  changes above current_change.
  *
  * @param stack The undo stack to remove items from.
@@ -307,7 +308,7 @@ Change*
 undo_remove_to(UndoStack *stack, UndoApplyFunc *type)
 {
   Change *current_change = stack->current_change;
-  if (current_change == NULL) 
+  if (current_change == NULL)
     return NULL;
   while (current_change && current_change->apply != *type) {
     current_change = current_change->prev;
@@ -354,18 +355,18 @@ move_objects_apply(struct MoveObjectsChange *change, Diagram *dia)
   i=0;
   while (list != NULL) {
     obj = (DiaObject *)  list->data;
-    
+
     obj->ops->move(obj, &change->dest_pos[i]);
-    
+
     list = g_list_next(list); i++;
   }
 
   list = change->obj_list;
   while (list!=NULL) {
     obj = (DiaObject *) list->data;
-    
+
     diagram_update_connections_object(dia, obj, TRUE);
-    
+
     list = g_list_next(list);
   }
 
@@ -385,18 +386,18 @@ move_objects_revert(struct MoveObjectsChange *change, Diagram *dia)
   i=0;
   while (list != NULL) {
     obj = (DiaObject *)  list->data;
-    
+
     obj->ops->move(obj, &change->orig_pos[i]);
-    
+
     list = g_list_next(list); i++;
   }
 
   list = change->obj_list;
   while (list!=NULL) {
     obj = (DiaObject *) list->data;
-    
+
     diagram_update_connections_object(dia, obj, TRUE);
-    
+
     list = g_list_next(list);
   }
 
@@ -418,7 +419,7 @@ undo_move_objects(Diagram *dia, Point *orig_pos, Point *dest_pos,
   struct MoveObjectsChange *change;
 
   change = g_new0(struct MoveObjectsChange, 1);
-  
+
   change->change.apply = (UndoApplyFunc) move_objects_apply;
   change->change.revert = (UndoRevertFunc) move_objects_revert;
   change->change.free = (UndoFreeFunc) move_objects_free;
@@ -482,7 +483,7 @@ undo_move_handle(Diagram *dia,
   struct MoveHandleChange *change;
 
   change = g_new0(struct MoveHandleChange, 1);
-  
+
   change->change.apply = (UndoApplyFunc) move_handle_apply;
   change->change.revert = (UndoRevertFunc) move_handle_revert;
   change->change.free = (UndoFreeFunc) move_handle_free;
@@ -493,7 +494,7 @@ undo_move_handle(Diagram *dia,
   change->obj = obj;
 
   change->modifiers = modifiers;
- 
+
   DEBUG_PRINTF(("UNDO: Push new move handle at %d\n", depth(dia->undo)));
 
   undo_push_change(dia->undo, (Change *) change);
@@ -515,13 +516,13 @@ static void
 connect_apply(struct ConnectChange *change, Diagram *dia)
 {
   object_connect(change->obj, change->handle, change->connectionpoint);
-  
+
   object_add_updates(change->obj, dia);
   change->obj->ops->move_handle(change->obj, change->handle ,
 				&change->connectionpoint->pos,
 				change->connectionpoint,
 				HANDLE_MOVE_CONNECTED, 0);
-  
+
   object_add_updates(change->obj, dia);
 }
 
@@ -529,12 +530,12 @@ static void
 connect_revert(struct ConnectChange *change, Diagram *dia)
 {
   object_unconnect(change->obj, change->handle);
-  
+
   object_add_updates(change->obj, dia);
   change->obj->ops->move_handle(change->obj, change->handle ,
 				&change->handle_pos, NULL,
 				HANDLE_MOVE_CONNECTED, 0);
-  
+
   object_add_updates(change->obj, dia);
 }
 
@@ -550,7 +551,7 @@ undo_connect(Diagram *dia, DiaObject *obj, Handle *handle,
   struct ConnectChange *change;
 
   change = g_new0(struct ConnectChange, 1);
-  
+
   change->change.apply = (UndoApplyFunc) connect_apply;
   change->change.revert = (UndoRevertFunc) connect_revert;
   change->change.free = (UndoFreeFunc) connect_free;
@@ -579,7 +580,7 @@ static void
 unconnect_apply(struct UnconnectChange *change, Diagram *dia)
 {
   object_unconnect(change->obj, change->handle);
-  
+
   object_add_updates(change->obj, dia);
 }
 
@@ -587,7 +588,7 @@ static void
 unconnect_revert(struct UnconnectChange *change, Diagram *dia)
 {
   object_connect(change->obj, change->handle, change->connectionpoint);
-  
+
   object_add_updates(change->obj, dia);
 }
 
@@ -602,7 +603,7 @@ undo_unconnect(Diagram *dia, DiaObject *obj, Handle *handle)
   struct UnconnectChange *change;
 
   change = g_new0(struct UnconnectChange, 1);
-  
+
   change->change.apply = (UndoApplyFunc) unconnect_apply;
   change->change.revert = (UndoRevertFunc) unconnect_revert;
   change->change.free = (UndoFreeFunc) unconnect_free;
@@ -632,13 +633,13 @@ static void
 delete_objects_apply(struct DeleteObjectsChange *change, Diagram *dia)
 {
   GList *list;
-  
+
   DEBUG_PRINTF(("delete_objects_apply()\n"));
   change->applied = 1;
-  diagram_unselect_objects(dia, change->obj_list);
-  layer_remove_objects(change->layer, change->obj_list);
-  object_add_updates_list(change->obj_list, dia);
-  
+  diagram_unselect_objects (dia, change->obj_list);
+  dia_layer_remove_objects (change->layer, change->obj_list);
+  object_add_updates_list (change->obj_list, dia);
+
   list = change->obj_list;
   while (list != NULL) {
     DiaObject *obj = (DiaObject *)list->data;
@@ -660,9 +661,9 @@ delete_objects_revert(struct DeleteObjectsChange *change, Diagram *dia)
   GList *list;
   DEBUG_PRINTF(("delete_objects_revert()\n"));
   change->applied = 0;
-  layer_set_object_list(change->layer,
-			g_list_copy(change->original_objects));
-  object_add_updates_list(change->obj_list, dia);
+  dia_layer_set_object_list (change->layer,
+                             g_list_copy (change->original_objects));
+  object_add_updates_list (change->obj_list, dia);
 
   list = change->obj_list;
   while (list) {
@@ -702,7 +703,7 @@ undo_delete_objects(Diagram *dia, GList *obj_list)
   struct DeleteObjectsChange *change;
 
   change = g_new0(struct DeleteObjectsChange, 1);
-  
+
   change->change.apply = (UndoApplyFunc) delete_objects_apply;
   change->change.revert = (UndoRevertFunc) delete_objects_revert;
   change->change.free = (UndoFreeFunc) delete_objects_free;
@@ -732,7 +733,7 @@ insert_objects_apply(struct InsertObjectsChange *change, Diagram *dia)
 {
   DEBUG_PRINTF(("insert_objects_apply()\n"));
   change->applied = 1;
-  layer_add_objects(change->layer, g_list_copy(change->obj_list));
+  dia_layer_add_objects (change->layer, g_list_copy (change->obj_list));
   object_add_updates_list(change->obj_list, dia);
 }
 
@@ -740,13 +741,13 @@ static void
 insert_objects_revert(struct InsertObjectsChange *change, Diagram *dia)
 {
   GList *list;
-  
+
   DEBUG_PRINTF(("insert_objects_revert()\n"));
   change->applied = 0;
-  diagram_unselect_objects(dia, change->obj_list);
-  layer_remove_objects(change->layer, change->obj_list);
-  object_add_updates_list(change->obj_list, dia);
-  
+  diagram_unselect_objects (dia, change->obj_list);
+  dia_layer_remove_objects (change->layer, change->obj_list);
+  object_add_updates_list (change->obj_list, dia);
+
   list = change->obj_list;
   while (list != NULL) {
     DiaObject *obj = (DiaObject *)list->data;
@@ -775,7 +776,7 @@ undo_insert_objects(Diagram *dia, GList *obj_list, int applied)
   struct InsertObjectsChange *change;
 
   change = g_new0(struct InsertObjectsChange, 1);
-  
+
   change->change.apply = (UndoApplyFunc) insert_objects_apply;
   change->change.revert = (UndoRevertFunc) insert_objects_revert;
   change->change.free = (UndoFreeFunc) insert_objects_free;
@@ -803,24 +804,24 @@ struct ReorderObjectsChange {
 static void
 reorder_objects_apply(struct ReorderObjectsChange *change, Diagram *dia)
 {
-  DEBUG_PRINTF(("reorder_objects_apply()\n"));
-  layer_set_object_list(change->layer,
-			g_list_copy(change->reordered_objects));
-  object_add_updates_list(change->changed_list, dia);
+  DEBUG_PRINTF (("reorder_objects_apply()\n"));
+  dia_layer_set_object_list (change->layer,
+                             g_list_copy (change->reordered_objects));
+  object_add_updates_list (change->changed_list, dia);
 }
 
 static void
-reorder_objects_revert(struct ReorderObjectsChange *change, Diagram *dia)
+reorder_objects_revert (struct ReorderObjectsChange *change, Diagram *dia)
 {
-  DEBUG_PRINTF(("reorder_objects_revert()\n"));
-  layer_set_object_list(change->layer,
-			g_list_copy(change->original_objects));
-  object_add_updates_list(change->changed_list, dia);
+  DEBUG_PRINTF (("reorder_objects_revert()\n"));
+  dia_layer_set_object_list (change->layer,
+                             g_list_copy(change->original_objects));
+  object_add_updates_list (change->changed_list, dia);
 }
 
-static void		
+static void
 reorder_objects_free(struct ReorderObjectsChange *change)
-{			    
+{
   DEBUG_PRINTF(("reorder_objects_free()\n"));
   g_list_free(change->changed_list);
   g_list_free(change->original_objects);
@@ -833,7 +834,7 @@ undo_reorder_objects(Diagram *dia, GList *changed_list, GList *orig_list)
   struct ReorderObjectsChange *change;
 
   change = g_new0(struct ReorderObjectsChange, 1);
-  
+
   change->change.apply = (UndoApplyFunc) reorder_objects_apply;
   change->change.revert = (UndoRevertFunc) reorder_objects_revert;
   change->change.free = (UndoFreeFunc) reorder_objects_free;
@@ -862,7 +863,7 @@ _connections_update_func (gpointer data, gpointer user_data)
 {
   DiaObject *obj = data;
   Diagram   *dia = (Diagram *)user_data;
-  
+
   diagram_update_connections_object(dia, obj, TRUE);
 }
 static void
@@ -903,7 +904,7 @@ object_change_revert(struct ObjectChangeChange *change,
     Point p = change->obj->position;
     (change->obj->ops->move)(change->obj,&p);
 
-    object_add_updates(change->obj, dia);  
+    object_add_updates(change->obj, dia);
     diagram_update_connections_object(dia, change->obj, TRUE);
     properties_update_if_shown(dia, change->obj);
   } else {
@@ -928,7 +929,7 @@ undo_object_change(Diagram *dia, DiaObject *obj,
   struct ObjectChangeChange *change;
 
   change = g_new0(struct ObjectChangeChange, 1);
-  
+
   change->change.apply = (UndoApplyFunc) object_change_apply;
   change->change.revert = (UndoRevertFunc) object_change_revert;
   change->change.free = (UndoFreeFunc) object_change_free;
@@ -943,7 +944,7 @@ undo_object_change(Diagram *dia, DiaObject *obj,
 
 /******** Group object list: */
 
-/** Grouping and ungrouping are two subtly different changes:  While 
+/** Grouping and ungrouping are two subtly different changes:  While
  * ungrouping preserves the front/back position, grouping cannot do that,
  * since the act of grouping destroys positions for the members of the
  * group, and those positions have to be restored in the undo.
@@ -968,18 +969,18 @@ group_objects_apply(struct GroupObjectsChange *change, Diagram *dia)
   GList *list;
 
   DEBUG_PRINTF(("group_objects_apply()\n"));
-  
+
   change->applied = 1;
-  
-  diagram_unselect_objects(dia, change->obj_list);
-  layer_remove_objects(change->layer, change->obj_list);
-  layer_add_object(change->layer, change->group);
-  object_add_updates(change->group, dia);
+
+  diagram_unselect_objects (dia, change->obj_list);
+  dia_layer_remove_objects (change->layer, change->obj_list);
+  dia_layer_add_object (change->layer, change->group);
+  object_add_updates (change->group, dia);
 
   list = change->obj_list;
   while (list != NULL) {
     DiaObject *obj = (DiaObject *)list->data;
-    
+
   /* Have to hide any open properties dialog
      if it contains some object in cut_list */
     properties_hide_if_shown(dia, obj);
@@ -991,19 +992,19 @@ group_objects_apply(struct GroupObjectsChange *change, Diagram *dia)
 }
 
 static void
-group_objects_revert(struct GroupObjectsChange *change, Diagram *dia)
+group_objects_revert (struct GroupObjectsChange *change, Diagram *dia)
 {
-  DEBUG_PRINTF(("group_objects_revert()\n"));
+  DEBUG_PRINTF (("group_objects_revert()\n"));
   change->applied = 0;
-  
-  diagram_unselect_object(dia, change->group);
-  object_add_updates(change->group, dia);
 
-  layer_set_object_list(change->layer, g_list_copy(change->orig_list));
-  
-  object_add_updates_list(change->obj_list, dia);
+  diagram_unselect_object (dia, change->group);
+  object_add_updates (change->group, dia);
 
-  properties_hide_if_shown(dia, change->group);
+  dia_layer_set_object_list (change->layer, g_list_copy (change->orig_list));
+
+  object_add_updates_list (change->obj_list, dia);
+
+  properties_hide_if_shown (dia, change->group);
 }
 
 static void
@@ -1026,7 +1027,7 @@ undo_group_objects(Diagram *dia, GList *obj_list, DiaObject *group,
   struct GroupObjectsChange *change;
 
   change = g_new0(struct GroupObjectsChange, 1);
-  
+
   change->change.apply = (UndoApplyFunc) group_objects_apply;
   change->change.revert = (UndoRevertFunc) group_objects_revert;
   change->change.free = (UndoFreeFunc) group_objects_free;
@@ -1058,36 +1059,37 @@ static void
 ungroup_objects_apply(struct UngroupObjectsChange *change, Diagram *dia)
 {
   DEBUG_PRINTF(("ungroup_objects_apply()\n"));
-  
+
   change->applied = 1;
-  
-  diagram_unselect_object(dia, change->group);
-  object_add_updates(change->group, dia);
-  layer_replace_object_with_list(change->layer, change->group,
-				 g_list_copy(change->obj_list));
-  object_add_updates_list(change->obj_list, dia);
-  
-  properties_hide_if_shown(dia, change->group);
+
+  diagram_unselect_object (dia, change->group);
+  object_add_updates (change->group, dia);
+  dia_layer_replace_object_with_list (change->layer,
+                                      change->group,
+                                      g_list_copy(change->obj_list));
+  object_add_updates_list (change->obj_list, dia);
+
+  properties_hide_if_shown (dia, change->group);
 }
 
 static void
 ungroup_objects_revert(struct UngroupObjectsChange *change, Diagram *dia)
 {
   GList *list;
-  
+
   DEBUG_PRINTF(("ungroup_objects_revert()\n"));
   change->applied = 0;
-  
 
-  diagram_unselect_objects(dia, change->obj_list);
-  layer_remove_objects(change->layer, change->obj_list);
-  layer_add_object_at(change->layer, change->group, change->group_index);
-  object_add_updates(change->group, dia);
+
+  diagram_unselect_objects( dia, change->obj_list);
+  dia_layer_remove_objects (change->layer, change->obj_list);
+  dia_layer_add_object_at (change->layer, change->group, change->group_index);
+  object_add_updates (change->group, dia);
 
   list = change->obj_list;
   while (list != NULL) {
     DiaObject *obj = (DiaObject *)list->data;
-    
+
   /* Have to hide any open properties dialog
      if it contains some object in cut_list */
     properties_hide_if_shown(dia, obj);
@@ -1114,7 +1116,7 @@ undo_ungroup_objects(Diagram *dia, GList *obj_list, DiaObject *group,
   struct UngroupObjectsChange *change;
 
   change = g_new0(struct UngroupObjectsChange, 1);
-  
+
   change->change.apply = (UndoApplyFunc) ungroup_objects_apply;
   change->change.revert = (UndoRevertFunc) ungroup_objects_revert;
   change->change.free = (UndoFreeFunc) ungroup_objects_free;
@@ -1222,30 +1224,32 @@ typedef struct _MoveObjectToLayerChange {
 } MoveObjectToLayerChange;
 
 /*!
- * BEWARE: we need to notify the DiagramTree somehow - maybe 
+ * BEWARE: we need to notify the DiagramTree somehow - maybe
  * better make it listen to object-add signal?
  */
-static void 
-move_object_layer_relative(Diagram *dia, GList *objects, gint dist)
+static void
+move_object_layer_relative (Diagram *dia, GList *objects, gint dist)
 {
   /* from the active layer to above or below */
   Layer *active, *target;
   guint pos;
- 
-  g_return_if_fail(dia->data->active_layer);
-  g_return_if_fail(dia->data->layers->len != 0);
+
+  g_return_if_fail (dia->data->active_layer);
+  g_return_if_fail (dia->data->layers->len != 0);
 
   active =  dia->data->active_layer;
-  for (pos = 0; pos < dia->data->layers->len; ++pos)
-    if (active == g_ptr_array_index(dia->data->layers, pos))
+  for (pos = 0; pos < dia->data->layers->len; ++pos) {
+    if (active == g_ptr_array_index (dia->data->layers, pos)) {
       break;
+    }
+  }
 
   pos = (pos + dia->data->layers->len + dist) % dia->data->layers->len;
-  target = g_ptr_array_index(dia->data->layers, pos);
-  object_add_updates_list(objects, dia);
-  layer_remove_objects(active, objects);
-  layer_add_objects(target, g_list_copy(objects));
-  data_set_active_layer(dia->data, target);
+  target = g_ptr_array_index (dia->data->layers, pos);
+  object_add_updates_list (objects, dia);
+  dia_layer_remove_objects (active, objects);
+  dia_layer_add_objects (target, g_list_copy(objects));
+  data_set_active_layer (dia->data, target);
 }
 
 static void
@@ -1264,11 +1268,11 @@ move_object_to_layer_revert(MoveObjectToLayerChange *change, Diagram *dia)
   if (change->moving_up) {
     move_object_layer_relative(dia, change->objects, -1);
   } else {
-    diagram_unselect_objects(dia, change->objects);
-    move_object_layer_relative(dia, change->objects, 1);
+    diagram_unselect_objects (dia, change->objects);
+    move_object_layer_relative (dia, change->objects, 1);
     /* overwriting the 'unsorted' list of objects to the order it had before */
-    layer_set_object_list(change->orig_layer, g_list_copy(change->orig_list));
-    object_add_updates_list(change->orig_list, dia);
+    dia_layer_set_object_list (change->orig_layer, g_list_copy (change->orig_list));
+    object_add_updates_list (change->orig_list, dia);
   }
 }
 
@@ -1285,7 +1289,7 @@ Change *
 undo_move_object_other_layer(Diagram *dia, GList *selected_list,
 			     gboolean moving_up)
 {
-  MoveObjectToLayerChange *movetolayerchange 
+  MoveObjectToLayerChange *movetolayerchange
     = g_new0(MoveObjectToLayerChange, 1);
   Change *change = (Change*)movetolayerchange;
   change->apply = (UndoApplyFunc) move_object_to_layer_apply;
@@ -1328,13 +1332,14 @@ _import_change_apply (ImportChange *change,
       */
     if (dia_object_get_parent_layer (obj))
       layer = dia_object_get_parent_layer (obj);
-    layer_add_object (layer, obj);
+    dia_layer_add_object (layer, obj);
   }
   diagram_update_extents (change->dia);
 }
+
 static void
 _import_change_revert (ImportChange *change,
-		       Diagram      *dia)
+                       Diagram      *dia)
 {
   GList *list;
 
@@ -1344,7 +1349,7 @@ _import_change_revert (ImportChange *change,
   for (list = change->objects; list != NULL; list = list->next) {
     DiaObject *obj = (DiaObject *)list->data;
     Layer *layer = dia_object_get_parent_layer (obj);
-    layer_remove_object (layer, obj);
+    dia_layer_remove_object (layer, obj);
   }
   for (list = change->layers; list != NULL; list = list->next) {
     Layer *layer = (Layer *)list->data;
@@ -1392,7 +1397,7 @@ undo_import_change_setup (Diagram *dia)
 
   g_signal_connect (G_OBJECT(dia), "object_add", G_CALLBACK(_import_object_add), change);
 
-  return &change->change;  
+  return &change->change;
 }
 /*!
  * \brief Finish listening on the diagram changes
@@ -1403,7 +1408,7 @@ gboolean
 undo_import_change_done (Diagram *dia, Change *chg)
 {
   ImportChange *change = (ImportChange *)chg;
-  
+
   /* Some type checking first */
   g_return_val_if_fail (change != NULL, FALSE);
   g_return_val_if_fail (change->change.apply == (UndoApplyFunc)_import_change_apply, FALSE);
@@ -1422,7 +1427,7 @@ undo_import_change_done (Diagram *dia, Change *chg)
 
 typedef struct _MemSwapChange {
   Change change;
-  
+
   gsize   size;
   guint8 *dest;   /* for 'write trough' */
   guint8  mem[1]; /* real size during alloc */
@@ -1445,7 +1450,7 @@ _swap_mem(MemSwapChange *change, Diagram *dia)
  * \brief Record a memory region for undo (before actually changing it)
  *
  * @dia  : the Diagram to record the change for
- * @dest : a pointer somewhere in the Diagram 
+ * @dest : a pointer somewhere in the Diagram
  * @size : of the region to copy and restore
  */
 Change *
@@ -1453,12 +1458,12 @@ undo_change_memswap (Diagram *dia, gpointer dest, gsize size)
 {
   MemSwapChange *change = (MemSwapChange *)g_malloc (sizeof(MemSwapChange)+size);
   gsize i;
-  
+
   change->change.apply = (UndoApplyFunc)_swap_mem;
   change->change.revert = (UndoRevertFunc)_swap_mem;
   /* just calling g_free() on the change is enough */
   change->change.free = NULL;
-  
+
   change->dest = dest;
   change->size = size;
   /* initialize for swap */

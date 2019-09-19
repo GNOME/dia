@@ -36,6 +36,7 @@
 #include "textline.h"
 #include "menus.h"
 #include "diainteractiverenderer.h"
+#include "dia-layer.h"
 
 #include "parent.h"
 #include "prop_text.h"
@@ -677,10 +678,10 @@ find_selected_objects(DDisplay *ddisp, ModifyTool *tool)
   if (prefs.reverse_rubberbanding_intersects &&
       tool->start_box.x > tool->end_box.x) {
     return
-      layer_find_objects_intersecting_rectangle(ddisp->diagram->data->active_layer, &r);
+      dia_layer_find_objects_intersecting_rectangle (ddisp->diagram->data->active_layer, &r);
   } else {
     return
-      layer_find_objects_in_rectangle(ddisp->diagram->data->active_layer, &r);
+      dia_layer_find_objects_in_rectangle (ddisp->diagram->data->active_layer, &r);
   }
 }
 

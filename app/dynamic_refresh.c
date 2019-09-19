@@ -24,6 +24,8 @@
 #include "diagramdata.h"
 #include "object_ops.h"
 #include "app/connectionpoint_ops.h"
+#include "dia-layer.h"
+
 #include <glib.h>
 
 static guint timeout = 0;
@@ -41,11 +43,11 @@ static void foreach_dynobj(DiaObject* obj, gpointer data) {
 
         dia = (Diagram*)list->data;
         list = g_list_next(list);
-        
+
         layer = dia_object_get_parent_layer(obj);
         if (!layer) continue;
 
-        obj_ddata = layer_get_parent_diagram(layer);
+        obj_ddata = dia_layer_get_parent_diagram (layer);
         if (!obj_ddata) continue;
 
         if (dia->data == obj_ddata) {
@@ -68,19 +70,19 @@ static gboolean timer_handler(gpointer data) {
     while (list != NULL) {
         Diagram* dia = (Diagram*)list->data;
         list = g_list_next(list);
-        
+
         diagram_flush(dia);
     }
-    
+
     dynobj_refresh_kick();
     return TRUE;
 }
 
-static gboolean 
-idle_handler (gpointer data) 
+static gboolean
+idle_handler (gpointer data)
 {
     guint new_timeout;
-    
+
     new_timeout = dynobj_list_get_dynobj_rate();
     if (timeout != new_timeout) {
         if (timer_id) {
@@ -97,24 +99,24 @@ idle_handler (gpointer data)
     return FALSE;
 }
 
-void 
-dynobj_refresh_kick(void) 
+void
+dynobj_refresh_kick(void)
 {
     if (!idle_id)
         idle_id = g_idle_add_full (G_PRIORITY_LOW, idle_handler, NULL, NULL);
 }
 
-void 
-dynobj_refresh_init(void) 
+void
+dynobj_refresh_init(void)
 {
         /* NOP */
 }
 
-void 
-dynobj_refresh_finish (void) 
+void
+dynobj_refresh_finish (void)
 {
-    if (timer_id) 
+    if (timer_id)
         g_source_remove (timer_id);
-    if (idle_id) 
+    if (idle_id)
         g_source_remove(idle_id);
 }

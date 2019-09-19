@@ -46,6 +46,7 @@
 #include "group.h"
 #include "textline.h"
 #include "dia_svg.h"
+#include "dia-layer.h"
 
 G_BEGIN_DECLS
 

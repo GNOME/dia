@@ -41,6 +41,7 @@
 #include "persistence.h"
 #include "intl.h"
 #include "widgets.h"
+#include "dia-layer.h"
 
 typedef struct _DiagramTreeView DiagramTreeView;
 struct _DiagramTreeView {
@@ -168,7 +169,7 @@ _dtv_query_tooltip (GtkWidget  *widget,
       }
 
       if (layer) {
-        gchar *name = layer_get_name (layer);
+        gchar *name = dia_layer_get_name (layer);
         gchar *em = g_markup_printf_escaped ("<b>%s</b>: %s\n", _("Layer"), name);
         g_string_append (markup, em);
         g_free (em);
@@ -188,9 +189,11 @@ _dtv_query_tooltip (GtkWidget  *widget,
 	                        g_list_length (object->children), _("Children"));
         /* and some dia_object_get_meta ? */
       } else if (layer) {
-	int objects = layer_object_count (layer);
-	g_string_append_printf (markup, g_dngettext (GETTEXT_PACKAGE, "%d Object", "%d Objects",
-	                        objects), objects);
+        int objects = dia_layer_object_count (layer);
+        g_string_append_printf (markup,
+                                g_dngettext (GETTEXT_PACKAGE, "%d Object", "%d Objects",
+                                             objects),
+                                objects);
       }
 
       if (markup->len > 0) {

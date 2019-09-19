@@ -36,6 +36,7 @@
 #include "persistence.h"
 #include "widgets.h"
 #include "interface.h"
+#include "dia-layer.h"
 
 #include "dia-application.h" /* dia_diagram_change */
 
@@ -507,30 +508,30 @@ layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
   dia = layer_dialog->diagram;
 
   if (dia != NULL) {
-    gchar* new_layer_name = g_strdup_printf(_("New layer %d"),
-					    next_layer_num++);
-    layer = new_layer(new_layer_name, dia->data);
+    gchar* new_layer_name = g_strdup_printf (_("New layer %d"),
+                                             next_layer_num++);
+    layer = dia_layer_new (new_layer_name, dia->data);
 
-    assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
-    selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
-    pos = gtk_list_child_position(GTK_LIST(layer_dialog->layer_list), selected);
+    assert (GTK_LIST (layer_dialog->layer_list)->selection != NULL);
+    selected = GTK_LIST (layer_dialog->layer_list)->selection->data;
+    pos = gtk_list_child_position (GTK_LIST (layer_dialog->layer_list), selected);
 
-    data_add_layer_at(dia->data, layer, dia->data->layers->len - pos);
+    data_add_layer_at (dia->data, layer, dia->data->layers->len - pos);
 
-    diagram_add_update_all(dia);
-    diagram_flush(dia);
+    diagram_add_update_all (dia);
+    diagram_flush (dia);
 
-    layer_widget = dia_layer_widget_new(dia, layer);
-    gtk_widget_show(layer_widget);
+    layer_widget = dia_layer_widget_new (dia, layer);
+    gtk_widget_show (layer_widget);
 
-    list = g_list_prepend(list, layer_widget);
+    list = g_list_prepend (list, layer_widget);
 
-    gtk_list_insert_items(GTK_LIST(layer_dialog->layer_list), list, pos);
+    gtk_list_insert_items (GTK_LIST (layer_dialog->layer_list), list, pos);
 
-    gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos);
+    gtk_list_select_item (GTK_LIST (layer_dialog->layer_list), pos);
 
-    undo_layer(dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
-    undo_set_transactionpoint(dia->undo);
+    undo_layer (dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
+    undo_set_transactionpoint (dia->undo);
   }
 }
 
@@ -1127,23 +1128,23 @@ static void
 edit_layer_add_ok_callback (GtkWidget *w, gpointer client_data)
 {
   EditLayerDialog *dialog = (EditLayerDialog *) client_data;
-  Diagram *dia = ddisplay_active_diagram();
+  Diagram *dia = ddisplay_active_diagram ();
   Layer *layer;
   int pos = data_layer_get_index (dia->data, dia->data->active_layer) + 1;
 
-  layer = new_layer(g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry))), dia->data);
-  data_add_layer_at(dia->data, layer, pos);
-  data_set_active_layer(dia->data, layer);
+  layer = dia_layer_new (g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry))), dia->data);
+  data_add_layer_at (dia->data, layer, pos);
+  data_set_active_layer (dia->data, layer);
 
-  diagram_add_update_all(dia);
-  diagram_flush(dia);
+  diagram_add_update_all (dia);
+  diagram_flush (dia);
 
-  undo_layer(dia, layer, TYPE_ADD_LAYER, pos);
-  undo_set_transactionpoint(dia->undo);
+  undo_layer (dia, layer, TYPE_ADD_LAYER, pos);
+  undo_set_transactionpoint (dia->undo);
 
   /* ugly way of updating the layer widget */
   if (layer_dialog && layer_dialog->diagram == dia) {
-    layer_dialog_set_diagram(dia);
+    layer_dialog_set_diagram (dia);
   }
 
   gtk_widget_destroy (dialog->dialog);
@@ -1349,12 +1350,12 @@ layer_change_free(struct LayerChange *change)
   switch (change->type) {
   case TYPE_DELETE_LAYER:
     if (change->applied) {
-      layer_destroy(change->layer);
+      dia_layer_destroy (change->layer);
     }
     break;
   case TYPE_ADD_LAYER:
     if (!change->applied) {
-      layer_destroy(change->layer);
+      dia_layer_destroy (change->layer);
     }
     break;
   case TYPE_RAISE_LAYER:

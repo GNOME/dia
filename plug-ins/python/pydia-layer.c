@@ -23,6 +23,7 @@
 #include "pydia-object.h"
 #include "pydia-cpoint.h"
 #include "pydia-render.h"
+#include "dia-layer.h"
 
 #include <structmember.h> /* PyMemberDef */
 
@@ -67,151 +68,166 @@ PyDiaLayer_Str(PyDiaLayer *self)
 /* methods here */
 
 static PyObject *
-PyDiaLayer_Destroy(PyDiaLayer *self, PyObject *args)
+PyDiaLayer_Destroy (PyDiaLayer *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Layer.destroy"))
-	return NULL;
-    layer_destroy(self->layer);
-    self->layer = NULL; /* we need some error checking elsewhere */
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, ":Layer.destroy"))
+    return NULL;
+  dia_layer_destroy (self->layer);
+  self->layer = NULL; /* we need some error checking elsewhere */
+  Py_INCREF (Py_None);
+  return Py_None;
 }
 
 static PyObject *
-PyDiaLayer_ObjectGetIndex(PyDiaLayer *self, PyObject *args)
+PyDiaLayer_ObjectGetIndex (PyDiaLayer *self, PyObject *args)
 {
-    PyDiaObject *obj;
+  PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "O!:Layer.object_get_index",
-			  &PyDiaObject_Type, &obj))
-	return NULL;
-    return PyInt_FromLong(layer_object_get_index(self->layer, obj->object));
+  if (!PyArg_ParseTuple(args, "O!:Layer.object_get_index",
+      &PyDiaObject_Type, &obj))
+    return NULL;
+
+  return PyInt_FromLong (dia_layer_object_get_index (self->layer, obj->object));
 }
 
 static PyObject *
-PyDiaLayer_AddObject(PyDiaLayer *self, PyObject *args)
+PyDiaLayer_AddObject (PyDiaLayer *self, PyObject *args)
 {
-    PyDiaObject *obj;
-    int pos = -1;
+  PyDiaObject *obj;
+  int pos = -1;
 
-    if (!PyArg_ParseTuple(args, "O!|i:Layer.add_object",
-			  &PyDiaObject_Type, &obj,
-			  &pos))
-	return NULL;
-    if (pos != -1)
-	layer_add_object_at(self->layer, obj->object, pos);
-    else
-	layer_add_object(self->layer, obj->object);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, "O!|i:Layer.add_object",
+      &PyDiaObject_Type, &obj,
+      &pos)) {
+    return NULL;
+  }
+
+  if (pos != -1) {
+    dia_layer_add_object_at (self->layer, obj->object, pos);
+  } else {
+    dia_layer_add_object (self->layer, obj->object);
+  }
+
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
 PyDiaLayer_RemoveObject(PyDiaLayer *self, PyObject *args)
 {
-    PyDiaObject *obj;
+  PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "O!:Layer.remove_object",
-			  &PyDiaObject_Type, &obj))
-	return NULL;
-    layer_remove_object(self->layer, obj->object);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, "O!:Layer.remove_object",
+      &PyDiaObject_Type, &obj))
+    return NULL;
+
+  dia_layer_remove_object (self->layer, obj->object);
+
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
-PyDiaLayer_FindObjectsInRectangle(PyDiaLayer *self, PyObject *args)
+PyDiaLayer_FindObjectsInRectangle (PyDiaLayer *self, PyObject *args)
 {
-    Rectangle rect;
-    GList *list, *tmp;
-    PyObject *ret;
+  Rectangle rect;
+  GList *list, *tmp;
+  PyObject *ret;
 
-    if (!PyArg_ParseTuple(args, "dddd:Layer.find_objects_in_rectange",
-			  &rect.top, &rect.left, &rect.bottom, &rect.right))
-	return NULL;
-    list = layer_find_objects_in_rectangle(self->layer, &rect);
-    ret = PyList_New(0);
-    for (tmp = list; tmp; tmp = tmp->next)
-	PyList_Append(ret, PyDiaObject_New((DiaObject *)tmp->data));
-    g_list_free(list);
-    return ret;
+  if (!PyArg_ParseTuple (args, "dddd:Layer.find_objects_in_rectange",
+      &rect.top, &rect.left, &rect.bottom, &rect.right))
+    return NULL;
+
+  list = dia_layer_find_objects_in_rectangle (self->layer, &rect);
+  ret = PyList_New (0);
+  for (tmp = list; tmp; tmp = tmp->next) {
+    PyList_Append (ret, PyDiaObject_New ((DiaObject *) tmp->data));
+  }
+  g_list_free (list);
+
+  return ret;
 }
 
 static PyObject *
-PyDiaLayer_FindClosestObject(PyDiaLayer *self, PyObject *args)
+PyDiaLayer_FindClosestObject (PyDiaLayer *self, PyObject *args)
 {
-    Point pos;
-    real maxdist;
-    DiaObject *obj;
+  Point pos;
+  real maxdist;
+  DiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "ddd:Layer.find_closest_object",
-			  &pos.x, &pos.y, &maxdist))
-	return NULL;
-    obj = layer_find_closest_object(self->layer, &pos, maxdist);
-    if (obj)
-	return PyDiaObject_New(obj);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, "ddd:Layer.find_closest_object",
+      &pos.x, &pos.y, &maxdist))
+    return NULL;
+
+  obj = dia_layer_find_closest_object (self->layer, &pos, maxdist);
+
+  if (obj)
+    return PyDiaObject_New (obj);
+
+  Py_INCREF(Py_None);
+  return Py_None;
 }
 
 static PyObject *
-PyDiaLayer_FindClosestConnectionPoint(PyDiaLayer *self, PyObject *args)
+PyDiaLayer_FindClosestConnectionPoint (PyDiaLayer *self, PyObject *args)
 {
-    ConnectionPoint *cpoint = NULL;
-    Point pos;
-    real dist;
-    PyObject *ret;
-    PyDiaObject *obj;
+  ConnectionPoint *cpoint = NULL;
+  Point pos;
+  real dist;
+  PyObject *ret;
+  PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "dd|O!:Layer.find_closest_connection_point",
-			  &pos.x, &pos.y, PyDiaObject_Type, &obj))
-	return NULL;
-    dist = layer_find_closest_connectionpoint(self->layer, &cpoint, &pos, obj ? obj->object : NULL);
+   if (!PyArg_ParseTuple(args, "dd|O!:Layer.find_closest_connection_point",
+       &pos.x, &pos.y, PyDiaObject_Type, &obj))
+    return NULL;
 
-    ret = PyTuple_New(2);
-    PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));
-    if (cpoint)
-	PyTuple_SetItem(ret, 1, PyDiaConnectionPoint_New(cpoint));
-    else {
-	Py_INCREF(Py_None);
-	PyTuple_SetItem(ret, 1, Py_None);
-    }
-    return ret;
+  dist = dia_layer_find_closest_connectionpoint (self->layer, &cpoint, &pos, obj ? obj->object : NULL);
+
+  ret = PyTuple_New (2);
+  PyTuple_SetItem (ret, 0, PyFloat_FromDouble (dist));
+  if (cpoint) {
+    PyTuple_SetItem (ret, 1, PyDiaConnectionPoint_New (cpoint));
+  } else {
+    Py_INCREF (Py_None);
+    PyTuple_SetItem (ret, 1, Py_None);
+  }
+  return ret;
 }
 
 static PyObject *
-PyDiaLayer_UpdateExtents(PyDiaLayer *self, PyObject *args)
+PyDiaLayer_UpdateExtents (PyDiaLayer *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Layer.update_extents"))
-	return NULL;
-    return PyInt_FromLong(layer_update_extents(self->layer));
+  if (!PyArg_ParseTuple (args, ":Layer.update_extents"))
+    return NULL;
+
+  return PyInt_FromLong (dia_layer_update_extents (self->layer));
 }
 
 static PyObject *
-PyDiaLayer_Render(PyDiaLayer *self, PyObject *args)
+PyDiaLayer_Render (PyDiaLayer *self, PyObject *args)
 {
-    PyObject* renderer;
-    DiaRenderer *wrapper;
-    Rectangle *update = NULL;
-    gboolean active = FALSE; /* could derive from layer->parent_diagram->active_layer
-			      * but not sure if it's worth the effort. */
+  PyObject* renderer;
+  DiaRenderer *wrapper;
+  Rectangle *update = NULL;
+  gboolean active = FALSE; /* could derive from layer->parent_diagram->active_layer
+          * but not sure if it's worth the effort. */
 
-    if (!PyArg_ParseTuple(args, "O:Layer.render", &renderer))
-	return NULL;
+  if (!PyArg_ParseTuple (args, "O:Layer.render", &renderer))
+    return NULL;
 
-    /* We need to create the PythonRenderer wrapper to provide the gobject interface.
-     * This could be done much more efficient if it would somehow be cached for the
-     * whole rendering pass ...
-     */
-    wrapper = PyDia_new_renderer_wrapper (renderer);
-    layer_render (self->layer, wrapper, update,
-		  NULL, /* no special object renderer */
-		  NULL, /* no user data */
-		  active);
-    g_object_unref (wrapper);
+  /* We need to create the PythonRenderer wrapper to provide the gobject interface.
+   * This could be done much more efficient if it would somehow be cached for the
+   * whole rendering pass ...
+   */
+  wrapper = PyDia_new_renderer_wrapper (renderer);
+  dia_layer_render (self->layer, wrapper, update,
+                    NULL, /* no special object renderer */
+                    NULL, /* no user data */
+                    active);
+  g_object_unref (wrapper);
 
-    Py_INCREF(Py_None);
-    return Py_None;
+  Py_INCREF (Py_None);
+  return Py_None;
 }
 
 /* missing functions:
@@ -269,29 +285,31 @@ static PyMemberDef PyDiaLayer_Members[] = {
 static PyObject *
 PyDiaLayer_GetAttr(PyDiaLayer *self, gchar *attr)
 {
-    if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[ssss]", "extents", "name", "objects",
-			     "visible");
-    else if (!strcmp(attr, "name"))
-	return PyString_FromString(self->layer->name);
-    else if (!strcmp(attr, "extents"))
-	return Py_BuildValue("(dddd)", self->layer->extents.top,
-			     self->layer->extents.left,
-			     self->layer->extents.bottom,
-			     self->layer->extents.right);
-    else if (!strcmp(attr, "objects")) {
-	PyObject *ret;
-	GList *tmp;
-	gint i;
+  if (!strcmp (attr, "__members__"))
+    return Py_BuildValue ("[ssss]", "extents", "name", "objects", "visible");
+  else if (!strcmp (attr, "name"))
+    return PyString_FromString (self->layer->name);
+  else if (!strcmp (attr, "extents"))
+    return Py_BuildValue ("(dddd)",
+                          self->layer->extents.top,
+                          self->layer->extents.left,
+                          self->layer->extents.bottom,
+                          self->layer->extents.right);
+  else if (!strcmp (attr, "objects")) {
+    PyObject *ret;
+    GList *tmp;
+    gint i;
 
-	ret = PyTuple_New(g_list_length(self->layer->objects));
-	for (i = 0, tmp = self->layer->objects; tmp; i++, tmp = tmp->next)
-	    PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
-	return ret;
-    } else if (!strcmp(attr, "visible"))
-	return PyInt_FromLong(self->layer->visible);
+    ret = PyTuple_New (g_list_length (self->layer->objects));
+    for (i = 0, tmp = self->layer->objects; tmp; i++, tmp = tmp->next) {
+      PyTuple_SetItem (ret, i, PyDiaObject_New ((DiaObject *)tmp->data));
+    }
+    return ret;
+  } else if (!strcmp (attr, "visible")) {
+    return PyInt_FromLong (self->layer->visible);
+  }
 
-    return Py_FindMethod(PyDiaLayer_Methods, (PyObject *)self, attr);
+  return Py_FindMethod (PyDiaLayer_Methods, (PyObject *) self, attr);
 }
 
 PyTypeObject PyDiaLayer_Type = {

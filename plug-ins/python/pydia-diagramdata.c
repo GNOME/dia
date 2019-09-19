@@ -32,6 +32,7 @@
 #include <structmember.h> /* PyMemberDef */
 
 #include "app/diagram.h"
+#include "dia-layer.h"
 #include "pydia-diagram.h" /* support dynamic_cast */
 
 PyObject *
@@ -182,7 +183,7 @@ PyDiaDiagramData_DeleteLayer(PyDiaDiagramData *self, PyObject *args)
     return Py_None;
 }
 
-/*! 
+/*!
  *  Callback for "object_add" and "object_remove "signal, used by the connect_after method,
  *  it's a proxy for the python function, creating the values it needs.
  *  Params are those of the signals on the Diagram object.
@@ -196,13 +197,13 @@ PyDiaDiagramData_CallbackObject(DiagramData *dia,Layer *layer,DiaObject *obj,voi
 {
     PyObject *pydata,*pylayer,*pyobj,*res,*arg;
     PyObject *func = user_data;
-    
-    /* Check that we got a function */   
+
+    /* Check that we got a function */
     if (!func || !PyCallable_Check (func)) {
         g_warning ("Callback called without valid callback function.");
         return;
     }
-      
+
     /* Create a new PyDiaDiagramData object.
      */
     if (dia)
@@ -211,7 +212,7 @@ PyDiaDiagramData_CallbackObject(DiagramData *dia,Layer *layer,DiaObject *obj,voi
         pydata = Py_None;
         Py_INCREF (pydata);
     }
-      
+
     /*
      * Create PyDiaLayer
      */
@@ -220,8 +221,8 @@ PyDiaDiagramData_CallbackObject(DiagramData *dia,Layer *layer,DiaObject *obj,voi
     else {
         pylayer = Py_None;
         Py_INCREF (pylayer);
-    }   
-    
+    }
+
     /*
      * Create PyDiaObject
      */
@@ -230,9 +231,9 @@ PyDiaDiagramData_CallbackObject(DiagramData *dia,Layer *layer,DiaObject *obj,voi
     else {
         pyobj = Py_None;
         Py_INCREF (pyobj);
-    }   
-    
-    
+    }
+
+
     Py_INCREF(func);
 
     /* Call the callback. */
@@ -241,7 +242,7 @@ PyDiaDiagramData_CallbackObject(DiagramData *dia,Layer *layer,DiaObject *obj,voi
       res = PyEval_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
-    
+
     /* Cleanup */
     Py_XDECREF (arg);
     Py_DECREF(func);
@@ -279,7 +280,7 @@ PyDiaDiagramData_ConnectAfter(PyDiaDiagramData *self, PyObject *args)
 
         /* connect to signal */
         g_signal_connect_after(DIA_DIAGRAM_DATA(self->data),signal,G_CALLBACK(PyDiaDiagramData_CallbackObject), func);
-        
+
         Py_INCREF(Py_None);
         return Py_None;
     }
@@ -347,8 +348,8 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
     if (!strcmp(attr, "__members__"))
 	return Py_BuildValue("[ssssssssssss]",
                            "extents", "bg_color", "paper",
-                           "layers", "active_layer", 
-                           "grid_width", "grid_visible", 
+                           "layers", "active_layer",
+                           "grid_width", "grid_visible",
                            "hguides", "vguides",
                            "layers", "active_layer",
                            "selected" );
@@ -398,7 +399,7 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
       if (DIA_IS_DIAGRAM (self->data)) {
 	Diagram *diagram = DIA_DIAGRAM(self->data);
 	if (diagram) { /* paranoid and helping scan-build */
-	  if (!strcmp(attr, "grid_width")) 
+	  if (!strcmp(attr, "grid_width"))
       	    return Py_BuildValue("(dd)", diagram->grid.width_x, diagram->grid.width_y);
 	  else if (!strcmp(attr, "grid_visible"))
 	    return Py_BuildValue("(ii)", diagram->grid.visible_x, diagram->grid.visible_y);

@@ -46,6 +46,7 @@
 #include "dia_image.h"
 #include "group.h"
 #include "diatransformrenderer.h"
+#include "dia-layer.h"
 
 #include "xfig.h"
 
@@ -1184,7 +1185,7 @@ export_fig(DiagramData *data, DiaContext *ctx,
   for (i = 0; i < data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index (data->layers, i);
     if (layer->visible) {
-      layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
+      dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       renderer->depth++;
     }
   }
@@ -1198,7 +1199,7 @@ export_fig(DiagramData *data, DiaContext *ctx,
   for (i=0; i<data->layers->len; i++) {
     layer = (Layer *) g_ptr_array_index (data->layers, i);
     if (layer->visible) {
-      layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
+      dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       renderer->depth++;
     }
   }

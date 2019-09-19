@@ -32,6 +32,7 @@
 #include "intl.h"
 #include "menus.h"
 #include "widgets.h"
+#include "dia-layer.h"
 
 static void create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
 				     DDisplay *ddisp);
@@ -149,8 +150,8 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
   }
 
   parent_candidates =
-    layer_find_objects_containing_rectangle(obj->parent_layer,
-					    &obj->bounding_box);
+    dia_layer_find_objects_containing_rectangle (obj->parent_layer,
+                                                 &obj->bounding_box);
 
   /* whole object must be within another object to parent it */
   for (; parent_candidates != NULL; parent_candidates = g_list_next(parent_candidates)) {

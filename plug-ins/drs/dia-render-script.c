@@ -61,6 +61,7 @@
 #include "plug-ins.h"
 #include "diagramdata.h"
 #include "dia_xml_libxml.h"
+#include "dia-layer.h"
 
 #include "dia-render-script.h"
 #include "dia-render-script-renderer.h"

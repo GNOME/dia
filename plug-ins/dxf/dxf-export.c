@@ -35,6 +35,7 @@
 #include "geometry.h"
 #include "diarenderer.h"
 #include "filter.h"
+#include "dia-layer.h"
 
 /* used to be 10 and inconsistent with import and even here */
 #define MAGIC_THICKNESS_FACTOR (1.0)
@@ -618,7 +619,7 @@ export_dxf(DiagramData *data, DiaContext *ctx,
     for (i=0; i<data->layers->len; i++) {
         layer = (Layer *) g_ptr_array_index (data->layers, i);
         renderer->layername = layer->name;
-        layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
+        dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
     }
 
     dia_renderer_end_render (DIA_RENDERER (renderer));

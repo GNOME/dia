@@ -26,6 +26,7 @@
 #include "diagramdata.h" /* for Layer */
 #include "message.h"
 #include "parent.h"
+#include "dia-layer.h"
 
 #include "dummy_dep.h"
 
@@ -392,7 +393,7 @@ _object_exchange (ObjectChange *change, DiaObject *obj)
 {
   ObjectChangeExchange *c = (ObjectChangeExchange *)change;
   Layer *layer = dia_object_get_parent_layer (obj);
-  DiagramData *dia = layer ? layer_get_parent_diagram(layer) : NULL;
+  DiagramData *dia = layer ? dia_layer_get_parent_diagram (layer) : NULL;
   DiaObject *subst = (obj == c->orig) ? c->subst : c->orig;
   DiaObject *parent_object = obj->parent;
   Handle *h1, *h2;
@@ -403,8 +404,8 @@ _object_exchange (ObjectChange *change, DiaObject *obj)
   props = prop_list_from_descs (_style_prop_descs, pdtpp_true);
   /* removing from the diagram first, to have the right update areas */
   if (layer) {
-    obj_index = layer_object_get_index (layer, obj);
-    layer_remove_object (layer, obj);
+    obj_index = dia_layer_object_get_index (layer, obj);
+    dia_layer_remove_object (layer, obj);
     if (dia)
       data_unselect(dia, obj);
   }
@@ -447,7 +448,7 @@ _object_exchange (ObjectChange *change, DiaObject *obj)
   prop_list_free(props);
   /* adding to the diagram last, to have the right update areas */
   if (layer) {
-    layer_add_object_at (layer, subst, obj_index);
+    dia_layer_add_object_at (layer, subst, obj_index);
     if (dia)
       data_select(dia, subst);
   }

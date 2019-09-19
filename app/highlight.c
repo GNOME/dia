@@ -25,6 +25,7 @@
 #include "object.h"
 #include "object_ops.h"
 #include "group.h"
+#include "dia-layer.h"
 
 /* One could argue that the actual setting of the object's field
  * should happen inside lib rather than app.  I think that'd be overkill.
@@ -35,7 +36,7 @@
  * Highlighting sets the bbox to ... some more.
  * Problem:  The bbox is the same for all views, but highlighting size should
  * depend on the zoom level.  The renderer obviously can figure out to make
- * it a few more pixels or something, but we need the bbox to also be 
+ * it a few more pixels or something, but we need the bbox to also be
  * enlarged by a bit.  I guess the object_add_updates call must handle that,
  * as it knows about the conversion.
  */
@@ -55,7 +56,7 @@ highlight_object_off(DiaObject *obj, Diagram *dia)
   data_highlight_remove(dia->data, obj);
 }
 
-/** Resets all highlighting in this layer.  Helper function for 
+/** Resets all highlighting in this layer.  Helper function for
  * highlight_reset_all
  */
 static void

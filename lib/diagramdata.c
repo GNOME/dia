@@ -28,6 +28,7 @@
 #include "diainteractiverenderer.h"
 #include "paper.h"
 #include "persistence.h"
+#include "dia-layer.h"
 
 #include "dynamic_obj.h"
 #include "diamarshal.h"
@@ -119,7 +120,7 @@ diagram_data_init(DiagramData *data)
 
   get_paper_info (&data->paper, -1, NULL);
 
-  first_layer = new_layer(g_strdup(_("Background")),data);
+  first_layer = dia_layer_new (g_strdup (_("Background")), data);
 
   data->layers = g_ptr_array_new ();
   g_ptr_array_add (data->layers, first_layer);
@@ -141,23 +142,25 @@ diagram_data_init(DiagramData *data)
  * @param object A DiagramData object to finalize.
  */
 static void
-diagram_data_finalize(GObject *object)
+diagram_data_finalize (GObject *object)
 {
-  DiagramData *data = DIA_DIAGRAM_DATA(object);
+  DiagramData *data = DIA_DIAGRAM_DATA (object);
 
   guint i;
 
-  g_free(data->paper.name);
+  g_free (data->paper.name);
 
   for (i=0;i<data->layers->len;i++) {
-    layer_destroy(g_ptr_array_index(data->layers, i));
+    dia_layer_destroy (g_ptr_array_index (data->layers, i));
   }
-  g_ptr_array_free(data->layers, TRUE);
+  g_ptr_array_free (data->layers, TRUE);
   data->active_layer = NULL;
 
-  g_list_free(data->selected);
+  g_list_free (data->selected);
   data->selected = NULL; /* for safety */
   data->selected_count_private = 0;
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 
@@ -185,12 +188,12 @@ diagram_data_clone (DiagramData *data)
   clone->paper.name = g_strdup (data->paper.name);
   clone->is_compressed = data->is_compressed;
 
-  layer_destroy(g_ptr_array_index(clone->layers, 0));
-  g_ptr_array_remove(clone->layers, clone->active_layer);
+  dia_layer_destroy (g_ptr_array_index (clone->layers, 0));
+  g_ptr_array_remove (clone->layers, clone->active_layer);
 
   for (i=0; i < data->layers->len; ++i) {
     Layer *src_layer = g_ptr_array_index(data->layers, i);
-    Layer *dest_layer = new_layer (layer_get_name (src_layer), clone);
+    Layer *dest_layer = dia_layer_new (dia_layer_get_name (src_layer), clone);
 
     /* copy layer, init the active one */
     dest_layer->extents = src_layer->extents;
@@ -229,7 +232,7 @@ diagram_data_clone_selected (DiagramData *data)
   /* the selection - if any - can only be on the active layer */
   dest_layer = g_ptr_array_index(clone->layers, 0);
   g_free (dest_layer->name);
-  dest_layer->name = layer_get_name (data->active_layer);
+  dest_layer->name = dia_layer_get_name (data->active_layer);
 
   sorted = data_get_sorted_selected (data);
   dest_layer->objects = object_copy_list (sorted);
@@ -353,13 +356,13 @@ data_lower_layer(DiagramData *data, Layer *layer)
  * \memberof _DiagramData
  */
 void
-data_add_layer(DiagramData *data, Layer *layer)
+data_add_layer (DiagramData *data, Layer *layer)
 {
-  g_ptr_array_add(data->layers, layer);
+  g_ptr_array_add (data->layers, layer);
   layer->parent_diagram = data;
   data_emit (data, layer, NULL, "object_add");
-  layer_update_extents(layer);
-  data_update_extents(data);
+  dia_layer_update_extents (layer);
+  data_update_extents (data);
 }
 
 /*!
@@ -390,7 +393,7 @@ data_add_layer_at(DiagramData *data, Layer *layer, int pos)
 
   layer->parent_diagram = data;
   data_emit (data, layer, NULL, "object_add");
-  layer_update_extents(layer);
+  dia_layer_update_extents(layer);
   data_update_extents(data);
 }
 
@@ -608,7 +611,7 @@ data_get_layers_extents_union(DiagramData *data)
     Layer *layer = g_ptr_array_index(data->layers, i);
     if (!layer->visible) continue;
 
-    layer_update_extents(layer);
+    dia_layer_update_extents (layer);
 
     if (first) {
       new_extents = layer->extents;
@@ -651,30 +654,30 @@ data_adapt_scaling_to_extents(DiagramData *data)
  * \protected \memberof _DiagramData
  */
 static gboolean
-data_compute_extents(DiagramData *data)
+data_compute_extents (DiagramData *data)
 {
   Rectangle old_extents = data->extents;
 
-  if (!data_has_visible_layers(data)) {
+  if (!data_has_visible_layers (data)) {
     if (data->layers->len > 0) {
-      Layer *layer = g_ptr_array_index(data->layers, 0);
-      layer_update_extents(layer);
+      Layer *layer = g_ptr_array_index (data->layers, 0);
+      dia_layer_update_extents (layer);
 
       data->extents = layer->extents;
     } else {
       data->extents = invalid_extents;
     }
   } else {
-    data_get_layers_extents_union(data);
+    data_get_layers_extents_union (data);
   }
 
-  if (rectangle_equals(&data->extents,&invalid_extents)) {
+  if (rectangle_equals (&data->extents, &invalid_extents)) {
       data->extents.left = 0.0;
       data->extents.right = 10.0;
       data->extents.top = 0.0;
       data->extents.bottom = 10.0;
   }
-  return (!rectangle_equals(&data->extents,&old_extents));
+  return (!rectangle_equals (&data->extents, &old_extents));
 }
 
 /*!
@@ -821,7 +824,7 @@ data_render (DiagramData    *data,
     active_layer = (layer == data->active_layer);
     if (layer->visible) {
       if (obj_renderer) {
-        layer_render (layer, renderer, update, obj_renderer, gdata, active_layer);
+        dia_layer_render (layer, renderer, update, obj_renderer, gdata, active_layer);
       } else {
         dia_renderer_draw_layer (renderer, layer, active_layer, update);
       }

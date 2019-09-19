@@ -44,6 +44,7 @@
 #include "lib/diamarshal.h"
 #include "parent.h"
 #include "diacontext.h"
+#include "dia-layer.h"
 
 static GList *open_diagrams = NULL;
 
@@ -673,7 +674,7 @@ diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp)
 void
 diagram_add_object (Diagram *dia, DiaObject *obj)
 {
-  layer_add_object (dia->data->active_layer, obj);
+  dia_layer_add_object (dia->data->active_layer, obj);
 
   diagram_modified (dia);
 }
@@ -681,7 +682,7 @@ diagram_add_object (Diagram *dia, DiaObject *obj)
 void
 diagram_add_object_list (Diagram *dia, GList *list)
 {
-  layer_add_objects (dia->data->active_layer, list);
+  dia_layer_add_objects (dia->data->active_layer, list);
 
   diagram_modified (dia);
 }
@@ -936,19 +937,24 @@ diagram_flush(Diagram *dia)
 }
 
 DiaObject *
-diagram_find_clicked_object(Diagram *dia, Point *pos,
-			    real maxdist)
+diagram_find_clicked_object (Diagram *dia,
+                             Point   *pos,
+                             real     maxdist)
 {
-  return layer_find_closest_object_except(dia->data->active_layer,
-					  pos, maxdist, NULL);
+  return dia_layer_find_closest_object_except (dia->data->active_layer,
+                                               pos, maxdist, NULL);
 }
 
 DiaObject *
-diagram_find_clicked_object_except(Diagram *dia, Point *pos,
-				   real maxdist, GList *avoid)
+diagram_find_clicked_object_except (Diagram *dia,
+                                    Point   *pos,
+                                    real     maxdist,
+                                    GList   *avoid)
 {
-  return layer_find_closest_object_except(dia->data->active_layer, pos,
-					  maxdist, avoid);
+  return dia_layer_find_closest_object_except (dia->data->active_layer,
+                                               pos,
+                                               maxdist,
+                                               avoid);
 }
 
 /*
@@ -1003,11 +1009,13 @@ diagram_find_closest_connectionpoint(Diagram *dia,
     ConnectionPoint *this_cp;
     real this_dist;
     if (layer->connectable) {
-      this_dist = layer_find_closest_connectionpoint(layer,
-						     &this_cp, pos, notthis);
+      this_dist = dia_layer_find_closest_connectionpoint (layer,
+                                                          &this_cp,
+                                                          pos,
+                                                          notthis);
       if (this_dist < dist) {
-	dist = this_dist;
-	*closest = this_cp;
+        dist = this_dist;
+        *closest = this_cp;
       }
     }
   }
@@ -1284,7 +1292,7 @@ void diagram_ungroup_selected(Diagram *dia)
 
       group_list = group_objects(group);
 
-      group_index = layer_object_get_index(dia->data->active_layer, group);
+      group_index = dia_layer_object_get_index (dia->data->active_layer, group);
 
       change = undo_ungroup_objects(dia, group_list, group, group_index);
       (change->apply)(change, dia);
@@ -1333,7 +1341,7 @@ diagram_place_under_selected(Diagram *dia)
 
   sorted_list = diagram_get_sorted_selected_remove(dia);
   object_add_updates_list(sorted_list, dia);
-  layer_add_objects_first(dia->data->active_layer, sorted_list);
+  dia_layer_add_objects_first (dia->data->active_layer, sorted_list);
 
   undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
 
@@ -1353,9 +1361,9 @@ diagram_place_over_selected(Diagram *dia)
 
   orig_list = g_list_copy(dia->data->active_layer->objects);
 
-  sorted_list = diagram_get_sorted_selected_remove(dia);
-  object_add_updates_list(sorted_list, dia);
-  layer_add_objects(dia->data->active_layer, sorted_list);
+  sorted_list = diagram_get_sorted_selected_remove (dia);
+  object_add_updates_list (sorted_list, dia);
+  dia_layer_add_objects (dia->data->active_layer, sorted_list);
 
   undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
 
@@ -1398,7 +1406,7 @@ diagram_place_up_selected(Diagram *dia)
     }
   }
 
-  layer_set_object_list(dia->data->active_layer, new_list);
+  dia_layer_set_object_list (dia->data->active_layer, new_list);
 
   undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
 
@@ -1444,7 +1452,7 @@ diagram_place_down_selected(Diagram *dia)
     }
   }
 
-  layer_set_object_list(dia->data->active_layer, new_list);
+  dia_layer_set_object_list (dia->data->active_layer, new_list);
 
   undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
 

@@ -42,6 +42,7 @@
 #include "group.h"
 #include "create.h"
 #include "attributes.h"
+#include "dia-layer.h"
 
 static real coord_scale = 1.0, measure_scale = 1.0;
 static real text_scale = 1.0;
@@ -137,13 +138,12 @@ layer_find_by_name(char *layername, DiagramData *dia)
         }
     }
 
-   if( matching_layer == NULL )
-     {
-	matching_layer = new_layer(g_strdup( layername ), dia);
-	data_add_layer(dia, matching_layer);
-     }
+  if (matching_layer == NULL) {
+    matching_layer = dia_layer_new (g_strdup (layername), dia);
+    data_add_layer (dia, matching_layer);
+  }
 
-    return matching_layer;
+  return matching_layer;
 }
 
 /* returns the matching dia linestyle for a given dxf linestyle */
@@ -232,12 +232,14 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
     line_obj->ops->set_props(line_obj, props);
 
-    prop_list_free(props);
+    prop_list_free (props);
 
-    if (layer)
-      layer_add_object(layer, line_obj);
-    else
+    if (layer) {
+      dia_layer_add_object (layer, line_obj);
+    } else {
       return line_obj;
+    }
+
     /* don't add it it twice */
     return NULL;
 }
@@ -346,14 +348,15 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
    prop_list_add_fill_colour (props, &fill_colour);
    prop_list_add_show_background (props, TRUE);
 
-   polygon_obj->ops->set_props( polygon_obj, props );
+   dia_object_set_properties (polygon_obj, props);
 
-   prop_list_free(props);
+   prop_list_free (props);
 
-   if (layer)
-      layer_add_object( layer, polygon_obj );
-   else
+   if (layer) {
+      dia_layer_add_object (layer, polygon_obj);
+   } else {
       return polygon_obj;
+   }
 
    return NULL;
 }
@@ -567,14 +570,14 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     prop_list_add_line_width (props, line_width);
     prop_list_add_line_style (props, style, 1.0);
 
-    polyline_obj->ops->set_props( polyline_obj, props );
+    dia_object_set_properties (polyline_obj, props);
 
-    prop_list_free(props);
+    prop_list_free (props);
 
     if (layer)
-       layer_add_object( layer, polyline_obj );
+      dia_layer_add_object (layer, polyline_obj);
     else
-       return polyline_obj;
+      return polyline_obj;
 
     return NULL; /* don't add it twice */
 }
@@ -643,13 +646,13 @@ read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     prop_list_add_line_width (props, line_width);
     prop_list_add_show_background (props, FALSE);
 
-    ellipse_obj->ops->set_props(ellipse_obj, props);
-    prop_list_free(props);
+    dia_object_set_properties (ellipse_obj, props);
+    prop_list_free (props);
 
     if (layer)
-        layer_add_object(layer, ellipse_obj);
+      dia_layer_add_object (layer, ellipse_obj);
     else
-        return ellipse_obj;
+      return ellipse_obj;
 
     return NULL; /* don't add it twice */
 }
@@ -734,15 +737,15 @@ read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     prop_list_add_line_colour (props, &line_colour);
     prop_list_add_line_width (props, line_width);
 
-    arc_obj->ops->set_props(arc_obj, props);
-    prop_list_free(props);
+  dia_object_set_properties (arc_obj, props);
+  prop_list_free(props);
 
-    if (layer)
-        layer_add_object(layer, arc_obj);
-    else
-        return arc_obj ;
+  if (layer)
+    dia_layer_add_object (layer, arc_obj);
+  else
+    return arc_obj ;
 
-    return NULL; /* don't add it twice */
+  return NULL; /* don't add it twice */
 }
 
 /* reads an ellipse entity from the dxf file and creates an ellipse object in dia*/
@@ -811,13 +814,13 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     prop_list_add_line_width (props, line_width);
     prop_list_add_show_background (props, FALSE);
 
-    ellipse_obj->ops->set_props(ellipse_obj, props);
-    prop_list_free(props);
+    dia_object_set_properties (ellipse_obj, props);
+    prop_list_free (props);
 
     if (layer)
-        layer_add_object(layer, ellipse_obj);
+      dia_layer_add_object (layer, ellipse_obj);
     else
-        return ellipse_obj;
+      return ellipse_obj;
 
     return NULL; /* don't add it twice */
 }
@@ -964,13 +967,13 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     tprop->attr.color = text_colour;
     tprop->attr.height = height;
 
-    text_obj->ops->set_props(text_obj, props);
-    prop_list_free(props);
+    dia_object_set_properties (text_obj, props);
+    prop_list_free (props);
 
     if (layer)
-        layer_add_object(layer, text_obj);
+      dia_layer_add_object (layer, text_obj);
     else
-        return text_obj;
+      return text_obj;
 
     return NULL; /* don't add it twice */
 }
@@ -1243,10 +1246,10 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
             if( group && group_items > 0 && group_list != NULL )
             {
                 obj = group_create( group_list );
-                if( NULL == group_layer )
-                    layer_add_object( dia->active_layer, obj );
+                if (NULL == group_layer )
+                  dia_layer_add_object( dia->active_layer, obj );
                 else
-                    layer_add_object( group_layer, obj );
+                  dia_layer_add_object( group_layer, obj );
             }
 
             group = FALSE;

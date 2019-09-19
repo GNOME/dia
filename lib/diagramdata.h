@@ -103,40 +103,12 @@ typedef struct _DiagramDataClass {
 
 } DiagramDataClass;
 
-/*!
- * \brief A diagram consists of layers holding objects
- *
- * \ingroup DiagramStructure
- * \todo : make this a GObject as well
- */
-struct _Layer {
-  char *name;             /*!< The name of the layer */
-  Rectangle extents;      /*!< The extents of the layer */
-
-  GList *objects;         /*!< List of objects in the layer,
-			     sorted by decreasing z-value,
-			     objects can ONLY be connected to objects
-			     in the same layer! */
-
-  gboolean visible;       /*!< The visibility of the layer */
-  gboolean connectable;   /*!< Whether the layer can currently be connected to.
-			     The selected layer is by default connectable */
-
-  DiagramData *parent_diagram; /*!< Back-pointer to the diagram.  This
-				  must only be set by functions internal
-				  to the diagram, and accessed via
-				  layer_get_parent_diagram() */
-};
-
 typedef enum {
   DIA_HIGHLIGHT_NONE,
   DIA_HIGHLIGHT_CONNECTIONPOINT,
   DIA_HIGHLIGHT_CONNECTIONPOINT_MAIN,
   DIA_HIGHLIGHT_TEXT_EDIT
 } DiaHighlightType;
-
-Layer *new_layer (char *name, DiagramData *parent);
-void layer_destroy(Layer *layer);
 
 void data_raise_layer(DiagramData *data, Layer *layer);
 void data_lower_layer(DiagramData *data, Layer *layer);
@@ -172,46 +144,9 @@ void data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
 		 gpointer gdata);
 void data_render_paginated(DiagramData *data, DiaRenderer *renderer, gpointer user_data);
 
-void layer_render(Layer *layer, DiaRenderer *renderer, Rectangle *update,
-		  ObjectRenderer obj_renderer /* Can be NULL */,
-		  gpointer data,
-		  int active_layer);
-
 DiagramData *diagram_data_clone (DiagramData *data);
 DiagramData *diagram_data_clone_selected (DiagramData *data);
-
-int layer_object_get_index(Layer *layer, DiaObject *obj);
-DiaObject *layer_object_get_nth(Layer *layer, guint index);
-int layer_object_count(Layer *layer);
-gchar *layer_get_name(Layer *layer);
-void layer_add_object(Layer *layer, DiaObject *obj);
-void layer_add_object_at(Layer *layer, DiaObject *obj, int pos);
-void layer_add_objects(Layer *layer, GList *obj_list);
-void layer_add_objects_first(Layer *layer, GList *obj_list);
-void layer_remove_object(Layer *layer, DiaObject *obj);
-void layer_remove_objects(Layer *layer, GList *obj_list);
-GList *layer_find_objects_intersecting_rectangle(Layer *layer, Rectangle*rect);
-GList *layer_find_objects_in_rectangle(Layer *layer, Rectangle *rect);
-GList *layer_find_objects_containing_rectangle(Layer *layer, Rectangle *rect);
-DiaObject *layer_find_closest_object(Layer *layer, Point *pos, real maxdist);
-DiaObject *layer_find_closest_object_except(Layer *layer, Point *pos,
-					 real maxdist, GList *avoid);
-real layer_find_closest_connectionpoint(Layer *layer,
-					ConnectionPoint **closest,
-					Point *pos,
-					DiaObject *notthis);
-int layer_update_extents(Layer *layer); /* returns true if changed. */
-void layer_replace_object_with_list(Layer *layer, DiaObject *obj,
-				    GList *list);
-void layer_set_object_list(Layer *layer, GList *list);
-DiagramData *layer_get_parent_diagram(Layer *layer);
 
 G_END_DECLS
 
 #endif /* DIAGRAMDATA_H */
-
-
-
-
-
-

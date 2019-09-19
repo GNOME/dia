@@ -54,6 +54,7 @@
 #include "diapagelayout.h"
 #include "autosave.h"
 #include "display.h"
+#include "dia-layer.h"
 
 #ifdef G_OS_WIN32
 #include <io.h>
@@ -439,9 +440,9 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
   }
 
   /* Destroy the default layer: */
-  if (layer_object_count(data->active_layer) == 0) {
-    g_ptr_array_remove(data->layers, data->active_layer);
-    layer_destroy(data->active_layer);
+  if (dia_layer_object_count (data->active_layer) == 0) {
+    g_ptr_array_remove (data->layers, data->active_layer);
+    dia_layer_destroy (data->active_layer);
   }
 
   diagramdata =
@@ -649,16 +650,16 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     name = (char *)xmlGetProp(layer_node, (const xmlChar *)"name");
     if (!name) break; /* name is mandatory */
 
-    layer = new_layer(g_strdup(name), data);
-    if (name) xmlFree(name);
+    layer = dia_layer_new (g_strdup (name), data);
+    if (name) xmlFree (name);
 
     layer->visible = _get_bool_prop (layer_node, "visible", FALSE);
     layer->connectable = _get_bool_prop (layer_node, "connectable", FALSE);
     /* Read in all objects: */
-    list = read_objects(layer_node, objects_hash, ctx, NULL, unknown_objects_hash);
-    layer_add_objects (layer, list);
+    list = read_objects (layer_node, objects_hash, ctx, NULL, unknown_objects_hash);
+    dia_layer_add_objects (layer, list);
 
-    data_add_layer(data, layer);
+    data_add_layer (data, layer);
     ++num_layers_added;
 
     active = _get_bool_prop (layer_node, "active", FALSE);

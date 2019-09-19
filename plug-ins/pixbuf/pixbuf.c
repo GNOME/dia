@@ -32,6 +32,7 @@
 #include "properties.h"
 #include "object.h"
 #include "intl.h"
+#include "dia-layer.h"
 
 static gboolean
 export_data(DiagramData *data, DiaContext *ctx,
@@ -54,7 +55,7 @@ export_data(DiagramData *data, DiaContext *ctx,
   rect.bottom = data->extents.bottom;
 
   /* quite arbitrary */
-  zoom = 20.0 * data->paper.scaling; 
+  zoom = 20.0 * data->paper.scaling;
   /* Adding a bit of padding to account for rounding errors.  Better to
    * pad than to clip.  See bug #413275 */
   width = ceil((rect.right - rect.left) * zoom) + 1;
@@ -148,16 +149,16 @@ import_data (const gchar *filename, DiagramData *data, DiaContext *ctx, void* us
           prop_list_add_real (plist, "elem_width", width / 20.0);
           prop_list_add_real (plist, "elem_height", height / 20.0);
 
-          obj->ops->set_props(obj, plist);
+          dia_object_set_properties (obj, plist);
           prop_list_free (plist);
 
-          layer_add_object(data->active_layer, obj);
+          dia_layer_add_object (data->active_layer, obj);
           return TRUE;
         }
     }
   else
     {
-      dia_context_add_message(ctx, _("Pixbuf[%s] can't load:\n%s"), 
+      dia_context_add_message(ctx, _("Pixbuf[%s] can't load:\n%s"),
 			      (gchar*)user_data, dia_context_get_filename(ctx));
     }
 
@@ -207,7 +208,7 @@ dia_plugin_init(PluginInfo *info)
   /*
    * If GTK is not initialized yet don't register this plug-in. This is
    * almost the same as app_is_interactive() but avoids to make plug-ins
-   * depend on Dia's app core function. Also what we really need is a 
+   * depend on Dia's app core function. Also what we really need is a
    * display, not an interactive app ;)
    */
   if (gdk_display_get_default ()) {
@@ -253,7 +254,7 @@ dia_plugin_init(PluginInfo *info)
           gchar* name;
 
           name = gdk_pixbuf_format_get_name (format);
-          /* filter out the less useful ones to keep the total list reasonable short 
+          /* filter out the less useful ones to keep the total list reasonable short
            * (If anyone complains make it configurable via persistence and this default ;-)
            */
           if (   strcmp (name, "ani") == 0
