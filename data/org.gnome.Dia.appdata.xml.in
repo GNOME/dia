@@ -24,6 +24,9 @@
   <url type="donation">http://www.gnome.org/friends/</url>
   <url type="translate">https://l10n.gnome.org/module/dia/</url>
   <content_rating type="oars-1.0" />
+  <provides>
+    <id>dia.desktop</id>
+  </provides>
   <releases>
     <release version="0.97.2" date="2011-12-18">
       <description>
