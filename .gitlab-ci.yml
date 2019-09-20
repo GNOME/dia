@@ -15,6 +15,7 @@ win32:
         VERSION: "0.1"
         BUNDLE: "dia.msi"
         ICON_PATH: "data/icons/scalable/apps/dia.svg"
+        GIT_REPO: "https://gitlab.gnome.org/GNOME/dia.git"
     extends: .win32
 
 review:
