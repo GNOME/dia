@@ -32,96 +32,114 @@
 
 #include "debug.h"
 
-/** Initialize an already allocated object with the given number of handles
- *  and connections.  This does not create the actual Handle and Connection
- *  objects, which are expected to be added later.
- * @param obj A newly allocated object with no handles or connections
- *            previously allocated.
- * @param num_handles the number of handles to allocate room for.
- * @param num_connections the number of connections to allocate room for.
+/**
+ * object_init:
+ * @obj: A newly allocated object with no handles or connections
+ *       previously allocated.
+ * @num_handles: the number of handles to allocate room for.
+ * @num_connections: the number of connections to allocate room for.
+ *
+ * Initialize an already allocated object with the given number of handles
+ * and connections.  This does not create the actual #Handle and #Connection
+ * objects, which are expected to be added later.
  */
 void
-object_init(DiaObject *obj,
-	    int num_handles,
-	    int num_connections)
+object_init (DiaObject *obj,
+             int        num_handles,
+             int        num_connections)
 {
   obj->num_handles = num_handles;
-  if (num_handles>0)
-    obj->handles = g_malloc0(sizeof(Handle *) * num_handles);
+  if (num_handles > 0)
+    obj->handles = g_malloc0 (sizeof (Handle *) * num_handles);
   else
     obj->handles = NULL;
 
   obj->num_connections = num_connections;
-  if (num_connections>0)
-    obj->connections = g_malloc0(sizeof(ConnectionPoint *) * num_connections);
+  if (num_connections > 0)
+    obj->connections = g_malloc0 (sizeof (ConnectionPoint *) * num_connections);
   else
     obj->connections = NULL;
 }
 
-/** Destroy an objects allocations and disconnect it from everything else.
- *  After calling this function, the object is no longer valid for use
- *  in a diagram.  Note that this does not deallocate the object itself.
- * @param obj The object being destroyed.
+/**
+ * object_destroy:
+ * @obj: The object being destroyed.
+ *
+ * Destroy an objects allocations and disconnect it from everything else.
+ * After calling this function, the object is no longer valid for use
+ * in a diagram.  Note that this does not deallocate the object itself.
  */
 void
-object_destroy(DiaObject *obj)
+object_destroy (DiaObject *obj)
 {
-  object_unconnect_all(obj);
+  object_unconnect_all (obj);
 
   if (obj->handles)
-    g_free(obj->handles);
+    g_free (obj->handles);
   obj->handles = NULL;
   if (obj->connections)
-    g_free(obj->connections);
+    g_free (obj->connections);
   obj->connections = NULL;
   if (obj->meta)
     g_hash_table_destroy (obj->meta);
   obj->meta = NULL;
 }
 
-/** Copy the object-level information of this object.
- *  This includes type, position, bounding box, number of handles and
- *  connections, operations, parentability, parent and children.
- *  After this copying you have to fix up:
-    handles
-    connections
-    children/parents
+/**
+ * object_copy:
+ * @from: The object being copied from
+ * @to: The object being copied to.  This object does not need to
+ *      have been object_init'ed, but if it is, its handles and
+ *      connections arrays will be freed.
+ *
+ * Copy the object-level information of this object.
+ *
+ * This includes type, position, bounding box, number of handles and
+ * connections, operations, parentability, parent and children.
+ *
+ * After this copying you have to fix up:
+ *
+ *  - #Handle s
+ *  - #Connection s
+ *  - children / parents
+ *
  * In particular the children lists will contain the same objects, which
  * is not a valid situation.
- * @param from The object being copied from
- * @param to The object being copied to.  This object does not need to
- *           have been object_init'ed, but if it is, its handles and
- *           connections arrays will be freed.
- * @bug Any existing children list will not be freed and will leak.
+ *
+ * bug Any existing children list will not be freed and will leak.
  */
 void
-object_copy(DiaObject *from, DiaObject *to)
+object_copy (DiaObject *from, DiaObject *to)
 {
   to->type = from->type;
   to->position = from->position;
   to->bounding_box = from->bounding_box;
 
   to->num_handles = from->num_handles;
-  if (to->handles != NULL) g_free(to->handles);
-  if (to->num_handles>0)
-    to->handles = g_malloc(sizeof(Handle *)*to->num_handles);
+  if (to->handles != NULL) g_free (to->handles);
+  if (to->num_handles > 0)
+    to->handles = g_malloc (sizeof (Handle *)*to->num_handles);
   else
     to->handles = NULL;
 
   to->num_connections = from->num_connections;
-  if (to->connections != NULL) g_free(to->connections);
-  if (to->num_connections>0)
-    to->connections = g_malloc0(sizeof(ConnectionPoint *) * to->num_connections);
+  if (to->connections != NULL) g_free (to->connections);
+  if (to->num_connections > 0)
+    to->connections = g_malloc0 (sizeof (ConnectionPoint *) * to->num_connections);
   else
     to->connections = NULL;
 
   to->ops = from->ops;
 
   to->parent = from->parent;
-  to->children = g_list_copy(from->children);
+  to->children = g_list_copy (from->children);
 }
 
-/** A hash function of a pointer value.  Not the most well-spreadout
+/**
+ * pointer_hash:
+ * @some_pointer: pointer to hash
+ *
+ * A hash function of a pointer value.  Not the most well-spreadout
  * function, as it has the same low bits as the pointer.
  */
 static guint
@@ -131,18 +149,23 @@ pointer_hash(gpointer some_pointer)
 }
 
 
-/** Copy a list of objects, keeping connections and parent-children
- *  relation ships between the objects.  It is assumed that the
- *  ops->copy function correctly creates the connections and handles
- *  objects.
- * @param list_orig The original list.  This list will not be changed,
- *                  nor will its objects.
- * @return A list with the list_orig copies copied.
- * @bug Any children of an object in the list that are not themselves
+/**
+ * object_copy_list:
+ * @list_orig: The original list.  This list will not be changed,
+ *             nor will its objects.
+ *
+ * Copy a list of objects, keeping connections and parent-children
+ * relation ships between the objects.  It is assumed that the
+ * ops->copy function correctly creates the connections and handles
+ * objects.
+ *
+ * Returns: A list with the list_orig copies copied.
+ *
+ * bug Any children of an object in the list that are not themselves
  *       in the list will cause a NULL entry in the children list.
  */
 GList *
-object_copy_list(GList *list_orig)
+object_copy_list (GList *list_orig)
 {
   GList *list_copy;
   GList *list;
@@ -235,19 +258,24 @@ object_copy_list(GList *list_orig)
   return list_copy;
 }
 
-/** Move a number of objects the same distance.  Any children of objects in
+/**
+ * object_list_move_delta_r:
+ * @objects: The list of objects to move.  This list must not contain
+ *           any object that is a child (at any depth) of another object.
+ *           see parent_list_affected_hierarchy()
+ * @delta: How far to move the objects.
+ * @affected: Whether to check parent boundaries???
+ *
+ * Move a number of objects the same distance.  Any children of objects in
  * the list are moved as well.  This is intended to be called from within
- * object_list_move_delta.
- * @param objects The list of objects to move.  This list must not contain
- *                any object that is a child (at any depth) of another object.
- *                @see parent_list_affected_hierarchy
- * @param delta How far to move the objects.
- * @param affected Whether to check parent boundaries???
- * @return Undo information for the move, or NULL if no objects moved.
- * @bug The return Change object only contains info for a single object.
+ * object_list_move_delta().
+ *
+ * Returns: Undo information for the move, or %NULL if no objects moved.
+ *
+ * bug The return Change object only contains info for a single object.
  */
 ObjectChange*
-object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
+object_list_move_delta_r (GList *objects, Point *delta, gboolean affected)
 {
   GList *list;
   DiaObject *obj;
@@ -286,12 +314,15 @@ object_list_move_delta_r(GList *objects, Point *delta, gboolean affected)
   return objchange;
 }
 
-/** Move a set of objects a given amount.
- * @param objects The list ob objects to move.
- * @param delta The amount to move them.
+/**
+ * object_list_move_delta:
+ * @objects: The list ob objects to move.
+ * @delta: The amount to move them.
+ *
+ * Move a set of objects a given amount.
  */
 ObjectChange*
-object_list_move_delta(GList *objects, Point *delta)
+object_list_move_delta (GList *objects, Point *delta)
 {
   GList *list;
   DiaObject *obj;
@@ -337,6 +368,7 @@ _find_connectable (DiaObject *obj, int *num)
   }
   return NULL;
 }
+
 /*!
  * Bezierlines don't have just two connectable handles, but every
  * major handle is connectable. To let us find the correct handles
@@ -374,6 +406,11 @@ static PropDescription _style_prop_descs[] = {
   PROP_DESC_END
 };
 
+/**
+ * object_copy_style:
+ * @dest: the object to copy onto
+ * @src: the object to copy from
+ */
 void
 object_copy_style (DiaObject *dest, const DiaObject *src)
 {
@@ -383,16 +420,16 @@ object_copy_style (DiaObject *dest, const DiaObject *src)
   g_return_if_fail (dest && dest->ops->set_props != NULL);
 
   props = prop_list_from_descs (_style_prop_descs, pdtpp_true);
-  src->ops->get_props((DiaObject *)src, props);
-  dest->ops->set_props(dest, props);
-  prop_list_free(props);
+  dia_object_get_properties ((DiaObject *) src, props);
+  dia_object_set_properties (dest, props);
+  prop_list_free (props);
 }
 
 static void
 _object_exchange (ObjectChange *change, DiaObject *obj)
 {
   ObjectChangeExchange *c = (ObjectChangeExchange *)change;
-  Layer *layer = dia_object_get_parent_layer (obj);
+  DiaLayer *layer = dia_object_get_parent_layer (obj);
   DiagramData *dia = layer ? dia_layer_get_parent_diagram (layer) : NULL;
   DiaObject *subst = (obj == c->orig) ? c->subst : c->orig;
   DiaObject *parent_object = obj->parent;
@@ -453,6 +490,7 @@ _object_exchange (ObjectChange *change, DiaObject *obj)
       data_select(dia, subst);
   }
 }
+
 /* It is adviced to not use the passed in object at all */
 static void
 _object_exchange_apply (ObjectChange *change, DiaObject *obj)
@@ -463,6 +501,7 @@ _object_exchange_apply (ObjectChange *change, DiaObject *obj)
   _object_exchange (change, c->orig);
   c->applied = 1;
 }
+
 /* It is adviced to not use the passed in object at all */
 static void
 _object_exchange_revert (ObjectChange *change, DiaObject *obj)
@@ -473,6 +512,7 @@ _object_exchange_revert (ObjectChange *change, DiaObject *obj)
   _object_exchange (change, c->subst);
   c->applied = 0;
 }
+
 static void
 _object_exchange_free (ObjectChange *change)
 {
@@ -484,17 +524,20 @@ _object_exchange_free (ObjectChange *change)
     g_free(obj);
   }
 }
-/*!
- * \brief Replace an object with another one
+
+/**
+ * object_substitute:
+ * @obj: the original object which will be replace
+ * @subst: the sunstitute object
+ *
+ * Replace an object with another one
  *
  * The type of an object can not change dynamically. To substitute one
  * object with another this function helps. It does it's best to transfer
  * all the existing object relations, e.g. connections, parent_layer
  * and parenting information.
  *
- * @param obj   the original object which will be replace
- * @param subst the sunstitute object
- * @return      _ObjectChange containing undo/redo information
+ * Returns: #ObjectChange containing undo/redo information
  */
 ObjectChange *
 object_substitute (DiaObject *obj, DiaObject *subst)
@@ -512,12 +555,15 @@ object_substitute (DiaObject *obj, DiaObject *subst)
   return (ObjectChange*)change;
 }
 
-/** Destroy a list of objects by calling ops->destroy on each in turn.
- * @param list_to_be_destroyed A of objects list to destroy.  The list itself
- *                             will also be freed.
+/**
+ * destroy_object_list:
+ * @list_to_be_destroyed: A of objects list to destroy.  The list itself
+ *                        will also be freed.
+ *
+ * Destroy a list of objects by calling ops->destroy on each in turn.
  */
 void
-destroy_object_list(GList *list_to_be_destroyed)
+destroy_object_list (GList *list_to_be_destroyed)
 {
   GList *list;
   DiaObject *obj;
@@ -828,7 +874,7 @@ object_load(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
  * @return The layer that contains the object, or NULL if the object is
  * not in any layer.
  */
-Layer *
+DiaLayer *
 dia_object_get_parent_layer(DiaObject *obj) {
   return obj->parent_layer;
 }
@@ -844,8 +890,8 @@ dia_object_get_parent_layer(DiaObject *obj) {
 gboolean
 dia_object_is_selected (const DiaObject *obj)
 {
-  Layer *layer = obj->parent_layer;
-  DiagramData *diagram = layer ? layer->parent_diagram : NULL;
+  DiaLayer *layer = obj->parent_layer;
+  DiagramData *diagram = layer ? dia_layer_get_parent_diagram (layer) : NULL;
   GList * selected;
 
   /* although this is a little bogus, it is better than crashing
@@ -904,7 +950,7 @@ dia_object_is_selectable(DiaObject *obj)
   if (obj->parent_layer == NULL) {
     return FALSE;
   }
-  return obj->parent_layer == obj->parent_layer->parent_diagram->active_layer;
+  return obj->parent_layer == dia_layer_get_parent_diagram (obj->parent_layer)->active_layer;
 }
 
 

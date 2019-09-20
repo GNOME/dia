@@ -351,7 +351,7 @@ struct _DiaObject {
 
   _DIA_OBJECT_FIELD (ObjectOps *, ops); /* pointer to the vtable */
 
-  Layer *parent_layer; /*!< Back-pointer to the owning layer.
+  DiaLayer *parent_layer; /*!< Back-pointer to the owning layer.
 			   This may only be set by functions internal to
 			   the layer, and accessed via
 			   dia_object_get_parent_layer() */
@@ -482,7 +482,7 @@ DiaObject  *dia_object_default_create (const DiaObjectType *type,
                                     Handle **handle1,
                                     Handle **handle2);
 gboolean         dia_object_defaults_save (const gchar *filename, DiaContext *ctx);
-Layer           *dia_object_get_parent_layer(DiaObject *obj);
+DiaLayer        *dia_object_get_parent_layer(DiaObject *obj);
 gboolean         dia_object_is_selected (const DiaObject *obj);
 const Rectangle *dia_object_get_bounding_box(const DiaObject *obj);
 const Rectangle *dia_object_get_enclosing_box(const DiaObject *obj);

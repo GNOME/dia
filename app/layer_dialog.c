@@ -56,7 +56,7 @@ struct _DiaLayerWidget
   GtkListItem list_item;
 
   Diagram *dia;
-  Layer *layer;
+  DiaLayer *layer;
 
   GtkWidget *visible;
   GtkWidget *connectable;
@@ -118,7 +118,7 @@ struct LayerChange {
   Change change;
 
   enum LayerChangeType type;
-  Layer *layer;
+  DiaLayer *layer;
   int index;
   int applied;
 };
@@ -127,7 +127,7 @@ struct LayerVisibilityChange {
   Change change;
 
   GList *original_visibility;
-  Layer *layer;
+  DiaLayer *layer;
   gboolean is_exclusive;
   int applied;
 };
@@ -141,15 +141,15 @@ struct LayerVisibilityChange {
 static gboolean internal_call = FALSE;
 
 static Change *
-undo_layer(Diagram *dia, Layer *layer, enum LayerChangeType, int index);
+undo_layer(Diagram *dia, DiaLayer *layer, enum LayerChangeType, int index);
 static struct LayerVisibilityChange *
-undo_layer_visibility(Diagram *dia, Layer *layer, gboolean exclusive);
+undo_layer_visibility(Diagram *dia, DiaLayer *layer, gboolean exclusive);
 static void
 layer_visibility_change_apply(struct LayerVisibilityChange *change,
 			      Diagram *dia);
 
-static GtkWidget* dia_layer_widget_new(Diagram *dia, Layer *layer);
-static void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer);
+static GtkWidget* dia_layer_widget_new(Diagram *dia, DiaLayer *layer);
+static void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, DiaLayer *layer);
 static void dia_layer_update_from_layer(DiaLayerWidget *widget);
 
 static void layer_dialog_new_callback(GtkWidget *widget, gpointer gdata);
@@ -157,7 +157,7 @@ static void layer_dialog_rename_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata);
-static void layer_dialog_edit_layer(DiaLayerWidget *layer_widget, Diagram *dia, Layer *layer);
+static void layer_dialog_edit_layer(DiaLayerWidget *layer_widget, Diagram *dia, DiaLayer *layer);
 
 static ButtonData buttons[] = {
   { GTK_STOCK_ADD, layer_dialog_new_callback, N_("New Layer") },
@@ -497,7 +497,7 @@ dia_layer_deselect_callback(GtkWidget *widget, gpointer data)
 static void
 layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
 {
-  Layer *layer;
+  DiaLayer *layer;
   Diagram *dia;
   GtkWidget *selected;
   GList *list = NULL;
@@ -532,6 +532,8 @@ layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
 
     undo_layer (dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
     undo_set_transactionpoint (dia->undo);
+
+    g_free (new_layer_name);
   }
 }
 
@@ -540,7 +542,7 @@ layer_dialog_rename_callback(GtkWidget *widget, gpointer gdata)
 {
   GtkWidget *selected;
   Diagram *dia;
-  Layer *layer;
+  DiaLayer *layer;
   dia = layer_dialog->diagram;
   selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
   layer = dia->data->active_layer;
@@ -552,7 +554,7 @@ layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata)
 {
   Diagram *dia;
   GtkWidget *selected;
-  Layer *layer;
+  DiaLayer *layer;
   int pos;
 
   dia = layer_dialog->diagram;
@@ -584,7 +586,7 @@ layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata)
 static void
 layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata)
 {
-  Layer *layer;
+  DiaLayer *layer;
   Diagram *dia;
   GtkWidget *selected;
   GList *list = NULL;
@@ -629,7 +631,7 @@ layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata)
 static void
 layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata)
 {
-  Layer *layer;
+  DiaLayer *layer;
   Diagram *dia;
   GtkWidget *selected;
   GList *list = NULL;
@@ -790,8 +792,8 @@ layer_dialog_set_diagram(Diagram *dia)
 {
   DiagramData *data;
   GtkWidget *layer_widget;
-  Layer *layer;
-  Layer *active_layer = NULL;
+  DiaLayer *layer;
+  DiaLayer *active_layer = NULL;
   int sel_pos;
   int i,j;
 
@@ -818,12 +820,13 @@ layer_dialog_set_diagram(Diagram *dia)
 
     sel_pos = 0;
     for (i=data->layers->len-1,j=0;i>=0;i--,j++) {
-      layer = (Layer *) g_ptr_array_index(data->layers, i);
+      layer = (DiaLayer *) g_ptr_array_index(data->layers, i);
       layer_widget = dia_layer_widget_new(dia, layer);
       gtk_widget_show(layer_widget);
       gtk_container_add(GTK_CONTAINER(layer_dialog->layer_list), layer_widget);
-      if (layer==active_layer)
-	sel_pos = j;
+      if (layer == active_layer) {
+        sel_pos = j;
+      }
     }
     gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), sel_pos);
   }
@@ -870,34 +873,34 @@ dia_layer_widget_set_connectable(DiaLayerWidget *widget, gboolean on)
 }
 
 static void
-dia_layer_widget_exclusive_connectable(DiaLayerWidget *layer_widget)
+dia_layer_widget_exclusive_connectable (DiaLayerWidget *layer_widget)
 {
   GList *list;
   DiaLayerWidget *lw;
-  Layer *layer;
+  DiaLayer *layer;
   int connectable = FALSE;
   int i;
 
   /*  First determine if _any_ other layer widgets are set to connectable  */
-  for (i=0;i<layer_widget->dia->data->layers->len;i++) {
-    layer = g_ptr_array_index(layer_widget->dia->data->layers, i);
+  for (i = 0; i < layer_widget->dia->data->layers->len; i++) {
+    layer = g_ptr_array_index (layer_widget->dia->data->layers, i);
     if (layer_widget->layer != layer) {
-	connectable |= layer->connectable;
+      connectable |= dia_layer_is_connectable (layer);
     }
   }
 
   /*  Now, toggle the connectability for all layers except the specified one  */
-  list = GTK_LIST(layer_dialog->layer_list)->children;
+  list = GTK_LIST (layer_dialog->layer_list)->children;
   while (list) {
-    lw = DIA_LAYER_WIDGET(list->data);
-    if (lw != layer_widget)
-      dia_layer_widget_set_connectable(lw, !connectable);
-    else {
-      dia_layer_widget_set_connectable(lw, TRUE);
+    lw = DIA_LAYER_WIDGET (list->data);
+    if (lw != layer_widget) {
+      dia_layer_widget_set_connectable (lw, !connectable);
+    } else {
+      dia_layer_widget_set_connectable (lw, TRUE);
     }
-    gtk_widget_queue_draw(GTK_WIDGET(lw));
+    gtk_widget_queue_draw (GTK_WIDGET (lw));
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 }
 
@@ -918,31 +921,36 @@ dia_layer_widget_button_event(GtkWidget *widget,
 }
 
 static void
-dia_layer_widget_connectable_toggled(GtkToggleButton *widget,
-				     gpointer userdata)
+dia_layer_widget_connectable_toggled (GtkToggleButton *widget,
+                                      gpointer         userdata)
 {
-  DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
+  DiaLayerWidget *lw = DIA_LAYER_WIDGET (userdata);
+
   if (!lw->layer)
     return;
+
   if (shifted) {
     shifted = FALSE;
     internal_call = TRUE;
-    dia_layer_widget_exclusive_connectable(lw);
+    dia_layer_widget_exclusive_connectable (lw);
     internal_call = FALSE;
   } else {
-    lw->layer->connectable = gtk_toggle_button_get_active(widget);
+    dia_layer_set_connectable (lw->layer,
+                               gtk_toggle_button_get_active (widget));
   }
   if (lw->layer == lw->dia->data->active_layer) {
-    lw->connect_off = !gtk_toggle_button_get_active(widget);
+    lw->connect_off = !gtk_toggle_button_get_active (widget);
     if (lw->connect_off) lw->connect_on = FALSE;
   } else {
-    lw->connect_on = gtk_toggle_button_get_active(widget);
+    lw->connect_on = gtk_toggle_button_get_active (widget);
     if (lw->connect_on) lw->connect_off = FALSE;
   }
-  gtk_widget_queue_draw(GTK_WIDGET(lw));
+
+  gtk_widget_queue_draw (GTK_WIDGET (lw));
+
   if (!internal_call) {
-    diagram_add_update_all(lw->dia);
-    diagram_flush(lw->dia);
+    diagram_add_update_all (lw->dia);
+    diagram_flush (lw->dia);
   }
 }
 
@@ -1052,27 +1060,27 @@ dia_layer_widget_get_type(void)
 }
 
 static GtkWidget *
-dia_layer_widget_new(Diagram *dia, Layer *layer)
+dia_layer_widget_new (Diagram *dia, DiaLayer *layer)
 {
   GtkWidget *widget;
 
-  widget = GTK_WIDGET ( gtk_type_new (dia_layer_widget_get_type ()));
-  dia_layer_set_layer(DIA_LAYER_WIDGET(widget), dia, layer);
+  widget = GTK_WIDGET (gtk_type_new (dia_layer_widget_get_type ()));
+  dia_layer_set_layer (DIA_LAYER_WIDGET (widget), dia, layer);
 
   /* These may get toggled when the button is set without the widget being
    * selected first.
    * The connect_on state gets also used to restore with just a deselect
    * of the active layer.
    */
-  DIA_LAYER_WIDGET(widget)->connect_on = layer->connectable;
-  DIA_LAYER_WIDGET(widget)->connect_off = FALSE;
+  DIA_LAYER_WIDGET (widget)->connect_on = dia_layer_is_connectable (layer);
+  DIA_LAYER_WIDGET (widget)->connect_off = FALSE;
 
   return widget;
 }
 
 /** Layer has either been selected or created */
 static void
-dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer)
+dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, DiaLayer *layer)
 {
   widget->dia = dia;
   widget->layer = layer;
@@ -1080,18 +1088,20 @@ dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, Layer *layer)
   dia_layer_update_from_layer(widget);
 }
 
+
 static void
 dia_layer_update_from_layer (DiaLayerWidget *widget)
 {
   internal_call = TRUE;
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget->visible),
-			       widget->layer->visible);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget->visible),
+                                dia_layer_is_visible (widget->layer));
 
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget->connectable),
-			       widget->layer->connectable);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget->connectable),
+                                dia_layer_is_connectable (widget->layer));
   internal_call = FALSE;
 
-  gtk_label_set_text (GTK_LABEL (widget->label), widget->layer->name);
+  gtk_label_set_text (GTK_LABEL (widget->label),
+                      dia_layer_get_name (widget->layer));
 }
 
 
@@ -1103,14 +1113,15 @@ static void
 edit_layer_ok_callback (GtkWidget *w, gpointer client_data)
 {
   EditLayerDialog *dialog = (EditLayerDialog *) client_data;
-  Layer *layer;
+  DiaLayer *layer;
 
   g_return_if_fail (dialog->layer_widget != NULL);
 
   layer = dialog->layer_widget->layer;
 
-  g_free (layer->name);
-  layer->name = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry)));
+  g_object_set (layer,
+                "name", gtk_entry_get_text (GTK_ENTRY (dialog->name_entry)),
+                NULL);
   /* reflect name change on listeners */
   dia_diagram_change (dialog->layer_widget->dia, DIAGRAM_CHANGE_LAYER, layer);
 
@@ -1129,10 +1140,10 @@ edit_layer_add_ok_callback (GtkWidget *w, gpointer client_data)
 {
   EditLayerDialog *dialog = (EditLayerDialog *) client_data;
   Diagram *dia = ddisplay_active_diagram ();
-  Layer *layer;
+  DiaLayer *layer;
   int pos = data_layer_get_index (dia->data, dia->data->active_layer) + 1;
 
-  layer = dia_layer_new (g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry))), dia->data);
+  layer = dia_layer_new (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry)), dia->data);
   data_add_layer_at (dia->data, layer, pos);
   data_set_active_layer (dia->data, layer);
 
@@ -1156,10 +1167,11 @@ edit_layer_rename_ok_callback (GtkWidget *w, gpointer client_data)
 {
   EditLayerDialog *dialog = (EditLayerDialog *) client_data;
   Diagram *dia = ddisplay_active_diagram();
-  Layer *layer = dia->data->active_layer;
+  DiaLayer *layer = dia->data->active_layer;
 
-  g_free (layer->name);
-  layer->name = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->name_entry)));
+  g_object_set (layer,
+                "name", gtk_entry_get_text (GTK_ENTRY (dialog->name_entry)),
+                NULL);
 
   diagram_add_update_all(dia);
   diagram_flush(dia);
@@ -1200,7 +1212,7 @@ edit_layer_delete_callback (GtkWidget *w,
 }
 
 static void
-layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *layer)
+layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, DiaLayer *layer)
 {
   EditLayerDialog *dialog;
   GtkWidget *vbox;
@@ -1242,9 +1254,9 @@ layer_dialog_edit_layer (DiaLayerWidget *layer_widget, Diagram *dia, Layer *laye
   gtk_entry_set_activates_default(GTK_ENTRY (dialog->name_entry), TRUE);
   gtk_box_pack_start (GTK_BOX (hbox), dialog->name_entry, TRUE, TRUE, 0);
   if (layer_widget)
-    gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), layer_widget->layer->name);
+    gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), dia_layer_get_name (layer_widget->layer));
   else if (layer)
-    gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), layer->name);
+    gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), dia_layer_get_name (layer));
   else if (dia) {
     gchar *name = g_strdup_printf (_("New layer %d"), dia->data->layers->len);
     gtk_entry_set_text (GTK_ENTRY (dialog->name_entry), name);
@@ -1366,7 +1378,7 @@ layer_change_free(struct LayerChange *change)
 }
 
 static Change *
-undo_layer(Diagram *dia, Layer *layer, enum LayerChangeType type, int index)
+undo_layer(Diagram *dia, DiaLayer *layer, enum LayerChangeType type, int index)
 {
   struct LayerChange *change;
 
@@ -1390,7 +1402,7 @@ layer_visibility_change_apply(struct LayerVisibilityChange *change,
 			      Diagram *dia)
 {
   GPtrArray *layers;
-  Layer *layer = change->layer;
+  DiaLayer *layer = change->layer;
   int visible = FALSE;
   int i;
 
@@ -1398,29 +1410,29 @@ layer_visibility_change_apply(struct LayerVisibilityChange *change,
     /*  First determine if _any_ other layer widgets are set to visible.
      *  If there is, exclusive switching turns all off.  */
     for (i=0;i<dia->data->layers->len;i++) {
-      Layer *temp_layer = g_ptr_array_index(dia->data->layers, i);
+      DiaLayer *temp_layer = g_ptr_array_index(dia->data->layers, i);
       if (temp_layer != layer) {
-	visible |= temp_layer->visible;
+        visible |= dia_layer_is_visible (temp_layer);
       }
     }
 
     /*  Now, toggle the visibility for all layers except the specified one  */
     layers = dia->data->layers;
     for (i = 0; i < layers->len; i++) {
-      Layer *temp_layer = (Layer *) g_ptr_array_index(layers, i);
+      DiaLayer *temp_layer = (DiaLayer *) g_ptr_array_index(layers, i);
       if (temp_layer == layer) {
-	temp_layer->visible = TRUE;
+        dia_layer_set_visible (temp_layer, TRUE);
       } else {
-	temp_layer->visible = !visible;
+        dia_layer_set_visible (temp_layer, !visible);
       }
     }
   } else {
-    layer->visible = !layer->visible;
+    dia_layer_set_visible (layer, !dia_layer_is_visible (layer));
   }
-  diagram_add_update_all(dia);
+  diagram_add_update_all (dia);
 
   if (layer_dialog->diagram == dia) {
-    layer_dialog_set_diagram(dia);
+    layer_dialog_set_diagram (dia);
   }
 }
 
@@ -1435,8 +1447,8 @@ layer_visibility_change_revert(struct LayerVisibilityChange *change,
   int i;
 
   for (i = 0; vis != NULL && i < layers->len; vis = g_list_next(vis), i++) {
-    Layer *layer = (Layer*) g_ptr_array_index(layers, i);
-    layer->visible = GPOINTER_TO_INT (vis->data);
+    DiaLayer *layer = DIA_LAYER (g_ptr_array_index (layers, i));
+    dia_layer_set_visible (layer, GPOINTER_TO_INT (vis->data));
   }
 
   if (vis != NULL || i < layers->len) {
@@ -1458,7 +1470,7 @@ layer_visibility_change_free(struct LayerVisibilityChange *change)
 }
 
 static struct LayerVisibilityChange *
-undo_layer_visibility(Diagram *dia, Layer *layer, gboolean exclusive)
+undo_layer_visibility(Diagram *dia, DiaLayer *layer, gboolean exclusive)
 {
   struct LayerVisibilityChange *change;
   GList *visibilities = NULL;
@@ -1472,8 +1484,8 @@ undo_layer_visibility(Diagram *dia, Layer *layer, gboolean exclusive)
   change->change.free = (UndoFreeFunc) layer_visibility_change_free;
 
   for (i = 0; i < layers->len; i++) {
-    Layer *temp_layer = (Layer *) g_ptr_array_index(layers, i);
-    visibilities = g_list_append(visibilities, GINT_TO_POINTER (temp_layer->visible));
+    DiaLayer *temp_layer = DIA_LAYER (g_ptr_array_index (layers, i));
+    visibilities = g_list_append (visibilities, GINT_TO_POINTER (dia_layer_is_visible (temp_layer)));
   }
 
   change->original_visibility = visibilities;
@@ -1488,7 +1500,7 @@ undo_layer_visibility(Diagram *dia, Layer *layer, gboolean exclusive)
  * \brief edit a layers name, possibly also creating the layer
  */
 void
-diagram_edit_layer(Diagram *dia, Layer *layer)
+diagram_edit_layer(Diagram *dia, DiaLayer *layer)
 {
   g_return_if_fail(dia != NULL);
 

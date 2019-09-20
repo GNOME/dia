@@ -58,6 +58,7 @@ NOT WORKING (exporting macros):
 #include "diagramdata.h"
 #include "dia_image.h"
 #include "filter.h"
+#include "font.h"
 
 #define POINTS_in_INCH 28.346
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE

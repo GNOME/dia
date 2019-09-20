@@ -56,8 +56,8 @@ GType diagram_data_get_type (void) G_GNUC_CONST;
 /*!
  * \brief Base class for diagrams. This gets passed to plug-ins to work on diagrams.
  *
- * Dia's diagram object is the container of _Layer, the managment object of _DiaObject selections
- * and text foci (_Focus) as well a highlithing state resulting from selections.
+ * Dia's diagram object is the container of #DiaLayer, the managment object of #DiaObject selections
+ * and text foci (#Focus) as well a highlithing state resulting from selections.
  *
  * \ingroup DiagramStructure
  */
@@ -73,7 +73,7 @@ struct _DiagramData {
 			     The user can override this in Save As... */
 
   GPtrArray *layers;     /*!< Layers ordered by decreasing z-order */
-  Layer *active_layer;   /*!< The active layer, Defensive programmers check for NULL */
+  DiaLayer *active_layer;   /*!< The active layer, Defensive programmers check for NULL */
 
   guint selected_count_private; /*!< kept for binary compatibility and sanity, don't use ! */
   GList *selected;        /*!< List of objects that are selected,
@@ -97,8 +97,8 @@ typedef struct _DiagramDataClass {
   GObjectClass parent_class;
 
   /* Signals */
-  void (* object_add)        (DiagramData*, Layer*, DiaObject*);
-  void (* object_remove)     (DiagramData*, Layer*, DiaObject*);
+  void (* object_add)        (DiagramData*, DiaLayer*, DiaObject*);
+  void (* object_remove)     (DiagramData*, DiaLayer*, DiaObject*);
   void (* selection_changed) (DiagramData*, int);
 
 } DiagramDataClass;
@@ -110,16 +110,16 @@ typedef enum {
   DIA_HIGHLIGHT_TEXT_EDIT
 } DiaHighlightType;
 
-void data_raise_layer(DiagramData *data, Layer *layer);
-void data_lower_layer(DiagramData *data, Layer *layer);
+void data_raise_layer(DiagramData *data, DiaLayer *layer);
+void data_lower_layer(DiagramData *data, DiaLayer *layer);
 
-void data_add_layer(DiagramData *data, Layer *layer);
-void data_add_layer_at(DiagramData *data, Layer *layer, int pos);
-void data_set_active_layer(DiagramData *data, Layer *layer);
-void data_remove_layer(DiagramData *data, Layer *layer);
-int  data_layer_get_index (const DiagramData *data, const Layer *layer);
+void data_add_layer(DiagramData *data, DiaLayer *layer);
+void data_add_layer_at(DiagramData *data, DiaLayer *layer, int pos);
+void data_set_active_layer(DiagramData *data, DiaLayer *layer);
+void data_remove_layer(DiagramData *data, DiaLayer *layer);
+int  data_layer_get_index (const DiagramData *data, const DiaLayer *layer);
 int data_layer_count(const DiagramData *data);
-Layer *data_layer_get_nth (const DiagramData *data, guint index);
+DiaLayer *data_layer_get_nth (const DiagramData *data, guint index);
 
 void data_highlight_add(DiagramData *data, DiaObject *obj, DiaHighlightType type);
 void data_highlight_remove(DiagramData *data, DiaObject *obj);
@@ -131,7 +131,7 @@ void data_remove_all_selected(DiagramData *data);
 gboolean data_update_extents(DiagramData *data); /* returns true if changed. */
 GList *data_get_sorted_selected(DiagramData *data);
 GList *data_get_sorted_selected_remove(DiagramData *data);
-void data_emit(DiagramData *data,Layer *layer,DiaObject* obj,const char *signal_name);
+void data_emit(DiagramData *data,DiaLayer *layer,DiaObject* obj,const char *signal_name);
 
 void data_foreach_object (DiagramData *data, GFunc func, gpointer user_data);
 

@@ -87,20 +87,21 @@ static void read_section_classes_dxf(FILE *filedxf, DxfData *data, DiagramData *
 static void read_section_tables_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static void read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static void read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
-static Layer *layer_find_by_name(char *layername, DiagramData *dia);
+static DiaLayer *layer_find_by_name(char *layername, DiagramData *dia);
 static LineStyle get_dia_linestyle_dxf(char *dxflinestyle);
 
 GHashTable *_color_by_layer_ht = NULL;
 
 static void
-_dxf_color_set_by_layer (const Layer *layer, int color_index)
+_dxf_color_set_by_layer (const DiaLayer *layer, int color_index)
 {
   if (!_color_by_layer_ht) /* lazy creation */
     _color_by_layer_ht = g_hash_table_new (g_direct_hash, g_direct_equal);
   g_hash_table_insert (_color_by_layer_ht, (void *)layer, GINT_TO_POINTER (color_index));
 }
+
 static int
-_dxf_color_get_by_layer (const Layer *layer)
+_dxf_color_get_by_layer (const DiaLayer *layer)
 {
   int color_index;
 
@@ -111,6 +112,7 @@ _dxf_color_get_by_layer (const Layer *layer)
     return color_index;
   return 0;
 }
+
 static void
 _color_init_from_rgb (Color *color, RGB_t rgb)
 {
@@ -122,24 +124,24 @@ _color_init_from_rgb (Color *color, RGB_t rgb)
 
 /* returns the layer with the given name */
 /* TODO: merge this with other layer code? */
-static Layer *
+static DiaLayer *
 layer_find_by_name(char *layername, DiagramData *dia)
 {
-    Layer *matching_layer, *layer;
-    guint i;
+  DiaLayer *matching_layer, *layer;
+  guint i;
 
-    matching_layer = NULL;
+  matching_layer = NULL;
 
-    for (i=0; i<dia->layers->len; i++) {
-        layer = (Layer *)g_ptr_array_index(dia->layers, i);
-        if(strcmp(layer->name, layername) == 0) {
-            matching_layer = layer;
-            break;
-        }
+  for (i=0; i<dia->layers->len; i++) {
+    layer = DIA_LAYER (g_ptr_array_index (dia->layers, i));
+    if (strcmp (dia_layer_get_name (layer), layername) == 0) {
+      matching_layer = layer;
+      break;
     }
+  }
 
   if (matching_layer == NULL) {
-    matching_layer = dia_layer_new (g_strdup (layername), dia);
+    matching_layer = dia_layer_new (layername, dia);
     data_add_layer (dia, matching_layer);
   }
 
@@ -165,12 +167,12 @@ get_dia_linestyle_dxf(char *dxflinestyle)
 
 /* reads a line entity from the dxf file and creates a line object in dia*/
 static DiaObject *
-read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+read_entity_line_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
 {
     /* line data */
     Point start, end;
 
-    DiaObjectType *otype = object_get_type("Standard - Line");
+    DiaObjectType *otype = object_get_type ("Standard - Line");
     Handle *h1, *h2;
 
     DiaObject *line_obj;
@@ -180,45 +182,46 @@ read_entity_line_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
     real line_width = DEFAULT_LINE_WIDTH;
     LineStyle style = LINESTYLE_SOLID;
-    Layer *layer = dia->active_layer;
+    DiaLayer *layer = dia->active_layer;
 
     end.x=0;
     end.y=0;
 
-    props = g_ptr_array_new();
+    props = g_ptr_array_new ();
 
     do {
-        if(read_dxf_codes(filedxf, data) == FALSE){
-            return( NULL );
-        }
-        switch(data->code){
-        case 6:	 style = get_dia_linestyle_dxf(data->value);
-            break;
-        case  8:
-	    layer = layer_find_by_name(data->value, dia);
-	    color = pal_get_rgb (_dxf_color_get_by_layer (layer));
-            break;
+      if (read_dxf_codes (filedxf, data) == FALSE){
+        return NULL;
+      }
+      switch(data->code){
+        case 6:
+          style = get_dia_linestyle_dxf (data->value);
+          break;
+        case 8:
+          layer = layer_find_by_name (data->value, dia);
+          color = pal_get_rgb (_dxf_color_get_by_layer (layer));
+          break;
         case 10:
-            start.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
+          start.x = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+          break;
         case 11:
-            end.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
+          end.x = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+          break;
         case 20:
-            start.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
+          start.y = (-1)*g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+          break;
         case 21:
-            end.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
+          end.y = (-1)*g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+          break;
         case 39:
-            line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
-	   /*printf( "line width %f\n", line_width ); */
-            break;
-	case 62 :
-            color = pal_get_rgb (atoi(data->value));
-            break;
-        }
-    } while(data->code != 0);
+          line_width = g_ascii_strtod (data->value, NULL) * WIDTH_SCALE;
+          /*printf( "line width %f\n", line_width ); */
+          break;
+        case 62 :
+          color = pal_get_rgb (atoi (data->value));
+          break;
+      }
+    } while (data->code != 0);
 
     _color_init_from_rgb (&line_colour, color);
     line_obj = otype->ops->create(&start, otype->default_user_data,
@@ -263,67 +266,67 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
    real line_width = 0.001;
    LineStyle style = LINESTYLE_SOLID;
-   Layer *layer = dia->active_layer;
+   DiaLayer *layer = dia->active_layer;
    RGB_t color  = { 127, 127, 127 };
 
 /*   printf( "Solid " ); */
 
    memset(p, 0, sizeof(p));
 
-    do {
-        if(read_dxf_codes(filedxf, data) == FALSE){
-            return( NULL );
-        }
-        switch(data->code){
-        case 6:
-	   style = get_dia_linestyle_dxf(data->value);
-	   break;
-        case  8:
-	   layer = layer_find_by_name(data->value, dia);
-	   color = pal_get_rgb (_dxf_color_get_by_layer (layer));
-	   /*printf( "layer: %s ", data->value );*/
-	   break;
-        case 10:
-	   p[0].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*printf( "P0.x: %f ", p[0].x );*/
-	   break;
-        case 11:
-            p[1].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*printf( "P1.x: %f ", p[1].x );*/
-            break;
-        case 12: /* bot only swapped, but special for only 3 points given */
-            p[2].x = p[3].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*printf( "P2.x: %f ", p[2].x );*/
-            break;
-        case 13: /* SOLID order swapped compared to Dia's */
-            p[2].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*printf( "P3.x: %f ", p[3].x );*/
-            break;
-        case 20:
-            p[0].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*printf( "P0.y: %f ", p[0].y );*/
-            break;
-        case 21:
-            p[1].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*printf( "P1.y: %f ", p[1].y );*/
-            break;
-        case 22:
-            p[2].y = p[3].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*printf( "P2.y: %f ", p[2].y );*/
-            break;
-        case 23:
-            p[2].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*printf( "P3.y: %f\n", p[3].y );*/
-            break;
-        case 39:
-            line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
-	   /*printf( "width %f\n", line_width );*/
-            break;
-        case 62:
-            color = pal_get_rgb (atoi(data->value));
-            break;
-        }
-    } while(data->code != 0);
+  do {
+    if (read_dxf_codes (filedxf, data) == FALSE) {
+      return NULL;
+    }
+    switch(data->code){
+      case 6:
+        style = get_dia_linestyle_dxf (data->value);
+        break;
+      case  8:
+        layer = layer_find_by_name (data->value, dia);
+        color = pal_get_rgb (_dxf_color_get_by_layer (layer));
+        /*printf( "layer: %s ", data->value );*/
+        break;
+      case 10:
+        p[0].x = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*printf( "P0.x: %f ", p[0].x );*/
+        break;
+      case 11:
+        p[1].x = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*printf( "P1.x: %f ", p[1].x );*/
+        break;
+      case 12: /* bot only swapped, but special for only 3 points given */
+        p[2].x = p[3].x = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*printf( "P2.x: %f ", p[2].x );*/
+        break;
+      case 13: /* SOLID order swapped compared to Dia's */
+        p[2].x = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*printf( "P3.x: %f ", p[3].x );*/
+        break;
+      case 20:
+        p[0].y = (-1)*g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*printf( "P0.y: %f ", p[0].y );*/
+        break;
+      case 21:
+        p[1].y = (-1)*g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*printf( "P1.y: %f ", p[1].y );*/
+        break;
+      case 22:
+        p[2].y = p[3].y = (-1)*g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*printf( "P2.y: %f ", p[2].y );*/
+        break;
+      case 23:
+        p[2].y = (-1)*g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*printf( "P3.y: %f\n", p[3].y );*/
+        break;
+      case 39:
+        line_width = g_ascii_strtod (data->value, NULL) * WIDTH_SCALE;
+        /*printf( "width %f\n", line_width );*/
+        break;
+      case 62:
+        color = pal_get_rgb (atoi (data->value));
+        break;
+    }
+  } while(data->code != 0);
 
    pcd = g_new( MultipointCreateData, 1);
 
@@ -397,7 +400,7 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     real line_width = DEFAULT_LINE_WIDTH;
     real radius, start_angle = 0;
     LineStyle style = LINESTYLE_SOLID;
-    Layer *layer = dia->active_layer;
+    DiaLayer *layer = dia->active_layer;
     RGB_t color = { 0, };
     unsigned char closed = 0;
     int points = 0;
@@ -600,7 +603,7 @@ read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     GPtrArray *props;
 
     real line_width = DEFAULT_LINE_WIDTH;
-    Layer *layer = dia->active_layer;
+    DiaLayer *layer = dia->active_layer;
 
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
@@ -676,7 +679,7 @@ read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     GPtrArray *props;
 
     real line_width = DEFAULT_LINE_WIDTH;
-    Layer *layer = dia->active_layer;
+    DiaLayer *layer = dia->active_layer;
 
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
@@ -766,7 +769,7 @@ read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     GPtrArray *props;
 
     real line_width = DEFAULT_LINE_WIDTH;
-    Layer *layer = dia->active_layer;
+    DiaLayer *layer = dia->active_layer;
 
     do {
         if(read_dxf_codes(filedxf, data) == FALSE){
@@ -850,7 +853,7 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     TextProperty *tprop;
     GPtrArray *props;
 
-    Layer *layer = dia->active_layer;
+    DiaLayer *layer = dia->active_layer;
 
     do {
         if (read_dxf_codes(filedxf, data) == FALSE) {
@@ -980,27 +983,28 @@ read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
 /* reads the layer table from the dxf file and creates the layers */
 static void
-read_table_layer_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+read_table_layer_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-     Layer *layer = NULL;
-     int color_index;
+  DiaLayer *layer = NULL;
+  int color_index;
 
-     do {
-	if (read_dxf_codes(filedxf, data) == FALSE)
-	    return;
-	switch (data->code) {
-	case 2 : /* layer name */
-	    layer = layer_find_by_name( data->value, dia );
-	    break;
-	case 62 : /* Color number, if negative layer is off */
-	    color_index = atoi(data->value);
-	    if (layer && color_index < 0)
-		layer->visible = FALSE;
-	    else
-	        _dxf_color_set_by_layer (layer, color_index);
-	    break;
-	}
-     } while ((data->code != 0) || (strcmp(data->value, "ENDTAB") != 0));
+  do {
+    if (read_dxf_codes (filedxf, data) == FALSE)
+      return;
+
+    switch (data->code) {
+      case 2 : /* layer name */
+        layer = layer_find_by_name( data->value, dia );
+        break;
+      case 62 : /* Color number, if negative layer is off */
+        color_index = atoi(data->value);
+        if (layer && color_index < 0)
+          dia_layer_set_visible (layer, FALSE);
+        else
+          _dxf_color_set_by_layer (layer, color_index);
+        break;
+    }
+  } while ((data->code != 0) || (strcmp (data->value, "ENDTAB") != 0));
 }
 
 /* reads a scale entity from the dxf file */
@@ -1199,7 +1203,7 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     int group_items = 0, group = 0;
     GList *group_list = NULL;
     DiaObject *obj = NULL;
-    Layer *group_layer = NULL;
+    DiaLayer *group_layer = NULL;
 
     if (read_dxf_codes(filedxf, data) == FALSE){
         return;

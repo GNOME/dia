@@ -2678,7 +2678,7 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
     GSList *object;
     struct vdx_LayerMem *LayerMem = NULL;
     unsigned int dia_layer_num = 0;
-    Layer *diaLayer = NULL;
+    DiaLayer *diaLayer = NULL;
     char *name = NULL;
 
     if (theDoc->PageLayers)
@@ -2734,27 +2734,26 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
                                           layer_num);
         if (theDoc->debug_comments)
             g_debug("Layer %d -> %d", layer_num, dia_layer_num);
-    }
-    else
-    {
-        if (theDoc->debug_comments)
-            g_debug("Layer %d", dia_layer_num);
-    }
-    diaLayer = (Layer *)g_ptr_array_index(dia->layers, dia_layer_num);
+  } else {
+      if (theDoc->debug_comments)
+          g_debug("Layer %d", dia_layer_num);
+  }
+  diaLayer = DIA_LAYER (g_ptr_array_index (dia->layers, dia_layer_num));
 
-    /* Draw the shape (or group) and get list of created objects */
-    objects = vdx_plot_shape(&theShape, objects, 0, theDoc, ctx);
+  /* Draw the shape (or group) and get list of created objects */
+  objects = vdx_plot_shape (&theShape, objects, 0, theDoc, ctx);
 
-    /* Add the objects straight into the diagram */
-    /* This isn't strictly correct as a child object can be on a
-       different layer from its parent. */
-    for (object = objects; object; object = object->next) {
-      if (!object->data) continue;
-      dia_layer_add_object (diaLayer, (DiaObject *)object->data);
-    }
+  /* Add the objects straight into the diagram */
+  /* This isn't strictly correct as a child object can be on a
+      different layer from its parent. */
+  for (object = objects; object; object = object->next) {
+    if (!object->data) continue;
 
-    free_children(&theShape);
-    g_slist_free(objects);
+    dia_layer_add_object (diaLayer, DIA_OBJECT (object->data));
+  }
+
+  free_children (&theShape);
+  g_slist_free (objects);
 }
 
 /** Parse the pages of the VDX
@@ -2773,7 +2772,7 @@ vdx_setup_layers(struct vdx_PageSheet* PageSheet, VDXDocument* theDoc,
     GSList *layername = NULL;
     struct vdx_any* Any;
     struct vdx_Layer *theLayer;
-    Layer *diaLayer = 0;
+    DiaLayer *diaLayer = 0;
     unsigned int found_layer, page_layer;
     gboolean found;
 
@@ -2824,8 +2823,8 @@ vdx_setup_layers(struct vdx_PageSheet* PageSheet, VDXDocument* theDoc,
         if (!found)
         {
             g_array_append_val(theDoc->LayerNames, layername->data);
-            diaLayer = dia_layer_new (g_strdup ((char*)layername->data), dia);
-            data_add_layer(dia, diaLayer);
+            diaLayer = dia_layer_new (((char*) layername->data), dia);
+            data_add_layer (dia, diaLayer);
         }
         page_layer++;
         g_array_prepend_val(theDoc->PageLayers, page_layer);

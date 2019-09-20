@@ -101,9 +101,9 @@ GType svg_renderer_get_type (void) G_GNUC_CONST;
 static DiaSvgRenderer *new_svg_renderer(DiagramData *data, const char *filename);
 
 static void draw_layer (DiaRenderer *self,
-			Layer       *layer,
-			gboolean     active,
-			Rectangle   *update);
+                        DiaLayer    *layer,
+                        gboolean     active,
+                        Rectangle   *update);
 static void draw_object       (DiaRenderer *renderer,
                                DiaObject   *object,
 			       DiaMatrix   *matrix);
@@ -297,9 +297,9 @@ new_svg_renderer(DiagramData *data, const char *filename)
  */
 static void
 draw_layer (DiaRenderer *self,
-	    Layer       *layer,
-	    gboolean     active,
-	    Rectangle   *update)
+            DiaLayer    *layer,
+            gboolean     active,
+            Rectangle   *update)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   SvgRenderer *svg_renderer = SVG_RENDERER (self);
@@ -310,8 +310,11 @@ draw_layer (DiaRenderer *self,
   /* modifying the root pointer so everything below us gets into the new node */
   renderer->root = layer_group = xmlNewNode (renderer->svg_name_space, (const xmlChar *)"g");
 
-  if (layer->name)
-    xmlSetProp(renderer->root, (const xmlChar *)"id", (xmlChar *) layer->name);
+  if (dia_layer_get_name (layer)) {
+    xmlSetProp (renderer->root,
+                (const xmlChar *) "id",
+                (xmlChar *) dia_layer_get_name (layer));
+  }
 
   DIA_RENDERER_CLASS (parent_class)->draw_layer (self, layer, active, update);
 

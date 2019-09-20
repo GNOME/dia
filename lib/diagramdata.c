@@ -87,12 +87,16 @@ diagram_data_get_type(void)
 
 /* signal default handlers */
 static void
-_diagram_data_object_add (DiagramData* dia,Layer* layer,DiaObject* obj)
+_diagram_data_object_add (DiagramData *dia,
+                          DiaLayer    *layer,
+                          DiaObject   *obj)
 {
 }
 
 static void
-_diagram_data_object_remove (DiagramData* dia,Layer* layer,DiaObject* obj)
+_diagram_data_object_remove (DiagramData *dia,
+                             DiaLayer    *layer,
+                             DiaObject   *obj)
 {
 }
 
@@ -109,7 +113,7 @@ diagram_data_init(DiagramData *data)
 {
   Color* color = persistence_register_color ("new_diagram_bgcolour", &color_white);
   gboolean compress = persistence_register_boolean ("compress_save", TRUE);
-  Layer *first_layer;
+  DiaLayer *first_layer;
 
   data->extents.left = 0.0;
   data->extents.right = 10.0;
@@ -120,7 +124,7 @@ diagram_data_init(DiagramData *data)
 
   get_paper_info (&data->paper, -1, NULL);
 
-  first_layer = dia_layer_new (g_strdup (_("Background")), data);
+  first_layer = dia_layer_new (_("Background"), data);
 
   data->layers = g_ptr_array_new ();
   g_ptr_array_add (data->layers, first_layer);
@@ -192,15 +196,11 @@ diagram_data_clone (DiagramData *data)
   g_ptr_array_remove (clone->layers, clone->active_layer);
 
   for (i=0; i < data->layers->len; ++i) {
-    Layer *src_layer = g_ptr_array_index(data->layers, i);
-    Layer *dest_layer = dia_layer_new (dia_layer_get_name (src_layer), clone);
+    DiaLayer *src_layer = g_ptr_array_index (data->layers, i);
+    DiaLayer *dest_layer = dia_layer_new_from_layer (src_layer);
 
-    /* copy layer, init the active one */
-    dest_layer->extents = src_layer->extents;
-    dest_layer->objects = object_copy_list (src_layer->objects);
-    dest_layer->visible = src_layer->visible;
-    dest_layer->connectable = src_layer->connectable;
     g_ptr_array_add (clone->layers, dest_layer);
+
     if (src_layer == data->active_layer)
       clone->active_layer = dest_layer;
 
@@ -218,7 +218,7 @@ DiagramData *
 diagram_data_clone_selected (DiagramData *data)
 {
   DiagramData *clone;
-  Layer *dest_layer;
+  DiaLayer *dest_layer;
   GList *sorted;
 
   clone = g_object_new (DIA_TYPE_DIAGRAM_DATA, NULL);
@@ -230,15 +230,17 @@ diagram_data_clone_selected (DiagramData *data)
   clone->is_compressed = data->is_compressed;
 
   /* the selection - if any - can only be on the active layer */
-  dest_layer = g_ptr_array_index(clone->layers, 0);
-  g_free (dest_layer->name);
-  dest_layer->name = dia_layer_get_name (data->active_layer);
+  dest_layer = g_ptr_array_index (clone->layers, 0);
+
+  g_object_set (dest_layer,
+                "name", dia_layer_get_name (data->active_layer),
+                "connectable", dia_layer_is_connectable (data->active_layer),
+                "visible", dia_layer_is_visible (data->active_layer),
+                NULL);
 
   sorted = data_get_sorted_selected (data);
-  dest_layer->objects = object_copy_list (sorted);
+  dia_layer_set_object_list (dest_layer, object_copy_list (sorted));
   g_list_free (sorted);
-  dest_layer->visible = data->active_layer->visible;
-  dest_layer->connectable = data->active_layer->connectable;
 
   data_update_extents (clone);
 
@@ -302,11 +304,11 @@ diagram_data_class_init(DiagramDataClass *klass)
  * \memberof _DiagramData
  */
 void
-data_raise_layer(DiagramData *data, Layer *layer)
+data_raise_layer (DiagramData *data, DiaLayer *layer)
 {
   guint i;
   guint layer_nr = 0;
-  Layer *tmp;
+  DiaLayer *tmp;
 
   for (i=0;i<data->layers->len;i++) {
     if (g_ptr_array_index(data->layers, i)==layer)
@@ -328,11 +330,11 @@ data_raise_layer(DiagramData *data, Layer *layer)
  * \memberof _DiagramData
  */
 void
-data_lower_layer(DiagramData *data, Layer *layer)
+data_lower_layer(DiagramData *data, DiaLayer *layer)
 {
   guint i;
   int layer_nr = -1;
-  Layer *tmp;
+  DiaLayer *tmp;
 
   for (i=0;i<data->layers->len;i++) {
     if (g_ptr_array_index(data->layers, i)==layer)
@@ -349,34 +351,35 @@ data_lower_layer(DiagramData *data, Layer *layer)
   }
 }
 
-/*!
- * \brief Add a layer object to a diagram.
- * @param data The diagram to add the layer to.
- * @param layer The layer to add.
- * \memberof _DiagramData
+/**
+ * data_add_layer:
+ * @data: The diagram to add the layer to.
+ * @layer: The layer to add.
+ *
+ * Add a layer object to a diagram.
  */
 void
-data_add_layer (DiagramData *data, Layer *layer)
+data_add_layer (DiagramData *data, DiaLayer *layer)
 {
   g_ptr_array_add (data->layers, layer);
-  layer->parent_diagram = data;
+  dia_layer_set_parent_diagram (layer, data);
   data_emit (data, layer, NULL, "object_add");
   dia_layer_update_extents (layer);
   data_update_extents (data);
 }
 
-/*!
- * \brief Add a layer at a defined postion in the stack
+/**
+ * data_add_layer_at:
+ * @data: the diagram
+ * @layer: layer to add
+ * @pos: the position in the layer stack
+ *
+ * Add a layer at a defined postion in the stack
  *
  * If the given pos is out of range the layer is added at the top of the stack.
- *
- * @param data the diagram
- * @param layer layer to add
- * @param pos the position in the layer stack
- * \memberof _DiagramData
  */
 void
-data_add_layer_at(DiagramData *data, Layer *layer, int pos)
+data_add_layer_at (DiagramData *data, DiaLayer *layer, int pos)
 {
   int len;
   int i;
@@ -391,10 +394,10 @@ data_add_layer_at(DiagramData *data, Layer *layer, int pos)
     g_ptr_array_index(data->layers, pos) = layer;
   }
 
-  layer->parent_diagram = data;
+  dia_layer_set_parent_diagram (layer, data);
   data_emit (data, layer, NULL, "object_add");
-  dia_layer_update_extents(layer);
-  data_update_extents(data);
+  dia_layer_update_extents (layer);
+  data_update_extents (data);
 }
 
 /*!
@@ -407,7 +410,7 @@ data_add_layer_at(DiagramData *data, Layer *layer, int pos)
  * \memberof _DiagramData
  */
 int
-data_layer_get_index (const DiagramData *data, const Layer *layer)
+data_layer_get_index (const DiagramData *data, const DiaLayer *layer)
 {
   int len;
   int i;
@@ -419,6 +422,7 @@ data_layer_get_index (const DiagramData *data, const Layer *layer)
   }
   return -1;
 }
+
 /*!
  * \brief Get the layer at position index
  *
@@ -428,53 +432,55 @@ data_layer_get_index (const DiagramData *data, const Layer *layer)
  *
  * \memberof _DiagramData
  */
-Layer *
+DiaLayer *
 data_layer_get_nth (const DiagramData *data, guint index)
 {
   if (data->layers->len > index)
     return g_ptr_array_index(data->layers, index);
   return NULL;
 }
+
 int
 data_layer_count(const DiagramData *data)
 {
   return data->layers->len;
 }
 
-/*!
- * \brief Set which layer is the active layer in a diagram.
- * @param data The diagram in which to set the active layer.
- * @param layer The layer that should be active.
+/**
+ * data_set_active_layer:
+ * @data: The diagram in which to set the active layer.
+ * @layer: The layer that should be active.
  *
- * \memberof _DiagramData
+ * Set which layer is the active layer in a diagram.
  */
 void
-data_set_active_layer(DiagramData *data, Layer *layer)
+data_set_active_layer (DiagramData *data, DiaLayer *layer)
 {
   data->active_layer = layer;
 }
 
-/*!
- * \brief Remove a layer from a diagram.
- * @param data The diagram to remove the layer from.
- * @param layer The layer to remove.
- * \memberof _DiagramData
+/**
+ * data_remove_layer:
+ * @data: The diagram to remove the layer from.
+ * @layer: The layer to remove.
+ *
+ * Remove a layer from a diagram.
  */
 void
-data_remove_layer(DiagramData *data, Layer *layer)
+data_remove_layer (DiagramData *data, DiaLayer *layer)
 {
   if (data->layers->len<=1)
     return;
 
   if (data->active_layer == layer) {
-    data_remove_all_selected(data);
+    data_remove_all_selected (data);
   }
   data_emit (data, layer, NULL, "object_remove");
-  layer->parent_diagram = NULL;
-  g_ptr_array_remove(data->layers, layer);
+  dia_layer_set_parent_diagram (layer, NULL);
+  g_ptr_array_remove (data->layers, layer);
 
   if (data->active_layer == layer) {
-    data->active_layer = g_ptr_array_index(data->layers, 0);
+    data->active_layer = g_ptr_array_index (data->layers, 0);
   }
 }
 
@@ -585,12 +591,15 @@ data_remove_all_selected(DiagramData *data)
  * \protected \memberof _DiagramData
  */
 static gboolean
-data_has_visible_layers(DiagramData *data)
+data_has_visible_layers (DiagramData *data)
 {
   guint i;
   for (i = 0; i < data->layers->len; i++) {
-    Layer *layer = g_ptr_array_index(data->layers, i);
-    if (layer->visible) return TRUE;
+    DiaLayer *layer = g_ptr_array_index (data->layers, i);
+
+    if (dia_layer_is_visible (layer)) {
+      return TRUE;
+    }
   }
   return FALSE;
 }
@@ -601,24 +610,31 @@ data_has_visible_layers(DiagramData *data)
  * \protected \memberof _DiagramData
  */
 static void
-data_get_layers_extents_union(DiagramData *data)
+data_get_layers_extents_union (DiagramData *data)
 {
   guint i;
   gboolean first = TRUE;
   Rectangle new_extents;
 
-  for ( i = 0 ; i<data->layers->len; i++) {
-    Layer *layer = g_ptr_array_index(data->layers, i);
-    if (!layer->visible) continue;
+  for ( i = 0; i < data->layers->len; i++) {
+    DiaLayer *layer = g_ptr_array_index (data->layers, i);
+
+    if (!dia_layer_is_visible (layer)) {
+      continue;
+    }
 
     dia_layer_update_extents (layer);
 
     if (first) {
-      new_extents = layer->extents;
-      first = rectangle_equals(&new_extents,&invalid_extents);
+      dia_layer_get_extents (layer, &new_extents);
+      first = rectangle_equals (&new_extents, &invalid_extents);
     } else {
-      if (!rectangle_equals(&layer->extents,&invalid_extents)) {
-        rectangle_union(&new_extents, &layer->extents);
+      Rectangle extents;
+
+      dia_layer_get_extents (layer, &extents);
+
+      if (!rectangle_equals (&extents, &invalid_extents)) {
+        rectangle_union (&new_extents, &extents);
       }
     }
   }
@@ -660,10 +676,11 @@ data_compute_extents (DiagramData *data)
 
   if (!data_has_visible_layers (data)) {
     if (data->layers->len > 0) {
-      Layer *layer = g_ptr_array_index (data->layers, 0);
+      DiaLayer *layer = g_ptr_array_index (data->layers, 0);
+
       dia_layer_update_extents (layer);
 
-      data->extents = layer->extents;
+      dia_layer_get_extents (layer, &data->extents);
     } else {
       data->extents = invalid_extents;
     }
@@ -706,7 +723,7 @@ data_update_extents(DiagramData *data)
  * \memberof _DiagramData
  */
 GList *
-data_get_sorted_selected(DiagramData *data)
+data_get_sorted_selected (DiagramData *data)
 {
   GList *list;
   GList *sorted_list;
@@ -718,14 +735,14 @@ data_get_sorted_selected(DiagramData *data)
     return NULL;
 
   sorted_list = NULL;
-  list = g_list_last(data->active_layer->objects);
+  list = g_list_last (dia_layer_get_object_list (data->active_layer));
   while (list != NULL) {
-    found = g_list_find(data->selected, list->data);
+    found = g_list_find (data->selected, list->data);
     if (found) {
-      obj = (DiaObject *)found->data;
-      sorted_list = g_list_prepend(sorted_list, obj);
+      obj = (DiaObject *) found->data;
+      sorted_list = g_list_prepend (sorted_list, obj);
     }
-    list = g_list_previous(list);
+    list = g_list_previous (list);
   }
 
   return sorted_list;
@@ -742,9 +759,9 @@ data_get_sorted_selected(DiagramData *data)
  * \memberof _DiagramData
  */
 GList *
-data_get_sorted_selected_remove(DiagramData *data)
+data_get_sorted_selected_remove (DiagramData *data)
 {
-  GList *list,*tmp;
+  GList *list;
   GList *sorted_list;
   GList *found;
   DiaObject *obj;
@@ -754,19 +771,18 @@ data_get_sorted_selected_remove(DiagramData *data)
     return NULL;
 
   sorted_list = NULL;
-  list = g_list_last(data->active_layer->objects);
+  list = g_list_last (dia_layer_get_object_list (data->active_layer));
   while (list != NULL) {
-    found = g_list_find(data->selected, list->data);
+    found = g_list_find (data->selected, list->data);
     if (found) {
-      obj = (DiaObject *)found->data;
-      sorted_list = g_list_prepend(sorted_list, obj);
+      obj = (DiaObject *) found->data;
+      sorted_list = g_list_prepend (sorted_list, obj);
 
-      tmp = list;
-      list = g_list_previous(list);
-      data->active_layer->objects =
-	g_list_remove_link(data->active_layer->objects, tmp);
+      list = g_list_previous (list);
+
+      dia_layer_remove_object (data->active_layer, obj);
     } else {
-      list = g_list_previous(list);
+      list = g_list_previous (list);
     }
   }
 
@@ -783,7 +799,9 @@ data_get_sorted_selected_remove(DiagramData *data)
  * \memberof _DiagramData
  */
 void
-data_emit(DiagramData *data, Layer *layer, DiaObject* obj,
+data_emit (DiagramData *data,
+           DiaLayer    *layer,
+           DiaObject   *obj,
 	  const char *signal_name)
 {
   /* check what signal it is */
@@ -812,7 +830,7 @@ data_render (DiagramData    *data,
              ObjectRenderer  obj_renderer,
              gpointer        gdata)
 {
-  Layer *layer;
+  DiaLayer *layer;
   guint i, active_layer;
 
   if (!DIA_IS_INTERACTIVE_RENDERER (renderer)) {
@@ -820,9 +838,9 @@ data_render (DiagramData    *data,
   }
 
   for (i = 0; i < data->layers->len; i++) {
-    layer = (Layer *) g_ptr_array_index (data->layers, i);
+    layer = (DiaLayer *) g_ptr_array_index (data->layers, i);
     active_layer = (layer == data->active_layer);
-    if (layer->visible) {
+    if (dia_layer_is_visible (layer)) {
       if (obj_renderer) {
         dia_layer_render (layer, renderer, update, obj_renderer, gdata, active_layer);
       } else {
@@ -870,11 +888,12 @@ data_render_paginated (DiagramData *data, DiaRenderer *renderer, gpointer user_d
     /* ensure we are not producing pages for epsilon */
     if ((extents->bottom - y) < 1e-6)
       break;
+
     for (x = initx, xpos = 0; x < extents->right; x += width, xpos++) {
       Rectangle page_bounds;
 
       if ((extents->right - x) < 1e-6)
-	break;
+        break;
 
       page_bounds.left = x;
       page_bounds.right = x + width;
@@ -896,10 +915,10 @@ data_render_paginated (DiagramData *data, DiaRenderer *renderer, gpointer user_d
 void
 data_foreach_object (DiagramData *data, GFunc func, gpointer user_data)
 {
-  Layer *layer;
+  DiaLayer *layer;
   guint i;
   for (i=0; i<data->layers->len; i++) {
-    layer = (Layer *) g_ptr_array_index(data->layers, i);
-    g_list_foreach (layer->objects, func, user_data);
+    layer = (DiaLayer *) g_ptr_array_index (data->layers, i);
+    g_list_foreach (dia_layer_get_object_list (layer), func, user_data);
   }
 }

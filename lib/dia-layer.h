@@ -22,86 +22,83 @@
 
 #include <glib.h>
 
+#include "diatypes.h"
+
 #pragma once
 
 G_BEGIN_DECLS
 
-/*!
- * \brief A diagram consists of layers holding objects
- *
- * \ingroup DiagramStructure
- * \todo : make this a GObject as well
- */
-struct _Layer {
-  char *name;             /*!< The name of the layer */
-  Rectangle extents;      /*!< The extents of the layer */
+#define DIA_TYPE_LAYER dia_layer_get_type()
+G_DECLARE_DERIVABLE_TYPE (DiaLayer, dia_layer, DIA, LAYER, GObject)
 
-  GList *objects;         /*!< List of objects in the layer,
-			     sorted by decreasing z-value,
-			     objects can ONLY be connected to objects
-			     in the same layer! */
-
-  gboolean visible;       /*!< The visibility of the layer */
-  gboolean connectable;   /*!< Whether the layer can currently be connected to.
-			     The selected layer is by default connectable */
-
-  DiagramData *parent_diagram; /*!< Back-pointer to the diagram.  This
-				  must only be set by functions internal
-				  to the diagram, and accessed via
-				  layer_get_parent_diagram() */
+struct _DiaLayerClass
+{
+  GObjectClass parent_class;
 };
 
-Layer       *dia_layer_new                                 (char             *name,
+DiaLayer    *dia_layer_new                                 (const char       *name,
                                                             DiagramData      *parent);
-void         dia_layer_destroy                             (Layer            *layer);
-void         dia_layer_render                              (Layer            *layer,
+DiaLayer    *dia_layer_new_from_layer                      (DiaLayer         *old);
+void         dia_layer_destroy                             (DiaLayer         *layer);
+void         dia_layer_render                              (DiaLayer         *layer,
                                                             DiaRenderer      *renderer,
                                                             Rectangle        *update,
                                                             ObjectRenderer    obj_renderer /* Can be NULL */,
                                                             gpointer          data,
                                                             int               active_layer);
-int          dia_layer_object_get_index                    (Layer            *layer,
+int          dia_layer_object_get_index                    (DiaLayer         *layer,
                                                             DiaObject        *obj);
-DiaObject   *dia_layer_object_get_nth                      (Layer            *layer,
+DiaObject   *dia_layer_object_get_nth                      (DiaLayer         *layer,
                                                             guint             index);
-int          dia_layer_object_count                        (Layer            *layer);
-gchar       *dia_layer_get_name                            (Layer            *layer);
-void         dia_layer_add_object                          (Layer            *layer,
+int          dia_layer_object_count                        (DiaLayer         *layer);
+const char  *dia_layer_get_name                            (DiaLayer         *layer);
+void         dia_layer_add_object                          (DiaLayer         *layer,
                                                             DiaObject        *obj);
-void         dia_layer_add_object_at                       (Layer            *layer,
+void         dia_layer_add_object_at                       (DiaLayer         *layer,
                                                             DiaObject        *obj,
                                                             int               pos);
-void         dia_layer_add_objects                         (Layer            *layer,
+void         dia_layer_add_objects                         (DiaLayer         *layer,
                                                             GList            *obj_list);
-void         dia_layer_add_objects_first                   (Layer            *layer,
+void         dia_layer_add_objects_first                   (DiaLayer         *layer,
                                                             GList            *obj_list);
-void         dia_layer_remove_object                       (Layer            *layer,
+void         dia_layer_remove_object                       (DiaLayer         *layer,
                                                             DiaObject        *obj);
-void         dia_layer_remove_objects                      (Layer            *layer,
+void         dia_layer_remove_objects                      (DiaLayer         *layer,
                                                             GList            *obj_list);
-GList       *dia_layer_find_objects_intersecting_rectangle (Layer            *layer,
+GList       *dia_layer_find_objects_intersecting_rectangle (DiaLayer         *layer,
                                                             Rectangle        *rect);
-GList       *dia_layer_find_objects_in_rectangle           (Layer            *layer,
+GList       *dia_layer_find_objects_in_rectangle           (DiaLayer         *layer,
                                                             Rectangle        *rect);
-GList       *dia_layer_find_objects_containing_rectangle   (Layer            *layer,
+GList       *dia_layer_find_objects_containing_rectangle   (DiaLayer         *layer,
                                                             Rectangle        *rect);
-DiaObject   *dia_layer_find_closest_object                 (Layer            *layer,
+DiaObject   *dia_layer_find_closest_object                 (DiaLayer         *layer,
                                                             Point            *pos,
                                                             real              maxdist);
-DiaObject   *dia_layer_find_closest_object_except          (Layer            *layer,
+DiaObject   *dia_layer_find_closest_object_except          (DiaLayer         *layer,
                                                             Point            *pos,
                                                             real              maxdist,
                                                             GList            *avoid);
-real         dia_layer_find_closest_connectionpoint        (Layer            *layer,
+real         dia_layer_find_closest_connectionpoint        (DiaLayer         *layer,
                                                             ConnectionPoint **closest,
                                                             Point            *pos,
                                                             DiaObject        *notthis);
-int          dia_layer_update_extents                      (Layer            *layer); /* returns true if changed. */
-void         dia_layer_replace_object_with_list            (Layer            *layer,
-                                                            DiaObject        *obj,
+int          dia_layer_update_extents                      (DiaLayer         *layer); /* returns true if changed. */
+void         dia_layer_replace_object_with_list            (DiaLayer         *layer,
+                                                            DiaObject        *remove_obj,
+                                                            GList            *insert_list);
+void         dia_layer_set_object_list                     (DiaLayer         *layer,
                                                             GList            *list);
-void         dia_layer_set_object_list                     (Layer            *layer,
-                                                            GList            *list);
-DiagramData *dia_layer_get_parent_diagram                  (Layer            *layer);
+GList       *dia_layer_get_object_list                     (DiaLayer         *layer);
+DiagramData *dia_layer_get_parent_diagram                  (DiaLayer         *layer);
+void         dia_layer_set_parent_diagram                  (DiaLayer         *layer,
+                                                            DiagramData      *diagram);
+gboolean     dia_layer_is_connectable                      (DiaLayer         *self);
+void         dia_layer_set_connectable                     (DiaLayer         *self,
+                                                            gboolean          connectable);
+gboolean     dia_layer_is_visible                          (DiaLayer         *self);
+void         dia_layer_set_visible                         (DiaLayer         *self,
+                                                            gboolean          visible);
+void         dia_layer_get_extents                         (DiaLayer         *self,
+                                                            Rectangle        *rect);
 
 G_END_DECLS

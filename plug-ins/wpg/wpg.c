@@ -41,6 +41,7 @@
 #include "diarenderer.h"
 #include "filter.h"
 #include "plug-ins.h"
+#include "font.h"
 
 /* Noise reduction for
  * return value of 'fwrite', declared with attribute warn_unused_result

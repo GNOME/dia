@@ -78,9 +78,9 @@ highlight_reset_objects(GList *objects, Diagram *dia)
  * the active layer.
  */
 void
-highlight_reset_all(Diagram *dia) {
+highlight_reset_all (Diagram *dia) {
   int i;
   for (i = 0; i < dia->data->layers->len; i++) {
-    highlight_reset_objects(((Layer*)g_ptr_array_index(dia->data->layers, i))->objects, dia);
+    highlight_reset_objects (dia_layer_get_object_list (DIA_LAYER (g_ptr_array_index (dia->data->layers, i))), dia);
   }
 }

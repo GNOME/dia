@@ -15,14 +15,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef ATTRIBUTES_H
-#define ATTRIBUTES_H
+
+#pragma once
 
 #include "dia-enums.h"
 #include "geometry.h"
 #include "color.h"
 #include "arrows.h"
-#include "font.h"
+#include "diatypes.h"
 
 G_BEGIN_DECLS
 
@@ -49,5 +49,3 @@ void attributes_get_default_font(DiaFont **font, real *font_height);
 void attributes_set_default_font(DiaFont *font, real font_height);
 
 G_END_DECLS
-
-#endif /* ATTRIBUTES_H */

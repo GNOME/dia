@@ -1905,13 +1905,13 @@ import_shape_info (xmlNodePtr start_node, DiagramData *dia, DiaContext *ctx)
   const DiaObjectType *ot_cp = object_get_type ("Shape Design - Connection Point");
   const DiaObjectType *ot_mp = object_get_type ("Shape Design - Main Connection Point");
   xmlNodePtr node;
-  Layer *layer;
+  DiaLayer *layer;
 
   if (!ot_cp || !ot_mp) {
     dia_context_add_message (ctx, _("'Shape Design' shapes missing."));
     return FALSE;
   }
-  layer = dia_layer_new (g_strdup ("Shape Design"), dia);
+  layer = dia_layer_new ("Shape Design", dia);
   data_add_layer (dia, layer);
 
   for (node = start_node; node != NULL; node = node->next) {
@@ -2105,7 +2105,9 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
     if (groups_to_layers) {
       gchar *name = dia_object_get_meta (obj, "id");
       /* new_layer() is taking ownership of the name */
-      Layer *layer = dia_layer_new (name, dia);
+      DiaLayer *layer = dia_layer_new (name, dia);
+
+      g_free (name);
 
       /* keep the group for potential transformation */
       dia_layer_add_object (layer, obj);

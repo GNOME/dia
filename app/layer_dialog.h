@@ -32,7 +32,7 @@ GtkWidget * create_layer_view_widget (void);
 
 typedef struct _DiaLayerWidget      DiaLayerWidget;
 
-void diagram_edit_layer(Diagram *dia, Layer *layer);
+void diagram_edit_layer (Diagram *dia, DiaLayer *layer);
 
 #endif /* LAYER_DIALOG_H */
 

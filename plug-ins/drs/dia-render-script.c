@@ -67,7 +67,7 @@
 #include "dia-render-script-renderer.h"
 
 static void
-drs_render_layer (DiaRenderer *self, Layer *layer, gboolean active)
+drs_render_layer (DiaRenderer *self, DiaLayer *layer, gboolean active)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -76,13 +76,18 @@ drs_render_layer (DiaRenderer *self, Layer *layer, gboolean active)
 
   g_queue_push_tail (renderer->parents, renderer->root);
   renderer->root = node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"layer", NULL);
-  xmlSetProp(node, (const xmlChar *)"name", (xmlChar *)layer->name);
-  xmlSetProp(node, (const xmlChar *)"visible", (xmlChar *)(layer->visible ? "true" : "false"));
-  if (active)
-    xmlSetProp(node, (const xmlChar *)"active", (xmlChar *)"true");
+  xmlSetProp (node,
+              (const xmlChar *) "name",
+              (xmlChar *) dia_layer_get_name (layer));
+  xmlSetProp (node,
+              (const xmlChar *) "visible",
+              (xmlChar *) (dia_layer_is_visible (layer) ? "true" : "false"));
+  if (active) {
+    xmlSetProp (node, (const xmlChar *) "active", (xmlChar *) "true");
+  }
 
   /* Draw all objects: */
-  list = layer->objects;
+  list = dia_layer_get_object_list (layer);
   while (list!=NULL) {
     obj = (DiaObject *) list->data;
     dia_renderer_draw_object (self, obj, NULL);
@@ -100,7 +105,7 @@ drs_data_render (DiagramData *data, DiaRenderer *renderer)
 
   dia_renderer_begin_render (renderer, NULL);
   for (i=0; i < data->layers->len; i++) {
-    Layer *layer = (Layer *) g_ptr_array_index (data->layers, i);
+    DiaLayer *layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
     drs_render_layer (renderer, layer, layer == data->active_layer);
   }
   dia_renderer_end_render (renderer);

@@ -468,7 +468,7 @@ ddisplay_obj_render (DiaObject   *obj,
   }
 
   if (ddisp->show_cx_pts &&
-      obj->parent_layer != NULL && obj->parent_layer->connectable) {
+      obj->parent_layer != NULL && dia_layer_is_connectable (obj->parent_layer)) {
     object_draw_connectionpoints (obj, ddisp);
   }
 }

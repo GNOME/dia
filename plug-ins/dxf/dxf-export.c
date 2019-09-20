@@ -36,6 +36,7 @@
 #include "diarenderer.h"
 #include "filter.h"
 #include "dia-layer.h"
+#include "font.h"
 
 /* used to be 10 and inconsistent with import and even here */
 #define MAGIC_THICKNESS_FACTOR (1.0)
@@ -122,7 +123,7 @@ struct _DxfRenderer
 
   TextAttrdxf    tcurrent, tinfile;
 
-  char *layername;
+  const char *layername;
 };
 
 static void dxf_renderer_class_init (DxfRendererClass *klass);
@@ -568,7 +569,7 @@ export_dxf(DiagramData *data, DiaContext *ctx,
     DxfRenderer *renderer;
     FILE *file;
     int i;
-    Layer *layer;
+    DiaLayer *layer;
     gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
     gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
 
@@ -600,12 +601,12 @@ export_dxf(DiagramData *data, DiaContext *ctx,
     fprintf(file,"  2\nLAYER\n 70\n255\n");
 
     for (i=0; i<data->layers->len; i++) {
-      layer = (Layer *) g_ptr_array_index(data->layers, i);
-      fprintf(file,"  0\nLAYER\n  2\n%s\n",layer->name);
-      if(layer->visible)
-	fprintf(file," 62\n%d\n",i+1);
+      layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
+      fprintf (file,"  0\nLAYER\n  2\n%s\n", dia_layer_get_name (layer));
+      if (dia_layer_is_visible (layer))
+        fprintf (file," 62\n%d\n",i+1);
       else
-        fprintf(file," 62\n%d\n",(-1)*(i+1));
+        fprintf (file," 62\n%d\n",(-1)*(i+1));
     }
     fprintf(file, "  0\nENDTAB\n  0\nENDSEC\n");
 
@@ -617,8 +618,8 @@ export_dxf(DiagramData *data, DiaContext *ctx,
     dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
     for (i=0; i<data->layers->len; i++) {
-        layer = (Layer *) g_ptr_array_index (data->layers, i);
-        renderer->layername = layer->name;
+        layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
+        renderer->layername = dia_layer_get_name (layer);
         dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
     }
 

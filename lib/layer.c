@@ -27,6 +27,201 @@
 
 static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 
+typedef struct _DiaLayerPrivate DiaLayerPrivate;
+struct _DiaLayerPrivate {
+  char *name;                  /* The name of the layer */
+  Rectangle extents;           /* The extents of the layer */
+
+  GList *objects;              /* List of objects in the layer,
+                                  sorted by decreasing z-value,
+                                  objects can ONLY be connected to objects
+                                  in the same layer! */
+
+  gboolean visible;            /* The visibility of the layer */
+  gboolean connectable;        /* Whether the layer can currently be connected
+                                  to. The selected layer is by default
+                                  connectable */
+
+  DiagramData *parent_diagram; /* Back-pointer to the diagram. This
+                                  must only be set by functions internal
+                                  to the diagram, and accessed via
+                                  layer_get_parent_diagram() */
+};
+
+G_DEFINE_TYPE_WITH_PRIVATE (DiaLayer, dia_layer, G_TYPE_OBJECT)
+
+enum {
+  PROP_0,
+  PROP_NAME,
+  PROP_CONNECTABLE,
+  PROP_VISIBLE,
+  PROP_PARENT_DIAGRAM,
+  LAST_PROP
+};
+
+static GParamSpec *pspecs[LAST_PROP] = { NULL, };
+
+
+/**
+ * SECTION:dia-layer
+ * @title: DiaLayer
+ * @short_description: Group of #DiaObject s in a #DiagramData
+ *
+ * Since: 0.98
+ */
+
+
+static void
+dia_layer_finalize (GObject *object)
+{
+  DiaLayer *self = DIA_LAYER (object);
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (self);
+
+  g_clear_pointer (&priv->name, g_free);
+  destroy_object_list (priv->objects);
+
+  g_clear_object (&priv->parent_diagram);
+
+  G_OBJECT_CLASS (dia_layer_parent_class)->finalize (object);
+}
+
+
+static void
+dia_layer_set_property (GObject      *object,
+                        guint         property_id,
+                        const GValue *value,
+                        GParamSpec   *pspec)
+{
+  DiaLayer *self = DIA_LAYER (object);
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (self);
+
+  switch (property_id) {
+    case PROP_NAME:
+      g_clear_pointer (&priv->name, g_free);
+      priv->name = g_value_dup_string (value);
+      break;
+    case PROP_CONNECTABLE:
+      dia_layer_set_connectable (self, g_value_get_boolean (value));
+      break;
+    case PROP_VISIBLE:
+      dia_layer_set_visible (self, g_value_get_boolean (value));
+      break;
+    case PROP_PARENT_DIAGRAM:
+      dia_layer_set_parent_diagram (self, g_value_get_object (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+dia_layer_get_property (GObject    *object,
+                        guint       property_id,
+                        GValue     *value,
+                        GParamSpec *pspec)
+{
+  DiaLayer *self = DIA_LAYER (object);
+
+  switch (property_id) {
+    case PROP_NAME:
+      g_value_set_string (value, dia_layer_get_name (self));
+      break;
+    case PROP_CONNECTABLE:
+      g_value_set_boolean (value, dia_layer_is_connectable (self));
+      break;
+    case PROP_VISIBLE:
+      g_value_set_boolean (value, dia_layer_is_visible (self));
+      break;
+    case PROP_PARENT_DIAGRAM:
+      g_value_set_object (value, dia_layer_get_parent_diagram (self));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+dia_layer_class_init (DiaLayerClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->finalize = dia_layer_finalize;
+  object_class->set_property = dia_layer_set_property;
+  object_class->get_property = dia_layer_get_property;
+
+  /**
+   * DiaLayer:name:
+   *
+   * Since: 0.98
+   */
+  pspecs[PROP_NAME] =
+    g_param_spec_string ("name",
+                         "Name",
+                         "Layer name",
+                         NULL,
+                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
+
+  /**
+   * DiaLayer:connectable:
+   *
+   * Since: 0.98
+   */
+  pspecs[PROP_CONNECTABLE] =
+    g_param_spec_boolean ("connectable",
+                          "Connectable",
+                          "Layer is connectable",
+                          TRUE,
+                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * DiaLayer:visible:
+   *
+   * Since: 0.98
+   */
+  pspecs[PROP_VISIBLE] =
+    g_param_spec_boolean ("visible",
+                          "Visible",
+                          "Layer is visible",
+                          TRUE,
+                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * DiaLayer:parent-diagram:
+   *
+   * Since: 0.98
+   */
+  pspecs[PROP_PARENT_DIAGRAM] =
+    g_param_spec_object ("parent-diagram",
+                         "Parent Diagram",
+                         "The diagram containing the layer",
+                         DIA_TYPE_DIAGRAM_DATA,
+                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_PROP, pspecs);
+}
+
+
+static void
+dia_layer_init (DiaLayer *self)
+{
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (self);
+
+  priv->visible = TRUE;
+  priv->connectable = FALSE;
+
+  priv->objects = NULL;
+
+  priv->extents.left = 0.0;
+  priv->extents.right = 10.0;
+  priv->extents.top = 0.0;
+  priv->extents.bottom = 10.0;
+}
+
+
 /*! The default object renderer.
  * @param obj An object to render.
  * @param renderer The renderer to render on.
@@ -44,7 +239,9 @@ normal_render (DiaObject   *obj,
 }
 
 
-/*!
+/**
+ * render_bounding_boxes:
+ *
  * bounding box debug helper : environment variable DIA_RENDER_BOUNDING_BOXES
  * set to !0 to see the calculated bounding boxes
  */
@@ -61,7 +258,7 @@ render_bounding_boxes (void)
   return rbb;
 }
 
-/*!
+/**
  * layer_render:
  * @layer: The layer to render.
  * @renderer: The renderer to draw things with.
@@ -74,9 +271,11 @@ render_bounding_boxes (void)
  * Render all components of a single layer.
  *
  * This function also handles rendering of bounding boxes for debugging purposes.
+ *
+ * Since: 0.98
  */
 void
-dia_layer_render (Layer          *layer,
+dia_layer_render (DiaLayer       *layer,
                   DiaRenderer    *renderer,
                   Rectangle      *update,
                   ObjectRenderer  obj_renderer,
@@ -85,12 +284,13 @@ dia_layer_render (Layer          *layer,
 {
   GList *list;
   DiaObject *obj;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
   if (obj_renderer == NULL)
     obj_renderer = normal_render;
 
   /* Draw all objects: */
-  list = layer->objects;
+  list = priv->objects;
   while (list != NULL) {
     obj = (DiaObject *) list->data;
 
@@ -117,47 +317,74 @@ dia_layer_render (Layer          *layer,
   }
 }
 
-/*!
- * \brief Create a new layer in this diagram.
- * @param name Name of the new layer.
- * @param parent The DiagramData that the layer will belong to,.
- * @return A new Layer object.
- * \memberof _Layer
+/**
+ * dia_layer_new:
+ * @name: Name of the new layer.
+ * @parent: The #DiagramData that the layer will belong to,.
+ *
+ * Create a new layer in this diagram.
+ *
+ * Returns: A new #DiaLayer object
+ *
+ * Since: 0.98
  */
-Layer *
-dia_layer_new (gchar *name, DiagramData *parent)
+DiaLayer *
+dia_layer_new (const char *name, DiagramData *parent)
 {
-  Layer *layer;
+  DiaLayer *layer;
 
-  layer = g_new (Layer, 1);
-
-  layer->name = name;
-
-  layer->parent_diagram = parent;
-  layer->visible = TRUE;
-  layer->connectable = FALSE;
-
-  layer->objects = NULL;
-
-  layer->extents.left = 0.0;
-  layer->extents.right = 10.0;
-  layer->extents.top = 0.0;
-  layer->extents.bottom = 10.0;
+  layer = g_object_new (DIA_TYPE_LAYER,
+                        "name", name,
+                        "parent-diagram", parent,
+                        NULL);
 
   return layer;
 }
 
-/*!
- * \brief Destroy a layer object.
- * @param layer The layer object to deallocate entirely.
- * \memberof _Layer
+/**
+ * dia_layer_new_from_layer:
+ * @old: The #DiaLayer to clone
+ *
+ * Returns: A new #DiaLayer object
+ *
+ * Since: 0.98
+ */
+DiaLayer *
+dia_layer_new_from_layer (DiaLayer *old)
+{
+  DiaLayer *layer;
+  DiaLayerPrivate *priv;
+  DiaLayerPrivate *old_priv;
+
+  g_return_val_if_fail (DIA_IS_LAYER (old), NULL);
+
+  old_priv = dia_layer_get_instance_private (old);
+
+  layer = g_object_new (DIA_TYPE_LAYER,
+                        "name", dia_layer_get_name (old),
+                        "visible", old_priv->visible,
+                        "connectable", old_priv->connectable,
+                        "parent-diagram", old_priv->parent_diagram,
+                        NULL);
+
+  priv = dia_layer_get_instance_private (layer);
+
+  priv->extents = old_priv->extents;
+  priv->objects = object_copy_list (priv->objects);
+
+  return layer;
+}
+
+/**
+ * dia_layer_destroy;
+ * @layer: The layer object to deallocate entirely.
+ *
+ * Destroy a layer object.
  */
 void
-dia_layer_destroy (Layer *layer)
+dia_layer_destroy (DiaLayer *layer)
 {
-  g_free (layer->name);
-  destroy_object_list (layer->objects);
-  g_free (layer);
+  g_object_unref (layer);
 }
 
 /*!
@@ -169,101 +396,142 @@ dia_layer_destroy (Layer *layer)
 static void
 set_parent_layer (gpointer element, gpointer user_data)
 {
-  ((DiaObject*)element)->parent_layer = (Layer*)user_data;
+  ((DiaObject*) element)->parent_layer = (DiaLayer *) user_data;
   /* FIXME: even group members need a parent_layer and what about parent objects  ???
    * Now I know again why I always try to avoid back-pointers )-; --hb.
    * If the group objects didn't actually leave the diagram, this wouldn't
    * be a problem.  --LC */
 }
 
-/*!
- * \brief Get the index of an object in a layer.
- * @param layer The layer the object is (should be) in.
- * @param obj The object to look for.
- * @return The index of the object in the layers list of objects.  This is also
+/**
+ * dia_layer_object_get_index:
+ * @layer: The layer the object is (should be) in.
+ * @obj: The object to look for.
+ *
+ * Get the index of an object in a layer.
+ *
+ * Returns: The index of the object in the layers list of objects. This is also
  *  the vertical position of the object.
- * \memberof _Layer
+ *
+ * Since: 0.98
  */
 int
-dia_layer_object_get_index (Layer *layer, DiaObject *obj)
+dia_layer_object_get_index (DiaLayer *layer, DiaObject *obj)
 {
-  return (int) g_list_index (layer->objects, (gpointer) obj);
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+
+  return (int) g_list_index (priv->objects, (gpointer) obj);
 }
 
-/*!
- * \brief Get the object a index or NULL
- * @param layer The layer to query for the nth object
- * @param index The zero-based indexed of the object
- * \memberof _Layer
+/**
+ * dia_layer_object_get_nth:
+ * @layer: The layer to query for the nth object
+ * @index: The zero-based indexed of the object
+ *
+ * Get the object a index or %NULL
+ *
+ * Since: 0.98
  */
 DiaObject *
-dia_layer_object_get_nth (Layer *layer, guint index)
+dia_layer_object_get_nth (DiaLayer *layer, guint index)
 {
-  if (g_list_length (layer->objects) > index) {
-    g_assert (g_list_nth (layer->objects, index));
-    return (DiaObject *) g_list_nth (layer->objects, index)->data;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+
+  if (g_list_length (priv->objects) > index) {
+    g_assert (g_list_nth (priv->objects, index));
+    return (DiaObject *) g_list_nth (priv->objects, index)->data;
   }
   return NULL;
 }
 
+/**
+ * dia_layer_object_count:
+ * @layer: the #DiaLayer
+ *
+ * Since: 0.98
+ */
 int
-dia_layer_object_count (Layer *layer)
+dia_layer_object_count (DiaLayer *layer)
 {
-  return g_list_length (layer->objects);
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+
+  return g_list_length (priv->objects);
 }
 
-gchar *
-dia_layer_get_name (Layer *layer)
+/**
+ * dia_layer_get_name:
+ * @layer: the #DiaLayer
+ *
+ * Since: 0.98
+ */
+const char *
+dia_layer_get_name (DiaLayer *layer)
 {
-  return g_strdup (layer->name);
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+
+  return priv->name;
 }
 
-/*!
- * \brief Add an object to the top of a layer.
- * @param layer The layer to add the object to.
- * @param obj The object to add.  This must not already be part of another layer.
- * \memberof _Layer
+/**
+ * dia_layer_add_object:
+ * @layer: The layer to add the object to.
+ * @obj: The object to add. This must not already be part of another layer.
+ *
+ * Add an object to the top of a layer.
+ *
+ * Since: 0.98
  */
 void
-dia_layer_add_object(Layer *layer, DiaObject *obj)
+dia_layer_add_object (DiaLayer *layer, DiaObject *obj)
 {
-  layer->objects = g_list_append(layer->objects, (gpointer) obj);
-  set_parent_layer(obj, layer);
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
-  /* send a signal that we have added a object to the diagram */
-  data_emit (dia_layer_get_parent_diagram(layer), layer, obj, "object_add");
-}
-
-/*!
- * \brief Add an object to a layer at a specific position.
- * @param layer The layer to add the object to.
- * @param obj The object to add.  This must not be part of another layer.
- * @param pos The top-to-bottom position this object should be inserted at.
- * \memberof _Layer
- */
-void
-dia_layer_add_object_at (Layer *layer, DiaObject *obj, int pos)
-{
-  layer->objects = g_list_insert (layer->objects, (gpointer) obj, pos);
+  priv->objects = g_list_append (priv->objects, (gpointer) obj);
   set_parent_layer (obj, layer);
 
   /* send a signal that we have added a object to the diagram */
   data_emit (dia_layer_get_parent_diagram (layer), layer, obj, "object_add");
 }
 
-/*!
- * \brief Add a list of objects to the end of a layer.
- * @param layer The layer to add objects to.
- * @param obj_list The list of objects to add.  These must not already
- *  be part of another layer.
- * \memberof _Layer
+/**
+ * dia_layer_add_object_at:
+ * @layer: The layer to add the object to.
+ * @obj: The object to add.  This must not be part of another layer.
+ * @pos: The top-to-bottom position this object should be inserted at.
+ *
+ * Add an object to a layer at a specific position.
+ *
+ * Since: 0.98
  */
 void
-dia_layer_add_objects (Layer *layer, GList *obj_list)
+dia_layer_add_object_at (DiaLayer *layer, DiaObject *obj, int pos)
+{
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+
+  priv->objects = g_list_insert (priv->objects, (gpointer) obj, pos);
+  set_parent_layer (obj, layer);
+
+  /* send a signal that we have added a object to the diagram */
+  data_emit (dia_layer_get_parent_diagram (layer), layer, obj, "object_add");
+}
+
+/**
+ * dia_layer_add_objects:
+ * @layer: The layer to add objects to.
+ * @obj_list: The list of objects to add.  These must not already
+ *  be part of another layer.
+ *
+ * Add a list of objects to the end of a layer.
+ *
+ * Since: 0.98
+ */
+void
+dia_layer_add_objects (DiaLayer *layer, GList *obj_list)
 {
   GList *list = obj_list;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
-  layer->objects = g_list_concat (layer->objects, obj_list);
+  priv->objects = g_list_concat (priv->objects, obj_list);
   g_list_foreach (obj_list, set_parent_layer, layer);
 
   while (list != NULL) {
@@ -275,18 +543,22 @@ dia_layer_add_objects (Layer *layer, GList *obj_list)
   }
 }
 
-/*!
- * \brief Add a list of objects to the top of a layer.
- * @param layer The layer to add objects to.
- * @param obj_list The list of objects to add.  These must not already
+/**
+ * dia_layer_add_objects_first:
+ * @layer: The layer to add objects to.
+ * @obj_list: The list of objects to add. These must not already
  *  be part of another layer.
- * \memberof _Layer
+ *
+ * Add a list of objects to the top of a layer.
+ *
+ * Since: 0.98
  */
 void
-dia_layer_add_objects_first (Layer *layer, GList *obj_list) {
+dia_layer_add_objects_first (DiaLayer *layer, GList *obj_list) {
   GList *list = obj_list;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
-  layer->objects = g_list_concat (obj_list, layer->objects);
+  priv->objects = g_list_concat (obj_list, priv->objects);
   g_list_foreach (obj_list, set_parent_layer, layer);
 
   /* Send one signal per object added */
@@ -299,31 +571,39 @@ dia_layer_add_objects_first (Layer *layer, GList *obj_list) {
   }
 }
 
-/*!
- * \brief Remove an object from a layer.
- * @param layer The layer to remove the object from.
- * @param obj The object to remove.
- * \memberof _Layer
+/**
+ * dia_layer_remove_object:
+ * @layer: The layer to remove the object from.
+ * @obj: The object to remove.
+ *
+ * Remove an object from a layer.
+ *
+ * Since: 0.98
  */
 void
-dia_layer_remove_object (Layer *layer, DiaObject *obj)
+dia_layer_remove_object (DiaLayer *layer, DiaObject *obj)
 {
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+
   /* send a signal that we'll remove a object from the diagram */
   data_emit (dia_layer_get_parent_diagram (layer), layer, obj, "object_remove");
 
-  layer->objects = g_list_remove (layer->objects, obj);
+  priv->objects = g_list_remove (priv->objects, obj);
   dynobj_list_remove_object (obj);
   set_parent_layer (obj, NULL);
 }
 
-/*!
+/**
+ * dia_layer_remove_objects:
+ * @layer: The layer to remove the objects from.
+ * @obj_list: The objects to remove.
+ *
  * Remove a list of objects from a layer.
- * @param layer The layer to remove the objects from.
- * @param obj_list The objects to remove.
- * \memberof _Layer
+ *
+ * Since: 0.98
  */
 void
-dia_layer_remove_objects (Layer *layer, GList *obj_list)
+dia_layer_remove_objects (DiaLayer *layer, GList *obj_list)
 {
   DiaObject *obj;
   while (obj_list != NULL) {
@@ -335,136 +615,157 @@ dia_layer_remove_objects (Layer *layer, GList *obj_list)
   }
 }
 
-/*!
- * \brief Find the objects that intersect a given rectangle.
- * @param layer The layer to search in.
- * @param rect The rectangle to intersect with.
- * @return List of objects whose bounding box intersect the rectangle.  The
+/**
+ * dia_layer_find_objects_intersecting_rectangle:
+ * @layer: The layer to search in.
+ * @rect: The rectangle to intersect with.
+ *
+ * Find the objects that intersect a given rectangle.
+ *
+ * Returns: List of objects whose bounding box intersect the rectangle.  The
  *  list should be freed by the caller.
- * \memberof _Layer
+ *
+ * Since: 0.98
  */
 GList *
-dia_layer_find_objects_intersecting_rectangle (Layer *layer, Rectangle *rect)
+dia_layer_find_objects_intersecting_rectangle (DiaLayer  *layer,
+                                               Rectangle *rect)
 {
   GList *list;
   GList *selected_list;
   DiaObject *obj;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
   selected_list = NULL;
-  list = layer->objects;
+  list = priv->objects;
   while (list != NULL) {
     obj = (DiaObject *)list->data;
 
-    if (rectangle_intersects(rect, &obj->bounding_box)) {
-      if (dia_object_is_selectable(obj)) {
-	selected_list = g_list_prepend(selected_list, obj);
+    if (rectangle_intersects (rect, &obj->bounding_box)) {
+      if (dia_object_is_selectable (obj)) {
+        selected_list = g_list_prepend (selected_list, obj);
       }
       /* Objects in closed groups do not get selected, but their parents do.
       * Since the parents bbox is outside the objects, they will be found
       * anyway and the inner object can just be skipped. */
     }
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 
   return selected_list;
 }
 
-/*!
- * \brief Find objects entirely contained in a rectangle.
- * @param layer The layer to search for objects in.
- * @param rect The rectangle that the objects should be in.
- * @return A list containing the objects that are entirely contained in the
+/**
+ * dia_layer_find_objects_in_rectangle:
+ * @layer: The layer to search for objects in.
+ * @rect: The rectangle that the objects should be in.
+ *
+ * Find objects entirely contained in a rectangle.
+ *
+ * Returns: A list containing the objects that are entirely contained in the
  *  rectangle.  The list should be freed by the caller.
- * \memberof _Layer
+ *
+ * Since: 0.98
  */
 GList *
-dia_layer_find_objects_in_rectangle (Layer *layer, Rectangle *rect)
+dia_layer_find_objects_in_rectangle (DiaLayer *layer, Rectangle *rect)
 {
   GList *list;
   GList *selected_list;
   DiaObject *obj;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
   selected_list = NULL;
-  list = layer->objects;
+  list = priv->objects;
   while (list != NULL) {
     obj = (DiaObject *)list->data;
 
-    if (rectangle_in_rectangle(rect, &obj->bounding_box)) {
-      if (dia_object_is_selectable(obj)) {
-	selected_list = g_list_prepend(selected_list, obj);
+    if (rectangle_in_rectangle (rect, &obj->bounding_box)) {
+      if (dia_object_is_selectable (obj)) {
+        selected_list = g_list_prepend (selected_list, obj);
       }
     }
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 
   return selected_list;
 }
 
-/*!
- * \brief Find objects entirely containing a rectangle.
- * @param layer The layer to search for objects in.
- * @param rect The rectangle that the objects should surround.
- * @return A list containing the objects that entirely contain the
+/**
+ * dia_layer_find_objects_containing_rectangle:
+ * @layer: The layer to search for objects in.
+ * @rect: The rectangle that the objects should surround.
+ *
+ * Find objects entirely containing a rectangle.
+ *
+ * Returns: A list containing the objects that entirely contain the
  *  rectangle.  The list should be freed by the caller.
- * \memberof _Layer
+ *
+ * Since: 0.98
  */
 GList *
-dia_layer_find_objects_containing_rectangle (Layer *layer, Rectangle *rect)
+dia_layer_find_objects_containing_rectangle (DiaLayer *layer, Rectangle *rect)
 {
   GList *list;
   GList *selected_list;
   DiaObject *obj;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
   g_return_val_if_fail  (layer != NULL, NULL);
 
   selected_list = NULL;
-  list = layer->objects;
+  list = priv->objects;
   while (list != NULL) {
-    obj = (DiaObject *)list->data;
+    obj = (DiaObject *) list->data;
 
-    if (rectangle_in_rectangle(&obj->bounding_box, rect)) {
-      if (dia_object_is_selectable(obj)) {
-	selected_list = g_list_prepend(selected_list, obj);
+    if (rectangle_in_rectangle (&obj->bounding_box, rect)) {
+      if (dia_object_is_selectable (obj)) {
+        selected_list = g_list_prepend (selected_list, obj);
       }
     }
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 
   return selected_list;
 }
 
 
-/*!
- * \brief Find the object closest to the given point in the layer
+/**
+ * dia_layer_find_closest_object_except:
+ * @layer: The layer to search in.
+ * @pos: The point to compare to.
+ * @maxdist: The maximum distance the object can be from the point.
+ * @avoid: A list of objects that cannot be returned by this search.
  *
- * no further away than maxdist, and not included in avoid.
+ * Find the object closest to the given point in the layer no further away
+ * than maxdist, and not included in avoid.
+ *
  * Stops it if finds an object that includes the point.
- * @param layer The layer to search in.
- * @param pos The point to compare to.
- * @param maxdist The maximum distance the object can be from the point.
- * @param avoid A list of objects that cannot be returned by this search.
- * @return The closest object, or NULL if no allowed objects are closer than
+ *
+ * Returns: The closest object, or %NULL if no allowed objects are closer than
  *  maxdist.
- * \memberof _Layer
+ *
+ * Since: 0.98
  */
 DiaObject *
-dia_layer_find_closest_object_except (Layer *layer,
-                                      Point *pos,
-                                      real   maxdist,
-                                      GList *avoid)
+dia_layer_find_closest_object_except (DiaLayer *layer,
+                                      Point    *pos,
+                                      real      maxdist,
+                                      GList    *avoid)
 {
   GList *l;
   DiaObject *closest;
   DiaObject *obj;
   real dist;
   GList *avoid_tmp;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
   closest = NULL;
 
-  for (l = layer->objects; l!=NULL; l = g_list_next(l)) {
+  for (l = priv->objects; l!=NULL; l = g_list_next(l)) {
     obj = (DiaObject *) l->data;
 
     /* Check bounding box here too. Might give speedup. */
@@ -472,9 +773,9 @@ dia_layer_find_closest_object_except (Layer *layer,
 
     if (maxdist-dist > 0.00000001) {
       for (avoid_tmp = avoid; avoid_tmp != NULL; avoid_tmp = avoid_tmp->next) {
-	if (avoid_tmp->data == obj) {
-	  goto NEXTOBJECT;
-	}
+        if (avoid_tmp->data == obj) {
+          goto NEXTOBJECT;
+        }
       }
       closest = obj;
     }
@@ -485,33 +786,41 @@ dia_layer_find_closest_object_except (Layer *layer,
   return closest;
 }
 
-/*!
- * \brief Find the object closest to the given point in the layer,
+/**
+ * dia_layer_find_closest_object:
+ * @layer: The layer to search in.
+ * @pos: The point to compare to.
+ * @maxdist: The maximum distance the object can be from the point.
  *
- * no further away than maxdist. Stops it if finds an object that includes the point.
- * @param layer The layer to search in.
- * @param pos The point to compare to.
- * @param maxdist The maximum distance the object can be from the point.
- * @return The closest object, or NULL if none are closer than maxdist.
+ * Find the object closest to the given point in the layer, no further away
+ * than maxdist. Stops it if finds an object that includes the point.
+ *
+ * Returns: The closest object, or %NULL if none are closer than maxdist.
+ *
+ * Since: 0.98
  */
 DiaObject *
-dia_layer_find_closest_object(Layer *layer, Point *pos, real maxdist)
+dia_layer_find_closest_object (DiaLayer *layer, Point *pos, real maxdist)
 {
-  return dia_layer_find_closest_object_except(layer, pos, maxdist, NULL);
+  return dia_layer_find_closest_object_except (layer, pos, maxdist, NULL);
 }
 
 
-/*!
- * \brief Find the connectionpoint closest to pos in a layer.
- * @param layer the layer to search in
- * @param closest connection point found or NULL
- * @param pos refernce position in diagram coordinates
- * @param notthis object not to search on
- * @return the distance of the connection point and pos
- * \memberof _Layer
+/**
+ * dia_layer_find_closest_connectionpoint:
+ * @layer: the layer to search in
+ * @closest: connection point found or NULL
+ * @pos: refernce position in diagram coordinates
+ * @notthis: object not to search on
+ *
+ * Find the #ConnectionPoint closest to pos in a layer.
+ *
+ * Returns: the distance of the connection point and pos
+ *
+ * Since: 0.98
  */
 real
-dia_layer_find_closest_connectionpoint (Layer            *layer,
+dia_layer_find_closest_connectionpoint (DiaLayer         *layer,
                                         ConnectionPoint **closest,
                                         Point            *pos,
                                         DiaObject        *notthis)
@@ -521,43 +830,49 @@ dia_layer_find_closest_connectionpoint (Layer            *layer,
   ConnectionPoint *cp;
   real mindist, dist;
   int i;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
   mindist = 1000000.0; /* Realy big value... */
 
   *closest = NULL;
 
-  for (l = layer->objects; l!=NULL; l = g_list_next(l) ) {
+  for (l = priv->objects; l!=NULL; l = g_list_next (l) ) {
     obj = (DiaObject *) l->data;
 
     if (obj == notthis)
       continue;
-    for (i=0;i<obj->num_connections;i++) {
+
+    for (i = 0; i < obj->num_connections; i++) {
       cp = obj->connections[i];
       /* Note: Uses manhattan metric for speed... */
       dist = distance_point_point_manhattan (pos, &cp->pos);
-      if (dist<mindist) {
+      if (dist < mindist) {
         mindist = dist;
         *closest = cp;
       }
     }
-
- }
+  }
 
   return mindist;
 }
 
-/*!
- * \brief Recalculation of the bounding box containing all objects in the layer
- * \memberof _Layer
+/**
+ * dia_layer_update_extents:
+ * @layer: the #DiaLayer
+ *
+ * Recalculation of the bounding box containing all objects in the layer
+ *
+ * Since: 0.98
  */
 int
-dia_layer_update_extents (Layer *layer)
+dia_layer_update_extents (DiaLayer *layer)
 {
   GList *l;
   DiaObject *obj;
   Rectangle new_extents;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
-  l = layer->objects;
+  l = priv->objects;
   if (l!=NULL) {
     obj = (DiaObject *) l->data;
     new_extents = obj->bounding_box;
@@ -576,28 +891,35 @@ dia_layer_update_extents (Layer *layer)
     new_extents = invalid_extents;
   }
 
-  if (rectangle_equals (&new_extents, &layer->extents)) return FALSE;
+  if (rectangle_equals (&new_extents, &priv->extents)) return FALSE;
 
-  layer->extents = new_extents;
+  priv->extents = new_extents;
   return TRUE;
 }
 
-/*!
- * \brief Swaps a list of objects with a single object
+/**
+ * dia_layer_replace_object_with_list:
+ * @layer: the #DiaLayer
+ * @remove_obj: the #DiaObject that will be removed from layer
+ * @insert_list: list of #DiaObject to insert where remove_obj was
+ *
+ * Swaps a list of objects with a single object
  *
  * This function exchanges the given object with the list of objects.
- * Ownership of remove_obj and insert_list objects is swapped, too.
  *
- * \memberof _Layer
+ * Ownership of @remove_obj and @insert_list objects is swapped, too.
+ *
+ * Since: 0.98
  */
 void
-dia_layer_replace_object_with_list (Layer     *layer,
+dia_layer_replace_object_with_list (DiaLayer  *layer,
                                     DiaObject *remove_obj,
                                     GList     *insert_list)
 {
   GList *list, *il;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
-  list = g_list_find (layer->objects, remove_obj);
+  list = g_list_find (priv->objects, remove_obj);
 
   g_assert (list!=NULL);
   dynobj_list_remove_object (remove_obj);
@@ -606,7 +928,7 @@ dia_layer_replace_object_with_list (Layer     *layer,
   g_list_foreach (insert_list, set_parent_layer, layer);
 
   if (list->prev == NULL) {
-    layer->objects = insert_list;
+    priv->objects = insert_list;
   } else {
     list->prev->next = insert_list;
     insert_list->prev = list->prev;
@@ -635,26 +957,35 @@ layer_remove_dynobj (gpointer obj, gpointer userdata)
   dynobj_list_remove_object ((DiaObject*)obj);
 }
 
+/**
+ * dia_layer_set_object_list:
+ * @layer: the #DiaLayer
+ * @list: new list of #DiaObject s
+ *
+ * Since: 0.98
+ */
 void
-dia_layer_set_object_list (Layer *layer, GList *list)
+dia_layer_set_object_list (DiaLayer *layer, GList *list)
 {
   GList *ol;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+
   /* signal removal on all objects */
-  ol = layer->objects;
+  ol = priv->objects;
   while (ol) {
     if (!g_list_find (list, ol->data)) /* only if it really vanishes */
-      data_emit (dia_layer_get_parent_diagram(layer), layer, ol->data, "object_remove");
+      data_emit (dia_layer_get_parent_diagram (layer), layer, ol->data, "object_remove");
     ol = g_list_next (ol);
   }
   /* restore old list */
-  ol = layer->objects;
-  g_list_foreach (layer->objects, set_parent_layer, NULL);
-  g_list_foreach (layer->objects, layer_remove_dynobj, NULL);
+  ol = priv->objects;
+  g_list_foreach (priv->objects, set_parent_layer, NULL);
+  g_list_foreach (priv->objects, layer_remove_dynobj, NULL);
 
-  layer->objects = list;
-  g_list_foreach (layer->objects, set_parent_layer, layer);
+  priv->objects = list;
+  g_list_foreach (priv->objects, set_parent_layer, layer);
   /* signal addition on all objects */
-  list = layer->objects;
+  list = priv->objects;
   while (list) {
     if (!g_list_find (ol, list->data)) /* only if it is new */
       data_emit (dia_layer_get_parent_diagram (layer), layer, list->data, "object_add");
@@ -663,8 +994,162 @@ dia_layer_set_object_list (Layer *layer, GList *list)
   g_list_free (ol);
 }
 
-DiagramData *
-dia_layer_get_parent_diagram (Layer *layer)
+/**
+ * dia_layer_set_object_list:
+ * @layer: the #DiaLayer
+ *
+ * Since: 0.98
+ */
+GList *
+dia_layer_get_object_list (DiaLayer *layer)
 {
-  return layer->parent_diagram;
+  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+
+  return priv->objects;
+}
+
+/**
+ * dia_layer_get_parent_diagram:
+ * @layer: the #DiaLayer
+ *
+ * Since: 0.98
+ */
+DiagramData *
+dia_layer_get_parent_diagram (DiaLayer *layer)
+{
+  DiaLayerPrivate *priv;
+
+  g_return_val_if_fail (DIA_IS_LAYER (layer), NULL);
+
+  priv = dia_layer_get_instance_private (layer);
+
+  return priv->parent_diagram;
+}
+
+/**
+ * dia_layer_set_parent_diagram:
+ * @layer: the #DiaLayer
+ * @diagram: the #DiagramData
+ *
+ * Since: 0.98
+ */
+void
+dia_layer_set_parent_diagram (DiaLayer    *layer,
+                              DiagramData *diagram)
+{
+  DiaLayerPrivate *priv;
+
+  g_return_if_fail (DIA_IS_LAYER (layer));
+
+  priv = dia_layer_get_instance_private (layer);
+
+  g_clear_object (&priv->parent_diagram);
+  priv->parent_diagram = g_object_ref (diagram);
+
+  g_object_notify_by_pspec (G_OBJECT (layer), pspecs[PROP_PARENT_DIAGRAM]);
+}
+
+/**
+ * dia_layer_is_connectable:
+ * @self: the #DiaLayer
+ *
+ * Since: 0.98
+ */
+gboolean
+dia_layer_is_connectable (DiaLayer *self)
+{
+  DiaLayerPrivate *priv;
+
+  g_return_val_if_fail (DIA_IS_LAYER (self), FALSE);
+
+  priv = dia_layer_get_instance_private (self);
+
+  return priv->connectable;
+}
+
+
+/**
+ * dia_layer_set_connectable:
+ * @self: the #DiaLayer
+ * @connectable: the new connectable status
+ *
+ * Since: 0.98
+ */
+void
+dia_layer_set_connectable (DiaLayer *self,
+                           gboolean  connectable)
+{
+  DiaLayerPrivate *priv;
+
+  g_return_if_fail (DIA_IS_LAYER (self));
+
+  priv = dia_layer_get_instance_private (self);
+
+  priv->connectable = connectable;
+
+  g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_CONNECTABLE]);
+}
+
+
+/**
+ * dia_layer_is_visible:
+ * @self: the #DiaLayer
+ *
+ * Since: 0.98
+ */
+gboolean
+dia_layer_is_visible (DiaLayer *self)
+{
+  DiaLayerPrivate *priv;
+
+  g_return_val_if_fail (DIA_IS_LAYER (self), FALSE);
+
+  priv = dia_layer_get_instance_private (self);
+
+  return priv->visible;
+}
+
+
+/**
+ * dia_layer_set_visible:
+ * @self: the #DiaLayer
+ * @visible: new visibility
+ *
+ * Since: 0.98
+ */
+void
+dia_layer_set_visible (DiaLayer *self,
+                       gboolean  visible)
+{
+  DiaLayerPrivate *priv;
+
+  g_return_if_fail (DIA_IS_LAYER (self));
+
+  priv = dia_layer_get_instance_private (self);
+
+  priv->visible = visible;
+
+  g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_VISIBLE]);
+}
+
+
+/**
+ * dia_layer_get_extents:
+ * @self: the #DiaLayer
+ * @rect: (out): the extents
+ *
+ * Since: 0.98
+ */
+void
+dia_layer_get_extents (DiaLayer  *self,
+                       Rectangle *rect)
+{
+  DiaLayerPrivate *priv;
+
+  g_return_if_fail (DIA_IS_LAYER (self));
+  g_return_if_fail (rect != NULL);
+
+  priv = dia_layer_get_instance_private (self);
+
+  *rect = priv->extents;
 }

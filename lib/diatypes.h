@@ -18,19 +18,22 @@
 
 /** @file diatypes.h -- All externally visible structures should be defined here */
 
-#ifndef TYPES_H
-#define TYPES_H
-
 /* THIS HEADER MUST NOT INCLUDE ANY OTHER HEADER! */
-/*#include "units.h" */
+
+#pragma once
+
+#include <glib-object.h>
 
 /* from geometry.h - but used more generic */
 typedef double real;
 
 /* In diagramdata.h: */
 typedef struct _DiagramData DiagramData;
-typedef struct _Layer Layer;
 typedef struct _NewDiagramData NewDiagramData;
+
+
+typedef struct _DiaLayer DiaLayer;
+
 
 /* In arrows.h: */
 typedef struct _Arrow Arrow;
@@ -192,5 +195,3 @@ typedef enum {
   PATH_INTERSECTION,
   PATH_EXCLUSION
 } PathCombineMode;
-
-#endif

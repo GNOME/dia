@@ -1756,7 +1756,7 @@ export_vdx(DiagramData *data, DiaContext *ctx,
     FILE *file;
     VDXRenderer *renderer;
     int i;
-    Layer *layer;
+    DiaLayer *layer;
     char* old_locale;
 
     file = g_fopen(filename, "w");
@@ -1783,8 +1783,8 @@ export_vdx(DiagramData *data, DiaContext *ctx,
 
     /* First run through without drawing to setup tables */
     for (i = 0; i < data->layers->len; i++) {
-      layer = (Layer *) g_ptr_array_index (data->layers, i);
-      if (layer->visible) {
+      layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
+      if (dia_layer_is_visible (layer)) {
         dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       }
       renderer->depth++;
@@ -1801,8 +1801,8 @@ export_vdx(DiagramData *data, DiaContext *ctx,
     /* Now render */
 
     for (i = 0; i < data->layers->len; i++) {
-      layer = (Layer *) g_ptr_array_index (data->layers, i);
-      if (layer->visible) {
+      layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
+      if (dia_layer_is_visible (layer)) {
         dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       }
       renderer->depth++;

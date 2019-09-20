@@ -1153,14 +1153,16 @@ export_fig(DiagramData *data, DiaContext *ctx,
   FILE *file;
   XfigRenderer *renderer;
   int i;
-  Layer *layer;
+  DiaLayer *layer;
   gchar d_buf[DTOSTR_BUF_SIZE];
 
   file = g_fopen(filename, "w");
 
   if (file == NULL) {
-    dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
-					dia_context_get_filename(ctx));
+    dia_context_add_message_with_errno (ctx,
+                                        errno,
+                                        _("Can't open output file %s"),
+                                        dia_context_get_filename(ctx));
     return FALSE;
   }
 
@@ -1183,8 +1185,8 @@ export_fig(DiagramData *data, DiaContext *ctx,
   dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
   for (i = 0; i < data->layers->len; i++) {
-    layer = (Layer *) g_ptr_array_index (data->layers, i);
-    if (layer->visible) {
+    layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
+    if (dia_layer_is_visible (layer)) {
       dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       renderer->depth++;
     }
@@ -1197,8 +1199,8 @@ export_fig(DiagramData *data, DiaContext *ctx,
   dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
   for (i=0; i<data->layers->len; i++) {
-    layer = (Layer *) g_ptr_array_index (data->layers, i);
-    if (layer->visible) {
+    layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
+    if (dia_layer_is_visible (layer)) {
       dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       renderer->depth++;
     }

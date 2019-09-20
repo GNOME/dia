@@ -41,21 +41,21 @@ select_all_callback(GtkAction *action)
   if (!ddisp || textedit_mode(ddisp)) return;
   dia = ddisp->diagram;
 
-  objects = dia->data->active_layer->objects;
+  objects = dia_layer_get_object_list (dia->data->active_layer);
 
   while (objects != NULL) {
-    DiaObject *obj = (DiaObject *)objects->data;
+    DiaObject *obj = DIA_OBJECT (objects->data);
 
-    if (!diagram_is_selected(dia, obj)) {
-      diagram_select(dia, obj);
+    if (!diagram_is_selected (dia, obj)) {
+      diagram_select (dia, obj);
     }
 
-    objects = g_list_next(objects);
+    objects = g_list_next (objects);
   }
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
-  object_add_updates_list(dia->data->selected, dia);
-  diagram_flush(dia);
+  ddisplay_do_update_menu_sensitivity (ddisp);
+  object_add_updates_list (dia->data->selected, dia);
+  diagram_flush (dia);
 }
 
 void
@@ -75,30 +75,31 @@ select_none_callback(GtkAction *action)
 }
 
 void
-select_invert_callback(GtkAction *action)
+select_invert_callback (GtkAction *action)
 {
   Diagram *dia;
   GList *tmp;
-  DDisplay * ddisp = ddisplay_active();
+  DDisplay * ddisp = ddisplay_active ();
 
-  if (!ddisp || textedit_mode(ddisp)) return;
+  if (!ddisp || textedit_mode (ddisp)) return;
   dia = ddisp->diagram;
 
-  tmp = dia->data->active_layer->objects;
+  tmp =  dia_layer_get_object_list (dia->data->active_layer);
 
-  for (; tmp != NULL; tmp = g_list_next(tmp)) {
-    DiaObject *obj = (DiaObject *)tmp->data;
+  for (; tmp != NULL; tmp = g_list_next (tmp)) {
+    DiaObject *obj = DIA_OBJECT (tmp->data);
 
-    if (!diagram_is_selected(dia, obj)) {
-      diagram_select(dia, obj);
+    if (!diagram_is_selected (dia, obj)) {
+      diagram_select (dia, obj);
     } else {
-      diagram_unselect_object(dia, obj);
+      diagram_unselect_object (dia, obj);
     }
   }
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
-  object_add_updates_list(dia->data->selected, dia);
-  diagram_flush(dia);
+  ddisplay_do_update_menu_sensitivity (ddisp);
+  object_add_updates_list (dia->data->selected, dia);
+  diagram_flush (dia);
+
 
 }
 
@@ -221,39 +222,39 @@ select_transitive_callback(GtkAction *action)
 }
 
 void
-select_same_type_callback(GtkAction *action)
+select_same_type_callback (GtkAction *action)
 {
   /* For now, do a brute force version:  Check vs. all earlier selected.
      Later, we should really sort the selecteds first to avoid n^2 */
-  DDisplay *ddisp = ddisplay_active();
+  DDisplay *ddisp = ddisplay_active ();
   Diagram *dia;
   GList *objects, *tmp, *tmp2;
 
-  if (!ddisp || textedit_mode(ddisp)) return;
+  if (!ddisp || textedit_mode (ddisp)) return;
   dia = ddisp->diagram;
 
-  tmp = dia->data->active_layer->objects;
+  tmp = dia_layer_get_object_list (dia->data->active_layer);
 
   objects = dia->data->selected;
 
-  for (; tmp != NULL; tmp = g_list_next(tmp)) {
+  for (; tmp != NULL; tmp = g_list_next (tmp)) {
     DiaObject *obj = (DiaObject *)tmp->data;
 
-    if (!diagram_is_selected(dia, obj)) {
-      for (tmp2 = objects; tmp2 != NULL; tmp2 = g_list_next(tmp2)) {
-        DiaObject *obj2 = (DiaObject *)tmp2->data;
+    if (!diagram_is_selected (dia, obj)) {
+      for (tmp2 = objects; tmp2 != NULL; tmp2 = g_list_next (tmp2)) {
+        DiaObject *obj2 = DIA_OBJECT (tmp2->data);
 
         if (obj->type == obj2->type) {
-          diagram_select(dia, obj);
+          diagram_select (dia, obj);
           break;
         }
       }
     }
   }
 
-  ddisplay_do_update_menu_sensitivity(ddisp);
-  object_add_updates_list(dia->data->selected, dia);
-  diagram_flush(dia);
+  ddisplay_do_update_menu_sensitivity (ddisp);
+  object_add_updates_list (dia->data->selected, dia);
+  diagram_flush (dia);
 }
 
 void

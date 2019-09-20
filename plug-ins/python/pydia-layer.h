@@ -25,13 +25,13 @@
 #include "diagramdata.h"
 
 typedef struct {
-    PyObject_HEAD
-    Layer *layer;
+  PyObject_HEAD
+  DiaLayer *layer;
 } PyDiaLayer;
 
 
 extern PyTypeObject PyDiaLayer_Type;
 
-PyObject *PyDiaLayer_New(Layer *layer);
+PyObject *PyDiaLayer_New (DiaLayer *layer);
 
 #endif

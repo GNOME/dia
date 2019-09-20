@@ -30,6 +30,7 @@
 #include "intl.h"
 #include "message.h" /* just dia_log_message() */
 #include "dia-layer.h"
+#include "font.h"
 
 typedef struct _WpgImportRenderer  WpgImportRenderer;
 

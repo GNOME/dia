@@ -24,7 +24,6 @@
 
 #include "dia-enums.h"
 #include "geometry.h"
-#include "font.h" /* not strictly needed by this header, but needed in almost any plug-in/ */
 
 /* HACK: Work around circular deps */
 typedef struct _DiaRenderer DiaRenderer;
@@ -114,7 +113,7 @@ struct _DiaRendererClass
   GObjectClass parent_class;
 
   void     (*draw_layer)                        (DiaRenderer      *renderer,
-                                                 Layer            *layer,
+                                                 DiaLayer         *layer,
                                                  gboolean          active,
                                                  Rectangle        *update);
   void     (*draw_object)                       (DiaRenderer      *renderer,
@@ -282,7 +281,7 @@ struct _DiaRendererClass
 };
 
 void     dia_renderer_draw_layer                        (DiaRenderer      *self,
-                                                         Layer            *layer,
+                                                         DiaLayer         *layer,
                                                          gboolean          active,
                                                          Rectangle        *update);
 void     dia_renderer_draw_object                       (DiaRenderer      *self,

@@ -165,10 +165,12 @@ show_layers_parse_numbers (DiagramData *diagdata,
 
   /* Set the visible layers */
   for ( i = low; i < high; i++ ) {
-    Layer *lay = (Layer *) g_ptr_array_index (diagdata->layers, i);
+    DiaLayer *lay = DIA_LAYER (g_ptr_array_index (diagdata->layers, i));
 
     if (visible_layers[i] == TRUE) {
-      g_warning (_("Layer %lu (%s) selected more than once."), i, lay->name);
+      g_warning (_("Layer %lu (%s) selected more than once."),
+                 i,
+                 dia_layer_get_name (lay));
     }
     visible_layers[i] = TRUE;
   }
@@ -186,19 +188,22 @@ show_layers_parse_word (DiagramData *diagdata,
   /* Apply --show-layers=LAYER,LAYER,... switch. 13.3.2004 sampo@iki.fi */
   if (layers) {
     int len, k = 0;
-    Layer *lay;
+    DiaLayer *lay;
     char *p;
-    for (k = 0; k < layers->len; k++) {
-      lay = (Layer *) g_ptr_array_index (layers, k);
+    const char *name;
 
-      if (lay->name) {
-        len =  strlen (lay->name);
-        if ((p = strstr (str, lay->name)) != NULL) {
+    for (k = 0; k < layers->len; k++) {
+      lay = DIA_LAYER (g_ptr_array_index (layers, k));
+      name = dia_layer_get_name (lay);
+
+      if (name) {
+        len = strlen (name);
+        if ((p = strstr (str, name)) != NULL) {
           if (((p == str) || (p[-1] == ','))    /* zap false positives */
               && ((p[len] == 0) || (p[len] == ','))){
             found = TRUE;
             if (visible_layers[k] == TRUE) {
-              g_warning (_("Layer %d (%s) selected more than once."), k, lay->name);
+              g_warning (_("Layer %d (%s) selected more than once."), k, name);
             }
             visible_layers[k] = TRUE;
           }
@@ -250,7 +255,7 @@ handle_show_layers (DiagramData *diagdata,
                     const char  *show_layers)
 {
   gboolean *visible_layers;
-  Layer *layer;
+  DiaLayer *layer;
   int i;
 
   visible_layers = g_new (gboolean, diagdata->layers->len);
@@ -270,9 +275,9 @@ handle_show_layers (DiagramData *diagdata,
     layer = g_ptr_array_index (diagdata->layers, i);
 
     if (visible_layers[i] == TRUE) {
-      layer->visible = TRUE;
+      dia_layer_set_visible (layer, TRUE);
     } else {
-      layer->visible = FALSE;
+      dia_layer_set_visible (layer, FALSE);
     }
   }
   g_free(visible_layers);

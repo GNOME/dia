@@ -623,7 +623,7 @@ undo_unconnect(Diagram *dia, DiaObject *obj, Handle *handle)
 struct DeleteObjectsChange {
   Change change;
 
-  Layer *layer;
+  DiaLayer *layer;
   GList *obj_list; /* Owning reference when applied */
   GList *original_objects;
   int applied;
@@ -710,7 +710,7 @@ undo_delete_objects(Diagram *dia, GList *obj_list)
 
   change->layer = dia->data->active_layer;
   change->obj_list = obj_list;
-  change->original_objects = g_list_copy(dia->data->active_layer->objects);
+  change->original_objects = g_list_copy (dia_layer_get_object_list (dia->data->active_layer));
   change->applied = 0;
 
   DEBUG_PRINTF(("UNDO: Push new delete objects at %d\n", dia->undo->depth));
@@ -723,18 +723,18 @@ undo_delete_objects(Diagram *dia, GList *obj_list)
 struct InsertObjectsChange {
   Change change;
 
-  Layer *layer;
+  DiaLayer *layer;
   GList *obj_list; /* Owning reference when not applied */
   int applied;
 };
 
 static void
-insert_objects_apply(struct InsertObjectsChange *change, Diagram *dia)
+insert_objects_apply (struct InsertObjectsChange *change, Diagram *dia)
 {
-  DEBUG_PRINTF(("insert_objects_apply()\n"));
+  DEBUG_PRINTF (("insert_objects_apply()\n"));
   change->applied = 1;
   dia_layer_add_objects (change->layer, g_list_copy (change->obj_list));
-  object_add_updates_list(change->obj_list, dia);
+  object_add_updates_list (change->obj_list, dia);
 }
 
 static void
@@ -795,7 +795,7 @@ undo_insert_objects(Diagram *dia, GList *obj_list, int applied)
 struct ReorderObjectsChange {
   Change change;
 
-  Layer *layer;
+  DiaLayer *layer;
   GList *changed_list; /* Owning reference when applied */
   GList *original_objects;
   GList *reordered_objects;
@@ -842,7 +842,7 @@ undo_reorder_objects(Diagram *dia, GList *changed_list, GList *orig_list)
   change->layer = dia->data->active_layer;
   change->changed_list = changed_list;
   change->original_objects = orig_list;
-  change->reordered_objects = g_list_copy(dia->data->active_layer->objects);
+  change->reordered_objects = g_list_copy (dia_layer_get_object_list (DIA_DIAGRAM_DATA (dia)->active_layer));
 
   DEBUG_PRINTF(("UNDO: Push new reorder objects at %d\n", dia->undo->depth));
   undo_push_change(dia->undo, (Change *) change);
@@ -953,7 +953,7 @@ undo_object_change(Diagram *dia, DiaObject *obj,
 struct GroupObjectsChange {
   Change change;
 
-  Layer *layer;
+  DiaLayer *layer;
   DiaObject *group;   /* owning reference if not applied */
   GList *obj_list; /* The list of objects in this group.  Owned by the
 		      group */
@@ -1048,7 +1048,7 @@ undo_group_objects(Diagram *dia, GList *obj_list, DiaObject *group,
 struct UngroupObjectsChange {
   Change change;
 
-  Layer *layer;
+  DiaLayer *layer;
   DiaObject *group;   /* owning reference if applied */
   GList *obj_list; /* This list is owned by the ungroup. */
   int group_index;
@@ -1219,7 +1219,7 @@ typedef struct _MoveObjectToLayerChange {
   /** All objects in the original layer */
   GList *orig_list;
   /** The active layer when started */
-  Layer *orig_layer;
+  DiaLayer *orig_layer;
   gboolean moving_up;
 } MoveObjectToLayerChange;
 
@@ -1231,7 +1231,7 @@ static void
 move_object_layer_relative (Diagram *dia, GList *objects, gint dist)
 {
   /* from the active layer to above or below */
-  Layer *active, *target;
+  DiaLayer *active, *target;
   guint pos;
 
   g_return_if_fail (dia->data->active_layer);
@@ -1297,12 +1297,12 @@ undo_move_object_other_layer(Diagram *dia, GList *selected_list,
   change->free = (UndoFreeFunc) move_object_to_layer_free;
 
   movetolayerchange->orig_layer = dia->data->active_layer;
-  movetolayerchange->orig_list = g_list_copy(dia->data->active_layer->objects);
-  movetolayerchange->objects = g_list_copy(selected_list);
+  movetolayerchange->orig_list = g_list_copy (dia_layer_get_object_list (DIA_DIAGRAM_DATA (dia)->active_layer));
+  movetolayerchange->objects = g_list_copy (selected_list);
   movetolayerchange->moving_up = moving_up;
 
-  DEBUG_PRINTF(("UNDO: Push new obj_layer_change at %d\n", dia->undo->depth));
-  undo_push_change(dia->undo, change);
+  DEBUG_PRINTF (("UNDO: Push new obj_layer_change at %d\n", dia->undo->depth));
+  undo_push_change (dia->undo, change);
   return change;
 }
 
@@ -1318,12 +1318,12 @@ _import_change_apply (ImportChange *change,
 		      Diagram      *dia)
 {
   GList *list;
-  Layer *layer = dia->data->active_layer;
+  DiaLayer *layer = dia->data->active_layer;
 
   /* add all objects and layers added from the diagram */
   for (list = change->layers; list != NULL; list = list->next) {
-    layer = (Layer *)list->data;
-    data_add_layer (DIA_DIAGRAM_DATA(change->dia), layer);
+    layer = DIA_LAYER (list->data);
+    data_add_layer (DIA_DIAGRAM_DATA (change->dia), layer);
   }
   for (list = change->objects; list != NULL; list = list->next) {
     DiaObject *obj = (DiaObject *)list->data;
@@ -1347,13 +1347,13 @@ _import_change_revert (ImportChange *change,
   diagram_unselect_objects (change->dia, change->objects);
   /* remove all objects and layers added from the diagram */
   for (list = change->objects; list != NULL; list = list->next) {
-    DiaObject *obj = (DiaObject *)list->data;
-    Layer *layer = dia_object_get_parent_layer (obj);
+    DiaObject *obj = DIA_OBJECT (list->data);
+    DiaLayer *layer = dia_object_get_parent_layer (obj);
     dia_layer_remove_object (layer, obj);
   }
   for (list = change->layers; list != NULL; list = list->next) {
-    Layer *layer = (Layer *)list->data;
-    data_remove_layer (DIA_DIAGRAM_DATA(change->dia), layer);
+    DiaLayer *layer = DIA_LAYER (list->data);
+    data_remove_layer (DIA_DIAGRAM_DATA (change->dia), layer);
   }
   diagram_update_extents (change->dia);
 }
@@ -1370,9 +1370,9 @@ _import_change_free (ImportChange *change)
 /* listen on the diagram for object add */
 static void
 _import_object_add (DiagramData  *dia,
-		    Layer        *layer,
-		    DiaObject    *obj,
-		    ImportChange *change)
+                    DiaLayer     *layer,
+                    DiaObject    *obj,
+                    ImportChange *change)
 {
   g_return_if_fail (change->dia == DIA_DIAGRAM(dia));
 

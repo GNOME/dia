@@ -152,7 +152,7 @@ _dtv_query_tooltip (GtkWidget  *widget,
     if (gtk_tree_model_get_iter (model, &iter, path)) {
       /* show some useful  information */
       Diagram   *diagram;
-      Layer     *layer;
+      DiaLayer  *layer;
       DiaObject *object;
 
 
@@ -169,11 +169,10 @@ _dtv_query_tooltip (GtkWidget  *widget,
       }
 
       if (layer) {
-        gchar *name = dia_layer_get_name (layer);
+        const char *name = dia_layer_get_name (layer);
         gchar *em = g_markup_printf_escaped ("<b>%s</b>: %s\n", _("Layer"), name);
         g_string_append (markup, em);
         g_free (em);
-        g_free (name);
       } else if (diagram) {
 	int layers = data_layer_count (DIA_DIAGRAM_DATA (diagram));
 	g_string_append_printf (markup, g_dngettext (GETTEXT_PACKAGE, "%d Layer", "%d Layers",
@@ -314,7 +313,7 @@ _dtv_select_items (GtkAction *action,
 
     if (gtk_tree_model_get_iter (model, &iter, r->data)) {
       Diagram   *diagram;
-      Layer     *layer;
+      DiaLayer  *layer;
       DiaObject *object;
 
       gtk_tree_model_get (model, &iter, DIAGRAM_COLUMN, &diagram, -1);

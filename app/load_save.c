@@ -380,11 +380,11 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
   xmlNodePtr paperinfo, gridinfo, guideinfo;
   xmlNodePtr layer_node;
   AttributeNode attr;
-  Layer *layer;
+  DiaLayer *layer;
   xmlNsPtr namespace;
   gchar firstchar;
   Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
-  Layer *active_layer = NULL;
+  DiaLayer *active_layer = NULL;
   GHashTable* unknown_objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
   int num_layers_added = 0;
 
@@ -650,11 +650,14 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     name = (char *)xmlGetProp(layer_node, (const xmlChar *)"name");
     if (!name) break; /* name is mandatory */
 
-    layer = dia_layer_new (g_strdup (name), data);
+    layer = dia_layer_new (name, data);
     if (name) xmlFree (name);
 
-    layer->visible = _get_bool_prop (layer_node, "visible", FALSE);
-    layer->connectable = _get_bool_prop (layer_node, "connectable", FALSE);
+    g_object_set (layer,
+                  "visible", _get_bool_prop (layer_node, "visible", FALSE),
+                  "connectable", _get_bool_prop (layer_node, "connectable", FALSE),
+                  NULL);
+
     /* Read in all objects: */
     list = read_objects (layer_node, objects_hash, ctx, NULL, unknown_objects_hash);
     dia_layer_add_objects (layer, list);
@@ -674,22 +677,25 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     int i = data_layer_count (data) - num_layers_added;
     layer_node = find_node_named (root->xmlChildrenNode, "layer");
     for (; i < data_layer_count (data); ++i) {
-      layer = (Layer *) g_ptr_array_index(data->layers, i);
+      layer = (DiaLayer *) g_ptr_array_index(data->layers, i);
+
       while (layer_node && xmlStrcmp (layer_node->name, (xmlChar *)"layer") != 0)
-	layer_node = layer_node->next;
+        layer_node = layer_node->next;
+
       if (!layer_node) {
-	dia_context_add_message (ctx, _("Error reading connections"));
-	break;
+        dia_context_add_message (ctx, _("Error reading connections"));
+        break;
       }
-      read_connections(layer->objects, layer_node, objects_hash);
+
+      read_connections (dia_layer_get_object_list (layer), layer_node, objects_hash);
       layer_node = layer_node->next;
     }
   }
 
   if (!active_layer)
-    data->active_layer = (Layer *) g_ptr_array_index(data->layers, 0);
+    data->active_layer = DIA_LAYER (g_ptr_array_index (data->layers, 0));
   else
-    data_set_active_layer(data, active_layer);
+    data_set_active_layer (data, active_layer);
 
   xmlFreeDoc(doc);
 
@@ -872,7 +878,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
   gboolean res;
   int obj_nr;
   guint i;
-  Layer *layer;
+  DiaLayer *layer;
   AttributeNode attr;
   xmlNs *name_space;
   Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
@@ -976,15 +982,17 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
     layer_node = xmlNewChild (doc->xmlRootNode,
                               name_space,
                               (const xmlChar *) "layer", NULL);
-    layer = (Layer *) g_ptr_array_index (data->layers, i);
-    xmlSetProp (layer_node, (const xmlChar *) "name", (xmlChar *) layer->name);
+    layer = (DiaLayer *) g_ptr_array_index (data->layers, i);
+    xmlSetProp (layer_node,
+                (const xmlChar *) "name",
+                (xmlChar *) dia_layer_get_name (layer));
 
     xmlSetProp (layer_node,
                 (const xmlChar *) "visible",
-                (const xmlChar *) (layer->visible ? "true" : "false"));
+                (const xmlChar *) (dia_layer_is_visible (layer) ? "true" : "false"));
     xmlSetProp (layer_node,
                 (const xmlChar *) "connectable",
-                (const xmlChar *) (layer->connectable ? "true" : "false"));
+                (const xmlChar *) (dia_layer_is_connectable (layer) ? "true" : "false"));
 
     if (layer == data->active_layer) {
       xmlSetProp (layer_node,
@@ -992,7 +1000,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
                   (const xmlChar *) "true");
     }
 
-    write_objects (layer->objects,
+    write_objects (dia_layer_get_object_list (layer),
                    layer_node,
                    objects_hash,
                    &obj_nr,
@@ -1005,16 +1013,24 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
    */
   layer_node = doc->xmlRootNode->children;
   for (i = 0; i < data->layers->len; i++) {
-    layer = (Layer *) g_ptr_array_index(data->layers, i);
-    while (layer_node && xmlStrcmp (layer_node->name, (xmlChar *)"layer") != 0)
+    layer = (DiaLayer *) g_ptr_array_index (data->layers, i);
+    while (layer_node && xmlStrcmp (layer_node->name, (xmlChar *) "layer") != 0) {
       layer_node = layer_node->next;
+    }
     if (!layer_node) {
-      dia_context_add_message (ctx, _("Error saving connections to layer '%s'"), layer->name);
+      dia_context_add_message (ctx,
+                               _("Error saving connections to layer '%s'"),
+                               dia_layer_get_name (layer));
       break;
     }
-    res = write_connections(layer->objects, layer_node, objects_hash);
-    if (!res)
-      dia_context_add_message (ctx, _("Connection saving is incomplete for layer '%s'"), layer->name);
+    res = write_connections (dia_layer_get_object_list (layer),
+                             layer_node,
+                             objects_hash);
+    if (!res) {
+      dia_context_add_message (ctx,
+                               _("Connection saving is incomplete for layer '%s'"),
+                               dia_layer_get_name (layer));
+    }
     layer_node = layer_node->next;
   }
 

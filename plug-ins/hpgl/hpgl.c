@@ -42,6 +42,7 @@
 #include "diarenderer.h"
 #include "filter.h"
 #include "plug-ins.h"
+#include "font.h"
 
 /* #DEFINE DEBUG_HPGL */
 

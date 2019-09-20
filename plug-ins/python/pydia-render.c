@@ -398,9 +398,9 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
  */
 static void
 draw_layer (DiaRenderer *renderer,
-	    Layer       *layer,
-	    gboolean     active,
-	    Rectangle   *update)
+            DiaLayer    *layer,
+            gboolean     active,
+            Rectangle   *update)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 

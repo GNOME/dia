@@ -470,10 +470,10 @@ import_drs (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user
   GList *item, *items;
   xmlDocPtr doc = xmlParseFile(filename);
   xmlNodePtr root = NULL, node;
-  Layer *active_layer = NULL;
+  DiaLayer *active_layer = NULL;
 
   for (node = doc->children; node; node = node->next)
-    if (xmlStrcmp (node->name, (const xmlChar *)"drs") == 0)
+    if (xmlStrcmp (node->name, (const xmlChar *) "drs") == 0)
       root = node;
 
   if (!root || !(root = find_child_named (root, "diagram"))) {
@@ -482,24 +482,24 @@ import_drs (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user
   }
 
   for (node = root->children; node != NULL; node = node->next) {
-    if (xmlStrcmp (node->name, (const xmlChar *)"layer") == 0) {
+    if (xmlStrcmp (node->name, (const xmlChar *) "layer") == 0) {
       xmlChar *str;
-      xmlChar *name = xmlGetProp (node, (const xmlChar *)"name");
-      Layer *layer = dia_layer_new (g_strdup (name ? (gchar *)name : _("Layer")), dia);
+      xmlChar *name = xmlGetProp (node, (const xmlChar *) "name");
+      DiaLayer *layer = dia_layer_new (name ? (gchar *) name : _("Layer"), dia);
 
       if (name)
         xmlFree (name);
 
-      str = xmlGetProp (node, (const xmlChar *)"active");
-      if (xmlStrcmp (str, (const xmlChar *)"true")) {
+      str = xmlGetProp (node, (const xmlChar *) "active");
+      if (xmlStrcmp (str, (const xmlChar *) "true")) {
         active_layer = layer;
         xmlFree (str);
       }
 
       items = read_items (node->children, ctx);
       for (item = items; item != NULL; item = g_list_next (item)) {
-        DiaObject *obj = (DiaObject *)item->data;
-        dia_layer_add_object(layer, obj);
+        DiaObject *obj = DIA_OBJECT (item->data);
+        dia_layer_add_object (layer, obj);
       }
       g_list_free (items);
       data_add_layer (dia, layer);

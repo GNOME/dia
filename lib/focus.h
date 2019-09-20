@@ -15,8 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef FOCUS_H
-#define FOCUS_H
+
+#pragma once
 
 #include "diatypes.h"
 
@@ -41,9 +41,3 @@ void remove_focus_on_diagram(DiagramData *dia);
 gboolean remove_focus_object(DiaObject *obj);
 void reset_foci_on_diagram(DiagramData *dia);
 DiaObject* focus_get_object(Focus *focus);
-
-#endif /* FOCUS_H */
-
-
-
-

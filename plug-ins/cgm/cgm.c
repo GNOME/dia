@@ -39,6 +39,7 @@
 #include "plug-ins.h"
 #include "diarenderer.h"
 #include "dia_image.h"
+#include "font.h"
 
 #include <gdk/gdk.h>
 

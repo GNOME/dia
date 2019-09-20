@@ -407,9 +407,9 @@ _recurse_row_inserted (GtkTreeModel *model, GtkTreeIter *parent)
 /* listen on the diagram for object add/remove */
 static void
 _object_add (DiagramData      *dia,
-	     Layer            *layer,
+             DiaLayer         *layer,
              DiaObject        *obj,
-	     DiagramTreeModel *dtm)
+             DiagramTreeModel *dtm)
 {
   GtkTreePath *path;
   GtkTreeIter _iter;
@@ -434,11 +434,12 @@ _object_add (DiagramData      *dia,
     gtk_tree_path_free (path);
   }
 }
+
 static void
-_object_remove(DiagramData      *dia,
-	       Layer            *layer,
-               DiaObject        *obj,
-	       DiagramTreeModel *dtm)
+_object_remove (DiagramData      *dia,
+                DiaLayer         *layer,
+                DiaObject        *obj,
+                DiagramTreeModel *dtm)
 {
   GtkTreePath *path;
   GtkTreeIter _iter;
@@ -599,8 +600,8 @@ static gint
 cmp_layer (GtkTreeIter  *a,
 	   GtkTreeIter  *b)
 {
-  Layer *pa = NODE_LAYER(a), *pb = NODE_LAYER(b);
-  gchar *na, *nb;
+  DiaLayer *pa = NODE_LAYER(a), *pb = NODE_LAYER(b);
+  const char *na, *nb;
   gint ret;
   if (pa == pb)
     return 0;
@@ -609,8 +610,7 @@ cmp_layer (GtkTreeIter  *a,
   if (!na || !nb)
     return (na > nb) ? -1 : 1;
   ret = strcmp (na, nb);
-  g_free (na);
-  g_free (nb);
+
   return ret;
 }
 static gint

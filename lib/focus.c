@@ -87,7 +87,7 @@ set_text_foci(DiagramData *dia, GList *foci)
 void
 request_focus(Focus *focus)
 {
-  DiagramData *dia = focus->obj->parent_layer->parent_diagram;
+  DiagramData *dia = dia_layer_get_parent_diagram (focus->obj->parent_layer);
   GList *text_foci = get_text_foci(dia);
   /* Only add to focus list if not already there, and don't snatch focus. */
   if (!g_list_find(text_foci, focus)) {
@@ -99,7 +99,7 @@ request_focus(Focus *focus)
 void
 give_focus(Focus *focus)
 {
-  DiagramData *dia = focus->obj->parent_layer->parent_diagram;
+  DiagramData *dia = dia_layer_get_parent_diagram (focus->obj->parent_layer);
 
   if (get_active_focus(dia) != NULL) {
     get_active_focus(dia)->has_focus = FALSE;
@@ -113,7 +113,7 @@ give_focus(Focus *focus)
 Focus *
 focus_get_first_on_object(DiaObject *obj)
 {
-  GList *tmplist = get_text_foci(obj->parent_layer->parent_diagram);
+  GList *tmplist = get_text_foci (dia_layer_get_parent_diagram (obj->parent_layer));
 
   for (; tmplist != NULL; tmplist = g_list_next(tmplist) ) {
     Focus *focus = (Focus*)tmplist->data;
@@ -184,7 +184,7 @@ reset_foci_on_diagram(DiagramData *dia)
 gboolean
 remove_focus_object(DiaObject *obj)
 {
-  DiagramData *dia = obj->parent_layer->parent_diagram;
+  DiagramData *dia = dia_layer_get_parent_diagram (obj->parent_layer);
   GList *tmplist = get_text_foci(dia);
   gboolean active = FALSE;
   Focus *next_focus = NULL;

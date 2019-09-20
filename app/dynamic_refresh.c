@@ -39,7 +39,7 @@ static void foreach_dynobj(DiaObject* obj, gpointer data) {
     while (list != NULL) {
         Diagram* dia;
         DiagramData* obj_ddata;
-        Layer* layer;
+        DiaLayer *layer;
 
         dia = (Diagram*)list->data;
         list = g_list_next(list);

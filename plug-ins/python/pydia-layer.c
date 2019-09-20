@@ -28,15 +28,15 @@
 #include <structmember.h> /* PyMemberDef */
 
 PyObject *
-PyDiaLayer_New(Layer *layer)
+PyDiaLayer_New(DiaLayer *layer)
 {
-    PyDiaLayer *self;
+  PyDiaLayer *self;
 
-    self = PyObject_NEW(PyDiaLayer, &PyDiaLayer_Type);
+  self = PyObject_NEW (PyDiaLayer, &PyDiaLayer_Type);
 
-    if (!self) return NULL;
-    self->layer = layer;
-    return (PyObject *)self;
+  if (!self) return NULL;
+  self->layer = layer;
+  return (PyObject *)self;
 }
 
 static void
@@ -62,7 +62,7 @@ PyDiaLayer_Hash(PyDiaLayer *self)
 static PyObject *
 PyDiaLayer_Str(PyDiaLayer *self)
 {
-    return PyString_FromString(self->layer->name);
+    return PyString_FromString (dia_layer_get_name (self->layer));
 }
 
 /* methods here */
@@ -287,26 +287,30 @@ PyDiaLayer_GetAttr(PyDiaLayer *self, gchar *attr)
 {
   if (!strcmp (attr, "__members__"))
     return Py_BuildValue ("[ssss]", "extents", "name", "objects", "visible");
-  else if (!strcmp (attr, "name"))
-    return PyString_FromString (self->layer->name);
-  else if (!strcmp (attr, "extents"))
+  else if (!strcmp (attr, "name")) {
+    return PyString_FromString (dia_layer_get_name (self->layer));
+  } else if (!strcmp (attr, "extents")) {
+    Rectangle extents;
+
+    dia_layer_get_extents (self->layer, &extents);
+
     return Py_BuildValue ("(dddd)",
-                          self->layer->extents.top,
-                          self->layer->extents.left,
-                          self->layer->extents.bottom,
-                          self->layer->extents.right);
-  else if (!strcmp (attr, "objects")) {
+                          extents.top,
+                          extents.left,
+                          extents.bottom,
+                          extents.right);
+  } else if (!strcmp (attr, "objects")) {
     PyObject *ret;
     GList *tmp;
     gint i;
 
-    ret = PyTuple_New (g_list_length (self->layer->objects));
-    for (i = 0, tmp = self->layer->objects; tmp; i++, tmp = tmp->next) {
+    ret = PyTuple_New (g_list_length (dia_layer_get_object_list (self->layer)));
+    for (i = 0, tmp = dia_layer_get_object_list (self->layer); tmp; i++, tmp = tmp->next) {
       PyTuple_SetItem (ret, i, PyDiaObject_New ((DiaObject *)tmp->data));
     }
     return ret;
   } else if (!strcmp (attr, "visible")) {
-    return PyInt_FromLong (self->layer->visible);
+    return PyInt_FromLong (dia_layer_is_visible (self->layer));
   }
 
   return Py_FindMethod (PyDiaLayer_Methods, (PyObject *) self, attr);

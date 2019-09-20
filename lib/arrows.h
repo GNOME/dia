@@ -15,8 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef ARROWS_H
-#define ARROWS_H
+
+#pragma once
 
 #include "diatypes.h"
 #include "geometry.h"
@@ -30,7 +30,7 @@
 
 /**
  * ArrowType:
- * @ARROW_NONE = 0: No arrow
+ * @ARROW_NONE: No arrow
  * @ARROW_LINES: {open arrow}
  * @ARROW_HOLLOW_TRIANGLE: {blanked arrow}
  * @ARROW_FILLED_TRIANGLE: {filled arrow}
@@ -58,10 +58,10 @@
  * @ARROW_HALF_DIAMOND: ---<
  * @ARROW_OPEN_ROUNDED: ---c
  * @ARROW_FILLED_DOT_N_TRIANGLE: ---|>o
- * @ARROW_ONE_OR_MANY: ER-model: 1 or many
- * @ARROW_NONE_OR_MANY: ER-model: 0 or many
- * @ARROW_ONE_OR_NONE: ER-model: 1 or 0
- * @ARROW_ONE_EXACTLY: ER-model: exactly one
+ * @ARROW_ONE_OR_MANY: ER-model, 1 or many
+ * @ARROW_NONE_OR_MANY: ER-model, 0 or many
+ * @ARROW_ONE_OR_NONE: ER-model, 1 or 0
+ * @ARROW_ONE_EXACTLY: ER-model, exactly one
  * @ARROW_BACKSLASH: -\----
  * @ARROW_THREE_DOTS:
  * @MAX_ARROW_TYPE: This isn't an arrow, just marks the end
@@ -96,14 +96,14 @@ typedef enum {
   ARROW_FILLED_CONCAVE,
   ARROW_BLANKED_CONCAVE,
   ARROW_ROUNDED,
-  ARROW_HALF_DIAMOND,		/* ---< */
-  ARROW_OPEN_ROUNDED,		/* ---c */
-  ARROW_FILLED_DOT_N_TRIANGLE,	/* ---|>o */
+  ARROW_HALF_DIAMOND,           /* ---< */
+  ARROW_OPEN_ROUNDED,           /* ---c */
+  ARROW_FILLED_DOT_N_TRIANGLE,  /* ---|>o */
   ARROW_ONE_OR_MANY,            /* ER-model: 1 or many*/
   ARROW_NONE_OR_MANY,           /* ER-model: 0 or many*/
   ARROW_ONE_OR_NONE,            /* ER-model: 1 or 0 */
   ARROW_ONE_EXACTLY,            /* ER-model: exactly one*/
-  ARROW_BACKSLASH,                  /* -\----  */
+  ARROW_BACKSLASH,              /* -\----  */
   ARROW_THREE_DOTS,
 
   MAX_ARROW_TYPE /* No arrow heads may be defined beyond here. */
@@ -131,8 +131,8 @@ typedef enum {
 /**
  * Arrow:
  * @type: kind of arrow
- * @length:
- * @width:
+ * @length: length of the arrow
+ * @width: width of the arrow
  *
  * Definition of line ends
  */
@@ -180,5 +180,3 @@ gint         arrow_index_from_type    (ArrowType    atype);
 ArrowType    arrow_type_from_index    (gint         index);
 const gchar *arrow_get_name_from_type (ArrowType    type);
 GList       *get_arrow_names          (void);
-
-#endif /* ARROWS_H */

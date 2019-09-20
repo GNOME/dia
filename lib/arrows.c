@@ -44,7 +44,7 @@
 #include "intl.h"
 
 /**
- * SECTION:dia-arrows
+ * SECTION:arrows
  * @title: Arrow
  * @short_description: Arrow drawing
  *

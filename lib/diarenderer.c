@@ -251,11 +251,11 @@ dia_renderer_get_property (GObject    *object,
  */
 static void
 draw_layer (DiaRenderer *renderer,
-	    Layer       *layer,
-	    gboolean     active,
-	    Rectangle   *update)
+            DiaLayer    *layer,
+            gboolean     active,
+            Rectangle   *update)
 {
-  GList *list = layer->objects;
+  GList *list = dia_layer_get_object_list (layer);
   void (*func) (DiaRenderer*, DiaObject *, DiaMatrix *);
 
   g_return_if_fail (layer != NULL);
@@ -2116,7 +2116,7 @@ dia_renderer_bezier_stroke (DiaRenderer *self,
 
 void
 dia_renderer_draw_layer (DiaRenderer      *self,
-                         Layer            *layer,
+                         DiaLayer         *layer,
                          gboolean          active,
                          Rectangle        *update)
 {

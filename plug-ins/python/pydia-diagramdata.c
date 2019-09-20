@@ -113,20 +113,22 @@ PyDiaDiagramData_GetSortedSelected(PyDiaDiagramData *self, PyObject *args)
 }
 
 static PyObject *
-PyDiaDiagramData_AddLayer(PyDiaDiagramData *self, PyObject *args)
+PyDiaDiagramData_AddLayer (PyDiaDiagramData *self, PyObject *args)
 {
-    gchar *name;
-    int pos = -1;
-    Layer *layer;
+  gchar *name;
+  int pos = -1;
+  DiaLayer *layer;
 
-    if (!PyArg_ParseTuple(args, "s|i:DiagramData.add_layer", &name, &pos))
-	return NULL;
-    layer = new_layer(g_strdup(name),self->data);
-    if (pos != -1)
-	data_add_layer_at(self->data, layer, pos);
-    else
-	data_add_layer(self->data, layer);
-    return PyDiaLayer_New(layer);
+  if (!PyArg_ParseTuple(args, "s|i:DiagramData.add_layer", &name, &pos))
+    return NULL;
+
+  layer = dia_layer_new (name, self->data);
+  if (pos != -1) {
+    data_add_layer_at(self->data, layer, pos);
+  } else {
+    data_add_layer (self->data, layer);
+  }
+  return PyDiaLayer_New (layer);
 }
 
 static PyObject *
@@ -171,16 +173,17 @@ PyDiaDiagramData_SetActiveLayer(PyDiaDiagramData *self, PyObject *args)
 static PyObject *
 PyDiaDiagramData_DeleteLayer(PyDiaDiagramData *self, PyObject *args)
 {
-    PyDiaLayer *layer;
+  PyDiaLayer *layer;
 
-    if (!PyArg_ParseTuple(args, "O!:DiagramData.delete_layer",
-			  &PyDiaLayer_Type, &layer))
-	return NULL;
-    data_remove_layer(self->data, layer->layer);
-    layer_destroy(layer->layer);
-    layer->layer = NULL;
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple(args, "O!:DiagramData.delete_layer",
+      &PyDiaLayer_Type, &layer))
+    return NULL;
+
+  data_remove_layer (self->data, layer->layer);
+  dia_layer_destroy (layer->layer);
+  layer->layer = NULL;
+  Py_INCREF (Py_None);
+  return Py_None;
 }
 
 /*!
@@ -193,7 +196,7 @@ PyDiaDiagramData_DeleteLayer(PyDiaDiagramData *self, PyObject *args)
  *  @param user_data The python function to be called by the callback.
  */
 static void
-PyDiaDiagramData_CallbackObject(DiagramData *dia,Layer *layer,DiaObject *obj,void *user_data)
+PyDiaDiagramData_CallbackObject(DiagramData *dia, DiaLayer *layer, DiaObject *obj, void *user_data)
 {
     PyObject *pydata,*pylayer,*pyobj,*res,*arg;
     PyObject *func = user_data;
