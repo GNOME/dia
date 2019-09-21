@@ -606,7 +606,7 @@ link_update_data(Link *link)
 {
   Connection *conn = &link->connection;
   DiaObject *obj = &conn->object;
-  Rectangle rect;
+  DiaRectangle rect;
   Point p1,p2,p3,p4,pa;
 
 /* Too complex to easily decide */

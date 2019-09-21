@@ -111,7 +111,7 @@ static int hasArrow(Arrow *arrow)
   return (!arrow || ARROW_NONE==arrow->type) ? 0 : 1;
 }
 
-static void begin_render(DiaRenderer *self, const Rectangle *update);
+static void begin_render(DiaRenderer *self, const DiaRectangle *update);
 static void end_render(DiaRenderer *renderer);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
@@ -545,7 +545,7 @@ figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
 }
 
 static void
-begin_render(DiaRenderer *self, const Rectangle *update)
+begin_render(DiaRenderer *self, const DiaRectangle *update)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 

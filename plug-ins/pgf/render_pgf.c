@@ -78,7 +78,7 @@ TODO:
 #define pgf_itostr(buf,i) \
 	g_sprintf(buf,"%d",i)
 
-static void begin_render(DiaRenderer *self, const Rectangle *update);
+static void begin_render(DiaRenderer *self, const DiaRectangle *update);
 static void end_render(DiaRenderer *self);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
@@ -386,7 +386,7 @@ set_fill_color(PgfRenderer *renderer,Color *color)
 }
 
 static void
-begin_render(DiaRenderer *self, const Rectangle *update)
+begin_render(DiaRenderer *self, const DiaRectangle *update)
 {
 }
 

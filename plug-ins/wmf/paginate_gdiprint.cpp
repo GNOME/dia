@@ -8,7 +8,7 @@
  *   paginate_gnomeprint.[ch] -- pagination code for the gnome-print backend
  *   Copyright (C) 1999 James Henstridge
  *
- * the rest is : 
+ * the rest is :
  *   Copyright 2001 Hans Breuer <Hans@Breuer.Org>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -46,7 +46,7 @@ extern "C" {
 #endif
 
 namespace W32 {
-// can't 
+// can't
 // #define WIN32_LEAN_AND_MEAN
 // because we need stuff like PRINTDLG
 #include <windows.h>
@@ -62,11 +62,11 @@ namespace W32 {
 
 static guint
 print_page(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC,
-           Rectangle *bounds, gint xpos, gint ypos, DiaContext *ctx)
+           DiaRectangle *bounds, gint xpos, gint ypos, DiaContext *ctx)
 {
   guint nobjs = 0;
   DiagramData page_data = *data; /* ugliness! */
-  page_data.extents = *bounds; 
+  page_data.extents = *bounds;
 
   /* transform coordinate system */
   if (data->paper.is_portrait) {
@@ -86,7 +86,7 @@ print_page(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC,
 static void
 paginate_gdiprint(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC, DiaContext *ctx)
 {
-  Rectangle *extents;
+  DiaRectangle *extents;
   gdouble width, height;
   gdouble x, y, initx, inity;
   gint xpos, ypos;
@@ -112,7 +112,7 @@ paginate_gdiprint(DiagramData *data, DiaExportFilter* pExp, W32::HANDLE hDC, Dia
     if ((extents->bottom - y) < 1e-6)
       break;
     for (x = initx, xpos = 0; x < extents->right; x += width, xpos++) {
-      Rectangle page_bounds;
+      DiaRectangle page_bounds;
 
       if ((extents->right - x) < 1e-6)
 	break;
@@ -176,7 +176,7 @@ diagram_print_gdi(DiagramData *data, const gchar *filename, DiaContext *ctx)
      * initialized despite of the api documentation ?
      */
     g_print ("Paper size %d, length %d width %d scale %d\n",
-             pDevMode->dmPaperSize, 
+             pDevMode->dmPaperSize,
              pDevMode->dmPaperLength, pDevMode->dmPaperWidth, pDevMode->dmScale);
 
     W32::GlobalUnlock (printDlg.hDevMode);
@@ -195,7 +195,7 @@ diagram_print_gdi(DiagramData *data, const gchar *filename, DiaContext *ctx)
 	else if (dwError < CFERR_CHOOSEFONTCODES) emsg = "Printer Selection Error";
 	else emsg = "Unexpected Error"; /* Other common dialogs errors */
 
-      message_error("Print Dialog failed with error %d\n%s", 
+      message_error("Print Dialog failed with error %d\n%s",
                     dwError, emsg);
     }
     return;

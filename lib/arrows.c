@@ -2276,11 +2276,11 @@ struct ArrowDesc {
  * the arrow bounding box is added to the given rect
  */
 void
-arrow_bbox (const Arrow *self,
-            real         line_width,
-            const Point *to,
-            const Point *from,
-            Rectangle   *rect)
+arrow_bbox (const Arrow  *self,
+            real          line_width,
+            const Point  *to,
+            const Point  *from,
+            DiaRectangle *rect)
 {
   Point poly[6]; /* Attention: nust be the maximum used! */
   PolyBBExtras pextra;
@@ -2378,7 +2378,7 @@ arrow_draw (DiaRenderer *renderer,
   }
   if ((type != ARROW_NONE) && (render_bounding_boxes ()) && DIA_IS_INTERACTIVE_RENDERER (renderer)) {
     Arrow arrow = {type, length, width};
-    Rectangle bbox = {0, };
+    DiaRectangle bbox = {0, };
     Point p1, p2;
     Color col = { 1.0, 0.0, 1.0, 1.0 };
 

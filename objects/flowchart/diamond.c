@@ -212,7 +212,7 @@ static real
 diamond_distance_from(Diamond *diamond, Point *point)
 {
   Element *elem = &diamond->element;
-  Rectangle rect;
+  DiaRectangle rect;
 
   rect.left = elem->corner.x - diamond->border_width/2;
   rect.right = elem->corner.x + elem->width + diamond->border_width/2;

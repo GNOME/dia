@@ -304,7 +304,7 @@ static real
 image_distance_from(Image *image, Point *point)
 {
   Element *elem = &image->element;
-  Rectangle rect;
+  DiaRectangle rect;
   real bw = image->draw_border ? image->border_width : 0;
 
   if (image->angle != 0.0) {

@@ -206,7 +206,7 @@ _textobj_get_poly (const Textobj *textobj, Point poly[4])
 {
   Point ul, lr;
   Point pt = textobj->text_handle.pos;
-  Rectangle box;
+  DiaRectangle box;
   DiaMatrix m = { 1, 0, 0, 1, pt.x, pt.y };
   DiaMatrix t = { 1, 0, 0, 1, -pt.x, -pt.y };
   int i;
@@ -288,7 +288,7 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
   assert(renderer != NULL);
 
   if (textobj->show_background) {
-    Rectangle box;
+    DiaRectangle box;
     Point ul, lr;
     text_calc_boundingbox (textobj->text, &box);
     ul.x = box.left - textobj->margin;
@@ -322,9 +322,9 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
 }
 
 static void
-textobj_valign_point(Textobj *textobj, Point* p)
+textobj_valign_point (Textobj *textobj, Point* p)
 {
-  Rectangle *bb  = &(textobj->object.bounding_box);
+  DiaRectangle *bb  = &(textobj->object.bounding_box);
   real offset;
   switch (textobj->vert_align){
   case VALIGN_BOTTOM:
@@ -343,12 +343,13 @@ textobj_valign_point(Textobj *textobj, Point* p)
     break;
   }
 }
+
 static void
-textobj_update_data(Textobj *textobj)
+textobj_update_data (Textobj *textobj)
 {
   Point to2;
   DiaObject *obj = &textobj->object;
-  Rectangle tx_bb;
+  DiaRectangle tx_bb;
 
   text_set_position(textobj->text, &obj->position);
   text_calc_boundingbox(textobj->text, &obj->bounding_box);
@@ -413,7 +414,7 @@ textobj_create(Point *startpoint,
 
   textobj = g_malloc0(sizeof(Textobj));
   obj = &textobj->object;
-  obj->enclosing_box = g_new0 (Rectangle, 1);
+  obj->enclosing_box = g_new0 (DiaRectangle, 1);
 
   obj->type = &textobj_type;
 
@@ -454,7 +455,7 @@ static DiaObject *
 textobj_copy(Textobj *textobj)
 {
   Textobj *copied = (Textobj *)object_copy_using_properties(&textobj->object);
-  copied->object.enclosing_box = g_new (Rectangle, 1);
+  copied->object.enclosing_box = g_new (DiaRectangle, 1);
   *copied->object.enclosing_box = *textobj->object.enclosing_box;
   return &copied->object;
 }
@@ -498,7 +499,7 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
   textobj = g_malloc0(sizeof(Textobj));
   obj = &textobj->object;
-  obj->enclosing_box = g_new0(Rectangle,1);
+  obj->enclosing_box = g_new0 (DiaRectangle,1);
 
   obj->type = &textobj_type;
   obj->ops = &textobj_ops;

@@ -176,14 +176,15 @@ PyDiaDiagram_GetSortedSelectedRemove(PyDiaDiagram *self, PyObject *args)
 static PyObject *
 PyDiaDiagram_AddUpdate(PyDiaDiagram *self, PyObject *args)
 {
-    Rectangle r;
+  DiaRectangle r;
 
-    if (!PyArg_ParseTuple(args, "dddd:Diagram.add_update", &r.top,
-			  &r.left, &r.bottom, &r.right))
-	return NULL;
-    diagram_add_update(self->dia, &r);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple (args, "dddd:Diagram.add_update", &r.top,
+      &r.left, &r.bottom, &r.right))
+    return NULL;
+
+  diagram_add_update (self->dia, &r);
+  Py_INCREF (Py_None);
+  return Py_None;
 }
 
 static PyObject *
@@ -278,7 +279,7 @@ PyDiaDiagram_FindClosestConnectionPoint(PyDiaDiagram *self, PyObject *args)
     if (!PyArg_ParseTuple(args, "dd|O!:Diagram.find_closest_connectionpoint",
 			  &p.x, &p.y, PyDiaObject_Type, &obj))
 	return NULL;
-    dist = diagram_find_closest_connectionpoint(self->dia, &cpoint, &p, 
+    dist = diagram_find_closest_connectionpoint(self->dia, &cpoint, &p,
 						obj ? obj->object : NULL);
     ret = PyTuple_New(2);
     PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));
@@ -340,7 +341,7 @@ PyDiaDiagram_Display(PyDiaDiagram *self, PyObject *args)
     return PyDiaDisplay_New(disp);
 }
 
-/* 
+/*
  *  Callback for "removed" signal, used by the connect_after method,
  *  it's a proxy for the python function, creating the values it needs.
  *  Params are those of the "removed" signal on the Diagram object.
@@ -353,13 +354,13 @@ PyDiaDiagram_CallbackRemoved(Diagram *dia,void *user_data)
     /* Check that we got a function */
     PyObject *diaobj,*res,*arg;
     PyObject *func = user_data;
-    
+
     if (!func || !PyCallable_Check (func)) {
         g_warning ("Callback called without valid callback function.");
         return;
     }
-      
-    /* Create a new PyDiaDiagram object. This really should reuse the object that we connected to. 
+
+    /* Create a new PyDiaDiagram object. This really should reuse the object that we connected to.
      * We'll do that later.
      */
     if (dia)
@@ -368,7 +369,7 @@ PyDiaDiagram_CallbackRemoved(Diagram *dia,void *user_data)
         diaobj = Py_None;
         Py_INCREF (diaobj);
     }
-      
+
     Py_INCREF(func);
 
     /* Call the callback. */
@@ -384,7 +385,7 @@ PyDiaDiagram_CallbackRemoved(Diagram *dia,void *user_data)
 }
 
 
-/* 
+/*
  *  Callback for "selection_changed" signal, used by the connect_after method,
  *  it's a proxy for the python function, creating the values it needs.
  *  Params are those of the "selection_changed" signal on the Diagram object.
@@ -398,13 +399,13 @@ PyDiaDiagram_CallbackSelectionChanged(Diagram *dia,int sel,void *user_data)
     /* Check that we got a function */
     PyObject *dgm,*res,*arg;
     PyObject *func = user_data;
-    
+
     if (!func || !PyCallable_Check (func)) {
         g_warning ("Callback called without valid callback function.");
         return;
     }
-      
-    /* Create a new PyDiaDiagram object. This really should reuse the object that we connected to. 
+
+    /* Create a new PyDiaDiagram object. This really should reuse the object that we connected to.
      * We'll do that later.
      */
     if (dia)
@@ -413,8 +414,8 @@ PyDiaDiagram_CallbackSelectionChanged(Diagram *dia,int sel,void *user_data)
         dgm = Py_None;
         Py_INCREF (dgm);
     }
-    
-      
+
+
     Py_INCREF(func);
 
     /* Call the callback. */
@@ -460,12 +461,12 @@ PyDiaDiagram_ConnectAfter(PyDiaDiagram *self, PyObject *args)
         {
             g_signal_connect_after(DIA_DIAGRAM(self->dia),"removed",G_CALLBACK(PyDiaDiagram_CallbackRemoved), func);
         }
-        
+
         if (strcmp("selection_changed",signal) == 0)
         {
             g_signal_connect_after(DIA_DIAGRAM(self->dia),"selection_changed",G_CALLBACK(PyDiaDiagram_CallbackSelectionChanged), func);
         }
- 
+
         Py_INCREF(Py_None);
         return Py_None;
     }

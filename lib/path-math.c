@@ -30,7 +30,7 @@
  * \brief Take a path and calculate it to non overlapping pieces
  */
 
-typedef struct _BezierSegment BezierSegment; 
+typedef struct _BezierSegment BezierSegment;
 struct _BezierSegment {
   Point p0;
   Point p1;
@@ -39,7 +39,7 @@ struct _BezierSegment {
 };
 
 /*!
- * \brief Split a bezier segment into left and right half 
+ * \brief Split a bezier segment into left and right half
  */
 static void
 bezier_split (const BezierSegment *a,
@@ -173,14 +173,14 @@ static const real EPSILON = 0.0001;
  * is no intersection left.
  */
 static gboolean
-bezier_bezier_intersection (GArray *crossing,
-			    const BezierSegment *a,
-			    const BezierSegment *b,
-			    int depth,
-			    real asplit,
-			    real bsplit)
+bezier_bezier_intersection (GArray              *crossing,
+                            const BezierSegment *a,
+                            const BezierSegment *b,
+                            int                  depth,
+                            real                 asplit,
+                            real                 bsplit)
 {
-  Rectangle abox, bbox;
+  DiaRectangle abox, bbox;
   PolyBBExtras extra = { 0, };
   gboolean small_a, small_b;
 
@@ -696,7 +696,7 @@ _make_path (GArray *one, /*!< array<BezierSegment> from first path */
 
   bp.type = BEZ_MOVE_TO;
   /* start with the first point of segment one */
-  for (i = 0; i < one_splits->len; ++i) { 
+  for (i = 0; i < one_splits->len; ++i) {
     sp = &g_array_index (one_splits, Split, i);
     if (sp->outside == outside)
       break;
@@ -717,7 +717,7 @@ _make_path (GArray *one, /*!< array<BezierSegment> from first path */
        *  The other part might be in _append_segments or even _split_segments
        */
       outside = mode == PATH_INTERSECTION ? FALSE : TRUE;
-      for (i = 0; i < one_splits->len; ++i) { 
+      for (i = 0; i < one_splits->len; ++i) {
 	sp = &g_array_index (one_splits, Split, i);
 	if (!sp->used && (sp->outside == outside))
 	  break;

@@ -271,7 +271,7 @@ realizes_update_data(Realizes *realize)
   DiaObject *obj = &orth->object;
   int num_segm, i;
   Point *points;
-  Rectangle rect;
+  DiaRectangle rect;
   PolyBBExtras *extra;
 
   orthconn_update_data(orth);

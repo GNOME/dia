@@ -38,14 +38,14 @@ public :
     //! Now it starts to become ugly: isn't there a better way with SWIG to map one to many types?
     virtual bool get (::_Point* p) const { return false; }
     //! one more ;)
-    virtual bool get (::_Rectangle* p) const { return false; }
+    virtual bool get (::DiaRectangle* p) const { return false; }
     //! and this one ...
     virtual bool get (::_Color* p) const { return false; }
 
     //! we can also handle vector<IProperty*>
     virtual bool get (const std::vector<IProperty*>**) const { return false; }
-    
-    //! read-only attribute; the name of the property; at least unique within an object, but supposed to be unique global 
+
+    //! read-only attribute; the name of the property; at least unique within an object, but supposed to be unique global
     virtual const char* get_name () const = 0;
     //! read-only attribute giving the data type represented
     virtual const char* get_type () const = 0;
@@ -55,7 +55,7 @@ public :
 /*!
  * \brief To construct any Property type from its underlying type.
  *
- * This class is used to construct a more complex property and put it into a container of 
+ * This class is used to construct a more complex property and put it into a container of
  * properties without having access to the underlying ::Property type.
  */
 template <class T>
@@ -64,12 +64,12 @@ class Property : public IProperty
 public :
     //! construct from underlying data type
     Property<T> (T v) : self(v) {}
-    //! the on get function which returns true, 
+    //! the on get function which returns true,
     //! because the underlying type matches
     virtual bool get (T* p) const { *p = self; return true; }
-    
-    //! read-only attribute; the name of the property; at least unique within an object, 
-    //! but supposed to be unique globally 
+
+    //! read-only attribute; the name of the property; at least unique within an object,
+    //! but supposed to be unique globally
     const char* get_name () const { return "<name>"; }
     //! read-only attribute giving the data type represented
     const char* get_type () const { return "<type>"; }
@@ -79,36 +79,36 @@ private :
     T self;
 };
 
-template<> inline bool Property<int>::get (int* p) const 
-{ 
-  *p = self; return true; 
+template<> inline bool Property<int>::get (int* p) const
+{
+  *p = self; return true;
 }
-template<> inline bool Property<double>::get (double* p) const 
-{ 
-  *p = self; return true; 
+template<> inline bool Property<double>::get (double* p) const
+{
+  *p = self; return true;
 }
-template<> inline Property<const char*>::Property (const char* v) 
-{ 
-  self = v ? g_strdup (v) : g_strdup(""); 
+template<> inline Property<const char*>::Property (const char* v)
+{
+  self = v ? g_strdup (v) : g_strdup("");
 }
-template<> inline bool Property<const char*>::get (const char** p) const 
-{ 
-  *p = self; return true; 
+template<> inline bool Property<const char*>::get (const char** p) const
+{
+  *p = self; return true;
 }
-template<> inline Property<char*>::Property (char* v) 
-{ 
-  self = v ? g_strdup (v) : g_strdup(""); 
+template<> inline Property<char*>::Property (char* v)
+{
+  self = v ? g_strdup (v) : g_strdup("");
 }
-template<> inline bool Property<char*>::get (char** p) const 
-{ 
-  *p = self; return true; 
+template<> inline bool Property<char*>::get (char** p) const
+{
+  *p = self; return true;
 }
 
 /*!
  * \brief specialization for getter; a Property from underlying ::Property
  *
  * The Dia Property System can handle various kinds of properties from simple int
- * over Point and Rectangle up to whole Property lists and trees. This class is 
+ * over Point and Rectangle up to whole Property lists and trees. This class is
  * used to get or read a property from its underlying type.
  */
 template<>
@@ -129,14 +129,14 @@ public :
     //! just one wrapper too much ;)
     virtual bool get (::_Point* p) const;
     //! one more ;)
-    virtual bool get (::_Rectangle* p) const;
+    virtual bool get (::DiaRectangle* p) const;
     //! and this one ...
     virtual bool get (::_Color* p) const;
     //! we can also handle vector<IProperty*>
     virtual bool get (const std::vector<IProperty*>**) const;
 
 
-    //! read-only attribute; the name of the property; at least unique within an object, but supposed to be unique global 
+    //! read-only attribute; the name of the property; at least unique within an object, but supposed to be unique global
     const char* get_name () const;
     //! read-only attribute giving the data type represented
     const char* get_type () const;
@@ -150,7 +150,7 @@ private :
 /*!
  * \brief a list of properties; can contain list again so in fact it can be a tree
  *
- * Some Object Properties consist of Property lists or even property trees. This is the basic 
+ * Some Object Properties consist of Property lists or even property trees. This is the basic
  * building block for these complex properties. See 'UML - Class'::operations for an example.
  */
 template<>
@@ -168,12 +168,12 @@ public :
 		delete *it;
     }
     //! get us self
-    virtual bool get (const std::vector<IProperty*>** p) const 
+    virtual bool get (const std::vector<IProperty*>** p) const
     {
         *p = this;
 	return true;
     }
-    //! read-only attribute; the name of the property; at least unique within an object, but supposed to be unique global 
+    //! read-only attribute; the name of the property; at least unique within an object, but supposed to be unique global
     const char* get_name () const { return ""; }
     //! read-only attribute giving the data type represented
     const char* get_type () const { return "vector<IProperty*>"; }
@@ -199,7 +199,7 @@ public :
     /* accessors like Python dictionary */
     //! is there a property of this name
     bool has_key (const char*) const;
-    
+
     //! add a property of type int
     int setitem (const char*, int);
     //! add a property of type double
@@ -216,7 +216,7 @@ public :
     std::vector<char*> keys () const;
 private :
     ::DiaObject* object; //!< the owner of the properties
-    
+
     std::vector<char*> _keys; //!< lazy created
 };
 

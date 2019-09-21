@@ -408,7 +408,7 @@ transform_subshape_coord(Custom *custom, GraphicElementSubShape* subshape,
 {
   real scale, width, height, xoffs, yoffs;
   coord cx, cy;
-  Rectangle orig_bounds, new_bounds;
+  DiaRectangle orig_bounds, new_bounds;
 
   if (subshape->default_scale == 0.0) {
     ShapeInfo *info = custom->info;
@@ -531,7 +531,7 @@ transform_coord(Custom *custom, const Point *p1, Point *out)
 }
 
 static void
-transform_rect(Custom *custom, const Rectangle *r1, Rectangle *out)
+transform_rect(Custom *custom, const DiaRectangle *r1, DiaRectangle *out)
 {
   real coord;
   out->left   = r1->left   * custom->xscale + custom->xoffs;
@@ -556,7 +556,7 @@ custom_distance_from(Custom *custom, Point *point)
 {
   static GArray *arr = NULL, *barr = NULL;
   Point p1, p2;
-  Rectangle rect;
+  DiaRectangle rect;
   gint i;
   GList *tmp;
   real min_dist = G_MAXFLOAT, dist = G_MAXFLOAT;
@@ -1246,7 +1246,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       && (custom->text_fitting != TEXTFIT_NEVER)) {
     real text_width, text_height;
     real xscale = 0.0, yscale = 0.0;
-    Rectangle tb;
+    DiaRectangle tb;
 
     text_calc_boundingbox(custom->text, NULL);
     text_width =
@@ -1348,7 +1348,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
   /* reposition the text element to the new text bounding box ... */
   if (info->has_text) {
-    Rectangle tb;
+    DiaRectangle tb;
     transform_rect(custom, &info->text_bounds, &tb);
     switch (custom->text->alignment) {
     case ALIGN_LEFT:
@@ -1389,7 +1389,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
   for (tmp = custom->info->display_list; tmp != NULL; tmp = tmp->next) {
     GraphicElement *el = tmp->data;
-    Rectangle rect;
+    DiaRectangle rect;
     /* Line width handling/behavior for custom objects is special. Instead of
      * directly using the given width some ratio with the shape global custom
      * border_width gets calculated - to allow influencing all line width used
@@ -1474,7 +1474,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     }
     case GE_RECT: {
       ElementBBExtras extra;
-      Rectangle rin,trin;
+      DiaRectangle rin,trin;
       rin.left = el->rect.corner1.x;
       rin.top = el->rect.corner1.y;
       rin.right = el->rect.corner2.x;
@@ -1486,7 +1486,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       break;
     }
     case GE_IMAGE: {
-      Rectangle bounds;
+      DiaRectangle bounds;
 
       bounds.left = bounds.right = el->image.topleft.x;
       bounds.top = bounds.bottom = el->image.topleft.y;
@@ -1513,7 +1513,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
   /* extend bounding box to include text bounds ... */
   if (info->has_text) {
-    Rectangle tb;
+    DiaRectangle tb;
     text_calc_boundingbox(custom->text, &tb);
     tb.left -= custom->padding;
     tb.top -= custom->padding;
@@ -1533,7 +1533,7 @@ custom_reposition_text(Custom *custom, GraphicElementText *text)
 {
   Element *elem = &custom->element;
   Point p;
-  Rectangle tb;
+  DiaRectangle tb;
 
   transform_rect(custom, &text->text_bounds, &tb);
   switch (text->object->alignment) {

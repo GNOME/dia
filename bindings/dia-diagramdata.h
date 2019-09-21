@@ -9,7 +9,7 @@
 #include "dia-object.h"
 
 //! every wrapping object is in the 'dia' namespace
-//! the C-Objects are only namespaced in the binding 
+//! the C-Objects are only namespaced in the binding
 namespace dia {
 
 class Object;
@@ -29,7 +29,7 @@ public :
 
     //! construct from Object owning objects list
     Objects (GList** o) : list(o) {}
-    
+
     /* array access */
     //! how many contained
     int len () const;
@@ -42,7 +42,7 @@ private :
 /*!
  * \brief Proxy to the Layer object
  *
- * A Layer is the connection between DiagramData and Object. 
+ * A Layer is the connection between DiagramData and Object.
  * DiagramData has Layers and a Layer has Objects.
  */
 class Layer
@@ -52,7 +52,7 @@ public :
     explicit Layer (::Layer* layer);
     //! destroy caches etc.
     ~Layer ();
-    //! the underlying type - only for implementation, not visible in th elanguage binding 
+    //! the underlying type - only for implementation, not visible in th elanguage binding
     ::Layer* Self () const { return self; }
     //! collection of contained Object, read-only!
     const Objects* objects;
@@ -63,7 +63,7 @@ public :
     //! the object next to given point but within maxdist
     Object* find_closest_object (::Point* pos, double maxdist) const;
     //! a list of Object in the given rectangle
-    Objects& find_objects_in_rectangle (::Rectangle* rect) const;
+    Objects& find_objects_in_rectangle (::DiaRectangle* rect) const;
     //! objects are kept in an ordered list, this is the index of the given object
     int object_index (Object* o) const;
 
@@ -102,10 +102,10 @@ class DiagramData
 public :
     //! the size of the diagram, from last DiagramData::update_extents();
 #ifdef SWIG
-    const // this is read only from Python , too. But gcc does not like it that way 
+    const // this is read only from Python , too. But gcc does not like it that way
           // error: uninitialized member 'dia::DiagramData::extents' with 'const' type 'const Rectangle'
 #endif
-    ::Rectangle extents;
+    ::DiaRectangle extents;
     //! trying to be compatible, read-only
     const Layer* active_layer;
     //! the read-only list of layers, \todo typemap it in SWIG

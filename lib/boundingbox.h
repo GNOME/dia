@@ -1,5 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Support for computing bounding boxes 
+ * Support for computing bounding boxes
  * Copyright (C) 2001 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
@@ -59,7 +59,7 @@ struct _ElementBBExtras {
 void bicubicbezier2D_bbox(const Point *p0,const Point *p1,
                           const Point *p2,const Point *p3,
                           const PolyBBExtras *extra,
-                          Rectangle *rect);
+                          DiaRectangle       *rect);
 
 /*!
  * \brief Bounding box calculation for a straight line
@@ -68,16 +68,16 @@ void bicubicbezier2D_bbox(const Point *p0,const Point *p1,
  */
 void line_bbox(const Point *p1, const Point *p2,
                const LineBBExtras *extra,
-               Rectangle *rect);
+               DiaRectangle       *rect);
 
 /*!
  * \brief Bounding box calculation for a rectangle
  * The calcualtion includes line width with the right extra
  * \ingroup ObjectBBox
  */
-void rectangle_bbox(const Rectangle *rin,
+void rectangle_bbox(const DiaRectangle    *rin,
                     const ElementBBExtras *extra,
-                    Rectangle *rout);
+                    DiaRectangle          *rout);
 
 /*!
  * \brief Bounding box calculation for an ellipse
@@ -86,7 +86,7 @@ void rectangle_bbox(const Rectangle *rin,
  */
 void ellipse_bbox(const Point *centre, real width, real height,
                   const ElementBBExtras *extra,
-                  Rectangle *rect);
+                  DiaRectangle          *rect);
 /*!
  * \brief Bounding box calculation for a polyline
  * The calcualtion includes line width and arrwos with the right extra
@@ -94,7 +94,7 @@ void ellipse_bbox(const Point *centre, real width, real height,
  */
 void polyline_bbox(const Point *pts, int numpoints,
                    const PolyBBExtras *extra, gboolean closed,
-                   Rectangle *rect);
+                   DiaRectangle       *rect);
 /*!
  * \brief Bounding box calculation for a bezier
  * The calcualtion includes line width and arrwos with the right extra
@@ -102,7 +102,7 @@ void polyline_bbox(const Point *pts, int numpoints,
  */
 void polybezier_bbox(const BezPoint *pts, int numpoints,
                      const PolyBBExtras *extra, gboolean closed,
-                     Rectangle *rect);
+                     DiaRectangle       *rect);
 
 /* helpers for bezier curve calculation */
 void bernstein_develop(const real p[4],real *A,real *B,real *C,real *D);

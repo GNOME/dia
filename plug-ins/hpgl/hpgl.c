@@ -171,7 +171,7 @@ hpgl_scale(HpglRenderer *renderer, real val)
 
 /* render functions */
 static void
-begin_render(DiaRenderer *object, const Rectangle *update)
+begin_render(DiaRenderer *object, const DiaRectangle *update)
 {
     HpglRenderer *renderer = HPGL_RENDERER (object);
     int i;
@@ -721,7 +721,7 @@ export_data(DiagramData *data, DiaContext *ctx,
 {
     HpglRenderer *renderer;
     FILE *file;
-    Rectangle *extent;
+    DiaRectangle *extent;
     real width, height;
 
     file = g_fopen(filename, "w"); /* "wb" for binary! */

@@ -25,12 +25,12 @@
 #include "dynamic_obj.h"
 #include "dia-layer.h"
 
-static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
+static const DiaRectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 
 typedef struct _DiaLayerPrivate DiaLayerPrivate;
 struct _DiaLayerPrivate {
   char *name;                  /* The name of the layer */
-  Rectangle extents;           /* The extents of the layer */
+  DiaRectangle extents;           /* The extents of the layer */
 
   GList *objects;              /* List of objects in the layer,
                                   sorted by decreasing z-value,
@@ -277,7 +277,7 @@ render_bounding_boxes (void)
 void
 dia_layer_render (DiaLayer       *layer,
                   DiaRenderer    *renderer,
-                  Rectangle      *update,
+                  DiaRectangle   *update,
                   ObjectRenderer  obj_renderer,
                   gpointer        data,
                   int             active_layer)
@@ -617,8 +617,8 @@ dia_layer_remove_objects (DiaLayer *layer, GList *obj_list)
  * Since: 0.98
  */
 GList *
-dia_layer_find_objects_intersecting_rectangle (DiaLayer  *layer,
-                                               Rectangle *rect)
+dia_layer_find_objects_intersecting_rectangle (DiaLayer     *layer,
+                                               DiaRectangle *rect)
 {
   GList *list;
   GList *selected_list;
@@ -658,7 +658,7 @@ dia_layer_find_objects_intersecting_rectangle (DiaLayer  *layer,
  * Since: 0.98
  */
 GList *
-dia_layer_find_objects_in_rectangle (DiaLayer *layer, Rectangle *rect)
+dia_layer_find_objects_in_rectangle (DiaLayer *layer, DiaRectangle *rect)
 {
   GList *list;
   GList *selected_list;
@@ -695,7 +695,7 @@ dia_layer_find_objects_in_rectangle (DiaLayer *layer, Rectangle *rect)
  * Since: 0.98
  */
 GList *
-dia_layer_find_objects_containing_rectangle (DiaLayer *layer, Rectangle *rect)
+dia_layer_find_objects_containing_rectangle (DiaLayer *layer, DiaRectangle *rect)
 {
   GList *list;
   GList *selected_list;
@@ -858,7 +858,7 @@ dia_layer_update_extents (DiaLayer *layer)
 {
   GList *l;
   DiaObject *obj;
-  Rectangle new_extents;
+  DiaRectangle new_extents;
   DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
   l = priv->objects;
@@ -868,7 +868,7 @@ dia_layer_update_extents (DiaLayer *layer)
     l = g_list_next (l);
 
     while (l!=NULL) {
-      const Rectangle *bbox;
+      const DiaRectangle *bbox;
       obj = (DiaObject *) l->data;
       /* don't consider empty (or broken) objects in the overall extents */
       bbox = &obj->bounding_box;
@@ -1130,8 +1130,8 @@ dia_layer_set_visible (DiaLayer *self,
  * Since: 0.98
  */
 void
-dia_layer_get_extents (DiaLayer  *self,
-                       Rectangle *rect)
+dia_layer_get_extents (DiaLayer     *self,
+                       DiaRectangle *rect)
 {
   DiaLayerPrivate *priv;
 

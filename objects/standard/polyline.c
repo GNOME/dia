@@ -423,7 +423,7 @@ polyline_update_data(Polyline *polyline)
   polyconn_update_boundingbox(poly);
 
   if (polyline->start_arrow.type != ARROW_NONE) {
-    Rectangle bbox;
+    DiaRectangle bbox;
     Point move_arrow, move_line;
     Point to = gap_endpoints[0];
     Point from = poly->points[1];
@@ -437,7 +437,7 @@ polyline_update_data(Polyline *polyline)
     rectangle_union (&obj->bounding_box, &bbox);
   }
   if (polyline->end_arrow.type != ARROW_NONE) {
-    Rectangle bbox;
+    DiaRectangle bbox;
     int n = polyline->poly.numpoints;
     Point move_arrow, move_line;
     Point to = gap_endpoints[1];

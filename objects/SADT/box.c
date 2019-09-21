@@ -194,7 +194,7 @@ static real
 sadtbox_distance_from(Box *box, Point *point)
 {
   Element *elem = &box->element;
-  Rectangle rect;
+  DiaRectangle rect;
 
   rect.left = elem->corner.x - SADTBOX_LINE_WIDTH/2;
   rect.right = elem->corner.x + elem->width + SADTBOX_LINE_WIDTH/2;

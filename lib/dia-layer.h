@@ -41,7 +41,7 @@ DiaLayer    *dia_layer_new                                 (const char       *na
 DiaLayer    *dia_layer_new_from_layer                      (DiaLayer         *old);
 void         dia_layer_render                              (DiaLayer         *layer,
                                                             DiaRenderer      *renderer,
-                                                            Rectangle        *update,
+                                                            DiaRectangle     *update,
                                                             ObjectRenderer    obj_renderer /* Can be NULL */,
                                                             gpointer          data,
                                                             int               active_layer);
@@ -65,11 +65,11 @@ void         dia_layer_remove_object                       (DiaLayer         *la
 void         dia_layer_remove_objects                      (DiaLayer         *layer,
                                                             GList            *obj_list);
 GList       *dia_layer_find_objects_intersecting_rectangle (DiaLayer         *layer,
-                                                            Rectangle        *rect);
+                                                            DiaRectangle     *rect);
 GList       *dia_layer_find_objects_in_rectangle           (DiaLayer         *layer,
-                                                            Rectangle        *rect);
+                                                            DiaRectangle     *rect);
 GList       *dia_layer_find_objects_containing_rectangle   (DiaLayer         *layer,
-                                                            Rectangle        *rect);
+                                                            DiaRectangle     *rect);
 DiaObject   *dia_layer_find_closest_object                 (DiaLayer         *layer,
                                                             Point            *pos,
                                                             real              maxdist);
@@ -98,6 +98,6 @@ gboolean     dia_layer_is_visible                          (DiaLayer         *se
 void         dia_layer_set_visible                         (DiaLayer         *self,
                                                             gboolean          visible);
 void         dia_layer_get_extents                         (DiaLayer         *self,
-                                                            Rectangle        *rect);
+                                                            DiaRectangle     *rect);
 
 G_END_DECLS

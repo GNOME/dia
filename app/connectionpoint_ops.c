@@ -71,7 +71,7 @@ object_draw_connectionpoints (DiaObject *obj, DDisplay *ddisp)
    * connection points - or some variation thereof ;)
    */
   if (dia_object_get_num_connections (obj) > 1) {
-    const Rectangle *bbox = dia_object_get_bounding_box (obj);
+    const DiaRectangle *bbox = dia_object_get_bounding_box (obj);
     real w = ddisplay_transform_length (ddisp, bbox->right - bbox->left);
     real h = ddisplay_transform_length (ddisp, bbox->bottom - bbox->top);
     int n = dia_object_get_num_connections (obj);

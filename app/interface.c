@@ -400,7 +400,7 @@ canvas_expose_event (GtkWidget      *widget,
                      DDisplay       *ddisp)
 {
   GSList *l;
-  Rectangle *r, totrect;
+  DiaRectangle *r, totrect;
   GtkAllocation alloc;
   cairo_t *ctx;
 
@@ -411,12 +411,12 @@ canvas_expose_event (GtkWidget      *widget,
   /* Only update if update_areas exist */
   l = ddisp->update_areas;
   if (l != NULL) {
-    totrect = *(Rectangle *) l->data;
+    totrect = *(DiaRectangle *) l->data;
 
     dia_interactive_renderer_clip_region_clear (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
     while ( l!= NULL) {
-      r = (Rectangle *) l->data;
+      r = (DiaRectangle *) l->data;
 
       rectangle_union (&totrect, r);
       dia_interactive_renderer_clip_region_add_rect (DIA_INTERACTIVE_RENDERER (ddisp->renderer), r);
@@ -885,9 +885,9 @@ create_display_shell(DDisplay *ddisp,
  * @param ddisp The display to hide the rulers on.
  */
 void
-ddisplay_update_rulers (DDisplay        *ddisp,
-                        const Rectangle *extents,
-		        const Rectangle *visible)
+ddisplay_update_rulers (DDisplay           *ddisp,
+                        const DiaRectangle *extents,
+                        const DiaRectangle *visible)
 {
   dia_ruler_set_range  (ddisp->hrule,
 			visible->left,

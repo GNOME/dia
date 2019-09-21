@@ -42,8 +42,8 @@ PropNumData width_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
  * @param An object to update bounding box on.
  */
 void
-element_update_boundingbox(Element *elem) {
-  Rectangle bb;
+element_update_boundingbox (Element *elem) {
+  DiaRectangle bb;
   Point *corner;
   ElementBBExtras *extra = &elem->extra_spacing;
 
@@ -54,7 +54,7 @@ element_update_boundingbox(Element *elem) {
   bb.right = corner->x + elem->width;
   bb.top = corner->y;
   bb.bottom = corner->y + elem->height;
-  
+
   rectangle_bbox(&bb,extra,&elem->object.bounding_box);
 }
 
@@ -90,7 +90,7 @@ element_update_connections_rectangle(Element *elem,
   g_assert(elem->object.num_connections >= 9);
   cps[8].pos.x = elem->corner.x + elem->width / 2.0;
   cps[8].pos.y = elem->corner.y + elem->height / 2.0;
-  
+
   cps[0].directions = DIR_NORTH|DIR_WEST;
   cps[1].directions = DIR_NORTH;
   cps[2].directions = DIR_NORTH|DIR_EAST;
@@ -138,7 +138,7 @@ void
 element_update_handles(Element *elem)
 {
   Point *corner = &elem->corner;
-  
+
   elem->resize_handles[0].id = HANDLE_RESIZE_NW;
   elem->resize_handles[0].pos.x = corner->x;
   elem->resize_handles[0].pos.y = corner->y;
@@ -190,12 +190,12 @@ element_move_handle(Element *elem, HandleId id,
 {
   Point p;
   Point *corner;
-  
+
   assert(id>=HANDLE_RESIZE_NW);
   assert(id<=HANDLE_RESIZE_SE);
 
   corner = &elem->corner;
-  
+
   p = *to;
   point_sub(&p, &elem->corner);
 
@@ -217,7 +217,7 @@ element_move_handle(Element *elem, HandleId id,
     }
     break;
   case HANDLE_RESIZE_NE:
-    if (p.x>0.0) 
+    if (p.x>0.0)
       elem->width = p.x;
     if ( to->y < (corner->y+elem->height)) {
       corner->y += p.y;
@@ -231,7 +231,7 @@ element_move_handle(Element *elem, HandleId id,
     }
     break;
   case HANDLE_RESIZE_E:
-    if (p.x>0.0) 
+    if (p.x>0.0)
       elem->width = p.x;
     break;
   case HANDLE_RESIZE_SW:
@@ -247,7 +247,7 @@ element_move_handle(Element *elem, HandleId id,
       elem->height = p.y;
     break;
   case HANDLE_RESIZE_SE:
-    if (p.x>0.0) 
+    if (p.x>0.0)
       elem->width = p.x;
     if (p.y>0.0)
       elem->height = p.y;
@@ -275,22 +275,22 @@ element_move_handle_aspect(Element *elem, HandleId id,
   real new_width, new_height;
   real move_x=0;
   real move_y=0;
-  
+
   assert(id>=HANDLE_RESIZE_NW);
   assert(id<=HANDLE_RESIZE_SE);
 
   corner = &elem->corner;
-  
+
   p = *to;
   point_sub(&p, &elem->corner);
-  
+
   width = elem->width;
   height = elem->height;
 
   new_width = 0.0;
   new_height = 0.0;
-  
-  
+
+
   switch(id) {
   case HANDLE_RESIZE_NW:
     new_width = width - p.x;
@@ -351,10 +351,10 @@ element_move_handle_aspect(Element *elem, HandleId id,
     new_width = 0.0;
     new_height = 0.0;
   }
-  
+
   corner->x -= (new_width - width)*move_x;
   corner->y -= (new_height - height)*move_y;
-  
+
   elem->width  = new_width;
   elem->height = new_height;
 }
@@ -404,11 +404,11 @@ element_copy(Element *from, Element *to)
   toobj = &to->object;
 
   object_copy(fromobj, toobj);
-  
+
   to->corner = from->corner;
   to->width = from->width;
   to->height = from->height;
-  
+
   for (i=0;i<8;i++) {
     to->resize_handles[i] = from->resize_handles[i];
     to->resize_handles[i].connected_to = NULL;
@@ -432,7 +432,7 @@ element_destroy(Element *elem)
  * @param elem
  * @param obj_node
  */
-void 
+void
 element_save(Element *elem, ObjectNode obj_node, DiaContext *ctx)
 {
   object_save(&elem->object, obj_node, ctx);
@@ -445,7 +445,7 @@ element_save(Element *elem, ObjectNode obj_node, DiaContext *ctx)
 		 elem->height, ctx);
 }
 
-void 
+void
 element_load(Element *elem, ObjectNode obj_node, DiaContext *ctx)
 {
   AttributeNode attr;
@@ -494,7 +494,7 @@ _element_change_swap (ObjectChange *self,
   tmp = ec->height; ec->height = elem->height; elem->height = tmp;
 }
 ObjectChange *
-element_change_new (const Point *corner, 
+element_change_new (const Point *corner,
 		    real width,
 		    real height,
 		    Element *elem)

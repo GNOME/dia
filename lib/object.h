@@ -328,7 +328,7 @@ struct _DiaObject {
   DiaObjectType    *type; /*!< pointer to the registered type */
   Point             position; /*!<  often but not necessarily the upper left corner of the object */
   /*!
-   * \brief Rectangle containing the whole object
+   * \brief DiaRectangle containing the whole object
    *
    * The area that contains all parts of the 'real' object, i.e. the parts
    *  that would be printed, exported to pixmaps etc.  This is also used to
@@ -339,7 +339,7 @@ struct _DiaObject {
    *
    * \protected Use dia_object_get_bounding_box()
    */
-  Rectangle         bounding_box;
+  DiaRectangle      bounding_box;
   /*! Number of Handle(s) of this object */
   int               num_handles;
   /*! Array of handles of this object with fixed index */
@@ -368,7 +368,7 @@ struct _DiaObject {
    *  Since handles and CPs are not in the BB, that will be the case for most
    *  objects.
    */
-  Rectangle        *enclosing_box;
+  DiaRectangle     *enclosing_box;
   /*! Metainfo of the object, should not be manipulated directly. Use dia_object_set_meta() */
   GHashTable       *meta;
 };
@@ -484,8 +484,8 @@ DiaObject  *dia_object_default_create (const DiaObjectType *type,
 gboolean         dia_object_defaults_save (const gchar *filename, DiaContext *ctx);
 DiaLayer        *dia_object_get_parent_layer(DiaObject *obj);
 gboolean         dia_object_is_selected (const DiaObject *obj);
-const Rectangle *dia_object_get_bounding_box(const DiaObject *obj);
-const Rectangle *dia_object_get_enclosing_box(const DiaObject *obj);
+const DiaRectangle *dia_object_get_bounding_box(const DiaObject *obj);
+const DiaRectangle *dia_object_get_enclosing_box(const DiaObject *obj);
 DiaObject       *dia_object_get_parent_with_flags(DiaObject *obj, guint flags);
 gboolean         dia_object_is_selectable(DiaObject *obj);
 /* The below is for debugging purposes only. */

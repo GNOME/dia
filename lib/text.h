@@ -84,7 +84,7 @@ void text_set_position(Text *text, Point *pos);
 void text_set_color(Text *text, Color *col);
 void text_set_alignment(Text *text, Alignment align);
 real text_distance_from(Text *text, Point *point);
-void text_calc_boundingbox(Text *text, Rectangle *box);
+void text_calc_boundingbox(Text *text, DiaRectangle *box);
 void text_draw(Text *text, DiaRenderer *renderer);
 void text_set_cursor(Text *text, Point *clicked_point,
 		     DiaRenderer *interactive_renderer);

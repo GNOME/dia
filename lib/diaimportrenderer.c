@@ -30,7 +30,7 @@
 #include "diatransformrenderer.h"
 #include "diapathrenderer.h"
 
-static void begin_render (DiaRenderer *, const Rectangle *update);
+static void begin_render (DiaRenderer *, const DiaRectangle *update);
 static void end_render (DiaRenderer *);
 
 static void set_linewidth (DiaRenderer *renderer, real linewidth);
@@ -212,7 +212,7 @@ dia_import_renderer_init (DiaImportRenderer *self)
 }
 
 static void
-begin_render (DiaRenderer *renderer, const Rectangle *update)
+begin_render (DiaRenderer *renderer, const DiaRectangle *update)
 {
   g_warning ("%s::begin_render not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));

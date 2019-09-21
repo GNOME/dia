@@ -277,7 +277,7 @@ my_log(WmfRenderer* renderer, const char* format, ...)
  * renderer interface implementation
  */
 static void
-begin_render(DiaRenderer *self, const Rectangle *)
+begin_render(DiaRenderer *self, const DiaRectangle *)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
 
@@ -1372,7 +1372,7 @@ export_data(DiagramData *data, DiaContext *ctx,
     WmfRenderer *renderer;
     W32::HDC  file = NULL;
     W32::HDC refDC;
-    Rectangle *extent;
+    DiaRectangle *extent;
     // gint len;
     double scale;
 

@@ -51,7 +51,7 @@ magnify_button_release (MagnifyTool    *tool,
                         GdkEventButton *event,
                         DDisplay       *ddisp)
 {
-  Rectangle *visible;
+  DiaRectangle *visible;
   Point p1, p2, tl;
   real diff;
   int idiff;

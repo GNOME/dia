@@ -572,7 +572,7 @@ maor_update_data(Maor *maor)
 {
   Connection *conn = &maor->connection;
   DiaObject *obj = &conn->object;
-  Rectangle rect;
+  DiaRectangle rect;
   Point p1,p2,p3,p4;
 
   if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||

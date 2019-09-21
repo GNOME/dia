@@ -30,10 +30,10 @@ dia::ObjectType::ObjectType (DiaObjectType* ot) : self(ot), version(ot ? ot->ver
 }
 /*! Factory function to create Object of a given type.
  *
- * \return not only the new Object* but also two 'appropriate' Handle to e.g. connect 
+ * \return not only the new Object* but also two 'appropriate' Handle to e.g. connect
  * to some other Object
  */
-dia::Object* 
+dia::Object*
 dia::ObjectType::create(double x, double y, dia::Handle** h1, dia::Handle** h2) const
 {
     ::_Handle *_h1, *_h2;
@@ -47,10 +47,10 @@ dia::ObjectType::create(double x, double y, dia::Handle** h1, dia::Handle** h2) 
     if (h2) *h2 = new dia::Handle (_h2, o->Self());
     return o;
 }
-/*! 
+/*!
  * Allows to load an object from storage. Not sure if this becomes useful for language bindings.
  */
-dia::Object* 
+dia::Object*
 dia::ObjectType::load (ObjectNode node, int version, DiaContext *ctx) const
 {
     assert (self);
@@ -59,7 +59,7 @@ dia::ObjectType::load (ObjectNode node, int version, DiaContext *ctx) const
 /*! Allows to save an Object to ObjectNode file filename.
  * . Not sure if this becomes useful for language bindings.
  */
-void 
+void
 dia::ObjectType::save (Object* o, ObjectNode node, const char* filename) const
 {
     assert (self);
@@ -70,7 +70,7 @@ dia::ObjectType::save (Object* o, ObjectNode node, const char* filename) const
 }
 #if 0
 //! OPTIONAL: opens the defaults dialog
-GtkWidget* 
+GtkWidget*
 dia::ObjectType::get_defaults () const
 {
     assert (self);
@@ -80,7 +80,7 @@ dia::ObjectType::get_defaults () const
 }
 #endif
 //! OPTIONAL: apply changed defaults
-void 
+void
 dia::ObjectType::apply_defaults ()
 {
     assert (self);
@@ -98,20 +98,20 @@ dia::Object::~Object ()
 {
 }
 //! accessor to deliver the objects bounding box
-::_Rectangle*
+::DiaRectangle*
 dia::Object::bbox () const
 {
     return &self->bounding_box;
 }
 //! real destruction
-void 
+void
 dia::Object::destroy ()
 {
     assert (self);
     self->ops->destroy (self);
 }
 //! drawing the object on the renderer
-void 
+void
 dia::Object::draw (Renderer* r) const
 {
     assert (self);
@@ -120,7 +120,7 @@ dia::Object::draw (Renderer* r) const
 #endif
 }
 //! calculate the distance betwenn the object and the point
-double 
+double
 dia::Object::distance_from (Point* p) const
 {
     assert (self);
@@ -140,7 +140,7 @@ dia::Object* dia::Object::copy () const
     return new dia::Object (self->ops->copy (self));
 }
 //! change position of the whole object
-ObjectChange* 
+ObjectChange*
 dia::Object::move (double x, double y)
 {
     assert (self);
@@ -148,7 +148,7 @@ dia::Object::move (double x, double y)
     return self->ops->move (self, &p);
 }
 //! change position of an object handle - this is usually  a resize (Attention: does *not* match the C prototype)
-ObjectChange* 
+ObjectChange*
 dia::Object::move_handle (dia::Handle* h, double x, double y, HandleMoveReason reason, ModifierKeys modifiers)
 {
     assert (self);
@@ -156,7 +156,7 @@ dia::Object::move_handle (dia::Handle* h, double x, double y, HandleMoveReason r
     return self->ops->move_handle (self, h->Self(), &p, NULL, reason, modifiers);
 }
 //! OPTIONAL: provide a property dialog to change the object proeprties
-GtkWidget* 
+GtkWidget*
 dia::Object::get_properties (bool is_default) const
 {
     assert (self);
@@ -165,7 +165,7 @@ dia::Object::get_properties (bool is_default) const
     return self->ops->get_properties (self, is_default);
 }
 //! OPTIONAL: apply the properties changed in the dialog
-ObjectChange* 
+ObjectChange*
 dia::Object::apply_properties (GtkWidget* w)
 {
     assert (self);
@@ -174,7 +174,7 @@ dia::Object::apply_properties (GtkWidget* w)
     return self->ops->apply_properties_from_dialog (self, w);
 }
 //! OPTIONAL: provide a context menu to change the object states
-DiaMenu* 
+DiaMenu*
 dia::Object::get_object_menu (Point* pos) const
 {
     assert (self);
@@ -182,23 +182,23 @@ dia::Object::get_object_menu (Point* pos) const
 	return 0;
     return self->ops->get_object_menu (self, pos);
 }
-    
+
 //! StdProps: descibe properties accessible via standard properties API
-const PropDescription* 
+const PropDescription*
 dia::Object::describe_props () const
 {
     assert (self);
     return self->ops->describe_props (self);
 }
 //! StdProps: return a list of properties describing the object state
-void 
+void
 dia::Object::get_props (GPtrArray *props) const
 {
     assert (self);
     self->ops->get_props (self, props);
 }
 //! StdProps: apply a list of object properties to change the objects state
-void 
+void
 dia::Object::set_props (GPtrArray *props)
 {
     assert (self);

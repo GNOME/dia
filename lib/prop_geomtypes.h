@@ -91,13 +91,16 @@ typedef struct {
   GArray *bezpointarray_data;
 } BezPointarrayProperty;
 
-/*!
- * \brief Property for _Rectangle
- * \extends _Property
+/**
+ * RectProperty:
+ * @common: Base #Property
+ * @rect_data: the #DiaRectangle
+ *
+ * Property for #DiaRectangle
  */
 typedef struct {
   Property common;
-  Rectangle rect_data;
+  DiaRectangle rect_data;
 } RectProperty;
 
 /*!

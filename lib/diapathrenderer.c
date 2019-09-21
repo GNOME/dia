@@ -183,7 +183,7 @@ _remove_duplicated_path (DiaPathRenderer *self)
  * \memberof _DiaPathRenderer
  */
 static void
-begin_render (DiaRenderer *self, const Rectangle *update)
+begin_render (DiaRenderer *self, const DiaRectangle *update)
 {
 }
 /*!
@@ -612,7 +612,7 @@ draw_text (DiaRenderer *self,
   int n0 = path->len;
 
   if (!text_is_empty (text) && text_to_path (text, path)) {
-    Rectangle bz_bb, tx_bb;
+    DiaRectangle bz_bb, tx_bb;
     PolyBBExtras extra = { 0, };
     real dx, dy, sx, sy;
     guint i;

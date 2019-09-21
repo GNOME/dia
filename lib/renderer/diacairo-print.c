@@ -93,11 +93,11 @@ begin_print (GtkPrintOperation *operation,
 
 static void
 draw_page (GtkPrintOperation *operation,
-	   GtkPrintContext *context,
-	   int page_nr,
-	   PrintData *print_data)
+           GtkPrintContext   *context,
+           int                page_nr,
+           PrintData         *print_data)
 {
-  Rectangle bounds;
+  DiaRectangle bounds;
   DiagramData *data = print_data->data;
   int x, y;
   /* the effective sizes - dia already applied is_portrait */
@@ -169,7 +169,7 @@ draw_page (GtkPrintOperation *operation,
   }
 
   {
-    Rectangle extents = data->extents;
+    DiaRectangle extents = data->extents;
 
     data->extents = bounds;
     /* render only the region, FIXME: better way than modifying DiagramData ?  */

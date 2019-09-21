@@ -324,7 +324,7 @@ req_update_data(Requirement *req)
 
   /* Boundingbox calculation including the line width */
   {
-    Rectangle bbox;
+    DiaRectangle bbox;
 
     ellipse_bbox (&c, elem->width, elem->height, &elem->extra_spacing, &bbox);
     rectangle_union(&obj->bounding_box, &bbox);

@@ -267,7 +267,7 @@ WriteFillAttr(WpgRenderer *renderer, Color* colour, gboolean bFill)
  * render functions
  */
 static void
-begin_render(DiaRenderer *self, const Rectangle *update)
+begin_render(DiaRenderer *self, const DiaRectangle *update)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
 #if 0
@@ -1117,7 +1117,7 @@ export_data(DiagramData *data, DiaContext *ctx,
 {
   WpgRenderer *renderer;
   FILE *file;
-  Rectangle *extent;
+  DiaRectangle *extent;
   real width, height;
 
   file = g_fopen(filename, "wb"); /* "wb" for binary! */

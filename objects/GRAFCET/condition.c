@@ -59,7 +59,7 @@ typedef struct _Condition {
   Color cond_color;
 
   /* computed values : */
-  Rectangle labelbb;
+  DiaRectangle labelbb;
 } Condition;
 
 static ObjectChange* condition_move_handle(Condition *condition, Handle *handle,

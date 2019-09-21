@@ -97,7 +97,7 @@ dia_path_renderer_finalize (GObject *object)
  * \memberof _DiaTransformRenderer
  */
 static void
-begin_render (DiaRenderer *self, const Rectangle *update)
+begin_render (DiaRenderer *self, const DiaRectangle *update)
 {
 }
 /*!

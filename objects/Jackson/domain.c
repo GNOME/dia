@@ -247,7 +247,7 @@ static real
 jackson_box_distance_from(Box *box, Point *point)
 {
   Element *elem = &box->element;
-  Rectangle rect;
+  DiaRectangle rect;
 
   rect.left = elem->corner.x - JACKSON_BOX_LINE_WIDTH/2;
   rect.right = elem->corner.x + elem->width + JACKSON_BOX_LINE_WIDTH/2;

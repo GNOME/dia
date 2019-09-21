@@ -501,7 +501,7 @@ orthflow_update_data(Orthflow *orthflow)
 {
   OrthConn *orth = &orthflow->orth ;
   DiaObject *obj = &orth->object;
-  Rectangle rect;
+  DiaRectangle rect;
   Color* color = &orthflow_color_signal;
 
   switch (orthflow->type) {

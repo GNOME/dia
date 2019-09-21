@@ -230,7 +230,7 @@ vdx_renderer_finalize (GObject *object)
  */
 
 static void
-begin_render(DiaRenderer *self, const Rectangle *update)
+begin_render(DiaRenderer *self, const DiaRectangle *update)
 {
     VDXRenderer *renderer = VDX_RENDERER(self);
     Color c;

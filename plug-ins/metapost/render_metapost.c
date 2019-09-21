@@ -195,7 +195,7 @@ set_line_color(MetapostRenderer *renderer,Color *color)
 }
 
 static void
-begin_render(DiaRenderer *self, const Rectangle *update)
+begin_render(DiaRenderer *self, const DiaRectangle *update)
 {
 }
 
@@ -1065,7 +1065,7 @@ export_metapost(DiagramData *data, DiaContext *ctx,
     MetapostRenderer *renderer;
     FILE *file;
     time_t time_now;
-    Rectangle *extent;
+    DiaRectangle *extent;
     const char *name;
     gchar d1_buf[DTOSTR_BUF_SIZE];
     gchar d2_buf[DTOSTR_BUF_SIZE];

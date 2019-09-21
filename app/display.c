@@ -220,7 +220,7 @@ DDisplay *
 new_display(Diagram *dia)
 {
   DDisplay *ddisp;
-  Rectangle visible;
+  DiaRectangle visible;
   int preset;
 
   ddisp = g_new0(DDisplay,1);
@@ -264,7 +264,7 @@ new_display(Diagram *dia)
   ddisp->origo.y = 0.0;
   ddisp->zoom_factor = prefs.new_view.zoom/100.0*DDISPLAY_NORMAL_ZOOM;
   if ((ddisp->diagram) && (ddisp->diagram->data)) {
-    Rectangle *extents = &ddisp->diagram->data->extents;
+    DiaRectangle *extents = &ddisp->diagram->data->extents;
 
     visible.left = extents->left;
     visible.top = extents->top;
@@ -288,7 +288,7 @@ ddisplay_transform_coords_double (DDisplay *ddisp,
                                   double   *xi,
                                   double   *yi)
 {
-  Rectangle *visible = &ddisp->visible;
+  DiaRectangle *visible = &ddisp->visible;
   double width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
   double height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
@@ -304,7 +304,7 @@ ddisplay_transform_coords (DDisplay *ddisp,
                            int      *xi,
                            int      *yi)
 {
-  Rectangle *visible = &ddisp->visible;
+  DiaRectangle *visible = &ddisp->visible;
   int width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
   int height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
@@ -336,7 +336,7 @@ ddisplay_untransform_coords (DDisplay *ddisp,
                              coord    *x,
                              coord    *y)
 {
-  Rectangle *visible = &ddisp->visible;
+  DiaRectangle *visible = &ddisp->visible;
   int width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
   int height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
@@ -346,10 +346,12 @@ ddisplay_untransform_coords (DDisplay *ddisp,
 
 
 void
-ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
-			  int pixel_width, int pixel_height)
+ddisplay_add_update_pixels (DDisplay *ddisp,
+                            Point    *point,
+                            int       pixel_width,
+                            int       pixel_height)
 {
-  Rectangle rect;
+  DiaRectangle rect;
   real size_x, size_y;
 
   size_x = ddisplay_untransform_length(ddisp, pixel_width+1);
@@ -392,10 +394,11 @@ ddisplay_add_update_all(DDisplay *ddisp)
 /** Marks a rectangle for update, with a pixel border around it.
  */
 void
-ddisplay_add_update_with_border(DDisplay *ddisp, const Rectangle *rect,
-				int pixel_border)
+ddisplay_add_update_with_border (DDisplay           *ddisp,
+                                 const DiaRectangle *rect,
+                                 int                 pixel_border)
 {
-  Rectangle r;
+  DiaRectangle r;
   real size = ddisplay_untransform_length(ddisp, pixel_border+1);
 
   r.left = rect->left-size;
@@ -407,9 +410,9 @@ ddisplay_add_update_with_border(DDisplay *ddisp, const Rectangle *rect,
 }
 
 void
-ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect)
+ddisplay_add_update (DDisplay *ddisp, const DiaRectangle *rect)
 {
-  Rectangle *r;
+  DiaRectangle *r;
   // int width, height;
 
   if (!ddisp->renderer)
@@ -422,12 +425,12 @@ ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect)
 
   /* Temporarily just do a union of all rectangles: */
   if (ddisp->update_areas==NULL) {
-    r = g_new(Rectangle,1);
+    r = g_new(DiaRectangle, 1);
     *r = *rect;
     rectangle_intersection(r, &ddisp->visible);
     ddisp->update_areas = g_slist_prepend(ddisp->update_areas, r);
   } else {
-    r = (Rectangle *) ddisp->update_areas->data;
+    r = (DiaRectangle *) ddisp->update_areas->data;
     rectangle_union(r, rect);
     rectangle_intersection(r, &ddisp->visible);
   }
@@ -474,8 +477,8 @@ ddisplay_obj_render (DiaObject   *obj,
 }
 
 void
-ddisplay_render_pixmap (DDisplay  *ddisp,
-                        Rectangle *update)
+ddisplay_render_pixmap (DDisplay     *ddisp,
+                        DiaRectangle *update)
 {
   GList *list;
   DiaObject *obj;
@@ -542,8 +545,8 @@ ddisplay_render_pixmap (DDisplay  *ddisp,
 void
 ddisplay_update_scrollbars(DDisplay *ddisp)
 {
-  Rectangle *extents = &ddisp->diagram->data->extents;
-  Rectangle *visible = &ddisp->visible;
+  DiaRectangle *extents = &ddisp->diagram->data->extents;
+  DiaRectangle *visible = &ddisp->visible;
   GtkAdjustment *hsbdata, *vsbdata;
 
   hsbdata = ddisp->hsbdata;
@@ -574,8 +577,8 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
 void
 ddisplay_set_origo (DDisplay *ddisp, coord x, coord y)
 {
-  Rectangle *extents = &ddisp->diagram->data->extents;
-  Rectangle *visible = &ddisp->visible;
+  DiaRectangle *extents = &ddisp->diagram->data->extents;
+  DiaRectangle *visible = &ddisp->visible;
   int width, height;
 
   g_return_if_fail (ddisp->renderer != NULL);
@@ -602,9 +605,9 @@ ddisplay_set_origo (DDisplay *ddisp, coord x, coord y)
 }
 
 void
-ddisplay_zoom(DDisplay *ddisp, Point *point, real magnify)
+ddisplay_zoom (DDisplay *ddisp, Point *point, real magnify)
 {
-  Rectangle *visible;
+  DiaRectangle *visible;
   real width, height, old_zoom;
 
   visible = &ddisp->visible;
@@ -641,10 +644,10 @@ ddisplay_zoom(DDisplay *ddisp, Point *point, real magnify)
 /* Zoom around the middle point of the visible area
  */
 void
-ddisplay_zoom_middle(DDisplay *ddisp, real magnify)
+ddisplay_zoom_middle (DDisplay *ddisp, real magnify)
 {
   Point middle;
-  Rectangle *visible;
+  DiaRectangle *visible;
 
   visible = &ddisp->visible;
   middle.x = visible->left*0.5 + visible->right*0.5;
@@ -660,9 +663,9 @@ ddisplay_zoom_middle(DDisplay *ddisp, real magnify)
    from "jumping" around while zooming in and out.
  */
 void
-ddisplay_zoom_centered(DDisplay *ddisp, Point *point, real magnify)
+ddisplay_zoom_centered (DDisplay *ddisp, Point *point, real magnify)
 {
-  Rectangle *visible;
+  DiaRectangle *visible;
   real width, height;
   /* cursor position ratios */
   real rx,ry;
@@ -799,13 +802,13 @@ ddisplay_autoscroll(DDisplay *ddisp, int x, int y)
 
 /** Scroll the display by delta (diagram coords) */
 gboolean
-ddisplay_scroll(DDisplay *ddisp, Point *delta)
+ddisplay_scroll (DDisplay *ddisp, Point *delta)
 {
-  Rectangle *visible = &ddisp->visible;
+  DiaRectangle *visible = &ddisp->visible;
   real width = visible->right - visible->left;
   real height = visible->bottom - visible->top;
 
-  Rectangle extents = ddisp->diagram->data->extents;
+  DiaRectangle extents = ddisp->diagram->data->extents;
   real ex_width = extents.right - extents.left;
   real ex_height = extents.bottom - extents.top;
 
@@ -895,9 +898,9 @@ ddisplay_scroll_center_point(DDisplay *ddisp, Point *p)
 /** Scroll display so that obj is centered.
  * Returns TRUE if anything changed.  */
 gboolean
-ddisplay_scroll_to_object(DDisplay *ddisp, DiaObject *obj)
+ddisplay_scroll_to_object (DDisplay *ddisp, DiaObject *obj)
 {
-  Rectangle r = obj->bounding_box;
+  DiaRectangle r = obj->bounding_box;
 
   Point p;
   p.x = (r.left+r.right)/2;
@@ -912,8 +915,8 @@ ddisplay_scroll_to_object(DDisplay *ddisp, DiaObject *obj)
 gboolean
 ddisplay_present_object(DDisplay *ddisp, DiaObject *obj)
 {
-  const Rectangle *r = dia_object_get_enclosing_box(obj);
-  const Rectangle *v = &ddisp->visible;
+  const DiaRectangle *r = dia_object_get_enclosing_box(obj);
+  const DiaRectangle *v = &ddisp->visible;
 
   display_set_active(ddisp);
   if  (!rectangle_in_rectangle(v, r)) {
@@ -1512,7 +1515,7 @@ ddisplay_show_all (DDisplay *ddisp)
   /* if there is something selected show that instead of all exisiting objects */
   if (dia->data->selected) {
     GList *list = dia->data->selected;
-    Rectangle extents = *dia_object_get_enclosing_box ((DiaObject*)list->data);
+    DiaRectangle extents = *dia_object_get_enclosing_box ((DiaObject*)list->data);
     list = g_list_next(list);
     while (list) {
       DiaObject *obj = (DiaObject *)list->data;

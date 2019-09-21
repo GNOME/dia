@@ -86,7 +86,7 @@ aadlbox_inclined_project_point_on_nearest_border(Aadlbox *aadlbox,Point *p,
         A------------ ++++++                 +----------++++++++
   */
 
-  Rectangle rectangle;
+  DiaRectangle rectangle;
   real w, h, delta_y, delta_x;
 
   w = aadlbox->element.width;

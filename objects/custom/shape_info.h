@@ -100,7 +100,7 @@ struct _GraphicElementText {
   Point anchor;
   char *string;
   Text *object;
-  Rectangle text_bounds;
+  DiaRectangle text_bounds;
 };
 
 struct _GraphicElementImage {
@@ -117,14 +117,14 @@ struct _GraphicElementImage {
 struct _GraphicElementSubShape {
   SHAPE_INFO_COMMON;
   GList *display_list;
-  
+
   gint h_anchor_method;
   gint v_anchor_method;
-  
+
   real default_scale;
-  
+
   /* subshape bounding box, center, ... */
-  
+
   Point center;
   real half_width;
   real half_height;
@@ -178,18 +178,18 @@ struct _ShapeInfo {
   /*! the filename is info required to load the real data on demand */
   gchar *filename;
   gboolean loaded;
-  
+
   /*! everything below could be put into it's own struct to also spare memory when the shapes are not created */
   /* @{ */
   int nconnections;
   Point *connections;
   int main_cp; /*!< the cp that gets connections from the whole object */
   int object_flags; /*!< set of PropFlags e.g. parenting */
-  Rectangle shape_bounds;
+  DiaRectangle shape_bounds;
   gboolean has_text;
   gboolean resize_with_text;
   gint text_align;
-  Rectangle text_bounds;
+  DiaRectangle text_bounds;
 
   ShapeAspectType aspect_type;
   real aspect_min, aspect_max;
@@ -199,11 +199,11 @@ struct _ShapeInfo {
 
 
   GList *display_list;
-  
+
   GList *subshapes;
 
   DiaObjectType *object_type; /* back link so we can find the correct type */
-  
+
   /*MC 11/03 added */
   int n_ext_attr;
   int ext_attr_size;

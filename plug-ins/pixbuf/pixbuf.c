@@ -44,7 +44,7 @@ export_data(DiagramData *data, DiaContext *ctx,
   int width, height;
   GdkPixbuf* pixbuf = NULL;
   GError* error = NULL;
-  Rectangle rect;
+  DiaRectangle rect;
   real zoom = 1.0;
   cairo_t *cctx;
   const char* format = (const char*)user_data;

@@ -84,8 +84,16 @@ struct _Point {
   coord y; /*!< vertical */
 };
 
-/*! \brief A rectangle given by upper left and lower right corner */
-struct _Rectangle {
+/**
+ * DiaRectangle:
+ * @left: top left x co-ord
+ * @top: top left y co-ord
+ * @right: bottom right x co-ord
+ * @button bottom right y co-ord
+ *
+ * A rectangle given by upper left and lower right corner
+ */
+struct _DiaRectangle {
   coord left; /*!< x1 */
   coord top; /*!< y1 */
   coord right; /*!< x2 */
@@ -257,16 +265,16 @@ point_copy_add_scaled(Point *dst, const Point *src,
 
 void point_convex(Point *dst, const Point *src1, const Point *src2, real alpha);
 
-void rectangle_union(Rectangle *r1, const Rectangle *r2);
+void rectangle_union(DiaRectangle *r1, const DiaRectangle *r2);
 void int_rectangle_union(IntRectangle *r1, const IntRectangle *r2);
-void rectangle_intersection(Rectangle *r1, const Rectangle *r2);
-int rectangle_intersects(const Rectangle *r1, const Rectangle *r2);
-int point_in_rectangle(const Rectangle* r, const Point *p);
-int rectangle_in_rectangle(const Rectangle* outer, const Rectangle *inner);
-void rectangle_add_point(Rectangle *r, const Point *p);
+void rectangle_intersection(DiaRectangle *r1, const DiaRectangle *r2);
+int rectangle_intersects(const DiaRectangle *r1, const DiaRectangle *r2);
+int point_in_rectangle(const DiaRectangle* r, const Point *p);
+int rectangle_in_rectangle(const DiaRectangle* outer, const DiaRectangle *inner);
+void rectangle_add_point(DiaRectangle *r, const Point *p);
 
 static inline gboolean
-rectangle_equals(const Rectangle *r1, const Rectangle *r2)
+rectangle_equals (const DiaRectangle *r1, const DiaRectangle *r2)
 {
   return ( (r2->left == r1->left) &&
            (r2->right == r1->right) &&
@@ -290,7 +298,7 @@ distance_point_point_manhattan(const Point *p1, const Point *p2)
   return ABS(dx) + ABS(dy);
 }
 
-real distance_rectangle_point(const Rectangle *rect, const Point *point);
+real distance_rectangle_point(const DiaRectangle *rect, const Point *point);
 real distance_line_point(const Point *line_start, const Point *line_end,
 			 real line_width, const Point *point);
 

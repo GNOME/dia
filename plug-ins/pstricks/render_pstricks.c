@@ -73,7 +73,7 @@ enum {
 };
 
 
-static void begin_render(DiaRenderer *self, const Rectangle *update);
+static void begin_render(DiaRenderer *self, const DiaRectangle *update);
 static void end_render(DiaRenderer *self);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
@@ -307,7 +307,7 @@ set_fill_color(PstricksRenderer *renderer,Color *color)
 }
 
 static void
-begin_render(DiaRenderer *self, const Rectangle *update)
+begin_render(DiaRenderer *self, const DiaRectangle *update)
 {
 }
 
@@ -921,7 +921,7 @@ export_pstricks(DiagramData *data, DiaContext *ctx,
     PstricksRenderer *renderer;
     FILE *file;
     time_t time_now;
-    Rectangle *extent;
+    DiaRectangle *extent;
     const char *name;
     gchar el_buf[DTOSTR_BUF_SIZE];
     gchar er_buf[DTOSTR_BUF_SIZE];

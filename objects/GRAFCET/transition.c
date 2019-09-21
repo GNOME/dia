@@ -68,7 +68,7 @@ typedef struct _Transition {
   Point SD1,SD2,NU1,NU2;
 
   /* computed values : */
-  Rectangle rceptbb; /* The bounding box of the receptivity */
+  DiaRectangle rceptbb; /* The bounding box of the receptivity */
   Point A,B,C,D,Z;
 } Transition;
 

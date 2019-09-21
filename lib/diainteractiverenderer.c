@@ -170,13 +170,13 @@ dia_interactive_renderer_clip_region_clear (DiaInteractiveRenderer *self)
 /**
  * dia_interactive_renderer_clip_region_add_rect:
  * @self: the #DiaInteractiveRenderer
- * @rect: the #Rectangle to add
+ * @rect: the #DiaRectangle to add
  *
  * Since: 0.98
  */
 void
 dia_interactive_renderer_clip_region_add_rect (DiaInteractiveRenderer *self,
-                                               Rectangle              *rect)
+                                               DiaRectangle           *rect)
 {
   DiaInteractiveRendererInterface *irenderer =
     DIA_INTERACTIVE_RENDERER_GET_IFACE (self);

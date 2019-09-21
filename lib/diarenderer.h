@@ -115,11 +115,11 @@ struct _DiaRendererClass
   void     (*draw_layer)                        (DiaRenderer      *renderer,
                                                  DiaLayer         *layer,
                                                  gboolean          active,
-                                                 Rectangle        *update);
+                                                 DiaRectangle     *update);
   void     (*draw_object)                       (DiaRenderer      *renderer,
                                                  DiaObject        *object,
                                                  DiaMatrix        *matrix);
-  real (*get_text_width)                        (DiaRenderer      *renderer,
+  real     (*get_text_width)                    (DiaRenderer      *renderer,
                                                  const gchar      *text,
                                                  int               length);
 
@@ -127,7 +127,7 @@ struct _DiaRendererClass
    * Function which MUST be implemented by any DiaRenderer
    */
   void     (*begin_render)                      (DiaRenderer      *renderer,
-                                                 const Rectangle  *update);
+                                                 const DiaRectangle *update);
   void     (*end_render)                        (DiaRenderer      *renderer);
 
   void     (*set_linewidth)                     (DiaRenderer      *renderer,
@@ -283,7 +283,7 @@ struct _DiaRendererClass
 void     dia_renderer_draw_layer                        (DiaRenderer      *self,
                                                          DiaLayer         *layer,
                                                          gboolean          active,
-                                                         Rectangle        *update);
+                                                         DiaRectangle     *update);
 void     dia_renderer_draw_object                       (DiaRenderer      *self,
                                                          DiaObject        *object,
                                                          DiaMatrix        *matrix);
@@ -291,7 +291,7 @@ real     dia_renderer_get_text_width                    (DiaRenderer      *self,
                                                          const gchar      *text,
                                                          int               length);
 void     dia_renderer_begin_render                      (DiaRenderer      *self,
-                                                         const Rectangle  *update);
+                                                         const DiaRectangle *update);
 void     dia_renderer_end_render                        (DiaRenderer      *self);
 void     dia_renderer_set_linewidth                     (DiaRenderer      *self,
                                                          real              linewidth);

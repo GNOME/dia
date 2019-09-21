@@ -278,7 +278,7 @@ dependency_update_data(Dependency *dep)
   PolyBBExtras *extra = &orth->extra_spacing;
   int num_segm, i;
   Point *points;
-  Rectangle rect;
+  DiaRectangle rect;
 
   orthconn_update_data(orth);
 

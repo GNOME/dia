@@ -30,7 +30,7 @@
 #include "units.h"
 
 void
-rectangle_union(Rectangle *r1, const Rectangle *r2)
+rectangle_union (DiaRectangle *r1, const DiaRectangle *r2)
 {
   r1->top = MIN( r1->top, r2->top );
   r1->bottom = MAX( r1->bottom, r2->bottom );
@@ -39,7 +39,7 @@ rectangle_union(Rectangle *r1, const Rectangle *r2)
 }
 
 void
-int_rectangle_union(IntRectangle *r1, const IntRectangle *r2)
+int_rectangle_union (IntRectangle *r1, const IntRectangle *r2)
 {
   r1->top = MIN( r1->top, r2->top );
   r1->bottom = MAX( r1->bottom, r2->bottom );
@@ -48,7 +48,7 @@ int_rectangle_union(IntRectangle *r1, const IntRectangle *r2)
 }
 
 void
-rectangle_intersection(Rectangle *r1, const Rectangle *r2)
+rectangle_intersection (DiaRectangle *r1, const DiaRectangle *r2)
 {
   r1->top = MAX( r1->top, r2->top );
   r1->bottom = MIN( r1->bottom, r2->bottom );
@@ -63,7 +63,7 @@ rectangle_intersection(Rectangle *r1, const Rectangle *r2)
 }
 
 int
-rectangle_intersects(const Rectangle *r1, const Rectangle *r2)
+rectangle_intersects (const DiaRectangle *r1, const DiaRectangle *r2)
 {
   if ( (r1->right < r2->left) ||
        (r1->left > r2->right) ||
@@ -75,7 +75,7 @@ rectangle_intersects(const Rectangle *r1, const Rectangle *r2)
 }
 
 int
-point_in_rectangle(const Rectangle* r, const Point *p)
+point_in_rectangle (const DiaRectangle* r, const Point *p)
 {
   if ( (p->x < r->left) ||
        (p->x > r->right) ||
@@ -87,7 +87,7 @@ point_in_rectangle(const Rectangle* r, const Point *p)
 }
 
 int
-rectangle_in_rectangle(const Rectangle* outer, const Rectangle *inner)
+rectangle_in_rectangle (const DiaRectangle* outer, const DiaRectangle *inner)
 {
   if ( (inner->left < outer->left) ||
        (inner->right > outer->right) ||
@@ -99,7 +99,7 @@ rectangle_in_rectangle(const Rectangle* outer, const Rectangle *inner)
 }
 
 void
-rectangle_add_point(Rectangle *r, const Point *p)
+rectangle_add_point (DiaRectangle *r, const Point *p)
 {
   if (p->x < r->left)
     r->left = p->x;
@@ -120,7 +120,7 @@ rectangle_add_point(Rectangle *r, const Point *p)
  * on the rectangle is returned.
  */
 real
-distance_rectangle_point(const Rectangle *rect, const Point *point)
+distance_rectangle_point (const DiaRectangle *rect, const Point *point)
 {
   real dx = 0.0;
   real dy = 0.0;

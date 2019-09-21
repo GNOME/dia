@@ -526,7 +526,7 @@ mbr_update_data(Mbr *mbr)
 {
   Connection *conn = &mbr->connection;
   DiaObject *obj = &conn->object;
-  Rectangle rect;
+  DiaRectangle rect;
   Point p1,p2;
   Point p3,p4;
   gchar *text;

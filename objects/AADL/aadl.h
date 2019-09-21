@@ -194,7 +194,7 @@ void aadlbox_load(ObjectNode obj_node, int version, DiaContext *ctx,
 			Aadlbox *aadlbox);
 
 /* aadldata.c */
-void aadlbox_project_point_on_rectangle(Rectangle *rectangle,
+void aadlbox_project_point_on_rectangle(DiaRectangle *rectangle,
 					Point *p,real *angle);
  void aadldata_project_point_on_nearest_border(Aadlbox *aadlbox,
  					 Point *p,real *angle);

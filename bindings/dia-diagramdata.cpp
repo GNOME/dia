@@ -26,7 +26,7 @@
 #include "dia-diagramdata.h"
 
 //! how many contained
-int 
+int
 dia::Objects::len () const
 {
     if (list)
@@ -36,9 +36,9 @@ dia::Objects::len () const
 //! \brief return back a single one
 //! Together with len() getitem() allows list access. The code generator needs some
 //! extra help to not making it an endless list. At least for Python the NULL return
-//! was turned into None objects, we want to have only as much list elements 
+//! was turned into None objects, we want to have only as much list elements
 //! as there are real objects.
-dia::Object* 
+dia::Object*
 dia::Objects::getitem (int n) const
 {
     if (list && n >= 0 && n < g_list_length(*list))
@@ -48,7 +48,7 @@ dia::Objects::getitem (int n) const
 
 //! construct with underlying list of objects
 //! \todo check ownership/lifetime of that list!
-dia::Layer::Layer (::Layer* layer) : self(layer), _found(0) 
+dia::Layer::Layer (::Layer* layer) : self(layer), _found(0)
 {
     assert (self);
     // todo: when we allow to change the name this needs to change
@@ -77,7 +77,7 @@ dia::Layer::update_extents ()
     layer_update_extents(self);
 }
 //! the object next to given point but within maxdist
-dia::Object* 
+dia::Object*
 dia::Layer::find_closest_object (::Point* pos, double maxdist) const
 {
     g_return_val_if_fail (self != NULL, 0);
@@ -87,8 +87,8 @@ dia::Layer::find_closest_object (::Point* pos, double maxdist) const
     return 0;
 }
 //! a list of Object in the given rectangle
-dia::Objects& 
-dia::Layer::find_objects_in_rectangle (::Rectangle* rect) const
+dia::Objects&
+dia::Layer::find_objects_in_rectangle (::DiaRectangle* rect) const
 {
     static GList* list = layer_find_objects_in_rectangle (self, rect);
     if (_found)
@@ -97,7 +97,7 @@ dia::Layer::find_objects_in_rectangle (::Rectangle* rect) const
     return *_found;
 }
  //! objects are kept in an ordered list, this is the index of the given object
-int 
+int
 dia::Layer::object_index (Object* o) const
 {
     g_return_val_if_fail (self != NULL, -1);
@@ -156,13 +156,13 @@ dia::DiagramData::add_layer (const char* name)
     dia::Layer* dl = new dia::Layer (layer);
     return dl;
 }
-void 
+void
 dia::DiagramData::update_extents ()
 {
     g_return_if_fail(self != NULL);
     data_update_extents(self);
     // conceptionally const, i.e. read-only
-    *const_cast< ::Rectangle* >(&extents) = self->extents;
+    *const_cast< ::DiaRectangle* >(&extents) = self->extents;
 }
 dia::Objects&
 dia::DiagramData::get_sorted_selected () const

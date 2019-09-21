@@ -642,12 +642,12 @@ update_bounds(ShapeInfo *info)
     case GE_SHAPE:
 #if 1
       {
-	Rectangle bbox;
-	PolyBBExtras extra = { 0, };
+        DiaRectangle bbox;
+        PolyBBExtras extra = { 0, };
 
-        polybezier_bbox(&el->path.points[0],el->path.npoints,
-                      &extra,el->type == GE_SHAPE,&bbox);
-	rectangle_union(&info->shape_bounds, &bbox);
+        polybezier_bbox (&el->path.points[0],el->path.npoints,
+                         &extra,el->type == GE_SHAPE,&bbox);
+        rectangle_union (&info->shape_bounds, &bbox);
       }
 #else
       for (i = 0; i < el->path.npoints; i++)

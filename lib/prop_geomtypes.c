@@ -743,14 +743,14 @@ static void
 rectprop_get_from_offset(RectProperty *prop,
                          void *base, guint offset, guint offset2)
 {
-  prop->rect_data = struct_member(base,offset,Rectangle);
+  prop->rect_data = struct_member (base, offset, DiaRectangle);
 }
 
 static void
 rectprop_set_from_offset(RectProperty *prop,
                          void *base, guint offset, guint offset2)
 {
-  struct_member(base,offset,Rectangle) = prop->rect_data;
+  struct_member (base, offset, DiaRectangle) = prop->rect_data;
 }
 
 static const PropertyOps rectprop_ops = {

@@ -145,7 +145,7 @@ _test_copy (gconstpointer user_data)
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {0, 0};
   DiaObject *oc, *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
-  Rectangle bbox1, bbox2;
+  DiaRectangle bbox1, bbox2;
   Point to;
   int i;
 
@@ -208,7 +208,7 @@ _test_movement (gconstpointer user_data)
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {5, 5};
   DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
-  Rectangle bbox1, bbox2;
+  DiaRectangle bbox1, bbox2;
   Point to = {10, 10};
   ObjectChange *change;
   Point pos;
@@ -390,7 +390,7 @@ _test_move_handle (gconstpointer user_data)
   if (h2)
     {
       Point to = h2->pos;
-      Rectangle bb_org = o->bounding_box;
+      DiaRectangle bb_org = o->bounding_box;
       from = to;
       to.x += 1.0; to.y += 1.0;
       if (cp)
@@ -671,8 +671,8 @@ _test_draw (gconstpointer user_data)
   p = create_standard_path_from_object (o);
   if (p) /* play safe, maybe it can not be converted? */
     {
-      const Rectangle *obb = dia_object_get_bounding_box (o);
-      const Rectangle *pbb = dia_object_get_bounding_box (p);
+      const DiaRectangle *obb = dia_object_get_bounding_box (o);
+      const DiaRectangle *pbb = dia_object_get_bounding_box (p);
       real epsilon = 0.2; /* XXX: smaller value needs longer exception list */
 
       /* Bounding boxes of these objects should be close, if not
@@ -805,7 +805,7 @@ _test_distance_from (gconstpointer user_data)
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {0, 0};
   DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
-  const Rectangle *ebox;
+  const DiaRectangle *ebox;
   Point center;
   real width, height;
   Point test;
@@ -1054,7 +1054,6 @@ _ot_item (gpointer key,
 }
 
 #ifdef G_OS_WIN32
-#define Rectangle win32Rectangle
 #include <windows.h>
 #endif
 

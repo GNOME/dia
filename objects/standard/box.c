@@ -225,7 +225,7 @@ box_distance_from(Box *box, Point *point)
   Element *elem = &box->element;
 
   if (box->angle == 0) {
-    Rectangle rect;
+    DiaRectangle rect;
     rect.left = elem->corner.x - box->border_width/2;
     rect.right = elem->corner.x + elem->width + box->border_width/2;
     rect.top = elem->corner.y - box->border_width/2;

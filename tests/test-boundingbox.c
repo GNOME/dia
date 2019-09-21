@@ -114,9 +114,9 @@ static BezPoint _bz9[] = { /* heart from assorted shapes */
 #define BEZ(x) sizeof(_bz ##x)/sizeof(BezPoint), _bz ##x
 
 static struct _TestBeziers {
-  int       num;
-  BezPoint *pts;
-  Rectangle box;
+  int          num;
+  BezPoint    *pts;
+  DiaRectangle box;
 } _test_beziers[] = {                   /* left, top, right, bottom */
   { BEZ(1), { 0.0-T, 0.5-T, 2.0+T, 2.0+T } },
   { BEZ(2), {-2.0-T, 0.5-T, 0.0+T, 2.0+T } },
@@ -135,9 +135,9 @@ static void
 _check_one_bezier (gconstpointer p)
 {
   const struct _TestBeziers *test = p;
-  Rectangle rect;
+  DiaRectangle rect;
   PolyBBExtras extra = {0, T*.7, T*.7, T*.7, 0 };
-  
+
   polybezier_bbox (test->pts, test->num, &extra, FALSE, &rect);
   g_assert (rectangle_in_rectangle (&test->box, &rect));
 }
@@ -145,7 +145,7 @@ static void
 _add_bezier_tests (void)
 {
   int i, num = sizeof(_test_beziers)/sizeof(struct _TestBeziers);
-  
+
   for (i = 0; i < num; ++i)
     {
       gchar *testpath = g_strdup_printf ("/Dia/BoundingBox/Bezier%d", i+1);
@@ -157,7 +157,6 @@ _add_bezier_tests (void)
 }
 
 #ifdef G_OS_WIN32
-#define Rectangle win32Rectangle
 #include <windows.h>
 #endif
 
@@ -165,7 +164,7 @@ int
 main (int argc, char** argv)
 {
   int ret;
-  
+
 #ifdef G_OS_WIN32
   /* No dialog if it fails, please. */
   SetErrorMode(SetErrorMode(0) | SEM_NOGPFAULTERRORBOX);

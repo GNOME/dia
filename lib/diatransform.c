@@ -28,7 +28,7 @@ struct _DiaTransform
 {
   GObject parent_instance;
   /*< private >*/
-  Rectangle *visible; /* pointer to original rectangle for transform_coords */
+  DiaRectangle *visible; /* pointer to original rectangle for transform_coords */
   real      *factor;  /* pointer to original factor for transform_length */
 };
 
@@ -65,7 +65,7 @@ dia_transform_get_type (void)
                                             "DiaTransform",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
@@ -89,7 +89,7 @@ dia_transform_class_init (DiaTransformClass *klass)
 }
 
 DiaTransform *
-dia_transform_new (Rectangle *rect, real* zoom)
+dia_transform_new (DiaRectangle *rect, real* zoom)
 {
   DiaTransform *t = g_object_new (DIA_TYPE_TRANSFORM, NULL);
   t->visible = rect;
@@ -98,7 +98,7 @@ dia_transform_new (Rectangle *rect, real* zoom)
   return t;
 }
 
-real 
+real
 dia_transform_length (DiaTransform *t, real len)
 {
   g_return_val_if_fail (DIA_IS_TRANSFORM (t), len);
@@ -117,9 +117,9 @@ dia_untransform_length(DiaTransform *t, real len)
   return len / *(t->factor);
 }
 
-void 
-dia_transform_coords (DiaTransform *t, 
-                      coord x, coord y, 
+void
+dia_transform_coords (DiaTransform *t,
+                      coord x, coord y,
                       int *xi, int *yi)
 {
   g_return_if_fail (DIA_IS_TRANSFORM (t));
@@ -129,9 +129,9 @@ dia_transform_coords (DiaTransform *t,
   *yi = ROUND ( (y - t->visible->top) * *(t->factor));
 }
 
-void 
-dia_transform_coords_double (DiaTransform *t, 
-                             coord x, coord y, 
+void
+dia_transform_coords_double (DiaTransform *t,
+                             coord x, coord y,
                              double *xd, double *yd)
 {
   g_return_if_fail (DIA_IS_TRANSFORM (t));

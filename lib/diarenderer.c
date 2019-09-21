@@ -73,7 +73,7 @@ struct _BezierApprox {
   int currpoint;
 };
 
-static void begin_render (DiaRenderer *, const Rectangle *update);
+static void begin_render (DiaRenderer *, const DiaRectangle *update);
 static void end_render (DiaRenderer *);
 
 static void set_linewidth (DiaRenderer *renderer, real linewidth);
@@ -250,10 +250,10 @@ dia_renderer_get_property (GObject    *object,
  * \memberof _DiaRenderer
  */
 static void
-draw_layer (DiaRenderer *renderer,
-            DiaLayer    *layer,
-            gboolean     active,
-            Rectangle   *update)
+draw_layer (DiaRenderer  *renderer,
+            DiaLayer     *layer,
+            gboolean      active,
+            DiaRectangle *update)
 {
   GList *list = dia_layer_get_object_list (layer);
   void (*func) (DiaRenderer*, DiaObject *, DiaMatrix *);
@@ -295,7 +295,7 @@ draw_object (DiaRenderer *renderer,
 #else
     /* visual complaints - not completely correct */
     Point pt[4];
-    Rectangle *bb = &object->bounding_box;
+    DiaRectangle *bb = &object->bounding_box;
     Color red = { 1.0, 0.0, 0.0, 1.0 };
 
     pt[0].x = matrix->xx * bb->left + matrix->xy * bb->top + matrix->x0;
@@ -431,7 +431,7 @@ dia_renderer_class_init (DiaRendererClass *klass)
  * \memberof _DiaRenderer \pure
  */
 static void
-begin_render (DiaRenderer *object, const Rectangle *update)
+begin_render (DiaRenderer *object, const DiaRectangle *update)
 {
   g_warning ("%s::begin_render not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
@@ -691,7 +691,7 @@ draw_rotated_text (DiaRenderer *renderer,
     GArray *path = g_array_new (FALSE, FALSE, sizeof (BezPoint));
     if (!text_is_empty (text) && text_to_path (text, path)) {
       /* Scaling and transformation here */
-      Rectangle bz_bb, tx_bb;
+      DiaRectangle bz_bb, tx_bb;
       PolyBBExtras extra = { 0, };
       real sx, sy;
       guint i;
@@ -751,7 +751,7 @@ draw_rotated_text (DiaRenderer *renderer,
       Point pt = center ? *center : text->position;
       DiaMatrix m = { 1, 0, 0, 1, pt.x, pt.y };
       DiaMatrix t = { 1, 0, 0, 1, -pt.x, -pt.y };
-      Rectangle tb;
+      DiaRectangle tb;
       Point poly[4];
       int i;
 
@@ -2118,7 +2118,7 @@ void
 dia_renderer_draw_layer (DiaRenderer      *self,
                          DiaLayer         *layer,
                          gboolean          active,
-                         Rectangle        *update)
+                         DiaRectangle     *update)
 {
   g_return_if_fail (DIA_IS_RENDERER (self));
 
@@ -2149,8 +2149,8 @@ dia_renderer_get_text_width (DiaRenderer      *self,
 
 
 void
-dia_renderer_begin_render (DiaRenderer      *self,
-                           const Rectangle  *update)
+dia_renderer_begin_render (DiaRenderer        *self,
+                           const DiaRectangle *update)
 {
   g_return_if_fail (DIA_IS_RENDERER (self));
 

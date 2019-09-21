@@ -156,7 +156,7 @@ void          arrow_bbox              (const Arrow *self,
                                        real         line_width,
                                        const Point *to,
                                        const Point *from,
-                                       Rectangle   *rect);
+                                       DiaRectangle *rect);
 void          calculate_arrow_point   (const Arrow *arrow,
                                        const Point *to,
                                        const Point *from,

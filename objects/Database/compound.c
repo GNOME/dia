@@ -787,7 +787,7 @@ compound_apply_props (Compound * comp, GPtrArray * props, gboolean is_default)
  */
 static void compound_update_object (Compound * comp)
 {
-  Rectangle * bb;
+  DiaRectangle * bb;
   Handle * h;
   gint i;
   gint num_handles = comp->object.num_handles;

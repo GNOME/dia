@@ -21,14 +21,12 @@
 #include "config.h"
 
 // Dia includes before poppler to avoid getting the wrong 'object.h'
-#define Rectangle DiaRectangle
 #include "create.h"
 #include "properties.h"
 #include "attributes.h"
 #include "object.h"
 #include "diagramdata.h"
 #include "pattern.h"
-#undef Rectangle
 
 // namespacing poppler to avoid conflict on Object
 //#undef OBJECT_H /* should be fixed in POPPLER I think */

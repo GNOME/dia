@@ -168,7 +168,7 @@ static real
 vergent_distance_from(Vergent *vergent, Point *point)
 {
   Connection *conn = &vergent->connection;
-  Rectangle rectangle;
+  DiaRectangle rectangle;
 
   rectangle.left = conn->endpoints[0].x;
   rectangle.right = conn->endpoints[1].x;

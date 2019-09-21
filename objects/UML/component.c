@@ -179,9 +179,9 @@ component_distance_from(Component *cmp, Point *point)
   real y = elem->corner.y;
   real cw2 = COMPONENT_CWIDTH/2.0;
   real h2 = elem->height / 2.0;
-  Rectangle r1 = { x + cw2, y, x + elem->width - cw2, y + elem->height };
-  Rectangle r2 = { x, y + h2 - COMPONENT_CHEIGHT * 1.5, x + cw2, y + h2 - COMPONENT_CHEIGHT * 0.5 };
-  Rectangle r3 = { x, y + h2 + COMPONENT_CHEIGHT * 0.5, x + cw2, y + h2 + COMPONENT_CHEIGHT * 1.5 };
+  DiaRectangle r1 = { x + cw2, y, x + elem->width - cw2, y + elem->height };
+  DiaRectangle r2 = { x, y + h2 - COMPONENT_CHEIGHT * 1.5, x + cw2, y + h2 - COMPONENT_CHEIGHT * 0.5 };
+  DiaRectangle r3 = { x, y + h2 + COMPONENT_CHEIGHT * 0.5, x + cw2, y + h2 + COMPONENT_CHEIGHT * 1.5 };
   real d1 = distance_rectangle_point(&r1, point);
   real d2 = distance_rectangle_point(&r2, point);
   real d3 = distance_rectangle_point(&r3, point);

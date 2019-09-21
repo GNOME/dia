@@ -62,7 +62,7 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
  * \memberof _DiaSvgRenderer
  */
 static void
-begin_render(DiaRenderer *self, const Rectangle *update)
+begin_render(DiaRenderer *self, const DiaRectangle *update)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
 

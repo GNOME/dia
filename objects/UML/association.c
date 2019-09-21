@@ -601,7 +601,7 @@ association_update_data_end(Association *assoc, int endnum)
   OrthConn *orth = &assoc->orth;
   DiaObject *obj = &orth->object;
   Point *points  = orth->points;
-  Rectangle rect;
+  DiaRectangle rect;
   AssociationEnd *end;
   Orientation dir;
   int n = orth->numpoints - 1, fp, sp;
@@ -688,7 +688,7 @@ association_update_data(Association *assoc)
   PolyBBExtras *extra = &orth->extra_spacing;
   int num_segm, i;
   Point *points;
-  Rectangle rect;
+  DiaRectangle rect;
   Orientation dir;
 
   orthconn_update_data(orth);

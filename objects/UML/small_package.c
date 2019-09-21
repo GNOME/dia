@@ -181,8 +181,8 @@ smallpackage_distance_from(SmallPackage *pkg, Point *point)
   Element *elem = &pkg->element;
   real x = elem->corner.x;
   real y = elem->corner.y;
-  Rectangle r1 = { x, y, x + elem->width, y + elem->height };
-  Rectangle r2 = { x, y - SMALLPACKAGE_TOPHEIGHT, x + SMALLPACKAGE_TOPWIDTH, y };
+  DiaRectangle r1 = { x, y, x + elem->width, y + elem->height };
+  DiaRectangle r2 = { x, y - SMALLPACKAGE_TOPHEIGHT, x + SMALLPACKAGE_TOPWIDTH, y };
   real d1 = distance_rectangle_point(&r1, point);
   real d2 = distance_rectangle_point(&r2, point);
 

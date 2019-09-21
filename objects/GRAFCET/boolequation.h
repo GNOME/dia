@@ -1,7 +1,7 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
  *
- * This code renders boolean equations, as needed by the transitions' 
+ * This code renders boolean equations, as needed by the transitions'
  * receptivities and the conditional actions.
  *
  * Copyright (C) 2000 Cyrille Chepelov
@@ -40,7 +40,7 @@ typedef struct {
   Point pos;
 
   const gchar *value;
-  
+
   Block *rootblock;
 
   real width;
@@ -51,8 +51,8 @@ typedef struct {
         */
 } Boolequation;
 
-  
-extern Boolequation *boolequation_create(const gchar *value, DiaFont *font, 
+
+extern Boolequation *boolequation_create(const gchar *value, DiaFont *font,
 				       real fontheight, Color *color);
 extern void boolequation_destroy(Boolequation *rcep);
 extern void boolequation_set_value(Boolequation *rcep, const gchar *value);
@@ -61,6 +61,6 @@ extern void save_boolequation(ObjectNode obj_node, const gchar *attrname,
 			     Boolequation *rcep, DiaContext *ctx);
 
 extern void boolequation_draw(Boolequation *rcep, DiaRenderer *renderer);
-extern void boolequation_calc_boundingbox(Boolequation *rcep, Rectangle *box);
- 
+extern void boolequation_calc_boundingbox(Boolequation *rcep, DiaRectangle *box);
+
 #endif /* __BOOLEQUATION_H */

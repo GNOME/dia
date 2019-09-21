@@ -330,7 +330,7 @@ basestation_update_data(Basestation *basestation)
 {
   Element *elem = &basestation->element;
   DiaObject *obj = &elem->object;
-  Rectangle text_box;
+  DiaRectangle text_box;
   Point p;
 
   elem->width = BASESTATION_WIDTH;

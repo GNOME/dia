@@ -49,7 +49,7 @@ static void reference_update_data (TableReference *);
 static DiaObject * reference_load (ObjectNode obj_node, int version,DiaContext *ctx);
 static void update_desc_data (Point *, Alignment *,
                               Point *, Point *, Orientation, real, real);
-static void get_desc_bbox (Rectangle *, gchar *, real, Point *, Alignment,
+static void get_desc_bbox (DiaRectangle *, gchar *, real, Point *, Alignment,
                            DiaFont *, real);
 static ObjectChange * reference_add_segment_cb(DiaObject *, Point *, gpointer);
 static ObjectChange * reference_del_segment_cb(DiaObject *, Point *, gpointer);
@@ -256,7 +256,7 @@ reference_draw (TableReference *ref, DiaRenderer *renderer)
 static real
 reference_distance_from (TableReference * ref, Point *point)
 {
-  Rectangle rect;
+  DiaRectangle rect;
   OrthConn * orth;
   real dist;
 
@@ -342,7 +342,7 @@ static void
 reference_update_data (TableReference * ref)
 {
   OrthConn * orth = &ref->orth;
-  Rectangle rect;
+  DiaRectangle rect;
   PolyBBExtras *extra = &orth->extra_spacing;
 
   orthconn_update_data (orth);
@@ -467,7 +467,7 @@ update_desc_data (Point * desc_pos, Alignment * desc_align,
 }
 
 static void
-get_desc_bbox (Rectangle * r, gchar * string, real string_width,
+get_desc_bbox (DiaRectangle * r, gchar * string, real string_width,
                Point * pos, Alignment align,
                DiaFont * font, real font_height)
 {

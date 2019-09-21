@@ -31,10 +31,8 @@
 #include <gtk/gtk.h> /* just for gtk_get_default_language() */
 #ifdef GDK_WINDOWING_WIN32
 /* avoid namespace clashes caused by inclusion of windows.h */
-#define Rectangle Win32Rectangle
 #define WIN32_LEAN_AND_MEAN
 #include <pango/pangowin32.h>
-#undef Rectangle
 #endif
 #include "font.h"
 #include "message.h"

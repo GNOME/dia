@@ -183,7 +183,7 @@ static real
 entity_distance_from(Entity *entity, Point *point)
 {
   Element *elem = &entity->element;
-  Rectangle rect;
+  DiaRectangle rect;
 
   rect.left = elem->corner.x - entity->border_width/2;
   rect.right = elem->corner.x + elem->width + entity->border_width/2;

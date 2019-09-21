@@ -51,7 +51,7 @@ static GList *open_diagrams = NULL;
 struct _ObjectExtent
 {
   DiaObject *object;
-  Rectangle extent;
+  DiaRectangle extent;
 };
 
 typedef struct _ObjectExtent ObjectExtent;
@@ -525,7 +525,7 @@ diagram_selected_can_parent(Diagram *dia) {
 gboolean
 object_within_parent(DiaObject *obj, DiaObject *p)
 {
-  Rectangle obj_bb = obj->bounding_box;
+  DiaRectangle obj_bb = obj->bounding_box;
   if (!object_flags_set(p, DIA_OBJECT_CAN_PARENT))
     return FALSE;
   if (p == obj)
@@ -869,7 +869,7 @@ diagram_add_update_all(Diagram *dia)
 }
 
 void
-diagram_add_update(Diagram *dia, const Rectangle *update)
+diagram_add_update (Diagram *dia, const DiaRectangle *update)
 {
   GSList *l;
   DDisplay *ddisp;
@@ -884,14 +884,21 @@ diagram_add_update(Diagram *dia, const Rectangle *update)
   }
 }
 
-/** Add an update of the given rectangle, but with an additional
+/**
+ * diagram_add_update_with_border:
+ * @dia: the #Diagram
+ * @update: the area to update
+ * @pixel_border: border around @update:
+ *
+ * Add an update of the given rectangle, but with an additional
  * border around it.  The pixels are added after the rectangle has
  * been converted to pixel coords.
  * Currently used for leaving room for highlighting.
  * */
 void
-diagram_add_update_with_border(Diagram *dia, const Rectangle *update,
-			       int pixel_border)
+diagram_add_update_with_border (Diagram            *dia,
+                                const DiaRectangle *update,
+                                int                 pixel_border)
 {
   GSList *l;
   DDisplay *ddisp;

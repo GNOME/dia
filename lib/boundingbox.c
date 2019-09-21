@@ -1,5 +1,5 @@
 /* Dia -- an diagram creation/manipulation program
- * Support for computing bounding boxes 
+ * Support for computing bounding boxes
  * Copyright (C) 2001 Cyrille Chepelov
  *
  * This program is free software; you can redistribute it and/or modify
@@ -30,10 +30,10 @@
 
 /** Translates x- or y- part of bezier points to Bernstein polynom coefficients
  * @param p x- or y-part of the four points
- * @param A 
- * @param B 
- * @param C 
- * @param D 
+ * @param A
+ * @param B
+ * @param C
+ * @param D
  * See: Foley et al., Computer Graphics, Bezier Curves or
  * http://en.wikipedia.org/wiki/B%C3%A9zier_curve
  */
@@ -72,7 +72,7 @@ bezier_eval_tangent(const real p[4], real u)
   real A,B,C,D;
   bernstein_develop(p,&A,&B,&C,&D);
   return 3*A*u*u+2*B*u+C;
-}  
+}
 
 /**
  * Calculates the extrma of the given curve in x- or y-direction.
@@ -112,9 +112,9 @@ bicubicbezier_extrema(const real p[4],real u[2])
  * @param extra_trans ???
  */
 static void
-add_arrow_rectangle(Rectangle *rect,
-                    const Point *vertex,
-                    const Point *normed_dir,
+add_arrow_rectangle(DiaRectangle *rect,
+                    const Point  *vertex,
+                    const Point  *normed_dir,
                     real extra_long,real extra_trans)
 {
   Point vl,vt,pt;
@@ -129,7 +129,7 @@ add_arrow_rectangle(Rectangle *rect,
   point_add_scaled(&pt,&vl,-2.0 * extra_long);
   rectangle_add_point(rect,&pt);
   point_add_scaled(&pt,&vt,2.0 * extra_trans);
-  rectangle_add_point(rect,&pt);  
+  rectangle_add_point(rect,&pt);
 }
 
 /** Calculate the boundingbox for a 2D bezier curve segment.
@@ -144,7 +144,7 @@ void
 bicubicbezier2D_bbox(const Point *p0,const Point *p1,
                      const Point *p2,const Point *p3,
                      const PolyBBExtras *extra,
-                     Rectangle *rect)
+                     DiaRectangle *rect)
 {
   real x[4],y[4];
   Point vl,vt,p,tt;
@@ -156,11 +156,11 @@ bicubicbezier2D_bbox(const Point *p0,const Point *p1,
   rect->top = rect->bottom = p0->y;
 
   rectangle_add_point(rect,p3);
-  /* start point */  
+  /* start point */
   point_copy_add_scaled(&vl,p0,p1,-1);
   if (point_len(&vl) == 0)
     point_copy_add_scaled(&vl,p0,p2,-1);
-  point_normalize(&vl); 
+  point_normalize(&vl);
   add_arrow_rectangle(rect,p0,&vl,extra->start_long,MAX(extra->start_trans,
                                                          extra->middle_trans));
 
@@ -168,11 +168,11 @@ bicubicbezier2D_bbox(const Point *p0,const Point *p1,
   point_copy_add_scaled(&vl,p3,p2,-1);
   if (point_len(&vl) == 0)
     point_copy_add_scaled(&vl,p3,p1,-1);
-  point_normalize(&vl); 
+  point_normalize(&vl);
   add_arrow_rectangle(rect,p3,&vl,extra->end_long,MAX(extra->end_trans,
                                                       extra->middle_trans));
 
-  /* middle part */  
+  /* middle part */
   x[0] = p0->x; x[1] = p1->x; x[2] = p2->x; x[3] = p3->x;
   y[0] = p0->y; y[1] = p1->y; y[2] = p2->y; y[3] = p3->y;
 
@@ -198,21 +198,21 @@ bicubicbezier2D_bbox(const Point *p0,const Point *p1,
 /** Calculate the bounding box for a simple line.
  * @param p1 One end of the line.
  * @param p2 The other end of the line.
- * @param extra Extra information 
+ * @param extra Extra information
  * @param rect The box that the line and extra stuff fits inside.
  */
 void
 line_bbox(const Point *p1, const Point *p2,
           const LineBBExtras *extra,
-          Rectangle *rect)
+          DiaRectangle *rect)
 {
   Point vl;
-  
+
   rect->left = rect->right = p1->x;
   rect->top = rect->bottom = p1->y;
 
   rectangle_add_point(rect,p2); /* as a safety, so we don't need to care if it above or below p1 */
-  
+
   point_copy_add_scaled(&vl,p1,p2,-1);
   point_normalize(&vl);
   add_arrow_rectangle(rect,p1,&vl,extra->start_long,extra->start_trans);
@@ -230,9 +230,9 @@ line_bbox(const Point *p1, const Point *p2,
 void
 ellipse_bbox(const Point *centre, real width, real height,
              const ElementBBExtras *extra,
-             Rectangle *rect)
+             DiaRectangle          *rect)
 {
-  Rectangle rin;
+  DiaRectangle rin;
   rin.left = centre->x - width/2;
   rin.right = centre->x + width/2;
   rin.top = centre->y - height/2;
@@ -241,7 +241,7 @@ ellipse_bbox(const Point *centre, real width, real height,
   rectangle_bbox(&rin,extra,rect);
 }
 
-/**  Allocate some scratch space to hold a big enough Bezier. 
+/**  Allocate some scratch space to hold a big enough Bezier.
  * That space is not guaranteed to be preserved upon the next allocation
  * (in fact it's guaranteed it's not).
  * @param numpoints How many points of bezier to allocate space for.
@@ -250,9 +250,9 @@ ellipse_bbox(const Point *centre, real width, real height,
 static BezPoint *
 alloc_polybezier_space(int numpoints)
 {
-  static int alloc_np = 0; 
+  static int alloc_np = 0;
   static BezPoint *alloced = NULL;
-  
+
   if (alloc_np < numpoints) {
     g_free(alloced);
     alloc_np = numpoints;
@@ -278,9 +278,9 @@ free_polybezier_space(BezPoint *points)
  * extra spacing.
  */
 void
-polyline_bbox(const Point *pts, int numpoints, 
+polyline_bbox(const Point *pts, int numpoints,
               const PolyBBExtras *extra, gboolean closed,
-              Rectangle *rect)
+              DiaRectangle       *rect)
 {
   /* It's much easier to re-use the Bezier code... */
   int i;
@@ -296,7 +296,7 @@ polyline_bbox(const Point *pts, int numpoints,
   /* This one will be used only when closed==TRUE... */
   bpts[numpoints].type = BEZ_LINE_TO;
   bpts[numpoints].p1 = pts[0];
-  
+
   polybezier_bbox(bpts,numpoints + (closed?1:0),extra,closed,rect);
   free_polybezier_space(bpts);
 }
@@ -308,14 +308,14 @@ polyline_bbox(const Point *pts, int numpoints,
  * @param closed True if the bezier points form a closed line.
  * @param rect Return value: The enclosing rectangle will be stored here.
  */
-void 
+void
 polybezier_bbox(const BezPoint *pts, int numpoints,
-                const PolyBBExtras *extra, gboolean closed,            
-                Rectangle *rect)
+                const PolyBBExtras *extra, gboolean closed,
+                DiaRectangle       *rect)
 {
   Point vx,vn,vsc,vp;
   int i,prev,next;
-  Rectangle rt;
+  DiaRectangle rt;
   PolyBBExtras bextra,start_bextra,end_bextra,full_bextra;
   LineBBExtras lextra,start_lextra,end_lextra,full_lextra;
   gboolean start,end;
@@ -328,8 +328,8 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
   rect->left = rect->right = pts[0].p1.x;
   rect->top = rect->bottom = pts[0].p1.y;
 
-  /* First, we build derived BBExtras structures, so we have something to feed 
-     the primitives. */ 
+  /* First, we build derived BBExtras structures, so we have something to feed
+     the primitives. */
   if (!closed) {
     start_lextra.start_long = extra->start_long;
     start_lextra.start_trans = MAX(extra->start_trans,extra->middle_trans);
@@ -375,7 +375,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
   bextra.start_trans = extra->middle_trans;
   bextra.middle_trans = extra->middle_trans;
   bextra.end_long = 0;
-  bextra.end_trans = extra->middle_trans;        
+  bextra.end_trans = extra->middle_trans;
 
 
   for (i=1;i<numpoints;i++) {
@@ -384,17 +384,17 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
     if (closed && (next == 0)) next=1;
     if (closed && (prev == 0)) prev=numpoints-1;
 
-    /* We have now: 
-       i = index of current vertex. 
-       prev,next: index of previous/next vertices (of the control polygon) 
+    /* We have now:
+       i = index of current vertex.
+       prev,next: index of previous/next vertices (of the control polygon)
 
        We want:
         vp, vx, vn: the previous, current and next vertices;
         start, end: TRUE if we're at an end of poly (then, vp and/or vn are not
         valid, respectively).
 
-       Some values *will* be recomputed a few times across iterations (but stored in 
-       different boxes). Either gprof says it's a real problem, or gcc finally gets 
+       Some values *will* be recomputed a few times across iterations (but stored in
+       different boxes). Either gprof says it's a real problem, or gcc finally gets
        a clue.
     */
 
@@ -432,7 +432,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
         point_copy(&vsc,&pts[prev].p3);
         break;
       } /* vsc is the start of the curve. */
-      
+
       break;
     }
     start = (pts[prev].type == BEZ_MOVE_TO);
@@ -440,8 +440,8 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
     point_copy(&vn,&pts[next].p1); /* whichever type pts[next] is. */
 
     /* Now, we know about a few vertices around the one we're dealing with.
-       Depending on the shape of the (previous,current) segment, and whether 
-       it's a middle or end segment, we'll be doing different stuff. */ 
+       Depending on the shape of the (previous,current) segment, and whether
+       it's a middle or end segment, we'll be doing different stuff. */
     if (closed) {
       if (pts[i].type == BEZ_LINE_TO) {
         line_bbox(&vsc,&vx,&full_lextra,&rt);
@@ -450,7 +450,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
                              &pts[i].p1,&pts[i].p2,&pts[i].p3,
                              &bextra,
                              &rt);
-      }    
+      }
     } else if (start) {
       if (pts[i].type == BEZ_LINE_TO) {
         if (end) {
@@ -458,7 +458,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
         } else {
           line_bbox(&vsc,&vx,&start_lextra,&rt);
         }
-      } else { /* BEZ_MOVE_TO */ 
+      } else { /* BEZ_MOVE_TO */
         if (end) {
           bicubicbezier2D_bbox(&vsc,
                                &pts[i].p1,&pts[i].p2,&pts[i].p3,
@@ -479,7 +479,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
                              &pts[i].p1,&pts[i].p2,&pts[i].p3,
                              &end_bextra,
                              &rt);
-      } 
+      }
     } else { /* normal case : middle segment (not closed shape). */
       if (pts[i].type == BEZ_LINE_TO) {
         line_bbox(&vsc,&vx,&lextra,&rt);
@@ -488,12 +488,12 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
                              &pts[i].p1,&pts[i].p2,&pts[i].p3,
                              &bextra,
                              &rt);
-      } 
-    }   
+      }
+    }
     rectangle_union(rect,&rt);
 
-    /* The following code enlarges a little the bounding box (if necessary) to 
-       account with the "pointy corners" X (and PS) add when LINEJOIN_MITER mode is 
+    /* The following code enlarges a little the bounding box (if necessary) to
+       account with the "pointy corners" X (and PS) add when LINEJOIN_MITER mode is
        in force. */
 
     if (!end) { /* only the last segment might not produce overshoot. */
@@ -520,7 +520,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
         point_copy_add_scaled(&vovs,&vpx,&vxn,-1);
         point_normalize(&vovs);
         point_copy_add_scaled(&pto,&vx,&vovs,overshoot);
-        
+
         rectangle_add_point(rect,&pto);
       } else {
         /* we don't have a pointy join. */
@@ -532,7 +532,7 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
 
         point_get_perp(&vpxt,&vpx);
         point_get_perp(&vxnt,&vxn);
-        
+
         point_copy_add_scaled(&tmp,&vx,&vpxt,1);
         rectangle_add_point(rect,&tmp);
         point_copy_add_scaled(&tmp,&vx,&vpxt,-1);
@@ -552,10 +552,10 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
  * @param extra Extra information required to find bbox.
  * @param rout Return value: The enclosing bounding box.
  */
-void 
-rectangle_bbox(const Rectangle *rin,
-	       const ElementBBExtras *extra,
-	       Rectangle *rout)
+void
+rectangle_bbox (const DiaRectangle    *rin,
+                const ElementBBExtras *extra,
+                DiaRectangle          *rout)
 {
   rout->left = rin->left - extra->border_trans;
   rout->top = rin->top - extra->border_trans;

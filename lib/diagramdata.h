@@ -64,7 +64,7 @@ GType diagram_data_get_type (void) G_GNUC_CONST;
 struct _DiagramData {
   GObject parent_instance; /*!< inheritance in C */
 
-  Rectangle extents;      /*!< The extents of the diagram        */
+  DiaRectangle extents;      /*!< The extents of the diagram        */
 
   Color bg_color;         /*!< The diagrams background color */
 
@@ -139,7 +139,7 @@ void data_foreach_object (DiagramData *data, GFunc func, gpointer user_data);
 typedef void (*ObjectRenderer)(DiaObject *obj, DiaRenderer *renderer,
 			       int active_layer,
 			       gpointer data);
-void data_render(DiagramData *data, DiaRenderer *renderer, Rectangle *update,
+void data_render(DiagramData *data, DiaRenderer *renderer, DiaRectangle *update,
 		 ObjectRenderer obj_renderer /* Can be NULL */,
 		 gpointer gdata);
 void data_render_paginated(DiagramData *data, DiaRenderer *renderer, gpointer user_data);

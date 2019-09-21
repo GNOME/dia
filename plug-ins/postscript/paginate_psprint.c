@@ -64,7 +64,7 @@ count_objs(DiaObject *obj, DiaRenderer *renderer, int active_layer, guint *nobjs
 }
 
 static guint
-print_page(DiagramData *data, DiaRenderer *diarend, Rectangle *bounds)
+print_page (DiagramData *data, DiaRenderer *diarend, DiaRectangle *bounds)
 {
   DiaPsRenderer *rend = DIA_PS_RENDERER(diarend);
   guint nobjs = 0;
@@ -145,7 +145,7 @@ void
 paginate_psprint(DiagramData *dia, FILE *file)
 {
   DiaRenderer *rend;
-  Rectangle *extents;
+  DiaRectangle *extents;
   gfloat width, height;
   gfloat x, y, initx, inity;
   guint nobjs = 0;
@@ -177,11 +177,12 @@ paginate_psprint(DiagramData *dia, FILE *file)
     /* ensure we are not producing pages for epsilon */
     if ((extents->bottom - y) < 1e-6)
       break;
+
     for (x = initx; x < extents->right; x += width) {
-      Rectangle page_bounds;
+      DiaRectangle page_bounds;
 
       if ((extents->right - x) < 1e-6)
-	break;
+        break;
 
       page_bounds.left = x;
       page_bounds.right = x + width;

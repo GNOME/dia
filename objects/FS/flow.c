@@ -462,7 +462,7 @@ flow_update_data(Flow *flow)
 {
   Connection *conn = &flow->connection;
   DiaObject *obj = &conn->object;
-  Rectangle rect;
+  DiaRectangle rect;
   Color* color = NULL;
 
   if (connpoint_is_autogap(flow->connection.endpoint_handles[0].connected_to) ||

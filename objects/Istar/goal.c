@@ -193,7 +193,7 @@ static real
 goal_distance_from(Goal *goal, Point *point)
 {
   Element *elem = &goal->element;
-  Rectangle rect;
+  DiaRectangle rect;
 
   rect.left = elem->corner.x - GOAL_LINE_WIDTH/2;
   rect.right = elem->corner.x + elem->width + GOAL_LINE_WIDTH/2;

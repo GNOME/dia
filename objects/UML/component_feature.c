@@ -437,7 +437,7 @@ compfeat_update_data(Compfeat *compfeat)
   PolyBBExtras *extra = &orth->extra_spacing;
   int n;
   DiaObject *obj = &orth->object;
-  Rectangle rect;
+  DiaRectangle rect;
   Point *points;
 
   points = &orth->points[0];

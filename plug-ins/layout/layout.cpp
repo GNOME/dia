@@ -244,19 +244,19 @@ layout_callback (DiagramData *data,
       /* transfer nodes and edges */
       for (list = nodes; list != NULL; list = g_list_next(list)) {
         DiaObject *o = (DiaObject *)list->data;
-        const Rectangle *bbox = dia_object_get_bounding_box (o);
+        const DiaRectangle *bbox = dia_object_get_bounding_box (o);
         g->AddNode (bbox->left, bbox->top, bbox->right, bbox->bottom);
       }
       for (list = edges; list != NULL; list = g_list_next(list)) {
         DiaObject *o = (DiaObject *)list->data;
-	DiaObject *src = o->handles[0]->connected_to->object;
-	// see above: there is no guarantee ...
-	DiaObject *dst = o->handles[1]->connected_to ?
-	  o->handles[1]->connected_to->object : o->handles[o->num_handles-1]->connected_to->object;
+        DiaObject *src = o->handles[0]->connected_to->object;
+        // see above: there is no guarantee ...
+        DiaObject *dst = o->handles[1]->connected_to ?
+          o->handles[1]->connected_to->object : o->handles[o->num_handles-1]->connected_to->object;
 
-	if (_obj_get_bends (o, coords))
+        if (_obj_get_bends (o, coords))
           g->AddEdge (g_list_index (nodes, src), g_list_index (nodes, dst), &coords[0], coords.size());
-	else
+        else
           g->AddEdge (g_list_index (nodes, src), g_list_index (nodes, dst), NULL, 0);
       }
       IGraph::eResult res;

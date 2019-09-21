@@ -700,7 +700,7 @@ arc_create(Point *startpoint,
   Point defaultlen = { 1.0, 1.0 };
 
   arc = g_malloc0(sizeof(Arc));
-  arc->connection.object.enclosing_box = g_new0 (Rectangle, 1);
+  arc->connection.object.enclosing_box = g_new0 (DiaRectangle, 1);
 
   arc->line_width =  attributes_get_default_linewidth();
   arc->curve_distance = 1.0;
@@ -749,7 +749,7 @@ arc_copy(Arc *arc)
   conn = &arc->connection;
 
   newarc = g_malloc0(sizeof(Arc));
-  newarc->connection.object.enclosing_box = g_new0 (Rectangle, 1);
+  newarc->connection.object.enclosing_box = g_new0 (DiaRectangle, 1);
   newconn = &newarc->connection;
   newobj = &newconn->object;
 
@@ -891,7 +891,7 @@ arc_update_data(Arc *arc)
      * currently uses the tangent For big arcs the difference is not huge and the
      * minimum size of small arcs should be limited by the arror length.
      */
-    Rectangle bbox = {0,};
+    DiaRectangle bbox = {0,};
     real tmp;
     Point move_arrow, move_line;
     Point to = arc->connection.endpoints[0];
@@ -913,7 +913,7 @@ arc_update_data(Arc *arc)
     rectangle_union(&obj->bounding_box, &bbox);
   }
   if (arc->end_arrow.type != ARROW_NONE) {
-    Rectangle bbox = {0,};
+    DiaRectangle bbox = {0,};
     real tmp;
     Point move_arrow, move_line;
     Point to = arc->connection.endpoints[1];
@@ -991,7 +991,7 @@ arc_load(ObjectNode obj_node, int version,DiaContext *ctx)
   AttributeNode attr;
 
   arc = g_malloc0(sizeof(Arc));
-  arc->connection.object.enclosing_box = g_new0 (Rectangle, 1);
+  arc->connection.object.enclosing_box = g_new0 (DiaRectangle, 1);
 
   conn = &arc->connection;
   obj = &conn->object;

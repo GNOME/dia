@@ -272,7 +272,7 @@ generalization_update_data(Generalization *genlz)
   DiaObject *obj = &orth->object;
   int num_segm, i;
   Point *points;
-  Rectangle rect;
+  DiaRectangle rect;
   PolyBBExtras *extra;
   real descent;
   real ascent;

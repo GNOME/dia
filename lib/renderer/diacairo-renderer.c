@@ -72,7 +72,7 @@ static void ensure_minimum_one_device_unit (DiaCairoRenderer *renderer,
  * render functions
  */
 static void
-dia_cairo_renderer_begin_render (DiaRenderer *self, const Rectangle *update)
+dia_cairo_renderer_begin_render (DiaRenderer *self, const DiaRectangle *update)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   real onedu = 0.0;
@@ -266,7 +266,7 @@ _add_color_stop (real ofs, const Color *col, gpointer user_data)
 }
 
 static cairo_pattern_t *
-_pattern_build_for_cairo (DiaPattern *pattern, const Rectangle *ext)
+_pattern_build_for_cairo (DiaPattern *pattern, const DiaRectangle *ext)
 {
   cairo_pattern_t *pat;
   DiaPatternType type;
@@ -329,7 +329,7 @@ _dia_cairo_fill (DiaCairoRenderer *renderer, gboolean preserve)
   } else {
     /* maybe we should cache the cairo-pattern */
     cairo_pattern_t *pat;
-    Rectangle fe;
+    DiaRectangle fe;
 
     /* Using the extents to scale the pattern is probably not correct */
     cairo_fill_extents (renderer->cr,

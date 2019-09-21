@@ -56,7 +56,7 @@ typedef struct _Action {
   real space_width; /* width of a space in the current font
                      Fallacy! space is a very flexible thing in Pango...*/
   real label_width;
-  Rectangle labelbb; /* The bounding box of the label itself */
+  DiaRectangle labelbb; /* The bounding box of the label itself */
   Point labelstart;
 
   ConnPointLine *cps; /* aaahrg ! again one ! */

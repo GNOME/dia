@@ -135,7 +135,7 @@ group_select(Group *group)
 static void
 group_update_handles(Group *group)
 {
-  Rectangle *bb = &group->object.bounding_box;
+  DiaRectangle *bb = &group->object.bounding_box;
 
   group->handles[0].id = HANDLE_RESIZE_NW;
   group->handles[0].pos.x = bb->left;
@@ -217,7 +217,7 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
 		  HandleMoveReason reason, ModifierKeys modifiers)
 {
   DiaObject *obj = &group->object;
-  Rectangle *bb = &obj->bounding_box;
+  DiaRectangle *bb = &obj->bounding_box;
   /* top and left handles are also changing the objects position */
   Point top_left = { bb->left, bb->top };
   /* before and after width and height */
@@ -472,8 +472,8 @@ group_update_data(Group *group)
 
     if (group->matrix) {
       Point p;
-      Rectangle box;
-      Rectangle *bb = &group->object.bounding_box;
+      DiaRectangle box;
+      DiaRectangle *bb = &group->object.bounding_box;
       DiaMatrix *m = group->matrix;
 
       /* maintain obj->position */

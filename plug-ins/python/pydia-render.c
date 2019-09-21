@@ -108,7 +108,7 @@ GType dia_py_renderer_get_type (void) G_GNUC_CONST;
  * \memberof _DiaPyRenderer
  */
 static void
-begin_render(DiaRenderer *renderer, const Rectangle *update)
+begin_render(DiaRenderer *renderer, const DiaRectangle *update)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -397,10 +397,10 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
  * \memberof _DiaPyRenderer
  */
 static void
-draw_layer (DiaRenderer *renderer,
-            DiaLayer    *layer,
-            gboolean     active,
-            Rectangle   *update)
+draw_layer (DiaRenderer  *renderer,
+            DiaLayer     *layer,
+            gboolean      active,
+            DiaRectangle *update)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 

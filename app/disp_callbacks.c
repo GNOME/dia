@@ -697,7 +697,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
   guint state = 0;
   Focus *focus;
   DiaObject *obj;
-  Rectangle *visible;
+  DiaRectangle *visible;
   Point middle;
   int return_val;
   int key_handled;
@@ -1140,7 +1140,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
   if (p_obj && object_flags_set(p_obj, DIA_OBJECT_CAN_PARENT))
     /* the tool was dropped inside an object that takes children*/
   {
-    Rectangle p_ext, c_ext;
+    DiaRectangle p_ext, c_ext;
     real parent_height, child_height, parent_width, child_width;
     real vadjust = 0.0, hadjust = 0.0;
     Point new_pos;

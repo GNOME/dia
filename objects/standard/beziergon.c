@@ -261,7 +261,7 @@ beziergon_create(Point *startpoint,
   Point defaulty = { 0.0, 1.0 };
 
   beziergon = g_new0(Beziergon, 1);
-  beziergon->bezier.object.enclosing_box = g_new0 (Rectangle, 1);
+  beziergon->bezier.object.enclosing_box = g_new0 (DiaRectangle, 1);
   bez = &beziergon->bezier;
   obj = &bez->object;
 
@@ -326,7 +326,7 @@ beziergon_copy(Beziergon *beziergon)
   bezier = &beziergon->bezier;
 
   newbeziergon = g_malloc0(sizeof(Beziergon));
-  newbeziergon->bezier.object.enclosing_box = g_new0 (Rectangle, 1);
+  newbeziergon->bezier.object.enclosing_box = g_new0 (DiaRectangle, 1);
   newbezier = &newbeziergon->bezier;
 
   beziershape_copy(bezier, newbezier);
@@ -419,7 +419,7 @@ beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   AttributeNode attr;
 
   beziergon = g_malloc0(sizeof(Beziergon));
-  beziergon->bezier.object.enclosing_box = g_new0 (Rectangle, 1);
+  beziergon->bezier.object.enclosing_box = g_new0 (DiaRectangle, 1);
 
   bez = &beziergon->bezier;
   obj = &bez->object;

@@ -32,7 +32,7 @@ typedef enum {OP_AND, OP_OR, OP_XOR, OP_RISE, OP_FALL,
               OP_EQUAL,OP_LT,OP_GT} OperatorType;
 
 typedef void (*BlockGetBBFunc)(Block *block, Point *relpos, Boolequation *booleq,
-			       Rectangle *rect);
+			       DiaRectangle *rect);
 typedef void (*BlockDrawFunc)(Block *block,
 			      Boolequation *booleq,
 			      DiaRenderer *render);
@@ -80,8 +80,10 @@ inline static gboolean isspecial(gunichar c)
 
 /* Text block definition */
 static void
-textblock_get_boundingbox(Block *block, Point *relpos,
-			  Boolequation *booleq, Rectangle *rect)
+textblock_get_boundingbox (Block        *block,
+                           Point        *relpos,
+                           Boolequation *booleq,
+                           DiaRectangle *rect)
 {
   g_assert(block); g_assert(block->type == BLOCK_TEXT);
 
@@ -181,7 +183,7 @@ static const gchar *opstring(OperatorType optype)
 
 static void
 opblock_get_boundingbox(Block *block, Point *relpos,
-			Boolequation *booleq, Rectangle *rect)
+			Boolequation *booleq, DiaRectangle *rect)
 {
   const gchar* ops;
   g_assert(block); g_assert(block->type == BLOCK_OPERATOR);
@@ -273,7 +275,7 @@ static Block *opblock_create(const gchar **str)
 /* Overlineblock : */
 static void
 overlineblock_get_boundingbox(Block *block, Point *relpos,
-			      Boolequation *booleq, Rectangle *rect)
+			      Boolequation *booleq, DiaRectangle *rect)
 {
   g_assert(block); g_assert(block->type == BLOCK_OVERLINE);
 
@@ -337,7 +339,7 @@ static Block *overlineblock_create(Block *inside)
 /* Parensblock : */
 static void
 parensblock_get_boundingbox(Block *block, Point *relpos,
-			    Boolequation *booleq, Rectangle *rect)
+			    Boolequation *booleq, DiaRectangle *rect)
 {
   real pheight,pwidth;
   Point temppos;
@@ -409,12 +411,12 @@ static Block *parensblock_create(Block *inside)
 /* Compoundblock : */
 static void
 compoundblock_get_boundingbox(Block *block, Point *relpos,
-			      Boolequation *booleq, Rectangle *rect)
+			      Boolequation *booleq, DiaRectangle *rect)
 {
   GSList *elem;
   Block *inblk;
   Point pos;
-  Rectangle inrect;
+  DiaRectangle inrect;
 
   g_assert(block); g_assert(block->type == BLOCK_COMPOUND);
 
@@ -608,7 +610,8 @@ boolequation_draw(Boolequation *booleq, DiaRenderer *renderer)
   }
 }
 
-void boolequation_calc_boundingbox(Boolequation *booleq, Rectangle *box)
+void
+boolequation_calc_boundingbox(Boolequation *booleq, DiaRectangle *box)
 {
         /*
           booleq->ascent = dia_font_ascent(booleq->font,booleq->fontheight);

@@ -440,7 +440,7 @@ text_set_alignment(Text *text, Alignment align)
 }
 
 void
-text_calc_boundingbox(Text *text, Rectangle *box)
+text_calc_boundingbox(Text *text, DiaRectangle *box)
 {
   calc_width(text);
   calc_ascent_descent(text);

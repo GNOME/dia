@@ -442,7 +442,7 @@ bezierline_create(Point *startpoint,
   Point defaultlen = { .3, .3 };
 
   bezierline = g_new0(Bezierline, 1);
-  bezierline->bez.object.enclosing_box = g_new0 (Rectangle, 1);
+  bezierline->bez.object.enclosing_box = g_new0 (DiaRectangle, 1);
   bez = &bezierline->bez;
   obj = &bez->object;
 
@@ -500,7 +500,7 @@ bezierline_copy(Bezierline *bezierline)
   bez = &bezierline->bez;
 
   newbezierline = g_new0(Bezierline, 1);
-  newbezierline->bez.object.enclosing_box = g_new0 (Rectangle, 1);
+  newbezierline->bez.object.enclosing_box = g_new0 (DiaRectangle, 1);
   newbez = &newbezierline->bez;
 
   bezierconn_copy(bez, newbez);
@@ -540,13 +540,13 @@ bezierline_update_data(Bezierline *bezierline)
       bezierline->absolute_start_gap || bezierline->absolute_end_gap ||
       bezierline->start_arrow.type != ARROW_NONE || bezierline->end_arrow.type != ARROW_NONE) {
     Point gap_points[4];
-    Rectangle bbox_union = {bez->bezier.points[0].p1.x, bez->bezier.points[0].p1.y,
+    DiaRectangle bbox_union = {bez->bezier.points[0].p1.x, bez->bezier.points[0].p1.y,
 			    bez->bezier.points[0].p1.x, bez->bezier.points[0].p1.y};
     compute_gap_points(bezierline, gap_points);
     exchange_bez_gap_points(bez,gap_points);
     /* further modifying the points data, accounts for corrcet arrow and bezier bounding box */
     if (bezierline->start_arrow.type != ARROW_NONE) {
-      Rectangle bbox;
+      DiaRectangle bbox;
       Point move_arrow, move_line;
       Point to = bez->bezier.points[0].p1, from = bez->bezier.points[1].p1;
 
@@ -557,7 +557,7 @@ bezierline_update_data(Bezierline *bezierline)
       rectangle_union (&bbox_union, &bbox);
     }
     if (bezierline->end_arrow.type != ARROW_NONE) {
-      Rectangle bbox;
+      DiaRectangle bbox;
       Point move_arrow, move_line;
       int num_points = bez->bezier.num_points;
       Point to = bez->bezier.points[num_points-1].p3, from = bez->bezier.points[num_points-1].p2;
@@ -656,7 +656,7 @@ bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   AttributeNode attr;
 
   bezierline = g_new0(Bezierline, 1);
-  bezierline->bez.object.enclosing_box = g_new0 (Rectangle, 1);
+  bezierline->bez.object.enclosing_box = g_new0 (DiaRectangle, 1);
 
   bez = &bezierline->bez;
   obj = &bez->object;

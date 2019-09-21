@@ -190,7 +190,7 @@ static real
 annotation_distance_from(Annotation *annotation, Point *point)
 {
   Point *endpoints;
-  Rectangle bbox;
+  DiaRectangle bbox;
   endpoints = &annotation->connection.endpoints[0];
 
   text_calc_boundingbox(annotation->text,&bbox);
@@ -396,7 +396,7 @@ annotation_update_data(Annotation *annotation)
 {
   Connection *conn = &annotation->connection;
   DiaObject *obj = &conn->object;
-  Rectangle textrect;
+  DiaRectangle textrect;
 
   if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
       connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {

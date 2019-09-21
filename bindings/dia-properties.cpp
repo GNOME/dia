@@ -32,12 +32,12 @@
 #include "dia-properties.h"
 #include "dia-object.h"
 
-dia::Property< ::Property* >::Property (::Property* p) : self(p) 
+dia::Property< ::Property* >::Property (::Property* p) : self(p)
 {
 }
 
-//! read-only attribute; the name of the property; at least unique within an object, but supposed to be unique global 
-const char* 
+//! read-only attribute; the name of the property; at least unique within an object, but supposed to be unique global
+const char*
 dia::Property< ::Property* >::get_name () const
 {
     if (self)
@@ -45,7 +45,7 @@ dia::Property< ::Property* >::get_name () const
     return "<null>::name";
 }
 //! read-only attribute giving the data type represented
-const char* 
+const char*
 dia::Property< ::Property* >::get_type () const
 {
     if (self)
@@ -60,12 +60,12 @@ dia::Property< ::Property* >::get_type () const
  *     template<class T> bool Property::get_value<T>(T*);
  * an wrap them into one Property.value for runtime typed languages or ... ?
  */
-bool 
+bool
 dia::Property< ::Property* >::get (int* v) const
 {
     g_return_val_if_fail (self != NULL, false);
     bool ret = true;
-    
+
     if (strcmp (self->descr->type, PROP_TYPE_BOOL) == 0)
 	*v = ((BoolProperty *)self)->bool_data;
     else if (strcmp (self->descr->type, PROP_TYPE_INT) == 0)
@@ -78,7 +78,7 @@ dia::Property< ::Property* >::get (int* v) const
     return ret;
 }
 //! getter for double
-bool 
+bool
 dia::Property< ::Property* >::get (double* v) const
 {
     g_return_val_if_fail (self != NULL, false);
@@ -89,7 +89,7 @@ dia::Property< ::Property* >::get (double* v) const
     return false;
 }
 //! getter for string
-bool 
+bool
 dia::Property< ::Property* >::get (const char** v) const
 {
     g_return_val_if_fail (self != NULL, false);
@@ -102,31 +102,31 @@ dia::Property< ::Property* >::get (const char** v) const
     return false;
 }
 //! Now it starts to become ugly: isn't there a better way with SWIG to map one to may types?
-bool 
-dia::Property< ::Property* >::get (::_Point* v) const 
-{ 
+bool
+dia::Property< ::Property* >::get (::_Point* v) const
+{
     g_return_val_if_fail (self != NULL, false);
     if (strcmp (self->descr->type, PROP_TYPE_POINT) == 0) {
 	*v = ((PointProperty *)self)->point_data;
 	return true;
     }
-    return false; 
+    return false;
 }
 //! almost complete ;)
 bool
-dia::Property< ::Property* >::get (::_Rectangle* v) const 
-{ 
+dia::Property< ::Property* >::get (::DiaRectangle* v) const
+{
     g_return_val_if_fail (self != NULL, false);
     if (strcmp (self->descr->type, PROP_TYPE_RECT) == 0) {
 	*v = ((RectProperty *)self)->rect_data;
 	return true;
     }
-    return false; 
+    return false;
 }
 //! the final one
 bool
-dia::Property< ::Property* >::get (const std::vector<IProperty*>** v) const 
-{ 
+dia::Property< ::Property* >::get (const std::vector<IProperty*>** v) const
+{
     g_return_val_if_fail (self != NULL, false);
     if (strcmp (self->descr->type, PROP_TYPE_DARRAY) == 0) {
 	// remove everything from an earlier call
@@ -148,7 +148,7 @@ dia::Property< ::Property* >::get (const std::vector<IProperty*>** v) const
 	*v = &vec;
 	return true;
     }
-    return false; 
+    return false;
 }
 
 dia::Property< ::Property* >::~Property ()
@@ -161,22 +161,22 @@ dia::Property< ::Property* >::~Property ()
 /*!
  * If there is still a property conversion missing it needs to be added
  * in four places. In the implementation dia-properties.cpp, in the
- * interface of this class and IProperty: dia-properties.h and finally 
+ * interface of this class and IProperty: dia-properties.h and finally
  * in the .swig file.
  */
 bool
-dia::Property< ::Property* >::get (::_Color* v) const 
-{ 
+dia::Property< ::Property* >::get (::_Color* v) const
+{
     g_return_val_if_fail (self != NULL, false);
     if (strcmp (self->descr->type, PROP_TYPE_COLOUR) == 0) {
 	*v = ((ColorProperty *)self)->color_data;
 	return true;
     }
-    return false; 
+    return false;
 }
 
 //! if the property is to be shown (in a dialog)
-bool 
+bool
 dia::Property< ::Property* >::visible () const
 {
     g_return_val_if_fail (self != NULL, false);
@@ -191,7 +191,7 @@ dia::Properties::~Properties ()
 }
 
 //! is there a property of this name
-bool 
+bool
 dia::Properties::has_key (const char* name) const
 {
     g_return_val_if_fail (object != NULL, false);
@@ -231,8 +231,8 @@ set_prop (::Property* p, const char* v)
     if (strcmp (p->descr->type, PROP_TYPE_COLOUR) == 0) {
 	PangoColor color;
 	if (pango_color_parse(&color, v)) {
-            ((ColorProperty*)p)->color_data.red = color.red / 65535.0; 
-            ((ColorProperty*)p)->color_data.green = color.green / 65535.0; 
+            ((ColorProperty*)p)->color_data.red = color.red / 65535.0;
+            ((ColorProperty*)p)->color_data.green = color.green / 65535.0;
             ((ColorProperty*)p)->color_data.blue = color.blue / 65535.0;
             ((ColorProperty*)p)->color_data.alpha = 1.0;
         }
@@ -260,7 +260,7 @@ set_prop (::Property* p, char* v)
 static bool
 set_prop (GPtrArray* to, ::ArrayProperty* kinds, int num, const std::vector<dia::IProperty*>&v)
 {
-    for (int i = 0; i < v.size() && i < num; ++i) { 
+    for (int i = 0; i < v.size() && i < num; ++i) {
         ::Property *ex = (::Property*)g_ptr_array_index(kinds->ex_props, i);
 	::Property* inner = ex->ops->copy(ex);
 	dia::IProperty *from = v[i];
@@ -269,7 +269,7 @@ set_prop (GPtrArray* to, ::ArrayProperty* kinds, int num, const std::vector<dia:
 	const char* vcs;
 	char* vs;
 	const std::vector<dia::IProperty*>* vv;
-	
+
 	if (!from)
 	    /* nothing to do, alread initialized */;
 	else if (from->get (&vi))
@@ -302,7 +302,7 @@ set_prop (GPtrArray* to, ::ArrayProperty* kinds, int num, const std::vector<dia:
     return true;
 }
 //! add a property of type int
-int 
+int
 dia::Properties::setitem (const char* s, int n)
 {
     g_return_val_if_fail (object != NULL, -1);
@@ -342,7 +342,7 @@ dia::Properties::setitem (const char* s, double n)
     return -1;
 }
 //! add a property of type string
-int 
+int
 dia::Properties::setitem (const char* s, const char* v)
 {
     g_return_val_if_fail (object != NULL, -1);
@@ -364,7 +364,7 @@ dia::Properties::setitem (const char* s, const char* v)
     return -1;
 }
 //! add a property of type double list
-int 
+int
 dia::Properties::setitem (const char* s, const std::vector<double>& v)
 {
     g_return_val_if_fail (object != NULL, -1);
@@ -372,8 +372,8 @@ dia::Properties::setitem (const char* s, const std::vector<double>& v)
     if (p) {
         bool apply = true;
         if (strcmp (p->descr->type, PROP_TYPE_COLOUR) == 0 && v.size() == 4) {
-            ((ColorProperty*)p)->color_data.red   = v[0]; 
-            ((ColorProperty*)p)->color_data.green = v[1]; 
+            ((ColorProperty*)p)->color_data.red   = v[0];
+            ((ColorProperty*)p)->color_data.green = v[1];
             ((ColorProperty*)p)->color_data.blue  = v[2];
             ((ColorProperty*)p)->color_data.alpha = v[3];
 	}
@@ -426,7 +426,7 @@ dia::Properties::setitem (const char* s, const std::vector<double>& v)
 	    g_array_set_size(ptp->bezpointarray_data, i); // worst case
 	}
 	else
-            printf ("dia::Properties::setitem (%s, std::vector<double>) type or size (%d) mismatch (%s)\n", 
+            printf ("dia::Properties::setitem (%s, std::vector<double>) type or size (%d) mismatch (%s)\n",
 	            s, static_cast<int>(v.size()), p->descr->type), apply = false;
 	if (apply) {
 	    GPtrArray *plist = prop_list_from_single (p);
@@ -463,7 +463,7 @@ dia::Properties::setitem (const char* s, const std::vector<dia::IProperty*>& vec
         for (i = 0; i < vec.size(); ++i) {
 	    // we can only get lists here, every list gives a record and must match in size
 	    const std::vector<dia::IProperty*>* vv;
-	     
+
 	    if (vec[i]->get (&vv)) {
 	        if (vv->size() != num_props)
 	            g_warning ("dia::Properties::setitem() inner list of wrong size");
@@ -493,12 +493,12 @@ dia::Properties::setitem (const char* s, const std::vector<dia::IProperty*>& vec
  * \code
  *   w = o.elem_height
  * \endcode
- * OTOH this would remove the possibility to do reflection on 
- * the properties, e.g. asking them for type and name. Also it 
+ * OTOH this would remove the possibility to do reflection on
+ * the properties, e.g. asking them for type and name. Also it
  * may produce namespace clashes for more common property names
  * like 'name'.
  */
-dia::IProperty* 
+dia::IProperty*
 dia::Properties::getitem (const char* name) const
 {
     g_return_val_if_fail (object != NULL, 0);
@@ -513,7 +513,7 @@ std::vector<char*>
 dia::Properties::keys () const
 {
     g_return_val_if_fail (object != NULL, _keys);
-    
+
     if (!_keys.empty())
         return _keys;
     if (object->ops->describe_props) {

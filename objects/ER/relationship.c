@@ -195,7 +195,7 @@ static real
 relationship_distance_from(Relationship *relationship, Point *point)
 {
   Element *elem = &relationship->element;
-  Rectangle rect;
+  DiaRectangle rect;
 
   rect.left = elem->corner.x - relationship->border_width/2;
   rect.right = elem->corner.x + elem->width + relationship->border_width/2;

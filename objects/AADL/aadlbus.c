@@ -113,7 +113,7 @@ aadlbus_project_point_on_nearest_border(Aadlbox *aadlbox,Point *p,
   if ( p->x >= x1 + w*AADL_BUS_ARROW_SIZE_FACTOR
        && p->x <= x2 - w*AADL_BUS_ARROW_SIZE_FACTOR)
   {
-    Rectangle rectangle;
+    DiaRectangle rectangle;
 
     rectangle.left = x1 + w*AADL_BUS_ARROW_SIZE_FACTOR;
     rectangle.top  = y1 + h*AADL_BUS_HEIGHT_FACTOR;

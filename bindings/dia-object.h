@@ -18,7 +18,7 @@ class Renderer;
 /*!
  * \brief ObjectType is the factoy to create Object
  *
- * To get on all registered ObjectType use dia::registered_types() to create one specific Object 
+ * To get on all registered ObjectType use dia::registered_types() to create one specific Object
  * factory use dia::get_object_type()
  */
 class ObjectType
@@ -31,7 +31,7 @@ public :
 
     //! \internal construct from underlying type
     ObjectType (::DiaObjectType* ot);
-    //! create a default initialized object 
+    //! create a default initialized object
     Object* create (double x, double y, dia::Handle** h1 = 0, dia::Handle** h2 = 0) const;
     //! load an object from storage
     Object* load (ObjectNode node, int version, DiaContext *ctx) const;
@@ -44,7 +44,7 @@ public :
     //! OPTIONAL: apply changed defaults
     void apply_defaults ();
 private :
-    ::DiaObjectType* self;     
+    ::DiaObjectType* self;
 };
 
 /*!
@@ -66,8 +66,8 @@ public :
     const ObjectType type;
 
     //! direct property access for compatibility and convenience
-    ::_Rectangle* bbox () const;
-    
+    ::DiaRectangle* bbox () const;
+
     //! \internal create an object wrapper - object previously registered from a plug-in
     Object (DiaObject*);
     //! \internal destroying the proxy, not the underlying object
@@ -95,7 +95,7 @@ public :
     ObjectChange* apply_properties (GtkWidget*);
     //! OPTIONAL: provide a context menu to change the object states
     DiaMenu* get_object_menu (Point* pos) const;
-    
+
     //! StdProps: descibe properties accessible via standard properties API
     const PropDescription* describe_props () const;
     //! StdProps: return a list of properties describing the object state

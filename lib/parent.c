@@ -135,10 +135,10 @@ GList *parent_list_affected(GList *obj_list)
   going any further
 
   returns TRUE if resizing was obstructed*/
-gboolean 
+gboolean
 parent_handle_move_out_check(DiaObject *object, Point *to)
 {
-  Rectangle p_ext, c_ext;
+  DiaRectangle p_ext, c_ext;
   Point new_delta;
 
   if (!object->parent)
@@ -165,7 +165,7 @@ gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_
 {
   GList *list = object->children;
   gboolean once = TRUE;
-  Rectangle common_ext;
+  DiaRectangle common_ext;
   gboolean restricted = FALSE;
 
   if (!object_flags_set(object, DIA_OBJECT_CAN_PARENT) || !list)
@@ -177,7 +177,7 @@ gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_
       parent_handle_extents(list->data, &common_ext);
       once = FALSE;
     } else {
-      Rectangle c_ext;
+      DiaRectangle c_ext;
       parent_handle_extents (list->data, &c_ext);
       rectangle_union(&common_ext, &c_ext);
     }
@@ -212,7 +212,7 @@ gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_
       If delta is not present, these are the extents *before* any moves
       If delta is present, delta is considered into the extents's position
       */
-Point parent_move_child_delta(Rectangle *p_ext, Rectangle *c_ext, Point *delta)
+Point parent_move_child_delta (DiaRectangle *p_ext, DiaRectangle *c_ext, Point *delta)
 {
     Point new_delta = {0, 0};
     gboolean free_delta = FALSE;
@@ -242,7 +242,7 @@ Point parent_move_child_delta(Rectangle *p_ext, Rectangle *c_ext, Point *delta)
 
 /* the caller must free the returned rectangle */
 void
-parent_point_extents(Point *point, Rectangle *extents)
+parent_point_extents(Point *point, DiaRectangle *extents)
 {
   extents->left = point->x;
   extents->right = point->x;
@@ -251,12 +251,14 @@ parent_point_extents(Point *point, Rectangle *extents)
 }
 
 /**
+ * parent_handle_extents:
+ *
  * the caller must provide the 'returned' rectangle,
  * which is initialized to the biggest rectangle containing
  * all the objects handles
  */
 void
-parent_handle_extents(DiaObject *obj, Rectangle *extents)
+parent_handle_extents (DiaObject *obj, DiaRectangle *extents)
 {
   int idx;
 
@@ -271,7 +273,7 @@ parent_handle_extents(DiaObject *obj, Rectangle *extents)
   }
 }
 
-/** Apply a function to all children of the given object (recursively, 
+/** Apply a function to all children of the given object (recursively,
  * depth-first).
  * @param obj A parent object.
  * @param function A function that takes a single DiaObject as an argument.

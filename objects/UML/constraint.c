@@ -348,7 +348,7 @@ constraint_update_data(Constraint *constraint)
 {
   Connection *conn = &constraint->connection;
   DiaObject *obj = &conn->object;
-  Rectangle rect;
+  DiaRectangle rect;
   LineBBExtras *extra;
 
   if ((constraint->text) && (constraint->text[0] == '{')) {

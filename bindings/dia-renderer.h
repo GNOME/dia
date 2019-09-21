@@ -34,7 +34,7 @@ public :
     //!  return width in pixels, only for interactive renderers
     //! \ingroup InteractiveRenderer
     virtual int get_height_pixels () const;
-    
+
     /// \defgroup RendererRequired Functions to be implemented by every Renderer
     /// Not sure about this ;)
 
@@ -50,7 +50,7 @@ public :
 
     //! called before any rendering takes palce
     //! \ingroup RendererRequired
-    virtual void begin_render (const Rectangle *);
+    virtual void begin_render (const DiaRectangle *);
     //! finished rendering
     //! \ingroup RendererRequired
     virtual void end_render ();
@@ -99,7 +99,7 @@ public :
     //! Draw an image, given its bounding box
     //! \ingroup RendererRequired
     virtual void draw_image (Point *point, double width, double height, Image* image);
-    
+
     /// \defgroup RenderMedium Renderer Should Implemement This
     /// Functions which SHOULD be implemented by specific renderer, but
     /// have a default implementation based on the above functions
@@ -116,9 +116,9 @@ public :
     //! draw a Text.  It holds its own information like position, style, ...
     //! \ingroup RenderMedium
     virtual void draw_text (Text* text);
-    
+
     /// \defgroup RenderHigh Renderer Can Implement This
-    //! Highest level functions, probably only to be implemented by 
+    //! Highest level functions, probably only to be implemented by
     //! special 'high level' renderers which have a concept of arrows or rounded drawings
 
     //! a polyline with round coners
@@ -130,7 +130,7 @@ public :
 				    Color *fill, Color *stroke, real radius);
     //! specialized draw_line() for renderers with an own concept of Arrow
     //! \ingroup RenderHigh
-    virtual void draw_line_with_arrows  (Point *start, Point *end, real line_width, Color *line_color, 
+    virtual void draw_line_with_arrows  (Point *start, Point *end, real line_width, Color *line_color,
 					 Arrow *start_arrow, Arrow *end_arrow);
     //! specialized draw_line() for renderers with an own concept of Arrow
     //! \ingroup RenderHigh
@@ -148,9 +148,9 @@ public :
     //! \ingroup RenderHigh
     virtual void draw_bezier_with_arrows (BezPoint *points, int num_points, real line_width, Color *color,
 					  Arrow *start_arrow, Arrow *end_arrow);
-    
+
 private :
-    DiaRenderer* self;     
+    DiaRenderer* self;
 };
 
 } // namespace dia

@@ -669,7 +669,7 @@ modify_motion (ModifyTool     *tool,
 static GList *
 find_selected_objects(DDisplay *ddisp, ModifyTool *tool)
 {
-  Rectangle r;
+  DiaRectangle r;
   r.left = MIN(tool->start_box.x, tool->end_box.x);
   r.right = MAX(tool->start_box.x, tool->end_box.x);
   r.top = MIN(tool->start_box.y, tool->end_box.y);

@@ -368,7 +368,7 @@ implements_update_data(Implements *implements)
   Point delta;
   Point point;
   real len;
-  Rectangle rect;
+  DiaRectangle rect;
 
   implements->text_width = 0.0;
   if (implements->text)

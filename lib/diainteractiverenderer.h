@@ -64,7 +64,7 @@ struct _DiaInteractiveRendererInterface
                                    int                     height);
   void (*clip_region_clear)       (DiaInteractiveRenderer *self);
   void (*clip_region_add_rect)    (DiaInteractiveRenderer *self,
-                                   Rectangle              *rect);
+                                   DiaRectangle           *rect);
   void (*draw_pixel_line)         (DiaInteractiveRenderer *self,
                                    int                     x1,
                                    int                     y1,
@@ -107,7 +107,7 @@ void dia_interactive_renderer_set_size                (DiaInteractiveRenderer *s
                                                        int                     height);
 void dia_interactive_renderer_clip_region_clear       (DiaInteractiveRenderer *self);
 void dia_interactive_renderer_clip_region_add_rect    (DiaInteractiveRenderer *self,
-                                                       Rectangle              *rect);
+                                                       DiaRectangle           *rect);
 void dia_interactive_renderer_draw_pixel_line         (DiaInteractiveRenderer *self,
                                                        int                     x1,
                                                        int                     y1,

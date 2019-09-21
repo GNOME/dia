@@ -275,7 +275,7 @@ radiocell_update_data(RadioCell *radiocell)
   PolyShape *poly = &radiocell->poly;
   DiaObject *obj = &poly->object;
   ElementBBExtras *extra = &poly->extra_spacing;
-  Rectangle text_box;
+  DiaRectangle text_box;
   Point textpos;
   int i;
   /* not exactly a regular hexagon, but this fits better in the grid */

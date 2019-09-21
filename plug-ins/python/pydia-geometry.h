@@ -9,14 +9,14 @@ typedef struct {
     PyObject_HEAD
     union {
       IntRectangle ri;
-      Rectangle rf;
+      DiaRectangle rf;
     } r;
     gboolean is_int;
 } PyDiaRectangle;
 
 extern PyTypeObject PyDiaRectangle_Type;
 
-PyObject* PyDiaRectangle_New (Rectangle* r, IntRectangle* ri);
+PyObject* PyDiaRectangle_New (DiaRectangle* r, IntRectangle* ri);
 PyObject* PyDiaRectangle_New_FromPoints (Point* ul, Point* lr);
 
 typedef struct {

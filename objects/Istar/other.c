@@ -195,7 +195,7 @@ static real
 other_distance_from(Other *other, Point *point)
 {
   Element *elem = &other->element;
-  Rectangle rect;
+  DiaRectangle rect;
 
   rect.left = elem->corner.x - OTHER_LINE_WIDTH/2;
   rect.right = elem->corner.x + elem->width + OTHER_LINE_WIDTH/2;

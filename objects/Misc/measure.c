@@ -214,7 +214,7 @@ measure_update_data (Measure *measure)
   real value;
   Point *ends = measure->connection.endpoints;
   LineBBExtras *extra = &conn->extra_spacing;
-  Rectangle bbox;
+  DiaRectangle bbox;
   Arrow arrow = MEASURE_ARROW(measure);
   real ascent, width, theta;
 

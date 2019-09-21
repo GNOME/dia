@@ -246,7 +246,7 @@ static real
 step_distance_from(Step *step, Point *point)
 {
   Element *elem = &step->element;
-  Rectangle rect;
+  DiaRectangle rect;
   real dist;
 
   dist = distance_line_point(&step->north.pos,&step->NU1,

@@ -44,7 +44,7 @@ struct _DiaPsRenderer
   gchar *paper;
   gboolean is_portrait;
   double scale;
-  Rectangle extent;
+  DiaRectangle extent;
 
   DiaContext *ctx;
 

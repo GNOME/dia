@@ -282,7 +282,7 @@ actor_update_data(Actor *actor)
 {
   Element *elem = &actor->element;
   DiaObject *obj = &elem->object;
-  Rectangle text_box;
+  DiaRectangle text_box;
   Point p;
   real actor_height;
 

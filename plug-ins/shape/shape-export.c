@@ -5,7 +5,7 @@
  * shape-export.c: shape export filter for dia
  * Copyright (C) 2000 Steffen Macke
  *
- * Major refactoring while porting to use DiaSvgRenderer 
+ * Major refactoring while porting to use DiaSvgRenderer
  * Copyright (C) 2002 Hans Breuer
  *
  * This program is free software; you can redistribute it and/or modify
@@ -97,39 +97,39 @@ static DiaSvgRenderer *new_shape_renderer(DiagramData *data, const char *filenam
 /* DiaSvgRenderer members */
 static void end_render(DiaRenderer *self);
 
-static void draw_line(DiaRenderer *self, 
-		      Point *start, Point *end, 
+static void draw_line(DiaRenderer *self,
+		      Point *start, Point *end,
 		      Color *line_colour);
-static void 
+static void
 draw_object(DiaRenderer *self,
             DiaObject   *object,
 	    DiaMatrix   *matrix);
-static void draw_polyline(DiaRenderer *self, 
-			  Point *points, int num_points, 
+static void draw_polyline(DiaRenderer *self,
+			  Point *points, int num_points,
 			  Color *line_colour);
-static void draw_polygon(DiaRenderer *self, 
-			 Point *points, int num_points, 
+static void draw_polygon(DiaRenderer *self,
+			 Point *points, int num_points,
 			 Color *fill, Color *stroke);
-static void draw_rect(DiaRenderer *self, 
+static void draw_rect(DiaRenderer *self,
 		      Point *ul_corner, Point *lr_corner,
 		      Color *fill, Color *stroke);
-static void draw_rounded_rect (DiaRenderer *self, 
+static void draw_rounded_rect (DiaRenderer *self,
 			       Point *ul_corner, Point *lr_corner,
 			       Color *fill, Color *stroke, real rounding);
-static void draw_ellipse(DiaRenderer *self, 
+static void draw_ellipse(DiaRenderer *self,
 			 Point *center,
 			 real width, real height,
 			 Color *fill, Color *stroke);
 
 /* helper functions */
-static void add_connection_point(ShapeRenderer *renderer, 
-                                 Point *point, gboolean design_connection, 
+static void add_connection_point(ShapeRenderer *renderer,
+                                 Point *point, gboolean design_connection,
                                  gboolean main_point);
 static void add_rectangle_connection_points(ShapeRenderer *renderer,
                                             Point *ul_corner, Point *lr_corner, real r);
 static void add_ellipse_connection_points(ShapeRenderer *renderer,
                                           Point *center,
-                                          real width, real height);      
+                                          real width, real height);
 
 /* Moved to reduce confusion of Doxygen */
 GType shape_renderer_get_type (void) G_GNUC_CONST;
@@ -198,7 +198,7 @@ new_shape_renderer(DiagramData *data, const char *filename)
   xml_node_ptr = xmlNewChild(renderer->root, NULL, (const xmlChar *)"aspectratio",NULL);
   xmlSetProp(xml_node_ptr, (const xmlChar *)"type", (const xmlChar *)"fixed");
   renderer->root = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"svg", NULL);
-    
+
   return renderer;
 }
 
@@ -231,7 +231,7 @@ shape_renderer_get_type (void)
                                             "ShapeRenderer",
                                             &object_info, 0);
     }
-  
+
   return object_type;
 }
 
@@ -272,17 +272,17 @@ shape_renderer_class_init (ShapeRendererClass *klass)
  *
  * \memberof _ShapeRenderer
  */
-static void 
+static void
 draw_object(DiaRenderer *self,
             DiaObject   *object,
 	    DiaMatrix   *matrix)
 {
   Point center;
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
-  gboolean main_point = (0 == strncmp(MAIN_CONNECTION_POINT_SHAPE, 
+  gboolean main_point = (0 == strncmp(MAIN_CONNECTION_POINT_SHAPE,
   	               object->type->name, strlen(MAIN_CONNECTION_POINT_SHAPE)));
 
-  if ((0 == strncmp(CONNECTION_POINT_SHAPE, object->type->name, 
+  if ((0 == strncmp(CONNECTION_POINT_SHAPE, object->type->name,
   	 strlen(CONNECTION_POINT_SHAPE))) || main_point) {
 	  /* add user defined connection point */
 	  center.x = (object->bounding_box.left + object->bounding_box.right)/2;
@@ -305,7 +305,7 @@ end_render(DiaRenderer *self)
 
   g_free(renderer->linestyle);
   renderer->linestyle = NULL;
-  
+
   xmlSetDocCompressMode(renderer->doc, 0);
   xmlDiaSaveFile(renderer->filename, renderer->doc);
   g_free(renderer->filename);
@@ -318,14 +318,14 @@ end_render(DiaRenderer *self)
  * \protected \memberof _ShapeRenderer
  */
 static void
-add_connection_point (ShapeRenderer *renderer, 
-                      Point *point, gboolean design_connection, 
-                      gboolean main) 
+add_connection_point (ShapeRenderer *renderer,
+                      Point *point, gboolean design_connection,
+                      gboolean main)
 {
   xmlNodePtr node;
   xmlChar *propx, *propy;
   gchar bufx[G_ASCII_DTOSTR_BUF_SIZE], bufy[G_ASCII_DTOSTR_BUF_SIZE];
-  
+
   /* Use connection points, drop the auto ones */
   if(design_connection && !renderer->design_connection) {
 	  renderer->design_connection = design_connection;
@@ -355,14 +355,14 @@ add_connection_point (ShapeRenderer *renderer,
       if(propy) xmlFree(propy);
     }
   }
-  
+
   node = xmlNewChild(renderer->connection_root, NULL, (const xmlChar *)"point", NULL);
   xmlSetProp(node, (const xmlChar *)"x", (xmlChar *) bufx);
   xmlSetProp(node, (const xmlChar *)"y", (xmlChar *) bufy);
   if (main) {
 	  xmlSetProp(node, (const xmlChar *)"main", (xmlChar *)"yes");
   }
-  
+
 }
 
 /*!
@@ -370,8 +370,8 @@ add_connection_point (ShapeRenderer *renderer,
  * \memberof _ShapeRenderer
  */
 static void
-draw_line(DiaRenderer *self, 
-	  Point *start, Point *end, 
+draw_line(DiaRenderer *self,
+	  Point *start, Point *end,
 	  Color *line_colour)
 {
   Point center;
@@ -396,8 +396,8 @@ draw_line(DiaRenderer *self,
  * \memberof _ShapeRenderer
  */
 static void
-draw_polyline(DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polyline(DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *line_colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
@@ -409,8 +409,8 @@ draw_polyline(DiaRenderer *self,
   gchar py_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"polyline", NULL);
-  
-  xmlSetProp(node, (const xmlChar *)"style", 
+
+  xmlSetProp(node, (const xmlChar *)"style",
              (xmlChar *) DIA_SVG_RENDERER_GET_CLASS(renderer)->get_draw_style(renderer, NULL, line_colour));
 
   str = g_string_new(NULL);
@@ -437,8 +437,8 @@ draw_polyline(DiaRenderer *self,
  * \memberof _ShapeRenderer
  */
 static void
-draw_polygon(DiaRenderer *self, 
-	      Point *points, int num_points, 
+draw_polygon(DiaRenderer *self,
+	      Point *points, int num_points,
 	      Color *fill, Color *stroke)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
@@ -477,7 +477,7 @@ draw_polygon(DiaRenderer *self,
  */
 static void
 add_rectangle_connection_points (ShapeRenderer *renderer,
-                                 Point *ul_corner, Point *lr_corner, real r) 
+                                 Point *ul_corner, Point *lr_corner, real r)
 {
   Point pos;
   real width, height;
@@ -524,9 +524,9 @@ add_rectangle_connection_points (ShapeRenderer *renderer,
  * \memberof _ShapeRenderer
  */
 static void
-draw_rect (DiaRenderer *self, 
+draw_rect (DiaRenderer *self,
            Point *ul_corner, Point *lr_corner,
-           Color *fill, Color *stroke) 
+           Color *fill, Color *stroke)
 {
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
 
@@ -543,7 +543,7 @@ draw_rect (DiaRenderer *self,
  * \memberof _ShapeRenderer
  */
 static void
-draw_rounded_rect (DiaRenderer *self, 
+draw_rounded_rect (DiaRenderer *self,
 		   Point *ul_corner, Point *lr_corner,
 		   Color *fill, Color *stroke, real rounding)
 {
@@ -561,19 +561,19 @@ draw_rounded_rect (DiaRenderer *self,
  *
  * \protected \memberof _ShapeRenderer
  */
-static void 
+static void
 add_ellipse_connection_points (ShapeRenderer *renderer,
-                               Point *center, 
-                               real width, real height) 
+                               Point *center,
+                               real width, real height)
 {
   Point connection;
-  
+
   connection.x = center->x;
   connection.y = center->y + height/2;
   add_connection_point(renderer, &connection, FALSE, FALSE);
   connection.y = center->y - height/2;
   add_connection_point(renderer, &connection, FALSE, FALSE);
-  
+
   connection.y = center->y;
   connection.x = center->x - width/2;
   add_connection_point(renderer, &connection, FALSE, FALSE);
@@ -587,7 +587,7 @@ add_ellipse_connection_points (ShapeRenderer *renderer,
  * \memberof _ShapeRenderer
  */
 static void
-draw_ellipse(DiaRenderer *self, 
+draw_ellipse(DiaRenderer *self,
              Point *center,
              real width, real height,
              Color *fill, Color *stroke)
@@ -613,7 +613,7 @@ export_shape(DiagramData *data, DiaContext *ctx,
     gchar *png_filename = NULL;
     DiaExportFilter *exportfilter;
     gfloat old_scaling;
-    Rectangle *ext = &data->extents;
+    DiaRectangle *ext = &data->extents;
     gfloat scaling_x, scaling_y;
 
     /* create the png preview shown in the toolbox */

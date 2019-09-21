@@ -42,7 +42,6 @@
 #ifdef CAIRO_HAS_WIN32_SURFACE
 #include <cairo-win32.h>
 /* avoid namespace collisions */
-#define Rectangle RectangleWin32
 #endif
 #ifdef CAIRO_HAS_SCRIPT_SURFACE
 #include <cairo-script.h>

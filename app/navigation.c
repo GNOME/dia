@@ -5,21 +5,21 @@
  *
  * navigation.c : a navigation popup window to browse large diagrams.
  * Copyright (C) 2003 Luc Pionchon
- *  
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *  
+ *
  */
 
 #include <gtk/gtk.h>
@@ -146,7 +146,7 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
 
   DiagramData * data;
 
-  Rectangle rect;/*diagram's extents*/
+  DiaRectangle rect;/*diagram's extents*/
   real zoom;/*zoom factor for thumbnail rendering*/
 
   DiaCairoRenderer *renderer;
@@ -169,7 +169,7 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
     rect.left   = data->extents.left   - DIAGRAM_OFFSET;
     rect.bottom = data->extents.bottom + DIAGRAM_OFFSET + 1;
     rect.right  = data->extents.right  + DIAGRAM_OFFSET + 1;
-    
+
     zoom = nav->max_size / MAX( (rect.right - rect.left) , (rect.bottom - rect.top) );
 
     nav->width  = MIN( nav->max_size, (rect.right  - rect.left) * zoom);
@@ -199,7 +199,7 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
     reset_sc_adj (adj, rect.top, rect.bottom, canvas_height / nav->ddisp->zoom_factor);
     nav->vadj_coef = (adj->upper - adj->page_size - adj->lower) / (nav->height - nav->frame_h);
   }
-  
+
   /*--GUI*/
   /*popup window, and cute frame*/
   popup_window = gtk_window_new (GTK_WINDOW_POPUP);
@@ -318,7 +318,7 @@ on_da_expose_event (GtkWidget * widget, GdkEventExpose * event, gpointer unused)
   cairo_stroke (ctx);
 
   nav->is_first_expose = FALSE;
-  
+
   return FALSE;
 }
 
@@ -382,7 +382,7 @@ on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpo
 static gboolean
 on_da_button_release_event (GtkWidget * widget, GdkEventButton * event, gpointer unused)
 {
-  /* Apparently there are circumstances where this is run twice for one popup 
+  /* Apparently there are circumstances where this is run twice for one popup
    * Protected calls to avoid crashing on second pass.
    */
   if (nav->cursor)

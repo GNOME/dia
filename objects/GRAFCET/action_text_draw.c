@@ -103,7 +103,7 @@ action_text_draw (Text *text, DiaRenderer *renderer)
 }
 
 void
-action_text_calc_boundingbox(Text *text, Rectangle *box)
+action_text_calc_boundingbox(Text *text, DiaRectangle *box)
 {
   real width;
   int i;

@@ -131,7 +131,7 @@ PyDiaLayer_RemoveObject(PyDiaLayer *self, PyObject *args)
 static PyObject *
 PyDiaLayer_FindObjectsInRectangle (PyDiaLayer *self, PyObject *args)
 {
-  Rectangle rect;
+  DiaRectangle rect;
   GList *list, *tmp;
   PyObject *ret;
 
@@ -209,7 +209,7 @@ PyDiaLayer_Render (PyDiaLayer *self, PyObject *args)
 {
   PyObject* renderer;
   DiaRenderer *wrapper;
-  Rectangle *update = NULL;
+  DiaRectangle *update = NULL;
   gboolean active = FALSE; /* could derive from layer->parent_diagram->active_layer
           * but not sure if it's worth the effort. */
 
@@ -291,7 +291,7 @@ PyDiaLayer_GetAttr(PyDiaLayer *self, gchar *attr)
   else if (!strcmp (attr, "name")) {
     return PyString_FromString (dia_layer_get_name (self->layer));
   } else if (!strcmp (attr, "extents")) {
-    Rectangle extents;
+    DiaRectangle extents;
 
     dia_layer_get_extents (self->layer, &extents);
 

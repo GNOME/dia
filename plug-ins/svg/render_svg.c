@@ -100,10 +100,10 @@ GType svg_renderer_get_type (void) G_GNUC_CONST;
 
 static DiaSvgRenderer *new_svg_renderer(DiagramData *data, const char *filename);
 
-static void draw_layer (DiaRenderer *self,
-                        DiaLayer    *layer,
-                        gboolean     active,
-                        Rectangle   *update);
+static void draw_layer (DiaRenderer  *self,
+                        DiaLayer     *layer,
+                        gboolean      active,
+                        DiaRectangle *update);
 static void draw_object       (DiaRenderer *renderer,
                                DiaObject   *object,
 			       DiaMatrix   *matrix);
@@ -161,7 +161,7 @@ svg_renderer_get_type (void)
 }
 
 static void
-begin_render (DiaRenderer *self, const Rectangle *update)
+begin_render (DiaRenderer *self, const DiaRectangle *update)
 {
   SvgRenderer *renderer = SVG_RENDERER (self);
   g_assert (g_queue_is_empty (renderer->parents));
@@ -247,7 +247,7 @@ new_svg_renderer(DiagramData *data, const char *filename)
 {
   DiaSvgRenderer *renderer;
   gchar buf[512];
-  Rectangle *extent;
+  DiaRectangle *extent;
   xmlDtdPtr dtd;
 
   /* we need access to our base object */
@@ -296,10 +296,10 @@ new_svg_renderer(DiagramData *data, const char *filename)
  * \memberof _SvgRenderer
  */
 static void
-draw_layer (DiaRenderer *self,
-            DiaLayer    *layer,
-            gboolean     active,
-            Rectangle   *update)
+draw_layer (DiaRenderer  *self,
+            DiaLayer     *layer,
+            gboolean      active,
+            DiaRectangle *update)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   SvgRenderer *svg_renderer = SVG_RENDERER (self);

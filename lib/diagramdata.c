@@ -34,7 +34,7 @@
 #include "diamarshal.h"
 
 
-static const Rectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
+static const DiaRectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 
 static void diagram_data_class_init (DiagramDataClass *klass);
 static void diagram_data_init (DiagramData *object);
@@ -614,7 +614,7 @@ data_get_layers_extents_union (DiagramData *data)
 {
   guint i;
   gboolean first = TRUE;
-  Rectangle new_extents;
+  DiaRectangle new_extents;
 
   for ( i = 0; i < data->layers->len; i++) {
     DiaLayer *layer = g_ptr_array_index (data->layers, i);
@@ -629,7 +629,7 @@ data_get_layers_extents_union (DiagramData *data)
       dia_layer_get_extents (layer, &new_extents);
       first = rectangle_equals (&new_extents, &invalid_extents);
     } else {
-      Rectangle extents;
+      DiaRectangle extents;
 
       dia_layer_get_extents (layer, &extents);
 
@@ -672,7 +672,7 @@ data_adapt_scaling_to_extents(DiagramData *data)
 static gboolean
 data_compute_extents (DiagramData *data)
 {
-  Rectangle old_extents = data->extents;
+  DiaRectangle old_extents = data->extents;
 
   if (!data_has_visible_layers (data)) {
     if (data->layers->len > 0) {
@@ -826,7 +826,7 @@ data_emit (DiagramData *data,
 void
 data_render (DiagramData    *data,
              DiaRenderer    *renderer,
-             Rectangle      *update,
+             DiaRectangle   *update,
              ObjectRenderer  obj_renderer,
              gpointer        gdata)
 {
@@ -864,7 +864,7 @@ data_render (DiagramData    *data,
 void
 data_render_paginated (DiagramData *data, DiaRenderer *renderer, gpointer user_data)
 {
-  Rectangle *extents;
+  DiaRectangle *extents;
   gdouble width, height;
   gdouble x, y, initx, inity;
   gint xpos, ypos;
@@ -890,7 +890,7 @@ data_render_paginated (DiagramData *data, DiaRenderer *renderer, gpointer user_d
       break;
 
     for (x = initx, xpos = 0; x < extents->right; x += width, xpos++) {
-      Rectangle page_bounds;
+      DiaRectangle page_bounds;
 
       if ((extents->right - x) < 1e-6)
         break;

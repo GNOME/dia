@@ -45,10 +45,8 @@
 #include "dia_dirs.h"
 
 #ifdef G_OS_WIN32
-#define Rectangle Win32Rectangle
 #define WIN32_LEAN_AND_MEAN
 #include <pango/pangowin32.h>
-#undef Rectangle
 #endif
 
 struct _PluginInfo {

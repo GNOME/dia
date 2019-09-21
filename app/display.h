@@ -54,24 +54,24 @@ struct _DDisplay {
   GtkWidget      *origin;              /* either decoration or menu button  */
   GtkWidget      *menu_bar;            /* widget for the menu bar           */
   GtkUIManager   *ui_manager;     /* ui manager used to create the menu bar */
-  GtkActionGroup *actions;        
+  GtkActionGroup *actions;
 
   /* menu bar widgets */
   GtkMenuItem *rulers;
 
-  GtkWidget *zoom_status;         
+  GtkWidget *zoom_status;
   GtkWidget *grid_status;
   GtkWidget *mainpoint_status;
   GtkWidget *modified_status;
 
   GtkAccelGroup *accel_group;
-  
+
   GtkAdjustment *hsbdata;         /* horizontal data information       */
   GtkAdjustment *vsbdata;         /* vertical data information         */
 
   Point origo;                    /* The origo (lower left) position   */
   real zoom_factor;               /* zoom, 20.0 means 20 pixel == 1 cm */
-  Rectangle visible;              /* The part visible in this display  */
+  DiaRectangle visible;              /* The part visible in this display  */
 
   Grid grid;                      /* the grid in this display          */
 
@@ -81,7 +81,7 @@ struct _DDisplay {
 
   int aa_renderer;
   DiaRenderer *renderer;
-  
+
   GSList *update_areas;           /* Update areas list                 */
 
   GtkIMContext *im_context;
@@ -89,23 +89,23 @@ struct _DDisplay {
   /* Preedit String */
   gchar *preedit_string;
   PangoAttrList *preedit_attrs;
- 
+
   /* Is there another case?  Like I see embedded-dia modules, do these do something
-   * in addition??? */  
+   * in addition??? */
   gboolean   is_standalone_window;
 
   /* Points to Integrated UI Toolbar */
   GtkToolbar *common_toolbar;
 
   /* Points to widget containing the diagram if not standalone window */
-  GtkWidget *container; 
+  GtkWidget *container;
 
   /* Private field, indicates if rulers are shown for this diagram. */
   gboolean rulers_are_showing;
 
   /* Private field, indicates which text, if any, is being edited */
   Focus *active_focus;
-  
+
   /* Rember the last clicked point per display, but in diagram coordinates */
   Point clicked_position;
 };
@@ -115,7 +115,7 @@ extern GdkCursor *default_cursor;
 DDisplay *new_display(Diagram *dia);
 DDisplay *copy_display(DDisplay *orig_ddisp);
 /* Normal destroy is done through shell widget destroy event. */
-void ddisplay_really_destroy(DDisplay *ddisp); 
+void ddisplay_really_destroy(DDisplay *ddisp);
 void ddisplay_transform_coords_double(DDisplay *ddisp,
 				      coord x, coord y,
 				      double *xi, double *yi);
@@ -130,9 +130,9 @@ real ddisplay_untransform_length(DDisplay *ddisp, real len);
 void ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
 				       int pixel_width, int pixel_height);
 void ddisplay_add_update_all(DDisplay *ddisp);
-void ddisplay_add_update_with_border(DDisplay *ddisp, const Rectangle *rect,
+void ddisplay_add_update_with_border(DDisplay *ddisp, const DiaRectangle *rect,
 				     int pixel_border);
-void ddisplay_add_update(DDisplay *ddisp, const Rectangle *rect);
+void ddisplay_add_update(DDisplay *ddisp, const DiaRectangle *rect);
 void ddisplay_flush(DDisplay *ddisp);
 void ddisplay_update_scrollbars(DDisplay *ddisp);
 void ddisplay_set_origo(DDisplay *ddisp,
@@ -149,7 +149,7 @@ void ddisplay_resize_canvas(DDisplay *ddisp,
 			    int width,
 			    int height);
 
-void ddisplay_render_pixmap(DDisplay *ddisp, Rectangle *update);
+void ddisplay_render_pixmap(DDisplay *ddisp, DiaRectangle *update);
 
 DDisplay *ddisplay_active(void);
 Diagram *ddisplay_active_diagram(void);
@@ -167,7 +167,7 @@ Point ddisplay_get_clicked_position(DDisplay *ddisp);
 gboolean display_get_rulers_showing(DDisplay *ddisp);
 void display_rulers_show (DDisplay *ddisp);
 void display_rulers_hide (DDisplay *ddisp);
-void ddisplay_update_rulers (DDisplay *ddisp, const Rectangle *extents, const Rectangle *visible);
+void ddisplay_update_rulers (DDisplay *ddisp, const DiaRectangle *extents, const DiaRectangle *visible);
 
 gboolean ddisplay_scroll(DDisplay *ddisp, Point *delta);
 gboolean ddisplay_autoscroll(DDisplay *ddisp, int x, int y);

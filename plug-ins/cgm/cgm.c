@@ -555,7 +555,7 @@ TextAttrCGM    *tnew, *told;
 
 
 static void
-begin_render(DiaRenderer *self, const Rectangle *update)
+begin_render(DiaRenderer *self, const DiaRectangle *update)
 {
 }
 
@@ -1083,7 +1083,7 @@ export_cgm(DiagramData *data, DiaContext *ctx,
 {
     CgmRenderer *renderer;
     FILE *file;
-    Rectangle *extent;
+    DiaRectangle *extent;
     gint len;
 
     file = g_fopen(filename, "wb");

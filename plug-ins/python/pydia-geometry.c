@@ -24,7 +24,7 @@
 
 #include <structmember.h> /* PyMemberDef */
 
-/* Implements wrappers for Point, Rectangle, IntRectangle, BezPoint */
+/* Implements wrappers for Point, DiaRectangle, IntRectangle, BezPoint */
 
 /*
  * New
@@ -32,16 +32,16 @@
 PyObject* PyDiaPoint_New (Point* pt)
 {
   PyDiaPoint *self;
-  
+
   self = PyObject_NEW(PyDiaPoint, &PyDiaPoint_Type);
   if (!self) return NULL;
-  
+
   self->pt = *pt;
 
   return (PyObject *)self;
 }
 
-PyObject* 
+PyObject*
 PyDiaPointTuple_New (Point* pts, int num)
 {
   PyObject* ret;
@@ -57,8 +57,8 @@ PyDiaPointTuple_New (Point* pts, int num)
 }
 
 /* one of the parameters needs to be NULL, the other is created */
-PyObject* 
-PyDiaRectangle_New (Rectangle* r, IntRectangle* ri)
+PyObject*
+PyDiaRectangle_New (DiaRectangle* r, IntRectangle* ri)
 {
   PyDiaRectangle *self;
 
@@ -94,16 +94,16 @@ PyObject* PyDiaRectangle_New_FromPoints (Point* ul, Point* lr)
 PyObject* PyDiaBezPoint_New (BezPoint* bpn)
 {
   PyDiaBezPoint *self;
-  
+
   self = PyObject_NEW(PyDiaBezPoint, &PyDiaBezPoint_Type);
   if (!self) return NULL;
-  
+
   self->bpn = *bpn;
 
   return (PyObject *)self;
 }
 
-PyObject* 
+PyObject*
 PyDiaBezPointTuple_New (BezPoint* pts, int num)
 {
   PyObject* ret;
@@ -121,10 +121,10 @@ PyDiaBezPointTuple_New (BezPoint* pts, int num)
 PyObject* PyDiaArrow_New (Arrow* arrow)
 {
   PyDiaArrow *self;
-  
+
   self = PyObject_NEW(PyDiaArrow, &PyDiaArrow_Type);
   if (!self) return NULL;
-  
+
   self->arrow = *arrow;
 
   return (PyObject *)self;
@@ -137,14 +137,14 @@ PyDiaMatrix_New (DiaMatrix *matrix)
 
   self = PyObject_NEW(PyDiaMatrix, &PyDiaMatrix_Type);
   if (!self) return NULL;
-  
+
   if (matrix)
     self->matrix = *matrix;
   else {
     /* identity matrix */
     self->matrix.xx = self->matrix.yy = 1.0;
     self->matrix.xy = self->matrix.yx = self->matrix.x0 = self->matrix.y0 = 0.0;
-  } 
+  }
 
   return (PyObject *)self;
 }
@@ -170,7 +170,7 @@ PyDiaPoint_Compare(PyDiaPoint *self,
   if (self->pt.x == other->pt.x && self->pt.x == other->pt.x) return 0;
 #define SQR(pt) (pt.x*pt.y)
   if (SQR(self->pt) > SQR(other->pt)) return -1;
-#undef  SQR 
+#undef  SQR
   return 1;
 #endif
 }
@@ -180,7 +180,7 @@ PyDiaRectangle_Compare(PyDiaRectangle *self,
 			     PyDiaRectangle *other)
 {
   /* this is not correct */
-  return memcmp (&self->r, &other->r, sizeof(Rectangle));
+  return memcmp (&self->r, &other->r, sizeof(DiaRectangle));
 }
 
 static int
@@ -308,7 +308,7 @@ static PyObject *
 PyDiaBezPoint_Str(PyDiaBezPoint *self)
 {
     PyObject* py_s;
-#if 0 /* FIXME: this is causing bad crashes with unintialized points. 
+#if 0 /* FIXME: this is causing bad crashes with unintialized points.
        * Probably a glib and a Dia problem ... */
     gchar* s = g_strdup_printf ("((%f,%f),(%f,%f),(%f,%f),%s)",
                                 (float)(self->bpn.p1.x), (float)(self->bpn.p1.y),
@@ -332,7 +332,7 @@ PyDiaArrow_Str(PyDiaArrow *self)
 {
     PyObject* py_s;
     gchar* s = g_strdup_printf ("(%f,%f, %d)",
-                                (float)(self->arrow.width), 
+                                (float)(self->arrow.width),
                                 (float)(self->arrow.length),
                                 (int)(self->arrow.type));
     py_s = PyString_FromString(s);
@@ -356,8 +356,8 @@ PyDiaMatrix_Str(PyDiaMatrix *self)
     return py_s;
 }
 
-/* 
- * sequence interface (query only) 
+/*
+ * sequence interface (query only)
  */
 /* Point */
 static gssize
@@ -393,7 +393,7 @@ point_slice(PyObject *o, gssize i, gssize j)
   if (ret) {
     gssize k;
     for (k = i; k <= j && k < 2; k++)
-      PyTuple_SetItem(ret, k - i, point_item(o, k)); 
+      PyTuple_SetItem(ret, k - i, point_item(o, k));
   }
   return ret;
 }
@@ -445,7 +445,7 @@ rect_slice(PyObject* o, gssize i, gssize j)
   if (ret) {
     int k;
     for (k = i; k <= j && k < 4; k++)
-      PyTuple_SetItem(ret, k - i, rect_item(o, k)); 
+      PyTuple_SetItem(ret, k - i, rect_item(o, k));
   }
   return ret;
 }

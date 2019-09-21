@@ -513,11 +513,12 @@ static ObjectChange* transition_del_segment_cb(DiaObject *obj,
 
 
 
-static void expand_bbox_for_text(Rectangle* bbox,
-                                 Point* text_pos,
-                                 gchar* text)
+static void
+expand_bbox_for_text (DiaRectangle *bbox,
+                      Point        *text_pos,
+                      gchar        *text)
 {
-  Rectangle text_box;
+  DiaRectangle text_box;
   real text_width;
 
   text_width = dia_font_string_width(text, transition_font,

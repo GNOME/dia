@@ -36,7 +36,7 @@ struct _DiaCairoInteractiveRenderer {
   DiaCairoRenderer parent_instance;
 
   /*< private >*/
-  Rectangle *visible;
+  DiaRectangle *visible;
   real *zoom_factor;
 
   cairo_surface_t *surface;       /* The surface shown in this display  */
@@ -177,8 +177,8 @@ _gdk_cairo_region (cairo_t              *cr,
 }
 
 static void
-dia_cairo_interactive_renderer_begin_render (DiaRenderer     *self,
-                                             const Rectangle *update)
+dia_cairo_interactive_renderer_begin_render (DiaRenderer        *self,
+                                             const DiaRectangle *update)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (self);
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (self);
@@ -376,7 +376,7 @@ dia_cairo_interactive_renderer_clip_region_clear (DiaInteractiveRenderer *object
 
 static void
 dia_cairo_interactive_renderer_clip_region_add_rect (DiaInteractiveRenderer *object,
-                                                     Rectangle              *rect)
+                                                     DiaRectangle           *rect)
 {
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
   cairo_rectangle_int_t clip_rect;

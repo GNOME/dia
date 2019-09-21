@@ -81,7 +81,7 @@ grid_step (DDisplay *ddisp, GtkOrientation orientation,
 }
 
 static void
-grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length)
+grid_draw_horizontal_lines(DDisplay *ddisp, DiaRectangle *update, real length)
 {
   int x, y;
   real pos;
@@ -132,7 +132,7 @@ grid_draw_horizontal_lines(DDisplay *ddisp, Rectangle *update, real length)
 }
 
 static void
-grid_draw_vertical_lines (DDisplay *ddisp, Rectangle *update, real length)
+grid_draw_vertical_lines (DDisplay *ddisp, DiaRectangle *update, real length)
 {
   int x = 0, y = 0;
   real pos;
@@ -175,7 +175,7 @@ grid_draw_vertical_lines (DDisplay *ddisp, Rectangle *update, real length)
 }
 
 static void
-grid_draw_hex (DDisplay *ddisp, Rectangle *update, real length)
+grid_draw_hex (DDisplay *ddisp, DiaRectangle *update, real length)
 {
   real horiz_pos, vert_pos;
   int to_x, to_y, x, y;
@@ -284,7 +284,7 @@ grid_draw_hex (DDisplay *ddisp, Rectangle *update, real length)
 }
 
 void
-grid_draw(DDisplay *ddisp, Rectangle *update)
+grid_draw (DDisplay *ddisp, DiaRectangle *update)
 {
   Grid *grid = &ddisp->grid;
   DiaRenderer *renderer = ddisp->renderer;
@@ -320,7 +320,7 @@ grid_draw(DDisplay *ddisp, Rectangle *update)
 }
 
 void
-pagebreak_draw (DDisplay *ddisp, Rectangle *update)
+pagebreak_draw (DDisplay *ddisp, DiaRectangle *update)
 {
   DiaRenderer *renderer = ddisp->renderer;
 

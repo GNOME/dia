@@ -218,7 +218,7 @@ static real
 pgram_distance_from(Pgram *pgram, Point *point)
 {
   Element *elem = &pgram->element;
-  Rectangle rect;
+  DiaRectangle rect;
 
   rect.left = elem->corner.x - pgram->border_width/2;
   rect.right = elem->corner.x + elem->width + pgram->border_width/2;

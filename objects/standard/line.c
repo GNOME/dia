@@ -592,7 +592,7 @@ line_update_data(Line *line)
     end = conn->endpoints[1];
   }
   if (line->start_arrow.type != ARROW_NONE) {
-    Rectangle bbox;
+    DiaRectangle bbox;
     Point move_arrow, move_line;
     Point to = start;
     Point from = end;
@@ -606,7 +606,7 @@ line_update_data(Line *line)
     rectangle_union (&obj->bounding_box, &bbox);
   }
   if (line->end_arrow.type != ARROW_NONE) {
-    Rectangle bbox;
+    DiaRectangle bbox;
     Point move_arrow, move_line;
     Point to = end;
     Point from = start;

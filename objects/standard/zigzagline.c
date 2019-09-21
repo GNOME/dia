@@ -325,7 +325,7 @@ zigzagline_update_data(Zigzagline *zigzagline)
   orthconn_update_boundingbox(orth);
 
   if (zigzagline->start_arrow.type != ARROW_NONE) {
-    Rectangle bbox;
+    DiaRectangle bbox;
     Point move_arrow, move_line;
     Point to = orth->points[0];
     Point from = orth->points[1];
@@ -339,7 +339,7 @@ zigzagline_update_data(Zigzagline *zigzagline)
     rectangle_union (&obj->bounding_box, &bbox);
   }
   if (zigzagline->end_arrow.type != ARROW_NONE) {
-    Rectangle bbox;
+    DiaRectangle bbox;
     Point move_arrow, move_line;
     int n = orth->numpoints;
     Point to = orth->points[n-1];

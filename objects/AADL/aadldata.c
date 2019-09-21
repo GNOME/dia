@@ -66,7 +66,7 @@ aadldata_draw (Aadlbox *aadlbox, DiaRenderer *renderer)
 }
 
 void
-aadlbox_project_point_on_rectangle(Rectangle *rectangle,Point *p,real *angle)
+aadlbox_project_point_on_rectangle(DiaRectangle *rectangle,Point *p,real *angle)
 {
 
   /* top left corner */
@@ -115,7 +115,7 @@ aadlbox_project_point_on_rectangle(Rectangle *rectangle,Point *p,real *angle)
 void
 aadldata_project_point_on_nearest_border(Aadlbox *aadlbox,Point *p,real *angle)
 {
-  Rectangle rectangle;
+  DiaRectangle rectangle;
 
   rectangle.left = aadlbox->element.corner.x;
   rectangle.top  = aadlbox->element.corner.y;

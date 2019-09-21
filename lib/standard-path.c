@@ -322,7 +322,7 @@ stdpath_update_handles(StdPath *stdpath)
 {
   DiaObject *obj = &stdpath->object;
   PolyBBExtras extra = { 0, };
-  Rectangle rect, *bb;
+  DiaRectangle rect, *bb;
 
   g_return_if_fail (obj->handles != NULL);
 
@@ -362,7 +362,7 @@ static void
 stdpath_update_data (StdPath *stdpath)
 {
   DiaObject *obj = &stdpath->object;
-  Rectangle *bb = &obj->bounding_box;
+  DiaRectangle *bb = &obj->bounding_box;
   PolyBBExtras extra = { 0 };
   real lw = stdpath->stroke_or_fill & PDO_STROKE ? stdpath->line_width : 0.0;
 
@@ -1156,8 +1156,8 @@ create_standard_path_from_text (const Text *text)
 
   if (obj) {
     StdPath *path = (StdPath *)obj;
-    Rectangle text_box;
-    const Rectangle *pbb = &path->object.bounding_box;
+    DiaRectangle text_box;
+    const DiaRectangle *pbb = &path->object.bounding_box;
     real sx, sy;
     Point pos;
 
