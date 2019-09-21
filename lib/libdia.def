@@ -566,6 +566,8 @@ EXPORTS
  dia_layer_set_visible
  dia_layer_is_connectable
  dia_layer_set_connectable
+ dia_layer_get_type
+ dia_layer_get_object_list
 
  line_bbox
  line_line_intersection
