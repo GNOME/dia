@@ -684,9 +684,8 @@ set_font (DiaRenderer *self, DiaFont *font, real height)
   CgmRenderer *renderer = CGM_RENDERER(self);
   DiaFont *oldfont = renderer->font;
 
-  renderer->font = dia_font_ref(font);
-  if (oldfont != NULL)
-    dia_font_unref(oldfont);
+  renderer->font = g_object_ref (font);
+  g_clear_object (&oldfont);
   renderer->tcurrent.font_num = FONT_NUM (font);
   renderer->tcurrent.font_height = height;
 }
@@ -1206,11 +1205,10 @@ export_cgm(DiagramData *data, DiaContext *ctx,
 
     init_attributes(renderer);
 
-    data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+    data_render (data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
-    if (renderer->font != NULL)
-      dia_font_unref(renderer->font);
-    g_object_unref(renderer);
+    g_clear_object (&renderer->font);
+    g_object_unref (renderer);
 
     return TRUE;
 }

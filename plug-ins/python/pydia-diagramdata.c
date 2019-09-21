@@ -180,7 +180,7 @@ PyDiaDiagramData_DeleteLayer(PyDiaDiagramData *self, PyObject *args)
     return NULL;
 
   data_remove_layer (self->data, layer->layer);
-  dia_layer_destroy (layer->layer);
+  g_clear_object (&layer->layer);
   layer->layer = NULL;
   Py_INCREF (Py_None);
   return Py_None;

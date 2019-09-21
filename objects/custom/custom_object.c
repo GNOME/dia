@@ -1621,7 +1621,7 @@ custom_create(Point *startpoint,
     p.y += elem->height / 2.0 + font_height / 2;
     custom->text = new_text("", font, font_height, &p, &custom->border_color,
                             info->text_align);
-    dia_font_unref(font);
+    g_clear_object (&font);
 
     /* _no_ new default: does not shrink with textbox automatically. */
     custom->text_fitting = (info->resize_with_text ? TEXTFIT_WHEN_NEEDED : TEXTFIT_NEVER);

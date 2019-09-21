@@ -401,14 +401,14 @@ largepackage_create(Point *startpoint,
 }
 
 static void
-largepackage_destroy(LargePackage *pkg)
+largepackage_destroy (LargePackage *pkg)
 {
-  dia_font_unref(pkg->font);
-  g_free(pkg->stereotype);
-  g_free(pkg->st_stereotype);
-  g_free(pkg->name);
+  g_clear_object (&pkg->font);
+  g_free (pkg->stereotype);
+  g_free (pkg->st_stereotype);
+  g_free (pkg->name);
 
-  element_destroy(&pkg->element);
+  element_destroy (&pkg->element);
 }
 
 static DiaObject *

@@ -572,12 +572,14 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
     }
     if (el) {
       el->any.s = s;
-      if (el->any.s.font)
-        el->any.s.font = g_object_ref(s.font);
-      info->display_list = g_list_append(info->display_list, el);
+      if (el->any.s.font) {
+        el->any.s.font = g_object_ref (s.font);
+      }
+      info->display_list = g_list_append (info->display_list, el);
     }
-    if (s.font)
-      dia_font_unref (s.font);
+    if (s.font) {
+      g_clear_object (&s.font);
+    }
   }
 }
 

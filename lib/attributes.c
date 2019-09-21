@@ -26,10 +26,10 @@ static Color attributes_background = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 static real attributes_default_linewidth = 0.1;
 
-static Arrow attributes_start_arrow = { ARROW_NONE, 
-					DEFAULT_ARROW_SIZE, 
+static Arrow attributes_start_arrow = { ARROW_NONE,
+					DEFAULT_ARROW_SIZE,
 					DEFAULT_ARROW_SIZE };
-static Arrow attributes_end_arrow = { ARROW_NONE, 
+static Arrow attributes_end_arrow = { ARROW_NONE,
 				      DEFAULT_ARROW_SIZE,
 				      DEFAULT_ARROW_SIZE };
 
@@ -42,7 +42,7 @@ static real attributes_font_height = 0.8;
 /** Get the foreground color attribute (lines and text)
  * @returns The current foreground color as set in the toolbox.
  */
-Color 
+Color
 attributes_get_foreground(void)
 {
   return attributes_foreground;
@@ -51,7 +51,7 @@ attributes_get_foreground(void)
 /** Get the background color attribute (for box background and such)
  * @returns The current background color as set in the toolbox.
  */
-Color 
+Color
 attributes_get_background(void)
 {
   return attributes_background;
@@ -135,7 +135,7 @@ void
 attributes_set_default_start_arrow(Arrow arrow)
 {
   attributes_start_arrow = arrow;
-  persistence_set_string("start-arrow-type", 
+  persistence_set_string("start-arrow-type",
 			 arrow_get_name_from_type(arrow.type));
   persistence_set_real("start-arrow-width", arrow.width);
   persistence_set_real("start-arrow-length", arrow.length);
@@ -157,7 +157,7 @@ void
 attributes_set_default_end_arrow(Arrow arrow)
 {
   attributes_end_arrow = arrow;
-  persistence_set_string("end-arrow-type", 
+  persistence_set_string("end-arrow-type",
 			 arrow_get_name_from_type(arrow.type));
   persistence_set_real("end-arrow-width", arrow.width);
   persistence_set_real("end-arrow-length", arrow.length);
@@ -165,7 +165,7 @@ attributes_set_default_end_arrow(Arrow arrow)
 
 /** Get the default line style (dashes, dots etc)
  * @param style A place to return the style (number of dots and dashes)
- * @param dash_length A place to return how long a dash is 
+ * @param dash_length A place to return how long a dash is
  *                    (0.0 < dash_length < ???)
  * @see dia-enums.h for possible values for style.
  */
@@ -198,16 +198,18 @@ attributes_set_default_line_style(LineStyle style, real dash_length)
  * @param font_height A place to return the default font height set by the user
  */
 void
-attributes_get_default_font(DiaFont **font, real *font_height)
+attributes_get_default_font (DiaFont **font, real *font_height)
 {
-	if (!attributes_font) {
-		attributes_font = dia_font_new_from_style(DIA_FONT_SANS,
-                                              attributes_font_height);
-	}
-	if (font)
-		*font = dia_font_ref(attributes_font);
-	if (font_height)
-		*font_height = attributes_font_height;
+  if (!attributes_font) {
+    attributes_font = dia_font_new_from_style (DIA_FONT_SANS,
+                                               attributes_font_height);
+  }
+
+  if (font)
+    *font = g_object_ref (attributes_font);
+
+  if (font_height)
+    *font_height = attributes_font_height;
 }
 
 /** Set the default font.
@@ -217,10 +219,10 @@ attributes_get_default_font(DiaFont **font, real *font_height)
  * @param font_height The font height to set as the new default.
  */
 void
-attributes_set_default_font(DiaFont *font, real font_height)
+attributes_set_default_font (DiaFont *font, real font_height)
 {
-  if (attributes_font != NULL)
-    dia_font_unref(attributes_font);  
-  attributes_font = dia_font_ref(font);
+  g_clear_object (&attributes_font);
+
+  attributes_font = g_object_ref (font);
   attributes_font_height = font_height;
 }

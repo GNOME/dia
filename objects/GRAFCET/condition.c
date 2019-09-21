@@ -163,15 +163,15 @@ condition_get_props(Condition *condition, GPtrArray *props)
 static void
 condition_set_props(Condition *condition, GPtrArray *props)
 {
-  object_set_props_from_offsets(&condition->connection.object,
-                                condition_offsets,props);
+  object_set_props_from_offsets (&condition->connection.object,
+                                 condition_offsets,props);
 
-  boolequation_set_value(condition->cond,condition->cond_value);
-  dia_font_unref(condition->cond->font);
-  condition->cond->font = dia_font_ref(condition->cond_font);
+  boolequation_set_value (condition->cond,condition->cond_value);
+  g_clear_object (&condition->cond->font);
+  condition->cond->font = g_object_ref (condition->cond_font);
   condition->cond->fontheight = condition->cond_fontheight;
   condition->cond->color = condition->cond_color;
-  condition_update_data(condition);
+  condition_update_data (condition);
 }
 
 static real
@@ -353,7 +353,7 @@ condition_create(Point *startpoint,
   condition->cond = boolequation_create("",default_font,default_fontheight,
 				 &fg_color);
   condition->cond_value = g_strdup("");
-  condition->cond_font = dia_font_ref(default_font);
+  condition->cond_font = g_object_ref (default_font);
   condition->cond_fontheight = default_fontheight;
   condition->cond_color = fg_color;
 
@@ -368,7 +368,7 @@ condition_create(Point *startpoint,
   *handle1 = &conn->endpoint_handles[0];
   *handle2 = &conn->endpoint_handles[1];
 
-  dia_font_unref(default_font);
+  g_clear_object (&default_font);
 
   return &condition->connection.object;
 }
@@ -376,10 +376,10 @@ condition_create(Point *startpoint,
 static void
 condition_destroy(Condition *condition)
 {
-  dia_font_unref(condition->cond_font);
-  boolequation_destroy(condition->cond);
-  g_free(condition->cond_value);
-  connection_destroy(&condition->connection);
+  g_clear_object (&condition->cond_font);
+  boolequation_destroy (condition->cond);
+  g_free (condition->cond_value);
+  connection_destroy (&condition->connection);
 }
 
 static DiaObject *

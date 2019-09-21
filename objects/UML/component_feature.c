@@ -385,10 +385,12 @@ compfeat_create(Point *startpoint,
   p.y -= COMPPROP_TEXTOFFSET;
 
   compfeat->line_color = attributes_get_foreground();
-  compfeat->text = new_text("", font,
-			    COMPPROP_FONTHEIGHT, &p, &compfeat->line_color,
-			    ALIGN_CENTER);
-  dia_font_unref(font);
+  compfeat->text = new_text ("", font,
+                             COMPPROP_FONTHEIGHT,
+                             &p,
+                             &compfeat->line_color,
+                             ALIGN_CENTER);
+  g_clear_object (&font);
 
   compfeat->text_handle.id = HANDLE_MOVE_TEXT;
   compfeat->text_handle.type = HANDLE_MINOR_CONTROL;

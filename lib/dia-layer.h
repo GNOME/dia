@@ -39,7 +39,6 @@ struct _DiaLayerClass
 DiaLayer    *dia_layer_new                                 (const char       *name,
                                                             DiagramData      *parent);
 DiaLayer    *dia_layer_new_from_layer                      (DiaLayer         *old);
-void         dia_layer_destroy                             (DiaLayer         *layer);
 void         dia_layer_render                              (DiaLayer         *layer,
                                                             DiaRenderer      *renderer,
                                                             Rectangle        *update,

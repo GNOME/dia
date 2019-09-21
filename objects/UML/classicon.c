@@ -451,7 +451,7 @@ classicon_create(Point *startpoint,
   p.y = 0.0;
   cicon->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
 
-  dia_font_unref(font);
+  g_clear_object (&font);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

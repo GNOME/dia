@@ -361,9 +361,9 @@ req_create(Point *startpoint,
   p.x += REQ_WIDTH/2.0;
   p.y += REQ_HEIGHT/2.0;
 
-  req->text = new_text("", font, REQ_FONT, &p, &color_black, ALIGN_CENTER);
-  dia_font_unref(font);
-  element_init(elem, 8, NUM_CONNECTIONS);
+  req->text = new_text ("", font, REQ_FONT, &p, &color_black, ALIGN_CENTER);
+  g_clear_object (&font);
+  element_init (elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &req->connections[i];

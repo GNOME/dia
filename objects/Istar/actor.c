@@ -430,10 +430,10 @@ actor_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + ACTOR_FONT / 2;
-  actor->text = new_text("", font, ACTOR_FONT, &p, &ACTOR_FG_COLOR, ALIGN_CENTER);
-  dia_font_unref(font);
+  actor->text = new_text ("", font, ACTOR_FONT, &p, &ACTOR_FG_COLOR, ALIGN_CENTER);
+  g_clear_object (&font);
 
-  element_init(elem, 8, NUM_CONNECTIONS);
+  element_init (elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &actor->connections[i];

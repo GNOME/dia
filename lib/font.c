@@ -85,7 +85,7 @@ dia_font_check_for_font(int font)
   } else {
     g_object_unref(loaded);
   }
-  dia_font_unref(check);
+  g_clear_object (&check);
 }
 
 void
@@ -374,19 +374,6 @@ dia_font_finalize(GObject* object)
     g_object_unref(font->loaded);
   font->loaded = NULL;
   G_OBJECT_CLASS(parent_class)->finalize(object);
-}
-
-DiaFont *
-dia_font_ref(DiaFont* font)
-{
-  g_object_ref(G_OBJECT(font));
-  return font;
-}
-
-void
-dia_font_unref(DiaFont* font)
-{
-  g_object_unref(G_OBJECT(font));
 }
 
 DiaFontStyle

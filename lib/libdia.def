@@ -250,7 +250,6 @@ EXPORTS
  dia_font_new
  dia_font_new_from_legacy_name
  dia_font_new_from_style
- dia_font_ref
  dia_font_set_any_family
  dia_font_set_height
  dia_font_set_slant
@@ -260,7 +259,6 @@ EXPORTS
  dia_font_copy
  dia_font_string_width
 
- dia_font_unref
  dia_font_selector_get_font
  dia_font_selector_get_type
  dia_font_selector_new
@@ -403,7 +401,7 @@ EXPORTS
  dia_renderer_begin_render
  dia_renderer_end_render
  dia_renderer_is_capable_of
- 
+
  dia_interactive_renderer_get_type
  dia_interactive_renderer_draw_pixel_line
  dia_interactive_renderer_get_width_pixels
@@ -541,29 +539,33 @@ EXPORTS
 
  intl_score_locale
 
- layer_add_object
- layer_add_object_at
- layer_add_objects
- layer_add_objects_first
- layer_destroy
- layer_find_closest_connectionpoint
- layer_find_closest_object
- layer_find_closest_object_except
- layer_find_objects_containing_rectangle
- layer_find_objects_in_rectangle
- layer_find_objects_intersecting_rectangle
- layer_get_parent_diagram
- layer_get_name
- layer_object_count
- layer_object_get_index
- layer_object_get_nth
- layer_remove_object
- layer_remove_objects
- layer_render
- layer_replace_object_with_list
- layer_set_object_list
- layer_update_extents
- new_layer
+ dia_layer_add_object
+ dia_layer_add_object_at
+ dia_layer_add_objects
+ dia_layer_add_objects_first
+ dia_layer_find_closest_connectionpoint
+ dia_layer_find_closest_object
+ dia_layer_find_closest_object_except
+ dia_layer_find_objects_containing_rectangle
+ dia_layer_find_objects_in_rectangle
+ dia_layer_find_objects_intersecting_rectangle
+ dia_layer_get_parent_diagram
+ dia_layer_get_name
+ dia_layer_object_count
+ dia_layer_object_get_index
+ dia_layer_object_get_nth
+ dia_layer_remove_object
+ dia_layer_remove_objects
+ dia_layer_render
+ dia_layer_replace_object_with_list
+ dia_layer_set_object_list
+ dia_layer_update_extents
+ dia_layer_new
+ dia_layer_new_from_layer
+ dia_layer_is_visible
+ dia_layer_set_visible
+ dia_layer_is_connectable
+ dia_layer_set_connectable
 
  line_bbox
  line_line_intersection

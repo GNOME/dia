@@ -520,9 +520,9 @@ diamond_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
-  diamond->text = new_text("", font, font_height, &p, &diamond->border_color,
-			   ALIGN_CENTER);
-  dia_font_unref(font);
+  diamond->text = new_text ("", font, font_height, &p, &diamond->border_color,
+                            ALIGN_CENTER);
+  g_clear_object (&font);
 
   /* new default: let the user decide the size */
   diamond->text_fitting = TEXTFIT_WHEN_NEEDED;

@@ -335,12 +335,12 @@ constraint_create(Point *startpoint,
 
 
 static void
-constraint_destroy(Constraint *constraint)
+constraint_destroy (Constraint *constraint)
 {
-  connection_destroy(&constraint->connection);
-  dia_font_unref(constraint->font);
-  g_free(constraint->brtext);
-  g_free(constraint->text);
+  connection_destroy (&constraint->connection);
+  g_clear_object (&constraint->font);
+  g_free (constraint->brtext);
+  g_free (constraint->text);
 }
 
 static void

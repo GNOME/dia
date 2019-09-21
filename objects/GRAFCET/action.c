@@ -412,10 +412,10 @@ action_create(Point *startpoint,
 
   pos = conn->endpoints[1];
   action_font = dia_font_new_from_style(ACTION_FONT,ACTION_FONT_HEIGHT);
-  action->text = new_text("",action_font, ACTION_FONT_HEIGHT,
-                          &pos, /* never used */
-                          &color_black, ALIGN_LEFT);
-  dia_font_unref(action_font);
+  action->text = new_text ("", action_font, ACTION_FONT_HEIGHT,
+                           &pos, /* never used */
+                           &color_black, ALIGN_LEFT);
+  g_clear_object (&action_font);
 
   action->macro_call = FALSE;
 

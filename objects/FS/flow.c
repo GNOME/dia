@@ -401,8 +401,8 @@ flow_create(Point *startpoint,
 
   font = dia_font_new_from_style(DIA_FONT_SANS, FLOW_FONTHEIGHT);
 
-  flow->text = new_text("", font, FLOW_FONTHEIGHT, &p, &color_black, ALIGN_CENTER);
-  dia_font_unref(font);
+  flow->text = new_text ("", font, FLOW_FONTHEIGHT, &p, &color_black, ALIGN_CENTER);
+  g_clear_object (&font);
 
   flow->text_handle.id = HANDLE_MOVE_TEXT;
   flow->text_handle.type = HANDLE_MINOR_CONTROL;
@@ -538,8 +538,8 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   else { /* pathologic */
     DiaFont *font = dia_font_new_from_style(DIA_FONT_SANS, FLOW_FONTHEIGHT);
 
-    flow->text = new_text("", font, FLOW_FONTHEIGHT, &obj->position, &color_black, ALIGN_CENTER);
-    dia_font_unref(font);
+    flow->text = new_text ("", font, FLOW_FONTHEIGHT, &obj->position, &color_black, ALIGN_CENTER);
+    g_clear_object (&font);
   }
 
   attr = object_find_attribute(obj_node, "type");

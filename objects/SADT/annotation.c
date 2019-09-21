@@ -356,7 +356,7 @@ annotation_create(Point *startpoint,
                               &conn->endpoints[1],
                               &color_black,
                               ALIGN_CENTER);
-  dia_font_unref(font);
+  g_clear_object (&font);
 
   offs.x = .3 * ANNOTATION_FONTHEIGHT;
   if (conn->endpoints[1].y < conn->endpoints[0].y)

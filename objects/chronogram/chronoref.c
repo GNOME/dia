@@ -456,9 +456,9 @@ chronoref_create(Point *startpoint,
 static void
 chronoref_destroy(Chronoref *chronoref)
 {
-  dia_font_unref(chronoref->font);
-  connpointline_destroy(chronoref->scale);
-  element_destroy(&chronoref->element);
+  g_clear_object (&chronoref->font);
+  connpointline_destroy (chronoref->scale);
+  element_destroy (&chronoref->element);
 }
 
 static DiaObject *

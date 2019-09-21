@@ -155,7 +155,7 @@ diagram_data_finalize (GObject *object)
   g_free (data->paper.name);
 
   for (i=0;i<data->layers->len;i++) {
-    dia_layer_destroy (g_ptr_array_index (data->layers, i));
+    g_object_unref (g_ptr_array_index (data->layers, i));
   }
   g_ptr_array_free (data->layers, TRUE);
   data->active_layer = NULL;
@@ -192,7 +192,7 @@ diagram_data_clone (DiagramData *data)
   clone->paper.name = g_strdup (data->paper.name);
   clone->is_compressed = data->is_compressed;
 
-  dia_layer_destroy (g_ptr_array_index (clone->layers, 0));
+  g_object_unref (g_ptr_array_index (clone->layers, 0));
   g_ptr_array_remove (clone->layers, clone->active_layer);
 
   for (i=0; i < data->layers->len; ++i) {

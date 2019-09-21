@@ -1357,23 +1357,23 @@ layer_change_revert(struct LayerChange *change, Diagram *dia)
 }
 
 static void
-layer_change_free(struct LayerChange *change)
+layer_change_free (struct LayerChange *change)
 {
   switch (change->type) {
-  case TYPE_DELETE_LAYER:
-    if (change->applied) {
-      dia_layer_destroy (change->layer);
-    }
-    break;
-  case TYPE_ADD_LAYER:
-    if (!change->applied) {
-      dia_layer_destroy (change->layer);
-    }
-    break;
-  case TYPE_RAISE_LAYER:
-    break;
-  case TYPE_LOWER_LAYER:
-    break;
+    case TYPE_DELETE_LAYER:
+      if (change->applied) {
+        g_clear_object (&change->layer);
+      }
+      break;
+    case TYPE_ADD_LAYER:
+      if (!change->applied) {
+        g_clear_object (&change->layer);
+      }
+      break;
+    case TYPE_RAISE_LAYER:
+      break;
+    case TYPE_LOWER_LAYER:
+      break;
   }
 }
 

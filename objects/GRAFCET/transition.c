@@ -177,12 +177,13 @@ transition_get_props(Transition *transition, GPtrArray *props)
 static void
 transition_set_props(Transition *transition, GPtrArray *props)
 {
-  object_set_props_from_offsets(&transition->element.object,
-                                transition_offsets,props);
+  object_set_props_from_offsets (&transition->element.object,
+                                 transition_offsets,
+                                 props);
 
-  boolequation_set_value(transition->receptivity,transition->rcep_value);
-  dia_font_unref(transition->receptivity->font);
-  transition->receptivity->font = dia_font_ref(transition->rcep_font);
+  boolequation_set_value (transition->receptivity,transition->rcep_value);
+  g_clear_object (&transition->receptivity->font);
+  transition->receptivity->font = g_object_ref (transition->rcep_font);
   transition->receptivity->fontheight = transition->rcep_fontheight;
   transition->receptivity->color = transition->rcep_color;
 
@@ -399,11 +400,11 @@ transition_create(Point *startpoint,
                         &fg_color);
 
   transition->rcep_value = g_strdup("");
-  transition->rcep_font = dia_font_ref(default_font);
+  transition->rcep_font = g_object_ref (default_font);
   transition->rcep_fontheight = default_fontheight;
   transition->rcep_color = fg_color;
 
-  dia_font_unref(default_font);
+  g_clear_object (&default_font);
 
 
   for (i=0;i<8;i++) {
@@ -434,12 +435,12 @@ transition_create(Point *startpoint,
 }
 
 static void
-transition_destroy(Transition *transition)
+transition_destroy (Transition *transition)
 {
-  dia_font_unref(transition->rcep_font);
-  boolequation_destroy(transition->receptivity);
-  g_free(transition->rcep_value);
-  element_destroy(&transition->element);
+  g_clear_object (&transition->rcep_font);
+  boolequation_destroy (transition->receptivity);
+  g_free (transition->rcep_value);
+  element_destroy (&transition->element);
 }
 
 static DiaObject *

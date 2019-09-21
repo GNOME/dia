@@ -420,11 +420,11 @@ entity_create(Point *startpoint,
 }
 
 static void
-entity_destroy(Entity *entity)
+entity_destroy (Entity *entity)
 {
-  dia_font_unref(entity->font);
-  element_destroy(&entity->element);
-  g_free(entity->name);
+  g_clear_object (&entity->font);
+  element_destroy (&entity->element);
+  g_free (entity->name);
 }
 
 static DiaObject *
@@ -455,7 +455,7 @@ entity_copy(Entity *entity)
     newentity->connections[i].flags = entity->connections[i].flags;
   }
 
-  newentity->font = dia_font_ref(entity->font);
+  newentity->font = g_object_ref (entity->font);
   newentity->font_height = entity->font_height;
   newentity->name = g_strdup(entity->name);
   newentity->name_width = entity->name_width;
@@ -536,7 +536,7 @@ entity_load(ObjectNode obj_node, int version,DiaContext *ctx)
 
   if (entity->font != NULL) {
     /* This shouldn't happen, but doesn't hurt */
-    dia_font_unref(entity->font);
+    g_clear_object (&entity->font);
     entity->font = NULL;
   }
   attr = object_find_attribute (obj_node, "font");

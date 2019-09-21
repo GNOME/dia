@@ -503,19 +503,18 @@ table_destroy (Table * table)
   g_free (table->comment);
 
   list = table->attributes;
-  while (list != NULL)
-    {
-      TableAttribute * attr = (TableAttribute *) list->data;
-      table_attribute_free (attr);
+  while (list != NULL) {
+    TableAttribute * attr = (TableAttribute *) list->data;
+    table_attribute_free (attr);
 
-      list = g_list_next (list);
-    }
+    list = g_list_next (list);
+  }
   g_list_free (table->attributes);
 
-  dia_font_unref (table->normal_font);
-  dia_font_unref (table->primary_key_font);
-  dia_font_unref (table->name_font);
-  dia_font_unref (table->comment_font);
+  g_clear_object (&table->normal_font);
+  g_clear_object (&table->primary_key_font);
+  g_clear_object (&table->name_font);
+  g_clear_object (&table->comment_font);
 }
 
 static void
@@ -840,11 +839,11 @@ table_copy(Table * orig)
       list = g_list_next (list);
     }
   copy->normal_font_height = orig->normal_font_height;
-  copy->normal_font = dia_font_ref (orig->normal_font);
+  copy->normal_font = g_object_ref (orig->normal_font);
   copy->name_font_height = orig->name_font_height;
-  copy->name_font = dia_font_ref (orig->name_font);
+  copy->name_font = g_object_ref (orig->name_font);
   copy->comment_font_height = orig->comment_font_height;
-  copy->comment_font = dia_font_ref (orig->comment_font);
+  copy->comment_font = g_object_ref (orig->comment_font);
   copy->text_color = orig->text_color;
   copy->line_color = orig->line_color;
   copy->fill_color = orig->fill_color;
@@ -1356,19 +1355,16 @@ table_show_comments_cb(DiaObject *obj, Point *pos, gpointer data)
 static void
 table_update_primary_key_font (Table * table)
 {
-  if (table->primary_key_font)
-    dia_font_unref (table->primary_key_font);
+  g_clear_object (&table->primary_key_font);
+
   if (!table->bold_primary_key
       || (DIA_FONT_STYLE_GET_WEIGHT (dia_font_get_style (table->normal_font))
-          == DIA_FONT_BOLD))
-    {
-      table->primary_key_font = dia_font_ref (table->normal_font);
-    }
-  else
-    {
-      table->primary_key_font = dia_font_copy (table->normal_font);
-      dia_font_set_weight (table->primary_key_font, DIA_FONT_BOLD);
-    }
+          == DIA_FONT_BOLD)) {
+    table->primary_key_font = g_object_ref (table->normal_font);
+  } else {
+    table->primary_key_font = dia_font_copy (table->normal_font);
+    dia_font_set_weight (table->primary_key_font, DIA_FONT_BOLD);
+  }
 
   table->primary_key_font_height = table->normal_font_height;
 }

@@ -512,11 +512,11 @@ goal_create(Point *startpoint,
 
   font = dia_font_new_from_style( DIA_FONT_SANS , DEFAULT_FONT);
 
-  goal->text = new_text("", font,
-                       DEFAULT_FONT, &p,
-                       &color_black,
-                       ALIGN_CENTER);
-  dia_font_unref(font);
+  goal->text = new_text ("", font,
+                         DEFAULT_FONT, &p,
+                         &color_black,
+                         ALIGN_CENTER);
+  g_clear_object (&font);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

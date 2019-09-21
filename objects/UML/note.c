@@ -319,8 +319,8 @@ note_create(Point *startpoint,
   p.x += note->line_width/2.0 + NOTE_MARGIN_X;
   p.y += note->line_width/2.0 + NOTE_CORNER + dia_font_ascent("A",font, 0.8);
 
-  note->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
-  dia_font_unref(font);
+  note->text = new_text ("", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  g_clear_object (&font);
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

@@ -441,13 +441,13 @@ generalization_create(Point *startpoint,
 }
 
 static void
-generalization_destroy(Generalization *genlz)
+generalization_destroy (Generalization *genlz)
 {
-  g_free(genlz->name);
-  g_free(genlz->stereotype);
-  g_free(genlz->st_stereotype);
-  dia_font_unref(genlz->font);
-  orthconn_destroy(&genlz->orth);
+  g_free (genlz->name);
+  g_free (genlz->stereotype);
+  g_free (genlz->st_stereotype);
+  g_clear_object (&genlz->font);
+  orthconn_destroy (&genlz->orth);
 }
 
 static DiaObject *

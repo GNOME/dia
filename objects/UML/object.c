@@ -493,9 +493,9 @@ objet_create(Point *startpoint,
   ob->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
   text_get_attributes(ob->text,&ob->text_attrs);
 
-  dia_font_unref(font);
+  g_clear_object (&font);
 
-  element_init(elem, 8, NUM_CONNECTIONS);
+  element_init (elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &ob->connections[i];

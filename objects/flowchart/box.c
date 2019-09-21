@@ -552,9 +552,9 @@ box_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
-  box->text = new_text("", font, font_height, &p, &box->border_color,
-                       ALIGN_CENTER);
-  dia_font_unref(font);
+  box->text = new_text ("", font, font_height, &p, &box->border_color,
+                        ALIGN_CENTER);
+  g_clear_object (&font);
 
   /* new default: let the user decide the size */
   box->text_fitting = TEXTFIT_WHEN_NEEDED;

@@ -569,10 +569,9 @@ dia_cairo_renderer_set_font (DiaRenderer *self, DiaFont *font, real height)
   pango_layout_set_font_description (renderer->layout, pfd);
   pango_font_description_free (pfd);
 
-  dia_font_ref (font);
-  if (renderer->font) {
-    dia_font_unref (renderer->font);
-  }
+  g_object_ref (font);
+  g_clear_object (&renderer->font);
+
   renderer->font = font;
   renderer->font_height = height;
 }

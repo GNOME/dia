@@ -426,7 +426,7 @@ textobj_create(Point *startpoint,
   /* need to initialize to object.position as well, it is used update data */
   obj->position = *startpoint;
 
-  dia_font_unref(font);
+  g_clear_object (&font);
   textobj->vert_align = default_properties.vert_align;
 
   /* default visibility must be off to keep compatibility */
@@ -510,9 +510,9 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
     textobj->text = data_text(attribute_first_data(attr), ctx);
   } else {
     DiaFont* font = dia_font_new_from_style(DIA_FONT_MONOSPACE,1.0);
-    textobj->text = new_text("", font, 1.0,
-			     &startpoint, &color_black, ALIGN_CENTER);
-    dia_font_unref(font);
+    textobj->text = new_text ("", font, 1.0,
+                              &startpoint, &color_black, ALIGN_CENTER);
+    g_clear_object (&font);
   }
 
   attr = object_find_attribute(obj_node, "valign");

@@ -291,14 +291,18 @@ text_set_string(Text *text, const char *string)
 }
 
 Text *
-new_text(const char *string, DiaFont *font, real height,
-	 Point *pos, Color *color, Alignment align)
+new_text (const char *string,
+          DiaFont    *font,
+          real        height,
+          Point      *pos,
+          Color      *color,
+          Alignment   align)
 {
   Text *text;
 
   text = g_new(Text, 1);
 
-  text->font = dia_font_ref(font);
+  text->font = g_object_ref (font);
   text->height = height;
 
   text->position = *pos;
@@ -313,9 +317,9 @@ new_text(const char *string, DiaFont *font, real height,
   text->focus.key_event = text_key_event;
   text->focus.text = text;
 
-  set_string(text, string);
+  set_string (text, string);
 
-  calc_ascent_descent(text);
+  calc_ascent_descent (text);
 
   return text;
 }
@@ -324,15 +328,16 @@ new_text(const char *string, DiaFont *font, real height,
  * Fallback function returning a default initialized text object.
  */
 Text *
-new_text_default(Point *pos, Color *color, Alignment align)
+new_text_default (Point *pos, Color *color, Alignment align)
 {
   Text *text;
   DiaFont *font;
   real font_height;
 
-  attributes_get_default_font(&font, &font_height);
-  text = new_text("", font, font_height, pos, color, align);
-  dia_font_unref(font);
+  attributes_get_default_font (&font, &font_height);
+  text = new_text ("", font, font_height, pos, color, align);
+  g_clear_object (&font);
+
   return text;
 }
 
@@ -374,11 +379,11 @@ text_copy(Text *text)
 }
 
 void
-text_destroy(Text *text)
+text_destroy (Text *text)
 {
-  free_string(text);
-  dia_font_unref(text->font);
-  g_free(text);
+  free_string (text);
+  g_clear_object (&text->font);
+  g_free (text);
 }
 
 void
@@ -400,20 +405,20 @@ text_get_height(const Text *text)
 }
 
 void
-text_set_font(Text *text, DiaFont *font)
+text_set_font (Text *text, DiaFont *font)
 {
   DiaFont *old_font = text->font;
   int i;
 
-  text->font = dia_font_ref(font);
-  dia_font_unref(old_font);
+  text->font = g_object_ref (font);
+  g_clear_object (&old_font);
 
   for (i = 0; i < text->numlines; i++) {
-    text_line_set_font(text->lines[i], font);
+    text_line_set_font (text->lines[i], font);
   }
 
-  calc_width(text);
-  calc_ascent_descent(text);
+  calc_width (text);
+  calc_ascent_descent (text);
 }
 
 void
@@ -1142,8 +1147,8 @@ data_text(AttributeNode text_attr, DiaContext *ctx)
   if (attr != NULL)
     align = data_enum(attribute_first_data(attr), ctx);
 
-  text = new_text(string ? string : "", font, height, &pos, &col, align);
-  if (font) dia_font_unref(font);
+  text = new_text (string ? string : "", font, height, &pos, &col, align);
+  g_clear_object (&font);
   if (string) g_free(string);
   return text;
 }
@@ -1153,8 +1158,8 @@ text_get_attributes(Text *text, TextAttributes *attr)
 {
   DiaFont *old_font;
   old_font = attr->font;
-  attr->font = dia_font_ref(text->font);
-  if (old_font != NULL) dia_font_unref(old_font);
+  attr->font = g_object_ref (text->font);
+  g_clear_object (&old_font);
   attr->height = text->height;
   attr->position = text->position;
   attr->color = text->color;

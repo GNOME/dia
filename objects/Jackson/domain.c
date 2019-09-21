@@ -576,15 +576,15 @@ jackson_box_create(Point *startpoint,
   p.x += (LEFT_SPACE +elem->width) / 2.0;
   p.y += elem->height / 2.0 + DEFAULT_FONT / 2;
 
-  font = dia_font_new_from_style( DIA_FONT_SANS, DEFAULT_FONT);
+  font = dia_font_new_from_style (DIA_FONT_SANS, DEFAULT_FONT);
 
-  box->text = new_text("", font,
-                       DEFAULT_FONT, &p,
-                       &color_black,
-                       ALIGN_CENTER);
-  dia_font_unref(font);
+  box->text = new_text ("", font,
+                        DEFAULT_FONT, &p,
+                        &color_black,
+                        ALIGN_CENTER);
+  g_clear_object (&font);
 
-  element_init(elem, 8, 0);
+  element_init (elem, 8, 0);
 
   box->north = connpointline_create(obj,3);
   box->west = connpointline_create(obj,1);

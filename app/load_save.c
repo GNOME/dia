@@ -442,7 +442,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
   /* Destroy the default layer: */
   if (dia_layer_object_count (data->active_layer) == 0) {
     g_ptr_array_remove (data->layers, data->active_layer);
-    dia_layer_destroy (data->active_layer);
+    g_clear_object (&data->active_layer);
   }
 
   diagramdata =

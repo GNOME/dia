@@ -441,7 +441,7 @@ state_create(Point *startpoint,
 
   state->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
 
-  dia_font_unref(font);
+  g_clear_object (&font);
 
   state->state_type = STATE_NORMAL;
   element_init(elem, 8, NUM_CONNECTIONS);

@@ -444,13 +444,13 @@ function_create(Point *startpoint,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  pkg->text = new_text("", font, FUNCTION_FONTHEIGHT, &p, &color_black,
-                       ALIGN_CENTER);
-  dia_font_unref(font);
+  pkg->text = new_text ("", font, FUNCTION_FONTHEIGHT, &p, &color_black,
+                        ALIGN_CENTER);
+  g_clear_object (&font);
 
-  element_init(elem, 8, NUM_CONNECTIONS);
+  element_init (elem, 8, NUM_CONNECTIONS);
 
-  for (i=0;i<NUM_CONNECTIONS;i++) {
+  for (i = 0; i < NUM_CONNECTIONS; i++) {
     obj->connections[i] = &pkg->connections[i];
     pkg->connections[i].object = obj;
     pkg->connections[i].connected = NULL;
@@ -553,8 +553,8 @@ function_load(ObjectNode obj_node, int version, DiaContext *ctx)
     pkg->text = data_text(attribute_first_data(attr), ctx);
   else { /* paranoid */
     DiaFont *font = dia_font_new_from_style (DIA_FONT_SANS,FUNCTION_FONTHEIGHT);
-    pkg->text = new_text("", font, FUNCTION_FONTHEIGHT, &obj->position, &color_black, ALIGN_CENTER);
-    dia_font_unref(font);
+    pkg->text = new_text ("", font, FUNCTION_FONTHEIGHT, &obj->position, &color_black, ALIGN_CENTER);
+    g_clear_object (&font);
   }
 
   attr = object_find_attribute(obj_node, "is_wish");

@@ -388,7 +388,7 @@ basestation_create(Point *startpoint,
 
   basestation->text = new_text(_("Base Station"),
                                font, 0.8, &p, &color_black, ALIGN_CENTER);
-  dia_font_unref(font);
+  g_clear_object (&font);
   basestation->line_colour = color_black;
   basestation->fill_colour = color_white;
   basestation->sectors = 3;

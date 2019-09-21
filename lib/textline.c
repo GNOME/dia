@@ -46,9 +46,9 @@ text_line_set_string(TextLine *text_line, const gchar *string)
     if (text_line->chars != NULL) {
       g_free(text_line->chars);
     }
-    
+
     text_line->chars = g_strdup(string);
-    
+
     text_line_dirty_cache(text_line);
   }
 }
@@ -60,23 +60,21 @@ text_line_set_string(TextLine *text_line, const gchar *string)
  * \memberof TextLine
  */
 void
-text_line_set_font(TextLine *text_line, DiaFont *font)
+text_line_set_font (TextLine *text_line, DiaFont *font)
 {
   if (text_line->font != font) {
     DiaFont *old_font = text_line->font;
-    dia_font_ref(font);
+    g_object_ref (font);
     text_line->font = font;
-    if (old_font != NULL) {
-      dia_font_unref(old_font);
-    }
-    text_line_dirty_cache(text_line);
+    g_clear_object (&old_font);
+    text_line_dirty_cache (text_line);
   }
 }
 
 /*!
  * \brief Sets the font height used by this object.
  * @param text_line The object to change.
- * @param height The font height to use for displaying this object 
+ * @param height The font height to use for displaying this object
  * (in cm, from baseline to baseline)
  * \memberof TextLine
  */
@@ -125,24 +123,22 @@ text_line_copy(const TextLine *text_line)
  * \memberof TextLine
  */
 void
-text_line_destroy(TextLine *text_line)
+text_line_destroy (TextLine *text_line)
 {
   if (text_line->chars != NULL) {
-    g_free(text_line->chars);
+    g_free (text_line->chars);
   }
-  if (text_line->font != NULL) {
-    dia_font_unref(text_line->font);
-  }
+  g_clear_object (&text_line->font);
   clear_layout_offset (text_line);
   g_free (text_line->offsets);
-  g_free(text_line);
+  g_free (text_line);
 }
 
 /*!
  * \brief TextLine bounding box caclulation
  *
  * Calculate the bounding box size of this object.  Since a text object has no
- * position or alignment, this collapses to just a size. 
+ * position or alignment, this collapses to just a size.
  * @param text_line
  * @param size A place to store the width and height of the text.
  * \memberof TextLine
@@ -168,7 +164,7 @@ text_line_get_font(const TextLine *text_line)
   return text_line->font;
 }
 
-real 
+real
 text_line_get_height(const TextLine *text_line)
 {
   return text_line->height;
@@ -217,11 +213,11 @@ text_line_get_alignment_adjustment(TextLine *text_line, Alignment alignment)
 	return text_line->width;
       default:
 	return 0.0;
-   }  
+   }
 }
 
 /* **** Private functions **** */
-/** Mark this object as needing update before usage. 
+/** Mark this object as needing update before usage.
  * @param text_line the object that has changed.
  */
 static void
@@ -266,9 +262,9 @@ text_line_cache_values(TextLine *text_line)
     if (text_line->chars == NULL ||
 	text_line->chars[0] == '\0') {
       /* caclculate reasonable ascent/decent even for empty string */
-      text_line->offsets = 
+      text_line->offsets =
         dia_font_get_sizes("XjgM149", text_line->font, text_line->height,
-			   &text_line->width, &text_line->ascent, 
+			   &text_line->width, &text_line->ascent,
 			   &text_line->descent, &n_offsets,
 			   &text_line->layout_offsets);
       clear_layout_offset (text_line);
@@ -276,10 +272,10 @@ text_line_cache_values(TextLine *text_line)
       text_line->offsets = g_new (real,0); /* another way to assign NULL;) */
       text_line->width = 0;
     } else {
-      text_line->offsets = 
+      text_line->offsets =
 	dia_font_get_sizes(text_line->chars, text_line->font, text_line->height,
-			   &text_line->width, &text_line->ascent, 
-			   &text_line->descent, &n_offsets, 
+			   &text_line->width, &text_line->ascent,
+			   &text_line->descent, &n_offsets,
 			   &text_line->layout_offsets);
     }
     text_line->clean = TRUE;
@@ -356,7 +352,7 @@ text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
 	(int)(glyphs->glyphs[i].geometry.y_offset * scale / 20.0);
     }
     if (glyphs->num_glyphs != layoutglyphs->num_glyphs) {
-      printf("Glyph length error: %d != %d\n", 
+      printf("Glyph length error: %d != %d\n",
 	     glyphs->num_glyphs, layoutglyphs->num_glyphs);
     }
   }

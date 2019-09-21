@@ -546,9 +546,8 @@ apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
 
       obj->ops->set_props(obj, props);
 
-      if (gs->font)
-	dia_font_unref (gs->font);
-      g_free(gs);
+      g_clear_object (&gs->font);
+      g_free (gs);
 }
 
 /*!
@@ -818,14 +817,14 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
       prop->attr.position.y = point.y;
       /* FIXME: looks like a leak but without this an imported svg is
        * crashing on release */
-      prop->attr.font = dia_font_ref (gs->font);
+      prop->attr.font = g_object_ref (gs->font);
       if (font_height > 0.0) {
-	/* font-size should be the line-height according to SVG spec,
-	 * but see node_set_text_style() - round-trip first */
-	real font_scale = dia_font_get_height (prop->attr.font) / dia_font_get_size (prop->attr.font);
+        /* font-size should be the line-height according to SVG spec,
+        * but see node_set_text_style() - round-trip first */
+        real font_scale = dia_font_get_height (prop->attr.font) / dia_font_get_size (prop->attr.font);
         prop->attr.height = font_height * font_scale;
       } else {
-	prop->attr.height = gs->font_height;
+        prop->attr.height = gs->font_height;
       }
       /* when operating with default values foreground and background are intentionally swapped
        * to avoid getting white text by default */
@@ -847,14 +846,13 @@ read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 	break;
       }
       new_obj->ops->set_props(new_obj, props);
-      prop_list_free(props);
+      prop_list_free (props);
       if (matrix)
-	_transform_object (new_obj, matrix, ctx);
+        _transform_object (new_obj, matrix, ctx);
     }
-    if (gs->font)
-      dia_font_unref (gs->font);
-    g_free(gs);
-    g_free(matrix);
+    g_clear_object (&gs->font);
+    g_free (gs);
+    g_free (matrix);
 
     return list;
 }
@@ -1587,8 +1585,7 @@ read_items (xmlNodePtr   startnode,
 	/* remember for meta */
 	obj = group;
       }
-      if (group_gs->font)
-	dia_font_unref (group_gs->font);
+      g_clear_object (&group_gs->font);
       g_free (group_gs);
       g_free (matrix);
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"symbol")) {

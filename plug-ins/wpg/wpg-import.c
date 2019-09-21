@@ -464,7 +464,7 @@ _do_textstyle (WpgImportRenderer *ren, WPGTextStyle *ts)
 
   dia_renderer_set_font (DIA_RENDERER (ren), font, height);
 
-  dia_font_unref (font);
+  g_clear_object (&font);
 }
 
 static void

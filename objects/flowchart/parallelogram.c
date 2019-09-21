@@ -577,9 +577,9 @@ pgram_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
-  pgram->text = new_text("", font, font_height, &p, &pgram->border_color,
-			 ALIGN_CENTER);
-  dia_font_unref(font);
+  pgram->text = new_text ("", font, font_height, &p, &pgram->border_color,
+                          ALIGN_CENTER);
+  g_clear_object (&font);
 
   /* new default: let the user decide the size */
   pgram->text_fitting = TEXTFIT_WHEN_NEEDED;

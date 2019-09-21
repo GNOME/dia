@@ -142,10 +142,7 @@ end_render (DiaRenderer *self)
     fprintf (renderer->file, "showpage\n");
   }
 
-  if (renderer->font != NULL) {
-    dia_font_unref (renderer->font);
-    renderer->font = NULL;
-  }
+  g_clear_object (&renderer->font);
 }
 
 static void
@@ -292,10 +289,8 @@ set_font (DiaRenderer *self, DiaFont *font, real height)
              psrenderer_dtostr (h_buf, (gdouble) height*0.7));
     old_font = renderer->font;
     renderer->font = font;
-    dia_font_ref (renderer->font);
-    if (old_font != NULL) {
-      dia_font_unref (old_font);
-    }
+    g_object_ref (renderer->font);
+    g_clear_object (&old_font);
     renderer->font_height = height;
   }
 }

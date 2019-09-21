@@ -70,9 +70,10 @@ PyDiaLayer_Str(PyDiaLayer *self)
 static PyObject *
 PyDiaLayer_Destroy (PyDiaLayer *self, PyObject *args)
 {
-  if (!PyArg_ParseTuple(args, ":Layer.destroy"))
+  if (!PyArg_ParseTuple (args, ":Layer.destroy"))
     return NULL;
-  dia_layer_destroy (self->layer);
+
+  g_clear_object (&self->layer);
   self->layer = NULL; /* we need some error checking elsewhere */
   Py_INCREF (Py_None);
   return Py_None;

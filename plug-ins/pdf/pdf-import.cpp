@@ -48,7 +48,7 @@
  *
  * The PDF import plug-in is built on http://poppler.freedesktop.org/ library.
  * It is currently considered experimental because it has no means of
- * limiting the input to something Dia can really cope with. 
+ * limiting the input to something Dia can really cope with.
  */
 
 /*!
@@ -79,7 +79,7 @@ public :
 			GBool (*annotDisplayDecideCbk)(Annot *annot, void *user_data),
 			void *annotDisplayDecideCbkData)
   {
-    PDFRectangle *mediaBox = page->getMediaBox(); 
+    PDFRectangle *mediaBox = page->getMediaBox();
     PDFRectangle *clipBox = page->getCropBox ();
 
     if (page->isOk()) {
@@ -144,13 +144,13 @@ public :
     updateLineWidth(state);
   }
 
-  //! 
+  //!
   void updateLineWidth(GfxState *state)
   {
     this->line_width = state->getLineWidth() * scale;
   }
   void updateLineDash(GfxState * state)
-  { 
+  {
     double *dashPattern;
     int dashLength;
     double dashStart;
@@ -198,9 +198,9 @@ public :
     this->stroke_color.blue = colToDbl(color.b);
   }
   void updateStrokeOpacity(GfxState *state)
-  { 
+  {
     this->stroke_color.alpha = state->getStrokeOpacity();
-  }  
+  }
   void updateFillColor(GfxState *state)
   {
     GfxRGB color;
@@ -216,7 +216,7 @@ public :
     this->fill_color.blue = colToDbl(color.b);
   }
   void updateFillOpacity(GfxState *state)
-  { 
+  {
     this->fill_color.alpha = state->getFillOpacity();
   }
   //! gradients are just emulated - but not if returning false here
@@ -260,7 +260,7 @@ public :
 				     x0 + tMin * dx, y0 + tMin * dy);
     dia_pattern_set_point (this->pattern, x0 + tMax * dx, y0 + tMax * dy);
     // continue with updateFillColorStop calls
-    // although wasteful, because Poppler samples these to 256 entries 
+    // although wasteful, because Poppler samples these to 256 entries
     return gFalse;
   }
   GBool radialShadedSupportExtend(GfxState *state, GfxRadialShading *shading)
@@ -290,7 +290,7 @@ public :
     dia_pattern_set_radius (this->pattern, r0 + sMax * dr);
     dia_pattern_set_point (this->pattern, x0 + sMin * dx, y0 + sMin * dy);
     // continue with updateFillColorStop calls
-    // although wasteful, because Poppler samples these to 256 entries 
+    // although wasteful, because Poppler samples these to 256 entries
     return gFalse;
   }
   void updateBlendMode(GfxState *state)
@@ -302,7 +302,7 @@ public :
   void updateFont(GfxState * state)
   {
     DiaFont *font;
-      
+
     // without a font it wont make sense
     if (!state->getFont())
       return;
@@ -391,7 +391,7 @@ public :
   void drawImage(GfxState *state, Object *ref, Stream *str,
 		 int width, int height, GfxImageColorMap *colorMap,
 		 GBool interpolate, int *maskColors, GBool inlineImg);
-  
+
   //! everything on a single page it put into a Dia Group
   void startPage(int pageNum, GfxState *state)
   {
@@ -492,7 +492,7 @@ DiaOutputDev::DiaOutputDev (DiagramData *_dia, int _n) :
   pattern(NULL)
 {
   font_map = g_hash_table_new_full(g_direct_hash, g_direct_equal,
-				   NULL, (GDestroyNotify)dia_font_unref);
+				   NULL, (GDestroyNotify) g_object_unref);
   matrix.xx = matrix.yy = 1.0;
   matrix.yx = matrix.xy = 0.0;
   matrix.x0 = matrix.y0 = 0.0;
@@ -525,7 +525,7 @@ _path_lineto (GArray *path, const Point *pt)
   g_array_append_val (path, bp);
 }
 
-bool 
+bool
 DiaOutputDev::doPath (GArray *points, GfxState *state, GfxPath *path, bool &haveClose)
 {
   int i, j;
@@ -661,7 +661,7 @@ DiaOutputDev::_fill (GfxState *state, bool winding)
   }
   g_array_free (points, TRUE);
   if (obj) {
-    // Useful for debugging but high performance penalty 
+    // Useful for debugging but high performance penalty
     // dia_object_set_meta (obj, "fill-rule", winding ? "winding" : "even-odd");
     addObject (obj);
   }
@@ -696,7 +696,7 @@ DiaOutputDev::eoFill (GfxState *state)
  *
  * \todo Check alignment options - it's just guessed yet.
  */
-void 
+void
 DiaOutputDev::drawString(GfxState *state, GooString *s)
 {
   Color text_color = this->fill_color;
@@ -722,7 +722,7 @@ DiaOutputDev::drawString(GfxState *state, GooString *s)
     CharCode code;
     int   j = 0, m, n;
     utf8 = g_new (gchar, len * 6 + 1);
-    Unicode *u; 
+    Unicode *u;
     int uLen;
     double dx, dy, ox, oy;
 
@@ -752,7 +752,7 @@ DiaOutputDev::drawString(GfxState *state, GooString *s)
     obj = create_standard_text (ty * scale, tx * scale);
   //not applyStyle (obj, TEXT);
   GPtrArray *plist = g_ptr_array_new ();
-  // the "text" property is special, it must be initialized with text 
+  // the "text" property is special, it must be initialized with text
   // attributes, too. So here it comes first to avoid overwriting
   // the other values with defaults.
   prop_list_add_text (plist, "text", utf8);
@@ -839,7 +839,7 @@ DiaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str,
     g_hash_table_insert (this->image_cache, str, g_object_ref (pixbuf));
   }
 #endif
-  obj = create_standard_image (pos.x, pos.y, 
+  obj = create_standard_image (pos.x, pos.y,
 			       ctm[0]  * scale,
 			       ctm[3]  * scale, NULL);
   if ((change = dia_object_set_pixbuf (obj, pixbuf)) != NULL) {

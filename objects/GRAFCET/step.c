@@ -554,11 +554,11 @@ step_create(Point *startpoint,
 }
 
 static void
-step_destroy(Step *step)
+step_destroy (Step *step)
 {
-  dia_font_unref(step->font);
-  g_free(step->id);
-  element_destroy(&step->element);
+  g_clear_object (&step->font);
+  g_free (step->id);
+  element_destroy (&step->element);
 }
 
 static DiaObject *

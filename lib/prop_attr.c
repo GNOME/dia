@@ -378,24 +378,22 @@ fontprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static void
-fontprop_free(FontProperty *prop)
+fontprop_free (FontProperty *prop)
 {
-  if (prop->font_data)
-    dia_font_unref(prop->font_data);
-  g_free(prop);
+  g_clear_object (&prop->font_data);
+  g_free (prop);
 }
 
 static FontProperty *
 fontprop_copy(FontProperty *src)
 {
   FontProperty *prop =
-    (FontProperty *)src->common.ops->new_prop(src->common.descr,
-                                               src->common.reason);
-  copy_init_property(&prop->common,&src->common);
+    (FontProperty *) src->common.ops->new_prop (src->common.descr,
+                                                src->common.reason);
+  copy_init_property (&prop->common, &src->common);
 
-  if (prop->font_data)
-    dia_font_unref(prop->font_data);
-  prop->font_data = dia_font_ref(src->font_data);
+  g_clear_object (&prop->font_data);
+  prop->font_data = g_object_ref (src->font_data);
 
   return prop;
 }
@@ -424,8 +422,7 @@ fontprop_set_from_widget(FontProperty *prop, WIDGET *widget)
 static void
 fontprop_load(FontProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  if (prop->font_data)
-    dia_font_unref(prop->font_data);
+  g_clear_object (&prop->font_data);
   prop->font_data = data_font(data, ctx);
 }
 
@@ -442,36 +439,36 @@ fontprop_get_from_offset(FontProperty *prop,
   /* if we get the same font dont unref before reuse */
   DiaFont *old_font = prop->font_data;
   if (offset2 == 0) {
-    prop->font_data = dia_font_ref(struct_member(base,offset,DiaFont *));
+    prop->font_data = g_object_ref (struct_member (base, offset, DiaFont *));
   } else {
     void *base2 = struct_member(base,offset,void*);
     g_return_if_fail (base2 != NULL);
-    prop->font_data = dia_font_ref(struct_member(base2,offset2,DiaFont *));
+    prop->font_data = g_object_ref (struct_member (base2, offset2, DiaFont *));
   }
-  if (old_font)
-    dia_font_unref(old_font);
+  g_clear_object (&old_font);
 }
 
 static void
-fontprop_set_from_offset(FontProperty *prop,
-                         void *base, guint offset, guint offset2)
+fontprop_set_from_offset (FontProperty *prop,
+                          void         *base,
+                          guint         offset,
+                          guint         offset2)
 {
   if (prop->font_data) {
     DiaFont *old_font;
 
     if (offset2 == 0) {
-      old_font = struct_member(base,offset,DiaFont *);
-      struct_member(base,offset,DiaFont *) = dia_font_ref(prop->font_data);
+      old_font = struct_member (base, offset, DiaFont *);
+      struct_member (base, offset, DiaFont *) = g_object_ref (prop->font_data);
     } else {
-      void *base2 = struct_member(base,offset,void*);
+      void *base2 = struct_member (base, offset, void*);
       g_return_if_fail (base2 != NULL);
-      old_font = struct_member(base2,offset2,DiaFont *);
-      struct_member(base2,offset2,DiaFont *) = dia_font_ref(prop->font_data);
+      old_font = struct_member (base2, offset2, DiaFont *);
+      struct_member (base2, offset2, DiaFont *) = g_object_ref (prop->font_data);
       g_return_if_fail (offset2 == offsetof(Text, font));
-      text_set_font ((Text *)base2, prop->font_data);
+      text_set_font ((Text *) base2, prop->font_data);
     }
-    if (old_font)
-      dia_font_unref(old_font);
+    g_clear_object (&old_font);
   }
 }
 

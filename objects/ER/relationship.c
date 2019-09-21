@@ -477,13 +477,13 @@ relationship_create(Point *startpoint,
 }
 
 static void
-relationship_destroy(Relationship *relationship)
+relationship_destroy (Relationship *relationship)
 {
-  dia_font_unref(relationship->font);
-  element_destroy(&relationship->element);
-  g_free(relationship->name);
-  g_free(relationship->left_cardinality);
-  g_free(relationship->right_cardinality);
+  g_clear_object (&relationship->font);
+  element_destroy (&relationship->element);
+  g_free (relationship->name);
+  g_free (relationship->left_cardinality);
+  g_free (relationship->right_cardinality);
 }
 
 static DiaObject *
@@ -513,7 +513,7 @@ relationship_copy(Relationship *relationship)
     newrelationship->connections[i].pos = relationship->connections[i].pos;
   }
 
-  newrelationship->font = dia_font_ref(relationship->font);
+  newrelationship->font = g_object_ref (relationship->font);
   newrelationship->font_height = relationship->font_height;
   newrelationship->name = g_strdup(relationship->name);
   newrelationship->left_cardinality =

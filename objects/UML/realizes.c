@@ -439,13 +439,13 @@ realizes_create(Point *startpoint,
 }
 
 static void
-realizes_destroy(Realizes *realize)
+realizes_destroy (Realizes *realize)
 {
-  g_free(realize->name);
-  g_free(realize->stereotype);
-  g_free(realize->st_stereotype);
-  dia_font_unref(realize->font);
-  orthconn_destroy(&realize->orth);
+  g_free (realize->name);
+  g_free (realize->stereotype);
+  g_free (realize->st_stereotype);
+  g_clear_object (&realize->font);
+  orthconn_destroy (&realize->orth);
 }
 
 static DiaObject *

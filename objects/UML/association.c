@@ -899,7 +899,7 @@ association_destroy(Association *assoc)
   int i;
 
   orthconn_destroy(&assoc->orth);
-  dia_font_unref(assoc->font);
+  g_clear_object (&assoc->font);
   g_free(assoc->name);
 
   for (i=0;i<2;i++) {

@@ -567,16 +567,18 @@ boolequation_set_value(Boolequation *booleq, const gchar *value)
 
 
 Boolequation *
-boolequation_create(const gchar *value, DiaFont *font, real fontheight,
-		   Color *color)
+boolequation_create (const gchar *value,
+                     DiaFont     *font,
+                     real         fontheight,
+                     Color       *color)
 {
   Boolequation *booleq;
 
-  booleq = g_new0(Boolequation,1);
-  booleq->font = dia_font_ref(font);
+  booleq = g_new0 (Boolequation,1);
+  booleq->font = g_object_ref (font);
   booleq->fontheight = fontheight;
   booleq->color = *color;
-  boolequation_set_value(booleq,value);
+  boolequation_set_value (booleq,value);
 
   return booleq;
 }
@@ -585,10 +587,10 @@ void
 boolequation_destroy(Boolequation *booleq)
 {
   g_return_if_fail(booleq);
-  dia_font_unref(booleq->font);
+  g_clear_object (&booleq->font);
   if (booleq->value) g_free((gchar *)booleq->value);
   if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
-  g_free(booleq);
+  g_free (booleq);
 }
 
 void

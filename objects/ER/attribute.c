@@ -489,7 +489,7 @@ attribute_copy(Attribute *attribute)
     newattribute->connections[i].flags = attribute->connections[i].flags;
   }
 
-  newattribute->font = dia_font_ref(attribute->font);
+  newattribute->font = g_object_ref (attribute->font);
   newattribute->font_height = attribute->font_height;
   newattribute->name = g_strdup(attribute->name);
   newattribute->name_width = attribute->name_width;
@@ -587,7 +587,7 @@ attribute_load(ObjectNode obj_node, int version,DiaContext *ctx)
 
   if (attribute->font != NULL) {
     /* This shouldn't happen, but doesn't hurt */
-    dia_font_unref(attribute->font);
+    g_clear_object (&attribute->font);
     attribute->font = NULL;
   }
   attr = object_find_attribute (obj_node, "font");

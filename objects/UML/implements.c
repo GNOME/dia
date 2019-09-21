@@ -352,11 +352,11 @@ implements_create(Point *startpoint,
 
 
 static void
-implements_destroy(Implements *implements)
+implements_destroy (Implements *implements)
 {
-  connection_destroy(&implements->connection);
-  dia_font_unref(implements->font);
-  g_free(implements->text);
+  connection_destroy (&implements->connection);
+  g_clear_object (&implements->font);
+  g_free (implements->text);
 }
 
 static void

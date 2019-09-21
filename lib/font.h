@@ -124,7 +124,7 @@ PangoContext *dia_font_get_context(void);
 /*!
  * \brief Font creation for object implementation
  * \ingroup ObjectFonts
- * Get a font matching family,style,height. MUST be freed with dia_font_unref().
+ * Get a font matching family,style,height.
  */
 DiaFont* dia_font_new(const char *family, DiaFontStyle style,
                       real height);
@@ -154,9 +154,6 @@ const char* dia_font_get_legacy_name(const DiaFont* font);
 
     /* Same attributes */
 DiaFont *dia_font_copy(const DiaFont* font);
-
-DiaFont* dia_font_ref(DiaFont* font);
-void dia_font_unref(DiaFont* font);
 
     /* Retrieves the style of the font */
 DiaFontStyle dia_font_get_style(const DiaFont* font);

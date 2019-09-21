@@ -30,27 +30,28 @@
 PyObject* PyDiaFont_New (DiaFont* font)
 {
   PyDiaFont *self;
-  
+
   self = PyObject_NEW(PyDiaFont, &PyDiaFont_Type);
   if (!self) return NULL;
 
-  if (font)
-    self->font = dia_font_ref (font);
-  else
+  if (font) {
+    self->font = g_object_ref (font);
+  } else {
     self->font = NULL;
+  }
 
-  return (PyObject *)self;
+  return (PyObject *) self;
 }
 
 /*
  * Dealloc
  */
 static void
-PyDiaFont_Dealloc(PyDiaFont *self)
+PyDiaFont_Dealloc (PyDiaFont *self)
 {
-  if (self->font)
-    dia_font_unref (self->font);
-  PyObject_DEL(self);
+  g_clear_object (&self->font);
+
+  PyObject_DEL (self);
 }
 
 /*
@@ -69,7 +70,7 @@ PyDiaFont_Compare(PyDiaFont *self,
   else if (!other->font)
     return -1;
 
-  ret = strcmp (dia_font_get_family (self->font), 
+  ret = strcmp (dia_font_get_family (self->font),
                 dia_font_get_family (other->font));
   if (ret != 0)
     return ret;

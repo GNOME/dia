@@ -420,7 +420,7 @@ usecase_create(Point *startpoint,
   p.y += USECASE_HEIGHT/2.0;
 
   usecase->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
-  dia_font_unref(font);
+  g_clear_object (&font);
 
   usecase->text_outside = 0;
   usecase->collaboration = 0;

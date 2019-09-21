@@ -282,7 +282,7 @@ _render_object (xmlNodePtr render, DiaContext *ctx)
     } else if (xmlStrcmp (node->name, (const xmlChar *) "set-font") == 0) {
       DiaFont *font = _parse_font (node);
       dia_renderer_set_font (ir, font, _parse_real (node, "height"));
-      dia_font_unref (font);
+      g_clear_object (&font);
     } else {
       Color *stroke = _parse_color (node, "stroke");
       Color *fill = _parse_color (node, "fill");

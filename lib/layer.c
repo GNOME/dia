@@ -375,17 +375,6 @@ dia_layer_new_from_layer (DiaLayer *old)
   return layer;
 }
 
-/**
- * dia_layer_destroy;
- * @layer: The layer object to deallocate entirely.
- *
- * Destroy a layer object.
- */
-void
-dia_layer_destroy (DiaLayer *layer)
-{
-  g_object_unref (layer);
-}
 
 /*!
  * \brief Set the parent layer of an object.

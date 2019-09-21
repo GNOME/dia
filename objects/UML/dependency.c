@@ -443,13 +443,13 @@ dependency_create(Point *startpoint,
 }
 
 static void
-dependency_destroy(Dependency *dep)
+dependency_destroy (Dependency *dep)
 {
-  g_free(dep->name);
-  g_free(dep->stereotype);
-  g_free(dep->st_stereotype);
-  dia_font_unref(dep->font);
-  orthconn_destroy(&dep->orth);
+  g_free (dep->name);
+  g_free (dep->stereotype);
+  g_free (dep->st_stereotype);
+  g_clear_object (&dep->font);
+  orthconn_destroy (&dep->orth);
 }
 
 static DiaObject *

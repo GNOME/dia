@@ -500,7 +500,7 @@ sadtbox_create(Point *startpoint,
                        0.8, &p,
                        &color_black,
                        ALIGN_CENTER);
-  dia_font_unref(font);
+  g_clear_object (&font);
 
   box->id = g_strdup("A0"); /* should be made better.
                                Automatic counting ? */

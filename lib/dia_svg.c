@@ -71,7 +71,7 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
   gs->linecap = parent_style ? parent_style->linecap : LINECAPS_DEFAULT;
   gs->linejoin = parent_style ? parent_style->linejoin : LINEJOIN_DEFAULT;
   gs->linestyle = parent_style ? parent_style->linestyle : LINESTYLE_DEFAULT;
-  gs->font = (parent_style && parent_style->font) ? dia_font_ref(parent_style->font) : NULL;
+  gs->font = (parent_style && parent_style->font) ? g_object_ref (parent_style->font) : NULL;
   gs->font_height = parent_style ? parent_style->font_height : 0.8;
   gs->alignment = parent_style ? parent_style->alignment : ALIGN_LEFT;
 
@@ -97,9 +97,8 @@ dia_svg_style_copy(DiaSvgStyle *dest, DiaSvgStyle *src)
   dest->dashlength = src->dashlength;
   dest->fill = src->fill;
   dest->fill_opacity = src->fill_opacity;
-  if (dest->font)
-    dia_font_unref (dest->font);
-  dest->font = src->font ? dia_font_ref(src->font) : NULL;
+  g_clear_object (&dest->font);
+  dest->font = src->font ? g_object_ref (src->font) : NULL;
   dest->font_height = src->font_height;
   dest->alignment = src->alignment;
   dest->stop_color = src->stop_color;
@@ -506,8 +505,7 @@ _parse_linecap (DiaSvgStyle *s, const char *val)
 static void
 _style_adjust_font (DiaSvgStyle *s, const char *family, const char *style, const char *weight)
 {
-    if (s->font)
-      dia_font_unref (s->font);
+    g_clear_object (&s->font);
     /* given font_height is bogus, especially if not given at all
      * or without unit ... see bug 665648 about invalid CSS
      */

@@ -409,11 +409,11 @@ component_create(Point *startpoint,
   p.x += COMPONENT_CWIDTH + COMPONENT_MARGIN_X;
   p.y += 2*COMPONENT_CHEIGHT;
 
-  cmp->text = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  cmp->text = new_text ("", font, 0.8, &p, &color_black, ALIGN_LEFT);
 
-  dia_font_unref(font);
+  g_clear_object (&font);
 
-  element_init(elem, 8, NUM_CONNECTIONS);
+  element_init (elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &cmp->connections[i];

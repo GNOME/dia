@@ -1941,14 +1941,14 @@ umlclass_destroy(UMLClass *umlclass)
 
   umlclass->destroyed = TRUE;
 
-  dia_font_unref(umlclass->normal_font);
-  dia_font_unref(umlclass->abstract_font);
-  dia_font_unref(umlclass->polymorphic_font);
-  dia_font_unref(umlclass->classname_font);
-  dia_font_unref(umlclass->abstract_classname_font);
-  dia_font_unref(umlclass->comment_font);
+  g_clear_object (&umlclass->normal_font);
+  g_clear_object (&umlclass->abstract_font);
+  g_clear_object (&umlclass->polymorphic_font);
+  g_clear_object (&umlclass->classname_font);
+  g_clear_object (&umlclass->abstract_classname_font);
+  g_clear_object (&umlclass->comment_font);
 
-  element_destroy(&umlclass->element);
+  element_destroy (&umlclass->element);
 
   g_free(umlclass->name);
   g_free(umlclass->stereotype);
