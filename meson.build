@@ -8,6 +8,7 @@ project('dia',
 cc = meson.get_compiler('c')
 conf = configuration_data()
 
+#State dependencies
 libglib_dep = dependency('glib-2.0',   version: '>= 2.58')
 libgtk_dep  = dependency('gtk+-2.0',   version: '>= 2.24.31')
 libxml_dep  = dependency('libxml-2.0', version: '>= 2.9.4')
@@ -33,11 +34,15 @@ conf.set('HAVE_OGDF', libogdf_dep.found())
 libxslt_dep = dependency('libxslt', required: false)
 conf.set('HAVE_XSLT', libxslt_dep.found())
 
+#Set Directories
+#datadir holds read-only data that is architecture-independent
 datadir = join_paths(get_option('prefix'),
                      get_option('datadir'))
 
+#Read-only dia-specific archetecture independent data
 pkgdatadir = join_paths(datadir, meson.project_name())
 
+#Oject code goes here
 dialibdir = join_paths(get_option('prefix'),
                        get_option('libdir'),
                        meson.project_name())
@@ -51,6 +56,7 @@ conf.set_quoted('DIALIBDIR',  dialibdir)
 conf.set_quoted('LOCALEDIR', get_option('localedir'))
 conf.set('ENABLE_NLS', true)
 
+#Note what headers and functions are availible
 foreach h : ['stddef.h', 'fcntl.h', 'unistd.h', 'utime.h']
     conf.set10('HAVE_' + h.underscorify().to_upper(), cc.has_header(h))
 endforeach
@@ -63,6 +69,7 @@ configuration_inc = include_directories('.')
 config_h_in = configure_file(output: 'config.h.in', configuration: conf)
 config_h = vcs_tag(input: config_h_in, output: 'config.h')
 
+#Prevent unecessary deprication warnings
 gtk_ver = 'GDK_VERSION_2_24'
 glib_ver = 'GLIB_VERSION_2_58'
 add_project_arguments([
@@ -72,6 +79,7 @@ add_project_arguments([
   '-DGLIB_VERSION_MAX_ALLOWED=@0@'.format(glib_ver),
 ], language: 'c')
 
+#Execute builds of subdirectories
 subdir('po')
 subdir('lib')
 subdir('objects')
