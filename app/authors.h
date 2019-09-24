@@ -118,5 +118,8 @@ static const gchar *documentors[] =	{
     "Judith Samson <judith@samsonsource.com>",
     "Kevin Breit <battery841@mypad.com>",
     "Alan Horkan <horkana@tcd.ie>",
+
+    /* Resident idiot */
+    "Calum McConnell <calumlikesapplepie@gmail.com>",
     NULL
 };

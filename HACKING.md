@@ -5,16 +5,20 @@ the dia maintainers and/or the mailing list if you do any
 larger work --- this is in everyone's interest so that work is
 not duplicated.
 
-For more information on the authors, maintainers, etc., of dia,
-please see the file AUTHORS and the git history, after 20 years a lot of people have worked on Dia
-
 Visit the dia repository at https://gitlab.gnome.org/GNOME/dia
 for more information on the dia mailing list and many other
 dia-related things.
 
+For more information on the authors, maintainers, etc., of dia,
+please see the file AUTHORS and the git history, after 20 years a lot of people have worked on Dia
+
 If you need to alter the list of contributors, documentors,
 etc., the main list is in app/authors.h.
 
+You may notice that large portions of the code lack styling, comments, or similar.
+Please try to fix problems as you see them.  If you spend a day puzzling out a code block,
+explain it to the rest of us.  We still are lacking for an offical style guide, so just
+try to match the surrounding source (and obey the .editorconfig)
 
 ## Some comments about the source
 Everything on the screen 'inherits' from the structure Object
@@ -39,7 +43,7 @@ exists a copy of this for each object of the kind on screen (and in
 copy-buffers). This contains some info like: type, bounding_box, position,
 handles (the rectangles you move with the mouse) and connections. It also
 contains a pointer to the object-operations. These are called from the main
-program when if wants the object to do something. All ops take an Object as
+program when it wants the object to do something. All ops take an Object as
 the first argument. This is usually casted to the subtype in the function
 headed (gives all those pita warnings) so that you directly can use the info
 stored in the subclasses. Most ops are quite self-describing, and the code can
@@ -49,7 +53,9 @@ in `lib/diarenderer.h`.
 
 ### XML based objects
 You can (from version 0.80) create new objects using a SVG like XML languange.
-The file doc/custom-shapes has more information about this.
+The file doc/custom-shapes has more information about this.  
+The /shapes folder contains XML based objects that have been encorporated into 
+the main body of dia.
 
 ### Handles and connection points
 An object has handles to resize it. A handle can be moved either because
@@ -89,6 +95,7 @@ the analysis.
 
 ### Coverity
 
+Coverity is an analyzer that focuses on scanning for security flaws
 Dia GNOME has a coverity web-page here: https://scan.coverity.com/projects/dia-gnome/
 
 #### Known bug: `error: identifier "_Float128" is undefined`

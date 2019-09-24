@@ -80,19 +80,19 @@ add_project_arguments([
 ], language: 'c')
 
 #Execute builds of subdirectories
-subdir('po')
-subdir('lib')
-subdir('objects')
-subdir('app')
-subdir('data')
-subdir('doc')
-subdir('plug-ins')
-subdir('sheets')
-subdir('shapes')
+subdir('po')           #Translations are here
+subdir('lib')          #The object-handling backend
+subdir('objects')      #Hard-coded displayable diagram items
+subdir('app')          #The user-handling frontend
+subdir('data')         #Icons, UI dialogs, and other non-code files
+subdir('doc')          #Handwritten user documentation
+subdir('plug-ins')     #Various bits of included add-on functionality
+subdir('sheets')       #Sheets that organise shapes and objects for selection and display 
+subdir('shapes')       #'add on' shapes written using the XML language for custom shapes
 if get_option('tests')
-    subdir('tests')
+    subdir('tests')    #Unit tests, currently not built
 endif
-subdir('docs')
+subdir('docs')         #API documentation generated off code
 
 # TODO: idealy this should use run_env from tests/
 # Unfortunately, neither run_target or custom_target support env
