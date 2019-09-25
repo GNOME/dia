@@ -22,10 +22,9 @@
 #include "diagram.h"
 
 
-void layer_dialog_create(void);
-void layer_dialog_update_diagram_list(void);
-void layer_dialog_show(void);
-void layer_dialog_set_diagram(Diagram *dia);
+void layer_dialog_create      (void);
+void layer_dialog_show        (void);
+void layer_dialog_set_diagram (Diagram *dia);
 
 /* Integrated UI component */
 GtkWidget * create_layer_view_widget (void);

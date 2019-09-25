@@ -1,4 +1,4 @@
-EXPORTS 
+EXPORTS
  ; all these exports are only required for pydia
  ddisplay_active
  ddisplay_add_update_all
@@ -27,7 +27,9 @@ EXPORTS
  diagram_is_modified
  diagram_is_selected
  diagram_load
- new_diagram
+ dia_diagram_new
+ dia_diagram_set_file
+ dia_diagram_get_file
  diagram_get_type
  diagram_remove_all_selected
  diagram_save

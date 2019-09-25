@@ -546,11 +546,11 @@ static void
 _dtm_init (DiagramTreeModel *dtm)
 {
   /* connect to intersting state changes */
-  g_signal_connect (G_OBJECT (dia_application_get ()),
+  g_signal_connect (G_OBJECT (dia_application_get_default ()),
                     "diagram_add", G_CALLBACK (_diagram_add), dtm);
-  g_signal_connect (G_OBJECT (dia_application_get ()),
+  g_signal_connect (G_OBJECT (dia_application_get_default ()),
                     "diagram_change", G_CALLBACK (_diagram_change), dtm);
-  g_signal_connect (G_OBJECT(dia_application_get ()),
+  g_signal_connect (G_OBJECT(dia_application_get_default ()),
                     "diagram_remove", G_CALLBACK (_diagram_remove), dtm);
   /* also connect to every already existing diagram */
   {
@@ -568,9 +568,9 @@ _dtm_finalize (GObject *object)
 {
   DiagramTreeModel *dtm = (DiagramTreeModel *)object;
 
-  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get ()), _diagram_add, dtm);
-  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get ()), _diagram_change, dtm);
-  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get ()), _diagram_remove, dtm);
+  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get_default ()), _diagram_add, dtm);
+  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get_default ()), _diagram_change, dtm);
+  g_signal_handlers_disconnect_by_func (G_OBJECT (dia_application_get_default ()), _diagram_remove, dtm);
 
   G_OBJECT_CLASS(_dtm_parent_class)->finalize (object);
 }

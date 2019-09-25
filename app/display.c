@@ -54,35 +54,26 @@ GdkCursor *default_cursor = NULL;
 
 static DDisplay *active_display = NULL;
 
-
-typedef struct _IRectangle {
-  int top, bottom;
-  int left,right;
-} IRectangle;
-
 static void
-update_zoom_status(DDisplay *ddisp)
+update_zoom_status (DDisplay *ddisp)
 {
   gchar* zoom_text;
 
-  if (is_integrated_ui ())
-  {
-    zoom_text = g_strdup_printf("%.0f%%",
-	   ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
+  if (is_integrated_ui ()) {
+    zoom_text = g_strdup_printf ("%.0f%%",
+                                 ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
 
     integrated_ui_toolbar_set_zoom_text (ddisp->common_toolbar, zoom_text);
-  }
-  else
-  {
+  } else {
     GtkWidget *zoomcombo;
-    zoom_text = g_strdup_printf("%.1f%%",
-	     ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
+    zoom_text = g_strdup_printf ("%.1f%%",
+                                 ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
     zoomcombo = ddisp->zoom_status;
-    gtk_entry_set_text(GTK_ENTRY (g_object_get_data (G_OBJECT(zoomcombo), "user_data")),
-		       zoom_text);
+    gtk_entry_set_text (GTK_ENTRY (g_object_get_data (G_OBJECT(zoomcombo), "user_data")),
+                        zoom_text);
   }
 
-  g_free(zoom_text); /* Copied by gtk_entry_set_text */
+  g_free (zoom_text); /* Copied by gtk_entry_set_text */
 }
 
 static void
@@ -223,11 +214,10 @@ new_display(Diagram *dia)
   DiaRectangle visible;
   int preset;
 
-  ddisp = g_new0(DDisplay,1);
+  ddisp = g_new0 (DDisplay,1);
 
-  ddisp->diagram = dia;
   /* Every display has it's own reference */
-  g_object_ref(dia);
+  ddisp->diagram = g_object_ref (dia);
 
   ddisp->grid.visible = prefs.grid.visible;
   preset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(dia), "show-grid"));
@@ -258,7 +248,7 @@ new_display(Diagram *dia)
 
   ddisp->clicked_position.x = ddisp->clicked_position.y = 0.0;
 
-  diagram_add_ddisplay(dia, ddisp);
+  diagram_add_ddisplay (dia, ddisp);
   g_signal_connect (dia, "selection_changed", G_CALLBACK(selection_changed), ddisp);
   ddisp->origo.x = 0.0;
   ddisp->origo.y = 0.0;
@@ -1102,7 +1092,7 @@ are_you_sure_close_dialog_respond(GtkWidget *widget, /* the dialog */
 }
 
 void
-ddisplay_close(DDisplay *ddisp)
+ddisplay_close (DDisplay *ddisp)
 {
   Diagram *dia;
   GtkWidget *dialog, *button;
@@ -1213,14 +1203,12 @@ ddisplay_really_destroy(DDisplay *ddisp)
     display_set_active(NULL);
 
   if (ddisp->diagram) {
-    diagram_remove_ddisplay(ddisp->diagram, ddisp);
+    diagram_remove_ddisplay (ddisp->diagram, ddisp);
     /* if we are the last user of the diagram it will be unref'ed */
-    g_object_unref(ddisp->diagram);
-    ddisp->diagram = NULL;
+    g_clear_object (&ddisp->diagram);
   }
 
-  g_object_unref (ddisp->renderer);
-  ddisp->renderer = NULL;
+  g_clear_object (&ddisp->renderer);
 
   /* Free update_areas list: */
   ddisplay_free_update_areas(ddisp);

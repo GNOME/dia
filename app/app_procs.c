@@ -479,7 +479,11 @@ handle_initial_diagram (const char *in_file_name,
     if (g_file_test (in_file_name, G_FILE_TEST_EXISTS)) {
       diagram = diagram_load (in_file_name, NULL);
     } else {
-      diagram = new_diagram (in_file_name);
+      GFile *file = g_file_new_for_path (in_file_name);
+
+      diagram = dia_diagram_new (file);
+
+      g_clear_object (&file);
     }
 
     if (diagram != NULL) {
@@ -845,29 +849,16 @@ app_init (int argc, char **argv)
                                           output_directory);
 
   if (dia_is_interactive && files == NULL && !nonew) {
-    if (use_integrated_ui) {
-      GList * list;
+    GList * list;
 
-      file_new_callback (NULL);
-      list = dia_open_diagrams ();
-      if (list) {
-        Diagram * diagram = list->data;
-        diagram_update_extents (diagram);
-        diagram->is_default = TRUE;
-      }
-    } else {
-      gchar *filename = g_filename_from_utf8 (_("Diagram1.dia"), -1, NULL, NULL, NULL);
-      Diagram *diagram = new_diagram (filename);
-      g_free (filename);
+    file_new_callback (NULL);
 
-      if (diagram != NULL) {
-        diagram_update_extents (diagram);
-        diagram->is_default = TRUE;
-        /* I think this is done in diagram_init() with a call to
-         * layer_dialog_update_diagram_list() */
-        layer_dialog_set_diagram (diagram);
-        new_display (diagram);
-      }
+    list = dia_open_diagrams ();
+    if (list) {
+      Diagram * diagram = list->data;
+      diagram_update_extents (diagram);
+      diagram->is_default = TRUE;
+      layer_dialog_set_diagram (diagram);
     }
   }
   g_slist_free (files);

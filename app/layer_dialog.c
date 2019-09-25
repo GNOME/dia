@@ -88,9 +88,18 @@ struct _DiaLayerWidgetClass
 
 GType dia_layer_widget_get_type(void);
 
+enum {
+  COL_FILENAME,
+  COL_DIAGRAM
+};
+
 struct LayerDialog {
   GtkWidget *dialog;
-  GtkWidget *diagram_omenu;
+
+  GtkListStore *diagrams_store;
+  GtkWidget    *diagrams_combo;
+
+  gboolean setting_active;
 
   GtkWidget *layer_list;
 
@@ -102,7 +111,7 @@ static struct LayerDialog *layer_dialog = NULL;
 typedef struct _ButtonData ButtonData;
 
 struct _ButtonData {
-  gchar *stock_name;
+  gchar *icon_name;
   gpointer callback;
   char *tooltip;
 };
@@ -160,62 +169,41 @@ static void layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata);
 static void layer_dialog_edit_layer(DiaLayerWidget *layer_widget, Diagram *dia, DiaLayer *layer);
 
 static ButtonData buttons[] = {
-  { GTK_STOCK_ADD, layer_dialog_new_callback, N_("New Layer") },
-  { GTK_STOCK_EDIT, layer_dialog_rename_callback, N_("Rename Layer") },
-  { GTK_STOCK_GO_UP, layer_dialog_raise_callback, N_("Raise Layer") },
-  { GTK_STOCK_GO_DOWN, layer_dialog_lower_callback, N_("Lower Layer") },
-  { GTK_STOCK_DELETE, layer_dialog_delete_callback, N_("Delete Layer") },
+  { "list-add", layer_dialog_new_callback, N_("New Layer") },
+  { "list-remove", layer_dialog_delete_callback, N_("Delete Layer") },
+  { "document-properties", layer_dialog_rename_callback, N_("Rename Layer") },
+  { "go-up", layer_dialog_raise_callback, N_("Raise Layer") },
+  { "go-down", layer_dialog_lower_callback, N_("Lower Layer") },
 };
-
-enum {
-  BUTTON_NEW = 0,
-  BUTTON_RAISE,
-  BUTTON_LOWER,
-  BUTTON_DELETE
-};
-
-#define BUTTON_EVENT_MASK  GDK_EXPOSURE_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | \
-                           GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK
 
 static int num_buttons = sizeof(buttons)/sizeof(ButtonData);
 
-#define NORMAL 0
-#define SELECTED 1
-#define INSENSITIVE 2
-
 static GtkWidget *
-create_button_box(GtkWidget *parent, gboolean show_labels)
+create_button_box (GtkWidget *parent)
 {
   GtkWidget *button;
   GtkWidget *button_box;
   int i;
 
-  button_box = gtk_hbox_new (TRUE, 1);
+  button_box = gtk_hbox_new (FALSE, 0);
 
-  for (i=0;i<num_buttons;i++) {
-    if (show_labels == TRUE)
-    {
-    button = gtk_button_new_from_stock(buttons[i].stock_name);
-    }
-    else
-    {
-      GtkWidget * image;
+  for (i = 0; i < num_buttons; i++) {
+    GtkWidget * image;
 
-      button = gtk_button_new ();
+    button = gtk_button_new ();
 
-      image = gtk_image_new_from_stock (buttons[i].stock_name,
-                                        GTK_ICON_SIZE_BUTTON);
+    image = gtk_image_new_from_icon_name (buttons[i].icon_name,
+                                          GTK_ICON_SIZE_BUTTON);
 
-      gtk_button_set_image (GTK_BUTTON (button), image);
-    }
+    gtk_button_set_image (GTK_BUTTON (button), image);
 
     g_signal_connect_swapped (G_OBJECT (button), "clicked",
-			      G_CALLBACK(buttons[i].callback),
-			      G_OBJECT (parent));
+                              G_CALLBACK (buttons[i].callback),
+                              G_OBJECT (parent));
 
     gtk_widget_set_tooltip_text (button, gettext(buttons[i].tooltip));
 
-    gtk_box_pack_start (GTK_BOX(button_box), button, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (button_box), button, TRUE, TRUE, 0);
 
     gtk_widget_show (button);
   }
@@ -286,16 +274,20 @@ GtkWidget * create_layer_view_widget (void)
   GtkRcStyle *rcstyle;    /* For hide_button */
   GtkWidget  *image;      /* For hide_button */
   GtkWidget  *list;
-  GtkWidget  *separator;
   GtkWidget  *scrolled_win;
   GtkWidget  *button_box;
 
   /* if layer_dialog were renamed to layer_view_data this would make
    * more sense.
    */
-  layer_dialog = g_new (struct LayerDialog, 1);
+  layer_dialog = g_new0 (struct LayerDialog, 1);
 
   layer_dialog->diagram = NULL;
+  /* Not used in integrated UI */
+  layer_dialog->diagrams_store = gtk_list_store_new (2,
+                                                     G_TYPE_STRING,
+                                                     DIA_TYPE_DIAGRAM);
+  layer_dialog->diagrams_combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (layer_dialog->diagrams_store));
 
   layer_dialog->dialog = vbox = gtk_vbox_new (FALSE, 1);
 
@@ -304,8 +296,6 @@ GtkWidget * create_layer_view_widget (void)
   label = gtk_label_new (_ ("Layers:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 2);
   gtk_widget_show (label);
-
-  layer_dialog->diagram_omenu = NULL;
 
   /* Hide Button */
   hide_button = gtk_button_new ();
@@ -325,24 +315,17 @@ GtkWidget * create_layer_view_widget (void)
   g_signal_connect (G_OBJECT (hide_button), "clicked",
                     G_CALLBACK (layer_view_hide_button_clicked), NULL);
 
-  gtk_box_pack_start (GTK_BOX (hbox), hide_button, FALSE, FALSE, 2);
+  gtk_box_pack_end (GTK_BOX (hbox), hide_button, FALSE, FALSE, 2);
 
   gtk_box_pack_start (GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
   gtk_widget_show_all (hbox);
 
-  button_box = create_button_box(vbox, FALSE);
-
-  gtk_box_pack_start (GTK_BOX (vbox), button_box, FALSE, FALSE, 2);
-  gtk_widget_show (button_box);
-
-  separator = gtk_hseparator_new();
-  gtk_box_pack_start(GTK_BOX(vbox), separator, FALSE, FALSE, 2);
-  gtk_widget_show (separator);
-
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_win),
+                                       GTK_SHADOW_ETCHED_IN);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-				  GTK_POLICY_AUTOMATIC,
-				  GTK_POLICY_AUTOMATIC);
+                                  GTK_POLICY_AUTOMATIC,
+                                  GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (vbox), scrolled_win, TRUE, TRUE, 2);
 
   layer_dialog->layer_list = list = gtk_list_new();
@@ -357,27 +340,132 @@ GtkWidget * create_layer_view_widget (void)
   g_signal_connect (G_OBJECT (list), "event",
 		    G_CALLBACK (layer_list_events), NULL);
 
+  button_box = create_button_box(vbox);
+  gtk_box_pack_start (GTK_BOX (vbox), button_box, FALSE, FALSE, 2);
+  gtk_widget_show (button_box);
+
   return vbox;
 }
 
+
+static void
+diagrams_changed (GListModel *diagrams,
+                  guint       position,
+                  guint       removed,
+                  guint       added,
+                  gpointer    user_data)
+{
+  Diagram *dia;
+  int i;
+  int current_nr;
+  GtkTreeIter iter;
+  char *basename = NULL;
+
+  if (layer_dialog == NULL || layer_dialog->dialog == NULL) {
+    if (g_list_model_get_n_items (diagrams) < 1)
+      return; /* shortcut; maybe session end w/o this dialog */
+    else
+      layer_dialog_create ();
+  }
+  g_assert (layer_dialog != NULL); /* must be valid now */
+
+  if (layer_dialog->diagrams_store == NULL) {
+    return;
+  }
+
+  current_nr = -1;
+
+  gtk_list_store_clear (layer_dialog->diagrams_store);
+
+  if (g_list_model_get_n_items (diagrams) < 1) {
+    gtk_widget_set_sensitive (layer_dialog->dialog, FALSE);
+
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
+                                   NULL);
+
+    return;
+  }
+
+  gtk_widget_set_sensitive (layer_dialog->dialog, TRUE);
+
+  i = 0;
+  while ((dia = DIA_DIAGRAM (g_list_model_get_item (diagrams, i)))) {
+    basename = g_path_get_basename (dia->filename);
+
+    gtk_list_store_append (layer_dialog->diagrams_store, &iter);
+    gtk_list_store_set (layer_dialog->diagrams_store,
+                        &iter,
+                        COL_FILENAME,
+                        basename,
+                        COL_DIAGRAM,
+                        dia,
+                        -1);
+
+    if (dia == layer_dialog->diagram) {
+      current_nr = i;
+      gtk_combo_box_set_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
+                                     &iter);
+    }
+
+    i++;
+
+    g_free (basename);
+    g_clear_object (&dia);
+  }
+
+  if (current_nr == -1) {
+    dia = NULL;
+    if (g_list_model_get_n_items (diagrams) > 0) {
+      dia = g_list_model_get_item (diagrams, i);
+    }
+
+    layer_dialog_set_diagram (dia);
+
+    g_clear_object (&dia);
+  }
+}
+
+
+static void
+diagram_changed (GtkComboBox *widget,
+                 gpointer     data)
+{
+  GtkTreeIter iter;
+  Diagram *diagram = NULL;
+
+  if (layer_dialog->setting_active) {
+    return;
+  }
+
+  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
+                                     &iter)) {
+    gtk_tree_model_get (GTK_TREE_MODEL (layer_dialog->diagrams_store),
+                        &iter,
+                        COL_DIAGRAM,
+                        &diagram,
+                        -1);
+  }
+
+  layer_dialog_set_diagram (diagram);
+}
+
+
 void
-layer_dialog_create(void)
+layer_dialog_create (void)
 {
   GtkWidget *dialog;
   GtkWidget *vbox;
   GtkWidget *hbox;
-  GtkWidget *label;
-  GtkWidget *omenu;
-  GtkWidget *menu;
   GtkWidget *list;
-  GtkWidget *separator;
   GtkWidget *scrolled_win;
   GtkWidget *button_box;
   GtkWidget *button;
+  GtkCellRenderer *renderer;
 
-  layer_dialog = g_new(struct LayerDialog, 1);
+  layer_dialog = g_new0(struct LayerDialog, 1);
 
   layer_dialog->diagram = NULL;
+  layer_dialog->diagrams_store = NULL;
 
   layer_dialog->dialog = dialog = gtk_dialog_new ();
   gtk_window_set_title (GTK_WINDOW (dialog), _("Layers"));
@@ -394,28 +482,43 @@ layer_dialog_create(void)
 
   hbox = gtk_hbox_new(FALSE, 1);
 
-  label = gtk_label_new(_("Diagram:"));
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 2);
-  gtk_widget_show (label);
+  layer_dialog->diagrams_store = gtk_list_store_new (2,
+                                                     G_TYPE_STRING,
+                                                     DIA_TYPE_DIAGRAM);
+  layer_dialog->diagrams_combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (layer_dialog->diagrams_store));
 
-  layer_dialog->diagram_omenu = omenu = gtk_option_menu_new();
-  gtk_box_pack_start(GTK_BOX(hbox), omenu, TRUE, TRUE, 2);
-  gtk_widget_show (omenu);
+  g_signal_connect (dia_application_get_diagrams (dia_application_get_default ()),
+                    "items-changed",
+                    G_CALLBACK (diagrams_changed),
+                    NULL);
 
-  menu = gtk_menu_new();
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(omenu), menu);
+  g_signal_connect (layer_dialog->diagrams_combo,
+                    "changed",
+                    G_CALLBACK (diagram_changed),
+                    NULL);
+
+  renderer = gtk_cell_renderer_text_new ();
+  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (layer_dialog->diagrams_combo),
+                              renderer,
+                              TRUE);
+  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (layer_dialog->diagrams_combo),
+                                  renderer,
+                                  "text", COL_FILENAME,
+                                  NULL);
+
+
+  gtk_box_pack_start (GTK_BOX (hbox), layer_dialog->diagrams_combo, TRUE, TRUE, 2);
+  gtk_widget_show (layer_dialog->diagrams_combo);
 
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
   gtk_widget_show (hbox);
 
-  separator = gtk_hseparator_new();
-  gtk_box_pack_start(GTK_BOX(vbox), separator, FALSE, FALSE, 2);
-  gtk_widget_show (separator);
-
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_win),
+                                       GTK_SHADOW_ETCHED_IN);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-				  GTK_POLICY_AUTOMATIC,
-				  GTK_POLICY_AUTOMATIC);
+                                  GTK_POLICY_AUTOMATIC,
+                                  GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (vbox), scrolled_win, TRUE, TRUE, 2);
 
   layer_dialog->layer_list = list = gtk_list_new();
@@ -430,7 +533,7 @@ layer_dialog_create(void)
   g_signal_connect (G_OBJECT (list), "event",
 		    G_CALLBACK (layer_list_events), NULL);
 
-  button_box = create_button_box(dialog, TRUE);
+  button_box = create_button_box(dialog);
 
   gtk_box_pack_start (GTK_BOX (vbox), button_box, FALSE, FALSE, 2);
   gtk_widget_show (button_box);
@@ -448,9 +551,7 @@ layer_dialog_create(void)
 
   gtk_widget_show (button);
 
-  persistence_register_window(GTK_WINDOW(dialog));
-
-  layer_dialog_update_diagram_list();
+  persistence_register_window (GTK_WINDOW (dialog));
 }
 
 static void
@@ -538,12 +639,18 @@ layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
 }
 
 static void
-layer_dialog_rename_callback(GtkWidget *widget, gpointer gdata)
+layer_dialog_rename_callback (GtkWidget *widget, gpointer gdata)
 {
   GtkWidget *selected;
   Diagram *dia;
   DiaLayer *layer;
+
   dia = layer_dialog->diagram;
+
+  if (dia == NULL) {
+    return;
+  }
+
   selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
   layer = dia->data->active_layer;
   layer_dialog_edit_layer (DIA_LAYER_WIDGET (selected), dia, layer);
@@ -673,95 +780,6 @@ layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata)
   }
 }
 
-
-static void
-layer_dialog_select_diagram_callback(GtkWidget *widget, gpointer gdata)
-{
-  Diagram *dia = (Diagram *) gdata;
-
-  layer_dialog_set_diagram(dia);
-}
-
-void
-layer_dialog_update_diagram_list(void)
-{
-  GtkWidget *new_menu;
-  GtkWidget *menu_item;
-  GList *dia_list;
-  Diagram *dia;
-  char *filename;
-  int i;
-  int current_nr;
-
-  if (layer_dialog == NULL || layer_dialog->dialog == NULL) {
-    if (!dia_open_diagrams())
-      return; /* shortcut; maybe session end w/o this dialog */
-    else
-      layer_dialog_create();
-  }
-  g_assert(layer_dialog != NULL); /* must be valid now */
-  /* oh this options: here integrated UI ;( */
-  if (!layer_dialog->diagram_omenu)
-    return;
-
-  new_menu = gtk_menu_new();
-
-  current_nr = -1;
-
-  i = 0;
-  dia_list = dia_open_diagrams();
-  while (dia_list != NULL) {
-    dia = (Diagram *) dia_list->data;
-
-    if (dia == layer_dialog->diagram) {
-      current_nr = i;
-    }
-
-    filename = strrchr(dia->filename, G_DIR_SEPARATOR);
-    if (filename==NULL) {
-      filename = dia->filename;
-    } else {
-      filename++;
-    }
-
-    menu_item = gtk_menu_item_new_with_label(filename);
-
-    g_signal_connect (G_OBJECT (menu_item), "activate",
-		      G_CALLBACK (layer_dialog_select_diagram_callback), dia);
-
-    gtk_menu_append( GTK_MENU(new_menu), menu_item);
-    gtk_widget_show (menu_item);
-
-    dia_list = g_list_next(dia_list);
-    i++;
-  }
-
-  if (dia_open_diagrams()==NULL) {
-    menu_item = gtk_menu_item_new_with_label (_("none"));
-    g_signal_connect (G_OBJECT (menu_item), "activate",
-		      G_CALLBACK (layer_dialog_select_diagram_callback), NULL);
-    gtk_menu_append( GTK_MENU(new_menu), menu_item);
-    gtk_widget_show (menu_item);
-  }
-
-  gtk_option_menu_remove_menu(GTK_OPTION_MENU(layer_dialog->diagram_omenu));
-
-  gtk_option_menu_set_menu(GTK_OPTION_MENU(layer_dialog->diagram_omenu),
-			   new_menu);
-
-  gtk_option_menu_set_history(GTK_OPTION_MENU(layer_dialog->diagram_omenu),
-			      current_nr);
-  gtk_menu_set_active(GTK_MENU(new_menu), current_nr);
-
-  if (current_nr == -1) {
-    dia = NULL;
-    if (dia_open_diagrams()!=NULL) {
-      dia = (Diagram *) dia_open_diagrams()->data;
-    }
-    layer_dialog_set_diagram(dia);
-  }
-}
-
 void
 layer_dialog_show()
 {
@@ -787,8 +805,32 @@ _layer_widget_clear_layer (GtkWidget *widget, gpointer user_data)
   lw->layer = NULL;
 }
 
+gboolean
+find_diagram (GtkTreeModel *model,
+              GtkTreePath  *path,
+              GtkTreeIter  *iter,
+              gpointer      dia)
+{
+  Diagram *diagram = NULL;
+
+  gtk_tree_model_get (model, iter, COL_DIAGRAM, &diagram, -1);
+
+  if (diagram == dia) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
+                                   iter);
+
+    g_clear_object (&diagram);
+
+    return TRUE;
+  }
+
+  g_clear_object (&diagram);
+
+  return FALSE;
+}
+
 void
-layer_dialog_set_diagram(Diagram *dia)
+layer_dialog_set_diagram (Diagram *dia)
 {
   DiagramData *data;
   GtkWidget *layer_widget;
@@ -797,39 +839,51 @@ layer_dialog_set_diagram(Diagram *dia)
   int sel_pos;
   int i,j;
 
-  if (dia!=NULL)
+  if (dia != NULL)
     active_layer = dia->data->active_layer;
 
-  if (layer_dialog == NULL || layer_dialog->dialog == NULL)
-    layer_dialog_create(); /* May have been destroyed */
-  g_assert(layer_dialog != NULL); /* must be valid now */
+  if (layer_dialog == NULL || layer_dialog->dialog == NULL) {
+    layer_dialog_create (); /* May have been destroyed */
+  }
 
-  gtk_container_foreach (GTK_CONTAINER(layer_dialog->layer_list),
+  g_assert (layer_dialog != NULL); /* must be valid now */
+
+  gtk_container_foreach (GTK_CONTAINER (layer_dialog->layer_list),
                          _layer_widget_clear_layer, NULL);
-  gtk_list_clear_items(GTK_LIST(layer_dialog->layer_list), 0, -1);
+  gtk_list_clear_items (GTK_LIST (layer_dialog->layer_list), 0, -1);
   layer_dialog->diagram = dia;
-  if (dia != NULL) {
-    i = g_list_index(dia_open_diagrams(), dia);
-    if (i >= 0 && layer_dialog->diagram_omenu != NULL)
-      gtk_option_menu_set_history(GTK_OPTION_MENU(layer_dialog->diagram_omenu),
-				  i);
+
+  if (dia == NULL) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
+                                   NULL);
+
+    return;
   }
 
-  if (dia != NULL) {
-    data = dia->data;
+  layer_dialog->setting_active = TRUE;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (layer_dialog->diagrams_store),
+                          find_diagram,
+                          dia);
+  layer_dialog->setting_active = FALSE;
 
-    sel_pos = 0;
-    for (i=data->layers->len-1,j=0;i>=0;i--,j++) {
-      layer = (DiaLayer *) g_ptr_array_index(data->layers, i);
-      layer_widget = dia_layer_widget_new(dia, layer);
-      gtk_widget_show(layer_widget);
-      gtk_container_add(GTK_CONTAINER(layer_dialog->layer_list), layer_widget);
-      if (layer == active_layer) {
-        sel_pos = j;
-      }
+  data = dia->data;
+
+  sel_pos = 0;
+  for (i = data->layers->len - 1, j = 0; i >= 0; i--, j++) {
+    layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
+
+    layer_widget = dia_layer_widget_new (dia, layer);
+    gtk_widget_show (layer_widget);
+
+    gtk_container_add (GTK_CONTAINER (layer_dialog->layer_list),
+                        layer_widget);
+
+    if (layer == active_layer) {
+      sel_pos = j;
     }
-    gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), sel_pos);
   }
+
+  gtk_list_select_item (GTK_LIST (layer_dialog->layer_list), sel_pos);
 }
 
 
@@ -1123,7 +1177,10 @@ edit_layer_ok_callback (GtkWidget *w, gpointer client_data)
                 "name", gtk_entry_get_text (GTK_ENTRY (dialog->name_entry)),
                 NULL);
   /* reflect name change on listeners */
-  dia_diagram_change (dialog->layer_widget->dia, DIAGRAM_CHANGE_LAYER, layer);
+  dia_application_diagram_change (dia_application_get_default (),
+                                  dialog->layer_widget->dia,
+                                  DIAGRAM_CHANGE_LAYER,
+                                  layer);
 
   diagram_add_update_all (dialog->layer_widget->dia);
   diagram_flush (dialog->layer_widget->dia);

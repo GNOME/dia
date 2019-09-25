@@ -156,15 +156,18 @@ file_new_callback (GtkAction *action)
 {
   Diagram *dia;
   static int untitled_nr = 1;
-  gchar *name, *filename;
+  gchar *name;
+  GFile *file;
 
   name = g_strdup_printf (_("Diagram%d.dia"), untitled_nr++);
-  filename = g_filename_from_utf8 (name, -1, NULL, NULL, NULL);
-  dia = new_diagram (filename);
+  file = g_file_new_for_path (name);
+
+  dia = dia_diagram_new (file);
+
   new_display (dia);
-  dia_diagram_add (dia); /* notify DiagramTree etc. */
+
   g_free (name);
-  g_free (filename);
+  g_clear_object (&file);
 }
 
 void

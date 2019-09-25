@@ -46,6 +46,22 @@
 #include "diacontext.h"
 #include "dia-layer.h"
 
+typedef struct _DiagramPrivate DiagramPrivate;
+struct _DiagramPrivate {
+  GFile *file;
+};
+
+G_DEFINE_TYPE_WITH_PRIVATE (Diagram, dia_diagram, DIA_TYPE_DIAGRAM_DATA)
+
+enum {
+  PROP_0,
+  PROP_FILE,
+  LAST_PROP
+};
+
+static GParamSpec *pspecs[LAST_PROP] = { NULL, };
+
+
 static GList *open_diagrams = NULL;
 
 struct _ObjectExtent
@@ -59,114 +75,133 @@ typedef struct _ObjectExtent ObjectExtent;
 static gint diagram_parent_sort_cb(gconstpointer a, gconstpointer b);
 
 
-static void diagram_class_init (DiagramClass *klass);
-static gboolean diagram_init(Diagram *obj, const char *filename);
-static void diagram_update_for_filename(Diagram *dia);
-
 enum {
   REMOVED,
   LAST_SIGNAL
 };
 
 static guint diagram_signals[LAST_SIGNAL] = { 0, };
-static gpointer parent_class = NULL;
-
-GType
-diagram_get_type (void)
-{
-  static GType object_type = 0;
-
-  if (!object_type)
-    {
-      static const GTypeInfo object_info =
-      {
-        sizeof (DiagramClass),
-        (GBaseInitFunc) NULL,
-        (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) diagram_class_init,
-        NULL,           /* class_finalize */
-        NULL,           /* class_data */
-        sizeof (Diagram),
-        0,              /* n_preallocs */
-	NULL            /* init */
-      };
-
-      object_type = g_type_register_static (DIA_TYPE_DIAGRAM_DATA,
-                                            "Diagram",
-                                            &object_info, 0);
-    }
-
-  return object_type;
-}
 
 static void
-diagram_dispose (GObject *object)
+dia_diagram_set_property (GObject      *object,
+                          guint         property_id,
+                          const GValue *value,
+                          GParamSpec   *pspec)
 {
-  Diagram *dia = DIA_DIAGRAM(object);
+  Diagram *self = DIA_DIAGRAM (object);
 
-  assert(dia->displays==NULL);
+  switch (property_id) {
+    case PROP_FILE:
+      dia_diagram_set_file (self, g_value_get_object (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
 
-  if (g_list_index(open_diagrams, dia) >= 0) {
-    dia_diagram_remove(dia);
 
-    open_diagrams = g_list_remove(open_diagrams, dia);
-    layer_dialog_update_diagram_list();
+static void
+dia_diagram_get_property (GObject    *object,
+                          guint       property_id,
+                          GValue     *value,
+                          GParamSpec *pspec)
+{
+  Diagram *self = DIA_DIAGRAM (object);
+
+  switch (property_id) {
+    case PROP_FILE:
+      g_value_set_object (value, dia_diagram_get_file (self));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+dia_diagram_dispose (GObject *object)
+{
+  Diagram *dia = DIA_DIAGRAM (object);
+
+  assert (dia->displays==NULL);
+
+  if (g_list_index (open_diagrams, dia) >= 0) {
+    open_diagrams = g_list_remove (open_diagrams, dia);
   }
 
   if (dia->undo)
-    undo_destroy(dia->undo);
+    undo_destroy (dia->undo);
   dia->undo = NULL;
 
-  diagram_cleanup_autosave(dia);
+  diagram_cleanup_autosave (dia);
 
-  G_OBJECT_CLASS (parent_class)->dispose (object);
+  G_OBJECT_CLASS (dia_diagram_parent_class)->dispose (object);
 }
-static void
-diagram_finalize(GObject *object)
-{
-  Diagram *dia = DIA_DIAGRAM(object);
 
-  assert(dia->displays==NULL);
+
+static void
+dia_diagram_finalize (GObject *object)
+{
+  Diagram *dia = DIA_DIAGRAM (object);
+  DiagramPrivate *priv = dia_diagram_get_instance_private (dia);
+
+  assert (dia->displays==NULL);
+
+  g_clear_object (&priv->file);
 
   if (dia->filename)
-    g_free(dia->filename);
+    g_free (dia->filename);
   dia->filename = NULL;
 
-  G_OBJECT_CLASS (parent_class)->finalize (object);
+  G_OBJECT_CLASS (dia_diagram_parent_class)->finalize (object);
 }
+
 
 static void
 _diagram_removed (Diagram* dia)
 {
 }
 
+
 static void
-diagram_class_init (DiagramClass *klass)
+dia_diagram_class_init (DiagramClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->set_property = dia_diagram_set_property;
+  object_class->get_property = dia_diagram_get_property;
+  object_class->dispose = dia_diagram_dispose;
+  object_class->finalize = dia_diagram_finalize;
+
+  /**
+   * DiaDiagram:file:
+   *
+   * Since: 0.98
+   */
+  pspecs[PROP_FILE] =
+    g_param_spec_object ("file",
+                         "File",
+                         "The file backing this diagram",
+                         G_TYPE_FILE,
+                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_PROP, pspecs);
 
   diagram_signals[REMOVED] =
     g_signal_new ("removed",
-	          G_TYPE_FROM_CLASS (klass),
-	          G_SIGNAL_RUN_FIRST,
-	          G_STRUCT_OFFSET (DiagramClass, removed),
-	          NULL, NULL,
-	          dia_marshal_VOID__VOID,
-		  G_TYPE_NONE, 0);
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  G_STRUCT_OFFSET (DiagramClass, removed),
+                  NULL, NULL,
+                  dia_marshal_VOID__VOID,
+                  G_TYPE_NONE, 0);
 
   klass->removed = _diagram_removed;
-
-  object_class->finalize = diagram_finalize;
-  object_class->dispose = diagram_dispose;
 }
 
-GList *
-dia_open_diagrams(void)
-{
-  return open_diagrams;
-}
 
 static void
 _object_add (Diagram   *dia,
@@ -179,6 +214,7 @@ _object_add (Diagram   *dia,
   }
 }
 
+
 static void
 _object_remove (Diagram   *dia,
                 DiaLayer  *layer,
@@ -190,131 +226,122 @@ _object_remove (Diagram   *dia,
   }
 }
 
-/** Initializes a diagram with standard info and sets it to be called
- * 'filename'.
- * Returns TRUE if everything went ok, FALSE otherwise.
- * Will return FALSE if filename is not a legal string in the current
- * encoding.
- */
-static gboolean
-diagram_init(Diagram *dia, const char *filename)
+
+static void
+dia_diagram_init (Diagram *self)
 {
-  gchar *newfilename = NULL;
-  GError *error = NULL;
+  self->data = &self->parent_instance; /* compatibility */
+                                       /* Sure, but it's also silly ZB */
 
-  dia->data = &dia->parent_instance; /* compatibility */
+  self->pagebreak_color = prefs.new_diagram.pagebreak_color;
 
-  dia->pagebreak_color = prefs.new_diagram.pagebreak_color;
+  get_paper_info (&self->data->paper, -1, &prefs.new_diagram);
 
-  get_paper_info (&dia->data->paper, -1, &prefs.new_diagram);
+  self->grid.width_x = prefs.grid.x;
+  self->grid.width_y = prefs.grid.y;
+  self->grid.width_w = prefs.grid.w;
+  self->grid.hex_size = 1.0;
+  self->grid.colour = prefs.new_diagram.grid_color;
+  self->grid.hex = prefs.grid.hex;
+  self->grid.visible_x = prefs.grid.vis_x;
+  self->grid.visible_y = prefs.grid.vis_y;
+  self->grid.dynamic = prefs.grid.dynamic;
+  self->grid.major_lines = prefs.grid.major_lines;
 
-  dia->grid.width_x = prefs.grid.x;
-  dia->grid.width_y = prefs.grid.y;
-  dia->grid.width_w = prefs.grid.w;
-  dia->grid.hex_size = 1.0;
-  dia->grid.colour = prefs.new_diagram.grid_color;
-  dia->grid.hex = prefs.grid.hex;
-  dia->grid.visible_x = prefs.grid.vis_x;
-  dia->grid.visible_y = prefs.grid.vis_y;
-  dia->grid.dynamic = prefs.grid.dynamic;
-  dia->grid.major_lines = prefs.grid.major_lines;
+  self->guides.nhguides = 0;
+  self->guides.hguides = NULL;
+  self->guides.nvguides = 0;
+  self->guides.vguides = NULL;
 
-  dia->guides.nhguides = 0;
-  dia->guides.hguides = NULL;
-  dia->guides.nvguides = 0;
-  dia->guides.vguides = NULL;
+  self->filename = NULL;
 
-  if (dia->filename != NULL)
-    g_free(dia->filename);
-  /* Make sure the filename is absolute */
-  if (!g_path_is_absolute(filename)) {
-    gchar *pwd = g_get_current_dir();
+  self->unsaved = TRUE;
+  self->mollified = FALSE;
+  self->autosavefilename = NULL;
 
-    newfilename = g_build_filename(pwd, filename, NULL);
-    g_free(pwd);
-    filename = newfilename;
+  if (self->undo) {
+    undo_destroy (self->undo);
   }
-  /* All Diagram functions assumes filename in filesystem encoding */
+  self->undo = new_undo_stack (self);
 
-  dia->filename = g_filename_to_utf8(filename, -1, NULL, NULL, &error);
-  if (error != NULL) {
-    message_error(_("Couldn't convert filename '%s' to UTF-8: %s\n"),
-		  dia_message_filename(filename), error->message);
-    g_error_free(error);
-    dia->filename = g_strdup(_("Error"));
-    return FALSE;
+  if (!g_list_find (open_diagrams, self)) {
+    open_diagrams = g_list_prepend (open_diagrams, self);
   }
 
-  dia->unsaved = TRUE;
-  dia->mollified = FALSE;
-  dia->autosavefilename = NULL;
-
-  if (dia->undo)
-    undo_destroy(dia->undo);
-  dia->undo = new_undo_stack(dia);
-
-  if (!g_list_find(open_diagrams, dia))
-    open_diagrams = g_list_prepend(open_diagrams, dia);
-
-  if (app_is_interactive())
-    layer_dialog_update_diagram_list();
-
-  g_free(newfilename);
-
-  g_signal_connect (G_OBJECT(dia), "object_add", G_CALLBACK(_object_add), dia);
-  g_signal_connect (G_OBJECT(dia), "object_remove", G_CALLBACK(_object_remove), dia);
-
-  return TRUE;
+  g_signal_connect (G_OBJECT (self), "object_add", G_CALLBACK (_object_add), self);
+  g_signal_connect (G_OBJECT (self), "object_remove", G_CALLBACK (_object_remove), self);
 }
 
+
+GList *
+dia_open_diagrams (void)
+{
+  return open_diagrams;
+}
+
+
 int
-diagram_load_into(Diagram         *diagram,
-		  const char      *filename,
-		  DiaImportFilter *ifilter)
+diagram_load_into (Diagram         *diagram,
+                   const char      *filename,
+                   DiaImportFilter *ifilter)
 {
   /* ToDo: move context further up in the callstack and to sth useful with it's content */
-  DiaContext *ctx = dia_context_new(_("Load Into"));
+  DiaContext *ctx = dia_context_new (_("Load Into"));
 
   gboolean was_default = diagram->is_default;
-  if (!ifilter)
-    ifilter = filter_guess_import_filter(filename);
+  if (!ifilter) {
+    ifilter = filter_guess_import_filter (filename);
+  }
+
   /* slightly hacked to avoid 'Not a Dia File' for .shape */
-  if (!ifilter && g_str_has_suffix (filename, ".shape"))
+  if (!ifilter && g_str_has_suffix (filename, ".shape")) {
     ifilter = filter_import_get_by_name ("dia-svg");
-  if (!ifilter)  /* default to native format */
+  }
+
+  if (!ifilter) {
+    /* default to native format */
     ifilter = &dia_import_filter;
+  }
 
   dia_context_set_filename (ctx, filename);
-  if (ifilter->import_func(filename, diagram->data, ctx, ifilter->user_data)) {
+  if (ifilter->import_func (filename, diagram->data, ctx, ifilter->user_data)) {
     if (ifilter != &dia_import_filter) {
       /* When loading non-Dia files, change filename to reflect that saving
        * will produce a Dia file. See bug #440093 */
       if (strcmp (diagram->filename, filename) == 0) {
-	/* not a real load into but initial load */
-	gchar *old_filename = g_strdup (diagram->filename);
-        gchar *suffix_offset = g_utf8_strrchr(old_filename, -1, (gunichar)'.');
+        /* not a real load into but initial load */
+        gchar *old_filename = g_strdup (diagram->filename);
+        gchar *suffix_offset = g_utf8_strrchr (old_filename, -1, (gunichar) '.');
         gchar *new_filename;
+        GFile *file;
+
         if (suffix_offset != NULL) {
-	  new_filename = g_strndup(old_filename, suffix_offset - old_filename);
-	  g_free(old_filename);
-	} else {
-	  new_filename = old_filename;
-	}
-        old_filename = g_strconcat(new_filename, ".dia", NULL);
-        g_free(new_filename);
-        diagram_set_filename(diagram, old_filename);
-        g_free(old_filename);
+          new_filename = g_strndup (old_filename, suffix_offset - old_filename);
+          g_free (old_filename);
+        } else {
+          new_filename = old_filename;
+        }
+        old_filename = g_strconcat (new_filename, ".dia", NULL);
+        g_free (new_filename);
+
+        file = g_file_new_for_path (old_filename);
+        dia_diagram_set_file (diagram, file);
+
+        g_free (old_filename);
+
         diagram->unsaved = TRUE;
-	diagram_update_for_filename (diagram);
-	diagram_modified(diagram);
+
+        diagram_modified (diagram);
       }
     } else {
       /* the initial diagram should have confirmed filename  */
       diagram->unsaved =
-	  strcmp(filename, diagram->filename) == 0 ? FALSE : was_default;
+        strcmp (filename, diagram->filename) == 0 ? FALSE : was_default;
     }
-    diagram_set_modified(diagram, TRUE);
-    dia_context_release(ctx);
+
+    diagram_set_modified (diagram, TRUE);
+    dia_context_release (ctx);
+
     return TRUE;
   } else {
     dia_context_release(ctx);
@@ -340,51 +367,58 @@ diagram_load(const char *filename, DiaImportFilter *ifilter)
 
   /* TODO: Make diagram not be initialized twice */
   if (diagram == NULL) {
-    diagram = new_diagram(filename);
+    GFile *file = g_file_new_for_path (filename);
+
+    diagram = dia_diagram_new (file);
+
+    g_clear_object (&file);
   }
+
   if (diagram == NULL) return NULL;
 
-  if (   !diagram_init(diagram, filename)
-      || !diagram_load_into (diagram, filename, ifilter)) {
+  if (!diagram_load_into (diagram, filename, ifilter)) {
     if (!was_default) /* don't kill the default diagram on import failure */
       diagram_destroy(diagram);
     diagram = NULL;
   } else {
     /* not modifying 'diagram->unsaved' the state depends on the import filter used */
-    diagram_set_modified(diagram, FALSE);
-    if (app_is_interactive()) {
-      recent_file_history_add(filename);
-      if (was_default) /* replacing it is like first remove than add */
-        dia_diagram_remove(diagram);
-      dia_diagram_add(diagram);
+    diagram_set_modified (diagram, FALSE);
+    if (app_is_interactive ()) {
+      recent_file_history_add (filename);
+      if (was_default) {
+        dia_application_diagram_remove (dia_application_get_default (),
+                                        diagram);
+        dia_application_diagram_add (dia_application_get_default (),
+                                     diagram);
+      }
     }
   }
 
   if (diagram != NULL && was_default && app_is_interactive()) {
-    diagram_update_for_filename(diagram);
     diagram->is_default = FALSE;
-    if ( g_slist_length(diagram->displays) == 1 )
+
+    if (g_slist_length(diagram->displays) == 1) {
       display_set_active (diagram->displays->data);
+    }
   }
 
   return diagram;
 }
 
-/** Create a new diagram with the given filename.
- * If the diagram could not be created, e.g. because the filename is not
- * a legal string in the current encoding, return NULL.
+/**
+ * dia_diagram_new:
+ * @file: the #GFile backing this diagram
+ *
+ * Create a new diagram with the given file.
  */
 Diagram *
-new_diagram(const char *filename)  /* Note: filename is copied */
+dia_diagram_new (GFile *file)
 {
-  Diagram *dia = g_object_new(DIA_TYPE_DIAGRAM, NULL);
+  Diagram *dia = g_object_new (DIA_TYPE_DIAGRAM,
+                               "file", file,
+                               NULL);
 
-  if (diagram_init(dia, filename)) {
-    return dia;
-  } else {
-    g_object_unref(dia);
-    return NULL;
-  }
+  return dia;
 }
 
 void
@@ -660,18 +694,29 @@ diagram_update_menu_sensitivity (Diagram *dia)
 
 
 void
-diagram_add_ddisplay(Diagram *dia, DDisplay *ddisp)
+diagram_add_ddisplay (Diagram *dia, DDisplay *ddisp)
 {
-  dia->displays = g_slist_prepend(dia->displays, ddisp);
+  if (dia->displays == NULL) {
+    // If the diagram wasn't already open in the UI
+    dia_application_diagram_add (dia_application_get_default (),
+                                ddisp->diagram);
+  }
+
+  dia->displays = g_slist_prepend (dia->displays, ddisp);
 }
 
 void
-diagram_remove_ddisplay(Diagram *dia, DDisplay *ddisp)
+diagram_remove_ddisplay (Diagram *dia, DDisplay *ddisp)
 {
   dia->displays = g_slist_remove(dia->displays, ddisp);
 
-  if (g_slist_length(dia->displays) == 0)
-    diagram_destroy(dia);
+  if (g_slist_length (dia->displays) == 0) {
+    // Remove the diagram from the UI
+    dia_application_diagram_remove (dia_application_get_default (),
+                                    ddisp->diagram);
+
+    diagram_destroy (dia);
+  }
 }
 
 void
@@ -1472,45 +1517,6 @@ diagram_place_down_selected (Diagram *dia)
   undo_set_transactionpoint(dia->undo);
 }
 
-void
-diagram_set_filename(Diagram *dia, const char *filename)
-{
-  g_free(dia->filename);
-  dia->filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
-
-  diagram_update_for_filename(dia);
-}
-
-/** Update the various areas that require updating when changing filename
- * This will ensure that all places that use the filename are updated:
- * Window titles, layer dialog, recent files, diagram tree.
- * @param dia The diagram whose filename has changed.
- */
-static void
-diagram_update_for_filename(Diagram *dia)
-{
-  GSList *l;
-  DDisplay *ddisp;
-  char *title;
-
-  title = diagram_get_name(dia);
-
-  l = dia->displays;
-  while (l!=NULL) {
-    ddisp = (DDisplay *) l->data;
-
-    ddisplay_set_title(ddisp, title);
-
-    l = g_slist_next(l);
-  }
-
-  g_free(title);
-
-  layer_dialog_update_diagram_list();
-
-  /* signal about the change */
-  dia_diagram_change (dia, DIAGRAM_CHANGE_NAME, NULL);
-}
 
 /** Returns a string with a 'sensible' (human-readable) name for the
  * diagram.  The string should be freed after use.
@@ -1544,5 +1550,64 @@ void
 diagram_object_modified(Diagram *dia, DiaObject *object)
 {
   /* signal about the change */
-  dia_diagram_change (dia, DIAGRAM_CHANGE_OBJECT, object);
+  dia_application_diagram_change (dia_application_get_default (),
+                                  dia,
+                                  DIAGRAM_CHANGE_OBJECT,
+                                  object);
+}
+
+void
+dia_diagram_set_file (Diagram *self,
+                      GFile   *file)
+{
+  DiagramPrivate *priv;
+  GSList *l;
+  DDisplay *ddisp;
+  char *title;
+
+  g_return_if_fail (DIA_IS_DIAGRAM (self));
+  g_return_if_fail (file && G_IS_FILE (file));
+
+  priv = dia_diagram_get_instance_private (self);
+
+  if (priv->file == file) {
+    return;
+  }
+
+  g_clear_object (&priv->file);
+  priv->file = g_object_ref (file);
+
+  g_clear_pointer (&self->filename, g_free);
+  self->filename = g_file_get_path (file);
+
+  title = diagram_get_name (self);
+
+  l = self->displays;
+  while (l != NULL) {
+    ddisp = (DDisplay *) l->data;
+
+    ddisplay_set_title (ddisp, title);
+
+    l = g_slist_next (l);
+  }
+
+  g_free (title);
+
+  /* signal about the change */
+  dia_application_diagram_change (dia_application_get_default (),
+                                  self,
+                                  DIAGRAM_CHANGE_NAME,
+                                  NULL);
+
+  g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_FILE]);
+}
+
+GFile *
+dia_diagram_get_file (Diagram *self)
+{
+  DiagramPrivate *priv;
+
+  priv = dia_diagram_get_instance_private (self);
+
+  return priv->file;
 }

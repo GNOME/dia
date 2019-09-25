@@ -42,6 +42,8 @@ struct _DiaLayerPrivate {
                                   to. The selected layer is by default
                                   connectable */
 
+  /* NOTE: THIS IS A _WEAK_ REF */
+  /* This avoids ref cycles with diagram */
   DiagramData *parent_diagram; /* Back-pointer to the diagram. This
                                   must only be set by functions internal
                                   to the diagram, and accessed via
@@ -80,7 +82,7 @@ dia_layer_finalize (GObject *object)
   g_clear_pointer (&priv->name, g_free);
   destroy_object_list (priv->objects);
 
-  g_clear_object (&priv->parent_diagram);
+  g_clear_weak_pointer (&priv->parent_diagram);
 
   G_OBJECT_CLASS (dia_layer_parent_class)->finalize (object);
 }
@@ -1032,8 +1034,8 @@ dia_layer_set_parent_diagram (DiaLayer    *layer,
 
   priv = dia_layer_get_instance_private (layer);
 
-  g_clear_object (&priv->parent_diagram);
-  priv->parent_diagram = g_object_ref (diagram);
+  g_clear_weak_pointer (&priv->parent_diagram);
+  g_set_weak_pointer (&priv->parent_diagram, diagram);
 
   g_object_notify_by_pspec (G_OBJECT (layer), pspecs[PROP_PARENT_DIAGRAM]);
 }

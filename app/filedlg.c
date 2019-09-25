@@ -407,11 +407,17 @@ file_save_as_response_callback(GtkWidget *fs,
 
     {
       DiaContext *ctx = dia_context_new (_("Save as"));
-      diagram_set_filename(dia, filename);
+      GFile *file = g_file_new_for_path (filename);
+
+      dia_diagram_set_file (dia, file);
       dia_context_set_filename (ctx, filename);
-      if (diagram_save(dia, filename, ctx))
-	recent_file_history_add(filename);
+
+      if (diagram_save (dia, filename, ctx)) {
+        recent_file_history_add (filename);
+      }
+
       dia_context_release (ctx);
+      g_clear_object (&file);
     }
     g_free (filename);
   }

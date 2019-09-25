@@ -122,19 +122,22 @@ PyDia_Load(PyObject *self, PyObject *args)
 }
 
 static PyObject *
-PyDia_New(PyObject *self, PyObject *args)
+PyDia_New (PyObject *self, PyObject *args)
 {
-    Diagram *dia;
-    gchar *filename;
+  Diagram *dia;
+  gchar *filename;
 
-    if (!PyArg_ParseTuple(args, "s:dia.new", &filename))
-	return NULL;
-
-    dia = new_diagram(filename);
-    if (dia)
-	return PyDiaDiagram_New(dia);
-    PyErr_SetString(PyExc_IOError, "could not create diagram");
+  if (!PyArg_ParseTuple (args, "s:dia.new", &filename))
     return NULL;
+
+  dia = dia_diagram_new (filename);
+  if (dia) {
+    return PyDiaDiagram_New (dia);
+  }
+
+  PyErr_SetString (PyExc_IOError, "could not create diagram");
+
+  return NULL;
 }
 
 static PyObject *
