@@ -15,12 +15,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef LAYER_DIALOG_H
-#define LAYER_DIALOG_H
+
+#pragma once
 
 #include <gtk/gtk.h>
 #include "diagram.h"
 
+G_BEGIN_DECLS
+
+#define DIA_TYPE_LAYER_EDITOR dia_layer_editor_get_type ()
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkVBox, g_object_unref)
+
+G_DECLARE_DERIVABLE_TYPE (DiaLayerEditor, dia_layer_editor, DIA, LAYER_EDITOR, GtkVBox)
+
+struct _DiaLayerEditorClass {
+  GtkVBoxClass parent;
+};
+
+GtkWidget *dia_layer_editor_new         (void);
+void       dia_layer_editor_set_diagram (DiaLayerEditor *self,
+                                         Diagram        *dia);
+Diagram   *dia_layer_editor_get_diagram (DiaLayerEditor *self);
 
 void layer_dialog_create      (void);
 void layer_dialog_show        (void);
@@ -33,6 +49,4 @@ typedef struct _DiaLayerWidget      DiaLayerWidget;
 
 void diagram_edit_layer (Diagram *dia, DiaLayer *layer);
 
-#endif /* LAYER_DIALOG_H */
-
-
+G_END_DECLS

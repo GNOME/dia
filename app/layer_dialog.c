@@ -72,6 +72,8 @@ struct _DiaLayerWidget
    * while it was selected.
    */
   gboolean connect_off;
+
+  GtkWidget *editor;
 };
 
 struct _EditLayerDialog {
@@ -99,9 +101,9 @@ struct LayerDialog {
   GtkListStore *diagrams_store;
   GtkWidget    *diagrams_combo;
 
-  gboolean setting_active;
+  GtkWidget    *layer_editor;
 
-  GtkWidget *layer_list;
+  gboolean setting_active;
 
   Diagram *diagram;
 };
@@ -157,99 +159,10 @@ static void
 layer_visibility_change_apply(struct LayerVisibilityChange *change,
 			      Diagram *dia);
 
-static GtkWidget* dia_layer_widget_new(Diagram *dia, DiaLayer *layer);
+static GtkWidget* dia_layer_widget_new(Diagram *dia, DiaLayer *layer, DiaLayerEditor *editor);
 static void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, DiaLayer *layer);
 static void dia_layer_update_from_layer(DiaLayerWidget *widget);
 
-static void layer_dialog_new_callback(GtkWidget *widget, gpointer gdata);
-static void layer_dialog_rename_callback(GtkWidget *widget, gpointer gdata);
-static void layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata);
-static void layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata);
-static void layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata);
-static void layer_dialog_edit_layer(DiaLayerWidget *layer_widget, Diagram *dia, DiaLayer *layer);
-
-static ButtonData buttons[] = {
-  { "list-add", layer_dialog_new_callback, N_("New Layer") },
-  { "list-remove", layer_dialog_delete_callback, N_("Delete Layer") },
-  { "document-properties", layer_dialog_rename_callback, N_("Rename Layer") },
-  { "go-up", layer_dialog_raise_callback, N_("Raise Layer") },
-  { "go-down", layer_dialog_lower_callback, N_("Lower Layer") },
-};
-
-static int num_buttons = sizeof(buttons)/sizeof(ButtonData);
-
-static GtkWidget *
-create_button_box (GtkWidget *parent)
-{
-  GtkWidget *button;
-  GtkWidget *button_box;
-  int i;
-
-  button_box = gtk_hbox_new (FALSE, 0);
-
-  for (i = 0; i < num_buttons; i++) {
-    GtkWidget * image;
-
-    button = gtk_button_new ();
-
-    image = gtk_image_new_from_icon_name (buttons[i].icon_name,
-                                          GTK_ICON_SIZE_BUTTON);
-
-    gtk_button_set_image (GTK_BUTTON (button), image);
-
-    g_signal_connect_swapped (G_OBJECT (button), "clicked",
-                              G_CALLBACK (buttons[i].callback),
-                              G_OBJECT (parent));
-
-    gtk_widget_set_tooltip_text (button, gettext(buttons[i].tooltip));
-
-    gtk_box_pack_start (GTK_BOX (button_box), button, TRUE, TRUE, 0);
-
-    gtk_widget_show (button);
-  }
-
-  return button_box;
-}
-
-static gint
-layer_list_events (GtkWidget *widget,
-		   GdkEvent  *event)
-{
-  GdkEventKey *kevent;
-  GtkWidget *event_widget;
-  DiaLayerWidget *layer_widget;
-
-  event_widget = gtk_get_event_widget (event);
-
-  if (GTK_IS_LIST_ITEM (event_widget)) {
-    layer_widget = DIA_LAYER_WIDGET(event_widget);
-
-    switch (event->type) {
-    case GDK_2BUTTON_PRESS:
-      layer_dialog_edit_layer(layer_widget, NULL, NULL);
-      return TRUE;
-
-    case GDK_KEY_PRESS:
-      kevent = (GdkEventKey *) event;
-      switch (kevent->keyval) {
-      case GDK_Up:
-	/* printf ("up arrow\n"); */
-	break;
-      case GDK_Down:
-	/* printf ("down arrow\n"); */
-	break;
-      default:
-	return FALSE;
-      }
-      return TRUE;
-
-    default:
-      break;
-    }
-  }
-
-  return FALSE;
-}
 
 static gboolean
 layer_dialog_delete(GtkWidget *widget, gpointer data)
@@ -273,9 +186,6 @@ GtkWidget * create_layer_view_widget (void)
   GtkWidget  *hide_button;
   GtkRcStyle *rcstyle;    /* For hide_button */
   GtkWidget  *image;      /* For hide_button */
-  GtkWidget  *list;
-  GtkWidget  *scrolled_win;
-  GtkWidget  *button_box;
 
   /* if layer_dialog were renamed to layer_view_data this would make
    * more sense.
@@ -293,7 +203,7 @@ GtkWidget * create_layer_view_widget (void)
 
   hbox = gtk_hbox_new (FALSE, 1);
 
-  label = gtk_label_new (_ ("Layers:"));
+  label = gtk_label_new (_ ("Layers"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 2);
   gtk_widget_show (label);
 
@@ -311,38 +221,18 @@ GtkWidget * create_layer_view_widget (void)
   image = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
                                     GTK_ICON_SIZE_MENU);
 
-  gtk_container_add (GTK_CONTAINER(hide_button), image);
+  gtk_container_add (GTK_CONTAINER (hide_button), image);
   g_signal_connect (G_OBJECT (hide_button), "clicked",
                     G_CALLBACK (layer_view_hide_button_clicked), NULL);
 
   gtk_box_pack_end (GTK_BOX (hbox), hide_button, FALSE, FALSE, 2);
-
-  gtk_box_pack_start (GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
   gtk_widget_show_all (hbox);
 
-  scrolled_win = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_win),
-                                       GTK_SHADOW_ETCHED_IN);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-                                  GTK_POLICY_AUTOMATIC,
-                                  GTK_POLICY_AUTOMATIC);
-  gtk_box_pack_start (GTK_BOX (vbox), scrolled_win, TRUE, TRUE, 2);
+  gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 2);
 
-  layer_dialog->layer_list = list = gtk_list_new();
-
-  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_BROWSE);
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
-  gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
-				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
-  gtk_widget_show (scrolled_win);
-  gtk_widget_show (list);
-
-  g_signal_connect (G_OBJECT (list), "event",
-		    G_CALLBACK (layer_list_events), NULL);
-
-  button_box = create_button_box(vbox);
-  gtk_box_pack_start (GTK_BOX (vbox), button_box, FALSE, FALSE, 2);
-  gtk_widget_show (button_box);
+  layer_dialog->layer_editor = dia_layer_editor_new ();
+  gtk_widget_show (layer_dialog->layer_editor);
+  gtk_box_pack_start (GTK_BOX (vbox), layer_dialog->layer_editor, TRUE, TRUE, 0);
 
   return vbox;
 }
@@ -456,10 +346,6 @@ layer_dialog_create (void)
   GtkWidget *dialog;
   GtkWidget *vbox;
   GtkWidget *hbox;
-  GtkWidget *list;
-  GtkWidget *scrolled_win;
-  GtkWidget *button_box;
-  GtkWidget *button;
   GtkCellRenderer *renderer;
 
   layer_dialog = g_new0(struct LayerDialog, 1);
@@ -513,43 +399,15 @@ layer_dialog_create (void)
   gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
   gtk_widget_show (hbox);
 
-  scrolled_win = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_win),
-                                       GTK_SHADOW_ETCHED_IN);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-                                  GTK_POLICY_AUTOMATIC,
-                                  GTK_POLICY_AUTOMATIC);
-  gtk_box_pack_start (GTK_BOX (vbox), scrolled_win, TRUE, TRUE, 2);
+  layer_dialog->layer_editor = dia_layer_editor_new ();
+  gtk_box_pack_start (GTK_BOX (vbox), layer_dialog->layer_editor, TRUE, TRUE, 2);
+  gtk_widget_show (layer_dialog->layer_editor);
 
-  layer_dialog->layer_list = list = gtk_list_new();
-
-  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_BROWSE);
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
-  gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
-				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
-  gtk_widget_show (scrolled_win);
-  gtk_widget_show (list);
-
-  g_signal_connect (G_OBJECT (list), "event",
-		    G_CALLBACK (layer_list_events), NULL);
-
-  button_box = create_button_box(dialog);
-
-  gtk_box_pack_start (GTK_BOX (vbox), button_box, FALSE, FALSE, 2);
-  gtk_widget_show (button_box);
+  gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Close"), GTK_RESPONSE_CLOSE);
 
   gtk_container_set_border_width(GTK_CONTAINER(
 				 gtk_dialog_get_action_area (GTK_DIALOG(dialog))),
 				 2);
-
-  button = gtk_button_new_from_stock (GTK_STOCK_CLOSE);
-  gtk_box_pack_start (GTK_BOX (gtk_dialog_get_action_area (GTK_DIALOG(dialog))),
-		      button, TRUE, TRUE, 0);
-  g_signal_connect_swapped(G_OBJECT (button), "clicked",
-			   G_CALLBACK(gtk_widget_hide),
-			   G_OBJECT(dialog));
-
-  gtk_widget_show (button);
 
   persistence_register_window (GTK_WINDOW (dialog));
 }
@@ -594,191 +452,6 @@ dia_layer_deselect_callback(GtkWidget *widget, gpointer data)
   internal_call = FALSE;
 }
 
-
-static void
-layer_dialog_new_callback(GtkWidget *widget, gpointer gdata)
-{
-  DiaLayer *layer;
-  Diagram *dia;
-  GtkWidget *selected;
-  GList *list = NULL;
-  GtkWidget *layer_widget;
-  int pos;
-  static int next_layer_num = 1;
-
-  dia = layer_dialog->diagram;
-
-  if (dia != NULL) {
-    gchar* new_layer_name = g_strdup_printf (_("New layer %d"),
-                                             next_layer_num++);
-    layer = dia_layer_new (new_layer_name, dia->data);
-
-    assert (GTK_LIST (layer_dialog->layer_list)->selection != NULL);
-    selected = GTK_LIST (layer_dialog->layer_list)->selection->data;
-    pos = gtk_list_child_position (GTK_LIST (layer_dialog->layer_list), selected);
-
-    data_add_layer_at (dia->data, layer, dia->data->layers->len - pos);
-
-    diagram_add_update_all (dia);
-    diagram_flush (dia);
-
-    layer_widget = dia_layer_widget_new (dia, layer);
-    gtk_widget_show (layer_widget);
-
-    list = g_list_prepend (list, layer_widget);
-
-    gtk_list_insert_items (GTK_LIST (layer_dialog->layer_list), list, pos);
-
-    gtk_list_select_item (GTK_LIST (layer_dialog->layer_list), pos);
-
-    undo_layer (dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
-    undo_set_transactionpoint (dia->undo);
-
-    g_free (new_layer_name);
-  }
-}
-
-static void
-layer_dialog_rename_callback (GtkWidget *widget, gpointer gdata)
-{
-  GtkWidget *selected;
-  Diagram *dia;
-  DiaLayer *layer;
-
-  dia = layer_dialog->diagram;
-
-  if (dia == NULL) {
-    return;
-  }
-
-  selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
-  layer = dia->data->active_layer;
-  layer_dialog_edit_layer (DIA_LAYER_WIDGET (selected), dia, layer);
-}
-
-static void
-layer_dialog_delete_callback(GtkWidget *widget, gpointer gdata)
-{
-  Diagram *dia;
-  GtkWidget *selected;
-  DiaLayer *layer;
-  int pos;
-
-  dia = layer_dialog->diagram;
-
-  if ((dia != NULL) && (dia->data->layers->len>1)) {
-    assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
-    selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
-
-    layer = dia->data->active_layer;
-
-    data_remove_layer(dia->data, layer);
-    diagram_add_update_all(dia);
-    diagram_flush(dia);
-
-    pos = gtk_list_child_position(GTK_LIST(layer_dialog->layer_list), selected);
-    gtk_container_remove(GTK_CONTAINER(layer_dialog->layer_list), selected);
-
-    undo_layer(dia, layer, TYPE_DELETE_LAYER,
-	       dia->data->layers->len - pos);
-    undo_set_transactionpoint(dia->undo);
-
-    if (--pos<0)
-      pos = 0;
-
-    gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos);
-  }
-}
-
-static void
-layer_dialog_raise_callback(GtkWidget *widget, gpointer gdata)
-{
-  DiaLayer *layer;
-  Diagram *dia;
-  GtkWidget *selected;
-  GList *list = NULL;
-  int pos;
-
-  dia = layer_dialog->diagram;
-
-  if ((dia != NULL) && (dia->data->layers->len>1)) {
-    assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
-    selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
-
-    pos = gtk_list_child_position(GTK_LIST(layer_dialog->layer_list), selected);
-
-    if (pos > 0) {
-      layer = DIA_LAYER_WIDGET(selected)->layer;
-      data_raise_layer(dia->data, layer);
-
-      list = g_list_prepend(list, selected);
-
-      g_object_ref(selected);
-
-      gtk_list_remove_items(GTK_LIST(layer_dialog->layer_list),
-			    list);
-
-      gtk_list_insert_items(GTK_LIST(layer_dialog->layer_list),
-			    list, pos - 1);
-
-      g_object_unref(selected);
-
-      gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos-1);
-
-      diagram_add_update_all(dia);
-      diagram_flush(dia);
-
-      undo_layer(dia, layer, TYPE_RAISE_LAYER, 0);
-      undo_set_transactionpoint(dia->undo);
-    }
-
-  }
-}
-
-static void
-layer_dialog_lower_callback(GtkWidget *widget, gpointer gdata)
-{
-  DiaLayer *layer;
-  Diagram *dia;
-  GtkWidget *selected;
-  GList *list = NULL;
-  int pos;
-
-  dia = layer_dialog->diagram;
-
-  if ((dia != NULL) && (dia->data->layers->len>1)) {
-    assert(GTK_LIST(layer_dialog->layer_list)->selection != NULL);
-    selected = GTK_LIST(layer_dialog->layer_list)->selection->data;
-
-    pos = gtk_list_child_position(GTK_LIST(layer_dialog->layer_list), selected);
-
-    if (pos < dia->data->layers->len-1) {
-      layer = DIA_LAYER_WIDGET(selected)->layer;
-      data_lower_layer(dia->data, layer);
-
-      list = g_list_prepend(list, selected);
-
-      g_object_ref(selected);
-
-      gtk_list_remove_items(GTK_LIST(layer_dialog->layer_list),
-			    list);
-
-      gtk_list_insert_items(GTK_LIST(layer_dialog->layer_list),
-			    list, pos + 1);
-
-      g_object_unref(selected);
-
-      gtk_list_select_item(GTK_LIST(layer_dialog->layer_list), pos+1);
-
-      diagram_add_update_all(dia);
-      diagram_flush(dia);
-
-      undo_layer(dia, layer, TYPE_LOWER_LAYER, 0);
-      undo_set_transactionpoint(dia->undo);
-    }
-
-  }
-}
 
 void
 layer_dialog_show()
@@ -829,61 +502,19 @@ find_diagram (GtkTreeModel *model,
   return FALSE;
 }
 
+
 void
 layer_dialog_set_diagram (Diagram *dia)
 {
-  DiagramData *data;
-  GtkWidget *layer_widget;
-  DiaLayer *layer;
-  DiaLayer *active_layer = NULL;
-  int sel_pos;
-  int i,j;
-
-  if (dia != NULL)
-    active_layer = dia->data->active_layer;
-
   if (layer_dialog == NULL || layer_dialog->dialog == NULL) {
     layer_dialog_create (); /* May have been destroyed */
   }
 
   g_assert (layer_dialog != NULL); /* must be valid now */
 
-  gtk_container_foreach (GTK_CONTAINER (layer_dialog->layer_list),
-                         _layer_widget_clear_layer, NULL);
-  gtk_list_clear_items (GTK_LIST (layer_dialog->layer_list), 0, -1);
-  layer_dialog->diagram = dia;
+  dia_layer_editor_set_diagram (DIA_LAYER_EDITOR (layer_dialog->layer_editor),
+                                dia);
 
-  if (dia == NULL) {
-    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
-                                   NULL);
-
-    return;
-  }
-
-  layer_dialog->setting_active = TRUE;
-  gtk_tree_model_foreach (GTK_TREE_MODEL (layer_dialog->diagrams_store),
-                          find_diagram,
-                          dia);
-  layer_dialog->setting_active = FALSE;
-
-  data = dia->data;
-
-  sel_pos = 0;
-  for (i = data->layers->len - 1, j = 0; i >= 0; i--, j++) {
-    layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
-
-    layer_widget = dia_layer_widget_new (dia, layer);
-    gtk_widget_show (layer_widget);
-
-    gtk_container_add (GTK_CONTAINER (layer_dialog->layer_list),
-                        layer_widget);
-
-    if (layer == active_layer) {
-      sel_pos = j;
-    }
-  }
-
-  gtk_list_select_item (GTK_LIST (layer_dialog->layer_list), sel_pos);
 }
 
 
@@ -912,12 +543,30 @@ dia_layer_widget_unrealize(GtkWidget *widget)
   (* GTK_WIDGET_CLASS (gtk_type_class(gtk_list_item_get_type ()))->unrealize) (widget);
 }
 
+enum {
+  EXCLUSIVE,
+  LAST_SIGNAL
+};
+
+static guint signals[LAST_SIGNAL] = { 0, };
+
+
 static void
 dia_layer_widget_class_init(DiaLayerWidgetClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   widget_class->unrealize = dia_layer_widget_unrealize;
+
+  signals[EXCLUSIVE] =
+    g_signal_new ("exclusive",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  0,
+                  NULL,
+                  NULL,
+                  NULL,
+                  G_TYPE_NONE, 0);
 }
 
 static void
@@ -926,48 +575,18 @@ dia_layer_widget_set_connectable(DiaLayerWidget *widget, gboolean on)
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget->connectable), on);
 }
 
-static void
-dia_layer_widget_exclusive_connectable (DiaLayerWidget *layer_widget)
-{
-  GList *list;
-  DiaLayerWidget *lw;
-  DiaLayer *layer;
-  int connectable = FALSE;
-  int i;
-
-  /*  First determine if _any_ other layer widgets are set to connectable  */
-  for (i = 0; i < layer_widget->dia->data->layers->len; i++) {
-    layer = g_ptr_array_index (layer_widget->dia->data->layers, i);
-    if (layer_widget->layer != layer) {
-      connectable |= dia_layer_is_connectable (layer);
-    }
-  }
-
-  /*  Now, toggle the connectability for all layers except the specified one  */
-  list = GTK_LIST (layer_dialog->layer_list)->children;
-  while (list) {
-    lw = DIA_LAYER_WIDGET (list->data);
-    if (lw != layer_widget) {
-      dia_layer_widget_set_connectable (lw, !connectable);
-    } else {
-      dia_layer_widget_set_connectable (lw, TRUE);
-    }
-    gtk_widget_queue_draw (GTK_WIDGET (lw));
-
-    list = g_list_next (list);
-  }
-}
 
 static gboolean shifted = FALSE;
 
 static gboolean
-dia_layer_widget_button_event(GtkWidget *widget,
-			      GdkEventButton *event,
-			      gpointer userdata)
+dia_layer_widget_button_event (GtkWidget      *widget,
+                               GdkEventButton *event,
+                               gpointer        userdata)
 {
   DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
 
   shifted = event->state & GDK_SHIFT_MASK;
+
   internal_call = FALSE;
   /* Redraw the label? */
   gtk_widget_queue_draw(GTK_WIDGET(lw));
@@ -986,7 +605,7 @@ dia_layer_widget_connectable_toggled (GtkToggleButton *widget,
   if (shifted) {
     shifted = FALSE;
     internal_call = TRUE;
-    dia_layer_widget_exclusive_connectable (lw);
+    g_signal_emit (lw, signals[EXCLUSIVE], 0);
     internal_call = FALSE;
   } else {
     dia_layer_set_connectable (lw->layer,
@@ -1046,6 +665,8 @@ dia_layer_widget_init(DiaLayerWidget *lw)
 
   lw->visible = visible = dia_toggle_button_new_with_icon_names ("dia-visible",
                                                                  "dia-visible-empty");
+
+  lw->editor = NULL;
 
   g_signal_connect(G_OBJECT(visible), "button-release-event",
 		   G_CALLBACK(dia_layer_widget_button_event), lw);
@@ -1114,7 +735,7 @@ dia_layer_widget_get_type(void)
 }
 
 static GtkWidget *
-dia_layer_widget_new (Diagram *dia, DiaLayer *layer)
+dia_layer_widget_new (Diagram *dia, DiaLayer *layer, DiaLayerEditor *editor)
 {
   GtkWidget *widget;
 
@@ -1128,6 +749,7 @@ dia_layer_widget_new (Diagram *dia, DiaLayer *layer)
    */
   DIA_LAYER_WIDGET (widget)->connect_on = dia_layer_is_connectable (layer);
   DIA_LAYER_WIDGET (widget)->connect_off = FALSE;
+  DIA_LAYER_WIDGET (widget)->editor = GTK_WIDGET (editor);
 
   return widget;
 }
@@ -1562,4 +1184,538 @@ diagram_edit_layer(Diagram *dia, DiaLayer *layer)
   g_return_if_fail(dia != NULL);
 
   layer_dialog_edit_layer (NULL, layer ? NULL : dia, layer);
+}
+
+typedef struct _DiaLayerEditorPrivate DiaLayerEditorPrivate;
+struct _DiaLayerEditorPrivate {
+  GtkWidget *list;
+  Diagram   *diagram;
+};
+
+G_DEFINE_TYPE_WITH_PRIVATE (DiaLayerEditor, dia_layer_editor, GTK_TYPE_VBOX)
+
+enum {
+  PROP_0,
+  PROP_DIAGRAM,
+  LAST_PROP
+};
+
+static GParamSpec *pspecs[LAST_PROP] = { NULL, };
+
+
+static void
+dia_layer_editor_set_property (GObject      *object,
+                               guint         property_id,
+                               const GValue *value,
+                               GParamSpec   *pspec)
+{
+  DiaLayerEditor *self = DIA_LAYER_EDITOR (object);
+
+  switch (property_id) {
+    case PROP_DIAGRAM:
+      dia_layer_editor_set_diagram (self, g_value_get_object (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+dia_layer_editor_get_property (GObject    *object,
+                               guint       property_id,
+                               GValue     *value,
+                               GParamSpec *pspec)
+{
+  DiaLayerEditor *self = DIA_LAYER_EDITOR (object);
+
+  switch (property_id) {
+    case PROP_DIAGRAM:
+      g_value_set_object (value, dia_layer_editor_get_diagram (self));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+dia_layer_editor_finalize (GObject *object)
+{
+  DiaLayerEditor *self = DIA_LAYER_EDITOR (object);
+  DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
+
+  g_clear_object (&priv->diagram);
+
+  G_OBJECT_CLASS (dia_layer_editor_parent_class)->finalize (object);
+}
+
+
+static void
+dia_layer_editor_class_init (DiaLayerEditorClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->set_property = dia_layer_editor_set_property;
+  object_class->get_property = dia_layer_editor_get_property;
+  object_class->finalize = dia_layer_editor_finalize;
+
+  /**
+   * DiaLayerEditor:diagram:
+   *
+   * Since: 0.98
+   */
+  pspecs[PROP_DIAGRAM] =
+    g_param_spec_object ("diagram",
+                         "Diagram",
+                         "The current diagram",
+                         DIA_TYPE_DIAGRAM,
+                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_PROP, pspecs);
+}
+
+
+static void rename_layer (GtkWidget *widget, DiaLayerEditor *self);
+
+static gint
+list_event (GtkWidget      *widget,
+            GdkEvent       *event,
+            DiaLayerEditor *self)
+{
+  GdkEventKey *kevent;
+  GtkWidget *event_widget;
+  DiaLayerWidget *layer_widget;
+
+  event_widget = gtk_get_event_widget (event);
+
+  if (GTK_IS_LIST_ITEM (event_widget)) {
+    layer_widget = DIA_LAYER_WIDGET (event_widget);
+
+    switch (event->type) {
+      case GDK_2BUTTON_PRESS:
+        rename_layer (GTK_WIDGET (layer_widget), self);
+        return TRUE;
+
+      case GDK_KEY_PRESS:
+        kevent = (GdkEventKey *) event;
+        switch (kevent->keyval) {
+          case GDK_Up:
+            /* printf ("up arrow\n"); */
+            break;
+          case GDK_Down:
+            /* printf ("down arrow\n"); */
+            break;
+          default:
+            return FALSE;
+        }
+        return TRUE;
+
+      default:
+        break;
+    }
+  }
+
+  return FALSE;
+}
+
+
+static void
+exclusive_connectable (DiaLayerWidget *layer_row,
+                       DiaLayerEditor *self)
+{
+  DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
+  GList *list;
+  DiaLayerWidget *lw;
+  DiaLayer *layer;
+  int connectable = FALSE;
+  int i;
+
+  /*  First determine if _any_ other layer widgets are set to connectable  */
+  for (i = 0; i < data_layer_count (DIA_DIAGRAM_DATA (priv->diagram)); i++) {
+    layer = data_layer_get_nth (DIA_DIAGRAM_DATA (priv->diagram), i);
+
+    if (layer_row->layer != layer) {
+      connectable |= dia_layer_is_connectable (layer);
+    }
+  }
+
+  /*  Now, toggle the connectability for all layers except the specified one  */
+  list = GTK_LIST (priv->list)->children;
+  while (list) {
+    lw = DIA_LAYER_WIDGET (list->data);
+    if (lw != layer_row) {
+      dia_layer_widget_set_connectable (lw, !connectable);
+    } else {
+      dia_layer_widget_set_connectable (lw, TRUE);
+    }
+    gtk_widget_queue_draw (GTK_WIDGET (lw));
+
+    list = g_list_next (list);
+  }
+}
+
+
+static void
+new_layer (GtkWidget *widget, DiaLayerEditor *self)
+{
+  DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
+  DiaLayer *layer;
+  Diagram *dia;
+  GtkWidget *selected;
+  GList *list = NULL;
+  GtkWidget *layer_widget;
+  int pos;
+  static int next_layer_num = 1;
+
+  dia = layer_dialog->diagram;
+
+  if (dia != NULL) {
+    gchar* new_layer_name = g_strdup_printf (_("New layer %d"),
+                                             next_layer_num++);
+    layer = dia_layer_new (new_layer_name, dia->data);
+
+    assert (GTK_LIST (priv->list)->selection != NULL);
+    selected = GTK_LIST (priv->list)->selection->data;
+    pos = gtk_list_child_position (GTK_LIST (priv->list), selected);
+
+    data_add_layer_at (dia->data, layer, dia->data->layers->len - pos);
+
+    diagram_add_update_all (dia);
+    diagram_flush (dia);
+
+    layer_widget = dia_layer_widget_new (dia, layer, self);
+    g_signal_connect (layer_widget,
+                      "exclusive",
+                      G_CALLBACK (exclusive_connectable),
+                      self);
+    gtk_widget_show (layer_widget);
+
+    list = g_list_prepend (list, layer_widget);
+
+    gtk_list_insert_items (GTK_LIST (priv->list), list, pos);
+
+    gtk_list_select_item (GTK_LIST (priv->list), pos);
+
+    undo_layer (dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
+    undo_set_transactionpoint (dia->undo);
+
+    g_free (new_layer_name);
+  }
+}
+
+
+static void
+rename_layer (GtkWidget *widget, DiaLayerEditor *self)
+{
+  DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
+  GtkWidget *selected;
+  Diagram *dia;
+  DiaLayer *layer;
+
+  dia = layer_dialog->diagram;
+
+  if (dia == NULL) {
+    return;
+  }
+
+  selected = GTK_LIST (priv->list)->selection->data;
+  layer = dia->data->active_layer;
+  layer_dialog_edit_layer (DIA_LAYER_WIDGET (selected), dia, layer);
+}
+
+
+static void
+delete_layer (GtkWidget *widget, DiaLayerEditor *self)
+{
+  DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
+  Diagram *dia;
+  GtkWidget *selected;
+  DiaLayer *layer;
+  int pos;
+
+  dia = layer_dialog->diagram;
+
+  if ((dia != NULL) && (dia->data->layers->len > 1)) {
+    assert (GTK_LIST (priv->list)->selection != NULL);
+    selected = GTK_LIST (priv->list)->selection->data;
+
+    layer = dia->data->active_layer;
+
+    data_remove_layer (dia->data, layer);
+    diagram_add_update_all (dia);
+    diagram_flush (dia);
+
+    pos = gtk_list_child_position (GTK_LIST (priv->list), selected);
+    gtk_container_remove (GTK_CONTAINER (priv->list), selected);
+
+    undo_layer (dia, layer, TYPE_DELETE_LAYER,
+                dia->data->layers->len - pos);
+    undo_set_transactionpoint (dia->undo);
+
+    if (--pos < 0) {
+      pos = 0;
+    }
+
+    gtk_list_select_item (GTK_LIST (priv->list), pos);
+  }
+}
+
+
+static void
+raise_layer (GtkWidget *widget, DiaLayerEditor *self)
+{
+  DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
+  DiaLayer *layer;
+  Diagram *dia;
+  GtkWidget *selected;
+  GList *list = NULL;
+  int pos;
+
+  dia = layer_dialog->diagram;
+
+  if ((dia != NULL) && (dia->data->layers->len > 1)) {
+    assert (GTK_LIST (priv->list)->selection != NULL);
+    selected = GTK_LIST (priv->list)->selection->data;
+
+    pos = gtk_list_child_position (GTK_LIST (priv->list), selected);
+
+    if (pos > 0) {
+      layer = DIA_LAYER_WIDGET (selected)->layer;
+      data_raise_layer (dia->data, layer);
+
+      list = g_list_prepend (list, selected);
+
+      g_object_ref (selected);
+
+      gtk_list_remove_items (GTK_LIST (priv->list),
+                             list);
+
+      gtk_list_insert_items (GTK_LIST (priv->list),
+                             list, pos - 1);
+
+      g_object_unref (selected);
+
+      gtk_list_select_item (GTK_LIST (priv->list), pos-1);
+
+      diagram_add_update_all (dia);
+      diagram_flush (dia);
+
+      undo_layer (dia, layer, TYPE_RAISE_LAYER, 0);
+      undo_set_transactionpoint (dia->undo);
+    }
+  }
+}
+
+
+static void
+lower_layer (GtkWidget *widget, DiaLayerEditor *self)
+{
+  DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
+  DiaLayer *layer;
+  Diagram *dia;
+  GtkWidget *selected;
+  GList *list = NULL;
+  int pos;
+
+  dia = layer_dialog->diagram;
+
+  if ((dia != NULL) && (dia->data->layers->len > 1)) {
+    assert (GTK_LIST (priv->list)->selection != NULL);
+    selected = GTK_LIST (priv->list)->selection->data;
+
+    pos = gtk_list_child_position (GTK_LIST (priv->list), selected);
+
+    if (pos < dia->data->layers->len-1) {
+      layer = DIA_LAYER_WIDGET (selected)->layer;
+      data_lower_layer (dia->data, layer);
+
+      list = g_list_prepend (list, selected);
+
+      g_object_ref (selected);
+
+      gtk_list_remove_items (GTK_LIST (priv->list),
+                             list);
+
+      gtk_list_insert_items (GTK_LIST (priv->list),
+                             list, pos + 1);
+
+      g_object_unref (selected);
+
+      gtk_list_select_item (GTK_LIST (priv->list), pos+1);
+
+      diagram_add_update_all (dia);
+      diagram_flush (dia);
+
+      undo_layer (dia, layer, TYPE_LOWER_LAYER, 0);
+      undo_set_transactionpoint (dia->undo);
+    }
+  }
+}
+
+
+static ButtonData editor_buttons[] = {
+  { "list-add", new_layer, N_("New Layer") },
+  { "list-remove", delete_layer, N_("Delete Layer") },
+  { "document-properties", rename_layer, N_("Rename Layer") },
+  { "go-up", raise_layer, N_("Raise Layer") },
+  { "go-down", lower_layer, N_("Lower Layer") },
+};
+
+
+static void
+dia_layer_editor_init (DiaLayerEditor *self)
+{
+  GtkWidget *scrolled_win;
+  GtkWidget *button_box;
+  GtkWidget *button;
+  DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
+
+  gtk_container_set_border_width (GTK_CONTAINER (self), 6);
+  g_object_set (self, "width-request", 250, NULL);
+
+  priv->diagram = NULL;
+
+  scrolled_win = gtk_scrolled_window_new (NULL, NULL);
+  gtk_widget_show (scrolled_win);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_win),
+                                       GTK_SHADOW_ETCHED_IN);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
+                                  GTK_POLICY_AUTOMATIC,
+                                  GTK_POLICY_AUTOMATIC);
+  gtk_box_pack_start (GTK_BOX (self), scrolled_win, TRUE, TRUE, 2);
+
+  priv->list = gtk_list_new ();
+  gtk_widget_show (priv->list);
+  gtk_list_set_selection_mode (GTK_LIST (priv->list), GTK_SELECTION_BROWSE);
+  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), priv->list);
+  gtk_container_set_focus_vadjustment (GTK_CONTAINER (priv->list),
+                                       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
+
+  g_signal_connect (G_OBJECT (priv->list),
+                    "event",
+                    G_CALLBACK (list_event),
+                    self);
+
+  button_box = gtk_hbox_new (FALSE, 0);
+
+  for (int i = 0; i < G_N_ELEMENTS (editor_buttons); i++) {
+    GtkWidget * image;
+
+    button = gtk_button_new ();
+
+    image = gtk_image_new_from_icon_name (editor_buttons[i].icon_name,
+                                          GTK_ICON_SIZE_BUTTON);
+
+    gtk_button_set_image (GTK_BUTTON (button), image);
+
+    g_signal_connect (G_OBJECT (button),
+                      "clicked",
+                      G_CALLBACK (editor_buttons[i].callback),
+                      self);
+
+    gtk_widget_set_tooltip_text (button, gettext (editor_buttons[i].tooltip));
+
+    gtk_box_pack_start (GTK_BOX (button_box), button, TRUE, TRUE, 0);
+
+    gtk_widget_show (button);
+  }
+
+  gtk_box_pack_start (GTK_BOX (self), button_box, FALSE, FALSE, 2);
+  gtk_widget_show (button_box);
+}
+
+
+GtkWidget *
+dia_layer_editor_new (void)
+{
+  return g_object_new (DIA_TYPE_LAYER_EDITOR,
+                       NULL);
+}
+
+
+void
+dia_layer_editor_set_diagram (DiaLayerEditor *self,
+                              Diagram        *dia)
+{
+  DiaLayerEditorPrivate *priv;
+  GtkWidget *layer_widget;
+  DiaLayer *layer;
+  DiaLayer *active_layer = NULL;
+  int sel_pos;
+  int i,j;
+
+  g_return_if_fail (DIA_IS_LAYER_EDITOR (self));
+
+  priv = dia_layer_editor_get_instance_private (self);
+
+  g_clear_object (&priv->diagram);
+
+  if (dia == NULL) {
+
+
+    /* ========================================================= */
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
+                                   NULL);
+    /* ========================================================= */
+
+
+    g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_DIAGRAM]);
+
+    return;
+  }
+
+  priv->diagram = g_object_ref (dia);
+
+  active_layer = DIA_DIAGRAM_DATA (dia)->active_layer;
+
+  gtk_container_foreach (GTK_CONTAINER (priv->list),
+                         _layer_widget_clear_layer, NULL);
+  gtk_list_clear_items (GTK_LIST (priv->list), 0, -1);
+
+
+  /* ========================================================= */
+  layer_dialog->diagram = dia;
+
+  layer_dialog->setting_active = TRUE;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (layer_dialog->diagrams_store),
+                          find_diagram,
+                          dia);
+  layer_dialog->setting_active = FALSE;
+  /* ========================================================= */
+
+
+  sel_pos = 0;
+  for (i = data_layer_count (DIA_DIAGRAM_DATA (dia)) - 1, j = 0; i >= 0; i--, j++) {
+    layer = data_layer_get_nth (DIA_DIAGRAM_DATA (dia), i);
+
+    layer_widget = dia_layer_widget_new (dia, layer, self);
+    gtk_widget_show (layer_widget);
+
+    gtk_container_add (GTK_CONTAINER (priv->list),
+                       layer_widget);
+
+    if (layer == active_layer) {
+      sel_pos = j;
+    }
+  }
+
+  gtk_list_select_item (GTK_LIST (priv->list), sel_pos);
+
+  g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_DIAGRAM]);
+}
+
+
+Diagram *
+dia_layer_editor_get_diagram (DiaLayerEditor *self)
+{
+  DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
+
+  g_return_val_if_fail (DIA_IS_LAYER_EDITOR (self), NULL);
+
+  priv = dia_layer_editor_get_instance_private (self);
+
+  return priv->diagram;
 }
