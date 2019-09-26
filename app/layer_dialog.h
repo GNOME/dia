@@ -38,6 +38,25 @@ void       dia_layer_editor_set_diagram (DiaLayerEditor *self,
                                          Diagram        *dia);
 Diagram   *dia_layer_editor_get_diagram (DiaLayerEditor *self);
 
+
+
+#define DIA_TYPE_LAYER_EDITOR_DIALOG dia_layer_editor_dialog_get_type ()
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkDialog, g_object_unref)
+
+G_DECLARE_DERIVABLE_TYPE (DiaLayerEditorDialog, dia_layer_editor_dialog, DIA, LAYER_EDITOR_DIALOG, GtkDialog)
+
+struct _DiaLayerEditorDialogClass {
+  GtkDialogClass parent;
+};
+
+GtkWidget *dia_layer_editor_dialog_new         (void);
+void       dia_layer_editor_dialog_set_diagram (DiaLayerEditorDialog *self,
+                                                Diagram              *dia);
+Diagram   *dia_layer_editor_dialog_get_diagram (DiaLayerEditorDialog *self);
+
+
+
 void layer_dialog_create      (void);
 void layer_dialog_show        (void);
 void layer_dialog_set_diagram (Diagram *dia);

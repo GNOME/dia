@@ -1130,7 +1130,7 @@ help_about_callback (GtkAction *action)
 
   gtk_show_about_dialog (NULL,
                          "logo", logo,
-                         "name", "Dia",
+                         "program-name", "Dia",
                          "version", VERSION,
                          "comments", _("A program for drawing structured diagrams."),
                          "copyright", "(C) 1998-2011 The Free Software Foundation and the authors\n"

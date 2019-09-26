@@ -126,11 +126,14 @@ PyDia_New (PyObject *self, PyObject *args)
 {
   Diagram *dia;
   gchar *filename;
+  GFile *file;
 
   if (!PyArg_ParseTuple (args, "s:dia.new", &filename))
     return NULL;
 
-  dia = dia_diagram_new (filename);
+  file = g_file_new_for_path (filename);
+  dia = dia_diagram_new (file);
+  g_clear_object (&file);
   if (dia) {
     return PyDiaDiagram_New (dia);
   }

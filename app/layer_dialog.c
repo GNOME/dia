@@ -98,12 +98,7 @@ enum {
 struct LayerDialog {
   GtkWidget *dialog;
 
-  GtkListStore *diagrams_store;
-  GtkWidget    *diagrams_combo;
-
-  GtkWidget    *layer_editor;
-
-  gboolean setting_active;
+  GtkWidget *layer_editor;
 
   Diagram *diagram;
 };
@@ -164,14 +159,6 @@ static void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, DiaLayer *
 static void dia_layer_update_from_layer(DiaLayerWidget *widget);
 
 
-static gboolean
-layer_dialog_delete(GtkWidget *widget, gpointer data)
-{
-  gtk_widget_hide(widget);
-  /* We're caching, so don't destroy */
-  return TRUE;
-}
-
 static void
 layer_view_hide_button_clicked (void * not_used)
 {
@@ -193,11 +180,6 @@ GtkWidget * create_layer_view_widget (void)
   layer_dialog = g_new0 (struct LayerDialog, 1);
 
   layer_dialog->diagram = NULL;
-  /* Not used in integrated UI */
-  layer_dialog->diagrams_store = gtk_list_store_new (2,
-                                                     G_TYPE_STRING,
-                                                     DIA_TYPE_DIAGRAM);
-  layer_dialog->diagrams_combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (layer_dialog->diagrams_store));
 
   layer_dialog->dialog = vbox = gtk_vbox_new (FALSE, 1);
 
@@ -238,178 +220,15 @@ GtkWidget * create_layer_view_widget (void)
 }
 
 
-static void
-diagrams_changed (GListModel *diagrams,
-                  guint       position,
-                  guint       removed,
-                  guint       added,
-                  gpointer    user_data)
-{
-  Diagram *dia;
-  int i;
-  int current_nr;
-  GtkTreeIter iter;
-  char *basename = NULL;
-
-  if (layer_dialog == NULL || layer_dialog->dialog == NULL) {
-    if (g_list_model_get_n_items (diagrams) < 1)
-      return; /* shortcut; maybe session end w/o this dialog */
-    else
-      layer_dialog_create ();
-  }
-  g_assert (layer_dialog != NULL); /* must be valid now */
-
-  if (layer_dialog->diagrams_store == NULL) {
-    return;
-  }
-
-  current_nr = -1;
-
-  gtk_list_store_clear (layer_dialog->diagrams_store);
-
-  if (g_list_model_get_n_items (diagrams) < 1) {
-    gtk_widget_set_sensitive (layer_dialog->dialog, FALSE);
-
-    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
-                                   NULL);
-
-    return;
-  }
-
-  gtk_widget_set_sensitive (layer_dialog->dialog, TRUE);
-
-  i = 0;
-  while ((dia = DIA_DIAGRAM (g_list_model_get_item (diagrams, i)))) {
-    basename = g_path_get_basename (dia->filename);
-
-    gtk_list_store_append (layer_dialog->diagrams_store, &iter);
-    gtk_list_store_set (layer_dialog->diagrams_store,
-                        &iter,
-                        COL_FILENAME,
-                        basename,
-                        COL_DIAGRAM,
-                        dia,
-                        -1);
-
-    if (dia == layer_dialog->diagram) {
-      current_nr = i;
-      gtk_combo_box_set_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
-                                     &iter);
-    }
-
-    i++;
-
-    g_free (basename);
-    g_clear_object (&dia);
-  }
-
-  if (current_nr == -1) {
-    dia = NULL;
-    if (g_list_model_get_n_items (diagrams) > 0) {
-      dia = g_list_model_get_item (diagrams, i);
-    }
-
-    layer_dialog_set_diagram (dia);
-
-    g_clear_object (&dia);
-  }
-}
-
-
-static void
-diagram_changed (GtkComboBox *widget,
-                 gpointer     data)
-{
-  GtkTreeIter iter;
-  Diagram *diagram = NULL;
-
-  if (layer_dialog->setting_active) {
-    return;
-  }
-
-  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
-                                     &iter)) {
-    gtk_tree_model_get (GTK_TREE_MODEL (layer_dialog->diagrams_store),
-                        &iter,
-                        COL_DIAGRAM,
-                        &diagram,
-                        -1);
-  }
-
-  layer_dialog_set_diagram (diagram);
-}
-
-
 void
 layer_dialog_create (void)
 {
-  GtkWidget *dialog;
-  GtkWidget *vbox;
-  GtkWidget *hbox;
-  GtkCellRenderer *renderer;
-
   layer_dialog = g_new0(struct LayerDialog, 1);
 
   layer_dialog->diagram = NULL;
-  layer_dialog->diagrams_store = NULL;
 
-  layer_dialog->dialog = dialog = gtk_dialog_new ();
-  gtk_window_set_title (GTK_WINDOW (dialog), _("Layers"));
-  gtk_window_set_role (GTK_WINDOW (dialog), "layer_window");
-  gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
-
-  g_signal_connect (G_OBJECT (dialog), "delete_event",
-                    G_CALLBACK(layer_dialog_delete), NULL);
-  g_signal_connect (G_OBJECT (dialog), "destroy",
-                    G_CALLBACK(gtk_widget_destroyed),
-		    &(layer_dialog->dialog));
-
-  vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
-
-  hbox = gtk_hbox_new(FALSE, 1);
-
-  layer_dialog->diagrams_store = gtk_list_store_new (2,
-                                                     G_TYPE_STRING,
-                                                     DIA_TYPE_DIAGRAM);
-  layer_dialog->diagrams_combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (layer_dialog->diagrams_store));
-
-  g_signal_connect (dia_application_get_diagrams (dia_application_get_default ()),
-                    "items-changed",
-                    G_CALLBACK (diagrams_changed),
-                    NULL);
-
-  g_signal_connect (layer_dialog->diagrams_combo,
-                    "changed",
-                    G_CALLBACK (diagram_changed),
-                    NULL);
-
-  renderer = gtk_cell_renderer_text_new ();
-  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (layer_dialog->diagrams_combo),
-                              renderer,
-                              TRUE);
-  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (layer_dialog->diagrams_combo),
-                                  renderer,
-                                  "text", COL_FILENAME,
-                                  NULL);
-
-
-  gtk_box_pack_start (GTK_BOX (hbox), layer_dialog->diagrams_combo, TRUE, TRUE, 2);
-  gtk_widget_show (layer_dialog->diagrams_combo);
-
-  gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-  gtk_widget_show (hbox);
-
-  layer_dialog->layer_editor = dia_layer_editor_new ();
-  gtk_box_pack_start (GTK_BOX (vbox), layer_dialog->layer_editor, TRUE, TRUE, 2);
-  gtk_widget_show (layer_dialog->layer_editor);
-
-  gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Close"), GTK_RESPONSE_CLOSE);
-
-  gtk_container_set_border_width(GTK_CONTAINER(
-				 gtk_dialog_get_action_area (GTK_DIALOG(dialog))),
-				 2);
-
-  persistence_register_window (GTK_WINDOW (dialog));
+  layer_dialog->dialog = dia_layer_editor_dialog_new ();
+  gtk_widget_show (layer_dialog->dialog);
 }
 
 static void
@@ -478,30 +297,6 @@ _layer_widget_clear_layer (GtkWidget *widget, gpointer user_data)
   lw->layer = NULL;
 }
 
-gboolean
-find_diagram (GtkTreeModel *model,
-              GtkTreePath  *path,
-              GtkTreeIter  *iter,
-              gpointer      dia)
-{
-  Diagram *diagram = NULL;
-
-  gtk_tree_model_get (model, iter, COL_DIAGRAM, &diagram, -1);
-
-  if (diagram == dia) {
-    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
-                                   iter);
-
-    g_clear_object (&diagram);
-
-    return TRUE;
-  }
-
-  g_clear_object (&diagram);
-
-  return FALSE;
-}
-
 
 void
 layer_dialog_set_diagram (Diagram *dia)
@@ -512,9 +307,13 @@ layer_dialog_set_diagram (Diagram *dia)
 
   g_assert (layer_dialog != NULL); /* must be valid now */
 
-  dia_layer_editor_set_diagram (DIA_LAYER_EDITOR (layer_dialog->layer_editor),
-                                dia);
-
+  if (DIA_IS_LAYER_EDITOR_DIALOG (layer_dialog->dialog)) {
+    dia_layer_editor_dialog_set_diagram (DIA_LAYER_EDITOR_DIALOG (layer_dialog->dialog),
+                                         dia);
+  } else {
+    dia_layer_editor_set_diagram (DIA_LAYER_EDITOR (layer_dialog->layer_editor),
+                                  dia);
+  }
 }
 
 
@@ -1654,14 +1453,6 @@ dia_layer_editor_set_diagram (DiaLayerEditor *self,
   g_clear_object (&priv->diagram);
 
   if (dia == NULL) {
-
-
-    /* ========================================================= */
-    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (layer_dialog->diagrams_combo),
-                                   NULL);
-    /* ========================================================= */
-
-
     g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_DIAGRAM]);
 
     return;
@@ -1674,18 +1465,6 @@ dia_layer_editor_set_diagram (DiaLayerEditor *self,
   gtk_container_foreach (GTK_CONTAINER (priv->list),
                          _layer_widget_clear_layer, NULL);
   gtk_list_clear_items (GTK_LIST (priv->list), 0, -1);
-
-
-  /* ========================================================= */
-  layer_dialog->diagram = dia;
-
-  layer_dialog->setting_active = TRUE;
-  gtk_tree_model_foreach (GTK_TREE_MODEL (layer_dialog->diagrams_store),
-                          find_diagram,
-                          dia);
-  layer_dialog->setting_active = FALSE;
-  /* ========================================================= */
-
 
   sel_pos = 0;
   for (i = data_layer_count (DIA_DIAGRAM_DATA (dia)) - 1, j = 0; i >= 0; i--, j++) {
@@ -1716,6 +1495,354 @@ dia_layer_editor_get_diagram (DiaLayerEditor *self)
   g_return_val_if_fail (DIA_IS_LAYER_EDITOR (self), NULL);
 
   priv = dia_layer_editor_get_instance_private (self);
+
+  return priv->diagram;
+}
+
+
+
+
+
+typedef struct _DiaLayerEditorDialogPrivate DiaLayerEditorDialogPrivate;
+struct _DiaLayerEditorDialogPrivate {
+  Diagram      *diagram;
+
+  GtkListStore *store;
+
+  GtkWidget    *combo;
+  GtkWidget    *editor;
+};
+
+G_DEFINE_TYPE_WITH_PRIVATE (DiaLayerEditorDialog, dia_layer_editor_dialog, GTK_TYPE_DIALOG)
+
+enum {
+  DLG_PROP_0,
+  DLG_PROP_DIAGRAM,
+  LAST_DLG_PROP
+};
+
+static GParamSpec *dlg_pspecs[LAST_DLG_PROP] = { NULL, };
+
+
+static void
+dia_layer_editor_dialog_set_property (GObject      *object,
+                                      guint         property_id,
+                                      const GValue *value,
+                                      GParamSpec   *pspec)
+{
+  DiaLayerEditorDialog *self = DIA_LAYER_EDITOR_DIALOG (object);
+
+  switch (property_id) {
+    case DLG_PROP_DIAGRAM:
+      dia_layer_editor_dialog_set_diagram (self, g_value_get_object (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+dia_layer_editor_dialog_get_property (GObject    *object,
+                                      guint       property_id,
+                                      GValue     *value,
+                                      GParamSpec *pspec)
+{
+  DiaLayerEditorDialog *self = DIA_LAYER_EDITOR_DIALOG (object);
+
+
+  switch (property_id) {
+    case DLG_PROP_DIAGRAM:
+      g_value_set_object (value, dia_layer_editor_dialog_get_diagram (self));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+dia_layer_editor_dialog_finalize (GObject *object)
+{
+  DiaLayerEditorDialog *self = DIA_LAYER_EDITOR_DIALOG (object);
+  DiaLayerEditorDialogPrivate *priv = dia_layer_editor_dialog_get_instance_private (self);
+
+  g_clear_object (&priv->diagram);
+
+  G_OBJECT_CLASS (dia_layer_editor_dialog_parent_class)->finalize (object);
+}
+
+
+static gboolean
+dia_layer_editor_dialog_delete_event (GtkWidget *widget, GdkEventAny *event)
+{
+  gtk_widget_hide (widget);
+
+  /* We're caching, so don't destroy */
+  return TRUE;
+}
+
+
+static void
+dia_layer_editor_dialog_class_init (DiaLayerEditorDialogClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+  object_class->set_property = dia_layer_editor_dialog_set_property;
+  object_class->get_property = dia_layer_editor_dialog_get_property;
+  object_class->finalize = dia_layer_editor_dialog_finalize;
+
+  widget_class->delete_event = dia_layer_editor_dialog_delete_event;
+
+  /**
+   * DiaLayerEditorDialog:diagram:
+   *
+   * Since: 0.98
+   */
+  dlg_pspecs[DLG_PROP_DIAGRAM] =
+    g_param_spec_object ("diagram",
+                         "Diagram",
+                         "The current diagram",
+                         DIA_TYPE_DIAGRAM,
+                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_DLG_PROP, dlg_pspecs);
+}
+
+
+static void
+diagrams_changed (GListModel *diagrams,
+                  guint       position,
+                  guint       removed,
+                  guint       added,
+                  gpointer    self)
+{
+  DiaLayerEditorDialogPrivate *priv = dia_layer_editor_dialog_get_instance_private (self);
+  Diagram *dia;
+  int i;
+  int current_nr;
+  GtkTreeIter iter;
+  char *basename = NULL;
+
+  g_return_if_fail (DIA_IS_LAYER_EDITOR_DIALOG (self));
+
+  current_nr = -1;
+
+  gtk_list_store_clear (priv->store);
+
+  if (g_list_model_get_n_items (diagrams) < 1) {
+    gtk_widget_set_sensitive (self, FALSE);
+
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (priv->combo),
+                                   NULL);
+
+    return;
+  }
+
+  gtk_widget_set_sensitive (self, TRUE);
+
+  i = 0;
+  while ((dia = DIA_DIAGRAM (g_list_model_get_item (diagrams, i)))) {
+    basename = g_path_get_basename (dia->filename);
+
+    gtk_list_store_append (priv->store, &iter);
+    gtk_list_store_set (priv->store,
+                        &iter,
+                        COL_FILENAME,
+                        basename,
+                        COL_DIAGRAM,
+                        dia,
+                        -1);
+
+    if (dia == priv->diagram) {
+      current_nr = i;
+      gtk_combo_box_set_active_iter (GTK_COMBO_BOX (priv->combo),
+                                     &iter);
+    }
+
+    i++;
+
+    g_free (basename);
+    g_clear_object (&dia);
+  }
+
+  if (current_nr == -1) {
+    dia = NULL;
+    if (g_list_model_get_n_items (diagrams) > 0) {
+      dia = g_list_model_get_item (diagrams, i);
+    }
+
+    layer_dialog_set_diagram (dia);
+
+    g_clear_object (&dia);
+  }
+}
+
+
+static void
+diagram_changed (GtkComboBox *widget,
+                 gpointer     self)
+{
+  DiaLayerEditorDialogPrivate *priv = dia_layer_editor_dialog_get_instance_private (self);
+  GtkTreeIter iter;
+  Diagram *diagram = NULL;
+
+  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (priv->combo),
+                                     &iter)) {
+    gtk_tree_model_get (GTK_TREE_MODEL (priv->store),
+                        &iter,
+                        COL_DIAGRAM,
+                        &diagram,
+                        -1);
+  }
+
+  layer_dialog_set_diagram (diagram);
+
+  g_clear_object (&diagram);
+}
+
+
+static void
+dia_layer_editor_dialog_init (DiaLayerEditorDialog *self)
+{
+  GtkWidget *vbox;
+  GtkWidget *hbox;
+  GtkCellRenderer *renderer;
+  DiaLayerEditorDialogPrivate *priv = dia_layer_editor_dialog_get_instance_private (self);
+
+  priv->diagram = NULL;
+
+  gtk_window_set_title (GTK_WINDOW (self), _("Layers"));
+  gtk_window_set_role (GTK_WINDOW (self), "layer_window");
+  gtk_window_set_resizable (GTK_WINDOW (self), TRUE);
+
+  g_signal_connect (G_OBJECT (self), "destroy",
+                    G_CALLBACK (gtk_widget_destroyed),
+                    self);
+
+  vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
+
+  hbox = gtk_hbox_new (FALSE, 1);
+
+  priv->store = gtk_list_store_new (2,
+                                    G_TYPE_STRING,
+                                    DIA_TYPE_DIAGRAM);
+  priv->combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (priv->store));
+
+  g_signal_connect (dia_application_get_diagrams (dia_application_get_default ()),
+                    "items-changed",
+                    G_CALLBACK (diagrams_changed),
+                    self);
+
+  g_signal_connect (priv->combo,
+                    "changed",
+                    G_CALLBACK (diagram_changed),
+                    self);
+
+  renderer = gtk_cell_renderer_text_new ();
+  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (priv->combo),
+                              renderer,
+                              TRUE);
+  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (priv->combo),
+                                  renderer,
+                                  "text", COL_FILENAME,
+                                  NULL);
+
+
+  gtk_box_pack_start (GTK_BOX (hbox), priv->combo, TRUE, TRUE, 2);
+  gtk_widget_show (priv->combo);
+
+  gtk_box_pack_start(GTK_BOX (vbox), hbox, FALSE, FALSE, 2);
+  gtk_widget_show (hbox);
+
+  priv->editor = dia_layer_editor_new ();
+  g_object_bind_property (self, "diagram",
+                          priv->editor, "diagram",
+                          G_BINDING_DEFAULT);
+  gtk_box_pack_start (GTK_BOX (vbox), priv->editor, TRUE, TRUE, 2);
+  gtk_widget_show (priv->editor);
+
+  gtk_dialog_add_button (GTK_DIALOG (self), _("_Close"), GTK_RESPONSE_CLOSE);
+
+  gtk_container_set_border_width (GTK_CONTAINER (gtk_dialog_get_action_area (GTK_DIALOG (self))),
+                                  2);
+
+  persistence_register_window (GTK_WINDOW (self));
+}
+
+
+GtkWidget *
+dia_layer_editor_dialog_new (void)
+{
+  return g_object_new (DIA_TYPE_LAYER_EDITOR_DIALOG, NULL);
+}
+
+
+gboolean
+find_diagram (GtkTreeModel *model,
+              GtkTreePath  *path,
+              GtkTreeIter  *iter,
+              gpointer      self)
+{
+  DiaLayerEditorDialogPrivate *priv = dia_layer_editor_dialog_get_instance_private (self);
+  Diagram *diagram = NULL;
+
+  gtk_tree_model_get (model, iter, COL_DIAGRAM, &diagram, -1);
+
+  if (diagram == priv->diagram) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (priv->combo),
+                                   iter);
+
+    g_clear_object (&diagram);
+
+    return TRUE;
+  }
+
+  g_clear_object (&diagram);
+
+  return FALSE;
+}
+
+
+void
+dia_layer_editor_dialog_set_diagram (DiaLayerEditorDialog *self,
+                                     Diagram              *dia)
+{
+  DiaLayerEditorDialogPrivate *priv = dia_layer_editor_dialog_get_instance_private (self);
+
+  g_return_if_fail (DIA_IS_LAYER_EDITOR_DIALOG (self));
+
+  priv = dia_layer_editor_dialog_get_instance_private (self);
+
+  g_clear_object (&priv->diagram);
+  if (dia) {
+    priv->diagram = g_object_ref (dia);
+
+    g_signal_handlers_block_by_func (priv->combo, diagram_changed, self);
+    gtk_tree_model_foreach (GTK_TREE_MODEL (priv->store),
+                            find_diagram,
+                            self);
+    g_signal_handlers_unblock_by_func (priv->combo, diagram_changed, self);
+  } else {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (priv->combo),
+                                   NULL);
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), pspecs[DLG_PROP_DIAGRAM]);
+}
+
+
+Diagram *
+dia_layer_editor_dialog_get_diagram (DiaLayerEditorDialog *self)
+{
+  DiaLayerEditorDialogPrivate *priv = dia_layer_editor_dialog_get_instance_private (self);
+
+  g_return_val_if_fail (DIA_IS_LAYER_EDITOR_DIALOG (self), NULL);
+
+  priv = dia_layer_editor_dialog_get_instance_private (self);
 
   return priv->diagram;
 }
