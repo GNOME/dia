@@ -57,6 +57,24 @@ Diagram   *dia_layer_editor_dialog_get_diagram (DiaLayerEditorDialog *self);
 
 
 
+#define DIA_TYPE_LAYER_PROPERTIES dia_layer_properties_get_type ()
+
+G_DECLARE_DERIVABLE_TYPE (DiaLayerProperties, dia_layer_properties, DIA, LAYER_PROPERTIES, GtkDialog)
+
+struct _DiaLayerPropertiesClass {
+  GtkDialogClass parent;
+};
+
+GtkWidget *dia_layer_properties_new         (void);
+void       dia_layer_properties_set_layer   (DiaLayerProperties *self,
+                                             DiaLayer           *layer);
+DiaLayer  *dia_layer_properties_get_layer   (DiaLayerProperties *self);
+void       dia_layer_properties_set_diagram (DiaLayerProperties *self,
+                                             Diagram            *dia);
+Diagram   *dia_layer_properties_get_diagram (DiaLayerProperties *self);
+
+
+
 void layer_dialog_create      (void);
 void layer_dialog_show        (void);
 void layer_dialog_set_diagram (Diagram *dia);
