@@ -742,18 +742,21 @@ update_mainpoint_status(DDisplay *ddisp)
 
 /** Scroll display to where point x,y (window coords) is visible */
 gboolean
-ddisplay_autoscroll(DDisplay *ddisp, int x, int y)
+ddisplay_autoscroll (DDisplay *ddisp, int x, int y)
 {
   guint16 width, height;
   Point scroll;
+  GtkAllocation alloc;
 
   if (! ddisp->autoscroll)
     return FALSE;
 
   scroll.x = scroll.y = 0;
 
-  width = GTK_WIDGET(ddisp->canvas)->allocation.width;
-  height = GTK_WIDGET(ddisp->canvas)->allocation.height;
+  gtk_widget_get_allocation (ddisp->canvas, &alloc);
+
+  width = alloc.width;
+  height = alloc.height;
 
   if (x < 0)
   {
@@ -954,18 +957,21 @@ ddisplay_get_clicked_position(DDisplay *ddisp)
 }
 
 void
-ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer)
+ddisplay_set_renderer (DDisplay *ddisp, int aa_renderer)
 {
   int width, height;
-  GdkWindow *window = gtk_widget_get_window(ddisp->canvas);
+  GdkWindow *window = gtk_widget_get_window (ddisp->canvas);
+  GtkAllocation alloc;
 
   if (ddisp->renderer)
     g_object_unref (ddisp->renderer);
 
   ddisp->aa_renderer = aa_renderer;
 
-  width = ddisp->canvas->allocation.width;
-  height = ddisp->canvas->allocation.height;
+  gtk_widget_get_allocation (ddisp->canvas, &alloc);
+
+  width = alloc.width;
+  height = alloc.height;
 
   if (!ddisp->aa_renderer){
     g_message ("Only antialias renderers supported");

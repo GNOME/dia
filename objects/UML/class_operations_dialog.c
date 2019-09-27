@@ -77,10 +77,10 @@ parameters_get_values (UMLClassDialog *prop_dialog, UMLParameter *param)
   g_free(param->comment);
   if (param->value != NULL)
     g_free(param->value);
-  
+
   param->name = g_strdup (gtk_entry_get_text (prop_dialog->param_name));
   param->type = g_strdup (gtk_entry_get_text (prop_dialog->param_type));
-  
+
   param->value = g_strdup (gtk_entry_get_text(prop_dialog->param_value));
   param->comment = g_strdup (_class_get_comment(prop_dialog->param_comment));
 
@@ -123,7 +123,7 @@ parameters_list_selection_changed_callback(GtkWidget *gtklist,
     return; /* maybe hiding a bug elsewhere */
 
   parameters_get_current_values(prop_dialog);
-  
+
   list = GTK_LIST(gtklist)->selection;
   if (!list) { /* No selected */
     parameters_set_sensitive(prop_dialog, FALSE);
@@ -131,7 +131,7 @@ parameters_list_selection_changed_callback(GtkWidget *gtklist,
     prop_dialog->current_param = NULL;
     return;
   }
-  
+
   list_item = G_OBJECT(list->data);
   param = (UMLParameter *)g_object_get_data(G_OBJECT(list_item), "user_data");
   parameters_set_values(prop_dialog, param);
@@ -158,7 +158,7 @@ parameters_list_new_callback(GtkWidget *button,
 
   current_op = (UMLOperation *)
     g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
-  
+
   param = uml_parameter_new();
 
   utf = uml_get_parameter_string (param);
@@ -170,7 +170,7 @@ parameters_list_new_callback(GtkWidget *button,
 
   current_op->parameters = g_list_append(current_op->parameters,
 					 (gpointer) param);
-  
+
   list = g_list_append(NULL, list_item);
   gtk_list_append_items(prop_dialog->parameters_list, list);
 
@@ -191,7 +191,7 @@ parameters_list_delete_callback(GtkWidget *button,
   GtkList *gtklist;
   UMLOperation *current_op;
   UMLParameter *param;
-  
+
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->parameters_list);
 
@@ -202,11 +202,11 @@ parameters_list_delete_callback(GtkWidget *button,
       g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
     param = (UMLParameter *)
       g_object_get_data(G_OBJECT(prop_dialog->current_param), "user_data");
-    
+
     current_op->parameters = g_list_remove(current_op->parameters,
 					   (gpointer) param);
     uml_parameter_destroy(param);
-    
+
     /* Remove from gtk list: */
     list = g_list_prepend(NULL, prop_dialog->current_param);
 
@@ -228,13 +228,13 @@ parameters_list_move_up_callback(GtkWidget *button,
   UMLOperation *current_op;
   UMLParameter *param;
   int i;
-  
+
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->parameters_list);
 
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
-    
+
     i = gtk_list_child_position(gtklist, list_item);
     if (i>0)
       i--;
@@ -244,7 +244,7 @@ parameters_list_move_up_callback(GtkWidget *button,
     /* Move parameter in current operations list: */
     current_op = (UMLOperation *)
       g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
-    
+
     current_op->parameters = g_list_remove(current_op->parameters,
 					   (gpointer) param);
     current_op->parameters = g_list_insert(current_op->parameters,
@@ -275,13 +275,13 @@ parameters_list_move_down_callback(GtkWidget *button,
   UMLOperation *current_op;
   UMLParameter *param;
   int i;
-  
+
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->parameters_list);
 
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
-    
+
     i = gtk_list_child_position(gtklist, list_item);
     if (i<(g_list_length(gtklist->children)-1))
       i++;
@@ -291,7 +291,7 @@ parameters_list_move_down_callback(GtkWidget *button,
     /* Move parameter in current operations list: */
     current_op = (UMLOperation *)
       g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
-    
+
     current_op->parameters = g_list_remove(current_op->parameters,
 					   (gpointer) param);
     current_op->parameters = g_list_insert(current_op->parameters,
@@ -373,7 +373,7 @@ operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
     g_object_set_data(G_OBJECT(list_item), "user_data", (gpointer) param);
     gtk_container_add (GTK_CONTAINER (prop_dialog->parameters_list), list_item);
     gtk_widget_show (list_item);
-    
+
     list = g_list_next(list);
   }
 }
@@ -414,11 +414,11 @@ operations_get_values(UMLClassDialog *prop_dialog, UMLOperation *op)
     op->stereotype = NULL;
 
   op->visibility = (UMLVisibility)dia_option_menu_get_active(prop_dialog->op_visible);
-    
-  op->class_scope = prop_dialog->op_class_scope->active;
+
+  op->class_scope = gtk_toggle_button_get_active (prop_dialog->op_class_scope);
   op->inheritance_type = (UMLInheritanceType)dia_option_menu_get_active(prop_dialog->op_inheritance_type);
 
-  op->query = prop_dialog->op_query->active;
+  op->query = gtk_toggle_button_get_active (prop_dialog->op_query);
 
 }
 
@@ -473,7 +473,7 @@ operations_list_selection_changed_callback(GtkWidget *gtklist,
     return; /* maybe hiding a bug elsewhere */
 
   _operations_get_current_values(prop_dialog);
-  
+
   list = GTK_LIST(gtklist)->selection;
   if (!list) { /* No selected */
     operations_set_sensitive(prop_dialog, FALSE);
@@ -481,7 +481,7 @@ operations_list_selection_changed_callback(GtkWidget *gtklist,
     prop_dialog->current_op = NULL;
     return;
   }
-  
+
   list_item = G_OBJECT(list->data);
   op = (UMLOperation *)g_object_get_data(G_OBJECT(list_item), "user_data");
   operations_set_values(prop_dialog, op);
@@ -508,9 +508,9 @@ operations_list_new_callback(GtkWidget *button,
   op = uml_operation_new();
   /* need to make new ConnectionPoints valid and remember them */
   uml_operation_ensure_connection_points (op, &umlclass->element.object);
-  prop_dialog->added_connections = 
+  prop_dialog->added_connections =
     g_list_prepend(prop_dialog->added_connections, op->left_connection);
-  prop_dialog->added_connections = 
+  prop_dialog->added_connections =
     g_list_prepend(prop_dialog->added_connections, op->right_connection);
 
 
@@ -522,7 +522,7 @@ operations_list_new_callback(GtkWidget *button,
   g_object_set_data(G_OBJECT(list_item), "user_data", op);
   g_signal_connect (G_OBJECT (list_item), "destroy",
 		    G_CALLBACK (operations_list_item_destroy_callback), NULL);
-  
+
   list = g_list_append(NULL, list_item);
   gtk_list_append_items(prop_dialog->operations_list, list);
 
@@ -540,7 +540,7 @@ operations_list_delete_callback(GtkWidget *button,
   UMLClassDialog *prop_dialog;
   GtkList *gtklist;
   UMLOperation *op;
-  
+
 
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->operations_list);
@@ -575,13 +575,13 @@ operations_list_move_up_callback(GtkWidget *button,
   GtkList *gtklist;
   GtkWidget *list_item;
   int i;
-  
+
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->operations_list);
 
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
-    
+
     i = gtk_list_child_position(gtklist, list_item);
     if (i>0)
       i--;
@@ -606,13 +606,13 @@ operations_list_move_down_callback(GtkWidget *button,
   GtkList *gtklist;
   GtkWidget *list_item;
   int i;
-  
+
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->operations_list);
 
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
-    
+
     i = gtk_list_child_position(gtklist, list_item);
     if (i<(g_list_length(gtklist->children)-1))
       i++;
@@ -658,16 +658,16 @@ _operations_read_from_dialog(UMLClass *umlclass,
   clear_list = NULL;
   while (list != NULL) {
     list_item = GTK_WIDGET(list->data);
-    
+
     clear_list = g_list_prepend (clear_list, list_item);
     op = (UMLOperation *)
       g_object_get_data(G_OBJECT(list_item), "user_data");
     g_object_set_data(G_OBJECT(list_item), "user_data", NULL);
     umlclass->operations = g_list_append(umlclass->operations, op);
-    
+
     if (op->left_connection == NULL) {
       uml_operation_ensure_connection_points (op, obj);
-      
+
       prop_dialog->added_connections =
 	g_list_prepend(prop_dialog->added_connections,
 		       op->left_connection);
@@ -675,9 +675,9 @@ _operations_read_from_dialog(UMLClass *umlclass,
 	g_list_prepend(prop_dialog->added_connections,
 		       op->right_connection);
     }
-    
-    if ( (prop_dialog->op_vis->active) &&
-	 (!prop_dialog->op_supp->active) ) { 
+
+    if ( (gtk_toggle_button_get_active (prop_dialog->op_vis)) &&
+         (!gtk_toggle_button_get_active (prop_dialog->op_supp)) ) {
       obj->connections[connection_index] = op->left_connection;
       connection_index++;
       obj->connections[connection_index] = op->right_connection;
@@ -688,7 +688,7 @@ _operations_read_from_dialog(UMLClass *umlclass,
       _umlclass_store_disconnects(prop_dialog, op->right_connection);
       object_remove_connections_to(op->right_connection);
     }
-    
+
     list = g_list_next(list);
   }
   clear_list = g_list_reverse (clear_list);
@@ -724,7 +724,7 @@ _operations_fill_in_dialog(UMLClass *umlclass)
 			G_CALLBACK (operations_list_item_destroy_callback), NULL);
       gtk_container_add (GTK_CONTAINER (prop_dialog->operations_list), list_item);
       gtk_widget_show (list_item);
-      
+
       list = g_list_next(list); i++;
       g_free (opstr);
     }
@@ -864,7 +864,7 @@ operations_data_create_hbox (UMLClass *umlclass)
   gtk_table_attach (GTK_TABLE (table), scrolledwindow, 4,5,1,3, GTK_FILL | GTK_EXPAND,0, 0,0);
   gtk_box_pack_start (GTK_BOX (hbox), vbox2, TRUE, TRUE, 0);
 
-  return hbox;  
+  return hbox;
 }
 
 static GtkWidget*
@@ -887,15 +887,15 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
 
   label = gtk_label_new(_("Parameters:"));
   gtk_box_pack_start( GTK_BOX(hbox2), label, FALSE, TRUE, 0);
-  
+
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
 
   /* Parameters list editor - with of list at least width of buttons*/
   hbox2 = gtk_hbox_new(TRUE, 5);
-  
+
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-				  GTK_POLICY_AUTOMATIC, 
+				  GTK_POLICY_AUTOMATIC,
 				  GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (hbox2), scrolled_win, TRUE, TRUE, 0);
   gtk_widget_show (scrolled_win);
@@ -943,7 +943,7 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
 
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
   /* end: Parameter list editor */
-  
+
   return vbox2;
 }
 
@@ -959,7 +959,7 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   GtkWidget *entry;
   GtkWidget *scrolledwindow;
   GtkWidget *omenu;
-  
+
   prop_dialog = umlclass->properties_dialog;
 
   vbox2 = gtk_vbox_new(FALSE, 5);
@@ -969,7 +969,7 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   gtk_container_add (GTK_CONTAINER (frame), vbox3);
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox2), frame, FALSE, TRUE, 0);
-  
+
   table = gtk_table_new (3, 4, FALSE);
   gtk_table_set_col_spacings (GTK_TABLE (table), 5);
   gtk_box_pack_start (GTK_BOX (vbox3), table, FALSE, FALSE, 0);
@@ -1011,7 +1011,7 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
 				       GTK_SHADOW_IN);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), 
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow),
 				  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
   entry = gtk_text_view_new ();
@@ -1029,7 +1029,7 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
 
   label = gtk_label_new(_("Direction:"));
 
-  prop_dialog->param_kind = omenu = dia_option_menu_new ();    
+  prop_dialog->param_kind = omenu = dia_option_menu_new ();
   g_signal_connect (G_OBJECT (omenu), "changed",
 		    G_CALLBACK (operations_update), umlclass);
   dia_option_menu_add_item(omenu, _("Undefined"), UML_UNDEF_KIND);
@@ -1037,7 +1037,7 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   dia_option_menu_add_item(omenu, _("Out"), UML_OUT);
   dia_option_menu_add_item(omenu, _("In & Out"), UML_INOUT);
 
-  { 
+  {
     GtkWidget * align;
     align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
     gtk_container_add(GTK_CONTAINER(align), omenu);
@@ -1049,7 +1049,7 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   return vbox2;
 }
 
-void 
+void
 _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
@@ -1067,15 +1067,15 @@ _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   /* Operations page: */
   page_label = gtk_label_new_with_mnemonic (_("_Operations"));
-  
+
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   hbox = gtk_hbox_new(FALSE, 5);
-  
+
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-				  GTK_POLICY_AUTOMATIC, 
+				  GTK_POLICY_AUTOMATIC,
 				  GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (hbox), scrolled_win, TRUE, TRUE, 0);
   gtk_widget_show (scrolled_win);
@@ -1128,7 +1128,7 @@ _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_container_add (GTK_CONTAINER (frame), vbox2);
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
-  
+
   /* parameter stuff below operation stuff */
   hbox = gtk_hbox_new (FALSE, 5);
   vbox3 = operations_parameters_editor_create_vbox (umlclass);
@@ -1136,9 +1136,9 @@ _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   vbox3 = operations_parameters_data_create_vbox (umlclass);
   gtk_box_pack_start (GTK_BOX (hbox), vbox3, TRUE, TRUE, 5);
-  
+
   gtk_box_pack_start (GTK_BOX (vbox2), hbox, TRUE, TRUE, 5);
- 
+
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);
   gtk_notebook_append_page (notebook, vbox, page_label);

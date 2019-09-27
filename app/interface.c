@@ -703,6 +703,7 @@ create_display_shell(DDisplay *ddisp,
   GtkWidget *root_vbox = NULL;
   GtkWidget *zoom_hbox, *zoom_label;
   int s_width, s_height;
+  GtkAllocation alloc;
 
   if (app_is_interactive() && is_integrated_ui())
   {
@@ -855,9 +856,10 @@ create_display_shell(DDisplay *ddisp,
   }
   gtk_widget_show (ddisp->shell);
 
+  gtk_widget_get_allocation (ddisp->hrule, &alloc);
+
   /* before showing up, checking canvas's REAL size */
-  if (use_mbar && ddisp->hrule->allocation.width > width)
-  {
+  if (use_mbar && alloc.width > width) {
     /* The menubar is not shrinkable, so the shell will have at least
      * the menubar's width. If the diagram's requested width is smaller,
      * the canvas will be enlarged to fit the place. In this case, we
@@ -865,7 +867,7 @@ create_display_shell(DDisplay *ddisp,
      * that will be allocated, which the same as the hrule got.
      */
 
-    width = ddisp->hrule->allocation.width;
+    width = alloc.width;
 
     gtk_adjustment_set_upper (ddisp->hsbdata, width);
     gtk_adjustment_set_page_increment (ddisp->hsbdata, (width - 1) / 4);

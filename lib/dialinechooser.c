@@ -74,10 +74,15 @@ dia_line_preview_class_init (DiaLinePreviewClass *class)
 static void
 dia_line_preview_init (DiaLinePreview *line)
 {
+  int xpad, ypad;
+
   gtk_widget_set_has_window (GTK_WIDGET (line), FALSE);
 
-  GTK_WIDGET (line)->requisition.width = 30 + GTK_MISC (line)->xpad * 2;
-  GTK_WIDGET (line)->requisition.height = 15 + GTK_MISC (line)->ypad * 2;
+  gtk_misc_get_padding (GTK_MISC (line), &xpad, &ypad);
+
+  gtk_widget_set_size_request (GTK_WIDGET (line),
+                               30 + xpad * 2,
+                               15 + ypad * 2);
 
   line->lstyle = LINESTYLE_SOLID;
 }
@@ -115,10 +120,16 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
   cairo_t *ctx;
 
   if (gtk_widget_is_drawable(widget)) {
-    width = widget->allocation.width - misc->xpad * 2;
-    height = widget->allocation.height - misc->ypad * 2;
-    x = (widget->allocation.x + misc->xpad);
-    y = (widget->allocation.y + misc->ypad);
+    GtkAllocation alloc;
+    int xpad, ypad;
+
+    gtk_widget_get_allocation (widget, &alloc);
+    gtk_misc_get_padding (misc, &xpad, &ypad);
+
+    width = alloc.width - xpad * 2;
+    height = alloc.height - ypad * 2;
+    x = (alloc.x + xpad);
+    y = (alloc.y + ypad);
 
     win = gtk_widget_get_window (widget);
     style = gtk_widget_get_style (widget);

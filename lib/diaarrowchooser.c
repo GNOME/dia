@@ -102,10 +102,15 @@ dia_arrow_preview_class_init(DiaArrowPreviewClass *class)
 static void
 dia_arrow_preview_init(DiaArrowPreview *arrow)
 {
+  int xpad, ypad;
+
   gtk_widget_set_has_window (GTK_WIDGET (arrow), FALSE);
 
-  GTK_WIDGET (arrow)->requisition.width = 40 + GTK_MISC (arrow)->xpad * 2;
-  GTK_WIDGET (arrow)->requisition.height = 20 + GTK_MISC (arrow)->ypad * 2;
+  gtk_misc_get_padding (GTK_MISC (arrow), &xpad, &ypad);
+
+  gtk_widget_set_size_request (GTK_WIDGET (arrow),
+                               40 + xpad * 2,
+                               20 + ypad * 2);
 
   arrow->atype = ARROW_NONE;
   arrow->left = TRUE;
@@ -157,18 +162,23 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     DiaCairoRenderer *renderer;
     DiaArrowPreview *arrow = DIA_ARROW_PREVIEW(widget);
     Arrow arrow_type;
-    GtkMisc *misc = GTK_MISC(widget);
+    GtkMisc *misc = GTK_MISC (widget);
     gint width, height;
     gint x, y;
     GdkWindow *win;
     int linewidth = 2;
     cairo_surface_t *surface;
     cairo_t *ctx;
+    GtkAllocation alloc;
+    int xpad, ypad;
 
-    width = widget->allocation.width - misc->xpad * 2;
-    height = widget->allocation.height - misc->ypad * 2;
-    x = (widget->allocation.x + misc->xpad);
-    y = (widget->allocation.y + misc->ypad);
+    gtk_widget_get_allocation (widget, &alloc);
+    gtk_misc_get_padding (misc, &xpad, &ypad);
+
+    width = alloc.width - xpad * 2;
+    height = alloc.height - ypad * 2;
+    x = (alloc.x + xpad);
+    y = (alloc.y + ypad);
 
     win = gtk_widget_get_window (widget);
 

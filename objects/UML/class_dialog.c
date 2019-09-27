@@ -197,20 +197,20 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   else
     umlclass->comment = NULL;
 
-  umlclass->abstract = prop_dialog->abstract_class->active;
-  umlclass->visible_attributes = prop_dialog->attr_vis->active;
-  umlclass->visible_operations = prop_dialog->op_vis->active;
-  umlclass->wrap_operations = prop_dialog->op_wrap->active;
+  umlclass->abstract = gtk_toggle_button_get_active (prop_dialog->abstract_class);
+  umlclass->visible_attributes = gtk_toggle_button_get_active (prop_dialog->attr_vis);
+  umlclass->visible_operations = gtk_toggle_button_get_active (prop_dialog->op_vis);
+  umlclass->wrap_operations = gtk_toggle_button_get_active (prop_dialog->op_wrap);
   umlclass->wrap_after_char = gtk_spin_button_get_value_as_int(prop_dialog->wrap_after_char);
   umlclass->comment_line_length = gtk_spin_button_get_value_as_int(prop_dialog->comment_line_length);
-  umlclass->comment_tagging = prop_dialog->comment_tagging->active;
-  umlclass->visible_comments = prop_dialog->comments_vis->active;
-  umlclass->suppress_attributes = prop_dialog->attr_supp->active;
-  umlclass->suppress_operations = prop_dialog->op_supp->active;
-  umlclass->line_width = gtk_spin_button_get_value(prop_dialog->line_width);
-  dia_color_selector_get_color(GTK_WIDGET(prop_dialog->text_color), &umlclass->text_color);
-  dia_color_selector_get_color(GTK_WIDGET(prop_dialog->line_color), &umlclass->line_color);
-  dia_color_selector_get_color(GTK_WIDGET(prop_dialog->fill_color), &umlclass->fill_color);
+  umlclass->comment_tagging = gtk_toggle_button_get_active (prop_dialog->comment_tagging);
+  umlclass->visible_comments = gtk_toggle_button_get_active (prop_dialog->comments_vis);
+  umlclass->suppress_attributes = gtk_toggle_button_get_active (prop_dialog->attr_supp);
+  umlclass->suppress_operations = gtk_toggle_button_get_active (prop_dialog->op_supp);
+  umlclass->line_width = gtk_spin_button_get_value (prop_dialog->line_width);
+  dia_color_selector_get_color (GTK_WIDGET (prop_dialog->text_color), &umlclass->text_color);
+  dia_color_selector_get_color (GTK_WIDGET (prop_dialog->line_color), &umlclass->line_color);
+  dia_color_selector_get_color (GTK_WIDGET (prop_dialog->fill_color), &umlclass->fill_color);
 
   umlclass->normal_font = dia_font_selector_get_font (prop_dialog->normal_font);
   umlclass->polymorphic_font = dia_font_selector_get_font (prop_dialog->polymorphic_font);
@@ -602,11 +602,11 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
 
   /* Allocate enought connection points for attributes and operations. */
   /* (two per op/attr) */
-  if ( (prop_dialog->attr_vis->active) && (!prop_dialog->attr_supp->active))
+  if ( (gtk_toggle_button_get_active (prop_dialog->attr_vis)) && (!gtk_toggle_button_get_active (prop_dialog->attr_supp)))
     num_attrib = g_list_length(prop_dialog->attributes_list->children);
   else
     num_attrib = 0;
-  if ( (prop_dialog->op_vis->active) && (!prop_dialog->op_supp->active))
+  if ( (gtk_toggle_button_get_active (prop_dialog->op_vis)) && (!gtk_toggle_button_get_active (prop_dialog->op_supp)))
     num_ops = g_list_length(prop_dialog->operations_list->children);
   else
     num_ops = 0;

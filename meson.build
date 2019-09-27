@@ -71,6 +71,7 @@ add_project_arguments([
   '-DGDK_VERSION_MAX_ALLOWED=@0@'.format(gtk_ver),
   '-DGLIB_VERSION_MIN_REQUIRED=@0@'.format(glib_ver),
   '-DGLIB_VERSION_MAX_ALLOWED=@0@'.format(glib_ver),
+  '-DGSEAL_ENABLE',
 ], language: 'c')
 
 subdir('po')

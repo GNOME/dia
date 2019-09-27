@@ -127,7 +127,9 @@ dia_cell_renderer_property_class_init (DiaCellRendererPropertyClass *klass)
 static void
 dia_cell_renderer_property_init (DiaCellRendererProperty *cellproperty)
 {
-  GTK_CELL_RENDERER (cellproperty)->mode = GTK_CELL_RENDERER_MODE_ACTIVATABLE;
+  g_object_set (cellproperty,
+                "mode", GTK_CELL_RENDERER_MODE_ACTIVATABLE,
+                NULL);
 }
 
 static void
@@ -205,6 +207,13 @@ dia_cell_renderer_property_get_size (GtkCellRenderer *cell,
   gint                      view_height = 0;
   gint                      calc_width;
   gint                      calc_height;
+  int                       xpad;
+  int                       ypad;
+  gfloat                    xalign;
+  gfloat                    yalign;
+
+  gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
+  gtk_cell_renderer_get_alignment (cell, &xalign, &yalign);
 
 #if 0
   cellproperty = DIA_CELL_RENDERER_PROPERTY (cell);
@@ -222,28 +231,26 @@ dia_cell_renderer_property_get_size (GtkCellRenderer *cell,
   view_height = 30;
 #endif
 
-  calc_width  = (gint) cell->xpad * 2 + view_width;
-  calc_height = (gint) cell->ypad * 2 + view_height;
+  calc_width  = (gint) xpad * 2 + view_width;
+  calc_height = (gint) ypad * 2 + view_height;
 
   if (x_offset) *x_offset = 0;
   if (y_offset) *y_offset = 0;
 
-  if (cell_area && view_width > 0 && view_height > 0)
-    {
-      if (x_offset)
-        {
-          *x_offset = (((gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL) ?
-                        1.0 - cell->xalign : cell->xalign) *
-                       (cell_area->width - calc_width - 2 * cell->xpad));
-          *x_offset = (MAX (*x_offset, 0) + cell->xpad);
-        }
-      if (y_offset)
-        {
-          *y_offset = (cell->yalign *
-                       (cell_area->height - calc_height - 2 * cell->ypad));
-          *y_offset = (MAX (*y_offset, 0) + cell->ypad);
-        }
+  if (cell_area && view_width > 0 && view_height > 0) {
+    if (x_offset) {
+      *x_offset = (((gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL) ?
+                    1.0 - xalign : xalign) *
+                    (cell_area->width - calc_width - 2 * xpad));
+      *x_offset = (MAX (*x_offset, 0) + xpad);
     }
+
+    if (y_offset) {
+      *y_offset = (yalign *
+                   (cell_area->height - calc_height - 2 * ypad));
+      *y_offset = (MAX (*y_offset, 0) + ypad);
+    }
+  }
 
   if (width)  *width  = calc_width;
   if (height) *height = calc_height;

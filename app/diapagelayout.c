@@ -604,6 +604,7 @@ darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
   gfloat val;
   gint num;
   cairo_t *ctx;
+  GtkAllocation alloc;
 
   if (!window)
     return FALSE;
@@ -613,10 +614,12 @@ darea_expose_event(DiaPageLayout *self, GdkEventExpose *event)
   cairo_set_line_width (ctx, 1);
   cairo_set_antialias (ctx, CAIRO_ANTIALIAS_NONE);
 
+  gtk_widget_get_allocation (self->darea, &alloc);
+
   cairo_set_source_rgba (ctx, 0, 0, 0, 0);
   cairo_rectangle (ctx, 0, 0,
-                        self->darea->allocation.width,
-                        self->darea->allocation.height);
+                   alloc.width,
+                   alloc.height);
   cairo_fill (ctx);
 
   /* draw the page image */
@@ -711,13 +714,16 @@ max_margin (float size)
 }
 
 static void
-paper_size_change(GtkWidget *widget, DiaPageLayout *self)
+paper_size_change (GtkWidget *widget, DiaPageLayout *self)
 {
   gchar buf[512];
+  GtkAllocation alloc;
+
+  gtk_widget_get_allocation (self->darea, &alloc);
 
   self->papernum = dia_option_menu_get_active (widget);
-  size_page(self, &self->darea->allocation);
-  gtk_widget_queue_draw(self->darea);
+  size_page (self, &alloc);
+  gtk_widget_queue_draw (self->darea);
 
   self->block_changed = TRUE;
   dia_unit_spinner_set_value(DIA_UNIT_SPINNER(self->tmargin),
@@ -759,10 +765,14 @@ paper_size_change(GtkWidget *widget, DiaPageLayout *self)
 }
 
 static void
-orient_changed(DiaPageLayout *self)
+orient_changed (DiaPageLayout *self)
 {
-  size_page(self, &self->darea->allocation);
-  gtk_widget_queue_draw(self->darea);
+  GtkAllocation alloc;
+
+  gtk_widget_get_allocation (self->darea, &alloc);
+
+  size_page (self, &alloc);
+  gtk_widget_queue_draw (self->darea);
 
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(self->orient_portrait))) {
     dia_unit_spinner_set_upper (DIA_UNIT_SPINNER(self->tmargin),

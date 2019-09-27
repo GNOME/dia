@@ -68,15 +68,14 @@ dia_ruler_draw (GtkWidget *widget,
       PangoLayout *layout;
       int x, y, dx, dy, width, height;
       real pos;
+      GtkAllocation alloc;
 
       layout = gtk_widget_create_pango_layout (widget, "012456789");
-#if GTK_CHECK_VERSION(3,0,0)
-      width = gtk_widget_get_allocated_width (widget);
-      height = gtk_widget_get_allocated_height (widget);
-#else
-      width = widget->allocation.width;
-      height = widget->allocation.height;
-#endif
+
+      gtk_widget_get_allocation (widget, &alloc);
+      width = alloc.width;
+      height = alloc.height;
+
       dx = (ruler->orientation == GTK_ORIENTATION_VERTICAL) ? width/3 : 0;
       dy = (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? height/3 : 0;
 
@@ -177,19 +176,17 @@ dia_ruler_motion_notify (GtkWidget      *widget,
   real tmp;
   gint width, height;
   gint x0, y0;
+  GtkAllocation alloc;
 
   gdk_event_request_motions (event);
   x = event->x;
   y = event->y;
-#if GTK_CHECK_VERSION(3,0,0)
-  width = gtk_widget_get_allocated_width (widget);
-  height = gtk_widget_get_allocated_height (widget);
-#else
-  width = widget->allocation.width;
-  height = widget->allocation.height;
-#endif
 
-  gdk_drawable_get_size (widget->window, &width, &height);
+  gtk_widget_get_allocation (widget, &alloc);
+  width = alloc.width;
+  height = alloc.height;
+
+  gdk_drawable_get_size (gtk_widget_get_window (widget), &width, &height);
 
   if (ruler->orientation == GTK_ORIENTATION_HORIZONTAL)
     {

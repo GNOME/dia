@@ -117,7 +117,7 @@ templates_list_selection_changed_callback(GtkWidget *gtklist,
     return; /* maybe hiding a bug elsewhere */
 
   _templates_get_current_values(prop_dialog);
-  
+
   list = GTK_LIST(gtklist)->selection;
   if (!list) { /* No selected */
     templates_set_sensitive(prop_dialog, FALSE);
@@ -125,7 +125,7 @@ templates_list_selection_changed_callback(GtkWidget *gtklist,
     prop_dialog->current_templ = NULL;
     return;
   }
-  
+
   list_item = G_OBJECT(list->data);
   param = (UMLFormalParameter *)g_object_get_data(G_OBJECT(list_item), "user_data");
   templates_set_values(prop_dialog, param);
@@ -159,7 +159,7 @@ templates_list_new_callback(GtkWidget *button,
   g_object_set_data(G_OBJECT(list_item), "user_data", param);
   g_signal_connect (G_OBJECT (list_item), "destroy",
 		    G_CALLBACK (templates_list_item_destroy_callback), NULL);
-  
+
   list = g_list_append(NULL, list_item);
   gtk_list_append_items(prop_dialog->templates_list, list);
 
@@ -198,13 +198,13 @@ templates_list_move_up_callback(GtkWidget *button,
   GtkList *gtklist;
   GtkWidget *list_item;
   int i;
-  
+
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->templates_list);
 
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
-    
+
     i = gtk_list_child_position(gtklist, list_item);
     if (i>0)
       i--;
@@ -234,7 +234,7 @@ templates_list_move_down_callback(GtkWidget *button,
 
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
-    
+
     i = gtk_list_child_position(gtklist, list_item);
     if (i<(g_list_length(gtklist->children)-1))
       i++;
@@ -260,7 +260,7 @@ _templates_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
 
   _templates_get_current_values(prop_dialog); /* if changed, update from widgets */
 
-  umlclass->template = prop_dialog->templ_template->active;
+  umlclass->template = gtk_toggle_button_get_active (prop_dialog->templ_template);
 
   /* Free current formal parameters: */
   list = umlclass->formal_params;
@@ -311,14 +311,14 @@ _templates_fill_in_dialog(UMLClass *umlclass)
 
       list_item = gtk_list_item_new_with_label (paramstr);
       param_copy = uml_formalparameter_copy(param);
-      g_object_set_data(G_OBJECT(list_item), "user_data", 
+      g_object_set_data(G_OBJECT(list_item), "user_data",
 			       (gpointer) param_copy);
       g_signal_connect (G_OBJECT (list_item), "destroy",
 			G_CALLBACK (templates_list_item_destroy_callback), NULL);
       gtk_container_add (GTK_CONTAINER (prop_dialog->templates_list),
 			 list_item);
       gtk_widget_show (list_item);
-      
+
       list = g_list_next(list); i++;
       g_free (paramstr);
     }
@@ -344,7 +344,7 @@ templates_update_event(GtkWidget *widget, GdkEventFocus *ev, UMLClass *umlclass)
   return 0;
 }
 
-void 
+void
 _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
@@ -361,12 +361,12 @@ _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *button;
   GtkWidget *list;
   GtkWidget *frame;
-  
+
   prop_dialog = umlclass->properties_dialog;
 
   /* Templates page: */
   page_label = gtk_label_new_with_mnemonic (_("_Templates"));
-  
+
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
@@ -375,12 +375,12 @@ _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog->templ_template = GTK_TOGGLE_BUTTON(checkbox);
   gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox2, FALSE, TRUE, 0);
-  
+
   hbox = gtk_hbox_new(FALSE, 5);
-  
+
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-				  GTK_POLICY_AUTOMATIC, 
+				  GTK_POLICY_AUTOMATIC,
 				  GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (hbox), scrolled_win, TRUE, TRUE, 0);
   gtk_widget_show (scrolled_win);
@@ -437,9 +437,9 @@ _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   entry = gtk_entry_new();
   prop_dialog->templ_name = GTK_ENTRY(entry);
   g_signal_connect (G_OBJECT (entry), "focus_out_event",
-		    G_CALLBACK (templates_update_event), umlclass); 
+		    G_CALLBACK (templates_update_event), umlclass);
   g_signal_connect (G_OBJECT (entry), "activate",
-		    G_CALLBACK (templates_update), umlclass); 
+		    G_CALLBACK (templates_update), umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
@@ -456,9 +456,9 @@ _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
 
   gtk_widget_show(vbox2);
-  
+
   /* TODO: Add stuff here! */
-  
+
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);
   gtk_notebook_append_page (notebook, vbox, page_label);

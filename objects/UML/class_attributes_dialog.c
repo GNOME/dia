@@ -82,13 +82,13 @@ attributes_get_values (UMLClassDialog *prop_dialog, UMLAttribute *attr)
 
   attr->name = g_strdup (gtk_entry_get_text (prop_dialog->attr_name));
   attr->type = g_strdup (gtk_entry_get_text (prop_dialog->attr_type));
-  
+
   attr->value = g_strdup (gtk_entry_get_text(prop_dialog->attr_value));
   attr->comment = g_strdup (_class_get_comment(prop_dialog->attr_comment));
 
   attr->visibility = (UMLVisibility)dia_option_menu_get_active (prop_dialog->attr_visible);
-    
-  attr->class_scope = prop_dialog->attr_class_scope->active;
+
+  attr->class_scope = gtk_toggle_button_get_active (prop_dialog->attr_class_scope);
 }
 
 void
@@ -148,7 +148,7 @@ attributes_list_selection_changed_callback(GtkWidget *gtklist,
     return;
 
   _attributes_get_current_values(prop_dialog);
-  
+
   list = GTK_LIST(gtklist)->selection;
   if (!list && prop_dialog) { /* No selected */
     attributes_set_sensitive(prop_dialog, FALSE);
@@ -156,7 +156,7 @@ attributes_list_selection_changed_callback(GtkWidget *gtklist,
     prop_dialog->current_attr = NULL;
     return;
   }
-  
+
   list_item = G_OBJECT(list->data);
   attr = (UMLAttribute *)g_object_get_data(G_OBJECT(list_item), "user_data");
   attributes_set_values(prop_dialog, attr);
@@ -182,9 +182,9 @@ attributes_list_new_callback(GtkWidget *button,
   attr = uml_attribute_new();
   /* need to make the new ConnectionPoint valid and remember them */
   uml_attribute_ensure_connection_points (attr, &umlclass->element.object);
-  prop_dialog->added_connections = 
+  prop_dialog->added_connections =
     g_list_prepend(prop_dialog->added_connections, attr->left_connection);
-  prop_dialog->added_connections = 
+  prop_dialog->added_connections =
     g_list_prepend(prop_dialog->added_connections, attr->right_connection);
 
   utfstr = uml_get_attribute_string (attr);
@@ -195,7 +195,7 @@ attributes_list_new_callback(GtkWidget *button,
   g_object_set_data(G_OBJECT(list_item), "user_data", attr);
   g_signal_connect (G_OBJECT (list_item), "destroy",
 		    G_CALLBACK (attribute_list_item_destroy_callback), NULL);
-  
+
   list = g_list_append(NULL, list_item);
   gtk_list_append_items(prop_dialog->attributes_list, list);
 
@@ -229,7 +229,7 @@ attributes_list_delete_callback(GtkWidget *button,
 	g_list_prepend(prop_dialog->deleted_connections,
 		       attr->right_connection);
     }
-    
+
     list = g_list_prepend(NULL, gtklist->selection->data);
     gtk_list_remove_items(gtklist, list);
     g_list_free(list);
@@ -247,13 +247,13 @@ attributes_list_move_up_callback(GtkWidget *button,
   GtkList *gtklist;
   GtkWidget *list_item;
   int i;
-  
+
   prop_dialog = umlclass->properties_dialog;
   gtklist = GTK_LIST(prop_dialog->attributes_list);
 
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
-    
+
     i = gtk_list_child_position(gtklist, list_item);
     if (i>0)
       i--;
@@ -283,12 +283,12 @@ attributes_list_move_down_callback(GtkWidget *button,
 
   if (gtklist->selection != NULL) {
     list_item = GTK_WIDGET(gtklist->selection->data);
-    
+
     i = gtk_list_child_position(gtklist, list_item);
     if (i<(g_list_length(gtklist->children)-1))
       i++;
 
-    
+
     g_object_ref(list_item);
     list = g_list_prepend(NULL, list_item);
     gtk_list_remove_items(gtklist, list);
@@ -330,13 +330,13 @@ _attributes_read_from_dialog(UMLClass *umlclass,
   clear_list = NULL;
   while (list != NULL) {
     list_item = GTK_WIDGET(list->data);
-    
+
     clear_list = g_list_prepend (clear_list, list_item);
     attr = (UMLAttribute *)
       g_object_get_data(G_OBJECT(list_item), "user_data");
     g_object_set_data(G_OBJECT(list_item), "user_data", NULL);
     umlclass->attributes = g_list_append(umlclass->attributes, attr);
-    
+
     if (attr->left_connection == NULL) {
       uml_attribute_ensure_connection_points (attr, obj);
 
@@ -348,8 +348,8 @@ _attributes_read_from_dialog(UMLClass *umlclass,
 		       attr->right_connection);
     }
 
-    if ( (prop_dialog->attr_vis->active) &&
-	 (!prop_dialog->attr_supp->active) ) { 
+    if ( (gtk_toggle_button_get_active (prop_dialog->attr_vis)) &&
+         (!gtk_toggle_button_get_active (prop_dialog->attr_supp)) ) {
       obj->connections[connection_index] = attr->left_connection;
       connection_index++;
       obj->connections[connection_index] = attr->right_connection;
@@ -382,7 +382,7 @@ _attributes_fill_in_dialog(UMLClass *umlclass)
   int i;
 
 #ifdef DEBUG
-  umlclass_sanity_check(umlclass, "Filling in dialog");  
+  umlclass_sanity_check(umlclass, "Filling in dialog");
 #endif
 
   prop_dialog = umlclass->properties_dialog;
@@ -405,7 +405,7 @@ _attributes_fill_in_dialog(UMLClass *umlclass)
 			G_CALLBACK (attribute_list_item_destroy_callback), NULL);
       gtk_container_add (GTK_CONTAINER (prop_dialog->attributes_list), list_item);
       gtk_widget_show (list_item);
-      
+
       list = g_list_next(list); i++;
       g_free (attrstr);
     }
@@ -429,7 +429,7 @@ attributes_update_event(GtkWidget *widget, GdkEventFocus *ev, UMLClass *umlclass
   return 0;
 }
 
-void 
+void
 _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
@@ -453,15 +453,15 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   /* Attributes page: */
   page_label = gtk_label_new_with_mnemonic (_("_Attributes"));
-  
+
   vbox = gtk_vbox_new(FALSE, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   hbox = gtk_hbox_new(FALSE, 5);
-  
+
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-				  GTK_POLICY_AUTOMATIC, 
+				  GTK_POLICY_AUTOMATIC,
 				  GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (hbox), scrolled_win, TRUE, TRUE, 0);
   gtk_widget_show (scrolled_win);
@@ -559,7 +559,7 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   g_signal_connect (G_OBJECT (entry), "focus_out_event",
 		    G_CALLBACK (attributes_update_event), umlclass);
 #if 0 /* while the GtkEntry has a "activate" signal, GtkTextView does not.
-       * Maybe we should connect to "set-focus-child" instead? 
+       * Maybe we should connect to "set-focus-child" instead?
        */
   g_signal_connect (G_OBJECT (entry), "activate",
 		    G_CALLBACK (attributes_update), umlclass);
@@ -579,7 +579,7 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   dia_option_menu_add_item(omenu, _("Protected"), UML_PROTECTED);
   dia_option_menu_add_item(omenu, _("Implementation"), UML_IMPLEMENTATION);
 
-  { 
+  {
     GtkWidget * align;
     align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
     gtk_container_add(GTK_CONTAINER(align), omenu);
@@ -593,11 +593,11 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog->attr_class_scope = GTK_TOGGLE_BUTTON(checkbox);
   gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, TRUE, 0);
-  
+
   gtk_widget_show(vbox2);
-  
+
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);
   gtk_notebook_append_page(notebook, vbox, page_label);
-  
+
 }

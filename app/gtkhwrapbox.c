@@ -230,8 +230,8 @@ gtk_hwrap_box_size_request (GtkWidget      *widget,
     }
   while (row_inc);
 
-  requisition->width += GTK_CONTAINER (wbox)->border_width * 2; /*<h2v-skip>*/
-  requisition->height += GTK_CONTAINER (wbox)->border_width * 2; /*<h2v-skip>*/
+  requisition->width += gtk_container_get_border_width (GTK_CONTAINER (wbox)) * 2; /*<h2v-skip>*/
+  requisition->height += gtk_container_get_border_width (GTK_CONTAINER (wbox)) * 2; /*<h2v-skip>*/
   /* g_print ("chosen: width %d, height %d\n",
      requisition->width,
      requisition->height);
@@ -589,9 +589,8 @@ gtk_hwrap_box_size_allocate (GtkWidget     *widget,
 {
   GtkWrapBox *wbox = GTK_WRAP_BOX (widget);
   GtkAllocation area;
-  gint border = GTK_CONTAINER (wbox)->border_width; /*<h2v-skip>*/
+  gint border = gtk_container_get_border_width (GTK_CONTAINER (wbox)); /*<h2v-skip>*/
 
-  widget->allocation = *allocation;
   area.x = allocation->x + border;
   area.y = allocation->y + border;
   area.width = MAX (1, (gint) allocation->width - border * 2);
@@ -605,4 +604,6 @@ gtk_hwrap_box_size_allocate (GtkWidget     *widget,
   /*<h2v-on>*/
 
   layout_rows (wbox, &area);
+
+  GTK_WIDGET_CLASS (parent_class)->size_allocate (widget, allocation);
 }
