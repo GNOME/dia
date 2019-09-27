@@ -75,14 +75,35 @@ Diagram   *dia_layer_properties_get_diagram (DiaLayerProperties *self);
 
 
 
+#define DIA_TYPE_LAYER_WIDGET dia_layer_widget_get_type ()
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkListItem, g_object_unref)
+
+G_DECLARE_DERIVABLE_TYPE (DiaLayerWidget, dia_layer_widget, DIA, LAYER_WIDGET, GtkListItem)
+
+struct _DiaLayerWidgetClass {
+  GtkListItemClass parent;
+};
+
+GtkWidget      *dia_layer_widget_new             (DiaLayer       *layer,
+                                                  DiaLayerEditor *editor);
+void            dia_layer_widget_set_layer       (DiaLayerWidget *self,
+                                                  DiaLayer       *layer);
+DiaLayer       *dia_layer_widget_get_layer       (DiaLayerWidget *self);
+void            dia_layer_widget_set_editor      (DiaLayerWidget *self,
+                                                  DiaLayerEditor *editor);
+DiaLayerEditor *dia_layer_widget_get_editor      (DiaLayerWidget *self);
+void            dia_layer_widget_set_connectable (DiaLayerWidget *self,
+                                                  gboolean        on);
+gboolean        dia_layer_widget_get_connectable (DiaLayerWidget *self);
+
+
 void layer_dialog_create      (void);
 void layer_dialog_show        (void);
 void layer_dialog_set_diagram (Diagram *dia);
 
 /* Integrated UI component */
 GtkWidget * create_layer_view_widget (void);
-
-typedef struct _DiaLayerWidget      DiaLayerWidget;
 
 void diagram_edit_layer (Diagram *dia, DiaLayer *layer);
 

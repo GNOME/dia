@@ -40,48 +40,6 @@
 
 #include "dia-application.h" /* dia_diagram_change */
 
-/* DiaLayerWidget: */
-#define DIA_LAYER_WIDGET(obj)          \
-  G_TYPE_CHECK_INSTANCE_CAST (obj, dia_layer_widget_get_type (), DiaLayerWidget)
-#define DIA_LAYER_WIDGET_CLASS(klass)  \
-  G_TYPE_CHECK_CLASS_CAST (klass, dia_layer_widget_get_type (), DiaLayerWidgetClass)
-#define IS_DIA_LAYER_WIDGET(obj)       \
-  G_TYPE_CHECK_INSTANCE_TYPE (obj, dia_layer_widget_get_type ())
-
-typedef struct _DiaLayerWidgetClass  DiaLayerWidgetClass;
-
-struct _DiaLayerWidget
-{
-  GtkListItem list_item;
-
-  Diagram *dia;
-  DiaLayer *layer;
-
-  GBinding *name_binding;
-
-  GtkWidget *visible;
-  GtkWidget *connectable;
-  GtkWidget *label;
-
-  /** If true, the user has set this layers connectivity to on
-   * while it was not selected.
-   */
-  gboolean connect_on;
-  /** If true, the user has set this layers connectivity to off
-   * while it was selected.
-   */
-  gboolean connect_off;
-
-  GtkWidget *editor;
-};
-
-
-struct _DiaLayerWidgetClass
-{
-  GtkListItemClass parent_class;
-};
-
-GType dia_layer_widget_get_type(void);
 
 enum {
   COL_FILENAME,
@@ -92,8 +50,6 @@ struct LayerDialog {
   GtkWidget *dialog;
 
   GtkWidget *layer_editor;
-
-  Diagram *diagram;
 };
 
 static struct LayerDialog *layer_dialog = NULL;
@@ -131,14 +87,6 @@ struct LayerVisibilityChange {
   int applied;
 };
 
-/** If TRUE, we're in the middle of a internal call to
- * dia_layer_widget_*_toggled and should not make undo, update diagram etc.
- *
- * If these calls were not done by simulating button presses, we could avoid
- * this hack.
- */
-static gboolean internal_call = FALSE;
-
 static Change *
 undo_layer(Diagram *dia, DiaLayer *layer, enum LayerChangeType, int index);
 static struct LayerVisibilityChange *
@@ -146,10 +94,6 @@ undo_layer_visibility(Diagram *dia, DiaLayer *layer, gboolean exclusive);
 static void
 layer_visibility_change_apply(struct LayerVisibilityChange *change,
 			      Diagram *dia);
-
-static GtkWidget* dia_layer_widget_new(Diagram *dia, DiaLayer *layer, DiaLayerEditor *editor);
-static void dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, DiaLayer *layer);
-static void dia_layer_update_from_layer(DiaLayerWidget *widget);
 
 
 static void
@@ -184,6 +128,7 @@ GtkWidget * create_layer_view_widget (void)
   hide_button = gtk_button_new ();
   gtk_button_set_relief (GTK_BUTTON (hide_button), GTK_RELIEF_NONE);
   gtk_button_set_focus_on_click (GTK_BUTTON (hide_button), FALSE);
+  gtk_widget_set_tooltip_text (hide_button, _("Close Layer pane"));
 
   /* make it as small as possible */
   rcstyle = gtk_rc_style_new ();
@@ -191,8 +136,8 @@ GtkWidget * create_layer_view_widget (void)
   gtk_widget_modify_style (hide_button, rcstyle);
   g_object_unref (rcstyle);
 
-  image = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
-                                    GTK_ICON_SIZE_MENU);
+  image = gtk_image_new_from_icon_name ("window-close-symbolic",
+                                        GTK_ICON_SIZE_MENU);
 
   gtk_container_add (GTK_CONTAINER (hide_button), image);
   g_signal_connect (G_OBJECT (hide_button), "clicked",
@@ -220,46 +165,6 @@ layer_dialog_create (void)
   gtk_widget_show (layer_dialog->dialog);
 }
 
-static void
-dia_layer_select_callback(GtkWidget *widget, gpointer data)
-{
-  DiaLayerWidget *lw;
-  lw = DIA_LAYER_WIDGET(widget);
-
-  /* Don't deselect if we're selected the active layer.  This can happen
-   * if the window has been defocused. */
-  if (lw->dia->data->active_layer != lw->layer) {
-    diagram_remove_all_selected(lw->dia, TRUE);
-  }
-  diagram_update_extents(lw->dia);
-  data_set_active_layer(lw->dia->data, lw->layer);
-  diagram_add_update_all(lw->dia);
-  diagram_flush(lw->dia);
-
-  internal_call = TRUE;
-  if (lw->connect_off) { /* If the user wants this off, it becomes so */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lw->connectable), FALSE);
-  } else {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lw->connectable), TRUE);
-  }
-  internal_call = FALSE;
-}
-
-static void
-dia_layer_deselect_callback(GtkWidget *widget, gpointer data)
-{
-  DiaLayerWidget *lw = DIA_LAYER_WIDGET(widget);
-
-  /** If layer dialog or diagram is missing, we are so dead. */
-  if (layer_dialog == NULL) return;
-
-  internal_call = TRUE;
-  /** Set to on if the user has requested so. */
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(lw->connectable),
-			       lw->connect_on);
-  internal_call = FALSE;
-}
-
 
 void
 layer_dialog_show()
@@ -282,8 +187,9 @@ layer_dialog_show()
 static void
 _layer_widget_clear_layer (GtkWidget *widget, gpointer user_data)
 {
-  DiaLayerWidget *lw = DIA_LAYER_WIDGET(widget);
-  lw->layer = NULL;
+  DiaLayerWidget *lw = DIA_LAYER_WIDGET (widget);
+
+  dia_layer_widget_set_layer (lw, NULL);
 }
 
 
@@ -317,6 +223,41 @@ layer_dialog_set_diagram (Diagram *dia)
  * shift-selection).
  */
 
+typedef struct _DiaLayerWidgetPrivate DiaLayerWidgetPrivate;
+struct _DiaLayerWidgetPrivate
+{
+  DiaLayer *layer;
+
+  GBinding *name_binding;
+
+  GtkWidget *visible;
+  GtkWidget *connectable;
+  GtkWidget *label;
+
+  /* If true, the user has set this layers connectivity to on
+   * while it was not selected.
+   */
+  gboolean connect_on;
+  /* If true, the user has set this layers connectivity to off
+   * while it was selected.
+   */
+  gboolean connect_off;
+
+  DiaLayerEditor *editor;
+
+  /* If TRUE, we're in the middle of a internal call to
+   * dia_layer_widget_*_toggled and should not make undo, update diagram etc.
+   *
+   * If these calls were not done by simulating button presses, we could avoid
+   * this hack.
+   */
+  gboolean internal_call;
+
+  gboolean shifted;
+};
+
+G_DEFINE_TYPE_WITH_PRIVATE (DiaLayerWidget, dia_layer_widget, GTK_TYPE_LIST_ITEM)
+
 enum {
   EXCLUSIVE,
   LAST_SIGNAL
@@ -324,10 +265,89 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0, };
 
+enum {
+  LW_PROP_0,
+  LW_PROP_LAYER,
+  LW_PROP_EDITOR,
+  LW_PROP_CONNECTABLE,
+  LAST_LW_PROP
+};
+
+static GParamSpec *lw_pspecs[LAST_LW_PROP] = { NULL, };
+
 
 static void
-dia_layer_widget_class_init(DiaLayerWidgetClass *klass)
+dia_layer_widget_set_property (GObject      *object,
+                               guint         property_id,
+                               const GValue *value,
+                               GParamSpec   *pspec)
 {
+  DiaLayerWidget *self = DIA_LAYER_WIDGET (object);
+
+  switch (property_id) {
+    case LW_PROP_LAYER:
+      dia_layer_widget_set_layer (self, g_value_get_object (value));
+      break;
+    case LW_PROP_EDITOR:
+      dia_layer_widget_set_editor (self, g_value_get_object (value));
+      break;
+    case LW_PROP_CONNECTABLE:
+      dia_layer_widget_set_connectable (self, g_value_get_boolean (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+dia_layer_widget_get_property (GObject    *object,
+                               guint       property_id,
+                               GValue     *value,
+                               GParamSpec *pspec)
+{
+  DiaLayerWidget *self = DIA_LAYER_WIDGET (object);
+
+  switch (property_id) {
+    case LW_PROP_LAYER:
+      g_value_set_object (value, dia_layer_widget_get_layer (self));
+      break;
+    case LW_PROP_EDITOR:
+      g_value_set_object (value, dia_layer_widget_get_editor (self));
+      break;
+    case LW_PROP_CONNECTABLE:
+      g_value_set_boolean (value, dia_layer_widget_get_connectable (self));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+dia_layer_widget_finalize (GObject *object)
+{
+  DiaLayerWidget *self = DIA_LAYER_WIDGET (object);
+  DiaLayerWidgetPrivate *priv = dia_layer_widget_get_instance_private (self);
+
+  g_clear_object (&priv->layer);
+  g_clear_object (&priv->editor);
+
+  G_OBJECT_CLASS (dia_layer_widget_parent_class)->finalize (object);
+}
+
+
+static void
+dia_layer_widget_class_init (DiaLayerWidgetClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->set_property = dia_layer_widget_set_property;
+  object_class->get_property = dia_layer_widget_get_property;
+  object_class->finalize = dia_layer_widget_finalize;
+
   signals[EXCLUSIVE] =
     g_signal_new ("exclusive",
                   G_TYPE_FROM_CLASS (klass),
@@ -337,218 +357,377 @@ dia_layer_widget_class_init(DiaLayerWidgetClass *klass)
                   NULL,
                   NULL,
                   G_TYPE_NONE, 0);
+
+  /**
+   * DiaLayerWidget:layer:
+   *
+   * #DiaLayer to control
+   *
+   * Since: 0.98
+   */
+  lw_pspecs[LW_PROP_LAYER] =
+    g_param_spec_object ("layer",
+                         "Layer",
+                         "The layer",
+                         DIA_TYPE_LAYER,
+                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * DiaLayerWidget:editor:
+   *
+   * The #DiaLayerEditor this is for
+   *
+   * Since: 0.98
+   */
+  lw_pspecs[LW_PROP_EDITOR] =
+    g_param_spec_object ("editor",
+                         "Editor",
+                         "The editor",
+                         DIA_TYPE_LAYER_EDITOR,
+                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * DiaLayerWidget:connectable:
+   *
+   * Is the layer connectable
+   *
+   * Since: 0.98
+   */
+  lw_pspecs[LW_PROP_CONNECTABLE] =
+    g_param_spec_boolean ("connectable",
+                          "Connectable",
+                          "Is the layer connectable",
+                          TRUE,
+                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_LW_PROP, lw_pspecs);
 }
 
-static void
-dia_layer_widget_set_connectable(DiaLayerWidget *widget, gboolean on)
-{
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget->connectable), on);
-}
-
-
-static gboolean shifted = FALSE;
 
 static gboolean
-dia_layer_widget_button_event (GtkWidget      *widget,
-                               GdkEventButton *event,
-                               gpointer        userdata)
+button_event (GtkWidget      *widget,
+              GdkEventButton *event,
+              gpointer        userdata)
 {
-  DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
+  DiaLayerWidget *self = DIA_LAYER_WIDGET (userdata);
+  DiaLayerWidgetPrivate *priv = dia_layer_widget_get_instance_private (self);
 
-  shifted = event->state & GDK_SHIFT_MASK;
+  priv->shifted = event->state & GDK_SHIFT_MASK;
 
-  internal_call = FALSE;
+  priv->internal_call = FALSE;
   /* Redraw the label? */
-  gtk_widget_queue_draw(GTK_WIDGET(lw));
+  gtk_widget_queue_draw (GTK_WIDGET (self));
+
   return FALSE;
 }
 
 static void
-dia_layer_widget_connectable_toggled (GtkToggleButton *widget,
-                                      gpointer         userdata)
+connectable_toggled (GtkToggleButton *widget,
+                     gpointer         userdata)
 {
-  DiaLayerWidget *lw = DIA_LAYER_WIDGET (userdata);
+  DiaLayerWidget *self = DIA_LAYER_WIDGET (userdata);
+  DiaLayerWidgetPrivate *priv = dia_layer_widget_get_instance_private (self);
 
-  if (!lw->layer)
+  if (!priv->layer)
     return;
 
-  if (shifted) {
-    shifted = FALSE;
-    internal_call = TRUE;
-    g_signal_emit (lw, signals[EXCLUSIVE], 0);
-    internal_call = FALSE;
+  if (priv->shifted) {
+    priv->shifted = FALSE;
+    priv->internal_call = TRUE;
+    g_signal_emit (self, signals[EXCLUSIVE], 0);
+    priv->internal_call = FALSE;
   } else {
-    dia_layer_set_connectable (lw->layer,
+    dia_layer_set_connectable (priv->layer,
                                gtk_toggle_button_get_active (widget));
   }
-  if (lw->layer == lw->dia->data->active_layer) {
-    lw->connect_off = !gtk_toggle_button_get_active (widget);
-    if (lw->connect_off) lw->connect_on = FALSE;
+
+  if (priv->layer == dia_layer_get_parent_diagram (priv->layer)->active_layer) {
+    priv->connect_off = !gtk_toggle_button_get_active (widget);
+    if (priv->connect_off) {
+      priv->connect_on = FALSE;
+    }
   } else {
-    lw->connect_on = gtk_toggle_button_get_active (widget);
-    if (lw->connect_on) lw->connect_off = FALSE;
+    priv->connect_on = gtk_toggle_button_get_active (widget);
+    if (priv->connect_on) {
+      priv->connect_off = FALSE;
+    }
   }
 
-  gtk_widget_queue_draw (GTK_WIDGET (lw));
+  gtk_widget_queue_draw (GTK_WIDGET (self));
 
-  if (!internal_call) {
-    diagram_add_update_all (lw->dia);
-    diagram_flush (lw->dia);
+  if (!priv->internal_call) {
+    Diagram *diagram = DIA_DIAGRAM (dia_layer_get_parent_diagram (priv->layer));
+
+    diagram_add_update_all (diagram);
+    diagram_flush (diagram);
   }
 }
 
 static void
-dia_layer_widget_visible_clicked(GtkToggleButton *widget,
-				 gpointer userdata)
+visible_clicked (GtkToggleButton *widget,
+                 gpointer         userdata)
 {
-  DiaLayerWidget *lw = DIA_LAYER_WIDGET(userdata);
+  DiaLayerWidget *self = DIA_LAYER_WIDGET (userdata);
+  DiaLayerWidgetPrivate *priv = dia_layer_widget_get_instance_private (self);
   struct LayerVisibilityChange *change;
 
   /* Have to use this internal_call hack 'cause there's no way to switch
    * a toggle button without causing the 'clicked' event:(
    */
-  if (!internal_call) {
-    Diagram *dia = lw->dia;
-    change = undo_layer_visibility(dia, lw->layer, shifted);
+  if (!priv->internal_call) {
+    Diagram *dia = DIA_DIAGRAM (dia_layer_get_parent_diagram (priv->layer));
+    change = undo_layer_visibility (dia, priv->layer, priv->shifted);
     /** This apply kills 'lw', thus we have to hold onto 'lw->dia' */
-    layer_visibility_change_apply(change, dia);
-    undo_set_transactionpoint(dia->undo);
+    layer_visibility_change_apply (change, dia);
+    undo_set_transactionpoint (dia->undo);
   }
 }
 
 static void
-dia_layer_widget_init(DiaLayerWidget *lw)
+select_callback (GtkWidget *widget, gpointer data)
 {
+  DiaLayerWidget *self = DIA_LAYER_WIDGET (widget);
+  DiaLayerWidgetPrivate *priv = dia_layer_widget_get_instance_private (self);
+  DiagramData *diagram;
+
+  g_return_if_fail (priv->layer != NULL);
+
+  diagram = dia_layer_get_parent_diagram (priv->layer);
+
+  /* Don't deselect if we're selected the active layer.  This can happen
+   * if the window has been defocused. */
+  if (diagram->active_layer != priv->layer) {
+    diagram_remove_all_selected (DIA_DIAGRAM (diagram), TRUE);
+  }
+  diagram_update_extents (DIA_DIAGRAM (diagram));
+  data_set_active_layer (diagram, priv->layer);
+  diagram_add_update_all (DIA_DIAGRAM (diagram));
+  diagram_flush (DIA_DIAGRAM (diagram));
+
+  priv->internal_call = TRUE;
+  if (priv->connect_off) { /* If the user wants this off, it becomes so */
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->connectable), FALSE);
+  } else {
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->connectable), TRUE);
+  }
+  priv->internal_call = FALSE;
+}
+
+static void
+deselect_callback (GtkWidget *widget, gpointer data)
+{
+  DiaLayerWidget *self = DIA_LAYER_WIDGET (widget);
+  DiaLayerWidgetPrivate *priv = dia_layer_widget_get_instance_private (self);
+
+  priv->internal_call = TRUE;
+  /** Set to on if the user has requested so. */
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->connectable),
+                                priv->connect_on);
+  priv->internal_call = FALSE;
+}
+
+static void
+dia_layer_widget_init (DiaLayerWidget *self)
+{
+  DiaLayerWidgetPrivate *priv = dia_layer_widget_get_instance_private (self);
   GtkWidget *hbox;
-  GtkWidget *visible;
-  GtkWidget *connectable;
-  GtkWidget *label;
 
-  hbox = gtk_hbox_new(FALSE, 0);
+  hbox = gtk_hbox_new (FALSE, 0);
 
-  lw->dia = NULL;
-  lw->layer = NULL;
+  priv->internal_call = FALSE;
+  priv->shifted = FALSE;
 
-  lw->connect_on = FALSE;
-  lw->connect_off = FALSE;
+  priv->layer = NULL;
 
-  lw->visible = visible = dia_toggle_button_new_with_icon_names ("dia-visible",
-                                                                 "dia-visible-empty");
+  priv->connect_on = FALSE;
+  priv->connect_off = FALSE;
 
-  lw->editor = NULL;
+  priv->visible = dia_toggle_button_new_with_icon_names ("dia-visible",
+                                                         "dia-visible-empty");
 
-  g_signal_connect(G_OBJECT(visible), "button-release-event",
-		   G_CALLBACK(dia_layer_widget_button_event), lw);
-  g_signal_connect(G_OBJECT(visible), "button-press-event",
-		   G_CALLBACK(dia_layer_widget_button_event), lw);
-  g_signal_connect(G_OBJECT(visible), "clicked",
-		   G_CALLBACK(dia_layer_widget_visible_clicked), lw);
-  gtk_box_pack_start (GTK_BOX (hbox), visible, FALSE, TRUE, 2);
-  gtk_widget_show(visible);
+  priv->editor = NULL;
+
+  g_signal_connect (G_OBJECT (priv->visible),
+                    "button-release-event",
+                    G_CALLBACK (button_event),
+                    self);
+  g_signal_connect (G_OBJECT (priv->visible),
+                    "button-press-event",
+                    G_CALLBACK (button_event),
+                    self);
+  g_signal_connect (G_OBJECT (priv->visible),
+                    "clicked",
+                    G_CALLBACK (visible_clicked),
+                    self);
+  gtk_box_pack_start (GTK_BOX (hbox), priv->visible, FALSE, TRUE, 2);
+  gtk_widget_show (priv->visible);
 
   /*gtk_image_new_from_stock(GTK_STOCK_CONNECT,
 			    GTK_ICON_SIZE_BUTTON), */
-  lw->connectable = connectable =
+  priv->connectable =
     dia_toggle_button_new_with_icon_names ("dia-connectable",
                                            "dia-connectable-empty");
 
-  g_signal_connect(G_OBJECT(connectable), "button-release-event",
-		   G_CALLBACK(dia_layer_widget_button_event), lw);
-  g_signal_connect(G_OBJECT(connectable), "button-press-event",
-		   G_CALLBACK(dia_layer_widget_button_event), lw);
-  g_signal_connect(G_OBJECT(connectable), "clicked",
-		   G_CALLBACK(dia_layer_widget_connectable_toggled), lw);
+  g_signal_connect (G_OBJECT (priv->connectable),
+                    "button-release-event",
+                    G_CALLBACK (button_event),
+                    self);
+  g_signal_connect (G_OBJECT (priv->connectable),
+                    "button-press-event",
+                    G_CALLBACK (button_event),
+                    self);
+  g_signal_connect (G_OBJECT (priv->connectable),
+                    "clicked",
+                    G_CALLBACK (connectable_toggled),
+                    self);
 
-  gtk_box_pack_start (GTK_BOX (hbox), connectable, FALSE, TRUE, 2);
-  gtk_widget_show(connectable);
+  gtk_box_pack_start (GTK_BOX (hbox), priv->connectable, FALSE, TRUE, 2);
+  gtk_widget_show (priv->connectable);
 
-  lw->label = label = gtk_label_new("layer_default_label");
-  gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_LEFT);
-  gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, TRUE, 0);
-  gtk_widget_show(label);
+  priv->label = gtk_label_new ("layer_default_label");
+  gtk_label_set_justify (GTK_LABEL (priv->label), GTK_JUSTIFY_LEFT);
+  gtk_box_pack_start (GTK_BOX (hbox), priv->label, FALSE, TRUE, 0);
+  gtk_widget_show (priv->label);
 
-  gtk_widget_show(hbox);
+  gtk_widget_show (hbox);
 
-  gtk_container_add(GTK_CONTAINER(lw), hbox);
+  gtk_container_add (GTK_CONTAINER (self), hbox);
 
-  g_signal_connect (G_OBJECT (lw), "select",
-		    G_CALLBACK (dia_layer_select_callback), NULL);
-  g_signal_connect (G_OBJECT (lw), "deselect",
-		    G_CALLBACK (dia_layer_deselect_callback), NULL);
+  g_signal_connect (G_OBJECT (self),
+                    "select",
+                    G_CALLBACK (select_callback),
+                    NULL);
+  g_signal_connect (G_OBJECT (self),
+                    "deselect",
+                    G_CALLBACK (deselect_callback),
+                    NULL);
 }
 
-GType
-dia_layer_widget_get_type(void)
+
+void
+dia_layer_widget_set_layer (DiaLayerWidget *self,
+                            DiaLayer       *layer)
 {
-  static GType dlw_type = 0;
+  DiaLayerWidgetPrivate *priv;
 
-  if (!dlw_type) {
-    static const GTypeInfo dlw_info = {
-      sizeof (DiaLayerWidgetClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) dia_layer_widget_class_init,
-      NULL,           /* class_finalize */
-      NULL,           /* class_data */
-      sizeof(DiaLayerWidget),
-      0,              /* n_preallocs */
-      (GInstanceInitFunc)dia_layer_widget_init,
-    };
+  g_return_if_fail (DIA_IS_LAYER_WIDGET (self));
 
-    dlw_type = g_type_register_static (gtk_list_item_get_type (),
-				       "DiaLayerWidget",
-				       &dlw_info, 0);
+  priv = dia_layer_widget_get_instance_private (self);
+
+  g_clear_object (&priv->layer);
+  if (layer) {
+    priv->layer = g_object_ref (layer);
+
+    g_clear_object (&priv->name_binding);
+    priv->name_binding = g_object_bind_property (layer, "name",
+                                                priv->label, "label",
+                                                G_BINDING_SYNC_CREATE);
+
+    priv->internal_call = TRUE;
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->visible),
+                                  dia_layer_is_visible (priv->layer));
+
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->connectable),
+                                  dia_layer_is_connectable (priv->layer));
+    priv->internal_call = FALSE;
+
+    /* These may get toggled when the button is set without the widget being
+    * selected first.
+    * The connect_on state gets also used to restore with just a deselect
+    * of the active layer.
+    */
+    priv->connect_on = dia_layer_is_connectable (layer);
+    priv->connect_off = FALSE;
+
+    gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
+  } else {
+    gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
   }
 
-  return dlw_type;
-}
-
-static GtkWidget *
-dia_layer_widget_new (Diagram *dia, DiaLayer *layer, DiaLayerEditor *editor)
-{
-  GtkWidget *widget;
-
-  widget = GTK_WIDGET (gtk_type_new (dia_layer_widget_get_type ()));
-  dia_layer_set_layer (DIA_LAYER_WIDGET (widget), dia, layer);
-
-  /* These may get toggled when the button is set without the widget being
-   * selected first.
-   * The connect_on state gets also used to restore with just a deselect
-   * of the active layer.
-   */
-  DIA_LAYER_WIDGET (widget)->connect_on = dia_layer_is_connectable (layer);
-  DIA_LAYER_WIDGET (widget)->connect_off = FALSE;
-  DIA_LAYER_WIDGET (widget)->editor = GTK_WIDGET (editor);
-
-  return widget;
-}
-
-/** Layer has either been selected or created */
-static void
-dia_layer_set_layer(DiaLayerWidget *widget, Diagram *dia, DiaLayer *layer)
-{
-  widget->dia = dia;
-  widget->layer = layer;
-
-  g_clear_object (&widget->name_binding);
-  widget->name_binding = g_object_bind_property (layer, "name",
-                                                 widget->label, "label",
-                                                 G_BINDING_SYNC_CREATE);
-
-  dia_layer_update_from_layer (widget);
+  g_object_notify_by_pspec (G_OBJECT (self), lw_pspecs[LW_PROP_LAYER]);
 }
 
 
-static void
-dia_layer_update_from_layer (DiaLayerWidget *widget)
+DiaLayer *
+dia_layer_widget_get_layer (DiaLayerWidget *self)
 {
-  internal_call = TRUE;
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget->visible),
-                                dia_layer_is_visible (widget->layer));
+  DiaLayerWidgetPrivate *priv;
 
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget->connectable),
-                                dia_layer_is_connectable (widget->layer));
-  internal_call = FALSE;
+  g_return_val_if_fail (DIA_IS_LAYER_WIDGET (self), NULL);
+
+  priv = dia_layer_widget_get_instance_private (self);
+
+  return priv->layer;
+}
+
+
+void
+dia_layer_widget_set_editor (DiaLayerWidget *self,
+                             DiaLayerEditor *editor)
+{
+  DiaLayerWidgetPrivate *priv;
+
+  g_return_if_fail (DIA_IS_LAYER_WIDGET (self));
+
+  priv = dia_layer_widget_get_instance_private (self);
+
+  g_clear_object (&priv->editor);
+  if (editor) {
+    priv->editor = g_object_ref (editor);
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), lw_pspecs[LW_PROP_EDITOR]);
+}
+
+
+DiaLayerEditor *
+dia_layer_widget_get_editor (DiaLayerWidget *self)
+{
+  DiaLayerWidgetPrivate *priv;
+
+  g_return_val_if_fail (DIA_IS_LAYER_WIDGET (self), NULL);
+
+  priv = dia_layer_widget_get_instance_private (self);
+
+  return priv->editor;
+}
+
+
+void
+dia_layer_widget_set_connectable (DiaLayerWidget *self, gboolean on)
+{
+  DiaLayerWidgetPrivate *priv;
+
+  g_return_if_fail (DIA_IS_LAYER_WIDGET (self));
+
+  priv = dia_layer_widget_get_instance_private (self);
+
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->connectable), on);
+
+  g_object_notify_by_pspec (G_OBJECT (self), lw_pspecs[LW_PROP_CONNECTABLE]);
+}
+
+
+gboolean
+dia_layer_widget_get_connectable (DiaLayerWidget *self)
+{
+  DiaLayerWidgetPrivate *priv;
+
+  g_return_val_if_fail (DIA_IS_LAYER_WIDGET (self), FALSE);
+
+  priv = dia_layer_widget_get_instance_private (self);
+
+  return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->connectable));
+}
+
+
+GtkWidget *
+dia_layer_widget_new (DiaLayer *layer, DiaLayerEditor *editor)
+{
+  return g_object_new (DIA_TYPE_LAYER_WIDGET,
+                       "layer", layer,
+                       "editor", editor,
+                       NULL);
 }
 
 
@@ -917,7 +1096,7 @@ exclusive_connectable (DiaLayerWidget *layer_row,
   for (i = 0; i < data_layer_count (DIA_DIAGRAM_DATA (priv->diagram)); i++) {
     layer = data_layer_get_nth (DIA_DIAGRAM_DATA (priv->diagram), i);
 
-    if (layer_row->layer != layer) {
+    if (dia_layer_widget_get_layer (DIA_LAYER_WIDGET (layer_row)) != layer) {
       connectable |= dia_layer_is_connectable (layer);
     }
   }
@@ -966,7 +1145,7 @@ new_layer (GtkWidget *widget, DiaLayerEditor *self)
     diagram_add_update_all (dia);
     diagram_flush (dia);
 
-    layer_widget = dia_layer_widget_new (dia, layer, self);
+    layer_widget = dia_layer_widget_new (layer, self);
     g_signal_connect (layer_widget,
                       "exclusive",
                       G_CALLBACK (exclusive_connectable),
@@ -1061,7 +1240,7 @@ raise_layer (GtkWidget *widget, DiaLayerEditor *self)
     pos = gtk_list_child_position (GTK_LIST (priv->list), selected);
 
     if (pos > 0) {
-      layer = DIA_LAYER_WIDGET (selected)->layer;
+      layer = dia_layer_widget_get_layer (DIA_LAYER_WIDGET (selected));
       data_raise_layer (dia->data, layer);
 
       list = g_list_prepend (list, selected);
@@ -1107,7 +1286,7 @@ lower_layer (GtkWidget *widget, DiaLayerEditor *self)
     pos = gtk_list_child_position (GTK_LIST (priv->list), selected);
 
     if (pos < dia->data->layers->len-1) {
-      layer = DIA_LAYER_WIDGET (selected)->layer;
+      layer = dia_layer_widget_get_layer (DIA_LAYER_WIDGET (selected));
       data_lower_layer (dia->data, layer);
 
       list = g_list_prepend (list, selected);
@@ -1250,7 +1429,7 @@ dia_layer_editor_set_diagram (DiaLayerEditor *self,
   for (i = data_layer_count (DIA_DIAGRAM_DATA (dia)) - 1, j = 0; i >= 0; i--, j++) {
     layer = data_layer_get_nth (DIA_DIAGRAM_DATA (dia), i);
 
-    layer_widget = dia_layer_widget_new (dia, layer, self);
+    layer_widget = dia_layer_widget_new (layer, self);
     gtk_widget_show (layer_widget);
 
     gtk_container_add (GTK_CONTAINER (priv->list),
