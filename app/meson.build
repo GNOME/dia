@@ -82,18 +82,18 @@ diaapp_lib = both_libraries('diaapp',
                             export_dynamic: true,  # some plugins require this.
                             include_directories: [configuration_inc])
 
-diaapp_dep = declare_dependency (include_directories: diaapp_inc,
+diaapp_dep = declare_dependency (sources: [config_h],
+                                 include_directories: diaapp_inc,
                                  link_with: diaapp_lib.get_static_lib(),
                                  dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep])
 
-diaapp_dep_for_docs = declare_dependency (include_directories: diaapp_inc,
+diaapp_dep_for_docs = declare_dependency (include_directories: [diaapp_inc, configuration_inc],
                                           link_with: diaapp_lib.get_shared_lib(),
                                           dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep])
 
 diaapp = executable('dia',
                     ['main.c', resources],
                     dependencies: [diaapp_dep],
-                    include_directories: [configuration_inc],
                     gui_app: true,
                     export_dynamic: true,  # some plugins require this.
                     install: true)
