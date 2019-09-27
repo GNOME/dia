@@ -56,8 +56,6 @@ dia_sources = [
     'highlight.c',
     'textedit.c',
     'textedit_tool.c',
-
-    'main.c'
 ]
 
 #TODO: this is workaround for openbsd where libraries are in /usr/lib/local
@@ -77,15 +75,28 @@ resources = gnome.compile_resources('dia-resources', 'dia.gresource.xml',
                                     source_dir : '.',
                                     c_name : 'dia')
 
+diaapp_lib = both_libraries('diaapp',
+                            dia_sources + [diamarshal_h, config_h],
+                            dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep],
+                            link_args: dia_link_args,
+                            export_dynamic: true,  # some plugins require this.
+                            include_directories: [configuration_inc])
+
+diaapp_dep = declare_dependency (include_directories: diaapp_inc,
+                                 link_with: diaapp_lib.get_static_lib(),
+                                 dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep])
+
+diaapp_dep_for_docs = declare_dependency (include_directories: diaapp_inc,
+                                          link_with: diaapp_lib.get_shared_lib(),
+                                          dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep])
+
 diaapp = executable('dia',
-    dia_sources + [resources, diamarshal_h, config_h],
-    dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep],
-    link_args: dia_link_args,
-    export_dynamic: true,  # some plugins require this.
-    include_directories: [configuration_inc],
-    gui_app: true,
-    install: true,
-)
+                    ['main.c', resources],
+                    dependencies: [diaapp_dep],
+                    include_directories: [configuration_inc],
+                    gui_app: true,
+                    export_dynamic: true,  # some plugins require this.
+                    install: true)
 
 if build_machine.system() == 'windows'
     dia_win_remote = executable(

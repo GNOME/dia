@@ -52,7 +52,7 @@ if py_dep.found()
         sources + [config_h],
         dependencies: [libc_dep, libxml_dep, libgtk_dep, py_dep, libdia_dep],
         include_directories: [configuration_inc, diaapp_inc],
-        link_with: [diaapp],
+        link_with: [diaapp], # Naughty
         install: true,
         install_dir: dialibdir
     )

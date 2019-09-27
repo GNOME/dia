@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+  <!ENTITY % gtkdocentities SYSTEM "xml/gtkdocentities.ent">
+  %gtkdocentities;
+]>
+<book id="index">
+  <bookinfo>
+    <title>&package_name; Reference Manual</title>
+    <releaseinfo>
+      <para>This document is the API reference for &package_name; &package_version;</para>
+      <para>
+        If you find any issues in this API reference, please report it
+        using <ulink type="http" url="&package_bugreport;">at the
+        bugtracker</ulink>
+      </para>
+    </releaseinfo>
+
+    <copyright>
+      <year>2019</year>
+      <holder>Zander Brown</holder>
+    </copyright>
+  </bookinfo>
+
+  <part id="core-api">
+    <title>Objects</title>
+    <xi:include href="xml/autosave.xml" />
+    <xi:include href="xml/commands.xml" />
+    <xi:include href="xml/confirm.xml" />
+    <xi:include href="xml/connectionpoint_ops.xml" />
+    <xi:include href="xml/create_object.xml" />
+    <xi:include href="xml/cursor.xml" />
+    <xi:include href="xml/cut_n_paste.xml" />
+    <xi:include href="xml/defaults.xml" />
+    <xi:include href="xml/dia-application.xml" />
+    <xi:include href="xml/dia-colour-area.xml" />
+    <xi:include href="xml/diagram_tree_model.xml" />
+    <xi:include href="xml/diagram_tree.xml" />
+    <xi:include href="xml/diagram.xml" />
+    <xi:include href="xml/diagrid.xml" />
+    <xi:include href="xml/dia-line-width-area.xml" />
+    <xi:include href="xml/diapagelayout.xml" />
+    <xi:include href="xml/dia-props.xml" />
+    <xi:include href="xml/disp_callbacks.xml" />
+    <xi:include href="xml/display.xml" />
+    <xi:include href="xml/dynamic_refresh.xml" />
+    <xi:include href="xml/exit_dialog.xml" />
+    <xi:include href="xml/filedlg.xml" />
+    <xi:include href="xml/find-and-replace.xml" />
+    <xi:include href="xml/grid.xml" />
+    <xi:include href="xml/gtkhwrapbox.xml" />
+    <xi:include href="xml/gtkwrapbox.xml" />
+    <xi:include href="xml/handle_ops.xml" />
+    <xi:include href="xml/highlight.xml" />
+    <xi:include href="xml/interface.xml" />
+    <xi:include href="xml/layer_dialog.xml" />
+    <xi:include href="xml/load_save.xml" />
+    <xi:include href="xml/magnify.xml" />
+    <xi:include href="xml/menus.xml" />
+    <xi:include href="xml/modify_tool.xml" />
+    <xi:include href="xml/navigation.xml" />
+    <xi:include href="xml/object_index.sgml" />
+    <xi:include href="xml/object_ops.xml" />
+    <xi:include href="xml/pagesetup.xml" />
+    <xi:include href="xml/plugin-manager.xml" />
+    <xi:include href="xml/preferences.xml" />
+    <xi:include href="xml/properties-dialog.xml" />
+    <xi:include href="xml/recent_files.xml" />
+    <xi:include href="xml/ruler.xml" />
+    <xi:include href="xml/scroll_tool.xml" />
+    <xi:include href="xml/select.xml" />
+    <xi:include href="xml/sheets_dialog_callbacks.xml" />
+    <xi:include href="xml/sheets_dialog.xml" />
+    <xi:include href="xml/sheets.xml" />
+    <xi:include href="xml/textedit_tool.xml" />
+    <xi:include href="xml/textedit.xml" />
+    <xi:include href="xml/toolbox.xml" />
+    <xi:include href="xml/tool.xml" />
+    <xi:include href="xml/undo.xml" />
+  </part>
+
+  <chapter id="object-tree">
+    <title>Object Hierarchy</title>
+    <xi:include href="xml/tree_index.sgml"/>
+  </chapter>
+
+  <index id="api-index-full">
+    <title>API Index</title>
+    <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-0.98">
+    <title>API added in 0.98</title>
+    <xi:include href="xml/api-index-0.98.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="deprecated-api-index" role="deprecated">
+    <title>Index of deprecated API</title>
+    <xi:include href="xml/api-index-deprecated.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="annotations-glossary">
+  <title>Annotations glossary</title>
+  <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
+  </index>
+
+</book>

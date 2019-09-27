@@ -1,0 +1,11 @@
+ent_conf = configuration_data()
+ent_conf.set('PACKAGE', 'Dia')
+ent_conf.set('PACKAGE_BUGREPORT', 'https://gitlab.gnome.org/GNOME/dia/issues')
+ent_conf.set('PACKAGE_NAME', 'Dia')
+ent_conf.set('PACKAGE_STRING', 'dia')
+ent_conf.set('PACKAGE_TARNAME', 'dia-' + meson.project_version())
+ent_conf.set('PACKAGE_URL', 'https://gitlab.gnome.org/GNOME/dia')
+ent_conf.set('PACKAGE_VERSION', meson.project_version())
+ent_conf.set('PACKAGE_API_VERSION', '0.0')
+configure_file(input: 'gtkdocentities.ent.in', output: 'gtkdocentities.ent', configuration: ent_conf)
+

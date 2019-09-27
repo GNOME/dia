@@ -18,7 +18,7 @@ shared_module(
     sources + [config_h],
     dependencies: [deps, libdia_dep],
     include_directories: [configuration_inc, diaapp_inc],
-    link_with: [diaapp],
+    link_with: [diaapp], # Naughty
     install: true,
     install_dir: dialibdir
 )
