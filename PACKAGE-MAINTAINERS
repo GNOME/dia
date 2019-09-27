@@ -1,5 +1,7 @@
 These are the current known maintainers of Dia in various distributions.
 They should be contacted when new releases (and candidates) come out.
+FlatPac should render much of their task obsolete, however, they 
+should still be notified.
 
 Debian: Debian Dia Maintainer <dia@packages.debian.org>
 NetBSD: Martin J. Laubach <mjl@netbsd.org>
