@@ -76,7 +76,7 @@ ShellExecuteA (long        hwnd,
 #include "properties-dialog.h"
 #include "propinternals.h"
 #include "preferences.h"
-#include "layer_dialog.h"
+#include "layer-editor/layer_dialog.h"
 #include "connectionpoint_ops.h"
 #include "undo.h"
 #include "pagesetup.h"

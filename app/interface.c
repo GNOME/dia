@@ -32,7 +32,7 @@
 
 #include "diagram.h"
 #include "object.h"
-#include "layer_dialog.h"
+#include "layer-editor/layer_dialog.h"
 #include "interface.h"
 #include "display.h"
 #include "disp_callbacks.h"

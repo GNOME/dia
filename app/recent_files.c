@@ -34,7 +34,7 @@
 #include "diagram.h"
 #include "display.h"
 #include "interface.h"
-#include "layer_dialog.h"
+#include "layer-editor/layer_dialog.h"
 #include "preferences.h"
 #include "../lib/filter.h"
 #include "../lib/intl.h"

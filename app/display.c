@@ -39,7 +39,7 @@
 #include "message.h"
 #include "preferences.h"
 #include "app_procs.h"
-#include "layer_dialog.h"
+#include "layer-editor/layer_dialog.h"
 #include "load_save.h"
 #include "dia-props.h"
 #include "renderer/diacairo.h"

@@ -23,6 +23,7 @@
 #include <glib.h>
 
 #include "diatypes.h"
+#include "diarenderer.h"
 
 #pragma once
 

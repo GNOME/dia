@@ -37,7 +37,7 @@
 #include "persistence.h"
 #include "display.h"
 #include "message.h"
-#include "layer_dialog.h"
+#include "layer-editor/layer_dialog.h"
 #include "load_save.h"
 #include "preferences.h"
 #include "interface.h"

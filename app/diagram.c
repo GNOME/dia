@@ -32,7 +32,7 @@
 #include "preferences.h"
 #include "properties-dialog.h"
 #include "cut_n_paste.h"
-#include "layer_dialog.h"
+#include "layer-editor/layer_dialog.h"
 #include "app_procs.h"
 #include "dia_dirs.h"
 #include "load_save.h"

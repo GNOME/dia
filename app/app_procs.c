@@ -47,7 +47,7 @@
 #include "group.h"
 #include "message.h"
 #include "display.h"
-#include "layer_dialog.h"
+#include "layer-editor/layer_dialog.h"
 #include "load_save.h"
 #include "preferences.h"
 #include "dia_dirs.h"
