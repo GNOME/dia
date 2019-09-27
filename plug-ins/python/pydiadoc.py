@@ -28,7 +28,7 @@ def distribute_objects (objs) :
 	for o in objs :
 		if width < o.properties["elem_width"].value :
 			width = o.properties["elem_width"].value
-		if height < o.properties["elem_height"].value : 
+		if height < o.properties["elem_height"].value :
 			height = o.properties["elem_height"].value
 	# add 20 % 'distance'
 	width *= 1.2
@@ -81,8 +81,8 @@ def autodoc_cb (data, flags, update) :
 		display = None
 	layer = data.active_layer
 
-	oType = dia.get_object_type ("UML - Class")		
-	
+	oType = dia.get_object_type ("UML - Class")
+
 	theDir = dir(dia)
 	# for reflection we need some objects ...
 	theObjects = [data, layer, oType]
@@ -90,14 +90,14 @@ def autodoc_cb (data, flags, update) :
 		theObjects.append (data.paper)
 	except AttributeError :
 		pass # no reason to fail with new bindings
-	if diagram : 
+	if diagram :
 		theObjects.append (diagram)
-	if display : 
+	if display :
 		theObjects.append (display)
 	# add some objects with interesting properties
 	#theObjects.append(dia.DiaImage())
 	once = 1
-	for s in ["Standard - Image", "Standard - BezierLine", "Standard - Text", 
+	for s in ["Standard - Image", "Standard - BezierLine", "Standard - Text",
 		"UML - Class", "UML - Dependency"] :
 		o, h1, h2 = dia.get_object_type(s).create(0,0)
 		for p in o.properties.keys() :
@@ -247,6 +247,7 @@ def autodoc_cb (data, flags, update) :
 def autodoc_html_cb (data, flags) :
 	import pydoc
 	import os
+	import webbrowser
 	try :
 		path = os.environ["TEMP"]
 	except KeyError :
@@ -255,13 +256,14 @@ def autodoc_html_cb (data, flags) :
 	os.chdir(path)
 	pydoc.writedoc(dia)
 	dia.message(0, path + os.path.sep + "dia.html saved.")
+	webbrowser.open('file://' + os.path.realpath(path + os.path.sep + "dia.html"))
 
-dia.register_action ("HelpPydia2", "PyDia HTML Docs", 
-                       "/ToolboxMenu/Help/HelpExtensionStart", 
+dia.register_action ("HelpPydia2", "PyDia HTML Docs",
+                       "/ToolboxMenu/Help/HelpExtensionStart",
                        autodoc_html_cb)
-dia.register_action ("HelpPydia", "PyDia Docs", 
-                       "/ToolboxMenu/Help/HelpExtensionStart", 
+dia.register_action ("HelpPydia", "PyDia Docs",
+                       "/ToolboxMenu/Help/HelpExtensionStart",
                        autodoc_fresh_cb)
-dia.register_action ("UpdatePydia", "PyDia Docs Update", 
-                       "/DisplayMenu/Help/HelpExtensionStart", 
+dia.register_action ("UpdatePydia", "PyDia Docs Update",
+                       "/DisplayMenu/Help/HelpExtensionStart",
                        autodoc_update_cb)

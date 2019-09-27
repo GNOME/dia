@@ -18,6 +18,8 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 import dia, os, string
+import tempfile
+import webbrowser
 
 # Given a list of "sheet objects" return the common namespace of the object types
 def so_get_namespace (sol) :
@@ -59,7 +61,7 @@ def check_objecttype_overlap (sheets) :
 def isheets_cb (data, flags) :
 	sheets = dia.registered_sheets ()
 	check_objecttype_overlap (sheets)
-	path = os.environ["TEMP"] + os.path.sep + "dia-sheets.html"
+	path = tempfile.gettempdir() + os.path.sep + "dia-sheets.html"
 	f = open (path, "w")
 	f.write ("""
 <html><head><title>Dia Sheets</title></head><body>
@@ -75,6 +77,7 @@ def isheets_cb (data, flags) :
 </body></html>
 """)
 	dia.message(0, "'" + path + "' saved.")
+	webbrowser.open('file://' + os.path.realpath(path))
 
 dia.register_action ("HelpInspectSheets", "Dia Sheets Inspection",
                      "/ToolboxMenu/Help/HelpExtensionStart",
