@@ -137,30 +137,6 @@ layer_dialog_set_diagram (Diagram *dia)
   }
 }
 
-
-static void
-layer_dialog_edit_layer (Diagram *dia, DiaLayer *layer)
-{
-  GtkWidget *dlg;
-
-  g_return_if_fail (dia || layer);
-
-  if (layer) {
-    dlg = g_object_new (DIA_TYPE_LAYER_PROPERTIES,
-                        "layer", layer,
-                        "visible", TRUE,
-                        NULL);
-  } else {
-    dlg = g_object_new (DIA_TYPE_LAYER_PROPERTIES,
-                        "diagram", dia,
-                        "visible", TRUE,
-                        NULL);
-  }
-
-  gtk_widget_show (dlg);
-}
-
-
 /******** layer changes: */
 
 static void
@@ -345,9 +321,23 @@ undo_layer_visibility(Diagram *dia, DiaLayer *layer, gboolean exclusive)
  * \brief edit a layers name, possibly also creating the layer
  */
 void
-diagram_edit_layer(Diagram *dia, DiaLayer *layer)
+diagram_edit_layer (Diagram *dia, DiaLayer *layer)
 {
-  g_return_if_fail(dia != NULL);
+  GtkWidget *dlg;
 
-  layer_dialog_edit_layer (layer ? NULL : dia, layer);
+  g_return_if_fail (dia || layer);
+
+  if (layer) {
+    dlg = g_object_new (DIA_TYPE_LAYER_PROPERTIES,
+                        "layer", layer,
+                        "visible", TRUE,
+                        NULL);
+  } else {
+    dlg = g_object_new (DIA_TYPE_LAYER_PROPERTIES,
+                        "diagram", dia,
+                        "visible", TRUE,
+                        NULL);
+  }
+
+  gtk_widget_show (dlg);
 }

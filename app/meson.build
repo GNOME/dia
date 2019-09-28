@@ -7,6 +7,8 @@ dia_sources = [
     'properties-dialog.c',
     'defaults.c',
     'undo.c',
+    'dia-change.c',
+    'dia-change.h',
     'object_ops.c',
 
     'layer-editor/dia-layer-widget.c',

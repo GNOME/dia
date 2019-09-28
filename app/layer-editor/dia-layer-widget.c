@@ -22,6 +22,7 @@
 
 #include "widgets.h"
 #include "dia-layer-widget.h"
+#include "layer_dialog.h"
 
 /* The connectability buttons don't quite behave the way they should.
  * The shift-click behavior messes up the active layer.
