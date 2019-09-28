@@ -95,7 +95,7 @@ endif
 subdir('docs')         #API documentation generated off code
 
 #Install samples
-install_subdir('samples', install_dir : datadir, strip:directory : false)
+install_subdir('samples', install_dir : pkgdatadir, strip_directory : false)
 
 # TODO: idealy this should use run_env from tests/
 # Unfortunately, neither run_target or custom_target support env
