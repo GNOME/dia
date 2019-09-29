@@ -2,16 +2,15 @@ include: 'https://gitlab.gnome.org/bilelmoussaoui/win32-ci-template/raw/master/c
 
 stages:
   - win32
-  - deploy
 
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
-    MSI_BUNDLE: "dia.msi"
 
 win32:
     variables:
         APP_NAME: "dia"
         BIN_NAME: "dia"
+        MSI_BUNDLE: "dia.msi"
         MANUFACTURER: "GNOME"
         MESON_ARGS: "-Dtests=false"
         VERSION: "0.1"
@@ -19,9 +18,3 @@ win32:
         GIT_REPO: "https://gitlab.gnome.org/GNOME/dia.git"
         GIT_BRANCH: "bilelmoussaoui/win32"
     extends: .win32
-
-win32_review:
-  extends: '.win32_review'
-
-win32_stop_review:
-  extends: '.win32_stop_review'
