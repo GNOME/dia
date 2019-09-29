@@ -9,7 +9,6 @@ variables:
 win32:
     variables:
         APP_NAME: "dia"
-        BIN_NAME: "dia"
         MSI_BUNDLE: "dia.msi"
         MANUFACTURER: "GNOME"
         MESON_ARGS: "-Dtests=false"
