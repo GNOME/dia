@@ -1,8 +1,9 @@
 include: 'https://gitlab.gnome.org/bilelmoussaoui/win32-ci-template/raw/master/ci-template.yml'
 
 stages:
-  - deploy
   - win32
+  - deploy
+
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
     MSI_BUNDLE: "dia.msi"
@@ -19,8 +20,8 @@ win32:
         GIT_BRANCH: "bilelmoussaoui/win32"
     extends: .win32
 
-review:
-  extends: '.review'
+win32_review:
+  extends: '.win32_review'
 
-stop_review:
-  extends: '.stop_review'
+win32_stop_review:
+  extends: '.win32_stop_review'
