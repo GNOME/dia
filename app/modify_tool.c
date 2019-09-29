@@ -508,7 +508,7 @@ modify_motion (ModifyTool     *tool,
     object_add_updates_list(ddisp->diagram->data->selected, ddisp->diagram);
     objchange = object_list_move_delta(ddisp->diagram->data->selected, &delta);
     if (objchange != NULL) {
-      undo_object_change(ddisp->diagram, tool->object, objchange);
+      dia_object_change_change_new (ddisp->diagram, tool->object, objchange);
     }
     object_add_updates_list(ddisp->diagram->data->selected, ddisp->diagram);
 
@@ -576,11 +576,11 @@ modify_motion (ModifyTool     *tool,
     if (tool->break_connections) {
       /* break connections to the handle currently selected. */
       if (tool->handle->connected_to!=NULL) {
-        Change *change = undo_unconnect (ddisp->diagram,
-                                         tool->object,
-                                         tool->handle);
+        DiaChange *change = dia_unconnect_change_new (ddisp->diagram,
+                                                      tool->object,
+                                                      tool->handle);
 
-        (change->apply)(change, ddisp->diagram);
+        dia_change_apply (change, ddisp->diagram);
       }
     }
 
@@ -626,7 +626,7 @@ modify_motion (ModifyTool     *tool,
 					         &to, connectionpoint,
 					         HANDLE_MOVE_USER, gdk_event_to_dia_ModifierKeys(event->state));
     if (objchange != NULL) {
-      undo_object_change(ddisp->diagram, tool->object, objchange);
+      dia_object_change_change_new (ddisp->diagram, tool->object, objchange);
     }
     object_add_updates(tool->object, ddisp->diagram);
 
@@ -728,8 +728,8 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 	list = g_list_next(list); i++;
       }
 
-      undo_move_objects(ddisp->diagram, tool->orig_pos, dest_pos,
-			parent_list_affected(ddisp->diagram->data->selected));
+      dia_move_objects_change_new (ddisp->diagram, tool->orig_pos, dest_pos,
+                                   parent_list_affected (ddisp->diagram->data->selected));
     }
 
     ddisplay_connect_selected(ddisp); /* pushes UNDO info */
@@ -747,8 +747,9 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     tool->state = STATE_NONE;
 
     if (tool->orig_pos != NULL) {
-      undo_move_handle(ddisp->diagram, tool->handle, tool->object,
-		       *tool->orig_pos, tool->last_to, gdk_event_to_dia_ModifierKeys(event->state));
+      dia_move_handle_change_new (ddisp->diagram, tool->handle, tool->object,
+                                  *tool->orig_pos, tool->last_to,
+                                  gdk_event_to_dia_ModifierKeys (event->state));
     }
 
     /* Final move: */
@@ -757,7 +758,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 					       &tool->last_to, NULL,
 					       HANDLE_MOVE_USER_FINAL,gdk_event_to_dia_ModifierKeys(event->state));
     if (objchange != NULL) {
-      undo_object_change(ddisp->diagram, tool->object, objchange);
+      dia_object_change_change_new (ddisp->diagram, tool->object, objchange);
     }
 
     object_add_updates(tool->object, ddisp->diagram);

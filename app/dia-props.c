@@ -319,12 +319,15 @@ diagram_properties_respond(GtkWidget *widget,
     if (active_diagram) {
       /* we do not bother for the actual change, just record the
        * whole possible change */
-      undo_change_memswap (active_diagram,
-        &active_diagram->grid, sizeof(active_diagram->grid));
-      undo_change_memswap (active_diagram,
-        &active_diagram->data->bg_color, sizeof(active_diagram->data->bg_color));
-      undo_change_memswap (active_diagram,
-        &active_diagram->pagebreak_color, sizeof(active_diagram->pagebreak_color));
+      dia_mem_swap_change_new (active_diagram,
+                               &active_diagram->grid,
+                               sizeof(active_diagram->grid));
+      dia_mem_swap_change_new (active_diagram,
+                               &active_diagram->data->bg_color,
+                               sizeof(active_diagram->data->bg_color));
+      dia_mem_swap_change_new (active_diagram,
+                               &active_diagram->pagebreak_color,
+                               sizeof(active_diagram->pagebreak_color));
       undo_set_transactionpoint(active_diagram->undo);
 
       active_diagram->grid.dynamic =

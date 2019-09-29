@@ -278,16 +278,16 @@ visible_clicked (GtkToggleButton *widget,
 {
   DiaLayerWidget *self = DIA_LAYER_WIDGET (userdata);
   DiaLayerWidgetPrivate *priv = dia_layer_widget_get_instance_private (self);
-  struct LayerVisibilityChange *change;
+  DiaChange *change;
 
   /* Have to use this internal_call hack 'cause there's no way to switch
    * a toggle button without causing the 'clicked' event:(
    */
   if (!priv->internal_call) {
     Diagram *dia = DIA_DIAGRAM (dia_layer_get_parent_diagram (priv->layer));
-    change = undo_layer_visibility (dia, priv->layer, priv->shifted);
+    change = dia_layer_visibility_change_new (dia, priv->layer, priv->shifted);
     /** This apply kills 'lw', thus we have to hold onto 'lw->dia' */
-    layer_visibility_change_apply (change, dia);
+    dia_change_apply (change, dia);
     undo_set_transactionpoint (dia->undo);
   }
 }

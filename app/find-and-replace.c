@@ -110,7 +110,7 @@ _match_text_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement
   } else {
     g_free (repl);
   }
-  
+
   return is_match;
 }
 
@@ -333,7 +333,7 @@ find_func (gpointer data, gpointer user_data)
 {
   DiaObject *obj = data;
   SearchData *sd = (SearchData *)user_data;
-  
+
   if (!sd->found) {
     if (_matches (obj, sd)) {
       if (!sd->first)
@@ -363,33 +363,33 @@ _replace (DiaObject *obj, const SearchData *sd, const char *replacement)
   prop_list_free (plist);
 
   if (obj_change)
-    undo_object_change(sd->diagram, obj, obj_change);
-    
+    dia_object_change_change_new (sd->diagram, obj, obj_change);
+
   object_add_updates(obj, sd->diagram);
   diagram_update_connections_object(sd->diagram, obj, TRUE);
   diagram_modified(sd->diagram);
   diagram_object_modified(sd->diagram, obj);
   diagram_update_extents(sd->diagram);
   diagram_flush(sd->diagram);
-  
+
   return TRUE;
 }
 
 static gint
 fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
 {
-  const gchar *search = gtk_entry_get_text (g_object_get_data (G_OBJECT (widget), "search-entry")); 
+  const gchar *search = gtk_entry_get_text (g_object_get_data (G_OBJECT (widget), "search-entry"));
   const gchar *replace;
   DDisplay *ddisp = (DDisplay*)data;
   SearchData sd = { 0, };
   sd.diagram = ddisp->diagram;
-  sd.flags =  gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( 
+  sd.flags =  gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (
                   g_object_get_data (G_OBJECT (widget), "match-case"))) ? MATCH_CASE : 0;
-  sd.flags |= gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( 
+  sd.flags |= gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (
                   g_object_get_data (G_OBJECT (widget), "match-word"))) ? MATCH_WORD : 0;
-  sd.flags |= gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON ( 
+  sd.flags |= gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON (
 		  g_object_get_data (G_OBJECT (widget), "match-all-properties"))) ? MATCH_ALL_PROPERTIES : 0;
-  
+
 
   switch (response_id) {
   case RESPONSE_FIND :
@@ -485,7 +485,7 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
   gtk_entry_set_width_chars (GTK_ENTRY (search_entry), 30);
   gtk_box_pack_start (GTK_BOX (hbox), search_entry, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 6);
-  
+
   if (is_replace) {
     GtkWidget *replace_entry;
 
@@ -513,7 +513,7 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
   g_object_set_data (G_OBJECT (dialog), "match-all-properties", match_all_properties);
   if (is_replace)
     gtk_widget_set_sensitive (GTK_WIDGET (match_all_properties), FALSE);
-    
+
 
   gtk_widget_show_all (vbox);
 }
@@ -534,7 +534,7 @@ edit_find_callback(GtkAction *action)
   dialog = g_object_get_data (G_OBJECT (ddisp->shell), "edit-find-dialog");
   if (!dialog) {
     dialog = gtk_dialog_new_with_buttons (
-		_("Find"), 
+		_("Find"),
 		GTK_WINDOW (ddisp->shell), GTK_DIALOG_DESTROY_WITH_PARENT,
 		GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
 		GTK_STOCK_FIND, RESPONSE_FIND,
@@ -544,7 +544,7 @@ edit_find_callback(GtkAction *action)
   }
   g_object_set_data (G_OBJECT (ddisp->shell), "edit-find-dialog", dialog);
 
-  gtk_dialog_run (GTK_DIALOG (dialog));  
+  gtk_dialog_run (GTK_DIALOG (dialog));
 }
 
 /**
@@ -569,11 +569,11 @@ edit_replace_callback(GtkAction *action)
 		GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
 		_("Replace _All"), RESPONSE_REPLACE_ALL,
 		NULL);
-    /* not adding the button in the list above to modify it's text; 
-     * the default "Find and Replace" is just too long for my taste ;) 
+    /* not adding the button in the list above to modify it's text;
+     * the default "Find and Replace" is just too long for my taste ;)
      */
     button = gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Replace"), RESPONSE_REPLACE);
-    gtk_button_set_image (GTK_BUTTON (button), 
+    gtk_button_set_image (GTK_BUTTON (button),
                           gtk_image_new_from_stock (GTK_STOCK_FIND_AND_REPLACE, GTK_ICON_SIZE_BUTTON));
 
     gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_FIND, RESPONSE_FIND);
@@ -582,5 +582,5 @@ edit_replace_callback(GtkAction *action)
   }
   g_object_set_data (G_OBJECT (ddisp->shell), "edit-replace-dialog", dialog);
 
-  gtk_dialog_run (GTK_DIALOG (dialog));  
+  gtk_dialog_run (GTK_DIALOG (dialog));
 }

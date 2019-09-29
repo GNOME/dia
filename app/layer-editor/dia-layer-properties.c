@@ -145,7 +145,7 @@ dia_layer_properties_response (GtkDialog *dialog,
     diagram_add_update_all (priv->diagram);
     diagram_flush (priv->diagram);
 
-    undo_layer (priv->diagram, layer, TYPE_ADD_LAYER, pos);
+    dia_layer_change_new (priv->diagram, layer, TYPE_ADD_LAYER, pos);
     undo_set_transactionpoint (priv->diagram->undo);
   } else {
     g_critical ("Huh, no layer or diagram");

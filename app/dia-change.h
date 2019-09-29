@@ -47,10 +47,38 @@ typedef struct _DiaChangeClass DiaChangeClass;
 #define DIA_CHANGE_CLASS_NAME(class) (g_type_name (DIA_CHANGE_CLASS_TYPE (class)))
 #define G_VALUE_HOLDS_CHANGE(value)  (G_TYPE_CHECK_VALUE_TYPE ((value), DIA_TYPE_CHANGE))
 
+
+#define DIA_DEFINE_CHANGE(TypeName, type_name)                               \
+  G_DEFINE_TYPE (TypeName, type_name, DIA_TYPE_CHANGE)                       \
+                                                                             \
+  static void type_name##_apply             (DiaChange        *change,       \
+                                             Diagram          *diagram);     \
+  static void type_name##_revert            (DiaChange        *change,       \
+                                             Diagram          *diagram);     \
+  static void type_name##_free              (DiaChange        *change);      \
+                                                                             \
+  static void                                                                \
+  type_name##_class_init (TypeName##Class *klass)                            \
+  {                                                                          \
+    DiaChangeClass *change_class = DIA_CHANGE_CLASS (klass);                 \
+                                                                             \
+    change_class->apply = type_name##_apply;                                 \
+    change_class->revert = type_name##_revert;                               \
+    change_class->free = type_name##_free;                                   \
+  }                                                                          \
+                                                                             \
+  static void                                                                \
+  type_name##_init (TypeName *klass)                                         \
+  {                                                                          \
+  }
+
 struct _DiaChange {
   GTypeInstance g_type_instance;
 
   grefcount refs;
+
+  DiaChange *next;
+  DiaChange *prev;
 };
 
 struct _DiaChangeClass {

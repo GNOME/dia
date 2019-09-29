@@ -216,7 +216,7 @@ insert_text (DDisplay *ddisp, Focus *focus, const gchar *text)
     object_add_updates (obj, ddisp->diagram);
 
     if (modified && (change != NULL)) {
-      undo_object_change (ddisp->diagram, obj, change);
+      dia_object_change_change_new (ddisp->diagram, obj, change);
       any_modified = TRUE;
     }
 
@@ -280,7 +280,7 @@ received_clipboard_image_handler (GtkClipboard *clipboard,
     object_add_updates (obj, dia);
     change = dia_object_set_pixbuf (obj, pixbuf);
     if (change) {
-      undo_object_change (dia, obj, change);
+      dia_object_change_change_new (dia, obj, change);
       /* ... and after the change */
       object_add_updates (obj, dia);
       diagram_modified (dia);
@@ -313,7 +313,7 @@ received_clipboard_image_handler (GtkClipboard *clipboard,
         g_free (change);
       }
       /* allow undo of the whole thing */
-      undo_insert_objects (dia, g_list_prepend (NULL, obj), 1);
+      dia_insert_objects_change_new (dia, g_list_prepend (NULL, obj), 1);
 
       diagram_add_object (dia, obj);
       diagram_select (dia, obj);
@@ -354,7 +354,7 @@ received_clipboard_content_handler (GtkClipboard     *clipboard,
       DiaContext *ctx = dia_context_new (_("Clipboard Paste"));
 
       if (ifilter->import_mem_func) {
-        Change *change = undo_import_change_setup (ddisp->diagram);
+        DiaChange *change = dia_import_change_new (ddisp->diagram);
 
         if (!ifilter->import_mem_func (data,
                                        len,
@@ -367,7 +367,7 @@ received_clipboard_content_handler (GtkClipboard     *clipboard,
                                    type_name);
           dia_context_release (ctx);
         }
-        if (undo_import_change_done (ddisp->diagram, change)) {
+        if (dia_import_change_done (ddisp->diagram, change)) {
           undo_set_transactionpoint (ddisp->diagram->undo);
           diagram_modified (ddisp->diagram);
           diagram_flush (ddisp->diagram);
@@ -637,7 +637,7 @@ edit_cut_callback (GtkAction *action)
 {
   GList *cut_list;
   DDisplay *ddisp;
-  Change *change;
+  DiaChange *change;
 
   ddisp = ddisplay_active ();
   if (!ddisp) {
@@ -652,8 +652,8 @@ edit_cut_callback (GtkAction *action)
 
     cnp_store_objects (object_copy_list (cut_list), 0);
 
-    change = undo_delete_objects_children (ddisp->diagram, cut_list);
-    (change->apply) (change, ddisp->diagram);
+    change = dia_delete_objects_change_new_with_children (ddisp->diagram, cut_list);
+    dia_change_apply (change, ddisp->diagram);
 
     ddisplay_do_update_menu_sensitivity (ddisp);
     diagram_flush (ddisp->diagram);
@@ -671,7 +671,7 @@ edit_paste_callback (GtkAction *action)
   DDisplay *ddisp;
   Point paste_corner;
   Point delta;
-  Change *change;
+  DiaChange *change;
   int generation = 0;
 
   ddisp = ddisplay_active();
@@ -710,8 +710,8 @@ edit_paste_callback (GtkAction *action)
       object_list_move_delta (paste_list, &delta);
     }
 
-    change = undo_insert_objects (ddisp->diagram, paste_list, 0);
-    (change->apply) (change, ddisp->diagram);
+    change = dia_insert_objects_change_new (ddisp->diagram, paste_list, 0);
+    dia_change_apply (change, ddisp->diagram);
 
     diagram_modified (ddisp->diagram);
     undo_set_transactionpoint (ddisp->diagram->undo);
@@ -739,7 +739,7 @@ edit_duplicate_callback (GtkAction *action)
   GList *duplicate_list;
   DDisplay *ddisp;
   Point delta;
-  Change *change;
+  DiaChange *change;
 
   ddisp = ddisplay_active ();
   if (!ddisp || textedit_mode (ddisp)) {
@@ -753,8 +753,8 @@ edit_duplicate_callback (GtkAction *action)
 
   object_list_move_delta (duplicate_list, &delta);
 
-  change = undo_insert_objects (ddisp->diagram, duplicate_list, 0);
-  (change->apply) (change, ddisp->diagram);
+  change = dia_insert_objects_change_new (ddisp->diagram, duplicate_list, 0);
+  dia_change_apply (change, ddisp->diagram);
 
   diagram_modified (ddisp->diagram);
   undo_set_transactionpoint (ddisp->diagram->undo);
@@ -772,16 +772,16 @@ objects_move_up_layer (GtkAction *action)
 {
   DDisplay *ddisp = ddisplay_active ();
   GList *selected_list;
-  Change *change;
+  DiaChange *change;
 
   if (!ddisp || textedit_mode (ddisp)) {
     return;
   }
   selected_list = diagram_get_sorted_selected (ddisp->diagram);
 
-  change = undo_move_object_other_layer (ddisp->diagram, selected_list, TRUE);
+  change = dia_move_object_to_layer_change_new (ddisp->diagram, selected_list, TRUE);
 
-  (change->apply) (change, ddisp->diagram);
+  dia_change_apply (change, ddisp->diagram);
 
   diagram_modified (ddisp->diagram);
   undo_set_transactionpoint (ddisp->diagram->undo);
@@ -796,7 +796,7 @@ objects_move_down_layer (GtkAction *action)
 {
   DDisplay *ddisp = ddisplay_active ();
   GList *selected_list;
-  Change *change;
+  DiaChange *change;
 
   if (!ddisp || textedit_mode(ddisp)) {
     return;
@@ -805,9 +805,9 @@ objects_move_down_layer (GtkAction *action)
 
   /* Must check if move is legal here */
 
-  change = undo_move_object_other_layer (ddisp->diagram, selected_list, FALSE);
+  change = dia_move_object_to_layer_change_new (ddisp->diagram, selected_list, FALSE);
 
-  (change->apply) (change, ddisp->diagram);
+  dia_change_apply (change, ddisp->diagram);
 
   diagram_modified (ddisp->diagram);
   undo_set_transactionpoint (ddisp->diagram->undo);
@@ -904,7 +904,7 @@ edit_cut_text_callback (GtkAction *action)
 
   if (text_delete_all (focus->text, &change, obj)) {
     object_add_updates (obj, ddisp->diagram);
-    undo_object_change (ddisp->diagram, obj, change);
+    dia_object_change_change_new (ddisp->diagram, obj, change);
     undo_set_transactionpoint (ddisp->diagram->undo);
     diagram_modified (ddisp->diagram);
     diagram_flush (ddisp->diagram);
@@ -954,13 +954,13 @@ edit_delete_callback (GtkAction *action)
     }
     object_add_updates (focus->obj, ddisp->diagram);
   } else {
-    Change *change = NULL;
+    DiaChange *change = NULL;
     diagram_selected_break_external (ddisp->diagram);
 
     delete_list = diagram_get_sorted_selected (ddisp->diagram);
-    change = undo_delete_objects_children (ddisp->diagram, delete_list);
+    change = dia_delete_objects_change_new_with_children (ddisp->diagram, delete_list);
     g_list_free (delete_list);
-    (change->apply) (change, ddisp->diagram);
+    dia_change_apply (change, ddisp->diagram);
   }
   diagram_modified (ddisp->diagram);
   diagram_update_extents (ddisp->diagram);

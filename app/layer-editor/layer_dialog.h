@@ -30,33 +30,22 @@ enum LayerChangeType {
   TYPE_LOWER_LAYER,
 };
 
-struct LayerChange {
-  Change change;
+#define DIA_TYPE_LAYER_CHANGE dia_layer_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaLayerChange, dia_layer_change, DIA, LAYER_CHANGE, DiaChange)
 
-  enum LayerChangeType type;
-  DiaLayer *layer;
-  int index;
-  int applied;
-};
+DiaChange *dia_layer_change_new            (Diagram              *dia,
+                                            DiaLayer             *layer,
+                                            enum LayerChangeType  type,
+                                            int                   index);
 
-struct LayerVisibilityChange {
-  Change change;
 
-  GList *original_visibility;
-  DiaLayer *layer;
-  gboolean is_exclusive;
-  int applied;
-};
+#define DIA_TYPE_LAYER_VISIBILITY_CHANGE dia_layer_visibility_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaLayerVisibilityChange, dia_layer_visibility_change, DIA, LAYER_VISIBILITY_CHANGE, DiaChange)
 
-Change                       *undo_layer                    (Diagram                      *dia,
-                                                             DiaLayer                     *layer,
-                                                             enum LayerChangeType         ,
-                                                             int                           index);
-struct LayerVisibilityChange *undo_layer_visibility         (Diagram                      *dia,
-                                                             DiaLayer                     *layer,
-                                                             gboolean                      exclusive);
-void                          layer_visibility_change_apply (struct LayerVisibilityChange *change,
-                                                             Diagram                      *dia);
+DiaChange *dia_layer_visibility_change_new (Diagram  *dia,
+                                            DiaLayer *layer,
+                                            gboolean  exclusive);
+
 
 void layer_dialog_create      (void);
 void layer_dialog_show        (void);

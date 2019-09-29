@@ -157,9 +157,9 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
   for (; parent_candidates != NULL; parent_candidates = g_list_next(parent_candidates)) {
     DiaObject *parent_obj = (DiaObject *) parent_candidates->data;
     if (obj != parent_obj
-	&& object_within_parent(obj, parent_obj)) {
-      Change *change = undo_parenting(ddisp->diagram, parent_obj, obj, TRUE);
-      (change->apply)(change, ddisp->diagram);
+        && object_within_parent (obj, parent_obj)) {
+      DiaChange *change = dia_parenting_change_new (ddisp->diagram, parent_obj, obj, TRUE);
+      dia_change_apply (change, ddisp->diagram);
       break;
     /*
     obj->parent = parent_obj;
@@ -171,7 +171,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
 
   list = g_list_prepend(list, tool->obj);
 
-  undo_insert_objects(ddisp->diagram, list, 1);
+  dia_insert_objects_change_new (ddisp->diagram, list, 1);
 
   if (tool->moving) {
     if (tool->handle->connect_type != HANDLE_NONCONNECTABLE) {

@@ -214,12 +214,12 @@ diagram_unconnect_selected(Diagram *dia)
       Handle *handle = selected_obj->handles[i];
 
       if ((handle->connected_to != NULL) &&
-	  (handle->connect_type == HANDLE_CONNECTABLE)){
-	  /* don't do this if type is HANDLE_CONNECTABLE_BREAK */
-	if (!diagram_is_selected(dia, handle->connected_to->object)) {
-	  Change *change = undo_unconnect(dia, selected_obj, handle);
-	  (change->apply)(change, dia);
-	}
+          (handle->connect_type == HANDLE_CONNECTABLE)){
+          /* don't do this if type is HANDLE_CONNECTABLE_BREAK */
+        if (!diagram_is_selected(dia, handle->connected_to->object)) {
+          DiaChange *change = dia_unconnect_change_new (dia, selected_obj, handle);
+          dia_change_apply (change, dia);
+        }
       }
     }
 

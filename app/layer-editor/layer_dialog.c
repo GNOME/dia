@@ -139,9 +139,22 @@ layer_dialog_set_diagram (Diagram *dia)
 
 /******** layer changes: */
 
+struct _DiaLayerChange {
+  DiaChange change;
+
+  enum LayerChangeType type;
+  DiaLayer *layer;
+  int index;
+  int applied;
+};
+
+DIA_DEFINE_CHANGE (DiaLayerChange, dia_layer_change)
+
+
 static void
-layer_change_apply(struct LayerChange *change, Diagram *dia)
+dia_layer_change_apply (DiaChange *self, Diagram *dia)
 {
+  DiaLayerChange *change = DIA_LAYER_CHANGE (self);
   change->applied = 1;
 
   switch (change->type) {
@@ -162,9 +175,12 @@ layer_change_apply(struct LayerChange *change, Diagram *dia)
   diagram_add_update_all(dia);
 }
 
+
 static void
-layer_change_revert(struct LayerChange *change, Diagram *dia)
+dia_layer_change_revert (DiaChange *self, Diagram *dia)
 {
+  DiaLayerChange *change = DIA_LAYER_CHANGE (self);
+
   switch (change->type) {
   case TYPE_DELETE_LAYER:
     data_add_layer_at(dia->data, change->layer, change->index);
@@ -185,9 +201,12 @@ layer_change_revert(struct LayerChange *change, Diagram *dia)
   change->applied = 0;
 }
 
+
 static void
-layer_change_free (struct LayerChange *change)
+dia_layer_change_free (DiaChange *self)
 {
+  DiaLayerChange *change = DIA_LAYER_CHANGE (self);
+
   switch (change->type) {
     case TYPE_DELETE_LAYER:
       if (change->applied) {
@@ -206,30 +225,40 @@ layer_change_free (struct LayerChange *change)
   }
 }
 
-Change *
-undo_layer(Diagram *dia, DiaLayer *layer, enum LayerChangeType type, int index)
+DiaChange *
+dia_layer_change_new (Diagram *dia, DiaLayer *layer, enum LayerChangeType type, int index)
 {
-  struct LayerChange *change;
-
-  change = g_new0(struct LayerChange, 1);
-
-  change->change.apply = (UndoApplyFunc) layer_change_apply;
-  change->change.revert = (UndoRevertFunc) layer_change_revert;
-  change->change.free = (UndoFreeFunc) layer_change_free;
+  DiaLayerChange *change = dia_change_new (DIA_TYPE_LAYER_CHANGE);
 
   change->type = type;
   change->layer = layer;
   change->index = index;
   change->applied = 1;
 
-  undo_push_change(dia->undo, (Change *) change);
-  return (Change *)change;
+  undo_push_change (dia->undo, DIA_CHANGE (change));
+
+  return DIA_CHANGE (change);
 }
 
+
+
+struct _DiaLayerVisibilityChange {
+  DiaChange change;
+
+  GList *original_visibility;
+  DiaLayer *layer;
+  gboolean is_exclusive;
+  int applied;
+};
+
+DIA_DEFINE_CHANGE (DiaLayerVisibilityChange, dia_layer_visibility_change)
+
+
 void
-layer_visibility_change_apply(struct LayerVisibilityChange *change,
-			      Diagram *dia)
+dia_layer_visibility_change_apply (DiaChange *self,
+                                   Diagram   *dia)
 {
+  DiaLayerVisibilityChange *change = DIA_LAYER_VISIBILITY_CHANGE (self);
   GPtrArray *layers;
   DiaLayer *layer = change->layer;
   int visible = FALSE;
@@ -261,12 +290,15 @@ layer_visibility_change_apply(struct LayerVisibilityChange *change,
   diagram_add_update_all (dia);
 }
 
-/** Revert to the visibility before this change was applied.
+
+/*
+ * Revert to the visibility before this change was applied.
  */
 static void
-layer_visibility_change_revert(struct LayerVisibilityChange *change,
-			       Diagram *dia)
+dia_layer_visibility_change_revert (DiaChange *self,
+                                    Diagram   *dia)
 {
+  DiaLayerVisibilityChange *change = DIA_LAYER_VISIBILITY_CHANGE (self);
   GList *vis = change->original_visibility;
   GPtrArray *layers = dia->data->layers;
   int i;
@@ -284,25 +316,23 @@ layer_visibility_change_revert(struct LayerVisibilityChange *change,
   diagram_add_update_all(dia);
 }
 
+
 static void
-layer_visibility_change_free(struct LayerVisibilityChange *change)
+dia_layer_visibility_change_free (DiaChange *self)
 {
-  g_list_free(change->original_visibility);
+  DiaLayerVisibilityChange *change = DIA_LAYER_VISIBILITY_CHANGE (self);
+
+  g_list_free (change->original_visibility);
 }
 
-struct LayerVisibilityChange *
-undo_layer_visibility(Diagram *dia, DiaLayer *layer, gboolean exclusive)
+
+DiaChange *
+dia_layer_visibility_change_new (Diagram *dia, DiaLayer *layer, gboolean exclusive)
 {
-  struct LayerVisibilityChange *change;
+  DiaLayerVisibilityChange *change = dia_change_new (DIA_TYPE_LAYER_VISIBILITY_CHANGE);
   GList *visibilities = NULL;
   int i;
   GPtrArray *layers = dia->data->layers;
-
-  change = g_new0(struct LayerVisibilityChange, 1);
-
-  change->change.apply = (UndoApplyFunc) layer_visibility_change_apply;
-  change->change.revert = (UndoRevertFunc) layer_visibility_change_revert;
-  change->change.free = (UndoFreeFunc) layer_visibility_change_free;
 
   for (i = 0; i < layers->len; i++) {
     DiaLayer *temp_layer = DIA_LAYER (g_ptr_array_index (layers, i));
@@ -313,8 +343,9 @@ undo_layer_visibility(Diagram *dia, DiaLayer *layer, gboolean exclusive)
   change->layer = layer;
   change->is_exclusive = exclusive;
 
-  undo_push_change(dia->undo, (Change *) change);
-  return change;
+  undo_push_change (dia->undo, DIA_CHANGE (change));
+
+  return DIA_CHANGE (change);
 }
 
 /*!

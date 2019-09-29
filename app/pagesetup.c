@@ -167,7 +167,7 @@ pagesetup_changed(GtkWidget *wid, PageSetup *ps)
 static void
 pagesetup_apply(GtkWidget *wid, PageSetup *ps)
 {
-  undo_change_memswap (ps->dia, &ps->dia->data->paper, sizeof(ps->dia->data->paper));
+  dia_mem_swap_change_new (ps->dia, &ps->dia->data->paper, sizeof(ps->dia->data->paper));
   undo_set_transactionpoint(ps->dia->undo);
 
   g_free(ps->dia->data->paper.name);

@@ -131,18 +131,19 @@ properties_respond(GtkWidget *widget,
       object_add_updates_list(current_objects, current_dia);
 
       for (tmp = current_objects; tmp != NULL; tmp = tmp->next) {
-	DiaObject *current_obj = (DiaObject*)tmp->data;
-	obj_change = current_obj->ops->apply_properties_from_dialog(current_obj, object_part);
-	object_add_updates(current_obj, current_dia);
-	diagram_update_connections_object(current_dia, current_obj, TRUE);
+        DiaObject *current_obj = (DiaObject*)tmp->data;
+        obj_change = current_obj->ops->apply_properties_from_dialog(current_obj, object_part);
+        object_add_updates(current_obj, current_dia);
+        diagram_update_connections_object(current_dia, current_obj, TRUE);
 
-	if (obj_change != NULL) {
-	  undo_object_change(current_dia, current_obj, obj_change);
-	  set_tp = set_tp && TRUE;
-	} else
-	  set_tp = FALSE;
+        if (obj_change != NULL) {
+          dia_object_change_change_new (current_dia, current_obj, obj_change);
+          set_tp = set_tp && TRUE;
+        } else {
+          set_tp = FALSE;
+        }
 
-	diagram_object_modified(current_dia, current_obj);
+        diagram_object_modified(current_dia, current_obj);
       }
 
       diagram_modified(current_dia);

@@ -1236,7 +1236,7 @@ plugin_callback (GtkWidget *widget, gpointer data)
     change = cbf->callback (diadata, ddisp ? ddisp->diagram->filename : NULL, 0, cbf->user_data);
     if (change != NULL) {
       if (ddisp) {
-        undo_object_change(ddisp->diagram, NULL, change);
+        dia_object_change_change_new (ddisp->diagram, NULL, change);
 	/*
 	 * - can not call object_add_update() w/o object
 	 * - could call object_add_updates_list() with the selected objects,

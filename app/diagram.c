@@ -759,8 +759,8 @@ diagram_selected_break_external (Diagram *dia)
       other_obj = con_point->object;
       if (g_list_find (dia->data->selected, other_obj) == NULL) {
         /* other_obj is not selected, break connection */
-        Change *change = undo_unconnect (dia, obj, obj->handles[i]);
-        (change->apply) (change, dia);
+        DiaChange *change = dia_unconnect_change_new (dia, obj, obj->handles[i]);
+        dia_change_apply (change, dia);
         object_add_updates (obj, dia);
       }
     }
@@ -781,10 +781,10 @@ diagram_selected_break_external (Diagram *dia)
             con_point = other_obj->handles[j]->connected_to;
 
             if (con_point && (con_point->object == obj)) {
-              Change *change;
+              DiaChange *change;
               connected_list = g_list_previous (connected_list);
-              change = undo_unconnect (dia, other_obj, other_obj->handles[j]);
-              (change->apply) (change, dia);
+              change = dia_unconnect_change_new (dia, other_obj, other_obj->handles[j]);
+              dia_change_apply (change, dia);
               if (connected_list == NULL)
                 connected_list = obj->connections[i]->connected;
             }
@@ -1109,14 +1109,14 @@ strip_connections(DiaObject *obj, GList *not_strip_list, Diagram *dia)
 {
   int i;
   Handle *handle;
-  Change *change;
+  DiaChange *change;
 
   for (i=0;i<obj->num_handles;i++) {
     handle = obj->handles[i];
     if ((handle->connected_to != NULL) &&
-	(g_list_find(not_strip_list, handle->connected_to->object)==NULL)) {
-      change = undo_unconnect(dia, obj, handle);
-      (change->apply)(change, dia);
+        (g_list_find(not_strip_list, handle->connected_to->object)==NULL)) {
+      change = dia_unconnect_change_new (dia, obj, handle);
+      dia_change_apply (change, dia);
     }
   }
 }
@@ -1179,15 +1179,15 @@ void diagram_parent_selected(Diagram *dia)
       if (oe1->extent.right <= oe2->extent.right
         && oe1->extent.bottom <= oe2->extent.bottom)
       {
-	Change *change;
-	change = undo_parenting(dia, oe2->object, oe1->object, TRUE);
-	(change->apply)(change, dia);
-	any_parented = TRUE;
-	/*
-        oe1->object->parent = oe2->object;
-	oe2->object->children = g_list_append(oe2->object->children, oe1->object);
-	*/
-	break;
+        DiaChange *change;
+        change = dia_parenting_change_new (dia, oe2->object, oe1->object, TRUE);
+        dia_change_apply (change, dia);
+        any_parented = TRUE;
+        /*
+              oe1->object->parent = oe2->object;
+        oe2->object->children = g_list_append(oe2->object->children, oe1->object);
+        */
+        break;
       }
     }
   }
@@ -1204,7 +1204,7 @@ void diagram_unparent_selected(Diagram *dia)
 {
   GList *list;
   DiaObject *obj, *parent;
-  Change *change;
+  DiaChange *change;
   gboolean any_unparented = FALSE;
 
   for (list = dia->data->selected; list != NULL; list = g_list_next(list))
@@ -1215,8 +1215,8 @@ void diagram_unparent_selected(Diagram *dia)
     if (!parent)
       continue;
 
-    change = undo_parenting(dia, parent, obj, FALSE);
-    (change->apply)(change, dia);
+    change = dia_parenting_change_new (dia, parent, obj, FALSE);
+    dia_change_apply (change, dia);
     any_unparented = TRUE;
     /*
     parent->children = g_list_remove(parent->children, obj);
@@ -1248,11 +1248,11 @@ void diagram_unparent_children_selected(Diagram *dia)
      * way.  If needed, we can make a parent undo with a list of children.
      */
     while (obj->children != NULL) {
-      Change *change;
+      DiaChange *change;
       child = (DiaObject *) obj->children->data;
-      change = undo_parenting(dia, obj, child, FALSE);
+      change = dia_parenting_change_new (dia, obj, child, FALSE);
       /* This will remove one item from the list, so the while terminates. */
-      (change->apply)(change, dia);
+      dia_change_apply (change, dia);
     }
     if (obj->children != NULL)
       printf("Obj still has %d children\n",
@@ -1273,7 +1273,7 @@ diagram_group_selected (Diagram *dia)
   DiaObject *group;
   DiaObject *obj;
   GList *orig_list;
-  Change *change;
+  DiaChange *change;
 
   if (g_list_length (dia->data->selected) < 1) {
     message_error (_("Trying to group with no selected objects."));
@@ -1310,8 +1310,8 @@ diagram_group_selected (Diagram *dia)
   data_remove_all_selected (dia->data);
 
   group = group_create (group_list);
-  change = undo_group_objects (dia, group_list, group, orig_list);
-  (change->apply) (change, dia);
+  change = dia_group_objects_change_new (dia, group_list, group, orig_list);
+  dia_change_apply (change, dia);
 
   /* Select the created group */
   diagram_select (dia, group);
@@ -1341,7 +1341,7 @@ void diagram_ungroup_selected(Diagram *dia)
     group = (DiaObject *)selected->data;
 
     if (IS_GROUP(group)) {
-      Change *change;
+      DiaChange *change;
 
       /* Fix selection */
       diagram_unselect_object(dia, group);
@@ -1350,8 +1350,8 @@ void diagram_ungroup_selected(Diagram *dia)
 
       group_index = dia_layer_object_get_index (dia->data->active_layer, group);
 
-      change = undo_ungroup_objects(dia, group_list, group, group_index);
-      (change->apply)(change, dia);
+      change = dia_ungroup_objects_change_new (dia, group_list, group, group_index);
+      dia_change_apply (change, dia);
 
       diagram_select_list(dia, group_list);
       any_groups = 1;
@@ -1399,7 +1399,7 @@ diagram_place_under_selected (Diagram *dia)
   object_add_updates_list (sorted_list, dia);
   dia_layer_add_objects_first (dia->data->active_layer, sorted_list);
 
-  undo_reorder_objects (dia, g_list_copy (sorted_list), orig_list);
+  dia_reorder_objects_change_new (dia, g_list_copy (sorted_list), orig_list);
 
   diagram_modified (dia);
   diagram_flush (dia);
@@ -1421,7 +1421,7 @@ diagram_place_over_selected(Diagram *dia)
   object_add_updates_list (sorted_list, dia);
   dia_layer_add_objects (dia->data->active_layer, sorted_list);
 
-  undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
+  dia_reorder_objects_change_new (dia, g_list_copy (sorted_list), orig_list);
 
   diagram_modified(dia);
   diagram_flush(dia);
@@ -1464,7 +1464,7 @@ diagram_place_up_selected(Diagram *dia)
 
   dia_layer_set_object_list (dia->data->active_layer, new_list);
 
-  undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
+  dia_reorder_objects_change_new (dia, g_list_copy (sorted_list), orig_list);
 
   diagram_modified(dia);
   diagram_flush(dia);
@@ -1510,7 +1510,7 @@ diagram_place_down_selected (Diagram *dia)
 
   dia_layer_set_object_list (dia->data->active_layer, new_list);
 
-  undo_reorder_objects(dia, g_list_copy(sorted_list), orig_list);
+  dia_reorder_objects_change_new (dia, g_list_copy (sorted_list), orig_list);
 
   diagram_modified(dia);
   diagram_flush(dia);

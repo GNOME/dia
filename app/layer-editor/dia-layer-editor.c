@@ -250,7 +250,7 @@ new_layer (GtkWidget *widget, DiaLayerEditor *self)
 
     gtk_list_select_item (GTK_LIST (priv->list), pos);
 
-    undo_layer (dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
+    dia_layer_change_new (dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
     undo_set_transactionpoint (dia->undo);
 
     g_free (new_layer_name);
@@ -306,8 +306,8 @@ delete_layer (GtkWidget *widget, DiaLayerEditor *self)
     pos = gtk_list_child_position (GTK_LIST (priv->list), selected);
     gtk_container_remove (GTK_CONTAINER (priv->list), selected);
 
-    undo_layer (dia, layer, TYPE_DELETE_LAYER,
-                dia->data->layers->len - pos);
+    dia_layer_change_new (dia, layer, TYPE_DELETE_LAYER,
+                          dia->data->layers->len - pos);
     undo_set_transactionpoint (dia->undo);
 
     if (--pos < 0) {
@@ -358,7 +358,7 @@ raise_layer (GtkWidget *widget, DiaLayerEditor *self)
       diagram_add_update_all (dia);
       diagram_flush (dia);
 
-      undo_layer (dia, layer, TYPE_RAISE_LAYER, 0);
+      dia_layer_change_new (dia, layer, TYPE_RAISE_LAYER, 0);
       undo_set_transactionpoint (dia->undo);
     }
   }
@@ -404,7 +404,7 @@ lower_layer (GtkWidget *widget, DiaLayerEditor *self)
       diagram_add_update_all (dia);
       diagram_flush (dia);
 
-      undo_layer (dia, layer, TYPE_LOWER_LAYER, 0);
+      dia_layer_change_new (dia, layer, TYPE_LOWER_LAYER, 0);
       undo_set_transactionpoint (dia->undo);
     }
   }

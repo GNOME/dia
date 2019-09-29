@@ -130,9 +130,11 @@ object_connect_display(DDisplay *ddisp, DiaObject *obj, Handle *handle,
 						       obj, snap_to_objects);
 
     if (connectionpoint != NULL) {
-      Change *change = undo_connect(ddisp->diagram, obj, handle,
-				    connectionpoint);
-      (change->apply)(change, ddisp->diagram);
+      DiaChange *change = dia_connect_change_new (ddisp->diagram,
+                                                  obj,
+                                                  handle,
+                                                  connectionpoint);
+      dia_change_apply (change, ddisp->diagram);
     }
   }
 }
@@ -362,7 +364,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
     list = g_list_next(list);
   }
 
-  undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects));
+  dia_move_objects_change_new (dia, orig_pos, dest_pos, g_list_copy (objects));
   g_list_free (unconnected);
 }
 
@@ -519,7 +521,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
     list = g_list_next(list);
   }
 
-  undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects));
+  dia_move_objects_change_new (dia, orig_pos, dest_pos, g_list_copy (objects));
   g_list_free (unconnected);
 }
 
@@ -658,7 +660,7 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
   }
 
   /* eating all the passed in parameters */
-  undo_move_objects (dia, orig_pos, dest_pos, movelist);
+  dia_move_objects_change_new (dia, orig_pos, dest_pos, movelist);
   g_list_free (to_be_moved);
   g_list_free (connected);
 }
@@ -710,5 +712,5 @@ object_list_nudge(GList *objects, Diagram *dia, Direction dir, real step)
   }
   /* if anything is connected not anymore */
   diagram_unconnect_selected(dia);
-  undo_move_objects(dia, orig_pos, dest_pos, g_list_copy(objects));
+  dia_move_objects_change_new (dia, orig_pos, dest_pos, g_list_copy(objects));
 }

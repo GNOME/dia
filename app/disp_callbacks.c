@@ -79,7 +79,7 @@ object_menu_item_proxy(GtkWidget *widget, gpointer data)
   diagram_update_connections_object(ddisp->diagram, obj, TRUE);
 
   if (obj_change != NULL) {
-    undo_object_change(ddisp->diagram, obj, obj_change);
+    dia_object_change_change_new (ddisp->diagram, obj, obj_change);
   }
   diagram_modified(ddisp->diagram);
 
@@ -198,7 +198,7 @@ _convert_to_path_callback (GtkAction *action, gpointer data)
   }
   g_list_free (selected);
   if (change_list) {
-    undo_object_change(ddisp->diagram, NULL, change_list);
+    dia_object_change_change_new (ddisp->diagram, NULL, change_list);
 
     diagram_modified(ddisp->diagram);
     diagram_update_extents(ddisp->diagram);
@@ -232,19 +232,19 @@ _combine_to_path_callback (GtkAction *action, gpointer data)
   obj = create_standard_path_from_list (cut_list, GPOINTER_TO_INT (data));
   if (obj) {
     /* remove the objects just combined */
-    Change *change = undo_delete_objects_children(dia, cut_list);
-    (change->apply)(change, dia);
+    DiaChange *change = dia_delete_objects_change_new_with_children (dia, cut_list);
+    dia_change_apply (change, dia);
     /* add the new object with undo */
-    undo_insert_objects(dia, g_list_prepend(NULL, obj), 1);
+    dia_insert_objects_change_new (dia, g_list_prepend (NULL, obj), 1);
     diagram_add_object (dia, obj);
     diagram_select(dia, obj);
-    undo_set_transactionpoint(ddisp->diagram->undo);
+    undo_set_transactionpoint (ddisp->diagram->undo);
     object_add_updates(obj, dia);
   } else {
     /* path combination result is empty, this is just a delete */
-    Change *change = undo_delete_objects_children(ddisp->diagram, cut_list);
-    (change->apply)(change, ddisp->diagram);
-    undo_set_transactionpoint(ddisp->diagram->undo);
+    DiaChange *change = dia_delete_objects_change_new_with_children (ddisp->diagram, cut_list);
+    dia_change_apply (change, ddisp->diagram);
+    undo_set_transactionpoint (ddisp->diagram->undo);
   }
   ddisplay_do_update_menu_sensitivity(ddisp);
   diagram_flush(dia);
@@ -554,7 +554,7 @@ handle_key_event(DDisplay *ddisp, Focus *focus,
 
   if (modified) {
     if (obj_change != NULL) {
-      undo_object_change(ddisp->diagram, obj, obj_change);
+      dia_object_change_change_new (ddisp->diagram, obj, obj_change);
       undo_set_transactionpoint(ddisp->diagram->undo);
     }
     diagram_update_extents(ddisp->diagram);
@@ -1213,7 +1213,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
   diagram_flush(ddisp->diagram);
 
   list = g_list_prepend(NULL, obj);
-  undo_insert_objects(ddisp->diagram, list, 1);
+  dia_insert_objects_change_new (ddisp->diagram, list, 1);
   diagram_update_extents(ddisp->diagram);
 
   undo_set_transactionpoint(ddisp->diagram->undo);
