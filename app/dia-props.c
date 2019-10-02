@@ -30,344 +30,405 @@
 #include "widgets.h"
 #include "display.h"
 #include "undo.h"
+#include "menus.h"
 
-static GtkWidget *dialog = NULL;
-static GtkWidget *dynamic_check;
-static GtkWidget *width_x_entry, *width_y_entry;
-static GtkWidget *visible_x_entry, *visible_y_entry;
-static GtkWidget *bg_colour, *grid_colour, *pagebreak_colour;
-static GtkWidget *hex_check, *hex_size_entry;
 
-static void diagram_properties_respond(GtkWidget *widget,
-                                       gint response_id,
-                                       gpointer user_data);
+typedef struct _DiaDiagramPropertiesDialogPrivate DiaDiagramPropertiesDialogPrivate;
+struct _DiaDiagramPropertiesDialogPrivate {
+  Diagram *diagram;
+
+  /* Grid */
+  GtkWidget *dynamic;
+  GtkWidget *manual;
+  GtkWidget *manual_props;
+  GtkWidget *hex;
+  GtkWidget *hex_props;
+
+  GtkAdjustment *spacing_x;
+  GtkAdjustment *spacing_y;
+  GtkAdjustment *vis_spacing_x;
+  GtkAdjustment *vis_spacing_y;
+  GtkAdjustment *hex_size;
+
+  /* Colours */
+  GtkWidget *background;
+  GtkWidget *grid_lines;
+  GtkWidget *page_lines;
+};
+
+G_DEFINE_TYPE_WITH_PRIVATE (DiaDiagramPropertiesDialog, dia_diagram_properties_dialog, GTK_TYPE_DIALOG)
+
+enum {
+  PROP_0,
+  PROP_DIAGRAM,
+  LAST_PROP
+};
+
+static GParamSpec *pspecs[LAST_PROP] = { NULL, };
+
 
 static void
-diagram_properties_update_sensitivity(GtkToggleButton *widget,
-				      gpointer userdata)
+dia_diagram_properties_dialog_set_property (GObject      *object,
+                                            guint         property_id,
+                                            const GValue *value,
+                                            GParamSpec   *pspec)
 {
-  Diagram *dia = ddisplay_active_diagram();
+  DiaDiagramPropertiesDialog *self = DIA_DIAGRAM_PROPERTIES_DIALOG (object);
+
+  switch (property_id) {
+    case PROP_DIAGRAM:
+      dia_diagram_properties_dialog_set_diagram (self, g_value_get_object (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+dia_diagram_properties_dialog_get_property (GObject    *object,
+                                            guint       property_id,
+                                            GValue     *value,
+                                            GParamSpec *pspec)
+{
+  DiaDiagramPropertiesDialog *self = DIA_DIAGRAM_PROPERTIES_DIALOG (object);
+
+  switch (property_id) {
+    case PROP_DIAGRAM:
+      g_value_set_object (value, dia_diagram_properties_dialog_get_diagram (self));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+diagram_died (gpointer data, GObject *dead)
+{
+  DiaDiagramPropertiesDialog *self = DIA_DIAGRAM_PROPERTIES_DIALOG (data);
+  DiaDiagramPropertiesDialogPrivate *priv = dia_diagram_properties_dialog_get_instance_private (self);
+
+  g_return_if_fail (DIA_IS_DIAGRAM_PROPERTIES_DIALOG (data));
+
+  priv->diagram = NULL;
+
+  dia_diagram_properties_dialog_set_diagram (self, NULL);
+}
+
+
+static void
+dia_diagram_properties_dialog_finalize (GObject *object)
+{
+  DiaDiagramPropertiesDialog *self = DIA_DIAGRAM_PROPERTIES_DIALOG (object);
+  DiaDiagramPropertiesDialogPrivate *priv = dia_diagram_properties_dialog_get_instance_private (self);
+
+  if (priv->diagram) {
+    g_object_weak_unref (G_OBJECT (priv->diagram), diagram_died, object);
+  }
+
+  G_OBJECT_CLASS (dia_diagram_properties_dialog_parent_class)->finalize (object);
+}
+
+
+static gboolean
+dia_diagram_properties_dialog_delete_event (GtkWidget *widget, GdkEventAny *event)
+{
+  gtk_widget_hide (widget);
+
+  /* We're caching, so don't destroy */
+  return TRUE;
+}
+
+
+static void
+dia_diagram_properties_dialog_response (GtkDialog *dialog,
+                                        gint       response_id)
+{
+  DiaDiagramPropertiesDialog *self = DIA_DIAGRAM_PROPERTIES_DIALOG (dialog);
+  DiaDiagramPropertiesDialogPrivate *priv = dia_diagram_properties_dialog_get_instance_private (self);
+
+  if (response_id == GTK_RESPONSE_OK ||
+      response_id == GTK_RESPONSE_APPLY) {
+    if (priv->diagram) {
+      /* we do not bother for the actual change, just record the
+       * whole possible change */
+      dia_mem_swap_change_new (priv->diagram,
+                               &priv->diagram->grid,
+                               sizeof(priv->diagram->grid));
+      dia_mem_swap_change_new (priv->diagram,
+                               &priv->diagram->data->bg_color,
+                               sizeof(priv->diagram->data->bg_color));
+      dia_mem_swap_change_new (priv->diagram,
+                               &priv->diagram->pagebreak_color,
+                               sizeof(priv->diagram->pagebreak_color));
+      undo_set_transactionpoint (priv->diagram->undo);
+
+      priv->diagram->grid.dynamic =
+        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->dynamic));
+      priv->diagram->grid.width_x = gtk_adjustment_get_value (priv->spacing_x);
+      priv->diagram->grid.width_y = gtk_adjustment_get_value (priv->spacing_y);
+      priv->diagram->grid.visible_x = gtk_adjustment_get_value (priv->vis_spacing_x);
+      priv->diagram->grid.visible_y = gtk_adjustment_get_value (priv->vis_spacing_y);
+      priv->diagram->grid.hex =
+        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->hex));
+      priv->diagram->grid.hex_size = gtk_adjustment_get_value (priv->hex_size);
+      dia_color_selector_get_color (priv->background,
+                                    &priv->diagram->data->bg_color);
+      dia_color_selector_get_color (priv->grid_lines,
+                                    &priv->diagram->grid.colour);
+      dia_color_selector_get_color (priv->page_lines,
+                                    &priv->diagram->pagebreak_color);
+      diagram_add_update_all (priv->diagram);
+      diagram_flush (priv->diagram);
+      diagram_set_modified (priv->diagram, TRUE);
+    }
+  }
+
+  if (response_id != GTK_RESPONSE_APPLY) {
+    gtk_widget_hide (GTK_WIDGET (dialog));
+  }
+}
+
+
+static void
+dia_diagram_properties_dialog_class_init (DiaDiagramPropertiesDialogClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+  GtkDialogClass *dialog_class = GTK_DIALOG_CLASS (klass);
+
+  object_class->set_property = dia_diagram_properties_dialog_set_property;
+  object_class->get_property = dia_diagram_properties_dialog_get_property;
+  object_class->finalize = dia_diagram_properties_dialog_finalize;
+
+  widget_class->delete_event = dia_diagram_properties_dialog_delete_event;
+
+  dialog_class->response = dia_diagram_properties_dialog_response;
+
+  /**
+   * DiaDiagramPropertiesDialog:diagram:
+   *
+   * Since: 0.98
+   */
+  pspecs[PROP_DIAGRAM] =
+    g_param_spec_object ("diagram",
+                         "Diagram",
+                         "The current diagram",
+                         DIA_TYPE_DIAGRAM,
+                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_PROP, pspecs);
+}
+
+
+static void
+update_sensitivity (GtkToggleButton *widget,
+                    gpointer         userdata)
+{
+  DiaDiagramPropertiesDialog *self = DIA_DIAGRAM_PROPERTIES_DIALOG (userdata);
+  DiaDiagramPropertiesDialogPrivate *priv = dia_diagram_properties_dialog_get_instance_private (self);
   gboolean dyn_grid, square_grid, hex_grid;
 
-  if (!dia)
+  if (!priv->diagram)
     return; /* safety first */
 
-  dia->grid.dynamic =
-        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dynamic_check));
-  dyn_grid = dia->grid.dynamic;
-  if (!dyn_grid)
-    dia->grid.hex =
-        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(hex_check));
+  priv->diagram->grid.dynamic =
+        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->dynamic));
+  dyn_grid = priv->diagram->grid.dynamic;
+  if (!dyn_grid) {
+    priv->diagram->grid.hex =
+        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->hex));
+  }
 
-  square_grid = !dyn_grid && !dia->grid.hex;
-  hex_grid = !dyn_grid && dia->grid.hex;
+  square_grid = !dyn_grid && !priv->diagram->grid.hex;
+  hex_grid = !dyn_grid && priv->diagram->grid.hex;
 
 
-  gtk_widget_set_sensitive(width_x_entry, square_grid);
-  gtk_widget_set_sensitive(width_y_entry, square_grid);
-  gtk_widget_set_sensitive(visible_x_entry, square_grid);
-  gtk_widget_set_sensitive(visible_y_entry, square_grid);
-  gtk_widget_set_sensitive(hex_check, !dyn_grid);
-  gtk_widget_set_sensitive(hex_size_entry, hex_grid);
+  gtk_widget_set_sensitive (priv->manual_props, square_grid);
+  gtk_widget_set_sensitive (priv->hex_props, hex_grid);
 }
+
 
 static void
-create_diagram_properties_dialog(Diagram *dia)
+dia_diagram_properties_dialog_init (DiaDiagramPropertiesDialog *self)
 {
+  DiaDiagramPropertiesDialogPrivate *priv = dia_diagram_properties_dialog_get_instance_private (self);
   GtkWidget *dialog_vbox;
   GtkWidget *notebook;
-  GtkWidget *table;
-  GtkWidget *label;
-  GtkAdjustment *adj;
+  GError *error = NULL;
+  gchar *uifile;
+  GtkBuilder *builder;
 
-  dialog = gtk_dialog_new_with_buttons(
-             _("Diagram Properties"),
-             GTK_WINDOW(ddisplay_active()->shell),
-             GTK_DIALOG_DESTROY_WITH_PARENT,
-             GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL,
-             GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
-             GTK_STOCK_OK, GTK_RESPONSE_OK,
-             NULL);
+  gtk_dialog_add_buttons (GTK_DIALOG (self),
+                          _("_Close"), GTK_RESPONSE_CANCEL,
+                          _("_Apply"), GTK_RESPONSE_APPLY,
+                          _("_OK"), GTK_RESPONSE_OK,
+                          NULL);
+  gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_OK);
 
-  gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
+  dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
 
-  dialog_vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+  gtk_window_set_role (GTK_WINDOW (self), "diagram_properties");
 
-  gtk_window_set_role(GTK_WINDOW(dialog), "diagram_properties");
+  g_signal_connect (G_OBJECT (self), "destroy",
+                    G_CALLBACK (gtk_widget_destroyed), &self);
 
-  g_signal_connect(G_OBJECT(dialog), "response",
-		   G_CALLBACK(diagram_properties_respond),
-		   NULL);
-  g_signal_connect(G_OBJECT(dialog), "delete_event",
-		   G_CALLBACK(gtk_widget_hide), NULL);
-  g_signal_connect(G_OBJECT(dialog), "destroy",
-		   G_CALLBACK(gtk_widget_destroyed), &dialog);
+  /* Load UI */
+  builder = gtk_builder_new ();
+  uifile = build_ui_filename ("ui/properties-dialog.ui");
+  if (!gtk_builder_add_from_file (builder, uifile, &error)) {
+    g_warning ("Couldn't load builder file: %s", error->message);
+    g_error_free (error);
+  }
+  g_free (uifile);
 
-  notebook = gtk_notebook_new();
-  gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook), GTK_POS_TOP);
-  gtk_box_pack_start(GTK_BOX(dialog_vbox), notebook, TRUE, TRUE, 0);
-  gtk_container_set_border_width(GTK_CONTAINER(notebook), 2);
-  gtk_widget_show(notebook);
+  notebook = GTK_WIDGET (gtk_builder_get_object (builder, "notebook"));
+  gtk_box_pack_start (GTK_BOX (dialog_vbox), notebook, TRUE, TRUE, 0);
 
-  /* the grid page */
-  table = gtk_table_new(3,3,FALSE);
-  gtk_container_set_border_width(GTK_CONTAINER(table), 2);
-  gtk_table_set_row_spacings(GTK_TABLE(table), 1);
-  gtk_table_set_col_spacings(GTK_TABLE(table), 2);
+  /* Grid Page */
+  priv->dynamic = GTK_WIDGET (gtk_builder_get_object (builder, "dynamic"));
+  g_signal_connect (G_OBJECT (priv->dynamic),
+                    "toggled",
+                    G_CALLBACK (update_sensitivity),
+                    self);
+  priv->manual = GTK_WIDGET (gtk_builder_get_object (builder, "manual"));
+  g_signal_connect (G_OBJECT (priv->manual),
+                    "toggled",
+                    G_CALLBACK (update_sensitivity),
+                    self);
+  priv->manual_props = GTK_WIDGET (gtk_builder_get_object (builder, "manual_props"));
+  priv->hex = GTK_WIDGET (gtk_builder_get_object (builder, "hex"));
+  g_signal_connect (G_OBJECT (priv->hex),
+                    "toggled",
+                    G_CALLBACK (update_sensitivity),
+                    self);
+  priv->hex_props = GTK_WIDGET (gtk_builder_get_object (builder, "hex_props"));
 
-  dynamic_check = gtk_check_button_new_with_label(_("Dynamic grid"));
-  gtk_table_attach(GTK_TABLE(table), dynamic_check, 1,2, 0,1,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  g_signal_connect(G_OBJECT(dynamic_check), "toggled",
-		   G_CALLBACK(diagram_properties_update_sensitivity), NULL);
-
-  gtk_widget_show(dynamic_check);
-
-  label = gtk_label_new(_("x"));
-  gtk_table_attach(GTK_TABLE(table), label, 1,2, 1,2,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
-  label = gtk_label_new(_("y"));
-  gtk_table_attach(GTK_TABLE(table), label, 2,3, 1,2,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
-
-  label = gtk_label_new(_("Spacing"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 2,3,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
-
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 10.0, 0.1, 10.0, 0));
-  width_x_entry = gtk_spin_button_new(adj, 1.0, 3);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(width_x_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), width_x_entry, 1,2, 2,3,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(width_x_entry);
-
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 10.0, 0.1, 10.0, 0));
-  width_y_entry = gtk_spin_button_new(adj, 1.0, 3);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(width_y_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), width_y_entry, 2,3, 2,3,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(width_y_entry);
-
-  label = gtk_label_new(_("Visible spacing"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 3,4,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
-
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 0));
-  visible_x_entry = gtk_spin_button_new(adj, 1.0, 0);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(visible_x_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), visible_x_entry, 1,2, 3,4,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(visible_x_entry);
-
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 0));
-  visible_y_entry = gtk_spin_button_new(adj, 1.0, 0);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(visible_y_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), visible_y_entry, 2,3, 3,4,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(visible_y_entry);
-
-  /* Hexes! */
-  hex_check = gtk_check_button_new_with_label(_("Hex grid"));
-  gtk_table_attach(GTK_TABLE(table), hex_check, 1,2, 4,5,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  g_signal_connect(G_OBJECT(hex_check), "toggled",
-		   G_CALLBACK(diagram_properties_update_sensitivity), NULL);
-
-  gtk_widget_show(hex_check);
-
-  label = gtk_label_new(_("Hex grid size"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 5,6,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
-
-  adj = GTK_ADJUSTMENT(gtk_adjustment_new(1.0, 0.0, 100.0, 1.0, 10.0, 0));
-  hex_size_entry = gtk_spin_button_new(adj, 1.0, 0);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(hex_size_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), hex_size_entry, 1,2, 5,6,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(hex_size_entry);
-
-  label = gtk_label_new(_("Grid"));
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), table, label);
-  gtk_widget_show(table);
-  gtk_widget_show(label);
+  priv->spacing_x = GTK_ADJUSTMENT (gtk_builder_get_object (builder, "spacing_x"));
+  priv->spacing_y = GTK_ADJUSTMENT (gtk_builder_get_object (builder, "spacing_y"));
+  priv->vis_spacing_x = GTK_ADJUSTMENT (gtk_builder_get_object (builder, "vis_spacing_x"));
+  priv->vis_spacing_y = GTK_ADJUSTMENT (gtk_builder_get_object (builder, "vis_spacing_y"));
+  priv->hex_size = GTK_ADJUSTMENT (gtk_builder_get_object (builder, "hex_size"));
 
   /* The background page */
-  table = gtk_table_new(1,2, FALSE);
-  gtk_container_set_border_width(GTK_CONTAINER(table), 2);
-  gtk_table_set_row_spacings(GTK_TABLE(table), 1);
-  gtk_table_set_col_spacings(GTK_TABLE(table), 2);
 
-  label = gtk_label_new(_("Background"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 0,1,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
+  priv->background = GTK_WIDGET (gtk_builder_get_object (builder, "background"));
+  priv->grid_lines = GTK_WIDGET (gtk_builder_get_object (builder, "grid_lines"));
+  priv->page_lines = GTK_WIDGET (gtk_builder_get_object (builder, "page_lines"));
 
-  bg_colour = dia_color_selector_new();
-  gtk_table_attach(GTK_TABLE(table), bg_colour, 1,2, 0,1,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(bg_colour);
-
-  label = gtk_label_new(_("Grid Lines"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 1,2,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
-
-  grid_colour = dia_color_selector_new();
-  gtk_table_attach(GTK_TABLE(table), grid_colour, 1,2, 1,2,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(grid_colour);
-
-  label = gtk_label_new(_("Page Breaks"));
-  gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
-  gtk_table_attach(GTK_TABLE(table), label, 0,1, 2,3,
-		   GTK_FILL, GTK_FILL, 0, 0);
-  gtk_widget_show(label);
-
-  pagebreak_colour = dia_color_selector_new();
-  gtk_table_attach(GTK_TABLE(table), pagebreak_colour, 1,2, 2,3,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
-  gtk_widget_show(pagebreak_colour);
-
-  label = gtk_label_new(_("Colors"));
-  gtk_notebook_append_page(GTK_NOTEBOOK(notebook), table, label);
-  gtk_widget_show(table);
-  gtk_widget_show(label);
+  g_clear_object (&builder);
 }
+
 
 /* diagram_properties_retrieve
  * Retrieves properties of a diagram *dia and sets the values in the
  * diagram properties dialog.
  */
-static void
-diagram_properties_retrieve(Diagram *dia)
+void
+dia_diagram_properties_dialog_set_diagram (DiaDiagramPropertiesDialog *self,
+                                           Diagram                    *diagram)
 {
+  DiaDiagramPropertiesDialogPrivate *priv;
   gchar *title;
-  gchar *name = dia ? diagram_get_name(dia) : "?";
+  gchar *name;
 
-  g_return_if_fail(dia != NULL);
-  if (!dialog)
+  g_return_if_fail (DIA_IS_DIAGRAM_PROPERTIES_DIALOG (self));
+
+  priv = dia_diagram_properties_dialog_get_instance_private (self);
+
+  if (priv->diagram) {
+    g_object_weak_unref (G_OBJECT (priv->diagram), diagram_died, self);
+    priv->diagram = NULL;
+  }
+
+  if (diagram == NULL) {
+    gtk_window_set_title (GTK_WINDOW (self), _("Diagram Properties"));
+
+    gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
+
     return;
+  }
+
+  gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
+
+  g_object_weak_ref (G_OBJECT (diagram), diagram_died, self);
+  priv->diagram = diagram;
+
+  name = diagram ? diagram_get_name (diagram) : NULL;
 
   /* Can we be sure that the filename is the 'proper title'? */
-  title = g_strdup_printf(_("Diagram Properties: %s"), name ? name : "??");
-  gtk_window_set_title(GTK_WINDOW(dialog), title);
-  g_free(name);
-  g_free(title);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(dynamic_check),
-			   dia->grid.dynamic);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_x_entry),
-			    dia->grid.width_x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(width_y_entry),
-			    dia->grid.width_y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(visible_x_entry),
-			    dia->grid.visible_x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(visible_y_entry),
-			    dia->grid.visible_y);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(hex_check),
-			   dia->grid.hex);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(hex_size_entry),
-			    dia->grid.hex_size);
+  title = g_strdup_printf ("%s", name ? name : _("Diagram Properties"));
+  gtk_window_set_title (GTK_WINDOW (self), title);
 
-  dia_color_selector_set_color(bg_colour,
-			       &dia->data->bg_color);
-  dia_color_selector_set_color(grid_colour,
-			       &dia->grid.colour);
-  dia_color_selector_set_color(pagebreak_colour,
-			       &dia->pagebreak_color);
+  g_clear_pointer (&name, g_free);
+  g_clear_pointer (&title, g_free);
 
-  diagram_properties_update_sensitivity(GTK_TOGGLE_BUTTON(dynamic_check), dia);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->dynamic),
+                                diagram->grid.dynamic);
 
+  gtk_adjustment_set_value (priv->spacing_x, diagram->grid.width_x);
+  gtk_adjustment_set_value (priv->spacing_y, diagram->grid.width_y);
+  gtk_adjustment_set_value (priv->vis_spacing_x, diagram->grid.visible_x);
+  gtk_adjustment_set_value (priv->vis_spacing_y, diagram->grid.visible_y);
+
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->hex),
+                                diagram->grid.hex);
+
+  gtk_adjustment_set_value (priv->hex_size, diagram->grid.hex_size);
+
+  dia_color_selector_set_color (priv->background,
+                                &diagram->data->bg_color);
+  dia_color_selector_set_color (priv->grid_lines,
+                                &diagram->grid.colour);
+  dia_color_selector_set_color (priv->page_lines,
+                                &diagram->pagebreak_color);
+
+  update_sensitivity (GTK_TOGGLE_BUTTON (priv->dynamic), self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_DIAGRAM]);
 }
+
+
+Diagram *
+dia_diagram_properties_dialog_get_diagram (DiaDiagramPropertiesDialog *self)
+{
+  DiaDiagramPropertiesDialogPrivate *priv;
+
+  g_return_val_if_fail (DIA_IS_DIAGRAM_PROPERTIES_DIALOG (self), NULL);
+
+  priv = dia_diagram_properties_dialog_get_instance_private (self);
+
+  return priv->diagram;
+}
+
+
+DiaDiagramPropertiesDialog *
+dia_diagram_properties_dialog_get_default (void)
+{
+  static DiaDiagramPropertiesDialog *instance;
+
+  if (instance == NULL) {
+    instance = g_object_new (DIA_TYPE_DIAGRAM_PROPERTIES_DIALOG,
+                             "title", _("Diagram Properties"),
+                             NULL);
+    g_object_add_weak_pointer (G_OBJECT (instance), (gpointer *) &instance);
+  }
+
+  return instance;
+}
+
 
 void
 diagram_properties_show(Diagram *dia)
 {
-  if (dialog) {
-    /* This makes the dialog a child of the newer diagram */
-    gtk_widget_destroy(dialog);
-    dialog = NULL;
-  }
+  DiaDiagramPropertiesDialog *dialog = dia_diagram_properties_dialog_get_default ();
 
-  create_diagram_properties_dialog(dia);
+  dia_diagram_properties_dialog_set_diagram (dialog, dia);
 
-  diagram_properties_retrieve(dia);
-
-  gtk_window_set_transient_for(GTK_WINDOW(dialog),
-			       GTK_WINDOW (ddisplay_active()->shell));
-  gtk_widget_show(dialog);
-}
-
-static void
-diagram_properties_respond(GtkWidget *widget,
-                           gint       response_id,
-                           gpointer   user_data)
-{
-  Diagram *active_diagram = ddisplay_active_diagram();
-
-  if (response_id == GTK_RESPONSE_OK ||
-      response_id == GTK_RESPONSE_APPLY) {
-    if (active_diagram) {
-      /* we do not bother for the actual change, just record the
-       * whole possible change */
-      dia_mem_swap_change_new (active_diagram,
-                               &active_diagram->grid,
-                               sizeof(active_diagram->grid));
-      dia_mem_swap_change_new (active_diagram,
-                               &active_diagram->data->bg_color,
-                               sizeof(active_diagram->data->bg_color));
-      dia_mem_swap_change_new (active_diagram,
-                               &active_diagram->pagebreak_color,
-                               sizeof(active_diagram->pagebreak_color));
-      undo_set_transactionpoint(active_diagram->undo);
-
-      active_diagram->grid.dynamic =
-        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dynamic_check));
-      active_diagram->grid.width_x =
-        gtk_spin_button_get_value(GTK_SPIN_BUTTON(width_x_entry));
-      active_diagram->grid.width_y =
-        gtk_spin_button_get_value(GTK_SPIN_BUTTON(width_y_entry));
-      active_diagram->grid.visible_x =
-        gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(visible_x_entry));
-      active_diagram->grid.visible_y =
-        gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(visible_y_entry));
-      active_diagram->grid.hex =
-        gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(hex_check));
-      active_diagram->grid.hex_size =
-        gtk_spin_button_get_value(GTK_SPIN_BUTTON(hex_size_entry));
-      dia_color_selector_get_color(bg_colour,
-  				 &active_diagram->data->bg_color);
-      dia_color_selector_get_color(grid_colour,
-  				 &active_diagram->grid.colour);
-      dia_color_selector_get_color(pagebreak_colour,
-  				 &active_diagram->pagebreak_color);
-      diagram_add_update_all(active_diagram);
-      diagram_flush(active_diagram);
-      diagram_set_modified(active_diagram, TRUE);
-    }
-  }
-  if (response_id != GTK_RESPONSE_APPLY)
-    gtk_widget_hide(dialog);
-}
-
-/* diagram_properties_set_diagram
- * Called when the active diagram is changed. It updates the contents
- * of the diagram properties dialog
- */
-void
-diagram_properties_set_diagram(Diagram *dia)
-{
-  if (dialog && dia != NULL)
-  {
-    diagram_properties_retrieve(dia);
-  }
+  gtk_window_set_transient_for (GTK_WINDOW (dialog),
+                                GTK_WINDOW (ddisplay_active()->shell));
+  gtk_widget_show (GTK_WIDGET (dialog));
 }

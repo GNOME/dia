@@ -97,7 +97,7 @@ void
 undo_destroy(UndoStack *stack)
 {
   undo_clear(stack);
-  g_free(stack->current_change); /* Free first transaction point. */
+
   g_free(stack);
 }
 

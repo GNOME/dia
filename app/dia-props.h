@@ -19,11 +19,24 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef _DIA_PROPS_H_
-#define _DIA_PROPS_H_
+#pragma once
+
 #include "diagram.h"
 
-void diagram_properties_show(Diagram *dia);
-void diagram_properties_set_diagram(Diagram *dia);
+#include <gtk/gtk.h>
 
-#endif
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkDialog, g_object_unref)
+
+#define DIA_TYPE_DIAGRAM_PROPERTIES_DIALOG dia_diagram_properties_dialog_get_type ()
+G_DECLARE_DERIVABLE_TYPE (DiaDiagramPropertiesDialog, dia_diagram_properties_dialog, DIA, DIAGRAM_PROPERTIES_DIALOG, GtkDialog)
+
+struct _DiaDiagramPropertiesDialogClass {
+  GtkDialogClass parent;
+};
+
+void                        dia_diagram_properties_dialog_set_diagram (DiaDiagramPropertiesDialog *self,
+                                                                       Diagram                    *diagram);
+Diagram                    *dia_diagram_properties_dialog_get_diagram (DiaDiagramPropertiesDialog *self);
+DiaDiagramPropertiesDialog *dia_diagram_properties_dialog_get_default (void);
+
+void diagram_properties_show(Diagram *dia);

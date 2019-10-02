@@ -272,6 +272,13 @@ fill_sheet_wbox(Sheet *sheet)
         pixbuf = pixbuf_from_resource ((const char *) sheet_obj->pixmap + 4);
       } else {
         pixbuf = gdk_pixbuf_new_from_xpm_data (sheet_obj->pixmap);
+        if (pixbuf == NULL) {
+          g_warning ("Problem with: %s", (const char *) sheet_obj->pixmap);
+          pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
+                                             "image-missing",
+                                             22,
+                                             0, NULL);
+        }
       }
     } else if (sheet_obj->pixmap_file != NULL) {
       GError* gerror = NULL;
@@ -300,10 +307,9 @@ fill_sheet_wbox(Sheet *sheet)
       type = object_get_type(sheet_obj->object_type);
       pixbuf = gdk_pixbuf_new_from_xpm_data (type->pixmap);
     }
+
     if (pixbuf) {
       image = gtk_image_new_from_pixbuf (pixbuf);
-    } else {
-      image = gtk_image_new ();
     }
 
     button = gtk_radio_button_new (tool_group);

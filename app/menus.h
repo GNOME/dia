@@ -58,6 +58,7 @@ void            menus_clear_recent               (void);
 #define VIEW_LAYERS_ACTION           "ViewLayers"
 
 GtkBuilder *builder_new_from_file (const char *filename);
+gchar *build_ui_filename (const gchar* name);
 
 #endif /* MENUS_H */
 

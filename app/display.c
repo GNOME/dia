@@ -1381,8 +1381,9 @@ display_set_active(DDisplay *ddisp)
     active_display = ddisp;
 
     /* perform notification here (such as switch layers dialog) */
-    layer_dialog_set_diagram(ddisp ? ddisp->diagram : NULL);
-    diagram_properties_set_diagram(ddisp ? ddisp->diagram : NULL);
+    layer_dialog_set_diagram (ddisp ? ddisp->diagram : NULL);
+    dia_diagram_properties_dialog_set_diagram (dia_diagram_properties_dialog_get_default (),
+                                               ddisp ? ddisp->diagram : NULL);
 
     if (ddisp) {
       if (ddisp->is_standalone_window)

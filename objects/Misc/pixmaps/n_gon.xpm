@@ -1,6 +1,6 @@
 /* XPM */
 static const char * n_gon_xpm[] = {
-"22 22 60 1",
+"22 22 59 1",
 " 	c None",
 "+	c #000000",
 "@	c #6B6B6B",
