@@ -37,6 +37,8 @@ if appstream_util.found()
   )
 endif
 
+install_data('org.gnome.Dia.thumbnailer',
+             install_dir: join_paths(datadir, 'thumbnailers'))
 
 subdir('icons')
 subdir('ui')
