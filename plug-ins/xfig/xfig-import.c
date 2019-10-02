@@ -325,20 +325,27 @@ fig_fix_text(gchar *text) {
 	text[j-2] = 0;
     }
     if (needs_conversion) {
-	/* Crudely assuming that fig uses Latin-1 */
-	converted = g_convert(text, strlen(text), "UTF-8", "ISO-8859-1",
-			      NULL, NULL, &err);
-	if (err != NULL) {
-	    printf("Error converting %s: %s\n", text, err->message);
-	    return text;
-	}
-	if (!g_utf8_validate(converted, -1, NULL)) {
-	    printf("Fails to validate %s\n", converted);
-	    return text;
-	}
-	if (text != converted) g_free(text);
-	return converted;
-    } else return text;
+      /* Crudely assuming that fig uses Latin-1 */
+      converted = g_convert (text,
+                             strlen (text),
+                             "UTF-8",
+                             "ISO-8859-1",
+                             NULL,
+                             NULL,
+                             &err);
+      if (err != NULL) {
+        g_printerr ("Error converting %s: %s\n", text, err->message);
+        return text;
+      }
+      if (!g_utf8_validate (converted, -1, NULL)) {
+        g_printerr ("Fails to validate %s\n", converted);
+        return text;
+      }
+      if (text != converted) g_free(text);
+      return converted;
+    } else {
+      return text;
+    }
 }
 
 static char *

@@ -1201,8 +1201,9 @@ diagram_cleanup_autosave(Diagram *dia)
   savefile = dia->autosavefilename;
   if (savefile == NULL) return;
 #ifdef TRACES
-  g_print("Cleaning up autosave %s for %s\n",
-          savefile, dia->filename ? dia->filename : "<no name>");
+  g_printerr ("Cleaning up autosave %s for %s\n",
+              savefile,
+              dia->filename ? dia->filename : "<no name>");
 #endif
   if (g_stat(savefile, &statbuf) == 0) { /* Success */
     g_unlink(savefile);

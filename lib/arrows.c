@@ -2510,7 +2510,7 @@ arrow_type_from_name(const gchar *name)
       return arrow_types[i].enum_value;
     }
   }
-  printf ("Unknown arrow type %s\n", name);
+  g_printerr ("Unknown arrow type %s\n", name);
   return 0;
 }
 
@@ -2533,7 +2533,7 @@ arrow_index_from_type (ArrowType atype)
       return i;
     }
   }
-  printf ("Can't find arrow index for type %d\n", atype);
+  g_printerr ("Can't find arrow index for type %d\n", atype);
   return 0;
 }
 

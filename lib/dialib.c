@@ -60,9 +60,7 @@ stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
 
   vsprintf (buf, fmt, args2);
 
-  fprintf(stderr,
-          "%s: %s\n",
-          title,buf);
+  g_printerr ("%s: %s\n", title, buf);
 }
 
 #ifdef G_OS_WIN32
@@ -74,7 +72,7 @@ myXmlErrorReporting (void *ctx, const char* msg, ...)
 
   va_start(args, msg);
   string = g_strdup_vprintf (msg, args);
-  g_print ("%s", string ? string : "xml error (null)?");
+  g_printerr ("%s", string ? string : "xml error (null)?");
   va_end(args);
 
   g_free(string);

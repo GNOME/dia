@@ -309,8 +309,8 @@ dia_layer_visibility_change_revert (DiaChange *self,
   }
 
   if (vis != NULL || i < layers->len) {
-    printf("Internal error: visibility undo has %d visibilities, but %d layers\n",
-	   g_list_length(change->original_visibility), layers->len);
+    g_printerr ("Internal error: visibility undo has %d visibilities, but %d layers\n",
+                g_list_length(change->original_visibility), layers->len);
   }
 
   diagram_add_update_all(dia);

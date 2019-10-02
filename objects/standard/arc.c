@@ -364,9 +364,9 @@ arc_move_handle(Arc *arc, Handle *handle,
   }
 
   if (handle->id == HANDLE_MIDDLE) {
-          TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
+          TRACE(g_printerr ("curve_dist: %.2f \n",arc->curve_distance));
           arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], to);
-          TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
+          TRACE(g_printerr ("curve_dist: %.2f \n",arc->curve_distance));
   } else if (handle->id == HANDLE_CENTER) {
           /* We can move the handle only on the line through center and middle
 	   * Intersecting chord theorem says a*a=b*c
@@ -392,11 +392,11 @@ arc_move_handle(Arc *arc, Handle *handle,
 	  arc->curve_distance = (arc->curve_distance > 0) ? cd : -cd;
   } else {
         Point best;
-        TRACE(printf("Modifiers: %d \n",modifiers));
+        TRACE(g_printerr ("Modifiers: %d \n",modifiers));
         if (modifiers & MODIFIER_SHIFT)
         /* if(arc->end_arrow.type == ARROW_NONE)*/
         {
-          TRACE(printf("SHIFT USED, to at %.2f %.2f  ",to->x,to->y));
+          TRACE(g_printerr ("SHIFT USED, to at %.2f %.2f  ",to->x,to->y));
           if (arc_find_radial(arc, to, &best)){
             /* needs to move two handles at the same time
              * compute pos of middle handle */
@@ -412,10 +412,10 @@ arc_move_handle(Arc *arc, Handle *handle,
             connection_adjust_for_autogap(&arc->connection);
             /* recompute curve distance equiv. move middle handle */
             arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], &midpoint);
-            TRACE(printf("curve_dist: %.2f \n",arc->curve_distance));
+            TRACE(g_printerr ("curve_dist: %.2f \n",arc->curve_distance));
           }
           else {
-            TRACE(printf("NO best\n"));
+            TRACE(g_printerr ("NO best\n"));
           }
        } else {
           connection_move_handle(&arc->connection, handle->id, to, cp, reason, modifiers);
@@ -464,21 +464,21 @@ arc_compute_midpoint(Arc *arc, const Point * ep0, const Point * ep1 , Point * mi
                     return 0;
             }
             if (angle < -1 * M_PI){
-                    TRACE(printf("angle: %.2f ",angle));
+                    TRACE(g_printerr ("angle: %.2f ",angle));
                     angle += 2*M_PI;
-                    TRACE(printf("angle: %.2f ",angle));
+                    TRACE(g_printerr ("angle: %.2f ",angle));
             }
             if (angle > 1 * M_PI){
-                    TRACE(printf("angle: %.2f ",angle));
+                    TRACE(g_printerr ("angle: %.2f ",angle));
                     angle -= 2*M_PI;
-                    TRACE(printf("angle: %.2f ",angle));
+                    TRACE(g_printerr ("angle: %.2f ",angle));
             }
 
             midpos = arc->middle_handle.pos;
             /*rotate middle handle by half the angle */
-            TRACE(printf("\nmidpos before: %.2f %.2f \n",midpos.x, midpos.y));
+            TRACE(g_printerr ("\nmidpos before: %.2f %.2f \n",midpos.x, midpos.y));
             rotate_point_around_point(&midpos, &arc->center, angle/2);
-            TRACE(printf("\nmidpos after : %.2f %.2f \n",midpos.x, midpos.y));
+            TRACE(g_printerr ("\nmidpos after : %.2f %.2f \n",midpos.x, midpos.y));
             *midpoint = midpos;
             return 1;
 }
@@ -534,12 +534,12 @@ calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj
   mid2 = get_middle_arc_angle(ang_start, ang_end, clockwiseness);
   mid3 = ang_end;
 
-  TRACE(printf("Find middle angle between %f° and  %f°\n",ang_start,ang_end));
+  TRACE(g_printerr ("Find middle angle between %f° and  %f°\n",ang_start,ang_end));
   /* If the other end is inside the object */
   arc_get_point_at_angle(arc,target,mid1);
   dist = obj->ops->distance_from(obj, target );
   if (dist < 0.001){
-          TRACE(printf("Point at %f°: %f,%f is very close to object: %f, returning it\n",mid1, target->x, target->y, dist));
+          TRACE(g_printerr ("Point at %f°: %f,%f is very close to object: %f, returning it\n",mid1, target->x, target->y, dist));
           return ;
   }
   do {
@@ -563,7 +563,7 @@ calculate_arc_object_edge(Arc *arc, real ang_start, real ang_end, DiaObject *obj
 #ifdef TRACE_DIST
     for (j = 0; j < i; j++) {
       arc_get_point_at_angle(arc,target,trace[j]);
-      printf("%d: %f° : %f,%f :%f\n", j, trace[j],target->x,target->y, disttrace[j]);
+      g_printerr ("%d: %f° : %f,%f :%f\n", j, trace[j],target->x,target->y, disttrace[j]);
     }
 #endif
   arc_get_point_at_angle(arc,target,mid2);
@@ -587,7 +587,7 @@ arc_draw (Arc *arc, DiaRenderer *renderer)
   start_cp = arc->connection.endpoint_handles[0].connected_to;
   end_cp = arc->connection.endpoint_handles[1].connected_to;
 
-  TRACE(printf("drawing arc:\n start:%f°:%f,%f \tend:%f°:%f,%f\n",arc->angle1,endpoints[0].x,endpoints[0].y, arc->angle2,endpoints[1].x,endpoints[1].y));
+  TRACE(g_printerr ("drawing arc:\n start:%f°:%f,%f \tend:%f°:%f,%f\n",arc->angle1,endpoints[0].x,endpoints[0].y, arc->angle2,endpoints[1].x,endpoints[1].y));
 
   if (connpoint_is_autogap (start_cp)) {
      TRACE (printf ("computing start intersection\ncurve_distance: %f\n", arc->curve_distance));
@@ -597,7 +597,7 @@ arc_draw (Arc *arc, DiaRenderer *renderer)
         calculate_arc_object_edge (arc, arc->angle2, arc->angle1, start_cp->object, &gaptmp[0], TRUE);
   }
   if (connpoint_is_autogap (end_cp)) {
-    TRACE(printf("computing end intersection\ncurve_distance: %f\n",arc->curve_distance));
+    TRACE(g_printerr ("computing end intersection\ncurve_distance: %f\n",arc->curve_distance));
     if (arc->curve_distance < 0)
       calculate_arc_object_edge (arc, arc->angle2, arc->angle1, end_cp->object, &gaptmp[1], TRUE);
     else

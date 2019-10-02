@@ -6,7 +6,7 @@
  *
  * Custom shape loading on demand.
  * Copyright (C) 2007 Hans Breuer.
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -65,19 +65,19 @@ struct _Context {
   eState  state;
 };
 
-static void 
-startElementNs (void *ctx, 
-                const xmlChar *localname, 
-                const xmlChar *prefix, 
-                const xmlChar *URI, 
-                int nb_namespaces, 
-                const xmlChar **namespaces, 
-                int nb_attributes, 
-                int nb_defaulted, 
+static void
+startElementNs (void *ctx,
+                const xmlChar *localname,
+                const xmlChar *prefix,
+                const xmlChar *URI,
+                int nb_namespaces,
+                const xmlChar **namespaces,
+                int nb_attributes,
+                int nb_defaulted,
                 const xmlChar **attributes)
 {
   Context* context = (Context*)ctx;
-  
+
   if (READ_DONE == context->state)
     /* no more to do */;
   else if (strncmp ((const char*)localname, "name", 4) == 0)
@@ -111,7 +111,7 @@ _characters (void *ctx,
     }
   } else if (READ_ICON == context->state) {
     gchar *prev = context->si->icon;
-    if (!prev) 
+    if (!prev)
       context->si->icon = g_strndup ((const char*)ch, len);
     else {
       gchar *now = g_strndup ((const char*)ch, len);
@@ -121,15 +121,15 @@ _characters (void *ctx,
     }
   }
 }
-				
-static void 
+
+static void
 endElementNs (void *ctx,
 	      const xmlChar *localname,
 	      const xmlChar *prefix,
 	      const xmlChar *URI)
 {
   Context* context = (Context*)ctx;
-  
+
   if (READ_DONE == context->state)
     return;
 
@@ -150,7 +150,7 @@ static void _error (void *ctx, const char * msg, ...) G_GNUC_PRINTF(2, 3);
 
 static void
 _error (void *ctx,
-        const char * msg, 
+        const char * msg,
         ...)
 {
   Context* context = (Context*)ctx;
@@ -159,9 +159,9 @@ _error (void *ctx,
   if (READ_DONE == context->state)
     return; /* we are ready, not interested in further complains */
   va_start(args, msg);
-  g_print ("Error: %s\n", context->si->filename);
-  g_vprintf (msg, args);
-  g_print ("\n");
+  g_printerr ("Error: %s\n", context->si->filename);
+  g_vfprintf (stderr, msg, args);
+  g_printerr ("\n");
   va_end(args);
 }
 
@@ -169,7 +169,7 @@ static void _warning (void *ctx, const char * msg, ...) G_GNUC_PRINTF(2, 3);
 
 static void
 _warning (void *ctx,
-          const char * msg, 
+          const char * msg,
           ...)
 {
   Context* context = (Context*)ctx;
@@ -178,9 +178,9 @@ _warning (void *ctx,
   if (READ_DONE == context->state)
     return; /* we are ready, not interested in further complains */
   va_start(args, msg);
-  g_print ("Warning: %s\n", context->si->filename);
-  g_vprintf (msg, args);
-  g_print ("\n");
+  g_printerr ("Warning: %s\n", context->si->filename);
+  g_vfprintf (stderr, msg, args);
+  g_printerr ("\n");
   va_end(args);
 }
 
@@ -201,9 +201,9 @@ shape_typeinfo_load (ShapeInfo* info)
   FILE *f;
   int n;
   Context ctx = { info, READ_ON };
-  
+
   g_assert (info->filename != NULL);
-  
+
   if (!once) {
     LIBXML_TEST_VERSION
 
@@ -235,9 +235,9 @@ shape_typeinfo_load (ShapeInfo* info)
     }
     return TRUE;
   } else {
-    g_print ("Preloading shape file '%s' failed.\n"
-             "Please ensure that <name/> and <icon/> are early in the file.\n",
-             info->filename);
+    g_printerr ("Preloading shape file '%s' failed.\n"
+                "Please ensure that <name/> and <icon/> are early in the file.\n",
+                info->filename);
   }
   return FALSE;
 }

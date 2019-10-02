@@ -478,7 +478,7 @@ ddisplay_render_pixmap (DDisplay     *ddisp,
 #endif
 
   if (ddisp->renderer==NULL) {
-    printf("ERROR! Renderer was NULL!!\n");
+    g_critical ("ERROR! Renderer was NULL!!");
     return;
   }
 
@@ -516,7 +516,7 @@ ddisplay_render_pixmap (DDisplay     *ddisp,
                ddisplay_obj_render,
                (gpointer) ddisp);
 #ifdef TRACES
-  g_print ("data_render(%g%%) took %g seconds\n", ddisp->zoom_factor * 5.0, g_timer_elapsed (timer, NULL));
+  g_printerr ("data_render(%g%%) took %g seconds\n", ddisp->zoom_factor * 5.0, g_timer_elapsed (timer, NULL));
   g_timer_destroy (timer);
 #endif
   /* Draw handles for all selected objects */

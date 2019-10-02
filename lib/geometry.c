@@ -699,9 +699,9 @@ calculate_object_edge(Point *objmid, Point *end, DiaObject *obj)
 #ifdef TRACE_DIST
   if (i == MAXITER) {
     for (i = 0; i < MAXITER; i++) {
-      printf("%d: %f, %f: %f\n", i, trace[i].x, trace[i].y, disttrace[i]);
+      g_printerr ("%d: %f, %f: %f\n", i, trace[i].x, trace[i].y, disttrace[i]);
     }
-    printf("i = %d, dist = %f\n", i, dist);
+    g_printerr ("i = %d, dist = %f\n", i, dist);
   }
 #endif
 

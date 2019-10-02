@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#define G_LOG_DOMAIN "DiaUndo"
+
 #include <config.h>
 
 #include "undo.h"
@@ -28,12 +30,6 @@
 #include "textedit.h"
 #include "parent.h"
 #include "dia-layer.h"
-
-#if 0
-#define DEBUG_PRINTF(args) printf args
-#else
-#define DEBUG_PRINTF(args)
-#endif
 
 void undo_update_menus(UndoStack *stack);
 
@@ -107,7 +103,7 @@ undo_remove_redo_info(UndoStack *stack)
   DiaChange *change;
   DiaChange *next_change;
 
-  DEBUG_PRINTF(("UNDO: Removing redo info\n"));
+  g_debug ("Removing redo info");
 
   change = stack->current_change->next;
   stack->current_change->next = NULL;
@@ -127,7 +123,7 @@ undo_push_change(UndoStack *stack, DiaChange *change)
   if (stack->current_change != stack->last_change)
     undo_remove_redo_info(stack);
 
-  DEBUG_PRINTF(("UNDO: Push new change at %d\n", stack->depth));
+  g_debug ("Push %s at %d", DIA_CHANGE_TYPE_NAME (change), stack->depth);
 
   change->prev = stack->last_change;
   change->next = NULL;
@@ -158,14 +154,14 @@ undo_delete_lowest_transaction(UndoStack *stack)
       break;
 
     next_change = change->next;
-    DEBUG_PRINTF(("freeing one change from the bottom.\n"));
+    g_debug ("freeing one change from the bottom.");
     dia_change_unref (change);
     change = next_change;
   } while (!DIA_IS_TRANSACTION_POINT_CHANGE (change));
 
   if (DIA_IS_TRANSACTION_POINT_CHANGE (change)) {
     stack->depth--;
-    DEBUG_PRINTF(("Decreasing stack depth to: %d\n", stack->depth));
+    g_debug ("Decreasing stack depth to: %d", stack->depth);
   }
   if (change) /* play safe */
     change->prev = NULL;
@@ -179,13 +175,11 @@ undo_set_transactionpoint(UndoStack *stack)
   if (DIA_IS_TRANSACTION_POINT_CHANGE(stack->current_change))
     return;
 
-  DEBUG_PRINTF(("UNDO: Push new transactionpoint at %d\n", stack->depth));
-
   transaction = dia_transaction_point_change_new ();
 
   undo_push_change(stack, transaction);
   stack->depth++;
-  DEBUG_PRINTF(("Increasing stack depth to: %d\n", stack->depth));
+  g_debug ("Increasing stack depth to: %d", stack->depth);
 
   if (prefs.undo_depth > 0) {
     while (stack->depth > prefs.undo_depth){
@@ -212,7 +206,7 @@ undo_revert_to_last_tp(UndoStack *stack)
   stack->current_change  = change;
   stack->depth--;
   undo_update_menus(stack);
-  DEBUG_PRINTF(("Decreasing stack depth to: %d\n", stack->depth));
+  g_debug ("Decreasing stack depth to: %d", stack->depth);
 }
 
 void
@@ -237,7 +231,7 @@ undo_apply_to_next_tp(UndoStack *stack)
   stack->current_change = change;
   stack->depth++;
   undo_update_menus(stack);
-  DEBUG_PRINTF(("Increasing stack depth to: %d\n", stack->depth));
+  g_debug ("Increasing stack depth to: %d", stack->depth);
 }
 
 
@@ -246,7 +240,7 @@ undo_clear(UndoStack *stack)
 {
   DiaChange *change;
 
-  DEBUG_PRINTF(("undo_clear()\n"));
+  g_debug ("undo_clear()");
 
   change = stack->current_change;
 
@@ -447,7 +441,6 @@ dia_move_objects_change_new (Diagram *dia,
   change->dest_pos = dest_pos;
   change->obj_list = obj_list;
 
-  DEBUG_PRINTF(("UNDO: Push new move objects at %d\n", dia->undo->depth));
   undo_push_change (dia->undo, DIA_CHANGE (change));
 
   return DIA_CHANGE (change);
@@ -522,8 +515,6 @@ dia_move_handle_change_new (Diagram   *dia,
 
   change->modifiers = modifiers;
 
-  DEBUG_PRINTF(("UNDO: Push new move handle at %d\n", depth(dia->undo)));
-
   undo_push_change (dia->undo, DIA_CHANGE (change));
 
   return DIA_CHANGE (change);
@@ -597,7 +588,6 @@ dia_connect_change_new (Diagram         *dia,
   change->handle_pos = handle->pos;
   change->connectionpoint = connectionpoint;
 
-  DEBUG_PRINTF(("UNDO: Push new connect at %d\n", dia->undo->depth));
   undo_push_change (dia->undo, DIA_CHANGE (change));
 
   return DIA_CHANGE (change);
@@ -655,7 +645,6 @@ dia_unconnect_change_new (Diagram *dia, DiaObject *obj, Handle *handle)
   change->handle = handle;
   change->connectionpoint = handle->connected_to;
 
-  DEBUG_PRINTF(("UNDO: Push new unconnect at %d\n", dia->undo->depth));
   undo_push_change (dia->undo, DIA_CHANGE (change));
 
   return DIA_CHANGE (change);
@@ -683,7 +672,7 @@ dia_delete_objects_change_apply (DiaChange *self, Diagram *dia)
   DiaDeleteObjectsChange *change = DIA_DELETE_OBJECTS_CHANGE (self);
   GList *list;
 
-  DEBUG_PRINTF(("delete_objects_apply()\n"));
+  g_debug ("delete_objects_apply()");
   change->applied = 1;
   diagram_unselect_objects (dia, change->obj_list);
   dia_layer_remove_objects (change->layer, change->obj_list);
@@ -710,7 +699,7 @@ dia_delete_objects_change_revert (DiaChange *self, Diagram *dia)
   DiaDeleteObjectsChange *change = DIA_DELETE_OBJECTS_CHANGE (self);
   GList *list;
 
-  DEBUG_PRINTF(("delete_objects_revert()\n"));
+  g_debug ("delete_objects_revert()");
   change->applied = 0;
   dia_layer_set_object_list (change->layer,
                              g_list_copy (change->original_objects));
@@ -732,7 +721,7 @@ dia_delete_objects_change_free (DiaChange *self)
 {
   DiaDeleteObjectsChange *change = DIA_DELETE_OBJECTS_CHANGE (self);
 
-  DEBUG_PRINTF(("delete_objects_free()\n"));
+  g_debug ("delete_objects_free()");
   if (change->applied)
     destroy_object_list(change->obj_list);
   else
@@ -763,7 +752,6 @@ dia_delete_objects_change_new (Diagram *dia, GList *obj_list)
   change->original_objects = g_list_copy (dia_layer_get_object_list (dia->data->active_layer));
   change->applied = 0;
 
-  DEBUG_PRINTF(("UNDO: Push new delete objects at %d\n", dia->undo->depth));
   undo_push_change (dia->undo, DIA_CHANGE (change));
 
   return DIA_CHANGE (change);
@@ -789,7 +777,7 @@ dia_insert_objects_change_apply (DiaChange *self, Diagram *dia)
 {
   DiaInsertObjectsChange *change = DIA_INSERT_OBJECTS_CHANGE (self);
 
-  DEBUG_PRINTF (("insert_objects_apply()\n"));
+  g_debug ("insert_objects_apply()");
   change->applied = 1;
   dia_layer_add_objects (change->layer, g_list_copy (change->obj_list));
   object_add_updates_list (change->obj_list, dia);
@@ -801,7 +789,7 @@ dia_insert_objects_change_revert (DiaChange *self, Diagram *dia)
   DiaInsertObjectsChange *change = DIA_INSERT_OBJECTS_CHANGE (self);
   GList *list;
 
-  DEBUG_PRINTF(("insert_objects_revert()\n"));
+  g_debug ("insert_objects_revert()");
   change->applied = 0;
   diagram_unselect_objects (dia, change->obj_list);
   dia_layer_remove_objects (change->layer, change->obj_list);
@@ -824,7 +812,7 @@ dia_insert_objects_change_free (DiaChange *self)
 {
   DiaInsertObjectsChange *change = DIA_INSERT_OBJECTS_CHANGE (self);
 
-  DEBUG_PRINTF(("insert_objects_free()\n"));
+  g_debug ("insert_objects_free()");
   if (!change->applied)
     destroy_object_list(change->obj_list);
   else
@@ -841,7 +829,6 @@ dia_insert_objects_change_new (Diagram *dia, GList *obj_list, int applied)
   change->obj_list = obj_list;
   change->applied = applied;
 
-  DEBUG_PRINTF(("UNDO: Push new insert objects at %d\n", dia->undo->depth));
   undo_push_change (dia->undo, DIA_CHANGE (change));
 
   return DIA_CHANGE (change);
@@ -868,7 +855,7 @@ dia_reorder_objects_change_apply (DiaChange *self, Diagram *dia)
 {
   DiaReorderObjectsChange *change = DIA_REORDER_OBJECTS_CHANGE (self);
 
-  DEBUG_PRINTF (("reorder_objects_apply()\n"));
+  g_debug ("reorder_objects_apply()");
   dia_layer_set_object_list (change->layer,
                              g_list_copy (change->reordered_objects));
   object_add_updates_list (change->changed_list, dia);
@@ -880,7 +867,7 @@ dia_reorder_objects_change_revert (DiaChange *self, Diagram *dia)
 {
   DiaReorderObjectsChange *change = DIA_REORDER_OBJECTS_CHANGE (self);
 
-  DEBUG_PRINTF (("reorder_objects_revert()\n"));
+  g_debug ("reorder_objects_revert()");
   dia_layer_set_object_list (change->layer,
                              g_list_copy(change->original_objects));
   object_add_updates_list (change->changed_list, dia);
@@ -892,7 +879,7 @@ dia_reorder_objects_change_free (DiaChange *self)
 {
   DiaReorderObjectsChange *change = DIA_REORDER_OBJECTS_CHANGE (self);
 
-  DEBUG_PRINTF(("reorder_objects_free()\n"));
+  g_debug ("reorder_objects_free()");
   g_list_free(change->changed_list);
   g_list_free(change->original_objects);
   g_list_free(change->reordered_objects);
@@ -909,7 +896,6 @@ dia_reorder_objects_change_new (Diagram *dia, GList *changed_list, GList *orig_l
   change->original_objects = orig_list;
   change->reordered_objects = g_list_copy (dia_layer_get_object_list (DIA_DIAGRAM_DATA (dia)->active_layer));
 
-  DEBUG_PRINTF(("UNDO: Push new reorder objects at %d\n", dia->undo->depth));
   undo_push_change (dia->undo, DIA_CHANGE (change));
 
   return DIA_CHANGE (change);
@@ -997,7 +983,7 @@ dia_object_change_change_free (DiaChange *self)
 {
   DiaObjectChangeChange *change = DIA_OBJECT_CHANGE_CHANGE (self);
 
-  DEBUG_PRINTF(("state_change_free()\n"));
+  g_debug ("state_change_free()");
   if (change->obj_change->free)
     (*change->obj_change->free)(change->obj_change);
   g_free(change->obj_change);
@@ -1014,7 +1000,6 @@ dia_object_change_change_new (Diagram      *dia,
   change->obj = obj;
   change->obj_change = obj_change;
 
-  DEBUG_PRINTF(("UNDO: Push new obj_change at %d\n", dia->undo->depth));
   undo_push_change (dia->undo, DIA_CHANGE (change));
 
   return DIA_CHANGE (change);
@@ -1051,7 +1036,7 @@ dia_group_objects_change_apply (DiaChange *self, Diagram *dia)
 
   GList *list;
 
-  DEBUG_PRINTF(("group_objects_apply()\n"));
+  g_debug ("group_objects_apply()");
 
   change->applied = 1;
 
@@ -1080,7 +1065,7 @@ dia_group_objects_change_revert (DiaChange *self, Diagram *dia)
 {
   DiaGroupObjectsChange *change = DIA_GROUP_OBJECTS_CHANGE (self);
 
-  DEBUG_PRINTF (("group_objects_revert()\n"));
+  g_debug ("group_objects_revert()");
   change->applied = 0;
 
   diagram_unselect_object (dia, change->group);
@@ -1099,7 +1084,7 @@ dia_group_objects_change_free (DiaChange *self)
 {
   DiaGroupObjectsChange *change = DIA_GROUP_OBJECTS_CHANGE (self);
 
-  DEBUG_PRINTF(("group_objects_free()\n"));
+  g_debug ("group_objects_free()");
   if (!change->applied) {
     group_destroy_shallow(change->group);
     change->group = NULL;
@@ -1123,8 +1108,6 @@ dia_group_objects_change_new (Diagram   *dia,
   change->obj_list = obj_list;
   change->orig_list = orig_list;
   change->applied = 1;
-
-  DEBUG_PRINTF(("UNDO: Push new group objects at %d\n", dia->undo->depth));
 
   undo_push_change (dia->undo, DIA_CHANGE (change));
 
@@ -1152,7 +1135,7 @@ dia_ungroup_objects_change_apply (DiaChange *self, Diagram *dia)
 {
   DiaUngroupObjectsChange *change = DIA_UNGROUP_OBJECTS_CHANGE (self);
 
-  DEBUG_PRINTF(("ungroup_objects_apply()\n"));
+  g_debug ("ungroup_objects_apply()");
 
   change->applied = 1;
 
@@ -1173,7 +1156,7 @@ dia_ungroup_objects_change_revert (DiaChange *self, Diagram *dia)
   DiaUngroupObjectsChange *change = DIA_UNGROUP_OBJECTS_CHANGE (self);
   GList *list;
 
-  DEBUG_PRINTF(("ungroup_objects_revert()\n"));
+  g_debug ("ungroup_objects_revert()");
   change->applied = 0;
 
 
@@ -1200,7 +1183,7 @@ dia_ungroup_objects_change_free (DiaChange *self)
 {
   DiaUngroupObjectsChange *change = DIA_UNGROUP_OBJECTS_CHANGE (self);
 
-  DEBUG_PRINTF(("ungroup_objects_free()\n"));
+  g_debug ("ungroup_objects_free()");
 
   if (change->applied) {
     group_destroy_shallow(change->group);
@@ -1224,8 +1207,8 @@ dia_ungroup_objects_change_new (Diagram   *dia,
   change->group_index = group_index;
   change->applied = 1;
 
-  DEBUG_PRINTF(("UNDO: Push new ungroup objects at %d\n", dia->undo->depth));
   undo_push_change (dia->undo, DIA_CHANGE (change));
+
   return DIA_CHANGE (change);
 }
 
@@ -1320,7 +1303,6 @@ dia_parenting_change_new (Diagram   *dia,
   parentchange->childobj = childobj;
   parentchange->parent = parent;
 
-  DEBUG_PRINTF (("UNDO: Push new obj_change at %d\n", dia->undo->depth));
   undo_push_change (dia->undo, DIA_CHANGE (parentchange));
 
   return DIA_CHANGE (parentchange);
@@ -1430,7 +1412,6 @@ dia_move_object_to_layer_change_new (Diagram  *dia,
   movetolayerchange->objects = g_list_copy (selected_list);
   movetolayerchange->moving_up = moving_up;
 
-  DEBUG_PRINTF (("UNDO: Push new obj_layer_change at %d\n", dia->undo->depth));
   undo_push_change (dia->undo, DIA_CHANGE (movetolayerchange));
 
   return DIA_CHANGE (movetolayerchange);
@@ -1657,7 +1638,6 @@ dia_mem_swap_change_new (Diagram *dia, gpointer dest, gsize size)
   for (i = 0; i < size; ++i)
     change->mem[i] = change->dest[i];
 
-  DEBUG_PRINTF(("UNDO: Push new memswap_change(%zd) at %d\n", size, dia->undo->depth));
   undo_push_change (dia->undo, DIA_CHANGE (change));
 
   return DIA_CHANGE (change);

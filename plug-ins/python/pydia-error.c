@@ -24,10 +24,10 @@
 #include "message.h"
 
 /*
- * A little helper to dump pythons last error info either to file only or 
+ * A little helper to dump pythons last error info either to file only or
  * additional popup a message_error
  */
-void 
+void
 _pyerror_report_last (gboolean popup, const char* fn, const char* file, int line)
 {
   PyObject *exc, *v, *tb, *ef;
@@ -45,7 +45,7 @@ _pyerror_report_last (gboolean popup, const char* fn, const char* file, int line
   PyFile_WriteObject (exc, ef, 0);
   PyFile_WriteObject (v, ef, 0);
   PyTraceBack_Print(tb, ef);
-  if (((PyDiaError*)ef)->str && popup) 
+  if (((PyDiaError*)ef)->str && popup)
     message_error ("%s", ((PyDiaError*)ef)->str->str);
   g_free (sLoc);
   Py_DECREF (ef);
@@ -60,7 +60,7 @@ _pyerror_report_last (gboolean popup, const char* fn, const char* file, int line
 PyObject* PyDiaError_New (const char* s, gboolean unbuffered)
 {
   PyDiaError *self;
-  
+
   self = PyObject_NEW(PyDiaError, &PyDiaError_Type);
   if (!self) return NULL;
   if (unbuffered) {
@@ -127,7 +127,7 @@ PyDiaError_Write(PyDiaError *self, PyObject *args)
   if (self->str)
     g_string_append (self->str, s);
 
-  g_print ("%s", s);
+  g_printerr ("%s", s);
 
   Py_INCREF(Py_None);
   return Py_None;

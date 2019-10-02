@@ -352,7 +352,7 @@ do_convert (const char      *infname,
     ef->export_func (diagdata, ctx, outfname, infname, ef->user_data);
   }
   /* if (!quiet) */
-  fprintf (stdout, _("%s --> %s\n"), infname, outfname);
+  g_printerr (_("%s --> %s\n"), infname, outfname);
   g_object_unref (diagdata);
   dia_context_release (ctx);
   return TRUE;
@@ -647,10 +647,10 @@ app_init (int argc, char **argv)
 
     if (!g_option_context_parse (context, &argc, &argv, &error)) {
       if (error) { /* IMO !error here is a bug upstream, triggered e.g. with --gdk-debug=updates */
-        g_print ("%s", error->message);
+        g_printerr ("%s", error->message);
         g_error_free (error);
       } else {
-        g_print (_("Invalid option?"));
+        g_printerr (_("Invalid option?"));
       }
 
       g_option_context_free(context);
@@ -674,7 +674,7 @@ app_init (int argc, char **argv)
         }
 
         if (!filename) {
-          g_print (_("Filename conversion failed: %s\n"), filenames[i]);
+          g_printerr (_("Filename conversion failed: %s\n"), filenames[i]);
           continue;
         }
 
@@ -688,7 +688,7 @@ app_init (int argc, char **argv)
         if (g_file_test (testpath, G_FILE_TEST_IS_REGULAR)) {
           files = g_slist_append (files, filename);
         } else {
-          g_print (_("Missing input: %s\n"), filename);
+          g_printerr (_("Missing input: %s\n"), filename);
           g_free (filename);
         }
         if (filename != testpath) {

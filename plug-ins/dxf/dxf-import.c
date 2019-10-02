@@ -543,10 +543,9 @@ read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 	}
     } while( strcmp( data->value, "SEQEND" ));
 
-    if( points == 0 )
-    {
-        printf( "No vertexes defined\n" );
-        return( NULL );
+    if (points == 0) {
+      g_printerr ("No vertexes defined\n");
+      return NULL;
     }
 
     pcd = g_new( MultipointCreateData, 1);
@@ -1320,7 +1319,7 @@ import_dxf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
                 } else if(strcmp(data->value, "EOF") == 0) {
 		  /* handled below */
 		} else {
-		  g_print ("DXF 0:%s not handled\n", data->value);
+		  g_printerr ("DXF 0:%s not handled\n", data->value);
 		}
             } else if(data->code == 2) {
                 if(strcmp(data->value, "ENTITIES") == 0) {

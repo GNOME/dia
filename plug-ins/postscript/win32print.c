@@ -37,7 +37,7 @@
 
 #include "win32print.h"
 
-static void 
+static void
 PrintError (const char* s, DWORD err)
 {
   if (0 != err)
@@ -49,11 +49,11 @@ PrintError (const char* s, DWORD err)
                    | FORMAT_MESSAGE_IGNORE_INSERTS,
                    NULL,
                    err,
-                   MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), 
+                   MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
                    (char*)&lpBuffer,
                    0,NULL);
-    g_print ("%s : %s", s, lpBuffer);
-		LocalFree (lpBuffer);
+    g_printerr ("%s : %s", s, lpBuffer);
+    LocalFree (lpBuffer);
   }
 }
 
@@ -86,7 +86,7 @@ win32_printer_open (char* sName)
                     &hPrinter,
                     NULL))
   {
-    g_print ("Failed to open printer : %s\n", sName);
+    g_printerr ("Failed to open printer : %s\n", sName);
     return NULL;
   }
 
@@ -97,8 +97,8 @@ win32_printer_open (char* sName)
   else
   {
     pJob = (ADDJOB_INFO_1*)data;
-    hFile = CreateFile (pJob->Path, 
-                        GENERIC_WRITE, 
+    hFile = CreateFile (pJob->Path,
+                        GENERIC_WRITE,
                         0,      /* no share */
                         NULL,   /* default security */
                         OPEN_ALWAYS,
@@ -115,7 +115,7 @@ win32_printer_open (char* sName)
          return _fdopen (hnd, "wb");
        else
          PrintError ("Failed to _open_osfhandle", 0);
-    } 
+    }
   }
 
   return NULL;
@@ -133,7 +133,7 @@ win32_printer_close (FILE* f)
     ret = GetLastError();
   }
 
-  if (f) 
+  if (f)
     fclose (f);
   CloseHandle (hFile);
   ClosePrinter (hPrinter);
