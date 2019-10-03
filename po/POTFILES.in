@@ -19,7 +19,10 @@ app/exit_dialog.c
 app/filedlg.c
 app/find-and-replace.c
 app/interface.c
-app/layer_dialog.c
+app/layer-editor/dia-layer-editor.c
+app/layer-editor/dia-layer-editor-dialog.c
+app/layer-editor/dia-layer-properties.c
+app/layer-editor/layer_dialog.c
 app/load_save.c
 app/menus.c
 app/modify_tool.c
@@ -36,6 +39,7 @@ app/toolbox.c
 app/winmain.c
 data/org.gnome.Dia.appdata.xml.in
 data/org.gnome.Dia.desktop.in
+data/ui/properties-dialog.ui
 installer/win32/gennsh.c
 lib/arrows.c
 lib/attributes.c
