@@ -241,7 +241,7 @@ DiaPrefData prefs_data[] =
   { "grid_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.grid_color), &default_colour, GRID_TAB, N_("Color:") },
   { "grid_major", PREF_UINT, PREF_OFFSET(grid.major_lines), &default_major_lines, GRID_TAB, N_("Lines per major line") },
   { "grid_hex", PREF_BOOLEAN, PREF_OFFSET(grid.hex), &default_false, GRID_TAB, N_("Hex grid") },
-  { "grid_w", PREF_UREAL, PREF_OFFSET(grid.w), &default_real_one, GRID_TAB, N_("Hex Size:") },
+  { "grid_hex_size", PREF_UREAL, PREF_OFFSET(grid.hex_size), &default_real_one, GRID_TAB, N_("Hex Size:") },
   /*  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 3, N_("Solid lines:") },  */
 
   { "fixed_icon_size", PREF_BOOLEAN,PREF_OFFSET(fixed_icon_size),

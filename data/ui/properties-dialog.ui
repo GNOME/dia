@@ -3,21 +3,21 @@
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
   <object class="GtkAdjustment" id="hex_size">
-    <property name="upper">100</property>
+    <property name="upper">10</property>
     <property name="value">1</property>
-    <property name="step_increment">1</property>
+    <property name="step_increment">0.1</property>
     <property name="page_increment">10</property>
   </object>
   <object class="GtkAdjustment" id="spacing_x">
     <property name="upper">10</property>
     <property name="value">1</property>
-    <property name="step_increment">0.10000000000000001</property>
+    <property name="step_increment">0.1</property>
     <property name="page_increment">10</property>
   </object>
   <object class="GtkAdjustment" id="spacing_y">
     <property name="upper">10</property>
     <property name="value">1</property>
-    <property name="step_increment">0.10000000000000001</property>
+    <property name="step_increment">0.1</property>
     <property name="page_increment">10</property>
   </object>
   <object class="GtkAdjustment" id="vis_spacing_x">
@@ -277,6 +277,7 @@
             <property name="primary_icon_sensitive">True</property>
             <property name="secondary_icon_sensitive">True</property>
             <property name="adjustment">hex_size</property>
+            <property name="digits">1</property>
             <property name="numeric">True</property>
           </object>
           <packing>

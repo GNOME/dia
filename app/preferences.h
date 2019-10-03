@@ -35,9 +35,9 @@ struct DiaPreferences {
     int vis_y;
     int major_lines;
     int hex;
-    real w;
+    real hex_size;
   } grid;
-  
+
   struct {
     int width;
     int height;
@@ -58,7 +58,7 @@ struct DiaPreferences {
 
   gchar* length_unit;
   gchar* fontsize_unit;
-  
+
   struct {
     int visible;
     int solid;
@@ -69,7 +69,7 @@ struct DiaPreferences {
   int toolbox_on_top;
 
   int use_integrated_ui;
-  
+
   /* a dedicated filter name or NULL */
   struct {
     char *png;

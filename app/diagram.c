@@ -239,8 +239,7 @@ dia_diagram_init (Diagram *self)
 
   self->grid.width_x = prefs.grid.x;
   self->grid.width_y = prefs.grid.y;
-  self->grid.width_w = prefs.grid.w;
-  self->grid.hex_size = 1.0;
+  self->grid.hex_size = prefs.grid.hex_size;
   self->grid.colour = prefs.new_diagram.grid_color;
   self->grid.hex = prefs.grid.hex;
   self->grid.visible_x = prefs.grid.vis_x;

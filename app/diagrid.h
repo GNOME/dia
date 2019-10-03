@@ -5,7 +5,7 @@ typedef struct _DiaGrid DiaGrid;
 
 struct _DiaGrid  {
   /* grid line intervals */
-  real width_x, width_y, width_w;
+  real width_x, width_y;
   /* the interval between visible grid lines */
   guint visible_x, visible_y;
   /* the interval between major lines (non-stippled).

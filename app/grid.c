@@ -181,6 +181,16 @@ grid_draw_hex (DDisplay *ddisp, DiaRectangle *update, real length)
   int to_x, to_y, x, y;
   DiaRenderer *renderer = ddisp->renderer;
 
+  /*
+   * Let's not lock up the app trying to draw a invisible grid
+   *
+   * Assumption: We don't support increments smaller than 0.1 thus < 0.1 is 0
+   * whilst allowing for floating point quirks
+   */
+  if (length < 0.1) {
+    return;
+  }
+
   /* First horizontal lines: */
   vert_pos = ceil( update->top / (length * sqrt(3)) ) * length * sqrt(3);
   while (vert_pos <= update->bottom) {
@@ -293,20 +303,19 @@ grid_draw (DDisplay *ddisp, DiaRectangle *update)
     /* distance between visible grid lines */
     real width_x = ddisp->diagram->grid.width_x;
     real width_y = ddisp->diagram->grid.width_y;
-    real width_w = ddisp->diagram->grid.width_w;
     if (ddisp->diagram->grid.dynamic) {
       calculate_dynamic_grid(ddisp, &width_x, &width_y);
     } else {
       width_x = ddisp->diagram->grid.width_x *
-	ddisp->diagram->grid.visible_x;
+                ddisp->diagram->grid.visible_x;
       width_y = ddisp->diagram->grid.width_y *
-	ddisp->diagram->grid.visible_y;
+                ddisp->diagram->grid.visible_y;
     }
 
     dia_renderer_set_linewidth (renderer, 0.0);
 
     if (ddisp->diagram->grid.hex) {
-      grid_draw_hex (ddisp, update, width_w);
+      grid_draw_hex (ddisp, update, ddisp->diagram->grid.hex_size);
     } else {
       if (ddisplay_transform_length (ddisp, width_y) >= 2.0 &&
           ddisplay_transform_length (ddisp, width_x) >= 2.0) {
@@ -373,7 +382,7 @@ snap_to_grid (DDisplay *ddisp, coord *x, coord *y)
 {
   if (ddisp->grid.snap) {
     if (ddisp->diagram->grid.hex) {
-      real width_x = ddisp->diagram->grid.width_w;
+      real width_x = ddisp->diagram->grid.hex_size;
       real x_mod = (*x - 1 * width_x) - floor ((*x - 1 * width_x) / (3 * width_x)) * 3 * width_x;
       real y_mod = (*y - 0.25 * sqrt (3) * width_x) -
         floor ((*y - 0.25 * sqrt (3) * width_x) / (sqrt (3) * width_x)) * sqrt (3) * width_x;
