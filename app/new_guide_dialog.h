@@ -15,27 +15,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef GRID_H
-#define GRID_H
+#ifndef NEW_GUIDE_DIALOG_H
+#define NEW_GUIDE_DIALOG_H
 
-#include <gtk/gtk.h>
+#include "diatypes.h"
+#include "diagram.h"
 
-typedef struct _Grid Grid;
+void dialog_new_guide_show (void);
 
-#include "geometry.h"
-struct _Grid {
-  guint visible;
-  guint snap;
-};
-
-#include "display.h"
-
-void grid_draw(DDisplay *ddisp, DiaRectangle *update);
-void pagebreak_draw(DDisplay *ddisp, DiaRectangle *update);
-void guidelines_draw(DDisplay *ddisp, DiaRectangle *update);
-void snap_to_grid(DDisplay *ddisp, coord *x, coord *y);
-
-gboolean grid_step (DDisplay *ddisp, GtkOrientation orientation,
-		    real *start, int *ipos, gboolean *is_major);
-
-#endif /* GRID_H */
+#endif /* NEW_GUIDE_DIALOG_H */

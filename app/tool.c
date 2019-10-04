@@ -26,14 +26,15 @@
 #include "interface.h"
 #include "defaults.h"
 #include "object.h"
+#include "guide_tool.h"
 
 Tool *active_tool = NULL;
 Tool *transient_tool = NULL;
 static GtkWidget *active_button = NULL;
 static GtkWidget *former_button = NULL;
 
-void 
-tool_select_former(void) 
+void
+tool_select_former(void)
 {
   if (former_button) {
     g_signal_emit_by_name(G_OBJECT(former_button), "clicked",
@@ -92,13 +93,16 @@ tool_free(Tool *tool)
   case TEXTEDIT_TOOL :
     free_textedit_tool(tool);
     break;
+  case GUIDE_TOOL:
+    free_guide_tool(tool);
+    break;
   default:
-    g_assert(0);    
+    g_assert(0);
   }
 }
 
-void 
-tool_select(ToolType type, gpointer extra_data, 
+void
+tool_select(ToolType type, gpointer extra_data,
             gpointer user_data, GtkWidget *button,
             int invert_persistence)
 {
@@ -124,21 +128,26 @@ tool_select(ToolType type, gpointer extra_data,
   case TEXTEDIT_TOOL :
     active_tool = create_textedit_tool();
     break;
+  case GUIDE_TOOL :
+    active_tool = create_guide_tool ();
+    guide_tool_set_guide (active_tool, extra_data);
+    guide_tool_set_orientation (active_tool, GPOINTER_TO_INT(user_data));
+    break;
   default:
-    g_assert(0);    
+    g_assert(0);
   }
   if (button)
     active_button = button;
 }
 
 void
-tool_options_dialog_show(ToolType type, gpointer extra_data, 
+tool_options_dialog_show(ToolType type, gpointer extra_data,
 			 gpointer user_data, GtkWidget *button,
-                         int invert_persistence) 
+                         int invert_persistence)
 {
   DiaObjectType *objtype;
 
-  if (active_tool->type != type) 
+  if (active_tool->type != type)
     tool_select(type,extra_data,user_data,button,invert_persistence);
 
   switch(type) {
@@ -153,6 +162,8 @@ tool_options_dialog_show(ToolType type, gpointer extra_data,
   case SCROLL_TOOL:
     break;
   case TEXTEDIT_TOOL :
+    break;
+  case GUIDE_TOOL :
     break;
   }
 }

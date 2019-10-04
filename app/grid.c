@@ -377,9 +377,124 @@ pagebreak_draw (DDisplay *ddisp, DiaRectangle *update)
   }
 }
 
+
+void
+guidelines_draw (DDisplay *ddisp, DiaRectangle *update)
+{
+  Diagram *dia = ddisp->diagram;
+  DiaRenderer *renderer = ddisp->renderer;
+  GList *list;
+  real line_width;
+
+  int width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
+  int height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
+
+  Color guideline_color = dia->guide_color;
+
+  if (!dia) {
+    return;
+  }
+
+  /* Make the line width a little bigger than hairline. */
+  line_width = ddisplay_untransform_length (ddisp, 2);
+
+  dia_renderer_set_linewidth (renderer, line_width);
+  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+
+  if (ddisp->guides_visible) {
+    list = dia->guides;
+    while (list) {
+      int x;
+      int y;
+      Guide *guide = list->data;
+
+      switch (guide->orientation) {
+        case GTK_ORIENTATION_HORIZONTAL:
+          ddisplay_transform_coords (ddisp, 0, guide->position, &x, &y);
+          dia_interactive_renderer_draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                                    0, y, width, y, &guideline_color);
+          break;
+
+        case GTK_ORIENTATION_VERTICAL:
+          ddisplay_transform_coords (ddisp, guide->position, 0, &x, &y);
+          dia_interactive_renderer_draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                                    x, 0, x, height, &guideline_color);
+          break;
+
+        default:
+          g_print ("Should not have reached this.\n");
+          break;
+      }
+
+      list = g_list_next (list);
+    }
+  }
+
+  /* NOTE: We can still drag new guides even if guide visibility
+   * is set to off (like in GIMP). */
+  if (ddisp->is_dragging_new_guideline) {
+    int x;
+    int y;
+
+    switch (ddisp->dragged_new_guideline_orientation) {
+      case GTK_ORIENTATION_HORIZONTAL:
+        ddisplay_transform_coords (ddisp, 0, ddisp->dragged_new_guideline_position, &x, &y);
+        dia_interactive_renderer_draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                                  0, y, width, y, &guideline_color);
+        break;
+
+      case GTK_ORIENTATION_VERTICAL:
+        ddisplay_transform_coords (ddisp, ddisp->dragged_new_guideline_position, 0, &x, &y);
+        dia_interactive_renderer_draw_pixel_line (DIA_INTERACTIVE_RENDERER (renderer),
+                                                  x, 0, x, height, &guideline_color);
+        break;
+
+      default:
+        g_print ("Should not have reached this.\n");
+        break;
+    }
+  }
+}
+
+
+/* For guides. */
+#define  FUNSCALEX(s,x)   ((x) / (s)->zoom_factor)
+#define  FUNSCALEY(s,y)   ((y) / (s)->zoom_factor)
+
+
 void
 snap_to_grid (DDisplay *ddisp, coord *x, coord *y)
 {
+  /* First snap to guides - only if they are visible and the setting is
+   * turned on. */
+  if (ddisp->guides_snap && ddisp->guides_visible) {
+    Guide *guide_h;
+    Guide *guide_v;
+    const gint snap_distance = prefs.snap_distance;
+
+    guide_h = diagram_pick_guide_h (ddisp->diagram, *x, *y,
+                                    FUNSCALEX (ddisp, snap_distance),
+                                    FUNSCALEY (ddisp, snap_distance));
+
+    guide_v = diagram_pick_guide_v (ddisp->diagram, *x, *y,
+                                    FUNSCALEX (ddisp, snap_distance),
+                                    FUNSCALEY (ddisp, snap_distance));
+
+    if (guide_h) {
+      *y = guide_h->position;
+    }
+
+    if (guide_v) {
+      *x = guide_v->position;
+    }
+
+    /* Assume this takes priority over grid. */
+    if (guide_h || guide_v) {
+      return;
+    }
+  }
+
+  /* Snap to grid. */
   if (ddisp->grid.snap) {
     if (ddisp->diagram->grid.hex) {
       real width_x = ddisp->diagram->grid.hex_size;

@@ -69,6 +69,13 @@
 			<menuitem name="ViewCloneview" action="ViewCloneview" />
 			<menuitem name="ViewRedraw" action="ViewRedraw" />
 			<separator name="ViewSep3" />
+			<menu name="ViewGuides" action="ViewGuides">
+				<menuitem name="ViewNewguide" action="ViewNewguide" />
+				<menuitem name="ViewShowguides" action="ViewShowguides" />
+				<menuitem name="ViewSnaptoguides" action="ViewSnaptoguides" />
+				<menuitem name="ViewRemoveallguides" action="ViewRemoveallguides" />
+			</menu>
+			<separator name="ViewSep4" />
 			<separator name="ViewExtensionStart" />
 		</menu>
 		<menu name="Layers" action="Layers">

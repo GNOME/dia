@@ -136,6 +136,8 @@ libdia_sources = stdprop_sources + [
     'dia_svg.c',
     'autoroute.c',
     'parent.c',
+    'guide.c',
+    'guide.h',
     'diaarrowchooser.c',
     'diaarrowselector.c',
     'diacolorselector.c',

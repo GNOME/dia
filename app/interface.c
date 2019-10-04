@@ -50,6 +50,35 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
+#include "guide_tool.h"
+
+#include <glib/gprintf.h>
+
+static gboolean _ddisplay_hruler_button_press (GtkWidget *widget,
+        GdkEventButton *bevent,
+        DDisplay *ddisp);
+
+static gboolean _ddisplay_vruler_button_press (GtkWidget *widget,
+        GdkEventButton *bevent,
+        DDisplay *ddisp);
+
+static gboolean _ddisplay_ruler_button_press (GtkWidget *widget,
+        GdkEventButton *event,
+        DDisplay *ddisp,
+        GtkOrientation orientation);
+
+static gboolean _ddisplay_ruler_button_release (GtkWidget *widget,
+        GdkEventButton *bevent,
+        DDisplay *ddisp);
+
+static gboolean _ddisplay_hruler_motion_notify (GtkWidget *widget,
+        GdkEventMotion *event,
+        DDisplay *ddisp);
+
+static gboolean _ddisplay_vruler_motion_notify (GtkWidget *widget,
+        GdkEventMotion *event,
+        DDisplay *ddisp);
+
 static void
 dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                  GdkDragContext   *context,
@@ -153,6 +182,18 @@ interface_toggle_mainpoint_magnetism(GtkWidget *widget, gpointer data)
   ddisplay_add_update_all(ddisp);
   ddisplay_flush(ddisp);
 }
+
+
+static void
+interface_toggle_snap_to_guides (GtkWidget *widget, gpointer data)
+{
+  DDisplay *ddisp = (DDisplay *) data;
+  ddisplay_set_snap_to_guides (ddisp,
+                               gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget)));
+  ddisplay_add_update_all (ddisp);
+  ddisplay_flush (ddisp);
+}
+
 
 static gint
 origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
@@ -489,6 +530,32 @@ _ddisplay_setup_rulers (DDisplay *ddisp, GtkWidget *shell, GtkWidget *table)
   ddisp->hrule = dia_ruler_new (GTK_ORIENTATION_HORIZONTAL, shell, ddisp);
   ddisp->vrule = dia_ruler_new (GTK_ORIENTATION_VERTICAL, shell, ddisp);
 
+  /* Callbacks for adding guides - horizontal ruler. */
+  g_signal_connect (ddisp->hrule, "button-press-event",
+                    G_CALLBACK (_ddisplay_hruler_button_press),
+                    ddisp);
+
+  g_signal_connect (ddisp->hrule, "button_release_event",
+                    G_CALLBACK (_ddisplay_ruler_button_release),
+                    ddisp);
+
+  g_signal_connect (ddisp->hrule, "motion_notify_event",
+                    G_CALLBACK (_ddisplay_hruler_motion_notify),
+                    ddisp);
+
+  /* Callbacks for adding guides - vertical ruler. */
+  g_signal_connect (ddisp->vrule, "button-press-event",
+                    G_CALLBACK (_ddisplay_vruler_button_press),
+                    ddisp);
+
+  g_signal_connect (ddisp->vrule, "button_release_event",
+                    G_CALLBACK (_ddisplay_ruler_button_release),
+                    ddisp);
+
+  g_signal_connect (ddisp->vrule, "motion_notify_event",
+                    G_CALLBACK (_ddisplay_vruler_motion_notify),
+                    ddisp);
+
   /* harder to change position in the table, but we did not do it for years ;) */
   gtk_table_attach (GTK_TABLE (table), ddisp->hrule, 1, 2, 0, 1,
                     GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
@@ -681,6 +748,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
 
   integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
   integrated_ui_toolbar_object_snap_synchronize_to_display (ddisp);
+  integrated_ui_toolbar_guides_snap_synchronize_to_display (ddisp);
 
   /*  set the focus to the canvas area  */
   gtk_widget_grab_focus (ddisp->canvas);
@@ -830,6 +898,16 @@ create_display_shell(DDisplay *ddisp,
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->mainpoint_status,
 		      FALSE, FALSE, 0);
 
+  ddisp->guide_snap_status = dia_toggle_button_new_with_icon_names ("dia-guides-snap-on",
+                                                                    "dia-guides-snap-off");
+
+  g_signal_connect(G_OBJECT(ddisp->guide_snap_status), "toggled",
+           G_CALLBACK (interface_toggle_snap_to_guides), ddisp);
+  gtk_widget_set_tooltip_text(ddisp->guide_snap_status,
+               _("Toggles snap-to-guides for this window."));
+  gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->guide_snap_status,
+              FALSE, FALSE, 0);
+
 
   /* Statusbar */
   ddisp->modified_status = gtk_statusbar_new ();
@@ -846,6 +924,7 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_show (zoom_label);
   gtk_widget_show (ddisp->grid_status);
   gtk_widget_show (ddisp->mainpoint_status);
+  gtk_widget_show (ddisp->guide_snap_status);
   gtk_widget_show (ddisp->modified_status);
   gtk_widget_show (status_hbox);
   gtk_widget_show (table);
@@ -1235,4 +1314,103 @@ integrated_ui_statusbar_show (gboolean show)
     if (action)
       gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), show);
   }
+}
+
+
+static gboolean
+_ddisplay_hruler_button_press (GtkWidget *widget,
+                               GdkEventButton *event,
+                               DDisplay *ddisp)
+{
+  return _ddisplay_ruler_button_press (widget, event, ddisp,
+                                       GTK_ORIENTATION_HORIZONTAL);
+}
+
+
+static gboolean
+_ddisplay_vruler_button_press (GtkWidget *widget,
+                               GdkEventButton *event,
+                               DDisplay *ddisp)
+{
+  return _ddisplay_ruler_button_press (widget, event, ddisp,
+                                       GTK_ORIENTATION_VERTICAL);
+}
+
+
+static gboolean
+_ddisplay_ruler_button_press (GtkWidget *widget,
+                              GdkEventButton *event,
+                              DDisplay *ddisp,
+                              GtkOrientation orientation)
+{
+  /* Start adding a new guide if the left button was pressed. */
+  if (event->type == GDK_BUTTON_PRESS && event->button == 1) {
+      _guide_tool_start_new (ddisp, orientation);
+  }
+
+  return FALSE;
+}
+
+
+static gboolean
+_ddisplay_ruler_button_release (GtkWidget *widget,
+                                 GdkEventButton *event,
+                                 DDisplay *ddisp)
+{
+  /* Hack to get this triggered. */
+  if(active_tool->type == GUIDE_TOOL)
+  {
+    if (active_tool->button_release_func)
+    {
+      (*active_tool->button_release_func) (active_tool, event, ddisp);
+    }
+  }
+
+  return FALSE;
+}
+
+
+static gboolean
+_ddisplay_hruler_motion_notify (GtkWidget *widget,
+    GdkEventMotion *event,
+    DDisplay *ddisp)
+{
+  /* Hack to get this triggered. */
+  if(active_tool->type == GUIDE_TOOL) {
+    if (active_tool->motion_func) {
+
+      /* Minus ruler height. */
+      GtkRequisition ruler_requisition;
+      gtk_widget_size_request (widget, &ruler_requisition);
+      guide_tool_set_ruler_height(active_tool, ruler_requisition.height);
+
+      /* Do the move. */
+      (*active_tool->motion_func) (active_tool, event, ddisp);
+    }
+  }
+
+  return FALSE;
+}
+
+
+static gboolean
+_ddisplay_vruler_motion_notify (GtkWidget *widget,
+    GdkEventMotion *event,
+    DDisplay *ddisp)
+{
+  /* Hack to get this triggered. */
+  if(active_tool->type == GUIDE_TOOL) {
+    if (active_tool->motion_func) {
+
+      /* Minus ruler width. */
+      GtkRequisition ruler_requisition;
+      gtk_widget_size_request (widget, &ruler_requisition);
+      guide_tool_set_ruler_height(active_tool, ruler_requisition.width);
+
+      /* Do the move. */
+      (*active_tool->motion_func) (active_tool, event, ddisp);
+    }
+  }
+
+  return FALSE;
 }

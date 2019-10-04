@@ -320,7 +320,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="border_width">6</property>
-        <property name="n_rows">3</property>
+        <property name="n_rows">4</property>
         <property name="n_columns">2</property>
         <property name="column_spacing">6</property>
         <property name="row_spacing">6</property>
@@ -362,6 +362,19 @@
           </packing>
         </child>
         <child>
+          <object class="GtkLabel" id="label12">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="xalign">0</property>
+            <property name="label" translatable="yes">Guides</property>
+          </object>
+          <packing>
+            <property name="top_attach">3</property>
+            <property name="bottom_attach">4</property>
+            <property name="y_options"/>
+          </packing>
+        </child>
+        <child>
           <object class="DiaColorSelector" id="background">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -398,6 +411,20 @@
             <property name="right_attach">2</property>
             <property name="top_attach">2</property>
             <property name="bottom_attach">3</property>
+            <property name="y_options"/>
+          </packing>
+        </child>
+        <child>
+          <object class="DiaColorSelector" id="guide_lines">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="right_attach">2</property>
+            <property name="top_attach">3</property>
+            <property name="bottom_attach">4</property>
             <property name="y_options"/>
           </packing>
         </child>

@@ -26,6 +26,7 @@ typedef struct _Diagram Diagram;
 #include "diagramdata.h"
 #include "undo.h"
 #include "diagrid.h"
+#include "guide.h"
 
 G_BEGIN_DECLS
 
@@ -51,12 +52,8 @@ struct _Diagram {
   Color pagebreak_color; /*!< just to show page breaks */
   DiaGrid     grid;      /*!< the display grid */
 
-  /*! almost completely unused guides (load and save code is there) */
-  struct {
-    /* sorted arrays of the guides for the diagram */
-    real *hguides, *vguides;
-    guint nhguides, nvguides;
-  } guides;
+  GList *guides;         /*!< list of guides */
+  Color guide_color;     /*!< color for guides */
 
   DiagramData *data;     /*! just for compatibility, now that the Diagram _is_ and not _has_ DiagramData */
 
@@ -140,6 +137,43 @@ Diagram *dia_diagram_new      (GFile   *file);
 void     dia_diagram_set_file (Diagram *self,
                                GFile   *file);
 GFile   *dia_diagram_get_file (Diagram *self);
+
+/** Add a guide to the diagram at the given position and orientation.
+ *  Update the undo stack if "push_undo" is true. */
+Guide *diagram_add_guide (Diagram *dia, real position, GtkOrientation orientation, gboolean push_undo);
+
+/** Pick a guide within (epsilon_x, epsilon_y) distance of (x, y).
+ *  Return NULL if no such guide exists. */
+Guide *diagram_pick_guide (Diagram *dia,
+                           gdouble x,
+                           gdouble y,
+                           gdouble epsilon_x,
+                           gdouble epsilon_y);
+
+
+/** Pick a *horizontal* guide within (epsilon_x, epsilon_y) distance of (x, y).
+ *  Return NULL if no such guide exists. */
+Guide *diagram_pick_guide_h (Diagram *dia,
+                             gdouble x,
+                             gdouble y,
+                             gdouble epsilon_x,
+                             gdouble epsilon_y);
+
+/** Pick a *vertical* guide within (epsilon_x, epsilon_y) distance of (x, y).
+ *  Return NULL if no such guide exists. */
+Guide *diagram_pick_guide_v (Diagram *dia,
+                             gdouble x,
+                             gdouble y,
+                             gdouble epsilon_x,
+                             gdouble epsilon_y);
+
+/** Remove the given guide from the diagram.
+ *  Update the undo stack if "push_undo" is true. */
+void diagram_remove_guide (Diagram *dia, Guide *guide, gboolean push_undo);
+
+/** Remove all guides from the diagram. Updates undo stack. */
+void diagram_remove_all_guides (Diagram *dia);
+
 
 G_END_DECLS
 

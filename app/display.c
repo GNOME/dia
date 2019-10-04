@@ -228,6 +228,17 @@ new_display(Diagram *dia)
   if (preset != 0)
     ddisp->grid.snap = (preset > 0 ? TRUE : FALSE);
 
+  ddisp->guides_visible = prefs.guides_visible;
+  preset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(dia), "show-guides"));
+  if (preset != 0) {
+    ddisp->guides_visible = (preset > 0 ? TRUE : FALSE);
+  }
+  ddisp->guides_snap = prefs.guides_snap;
+  preset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(dia), "snap-to-guides"));
+  if (preset != 0) {
+    ddisp->guides_snap = (preset > 0 ? TRUE : FALSE);
+  }
+
   ddisp->show_cx_pts = prefs.show_cx_pts;
   preset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(dia), "show-connection-points"));
   if (preset != 0)
@@ -266,6 +277,10 @@ new_display(Diagram *dia)
   visible.bottom = visible.top + prefs.new_view.height/ddisp->zoom_factor;
 
   ddisp->visible = visible;
+
+  ddisp->is_dragging_new_guideline = FALSE;
+  ddisp->dragged_new_guideline_position = 0;
+  ddisp->dragged_new_guideline_orientation = GTK_ORIENTATION_HORIZONTAL;
 
   initialize_display_widgets(ddisp);
   return ddisp;  /*  set the user data  */
@@ -507,6 +522,7 @@ ddisplay_render_pixmap (DDisplay     *ddisp,
   /* Draw grid */
   grid_draw (ddisp, update);
   pagebreak_draw (ddisp, update);
+  guidelines_draw (ddisp, update);
 
 #ifdef TRACES
   timer = g_timer_new();
@@ -1153,15 +1169,19 @@ display_update_menu_state(DDisplay *ddisp)
   GtkToggleAction *rulers;
   GtkToggleAction *visible_grid;
   GtkToggleAction *snap_to_grid;
+  GtkToggleAction *visible_guides;
+  GtkToggleAction *snap_to_guides;
   GtkToggleAction *show_cx_pts;
   GtkToggleAction *antialiased;
   gboolean scrollbars_shown;
 
-  rulers       = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowrulers"));
-  visible_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowgrid"));
-  snap_to_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
-  show_cx_pts  = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowconnectionpoints"));
-  antialiased  = GTK_TOGGLE_ACTION (menus_get_action ("ViewAntialiased"));
+  rulers         = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowrulers"));
+  visible_grid   = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowgrid"));
+  snap_to_grid   = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
+  visible_guides = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowguides"));
+  snap_to_guides = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptoguides"));
+  show_cx_pts    = GTK_TOGGLE_ACTION (menus_get_action ("ViewShowconnectionpoints"));
+  antialiased    = GTK_TOGGLE_ACTION (menus_get_action ("ViewAntialiased"));
 
   gtk_action_set_sensitive (menus_get_action ("ViewAntialiased"),
                             g_type_from_name ("DiaCairoInteractiveRenderer") != 0);
@@ -1178,6 +1198,10 @@ display_update_menu_state(DDisplay *ddisp)
                                 ddisp->grid.visible);
   gtk_toggle_action_set_active (snap_to_grid,
                                 ddisp->grid.snap);
+  gtk_toggle_action_set_active (visible_guides,
+                                ddisp->guides_visible);
+  gtk_toggle_action_set_active (snap_to_guides,
+                                ddisp->guides_snap);
   gtk_toggle_action_set_active (show_cx_pts,
                                 ddisp->show_cx_pts);
 
@@ -1426,6 +1450,9 @@ display_set_active(DDisplay *ddisp)
         /* Object snapping */
         ddisplay_set_snap_to_objects (ddisp, ddisp->mainpoint_magnetism);
 
+        /* Snap to guides */
+        ddisplay_set_snap_to_guides (ddisp, ddisp->guides_snap);
+
         display_update_menu_state (ddisp);
 
         gtk_window_present (GTK_WINDOW(ddisp->shell));
@@ -1539,4 +1566,23 @@ ddisplay_show_all (DDisplay *ddisp)
   ddisplay_update_scrollbars(ddisp);
   ddisplay_add_update_all(ddisp);
   ddisplay_flush(ddisp);
+}
+
+
+/** Set the display's snap-to-guides setting, updating menu and button
+ * in the process */
+void
+ddisplay_set_snap_to_guides (DDisplay *ddisp, gboolean snap)
+{
+  GtkToggleAction *snap_to_guides;
+  ddisp->guides_snap = snap;
+
+  snap_to_guides = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptoguides"));
+
+  if (is_integrated_ui ())
+    integrated_ui_toolbar_guides_snap_synchronize_to_display (ddisp);
+
+  /* Currently, this can cause double emit, but that's a small problem. */
+  gtk_toggle_action_set_active (snap_to_guides, ddisp->guides_snap);
+  ddisplay_update_statusbar (ddisp);
 }

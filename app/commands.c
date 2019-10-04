@@ -90,6 +90,8 @@ ShellExecuteA (long        hwnd,
 #include "dia-props.h"
 #include "authors.h"                /* master contributors data */
 #include "object.h"
+#include "new_guide_dialog.h"
+
 
 void
 file_quit_callback (GtkAction *action)
@@ -1425,6 +1427,72 @@ view_layers_callback (GtkAction *action)
 {
   integrated_ui_layer_view_show (gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action)));
 }
+
+
+void
+view_new_guide_callback (GtkAction *action)
+{
+  DDisplay *ddisp;
+
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
+
+  dialog_new_guide_show ();
+}
+
+
+void
+view_visible_guides_callback (GtkToggleAction *action)
+{
+  DDisplay *ddisp;
+  gboolean old_val;
+
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
+
+  old_val = ddisp->guides_visible;
+  ddisp->guides_visible = gtk_toggle_action_get_active (action);
+
+  if (old_val != ddisp->guides_visible) {
+    ddisplay_add_update_all (ddisp);
+    ddisplay_flush (ddisp);
+  }
+}
+
+
+void
+view_snap_to_guides_callback (GtkToggleAction *action)
+{
+  DDisplay *ddisp;
+
+  ddisp = ddisplay_active ();
+  if (!ddisp) {
+    return;
+  }
+
+  ddisplay_set_snap_to_guides (ddisp, gtk_toggle_action_get_active (action));
+}
+
+
+void
+view_remove_all_guides_callback (GtkAction *action)
+{
+  Diagram *dia;
+
+  dia = ddisplay_active_diagram ();
+  if (!dia) {
+    return;
+  }
+
+  diagram_remove_all_guides (dia);
+  diagram_add_update_all (dia);
+  diagram_flush (dia);
+}
+
 
 void
 layers_add_layer_callback (GtkAction *action)

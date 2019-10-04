@@ -1642,3 +1642,229 @@ dia_mem_swap_change_new (Diagram *dia, gpointer dest, gsize size)
 
   return DIA_CHANGE (change);
 }
+
+
+
+struct _DiaMoveGuideChange {
+  DiaChange parent;
+
+  real orig_pos;
+  real dest_pos;
+  Guide *guide;
+};
+
+DIA_DEFINE_CHANGE (DiaMoveGuideChange, dia_move_guide_change)
+
+
+static void
+dia_move_guide_change_apply (DiaChange *self, Diagram *dia)
+{
+  DiaMoveGuideChange *change = DIA_MOVE_GUIDE_CHANGE (self);
+
+  change->guide->position = change->dest_pos;
+
+  /* Force redraw. */
+  diagram_add_update_all (dia);
+  diagram_modified (dia);
+  diagram_flush (dia);
+}
+
+
+static void
+dia_move_guide_change_revert (DiaChange *self, Diagram *dia)
+{
+  DiaMoveGuideChange *change = DIA_MOVE_GUIDE_CHANGE (self);
+
+  change->guide->position = change->orig_pos;
+
+  /* Force redraw. */
+  diagram_add_update_all (dia);
+  diagram_modified (dia);
+  diagram_flush (dia);
+}
+
+
+static void
+dia_move_guide_change_free (DiaChange *change)
+{
+  /* Nothing to free. */
+}
+
+
+DiaChange *
+dia_move_guide_change_new (Diagram *dia, Guide *guide, real orig_pos, real dest_pos)
+{
+  DiaMoveGuideChange *change = dia_change_new (DIA_TYPE_MOVE_GUIDE_CHANGE);
+
+  change->orig_pos = orig_pos;
+  change->dest_pos = dest_pos;
+  change->guide = guide;
+
+  undo_push_change (dia->undo, DIA_CHANGE (change));
+
+  return DIA_CHANGE (change);
+}
+
+
+
+struct _DiaAddGuideChange {
+  DiaChange parent;
+
+  Guide *guide;
+  int applied;
+};
+
+DIA_DEFINE_CHANGE (DiaAddGuideChange, dia_add_guide_change)
+
+
+static void
+dia_add_guide_change_apply (DiaChange *self, Diagram *dia)
+{
+  DiaAddGuideChange *change = DIA_ADD_GUIDE_CHANGE (self);
+  Guide *new_guide;
+
+  g_debug ("add_guide_apply()");
+
+  new_guide = diagram_add_guide (dia, change->guide->position, change->guide->orientation, FALSE);
+  g_free (change->guide);
+  change->guide = new_guide;
+
+  /* Force redraw. */
+  diagram_add_update_all (dia);
+  diagram_modified (dia);
+  diagram_flush (dia);
+
+  /* Set flag. */
+  change->applied = 1;
+}
+
+
+static void
+dia_add_guide_change_revert (DiaChange *self, Diagram *dia)
+{
+  DiaAddGuideChange *change = DIA_ADD_GUIDE_CHANGE (self);
+
+  g_debug ("add_guide_revert()");
+
+  diagram_remove_guide (dia, change->guide, FALSE);
+
+  /* Force redraw. */
+  diagram_add_update_all (dia);
+  diagram_modified (dia);
+  diagram_flush (dia);
+
+  /* Set flag. */
+  change->applied = 0;
+}
+
+
+static void
+dia_add_guide_change_free (DiaChange *self)
+{
+  DiaAddGuideChange *change = DIA_ADD_GUIDE_CHANGE (self);
+
+  g_debug ("add_guide_free()");
+
+  if (!change->applied) {
+    g_free (change->guide);
+  }
+}
+
+
+DiaChange *
+dia_add_guide_change_new (Diagram *dia, Guide *guide, int applied)
+{
+  DiaAddGuideChange *change = dia_change_new (DIA_TYPE_ADD_GUIDE_CHANGE);
+
+  change->guide = guide;
+  change->applied = applied;
+
+  undo_push_change (dia->undo, DIA_CHANGE (change));
+
+  return DIA_CHANGE (change);
+}
+
+
+
+struct _DiaDeleteGuideChange {
+  DiaChange parent;
+
+  Guide *guide;
+  int applied;
+};
+
+DIA_DEFINE_CHANGE (DiaDeleteGuideChange, dia_delete_guide_change)
+
+
+static void
+dia_delete_guide_change_apply (DiaChange *self, Diagram *dia)
+{
+  DiaDeleteGuideChange *change = DIA_DELETE_GUIDE_CHANGE (self);
+
+  g_debug ("delete_guide_apply()");
+
+  diagram_remove_guide (dia, change->guide, FALSE);
+
+  /* Force redraw. */
+  diagram_add_update_all (dia);
+  diagram_modified (dia);
+  diagram_flush (dia);
+
+  /* Set flag. */
+  change->applied = 1;
+}
+
+
+static void
+dia_delete_guide_change_revert (DiaChange *self, Diagram *dia)
+{
+  DiaDeleteGuideChange *change = DIA_DELETE_GUIDE_CHANGE (self);
+
+  /* Declare variable. */
+  Guide *new_guide;
+
+  /* Log message. */
+  g_debug ("delete_guide_revert()");
+
+  /* Add it again. */
+  new_guide = diagram_add_guide(dia, change->guide->position, change->guide->orientation, FALSE);
+
+  /* Reassign. */
+  g_free(change->guide);
+  change->guide = new_guide;
+
+  /* Force redraw. */
+  diagram_add_update_all(dia);
+  diagram_modified(dia);
+  diagram_flush(dia);
+
+  /* Set flag. */
+  change->applied = 0;
+}
+
+
+static void
+dia_delete_guide_change_free (DiaChange *self)
+{
+  DiaDeleteGuideChange *change = DIA_DELETE_GUIDE_CHANGE (self);
+
+  g_debug ("delete_guide_free()");
+
+  if (change->applied) {
+    g_free (change->guide);
+  }
+}
+
+
+DiaChange *
+dia_delete_guide_change_new (Diagram *dia, Guide *guide, int applied)
+{
+  DiaDeleteGuideChange *change = dia_change_new (DIA_TYPE_DELETE_GUIDE_CHANGE);
+
+  change->guide = guide;
+  change->applied = applied;
+
+  undo_push_change (dia->undo, DIA_CHANGE (change));
+
+  return DIA_CHANGE (change);
+}

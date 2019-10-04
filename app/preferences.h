@@ -23,6 +23,7 @@
 
 #define DEFAULT_GRID_COLOR { 0.85, .90, .90, 1.0 }
 #define DEFAULT_PAGEBREAK_COLOR { 0.0, 0.0, 0.6, 1.0 }
+#define DEFAULT_GUIDE_COLOR { 0.0, 1.0, 0.0, 1.0 }
 
 struct DiaPreferences {
   struct {
@@ -79,6 +80,10 @@ struct DiaPreferences {
     char *emf;
     char *print;
   } favored_filter;
+
+  int guides_visible;   /** Whether guides are visible. */
+  int guides_snap;      /** Whether to snap to guides. */
+  guint snap_distance;  /** The snapping distance for guides. */
 };
 
 extern struct DiaPreferences prefs;

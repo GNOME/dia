@@ -42,6 +42,7 @@
 #include "prop_text.h"
 #include "object.h"
 
+#include "guide_tool.h"
 
 static DiaObject *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
@@ -79,6 +80,9 @@ struct _ModifyTool {
                              modify_motion was called */
   /* Undo info: */
   Point *orig_pos;
+
+  /* Guide info: */
+  Guide *guide;
 };
 
 
@@ -257,6 +261,11 @@ static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
   return FALSE;
 }
 
+
+#define  FUNSCALEX(s,x)   ((x) / (s)->zoom_factor)
+#define  FUNSCALEY(s,y)   ((y) / (s)->zoom_factor)
+
+
 static void
 modify_button_press(ModifyTool *tool, GdkEventButton *event,
 		     DDisplay *ddisp)
@@ -264,10 +273,14 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
   Point clickedpoint;
   DiaObject *clicked_obj;
   gboolean some_selected;
+  Guide *guide;
+  const gint pick_guide_snap_distance = 20;	/* Margin of error for selecting a guide. */
 
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,
 			      &clickedpoint.x, &clickedpoint.y);
+
+  tool->guide = NULL;
 
   /* don't got to single handle movement if there is more than one object selected */
   some_selected = g_list_length (ddisp->diagram->data->selected) > 1;
@@ -292,6 +305,21 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     tool->start_time = time_micro();
     ddisplay_set_all_cursor_name (NULL, "move");
   } else {
+    /* If there is a guide nearby, then drag it.
+     * Note: We can only drag guides if they are visible (like in GIMP). */
+    if (ddisp->guides_visible) {
+      guide = diagram_pick_guide (ddisp->diagram, clickedpoint.x, clickedpoint.y,
+      FUNSCALEX (ddisp, pick_guide_snap_distance ),
+      FUNSCALEY (ddisp, pick_guide_snap_distance ));
+
+      if (guide) {
+        tool->guide = guide;
+        guide_tool_start_edit (ddisp, guide);
+        return;
+      }
+    }
+
+    /* Box select. */
     tool->state = STATE_BOX_SELECT;
     tool->start_box = clickedpoint;
     tool->end_box = clickedpoint;

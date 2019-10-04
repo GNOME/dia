@@ -57,6 +57,7 @@
 #define DIA_INTEGRATED_TOOLBAR_ZOOM_COMBO  "dia-integrated-toolbar-zoom-combo_entry"
 #define DIA_INTEGRATED_TOOLBAR_SNAP_GRID   "dia-integrated-toolbar-snap-grid"
 #define DIA_INTEGRATED_TOOLBAR_OBJECT_SNAP "dia-integrated-toolbar-object-snap"
+#define DIA_INTEGRATED_TOOLBAR_GUIDES_SNAP "dia-integrated-toolbar-guides-snap"
 
 #define ZOOM_FIT        _("Fit")
 
@@ -172,6 +173,9 @@ static const GtkActionEntry display_entries[] =
     { "ViewCloneview", NULL, N_("C_lone View"), NULL, NULL, G_CALLBACK (view_clone_view_callback) },
     { "ViewRedraw", GTK_STOCK_REFRESH, NULL, NULL, NULL, G_CALLBACK (view_redraw_callback) },
 
+    { "ViewGuides", NULL, N_("Guides"), NULL, NULL, NULL },
+      { "ViewNewguide", NULL, N_("New Guide..."), NULL, NULL, G_CALLBACK (view_new_guide_callback) },
+
   { "Objects", NULL, N_("_Objects"), NULL, NULL },
     { "ObjectsSendtoback", GTK_STOCK_GOTO_BOTTOM, N_("Send to _Back"), FIRST_MODIFIER "<shift>B", N_("Move selection to the bottom"), G_CALLBACK (objects_place_under_callback) },
     { "ObjectsBringtofront", GTK_STOCK_GOTO_TOP, N_("Bring to _Front"), FIRST_MODIFIER "<shift>F", N_("Move selection to the top"), G_CALLBACK (objects_place_over_callback) },
@@ -255,6 +259,9 @@ static const GtkToggleActionEntry display_toggle_entries[] =
     { "ViewAntialiased", NULL, N_("_Antialiased"), NULL, NULL, G_CALLBACK (view_aa_callback) },
     { "ViewShowgrid", NULL, N_("Show _Grid"), NULL, NULL, G_CALLBACK (view_visible_grid_callback) },
     { "ViewSnaptogrid", NULL, N_("_Snap to Grid"), NULL, NULL, G_CALLBACK (view_snap_to_grid_callback) },
+    { "ViewShowguides", NULL, N_("Show Guides"), NULL, NULL, G_CALLBACK (view_visible_guides_callback) },
+    { "ViewSnaptoguides", NULL, N_("Snap to Guides"), NULL, NULL, G_CALLBACK (view_snap_to_guides_callback) },
+    { "ViewRemoveallguides", NULL, N_("Remove all Guides"), NULL, NULL, G_CALLBACK (view_remove_all_guides_callback) },
     { "ViewSnaptoobjects", NULL, N_("Snap to _Objects"), NULL, NULL, G_CALLBACK (view_snap_to_objects_callback) },
     { "ViewShowrulers", NULL, N_("Show _Rulers"), NULL, NULL, G_CALLBACK (view_toggle_rulers_callback)  },
     { "ViewShowscrollbars", NULL, N_("Show Scrollbars"), NULL, N_("Show or hide the toolbar"), G_CALLBACK (view_toggle_scrollbars_callback) },
@@ -355,6 +362,24 @@ integrated_ui_toolbar_object_snap_synchronize_to_display (gpointer param)
   }
 }
 
+
+/**
+ * Synchronized the snap-to-guide property button with the display.
+ * @param param Display to synchronize to.
+ */
+void
+integrated_ui_toolbar_guides_snap_synchronize_to_display (gpointer param)
+{
+  DDisplay *ddisp = param;
+  if (ddisp && ddisp->common_toolbar) {
+    GtkToggleButton *b = g_object_get_data (G_OBJECT (ddisp->common_toolbar),
+                                            DIA_INTEGRATED_TOOLBAR_GUIDES_SNAP);
+    gboolean active = ddisp->guides_snap? TRUE : FALSE;
+    gtk_toggle_button_set_active (b, active);
+  }
+}
+
+
 /**
  * Sets the Object-snap property for the active display.
  * @param b Object snap toggle button.
@@ -369,6 +394,22 @@ integrated_ui_toolbar_object_snap_toggle (GtkToggleButton *b,
     ddisplay_set_snap_to_objects (ddisp, gtk_toggle_button_get_active (b));
   }
 }
+
+
+/**
+ * Sets the Guide-snap property for the active display.
+ * @param b Guide snap toggle button.
+ * @param not_used
+ */
+static void
+integrated_ui_toolbar_guide_snap_toggle(GtkToggleButton *b, gpointer *not_used)
+{
+  DDisplay *ddisp = ddisplay_active ();
+  if (ddisp) {
+    ddisplay_set_snap_to_guides (ddisp, gtk_toggle_button_get_active (b));
+  }
+}
+
 
 /**
  * Synchronizes the Snap-to-grid property button with the display.
@@ -604,6 +645,19 @@ create_integrated_ui_toolbar (void)
   gtk_widget_set_tooltip_text (w, _("Toggles object snapping."));
   g_object_set_data (G_OBJECT (toolbar),
                      DIA_INTEGRATED_TOOLBAR_OBJECT_SNAP,
+                     w);
+  integrated_ui_toolbar_add_custom_item (toolbar, w);
+
+  /* Guide Snapping */
+  w = dia_toggle_button_new_with_icon_names ("dia-guides-snap-on",
+                                             "dia-guides-snap-off");
+  g_signal_connect (G_OBJECT (w),
+                    "toggled",
+                    G_CALLBACK (integrated_ui_toolbar_guide_snap_toggle),
+                    toolbar);
+  gtk_widget_set_tooltip_text (w, _("Toggles guide snapping."));
+  g_object_set_data (G_OBJECT (toolbar),
+                     DIA_INTEGRATED_TOOLBAR_GUIDES_SNAP,
                      w);
   integrated_ui_toolbar_add_custom_item (toolbar, w);
 

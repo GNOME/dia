@@ -22,6 +22,7 @@
 typedef struct _UndoStack UndoStack;
 
 #include "diagram.h"
+#include "guide.h"
 
 #include "dia-change.h"
 
@@ -173,6 +174,30 @@ DiaChange *dia_mem_swap_change_new                     (Diagram   *dia,
                                                         gpointer   dest,
                                                         gsize      size);
 
+
+#define DIA_TYPE_MOVE_GUIDE_CHANGE dia_move_guide_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaMoveGuideChange, dia_move_guide_change, DIA, MOVE_GUIDE_CHANGE, DiaChange)
+
+DiaChange *dia_move_guide_change_new                   (Diagram   *dia,
+                                                        Guide     *guide,
+                                                        real       orig_pos,
+                                                        real       dest_pos);
+
+
+#define DIA_TYPE_ADD_GUIDE_CHANGE dia_add_guide_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaAddGuideChange, dia_add_guide_change, DIA, ADD_GUIDE_CHANGE, DiaChange)
+
+DiaChange *dia_add_guide_change_new                    (Diagram   *dia,
+                                                        Guide     *guide,
+                                                        int        applied);
+
+
+#define DIA_TYPE_DELETE_GUIDE_CHANGE dia_delete_guide_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaDeleteGuideChange, dia_delete_guide_change, DIA, DELETE_GUIDE_CHANGE, DiaChange)
+
+DiaChange *dia_delete_guide_change_new                 (Diagram   *dia,
+                                                        Guide     *guide,
+                                                        int        applied);
 
 #endif /* UNDO_H */
 

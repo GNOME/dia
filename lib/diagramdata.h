@@ -40,7 +40,7 @@ struct _NewDiagramData {
   gfloat scaling;
   gboolean fitto;
   gint fitwidth, fitheight;
-  Color bg_color, pagebreak_color, grid_color;
+  Color bg_color, pagebreak_color, grid_color, guide_color;
   int compress_save;
   gchar *unit, *font_unit;
 };

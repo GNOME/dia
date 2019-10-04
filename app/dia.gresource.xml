@@ -23,6 +23,11 @@
     <file>icons/dia-layer-rename.png</file>
     <file>icons/dia-layer-move-above.png</file>
     <file>icons/dia-layer-move-below.png</file>
+    <!-- GTK3: Use SVG directly instead of PNG -->
+    <file>icons/dia-guides-snap-off.svg</file>
+    <file>icons/dia-guides-snap-on.svg</file>
+    <file>icons/dia-guides-snap-off.png</file>
+    <file>icons/dia-guides-snap-on.png</file>
     <file>dia-splash.png</file>
   </gresource>
 </gresources>
