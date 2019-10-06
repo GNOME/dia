@@ -1,7 +1,0 @@
-#!/bin/sh
-
-str=sheet-translation-report
-	
-./checktrans.py $* | tee $str
-
-exit 0
