@@ -22,10 +22,10 @@ dia_sources = [
     'layer-editor/layer_dialog.c',
     'layer-editor/layer_dialog.h',
 
-    'guide_tool.c',
-    'guide_tool.h',
-    'new_guide_dialog.c',
-    'new_guide_dialog.h',
+    'dia-guide-tool.c',
+    'dia-guide-tool.h',
+    'dia-guide-dialog.c',
+    'dia-guide-dialog.h',
 
     'commands.c',
     'app_procs.c',

@@ -19,23 +19,20 @@
 #pragma once
 
 #include <gtk/gtk.h>
+
 #include "diagram.h"
-#include "dia-props.h"
+#include "layer-editor/dia-layer-editor-dialog.h"
 
 G_BEGIN_DECLS
 
-#define DIA_TYPE_LAYER_EDITOR_DIALOG dia_layer_editor_dialog_get_type ()
+#define DIA_TYPE_GUIDE_DIALOG dia_guide_dialog_get_type ()
+G_DECLARE_DERIVABLE_TYPE (DiaGuideDialog, dia_guide_dialog, DIA, GUIDE_DIALOG, GtkDialog)
 
-
-G_DECLARE_DERIVABLE_TYPE (DiaLayerEditorDialog, dia_layer_editor_dialog, DIA, LAYER_EDITOR_DIALOG, GtkDialog)
-
-struct _DiaLayerEditorDialogClass {
+struct _DiaGuideDialogClass {
   GtkDialogClass parent;
 };
 
-GtkWidget *dia_layer_editor_dialog_new         (void);
-void       dia_layer_editor_dialog_set_diagram (DiaLayerEditorDialog *self,
-                                                Diagram              *dia);
-Diagram   *dia_layer_editor_dialog_get_diagram (DiaLayerEditorDialog *self);
+GtkWidget *dia_guide_dialog_new (GtkWindow *parent,
+                                 Diagram   *dia);
 
 G_END_DECLS

@@ -15,12 +15,44 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef NEW_GUIDE_DIALOG_H
-#define NEW_GUIDE_DIALOG_H
 
-#include "diatypes.h"
-#include "diagram.h"
+#include "dia-guide.h"
 
-void dialog_new_guide_show (void);
+G_DEFINE_BOXED_TYPE (DiaGuide, dia_guide, dia_guide_copy, dia_guide_free)
 
-#endif /* NEW_GUIDE_DIALOG_H */
+
+DiaGuide *
+dia_guide_copy (DiaGuide * self)
+{
+  DiaGuide *new;
+
+
+  g_return_val_if_fail (self != NULL, NULL);
+
+  new = g_new0 (DiaGuide, 1);
+
+  new->orientation = self->orientation;
+  new->position = self->position;
+
+  return new;
+}
+
+
+void
+dia_guide_free (DiaGuide * self)
+{
+  g_free (self);
+}
+
+
+DiaGuide *
+dia_guide_new (GtkOrientation orientation,
+               double         position)
+{
+  DiaGuide *self = g_new0 (DiaGuide, 1);
+
+  self->orientation = orientation;
+  self->position = position;
+
+  return self;
+}

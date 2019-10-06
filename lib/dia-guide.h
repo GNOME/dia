@@ -15,17 +15,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef GUIDE_H
-#define GUIDE_H
 
-#include "diatypes.h"
+#pragma once
+
 #include <gtk/gtk.h>
 
-typedef struct _Guide Guide;
+#define DIA_TYPE_GUIDE (dia_guide_get_type ())
 
-struct _Guide {
-  real position;
+typedef struct _DiaGuide DiaGuide;
+
+struct _DiaGuide {
+  double position;
   GtkOrientation orientation;
 };
 
-#endif /* GUIDE_H */
+DiaGuide *dia_guide_copy     (DiaGuide       *self);
+void      dia_guide_free     (DiaGuide       *self);
+DiaGuide *dia_guide_new      (GtkOrientation  orientation,
+                              double          position);
+GType     dia_guide_get_type (void);

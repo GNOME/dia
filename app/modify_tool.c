@@ -42,7 +42,7 @@
 #include "prop_text.h"
 #include "object.h"
 
-#include "guide_tool.h"
+#include "dia-guide-tool.h"
 
 static DiaObject *click_select_object(DDisplay *ddisp, Point *clickedpoint,
 				   GdkEventButton *event);
@@ -82,7 +82,7 @@ struct _ModifyTool {
   Point *orig_pos;
 
   /* Guide info: */
-  Guide *guide;
+  DiaGuide *guide;
 };
 
 
@@ -273,7 +273,7 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
   Point clickedpoint;
   DiaObject *clicked_obj;
   gboolean some_selected;
-  Guide *guide;
+  DiaGuide *guide;
   const gint pick_guide_snap_distance = 20;	/* Margin of error for selecting a guide. */
 
   ddisplay_untransform_coords(ddisp,
@@ -308,7 +308,7 @@ modify_button_press(ModifyTool *tool, GdkEventButton *event,
     /* If there is a guide nearby, then drag it.
      * Note: We can only drag guides if they are visible (like in GIMP). */
     if (ddisp->guides_visible) {
-      guide = diagram_pick_guide (ddisp->diagram, clickedpoint.x, clickedpoint.y,
+      guide = dia_diagram_pick_guide (ddisp->diagram, clickedpoint.x, clickedpoint.y,
       FUNSCALEX (ddisp, pick_guide_snap_distance ),
       FUNSCALEY (ddisp, pick_guide_snap_distance ));
 

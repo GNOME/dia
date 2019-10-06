@@ -50,7 +50,7 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include "guide_tool.h"
+#include "dia-guide-tool.h"
 
 #include <glib/gprintf.h>
 

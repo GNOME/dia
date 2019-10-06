@@ -83,6 +83,7 @@
     <xi:include href="xml/dia_xml_libxml.xml"/>
     <xi:include href="xml/orth_conn.xml"/>
     <xi:include href="xml/textattr.xml"/>
+    <xi:include href="xml/dia-guide.xml"/>
     <xi:include href="xml/dia_xml.xml"/>
     <xi:include href="xml/diaarrowchooser.xml"/>
     <xi:include href="xml/parent.xml"/>

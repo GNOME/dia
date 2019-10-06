@@ -15,10 +15,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef GUIDE_TOOL_H
-#define GUIDE_TOOL_H
 
-#include "guide.h"
+#pragma once
+
+#include "dia-guide.h"
 #include "tool.h"
 
 typedef struct _GuideTool GuideTool;
@@ -32,23 +32,21 @@ void _guide_tool_start_new (DDisplay *display,
 
 /** Start editing (i.e. moving) an existing guide. */
 void guide_tool_start_edit (DDisplay *display,
-                            Guide *guide);
+                            DiaGuide *guide);
 
 /** Start using the guide tool.
  *  If guide is not NULL, then start editing that guide.
  *  If guide is NULL, then start adding a new guide. */
 void _guide_tool_start (DDisplay *display,
                         GtkOrientation orientation,
-                        Guide *guide);
+                        DiaGuide *guide);
 
 /** Inform the tool of the ruler height. Required to calculate
  *  the position of the guide on the page. */
 void guide_tool_set_ruler_height(Tool *tool, int height);
 
 /** Set the guide to edit. */
-void guide_tool_set_guide(Tool *tool, Guide *guide);
+void guide_tool_set_guide(Tool *tool, DiaGuide *guide);
 
 /** Set the orientation of the tool. */
 void guide_tool_set_orientation(Tool *tool, GtkOrientation orientation);
-
-#endif /* GUIDE_TOOL_H */

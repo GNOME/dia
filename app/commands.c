@@ -90,7 +90,7 @@ ShellExecuteA (long        hwnd,
 #include "dia-props.h"
 #include "authors.h"                /* master contributors data */
 #include "object.h"
-#include "new_guide_dialog.h"
+#include "dia-guide-dialog.h"
 
 
 void
@@ -1433,13 +1433,15 @@ void
 view_new_guide_callback (GtkAction *action)
 {
   DDisplay *ddisp;
+  GtkWidget *dlg;
 
   ddisp = ddisplay_active ();
   if (!ddisp) {
     return;
   }
 
-  dialog_new_guide_show ();
+  dlg = dia_guide_dialog_new (GTK_WINDOW (ddisp->shell), ddisp->diagram);
+  gtk_widget_show (dlg);
 }
 
 
@@ -1488,7 +1490,7 @@ view_remove_all_guides_callback (GtkAction *action)
     return;
   }
 
-  diagram_remove_all_guides (dia);
+  dia_diagram_remove_all_guides (dia);
   diagram_add_update_all (dia);
   diagram_flush (dia);
 }

@@ -26,7 +26,7 @@
 #include "interface.h"
 #include "defaults.h"
 #include "object.h"
-#include "guide_tool.h"
+#include "dia-guide-tool.h"
 
 Tool *active_tool = NULL;
 Tool *transient_tool = NULL;

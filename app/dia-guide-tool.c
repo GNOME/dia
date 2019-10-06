@@ -20,7 +20,7 @@
 #include <gdk/gdk.h>
 
 #include "cursor.h"
-#include "guide_tool.h"
+#include "dia-guide-tool.h"
 #include "undo.h"
 #include "diainteractiverenderer.h"
 
@@ -34,7 +34,7 @@ static real guide_original_pos = 0;
 struct _GuideTool {
   Tool tool;
 
-  Guide *guide;
+  DiaGuide *guide;
   real position;
   GtkOrientation orientation;
   int ruler_height;
@@ -58,7 +58,7 @@ void _guide_tool_start_new (DDisplay *display,
 
 void _guide_tool_start (DDisplay *display,
                         GtkOrientation orientation,
-                        Guide *guide)
+                        DiaGuide *guide)
 {
   tool_select(GUIDE_TOOL, guide, GINT_TO_POINTER(orientation), NULL, 0);
   display->dragged_new_guideline_orientation = orientation;
@@ -99,7 +99,7 @@ guide_button_release(GuideTool *tool, GdkEventButton *event,
     /* Dragged out of bounds, so remove the guide. */
     if (tool->guide) {
       tool->guide->position = guide_original_pos; /* So that when we undo, it goes back to original position. */
-      diagram_remove_guide (ddisp->diagram, tool->guide, TRUE);
+      dia_diagram_remove_guide (ddisp->diagram, tool->guide, TRUE);
       tool->guide = NULL;
     }
   }
@@ -107,7 +107,7 @@ guide_button_release(GuideTool *tool, GdkEventButton *event,
   {
     if (!tool->guide) {
       /* Add a new guide. */
-      diagram_add_guide (ddisp->diagram, tool->position, tool->orientation, TRUE);
+      dia_diagram_add_guide (ddisp->diagram, tool->position, tool->orientation, TRUE);
     }
     else
     {
@@ -197,7 +197,7 @@ void guide_tool_set_ruler_height(Tool *tool, int height)
 }
 
 void guide_tool_start_edit (DDisplay *display,
-                            Guide *guide)
+                            DiaGuide *guide)
 {
   _guide_tool_start (display, guide->orientation, guide);
 
@@ -208,7 +208,7 @@ void guide_tool_start_edit (DDisplay *display,
   }
 }
 
-void guide_tool_set_guide(Tool *tool, Guide *guide)
+void guide_tool_set_guide(Tool *tool, DiaGuide *guide)
 {
   GuideTool *gtool = (GuideTool *)tool;
   gtool->guide = guide;

@@ -590,7 +590,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
           orientation = data_int (attribute_first_data (attr), ctx);
         }
 
-        diagram_add_guide (diagram, position, orientation, FALSE);
+        dia_diagram_add_guide (diagram, position, orientation, FALSE);
 
         guides_data = data_next (guides_data);
       }
@@ -976,7 +976,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
     attr = new_attribute ((ObjectNode) tree, "guides");
     list = diagram->guides;
     while (list) {
-      Guide *guide = list->data;
+      DiaGuide *guide = list->data;
 
       guideinfo = data_add_composite (attr, "guide", ctx);
 

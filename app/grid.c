@@ -406,7 +406,7 @@ guidelines_draw (DDisplay *ddisp, DiaRectangle *update)
     while (list) {
       int x;
       int y;
-      Guide *guide = list->data;
+      DiaGuide *guide = list->data;
 
       switch (guide->orientation) {
         case GTK_ORIENTATION_HORIZONTAL:
@@ -468,17 +468,17 @@ snap_to_grid (DDisplay *ddisp, coord *x, coord *y)
   /* First snap to guides - only if they are visible and the setting is
    * turned on. */
   if (ddisp->guides_snap && ddisp->guides_visible) {
-    Guide *guide_h;
-    Guide *guide_v;
+    DiaGuide *guide_h;
+    DiaGuide *guide_v;
     const gint snap_distance = prefs.snap_distance;
 
-    guide_h = diagram_pick_guide_h (ddisp->diagram, *x, *y,
-                                    FUNSCALEX (ddisp, snap_distance),
-                                    FUNSCALEY (ddisp, snap_distance));
+    guide_h = dia_diagram_pick_guide_h (ddisp->diagram, *x, *y,
+                                        FUNSCALEX (ddisp, snap_distance),
+                                        FUNSCALEY (ddisp, snap_distance));
 
-    guide_v = diagram_pick_guide_v (ddisp->diagram, *x, *y,
-                                    FUNSCALEX (ddisp, snap_distance),
-                                    FUNSCALEY (ddisp, snap_distance));
+    guide_v = dia_diagram_pick_guide_v (ddisp->diagram, *x, *y,
+                                        FUNSCALEX (ddisp, snap_distance),
+                                        FUNSCALEY (ddisp, snap_distance));
 
     if (guide_h) {
       *y = guide_h->position;

@@ -1650,7 +1650,7 @@ struct _DiaMoveGuideChange {
 
   real orig_pos;
   real dest_pos;
-  Guide *guide;
+  DiaGuide *guide;
 };
 
 DIA_DEFINE_CHANGE (DiaMoveGuideChange, dia_move_guide_change)
@@ -1692,7 +1692,7 @@ dia_move_guide_change_free (DiaChange *change)
 
 
 DiaChange *
-dia_move_guide_change_new (Diagram *dia, Guide *guide, real orig_pos, real dest_pos)
+dia_move_guide_change_new (Diagram *dia, DiaGuide *guide, real orig_pos, real dest_pos)
 {
   DiaMoveGuideChange *change = dia_change_new (DIA_TYPE_MOVE_GUIDE_CHANGE);
 
@@ -1710,7 +1710,7 @@ dia_move_guide_change_new (Diagram *dia, Guide *guide, real orig_pos, real dest_
 struct _DiaAddGuideChange {
   DiaChange parent;
 
-  Guide *guide;
+  DiaGuide *guide;
   int applied;
 };
 
@@ -1721,11 +1721,11 @@ static void
 dia_add_guide_change_apply (DiaChange *self, Diagram *dia)
 {
   DiaAddGuideChange *change = DIA_ADD_GUIDE_CHANGE (self);
-  Guide *new_guide;
+  DiaGuide *new_guide;
 
   g_debug ("add_guide_apply()");
 
-  new_guide = diagram_add_guide (dia, change->guide->position, change->guide->orientation, FALSE);
+  new_guide = dia_diagram_add_guide (dia, change->guide->position, change->guide->orientation, FALSE);
   g_free (change->guide);
   change->guide = new_guide;
 
@@ -1746,7 +1746,7 @@ dia_add_guide_change_revert (DiaChange *self, Diagram *dia)
 
   g_debug ("add_guide_revert()");
 
-  diagram_remove_guide (dia, change->guide, FALSE);
+  dia_diagram_remove_guide (dia, change->guide, FALSE);
 
   /* Force redraw. */
   diagram_add_update_all (dia);
@@ -1772,7 +1772,7 @@ dia_add_guide_change_free (DiaChange *self)
 
 
 DiaChange *
-dia_add_guide_change_new (Diagram *dia, Guide *guide, int applied)
+dia_add_guide_change_new (Diagram *dia, DiaGuide *guide, int applied)
 {
   DiaAddGuideChange *change = dia_change_new (DIA_TYPE_ADD_GUIDE_CHANGE);
 
@@ -1789,7 +1789,7 @@ dia_add_guide_change_new (Diagram *dia, Guide *guide, int applied)
 struct _DiaDeleteGuideChange {
   DiaChange parent;
 
-  Guide *guide;
+  DiaGuide *guide;
   int applied;
 };
 
@@ -1803,7 +1803,7 @@ dia_delete_guide_change_apply (DiaChange *self, Diagram *dia)
 
   g_debug ("delete_guide_apply()");
 
-  diagram_remove_guide (dia, change->guide, FALSE);
+  dia_diagram_remove_guide (dia, change->guide, FALSE);
 
   /* Force redraw. */
   diagram_add_update_all (dia);
@@ -1821,22 +1821,25 @@ dia_delete_guide_change_revert (DiaChange *self, Diagram *dia)
   DiaDeleteGuideChange *change = DIA_DELETE_GUIDE_CHANGE (self);
 
   /* Declare variable. */
-  Guide *new_guide;
+  DiaGuide *new_guide;
 
   /* Log message. */
   g_debug ("delete_guide_revert()");
 
   /* Add it again. */
-  new_guide = diagram_add_guide(dia, change->guide->position, change->guide->orientation, FALSE);
+  new_guide = dia_diagram_add_guide (dia,
+                                     change->guide->position,
+                                     change->guide->orientation,
+                                     FALSE);
 
   /* Reassign. */
-  g_free(change->guide);
+  g_free (change->guide);
   change->guide = new_guide;
 
   /* Force redraw. */
-  diagram_add_update_all(dia);
-  diagram_modified(dia);
-  diagram_flush(dia);
+  diagram_add_update_all (dia);
+  diagram_modified (dia);
+  diagram_flush (dia);
 
   /* Set flag. */
   change->applied = 0;
@@ -1857,7 +1860,7 @@ dia_delete_guide_change_free (DiaChange *self)
 
 
 DiaChange *
-dia_delete_guide_change_new (Diagram *dia, Guide *guide, int applied)
+dia_delete_guide_change_new (Diagram *dia, DiaGuide *guide, int applied)
 {
   DiaDeleteGuideChange *change = dia_change_new (DIA_TYPE_DELETE_GUIDE_CHANGE);
 

@@ -26,7 +26,7 @@ typedef struct _Diagram Diagram;
 #include "diagramdata.h"
 #include "undo.h"
 #include "diagrid.h"
-#include "guide.h"
+#include "dia-guide.h"
 
 G_BEGIN_DECLS
 
@@ -133,46 +133,33 @@ void diagram_redraw_all(void);
 
 void diagram_object_modified(Diagram *dia, DiaObject *object);
 
-Diagram *dia_diagram_new      (GFile   *file);
-void     dia_diagram_set_file (Diagram *self,
-                               GFile   *file);
-GFile   *dia_diagram_get_file (Diagram *self);
-
-/** Add a guide to the diagram at the given position and orientation.
- *  Update the undo stack if "push_undo" is true. */
-Guide *diagram_add_guide (Diagram *dia, real position, GtkOrientation orientation, gboolean push_undo);
-
-/** Pick a guide within (epsilon_x, epsilon_y) distance of (x, y).
- *  Return NULL if no such guide exists. */
-Guide *diagram_pick_guide (Diagram *dia,
-                           gdouble x,
-                           gdouble y,
-                           gdouble epsilon_x,
-                           gdouble epsilon_y);
-
-
-/** Pick a *horizontal* guide within (epsilon_x, epsilon_y) distance of (x, y).
- *  Return NULL if no such guide exists. */
-Guide *diagram_pick_guide_h (Diagram *dia,
-                             gdouble x,
-                             gdouble y,
-                             gdouble epsilon_x,
-                             gdouble epsilon_y);
-
-/** Pick a *vertical* guide within (epsilon_x, epsilon_y) distance of (x, y).
- *  Return NULL if no such guide exists. */
-Guide *diagram_pick_guide_v (Diagram *dia,
-                             gdouble x,
-                             gdouble y,
-                             gdouble epsilon_x,
-                             gdouble epsilon_y);
-
-/** Remove the given guide from the diagram.
- *  Update the undo stack if "push_undo" is true. */
-void diagram_remove_guide (Diagram *dia, Guide *guide, gboolean push_undo);
-
-/** Remove all guides from the diagram. Updates undo stack. */
-void diagram_remove_all_guides (Diagram *dia);
+Diagram  *dia_diagram_new               (GFile          *file);
+void      dia_diagram_set_file          (Diagram        *self,
+                                         GFile          *file);
+GFile    *dia_diagram_get_file          (Diagram        *self);
+DiaGuide *dia_diagram_add_guide         (Diagram        *dia,
+                                         real            position,
+                                         GtkOrientation  orientation,
+                                         gboolean        push_undo);
+DiaGuide *dia_diagram_pick_guide        (Diagram        *dia,
+                                         gdouble         x,
+                                         gdouble         y,
+                                         gdouble         epsilon_x,
+                                         gdouble         epsilon_y);
+DiaGuide *dia_diagram_pick_guide_h      (Diagram        *dia,
+                                         gdouble         x,
+                                         gdouble         y,
+                                         gdouble         epsilon_x,
+                                         gdouble         epsilon_y);
+DiaGuide *dia_diagram_pick_guide_v      (Diagram        *dia,
+                                         gdouble         x,
+                                         gdouble         y,
+                                         gdouble         epsilon_x,
+                                         gdouble         epsilon_y);
+void      dia_diagram_remove_guide      (Diagram        *dia,
+                                         DiaGuide       *guide,
+                                         gboolean        push_undo);
+void      dia_diagram_remove_all_guides (Diagram        *dia);
 
 
 G_END_DECLS
