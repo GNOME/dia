@@ -51,8 +51,6 @@
 #define DIA_STOCK_OBJECTS_LAYER_BELOW "dia-stock-objects-layer-below"
 #define DIA_STOCK_LAYERS "dia-stock-layers"
 
-#define DIA_SHOW_TEAROFFS TRUE
-
 /* Integrated UI Toolbar Constants */
 #define DIA_INTEGRATED_TOOLBAR_ZOOM_COMBO  "dia-integrated-toolbar-zoom-combo_entry"
 #define DIA_INTEGRATED_TOOLBAR_SNAP_GRID   "dia-integrated-toolbar-snap-grid"
@@ -966,7 +964,6 @@ _setup_global_actions (void)
 		    G_CALLBACK (_action_done),
 		    NULL);
 
-  gtk_ui_manager_set_add_tearoffs (_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (_ui_manager, toolbox_actions, 0);
 
   tool_actions = create_or_ref_tool_actions ();
@@ -1000,7 +997,6 @@ menus_init(void)
                     "connect_proxy",
 		    G_CALLBACK (_ui_manager_connect_proxy),
 		    NULL);
-  gtk_ui_manager_set_add_tearoffs (display_ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (display_ui_manager, display_actions, 0);
   gtk_ui_manager_insert_action_group (display_ui_manager, tool_actions, 0);
   if (!gtk_ui_manager_add_ui_from_string (display_ui_manager, ui_info, -1, &error)) {
@@ -1127,7 +1123,6 @@ menus_create_display_menubar (GtkUIManager   **ui_manager,
   tool_actions = create_or_ref_tool_actions ();
 
   *ui_manager = gtk_ui_manager_new ();
-  gtk_ui_manager_set_add_tearoffs (*ui_manager, DIA_SHOW_TEAROFFS);
   gtk_ui_manager_insert_action_group (*ui_manager, *actions, 0);
   gtk_ui_manager_insert_action_group (*ui_manager, tool_actions, 0);
   g_object_unref (G_OBJECT (tool_actions));
