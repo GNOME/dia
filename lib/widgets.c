@@ -775,8 +775,8 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
 GdkPixbuf *
 pixbuf_from_resource (const gchar *path)
 {
-  GdkPixbufLoader *loader;
-  GdkPixbuf *pixbuf;
+  GdkPixbufLoader *loader = NULL;
+  GdkPixbuf *pixbuf = NULL;
   GBytes *bytes;
 
   g_return_val_if_fail (path != NULL, NULL);

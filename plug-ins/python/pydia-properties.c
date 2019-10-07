@@ -173,14 +173,16 @@ PyDiaProperties_Length (PyDiaProperties* self)
   if (self->nprops < 0) {
     const PropDescription *desc = NULL;
 
-    if (self->object->ops->describe_props)
-      desc = self->object->ops->describe_props(self->object);
+    if (self->object->ops->describe_props) {
+      desc = dia_object_describe_properties (self->object);
+    }
 
     self->nprops = 0;
     if (desc) {
       int i;
-      for (i = 0; desc[i].name; i++)
+      for (i = 0; desc[i].name; i++) {
         self->nprops++;
+      }
     }
   }
 
@@ -250,7 +252,7 @@ PyDiaProperties_AssSub (PyDiaProperties* self, PyObject *key, PyObject *val)
 }
 
 static PyMappingMethods PyDiaProperties_AsMapping = {
-	(inquiry)PyDiaProperties_Length, /*mp_length*/
+	(lenfunc)PyDiaProperties_Length, /*mp_length*/
 	(binaryfunc)PyDiaProperties_Subscript, /*mp_subscript*/
 	(objobjargproc)PyDiaProperties_AssSub, /*mp_ass_subscript*/
 };

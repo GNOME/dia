@@ -45,21 +45,21 @@ matrixprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 }
 
 static void
-matrixprop_free(MatrixProperty *prop) 
+matrixprop_free(MatrixProperty *prop)
 {
   g_free (prop->matrix);
   g_free(prop);
-} 
+}
 
 static MatrixProperty *
-matrixprop_copy(MatrixProperty *src) 
+matrixprop_copy(MatrixProperty *src)
 {
-  MatrixProperty *prop = 
+  MatrixProperty *prop =
     (MatrixProperty *)src->common.ops->new_prop(src->common.descr,
                                               src->common.reason);
 
   prop->matrix = g_memdup (src->matrix, sizeof(DiaMatrix));
-					      
+
   return prop;
 }
 
@@ -81,7 +81,7 @@ data_matrix (DataNode data)
 {
   DiaMatrix *matrix;
 
-  matrix = g_new (DiaMatrix, 1);
+  matrix = g_new0 (DiaMatrix, 1);
   matrix->xx = _matrix_xml_get_value (data, "xx", 1.0);
   matrix->xy = _matrix_xml_get_value (data, "xy", 0.0);
   matrix->yx = _matrix_xml_get_value (data, "yx", 0.0);
@@ -101,7 +101,7 @@ data_matrix (DataNode data)
   return matrix;
 }
 
-static void 
+static void
 matrixprop_load(MatrixProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   prop->matrix = data_matrix (data);
@@ -119,7 +119,7 @@ void
 data_add_matrix (AttributeNode attr, DiaMatrix *matrix, DiaContext *ctx)
 {
   DataNode data_node;
-  
+
   data_node = xmlNewChild(attr, NULL, (const xmlChar *)"matrix", NULL);
 
   if (matrix) {
@@ -132,24 +132,24 @@ data_add_matrix (AttributeNode attr, DiaMatrix *matrix, DiaContext *ctx)
   }
 }
 
-static void 
-matrixprop_save(MatrixProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+matrixprop_save(MatrixProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   if (prop->matrix) {
     data_add_matrix (attr, prop->matrix, ctx);
   }
 }
 
-static void 
+static void
 matrixprop_get_from_offset(MatrixProperty *prop,
-                         void *base, guint offset, guint offset2) 
+                         void *base, guint offset, guint offset2)
 {
   DiaMatrix *matrix = struct_member(base,offset,DiaMatrix *);
 
   prop->matrix = g_memdup (matrix, sizeof (DiaMatrix));
 }
 
-static void 
+static void
 matrixprop_set_from_offset(MatrixProperty *prop,
                            void *base, guint offset, guint offset2)
 {
@@ -163,8 +163,8 @@ matrixprop_set_from_offset(MatrixProperty *prop,
 /* GUI stuff - just the angle for now
  */
 static GtkWidget *
-matrixprop_get_widget (MatrixProperty *prop, PropDialog *dialog) 
-{ 
+matrixprop_get_widget (MatrixProperty *prop, PropDialog *dialog)
+{
   GtkAdjustment *adj;
   GtkWidget *ret, *sb;
   int i;
@@ -186,11 +186,11 @@ matrixprop_get_widget (MatrixProperty *prop, PropDialog *dialog)
     gtk_widget_show(sb);
     gtk_box_pack_start(GTK_BOX(ret), sb, TRUE, TRUE, 0);
   }
-  
+
   return ret;
 }
 
-static void 
+static void
 matrixprop_reset_widget(MatrixProperty *prop, GtkWidget *widget)
 {
   GList *children, *child;
@@ -226,8 +226,8 @@ matrixprop_reset_widget(MatrixProperty *prop, GtkWidget *widget)
   }
 }
 
-static void 
-matrixprop_set_from_widget(MatrixProperty *prop, GtkWidget *widget) 
+static void
+matrixprop_set_from_widget(MatrixProperty *prop, GtkWidget *widget)
 {
   GList *children, *child;
   GtkWidget *sb;
@@ -274,7 +274,7 @@ static const PropertyOps matrixprop_ops = {
   (PropertyType_SetFromOffset) matrixprop_set_from_offset
 };
 
-void 
+void
 prop_matrix_register(void)
 {
   prop_type_register(PROP_TYPE_MATRIX, &matrixprop_ops);

@@ -1839,7 +1839,7 @@ draw_rounded (DiaRenderer *renderer,
   Point p = *to;
   Point delta;
   real len, rayon;
-  real rapport;
+  real rapport = 1.0;
   real angle_start;
 
   dia_renderer_set_linewidth (renderer, linewidth);

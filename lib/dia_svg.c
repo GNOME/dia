@@ -1644,10 +1644,10 @@ dia_svg_parse_transform(const gchar *trans, real scale)
 
     if (_parse_transform (transforms[i], &mat, scale)) {
       if (!m) {
-	m = g_new (DiaMatrix, 1);
-	*m = mat;
+        m = g_new0 (DiaMatrix, 1);
+        *m = mat;
       } else {
-	dia_matrix_multiply (m, &mat, m);
+        dia_matrix_multiply (m, &mat, m);
       }
     }
     ++i;

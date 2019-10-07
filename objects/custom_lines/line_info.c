@@ -62,7 +62,7 @@ custom_get_relative_filename(const gchar *current, const gchar *relative)
   return tmp;
 }
 
-static guint 
+static guint
 line_info_get_line_type( const gchar* filename, xmlNodePtr node )
 {
   guint res = CUSTOM_LINETYPE_ZIGZAGLINE;
@@ -78,14 +78,14 @@ line_info_get_line_type( const gchar* filename, xmlNodePtr node )
   	res = CUSTOM_LINETYPE_ALL;
   else
   	g_warning("%s: `%s' is not a valid line type",filename,tmp);
-	
+
   xmlFree(tmp);
-  
+
   return( res );
 }
 
 
-static guint 
+static guint
 line_info_get_line_style( const gchar* filename, xmlNodePtr node )
 {
   guint res = LINESTYLE_SOLID;
@@ -103,25 +103,25 @@ line_info_get_line_style( const gchar* filename, xmlNodePtr node )
   	res = LINESTYLE_DOTTED;
   else
   	g_warning("%s: `%s' is not a valid line style", filename, tmp);
-	
+
   xmlFree(tmp);
-  
+
   return( res );
 }
 
-static gfloat 
+static gfloat
 line_info_get_as_float( const gchar* filename, xmlNodePtr node )
 {
   gfloat res = 1.0f;
   xmlChar* tmp = xmlNodeGetContent(node);
 
   res = g_ascii_strtod( (char*)tmp, NULL );
-    
+
   xmlFree(tmp);
-  return( res );  
+  return( res );
 }
 
-static guint 
+static guint
 line_info_get_arrow_type( const gchar* filename, xmlNodePtr node )
 {
   guint res = ARROW_NONE;
@@ -197,13 +197,13 @@ line_info_get_arrow_type( const gchar* filename, xmlNodePtr node )
   	res = ARROW_THREE_DOTS;
   else
   	g_warning("%s: `%s' is not a valid arrow style", filename, tmp);
-	
+
   xmlFree(tmp);
-  
+
   return( res );
 }
 
-static void 
+static void
 line_info_get_arrow( const gchar* filename, xmlNodePtr node, Arrow* arrow )
 {
   xmlNodePtr child_node = NULL;
@@ -222,7 +222,7 @@ line_info_get_arrow( const gchar* filename, xmlNodePtr node, Arrow* arrow )
   }
 }
 
-static void 
+static void
 line_info_get_arrows( const gchar* filename, xmlNodePtr node, LineInfo* info )
 {
   xmlNodePtr child_node = NULL;
@@ -240,7 +240,7 @@ line_info_get_arrows( const gchar* filename, xmlNodePtr node, LineInfo* info )
 }
 
 
-static void 
+static void
 line_info_get_line_color( const gchar* filename, xmlNodePtr node, LineInfo* info )
 {
   xmlNodePtr child_node = NULL;
@@ -265,7 +265,7 @@ LineInfo* line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo*
 LineInfo* line_info_load(const gchar *filename)
 {
   LineInfo* res = g_new0(LineInfo, 1);
-  
+
   res->line_info_filename = g_strdup(filename);
 
   res->name = "CustomLines - Default";
@@ -283,15 +283,15 @@ LineInfo* line_info_load(const gchar *filename)
   res->end_arrow.type = ARROW_NONE;
 
   /* warning: possible memory leak */
-  res = line_info_load_and_apply_from_xmlfile( filename, res );
-  
-  return( res );
+  res = line_info_load_and_apply_from_xmlfile (filename, res);
+
+  return res;
 }
 
 LineInfo* line_info_clone(LineInfo* info)
 {
   LineInfo* res = g_new0(LineInfo, 1);
-  
+
   res->line_info_filename = g_strdup(info->line_info_filename);
 
   res->name 		  = info->name;
@@ -308,18 +308,18 @@ LineInfo* line_info_clone(LineInfo* info)
   res->start_arrow.type   = info->start_arrow.type;
   res->start_arrow.length = (info->start_arrow.length > 0) ?
                                   info->start_arrow.length : 1.0;
-  res->start_arrow.width  = (info->start_arrow.width > 0) ? 
+  res->start_arrow.width  = (info->start_arrow.width > 0) ?
                                   info->start_arrow.width : 1.0;
   res->end_arrow.type     = info->end_arrow.type;
-  res->end_arrow.length   = (info->end_arrow.length > 0) ? 
+  res->end_arrow.length   = (info->end_arrow.length > 0) ?
                                   info->end_arrow.length : 1.0;
-  res->end_arrow.width 	  = (info->end_arrow.width > 0) ? 
+  res->end_arrow.width 	  = (info->end_arrow.width > 0) ?
                                   info->end_arrow.width : 1.0;
 
   return( res );
 }
 
-LineInfo* 
+LineInfo*
 line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo* info)
 {
   xmlErrorPtr error_xml = NULL;

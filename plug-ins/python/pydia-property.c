@@ -297,7 +297,7 @@ PyDia_set_Matrix (Property *prop, PyObject *val)
 
   if (val->ob_type == &PyDiaMatrix_Type) {
     if (!p->matrix)
-      p->matrix = g_new (DiaMatrix, 1);
+      p->matrix = g_new0 (DiaMatrix, 1);
     *p->matrix = ((PyDiaMatrix *)val)->matrix;
     return 0;
   }

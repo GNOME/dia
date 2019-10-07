@@ -118,19 +118,21 @@ undo_remove_redo_info(UndoStack *stack)
 }
 
 void
-undo_push_change(UndoStack *stack, DiaChange *change)
+undo_push_change (UndoStack *stack, DiaChange *change)
 {
   if (stack->current_change != stack->last_change)
-    undo_remove_redo_info(stack);
+    undo_remove_redo_info (stack);
 
   g_debug ("Push %s at %d", DIA_CHANGE_TYPE_NAME (change), stack->depth);
 
   change->prev = stack->last_change;
   change->next = NULL;
-  stack->last_change->next = change;
+  if (stack->last_change) {
+    stack->last_change->next = change;
+  }
   stack->last_change = change;
   stack->current_change = change;
-  undo_update_menus(stack);
+  undo_update_menus (stack);
 }
 
 static void

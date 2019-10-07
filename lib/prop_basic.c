@@ -232,8 +232,8 @@ void copy_init_property(Property *dest, const Property *src)
 NoopProperty *
 noopprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 {
-  NoopProperty *prop = g_new(NoopProperty,1);
-  initialize_property(&prop->common, pdesc, reason);
+  NoopProperty *prop = g_new0 (NoopProperty, 1);
+  initialize_property (&prop->common, pdesc, reason);
   return prop;
 }
 

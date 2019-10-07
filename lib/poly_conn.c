@@ -37,7 +37,7 @@ struct PointChange {
 
   enum change_type type;
   int applied;
-  
+
   Point point;
   int pos;
 
@@ -58,10 +58,10 @@ typedef enum
   PC_HANDLE_END
 } PolyConnHandleType;
 
-static void 
+static void
 setup_handle(Handle *handle, PolyConnHandleType t)
 {
-  handle->id = (PC_HANDLE_CORNER == t ? HANDLE_CORNER 
+  handle->id = (PC_HANDLE_CORNER == t ? HANDLE_CORNER
                                       : (PC_HANDLE_END == t ? HANDLE_MOVE_ENDPOINT
                                                             : HANDLE_MOVE_STARTPOINT));
   handle->type = (PC_HANDLE_CORNER == t ? HANDLE_MINOR_CONTROL : HANDLE_MAJOR_CONTROL);
@@ -86,7 +86,7 @@ polyconn_move_handle(PolyConn *poly, Handle *handle,
 		     HandleMoveReason reason, ModifierKeys modifiers)
 {
   int handle_nr;
-  
+
   handle_nr = get_handle_nr(poly, handle);
   switch(handle->id) {
   case HANDLE_MOVE_STARTPOINT:
@@ -111,7 +111,7 @@ polyconn_move(PolyConn *poly, Point *to)
 {
   Point p;
   int i;
-  
+
   p = *to;
   point_sub(&p, &poly->points[0]);
 
@@ -134,7 +134,7 @@ polyconn_closest_segment(PolyConn *poly, Point *point, real line_width)
 			      line_width, point);
   closest = 0;
   for (i=1;i<poly->numpoints-1;i++) {
-    real new_dist = 
+    real new_dist =
       distance_line_point( &poly->points[i], &poly->points[i+1],
 			   line_width, point);
     if (new_dist < dist) {
@@ -151,7 +151,7 @@ polyconn_closest_handle(PolyConn *poly, Point *point)
   int i;
   real dist;
   Handle *closest;
-  
+
   closest = poly->object.handles[0];
   dist = distance_point_point( point, &closest->pos);
   for (i=1;i<poly->numpoints;i++) {
@@ -170,7 +170,7 @@ polyconn_distance_from(PolyConn *poly, Point *point, real line_width)
 {
   int i;
   real dist;
-  
+
   dist = distance_line_point( &poly->points[0], &poly->points[1],
 			      line_width, point);
   for (i=1;i<poly->numpoints-1;i++) {
@@ -186,7 +186,7 @@ add_handle(PolyConn *poly, int pos, Point *point, Handle *handle)
 {
   int i;
   DiaObject *obj;
-  
+
   poly->numpoints++;
   poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
 
@@ -266,17 +266,17 @@ polyconn_remove_point(PolyConn *poly, int pos)
   Handle *old_handle;
   ConnectionPoint *connectionpoint;
   Point old_point;
-  
+
   old_handle = poly->object.handles[pos];
   old_point = poly->points[pos];
   connectionpoint = old_handle->connected_to;
-  
+
   object_unconnect((DiaObject *)poly, old_handle);
 
   remove_handle(poly, pos);
 
   polyconn_update_data(poly);
-  
+
   return polyconn_create_change(poly, TYPE_REMOVE_POINT,
 				&old_point, pos, old_handle,
 				connectionpoint);
@@ -287,12 +287,12 @@ polyconn_update_data(PolyConn *poly)
 {
   int i;
   DiaObject *obj = &poly->object;
-  
+
   /* handle the case of whole points array update (via set_prop) */
   if (poly->numpoints != obj->num_handles) {
     g_assert(0 == obj->num_connections);
 
-    obj->handles = g_realloc(obj->handles, 
+    obj->handles = g_realloc(obj->handles,
                              poly->numpoints*sizeof(Handle *));
     obj->num_handles = poly->numpoints;
     for (i=0;i<poly->numpoints;i++) {
@@ -332,7 +332,7 @@ polyconn_init(PolyConn *poly, int num_points)
   obj = &poly->object;
 
   object_init(obj, num_points, 0);
-  
+
   poly->numpoints = num_points;
 
   poly->points = g_malloc(num_points*sizeof(Point));
@@ -352,7 +352,7 @@ polyconn_init(PolyConn *poly, int num_points)
 
 /** This function does *not* set up handles */
 void
-polyconn_set_points(PolyConn *poly, int num_points, Point *points) 
+polyconn_set_points(PolyConn *poly, int num_points, Point *points)
 {
   int i;
 
@@ -391,30 +391,32 @@ polyconn_copy(PolyConn *from, PolyConn *to)
   *to->object.handles[toobj->num_handles-1] =
       *from->object.handles[toobj->num_handles-1];
   polyconn_set_points(to, from->numpoints, from->points);
-  
+
   memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));
   polyconn_update_data(to);
 }
 
 void
-polyconn_destroy(PolyConn *poly)
+polyconn_destroy (PolyConn *poly)
 {
   int i;
   Handle **temp_handles;
 
   /* Need to store these temporary since object.handles is
      freed by object_destroy() */
-  temp_handles = g_new(Handle *, poly->numpoints);
-  for (i=0;i<poly->numpoints;i++)
+  temp_handles = g_new0 (Handle *, poly->numpoints);
+  for (i = 0; i <poly->numpoints;i++) {
     temp_handles[i] = poly->object.handles[i];
+  }
 
-  object_destroy(&poly->object);
+  object_destroy (&poly->object);
 
-  for (i=0;i<poly->numpoints;i++)
-    g_free(temp_handles[i]);
-  g_free(temp_handles);
-  
-  g_free(poly->points);
+  for (i = 0; i < poly->numpoints; i++) {
+    g_free (temp_handles[i]);
+  }
+  g_free (temp_handles);
+
+  g_free (poly->points);
 }
 
 
@@ -427,7 +429,7 @@ polyconn_save(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx)
   object_save(&poly->object, obj_node, ctx);
 
   attr = new_attribute(obj_node, "poly_points");
-  
+
   for (i=0;i<poly->numpoints;i++) {
     data_add_point(attr, &poly->points[i], ctx);
   }
@@ -439,7 +441,7 @@ polyconn_load(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx) /* NOTE: Doe
   int i;
   AttributeNode attr;
   DataNode data;
-  
+
   DiaObject *obj = &poly->object;
 
   object_load(obj, obj_node, ctx);
@@ -465,7 +467,7 @@ polyconn_load(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx) /* NOTE: Doe
   obj->handles[0]->connected_to = NULL;
   obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[0]->id = HANDLE_MOVE_STARTPOINT;
-  
+
   obj->handles[poly->numpoints-1] = g_malloc(sizeof(Handle));
   obj->handles[poly->numpoints-1]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[poly->numpoints-1]->connected_to = NULL;
@@ -520,7 +522,7 @@ polyconn_change_revert(struct PointChange *change, DiaObject *obj)
     if (change->connected_to) {
       object_connect(obj, change->handle, change->connected_to);
     }
-      
+
     break;
   }
   change->applied = 0;

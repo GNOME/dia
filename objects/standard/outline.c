@@ -363,7 +363,7 @@ outline_draw (Outline *outline, DiaRenderer *renderer)
   if (total < 2)
     return;
 
-  pts = g_alloca (sizeof(BezPoint)*(total));
+  pts = g_newa (BezPoint, total);
   for (i=0; i < outline->path->num_data; i += outline->path->data[i].header.length) {
     cairo_path_data_t *data = &outline->path->data[i];
     if (CAIRO_PATH_MOVE_TO == data->header.type) {

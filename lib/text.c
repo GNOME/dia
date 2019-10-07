@@ -498,14 +498,12 @@ text_get_string_copy(const Text *text)
     num += strlen(text_get_line(text, i))+1;
   }
 
-  str = g_malloc(num);
+  str = g_malloc0 (num);
 
-  *str = 0;
-
-  for (i=0;i<text->numlines;i++) {
-    strcat(str, text_get_line(text, i));
-    if (i != (text->numlines-1)) {
-      strcat(str, "\n");
+  for (i = 0; i < text->numlines; i++) {
+    strcat (str, text_get_line (text, i));
+    if (i != (text->numlines - 1)) {
+      strcat (str, "\n");
     }
   }
 

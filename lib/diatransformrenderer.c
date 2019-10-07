@@ -562,7 +562,7 @@ draw_object (DiaRenderer *self,
   g_return_if_fail (renderer->worker != NULL);
 
   if (matrix) {
-    DiaMatrix *m2 = g_new (DiaMatrix, 1);
+    DiaMatrix *m2 = g_new0 (DiaMatrix, 1);
     if (m)
       dia_matrix_multiply (m2, matrix, m);
     else
