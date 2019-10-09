@@ -31,7 +31,7 @@ if host_machine.system() != 'windows'
 endif
 subdir('wpg')
 subdir('xfig')
-subdir('xslt')
+# subdir('xslt')
 
 foreach p : install_plugins_desc
     message(p.get('name'))

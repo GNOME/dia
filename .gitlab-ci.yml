@@ -1,54 +1,19 @@
-include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
-
-.cache-paths: &cache-paths
-  paths:
-    - _ccache/
+include: 'https://gitlab.gnome.org/bilelmoussaoui/win32-ci-template/raw/master/ci-template.yml'
 
 stages:
-  - test
-  - deploy
-  - win32_build
-
+  - win32
 
 variables:
-    BUNDLE: "dia-dev.flatpak"
     GIT_SUBMODULE_STRATEGY: recursive
 
-flatpak:
-    image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master'
+win32:
     variables:
-        MANIFEST_PATH: "build-aux/flatpak/org.gnome.Dia.json"
-        FLATPAK_MODULE: "dia"
+        APP_NAME: "dia"
+        MSI_BUNDLE: "dia.msi"
+        MANUFACTURER: "GNOME"
         MESON_ARGS: "-Dtests=false"
-        RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
-        APP_ID: "org.gnome.Dia"
-    extends: .flatpak
-
-review:
-  dependencies:
-    - 'flatpak'
-  extends: '.review'
-
-stop_review:
-  extends: '.stop_review'
-
-nightly:
-  extends: '.publish_nightly'
-
-
-.mingw-defaults: &mingw-defaults
-    stage: win32_build
-    tags:
-        - win32
-    script:
-        - C:\msys64\usr\bin\pacman --noconfirm -Syyuu
-        - C:\msys64\usr\bin\bash -lc "bash -x ./.gitlab-ci/msys.sh"
-    cache:
-        key: "%CI_JOB_NAME%"
-        <<: *cache-paths
-
-msys2-mingw32:
-    variables:
-        MSYSTEM: "MINGW32"
-        CHERE_INVOKING: "yes"
-    <<: *mingw-defaults
+        VERSION: "0.1"
+        ICON_PATH: "data/icons/scalable/apps/dia.svg"
+        GIT_REPO: "https://gitlab.gnome.org/GNOME/dia.git"
+        GIT_BRANCH: "bilelmoussaoui/win32"
+    extends: .win32
