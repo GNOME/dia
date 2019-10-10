@@ -42,7 +42,7 @@ datadir = join_paths(get_option('prefix'),
 #Read-only dia-specific architecture independent data
 pkgdatadir = join_paths(datadir, meson.project_name())
 
-#Oject code goes here
+#Object code goes here
 dialibdir = join_paths(get_option('prefix'),
                        get_option('libdir'),
                        meson.project_name())
