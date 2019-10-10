@@ -39,7 +39,7 @@ conf.set('HAVE_XSLT', libxslt_dep.found())
 datadir = join_paths(get_option('prefix'),
                      get_option('datadir'))
 
-#Read-only dia-specific archetecture independent data
+#Read-only dia-specific architecture independent data
 pkgdatadir = join_paths(datadir, meson.project_name())
 
 #Oject code goes here
