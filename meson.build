@@ -56,7 +56,7 @@ conf.set_quoted('DIALIBDIR',  dialibdir)
 conf.set_quoted('LOCALEDIR', get_option('localedir'))
 conf.set('ENABLE_NLS', true)
 
-#Note what headers and functions are availible
+#Note what headers and functions are available
 foreach h : ['stddef.h', 'fcntl.h', 'unistd.h', 'utime.h']
     conf.set10('HAVE_' + h.underscorify().to_upper(), cc.has_header(h))
 endforeach
