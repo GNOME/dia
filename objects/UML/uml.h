@@ -149,7 +149,8 @@ GType         uml_operation_get_type                 (void);
 UMLOperation *uml_operation_copy                     (UMLOperation  *op);
 void          uml_operation_copy_into                (UMLOperation  *srcop,
                                                       UMLOperation  *destop);
-void          uml_operation_free                     (UMLOperation  *op);
+UMLOperation *uml_operation_ref                      (UMLOperation  *self);
+void          uml_operation_unref                    (UMLOperation  *self);
 void          uml_operation_write                    (AttributeNode  attr_node,
                                                       UMLOperation  *op,
                                                       DiaContext    *ctx);

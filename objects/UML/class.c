@@ -1969,7 +1969,7 @@ umlclass_destroy(UMLClass *umlclass)
     op = (UMLOperation *)list->data;
     g_free (op->left_connection);
     g_free (op->right_connection);
-    uml_operation_free (op);
+    uml_operation_unref (op);
     list = g_list_next (list);
   }
   g_list_free (umlclass->operations);

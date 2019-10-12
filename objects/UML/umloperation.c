@@ -94,11 +94,11 @@ static PropOffset umloperation_offsets[] = {
 
 PropDescDArrayExtra umloperation_extra = {
   { umloperation_props, umloperation_offsets, "umloperation" },
-  (NewRecordFunc)uml_operation_new,
-  (FreeRecordFunc)uml_operation_free
+  (NewRecordFunc) uml_operation_new,
+  (FreeRecordFunc) uml_operation_unref
 };
 
-G_DEFINE_BOXED_TYPE (UMLOperation, uml_operation, uml_operation_copy, uml_operation_free)
+G_DEFINE_BOXED_TYPE (UMLOperation, uml_operation, uml_operation_ref, uml_operation_unref)
 
 
 UMLOperation *
@@ -107,7 +107,7 @@ uml_operation_new (void)
   UMLOperation *op;
   static gint next_id = 1;
 
-  op = g_slice_new0 (UMLOperation);
+  op = g_rc_box_new0 (UMLOperation);
   op->internal_id = next_id++;
   op->name = g_strdup ("");
   op->type = g_strdup ("");
@@ -207,8 +207,17 @@ uml_operation_copy (UMLOperation *op)
 }
 
 
-void
-uml_operation_free (UMLOperation *op)
+UMLOperation *
+uml_operation_ref (UMLOperation *self)
+{
+  g_return_val_if_fail (self != NULL, NULL);
+
+  return g_rc_box_acquire (self);
+}
+
+
+static void
+operation_free (UMLOperation *op)
 {
   g_free (op->name);
   if (op->type != NULL)
@@ -229,7 +238,13 @@ uml_operation_free (UMLOperation *op)
   g_free(op->left_connection);
   g_free(op->right_connection);
 #endif
-  g_slice_free (UMLOperation, op);
+}
+
+
+void
+uml_operation_unref (UMLOperation *self)
+{
+  g_rc_box_release_full (self, (GDestroyNotify) operation_free);
 }
 
 

@@ -54,12 +54,13 @@ struct _UMLClassDialog {
   GtkWidget *attr_visible;
   GtkToggleButton *attr_class_scope;
 
-  GtkList *operations_list;
-  GtkListItem *current_op;
+  GtkWidget *operations;
+  GtkListStore *operations_store;
   GtkEntry *op_name;
   GtkEntry *op_type;
   GtkEntry *op_stereotype;
   GtkTextView *op_comment;
+  GtkTextBuffer *op_comment_buffer;
 
   GtkWidget *op_visible;
   GtkToggleButton *op_class_scope;
