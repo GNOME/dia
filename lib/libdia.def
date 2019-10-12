@@ -864,6 +864,7 @@ EXPORTS
  dia_matrix_set_rotate_around
  dia_matrix_multiply
 
+ dia_option_menu_get_type
  dia_option_menu_add_item
  dia_option_menu_get_active
  dia_option_menu_new
