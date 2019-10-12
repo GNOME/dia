@@ -3750,7 +3750,7 @@ msgstr "Ταυτοποίηση:"
 
 #: ../objects/ER/relationship.c:454 ../sheets/ER.sheet.in.h:5
 msgid "Relationship"
-msgstr "Σχέση"
+msgstr "Συσχέτιση"
 
 #: ../objects/flowchart/flowchart.c:37
 msgid "Flowchart objects"
