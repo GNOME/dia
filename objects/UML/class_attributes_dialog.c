@@ -58,7 +58,7 @@ attributes_set_values(UMLClassDialog *prop_dialog, UMLAttribute *attr)
     _class_set_comment(prop_dialog->attr_comment, "");
 
 
-  dia_option_menu_set_active(prop_dialog->attr_visible, attr->visibility);
+  dia_option_menu_set_active (DIA_OPTION_MENU (prop_dialog->attr_visible), attr->visibility);
   gtk_toggle_button_set_active(prop_dialog->attr_class_scope, attr->class_scope);
 }
 
@@ -86,7 +86,7 @@ attributes_get_values (UMLClassDialog *prop_dialog, UMLAttribute *attr)
   attr->value = g_strdup (gtk_entry_get_text(prop_dialog->attr_value));
   attr->comment = g_strdup (_class_get_comment(prop_dialog->attr_comment));
 
-  attr->visibility = (UMLVisibility)dia_option_menu_get_active (prop_dialog->attr_visible);
+  attr->visibility = (UMLVisibility) dia_option_menu_get_active (DIA_OPTION_MENU (prop_dialog->attr_visible));
 
   attr->class_scope = gtk_toggle_button_get_active (prop_dialog->attr_class_scope);
 }
@@ -574,10 +574,10 @@ _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   prop_dialog->attr_visible = omenu = dia_option_menu_new ();
   g_signal_connect (G_OBJECT (omenu), "changed",
 		    G_CALLBACK (attributes_update), umlclass);
-  dia_option_menu_add_item(omenu, _("Public"), UML_PUBLIC);
-  dia_option_menu_add_item(omenu, _("Private"), UML_PRIVATE);
-  dia_option_menu_add_item(omenu, _("Protected"), UML_PROTECTED);
-  dia_option_menu_add_item(omenu, _("Implementation"), UML_IMPLEMENTATION);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Public"), UML_PUBLIC);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Private"), UML_PRIVATE);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Protected"), UML_PROTECTED);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Implementation"), UML_IMPLEMENTATION);
 
   {
     GtkWidget * align;

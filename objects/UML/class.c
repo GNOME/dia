@@ -1967,12 +1967,12 @@ umlclass_destroy(UMLClass *umlclass)
   list = umlclass->operations;
   while (list != NULL) {
     op = (UMLOperation *)list->data;
-    g_free(op->left_connection);
-    g_free(op->right_connection);
-    uml_operation_destroy(op);
-    list = g_list_next(list);
+    g_free (op->left_connection);
+    g_free (op->right_connection);
+    uml_operation_free (op);
+    list = g_list_next (list);
   }
-  g_list_free(umlclass->operations);
+  g_list_free (umlclass->operations);
 
   list = umlclass->formal_params;
   while (list != NULL) {

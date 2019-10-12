@@ -260,29 +260,35 @@ dia_size_selector_get_size(DiaSizeSelector *ss, real *width, real *height)
 }
 
 /************* DiaAlignmentSelector: ***************/
+
+
 GtkWidget *
 dia_alignment_selector_new ()
 {
   GtkWidget *omenu = dia_option_menu_new ();
-  dia_option_menu_add_item(omenu, _("Left"), ALIGN_LEFT);
-  dia_option_menu_add_item(omenu, _("Center"), ALIGN_CENTER);
-  dia_option_menu_add_item(omenu, _("Right"), ALIGN_RIGHT);
+
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Left"), ALIGN_LEFT);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Center"), ALIGN_CENTER);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Right"), ALIGN_RIGHT);
 
   return omenu;
 }
 
+
 Alignment
 dia_alignment_selector_get_alignment(GtkWidget *as)
 {
-  return (Alignment)dia_option_menu_get_active (GTK_WIDGET (as));
+  return (Alignment) dia_option_menu_get_active (DIA_OPTION_MENU (as));
 }
+
 
 void
 dia_alignment_selector_set_alignment (GtkWidget *as,
-				      Alignment align)
+                                      Alignment  align)
 {
-  dia_option_menu_set_active (GTK_WIDGET (as), align);
+  dia_option_menu_set_active (DIA_OPTION_MENU (as), align);
 }
+
 
 /************* DiaFileSelector: ***************/
 struct _DiaFileSelector

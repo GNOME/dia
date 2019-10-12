@@ -689,7 +689,7 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
   umlclass_sanity_check(umlclass, "Get properties start");
 #endif
   if (umlclass->properties_dialog == NULL) {
-    prop_dialog = g_new(UMLClassDialog, 1);
+    prop_dialog = g_new0 (UMLClassDialog, 1);
     umlclass->properties_dialog = prop_dialog;
 
     vbox = gtk_vbox_new(FALSE, 0);
@@ -698,7 +698,6 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
 
     prop_dialog->current_attr = NULL;
     prop_dialog->current_op = NULL;
-    prop_dialog->current_param = NULL;
     prop_dialog->current_templ = NULL;
     prop_dialog->deleted_connections = NULL;
     prop_dialog->added_connections = NULL;
@@ -711,12 +710,16 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
 
     g_object_set_data(G_OBJECT(notebook), "user_data", (gpointer) umlclass);
 
-    g_signal_connect (G_OBJECT (notebook), "switch_page",
-		      G_CALLBACK(switch_page_callback), umlclass);
-    g_signal_connect (G_OBJECT (umlclass->properties_dialog->dialog), "destroy",
-		      G_CALLBACK(destroy_properties_dialog), umlclass);
-
     create_dialog_pages(GTK_NOTEBOOK( notebook ), umlclass);
+
+    g_signal_connect (G_OBJECT (notebook),
+                      "switch-page",
+                      G_CALLBACK (switch_page_callback),
+                      umlclass);
+    g_signal_connect (G_OBJECT (umlclass->properties_dialog->dialog),
+                      "destroy",
+                      G_CALLBACK (destroy_properties_dialog),
+                      umlclass);
 
     gtk_widget_show (notebook);
   }
@@ -753,12 +756,7 @@ umlclass_free_state(UMLClassState *state)
   }
   g_list_free(state->attributes);
 
-  list = state->operations;
-  while (list) {
-    uml_operation_destroy((UMLOperation *) list->data);
-    list = g_list_next(list);
-  }
-  g_list_free(state->operations);
+  g_list_free_full (state->operations, (GDestroyNotify) uml_operation_free);
 
   list = state->formal_params;
   while (list) {
@@ -1090,29 +1088,37 @@ new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
 /*
         get the contents of a comment text view.
 */
-const gchar *
-_class_get_comment(GtkTextView *view)
+gchar *
+_class_get_comment (GtkTextView *view)
 {
   GtkTextBuffer * buffer = gtk_text_view_get_buffer(view);
   GtkTextIter start;
   GtkTextIter end;
 
-  gtk_text_buffer_get_start_iter(buffer, &start);
-  gtk_text_buffer_get_end_iter(buffer, &end);
+  gtk_text_buffer_get_start_iter (buffer, &start);
+  gtk_text_buffer_get_end_iter (buffer, &end);
 
-  return gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
+  return gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
 }
+
+
+char *
+buffer_get_text (GtkTextBuffer *buffer)
+{
+  GtkTextIter start;
+  GtkTextIter end;
+
+  gtk_text_buffer_get_start_iter (buffer, &start);
+  gtk_text_buffer_get_end_iter (buffer, &end);
+
+  return gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
+}
+
 
 void
 _class_set_comment(GtkTextView *view, gchar *text)
 {
-  GtkTextBuffer * buffer = gtk_text_view_get_buffer(view);
-  GtkTextIter start;
-  GtkTextIter end;
+  GtkTextBuffer * buffer = gtk_text_view_get_buffer (view);
 
-  gtk_text_buffer_get_start_iter(buffer, &start);
-  gtk_text_buffer_get_end_iter(buffer, &end);
-  gtk_text_buffer_delete(buffer,&start,&end);
-  gtk_text_buffer_get_start_iter(buffer, &start);
-  gtk_text_buffer_insert( buffer, &start, text, strlen(text));
+  gtk_text_buffer_set_text (buffer, text, -1);
 }

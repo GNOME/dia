@@ -103,7 +103,7 @@ dia_guide_dialog_response (GtkDialog *dialog,
 
   if (response_id == GTK_RESPONSE_OK) {
     real position = gtk_spin_button_get_value (GTK_SPIN_BUTTON (priv->position_entry));
-    int orientation = dia_option_menu_get_active (priv->orientation_menu);
+    int orientation = dia_option_menu_get_active (DIA_OPTION_MENU (priv->orientation_menu));
     dia_diagram_add_guide (priv->diagram, position, orientation, TRUE);
   }
 
@@ -174,9 +174,9 @@ dia_guide_dialog_init (DiaGuideDialog *self)
   priv->orientation_menu = dia_option_menu_new ();
   gtk_table_attach (GTK_TABLE (table), priv->orientation_menu, 1,2, 0,1,
                     GTK_FILL, GTK_FILL, 0, 0);
-  dia_option_menu_add_item (priv->orientation_menu, "Horizontal", GTK_ORIENTATION_HORIZONTAL);
-  dia_option_menu_add_item (priv->orientation_menu, "Vertical", GTK_ORIENTATION_VERTICAL);
-  dia_option_menu_set_active (priv->orientation_menu, GTK_ORIENTATION_HORIZONTAL);
+  dia_option_menu_add_item (DIA_OPTION_MENU (priv->orientation_menu), "Horizontal", GTK_ORIENTATION_HORIZONTAL);
+  dia_option_menu_add_item (DIA_OPTION_MENU (priv->orientation_menu), "Vertical", GTK_ORIENTATION_VERTICAL);
+  dia_option_menu_set_active (DIA_OPTION_MENU (priv->orientation_menu), GTK_ORIENTATION_HORIZONTAL);
   gtk_widget_show (priv->orientation_menu);
 
   label = gtk_label_new (_("Position"));
