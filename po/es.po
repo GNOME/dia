@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2019-10-07 08:26+0000\n"
-"PO-Revision-Date: 2019-10-07 10:28+0200\n"
+"POT-Creation-Date: 2019-10-12 22:50+0000\n"
+"PO-Revision-Date: 2019-10-14 08:53+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -261,7 +261,7 @@ msgstr ""
 "Hay diagramas modificados. ¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: app/app_procs.c:968 app/menus.c:91
+#: app/app_procs.c:968 app/menus.c:89
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
@@ -658,7 +658,6 @@ msgid "_Close"
 msgstr "_Cerrar"
 
 #: app/dia-props.c:273
-#| msgid "Supply"
 msgid "_Apply"
 msgstr "_Aplicar"
 
@@ -710,7 +709,7 @@ msgstr "Seguir enlace…"
 msgid "Convert to Path"
 msgstr "Convertir a ruta"
 
-#: app/disp_callbacks.c:260 app/menus.c:275
+#: app/disp_callbacks.c:260 app/menus.c:273
 msgid "Union"
 msgstr "Unión"
 
@@ -718,7 +717,7 @@ msgstr "Unión"
 msgid "Difference"
 msgstr "Diferencia"
 
-#: app/disp_callbacks.c:262 app/menus.c:276
+#: app/disp_callbacks.c:262 app/menus.c:274
 msgid "Intersection"
 msgstr "Intersección"
 
@@ -816,7 +815,7 @@ msgid "Nothing selected for saving.  Would you like to try again?"
 msgstr "No se seleccionó nada para guardar. ¿Quiere intentarlo otra vez?"
 
 #: app/filedlg.c:144 app/filedlg.c:152 app/filedlg.c:168 app/filedlg.c:799
-#: lib/widgets.c:400
+#: lib/widgets.c:406
 msgid "Supported Formats"
 msgstr "Formatos soportados"
 
@@ -836,7 +835,7 @@ msgstr "Abrir opciones"
 msgid "Determine file type:"
 msgstr "Determinar tipo de archivo:"
 
-#: app/filedlg.c:338 app/filedlg.c:794 lib/widgets.c:408
+#: app/filedlg.c:338 app/filedlg.c:794 lib/widgets.c:414
 msgid "All Files"
 msgstr "Todos los archivos"
 
@@ -938,7 +937,7 @@ msgstr "Coincidir _todas las propiedades (no sólo el nombre del objeto)"
 msgid "Find"
 msgstr "Buscar"
 
-#: app/find-and-replace.c:567 app/menus.c:274
+#: app/find-and-replace.c:567 app/menus.c:272
 msgid "Replace"
 msgstr "Reemplazar"
 
@@ -975,7 +974,6 @@ msgid "Toggles object snapping for this window."
 msgstr "Conmuta el ajuste del objeto para esta ventana."
 
 #: app/interface.c:907
-#| msgid "Toggles snap-to-grid for this window."
 msgid "Toggles snap-to-guides for this window."
 msgstr "Conmuta el ajuste a la guía para esta ventana."
 
@@ -1164,501 +1162,500 @@ msgstr "Guardado automático"
 msgid "Dia Diagram File"
 msgstr "Archivo de diagrama de Dia"
 
-#: app/menus.c:62
+#: app/menus.c:60
 msgid "Fit"
 msgstr "Ajustar"
 
-#: app/menus.c:88
+#: app/menus.c:86
 msgid "_File"
 msgstr "_Archivo"
 
-#: app/menus.c:89
+#: app/menus.c:87
 msgid "Create a new diagram"
 msgstr "Crear un diagrama nuevo"
 
-#: app/menus.c:90
+#: app/menus.c:88
 msgid "_Open…"
 msgstr "_Abrir…"
 
-#: app/menus.c:90
+#: app/menus.c:88
 msgid "Open a diagram file"
 msgstr "Abrir un archivo de diagrama"
 
-#: app/menus.c:92
+#: app/menus.c:90
 msgid "_Help"
 msgstr "Ay_uda"
 
-#: app/menus.c:93
+#: app/menus.c:91
 msgid "Dia help"
 msgstr "Ayuda de Dia"
 
-#: app/menus.c:94
+#: app/menus.c:92
 msgid "Dia version, authors, license"
 msgstr "Versión, autor y licencia de Dia"
 
-#: app/menus.c:100
+#: app/menus.c:98
 msgid "Sheets and Objects…"
 msgstr "Hojas y objetos…"
 
-#: app/menus.c:100
+#: app/menus.c:98
 msgid "Manage sheets and their objects"
 msgstr "Gestionar hojas y sus objetos"
 
-#: app/menus.c:101
+#: app/menus.c:99
 msgid "Dia preferences"
 msgstr "Preferencias de Dia"
 
-#: app/menus.c:102
+#: app/menus.c:100
 msgid "Plugins…"
 msgstr "Complementos…"
 
-#: app/menus.c:102
+#: app/menus.c:100
 msgid "Manage plug-ins"
 msgstr "Gestionar complementos"
 
-#: app/menus.c:103
+#: app/menus.c:101
 msgid "_Diagram Tree"
 msgstr "Árbol del _diagrama"
 
-#: app/menus.c:103
+#: app/menus.c:101
 msgid "Tree representation of diagrams"
 msgstr "Representación de diagramas en árbol"
 
-#: app/menus.c:108
+#: app/menus.c:106
 msgid "Show Toolbar"
 msgstr "Mostrar la barra de herramientas"
 
-#: app/menus.c:108 app/menus.c:267
+#: app/menus.c:106 app/menus.c:265
 msgid "Show or hide the toolbar"
 msgstr "Mostrar u ocultar la barra de herramientas"
 
-#: app/menus.c:109
+#: app/menus.c:107
 msgid "Show Statusbar"
 msgstr "Mostrar la barra de estado"
 
-#: app/menus.c:109
+#: app/menus.c:107
 msgid "Show or hide the statusbar"
 msgstr "Mostrar u ocultar la barra de estado"
 
 # No sé si quedaría en el contexto bien "Descender" en vez de "Bajar". RizOX.
 # Mejor Hundir.Cyphra
-#: app/menus.c:110
+#: app/menus.c:108
 msgid "Show Layers"
 msgstr "Mostrar capas"
 
-#: app/menus.c:110
+#: app/menus.c:108
 msgid "Show or hide the layers toolwindow"
 msgstr "Muestra u oculta las capas de la ventana de herramientas"
 
-#: app/menus.c:116
+#: app/menus.c:114
 msgid "Save the diagram"
 msgstr "Guardar el diagrama"
 
-#: app/menus.c:117
+#: app/menus.c:115
 msgid "Save _As…"
 msgstr "Guardar _como…"
 
-#: app/menus.c:117
+#: app/menus.c:115
 msgid "Save the diagram with a new name"
 msgstr "Guardar el diagrama con un nombre nuevo"
 
-#: app/menus.c:118
+#: app/menus.c:116
 msgid "_Export…"
 msgstr "_Exportar…"
 
-#: app/menus.c:118
+#: app/menus.c:116
 msgid "Export the diagram"
 msgstr "Exportar el diagrama"
 
-#: app/menus.c:119
+#: app/menus.c:117
 msgid "_Diagram Properties"
 msgstr "Propiedades del _diagrama"
 
-#: app/menus.c:119
+#: app/menus.c:117
 msgid "Modify diagram properties (grid, background)"
 msgstr "Modificar las propiedades del diagrama (rejilla, fondo)"
 
-#: app/menus.c:120
+#: app/menus.c:118
 msgid "Page Set_up…"
 msgstr "Config_urar página…"
 
-#: app/menus.c:120
+#: app/menus.c:118
 msgid "Modify the diagram pagination"
 msgstr "Modificar la paginación del diagrama"
 
-#: app/menus.c:121
+#: app/menus.c:119
 msgid "_Print…"
 msgstr "_Imprimir…"
 
-#: app/menus.c:121
+#: app/menus.c:119
 msgid "Print the diagram"
 msgstr "imprimir el diagrama"
 
-#: app/menus.c:122
+#: app/menus.c:120
 msgid "Close the diagram"
 msgstr "Cerrar el diagrama"
 
-#: app/menus.c:124
+#: app/menus.c:122
 msgid "_Edit"
 msgstr "_Editar"
 
-#: app/menus.c:125
+#: app/menus.c:123
 msgid "Undo"
 msgstr "Deshacer"
 
-#: app/menus.c:126
+#: app/menus.c:124
 msgid "Redo"
 msgstr "Rehacer"
 
-#: app/menus.c:128
+#: app/menus.c:126
 msgid "Copy selection"
 msgstr "Copiar selección"
 
-#: app/menus.c:129
+#: app/menus.c:127
 msgid "Cut selection"
 msgstr "Cortar selección"
 
-#: app/menus.c:130
+#: app/menus.c:128
 msgid "Paste selection"
 msgstr "Pegar selección"
 
-#: app/menus.c:131
+#: app/menus.c:129
 msgid "_Duplicate"
 msgstr "_Duplicar"
 
-#: app/menus.c:131
+#: app/menus.c:129
 msgid "Duplicate selection"
 msgstr "Duplicar la selección"
 
-#: app/menus.c:132
+#: app/menus.c:130
 msgid "Delete selection"
 msgstr "Eliminar la selección"
 
-#: app/menus.c:134
+#: app/menus.c:132
 msgid "_Find…"
 msgstr "_Buscar…"
 
-#: app/menus.c:134
+#: app/menus.c:132
 msgid "Search for text"
 msgstr "Buscar texto"
 
-#: app/menus.c:135
+#: app/menus.c:133
 msgid "_Replace…"
 msgstr "_Reemplazar…"
 
-#: app/menus.c:135
+#: app/menus.c:133
 msgid "Search and replace text"
 msgstr "Buscar y reemplazar texto"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control><alt> doesn't work either
-#: app/menus.c:139
+#: app/menus.c:137
 msgid "Copy Text"
 msgstr "Copiar texto"
 
-#: app/menus.c:139
+#: app/menus.c:137
 msgid "Copy object's text to clipboard"
 msgstr "Copiar los objetos del texto al portapapeles"
 
-#: app/menus.c:140
+#: app/menus.c:138
 msgid "Cut Text"
 msgstr "Cortar texto"
 
-#: app/menus.c:140
+#: app/menus.c:138
 msgid "Cut object's text to clipboard"
 msgstr "Cortar los objetos del texto al portapapeles"
 
-#: app/menus.c:141
+#: app/menus.c:139
 msgid "Paste _Text"
 msgstr "Pegar _texto"
 
-#: app/menus.c:141
+#: app/menus.c:139
 msgid "Insert text from clipboard"
 msgstr "Insertar texto desde el portapapeles"
 
-#: app/menus.c:143
+#: app/menus.c:141
 msgid "Paste _Image"
 msgstr "Pegar _imagen"
 
-#: app/menus.c:143
+#: app/menus.c:141
 msgid "Insert image from clipboard"
 msgstr "Insertar imagen desde el portapapeles"
 
-#: app/menus.c:145
+#: app/menus.c:143
 msgid "_Layers"
 msgstr "_Capas"
 
-#: app/menus.c:146
+#: app/menus.c:144
 msgid "Add Layer…"
 msgstr "Añadir capa…"
 
 # Lo traduciría por "Elevar" en vez de "Subir". RizOX.
-#: app/menus.c:147
+#: app/menus.c:145
 msgid "Rename Layer…"
 msgstr "Renombrar capa…"
 
-#: app/menus.c:148
+#: app/menus.c:146
 msgid "Move Selection to Layer above"
 msgstr "Mover la selección a una capa superior"
 
-#: app/menus.c:149
+#: app/menus.c:147
 msgid "Move Selection to Layer below"
 msgstr "Mover la selección a una capa inferior"
 
-#: app/menus.c:150
+#: app/menus.c:148
 msgid "_Layers…"
 msgstr "_Capas…"
 
-#: app/menus.c:151
+#: app/menus.c:149
 msgid "_View"
 msgstr "_Ver"
 
-#: app/menus.c:152
+#: app/menus.c:150
 msgid "Zoom in"
 msgstr "Ampliar"
 
-#: app/menus.c:153
+#: app/menus.c:151
 msgid "Zoom out"
 msgstr "Reducir"
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: app/menus.c:154
+#: app/menus.c:152
 msgid "_Zoom"
 msgstr "_Ampliación"
 
-#: app/menus.c:155
+#: app/menus.c:153
 msgid "1600%"
 msgstr "1600%"
 
-#: app/menus.c:156 app/menus.c:598
+#: app/menus.c:154 app/menus.c:596
 msgid "800%"
 msgstr "800%"
 
-#: app/menus.c:157 app/menus.c:599
+#: app/menus.c:155 app/menus.c:597
 msgid "400%"
 msgstr "400%"
 
-#: app/menus.c:158
+#: app/menus.c:156
 msgid "283"
 msgstr "283"
 
-#: app/menus.c:159
+#: app/menus.c:157
 msgid "200"
 msgstr "200"
 
-#: app/menus.c:160
+#: app/menus.c:158
 msgid "141"
 msgstr "141"
 
-#: app/menus.c:162
+#: app/menus.c:160
 msgid "85"
 msgstr "85"
 
-#: app/menus.c:163
+#: app/menus.c:161
 msgid "70.7"
 msgstr "70.7"
 
-#: app/menus.c:164
+#: app/menus.c:162
 msgid "50"
 msgstr "50"
 
-#: app/menus.c:165
+#: app/menus.c:163
 msgid "35.4"
 msgstr "35.4"
 
-#: app/menus.c:166
+#: app/menus.c:164
 msgid "25"
 msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:168
+#: app/menus.c:166
 msgid "Zoom fit"
 msgstr "Ajustar"
 
 #. "display_toggle_entries" items go here
-#: app/menus.c:172
+#: app/menus.c:170
 msgid "New _View"
 msgstr "_Vista nueva"
 
-#: app/menus.c:173
+#: app/menus.c:171
 msgid "C_lone View"
 msgstr "C_lonar vista"
 
-#: app/menus.c:176 data/ui/properties-dialog.ui:369
-#| msgid "Guide"
+#: app/menus.c:174 data/ui/properties-dialog.ui:369
 msgid "Guides"
 msgstr "Guías"
 
-#: app/menus.c:177
+#: app/menus.c:175
 msgid "New Guide..."
 msgstr "Guía nueva…"
 
-#: app/menus.c:179
+#: app/menus.c:177
 msgid "_Objects"
 msgstr "_Objetos"
 
-#: app/menus.c:180
+#: app/menus.c:178
 msgid "Send to _Back"
 msgstr "Enviar al _fondo"
 
-#: app/menus.c:180
+#: app/menus.c:178
 msgid "Move selection to the bottom"
 msgstr "Mover la selección a la parte inferior"
 
-#: app/menus.c:181
+#: app/menus.c:179
 msgid "Bring to _Front"
 msgstr "Traer al f_rente"
 
-#: app/menus.c:181
+#: app/menus.c:179
 msgid "Move selection to the top"
 msgstr "Mover la selección a la parte superior"
 
-#: app/menus.c:182
+#: app/menus.c:180
 msgid "Send Backwards"
 msgstr "Enviar hacia atrás"
 
-#: app/menus.c:183
+#: app/menus.c:181
 msgid "Bring Forwards"
 msgstr "Traer al frente"
 
-#: app/menus.c:185
+#: app/menus.c:183
 msgid "_Group"
 msgstr "_Agrupar"
 
-#: app/menus.c:185
+#: app/menus.c:183
 msgid "Group selected objects"
 msgstr "Grupo de objetos seleccionados"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:187
+#: app/menus.c:185
 msgid "_Ungroup"
 msgstr "_Desagrupar"
 
-#: app/menus.c:187
+#: app/menus.c:185
 msgid "Ungroup selected groups"
 msgstr "Desagrupar los grupos seleccionados"
 
-#: app/menus.c:189
+#: app/menus.c:187
 msgid "_Parent"
 msgstr "_Padre"
 
-#: app/menus.c:190
+#: app/menus.c:188
 msgid "_Unparent"
 msgstr "_Orfandar"
 
-#: app/menus.c:191
+#: app/menus.c:189
 msgid "_Unparent Children"
 msgstr "_Orfandar hijos"
 
 # me parece que todo esto deberían ser verbos. FVD
 #. Translators: Menu item Verb/Support/Position/Align
-#: app/menus.c:193 objects/FS/function.c:800
+#: app/menus.c:191 objects/FS/function.c:800
 msgid "Align"
 msgstr "Alinear"
 
-#: app/menus.c:198 objects/standard/textobj.c:114
+#: app/menus.c:196 objects/standard/textobj.c:114
 msgid "Top"
 msgstr "Superior"
 
-#: app/menus.c:199
+#: app/menus.c:197
 msgid "Middle"
 msgstr "Medio"
 
-#: app/menus.c:200 objects/standard/textobj.c:113
+#: app/menus.c:198 objects/standard/textobj.c:113
 msgid "Bottom"
 msgstr "Inferior"
 
-#: app/menus.c:202
+#: app/menus.c:200
 msgid "Spread Out Horizontally"
 msgstr "Extender horizontalmente"
 
-#: app/menus.c:203
+#: app/menus.c:201
 msgid "Spread Out Vertically"
 msgstr "Extender verticalmente"
 
-#: app/menus.c:204
+#: app/menus.c:202
 msgid "Adjacent"
 msgstr "Adyacente"
 
-#: app/menus.c:205
+#: app/menus.c:203
 msgid "Stacked"
 msgstr "Apilado"
 
-#: app/menus.c:206 app/menus.c:216
+#: app/menus.c:204 app/menus.c:214
 msgid "Connected"
 msgstr "Conectado"
 
-#: app/menus.c:210
+#: app/menus.c:208
 msgid "_Select"
 msgstr "_Seleccionado"
 
-#: app/menus.c:211
+#: app/menus.c:209
 msgid "All"
 msgstr "Todo"
 
-#: app/menus.c:212 objects/Jackson/domain.c:92 objects/UML/association.c:218
+#: app/menus.c:210 objects/Jackson/domain.c:92 objects/UML/association.c:218
 #: objects/UML/association.c:224
 msgid "None"
 msgstr "Nada"
 
-#: app/menus.c:213
+#: app/menus.c:211
 msgid "Invert"
 msgstr "Invertir"
 
-#: app/menus.c:215
+#: app/menus.c:213
 msgid "Transitive"
 msgstr "Transitivo"
 
-#: app/menus.c:217
+#: app/menus.c:215
 msgid "Same Type"
 msgstr "Mismo tipo"
 
 #. display_select_radio_entries go here
-#: app/menus.c:221
+#: app/menus.c:219
 msgid "Select By"
 msgstr "Seleccionar por"
 
 #. For placment of the toplevel Layout menu and it's accelerator
-#: app/menus.c:224
+#: app/menus.c:222
 msgid "L_ayout"
 msgstr "Di_sposición"
 
-#: app/menus.c:226
+#: app/menus.c:224
 msgid "D_ialogs"
 msgstr "_Diálogos"
 
-#: app/menus.c:228
+#: app/menus.c:226
 msgid "D_ebug"
 msgstr "D_epurar"
 
-#: app/menus.c:234
+#: app/menus.c:232
 msgid "_Tools"
 msgstr "_Herramientas"
 
-#: app/menus.c:235
+#: app/menus.c:233
 msgid "Modify"
 msgstr "Modificar"
 
 # Yo diría "Ampliar" FVD
 # Yo también diría "Ampliar", lo de "Magnificar" me suena a barbarismo... RizOX
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/menus.c:236 app/toolbox.c:85 objects/FS/function.c:980
+#: app/menus.c:234 app/toolbox.c:85 objects/FS/function.c:980
 msgid "Magnify"
 msgstr "Ampliar"
 
-#: app/menus.c:237
+#: app/menus.c:235
 msgid "Edit Text"
 msgstr "Editar texto"
 
 # Creo que Scroll es Desplazamiento. Fuzzy. FVD
 # Yo más bien diría "Desplazar". Fuzzy. RizOX.
-#: app/menus.c:238
+#: app/menus.c:236
 msgid "Scroll"
 msgstr "Desplazar"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: app/menus.c:239 app/toolbox.c:97 lib/properties.c:94 lib/properties.h:678
+#: app/menus.c:237 app/toolbox.c:97 lib/properties.c:94 lib/properties.h:678
 #: objects/AADL/aadlbox.c:153 objects/custom/custom_object.c:225
 #: objects/Jackson/requirement.c:128 objects/network/basestation.c:130
 #: objects/network/radiocell.c:129 objects/UML/activity.c:127
@@ -1670,156 +1667,153 @@ msgstr "Desplazar"
 msgid "Text"
 msgstr "Texto"
 
-#: app/menus.c:240 app/toolbox.c:103
+#: app/menus.c:238 app/toolbox.c:103
 msgid "Box"
 msgstr "Caja"
 
-#: app/menus.c:241 app/toolbox.c:109
+#: app/menus.c:239 app/toolbox.c:109
 msgid "Ellipse"
 msgstr "Elipse"
 
-#: app/menus.c:242 app/toolbox.c:115
+#: app/menus.c:240 app/toolbox.c:115
 msgid "Polygon"
 msgstr "Polígono"
 
-#: app/menus.c:243 app/toolbox.c:121
+#: app/menus.c:241 app/toolbox.c:121
 msgid "Beziergon"
 msgstr "Polígono Bézier"
 
-#: app/menus.c:245 app/toolbox.c:127 objects/standard/line.c:323
+#: app/menus.c:243 app/toolbox.c:127 objects/standard/line.c:323
 msgid "Line"
 msgstr "Línea"
 
-#: app/menus.c:246 app/toolbox.c:133
+#: app/menus.c:244 app/toolbox.c:133
 msgid "Arc"
 msgstr "Arco"
 
-#: app/menus.c:247 app/toolbox.c:139
+#: app/menus.c:245 app/toolbox.c:139
 msgid "Zigzagline"
 msgstr "Línea en zigzag"
 
-#: app/menus.c:248 app/toolbox.c:145
+#: app/menus.c:246 app/toolbox.c:145
 msgid "Polyline"
 msgstr "Polilínea"
 
-#: app/menus.c:249 app/toolbox.c:151
+#: app/menus.c:247 app/toolbox.c:151
 msgid "Bezierline"
 msgstr "Línea Bézier"
 
-#: app/menus.c:250 app/toolbox.c:163
+#: app/menus.c:248 app/toolbox.c:163
 msgid "Outline"
 msgstr "Esquema"
 
-#: app/menus.c:252 app/toolbox.c:157
+#: app/menus.c:250 app/toolbox.c:157
 msgid "Image"
 msgstr "Imagen"
 
-#: app/menus.c:259
+#: app/menus.c:257
 msgid "_Antialiased"
 msgstr "_Alisado"
 
-#: app/menus.c:260
+#: app/menus.c:258
 msgid "Show _Grid"
 msgstr "Mostrar _cuadrícula"
 
-#: app/menus.c:261
+#: app/menus.c:259
 msgid "_Snap to Grid"
 msgstr "Aju_star a la rejilla"
 
-#: app/menus.c:262
-#| msgid "Show _Grid"
+#: app/menus.c:260
 msgid "Show Guides"
 msgstr "Mostrar guías"
 
-#: app/menus.c:263
-#| msgid "_Snap to Grid"
+#: app/menus.c:261
 msgid "Snap to Guides"
 msgstr "Ajustar a las guías"
 
-#: app/menus.c:264
+#: app/menus.c:262
 msgid "Remove all Guides"
 msgstr "Quitar todas las guías"
 
-#: app/menus.c:265
+#: app/menus.c:263
 msgid "Snap to _Objects"
 msgstr "Ajustar a los _objetos"
 
-#: app/menus.c:266
+#: app/menus.c:264
 msgid "Show _Rulers"
 msgstr "Mostrar _reglas"
 
-#: app/menus.c:267
+#: app/menus.c:265
 msgid "Show Scrollbars"
 msgstr "Mostrar la barra de desplazamiento"
 
-#: app/menus.c:268
+#: app/menus.c:266
 msgid "Show _Connection Points"
 msgstr "Mostrar puntos de _conexión"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: app/menus.c:277 objects/FS/function.c:700 objects/FS/function.c:852
+#: app/menus.c:275 objects/FS/function.c:700 objects/FS/function.c:852
 #: objects/FS/function.c:854
 msgid "Remove"
 msgstr "Eliminar"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: app/menus.c:279
+#: app/menus.c:277
 msgid "Inverse"
 msgstr "Inverso"
 
 # Traduzco "tooldata". RizOX.
-#: app/menus.c:329
+#: app/menus.c:327
 msgid "NULL tooldata in tool_menu_select"
 msgstr "InArray de herramienta nula (NULL) en tool_menu_select"
 
-#: app/menus.c:600
+#: app/menus.c:598
 msgid "300%"
 msgstr "300%"
 
-#: app/menus.c:601
+#: app/menus.c:599
 msgid "200%"
 msgstr "200%"
 
-#: app/menus.c:602
+#: app/menus.c:600
 msgid "150%"
 msgstr "150%"
 
-#: app/menus.c:603
+#: app/menus.c:601
 msgid "100%"
 msgstr "100%"
 
-#: app/menus.c:604
+#: app/menus.c:602
 msgid "75%"
 msgstr "75%"
 
-#: app/menus.c:605
+#: app/menus.c:603
 msgid "50%"
 msgstr "50%"
 
-#: app/menus.c:606
+#: app/menus.c:604
 msgid "25%"
 msgstr "25%"
 
-#: app/menus.c:607
+#: app/menus.c:605
 msgid "10%"
 msgstr "10%"
 
-#: app/menus.c:633
+#: app/menus.c:631
 msgid "Toggles snap-to-grid."
 msgstr "Conmuta el ajuste a la rejilla."
 
-#: app/menus.c:645
+#: app/menus.c:643
 msgid "Toggles object snapping."
 msgstr "Conmuta el ajuste del objeto."
 
-#: app/menus.c:658
-#| msgid "Toggles object snapping."
+#: app/menus.c:656
 msgid "Toggles guide snapping."
 msgstr "Conmuta el ajuste a la guía."
 
-#: app/menus.c:1277
+#: app/menus.c:1272
 msgid "The function is not available anymore."
 msgstr "La función no estará disponible nunca más."
 
@@ -1982,12 +1976,10 @@ msgid "view antialiased"
 msgstr "ver sin antialias"
 
 #: app/preferences.c:223
-#| msgid "Guide"
 msgid "Guides:"
 msgstr "Guías:"
 
 #: app/preferences.c:225
-#| msgid "_Snap to Grid"
 msgid "Snap to guides"
 msgstr "Ajustar a la guías"
 
@@ -2415,12 +2407,10 @@ msgid "Edit your Diagrams"
 msgstr "Edite sus diagramas"
 
 #: data/ui/properties-dialog.ui:50
-#| msgid "Dynamic grid"
 msgid "_Dynamic Grid"
 msgstr "_Rejilla dinámica"
 
 #: data/ui/properties-dialog.ui:67
-#| msgid "Manual input"
 msgid "_Manual Grid"
 msgstr "Rejilla _manual"
 
@@ -2429,29 +2419,24 @@ msgid "Spacing"
 msgstr "Espaciado"
 
 #: data/ui/properties-dialog.ui:116
-#| msgid "Visible spacing"
 msgid "Visible Spacing"
 msgstr "Espaciado visible"
 
 #: data/ui/properties-dialog.ui:144
-#| msgid "Columns"
 msgid "Column"
 msgstr "Columna"
 
 #: data/ui/properties-dialog.ui:151
-#| msgid "Rows"
 msgid "Row"
 msgstr "Fila"
 
 # Yo pondría "Hex" con mayúsculas si no "hexadecimal" completo (creo que significa eso, ¿no?). RizOX.
 #: data/ui/properties-dialog.ui:252
-#| msgid "Hex grid"
 msgid "_Hex Grid"
 msgstr "Rejilla _Hex"
 
 # Yo pondría "Hex" con mayúsculas si no "hexadecimal" completo (creo que significa eso, ¿no?). RizOX.
 #: data/ui/properties-dialog.ui:297
-#| msgid "Hex grid size"
 msgid "Hex Grid Size"
 msgstr "Tamaño de la rejilla Hex"
 
@@ -3107,16 +3092,16 @@ msgstr "Clave"
 msgid "Value"
 msgstr "Valor"
 
-#: lib/properties.c:60 lib/properties.h:592 lib/widgets.c:267
+#: lib/properties.c:60 lib/properties.h:592 lib/widgets.c:270
 msgid "Left"
 msgstr "Izquierda"
 
-#: lib/properties.c:61 lib/properties.h:593 lib/widgets.c:268
+#: lib/properties.c:61 lib/properties.h:593 lib/widgets.c:271
 #: objects/standard/textobj.c:115
 msgid "Center"
 msgstr "Centro"
 
-#: lib/properties.c:62 lib/properties.h:594 lib/widgets.c:269
+#: lib/properties.c:62 lib/properties.h:594 lib/widgets.c:272
 msgid "Right"
 msgstr "Derecha"
 
@@ -3362,11 +3347,11 @@ msgstr "Recortar"
 msgid "Show Control Lines"
 msgstr "Mostrar líneas de control"
 
-#: lib/widgets.c:388
+#: lib/widgets.c:394
 msgid "Select image file"
 msgstr "Seleccionar archivo de imagen"
 
-#: lib/widgets.c:439
+#: lib/widgets.c:445
 msgid "Browse"
 msgstr "Navegar"
 
@@ -3725,7 +3710,7 @@ msgstr "Única"
 msgid "Default"
 msgstr "Predeterminado"
 
-#: objects/Database/table.c:157
+#: objects/Database/table.c:157 objects/UML/class_operations_dialog.c:1294
 msgid "Default value"
 msgstr "Valor predeterminado"
 
@@ -3784,8 +3769,8 @@ msgstr "Mostrar comentarios"
 
 #: objects/ER/attribute.c:150 objects/ER/entity.c:132
 #: objects/ER/relationship.c:137 objects/UML/class_attributes_dialog.c:517
-#: objects/UML/class_operations_dialog.c:777
-#: objects/UML/class_operations_dialog.c:977
+#: objects/UML/class_operations_dialog.c:871
+#: objects/UML/class_operations_dialog.c:1271
 #: objects/UML/class_templates_dialog.c:436 objects/UML/dependency.c:130
 #: objects/UML/generalization.c:127 objects/UML/realizes.c:127
 msgid "Name:"
@@ -3888,8 +3873,8 @@ msgstr "Señal"
 #: objects/FS/flow.c:142 objects/FS/flow-ortho.c:165 objects/Istar/link.c:159
 #: objects/Jackson/phenomenon.c:143 objects/KAOS/metaandorrel.c:163
 #: objects/KAOS/metabinrel.c:170 objects/UML/class_attributes_dialog.c:528
-#: objects/UML/class_operations_dialog.c:788
-#: objects/UML/class_operations_dialog.c:988
+#: objects/UML/class_operations_dialog.c:882
+#: objects/UML/class_operations_dialog.c:1282
 #: objects/UML/class_templates_dialog.c:447
 msgid "Type:"
 msgstr "Tipo:"
@@ -5889,39 +5874,39 @@ msgid "Value:"
 msgstr "Valor:"
 
 #: objects/UML/class_attributes_dialog.c:550 objects/UML/class_dialog.c:343
-#: objects/UML/class_operations_dialog.c:848
-#: objects/UML/class_operations_dialog.c:1010
+#: objects/UML/class_operations_dialog.c:955
+#: objects/UML/class_operations_dialog.c:1305
 msgid "Comment:"
 msgstr "Comentario:"
 
 #: objects/UML/class_attributes_dialog.c:572
-#: objects/UML/class_operations_dialog.c:811
+#: objects/UML/class_operations_dialog.c:905
 msgid "Visibility:"
 msgstr "Visibilidad:"
 
 #: objects/UML/class_attributes_dialog.c:577
-#: objects/UML/class_operations_dialog.c:816 objects/UML/uml.c:101
+#: objects/UML/class_operations_dialog.c:912 objects/UML/uml.c:101
 msgid "Public"
 msgstr "Público"
 
 #: objects/UML/class_attributes_dialog.c:578
-#: objects/UML/class_operations_dialog.c:817 objects/UML/uml.c:102
+#: objects/UML/class_operations_dialog.c:913 objects/UML/uml.c:102
 msgid "Private"
 msgstr "Privado"
 
 #: objects/UML/class_attributes_dialog.c:579
-#: objects/UML/class_operations_dialog.c:818 objects/UML/uml.c:103
+#: objects/UML/class_operations_dialog.c:914 objects/UML/uml.c:103
 msgid "Protected"
 msgstr "Protegido"
 
 #: objects/UML/class_attributes_dialog.c:580
-#: objects/UML/class_operations_dialog.c:819 objects/UML/uml.c:104
+#: objects/UML/class_operations_dialog.c:915 objects/UML/uml.c:104
 msgid "Implementation"
 msgstr "Implementación"
 
 #. end: Inheritance type
 #: objects/UML/class_attributes_dialog.c:592
-#: objects/UML/class_operations_dialog.c:840
+#: objects/UML/class_operations_dialog.c:938
 msgid "Class scope"
 msgstr "Vista de clase"
 
@@ -5941,7 +5926,7 @@ msgstr "Estereotipo"
 
 #: objects/UML/class.c:152 objects/UML/class.c:208
 #: objects/UML/class_dialog.c:359 objects/UML/class_dialog.c:471
-#: objects/UML/class_operations_dialog.c:832 objects/UML/umlattribute.c:46
+#: objects/UML/class_operations_dialog.c:930 objects/UML/umlattribute.c:46
 #: objects/UML/uml.c:109
 msgid "Abstract"
 msgstr "Abstracta"
@@ -6018,7 +6003,7 @@ msgstr "_Clase"
 msgid "Class name:"
 msgstr "Nombre de la clase:"
 
-#: objects/UML/class_dialog.c:336 objects/UML/class_operations_dialog.c:799
+#: objects/UML/class_dialog.c:336 objects/UML/class_operations_dialog.c:893
 #: objects/UML/dependency.c:132 objects/UML/generalization.c:129
 #: objects/UML/realizes.c:129
 msgid "Stereotype:"
@@ -6096,60 +6081,100 @@ msgid "Is object"
 msgstr "Es objeto"
 
 #. end: Visibility
-#: objects/UML/class_operations_dialog.c:827
+#: objects/UML/class_operations_dialog.c:923
 msgid "Inheritance type:"
 msgstr "Tipo de herencia:"
 
-#: objects/UML/class_operations_dialog.c:833 objects/UML/uml.c:110
+#: objects/UML/class_operations_dialog.c:931 objects/UML/uml.c:110
 msgid "Polymorphic (virtual)"
 msgstr "Polimórfico (virtual)"
 
-#: objects/UML/class_operations_dialog.c:834 objects/UML/uml.c:111
+#: objects/UML/class_operations_dialog.c:932 objects/UML/uml.c:111
 msgid "Leaf (final)"
 msgstr "Hoja (final)"
 
-#: objects/UML/class_operations_dialog.c:844 objects/UML/umloperation.c:73
+#: objects/UML/class_operations_dialog.c:947 objects/UML/umloperation.c:73
 msgid "Query"
 msgstr "Consulta"
 
-#: objects/UML/class_operations_dialog.c:888
+#: objects/UML/class_operations_dialog.c:1033
 msgid "Parameters:"
 msgstr "Parámetros:"
 
-#: objects/UML/class_operations_dialog.c:966
+#: objects/UML/class_operations_dialog.c:1085
+#| msgid "Parameters"
+msgid "Add Parameter"
+msgstr "Añadir parámetro"
+
+#: objects/UML/class_operations_dialog.c:1100
+#| msgid "Template Parameters"
+msgid "Remove Parameter"
+msgstr "Quitar parámetro"
+
+#: objects/UML/class_operations_dialog.c:1115
+#| msgid "Parameters"
+msgid "Move Parameter Up"
+msgstr "Subir parámetro"
+
+#: objects/UML/class_operations_dialog.c:1130
+#| msgid "Parameters"
+msgid "Move Parameter Down"
+msgstr "Bajar parámetro"
+
+#: objects/UML/class_operations_dialog.c:1260
 msgid "Parameter data"
 msgstr "Datos de parámetros"
 
-#: objects/UML/class_operations_dialog.c:999
+#: objects/UML/class_operations_dialog.c:1293
 msgid "Def. value:"
 msgstr "Valor por defecto:"
 
-#: objects/UML/class_operations_dialog.c:1030
+#: objects/UML/class_operations_dialog.c:1327
 msgid "Direction:"
 msgstr "Dirección:"
 
-#: objects/UML/class_operations_dialog.c:1035 objects/UML/umlparameter.c:32
+#: objects/UML/class_operations_dialog.c:1336 objects/UML/umlparameter.c:32
 msgid "Undefined"
 msgstr "No definido"
 
-#: objects/UML/class_operations_dialog.c:1036 objects/UML/umlparameter.c:33
+#: objects/UML/class_operations_dialog.c:1337 objects/UML/umlparameter.c:33
 msgid "In"
 msgstr "Entrada"
 
-#: objects/UML/class_operations_dialog.c:1037 objects/UML/umlparameter.c:34
+#: objects/UML/class_operations_dialog.c:1338 objects/UML/umlparameter.c:34
 msgid "Out"
 msgstr "Salida"
 
-#: objects/UML/class_operations_dialog.c:1038 objects/UML/umlparameter.c:35
+#: objects/UML/class_operations_dialog.c:1339 objects/UML/umlparameter.c:35
 msgid "In & Out"
 msgstr "Entrada y salida"
 
 #. Operations page:
-#: objects/UML/class_operations_dialog.c:1069
+#: objects/UML/class_operations_dialog.c:1391
 msgid "_Operations"
 msgstr "_Operaciones"
 
-#: objects/UML/class_operations_dialog.c:1124
+#: objects/UML/class_operations_dialog.c:1451
+#| msgid "Operations"
+msgid "Add Operation"
+msgstr "Añadir operación"
+
+#: objects/UML/class_operations_dialog.c:1464
+#| msgid "Operations"
+msgid "Remove Operation"
+msgstr "Quitar operación"
+
+#: objects/UML/class_operations_dialog.c:1477
+#| msgid "Operations"
+msgid "Move Operation Up"
+msgstr "Subir operación"
+
+#: objects/UML/class_operations_dialog.c:1490
+#| msgid "Operations"
+msgid "Move Operation Down"
+msgstr "Bajar operación"
+
+#: objects/UML/class_operations_dialog.c:1502
 msgid "Operation data"
 msgstr "Datos de operación"
 
