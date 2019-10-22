@@ -79,9 +79,9 @@ int main(int argc, char *argv[])
 	_("Dia user settings will not be affected."));
 
   /* Installer message: DIA_PROMPT_DIR_EXISTS line 1 */
-  printf("!define DIA_PROMPT_DIR_EXISTS \"%s$\\r%s\"\n", _("The installation directory you specified already exists. Any contents"),
+  printf("!define DIA_PROMPT_DIR_EXISTS \"%s$\\r%s\"\n", _("The installation directory you specified already exists."),
 	/* Installer message: DIA_PROMP_DIR_EXISTS line 2 */
-	_("will be deleted. Would you like to continue?"));
+	_("Any contents will be deleted. Would you like to continue?"));
 
   /* Installer message: registry entries not found line 1 */
   printf("!define un.DIA_UNINSTALL_ERROR_1 \"%s$\\r%s\"\n", _("The uninstaller could not find registry entries for Dia."),
