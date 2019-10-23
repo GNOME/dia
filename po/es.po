@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2019-10-12 22:50+0000\n"
-"PO-Revision-Date: 2019-10-14 08:53+0200\n"
+"POT-Creation-Date: 2019-10-22 20:03+0000\n"
+"PO-Revision-Date: 2019-10-23 12:06+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -2554,14 +2554,16 @@ msgstr ""
 
 #. Installer message: DIA_PROMPT_DIR_EXISTS line 1
 #: installer/win32/gennsh.c:82
-msgid "The installation directory you specified already exists. Any contents"
-msgstr ""
-"La carpeta de instalación que ha especificado ya existe. Cualquier contenido"
+#| msgid ""
+#| "The installation directory you specified already exists. Any contents"
+msgid "The installation directory you specified already exists."
+msgstr "La carpeta de instalación que ha especificado ya existe."
 
 #. Installer message: DIA_PROMP_DIR_EXISTS line 2
 #: installer/win32/gennsh.c:84
-msgid "will be deleted. Would you like to continue?"
-msgstr "se eliminará. ¿Quiere continuar?"
+#| msgid "will be deleted. Would you like to continue?"
+msgid "Any contents will be deleted. Would you like to continue?"
+msgstr "Se eliminará todo el contenido. ¿Quiere continuar?"
 
 #. Installer message: registry entries not found line 1
 #: installer/win32/gennsh.c:87
@@ -6102,22 +6104,18 @@ msgid "Parameters:"
 msgstr "Parámetros:"
 
 #: objects/UML/class_operations_dialog.c:1085
-#| msgid "Parameters"
 msgid "Add Parameter"
 msgstr "Añadir parámetro"
 
 #: objects/UML/class_operations_dialog.c:1100
-#| msgid "Template Parameters"
 msgid "Remove Parameter"
 msgstr "Quitar parámetro"
 
 #: objects/UML/class_operations_dialog.c:1115
-#| msgid "Parameters"
 msgid "Move Parameter Up"
 msgstr "Subir parámetro"
 
 #: objects/UML/class_operations_dialog.c:1130
-#| msgid "Parameters"
 msgid "Move Parameter Down"
 msgstr "Bajar parámetro"
 
@@ -6155,22 +6153,18 @@ msgid "_Operations"
 msgstr "_Operaciones"
 
 #: objects/UML/class_operations_dialog.c:1451
-#| msgid "Operations"
 msgid "Add Operation"
 msgstr "Añadir operación"
 
 #: objects/UML/class_operations_dialog.c:1464
-#| msgid "Operations"
 msgid "Remove Operation"
 msgstr "Quitar operación"
 
 #: objects/UML/class_operations_dialog.c:1477
-#| msgid "Operations"
 msgid "Move Operation Up"
 msgstr "Subir operación"
 
 #: objects/UML/class_operations_dialog.c:1490
-#| msgid "Operations"
 msgid "Move Operation Down"
 msgstr "Bajar operación"
 
