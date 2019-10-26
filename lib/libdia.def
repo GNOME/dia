@@ -264,6 +264,10 @@ EXPORTS
  dia_font_selector_new
  dia_font_selector_set_font
 
+ dia_guide_new
+ dia_guide_copy
+ dia_guide_free
+ dia_guide_get_type
 
  dia_get_data_directory
  dia_get_lib_directory
@@ -860,6 +864,7 @@ EXPORTS
  dia_matrix_set_rotate_around
  dia_matrix_multiply
 
+ dia_option_menu_get_type
  dia_option_menu_add_item
  dia_option_menu_get_active
  dia_option_menu_new

@@ -1309,7 +1309,7 @@ dia_object_type_get_icon (const DiaObjectType *type)
 
   if (g_str_has_prefix ((char *) icon_data, "res:")) {
     pixbuf = pixbuf_from_resource (((char *) icon_data) + 4);
-  } else if (strncmp ((char *) icon_data, "GdkP", 4) == 0) {
+  } else if (icon_data && strncmp ((char *) icon_data, "GdkP", 4) == 0) {
     /* GTK3: We will remove this in Dia 2.0 but is retained to maintain
      * compatability with 0.97.3 objects */
     g_warning ("Object '%s' has an inline icon, this is deprecated",

@@ -174,7 +174,7 @@ draw_object(DiaRenderer *self,
     object_save_props (object, props_node, renderer->ctx);
   }
   if (matrix) {
-    DiaMatrix *m2 = g_new (DiaMatrix, 1);
+    DiaMatrix *m2 = g_new0 (DiaMatrix, 1);
     if (m)
       dia_matrix_multiply (m2, matrix, m);
     else

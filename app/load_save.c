@@ -377,7 +377,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
   xmlDocPtr doc;
   xmlNodePtr root;
   xmlNodePtr diagramdata;
-  xmlNodePtr paperinfo, gridinfo, guideinfo;
+  xmlNodePtr paperinfo, gridinfo;
   xmlNodePtr layer_node;
   AttributeNode attr;
   DiaLayer *layer;
@@ -564,39 +564,50 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
         data_color(attribute_first_data(attr), &diagram->grid.colour, ctx);
     }
   }
+
   if (diagram) {
-    attr = composite_find_attribute(diagramdata, "guides");
+    attr = composite_find_attribute (diagramdata, "guides");
     if (attr != NULL) {
-      guint i;
-      DataNode guide;
+      DataNode guides_data;
 
-      guideinfo = attribute_first_data(attr);
+      /* Clear old guides. */
+      g_list_free (diagram->guides);
+      diagram->guides = NULL;
 
-      attr = composite_find_attribute(guideinfo, "hguides");
-      if (attr != NULL) {
-        diagram->guides.nhguides = attribute_num_data(attr);
-        g_free(diagram->guides.hguides);
-        diagram->guides.hguides = g_new(real, diagram->guides.nhguides);
+      /* Load new guides. */
+      guides_data = attribute_first_data (attr);
+      while (guides_data) {
+        real position = 0;
+        GtkOrientation orientation = GTK_ORIENTATION_HORIZONTAL;
 
-        guide = attribute_first_data(attr);
-        for (i = 0; i < diagram->guides.nhguides; i++, guide = data_next(guide))
-	  diagram->guides.hguides[i] = data_real(guide, ctx);
-      }
-      attr = composite_find_attribute(guideinfo, "vguides");
-      if (attr != NULL) {
-        diagram->guides.nvguides = attribute_num_data(attr);
-        g_free(diagram->guides.vguides);
-        diagram->guides.vguides = g_new(real, diagram->guides.nvguides);
+        attr = composite_find_attribute (guides_data, "position");
+        if(attr != NULL) {
+          position = data_real (attribute_first_data (attr), ctx);
+        }
 
-        guide = attribute_first_data(attr);
-        for (i = 0; i < diagram->guides.nvguides; i++, guide = data_next(guide))
-	  diagram->guides.vguides[i] = data_real(guide, ctx);
+        attr = composite_find_attribute (guides_data, "orientation");
+        if (attr != NULL) {
+          orientation = data_int (attribute_first_data (attr), ctx);
+        }
+
+        dia_diagram_add_guide (diagram, position, orientation, FALSE);
+
+        guides_data = data_next (guides_data);
       }
     }
+
+    /* Guide color. */
+    diagram->guide_color = prefs.new_diagram.guide_color;
+    attr = composite_find_attribute (diagramdata, "guide_color");
+    if (attr != NULL) {
+      data_color (attribute_first_data (attr), &diagram->guide_color, ctx);
+    }
   }
+
   /* parse some display settings */
   if (diagram) {
-    attr = composite_find_attribute(diagramdata, "display");
+    attr = composite_find_attribute (diagramdata, "display");
+
     if (attr != NULL) {
       DataNode dispinfo;
 
@@ -614,6 +625,13 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
 	g_object_set_data(G_OBJECT(diagram),
 	  "snap-to-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
 
+      attr = composite_find_attribute(dispinfo, "snap-to-guides");
+      if (attr != NULL) {
+        g_object_set_data (G_OBJECT (diagram),
+                           "snap-to-guides",
+                           GINT_TO_POINTER (data_boolean (attribute_first_data (attr), ctx) ? 1 : -1));
+      }
+
       attr = composite_find_attribute(dispinfo, "snap-to-object");
       if (attr != NULL)
         g_object_set_data(G_OBJECT(diagram),
@@ -623,6 +641,14 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
       if (attr != NULL)
         g_object_set_data(G_OBJECT(diagram),
 	  "show-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
+
+
+      attr = composite_find_attribute(dispinfo, "show-guides");
+      if (attr != NULL) {
+        g_object_set_data (G_OBJECT (diagram),
+                           "show-guides",
+                           GINT_TO_POINTER (data_boolean (attribute_first_data (attr), ctx) ? 1 : -1));
+      }
 
       attr = composite_find_attribute(dispinfo, "show-connection-points");
       if (attr != NULL)
@@ -929,6 +955,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
   }
 
   if (diagram) {
+    GList *list;
     attr = new_attribute((ObjectNode)tree, "grid");
     gridinfo = data_add_composite(attr, "grid", ctx);
     data_add_boolean(composite_add_attribute(gridinfo, "dynamic"),
@@ -945,16 +972,26 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
     data_add_composite(gridinfo, "color", ctx);
     data_add_color(attr, &diagram->grid.colour, ctx);
 
-    attr = new_attribute((ObjectNode)tree, "guides");
-    guideinfo = data_add_composite(attr, "guides", ctx);
-    attr = composite_add_attribute(guideinfo, "hguides");
-    for (i = 0; i < diagram->guides.nhguides; i++)
-      data_add_real(attr, diagram->guides.hguides[i], ctx);
-    attr = composite_add_attribute(guideinfo, "vguides");
-    for (i = 0; i < diagram->guides.nvguides; i++)
-      data_add_real(attr, diagram->guides.vguides[i], ctx);
+    /* Guides. */
+    attr = new_attribute ((ObjectNode) tree, "guides");
+    list = diagram->guides;
+    while (list) {
+      DiaGuide *guide = list->data;
 
-    if (g_slist_length(diagram->displays) == 1) {
+      guideinfo = data_add_composite (attr, "guide", ctx);
+
+      data_add_real (composite_add_attribute (guideinfo, "position"), guide->position, ctx);
+      data_add_int (composite_add_attribute (guideinfo, "orientation"), guide->orientation, ctx);
+
+      list = g_list_next (list);
+    }
+
+    if (diagram) {
+      attr = new_attribute ((ObjectNode) tree, "guide_color");
+      data_add_color (attr, &diagram->guide_color, ctx);
+    }
+
+    if (g_slist_length (diagram->displays) == 1) {
       xmlNodePtr dispinfo;
       /* store some display attributes */
       DDisplay *ddisp = diagram->displays->data;
@@ -965,10 +1002,14 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
                        ddisp->aa_renderer, ctx);
       data_add_boolean(composite_add_attribute(dispinfo, "snap-to-grid"),
 		       ddisp->grid.snap, ctx);
+      data_add_boolean(composite_add_attribute(dispinfo, "snap-to-guides"),
+		       ddisp->guides_snap, ctx);
       data_add_boolean(composite_add_attribute(dispinfo, "snap-to-object"),
 		       ddisp->mainpoint_magnetism, ctx);
       data_add_boolean(composite_add_attribute(dispinfo, "show-grid"),
 		       ddisp->grid.visible, ctx);
+      data_add_boolean (composite_add_attribute (dispinfo, "show-guides"),
+                        ddisp->guides_visible, ctx);
       data_add_boolean(composite_add_attribute(dispinfo, "show-connection-points"),
 		       ddisp->show_cx_pts, ctx);
     }

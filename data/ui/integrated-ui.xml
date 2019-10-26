@@ -83,6 +83,13 @@
 			<menuitem name="ViewShowscrollbars" action="ViewShowscrollbars" />
 			<menuitem name="ViewShowconnectionpoints" action="ViewShowconnectionpoints" />
 			<separator name="ViewSep3" />
+			<menu name="ViewGuides" action="ViewGuides">
+				<menuitem name="ViewNewguide" action="ViewNewguide" />
+				<menuitem name="ViewShowguides" action="ViewShowguides" />
+				<menuitem name="ViewSnaptoguides" action="ViewSnaptoguides" />
+				<menuitem name="ViewRemoveallguides" action="ViewRemoveallguides" />
+			</menu>
+			<separator name="ViewSep4" />
 			<menuitem name="ViewNewview" action="ViewNewview" />
 			<menuitem name="ViewCloneview" action="ViewCloneview" />
 			<menuitem name="ViewRedraw" action="ViewRedraw" />

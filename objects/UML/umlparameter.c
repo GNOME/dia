@@ -62,52 +62,98 @@ static PropOffset umlparameter_offsets[] = {
 
 PropDescDArrayExtra umlparameter_extra = {
   { umlparameter_props, umlparameter_offsets, "umlparameter" },
-  (NewRecordFunc)uml_parameter_new,
-  (FreeRecordFunc)uml_parameter_destroy
+  (NewRecordFunc) uml_parameter_new,
+  (FreeRecordFunc) uml_parameter_unref
 };
 
+G_DEFINE_BOXED_TYPE (UMLParameter, uml_parameter, uml_parameter_ref, uml_parameter_unref)
+
+
 UMLParameter *
-uml_parameter_new(void)
+uml_parameter_new (void)
 {
   UMLParameter *param;
 
-  param = g_new0(UMLParameter, 1);
-  param->name = g_strdup("");
-  param->type = g_strdup("");
-  param->comment = g_strdup("");
-  param->value = NULL;
+  param = g_rc_box_new0 (UMLParameter);
+  param->name = g_strdup ("");
+  param->type = g_strdup ("");
+  param->value = g_strdup ("");
+  param->comment = g_strdup ("");
   param->kind = UML_UNDEF_KIND;
 
   return param;
 }
 
-void
-uml_parameter_destroy(UMLParameter *param)
-{
-  g_free(param->name);
-  g_free(param->type);
-  if (param->value != NULL)
-    g_free(param->value);
-  g_free(param->comment);
 
-  g_free(param);
+UMLParameter *
+uml_parameter_copy (UMLParameter *param)
+{
+  UMLParameter *new;
+
+  g_return_val_if_fail (param != NULL, NULL);
+
+  new = uml_parameter_new ();
+
+  g_clear_pointer (&new->name, g_free);
+  g_clear_pointer (&new->type, g_free);
+  g_clear_pointer (&new->value, g_free);
+  g_clear_pointer (&new->comment, g_free);
+
+  new->name = g_strdup (param->name);
+  new->type = g_strdup (param->type);
+  new->value = g_strdup (param->value);
+  new->comment = g_strdup (param->comment);
+
+  new->kind = param->kind;
+
+  return new;
 }
 
+
+UMLParameter *
+uml_parameter_ref (UMLParameter *param)
+{
+  g_return_val_if_fail (param != NULL, NULL);
+
+  return g_rc_box_acquire (param);
+}
+
+
+static void
+parameter_free (UMLParameter *param)
+{
+  g_clear_pointer (&param->name, g_free);
+  g_clear_pointer (&param->type, g_free);
+  g_clear_pointer (&param->value, g_free);
+  g_clear_pointer (&param->comment, g_free);
+}
+
+
+void
+uml_parameter_unref (UMLParameter *param)
+{
+  g_rc_box_release_full (param, (GDestroyNotify) parameter_free);
+}
+
+
 char *
-uml_get_parameter_string (UMLParameter *param)
+uml_parameter_get_string (UMLParameter *param)
 {
   int len;
   char *str;
 
   /* Calculate length: */
-  len = strlen (param->name) + 1 + strlen (param->type);
+  len = strlen (param->name);
 
-  if (param->value != NULL) {
-    len += 1 + strlen (param->value) ;
+  if (param->type && strlen (param->type) > 0) {
+    len += 1 + strlen (param->type);
   }
 
-  switch(param->kind)
-    {
+  if (param->value && strlen (param->value) > 0) {
+    len += 1 + strlen (param->value);
+  }
+
+  switch (param->kind) {
     case UML_UNDEF_KIND:
       break;
     case UML_IN:
@@ -119,15 +165,14 @@ uml_get_parameter_string (UMLParameter *param)
     case UML_INOUT:
       len += 6;
       break;
-    }
+  }
 
   /* Generate string: */
   str = g_malloc (sizeof (char) * (len + 1));
 
-  strcpy(str, "");
+  strcpy (str, "");
 
-  switch(param->kind)
-    {
+  switch (param->kind) {
     case UML_UNDEF_KIND:
       break;
     case UML_IN:
@@ -139,13 +184,16 @@ uml_get_parameter_string (UMLParameter *param)
     case UML_INOUT:
       strcat (str, "inout ");
       break;
-    }
-
+  }
 
   strcat (str, param->name);
-  strcat (str, ":");
-  strcat (str, param->type);
-  if (param->value != NULL) {
+
+  if (param->type && strlen (param->type) > 0) {
+    strcat (str, ":");
+    strcat (str, param->type);
+  }
+
+  if (param->value && strlen (param->value) > 0) {
     strcat (str, "=");
     strcat (str, param->value);
   }

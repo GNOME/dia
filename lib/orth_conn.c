@@ -31,7 +31,7 @@
 #include "diarenderer.h"
 #include "autoroute.h"
 
-static void place_handle_by_swapping(OrthConn *orth, 
+static void place_handle_by_swapping(OrthConn *orth,
                                      int index, Handle *handle);
 static ObjectChange *orthconn_set_autorouting(OrthConn *orth, gboolean on);
 
@@ -55,12 +55,12 @@ struct MidSegmentChange {
    *
    * None of the end segments must be removed by this change.
    */
-  
+
   enum change_type type;
   int applied;
-  
+
   int segment;
-  Point points[2]; 
+  Point points[2];
   Handle *handles[2]; /* These handles cannot be connected */
   /* NewOrthConn additions */
   ConnectionPoint *conn; /* ? */
@@ -71,7 +71,7 @@ static ObjectChange *
 endsegment_create_change(OrthConn *orth, enum change_type type,
 			 int segment, Point *point,
 			 Handle *handle);
-static void 
+static void
 place_handle_by_swapping(OrthConn *orth, int index, Handle *handle);
 
 struct EndSegmentChange {
@@ -86,10 +86,10 @@ struct EndSegmentChange {
    * Deleted segments might be connected, so we must store the connection
    * point.
    */
-  
+
   enum change_type type;
   int applied;
-  
+
   int segment;
   Point point;
   Handle *handle;
@@ -151,7 +151,7 @@ static int get_segment_nr(OrthConn *orth, Point *point, real max_dist)
 
   segment = 0;
   distance = distance_line_point(&orth->points[0], &orth->points[1], 0, point);
-  
+
   for (i=1;i<orth->numpoints-1;i++) {
     tmp_dist = distance_line_point(&orth->points[i], &orth->points[i+1], 0, point);
     if (tmp_dist < distance) {
@@ -162,7 +162,7 @@ static int get_segment_nr(OrthConn *orth, Point *point, real max_dist)
 
   if (distance < max_dist)
     return segment;
-  
+
   return -1;
 }
 
@@ -191,7 +191,7 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
     case VERTICAL:
       orth->points[1].x = to->x;
       break;
-    } 
+    }
     break;
   case HANDLE_MOVE_ENDPOINT:
     n = orth->numpoints - 1;
@@ -222,7 +222,7 @@ orthconn_move_handle(OrthConn *orth, Handle *handle,
       orth->points[handle_nr].x = to->x;
       orth->points[handle_nr+1].x = to->x;
       break;
-    } 
+    }
     break;
   default:
     g_warning("Internal error in orthconn_move_handle.\n");
@@ -237,7 +237,7 @@ orthconn_move(OrthConn *orth, Point *to)
 {
   Point p;
   int i;
-  
+
   p = *to;
   point_sub(&p, &orth->points[0]);
 
@@ -253,7 +253,7 @@ orthconn_distance_from(OrthConn *orth, Point *point, real line_width)
 {
   int i;
   real dist;
-  
+
   dist = distance_line_point( &orth->points[0], &orth->points[1],
 			      line_width, point);
   for (i=1;i<orth->numpoints-1;i++) {
@@ -287,9 +287,9 @@ neworthconn_update_midpoints(OrthConn *orth)
 
 static void
 adjust_handle_count_to(OrthConn *orth, gint count) {
-  /* This will shrink or expand orth->handles as necessary (so that 
+  /* This will shrink or expand orth->handles as necessary (so that
      orth->numhandles matches orth->numpoints-1, most probably), by adding or
-     removing minor handles and keeping the endpoint handles at the 
+     removing minor handles and keeping the endpoint handles at the
      extremities of the array. */
 
   if (orth->numhandles == count) return;
@@ -298,8 +298,8 @@ adjust_handle_count_to(OrthConn *orth, gint count) {
     orth->handles = g_realloc(orth->handles,
                               (count)*sizeof(Handle *));
     orth->handles[count-1] = orth->handles[orth->numhandles-1];
-    orth->handles[orth->numhandles-1] = NULL; 
-    for (i=orth->numhandles-1; i<count-1; i++) {  
+    orth->handles[orth->numhandles-1] = NULL;
+    for (i=orth->numhandles-1; i<count-1; i++) {
       Handle *handle = g_new0(Handle,1);
       setup_midpoint_handle(handle);
       object_add_handle(&orth->object,handle);
@@ -319,7 +319,7 @@ adjust_handle_count_to(OrthConn *orth, gint count) {
 			  (count)*sizeof(Handle *));
   }
   orth->numhandles = count;
-  /* handles' positions will be set now */ 
+  /* handles' positions will be set now */
 }
 
 void
@@ -348,7 +348,7 @@ orthconn_update_data(OrthConn *orth)
 
   points = orth->points;
   if (!orth->autorouting &&
-      (connpoint_is_autogap(start_cp) || 
+      (connpoint_is_autogap(start_cp) ||
        connpoint_is_autogap(end_cp))) {
     Point* new_points = g_new(Point, orth->numpoints);
     for (i = 0; i < orth->numpoints; i++) {
@@ -413,7 +413,7 @@ orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint)
   /* Cannot delete any segments when there are only two left,
    * and not amy middle segment if there are only three segments.
    */
-  
+
   if (orth->numpoints==3)
     return 0;
 
@@ -421,7 +421,7 @@ orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint)
 
   if (segment<0)
     return 0;
-  
+
   if ( (segment != 0) && (segment != orth->numpoints-2)) {
     /* middle segment */
     if (orth->numpoints==4)
@@ -438,12 +438,12 @@ orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint)
 
   if (segment<0)
     return 0;
-  
+
   return 1;
 }
 
 
-/* Needs to have at least 2 handles. 
+/* Needs to have at least 2 handles.
    The handles are stored in order in the OrthConn, but need
    not be stored in order in the DiaObject.handles array. This
    is so that derived object can do what they want with
@@ -457,7 +457,7 @@ orthconn_init(OrthConn *orth, Point *startpoint)
   obj = &orth->object;
 
   object_init(obj, 3, 0);
-  
+
   orth->numpoints = 4;
   orth->numorient = orth->numpoints - 1;
 
@@ -471,11 +471,11 @@ orthconn_init(OrthConn *orth, Point *startpoint)
   orth->handles[0] = g_new(Handle, 1);
   setup_endpoint_handle(orth->handles[0], HANDLE_MOVE_STARTPOINT);
   obj->handles[0] = orth->handles[0];
-  
+
   orth->handles[1] = g_new(Handle, 1);
   setup_midpoint_handle(orth->handles[1]);
   obj->handles[1] = orth->handles[1];
-  
+
   orth->handles[2] = g_new(Handle, 1);
   setup_endpoint_handle(orth->handles[2], HANDLE_MOVE_ENDPOINT);
   obj->handles[2] = orth->handles[2];
@@ -508,19 +508,20 @@ orthconn_init(OrthConn *orth, Point *startpoint)
  * when auto-routing changed the number of points
  */
 void
-orthconn_set_points(OrthConn *orth, int num_points, Point *points) 
+orthconn_set_points (OrthConn *orth, int num_points, Point *points)
 {
   int i;
   gboolean horiz;
 
   orth->numpoints = num_points;
 
-  if (orth->points)
-    g_free(orth->points);
+  if (orth->points) {
+    g_free (orth->points);
+  }
 
-  orth->points = g_malloc((orth->numpoints)*sizeof(Point));
+  orth->points = g_new0 (Point, orth->numpoints);
 
-  for (i=0;i<orth->numpoints;i++) {
+  for (i = 0; i < orth->numpoints; i++) {
     orth->points[i] = points[i];
   }
 
@@ -583,7 +584,7 @@ orthconn_destroy(OrthConn *orth)
 
   connpointline_destroy(orth->midpoints);
   object_destroy(&orth->object);
-  
+
   g_free(orth->points);
   g_free(orth->orientation);
 
@@ -593,7 +594,7 @@ orthconn_destroy(OrthConn *orth)
   g_free(orth->handles);
 }
 
-static void 
+static void
 place_handle_by_swapping(OrthConn *orth, int index, Handle *handle)
 {
   DiaObject *obj;
@@ -610,7 +611,7 @@ place_handle_by_swapping(OrthConn *orth, int index, Handle *handle)
       tmp = obj->handles[j];
       obj->handles[j] = obj->handles[index];
       obj->handles[index] = tmp;
-      
+
       return;
     }
   }
@@ -625,11 +626,11 @@ orthconn_save(OrthConn *orth, ObjectNode obj_node, DiaContext *ctx)
   /* Make sure start-handle is first and end-handle is second. */
   place_handle_by_swapping(orth, 0, orth->handles[0]);
   place_handle_by_swapping(orth, 1, orth->handles[orth->numpoints-2]);
-  
+
   object_save(&orth->object, obj_node, ctx);
 
   attr = new_attribute(obj_node, "orth_points");
-  
+
   for (i=0;i<orth->numpoints;i++) {
     data_add_point(attr, &orth->points[i], ctx);
   }
@@ -651,7 +652,7 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node,
   DataNode data;
   int n;
   int version = 0;
-  
+
   DiaObject *obj = &orth->object;
 
   object_load(obj, obj_node, ctx);
@@ -732,10 +733,10 @@ orthconn_delete_segment(OrthConn *orth, Point *clickedpoint)
 {
   int segment;
   ObjectChange *change = NULL;
-  
+
   if (!orthconn_can_delete_segment(orth, clickedpoint))
     return NULL;
-  
+
   segment = get_segment_nr(orth, clickedpoint, 1.0);
   if (segment < 0)
     return NULL;
@@ -753,8 +754,8 @@ orthconn_delete_segment(OrthConn *orth, Point *clickedpoint)
      * That would delete also the endpoint segment after it.
      */
     if (segment == orth->numpoints-3)
-      segment--; 
-    
+      segment--;
+
     change = midsegment_create_change(orth, TYPE_REMOVE_SEGMENT, segment,
 				      &orth->points[segment],
 				      &orth->points[segment+1],
@@ -763,7 +764,7 @@ orthconn_delete_segment(OrthConn *orth, Point *clickedpoint)
   }
 
   change->apply(change, (DiaObject *)orth);
-  
+
   return change;
 }
 
@@ -774,7 +775,7 @@ orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
   ObjectChange *change = NULL;
   int segment;
   Point newpoint;
-  
+
   if (!orthconn_can_add_segment(orth, clickedpoint))
     return NULL;
 
@@ -804,7 +805,7 @@ orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
       newpoint.y = orth->points[segment].y;
     else
       newpoint.x = orth->points[segment].x;
-    
+
     change = midsegment_create_change(orth, TYPE_ADD_SEGMENT, segment,
 				      &newpoint,
 				      &newpoint,
@@ -836,14 +837,14 @@ static void
 delete_point(OrthConn *orth, int pos)
 {
   int i;
-  
+
   orth->numpoints--;
   orth->numorient = orth->numpoints - 1;
 
   for (i=pos;i<orth->numpoints;i++) {
     orth->points[i] = orth->points[i+1];
   }
-  
+
   orth->points = g_realloc(orth->points, orth->numpoints*sizeof(Point));
 }
 
@@ -857,7 +858,7 @@ remove_handle(OrthConn *orth, int segment)
   Handle *handle;
 
   handle = orth->handles[segment];
-  
+
   for (i=segment; i < orth->numpoints-1; i++) {
     orth->handles[i] = orth->handles[i+1];
     orth->orientation[i] = orth->orientation[i+1];
@@ -867,7 +868,7 @@ remove_handle(OrthConn *orth, int segment)
 			      (orth->numpoints-1)*sizeof(Orientation));
   orth->handles = g_realloc(orth->handles,
 			  (orth->numpoints-1)*sizeof(Handle *));
-  
+
   object_remove_handle(&orth->object, handle);
   orth->numhandles = orth->numpoints-1;
 }
@@ -877,7 +878,7 @@ static void
 add_point(OrthConn *orth, int pos, Point *point)
 {
   int i;
-  
+
   orth->numpoints++;
   orth->numorient = orth->numpoints-1;
 
@@ -896,7 +897,7 @@ insert_handle(OrthConn *orth, int segment,
 	      Handle *handle, Orientation orient)
 {
   int i;
-  
+
   orth->orientation = g_realloc(orth->orientation,
 			      (orth->numpoints-1)*sizeof(Orientation));
   orth->handles = g_realloc(orth->handles,
@@ -907,7 +908,7 @@ insert_handle(OrthConn *orth, int segment,
   }
   orth->handles[segment] = handle;
   orth->orientation[segment] = orient;
-  
+
   object_add_handle(&orth->object, handle);
   orth->numhandles = orth->numpoints-1;
 }
@@ -952,14 +953,14 @@ endsegment_change_apply(struct EndSegmentChange *change, DiaObject *obj)
 		    FLIP_ORIENT(orth->orientation[orth->numpoints-3]) );
       setup_midpoint_handle(orth->handles[orth->numpoints-3]);
       change->cplchange = connpointline_add_point(orth->midpoints,
-						  &orth->midpoints->end);      
+						  &orth->midpoints->end);
     }
-    if (change->cp) 
+    if (change->cp)
       object_connect(obj, change->handle, change->cp);
     break;
   case TYPE_REMOVE_SEGMENT:
     object_unconnect(obj, change->old_end_handle);
-    change->cplchange = 
+    change->cplchange =
       connpointline_remove_point(orth->midpoints,
 				 &orth->points[change->segment]);
     if (change->segment==0) { /* first */
@@ -982,8 +983,8 @@ static void
 endsegment_change_revert(struct EndSegmentChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn *)obj;
-  
-  change->cplchange->revert(change->cplchange,obj);    
+
+  change->cplchange->revert(change->cplchange,obj);
   switch (change->type) {
   case TYPE_ADD_SEGMENT:
     object_unconnect(obj, change->handle);
@@ -998,7 +999,7 @@ endsegment_change_revert(struct EndSegmentChange *change, DiaObject *obj)
       setup_endpoint_handle(orth->handles[orth->numpoints-2],
 			    HANDLE_MOVE_ENDPOINT);
     }
-    if (change->cp) 
+    if (change->cp)
       object_connect(obj, change->old_end_handle, change->cp);
     break;
   case TYPE_REMOVE_SEGMENT:
@@ -1014,7 +1015,7 @@ endsegment_change_revert(struct EndSegmentChange *change, DiaObject *obj)
 		    FLIP_ORIENT(orth->orientation[orth->numpoints-3]) );
       setup_midpoint_handle(orth->handles[orth->numpoints-3]);
     }
-    if (change->cp) 
+    if (change->cp)
       object_connect(obj, change->old_end_handle, change->cp);
     break;
   }
@@ -1064,13 +1065,13 @@ midsegment_change_free(struct MidSegmentChange *change)
   }
 
   if (change->cplchange[0]) {
-    if (change->cplchange[0]->free) 
+    if (change->cplchange[0]->free)
       change->cplchange[0]->free(change->cplchange[0]);
     g_free(change->cplchange[0]);
     change->cplchange[0] = NULL;
   }
   if (change->cplchange[1]) {
-    if (change->cplchange[1]->free) 
+    if (change->cplchange[1]->free)
       change->cplchange[1]->free(change->cplchange[1]);
     g_free(change->cplchange[1]);
     change->cplchange[1] = NULL;
@@ -1093,17 +1094,17 @@ midsegment_change_apply(struct MidSegmentChange *change, DiaObject *obj)
 		  orth->orientation[change->segment] );
     insert_handle(orth, change->segment+1, change->handles[0],
 		  FLIP_ORIENT(orth->orientation[change->segment]) );
-    change->cplchange[0] = 
+    change->cplchange[0] =
       connpointline_add_point(orth->midpoints,&change->points[0]);
-    change->cplchange[1] = 
+    change->cplchange[1] =
       connpointline_add_point(orth->midpoints,&change->points[1]);
     break;
   case TYPE_REMOVE_SEGMENT:
     seg = change->segment?change->segment:1;
-    change->cplchange[0] = 
+    change->cplchange[0] =
       connpointline_remove_point(orth->midpoints,
 				 &orth->points[seg-1]);
-    change->cplchange[1] = 
+    change->cplchange[1] =
       connpointline_remove_point(orth->midpoints,
 				 &orth->points[seg]);
     delete_point(orth, change->segment);
@@ -1124,7 +1125,7 @@ static void
 midsegment_change_revert(struct MidSegmentChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn *)obj;
-  
+
   change->cplchange[0]->revert(change->cplchange[0],obj);
   change->cplchange[1]->revert(change->cplchange[1],obj);
 
@@ -1242,7 +1243,7 @@ orthconn_toggle_autorouting_callback(DiaObject *obj, Point *clicked, gpointer da
   /* This is kinda hackish.  Since we can't see the menu item, we have to
    * assume that we're right about toggling and just send !orth->autorouting.
    */
-  change = orthconn_set_autorouting((OrthConn*)obj, 
+  change = orthconn_set_autorouting((OrthConn*)obj,
 				    !((OrthConn*)obj)->autorouting);
   orthconn_update_data((OrthConn *)obj);
   return change;

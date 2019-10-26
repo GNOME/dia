@@ -16,26 +16,43 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#pragma once
+#include "dia-guide.h"
 
-#include <gtk/gtk.h>
-#include "diagram.h"
-#include "dia-props.h"
-
-G_BEGIN_DECLS
-
-#define DIA_TYPE_LAYER_EDITOR_DIALOG dia_layer_editor_dialog_get_type ()
+G_DEFINE_BOXED_TYPE (DiaGuide, dia_guide, dia_guide_copy, dia_guide_free)
 
 
-G_DECLARE_DERIVABLE_TYPE (DiaLayerEditorDialog, dia_layer_editor_dialog, DIA, LAYER_EDITOR_DIALOG, GtkDialog)
+DiaGuide *
+dia_guide_copy (DiaGuide * self)
+{
+  DiaGuide *new;
 
-struct _DiaLayerEditorDialogClass {
-  GtkDialogClass parent;
-};
 
-GtkWidget *dia_layer_editor_dialog_new         (void);
-void       dia_layer_editor_dialog_set_diagram (DiaLayerEditorDialog *self,
-                                                Diagram              *dia);
-Diagram   *dia_layer_editor_dialog_get_diagram (DiaLayerEditorDialog *self);
+  g_return_val_if_fail (self != NULL, NULL);
 
-G_END_DECLS
+  new = g_new0 (DiaGuide, 1);
+
+  new->orientation = self->orientation;
+  new->position = self->position;
+
+  return new;
+}
+
+
+void
+dia_guide_free (DiaGuide * self)
+{
+  g_free (self);
+}
+
+
+DiaGuide *
+dia_guide_new (GtkOrientation orientation,
+               double         position)
+{
+  DiaGuide *self = g_new0 (DiaGuide, 1);
+
+  self->orientation = orientation;
+  self->position = position;
+
+  return self;
+}

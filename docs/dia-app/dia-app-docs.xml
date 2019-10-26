@@ -30,7 +30,6 @@
     <xi:include href="xml/commands.xml" />
     <xi:include href="xml/confirm.xml" />
     <xi:include href="xml/connectionpoint_ops.xml" />
-    <xi:include href="xml/create_object.xml" />
     <xi:include href="xml/cursor.xml" />
     <xi:include href="xml/cut_n_paste.xml" />
     <xi:include href="xml/defaults.xml" />
@@ -64,9 +63,7 @@
         <xi:include href="xml/layer_dialog.xml" />
     </chapter>
     <xi:include href="xml/load_save.xml" />
-    <xi:include href="xml/magnify.xml" />
     <xi:include href="xml/menus.xml" />
-    <xi:include href="xml/modify_tool.xml" />
     <xi:include href="xml/navigation.xml" />
     <xi:include href="xml/object_index.sgml" />
     <xi:include href="xml/object_ops.xml" />
@@ -76,19 +73,29 @@
     <xi:include href="xml/properties-dialog.xml" />
     <xi:include href="xml/recent_files.xml" />
     <xi:include href="xml/ruler.xml" />
-    <xi:include href="xml/scroll_tool.xml" />
     <xi:include href="xml/select.xml" />
+    <xi:include href="xml/dia-guide-dialog.xml" />
     <xi:include href="xml/sheets_dialog_callbacks.xml" />
     <xi:include href="xml/sheets_dialog.xml" />
     <xi:include href="xml/sheets.xml" />
-    <xi:include href="xml/textedit_tool.xml" />
     <xi:include href="xml/textedit.xml" />
     <xi:include href="xml/toolbox.xml" />
-    <xi:include href="xml/tool.xml" />
+
+    <chapter id="tools-api">
+      <title>Tools</title>
+      <xi:include href="xml/tool.xml" />
+      <xi:include href="xml/create_object.xml" />
+      <xi:include href="xml/modify_tool.xml" />
+      <xi:include href="xml/textedit_tool.xml" />
+      <xi:include href="xml/scroll_tool.xml" />
+      <xi:include href="xml/magnify.xml" />
+      <xi:include href="xml/dia-guide-tool.xml" />
+    </chapter>
+
     <chapter id="undo-api">
-        <title>Undo</title>
-        <xi:include href="xml/dia-change.xml" />
-        <xi:include href="xml/undo.xml" />
+      <title>Undo</title>
+      <xi:include href="xml/dia-change.xml" />
+      <xi:include href="xml/undo.xml" />
     </chapter>
   </part>
 

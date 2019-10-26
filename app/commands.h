@@ -45,16 +45,20 @@ void edit_cut_text_callback   (GtkAction *action);
 
 void edit_paste_image_callback (GtkAction *action);
 
-void view_zoom_in_callback         (GtkAction *action);
-void view_zoom_out_callback        (GtkAction *action);
-void view_zoom_set_callback        (GtkAction *action);
-void view_unfullscreen             (void);
-void view_fullscreen_callback      (GtkToggleAction *action);
-void view_aa_callback              (GtkToggleAction *action);
-void view_visible_grid_callback    (GtkToggleAction *action);
-void view_snap_to_grid_callback    (GtkToggleAction *action);
-void view_snap_to_objects_callback (GtkToggleAction *action);
-void view_toggle_rulers_callback   (GtkToggleAction *action);
+void view_zoom_in_callback           (GtkAction *action);
+void view_zoom_out_callback          (GtkAction *action);
+void view_zoom_set_callback          (GtkAction *action);
+void view_unfullscreen               (void);
+void view_fullscreen_callback        (GtkToggleAction *action);
+void view_aa_callback                (GtkToggleAction *action);
+void view_visible_grid_callback      (GtkToggleAction *action);
+void view_snap_to_grid_callback      (GtkToggleAction *action);
+void view_new_guide_callback         (GtkAction *action);
+void view_visible_guides_callback    (GtkToggleAction *action);
+void view_snap_to_guides_callback    (GtkToggleAction *action);
+void view_remove_all_guides_callback (GtkAction *action);
+void view_snap_to_objects_callback   (GtkToggleAction *action);
+void view_toggle_rulers_callback     (GtkToggleAction *action);
 void view_toggle_scrollbars_callback (GtkToggleAction *action);
 
 void view_show_cx_pts_callback     (GtkToggleAction *action);

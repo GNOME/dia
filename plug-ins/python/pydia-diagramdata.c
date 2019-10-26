@@ -400,28 +400,14 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
     } else {
       /* In the interactive case diagramdata is_a diagram */
       if (DIA_IS_DIAGRAM (self->data)) {
-	Diagram *diagram = DIA_DIAGRAM(self->data);
-	if (diagram) { /* paranoid and helping scan-build */
-	  if (!strcmp(attr, "grid_width"))
-      	    return Py_BuildValue("(dd)", diagram->grid.width_x, diagram->grid.width_y);
-	  else if (!strcmp(attr, "grid_visible"))
-	    return Py_BuildValue("(ii)", diagram->grid.visible_x, diagram->grid.visible_y);
-	  else if (!strcmp(attr, "hguides")) {
-	    int len = diagram->guides.nhguides;
-	    PyObject *ret = PyTuple_New(len);
-	    int i;
-	    for (i = 0; i < len; i++)
-	      PyTuple_SetItem(ret, i, PyFloat_FromDouble(diagram->guides.hguides[i]));
-	    return ret;
-	  } else if (diagram && !strcmp(attr, "vguides")) {
-	    int len = diagram->guides.nvguides;
-	    PyObject *ret = PyTuple_New(len);
-	    int i;
-	    for (i = 0; i < len; i++)
-	      PyTuple_SetItem(ret, i, PyFloat_FromDouble(diagram->guides.vguides[i]));
-	    return ret;
-	  }
-	}
+        Diagram *diagram = DIA_DIAGRAM (self->data);
+        if (diagram) { /* paranoid and helping scan-build */
+          if (!strcmp (attr, "grid_width")) {
+            return Py_BuildValue ("(dd)", diagram->grid.width_x, diagram->grid.width_y);
+          } else if (!strcmp (attr, "grid_visible")) {
+            return Py_BuildValue ("(ii)", diagram->grid.visible_x, diagram->grid.visible_y);
+          }
+        }
       }
     }
 

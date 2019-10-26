@@ -268,19 +268,24 @@ textedit_deactivate_focus(void)
   }
 }
 
-/** Call when something should be removed from the focus list.
+/**
+ * textedit_remove_focus:
+ * @obj: the #DiaObject
+ * @diagram: the #Diagram (unused??)
+ *
+ * Call when something should be removed from the focus list.
  * Calling this takes us out of textedit mode.
  */
 void
-textedit_remove_focus(DiaObject *obj, Diagram *diagram)
+textedit_remove_focus (DiaObject *obj, Diagram *diagram)
 {
-  Focus *old_focus = get_active_focus((DiagramData *) diagram);
-  if (remove_focus_object(obj)) {
+  if (remove_focus_object (obj)) {
     /* TODO: make sure the focus is deactivated */
   }
+
   /* This also ends the edit */
-  if (ddisplay_active() != NULL) {
-    textedit_exit(ddisplay_active());
+  if (ddisplay_active () != NULL) {
+    textedit_exit (ddisplay_active ());
   }
 }
 

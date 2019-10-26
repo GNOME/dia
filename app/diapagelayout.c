@@ -166,7 +166,7 @@ dia_page_layout_init(DiaPageLayout *self)
   for (i = 0; paper_names != NULL;
        i++, paper_names = g_list_next(paper_names)) {
 
-    dia_option_menu_add_item (self->paper_size, paper_names->data, i);
+    dia_option_menu_add_item (DIA_OPTION_MENU (self->paper_size), paper_names->data, i);
   }
   gtk_widget_show(self->paper_size);
 
@@ -386,7 +386,7 @@ dia_page_layout_set_paper(DiaPageLayout *self, const gchar *paper)
   i = find_paper(paper);
   if (i == -1)
     i = find_paper(prefs.new_diagram.papertype);
-  dia_option_menu_set_active (self->paper_size, i);
+  dia_option_menu_set_active (DIA_OPTION_MENU (self->paper_size), i);
 }
 
 void
@@ -721,7 +721,7 @@ paper_size_change (GtkWidget *widget, DiaPageLayout *self)
 
   gtk_widget_get_allocation (self->darea, &alloc);
 
-  self->papernum = dia_option_menu_get_active (widget);
+  self->papernum = dia_option_menu_get_active (DIA_OPTION_MENU (widget));
   size_page (self, &alloc);
   gtk_widget_queue_draw (self->darea);
 

@@ -40,7 +40,7 @@ struct PointChange {
 
   enum change_type type;
   int applied;
-  
+
   Point point;
   int pos;
 
@@ -79,10 +79,10 @@ polyshape_move_handle(PolyShape *poly, Handle *handle,
 		      HandleMoveReason reason, ModifierKeys modifiers)
 {
   int handle_nr;
-  
+
   handle_nr = get_handle_nr(poly, handle);
   poly->points[handle_nr] = *to;
-  
+
   return NULL;
 }
 
@@ -91,7 +91,7 @@ polyshape_move(PolyShape *poly, Point *to)
 {
   Point p;
   int i;
-  
+
   p = *to;
   point_sub(&p, &poly->points[0]);
 
@@ -114,7 +114,7 @@ polyshape_closest_segment(PolyShape *poly, Point *point, real line_width)
 			      line_width, point);
   closest = poly->numpoints-1;
   for (i=0;i<poly->numpoints-1;i++) {
-    real new_dist = 
+    real new_dist =
       distance_line_point( &poly->points[i], &poly->points[i+1],
 			   line_width, point);
     if (new_dist < dist) {
@@ -131,7 +131,7 @@ polyshape_closest_handle(PolyShape *poly, Point *point)
   int i;
   real dist;
   Handle *closest;
-  
+
   closest = poly->object.handles[0];
   dist = distance_point_point( point, &closest->pos);
   for (i=1;i<poly->numpoints;i++) {
@@ -231,24 +231,24 @@ polyshape_remove_point(PolyShape *poly, int pos)
   Handle *old_handle;
   ConnectionPoint *old_cp1, *old_cp2;
   Point old_point;
-  
+
   old_handle = poly->object.handles[pos];
   old_point = poly->points[pos];
   old_cp1 = poly->object.connections[2*pos];
   old_cp2 = poly->object.connections[2*pos+1];
-  
+
   object_unconnect((DiaObject *)poly, old_handle);
 
   remove_handle(poly, pos);
 
   polyshape_update_data(poly);
-  
+
   return polyshape_create_change(poly, TYPE_REMOVE_POINT,
 				&old_point, pos, old_handle,
 				old_cp1, old_cp2);
 }
 
-/** Returns the first clockwise direction in dirs 
+/** Returns the first clockwise direction in dirs
  * (as returned from find_slope_directions) */
 static gint
 first_direction(gint dirs) {
@@ -261,7 +261,7 @@ first_direction(gint dirs) {
   }
 }
 
-/** Returns the last clockwise direction in dirs 
+/** Returns the last clockwise direction in dirs
  * (as returned from find_slope_directions) */
 static gint
 last_direction(gint dirs) {
@@ -275,7 +275,7 @@ last_direction(gint dirs) {
 }
 
 /** Returns the available directions for a corner */
-static gint 
+static gint
 find_tip_directions(Point prev, Point this, Point next)
 {
   gint startdirs = find_slope_directions(prev, this);
@@ -302,13 +302,13 @@ polyshape_update_data(PolyShape *poly)
   int i;
   DiaObject *obj = &poly->object;
   Point minp, maxp;
-  
+
   /* handle the case of whole points array update (via set_prop) */
   if (poly->numpoints != obj->num_handles ||
       NUM_CONNECTIONS(poly) != obj->num_connections) {
     object_unconnect_all(obj); /* too drastic ? */
 
-    obj->handles = g_realloc(obj->handles, 
+    obj->handles = g_realloc(obj->handles,
                              poly->numpoints*sizeof(Handle *));
     obj->num_handles = poly->numpoints;
     for (i=0;i<poly->numpoints;i++) {
@@ -371,7 +371,7 @@ polyshape_update_boundingbox(PolyShape *poly)
   assert(poly != NULL);
 
   extra = &poly->extra_spacing;
-  pextra.start_trans = pextra.end_trans = 
+  pextra.start_trans = pextra.end_trans =
     pextra.start_long = pextra.end_long = 0;
   pextra.middle_trans = extra->border_trans;
 
@@ -390,7 +390,7 @@ polyshape_init(PolyShape *poly, int num_points)
   obj = &poly->object;
 
   object_init(obj, num_points, 2 * num_points + 1);
-  
+
   poly->numpoints = num_points;
 
   poly->points = g_malloc(num_points*sizeof(Point));
@@ -410,7 +410,7 @@ polyshape_init(PolyShape *poly, int num_points)
     obj->connections[i]->flags = 0;
   }
   obj->connections[obj->num_connections - 1]->flags = CP_FLAGS_MAIN;
-  
+
 
   /* Since the points aren't set yet, and update_data only deals with
      the points, don't call it (Thanks, valgrind!) */
@@ -461,7 +461,7 @@ polyshape_copy(PolyShape *from, PolyShape *to)
 }
 
 void
-polyshape_destroy(PolyShape *poly)
+polyshape_destroy (PolyShape *poly)
 {
   int i;
   Handle **temp_handles;
@@ -469,24 +469,29 @@ polyshape_destroy(PolyShape *poly)
 
   /* Need to store these temporary since object.handles is
      freed by object_destroy() */
-  temp_handles = g_new(Handle *, poly->numpoints);
-  for (i=0;i<poly->numpoints;i++)
+  temp_handles = g_new0 (Handle *, poly->numpoints);
+  for (i = 0; i < poly->numpoints; i++) {
     temp_handles[i] = poly->object.handles[i];
+  }
 
-  temp_cps = g_new(ConnectionPoint *, NUM_CONNECTIONS(poly));
-  for (i = 0; i < NUM_CONNECTIONS(poly); i++)
+  temp_cps = g_new0 (ConnectionPoint *, NUM_CONNECTIONS (poly));
+  for (i = 0; i < NUM_CONNECTIONS (poly); i++) {
     temp_cps[i] = poly->object.connections[i];
+  }
 
-  object_destroy(&poly->object);
+  object_destroy (&poly->object);
 
-  for (i=0;i<poly->numpoints;i++)
-    g_free(temp_handles[i]);
-  g_free(temp_handles);
-  for (i = 0; i < NUM_CONNECTIONS(poly); i++)
-    g_free(temp_cps[i]);
-  g_free(temp_cps);
-  
-  g_free(poly->points);
+  for (i = 0; i < poly->numpoints;i++) {
+    g_free (temp_handles[i]);
+  }
+  g_free (temp_handles);
+
+  for (i = 0; i < NUM_CONNECTIONS (poly); i++) {
+    g_free (temp_cps[i]);
+  }
+  g_free (temp_cps);
+
+  g_free (poly->points);
 }
 
 
@@ -499,7 +504,7 @@ polyshape_save(PolyShape *poly, ObjectNode obj_node, DiaContext *ctx)
   object_save(&poly->object, obj_node, ctx);
 
   attr = new_attribute(obj_node, "poly_points");
-  
+
   for (i=0;i<poly->numpoints;i++) {
     data_add_point(attr, &poly->points[i], ctx);
   }
@@ -511,7 +516,7 @@ polyshape_load(PolyShape *poly, ObjectNode obj_node, DiaContext *ctx) /* NOTE: D
   int i;
   AttributeNode attr;
   DataNode data;
-  
+
   DiaObject *obj = &poly->object;
 
   object_load(obj, obj_node, ctx);
@@ -585,7 +590,7 @@ polyshape_change_revert(struct PointChange *change, DiaObject *obj)
   case TYPE_REMOVE_POINT:
     add_handle((PolyShape *)obj, change->pos, &change->point,
 	       change->handle, change->cp1, change->cp2);
-      
+
     break;
   }
   change->applied = 0;

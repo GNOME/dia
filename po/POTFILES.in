@@ -13,6 +13,7 @@ app/diapagelayout.c
 app/dia-colour-area.c
 app/dia-line-width-area.c
 app/dia-props.c
+app/dia-guide-dialog.c
 app/disp_callbacks.c
 app/display.c
 app/exit_dialog.c

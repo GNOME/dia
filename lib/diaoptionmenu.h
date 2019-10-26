@@ -18,9 +18,28 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
+
+#pragma once
+
 #include <gtk/gtk.h>
 
-GtkWidget *dia_option_menu_new (void);
-void dia_option_menu_add_item (GtkWidget *widget, const char *name, int value);
-void dia_option_menu_set_active (GtkWidget *widget, int active);
-int  dia_option_menu_get_active (GtkWidget *widget);
+G_BEGIN_DECLS
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkComboBox, g_object_unref)
+
+#define DIA_TYPE_OPTION_MENU dia_option_menu_get_type ()
+G_DECLARE_DERIVABLE_TYPE (DiaOptionMenu, dia_option_menu, DIA, OPTION_MENU, GtkComboBox)
+
+struct _DiaOptionMenuClass {
+  GtkComboBoxClass parent;
+};
+
+GtkWidget *dia_option_menu_new        (void);
+void       dia_option_menu_add_item   (DiaOptionMenu *self,
+                                       const char    *name,
+                                       int            value);
+void       dia_option_menu_set_active (DiaOptionMenu *self,
+                                       int            active);
+int        dia_option_menu_get_active (DiaOptionMenu *self);
+
+G_END_DECLS

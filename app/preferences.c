@@ -93,9 +93,11 @@ static int default_undo_depth = 15;
 static guint default_recent_documents = 5;
 static Color default_colour = DEFAULT_GRID_COLOR;
 static Color pbreak_colour = DEFAULT_PAGEBREAK_COLOR;
+static Color guide_colour = DEFAULT_GUIDE_COLOR;
 static const gchar *default_paper_name = NULL;
 static const gchar *default_length_unit = "Centimeter";
 static const gchar *default_fontsize_unit = "Point";
+static guint default_snap_distance = 10;
 
 static const char *default_favored_filter = N_("any");
 
@@ -184,6 +186,8 @@ DiaPrefData prefs_data[] =
   { "fontsize_unit", PREF_CHOICE, PREF_OFFSET(fontsize_unit),
     &default_fontsize_unit, UI_TAB, N_("Font size unit:"), NULL, FALSE,
     _get_units_name_list, update_internal_prefs },
+  { "snap_distance", PREF_UINT, PREF_OFFSET(snap_distance),
+    &default_snap_distance, 0, N_("Guide snapping distance:") },
 
   { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("New diagram:") },
   { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, DIA_TAB, N_("Portrait") },
@@ -214,6 +218,12 @@ DiaPrefData prefs_data[] =
 
   { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("Antialias:") },
   { "view_antialiased", PREF_BOOLEAN, PREF_OFFSET(view_antialiased), &default_false, VIEW_TAB, N_("view antialiased") },
+  { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
+
+  { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("Guides:") },
+  { "show_guides", PREF_BOOLEAN, PREF_OFFSET(guides_visible), &default_true, VIEW_TAB, N_("Visible") },
+  { "snap_to_guides", PREF_BOOLEAN, PREF_OFFSET(guides_snap), &default_true, VIEW_TAB, N_("Snap to guides") },
+  { "guide_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.guide_color), &guide_colour, VIEW_TAB, N_("Color:") },
   { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
 
   /* Favored Filter */

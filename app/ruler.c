@@ -253,7 +253,7 @@ dia_ruler_new (GtkOrientation orientation, GtkWidget *shell, DDisplay *ddisp)
   DIA_RULER(rule)->orientation = orientation;
   DIA_RULER(rule)->ddisp = ddisp;
 
-  gtk_widget_set_events (rule, GDK_EXPOSURE_MASK);
+  gtk_widget_set_events (rule, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK);
 
   g_signal_connect_swapped (G_OBJECT (shell), "motion_notify_event",
                             G_CALLBACK (dia_ruler_motion_notify),

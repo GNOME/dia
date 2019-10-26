@@ -310,6 +310,9 @@ fill_sheet_wbox(Sheet *sheet)
 
     if (pixbuf) {
       image = gtk_image_new_from_pixbuf (pixbuf);
+    } else {
+      image = gtk_image_new_from_icon_name ("image-missing",
+                                            GTK_ICON_SIZE_SMALL_TOOLBAR);
     }
 
     button = gtk_radio_button_new (tool_group);

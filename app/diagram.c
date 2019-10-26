@@ -234,6 +234,7 @@ dia_diagram_init (Diagram *self)
                                        /* Sure, but it's also silly ZB */
 
   self->pagebreak_color = prefs.new_diagram.pagebreak_color;
+  self->guide_color = prefs.new_diagram.guide_color;
 
   get_paper_info (&self->data->paper, -1, &prefs.new_diagram);
 
@@ -247,10 +248,7 @@ dia_diagram_init (Diagram *self)
   self->grid.dynamic = prefs.grid.dynamic;
   self->grid.major_lines = prefs.grid.major_lines;
 
-  self->guides.nhguides = 0;
-  self->guides.hguides = NULL;
-  self->guides.nvguides = 0;
-  self->guides.vguides = NULL;
+  self->guides = NULL;
 
   self->filename = NULL;
 
@@ -1601,6 +1599,7 @@ dia_diagram_set_file (Diagram *self,
   g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_FILE]);
 }
 
+
 GFile *
 dia_diagram_get_file (Diagram *self)
 {
@@ -1609,4 +1608,248 @@ dia_diagram_get_file (Diagram *self)
   priv = dia_diagram_get_instance_private (self);
 
   return priv->file;
+}
+
+
+/**
+ * dia_diagram_add_guide:
+ * @dia: the #Diagram
+ * @position: when (relative to origin) to place the #DiaGuide
+ * @orientation: which axis the guide is for
+ * @push_undo: Update the undo stack if %TRUE
+ *
+ * Add a guide to the diagram at the given position and orientation.
+ *
+ * Returns: the new #DiaGuide
+ *
+ * Since: 0.98
+ */
+DiaGuide *
+dia_diagram_add_guide (Diagram        *dia,
+                       real            position,
+                       GtkOrientation  orientation,
+                       gboolean        push_undo)
+{
+  DiaGuide *guide = dia_guide_new (orientation, position);
+
+  dia->guides = g_list_append (dia->guides, guide);
+
+  if (push_undo) {
+    dia_add_guide_change_new (dia, guide, TRUE);   /* Update undo stack. */
+    undo_set_transactionpoint (dia->undo);
+  }
+
+  diagram_add_update_all (dia);
+  diagram_modified (dia);
+  diagram_flush (dia);
+
+  return guide;
+}
+
+
+/**
+ * dia_diagram_pick_guide:
+ * @dia: #the #Diagram
+ * @x: horizontal position
+ * @y: vertical position
+ * @epsilon_x: margin of error for @x
+ * @epsilon_y: margin of error for @y
+ *
+ * Rick a guide within (@epsilon_x, @epsilon_y) distance of (@x, @y).
+ *
+ * Returns: %NULL if no such guide exists.
+ *
+ * Since: 0.98
+ */
+DiaGuide *
+dia_diagram_pick_guide (Diagram *dia,
+                        gdouble  x,
+                        gdouble  y,
+                        gdouble  epsilon_x,
+                        gdouble  epsilon_y)
+{
+  GList *list;
+  DiaGuide *ret = NULL;
+  gdouble mindist = G_MAXDOUBLE;
+
+  g_return_val_if_fail (epsilon_x > 0 && epsilon_y > 0, NULL);
+
+  for (list = dia->guides;
+       list;
+       list = g_list_next (list)) {
+    DiaGuide *guide = list->data;
+    real position = guide->position;
+    gdouble dist;
+
+    switch (guide->orientation) {
+      case GTK_ORIENTATION_HORIZONTAL:
+        dist = ABS (position - y);
+        if (dist < MIN (epsilon_y, mindist)) {
+          mindist = dist;
+          ret = guide;
+        }
+        break;
+
+      case GTK_ORIENTATION_VERTICAL:
+        dist = ABS (position - x);
+        if (dist < MIN (epsilon_x, mindist / epsilon_y * epsilon_x)) {
+          mindist = dist * epsilon_y / epsilon_x;
+          ret = guide;
+        }
+        break;
+
+      default:
+        continue;
+    }
+  }
+
+  return ret;
+}
+
+
+/**
+ * dia_diagram_pick_guide_h:
+ * @dia: #the #Diagram
+ * @x: horizontal position
+ * @y: vertical position
+ * @epsilon_x: margin of error for @x
+ * @epsilon_y: margin of error for @y
+ *
+ * Rick a %GTK_ORIENTATION_HORIZONTAL guide
+ * within (@epsilon_x, @epsilon_y) distance of (@x, @y).
+ *
+ * Returns: %NULL if no such guide exists.
+ *
+ * Since: 0.98
+ */
+DiaGuide *
+dia_diagram_pick_guide_h (Diagram *dia,
+                          gdouble  x,
+                          gdouble  y,
+                          gdouble  epsilon_x,
+                          gdouble  epsilon_y)
+{
+  GList *list;
+  DiaGuide *ret = NULL;
+  gdouble mindist = G_MAXDOUBLE;
+
+  g_return_val_if_fail (epsilon_x > 0 && epsilon_y > 0, NULL);
+
+  for (list = dia->guides;
+       list;
+       list = g_list_next (list)) {
+    DiaGuide *guide = list->data;
+    real position = guide->position;
+    gdouble dist;
+
+    switch (guide->orientation) {
+      case GTK_ORIENTATION_HORIZONTAL:
+        dist = ABS (position - y);
+        if (dist < MIN (epsilon_y, mindist)) {
+          mindist = dist;
+          ret = guide;
+        }
+        break;
+
+      default:
+        continue;
+      }
+  }
+
+  return ret;
+}
+
+
+/**
+ * dia_diagram_pick_guide_v:
+ * @dia: #the #Diagram
+ * @x: horizontal position
+ * @y: vertical position
+ * @epsilon_x: margin of error for @x
+ * @epsilon_y: margin of error for @y
+ *
+ * Rick a %GTK_ORIENTATION_VERTICAL guide
+ * within (@epsilon_x, @epsilon_y) distance of (@x, @y).
+ *
+ * Returns: %NULL if no such guide exists.
+ *
+ * Since: 0.98
+ */
+DiaGuide *
+dia_diagram_pick_guide_v (Diagram *dia,
+                          gdouble  x,
+                          gdouble  y,
+                          gdouble  epsilon_x,
+                          gdouble  epsilon_y)
+{
+  GList *list;
+  DiaGuide *ret = NULL;
+  gdouble mindist = G_MAXDOUBLE;
+
+  g_return_val_if_fail (epsilon_x > 0 && epsilon_y > 0, NULL);
+
+  for (list = dia->guides;
+       list;
+       list = g_list_next (list)) {
+    DiaGuide *guide = list->data;
+    real position = guide->position;
+    gdouble dist;
+
+    switch (guide->orientation) {
+      case GTK_ORIENTATION_VERTICAL:
+        dist = ABS (position - x);
+        if (dist < MIN (epsilon_x, mindist / epsilon_y * epsilon_x)) {
+          mindist = dist * epsilon_y / epsilon_x;
+          ret = guide;
+        }
+        break;
+
+      default:
+        continue;
+    }
+  }
+
+  return ret;
+}
+
+
+/**
+ * dia_diagram_remove_guide:
+ * @dia: the #Diagram
+ * @guide: the #DiaGuide
+ * @push_undo: Update the undo stack if %TRUE
+ *
+ * Remove the given guide from the diagram.
+ *
+ * Since: 0.98
+ */
+void
+dia_diagram_remove_guide (Diagram *dia, DiaGuide *guide, gboolean push_undo)
+{
+  if (push_undo) {
+    dia_delete_guide_change_new (dia, guide, TRUE);   /* Update undo stack. */
+  }
+
+  dia->guides = g_list_remove (dia->guides, guide);
+}
+
+
+/**
+ * dia_diagram_remove_all_guides:
+ * @dia: the #Diagram
+ *
+ * Remove all guides from the diagram.
+ *
+ * Updates undo stack.
+ */
+void
+dia_diagram_remove_all_guides (Diagram *dia)
+{
+  GList *list;
+
+  for (list = g_list_copy (dia->guides); list; list = g_list_next (list)) {
+    dia_diagram_remove_guide (dia, list->data, TRUE);
+  }
+
+  undo_set_transactionpoint (dia->undo);
 }

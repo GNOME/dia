@@ -22,6 +22,11 @@ dia_sources = [
     'layer-editor/layer_dialog.c',
     'layer-editor/layer_dialog.h',
 
+    'dia-guide-tool.c',
+    'dia-guide-tool.h',
+    'dia-guide-dialog.c',
+    'dia-guide-dialog.h',
+
     'commands.c',
     'app_procs.c',
     'connectionpoint_ops.c',

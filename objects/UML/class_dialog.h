@@ -2,7 +2,7 @@
 /**
  * \brief Very special user interface for UMLClass parametrization
  *
- * There is a (too) tight coupling between the UMLClass and it's user interface. 
+ * There is a (too) tight coupling between the UMLClass and it's user interface.
  * And the dialog is too huge in code as well as on screen.
  */
 struct _UMLClassDialog {
@@ -31,7 +31,7 @@ struct _UMLClassDialog {
   GtkSpinButton *classname_font_height;
   GtkSpinButton *abstract_classname_font_height;
   GtkSpinButton *comment_font_height;
-  GtkSpinButton *wrap_after_char;  
+  GtkSpinButton *wrap_after_char;
   GtkSpinButton *comment_line_length;
   GtkToggleButton *comment_tagging;
   GtkSpinButton *line_width;
@@ -42,8 +42,8 @@ struct _UMLClassDialog {
   GtkLabel *Comment_length_label;
 
   GList *disconnected_connections;
-  GList *added_connections; 
-  GList *deleted_connections; 
+  GList *added_connections;
+  GList *deleted_connections;
 
   GtkList *attributes_list;
   GtkListItem *current_attr;
@@ -53,31 +53,35 @@ struct _UMLClassDialog {
   GtkTextView *attr_comment;
   GtkWidget *attr_visible;
   GtkToggleButton *attr_class_scope;
-  
-  GtkList *operations_list;
-  GtkListItem *current_op;
+
+  GtkWidget *operations;
+  GtkListStore *operations_store;
   GtkEntry *op_name;
   GtkEntry *op_type;
   GtkEntry *op_stereotype;
   GtkTextView *op_comment;
+  GtkTextBuffer *op_comment_buffer;
 
   GtkWidget *op_visible;
   GtkToggleButton *op_class_scope;
   GtkWidget *op_inheritance_type;
-  GtkToggleButton *op_query;  
-  
-  GtkList *parameters_list;
-  GtkListItem *current_param;
+  GtkToggleButton *op_query;
+
+  GtkWidget *parameters;
+  GtkListStore *parameters_store;
+
   GtkEntry *param_name;
   GtkEntry *param_type;
   GtkEntry *param_value;
   GtkTextView *param_comment;
   GtkWidget *param_kind;
+  GtkTextBuffer *param_comment_buffer;
+
   GtkWidget *param_new_button;
   GtkWidget *param_delete_button;
   GtkWidget *param_up_button;
   GtkWidget *param_down_button;
-  
+
   GtkList *templates_list;
   GtkListItem *current_templ;
   GtkToggleButton *templ_template;
@@ -87,8 +91,9 @@ struct _UMLClassDialog {
 
 void _umlclass_store_disconnects(UMLClassDialog *prop_dialog, ConnectionPoint *cp);
 
-const gchar *_class_get_comment(GtkTextView *);
+gchar *_class_get_comment(GtkTextView *);
 void _class_set_comment(GtkTextView *, gchar *);
+char *buffer_get_text (GtkTextBuffer *buffer);
 
 void _attributes_get_current_values(UMLClassDialog *prop_dialog);
 void _operations_get_current_values(UMLClassDialog *prop_dialog);

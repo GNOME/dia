@@ -53,14 +53,3 @@ foreach sheet : sheet_files
         install_dir: sheetsdir
     )
 endforeach
-
-checktrans_py = find_program('checktrans.py')
-
-custom_target(
-    'sheet-translation-report',
-    build_by_default:  false,  # TODO: tracked in issue #24.
-    input: sheet_files_targets,
-    output: 'sheet-translation-report',
-    command: [checktrans_py, '@INPUT@'],
-    capture: true
-)

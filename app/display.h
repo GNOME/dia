@@ -62,6 +62,7 @@ struct _DDisplay {
   GtkWidget *zoom_status;
   GtkWidget *grid_status;
   GtkWidget *mainpoint_status;
+  GtkWidget *guide_snap_status;
   GtkWidget *modified_status;
 
   GtkAccelGroup *accel_group;
@@ -75,7 +76,10 @@ struct _DDisplay {
 
   Grid grid;                      /* the grid in this display          */
 
-  gboolean show_cx_pts;		  /* Connection points toggle boolean  */
+  gboolean guides_visible;        /* Whether guides are visible. */
+  gboolean guides_snap;           /* Whether to snap to guides. */
+
+  gboolean show_cx_pts;           /* Connection points toggle boolean  */
   gboolean autoscroll;
   gboolean mainpoint_magnetism;   /* Mainpoints snapped from entire obj*/
 
@@ -108,6 +112,11 @@ struct _DDisplay {
 
   /* Rember the last clicked point per display, but in diagram coordinates */
   Point clicked_position;
+
+  /* For dragging a new guideline. */
+  gboolean is_dragging_new_guideline;
+  gdouble dragged_new_guideline_position;
+  GtkOrientation dragged_new_guideline_orientation;
 };
 
 extern GdkCursor *default_cursor;
@@ -143,6 +152,7 @@ void ddisplay_zoom_middle(DDisplay *ddisp, real magnify);
 
 void ddisplay_zoom_centered(DDisplay *ddisp, Point *point, real magnify);
 void ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap);
+void ddisplay_set_snap_to_guides(DDisplay *ddisp, gboolean snap);
 void ddisplay_set_snap_to_objects(DDisplay *ddisp, gboolean magnetic);
 void ddisplay_set_renderer(DDisplay *ddisp, int aa_renderer);
 void ddisplay_resize_canvas(DDisplay *ddisp,

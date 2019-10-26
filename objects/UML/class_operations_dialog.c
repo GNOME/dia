@@ -16,10 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  */
-#include <config.h>
 
-#include <assert.h>
-#undef GTK_DISABLE_DEPRECATED /* GtkList, ... */
+#include "config.h"
+
 #include <gtk/gtk.h>
 
 #include "class.h"
@@ -31,481 +30,448 @@
  ******************** OPERATIONS *****************************
  *************************************************************/
 
-static void
-parameters_set_sensitive(UMLClassDialog *prop_dialog, gint val)
+enum {
+  COL_PARAM_TITLE,
+  COL_PARAM_PARAM,
+  N_PARAM_COLS
+};
+
+
+enum {
+  COL_OPER_TITLE,
+  COL_OPER_OPER,
+  COL_OPER_UNDERLINE,
+  COL_OPER_BOLD,
+  COL_OPER_ITALIC,
+  N_OPER_COLS
+};
+
+
+
+static gboolean
+get_current_operation (UMLClassDialog  *dialog,
+                       UMLOperation   **oper,
+                       GtkTreeIter     *c_iter)
 {
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_name), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_type), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_value), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_comment), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->param_kind), val);
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
+
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (dialog->operations));
+  if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_OPER_OPER, oper, -1);
+
+    if (c_iter) {
+      *c_iter = iter;
+    }
+
+    return TRUE;
+  }
+
+  return FALSE;
 }
 
-static void
-parameters_set_values(UMLClassDialog *prop_dialog, UMLParameter *param)
-{
-  gtk_entry_set_text(prop_dialog->param_name, param->name);
-  gtk_entry_set_text(prop_dialog->param_type, param->type);
-  if (param->value != NULL)
-    gtk_entry_set_text(prop_dialog->param_value, param->value);
-  else
-    gtk_entry_set_text(prop_dialog->param_value, "");
-  if (param->comment != NULL)
-    _class_set_comment(prop_dialog->param_comment, param->comment);
-  else
-    _class_set_comment(prop_dialog->param_comment, "");
-
-  dia_option_menu_set_active(prop_dialog->param_kind, param->kind);
-}
 
 static void
-parameters_clear_values(UMLClassDialog *prop_dialog)
+update_operation (UMLClassDialog *dialog,
+                  UMLOperation   *op,
+                  GtkTreeIter    *iter)
 {
-  gtk_entry_set_text(prop_dialog->param_name, "");
-  gtk_entry_set_text(prop_dialog->param_type, "");
-  gtk_entry_set_text(prop_dialog->param_value, "");
-  _class_set_comment(prop_dialog->param_comment, "");
-  dia_option_menu_set_active(prop_dialog->param_kind, UML_UNDEF_KIND);
+  PangoUnderline underline;
+  PangoStyle italic = PANGO_STYLE_NORMAL;
+  int weight = 400;
+  char *title;
 
-}
-
-static void
-parameters_get_values (UMLClassDialog *prop_dialog, UMLParameter *param)
-{
-  g_free(param->name);
-  g_free(param->type);
-  g_free(param->comment);
-  if (param->value != NULL)
-    g_free(param->value);
-
-  param->name = g_strdup (gtk_entry_get_text (prop_dialog->param_name));
-  param->type = g_strdup (gtk_entry_get_text (prop_dialog->param_type));
-
-  param->value = g_strdup (gtk_entry_get_text(prop_dialog->param_value));
-  param->comment = g_strdup (_class_get_comment(prop_dialog->param_comment));
-
-  param->kind = (UMLParameterKind) dia_option_menu_get_active(prop_dialog->param_kind);
-}
-
-static void
-parameters_get_current_values(UMLClassDialog *prop_dialog)
-{
-  UMLParameter *current_param;
-  GtkLabel *label;
-  char *new_str;
-
-  if (prop_dialog->current_param != NULL) {
-    current_param = (UMLParameter *)
-      g_object_get_data(G_OBJECT(prop_dialog->current_param), "user_data");
-    if (current_param != NULL) {
-      parameters_get_values(prop_dialog, current_param);
-      label = GTK_LABEL(gtk_bin_get_child(GTK_BIN(prop_dialog->current_param)));
-      new_str = uml_get_parameter_string(current_param);
-      gtk_label_set_text(label, new_str);
-      g_free(new_str);
+  underline = op->class_scope ? PANGO_UNDERLINE_SINGLE : PANGO_UNDERLINE_NONE;
+  if (op->inheritance_type != UML_LEAF) {
+    italic = PANGO_STYLE_ITALIC;
+    if (op->inheritance_type == UML_ABSTRACT) {
+      weight = 800;
     }
   }
+  title = uml_get_operation_string (op);
+
+  gtk_list_store_set (dialog->operations_store,
+                      iter,
+                      COL_OPER_OPER, op,
+                      COL_OPER_TITLE, title,
+                      COL_OPER_UNDERLINE, underline,
+                      COL_OPER_BOLD, weight,
+                      COL_OPER_ITALIC, italic,
+                      -1);
+
+  g_clear_pointer (&title, g_free);
 }
 
 
-static void
-parameters_list_selection_changed_callback(GtkWidget *gtklist,
-					   UMLClass *umlclass)
+static gboolean
+get_current_parameter (UMLClassDialog  *dialog,
+                       UMLParameter   **param,
+                       GtkTreeIter     *c_iter)
 {
-  GList *list;
-  UMLClassDialog *prop_dialog;
-  GObject *list_item;
-  UMLParameter *param;
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
 
-  prop_dialog = umlclass->properties_dialog;
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (dialog->parameters));
+  if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_PARAM_PARAM, param, -1);
 
-  if (!prop_dialog)
-    return; /* maybe hiding a bug elsewhere */
+    if (c_iter) {
+      *c_iter = iter;
+    }
 
-  parameters_get_current_values(prop_dialog);
-
-  list = GTK_LIST(gtklist)->selection;
-  if (!list) { /* No selected */
-    parameters_set_sensitive(prop_dialog, FALSE);
-    parameters_clear_values(prop_dialog);
-    prop_dialog->current_param = NULL;
-    return;
+    return TRUE;
   }
 
-  list_item = G_OBJECT(list->data);
-  param = (UMLParameter *)g_object_get_data(G_OBJECT(list_item), "user_data");
-  parameters_set_values(prop_dialog, param);
-  parameters_set_sensitive(prop_dialog, TRUE);
-
-  prop_dialog->current_param = GTK_LIST_ITEM(list_item);
-  gtk_widget_grab_focus(GTK_WIDGET(prop_dialog->param_name));
+  return FALSE;
 }
 
+
 static void
-parameters_list_new_callback(GtkWidget *button,
-			     UMLClass *umlclass)
+update_parameter (UMLClassDialog *dialog,
+                  UMLParameter   *param,
+                  GtkTreeIter    *iter)
 {
-  GList *list;
+  UMLOperation *op;
+  GtkTreeIter op_iter;
+  char *title;
+
+  title = uml_parameter_get_string (param);
+
+  gtk_list_store_set (dialog->parameters_store,
+                      iter,
+                      COL_PARAM_PARAM, param,
+                      COL_PARAM_TITLE, title,
+                      -1);
+
+  if (get_current_operation (dialog, &op, &op_iter)) {
+    update_operation (dialog, op, &op_iter);
+
+    g_clear_pointer (&op, uml_operation_unref);
+  }
+
+  g_clear_pointer (&title, g_free);
+}
+
+
+static void
+parameters_set_sensitive (UMLClassDialog *prop_dialog, gint val)
+{
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->param_name), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->param_type), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->param_value), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->param_comment), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->param_kind), val);
+}
+
+
+static void
+parameters_set_values (UMLClassDialog *prop_dialog,
+                       UMLParameter   *param)
+{
+  gtk_entry_set_text (prop_dialog->param_name, param->name? param->name : "");
+  gtk_entry_set_text (prop_dialog->param_type, param->type? param->type : "");
+  gtk_entry_set_text (prop_dialog->param_value, param->value? param->value : "");
+  gtk_text_buffer_set_text (prop_dialog->param_comment_buffer,
+                            param->comment? g_strdup (param->comment) : "",
+                            -1);
+
+  dia_option_menu_set_active (DIA_OPTION_MENU (prop_dialog->param_kind),
+                              param->kind);
+}
+
+
+static void
+parameters_clear_values (UMLClassDialog *prop_dialog)
+{
+  gtk_entry_set_text (prop_dialog->param_name, "");
+  gtk_entry_set_text (prop_dialog->param_type, "");
+  gtk_entry_set_text (prop_dialog->param_value, "");
+  gtk_text_buffer_set_text (prop_dialog->param_comment_buffer, "", -1);
+  dia_option_menu_set_active (DIA_OPTION_MENU (prop_dialog->param_kind),
+                              UML_UNDEF_KIND);
+}
+
+
+static gboolean
+add_param_to_list (GtkTreeModel *model,
+                   GtkTreePath *path,
+                   GtkTreeIter *iter,
+                   gpointer data)
+{
+  UMLOperation *op = data;
+  UMLParameter *param = NULL;
+
+  // Don't free param, transfering to the list
+  gtk_tree_model_get (model, iter, COL_PARAM_PARAM, &param, -1);
+
+  op->parameters = g_list_append (op->parameters, uml_parameter_ref (param));
+
+  return FALSE;
+}
+
+
+static void
+sync_params_to_operation (GtkTreeModel *model,
+                          UMLOperation *op)
+{
+  g_list_free_full (op->parameters, (GDestroyNotify) uml_parameter_unref);
+  op->parameters = NULL;
+
+  gtk_tree_model_foreach (model, add_param_to_list, op);
+}
+
+
+static void
+parameters_list_new_callback (GtkWidget *button,
+                              UMLClass  *umlclass)
+{
   UMLClassDialog *prop_dialog;
-  GtkWidget *list_item;
   UMLOperation *current_op;
   UMLParameter *param;
   char *utf;
+  GtkTreeIter iter;
+  GtkTreeSelection *selection;
 
   prop_dialog = umlclass->properties_dialog;
 
-  parameters_get_current_values(prop_dialog);
+  if (!get_current_operation (prop_dialog, &current_op, NULL)) {
+    return;
+  }
 
-  current_op = (UMLOperation *)
-    g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
+  param = uml_parameter_new ();
 
-  param = uml_parameter_new();
+  utf = uml_parameter_get_string (param);
 
-  utf = uml_get_parameter_string (param);
-  list_item = gtk_list_item_new_with_label (utf);
-  gtk_widget_show (list_item);
-  g_free (utf);
+  gtk_list_store_append (prop_dialog->parameters_store, &iter);
+  update_parameter (prop_dialog, param, &iter);
 
-  g_object_set_data(G_OBJECT(list_item), "user_data", param);
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->parameters));
+  gtk_tree_selection_select_iter (selection, &iter);
 
-  current_op->parameters = g_list_append(current_op->parameters,
-					 (gpointer) param);
+  sync_params_to_operation (GTK_TREE_MODEL (prop_dialog->parameters_store),
+                            current_op);
 
-  list = g_list_append(NULL, list_item);
-  gtk_list_append_items(prop_dialog->parameters_list, list);
-
-  if (prop_dialog->parameters_list->children != NULL)
-    gtk_list_unselect_child(prop_dialog->parameters_list,
-			    GTK_WIDGET(prop_dialog->parameters_list->children->data));
-  gtk_list_select_child(prop_dialog->parameters_list, list_item);
-
-  prop_dialog->current_param = GTK_LIST_ITEM(list_item);
+  g_clear_pointer (&utf, g_free);
+  g_clear_pointer (&param, uml_parameter_unref);
+  g_clear_pointer (&current_op, uml_operation_unref);
 }
 
+
 static void
-parameters_list_delete_callback(GtkWidget *button,
-				UMLClass *umlclass)
+parameters_list_delete_callback (GtkWidget *button,
+                                 UMLClass  *umlclass)
 {
-  GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
   UMLOperation *current_op;
   UMLParameter *param;
+  GtkTreeIter iter;
 
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->parameters_list);
 
-
-  if (gtklist->selection != NULL) {
+  if (get_current_parameter (prop_dialog, &param, &iter)) {
     /* Remove from current operations parameter list: */
-    current_op = (UMLOperation *)
-      g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
-    param = (UMLParameter *)
-      g_object_get_data(G_OBJECT(prop_dialog->current_param), "user_data");
+    if (!get_current_operation (prop_dialog, &current_op, NULL)) {
+      return;
+    }
 
-    current_op->parameters = g_list_remove(current_op->parameters,
-					   (gpointer) param);
-    uml_parameter_destroy(param);
+    gtk_list_store_remove (prop_dialog->parameters_store, &iter);
 
-    /* Remove from gtk list: */
-    list = g_list_prepend(NULL, prop_dialog->current_param);
+    sync_params_to_operation (GTK_TREE_MODEL (prop_dialog->parameters_store),
+                              current_op);
 
-    prop_dialog->current_param = NULL;
-
-    gtk_list_remove_items(gtklist, list);
-    g_list_free(list);
+    g_clear_pointer (&param, uml_parameter_unref);
+    g_clear_pointer (&current_op, uml_operation_unref);
   }
 }
 
+
 static void
-parameters_list_move_up_callback(GtkWidget *button,
-				 UMLClass *umlclass)
+parameters_list_move_up_callback (GtkWidget *button,
+                                  UMLClass  *umlclass)
 {
-  GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
-  GtkWidget *list_item;
   UMLOperation *current_op;
   UMLParameter *param;
-  int i;
+  GtkTreeIter iter;
 
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->parameters_list);
 
-  if (gtklist->selection != NULL) {
-    list_item = GTK_WIDGET(gtklist->selection->data);
+  if (get_current_parameter (prop_dialog, &param, &iter)) {
+    GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (prop_dialog->parameters_store),
+                                                 &iter);
+    GtkTreeSelection *selection;
+    GtkTreeIter prev;
+    GtkTreeIter op_iter;
 
-    i = gtk_list_child_position(gtklist, list_item);
-    if (i>0)
-      i--;
+    if (path != NULL && gtk_tree_path_prev (path)
+        && gtk_tree_model_get_iter (GTK_TREE_MODEL (prop_dialog->parameters_store), &prev, path)) {
+      gtk_list_store_move_before (prop_dialog->parameters_store, &iter, &prev);
+    } else {
+      gtk_list_store_move_before (prop_dialog->parameters_store, &iter, NULL);
+    }
+    gtk_tree_path_free (path);
 
-    param = (UMLParameter *) g_object_get_data(G_OBJECT(list_item), "user_data");
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->parameters));
+    gtk_tree_selection_select_iter (selection, &iter);
 
     /* Move parameter in current operations list: */
-    current_op = (UMLOperation *)
-      g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
+    if (get_current_operation (prop_dialog, &current_op, &op_iter)) {
+      sync_params_to_operation (GTK_TREE_MODEL (prop_dialog->parameters_store),
+                                current_op);
 
-    current_op->parameters = g_list_remove(current_op->parameters,
-					   (gpointer) param);
-    current_op->parameters = g_list_insert(current_op->parameters,
-					   (gpointer) param,
-					   i);
+      update_operation (prop_dialog, current_op, &op_iter);
 
-    /* Move parameter in gtk list: */
-    g_object_ref(list_item);
-    list = g_list_prepend(NULL, list_item);
-    gtk_list_remove_items(gtklist, list);
-    gtk_list_insert_items(gtklist, list, i);
-    g_object_unref(list_item);
+      g_clear_pointer (&current_op, uml_operation_unref);
+    }
 
-    gtk_list_select_child(gtklist, list_item);
-
-    _operations_get_current_values(prop_dialog);
+    g_clear_pointer (&param, uml_parameter_unref);
   }
 }
 
+
 static void
-parameters_list_move_down_callback(GtkWidget *button,
-				   UMLClass *umlclass)
+parameters_list_move_down_callback (GtkWidget *button,
+                                    UMLClass  *umlclass)
 {
-  GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
-  GtkWidget *list_item;
   UMLOperation *current_op;
   UMLParameter *param;
-  int i;
+  GtkTreeIter iter;
 
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->parameters_list);
 
-  if (gtklist->selection != NULL) {
-    list_item = GTK_WIDGET(gtklist->selection->data);
+  if (get_current_parameter (prop_dialog, &param, &iter)) {
+    GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (prop_dialog->parameters_store),
+                                                 &iter);
+    GtkTreeSelection *selection;
+    GtkTreeIter prev;
+    GtkTreeIter op_iter;
 
-    i = gtk_list_child_position(gtklist, list_item);
-    if (i<(g_list_length(gtklist->children)-1))
-      i++;
+    if (path != NULL) {
+      gtk_tree_path_next (path);
+      if (gtk_tree_model_get_iter (GTK_TREE_MODEL (prop_dialog->parameters_store), &prev, path)) {
+        gtk_list_store_move_after (prop_dialog->parameters_store, &iter, &prev);
+      } else {
+        gtk_list_store_move_after (prop_dialog->parameters_store, &iter, NULL);
+      }
+    } else {
+      gtk_list_store_move_after (prop_dialog->parameters_store, &iter, NULL);
+    }
+    gtk_tree_path_free (path);
 
-    param = (UMLParameter *) g_object_get_data(G_OBJECT(list_item), "user_data");
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->parameters));
+    gtk_tree_selection_select_iter (selection, &iter);
 
     /* Move parameter in current operations list: */
-    current_op = (UMLOperation *)
-      g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
+    if (get_current_operation (prop_dialog, &current_op, &op_iter)) {
+      sync_params_to_operation (GTK_TREE_MODEL (prop_dialog->parameters_store),
+                                current_op);
 
-    current_op->parameters = g_list_remove(current_op->parameters,
-					   (gpointer) param);
-    current_op->parameters = g_list_insert(current_op->parameters,
-					   (gpointer) param,
-					   i);
+      update_operation (prop_dialog, current_op, &op_iter);
 
-    /* Move parameter in gtk list: */
-    g_object_ref(list_item);
-    list = g_list_prepend(NULL, list_item);
-    gtk_list_remove_items(gtklist, list);
-    gtk_list_insert_items(gtklist, list, i);
-    g_object_unref(list_item);
+      g_clear_pointer (&current_op, uml_operation_unref);
+    }
 
-    gtk_list_select_child(gtklist, list_item);
-
-    _operations_get_current_values(prop_dialog);
+    g_clear_pointer (&param, uml_parameter_unref);
   }
 }
 
-static void
-operations_set_sensitive(UMLClassDialog *prop_dialog, gint val)
-{
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_name), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_type), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_stereotype), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_comment), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_visible), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_class_scope), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_inheritance_type), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->op_query), val);
 
-  gtk_widget_set_sensitive(prop_dialog->param_new_button, val);
-  gtk_widget_set_sensitive(prop_dialog->param_delete_button, val);
-  gtk_widget_set_sensitive(prop_dialog->param_down_button, val);
-  gtk_widget_set_sensitive(prop_dialog->param_up_button, val);
+static void
+operations_set_sensitive (UMLClassDialog *prop_dialog, gint val)
+{
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->op_name), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->op_type), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->op_stereotype), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->op_comment), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->op_visible), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->op_class_scope), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->op_inheritance_type), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->op_query), val);
+
+  gtk_widget_set_sensitive (prop_dialog->param_new_button, val);
+  gtk_widget_set_sensitive (prop_dialog->param_delete_button, val);
+  gtk_widget_set_sensitive (prop_dialog->param_down_button, val);
+  gtk_widget_set_sensitive (prop_dialog->param_up_button, val);
+
+  if (!val) {
+    parameters_set_sensitive (prop_dialog, FALSE);
+  }
 }
 
+
 static void
-operations_set_values(UMLClassDialog *prop_dialog, UMLOperation *op)
+operations_set_values (UMLClassDialog *prop_dialog, UMLOperation *op)
 {
   GList *list;
   UMLParameter *param;
-  GtkWidget *list_item;
+  GtkTreeIter iter;
   gchar *str;
 
-  gtk_entry_set_text(prop_dialog->op_name, op->name);
-  if (op->type != NULL)
-    gtk_entry_set_text(prop_dialog->op_type, op->type);
-  else
-    gtk_entry_set_text(prop_dialog->op_type, "");
+  gtk_entry_set_text (prop_dialog->op_name, op->name? op->name : "");
+  gtk_entry_set_text (prop_dialog->op_type, op->type? op->type : "");
+  gtk_entry_set_text (prop_dialog->op_stereotype, op->stereotype? op->stereotype : "");
+  gtk_text_buffer_set_text (prop_dialog->op_comment_buffer,
+                            op->comment? g_strdup (op->comment) : "",
+                            -1);
 
-  if (op->stereotype != NULL)
-    gtk_entry_set_text(prop_dialog->op_stereotype, op->stereotype);
-  else
-    gtk_entry_set_text(prop_dialog->op_stereotype, "");
+  dia_option_menu_set_active (DIA_OPTION_MENU (prop_dialog->op_visible),
+                              op->visibility);
+  gtk_toggle_button_set_active (prop_dialog->op_class_scope, op->class_scope);
+  gtk_toggle_button_set_active (prop_dialog->op_query, op->query);
+  dia_option_menu_set_active (DIA_OPTION_MENU (prop_dialog->op_inheritance_type),
+                              op->inheritance_type);
 
-  if (op->comment != NULL)
-    _class_set_comment(prop_dialog->op_comment, op->comment);
-  else
-    _class_set_comment(prop_dialog->op_comment, "");
-
-  dia_option_menu_set_active(prop_dialog->op_visible, op->visibility);
-  gtk_toggle_button_set_active(prop_dialog->op_class_scope, op->class_scope);
-  gtk_toggle_button_set_active(prop_dialog->op_query, op->query);
-  dia_option_menu_set_active(prop_dialog->op_inheritance_type, op->inheritance_type);
-
-  gtk_list_clear_items(prop_dialog->parameters_list, 0, -1);
-  prop_dialog->current_param = NULL;
-  parameters_set_sensitive(prop_dialog, FALSE);
+  gtk_list_store_clear (prop_dialog->parameters_store);
+  parameters_set_sensitive (prop_dialog, FALSE);
 
   list = op->parameters;
   while (list != NULL) {
     param = (UMLParameter *)list->data;
 
-    str = uml_get_parameter_string (param);
-    list_item = gtk_list_item_new_with_label (str);
+    str = uml_parameter_get_string (param);
+
+    gtk_list_store_append (prop_dialog->parameters_store, &iter);
+    update_parameter (prop_dialog, param, &iter);
+
     g_free (str);
 
-    g_object_set_data(G_OBJECT(list_item), "user_data", (gpointer) param);
-    gtk_container_add (GTK_CONTAINER (prop_dialog->parameters_list), list_item);
-    gtk_widget_show (list_item);
-
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 }
 
-static void
-operations_clear_values(UMLClassDialog *prop_dialog)
-{
-  gtk_entry_set_text(prop_dialog->op_name, "");
-  gtk_entry_set_text(prop_dialog->op_type, "");
-  gtk_entry_set_text(prop_dialog->op_stereotype, "");
-  _class_set_comment(prop_dialog->op_comment, "");
-  gtk_toggle_button_set_active(prop_dialog->op_class_scope, FALSE);
-  gtk_toggle_button_set_active(prop_dialog->op_query, FALSE);
 
-  gtk_list_clear_items(prop_dialog->parameters_list, 0, -1);
-  prop_dialog->current_param = NULL;
-  parameters_set_sensitive(prop_dialog, FALSE);
+static void
+operations_clear_values (UMLClassDialog *prop_dialog)
+{
+  gtk_entry_set_text (prop_dialog->op_name, "");
+  gtk_entry_set_text (prop_dialog->op_type, "");
+  gtk_entry_set_text (prop_dialog->op_stereotype, "");
+  _class_set_comment (prop_dialog->op_comment, "");
+  gtk_toggle_button_set_active (prop_dialog->op_class_scope, FALSE);
+  gtk_toggle_button_set_active (prop_dialog->op_query, FALSE);
+
+  gtk_list_store_clear (prop_dialog->parameters_store);
+
+  parameters_set_sensitive (prop_dialog, FALSE);
 }
 
 
 static void
-operations_get_values(UMLClassDialog *prop_dialog, UMLOperation *op)
+operations_list_new_callback (GtkWidget *button,
+                              UMLClass  *umlclass)
 {
-  const gchar *s;
-
-  g_free(op->name);
-  if (op->type != NULL)
-	  g_free(op->type);
-
-  op->name = g_strdup(gtk_entry_get_text(prop_dialog->op_name));
-  op->type = g_strdup (gtk_entry_get_text(prop_dialog->op_type));
-  op->comment = g_strdup(_class_get_comment(prop_dialog->op_comment));
-
-  s = gtk_entry_get_text(prop_dialog->op_stereotype);
-  if (s && s[0])
-    op->stereotype = g_strdup (s);
-  else
-    op->stereotype = NULL;
-
-  op->visibility = (UMLVisibility)dia_option_menu_get_active(prop_dialog->op_visible);
-
-  op->class_scope = gtk_toggle_button_get_active (prop_dialog->op_class_scope);
-  op->inheritance_type = (UMLInheritanceType)dia_option_menu_get_active(prop_dialog->op_inheritance_type);
-
-  op->query = gtk_toggle_button_get_active (prop_dialog->op_query);
-
-}
-
-void
-_operations_get_current_values(UMLClassDialog *prop_dialog)
-{
-  UMLOperation *current_op;
-  GtkLabel *label;
-  char *new_str;
-
-  parameters_get_current_values(prop_dialog);
-
-  if (prop_dialog->current_op != NULL) {
-    current_op = (UMLOperation *)
-      g_object_get_data(G_OBJECT(prop_dialog->current_op), "user_data");
-    if (current_op != NULL) {
-      operations_get_values(prop_dialog, current_op);
-      label = GTK_LABEL(gtk_bin_get_child(GTK_BIN(prop_dialog->current_op)));
-      new_str = uml_get_operation_string(current_op);
-      gtk_label_set_text (label, new_str);
-      g_free (new_str);
-    }
-  }
-}
-
-static void
-operations_list_item_destroy_callback(GtkWidget *list_item,
-				      gpointer data)
-{
-  UMLOperation *op;
-
-  op = (UMLOperation *) g_object_get_data(G_OBJECT(list_item), "user_data");
-
-  if (op != NULL) {
-    uml_operation_destroy(op);
-    /*printf("Destroying operation list_item's user_data!\n");*/
-  }
-}
-
-static void
-operations_list_selection_changed_callback(GtkWidget *gtklist,
-					   UMLClass *umlclass)
-{
-  GList *list;
   UMLClassDialog *prop_dialog;
-  GObject *list_item;
   UMLOperation *op;
+  GtkTreeIter iter;
+  GtkTreeSelection *selection;
 
   prop_dialog = umlclass->properties_dialog;
 
-  if (!prop_dialog)
-    return; /* maybe hiding a bug elsewhere */
+  op = uml_operation_new ();
 
-  _operations_get_current_values(prop_dialog);
-
-  list = GTK_LIST(gtklist)->selection;
-  if (!list) { /* No selected */
-    operations_set_sensitive(prop_dialog, FALSE);
-    operations_clear_values(prop_dialog);
-    prop_dialog->current_op = NULL;
-    return;
-  }
-
-  list_item = G_OBJECT(list->data);
-  op = (UMLOperation *)g_object_get_data(G_OBJECT(list_item), "user_data");
-  operations_set_values(prop_dialog, op);
-  operations_set_sensitive(prop_dialog, TRUE);
-
-  prop_dialog->current_op = GTK_LIST_ITEM(list_item);
-  gtk_widget_grab_focus(GTK_WIDGET(prop_dialog->op_name));
-}
-
-static void
-operations_list_new_callback(GtkWidget *button,
-			     UMLClass *umlclass)
-{
-  GList *list;
-  UMLClassDialog *prop_dialog;
-  GtkWidget *list_item;
-  UMLOperation *op;
-  char *utfstr;
-
-  prop_dialog = umlclass->properties_dialog;
-
-  _operations_get_current_values(prop_dialog);
-
-  op = uml_operation_new();
   /* need to make new ConnectionPoints valid and remember them */
   uml_operation_ensure_connection_points (op, &umlclass->element.object);
   prop_dialog->added_connections =
@@ -513,241 +479,369 @@ operations_list_new_callback(GtkWidget *button,
   prop_dialog->added_connections =
     g_list_prepend(prop_dialog->added_connections, op->right_connection);
 
+  gtk_list_store_append (prop_dialog->operations_store, &iter);
+  update_operation (prop_dialog, op, &iter);
 
-  utfstr = uml_get_operation_string (op);
-  list_item = gtk_list_item_new_with_label (utfstr);
-  gtk_widget_show (list_item);
-  g_free (utfstr);
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->operations));
+  gtk_tree_selection_select_iter (selection, &iter);
 
-  g_object_set_data(G_OBJECT(list_item), "user_data", op);
-  g_signal_connect (G_OBJECT (list_item), "destroy",
-		    G_CALLBACK (operations_list_item_destroy_callback), NULL);
-
-  list = g_list_append(NULL, list_item);
-  gtk_list_append_items(prop_dialog->operations_list, list);
-
-  if (prop_dialog->operations_list->children != NULL)
-    gtk_list_unselect_child(prop_dialog->operations_list,
-			    GTK_WIDGET(prop_dialog->operations_list->children->data));
-  gtk_list_select_child(prop_dialog->operations_list, list_item);
+  g_clear_pointer (&op, uml_operation_unref);
 }
 
-static void
-operations_list_delete_callback(GtkWidget *button,
-				UMLClass *umlclass)
-{
-  GList *list;
-  UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
-  UMLOperation *op;
 
+static void
+operations_list_delete_callback (GtkWidget *button,
+                                 UMLClass  *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  UMLOperation *op;
+  GtkTreeIter iter;
 
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->operations_list);
 
-  if (gtklist->selection != NULL) {
-    op = (UMLOperation *)
-      g_object_get_data(G_OBJECT(gtklist->selection->data), "user_data");
-
+  if (get_current_operation (prop_dialog, &op, &iter)) {
     if (op->left_connection != NULL) {
       prop_dialog->deleted_connections =
-	g_list_prepend(prop_dialog->deleted_connections,
-		       op->left_connection);
+        g_list_prepend (prop_dialog->deleted_connections,
+                        op->left_connection);
       prop_dialog->deleted_connections =
-	g_list_prepend(prop_dialog->deleted_connections,
-		       op->right_connection);
+        g_list_prepend (prop_dialog->deleted_connections,
+                        op->right_connection);
     }
 
-    list = g_list_prepend(NULL, gtklist->selection->data);
-    gtk_list_remove_items(gtklist, list);
-    g_list_free(list);
-    operations_clear_values(prop_dialog);
-    operations_set_sensitive(prop_dialog, FALSE);
+    gtk_list_store_remove (prop_dialog->operations_store, &iter);
+
+    g_clear_pointer (&op, uml_operation_unref);
   }
 }
+
 
 static void
-operations_list_move_up_callback(GtkWidget *button,
-				 UMLClass *umlclass)
+operations_list_move_up_callback (GtkWidget *button,
+                                  UMLClass  *umlclass)
 {
-  GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
-  GtkWidget *list_item;
-  int i;
+  UMLOperation *current_op;
+  GtkTreeIter iter;
 
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->operations_list);
 
-  if (gtklist->selection != NULL) {
-    list_item = GTK_WIDGET(gtklist->selection->data);
+  if (get_current_operation (prop_dialog, &current_op, &iter)) {
+    GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (prop_dialog->operations_store),
+                                                 &iter);
+    GtkTreeSelection *selection;
+    GtkTreeIter prev;
 
-    i = gtk_list_child_position(gtklist, list_item);
-    if (i>0)
-      i--;
+    if (path != NULL && gtk_tree_path_prev (path)
+        && gtk_tree_model_get_iter (GTK_TREE_MODEL (prop_dialog->operations_store), &prev, path)) {
+      gtk_list_store_move_before (prop_dialog->operations_store, &iter, &prev);
+    } else {
+      gtk_list_store_move_before (prop_dialog->operations_store, &iter, NULL);
+    }
+    gtk_tree_path_free (path);
 
-    g_object_ref(list_item);
-    list = g_list_prepend(NULL, list_item);
-    gtk_list_remove_items(gtklist, list);
-    gtk_list_insert_items(gtklist, list, i);
-    g_object_unref(list_item);
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->operations));
+    gtk_tree_selection_select_iter (selection, &iter);
 
-    gtk_list_select_child(gtklist, list_item);
+    g_clear_pointer (&current_op, uml_operation_unref);
   }
-
 }
+
 
 static void
 operations_list_move_down_callback(GtkWidget *button,
-				   UMLClass *umlclass)
+                                   UMLClass  *umlclass)
 {
-  GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
-  GtkWidget *list_item;
-  int i;
+  UMLOperation *current_op;
+  GtkTreeIter iter;
 
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->operations_list);
 
-  if (gtklist->selection != NULL) {
-    list_item = GTK_WIDGET(gtklist->selection->data);
+  if (get_current_operation (prop_dialog, &current_op, &iter)) {
+    GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (prop_dialog->operations_store),
+                                                 &iter);
+    GtkTreeSelection *selection;
+    GtkTreeIter prev;
 
-    i = gtk_list_child_position(gtklist, list_item);
-    if (i<(g_list_length(gtklist->children)-1))
-      i++;
+    if (path != NULL) {
+      gtk_tree_path_next (path);
+      if (gtk_tree_model_get_iter (GTK_TREE_MODEL (prop_dialog->operations_store), &prev, path)) {
+        gtk_list_store_move_after (prop_dialog->operations_store, &iter, &prev);
+      } else {
+        gtk_list_store_move_after (prop_dialog->operations_store, &iter, NULL);
+      }
+    } else {
+      gtk_list_store_move_after (prop_dialog->operations_store, &iter, NULL);
+    }
+    gtk_tree_path_free (path);
 
-    g_object_ref(list_item);
-    list = g_list_prepend(NULL, list_item);
-    gtk_list_remove_items(gtklist, list);
-    gtk_list_insert_items(gtklist, list, i);
-    g_object_unref(list_item);
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->operations));
+    gtk_tree_selection_select_iter (selection, &iter);
 
-    gtk_list_select_child(gtklist, list_item);
+    g_clear_pointer (&current_op, uml_operation_unref);
   }
 }
 
-void
-_operations_read_from_dialog(UMLClass *umlclass,
-			    UMLClassDialog *prop_dialog,
-			    int connection_index)
+
+struct AddOperData {
+  UMLClass       *class;
+  UMLClassDialog *dialog;
+  int             connection_index;
+};
+
+
+static gboolean
+add_oper_to_list (GtkTreeModel *model,
+                  GtkTreePath *path,
+                  GtkTreeIter *iter,
+                  gpointer udata)
 {
-  GList *list;
-  UMLOperation *op;
-  GtkWidget *list_item;
-  GList *clear_list;
-  DiaObject *obj;
+  struct AddOperData *data = udata;
+  UMLOperation *op = NULL;
 
-  obj = &umlclass->element.object;
+  // Don't free op, transfering to the list
+  gtk_tree_model_get (model, iter, COL_OPER_OPER, &op, -1);
 
-  /* if currently select op is changed in the entries, update from widgets */
-  _operations_get_current_values(prop_dialog);
+  data->class->operations = g_list_append (data->class->operations, op);
+
+  if (op->left_connection == NULL) {
+    uml_operation_ensure_connection_points (op, DIA_OBJECT (data->class));
+
+    data->dialog->added_connections =
+      g_list_prepend (data->dialog->added_connections,
+                      op->left_connection);
+    data->dialog->added_connections =
+      g_list_prepend (data->dialog->added_connections,
+                      op->right_connection);
+  }
+
+  if (gtk_toggle_button_get_active (data->dialog->op_vis) &&
+      (!gtk_toggle_button_get_active (data->dialog->op_supp))) {
+    DIA_OBJECT (data->class)->connections[data->connection_index] = op->left_connection;
+    data->connection_index++;
+    DIA_OBJECT (data->class)->connections[data->connection_index] = op->right_connection;
+    data->connection_index++;
+  } else {
+    _umlclass_store_disconnects (data->dialog, op->left_connection);
+    object_remove_connections_to (op->left_connection);
+    _umlclass_store_disconnects (data->dialog, op->right_connection);
+    object_remove_connections_to (op->right_connection);
+  }
+
+  return FALSE;
+}
+
+
+void
+_operations_read_from_dialog (UMLClass       *umlclass,
+                              UMLClassDialog *prop_dialog,
+                              int             connection_index)
+{
+  struct AddOperData data;
 
   /* Free current operations: */
-  list = umlclass->operations;
-  while (list != NULL) {
-    op = (UMLOperation *)list->data;
-    uml_operation_destroy(op);
-    list = g_list_next(list);
-  }
-  g_list_free (umlclass->operations);
+  g_list_free_full (umlclass->operations, (GDestroyNotify) uml_operation_unref);
   umlclass->operations = NULL;
 
-  /* Insert new operations and remove them from gtklist: */
-  list = GTK_LIST (prop_dialog->operations_list)->children;
-  clear_list = NULL;
-  while (list != NULL) {
-    list_item = GTK_WIDGET(list->data);
+  data.class = umlclass;
+  data.dialog = prop_dialog;
+  data.connection_index = connection_index;
 
-    clear_list = g_list_prepend (clear_list, list_item);
-    op = (UMLOperation *)
-      g_object_get_data(G_OBJECT(list_item), "user_data");
-    g_object_set_data(G_OBJECT(list_item), "user_data", NULL);
-    umlclass->operations = g_list_append(umlclass->operations, op);
-
-    if (op->left_connection == NULL) {
-      uml_operation_ensure_connection_points (op, obj);
-
-      prop_dialog->added_connections =
-	g_list_prepend(prop_dialog->added_connections,
-		       op->left_connection);
-      prop_dialog->added_connections =
-	g_list_prepend(prop_dialog->added_connections,
-		       op->right_connection);
-    }
-
-    if ( (gtk_toggle_button_get_active (prop_dialog->op_vis)) &&
-         (!gtk_toggle_button_get_active (prop_dialog->op_supp)) ) {
-      obj->connections[connection_index] = op->left_connection;
-      connection_index++;
-      obj->connections[connection_index] = op->right_connection;
-      connection_index++;
-    } else {
-      _umlclass_store_disconnects(prop_dialog, op->left_connection);
-      object_remove_connections_to(op->left_connection);
-      _umlclass_store_disconnects(prop_dialog, op->right_connection);
-      object_remove_connections_to(op->right_connection);
-    }
-
-    list = g_list_next(list);
-  }
-  clear_list = g_list_reverse (clear_list);
-  gtk_list_remove_items (GTK_LIST (prop_dialog->operations_list), clear_list);
-  g_list_free (clear_list);
+  gtk_tree_model_foreach (GTK_TREE_MODEL (prop_dialog->operations_store),
+                          add_oper_to_list,
+                          &data);
+  gtk_list_store_clear (prop_dialog->operations_store);
+  operations_set_sensitive (prop_dialog, FALSE);
 }
 
+
 void
-_operations_fill_in_dialog(UMLClass *umlclass)
+_operations_fill_in_dialog (UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
   UMLOperation *op_copy;
-  GtkWidget *list_item;
+  GtkTreeIter iter;
   GList *list;
-  int i;
 
   prop_dialog = umlclass->properties_dialog;
 
-  if (prop_dialog->operations_list->children == NULL) {
-    i = 0;
-    list = umlclass->operations;
-    while (list != NULL) {
-      UMLOperation *op = (UMLOperation *)list->data;
-      gchar *opstr = uml_get_operation_string (op);
+  gtk_list_store_clear (prop_dialog->operations_store);
 
-      list_item = gtk_list_item_new_with_label (opstr);
-      op_copy = uml_operation_copy (op);
-      /* Looks wrong but is required for the complicate connections memory management */
-      op_copy->left_connection = op->left_connection;
-      op_copy->right_connection = op->right_connection;
-      g_object_set_data(G_OBJECT(list_item), "user_data", (gpointer) op_copy);
-      g_signal_connect (G_OBJECT (list_item), "destroy",
-			G_CALLBACK (operations_list_item_destroy_callback), NULL);
-      gtk_container_add (GTK_CONTAINER (prop_dialog->operations_list), list_item);
-      gtk_widget_show (list_item);
+  list = umlclass->operations;
+  while (list != NULL) {
+    UMLOperation *op = (UMLOperation *) list->data;
 
-      list = g_list_next(list); i++;
-      g_free (opstr);
-    }
+    op_copy = uml_operation_copy (op);
 
-    /* set operations non-sensitive */
-    prop_dialog->current_op = NULL;
-    operations_set_sensitive(prop_dialog, FALSE);
-    operations_clear_values(prop_dialog);
+    /* Looks wrong but is required for the complicate connections memory management */
+    op_copy->left_connection = op->left_connection;
+    op_copy->right_connection = op->right_connection;
+
+    gtk_list_store_append (prop_dialog->operations_store, &iter);
+    update_operation (prop_dialog, op_copy, &iter);
+
+    list = g_list_next (list);
+
+    g_clear_pointer (&op_copy, uml_operation_unref);
+  }
+
+  operations_set_sensitive (prop_dialog, FALSE);
+}
+
+
+static void
+oper_name_changed (GtkEntry *entry, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  UMLOperation *op;
+  GtkTreeIter iter;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_operation (prop_dialog, &op, &iter)) {
+    g_clear_pointer (&op->name, g_free);
+    op->name = g_strdup (gtk_entry_get_text (entry));
+
+    update_operation (prop_dialog, op, &iter);
+
+    g_clear_pointer (&op, uml_operation_unref);
   }
 }
 
+
 static void
-operations_update(GtkWidget *widget, UMLClass *umlclass)
+oper_type_changed (GtkEntry *entry, UMLClass *umlclass)
 {
-  _operations_get_current_values(umlclass->properties_dialog);
+  UMLClassDialog *prop_dialog;
+  UMLOperation *op;
+  GtkTreeIter iter;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_operation (prop_dialog, &op, &iter)) {
+    g_clear_pointer (&op->type, g_free);
+    op->type = g_strdup (gtk_entry_get_text (entry));
+
+    update_operation (prop_dialog, op, &iter);
+
+    g_clear_pointer (&op, uml_operation_unref);
+  }
 }
 
-static int
-operations_update_event(GtkWidget *widget, GdkEventFocus *ev, UMLClass *umlclass)
+
+static void
+oper_stereotype_changed (GtkEntry *entry, UMLClass *umlclass)
 {
-  _operations_get_current_values(umlclass->properties_dialog);
-  return 0;
+  UMLClassDialog *prop_dialog;
+  UMLOperation *op;
+  GtkTreeIter iter;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_operation (prop_dialog, &op, &iter)) {
+    g_clear_pointer (&op->stereotype, g_free);
+    op->stereotype = g_strdup (gtk_entry_get_text (entry));
+
+    update_operation (prop_dialog, op, &iter);
+
+    g_clear_pointer (&op, uml_operation_unref);
+  }
 }
+
+
+static void
+oper_visible_changed (DiaOptionMenu *selector, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  UMLOperation *op;
+  GtkTreeIter iter;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_operation (prop_dialog, &op, &iter)) {
+    op->visibility = (UMLVisibility) dia_option_menu_get_active (selector);
+
+    update_operation (prop_dialog, op, &iter);
+
+    g_clear_pointer (&op, uml_operation_unref);
+  }
+}
+
+
+static void
+oper_inheritance_changed (DiaOptionMenu *selector, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  UMLOperation *op;
+  GtkTreeIter iter;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_operation (prop_dialog, &op, &iter)) {
+    op->inheritance_type = (UMLInheritanceType) dia_option_menu_get_active (selector);
+
+    update_operation (prop_dialog, op, &iter);
+
+    g_clear_pointer (&op, uml_operation_unref);
+  }
+}
+
+
+static void
+oper_comment_changed (GtkTextBuffer *buffer, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  UMLOperation *op;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_operation (prop_dialog, &op, NULL)) {
+    g_clear_pointer (&op->comment, g_free);
+    op->comment = buffer_get_text (buffer);
+
+    g_clear_pointer (&op, uml_operation_unref);
+  }
+}
+
+
+static void
+oper_scope_changed (GtkToggleButton *toggle, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  UMLOperation *op;
+  GtkTreeIter iter;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_operation (prop_dialog, &op, &iter)) {
+    op->class_scope = gtk_toggle_button_get_active (toggle);
+
+    update_operation (prop_dialog, op, &iter);
+
+    g_clear_pointer (&op, uml_operation_unref);
+  }
+}
+
+
+static void
+oper_query_changed (GtkToggleButton *toggle, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  UMLOperation *op;
+  GtkTreeIter iter;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_operation (prop_dialog, &op, &iter)) {
+    op->query = gtk_toggle_button_get_active (toggle);
+
+    update_operation (prop_dialog, op, &iter);
+
+    g_clear_pointer (&op, uml_operation_unref);
+  }
+}
+
 
 static GtkWidget*
 operations_data_create_hbox (UMLClass *umlclass)
@@ -764,45 +858,45 @@ operations_data_create_hbox (UMLClass *umlclass)
 
   prop_dialog = umlclass->properties_dialog;
 
-  hbox = gtk_hbox_new(FALSE, 5);
+  hbox = gtk_hbox_new (FALSE, 6);
   gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
 
-  vbox2 = gtk_vbox_new(FALSE, 0);
+  vbox2 = gtk_vbox_new (FALSE, 0);
 
   /* table containing operation 'name' up to 'query' and also the comment */
   table = gtk_table_new (5, 3, FALSE);
   gtk_table_set_col_spacings (GTK_TABLE (table), 5);
   gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
 
-  label = gtk_label_new(_("Name:"));
-  entry = gtk_entry_new();
-  prop_dialog->op_name = GTK_ENTRY(entry);
-  g_signal_connect (G_OBJECT (entry), "focus_out_event",
-		    G_CALLBACK (operations_update_event), umlclass);
-  g_signal_connect (G_OBJECT (entry), "activate",
-		    G_CALLBACK (operations_update), umlclass);
+  label = gtk_label_new (_("Name:"));
+  entry = gtk_entry_new ();
+  prop_dialog->op_name = GTK_ENTRY (entry);
+  g_signal_connect (entry,
+                    "changed",
+                    G_CALLBACK (oper_name_changed),
+                    umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  label = gtk_label_new(_("Type:"));
-  entry = gtk_entry_new();
-  prop_dialog->op_type = GTK_ENTRY(entry);
-  g_signal_connect (G_OBJECT (entry), "focus_out_event",
-		    G_CALLBACK (operations_update_event), umlclass);
-  g_signal_connect (G_OBJECT (entry), "activate",
-		    G_CALLBACK (operations_update), umlclass);
+  label = gtk_label_new (_("Type:"));
+  entry = gtk_entry_new ();
+  prop_dialog->op_type = GTK_ENTRY (entry);
+  g_signal_connect (entry,
+                    "changed",
+                    G_CALLBACK (oper_type_changed),
+                    umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  label = gtk_label_new(_("Stereotype:"));
-  entry = gtk_entry_new();
-  prop_dialog->op_stereotype = GTK_ENTRY(entry);
-  g_signal_connect (G_OBJECT (entry), "focus_out_event",
-		    G_CALLBACK (operations_update_event), umlclass);
-  g_signal_connect (G_OBJECT (entry), "activate",
-		    G_CALLBACK (operations_update), umlclass);
+  label = gtk_label_new (_("Stereotype:"));
+  entry = gtk_entry_new ();
+  prop_dialog->op_stereotype = GTK_ENTRY (entry);
+  g_signal_connect (entry,
+                    "changed",
+                    G_CALLBACK (oper_stereotype_changed),
+                    umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
@@ -811,12 +905,14 @@ operations_data_create_hbox (UMLClass *umlclass)
   label = gtk_label_new(_("Visibility:"));
 
   prop_dialog->op_visible = omenu = dia_option_menu_new ();
-  g_signal_connect (G_OBJECT (omenu), "changed",
-		    G_CALLBACK (operations_update), umlclass);
-  dia_option_menu_add_item(omenu, _("Public"), UML_PUBLIC);
-  dia_option_menu_add_item(omenu, _("Private"), UML_PRIVATE);
-  dia_option_menu_add_item(omenu, _("Protected"), UML_PROTECTED);
-  dia_option_menu_add_item(omenu, _("Implementation"), UML_IMPLEMENTATION);
+  g_signal_connect (omenu,
+                    "changed",
+                    G_CALLBACK (oper_visible_changed),
+                    umlclass);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Public"), UML_PUBLIC);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Private"), UML_PRIVATE);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Protected"), UML_PROTECTED);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Implementation"), UML_IMPLEMENTATION);
 
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 					/* left, right, top, bottom */
@@ -827,38 +923,52 @@ operations_data_create_hbox (UMLClass *umlclass)
   label = gtk_label_new(_("Inheritance type:"));
 
   prop_dialog->op_inheritance_type = omenu = dia_option_menu_new ();
-  g_signal_connect (G_OBJECT (omenu), "changed",
-		    G_CALLBACK (operations_update), umlclass);
-  dia_option_menu_add_item(omenu, _("Abstract"), UML_ABSTRACT);
-  dia_option_menu_add_item(omenu, _("Polymorphic (virtual)"), UML_POLYMORPHIC);
-  dia_option_menu_add_item(omenu, _("Leaf (final)"), UML_LEAF);
+  g_signal_connect (omenu,
+                    "changed",
+                    G_CALLBACK (oper_inheritance_changed),
+                    umlclass);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Abstract"), UML_ABSTRACT);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Polymorphic (virtual)"), UML_POLYMORPHIC);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Leaf (final)"), UML_LEAF);
 
   gtk_table_attach (GTK_TABLE (table), label, 2,3,1,2, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), omenu, 3,4,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
   /* end: Inheritance type */
 
-  checkbox = gtk_check_button_new_with_label(_("Class scope"));
-  prop_dialog->op_class_scope = GTK_TOGGLE_BUTTON(checkbox);
+  checkbox = gtk_check_button_new_with_label (_("Class scope"));
+  g_signal_connect (checkbox,
+                    "toggled",
+                    G_CALLBACK (oper_scope_changed),
+                    umlclass);
+  prop_dialog->op_class_scope = GTK_TOGGLE_BUTTON (checkbox);
+
   gtk_table_attach (GTK_TABLE (table), checkbox, 2,3,2,3, GTK_FILL,0, 0,2);
 
-  checkbox = gtk_check_button_new_with_label(_("Query"));
-  prop_dialog->op_query = GTK_TOGGLE_BUTTON(checkbox);
+  checkbox = gtk_check_button_new_with_label (_("Query"));
+  g_signal_connect (checkbox,
+                    "toggled",
+                    G_CALLBACK (oper_query_changed),
+                    umlclass);
+  prop_dialog->op_query = GTK_TOGGLE_BUTTON (checkbox);
   gtk_table_attach (GTK_TABLE (table), checkbox, 3,4,2,3, GTK_FILL,0, 2,0);
 
-  label = gtk_label_new(_("Comment:"));
+  label = gtk_label_new (_("Comment:"));
   scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_SHADOW_IN);
   /* with GTK_POLICY_NEVER the comment filed gets smaller unti l text is entered; than it would resize the dialog! */
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
-  entry = gtk_text_view_new ();
-  prop_dialog->op_comment = GTK_TEXT_VIEW(entry);
+  prop_dialog->op_comment_buffer = gtk_text_buffer_new (NULL);
+  entry = gtk_text_view_new_with_buffer (prop_dialog->op_comment_buffer);
+  prop_dialog->op_comment = GTK_TEXT_VIEW (entry);
+  g_signal_connect (prop_dialog->op_comment_buffer,
+                    "changed",
+                    G_CALLBACK (oper_comment_changed),
+                    umlclass);
   gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
   gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
-  gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (entry),TRUE);
+  gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (entry),TRUE);
 
-  g_signal_connect (G_OBJECT (entry), "focus_out_event",
-		    G_CALLBACK (operations_update_event), umlclass);
 
   gtk_table_attach (GTK_TABLE (table), label, 4,5,0,1, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), scrolledwindow, 4,5,1,3, GTK_FILL | GTK_EXPAND,0, 0,0);
@@ -866,6 +976,38 @@ operations_data_create_hbox (UMLClass *umlclass)
 
   return hbox;
 }
+
+
+static void
+parameter_selected (GtkTreeSelection *selection,
+                    UMLClass         *umlclass)
+{
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  UMLParameter *param;
+  UMLClassDialog *prop_dialog;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (!prop_dialog) {
+    return; /* maybe hiding a bug elsewhere */
+  }
+
+  if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_PARAM_PARAM, &param, -1);
+
+    parameters_set_values (prop_dialog, param);
+    parameters_set_sensitive (prop_dialog, TRUE);
+
+    g_clear_pointer (&param, uml_parameter_unref);
+
+    gtk_widget_grab_focus (GTK_WIDGET (prop_dialog->param_name));
+  } else {
+    parameters_set_sensitive (prop_dialog, FALSE);
+    parameters_clear_values (prop_dialog);
+  }
+}
+
 
 static GtkWidget*
 operations_parameters_editor_create_vbox (UMLClass *umlclass)
@@ -876,8 +1018,11 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
   GtkWidget *vbox3;
   GtkWidget *label;
   GtkWidget *scrolled_win;
-  GtkWidget *list;
   GtkWidget *button;
+  GtkWidget *image;
+  GtkCellRenderer *renderer;
+  GtkTreeViewColumn *column;
+  GtkTreeSelection *select;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -891,61 +1036,210 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
 
   /* Parameters list editor - with of list at least width of buttons*/
-  hbox2 = gtk_hbox_new(TRUE, 5);
+  hbox2 = gtk_hbox_new (FALSE, 6);
 
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_win), GTK_SHADOW_IN);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-				  GTK_POLICY_AUTOMATIC,
-				  GTK_POLICY_AUTOMATIC);
+                                  GTK_POLICY_AUTOMATIC,
+                                  GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (hbox2), scrolled_win, TRUE, TRUE, 0);
   gtk_widget_show (scrolled_win);
 
-  list = gtk_list_new ();
-  prop_dialog->parameters_list = GTK_LIST(list);
-  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_SINGLE);
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
-  gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
-				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
-  gtk_widget_show (list);
+  prop_dialog->parameters_store = gtk_list_store_new (N_PARAM_COLS,
+                                                      G_TYPE_STRING,
+                                                      DIA_UML_TYPE_PARAMETER);
+  prop_dialog->parameters = gtk_tree_view_new_with_model (GTK_TREE_MODEL (prop_dialog->parameters_store));
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (prop_dialog->parameters), FALSE);
+  select = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->parameters));
+  g_signal_connect (G_OBJECT (select),
+                    "changed",
+                    G_CALLBACK (parameter_selected),
+                    umlclass);
+  gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
 
-  g_signal_connect (G_OBJECT (list), "selection_changed",
-		    G_CALLBACK(parameters_list_selection_changed_callback),
-		    umlclass);
+  renderer = gtk_cell_renderer_text_new ();
+  g_object_set (renderer, "family", "monospace", NULL);
+  column = gtk_tree_view_column_new_with_attributes (NULL,
+                                                     renderer,
+                                                     "text",
+                                                     COL_PARAM_TITLE,
+                                                     NULL);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (prop_dialog->parameters),
+                               column);
 
-  vbox3 = gtk_vbox_new(FALSE, 5);
+  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), prop_dialog->parameters);
+  gtk_container_set_focus_vadjustment (GTK_CONTAINER (prop_dialog->parameters),
+                                       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
+  gtk_widget_show (prop_dialog->parameters);
 
-  button = gtk_button_new_from_stock (GTK_STOCK_NEW);
+
+  vbox3 = gtk_vbox_new (TRUE, 6);
+
+
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("list-add",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Add Parameter"));
   prop_dialog->param_new_button = button;
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(parameters_list_new_callback), umlclass);
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (parameters_list_new_callback),
+                    umlclass);
   gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_DELETE);
+
+
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("list-remove",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Remove Parameter"));
   prop_dialog->param_delete_button = button;
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(parameters_list_delete_callback), umlclass);
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (parameters_list_delete_callback),
+                    umlclass);
   gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_GO_UP);
+
+
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("go-up",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Move Parameter Up"));
   prop_dialog->param_up_button = button;
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(parameters_list_move_up_callback), umlclass);
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (parameters_list_move_up_callback),
+                    umlclass);
   gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_GO_DOWN);
+
+
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("go-down",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Move Parameter Down"));
   prop_dialog->param_down_button = button;
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(parameters_list_move_down_callback), umlclass);
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (parameters_list_move_down_callback),
+                    umlclass);
   gtk_box_pack_start (GTK_BOX (vbox3), button, FALSE, TRUE, 0);
   gtk_widget_show (button);
 
-  gtk_box_pack_start (GTK_BOX (hbox2), vbox3, FALSE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), vbox3, FALSE, FALSE, 0);
 
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, FALSE, FALSE, 0);
   /* end: Parameter list editor */
 
   return vbox2;
 }
+
+
+static void
+param_name_changed (GtkWidget *entry, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  UMLParameter *param;
+  GtkTreeIter iter;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_parameter (prop_dialog, &param, &iter)) {
+    g_clear_pointer (&param->name, g_free);
+    param->name = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
+
+    update_parameter (prop_dialog, param, &iter);
+
+    g_clear_pointer (&param, uml_parameter_unref);
+  }
+}
+
+
+static void
+param_type_changed (GtkWidget *entry, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  GtkTreeIter iter;
+  UMLParameter *param;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_parameter (prop_dialog, &param, &iter)) {
+    g_clear_pointer (&param->type, g_free);
+    param->type = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
+
+    update_parameter (prop_dialog, param, &iter);
+
+    g_clear_pointer (&param, uml_parameter_unref);
+  }
+}
+
+
+static void
+param_value_changed (GtkWidget *entry, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  GtkTreeIter iter;
+  UMLParameter *param;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_parameter (prop_dialog, &param, &iter)) {
+    g_clear_pointer (&param->value, g_free);
+    param->value = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
+
+    update_parameter (prop_dialog, param, &iter);
+
+    g_clear_pointer (&param, uml_parameter_unref);
+  }
+}
+
+
+static void
+param_comment_changed (GtkTextBuffer *buffer, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  UMLParameter *param;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_parameter (prop_dialog, &param, NULL)) {
+    g_clear_pointer (&param->comment, g_free);
+    param->comment = buffer_get_text (prop_dialog->param_comment_buffer);
+
+    g_clear_pointer (&param, uml_parameter_unref);
+  }
+}
+
+
+static void
+param_kind_changed (DiaOptionMenu *selector, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  GtkTreeIter iter;
+  UMLParameter *param;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_parameter (prop_dialog, &param, &iter)) {
+    param->kind = (UMLParameterKind) dia_option_menu_get_active (selector);
+
+    update_parameter (prop_dialog, param, &iter);
+
+    g_clear_pointer (&param, uml_parameter_unref);
+  }
+}
+
 
 static GtkWidget*
 operations_parameters_data_create_vbox (UMLClass *umlclass)
@@ -974,83 +1268,108 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   gtk_table_set_col_spacings (GTK_TABLE (table), 5);
   gtk_box_pack_start (GTK_BOX (vbox3), table, FALSE, FALSE, 0);
 
-  label = gtk_label_new(_("Name:"));
-  entry = gtk_entry_new();
-  prop_dialog->param_name = GTK_ENTRY(entry);
-  g_signal_connect (G_OBJECT (entry), "focus_out_event",
-		    G_CALLBACK (operations_update_event), umlclass);
-  g_signal_connect (G_OBJECT (entry), "activate",
-		    G_CALLBACK (operations_update), umlclass);
+  label = gtk_label_new (_("Name:"));
+  entry = gtk_entry_new ();
+  prop_dialog->param_name = GTK_ENTRY (entry);
+  g_signal_connect (entry,
+                    "changed",
+                    G_CALLBACK (param_name_changed),
+                    umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  label = gtk_label_new(_("Type:"));
-  entry = gtk_entry_new();
-  g_signal_connect (G_OBJECT (entry), "focus_out_event",
-		    G_CALLBACK (operations_update_event), umlclass);
-  g_signal_connect (G_OBJECT (entry), "activate",
-		    G_CALLBACK (operations_update), umlclass);
-  prop_dialog->param_type = GTK_ENTRY(entry);
+  label = gtk_label_new (_("Type:"));
+  entry = gtk_entry_new ();
+  prop_dialog->param_type = GTK_ENTRY (entry);
+  g_signal_connect (entry,
+                    "changed",
+                    G_CALLBACK (param_type_changed),
+                    umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  label = gtk_label_new(_("Def. value:"));
-  entry = gtk_entry_new();
+  label = gtk_label_new (_("Def. value:"));
+  gtk_widget_set_tooltip_text (label, _("Default value"));
+  entry = gtk_entry_new ();
   prop_dialog->param_value = GTK_ENTRY(entry);
-  g_signal_connect (G_OBJECT (entry), "focus_out_event",
-		    G_CALLBACK (operations_update_event), umlclass);
-  g_signal_connect (G_OBJECT (entry), "activate",
-		    G_CALLBACK (operations_update), umlclass);
+  g_signal_connect (entry,
+                    "changed",
+                    G_CALLBACK (param_value_changed),
+                    umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  label = gtk_label_new(_("Comment:"));
+  label = gtk_label_new (_("Comment:"));
   scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
-				       GTK_SHADOW_IN);
+                                       GTK_SHADOW_IN);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow),
-				  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+                                  GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
-  entry = gtk_text_view_new ();
-  prop_dialog->param_comment = GTK_TEXT_VIEW(entry);
+  prop_dialog->param_comment_buffer = gtk_text_buffer_new (NULL);
+  entry = gtk_text_view_new_with_buffer (prop_dialog->param_comment_buffer);
+  prop_dialog->param_comment = GTK_TEXT_VIEW (entry);
+  g_signal_connect (prop_dialog->param_comment_buffer,
+                    "changed",
+                    G_CALLBACK (param_comment_changed),
+                    umlclass);
   gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
   gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (entry), GTK_WRAP_WORD);
-  gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW (entry),TRUE);
-
-  g_signal_connect (G_OBJECT (entry), "focus_out_event",
-		    G_CALLBACK (operations_update_event), umlclass);
+  gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (entry),TRUE);
 
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 2,3,1,2, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), scrolledwindow, 3,4,1,3, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  label = gtk_label_new(_("Direction:"));
+  label = gtk_label_new (_("Direction:"));
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+  gtk_table_attach (GTK_TABLE (table), label, 2,3,0,1, GTK_FILL,0, 0,3);
 
   prop_dialog->param_kind = omenu = dia_option_menu_new ();
-  g_signal_connect (G_OBJECT (omenu), "changed",
-		    G_CALLBACK (operations_update), umlclass);
-  dia_option_menu_add_item(omenu, _("Undefined"), UML_UNDEF_KIND);
-  dia_option_menu_add_item(omenu, _("In"), UML_IN);
-  dia_option_menu_add_item(omenu, _("Out"), UML_OUT);
-  dia_option_menu_add_item(omenu, _("In & Out"), UML_INOUT);
-
-  {
-    GtkWidget * align;
-    align = gtk_alignment_new(0.0, 0.5, 0.0, 0.0);
-    gtk_container_add(GTK_CONTAINER(align), omenu);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-    gtk_table_attach (GTK_TABLE (table), label, 2,3,0,1, GTK_FILL,0, 0,3);
-    gtk_table_attach (GTK_TABLE (table), align, 3,4,0,1, GTK_FILL,0, 0,3);
-  }
+  g_signal_connect (G_OBJECT (omenu),
+                    "changed",
+                    G_CALLBACK (param_kind_changed),
+                    umlclass);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Undefined"), UML_UNDEF_KIND);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("In"), UML_IN);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Out"), UML_OUT);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("In & Out"), UML_INOUT);
+  dia_option_menu_set_active (DIA_OPTION_MENU (omenu), UML_UNDEF_KIND);
+  gtk_table_attach (GTK_TABLE (table), omenu, 3,4,0,1, GTK_FILL, 0, 0,3);
 
   return vbox2;
 }
 
+
+static void
+operation_selected (GtkTreeSelection *selection,
+                    UMLClass         *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  UMLOperation *op;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (!prop_dialog)
+    return; /* maybe hiding a bug elsewhere */
+
+  if (get_current_operation (prop_dialog, &op, NULL)) {
+    operations_set_values (prop_dialog, op);
+    operations_set_sensitive (prop_dialog, TRUE);
+
+    gtk_widget_grab_focus (GTK_WIDGET (prop_dialog->op_name));
+  } else {
+    operations_set_sensitive (prop_dialog, FALSE);
+    operations_clear_values (prop_dialog);
+  }
+}
+
+
 void
-_operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
+_operations_create_page (GtkNotebook *notebook,  UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
   GtkWidget *page_label;
@@ -1060,8 +1379,11 @@ _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *vbox3;
   GtkWidget *scrolled_win;
   GtkWidget *button;
-  GtkWidget *list;
+  GtkWidget *image;
   GtkWidget *frame;
+  GtkTreeSelection *select;
+  GtkTreeViewColumn *column;
+  GtkCellRenderer *renderer;
 
   prop_dialog = umlclass->properties_dialog;
 
@@ -1075,49 +1397,105 @@ _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
 
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-				  GTK_POLICY_AUTOMATIC,
-				  GTK_POLICY_AUTOMATIC);
+                                  GTK_POLICY_AUTOMATIC,
+                                  GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_win),
+                                       GTK_SHADOW_IN);
   gtk_box_pack_start (GTK_BOX (hbox), scrolled_win, TRUE, TRUE, 0);
   gtk_widget_show (scrolled_win);
 
-  list = gtk_list_new ();
-  prop_dialog->operations_list = GTK_LIST(list);
-  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_SINGLE);
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
-  gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
-				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
-  gtk_widget_show (list);
+  prop_dialog->operations_store = gtk_list_store_new (N_OPER_COLS,
+                                                      G_TYPE_STRING,
+                                                      DIA_UML_TYPE_OPERATION,
+                                                      PANGO_TYPE_UNDERLINE,
+                                                      PANGO_TYPE_STYLE,
+                                                      PANGO_TYPE_WEIGHT);
+  prop_dialog->operations = gtk_tree_view_new_with_model (GTK_TREE_MODEL (prop_dialog->operations_store));
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (prop_dialog->operations), FALSE);
 
-  g_signal_connect (G_OBJECT (list), "selection_changed",
-		    G_CALLBACK(operations_list_selection_changed_callback),
-		    umlclass);
+  select = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->operations));
+  g_signal_connect (G_OBJECT (select),
+                    "changed",
+                    G_CALLBACK (operation_selected),
+                    umlclass);
+  gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
 
-  vbox2 = gtk_vbox_new(FALSE, 5);
+  renderer = gtk_cell_renderer_text_new ();
+  g_object_set (renderer, "family", "monospace", NULL);
+  column = gtk_tree_view_column_new_with_attributes (NULL,
+                                                     renderer,
+                                                     "text",
+                                                     COL_OPER_TITLE,
+                                                     "underline",
+                                                     COL_OPER_UNDERLINE,
+                                                     "weight",
+                                                     COL_OPER_BOLD,
+                                                     "style",
+                                                     COL_OPER_ITALIC,
+                                                     NULL);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (prop_dialog->operations),
+                               column);
 
-  button = gtk_button_new_from_stock (GTK_STOCK_NEW);
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(operations_list_new_callback),
-		    umlclass);
-  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
+  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), prop_dialog->operations);
+  gtk_container_set_focus_vadjustment (GTK_CONTAINER (prop_dialog->operations),
+                                       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
+  gtk_widget_show (prop_dialog->operations);
+
+  vbox2 = gtk_vbox_new (FALSE, 6);
+
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("list-add",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Add Operation"));
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (operations_list_new_callback),
+                    umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, FALSE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_DELETE);
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(operations_list_delete_callback), umlclass);
-  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
-  gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_GO_UP);
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(operations_list_move_up_callback), umlclass);
-  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
-  gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_GO_DOWN);
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(operations_list_move_down_callback), umlclass);
 
-  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("list-remove",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Remove Operation"));
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (operations_list_delete_callback),
+                    umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, FALSE, 0);
   gtk_widget_show (button);
 
-  gtk_box_pack_start (GTK_BOX (hbox), vbox2, FALSE, TRUE, 0);
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("go-up",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Move Operation Up"));
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (operations_list_move_up_callback),
+                    umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, FALSE, 0);
+  gtk_widget_show (button);
+
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("go-down",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Move Operation Down"));
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (operations_list_move_down_callback),
+                    umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, FALSE, 0);
+  gtk_widget_show (button);
+
+  gtk_box_pack_start (GTK_BOX (hbox), vbox2, FALSE, FALSE, 0);
 
   gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 

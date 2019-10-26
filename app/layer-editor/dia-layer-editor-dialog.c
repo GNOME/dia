@@ -336,7 +336,7 @@ void
 dia_layer_editor_dialog_set_diagram (DiaLayerEditorDialog *self,
                                      Diagram              *dia)
 {
-  DiaLayerEditorDialogPrivate *priv = dia_layer_editor_dialog_get_instance_private (self);
+  DiaLayerEditorDialogPrivate *priv;
 
   g_return_if_fail (DIA_IS_LAYER_EDITOR_DIALOG (self));
 

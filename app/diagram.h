@@ -26,6 +26,7 @@ typedef struct _Diagram Diagram;
 #include "diagramdata.h"
 #include "undo.h"
 #include "diagrid.h"
+#include "dia-guide.h"
 
 G_BEGIN_DECLS
 
@@ -51,12 +52,8 @@ struct _Diagram {
   Color pagebreak_color; /*!< just to show page breaks */
   DiaGrid     grid;      /*!< the display grid */
 
-  /*! almost completely unused guides (load and save code is there) */
-  struct {
-    /* sorted arrays of the guides for the diagram */
-    real *hguides, *vguides;
-    guint nhguides, nvguides;
-  } guides;
+  GList *guides;         /*!< list of guides */
+  Color guide_color;     /*!< color for guides */
 
   DiagramData *data;     /*! just for compatibility, now that the Diagram _is_ and not _has_ DiagramData */
 
@@ -136,10 +133,34 @@ void diagram_redraw_all(void);
 
 void diagram_object_modified(Diagram *dia, DiaObject *object);
 
-Diagram *dia_diagram_new      (GFile   *file);
-void     dia_diagram_set_file (Diagram *self,
-                               GFile   *file);
-GFile   *dia_diagram_get_file (Diagram *self);
+Diagram  *dia_diagram_new               (GFile          *file);
+void      dia_diagram_set_file          (Diagram        *self,
+                                         GFile          *file);
+GFile    *dia_diagram_get_file          (Diagram        *self);
+DiaGuide *dia_diagram_add_guide         (Diagram        *dia,
+                                         real            position,
+                                         GtkOrientation  orientation,
+                                         gboolean        push_undo);
+DiaGuide *dia_diagram_pick_guide        (Diagram        *dia,
+                                         gdouble         x,
+                                         gdouble         y,
+                                         gdouble         epsilon_x,
+                                         gdouble         epsilon_y);
+DiaGuide *dia_diagram_pick_guide_h      (Diagram        *dia,
+                                         gdouble         x,
+                                         gdouble         y,
+                                         gdouble         epsilon_x,
+                                         gdouble         epsilon_y);
+DiaGuide *dia_diagram_pick_guide_v      (Diagram        *dia,
+                                         gdouble         x,
+                                         gdouble         y,
+                                         gdouble         epsilon_x,
+                                         gdouble         epsilon_y);
+void      dia_diagram_remove_guide      (Diagram        *dia,
+                                         DiaGuide       *guide,
+                                         gboolean        push_undo);
+void      dia_diagram_remove_all_guides (Diagram        *dia);
+
 
 G_END_DECLS
 
