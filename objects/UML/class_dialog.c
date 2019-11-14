@@ -32,7 +32,6 @@
 #include <config.h>
 
 #include <assert.h>
-#undef GTK_DISABLE_DEPRECATED /* GtkList, ... */
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
@@ -164,6 +163,32 @@ _umlclass_store_disconnects(UMLClassDialog *prop_dialog,
 /********************************************************
  ******************** CLASS *****************************
  ********************************************************/
+
+/*
+        get the contents of a comment text view.
+*/
+static gchar *
+_class_get_comment (GtkTextView *view)
+{
+  GtkTextBuffer * buffer = gtk_text_view_get_buffer(view);
+  GtkTextIter start;
+  GtkTextIter end;
+
+  gtk_text_buffer_get_start_iter (buffer, &start);
+  gtk_text_buffer_get_end_iter (buffer, &end);
+
+  return gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
+}
+
+
+static void
+_class_set_comment (GtkTextView *view, gchar *text)
+{
+  GtkTextBuffer * buffer = gtk_text_view_get_buffer (view);
+
+  gtk_text_buffer_set_text (buffer, text, -1);
+}
+
 
 static void
 class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
@@ -553,7 +578,6 @@ switch_page_callback(GtkNotebook *notebook,
   prop_dialog = umlclass->properties_dialog;
 
   if (prop_dialog != NULL) {
-    _attributes_get_current_values(prop_dialog);
     _templates_get_current_values(prop_dialog);
   }
 }
@@ -581,8 +605,9 @@ fill_in_dialog(UMLClass *umlclass)
   _templates_fill_in_dialog(umlclass);
 }
 
+
 ObjectChange *
-umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
+umlclass_apply_props_from_dialog (UMLClass *umlclass, GtkWidget *widget)
 {
   UMLClassDialog *prop_dialog;
   DiaObject *obj;
@@ -602,7 +627,7 @@ umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   /* Allocate enought connection points for attributes and operations. */
   /* (two per op/attr) */
   if ( (gtk_toggle_button_get_active (prop_dialog->attr_vis)) && (!gtk_toggle_button_get_active (prop_dialog->attr_supp)))
-    num_attrib = g_list_length(prop_dialog->attributes_list->children);
+    num_attrib =gtk_tree_model_iter_n_children (GTK_TREE_MODEL (prop_dialog->attributes_store), NULL);
   else
     num_attrib = 0;
   if (gtk_toggle_button_get_active (prop_dialog->op_vis) &&
@@ -697,7 +722,6 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
     g_object_ref_sink(vbox);
     prop_dialog->dialog = vbox;
 
-    prop_dialog->current_attr = NULL;
     prop_dialog->current_templ = NULL;
     prop_dialog->deleted_connections = NULL;
     prop_dialog->added_connections = NULL;
@@ -751,10 +775,10 @@ umlclass_free_state(UMLClassState *state)
 
   list = state->attributes;
   while (list) {
-    uml_attribute_destroy((UMLAttribute *) list->data);
-    list = g_list_next(list);
+    uml_attribute_unref ((UMLAttribute *) list->data);
+    list = g_list_next (list);
   }
-  g_list_free(state->attributes);
+  g_list_free (state->attributes);
 
   g_list_free_full (state->operations, (GDestroyNotify) uml_operation_unref);
 
@@ -902,8 +926,9 @@ umlclass_update_connectionpoints(UMLClass *umlclass)
     list = g_list_next(list);
   }
 
-  if (prop_dialog)
-    gtk_list_clear_items (GTK_LIST (prop_dialog->attributes_list), 0, -1);
+  if (prop_dialog) {
+    gtk_list_store_clear (prop_dialog->attributes_store);
+  }
 
   list = umlclass->operations;
   while (list != NULL) {
@@ -1087,21 +1112,6 @@ new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
 
   return (ObjectChange *)change;
 }
-/*
-        get the contents of a comment text view.
-*/
-gchar *
-_class_get_comment (GtkTextView *view)
-{
-  GtkTextBuffer * buffer = gtk_text_view_get_buffer(view);
-  GtkTextIter start;
-  GtkTextIter end;
-
-  gtk_text_buffer_get_start_iter (buffer, &start);
-  gtk_text_buffer_get_end_iter (buffer, &end);
-
-  return gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
-}
 
 
 char *
@@ -1114,13 +1124,4 @@ buffer_get_text (GtkTextBuffer *buffer)
   gtk_text_buffer_get_end_iter (buffer, &end);
 
   return gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
-}
-
-
-void
-_class_set_comment(GtkTextView *view, gchar *text)
-{
-  GtkTextBuffer * buffer = gtk_text_view_get_buffer (view);
-
-  gtk_text_buffer_set_text (buffer, text, -1);
 }

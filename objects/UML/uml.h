@@ -125,9 +125,6 @@ struct _UMLFormalParameter {
 /** end stereotype symbol(like \xbb) for local locale */
 #define UML_STEREOTYPE_END _(">>")
 
-/** calculated the 'formated' representation */
-extern gchar *uml_get_attribute_string (UMLAttribute *attribute);
-
 
 
 #define DIA_UML_TYPE_PARAMETER uml_parameter_get_type ()
@@ -161,20 +158,30 @@ char         *uml_get_operation_string               (UMLOperation  *operation);
 
 
 
+#define DIA_UML_TYPE_ATTRIBUTE uml_attribute_get_type ()
+
+UMLAttribute *uml_attribute_new                      (void);
+GType         uml_attribute_get_type                 (void);
+UMLAttribute *uml_attribute_copy                     (UMLAttribute  *attr);
+void          uml_attribute_copy_into                (UMLAttribute  *srcattr,
+                                                      UMLAttribute  *destattr);
+UMLAttribute *uml_attribute_ref                      (UMLAttribute  *attribute);
+void          uml_attribute_unref                    (UMLAttribute  *attribute);
+void          uml_attribute_write                    (AttributeNode  attr_node,
+                                                      UMLAttribute  *attr,
+                                                      DiaContext    *ctx);
+void          uml_attribute_ensure_connection_points (UMLAttribute  *attr,
+                                                      DiaObject     *obj);
+/** calculated the 'formated' representation */
+char         *uml_attribute_get_string               (UMLAttribute  *attribute);
+
+
+
 /** calculated the 'formated' representation */
 extern gchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
-extern void uml_attribute_copy_into(UMLAttribute *srcattr, UMLAttribute *destattr);
-extern UMLAttribute *uml_attribute_copy(UMLAttribute *attr);
 extern UMLFormalParameter *uml_formalparameter_copy(UMLFormalParameter *param);
-extern void uml_attribute_destroy(UMLAttribute *attribute);
-
 extern void uml_formalparameter_destroy(UMLFormalParameter *param);
-extern UMLAttribute *uml_attribute_new(void);
 extern UMLFormalParameter *uml_formalparameter_new(void);
-
-extern void uml_attribute_ensure_connection_points (UMLAttribute *attr, DiaObject* obj);
-
-extern void uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr, DiaContext *ctx);
 extern void uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param, DiaContext *ctx);
 
 #endif /* UML_H */

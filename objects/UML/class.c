@@ -904,7 +904,7 @@ umlclass_draw_attributebox (UMLClass    *umlclass,
     list = umlclass->attributes;
     while (list != NULL) {
       UMLAttribute *attr   = (UMLAttribute *)list->data;
-      gchar        *attstr = uml_get_attribute_string (attr);
+      gchar        *attstr = uml_attribute_get_string (attr);
 
       if (attr->abstract)  {
         font = umlclass->abstract_font;
@@ -1469,7 +1469,7 @@ umlclass_calculate_attribute_data(UMLClass *umlclass)
     while (list != NULL)
     {
       UMLAttribute *attr   = (UMLAttribute *) list->data;
-      gchar        *attstr = uml_get_attribute_string(attr);
+      gchar        *attstr = uml_attribute_get_string (attr);
 
       if (attr->abstract)
       {
@@ -1959,8 +1959,8 @@ umlclass_destroy(UMLClass *umlclass)
     attr = (UMLAttribute *)list->data;
     g_free(attr->left_connection);
     g_free(attr->right_connection);
-    uml_attribute_destroy(attr);
-    list = g_list_next(list);
+    uml_attribute_unref (attr);
+    list = g_list_next (list);
   }
   g_list_free(umlclass->attributes);
 

@@ -64,23 +64,25 @@ static PropOffset umlattribute_offsets[] = {
 
 PropDescDArrayExtra umlattribute_extra = {
   { umlattribute_props, umlattribute_offsets, "umlattribute" },
-  (NewRecordFunc)uml_attribute_new,
-  (FreeRecordFunc)uml_attribute_destroy
+  (NewRecordFunc) uml_attribute_new,
+  (FreeRecordFunc) uml_attribute_unref
 };
+
+G_DEFINE_BOXED_TYPE (UMLAttribute, uml_attribute, uml_attribute_ref, uml_attribute_unref)
 
 
 UMLAttribute *
-uml_attribute_new(void)
+uml_attribute_new (void)
 {
   UMLAttribute *attr;
   static gint next_id = 1;
 
-  attr = g_new0(UMLAttribute, 1);
+  attr = g_rc_box_new0 (UMLAttribute);
   attr->internal_id = next_id++;
-  attr->name = g_strdup("");
-  attr->type = g_strdup("");
+  attr->name = NULL;
+  attr->type = NULL;
   attr->value = NULL;
-  attr->comment = g_strdup("");
+  attr->comment = NULL;
   attr->visibility = UML_PUBLIC;
   attr->abstract = FALSE;
   attr->class_scope = FALSE;
@@ -91,95 +93,110 @@ uml_attribute_new(void)
   return attr;
 }
 
+
 /** Copy the data of an attribute into another, but not the connections.
  * Frees up any strings in the attribute being copied into. */
 void
-uml_attribute_copy_into(UMLAttribute *attr, UMLAttribute *newattr)
+uml_attribute_copy_into (UMLAttribute *attr, UMLAttribute *newattr)
 {
   newattr->internal_id = attr->internal_id;
+
   if (newattr->name != NULL) {
-    g_free(newattr->name);
+    g_clear_pointer (&newattr->name, g_free);
   }
-  newattr->name = g_strdup(attr->name);
+  newattr->name = g_strdup (attr->name);
+
   if (newattr->type != NULL) {
-    g_free(newattr->type);
+    g_clear_pointer (&newattr->type, g_free);
   }
-  newattr->type = g_strdup(attr->type);
+  newattr->type = g_strdup (attr->type);
 
   if (newattr->value != NULL) {
-    g_free(newattr->value);
+     g_clear_pointer (&newattr->value, g_free);
   }
-  if (attr->value != NULL) {
-    newattr->value = g_strdup(attr->value);
-  } else {
-    newattr->value = NULL;
-  }
+  newattr->value = g_strdup (attr->value);
 
   if (newattr->comment != NULL) {
-    g_free(newattr->comment);
+    g_clear_pointer (&newattr->comment, g_free);
   }
-  if (attr->comment != NULL)
-    newattr->comment = g_strdup (attr->comment);
-  else
-    newattr->comment = NULL;
+  newattr->comment = g_strdup (attr->comment);
 
   newattr->visibility = attr->visibility;
   newattr->abstract = attr->abstract;
   newattr->class_scope = attr->class_scope;
 }
 
+
 /** Copy an attribute's content.
  */
 UMLAttribute *
-uml_attribute_copy(UMLAttribute *attr)
+uml_attribute_copy (UMLAttribute *attr)
 {
   UMLAttribute *newattr;
 
-  newattr = g_new0(UMLAttribute, 1);
+  newattr = uml_attribute_new ();
 
-  uml_attribute_copy_into(attr, newattr);
+  uml_attribute_copy_into (attr, newattr);
 
   return newattr;
 }
 
-void
-uml_attribute_destroy(UMLAttribute *attr)
+
+UMLAttribute *
+uml_attribute_ref (UMLAttribute *self)
 {
-  g_free(attr->name);
-  g_free(attr->type);
-  if (attr->value != NULL)
-    g_free(attr->value);
-  if (attr->comment != NULL)
-    g_free(attr->comment);
+  g_return_val_if_fail (self != NULL, NULL);
+
+  return g_rc_box_acquire (self);
+}
+
+
+static void
+attribute_destroy (UMLAttribute *attr)
+{
+  g_free (attr->name);
+  g_free (attr->type);
+  g_free (attr->value);
+  g_free (attr->comment);
 #if 0 /* free'd elsewhere */
   g_free(attr->left_connection);
   g_free(attr->right_connection);
 #endif
-  g_free(attr);
 }
 
+
 void
-uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr, DiaContext *ctx)
+uml_attribute_unref (UMLAttribute *self)
+{
+  g_rc_box_release_full (self, (GDestroyNotify) attribute_destroy);
+}
+
+
+void
+uml_attribute_write (AttributeNode  attr_node,
+                     UMLAttribute  *attr,
+                     DiaContext    *ctx)
 {
   DataNode composite;
 
-  composite = data_add_composite(attr_node, "umlattribute", ctx);
+  composite = data_add_composite (attr_node, "umlattribute", ctx);
 
-  data_add_string(composite_add_attribute(composite, "name"),
-		  attr->name, ctx);
-  data_add_string(composite_add_attribute(composite, "type"),
-		  attr->type, ctx);
-  data_add_string(composite_add_attribute(composite, "value"),
-		  attr->value, ctx);
-  data_add_string(composite_add_attribute(composite, "comment"),
-		  attr->comment, ctx);
-  data_add_enum(composite_add_attribute(composite, "visibility"),
-		attr->visibility, ctx);
-  data_add_boolean(composite_add_attribute(composite, "abstract"),
-		  attr->abstract, ctx);
-  data_add_boolean(composite_add_attribute(composite, "class_scope"),
-		  attr->class_scope, ctx);
+  data_add_string (composite_add_attribute (composite, "name"),
+                   attr->name, ctx);
+  data_add_string (composite_add_attribute (composite, "type"),
+                   attr->type, ctx);
+  data_add_string (composite_add_attribute (composite, "value"),
+                   attr->value, ctx);
+  data_add_string (composite_add_attribute (composite, "comment"),
+                   attr->comment, ctx);
+  data_add_enum (composite_add_attribute (composite, "visibility"),
+                 attr->visibility, ctx);
+  data_add_boolean (composite_add_attribute (composite, "abstract"),
+                    attr->abstract, ctx);
+  data_add_boolean (composite_add_attribute (composite, "class_scope"),
+                    attr->class_scope, ctx);
 }
+
 
 /* Warning, the following *must* be strictly ASCII characters (or fix the
    following code for UTF-8 cleanliness */
@@ -187,14 +204,15 @@ uml_attribute_write(AttributeNode attr_node, UMLAttribute *attr, DiaContext *ctx
 char visible_char[] = { '+', '-', '#', ' ' };
 
 char *
-uml_get_attribute_string (UMLAttribute *attribute)
+uml_attribute_get_string (UMLAttribute *attribute)
 {
   int len;
   char *str;
 
   len = 1 + (attribute->name ? strlen (attribute->name) : 0)
           + (attribute->type ? strlen (attribute->type) : 0);
-  if (attribute->name && attribute->name[0] && attribute->type && attribute->type[0]) {
+  if (attribute->name && attribute->name[0] &&
+      attribute->type && attribute->type[0]) {
     len += 2;
   }
   if (attribute->value != NULL && attribute->value[0] != '\0') {
@@ -207,7 +225,8 @@ uml_get_attribute_string (UMLAttribute *attribute)
   str[1] = 0;
 
   strcat (str, attribute->name ? attribute->name : "");
-  if (attribute->name && attribute->name[0] && attribute->type && attribute->type[0]) {
+  if (attribute->name && attribute->name[0] &&
+      attribute->type && attribute->type[0]) {
     strcat (str, ": ");
   }
   strcat (str, attribute->type ? attribute->type : "");
@@ -220,6 +239,7 @@ uml_get_attribute_string (UMLAttribute *attribute)
 
   return str;
 }
+
 
 /*!
  * The ownership of these connection points is quite complicated. Instead of being part of

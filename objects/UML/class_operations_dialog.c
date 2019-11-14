@@ -170,12 +170,16 @@ static void
 parameters_set_values (UMLClassDialog *prop_dialog,
                        UMLParameter   *param)
 {
+  char *comment;
+
   gtk_entry_set_text (prop_dialog->param_name, param->name? param->name : "");
   gtk_entry_set_text (prop_dialog->param_type, param->type? param->type : "");
   gtk_entry_set_text (prop_dialog->param_value, param->value? param->value : "");
+  comment = g_strdup (param->comment? param->comment : "");
   gtk_text_buffer_set_text (prop_dialog->param_comment_buffer,
-                            param->comment? g_strdup (param->comment) : "",
+                            comment,
                             -1);
+  g_free (comment);
 
   dia_option_menu_set_active (DIA_OPTION_MENU (prop_dialog->param_kind),
                               param->kind);
@@ -230,7 +234,6 @@ parameters_list_new_callback (GtkWidget *button,
   UMLClassDialog *prop_dialog;
   UMLOperation *current_op;
   UMLParameter *param;
-  char *utf;
   GtkTreeIter iter;
   GtkTreeSelection *selection;
 
@@ -242,8 +245,6 @@ parameters_list_new_callback (GtkWidget *button,
 
   param = uml_parameter_new ();
 
-  utf = uml_parameter_get_string (param);
-
   gtk_list_store_append (prop_dialog->parameters_store, &iter);
   update_parameter (prop_dialog, param, &iter);
 
@@ -253,7 +254,6 @@ parameters_list_new_callback (GtkWidget *button,
   sync_params_to_operation (GTK_TREE_MODEL (prop_dialog->parameters_store),
                             current_op);
 
-  g_clear_pointer (&utf, g_free);
   g_clear_pointer (&param, uml_parameter_unref);
   g_clear_pointer (&current_op, uml_operation_unref);
 }
@@ -409,13 +409,16 @@ operations_set_values (UMLClassDialog *prop_dialog, UMLOperation *op)
   UMLParameter *param;
   GtkTreeIter iter;
   gchar *str;
+  char *comment;
 
   gtk_entry_set_text (prop_dialog->op_name, op->name? op->name : "");
   gtk_entry_set_text (prop_dialog->op_type, op->type? op->type : "");
   gtk_entry_set_text (prop_dialog->op_stereotype, op->stereotype? op->stereotype : "");
+  comment = g_strdup (op->comment? op->comment : "");
   gtk_text_buffer_set_text (prop_dialog->op_comment_buffer,
-                            op->comment? g_strdup (op->comment) : "",
+                            comment,
                             -1);
+  g_free (comment);
 
   dia_option_menu_set_active (DIA_OPTION_MENU (prop_dialog->op_visible),
                               op->visibility);
@@ -449,7 +452,7 @@ operations_clear_values (UMLClassDialog *prop_dialog)
   gtk_entry_set_text (prop_dialog->op_name, "");
   gtk_entry_set_text (prop_dialog->op_type, "");
   gtk_entry_set_text (prop_dialog->op_stereotype, "");
-  _class_set_comment (prop_dialog->op_comment, "");
+  gtk_text_buffer_set_text (prop_dialog->op_comment_buffer, "", -1);
   gtk_toggle_button_set_active (prop_dialog->op_class_scope, FALSE);
   gtk_toggle_button_set_active (prop_dialog->op_query, FALSE);
 
@@ -1026,12 +1029,12 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
 
   prop_dialog = umlclass->properties_dialog;
 
-  vbox2 = gtk_vbox_new(FALSE, 5);
+  vbox2 = gtk_vbox_new (FALSE, 6);
   /* Parameters list label */
-  hbox2 = gtk_hbox_new(FALSE, 5);
+  hbox2 = gtk_hbox_new (FALSE, 6);
 
-  label = gtk_label_new(_("Parameters:"));
-  gtk_box_pack_start( GTK_BOX(hbox2), label, FALSE, TRUE, 0);
+  label = gtk_label_new (_("Parameters:"));
+  gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
 
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
 
@@ -1039,7 +1042,8 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
   hbox2 = gtk_hbox_new (FALSE, 6);
 
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_win), GTK_SHADOW_IN);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_win),
+                                       GTK_SHADOW_IN);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
                                   GTK_POLICY_AUTOMATIC,
                                   GTK_POLICY_AUTOMATIC);
@@ -1051,6 +1055,8 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
                                                       DIA_UML_TYPE_PARAMETER);
   prop_dialog->parameters = gtk_tree_view_new_with_model (GTK_TREE_MODEL (prop_dialog->parameters_store));
   gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (prop_dialog->parameters), FALSE);
+  gtk_container_set_focus_vadjustment (GTK_CONTAINER (prop_dialog->parameters),
+                                       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
   select = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->parameters));
   g_signal_connect (G_OBJECT (select),
                     "changed",
@@ -1068,9 +1074,7 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
   gtk_tree_view_append_column (GTK_TREE_VIEW (prop_dialog->parameters),
                                column);
 
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), prop_dialog->parameters);
-  gtk_container_set_focus_vadjustment (GTK_CONTAINER (prop_dialog->parameters),
-                                       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
+  gtk_container_add (GTK_CONTAINER (scrolled_win), prop_dialog->parameters);
   gtk_widget_show (prop_dialog->parameters);
 
 
@@ -1390,10 +1394,10 @@ _operations_create_page (GtkNotebook *notebook,  UMLClass *umlclass)
   /* Operations page: */
   page_label = gtk_label_new_with_mnemonic (_("_Operations"));
 
-  vbox = gtk_vbox_new(FALSE, 5);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+  vbox = gtk_vbox_new (FALSE, 6);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 
-  hbox = gtk_hbox_new(FALSE, 5);
+  hbox = gtk_hbox_new (FALSE, 6);
 
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
@@ -1436,7 +1440,7 @@ _operations_create_page (GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_tree_view_append_column (GTK_TREE_VIEW (prop_dialog->operations),
                                column);
 
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), prop_dialog->operations);
+  gtk_container_add (GTK_CONTAINER (scrolled_win), prop_dialog->operations);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (prop_dialog->operations),
                                        gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
   gtk_widget_show (prop_dialog->operations);
@@ -1499,23 +1503,23 @@ _operations_create_page (GtkNotebook *notebook,  UMLClass *umlclass)
 
   gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
-  frame = gtk_frame_new(_("Operation data"));
-  vbox2 = gtk_vbox_new(FALSE, 0);
+  frame = gtk_frame_new (_("Operation data"));
+  vbox2 = gtk_vbox_new (FALSE, 0);
   hbox = operations_data_create_hbox (umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), hbox, TRUE, TRUE, 0);
   gtk_container_add (GTK_CONTAINER (frame), vbox2);
-  gtk_widget_show(frame);
+  gtk_widget_show (frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
 
   /* parameter stuff below operation stuff */
-  hbox = gtk_hbox_new (FALSE, 5);
+  hbox = gtk_hbox_new (FALSE, 6);
   vbox3 = operations_parameters_editor_create_vbox (umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox), vbox3, TRUE, TRUE, 5);
+  gtk_box_pack_start (GTK_BOX (hbox), vbox3, TRUE, TRUE, 6);
 
   vbox3 = operations_parameters_data_create_vbox (umlclass);
-  gtk_box_pack_start (GTK_BOX (hbox), vbox3, TRUE, TRUE, 5);
+  gtk_box_pack_start (GTK_BOX (hbox), vbox3, TRUE, TRUE, 6);
 
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox, TRUE, TRUE, 5);
+  gtk_box_pack_start (GTK_BOX (vbox2), hbox, TRUE, TRUE, 6);
 
   gtk_widget_show_all (vbox);
   gtk_widget_show (page_label);

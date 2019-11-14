@@ -45,12 +45,13 @@ struct _UMLClassDialog {
   GList *added_connections;
   GList *deleted_connections;
 
-  GtkList *attributes_list;
-  GtkListItem *current_attr;
+  GtkWidget *attributes;
+  GtkListStore *attributes_store;
   GtkEntry *attr_name;
   GtkEntry *attr_type;
   GtkEntry *attr_value;
   GtkTextView *attr_comment;
+  GtkTextBuffer *attr_comment_buffer;
   GtkWidget *attr_visible;
   GtkToggleButton *attr_class_scope;
 
@@ -61,7 +62,6 @@ struct _UMLClassDialog {
   GtkEntry *op_stereotype;
   GtkTextView *op_comment;
   GtkTextBuffer *op_comment_buffer;
-
   GtkWidget *op_visible;
   GtkToggleButton *op_class_scope;
   GtkWidget *op_inheritance_type;
@@ -69,7 +69,6 @@ struct _UMLClassDialog {
 
   GtkWidget *parameters;
   GtkListStore *parameters_store;
-
   GtkEntry *param_name;
   GtkEntry *param_type;
   GtkEntry *param_value;
@@ -91,12 +90,8 @@ struct _UMLClassDialog {
 
 void _umlclass_store_disconnects(UMLClassDialog *prop_dialog, ConnectionPoint *cp);
 
-gchar *_class_get_comment(GtkTextView *);
-void _class_set_comment(GtkTextView *, gchar *);
 char *buffer_get_text (GtkTextBuffer *buffer);
 
-void _attributes_get_current_values(UMLClassDialog *prop_dialog);
-void _operations_get_current_values(UMLClassDialog *prop_dialog);
 void _templates_get_current_values(UMLClassDialog *prop_dialog);
 
 void _attributes_fill_in_dialog(UMLClass *umlclass);
