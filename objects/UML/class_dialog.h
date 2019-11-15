@@ -81,8 +81,8 @@ struct _UMLClassDialog {
   GtkWidget *param_up_button;
   GtkWidget *param_down_button;
 
-  GtkList *templates_list;
-  GtkListItem *current_templ;
+  GtkWidget *templates;
+  GtkListStore *templates_store;
   GtkToggleButton *templ_template;
   GtkEntry *templ_name;
   GtkEntry *templ_type;

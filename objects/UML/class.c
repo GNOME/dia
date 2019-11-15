@@ -1171,7 +1171,7 @@ umlclass_draw_template_parameters_box (UMLClass    *umlclass,
   i = 0;
   list = umlclass->formal_params;
   while (list != NULL) {
-    gchar *paramstr = uml_get_formalparameter_string ((UMLFormalParameter *)list->data);
+    gchar *paramstr = uml_formal_parameter_get_string ((UMLFormalParameter *) list->data);
 
     ascent = dia_font_ascent (paramstr, font, font_height);
     TextInsert.y += ascent;
@@ -1760,7 +1760,7 @@ umlclass_calculate_data(UMLClass *umlclass)
       while (list != NULL)
       {
         UMLFormalParameter *param = (UMLFormalParameter *) list->data;
-	gchar *paramstr = uml_get_formalparameter_string(param);
+        gchar *paramstr = uml_formal_parameter_get_string (param);
 
         width = dia_font_string_width(paramstr,
                                       umlclass->normal_font,
@@ -1974,16 +1974,11 @@ umlclass_destroy(UMLClass *umlclass)
   }
   g_list_free (umlclass->operations);
 
-  list = umlclass->formal_params;
-  while (list != NULL) {
-    param = (UMLFormalParameter *)list->data;
-    uml_formalparameter_destroy(param);
-    list = g_list_next(list);
-  }
-  g_list_free(umlclass->formal_params);
+  g_list_free_full (umlclass->formal_params, (GDestroyNotify) uml_formal_parameter_unref);
+  umlclass->formal_params = NULL;
 
   if (umlclass->stereotype_string != NULL) {
-    g_free(umlclass->stereotype_string);
+    g_free (umlclass->stereotype_string);
   }
 
   if (umlclass->properties_dialog != NULL) {
@@ -2090,9 +2085,9 @@ umlclass_copy(UMLClass *umlclass)
   while (list != NULL) {
     param = (UMLFormalParameter *)list->data;
     newumlclass->formal_params =
-      g_list_append(newumlclass->formal_params,
-		     uml_formalparameter_copy(param));
-    list = g_list_next(list);
+      g_list_append (newumlclass->formal_params,
+                     uml_formal_parameter_copy (param));
+    list = g_list_next (list);
   }
 
   newumlclass->properties_dialog = NULL;
@@ -2232,38 +2227,45 @@ umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
                  umlclass->comment_font_height, ctx);
 
   /* Attribute info: */
-  attr_node = new_attribute(obj_node, "attributes");
+  attr_node = new_attribute (obj_node, "attributes");
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *) list->data;
-    uml_attribute_write(attr_node, attr, ctx);
-    list = g_list_next(list);
+
+    uml_attribute_write (attr_node, attr, ctx);
+
+    list = g_list_next (list);
   }
 
   /* Operations info: */
-  attr_node = new_attribute(obj_node, "operations");
+  attr_node = new_attribute (obj_node, "operations");
   list = umlclass->operations;
   while (list != NULL) {
     op = (UMLOperation *) list->data;
-    uml_operation_write(attr_node, op, ctx);
-    list = g_list_next(list);
+
+    uml_operation_write (attr_node, op, ctx);
+
+    list = g_list_next (list);
   }
 
   /* Template info: */
-  data_add_boolean(new_attribute(obj_node, "template"),
-		   umlclass->template, ctx);
+  data_add_boolean (new_attribute (obj_node, "template"),
+                    umlclass->template, ctx);
 
-  attr_node = new_attribute(obj_node, "templates");
+  attr_node = new_attribute (obj_node, "templates");
   list = umlclass->formal_params;
   while (list != NULL) {
     formal_param = (UMLFormalParameter *) list->data;
-    uml_formalparameter_write(attr_node, formal_param, ctx);
-    list = g_list_next(list);
+
+    uml_formal_parameter_write (attr_node, formal_param, ctx);
+
+    list = g_list_next (list);
   }
 }
 
+
 static DiaObject *
-umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
+umlclass_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   UMLClass *umlclass;
   Element *elem;
@@ -2273,7 +2275,7 @@ umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx)
   GList *list;
 
 
-  umlclass = g_malloc0(sizeof(UMLClass));
+  umlclass = g_malloc0 (sizeof (UMLClass));
   elem = &umlclass->element;
   obj = &elem->object;
 

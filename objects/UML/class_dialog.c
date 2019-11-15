@@ -565,44 +565,29 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
  ******************** ALL *****************************
  ******************************************************/
 
-static void
-switch_page_callback(GtkNotebook *notebook,
-		     GtkNotebookPage *page)
-{
-  UMLClass *umlclass;
-  UMLClassDialog *prop_dialog;
-
-  umlclass = (UMLClass *)
-    g_object_get_data(G_OBJECT(notebook), "user_data");
-
-  prop_dialog = umlclass->properties_dialog;
-
-  if (prop_dialog != NULL) {
-    _templates_get_current_values(prop_dialog);
-  }
-}
 
 static void
 destroy_properties_dialog (GtkWidget* widget,
-			   gpointer user_data)
+                           gpointer   user_data)
 {
   /* dialog gone, mark as such */
-  UMLClass *umlclass = (UMLClass *)user_data;
+  UMLClass *umlclass = (UMLClass *) user_data;
 
   g_free (umlclass->properties_dialog);
   umlclass->properties_dialog = NULL;
 }
 
+
 static void
-fill_in_dialog(UMLClass *umlclass)
+fill_in_dialog (UMLClass *umlclass)
 {
 #ifdef DEBUG
   umlclass_sanity_check(umlclass, "Filling in dialog before attrs");
 #endif
-  class_fill_in_dialog(umlclass);
-  _attributes_fill_in_dialog(umlclass);
-  _operations_fill_in_dialog(umlclass);
-  _templates_fill_in_dialog(umlclass);
+  class_fill_in_dialog (umlclass);
+  _attributes_fill_in_dialog (umlclass);
+  _operations_fill_in_dialog (umlclass);
+  _templates_fill_in_dialog (umlclass);
 }
 
 
@@ -722,7 +707,6 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
     g_object_ref_sink(vbox);
     prop_dialog->dialog = vbox;
 
-    prop_dialog->current_templ = NULL;
     prop_dialog->deleted_connections = NULL;
     prop_dialog->added_connections = NULL;
     prop_dialog->disconnected_connections = NULL;
@@ -736,10 +720,6 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
 
     create_dialog_pages(GTK_NOTEBOOK( notebook ), umlclass);
 
-    g_signal_connect (G_OBJECT (notebook),
-                      "switch-page",
-                      G_CALLBACK (switch_page_callback),
-                      umlclass);
     g_signal_connect (G_OBJECT (umlclass->properties_dialog->dialog),
                       "destroy",
                       G_CALLBACK (destroy_properties_dialog),
@@ -758,36 +738,24 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
 /****************** UNDO stuff: ******************/
 
 static void
-umlclass_free_state(UMLClassState *state)
+umlclass_free_state (UMLClassState *state)
 {
   GList *list;
 
-  g_object_unref (state->normal_font);
-  g_object_unref (state->abstract_font);
-  g_object_unref (state->polymorphic_font);
-  g_object_unref (state->classname_font);
-  g_object_unref (state->abstract_classname_font);
-  g_object_unref (state->comment_font);
+  g_clear_object (&state->normal_font);
+  g_clear_object (&state->abstract_font);
+  g_clear_object (&state->polymorphic_font);
+  g_clear_object (&state->classname_font);
+  g_clear_object (&state->abstract_classname_font);
+  g_clear_object (&state->comment_font);
 
-  g_free(state->name);
-  g_free(state->stereotype);
-  g_free(state->comment);
+  g_free (state->name);
+  g_free (state->stereotype);
+  g_free (state->comment);
 
-  list = state->attributes;
-  while (list) {
-    uml_attribute_unref ((UMLAttribute *) list->data);
-    list = g_list_next (list);
-  }
-  g_list_free (state->attributes);
-
+  g_list_free_full (state->attributes, (GDestroyNotify) uml_attribute_unref);
   g_list_free_full (state->operations, (GDestroyNotify) uml_operation_unref);
-
-  list = state->formal_params;
-  while (list) {
-    uml_formalparameter_destroy((UMLFormalParameter *) list->data);
-    list = g_list_next(list);
-  }
-  g_list_free(state->formal_params);
+  g_list_free_full (state->formal_params, (GDestroyNotify) uml_formal_parameter_unref);
 }
 
 static UMLClassState *
@@ -868,7 +836,7 @@ umlclass_get_state(UMLClass *umlclass)
     UMLFormalParameter *param = (UMLFormalParameter *)list->data;
     UMLFormalParameter *param_copy;
 
-    param_copy = uml_formalparameter_copy(param);
+    param_copy = uml_formal_parameter_copy(param);
     state->formal_params = g_list_append(state->formal_params, param_copy);
 
     list = g_list_next(list);

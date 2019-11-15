@@ -19,7 +19,6 @@
 #include <config.h>
 
 #include <assert.h>
-#undef GTK_DISABLE_DEPRECATED /* GtkList, ... */
 #include <gtk/gtk.h>
 
 #include "class.h"
@@ -31,321 +30,343 @@
  ******************** TEMPLATES *****************************
  ************************************************************/
 
-static void
-templates_set_sensitive(UMLClassDialog *prop_dialog, gint val)
+enum {
+  COL_FORMAL_TITLE,
+  COL_FORMAL_PARAM,
+  N_COLS
+};
+
+
+static gboolean
+get_current_formal_param (UMLClassDialog      *dialog,
+                          UMLFormalParameter **param,
+                          GtkTreeIter         *c_iter)
 {
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->templ_name), val);
-  gtk_widget_set_sensitive(GTK_WIDGET(prop_dialog->templ_type), val);
-}
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  GtkTreeSelection *selection;
 
-static void
-templates_set_values (UMLClassDialog *prop_dialog,
-		      UMLFormalParameter *param)
-{
-  if (param->name)
-    gtk_entry_set_text(prop_dialog->templ_name, param->name);
-  if (param->type != NULL)
-    gtk_entry_set_text(prop_dialog->templ_type, param->type);
-}
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (dialog->templates));
+  if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_FORMAL_PARAM, param, -1);
 
-static void
-templates_clear_values(UMLClassDialog *prop_dialog)
-{
-  gtk_entry_set_text(prop_dialog->templ_name, "");
-  gtk_entry_set_text(prop_dialog->templ_type, "");
-}
-
-static void
-templates_get_values(UMLClassDialog *prop_dialog, UMLFormalParameter *param)
-{
-  g_free(param->name);
-  if (param->type != NULL)
-    g_free(param->type);
-
-  param->name = g_strdup (gtk_entry_get_text (prop_dialog->templ_name));
-  param->type = g_strdup (gtk_entry_get_text (prop_dialog->templ_type));
-}
-
-
-void
-_templates_get_current_values(UMLClassDialog *prop_dialog)
-{
-  UMLFormalParameter *current_param;
-  GtkLabel *label;
-  gchar* new_str;
-
-  if (prop_dialog->current_templ != NULL) {
-    current_param = (UMLFormalParameter *)
-      g_object_get_data(G_OBJECT(prop_dialog->current_templ), "user_data");
-    if (current_param != NULL) {
-      templates_get_values(prop_dialog, current_param);
-      label = GTK_LABEL(gtk_bin_get_child(GTK_BIN(prop_dialog->current_templ)));
-      new_str = uml_get_formalparameter_string (current_param);
-      gtk_label_set_text(label, new_str);
-      g_free(new_str);
+    if (c_iter) {
+      *c_iter = iter;
     }
+
+    return TRUE;
   }
+
+  return FALSE;
 }
 
+
 static void
-templates_list_item_destroy_callback(GtkWidget *list_item,
-				     gpointer data)
+update_formal_param (UMLClassDialog     *dialog,
+                     UMLFormalParameter *param,
+                     GtkTreeIter        *iter)
 {
+  char *title;
+
+  title = uml_formal_parameter_get_string (param);
+
+  gtk_list_store_set (dialog->templates_store,
+                      iter,
+                      COL_FORMAL_PARAM, param,
+                      COL_FORMAL_TITLE, title,
+                      -1);
+
+  g_clear_pointer (&title, g_free);
+}
+
+
+static void
+templates_set_sensitive (UMLClassDialog *prop_dialog, gboolean val)
+{
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->templ_name), val);
+  gtk_widget_set_sensitive (GTK_WIDGET (prop_dialog->templ_type), val);
+}
+
+
+static void
+templates_set_values (UMLClassDialog     *prop_dialog,
+                      UMLFormalParameter *param)
+{
+  gtk_entry_set_text (prop_dialog->templ_name, param->name? param->name : "");
+  gtk_entry_set_text (prop_dialog->templ_type, param->type? param->type : "");
+}
+
+
+static void
+templates_clear_values (UMLClassDialog *prop_dialog)
+{
+  gtk_entry_set_text (prop_dialog->templ_name, "");
+  gtk_entry_set_text (prop_dialog->templ_type, "");
+}
+
+
+static void
+templates_list_new_callback (GtkWidget *button,
+                             UMLClass  *umlclass)
+{
+  UMLClassDialog *prop_dialog;
   UMLFormalParameter *param;
+  GtkTreeIter iter;
+  GtkTreeSelection *selection;
 
-  param = (UMLFormalParameter *)
-    g_object_get_data(G_OBJECT(list_item), "user_data");
+  prop_dialog = umlclass->properties_dialog;
 
-  if (param != NULL) {
-    uml_formalparameter_destroy(param);
-    /*printf("Destroying list_item's user_data!\n"); */
-  }
+  param = uml_formal_parameter_new ();
+
+  gtk_list_store_append (prop_dialog->templates_store, &iter);
+  update_formal_param (prop_dialog, param, &iter);
+
+  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->templates));
+  gtk_tree_selection_select_iter (selection, &iter);
+
+  g_clear_pointer (&param, uml_formal_parameter_unref);
 }
 
+
 static void
-templates_list_selection_changed_callback(GtkWidget *gtklist,
-					  UMLClass *umlclass)
+templates_list_delete_callback (GtkWidget *button,
+                                UMLClass  *umlclass)
 {
-  GList *list;
   UMLClassDialog *prop_dialog;
-  GObject *list_item;
   UMLFormalParameter *param;
+  GtkTreeIter iter;
 
   prop_dialog = umlclass->properties_dialog;
 
-  if (!prop_dialog)
-    return; /* maybe hiding a bug elsewhere */
+  if (get_current_formal_param (prop_dialog, &param, &iter)) {
+    gtk_list_store_remove (prop_dialog->templates_store, &iter);
 
-  _templates_get_current_values(prop_dialog);
-
-  list = GTK_LIST(gtklist)->selection;
-  if (!list) { /* No selected */
-    templates_set_sensitive(prop_dialog, FALSE);
-    templates_clear_values(prop_dialog);
-    prop_dialog->current_templ = NULL;
-    return;
+    g_clear_pointer (&param, uml_formal_parameter_unref);
   }
-
-  list_item = G_OBJECT(list->data);
-  param = (UMLFormalParameter *)g_object_get_data(G_OBJECT(list_item), "user_data");
-  templates_set_values(prop_dialog, param);
-  templates_set_sensitive(prop_dialog, TRUE);
-
-  prop_dialog->current_templ = GTK_LIST_ITEM(list_item);
-  gtk_widget_grab_focus(GTK_WIDGET(prop_dialog->templ_name));
 }
 
+
 static void
-templates_list_new_callback(GtkWidget *button,
-			    UMLClass *umlclass)
+templates_list_move_up_callback (GtkWidget *button,
+                                 UMLClass  *umlclass)
 {
-  GList *list;
   UMLClassDialog *prop_dialog;
-  GtkWidget *list_item;
+  UMLFormalParameter *current_param;
+  GtkTreeIter iter;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_formal_param (prop_dialog, &current_param, &iter)) {
+    GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (prop_dialog->templates_store),
+                                                 &iter);
+    GtkTreeSelection *selection;
+    GtkTreeIter prev;
+
+    if (path != NULL && gtk_tree_path_prev (path)
+        && gtk_tree_model_get_iter (GTK_TREE_MODEL (prop_dialog->templates_store), &prev, path)) {
+      gtk_list_store_move_before (prop_dialog->templates_store, &iter, &prev);
+    } else {
+      gtk_list_store_move_before (prop_dialog->templates_store, &iter, NULL);
+    }
+    gtk_tree_path_free (path);
+
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->templates));
+    gtk_tree_selection_select_iter (selection, &iter);
+
+    g_clear_pointer (&current_param, uml_formal_parameter_unref);
+  }
+}
+
+
+static void
+templates_list_move_down_callback (GtkWidget *button,
+                                   UMLClass  *umlclass)
+{
+  UMLClassDialog *prop_dialog;
+  UMLFormalParameter *current_param;
+  GtkTreeIter iter;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (get_current_formal_param (prop_dialog, &current_param, &iter)) {
+    GtkTreePath *path = gtk_tree_model_get_path (GTK_TREE_MODEL (prop_dialog->templates_store),
+                                                 &iter);
+    GtkTreeSelection *selection;
+    GtkTreeIter prev;
+
+    if (path != NULL) {
+      gtk_tree_path_next (path);
+      if (gtk_tree_model_get_iter (GTK_TREE_MODEL (prop_dialog->templates_store), &prev, path)) {
+        gtk_list_store_move_after (prop_dialog->templates_store, &iter, &prev);
+      } else {
+        gtk_list_store_move_after (prop_dialog->templates_store, &iter, NULL);
+      }
+    } else {
+      gtk_list_store_move_after (prop_dialog->templates_store, &iter, NULL);
+    }
+    gtk_tree_path_free (path);
+
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->templates));
+    gtk_tree_selection_select_iter (selection, &iter);
+
+    g_clear_pointer (&current_param, uml_formal_parameter_unref);
+  }
+}
+
+
+static void
+name_changed (GtkWidget *entry, UMLClass *umlclass)
+{
+  UMLClassDialog *prop_dialog;
   UMLFormalParameter *param;
-  char *utfstr;
+  GtkTreeIter iter;
 
   prop_dialog = umlclass->properties_dialog;
 
-  _templates_get_current_values(prop_dialog);
+  if (get_current_formal_param (prop_dialog, &param, &iter)) {
+    g_clear_pointer (&param->name, g_free);
+    param->name = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
 
-  param = uml_formalparameter_new();
+    update_formal_param (prop_dialog, param, &iter);
 
-  utfstr = uml_get_formalparameter_string (param);
-  list_item = gtk_list_item_new_with_label (utfstr);
-  gtk_widget_show (list_item);
-  g_free (utfstr);
-
-  g_object_set_data(G_OBJECT(list_item), "user_data", param);
-  g_signal_connect (G_OBJECT (list_item), "destroy",
-		    G_CALLBACK (templates_list_item_destroy_callback), NULL);
-
-  list = g_list_append(NULL, list_item);
-  gtk_list_append_items(prop_dialog->templates_list, list);
-
-  if (prop_dialog->templates_list->children != NULL)
-    gtk_list_unselect_child(prop_dialog->templates_list,
-			    GTK_WIDGET(prop_dialog->templates_list->children->data));
-  gtk_list_select_child(prop_dialog->templates_list, list_item);
-}
-
-static void
-templates_list_delete_callback(GtkWidget *button,
-			       UMLClass *umlclass)
-{
-  GList *list;
-  UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
-
-  prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->templates_list);
-
-  if (gtklist->selection != NULL) {
-    list = g_list_prepend(NULL, gtklist->selection->data);
-    gtk_list_remove_items(gtklist, list);
-    g_list_free(list);
-    templates_clear_values(prop_dialog);
-    templates_set_sensitive(prop_dialog, FALSE);
+    g_clear_pointer (&param, uml_formal_parameter_unref);
   }
 }
 
+
 static void
-templates_list_move_up_callback(GtkWidget *button,
-				UMLClass *umlclass)
+type_changed (GtkWidget *entry, UMLClass *umlclass)
 {
-  GList *list;
   UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
-  GtkWidget *list_item;
-  int i;
+  UMLFormalParameter *param;
+  GtkTreeIter iter;
 
   prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->templates_list);
 
-  if (gtklist->selection != NULL) {
-    list_item = GTK_WIDGET(gtklist->selection->data);
+  if (get_current_formal_param (prop_dialog, &param, &iter)) {
+    g_clear_pointer (&param->type, g_free);
+    param->type = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
 
-    i = gtk_list_child_position(gtklist, list_item);
-    if (i>0)
-      i--;
+    update_formal_param (prop_dialog, param, &iter);
 
-    g_object_ref(list_item);
-    list = g_list_prepend(NULL, list_item);
-    gtk_list_remove_items(gtklist, list);
-    gtk_list_insert_items(gtklist, list, i);
-    g_object_unref(list_item);
-
-    gtk_list_select_child(gtklist, list_item);
+    g_clear_pointer (&param, uml_formal_parameter_unref);
   }
 }
 
-static void
-templates_list_move_down_callback(GtkWidget *button,
-				   UMLClass *umlclass)
+
+struct AddTmplData {
+  UMLClass       *class;
+  UMLClassDialog *dialog;
+};
+
+
+static gboolean
+add_formal_param_to_list (GtkTreeModel *model,
+                          GtkTreePath  *path,
+                          GtkTreeIter  *iter,
+                          gpointer      udata)
 {
-  GList *list;
-  UMLClassDialog *prop_dialog;
-  GtkList *gtklist;
-  GtkWidget *list_item;
-  int i;
+  struct AddTmplData *data = udata;
+  UMLFormalParameter *param = NULL;
 
-  prop_dialog = umlclass->properties_dialog;
-  gtklist = GTK_LIST(prop_dialog->templates_list);
+  // Don't free param, transfering to the list
+  gtk_tree_model_get (model, iter, COL_FORMAL_PARAM, &param, -1);
 
-  if (gtklist->selection != NULL) {
-    list_item = GTK_WIDGET(gtklist->selection->data);
+  data->class->formal_params = g_list_append (data->class->formal_params, param);
 
-    i = gtk_list_child_position(gtklist, list_item);
-    if (i<(g_list_length(gtklist->children)-1))
-      i++;
-
-    g_object_ref(list_item);
-    list = g_list_prepend(NULL, list_item);
-    gtk_list_remove_items(gtklist, list);
-    gtk_list_insert_items(gtklist, list, i);
-    g_object_unref(list_item);
-
-    gtk_list_select_child(gtklist, list_item);
-  }
+  return FALSE;
 }
 
 
 void
-_templates_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
+_templates_read_from_dialog (UMLClass *umlclass, UMLClassDialog *prop_dialog)
 {
-  GList *list;
-  UMLFormalParameter *param;
-  GtkWidget *list_item;
-  GList *clear_list;
-
-  _templates_get_current_values(prop_dialog); /* if changed, update from widgets */
+  struct AddTmplData data;
 
   umlclass->template = gtk_toggle_button_get_active (prop_dialog->templ_template);
 
   /* Free current formal parameters: */
-  list = umlclass->formal_params;
-  while (list != NULL) {
-    param = (UMLFormalParameter *)list->data;
-    uml_formalparameter_destroy(param);
-    list = g_list_next(list);
-  }
-  g_list_free (umlclass->formal_params);
+  g_list_free_full (umlclass->formal_params, (GDestroyNotify) uml_formal_parameter_unref);
   umlclass->formal_params = NULL;
 
-  /* Insert new formal params and remove them from gtklist: */
-  list = GTK_LIST (prop_dialog->templates_list)->children;
-  clear_list = NULL;
-  while (list != NULL) {
-    list_item = GTK_WIDGET(list->data);
-    clear_list = g_list_prepend (clear_list, list_item);
-    param = (UMLFormalParameter *)
-      g_object_get_data(G_OBJECT(list_item), "user_data");
-    g_object_set_data(G_OBJECT(list_item), "user_data", NULL);
-    umlclass->formal_params = g_list_append(umlclass->formal_params, param);
-    list = g_list_next(list);
-  }
-  clear_list = g_list_reverse (clear_list);
-  gtk_list_remove_items (GTK_LIST (prop_dialog->templates_list), clear_list);
-  g_list_free (clear_list);
+  data.class = umlclass;
+  data.dialog = prop_dialog;
+
+  gtk_tree_model_foreach (GTK_TREE_MODEL (prop_dialog->templates_store),
+                          add_formal_param_to_list,
+                          &data);
+  gtk_list_store_clear (prop_dialog->templates_store);
 }
+
 
 void
 _templates_fill_in_dialog(UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
   UMLFormalParameter *param_copy;
+  GtkTreeIter iter;
   GList *list;
-  GtkWidget *list_item;
-  int i;
+
   prop_dialog = umlclass->properties_dialog;
 
-  gtk_toggle_button_set_active(prop_dialog->templ_template, umlclass->template);
+  gtk_toggle_button_set_active (prop_dialog->templ_template, umlclass->template);
+
+  gtk_list_store_clear (prop_dialog->templates_store);
 
   /* copy in new template-parameters: */
-  if (prop_dialog->templates_list->children == NULL) {
-    i = 0;
-    list = umlclass->formal_params;
-    while (list != NULL) {
-      UMLFormalParameter *param = (UMLFormalParameter *)list->data;
-      gchar *paramstr = uml_get_formalparameter_string(param);
+  list = umlclass->formal_params;
+  while (list != NULL) {
+    UMLFormalParameter *param = (UMLFormalParameter *) list->data;
 
-      list_item = gtk_list_item_new_with_label (paramstr);
-      param_copy = uml_formalparameter_copy(param);
-      g_object_set_data(G_OBJECT(list_item), "user_data",
-			       (gpointer) param_copy);
-      g_signal_connect (G_OBJECT (list_item), "destroy",
-			G_CALLBACK (templates_list_item_destroy_callback), NULL);
-      gtk_container_add (GTK_CONTAINER (prop_dialog->templates_list),
-			 list_item);
-      gtk_widget_show (list_item);
+    param_copy = uml_formal_parameter_copy (param);
 
-      list = g_list_next(list); i++;
-      g_free (paramstr);
-    }
-    /* set templates non-sensitive */
-    prop_dialog->current_templ = NULL;
-    templates_set_sensitive(prop_dialog, FALSE);
-    templates_clear_values(prop_dialog);
+    gtk_list_store_append (prop_dialog->templates_store, &iter);
+    update_formal_param (prop_dialog, param_copy, &iter);
+
+    list = g_list_next(list);
+
+    g_clear_pointer (&param_copy, uml_formal_parameter_unref);
   }
 
+  /* set templates non-sensitive */
+  templates_set_sensitive (prop_dialog, FALSE);
+  templates_clear_values (prop_dialog);
 }
 
 
 static void
-templates_update(GtkWidget *widget, UMLClass *umlclass)
+formal_param_selected (GtkTreeSelection *selection,
+                       UMLClass         *umlclass)
 {
-  _templates_get_current_values(umlclass->properties_dialog);
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  UMLFormalParameter *formal_param;
+  UMLClassDialog *prop_dialog;
+
+  prop_dialog = umlclass->properties_dialog;
+
+  if (!prop_dialog) {
+    return; /* maybe hiding a bug elsewhere */
+  }
+
+  if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_FORMAL_PARAM, &formal_param, -1);
+
+    templates_set_values (prop_dialog, formal_param);
+    templates_set_sensitive (prop_dialog, TRUE);
+
+    g_clear_pointer (&formal_param, uml_formal_parameter_unref);
+
+    gtk_widget_grab_focus (GTK_WIDGET (prop_dialog->templ_name));
+  } else {
+    templates_set_sensitive (prop_dialog, FALSE);
+    templates_clear_values (prop_dialog);
+  }
 }
 
-static int
-templates_update_event(GtkWidget *widget, GdkEventFocus *ev, UMLClass *umlclass)
-{
-  _templates_get_current_values(umlclass->properties_dialog);
-  return 0;
-}
 
 void
-_templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
+_templates_create_page (GtkNotebook *notebook, UMLClass *umlclass)
 {
   UMLClassDialog *prop_dialog;
   GtkWidget *page_label;
@@ -359,103 +380,159 @@ _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   GtkWidget *checkbox;
   GtkWidget *scrolled_win;
   GtkWidget *button;
-  GtkWidget *list;
   GtkWidget *frame;
+  GtkWidget *image;
+  GtkCellRenderer *renderer;
+  GtkTreeViewColumn *column;
+  GtkTreeSelection *select;
 
   prop_dialog = umlclass->properties_dialog;
 
   /* Templates page: */
   page_label = gtk_label_new_with_mnemonic (_("_Templates"));
 
-  vbox = gtk_vbox_new(FALSE, 5);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+  vbox = gtk_vbox_new (FALSE, 6);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 
-  hbox2 = gtk_hbox_new(FALSE, 5);
-  checkbox = gtk_check_button_new_with_label(_("Template class"));
-  prop_dialog->templ_template = GTK_TOGGLE_BUTTON(checkbox);
+  hbox2 = gtk_hbox_new (FALSE, 6);
+  checkbox = gtk_check_button_new_with_label (_("Template class"));
+  prop_dialog->templ_template = GTK_TOGGLE_BUTTON (checkbox);
   gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox2, FALSE, TRUE, 0);
 
-  hbox = gtk_hbox_new(FALSE, 5);
+  hbox = gtk_hbox_new (FALSE, 6);
+
 
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_win),
+                                       GTK_SHADOW_IN);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
-				  GTK_POLICY_AUTOMATIC,
-				  GTK_POLICY_AUTOMATIC);
+                                  GTK_POLICY_AUTOMATIC,
+                                  GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (hbox), scrolled_win, TRUE, TRUE, 0);
   gtk_widget_show (scrolled_win);
 
-  list = gtk_list_new ();
-  prop_dialog->templates_list = GTK_LIST(list);
-  gtk_list_set_selection_mode (GTK_LIST (list), GTK_SELECTION_SINGLE);
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), list);
-  gtk_container_set_focus_vadjustment (GTK_CONTAINER (list),
-				       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
-  gtk_widget_show (list);
+  prop_dialog->templates_store = gtk_list_store_new (N_COLS,
+                                                     G_TYPE_STRING,
+                                                     DIA_UML_TYPE_FORMAL_PARAMETER);
+  prop_dialog->templates = gtk_tree_view_new_with_model (GTK_TREE_MODEL (prop_dialog->templates_store));
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (prop_dialog->templates), FALSE);
+  gtk_container_set_focus_vadjustment (GTK_CONTAINER (prop_dialog->templates),
+                                       gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
+  select = gtk_tree_view_get_selection (GTK_TREE_VIEW (prop_dialog->templates));
+  g_signal_connect (G_OBJECT (select),
+                    "changed",
+                    G_CALLBACK (formal_param_selected),
+                    umlclass);
+  gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
 
-  g_signal_connect (G_OBJECT (list), "selection_changed",
-		    G_CALLBACK(templates_list_selection_changed_callback), umlclass);
+  renderer = gtk_cell_renderer_text_new ();
+  g_object_set (renderer, "family", "monospace", NULL);
+  column = gtk_tree_view_column_new_with_attributes (NULL,
+                                                     renderer,
+                                                     "text",
+                                                     COL_FORMAL_TITLE,
+                                                     NULL);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (prop_dialog->templates),
+                               column);
 
-  vbox2 = gtk_vbox_new(FALSE, 5);
+  gtk_container_add (GTK_CONTAINER (scrolled_win), prop_dialog->templates);
+  gtk_widget_show (prop_dialog->templates);
 
-  button = gtk_button_new_from_stock (GTK_STOCK_NEW);
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(templates_list_new_callback), umlclass);
-  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
+
+  vbox2 = gtk_vbox_new (FALSE, 6);
+
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("list-add",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Add Formal Parameter"));
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (templates_list_new_callback),
+                    umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, FALSE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_DELETE);
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(templates_list_delete_callback), umlclass);
-  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
+
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("list-remove",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Remove Formal Parameter"));
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (templates_list_delete_callback),
+                    umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, FALSE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_GO_UP);
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(templates_list_move_up_callback), umlclass);
-  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
+
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("go-up",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Move Formal Parameter Up"));
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (templates_list_move_up_callback),
+                    umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, FALSE, 0);
   gtk_widget_show (button);
-  button = gtk_button_new_from_stock (GTK_STOCK_GO_DOWN);
-  g_signal_connect (G_OBJECT (button), "clicked",
-		    G_CALLBACK(templates_list_move_down_callback), umlclass);
-  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, TRUE, 0);
+
+  button = gtk_button_new ();
+  image = gtk_image_new_from_icon_name ("go-down",
+                                        GTK_ICON_SIZE_SMALL_TOOLBAR);
+  gtk_widget_show (image);
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_set_tooltip_text (button, _("Move Formal Parameter Down"));
+  g_signal_connect (G_OBJECT (button),
+                    "clicked",
+                    G_CALLBACK (templates_list_move_down_callback),
+                    umlclass);
+  gtk_box_pack_start (GTK_BOX (vbox2), button, FALSE, FALSE, 0);
   gtk_widget_show (button);
+
 
   gtk_box_pack_start (GTK_BOX (hbox), vbox2, FALSE, TRUE, 0);
 
   gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
-  frame = gtk_frame_new(_("Formal parameter data"));
-  vbox2 = gtk_vbox_new(FALSE, 5);
-  gtk_container_set_border_width (GTK_CONTAINER (vbox2), 10);
+  frame = gtk_frame_new (_("Formal parameter data"));
+  vbox2 = gtk_vbox_new (FALSE, 5);
+  gtk_container_set_border_width (GTK_CONTAINER (vbox2), 6);
   gtk_container_add (GTK_CONTAINER (frame), vbox2);
-  gtk_widget_show(frame);
+  gtk_widget_show (frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
 
   table = gtk_table_new (2, 2, FALSE);
+  gtk_table_set_col_spacings (GTK_TABLE (table), 6);
   gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
 
-  label = gtk_label_new(_("Name:"));
-  entry = gtk_entry_new();
-  prop_dialog->templ_name = GTK_ENTRY(entry);
-  g_signal_connect (G_OBJECT (entry), "focus_out_event",
-		    G_CALLBACK (templates_update_event), umlclass);
-  g_signal_connect (G_OBJECT (entry), "activate",
-		    G_CALLBACK (templates_update), umlclass);
+  label = gtk_label_new (_("Name:"));
+  entry = gtk_entry_new ();
+  prop_dialog->templ_name = GTK_ENTRY (entry);
+  g_signal_connect (G_OBJECT (entry),
+                    "changed",
+                    G_CALLBACK (name_changed),
+                    umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  label = gtk_label_new(_("Type:"));
-  entry = gtk_entry_new();
-  prop_dialog->templ_type = GTK_ENTRY(entry);
-  g_signal_connect (G_OBJECT (entry), "focus_out_event",
-		    G_CALLBACK (templates_update_event), umlclass);
-  g_signal_connect (G_OBJECT (entry), "activate",
-		    G_CALLBACK (templates_update), umlclass);
+  label = gtk_label_new (_("Type:"));
+  entry = gtk_entry_new ();
+  prop_dialog->templ_type = GTK_ENTRY (entry);
+  g_signal_connect (G_OBJECT (entry),
+                    "changed",
+                    G_CALLBACK (type_changed),
+                    umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
 
-  gtk_widget_show(vbox2);
+  gtk_widget_show (vbox2);
 
   /* TODO: Add stuff here! */
 

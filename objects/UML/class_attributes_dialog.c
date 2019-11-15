@@ -33,7 +33,7 @@
 enum {
   COL_ATTR_TITLE,
   COL_ATTR_ATTR,
-  N_PARAM_COLS
+  N_COLS
 };
 
 
@@ -559,9 +559,9 @@ _attributes_create_page (GtkNotebook *notebook, UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox), scrolled_win, TRUE, TRUE, 0);
   gtk_widget_show (scrolled_win);
 
-  prop_dialog->attributes_store = gtk_list_store_new (N_PARAM_COLS,
+  prop_dialog->attributes_store = gtk_list_store_new (N_COLS,
                                                       G_TYPE_STRING,
-                                                      DIA_UML_TYPE_PARAMETER);
+                                                      DIA_UML_TYPE_ATTRIBUTE);
   prop_dialog->attributes = gtk_tree_view_new_with_model (GTK_TREE_MODEL (prop_dialog->attributes_store));
   gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (prop_dialog->attributes), FALSE);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (prop_dialog->attributes),

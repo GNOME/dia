@@ -129,60 +129,68 @@ struct _UMLFormalParameter {
 
 #define DIA_UML_TYPE_PARAMETER uml_parameter_get_type ()
 
-UMLParameter *uml_parameter_new                      (void);
-GType         uml_parameter_get_type                 (void);
-UMLParameter *uml_parameter_copy                     (UMLParameter *param);
-UMLParameter *uml_parameter_ref                      (UMLParameter *param);
-void          uml_parameter_unref                    (UMLParameter *param);
+UMLParameter       *uml_parameter_new                      (void);
+GType               uml_parameter_get_type                 (void);
+UMLParameter       *uml_parameter_copy                     (UMLParameter *param);
+UMLParameter       *uml_parameter_ref                      (UMLParameter *param);
+void                uml_parameter_unref                    (UMLParameter *param);
 /** calculated the 'formated' representation */
-gchar        *uml_parameter_get_string               (UMLParameter *param);
+gchar              *uml_parameter_get_string               (UMLParameter *param);
 
 
 
 #define DIA_UML_TYPE_OPERATION uml_operation_get_type ()
 
-UMLOperation *uml_operation_new                      (void);
-GType         uml_operation_get_type                 (void);
-UMLOperation *uml_operation_copy                     (UMLOperation  *op);
-void          uml_operation_copy_into                (UMLOperation  *srcop,
-                                                      UMLOperation  *destop);
-UMLOperation *uml_operation_ref                      (UMLOperation  *self);
-void          uml_operation_unref                    (UMLOperation  *self);
-void          uml_operation_write                    (AttributeNode  attr_node,
-                                                      UMLOperation  *op,
-                                                      DiaContext    *ctx);
-void          uml_operation_ensure_connection_points (UMLOperation  *oper,
-                                                      DiaObject     *obj);
+UMLOperation       *uml_operation_new                      (void);
+GType               uml_operation_get_type                 (void);
+UMLOperation       *uml_operation_copy                     (UMLOperation  *op);
+void                uml_operation_copy_into                (UMLOperation  *srcop,
+                                                            UMLOperation  *destop);
+UMLOperation       *uml_operation_ref                      (UMLOperation  *self);
+void                uml_operation_unref                    (UMLOperation  *self);
+void                uml_operation_write                    (AttributeNode  attr_node,
+                                                            UMLOperation  *op,
+                                                            DiaContext    *ctx);
+void                uml_operation_ensure_connection_points (UMLOperation  *oper,
+                                                            DiaObject     *obj);
 /** calculated the 'formated' representation */
-char         *uml_get_operation_string               (UMLOperation  *operation);
+char               *uml_get_operation_string               (UMLOperation  *operation);
 
 
 
 #define DIA_UML_TYPE_ATTRIBUTE uml_attribute_get_type ()
 
-UMLAttribute *uml_attribute_new                      (void);
-GType         uml_attribute_get_type                 (void);
-UMLAttribute *uml_attribute_copy                     (UMLAttribute  *attr);
-void          uml_attribute_copy_into                (UMLAttribute  *srcattr,
-                                                      UMLAttribute  *destattr);
-UMLAttribute *uml_attribute_ref                      (UMLAttribute  *attribute);
-void          uml_attribute_unref                    (UMLAttribute  *attribute);
-void          uml_attribute_write                    (AttributeNode  attr_node,
-                                                      UMLAttribute  *attr,
-                                                      DiaContext    *ctx);
-void          uml_attribute_ensure_connection_points (UMLAttribute  *attr,
-                                                      DiaObject     *obj);
+UMLAttribute       *uml_attribute_new                      (void);
+GType               uml_attribute_get_type                 (void);
+UMLAttribute       *uml_attribute_copy                     (UMLAttribute  *attr);
+void                uml_attribute_copy_into                (UMLAttribute  *srcattr,
+                                                            UMLAttribute  *destattr);
+UMLAttribute       *uml_attribute_ref                      (UMLAttribute  *attribute);
+void                uml_attribute_unref                    (UMLAttribute  *attribute);
+void                uml_attribute_write                    (AttributeNode  attr_node,
+                                                            UMLAttribute  *attr,
+                                                            DiaContext    *ctx);
+void                uml_attribute_ensure_connection_points (UMLAttribute  *attr,
+                                                            DiaObject     *obj);
 /** calculated the 'formated' representation */
-char         *uml_attribute_get_string               (UMLAttribute  *attribute);
+char               *uml_attribute_get_string               (UMLAttribute  *attribute);
 
 
 
+#define DIA_UML_TYPE_FORMAL_PARAMETER uml_formal_parameter_get_type ()
+
+UMLFormalParameter *uml_formal_parameter_new               (void);
+GType               uml_formal_parameter_get_type          (void);
+UMLFormalParameter *uml_formal_parameter_copy              (UMLFormalParameter *param);
+UMLFormalParameter *uml_formal_parameter_ref               (UMLFormalParameter *param);
+void                uml_formal_parameter_unref             (UMLFormalParameter *param);
+void                uml_formal_parameter_write             (AttributeNode       attr_node,
+                                                            UMLFormalParameter *param,
+                                                            DiaContext         *ctx);
 /** calculated the 'formated' representation */
-extern gchar *uml_get_formalparameter_string(UMLFormalParameter *parameter);
-extern UMLFormalParameter *uml_formalparameter_copy(UMLFormalParameter *param);
-extern void uml_formalparameter_destroy(UMLFormalParameter *param);
-extern UMLFormalParameter *uml_formalparameter_new(void);
-extern void uml_formalparameter_write(AttributeNode attr_node, UMLFormalParameter *param, DiaContext *ctx);
+gchar              *uml_formal_parameter_get_string        (UMLFormalParameter *parameter);
+
+
 
 #endif /* UML_H */
 
