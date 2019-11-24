@@ -77,6 +77,41 @@ add_project_arguments([
   '-DGSEAL_ENABLE',
 ], language: 'c')
 
+
+global_c_args = []
+test_c_args = [
+  '-Wdeclaration-after-statement',
+  ['-Werror=format-security', '-Werror=format=2'],
+  '-Werror=missing-declarations',
+  '-Wformat-nonliteral',
+  '-Wformat-security',
+  '-Winit-self',
+  '-Wmaybe-uninitialized',
+  '-Wno-strict-aliasing',
+  '-Wno-unused-parameter',
+  '-Wold-style-definition',
+  '-Wshadow',
+  # When gtk3
+  # '-Wstrict-prototypes',
+  '-Wswitch-default',
+  '-Wswitch-enum',
+  '-Wunused-function',
+]
+if get_option('buildtype') != 'plain'
+  test_c_args += '-fstack-protector-strong'
+endif
+
+foreach arg: test_c_args
+  if cc.has_multi_arguments(arg)
+    global_c_args += arg
+  endif
+endforeach
+add_project_arguments(
+  global_c_args,
+  language: 'c'
+)
+
+
 subdir('po')
 subdir('lib')
 subdir('objects')

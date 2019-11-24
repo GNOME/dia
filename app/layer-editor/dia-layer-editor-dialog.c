@@ -306,7 +306,7 @@ dia_layer_editor_dialog_new (void)
 }
 
 
-gboolean
+static gboolean
 find_diagram (GtkTreeModel *model,
               GtkTreePath  *path,
               GtkTreeIter  *iter,

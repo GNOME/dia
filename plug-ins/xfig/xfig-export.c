@@ -354,6 +354,7 @@ figLineStyle(XfigRenderer *renderer)
     return 4;
   case LINESTYLE_DOTTED:
     return 2;
+  case LINESTYLE_DEFAULT:
   default:
     return 0;
   }
@@ -515,27 +516,54 @@ figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
   gchar al_buf[DTOSTR_BUF_SIZE];
 
   switch (arrow->type) {
-  case ARROW_NONE:
-    return;
-  case ARROW_LINES:             /* {open arrow} */
-    type = 0; style = 0; break;
-  case ARROW_UNFILLED_TRIANGLE:
-  case ARROW_HOLLOW_TRIANGLE:   /* {blanked arrow} */
-    type = 1; style = 0; break;
-  case ARROW_FILLED_TRIANGLE:   /* {filled arrow} */
-    type = 1; style = 1; break;
-  case ARROW_HOLLOW_DIAMOND:
-    type = 3; style = 0; break;
-  case ARROW_FILLED_DIAMOND:
-    type = 3; style = 1; break;
-  default:
-    message_warning(_("Fig format has no equivalent of arrow style %s; using simple arrow.\n"),
-		    arrow_get_name_from_type(arrow->type));
-    /* Notice fallthrough */
-  case ARROW_FILLED_CONCAVE:
-    type = 2; style = 1; break;
-  case ARROW_BLANKED_CONCAVE:
-    type = 2; style = 0; break;
+    case ARROW_NONE:
+      return;
+    case ARROW_LINES:             /* {open arrow} */
+      type = 0; style = 0; break;
+    case ARROW_UNFILLED_TRIANGLE:
+    case ARROW_HOLLOW_TRIANGLE:   /* {blanked arrow} */
+      type = 1; style = 0; break;
+    case ARROW_FILLED_TRIANGLE:   /* {filled arrow} */
+      type = 1; style = 1; break;
+    case ARROW_HOLLOW_DIAMOND:
+      type = 3; style = 0; break;
+    case ARROW_FILLED_DIAMOND:
+      type = 3; style = 1; break;
+    case ARROW_HALF_HEAD:
+    case ARROW_SLASHED_CROSS:
+    case ARROW_FILLED_ELLIPSE:
+    case ARROW_HOLLOW_ELLIPSE:
+    case ARROW_DOUBLE_HOLLOW_TRIANGLE:
+    case ARROW_DOUBLE_FILLED_TRIANGLE:
+    case ARROW_FILLED_DOT:
+    case ARROW_DIMENSION_ORIGIN:
+    case ARROW_BLANKED_DOT:
+    case ARROW_FILLED_BOX:
+    case ARROW_BLANKED_BOX:
+    case ARROW_SLASH_ARROW:
+    case ARROW_INTEGRAL_SYMBOL:
+    case ARROW_CROW_FOOT:
+    case ARROW_CROSS:
+    case ARROW_ROUNDED:
+    case ARROW_HALF_DIAMOND:
+    case ARROW_OPEN_ROUNDED:
+    case ARROW_FILLED_DOT_N_TRIANGLE:
+    case ARROW_ONE_OR_MANY:
+    case ARROW_NONE_OR_MANY:
+    case ARROW_ONE_OR_NONE:
+    case ARROW_ONE_EXACTLY:
+    case ARROW_BACKSLASH:
+    case ARROW_THREE_DOTS:
+    default:
+      message_warning(_("Fig format has no equivalent of arrow style %s; using simple arrow.\n"),
+          arrow_get_name_from_type(arrow->type));
+      /* Notice fallthrough */
+    case ARROW_FILLED_CONCAVE:
+      type = 2; style = 1; break;
+    case ARROW_BLANKED_CONCAVE:
+      type = 2; style = 0; break;
+    case MAX_ARROW_TYPE:
+      g_return_if_reached ();
   }
   fprintf(renderer->file, "  %d %d %s %s %s\n",
 	  type, style,
