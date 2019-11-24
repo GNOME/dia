@@ -28,9 +28,9 @@
  * - noone is supposed to mess with the internals
  * - it uses deprecated stuff
  */
-struct _DiaDynamicMenu {
-  GtkOptionMenu parent;
 
+typedef struct _DiaDynamicMenuPrivate DiaDynamicMenuPrivate;
+struct _DiaDynamicMenuPrivate {
   GList *default_entries;
 
   DDMCreateItemFunc create_func;
@@ -48,15 +48,11 @@ struct _DiaDynamicMenu {
 
 };
 
-struct _DiaDynamicMenuClass {
-  GtkOptionMenuClass parent_class;
-};
 
+G_DEFINE_TYPE_WITH_PRIVATE (DiaDynamicMenu, dia_dynamic_menu, GTK_TYPE_OPTION_MENU)
 
 /* ************************ Dynamic menus ************************ */
 
-static void dia_dynamic_menu_class_init(DiaDynamicMenuClass *class);
-static void dia_dynamic_menu_init(DiaDynamicMenu *self);
 static void dia_dynamic_menu_create_sublist(DiaDynamicMenu *ddm,
 					    GList *items,
 					    DDMCreateItemFunc create);
@@ -70,30 +66,6 @@ enum {
 
 static guint ddm_signals[DDM_LAST_SIGNAL] = { 0 };
 
-GType
-dia_dynamic_menu_get_type(void)
-{
-  static GType us_type = 0;
-
-  if (!us_type) {
-    static const GTypeInfo us_info = {
-      sizeof(DiaDynamicMenuClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) dia_dynamic_menu_class_init,
-      NULL,           /* class_finalize */
-      NULL,           /* class_data */
-      sizeof(DiaDynamicMenu),
-      0,              /* n_preallocs */
-      (GInstanceInitFunc)dia_dynamic_menu_init,
-    };
-    us_type = g_type_register_static(
-			gtk_option_menu_get_type(),
-			"DiaDynamicMenu",
-			&us_info, 0);
-  }
-  return us_type;
-}
 
 static void
 dia_dynamic_menu_class_init(DiaDynamicMenuClass *class)
@@ -116,28 +88,32 @@ dia_dynamic_menu_init(DiaDynamicMenu *self)
 {
 }
 
+
 void
 dia_dynamic_menu_destroy(GObject *object)
 {
-  DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(object);
-  GObjectClass *parent_class = G_OBJECT_CLASS(g_type_class_peek_parent(G_OBJECT_GET_CLASS(object)));
+  DiaDynamicMenu *self = DIA_DYNAMIC_MENU(object);
+  DiaDynamicMenuPrivate *priv = dia_dynamic_menu_get_instance_private (self);
 
-  if (ddm->active)
-    g_free(ddm->active);
-  ddm->active = NULL;
+  g_free (priv->active);
+  priv->active = NULL;
 
-  if (parent_class->dispose)
-    (* parent_class->dispose) (object);
+  if (G_OBJECT_CLASS (dia_dynamic_menu_parent_class)->dispose)
+    G_OBJECT_CLASS (dia_dynamic_menu_parent_class)->dispose (object);
 }
 
-/** Create a new dynamic menu.  The entries are represented with
- * gpointers.
- * @param create A function that creates menuitems from gpointers.
- * @param otheritem A menuitem that can be selected by the user to
- * add more entries, for instance making a dialog box or a submenu.
- * @param persist A string naming this menu for persistence purposes, or NULL.
 
- * @return A new menu
+/**
+ * dia_dynamic_menu_new:
+ * @create: A function that creates menuitems from gpointers.
+ * @otheritem: A menuitem that can be selected by the user to
+ * add more entries, for instance making a dialog box or a submenu.
+ * @persist: A string naming this menu for persistence purposes, or NULL.
+ *
+ * Create a new dynamic menu.  The entries are represented with
+ * gpointers.
+ *
+ * Returns: A new menu
  */
 GtkWidget *
 dia_dynamic_menu_new(DDMCreateItemFunc create,
@@ -145,16 +121,18 @@ dia_dynamic_menu_new(DDMCreateItemFunc create,
 		     GtkMenuItem *otheritem, gchar *persist)
 {
   DiaDynamicMenu *ddm;
+  DiaDynamicMenuPrivate *priv;
 
   g_assert(persist != NULL);
 
   ddm = DIA_DYNAMIC_MENU ( g_object_new (dia_dynamic_menu_get_type (), NULL));
+  priv = dia_dynamic_menu_get_instance_private (ddm);
 
-  ddm->create_func = create;
-  ddm->userdata = userdata;
-  ddm->other_item = otheritem;
-  ddm->persistent_name = persist;
-  ddm->cols = 1;
+  priv->create_func = create;
+  priv->userdata = userdata;
+  priv->other_item = otheritem;
+  priv->persistent_name = persist;
+  priv->cols = 1;
 
   persistence_register_list(persist);
 
@@ -167,26 +145,27 @@ dia_dynamic_menu_new(DDMCreateItemFunc create,
 void
 dia_dynamic_menu_select_entry(DiaDynamicMenu *ddm, const gchar *name)
 {
+  DiaDynamicMenuPrivate *priv = dia_dynamic_menu_get_instance_private (ddm);
   gint add_result = dia_dynamic_menu_add_entry(ddm, name);
   if (add_result == 0) {
       GList *tmp;
       int i = 0;
-      for (tmp = ddm->default_entries; tmp != NULL;
+      for (tmp = priv->default_entries; tmp != NULL;
 	   tmp = g_list_next(tmp), i++) {
 	if (!g_ascii_strcasecmp(tmp->data, name))
 	  gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), i);
       }
       /* Not there after all? */
   } else {
-    if (ddm->default_entries != NULL)
+    if (priv->default_entries != NULL)
       gtk_option_menu_set_history(GTK_OPTION_MENU(ddm),
-				  g_list_length(ddm->default_entries)+1);
+				  g_list_length(priv->default_entries)+1);
     else
       gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), 0);
   }
 
-  g_free(ddm->active);
-  ddm->active = g_strdup(name);
+  g_free(priv->active);
+  priv->active = g_strdup(name);
   g_signal_emit(G_OBJECT(ddm), ddm_signals[DDM_VALUE_CHANGED], 0);
 }
 
@@ -205,19 +184,6 @@ dia_dynamic_menu_create_string_item(DiaDynamicMenu *ddm, gchar *string)
   return item;
 }
 
-/** Utility function for dynamic menus that are entirely based on the
- * labels in the menu.
- */
-GtkWidget *
-dia_dynamic_menu_new_stringbased(GtkMenuItem *otheritem,
-				 gpointer userdata,
-				 gchar *persist)
-{
-  GtkWidget *ddm = dia_dynamic_menu_new(dia_dynamic_menu_create_string_item,
-					userdata,
-					otheritem, persist);
-  return ddm;
-}
 
 /** Utility function for dynamic menus that are based on a submenu with
  * many entries.  This is useful for allowing the user to get a smaller
@@ -253,10 +219,12 @@ dia_dynamic_menu_new_stringlistbased(gchar *other_label,
 }
 
 static void
-dia_dynamic_menu_create_sublist(DiaDynamicMenu *ddm,
-				GList *items, DDMCreateItemFunc create)
+dia_dynamic_menu_create_sublist (DiaDynamicMenu    *ddm,
+                                 GList             *items,
+                                 DDMCreateItemFunc  create)
 {
-  GtkWidget *item = GTK_WIDGET(ddm->other_item);
+  DiaDynamicMenuPrivate *priv = dia_dynamic_menu_get_instance_private (ddm);
+  GtkWidget *item = GTK_WIDGET(priv->other_item);
 
   GtkWidget *submenu = gtk_menu_new();
 
@@ -274,86 +242,95 @@ dia_dynamic_menu_create_sublist(DiaDynamicMenu *ddm,
   gtk_widget_show(submenu);
 }
 
-/** Add a new default entry to this menu.
+
+/**
+ * dia_dynamic_menu_add_default_entry:
+ * @ddm: A dynamic menu to add the entry to.
+ * @entry: An entry for the menu.
+ *
+ * Add a new default entry to this menu.
  * The default entries are always shown, also after resets, above the
  * other entries.  Possible uses are standard fonts or common colors.
  * The entry is added at the end of the default entries section.
  * Do not add too many default entries.
- *
- * @param ddm A dynamic menu to add the entry to.
- * @param entry An entry for the menu.
  */
 void
-dia_dynamic_menu_add_default_entry(DiaDynamicMenu *ddm, const gchar *entry)
+dia_dynamic_menu_add_default_entry (DiaDynamicMenu *ddm, const gchar *entry)
 {
-  ddm->default_entries = g_list_append(ddm->default_entries,
-				       g_strdup(entry));
+  DiaDynamicMenuPrivate *priv = dia_dynamic_menu_get_instance_private (ddm);
 
-  dia_dynamic_menu_create_menu(ddm);
+  priv->default_entries = g_list_append (priv->default_entries,
+                                         g_strdup (entry));
+
+  dia_dynamic_menu_create_menu (ddm);
 }
 
-/** Set the number of columns this menu uses (default 1)
- * @param cols Desired # of columns (>= 1)
- */
-void
-dia_dynamic_menu_set_columns(DiaDynamicMenu *ddm, gint cols)
-{
-  ddm->cols = cols;
 
-  dia_dynamic_menu_create_menu(ddm);
-}
-
-/** Add a new entry to this menu.  The placement depends on what sorting
- * system has been chosen with dia_dynamic_menu_set_sorting_method().
+/**
+ * dia_dynamic_menu_add_entry:
+ * @ddm: A dynamic menu to add the entry to.
+ * @entry: An entry for the menu.
  *
- * @param ddm A dynamic menu to add the entry to.
- * @param entry An entry for the menu.
+ * Add a new entry to this menu.
  *
- * @returns 0 if the entry was one of the default entries.
+ * Returns: 0 if the entry was one of the default entries.
  * 1 if the entry was already there.
  * 2 if the entry got added.
  */
 gint
-dia_dynamic_menu_add_entry(DiaDynamicMenu *ddm, const gchar *entry)
+dia_dynamic_menu_add_entry (DiaDynamicMenu *ddm, const gchar *entry)
 {
   GList *tmp;
   gboolean existed;
+  DiaDynamicMenuPrivate *priv = dia_dynamic_menu_get_instance_private (ddm);
 
-  for (tmp = ddm->default_entries; tmp != NULL; tmp = g_list_next(tmp)) {
+  for (tmp = priv->default_entries; tmp != NULL; tmp = g_list_next(tmp)) {
     if (!g_ascii_strcasecmp(tmp->data, entry))
       return 0;
   }
-  existed = persistent_list_add(ddm->persistent_name, entry);
+  existed = persistent_list_add(priv->persistent_name, entry);
 
   dia_dynamic_menu_create_menu(ddm);
 
   return existed?1:2;
 }
 
-/** Returns the currently selected entry.
- * @returns The name of the entry that is currently selected.  This
- * string should be freed by the caller. */
+
+/**
+ * dia_dynamic_menu_get_entry:
+ *
+ * Returns the currently selected entry.
+ *
+ * Returns: The name of the entry that is currently selected.  This
+ * string should be freed by the caller.
+ */
 gchar *
-dia_dynamic_menu_get_entry(DiaDynamicMenu *ddm)
+dia_dynamic_menu_get_entry (DiaDynamicMenu *ddm)
 {
-  return g_strdup(ddm->active);
+  DiaDynamicMenuPrivate *priv = dia_dynamic_menu_get_instance_private (ddm);
+
+  return g_strdup (priv->active);
 }
 
-/** Rebuild the actual menu of a DDM.
+/**
+ * dia_dynamic_menu_create_menu:
+ *
+ * Rebuild the actual menu of a DDM.
  * Ignores columns for now.
  */
 static void
-dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
+dia_dynamic_menu_create_menu (DiaDynamicMenu *ddm)
 {
   GtkWidget *sep;
   GList *tmplist;
   GtkWidget *menu;
   GtkWidget *item;
+  DiaDynamicMenuPrivate *priv = dia_dynamic_menu_get_instance_private (ddm);
 
-  g_object_ref(G_OBJECT(ddm->other_item));
+  g_object_ref(G_OBJECT(priv->other_item));
   menu = gtk_option_menu_get_menu(GTK_OPTION_MENU(ddm));
   if (menu != NULL) {
-    gtk_container_remove(GTK_CONTAINER(menu), GTK_WIDGET(ddm->other_item));
+    gtk_container_remove(GTK_CONTAINER(menu), GTK_WIDGET(priv->other_item));
     gtk_container_foreach(GTK_CONTAINER(menu),
 			  (GtkCallback)gtk_widget_destroy, NULL);
     gtk_option_menu_remove_menu(GTK_OPTION_MENU(ddm));
@@ -361,9 +338,9 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
 
   menu = gtk_menu_new();
 
-  if (ddm->default_entries != NULL) {
-    for (tmplist = ddm->default_entries; tmplist != NULL; tmplist = g_list_next(tmplist)) {
-      GtkWidget *item =  (ddm->create_func)(ddm, tmplist->data);
+  if (priv->default_entries != NULL) {
+    for (tmplist = priv->default_entries; tmplist != NULL; tmplist = g_list_next(tmplist)) {
+      GtkWidget *item =  (priv->create_func)(ddm, tmplist->data);
       g_object_set_data(G_OBJECT(item), "ddm_name", tmplist->data);
       g_signal_connect(G_OBJECT(item), "activate",
 		       G_CALLBACK(dia_dynamic_menu_activate), ddm);
@@ -375,9 +352,9 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), sep);
   }
 
-  for (tmplist = persistent_list_get_glist(ddm->persistent_name);
+  for (tmplist = persistent_list_get_glist(priv->persistent_name);
        tmplist != NULL; tmplist = g_list_next(tmplist)) {
-    GtkWidget *item = (ddm->create_func)(ddm, tmplist->data);
+    GtkWidget *item = (priv->create_func)(ddm, tmplist->data);
     g_object_set_data(G_OBJECT(item), "ddm_name", tmplist->data);
     g_signal_connect(G_OBJECT(item), "activate",
 		     G_CALLBACK(dia_dynamic_menu_activate), ddm);
@@ -388,8 +365,8 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
   gtk_widget_show(sep);
   gtk_menu_shell_append(GTK_MENU_SHELL(menu), sep);
 
-  gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(ddm->other_item));
-  g_object_unref(G_OBJECT(ddm->other_item));
+  gtk_menu_shell_append(GTK_MENU_SHELL(menu), GTK_WIDGET(priv->other_item));
+  g_object_unref(G_OBJECT(priv->other_item));
   /* Eventually reset item here */
   gtk_widget_show(menu);
 
@@ -403,24 +380,20 @@ dia_dynamic_menu_create_menu(DiaDynamicMenu *ddm)
   gtk_option_menu_set_history(GTK_OPTION_MENU(ddm), 0);
 }
 
-/** Select the method used for sorting the non-default entries.
- * @param ddm A dynamic menu
- * @param sort The way the non-default entries in the menu should be sorted.
+
+/**
+ * dia_dynamic_menu_reset:
+ *
+ * Reset the non-default entries of a menu
  */
 void
-dia_dynamic_menu_set_sorting_method(DiaDynamicMenu *ddm, DdmSortType sort)
+dia_dynamic_menu_reset (GtkWidget *item, gpointer userdata)
 {
-}
+  DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU (userdata);
+  gchar *active = dia_dynamic_menu_get_entry (ddm);
+  DiaDynamicMenuPrivate *priv = dia_dynamic_menu_get_instance_private (ddm);
 
-/** Reset the non-default entries of a menu
- */
-void
-dia_dynamic_menu_reset(GtkWidget *item, gpointer userdata)
-{
-  DiaDynamicMenu *ddm = DIA_DYNAMIC_MENU(userdata);
-  gchar *active = dia_dynamic_menu_get_entry(ddm);
-
-  persistent_list_clear(ddm->persistent_name);
+  persistent_list_clear(priv->persistent_name);
 
   dia_dynamic_menu_create_menu(ddm);
   if (active)
@@ -428,28 +401,29 @@ dia_dynamic_menu_reset(GtkWidget *item, gpointer userdata)
   g_free(active);
 }
 
-/** Set the maximum number of non-default entries.
- * If more than this number of entries are added, the least recently
- * selected ones are removed. */
-void
-dia_dynamic_menu_set_max_entries(DiaDynamicMenu *ddm, gint max)
-{
-}
 
 /**
+ * dia_dynamic_menu_get_default_entries:
+ *
  * Deliver the list of default entries, NULL for empty list
  */
 GList *
-dia_dynamic_menu_get_default_entries(DiaDynamicMenu *ddm)
+dia_dynamic_menu_get_default_entries (DiaDynamicMenu *ddm)
 {
-  return ddm->default_entries;
+  DiaDynamicMenuPrivate *priv = dia_dynamic_menu_get_instance_private (ddm);
+
+  return priv->default_entries;
 }
 
 /**
+ * dia_dynamic_menu_get_persistent_name:
+ *
  * Delivers the name used for persitence
  */
 const gchar *
-dia_dynamic_menu_get_persistent_name(DiaDynamicMenu *ddm)
+dia_dynamic_menu_get_persistent_name (DiaDynamicMenu *ddm)
 {
-  return ddm->persistent_name;
+  DiaDynamicMenuPrivate *priv = dia_dynamic_menu_get_instance_private (ddm);
+
+  return priv->persistent_name;
 }
