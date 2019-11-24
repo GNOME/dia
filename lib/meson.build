@@ -152,7 +152,6 @@ libdia_sources = stdprop_sources + [
     'dialib.c',
     'diacontext.c',
     'diacellrendererenum.c',
-    'diacellrendererproperty.c',
 ]
 
 gnome = import('gnome')
