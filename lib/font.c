@@ -400,17 +400,20 @@ dia_font_get_style(const DiaFont* font)
   return style;
 }
 
+
 const char*
 dia_font_get_family(const DiaFont* font)
 {
   return pango_font_description_get_family(font->pfd);
 }
 
+
 const PangoFontDescription *
-dia_font_get_description(const DiaFont* font)
+dia_font_get_description (const DiaFont* font)
 {
   return font->pfd;
 }
+
 
 real
 dia_font_get_height(const DiaFont* font)

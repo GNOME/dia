@@ -15,22 +15,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef DIA_FONT_SELECTOR_H
-#define DIA_FONT_SELECTOR_H
 
 #include <gtk/gtk.h>
 #include "diatypes.h"
 
-/* DiaFontSelector: */
-#define DIAFONTSELECTOR(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, dia_font_selector_get_type (), DiaFontSelector)
-#define DIAFONTSELECTOR_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, dia_font_selector_get_type (), DiaFontSelectorClass)
-#define IS_DIAFONTSELECTOR(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, dia_font_selector_get_type ())
+#pragma once
 
+G_BEGIN_DECLS
 
-GType    dia_font_selector_get_type        (void);
-GtkWidget* dia_font_selector_new             (void);
-void       dia_font_selector_set_font        (DiaFontSelector *fs, DiaFont *font);
-void       dia_font_selector_set_preview     (DiaFontSelector *fs, gchar *text);
-DiaFont *     dia_font_selector_get_font        (DiaFontSelector *fs);
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkHBox, g_object_unref)
 
-#endif /* DIA_FONT_SELECTOR_H */
+struct _DiaFontSelector
+{
+  GtkHBox hbox;
+};
+
+#define DIA_TYPE_FONT_SELECTOR dia_font_selector_get_type ()
+G_DECLARE_FINAL_TYPE (DiaFontSelector, dia_font_selector, DIA, FONT_SELECTOR, GtkHBox)
+
+GtkWidget *dia_font_selector_new      (void);
+void       dia_font_selector_set_font (DiaFontSelector *self,
+                                       DiaFont         *font);
+DiaFont   *dia_font_selector_get_font (DiaFontSelector *self);
+
+G_END_DECLS

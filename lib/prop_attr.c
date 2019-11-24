@@ -409,14 +409,14 @@ fontprop_get_widget(FontProperty *prop, PropDialog *dialog)
 static void
 fontprop_reset_widget(FontProperty *prop, WIDGET *widget)
 {
-  dia_font_selector_set_font(DIAFONTSELECTOR(widget),
-                             prop->font_data);
+  dia_font_selector_set_font (DIA_FONT_SELECTOR (widget),
+                              prop->font_data);
 }
 
 static void
 fontprop_set_from_widget(FontProperty *prop, WIDGET *widget)
 {
-  prop->font_data = dia_font_selector_get_font(DIAFONTSELECTOR(widget));
+  prop->font_data = dia_font_selector_get_font (DIA_FONT_SELECTOR (widget));
 }
 
 static void
