@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef COLOR_H
-#define COLOR_H
+
+#pragma once
 
 #include "diatypes.h"
 #include <gdk/gdk.h>
@@ -34,11 +34,27 @@ struct _Color {
   float alpha; /*!< 0..1 */
 };
 
-void color_init(void);
-Color *color_new_rgb(float r, float g, float b);
-Color *color_new_rgba(float r, float g, float b, float alpha);
-void color_convert(const Color *color, GdkColor *gdkcolor);
-gboolean color_equals(const Color *color1, const Color *color2);
+#define DIA_TYPE_COLOUR (dia_colour_get_type ())
+
+
+Color        *dia_colour_copy      (Color       *self);
+void          dia_colour_free      (Color       *self);
+GType         dia_colour_get_type  (void);
+void          dia_colour_parse     (Color       *self,
+                                    const char  *str);
+char         *dia_colour_to_string (Color       *self);
+void          color_init           (void);
+Color        *color_new_rgb        (float        r,
+                                    float        g,
+                                    float        b);
+Color        *color_new_rgba       (float        r,
+                                    float        g,
+                                    float        b,
+                                    float        alpha);
+void          color_convert        (const Color *color,
+                                    GdkColor    *gdkcolor);
+gboolean      color_equals         (const Color *color1,
+                                    const Color *color2);
 
 #ifdef G_OS_WIN32
 static Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
@@ -48,15 +64,14 @@ extern DIAVAR Color color_black;
 extern DIAVAR Color color_white;
 #endif
 
-#define DIA_COLOR_TO_GDK(from, to) \
-(to).pixel = 0; \
-(to).red = (from).red*65535; \
-(to).green = (from).green*65535; \
-(to).blue = (from).blue*65535;
-#define GDK_COLOR_TO_DIA(from, to) \
-(to).red = (from).red/65535.0; \
-(to).green = (from).green/65535.0; \
-(to).blue = (from).blue/65535.0; \
-(to).alpha = 1.0;
+#define DIA_COLOR_TO_GDK(from, to)      \
+  (to).pixel = 0;                       \
+  (to).red = (from).red * 65535;        \
+  (to).green = (from).green * 65535;    \
+  (to).blue = (from).blue * 65535;
 
-#endif /* COLOR_H */
+#define GDK_COLOR_TO_DIA(from, to)      \
+  (to).red = (from).red / 65535.0;      \
+  (to).green = (from).green / 65535.0;  \
+  (to).blue = (from).blue / 65535.0;    \
+  (to).alpha = 1.0;

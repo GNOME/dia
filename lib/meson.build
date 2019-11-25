@@ -154,6 +154,8 @@ libdia_sources = stdprop_sources + [
     'diacellrendererenum.c',
     'dia-arrow-cell-renderer.c',
     'dia-arrow-cell-renderer.h',
+    'dia-colour-cell-renderer.c',
+    'dia-colour-cell-renderer.h',
     'dia-line-cell-renderer.c',
     'dia-line-cell-renderer.h',
 ]

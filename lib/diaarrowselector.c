@@ -64,12 +64,28 @@ enum {
 
 static guint das_signals[DAS_LAST_SIGNAL] = {0};
 
+
 static void
-dia_arrow_selector_class_init (DiaArrowSelectorClass *class)
+dia_arrow_selector_finalize (GObject *object)
 {
+  DiaArrowSelector *self = DIA_ARROW_SELECTOR (object);
+
+  g_clear_object (&self->arrow_store);
+
+  G_OBJECT_CLASS (dia_arrow_selector_parent_class)->finalize (object);
+}
+
+
+static void
+dia_arrow_selector_class_init (DiaArrowSelectorClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->finalize = dia_arrow_selector_finalize;
+
   das_signals[DAS_VALUE_CHANGED]
       = g_signal_new("value_changed",
-		     G_TYPE_FROM_CLASS(class),
+		     G_TYPE_FROM_CLASS(klass),
 		     G_SIGNAL_RUN_FIRST,
 		     0, NULL, NULL,
 		     g_cclosure_marshal_VOID__VOID,

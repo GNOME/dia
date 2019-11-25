@@ -54,6 +54,113 @@ color_init (void)
   }
 }
 
+
+G_DEFINE_BOXED_TYPE (Color, dia_colour, dia_colour_copy, dia_colour_free)
+
+
+/**
+ * dia_colour_copy:
+ * @self: source #Color
+ *
+ * Allocate a new color equal to @self
+ *
+ * Since: 0.98
+ */
+Color *
+dia_colour_copy (Color *self)
+{
+  Color *new;
+
+  g_return_val_if_fail (self != NULL, NULL);
+
+  new = g_new0 (Color, 1);
+
+  new->red = self->red;
+  new->green = self->green;
+  new->blue = self->blue;
+  new->alpha = self->alpha;
+
+  return new;
+}
+
+
+/**
+ * dia_colour_free:
+ * @self: the #Color
+ *
+ * Free a colour object
+ *
+ * Since: 0.98
+ */
+void
+dia_colour_free (Color *self)
+{
+  g_free (self);
+}
+
+
+/**
+ * dia_colour_parse:
+ * @self: the #Color
+ * @str: string to parse
+ *
+ * Set @self according to @str
+ *
+ * @str can be of the form
+ *
+ * \#RRGGBB or \#RRGGBBAA
+ *
+ * Since: 0.98
+ */
+void
+dia_colour_parse (Color       *self,
+                  const char  *str)
+{
+  int r = 0, g = 0, b = 0, a = 255;
+
+  switch (strlen (str)) {
+    case 7:
+      if (sscanf (str, "#%2x%2x%2x", &r, &g, &b) != 3) {
+        g_return_if_reached ();
+      }
+      break;
+    case 9:
+      if (sscanf (str, "#%2x%2x%2x%2x", &r, &g, &b, &a) != 4) {
+        g_return_if_reached ();
+      }
+      break;
+    default:
+      g_return_if_reached ();
+  }
+
+  self->red = r / 255.0;
+  self->green = g / 255.0;
+  self->blue = b / 255.0;
+  self->alpha = a / 255.0;
+}
+
+
+/**
+ * dia_colour_to_string:
+ * @self: the #Color
+ *
+ * Generate a string representation of @self
+ *
+ * Since: 0.98
+ *
+ * Returns: @self as \#RRGGBBAA
+ */
+char *
+dia_colour_to_string (Color *self)
+{
+  return g_strdup_printf ("#%02X%02X%02X%02X",
+                          (guint) (CLAMP (self->red, 0.0, 1.0) * 255),
+                          (guint) (CLAMP (self->green, 0.0, 1.0) * 255),
+                          (guint) (CLAMP (self->blue, 0.0, 1.0) * 255),
+                          (guint) (CLAMP (self->alpha, 0.0, 1.0) * 255));
+}
+
+
 /**
  * color_new_rgb:
  * @r: Red component (0 <= r <= 1)
