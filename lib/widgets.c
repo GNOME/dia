@@ -23,7 +23,6 @@
 #include "units.h"
 #include "message.h"
 #include "dia_dirs.h"
-#include "diadynamicmenu.h"
 #include "diaoptionmenu.h"
 
 #include <stdlib.h>
@@ -263,7 +262,7 @@ dia_size_selector_get_size(DiaSizeSelector *ss, real *width, real *height)
 
 
 GtkWidget *
-dia_alignment_selector_new ()
+dia_alignment_selector_new (void)
 {
   GtkWidget *omenu = dia_option_menu_new ();
 
@@ -476,7 +475,7 @@ dia_file_selector_get_type (void)
 }
 
 GtkWidget *
-dia_file_selector_new ()
+dia_file_selector_new (void)
 {
   return GTK_WIDGET ( g_object_new (dia_file_selector_get_type (), NULL));
 }

@@ -24,7 +24,6 @@
 
 #include "diaarrowchooser.h"
 #include "dialinechooser.h"
-#include "diadynamicmenu.h"
 #include "attributes.h"
 #include "sheet.h"
 #include "dia-colour-area.h"
@@ -43,6 +42,8 @@
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
+#define SHEET_PERSIST_NAME "sheets"
+
 /* HB: file dnd stuff lent by The Gimp, not fully understood but working ...
  */
 enum
@@ -60,7 +61,36 @@ static GtkTargetEntry toolbox_target_table[] =
 static guint toolbox_n_targets = (sizeof (toolbox_target_table) /
                                  sizeof (toolbox_target_table[0]));
 
-static GtkWidget *sheet_option_menu;
+
+enum {
+  SPECIAL_NOT,
+  SPECIAL_SEPARATOR,
+  SPECIAL_RESET,
+};
+
+
+enum {
+  // Sheet name (id)
+  COL_SHEET,
+  // _Translated_ sheet name
+  COL_NAME,
+  COL_SPECIAL,
+  N_COL
+};
+
+// TODO: Let's not have widgets as global variables
+static struct {
+  GtkTreeStore *store;
+  GtkTreeIter   default_end;
+  GtkTreeIter   custom_end;
+  GtkTreeIter   other;
+  GtkTreeIter   reset;
+  GtkWidget    *combo;
+
+  char         *current;
+
+  const char   *looking_for;
+} sheet_menu;
 static GtkWidget *sheet_wbox;
 
 GtkWidget *modify_tool_button;
@@ -353,19 +383,6 @@ fill_sheet_wbox(Sheet *sheet)
 			  GTK_BUTTON(first_button), NULL);
 }
 
-static void
-sheet_option_menu_changed(DiaDynamicMenu *menu, gpointer user_data)
-{
-  char *string = dia_dynamic_menu_get_entry(menu);
-  Sheet *sheet = get_sheet_by_name(string);
-  if (sheet == NULL) {
-    message_warning(_("No sheet named %s"), string);
-  } else {
-    persistence_set_string("last-sheet-selected", string);
-    fill_sheet_wbox(sheet);
-  }
-  g_free(string);
-}
 
 static int
 cmp_names (const void *a, const void *b)
@@ -373,8 +390,9 @@ cmp_names (const void *a, const void *b)
   return g_utf8_collate(gettext( (gchar *)a ), gettext( (gchar *)b ));
 }
 
+
 static GList *
-get_sheet_names()
+get_sheet_names (void)
 {
   GSList *tmp;
   GList *names = NULL;
@@ -386,42 +404,315 @@ get_sheet_names()
   return g_list_sort (names, cmp_names);
 }
 
+
+static gboolean
+set_sheet (GtkTreeModel *model,
+           GtkTreePath  *path,
+           GtkTreeIter  *iter,
+           gpointer      data)
+{
+  char *sheet;
+  gboolean res = FALSE;
+
+  gtk_tree_model_get (model,
+                      iter,
+                      COL_SHEET, &sheet,
+                      -1);
+
+  res = g_strcmp0 (sheet_menu.looking_for, sheet) == 0;
+  if (res) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (sheet_menu.combo), iter);
+  }
+
+  g_free (sheet);
+
+  return res;
+}
+
+
+static void
+set_current_sheet (const char *name)
+{
+  sheet_menu.looking_for = name;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (sheet_menu.store), set_sheet, NULL);
+  sheet_menu.looking_for = NULL;
+}
+
+
+static char *
+get_current_sheet (void)
+{
+  char *sheet = NULL;
+  GtkTreeIter iter;
+
+  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (sheet_menu.store), &iter)) {
+    gtk_tree_model_get (GTK_TREE_MODEL (sheet_menu.store),
+                        &iter,
+                        COL_SHEET, &sheet,
+                        -1);
+  } else {
+    g_warning ("No sheet selected");
+  }
+
+  return sheet;
+}
+
+
+static void
+sheet_changed (GtkComboBox *widget, gpointer user_data)
+{
+  char *name;
+  Sheet *sheet;
+  GtkTreeIter active;
+  GtkTreeIter iter;
+  GtkTreePath *path;
+  GtkTreePath *end_path;
+  int special = 0;
+
+  gtk_combo_box_get_active_iter (widget, &active);
+  gtk_tree_model_get (GTK_TREE_MODEL (sheet_menu.store),
+                      &active,
+                      COL_SPECIAL, &special,
+                      -1);
+
+  switch (special) {
+    case SPECIAL_NOT:
+      gtk_tree_model_get (GTK_TREE_MODEL (sheet_menu.store),
+                          &active,
+                          COL_SHEET, &name,
+                          -1);
+
+      sheet = get_sheet_by_name (name);
+
+      if (sheet == NULL) {
+        message_warning (_("No sheet named %s"), name);
+      } else {
+        if (g_strcmp0 (name, "Assorted") != 0 &&
+            g_strcmp0 (name, "Flowchart") != 0 &&
+            g_strcmp0 (name, "UML") != 0 &&
+            !persistent_list_add (SHEET_PERSIST_NAME, name)) {
+          gtk_tree_store_insert_after (sheet_menu.store,
+                                       &iter,
+                                       NULL,
+                                       &sheet_menu.default_end);
+          gtk_tree_store_set (sheet_menu.store,
+                              &iter,
+                              COL_NAME, gettext (name),
+                              COL_SHEET, name,
+                              -1);
+
+          gtk_combo_box_set_active_iter (widget, &iter);
+        } else {
+          set_current_sheet (name);
+        }
+
+        g_clear_pointer (&sheet_menu.current, g_free);
+        sheet_menu.current = g_strdup (name);
+
+        persistence_set_string ("last-sheet-selected", name);
+        fill_sheet_wbox (sheet);
+      }
+
+      g_free (name);
+      break;
+    case SPECIAL_RESET:
+      persistent_list_clear (SHEET_PERSIST_NAME);
+
+      path = gtk_tree_model_get_path (GTK_TREE_MODEL (sheet_menu.store), &sheet_menu.default_end);
+
+      // Move over the separator
+      gtk_tree_path_next (path);
+      gtk_tree_model_get_iter (GTK_TREE_MODEL (sheet_menu.store), &iter, path);
+
+      end_path = gtk_tree_model_get_path (GTK_TREE_MODEL (sheet_menu.store),
+                                          &sheet_menu.custom_end);
+
+      while (gtk_tree_path_compare (path, end_path) != 0) {
+        gtk_tree_store_remove (sheet_menu.store, &iter);
+
+        gtk_tree_model_get_iter (GTK_TREE_MODEL (sheet_menu.store), &iter, path);
+
+        gtk_tree_path_free (end_path);
+        end_path = gtk_tree_model_get_path (GTK_TREE_MODEL (sheet_menu.store),
+                                            &sheet_menu.custom_end);
+      }
+
+      gtk_tree_path_free (path);
+      gtk_tree_path_free (end_path);
+
+      if (sheet_menu.current) {
+        set_current_sheet (sheet_menu.current);
+      } else {
+        gtk_tree_model_get_iter_first (GTK_TREE_MODEL (sheet_menu.store), &iter);
+        gtk_combo_box_set_active_iter (GTK_COMBO_BOX (sheet_menu.combo), &iter);
+      }
+
+      return;
+    case SPECIAL_SEPARATOR:
+    default:
+      g_return_if_reached ();
+  }
+}
+
+
+static gboolean
+is_separator (GtkTreeModel *model,
+              GtkTreeIter  *iter,
+              gpointer      data)
+{
+  int result;
+
+  gtk_tree_model_get (model, iter, COL_SPECIAL, &result, -1);
+
+  return result == SPECIAL_SEPARATOR;
+}
+
+
+static void
+is_sensitive (GtkCellLayout   *cell_layout,
+              GtkCellRenderer *cell,
+              GtkTreeModel    *tree_model,
+              GtkTreeIter     *iter,
+              gpointer         data)
+{
+  gboolean sensitive;
+
+  sensitive = !gtk_tree_model_iter_has_child (tree_model, iter);
+
+  g_object_set (cell, "sensitive", sensitive, NULL);
+}
+
+
 static void
 create_sheet_dropdown_menu(GtkWidget *parent)
 {
   GList *sheet_names = get_sheet_names();
+  GtkTreeIter iter;
+  GList *l;
 
-  if (sheet_option_menu != NULL) {
-    gtk_container_remove(GTK_CONTAINER(parent), sheet_option_menu);
-    sheet_option_menu = NULL;
+  if (!sheet_menu.store) {
+    sheet_menu.store = gtk_tree_store_new (N_COL,
+                                           G_TYPE_STRING,
+                                           G_TYPE_STRING,
+                                           G_TYPE_INT);
   }
 
-  sheet_option_menu =
-    dia_dynamic_menu_new_stringlistbased(_("Other sheets"), sheet_names,
-					 NULL, "sheets");
-  g_signal_connect(DIA_DYNAMIC_MENU(sheet_option_menu), "value-changed",
-		   G_CALLBACK(sheet_option_menu_changed), sheet_option_menu);
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				     "Assorted");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				     "Flowchart");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				     "UML");
+  // Sigh
+  if (sheet_menu.combo) {
+    gtk_container_remove (GTK_CONTAINER (parent), sheet_menu.combo);
+    g_clear_object (&sheet_menu.combo);
+  }
+
+  gtk_tree_store_clear (sheet_menu.store);
+
+  gtk_tree_store_append (sheet_menu.store, &iter, NULL);
+  gtk_tree_store_set (sheet_menu.store,
+                      &iter,
+                      COL_SHEET, "Assorted",
+                      COL_NAME, _("Assorted"),
+                      -1);
+
+  gtk_tree_store_append (sheet_menu.store, &iter, NULL);
+  gtk_tree_store_set (sheet_menu.store,
+                      &iter,
+                      COL_SHEET, "Flowchart",
+                      COL_NAME, _("Flowchart"),
+                      -1);
+
+  gtk_tree_store_append (sheet_menu.store, &iter, NULL);
+  gtk_tree_store_set (sheet_menu.store,
+                      &iter,
+                      COL_SHEET, "UML",
+                      COL_NAME, _("UML"),
+                      -1);
+
+  gtk_tree_store_append (sheet_menu.store, &sheet_menu.default_end, NULL);
+  gtk_tree_store_set (sheet_menu.store,
+                      &sheet_menu.default_end,
+                      COL_SPECIAL, SPECIAL_SEPARATOR,
+                      -1);
+
+  persistence_register_list (SHEET_PERSIST_NAME);
+
+  for (l = persistent_list_get_glist (SHEET_PERSIST_NAME);
+       l != NULL; l = g_list_next (l)) {
+    gtk_tree_store_append (sheet_menu.store, &iter, NULL);
+    gtk_tree_store_set (sheet_menu.store,
+                        &iter,
+                        COL_SHEET, l->data,
+                        COL_NAME, gettext (l->data),
+                        -1);
+  }
+
+  gtk_tree_store_append (sheet_menu.store, &sheet_menu.custom_end, NULL);
+  gtk_tree_store_set (sheet_menu.store,
+                      &sheet_menu.custom_end,
+                      COL_SPECIAL, SPECIAL_SEPARATOR,
+                      -1);
+
+  gtk_tree_store_append (sheet_menu.store, &sheet_menu.other, NULL);
+  gtk_tree_store_set (sheet_menu.store,
+                      &sheet_menu.other,
+                      COL_NAME, _("All Sheets"),
+                      -1);
+
+  for (l = sheet_names; l != NULL; l = g_list_next (l)) {
+    gtk_tree_store_append (sheet_menu.store, &iter, &sheet_menu.other);
+    gtk_tree_store_set (sheet_menu.store,
+                        &iter,
+                        COL_NAME, gettext (l->data),
+                        COL_SHEET, l->data,
+                        -1);
+  }
+
+  gtk_tree_store_append (sheet_menu.store, &sheet_menu.reset, NULL);
+  gtk_tree_store_set (sheet_menu.store,
+                      &sheet_menu.reset,
+                      COL_NAME, _("Reset Menu"),
+                      COL_SPECIAL, SPECIAL_RESET,
+                      -1);
+
+  if (!sheet_menu.combo) {
+    GtkCellRenderer *renderer;
+
+    sheet_menu.combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (sheet_menu.store));
+
+    g_signal_connect (sheet_menu.combo,
+                      "changed",
+                      G_CALLBACK (sheet_changed),
+                      NULL);
+
+    renderer = gtk_cell_renderer_text_new ();
+    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (sheet_menu.combo), renderer, TRUE);
+    gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (sheet_menu.combo), renderer,
+                                    "text", COL_NAME,
+                                    NULL);
+
+    gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (sheet_menu.combo),
+                                          is_separator, NULL, NULL);
+
+    gtk_cell_layout_set_cell_data_func (GTK_CELL_LAYOUT (sheet_menu.combo),
+                                        renderer,
+                                        is_sensitive,
+                                        NULL, NULL);
+  }
+
   /*    gtk_widget_set_size_request(sheet_option_menu, 20, -1);*/
-  gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), sheet_option_menu,
+  gtk_wrap_box_pack_wrapped (GTK_WRAP_BOX(parent), sheet_menu.combo,
 			    TRUE, TRUE, FALSE, FALSE, TRUE);
   /* 15 was a magic number that goes beyond the standard objects and the divider. */
-  gtk_wrap_box_reorder_child(GTK_WRAP_BOX(parent),
-			     sheet_option_menu, NUM_TOOLS+1);
-  gtk_widget_show(sheet_option_menu);
+  gtk_wrap_box_reorder_child (GTK_WRAP_BOX(parent),
+                              sheet_menu.combo,
+                              NUM_TOOLS + 1);
+  gtk_widget_show (sheet_menu.combo);
 }
 
 void
 fill_sheet_menu(void)
 {
-  gchar *selection = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(sheet_option_menu));
-  create_sheet_dropdown_menu(gtk_widget_get_parent(sheet_option_menu));
-  dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(sheet_option_menu), selection);
+  gchar *selection = get_current_sheet ();
+  create_sheet_dropdown_menu (gtk_widget_get_parent (sheet_menu.combo));
+  set_current_sheet (selection);
   g_free(selection);
 }
 
@@ -463,8 +754,7 @@ create_sheets(GtkWidget *parent)
     /* Couldn't find it */
   } else {
     fill_sheet_wbox(sheet);
-    dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(sheet_option_menu),
-				  sheetname);
+    set_current_sheet (sheetname);
   }
   g_free(sheetname);
 }

@@ -214,16 +214,6 @@ EXPORTS
  dia_context_reset
  dia_context_set_filename
 
- dia_dynamic_menu_get_type
- dia_dynamic_menu_new
- dia_dynamic_menu_new_listbased
- dia_dynamic_menu_new_stringlistbased
- dia_dynamic_menu_add_default_entry
- dia_dynamic_menu_add_entry
- dia_dynamic_menu_reset
- dia_dynamic_menu_get_entry
- dia_dynamic_menu_select_entry
-
  dia_file_selector_get_file
  dia_file_selector_get_type
  dia_file_selector_new

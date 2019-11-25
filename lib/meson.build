@@ -143,7 +143,6 @@ libdia_sources = stdprop_sources + [
     'diacolorselector.c',
     'dialinestyleselector.c',
     'dialinechooser.c',
-    'diadynamicmenu.c',
     'diafontselector.c',
     'persistence.c',
     'diaerror.c',

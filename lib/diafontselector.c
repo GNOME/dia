@@ -378,6 +378,21 @@ is_separator (GtkTreeModel *model,
 
 
 static void
+is_sensitive (GtkCellLayout   *cell_layout,
+              GtkCellRenderer *cell,
+              GtkTreeModel    *tree_model,
+              GtkTreeIter     *iter,
+              gpointer         data)
+{
+  gboolean sensitive;
+
+  sensitive = !gtk_tree_model_iter_has_child (tree_model, iter);
+
+  g_object_set (cell, "sensitive", sensitive, NULL);
+}
+
+
+static void
 style_changed (GtkComboBox     *widget,
                DiaFontSelector *self)
 {
@@ -476,9 +491,6 @@ dia_font_selector_init (DiaFontSelector *fs)
                     G_CALLBACK (font_changed),
                     fs);
 
-  gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (priv->fonts),
-                                        is_separator, NULL, NULL);
-
   renderer = gtk_cell_renderer_text_new ();
   gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (priv->fonts), renderer, TRUE);
   gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (priv->fonts), renderer,
@@ -486,6 +498,12 @@ dia_font_selector_init (DiaFontSelector *fs)
                                   "family", FONT_COL_FAMILY,
                                   NULL);
 
+  gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (priv->fonts),
+                                        is_separator, NULL, NULL);
+  gtk_cell_layout_set_cell_data_func (GTK_CELL_LAYOUT (priv->fonts),
+                                      renderer,
+                                      is_sensitive,
+                                      NULL, NULL);
 
   priv->styles_store = gtk_list_store_new (STYLE_N_COL,
                                            G_TYPE_STRING,
@@ -531,7 +549,7 @@ dia_font_selector_init (DiaFontSelector *fs)
 
 
 GtkWidget *
-dia_font_selector_new ()
+dia_font_selector_new (void)
 {
   return g_object_new (DIA_TYPE_FONT_SELECTOR, NULL);
 }
