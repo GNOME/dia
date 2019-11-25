@@ -24,9 +24,16 @@
 #include "widgets.h"
 #include "arrows.h"
 #include "diaarrowchooser.h"
-#include "diadynamicmenu.h"
+#include "dia-arrow-cell-renderer.h"
 
 /************* DiaArrowSelector: ***************/
+
+
+enum {
+  COL_ARROW,
+  N_COL
+};
+
 
 /* FIXME: Should these structs be in widgets.h instead? */
 struct _DiaArrowSelector
@@ -36,14 +43,19 @@ struct _DiaArrowSelector
   GtkHBox *sizebox;
   GtkLabel *sizelabel;
   DiaSizeSelector *size;
-  
-  GtkWidget *omenu;
+
+  GtkWidget    *combo;
+  GtkListStore *arrow_store;
+
+  ArrowType     looking_for;
 };
 
 struct _DiaArrowSelectorClass
 {
   GtkVBoxClass parent_class;
 };
+
+G_DEFINE_TYPE (DiaArrowSelector, dia_arrow_selector, GTK_TYPE_VBOX)
 
 enum {
     DAS_VALUE_CHANGED,
@@ -63,27 +75,40 @@ dia_arrow_selector_class_init (DiaArrowSelectorClass *class)
 		     g_cclosure_marshal_VOID__VOID,
 		     G_TYPE_NONE, 0);
 }
-  
-static void
-set_size_sensitivity(DiaArrowSelector *as)
-{
-  int state;
-  gchar *entryname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(as->omenu));
 
-  state = (entryname != NULL) && (0 != g_ascii_strcasecmp(entryname, "None"));
-  g_free(entryname);
-
-  gtk_widget_set_sensitive(GTK_WIDGET(as->sizelabel), state);
-  gtk_widget_set_sensitive(GTK_WIDGET(as->size), state);
-}
 
 static void
-arrow_type_change_callback(DiaDynamicMenu *ddm, gpointer userdata)
+set_size_sensitivity (DiaArrowSelector *as)
 {
-  set_size_sensitivity(DIA_ARROW_SELECTOR(userdata));
-  g_signal_emit(DIA_ARROW_SELECTOR(userdata),
-		das_signals[DAS_VALUE_CHANGED], 0);
+  GtkTreeIter iter;
+
+  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (as->combo), &iter)) {
+    Arrow *active = NULL;
+
+    gtk_tree_model_get (GTK_TREE_MODEL (as->arrow_store),
+                        &iter,
+                        COL_ARROW, &active,
+                        -1);
+
+    gtk_widget_set_sensitive (GTK_WIDGET (as->sizelabel), active->type != ARROW_NONE);
+    gtk_widget_set_sensitive (GTK_WIDGET (as->size), active->type != ARROW_NONE);
+
+    dia_arrow_free (active);
+  } else {
+    gtk_widget_set_sensitive (GTK_WIDGET (as->sizelabel), FALSE);
+    gtk_widget_set_sensitive (GTK_WIDGET (as->size), FALSE);
+  }
 }
+
+
+static void
+arrow_type_change_callback (GtkComboBox *widget, gpointer userdata)
+{
+  set_size_sensitivity (DIA_ARROW_SELECTOR (userdata));
+  g_signal_emit (DIA_ARROW_SELECTOR (userdata),
+                 das_signals[DAS_VALUE_CHANGED], 0);
+}
+
 
 static void
 arrow_size_change_callback(DiaSizeSelector *size, gpointer userdata)
@@ -92,47 +117,44 @@ arrow_size_change_callback(DiaSizeSelector *size, gpointer userdata)
 		das_signals[DAS_VALUE_CHANGED], 0);
 }
 
-static GtkWidget *
-create_arrow_menu_item(DiaDynamicMenu *ddm, gchar *name)
-{
-  ArrowType atype = arrow_type_from_name(name);
-  GtkWidget *item = gtk_menu_item_new();
-  GtkWidget *preview;
-
-  preview = dia_arrow_preview_new(atype, FALSE);
-
-  gtk_widget_show(preview);
-  gtk_container_add(GTK_CONTAINER(item), preview);
-  gtk_widget_show(item);
-  return item;
-}
 
 static void
-dia_arrow_selector_init (DiaArrowSelector *as,
-			 gpointer g_class)
+dia_arrow_selector_init (DiaArrowSelector *as)
 {
-  GtkWidget *omenu;
   GtkWidget *box;
   GtkWidget *label;
   GtkWidget *size;
-  
-  GList *arrow_names = get_arrow_names();
-  as->omenu = 
-  omenu = dia_dynamic_menu_new_listbased(create_arrow_menu_item,
-					 as,
-					 _("More arrows"),
-					 arrow_names,
-					 "arrow-menu");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "None");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "Lines");
-  dia_dynamic_menu_add_default_entry(DIA_DYNAMIC_MENU(omenu), "Filled Concave");
+  GtkTreeIter iter;
+  GtkCellRenderer *renderer;
 
-  gtk_box_pack_start(GTK_BOX(as), omenu, FALSE, TRUE, 0);
-  gtk_widget_show(omenu);
+  as->arrow_store = gtk_list_store_new (N_COL, DIA_TYPE_ARROW);
 
-  g_signal_connect(DIA_DYNAMIC_MENU(omenu),
-		   "value-changed", G_CALLBACK(arrow_type_change_callback),
-		   as);
+  for (int i = ARROW_NONE; i < MAX_ARROW_TYPE; ++i) {
+    ArrowType arrow_type = arrow_type_from_index (i);
+    Arrow arrow = { arrow_type, 0.5, 0.5 };
+
+    gtk_list_store_append (as->arrow_store, &iter);
+    gtk_list_store_set (as->arrow_store,
+                        &iter,
+                        COL_ARROW, &arrow,
+                        -1);
+  }
+
+  as->combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (as->arrow_store));
+  g_signal_connect (as->combo,
+                    "changed",
+                    G_CALLBACK (arrow_type_change_callback),
+                    as);
+
+  renderer = dia_arrow_cell_renderer_new ();
+  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (as->combo), renderer, TRUE);
+  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (as->combo),
+                                  renderer,
+                                  "arrow", COL_ARROW,
+                                  NULL);
+
+  gtk_box_pack_start (GTK_BOX (as), as->combo, FALSE, TRUE, 0);
+  gtk_widget_show (as->combo);
 
   box = gtk_hbox_new(FALSE,0);
   as->sizebox = GTK_HBOX(box);
@@ -155,57 +177,74 @@ dia_arrow_selector_init (DiaArrowSelector *as,
   gtk_widget_show(box);
 }
 
-GType
-dia_arrow_selector_get_type        (void)
-{
-  static GType dfs_type = 0;
-
-  if (!dfs_type) {
-    static const GTypeInfo dfs_info = {
-      sizeof (DiaArrowSelectorClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) dia_arrow_selector_class_init,
-      NULL, /* class_finalize */
-      NULL, /* class_data */
-      sizeof (DiaArrowSelector),
-      0,    /* n_preallocs */
-      (GInstanceInitFunc)dia_arrow_selector_init,  /* init */
-    };
-    
-    dfs_type = g_type_register_static (GTK_TYPE_VBOX,
-				       "DiaArrowSelector",
-				       &dfs_info, 0);
-  }
-  
-  return dfs_type;
-}
 
 GtkWidget *
-dia_arrow_selector_new ()
+dia_arrow_selector_new (void)
 {
-  return GTK_WIDGET ( g_object_new (DIA_TYPE_ARROW_SELECTOR, NULL));
+  return g_object_new (DIA_TYPE_ARROW_SELECTOR, NULL);
 }
 
 
-Arrow 
-dia_arrow_selector_get_arrow(DiaArrowSelector *as)
+Arrow
+dia_arrow_selector_get_arrow (DiaArrowSelector *as)
 {
   Arrow at;
-  gchar *arrowname = dia_dynamic_menu_get_entry(DIA_DYNAMIC_MENU(as->omenu));
+  GtkTreeIter iter;
 
-  at.type = arrow_type_from_name(arrowname);
-  g_free(arrowname);
-  dia_size_selector_get_size(as->size, &at.width, &at.length);
+  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (as->combo), &iter)) {
+    Arrow *active = NULL;
+
+    gtk_tree_model_get (GTK_TREE_MODEL (as->arrow_store),
+                        &iter,
+                        COL_ARROW, &active,
+                        -1);
+
+    at.type = active->type;
+
+    dia_arrow_free (active);
+  } else {
+    at.type = ARROW_NONE;
+  }
+
+  dia_size_selector_get_size (as->size, &at.width, &at.length);
+
   return at;
 }
 
+
+static gboolean
+set_type (GtkTreeModel *model,
+          GtkTreePath  *path,
+          GtkTreeIter  *iter,
+          gpointer      data)
+{
+  DiaArrowSelector *self = DIA_ARROW_SELECTOR (data);
+  Arrow *arrow;
+  gboolean res = FALSE;
+
+  gtk_tree_model_get (model,
+                      iter,
+                      COL_ARROW, &arrow,
+                      -1);
+
+  res = arrow->type == self->looking_for;
+  if (res) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (self->combo), iter);
+  }
+
+  dia_arrow_free (arrow);
+
+  return res;
+}
+
+
 void
 dia_arrow_selector_set_arrow (DiaArrowSelector *as,
-			      Arrow arrow)
+                              Arrow             arrow)
 {
-  dia_dynamic_menu_select_entry(DIA_DYNAMIC_MENU(as->omenu),
-				arrow_get_name_from_type(arrow.type));
-  set_size_sensitivity(as);
-  dia_size_selector_set_size(DIA_SIZE_SELECTOR(as->size), arrow.width, arrow.length);
+  as->looking_for = arrow.type;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (as->arrow_store), set_type, as);
+  as->looking_for = ARROW_NONE;
+
+  dia_size_selector_set_size (DIA_SIZE_SELECTOR (as->size), arrow.width, arrow.length);
 }

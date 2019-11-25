@@ -84,6 +84,34 @@ calculate_diamond (Point       *poly/*[4]*/,
                    real         length,
                    real         width);
 
+
+G_DEFINE_BOXED_TYPE (Arrow, dia_arrow, dia_arrow_copy, dia_arrow_free)
+
+
+Arrow *
+dia_arrow_copy (Arrow *self)
+{
+  Arrow *new;
+
+  g_return_val_if_fail (self != NULL, NULL);
+
+  new = g_new0 (Arrow, 1);
+
+  new->type = self->type;
+  new->length = self->length;
+  new->width = self->width;
+
+  return new;
+}
+
+
+void
+dia_arrow_free (Arrow *self)
+{
+  g_free (self);
+}
+
+
 /**
  * calculate_arrow_point:
  * @arrow: An arrow to calculate adjustments for.  The arrow type
