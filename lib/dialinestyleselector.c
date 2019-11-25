@@ -18,23 +18,31 @@
 
 #include <config.h>
 
-#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, ... */
 #include <gtk/gtk.h>
 
 #include "intl.h"
 #include "dialinechooser.h"
 #include "widgets.h"
+#include "dia-line-cell-renderer.h"
 
 /************* DiaLineStyleSelector: ***************/
+
+enum {
+  COL_LINE,
+  N_COL
+};
+
+
 struct _DiaLineStyleSelector
 {
   GtkVBox vbox;
 
-  GtkOptionMenu *omenu;
-  GtkMenu *linestyle_menu;
   GtkLabel *lengthlabel;
   GtkSpinButton *dashlength;
-    
+
+  GtkWidget    *combo;
+  GtkListStore *line_store;
+  LineStyle     looking_for;
 };
 
 struct _DiaLineStyleSelectorClass
@@ -49,6 +57,9 @@ enum {
 
 static guint dls_signals[DLS_LAST_SIGNAL] = { 0 };
 
+G_DEFINE_TYPE (DiaLineStyleSelector, dia_line_style_selector, GTK_TYPE_VBOX)
+
+
 static void
 dia_line_style_selector_class_init (DiaLineStyleSelectorClass *class)
 {
@@ -61,22 +72,31 @@ dia_line_style_selector_class_init (DiaLineStyleSelectorClass *class)
 		     G_TYPE_NONE, 0);
 }
 
-static void
-set_linestyle_sensitivity(DiaLineStyleSelector *fs)
-{
-  int state;
-  GtkWidget *menuitem;
-  if (!fs->linestyle_menu) return;
-  menuitem = gtk_menu_get_active(fs->linestyle_menu);
-  state = (GPOINTER_TO_INT(g_object_get_data(G_OBJECT(menuitem), "user_data"))
-	   != LINESTYLE_SOLID);
 
-  gtk_widget_set_sensitive(GTK_WIDGET(fs->lengthlabel), state);
-  gtk_widget_set_sensitive(GTK_WIDGET(fs->dashlength), state);
+static void
+set_linestyle_sensitivity (DiaLineStyleSelector *fs)
+{
+  GtkTreeIter iter;
+
+  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (fs->combo), &iter)) {
+    LineStyle line;
+
+    gtk_tree_model_get (GTK_TREE_MODEL (fs->line_store),
+                        &iter,
+                        COL_LINE, &line,
+                        -1);
+
+    gtk_widget_set_sensitive (GTK_WIDGET (fs->lengthlabel), line != LINESTYLE_SOLID);
+    gtk_widget_set_sensitive (GTK_WIDGET (fs->dashlength), line != LINESTYLE_SOLID);
+  } else {
+    gtk_widget_set_sensitive (GTK_WIDGET (fs->lengthlabel), FALSE);
+    gtk_widget_set_sensitive (GTK_WIDGET (fs->dashlength), FALSE);
+  }
 }
 
+
 static void
-linestyle_type_change_callback(GtkMenu *menu, gpointer data)
+linestyle_type_change_callback(GtkComboBox *menu, gpointer data)
 {
   set_linestyle_sensitivity(DIALINESTYLESELECTOR(data));
   g_signal_emit(DIALINESTYLESELECTOR(data),
@@ -90,52 +110,42 @@ linestyle_dashlength_change_callback(GtkSpinButton *sb, gpointer data)
 		dls_signals[DLS_VALUE_CHANGED], 0);
 }
 
+
 static void
 dia_line_style_selector_init (DiaLineStyleSelector *fs)
 {
-  GtkWidget *menu;
-  GtkWidget *menuitem, *ln;
   GtkWidget *label;
   GtkWidget *length;
   GtkWidget *box;
   GtkAdjustment *adj;
-  gint i;
-  static const gchar *_line_style_names[LINESTYLE_DOTTED+1];
-  static gboolean once = FALSE;
+  GtkTreeIter iter;
+  GtkCellRenderer *renderer;
 
-  if (!once) {
-    _line_style_names[LINESTYLE_SOLID]        = Q_("line|Solid");
-    _line_style_names[LINESTYLE_DASHED]       = Q_("line|Dashed");
-    _line_style_names[LINESTYLE_DASH_DOT]     = Q_("line|Dash-Dot");
-    _line_style_names[LINESTYLE_DASH_DOT_DOT] = Q_("line|Dash-Dot-Dot");
-    _line_style_names[LINESTYLE_DOTTED]       = Q_("line|Dotted");
-    once = TRUE;
+  fs->line_store = gtk_list_store_new (N_COL, G_TYPE_INT);
+
+  for (int i = 0; i <= LINESTYLE_DOTTED; i++) {
+    gtk_list_store_append (fs->line_store, &iter);
+    gtk_list_store_set (fs->line_store,
+                        &iter,
+                        COL_LINE, i,
+                        -1);
   }
 
-  menu = gtk_option_menu_new();
-  fs->omenu = GTK_OPTION_MENU(menu);
+  fs->combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (fs->line_store));
+  g_signal_connect (fs->combo,
+                    "changed",
+                    G_CALLBACK (linestyle_type_change_callback),
+                    fs);
 
-  menu = gtk_menu_new ();
-  fs->linestyle_menu = GTK_MENU(menu);
+  renderer = dia_line_cell_renderer_new ();
+  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (fs->combo), renderer, TRUE);
+  gtk_cell_layout_set_attributes (GTK_CELL_LAYOUT (fs->combo),
+                                  renderer,
+                                  "line", COL_LINE,
+                                  NULL);
 
-  for (i = 0; i <= LINESTYLE_DOTTED; i++) {
-    menuitem = gtk_menu_item_new();
-    gtk_widget_set_tooltip_text(menuitem, _line_style_names[i]);
-    g_object_set_data(G_OBJECT(menuitem), "user_data", GINT_TO_POINTER(i));
-    ln = dia_line_preview_new(i);
-    gtk_container_add(GTK_CONTAINER(menuitem), ln);
-    gtk_widget_show(ln);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-    gtk_widget_show(menuitem);
-  }
-  
-  gtk_menu_set_active(GTK_MENU (menu), DEFAULT_LINESTYLE);
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (fs->omenu), menu);
-  g_signal_connect(G_OBJECT(menu), "selection-done", 
-		   G_CALLBACK(linestyle_type_change_callback), fs);
- 
-  gtk_box_pack_start(GTK_BOX(fs), GTK_WIDGET(fs->omenu), FALSE, TRUE, 0);
-  gtk_widget_show(GTK_WIDGET(fs->omenu));
+  gtk_box_pack_start (GTK_BOX (fs), fs->combo, FALSE, TRUE, 0);
+  gtk_widget_show (fs->combo);
 
   box = gtk_hbox_new(FALSE,0);
   /*  fs->sizebox = GTK_HBOX(box); */
@@ -153,71 +163,77 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_box_pack_start(GTK_BOX (box), length, TRUE, TRUE, 0);
   gtk_widget_show (length);
 
-  g_signal_connect(G_OBJECT(length), "changed", 
+  g_signal_connect(G_OBJECT(length), "changed",
 		   G_CALLBACK(linestyle_dashlength_change_callback), fs);
 
   set_linestyle_sensitivity(fs);
   gtk_box_pack_start(GTK_BOX(fs), box, TRUE, TRUE, 0);
   gtk_widget_show(box);
-  
+
 }
 
-GType
-dia_line_style_selector_get_type (void)
-{
-  static GType dfs_type = 0;
-
-  if (!dfs_type) {
-    static const GTypeInfo dfs_info = {
-      sizeof (DiaLineStyleSelectorClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) dia_line_style_selector_class_init,
-      NULL, /* class_finalize */
-      NULL, /* class_data */
-      sizeof (DiaLineStyleSelector),
-      0,    /* n_preallocs */
-      (GInstanceInitFunc) dia_line_style_selector_init,
-    };
-    
-    dfs_type = g_type_register_static (gtk_vbox_get_type (), 
-				       "DiaLineStyleSelector",
-				       &dfs_info, 0);
-  }
-
-  return dfs_type;
-}
 
 GtkWidget *
-dia_line_style_selector_new ()
+dia_line_style_selector_new (void)
 {
-  return GTK_WIDGET ( g_object_new (dia_line_style_selector_get_type (), NULL));
+  return g_object_new (dia_line_style_selector_get_type (), NULL);
 }
 
 
-void 
-dia_line_style_selector_get_linestyle(DiaLineStyleSelector *fs, 
-				      LineStyle *ls, real *dl)
+void
+dia_line_style_selector_get_linestyle (DiaLineStyleSelector *fs,
+                                       LineStyle            *ls,
+                                       real                 *dl)
 {
-  GtkWidget *menuitem;
-  void *align;
-  
-  menuitem = gtk_menu_get_active(fs->linestyle_menu);
-  align = g_object_get_data(G_OBJECT(menuitem), "user_data");
-  *ls = GPOINTER_TO_INT(align);
-  if (dl!=NULL) {
-    *dl = gtk_spin_button_get_value(fs->dashlength);
+  GtkTreeIter iter;
+
+  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (fs->combo), &iter)) {
+    gtk_tree_model_get (GTK_TREE_MODEL (fs->line_store),
+                        &iter,
+                        COL_LINE, ls,
+                        -1);
+  } else {
+    *ls = LINESTYLE_DEFAULT;
+  }
+
+  if (dl != NULL) {
+    *dl = gtk_spin_button_get_value (fs->dashlength);
   }
 }
+
+
+static gboolean
+set_style (GtkTreeModel *model,
+           GtkTreePath  *path,
+           GtkTreeIter  *iter,
+           gpointer      data)
+{
+  DiaLineStyleSelector *self = DIALINESTYLESELECTOR (data);
+  LineStyle line;
+  gboolean res = FALSE;
+
+  gtk_tree_model_get (model,
+                      iter,
+                      COL_LINE, &line,
+                      -1);
+
+  res = line == self->looking_for;
+  if (res) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (self->combo), iter);
+  }
+
+  return res;
+}
+
 
 void
 dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
-				       LineStyle linestyle, real dashlength)
+                                       LineStyle             linestyle,
+                                       real                  dashlength)
 {
-  gtk_menu_set_active(GTK_MENU (as->linestyle_menu), linestyle);
-  gtk_option_menu_set_history (GTK_OPTION_MENU(as->omenu), linestyle);
-/* TODO restore this later */
-/*  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_menu_get_active(GTK_MENU(as->linestyle_menu))), TRUE);*/
-  set_linestyle_sensitivity(DIALINESTYLESELECTOR(as));
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(as->dashlength), dashlength);
+  as->looking_for = linestyle;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (as->line_store), set_style, as);
+  as->looking_for = LINESTYLE_DEFAULT;
+
+  gtk_spin_button_set_value (GTK_SPIN_BUTTON (as->dashlength), dashlength);
 }

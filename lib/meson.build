@@ -154,6 +154,8 @@ libdia_sources = stdprop_sources + [
     'diacellrendererenum.c',
     'dia-arrow-cell-renderer.c',
     'dia-arrow-cell-renderer.h',
+    'dia-line-cell-renderer.c',
+    'dia-line-cell-renderer.h',
 ]
 
 gnome = import('gnome')
