@@ -675,6 +675,7 @@ app_init (int argc, char **argv)
 
         if (!filename) {
           g_printerr (_("Filename conversion failed: %s\n"), filenames[i]);
+          ++i;
           continue;
         }
 
