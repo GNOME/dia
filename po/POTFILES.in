@@ -50,7 +50,6 @@ lib/diaarrowchooser.c
 lib/diaarrowselector.c
 lib/diacolorselector.c
 lib/dia_dirs.c
-lib/diadynamicmenu.c
 lib/diafontselector.c
 lib/diagramdata.c
 lib/dia_image.c
@@ -89,6 +88,7 @@ lib/renderer/diacairo-renderer.c
 lib/renderer/diacairo.c
 objects/AADL/aadlbox.c
 objects/AADL/aadl.c
+objects/AADL/edit_port_declaration.c
 objects/chronogram/chronogram.c
 objects/chronogram/chronoline.c
 objects/chronogram/chronoref.c
