@@ -678,8 +678,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_widget_modify_style (close_button, rcstyle);
   g_object_unref (rcstyle),
 
-  image = gtk_image_new_from_stock (GTK_STOCK_CLOSE,
-                                    GTK_ICON_SIZE_MENU);
+  image = gtk_image_new_from_stock (_("_Close"), GTK_ICON_SIZE_MENU);
 
   gtk_container_add (GTK_CONTAINER(close_button), image);
   g_signal_connect (G_OBJECT (close_button), "clicked",

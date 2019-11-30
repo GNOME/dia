@@ -353,29 +353,28 @@ dia_arrow_chooser_dialog_response(GtkWidget *dialog,
   gtk_widget_hide(chooser->dialog);
 }
 
+
 /** Create a new arrow chooser dialog.
  * @param chooser The widget to attach a dialog to.  The dialog will be placed
  * in chooser->dialog.
  */
 static void
-dia_arrow_chooser_dialog_new(DiaArrowChooser *chooser)
+dia_arrow_chooser_dialog_new (DiaArrowChooser *chooser)
 {
   GtkWidget *wid;
 
-  chooser->dialog = gtk_dialog_new_with_buttons(_("Arrow Properties"),
-                                                NULL,
-                                                GTK_DIALOG_NO_SEPARATOR,
-                                                GTK_STOCK_CANCEL,
-                                                GTK_RESPONSE_CANCEL,
-                                                GTK_STOCK_OK,
-                                                GTK_RESPONSE_OK,
-                                                NULL);
-  gtk_dialog_set_default_response(GTK_DIALOG(chooser->dialog),
-                                  GTK_RESPONSE_OK);
-  g_signal_connect(G_OBJECT(chooser->dialog), "response",
-                   G_CALLBACK(dia_arrow_chooser_dialog_response), chooser);
-  g_signal_connect(G_OBJECT(chooser->dialog), "destroy",
-                   G_CALLBACK(gtk_widget_destroyed), &chooser->dialog);
+  chooser->dialog = gtk_dialog_new_with_buttons (_("Arrow Properties"),
+                                                 NULL,
+                                                 GTK_DIALOG_NO_SEPARATOR,
+                                                 _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                                 _("_OK"), GTK_RESPONSE_OK,
+                                                 NULL);
+  gtk_dialog_set_default_response (GTK_DIALOG (chooser->dialog),
+                                   GTK_RESPONSE_OK);
+  g_signal_connect (G_OBJECT (chooser->dialog), "response",
+                    G_CALLBACK (dia_arrow_chooser_dialog_response), chooser);
+  g_signal_connect (G_OBJECT (chooser->dialog), "destroy",
+                    G_CALLBACK (gtk_widget_destroyed), &chooser->dialog);
 
   wid = dia_arrow_selector_new();
   gtk_container_set_border_width(GTK_CONTAINER(wid), 5);

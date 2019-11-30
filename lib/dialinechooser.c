@@ -298,18 +298,16 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   gtk_widget_show(wid);
   lchooser->preview = DIA_LINE_PREVIEW(wid);
 
-  lchooser->dialog = gtk_dialog_new_with_buttons(_("Line Style Properties"),
-                                                 NULL,
-                                                 GTK_DIALOG_NO_SEPARATOR,
-                                                 GTK_STOCK_CANCEL,
-                                                 GTK_RESPONSE_CANCEL,
-                                                 GTK_STOCK_OK,
-                                                 GTK_RESPONSE_OK,
-                                                 NULL);
-  gtk_dialog_set_default_response(GTK_DIALOG(lchooser->dialog),
-                                  GTK_RESPONSE_OK);
-  g_signal_connect(G_OBJECT(lchooser->dialog), "response",
-                   G_CALLBACK(dia_line_chooser_dialog_response), lchooser);
+  lchooser->dialog = gtk_dialog_new_with_buttons (_("Line Style Properties"),
+                                                  NULL,
+                                                  GTK_DIALOG_NO_SEPARATOR,
+                                                  _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                                  _("_OK"), GTK_RESPONSE_OK,
+                                                  NULL);
+  gtk_dialog_set_default_response (GTK_DIALOG (lchooser->dialog),
+                                   GTK_RESPONSE_OK);
+  g_signal_connect (G_OBJECT (lchooser->dialog), "response",
+                    G_CALLBACK (dia_line_chooser_dialog_response), lchooser);
 
   wid = dia_line_style_selector_new();
   gtk_container_set_border_width(GTK_CONTAINER(wid), 5);

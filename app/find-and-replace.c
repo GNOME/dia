@@ -533,12 +533,12 @@ edit_find_callback(GtkAction *action)
   /* no static var, instead we are attaching the dialog to the diplay shell */
   dialog = g_object_get_data (G_OBJECT (ddisp->shell), "edit-find-dialog");
   if (!dialog) {
-    dialog = gtk_dialog_new_with_buttons (
-		_("Find"),
-		GTK_WINDOW (ddisp->shell), GTK_DIALOG_DESTROY_WITH_PARENT,
-		GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-		GTK_STOCK_FIND, RESPONSE_FIND,
-		NULL);
+    dialog = gtk_dialog_new_with_buttons (_("Find"),
+                                          GTK_WINDOW (ddisp->shell),
+                                          GTK_DIALOG_DESTROY_WITH_PARENT,
+                                          _("_Close"), GTK_RESPONSE_CLOSE,
+                                          _("_Find"), RESPONSE_FIND,
+                                          NULL);
 
     fnr_dialog_setup_common (dialog, FALSE, ddisp);
   }
@@ -563,20 +563,20 @@ edit_replace_callback(GtkAction *action)
   dialog = g_object_get_data (G_OBJECT (ddisp->shell), "edit-replace-dialog");
   if (!dialog) {
     GtkWidget *button;
-    dialog = gtk_dialog_new_with_buttons (
-		_("Replace"),
-		GTK_WINDOW (ddisp->shell), GTK_DIALOG_DESTROY_WITH_PARENT,
-		GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-		_("Replace _All"), RESPONSE_REPLACE_ALL,
-		NULL);
+    dialog = gtk_dialog_new_with_buttons (_("Replace"),
+                                          GTK_WINDOW (ddisp->shell),
+                                          GTK_DIALOG_DESTROY_WITH_PARENT,
+                                          _("_Close"), GTK_RESPONSE_CLOSE,
+                                          _("Replace _All"), RESPONSE_REPLACE_ALL,
+                                          NULL);
     /* not adding the button in the list above to modify it's text;
      * the default "Find and Replace" is just too long for my taste ;)
      */
     button = gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Replace"), RESPONSE_REPLACE);
     gtk_button_set_image (GTK_BUTTON (button),
-                          gtk_image_new_from_stock (GTK_STOCK_FIND_AND_REPLACE, GTK_ICON_SIZE_BUTTON));
+                          gtk_image_new_from_stock (_("Find and _Replace"), GTK_ICON_SIZE_BUTTON));
 
-    gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_FIND, RESPONSE_FIND);
+    gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Find"), RESPONSE_FIND);
 
     fnr_dialog_setup_common (dialog, TRUE, ddisp);
   }

@@ -968,12 +968,12 @@ app_exit (void)
 
       gtk_window_set_title (GTK_WINDOW (dialog), _("Quit Dia"));
 
-      button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
+      button = gtk_button_new_with_mnemonic (_("_Cancel"));
       gtk_dialog_add_action_widget (GTK_DIALOG (dialog), button, GTK_RESPONSE_CANCEL);
       gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
       gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CANCEL);
 
-      button = gtk_button_new_from_stock (GTK_STOCK_QUIT);
+      button = gtk_button_new_with_mnemonic (_("_Quit"));
       gtk_dialog_add_action_widget (GTK_DIALOG (dialog), button, GTK_RESPONSE_OK);
 
       gtk_widget_show_all (dialog);

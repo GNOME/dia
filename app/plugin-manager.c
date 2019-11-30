@@ -202,13 +202,12 @@ get_plugin_manager(void)
     return dialog;
 
   /* build up the user interface */
-  dialog = gtk_dialog_new_with_buttons(
-		_("Plugins"),
-		NULL, 0,
-		GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-		NULL);
+  dialog = gtk_dialog_new_with_buttons (_("Plugins"),
+                                        NULL, 0,
+                                        _("_Close"), GTK_RESPONSE_CLOSE,
+                                        NULL);
 
-  gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_CLOSE);
+  gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_CLOSE);
 
   vbox = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 

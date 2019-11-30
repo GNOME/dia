@@ -54,14 +54,13 @@ create_dialog(GtkWidget *parent)
 /*   GtkWidget *actionbox; */
 /*   GList *buttons; */
 
-  dialog = gtk_dialog_new_with_buttons(
-             _("Object properties"),
-             parent ? GTK_WINDOW (parent) : NULL,
-             GTK_DIALOG_DESTROY_WITH_PARENT,
-             GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-             GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
-             GTK_STOCK_OK, GTK_RESPONSE_OK,
-             NULL);
+  dialog = gtk_dialog_new_with_buttons (_("Object properties"),
+                                        parent ? GTK_WINDOW (parent) : NULL,
+                                        GTK_DIALOG_DESTROY_WITH_PARENT,
+                                        _("_Close"), GTK_RESPONSE_CLOSE,
+                                        _("_Apply"), GTK_RESPONSE_APPLY,
+                                        _("_OK"), GTK_RESPONSE_OK,
+                                        NULL);
 
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 

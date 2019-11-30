@@ -71,17 +71,16 @@ create_page_setup_dlg(Diagram *dia)
   ps = g_new(PageSetup, 1);
   ps->dia = dia;
   g_object_ref(ps->dia);
-  ps->window = gtk_dialog_new_with_buttons(
-			_("Page Setup"),
-			GTK_WINDOW (ddisplay_active()->shell),
-			GTK_DIALOG_DESTROY_WITH_PARENT,
-			GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-			GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
-			GTK_STOCK_OK, GTK_RESPONSE_OK,
-			NULL);
+  ps->window = gtk_dialog_new_with_buttons (_("Page Setup"),
+                                            GTK_WINDOW (ddisplay_active()->shell),
+                                            GTK_DIALOG_DESTROY_WITH_PARENT,
+                                            _("_Close"), GTK_RESPONSE_CLOSE,
+                                            _("_Apply"), GTK_RESPONSE_APPLY,
+                                            _("_OK"), GTK_RESPONSE_OK,
+                                            NULL);
   gtk_dialog_set_default_response (GTK_DIALOG(ps->window), GTK_RESPONSE_OK);
-  vbox = gtk_dialog_get_content_area(GTK_DIALOG(ps->window));
-  gtk_dialog_set_response_sensitive(GTK_DIALOG(ps->window), GTK_RESPONSE_APPLY, FALSE);
+  vbox = gtk_dialog_get_content_area (GTK_DIALOG(ps->window));
+  gtk_dialog_set_response_sensitive (GTK_DIALOG(ps->window), GTK_RESPONSE_APPLY, FALSE);
   ps->changed = FALSE;
 
   g_signal_connect(G_OBJECT (ps->window), "response",

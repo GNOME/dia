@@ -390,16 +390,17 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
     GtkFileFilter *filter;
 
     dialog = fs->dialog =
-      gtk_file_chooser_dialog_new (_("Select image file"), toplevel ? GTK_WINDOW(toplevel) : NULL,
+      gtk_file_chooser_dialog_new (_("Select image file"),
+                                   toplevel ? GTK_WINDOW (toplevel) : NULL,
                                    GTK_FILE_CHOOSER_ACTION_OPEN,
-                                   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				   GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-				   NULL);
-    gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
-    g_signal_connect(G_OBJECT(dialog), "response",
-		     G_CALLBACK(file_open_response_callback), NULL);
+                                   _("_Cancel"), GTK_RESPONSE_CANCEL,
+                                   _("_Open"), GTK_RESPONSE_ACCEPT,
+                                   NULL);
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
+    g_signal_connect (G_OBJECT (dialog), "response",
+                      G_CALLBACK (file_open_response_callback), NULL);
     g_signal_connect (G_OBJECT (fs->dialog), "destroy",
-		      G_CALLBACK (gtk_widget_destroyed), &fs->dialog);
+                      G_CALLBACK (gtk_widget_destroyed), &fs->dialog);
 
     filter = gtk_file_filter_new ();
     gtk_file_filter_set_name (filter, _("Supported Formats"));

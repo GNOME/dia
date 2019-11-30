@@ -1144,14 +1144,14 @@ ddisplay_close (DDisplay *ddisp)
       "has not been saved. Save changes now?"), fname);
   gtk_window_set_title (GTK_WINDOW(dialog), _("Close Diagram"));
 
-  button = gtk_button_new_from_stock (GTK_STOCK_CANCEL);
+  button = gtk_button_new_with_mnemonic (_("_Cancel"));
   gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_CANCEL);
 
   button = gtk_button_new_with_mnemonic (_("_Discard Changes"));
   gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_NO);
 
   /* button = gtk_button_new_with_label (_("Save and Close")); */
-  button = gtk_button_new_from_stock (GTK_STOCK_SAVE);
+  button = gtk_button_new_with_mnemonic (_("_Save"));
   gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_YES);
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_YES);

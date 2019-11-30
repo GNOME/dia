@@ -40,18 +40,17 @@ static gint defaults_respond(GtkWidget *widget, gint response_id, gpointer data)
 
 static void create_dialog()
 {
-  dialog = gtk_dialog_new_with_buttons(
-             _("Object defaults"),
-             NULL, 0,
-             GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
-             GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
-             GTK_STOCK_OK, GTK_RESPONSE_OK,
-             NULL);
+  dialog = gtk_dialog_new_with_buttons(_("Object defaults"),
+                                       NULL, 0,
+                                       _("_Close"), GTK_RESPONSE_CLOSE,
+                                       _("_Apply"), GTK_RESPONSE_APPLY,
+                                       _("_OK"), GTK_RESPONSE_OK,
+                                       NULL);
 
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
   dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
-  
+
   gtk_window_set_role (GTK_WINDOW (dialog), "defaults_window");
 
   g_signal_connect(G_OBJECT (dialog), "response",
@@ -112,12 +111,12 @@ defaults_show(DiaObjectType *objtype, gpointer user_data)
   } else {
     defaults = NULL;
   }
-  
+
   if (dialog == NULL)
     create_dialog();
   g_assert(dialog != NULL); /* valid by create_dialog() */
 
-  if ((objtype==NULL) || (defaults == NULL)) { 
+  if ((objtype==NULL) || (defaults == NULL)) {
     /* No defaults or no object */
     defaults = no_defaults_dialog;
     objtype = NULL;
