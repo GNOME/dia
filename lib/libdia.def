@@ -198,12 +198,18 @@ EXPORTS
  dia_arrow_selector_get_type
  dia_arrow_selector_new
  dia_arrow_selector_set_arrow
+
+ dia_arrow_cell_renderer_new
+
  dia_assert_true
  dia_color_selector_get_color
 ; dia_color_selector_get_type
  dia_color_selector_new
  dia_color_selector_set_color
  dia_color_selector_set_use_alpha
+
+ dia_colour_cell_renderer_new
+
  dia_config_filename
 
  dia_context_add_message
@@ -315,6 +321,8 @@ EXPORTS
 
  dia_line_chooser_get_type
  dia_line_chooser_set_line_style
+
+ dia_line_cell_renderer_new
 
  dia_list_plugins
 
