@@ -25,7 +25,7 @@
 gboolean    on_sheets_main_dialog_delete_event                     (GtkWidget       *widget,
                                                                     GdkEvent        *event,
                                                                     gpointer         user_data);
-void        on_sheets_dialog_optionmenu_activate                   (GtkMenuItem     *menuitem,
+void        on_sheets_dialog_combo_changed                         (GtkComboBox     *widget,
                                                                     gpointer         user_data);
 void        on_sheets_dialog_button_move_up_clicked                (GtkButton       *button,
                                                                     gpointer         user_data);

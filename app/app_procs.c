@@ -78,8 +78,8 @@ static gboolean         handle_all_diagrams    (GSList     *files,
                                                 char       *export_file_format,
                                                 char       *size,
                                                 char       *show_layers,
-                                                const char *input_directory,
-                                                const char *output_directory);
+                                                const char *input_dir,
+                                                const char *output_dir);
 static void             print_credits          (void);
 static void             print_filters_list     (gboolean verbose);
 
@@ -1098,21 +1098,21 @@ handle_all_diagrams (GSList     *files,
                      char       *export_file_format,
                      char       *size,
                      char       *show_layers,
-                     const char *input_directory,
-                     const char *output_directory)
+                     const char *input_dir,
+                     const char *output_dir)
 {
   GSList *node = NULL;
   gboolean made_conversions = FALSE;
 
   for (node = files; node; node = node->next) {
-    gchar *inpath = input_directory ? g_build_filename (input_directory, node->data, NULL) : node->data;
+    gchar *inpath = input_dir ? g_build_filename (input_dir, node->data, NULL) : node->data;
     made_conversions |=
       handle_initial_diagram (inpath,
                               export_file_name,
                               export_file_format,
                               size,
                               show_layers,
-                              output_directory);
+                              output_dir);
     if (inpath != node->data) {
       g_free (inpath);
     }

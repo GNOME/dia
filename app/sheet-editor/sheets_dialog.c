@@ -29,7 +29,6 @@
 #endif
 #include <string.h>
 
-#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu, ... */
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
@@ -55,9 +54,8 @@ GtkWidget*
 create_sheets_main_dialog (void)
 {
   GtkWidget *sheets_main_dialog;
-  GtkWidget *optionmenu_left, *optionmenu_right;
-  GtkWidget *optionmenu_left_menu, *optionmenu_right_menu;
-  GtkWidget *glade_menuitem;
+  GtkWidget *combo_left, *combo_right;
+  GtkListStore *store;
   GtkBuilder *builder;
 
   builder = builder_new_from_file ("ui/sheets-main-dialog.xml");
@@ -67,16 +65,26 @@ create_sheets_main_dialog (void)
   g_signal_connect (G_OBJECT (sheets_main_dialog), "destroy",
                     G_CALLBACK (sheets_dialog_destroyed), NULL);
 
-  optionmenu_right = GTK_WIDGET (gtk_builder_get_object (builder, "optionmenu_right"));
-  optionmenu_right_menu = gtk_menu_new ();
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (optionmenu_right), optionmenu_right_menu);
+  store = gtk_list_store_new (SO_N_COL,
+                              G_TYPE_STRING,
+                              G_TYPE_STRING,
+                              G_TYPE_POINTER);
 
-  optionmenu_left = GTK_WIDGET (gtk_builder_get_object (builder, "optionmenu_left"));
-  optionmenu_left_menu = gtk_menu_new ();
-  glade_menuitem = gtk_menu_item_new_with_label ("");
-  gtk_widget_show (glade_menuitem);
-  gtk_menu_append (GTK_MENU (optionmenu_left_menu), glade_menuitem);
-  gtk_option_menu_set_menu (GTK_OPTION_MENU (optionmenu_left), optionmenu_left_menu);
+  populate_store (store);
+
+  combo_left = GTK_WIDGET (gtk_builder_get_object (builder, "combo_left"));
+  gtk_combo_box_set_model (GTK_COMBO_BOX (combo_left), GTK_TREE_MODEL (store));
+  g_signal_connect (combo_left,
+                    "changed",
+                    G_CALLBACK (on_sheets_dialog_combo_changed),
+                    NULL);
+
+  combo_right = GTK_WIDGET (gtk_builder_get_object (builder, "combo_right"));
+  gtk_combo_box_set_model (GTK_COMBO_BOX (combo_right), GTK_TREE_MODEL (store));
+  g_signal_connect (combo_right,
+                    "changed",
+                    G_CALLBACK (on_sheets_dialog_combo_changed),
+                    NULL);
 
   g_signal_connect (gtk_builder_get_object (builder, "sheets_main_dialog"), "delete_event",
                     G_CALLBACK (on_sheets_main_dialog_delete_event),

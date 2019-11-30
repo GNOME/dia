@@ -45,7 +45,6 @@
 #include <glib/gstdio.h>
 #include <gmodule.h>
 
-#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu */
 #include <gtk/gtk.h>
 
 #include <libxml/tree.h>
@@ -148,11 +147,11 @@ on_sheets_dialog_object_button_toggled (GtkToggleButton *togglebutton,
   table_sheets = lookup_widget (sheets_dialog, "table_sheets");
   g_object_set_data (G_OBJECT (table_sheets), "active_wrapbox", ud_wrapbox);
 
-  optionmenu_left = lookup_widget (sheets_dialog, "optionmenu_left");
+  optionmenu_left = lookup_widget (sheets_dialog, "combo_left");
   sheet_left = g_object_get_data (G_OBJECT (optionmenu_left),
                                   "active_sheet_name");
 
-  optionmenu_right = lookup_widget (sheets_dialog, "optionmenu_right");
+  optionmenu_right = lookup_widget (sheets_dialog, "combo_right");
   sheet_right = g_object_get_data (G_OBJECT (optionmenu_right),
                                    "active_sheet_name");
 
@@ -298,6 +297,7 @@ sheets_dialog_object_set_tooltip (SheetObjectMod *som, GtkWidget *button)
     case OBJECT_TYPE_PROGRAMMED:
       tip = g_strdup_printf (_("%s\nObject"), som->sheet_object.description);
       break;
+    case OBJECT_TYPE_UNASSIGNED:
     default:
       tip = g_strdup_printf (_("%s\nUnassigned type"), som->sheet_object.description);
       break;
@@ -341,19 +341,27 @@ sheets_dialog_create_object_button (SheetObjectMod *som,
 gboolean optionmenu_activate_first_pass = TRUE;
 
 void
-on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
-                                        gpointer         user_data)
+on_sheets_dialog_combo_changed (GtkComboBox *widget,
+                                gpointer     udata)
 {
   GtkWidget *wrapbox;
+  SheetMod *mod;
   Sheet *sheet;
   GtkWidget *optionmenu;
   GSList *object_mod_list;
   GtkWidget *hidden_button;
   GList *button_list;
+  GtkTreeIter iter;
 
-  sheet = &(((SheetMod *) (user_data))->sheet);
+  gtk_combo_box_get_active_iter (widget, &iter);
+  gtk_tree_model_get (gtk_combo_box_get_model (widget),
+                      &iter,
+                      SO_COL_MOD, &mod,
+                      -1);
 
-  wrapbox = g_object_get_data (G_OBJECT (menuitem), "wrapbox");
+  sheet = &mod->sheet;
+
+  wrapbox = g_object_get_data (G_OBJECT (widget), "wrapbox");
   g_assert (wrapbox);
 
   /* The hidden button is necessary to keep track of radio_group
@@ -373,12 +381,12 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
   g_object_set_data (G_OBJECT (hidden_button), "is_hidden_button",
                      (gpointer) TRUE);
   g_object_set_data (G_OBJECT (wrapbox), "hidden_button", hidden_button);
-  g_object_set_data (G_OBJECT (hidden_button), "sheet_mod", user_data);
+  g_object_set_data (G_OBJECT (hidden_button), "sheet_mod", mod);
 
   if (g_object_get_data (G_OBJECT (wrapbox), "is_left")) {
-    optionmenu = lookup_widget (sheets_dialog, "optionmenu_left");
+    optionmenu = lookup_widget (sheets_dialog, "combo_left");
   } else {
-    optionmenu = lookup_widget (sheets_dialog, "optionmenu_right");
+    optionmenu = lookup_widget (sheets_dialog, "combo_right");
   }
   g_object_set_data (G_OBJECT (optionmenu), "active_sheet_name", sheet->name);
 
@@ -390,7 +398,7 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
   gtk_wrap_box_set_aspect_ratio (GTK_WRAP_BOX (wrapbox), 4 * 1.0 / 9);
                                                 /* MCNFIXME: calculate this */
 
-  g_object_set_data (G_OBJECT (wrapbox), "sheet_mod", user_data);
+  g_object_set_data (G_OBJECT (wrapbox), "sheet_mod", mod);
 
   for (object_mod_list = sheet->objects; object_mod_list;
        object_mod_list = g_slist_next (object_mod_list)) {
@@ -406,7 +414,7 @@ on_sheets_dialog_optionmenu_activate   (GtkMenuItem     *menuitem,
       sheets_dialog_wrapbox_add_line_break (wrapbox);
     }
 
-    button = sheets_dialog_create_object_button (som, user_data, wrapbox);
+    button = sheets_dialog_create_object_button (som, mod, wrapbox);
 
     gtk_wrap_box_pack_wrapped (GTK_WRAP_BOX (wrapbox), button,
                                FALSE, TRUE, FALSE, TRUE, som->sheet_object.line_break);
@@ -725,8 +733,6 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     typedef gboolean (*CustomObjectLoadFunc) (gchar*, DiaObjectType **);
     CustomObjectLoadFunc custom_object_load_fn;
     gint pos;
-    GtkWidget *active_button;
-    GList *button_list;
     SheetObjectMod *som;
     SheetMod *sm;
     SheetObject *sheet_obj;
@@ -871,7 +877,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
         optionmenu = g_object_get_data (G_OBJECT (table_sheets),
                                         "active_optionmenu");
         g_assert (optionmenu);
-        sheets_optionmenu_create (optionmenu, wrapbox, sheet_name);
+        select_sheet (optionmenu, sheet_name);
       }
       break;
 
@@ -1046,8 +1052,6 @@ on_sheets_dialog_button_remove_clicked (GtkButton       *button,
             be rare, to say the least... */
 
   if (sm->sheet.shadowing == NULL && sm->sheet.scope == SHEET_SCOPE_SYSTEM) {
-    GtkWidget *radio_button;
-
     radio_button = lookup_widget (sheets_remove_dialog, "radiobutton_sheet");
     gtk_widget_set_sensitive (radio_button, FALSE);
     gtk_widget_set_sensitive (entry, FALSE);
@@ -1226,7 +1230,7 @@ on_sheets_remove_dialog_button_ok_clicked (GtkButton *button,
       optionmenu = g_object_get_data (G_OBJECT (table_sheets),
                                       "active_optionmenu");
       g_assert (optionmenu);
-      sheets_optionmenu_create (optionmenu, wrapbox, NULL);
+      select_sheet (optionmenu, NULL);
       break;
 
     default:

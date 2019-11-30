@@ -23,7 +23,6 @@
 
 #include <string.h>
 
-#undef GTK_DISABLE_DEPRECATED /* GtkOptionMenu */
 #include <gtk/gtk.h>
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -43,6 +42,7 @@
 #include "preferences.h"
 #include "toolbox.h"  /* just for interface_current_sheet_name */
 #include "commands.h" /* sheets_dialog_show_callback */
+#include "widgets.h"
 
 GtkWidget *sheets_dialog = NULL;
 GSList *sheets_mods_list = NULL;
@@ -108,45 +108,78 @@ sheets_append_sheet_mods (Sheet *sheet)
   return sheet_mod;
 }
 
-static gint
-menu_item_compare_labels (gconstpointer a, gconstpointer b)
+
+struct FindSheetData {
+  GtkWidget  *combo;
+  const char *find;
+};
+
+
+static gboolean
+find_sheet (GtkTreeModel *model,
+            GtkTreePath  *path,
+            GtkTreeIter  *iter,
+            gpointer      udata)
 {
-  GList *a_list;
-  const gchar *label;
+  struct FindSheetData *data = udata;
+  char *item;
+  gboolean res = FALSE;
 
-  a_list = gtk_container_get_children (GTK_CONTAINER (GTK_MENU_ITEM (a)));
-  g_assert (g_list_length (a_list) == 1);
+  gtk_tree_model_get (model,
+                      iter,
+                      SO_COL_NAME, &item,
+                      -1);
 
-  label = gtk_label_get_text (GTK_LABEL (a_list->data));
-  g_list_free (a_list);
+  res = g_strcmp0 (data->find, item) == 0;
+  if (res) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (data->combo), iter);
+  }
 
-  if (!strcmp (label, (gchar *) b)) {
-    return 0;
+  g_free (item);
+
+  return res;
+}
+
+
+void
+select_sheet (GtkWidget *combo,
+              gchar     *sheet_name)
+{
+  GtkListStore *store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (combo)));
+  GtkTreeIter iter;
+
+  /* If we were passed a sheet_name, then make the optionmenu point to that
+     name after creation */
+
+  if (sheet_name) {
+    struct FindSheetData data;
+
+    data.combo = combo;
+    data.find = sheet_name;
+
+    gtk_tree_model_foreach (GTK_TREE_MODEL (store), find_sheet, &data);
   } else {
-    return 1;
+    if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter)) {
+      gtk_combo_box_set_active_iter (GTK_COMBO_BOX (combo), &iter);
+    }
   }
 }
 
+
 void
-sheets_optionmenu_create (GtkWidget *option_menu,
-                          GtkWidget *wrapbox,
-                          gchar     *sheet_name)
+populate_store (GtkListStore *store)
 {
-  GtkWidget *optionmenu_menu;
+  GtkTreeIter iter;
   GSList *sheets_list;
-  GList *menu_item_list;
 
   /* Delete the contents, if any, of this optionemnu first */
 
-  optionmenu_menu = gtk_option_menu_get_menu (GTK_OPTION_MENU (option_menu));
-  gtk_container_foreach (GTK_CONTAINER (optionmenu_menu),
-                         (GtkCallback) gtk_widget_destroy, NULL);
+  gtk_list_store_clear (store);
 
   for (sheets_list = sheets_mods_list; sheets_list;
        sheets_list = g_slist_next (sheets_list)) {
     SheetMod *sheet_mod;
-    GtkWidget *menu_item;
-    gchar *tip;
+    gchar *location;
 
     sheet_mod = sheets_list->data;
 
@@ -156,56 +189,19 @@ sheets_optionmenu_create (GtkWidget *option_menu,
       continue;
     }
 
-    {
-      //                                        *sigh*
-      menu_item = gtk_menu_item_new_with_label (gettext (sheet_mod->sheet.name));
+    location = sheet_mod->sheet.scope == SHEET_SCOPE_SYSTEM ? _("System")
+                                                            : _("User");
 
-      gtk_menu_append (GTK_MENU (optionmenu_menu), menu_item);
-
-      if (sheet_mod->sheet.scope == SHEET_SCOPE_SYSTEM) {
-        tip = g_strdup_printf (_("%s\nSystem sheet"), sheet_mod->sheet.description);
-      } else {
-        tip = g_strdup_printf (_("%s\nUser sheet"), sheet_mod->sheet.description);
-      }
-
-      gtk_widget_set_tooltip_text (menu_item, tip);
-      g_free (tip);
-    }
-
-    gtk_widget_show (menu_item);
-
-    g_object_set_data (G_OBJECT (menu_item), "wrapbox", wrapbox);
-
-    g_signal_connect (G_OBJECT (menu_item), "activate",
-                      G_CALLBACK (on_sheets_dialog_optionmenu_activate),
-                      (gpointer) sheet_mod);
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store,
+                        &iter,
+                        SO_COL_NAME, gettext (sheet_mod->sheet.name),
+                        SO_COL_LOCATION, location,
+                        SO_COL_MOD, sheet_mod,
+                        -1);
   }
-
-  menu_item_list = gtk_container_get_children (GTK_CONTAINER (optionmenu_menu));
-
-  /* If we were passed a sheet_name, then make the optionmenu point to that
-     name after creation */
-
-  if (sheet_name) {
-    gint index = 0;
-    GList *list;
-
-    list = g_list_find_custom (menu_item_list,
-                               sheet_name,
-                               menu_item_compare_labels);
-    if (list) {
-      index = g_list_position (menu_item_list, list);
-    }
-    gtk_option_menu_set_history (GTK_OPTION_MENU (option_menu), index);
-    gtk_menu_item_activate (GTK_MENU_ITEM (g_list_nth_data (menu_item_list,
-                                                            index)));
-  } else {
-    gtk_option_menu_set_history (GTK_OPTION_MENU (option_menu), 0);
-    gtk_menu_item_activate (GTK_MENU_ITEM (menu_item_list->data));
-  }
-
-  g_list_free (menu_item_list);
 }
+
 
 gboolean
 sheets_dialog_create (void)
@@ -226,40 +222,6 @@ sheets_dialog_create (void)
     g_slist_free (sheets_mods_list);
   }
   sheets_mods_list = NULL;
-
-  if (sheets_dialog == NULL) {
-    sheets_dialog = create_sheets_main_dialog ();
-    if (!sheets_dialog) {
-      /* don not let a broken builder file crash Dia */
-      g_warning ("SheetDialog creation failed");
-      return FALSE;
-    }
-    /* Make sure to null our pointer when destroyed */
-    g_signal_connect (G_OBJECT (sheets_dialog), "destroy",
-                      G_CALLBACK (gtk_widget_destroyed),
-                      &sheets_dialog);
-
-    sheet_left = NULL;
-    sheet_right = NULL;
-  } else {
-    option_menu = lookup_widget (sheets_dialog, "optionmenu_left");
-    sheet_left = g_object_get_data (G_OBJECT (option_menu),
-                                    "active_sheet_name");
-
-    option_menu = lookup_widget (sheets_dialog, "optionmenu_right");
-    sheet_right = g_object_get_data (G_OBJECT (option_menu),
-                                     "active_sheet_name");
-
-    wrapbox = lookup_widget (sheets_dialog, "wrapbox_left");
-    if (wrapbox) {
-      gtk_widget_destroy (wrapbox);
-    }
-
-    wrapbox = lookup_widget (sheets_dialog, "wrapbox_right");
-    if (wrapbox) {
-      gtk_widget_destroy (wrapbox);
-    }
-  }
 
   if (custom_type_symbol == NULL) {
     /* This little bit identifies a custom object symbol so we can tell the
@@ -289,6 +251,40 @@ sheets_dialog_create (void)
     sheets_append_sheet_mods (sheets_list->data);
   }
 
+  if (sheets_dialog == NULL) {
+    sheets_dialog = create_sheets_main_dialog ();
+    if (!sheets_dialog) {
+      /* don not let a broken builder file crash Dia */
+      g_warning ("SheetDialog creation failed");
+      return FALSE;
+    }
+    /* Make sure to null our pointer when destroyed */
+    g_signal_connect (G_OBJECT (sheets_dialog), "destroy",
+                      G_CALLBACK (gtk_widget_destroyed),
+                      &sheets_dialog);
+
+    sheet_left = NULL;
+    sheet_right = NULL;
+  } else {
+    option_menu = lookup_widget (sheets_dialog, "combo_left");
+    sheet_left = g_object_get_data (G_OBJECT (option_menu),
+                                    "active_sheet_name");
+
+    option_menu = lookup_widget (sheets_dialog, "combo_right");
+    sheet_right = g_object_get_data (G_OBJECT (option_menu),
+                                     "active_sheet_name");
+
+    wrapbox = lookup_widget (sheets_dialog, "wrapbox_left");
+    if (wrapbox) {
+      gtk_widget_destroy (wrapbox);
+    }
+
+    wrapbox = lookup_widget (sheets_dialog, "wrapbox_right");
+    if (wrapbox) {
+      gtk_widget_destroy (wrapbox);
+    }
+  }
+
   sw = lookup_widget (sheets_dialog, "scrolledwindow_right");
   /* In case glade already add a child to scrolledwindow */
   wrapbox = gtk_bin_get_child (GTK_BIN (sw));
@@ -303,8 +299,9 @@ sheets_dialog_create (void)
   gtk_wrap_box_set_line_justify (GTK_WRAP_BOX (wrapbox), GTK_JUSTIFY_LEFT);
   gtk_widget_show (wrapbox);
   g_object_set_data (G_OBJECT (wrapbox), "is_left", FALSE);
-  option_menu = lookup_widget (sheets_dialog, "optionmenu_right");
-  sheets_optionmenu_create (option_menu, wrapbox, sheet_right);
+  option_menu = lookup_widget (sheets_dialog, "combo_right");
+  g_object_set_data (G_OBJECT (option_menu), "wrapbox", wrapbox);
+  select_sheet (option_menu, sheet_right);
 
   sw = lookup_widget (sheets_dialog, "scrolledwindow_left");
   /* In case glade already add a child to scrolledwindow */
@@ -320,8 +317,9 @@ sheets_dialog_create (void)
   gtk_wrap_box_set_line_justify (GTK_WRAP_BOX (wrapbox), GTK_JUSTIFY_LEFT);
   gtk_widget_show (wrapbox);
   g_object_set_data (G_OBJECT (wrapbox), "is_left", (gpointer) TRUE);
-  option_menu = lookup_widget (sheets_dialog, "optionmenu_left");
-  sheets_optionmenu_create (option_menu, wrapbox, sheet_left);
+  option_menu = lookup_widget (sheets_dialog, "combo_left");
+  g_object_set_data (G_OBJECT (option_menu), "wrapbox", wrapbox);
+  select_sheet (option_menu, sheet_left);
 
   return TRUE;
 }
@@ -341,12 +339,21 @@ create_object_pixmap (SheetObject  *so,
   style = gtk_widget_get_style (parent);
 
   if (so->pixmap != NULL) {
-    *pixmap =
-      gdk_pixmap_colormap_create_from_xpm_d (NULL,
-                                             gtk_widget_get_colormap (parent),
-                                             mask,
-                                             &style->bg[GTK_STATE_NORMAL],
-                                             (gchar **) so->pixmap);
+    if (g_str_has_prefix ((char *) so->pixmap, "res:")) {
+      GdkPixbuf *pixbuf;
+
+      pixbuf = pixbuf_from_resource (((char *) so->pixmap) + 4);
+
+      gdk_pixbuf_render_pixmap_and_mask (pixbuf, pixmap, mask, 1.0);
+      g_object_unref (pixbuf);
+    } else {
+      *pixmap =
+        gdk_pixmap_colormap_create_from_xpm_d (NULL,
+                                                gtk_widget_get_colormap (parent),
+                                                mask,
+                                                &style->bg[GTK_STATE_NORMAL],
+                                                (gchar **) so->pixmap);
+    }
   } else {
     if (so->pixmap_file != NULL) {
       GdkPixbuf *pixbuf;
@@ -425,7 +432,6 @@ lookup_widget (GtkWidget   *widget,
 void
 sheets_dialog_show_callback (GtkAction *action)
 {
-  GtkWidget *wrapbox;
   GtkWidget *option_menu;
 
   if (!sheets_dialog) {
@@ -435,9 +441,8 @@ sheets_dialog_show_callback (GtkAction *action)
     return;
   }
 
-  wrapbox = g_object_get_data (G_OBJECT (sheets_dialog), "wrapbox_left");
-  option_menu = lookup_widget (sheets_dialog, "optionmenu_left");
-  sheets_optionmenu_create (option_menu, wrapbox, interface_current_sheet_name);
+  option_menu = lookup_widget (sheets_dialog, "combo_left");
+  select_sheet (option_menu, interface_current_sheet_name);
 
   g_assert (GTK_IS_WIDGET (sheets_dialog));
   gtk_widget_show (sheets_dialog);
@@ -451,6 +456,7 @@ sheet_object_mod_get_type_string (SheetObjectMod *som)
       return _("SVG Shape");
     case OBJECT_TYPE_PROGRAMMED:
       return _("Programmed DiaObject");
+    case OBJECT_TYPE_UNASSIGNED:
     default:
       g_assert_not_reached();
       return "";

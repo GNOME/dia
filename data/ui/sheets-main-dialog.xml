@@ -172,10 +172,24 @@
               </packing>
             </child>
             <child>
-              <object class="GtkOptionMenu" id="optionmenu_right">
+              <object class="GtkComboBox" id="combo_right">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkCellRendererText" id="cr_t1"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+                <child>
+                  <object class="GtkCellRendererText" id="cr_t2">
+                    <property name="xalign">1</property>
+                    <property name="scale">0.8</property>
+                  </object>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -201,10 +215,24 @@
               </packing>
             </child>
             <child>
-              <object class="GtkOptionMenu" id="optionmenu_left">
+              <object class="GtkComboBox" id="combo_left">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkCellRendererText" id="cl_t1"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+                <child>
+                  <object class="GtkCellRendererText" id="cl_t2">
+                    <property name="xalign">1</property>
+                    <property name="scale">0.8</property>
+                  </object>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                  </attributes>
+                </child>
               </object>
               <packing>
                 <property name="x_options">GTK_FILL</property>

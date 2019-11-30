@@ -445,7 +445,7 @@ get_current_sheet (void)
   char *sheet = NULL;
   GtkTreeIter iter;
 
-  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (sheet_menu.store), &iter)) {
+  if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (sheet_menu.combo), &iter)) {
     gtk_tree_model_get (GTK_TREE_MODEL (sheet_menu.store),
                         &iter,
                         COL_SHEET, &sheet,
@@ -600,7 +600,7 @@ create_sheet_dropdown_menu(GtkWidget *parent)
   // Sigh
   if (sheet_menu.combo) {
     gtk_container_remove (GTK_CONTAINER (parent), sheet_menu.combo);
-    g_clear_object (&sheet_menu.combo);
+    sheet_menu.combo = NULL;
   }
 
   gtk_tree_store_clear (sheet_menu.store);
