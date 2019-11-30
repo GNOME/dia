@@ -748,32 +748,33 @@ draw_bezier(DiaRenderer *self,
    */
   pts[0].x = SCX( points[0].p1.x);
   pts[0].y = SCY(-points[0].p1.y);
-  for (i = 1; i < numpoints; i++)
-  {
-    switch (points[i].type)
-    {
-    case BEZ_MOVE_TO:
-    case BEZ_LINE_TO:
-      /* just the point */
-      pts[i*3-2].x = pts[i*3-1].x = pts[i*3].x = SCX( points[i].p1.x);
-      pts[i*3-2].y = pts[i*3-1].y = pts[i*3].y = SCY(-points[i].p1.y);
-      break;
-    case BEZ_CURVE_TO:
-      /* first control point */
-      pts[i*3-2].x = SCX( points[i].p1.x);
-      pts[i*3-2].y = SCY(-points[i].p1.y);
-      /* second control point */
-      pts[i*3-1].x = SCX( points[i].p2.x);
-      pts[i*3-1].y = SCY(-points[i].p2.y);
-      /* this segments end point */
-      pts[i*3].x = SCX( points[i].p3.x);
-      pts[i*3].y = SCY(-points[i].p3.y);
-      break;
+  for (i = 1; i < numpoints; i++) {
+    switch (points[i].type) {
+      case BEZ_MOVE_TO:
+      case BEZ_LINE_TO:
+        /* just the point */
+        pts[i*3-2].x = pts[i*3-1].x = pts[i*3].x = SCX( points[i].p1.x);
+        pts[i*3-2].y = pts[i*3-1].y = pts[i*3].y = SCY(-points[i].p1.y);
+        break;
+      case BEZ_CURVE_TO:
+        /* first control point */
+        pts[i*3-2].x = SCX( points[i].p1.x);
+        pts[i*3-2].y = SCY(-points[i].p1.y);
+        /* second control point */
+        pts[i*3-1].x = SCX( points[i].p2.x);
+        pts[i*3-1].y = SCY(-points[i].p2.y);
+        /* this segments end point */
+        pts[i*3].x = SCX( points[i].p3.x);
+        pts[i*3].y = SCY(-points[i].p3.y);
+        break;
+      default:
+        g_warning ("Unknown type %i", points[i].type);
+        break;
     }
   }
 
-  fwrite_le(pts, sizeof(gint16), 2*(numpoints*3-2), renderer->file);
-  g_free(pts);
+  fwrite_le (pts, sizeof (gint16), 2 * (numpoints*3-2), renderer->file);
+  g_free (pts);
 }
 
 static gpointer parent_class = NULL;
@@ -826,15 +827,18 @@ draw_string(DiaRenderer *self,
   renderer->TextStyle.YAlign = 3; /* bottom ??? */
 
   switch (alignment) {
-  case ALIGN_LEFT:
-    renderer->TextStyle.XAlign = 0;
-    break;
-  case ALIGN_CENTER:
-    renderer->TextStyle.XAlign = 1;
-    break;
-  case ALIGN_RIGHT:
-    renderer->TextStyle.XAlign = 2;
-    break;
+    case ALIGN_LEFT:
+      renderer->TextStyle.XAlign = 0;
+      break;
+    case ALIGN_CENTER:
+      renderer->TextStyle.XAlign = 1;
+      break;
+    case ALIGN_RIGHT:
+      renderer->TextStyle.XAlign = 2;
+      break;
+    default:
+      g_warning ("Unknown alignment %i", alignment);
+      break;
   }
 
   renderer->TextStyle.Color = LookupColor(renderer, colour);

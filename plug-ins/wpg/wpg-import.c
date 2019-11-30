@@ -241,70 +241,73 @@ import_object(DiaRenderer* self, DiagramData *dia,
   Point *points = NULL;
 
   switch (type) {
-  case WPG_LINE:
-    iNum = 2;
-    pts = (WPGPoint*)pData;
-    points = _make_points (renderer, pts, iNum);
-    dia_renderer_draw_line (self, &points[0], &points[1], &renderer->stroke);
-    break;
-  case WPG_POLYLINE:
-    pInt16 = (gint16*)pData;
-    iNum = pInt16[0];
-    pts = (WPGPoint*)(pData + sizeof(gint16));
-    points = _make_points (renderer, pts, iNum);
-    dia_renderer_draw_polyline (self, points, iNum, &renderer->stroke);
-    break;
-  case WPG_RECTANGLE:
-    points = _make_rect (renderer, (WPGPoint*)pData);
-    _do_rect (renderer, points);
-    break;
-  case WPG_POLYGON:
-    pInt16 = (gint16*)pData;
-    iNum = pInt16[0];
-    pts = (WPGPoint*)(pData + sizeof(gint16));
-    points = _make_points (renderer, pts, iNum);
-    _do_polygon (renderer, points, iNum);
-    break;
-  case WPG_ELLIPSE:
-    {
-      WPGEllipse* pEll = (WPGEllipse*)pData;
-      _do_ellipse (renderer, pEll);
-    }
-    break;
-  case WPG_POLYCURVE:
-    iPre51 = *((gint32*)pData);
-    pInt16 = (gint16*)pData;
-    iNum = pInt16[2];
-    pts = (WPGPoint*)(pData + 3*sizeof(gint16));
-    dia_log_message ("WPG POLYCURVE Num pts %d Pre51 %d", iNum, iPre51);
-    _do_bezier (renderer, pts, iNum);
-    break;
-  case WPG_FILLATTR:
-  case WPG_LINEATTR:
-  case WPG_COLORMAP:
-  case WPG_MARKERATTR:
-  case WPG_POLYMARKER:
-  case WPG_TEXTSTYLE:
-  case WPG_START:
-  case WPG_END:
-  case WPG_OUTPUTATTR:
-  case WPG_STARTFIGURE:
-  case WPG_STARTCHART:
-  case WPG_PLANPERFECT:
-  case WPG_STARTWPG2:
-  case WPG_POSTSCRIPT1:
-  case WPG_POSTSCRIPT2:
-    /* these are no objects, silence GCC */
-    break;
-  case WPG_BITMAP1:
-  case WPG_TEXT:
-  case WPG_BITMAP2:
-    /* these objects are handled directly below, silence GCC */
-    break;
-  case WPG_GRAPHICSTEXT2:
-  case WPG_GRAPHICSTEXT3:
-    /* these objects actually might get implemented some day, silence GCC */
-    break;
+    case WPG_LINE:
+      iNum = 2;
+      pts = (WPGPoint*)pData;
+      points = _make_points (renderer, pts, iNum);
+      dia_renderer_draw_line (self, &points[0], &points[1], &renderer->stroke);
+      break;
+    case WPG_POLYLINE:
+      pInt16 = (gint16*)pData;
+      iNum = pInt16[0];
+      pts = (WPGPoint*)(pData + sizeof(gint16));
+      points = _make_points (renderer, pts, iNum);
+      dia_renderer_draw_polyline (self, points, iNum, &renderer->stroke);
+      break;
+    case WPG_RECTANGLE:
+      points = _make_rect (renderer, (WPGPoint*)pData);
+      _do_rect (renderer, points);
+      break;
+    case WPG_POLYGON:
+      pInt16 = (gint16*)pData;
+      iNum = pInt16[0];
+      pts = (WPGPoint*)(pData + sizeof(gint16));
+      points = _make_points (renderer, pts, iNum);
+      _do_polygon (renderer, points, iNum);
+      break;
+    case WPG_ELLIPSE:
+      {
+        WPGEllipse* pEll = (WPGEllipse*)pData;
+        _do_ellipse (renderer, pEll);
+      }
+      break;
+    case WPG_POLYCURVE:
+      iPre51 = *((gint32*)pData);
+      pInt16 = (gint16*)pData;
+      iNum = pInt16[2];
+      pts = (WPGPoint*)(pData + 3*sizeof(gint16));
+      dia_log_message ("WPG POLYCURVE Num pts %d Pre51 %d", iNum, iPre51);
+      _do_bezier (renderer, pts, iNum);
+      break;
+    case WPG_FILLATTR:
+    case WPG_LINEATTR:
+    case WPG_COLORMAP:
+    case WPG_MARKERATTR:
+    case WPG_POLYMARKER:
+    case WPG_TEXTSTYLE:
+    case WPG_START:
+    case WPG_END:
+    case WPG_OUTPUTATTR:
+    case WPG_STARTFIGURE:
+    case WPG_STARTCHART:
+    case WPG_PLANPERFECT:
+    case WPG_STARTWPG2:
+    case WPG_POSTSCRIPT1:
+    case WPG_POSTSCRIPT2:
+      /* these are no objects, silence GCC */
+      break;
+    case WPG_BITMAP1:
+    case WPG_TEXT:
+    case WPG_BITMAP2:
+      /* these objects are handled directly below, silence GCC */
+      break;
+    case WPG_GRAPHICSTEXT2:
+    case WPG_GRAPHICSTEXT3:
+      /* these objects actually might get implemented some day, silence GCC */
+      break;
+    default:
+      g_warning ("Uknown type %i", type);
+      break;
   } /* switch */
   g_free (points);
   DIAG_NOTE(g_message("Type %d Num pts %d Size %d", type, iNum, iSize));
@@ -322,24 +325,27 @@ _make_stroke (WpgImportRenderer *ren)
   ren->stroke.blue = c.b / 255.0;
   ren->stroke.alpha = 1.0;
   switch (ren->LineAttr.Type) {
-  case WPG_LA_SOLID:
-    dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_SOLID, 0.0);
-    break;
-  case WPG_LA_MEDIUMDASH:
-    dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASHED, 0.66);
-    break;
-  case WPG_LA_SHORTDASH:
-    dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASHED, 0.33);
-    break;
-  case WPG_LA_DASHDOT:
-    dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASH_DOT, 1.0);
-    break;
-  case WPG_LA_DASHDOTDOT:
-    dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASH_DOT_DOT, 1.0);
-    break;
-  case WPG_LA_DOTS:
-    dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DOTTED, 1.0);
-    break;
+    case WPG_LA_SOLID:
+      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_SOLID, 0.0);
+      break;
+    case WPG_LA_MEDIUMDASH:
+      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASHED, 0.66);
+      break;
+    case WPG_LA_SHORTDASH:
+      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASHED, 0.33);
+      break;
+    case WPG_LA_DASHDOT:
+      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASH_DOT, 1.0);
+      break;
+    case WPG_LA_DASHDOTDOT:
+      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASH_DOT_DOT, 1.0);
+      break;
+    case WPG_LA_DOTS:
+      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DOTTED, 1.0);
+      break;
+    default:
+      g_warning ("Unknown type %i", ren->LineAttr.Type);
+      break;
   }
 
   dia_renderer_set_linewidth (DIA_RENDERER (ren),

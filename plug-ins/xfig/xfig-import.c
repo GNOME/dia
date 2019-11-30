@@ -174,60 +174,62 @@ fig_line_style_to_dia(int line_style, DiaContext *ctx)
 }
 
 static void
-fig_simple_properties(DiaObject *obj,
-		      int line_style,
-		      float dash_length,
-		      int thickness,
-		      int pen_color,
-		      int fill_color,
-		      int area_fill,
-		      DiaContext *ctx)
+fig_simple_properties (DiaObject  *obj,
+                       int         line_style,
+                       float       dash_length,
+                       int         thickness,
+                       int         pen_color,
+                       int         fill_color,
+                       int         area_fill,
+                       DiaContext *ctx)
 {
-    GPtrArray *props = prop_list_from_descs(xfig_simple_prop_descs_line,
+  GPtrArray *props = prop_list_from_descs (xfig_simple_prop_descs_line,
                                             pdtpp_true);
-    RealProperty *rprop;
-    ColorProperty *cprop;
+  RealProperty *rprop;
+  ColorProperty *cprop;
 
-    g_assert(props->len == 2);
+  g_assert(props->len == 2);
 
-    rprop = g_ptr_array_index(props,0);
-    rprop->real_data = thickness/FIG_ALT_UNIT;
+  rprop = g_ptr_array_index (props, 0);
+  rprop->real_data = thickness / FIG_ALT_UNIT;
 
-    cprop = g_ptr_array_index(props,1);
-    cprop->color_data = fig_color(pen_color, ctx);
+  cprop = g_ptr_array_index (props,1);
+  cprop->color_data = fig_color (pen_color, ctx);
 
 
-    if (line_style != -1) {
-        LinestyleProperty *lsprop =
-            (LinestyleProperty *)make_new_prop("line_style",
-                                               PROP_TYPE_LINESTYLE,
-                                               PROP_FLAG_DONT_SAVE);
-        lsprop->dash = dash_length/FIG_ALT_UNIT;
-        lsprop->style = fig_line_style_to_dia(line_style, ctx);
+  if (line_style != -1) {
+    LinestyleProperty *lsprop =
+        (LinestyleProperty *) make_new_prop ("line_style",
+                                             PROP_TYPE_LINESTYLE,
+                                             PROP_FLAG_DONT_SAVE);
+    lsprop->dash = dash_length / FIG_ALT_UNIT;
+    lsprop->style = fig_line_style_to_dia (line_style, ctx);
 
-        g_ptr_array_add(props,lsprop);
-    }
+    g_ptr_array_add (props, lsprop);
+  }
 
-    if (area_fill == -1) {
-        BoolProperty *bprop =
-            (BoolProperty *)make_new_prop("show_background",
-                                          PROP_TYPE_BOOL,PROP_FLAG_DONT_SAVE);
-        bprop->bool_data = FALSE;
+  if (area_fill == -1) {
+    BoolProperty *bprop =
+        (BoolProperty *) make_new_prop ("show_background",
+                                        PROP_TYPE_BOOL,
+                                        PROP_FLAG_DONT_SAVE);
+    bprop->bool_data = FALSE;
 
-        g_ptr_array_add(props,bprop);
-    } else {
-        ColorProperty *cprop =
-            (ColorProperty *)make_new_prop("fill_colour",
-                                           PROP_TYPE_COLOUR,
-                                           PROP_FLAG_DONT_SAVE);
-        cprop->color_data = fig_area_fill_color(area_fill, fill_color, ctx);
+    g_ptr_array_add (props, bprop);
+  } else {
+    ColorProperty *prop =
+        (ColorProperty *) make_new_prop ("fill_colour",
+                                         PROP_TYPE_COLOUR,
+                                         PROP_FLAG_DONT_SAVE);
+    prop->color_data = fig_area_fill_color (area_fill, fill_color, ctx);
 
-        g_ptr_array_add(props,cprop);
-    }
+    g_ptr_array_add (props, prop);
+  }
 
-    obj->ops->set_props(obj, props);
-    prop_list_free(props);
+  dia_object_set_properties (obj, props);
+  prop_list_free (props);
 }
+
 
 static int
 fig_read_n_points(FILE *file, int n, Point **points, DiaContext *ctx)

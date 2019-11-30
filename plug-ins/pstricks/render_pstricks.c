@@ -394,38 +394,41 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
     /* dot = 20% of len - for some reason not the usual 10% */
     dot_length = dash_length * 0.2;
 
-    switch(mode) {
+  switch (mode) {
     case LINESTYLE_DEFAULT:
     case LINESTYLE_SOLID:
-	fprintf(renderer->file, "\\psset{linestyle=solid}\n");
-	break;
+      fprintf(renderer->file, "\\psset{linestyle=solid}\n");
+      break;
     case LINESTYLE_DASHED:
-	pstricks_dtostr(dash_length_buf, dash_length);
-	fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%s %s}\n",
-		dash_length_buf, dash_length_buf);
-	break;
+      pstricks_dtostr(dash_length_buf, dash_length);
+      fprintf (renderer->file, "\\psset{linestyle=dashed,dash=%s %s}\n",
+               dash_length_buf, dash_length_buf);
+      break;
     case LINESTYLE_DASH_DOT:
-	hole_width = (dash_length - dot_length) / 2.0;
-	pstricks_dtostr(hole_width_buf,hole_width);
-	pstricks_dtostr(dot_length_buf, dot_length);
-	pstricks_dtostr(dash_length_buf, dash_length);
-	fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%s %s %s %s}\n",
-		dash_length_buf, hole_width_buf, dot_length_buf, hole_width_buf );
-	break;
+      hole_width = (dash_length - dot_length) / 2.0;
+      pstricks_dtostr(hole_width_buf,hole_width);
+      pstricks_dtostr(dot_length_buf, dot_length);
+      pstricks_dtostr(dash_length_buf, dash_length);
+      fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%s %s %s %s}\n",
+              dash_length_buf, hole_width_buf, dot_length_buf, hole_width_buf );
+      break;
     case LINESTYLE_DASH_DOT_DOT:
-	hole_width = (dash_length - 2.0*dot_length) / 3.0;
-	pstricks_dtostr(hole_width_buf,hole_width);
-	pstricks_dtostr(dot_length_buf,dot_length);
-	pstricks_dtostr(dash_length_buf, dash_length);
-	fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%s %s %s %s %s %s}\n",
-		dash_length_buf, hole_width_buf, dot_length_buf, hole_width_buf,
-		dot_length_buf, hole_width_buf );
-	break;
+      hole_width = (dash_length - 2.0*dot_length) / 3.0;
+      pstricks_dtostr(hole_width_buf,hole_width);
+      pstricks_dtostr(dot_length_buf,dot_length);
+      pstricks_dtostr(dash_length_buf, dash_length);
+      fprintf(renderer->file, "\\psset{linestyle=dashed,dash=%s %s %s %s %s %s}\n",
+              dash_length_buf, hole_width_buf, dot_length_buf, hole_width_buf,
+              dot_length_buf, hole_width_buf );
+      break;
     case LINESTYLE_DOTTED:
-	pstricks_dtostr(dot_length_buf, dot_length);
-	fprintf(renderer->file, "\\psset{linestyle=dotted,dotsep=%s}\n", dot_length_buf);
-	break;
-    }
+      pstricks_dtostr(dot_length_buf, dot_length);
+      fprintf(renderer->file, "\\psset{linestyle=dotted,dotsep=%s}\n", dot_length_buf);
+      break;
+    default:
+      g_warning ("Unknown mode %i", mode);
+      break;
+  }
 }
 
 static void
@@ -647,69 +650,81 @@ draw_ellipse(DiaRenderer *self,
 	pstricks_ellipse(renderer,center,width,height,stroke,FALSE);
 }
 
+
 static void
-pstricks_bezier(PstricksRenderer *renderer,
-		BezPoint *points,
-		gint numpoints,
-		Color *fill,
-		Color *stroke,
-		gboolean closed)
+pstricks_bezier (PstricksRenderer *renderer,
+                 BezPoint         *points,
+                 gint              numpoints,
+                 Color            *fill,
+                 Color            *stroke,
+                 gboolean          closed)
 {
-    gint i;
-    gchar p1x_buf[DTOSTR_BUF_SIZE];
-    gchar p1y_buf[DTOSTR_BUF_SIZE];
-    gchar p2x_buf[DTOSTR_BUF_SIZE];
-    gchar p2y_buf[DTOSTR_BUF_SIZE];
-    gchar p3x_buf[DTOSTR_BUF_SIZE];
-    gchar p3y_buf[DTOSTR_BUF_SIZE];
+  gint i;
+  gchar p1x_buf[DTOSTR_BUF_SIZE];
+  gchar p1y_buf[DTOSTR_BUF_SIZE];
+  gchar p2x_buf[DTOSTR_BUF_SIZE];
+  gchar p2y_buf[DTOSTR_BUF_SIZE];
+  gchar p3x_buf[DTOSTR_BUF_SIZE];
+  gchar p3y_buf[DTOSTR_BUF_SIZE];
 
-    if (fill)
-      set_fill_color(renderer,fill);
-    if (stroke)
-      set_line_color(renderer,stroke);
+  if (fill) {
+    set_fill_color (renderer,fill);
+  }
 
-    fprintf(renderer->file, "\\pscustom{\n");
+  if (stroke) {
+    set_line_color (renderer,stroke);
+  }
 
-    if (points[0].type != BEZ_MOVE_TO)
-	g_warning("first BezPoint must be a BEZ_MOVE_TO");
+  fprintf(renderer->file, "\\pscustom{\n");
 
-    fprintf(renderer->file, "\\newpath\n\\moveto(%s,%s)\n",
-	    pstricks_dtostr(p1x_buf,points[0].p1.x),
-	    pstricks_dtostr(p1y_buf,points[0].p1.y) );
+  if (points[0].type != BEZ_MOVE_TO) {
+    g_warning("first BezPoint must be a BEZ_MOVE_TO");
+  }
 
-    for (i = 1; i < numpoints; i++)
-	switch (points[i].type) {
-	case BEZ_MOVE_TO:
-	    fprintf(renderer->file, "\\moveto(%s,%s)\n",
-		    pstricks_dtostr(p1x_buf,points[i].p1.x),
-		    pstricks_dtostr(p1y_buf,points[i].p1.y) );
-	    break;
-	case BEZ_LINE_TO:
-	    fprintf(renderer->file, "\\lineto(%s,%s)\n",
-		    pstricks_dtostr(p1x_buf,points[i].p1.x),
-		    pstricks_dtostr(p1y_buf,points[i].p1.y) );
-	    break;
-	case BEZ_CURVE_TO:
-	    fprintf(renderer->file, "\\curveto(%s,%s)(%s,%s)(%s,%s)\n",
-		    pstricks_dtostr(p1x_buf,points[i].p1.x),
-		    pstricks_dtostr(p1y_buf,points[i].p1.y),
-		    pstricks_dtostr(p2x_buf,points[i].p2.x),
-		    pstricks_dtostr(p2y_buf,points[i].p2.y),
-		    pstricks_dtostr(p3x_buf,points[i].p3.x),
-		    pstricks_dtostr(p3y_buf,points[i].p3.y) );
-	    break;
-	}
+  fprintf (renderer->file, "\\newpath\n\\moveto(%s,%s)\n",
+           pstricks_dtostr (p1x_buf, points[0].p1.x),
+           pstricks_dtostr (p1y_buf, points[0].p1.y) );
 
-    if (closed)
-	fprintf(renderer->file, "\\closepath\n");
+  for (i = 1; i < numpoints; i++) {
+    switch (points[i].type) {
+      case BEZ_MOVE_TO:
+        fprintf (renderer->file, "\\moveto(%s,%s)\n",
+                 pstricks_dtostr (p1x_buf,points[i].p1.x),
+                 pstricks_dtostr (p1y_buf,points[i].p1.y) );
+        break;
+      case BEZ_LINE_TO:
+        fprintf (renderer->file, "\\lineto(%s,%s)\n",
+                 pstricks_dtostr (p1x_buf, points[i].p1.x),
+                 pstricks_dtostr (p1y_buf, points[i].p1.y) );
+        break;
+      case BEZ_CURVE_TO:
+        fprintf (renderer->file, "\\curveto(%s,%s)(%s,%s)(%s,%s)\n",
+                 pstricks_dtostr (p1x_buf, points[i].p1.x),
+                 pstricks_dtostr (p1y_buf, points[i].p1.y),
+                 pstricks_dtostr (p2x_buf, points[i].p2.x),
+                 pstricks_dtostr (p2y_buf, points[i].p2.y),
+                 pstricks_dtostr (p3x_buf, points[i].p3.x),
+                 pstricks_dtostr (p3y_buf, points[i].p3.y) );
+        break;
+      default:
+        g_warning ("Unknown type %i", points[i].type);
+        break;
+    }
+  }
 
-    if (fill && stroke)
-	fprintf(renderer->file, "\\fill[fillstyle=eofill,fillcolor=diafillcolor,linecolor=dialinecolor]}\n");
-    else if (fill)
-	fprintf(renderer->file, "\\fill[fillstyle=eofill,fillcolor=diafillcolor,linecolor=diafillcolor]}\n");
-    else
-	fprintf(renderer->file, "\\stroke}\n");
+  if (closed) {
+    fprintf(renderer->file, "\\closepath\n");
+  }
+
+  if (fill && stroke) {
+    fprintf (renderer->file, "\\fill[fillstyle=eofill,fillcolor=diafillcolor,linecolor=dialinecolor]}\n");
+  } else if (fill) {
+    fprintf (renderer->file, "\\fill[fillstyle=eofill,fillcolor=diafillcolor,linecolor=diafillcolor]}\n");
+  } else {
+    fprintf (renderer->file, "\\stroke}\n");
+  }
 }
+
 
 static void
 draw_bezier(DiaRenderer *self,
@@ -782,40 +797,47 @@ tex_escape_string(const gchar *src, DiaContext *ctx)
     return p;
 }
 
+
 static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *color)
+draw_string (DiaRenderer *self,
+             const char  *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *color)
 {
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-    gchar *escaped = NULL;
-    gchar px_buf[DTOSTR_BUF_SIZE];
-    gchar py_buf[DTOSTR_BUF_SIZE];
+  PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
+  gchar *escaped = NULL;
+  gchar px_buf[DTOSTR_BUF_SIZE];
+  gchar py_buf[DTOSTR_BUF_SIZE];
 
-    /* only escape the string if it is not starting with \tex */
-    if (strncmp (text, "\\tex", 4) != 0)
-      escaped = tex_escape_string(text, renderer->ctx);
+  /* only escape the string if it is not starting with \tex */
+  if (strncmp (text, "\\tex", 4) != 0)
+    escaped = tex_escape_string (text, renderer->ctx);
 
-    set_fill_color(renderer,color);
+  set_fill_color (renderer,color);
 
-    fprintf(renderer->file,"\\rput");
-    switch (alignment) {
+  fprintf (renderer->file,"\\rput");
+  switch (alignment) {
     case ALIGN_LEFT:
-	fprintf(renderer->file,"[l]");
-	break;
+      fprintf(renderer->file,"[l]");
+      break;
     case ALIGN_CENTER:
-	break;
+      break;
     case ALIGN_RIGHT:
-	fprintf(renderer->file,"[r]");
-	break;
-    }
-    fprintf(renderer->file,"(%s,%s){\\psscalebox{1 -1}{%s}}\n",
-	    pstricks_dtostr(px_buf,pos->x),
-	    pstricks_dtostr(py_buf,pos->y),
-	    escaped ? escaped : text);
-    g_free(escaped);
+      fprintf(renderer->file,"[r]");
+      break;
+    default:
+      g_warning ("Unknown alignment %i", alignment);
+      break;
+  }
+  fprintf (renderer->file,
+            "(%s,%s){\\psscalebox{1 -1}{%s}}\n",
+            pstricks_dtostr (px_buf,pos->x),
+            pstricks_dtostr (py_buf,pos->y),
+            escaped ? escaped : text);
+  g_free (escaped);
 }
+
 
 static void
 draw_image(DiaRenderer *self,
