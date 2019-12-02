@@ -668,7 +668,8 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
 
   /* <from GEdit> */
   /* don't allow focus on the close button */
-  close_button = gtk_button_new();
+  close_button = gtk_button_new ();
+  gtk_widget_set_tooltip_text (close_button, _("Close"));
   gtk_button_set_relief (GTK_BUTTON (close_button), GTK_RELIEF_NONE);
   gtk_button_set_focus_on_click (GTK_BUTTON (close_button), FALSE);
 
@@ -678,7 +679,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_widget_modify_style (close_button, rcstyle);
   g_object_unref (rcstyle),
 
-  image = gtk_image_new_from_stock (_("_Close"), GTK_ICON_SIZE_MENU);
+  image = gtk_image_new_from_icon_name ("window-close-symbolic", GTK_ICON_SIZE_MENU);
 
   gtk_container_add (GTK_CONTAINER(close_button), image);
   g_signal_connect (G_OBJECT (close_button), "clicked",
@@ -1178,7 +1179,7 @@ create_integrated_ui (void)
  * Create toolbox component for distributed user interface
  */
 void
-create_toolbox ()
+create_toolbox (void)
 {
   GtkWidget *window;
   GtkWidget *main_vbox;
