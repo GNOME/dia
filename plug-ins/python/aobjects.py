@@ -96,6 +96,6 @@ def aobjects_cb(data, flags) :
 		diagram.flush()
 	return data
 
-dia.register_action ("HelpAObjects", "All Objects",
-                     "/ToolboxMenu/Help/HelpExtensionStart", 
+dia.register_action ("HelpAObjects", "All _Objects",
+                     "/ToolboxMenu/Help/HelpExtensionStart",
                      aobjects_cb)

@@ -126,6 +126,6 @@ def allprops_cb(data, flags) :
 		dia.message(0, "One name, one type?!\n" + string.join(name_type_clashes, "\n"))
 	return data
 
-dia.register_action ("HelpAllPropts", "All Object Properties",
-                     "/ToolboxMenu/Help/HelpExtensionStart", 
+dia.register_action ("HelpAllPropts", "All Object _Properties",
+                     "/ToolboxMenu/Help/HelpExtensionStart",
                      allprops_cb)
