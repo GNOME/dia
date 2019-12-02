@@ -341,8 +341,8 @@ try :
 		gtk_console({'__builtins__': __builtins__, '__name__': '__main__',
 			     '__doc__': None, 'dia': dia}, 'Python Dia Console')
 
-	dia.register_action ("DialogsPythonconsole", "Python Console", 
-	                      "/DisplayMenu/Dialogs/DialogsExtensionStart", 
+	dia.register_action ("DialogsPythonconsole", "_Python Console",
+	                      "/DisplayMenu/Dialogs/DialogsExtensionStart",
 	                       open_console)
 
 except :

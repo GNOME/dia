@@ -140,18 +140,18 @@ def select_by_size_cb (data, flags) :
 	d.flush()
 
 
-dia.register_action ("SelectByName", "Name", 
-                       "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
+dia.register_action ("SelectByName", "_Name",
+                       "/DisplayMenu/Select/SelectBy/SelectByExtensionStart",
                        select_by_name_cb)
-dia.register_action ("SelectByFillcolor", "Fill Color", 
-                       "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
+dia.register_action ("SelectByFillcolor", "_Fill Color",
+                       "/DisplayMenu/Select/SelectBy/SelectByExtensionStart",
                        select_by_fill_color_cb)
-dia.register_action ("SelectByLinecolor", "Line Color", 
-                       "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
+dia.register_action ("SelectByLinecolor", "_Line Color",
+                       "/DisplayMenu/Select/SelectBy/SelectByExtensionStart",
                        select_by_line_color_cb)
-dia.register_action ("SelectByTextcolor", "Text Color", 
-                       "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
+dia.register_action ("SelectByTextcolor", "_Text Color",
+                       "/DisplayMenu/Select/SelectBy/SelectByExtensionStart",
                        select_by_text_color_cb)
-dia.register_action ("SelectBySize", "Size", 
-                       "/DisplayMenu/Select/SelectBy/SelectByExtensionStart", 
+dia.register_action ("SelectBySize", "_Size",
+                       "/DisplayMenu/Select/SelectBy/SelectByExtensionStart",
                        select_by_size_cb)

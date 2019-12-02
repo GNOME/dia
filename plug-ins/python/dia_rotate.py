@@ -120,6 +120,6 @@ def SimpleRotate(data, angle) :
 def rotate_cb(data, flags) :
 	dlg = CRotateDialog(dia.active_display().diagram, data)
 
-dia.register_action ("ObjectsSimplerotation", "Simple Rotation",
-		     "/DisplayMenu/Objects/ObjectsExtensionStart", 
+dia.register_action ("ObjectsSimplerotation", "Simple _Rotation",
+		     "/DisplayMenu/Objects/ObjectsExtensionStart",
 		     rotate_cb)

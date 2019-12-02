@@ -258,12 +258,12 @@ def autodoc_html_cb (data, flags) :
 	dia.message(0, path + os.path.sep + "dia.html saved.")
 	webbrowser.open('file://' + os.path.realpath(path + os.path.sep + "dia.html"))
 
-dia.register_action ("HelpPydia2", "PyDia HTML Docs",
+dia.register_action ("HelpPydia2", "PyDia _HTML Docs",
                        "/ToolboxMenu/Help/HelpExtensionStart",
                        autodoc_html_cb)
-dia.register_action ("HelpPydia", "PyDia Docs",
+dia.register_action ("HelpPydia", "PyDia _Docs",
                        "/ToolboxMenu/Help/HelpExtensionStart",
                        autodoc_fresh_cb)
-dia.register_action ("UpdatePydia", "PyDia Docs Update",
+dia.register_action ("UpdatePydia", "PyDia Docs _Update",
                        "/DisplayMenu/Help/HelpExtensionStart",
                        autodoc_update_cb)

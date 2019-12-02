@@ -120,6 +120,6 @@ def layout_force_cb (data, flags) :
 	diagram.flush()
 	print n, "iterations"
 
-dia.register_action ("LayoutForcePy", "Layout (force)", 
-                     "/DisplayMenu/Test/TestExtensionStart", 
+dia.register_action ("LayoutForcePy", "_Layout (force)",
+                     "/DisplayMenu/Test/TestExtensionStart",
                      layout_force_cb)

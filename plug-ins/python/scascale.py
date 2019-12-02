@@ -146,6 +146,6 @@ def SimpleScale(data, factor) :
 def scale_cb(data, flags) :
 	dlg = CScaleDialog(dia.active_display().diagram, data)
 
-dia.register_action ("ObjectsSimplescaling", "Simple Scaling",
-		     "/DisplayMenu/Objects/ObjectsExtensionStart", 
+dia.register_action ("ObjectsSimplescaling", "Simple _Scaling",
+		     "/DisplayMenu/Objects/ObjectsExtensionStart",
 		     scale_cb)

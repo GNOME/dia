@@ -121,6 +121,6 @@ def arrange_connected (data, flags) :
 # fine due to Pythoninitializing the module only once
 #
 # \ingroup PyDia
-dia.register_callback ("Arrange Objects", 
-                       "<Display>/Objects/Arrange", 
+dia.register_callback ("Arrange _Objects",
+                       "<Display>/Objects/Arrange",
                        arrange_connected)
