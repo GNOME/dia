@@ -179,6 +179,6 @@ def otypes_cb(data, flags) :
 	# make it work standalone
 	return data
 
-dia.register_action ("HelpOtypes", "Dia Object Types",
-                     "/ToolboxMenu/Help/HelpExtensionStart", 
+dia.register_action ("HelpOtypes", "Dia Object _Types",
+                     "/ToolboxMenu/Help/HelpExtensionStart",
                      otypes_cb)
