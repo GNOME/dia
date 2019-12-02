@@ -84,71 +84,72 @@ gchar *build_ui_filename (const gchar* name);
 static const GtkActionEntry common_entries[] =
 {
   { "File", NULL, N_("_File"), NULL, NULL, NULL },
-    { "FileNew", GTK_STOCK_NEW, NULL, FIRST_MODIFIER "N", N_("Create a new diagram"), G_CALLBACK (file_new_callback) },
-    { "FileOpen", GTK_STOCK_OPEN, N_("_Open\342\200\246"),FIRST_MODIFIER "O", N_("Open a diagram file"), G_CALLBACK (file_open_callback) },
-    { "FileQuit", GTK_STOCK_QUIT, NULL, FIRST_MODIFIER "Q", N_("Quit Dia"), G_CALLBACK (file_quit_callback) },
+    { "FileNew", GTK_STOCK_NEW, N_("_New"), FIRST_MODIFIER "N", N_("Create a new diagram"), G_CALLBACK (file_new_callback) },
+    { "FileOpen", GTK_STOCK_OPEN, N_("_Open…"), FIRST_MODIFIER "O", N_("Open a diagram file"), G_CALLBACK (file_open_callback) },
+    { "FileQuit", GTK_STOCK_QUIT, N_("_Quit"), FIRST_MODIFIER "Q", N_("Quit Dia"), G_CALLBACK (file_quit_callback) },
   { "Help", NULL, N_("_Help"), NULL, NULL, NULL },
-    { "HelpContents", GTK_STOCK_HELP, NULL, "F1", N_("Dia help"), G_CALLBACK (help_manual_callback) },
-    { "HelpAbout", GTK_STOCK_ABOUT, NULL, NULL, N_("Dia version, authors, license"), G_CALLBACK (help_about_callback) }
+    { "HelpContents", GTK_STOCK_HELP, N_("_Help"), "F1", N_("Dia help"), G_CALLBACK (help_manual_callback) },
+    { "HelpAbout", GTK_STOCK_ABOUT, N_("_About"), NULL, N_("Dia version, authors, license"), G_CALLBACK (help_about_callback) }
 };
 
 /* Actions for toolbox menu */
 static const GtkActionEntry toolbox_entries[] =
 {
-    { "FileSheets", NULL, N_("Sheets and Objects\342\200\246"), "F9", N_("Manage sheets and their objects"), G_CALLBACK (sheets_dialog_show_callback) },
-    { "FilePrefs", GTK_STOCK_PREFERENCES, NULL, NULL, N_("Dia preferences"), G_CALLBACK (file_preferences_callback) },
-    { "FilePlugins", NULL, N_("Plugins\342\200\246"), NULL, N_("Manage plug-ins"), G_CALLBACK (file_plugins_callback) },
-    { "FileTree", NULL, N_("_Diagram Tree"), "F8", N_("Tree representation of diagrams"), G_CALLBACK (diagram_tree_show) }
+    { "FileSheets", NULL, N_("S_heets and Objects"), "F9", N_("Manage sheets and their objects"), G_CALLBACK (sheets_dialog_show_callback) },
+    { "FilePrefs", GTK_STOCK_PREFERENCES, N_("P_references"), NULL, N_("Dia preferences"), G_CALLBACK (file_preferences_callback) },
+    { "FilePlugins", NULL, N_("P_lugins…"), NULL, N_("Manage plug-ins"), G_CALLBACK (file_plugins_callback) },
+    { "FileTree", NULL, N_("Diagram _Tree"), "F8", N_("Tree representation of diagrams"), G_CALLBACK (diagram_tree_show) }
 };
 
 static const GtkToggleActionEntry integrated_ui_view_toggle_entries[] =
 {
-    { VIEW_MAIN_TOOLBAR_ACTION,   NULL, N_("Show Toolbar"),   NULL, N_("Show or hide the toolbar"), G_CALLBACK (view_main_toolbar_callback) },
-    { VIEW_MAIN_STATUSBAR_ACTION, NULL, N_("Show Statusbar"), NULL, N_("Show or hide the statusbar"), G_CALLBACK (view_main_statusbar_callback) },
-    { VIEW_LAYERS_ACTION,    NULL, N_("Show Layers"), FIRST_MODIFIER "L", N_("Show or hide the layers toolwindow"), G_CALLBACK (view_layers_callback) }
+    { VIEW_MAIN_TOOLBAR_ACTION, NULL, N_("Show _Toolbar"), NULL, N_("Show or hide the toolbar"), G_CALLBACK (view_main_toolbar_callback) },
+    { VIEW_MAIN_STATUSBAR_ACTION, NULL, N_("Show _Statusbar"), NULL, N_("Show or hide the statusbar"), G_CALLBACK (view_main_statusbar_callback) },
+    { VIEW_LAYERS_ACTION, NULL, N_("Show _Layers"), FIRST_MODIFIER "L", N_("Show or hide the layers toolwindow"), G_CALLBACK (view_layers_callback) }
 };
 
 /* Actions for diagram window */
 static const GtkActionEntry display_entries[] =
 {
-    { "FileSave", GTK_STOCK_SAVE, NULL, FIRST_MODIFIER "S", N_("Save the diagram"), G_CALLBACK (file_save_callback) },
-    { "FileSaveas", GTK_STOCK_SAVE_AS, N_("Save _As\342\200\246"), FIRST_MODIFIER "<shift>S", N_("Save the diagram with a new name"), G_CALLBACK (file_save_as_callback) },
-    { "FileExport", GTK_STOCK_CONVERT, N_("_Export\342\200\246"), NULL, N_("Export the diagram"), G_CALLBACK (file_export_callback) },
+    { "FileSave", GTK_STOCK_SAVE, N_("_Save"), FIRST_MODIFIER "S", N_("Save the diagram"), G_CALLBACK (file_save_callback) },
+    { "FileSaveas", GTK_STOCK_SAVE_AS, N_("Save _As…"), FIRST_MODIFIER "<shift>S", N_("Save the diagram with a new name"), G_CALLBACK (file_save_as_callback) },
+    { "FileExport", GTK_STOCK_CONVERT, N_("_Export…"), NULL, N_("Export the diagram"), G_CALLBACK (file_export_callback) },
     { "DiagramProperties", GTK_STOCK_PROPERTIES, N_("_Diagram Properties"), "<shift><alt>Return", N_("Modify diagram properties (grid, background)"), G_CALLBACK (view_diagram_properties_callback) },
-    { "FilePagesetup", NULL, N_("Page Set_up\342\200\246"), NULL, N_("Modify the diagram pagination"), G_CALLBACK (file_pagesetup_callback) },
-    { "FilePrint", GTK_STOCK_PRINT, N_("_Print\342\200\246"), FIRST_MODIFIER "P", N_("Print the diagram"), G_CALLBACK (file_print_callback) },
-    { "FileClose", GTK_STOCK_CLOSE, NULL, FIRST_MODIFIER "W", N_("Close the diagram"), G_CALLBACK (file_close_callback) },
+    { "FilePagesetup", NULL, N_("Page Set_up…"), NULL, N_("Modify the diagram pagination"), G_CALLBACK (file_pagesetup_callback) },
+    { "FilePrint", GTK_STOCK_PRINT, N_("_Print…"), FIRST_MODIFIER "P", N_("Print the diagram"), G_CALLBACK (file_print_callback) },
+    { "FileClose", GTK_STOCK_CLOSE, N_("_Close"), FIRST_MODIFIER "W", N_("Close the diagram"), G_CALLBACK (file_close_callback) },
 
   { "Edit", NULL, N_("_Edit"), NULL, NULL, NULL },
-    { "EditUndo", GTK_STOCK_UNDO, NULL, FIRST_MODIFIER "Z", N_("Undo"), G_CALLBACK (edit_undo_callback) },
-    { "EditRedo", GTK_STOCK_REDO, NULL, FIRST_MODIFIER "<shift>Z", N_("Redo"), G_CALLBACK (edit_redo_callback) },
+    { "EditUndo", GTK_STOCK_UNDO, N_("_Undo"), FIRST_MODIFIER "Z", N_("Undo"), G_CALLBACK (edit_undo_callback) },
+    { "EditRedo", GTK_STOCK_REDO, N_("_Redo"), FIRST_MODIFIER "<shift>Z", N_("Redo"), G_CALLBACK (edit_redo_callback) },
 
-    { "EditCopy", GTK_STOCK_COPY, NULL, FIRST_MODIFIER "C", N_("Copy selection"), G_CALLBACK (edit_copy_callback) },
-    { "EditCut", GTK_STOCK_CUT, NULL, FIRST_MODIFIER "X", N_("Cut selection"), G_CALLBACK (edit_cut_callback) },
-    { "EditPaste", GTK_STOCK_PASTE, NULL, FIRST_MODIFIER "V", N_("Paste selection"), G_CALLBACK (edit_paste_callback) },
+    { "EditCopy", GTK_STOCK_COPY, N_("_Copy"), FIRST_MODIFIER "C", N_("Copy selection"), G_CALLBACK (edit_copy_callback) },
+    { "EditCut", GTK_STOCK_CUT, N_("Cu_t"), FIRST_MODIFIER "X", N_("Cut selection"), G_CALLBACK (edit_cut_callback) },
+    { "EditPaste", GTK_STOCK_PASTE, N_("_Paste"), FIRST_MODIFIER "V", N_("Paste selection"), G_CALLBACK (edit_paste_callback) },
     { "EditDuplicate", NULL, N_("_Duplicate"), FIRST_MODIFIER "D", N_("Duplicate selection"), G_CALLBACK (edit_duplicate_callback) },
-    { "EditDelete", GTK_STOCK_DELETE, NULL, "Delete", N_("Delete selection"), G_CALLBACK (edit_delete_callback) },
+    { "EditDelete", GTK_STOCK_DELETE, N_("D_elete"), "Delete", N_("Delete selection"), G_CALLBACK (edit_delete_callback) },
 
-    { "EditFind", GTK_STOCK_FIND, N_("_Find\342\200\246"), FIRST_MODIFIER "F", N_("Search for text"), G_CALLBACK (edit_find_callback) },
-    { "EditReplace", GTK_STOCK_FIND_AND_REPLACE, N_("_Replace\342\200\246"), FIRST_MODIFIER "H", N_("Search and replace text"), G_CALLBACK (edit_replace_callback) },
+    { "EditFind", GTK_STOCK_FIND, N_("_Find…"), FIRST_MODIFIER "F", N_("Search for text"), G_CALLBACK (edit_find_callback) },
+    { "EditReplace", GTK_STOCK_FIND_AND_REPLACE, N_("_Replace…"), FIRST_MODIFIER "H", N_("Search and replace text"), G_CALLBACK (edit_replace_callback) },
 
     /* the following used to bind to <control><shift>C which collides with Unicode input.
      * <control><alt> doesn't work either */
-    { "EditCopytext", NULL, N_("Copy Text"), NULL, N_("Copy object's text to clipboard"), G_CALLBACK (edit_copy_text_callback) },
-    { "EditCuttext", NULL, N_("Cut Text"), FIRST_MODIFIER "<shift>X", N_("Cut object's text to clipboard"), G_CALLBACK (edit_cut_text_callback) },
-    { "EditPastetext", NULL, N_("Paste _Text"), FIRST_MODIFIER "<shift>V", N_("Insert text from clipboard"), G_CALLBACK (edit_paste_text_callback) } ,
+    { "EditCopytext", NULL, N_("C_opy Text"), NULL, N_("Copy object's text to clipboard"), G_CALLBACK (edit_copy_text_callback) },
+    { "EditCuttext", NULL, N_("C_ut Text"), FIRST_MODIFIER "<shift>X", N_("Cut object's text to clipboard"), G_CALLBACK (edit_cut_text_callback) },
+    { "EditPastetext", NULL, N_("P_aste Text"), FIRST_MODIFIER "<shift>V", N_("Insert text from clipboard"), G_CALLBACK (edit_paste_text_callback) } ,
 
     { "EditPasteImage", NULL, N_("Paste _Image"), FIRST_MODIFIER "<alt>V", N_("Insert image from clipboard"), G_CALLBACK (edit_paste_image_callback) },
 
   { "Layers", NULL, N_("_Layers"), NULL, NULL, NULL },
-    { "LayerAdd", DIA_STOCK_LAYER_ADD, N_("Add Layer\342\200\246"), NULL, NULL, G_CALLBACK (layers_add_layer_callback) },
-    { "LayerRename", DIA_STOCK_LAYER_RENAME, N_("Rename Layer\342\200\246"), NULL, NULL, G_CALLBACK (layers_rename_layer_callback) },
-    { "ObjectsLayerAbove", DIA_STOCK_OBJECTS_LAYER_ABOVE, N_("Move Selection to Layer above"), NULL, NULL, G_CALLBACK (objects_move_up_layer) },
-    { "ObjectsLayerBelow", DIA_STOCK_OBJECTS_LAYER_BELOW, N_("Move Selection to Layer below"), NULL, NULL, G_CALLBACK (objects_move_down_layer) },
-    { "DiagramLayers", DIA_STOCK_LAYERS, N_("_Layers\342\200\246"), FIRST_MODIFIER "L", NULL, G_CALLBACK (dialogs_layers_callback) },
+    { "LayerAdd", DIA_STOCK_LAYER_ADD, N_("_Add Layer…"), NULL, NULL, G_CALLBACK (layers_add_layer_callback) },
+    { "LayerRename", DIA_STOCK_LAYER_RENAME, N_("_Rename Layer…"), NULL, NULL, G_CALLBACK (layers_rename_layer_callback) },
+    { "ObjectsLayerAbove", DIA_STOCK_OBJECTS_LAYER_ABOVE, N_("_Move Selection to Layer above"), NULL, NULL, G_CALLBACK (objects_move_up_layer) },
+    { "ObjectsLayerBelow", DIA_STOCK_OBJECTS_LAYER_BELOW, N_("Move _Selection to Layer below"), NULL, NULL, G_CALLBACK (objects_move_down_layer) },
+    { "DiagramLayers", DIA_STOCK_LAYERS, N_("_Layers…"), FIRST_MODIFIER "L", NULL, G_CALLBACK (dialogs_layers_callback) },
+
   { "View", NULL, N_("_View"), NULL, NULL, NULL },
-    { "ViewZoomin", GTK_STOCK_ZOOM_IN, NULL, FIRST_MODIFIER "plus", N_("Zoom in"), G_CALLBACK (view_zoom_in_callback) },
-    { "ViewZoomout", GTK_STOCK_ZOOM_OUT, NULL, FIRST_MODIFIER "minus", N_("Zoom out"), G_CALLBACK (view_zoom_out_callback) },
+    { "ViewZoomin", GTK_STOCK_ZOOM_IN, N_("Zoom _In"), FIRST_MODIFIER "plus", N_("Zoom in"), G_CALLBACK (view_zoom_in_callback) },
+    { "ViewZoomout", GTK_STOCK_ZOOM_OUT, N_("Zoom _Out"), FIRST_MODIFIER "minus", N_("Zoom out"), G_CALLBACK (view_zoom_out_callback) },
     { "ViewZoom", NULL, N_("_Zoom"), NULL, NULL, NULL },
       { "ViewZoom16000", NULL, N_("1600%"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom8000", NULL, N_("800%"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
@@ -156,29 +157,29 @@ static const GtkActionEntry display_entries[] =
       { "ViewZoom2830", NULL, N_("283"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom2000", NULL, N_("200"), "<alt>2", NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom1410", NULL, N_("141"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
-      { "ViewZoom1000", GTK_STOCK_ZOOM_100, NULL, "<alt>1", NULL, G_CALLBACK (view_zoom_set_callback) },
+      { "ViewZoom1000", GTK_STOCK_ZOOM_100, N_("_Normal Size"), "<alt>1", NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom850", NULL, N_("85"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom707", NULL, N_("70.7"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom500", NULL, N_("50"), "<alt>5", NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom354", NULL, N_("35.4"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
       { "ViewZoom250", NULL, N_("25"), NULL, NULL, G_CALLBACK (view_zoom_set_callback) },
     /* Show All, Best Fit.  Same as the Gimp, Ctrl+E */
-    { "ViewShowall", GTK_STOCK_ZOOM_FIT, NULL, FIRST_MODIFIER "E", N_("Zoom fit"), G_CALLBACK (view_show_all_callback) },
+    { "ViewShowall", GTK_STOCK_ZOOM_FIT, N_("Best _Fit"), FIRST_MODIFIER "E", N_("Zoom fit"), G_CALLBACK (view_show_all_callback) },
 
   /* "display_toggle_entries" items go here */
 
     { "ViewNewview", NULL, N_("New _View"), NULL, NULL, G_CALLBACK (view_new_view_callback) },
     { "ViewCloneview", NULL, N_("C_lone View"), NULL, NULL, G_CALLBACK (view_clone_view_callback) },
-    { "ViewRedraw", GTK_STOCK_REFRESH, NULL, NULL, NULL, G_CALLBACK (view_redraw_callback) },
+    { "ViewRedraw", GTK_STOCK_REFRESH, N_("_Refresh"), NULL, NULL, G_CALLBACK (view_redraw_callback) },
 
-    { "ViewGuides", NULL, N_("Guides"), NULL, NULL, NULL },
-      { "ViewNewguide", NULL, N_("New Guide..."), NULL, NULL, G_CALLBACK (view_new_guide_callback) },
+    { "ViewGuides", NULL, N_("_Guides"), NULL, NULL, NULL },
+      { "ViewNewguide", NULL, N_("_New Guide..."), NULL, NULL, G_CALLBACK (view_new_guide_callback) },
 
   { "Objects", NULL, N_("_Objects"), NULL, NULL },
     { "ObjectsSendtoback", GTK_STOCK_GOTO_BOTTOM, N_("Send to _Back"), FIRST_MODIFIER "<shift>B", N_("Move selection to the bottom"), G_CALLBACK (objects_place_under_callback) },
     { "ObjectsBringtofront", GTK_STOCK_GOTO_TOP, N_("Bring to _Front"), FIRST_MODIFIER "<shift>F", N_("Move selection to the top"), G_CALLBACK (objects_place_over_callback) },
-    { "ObjectsSendbackwards", GTK_STOCK_GO_DOWN, N_("Send Backwards"), NULL, NULL, G_CALLBACK (objects_place_down_callback) },
-    { "ObjectsBringforwards", GTK_STOCK_GO_UP, N_("Bring Forwards"), NULL, NULL, G_CALLBACK (objects_place_up_callback) },
+    { "ObjectsSendbackwards", GTK_STOCK_GO_DOWN, N_("Send Ba_ckwards"), NULL, NULL, G_CALLBACK (objects_place_down_callback) },
+    { "ObjectsBringforwards", GTK_STOCK_GO_UP, N_("Bring F_orwards"), NULL, NULL, G_CALLBACK (objects_place_up_callback) },
 
     { "ObjectsGroup", DIA_STOCK_GROUP, N_("_Group"), FIRST_MODIFIER "G", N_("Group selected objects"), G_CALLBACK (objects_group_callback) },
     /* deliberately not using Ctrl+U for Ungroup */
@@ -188,35 +189,35 @@ static const GtkActionEntry display_entries[] =
     { "ObjectsUnparent", NULL, N_("_Unparent"), FIRST_MODIFIER "<shift>K", NULL, G_CALLBACK (objects_unparent_callback) },
     { "ObjectsUnparentchildren", NULL, N_("_Unparent Children"), NULL, NULL, G_CALLBACK (objects_unparent_children_callback) },
 
-    { "ObjectsAlign", NULL, N_("Align"), NULL, NULL, NULL },
-      { "ObjectsAlignLeft", GTK_STOCK_JUSTIFY_LEFT, NULL, "<alt><shift>L", NULL, G_CALLBACK (objects_align_h_callback) },
-      { "ObjectsAlignCenter", GTK_STOCK_JUSTIFY_CENTER, NULL, "<alt><shift>C", NULL, G_CALLBACK (objects_align_h_callback) },
-      { "ObjectsAlignRight", GTK_STOCK_JUSTIFY_RIGHT, NULL, "<alt><shift>R", NULL, G_CALLBACK (objects_align_h_callback) },
+    { "ObjectsAlign", NULL, N_("_Align"), NULL, NULL, NULL },
+      { "ObjectsAlignLeft", GTK_STOCK_JUSTIFY_LEFT, N_("_Left"), "<alt><shift>L", NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignCenter", GTK_STOCK_JUSTIFY_CENTER, N_("_Center"), "<alt><shift>C", NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignRight", GTK_STOCK_JUSTIFY_RIGHT, N_("_Right"), "<alt><shift>R", NULL, G_CALLBACK (objects_align_h_callback) },
 
-      { "ObjectsAlignTop", NULL, N_("Top"), "<alt><shift>T", NULL, G_CALLBACK (objects_align_v_callback) },
-      { "ObjectsAlignMiddle", NULL, N_("Middle"), "<alt><shift>M", NULL, G_CALLBACK (objects_align_v_callback) },
-      { "ObjectsAlignBottom", NULL, N_("Bottom"), "<alt><shift>B", NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignTop", NULL, N_("_Top"), "<alt><shift>T", NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignMiddle", NULL, N_("_Middle"), "<alt><shift>M", NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignBottom", NULL, N_("_Bottom"), "<alt><shift>B", NULL, G_CALLBACK (objects_align_v_callback) },
 
-      { "ObjectsAlignSpreadouthorizontally", NULL, N_("Spread Out Horizontally"), "<alt><shift>H", NULL, G_CALLBACK (objects_align_h_callback) },
-      { "ObjectsAlignSpreadoutvertically", NULL, N_("Spread Out Vertically"), "<alt><shift>V", NULL, G_CALLBACK (objects_align_v_callback) },
-      { "ObjectsAlignAdjacent", NULL, N_("Adjacent"), "<alt><shift>A", NULL, G_CALLBACK (objects_align_h_callback) },
-      { "ObjectsAlignStacked", NULL, N_("Stacked"), "<alt><shift>S", NULL, G_CALLBACK (objects_align_v_callback) },
-      { "ObjectsAlignConnected", NULL, N_("Connected"), "<alt><shift>O", NULL, G_CALLBACK (objects_align_connected_callback) },
+      { "ObjectsAlignSpreadouthorizontally", NULL, N_("Spread Out _Horizontally"), "<alt><shift>H", NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignSpreadoutvertically", NULL, N_("Spread Out _Vertically"), "<alt><shift>V", NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignAdjacent", NULL, N_("_Adjacent"), "<alt><shift>A", NULL, G_CALLBACK (objects_align_h_callback) },
+      { "ObjectsAlignStacked", NULL, N_("_Stacked"), "<alt><shift>S", NULL, G_CALLBACK (objects_align_v_callback) },
+      { "ObjectsAlignConnected", NULL, N_("_Connected"), "<alt><shift>O", NULL, G_CALLBACK (objects_align_connected_callback) },
 
-      { "ObjectsProperties", GTK_STOCK_PROPERTIES, NULL, "<alt>Return", NULL, G_CALLBACK (dialogs_properties_callback) },
+      { "ObjectsProperties", GTK_STOCK_PROPERTIES, N_("_Properties"), "<alt>Return", NULL, G_CALLBACK (dialogs_properties_callback) },
 
   { "Select", NULL, N_("_Select"), NULL, NULL, NULL },
-    { "SelectAll", NULL, N_("All"), FIRST_MODIFIER "A", NULL, G_CALLBACK (select_all_callback) },
-    { "SelectNone", NULL, N_("None"), FIRST_MODIFIER "<shift>A", NULL, G_CALLBACK (select_none_callback) },
-    { "SelectInvert", NULL, N_("Invert"), FIRST_MODIFIER "I", NULL, G_CALLBACK (select_invert_callback) },
+    { "SelectAll", NULL, N_("_All"), FIRST_MODIFIER "A", NULL, G_CALLBACK (select_all_callback) },
+    { "SelectNone", NULL, N_("_None"), FIRST_MODIFIER "<shift>A", NULL, G_CALLBACK (select_none_callback) },
+    { "SelectInvert", NULL, N_("_Invert"), FIRST_MODIFIER "I", NULL, G_CALLBACK (select_invert_callback) },
 
-    { "SelectTransitive", NULL, N_("Transitive"), FIRST_MODIFIER "T", NULL, G_CALLBACK (select_transitive_callback) },
-    { "SelectConnected", NULL, N_("Connected"), FIRST_MODIFIER "<shift>T", NULL, G_CALLBACK (select_connected_callback) },
-    { "SelectSametype", NULL, N_("Same Type"), NULL, NULL, G_CALLBACK (select_same_type_callback) },
+    { "SelectTransitive", NULL, N_("_Transitive"), FIRST_MODIFIER "T", NULL, G_CALLBACK (select_transitive_callback) },
+    { "SelectConnected", NULL, N_("_Connected"), FIRST_MODIFIER "<shift>T", NULL, G_CALLBACK (select_connected_callback) },
+    { "SelectSametype", NULL, N_("Same _Type"), NULL, NULL, G_CALLBACK (select_same_type_callback) },
 
     /* display_select_radio_entries go here */
 
-    { "SelectBy", NULL, N_("Select By"), NULL, NULL, NULL },
+    { "SelectBy", NULL, N_("_Select By"), NULL, NULL, NULL },
 
   /* For placment of the toplevel Layout menu and it's accelerator */
   { "Layout", NULL, N_("L_ayout"), NULL, NULL, NULL },
@@ -230,51 +231,51 @@ static const GtkActionEntry display_entries[] =
 static const GtkActionEntry tool_entries[] =
 {
   { "Tools", NULL, N_("_Tools"), NULL, NULL, NULL },
-    { "ToolsModify", NULL, N_("Modify"), TOOL_MODIFIER "N", NULL, NULL },
-    { "ToolsMagnify", NULL, N_("Magnify"), TOOL_MODIFIER "M", NULL, NULL },
-    { "ToolsTextedit", NULL, N_("Edit Text"), "F2", NULL, NULL },
-    { "ToolsScroll", NULL, N_("Scroll"), TOOL_MODIFIER "S", NULL, NULL },
-    { "ToolsText", NULL, N_("Text"), TOOL_MODIFIER "T", NULL, NULL },
-    { "ToolsBox", NULL, N_("Box"), TOOL_MODIFIER "R", NULL, NULL },
-    { "ToolsEllipse", NULL, N_("Ellipse"), TOOL_MODIFIER "E", NULL, NULL },
-    { "ToolsPolygon", NULL, N_("Polygon"), TOOL_MODIFIER "P", NULL, NULL },
-    { "ToolsBeziergon", NULL, N_("Beziergon"), TOOL_MODIFIER "B", NULL, NULL },
+    { "ToolsModify", NULL, N_("_Modify"), TOOL_MODIFIER "N", NULL, NULL },
+    { "ToolsMagnify", NULL, N_("_Magnify"), TOOL_MODIFIER "M", NULL, NULL },
+    { "ToolsTextedit", NULL, N_("_Edit Text"), "F2", NULL, NULL },
+    { "ToolsScroll", NULL, N_("_Scroll"), TOOL_MODIFIER "S", NULL, NULL },
+    { "ToolsText", NULL, N_("_Text"), TOOL_MODIFIER "T", NULL, NULL },
+    { "ToolsBox", NULL, N_("_Box"), TOOL_MODIFIER "R", NULL, NULL },
+    { "ToolsEllipse", NULL, N_("_Ellipse"), TOOL_MODIFIER "E", NULL, NULL },
+    { "ToolsPolygon", NULL, N_("_Polygon"), TOOL_MODIFIER "P", NULL, NULL },
+    { "ToolsBeziergon", NULL, N_("_Beziergon"), TOOL_MODIFIER "B", NULL, NULL },
 
-    { "ToolsLine", NULL, N_("Line"), TOOL_MODIFIER "L", NULL, NULL },
-    { "ToolsArc", NULL, N_("Arc"), TOOL_MODIFIER "A", NULL, NULL },
-    { "ToolsZigzagline", NULL, N_("Zigzagline"), TOOL_MODIFIER "Z", NULL, NULL },
-    { "ToolsPolyline", NULL, N_("Polyline"), TOOL_MODIFIER "Y", NULL },
-    { "ToolsBezierline", NULL, N_("Bezierline"), TOOL_MODIFIER "C", NULL, NULL },
-    { "ToolsOutline", NULL, N_("Outline"), TOOL_MODIFIER "O", NULL, NULL },
+    { "ToolsLine", NULL, N_("_Line"), TOOL_MODIFIER "L", NULL, NULL },
+    { "ToolsArc", NULL, N_("_Arc"), TOOL_MODIFIER "A", NULL, NULL },
+    { "ToolsZigzagline", NULL, N_("_Zigzagline"), TOOL_MODIFIER "Z", NULL, NULL },
+    { "ToolsPolyline", NULL, N_("_Polyline"), TOOL_MODIFIER "Y", NULL },
+    { "ToolsBezierline", NULL, N_("_Bezierline"), TOOL_MODIFIER "C", NULL, NULL },
+    { "ToolsOutline", NULL, N_("_Outline"), TOOL_MODIFIER "O", NULL, NULL },
 
-    { "ToolsImage", NULL, N_("Image"), TOOL_MODIFIER "I", NULL, NULL },
+    { "ToolsImage", NULL, N_("_Image"), TOOL_MODIFIER "I", NULL, NULL },
 };
 
 /* Toggle-Actions for diagram window */
 static const GtkToggleActionEntry display_toggle_entries[] =
 {
-    { "ViewFullscreen", GTK_STOCK_FULLSCREEN, NULL, "F11", NULL, G_CALLBACK (view_fullscreen_callback) },
+    { "ViewFullscreen", GTK_STOCK_FULLSCREEN, N_("_Fullscreen"), "F11", NULL, G_CALLBACK (view_fullscreen_callback) },
     { "ViewAntialiased", NULL, N_("_Antialiased"), NULL, NULL, G_CALLBACK (view_aa_callback) },
     { "ViewShowgrid", NULL, N_("Show _Grid"), NULL, NULL, G_CALLBACK (view_visible_grid_callback) },
     { "ViewSnaptogrid", NULL, N_("_Snap to Grid"), NULL, NULL, G_CALLBACK (view_snap_to_grid_callback) },
-    { "ViewShowguides", NULL, N_("Show Guides"), NULL, NULL, G_CALLBACK (view_visible_guides_callback) },
-    { "ViewSnaptoguides", NULL, N_("Snap to Guides"), NULL, NULL, G_CALLBACK (view_snap_to_guides_callback) },
-    { "ViewRemoveallguides", NULL, N_("Remove all Guides"), NULL, NULL, G_CALLBACK (view_remove_all_guides_callback) },
+    { "ViewShowguides", NULL, N_("_Show Guides"), NULL, NULL, G_CALLBACK (view_visible_guides_callback) },
+    { "ViewSnaptoguides", NULL, N_("Snap to _Guides"), NULL, NULL, G_CALLBACK (view_snap_to_guides_callback) },
+    { "ViewRemoveallguides", NULL, N_("_Remove all Guides"), NULL, NULL, G_CALLBACK (view_remove_all_guides_callback) },
     { "ViewSnaptoobjects", NULL, N_("Snap to _Objects"), NULL, NULL, G_CALLBACK (view_snap_to_objects_callback) },
     { "ViewShowrulers", NULL, N_("Show _Rulers"), NULL, NULL, G_CALLBACK (view_toggle_rulers_callback)  },
-    { "ViewShowscrollbars", NULL, N_("Show Scrollbars"), NULL, N_("Show or hide the toolbar"), G_CALLBACK (view_toggle_scrollbars_callback) },
+    { "ViewShowscrollbars", NULL, N_("Show Scroll_bars"), NULL, N_("Show or hide the toolbar"), G_CALLBACK (view_toggle_scrollbars_callback) },
     { "ViewShowconnectionpoints", NULL, N_("Show _Connection Points"), NULL, NULL, G_CALLBACK (view_show_cx_pts_callback) }
 };
 
 /* Radio-Actions for the diagram window's "Select"-Menu */
 static const GtkRadioActionEntry display_select_radio_entries[] =
 {
-  { "SelectReplace", NULL, N_("Replace"), NULL, NULL, SELECT_REPLACE },
-  { "SelectUnion", NULL, N_("Union"), NULL, NULL, SELECT_UNION },
-  { "SelectIntersection", NULL, N_("Intersection"), NULL, NULL, SELECT_INTERSECTION },
-  { "SelectRemove", NULL, N_("Remove"), NULL, NULL, SELECT_REMOVE },
+  { "SelectReplace", NULL, N_("_Replace"), NULL, NULL, SELECT_REPLACE },
+  { "SelectUnion", NULL, N_("_Union"), NULL, NULL, SELECT_UNION },
+  { "SelectIntersection", NULL, N_("I_ntersection"), NULL, NULL, SELECT_INTERSECTION },
+  { "SelectRemove", NULL, N_("R_emove"), NULL, NULL, SELECT_REMOVE },
   /* Cannot also be called Invert, duplicate names caused keybinding problems */
-  { "SelectInverse", NULL, N_("Inverse"), NULL, NULL, SELECT_INVERT }
+  { "SelectInverse", NULL, N_("In_verse"), NULL, NULL, SELECT_INVERT }
 };
 
 /* need initialisation? */

@@ -48,10 +48,10 @@ def annotate_cb (data, flags) :
 
 		dest.add_object (a)
 
-dia.register_action ("DrawBoundingbox", "Draw BoundingBox", 
-                     "/DisplayMenu/Debug/DebugExtensionStart", 
+dia.register_action ("DrawBoundingbox", "_Draw BoundingBox",
+                     "/DisplayMenu/Debug/DebugExtensionStart",
                      bbox_cb)
 
-dia.register_action ("AnnotateMeasurements", "Annotate", 
-                     "/DisplayMenu/Debug/DebugExtensionStart", 
+dia.register_action ("AnnotateMeasurements", "_Annotate",
+                     "/DisplayMenu/Debug/DebugExtensionStart",
                      annotate_cb)

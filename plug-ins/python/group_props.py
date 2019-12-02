@@ -177,6 +177,6 @@ def dia_objects_props_cb (data, flags) :
 	except ImportError :
 		dia.message(0, "Dialog creation failed. Missing pygtk?")
 
-dia.register_action ("DialogsGroupproperties", "Dia Group Properties", 
-                      "/DisplayMenu/Dialogs/DialogsExtensionStart", 
+dia.register_action ("DialogsGroupproperties", "Dia _Group Properties",
+                      "/DisplayMenu/Dialogs/DialogsExtensionStart",
                        dia_objects_props_cb)

@@ -79,6 +79,6 @@ def isheets_cb (data, flags) :
 	dia.message(0, "'" + path + "' saved.")
 	webbrowser.open('file://' + os.path.realpath(path))
 
-dia.register_action ("HelpInspectSheets", "Dia Sheets Inspection",
+dia.register_action ("HelpInspectSheets", "Dia _Sheets Inspection",
                      "/ToolboxMenu/Help/HelpExtensionStart",
                      isheets_cb)

@@ -25,6 +25,6 @@ def select_empty_cb (data, flags) :
 			or o.bounding_box.top == o.bounding_box.bottom :
 			diagram.select (o)
 
-dia.register_action ("SelectEmpty", "Empty", 
-                       "/DisplayMenu/Select/By/SelectByExtensionStart", 
+dia.register_action ("SelectEmpty", "_Empty",
+                       "/DisplayMenu/Select/By/SelectByExtensionStart",
                        select_empty_cb)

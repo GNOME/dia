@@ -66,5 +66,5 @@ def mark_cps (data, flags) :
 		adisp.diagram.flush()
 
 
-dia.register_action("DebugMarkConnectionPoints", "Mark Connection Points",
+dia.register_action("DebugMarkConnectionPoints", "_Mark Connection Points",
 		    "/DisplayMenu/Debug/DebugExtensionStart", mark_cps)
