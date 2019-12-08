@@ -573,8 +573,6 @@ edit_replace_callback(GtkAction *action)
      * the default "Find and Replace" is just too long for my taste ;)
      */
     button = gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Replace"), RESPONSE_REPLACE);
-    gtk_button_set_image (GTK_BUTTON (button),
-                          gtk_image_new_from_stock (_("Find and _Replace"), GTK_ICON_SIZE_BUTTON));
 
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Find"), RESPONSE_FIND);
 

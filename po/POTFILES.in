@@ -41,6 +41,10 @@ app/winmain.c
 data/org.gnome.Dia.appdata.xml.in
 data/org.gnome.Dia.desktop.in
 data/ui/properties-dialog.ui
+data/ui/sheets-edit-dialog.xml
+data/ui/sheets-main-dialog.xml
+data/ui/sheets-new-dialog.xml
+data/ui/sheets-remove-dialog.xml
 installer/win32/gennsh.c
 lib/arrows.c
 lib/attributes.c

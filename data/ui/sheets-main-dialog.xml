@@ -40,12 +40,12 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_move_up">
-                    <property name="label">gtk-go-up</property>
+                    <property name="label">_Up</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="can_default">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_stock">True</property>
+                    <property name="use-underline">True</property>
                     <accelerator key="u" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                   </object>
                   <packing>
@@ -56,12 +56,12 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_move_down">
-                    <property name="label">gtk-go-down</property>
+                    <property name="label">_Down</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="can_default">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_stock">True</property>
+                    <property name="use-underline">True</property>
                     <accelerator key="d" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                   </object>
                   <packing>
@@ -72,12 +72,12 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_remove">
-                    <property name="label">gtk-remove</property>
+                    <property name="label">_Remove</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="can_default">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_stock">True</property>
+                    <property name="use-underline">True</property>
                     <accelerator key="r" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                   </object>
                   <packing>
@@ -88,11 +88,11 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_copy">
-                    <property name="label" translatable="yes">&lt;- Copy</property>
+                    <property name="label" translatable="yes">&lt;- C_opy</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_underline">True</property>
+                    <property name="use-underline">True</property>
                     <accelerator key="c" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                   </object>
                   <packing>
@@ -103,11 +103,11 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_copy_all">
-                    <property name="label" translatable="yes">&lt;- Copy All</property>
+                    <property name="label" translatable="yes">&lt;- Copy _All</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_underline">True</property>
+                    <property name="use-underline">True</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -117,11 +117,11 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_move">
-                    <property name="label" translatable="yes">&lt;- Move</property>
+                    <property name="label" translatable="yes">&lt;- _Move</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_underline">True</property>
+                    <property name="use-underline">True</property>
                     <accelerator key="m" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                   </object>
                   <packing>
@@ -132,11 +132,11 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_move_all">
-                    <property name="label" translatable="yes">&lt;- Move All</property>
+                    <property name="label" translatable="yes">&lt;- Move A_ll</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="use_underline">True</property>
+                    <property name="use-underline">True</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -253,12 +253,12 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button_new">
-                <property name="label">gtk-new</property>
+                <property name="label">_New</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
+                <property name="use-underline">True</property>
                 <accelerator key="n" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
@@ -269,12 +269,12 @@
             </child>
             <child>
               <object class="GtkButton" id="button_apply">
-                <property name="label">gtk-apply</property>
+                <property name="label">_Apply</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
+                <property name="use-underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -299,12 +299,12 @@
             </child>
             <child>
               <object class="GtkButton" id="button_close">
-                <property name="label">gtk-close</property>
+                <property name="label">_Close</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
+                <property name="use-underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>

@@ -103,7 +103,7 @@ dia_line_width_area_create_dialog (DiaLineWidthArea *self,
 
   self->dialog = gtk_dialog_new_with_buttons (_("Line width"), toplevel, 0,
                                               _("Cancel"), GTK_RESPONSE_CANCEL,
-                                              _("Okay"), GTK_RESPONSE_OK,
+                                              _("OK"), GTK_RESPONSE_OK,
                                               NULL);
 
   gtk_dialog_set_default_response (GTK_DIALOG(self->dialog), GTK_RESPONSE_OK);
