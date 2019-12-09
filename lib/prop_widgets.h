@@ -56,7 +56,6 @@ typedef struct {
   Property common;
   gint selected;
   GPtrArray *lines;
-  gint w_selected;
 } ListProperty;
 
 void prop_widgets_register(void);
