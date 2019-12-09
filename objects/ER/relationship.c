@@ -244,7 +244,7 @@ relationship_draw (Relationship *relationship, DiaRenderer *renderer)
   Point lc, rc;
   Point p;
   Element *elem;
-  coord diff;
+  double diff;
   Alignment left_align;
 
   assert(relationship != NULL);

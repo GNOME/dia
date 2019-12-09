@@ -288,8 +288,8 @@ new_display(Diagram *dia)
 
 void
 ddisplay_transform_coords_double (DDisplay *ddisp,
-                                  coord     x,
-                                  coord     y,
+                                  double    x,
+                                  double    y,
                                   double   *xi,
                                   double   *yi)
 {
@@ -304,8 +304,8 @@ ddisplay_transform_coords_double (DDisplay *ddisp,
 
 void
 ddisplay_transform_coords (DDisplay *ddisp,
-                           coord     x,
-                           coord     y,
+                           double    x,
+                           double    y,
                            int      *xi,
                            int      *yi)
 {
@@ -338,8 +338,8 @@ void
 ddisplay_untransform_coords (DDisplay *ddisp,
                              int       xi,
                              int       yi,
-                             coord    *x,
-                             coord    *y)
+                             double   *x,
+                             double   *y)
 {
   DiaRectangle *visible = &ddisp->visible;
   int width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
@@ -580,8 +580,9 @@ ddisplay_update_scrollbars(DDisplay *ddisp)
   g_signal_emit_by_name (G_OBJECT (ddisp->vsbdata), "changed");
 }
 
+
 void
-ddisplay_set_origo (DDisplay *ddisp, coord x, coord y)
+ddisplay_set_origo (DDisplay *ddisp, double x, double y)
 {
   DiaRectangle *extents = &ddisp->diagram->data->extents;
   DiaRectangle *visible = &ddisp->visible;

@@ -175,7 +175,8 @@ static void association_set_state(Association *assoc,
 static DiaObject *association_load(ObjectNode obj_node, int version, DiaContext *ctx);
 
 static void association_update_data(Association *assoc);
-static coord get_aggregate_pos_diff(AssociationEnd *end, const Association *assoc);
+static double get_aggregate_pos_diff (AssociationEnd *end,
+                                      const Association *assoc);
 
 static ObjectTypeOps association_type_ops =
 {
@@ -766,11 +767,11 @@ association_update_data(Association *assoc)
   association_update_data_end(assoc, 1);
 }
 
-static coord
-get_aggregate_pos_diff(AssociationEnd *end, const Association *assoc)
+static double
+get_aggregate_pos_diff (AssociationEnd *end, const Association *assoc)
 {
-  coord width=0;
-  if(end->arrow){
+  double width = 0;
+  if (end->arrow){
     width = ASSOCIATION_TRIANGLESIZE;
   }
   switch(end->aggregate){

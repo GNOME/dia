@@ -117,10 +117,13 @@ dia_untransform_length(DiaTransform *t, real len)
   return len / *(t->factor);
 }
 
+
 void
 dia_transform_coords (DiaTransform *t,
-                      coord x, coord y,
-                      int *xi, int *yi)
+                      double        x,
+                      double        y,
+                      int          *xi,
+                      int          *yi)
 {
   g_return_if_fail (DIA_IS_TRANSFORM (t));
   g_return_if_fail (t != NULL && t->factor != NULL);
@@ -129,10 +132,13 @@ dia_transform_coords (DiaTransform *t,
   *yi = ROUND ( (y - t->visible->top) * *(t->factor));
 }
 
+
 void
 dia_transform_coords_double (DiaTransform *t,
-                             coord x, coord y,
-                             double *xd, double *yd)
+                             double        x,
+                             double        y,
+                             double       *xd,
+                             double       *yd)
 {
   g_return_if_fail (DIA_IS_TRANSFORM (t));
   g_return_if_fail (t != NULL && t->factor != NULL);

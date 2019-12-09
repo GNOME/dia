@@ -864,7 +864,7 @@ bezier_add_lines(BezierApprox *bezier,
   Point r[4];
   Point s[4];
   Point middle;
-  coord delta;
+  double delta;
   real v_len_sq;
 
   /* Check if almost flat: */
@@ -963,24 +963,27 @@ approximate_bezier (BezierApprox *bezier,
     g_warning("first BezPoint must be a BEZ_MOVE_TO");
   curve[3] = points[0].p1;
   bezier_add_point(bezier, &points[0].p1);
-  for (i = 1; i < numpoints; i++)
+  for (i = 1; i < numpoints; i++) {
     switch (points[i].type) {
-    case BEZ_MOVE_TO:
-      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-      curve[3] = points[i].p1;
-      break;
-    case BEZ_LINE_TO:
-      bezier_add_point(bezier, &points[i].p1);
-      curve[3] = points[i].p1;
-      break;
-    case BEZ_CURVE_TO:
-      curve[0] = curve[3];
-      curve[1] = points[i].p1;
-      curve[2] = points[i].p2;
-      curve[3] = points[i].p3;
-      bezier_add_curve(bezier, curve);
-      break;
+      case BEZ_MOVE_TO:
+        g_warning("only first BezPoint can be a BEZ_MOVE_TO");
+        curve[3] = points[i].p1;
+        break;
+      case BEZ_LINE_TO:
+        bezier_add_point(bezier, &points[i].p1);
+        curve[3] = points[i].p1;
+        break;
+      case BEZ_CURVE_TO:
+        curve[0] = curve[3];
+        curve[1] = points[i].p1;
+        curve[2] = points[i].p2;
+        curve[3] = points[i].p3;
+        bezier_add_curve(bezier, curve);
+        break;
+      default:
+        g_return_if_reached ();
     }
+  }
 }
 
 /*!

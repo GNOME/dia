@@ -46,8 +46,8 @@
 void
 rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
 {
-  coord x = p->x;
-  coord y = p->y;
+  double x = p->x;
+  double y = p->y;
 
   p->x = x * cos(angle) - y * sin(angle) ;
   p->y = x * sin(angle) + y * cos(angle) ;

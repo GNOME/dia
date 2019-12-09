@@ -246,7 +246,7 @@ dia_line_width_area_init (DiaLineWidthArea *self)
 
 
 GtkWidget *
-dia_line_width_area_new ()
+dia_line_width_area_new (void)
 {
   GtkWidget *event_box;
 

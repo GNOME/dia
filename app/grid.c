@@ -463,7 +463,7 @@ guidelines_draw (DDisplay *ddisp, DiaRectangle *update)
 
 
 void
-snap_to_grid (DDisplay *ddisp, coord *x, coord *y)
+snap_to_grid (DDisplay *ddisp, double *x, double *y)
 {
   /* First snap to guides - only if they are visible and the setting is
    * turned on. */

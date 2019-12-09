@@ -231,7 +231,7 @@ entity_draw (Entity *entity, DiaRenderer *renderer)
   Point ul_corner, lr_corner;
   Point p;
   Element *elem;
-  coord diff;
+  double diff;
 
   assert(entity != NULL);
   assert(renderer != NULL);

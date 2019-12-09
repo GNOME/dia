@@ -70,12 +70,12 @@ aadlbox_project_point_on_rectangle(DiaRectangle *rectangle,Point *p,real *angle)
 {
 
   /* top left corner */
-  coord x1 = rectangle->left;
-  coord y1 = rectangle->top;
+  double x1 = rectangle->left;
+  double y1 = rectangle->top;
 
   /* bottom right corner */
-  coord x2 = rectangle->right;
-  coord y2 = rectangle->bottom;
+  double x2 = rectangle->right;
+  double y2 = rectangle->bottom;
 
   /* _ outside box: */
 

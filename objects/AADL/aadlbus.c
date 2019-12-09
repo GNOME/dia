@@ -102,12 +102,12 @@ aadlbus_project_point_on_nearest_border(Aadlbox *aadlbox,Point *p,
   real h = element->height;
 
   /* top left corner */
-  coord x1 = element->corner.x;
-  coord y1 = element->corner.y;
+  double x1 = element->corner.x;
+  double y1 = element->corner.y;
 
   /* bottom right corner */
-  coord x2 = element->corner.x + w;
-  coord y2 = element->corner.y + h;
+  double x2 = element->corner.x + w;
+  double y2 = element->corner.y + h;
 
 
   if ( p->x >= x1 + w*AADL_BUS_ARROW_SIZE_FACTOR

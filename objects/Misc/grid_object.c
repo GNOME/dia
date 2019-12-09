@@ -242,7 +242,7 @@ grid_object_update_data(Grid_Object *grid_object)
   real cell_width = (elem->width - 2.0 * inset) / grid_object->grid_cols;
   real cell_height = (elem->height - 2.0 * inset) / grid_object->grid_rows;
   int i, j;
-  coord left, top;
+  double left, top;
 
   extra->border_trans = grid_object->border_line_width / 2.0;
   element_update_boundingbox(elem);

@@ -76,12 +76,11 @@ G_BEGIN_DECLS
    |
    V  y
  */
-typedef real coord;
 
 /*! \brief A two dimensional position */
 struct _Point {
-  coord x; /*!< horizontal */
-  coord y; /*!< vertical */
+  double x; /*!< horizontal */
+  double y; /*!< vertical */
 };
 
 /**
@@ -94,13 +93,13 @@ struct _Point {
  * A rectangle given by upper left and lower right corner
  */
 struct _DiaRectangle {
-  coord left; /*!< x1 */
-  coord top; /*!< y1 */
-  coord right; /*!< x2 */
-  coord bottom; /*!< y2 */
+  double left; /*!< x1 */
+  double top; /*!< y1 */
+  double right; /*!< x2 */
+  double bottom; /*!< y2 */
 };
 
-/*! \brief A rectangle for fixed point e.g. pixel coordinates */
+/*! \brief A rectangle for fixed point e.g. pixel doubleinates */
 struct _IntRectangle {
   int left; /*!< x1 */
   int top; /*!< y1 */

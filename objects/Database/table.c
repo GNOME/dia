@@ -1194,7 +1194,7 @@ table_update_positions (Table *table)
   ConnectionPoint * connections = table->connections;
   Element * elem = &table->element;
   GList * list;
-  coord x, y;
+  double x, y;
   real pointspacing;
   gint i;
   gint pointswide;

@@ -125,15 +125,21 @@ DDisplay *new_display(Diagram *dia);
 DDisplay *copy_display(DDisplay *orig_ddisp);
 /* Normal destroy is done through shell widget destroy event. */
 void ddisplay_really_destroy(DDisplay *ddisp);
-void ddisplay_transform_coords_double(DDisplay *ddisp,
-				      coord x, coord y,
-				      double *xi, double *yi);
-void ddisplay_transform_coords(DDisplay *ddisp,
-			       coord x, coord y,
-			       int *xi, int *yi);
-void ddisplay_untransform_coords(DDisplay *ddisp,
-				 int xi, int yi,
-				 coord *x, coord *y);
+void ddisplay_transform_coords_double (DDisplay *ddisp,
+                                       double    x,
+                                       double    y,
+                                       double   *xi,
+                                       double   *yi);
+void ddisplay_transform_coords        (DDisplay *ddisp,
+                                       double    x,
+                                       double    y,
+                                       int      *xi,
+                                       int      *yi);
+void ddisplay_untransform_coords      (DDisplay *ddisp,
+                                       int       xi,
+                                       int       yi,
+                                       double   *x,
+                                       double   *y);
 real ddisplay_transform_length(DDisplay *ddisp, real len);
 real ddisplay_untransform_length(DDisplay *ddisp, real len);
 void ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
@@ -144,8 +150,9 @@ void ddisplay_add_update_with_border(DDisplay *ddisp, const DiaRectangle *rect,
 void ddisplay_add_update(DDisplay *ddisp, const DiaRectangle *rect);
 void ddisplay_flush(DDisplay *ddisp);
 void ddisplay_update_scrollbars(DDisplay *ddisp);
-void ddisplay_set_origo(DDisplay *ddisp,
-			coord x, coord y);
+void ddisplay_set_origo                 (DDisplay *ddisp,
+                                         double    x,
+                                         double    y);
 void ddisplay_zoom(DDisplay *ddisp, Point *point,
 		   real zoom_factor);
 void ddisplay_zoom_middle(DDisplay *ddisp, real magnify);

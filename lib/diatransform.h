@@ -15,11 +15,22 @@ G_BEGIN_DECLS
 
 GType dia_transform_get_type (void) G_GNUC_CONST;
 
-DiaTransform *dia_transform_new (DiaRectangle *rect, real* zoom);
-real dia_transform_length (DiaTransform *transform, real len);
-void dia_transform_coords (DiaTransform *transform, coord x, coord y, int *xi, int *yi);
-void dia_transform_coords_double (DiaTransform *transform, coord x, coord y, double *xd, double *yd);
-real dia_untransform_length(DiaTransform *t, real len);
+DiaTransform *dia_transform_new           (DiaRectangle *rect,
+                                           double       *zoom);
+real          dia_transform_length        (DiaTransform *transform,
+                                           double        len);
+void          dia_transform_coords        (DiaTransform *transform,
+                                           double        x,
+                                           double        y,
+                                           int          *xi,
+                                           int          *yi);
+void          dia_transform_coords_double (DiaTransform *transform,
+                                           double        x,
+                                           double        y,
+                                           double       *xd,
+                                           double       *yd);
+real          dia_untransform_length      (DiaTransform *t,
+                                           real          len);
 
 G_END_DECLS
 

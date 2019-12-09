@@ -238,17 +238,18 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
 
   switch(mode) {
-  case LINECAPS_BUTT:
-    renderer->linecap = "butt";
-    break;
-  case LINECAPS_ROUND:
-    renderer->linecap = "round";
-    break;
-  case LINECAPS_PROJECTING:
-    renderer->linecap = "square";
-    break;
-  default:
-    renderer->linecap = "butt";
+    case LINECAPS_BUTT:
+      renderer->linecap = "butt";
+      break;
+    case LINECAPS_ROUND:
+      renderer->linecap = "round";
+      break;
+    case LINECAPS_PROJECTING:
+      renderer->linecap = "square";
+      break;
+    case LINECAPS_DEFAULT:
+    default:
+      renderer->linecap = "butt";
   }
 }
 
@@ -262,17 +263,18 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
 
   switch(mode) {
-  case LINEJOIN_MITER:
-    renderer->linejoin = "miter";
-    break;
-  case LINEJOIN_ROUND:
-    renderer->linejoin = "round";
-    break;
-  case LINEJOIN_BEVEL:
-    renderer->linejoin = "bevel";
-    break;
-  default:
-    renderer->linejoin = "miter";
+    case LINEJOIN_MITER:
+      renderer->linejoin = "miter";
+      break;
+    case LINEJOIN_ROUND:
+      renderer->linejoin = "round";
+      break;
+    case LINEJOIN_BEVEL:
+      renderer->linejoin = "bevel";
+      break;
+    case LINECAPS_DEFAULT:
+    default:
+      renderer->linejoin = "miter";
   }
 }
 
@@ -294,51 +296,52 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
     dash_length = 0.001;
   dot_length = dash_length*0.2;
 
-  g_free(renderer->linestyle);
-  switch(mode) {
-  case LINESTYLE_SOLID:
-    renderer->linestyle = NULL;
-    break;
-  case LINESTYLE_DASHED:
-    dia_svg_dtostr(dash_length_buf, dash_length);
-    renderer->linestyle = g_strdup_printf("%s", dash_length_buf);
-    break;
-  case LINESTYLE_DASH_DOT:
-    hole_width = (dash_length - dot_length) / 2.0;
+  g_free (renderer->linestyle);
+  switch (mode) {
+    case LINESTYLE_SOLID:
+      renderer->linestyle = NULL;
+      break;
+    case LINESTYLE_DASHED:
+      dia_svg_dtostr(dash_length_buf, dash_length);
+      renderer->linestyle = g_strdup_printf("%s", dash_length_buf);
+      break;
+    case LINESTYLE_DASH_DOT:
+      hole_width = (dash_length - dot_length) / 2.0;
 
-    dia_svg_dtostr(dash_length_buf, dash_length);
-    dia_svg_dtostr(dot_length_buf, dot_length);
-    dia_svg_dtostr(hole_width_buf, hole_width);
+      dia_svg_dtostr(dash_length_buf, dash_length);
+      dia_svg_dtostr(dot_length_buf, dot_length);
+      dia_svg_dtostr(hole_width_buf, hole_width);
 
-    renderer->linestyle = g_strdup_printf("%s %s %s %s",
-					  dash_length_buf,
-					  hole_width_buf,
-					  dot_length_buf,
-					  hole_width_buf );
-    break;
-  case LINESTYLE_DASH_DOT_DOT:
-    hole_width = (dash_length - 2.0*dot_length) / 3.0;
+      renderer->linestyle = g_strdup_printf("%s %s %s %s",
+              dash_length_buf,
+              hole_width_buf,
+              dot_length_buf,
+              hole_width_buf );
+      break;
+    case LINESTYLE_DASH_DOT_DOT:
+      hole_width = (dash_length - 2.0*dot_length) / 3.0;
 
-    dia_svg_dtostr(dash_length_buf, dash_length);
-    dia_svg_dtostr(dot_length_buf, dot_length);
-    dia_svg_dtostr(hole_width_buf, hole_width);
+      dia_svg_dtostr(dash_length_buf, dash_length);
+      dia_svg_dtostr(dot_length_buf, dot_length);
+      dia_svg_dtostr(hole_width_buf, hole_width);
 
-    renderer->linestyle = g_strdup_printf("%s %s %s %s %s %s",
-					  dash_length_buf,
-					  hole_width_buf,
-					  dot_length_buf,
-					  hole_width_buf,
-					  dot_length_buf,
-					  hole_width_buf );
-    break;
-  case LINESTYLE_DOTTED:
+      renderer->linestyle = g_strdup_printf("%s %s %s %s %s %s",
+              dash_length_buf,
+              hole_width_buf,
+              dot_length_buf,
+              hole_width_buf,
+              dot_length_buf,
+              hole_width_buf );
+      break;
+    case LINESTYLE_DOTTED:
 
-    dia_svg_dtostr(dot_length_buf, dot_length);
+      dia_svg_dtostr(dot_length_buf, dot_length);
 
-    renderer->linestyle = g_strdup_printf("%s", dot_length_buf);
-    break;
-  default:
-    renderer->linestyle = NULL;
+      renderer->linestyle = g_strdup_printf("%s", dot_length_buf);
+      break;
+    case LINESTYLE_DEFAULT:
+    default:
+      renderer->linestyle = NULL;
   }
 }
 
@@ -703,35 +706,38 @@ _bezier(DiaRenderer *self,
 		   dia_svg_dtostr(p1x_buf, (gdouble) points[0].p1.x),
 		   dia_svg_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
 
-  for (i = 1; i < numpoints; i++)
+  for (i = 1; i < numpoints; i++) {
     switch (points[i].type) {
-    case BEZ_MOVE_TO:
-      if (!dia_renderer_is_capable_of (self, RENDER_HOLES)) {
-        g_warning("only first BezPoint should be a BEZ_MOVE_TO");
-        g_string_printf (str, "M %s %s",
-                         dia_svg_dtostr (p1x_buf, (gdouble) points[i].p1.x),
-                         dia_svg_dtostr (p1y_buf, (gdouble) points[i].p1.y) );
-      } else {
-        g_string_append_printf(str, "M %s %s",
-		        dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-		        dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
-      }
-      break;
-    case BEZ_LINE_TO:
-      g_string_append_printf(str, " L %s,%s",
-			dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-			dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
-      break;
-    case BEZ_CURVE_TO:
-      g_string_append_printf(str, " C %s,%s %s,%s %s,%s",
-			dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-			dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y),
-			dia_svg_dtostr(p2x_buf, (gdouble) points[i].p2.x),
-			dia_svg_dtostr(p2y_buf, (gdouble) points[i].p2.y),
-			dia_svg_dtostr(p3x_buf, (gdouble) points[i].p3.x),
-			dia_svg_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
-      break;
+      case BEZ_MOVE_TO:
+        if (!dia_renderer_is_capable_of (self, RENDER_HOLES)) {
+          g_warning("only first BezPoint should be a BEZ_MOVE_TO");
+          g_string_printf (str, "M %s %s",
+                          dia_svg_dtostr (p1x_buf, (gdouble) points[i].p1.x),
+                          dia_svg_dtostr (p1y_buf, (gdouble) points[i].p1.y) );
+        } else {
+          g_string_append_printf(str, "M %s %s",
+              dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+              dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
+        }
+        break;
+      case BEZ_LINE_TO:
+        g_string_append_printf(str, " L %s,%s",
+        dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+        dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
+        break;
+      case BEZ_CURVE_TO:
+        g_string_append_printf(str, " C %s,%s %s,%s %s,%s",
+        dia_svg_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+        dia_svg_dtostr(p1y_buf, (gdouble) points[i].p1.y),
+        dia_svg_dtostr(p2x_buf, (gdouble) points[i].p2.x),
+        dia_svg_dtostr(p2y_buf, (gdouble) points[i].p2.y),
+        dia_svg_dtostr(p3x_buf, (gdouble) points[i].p3.x),
+        dia_svg_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
+        break;
+      default:
+        g_return_if_reached ();
     }
+  }
   if (fill) {
     xmlSetProp(node, (const xmlChar *)"fill-rule", (const xmlChar *) "evenodd");
     g_string_append(str, "z");

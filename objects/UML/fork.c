@@ -159,12 +159,16 @@ fork_select(Fork *branch, Point *clicked_point, DiaRenderer *interactive_rendere
   element_update_handles(&branch->element);
 }
 
+
 static ObjectChange*
-fork_move_handle(Fork *branch, Handle *handle,
-		 Point *to, ConnectionPoint *cp,
-		 HandleMoveReason reason, ModifierKeys modifiers)
+fork_move_handle (Fork             *branch,
+                  Handle           *handle,
+                  Point            *to,
+                  ConnectionPoint  *cp,
+                  HandleMoveReason  reason,
+                  ModifierKeys      modifiers)
 {
-  coord dx;
+  double dx;
   Point c;
 
   assert(branch!=NULL);
