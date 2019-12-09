@@ -58,7 +58,7 @@ create_sheets_main_dialog (void)
   GtkListStore *store;
   GtkBuilder *builder;
 
-  builder = builder_new_from_file ("ui/sheets-main-dialog.xml");
+  builder = builder_new_from_file ("ui/sheets-main-dialog.ui");
   sheets_main_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "sheets_main_dialog"));
   g_object_set_data (G_OBJECT (sheets_main_dialog), "_sheet_dialogs_builder", builder);
 
@@ -137,7 +137,7 @@ create_sheets_new_dialog (void)
   GtkWidget *sheets_new_dialog;
   GtkBuilder *builder;
 
-  builder = builder_new_from_file ("ui/sheets-new-dialog.xml");
+  builder = builder_new_from_file ("ui/sheets-new-dialog.ui");
   sheets_new_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "sheets_new_dialog"));
   g_object_set_data (G_OBJECT (sheets_new_dialog), "_sheet_dialogs_builder", builder);
 
@@ -169,7 +169,7 @@ create_sheets_edit_dialog (void)
   GtkWidget *sheets_edit_dialog;
   GtkBuilder *builder;
 
-  builder = builder_new_from_file ("ui/sheets-edit-dialog.xml");
+  builder = builder_new_from_file ("ui/sheets-edit-dialog.ui");
   sheets_edit_dialog = GTK_WIDGET (gtk_builder_get_object (builder,"sheets_edit_dialog"));
   g_object_set_data (G_OBJECT (sheets_edit_dialog), "_sheet_dialogs_builder", builder);
 
@@ -201,7 +201,7 @@ create_sheets_remove_dialog (void)
   GtkWidget *sheets_remove_dialog;
   GtkBuilder *builder;
 
-  builder = builder_new_from_file ("ui/sheets-remove-dialog.xml");
+  builder = builder_new_from_file ("ui/sheets-remove-dialog.ui");
   sheets_remove_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "sheets_remove_dialog"));
   g_object_set_data (G_OBJECT (sheets_remove_dialog), "_sheet_dialogs_builder", builder);
 

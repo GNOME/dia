@@ -1,8 +1,3 @@
-data/ui/sheets-edit-dialog.xml
-data/ui/sheets-main-dialog.xml
-data/ui/sheets-new-dialog.xml
-data/ui/sheets-remove-dialog.xml
-sheets/EML.sheet.in
 plug-ins/layout/ogdf-simple.cpp
 plug-ins/layout/ogdf-simple.h
 plug-ins/python/otypes.py
