@@ -1,5 +1,4 @@
 <?xml version="1.0" ?>
-<!--*- mode: xml -*-->
 <interface>
   <object class="GtkDialog" id="sheets_new_dialog">
     <property name="visible">False</property>
@@ -30,7 +29,7 @@
               <property name="visible">True</property>
               <property name="can_default">True</property>
               <property name="can_focus">True</property>
-              <property name="label">_Cancel</property>
+              <property name="label" translatable="yes">_Cancel</property>
               <property name="use-underline">True</property>
               <property name="relief">GTK_RELIEF_NORMAL</property>
               <property name="focus_on_click">True</property>
@@ -41,7 +40,7 @@
               <property name="visible">True</property>
               <property name="can_default">True</property>
               <property name="can_focus">True</property>
-              <property name="label">_OK</property>
+              <property name="label" translatable="yes">_OK</property>
               <property name="use-underline">True</property>
               <property name="relief">GTK_RELIEF_NORMAL</property>
               <property name="focus_on_click">True</property>
@@ -123,7 +122,7 @@
 		  <child>
 		    <object class="GtkLabel" id="label_description">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">description:</property>
+		      <property name="label" translatable="yes">Description:</property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -258,7 +257,7 @@
 		  <child>
 		    <object class="GtkLabel" id="label_svg_description">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">description:</property>
+		      <property name="label" translatable="yes">Description:</property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
