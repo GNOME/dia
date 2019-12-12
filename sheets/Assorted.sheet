@@ -36,10 +36,10 @@ have been included to save users the effort of flipping them
 
 <object name="Geometric - Diamond"><description>Diamond</description></object>
 <!-- Other Polygons -->
-<object name="Geometric - Pentagon"><description>Pentagon.  Five-point shape</description></object>
-<object name="Geometric - Hexagon"><description>Hexagon.  Six-point shape</description></object>
-<object name="Geometric - Heptagon"><description>Heptagon.  Seven-point shape</description></object>
-<object name="Geometric - Octagon"><description>Octagon.  Eight-point shape</description></object>
+<object name="Geometric - Pentagon"><description>Pentagon. Five-point shape</description></object>
+<object name="Geometric - Hexagon"><description>Hexagon. Six-point shape</description></object>
+<object name="Geometric - Heptagon"><description>Heptagon. Seven-point shape</description></object>
+<object name="Geometric - Octagon"><description>Octagon. Eight-point shape</description></object>
 <!-- Alan Horkan was here 2002 -->
 <object name="Geometric - Horizontal Parallelogram"><description>Horizontal parallelogram</description></object>
 <object name="Geometric - Vertical Parallelogram"><description>Vertical parallelogram</description></object>
