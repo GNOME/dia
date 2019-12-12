@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2019-12-09 20:28+0000\n"
-"PO-Revision-Date: 2019-12-11 09:57+0100\n"
+"POT-Creation-Date: 2019-12-11 18:10+0000\n"
+"PO-Revision-Date: 2019-12-12 09:02+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -267,8 +267,10 @@ msgstr "Salir de Dia"
 
 #: app/app_procs.c:971 app/dia-guide-dialog.c:155 app/display.c:1148
 #: app/filedlg.c:284 app/filedlg.c:487 app/filedlg.c:758
-#: app/layer-editor/dia-layer-properties.c:243 lib/diaarrowchooser.c:369
-#: lib/dialinechooser.c:304 lib/widgets.c:396 plug-ins/xslt/xsltdialog.c:83
+#: app/layer-editor/dia-layer-properties.c:243 data/ui/sheets-edit-dialog.ui:33
+#: data/ui/sheets-new-dialog.ui:32 data/ui/sheets-remove-dialog.ui:32
+#: lib/diaarrowchooser.c:369 lib/dialinechooser.c:304 lib/widgets.c:396
+#: plug-ins/xslt/xsltdialog.c:83
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -502,17 +504,21 @@ msgstr "Opciones predeterminadas para el objeto"
 #: app/defaults.c:45 app/dia-props.c:272 app/find-and-replace.c:539
 #: app/find-and-replace.c:569 app/menus.c:120 app/pagesetup.c:77
 #: app/plugin-manager.c:207 app/preferences.c:588 app/properties-dialog.c:60
+#: data/ui/sheets-main-dialog.ui:302
 msgid "_Close"
 msgstr "_Cerrar"
 
 #: app/defaults.c:46 app/dia-props.c:273 app/pagesetup.c:78
 #: app/preferences.c:589 app/properties-dialog.c:61
+#: data/ui/sheets-main-dialog.ui:272
 msgid "_Apply"
 msgstr "_Aplicar"
 
 #: app/defaults.c:47 app/dia-props.c:274 app/dia-guide-dialog.c:156
 #: app/layer-editor/dia-layer-properties.c:242 app/pagesetup.c:79
-#: app/preferences.c:590 app/properties-dialog.c:62 lib/diaarrowchooser.c:370
+#: app/preferences.c:590 app/properties-dialog.c:62
+#: data/ui/sheets-edit-dialog.ui:44 data/ui/sheets-new-dialog.ui:43
+#: data/ui/sheets-remove-dialog.ui:43 lib/diaarrowchooser.c:370
 #: lib/dialinechooser.c:305 objects/AADL/edit_port_declaration.c:155
 #: plug-ins/xslt/xsltdialog.c:84
 msgid "_OK"
@@ -551,7 +557,7 @@ msgstr[0] "%d capa"
 msgstr[1] "%d capas"
 
 #: app/diagram_tree_view.c:182 app/diagram_tree_view.c:511
-#: data/ui/sheets-new-dialog.ui:289 data/ui/sheets-remove-dialog.ui:198
+#: data/ui/sheets-new-dialog.ui:288 data/ui/sheets-remove-dialog.ui:198
 #: objects/Database/table.c:147 objects/Istar/actor.c:140
 #: objects/Istar/actor.c:141 objects/Istar/other.c:145
 #: objects/Istar/other.c:146 objects/KAOS/other.c:148 objects/KAOS/other.c:149
@@ -984,7 +990,6 @@ msgid "Pops up the Navigation window."
 msgstr "Emerge la ventana de navegación."
 
 #: app/interface.c:672
-#| msgid "_Close"
 msgid "Close"
 msgstr "Cerrar"
 
@@ -1202,7 +1207,7 @@ msgstr "Ajustar"
 msgid "_File"
 msgstr "_Archivo"
 
-#: app/menus.c:87
+#: app/menus.c:87 data/ui/sheets-main-dialog.ui:256
 msgid "_New"
 msgstr "_Nuevo"
 
@@ -2244,7 +2249,7 @@ msgstr "← Mover todo"
 
 #: app/sheet-editor/sheets_dialog_callbacks.c:281
 #: app/sheet-editor/sheets_dialog_callbacks.c:1035
-#: data/ui/sheets-new-dialog.ui:196
+#: data/ui/sheets-new-dialog.ui:195
 msgid "Line Break"
 msgstr "Salto de línea"
 
@@ -2630,15 +2635,16 @@ msgstr "Guías"
 msgid "Colors"
 msgstr "Colores"
 
-#: data/ui/sheets-edit-dialog.ui:7
+#: data/ui/sheets-edit-dialog.ui:6
 msgid "Edit Attributes"
 msgstr "Editar atributos"
 
-#: data/ui/sheets-edit-dialog.ui:98 data/ui/sheets-edit-dialog.ui:286
+#: data/ui/sheets-edit-dialog.ui:97 data/ui/sheets-edit-dialog.ui:285
+#: data/ui/sheets-new-dialog.ui:125 data/ui/sheets-new-dialog.ui:260
 msgid "Description:"
 msgstr "Descripción:"
 
-#: data/ui/sheets-edit-dialog.ui:143 objects/FS/flow.c:142
+#: data/ui/sheets-edit-dialog.ui:142 objects/FS/flow.c:142
 #: objects/FS/flow-ortho.c:165 objects/Istar/link.c:159
 #: objects/Jackson/phenomenon.c:143 objects/KAOS/metaandorrel.c:163
 #: objects/KAOS/metabinrel.c:170 objects/UML/class_attributes_dialog.c:675
@@ -2648,11 +2654,11 @@ msgstr "Descripción:"
 msgid "Type:"
 msgstr "Tipo:"
 
-#: data/ui/sheets-edit-dialog.ui:209 data/ui/sheets-remove-dialog.ui:91
+#: data/ui/sheets-edit-dialog.ui:208 data/ui/sheets-remove-dialog.ui:91
 msgid "DiaObject"
 msgstr "Objeto DiaObject"
 
-#: data/ui/sheets-edit-dialog.ui:262 objects/ER/attribute.c:150
+#: data/ui/sheets-edit-dialog.ui:261 objects/ER/attribute.c:150
 #: objects/ER/entity.c:132 objects/ER/relationship.c:137
 #: objects/UML/class_attributes_dialog.c:662
 #: objects/UML/class_operations_dialog.c:874
@@ -2662,56 +2668,59 @@ msgstr "Objeto DiaObject"
 msgid "Name:"
 msgstr "Nombre:"
 
-#: data/ui/sheets-edit-dialog.ui:356 data/ui/sheets-remove-dialog.ui:113
-#| msgid "Sheet:"
+#: data/ui/sheets-edit-dialog.ui:355 data/ui/sheets-remove-dialog.ui:113
 msgid "Sheet"
 msgstr "Hoja"
 
 #: data/ui/sheets-main-dialog.ui:6
-#| msgid "S_heets and Objects"
 msgid "Sheets and Objects"
 msgstr "Hojas y objetos"
 
+#: data/ui/sheets-main-dialog.ui:43
+msgid "_Up"
+msgstr "A_rriba"
+
+#: data/ui/sheets-main-dialog.ui:59
+msgid "_Down"
+msgstr "_Abajo"
+
+#: data/ui/sheets-main-dialog.ui:75
+#| msgid "Remove"
+msgid "_Remove"
+msgstr "_Quitar"
+
 #: data/ui/sheets-main-dialog.ui:91
-#| msgid "<- Copy"
 msgid "<- C_opy"
 msgstr "<- C_opiar"
 
 #: data/ui/sheets-main-dialog.ui:106
-#| msgid "<- Copy All"
 msgid "<- Copy _All"
 msgstr "<- Copiar todo"
 
 #: data/ui/sheets-main-dialog.ui:120
-#| msgid "<- Move"
 msgid "<- _Move"
 msgstr "<- _Mover"
 
 #: data/ui/sheets-main-dialog.ui:135
-#| msgid "<- Move All"
 msgid "<- Move A_ll"
 msgstr "<- Mover todo"
 
 # Seguro? Más bien Revertir. FVD
 #: data/ui/sheets-main-dialog.ui:287
-#| msgid "Never"
-msgid "Revert"
-msgstr "Revertir"
+#| msgid "Revert"
+msgid "_Revert"
+msgstr "Re_vertir"
 
-#: data/ui/sheets-new-dialog.ui:6
+#: data/ui/sheets-new-dialog.ui:5
 msgid "New"
 msgstr "Nuevo"
 
 # Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
-#: data/ui/sheets-new-dialog.ui:92
+#: data/ui/sheets-new-dialog.ui:91
 msgid "SVG Shape:"
 msgstr "Forma SVG:"
 
-#: data/ui/sheets-new-dialog.ui:126 data/ui/sheets-new-dialog.ui:261
-msgid "description:"
-msgstr "descripción:"
-
-#: data/ui/sheets-new-dialog.ui:151
+#: data/ui/sheets-new-dialog.ui:150
 msgid "Sheet name:"
 msgstr "Nombre de la hoja:"
 
@@ -11313,6 +11322,9 @@ msgstr "Actividad"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "División/unión"
+
+#~ msgid "description:"
+#~ msgstr "descripción:"
 
 #~ msgid "Okay"
 #~ msgstr "OK"
