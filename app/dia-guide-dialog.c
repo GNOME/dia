@@ -174,8 +174,8 @@ dia_guide_dialog_init (DiaGuideDialog *self)
   priv->orientation_menu = dia_option_menu_new ();
   gtk_table_attach (GTK_TABLE (table), priv->orientation_menu, 1,2, 0,1,
                     GTK_FILL, GTK_FILL, 0, 0);
-  dia_option_menu_add_item (DIA_OPTION_MENU (priv->orientation_menu), "Horizontal", GTK_ORIENTATION_HORIZONTAL);
-  dia_option_menu_add_item (DIA_OPTION_MENU (priv->orientation_menu), "Vertical", GTK_ORIENTATION_VERTICAL);
+  dia_option_menu_add_item (DIA_OPTION_MENU (priv->orientation_menu), _("Horizontal"), GTK_ORIENTATION_HORIZONTAL);
+  dia_option_menu_add_item (DIA_OPTION_MENU (priv->orientation_menu), _("Vertical"), GTK_ORIENTATION_VERTICAL);
   dia_option_menu_set_active (DIA_OPTION_MENU (priv->orientation_menu), GTK_ORIENTATION_HORIZONTAL);
   gtk_widget_show (priv->orientation_menu);
 

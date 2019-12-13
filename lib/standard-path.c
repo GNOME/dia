@@ -740,8 +740,8 @@ _show_control_lines (DiaObject *obj, Point *clicked, gpointer data)
 static DiaMenuItem _stdpath_menu_items[] = {
   { N_("Convert to Bezier"), _convert_to_beziers_callback, NULL, DIAMENU_ACTIVE },
   { N_("Invert Path"), _invert_path_callback, NULL, DIAMENU_ACTIVE },
-  { N_("Flip horizontal"), _path_flip_callback, NULL, DIAMENU_ACTIVE },
-  { N_("Flip vertical"), _path_flip_callback, GINT_TO_POINTER(1), DIAMENU_ACTIVE },
+  { N_("Flip Horizontal"), _path_flip_callback, NULL, DIAMENU_ACTIVE },
+  { N_("Flip Vertical"), _path_flip_callback, GINT_TO_POINTER(1), DIAMENU_ACTIVE },
   { N_("Rotate"), _path_rotate_callback, NULL, DIAMENU_ACTIVE },
   { N_("Shear"), _path_shear_callback, NULL, DIAMENU_ACTIVE },
   { N_("Show Control Lines"), _show_control_lines, NULL, DIAMENU_ACTIVE | DIAMENU_TOGGLE }
