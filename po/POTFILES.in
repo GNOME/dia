@@ -45,7 +45,6 @@ data/ui/sheets-edit-dialog.ui
 data/ui/sheets-main-dialog.ui
 data/ui/sheets-new-dialog.ui
 data/ui/sheets-remove-dialog.ui
-installer/win32/gennsh.c
 lib/arrows.c
 lib/attributes.c
 lib/bezier_conn.c
