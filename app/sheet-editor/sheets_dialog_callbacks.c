@@ -45,6 +45,7 @@
 #include <glib/gstdio.h>
 #include <gmodule.h>
 
+#undef GTK_DISABLE_DEPRECATED
 #include <gtk/gtk.h>
 
 #include <libxml/tree.h>

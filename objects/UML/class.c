@@ -1933,7 +1933,6 @@ umlclass_destroy(UMLClass *umlclass)
   GList *list;
   UMLAttribute *attr;
   UMLOperation *op;
-  UMLFormalParameter *param;
 
 #ifdef DEBUG
   umlclass_sanity_check(umlclass, "Destroying");

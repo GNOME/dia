@@ -45,7 +45,7 @@ static void open_recent_file_callback (GtkWidget *widget, gpointer data);
 void recent_file_history_remove (const char *fname);
 
 static void
-recent_file_history_clear_menu()
+recent_file_history_clear_menu (void)
 {
   menus_clear_recent ();
 }
@@ -54,7 +54,7 @@ recent_file_history_clear_menu()
  * Build and insert the recent files menu.
  */
 static void
-recent_file_history_make_menu()
+recent_file_history_make_menu (void)
 {
   GList *items;
   GtkActionGroup *group;
@@ -117,7 +117,7 @@ recent_file_history_add(const char *fname)
 
 /* load the recent file history */
 void
-recent_file_history_init()
+recent_file_history_init (void)
 {
   prefs.recent_documents_list_size = CLAMP(prefs.recent_documents_list_size, 0, 16);
 

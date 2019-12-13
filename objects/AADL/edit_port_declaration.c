@@ -84,7 +84,8 @@ static void edit_port_declaration_free (struct EditPortDeclarationChange *change
 static GtkWidget *entry;
 static gchar *text;
 
-static void save_text()
+static void
+save_text (void)
 {
   text = (gchar *) g_malloc (strlen(gtk_entry_get_text (GTK_ENTRY (entry)))+1);
   strcpy(text, gtk_entry_get_text (GTK_ENTRY (entry)));

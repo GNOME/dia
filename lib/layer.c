@@ -994,7 +994,11 @@ dia_layer_set_object_list (DiaLayer *layer, GList *list)
 GList *
 dia_layer_get_object_list (DiaLayer *layer)
 {
-  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+  DiaLayerPrivate *priv;
+
+  g_return_val_if_fail (DIA_IS_LAYER (layer), NULL);
+
+  priv = dia_layer_get_instance_private (layer);
 
   return priv->objects;
 }
