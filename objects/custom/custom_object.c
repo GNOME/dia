@@ -668,6 +668,7 @@ custom_distance_from (Custom *custom, Point *point)
               transform_coord (custom,
                                &el->path.points[i].p1,
                                &g_array_index (barr, BezPoint, i).p1);
+              break;
             default:
               g_return_val_if_reached (G_MAXFLOAT);
           }
@@ -693,6 +694,7 @@ custom_distance_from (Custom *custom, Point *point)
               transform_coord (custom,
                                &el->path.points[i].p1,
                                &g_array_index (barr, BezPoint, i).p1);
+              break;
             default:
               g_return_val_if_reached (G_MAXFLOAT);
           }
@@ -818,6 +820,7 @@ custom_move_handle (Custom           *custom,
     case HANDLE_MOVE_CREATE : /* silence gcc */
     case HANDLE_MOVE_CREATE_FINAL : /* silence gcc */
       custom_adjust_scale (custom, handle, to, cp, reason, modifiers);
+      break;
     default:
       g_return_val_if_reached (NULL);
   }
@@ -1125,6 +1128,7 @@ custom_draw_element (GraphicElement *el,
           case BEZ_LINE_TO:
             transform_coord (custom, &el->path.points[i].p1,
                              &g_array_index (barr, BezPoint, i).p1);
+            break;
           default:
             g_return_if_reached ();
       }
@@ -1151,6 +1155,7 @@ custom_draw_element (GraphicElement *el,
             transform_coord (custom,
                              &el->path.points[i].p1,
                              &g_array_index (barr, BezPoint, i).p1);
+            break;
           default:
             g_return_if_reached ();
       }
@@ -1525,6 +1530,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
           case BEZ_LINE_TO:
             transform_coord (custom, &el->path.points[i].p1,
                              &g_array_index (barr, BezPoint, i).p1);
+            break;
           default:
             g_return_if_reached ();
         }
