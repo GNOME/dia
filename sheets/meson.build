@@ -38,6 +38,7 @@ sheet_files = [
     'Lights.sheet',
     'Database.sheet',
     'Shape_Design.sheet',
+    'EDPC.sheet',
 ]
 
 sheet_files_targets = []

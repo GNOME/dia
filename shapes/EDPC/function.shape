@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>EDPC_Function</name>
+  <icon>function.png</icon>
+  <connections>
+    <point x="0.0" y="1.0"/>
+    <point x="3.0" y="1.0"/>
+    <point x="1.5" y="0.0"/>
+    <point x="1.5" y="2.0"/>
+    <point x="1.5" y="1.0" main="yes" />
+  </connections>  
+  <aspectratio type="free"/>
+  <textbox x1="0.5" y1="0.5" x2="2.5" y2="1.5" />
+  <svg:svg>
+    <svg:path d="M 1.6 0 C 2.6,0 2.4,0 2.6,0 C 2.8,0 3,0.2 3,0.4 C 3,0.6 3,1.2 3,1.6 C 3,1.8 2.8,2 2.6,2 C 2,2 2.6,2 1.6,2 C 0.6,2 0.6,2 0.4,2 C 0.2,2 0,1.8 0,1.6 C 0,1.4 0,1 0,0.6 C 0,0.2 0.2,0 0.4,0 C 0.6,0 0.6,0 1.6,0z" style="fill: #90EE90" />
+  </svg:svg>
+</shape>

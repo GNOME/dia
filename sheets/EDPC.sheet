@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sheet xmlns="http://www.lysator.liu.se/~alla/dia/dia-sheet-ns">
+    <!-- Author: Marcus Kossatz, 2019 -->
+  <name>EDPC</name>
+  <description>Objects to draw event-driven process chains</description>
+  <contents>
+    <object name="EDPC_Business_Process"><description>Business Process</description></object>
+    <object name="EDPC_Process_Group"><description>Process Group</description></object>
+    <object name="EDPC_Function"><description>Function</description></object>
+    <object name="EDPC_Event"><description>Event</description></object>
+    <object name="EDPC_Start_Event"><description>Start Event</description></object>
+    <object name="EDPC_End_Event"><description>End Event</description></object>
+    <object name="EDPC_Organisation_Unit"><description>Organisation Unit</description></object>
+    <object name="EDPC_Document"><description>Document</description></object>
+    <object name="EDPC_Operator_AND_in"><description>Operator AND (Input)</description></object>
+    <object name="EDPC_Operator_AND_out"><description>Operator AND (Output)</description></object>
+    <object name="EDPC_Operator_OR_in"><description>Operator Inclusive (OR) (Input)</description></object>
+    <object name="EDPC_Operator_OR_out"><description>Operator Inclusive (OR) (Output)</description></object>
+    <object name="EDPC_Operator_XOR_in"><description>Operator Exclusive (XOR) (Input)</description></object>
+    <object name="EDPC_Operator_XOR_out"><description>Operator Exclusive (XOR) (Output)</description></object>
+  </contents>
+</sheet>
