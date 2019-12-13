@@ -69,7 +69,7 @@ update_zoom_status (DDisplay *ddisp)
     zoom_text = g_strdup_printf ("%.1f%%",
                                  ddisp->zoom_factor * 100.0 / DDISPLAY_NORMAL_ZOOM);
     zoomcombo = ddisp->zoom_status;
-    gtk_entry_set_text (GTK_ENTRY (g_object_get_data (G_OBJECT(zoomcombo), "user_data")),
+    gtk_entry_set_text (GTK_ENTRY (g_object_get_data (G_OBJECT (zoomcombo), "user_data")),
                         zoom_text);
   }
 
@@ -297,8 +297,8 @@ ddisplay_transform_coords_double (DDisplay *ddisp,
   double width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
   double height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
-  *xi = (x - visible->left)  * (real) width / (visible->right - visible->left);
-  *yi = (y - visible->top)  * (real) height / (visible->bottom - visible->top);
+  *xi = (x - visible->left)  * (double) width / (visible->right - visible->left);
+  *yi = (y - visible->top)  * (double) height / (visible->bottom - visible->top);
 }
 
 
@@ -313,22 +313,24 @@ ddisplay_transform_coords (DDisplay *ddisp,
   int width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
   int height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
-  *xi = ROUND ( (x - visible->left) * (real) width /
+  *xi = ROUND ( (x - visible->left) * (double) width /
                 (visible->right - visible->left) );
-  *yi = ROUND ( (y - visible->top) * (real) height /
+  *yi = ROUND ( (y - visible->top) * (double) height /
                 (visible->bottom - visible->top) );
 }
 
+
 /* Takes real length and returns pixel length */
-real
-ddisplay_transform_length (DDisplay *ddisp, real len)
+double
+ddisplay_transform_length (DDisplay *ddisp, double len)
 {
   return len * ddisp->zoom_factor;
 }
 
+
 /* Takes pixel length and returns real length */
-real
-ddisplay_untransform_length (DDisplay *ddisp, real len)
+double
+ddisplay_untransform_length (DDisplay *ddisp, double len)
 {
   return len / ddisp->zoom_factor;
 }
@@ -345,8 +347,8 @@ ddisplay_untransform_coords (DDisplay *ddisp,
   int width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
   int height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
-  *x = visible->left + xi*(visible->right - visible->left) / (real)width;
-  *y = visible->top +  yi*(visible->bottom - visible->top) / (real)height;
+  *x = visible->left + xi*(visible->right - visible->left) / (double) width;
+  *y = visible->top +  yi*(visible->bottom - visible->top) / (double) height;
 }
 
 
@@ -357,22 +359,23 @@ ddisplay_add_update_pixels (DDisplay *ddisp,
                             int       pixel_height)
 {
   DiaRectangle rect;
-  real size_x, size_y;
+  double size_x, size_y;
 
-  size_x = ddisplay_untransform_length(ddisp, pixel_width+1);
-  size_y = ddisplay_untransform_length(ddisp, pixel_height+1);
+  size_x = ddisplay_untransform_length (ddisp, pixel_width+1);
+  size_y = ddisplay_untransform_length (ddisp, pixel_height+1);
 
   rect.left = point->x - size_x/2.0;
   rect.top = point->y - size_y/2.0;
   rect.right = point->x + size_x/2.0;
   rect.bottom = point->y + size_y/2.0;
 
-  ddisplay_add_update(ddisp, &rect);
+  ddisplay_add_update (ddisp, &rect);
 }
+
 
 /** Free update_areas list */
 static void
-ddisplay_free_update_areas(DDisplay *ddisp)
+ddisplay_free_update_areas (DDisplay *ddisp)
 {
   GSList *l;
   l = ddisp->update_areas;
@@ -396,7 +399,14 @@ ddisplay_add_update_all(DDisplay *ddisp)
   ddisplay_add_update(ddisp, &ddisp->visible);
 }
 
-/** Marks a rectangle for update, with a pixel border around it.
+
+/**
+ * ddisplay_add_update_with_border:
+ * @ddisp: the #DDisplay
+ * @rect: the area to update
+ * @pixel_border: the border size around the area
+ *
+ * Marks a rectangle for update, with a pixel border around it.
  */
 void
 ddisplay_add_update_with_border (DDisplay           *ddisp,
@@ -404,14 +414,14 @@ ddisplay_add_update_with_border (DDisplay           *ddisp,
                                  int                 pixel_border)
 {
   DiaRectangle r;
-  real size = ddisplay_untransform_length(ddisp, pixel_border+1);
+  double size = ddisplay_untransform_length (ddisp, pixel_border+1);
 
   r.left = rect->left-size;
   r.top = rect->top-size;
   r.right = rect->right+size;
   r.bottom = rect->bottom+size;
 
-  ddisplay_add_update(ddisp, &r);
+  ddisplay_add_update (ddisp, &r);
 }
 
 void
@@ -611,27 +621,32 @@ ddisplay_set_origo (DDisplay *ddisp, double x, double y)
   ddisplay_update_rulers (ddisp, extents, visible);
 }
 
+
 void
-ddisplay_zoom (DDisplay *ddisp, Point *point, real magnify)
+ddisplay_zoom (DDisplay *ddisp, Point *point, double magnify)
 {
   DiaRectangle *visible;
-  real width, height, old_zoom;
+  double width, height, old_zoom;
 
   visible = &ddisp->visible;
 
-  if ((ddisp->zoom_factor <= DDISPLAY_MIN_ZOOM) && (magnify<=1.0))
+  if ((ddisp->zoom_factor <= DDISPLAY_MIN_ZOOM) && (magnify<=1.0)) {
     return;
-  if ((ddisp->zoom_factor >= DDISPLAY_MAX_ZOOM) && (magnify>=1.0))
+  }
+
+  if ((ddisp->zoom_factor >= DDISPLAY_MAX_ZOOM) && (magnify>=1.0)) {
     return;
+  }
 
   old_zoom = ddisp->zoom_factor;
   ddisp->zoom_factor = old_zoom * magnify;
 
   /* clip once more */
-  if (ddisp->zoom_factor < DDISPLAY_MIN_ZOOM)
+  if (ddisp->zoom_factor < DDISPLAY_MIN_ZOOM) {
     ddisp->zoom_factor = DDISPLAY_MIN_ZOOM;
-  else if (ddisp->zoom_factor > DDISPLAY_MAX_ZOOM)
+  } else if (ddisp->zoom_factor > DDISPLAY_MAX_ZOOM) {
     ddisp->zoom_factor = DDISPLAY_MAX_ZOOM;
+  }
 
   /* the real one used - after clipping */
   magnify = ddisp->zoom_factor / old_zoom;
@@ -639,19 +654,25 @@ ddisplay_zoom (DDisplay *ddisp, Point *point, real magnify)
   height = (visible->bottom - visible->top)/magnify;
 
 
-  ddisplay_set_origo(ddisp, point->x - width/2.0, point->y - height/2.0);
+  ddisplay_set_origo (ddisp, point->x - width/2.0, point->y - height/2.0);
 
-  ddisplay_update_scrollbars(ddisp);
-  ddisplay_add_update_all(ddisp);
-  ddisplay_flush(ddisp);
+  ddisplay_update_scrollbars (ddisp);
+  ddisplay_add_update_all (ddisp);
+  ddisplay_flush (ddisp);
 
   update_zoom_status (ddisp);
 }
 
-/* Zoom around the middle point of the visible area
+
+/**
+ * ddisplay_zoom_middle:
+ * @ddisp: the #DDisplay
+ * @magnify: the zoom level
+ *
+ * Zoom around the middle point of the visible area
  */
 void
-ddisplay_zoom_middle (DDisplay *ddisp, real magnify)
+ddisplay_zoom_middle (DDisplay *ddisp, double magnify)
 {
   Point middle;
   DiaRectangle *visible;
@@ -663,6 +684,7 @@ ddisplay_zoom_middle (DDisplay *ddisp, real magnify)
   ddisplay_zoom (ddisp, &middle, magnify);
 }
 
+
 /*
    When using the mouse wheel button to zoom in and out, it is more
    intuitive to maintain the drawing zoom center-point based on the
@@ -670,17 +692,20 @@ ddisplay_zoom_middle (DDisplay *ddisp, real magnify)
    from "jumping" around while zooming in and out.
  */
 void
-ddisplay_zoom_centered (DDisplay *ddisp, Point *point, real magnify)
+ddisplay_zoom_centered (DDisplay *ddisp, Point *point, double magnify)
 {
   DiaRectangle *visible;
-  real width, height;
+  double width, height;
   /* cursor position ratios */
-  real rx,ry;
+  double rx, ry;
 
-  if ((ddisp->zoom_factor <= DDISPLAY_MIN_ZOOM) && (magnify<=1.0))
+  if ((ddisp->zoom_factor <= DDISPLAY_MIN_ZOOM) && (magnify <= 1.0)) {
     return;
-  if ((ddisp->zoom_factor >= DDISPLAY_MAX_ZOOM) && (magnify>=1.0))
+  }
+
+  if ((ddisp->zoom_factor >= DDISPLAY_MAX_ZOOM) && (magnify >= 1.0)) {
     return;
+  }
 
   visible = &ddisp->visible;
 
@@ -694,68 +719,85 @@ ddisplay_zoom_centered (DDisplay *ddisp, Point *point, real magnify)
   ddisp->zoom_factor *= magnify;
 
   /* set new origin based on the calculated ratios before zooming */
-  ddisplay_set_origo(ddisp, point->x-(width*rx),point->y-(height*ry));
+  ddisplay_set_origo (ddisp, point->x-(width*rx),point->y-(height*ry));
 
-  ddisplay_update_scrollbars(ddisp);
-  ddisplay_add_update_all(ddisp);
-  ddisplay_flush(ddisp);
+  ddisplay_update_scrollbars (ddisp);
+  ddisplay_add_update_all (ddisp);
+  ddisplay_flush (ddisp);
 
   update_zoom_status (ddisp);
 }
 
-/** Set the display's snap-to-grid setting, updating menu and button
- * in the process */
+
+/**
+ * ddisplay_set_snap_to_grid:
+ * @ddisp: the #DDisplay
+ * @snap: should snap to grid be enabled
+ *
+ * Set the display's snap-to-grid setting, updating menu and button
+ * in the process
+ */
 void
-ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap)
+ddisplay_set_snap_to_grid (DDisplay *ddisp, gboolean snap)
 {
   GtkToggleAction *snap_to_grid;
   ddisp->grid.snap = snap;
 
   snap_to_grid = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptogrid"));
-  if (is_integrated_ui ())
+  if (is_integrated_ui ()) {
     integrated_ui_toolbar_grid_snap_synchronize_to_display (ddisp);
+  }
   /* Currently, this can cause double emit, but that's a small problem. */
   gtk_toggle_action_set_active (snap_to_grid, ddisp->grid.snap);
-  ddisplay_update_statusbar(ddisp);
+  ddisplay_update_statusbar (ddisp);
 }
 
-/** Update the button showing whether snap-to-grid is on */
+
+/* Update the button showing whether snap-to-grid is on */
 static void
-update_snap_grid_status(DDisplay *ddisp)
+update_snap_grid_status (DDisplay *ddisp)
 {
-  if (ddisp->grid_status)
-  {
+  if (ddisp->grid_status) {
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ddisp->grid_status),
                                   ddisp->grid.snap);
   }
 }
 
-/** Set the display's mainpoint magnetism setting, updating menu and button
- * in the process */
+
+/**
+ * ddisplay_set_snap_to_objects:
+ * @ddisp: the #DDisplay
+ * @magnetic: should snap to objects
+ *
+ * Set the display's mainpoint magnetism setting, updating menu and button
+ * in the process
+ */
 void
-ddisplay_set_snap_to_objects(DDisplay *ddisp, gboolean magnetic)
+ddisplay_set_snap_to_objects (DDisplay *ddisp, gboolean magnetic)
 {
   GtkToggleAction *mainpoint_magnetism;
   ddisp->mainpoint_magnetism = magnetic;
 
   mainpoint_magnetism = GTK_TOGGLE_ACTION (menus_get_action ("ViewSnaptoobjects"));
-  if (is_integrated_ui ())
+  if (is_integrated_ui ()) {
     integrated_ui_toolbar_object_snap_synchronize_to_display (ddisp);
+  }
   /* Currently, this can cause double emit, but that's a small problem. */
   gtk_toggle_action_set_active (mainpoint_magnetism, ddisp->mainpoint_magnetism);
-  ddisplay_update_statusbar(ddisp);
+  ddisplay_update_statusbar (ddisp);
 }
 
-/** Update the button showing whether mainpoint magnetism is on */
+
+/* Update the button showing whether mainpoint magnetism is on */
 static void
-update_mainpoint_status(DDisplay *ddisp)
+update_mainpoint_status (DDisplay *ddisp)
 {
-  if (ddisp->mainpoint_status)
-  {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ddisp->mainpoint_status),
-                                 ddisp->mainpoint_magnetism);
+  if (ddisp->mainpoint_status) {
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ddisp->mainpoint_status),
+                                  ddisp->mainpoint_magnetism);
   }
 }
+
 
 /** Scroll display to where point x,y (window coords) is visible */
 gboolean
@@ -765,8 +807,9 @@ ddisplay_autoscroll (DDisplay *ddisp, int x, int y)
   Point scroll;
   GtkAllocation alloc;
 
-  if (! ddisp->autoscroll)
+  if (! ddisp->autoscroll) {
     return FALSE;
+  }
 
   scroll.x = scroll.y = 0;
 
@@ -775,124 +818,145 @@ ddisplay_autoscroll (DDisplay *ddisp, int x, int y)
   width = alloc.width;
   height = alloc.height;
 
-  if (x < 0)
-  {
+  if (x < 0) {
     scroll.x = x;
-  }
-  else if ( x > width)
-  {
+  } else if (x > width) {
     scroll.x = x - width;
   }
 
-  if (y < 0)
-  {
+  if (y < 0) {
     scroll.y = y;
-  }
-  else if (y > height)
-  {
+  } else if (y > height) {
     scroll.y = y - height;
   }
 
-  if ((scroll.x != 0) || (scroll.y != 0))
-  {
+  if ((scroll.x != 0) || (scroll.y != 0)) {
     gboolean scrolled;
 
-    scroll.x = ddisplay_untransform_length(ddisp, scroll.x);
-    scroll.y = ddisplay_untransform_length(ddisp, scroll.y);
+    scroll.x = ddisplay_untransform_length (ddisp, scroll.x);
+    scroll.y = ddisplay_untransform_length (ddisp, scroll.y);
 
-    scrolled = ddisplay_scroll(ddisp, &scroll);
+    scrolled = ddisplay_scroll (ddisp, &scroll);
 
     if (scrolled) {
-      ddisplay_flush(ddisp);
+      ddisplay_flush (ddisp);
       return TRUE;
     }
   }
   return FALSE;
 }
 
-/** Scroll the display by delta (diagram coords) */
+
+/**
+ * ddisplay_scroll:
+ * @ddisp: the #DDisplay
+ * @delta: about to move by
+ *
+ * Scroll the display by delta (diagram coords)
+ */
 gboolean
 ddisplay_scroll (DDisplay *ddisp, Point *delta)
 {
   DiaRectangle *visible = &ddisp->visible;
-  real width = visible->right - visible->left;
-  real height = visible->bottom - visible->top;
+  double width = visible->right - visible->left;
+  double height = visible->bottom - visible->top;
 
   DiaRectangle extents = ddisp->diagram->data->extents;
-  real ex_width = extents.right - extents.left;
-  real ex_height = extents.bottom - extents.top;
+  double ex_width = extents.right - extents.left;
+  double ex_height = extents.bottom - extents.top;
 
   Point new_origo = ddisp->origo;
   point_add(&new_origo, delta);
 
   rectangle_union(&extents, visible);
 
-  if (new_origo.x < extents.left - ex_width)
+  if (new_origo.x < extents.left - ex_width) {
     new_origo.x = extents.left - ex_width;
+  }
 
-  if (new_origo.x+width > extents.right + ex_width)
+  if (new_origo.x+width > extents.right + ex_width) {
     new_origo.x = extents.right - width + ex_width;
+  }
 
-  if (new_origo.y < extents.top - ex_height)
+  if (new_origo.y < extents.top - ex_height) {
     new_origo.y = extents.top - ex_height;
+  }
 
-  if (new_origo.y+height > extents.bottom + ex_height)
+  if (new_origo.y+height > extents.bottom + ex_height) {
     new_origo.y = extents.bottom - height + ex_height;
+  }
 
   if ( (new_origo.x != ddisp->origo.x) ||
        (new_origo.y != ddisp->origo.y) ) {
-    ddisplay_set_origo(ddisp, new_origo.x, new_origo.y);
-    ddisplay_update_scrollbars(ddisp);
-    ddisplay_add_update_all(ddisp);
+    ddisplay_set_origo (ddisp, new_origo.x, new_origo.y);
+    ddisplay_update_scrollbars (ddisp);
+    ddisplay_add_update_all (ddisp);
     return TRUE;
   }
+
   return FALSE;
 }
 
-void ddisplay_scroll_up(DDisplay *ddisp)
+
+void
+ddisplay_scroll_up (DDisplay *ddisp)
 {
   Point delta;
 
   delta.x = 0;
   delta.y = -(ddisp->visible.bottom - ddisp->visible.top)/4.0;
 
-  ddisplay_scroll(ddisp, &delta);
+  ddisplay_scroll (ddisp, &delta);
 }
 
-void ddisplay_scroll_down(DDisplay *ddisp)
+
+void
+ddisplay_scroll_down (DDisplay *ddisp)
 {
   Point delta;
 
   delta.x = 0;
   delta.y = (ddisp->visible.bottom - ddisp->visible.top)/4.0;
 
-  ddisplay_scroll(ddisp, &delta);
+  ddisplay_scroll (ddisp, &delta);
 }
 
-void ddisplay_scroll_left(DDisplay *ddisp)
+
+void
+ddisplay_scroll_left (DDisplay *ddisp)
 {
   Point delta;
 
   delta.x = -(ddisp->visible.right - ddisp->visible.left)/4.0;
   delta.y = 0;
 
-  ddisplay_scroll(ddisp, &delta);
+  ddisplay_scroll (ddisp, &delta);
 }
 
-void ddisplay_scroll_right(DDisplay *ddisp)
+
+void
+ddisplay_scroll_right (DDisplay *ddisp)
 {
   Point delta;
 
   delta.x = (ddisp->visible.right - ddisp->visible.left)/4.0;
   delta.y = 0;
 
-  ddisplay_scroll(ddisp, &delta);
+  ddisplay_scroll (ddisp, &delta);
 }
 
-/** Scroll display to have the diagram point p at the center.
- * Returns TRUE if anything changed. */
+
+/**
+ * ddisplay_scroll_center_point:
+ * @ddisp: the #DDisplay
+ * @p: the #Point
+ *
+ * Scroll display to have the diagram point p at the center.
+ *
+ * Returns: %TRUE if anything changed.
+ */
 gboolean
-ddisplay_scroll_center_point(DDisplay *ddisp, Point *p)
+ddisplay_scroll_center_point (DDisplay *ddisp, Point *p)
 {
   Point center;
 
@@ -901,12 +965,21 @@ ddisplay_scroll_center_point(DDisplay *ddisp, Point *p)
   center.x = (ddisp->visible.right+ddisp->visible.left)/2;
   center.y = (ddisp->visible.top+ddisp->visible.bottom)/2;
 
-  point_sub(p, &center);
-  return ddisplay_scroll(ddisp, p);
+  point_sub (p, &center);
+
+  return ddisplay_scroll (ddisp, p);
 }
 
-/** Scroll display so that obj is centered.
- * Returns TRUE if anything changed.  */
+
+/**
+ * ddisplay_scroll_to_object:
+ * @ddisp: the #DDisplay
+ * @obj: the #DiaObject
+ *
+ * Scroll display so that obj is centered.
+ *
+ * Returns: %TRUE if anything changed.
+ */
 gboolean
 ddisplay_scroll_to_object (DDisplay *ddisp, DiaObject *obj)
 {
@@ -916,20 +989,27 @@ ddisplay_scroll_to_object (DDisplay *ddisp, DiaObject *obj)
   p.x = (r.left+r.right)/2;
   p.y = (r.top+r.bottom)/2;
 
-  display_set_active(ddisp);
-  return ddisplay_scroll_center_point(ddisp, &p);
+  display_set_active (ddisp);
+
+  return ddisplay_scroll_center_point (ddisp, &p);
 }
 
-/** Ensure the object is visible but minimize scrolling
+
+/**
+ * ddisplay_present_object:
+ * @ddisp: the #DDisplay
+ * @obj: the #DiaObject
+ *
+ * Ensure the object is visible but minimize scrolling
  */
 gboolean
-ddisplay_present_object(DDisplay *ddisp, DiaObject *obj)
+ddisplay_present_object (DDisplay *ddisp, DiaObject *obj)
 {
-  const DiaRectangle *r = dia_object_get_enclosing_box(obj);
+  const DiaRectangle *r = dia_object_get_enclosing_box (obj);
   const DiaRectangle *v = &ddisp->visible;
 
-  display_set_active(ddisp);
-  if  (!rectangle_in_rectangle(v, r)) {
+  display_set_active (ddisp);
+  if (!rectangle_in_rectangle (v, r)) {
     Point delta = { 0, 0 };
 
     if ((r->right - r->left) > (v->right - v->left)) /* object bigger than visible area */
@@ -946,32 +1026,45 @@ ddisplay_present_object(DDisplay *ddisp, DiaObject *obj)
     else if  (r->bottom > v->bottom)
       delta.y = r->bottom - v->bottom;
 
-    ddisplay_scroll(ddisp, &delta);
+    ddisplay_scroll (ddisp, &delta);
+
     return TRUE;
   }
+
   return FALSE;
 }
 
-/*!
+
+/**
+ * @ddisp: the #DDisplay
+ * @x: the x position
+ * @y: the y position
+ *
  * Remember the last clicked point given in pixel coodinates
  */
 void
-ddisplay_set_clicked_point(DDisplay *ddisp, int x, int y)
+ddisplay_set_clicked_point (DDisplay *ddisp, int x, int y)
 {
   Point pt;
 
-  ddisplay_untransform_coords(ddisp, x, y, &pt.x, &pt.y);
+  ddisplay_untransform_coords (ddisp, x, y, &pt.x, &pt.y);
 
   ddisp->clicked_position = pt;
 }
 
-/*! Get the last clicked point in diagram coordinates
+
+/**
+ * ddisplay_get_clicked_position:
+ * @ddisp: the #DDisp
+ *
+ * Get the last clicked point in diagram coordinates
  */
 Point
-ddisplay_get_clicked_position(DDisplay *ddisp)
+ddisplay_get_clicked_position (DDisplay *ddisp)
 {
   return ddisp->clicked_position;
 }
+
 
 void
 ddisplay_set_renderer (DDisplay *ddisp, int aa_renderer)
@@ -980,8 +1073,7 @@ ddisplay_set_renderer (DDisplay *ddisp, int aa_renderer)
   GdkWindow *window = gtk_widget_get_window (ddisp->canvas);
   GtkAllocation alloc;
 
-  if (ddisp->renderer)
-    g_object_unref (ddisp->renderer);
+  g_clear_object (&ddisp->renderer);
 
   ddisp->aa_renderer = aa_renderer;
 
@@ -1007,11 +1099,13 @@ ddisplay_set_renderer (DDisplay *ddisp, int aa_renderer)
   }
 }
 
+
 void
-ddisplay_resize_canvas(DDisplay *ddisp,
-		       int width,  int height)
+ddisplay_resize_canvas (DDisplay *ddisp,
+                        int       width,
+                        int       height)
 {
-  if (ddisp->renderer==NULL) {
+  if (ddisp->renderer == NULL) {
     if (!ddisp->aa_renderer){
       g_message ("Only antialias renderers supported");
     }
@@ -1033,49 +1127,54 @@ ddisplay_resize_canvas(DDisplay *ddisp,
   ddisplay_flush (ddisp);
 }
 
+
 DDisplay *
-ddisplay_active(void)
+ddisplay_active (void)
 {
   return active_display;
 }
 
+
 Diagram *
-ddisplay_active_diagram(void)
+ddisplay_active_diagram (void)
 {
   DDisplay *ddisp = ddisplay_active ();
 
   if (!ddisp) return NULL;
+
   return ddisp->diagram;
 }
 
+
 static void
-ddisp_destroy(DDisplay *ddisp)
+ddisp_destroy (DDisplay *ddisp)
 {
   g_signal_handlers_disconnect_by_func (ddisp->diagram, selection_changed, ddisp);
 
   g_object_unref (G_OBJECT (ddisp->im_context));
   ddisp->im_context = NULL;
 
-  ddisplay_im_context_preedit_reset(ddisp, get_active_focus((DiagramData *) ddisp->diagram));
+  ddisplay_im_context_preedit_reset (ddisp, get_active_focus ((DiagramData *) ddisp->diagram));
 
-  if (GTK_WINDOW(ddisp->shell) == gtk_window_get_transient_for(GTK_WINDOW(interface_get_toolbox_shell()))) {
+  if (GTK_WINDOW (ddisp->shell) == gtk_window_get_transient_for (GTK_WINDOW (interface_get_toolbox_shell ()))) {
     /* we have to break the connection otherwise the toolbox will be closed */
-    gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()), NULL);
+    gtk_window_set_transient_for (GTK_WINDOW (interface_get_toolbox_shell ()), NULL);
   }
 
   /* This calls ddisplay_really_destroy */
-  if (ddisp->is_standalone_window)
+  if (ddisp->is_standalone_window) {
     gtk_widget_destroy (ddisp->shell);
-  else {
+  } else {
     gtk_widget_destroy (ddisp->container);
     ddisplay_really_destroy (ddisp);
   }
 }
 
+
 static void
-are_you_sure_close_dialog_respond(GtkWidget *widget, /* the dialog */
-                                  gint       response_id,
-                                  gpointer   user_data) /* the display */
+are_you_sure_close_dialog_respond (GtkWidget *widget, /* the dialog */
+                                   gint       response_id,
+                                   gpointer   user_data) /* the display */
 {
   DDisplay *ddisp = (DDisplay *)user_data;
   gboolean close_ddisp = TRUE;
@@ -1524,7 +1623,7 @@ void
 ddisplay_show_all (DDisplay *ddisp)
 {
   Diagram *dia;
-  real magnify_x, magnify_y;
+  double magnify_x, magnify_y;
   int width, height;
   Point middle;
 
@@ -1545,14 +1644,14 @@ ddisplay_show_all (DDisplay *ddisp)
       rectangle_union(&extents, dia_object_get_enclosing_box (obj));
       list = g_list_next(list);
     }
-    magnify_x = (real)width / (extents.right - extents.left) / ddisp->zoom_factor;
-    magnify_y = (real)height / (extents.bottom - extents.top) / ddisp->zoom_factor;
+    magnify_x = (double)width / (extents.right - extents.left) / ddisp->zoom_factor;
+    magnify_y = (double)height / (extents.bottom - extents.top) / ddisp->zoom_factor;
     middle.x = extents.left + (extents.right - extents.left) / 2.0;
     middle.y = extents.top + (extents.bottom - extents.top) / 2.0;
   } else {
-    magnify_x = (real)width /
+    magnify_x = (double)width /
       (dia->data->extents.right - dia->data->extents.left) / ddisp->zoom_factor;
-    magnify_y = (real)height /
+    magnify_y = (double)height /
       (dia->data->extents.bottom - dia->data->extents.top) / ddisp->zoom_factor;
 
     middle.x = dia->data->extents.left +

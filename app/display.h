@@ -71,8 +71,8 @@ struct _DDisplay {
   GtkAdjustment *vsbdata;         /* vertical data information         */
 
   Point origo;                    /* The origo (lower left) position   */
-  real zoom_factor;               /* zoom, 20.0 means 20 pixel == 1 cm */
-  DiaRectangle visible;              /* The part visible in this display  */
+  double zoom_factor;             /* zoom, 20.0 means 20 pixel == 1 cm */
+  DiaRectangle visible;           /* The part visible in this display  */
 
   Grid grid;                      /* the grid in this display          */
 
@@ -124,24 +124,26 @@ extern GdkCursor *default_cursor;
 DDisplay *new_display(Diagram *dia);
 DDisplay *copy_display(DDisplay *orig_ddisp);
 /* Normal destroy is done through shell widget destroy event. */
-void ddisplay_really_destroy(DDisplay *ddisp);
-void ddisplay_transform_coords_double (DDisplay *ddisp,
-                                       double    x,
-                                       double    y,
-                                       double   *xi,
-                                       double   *yi);
-void ddisplay_transform_coords        (DDisplay *ddisp,
-                                       double    x,
-                                       double    y,
-                                       int      *xi,
-                                       int      *yi);
-void ddisplay_untransform_coords      (DDisplay *ddisp,
-                                       int       xi,
-                                       int       yi,
-                                       double   *x,
-                                       double   *y);
-real ddisplay_transform_length(DDisplay *ddisp, real len);
-real ddisplay_untransform_length(DDisplay *ddisp, real len);
+void     ddisplay_really_destroy          (DDisplay *ddisp);
+void     ddisplay_transform_coords_double (DDisplay *ddisp,
+                                           double    x,
+                                           double    y,
+                                           double   *xi,
+                                           double   *yi);
+void     ddisplay_transform_coords        (DDisplay *ddisp,
+                                           double    x,
+                                           double    y,
+                                           int      *xi,
+                                           int      *yi);
+void     ddisplay_untransform_coords      (DDisplay *ddisp,
+                                           int       xi,
+                                           int       yi,
+                                           double   *x,
+                                           double   *y);
+double   ddisplay_transform_length        (DDisplay *ddisp,
+                                           double    len);
+double   ddisplay_untransform_length      (DDisplay *ddisp,
+                                           double    len);
 void ddisplay_add_update_pixels(DDisplay *ddisp, Point *point,
 				       int pixel_width, int pixel_height);
 void ddisplay_add_update_all(DDisplay *ddisp);
@@ -150,14 +152,17 @@ void ddisplay_add_update_with_border(DDisplay *ddisp, const DiaRectangle *rect,
 void ddisplay_add_update(DDisplay *ddisp, const DiaRectangle *rect);
 void ddisplay_flush(DDisplay *ddisp);
 void ddisplay_update_scrollbars(DDisplay *ddisp);
-void ddisplay_set_origo                 (DDisplay *ddisp,
-                                         double    x,
-                                         double    y);
-void ddisplay_zoom(DDisplay *ddisp, Point *point,
-		   real zoom_factor);
-void ddisplay_zoom_middle(DDisplay *ddisp, real magnify);
-
-void ddisplay_zoom_centered(DDisplay *ddisp, Point *point, real magnify);
+void     ddisplay_set_origo               (DDisplay *ddisp,
+                                           double    x,
+                                           double    y);
+void     ddisplay_zoom                    (DDisplay *ddisp,
+                                           Point    *point,
+                                           double    zoom_factor);
+void     ddisplay_zoom_middle             (DDisplay *ddisp,
+                                           double    magnify);
+void     ddisplay_zoom_centered           (DDisplay *ddisp,
+                                           Point    *point,
+                                           double    magnify);
 void ddisplay_set_snap_to_grid(DDisplay *ddisp, gboolean snap);
 void ddisplay_set_snap_to_guides(DDisplay *ddisp, gboolean snap);
 void ddisplay_set_snap_to_objects(DDisplay *ddisp, gboolean magnetic);

@@ -57,8 +57,6 @@
 #define DIA_INTEGRATED_TOOLBAR_OBJECT_SNAP "dia-integrated-toolbar-object-snap"
 #define DIA_INTEGRATED_TOOLBAR_GUIDES_SNAP "dia-integrated-toolbar-guides-snap"
 
-#define ZOOM_FIT        _("Fit")
-
 static void plugin_callback (GtkWidget *widget, gpointer data);
 
 static GtkWidget *create_integrated_ui_toolbar (void);
@@ -278,6 +276,14 @@ static const GtkRadioActionEntry display_select_radio_entries[] =
   { "SelectInverse", NULL, N_("In_verse"), NULL, NULL, SELECT_INVERT }
 };
 
+#define ZOOM_FIT -1
+
+enum {
+  COL_DISPLAY,
+  COL_AMOUNT,
+  N_COL,
+};
+
 /* need initialisation? */
 static gboolean initialise = TRUE;
 
@@ -488,34 +494,41 @@ integrated_ui_toolbar_zoom_activate (GtkWidget *item,
                                      gpointer   user_data)
 {
   const gchar *text = gtk_entry_get_text (GTK_ENTRY (item));
-  float        zoom_percent;
+  double       zoom_percent = parse_zoom (text);
 
-  if (sscanf (text, "%f", &zoom_percent) == 1) {
-      view_zoom_set (10.0 * zoom_percent);
+  if (zoom_percent > 0) {
+    view_zoom_set (zoom_percent);
   }
 }
+
 
 /* "DiaZoomCombo" probably could work for both UI cases */
 static void
 integrated_ui_toolbar_zoom_combo_selection_changed (GtkComboBox *combo,
                                                     gpointer     user_data)
 {
+  GtkTreeIter iter;
+  GtkTreeModel *store = gtk_combo_box_get_model (combo);
+
   /*
     * We call gtk_combo_get_get_active() so that typing in the combo entry
     * doesn't get handled as a selection change
     */
-  if (gtk_combo_box_get_active (combo) != -1) {
-    float zoom_percent;
-    gchar *text = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (combo));
-    if (sscanf (text, "%f", &zoom_percent) == 1) {
-      view_zoom_set (zoom_percent * 10.0);
-    } else if (g_ascii_strcasecmp (text, ZOOM_FIT) == 0) {
-      view_show_all_callback (NULL);
-    }
+  if (gtk_combo_box_get_active_iter (combo, &iter)) {
+    double zoom_percent;
 
-    g_free (text);
+    gtk_tree_model_get (store, &iter,
+                        COL_AMOUNT, &zoom_percent,
+                        -1);
+
+    if (zoom_percent < 0) {
+      view_show_all_callback (NULL);
+    } else {
+      view_zoom_set (zoom_percent);
+    }
   }
 }
+
 
 static guint
 ensure_menu_path (GtkUIManager   *ui_manager,
@@ -568,42 +581,101 @@ ensure_menu_path (GtkUIManager   *ui_manager,
 static GtkWidget *
 create_integrated_ui_toolbar (void)
 {
-  GtkToolbar  *toolbar;
-  GtkToolItem *sep;
-  GtkWidget   *w;
-  GError      *error = NULL;
-  gchar *uifile;
+  GtkToolbar   *toolbar;
+  GtkToolItem  *sep;
+  GtkListStore *store;
+  GtkTreeIter   iter;
+  GtkWidget    *w;
+  GError       *error = NULL;
+  gchar        *uifile;
 
   uifile = build_ui_filename ("ui/toolbar-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (_ui_manager, uifile, &error)) {
-    g_warning ("building menus failed: %s", error->message);
+    g_critical ("building menus failed: %s", error->message);
     g_error_free (error);
     error = NULL;
     toolbar = GTK_TOOLBAR (gtk_toolbar_new ());
   } else {
-    toolbar =  GTK_TOOLBAR(gtk_ui_manager_get_widget (_ui_manager, "/Toolbar"));
+    toolbar = GTK_TOOLBAR (gtk_ui_manager_get_widget (_ui_manager, "/Toolbar"));
   }
   g_free (uifile);
 
+  store = gtk_list_store_new (N_COL, G_TYPE_STRING, G_TYPE_DOUBLE);
+
   /* Zoom Combo Box Entry */
-  w = gtk_combo_box_text_new_with_entry ();
+  w = gtk_combo_box_new_with_model_and_entry (GTK_TREE_MODEL (store));
+  gtk_combo_box_set_entry_text_column (GTK_COMBO_BOX (w), COL_DISPLAY);
 
   g_object_set_data (G_OBJECT (toolbar),
                      DIA_INTEGRATED_TOOLBAR_ZOOM_COMBO,
                      w);
   integrated_ui_toolbar_add_custom_item (toolbar, w);
 
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), ZOOM_FIT);
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("800%"));
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("400%"));
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("300%"));
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("200%"));
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("150%"));
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("100%"));
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("75%"));
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("50%"));
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("25%"));
-  gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (w), _("10%"));
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      COL_DISPLAY, _("Fit"),
+                      COL_AMOUNT, ZOOM_FIT,
+                      -1);
+
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      COL_DISPLAY, _("800%"),
+                      COL_AMOUNT, 8000.0,
+                      -1);
+
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      COL_DISPLAY, _("400%"),
+                      COL_AMOUNT, 4000.0,
+                      -1);
+
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      COL_DISPLAY, _("300%"),
+                      COL_AMOUNT, 3000.0,
+                      -1);
+
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      COL_DISPLAY, _("200%"),
+                      COL_AMOUNT, 2000.0,
+                      -1);
+
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      COL_DISPLAY, _("150%"),
+                      COL_AMOUNT, 1500.0,
+                      -1);
+
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      COL_DISPLAY, _("100%"),
+                      COL_AMOUNT, 1000.0,
+                      -1);
+
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      COL_DISPLAY, _("75%"),
+                      COL_AMOUNT, 750.0,
+                      -1);
+
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      COL_DISPLAY, _("50%"),
+                      COL_AMOUNT, 500.0,
+                      -1);
+
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      COL_DISPLAY, _("25%"),
+                      COL_AMOUNT, 250.0,
+                      -1);
+
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      COL_DISPLAY, _("10%"),
+                      COL_AMOUNT, 100.0,
+                      -1);
 
   g_signal_connect (G_OBJECT (w),
                     "changed",

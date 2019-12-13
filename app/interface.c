@@ -210,45 +210,51 @@ origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
   return FALSE;
 }
 
+
 void
-view_zoom_set (float factor)
+view_zoom_set (double factor)
 {
   DDisplay *ddisp;
-  real scale;
+  double scale;
 
   ddisp = ddisplay_active();
-  if (!ddisp) return;
+  g_return_if_fail (ddisp != NULL);
 
-  scale = ((real) factor)/1000.0 * DDISPLAY_NORMAL_ZOOM;
+  scale = ((double) factor) / 1000.0 * DDISPLAY_NORMAL_ZOOM;
 
-  ddisplay_zoom_middle(ddisp, scale / ddisp->zoom_factor);
+  ddisplay_zoom_middle (ddisp, scale / ddisp->zoom_factor);
 }
 
+
 static void
-zoom_activate_callback(GtkWidget *item, gpointer user_data)
+zoom_activate_callback (GtkWidget *item, gpointer user_data)
 {
-  DDisplay *ddisp = (DDisplay *)user_data;
+  DDisplay *ddisp = (DDisplay *) user_data;
   const gchar *zoom_text =
-      gtk_entry_get_text(GTK_ENTRY(g_object_get_data(G_OBJECT(ddisp->zoom_status), "user_data")));
-  float zoom_amount, magnify;
-  gchar *zoomamount = g_object_get_data(G_OBJECT(item), "zoomamount");
+      gtk_entry_get_text (GTK_ENTRY (g_object_get_data (G_OBJECT (ddisp->zoom_status), "user_data")));
+  double zoom_amount, magnify;
+  char *zoomamount = g_object_get_data (G_OBJECT (item), "zoomamount");
   if (zoomamount != NULL) {
     zoom_text = zoomamount;
   }
 
-  if (sscanf(zoom_text, "%f", &zoom_amount) == 1) {
+  zoom_amount = parse_zoom (zoom_text);
+
+  if (zoom_amount > 0) {
     /* Set limits to avoid crashes, see bug #483384 */
     if (zoom_amount < .1) {
       zoom_amount = .1;
     } else if (zoom_amount > 1e4) {
       zoom_amount = 1e4;
     }
-    zoomamount = g_strdup_printf("%f%%\n", zoom_amount);
-    gtk_entry_set_text(GTK_ENTRY(g_object_get_data(G_OBJECT(ddisp->zoom_status), "user_data")), zoomamount);
-    g_free(zoomamount);
+
+    // Translators: Current zoom level
+    zoomamount = g_strdup_printf (_("%f%%"), zoom_amount);
+    gtk_entry_set_text (GTK_ENTRY (g_object_get_data (G_OBJECT (ddisp->zoom_status), "user_data")), zoomamount);
+    g_free (zoomamount);
     magnify = (zoom_amount*DDISPLAY_NORMAL_ZOOM/100.0)/ddisp->zoom_factor;
-    if (fabs(magnify - 1.0) > 0.000001) {
-      ddisplay_zoom_middle(ddisp, magnify);
+    if (fabs (magnify - 1.0) > 0.000001) {
+      ddisplay_zoom_middle (ddisp, magnify);
     }
   }
 }
@@ -1413,4 +1419,42 @@ _ddisplay_vruler_motion_notify (GtkWidget *widget,
   }
 
   return FALSE;
+}
+
+
+double
+parse_zoom (const char *zoom)
+{
+  static GRegex *extract_zoom = NULL;
+  GMatchInfo *match_info;
+  char *num;
+  double res = -1;
+
+  if (g_once_init_enter (&extract_zoom)) {
+    GError *error = NULL;
+    GRegex *regex = g_regex_new ("%?(\\d*)%?", G_REGEX_OPTIMIZE, 0, &error);
+
+    if (error) {
+      g_critical ("Failed to prepare regex: %s", error->message);
+
+      g_clear_error (&error);
+    }
+
+    g_once_init_leave (&extract_zoom, regex);
+  }
+
+  g_regex_match (extract_zoom, zoom, 0, &match_info);
+
+  if (!g_match_info_matches (match_info)) {
+    return -1;
+  }
+
+  num = g_match_info_fetch (match_info, 1);
+
+  res = g_ascii_strtod (num, NULL);
+
+  g_free (num);
+  g_match_info_free (match_info);
+
+  return res * 10;
 }
