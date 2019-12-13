@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>EDPC_Start_Event</name>
+  <icon>start_event.png</icon>
+  <connections>
+    <point x="1.25" y="0"/>
+    <point x="1.25" y="2"/>
+    <point x="2.5" y="1.0"/>
+    <point x="0" y="1.0"/>
+    <point x="1.25" y="1" main="yes"/>
+  </connections>
+  <textbox x1="0.1" y1="0" x2="2" y2="2.1"/>
+  <svg:svg width="2.5" height="2">
+    <svg:polygon points="0,0 2,0 2.5,1 2,2 0,2" style="fill: #FFC0C0"/>
+  </svg:svg>
+</shape>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <name>EDPC_Operator_AND_in</name>
+  <icon>operator_and_in.png</icon>
+  <connections>
+    <point x="1" y="2"/>
+    <point x="1" y="0"/>
+    <point x="0" y="1"/>
+    <point x="2" y="1"/>
+    <point x="1" y="1"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 0.1; stroke: #000000" cx="1" cy="1" rx="1" ry="1"/>
+    <svg:line style="fill: none; stroke-opacity: 1; stroke-width: 0.1; stroke: #000000" x1="0" y1="1" x2="2" y2="1"/>
+    <svg:text style="fill: #000000; fill-opacity: 1; stroke: none; text-anchor:middlefont-family: sans; font-style: normal; font-weight: normal" x="1" y="0.842222" font-size="0.705556" textLength="1.2425">AND</svg:text>
+    <svg:text style="fill: #000000; fill-opacity: 1; stroke: none; text-anchor:middlefont-family: sans; font-style: normal; font-weight: normal" x="1" y="1.54778" font-size="0.705556" textLength="0"></svg:text>
+  </svg:svg>
+</shape>

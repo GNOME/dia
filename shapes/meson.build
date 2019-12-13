@@ -24,6 +24,7 @@ subdir('Pneumatic')
 subdir('SDL')
 subdir('Shape_Design')
 subdir('sybase')
+subdir('EDPC')
 
 foreach shape_info : shapes
     install_data(

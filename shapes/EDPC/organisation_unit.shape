@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>EDPC_Organisation_Unit</name>
+  <icon>organisation_unit.png</icon>
+  <connections>
+    <point x="13.9" y="11.9"/>
+    <point x="13.9" y="9.7"/>
+    <point x="11.95" y="10.8"/>
+    <point x="15.85" y="10.8"/>
+    <point x="12.5211" y="10.0222"/>
+    <point x="12.5211" y="11.5778"/>
+    <point x="13.9" y="10.8" main="yes"/>
+  </connections>
+  <aspectratio type="free"/>
+  <textbox x1="12.6" y1="11.6" x2="15.0" y2="10.0" />
+  <svg:svg>
+    <svg:ellipse style="fill: #fbfb81" cx="13.9" cy="10.8" rx="1.95" ry="1.1"/>
+    <svg:line x1="12.5211" y1="10.0222" x2="12.5211" y2="11.5778"/>    
+  </svg:svg>
+</shape>
