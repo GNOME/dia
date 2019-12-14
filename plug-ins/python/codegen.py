@@ -17,10 +17,13 @@
 
 import sys, dia
 
+import gettext
+_ = gettext.gettext
+
 class Klass :
 	def __init__ (self, name) :
 		self.name = name
-		# use a list to preserve the order		
+		# use a list to preserve the order
 		self.attributes = []
 		# a list, as java/c++ support multiple methods with the same name
 		self.operations = []
@@ -91,7 +94,7 @@ class ObjRenderer :
 					pass
 				# other UML objects which may be interesting
 				# UML - Note, UML - LargePackage, UML - SmallPackage, UML - Dependency, ...
-		
+
 		edges = {}
 		for layer in data.layers :
 			for o in layer.objects :
@@ -113,7 +116,7 @@ class ObjRenderer :
 						if n.type.name == "UML - Generalization":
 							self.klasses[chi_name].AddParrent(par_name)
 						else: self.klasses[chi_name].AddTemplate(par_name)
-					
+
 	def end_render(self) :
 		# without this we would accumulate info from every pass
 		self.attributes = []
@@ -121,7 +124,7 @@ class ObjRenderer :
 
 ##
 # \brief Generate a Python source file from an UML class diagram
-class PyRenderer(ObjRenderer) : 
+class PyRenderer(ObjRenderer) :
 	def __init__(self) :
 		ObjRenderer.__init__(self)
 	def end_render(self) :
@@ -176,7 +179,7 @@ class CxxRenderer(ObjRenderer) :
 				ops[v].append((t,so,p,i,c))
 			vars = [[], [], [], []]
 			for sa, (t, vi, va, vc, class_scope) in k.attributes :
-				#TODO: use 'va'=value 'vc'=comment 
+				#TODO: use 'va'=value 'vc'=comment
 				vars[vi].append((t, sa))
 			visibilities = ("public:", "private:", "protected:", "/* implementation: */")
 			for v in [0,2,1,3] :
@@ -201,7 +204,7 @@ class CxxRenderer(ObjRenderer) :
 					i = 0
 					m = len(op[2]) - 1
 					for p in op[2] :
-						linefeed = ",\n\t" + " " * (n - 1) 
+						linefeed = ",\n\t" + " " * (n - 1)
 						if i == m :
 							linefeed = ""
 						f.write ("%s %s%s" % (p[1], p[0], linefeed))
@@ -229,7 +232,7 @@ class CxxRenderer(ObjRenderer) :
 #  - Order of attributes and operations is preserved.
 #  - Auto generate type check.
 #
-class JsRenderer(ObjRenderer) : 
+class JsRenderer(ObjRenderer) :
 	def __init__(self) :
 		ObjRenderer.__init__(self)
 	def end_render(self) :
@@ -302,7 +305,7 @@ class JsRenderer(ObjRenderer) :
 #    'Array[0..1233] of' is used. If the name uses a constant with
 #    "[MaxEntries]" an 'Array[0..MaxEntries-1] of' is written.
 #  - To inherit from classes which are not drawn (e.g. LCL/VCL classes),
-#    name then class with the parent class in paranthesis (e.g. 
+#    name then class with the parent class in paranthesis (e.g.
 #    "TMainWin(TForm)"
 #
 # Features
@@ -488,7 +491,7 @@ class PascalRenderer(ObjRenderer) :
 class JavaRenderer(ObjRenderer) :
 	def __init__(self) :
 		ObjRenderer.__init__(self)
-		
+
 	def end_render(self) :
 		visibilities = {0:"public", 1:"private", 2:"protected"}
 
@@ -514,7 +517,7 @@ class JavaRenderer(ObjRenderer) :
 			if klass.templates:
 				f.write (" implements %s" % ", ".join(klass.templates))
 			f.write(" {\n")
-			
+
 			# attributes
 			for attrname, (type, visibility, value, comment, class_scope) in klass.attributes :
 				if comment:
@@ -528,11 +531,11 @@ class JavaRenderer(ObjRenderer) :
 				f.write("\t%s%s %s" % (vis, type, attrname))
 				if value: f.write(" = %s" % value)
 				f.write(";\n")
-			
+
 			# dafault constructor
 			if not klass.inheritance_type == "template":
 				f.write ("\n\tpublic %s() {\n\t\t\n\t}\n\n" % name)
-			
+
 			# We should automatic implement abstract parrent and interface methods
 			parmethods = []
 			if klass.parents:
@@ -540,7 +543,7 @@ class JavaRenderer(ObjRenderer) :
 						self.klasses[klass.parents[0]].operations if m[3] == 0]
 			for template in klass.templates:
 				parmethods.extend(self.klasses[template].operations)
-			
+
 			for pName, pMethod in parmethods:
 				pTypes = [p[1] for p in pMethod[2]]
 				for name, pars in [(n,m[2]) for n,m in klass.operations]:
@@ -548,7 +551,7 @@ class JavaRenderer(ObjRenderer) :
 					if pars == pMethod[2] and types == pTypes:
 						break
 				else: klass.operations.append((pName,pMethod))
-			
+
 			for methodname, method in klass.operations :
 				# method comment
 				f.write("\t/**\n")
@@ -569,9 +572,9 @@ class JavaRenderer(ObjRenderer) :
 						v += 1
 					if value:
 						value = "=" + value
-					pars.append((type, name, value))			
+					pars.append((type, name, value))
 				pars = ", ".join([type+" "+name+value for type, name, value in pars])
-				
+
 				vis = method[1] in visibilities and visibilities[method[1]] or ""
 				return_type = method[0] == "" and "void" or method[0]
 				inheritance_type = method[3] == 0 and "abstract " or ""
@@ -628,7 +631,7 @@ class PhpRenderer(ObjRenderer) :
 			if klass.templates:
 				f.write (" implements %s" % ", ".join(klass.templates))
 			f.write("\n{\n")
-			
+
 			# attributes
 			for attrname, (type, visibility, value, comment, class_scope) in klass.attributes :
 				if comment:
@@ -651,7 +654,7 @@ class PhpRenderer(ObjRenderer) :
 						self.klasses[klass.parents[0]].operations if m[3] == 0]
 			for template in klass.templates:
 				parmethods.extend(self.klasses[template].operations)
-			
+
 			for pName, pMethod in parmethods:
 				pTypes = [p[1] for p in pMethod[2]]
 				for name, pars in [(n,m[2]) for n,m in klass.operations]:
@@ -659,7 +662,7 @@ class PhpRenderer(ObjRenderer) :
 					if pars == pMethod[2] and types == pTypes:
 						break
 				else: klass.operations.append((pName,pMethod))
-			
+
 			for methodname, method in klass.operations :
 				# method comment
 				f.write("\t/**\n")
@@ -682,7 +685,7 @@ class PhpRenderer(ObjRenderer) :
 						value = " = " + value
 					pars.append((type, '$' + name, value))
 				pars = ", ".join([type+" "+name+value for type, name, value in pars])
-				
+
 				vis = method[1] in visibilities and visibilities[method[1]] or ""
 				return_type = method[0] == "" or method[0]
 				# TODO inheritance type is set to leaf/final by default in Dia. A normal type is need for the default
@@ -701,13 +704,13 @@ class PhpRenderer(ObjRenderer) :
 		mainfile.close()
 		ObjRenderer.end_render(self)
 
-	def draw_line(*args):pass
-	def draw_string(*args):pass
+	def draw_line(self, *args):pass
+	def draw_string(self, *args):pass
 
 # dia-python keeps a reference to the renderer class and uses it on demand
-dia.register_export ("PyDia Code Generation (Python)", "py", PyRenderer())
-dia.register_export ("PyDia Code Generation (C++)", "cxx", CxxRenderer())
-dia.register_export ("PyDia Code Generation (Pascal)", "pas", PascalRenderer())
-dia.register_export ("PyDia Code Generation (Java)", "java", JavaRenderer())
-dia.register_export ("PyDia Code Generation (JavaScript)", "js", JsRenderer())
-dia.register_export ("PyDia Code Generation (PHP)", "php", PhpRenderer())
+dia.register_export (_("PyDia Code Generation (Python)"), "py", PyRenderer())
+dia.register_export (_("PyDia Code Generation (C++)"), "cxx", CxxRenderer())
+dia.register_export (_("PyDia Code Generation (Pascal)"), "pas", PascalRenderer())
+dia.register_export (_("PyDia Code Generation (Java)"), "java", JavaRenderer())
+dia.register_export (_("PyDia Code Generation (JavaScript)"), "js", JsRenderer())
+dia.register_export (_("PyDia Code Generation (PHP)"), "php", PhpRenderer())

@@ -1,4 +1,4 @@
-# PyDia Rotation 
+# PyDia Rotation
 # Copyright (c) 2003, Hans Breuer <hans@breuer.org>
 # Copyright (c) 2009, 2011  Steffen Macke <sdteffen@sdteffen.de
 #
@@ -18,6 +18,9 @@
 
 import dia, math, string
 
+import gettext
+_ = gettext.gettext
+
 class CRotateDialog :
 	def __init__(self, d, data) :
 		import pygtk
@@ -25,7 +28,7 @@ class CRotateDialog :
 		import gtk
 		win = gtk.Window()
 		win.connect("delete_event", self.on_delete)
-		win.set_title("Rotate counter-clockwise")
+		win.set_title(_("Rotate counter-clockwise"))
 
 		self.diagram = d
 		self.data = data
@@ -41,7 +44,7 @@ class CRotateDialog :
 		box2.show()
 
 		label1 = gtk.Label()
-		label1.set_text('Rotation around (0,0). Rotation angle in degrees:')
+		label1.set_text(_('Rotation around (0,0). Rotation angle in degrees:'))
 		box2.pack_start(label1)
 		label1.show()
 
@@ -95,7 +98,7 @@ def SimpleRotate(data, angle) :
 	scaleFailed = {}
 	ptype = dia.get_object_type('Standard - Polygon')
 	for o in objs :
-		if o.type.name == 'Standard - Box' :			
+		if o.type.name == 'Standard - Box' :
 			r = o.properties['obj_bb'].value
 			p = ptype.create(0,0)
 			p = p[0]
@@ -113,13 +116,13 @@ def SimpleRotate(data, angle) :
 			x = math.cos(angle_rad)*(h.pos.x+xm)-math.sin(angle_rad)*(h.pos.y+ym)
 			y = math.sin(angle_rad)*(h.pos.x+xm)+math.cos(angle_rad)*(h.pos.y)
 			o.move_handle(h, (x,y), 0, 0)
-					
+
 	data.update_extents ()
 	dia.active_display().add_update_all()
 
 def rotate_cb(data, flags) :
 	dlg = CRotateDialog(dia.active_display().diagram, data)
 
-dia.register_action ("ObjectsSimplerotation", "Simple _Rotation",
+dia.register_action ("ObjectsSimplerotation", _("Simple _Rotation"),
 		     "/DisplayMenu/Objects/ObjectsExtensionStart",
 		     rotate_cb)

@@ -1,6 +1,6 @@
 #   Copyright (c) 2006, Hans Breuer <hans@breuer.org>
 #
-#   Draws bounding boxes of the objects in the active layer 
+#   Draws bounding boxes of the objects in the active layer
 #   into a new layer. Helps analyzing the font size problems
 #
 #    This program is free software; you can redistribute it and/or modify
@@ -18,6 +18,9 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import sys, dia, string
+
+import gettext
+_ = gettext.gettext
 
 def bbox_cb (data, flags) :
 
@@ -43,7 +46,7 @@ def annotate_cb (data, flags) :
 	for o in layer.objects :
 		bb = o.bounding_box
 		a, h1, h2 = ann_type.create (bb.right, bb.top)
-		
+
 		a.properties["text"] = "h: %g w: %g" % (bb.bottom - bb.top, bb.right - bb.left)
 
 		dest.add_object (a)

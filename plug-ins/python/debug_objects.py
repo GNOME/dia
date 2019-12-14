@@ -1,5 +1,8 @@
 import sys, dia
 
+import gettext
+_ = gettext.gettext
+
 # sys.path.insert(0, 'd:/graph/dia/dia')
 
 def dia_debug_cb (data, flags) :
@@ -24,10 +27,10 @@ def dia_debug_props_cb (data, flags) :
 				print "\t" + str(p)
 
 # dia-python keeps a reference to the renderer class and uses it on demand
-dia.register_action ("DebugBoundingbox", "Dia _BoundingBox Debugger",
+dia.register_action ("DebugBoundingbox", _("Dia _BoundingBox Debugger"),
                      "/DisplayMenu/Debug/DebugExtensionStart",
                      dia_debug_cb)
 
-dia.register_action ("DebugProperty", "Dia _Property API Debugger",
+dia.register_action ("DebugProperty", _("Dia _Property API Debugger"),
                      "/DisplayMenu/Debug/DebugExtensionStart",
                      dia_debug_props_cb)

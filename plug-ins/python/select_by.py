@@ -24,6 +24,9 @@
 
 import sys, dia
 
+import gettext
+_ = gettext.gettext
+
 class CFindDialog :
 	def __init__(self, d, data) :
 		import pygtk
@@ -32,7 +35,7 @@ class CFindDialog :
 
 		win = gtk.Window()
 		win.connect("delete_event", self.on_delete)
-		win.set_title("Select by name")
+		win.set_title(_("Select by name"))
 
 		self.diagram = d
 		self.data = data
@@ -48,7 +51,7 @@ class CFindDialog :
 		box2.show()
 
 		self.entry = gtk.Entry()
-		self.entry.set_text("enter name")
+		self.entry.set_text(_("Enter name"))
 		box2.pack_start(self.entry)
 		self.entry.show()
 
@@ -61,7 +64,7 @@ class CFindDialog :
 		box1.pack_start(box2, expand=0)
 		box2.show()
 
-		button = gtk.Button("find")
+		button = gtk.Button(_("Find"))
 		button.connect("clicked", self.on_find)
 		box2.pack_start(button)
 		button.set_flags(gtk.CAN_DEFAULT)
@@ -140,18 +143,18 @@ def select_by_size_cb (data, flags) :
 	d.flush()
 
 
-dia.register_action ("SelectByName", "_Name",
+dia.register_action ("SelectByName", _("_Name"),
                        "/DisplayMenu/Select/SelectBy/SelectByExtensionStart",
                        select_by_name_cb)
-dia.register_action ("SelectByFillcolor", "_Fill Color",
+dia.register_action ("SelectByFillcolor", _("_Fill Color"),
                        "/DisplayMenu/Select/SelectBy/SelectByExtensionStart",
                        select_by_fill_color_cb)
-dia.register_action ("SelectByLinecolor", "_Line Color",
+dia.register_action ("SelectByLinecolor", _("_Line Color"),
                        "/DisplayMenu/Select/SelectBy/SelectByExtensionStart",
                        select_by_line_color_cb)
-dia.register_action ("SelectByTextcolor", "_Text Color",
+dia.register_action ("SelectByTextcolor", _("_Text Color"),
                        "/DisplayMenu/Select/SelectBy/SelectByExtensionStart",
                        select_by_text_color_cb)
-dia.register_action ("SelectBySize", "_Size",
+dia.register_action ("SelectBySize", _("_Size"),
                        "/DisplayMenu/Select/SelectBy/SelectByExtensionStart",
                        select_by_size_cb)

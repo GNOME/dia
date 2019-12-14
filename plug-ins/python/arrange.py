@@ -16,6 +16,9 @@
 import dia
 import math
 
+import gettext
+_ = gettext.gettext
+
 def DeepCalc (dict, key, seen = None) :
 	# calculate all (deep) dependencies
 	# give a directory with component name as key and dependency components as list in dict[key][2]
@@ -121,6 +124,6 @@ def arrange_connected (data, flags) :
 # fine due to Pythoninitializing the module only once
 #
 # \ingroup PyDia
-dia.register_callback ("Arrange _Objects",
+dia.register_callback (_("Arrange _Objects"),
                        "<Display>/Objects/Arrange",
                        arrange_connected)

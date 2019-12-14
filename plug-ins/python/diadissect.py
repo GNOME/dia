@@ -20,6 +20,9 @@
 
 import sys, string, dia
 
+import gettext
+_ = gettext.gettext
+
 ##
 # \brief A dissecting renderer for Dia
 #
@@ -161,4 +164,4 @@ class DissectRenderer :
 			self.Warning ("draw_image height too small")
 		# XXX: check image, e.g. existing file name
 # dia-python keeps a reference to the renderer class and uses it on demand
-dia.register_export ("Dissect", "dissect", DissectRenderer())
+dia.register_export (_("Dissect"), "dissect", DissectRenderer())

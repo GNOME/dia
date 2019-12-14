@@ -1,5 +1,8 @@
 import sys, dia
 
+import gettext
+_ = gettext.gettext
+
 # sys.path.insert(0, 'd:/graph/dia/dia')
 
 class ObjRenderer :
@@ -39,4 +42,4 @@ class ObjRenderer :
 		self.f.close()
 
 # dia-python keeps a reference to the renderer class and uses it on demand
-dia.register_export ("PyDia Object Export", "diapyo", ObjRenderer())
+dia.register_export (_("PyDia Object Export"), "diapyo", ObjRenderer())

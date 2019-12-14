@@ -1,5 +1,8 @@
 import sys, dia
 
+import gettext
+_ = gettext.gettext
+
 # sys.path.insert(0, 'd:/graph/dia/dia')
 
 ##
@@ -113,4 +116,4 @@ class DumpRenderer :
 
 ## \brief Register the renderer with Dia's export system
 # dia-python keeps a reference to the renderer class and uses it on demand
-dia.register_export ("PyDia Render Export", "diapyr", DumpRenderer())
+dia.register_export (_("PyDia Render Export"), "diapyr", DumpRenderer())

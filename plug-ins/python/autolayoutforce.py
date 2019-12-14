@@ -22,6 +22,9 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 import math, dia
 
+import gettext
+_ = gettext.gettext
+
 def bbox_area (o) :
 	r = o.bounding_box
 	return (r.bottom - r.top) * (r.right - r.left)
@@ -41,7 +44,7 @@ def repulsion (rconst, node, other) :
 
 	m2 = bbox_area (other)
 	m1 = bbox_area (node)
-	
+
 	dx = p1.x - p2.x
 	dy = p1.y - p2.y
 
@@ -56,7 +59,7 @@ def repulsion (rconst, node, other) :
 		return (0,0)
 
 	return (fx,fy)
-	
+
 def layout_force (nodes, rconst, aconst, timestep, damping) :
 	energy = [0.0, 0.0]
 	for o in nodes :
@@ -98,7 +101,7 @@ def layout_force (nodes, rconst, aconst, timestep, damping) :
 
 def layout_force_cb (data, flags) :
 	diagram = dia.active_display().diagram
-	# the things (nodes) we are moving around are all connected 'elements', 
+	# the things (nodes) we are moving around are all connected 'elements',
 	# connection objects are only moving as a side effect
 	nodes = []
 	for o in data.selected :
@@ -120,6 +123,6 @@ def layout_force_cb (data, flags) :
 	diagram.flush()
 	print n, "iterations"
 
-dia.register_action ("LayoutForcePy", "_Layout (force)",
+dia.register_action ("LayoutForcePy", _("_Layout (force)"),
                      "/DisplayMenu/Test/TestExtensionStart",
                      layout_force_cb)

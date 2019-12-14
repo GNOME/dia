@@ -22,6 +22,9 @@
 
 import sys, math, dia, types, string
 
+import gettext
+_ = gettext.gettext
+
 def distribute_objects (objs) :
 	width = 0.0
 	height = 0.0
@@ -258,12 +261,12 @@ def autodoc_html_cb (data, flags) :
 	dia.message(0, path + os.path.sep + "dia.html saved.")
 	webbrowser.open('file://' + os.path.realpath(path + os.path.sep + "dia.html"))
 
-dia.register_action ("HelpPydia2", "PyDia _HTML Docs",
+dia.register_action ("HelpPydia2", _("PyDia _HTML Docs"),
                        "/ToolboxMenu/Help/HelpExtensionStart",
                        autodoc_html_cb)
-dia.register_action ("HelpPydia", "PyDia _Docs",
+dia.register_action ("HelpPydia", _("PyDia _Docs"),
                        "/ToolboxMenu/Help/HelpExtensionStart",
                        autodoc_fresh_cb)
-dia.register_action ("UpdatePydia", "PyDia Docs _Update",
+dia.register_action ("UpdatePydia", _("PyDia Docs _Update"),
                        "/DisplayMenu/Help/HelpExtensionStart",
                        autodoc_update_cb)

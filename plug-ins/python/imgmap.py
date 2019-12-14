@@ -1,4 +1,4 @@
-#    PyDia imgmap.py : produce an html image map 
+#    PyDia imgmap.py : produce an html image map
 #    Copyright (c) 2007  Hans Breuer  <hans@breuer.org>
 
 #    This program is free software; you can redistribute it and/or modify
@@ -16,6 +16,9 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import dia, sys, os.path, string
+
+import gettext
+_ = gettext.gettext
 
 class ObjRenderer :
 	def __init__ (self) :
@@ -38,7 +41,7 @@ class ObjRenderer :
 		fname = name[:string.find(name, ".")] + ".png" # guessing
 		self.f.write ('<image src="%s" width="%d", height="%d" usemap="#%s">\n' % (fname, width, height, name))
 		self.f.write ('<map name="%s">\n' % (name,))
-		
+
 		self.xofs = - (r.left * scale)
 		self.yofs = - (r.top * scale)
 		if bMapLayer :
@@ -74,4 +77,4 @@ class ObjRenderer :
 		self.f.close()
 
 # dia-python keeps a reference to the renderer class and uses it on demand
-dia.register_export ("Imagemap", "cmap", ObjRenderer())
+dia.register_export (_("Imagemap"), "cmap", ObjRenderer())

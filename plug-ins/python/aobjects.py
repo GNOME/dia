@@ -21,6 +21,9 @@
 
 import sys, dia, string
 
+import gettext
+_ = gettext.gettext
+
 def set_object_string (o) :
 	keys = o.properties.keys()
 	for s in keys :
@@ -60,7 +63,7 @@ def aobjects_cb(data, flags) :
 		if packages.has_key(sp) :
 			packages[sp].append(s)
 		else :
-			packages[sp] = [s] 
+			packages[sp] = [s]
 
 	for sp in packages.keys() :
 		# add a layer per package
@@ -96,6 +99,6 @@ def aobjects_cb(data, flags) :
 		diagram.flush()
 	return data
 
-dia.register_action ("HelpAObjects", "All _Objects",
+dia.register_action ("HelpAObjects", _("All _Objects"),
                      "/ToolboxMenu/Help/HelpExtensionStart",
                      aobjects_cb)

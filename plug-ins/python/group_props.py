@@ -27,6 +27,9 @@
 
 import sys, dia
 
+import gettext
+_ = gettext.gettext
+
 class CPropsDialog :
 	def __init__(self, diagram, data, props) :
 		import pygtk
@@ -39,7 +42,7 @@ class CPropsDialog :
 
 		self.win = gtk.Window ()
 		self.win.connect("delete_event", self.on_delete)
-		self.win.set_title("Group Properties")
+		self.win.set_title(_("Group Properties"))
 
 		box1 = gtk.VBox()
 		self.win.add(box1)
@@ -59,8 +62,8 @@ class CPropsDialog :
 		table.set_row_spacings(2)
 		table.set_col_spacings(5)
 		table.set_border_width(5)
+		y = 0
 		if len(props) :
-			y = 0
 			for s in props.keys() :
 				w = gtk.CheckButton(s)
 				self.checkboxes.append(w)
@@ -82,7 +85,7 @@ class CPropsDialog :
 				w.show()
 				y = y + 1
 		else :
-			w = gtk.Label("The selected objects don't share any\n properties to change at once.") 
+			w = gtk.Label(_("The selected objects don't share any\n properties to change at once."))
 			table.attach(w, 0, 1, y, y+1)
 			w.show()
 		box2.pack_start(table)
@@ -177,6 +180,6 @@ def dia_objects_props_cb (data, flags) :
 	except ImportError :
 		dia.message(0, "Dialog creation failed. Missing pygtk?")
 
-dia.register_action ("DialogsGroupproperties", "Dia _Group Properties",
+dia.register_action ("DialogsGroupproperties", _("Dia _Group Properties"),
                       "/DisplayMenu/Dialogs/DialogsExtensionStart",
                        dia_objects_props_cb)

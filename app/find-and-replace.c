@@ -562,17 +562,13 @@ edit_replace_callback(GtkAction *action)
   /* no static var, instead we are attaching the dialog to the diplay shell */
   dialog = g_object_get_data (G_OBJECT (ddisp->shell), "edit-replace-dialog");
   if (!dialog) {
-    GtkWidget *button;
     dialog = gtk_dialog_new_with_buttons (_("Replace"),
                                           GTK_WINDOW (ddisp->shell),
                                           GTK_DIALOG_DESTROY_WITH_PARENT,
                                           _("_Close"), GTK_RESPONSE_CLOSE,
                                           _("Replace _All"), RESPONSE_REPLACE_ALL,
+                                          _("_Replace"), RESPONSE_REPLACE,
                                           NULL);
-    /* not adding the button in the list above to modify it's text;
-     * the default "Find and Replace" is just too long for my taste ;)
-     */
-    button = gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Replace"), RESPONSE_REPLACE);
 
     gtk_dialog_add_button (GTK_DIALOG (dialog), _("_Find"), RESPONSE_FIND);
 

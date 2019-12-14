@@ -21,9 +21,12 @@
 
 import re, string, sys
 
+import gettext
+_ = gettext.gettext
+
 # FIXME: keywords are case indepentend
 keywords = ['node', 'edge', 'graph', 'digraph', 'strict']
-# starts with either a keyword or a node name in quotes. 
+# starts with either a keyword or a node name in quotes.
 # BEWARE: (?<-> ) - negative lookbehind to not find nodes a second time in connection definition (and misinterpret the params)
 rDecl = re.compile(r'\s*(?<!-> )(?P<cmd>(?:' + string.join(keywords, ')|(?:') + ')|(?:\w+' + ')|(?:"[^"]+"))\s+\[(?P<dict>[^\]]+)\];', re.DOTALL | re.MULTILINE)
 # dont assume that all node names are in quotes
@@ -129,7 +132,7 @@ class Edge(Object) :
 						print xy
 						continue
 					bp.append((x,y))
-					# must convert to _one_ tuple 
+					# must convert to _one_ tuple
 					if i == 0 : # first must be move to
 						pts.append ((0, bp[0][0], bp[0][1]))
 						bp = [] # reset to new point
@@ -142,7 +145,7 @@ class Edge(Object) :
 			diaobj.properties['bez_points'] = pts
 		else :
 			print "BezPoints", pts
-			
+
 def MergeParms (d, extra) :
 	for k in extra.keys() :
 		if not d.has_key(k) :
@@ -171,7 +174,7 @@ def Parse(sFile) :
 			else : # must be a node
 				n = Node(name, DictFromString(m.group("dict")))
 				if extra.has_key('node') :
-					MergeParms(n.parms, extra['node']) 
+					MergeParms(n.parms, extra['node'])
 				nodes[name] = n
 	for m in rEdge.finditer(s) :
 		if m :
@@ -191,7 +194,7 @@ def Parse(sFile) :
 
 ##
 # \brief Adding a label for the edges
-# 
+#
 # This function could be improved if Dia would allow to
 # attach labels to arbitrary objects. For the time being
 # only the initial postion does match, but relayouting the
@@ -266,7 +269,7 @@ def ImportFile (sFile, diagramData) :
 		diagram.update_extents()
 	return diagramData
 
-if __name__ == '__main__': 
+if __name__ == '__main__':
 	# just testing at the moment
 	nodes, edges = Parse(sys.argv[1])
 	for k, n in nodes.iteritems() :
@@ -276,4 +279,4 @@ if __name__ == '__main__':
 else :
 	# run as a Dia plug-in
 	import dia
-	dia.register_import ("Graphviz Dot", "dot", ImportFile)
+	dia.register_import (_("Graphviz Dot"), "dot", ImportFile)

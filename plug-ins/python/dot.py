@@ -21,6 +21,9 @@
 
 import sys, dia
 
+import gettext
+_ = gettext.gettext
+
 class DotRenderer :
 	def __init__ (self) :
 		self.nodes = {}
@@ -71,7 +74,7 @@ class DotRenderer :
 						self.edges[str(n)] = 1
 						if not (n.handles[0].connected_to and n.handles[1].connected_to) :
 							continue
-						# the right handles give us the direction 
+						# the right handles give us the direction
 						a = n.handles[0].connected_to.object
 						b = n.handles[1].connected_to.object
 						try :
@@ -84,6 +87,6 @@ class DotRenderer :
 		self.f.write('}\n')
 	def end_render (self) :
 		self.f.close()
-	
+
 # dia-python keeps a reference to the renderer class and uses it on demand
-dia.register_export ("PyDia DOT Export", "dot", DotRenderer())
+dia.register_export (_("PyDia DOT Export"), "dot", DotRenderer())

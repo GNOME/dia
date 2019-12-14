@@ -2,12 +2,12 @@
 #  Copyright (c) 2003, 2004 Hans Breuer <hans@breuer.org>
 #
 #  Pure Python Dia Import Filter - to show how it is done.
-#  It also tries to be more featureful and robust then the 
-#  SVG importer written in C, but as long as PyDia has issues 
+#  It also tries to be more featureful and robust then the
+#  SVG importer written in C, but as long as PyDia has issues
 #  this will _not_ be the case. Known issues (at least) :
 #  - xlink stuff (should probably have some StdProp equivalent)
 #  - lack of full transformation dealing
-#  - real percentage scaling, is it worth it ? 
+#  - real percentage scaling, is it worth it ?
 #  - see FIXME in this file
 
 #    This program is free software; you can redistribute it and/or modify
@@ -26,14 +26,17 @@
 
 import string, math, os, re
 
+import gettext
+_ = gettext.gettext
+
 # Dias unit is cm, the default scale should be determined from svg:width and viewBox
 dfPcm = 35.43307
 dfUserScale = 1.0
 dfFontSize = 0.7
-dfViewLength = 32.0 # wrong approach for "% unit" 
+dfViewLength = 32.0 # wrong approach for "% unit"
 dictUnitScales = {
 	"em" : 1.0, "ex" : 2.0, #FIXME these should be _relative_ to current font
-	"px" : 1.0 / dfPcm, "pt" : 1.25 / dfPcm, "pc" : 15.0 / dfPcm, 
+	"px" : 1.0 / dfPcm, "pt" : 1.25 / dfPcm, "pc" : 15.0 / dfPcm,
 	"cm" : 35.43307 / dfPcm, "mm" : 3.543307 / dfPcm, "in" : 90.0 / dfPcm}
 
 # only compile once
@@ -125,14 +128,14 @@ class Object :
 				n = 0
 		if n == 0 : # should not really happen
 			self.props["line-style"] = (0, 1.0) # LINESTYLE_SOLID,
-		elif n == 2 : 
-			if dlen > 0.1 : # FIXME:  
+		elif n == 2 :
+			if dlen > 0.1 : # FIXME:
 				self.props["line-style"] = (1, dlen) # LINESTYLE_DASHED,
 			else :
 				self.props["line-style"] = (4, dlen) # LINESTYLE_DOTTED
-		elif n == 4 :  
+		elif n == 4 :
 			self.props["line-style"] = (2, dlen) # LINESTYLE_DASH_DOT,
-		elif n == 6 : 
+		elif n == 6 :
 			self.props["line-style"] = (3, dlen) # LINESTYLE_DASH_DOT_DOT,
 	def id(self, s) :
 		# just to handle/ignore it
@@ -171,7 +174,7 @@ class Object :
 					pass
 			else :
 				# Dia can't really display stroke none, some workaround :
-				if self.props.has_key("fill") and self.props["fill"] != "none" : 
+				if self.props.has_key("fill") and self.props["fill"] != "none" :
 					#does it really matter ?
 					try :
 						o.properties["line_colour"] = Color(self.props["fill"])
@@ -325,10 +328,10 @@ class Group(Object) :
 		for o in self.childs :
 			o.Dump(indent + 1)
 
-# One of my test files is quite ugly (produced by Batik) : it dumps identical image data 
+# One of my test files is quite ugly (produced by Batik) : it dumps identical image data
 # multiple times into the svg. This directory helps to reduce them to the necessary
 # memory comsumption
-_imageData = {} 
+_imageData = {}
 
 class Image(Object) :
 	def __init__(self) :
@@ -364,7 +367,7 @@ class Image(Object) :
 		if self.props.has_key("width") :
 			o.properties["elem_height"] = self.props["height"]
 		if self.props.has_key("uri") :
-			o.properties["image_file"] = self.props["uri"][8:] 
+			o.properties["image_file"] = self.props["uri"][8:]
 class Line(Object) :
 	def __init__(self) :
 		Object.__init__(self)
@@ -412,7 +415,7 @@ class Path(Object) :
 				sp = rPathValue.split(spd[i])
 				if sp[0] == "" : k = 1
 				for j in range(k, len(sp)-k-1, 6) :
-					self.pts.append((2, Scaled(sp[j]), Scaled(sp[j+1]), 
+					self.pts.append((2, Scaled(sp[j]), Scaled(sp[j+1]),
 									Scaled(sp[j+2]), Scaled(sp[j+3]),
 									Scaled(sp[j+4]), Scaled(sp[j+5])))
 					# reflexion second control to current point, really ?
@@ -450,10 +453,10 @@ class Rect(Object) :
 	def __init__(self) :
 		Object.__init__(self)
 		self.dt = "Standard - Box"
-		# "corner_radius", 
+		# "corner_radius",
 	def ApplyProps(self,o) :
-		o.properties["elem_width"] = self.props["width"]	
-		o.properties["elem_height"] = self.props["height"]	
+		o.properties["elem_width"] = self.props["width"]
+		o.properties["elem_height"] = self.props["height"]
 class Ellipse(Object) :
 	def __init__(self) :
 		Object.__init__(self)
@@ -475,7 +478,7 @@ class Ellipse(Object) :
 		self.props["ry"] = Scaled(s)
 		self.props["y"] = self.props["cy"] - self.props["ry"]
 	def ApplyProps(self,o) :
-		o.properties["elem_width"] = 2.0 * self.props["rx"]	
+		o.properties["elem_width"] = 2.0 * self.props["rx"]
 		o.properties["elem_height"] = 2.0 * self.props["ry"]
 class Circle(Ellipse) :
 	def __init__(self) :
@@ -484,7 +487,7 @@ class Circle(Ellipse) :
 		Ellipse.rx(self,s)
 		Ellipse.ry(self,s)
 class Poly(Object) :
-	def __init__(self) :	
+	def __init__(self) :
 		Object.__init__(self)
 		self.dt = None # abstract class !
 	def points(self,s) :
@@ -599,7 +602,7 @@ class Importer :
 				o = Group()
 				stack.append(o)
 			elif 'tspan' == name :
-				#FIXME: to take all the style coming with it into account 
+				#FIXME: to take all the style coming with it into account
 				# Dia would need to support layouted text ...
 				txn, txo = ctx[-1]
 				if attrs.has_key("dy") :
@@ -680,12 +683,12 @@ class Importer :
 			s = "To hide the error messages delete or disable the 'Errors' layer\n"
 			for e in self.errors.keys() :
 				s = s + str(e) + " -> " + str(self.errors[e]) + "\n"
-		
+
 			o = Text()
 			o.props["fill"] = "red"
 			o.Set(s)
 			layer.add_object(o.Create())
-		# create a 'Description' layer 
+		# create a 'Description' layer
 		data.update_extents ()
 		return 1
 	def Dump(self) :
@@ -725,6 +728,6 @@ def import_svgz(sFile, diagramData) :
 	return imp.Render(diagramData)
 
 import dia
-dia.register_import("SVG plain", "svg", import_svg)
-dia.register_import("SVG compressed", "svgz", import_svgz)
+dia.register_import(_("SVG plain"), "svg", import_svg)
+dia.register_import(_("SVG compressed"), "svgz", import_svgz)
 

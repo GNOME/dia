@@ -21,6 +21,9 @@ import dia, os, string
 import tempfile
 import webbrowser
 
+import gettext
+_ = gettext.gettext
+
 # Given a list of "sheet objects" return the common namespace of the object types
 def so_get_namespace (sol) :
 	names = {}
@@ -79,6 +82,6 @@ def isheets_cb (data, flags) :
 	dia.message(0, "'" + path + "' saved.")
 	webbrowser.open('file://' + os.path.realpath(path))
 
-dia.register_action ("HelpInspectSheets", "Dia _Sheets Inspection",
+dia.register_action ("HelpInspectSheets", _("Dia _Sheets Inspection"),
                      "/ToolboxMenu/Help/HelpExtensionStart",
                      isheets_cb)

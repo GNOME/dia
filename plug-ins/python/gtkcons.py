@@ -37,6 +37,9 @@ import gtk
 import gtk.keysyms
 import gobject
 
+import gettext
+_ = gettext.gettext
+
 stdout = sys.stdout
 
 if not hasattr(sys, 'ps1'): sys.ps1 = '>>> '
@@ -131,12 +134,11 @@ class Console(gtk.VBox):
 		self.command = buffer.create_tag('command')
 		self.command.set_property("family", "Sans")
 		self.command.set_property("foreground", "blue")
- 
+
 		vadj = gtk.Adjustment()
 		hadj = gtk.Adjustment()
 		self.text.set_scroll_adjustments (hadj, vadj)
 		self.vscroll = gtk.VScrollbar(vadj)
-		self.vscroll.set_update_policy(gtk.POLICY_AUTOMATIC)
 		self.inp.pack_end(self.vscroll, expand=False)
 		self.vscroll.show()
 
@@ -251,7 +253,7 @@ class Console(gtk.VBox):
 			self.history[self.histpos] = l
 			self.histpos = self.histpos - 1
 			self.line.set_text(self.history[self.histpos])
-			
+
 	def historyDown(self):
 		if self.histpos < len(self.history) - 1:
 			l = self.line.get_text()
@@ -339,9 +341,9 @@ try :
 	import dia
 	def open_console(data, flags):
 		gtk_console({'__builtins__': __builtins__, '__name__': '__main__',
-			     '__doc__': None, 'dia': dia}, 'Python Dia Console')
+			     '__doc__': None, 'dia': dia}, _('Python Dia Console'))
 
-	dia.register_action ("DialogsPythonconsole", "_Python Console",
+	dia.register_action ("DialogsPythonconsole", _("_Python Console"),
 	                      "/DisplayMenu/Dialogs/DialogsExtensionStart",
 	                       open_console)
 

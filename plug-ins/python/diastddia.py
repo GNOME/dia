@@ -20,6 +20,9 @@
 
 import sys, string, os, math, dia
 
+import gettext
+_ = gettext.gettext
+
 class StandardDiaRenderer :
 	def __init__ (self) :
 		self.f = None
@@ -138,7 +141,7 @@ class StandardDiaRenderer :
 	def set_font (self, font, size) :
 		self.font = font
 		self.font_size = size
-	# now to the actual object creation - it should be 'delayed' to fold draw&fill again, 
+	# now to the actual object creation - it should be 'delayed' to fold draw&fill again,
 	# split in the rendering process but the Dia's 'Standard' objects can do both in one
 	def _box (self, rect, color, fill) :
 		self.oid = self.oid + 1
@@ -154,7 +157,7 @@ class StandardDiaRenderer :
         <dia:real val="%.3f"/>
       </dia:attribute>
 %s%s
-    </dia:object>''' % (self.oid, rect.left,rect.top, rect.right - rect.left, rect.bottom - rect.top, 
+    </dia:object>''' % (self.oid, rect.left,rect.top, rect.right - rect.left, rect.bottom - rect.top,
 			self._tinting(color, fill, 'border_color', 'border_width'), self._stroke_style()))
 	def draw_rect (self, rect, fill, stroke) :
 		if fill :
@@ -176,7 +179,7 @@ class StandardDiaRenderer :
         <dia:real val="%.3f"/>
       </dia:attribute>
 %s%s
-    </dia:object>''' % (self.oid, center.x-width/2, center.y-height/2, width, height, 
+    </dia:object>''' % (self.oid, center.x-width/2, center.y-height/2, width, height,
 			self._tinting(color, fill, 'border_color', 'border_width'), self._stroke_style()))
 	def draw_ellipse (self, center, width, height, fill, stroke) :
 		if fill :
@@ -223,7 +226,7 @@ class StandardDiaRenderer :
 		self.f.write('''
     <dia:object type="Standard - %s" version="0" id="O%d">
 %s%s
-      <dia:attribute name="poly_points">''' % (type_name, self.oid, 
+      <dia:attribute name="poly_points">''' % (type_name, self.oid,
 						self._tinting(color, fill), self._stroke_style()))
 		for p in points :
 			self.f.write('''
@@ -303,7 +306,7 @@ class StandardDiaRenderer :
       <dia:attribute name="valign">
         <dia:enum val="3"/>
       </dia:attribute>
-      </dia:object>''' % (self.oid, pos.x, pos.y, text.replace("&", "&amp;").replace(">", "&gt;").replace("<", "&lt;"), 
+      </dia:object>''' % (self.oid, pos.x, pos.y, text.replace("&", "&amp;").replace(">", "&gt;").replace("<", "&lt;"),
 			self.font.family, self.font.style, self.font_size,
 			self._rgb(color), alignment))
 	def draw_image (self, point, width, height, image) :
@@ -351,9 +354,9 @@ class StandardDiaRenderer :
         <dia:point val="%.3f,%.3f"/>
       </dia:attribute>
 %s%s
-    </dia:object>''' % (self.oid, start.x,start.y, end.x, end.y, 
+    </dia:object>''' % (self.oid, start.x,start.y, end.x, end.y,
 			self._tinting(color), self._stroke_style()))
-		
+
 # register the renderer
-dia.register_export ("Dia plain", "dia", StandardDiaRenderer())
+dia.register_export (_("Dia plain"), "dia", StandardDiaRenderer())
 

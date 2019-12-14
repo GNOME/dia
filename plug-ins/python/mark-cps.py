@@ -18,6 +18,9 @@
 
 import dia
 
+import gettext
+_ = gettext.gettext
+
 def mark_cps (data, flags) :
 	objs = data.get_sorted_selected()
 	layer = data.active_layer
@@ -66,5 +69,5 @@ def mark_cps (data, flags) :
 		adisp.diagram.flush()
 
 
-dia.register_action("DebugMarkConnectionPoints", "_Mark Connection Points",
+dia.register_action("DebugMarkConnectionPoints", _("_Mark Connection Points"),
 		    "/DisplayMenu/Debug/DebugExtensionStart", mark_cps)

@@ -193,7 +193,7 @@ static PropDescription umlclass_props[] = {
   PROP_NOTEBOOK_PAGE("templates", PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS, N_("Template Parameters")),
   /* the naming is questionable, but kept for compatibility */
   { "templates", PROP_TYPE_DARRAY, PROP_FLAG_VISIBLE | PROP_FLAG_OPTIONAL | PROP_FLAG_DONT_MERGE | PROP_FLAG_NO_DEFAULTS,
-  N_(""), NULL, NULL /* umlformalparameters_extra */ },
+    "", NULL, NULL /* umlformalparameters_extra */ },
 
   /* all this just to make the defaults selectable ... */
   PROP_NOTEBOOK_PAGE("style", PROP_FLAG_DONT_MERGE, N_("Style")),

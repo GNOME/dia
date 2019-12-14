@@ -25,6 +25,9 @@
 
 import dia, string
 
+import gettext
+_ = gettext.gettext
+
 class CScaleDialog :
 	def __init__(self, d, data) :
 		import pygtk
@@ -32,7 +35,7 @@ class CScaleDialog :
 		import gtk
 		win = gtk.Window()
 		win.connect("delete_event", self.on_delete)
-		win.set_title("Simple Scaling")
+		win.set_title(_("Simple Scaling"))
 
 		self.diagram = d
 		self.data = data
@@ -61,7 +64,7 @@ class CScaleDialog :
 		box1.pack_start(box2, expand=0)
 		box2.show()
 
-		button = gtk.Button("scale")
+		button = gtk.Button(_("Scale"))
 		button.connect("clicked", self.on_scale)
 		box2.pack_start(button)
 		button.set_flags(gtk.CAN_DEFAULT)
@@ -146,6 +149,6 @@ def SimpleScale(data, factor) :
 def scale_cb(data, flags) :
 	dlg = CScaleDialog(dia.active_display().diagram, data)
 
-dia.register_action ("ObjectsSimplescaling", "Simple _Scaling",
+dia.register_action ("ObjectsSimplescaling", _("Simple _Scaling"),
 		     "/DisplayMenu/Objects/ObjectsExtensionStart",
 		     scale_cb)

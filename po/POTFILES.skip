@@ -1,11 +1,5 @@
 plug-ins/layout/ogdf-simple.cpp
 plug-ins/layout/ogdf-simple.h
-plug-ins/python/otypes.py
-plug-ins/python/autolayoutforce.py
-plug-ins/python/gtkcons.py
-plug-ins/python/aobjects.py
-plug-ins/python/diasvg.py
-plug-ins/python/doxrev.py
 plug-ins/stress/stress.c
 plug-ins/stress/stress-memory.c
 plug-ins/stress/stress-memory.h

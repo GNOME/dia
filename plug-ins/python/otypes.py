@@ -21,6 +21,9 @@
 
 import sys, dia, string
 
+import gettext
+_ = gettext.gettext
+
 def _log(s, append=1) :
 	pass
 	if append :
@@ -68,7 +71,7 @@ def otypes_cb(data, flags) :
 		if packages.has_key(sp) :
 			packages[sp].append(st)
 		else :
-			packages[sp] = [st] 
+			packages[sp] = [st]
 
 	dtp = dia.get_object_type("UML - LargePackage")
 	dtc = dia.get_object_type("UML - Class")
@@ -118,19 +121,19 @@ def otypes_cb(data, flags) :
 				if n_line == len(line_props) :
 					formal_params.append(('Line', ''))
 				else : # need to add the incomplete set
-					for pp in line_props : 
+					for pp in line_props :
 						if o_real.properties.has_key(pp) :
 							attrs.append((pp, o_real.properties[pp].type, '', '', 0, 0, 0))
 				if n_fill == len(fill_props) :
 					formal_params.append(('Fill', ''))
 				else :
-					for pp in fill_props : 
+					for pp in fill_props :
 						if o_real.properties.has_key(pp) :
 							attrs.append((pp, o_real.properties[pp].type, '', '', 0, 0, 0))
 				if n_text == len(text_props) :
 					formal_params.append(('Text', ''))
 				else :
-					for pp in text_props : 
+					for pp in text_props :
 						if o_real.properties.has_key(pp) :
 							attrs.append((pp, o_real.properties[pp].type, '', '', 0, 0, 0))
 			if n_orthconn == len(orthconn_props) :
@@ -153,7 +156,7 @@ def otypes_cb(data, flags) :
 				oc.properties["templates"] = formal_params
 			layer.add_object(oc)
 			# XXX: there really should be a way to safely delete an object. This one will crash:
-			# - when the object got added somewhere 
+			# - when the object got added somewhere
 			# - any object method gets called afterwards
 			if not o_real is None :
 				o_real.destroy()
@@ -179,6 +182,6 @@ def otypes_cb(data, flags) :
 	# make it work standalone
 	return data
 
-dia.register_action ("HelpOtypes", "Dia Object _Types",
+dia.register_action ("HelpOtypes", _("Dia Object _Types"),
                      "/ToolboxMenu/Help/HelpExtensionStart",
                      otypes_cb)

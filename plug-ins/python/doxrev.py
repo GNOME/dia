@@ -23,20 +23,23 @@
 #
 #  - actually call doxygen to make the xml
 #    - for directories, additional INCLUDE, etc. with GUI
-#    - delete temporary files or better make doxgen output them on stdout? 
+#    - delete temporary files or better make doxgen output them on stdout?
 #    - have a way in the plug-in interface to import multiple files at once?
 #    - another way could be to let doxygen put everything in one file?
 #
 # - for single class import connect by searching base classes in the diagram
 #
 # - some layout algorithm based on inheritance
-#   - maybe this should be done as an extra script/plug-in becasue it could be 
+#   - maybe this should be done as an extra script/plug-in becasue it could be
 #     useful on already existing diagrams as well
 #   - some smart way to handle size change with 'visible comments', maybe
 #     also tweaking wtih wrap-after-char
 #
 
 import glob, os, string
+
+import gettext
+_ = gettext.gettext
 
 # debug spew
 g_verbose = 0
@@ -50,7 +53,7 @@ class Element :
 		self.props = {}
 		self.attrs = None
 	def __str__ (self) :
-		return "<" + self.__class__.__name__ + ">" + self.kind + ":" + self.name 
+		return "<" + self.__class__.__name__ + ">" + self.kind + ":" + self.name
 	def Set (self, key, value) :
 		if key in ["compoundname", "name", "declname", "array"] :
 			if len(self.name) == 0 :
@@ -132,7 +135,7 @@ class Compounddef(Element) :
 				comment = ""
 				for p in m.parameters :
 					# FIXME: wrong list, there are no parameters on an attribute
-					comment += p.text					
+					comment += p.text
 				attributes.append ((m.name, m.type, value, comment, visibility, 0, m.IsStatic()))
 		return attributes
 	def GetMethods (self) :
@@ -142,7 +145,7 @@ class Compounddef(Element) :
 				if not v.__class__.__name__ in ["Briefdescription", "Detaileddescription", "Listofallmembers"] :
 					print "***", v.__class__.__name__
 				continue
-			visibility = v.GetVisibility() 
+			visibility = v.GetVisibility()
 			if visibility is None :
 				continue # friend does not belong here
 			inheritance_type = 0 # (abstract, virtual, final)
@@ -162,7 +165,7 @@ class Compounddef(Element) :
 				if m.GetVisibility () :
 					visibility = m.GetVisibility()
 				# (name, type, comment, stereotype, visibility, inheritance_type, query, class_scope, params)
-				methods.append ((m.name, m.type, comment, "", visibility, 
+				methods.append ((m.name, m.type, comment, "", visibility,
 						m.GetInheritanceType(), m.IsQuery(), m.IsStatic(), params))
 		return methods
 	def IsAbstract (self) :
@@ -194,8 +197,8 @@ class Sectiondef(Element) :
 class Memberdef(Element) :
 	def __init__ (self, kind) :
 		Element.__init__(self)
-		if kind in ["enum"] : 
-			self.type = kind 
+		if kind in ["enum"] :
+			self.type = kind
 		self.kind = kind
 		self.parameters = []
 	def Add (self, o) :
@@ -236,7 +239,7 @@ class Memberdef(Element) :
 			if self.attrs["const"] != "no" :
 				return 1
 		return 0
-				
+
 class Enumvalue(Element) :
 	def __init__ (self) :
 		Element.__init__(self)
@@ -435,7 +438,7 @@ if __name__ == '__main__':
 		print o.GetAttributes()
 else :
 	import dia
-	
+
 	def import_classes (classes, diagramData) :
 		class_map = {}
 		layer = diagramData.active_layer
@@ -444,7 +447,7 @@ else :
 			o, h1, h2 = dia.get_object_type("UML - Class").create(0,0)
 			# origin and dia object mapped by id
 			class_map[c.id] = (c, o)
-			# set some properties 
+			# set some properties
 			o.properties["name"] = str(c.name)
 			o.properties["abstract"] = c.IsAbstract ()
 			try :
@@ -467,7 +470,7 @@ else :
 					h1.connect (p.connections[6])
 					h2.connect (o.connections[1])
 		# ... and move appropriately
-		
+
 		# update placement depending on number of parents ?
 		layer.update_extents()
 
@@ -482,6 +485,6 @@ else :
 		classes = GetClasses ([sFile])
 		return import_classes (classes, diagramData)
 
-	dia.register_import("Dox2UML", "xml", import_file)
-	dia.register_import("Dox2UML (multiple)", "xml", import_files)
+	dia.register_import(_("Dox2UML"), "xml", import_file)
+	dia.register_import(_("Dox2UML (multiple)"), "xml", import_files)
 	#dia.register_import("Dox2UML", "h", import_headers)

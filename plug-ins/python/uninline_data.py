@@ -18,6 +18,9 @@
 
 import os, string, sys, dia
 
+import gettext
+_ = gettext.gettext
+
 class UninlineRenderer :
 	def __init__ (self) :
 		self.count = 0
@@ -44,6 +47,6 @@ class UninlineRenderer :
 
 	def end_render (self) :
 		pass
-		
+
 # dia-python keeps a reference to the renderer class and uses it on demand
-dia.register_export ("Uninline Images", "png", UninlineRenderer())
+dia.register_export (_("Uninline Images"), "png", UninlineRenderer())

@@ -20,7 +20,10 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import sys, dia, string
-	
+
+import gettext
+_ = gettext.gettext
+
 def allprops_cb(data, flags) :
 
 	# copied from otypes.py
@@ -75,11 +78,11 @@ def allprops_cb(data, flags) :
 	# alpha-numeric sorting by type; after by number of users
 	props_keys.sort (lambda a,b : len(props_by_name[b][1]) - len(props_by_name[a][1]))
 	props_keys.sort (lambda a,b : cmp(props_by_name[a][0].type, props_by_name[b][0].type))
-	
+
 	almost_all = 98 * len(otypes) / 100 # 98 %
 
 	for pname in props_keys :
-	
+
 		p, names = props_by_name[pname]
 
 		x = 0.0
@@ -126,6 +129,6 @@ def allprops_cb(data, flags) :
 		dia.message(0, "One name, one type?!\n" + string.join(name_type_clashes, "\n"))
 	return data
 
-dia.register_action ("HelpAllPropts", "All Object _Properties",
+dia.register_action ("HelpAllPropts", _("All Object _Properties"),
                      "/ToolboxMenu/Help/HelpExtensionStart",
                      allprops_cb)
