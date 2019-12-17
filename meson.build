@@ -114,12 +114,14 @@ subdir('lib')
 subdir('objects')
 subdir('app')
 subdir('data')
-subdir('doc')
 subdir('plug-ins')
 subdir('sheets')
 subdir('shapes')
 if get_option('tests')
     subdir('tests')
+endif
+if get_option('doc')
+    subdir('doc')
 endif
 subdir('docs')
 

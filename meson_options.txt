@@ -1,6 +1,9 @@
 option('gtk_doc',
        type: 'boolean', value: false,
        description: 'Whether to generate the API reference')
+option('doc',
+       type: 'boolean', value: true,
+       description: 'Whether to generate the doc')
 option('tests',
        type: 'boolean', value: false,
        description: 'Whether to compile unit tests')
