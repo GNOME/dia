@@ -15,13 +15,12 @@
 # Miguel Rodriguez Núñez <miguel.rodriguez.laboral@gmail.com>, 2019.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011-2019.
 #
-#: objects/UML/class.c:196
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2019-12-11 18:10+0000\n"
-"PO-Revision-Date: 2019-12-12 09:02+0100\n"
+"POT-Creation-Date: 2019-12-14 15:57+0000\n"
+"PO-Revision-Date: 2019-12-30 12:29+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -243,7 +242,7 @@ msgstr ""
 msgid "Exiting Dia"
 msgstr "Salir de Dia"
 
-#: app/app_procs.c:925 app/display.c:1094 app/exit_dialog.c:115
+#: app/app_procs.c:925 app/display.c:1193 app/exit_dialog.c:115
 #: app/filedlg.c:569
 msgid "Save"
 msgstr "Guardar"
@@ -261,11 +260,11 @@ msgstr ""
 "Hay diagramas modificados. ¿Está seguro de que desea salir de Dia\n"
 "sin guardarlos?"
 
-#: app/app_procs.c:969 app/menus.c:89
+#: app/app_procs.c:969 app/menus.c:87
 msgid "Quit Dia"
 msgstr "Salir de Dia"
 
-#: app/app_procs.c:971 app/dia-guide-dialog.c:155 app/display.c:1148
+#: app/app_procs.c:971 app/dia-guide-dialog.c:155 app/display.c:1247
 #: app/filedlg.c:284 app/filedlg.c:487 app/filedlg.c:758
 #: app/layer-editor/dia-layer-properties.c:243 data/ui/sheets-edit-dialog.ui:33
 #: data/ui/sheets-new-dialog.ui:32 data/ui/sheets-remove-dialog.ui:32
@@ -274,7 +273,7 @@ msgstr "Salir de Dia"
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: app/app_procs.c:976 app/menus.c:89
+#: app/app_procs.c:976 app/menus.c:87
 msgid "_Quit"
 msgstr "_Salir"
 
@@ -502,7 +501,7 @@ msgid "Object defaults"
 msgstr "Opciones predeterminadas para el objeto"
 
 #: app/defaults.c:45 app/dia-props.c:272 app/find-and-replace.c:539
-#: app/find-and-replace.c:569 app/menus.c:120 app/pagesetup.c:77
+#: app/find-and-replace.c:568 app/menus.c:118 app/pagesetup.c:77
 #: app/plugin-manager.c:207 app/preferences.c:588 app/properties-dialog.c:60
 #: data/ui/sheets-main-dialog.ui:302
 msgid "_Close"
@@ -519,7 +518,7 @@ msgstr "_Aplicar"
 #: app/preferences.c:590 app/properties-dialog.c:62
 #: data/ui/sheets-edit-dialog.ui:44 data/ui/sheets-new-dialog.ui:43
 #: data/ui/sheets-remove-dialog.ui:43 lib/diaarrowchooser.c:370
-#: lib/dialinechooser.c:305 objects/AADL/edit_port_declaration.c:155
+#: lib/dialinechooser.c:305 objects/AADL/edit_port_declaration.c:156
 #: plug-ins/xslt/xsltdialog.c:84
 msgid "_OK"
 msgstr "_Aceptar"
@@ -700,6 +699,15 @@ msgstr "Propiedades del diagrama"
 msgid "Add New Guide"
 msgstr "Añadir guía nueva"
 
+# Quiza' si estas dos se diferencian so'lo en las mayu'sculas, deberi'amos respetarlas. FVD
+#: app/dia-guide-dialog.c:177 lib/diapatternselector.c:110
+msgid "Horizontal"
+msgstr "Horizontal"
+
+#: app/dia-guide-dialog.c:178 lib/diapatternselector.c:112
+msgid "Vertical"
+msgstr "Vertical"
+
 # Posicionar? FVD
 # Creo que está correcto según se ve en los menús: "Soportar/Posición/...". RizOX.
 #. Translators: Menu item Verb/Support/Position
@@ -753,7 +761,7 @@ msgstr "Selección"
 msgid "Input _Methods"
 msgstr "_Métodos de entrada"
 
-#: app/disp_callbacks.c:1185
+#: app/disp_callbacks.c:1186
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -776,16 +784,16 @@ msgstr[1] "Selección de %d objetos"
 msgid "Selected '%s'"
 msgstr "Seleccionados «%s»"
 
-#: app/display.c:1136
+#: app/display.c:1235
 msgid "<unnamed>"
 msgstr "<sin nombre>"
 
 #. no standard buttons
-#: app/display.c:1142
+#: app/display.c:1241
 msgid "Closing diagram without saving"
 msgstr "Cerrando el diagrama sin guardar"
 
-#: app/display.c:1144
+#: app/display.c:1243
 #, c-format
 msgid ""
 "The diagram '%s'\n"
@@ -794,16 +802,16 @@ msgstr ""
 "Este diagrama «%s»\n"
 "no ha sido guardado. ¿Guardar los cambios ahora?"
 
-#: app/display.c:1146
+#: app/display.c:1245
 msgid "Close Diagram"
 msgstr "Cerrar el diagrama"
 
-#: app/display.c:1151
+#: app/display.c:1250
 msgid "_Discard Changes"
 msgstr "_Descartar los cambios"
 
 #. button = gtk_button_new_with_label (_("Save and Close"));
-#: app/display.c:1155 app/filedlg.c:488 app/filedlg.c:759 app/menus.c:114
+#: app/display.c:1254 app/filedlg.c:488 app/filedlg.c:759 app/menus.c:112
 msgid "_Save"
 msgstr "_Guardar"
 
@@ -962,55 +970,58 @@ msgstr "Coincidir sólo con palabras compl_etas"
 msgid "Match _all properties (not just object name)"
 msgstr "Coincidir _todas las propiedades (no sólo el nombre del objeto)"
 
-#: app/find-and-replace.c:536
+#: app/find-and-replace.c:536 plug-ins/python/select_by.py:67
 msgid "Find"
 msgstr "Buscar"
 
-#: app/find-and-replace.c:540 app/find-and-replace.c:577
+#: app/find-and-replace.c:540 app/find-and-replace.c:573
 msgid "_Find"
 msgstr "_Buscar"
 
-#: app/find-and-replace.c:566
+#: app/find-and-replace.c:565
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: app/find-and-replace.c:570
+#: app/find-and-replace.c:569
 msgid "Replace _All"
 msgstr "Reemplazar _todo"
 
-#. not adding the button in the list above to modify it's text;
-#. * the default "Find and Replace" is just too long for my taste ;)
-#.
-#: app/find-and-replace.c:575 app/menus.c:273
+#: app/find-and-replace.c:570 app/menus.c:271
 msgid "_Replace"
 msgstr "_Reemplazar"
 
-#: app/interface.c:627
+#. Translators: Current zoom level
+#: app/interface.c:252
+#, c-format
+msgid "%f%%"
+msgstr "%f%%"
+
+#: app/interface.c:633
 msgid "Pops up the Navigation window."
 msgstr "Emerge la ventana de navegación."
 
-#: app/interface.c:672
+#: app/interface.c:678
 msgid "Close"
 msgstr "Cerrar"
 
-#: app/interface.c:832
+#: app/interface.c:838
 msgid "Diagram menu."
 msgstr "Menú de diagrama."
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: app/interface.c:871
+#: app/interface.c:877
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: app/interface.c:886
+#: app/interface.c:892
 msgid "Toggles snap-to-grid for this window."
 msgstr "Conmuta el ajuste a la rejilla para esta ventana."
 
-#: app/interface.c:897
+#: app/interface.c:903
 msgid "Toggles object snapping for this window."
 msgstr "Conmuta el ajuste del objeto para esta ventana."
 
-#: app/interface.c:907
+#: app/interface.c:913
 msgid "Toggles snap-to-guides for this window."
 msgstr "Conmuta el ajuste a la guía para esta ventana."
 
@@ -1199,724 +1210,724 @@ msgstr "Guardado automático"
 msgid "Dia Diagram File"
 msgstr "Archivo de diagrama de Dia"
 
-#: app/menus.c:60
-msgid "Fit"
-msgstr "Ajustar"
-
-#: app/menus.c:86
+#: app/menus.c:84
 msgid "_File"
 msgstr "_Archivo"
 
-#: app/menus.c:87 data/ui/sheets-main-dialog.ui:256
+#: app/menus.c:85 data/ui/sheets-main-dialog.ui:256
 msgid "_New"
 msgstr "_Nuevo"
 
-#: app/menus.c:87
+#: app/menus.c:85
 msgid "Create a new diagram"
 msgstr "Crear un diagrama nuevo"
 
-#: app/menus.c:88
+#: app/menus.c:86
 msgid "_Open…"
 msgstr "_Abrir…"
 
-#: app/menus.c:88
+#: app/menus.c:86
 msgid "Open a diagram file"
 msgstr "Abrir un archivo de diagrama"
 
-#: app/menus.c:90 app/menus.c:91
+#: app/menus.c:88 app/menus.c:89
 msgid "_Help"
 msgstr "Ay_uda"
 
-#: app/menus.c:91
+#: app/menus.c:89
 msgid "Dia help"
 msgstr "Ayuda de Dia"
 
-#: app/menus.c:92
+#: app/menus.c:90
 msgid "_About"
 msgstr "_Acerca de"
 
-#: app/menus.c:92
+#: app/menus.c:90
 msgid "Dia version, authors, license"
 msgstr "Versión, autor y licencia de Dia"
 
-#: app/menus.c:98
+#: app/menus.c:96
 msgid "S_heets and Objects"
 msgstr "_Hojas y objetos…"
 
-#: app/menus.c:98
+#: app/menus.c:96
 msgid "Manage sheets and their objects"
 msgstr "Gestionar hojas y sus objetos"
 
-#: app/menus.c:99
+#: app/menus.c:97
 msgid "P_references"
 msgstr "Prefere_ncias"
 
-#: app/menus.c:99
+#: app/menus.c:97
 msgid "Dia preferences"
 msgstr "Preferencias de Dia"
 
-#: app/menus.c:100
+#: app/menus.c:98
 msgid "P_lugins…"
 msgstr "Comp_lementos…"
 
-#: app/menus.c:100
+#: app/menus.c:98
 msgid "Manage plug-ins"
 msgstr "Gestionar complementos"
 
-#: app/menus.c:101
+#: app/menus.c:99
 msgid "Diagram _Tree"
 msgstr "Á_rbol del diagrama"
 
-#: app/menus.c:101
+#: app/menus.c:99
 msgid "Tree representation of diagrams"
 msgstr "Representación de diagramas en árbol"
 
-#: app/menus.c:106
+#: app/menus.c:104
 msgid "Show _Toolbar"
 msgstr "Mostrar la barra de herramien_tas"
 
-#: app/menus.c:106 app/menus.c:266
+#: app/menus.c:104 app/menus.c:264
 msgid "Show or hide the toolbar"
 msgstr "Mostrar u ocultar la barra de herramientas"
 
-#: app/menus.c:107
+#: app/menus.c:105
 msgid "Show _Statusbar"
 msgstr "Mostrar la barra de e_stado"
 
-#: app/menus.c:107
+#: app/menus.c:105
 msgid "Show or hide the statusbar"
 msgstr "Mostrar u ocultar la barra de estado"
 
 # No sé si quedaría en el contexto bien "Descender" en vez de "Bajar". RizOX.
 # Mejor Hundir.Cyphra
-#: app/menus.c:108
+#: app/menus.c:106
 msgid "Show _Layers"
 msgstr "Mostrar _capas"
 
-#: app/menus.c:108
+#: app/menus.c:106
 msgid "Show or hide the layers toolwindow"
 msgstr "Muestra u oculta las capas de la ventana de herramientas"
 
-#: app/menus.c:114
+#: app/menus.c:112
 msgid "Save the diagram"
 msgstr "Guardar el diagrama"
 
-#: app/menus.c:115
+#: app/menus.c:113
 msgid "Save _As…"
 msgstr "Guardar _como…"
 
-#: app/menus.c:115
+#: app/menus.c:113
 msgid "Save the diagram with a new name"
 msgstr "Guardar el diagrama con un nombre nuevo"
 
-#: app/menus.c:116
+#: app/menus.c:114
 msgid "_Export…"
 msgstr "_Exportar…"
 
-#: app/menus.c:116
+#: app/menus.c:114
 msgid "Export the diagram"
 msgstr "Exportar el diagrama"
 
-#: app/menus.c:117
+#: app/menus.c:115
 msgid "_Diagram Properties"
 msgstr "Propiedades del _diagrama"
 
-#: app/menus.c:117
+#: app/menus.c:115
 msgid "Modify diagram properties (grid, background)"
 msgstr "Modificar las propiedades del diagrama (rejilla, fondo)"
 
-#: app/menus.c:118
+#: app/menus.c:116
 msgid "Page Set_up…"
 msgstr "Config_urar página…"
 
-#: app/menus.c:118
+#: app/menus.c:116
 msgid "Modify the diagram pagination"
 msgstr "Modificar la paginación del diagrama"
 
-#: app/menus.c:119
+#: app/menus.c:117
 msgid "_Print…"
 msgstr "_Imprimir…"
 
-#: app/menus.c:119
+#: app/menus.c:117
 msgid "Print the diagram"
 msgstr "imprimir el diagrama"
 
-#: app/menus.c:120
+#: app/menus.c:118
 msgid "Close the diagram"
 msgstr "Cerrar el diagrama"
 
-#: app/menus.c:122 data/ui/sheets-main-dialog.ui:27
+#: app/menus.c:120 data/ui/sheets-main-dialog.ui:27
 msgid "_Edit"
 msgstr "_Editar"
 
-#: app/menus.c:123
+#: app/menus.c:121
 msgid "_Undo"
 msgstr "Des_hacer"
 
-#: app/menus.c:123
+#: app/menus.c:121
 msgid "Undo"
 msgstr "Deshacer"
 
-#: app/menus.c:124
+#: app/menus.c:122
 msgid "_Redo"
 msgstr "_Rehacer"
 
-#: app/menus.c:124
+#: app/menus.c:122
 msgid "Redo"
 msgstr "Rehacer"
 
-#: app/menus.c:126
+#: app/menus.c:124
 msgid "_Copy"
 msgstr "C_opiar"
 
-#: app/menus.c:126
+#: app/menus.c:124
 msgid "Copy selection"
 msgstr "Copiar selección"
 
-#: app/menus.c:127
+#: app/menus.c:125
 msgid "Cu_t"
 msgstr "C_ortar"
 
-#: app/menus.c:127
+#: app/menus.c:125
 msgid "Cut selection"
 msgstr "Cortar selección"
 
 # Pero Fasten seat belts es Apriétense los cinturones. FVD
 # Según el diccionario inglés se puede traducir como "Fijar firme" o como "unir/atar firmemente". RizOX.
-#: app/menus.c:128
+#: app/menus.c:126
 msgid "_Paste"
 msgstr "_Pegar"
 
-#: app/menus.c:128
+#: app/menus.c:126
 msgid "Paste selection"
 msgstr "Pegar selección"
 
-#: app/menus.c:129
+#: app/menus.c:127
 msgid "_Duplicate"
 msgstr "_Duplicar"
 
-#: app/menus.c:129
+#: app/menus.c:127
 msgid "Duplicate selection"
 msgstr "Duplicar la selección"
 
-#: app/menus.c:130
+#: app/menus.c:128
 msgid "D_elete"
 msgstr "_Eliminar"
 
-#: app/menus.c:130
+#: app/menus.c:128
 msgid "Delete selection"
 msgstr "Eliminar la selección"
 
-#: app/menus.c:132
+#: app/menus.c:130
 msgid "_Find…"
 msgstr "_Buscar…"
 
-#: app/menus.c:132
+#: app/menus.c:130
 msgid "Search for text"
 msgstr "Buscar texto"
 
-#: app/menus.c:133
+#: app/menus.c:131
 msgid "_Replace…"
 msgstr "_Reemplazar…"
 
-#: app/menus.c:133
+#: app/menus.c:131
 msgid "Search and replace text"
 msgstr "Buscar y reemplazar texto"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control><alt> doesn't work either
-#: app/menus.c:137
+#: app/menus.c:135
 msgid "C_opy Text"
 msgstr "C_opiar texto"
 
-#: app/menus.c:137
+#: app/menus.c:135
 msgid "Copy object's text to clipboard"
 msgstr "Copiar los objetos del texto al portapapeles"
 
-#: app/menus.c:138
+#: app/menus.c:136
 msgid "C_ut Text"
 msgstr "Cor_tar texto"
 
-#: app/menus.c:138
+#: app/menus.c:136
 msgid "Cut object's text to clipboard"
 msgstr "Cortar los objetos del texto al portapapeles"
 
-#: app/menus.c:139
+#: app/menus.c:137
 msgid "P_aste Text"
 msgstr "Peg_ar texto"
 
-#: app/menus.c:139
+#: app/menus.c:137
 msgid "Insert text from clipboard"
 msgstr "Insertar texto desde el portapapeles"
 
-#: app/menus.c:141
+#: app/menus.c:139
 msgid "Paste _Image"
 msgstr "Pegar _imagen"
 
-#: app/menus.c:141
+#: app/menus.c:139
 msgid "Insert image from clipboard"
 msgstr "Insertar imagen desde el portapapeles"
 
-#: app/menus.c:143
+#: app/menus.c:141
 msgid "_Layers"
 msgstr "_Capas"
 
-#: app/menus.c:144
+#: app/menus.c:142
 msgid "_Add Layer…"
 msgstr "_Añadir capa…"
 
 # Lo traduciría por "Elevar" en vez de "Subir". RizOX.
-#: app/menus.c:145
+#: app/menus.c:143
 msgid "_Rename Layer…"
 msgstr "_Renombrar capa…"
 
-#: app/menus.c:146
+#: app/menus.c:144
 msgid "_Move Selection to Layer above"
 msgstr "_Mover la selección a una capa superior"
 
-#: app/menus.c:147
+#: app/menus.c:145
 msgid "Move _Selection to Layer below"
 msgstr "Mover la _selección a una capa inferior"
 
-#: app/menus.c:148
+#: app/menus.c:146
 msgid "_Layers…"
 msgstr "_Capas…"
 
-#: app/menus.c:150
+#: app/menus.c:148
 msgid "_View"
 msgstr "_Ver"
 
-#: app/menus.c:151
+#: app/menus.c:149
 msgid "Zoom _In"
 msgstr "_Ampliar"
 
-#: app/menus.c:151
+#: app/menus.c:149
 msgid "Zoom in"
 msgstr "Ampliar"
 
-#: app/menus.c:152
+#: app/menus.c:150
 msgid "Zoom _Out"
 msgstr "Re_ducir"
 
-#: app/menus.c:152
+#: app/menus.c:150
 msgid "Zoom out"
 msgstr "Reducir"
 
 # ¿"Ampliación" o "Amplía"? Fuzzy. RizOX.
-#: app/menus.c:153
+#: app/menus.c:151
 msgid "_Zoom"
 msgstr "_Ampliación"
 
-#: app/menus.c:154
+#: app/menus.c:152
 msgid "1600%"
 msgstr "1600%"
 
-#: app/menus.c:155 app/menus.c:597
+#: app/menus.c:153 app/menus.c:622
 msgid "800%"
 msgstr "800%"
 
-#: app/menus.c:156 app/menus.c:598
+#: app/menus.c:154 app/menus.c:628
 msgid "400%"
 msgstr "400%"
 
-#: app/menus.c:157
+#: app/menus.c:155
 msgid "283"
 msgstr "283"
 
-#: app/menus.c:158
+#: app/menus.c:156
 msgid "200"
 msgstr "200"
 
-#: app/menus.c:159
+#: app/menus.c:157
 msgid "141"
 msgstr "141"
 
-#: app/menus.c:160
+#: app/menus.c:158
 msgid "_Normal Size"
 msgstr "Tamaño _normal"
 
-#: app/menus.c:161
+#: app/menus.c:159
 msgid "85"
 msgstr "85"
 
-#: app/menus.c:162
+#: app/menus.c:160
 msgid "70.7"
 msgstr "70.7"
 
-#: app/menus.c:163
+#: app/menus.c:161
 msgid "50"
 msgstr "50"
 
-#: app/menus.c:164
+#: app/menus.c:162
 msgid "35.4"
 msgstr "35.4"
 
-#: app/menus.c:165
+#: app/menus.c:163
 msgid "25"
 msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:167
+#: app/menus.c:165
 msgid "Best _Fit"
 msgstr "Mejor _ajuste "
 
-#: app/menus.c:167
+#: app/menus.c:165
 msgid "Zoom fit"
 msgstr "Ajustar"
 
 #. "display_toggle_entries" items go here
-#: app/menus.c:171
+#: app/menus.c:169
 msgid "New _View"
 msgstr "_Vista nueva"
 
-#: app/menus.c:172
+#: app/menus.c:170
 msgid "C_lone View"
 msgstr "C_lonar vista"
 
-#: app/menus.c:173
+#: app/menus.c:171
 msgid "_Refresh"
 msgstr "_Actualizar"
 
-#: app/menus.c:175
+#: app/menus.c:173
 msgid "_Guides"
 msgstr "_Guías"
 
-#: app/menus.c:176
+#: app/menus.c:174
 msgid "_New Guide..."
 msgstr "_Guía nueva…"
 
-#: app/menus.c:178
+#: app/menus.c:176
 msgid "_Objects"
 msgstr "_Objetos"
 
-#: app/menus.c:179
+#: app/menus.c:177
 msgid "Send to _Back"
 msgstr "Enviar al _fondo"
 
-#: app/menus.c:179
+#: app/menus.c:177
 msgid "Move selection to the bottom"
 msgstr "Mover la selección a la parte inferior"
 
-#: app/menus.c:180
+#: app/menus.c:178
 msgid "Bring to _Front"
 msgstr "Traer al f_rente"
 
-#: app/menus.c:180
+#: app/menus.c:178
 msgid "Move selection to the top"
 msgstr "Mover la selección a la parte superior"
 
-#: app/menus.c:181
+#: app/menus.c:179
 msgid "Send Ba_ckwards"
 msgstr "Enviar ha_cia atrás"
 
-#: app/menus.c:182
+#: app/menus.c:180
 msgid "Bring F_orwards"
 msgstr "Traer al _frente"
 
-#: app/menus.c:184
+#: app/menus.c:182
 msgid "_Group"
 msgstr "_Agrupar"
 
-#: app/menus.c:184
+#: app/menus.c:182
 msgid "Group selected objects"
 msgstr "Grupo de objetos seleccionados"
 
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:186
+#: app/menus.c:184
 msgid "_Ungroup"
 msgstr "_Desagrupar"
 
-#: app/menus.c:186
+#: app/menus.c:184
 msgid "Ungroup selected groups"
 msgstr "Desagrupar los grupos seleccionados"
 
-#: app/menus.c:188
+#: app/menus.c:186
 msgid "_Parent"
 msgstr "_Padre"
 
-#: app/menus.c:189
+#: app/menus.c:187
 msgid "_Unparent"
 msgstr "_Orfandar"
 
-#: app/menus.c:190
+#: app/menus.c:188
 msgid "_Unparent Children"
 msgstr "_Orfandar hijos"
 
 # me parece que todo esto deberían ser verbos. FVD
-#: app/menus.c:192
+#: app/menus.c:190
 msgid "_Align"
 msgstr "_Alinear"
 
-#: app/menus.c:193
+#: app/menus.c:191
 msgid "_Left"
 msgstr "I_zquierda"
 
-#: app/menus.c:194
+#: app/menus.c:192
 msgid "_Center"
 msgstr "_Centro"
 
-#: app/menus.c:195
+#: app/menus.c:193
 msgid "_Right"
 msgstr "_Derecha"
 
-#: app/menus.c:197
+#: app/menus.c:195
 msgid "_Top"
 msgstr "_Arriba"
 
-#: app/menus.c:198
+#: app/menus.c:196
 msgid "_Middle"
 msgstr "_Medio"
 
-#: app/menus.c:199
+#: app/menus.c:197
 msgid "_Bottom"
 msgstr "A_bajo"
 
-#: app/menus.c:201
+#: app/menus.c:199
 msgid "Spread Out _Horizontally"
 msgstr "Extender _horizontalmente"
 
-#: app/menus.c:202
+#: app/menus.c:200
 msgid "Spread Out _Vertically"
 msgstr "Extender _verticalmente"
 
-#: app/menus.c:203
+#: app/menus.c:201
 msgid "_Adjacent"
 msgstr "_Adyacente"
 
-#: app/menus.c:204
+#: app/menus.c:202
 msgid "_Stacked"
 msgstr "A_pilado"
 
-#: app/menus.c:205 app/menus.c:215
+#: app/menus.c:203 app/menus.c:213
 msgid "_Connected"
 msgstr "_Conectado"
 
-#: app/menus.c:207
+#: app/menus.c:205
 msgid "_Properties"
 msgstr "_Propiedades"
 
-#: app/menus.c:209
+#: app/menus.c:207
 msgid "_Select"
 msgstr "_Seleccionado"
 
-#: app/menus.c:210
+#: app/menus.c:208
 msgid "_All"
 msgstr "_Todo"
 
-#: app/menus.c:211
+#: app/menus.c:209
 msgid "_None"
 msgstr "_Nada"
 
-#: app/menus.c:212
+#: app/menus.c:210
 msgid "_Invert"
 msgstr "_Invertir"
 
-#: app/menus.c:214
+#: app/menus.c:212
 msgid "_Transitive"
 msgstr "_Transitivo"
 
-#: app/menus.c:216
+#: app/menus.c:214
 msgid "Same _Type"
 msgstr "Mismo _tipo"
 
 #. display_select_radio_entries go here
-#: app/menus.c:220
+#: app/menus.c:218
 msgid "_Select By"
 msgstr "_Seleccionar por"
 
 #. For placment of the toplevel Layout menu and it's accelerator
-#: app/menus.c:223
+#: app/menus.c:221
 msgid "L_ayout"
 msgstr "Di_sposición"
 
-#: app/menus.c:225
+#: app/menus.c:223
 msgid "D_ialogs"
 msgstr "_Diálogos"
 
-#: app/menus.c:227
+#: app/menus.c:225
 msgid "D_ebug"
 msgstr "D_epurar"
 
-#: app/menus.c:233
+#: app/menus.c:231
 msgid "_Tools"
 msgstr "_Herramientas"
 
-#: app/menus.c:234
+#: app/menus.c:232
 msgid "_Modify"
 msgstr "_Modificar"
 
-#: app/menus.c:235
+#: app/menus.c:233
 msgid "_Magnify"
 msgstr "A_mpliar"
 
-#: app/menus.c:236
+#: app/menus.c:234
 msgid "_Edit Text"
 msgstr "_Editar texto"
 
 #
-#: app/menus.c:237
+#: app/menus.c:235
 msgid "_Scroll"
 msgstr "_Desplazar"
 
-#: app/menus.c:238
+#: app/menus.c:236
 msgid "_Text"
 msgstr "_Texto"
 
-#: app/menus.c:239
+#: app/menus.c:237
 msgid "_Box"
 msgstr "Ca_ja"
 
-#: app/menus.c:240
+#: app/menus.c:238
 msgid "_Ellipse"
 msgstr "_Elipse"
 
-#: app/menus.c:241
+#: app/menus.c:239
 msgid "_Polygon"
 msgstr "_Polígono"
 
-#: app/menus.c:242
+#: app/menus.c:240
 msgid "_Beziergon"
 msgstr "Polígono _Bézier"
 
-#: app/menus.c:244
+#: app/menus.c:242
 msgid "_Line"
 msgstr "_Línea"
 
-#: app/menus.c:245
+#: app/menus.c:243
 msgid "_Arc"
 msgstr "_Arco"
 
-#: app/menus.c:246
+#: app/menus.c:244
 msgid "_Zigzagline"
 msgstr "Línea en _zigzag"
 
-#: app/menus.c:247
+#: app/menus.c:245
 msgid "_Polyline"
 msgstr "_Polilínea"
 
-#: app/menus.c:248
+#: app/menus.c:246
 msgid "_Bezierline"
 msgstr "Línea _Bézier"
 
-#: app/menus.c:249
+#: app/menus.c:247
 msgid "_Outline"
 msgstr "C_ontorno"
 
-#: app/menus.c:251
+#: app/menus.c:249
 msgid "_Image"
 msgstr "_Imagen"
 
-#: app/menus.c:257
+#: app/menus.c:255
 msgid "_Fullscreen"
 msgstr "_Pantalla completa"
 
-#: app/menus.c:258
+#: app/menus.c:256
 msgid "_Antialiased"
 msgstr "_Alisado"
 
-#: app/menus.c:259
+#: app/menus.c:257
 msgid "Show _Grid"
 msgstr "Mostrar _cuadrícula"
 
-#: app/menus.c:260
+#: app/menus.c:258
 msgid "_Snap to Grid"
 msgstr "Aju_star a la rejilla"
 
-#: app/menus.c:261
+#: app/menus.c:259
 msgid "_Show Guides"
 msgstr "Mo_strar g_uías"
 
-#: app/menus.c:262
+#: app/menus.c:260
 msgid "Snap to _Guides"
 msgstr "Ajustar a las _guías"
 
-#: app/menus.c:263
+#: app/menus.c:261
 msgid "_Remove all Guides"
 msgstr "_Quitar todas las guías"
 
-#: app/menus.c:264
+#: app/menus.c:262
 msgid "Snap to _Objects"
 msgstr "Ajustar a los _objetos"
 
-#: app/menus.c:265
+#: app/menus.c:263
 msgid "Show _Rulers"
 msgstr "Mostrar _reglas"
 
-#: app/menus.c:266
+#: app/menus.c:264
 msgid "Show Scroll_bars"
 msgstr "Mostrar _barras de desplazamiento"
 
-#: app/menus.c:267
+#: app/menus.c:265
 msgid "Show _Connection Points"
 msgstr "Mostrar puntos de _conexión"
 
-#: app/menus.c:274
+#: app/menus.c:272
 msgid "_Union"
 msgstr "_Unión"
 
-#: app/menus.c:275
+#: app/menus.c:273
 msgid "I_ntersection"
 msgstr "I_ntersección"
 
-#: app/menus.c:276
+#: app/menus.c:274
 msgid "R_emove"
 msgstr "_Eliminar"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: app/menus.c:278
+#: app/menus.c:276
 msgid "In_verse"
 msgstr "In_verso"
 
 # Traduzco "tooldata". RizOX.
-#: app/menus.c:328
+#: app/menus.c:334
 msgid "NULL tooldata in tool_menu_select"
 msgstr "InArray de herramienta nula (NULL) en tool_menu_select"
 
-#: app/menus.c:599
+#: app/menus.c:616
+msgid "Fit"
+msgstr "Ajustar"
+
+#: app/menus.c:634
 msgid "300%"
 msgstr "300%"
 
-#: app/menus.c:600
+#: app/menus.c:640
 msgid "200%"
 msgstr "200%"
 
-#: app/menus.c:601
+#: app/menus.c:646
 msgid "150%"
 msgstr "150%"
 
-#: app/menus.c:602
+#: app/menus.c:652
 msgid "100%"
 msgstr "100%"
 
-#: app/menus.c:603
+#: app/menus.c:658
 msgid "75%"
 msgstr "75%"
 
-#: app/menus.c:604
+#: app/menus.c:664
 msgid "50%"
 msgstr "50%"
 
-#: app/menus.c:605
+#: app/menus.c:670
 msgid "25%"
 msgstr "25%"
 
-#: app/menus.c:606
+#: app/menus.c:676
 msgid "10%"
 msgstr "10%"
 
-#: app/menus.c:632
+#: app/menus.c:704
 msgid "Toggles snap-to-grid."
 msgstr "Conmuta el ajuste a la rejilla."
 
-#: app/menus.c:644
+#: app/menus.c:716
 msgid "Toggles object snapping."
 msgstr "Conmuta el ajuste del objeto."
 
-#: app/menus.c:657
+#: app/menus.c:729
 msgid "Toggles guide snapping."
 msgstr "Conmuta el ajuste a la guía."
 
-#: app/menus.c:1273
+#: app/menus.c:1345
 msgid "The function is not available anymore."
 msgstr "La función no estará disponible nunca más."
 
@@ -2211,50 +2222,50 @@ msgid "Programmed DiaObject"
 msgstr "Objeto BiaObject programado"
 
 # Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
-#: app/sheet-editor/sheets_dialog.c:235
+#: app/sheet-editor/sheets_dialog.c:236
 msgid "Select SVG Shape File"
 msgstr "Seleccionar archivo de forma SVG"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:162
+#: app/sheet-editor/sheets_dialog_callbacks.c:163
 msgid "Copy ->"
 msgstr "Copiar →"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:164
+#: app/sheet-editor/sheets_dialog_callbacks.c:165
 msgid "Copy All ->"
 msgstr "Copiar todo →"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:166
+#: app/sheet-editor/sheets_dialog_callbacks.c:167
 msgid "Move ->"
 msgstr "Mover →"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:168
+#: app/sheet-editor/sheets_dialog_callbacks.c:169
 msgid "Move All ->"
 msgstr "Mover todo →"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:173
+#: app/sheet-editor/sheets_dialog_callbacks.c:174
 msgid "<- Copy"
 msgstr "← Copiar"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:175
+#: app/sheet-editor/sheets_dialog_callbacks.c:176
 msgid "<- Copy All"
 msgstr "← Copiar todo"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:177
+#: app/sheet-editor/sheets_dialog_callbacks.c:178
 msgid "<- Move"
 msgstr "← Mover"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:179
+#: app/sheet-editor/sheets_dialog_callbacks.c:180
 msgid "<- Move All"
 msgstr "← Mover todo"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:281
-#: app/sheet-editor/sheets_dialog_callbacks.c:1035
+#: app/sheet-editor/sheets_dialog_callbacks.c:282
+#: app/sheet-editor/sheets_dialog_callbacks.c:1036
 #: data/ui/sheets-new-dialog.ui:195
 msgid "Line Break"
 msgstr "Salto de línea"
 
 # Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
-#: app/sheet-editor/sheets_dialog_callbacks.c:295
+#: app/sheet-editor/sheets_dialog_callbacks.c:296
 #, c-format
 msgid ""
 "%s\n"
@@ -2263,7 +2274,7 @@ msgstr ""
 "%s\n"
 "Forma"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:298
+#: app/sheet-editor/sheets_dialog_callbacks.c:299
 #, c-format
 msgid ""
 "%s\n"
@@ -2272,7 +2283,7 @@ msgstr ""
 "%s\n"
 "Objeto"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:302
+#: app/sheet-editor/sheets_dialog_callbacks.c:303
 #, c-format
 msgid ""
 "%s\n"
@@ -2282,66 +2293,66 @@ msgstr ""
 "Tipo no asignado"
 
 # Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
-#: app/sheet-editor/sheets_dialog_callbacks.c:748
+#: app/sheet-editor/sheets_dialog_callbacks.c:749
 msgid "Please select a .shape file"
 msgstr "Seleccionar un archivo .shape"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:754
+#: app/sheet-editor/sheets_dialog_callbacks.c:755
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "El nombre de archivo debe terminar en «%s»: «%s»"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:761
+#: app/sheet-editor/sheets_dialog_callbacks.c:762
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "Error al examinar %s: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:789
+#: app/sheet-editor/sheets_dialog_callbacks.c:790
 msgid "Please export the diagram as a shape."
 msgstr "Por favor, exporte el diagrama como una forma."
 
 # Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
-#: app/sheet-editor/sheets_dialog_callbacks.c:793
+#: app/sheet-editor/sheets_dialog_callbacks.c:794
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "No se pudo interpretar el archivo de forma: «%s»"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:858
+#: app/sheet-editor/sheets_dialog_callbacks.c:859
 msgid "Sheet must have a Name"
 msgstr "La hoja debe tener un nombre"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1512
-#: app/sheet-editor/sheets_dialog_callbacks.c:1518
+#: app/sheet-editor/sheets_dialog_callbacks.c:1513
+#: app/sheet-editor/sheets_dialog_callbacks.c:1519
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "No se pudo abrir «%s»: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1572
+#: app/sheet-editor/sheets_dialog_callbacks.c:1573
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "No se pudo abrir: «%s» para escritura."
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1582
+#: app/sheet-editor/sheets_dialog_callbacks.c:1583
 msgid "a user"
 msgstr "un usuario"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1595
+#: app/sheet-editor/sheets_dialog_callbacks.c:1596
 #, c-format
 msgid "File: %s"
 msgstr "Archivo: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1598
+#: app/sheet-editor/sheets_dialog_callbacks.c:1599
 #, c-format
 msgid "Date: %s"
 msgstr "Fecha: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1602
+#: app/sheet-editor/sheets_dialog_callbacks.c:1603
 #, c-format
 msgid "For: %s"
 msgstr "Para: %s"
 
 # Mantengo la traducción anterior de "Shape" como "Forma" en vez de "Figura". RizOX.
-#: app/sheet-editor/sheets_dialog_callbacks.c:1619
+#: app/sheet-editor/sheets_dialog_callbacks.c:1620
 msgid "add shapes here"
 msgstr "añadir formas aquí"
 
@@ -2685,7 +2696,6 @@ msgid "_Down"
 msgstr "_Abajo"
 
 #: data/ui/sheets-main-dialog.ui:75
-#| msgid "Remove"
 msgid "_Remove"
 msgstr "_Quitar"
 
@@ -2707,7 +2717,6 @@ msgstr "<- Mover todo"
 
 # Seguro? Más bien Revertir. FVD
 #: data/ui/sheets-main-dialog.ui:287
-#| msgid "Revert"
 msgid "_Revert"
 msgstr "Re_vertir"
 
@@ -2731,141 +2740,6 @@ msgstr "Nombre de la hoja:"
 #: objects/FS/function.c:852 objects/FS/function.c:854
 msgid "Remove"
 msgstr "Eliminar"
-
-#. Installer message if no GTK+ was found
-#: installer/win32/gennsh.c:39
-msgid ""
-"GTK+ is not installed. Please use the full installer. It is available from "
-"http://dia-installer.de."
-msgstr ""
-"GTK+ no está instalado. Use el instalador completo. Está disponible en "
-"http://dia-installer.de."
-
-#. Installer message: Don't install over pre 0.95 versions
-#: installer/win32/gennsh.c:42
-msgid ""
-"Please remove old Dia installations completely or install Dia to a different "
-"location."
-msgstr ""
-"Elimine completamente las instalaciones antiguas de Dia o instale Dia en una "
-"ubicación diferente."
-
-#. Installer message:  License Page
-#: installer/win32/gennsh.c:45
-msgid "Next >"
-msgstr "Sigueinte >"
-
-#. Installer message, keep the $(^Name) and $_CLICK, these will be replaced
-#: installer/win32/gennsh.c:48
-msgid ""
-"$(^Name) is released under the GPL license. The license is provided here for "
-"information purposes only. $_CLICK"
-msgstr ""
-"$(^Name) está liberado bajo la licencia GPL. La licencia se proporciona aquí "
-"solamente con propósito de informar. $_CLICK"
-
-#. Installer message: Components page
-#: installer/win32/gennsh.c:51
-msgid "Dia Diagram Editor (required)"
-msgstr "Editor de diagramas Dia (requerido)"
-
-#. Installer message: Components page
-#: installer/win32/gennsh.c:54
-msgid "Translations"
-msgstr "Traducciones"
-
-#. Installer message: Component description
-#: installer/win32/gennsh.c:57
-msgid "Optional translations of the Dia user interface"
-msgstr "Traducciones opcionales de la interfaz de usuario de Dia"
-
-#. Installer message: Component description
-#: installer/win32/gennsh.c:60
-msgid "Core Dia files and dlls"
-msgstr "Archivos del núcleo de Dia y dlls"
-
-#. Installer message: Component name
-#: installer/win32/gennsh.c:63
-msgid "Python plug-in"
-msgstr "Complemento de Python"
-
-#. Installer message: Component description
-#: installer/win32/gennsh.c:66
-msgid ""
-"Support for the Python Scripting Language 2.3. Do not select this if Python "
-"is not installed."
-msgstr ""
-"Soporte para el lenguaje de scripting Python 2.3. No seleccione esto si "
-"Python ya está instalado."
-
-#. Installer message: hyperlink text on finish page
-#: installer/win32/gennsh.c:69
-msgid "Visit the Dia for Windows Web Page"
-msgstr "Visite la página web de Dia para Windows"
-
-#. Installer message: Dia uninstaller entry in Control Panel
-#: installer/win32/gennsh.c:72
-msgid "Dia (remove only)"
-msgstr "Dia (sólo eliminar)"
-
-#. Installer message: directory delete confirmation line 1
-#: installer/win32/gennsh.c:75
-msgid ""
-"Your old Dia directory is about to be deleted. Would you like to continue?"
-msgstr "La carpeta antigua de Dia se va a eliminar, ¿quiere continuar?"
-
-#. Installer message: directory delete confirmation line 2
-#: installer/win32/gennsh.c:77
-msgid ""
-"Note: Any non-standard plugins that you may have installed will be deleted."
-msgstr ""
-"Nota: no tiene ningún complemento estándar instalado que se pueda eliminar."
-
-#. Installer message: directory delete confirmation line 3
-#: installer/win32/gennsh.c:79
-msgid "Dia user settings will not be affected."
-msgstr ""
-"Las modificaciones de la configuración del usuario de Dia no se verán "
-"afectadas."
-
-#. Installer message: DIA_PROMPT_DIR_EXISTS line 1
-#: installer/win32/gennsh.c:82
-msgid "The installation directory you specified already exists."
-msgstr "La carpeta de instalación que ha especificado ya existe."
-
-#. Installer message: DIA_PROMP_DIR_EXISTS line 2
-#: installer/win32/gennsh.c:84
-msgid "Any contents will be deleted. Would you like to continue?"
-msgstr "Se eliminará todo el contenido. ¿Quiere continuar?"
-
-#. Installer message: registry entries not found line 1
-#: installer/win32/gennsh.c:87
-msgid "The uninstaller could not find registry entries for Dia."
-msgstr "El desinstalador no pudo encontrar entradas del registro para Dia."
-
-#. Installer message: registry entries not found line 2
-#: installer/win32/gennsh.c:89
-msgid "It is likely that another user installed this application."
-msgstr "Probablemente otro usuario ha instalado esta aplicación."
-
-#. Installer message: Uninstall error message
-#: installer/win32/gennsh.c:92
-msgid "You do not have permission to uninstall this application."
-msgstr "No tiene permiso para desinstalar esta aplicación."
-
-#. Installer message: Uninstallation warning. Keep $INSTDIR
-#: installer/win32/gennsh.c:95
-msgid "This will completely delete $INSTDIR and all subdirectories. Continue?"
-msgstr ""
-"Esto eliminará completamente $INSTDIR y todos sus subcarpetas. ¿Continuar?"
-
-#. Installer message: Uninstallation warning. Keep $\PROFILE\.dia
-#: installer/win32/gennsh.c:98
-msgid ""
-"This will completely delete $PROFILE\\.dia and all subdirectories. Continue?"
-msgstr ""
-"Esto eliminará completamente $PROFILE\\.dia y todos sus subcarpetas. "
-"¿Continuar?"
 
 #: lib/arrows.c:2258
 msgctxt "Arrow"
@@ -3130,18 +3004,9 @@ msgstr "Detalles…"
 msgid "Dash length: "
 msgstr "Longitud de la discontinuidad: "
 
-# Quiza' si estas dos se diferencian so'lo en las mayu'sculas, deberi'amos respetarlas. FVD
-#: lib/diapatternselector.c:110
-msgid "Horizontal"
-msgstr "Horizontal"
-
 #: lib/diapatternselector.c:111
 msgid "Diagonal"
 msgstr "Diagonal"
-
-#: lib/diapatternselector.c:112
-msgid "Vertical"
-msgstr "Vertical"
 
 #: lib/diapatternselector.c:113
 msgid "Radial"
@@ -3584,14 +3449,13 @@ msgstr "Convertir a Bezier"
 msgid "Invert Path"
 msgstr "Invertir la ruta"
 
-#: lib/standard-path.c:743 objects/custom/custom_object.c:196
-#: objects/custom/custom_object.c:229
-msgid "Flip horizontal"
+# Quiza' si estas dos se diferencian so'lo en las mayu'sculas, deberi'amos respetarlas. FVD
+#: lib/standard-path.c:743 objects/custom/custom_object.c:1914
+msgid "Flip Horizontal"
 msgstr "Invertir horizontal"
 
-#: lib/standard-path.c:744 objects/custom/custom_object.c:198
-#: objects/custom/custom_object.c:231
-msgid "Flip vertical"
+#: lib/standard-path.c:744 objects/custom/custom_object.c:1915
+msgid "Flip Vertical"
 msgstr "Invertir vertical"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
@@ -3817,6 +3681,14 @@ msgstr "Personalizar"
 msgid "Custom XML shapes loader"
 msgstr "Cargador de formas personalizadas XML"
 
+#: objects/custom/custom_object.c:196 objects/custom/custom_object.c:229
+msgid "Flip horizontal"
+msgstr "Invertir horizontal"
+
+#: objects/custom/custom_object.c:198 objects/custom/custom_object.c:231
+msgid "Flip vertical"
+msgstr "Invertir vertical"
+
 #: objects/custom/custom_object.c:201 objects/custom/custom_object.c:234
 msgid "Scale of the sub-shapes"
 msgstr "Escala de las subformas"
@@ -3827,16 +3699,7 @@ msgstr "Escala de las subformas"
 msgid "Text padding"
 msgstr "Relleno de texto"
 
-# Quiza' si estas dos se diferencian so'lo en las mayu'sculas, deberi'amos respetarlas. FVD
-#: objects/custom/custom_object.c:1908
-msgid "Flip Horizontal"
-msgstr "Invertir horizontal"
-
-#: objects/custom/custom_object.c:1909
-msgid "Flip Vertical"
-msgstr "Invertir vertical"
-
-#: objects/custom/custom_object.c:1947
+#: objects/custom/custom_object.c:1953
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "No se puede abrir el archivo de icono %s para el tipo de objeto «%s»."
@@ -4752,6 +4615,7 @@ msgstr "Multiplicar"
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #. FIXME: mark read-only
 #: objects/FS/function.c:986 objects/Misc/measure.c:185
+#: plug-ins/python/scascale.py:67
 msgid "Scale"
 msgstr "Escalar"
 
@@ -6973,6 +6837,256 @@ msgstr "No se pudo abrir «%s» para escritura.\n"
 msgid "Python scripting support"
 msgstr "Soporte de scripts de python"
 
+#: plug-ins/python/allprops.py:132
+#| msgid "Object properties"
+msgid "All Object _Properties"
+msgstr "_Propiedades de todos los objeto"
+
+#: plug-ins/python/allsheets.py:85
+#, fuzzy
+#| msgid "Delete selection"
+msgid "Dia _Sheets Inspection"
+msgstr "Eliminar la selección"
+
+#: plug-ins/python/aobjects.py:102
+#| msgid "_Objects"
+msgid "All _Objects"
+msgstr "Todos los _objetos"
+
+#. #
+#. \file arrange.py \brief Arrange Objects Plugin
+#.
+#. this module is loaded by some other plug-ins but can also work on it's own
+#. if it is loaded first as Dia plug-in and later as Python module everything works
+#. fine due to Pythoninitializing the module only once
+#.
+#. \ingroup PyDia
+#: plug-ins/python/arrange.py:127
+#, fuzzy
+#| msgid "_Objects"
+msgid "Arrange _Objects"
+msgstr "_Objetos"
+
+#: plug-ins/python/autolayoutforce.py:126
+msgid "_Layout (force)"
+msgstr ""
+
+#. dia-python keeps a reference to the renderer class and uses it on demand
+#: plug-ins/python/codegen.py:711
+msgid "PyDia Code Generation (Python)"
+msgstr "Generación de código PyDia (Python)"
+
+#: plug-ins/python/codegen.py:712
+msgid "PyDia Code Generation (C++)"
+msgstr "Generación de código PyDia (C++)"
+
+#: plug-ins/python/codegen.py:713
+msgid "PyDia Code Generation (Pascal)"
+msgstr "Generación de código PyDia (Pascal)"
+
+#: plug-ins/python/codegen.py:714
+msgid "PyDia Code Generation (Java)"
+msgstr "Generación de código PyDia (Java)"
+
+#: plug-ins/python/codegen.py:715
+msgid "PyDia Code Generation (JavaScript)"
+msgstr "Generación de código PyDia (JavaScript)"
+
+#: plug-ins/python/codegen.py:716
+msgid "PyDia Code Generation (PHP)"
+msgstr "Generación de código PyDia (PHP)"
+
+#. dia-python keeps a reference to the renderer class and uses it on demand
+#: plug-ins/python/debug_objects.py:30
+msgid "Dia _BoundingBox Debugger"
+msgstr ""
+
+#: plug-ins/python/debug_objects.py:34
+msgid "Dia _Property API Debugger"
+msgstr ""
+
+#: plug-ins/python/dia_rotate.py:31
+msgid "Rotate counter-clockwise"
+msgstr "Rotar en sentido antihorario"
+
+#: plug-ins/python/dia_rotate.py:47
+msgid "Rotation around (0,0). Rotation angle in degrees:"
+msgstr ""
+
+#: plug-ins/python/dia_rotate.py:126
+#| msgid "Rotation"
+msgid "Simple _Rotation"
+msgstr "_Rotación simple"
+
+#. XXX: check image, e.g. existing file name
+#. dia-python keeps a reference to the renderer class and uses it on demand
+#: plug-ins/python/diadissect.py:167
+#, fuzzy
+#| msgid "Dissipate"
+msgid "Dissect"
+msgstr "Disipar"
+
+#. dia.register_import("Cpp via GCC_XML", "cpp", ImportCpp)
+#: plug-ins/python/diagx.py:405
+msgid "XML from GCC_XML"
+msgstr "XML desde GCC_XML"
+
+#. register the renderer
+#: plug-ins/python/diastddia.py:361
+msgid "Dia plain"
+msgstr "Dia plano"
+
+#. dia-python keeps a reference to the renderer class and uses it on demand
+#: plug-ins/python/diasvg_import.py:731 plug-ins/python/diasvg.py:267
+msgid "SVG plain"
+msgstr "SVG plano"
+
+#: plug-ins/python/diasvg_import.py:732 plug-ins/python/diasvg.py:268
+#| msgid "Compress"
+msgid "SVG compressed"
+msgstr "SVG comprimido"
+
+#. dia-python keeps a reference to the renderer class and uses it on demand
+#: plug-ins/python/dot.py:92
+msgid "PyDia DOT Export"
+msgstr ""
+
+#: plug-ins/python/dot2dia.py:282
+msgid "Graphviz Dot"
+msgstr ""
+
+#: plug-ins/python/doxrev.py:488
+msgid "Dox2UML"
+msgstr "Dox2UML"
+
+#: plug-ins/python/doxrev.py:489
+msgid "Dox2UML (multiple)"
+msgstr "Dox2UML (múltiple)"
+
+#. dia-python keeps a reference to the renderer class and uses it on demand
+#: plug-ins/python/export-object.py:45
+#| msgid "DiaObject"
+msgid "PyDia Object Export"
+msgstr "Exportación de objeto PyDia"
+
+#. # \brief Register the renderer with Dia's export system
+#. dia-python keeps a reference to the renderer class and uses it on demand
+#: plug-ins/python/export-render.py:119
+#, fuzzy
+#| msgid "DiaRenderScript"
+msgid "PyDia Render Export"
+msgstr "ScriptDeRenderizadoDeDia"
+
+#: plug-ins/python/group_props.py:45
+#, fuzzy
+#| msgid "Arrow Properties"
+msgid "Group Properties"
+msgstr "Propiedades de la flecha"
+
+#: plug-ins/python/group_props.py:88
+msgid ""
+"The selected objects don't share any\n"
+" properties to change at once."
+msgstr ""
+
+#: plug-ins/python/group_props.py:183
+#, fuzzy
+#| msgid "Diagram Properties"
+msgid "Dia _Group Properties"
+msgstr "Propiedades del diagrama"
+
+#: plug-ins/python/gtkcons.py:344
+msgid "Python Dia Console"
+msgstr "Consola de Python Dia"
+
+#: plug-ins/python/gtkcons.py:346
+msgid "_Python Console"
+msgstr "Consola _Python"
+
+#. dia-python keeps a reference to the renderer class and uses it on demand
+#: plug-ins/python/imgmap.py:80
+#| msgid "Image"
+msgid "Imagemap"
+msgstr "Mapa de imagen"
+
+#: plug-ins/python/mark-cps.py:72
+#, fuzzy
+#| msgid "Main Connection Point"
+msgid "_Mark Connection Points"
+msgstr "Punto de conexión principal"
+
+#: plug-ins/python/otypes.py:185
+#| msgid "DiaObject"
+msgid "Dia Object _Types"
+msgstr "_Tipos de objetos Dia"
+
+#: plug-ins/python/pydiadoc.py:264
+msgid "PyDia _HTML Docs"
+msgstr "Documentos _HTML de PyDia"
+
+#: plug-ins/python/pydiadoc.py:267
+msgid "PyDia _Docs"
+msgstr "_Documentos de PyDia"
+
+#: plug-ins/python/pydiadoc.py:270
+msgid "PyDia Docs _Update"
+msgstr "_Actualizar documentos de PyDia"
+
+#: plug-ins/python/scascale.py:38
+#| msgid "Scaling"
+msgid "Simple Scaling"
+msgstr "Escalado simple"
+
+#: plug-ins/python/scascale.py:152
+#| msgid "Scaling"
+msgid "Simple _Scaling"
+msgstr "Escalado _simple"
+
+#: plug-ins/python/select_by.py:38
+#| msgid "Select None"
+msgid "Select by name"
+msgstr "Seleccionar por nombre"
+
+#: plug-ins/python/select_by.py:54
+#| msgid "Step name"
+msgid "Enter name"
+msgstr "Introducir nombre"
+
+#: plug-ins/python/select_by.py:146
+#| msgid "Name"
+msgid "_Name"
+msgstr "_Nombre"
+
+#: plug-ins/python/select_by.py:149
+#| msgid "Fill color"
+msgid "_Fill Color"
+msgstr "Color de _relleno"
+
+#: plug-ins/python/select_by.py:152
+#| msgid "Line color"
+msgid "_Line Color"
+msgstr "Color de _línea"
+
+#: plug-ins/python/select_by.py:155
+#| msgid "Text Color"
+msgid "_Text Color"
+msgstr "Color de _texto"
+
+#: plug-ins/python/select_by.py:158
+#| msgid "Size"
+msgid "_Size"
+msgstr "_Tamaño"
+
+#: plug-ins/python/select_empty.py:31
+#| msgid "Empty"
+msgid "_Empty"
+msgstr "_Vaciar"
+
+#. dia-python keeps a reference to the renderer class and uses it on demand
+#: plug-ins/python/uninline_data.py:52
+msgid "Uninline Images"
+msgstr ""
+
 #: plug-ins/shape/shape.c:36
 msgid "Dia shape export filter"
 msgstr "Filtro de exportación de forma de Dia"
@@ -7707,7 +7821,7 @@ msgstr ""
 "Business Process Modeling Notation (Notación para el modelado de Procesos de "
 "Negocio)"
 
-#: sheets/BPMN.sheet:12
+#: sheets/BPMN.sheet:12 sheets/EDPC.sheet:11
 msgid "Start Event"
 msgstr "Iniciar evento"
 
@@ -7767,7 +7881,7 @@ msgstr "Evento intermedio - Enlace"
 msgid "Intermediate Event — Multiple"
 msgstr "Evento intermedio - Múltiple"
 
-#: sheets/BPMN.sheet:57
+#: sheets/BPMN.sheet:57 sheets/EDPC.sheet:12
 msgid "End Event"
 msgstr "Finalizar evento"
 
@@ -9871,6 +9985,73 @@ msgstr "Editor de diagramas de relaciones en tablas de bases de datos"
 msgid "Attribute compound"
 msgstr "Atributo compuesto"
 
+#. Author: Marcus Kossatz, 2019
+#: sheets/EDPC.sheet:4
+msgid "EDPC"
+msgstr "EDPC"
+
+#: sheets/EDPC.sheet:5
+#, fuzzy
+#| msgid "Objects to draw flowcharts"
+msgid "Objects to draw event-driven process chains"
+msgstr "Objetos para dibujar diagramas de flujo"
+
+#: sheets/EDPC.sheet:7
+#| msgid "Business Process Modeling Notation"
+msgid "Business Process"
+msgstr "Proceso de negocio"
+
+#: sheets/EDPC.sheet:8
+#, fuzzy
+#| msgid "Processor"
+msgid "Process Group"
+msgstr "Procesador"
+
+#: sheets/EDPC.sheet:9 sheets/FS.sheet:13
+msgid "Function"
+msgstr "Función"
+
+#: sheets/EDPC.sheet:10
+#| msgid "Events"
+msgid "Event"
+msgstr "Evento"
+
+#: sheets/EDPC.sheet:13
+#| msgid "Transaction file"
+msgid "Organisation Unit"
+msgstr "Unidad de organización"
+
+#: sheets/EDPC.sheet:14 sheets/Flowchart.sheet:29
+msgid "Document"
+msgstr "Documento"
+
+#: sheets/EDPC.sheet:15
+msgid "Operator AND (Input)"
+msgstr "Operador AND (entrada)"
+
+#: sheets/EDPC.sheet:16
+msgid "Operator AND (Output)"
+msgstr "Operador AND (salida)"
+
+#: sheets/EDPC.sheet:17
+#| msgid "Inclusive (OR)"
+msgid "Operator Inclusive (OR) (Input)"
+msgstr "Operador inclusivo (OR) (entrada)"
+
+#: sheets/EDPC.sheet:18
+#| msgid "Inclusive (OR)"
+msgid "Operator Inclusive (OR) (Output)"
+msgstr "Operador inclusivo (OR) (salida)"
+
+#: sheets/EDPC.sheet:19
+#| msgid "Exclusive (XOR) Event Based"
+msgid "Operator Exclusive (XOR) (Input)"
+msgstr "Operador exclusivo (XOR) (entrada)"
+
+#: sheets/EDPC.sheet:20
+msgid "Operator Exclusive (XOR) (Output)"
+msgstr "Operador exclusivo (XOR) (salida)"
+
 #: sheets/Electric.sheet:3
 msgid "Electric"
 msgstr "Eléctrico"
@@ -9990,10 +10171,6 @@ msgstr "Archivo de transacción"
 msgid "Off page connector"
 msgstr "Conector fuera de página"
 
-#: sheets/Flowchart.sheet:29
-msgid "Document"
-msgstr "Documento"
-
 #: sheets/Flowchart.sheet:32
 msgid "Manual operation"
 msgstr "Operación manual"
@@ -10091,10 +10268,6 @@ msgstr "Flujo"
 #: sheets/FS.sheet:10
 msgid "Orthogonal polyline flow"
 msgstr "Flujo poligonal ortogonal"
-
-#: sheets/FS.sheet:13
-msgid "Function"
-msgstr "Función"
 
 #. Dia-Version: 0.94
 #. Date: Sun Oct 23 17:12:11 2005
@@ -10797,12 +10970,14 @@ msgid "Folder"
 msgstr "Carpeta"
 
 #: sheets/Misc.sheet:16
-msgid "expansible node"
-msgstr "nodo expansible"
+#| msgid "expansible node"
+msgid "Expansible node"
+msgstr "Nodo expansible"
 
 #: sheets/Misc.sheet:19
-msgid "expanded node"
-msgstr "nodo expandido"
+#| msgid "expanded node"
+msgid "Expanded node"
+msgstr "Nodo expandido"
 
 #: sheets/Misc.sheet:22
 msgid "Traditional clock"
@@ -11322,6 +11497,101 @@ msgstr "Actividad"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "División/unión"
+
+#~ msgid ""
+#~ "GTK+ is not installed. Please use the full installer. It is available "
+#~ "from http://dia-installer.de."
+#~ msgstr ""
+#~ "GTK+ no está instalado. Use el instalador completo. Está disponible en "
+#~ "http://dia-installer.de."
+
+#~ msgid ""
+#~ "Please remove old Dia installations completely or install Dia to a "
+#~ "different location."
+#~ msgstr ""
+#~ "Elimine completamente las instalaciones antiguas de Dia o instale Dia en "
+#~ "una ubicación diferente."
+
+#~ msgid "Next >"
+#~ msgstr "Sigueinte >"
+
+#~ msgid ""
+#~ "$(^Name) is released under the GPL license. The license is provided here "
+#~ "for information purposes only. $_CLICK"
+#~ msgstr ""
+#~ "$(^Name) está liberado bajo la licencia GPL. La licencia se proporciona "
+#~ "aquí solamente con propósito de informar. $_CLICK"
+
+#~ msgid "Dia Diagram Editor (required)"
+#~ msgstr "Editor de diagramas Dia (requerido)"
+
+#~ msgid "Translations"
+#~ msgstr "Traducciones"
+
+#~ msgid "Optional translations of the Dia user interface"
+#~ msgstr "Traducciones opcionales de la interfaz de usuario de Dia"
+
+#~ msgid "Core Dia files and dlls"
+#~ msgstr "Archivos del núcleo de Dia y dlls"
+
+#~ msgid "Python plug-in"
+#~ msgstr "Complemento de Python"
+
+#~ msgid ""
+#~ "Support for the Python Scripting Language 2.3. Do not select this if "
+#~ "Python is not installed."
+#~ msgstr ""
+#~ "Soporte para el lenguaje de scripting Python 2.3. No seleccione esto si "
+#~ "Python ya está instalado."
+
+#~ msgid "Visit the Dia for Windows Web Page"
+#~ msgstr "Visite la página web de Dia para Windows"
+
+#~ msgid "Dia (remove only)"
+#~ msgstr "Dia (sólo eliminar)"
+
+#~ msgid ""
+#~ "Your old Dia directory is about to be deleted. Would you like to continue?"
+#~ msgstr "La carpeta antigua de Dia se va a eliminar, ¿quiere continuar?"
+
+#~ msgid ""
+#~ "Note: Any non-standard plugins that you may have installed will be "
+#~ "deleted."
+#~ msgstr ""
+#~ "Nota: no tiene ningún complemento estándar instalado que se pueda "
+#~ "eliminar."
+
+#~ msgid "Dia user settings will not be affected."
+#~ msgstr ""
+#~ "Las modificaciones de la configuración del usuario de Dia no se verán "
+#~ "afectadas."
+
+#~ msgid "The installation directory you specified already exists."
+#~ msgstr "La carpeta de instalación que ha especificado ya existe."
+
+#~ msgid "Any contents will be deleted. Would you like to continue?"
+#~ msgstr "Se eliminará todo el contenido. ¿Quiere continuar?"
+
+#~ msgid "The uninstaller could not find registry entries for Dia."
+#~ msgstr "El desinstalador no pudo encontrar entradas del registro para Dia."
+
+#~ msgid "It is likely that another user installed this application."
+#~ msgstr "Probablemente otro usuario ha instalado esta aplicación."
+
+#~ msgid "You do not have permission to uninstall this application."
+#~ msgstr "No tiene permiso para desinstalar esta aplicación."
+
+#~ msgid ""
+#~ "This will completely delete $INSTDIR and all subdirectories. Continue?"
+#~ msgstr ""
+#~ "Esto eliminará completamente $INSTDIR y todos sus subcarpetas. ¿Continuar?"
+
+#~ msgid ""
+#~ "This will completely delete $PROFILE\\.dia and all subdirectories. "
+#~ "Continue?"
+#~ msgstr ""
+#~ "Esto eliminará completamente $PROFILE\\.dia y todos sus subcarpetas. "
+#~ "¿Continuar?"
 
 #~ msgid "description:"
 #~ msgstr "descripción:"
