@@ -13,14 +13,14 @@
 # Miguel Rodriguez Nuñez <bokerones.fritos@gmail.com>, 2014.
 # Miguel Rodríguez Núñez <bokerones.fritos@gmail.com>, 2012, 2013, 2014, 2015.
 # Miguel Rodriguez Núñez <miguel.rodriguez.laboral@gmail.com>, 2019.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011-2019.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2019-12-14 15:57+0000\n"
-"PO-Revision-Date: 2019-12-30 12:29+0100\n"
+"POT-Creation-Date: 2019-12-30 11:46+0000\n"
+"PO-Revision-Date: 2020-01-03 12:48+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -6838,18 +6838,15 @@ msgid "Python scripting support"
 msgstr "Soporte de scripts de python"
 
 #: plug-ins/python/allprops.py:132
-#| msgid "Object properties"
 msgid "All Object _Properties"
 msgstr "_Propiedades de todos los objeto"
 
 #: plug-ins/python/allsheets.py:85
-#, fuzzy
 #| msgid "Delete selection"
 msgid "Dia _Sheets Inspection"
-msgstr "Eliminar la selección"
+msgstr "Inspección de _hojas de Dia"
 
 #: plug-ins/python/aobjects.py:102
-#| msgid "_Objects"
 msgid "All _Objects"
 msgstr "Todos los _objetos"
 
@@ -6862,14 +6859,13 @@ msgstr "Todos los _objetos"
 #.
 #. \ingroup PyDia
 #: plug-ins/python/arrange.py:127
-#, fuzzy
 #| msgid "_Objects"
 msgid "Arrange _Objects"
-msgstr "_Objetos"
+msgstr "Disponer _objetos"
 
 #: plug-ins/python/autolayoutforce.py:126
 msgid "_Layout (force)"
-msgstr ""
+msgstr "_Distribución (forzar)"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/codegen.py:711
@@ -6899,11 +6895,11 @@ msgstr "Generación de código PyDia (PHP)"
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/debug_objects.py:30
 msgid "Dia _BoundingBox Debugger"
-msgstr ""
+msgstr "Depurador de _límites de cajas de Dia"
 
 #: plug-ins/python/debug_objects.py:34
 msgid "Dia _Property API Debugger"
-msgstr ""
+msgstr "Depurador de _propiedades de la API de Dia"
 
 #: plug-ins/python/dia_rotate.py:31
 msgid "Rotate counter-clockwise"
@@ -6911,20 +6907,18 @@ msgstr "Rotar en sentido antihorario"
 
 #: plug-ins/python/dia_rotate.py:47
 msgid "Rotation around (0,0). Rotation angle in degrees:"
-msgstr ""
+msgstr "Rotación alrededor de (0,0). Ángulo de rotación en grados:"
 
 #: plug-ins/python/dia_rotate.py:126
-#| msgid "Rotation"
 msgid "Simple _Rotation"
 msgstr "_Rotación simple"
 
 #. XXX: check image, e.g. existing file name
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/diadissect.py:167
-#, fuzzy
 #| msgid "Dissipate"
 msgid "Dissect"
-msgstr "Disipar"
+msgstr "Dissect"
 
 #. dia.register_import("Cpp via GCC_XML", "cpp", ImportCpp)
 #: plug-ins/python/diagx.py:405
@@ -6942,18 +6936,17 @@ msgid "SVG plain"
 msgstr "SVG plano"
 
 #: plug-ins/python/diasvg_import.py:732 plug-ins/python/diasvg.py:268
-#| msgid "Compress"
 msgid "SVG compressed"
 msgstr "SVG comprimido"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/dot.py:92
 msgid "PyDia DOT Export"
-msgstr ""
+msgstr "Exportar PyDia DOT"
 
 #: plug-ins/python/dot2dia.py:282
 msgid "Graphviz Dot"
-msgstr ""
+msgstr "Graphviz Dot"
 
 #: plug-ins/python/doxrev.py:488
 msgid "Dox2UML"
@@ -6965,20 +6958,17 @@ msgstr "Dox2UML (múltiple)"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/export-object.py:45
-#| msgid "DiaObject"
 msgid "PyDia Object Export"
 msgstr "Exportación de objeto PyDia"
 
 #. # \brief Register the renderer with Dia's export system
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/export-render.py:119
-#, fuzzy
 #| msgid "DiaRenderScript"
 msgid "PyDia Render Export"
-msgstr "ScriptDeRenderizadoDeDia"
+msgstr "Exportar renderizado de PyDia"
 
 #: plug-ins/python/group_props.py:45
-#, fuzzy
 #| msgid "Arrow Properties"
 msgid "Group Properties"
 msgstr "Propiedades de la flecha"
@@ -6988,12 +6978,13 @@ msgid ""
 "The selected objects don't share any\n"
 " properties to change at once."
 msgstr ""
+"Los objetos seleccionados no comparten ninguna\n"
+" para cambiarla a la vez."
 
 #: plug-ins/python/group_props.py:183
-#, fuzzy
 #| msgid "Diagram Properties"
 msgid "Dia _Group Properties"
-msgstr "Propiedades del diagrama"
+msgstr "Propiedades del _grupo de Dia"
 
 #: plug-ins/python/gtkcons.py:344
 msgid "Python Dia Console"
@@ -7005,18 +6996,15 @@ msgstr "Consola _Python"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/imgmap.py:80
-#| msgid "Image"
 msgid "Imagemap"
 msgstr "Mapa de imagen"
 
 #: plug-ins/python/mark-cps.py:72
-#, fuzzy
 #| msgid "Main Connection Point"
 msgid "_Mark Connection Points"
-msgstr "Punto de conexión principal"
+msgstr "_Marcar puntos de conexión"
 
 #: plug-ins/python/otypes.py:185
-#| msgid "DiaObject"
 msgid "Dia Object _Types"
 msgstr "_Tipos de objetos Dia"
 
@@ -7033,59 +7021,49 @@ msgid "PyDia Docs _Update"
 msgstr "_Actualizar documentos de PyDia"
 
 #: plug-ins/python/scascale.py:38
-#| msgid "Scaling"
 msgid "Simple Scaling"
 msgstr "Escalado simple"
 
 #: plug-ins/python/scascale.py:152
-#| msgid "Scaling"
 msgid "Simple _Scaling"
 msgstr "Escalado _simple"
 
 #: plug-ins/python/select_by.py:38
-#| msgid "Select None"
 msgid "Select by name"
 msgstr "Seleccionar por nombre"
 
 #: plug-ins/python/select_by.py:54
-#| msgid "Step name"
 msgid "Enter name"
 msgstr "Introducir nombre"
 
 #: plug-ins/python/select_by.py:146
-#| msgid "Name"
 msgid "_Name"
 msgstr "_Nombre"
 
 #: plug-ins/python/select_by.py:149
-#| msgid "Fill color"
 msgid "_Fill Color"
 msgstr "Color de _relleno"
 
 #: plug-ins/python/select_by.py:152
-#| msgid "Line color"
 msgid "_Line Color"
 msgstr "Color de _línea"
 
 #: plug-ins/python/select_by.py:155
-#| msgid "Text Color"
 msgid "_Text Color"
 msgstr "Color de _texto"
 
 #: plug-ins/python/select_by.py:158
-#| msgid "Size"
 msgid "_Size"
 msgstr "_Tamaño"
 
 #: plug-ins/python/select_empty.py:31
-#| msgid "Empty"
 msgid "_Empty"
 msgstr "_Vaciar"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/uninline_data.py:52
 msgid "Uninline Images"
-msgstr ""
+msgstr "Desalinear imágenes"
 
 #: plug-ins/shape/shape.c:36
 msgid "Dia shape export filter"
@@ -9991,33 +9969,28 @@ msgid "EDPC"
 msgstr "EDPC"
 
 #: sheets/EDPC.sheet:5
-#, fuzzy
 #| msgid "Objects to draw flowcharts"
 msgid "Objects to draw event-driven process chains"
-msgstr "Objetos para dibujar diagramas de flujo"
+msgstr "Objetos para dibujar cadenas de procesos dirigidos por eventos"
 
 #: sheets/EDPC.sheet:7
-#| msgid "Business Process Modeling Notation"
 msgid "Business Process"
 msgstr "Proceso de negocio"
 
 #: sheets/EDPC.sheet:8
-#, fuzzy
 #| msgid "Processor"
 msgid "Process Group"
-msgstr "Procesador"
+msgstr "Grupo de procesos"
 
 #: sheets/EDPC.sheet:9 sheets/FS.sheet:13
 msgid "Function"
 msgstr "Función"
 
 #: sheets/EDPC.sheet:10
-#| msgid "Events"
 msgid "Event"
 msgstr "Evento"
 
 #: sheets/EDPC.sheet:13
-#| msgid "Transaction file"
 msgid "Organisation Unit"
 msgstr "Unidad de organización"
 
@@ -10034,17 +10007,14 @@ msgid "Operator AND (Output)"
 msgstr "Operador AND (salida)"
 
 #: sheets/EDPC.sheet:17
-#| msgid "Inclusive (OR)"
 msgid "Operator Inclusive (OR) (Input)"
 msgstr "Operador inclusivo (OR) (entrada)"
 
 #: sheets/EDPC.sheet:18
-#| msgid "Inclusive (OR)"
 msgid "Operator Inclusive (OR) (Output)"
 msgstr "Operador inclusivo (OR) (salida)"
 
 #: sheets/EDPC.sheet:19
-#| msgid "Exclusive (XOR) Event Based"
 msgid "Operator Exclusive (XOR) (Input)"
 msgstr "Operador exclusivo (XOR) (entrada)"
 
@@ -10970,12 +10940,10 @@ msgid "Folder"
 msgstr "Carpeta"
 
 #: sheets/Misc.sheet:16
-#| msgid "expansible node"
 msgid "Expansible node"
 msgstr "Nodo expansible"
 
 #: sheets/Misc.sheet:19
-#| msgid "expanded node"
 msgid "Expanded node"
 msgstr "Nodo expandido"
 
