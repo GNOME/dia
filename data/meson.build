@@ -37,8 +37,13 @@ if appstream_util.found()
   )
 endif
 
+install_data('org.gnome.Dia.svg',
+             install_dir: join_paths([datadir,'icons/hicolor/scalable/apps']))
+
+install_data('org.gnome.Dia-symbolic.svg',
+             install_dir: join_paths([datadir,'icons/hicolor/symbolic/apps']))
+
 install_data('org.gnome.Dia.thumbnailer',
              install_dir: join_paths(datadir, 'thumbnailers'))
 
-subdir('icons')
 subdir('ui')
