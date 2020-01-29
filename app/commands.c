@@ -1136,7 +1136,7 @@ help_about_callback (GtkAction *action)
                          "version", VERSION,
                          "comments", _("A program for drawing structured diagrams."),
                          "copyright", "(C) 1998-2011 The Free Software Foundation and the authors\n"
-                                      "© 2018-2019 Zander Brown et al\n",
+                                      "© 2018-2020 Zander Brown et al\n",
                          "website", "https://wiki.gnome.org/Apps/Dia/",
                          "authors", authors,
                          "documenters", documentors,
