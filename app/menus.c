@@ -844,7 +844,7 @@ add_plugin_actions (GtkUIManager *ui_manager, const gchar *base_path)
         menu_path = g_strdup_printf ("%s%s", INTEGRATED_MENU, cbf->menupath + strlen (TOOLBOX_MENU));
     }
 
-    action = gtk_action_new (cbf->action, cbf->description, NULL, NULL);
+    action = gtk_action_new (cbf->action, gettext (cbf->description), NULL, NULL);
     g_signal_connect (G_OBJECT (action), "activate",
 		      G_CALLBACK (plugin_callback), (gpointer) cbf);
 

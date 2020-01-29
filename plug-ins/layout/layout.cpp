@@ -392,6 +392,15 @@ static DiaCallbackFilter cb_layout[] = {
     AN_ENTRY(Size, Widen, 1),
 };
 
+
+#if 0
+// Quick 'n Nasty hack to mark strings as translatable
+char *hack_a = N_("Grow");
+char *hack_b = N_("Shrink");
+char *hack_c = N_("Heighten");
+char *hack_d = N_("Widen");
+#endif
+
 static gboolean
 _plugin_can_unload (PluginInfo *info)
 {
