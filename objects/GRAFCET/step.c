@@ -59,6 +59,7 @@ typedef enum {
   STEP_MACROCALL,
   STEP_SUBPCALL} StepType;
 
+
 typedef struct _Step {
   Element element;
 
@@ -72,41 +73,48 @@ typedef struct _Step {
   real font_size;
   Color font_color;
 
-  Handle north,south;
-  Point SD1,SD2,NU1,NU2;
+  Handle north, south;
+  Point SD1, SD2, NU1, NU2;
 
   /* These are useful points for drawing.
      Must be in sequence, A first, Z last. */
-  Point A,B,C,D,E,F,G,H,I,J,Z;
+  Point A, B, C, D, E, F, G, H, I, J, Z;
 } Step;
 
-static real step_distance_from(Step *step, Point *point);
-static void step_select(Step *step, Point *clicked_point,
-			DiaRenderer *interactive_renderer);
-static ObjectChange* step_move_handle(Step *step, Handle *handle,
-				      Point *to, ConnectionPoint *cp,
-				      HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* step_move(Step *step, Point *to);
-static void step_draw(Step *step, DiaRenderer *renderer);
-static void step_update_data(Step *step);
-static DiaObject *step_create(Point *startpoint,
-			     void *user_data,
-			     Handle **handle1,
-			     Handle **handle2);
-static void step_destroy(Step *step);
 
-static void step_been_renamed(const gchar *sid);
+static real             step_distance_from  (Step              *step,
+                                             Point             *point);
+static void             step_select         (Step              *step,
+                                             Point             *clicked_point,
+                                             DiaRenderer       *interactive_renderer);
+static ObjectChange    *step_move_handle    (Step              *step,
+                                             Handle            *handle,
+                                             Point             *to,
+                                             ConnectionPoint   *cp,
+                                             HandleMoveReason   reason,
+                                             ModifierKeys       modifiers);
+static ObjectChange    *step_move           (Step              *step,
+                                             Point             *to);
+static void             step_draw           (Step              *step,
+                                             DiaRenderer       *renderer);
+static void             step_update_data    (Step              *step);
+static DiaObject       *step_create         (Point             *startpoint,
+                                             void              *user_data,
+                                             Handle           **handle1,
+                                             Handle           **handle2);
+static void             step_destroy        (Step              *step);
+static void             step_been_renamed   (const gchar       *sid);
+static DiaObject       *step_load           (ObjectNode         obj_node,
+                                             int                version,
+                                             DiaContext        *ctx);
+static PropDescription *step_describe_props (Step              *step);
+static void             step_get_props      (Step              *step,
+                                             GPtrArray         *props);
+static void             step_set_props      (Step              *step,
+                                             GPtrArray         *props);
 
-static DiaObject *step_load(ObjectNode obj_node, int version,
-			    DiaContext *ctx);
-static PropDescription *step_describe_props(Step *step);
-static void step_get_props(Step *step,
-                                 GPtrArray *props);
-static void step_set_props(Step *step,
-                                 GPtrArray *props);
 
-static ObjectTypeOps step_type_ops =
-{
+static ObjectTypeOps step_type_ops = {
   (CreateFunc) step_create,
   (LoadFunc)   step_load,
   (SaveFunc)   object_save_using_properties,
@@ -114,13 +122,14 @@ static ObjectTypeOps step_type_ops =
   (ApplyDefaultsFunc) NULL,
 };
 
-DiaObjectType step_type =
-{
+
+DiaObjectType step_type = {
   "GRAFCET - Step", /* name */
   0,             /* version */
   etape_xpm,      /* pixmap */
   &step_type_ops     /* ops */
 };
+
 
 static ObjectOps step_ops = {
   (DestroyFunc)         step_destroy,
@@ -147,7 +156,9 @@ PropEnumData step_style[] = {
   { N_("Macro exit step"),STEP_MACROEXIT },
   { N_("Macro call step"),STEP_MACROCALL },
   { N_("Subprogram call step"), STEP_SUBPCALL },
-  { NULL }};
+  { NULL }
+};
+
 
 static PropDescription step_props[] = {
   ELEMENT_COMMON_PROPERTIES,
@@ -170,61 +181,75 @@ static PropDescription step_props[] = {
   PROP_DESC_END
 };
 
+
 static PropDescription *
-step_describe_props(Step *step)
+step_describe_props (Step *step)
 {
   if (step_props[0].quark == 0) {
-    prop_desc_list_calculate_quarks(step_props);
+    prop_desc_list_calculate_quarks (step_props);
   }
   return step_props;
 }
 
+
 static PropOffset step_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
-  { "id", PROP_TYPE_STRING, offsetof(Step,id)},
-  { "type", PROP_TYPE_ENUM, offsetof(Step,type)},
-  { "active", PROP_TYPE_BOOL, offsetof(Step,active)},
-  { "font", PROP_TYPE_FONT, offsetof(Step,font)},
-  { "font_size", PROP_TYPE_FONTSIZE, offsetof(Step,font_size)},
-  { "font_color", PROP_TYPE_COLOUR, offsetof(Step,font_color)},
-  { "north_pos", PROP_TYPE_POINT, offsetof(Step,north.pos)},
-  { "south_pos", PROP_TYPE_POINT, offsetof(Step,south.pos)},
+  { "id", PROP_TYPE_STRING, offsetof (Step, id)},
+  { "type", PROP_TYPE_ENUM, offsetof (Step, type)},
+  { "active", PROP_TYPE_BOOL, offsetof (Step, active)},
+  { "font", PROP_TYPE_FONT, offsetof (Step, font)},
+  { "font_size", PROP_TYPE_FONTSIZE, offsetof (Step, font_size)},
+  { "font_color", PROP_TYPE_COLOUR, offsetof (Step, font_color)},
+  { "north_pos", PROP_TYPE_POINT, offsetof (Step, north.pos)},
+  { "south_pos", PROP_TYPE_POINT, offsetof (Step, south.pos)},
   { NULL,0,0 }
 };
 
-static void
-step_get_props(Step *step, GPtrArray *props)
-{
-  object_get_props_from_offsets(&step->element.object,
-                                step_offsets,props);
-}
 
 static void
-step_set_props(Step *step, GPtrArray *props)
+step_get_props (Step *step, GPtrArray *props)
 {
-  object_set_props_from_offsets(&step->element.object,
-                                step_offsets,props);
-  step_been_renamed(step->id);
-  step_update_data(step);
+  object_get_props_from_offsets (DIA_OBJECT (step),
+                                 step_offsets,
+                                 props);
 }
+
+
+static void
+step_set_props (Step *step, GPtrArray *props)
+{
+  object_set_props_from_offsets (DIA_OBJECT (step),
+                                 step_offsets,
+                                 props);
+  step_been_renamed (step->id);
+  step_update_data (step);
+}
+
 
 /* the following two functions try to be clever when allocating
    step numbers */
 
 static int __stepnum = 0;
 static int __Astyle = 0;
-static gchar *new_step_name()
+
+
+static gchar *
+new_step_name (void)
 {
   char snum[16];
   char *p = snum;
 
-  if (__Astyle) *p++ = 'A';
+  if (__Astyle) {
+    *p++ = 'A';
+  }
 
-  g_snprintf(p,sizeof(snum)-2,"%d",__stepnum++);
-  return g_strdup(snum);
+  g_snprintf (p, sizeof (snum)-2, "%d", __stepnum++);
+  return g_strdup (snum);
 }
 
-static void step_been_renamed(const gchar *sid)
+
+static void
+step_been_renamed (const gchar *sid)
 {
   gchar *endptr;
   long int snum;
@@ -236,84 +261,126 @@ static void step_been_renamed(const gchar *sid)
     __Astyle = 0;
   }
   endptr = NULL;
-  snum = strtol(sid,&endptr,10);
-  if (*endptr == '\0') __stepnum = snum + 1;
+  snum = strtol (sid, &endptr, 10);
+  if (*endptr == '\0') {
+    __stepnum = snum + 1;
+  }
 }
+
 
 static Color color_red = { 1.0f, 0.0f, 0.0f, 1.0f };
 
+
 static real
-step_distance_from(Step *step, Point *point)
+step_distance_from (Step *step, Point *point)
 {
   Element *elem = &step->element;
   DiaRectangle rect;
   real dist;
 
-  dist = distance_line_point(&step->north.pos,&step->NU1,
-			     STEP_LINE_WIDTH,point);
-  dist = MIN(dist,distance_line_point(&step->NU1,&step->NU2,
-				      STEP_LINE_WIDTH,point));
-  dist = MIN(dist,distance_line_point(&step->NU2,&step->A,
-				      STEP_LINE_WIDTH,point));
-  dist = MIN(dist,distance_line_point(&step->D,&step->SD1,
-				      STEP_LINE_WIDTH,point));
-  dist = MIN(dist,distance_line_point(&step->SD1,&step->SD2,
-				      STEP_LINE_WIDTH,point));
-  dist = MIN(dist,distance_line_point(&step->SD2,&step->south.pos,
-				      STEP_LINE_WIDTH,point));
+  dist = distance_line_point (&step->north.pos, &step->NU1,
+                              STEP_LINE_WIDTH, point);
+  dist = MIN (dist,
+              distance_line_point (&step->NU1, &step->NU2,
+                                   STEP_LINE_WIDTH, point));
+  dist = MIN (dist,
+              distance_line_point (&step->NU2, &step->A,
+                                   STEP_LINE_WIDTH, point));
+  dist = MIN (dist,
+              distance_line_point (&step->D, &step->SD1,
+                                   STEP_LINE_WIDTH, point));
+  dist = MIN (dist,
+              distance_line_point (&step->SD1, &step->SD2,
+                                   STEP_LINE_WIDTH, point));
+  dist = MIN (dist,
+              distance_line_point (&step->SD2, &step->south.pos,
+                                   STEP_LINE_WIDTH, point));
 
   rect.left = elem->corner.x;
   rect.right = elem->corner.x + elem->width;
   rect.top = elem->corner.y;
   rect.bottom = elem->corner.y + elem->height;
-  dist = MIN(dist,distance_rectangle_point(&rect, point));
+  dist = MIN (dist, distance_rectangle_point (&rect, point));
   return dist;
 }
 
+
 static void
-step_select(Step *step, Point *clicked_point,
-	    DiaRenderer *interactive_renderer)
+step_select (Step        *step,
+             Point       *clicked_point,
+             DiaRenderer *interactive_renderer)
 {
-  element_update_handles(&step->element);
+  element_update_handles (&step->element);
 }
 
+
 static ObjectChange*
-step_move_handle(Step *step, Handle *handle,
-		Point *to, ConnectionPoint *cp,
-		 HandleMoveReason reason, ModifierKeys modifiers)
+step_move_handle (Step             *step,
+                  Handle           *handle,
+                  Point            *to,
+                  ConnectionPoint  *cp,
+                  HandleMoveReason  reason,
+                  ModifierKeys      modifiers)
 {
-  assert(step!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (step != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   switch(handle->id) {
-  case HANDLE_NORTH:
-    step->north.pos = *to;
-    if (step->north.pos.y > step->A.y) step->north.pos.y = step->A.y;
-    break;
-  case HANDLE_SOUTH:
-    step->south.pos = *to;
-    if (step->south.pos.y < step->D.y) step->south.pos.y = step->D.y;
-    break;
-  default:
-    element_move_handle(&step->element, handle->id, to, cp, reason, modifiers);
+    case HANDLE_NORTH:
+      step->north.pos = *to;
+      if (step->north.pos.y > step->A.y) {
+        step->north.pos.y = step->A.y;
+      }
+      break;
+    case HANDLE_SOUTH:
+      step->south.pos = *to;
+      if (step->south.pos.y < step->D.y) {
+        step->south.pos.y = step->D.y;
+      }
+      break;
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_RESIZE_NW:
+    case HANDLE_RESIZE_N:
+    case HANDLE_RESIZE_NE:
+    case HANDLE_RESIZE_W:
+    case HANDLE_RESIZE_E:
+    case HANDLE_RESIZE_SW:
+    case HANDLE_RESIZE_S:
+    case HANDLE_RESIZE_SE:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      element_move_handle (&step->element,
+                           handle->id,
+                           to,
+                           cp,
+                           reason,
+                           modifiers);
   }
 
-  step_update_data(step);
+  step_update_data (step);
 
   return NULL;
 }
 
+
 static ObjectChange*
-step_move(Step *step, Point *to)
+step_move (Step *step, Point *to)
 {
   Point delta = *to;
-  point_sub(&delta,&step->element.corner);
+  point_sub (&delta, &step->element.corner);
   step->element.corner = *to;
-  point_add(&step->north.pos,&delta);
-  point_add(&step->south.pos,&delta);
+  point_add (&step->north.pos, &delta);
+  point_add (&step->south.pos, &delta);
 
-  step_update_data(step);
+  step_update_data (step);
 
   return NULL;
 }
@@ -323,8 +390,8 @@ static void
 step_draw (Step *step, DiaRenderer *renderer)
 {
   Point pts[4];
-  assert(step != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (step != NULL);
+  g_return_if_fail (renderer != NULL);
 
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   dia_renderer_set_linewidth (renderer, STEP_LINE_WIDTH);
@@ -380,8 +447,9 @@ step_draw (Step *step, DiaRenderer *renderer)
   }
 }
 
+
 static void
-step_update_data(Step *step)
+step_update_data (Step *step)
 {
   Element *elem = &step->element;
   DiaObject *obj = &elem->object;
@@ -398,41 +466,44 @@ step_update_data(Step *step)
   step->F.x = STEP_WIDTH; step->F.y = STEP_HEIGHT- 0.5;
 
 
-  switch(step->type) {
-  case STEP_INITIAL:
-    step->I.x = step->E.x - 2 * STEP_LINE_WIDTH;
-    step->I.y = step->E.y - 2 * STEP_LINE_WIDTH;
-    step->J.x = step->F.x + 2 * STEP_LINE_WIDTH;
-    step->J.y = step->F.y + 2 * STEP_LINE_WIDTH;
+  switch (step->type) {
+    case STEP_INITIAL:
+      step->I.x = step->E.x - 2 * STEP_LINE_WIDTH;
+      step->I.y = step->E.y - 2 * STEP_LINE_WIDTH;
+      step->J.x = step->F.x + 2 * STEP_LINE_WIDTH;
+      step->J.y = step->F.y + 2 * STEP_LINE_WIDTH;
 
-    step->B.x = step->A.x; step->B.y = step->I.y;
-    step->C.x = step->D.x; step->C.y = step->J.y;
-    step->Z.x = step->J.x; step->Z.y = STEP_HEIGHT / 2;
-    break;
-  case STEP_MACROCALL:
-    step->I.x = step->E.x;
-    step->I.y = step->E.y - 2 * STEP_LINE_WIDTH;
-    step->J.x = step->F.x;
-    step->J.y = step->F.y + 2 * STEP_LINE_WIDTH;
+      step->B.x = step->A.x; step->B.y = step->I.y;
+      step->C.x = step->D.x; step->C.y = step->J.y;
+      step->Z.x = step->J.x; step->Z.y = STEP_HEIGHT / 2;
+      break;
+    case STEP_MACROCALL:
+      step->I.x = step->E.x;
+      step->I.y = step->E.y - 2 * STEP_LINE_WIDTH;
+      step->J.x = step->F.x;
+      step->J.y = step->F.y + 2 * STEP_LINE_WIDTH;
 
-    step->B.x = step->A.x; step->B.y = step->I.y;
-    step->C.x = step->D.x; step->C.y = step->J.y;
-    step->Z.x = step->J.x; step->Z.y = STEP_HEIGHT / 2;
-    break;
-  case STEP_SUBPCALL:
-    step->I.x = step->E.x - 2 * STEP_LINE_WIDTH;
-    step->I.y = step->E.y;
-    step->J.x = step->F.x + 2 * STEP_LINE_WIDTH;
-    step->J.y = step->F.y;
+      step->B.x = step->A.x; step->B.y = step->I.y;
+      step->C.x = step->D.x; step->C.y = step->J.y;
+      step->Z.x = step->J.x; step->Z.y = STEP_HEIGHT / 2;
+      break;
+    case STEP_SUBPCALL:
+      step->I.x = step->E.x - 2 * STEP_LINE_WIDTH;
+      step->I.y = step->E.y;
+      step->J.x = step->F.x + 2 * STEP_LINE_WIDTH;
+      step->J.y = step->F.y;
 
-    step->B.x = step->A.x; step->B.y = step->I.y;
-    step->C.x = step->D.x; step->C.y = step->J.y;
-    step->Z.x = step->J.x; step->Z.y = STEP_HEIGHT / 2;
-    break;
-  default: /* regular or macro end steps */
-    step->B.x = step->A.x; step->B.y = step->E.y;
-    step->C.x = step->D.x; step->C.y = step->F.y;
-    step->Z.x = step->F.x; step->Z.y = STEP_HEIGHT / 2;
+      step->B.x = step->A.x; step->B.y = step->I.y;
+      step->C.x = step->D.x; step->C.y = step->J.y;
+      step->Z.x = step->J.x; step->Z.y = STEP_HEIGHT / 2;
+      break;
+    case STEP_NORMAL:
+    case STEP_MACROENTRY:
+    case STEP_MACROEXIT:
+    default: /* regular or macro end steps */
+      step->B.x = step->A.x; step->B.y = step->E.y;
+      step->C.x = step->D.x; step->C.y = step->F.y;
+      step->Z.x = step->F.x; step->Z.y = STEP_HEIGHT / 2;
   }
 
   step->G.x = step->A.x;
@@ -440,8 +511,9 @@ step_update_data(Step *step)
   step->H.x = step->E.x + (1.2 * STEP_DOT_RADIUS);
   step->H.y = step->F.y - (1.2 * STEP_DOT_RADIUS);
 
-  for (p=&(step->A); p<=&(step->Z) ; p++)
-    point_add(p,&ulc);
+  for (p = &(step->A); p <= &(step->Z); p++) {
+    point_add (p, &ulc);
+  }
 
   /* Update handles: */
   if (step->north.pos.x == -65536.0) {
@@ -472,20 +544,21 @@ step_update_data(Step *step)
     extra->border_trans = STEP_LINE_WIDTH / 2;
   }
 
-  element_update_boundingbox(elem);
-  rectangle_add_point(&obj->bounding_box,&step->north.pos);
-  rectangle_add_point(&obj->bounding_box,&step->south.pos);
+  element_update_boundingbox (elem);
+  rectangle_add_point (&obj->bounding_box, &step->north.pos);
+  rectangle_add_point (&obj->bounding_box, &step->south.pos);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 }
 
+
 static DiaObject *
-step_create(Point *startpoint,
-	      void *user_data,
-	      Handle **handle1,
-	      Handle **handle2)
+step_create (Point   *startpoint,
+             void    *user_data,
+             Handle **handle1,
+             Handle **handle2)
 {
   Step *step;
   Element *elem;
@@ -493,7 +566,7 @@ step_create(Point *startpoint,
   int i;
   int type;
 
-  step = g_new0(Step,1);
+  step = g_new0 (Step, 1);
   elem = &step->element;
   obj = &elem->object;
 
@@ -504,36 +577,36 @@ step_create(Point *startpoint,
   elem->width = STEP_DECLAREDWIDTH;
   elem->height = STEP_HEIGHT;
 
-  element_init(elem, 10, 4);
+  element_init (elem, 10, 4);
 
-  for (i=0;i<4;i++) {
+  for (i = 0; i < 4; i++) {
     obj->connections[i] = &step->connections[i];
     step->connections[i].object = obj;
     step->connections[i].connected = NULL;
   }
 
-  step->id = new_step_name();
+  step->id = new_step_name ();
   step->active = 0;
-  step->font = dia_font_new_from_style (STEP_FONT,STEP_FONT_HEIGHT);
+  step->font = dia_font_new_from_style (STEP_FONT, STEP_FONT_HEIGHT);
   step->font_size = STEP_FONT_HEIGHT;
   step->font_color = color_black;
 
-  type = GPOINTER_TO_INT(user_data);
-  switch(type) {
-  case STEP_NORMAL:
-  case STEP_INITIAL:
-  case STEP_MACROENTRY:
-  case STEP_MACROEXIT:
-  case STEP_MACROCALL:
-  case STEP_SUBPCALL:
-    step->type = type;
-    break;
-  default:
-    step->type = STEP_NORMAL;
+  type = GPOINTER_TO_INT (user_data);
+  switch (type) {
+    case STEP_NORMAL:
+    case STEP_INITIAL:
+    case STEP_MACROENTRY:
+    case STEP_MACROEXIT:
+    case STEP_MACROCALL:
+    case STEP_SUBPCALL:
+      step->type = type;
+      break;
+    default:
+      step->type = STEP_NORMAL;
   }
 
 
-  for (i=0;i<8;i++) {
+  for (i = 0; i < 8; i++) {
     obj->handles[i]->type = HANDLE_NON_MOVABLE;
   }
   obj->handles[8] = &step->north;
@@ -546,12 +619,14 @@ step_create(Point *startpoint,
   step->south.id = HANDLE_SOUTH;
   step->north.pos.x = -65536.0; /* magic */
 
-  step_update_data(step);
+  step_update_data (step);
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];
+
   return &step->element.object;
 }
+
 
 static void
 step_destroy (Step *step)
@@ -561,15 +636,12 @@ step_destroy (Step *step)
   element_destroy (&step->element);
 }
 
+
 static DiaObject *
-step_load(ObjectNode obj_node, int version, DiaContext *ctx)
+step_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
-  return object_load_using_properties(&step_type,
-                                      obj_node,version,ctx);
+  return object_load_using_properties (&step_type,
+                                       obj_node,
+                                       version,
+                                       ctx);
 }
-
-
-
-
-
-

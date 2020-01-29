@@ -54,6 +54,7 @@
 #define TRANSITION_HEIGHT .5
 #define TRANSITION_WIDTH 1.5
 
+
 typedef struct _Transition {
   Element element;
 
@@ -65,44 +66,53 @@ typedef struct _Transition {
 
   ConnectionPoint connections[2];
   Handle north,south;
-  Point SD1,SD2,NU1,NU2;
+  Point SD1, SD2, NU1, NU2;
 
   /* computed values : */
   DiaRectangle rceptbb; /* The bounding box of the receptivity */
-  Point A,B,C,D,Z;
+  Point A, B, C, D, Z;
 } Transition;
 
-static ObjectChange* transition_move_handle(Transition *transition, Handle *handle,
-					    Point *to, ConnectionPoint *cp,
-					    HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* transition_move(Transition *transition, Point *to);
-static void transition_select(Transition *transition, Point *clicked_point,
-			      DiaRenderer *interactive_renderer);
-static void transition_draw(Transition *transition, DiaRenderer *renderer);
-static DiaObject *transition_create(Point *startpoint,
-				 void *user_data,
-				 Handle **handle1,
-				 Handle **handle2);
-static real transition_distance_from(Transition *transition, Point *point);
-static void transition_update_data(Transition *transition);
-static void transition_destroy(Transition *transition);
 
-static DiaObject *transition_load(ObjectNode obj_node, int version,
-				  DiaContext *ctx);
-static PropDescription *transition_describe_props(Transition *transition);
-static void transition_get_props(Transition *transition,
-                                 GPtrArray *props);
-static void transition_set_props(Transition *transition,
-                                 GPtrArray *props);
+static ObjectChange    *transition_move_handle    (Transition        *transition,
+                                                   Handle            *handle,
+                                                   Point             *to,
+                                                   ConnectionPoint   *cp,
+                                                   HandleMoveReason   reason,
+                                                   ModifierKeys       modifiers);
+static ObjectChange    *transition_move           (Transition        *transition,
+                                                   Point             *to);
+static void             transition_select         (Transition        *transition,
+                                                   Point             *clicked_point,
+                                                   DiaRenderer       *interactive_renderer);
+static void             transition_draw           (Transition        *transition,
+                                                   DiaRenderer       *renderer);
+static DiaObject       *transition_create         (Point             *startpoint,
+                                                   void              *user_data,
+                                                   Handle           **handle1,
+                                                   Handle           **handle2);
+static real             transition_distance_from  (Transition        *transition,
+                                                   Point             *point);
+static void             transition_update_data    (Transition        *transition);
+static void             transition_destroy        (Transition        *transition);
+static DiaObject       *transition_load           (ObjectNode         obj_node,
+                                                   int                version,
+                                                   DiaContext        *ctx);
+static PropDescription *transition_describe_props (Transition        *transition);
+static void             transition_get_props      (Transition        *transition,
+                                                   GPtrArray         *props);
+static void             transition_set_props      (Transition        *transition,
+                                                   GPtrArray         *props);
 
-static ObjectTypeOps transition_type_ops =
-{
+
+static ObjectTypeOps transition_type_ops = {
   (CreateFunc)transition_create,   /* create */
   (LoadFunc)  transition_load,
   (SaveFunc)  object_save_using_properties,      /* save */
   (GetDefaultsFunc)   NULL,
   (ApplyDefaultsFunc) NULL
 };
+
 
 DiaObjectType transition_type =
 {
@@ -147,14 +157,16 @@ static PropDescription transition_props[] = {
   PROP_DESC_END
 };
 
+
 static PropDescription *
-transition_describe_props(Transition *transition)
+transition_describe_props (Transition *transition)
 {
   if (transition_props[0].quark == 0) {
-    prop_desc_list_calculate_quarks(transition_props);
+    prop_desc_list_calculate_quarks (transition_props);
   }
   return transition_props;
 }
+
 
 static PropOffset transition_offsets[] = {
   ELEMENT_COMMON_PROPERTIES_OFFSETS,
@@ -167,15 +179,17 @@ static PropOffset transition_offsets[] = {
   { NULL,0,0 }
 };
 
-static void
-transition_get_props(Transition *transition, GPtrArray *props)
-{
-  object_get_props_from_offsets(&transition->element.object,
-                                transition_offsets,props);
-}
 
 static void
-transition_set_props(Transition *transition, GPtrArray *props)
+transition_get_props (Transition *transition, GPtrArray *props)
+{
+  object_get_props_from_offsets (&transition->element.object,
+                                 transition_offsets,props);
+}
+
+
+static void
+transition_set_props (Transition *transition, GPtrArray *props)
 {
   object_set_props_from_offsets (&transition->element.object,
                                  transition_offsets,
@@ -187,11 +201,12 @@ transition_set_props(Transition *transition, GPtrArray *props)
   transition->receptivity->fontheight = transition->rcep_fontheight;
   transition->receptivity->color = transition->rcep_color;
 
-  transition_update_data(transition);
+  transition_update_data (transition);
 }
 
+
 static void
-transition_update_data(Transition *transition)
+transition_update_data (Transition *transition)
 {
   Element *elem = &transition->element;
   DiaObject *obj = &elem->object;
@@ -217,11 +232,12 @@ transition_update_data(Transition *transition)
     + (.3 * transition->receptivity->fontheight);
 
   transition->Z.x = transition->D.x +
-    dia_font_string_width("_",transition->receptivity->font,
-                          transition->receptivity->fontheight);
+    dia_font_string_width ("_", transition->receptivity->font,
+                           transition->receptivity->fontheight);
 
-  for (p = &transition->A; p <= &transition->Z; p++)
-    point_add(p,&elem->corner);
+  for (p = &transition->A; p <= &transition->Z; p++) {
+    point_add (p,&elem->corner);
+  }
 
   transition->receptivity->pos = transition->Z;
 
@@ -246,91 +262,122 @@ transition_update_data(Transition *transition)
   obj->connections[1]->directions = DIR_EAST|DIR_WEST;
 
 
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
-  rectangle_add_point(&obj->bounding_box,&transition->north.pos);
-  rectangle_add_point(&obj->bounding_box,&transition->south.pos);
+  rectangle_add_point (&obj->bounding_box,&transition->north.pos);
+  rectangle_add_point (&obj->bounding_box,&transition->south.pos);
 
   /* compute the rcept's width and bounding box, then merge. */
-  boolequation_calc_boundingbox(transition->receptivity,&transition->rceptbb);
-  rectangle_union(&obj->bounding_box,&transition->rceptbb);
+  boolequation_calc_boundingbox (transition->receptivity,
+                                 &transition->rceptbb);
+  rectangle_union (&obj->bounding_box, &transition->rceptbb);
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 }
 
+
 static real
-transition_distance_from(Transition *transition, Point *point)
+transition_distance_from (Transition *transition, Point *point)
 {
   real dist;
-  dist = distance_rectangle_point(&transition->rceptbb,point);
-  dist = MIN(dist,distance_line_point(&transition->C,&transition->D,
-				      TRANSITION_LINE_WIDTH,point));
-  dist = MIN(dist,distance_line_point(&transition->north.pos,&transition->NU1,
-				      TRANSITION_LINE_WIDTH,point));
-  dist = MIN(dist,distance_line_point(&transition->NU1,&transition->NU2,
-				      TRANSITION_LINE_WIDTH,point));
-  dist = MIN(dist,distance_line_point(&transition->NU2,&transition->SD1,
-				      TRANSITION_LINE_WIDTH,point));
+  dist = distance_rectangle_point (&transition->rceptbb, point);
+  dist = MIN (dist,
+              distance_line_point (&transition->C, &transition->D,
+                                   TRANSITION_LINE_WIDTH, point));
+  dist = MIN (dist,
+              distance_line_point (&transition->north.pos, &transition->NU1,
+                                   TRANSITION_LINE_WIDTH, point));
+  dist = MIN (dist,
+              distance_line_point (&transition->NU1, &transition->NU2,
+                                   TRANSITION_LINE_WIDTH, point));
+  dist = MIN (dist,
+              distance_line_point (&transition->NU2, &transition->SD1,
+                                   TRANSITION_LINE_WIDTH, point));
   /* A and B are on the [NU2; SD1] segment. */
-  dist = MIN(dist,distance_line_point(&transition->SD1,&transition->SD2,
-				      TRANSITION_LINE_WIDTH,point));
-  dist = MIN(dist,distance_line_point(&transition->SD2,&transition->south.pos,
-				      TRANSITION_LINE_WIDTH,point));
+  dist = MIN (dist,
+              distance_line_point (&transition->SD1, &transition->SD2,
+                                   TRANSITION_LINE_WIDTH, point));
+  dist = MIN (dist,
+              distance_line_point (&transition->SD2, &transition->south.pos,
+                                   TRANSITION_LINE_WIDTH, point));
 
   return dist;
 }
 
+
 static void
-transition_select(Transition *transition, Point *clicked_point,
-		  DiaRenderer *interactive_renderer)
+transition_select (Transition  *transition,
+                   Point       *clicked_point,
+                   DiaRenderer *interactive_renderer)
 {
-  transition_update_data(transition);
+  transition_update_data (transition);
 }
 
-static ObjectChange*
-transition_move_handle(Transition *transition, Handle *handle,
-		       Point *to, ConnectionPoint *cp,
-		       HandleMoveReason reason,
-		       ModifierKeys modifiers)
-{
-  g_assert(transition!=NULL);
-  g_assert(handle!=NULL);
-  g_assert(to!=NULL);
 
-  switch(handle->id) {
-  case HANDLE_NORTH:
-    transition->north.pos = *to;
-    if (transition->north.pos.y > transition->A.y)
-      transition->north.pos.y = transition->A.y;
-    break;
-  case HANDLE_SOUTH:
-    transition->south.pos = *to;
-    if (transition->south.pos.y < transition->B.y)
-      transition->south.pos.y = transition->B.y;
-    break;
-  default:
-    element_move_handle(&transition->element, handle->id, to, cp,
-			reason, modifiers);
+static ObjectChange*
+transition_move_handle (Transition       *transition,
+                        Handle           *handle,
+                        Point            *to,
+                        ConnectionPoint  *cp,
+                        HandleMoveReason  reason,
+                        ModifierKeys      modifiers)
+{
+  g_return_val_if_fail (transition != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+
+  switch (handle->id) {
+    case HANDLE_NORTH:
+      transition->north.pos = *to;
+      if (transition->north.pos.y > transition->A.y)
+        transition->north.pos.y = transition->A.y;
+      break;
+    case HANDLE_SOUTH:
+      transition->south.pos = *to;
+      if (transition->south.pos.y < transition->B.y)
+        transition->south.pos.y = transition->B.y;
+      break;
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_RESIZE_NW:
+    case HANDLE_RESIZE_N:
+    case HANDLE_RESIZE_NE:
+    case HANDLE_RESIZE_W:
+    case HANDLE_RESIZE_E:
+    case HANDLE_RESIZE_SW:
+    case HANDLE_RESIZE_S:
+    case HANDLE_RESIZE_SE:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      element_move_handle (&transition->element,
+                           handle->id, to, cp,
+                           reason, modifiers);
   }
 
-  transition_update_data(transition);
+  transition_update_data (transition);
 
   return NULL;
 }
 
 
 static ObjectChange*
-transition_move(Transition *transition, Point *to)
+transition_move (Transition *transition, Point *to)
 {
   Point delta = *to;
   Element *elem = &transition->element;
-  point_sub(&delta,&transition->element.corner);
+  point_sub (&delta,&transition->element.corner);
   transition->element.corner = *to;
-  point_add(&transition->north.pos,&delta);
-  point_add(&transition->south.pos,&delta);
+  point_add (&transition->north.pos,&delta);
+  point_add (&transition->south.pos,&delta);
 
-  element_update_handles(elem);
-  transition_update_data(transition);
+  element_update_handles (elem);
+  transition_update_data (transition);
 
   return NULL;
 }
@@ -363,11 +410,12 @@ transition_draw (Transition *transition, DiaRenderer *renderer)
   boolequation_draw (transition->receptivity,renderer);
 }
 
+
 static DiaObject *
-transition_create(Point *startpoint,
-		  void *user_data,
-		  Handle **handle1,
-		  Handle **handle2)
+transition_create (Point   *startpoint,
+                   void    *user_data,
+                   Handle **handle1,
+                   Handle **handle2)
 {
   Transition *transition;
   DiaObject *obj;
@@ -377,7 +425,7 @@ transition_create(Point *startpoint,
   real default_fontheight;
   Color fg_color;
 
-  transition = g_malloc0(sizeof(Transition));
+  transition = g_new0 (Transition, 1);
   elem = &transition->element;
   obj = &elem->object;
 
@@ -388,18 +436,18 @@ transition_create(Point *startpoint,
   elem->width = TRANSITION_DECLAREDWIDTH;
   elem->height = TRANSITION_DECLAREDHEIGHT;
 
-  element_init(elem, 10,2);
+  element_init (elem, 10, 2);
 
-  attributes_get_default_font(&default_font,&default_fontheight);
-  fg_color = attributes_get_foreground();
+  attributes_get_default_font (&default_font, &default_fontheight);
+  fg_color = attributes_get_foreground ();
 
   transition->receptivity =
-    boolequation_create("",
-                        default_font,
-                        default_fontheight,
-                        &fg_color);
+    boolequation_create ("",
+                         default_font,
+                         default_fontheight,
+                         &fg_color);
 
-  transition->rcep_value = g_strdup("");
+  transition->rcep_value = g_strdup ("");
   transition->rcep_font = g_object_ref (default_font);
   transition->rcep_fontheight = default_fontheight;
   transition->rcep_color = fg_color;
@@ -420,19 +468,20 @@ transition_create(Point *startpoint,
   transition->south.id = HANDLE_SOUTH;
   transition->north.pos.x = -65536.0; /* magic */
 
-  for (i=0;i<2;i++) {
+  for (i = 0; i < 2; i++) {
     obj->connections[i] = &transition->connections[i];
     obj->connections[i]->object = obj;
     obj->connections[i]->connected = NULL;
   }
 
-  transition_update_data(transition);
+  transition_update_data (transition);
 
   *handle1 = NULL;
   *handle2 = obj->handles[0];
 
-  return &transition->element.object;
+  return DIA_OBJECT (transition);
 }
+
 
 static void
 transition_destroy (Transition *transition)
@@ -443,18 +492,10 @@ transition_destroy (Transition *transition)
   element_destroy (&transition->element);
 }
 
+
 static DiaObject *
-transition_load(ObjectNode obj_node, int version, DiaContext *ctx)
+transition_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
-  return object_load_using_properties(&transition_type,
-                                      obj_node,version,ctx);
+  return object_load_using_properties (&transition_type,
+                                       obj_node,version,ctx);
 }
-
-
-
-
-
-
-
-
-

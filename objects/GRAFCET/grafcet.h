@@ -18,11 +18,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef GRAFCET_H
-#define GRAFCET_H
+
+#pragma once
 
 #define GRAFCET_GENERAL_LINE_WIDTH 0.1
 #define GRAFCET_GENERAL_FONT_SIZE 1.0
-
-#endif /* GRAFCET_H */
-
