@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2019-12-30 11:46+0000\n"
-"PO-Revision-Date: 2020-01-03 12:48+0100\n"
+"POT-Creation-Date: 2020-01-29 00:43+0000\n"
+"PO-Revision-Date: 2020-01-29 10:32+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -3310,19 +3310,19 @@ msgstr "Alineación del texto"
 # Creí que era Tipografía como en otros msgs. FVD
 #: lib/properties.c:96 lib/properties.h:689 objects/chronogram/chronoline.c:180
 #: objects/chronogram/chronoref.c:161 objects/Database/reference.c:116
-#: objects/GRAFCET/condition.c:129 objects/GRAFCET/step.c:163
-#: objects/GRAFCET/transition.c:139 objects/UML/class_dialog.c:480
+#: objects/GRAFCET/condition.c:139 objects/GRAFCET/step.c:174
+#: objects/GRAFCET/transition.c:149 objects/UML/class_dialog.c:480
 msgid "Font"
 msgstr "Fuente"
 
 #: lib/properties.c:97 lib/properties.h:697 objects/chronogram/chronoline.c:182
-#: objects/chronogram/chronoref.c:163 objects/GRAFCET/condition.c:131
-#: objects/GRAFCET/step.c:165 objects/GRAFCET/transition.c:141
+#: objects/chronogram/chronoref.c:163 objects/GRAFCET/condition.c:141
+#: objects/GRAFCET/step.c:176 objects/GRAFCET/transition.c:151
 msgid "Font size"
 msgstr "Tamaño de la fuente"
 
 #: lib/properties.c:98 lib/properties.h:703 objects/chronogram/chronoline.c:184
-#: objects/chronogram/chronoref.c:165 objects/GRAFCET/step.c:167
+#: objects/chronogram/chronoref.c:165 objects/GRAFCET/step.c:178
 msgid "Text color"
 msgstr "Color de texto"
 
@@ -5036,110 +5036,110 @@ msgstr "Llamada a macro"
 msgid "This action is a call to a macro-step"
 msgstr "Esta acción es una llamada a un paso de la macro"
 
-#: objects/GRAFCET/condition.c:127
+#: objects/GRAFCET/condition.c:137
 msgid "Condition"
 msgstr "Condición"
 
-#: objects/GRAFCET/condition.c:127
+#: objects/GRAFCET/condition.c:137
 msgid "The boolean equation of the condition"
 msgstr "La ecuación booleana de la condición"
 
 # font=tipografía? FVD
-#: objects/GRAFCET/condition.c:129
+#: objects/GRAFCET/condition.c:139
 msgid "The condition's font"
 msgstr "La fuente de la condición"
 
-#: objects/GRAFCET/condition.c:131
+#: objects/GRAFCET/condition.c:141
 msgid "The condition's font size"
 msgstr "El tamaño de la fuente de la condición"
 
-#: objects/GRAFCET/condition.c:134 objects/GRAFCET/transition.c:144
+#: objects/GRAFCET/condition.c:144 objects/GRAFCET/transition.c:154
 msgid "Color"
 msgstr "Color"
 
-#: objects/GRAFCET/condition.c:134
+#: objects/GRAFCET/condition.c:144
 msgid "The condition's color"
 msgstr "El color de la condición"
 
-#: objects/GRAFCET/grafcet.c:43
+#: objects/GRAFCET/grafcet.c:44
 msgid "GRAFCET diagram objects"
 msgstr "Objetos de diagrama GRAFCET"
 
-#: objects/GRAFCET/step.c:144 sheets/GRAFCET.sheet:7
+#: objects/GRAFCET/step.c:153 sheets/GRAFCET.sheet:7
 msgid "Regular step"
 msgstr "Paso normal"
 
-#: objects/GRAFCET/step.c:145 sheets/GRAFCET.sheet:10
+#: objects/GRAFCET/step.c:154 sheets/GRAFCET.sheet:10
 msgid "Initial step"
 msgstr "Paso inicial"
 
-#: objects/GRAFCET/step.c:146 sheets/GRAFCET.sheet:14
+#: objects/GRAFCET/step.c:155 sheets/GRAFCET.sheet:14
 msgid "Macro entry step"
 msgstr "Paso de entrada a macro"
 
-#: objects/GRAFCET/step.c:147 sheets/GRAFCET.sheet:18
+#: objects/GRAFCET/step.c:156 sheets/GRAFCET.sheet:18
 msgid "Macro exit step"
 msgstr "Paso de salida a macro"
 
-#: objects/GRAFCET/step.c:148 sheets/GRAFCET.sheet:22
+#: objects/GRAFCET/step.c:157 sheets/GRAFCET.sheet:22
 msgid "Macro call step"
 msgstr "Paso de llamada a macro"
 
-#: objects/GRAFCET/step.c:149
+#: objects/GRAFCET/step.c:158
 msgid "Subprogram call step"
 msgstr "Paso de llamada a subprograma"
 
-#: objects/GRAFCET/step.c:156
+#: objects/GRAFCET/step.c:167
 msgid "Step name"
 msgstr "Nombre de paso"
 
-#: objects/GRAFCET/step.c:156
+#: objects/GRAFCET/step.c:167
 msgid "The name of the step"
 msgstr "El nombre del paso"
 
-#: objects/GRAFCET/step.c:159
+#: objects/GRAFCET/step.c:170
 msgid "Step type"
 msgstr "Tipo de paso"
 
-#: objects/GRAFCET/step.c:159
+#: objects/GRAFCET/step.c:170
 msgid "The kind of step"
 msgstr "El tipo de paso"
 
 # Activar sería Activate. FVD
-#: objects/GRAFCET/step.c:161
+#: objects/GRAFCET/step.c:172
 msgid "Active"
 msgstr "Activo"
 
-#: objects/GRAFCET/step.c:161
+#: objects/GRAFCET/step.c:172
 msgid "Shows a red dot to figure the step's activity"
 msgstr "Muestra un punto rojo que indica la actividad del paso"
 
-#: objects/GRAFCET/transition.c:137
+#: objects/GRAFCET/transition.c:147
 msgid "Receptivity"
 msgstr "Receptividad"
 
-#: objects/GRAFCET/transition.c:137
+#: objects/GRAFCET/transition.c:147
 msgid "The boolean equation of the receptivity"
 msgstr "La ecuación booleana de la receptividad"
 
 # font=tipografía? FVD
-#: objects/GRAFCET/transition.c:139
+#: objects/GRAFCET/transition.c:149
 msgid "The receptivity's font"
 msgstr "La fuente de la receptividad"
 
-#: objects/GRAFCET/transition.c:141
+#: objects/GRAFCET/transition.c:151
 msgid "The receptivity's font size"
 msgstr "El tamaño de fuente de la receptividad"
 
-#: objects/GRAFCET/transition.c:144
+#: objects/GRAFCET/transition.c:154
 msgid "The receptivity's color"
 msgstr "El color de la receptividad"
 
-#: objects/GRAFCET/transition.c:145
+#: objects/GRAFCET/transition.c:155
 msgid "North point"
 msgstr "Punto norte"
 
-#: objects/GRAFCET/transition.c:146
+#: objects/GRAFCET/transition.c:156
 msgid "South point"
 msgstr "Punto sur"
 
@@ -5147,31 +5147,31 @@ msgstr "Punto sur"
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Pintar cabezas de flechas sobre arcos ascendentes:"
 
-#: objects/GRAFCET/vergent.c:118
+#: objects/GRAFCET/vergent.c:127
 msgid "OR"
 msgstr "O"
 
-#: objects/GRAFCET/vergent.c:119
+#: objects/GRAFCET/vergent.c:128
 msgid "AND"
 msgstr "Y"
 
-#: objects/GRAFCET/vergent.c:130
+#: objects/GRAFCET/vergent.c:140
 msgid "Vergent type:"
 msgstr "Tipo de divergencia:"
 
-#: objects/GRAFCET/vergent.c:402 objects/Istar/other.c:461
+#: objects/GRAFCET/vergent.c:458 objects/Istar/other.c:461
 #: objects/Jackson/domain.c:524 objects/KAOS/goal.c:566
 #: objects/KAOS/other.c:512 objects/SADT/box.c:439 objects/standard/line.c:316
 msgid "Add connection point"
 msgstr "Añadir punto de conexión"
 
-#: objects/GRAFCET/vergent.c:403 objects/Istar/other.c:462
+#: objects/GRAFCET/vergent.c:459 objects/Istar/other.c:462
 #: objects/Jackson/domain.c:525 objects/KAOS/goal.c:567
 #: objects/KAOS/other.c:513 objects/SADT/box.c:440 objects/standard/line.c:317
 msgid "Delete connection point"
 msgstr "Eliminar punto de conexión"
 
-#: objects/GRAFCET/vergent.c:407
+#: objects/GRAFCET/vergent.c:464
 msgid "GRAFCET OR/AND vergent"
 msgstr "Divergencia Y/O de GRAFCET"
 
@@ -6687,7 +6687,25 @@ msgstr ""
 "Falló la distribución «%s».\n"
 "%s"
 
-#: plug-ins/layout/layout.cpp:419
+#. Quick 'n Nasty hack to mark strings as translatable
+#: plug-ins/layout/layout.cpp:398
+msgid "Grow"
+msgstr "Agrandar"
+
+#: plug-ins/layout/layout.cpp:399
+msgid "Shrink"
+msgstr "Encoger"
+
+#: plug-ins/layout/layout.cpp:400
+#| msgid "Height"
+msgid "Heighten"
+msgstr "Alargar"
+
+#: plug-ins/layout/layout.cpp:401
+msgid "Widen"
+msgstr "Ensanchar"
+
+#: plug-ins/layout/layout.cpp:428
 msgid "OGDF Layout Algorithms"
 msgstr "Algoritmos OGDF de distribución"
 
@@ -6842,7 +6860,6 @@ msgid "All Object _Properties"
 msgstr "_Propiedades de todos los objeto"
 
 #: plug-ins/python/allsheets.py:85
-#| msgid "Delete selection"
 msgid "Dia _Sheets Inspection"
 msgstr "Inspección de _hojas de Dia"
 
@@ -6859,7 +6876,6 @@ msgstr "Todos los _objetos"
 #.
 #. \ingroup PyDia
 #: plug-ins/python/arrange.py:127
-#| msgid "_Objects"
 msgid "Arrange _Objects"
 msgstr "Disponer _objetos"
 
@@ -6916,7 +6932,6 @@ msgstr "_Rotación simple"
 #. XXX: check image, e.g. existing file name
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/diadissect.py:167
-#| msgid "Dissipate"
 msgid "Dissect"
 msgstr "Dissect"
 
@@ -6964,12 +6979,10 @@ msgstr "Exportación de objeto PyDia"
 #. # \brief Register the renderer with Dia's export system
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/export-render.py:119
-#| msgid "DiaRenderScript"
 msgid "PyDia Render Export"
 msgstr "Exportar renderizado de PyDia"
 
 #: plug-ins/python/group_props.py:45
-#| msgid "Arrow Properties"
 msgid "Group Properties"
 msgstr "Propiedades de la flecha"
 
@@ -6982,7 +6995,6 @@ msgstr ""
 " para cambiarla a la vez."
 
 #: plug-ins/python/group_props.py:183
-#| msgid "Diagram Properties"
 msgid "Dia _Group Properties"
 msgstr "Propiedades del _grupo de Dia"
 
@@ -7000,7 +7012,6 @@ msgid "Imagemap"
 msgstr "Mapa de imagen"
 
 #: plug-ins/python/mark-cps.py:72
-#| msgid "Main Connection Point"
 msgid "_Mark Connection Points"
 msgstr "_Marcar puntos de conexión"
 
@@ -9969,7 +9980,6 @@ msgid "EDPC"
 msgstr "EDPC"
 
 #: sheets/EDPC.sheet:5
-#| msgid "Objects to draw flowcharts"
 msgid "Objects to draw event-driven process chains"
 msgstr "Objetos para dibujar cadenas de procesos dirigidos por eventos"
 
@@ -9978,7 +9988,6 @@ msgid "Business Process"
 msgstr "Proceso de negocio"
 
 #: sheets/EDPC.sheet:8
-#| msgid "Processor"
 msgid "Process Group"
 msgstr "Grupo de procesos"
 
@@ -11701,9 +11710,6 @@ msgstr "División/unión"
 
 #~ msgid "Center y"
 #~ msgstr "Centro y"
-
-#~ msgid "Height"
-#~ msgstr "Alto"
 
 # "Hueco" queda más cercano al significado de "Hollow" que "Vacío". Además así no se confunde con "Unfilled". RizOX.
 #~ msgid "Angle (deg)"
