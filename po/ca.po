@@ -1018,7 +1018,7 @@ msgstr "Editor de diagrames"
 
 #: ../app/layer_dialog.c:166
 msgid "New Layer"
-msgstr "Nova capa"
+msgstr "Capa nova"
 
 #: ../app/layer_dialog.c:167
 msgid "Rename Layer"
@@ -1388,7 +1388,7 @@ msgstr "_Cerca…"
 
 #: ../app/menus.c:137
 msgid "Search for text"
-msgstr "Cerca el text:"
+msgstr "Cerca el text"
 
 #: ../app/menus.c:138
 msgid "_Replace…"
@@ -1525,7 +1525,7 @@ msgstr "Ajusta"
 #. "display_toggle_entries" items go here
 #: ../app/menus.c:175
 msgid "New _View"
-msgstr "Nova _visualització"
+msgstr "_Visualització nova"
 
 #: ../app/menus.c:176
 msgid "C_lone View"
@@ -1582,11 +1582,11 @@ msgstr "Associa amb un _pare"
 
 #: ../app/menus.c:190
 msgid "_Unparent"
-msgstr "D_esassocia del pare"
+msgstr "D_issocia del pare"
 
 #: ../app/menus.c:191
 msgid "_Unparent Children"
-msgstr "D_esassocia els fills"
+msgstr "D_issocia els fills"
 
 #. Translators: Menu item Verb/Support/Position/Align
 #: ../app/menus.c:193 ../objects/FS/function.c:799
@@ -7357,7 +7357,7 @@ msgid ""
 "An Assorted Collection of Polygons, Beziergons and other Miscellaneous "
 "Geometric Shapes"
 msgstr ""
-"Una col·lecció variada de polígons, beziergons i altres formes geomètriques."
+"Una col·lecció variada de polígons, beziergons i altres formes geomètriques"
 
 #: ../sheets/Assorted.sheet.in.h:7
 msgid "Right angle triangle"
