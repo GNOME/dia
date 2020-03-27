@@ -3,7 +3,7 @@
  *
  * Chronogram objects support
  * Copyright (C) 2000 Cyrille Chepelov <chepelov@calixo.net>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -40,27 +40,31 @@ new_cle(CLEventType type, real time)
   return cle;
 }
 
-static gint 
-compare_cle(gconstpointer a, gconstpointer b)
+
+static gint
+compare_cle (gconstpointer a, gconstpointer b)
 {
   CLEvent *ca = (CLEvent *)a;
   CLEvent *cb = (CLEvent *)b;
-  
-  g_assert(ca); 
-  g_assert(cb);
+
+  g_return_val_if_fail (ca, 1);
+  g_return_val_if_fail (cb, 1);
+
   if (ca->time == cb->time) return 0;
   if (ca->time < cb->time) return -1;
   /* else */ return 1;
 }
 
-void 
+
+void
 destroy_cle(gpointer data, gpointer user_data)
 {
   CLEvent *cle = (CLEvent *)data;
   g_free(cle);
 }
 
-void 
+
+void
 destroy_clevent_list(CLEventList *clel)
 {
   g_slist_foreach(clel,destroy_cle,NULL);
@@ -87,19 +91,24 @@ static void dump_parsed_clelist(CLEventList *clel)
       g_assert_not_reached();
     }
     printf("%3d  t=%7.3f %s\n",i++,evt->time,s);
-    
+
     clel = g_slist_next(clel);
   }
   printf("ChronoLine Event List dump finished.\n");
 }
-
 #endif
 
 #define CHEAT_CST (1E-7)
 
+
 static void
-add_event(CLEventList **clel,real *t,real *dt,
-	  CLEventType *oet,CLEventType *et,real rise, real fall)
+add_event (CLEventList **clel,
+           real         *t,
+           real         *dt,
+           CLEventType  *oet,
+           CLEventType  *et,
+           real          rise,
+           real          fall)
 {
   if (*et == CLE_START) {
     *t = *dt; *dt = 0.0;
@@ -107,153 +116,185 @@ add_event(CLEventList **clel,real *t,real *dt,
     return;
   } else {
     while (*oet != *et) {
-      *clel = g_slist_insert_sorted(*clel,new_cle(*oet,*t),compare_cle);
-      switch(*oet) {
-      case CLE_UNKNOWN:
-	*t += fall;
-	*dt -= CHEAT_CST;
-	*oet = CLE_OFF;
-	break;
-      case CLE_OFF:
-	*t += rise;
-	*dt -= CHEAT_CST;
-	*oet = *et;
-	break;
-      case CLE_ON:
-	*t += fall;
-	*dt -= CHEAT_CST;
-	*oet = CLE_OFF;
-	break;
-      default:
-	g_assert_not_reached();
+      *clel = g_slist_insert_sorted (*clel, new_cle (*oet, *t), compare_cle);
+      switch (*oet) {
+        case CLE_UNKNOWN:
+          *t += fall;
+          *dt -= CHEAT_CST;
+          *oet = CLE_OFF;
+          break;
+        case CLE_OFF:
+          *t += rise;
+          *dt -= CHEAT_CST;
+          *oet = *et;
+          break;
+        case CLE_ON:
+          *t += fall;
+          *dt -= CHEAT_CST;
+          *oet = CLE_OFF;
+          break;
+        case CLE_START:
+          break;
+        default:
+          g_assert_not_reached();
       }
     }
+
     /* insert (at last) the desired state. */
-    *clel = g_slist_insert_sorted(*clel,new_cle(*et,*t),compare_cle);
-    *t += *dt; *dt = 0.0;
-	  *oet = *et;
+    *clel = g_slist_insert_sorted (*clel, new_cle (*et, *t), compare_cle);
+    *t += *dt;
+    *dt = 0.0;
+    *oet = *et;
   }
 }
+
+
 static CLEventList *
-parse_clevent(const gchar *events, real rise, real fall)
+parse_clevent (const gchar *events, real rise, real fall)
 {
   real t = -1E10;
   double dt;
-  const gchar *p,*p1,*np;
+  const gchar *p, *p1, *np;
   gunichar uc;
   CLEventType et = CLE_UNKNOWN;
   CLEventType oet = CLE_UNKNOWN;
   CLEventList *clel = NULL;
-  enum {EVENT,LENGTH} waitfor = EVENT;
+  enum { EVENT, LENGTH } waitfor = EVENT;
 
   p1 = p = events;
 
   /* if we don't cheat like this, g_slist_insert_sorted won't insert the
      right way. */
-  if (rise <= 0.0) rise = 0.0;
+  if (rise <= 0.0) {
+    rise = 0.0;
+  }
   rise += CHEAT_CST;
-  if (fall <= 0.0) fall = 0.0;
+  if (fall <= 0.0) {
+    fall = 0.0;
+  }
   fall += CHEAT_CST;
-  
+
   while (*p) {
-    uc = g_utf8_get_char(p);
-    np = g_utf8_next_char(p);
+    uc = g_utf8_get_char (p);
+    np = g_utf8_next_char (p);
     switch (uc) { /* skip spaces */
-    case ' ': 
-    case '\t':
-    case '\n': 
-      p = np; continue;
-    default:
-      break;
+      case ' ':
+      case '\t':
+      case '\n':
+        p = np; continue;
+      default:
+        break;
     }
     if (waitfor == EVENT) {
-      switch(uc) {
-      case 'u':
-      case 'U': et = CLE_UNKNOWN; waitfor = LENGTH; p = np; break;
-      case '@': et = CLE_START; waitfor = LENGTH; p = np ; break;
-      case '(': et = CLE_ON; waitfor = LENGTH; p = np; break;
-      case ')': et = CLE_OFF; waitfor = LENGTH; p = np; break;
-      default:
-	message_warning("Syntax error in event string; waiting one of "
-			"\"()@u\". string=%s",p); 
-	return clel;
+      switch (uc) {
+        case 'u':
+        case 'U':
+          et = CLE_UNKNOWN;
+          waitfor = LENGTH;
+          p = np;
+          break;
+        case '@':
+          et = CLE_START;
+          waitfor = LENGTH;
+          p = np;
+          break;
+        case '(':
+          et = CLE_ON;
+          waitfor = LENGTH;
+          p = np;
+          break;
+        case ')':
+          et = CLE_OFF;
+          waitfor = LENGTH;
+          p = np;
+          break;
+        default:
+          message_warning ("Syntax error in event string; waiting one of "
+                           "\"()@u\". string=%s",p);
+          return clel;
       }
     } else { /* waitfor == LENGTH */
-      dt = g_ascii_strtod(p,(char **)&p1);
+      dt = g_ascii_strtod (p, (char **) &p1);
       if (p1 == p) {
-	/* We were ready for a length argument, we got nothing.
-	   Maybe the user entered a zero-length argument ? */
-	switch(uc) {
-	case 'u':
-	case 'U':
-	case '@':
-	case '(':
-	case ')':
-	  dt = 0.0;
-	  break;
-	default:
-	  message_warning("Syntax error in event string; waiting a floating "
-			  "point value. string=%s",p);
-	  return clel;
-	}	
+        /* We were ready for a length argument, we got nothing.
+          Maybe the user entered a zero-length argument ? */
+        switch (uc) {
+          case 'u':
+          case 'U':
+          case '@':
+          case '(':
+          case ')':
+            dt = 0.0;
+            break;
+          default:
+            message_warning ("Syntax error in event string; waiting a floating "
+                             "point value. string=%s", p);
+            return clel;
+        }
       }
-      /* dt contains a duration value. 
-	 p1 points to the rest of the string. */
+      /* dt contains a duration value.
+         p1 points to the rest of the string. */
       p = p1;
-      
-      add_event(&clel,&t,&dt,&oet,&et,rise,fall);
-      waitfor=EVENT;
+
+      add_event (&clel, &t, &dt, &oet, &et, rise, fall);
+      waitfor = EVENT;
     }
   }
+
   if (waitfor == LENGTH) {
     /* late fix */
-    if (oet == CLE_START) 
+    if (oet == CLE_START) {
       oet = et;
+    }
     dt = 0.0;
-    add_event(&clel,&t,&dt,&oet,&et,rise,fall);
+    add_event (&clel, &t, &dt, &oet, &et, rise, fall);
   }
 
   #if DUMP_PARSED_CLELIST
   dump_parsed_clelist(clel);
   #endif
-  
+
   return clel;
 }
 
-inline static int 
-__forward_checksum_i(int chk, int value) 
+
+inline static int
+__forward_checksum_i (int chk, int value)
 {
   return (0xFFFFFFFF & (((chk << 1) | ((chk & 0x80000000)?1:0)) ^ value));
 }
 
-inline static int 
-__forward_checksum_r(int chk, real value) 
+
+inline static int
+__forward_checksum_r (int chk, real value)
 {
   int ival = (int)value;
-  return __forward_checksum_i(chk,ival);
+  return __forward_checksum_i (chk,ival);
 }
 
+
 static int
-__chksum(const char *str, real rise, real fall, real time_end)
+__chksum (const char *str, real rise, real fall, real time_end)
 {
   const char *p = str;
   int i = 1;
 
-  i = __forward_checksum_r(i,rise); 
-  i = __forward_checksum_r(i,fall); 
-  i = __forward_checksum_r(i,time_end); 
-  
+  i = __forward_checksum_r (i, rise);
+  i = __forward_checksum_r (i, fall);
+  i = __forward_checksum_r (i, time_end);
+
   if (!p) return i;
 
   while (*p) {
-    i = __forward_checksum_i(i,*p);
+    i = __forward_checksum_i (i,*p);
     p++;
   }
   /* printf("chksum[%s] = %d\n",str,i); */
   return i;
 }
 
-void 
+
+void
 reparse_clevent(const gchar *events, CLEventList **lst,
 		int *chksum,real rise, real fall,real time_end)
 {
