@@ -193,7 +193,7 @@ read_entity_line_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
       if (read_dxf_codes (filedxf, data) == FALSE){
         return NULL;
       }
-      switch(data->code){
+      switch (data->code){
         case 6:
           style = get_dia_linestyle_dxf (data->value);
           break;
@@ -219,6 +219,9 @@ read_entity_line_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
           break;
         case 62 :
           color = pal_get_rgb (atoi (data->value));
+          break;
+        default:
+          g_warning ("Unhandled %i", data->code);
           break;
       }
     } while (data->code != 0);
@@ -277,11 +280,11 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     if (read_dxf_codes (filedxf, data) == FALSE) {
       return NULL;
     }
-    switch(data->code){
+    switch (data->code){
       case 6:
         style = get_dia_linestyle_dxf (data->value);
         break;
-      case  8:
+      case 8:
         layer = layer_find_by_name (data->value, dia);
         color = pal_get_rgb (_dxf_color_get_by_layer (layer));
         /*printf( "layer: %s ", data->value );*/
@@ -325,659 +328,674 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
       case 62:
         color = pal_get_rgb (atoi (data->value));
         break;
+      default:
+        g_warning ("Unhandled %i", data->code);
+        break;
     }
-  } while(data->code != 0);
+  } while (data->code != 0);
 
-   pcd = g_new( MultipointCreateData, 1);
+  pcd = g_new0 (MultipointCreateData, 1);
 
-   if( p[2].x != p[3].x || p[2].y != p[3].y )
-     pcd->num_points = 4;
-   else
-     pcd->num_points = 3;
+  if (p[2].x != p[3].x || p[2].y != p[3].y) {
+    pcd->num_points = 4;
+  } else {
+    pcd->num_points = 3;
+  }
 
-   pcd->points = g_new( Point, pcd->num_points );
+  pcd->points = g_new0 (Point, pcd->num_points);
 
-   memcpy( pcd->points, p, sizeof( Point ) * pcd->num_points );
+  memcpy (pcd->points, p, sizeof (Point) * pcd->num_points);
 
-   polygon_obj = otype->ops->create( NULL, pcd, &h1, &h2 );
+  polygon_obj = otype->ops->create (NULL, pcd, &h1, &h2);
 
-    _color_init_from_rgb (&fill_colour, color);
+  _color_init_from_rgb (&fill_colour, color);
 
-   props = g_ptr_array_new ();
+  props = g_ptr_array_new ();
 
-   prop_list_add_line_colour (props, &fill_colour);
-   prop_list_add_line_width (props, line_width);
-   prop_list_add_line_style (props, style, 1.0);
-   prop_list_add_fill_colour (props, &fill_colour);
-   prop_list_add_show_background (props, TRUE);
+  prop_list_add_line_colour (props, &fill_colour);
+  prop_list_add_line_width (props, line_width);
+  prop_list_add_line_style (props, style, 1.0);
+  prop_list_add_fill_colour (props, &fill_colour);
+  prop_list_add_show_background (props, TRUE);
 
-   dia_object_set_properties (polygon_obj, props);
+  dia_object_set_properties (polygon_obj, props);
 
-   prop_list_free (props);
+  prop_list_free (props);
 
-   if (layer) {
-      dia_layer_add_object (layer, polygon_obj);
-   } else {
-      return polygon_obj;
-   }
+  if (layer) {
+    dia_layer_add_object (layer, polygon_obj);
+  } else {
+    return polygon_obj;
+  }
 
-   return NULL;
+  return NULL;
 }
+
 
 static int
-is_equal( double a, double b )
+is_equal (double a, double b)
 {
-   double epsilon = 0.00001;
+  double epsilon = 0.00001;
 
-   if( a == b )
-     return( 1 );
+  if (a == b) {
+    return 1 ;
+  }
 
-   if(( a + epsilon ) > b && ( a - epsilon ) < b )
-     return( 1 );
+  if (( a + epsilon ) > b && ( a - epsilon ) < b) {
+    return 1;
+  }
 
-   return( 0 );
+  return 0;
 }
+
 
 /* reads a polyline entity from the dxf file and creates a polyline object in dia*/
 static DiaObject *
-read_entity_polyline_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+read_entity_polyline_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-    int i;
+  int i;
 
-        /* polygon data */
-    Point *p = NULL, start, end, center;
+  /* polygon data */
+  Point *p = NULL, start, end, center;
 
-    DiaObjectType *otype = object_get_type("Standard - PolyLine");
-    Handle *h1, *h2;
+  DiaObjectType *otype = object_get_type ("Standard - PolyLine");
+  Handle *h1, *h2;
 
-    DiaObject *polyline_obj;
-    MultipointCreateData *pcd;
+  DiaObject *polyline_obj;
+  MultipointCreateData *pcd;
 
-    Color line_colour;
+  Color line_colour;
 
-    GPtrArray *props;
+  GPtrArray *props;
 
-    real line_width = DEFAULT_LINE_WIDTH;
-    real radius, start_angle = 0;
-    LineStyle style = LINESTYLE_SOLID;
-    DiaLayer *layer = dia->active_layer;
-    RGB_t color = { 0, };
-    unsigned char closed = 0;
-    int points = 0;
-    real bulge = 0.0;
-    int bulge_end = -1;
-    gboolean bulge_x_avail = FALSE, bulge_y_avail = FALSE;
+  real line_width = DEFAULT_LINE_WIDTH;
+  real radius, start_angle = 0;
+  LineStyle style = LINESTYLE_SOLID;
+  DiaLayer *layer = dia->active_layer;
+  RGB_t color = { 0, };
+  unsigned char closed = 0;
+  int points = 0;
+  real bulge = 0.0;
+  int bulge_end = -1;
+  gboolean bulge_x_avail = FALSE, bulge_y_avail = FALSE;
 
-    do {
-        if(read_dxf_codes(filedxf, data) == FALSE){
-            return( NULL );
-        }
-        switch(data->code){
-            case 0:
-                if( !strcmp( data->value, "VERTEX" ))
-                {
-                    points++;
-
-                    p = g_realloc( p, sizeof( Point ) * points );
-
-                        /*printf( "Vertex %d\n", points );*/
-
-                }
-		break;
-            case 6:
-                style = get_dia_linestyle_dxf(data->value);
-                break;
-            case  8:
-                layer = layer_find_by_name(data->value, dia);
-	        color = pal_get_rgb (_dxf_color_get_by_layer (layer));
-                    /*printf( "layer: %s ", data->value );*/
-                break;
-            case 10:
-                if( points != 0 )
-                {
-                    p[points-1].x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-                        /*printf( "P[%d].x: %f ", points-1, p[points-1].x );*/
-		    bulge_x_avail = (bulge_end == points);
-                }
-                break;
-            case 20:
-                if( points != 0 )
-                {
-                    p[points-1].y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-                        /*printf( "P[%d].y: %f\n", points-1, p[points-1].y );*/
-		    bulge_y_avail = (bulge_end == points);
-                }
-                break;
-            case 39:
-                line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
-                    /*printf( "width %f\n", line_width );*/
-                break;
-	    case 40: /* default starting width */
-	    case 41: /* default ending width */
-	        line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
-		break;
-            case 42:
-                bulge = g_ascii_strtod(data->value, NULL);
-		/* The bulge is meant to be _between_ two VERTEX, here: p[points-1] and p[points,]
-		 * but we have not yet read the end point; so just remember the point to 'bulge to' */
-		bulge_end = points+1;
-		bulge_x_avail = bulge_y_avail = FALSE;
-                break;
-            case 62:
-                color = pal_get_rgb (atoi(data->value));
-                break;
-            case 70:
-                closed = 1 & atoi( data->value );
-                    /*printf( "closed %d %s", closed, data->value );*/
-                break;
-        }
-	if (points == bulge_end && bulge_x_avail && bulge_y_avail) {
-	    /* turn the last segment into a bulge */
-
-                p = g_realloc( p, sizeof( Point ) * ( points + 10 ));
-
-                if (points < 2)
-                    continue;
-                start = p[points-2];
-                end = p[points-1];
-
-                radius = sqrt( pow( end.x - start.x, 2 ) + pow( end.y - start.y, 2 ))/2;
-
-                center.x = start.x + ( end.x - start.x )/2;
-                center.y = start.y + ( end.y - start.y )/2;
-
-                if( is_equal( start.x, end.x ))
-                {
-                    if( is_equal( start.y, end.y ))
-                    {
-                        continue; /* better than complaining? */
-                        g_warning("Bad vertex bulge");
-                    }
-                    else if( start.y > center.y )
-                    {
-                            /*start_angle = 90.0;*/
-                        start_angle = M_PI/2;
-                    }
-                    else
-                    {
-                            /*start_angle = 270.0;*/
-                        start_angle = M_PI * 1.5;
-                    }
-                }
-                else if( is_equal( start.y, end.y ))
-                {
-                    if( is_equal( start.x, end.x ))
-                    {
-                        continue;
-                        g_warning("Bad vertex bulge");
-                    }
-                    else if( start.x > center.x )
-                    {
-                        start_angle = 0.0;
-                    }
-                    else
-                    {
-                        start_angle = M_PI;
-                    }
-                }
-                else
-                {
-                    start_angle = atan( center.y - start.y /center.x - start.x );
-                }
-
-                    /*printf( "start x %f end x %f center x %f\n", start.x, end.x, center.x );
-                      printf( "start y %f end y %f center y %f\n", start.y, end.y, center.y );
-                      printf( "bulge %s %f startx_angle %f\n", data->value, radius, start_angle );*/
-
-                for( i=(points-1); i<(points+9); i++ )
-                {
-                    p[i].x = center.x + cos( start_angle ) * radius;
-                    p[i].y = center.y + sin( start_angle ) * radius;
-                    start_angle += (-M_PI/10.0 * bulge);
-                        /*printf( "i %d x %f y %f\n", i, p[i].x, p[i].y );*/
-                }
-                points += 10;
-
-                p[points-1] = end;
-
-	}
-    } while( strcmp( data->value, "SEQEND" ));
-
-    if (points == 0) {
-      g_printerr ("No vertexes defined\n");
+  do {
+    if (read_dxf_codes (filedxf, data) == FALSE){
       return NULL;
     }
 
-    pcd = g_new( MultipointCreateData, 1);
+    switch (data->code){
+      case 0:
+        if (!strcmp (data->value, "VERTEX")) {
+          points++;
 
-    if( closed )
-    {
-	otype = object_get_type("Standard - Polygon");
+          p = g_realloc (p, sizeof (Point) * points);
+
+          /*printf( "Vertex %d\n", points );*/
+
+        }
+        break;
+      case 6:
+        style = get_dia_linestyle_dxf (data->value);
+        break;
+      case 8:
+        layer = layer_find_by_name (data->value, dia);
+        color = pal_get_rgb (_dxf_color_get_by_layer (layer));
+        /*printf( "layer: %s ", data->value );*/
+        break;
+      case 10:
+        if (points != 0) {
+          p[points-1].x = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+          /*printf( "P[%d].x: %f ", points-1, p[points-1].x );*/
+          bulge_x_avail = (bulge_end == points);
+        }
+        break;
+      case 20:
+        if (points != 0) {
+          p[points-1].y = (-1)*g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+          /*printf( "P[%d].y: %f\n", points-1, p[points-1].y );*/
+          bulge_y_avail = (bulge_end == points);
+        }
+        break;
+      case 39:
+        line_width = g_ascii_strtod (data->value, NULL) * WIDTH_SCALE;
+        /*printf( "width %f\n", line_width );*/
+        break;
+      case 40: /* default starting width */
+      case 41: /* default ending width */
+        line_width = g_ascii_strtod (data->value, NULL) * WIDTH_SCALE;
+        break;
+      case 42:
+        bulge = g_ascii_strtod (data->value, NULL);
+        /* The bulge is meant to be _between_ two VERTEX, here: p[points-1] and p[points,]
+          * but we have not yet read the end point; so just remember the point to 'bulge to' */
+        bulge_end = points+1;
+        bulge_x_avail = bulge_y_avail = FALSE;
+        break;
+      case 62:
+        color = pal_get_rgb (atoi (data->value));
+        break;
+      case 70:
+        closed = 1 & atoi (data->value);
+        /*printf( "closed %d %s", closed, data->value );*/
+        break;
+      default:
+        g_warning ("Unhandled %i", data->code);
+        break;
     }
 
-    pcd->num_points = points;
-    pcd->points = g_new( Point, pcd->num_points );
+    if (points == bulge_end && bulge_x_avail && bulge_y_avail) {
+      /* turn the last segment into a bulge */
 
-    memcpy( pcd->points, p, sizeof( Point ) * pcd->num_points );
+      p = g_realloc (p, sizeof (Point) * (points + 10));
 
-    g_free( p );
+      if (points < 2)
+          continue;
 
-    polyline_obj = otype->ops->create( NULL, pcd, &h1, &h2 );
+      start = p[points-2];
+      end = p[points-1];
 
-    _color_init_from_rgb (&line_colour, color);
+      radius = sqrt (pow (end.x - start.x, 2 ) + pow (end.y - start.y, 2))/2;
 
-    props = g_ptr_array_new ();
+      center.x = start.x + ( end.x - start.x )/2;
+      center.y = start.y + ( end.y - start.y )/2;
 
-    prop_list_add_line_colour (props, &line_colour);
-    prop_list_add_line_width (props, line_width);
-    prop_list_add_line_style (props, style, 1.0);
-
-    dia_object_set_properties (polyline_obj, props);
-
-    prop_list_free (props);
-
-    if (layer)
-      dia_layer_add_object (layer, polyline_obj);
-    else
-      return polyline_obj;
-
-    return NULL; /* don't add it twice */
-}
-
-/* reads a circle entity from the dxf file and creates a circle object in dia*/
-static DiaObject *
-read_entity_circle_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
-{
-    /* circle data */
-    Point center = {0, 0};
-    real radius = 1.0;
-
-    DiaObjectType *otype = object_get_type("Standard - Ellipse");
-    Handle *h1, *h2;
-
-    DiaObject *ellipse_obj;
-    RGB_t color  = { 0, };
-    Color line_colour;
-
-    GPtrArray *props;
-
-    real line_width = DEFAULT_LINE_WIDTH;
-    DiaLayer *layer = dia->active_layer;
-
-    do {
-        if(read_dxf_codes(filedxf, data) == FALSE){
-            return( NULL );
+      if (is_equal (start.x, end.x)) {
+        if (is_equal (start.y, end.y)) {
+          continue; /* better than complaining? */
+          g_warning ("Bad vertex bulge");
+        } else if (start.y > center.y) {
+          /*start_angle = 90.0;*/
+          start_angle = M_PI/2;
+        } else {
+          /*start_angle = 270.0;*/
+          start_angle = M_PI * 1.5;
         }
-        switch(data->code){
-        case  8:
-            layer = layer_find_by_name(data->value, dia);
-	    color = pal_get_rgb (_dxf_color_get_by_layer (layer));
-            break;
-        case 10:
-            center.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
-        case 20:
-            center.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
-        case 39:
-            line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
-            break;
-        case 40:
-            radius = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
-	case 62 :
-            color = pal_get_rgb (atoi(data->value));
-            break;
+      } else if (is_equal (start.y, end.y)) {
+        if (is_equal (start.x, end.x)) {
+          continue;
+          g_warning ("Bad vertex bulge");
+        } else if (start.x > center.x) {
+          start_angle = 0.0;
+        } else {
+          start_angle = M_PI;
         }
+      } else {
+        start_angle = atan (center.y - start.y /center.x - start.x);
+      }
 
-    } while(data->code != 0);
+      /*printf( "start x %f end x %f center x %f\n", start.x, end.x, center.x );
+        printf( "start y %f end y %f center y %f\n", start.y, end.y, center.y );
+        printf( "bulge %s %f startx_angle %f\n", data->value, radius, start_angle );*/
 
-    center.x -= radius;
-    center.y -= radius;
-    ellipse_obj = otype->ops->create(&center, otype->default_user_data,
-                                     &h1, &h2);
+      for (i = (points - 1); i < (points + 9); i++) {
+        p[i].x = center.x + cos (start_angle) * radius;
+        p[i].y = center.y + sin (start_angle) * radius;
+        start_angle += (-M_PI/10.0 * bulge);
+        /*printf( "i %d x %f y %f\n", i, p[i].x, p[i].y );*/
+      }
+      points += 10;
 
-    _color_init_from_rgb (&line_colour, color);
+      p[points-1] = end;
+    }
+  } while (strcmp (data->value, "SEQEND"));
 
-    props = g_ptr_array_new ();
+  if (points == 0) {
+    g_printerr ("No vertexes defined\n");
+    return NULL;
+  }
 
-    prop_list_add_point (props, "elem_corner", &center);
-    prop_list_add_real (props, "elem_width", radius * 2.0);
-    prop_list_add_real (props, "elem_height", radius * 2.0);
-    prop_list_add_line_colour (props, &line_colour);
-    prop_list_add_line_width (props, line_width);
-    prop_list_add_show_background (props, FALSE);
+  pcd = g_new0 (MultipointCreateData, 1);
 
-    dia_object_set_properties (ellipse_obj, props);
-    prop_list_free (props);
+  if (closed) {
+    otype = object_get_type ("Standard - Polygon");
+  }
 
-    if (layer)
-      dia_layer_add_object (layer, ellipse_obj);
-    else
-      return ellipse_obj;
+  pcd->num_points = points;
+  pcd->points = g_new0 (Point, pcd->num_points);
 
-    return NULL; /* don't add it twice */
-}
+  memcpy (pcd->points, p, sizeof (Point) * pcd->num_points);
 
-/* reads a circle entity from the dxf file and creates a circle object in dia*/
-static DiaObject *
-read_entity_arc_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
-{
-    /* arc data */
-    Point start, end;
-    Point center = {0, 0};
-    real radius = 1.0, start_angle = 0.0, end_angle=360.0;
-    real curve_distance;
+  g_free (p);
 
-    DiaObjectType *otype = object_get_type("Standard - Arc");
-    Handle *h1, *h2;
+  polyline_obj = otype->ops->create (NULL, pcd, &h1, &h2);
 
-    DiaObject *arc_obj;
-    RGB_t color  = { 0, };
-    Color line_colour;
-    GPtrArray *props;
+  _color_init_from_rgb (&line_colour, color);
 
-    real line_width = DEFAULT_LINE_WIDTH;
-    DiaLayer *layer = dia->active_layer;
+  props = g_ptr_array_new ();
 
-    do {
-        if(read_dxf_codes(filedxf, data) == FALSE){
-            return( NULL );
-        }
-        switch(data->code){
-        case  8:
-            layer = layer_find_by_name(data->value, dia);
-	    color = pal_get_rgb (_dxf_color_get_by_layer (layer));
-            break;
-        case 10:
-            center.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
-        case 20:
-            center.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
-        case 39:
-            line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
-            break;
-        case 40:
-            radius = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
-        case 50:
-            start_angle = g_ascii_strtod(data->value, NULL)*M_PI/180.0;
-            break;
-        case 51:
-            end_angle = g_ascii_strtod(data->value, NULL)*M_PI/180.0;
-            break;
-	case 62 :
-            color = pal_get_rgb (atoi(data->value));
-            break;
-        }
-    } while(data->code != 0);
+  prop_list_add_line_colour (props, &line_colour);
+  prop_list_add_line_width (props, line_width);
+  prop_list_add_line_style (props, style, 1.0);
 
-    /* printf("c.x=%f c.y=%f s",center.x,center.y); */
-    start.x = center.x + cos(start_angle) * radius;
-    start.y = center.y - sin(start_angle) * radius;
-    end.x = center.x + cos(end_angle) * radius;
-    end.y = center.y - sin(end_angle) * radius;
-    /*printf("s.x=%f s.y=%f e.x=%f e.y=%f\n",start.x,start.y,end.x,end.y);*/
+  dia_object_set_properties (polyline_obj, props);
 
+  prop_list_free (props);
 
-    if (end_angle < start_angle) end_angle += 2.0*M_PI;
-    curve_distance = radius * (1 - cos ((end_angle - start_angle)/2));
-
-    /*printf("start_angle: %f end_angle: %f radius:%f  curve_distance:%f\n",
-      start_angle,end_angle,radius,curve_distance);*/
-
-    arc_obj = otype->ops->create(&center, otype->default_user_data,
-                                     &h1, &h2);
-
-    _color_init_from_rgb (&line_colour, color);
-
-    props = g_ptr_array_new ();
-    prop_list_add_point (props, "start_point", &start);
-    prop_list_add_point (props, "end_point", &end);
-    prop_list_add_real (props, "curve_distance", curve_distance);
-    prop_list_add_line_colour (props, &line_colour);
-    prop_list_add_line_width (props, line_width);
-
-  dia_object_set_properties (arc_obj, props);
-  prop_list_free(props);
-
-  if (layer)
-    dia_layer_add_object (layer, arc_obj);
-  else
-    return arc_obj ;
+  if (layer) {
+    dia_layer_add_object (layer, polyline_obj);
+  } else {
+    return polyline_obj;
+  }
 
   return NULL; /* don't add it twice */
 }
 
+
+/* reads a circle entity from the dxf file and creates a circle object in dia*/
+static DiaObject *
+read_entity_circle_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
+{
+  /* circle data */
+  Point center = {0, 0};
+  real radius = 1.0;
+
+  DiaObjectType *otype = object_get_type ("Standard - Ellipse");
+  Handle *h1, *h2;
+
+  DiaObject *ellipse_obj;
+  RGB_t color  = { 0, };
+  Color line_colour;
+
+  GPtrArray *props;
+
+  real line_width = DEFAULT_LINE_WIDTH;
+  DiaLayer *layer = dia->active_layer;
+
+  do {
+    if (read_dxf_codes (filedxf, data) == FALSE) {
+      return NULL;
+    }
+
+    switch (data->code) {
+      case 8:
+        layer = layer_find_by_name (data->value, dia);
+        color = pal_get_rgb (_dxf_color_get_by_layer (layer));
+        break;
+      case 10:
+        center.x = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        break;
+      case 20:
+        center.y = (-1) * g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        break;
+      case 39:
+        line_width = g_ascii_strtod (data->value, NULL) * WIDTH_SCALE;
+        break;
+      case 40:
+        radius = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        break;
+      case 62 :
+        color = pal_get_rgb (atoi (data->value));
+        break;
+      default:
+        g_warning ("Unhandled %i", data->code);
+    }
+
+  } while (data->code != 0);
+
+  center.x -= radius;
+  center.y -= radius;
+  ellipse_obj = otype->ops->create (&center, otype->default_user_data,
+                                    &h1, &h2);
+
+  _color_init_from_rgb (&line_colour, color);
+
+  props = g_ptr_array_new ();
+
+  prop_list_add_point (props, "elem_corner", &center);
+  prop_list_add_real (props, "elem_width", radius * 2.0);
+  prop_list_add_real (props, "elem_height", radius * 2.0);
+  prop_list_add_line_colour (props, &line_colour);
+  prop_list_add_line_width (props, line_width);
+  prop_list_add_show_background (props, FALSE);
+
+  dia_object_set_properties (ellipse_obj, props);
+  prop_list_free (props);
+
+  if (layer) {
+    dia_layer_add_object (layer, ellipse_obj);
+  } else {
+    return ellipse_obj;
+  }
+
+  return NULL; /* don't add it twice */
+}
+
+
+/* reads a circle entity from the dxf file and creates a circle object in dia*/
+static DiaObject *
+read_entity_arc_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
+{
+  /* arc data */
+  Point start, end;
+  Point center = {0, 0};
+  real radius = 1.0, start_angle = 0.0, end_angle=360.0;
+  real curve_distance;
+
+  DiaObjectType *otype = object_get_type ("Standard - Arc");
+  Handle *h1, *h2;
+
+  DiaObject *arc_obj;
+  RGB_t color  = { 0, };
+  Color line_colour;
+  GPtrArray *props;
+
+  real line_width = DEFAULT_LINE_WIDTH;
+  DiaLayer *layer = dia->active_layer;
+
+  do {
+    if (read_dxf_codes (filedxf, data) == FALSE){
+        return NULL;
+    }
+
+    switch (data->code){
+      case 8:
+        layer = layer_find_by_name (data->value, dia);
+        color = pal_get_rgb (_dxf_color_get_by_layer (layer));
+        break;
+      case 10:
+        center.x = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        break;
+      case 20:
+        center.y = (-1) * g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        break;
+      case 39:
+        line_width = g_ascii_strtod (data->value, NULL) * WIDTH_SCALE;
+        break;
+      case 40:
+        radius = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        break;
+      case 50:
+        start_angle = g_ascii_strtod (data->value, NULL) * M_PI / 180.0;
+        break;
+      case 51:
+        end_angle = g_ascii_strtod (data->value, NULL) * M_PI / 180.0;
+        break;
+      case 62 :
+        color = pal_get_rgb (atoi (data->value));
+        break;
+      default:
+        g_warning ("Unhandled %i", data->code);
+    }
+  } while (data->code != 0);
+
+  /* printf("c.x=%f c.y=%f s",center.x,center.y); */
+  start.x = center.x + cos(start_angle) * radius;
+  start.y = center.y - sin(start_angle) * radius;
+  end.x = center.x + cos(end_angle) * radius;
+  end.y = center.y - sin(end_angle) * radius;
+  /*printf("s.x=%f s.y=%f e.x=%f e.y=%f\n",start.x,start.y,end.x,end.y);*/
+
+
+  if (end_angle < start_angle) end_angle += 2.0 * M_PI;
+  curve_distance = radius * (1 - cos ((end_angle - start_angle)/2));
+
+  /*printf("start_angle: %f end_angle: %f radius:%f  curve_distance:%f\n",
+    start_angle,end_angle,radius,curve_distance);*/
+
+  arc_obj = otype->ops->create (&center, otype->default_user_data, &h1, &h2);
+
+  _color_init_from_rgb (&line_colour, color);
+
+  props = g_ptr_array_new ();
+  prop_list_add_point (props, "start_point", &start);
+  prop_list_add_point (props, "end_point", &end);
+  prop_list_add_real (props, "curve_distance", curve_distance);
+  prop_list_add_line_colour (props, &line_colour);
+  prop_list_add_line_width (props, line_width);
+
+  dia_object_set_properties (arc_obj, props);
+  prop_list_free(props);
+
+  if (layer) {
+    dia_layer_add_object (layer, arc_obj);
+  } else {
+    return arc_obj;
+  }
+
+  return NULL; /* don't add it twice */
+}
+
+
 /* reads an ellipse entity from the dxf file and creates an ellipse object in dia*/
 static DiaObject *
-read_entity_ellipse_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+read_entity_ellipse_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-    /* ellipse data */
-    Point center = {0, 0};
-    real width = 1.0;
-    real ratio_width_height = 1.0;
+  /* ellipse data */
+  Point center = {0, 0};
+  real width = 1.0;
+  real ratio_width_height = 1.0;
 
-    DiaObjectType *otype = object_get_type("Standard - Ellipse");
-    Handle *h1, *h2;
+  DiaObjectType *otype = object_get_type ("Standard - Ellipse");
+  Handle *h1, *h2;
 
-    DiaObject *ellipse_obj;
-    RGB_t color = { 0, };
-    Color line_colour;
-    GPtrArray *props;
+  DiaObject *ellipse_obj;
+  RGB_t color = { 0, };
+  Color line_colour;
+  GPtrArray *props;
 
-    real line_width = DEFAULT_LINE_WIDTH;
-    DiaLayer *layer = dia->active_layer;
+  real line_width = DEFAULT_LINE_WIDTH;
+  DiaLayer *layer = dia->active_layer;
 
-    do {
-        if(read_dxf_codes(filedxf, data) == FALSE){
-            return( NULL );
-        }
-        switch(data->code){
-        case  8:
-            layer = layer_find_by_name(data->value, dia);
-	    color = pal_get_rgb (_dxf_color_get_by_layer (layer));
-            break;
-        case 10:
-            center.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
-        case 11:
-            ratio_width_height = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
-        case 20:
-            center.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-            break;
-        case 39:
-            line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
-            break;
-        case 40:
-            width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE; /* XXX what scale */
-            break;
-	case 62 :
-            color = pal_get_rgb (atoi(data->value));
-            break;
-        }
-    } while(data->code != 0);
+  do {
+    if (read_dxf_codes (filedxf, data) == FALSE) {
+      return NULL;
+    }
+    switch (data->code) {
+      case  8:
+        layer = layer_find_by_name(data->value, dia);
+        color = pal_get_rgb (_dxf_color_get_by_layer (layer));
+        break;
+      case 10:
+        center.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
+        break;
+      case 11:
+        ratio_width_height = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
+        break;
+      case 20:
+        center.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
+        break;
+      case 39:
+        line_width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE;
+        break;
+      case 40:
+        width = g_ascii_strtod(data->value, NULL) * WIDTH_SCALE; /* XXX what scale */
+        break;
+      case 62:
+        color = pal_get_rgb (atoi(data->value));
+        break;
+      default:
+        g_warning ("Unhandled %i", data->code);
+        break;
+    }
+  } while (data->code != 0);
 
-    center.x -= width;
-    center.y -= (width*ratio_width_height);
-    ellipse_obj = otype->ops->create(&center, otype->default_user_data,
-                                     &h1, &h2);
+  center.x -= width;
+  center.y -= (width*ratio_width_height);
+  ellipse_obj = otype->ops->create (&center, otype->default_user_data,
+                                    &h1, &h2);
 
-    _color_init_from_rgb (&line_colour, color);
+  _color_init_from_rgb (&line_colour, color);
 
-    props = g_ptr_array_new ();
+  props = g_ptr_array_new ();
 
-    prop_list_add_point (props, "elem_corner", &center);
-    prop_list_add_real (props, "elem_width", width);
-    prop_list_add_real (props, "elem_height", width * ratio_width_height);
-    prop_list_add_line_colour (props, &line_colour);
-    prop_list_add_line_width (props, line_width);
-    prop_list_add_show_background (props, FALSE);
+  prop_list_add_point (props, "elem_corner", &center);
+  prop_list_add_real (props, "elem_width", width);
+  prop_list_add_real (props, "elem_height", width * ratio_width_height);
+  prop_list_add_line_colour (props, &line_colour);
+  prop_list_add_line_width (props, line_width);
+  prop_list_add_show_background (props, FALSE);
 
-    dia_object_set_properties (ellipse_obj, props);
-    prop_list_free (props);
+  dia_object_set_properties (ellipse_obj, props);
+  prop_list_free (props);
 
-    if (layer)
-      dia_layer_add_object (layer, ellipse_obj);
-    else
-      return ellipse_obj;
+  if (layer) {
+    dia_layer_add_object (layer, ellipse_obj);
+  } else {
+    return ellipse_obj;
+  }
 
-    return NULL; /* don't add it twice */
+  return NULL; /* don't add it twice */
 }
+
 
 static PropDescription dxf_text_prop_descs[] = {
     { "text", PROP_TYPE_TEXT },
     PROP_DESC_END};
 
+
 static DiaObject *
-read_entity_text_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+read_entity_text_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-    RGB_t color = { 0, };
+  RGB_t color = { 0, };
 
-    /* text data */
-    Point location = {0, 0};
-    real height = text_scale * coord_scale * measure_scale;
-    real y_offset = 0;
-    Alignment textalignment = ALIGN_LEFT;
-    char *textvalue = NULL, *textp;
+  /* text data */
+  Point location = {0, 0};
+  real height = text_scale * coord_scale * measure_scale;
+  real y_offset = 0;
+  Alignment textalignment = ALIGN_LEFT;
+  char *textvalue = NULL, *textp;
 
-    DiaObjectType *otype = object_get_type("Standard - Text");
-    Handle *h1, *h2;
+  DiaObjectType *otype = object_get_type("Standard - Text");
+  Handle *h1, *h2;
 
-    DiaObject *text_obj;
-    Color text_colour;
+  DiaObject *text_obj;
+  Color text_colour;
 
-    TextProperty *tprop;
-    GPtrArray *props;
+  TextProperty *tprop;
+  GPtrArray *props;
 
-    DiaLayer *layer = dia->active_layer;
+  DiaLayer *layer = dia->active_layer;
 
-    do {
-        if (read_dxf_codes(filedxf, data) == FALSE) {
-            return( NULL );
+  do {
+    if (read_dxf_codes (filedxf, data) == FALSE) {
+        return NULL;
+    }
+
+    switch (data->code) {
+      case  1:
+        textvalue = g_strdup(data->value);
+        textp = textvalue;
+        /* FIXME - poor tab to space converter */
+        do {
+          if (textp[0] == '^' && textp[1] == 'I') {
+            textp[0] = ' ';
+            textp[1] = ' ';
+            textp++;
+          }
+        } while( *(++textp) != '\0' );
+
+        /*printf( "Found text: %s\n", textvalue );*/
+        break;
+      case  8:
+        layer = layer_find_by_name (data->value, dia);
+        color = pal_get_rgb (_dxf_color_get_by_layer (layer));
+        break;
+      case 10:
+        location.x = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*printf( "Found text location x: %f\n", location.x );*/
+        break;
+      case 11:
+        location.x = g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*printf( "Found text location x: %f\n", location.x );*/
+        break;
+      case 20:
+        location.y = (-1) * g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*printf( "Found text location y: %f\n", location.y );*/
+        break;
+      case 21:
+        location.y = (-1) * g_ascii_strtod (data->value, NULL) * coord_scale * measure_scale;
+        /*location.y = (-1)*g_ascii_strtod(data->value, NULL) / text_scale;*/
+        /*printf( "Found text location y: %f\n", location.y );*/
+        break;
+      case 40:
+        height = g_ascii_strtod (data->value, NULL) * text_scale * coord_scale * measure_scale;
+        /*printf( "text height %f\n", height );*/
+        break;
+      case 62:
+        color = pal_get_rgb (atoi (data->value));
+        break;
+      case 72:
+        switch (atoi (data->value)) {
+          case 0:
+            textalignment = ALIGN_LEFT;
+            break;
+          case 1:
+            textalignment = ALIGN_CENTER;
+            break;
+          case 2:
+            textalignment = ALIGN_RIGHT;
+            break;
+          case 3:
+            /* FIXME - it's not clear what these are */
+            break;
+          case 4:
+            /* FIXME - it's not clear what these are */
+            break;
+          case 5:
+            /* FIXME - it's not clear what these are */
+            break;
+          default:
+            g_return_val_if_reached (NULL);
+            break;
         }
-        switch (data->code) {
-        case  1:
-	   textvalue = g_strdup(data->value);
-	   textp = textvalue;
-	   /* FIXME - poor tab to space converter */
-	   do
-	     {
-		if( textp[0] == '^' && textp[1] == 'I' )
-		  {
-		     textp[0] = ' ';
-		     textp[1] = ' ';
-		     textp++;
-		  }
-
-	     }
-	   while( *(++textp) != '\0' );
-
-	   /*printf( "Found text: %s\n", textvalue );*/
+        break;
+      case 73:
+        switch (atoi (data->value)) {
+          case 0:
+          case 1:
+            /* FIXME - not really the same vertical alignment */
+            /* 0 = baseline */
+            /* 1 = bottom */
+            y_offset = 0;
             break;
-        case  8:
-	    layer = layer_find_by_name(data->value, dia);
-	    color = pal_get_rgb (_dxf_color_get_by_layer (layer));
+          case 2:
+            /* 2 = middle */
+            y_offset = 0.5;
             break;
-        case 10:
-            location.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*printf( "Found text location x: %f\n", location.x );*/
+          case 3:
+            /* 3 = top */
+            y_offset = 1;
             break;
-        case 11:
-            location.x = g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*printf( "Found text location x: %f\n", location.x );*/
+          default:
+            g_return_val_if_reached (NULL);
             break;
-        case 20:
-            location.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*printf( "Found text location y: %f\n", location.y );*/
-            break;
-        case 21:
-            location.y = (-1)*g_ascii_strtod(data->value, NULL) * coord_scale * measure_scale;
-	   /*location.y = (-1)*g_ascii_strtod(data->value, NULL) / text_scale;*/
-	   /*printf( "Found text location y: %f\n", location.y );*/
-            break;
-        case 40:
-            height = g_ascii_strtod(data->value, NULL) * text_scale * coord_scale * measure_scale;
-	   /*printf( "text height %f\n", height );*/
-            break;
-	 case 62:
-	    color = pal_get_rgb (atoi(data->value));
-            break;
-        case 72:
-	   switch(atoi(data->value))
-	     {
-	      case 0:
-		textalignment = ALIGN_LEFT;
-                break;
-	      case 1:
-		textalignment = ALIGN_CENTER;
-                break;
-	      case 2:
-		textalignment = ALIGN_RIGHT;
-                break;
-	      case 3:
-		/* FIXME - it's not clear what these are */
-                break;
-	      case 4:
-		/* FIXME - it's not clear what these are */
-                break;
-	      case 5:
-		/* FIXME - it's not clear what these are */
-                break;
-            }
-	   break;
-        case 73:
-	   switch(atoi(data->value))
-	     {
-	      case 0:
-	      case 1:
-		/* FIXME - not really the same vertical alignment */
-		/* 0 = baseline */
-		/* 1 = bottom */
-		y_offset = 0;
-                break;
-	      case 2:
-		/* 2 = middle */
-		y_offset = 0.5;
-                break;
-	      case 3:
-		/* 3 = top */
-		y_offset = 1;
-                break;
-            }
-	   break;
         }
-    } while(data->code != 0);
+        break;
+      default:
+        g_warning ("Unhandled %i", data->code);
+        break;
+    }
+  } while (data->code != 0);
 
-    location.y += y_offset * height;
-    _color_init_from_rgb (&text_colour, color);
-    text_obj = otype->ops->create(&location, otype->default_user_data,
-                                  &h1, &h2);
-    props = prop_list_from_descs(dxf_text_prop_descs,pdtpp_true);
-    g_assert(props->len == 1);
+  location.y += y_offset * height;
+  _color_init_from_rgb (&text_colour, color);
+  text_obj = otype->ops->create (&location, otype->default_user_data,
+                                 &h1, &h2);
+  props = prop_list_from_descs (dxf_text_prop_descs,pdtpp_true);
+  g_return_val_if_fail (props->len == 1, NULL);
 
-    tprop = g_ptr_array_index(props,0);
-    g_free(tprop->text_data);
-    tprop->text_data = textvalue;
-    tprop->attr.alignment = textalignment;
-    tprop->attr.position.x = location.x;
-    tprop->attr.position.y = location.y;
+  tprop = g_ptr_array_index (props, 0);
+  g_free (tprop->text_data);
+  tprop->text_data = textvalue;
+  tprop->attr.alignment = textalignment;
+  tprop->attr.position.x = location.x;
+  tprop->attr.position.y = location.y;
 
-    attributes_get_default_font(&tprop->attr.font, &tprop->attr.height);
-    tprop->attr.color = text_colour;
-    tprop->attr.height = height;
+  attributes_get_default_font (&tprop->attr.font, &tprop->attr.height);
+  tprop->attr.color = text_colour;
+  tprop->attr.height = height;
 
-    dia_object_set_properties (text_obj, props);
-    prop_list_free (props);
+  dia_object_set_properties (text_obj, props);
+  prop_list_free (props);
 
-    if (layer)
-      dia_layer_add_object (layer, text_obj);
-    else
-      return text_obj;
+  if (layer) {
+    dia_layer_add_object (layer, text_obj);
+  } else {
+    return text_obj;
+  }
 
-    return NULL; /* don't add it twice */
+  return NULL; /* don't add it twice */
 }
 
 /* reads the layer table from the dxf file and creates the layers */
@@ -1001,6 +1019,9 @@ read_table_layer_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
           dia_layer_set_visible (layer, FALSE);
         else
           _dxf_color_set_by_layer (layer, color_index);
+        break;
+      default:
+        g_warning ("Unhandled %i", data->code);
         break;
     }
   } while ((data->code != 0) || (strcmp (data->value, "ENDTAB") != 0));
