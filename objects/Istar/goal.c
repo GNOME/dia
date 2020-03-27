@@ -211,98 +211,133 @@ goal_select(Goal *goal, Point *clicked_point,
   element_update_handles(&goal->element);
 }
 
+
 static ObjectChange*
-goal_move_handle(Goal *goal, Handle *handle,
-		Point *to, ConnectionPoint *cp,
-		HandleMoveReason reason, ModifierKeys modifiers)
+goal_move_handle (Goal             *goal,
+                  Handle           *handle,
+                  Point            *to,
+                  ConnectionPoint  *cp,
+                  HandleMoveReason  reason,
+                  ModifierKeys      modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
 
-  assert(goal!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (goal != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  element_move_handle(&goal->element, handle->id, to, cp, reason, modifiers);
+  element_move_handle (&goal->element, handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
-  case HANDLE_RESIZE_NW:
-    horiz = ANCHOR_END; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_N:
-    vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_NE:
-    horiz = ANCHOR_START; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_E:
-    horiz = ANCHOR_START; break;
-  case HANDLE_RESIZE_SE:
-    horiz = ANCHOR_START; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_S:
-    vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_SW:
-    horiz = ANCHOR_END; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_W:
-    horiz = ANCHOR_END; break;
-  default:
-    break;
+    case HANDLE_RESIZE_NW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_N:
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_NE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_E:
+      horiz = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_S:
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_W:
+      horiz = ANCHOR_END;
+      break;
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_CUSTOM1:
+    case HANDLE_CUSTOM2:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      break;
   }
-  goal_update_data(goal, horiz, vert);
+
+  goal_update_data (goal, horiz, vert);
+
   return NULL;
 }
 
+
 static ObjectChange*
-goal_move(Goal *goal, Point *to)
+goal_move (Goal *goal, Point *to)
 {
   goal->element.corner = *to;
 
-  goal_update_data(goal, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  goal_update_data (goal, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
   return NULL;
 }
 
-static void compute_cloud(Goal *goal, BezPoint* bpl) {
-     Point p;
-     double w,h;
-     Element *elem;
 
-     elem=&goal->element;
-     p=elem->corner;
-     w=elem->width;
-     h=elem->height;
+static void
+compute_cloud(Goal *goal, BezPoint* bpl)
+{
+  Point p;
+  double w,h;
+  Element *elem;
 
-     bpl[0].type=BEZ_MOVE_TO;
-     bpl[0].p1.x=p.x+w*0.19;
-     bpl[0].p1.y=p.y;
+  elem=&goal->element;
+  p=elem->corner;
+  w=elem->width;
+  h=elem->height;
 
-     bpl[1].type=BEZ_CURVE_TO;
-     bpl[1].p3.x=p.x+w*0.81;
-     bpl[1].p3.y=p.y;
-     bpl[1].p1.x=bpl[0].p1.x+w/4;
-     bpl[1].p1.y=bpl[0].p1.y+h/10;
-     bpl[1].p2.x=bpl[1].p3.x-w/4;
-     bpl[1].p2.y=bpl[1].p3.y+h/10;
+  bpl[0].type=BEZ_MOVE_TO;
+  bpl[0].p1.x=p.x+w*0.19;
+  bpl[0].p1.y=p.y;
 
-     bpl[2].type=BEZ_CURVE_TO;
-     bpl[2].p3.x=p.x+w*0.81;
-     bpl[2].p3.y=p.y+h;
-     bpl[2].p1.x=bpl[1].p3.x+w/4;
-     bpl[2].p1.y=bpl[1].p3.y-h/10;
-     bpl[2].p2.x=bpl[2].p3.x+w/4;
-     bpl[2].p2.y=bpl[2].p3.y+h/10;
+  bpl[1].type=BEZ_CURVE_TO;
+  bpl[1].p3.x=p.x+w*0.81;
+  bpl[1].p3.y=p.y;
+  bpl[1].p1.x=bpl[0].p1.x+w/4;
+  bpl[1].p1.y=bpl[0].p1.y+h/10;
+  bpl[1].p2.x=bpl[1].p3.x-w/4;
+  bpl[1].p2.y=bpl[1].p3.y+h/10;
 
-     bpl[3].type=BEZ_CURVE_TO;
-     bpl[3].p3.x=p.x+w*0.19;
-     bpl[3].p3.y=p.y+h;
-     bpl[3].p1.x=bpl[2].p3.x-w/4;
-     bpl[3].p1.y=bpl[2].p3.y-h/10;
-     bpl[3].p2.x=bpl[3].p3.x+w/4;
-     bpl[3].p2.y=bpl[3].p3.y-h/10;
+  bpl[2].type=BEZ_CURVE_TO;
+  bpl[2].p3.x=p.x+w*0.81;
+  bpl[2].p3.y=p.y+h;
+  bpl[2].p1.x=bpl[1].p3.x+w/4;
+  bpl[2].p1.y=bpl[1].p3.y-h/10;
+  bpl[2].p2.x=bpl[2].p3.x+w/4;
+  bpl[2].p2.y=bpl[2].p3.y+h/10;
 
-     bpl[4].type=BEZ_CURVE_TO;
-     bpl[4].p3.x=p.x+w*0.19;
-     bpl[4].p3.y=p.y;
-     bpl[4].p1.x=bpl[3].p3.x-w/4;
-     bpl[4].p1.y=bpl[3].p3.y+h/10;
-     bpl[4].p2.x=bpl[4].p3.x-w/4;
-     bpl[4].p2.y=bpl[4].p3.y-h/10;
+  bpl[3].type=BEZ_CURVE_TO;
+  bpl[3].p3.x=p.x+w*0.19;
+  bpl[3].p3.y=p.y+h;
+  bpl[3].p1.x=bpl[2].p3.x-w/4;
+  bpl[3].p1.y=bpl[2].p3.y-h/10;
+  bpl[3].p2.x=bpl[3].p3.x+w/4;
+  bpl[3].p2.y=bpl[3].p3.y-h/10;
+
+  bpl[4].type=BEZ_CURVE_TO;
+  bpl[4].p3.x=p.x+w*0.19;
+  bpl[4].p3.y=p.y;
+  bpl[4].p1.x=bpl[3].p3.x-w/4;
+  bpl[4].p1.y=bpl[3].p3.y+h/10;
+  bpl[4].p2.x=bpl[4].p3.x-w/4;
+  bpl[4].p2.y=bpl[4].p3.y-h/10;
 }
+
 
 /* drawing stuff */
 static void
@@ -343,8 +378,9 @@ goal_draw (Goal *goal, DiaRenderer *renderer)
   text_draw (goal->text, renderer);
 }
 
+
 static void
-goal_update_data(Goal *goal, AnchorShape horiz, AnchorShape vert)
+goal_update_data (Goal *goal, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &goal->element;
   ElementBBExtras *extra = &elem->extra_spacing;
@@ -361,45 +397,58 @@ goal_update_data(Goal *goal, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox(goal->text, NULL);
+  text_calc_boundingbox (goal->text, NULL);
   w = goal->text->max_width + goal->padding*2;
   h = goal->text->height * goal->text->numlines + goal->padding*2;
 
   /* autoscale here */
-  if (w > elem->width) elem->width = w;
-  if (h > elem->height) elem->height = h;
-  if (elem->width<elem->height) elem->width=elem->height;
+  if (w > elem->width) {
+    elem->width = w;
+  }
+
+  if (h > elem->height) {
+    elem->height = h;
+  }
+
+  if (elem->width < elem->height) {
+    elem->width = elem->height;
+  }
 
   /* move shape if necessary ... */
   switch (horiz) {
-  case ANCHOR_MIDDLE:
-    elem->corner.x = center.x - elem->width/2; break;
-  case ANCHOR_END:
-    elem->corner.x = bottom_right.x - elem->width; break;
-  default:
-    break;
+    case ANCHOR_MIDDLE:
+      elem->corner.x = center.x - elem->width/2;
+      break;
+    case ANCHOR_END:
+      elem->corner.x = bottom_right.x - elem->width;
+      break;
+    case ANCHOR_START:
+    default:
+      break;
   }
+
   switch (vert) {
-  case ANCHOR_MIDDLE:
-    elem->corner.y = center.y - elem->height/2; break;
-  case ANCHOR_END:
-    elem->corner.y = bottom_right.y - elem->height; break;
-  default:
-    break;
+    case ANCHOR_MIDDLE:
+      elem->corner.y = center.y - elem->height/2; break;
+    case ANCHOR_END:
+      elem->corner.y = bottom_right.y - elem->height; break;
+    case ANCHOR_START:
+    default:
+      break;
   }
 
   p = elem->corner;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - goal->text->height * goal->text->numlines / 2 +
     goal->text->ascent;
-  text_set_position(goal->text, &p);
+  text_set_position (goal->text, &p);
 
   extra->border_trans = GOAL_LINE_WIDTH;
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 
   /* Update connections: */
   p = elem->corner;
@@ -409,6 +458,8 @@ goal_update_data(Goal *goal, AnchorShape horiz, AnchorShape vert)
   switch (goal->type) {
     case SOFTGOAL: update_softgoal_connectors(c,p,w,h); break;
     case GOAL:     update_goal_connectors(c,p,w,h); break;
+    default:
+      g_return_if_reached ();
   }
 }
 

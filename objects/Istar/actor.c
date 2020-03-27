@@ -193,61 +193,96 @@ actor_distance_from(Actor *actor, Point *point)
 				 ACTOR_BORDER_WIDTH, point);
 }
 
-static void
-actor_select(Actor *actor, Point *clicked_point,
-	   DiaRenderer *interactive_renderer)
-{
-  text_set_cursor(actor->text, clicked_point, interactive_renderer);
-  text_grab_focus(actor->text, &actor->element.object);
 
-  element_update_handles(&actor->element);
+static void
+actor_select (Actor       *actor,
+              Point       *clicked_point,
+              DiaRenderer *interactive_renderer)
+{
+  text_set_cursor (actor->text, clicked_point, interactive_renderer);
+  text_grab_focus (actor->text, &actor->element.object);
+
+  element_update_handles (&actor->element);
 }
 
+
 static ObjectChange*
-actor_move_handle(Actor *actor, Handle *handle,
-		Point *to, ConnectionPoint *cp,
-		HandleMoveReason reason, ModifierKeys modifiers)
+actor_move_handle (Actor            *actor,
+                   Handle           *handle,
+                   Point            *to,
+                   ConnectionPoint  *cp,
+                   HandleMoveReason  reason,
+                   ModifierKeys      modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
 
-  assert(actor!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (actor != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  element_move_handle(&actor->element, handle->id, to, cp, reason, modifiers);
+  element_move_handle (&actor->element,
+                       handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
-  case HANDLE_RESIZE_NW:
-    horiz = ANCHOR_END; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_N:
-    vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_NE:
-    horiz = ANCHOR_START; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_E:
-    horiz = ANCHOR_START; break;
-  case HANDLE_RESIZE_SE:
-    horiz = ANCHOR_START; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_S:
-    vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_SW:
-    horiz = ANCHOR_END; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_W:
-    horiz = ANCHOR_END; break;
-  default:
-    break;
+    case HANDLE_RESIZE_NW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_N:
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_NE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_E:
+      horiz = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_S:
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_W:
+      horiz = ANCHOR_END;
+      break;
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_CUSTOM1:
+    case HANDLE_CUSTOM2:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      break;
   }
-  actor_update_data(actor, horiz, vert);
+
+  actor_update_data (actor, horiz, vert);
+
   return NULL;
 }
 
+
 static ObjectChange*
-actor_move(Actor *actor, Point *to)
+actor_move (Actor *actor, Point *to)
 {
   actor->element.corner = *to;
 
-  actor_update_data(actor, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  actor_update_data (actor, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
   return NULL;
 }
+
 
 /* drawing stuff */
 static void
@@ -298,6 +333,7 @@ actor_draw (Actor *actor, DiaRenderer *renderer)
   pi2.y=pi1.y;
 
   dia_renderer_set_linewidth (renderer, ACTOR_BORDER_WIDTH);
+
   switch (actor->type) {
     case ACTOR_AGENT:
       dia_renderer_draw_line (renderer, &ps1, &ps2, &ACTOR_FG_COLOR);
@@ -311,12 +347,14 @@ actor_draw (Actor *actor, DiaRenderer *renderer)
       break;
     case ACTOR_UNSPECIFIED:
       break;
+    default:
+      g_return_if_reached ();
   }
 }
 
 
 static void
-actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
+actor_update_data (Actor *actor, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &actor->element;
   DiaObject *obj = &elem->object;
@@ -333,37 +371,53 @@ actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox(actor->text, NULL);
+  text_calc_boundingbox (actor->text, NULL);
   width = actor->text->max_width+0.5;
   height = actor->text->height * (actor->text->numlines + 3); /* added 3 blank lines for top */
 
   /* minimal radius */
-  mradius=width;
-  if (mradius<height) mradius=height;
-  if (mradius<ACTOR_RADIUS) mradius=ACTOR_RADIUS;
+  mradius = width;
+  if (mradius < height) {
+    mradius = height;
+  }
+
+  if (mradius < ACTOR_RADIUS) {
+    mradius = ACTOR_RADIUS;
+  }
 
   /* radius */
-  radius=elem->width;
-  if (radius<elem->height) radius=elem->height;
+  radius = elem->width;
+  if (radius < elem->height) {
+    radius = elem->height;
+  }
 
   /* enforce (minimal or resized) radius */
-  if (radius<mradius) radius=mradius;
+  if (radius < mradius) {
+    radius = mradius;
+  }
   elem->width=elem->height=radius;
 
   /* move shape if necessary ... (untouched) */
   switch (horiz) {
     case ANCHOR_MIDDLE:
-      elem->corner.x = center.x - elem->width/2; break;
+      elem->corner.x = center.x - elem->width/2;
+      break;
     case ANCHOR_END:
-      elem->corner.x = bottom_right.x - elem->width; break;
+      elem->corner.x = bottom_right.x - elem->width;
+      break;
+    case ANCHOR_START:
     default:
       break;
   }
+
   switch (vert) {
     case ANCHOR_MIDDLE:
-      elem->corner.y = center.y - elem->height/2; break;
+      elem->corner.y = center.y - elem->height/2;
+      break;
     case ANCHOR_END:
-      elem->corner.y = bottom_right.y - elem->height; break;
+      elem->corner.y = bottom_right.y - elem->height;
+      break;
+    case ANCHOR_START:
     default:
       break;
   }
@@ -372,32 +426,32 @@ actor_update_data(Actor *actor, AnchorShape horiz, AnchorShape vert)
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - actor->text->height*actor->text->numlines/2 +
     actor->text->ascent;
-  text_set_position(actor->text, &p);
+  text_set_position (actor->text, &p);
 
   /* compute connection positions */
   c.x = elem->corner.x + elem->width / 2;
   c.y = elem->corner.y + elem->height / 2;
   dw = elem->width  / 2.0;
   dh = elem->height / 2.0;
-  for (i = 0; i < NUM_CONNECTIONS-1; i++) {
+  for (i = 0; i < NUM_CONNECTIONS - 1; i++) {
     real theta = M_PI / 8.0 * i;
-    real costheta = cos(theta);
-    real sintheta = sin(theta);
-    connpoint_update(&actor->connections[i],
-		      c.x + dw * costheta,
-		      c.y - dh * sintheta,
-		      (costheta > .5?DIR_EAST:(costheta < -.5?DIR_WEST:0))|
-		      (sintheta > .5?DIR_NORTH:(sintheta < -.5?DIR_SOUTH:0)));
+    real costheta = cos (theta);
+    real sintheta = sin (theta);
+    connpoint_update (&actor->connections[i],
+                      c.x + dw * costheta,
+                      c.y - dh * sintheta,
+                      (costheta > .5?DIR_EAST:(costheta < -.5?DIR_WEST:0))|
+                      (sintheta > .5?DIR_NORTH:(sintheta < -.5?DIR_SOUTH:0)));
   }
   actor->connections[16].pos.x = c.x;
   actor->connections[16].pos.y = c.y;
 
   extra->border_trans = ACTOR_BORDER_WIDTH / 2.0;
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 }
 
 /* creation stuff */
