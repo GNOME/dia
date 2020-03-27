@@ -584,6 +584,7 @@ EXPORTS
  dia_layer_set_connectable
  dia_layer_get_type
  dia_layer_get_object_list
+ dia_layer_get_extents
 
  line_bbox
  line_line_intersection
