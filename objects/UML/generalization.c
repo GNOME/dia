@@ -330,16 +330,18 @@ generalization_update_data(Generalization *genlz)
   }
 
   switch (genlz->orth.orientation[i]) {
-  case HORIZONTAL:
-    genlz->text_align = ALIGN_CENTER;
-    genlz->text_pos.x = 0.5*(points[i].x+points[i+1].x);
-    genlz->text_pos.y = points[i].y - descent;
-    break;
-  case VERTICAL:
-    genlz->text_align = ALIGN_LEFT;
-    genlz->text_pos.x = points[i].x + 0.1;
-    genlz->text_pos.y = 0.5*(points[i].y+points[i+1].y) - descent;
-    break;
+    case HORIZONTAL:
+      genlz->text_align = ALIGN_CENTER;
+      genlz->text_pos.x = 0.5*(points[i].x+points[i+1].x);
+      genlz->text_pos.y = points[i].y - descent;
+      break;
+    case VERTICAL:
+      genlz->text_align = ALIGN_LEFT;
+      genlz->text_pos.x = points[i].x + 0.1;
+      genlz->text_pos.y = 0.5*(points[i].y+points[i+1].y) - descent;
+      break;
+    default:
+      g_return_if_reached ();
   }
 
   /* Add the text recangle to the bounding box: */

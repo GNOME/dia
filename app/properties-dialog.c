@@ -188,17 +188,19 @@ properties_give_focus(GtkWidget *widget, gpointer data)
   }
 }
 
+
 static void
-clear_dialog_globals()
+clear_dialog_globals (void)
 {
   if (object_part != NULL) {
-    gtk_container_remove(GTK_CONTAINER(dialog_vbox), object_part);
+    gtk_container_remove (GTK_CONTAINER (dialog_vbox), object_part);
     object_part = NULL;
   }
-  g_list_free(current_objects);
+  g_list_free (current_objects);
   current_objects = NULL;
   current_dia = NULL;
 }
+
 
 void
 object_properties_show(Diagram *dia, DiaObject *obj)

@@ -168,101 +168,135 @@ static int get_segment_nr(OrthConn *orth, Point *point, real max_dist)
 
 
 ObjectChange *
-orthconn_move_handle(OrthConn *orth, Handle *handle,
-		     Point *to, ConnectionPoint *cp,
-		     HandleMoveReason reason, ModifierKeys modifiers)
+orthconn_move_handle (OrthConn         *orth,
+                      Handle           *handle,
+                      Point            *to,
+                      ConnectionPoint  *cp,
+                      HandleMoveReason  reason,
+                      ModifierKeys      modifiers)
 {
   int n;
   int handle_nr;
-  DiaObject *obj = (DiaObject *)orth;
+  DiaObject *obj = (DiaObject *) orth;
   ObjectChange *change = NULL;
 
-  switch(handle->id) {
-  case HANDLE_MOVE_STARTPOINT:
-    orth->points[0] = *to;
-    if (orth->autorouting &&
-	autoroute_layout_orthconn(orth, cp,
-				  obj->handles[1]->connected_to))
+  switch (handle->id) {
+    case HANDLE_MOVE_STARTPOINT:
+      orth->points[0] = *to;
+      if (orth->autorouting &&
+          autoroute_layout_orthconn (orth, cp,
+                                     obj->handles[1]->connected_to)) {
+        break;
+      }
+      switch (orth->orientation[0]) {
+        case HORIZONTAL:
+          orth->points[1].y = to->y;
+          break;
+        case VERTICAL:
+          orth->points[1].x = to->x;
+          break;
+        default:
+          g_return_val_if_reached (NULL);
+      }
       break;
-    switch (orth->orientation[0]) {
-    case HORIZONTAL:
-      orth->points[1].y = to->y;
+    case HANDLE_MOVE_ENDPOINT:
+      n = orth->numpoints - 1;
+      orth->points[n] = *to;
+      if (orth->autorouting &&
+          autoroute_layout_orthconn (orth, obj->handles[0]->connected_to,
+                                     cp)) {
+        break;
+      }
+      switch (orth->orientation[n-1]) {
+        case HORIZONTAL:
+          orth->points[n-1].y = to->y;
+          break;
+        case VERTICAL:
+          orth->points[n-1].x = to->x;
+          break;
+        default:
+          g_return_val_if_reached (NULL);
+      }
       break;
-    case VERTICAL:
-      orth->points[1].x = to->x;
+    case HANDLE_MIDPOINT:
+      handle_nr = get_handle_nr (orth, handle);
+      if (orth->autorouting) {
+        change = orthconn_set_autorouting (orth, FALSE);
+      }
+      switch (orth->orientation[handle_nr]) {
+        case HORIZONTAL:
+          orth->points[handle_nr].y = to->y;
+          orth->points[handle_nr+1].y = to->y;
+          break;
+        case VERTICAL:
+          orth->points[handle_nr].x = to->x;
+          orth->points[handle_nr+1].x = to->x;
+          break;
+        default:
+          g_return_val_if_reached (NULL);
+      }
       break;
-    }
-    break;
-  case HANDLE_MOVE_ENDPOINT:
-    n = orth->numpoints - 1;
-    orth->points[n] = *to;
-    if (orth->autorouting &&
-	autoroute_layout_orthconn(orth, obj->handles[0]->connected_to,
-				  cp))
+    case HANDLE_RESIZE_NW:
+    case HANDLE_RESIZE_N:
+    case HANDLE_RESIZE_NE:
+    case HANDLE_RESIZE_W:
+    case HANDLE_RESIZE_E:
+    case HANDLE_RESIZE_SW:
+    case HANDLE_RESIZE_S:
+    case HANDLE_RESIZE_SE:
+    case HANDLE_CUSTOM2:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      g_warning ("Internal error in orthconn_move_handle.\n");
       break;
-    switch (orth->orientation[n-1]) {
-    case HORIZONTAL:
-      orth->points[n-1].y = to->y;
-      break;
-    case VERTICAL:
-      orth->points[n-1].x = to->x;
-      break;
-    }
-    break;
-  case HANDLE_MIDPOINT:
-    handle_nr = get_handle_nr(orth, handle);
-    if (orth->autorouting)
-      change = orthconn_set_autorouting(orth, FALSE);
-    switch (orth->orientation[handle_nr]) {
-    case HORIZONTAL:
-      orth->points[handle_nr].y = to->y;
-      orth->points[handle_nr+1].y = to->y;
-      break;
-    case VERTICAL:
-      orth->points[handle_nr].x = to->x;
-      orth->points[handle_nr+1].x = to->x;
-      break;
-    }
-    break;
-  default:
-    g_warning("Internal error in orthconn_move_handle.\n");
-    break;
   }
 
   return change;
 }
 
+
 ObjectChange *
-orthconn_move(OrthConn *orth, Point *to)
+orthconn_move (OrthConn *orth, Point *to)
 {
   Point p;
   int i;
 
   p = *to;
-  point_sub(&p, &orth->points[0]);
+  point_sub (&p, &orth->points[0]);
 
   orth->points[0] = *to;
-  for (i=1;i<orth->numpoints;i++) {
-    point_add(&orth->points[i], &p);
+  for (i = 1; i < orth->numpoints; i++) {
+    point_add (&orth->points[i], &p);
   }
+
   return NULL;
 }
 
+
 real
-orthconn_distance_from(OrthConn *orth, Point *point, real line_width)
+orthconn_distance_from (OrthConn *orth, Point *point, real line_width)
 {
   int i;
   real dist;
 
-  dist = distance_line_point( &orth->points[0], &orth->points[1],
-			      line_width, point);
-  for (i=1;i<orth->numpoints-1;i++) {
-    dist = MIN(dist,
-	       distance_line_point( &orth->points[i], &orth->points[i+1],
-				    line_width, point));
+  dist = distance_line_point (&orth->points[0], &orth->points[1],
+                              line_width, point);
+
+  for (i = 1; i < orth->numpoints - 1; i++) {
+    dist = MIN (dist,
+                distance_line_point (&orth->points[i], &orth->points[i+1],
+                                     line_width, point));
   }
+
   return dist;
 }
+
 
 static void
 neworthconn_update_midpoints(OrthConn *orth)
@@ -913,115 +947,132 @@ insert_handle(OrthConn *orth, int segment,
   orth->numhandles = orth->numpoints-1;
 }
 
+
 static void
-endsegment_change_free(struct EndSegmentChange *change)
+endsegment_change_free (struct EndSegmentChange *change)
 {
   if ( (change->type==TYPE_ADD_SEGMENT && !change->applied) ||
        (change->type==TYPE_REMOVE_SEGMENT && change->applied) ){
-    if (change->handle)
-      g_free(change->handle);
+    if (change->handle) {
+      g_free (change->handle);
+    }
     change->handle = NULL;
   }
   if (change->cplchange) {
-    if (change->cplchange->free) change->cplchange->free(change->cplchange);
-    g_free(change->cplchange);
+    if (change->cplchange->free) {
+      change->cplchange->free (change->cplchange);
+    }
+    g_free (change->cplchange);
     change->cplchange = NULL;
   }
 }
 
+
 static void
-endsegment_change_apply(struct EndSegmentChange *change, DiaObject *obj)
+endsegment_change_apply (struct EndSegmentChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn *)obj;
 
   change->applied = 1;
 
   switch (change->type) {
-  case TYPE_ADD_SEGMENT:
-    object_unconnect(obj, change->old_end_handle);
-    if (change->segment==0) { /* first */
-      add_point(orth, 0, &change->point);
-      insert_handle(orth, change->segment,
-		    change->handle, FLIP_ORIENT(orth->orientation[0]) );
-      setup_midpoint_handle(orth->handles[1]);
-      obj->position = orth->points[0];
-      change->cplchange = connpointline_add_point(orth->midpoints,
-						  &change->point);
-    } else { /* last */
-      add_point(orth, orth->numpoints, &change->point);
-      insert_handle(orth, change->segment, change->handle,
-		    FLIP_ORIENT(orth->orientation[orth->numpoints-3]) );
-      setup_midpoint_handle(orth->handles[orth->numpoints-3]);
-      change->cplchange = connpointline_add_point(orth->midpoints,
-						  &orth->midpoints->end);
-    }
-    if (change->cp)
-      object_connect(obj, change->handle, change->cp);
-    break;
-  case TYPE_REMOVE_SEGMENT:
-    object_unconnect(obj, change->old_end_handle);
-    change->cplchange =
-      connpointline_remove_point(orth->midpoints,
-				 &orth->points[change->segment]);
-    if (change->segment==0) { /* first */
-      delete_point(orth, 0);
-      remove_handle(orth, 0);
-      setup_endpoint_handle(orth->handles[0], HANDLE_MOVE_STARTPOINT);
-      obj->position = orth->points[0];
-   } else { /* last */
-      delete_point(orth, orth->numpoints-1);
-      remove_handle(orth, change->segment);
-      setup_endpoint_handle(orth->handles[orth->numpoints-2],
-			    HANDLE_MOVE_ENDPOINT);
-    }
-    break;
+    case TYPE_ADD_SEGMENT:
+      object_unconnect (obj, change->old_end_handle);
+      if (change->segment==0) { /* first */
+        add_point (orth, 0, &change->point);
+        insert_handle (orth, change->segment,
+                       change->handle, FLIP_ORIENT(orth->orientation[0]) );
+        setup_midpoint_handle (orth->handles[1]);
+        obj->position = orth->points[0];
+        change->cplchange = connpointline_add_point (orth->midpoints,
+                                                     &change->point);
+      } else { /* last */
+        add_point (orth, orth->numpoints, &change->point);
+        insert_handle (orth, change->segment, change->handle,
+                       FLIP_ORIENT(orth->orientation[orth->numpoints-3]) );
+        setup_midpoint_handle (orth->handles[orth->numpoints-3]);
+        change->cplchange = connpointline_add_point (orth->midpoints,
+                                                     &orth->midpoints->end);
+      }
+      if (change->cp) {
+        object_connect (obj, change->handle, change->cp);
+      }
+      break;
+    case TYPE_REMOVE_SEGMENT:
+      object_unconnect (obj, change->old_end_handle);
+      change->cplchange =
+        connpointline_remove_point (orth->midpoints,
+                                    &orth->points[change->segment]);
+      if (change->segment==0) { /* first */
+        delete_point (orth, 0);
+        remove_handle (orth, 0);
+        setup_endpoint_handle (orth->handles[0], HANDLE_MOVE_STARTPOINT);
+        obj->position = orth->points[0];
+      } else { /* last */
+        delete_point (orth, orth->numpoints-1);
+        remove_handle (orth, change->segment);
+        setup_endpoint_handle (orth->handles[orth->numpoints-2],
+                               HANDLE_MOVE_ENDPOINT);
+      }
+      break;
+    default:
+      g_return_if_reached ();
   }
-  neworthconn_update_midpoints(orth); /* useless ? */
+  neworthconn_update_midpoints (orth); /* useless ? */
 }
+
 
 static void
-endsegment_change_revert(struct EndSegmentChange *change, DiaObject *obj)
+endsegment_change_revert (struct EndSegmentChange *change, DiaObject *obj)
 {
-  OrthConn *orth = (OrthConn *)obj;
+  OrthConn *orth = (OrthConn *) obj;
 
-  change->cplchange->revert(change->cplchange,obj);
+  change->cplchange->revert (change->cplchange, obj);
+
   switch (change->type) {
-  case TYPE_ADD_SEGMENT:
-    object_unconnect(obj, change->handle);
-    if (change->segment==0) { /* first */
-      delete_point(orth, 0);
-      remove_handle(orth, 0);
-      setup_endpoint_handle(orth->handles[0], HANDLE_MOVE_STARTPOINT);
-      obj->position = orth->points[0];
-   } else { /* last */
-      delete_point(orth, orth->numpoints-1);
-      remove_handle(orth, change->segment);
-      setup_endpoint_handle(orth->handles[orth->numpoints-2],
-			    HANDLE_MOVE_ENDPOINT);
-    }
-    if (change->cp)
-      object_connect(obj, change->old_end_handle, change->cp);
-    break;
-  case TYPE_REMOVE_SEGMENT:
-    if (change->segment==0) { /* first */
-      add_point(orth, 0, &change->point);
-      insert_handle(orth, change->segment,
-		    change->handle, FLIP_ORIENT(orth->orientation[0]) );
-      setup_midpoint_handle(orth->handles[1]);
-      obj->position = orth->points[0];
-    } else { /* last */
-      add_point(orth, orth->numpoints, &change->point);
-      insert_handle(orth, change->segment, change->handle,
-		    FLIP_ORIENT(orth->orientation[orth->numpoints-3]) );
-      setup_midpoint_handle(orth->handles[orth->numpoints-3]);
-    }
-    if (change->cp)
-      object_connect(obj, change->old_end_handle, change->cp);
-    break;
+    case TYPE_ADD_SEGMENT:
+      object_unconnect(obj, change->handle);
+      if (change->segment==0) { /* first */
+        delete_point (orth, 0);
+        remove_handle (orth, 0);
+        setup_endpoint_handle (orth->handles[0], HANDLE_MOVE_STARTPOINT);
+        obj->position = orth->points[0];
+      } else { /* last */
+        delete_point (orth, orth->numpoints-1);
+        remove_handle (orth, change->segment);
+        setup_endpoint_handle (orth->handles[orth->numpoints-2],
+                               HANDLE_MOVE_ENDPOINT);
+      }
+      if (change->cp) {
+        object_connect (obj, change->old_end_handle, change->cp);
+      }
+      break;
+    case TYPE_REMOVE_SEGMENT:
+      if (change->segment==0) { /* first */
+        add_point (orth, 0, &change->point);
+        insert_handle (orth, change->segment,
+                       change->handle, FLIP_ORIENT (orth->orientation[0]) );
+        setup_midpoint_handle (orth->handles[1]);
+        obj->position = orth->points[0];
+      } else { /* last */
+        add_point (orth, orth->numpoints, &change->point);
+        insert_handle (orth, change->segment, change->handle,
+                       FLIP_ORIENT (orth->orientation[orth->numpoints-3]) );
+        setup_midpoint_handle (orth->handles[orth->numpoints-3]);
+      }
+      if (change->cp) {
+        object_connect (obj, change->old_end_handle, change->cp);
+      }
+      break;
+    default:
+      g_return_if_reached ();
   }
+
   change->applied = 0;
-  neworthconn_update_midpoints(orth); /* useless ? */
+
+  neworthconn_update_midpoints (orth); /* useless ? */
 }
+
 
 static ObjectChange *
 endsegment_create_change(OrthConn *orth, enum change_type type,
@@ -1078,8 +1129,9 @@ midsegment_change_free(struct MidSegmentChange *change)
   }
 }
 
+
 static void
-midsegment_change_apply(struct MidSegmentChange *change, DiaObject *obj)
+midsegment_change_apply (struct MidSegmentChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn *)obj;
   int seg;
@@ -1087,71 +1139,77 @@ midsegment_change_apply(struct MidSegmentChange *change, DiaObject *obj)
   change->applied = 1;
 
   switch (change->type) {
-  case TYPE_ADD_SEGMENT:
-    add_point(orth, change->segment+1, &change->points[1]);
-    add_point(orth, change->segment+1, &change->points[0]);
-    insert_handle(orth, change->segment+1, change->handles[1],
-		  orth->orientation[change->segment] );
-    insert_handle(orth, change->segment+1, change->handles[0],
-		  FLIP_ORIENT(orth->orientation[change->segment]) );
-    change->cplchange[0] =
-      connpointline_add_point(orth->midpoints,&change->points[0]);
-    change->cplchange[1] =
-      connpointline_add_point(orth->midpoints,&change->points[1]);
-    break;
-  case TYPE_REMOVE_SEGMENT:
-    seg = change->segment?change->segment:1;
-    change->cplchange[0] =
-      connpointline_remove_point(orth->midpoints,
-				 &orth->points[seg-1]);
-    change->cplchange[1] =
-      connpointline_remove_point(orth->midpoints,
-				 &orth->points[seg]);
-    delete_point(orth, change->segment);
-    remove_handle(orth, change->segment);
-    delete_point(orth, change->segment);
-    remove_handle(orth, change->segment);
-    if (orth->orientation[change->segment]==HORIZONTAL) {
-      orth->points[change->segment].x = change->points[0].x;
-    } else {
-      orth->points[change->segment].y = change->points[0].y;
-    }
-    break;
+    case TYPE_ADD_SEGMENT:
+      add_point (orth, change->segment+1, &change->points[1]);
+      add_point (orth, change->segment+1, &change->points[0]);
+      insert_handle (orth, change->segment+1, change->handles[1],
+                     orth->orientation[change->segment] );
+      insert_handle (orth, change->segment+1, change->handles[0],
+                     FLIP_ORIENT (orth->orientation[change->segment]) );
+      change->cplchange[0] =
+        connpointline_add_point (orth->midpoints, &change->points[0]);
+      change->cplchange[1] =
+        connpointline_add_point (orth->midpoints, &change->points[1]);
+      break;
+    case TYPE_REMOVE_SEGMENT:
+      seg = change->segment?change->segment:1;
+      change->cplchange[0] =
+        connpointline_remove_point (orth->midpoints,
+          &orth->points[seg-1]);
+      change->cplchange[1] =
+        connpointline_remove_point (orth->midpoints,
+          &orth->points[seg]);
+      delete_point (orth, change->segment);
+      remove_handle (orth, change->segment);
+      delete_point (orth, change->segment);
+      remove_handle (orth, change->segment);
+      if (orth->orientation[change->segment]==HORIZONTAL) {
+        orth->points[change->segment].x = change->points[0].x;
+      } else {
+        orth->points[change->segment].y = change->points[0].y;
+      }
+      break;
+    default:
+     g_return_if_reached ();
   }
-  neworthconn_update_midpoints(orth); /* useless ? */
+  neworthconn_update_midpoints (orth); /* useless ? */
 }
 
+
 static void
-midsegment_change_revert(struct MidSegmentChange *change, DiaObject *obj)
+midsegment_change_revert (struct MidSegmentChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn *)obj;
 
-  change->cplchange[0]->revert(change->cplchange[0],obj);
-  change->cplchange[1]->revert(change->cplchange[1],obj);
+  change->cplchange[0]->revert (change->cplchange[0], obj);
+  change->cplchange[1]->revert (change->cplchange[1], obj);
 
   switch (change->type) {
-  case TYPE_ADD_SEGMENT:
-    delete_point(orth, change->segment+1);
-    remove_handle(orth, change->segment+1);
-    delete_point(orth, change->segment+1);
-    remove_handle(orth, change->segment+1);
-    break;
-  case TYPE_REMOVE_SEGMENT:
-    if (orth->orientation[change->segment]==HORIZONTAL) {
-      orth->points[change->segment].x = change->points[1].x;
-    } else {
-      orth->points[change->segment].y = change->points[1].y;
-    }
-    add_point(orth, change->segment, &change->points[1]);
-    add_point(orth, change->segment, &change->points[0]);
-    insert_handle(orth, change->segment, change->handles[1],
-		  orth->orientation[change->segment-1] );
-    insert_handle(orth, change->segment, change->handles[0],
-		  FLIP_ORIENT(orth->orientation[change->segment-1]) );
-    break;
+    case TYPE_ADD_SEGMENT:
+      delete_point (orth, change->segment+1);
+      remove_handle (orth, change->segment+1);
+      delete_point (orth, change->segment+1);
+      remove_handle (orth, change->segment+1);
+      break;
+    case TYPE_REMOVE_SEGMENT:
+      if (orth->orientation[change->segment]==HORIZONTAL) {
+        orth->points[change->segment].x = change->points[1].x;
+      } else {
+        orth->points[change->segment].y = change->points[1].y;
+      }
+      add_point (orth, change->segment, &change->points[1]);
+      add_point (orth, change->segment, &change->points[0]);
+      insert_handle (orth, change->segment, change->handles[1],
+                     orth->orientation[change->segment-1] );
+      insert_handle (orth, change->segment, change->handles[0],
+                     FLIP_ORIENT (orth->orientation[change->segment-1]) );
+      break;
+    default:
+      g_return_if_reached ();
   }
   change->applied = 0;
 }
+
 
 static ObjectChange *
 midsegment_create_change(OrthConn *orth, enum change_type type,

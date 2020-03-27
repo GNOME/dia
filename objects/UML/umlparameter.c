@@ -165,6 +165,8 @@ uml_parameter_get_string (UMLParameter *param)
     case UML_INOUT:
       len += 6;
       break;
+    default:
+      g_return_val_if_reached (NULL);
   }
 
   /* Generate string: */
@@ -184,6 +186,8 @@ uml_parameter_get_string (UMLParameter *param)
     case UML_INOUT:
       strcat (str, "inout ");
       break;
+    default:
+      g_return_val_if_reached (NULL);
   }
 
   strcat (str, param->name);

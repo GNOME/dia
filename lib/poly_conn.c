@@ -27,10 +27,12 @@
 #include "poly_conn.h"
 #include "diarenderer.h"
 
+
 enum change_type {
   TYPE_ADD_POINT,
   TYPE_REMOVE_POINT
 };
+
 
 struct PointChange {
   ObjectChange obj_change;
@@ -42,9 +44,10 @@ struct PointChange {
   int pos;
 
   Handle *handle; /* owning ref when not applied for ADD_POINT
-		     owning ref when applied for REMOVE_POINT */
+                     owning ref when applied for REMOVE_POINT */
   ConnectionPoint *connected_to; /* NULL if not connected */
 };
+
 
 static ObjectChange *
 polyconn_create_change(PolyConn *poly, enum change_type type,
@@ -80,31 +83,52 @@ static int get_handle_nr(PolyConn *poly, Handle *handle)
   return -1;
 }
 
+
 ObjectChange *
-polyconn_move_handle(PolyConn *poly, Handle *handle,
-		     Point *to, ConnectionPoint *cp,
-		     HandleMoveReason reason, ModifierKeys modifiers)
+polyconn_move_handle (PolyConn         *poly,
+                      Handle           *handle,
+                      Point            *to,
+                      ConnectionPoint  *cp,
+                      HandleMoveReason  reason,
+                      ModifierKeys      modifiers)
 {
   int handle_nr;
 
-  handle_nr = get_handle_nr(poly, handle);
-  switch(handle->id) {
-  case HANDLE_MOVE_STARTPOINT:
-    poly->points[0] = *to;
-    break;
-  case HANDLE_MOVE_ENDPOINT:
-    poly->points[poly->numpoints-1] = *to;
-    break;
-  case HANDLE_CORNER:
-    poly->points[handle_nr] = *to;
-    break;
-  default:
-    g_warning("Internal error in polyconn_move_handle.\n");
-    break;
+  handle_nr = get_handle_nr (poly, handle);
+  switch (handle->id) {
+    case HANDLE_MOVE_STARTPOINT:
+      poly->points[0] = *to;
+      break;
+    case HANDLE_MOVE_ENDPOINT:
+      poly->points[poly->numpoints-1] = *to;
+      break;
+    case HANDLE_CORNER:
+      poly->points[handle_nr] = *to;
+      break;
+    case HANDLE_RESIZE_N:
+    case HANDLE_RESIZE_NE:
+    case HANDLE_RESIZE_W:
+    case HANDLE_RESIZE_NW:
+    case HANDLE_RESIZE_E:
+    case HANDLE_RESIZE_SW:
+    case HANDLE_RESIZE_S:
+    case HANDLE_RESIZE_SE:
+    case HANDLE_CUSTOM2:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      g_warning ("Internal error in polyconn_move_handle.\n");
+      break;
   }
 
   return NULL;
 }
+
 
 ObjectChange*
 polyconn_move(PolyConn *poly, Point *to)
@@ -493,49 +517,60 @@ polyconn_change_free(struct PointChange *change)
   }
 }
 
+
 static void
-polyconn_change_apply(struct PointChange *change, DiaObject *obj)
+polyconn_change_apply (struct PointChange *change, DiaObject *obj)
 {
   change->applied = 1;
   switch (change->type) {
-  case TYPE_ADD_POINT:
-    add_handle((PolyConn *)obj, change->pos, &change->point,
-	       change->handle);
-    break;
-  case TYPE_REMOVE_POINT:
-    object_unconnect(obj, change->handle);
-    remove_handle((PolyConn *)obj, change->pos);
-    break;
+    case TYPE_ADD_POINT:
+      add_handle ((PolyConn *) obj, change->pos, &change->point,
+                  change->handle);
+      break;
+    case TYPE_REMOVE_POINT:
+      object_unconnect (obj, change->handle);
+      remove_handle ((PolyConn *) obj, change->pos);
+      break;
+    default:
+      g_return_if_reached ();
   }
 }
 
+
 static void
-polyconn_change_revert(struct PointChange *change, DiaObject *obj)
+polyconn_change_revert (struct PointChange *change, DiaObject *obj)
 {
   switch (change->type) {
-  case TYPE_ADD_POINT:
-    remove_handle((PolyConn *)obj, change->pos);
-    break;
-  case TYPE_REMOVE_POINT:
-    add_handle((PolyConn *)obj, change->pos, &change->point,
-	       change->handle);
-    if (change->connected_to) {
-      object_connect(obj, change->handle, change->connected_to);
-    }
+    case TYPE_ADD_POINT:
+      remove_handle ((PolyConn *) obj, change->pos);
+      break;
+    case TYPE_REMOVE_POINT:
+      add_handle ((PolyConn *) obj, change->pos, &change->point,
+                  change->handle);
 
-    break;
+      if (change->connected_to) {
+        object_connect (obj, change->handle, change->connected_to);
+      }
+
+      break;
+    default:
+      g_return_if_reached ();
   }
   change->applied = 0;
 }
 
+
 static ObjectChange *
-polyconn_create_change(PolyConn *poly, enum change_type type,
-		       Point *point, int pos, Handle *handle,
-		       ConnectionPoint *connected_to)
+polyconn_create_change (PolyConn         *poly,
+                        enum change_type  type,
+                        Point            *point,
+                        int               pos,
+                        Handle           *handle,
+                        ConnectionPoint  *connected_to)
 {
   struct PointChange *change;
 
-  change = g_new(struct PointChange, 1);
+  change = g_new0 (struct PointChange, 1);
 
   change->obj_change.apply = (ObjectChangeApplyFunc) polyconn_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) polyconn_change_revert;
@@ -548,5 +583,5 @@ polyconn_create_change(PolyConn *poly, enum change_type type,
   change->handle = handle;
   change->connected_to = connected_to;
 
-  return (ObjectChange *)change;
+  return (ObjectChange *) change;
 }

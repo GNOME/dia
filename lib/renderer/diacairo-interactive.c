@@ -550,6 +550,8 @@ dia_cairo_interactive_renderer_draw_object_highlighted (DiaInteractiveRenderer *
     case DIA_HIGHLIGHT_NONE:
       interactive->highlight_color = NULL;
       break;
+    default:
+      g_return_if_reached ();
   }
 
   /* usually this method would need to draw the object twice,
@@ -593,8 +595,9 @@ dia_cairo_interactive_renderer_iface_init (DiaInteractiveRendererInterface* ifac
   iface->set_selection           = dia_cairo_interactive_renderer_set_selection;
 }
 
+
 DiaRenderer *
-dia_cairo_interactive_renderer_new ()
+dia_cairo_interactive_renderer_new (void)
 {
   return g_object_new (DIA_CAIRO_TYPE_INTERACTIVE_RENDERER, NULL);
 }

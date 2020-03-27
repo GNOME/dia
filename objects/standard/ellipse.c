@@ -223,97 +223,116 @@ ellipse_distance_from(Ellipse *ellipse, Point *point)
 				ellipse->border_width, point);
 }
 
+
 static void
-ellipse_select(Ellipse *ellipse, Point *clicked_point,
-	       DiaRenderer *interactive_renderer)
+ellipse_select (Ellipse     *ellipse,
+                Point       *clicked_point,
+                DiaRenderer *interactive_renderer)
 {
-  element_update_handles(&ellipse->element);
+  element_update_handles (&ellipse->element);
 }
 
+
 static ObjectChange*
-ellipse_move_handle(Ellipse *ellipse, Handle *handle,
-		    Point *to, ConnectionPoint *cp,
-		    HandleMoveReason reason, ModifierKeys modifiers)
+ellipse_move_handle (Ellipse          *ellipse,
+                     Handle           *handle,
+                     Point            *to,
+                     ConnectionPoint  *cp,
+                     HandleMoveReason  reason,
+                     ModifierKeys      modifiers)
 {
   Element *elem = &ellipse->element;
   Point nw_to, se_to;
 
-  assert(ellipse!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (ellipse != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  assert(handle->id < 8 || handle->id == HANDLE_CUSTOM1);
+  g_return_val_if_fail (handle->id < 8 || handle->id == HANDLE_CUSTOM1, NULL);
+
   if (handle->id == HANDLE_CUSTOM1) {
     Point delta, corner_to;
     delta.x = to->x - (elem->corner.x + elem->width/2);
     delta.y = to->y - (elem->corner.y + elem->height/2);
     corner_to.x = elem->corner.x + delta.x;
     corner_to.y = elem->corner.y + delta.y;
-    return ellipse_move(ellipse, &corner_to);
+    return ellipse_move (ellipse, &corner_to);
   } else {
     if (ellipse->aspect != FREE_ASPECT){
-        float width, height;
-        float new_width, new_height;
-        float to_width, aspect_width;
-        Point center;
+      float width, height;
+      float new_width, new_height;
+      float to_width, aspect_width;
+      Point center;
 
-        width = ellipse->element.width;
-        height = ellipse->element.height;
-        center.x = elem->corner.x + width/2;
-        center.y = elem->corner.y + height/2;
-        switch (handle->id) {
+      width = ellipse->element.width;
+      height = ellipse->element.height;
+      center.x = elem->corner.x + width/2;
+      center.y = elem->corner.y + height/2;
+      switch (handle->id) {
         case HANDLE_RESIZE_E:
         case HANDLE_RESIZE_W:
-            new_width = 2 * fabs(to->x - center.x);
-            new_height = new_width / width * height;
-            break;
+          new_width = 2 * fabs(to->x - center.x);
+          new_height = new_width / width * height;
+          break;
         case HANDLE_RESIZE_N:
         case HANDLE_RESIZE_S:
-            new_height = 2 * fabs(to->y - center.y);
-            new_width = new_height / height * width;
-            break;
+          new_height = 2 * fabs(to->y - center.y);
+          new_width = new_height / height * width;
+          break;
         case HANDLE_RESIZE_NW:
         case HANDLE_RESIZE_NE:
         case HANDLE_RESIZE_SW:
         case HANDLE_RESIZE_SE:
-            to_width = 2 * fabs(to->x - center.x);
-            aspect_width = 2 * fabs(to->y - center.y) / height * width;
-            new_width = to_width < aspect_width ? to_width : aspect_width;
-            new_height = new_width / width * height;
-            break;
-	default:
-	    new_width = width;
-	    new_height = height;
-	    break;
-        }
+          to_width = 2 * fabs(to->x - center.x);
+          aspect_width = 2 * fabs(to->y - center.y) / height * width;
+          new_width = to_width < aspect_width ? to_width : aspect_width;
+          new_height = new_width / width * height;
+          break;
+        case HANDLE_MOVE_STARTPOINT:
+        case HANDLE_MOVE_ENDPOINT:
+        case HANDLE_CUSTOM1:
+        case HANDLE_CUSTOM2:
+        case HANDLE_CUSTOM3:
+        case HANDLE_CUSTOM4:
+        case HANDLE_CUSTOM5:
+        case HANDLE_CUSTOM6:
+        case HANDLE_CUSTOM7:
+        case HANDLE_CUSTOM8:
+        case HANDLE_CUSTOM9:
+        default:
+          new_width = width;
+          new_height = height;
+          break;
+      }
 
-        nw_to.x = center.x - new_width/2;
-        nw_to.y = center.y - new_height/2;
-        se_to.x = center.x + new_width/2;
-        se_to.y = center.y + new_height/2;
+      nw_to.x = center.x - new_width/2;
+      nw_to.y = center.y - new_height/2;
+      se_to.x = center.x + new_width/2;
+      se_to.y = center.y + new_height/2;
 
-        element_move_handle(&ellipse->element, HANDLE_RESIZE_NW, &nw_to, cp, reason, modifiers);
-        element_move_handle(&ellipse->element, HANDLE_RESIZE_SE, &se_to, cp, reason, modifiers);
+      element_move_handle (&ellipse->element, HANDLE_RESIZE_NW, &nw_to, cp, reason, modifiers);
+      element_move_handle (&ellipse->element, HANDLE_RESIZE_SE, &se_to, cp, reason, modifiers);
     } else {
-        Point center;
-        Point opposite_to;
-        center.x = elem->corner.x + elem->width/2;
-        center.y = elem->corner.y + elem->height/2;
-        opposite_to.x = center.x - (to->x-center.x);
-        opposite_to.y = center.y - (to->y-center.y);
+      Point center;
+      Point opposite_to;
+      center.x = elem->corner.x + elem->width/2;
+      center.y = elem->corner.y + elem->height/2;
+      opposite_to.x = center.x - (to->x-center.x);
+      opposite_to.y = center.y - (to->y-center.y);
 
-        element_move_handle(&ellipse->element, handle->id, to, cp, reason, modifiers);
-        /* this second move screws the intended object size, e.g. from dot2dia.py
-	 * but without it the 'centered' behaviour during edit is screwed
-	 */
-        element_move_handle(&ellipse->element, 7-handle->id, &opposite_to, cp, reason, modifiers);
+      element_move_handle (&ellipse->element, handle->id, to, cp, reason, modifiers);
+      /* this second move screws the intended object size, e.g. from dot2dia.py
+       * but without it the 'centered' behaviour during edit is screwed
+       */
+      element_move_handle (&ellipse->element, 7-handle->id, &opposite_to, cp, reason, modifiers);
     }
 
-    ellipse_update_data(ellipse);
+    ellipse_update_data (ellipse);
 
     return NULL;
   }
 }
+
 
 static ObjectChange*
 ellipse_move(Ellipse *ellipse, Point *to)

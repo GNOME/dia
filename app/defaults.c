@@ -36,16 +36,18 @@ static DiaObject *current_object = NULL;
 
 static GtkWidget *no_defaults_dialog = NULL;
 
-static gint defaults_respond(GtkWidget *widget, gint response_id, gpointer data);
+static gint defaults_respond (GtkWidget *widget, gint response_id, gpointer data);
 
-static void create_dialog()
+
+static void
+create_dialog (void)
 {
-  dialog = gtk_dialog_new_with_buttons(_("Object defaults"),
-                                       NULL, 0,
-                                       _("_Close"), GTK_RESPONSE_CLOSE,
-                                       _("_Apply"), GTK_RESPONSE_APPLY,
-                                       _("_OK"), GTK_RESPONSE_OK,
-                                       NULL);
+  dialog = gtk_dialog_new_with_buttons (_("Object defaults"),
+                                        NULL, 0,
+                                        _("_Close"), GTK_RESPONSE_CLOSE,
+                                        _("_Apply"), GTK_RESPONSE_APPLY,
+                                        _("_OK"), GTK_RESPONSE_OK,
+                                        NULL);
 
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
@@ -53,16 +55,17 @@ static void create_dialog()
 
   gtk_window_set_role (GTK_WINDOW (dialog), "defaults_window");
 
-  g_signal_connect(G_OBJECT (dialog), "response",
-		   G_CALLBACK(defaults_respond), NULL);
-  g_signal_connect(G_OBJECT(dialog), "delete_event",
-		   G_CALLBACK(gtk_widget_hide), NULL);
+  g_signal_connect (G_OBJECT (dialog), "response",
+                    G_CALLBACK (defaults_respond), NULL);
+  g_signal_connect (G_OBJECT (dialog), "delete_event",
+                    G_CALLBACK (gtk_widget_hide), NULL);
 
-  no_defaults_dialog = gtk_label_new(_("This object has no defaults."));
+  no_defaults_dialog = gtk_label_new (_("This object has no defaults."));
   gtk_widget_show (no_defaults_dialog);
 
-  g_object_ref_sink(G_OBJECT(no_defaults_dialog));
+  g_object_ref_sink (G_OBJECT (no_defaults_dialog));
 }
+
 
 static gint
 defaults_dialog_destroyed(GtkWidget *widget, gpointer data)

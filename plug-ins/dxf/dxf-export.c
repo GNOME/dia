@@ -263,38 +263,41 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 {
 }
 
-static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
-{
-    DxfRenderer *renderer = DXF_RENDERER(self);
-    char   *style;
 
-    switch(mode)
-    {
+static void
+set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
+{
+  DxfRenderer *renderer = DXF_RENDERER(self);
+  char   *style;
+
+  switch (mode) {
     case LINESTYLE_DASHED:
-       style = "DASH";
-       break;
+      style = "DASH";
+      break;
     case LINESTYLE_DASH_DOT:
-       style = "DASHDOT";
-       break;
+      style = "DASHDOT";
+      break;
     case LINESTYLE_DASH_DOT_DOT:
-       style = "DASHDOT";
-       break;
+      style = "DASHDOT";
+      break;
     case LINESTYLE_DOTTED:
-       style = "DOT";
-       break;
+      style = "DOT";
+      break;
     case LINESTYLE_SOLID:
+    case LINESTYLE_DEFAULT:
     default:
-       style = "CONTINUOUS";
-       break;
-    }
-    renderer->lcurrent.style = renderer->fcurrent.style = style;
+      style = "CONTINUOUS";
+      break;
+  }
+  renderer->lcurrent.style = renderer->fcurrent.style = style;
 }
+
 
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {
 }
+
 
 static int
 dxf_color (const Color *color)

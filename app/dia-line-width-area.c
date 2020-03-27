@@ -184,45 +184,38 @@ dia_line_width_area_draw (GtkWidget      *self, /*cairo_t *ctx*/
   return FALSE;
 }
 
-static gint
-dia_line_width_area_event (GtkWidget *self,
-                           GdkEvent  *event)
+
+static gboolean
+dia_line_width_area_button_press_event (GtkWidget      *self,
+                                        GdkEventButton *event)
 {
-  GdkEventButton *bevent;
   int target;
   DiaLineWidthArea *priv = DIA_LINE_WIDTH_AREA (self);
 
-  switch (event->type)
-    {
-    case GDK_BUTTON_PRESS:
-      bevent = (GdkEventButton *) event;
-      if (bevent->button == 1) {
-        target = linewidth_area_target (bevent->x, bevent->y);
-        if (target != 0) {
-          priv->active = target;
-          /* Trigger redraw */
-          gtk_widget_queue_draw (self);
-          attributes_set_default_linewidth(BASE_WIDTH*(target-1));
-        }
-      }
-      break;
-
-    case GDK_2BUTTON_PRESS:
-      if (priv->dialog == NULL)
+  if (event->type == GDK_2BUTTON_PRESS) {
+    if (priv->dialog == NULL) {
         dia_line_width_area_create_dialog (priv, GTK_WINDOW (gtk_widget_get_toplevel (self)));
-      else
-        gtk_widget_grab_focus (priv->button);
-      gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->button), attributes_get_default_linewidth ());
-
-      gtk_widget_show (priv->dialog);
-      break;
-
-    default:
-      break;
+    } else {
+      gtk_widget_grab_focus (priv->button);
     }
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->button), attributes_get_default_linewidth ());
+
+    gtk_widget_show (priv->dialog);
+  } else if (event->type == GDK_BUTTON_PRESS) {
+    if (event->button == 1) {
+      target = linewidth_area_target (event->x, event->y);
+      if (target != 0) {
+        priv->active = target;
+        /* Trigger redraw */
+        gtk_widget_queue_draw (self);
+        attributes_set_default_linewidth (BASE_WIDTH * (target-1));
+      }
+    }
+  }
 
   return FALSE;
 }
+
 
 static void
 dia_line_width_area_class_init (DiaLineWidthAreaClass *class)
@@ -231,10 +224,11 @@ dia_line_width_area_class_init (DiaLineWidthAreaClass *class)
 
   widget_class = GTK_WIDGET_CLASS (class);
   widget_class->expose_event = dia_line_width_area_draw;
-  widget_class->event = dia_line_width_area_event;
+  widget_class->button_press_event = dia_line_width_area_button_press_event;
 
   attributes_set_default_linewidth (persistence_register_real ("linewidth", 0.1));
 }
+
 
 static void
 dia_line_width_area_init (DiaLineWidthArea *self)

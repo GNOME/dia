@@ -318,25 +318,27 @@ dependency_update_data(Dependency *dep)
   }
 
   switch (dep->orth.orientation[i]) {
-  case HORIZONTAL:
-    dep->text_align = ALIGN_CENTER;
-    dep->text_pos.x = 0.5*(points[i].x+points[i+1].x);
-    dep->text_pos.y = points[i].y;
-    if (dep->name)
-      dep->text_pos.y -= dia_font_descent(dep->name,
-					  dep->font,
-					  dep->font_height);
-    break;
-  case VERTICAL:
-    dep->text_align = ALIGN_LEFT;
-    dep->text_pos.x = points[i].x + 0.1;
-    dep->text_pos.y =
-      0.5*(points[i].y+points[i+1].y);
-    if (dep->name)
-      dep->text_pos.y -= dia_font_descent(dep->name,
-					  dep->font,
-					  dep->font_height);
-    break;
+    case HORIZONTAL:
+      dep->text_align = ALIGN_CENTER;
+      dep->text_pos.x = 0.5*(points[i].x+points[i+1].x);
+      dep->text_pos.y = points[i].y;
+      if (dep->name)
+        dep->text_pos.y -= dia_font_descent (dep->name,
+                                             dep->font,
+                                             dep->font_height);
+      break;
+    case VERTICAL:
+      dep->text_align = ALIGN_LEFT;
+      dep->text_pos.x = points[i].x + 0.1;
+      dep->text_pos.y =
+        0.5*(points[i].y+points[i+1].y);
+      if (dep->name)
+        dep->text_pos.y -= dia_font_descent (dep->name,
+                                             dep->font,
+                                             dep->font_height);
+      break;
+    default:
+      g_return_if_reached ();
   }
 
   /* Add the text recangle to the bounding box: */

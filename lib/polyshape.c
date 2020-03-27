@@ -564,46 +564,56 @@ polyshape_change_free(struct PointChange *change)
   }
 }
 
+
 static void
-polyshape_change_apply(struct PointChange *change, DiaObject *obj)
+polyshape_change_apply (struct PointChange *change, DiaObject *obj)
 {
   change->applied = 1;
   switch (change->type) {
-  case TYPE_ADD_POINT:
-    add_handle((PolyShape *)obj, change->pos, &change->point,
-	       change->handle, change->cp1, change->cp2);
-    break;
-  case TYPE_REMOVE_POINT:
-    object_unconnect(obj, change->handle);
-    remove_handle((PolyShape *)obj, change->pos);
-    break;
+    case TYPE_ADD_POINT:
+      add_handle ((PolyShape *) obj, change->pos, &change->point,
+                  change->handle, change->cp1, change->cp2);
+      break;
+    case TYPE_REMOVE_POINT:
+      object_unconnect (obj, change->handle);
+      remove_handle ((PolyShape *) obj, change->pos);
+      break;
+    default:
+      g_return_if_reached ();
   }
 }
 
+
 static void
-polyshape_change_revert(struct PointChange *change, DiaObject *obj)
+polyshape_change_revert (struct PointChange *change, DiaObject *obj)
 {
   switch (change->type) {
-  case TYPE_ADD_POINT:
-    remove_handle((PolyShape *)obj, change->pos);
-    break;
-  case TYPE_REMOVE_POINT:
-    add_handle((PolyShape *)obj, change->pos, &change->point,
-	       change->handle, change->cp1, change->cp2);
-
-    break;
+    case TYPE_ADD_POINT:
+      remove_handle ((PolyShape *)obj, change->pos);
+      break;
+    case TYPE_REMOVE_POINT:
+      add_handle ((PolyShape *) obj, change->pos, &change->point,
+                  change->handle, change->cp1, change->cp2);
+      break;
+    default:
+      g_return_if_reached ();
   }
   change->applied = 0;
 }
 
+
 static ObjectChange *
-polyshape_create_change(PolyShape *poly, enum change_type type,
-		       Point *point, int pos, Handle *handle,
-		       ConnectionPoint *cp1, ConnectionPoint *cp2)
+polyshape_create_change (PolyShape        *poly,
+                         enum change_type  type,
+                         Point            *point,
+                         int               pos,
+                         Handle           *handle,
+                         ConnectionPoint  *cp1,
+                         ConnectionPoint  *cp2)
 {
   struct PointChange *change;
 
-  change = g_new(struct PointChange, 1);
+  change = g_new0 (struct PointChange, 1);
 
   change->obj_change.apply = (ObjectChangeApplyFunc) polyshape_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) polyshape_change_revert;
@@ -617,5 +627,5 @@ polyshape_create_change(PolyShape *poly, enum change_type type,
   change->cp1 = cp1;
   change->cp2 = cp2;
 
-  return (ObjectChange *)change;
+  return (ObjectChange *) change;
 }

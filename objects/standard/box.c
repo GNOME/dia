@@ -264,16 +264,20 @@ box_select(Box *box, Point *clicked_point,
   }
 }
 
-static ObjectChange*
-box_move_handle(Box *box, Handle *handle,
-		Point *to, ConnectionPoint *cp,
-		HandleMoveReason reason, ModifierKeys modifiers)
-{
-  assert(box!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
 
-  if (box->aspect != FREE_ASPECT){
+static ObjectChange*
+box_move_handle (Box              *box,
+                 Handle           *handle,
+                 Point            *to,
+                 ConnectionPoint  *cp,
+                 HandleMoveReason  reason,
+                 ModifierKeys      modifiers)
+{
+  g_return_val_if_fail (box != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+
+  if (box->aspect != FREE_ASPECT) {
     double width, height;
     double new_width, new_height;
     double to_width, aspect_width;
@@ -283,40 +287,51 @@ box_move_handle(Box *box, Handle *handle,
     width = box->element.width;
     height = box->element.height;
     switch (handle->id) {
-    case HANDLE_RESIZE_N:
-    case HANDLE_RESIZE_S:
-      new_height = fabs(to->y - corner.y);
-      new_width = new_height / height * width;
-      break;
-    case HANDLE_RESIZE_W:
-    case HANDLE_RESIZE_E:
-      new_width = fabs(to->x - corner.x);
-      new_height = new_width / width * height;
-      break;
-    case HANDLE_RESIZE_NW:
-    case HANDLE_RESIZE_NE:
-    case HANDLE_RESIZE_SW:
-    case HANDLE_RESIZE_SE:
-      to_width = fabs(to->x - corner.x);
-      aspect_width = fabs(to->y - corner.y) / height * width;
-      new_width = to_width > aspect_width ? to_width : aspect_width;
-      new_height = new_width / width * height;
-      break;
-    default:
-      new_width = width;
-      new_height = height;
-      break;
+      case HANDLE_RESIZE_N:
+      case HANDLE_RESIZE_S:
+        new_height = fabs(to->y - corner.y);
+        new_width = new_height / height * width;
+        break;
+      case HANDLE_RESIZE_W:
+      case HANDLE_RESIZE_E:
+        new_width = fabs(to->x - corner.x);
+        new_height = new_width / width * height;
+        break;
+      case HANDLE_RESIZE_NW:
+      case HANDLE_RESIZE_NE:
+      case HANDLE_RESIZE_SW:
+      case HANDLE_RESIZE_SE:
+        to_width = fabs(to->x - corner.x);
+        aspect_width = fabs(to->y - corner.y) / height * width;
+        new_width = to_width > aspect_width ? to_width : aspect_width;
+        new_height = new_width / width * height;
+        break;
+      case HANDLE_MOVE_STARTPOINT:
+      case HANDLE_MOVE_ENDPOINT:
+      case HANDLE_CUSTOM1:
+      case HANDLE_CUSTOM2:
+      case HANDLE_CUSTOM3:
+      case HANDLE_CUSTOM4:
+      case HANDLE_CUSTOM5:
+      case HANDLE_CUSTOM6:
+      case HANDLE_CUSTOM7:
+      case HANDLE_CUSTOM8:
+      case HANDLE_CUSTOM9:
+      default:
+        new_width = width;
+        new_height = height;
+        break;
     }
 
     se_to.x = corner.x + new_width;
     se_to.y = corner.y + new_height;
 
-    element_move_handle(&box->element, HANDLE_RESIZE_SE, &se_to, cp, reason, modifiers);
+    element_move_handle (&box->element, HANDLE_RESIZE_SE, &se_to, cp, reason, modifiers);
   } else {
-    element_move_handle(&box->element, handle->id, to, cp, reason, modifiers);
+    element_move_handle (&box->element, handle->id, to, cp, reason, modifiers);
   }
 
-  box_update_data(box);
+  box_update_data (box);
 
   return NULL;
 }

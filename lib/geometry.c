@@ -297,98 +297,114 @@ distance_bez_seg_point(const Point *b1, const BezPoint *b2,
     return distance_line_point(b1, &b2->p1, line_width, point);
 }
 
-real
-distance_bez_line_point(const BezPoint *b, guint npoints,
-			real line_width, const Point *point)
+
+double
+distance_bez_line_point (const BezPoint *b,
+                         guint           npoints,
+                         double          line_width,
+                         const Point    *point)
 {
   Point last;
   guint i;
-  real line_dist = G_MAXFLOAT;
+  double line_dist = G_MAXFLOAT;
 
-  g_return_val_if_fail(b[0].type == BEZ_MOVE_TO, -1);
+  g_return_val_if_fail (b[0].type == BEZ_MOVE_TO, -1);
 
   last = b[0].p1;
 
   for (i = 1; i < npoints; i++) {
-    real dist;
+    double dist;
 
     switch (b[i].type) {
-    case BEZ_MOVE_TO:
-      last = b[i].p1;
-      break;
-    case BEZ_LINE_TO:
-      dist = distance_line_point(&last, &b[i].p1, line_width, point);
-      line_dist = MIN(line_dist, dist);
-      last = b[i].p1;
-      break;
-    case BEZ_CURVE_TO:
-      dist = bez_point_distance_and_ray_crosses(&last, &b[i].p1, &b[i].p2,
-						&b[i].p3, line_width, point,
-						NULL);
-      line_dist = MIN(line_dist, dist);
-      last = b[i].p3;
-      break;
+      case BEZ_MOVE_TO:
+        last = b[i].p1;
+        break;
+      case BEZ_LINE_TO:
+        dist = distance_line_point (&last, &b[i].p1, line_width, point);
+        line_dist = MIN (line_dist, dist);
+        last = b[i].p1;
+        break;
+      case BEZ_CURVE_TO:
+        dist = bez_point_distance_and_ray_crosses (&last,
+                                                   &b[i].p1, &b[i].p2,
+                                                   &b[i].p3, line_width,
+                                                   point,
+                                                   NULL);
+        line_dist = MIN(line_dist, dist);
+        last = b[i].p3;
+        break;
+      default:
+        g_return_val_if_reached (G_MAXDOUBLE);
     }
   }
   return line_dist;
 }
 
-real
-distance_bez_shape_point(const BezPoint *b, guint npoints,
-                         real line_width, const Point *point)
+
+double
+distance_bez_shape_point (const BezPoint *b,
+                          guint           npoints,
+                          double          line_width,
+                          const Point    *point)
 {
   Point last;
   const Point *close_to; /* path must be closed to calculate distance */
   guint i;
-  real line_dist = G_MAXFLOAT;
+  double line_dist = G_MAXFLOAT;
   guint crossings = 0;
 
-  g_return_val_if_fail(b[0].type == BEZ_MOVE_TO, -1);
+  g_return_val_if_fail (b[0].type == BEZ_MOVE_TO, -1);
 
   last = b[0].p1;
   close_to = &b[0].p1;
 
   for (i = 1; i < npoints; i++) {
-    real dist;
+    double dist;
 
     switch (b[i].type) {
-    case BEZ_MOVE_TO:
-      /* no complains, there are renderers capable to handle this */
-      last = b[i].p1;
-      close_to = &b[i].p1;
-      break;
-    case BEZ_LINE_TO:
-      dist = distance_line_point(&last, &b[i].p1, line_width, point);
-      crossings += line_crosses_ray(&last, &b[i].p1, point);
-      line_dist = MIN(line_dist, dist);
-      last = b[i].p1;
-      if (close_to && close_to->x == last.x && close_to->y == last.y)
-        close_to = NULL;
-      break;
-    case BEZ_CURVE_TO:
-      dist = bez_point_distance_and_ray_crosses(&last, &b[i].p1, &b[i].p2,
-						&b[i].p3, line_width, point,
-						&crossings);
-      line_dist = MIN(line_dist, dist);
-      last = b[i].p3;
-      if (close_to && close_to->x == last.x && close_to->y == last.y)
-        close_to = NULL;
-      break;
+      case BEZ_MOVE_TO:
+        /* no complains, there are renderers capable to handle this */
+        last = b[i].p1;
+        close_to = &b[i].p1;
+        break;
+      case BEZ_LINE_TO:
+        dist = distance_line_point (&last, &b[i].p1, line_width, point);
+        crossings += line_crosses_ray (&last, &b[i].p1, point);
+        line_dist = MIN (line_dist, dist);
+        last = b[i].p1;
+        if (close_to && close_to->x == last.x && close_to->y == last.y) {
+          close_to = NULL;
+        }
+        break;
+      case BEZ_CURVE_TO:
+        dist = bez_point_distance_and_ray_crosses (&last, &b[i].p1, &b[i].p2,
+                                                   &b[i].p3, line_width,
+                                                   point, &crossings);
+        line_dist = MIN(line_dist, dist);
+        last = b[i].p3;
+        if (close_to && close_to->x == last.x && close_to->y == last.y) {
+          close_to = NULL;
+        }
+        break;
+      default:
+        g_return_val_if_reached (0.0);
     }
   }
   if (close_to) {
     /* final, implicit line-to */
-    real dist = distance_line_point(&last, close_to, line_width, point);
-    crossings += line_crosses_ray(&last, close_to, point);
-    line_dist = MIN(line_dist, dist);
+    real dist = distance_line_point (&last, close_to, line_width, point);
+    crossings += line_crosses_ray (&last, close_to, point);
+    line_dist = MIN (line_dist, dist);
   }
   /* If there is an odd number of ray crossings, we are inside the polygon.
    * Otherwise, return the minimum distance from a line segment */
-  if (crossings % 2 == 1)
+  if (crossings % 2 == 1) {
     return 0.0;
-  else
+  } else {
     return line_dist;
+  }
 }
+
 
 real
 distance_ellipse_point(const Point *centre, real width, real height,

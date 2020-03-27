@@ -187,23 +187,27 @@ static PropOffset pgram_offsets[] = {
   { NULL, 0, 0 },
 };
 
-static void
-pgram_get_props(Pgram *pgram, GPtrArray *props)
-{
-  object_get_props_from_offsets(&pgram->element.object,
-                                pgram_offsets,props);
-}
 
 static void
-pgram_set_props(Pgram *pgram, GPtrArray *props)
+pgram_get_props (Pgram *pgram, GPtrArray *props)
 {
-  object_set_props_from_offsets(&pgram->element.object,
-                                pgram_offsets,props);
-  pgram_update_data(pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  object_get_props_from_offsets (DIA_OBJECT (pgram),
+                                 pgram_offsets,props);
 }
 
+
 static void
-init_default_values() {
+pgram_set_props (Pgram *pgram, GPtrArray *props)
+{
+  object_set_props_from_offsets (DIA_OBJECT (pgram),
+                                 pgram_offsets, props);
+  pgram_update_data (pgram, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+}
+
+
+static void
+init_default_values (void)
+{
   static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
@@ -215,7 +219,7 @@ init_default_values() {
 }
 
 static real
-pgram_distance_from(Pgram *pgram, Point *point)
+pgram_distance_from (Pgram *pgram, Point *point)
 {
   Element *elem = &pgram->element;
   DiaRectangle rect;
@@ -252,7 +256,7 @@ pgram_distance_from(Pgram *pgram, Point *point)
     }
   }
 
-  return distance_rectangle_point(&rect, point);
+  return distance_rectangle_point (&rect, point);
 }
 
 static void
@@ -265,50 +269,78 @@ pgram_select(Pgram *pgram, Point *clicked_point,
   element_update_handles(&pgram->element);
 }
 
+
 static ObjectChange*
-pgram_move_handle(Pgram *pgram, Handle *handle,
-		  Point *to, ConnectionPoint *cp,
-		  HandleMoveReason reason, ModifierKeys modifiers)
+pgram_move_handle (Pgram            *pgram,
+                   Handle           *handle,
+                   Point            *to,
+                   ConnectionPoint  *cp,
+                   HandleMoveReason  reason,
+                   ModifierKeys      modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
   Point corner;
   real width, height;
 
-  assert(pgram!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (pgram != NULL, NULL);
+  g_return_val_if_fail (handle!=NULL, NULL);
+  g_return_val_if_fail (to!=NULL, NULL);
 
   /* remember ... */
   corner = pgram->element.corner;
   width = pgram->element.width;
   height = pgram->element.height;
 
-  element_move_handle(&pgram->element, handle->id, to, cp, reason, modifiers);
+  element_move_handle (&pgram->element, handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
-  case HANDLE_RESIZE_NW:
-    horiz = ANCHOR_END; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_N:
-    vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_NE:
-    horiz = ANCHOR_START; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_E:
-    horiz = ANCHOR_START; break;
-  case HANDLE_RESIZE_SE:
-    horiz = ANCHOR_START; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_S:
-    vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_SW:
-    horiz = ANCHOR_END; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_W:
-    horiz = ANCHOR_END; break;
-  default:
-    break;
+    case HANDLE_RESIZE_NW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_N:
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_NE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_E:
+      horiz = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_S:
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_W:
+      horiz = ANCHOR_END;
+      break;
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_CUSTOM1:
+    case HANDLE_CUSTOM2:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      break;
   }
-  pgram_update_data(pgram, horiz, vert);
+  pgram_update_data (pgram, horiz, vert);
 
-  if (width != pgram->element.width && height != pgram->element.height)
+  if (width != pgram->element.width && height != pgram->element.height) {
     return element_change_new (&corner, width, height, &pgram->element);
+  }
 
   return NULL;
 }
@@ -417,20 +449,27 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
 
   /* move shape if necessary ... */
   switch (horiz) {
-  case ANCHOR_MIDDLE:
-    elem->corner.x = center.x - elem->width/2; break;
-  case ANCHOR_END:
-    elem->corner.x = bottom_right.x - elem->width; break;
-  default:
-    break;
+    case ANCHOR_MIDDLE:
+      elem->corner.x = center.x - elem->width/2;
+      break;
+    case ANCHOR_END:
+      elem->corner.x = bottom_right.x - elem->width;
+      break;
+    case ANCHOR_START:
+    default:
+      break;
   }
+
   switch (vert) {
-  case ANCHOR_MIDDLE:
-    elem->corner.y = center.y - elem->height/2; break;
-  case ANCHOR_END:
-    elem->corner.y = bottom_right.y - elem->height; break;
-  default:
-    break;
+    case ANCHOR_MIDDLE:
+      elem->corner.y = center.y - elem->height/2;
+      break;
+    case ANCHOR_END:
+      elem->corner.y = bottom_right.y - elem->height;
+      break;
+    case ANCHOR_START:
+    default:
+      break;
   }
 
   p = elem->corner;
@@ -438,16 +477,19 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
   p.y += elem->height / 2.0 - pgram->text->height * pgram->text->numlines / 2 +
       pgram->text->ascent;
   switch (pgram->text->alignment) {
-  case ALIGN_LEFT:
-    p.x -= avail_width/2;
-    break;
-  case ALIGN_RIGHT:
-    p.x += avail_width/2;
-    break;
-  case ALIGN_CENTER:
-    break;
+    case ALIGN_LEFT:
+      p.x -= avail_width/2;
+      break;
+    case ALIGN_RIGHT:
+      p.x += avail_width/2;
+      break;
+    case ALIGN_CENTER:
+      break;
+    default:
+      g_return_if_reached ();
   }
-  text_set_position(pgram->text, &p);
+
+  text_set_position (pgram->text, &p);
 
   /* 1/4 of how much more to the left the bottom line is */
   offs = -(elem->height / 4.0 * pgram->shear_grad);

@@ -212,9 +212,14 @@ group_objects_move_delta (Group *group, const Point *delta)
   }
 }
 
+
 static ObjectChange*
-group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
-		  HandleMoveReason reason, ModifierKeys modifiers)
+group_move_handle (Group            *group,
+                   Handle           *handle,
+                   Point            *to,
+                   ConnectionPoint  *cp,
+                   HandleMoveReason  reason,
+                   ModifierKeys      modifiers)
 {
   DiaObject *obj = &group->object;
   DiaRectangle *bb = &obj->bounding_box;
@@ -234,53 +239,65 @@ group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
    * For rotated group we should either translate the handle positions
    * or we might rotate the horizontal and vertical scale ...
    */
-  switch(handle->id) {
-  case HANDLE_RESIZE_NW:
-    g_assert(group->handles[7].id == HANDLE_RESIZE_SE);
-    fixed = group->handles[7].pos;
-    w1 = w0 - (to->x - top_left.x);
-    h1 = h0 - (to->y - top_left.y);
-    break;
-  case HANDLE_RESIZE_N:
-    g_assert(group->handles[6].id == HANDLE_RESIZE_S);
-    fixed = group->handles[6].pos;
-    h1 = h0 - (to->y - top_left.y);
-    break;
-  case HANDLE_RESIZE_NE:
-    g_assert(group->handles[5].id == HANDLE_RESIZE_SW);
-    fixed = group->handles[5].pos;
-    w1 = to->x - top_left.x;
-    h1 = h0 - (to->y - top_left.y);
-    break;
-  case HANDLE_RESIZE_W:
-    g_assert(group->handles[4].id == HANDLE_RESIZE_E);
-    fixed = group->handles[4].pos;
-    w1 = w0 - (to->x - top_left.x);
-    break;
-  case HANDLE_RESIZE_E:
-    g_assert(group->handles[3].id == HANDLE_RESIZE_W);
-    fixed = group->handles[3].pos;
-    w1 = to->x - top_left.x;
-    break;
-  case HANDLE_RESIZE_SW:
-    g_assert(group->handles[2].id == HANDLE_RESIZE_NE);
-    fixed = group->handles[2].pos;
-    w1 = w0 - (to->x - top_left.x);
-    h1 = to->y - top_left.y;
-    break;
-  case HANDLE_RESIZE_S:
-    g_assert(group->handles[1].id == HANDLE_RESIZE_N);
-    fixed = group->handles[1].pos;
-    h1 = to->y - top_left.y;
-    break;
-  case HANDLE_RESIZE_SE:
-    g_assert(group->handles[0].id == HANDLE_RESIZE_NW);
-    fixed = group->handles[0].pos;
-    w1 = to->x - top_left.x;
-    h1 = to->y - top_left.y;
-    break;
-  default:
-    g_warning("group_move_handle() called with wrong handle-id %d", handle->id);
+  switch (handle->id) {
+    case HANDLE_RESIZE_NW:
+      g_return_val_if_fail (group->handles[7].id == HANDLE_RESIZE_SE, NULL);
+      fixed = group->handles[7].pos;
+      w1 = w0 - (to->x - top_left.x);
+      h1 = h0 - (to->y - top_left.y);
+      break;
+    case HANDLE_RESIZE_N:
+      g_return_val_if_fail (group->handles[6].id == HANDLE_RESIZE_S, NULL);
+      fixed = group->handles[6].pos;
+      h1 = h0 - (to->y - top_left.y);
+      break;
+    case HANDLE_RESIZE_NE:
+      g_return_val_if_fail (group->handles[5].id == HANDLE_RESIZE_SW, NULL);
+      fixed = group->handles[5].pos;
+      w1 = to->x - top_left.x;
+      h1 = h0 - (to->y - top_left.y);
+      break;
+    case HANDLE_RESIZE_W:
+      g_return_val_if_fail (group->handles[4].id == HANDLE_RESIZE_E, NULL);
+      fixed = group->handles[4].pos;
+      w1 = w0 - (to->x - top_left.x);
+      break;
+    case HANDLE_RESIZE_E:
+      g_return_val_if_fail (group->handles[3].id == HANDLE_RESIZE_W, NULL);
+      fixed = group->handles[3].pos;
+      w1 = to->x - top_left.x;
+      break;
+    case HANDLE_RESIZE_SW:
+      g_return_val_if_fail (group->handles[2].id == HANDLE_RESIZE_NE, NULL);
+      fixed = group->handles[2].pos;
+      w1 = w0 - (to->x - top_left.x);
+      h1 = to->y - top_left.y;
+      break;
+    case HANDLE_RESIZE_S:
+      g_return_val_if_fail (group->handles[1].id == HANDLE_RESIZE_N, NULL);
+      fixed = group->handles[1].pos;
+      h1 = to->y - top_left.y;
+      break;
+    case HANDLE_RESIZE_SE:
+      g_return_val_if_fail (group->handles[0].id == HANDLE_RESIZE_NW, NULL);
+      fixed = group->handles[0].pos;
+      w1 = to->x - top_left.x;
+      h1 = to->y - top_left.y;
+      break;
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_CUSTOM1:
+    case HANDLE_CUSTOM2:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      g_warning ("group_move_handle() called with wrong handle-id %d",
+                 handle->id);
   }
 
   if (!group->matrix) {

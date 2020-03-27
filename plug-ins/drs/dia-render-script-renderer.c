@@ -145,44 +145,55 @@ drs_renderer_finalize (GObject *object)
   G_OBJECT_CLASS (drs_renderer_parent_class)->finalize (object);
 }
 
+
 /*
  * renderer methods
  */
 static void
-draw_object(DiaRenderer *self,
-            DiaObject   *object,
-	    DiaMatrix   *matrix)
+draw_object (DiaRenderer *self,
+             DiaObject   *object,
+             DiaMatrix   *matrix)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
   xmlNodePtr node;
 
   g_queue_push_tail (renderer->parents, renderer->root);
-  renderer->root = node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"object", NULL);
-  xmlSetProp(node, (const xmlChar *)"type", (xmlChar *)object->type->name);
+  renderer->root = node = xmlNewChild (renderer->root,
+                                       NULL,
+                                       (const xmlChar *) "object",
+                                       NULL);
+  xmlSetProp (node, (const xmlChar *) "type",
+              (xmlChar *) object->type->name);
   /* if it looks like intdata store it as well */
   if (GPOINTER_TO_INT (object->type->default_user_data) > 0 &&
       GPOINTER_TO_INT (object->type->default_user_data) < 0xFF) {
     gchar buffer[30];
-    g_snprintf(buffer, sizeof(buffer), "%d", GPOINTER_TO_INT (object->type->default_user_data));
-    xmlSetProp(node, (const xmlChar *)"intdata", (xmlChar *)buffer);
+    g_snprintf (buffer, sizeof (buffer), "%d",
+                GPOINTER_TO_INT (object->type->default_user_data));
+    xmlSetProp (node, (const xmlChar *) "intdata", (xmlChar *) buffer);
   }
+
   if (renderer->save_props) {
     xmlNodePtr props_node;
 
-    props_node = xmlNewChild(node, NULL, (const xmlChar *)"properties", NULL);
+    props_node = xmlNewChild (node, NULL,
+                              (const xmlChar *) "properties", NULL);
     object_save_props (object, props_node, renderer->ctx);
   }
+
   if (matrix) {
     DiaMatrix *m2 = g_new0 (DiaMatrix, 1);
-    if (m)
+    if (m) {
       dia_matrix_multiply (m2, matrix, m);
-    else
+    } else {
       *m2 = *matrix;
+    }
     g_queue_push_tail (renderer->matrices, m2);
     /* lazy creation of our transformer */
-    if (!renderer->transformer)
+    if (!renderer->transformer) {
       renderer->transformer = dia_transform_renderer_new (self);
+    }
   }
   /* special handling for group objects:
    *  - for the render branch use DiaTransformRenderer, but not it's draw_object,
@@ -194,9 +205,10 @@ draw_object(DiaRenderer *self,
    */
   {
     g_queue_push_tail (renderer->parents, renderer->root);
-    renderer->root = node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"render", NULL);
+    renderer->root = node = xmlNewChild (renderer->root, NULL,
+                                         (const xmlChar *) "render", NULL);
     if (renderer->transformer) {
-      DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
+      DiaMatrix *cm = g_queue_peek_tail (renderer->matrices);
 
       if (IS_GROUP (object)) {
         /* reimplementation of group_draw to use this draw_object method */
@@ -207,12 +219,12 @@ draw_object(DiaRenderer *self,
         while (list != NULL) {
           obj = (DiaObject *) list->data;
 
-          dia_renderer_draw_object (self, obj, m);
+          dia_renderer_draw_object (self, obj, cm);
           list = g_list_next (list);
         }
       } else {
         /* just the leaf */
-        dia_renderer_draw_object (renderer->transformer, object, m);
+        dia_renderer_draw_object (renderer->transformer, object, cm);
       }
     } else {
       dia_object_draw (object, DIA_RENDERER (renderer));
@@ -293,6 +305,8 @@ _node_set_point (xmlNodePtr node, const char *name, Point *point)
 
   g_string_free(str, TRUE);
 }
+
+
 static void
 _node_set_points (xmlNodePtr node, Point *points, int num_points)
 {
@@ -301,12 +315,15 @@ _node_set_points (xmlNodePtr node, Point *points, int num_points)
 
   str = g_string_new (NULL);
 
-  for (i = 0; i < num_points; ++i)
+  for (i = 0; i < num_points; ++i) {
     _string_append_point (str, &points[i], i == 0);
-  xmlSetProp(node, (const xmlChar *)"points", (xmlChar *) str->str);
+  }
+  xmlSetProp (node, (const xmlChar *) "points", (xmlChar *) str->str);
 
-  g_string_free(str, TRUE);
+  g_string_free (str, TRUE);
 }
+
+
 static void
 _node_set_bezpoints (xmlNodePtr node, BezPoint *points, int num_points)
 {
@@ -317,20 +334,27 @@ _node_set_bezpoints (xmlNodePtr node, BezPoint *points, int num_points)
 
   for (i = 0; i < num_points; ++i) {
     BezPoint *bpt = &points[i];
-    if (i != 0)
+
+    if (i != 0) {
       g_string_append (str, " ");
-    switch (bpt->type) {
-    case BEZ_MOVE_TO:
-      g_string_append (str, "M");
-      break;
-    case BEZ_LINE_TO:
-      g_string_append (str, "L");
-      break;
-    case BEZ_CURVE_TO:
-      g_string_append (str, "C");
-      break;
     }
+
+    switch (bpt->type) {
+      case BEZ_MOVE_TO:
+        g_string_append (str, "M");
+        break;
+      case BEZ_LINE_TO:
+        g_string_append (str, "L");
+        break;
+      case BEZ_CURVE_TO:
+        g_string_append (str, "C");
+        break;
+      default:
+        g_return_if_reached ();
+    }
+
     _string_append_point (str, &points[i].p1, TRUE);
+
     if (bpt->type == BEZ_CURVE_TO) {
       /* no space between bez-points, simplifies parsing */
       g_string_append (str, ";");
@@ -339,73 +363,83 @@ _node_set_bezpoints (xmlNodePtr node, BezPoint *points, int num_points)
       _string_append_point (str, &points[i].p3, TRUE);
     }
   }
-  xmlSetProp(node, (const xmlChar *)"bezpoints", (xmlChar *) str->str);
+  xmlSetProp (node, (const xmlChar *) "bezpoints", (xmlChar *) str->str);
 
-  g_string_free(str, TRUE);
+  g_string_free (str, TRUE);
 }
 
+
 static void
-set_linewidth(DiaRenderer *self, real width)
+set_linewidth (DiaRenderer *self, real width)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
 
-  node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-linewidth", NULL);
+  node = xmlNewChild (renderer->root, NULL,
+                      (const xmlChar *) "set-linewidth", NULL);
   _node_set_real (node, "width", width);
 }
 
+
 static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, LineCaps mode)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
   gchar *value = NULL;
 
   switch(mode) {
-  case LINECAPS_DEFAULT:
-  case LINECAPS_BUTT:
-    value = "butt";
-    break;
-  case LINECAPS_ROUND:
-    value = "round";
-    break;
-  case LINECAPS_PROJECTING:
-    value = "projecting";
-    break;
-  /* intentionally no default to let 'good' compilers warn about new constants*/
+    case LINECAPS_DEFAULT:
+    case LINECAPS_BUTT:
+      value = "butt";
+      break;
+    case LINECAPS_ROUND:
+      value = "round";
+      break;
+    case LINECAPS_PROJECTING:
+      value = "projecting";
+      break;
+    default:
+      g_return_if_reached ();
   }
-  node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-linecaps", NULL);
-  xmlSetProp(node, (const xmlChar *)"mode",
-             value ? (xmlChar *)value : (xmlChar *)"?");
+
+  node = xmlNewChild (renderer->root, NULL,
+                      (const xmlChar *) "set-linecaps", NULL);
+  xmlSetProp (node, (const xmlChar *) "mode",
+              value ? (xmlChar *) value : (xmlChar *) "?");
 }
 
+
 static void
-set_linejoin(DiaRenderer *self, LineJoin mode)
+set_linejoin (DiaRenderer *self, LineJoin mode)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
   gchar *value = NULL;
 
-  switch(mode) {
-  case LINEJOIN_DEFAULT:
-  case LINEJOIN_MITER:
-    value = "miter";
-    break;
-  case LINEJOIN_ROUND:
-    value = "round";
-    break;
-  case LINEJOIN_BEVEL:
-    value = "bevel";
-    break;
-  /* intentionally no default to let 'good' compilers warn about new constants*/
+  switch (mode) {
+    case LINEJOIN_DEFAULT:
+    case LINEJOIN_MITER:
+      value = "miter";
+      break;
+    case LINEJOIN_ROUND:
+      value = "round";
+      break;
+    case LINEJOIN_BEVEL:
+      value = "bevel";
+      break;
+    default:
+      g_return_if_reached ();
   }
-  node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-linejoin", NULL);
-  xmlSetProp(node, (const xmlChar *)"mode",
-             value ? (xmlChar *)value : (xmlChar *)"?");
+  node = xmlNewChild (renderer->root, NULL,
+                      (const xmlChar *) "set-linejoin", NULL);
+  xmlSetProp (node, (const xmlChar *) "mode",
+              value ? (xmlChar *) value : (xmlChar *) "?");
 }
 
+
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -413,58 +447,67 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 
   /* line type */
   switch (mode) {
-  case LINESTYLE_DEFAULT:
-  case LINESTYLE_SOLID:
-    value = "solid";
-    break;
-  case LINESTYLE_DASHED:
-    value = "dashed";
-    break;
-  case LINESTYLE_DASH_DOT:
-    value = "dash-dot";
-    break;
-  case LINESTYLE_DASH_DOT_DOT:
-    value = "dash-dot-dot";
-    break;
-  case LINESTYLE_DOTTED:
-    value = "dotted";
-    break;
-  /* intentionally no default to let 'good' compilers warn about new constants*/
+    case LINESTYLE_DEFAULT:
+    case LINESTYLE_SOLID:
+      value = "solid";
+      break;
+    case LINESTYLE_DASHED:
+      value = "dashed";
+      break;
+    case LINESTYLE_DASH_DOT:
+      value = "dash-dot";
+      break;
+    case LINESTYLE_DASH_DOT_DOT:
+      value = "dash-dot-dot";
+      break;
+    case LINESTYLE_DOTTED:
+      value = "dotted";
+      break;
+    default:
+      g_return_if_reached ();
   }
-  node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-linestyle", NULL);
-  xmlSetProp(node, (const xmlChar *)"mode",
-             value ? (xmlChar *)value : (xmlChar *)"?");
-  if (mode != LINESTYLE_SOLID)
+  node = xmlNewChild (renderer->root, NULL,
+                      (const xmlChar *) "set-linestyle", NULL);
+  xmlSetProp (node, (const xmlChar *) "mode",
+              value ? (xmlChar *) value : (xmlChar *) "?");
+  if (mode != LINESTYLE_SOLID) {
     _node_set_real (node, "dash-length", dash_length);
+  }
 }
 
+
 static void
-set_fillstyle(DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, FillStyle mode)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
   const gchar *value = NULL;
 
   switch(mode) {
-  case FILLSTYLE_SOLID:
-    value = "solid";
-    break;
-  /* intentionally no default to let 'good' compilers warn about new constants*/
+    case FILLSTYLE_SOLID:
+      value = "solid";
+      break;
+    default:
+      g_return_if_reached ();
   }
-  node =  xmlNewChild(renderer->root, NULL, (const xmlChar *)"set-fillstyle", NULL);
-  xmlSetProp(node, (const xmlChar *)"mode",
-             value ? (xmlChar *)value : (xmlChar *)"?");
+
+  node = xmlNewChild (renderer->root, NULL,
+                      (const xmlChar *) "set-fillstyle", NULL);
+  xmlSetProp (node, (const xmlChar *) "mode",
+              value ? (xmlChar *) value : (xmlChar *) "?");
 }
 
+
 static void
-draw_line(DiaRenderer *self,
-          Point *start, Point *end,
-          Color *color)
+draw_line (DiaRenderer *self,
+           Point       *start,
+           Point       *end,
+           Color       *color)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
 
-  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"line", NULL);
+  node = xmlNewChild (renderer->root, NULL, (const xmlChar *) "line", NULL);
   _node_set_point (node, "start", start);
   _node_set_point (node, "end", end);
   _node_set_color (node, "stroke", color);
@@ -658,36 +701,42 @@ draw_rounded_polyline (DiaRenderer *self,
   _node_set_real (node, "r", radius);
 }
 
+
 static void
-draw_string(DiaRenderer *self,
-            const char *text,
-            Point *pos, Alignment alignment,
-            Color *color)
+draw_string (DiaRenderer *self,
+             const char  *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *color)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
   gchar *align = NULL;
 
-  node = xmlNewChild(renderer->root, NULL, (const xmlChar *)"string", NULL);
+  node = xmlNewChild (renderer->root, NULL, (const xmlChar *) "string", NULL);
   _node_set_point (node, "pos", pos);
   _node_set_color (node, "fill", color);
   switch (alignment) {
-  case ALIGN_LEFT :
-    align = "left";
-    break;
-  case ALIGN_RIGHT :
-    align = "right";
-    break;
-  case ALIGN_CENTER :
-    align = "center";
-    break;
-  /* intentionally no default */
+    case ALIGN_LEFT :
+      align = "left";
+      break;
+    case ALIGN_RIGHT :
+      align = "right";
+      break;
+    case ALIGN_CENTER :
+      align = "center";
+      break;
+    default:
+      g_return_if_reached ();
   }
-  if (align)
-    xmlSetProp(node, (const xmlChar *)"alignment", (xmlChar *) align);
 
-  xmlNodeSetContent (node, (const xmlChar *)text);
+  if (align) {
+    xmlSetProp (node, (const xmlChar *) "alignment", (xmlChar *) align);
+  }
+
+  xmlNodeSetContent (node, (const xmlChar *) text);
 }
+
 
 static void
 draw_image(DiaRenderer *self,

@@ -896,23 +896,23 @@ data_string(DataNode data, DiaContext *ctx)
     p = str;
     while (*val) {
       if (*val == '\\') {
-	val++;
-	switch (*val) {
-	case '0':
-	  /* Just skip this. \0 means nothing */
-	  break;
-	case 'n':
-	  *p++ = '\n';
-	  break;
-	case 't':
-	  *p++ = '\t';
-	  break;
-	case '\\':
-	  *p++ = '\\';
-	  break;
-	default:
-	  dia_context_add_message (ctx, _("Error in string tag."));
-	}
+        val++;
+        switch (*val) {
+          case '0':
+            /* Just skip this. \0 means nothing */
+            break;
+          case 'n':
+            *p++ = '\n';
+            break;
+          case 't':
+            *p++ = '\t';
+            break;
+          case '\\':
+            *p++ = '\\';
+            break;
+          default:
+            dia_context_add_message (ctx, _("Error in string tag."));
+        }
       } else {
 	*p++ = *val;
       }

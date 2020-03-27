@@ -701,39 +701,49 @@ bus_change_free(struct PointChange *change)
   }
 }
 
-static void
-bus_change_apply(struct PointChange *change, DiaObject *obj)
-{
-  change->applied = 1;
-  switch (change->type) {
-  case TYPE_ADD_POINT:
-    bus_add_handle((Bus *)obj, &change->point, change->handle);
-    break;
-  case TYPE_REMOVE_POINT:
-    object_unconnect(obj, change->handle);
-    bus_remove_handle((Bus *)obj, change->handle);
-    break;
-  }
-  bus_update_data((Bus *)obj);
-}
 
 static void
-bus_change_revert(struct PointChange *change, DiaObject *obj)
+bus_change_apply (struct PointChange *change, DiaObject *obj)
+{
+  change->applied = 1;
+
+  switch (change->type) {
+    case TYPE_ADD_POINT:
+      bus_add_handle ((Bus *) obj, &change->point, change->handle);
+      break;
+    case TYPE_REMOVE_POINT:
+      object_unconnect (obj, change->handle);
+      bus_remove_handle ((Bus *) obj, change->handle);
+      break;
+    default:
+      g_return_if_reached ();
+  }
+
+  bus_update_data ((Bus *) obj);
+}
+
+
+static void
+bus_change_revert (struct PointChange *change, DiaObject *obj)
 {
   switch (change->type) {
-  case TYPE_ADD_POINT:
-    bus_remove_handle((Bus *)obj, change->handle);
-    break;
-  case TYPE_REMOVE_POINT:
-    bus_add_handle((Bus *)obj, &change->point, change->handle);
-    if (change->connected_to) {
-      object_connect(obj, change->handle, change->connected_to);
-    }
-    break;
+    case TYPE_ADD_POINT:
+      bus_remove_handle ((Bus *)obj, change->handle);
+      break;
+    case TYPE_REMOVE_POINT:
+      bus_add_handle ((Bus *)obj, &change->point, change->handle);
+      if (change->connected_to) {
+        object_connect (obj, change->handle, change->connected_to);
+      }
+      break;
+    default:
+      g_return_if_reached ();
   }
-  bus_update_data((Bus *)obj);
+
+  bus_update_data ((Bus *) obj);
   change->applied = 0;
 }
+
 
 static ObjectChange *
 bus_create_change(Bus *bus, enum change_type type,

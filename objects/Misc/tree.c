@@ -701,39 +701,47 @@ tree_change_free(struct PointChange *change)
   }
 }
 
-static void
-tree_change_apply(struct PointChange *change, DiaObject *obj)
-{
-  change->applied = 1;
-  switch (change->type) {
-  case TYPE_ADD_POINT:
-    tree_add_handle((Tree *)obj, &change->point, change->handle);
-    break;
-  case TYPE_REMOVE_POINT:
-    object_unconnect(obj, change->handle);
-    tree_remove_handle((Tree *)obj, change->handle);
-    break;
-  }
-  tree_update_data((Tree *)obj);
-}
 
 static void
-tree_change_revert(struct PointChange *change, DiaObject *obj)
+tree_change_apply (struct PointChange *change, DiaObject *obj)
+{
+  change->applied = 1;
+
+  switch (change->type) {
+    case TYPE_ADD_POINT:
+      tree_add_handle ((Tree *) obj, &change->point, change->handle);
+      break;
+    case TYPE_REMOVE_POINT:
+      object_unconnect (obj, change->handle);
+      tree_remove_handle ((Tree *) obj, change->handle);
+      break;
+    default:
+      g_return_if_reached ();
+  }
+  tree_update_data ((Tree *) obj);
+}
+
+
+static void
+tree_change_revert (struct PointChange *change, DiaObject *obj)
 {
   switch (change->type) {
-  case TYPE_ADD_POINT:
-    tree_remove_handle((Tree *)obj, change->handle);
-    break;
-  case TYPE_REMOVE_POINT:
-    tree_add_handle((Tree *)obj, &change->point, change->handle);
-    if (change->connected_to) {
-      object_connect(obj, change->handle, change->connected_to);
-    }
-    break;
+    case TYPE_ADD_POINT:
+      tree_remove_handle ((Tree *) obj, change->handle);
+      break;
+    case TYPE_REMOVE_POINT:
+      tree_add_handle ((Tree *) obj, &change->point, change->handle);
+      if (change->connected_to) {
+        object_connect (obj, change->handle, change->connected_to);
+      }
+      break;
+    default:
+      g_return_if_reached ();
   }
-  tree_update_data((Tree *)obj);
+  tree_update_data ((Tree *) obj);
   change->applied = 0;
 }
+
 
 static ObjectChange *
 tree_create_change(Tree *tree, enum change_type type,

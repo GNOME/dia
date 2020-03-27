@@ -861,43 +861,43 @@ write_bezier(CgmRenderer *renderer,
     int     i;
     Point   current;
 
-    if (points[0].type != BEZ_MOVE_TO)
-	g_warning("first BezPoint must be a BEZ_MOVE_TO");
+    if (points[0].type != BEZ_MOVE_TO) {
+      g_warning("first BezPoint must be a BEZ_MOVE_TO");
+    }
 
     current.x = points[0].p1.x;
     current.y = swap_y(renderer, points[0].p1.y);
 
-    for (i = 1; i < numpoints; i++)
-    {
-	switch (points[i].type)
-        {
-	case BEZ_MOVE_TO:
-	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-	    break;
-	case BEZ_LINE_TO:
-            write_elhead(renderer->file, CGM_ELEMENT, CGM_POLYLINE, 4 * REALSIZE);
-            write_real(renderer->file, current.x);
-            write_real(renderer->file, current.y);
-            write_real(renderer->file, points[i].p1.x);
-            write_real(renderer->file, swap_y(renderer, points[i].p1.y));
-            current.x = points[i].p1.x;
-            current.y = swap_y(renderer, points[i].p1.y);
-            break;
-	case BEZ_CURVE_TO:
-            write_elhead(renderer->file, CGM_ELEMENT, CGM_POLYBEZIER, 8 * REALSIZE + 2);
-            write_int16(renderer->file, 1);
-            write_real(renderer->file, current.x);
-            write_real(renderer->file, current.y);
-            write_real(renderer->file, points[i].p1.x);
-            write_real(renderer->file, swap_y(renderer, points[i].p1.y));
-            write_real(renderer->file, points[i].p2.x);
-            write_real(renderer->file, swap_y(renderer, points[i].p2.y));
-            write_real(renderer->file, points[i].p3.x);
-            write_real(renderer->file, swap_y(renderer, points[i].p3.y));
-            current.x = points[i].p3.x;
-            current.y = swap_y(renderer, points[i].p3.y);
-            break;
-        }
+    for (i = 1; i < numpoints; i++) {
+      switch (points[i].type) {
+        case BEZ_LINE_TO:
+          write_elhead(renderer->file, CGM_ELEMENT, CGM_POLYLINE, 4 * REALSIZE);
+          write_real(renderer->file, current.x);
+          write_real(renderer->file, current.y);
+          write_real(renderer->file, points[i].p1.x);
+          write_real(renderer->file, swap_y(renderer, points[i].p1.y));
+          current.x = points[i].p1.x;
+          current.y = swap_y(renderer, points[i].p1.y);
+          break;
+        case BEZ_CURVE_TO:
+          write_elhead(renderer->file, CGM_ELEMENT, CGM_POLYBEZIER, 8 * REALSIZE + 2);
+          write_int16(renderer->file, 1);
+          write_real(renderer->file, current.x);
+          write_real(renderer->file, current.y);
+          write_real(renderer->file, points[i].p1.x);
+          write_real(renderer->file, swap_y(renderer, points[i].p1.y));
+          write_real(renderer->file, points[i].p2.x);
+          write_real(renderer->file, swap_y(renderer, points[i].p2.y));
+          write_real(renderer->file, points[i].p3.x);
+          write_real(renderer->file, swap_y(renderer, points[i].p3.y));
+          current.x = points[i].p3.x;
+          current.y = swap_y(renderer, points[i].p3.y);
+          break;
+        case BEZ_MOVE_TO:
+        default:
+          g_warning ("only first BezPoint can be a BEZ_MOVE_TO");
+          break;
+      }
     }
 }
 
@@ -941,64 +941,69 @@ draw_beziergon (DiaRenderer *self,
 }
 
 
-
 static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *colour)
+draw_string (DiaRenderer *self,
+             const char  *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *colour)
 {
-    CgmRenderer *renderer = CGM_RENDERER(self);
-    double x = pos->x, y = swap_y(renderer, pos->y);
-    gint len, chunk;
-    const gint maxfirstchunk = 255 - 2 * REALSIZE - 2 - 1;
-    const gint maxappendchunk = 255 - 2 - 1;
+  CgmRenderer *renderer = CGM_RENDERER (self);
+  double x = pos->x, y = swap_y (renderer, pos->y);
+  gint len, chunk;
+  const gint maxfirstchunk = 255 - 2 * REALSIZE - 2 - 1;
+  const gint maxappendchunk = 255 - 2 - 1;
 
-    /* check for empty strings */
-    len = strlen(text);
-    if ( len == 0 )
-        return;
+  /* check for empty strings */
+  len = strlen (text);
+  if (len == 0) {
+    return;
+  }
 
-    write_text_attributes(renderer, colour);
+  write_text_attributes (renderer, colour);
 
-    switch (alignment) {
+  switch (alignment) {
     case ALIGN_LEFT:
-        break;
+      break;
     case ALIGN_CENTER:
-        x -= dia_font_string_width(text, renderer->font,
-                                   renderer->tcurrent.font_height)/2;
-        break;
+      x -= dia_font_string_width (text, renderer->font,
+                                  renderer->tcurrent.font_height) / 2;
+      break;
     case ALIGN_RIGHT:
-        x -= dia_font_string_width(text, renderer->font,
-                                   renderer->tcurrent.font_height);
-        break;
-    }
-    /* work out size of first chunk of text */
-    chunk = MIN(maxfirstchunk, len);
-    write_elhead(renderer->file, CGM_ELEMENT, CGM_TEXT, 2 * REALSIZE + 2 + 1 + chunk);
-    write_real(renderer->file, x);
-    write_real(renderer->file, y);
-    write_int16(renderer->file, (len == chunk)); /* last chunk? */
-    putc(chunk, renderer->file);
-    fwrite(text, sizeof(char), chunk, renderer->file);
-    if (!IS_ODD(chunk))
-	putc(0, renderer->file);
+      x -= dia_font_string_width (text, renderer->font,
+                                  renderer->tcurrent.font_height);
+      break;
+    default:
+      g_return_if_reached ();
+  }
+
+  /* work out size of first chunk of text */
+  chunk = MIN (maxfirstchunk, len);
+  write_elhead (renderer->file, CGM_ELEMENT, CGM_TEXT, 2 * REALSIZE + 2 + 1 + chunk);
+  write_real (renderer->file, x);
+  write_real (renderer->file, y);
+  write_int16 (renderer->file, (len == chunk)); /* last chunk? */
+  putc (chunk, renderer->file);
+  fwrite (text, sizeof(char), chunk, renderer->file);
+  if (!IS_ODD (chunk)) {
+    putc (0, renderer->file);
+  }
+
+  len -= chunk;
+  text += chunk;
+  while (len > 0) {
+    /* append text */
+    chunk = MIN (maxappendchunk, len);
+    write_elhead (renderer->file, CGM_ELEMENT, CGM_APPEND_TEXT, 2 + 1 + chunk);
+    write_int16 (renderer->file, (len == chunk));
+    putc (chunk, renderer->file);
+    fwrite (text, sizeof(char), chunk, renderer->file);
+    if (!IS_ODD (chunk))
+        putc (0, renderer->file);
 
     len -= chunk;
     text += chunk;
-    while (len > 0) {
-	/* append text */
-	chunk = MIN(maxappendchunk, len);
-	write_elhead(renderer->file, CGM_ELEMENT, CGM_APPEND_TEXT, 2 + 1 + chunk);
-	write_int16(renderer->file, (len == chunk));
-	putc(chunk, renderer->file);
-	fwrite(text, sizeof(char), chunk, renderer->file);
-	if (!IS_ODD(chunk))
-	    putc(0, renderer->file);
-
-	len -= chunk;
-	text += chunk;
-    }
+  }
 }
 
 

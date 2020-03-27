@@ -142,36 +142,38 @@ dia_line_preview_expose(GtkWidget *widget, GdkEventExpose *event)
     cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
 
     switch (line->lstyle) {
-    case LINESTYLE_DEFAULT:
-    case LINESTYLE_SOLID:
-      cairo_set_dash (ctx, dash_list, 0, 0);
-      break;
-    case LINESTYLE_DASHED:
-      dash_list[0] = 10;
-      dash_list[1] = 10;
-      cairo_set_dash (ctx, dash_list, 2, 0);
-      break;
-    case LINESTYLE_DASH_DOT:
-      dash_list[0] = 10;
-      dash_list[1] = 4;
-      dash_list[2] = 2;
-      dash_list[3] = 4;
-      cairo_set_dash (ctx, dash_list, 4, 0);
-      break;
-    case LINESTYLE_DASH_DOT_DOT:
-      dash_list[0] = 10;
-      dash_list[1] = 2;
-      dash_list[2] = 2;
-      dash_list[3] = 2;
-      dash_list[4] = 2;
-      dash_list[5] = 2;
-      cairo_set_dash (ctx, dash_list, 6, 0);
-      break;
-    case LINESTYLE_DOTTED:
-      dash_list[0] = 2;
-      dash_list[1] = 2;
-      cairo_set_dash (ctx, dash_list, 2, 0);
-      break;
+      case LINESTYLE_DEFAULT:
+      case LINESTYLE_SOLID:
+        cairo_set_dash (ctx, dash_list, 0, 0);
+        break;
+      case LINESTYLE_DASHED:
+        dash_list[0] = 10;
+        dash_list[1] = 10;
+        cairo_set_dash (ctx, dash_list, 2, 0);
+        break;
+      case LINESTYLE_DASH_DOT:
+        dash_list[0] = 10;
+        dash_list[1] = 4;
+        dash_list[2] = 2;
+        dash_list[3] = 4;
+        cairo_set_dash (ctx, dash_list, 4, 0);
+        break;
+      case LINESTYLE_DASH_DOT_DOT:
+        dash_list[0] = 10;
+        dash_list[1] = 2;
+        dash_list[2] = 2;
+        dash_list[3] = 2;
+        dash_list[4] = 2;
+        dash_list[5] = 2;
+        cairo_set_dash (ctx, dash_list, 6, 0);
+        break;
+      case LINESTYLE_DOTTED:
+        dash_list[0] = 2;
+        dash_list[1] = 2;
+        cairo_set_dash (ctx, dash_list, 2, 0);
+        break;
+      default:
+        g_return_val_if_reached (FALSE);
     }
     cairo_move_to (ctx, x, y + height / 2);
     cairo_line_to (ctx, x + width, y + height / 2);

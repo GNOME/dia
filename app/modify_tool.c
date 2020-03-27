@@ -227,14 +227,16 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
   return NULL;
 }
 
+
 static glong
-time_micro()
+time_micro (void)
 {
   GTimeVal tv;
 
-  g_get_current_time(&tv);
+  g_get_current_time (&tv);
   return tv.tv_sec*G_USEC_PER_SEC+tv.tv_usec;
 }
+
 
 static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
 				Point *clickedpoint, GdkEventButton *event)
@@ -819,65 +821,64 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
                                             FALSE, 0, 0, 0, 0);
 
     {
-      GList *list, *list_to_free;
+      GList *selected, *list_to_free;
 
-      list = list_to_free = find_selected_objects(ddisp, tool);
+      selected = list_to_free = find_selected_objects (ddisp, tool);
 
       if (selection_style == SELECT_REPLACE &&
           !(event->state & GDK_SHIFT_MASK)) {
         /* Not Multi-select => Remove all selected */
-        diagram_remove_all_selected(ddisp->diagram, TRUE);
+        diagram_remove_all_selected (ddisp->diagram, TRUE);
       }
 
       if (selection_style == SELECT_INTERSECTION) {
         GList *intersection = NULL;
 
-        while (list != NULL) {
-          DiaObject *obj = (DiaObject *)list->data;
+        while (selected != NULL) {
+          DiaObject *obj = DIA_OBJECT (selected->data);
 
-          if (diagram_is_selected(ddisp->diagram, obj)) {
-            intersection = g_list_append(intersection, obj);
+          if (diagram_is_selected (ddisp->diagram, obj)) {
+            intersection = g_list_append (intersection, obj);
           }
 
-          list = g_list_next(list);
+          selected = g_list_next (selected);
         }
-        list = intersection;
-        diagram_remove_all_selected(ddisp->diagram, TRUE);
-        while (list != NULL) {
-          DiaObject *obj = (DiaObject *)list->data;
+        selected = intersection;
+        diagram_remove_all_selected (ddisp->diagram, TRUE);
+        while (selected != NULL) {
+          DiaObject *obj = DIA_OBJECT (selected->data);
 
-          diagram_select(ddisp->diagram, obj);
+          diagram_select (ddisp->diagram, obj);
 
-          list = g_list_next(list);
+          selected = g_list_next (selected);
         }
-        g_list_free(intersection);
+        g_list_free (intersection);
       } else {
-        while (list != NULL) {
-          DiaObject *obj = (DiaObject *)list->data;
+        while (selected != NULL) {
+          DiaObject *obj = DIA_OBJECT (selected->data);
 
           if (selection_style == SELECT_REMOVE) {
-            if (diagram_is_selected(ddisp->diagram, obj))
-              diagram_unselect_object(ddisp->diagram, obj);
+            if (diagram_is_selected (ddisp->diagram, obj))
+              diagram_unselect_object (ddisp->diagram, obj);
           } else if (selection_style == SELECT_INVERT) {
-            if (diagram_is_selected(ddisp->diagram, obj))
-              diagram_unselect_object(ddisp->diagram, obj);
+            if (diagram_is_selected (ddisp->diagram, obj))
+              diagram_unselect_object (ddisp->diagram, obj);
             else
-              diagram_select(ddisp->diagram, obj);
+              diagram_select (ddisp->diagram, obj);
           } else {
-            if (!diagram_is_selected(ddisp->diagram, obj))
-              diagram_select(ddisp->diagram, obj);
+            if (!diagram_is_selected (ddisp->diagram, obj))
+              diagram_select (ddisp->diagram, obj);
           }
 
-          list = g_list_next(list);
+          selected = g_list_next (selected);
         }
       }
 
-      g_list_free(list_to_free);
-
+      g_list_free (list_to_free);
     }
 
-    ddisplay_do_update_menu_sensitivity(ddisp);
-    ddisplay_flush(ddisp);
+    ddisplay_do_update_menu_sensitivity (ddisp);
+    ddisplay_flush (ddisp);
 
     tool->state = STATE_NONE;
     break;

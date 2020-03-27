@@ -230,6 +230,24 @@ calculate_arrow_point (const Arrow *arrow,
     case ARROW_ONE_OR_NONE:
     case ARROW_ONE_OR_MANY:
     case ARROW_NONE_OR_MANY:
+    case ARROW_NONE:
+    case ARROW_HOLLOW_DIAMOND:
+    case ARROW_FILLED_DIAMOND:
+    case ARROW_SLASHED_CROSS:
+    case ARROW_FILLED_ELLIPSE:
+    case ARROW_DOUBLE_FILLED_TRIANGLE:
+    case ARROW_FILLED_DOT:
+    case ARROW_FILLED_BOX:
+    case ARROW_SLASH_ARROW:
+    case ARROW_INTEGRAL_SYMBOL:
+    case ARROW_CROW_FOOT:
+    case ARROW_CROSS:
+    case ARROW_HALF_DIAMOND:
+    case ARROW_OPEN_ROUNDED:
+    case ARROW_FILLED_DOT_N_TRIANGLE:
+    case ARROW_BACKSLASH:
+    case ARROW_THREE_DOTS:
+    case MAX_ARROW_TYPE:
     default:
       move_arrow->x = 0.0;
       move_arrow->y = 0.0;
@@ -339,6 +357,12 @@ calculate_arrow_point (const Arrow *arrow,
     case ARROW_ONE_OR_NONE:
     case ARROW_ONE_OR_MANY:
     case ARROW_NONE_OR_MANY:
+    case ARROW_NONE:
+    case ARROW_SLASHED_CROSS:
+    case ARROW_CROW_FOOT:
+    case ARROW_CROSS:
+    case ARROW_BACKSLASH:
+    case MAX_ARROW_TYPE:
     default:
       move_arrow->x = 0.0;
       move_arrow->y = 0.0;
@@ -2396,11 +2420,38 @@ arrow_draw (DiaRenderer *renderer,
       break;
     case MAX_ARROW_TYPE:
       break;
-    default :
+    case ARROW_LINES:
+    case ARROW_HOLLOW_TRIANGLE:
+    case ARROW_FILLED_TRIANGLE:
+    case ARROW_HOLLOW_DIAMOND:
+    case ARROW_FILLED_DIAMOND:
+    case ARROW_HALF_HEAD:
+    case ARROW_SLASHED_CROSS:
+    case ARROW_FILLED_ELLIPSE:
+    case ARROW_HOLLOW_ELLIPSE:
+    case ARROW_DOUBLE_HOLLOW_TRIANGLE:
+    case ARROW_DOUBLE_FILLED_TRIANGLE:
+    case ARROW_UNFILLED_TRIANGLE:
+    case ARROW_FILLED_DOT:
+    case ARROW_BLANKED_DOT:
+    case ARROW_FILLED_BOX:
+    case ARROW_BLANKED_BOX:
+    case ARROW_SLASH_ARROW:
+    case ARROW_CROW_FOOT:
+    case ARROW_CROSS:
+    case ARROW_FILLED_CONCAVE:
+    case ARROW_BLANKED_CONCAVE:
+    case ARROW_HALF_DIAMOND:
+    case ARROW_BACKSLASH:
+    default:
       {
         int idx = arrow_index_from_type (type);
         g_return_if_fail (arrow_types[idx].draw != NULL);
-        arrow_types[idx].draw (renderer,to,from,length,width,linewidth,fg_color,bg_color);
+        arrow_types[idx].draw (renderer,
+                               to, from,
+                               length, width,
+                               linewidth,
+                               fg_color, bg_color);
         break;
       }
   }

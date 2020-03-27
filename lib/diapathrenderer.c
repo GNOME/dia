@@ -824,13 +824,13 @@ create_standard_path_from_object (DiaObject *obj)
 
     for (i = 0; i < pr->pathes->len; ++i) {
       GArray *points = g_ptr_array_index (pr->pathes, i);
-      DiaObject *obj;
+      DiaObject *path_obj;
       if (points->len < 2)
-	obj = NULL;
+        path_obj = NULL;
       else
-        obj = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
-      if (obj)
-        list = g_list_append (list, obj);
+        path_obj = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
+      if (path_obj)
+        list = g_list_append (list, path_obj);
     }
     if (!list) {
       path = NULL;

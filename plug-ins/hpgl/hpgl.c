@@ -519,34 +519,39 @@ draw_ellipse(DiaRenderer *object,
     }
 }
 
+
 static void
-draw_string(DiaRenderer *object,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *colour)
+draw_string (DiaRenderer *object,
+             const char  *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *colour)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
-    real width, height;
+  HpglRenderer *renderer = HPGL_RENDERER (object);
+  real width, height;
 
-    DIAG_NOTE(g_message("draw_string %f,%f %s",
-              pos->x, pos->y, text));
+  DIAG_NOTE (g_message ("draw_string %f,%f %s",
+                        pos->x, pos->y, text));
 
-    /* set position */
-    fprintf(renderer->file, "PU%d,%d;",
-            hpgl_scale(renderer, pos->x), hpgl_scale(renderer, -pos->y));
+  /* set position */
+  fprintf (renderer->file, "PU%d,%d;",
+           hpgl_scale (renderer, pos->x), hpgl_scale (renderer, -pos->y));
 
-    switch (alignment) {
+  switch (alignment) {
     case ALIGN_LEFT:
-        fprintf (renderer->file, "LO1;\n");
-	break;
+      fprintf (renderer->file, "LO1;\n");
+      break;
     case ALIGN_CENTER:
-        fprintf (renderer->file, "LO4;\n");
-	break;
+      fprintf (renderer->file, "LO4;\n");
+      break;
     case ALIGN_RIGHT:
-        fprintf (renderer->file, "LO7;\n");
-	break;
-    }
-    hpgl_select_pen(renderer,colour,0.0);
+      fprintf (renderer->file, "LO7;\n");
+      break;
+    default:
+      g_return_if_reached ();
+  }
+
+  hpgl_select_pen (renderer, colour, 0.0);
 
 #if 0
     /*

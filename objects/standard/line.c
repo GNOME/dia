@@ -181,16 +181,19 @@ static ObjectOps line_ops = {
   (TransformFunc)       line_transform,
 };
 
-static void
-line_set_props(Line *line, GPtrArray *props)
-{
-  object_set_props_from_offsets(&line->connection.object,
-                                line_offsets, props);
-  line_update_data(line);
-}
 
 static void
-line_init_defaults() {
+line_set_props (Line *line, GPtrArray *props)
+{
+  object_set_props_from_offsets (DIA_OBJECT (line),
+                                 line_offsets, props);
+  line_update_data (line);
+}
+
+
+static void
+line_init_defaults (void)
+{
   static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
@@ -200,19 +203,21 @@ line_init_defaults() {
   }
 }
 
-/*!
- * \brief Add a connection point to the line
+
+/**
+ * line_add_connpoint_callback:
  *
- * \memberof Line
+ * Add a connection point to the line
  */
 static ObjectChange *
-line_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
+line_add_connpoint_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   ObjectChange *oc;
-  oc = connpointline_add_point(((Line *)obj)->cpl,clicked);
-  line_update_data((Line *)obj);
+  oc = connpointline_add_point (((Line *) obj)->cpl,clicked);
+  line_update_data ((Line *) obj);
   return oc;
 }
+
 
 /*!
  * \brief Remove a connection point from the line

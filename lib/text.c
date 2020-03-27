@@ -433,30 +433,38 @@ text_set_color(Text *text, Color *col)
   text->color = *col;
 }
 
+
 void
-text_set_alignment(Text *text, Alignment align)
+text_set_alignment (Text *text, Alignment align)
 {
   text->alignment = align;
 }
 
-void
-text_calc_boundingbox(Text *text, DiaRectangle *box)
-{
-  calc_width(text);
-  calc_ascent_descent(text);
 
-  if (box == NULL) return; /* For those who just want the text info
-			      updated */
+void
+text_calc_boundingbox (Text *text, DiaRectangle *box)
+{
+  calc_width (text);
+  calc_ascent_descent (text);
+
+  if (box == NULL) {
+    return; /* For those who just want the text info
+               updated */
+  }
+
   box->left = text->position.x;
+
   switch (text->alignment) {
-  case ALIGN_LEFT:
-    break;
-  case ALIGN_CENTER:
-    box->left -= text->max_width / 2.0;
-    break;
-  case ALIGN_RIGHT:
-    box->left -= text->max_width;
-    break;
+    case ALIGN_LEFT:
+      break;
+    case ALIGN_CENTER:
+      box->left -= text->max_width / 2.0;
+      break;
+    case ALIGN_RIGHT:
+      box->left -= text->max_width;
+      break;
+    default:
+      g_return_if_reached ();
   }
 
   box->right = box->left + text->max_width;
@@ -469,7 +477,7 @@ text_calc_boundingbox(Text *text, DiaRectangle *box)
   box->bottom = box->top + (text->ascent+text->descent+text->height*(text->numlines-1));
 #endif
   if (text->focus.has_focus) {
-    real height = text->ascent + text->descent;
+    double height = text->ascent + text->descent;
     if (text->cursor_pos == 0) {
       /* Half the cursor width */
       box->left -= height/(CURSOR_HEIGHT_RATIO*2);
@@ -485,6 +493,7 @@ text_calc_boundingbox(Text *text, DiaRectangle *box)
     box->bottom += height/CURSOR_HEIGHT_RATIO;
   }
 }
+
 
 char *
 text_get_string_copy(const Text *text)
@@ -535,16 +544,18 @@ text_distance_from(Text *text, Point *point)
 
   left = text->position.x;
   switch (text->alignment) {
-  case ALIGN_LEFT:
-    break;
-  case ALIGN_CENTER:
-    left -= text_get_line_width(text, line) / 2.0;
-    break;
-  case ALIGN_RIGHT:
-    left -= text_get_line_width(text, line);
-    break;
+    case ALIGN_LEFT:
+      break;
+    case ALIGN_CENTER:
+      left -= text_get_line_width (text, line) / 2.0;
+      break;
+    case ALIGN_RIGHT:
+      left -= text_get_line_width (text, line);
+      break;
+    default:
+      g_return_val_if_reached (0.0);
   }
-  right = left + text_get_line_width(text, line);
+  right = left + text_get_line_width (text, line);
 
   if (point->x <= left) {
     dx = left - point->x;
@@ -589,6 +600,8 @@ text_draw (Text *text, DiaRenderer *renderer)
       case ALIGN_RIGHT:
         curs_x -= str_width_whole;
         break;
+      default:
+        g_return_if_reached ();
     }
 
     p1.x = curs_x;
@@ -712,6 +725,8 @@ text_set_cursor (Text        *text,
       case ALIGN_RIGHT:
         start_x -= str_width_whole;
         break;
+      default:
+        g_return_if_reached ();
     }
 
     /* Do an ugly linear search for the cursor index:
@@ -1176,6 +1191,7 @@ text_set_attributes(Text *text, TextAttributes *attr)
   text->alignment = attr->alignment;
 }
 
+
 static void
 text_change_apply (struct TextObjectChange *change, DiaObject *obj)
 {
@@ -1212,55 +1228,62 @@ text_change_apply (struct TextObjectChange *change, DiaObject *obj)
       text->cursor_pos = 0;
       text->cursor_row = 0;
       break;
+    default:
+      g_return_if_reached ();
   }
 }
+
 
 static void
 text_change_revert(struct TextObjectChange *change, DiaObject *obj)
 {
   Text *text = change->text;
   switch (change->type) {
-  case TYPE_INSERT_CHAR:
-    text->cursor_pos = change->pos;
-    text->cursor_row = change->row;
-    text_delete_forward(text);
-    break;
-  case TYPE_DELETE_BACKWARD:
-    text->cursor_pos = change->pos;
-    text->cursor_row = change->row;
-    text_insert_char(text, change->ch);
-    break;
-  case TYPE_DELETE_FORWARD:
-    text->cursor_pos = change->pos;
-    text->cursor_row = change->row;
-    text_insert_char(text, change->ch);
-    text->cursor_pos = change->pos;
-    text->cursor_row = change->row;
-    break;
-  case TYPE_SPLIT_ROW:
-    text_join_lines(text, change->row);
-    break;
-  case TYPE_JOIN_ROW:
-    text->cursor_pos = change->pos;
-    text->cursor_row = change->row;
-    text_split_line(text);
-    break;
-  case TYPE_DELETE_ALL:
-    set_string(text, change->str);
-    text->cursor_pos = change->pos;
-    text->cursor_row = change->row;
-    break;
+    case TYPE_INSERT_CHAR:
+      text->cursor_pos = change->pos;
+      text->cursor_row = change->row;
+      text_delete_forward(text);
+      break;
+    case TYPE_DELETE_BACKWARD:
+      text->cursor_pos = change->pos;
+      text->cursor_row = change->row;
+      text_insert_char(text, change->ch);
+      break;
+    case TYPE_DELETE_FORWARD:
+      text->cursor_pos = change->pos;
+      text->cursor_row = change->row;
+      text_insert_char(text, change->ch);
+      text->cursor_pos = change->pos;
+      text->cursor_row = change->row;
+      break;
+    case TYPE_SPLIT_ROW:
+      text_join_lines(text, change->row);
+      break;
+    case TYPE_JOIN_ROW:
+      text->cursor_pos = change->pos;
+      text->cursor_row = change->row;
+      text_split_line(text);
+      break;
+    case TYPE_DELETE_ALL:
+      set_string(text, change->str);
+      text->cursor_pos = change->pos;
+      text->cursor_row = change->row;
+      break;
+    default:
+      g_return_if_reached ();
   }
   /* restore previous position/size */
   dia_object_set_properties (change->obj, change->props);
 }
 
+
 static void
-text_change_free(struct TextObjectChange *change)
+text_change_free (struct TextObjectChange *change)
 {
-  g_free(change->str);
-  prop_list_free(change->props);
+  g_free (change->str);
+  prop_list_free (change->props);
 }
+
 
 /* If some object does not properly resize when undoing
  * text changes consider adding some additional properties.

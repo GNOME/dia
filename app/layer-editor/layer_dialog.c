@@ -108,14 +108,14 @@ layer_dialog_create (void)
 
 
 void
-layer_dialog_show()
+layer_dialog_show (void)
 {
-  if (is_integrated_ui () == FALSE)
-  {
-  if (layer_dialog == NULL || layer_dialog->dialog == NULL)
-    layer_dialog_create();
-  g_assert(layer_dialog != NULL); /* must be valid now */
-  gtk_window_present(GTK_WINDOW(layer_dialog->dialog));
+  if (is_integrated_ui () == FALSE) {
+    if (layer_dialog == NULL || layer_dialog->dialog == NULL) {
+      layer_dialog_create();
+    }
+    g_assert (layer_dialog != NULL); /* must be valid now */
+    gtk_window_present (GTK_WINDOW (layer_dialog->dialog));
   }
 }
 
@@ -159,18 +159,20 @@ dia_layer_change_apply (DiaChange *self, Diagram *dia)
   change->applied = 1;
 
   switch (change->type) {
-  case TYPE_DELETE_LAYER:
-    data_remove_layer(dia->data, change->layer);
-    break;
-  case TYPE_ADD_LAYER:
-    data_add_layer_at(dia->data, change->layer, change->index);
-    break;
-  case TYPE_RAISE_LAYER:
-    data_raise_layer(dia->data, change->layer);
-    break;
-  case TYPE_LOWER_LAYER:
-    data_lower_layer(dia->data, change->layer);
-    break;
+    case TYPE_DELETE_LAYER:
+      data_remove_layer(dia->data, change->layer);
+      break;
+    case TYPE_ADD_LAYER:
+      data_add_layer_at(dia->data, change->layer, change->index);
+      break;
+    case TYPE_RAISE_LAYER:
+      data_raise_layer(dia->data, change->layer);
+      break;
+    case TYPE_LOWER_LAYER:
+      data_lower_layer(dia->data, change->layer);
+      break;
+    default:
+      g_return_if_reached ();
   }
 
   diagram_add_update_all(dia);
@@ -183,18 +185,20 @@ dia_layer_change_revert (DiaChange *self, Diagram *dia)
   DiaLayerChange *change = DIA_LAYER_CHANGE (self);
 
   switch (change->type) {
-  case TYPE_DELETE_LAYER:
-    data_add_layer_at(dia->data, change->layer, change->index);
-    break;
-  case TYPE_ADD_LAYER:
-    data_remove_layer(dia->data, change->layer);
-    break;
-  case TYPE_RAISE_LAYER:
-    data_lower_layer(dia->data, change->layer);
-    break;
-  case TYPE_LOWER_LAYER:
-    data_raise_layer(dia->data, change->layer);
-    break;
+    case TYPE_DELETE_LAYER:
+      data_add_layer_at(dia->data, change->layer, change->index);
+      break;
+    case TYPE_ADD_LAYER:
+      data_remove_layer(dia->data, change->layer);
+      break;
+    case TYPE_RAISE_LAYER:
+      data_lower_layer(dia->data, change->layer);
+      break;
+    case TYPE_LOWER_LAYER:
+      data_raise_layer(dia->data, change->layer);
+      break;
+    default:
+      g_return_if_reached ();
   }
 
   diagram_add_update_all(dia);
@@ -220,8 +224,8 @@ dia_layer_change_free (DiaChange *self)
       }
       break;
     case TYPE_RAISE_LAYER:
-      break;
     case TYPE_LOWER_LAYER:
+    default:
       break;
   }
 }

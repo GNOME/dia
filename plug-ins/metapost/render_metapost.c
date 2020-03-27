@@ -313,70 +313,76 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
     renderer->dot_length = dash_length * 0.1;
 }
 
-static void
-draw_with_linestyle(MetapostRenderer *renderer)
-{
-    real hole_width;
-    gchar dash_length_buf[DTOSTR_BUF_SIZE];
-    gchar dot_lenght_buf[DTOSTR_BUF_SIZE];
-    gchar hole_width_buf[DTOSTR_BUF_SIZE];
 
-    switch(renderer->saved_line_style) {
+static void
+draw_with_linestyle (MetapostRenderer *renderer)
+{
+  real hole_width;
+  gchar dash_length_buf[DTOSTR_BUF_SIZE];
+  gchar dot_lenght_buf[DTOSTR_BUF_SIZE];
+  gchar hole_width_buf[DTOSTR_BUF_SIZE];
+
+  switch (renderer->saved_line_style) {
+    case LINESTYLE_DASHED:
+      mp_dtostr (dash_length_buf, renderer->dash_length);
+      fprintf (renderer->file, "\n    dashed dashpattern (on %sx off %sx)",
+               dash_length_buf, dash_length_buf);
+      break;
+    case LINESTYLE_DASH_DOT:
+      hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
+
+      mp_dtostr (dash_length_buf, renderer->dash_length);
+      mp_dtostr (dot_lenght_buf, renderer->dot_length);
+      mp_dtostr (hole_width_buf, hole_width);
+
+      fprintf (renderer->file,
+               "\n    dashed dashpattern (on %sx off %sx on %sx off %sx)",
+               dash_length_buf, hole_width_buf,
+               dot_lenght_buf, hole_width_buf);
+      break;
+    case LINESTYLE_DASH_DOT_DOT:
+      hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
+
+      mp_dtostr (dash_length_buf, renderer->dash_length);
+      mp_dtostr (dot_lenght_buf, renderer->dot_length);
+      mp_dtostr (hole_width_buf, hole_width);
+
+      fprintf (renderer->file,
+               "\n    dashed dashpattern (on %sx off %sx on %sx off %sx on %sx off %sx)",
+               dash_length_buf, hole_width_buf,
+               dot_lenght_buf, hole_width_buf,
+               dot_lenght_buf, hole_width_buf );
+      break;
+    case LINESTYLE_DOTTED:
+      hole_width = renderer->dot_length * 5.0;
+      mp_dtostr (dot_lenght_buf, renderer->dot_length);
+      mp_dtostr (hole_width_buf, hole_width);
+
+      fprintf (renderer->file, "\n    dashed dashpattern (on %sx off %sx)",
+               dot_lenght_buf, hole_width_buf);
+      break;
     case LINESTYLE_DEFAULT:
     case LINESTYLE_SOLID:
-	break;
-    case LINESTYLE_DASHED:
-	mp_dtostr(dash_length_buf, renderer->dash_length);
-	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx)",
-		dash_length_buf, dash_length_buf);
-	break;
-    case LINESTYLE_DASH_DOT:
-	hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
-
-	mp_dtostr(dash_length_buf, renderer->dash_length);
-	mp_dtostr(dot_lenght_buf, renderer->dot_length);
-	mp_dtostr(hole_width_buf, hole_width);
-
-	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx on %sx off %sx)",
-		dash_length_buf, hole_width_buf,
-		dot_lenght_buf, hole_width_buf);
-	break;
-    case LINESTYLE_DASH_DOT_DOT:
-	hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
-
-	mp_dtostr(dash_length_buf, renderer->dash_length);
-	mp_dtostr(dot_lenght_buf, renderer->dot_length);
-	mp_dtostr(hole_width_buf, hole_width);
-
-	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx on %sx off %sx on %sx off %sx)",
-		dash_length_buf, hole_width_buf,
-		dot_lenght_buf, hole_width_buf,
-		dot_lenght_buf, hole_width_buf );
-	break;
-    case LINESTYLE_DOTTED:
-	hole_width = renderer->dot_length * 5.0;
-	mp_dtostr(dot_lenght_buf, renderer->dot_length);
-	mp_dtostr(hole_width_buf, hole_width);
-
-	fprintf(renderer->file, "\n    dashed dashpattern (on %sx off %sx)",
-		dot_lenght_buf, hole_width_buf);
-	break;
-    }
+    default:
+      break;
+  }
 }
+
 
 static void
-set_fillstyle(DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, FillStyle mode)
 {
-    /*MetapostRenderer *renderer = METAPOST_RENDERER (self);*/
+  /*MetapostRenderer *renderer = METAPOST_RENDERER (self);*/
 
-    switch(mode) {
+  switch(mode) {
     case FILLSTYLE_SOLID:
-	break;
+      break;
     default:
-	g_warning ("%s: Unsupported fill mode specified!",
-		   G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (self)));
+      g_warning ("%s: Unsupported fill mode specified!",
+                 G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (self)));
     }
 }
+
 
 static void
 set_font(DiaRenderer *self, DiaFont *font, real height)
@@ -640,198 +646,217 @@ draw_ellipse(DiaRenderer *self,
     }
 }
 
+
 static void
-draw_bezier(DiaRenderer *self,
-	    BezPoint *points,
-	    int numpoints, /* numpoints = 4+3*n, n=>0 */
-	    Color *color)
+draw_bezier (DiaRenderer *self,
+             BezPoint    *points,
+             int          numpoints, /* numpoints = 4+3*n, n=>0 */
+             Color       *color)
 {
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    gint i;
-    gchar p1x_buf[DTOSTR_BUF_SIZE];
-    gchar p1y_buf[DTOSTR_BUF_SIZE];
-    gchar p2x_buf[DTOSTR_BUF_SIZE];
-    gchar p2y_buf[DTOSTR_BUF_SIZE];
-    gchar p3x_buf[DTOSTR_BUF_SIZE];
-    gchar p3y_buf[DTOSTR_BUF_SIZE];
+  MetapostRenderer *renderer = METAPOST_RENDERER (self);
+  gint i;
+  gchar p1x_buf[DTOSTR_BUF_SIZE];
+  gchar p1y_buf[DTOSTR_BUF_SIZE];
+  gchar p2x_buf[DTOSTR_BUF_SIZE];
+  gchar p2y_buf[DTOSTR_BUF_SIZE];
+  gchar p3x_buf[DTOSTR_BUF_SIZE];
+  gchar p3y_buf[DTOSTR_BUF_SIZE];
 
-    set_line_color(renderer,color);
+  set_line_color (renderer, color);
 
-    if (points[0].type != BEZ_MOVE_TO)
-	g_warning("first BezPoint must be a BEZ_MOVE_TO");
+  if (points[0].type != BEZ_MOVE_TO) {
+    g_warning ("first BezPoint must be a BEZ_MOVE_TO");
+  }
 
-    fprintf(renderer->file, "  draw (%sx,%sy)",
-	    mp_dtostr(p1x_buf, (gdouble) points[0].p1.x),
-	    mp_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
+  fprintf (renderer->file, "  draw (%sx,%sy)",
+           mp_dtostr (p1x_buf, (gdouble) points[0].p1.x),
+           mp_dtostr (p1y_buf, (gdouble) points[0].p1.y) );
 
-    for (i = 1; i < numpoints; i++)
-	switch (points[i].type) {
-	case BEZ_MOVE_TO:
-	    g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-	    break;
-	case BEZ_LINE_TO:
-	    fprintf(renderer->file, "--(%sx,%sy)",
-		    mp_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-		    mp_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
-	    break;
-	case BEZ_CURVE_TO:
-	    fprintf(renderer->file, "..controls (%sx,%sy) and (%sx,%sy)\n    ..(%sx,%sy)",
-		    mp_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-		    mp_dtostr(p1y_buf, (gdouble) points[i].p1.y),
-		    mp_dtostr(p2x_buf, (gdouble) points[i].p2.x),
-		    mp_dtostr(p2y_buf, (gdouble) points[i].p2.y),
-		    mp_dtostr(p3x_buf, (gdouble) points[i].p3.x),
-		    mp_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
-	    break;
-	}
-    end_draw_op(renderer);
+  for (i = 1; i < numpoints; i++) {
+    switch (points[i].type) {
+      case BEZ_MOVE_TO:
+        g_warning ("only first BezPoint can be a BEZ_MOVE_TO");
+        break;
+      case BEZ_LINE_TO:
+        fprintf (renderer->file, "--(%sx,%sy)",
+                 mp_dtostr (p1x_buf, (gdouble) points[i].p1.x),
+                 mp_dtostr (p1y_buf, (gdouble) points[i].p1.y) );
+        break;
+      case BEZ_CURVE_TO:
+        fprintf (renderer->file, "..controls (%sx,%sy) and (%sx,%sy)\n    ..(%sx,%sy)",
+                 mp_dtostr (p1x_buf, (gdouble) points[i].p1.x),
+                 mp_dtostr (p1y_buf, (gdouble) points[i].p1.y),
+                 mp_dtostr (p2x_buf, (gdouble) points[i].p2.x),
+                 mp_dtostr (p2y_buf, (gdouble) points[i].p2.y),
+                 mp_dtostr (p3x_buf, (gdouble) points[i].p3.x),
+                 mp_dtostr (p3y_buf, (gdouble) points[i].p3.y) );
+        break;
+      default:
+        g_return_if_reached ();
+    }
+  }
+
+  end_draw_op (renderer);
 }
+
 
 static void
 draw_beziergon (DiaRenderer *self,
-		BezPoint *points,
-		int numpoints,
-		Color *fill,
-		Color *stroke)
+                BezPoint    *points,
+                int          numpoints,
+                Color       *fill,
+                Color       *stroke)
 {
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    gint i;
-    gchar p1x_buf[DTOSTR_BUF_SIZE];
-    gchar p1y_buf[DTOSTR_BUF_SIZE];
-    gchar p2x_buf[DTOSTR_BUF_SIZE];
-    gchar p2y_buf[DTOSTR_BUF_SIZE];
-    gchar p3x_buf[DTOSTR_BUF_SIZE];
-    gchar p3y_buf[DTOSTR_BUF_SIZE];
-    gchar red_buf[DTOSTR_BUF_SIZE];
-    gchar green_buf[DTOSTR_BUF_SIZE];
-    gchar blue_buf[DTOSTR_BUF_SIZE];
+  MetapostRenderer *renderer = METAPOST_RENDERER (self);
+  gint i;
+  gchar p1x_buf[DTOSTR_BUF_SIZE];
+  gchar p1y_buf[DTOSTR_BUF_SIZE];
+  gchar p2x_buf[DTOSTR_BUF_SIZE];
+  gchar p2y_buf[DTOSTR_BUF_SIZE];
+  gchar p3x_buf[DTOSTR_BUF_SIZE];
+  gchar p3y_buf[DTOSTR_BUF_SIZE];
+  gchar red_buf[DTOSTR_BUF_SIZE];
+  gchar green_buf[DTOSTR_BUF_SIZE];
+  gchar blue_buf[DTOSTR_BUF_SIZE];
 
-    if (points[0].type != BEZ_MOVE_TO)
-	g_warning("first BezPoint must be a BEZ_MOVE_TO");
+  if (points[0].type != BEZ_MOVE_TO) {
+    g_warning ("first BezPoint must be a BEZ_MOVE_TO");
+  }
 
-    if (stroke)
-	set_line_color(renderer,stroke);
+  if (stroke) {
+    set_line_color (renderer,stroke);
+  }
 
-    fprintf(renderer->file, "  path p;\n");
-    fprintf(renderer->file, "  p = (%sx,%sy)",
-	    mp_dtostr(p1x_buf, (gdouble) points[0].p1.x),
-	    mp_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
+  fprintf (renderer->file, "  path p;\n");
+  fprintf (renderer->file, "  p = (%sx,%sy)",
+           mp_dtostr (p1x_buf, (gdouble) points[0].p1.x),
+           mp_dtostr (p1y_buf, (gdouble) points[0].p1.y) );
 
-    for (i = 1; i < numpoints; i++)
-	switch (points[i].type) {
-	case BEZ_MOVE_TO:
-	    /* close previous, new move-to - XXX: not working, not used, gives:
-	     *   Paths don't touch; `&' will be changed to `..'.
-	     */
-	    fprintf(renderer->file, "  ..cycle\n  & (%sx,%sy)",
-		mp_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-		mp_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
-	    break;
-	case BEZ_LINE_TO:
-	    fprintf(renderer->file, "--(%sx,%sy)",
-		    mp_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-		    mp_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
-	    break;
-	case BEZ_CURVE_TO:
-	    fprintf(renderer->file, "..controls (%sx,%sy) and (%sx,%sy)\n    ..(%sx,%sy)",
-		    mp_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-		    mp_dtostr(p1y_buf, (gdouble) points[i].p1.y),
-		    mp_dtostr(p2x_buf, (gdouble) points[i].p2.x),
-		    mp_dtostr(p2y_buf, (gdouble) points[i].p2.y),
-		    mp_dtostr(p3x_buf, (gdouble) points[i].p3.x),
-		    mp_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
-	    break;
-	}
-    fprintf(renderer->file, "\n    ..cycle;\n");
-
-    if (fill)
-	fprintf(renderer->file,
-		"  fill p withcolor (%s,%s,%s);\n",
-		mp_dtostr(red_buf, (gdouble) fill->red),
-		mp_dtostr(green_buf, (gdouble) fill->green),
-		mp_dtostr(blue_buf, (gdouble) fill->blue) );
-
-    if (stroke) {
-	fprintf(renderer->file, "  draw p");
-	end_draw_op(renderer);
+  for (i = 1; i < numpoints; i++) {
+    switch (points[i].type) {
+      case BEZ_MOVE_TO:
+        /* close previous, new move-to - XXX: not working, not used, gives:
+        *   Paths don't touch; `&' will be changed to `..'.
+        */
+        fprintf (renderer->file, "  ..cycle\n  & (%sx,%sy)",
+                 mp_dtostr (p1x_buf, (gdouble) points[i].p1.x),
+                 mp_dtostr (p1y_buf, (gdouble) points[i].p1.y) );
+        break;
+      case BEZ_LINE_TO:
+        fprintf (renderer->file, "--(%sx,%sy)",
+                 mp_dtostr (p1x_buf, (gdouble) points[i].p1.x),
+                 mp_dtostr (p1y_buf, (gdouble) points[i].p1.y) );
+        break;
+      case BEZ_CURVE_TO:
+        fprintf (renderer->file, "..controls (%sx,%sy) and (%sx,%sy)\n    ..(%sx,%sy)",
+                 mp_dtostr(p1x_buf, (gdouble) points[i].p1.x),
+                 mp_dtostr(p1y_buf, (gdouble) points[i].p1.y),
+                 mp_dtostr(p2x_buf, (gdouble) points[i].p2.x),
+                 mp_dtostr(p2y_buf, (gdouble) points[i].p2.y),
+                 mp_dtostr(p3x_buf, (gdouble) points[i].p3.x),
+                 mp_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
+        break;
+      default:
+        g_return_if_reached ();
     }
+  }
+  fprintf (renderer->file, "\n    ..cycle;\n");
+
+  if (fill) {
+    fprintf (renderer->file,
+             "  fill p withcolor (%s,%s,%s);\n",
+             mp_dtostr (red_buf, (gdouble) fill->red),
+             mp_dtostr (green_buf, (gdouble) fill->green),
+             mp_dtostr (blue_buf, (gdouble) fill->blue) );
+  }
+
+  if (stroke) {
+    fprintf (renderer->file, "  draw p");
+    end_draw_op (renderer);
+  }
 }
+
 
 static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *color)
+draw_string (DiaRenderer *self,
+             const char  *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *color)
 {
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    gchar height_buf[DTOSTR_BUF_SIZE];
-    gchar px_buf[DTOSTR_BUF_SIZE];
-    gchar py_buf[DTOSTR_BUF_SIZE];
-    gchar red_buf[DTOSTR_BUF_SIZE];
-    gchar green_buf[DTOSTR_BUF_SIZE];
-    gchar blue_buf[DTOSTR_BUF_SIZE];
+  MetapostRenderer *renderer = METAPOST_RENDERER (self);
+  gchar height_buf[DTOSTR_BUF_SIZE];
+  gchar px_buf[DTOSTR_BUF_SIZE];
+  gchar py_buf[DTOSTR_BUF_SIZE];
+  gchar red_buf[DTOSTR_BUF_SIZE];
+  gchar green_buf[DTOSTR_BUF_SIZE];
+  gchar blue_buf[DTOSTR_BUF_SIZE];
 
-    set_line_color(renderer,color);
+  set_line_color (renderer, color);
 
-    /* text position is correct for baseline. Uses macros defined
-     * at top of MetaPost file (see export_metapost) to correctly
-     * align text. See bug # 332554 */
-    switch (alignment) {
+  /* text position is correct for baseline. Uses macros defined
+    * at top of MetaPost file (see export_metapost) to correctly
+    * align text. See bug # 332554 */
+  switch (alignment) {
     case ALIGN_LEFT:
-	fprintf(renderer->file,"  draw");
-	break;
+      fprintf (renderer->file,"  draw");
+      break;
     case ALIGN_CENTER:
-	fprintf(renderer->file,"  draw hcentered");
-	break;
+      fprintf (renderer->file,"  draw hcentered");
+      break;
     case ALIGN_RIGHT:
-	fprintf(renderer->file,"  draw rjust");
-	break;
-    }
+      fprintf (renderer->file,"  draw rjust");
+      break;
+    default:
+      g_return_if_reached ();
+  }
 
-    /* Ideally, we would be able to use the "infont" macro to print this label
-     * in the proper font.  Unfortunately, though, metapost is in the habit of
-     * converting spaces into visible spaces, which looks rather yucky.  So we
-     * embed some TeX with \usefont commands instead. */
-	/* Scale text by multiplying text by variable t in metapost */
-    fprintf(renderer->file,
-            " btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %st shifted (%sx,%sy)",
-            renderer->mp_font, renderer->mp_weight, renderer->mp_slant,
-            text,
-	    g_ascii_formatd(height_buf, sizeof(height_buf), "%g", renderer->mp_font_height),
-	    mp_dtostr(px_buf, pos->x),
-	    mp_dtostr(py_buf, pos->y) );
+  /* Ideally, we would be able to use the "infont" macro to print this label
+    * in the proper font.  Unfortunately, though, metapost is in the habit of
+    * converting spaces into visible spaces, which looks rather yucky.  So we
+    * embed some TeX with \usefont commands instead. */
+  /* Scale text by multiplying text by variable t in metapost */
+  fprintf (renderer->file,
+           " btex {\\usefont{OT1}{%s}{%s}{%s} %s} etex scaled %st shifted (%sx,%sy)",
+           renderer->mp_font, renderer->mp_weight, renderer->mp_slant,
+           text,
+           g_ascii_formatd (height_buf, sizeof (height_buf), "%g", renderer->mp_font_height),
+           mp_dtostr (px_buf, pos->x),
+           mp_dtostr (py_buf, pos->y) );
 
-    if (!color_equals(&renderer->color, &color_black))
-        fprintf(renderer->file, "\n    withcolor (%s, %s, %s)",
-                g_ascii_formatd(red_buf, sizeof(red_buf), "%5.4f", (gdouble) renderer->color.red),
-                g_ascii_formatd(green_buf, sizeof(green_buf), "%5.4f", (gdouble) renderer->color.green),
-                g_ascii_formatd(blue_buf, sizeof(blue_buf), "%5.4f", (gdouble) renderer->color.blue) );
+  if (!color_equals(&renderer->color, &color_black)) {
+      fprintf (renderer->file, "\n    withcolor (%s, %s, %s)",
+               g_ascii_formatd (red_buf, sizeof (red_buf), "%5.4f", (gdouble) renderer->color.red),
+               g_ascii_formatd (green_buf, sizeof (green_buf), "%5.4f", (gdouble) renderer->color.green),
+               g_ascii_formatd (blue_buf, sizeof (blue_buf), "%5.4f", (gdouble) renderer->color.blue) );
+  }
 
-    fprintf(renderer->file,";\n");
+  fprintf (renderer->file,";\n");
 }
+
 
 static void
 draw_text (DiaRenderer *self,
-	   Text *text)
+           Text        *text)
 {
   Point pos;
   int i;
   pos = text->position;
 
+  set_font (self, text->font, text->height);
 
-  set_font(self, text->font, text->height);
-
-  for (i=0;i<text->numlines;i++) {
+  for (i = 0; i < text->numlines; i++) {
     TextLine *text_line = text->lines[i];
 
-    draw_string(self,
-				text_line_get_string(text_line),
-				&pos,
-				text->alignment,
-				&text->color);
+    draw_string (self,
+                 text_line_get_string (text_line),
+                 &pos,
+                 text->alignment,
+                 &text->color);
     pos.y += text->height;
   }
 }
+
 
 static void
 draw_image(DiaRenderer *self,

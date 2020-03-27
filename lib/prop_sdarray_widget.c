@@ -645,38 +645,46 @@ _arrayprop_reset_widget(ArrayProperty *prop, WIDGET *widget)
   }
 }
 
+
 static gboolean
 _array_prop_adjust_len (ArrayProperty *prop, guint len)
 {
-  guint i, j;
+  guint i;
   guint num_props = prop->ex_props->len;
 
-  if (prop->records->len == len)
+  if (prop->records->len == len) {
     return FALSE;
+  }
+
   /* see also: pydia-property.c */
   for (i = len; i < prop->records->len; ++i) {
-    GPtrArray *record = g_ptr_array_index(prop->records, i);
-    guint j;
-    for (j = 0; j < num_props; j++) {
-      Property *inner =g_ptr_array_index(record, j);
-      inner->ops->free(inner);
+    GPtrArray *record = g_ptr_array_index (prop->records, i);
+
+    for (guint j = 0; j < num_props; j++) {
+      Property *inner = g_ptr_array_index (record, j);
+
+      inner->ops->free (inner);
     }
-    g_ptr_array_free(record, TRUE);
+    g_ptr_array_free (record, TRUE);
   }
   for (i = prop->records->len; i < len; ++i) {
-    GPtrArray *record = g_ptr_array_new();
+    GPtrArray *record = g_ptr_array_new ();
 
-    for (j = 0; j < num_props; j++) {
-      Property *ex = g_ptr_array_index(prop->ex_props, j);
-      Property *inner = ex->ops->copy(ex);
+    for (guint j = 0; j < num_props; j++) {
+      Property *ex = g_ptr_array_index (prop->ex_props, j);
+      Property *inner = ex->ops->copy (ex);
 
-      g_ptr_array_add(record, inner);
+      g_ptr_array_add (record, inner);
     }
-    g_ptr_array_add(prop->records, record);
+
+    g_ptr_array_add (prop->records, record);
   }
-  g_ptr_array_set_size(prop->records, len);
+  g_ptr_array_set_size (prop->records, len);
+
   return TRUE;
 }
+
+
 /*!
  * \brief Transfer from the view model to the property
  */

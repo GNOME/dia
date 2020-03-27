@@ -191,28 +191,33 @@ text_line_get_descent(const TextLine *text_line)
   return text_line->descent;
 }
 
-/*!
- * \brief Calculate TextLine adjustment for Alignment
+
+/**
+ * text_line_get_alignment_adjustment:
+ * @text_line: a line of text
+ * @alignment: how to align it.
+ *
+ * Calculate #TextLine adjustment for #Alignment
  *
  * Return the amount this text line would need to be shifted in order to
  * implement the given alignment.
- * @param text_line a line of text
- * @param alignment how to align it.
- * @return The amount (in diagram lengths) to shift the x positiion of
+ *
+ * Returns: The amount (in diagram lengths) to shift the x positiion of
  * rendering this such that it looks aligned when printed with x at the left.
  * Always a positive number.
  */
 real
-text_line_get_alignment_adjustment(TextLine *text_line, Alignment alignment)
+text_line_get_alignment_adjustment (TextLine *text_line, Alignment alignment)
 {
   text_line_cache_values(text_line);
   switch (alignment) {
-      case ALIGN_CENTER:
-	return text_line->width / 2;
-      case ALIGN_RIGHT:
-	return text_line->width;
-      default:
-	return 0.0;
+    case ALIGN_CENTER:
+     return text_line->width / 2;
+    case ALIGN_RIGHT:
+       return text_line->width;
+    case ALIGN_LEFT:
+    default:
+     return 0.0;
    }
 }
 

@@ -896,15 +896,15 @@ app_exit (void)
       GtkWidget                *dialog;
       int                       result;
       exit_dialog_item_array_t *items  = NULL;
-      GList *                   list;
+      GList *                   diagrams;
       Diagram *                 diagram;
 
       dialog = exit_dialog_make (GTK_WINDOW (interface_get_toolbox_shell ()),
                                  _("Exiting Dia"));
 
-      list = dia_open_diagrams ();
-      while (list) {
-        diagram = list->data;
+      diagrams = dia_open_diagrams ();
+      while (diagrams) {
+        diagram = diagrams->data;
 
         if (diagram_is_modified (diagram)) {
           const gchar * name = diagram_get_name (diagram);
@@ -912,7 +912,7 @@ app_exit (void)
           exit_dialog_add_item (dialog, name, path, diagram);
         }
 
-        list = g_list_next (list);
+        diagrams = g_list_next (diagrams);
       }
 
       result = exit_dialog_run (dialog, &items);
@@ -943,14 +943,14 @@ app_exit (void)
         dia_context_release (ctx);
         exit_dialog_free_items (items);
       } else if (result == EXIT_DIALOG_EXIT_NO_SAVE) {
-        list = dia_open_diagrams ();
-        while (list) {
-          diagram = list->data;
+        diagrams = dia_open_diagrams ();
+        while (diagrams) {
+          diagram = diagrams->data;
 
           /* slight hack: don't ask again */
           diagram_set_modified (diagram, FALSE);
           undo_clear (diagram->undo);
-          list = g_list_next (list);
+          diagrams = g_list_next (diagrams);
         }
       }
     } else {

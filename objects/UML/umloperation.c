@@ -322,19 +322,19 @@ uml_get_operation_string (UMLOperation *operation)
     param = (UMLParameter  *) list->data;
     list = g_list_next (list);
 
-    switch(param->kind)
-      {
-      case UML_UNDEF_KIND:
-	break;
+    switch (param->kind) {
       case UML_IN:
-	len += 3;
-	break;
+        len += 3;
+        break;
       case UML_OUT:
-	len += 4;
-	break;
+        len += 4;
+        break;
       case UML_INOUT:
-	len += 6;
-	break;
+        len += 6;
+        break;
+      case UML_UNDEF_KIND:
+      default:
+        break;
       }
     len += (param->name ? strlen (param->name) : 0);
     if (param->type != NULL) {
@@ -381,20 +381,20 @@ uml_get_operation_string (UMLOperation *operation)
     param = (UMLParameter  *) list->data;
     list = g_list_next (list);
 
-    switch(param->kind)
-      {
-      case UML_UNDEF_KIND:
-	break;
+    switch (param->kind) {
       case UML_IN:
-	strcat (str, "in ");
-	break;
+        strcat (str, "in ");
+        break;
       case UML_OUT:
-	strcat (str, "out ");
-	break;
+        strcat (str, "out ");
+        break;
       case UML_INOUT:
-	strcat (str, "inout ");
-	break;
-      }
+        strcat (str, "inout ");
+        break;
+      case UML_UNDEF_KIND:
+      default:
+        break;
+    }
     strcat (str, param->name ? param->name : "");
 
     if (param->type != NULL) {

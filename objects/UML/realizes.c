@@ -313,22 +313,24 @@ realizes_update_data(Realizes *realize)
   }
 
   switch (realize->orth.orientation[i]) {
-  case HORIZONTAL:
-    realize->text_align = ALIGN_CENTER;
-    realize->text_pos.x = 0.5*(points[i].x+points[i+1].x);
-    realize->text_pos.y = points[i].y;
-    if (realize->name)
-      realize->text_pos.y -=
-        dia_font_descent(realize->name,realize->font, realize->font_height);
-    break;
-  case VERTICAL:
-    realize->text_align = ALIGN_LEFT;
-    realize->text_pos.x = points[i].x + 0.1;
-    realize->text_pos.y = 0.5*(points[i].y+points[i+1].y);
-    if (realize->name)
-      realize->text_pos.y -=
-        dia_font_descent(realize->name, realize->font, realize->font_height);
-    break;
+    case HORIZONTAL:
+      realize->text_align = ALIGN_CENTER;
+      realize->text_pos.x = 0.5*(points[i].x+points[i+1].x);
+      realize->text_pos.y = points[i].y;
+      if (realize->name)
+        realize->text_pos.y -=
+          dia_font_descent (realize->name,realize->font, realize->font_height);
+      break;
+    case VERTICAL:
+      realize->text_align = ALIGN_LEFT;
+      realize->text_pos.x = points[i].x + 0.1;
+      realize->text_pos.y = 0.5*(points[i].y+points[i+1].y);
+      if (realize->name)
+        realize->text_pos.y -=
+          dia_font_descent (realize->name, realize->font, realize->font_height);
+      break;
+    default:
+      g_return_if_reached ();
   }
 
   /* Add the text recangle to the bounding box: */

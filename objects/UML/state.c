@@ -464,44 +464,54 @@ state_create(Point *startpoint,
   return &state->element.object;
 }
 
+
 static void
-state_destroy(State *state)
+state_destroy (State *state)
 {
   g_free (state->entry_action);
   g_free (state->do_action);
   g_free (state->exit_action);
 
-  text_destroy(state->text);
+  text_destroy (state->text);
 
-  element_destroy(&state->element);
+  element_destroy (&state->element);
 }
 
+
 static DiaObject *
-state_load(ObjectNode obj_node, int version,DiaContext *ctx)
+state_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
-  State *obj = (State*)object_load_using_properties(&state_type,
-					     obj_node,version,ctx);
+  State *obj = (State*) object_load_using_properties (&state_type,
+                                                      obj_node,
+                                                      version,
+                                                      ctx);
   if (obj->state_type != STATE_NORMAL) {
     /* Would like to create a state_term instead, but making the connections
      * is a pain */
-    message_warning(_("This diagram uses the State object for initial/final states.\nThis option will go away in future versions.\nPlease use the Initial/Final State object instead.\n"));
+    message_warning (_("This diagram uses the State object for initial/final "
+                       "states.\nThis option will go away in future versions."
+                       "\nPlease use the Initial/Final State object "
+                       "instead.\n"));
   }
-  return (DiaObject *)obj;
+
+  return (DiaObject *) obj;
 }
 
+
 static void
-state_calc_action_text_pos(State* state, StateAction action, Point* pos)
+state_calc_action_text_pos (State* state, StateAction action, Point* pos)
 {
-  int entry_action_valid = state->entry_action && strlen(state->entry_action) != 0;
-  int do_action_valid = state->do_action && strlen(state->do_action) != 0;
+  int entry_action_valid = state->entry_action &&
+                           strlen (state->entry_action) != 0;
+  int do_action_valid = state->do_action &&
+                        strlen (state->do_action) != 0;
 
   real first_action_y = state->text->numlines*state->text->height +
                         state->text->position.y;
 
   pos->x = state->element.corner.x + STATE_MARGIN_X;
 
-  switch (action)
-  {
+  switch (action) {
     case ENTRY_ACTION:
       pos->y = first_action_y;
       break;
@@ -516,28 +526,32 @@ state_calc_action_text_pos(State* state, StateAction action, Point* pos)
       if (entry_action_valid) pos->y += state->text->height;
       if (do_action_valid) pos->y += state->text->height;
       break;
+
+    default:
+      g_return_if_reached ();
   }
 }
 
 
 static gchar*
-state_get_action_text(State* state, StateAction action)
+state_get_action_text (State* state, StateAction action)
 {
-  switch (action)
-  {
+  switch (action) {
     case ENTRY_ACTION:
-      return g_strdup_printf("entry/ %s", state->entry_action);
+      return g_strdup_printf ("entry/ %s", state->entry_action);
       break;
 
     case DO_ACTION:
-      return g_strdup_printf("do/ %s", state->do_action);
+      return g_strdup_printf ("do/ %s", state->do_action);
       break;
 
     case EXIT_ACTION:
-      return g_strdup_printf("exit/ %s", state->exit_action);
+      return g_strdup_printf ("exit/ %s", state->exit_action);
       break;
+
+    default:
+      g_return_val_if_reached (NULL);
   }
+
   return NULL;
 }
-
-

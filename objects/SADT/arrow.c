@@ -234,6 +234,7 @@ static void draw_tunnel(DiaRenderer *renderer,
 #define GBASE .45
 #define GMULT .55
 
+
 static void
 sadtarrow_draw (Sadtarrow *sadtarrow, DiaRenderer *renderer)
 {
@@ -286,9 +287,11 @@ sadtarrow_draw (Sadtarrow *sadtarrow, DiaRenderer *renderer)
       break;
     case SADT_ARROW_NORMAL:
     case SADT_ARROW_DISABLED:
+    default:
       break;
   }
 }
+
 
 static void
 draw_dot (DiaRenderer *renderer,
@@ -425,26 +428,28 @@ sadtarrow_update_data(Sadtarrow *sadtarrow)
   extra->end_trans = MAX(ARROW_LINE_WIDTH/2.0,ARROW_HEAD_WIDTH/2.0);
 
   switch(sadtarrow->style) {
-  case SADT_ARROW_IMPORTED:
-    extra->start_trans = MAX(ARROW_LINE_WIDTH/2.0,
-                             ARROW_PARENS_WOFFSET + ARROW_PARENS_LENGTH/3);
-    break;
-  case SADT_ARROW_IMPLIED:
-    extra->end_trans = MAX(ARROW_LINE_WIDTH/2.0,
-                             MAX(ARROW_PARENS_WOFFSET + ARROW_PARENS_LENGTH/3,
-                                 ARROW_HEAD_WIDTH/2.0));
-    break;
-  case SADT_ARROW_DOTTED:
-    extra->start_long = extra->end_long;
-    extra->end_trans =
-      extra->start_trans = MAX(MAX(MAX(ARROW_HEAD_WIDTH,ARROW_HEAD_LENGTH),
-                                   ARROW_LINE_WIDTH/2.0),
-                               ARROW_DOT_WOFFSET+ARROW_DOT_RADIUS);
-    break;
-  default:
-    break;
+    case SADT_ARROW_IMPORTED:
+      extra->start_trans = MAX(ARROW_LINE_WIDTH/2.0,
+                              ARROW_PARENS_WOFFSET + ARROW_PARENS_LENGTH/3);
+      break;
+    case SADT_ARROW_IMPLIED:
+      extra->end_trans = MAX(ARROW_LINE_WIDTH/2.0,
+                              MAX(ARROW_PARENS_WOFFSET + ARROW_PARENS_LENGTH/3,
+                                  ARROW_HEAD_WIDTH/2.0));
+      break;
+    case SADT_ARROW_DOTTED:
+      extra->start_long = extra->end_long;
+      extra->end_trans =
+        extra->start_trans = MAX(MAX(MAX(ARROW_HEAD_WIDTH,ARROW_HEAD_LENGTH),
+                                    ARROW_LINE_WIDTH/2.0),
+                                ARROW_DOT_WOFFSET+ARROW_DOT_RADIUS);
+      break;
+    case SADT_ARROW_NORMAL:
+    case SADT_ARROW_DISABLED:
+    default:
+      break;
   }
-  orthconn_update_boundingbox(orth);
+  orthconn_update_boundingbox (orth);
 }
 
 static ObjectChange *

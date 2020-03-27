@@ -254,60 +254,68 @@ aadlbox_change_free(struct PointChange *change)
 
 
 static void
-aadlbox_change_apply(struct PointChange *change, DiaObject *obj)
+aadlbox_change_apply (struct PointChange *change, DiaObject *obj)
 {
   change->applied = 1;
   switch (change->type) {
-  case TYPE_ADD_POINT:
-    aadlbox_add_port((Aadlbox *)obj, &change->point, change->port);
-    break;
-  case TYPE_REMOVE_POINT:
-    aadlbox_remove_port((Aadlbox *)obj, change->port);
-    break;
-  case TYPE_ADD_CONNECTION:
-    aadlbox_add_connection((Aadlbox *)obj, &change->point, change->connection);
-    break;
-  case TYPE_REMOVE_CONNECTION:
-    aadlbox_remove_connection((Aadlbox *)obj, change->connection);
-    break;
+    case TYPE_ADD_POINT:
+      aadlbox_add_port ((Aadlbox *) obj, &change->point, change->port);
+      break;
+    case TYPE_REMOVE_POINT:
+      aadlbox_remove_port ((Aadlbox *) obj, change->port);
+      break;
+    case TYPE_ADD_CONNECTION:
+      aadlbox_add_connection ((Aadlbox *) obj,
+                              &change->point, change->connection);
+      break;
+    case TYPE_REMOVE_CONNECTION:
+      aadlbox_remove_connection ((Aadlbox *) obj, change->connection);
+      break;
+    default:
+      g_return_if_reached ();
   }
-  aadlbox_update_data((Aadlbox *)obj);
+  aadlbox_update_data ((Aadlbox *) obj);
 }
 
+
 static void
-aadlbox_change_revert(struct PointChange *change, DiaObject *obj)
+aadlbox_change_revert (struct PointChange *change, DiaObject *obj)
 {
-
   switch (change->type) {
-  case TYPE_ADD_POINT:
-    aadlbox_remove_port((Aadlbox *)obj, change->port);
-    break;
+    case TYPE_ADD_POINT:
+      aadlbox_remove_port((Aadlbox *)obj, change->port);
+      break;
 
-  case TYPE_REMOVE_POINT:
-    aadlbox_add_port((Aadlbox *)obj, &change->point, change->port);
-    break;
+    case TYPE_REMOVE_POINT:
+      aadlbox_add_port((Aadlbox *)obj, &change->point, change->port);
+      break;
 
-  case TYPE_ADD_CONNECTION:
-    aadlbox_remove_connection((Aadlbox *)obj, change->connection);
-    break;
+    case TYPE_ADD_CONNECTION:
+      aadlbox_remove_connection((Aadlbox *)obj, change->connection);
+      break;
 
-  case TYPE_REMOVE_CONNECTION: ;
-    aadlbox_add_connection((Aadlbox *)obj, &change->point, change->connection);
-    break;
+    case TYPE_REMOVE_CONNECTION: ;
+      aadlbox_add_connection((Aadlbox *)obj, &change->point, change->connection);
+      break;
+
+    default:
+      g_return_if_reached ();
   }
 
-  aadlbox_update_data((Aadlbox *)obj);
+  aadlbox_update_data ((Aadlbox *) obj);
   change->applied = 0;
 }
 
 
 static ObjectChange *
-aadlbox_create_change(Aadlbox *aadlbox, enum change_type type,
-		  Point *point, void *data)
+aadlbox_create_change (Aadlbox          *aadlbox,
+                       enum change_type  type,
+                       Point            *point,
+                       void             *data)
 {
   struct PointChange *change;
 
-  change = g_new0(struct PointChange, 1);
+  change = g_new0 (struct PointChange, 1);
 
   change->obj_change.apply = (ObjectChangeApplyFunc) aadlbox_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) aadlbox_change_revert;
@@ -318,17 +326,21 @@ aadlbox_create_change(Aadlbox *aadlbox, enum change_type type,
   change->point = *point;
 
   switch (type) {
+    case TYPE_ADD_POINT:
+    case TYPE_REMOVE_POINT:
+      change->port = (Aadlport *) data;
+      break;
 
-  case TYPE_ADD_POINT:  case TYPE_REMOVE_POINT:
-    change->port = (Aadlport *) data;
-    break;
+    case TYPE_ADD_CONNECTION:
+    case TYPE_REMOVE_CONNECTION:
+      change->connection = (ConnectionPoint *) data;
+      break;
 
-  case TYPE_ADD_CONNECTION:  case TYPE_REMOVE_CONNECTION:
-    change->connection = (ConnectionPoint *) data;
-    break;
+    default:
+      g_return_val_if_reached (NULL);
   }
 
-  return (ObjectChange *)change;
+  return (ObjectChange *) change;
 }
 
 

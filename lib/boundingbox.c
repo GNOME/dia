@@ -402,38 +402,43 @@ polybezier_bbox(const BezPoint *pts, int numpoints,
       continue;
     }
 
-    switch(pts[i].type) {
-    case BEZ_MOVE_TO:
-      g_assert_not_reached();
-      break;
-    case BEZ_LINE_TO:
-      point_copy(&vx,&pts[i].p1);
-      switch(pts[prev].type) {
-      case BEZ_MOVE_TO:
+    switch (pts[i].type) {
       case BEZ_LINE_TO:
-        point_copy(&vsc,&pts[prev].p1);
-        point_copy(&vp,&pts[prev].p1);
+        point_copy(&vx,&pts[i].p1);
+        switch(pts[prev].type) {
+          case BEZ_MOVE_TO:
+          case BEZ_LINE_TO:
+            point_copy(&vsc,&pts[prev].p1);
+            point_copy(&vp,&pts[prev].p1);
+            break;
+          case BEZ_CURVE_TO:
+            point_copy(&vsc,&pts[prev].p3);
+            point_copy(&vp,&pts[prev].p3);
+            break;
+          default:
+            g_return_if_reached ();
+        }
         break;
       case BEZ_CURVE_TO:
-        point_copy(&vsc,&pts[prev].p3);
-        point_copy(&vp,&pts[prev].p3);
-        break;
-      }
-      break;
-    case BEZ_CURVE_TO:
-      point_copy(&vx,&pts[i].p3);
-      point_copy(&vp,&pts[i].p2);
-      switch(pts[prev].type) {
-      case BEZ_MOVE_TO:
-      case BEZ_LINE_TO:
-        point_copy(&vsc,&pts[prev].p1);
-        break;
-      case BEZ_CURVE_TO:
-        point_copy(&vsc,&pts[prev].p3);
-        break;
-      } /* vsc is the start of the curve. */
+        point_copy (&vx,&pts[i].p3);
+        point_copy (&vp,&pts[i].p2);
+        switch (pts[prev].type) {
+          case BEZ_MOVE_TO:
+          case BEZ_LINE_TO:
+            point_copy (&vsc,&pts[prev].p1);
+            break;
+          case BEZ_CURVE_TO:
+            point_copy (&vsc,&pts[prev].p3);
+            break;
+          default:
+            g_return_if_reached ();
+        } /* vsc is the start of the curve. */
 
-      break;
+        break;
+      case BEZ_MOVE_TO:
+      default:
+        g_return_if_reached ();
+        break;
     }
     start = (pts[prev].type == BEZ_MOVE_TO);
     end = (pts[next].type == BEZ_MOVE_TO);

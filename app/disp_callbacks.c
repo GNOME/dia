@@ -605,28 +605,32 @@ ddisplay_im_context_preedit_changed(GtkIMContext *context,
   }
 }
 
+
 static void
 _scroll_page (DDisplay *ddisp, Direction dir)
 {
   Point delta = {0, 0};
 
   switch (dir) {
-  case DIR_LEFT :
-    delta.x = ddisp->diagram->data->paper.width * ddisp->diagram->data->paper.scaling;
-    break;
-  case DIR_RIGHT :
-    delta.x = -ddisp->diagram->data->paper.width * ddisp->diagram->data->paper.scaling;
-    break;
-  case DIR_UP :
-    delta.y = -ddisp->diagram->data->paper.height * ddisp->diagram->data->paper.scaling;
-    break;
-  case DIR_DOWN :
-    delta.y = ddisp->diagram->data->paper.height * ddisp->diagram->data->paper.scaling;
-    break;
+    case DIR_LEFT:
+      delta.x = ddisp->diagram->data->paper.width * ddisp->diagram->data->paper.scaling;
+      break;
+    case DIR_RIGHT:
+      delta.x = -ddisp->diagram->data->paper.width * ddisp->diagram->data->paper.scaling;
+      break;
+    case DIR_UP:
+      delta.y = -ddisp->diagram->data->paper.height * ddisp->diagram->data->paper.scaling;
+      break;
+    case DIR_DOWN:
+      delta.y = ddisp->diagram->data->paper.height * ddisp->diagram->data->paper.scaling;
+      break;
+    default:
+      g_return_if_reached ();
   }
-  ddisplay_scroll(ddisp, &delta);
-  ddisplay_flush(ddisp);
+  ddisplay_scroll (ddisp, &delta);
+  ddisplay_flush (ddisp);
 }
+
 
 static void
 _scroll_step (DDisplay *ddisp, guint keyval)
@@ -681,12 +685,15 @@ hold_timeout_handler(gpointer data)
 }
 
 
-/** Main input handler for a diagram canvas.
+/**
+ * ddisplay_canvas_events:
+ *
+ * Main input handler for a diagram canvas.
  */
 gint
 ddisplay_canvas_events (GtkWidget *canvas,
-			GdkEvent  *event,
-			DDisplay *ddisp)
+                        GdkEvent  *event,
+                        DDisplay  *ddisp)
 {
   GdkEventMotion *mevent;
   GdkEventButton *bevent;
@@ -706,356 +713,394 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
   return_val = FALSE;
 
-  if (!gtk_widget_get_window(canvas))
+  if (!gtk_widget_get_window (canvas)) {
     return FALSE;
+  }
 
-  switch (event->type)
-  {
-      case GDK_SCROLL:
-        sevent = (GdkEventScroll *) event;
+  switch (event->type) {
+    case GDK_SCROLL:
+      sevent = (GdkEventScroll *) event;
 
-        switch (sevent->direction)
-        {
-            case GDK_SCROLL_UP:
-              if (sevent->state & GDK_SHIFT_MASK)
-                  ddisplay_scroll_left(ddisp);
-              else if (sevent->state & GDK_CONTROL_MASK) {
-                  ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
-		  /* zooming with the wheel in small steps 1^(1/8) */
-                  ddisplay_zoom_centered(ddisp, &middle, 1.090508);
-              }
-              else
-                  ddisplay_scroll_up(ddisp);
-              break;
-            case GDK_SCROLL_DOWN:
-              if (sevent->state & GDK_SHIFT_MASK)
-                  ddisplay_scroll_right(ddisp);
-              else if (sevent->state & GDK_CONTROL_MASK) {
-                  ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
-		  /* zooming with the wheel in small steps 1/(1^(1/8)) */
-                  ddisplay_zoom_centered(ddisp, &middle, 0.917004);
-              }
-              else
-                  ddisplay_scroll_down(ddisp);
-              break;
-            case GDK_SCROLL_LEFT:
-              ddisplay_scroll_left(ddisp);
-              break;
-            case GDK_SCROLL_RIGHT:
-              ddisplay_scroll_right(ddisp);
-              break;
-            default:
-              break;
-        }
-        ddisplay_flush (ddisp);
-        break;
+      switch (sevent->direction) {
+        case GDK_SCROLL_UP:
+          if (sevent->state & GDK_SHIFT_MASK) {
+            ddisplay_scroll_left(ddisp);
+          } else if (sevent->state & GDK_CONTROL_MASK) {
+            ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
+            /* zooming with the wheel in small steps 1^(1/8) */
+            ddisplay_zoom_centered(ddisp, &middle, 1.090508);
+          } else {
+            ddisplay_scroll_up (ddisp);
+          }
+          break;
+        case GDK_SCROLL_DOWN:
+          if (sevent->state & GDK_SHIFT_MASK) {
+            ddisplay_scroll_right (ddisp);
+          } else if (sevent->state & GDK_CONTROL_MASK) {
+            ddisplay_untransform_coords (ddisp,
+                                         (int) sevent->x,
+                                         (int) sevent->y,
+                                         &middle.x,
+                                         &middle.y);
+            /* zooming with the wheel in small steps 1/(1^(1/8)) */
+            ddisplay_zoom_centered (ddisp, &middle, 0.917004);
+          } else {
+            ddisplay_scroll_down (ddisp);
+          }
+          break;
+        case GDK_SCROLL_LEFT:
+          ddisplay_scroll_left (ddisp);
+          break;
+        case GDK_SCROLL_RIGHT:
+          ddisplay_scroll_right (ddisp);
+          break;
+        default:
+          break;
+      }
+      ddisplay_flush (ddisp);
+      break;
 
-      case GDK_FOCUS_CHANGE: {
-        GdkEventFocus *focus = (GdkEventFocus*) event;
+    case GDK_FOCUS_CHANGE: {
+        GdkEventFocus *focus_evt = (GdkEventFocus*) event;
         hold_remove_handler ();
-        if (focus->in) {
+        if (focus_evt->in) {
           display_set_active (ddisp);
           ddisplay_do_update_menu_sensitivity (ddisp);
         }
         break;
       }
+    case GDK_2BUTTON_PRESS:
+      display_set_active (ddisp);
+      hold_remove_handler ();
+      bevent = (GdkEventButton *) event;
 
-      case GDK_2BUTTON_PRESS:
-        display_set_active(ddisp);
-	hold_remove_handler();
-        bevent = (GdkEventButton *) event;
+      switch (bevent->button) {
+        case 1:
+          if (transient_tool) {
+            break;
+          }
+          if (active_tool->double_click_func) {
+            (*active_tool->double_click_func) (active_tool, bevent, ddisp);
+          }
+          break;
+        case 2:
+        case 3:
+        default:
+          break;
+      }
+      break;
 
-        switch (bevent->button)
-        {
-            case 1:
-              if (transient_tool)
-                break;
-              if (active_tool->double_click_func)
-                (*active_tool->double_click_func) (active_tool, bevent, ddisp);
+    case GDK_BUTTON_PRESS:
+      display_set_active (ddisp);
+      bevent = (GdkEventButton *) event;
+
+      ddisplay_set_clicked_point (ddisp, bevent->x, bevent->y);
+
+      switch (bevent->button) {
+        case 1:
+          if (transient_tool) {
+            break;
+          }
+          /* get the focus again, may be lost by zoom combo */
+          moving = TRUE;
+          gtk_widget_grab_focus (canvas);
+          if (active_tool->button_press_func) {
+            (*active_tool->button_press_func) (active_tool, bevent, ddisp);
+          }
+
+          /* Detect user holding down the button.
+          * Set timeout for 1sec. If timeout is called, user must still
+          * be holding. If user releases button, remove timeout. */
+          hold_data.event = gdk_event_copy (event); /* need to free later */
+          hold_data.ddisp = ddisp;
+          hold_data.tag = g_timeout_add (1000, hold_timeout_handler, NULL);
+          break;
+        case 2:
+          if (ddisp->menu_bar == NULL && !is_integrated_ui ()) {
+            popup_object_menu (ddisp, event);
+          } else if (!transient_tool) {
+            tool_reset ();
+            gtk_widget_grab_focus (canvas);
+            transient_tool = create_scroll_tool ();
+            (*transient_tool->button_press_func) (transient_tool, bevent, ddisp);
+          }
+          break;
+
+        case 3:
+          if (transient_tool) {
+            break;
+          }
+          if (ddisp->menu_bar == NULL) {
+            if (bevent->state & GDK_CONTROL_MASK || is_integrated_ui ()) {
+                  /* for two button mouse users ... */
+              popup_object_menu (ddisp, event);
               break;
+            }
+            ddisplay_popup_menu (ddisp, bevent);
+            break;
+          } else {
+            popup_object_menu (ddisp, event);
+            break;
+          }
+        default:
+          break;
+      }
+      break;
 
-            case 2:
-              break;
+    case GDK_BUTTON_RELEASE:
+      display_set_active (ddisp);
+      bevent = (GdkEventButton *) event;
 
-            case 3:
-              break;
+      switch (bevent->button) {
+        case 1:
+          if (moving) {
+            moving = FALSE;
+          }
+          if (active_tool->button_release_func) {
+            (*active_tool->button_release_func) (active_tool,
+                                                 bevent, ddisp);
+          }
+          /* Button Press and Hold - remove handler then deallocate memory */
+          hold_remove_handler ();
+          break;
+        case 2:
+          if (transient_tool) {
+            (*transient_tool->button_release_func) (transient_tool,
+                                                    bevent,
+                                                    ddisp);
 
-            default:
-              break;
-        }
+            tool_free (transient_tool);
+            transient_tool = NULL;
+          }
+          break;
+        case 3:
+          break;
+        default:
+          break;
+      }
+      break;
+
+    case GDK_MOTION_NOTIFY:
+      /*  get the pointer position  */
+      gdk_window_get_pointer (gtk_widget_get_window(canvas), &tx, &ty, &tmask);
+      hold_remove_handler();
+
+      mevent = (GdkEventMotion *) event;
+
+      if (mevent->is_hint) {
+        mevent->x = tx;
+        mevent->y = ty;
+        mevent->state = tmask;
+        mevent->is_hint = FALSE;
+      }
+      if (transient_tool && (*transient_tool->motion_func)) {
+        (*transient_tool->motion_func) (transient_tool, mevent, ddisp);
+      } else if (active_tool->motion_func) {
+        (*active_tool->motion_func) (active_tool, mevent, ddisp);
+      }
+      break;
+
+    case GDK_KEY_PRESS:
+      if (moving) {
+        /*Disable Keyboard accels whilst draggin an object*/
         break;
+      }
+      display_set_active (ddisp);
+      kevent = (GdkEventKey *) event;
+      state = kevent->state;
+      key_handled = FALSE;
+      im_context_used = FALSE;
+      #if 0
+      printf("Key input %d in state %d\n", kevent->keyval, textedit_mode(ddisp));
+      #endif
+      focus = get_active_focus ((DiagramData *) ddisp->diagram);
+      if (focus != NULL) {
+        /* Keys goes to the active focus. */
+        obj = focus_get_object (focus);
+        if (diagram_is_selected (ddisp->diagram, obj)) {
 
-      case GDK_BUTTON_PRESS:
-        display_set_active (ddisp);
-        bevent = (GdkEventButton *) event;
+          if (!gtk_im_context_filter_keypress (
+              GTK_IM_CONTEXT (ddisp->im_context), kevent)) {
 
-        ddisplay_set_clicked_point (ddisp, bevent->x, bevent->y);
-
-        switch (bevent->button) {
-            case 1:
-              if (transient_tool) {
-                break;
-              }
-              /* get the focus again, may be lost by zoom combo */
-              moving = TRUE;
-              gtk_widget_grab_focus (canvas);
-              if (active_tool->button_press_func) {
-                (*active_tool->button_press_func) (active_tool, bevent, ddisp);
-              }
-
-              /* Detect user holding down the button.
-              * Set timeout for 1sec. If timeout is called, user must still
-              * be holding. If user releases button, remove timeout. */
-              hold_data.event = gdk_event_copy (event); /* need to free later */
-              hold_data.ddisp = ddisp;
-              hold_data.tag = g_timeout_add (1000, hold_timeout_handler, NULL);
-              break;
-            case 2:
-              if (ddisp->menu_bar == NULL && !is_integrated_ui ()) {
-                popup_object_menu (ddisp, event);
-              } else if (!transient_tool) {
-                tool_reset ();
-                gtk_widget_grab_focus (canvas);
-                transient_tool = create_scroll_tool ();
-                (*transient_tool->button_press_func) (transient_tool, bevent, ddisp);
-              }
-              break;
-
-            case 3:
-              if (transient_tool) {
-                break;
-              }
-              if (ddisp->menu_bar == NULL) {
-                if (bevent->state & GDK_CONTROL_MASK || is_integrated_ui ()) {
-                      /* for two button mouse users ... */
-                  popup_object_menu (ddisp, event);
-                  break;
-                }
-                ddisplay_popup_menu (ddisp, bevent);
-                break;
-              } else {
-                popup_object_menu (ddisp, event);
-                break;
-              }
-            default:
-              break;
-        }
-        break;
-
-      case GDK_BUTTON_RELEASE:
-        display_set_active(ddisp);
-        bevent = (GdkEventButton *) event;
-
-        switch (bevent->button) {
-            case 1:
-              if (moving) {
-                moving = FALSE;
-              }
-              if (active_tool->button_release_func) {
-                (*active_tool->button_release_func) (active_tool,
-                                                     bevent, ddisp);
-              }
-              /* Button Press and Hold - remove handler then deallocate memory */
-              hold_remove_handler ();
-              break;
-            case 2:
-              if (transient_tool) {
-                (*transient_tool->button_release_func) (transient_tool,
-                                                        bevent,
-                                                        ddisp);
-
-                tool_free (transient_tool);
-                transient_tool = NULL;
-              }
-              break;
-            case 3:
-              break;
-            default:
-              break;
-        }
-        break;
-
-      case GDK_MOTION_NOTIFY:
-	/*  get the pointer position  */
-	gdk_window_get_pointer (gtk_widget_get_window(canvas), &tx, &ty, &tmask);
-	hold_remove_handler();
-
-        mevent = (GdkEventMotion *) event;
-
-        if (mevent->is_hint) {
-          mevent->x = tx;
-          mevent->y = ty;
-          mevent->state = tmask;
-          mevent->is_hint = FALSE;
-        }
-        if (transient_tool && (*transient_tool->motion_func))
-          (*transient_tool->motion_func) (transient_tool, mevent, ddisp);
-        else if (active_tool->motion_func)
-          (*active_tool->motion_func) (active_tool, mevent, ddisp);
-        break;
-
-      case GDK_KEY_PRESS:
-	if (moving)	/*Disable Keyboard accels whilst draggin an object*/
-		break;
-        display_set_active(ddisp);
-        kevent = (GdkEventKey *)event;
-        state = kevent->state;
-        key_handled = FALSE;
-        im_context_used = FALSE;
-#if 0
-	printf("Key input %d in state %d\n", kevent->keyval, textedit_mode(ddisp));
-#endif
-        focus = get_active_focus((DiagramData *) ddisp->diagram);
-        if (focus != NULL) {
-	  /* Keys goes to the active focus. */
-	  obj = focus_get_object(focus);
-	  if (diagram_is_selected(ddisp->diagram, obj)) {
-
-	    if (!gtk_im_context_filter_keypress(
-		  GTK_IM_CONTEXT(ddisp->im_context), kevent)) {
-
-	      switch (kevent->keyval) {
-		  case GDK_Tab:
-		    focus = textedit_move_focus(ddisp, focus,
-						(state & GDK_SHIFT_MASK) == 0);
-		    obj = focus_get_object(focus);
-		    break;
-		  case GDK_Escape:
-		    textedit_deactivate_focus();
-		    tool_reset ();
-		    ddisplay_do_update_menu_sensitivity(ddisp);
-		    break;
-		  default:
-		    /*! key event not swallowed by the input method ? */
-		    handle_key_event(ddisp, focus, kevent->state, kevent->keyval,
-				     kevent->string, kevent->length);
-
-		    diagram_flush(ddisp->diagram);
-	      }
-	    }
-	    return_val = key_handled = im_context_used = TRUE;
-	  }
-	}
-
-#if 0 /* modifier requirment added 2004-07-17, IMO reenabling unmodified keys here
-               * shouldn't break im_context handling. How to test?    --hb
-               */
-        if (!key_handled && (state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))) {
-#else
-        if (!key_handled) {
-#endif
-              /* IM doesn't need receive keys, take care of it ourselves. */
-          return_val = TRUE;
-
-          switch(kevent->keyval) {
-	      case GDK_Home :
-	      case GDK_KP_Home :
-	        /* match upper left corner of the diagram with it's view */
-		ddisplay_set_origo(ddisp, ddisp->diagram->data->extents.left, ddisp->diagram->data->extents.top);
-		ddisplay_update_scrollbars(ddisp);
-		ddisplay_add_update_all(ddisp);
-	        break;
-	      case GDK_End :
-	      case GDK_KP_End :
-	        /* match lower right corner of the diagram with it's view */
-		visible = &ddisp->visible;
-		ddisplay_set_origo(ddisp,
-		                   ddisp->diagram->data->extents.right - (visible->right - visible->left),
-				   ddisp->diagram->data->extents.bottom - (visible->bottom - visible->top));
-		ddisplay_update_scrollbars(ddisp);
-		ddisplay_add_update_all(ddisp);
-	        break;
-	      case GDK_Page_Up :
-	      case GDK_KP_Page_Up :
-	        _scroll_page (ddisp, !(state & GDK_CONTROL_MASK) ? DIR_UP : DIR_LEFT);
-	        break;
-	      case GDK_Page_Down :
-	      case GDK_KP_Page_Down :
-	        _scroll_page (ddisp, !(state & GDK_CONTROL_MASK) ? DIR_DOWN : DIR_RIGHT);
-	        break;
-              case GDK_Up:
-              case GDK_Down:
-              case GDK_Left:
-              case GDK_Right:
-	        if (g_list_length (ddisp->diagram->data->selected) > 0) {
-		  Diagram *dia = ddisp->diagram;
-		  GList *objects = dia->data->selected;
-		  Direction dir = GDK_Up == kevent->keyval ? DIR_UP :
-				  GDK_Down == kevent->keyval ? DIR_DOWN :
-				  GDK_Right == kevent->keyval ? DIR_RIGHT : DIR_LEFT;
-		  object_add_updates_list(objects, dia);
-		  object_list_nudge(objects, dia, dir,
-				    /* step one pixel or more with <ctrl> */
-				    ddisplay_untransform_length (ddisp, (state & GDK_SHIFT_MASK) ? 10 : 1));
-		  diagram_update_connections_selection(dia);
-		  object_add_updates_list(objects, dia);
-		  diagram_modified(dia);
-		  diagram_flush(dia);
-
-		  undo_set_transactionpoint(dia->undo);
-		} else {
-		  _scroll_step (ddisp, kevent->keyval);
-		}
-		break;
-              case GDK_KP_Add:
-              case GDK_plus:
-              case GDK_equal:
-                ddisplay_zoom_middle(ddisp, M_SQRT2);
-                break;
-              case GDK_KP_Subtract:
-              case GDK_minus:
-                ddisplay_zoom_middle(ddisp, M_SQRT1_2);
-                break;
-              case GDK_Shift_L:
-              case GDK_Shift_R:
-                if (active_tool->type == MAGNIFY_TOOL)
-                  set_zoom_out(active_tool);
+            switch (kevent->keyval) {
+              case GDK_Tab:
+                focus = textedit_move_focus (ddisp, focus,
+                                             (state & GDK_SHIFT_MASK) == 0);
+                obj = focus_get_object (focus);
                 break;
               case GDK_Escape:
-                view_unfullscreen();
-                break;
-	      case GDK_F2:
-	      case GDK_Return:
-		gtk_action_activate (menus_get_action ("ToolsTextedit"));
-		break;
-	      case GDK_Menu:
-		popup_object_menu (ddisp, event);
-		break;
-              default:
-                if (kevent->string && kevent->keyval == ' ') {
-                  tool_select_former();
-                } else if ((kevent->state & (GDK_MOD1_MASK|GDK_CONTROL_MASK)) == 0 &&
-			   kevent->length != 0) {
-		  /* Find first editable? */
-                }
-          }
-        }
-
-        if (!im_context_used)
-          gtk_im_context_reset(GTK_IM_CONTEXT(ddisp->im_context));
-
-        break;
-
-      case GDK_KEY_RELEASE:
-        kevent = (GdkEventKey *) event;
-        if (gtk_im_context_filter_keypress(GTK_IM_CONTEXT(ddisp->im_context),
-                                           kevent)) {
-          return_val = TRUE;
-        } else {
-          switch(kevent->keyval) {
-              case GDK_Shift_L:
-              case GDK_Shift_R:
-                if (active_tool->type == MAGNIFY_TOOL)
-                  set_zoom_in(active_tool);
+                textedit_deactivate_focus ();
+                tool_reset ();
+                ddisplay_do_update_menu_sensitivity (ddisp);
                 break;
               default:
-                break;
-          }
-        }
-        break;
+                /*! key event not swallowed by the input method ? */
+                handle_key_event (ddisp, focus,
+                                  kevent->state, kevent->keyval,
+                                  kevent->string, kevent->length);
 
-      default:
-        break;
+                diagram_flush(ddisp->diagram);
+            }
+          }
+          return_val = key_handled = im_context_used = TRUE;
+        }
+      }
+
+      #if 0
+      /* modifier requirment added 2004-07-17, IMO reenabling unmodified keys here
+       * shouldn't break im_context handling. How to test?    --hb
+       */
+      if (!key_handled && (state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))) {
+      #else
+      if (!key_handled) {
+      #endif
+        /* IM doesn't need receive keys, take care of it ourselves. */
+        return_val = TRUE;
+
+        switch (kevent->keyval) {
+          case GDK_Home:
+          case GDK_KP_Home:
+            /* match upper left corner of the diagram with it's view */
+            ddisplay_set_origo (ddisp,
+                                ddisp->diagram->data->extents.left,
+                                ddisp->diagram->data->extents.top);
+            ddisplay_update_scrollbars (ddisp);
+            ddisplay_add_update_all (ddisp);
+            break;
+          case GDK_End:
+          case GDK_KP_End:
+            /* match lower right corner of the diagram with it's view */
+            visible = &ddisp->visible;
+            ddisplay_set_origo (ddisp,
+                                ddisp->diagram->data->extents.right - (visible->right - visible->left),
+                                ddisp->diagram->data->extents.bottom - (visible->bottom - visible->top));
+            ddisplay_update_scrollbars (ddisp);
+            ddisplay_add_update_all (ddisp);
+            break;
+          case GDK_Page_Up:
+          case GDK_KP_Page_Up:
+            _scroll_page (ddisp, !(state & GDK_CONTROL_MASK) ? DIR_UP : DIR_LEFT);
+            break;
+          case GDK_Page_Down :
+          case GDK_KP_Page_Down:
+            _scroll_page (ddisp, !(state & GDK_CONTROL_MASK) ? DIR_DOWN : DIR_RIGHT);
+            break;
+          case GDK_Up:
+          case GDK_Down:
+          case GDK_Left:
+          case GDK_Right:
+            if (g_list_length (ddisp->diagram->data->selected) > 0) {
+              Diagram *dia = ddisp->diagram;
+              GList *objects = dia->data->selected;
+              Direction dir = GDK_Up == kevent->keyval ? DIR_UP :
+                  GDK_Down == kevent->keyval ? DIR_DOWN :
+                  GDK_Right == kevent->keyval ? DIR_RIGHT : DIR_LEFT;
+              object_add_updates_list (objects, dia);
+              object_list_nudge (objects, dia, dir,
+                                  /* step one pixel or more with <ctrl> */
+                                  ddisplay_untransform_length (ddisp, (state & GDK_SHIFT_MASK) ? 10 : 1));
+              diagram_update_connections_selection (dia);
+              object_add_updates_list (objects, dia);
+              diagram_modified (dia);
+              diagram_flush (dia);
+
+              undo_set_transactionpoint (dia->undo);
+            } else {
+              _scroll_step (ddisp, kevent->keyval);
+            }
+            break;
+          case GDK_KP_Add:
+          case GDK_plus:
+          case GDK_equal:
+            ddisplay_zoom_middle (ddisp, M_SQRT2);
+            break;
+          case GDK_KP_Subtract:
+          case GDK_minus:
+            ddisplay_zoom_middle (ddisp, M_SQRT1_2);
+            break;
+          case GDK_Shift_L:
+          case GDK_Shift_R:
+            if (active_tool->type == MAGNIFY_TOOL)
+              set_zoom_out (active_tool);
+            break;
+          case GDK_Escape:
+            view_unfullscreen ();
+            break;
+          case GDK_F2:
+          case GDK_Return:
+            gtk_action_activate (menus_get_action ("ToolsTextedit"));
+            break;
+          case GDK_Menu:
+            popup_object_menu (ddisp, event);
+            break;
+          default:
+            if (kevent->string && kevent->keyval == ' ') {
+              tool_select_former();
+            } else if ((kevent->state & (GDK_MOD1_MASK|GDK_CONTROL_MASK)) == 0 &&
+              kevent->length != 0) {
+              /* Find first editable? */
+            }
+        }
+      }
+
+      if (!im_context_used) {
+        gtk_im_context_reset (GTK_IM_CONTEXT (ddisp->im_context));
+      }
+
+      break;
+
+    case GDK_KEY_RELEASE:
+      kevent = (GdkEventKey *) event;
+      if (gtk_im_context_filter_keypress (GTK_IM_CONTEXT (ddisp->im_context),
+                                          kevent)) {
+        return_val = TRUE;
+      } else {
+        switch (kevent->keyval) {
+          case GDK_Shift_L:
+          case GDK_Shift_R:
+            if (active_tool->type == MAGNIFY_TOOL) {
+              set_zoom_in (active_tool);
+            }
+            break;
+          default:
+            break;
+        }
+      }
+      break;
+
+    case GDK_NOTHING:
+    case GDK_DELETE:
+    case GDK_DESTROY:
+    case GDK_EXPOSE:
+    case GDK_3BUTTON_PRESS:
+    case GDK_ENTER_NOTIFY:
+    case GDK_LEAVE_NOTIFY:
+    case GDK_CONFIGURE:
+    case GDK_MAP:
+    case GDK_UNMAP:
+    case GDK_PROPERTY_NOTIFY:
+    case GDK_SELECTION_CLEAR:
+    case GDK_SELECTION_REQUEST:
+    case GDK_SELECTION_NOTIFY:
+    case GDK_PROXIMITY_IN:
+    case GDK_PROXIMITY_OUT:
+    case GDK_DRAG_ENTER:
+    case GDK_DRAG_LEAVE:
+    case GDK_DRAG_MOTION:
+    case GDK_DRAG_STATUS:
+    case GDK_DROP_START:
+    case GDK_DROP_FINISHED:
+    case GDK_CLIENT_EVENT:
+    case GDK_VISIBILITY_NOTIFY:
+    case GDK_NO_EXPOSE:
+    case GDK_WINDOW_STATE:
+    case GDK_SETTING:
+    case GDK_OWNER_CHANGE:
+    case GDK_GRAB_BROKEN:
+    case GDK_DAMAGE:
+    case GDK_EVENT_LAST:
+    default:
+      break;
   }
 
   return return_val;

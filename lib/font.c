@@ -101,7 +101,7 @@ static GList *pango_contexts = NULL;
 
 /*! DEPRECATED: there should be only one "measure context" */
 void
-dia_font_push_context(PangoContext *pcontext)
+dia_font_push_context (PangoContext *pcontext)
 {
   pango_contexts = g_list_prepend(pango_contexts, pango_context);
   pango_context = pcontext;
@@ -109,17 +109,20 @@ dia_font_push_context(PangoContext *pcontext)
   g_object_ref(pcontext);
 }
 
+
 /*! DEPRECATED: there should be only one "measure context" */
 void
-dia_font_pop_context() {
-  g_object_unref(pango_context);
-  pango_context = (PangoContext*)pango_contexts->data;
+dia_font_pop_context (void)
+{
+  g_object_unref (pango_context);
+  pango_context = (PangoContext*) pango_contexts->data;
   pango_context_set_language (pango_context, gtk_get_default_language ());
-  pango_contexts = g_list_next(pango_contexts);
+  pango_contexts = g_list_next (pango_contexts);
 }
 
+
 PangoContext *
-dia_font_get_context()
+dia_font_get_context (void)
 {
   if (pango_context == NULL) {
 /* Maybe this one with pangocairo
@@ -255,25 +258,28 @@ dia_font_new(const char *family, DiaFontStyle style, real height)
   return font;
 }
 
+
 static void
-dia_pfd_set_family(PangoFontDescription* pfd, DiaFontFamily fam)
+dia_pfd_set_family (PangoFontDescription* pfd, DiaFontFamily fam)
 {
   switch (fam) {
-  case DIA_FONT_SANS :
-    pango_font_description_set_family(pfd, "sans");
-    break;
-  case DIA_FONT_SERIF :
-    pango_font_description_set_family(pfd, "serif");
-    break;
-  case DIA_FONT_MONOSPACE :
-    pango_font_description_set_family(pfd, "monospace");
-    break;
-  default :
-    /* Pango does _not_ allow fonts without a name (or at least they are not useful) */
-    pango_font_description_set_family(pfd, "sans");
-    break;
+    case DIA_FONT_SANS :
+      pango_font_description_set_family (pfd, "sans");
+      break;
+    case DIA_FONT_SERIF :
+      pango_font_description_set_family (pfd, "serif");
+      break;
+    case DIA_FONT_MONOSPACE :
+      pango_font_description_set_family (pfd, "monospace");
+      break;
+    case DIA_FONT_FAMILY_ANY:
+    default :
+      /* Pango does _not_ allow fonts without a name (or at least they are not useful) */
+      pango_font_description_set_family (pfd, "sans");
+      break;
   }
 }
+
 
 static void
 dia_pfd_set_weight(PangoFontDescription* pfd, DiaFontWeight fw)

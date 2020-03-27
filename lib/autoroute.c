@@ -296,34 +296,38 @@ autolayout_adjust_for_gap(Point *pos, int dir, ConnectionPoint *cp)
   return calculate_object_edge(pos, &dir_other, object);
 }
 
-/*!
- * \brief Adjust the original position to move away from a potential arrow
+
+/**
+ * autolayout_adjust_for_arrow
+ *
+ * Adjust the original position to move away from a potential arrow
  *
  * We could do some similar by making MIN_DIST depend on the arrow size,
  * but this one is much more easy, not touchun the autolayout algorithm at
  * all. Needs to be called twice - second time with negative adjust - to
  * move the point back to where it was.
- *
- * \ingroup Autorouting
  */
 static void
-autolayout_adjust_for_arrow(Point *pos, int dir, real adjust)
+autolayout_adjust_for_arrow (Point *pos, int dir, real adjust)
 {
   switch (dir) {
-  case DIR_NORTH:
-    pos->y -= adjust;
-    break;
-  case DIR_EAST:
-    pos->x += adjust;
-    break;
-  case DIR_SOUTH:
-    pos->y += adjust;
-    break;
-  case DIR_WEST:
-    pos->x -= adjust;
-    break;
+    case DIR_NORTH:
+      pos->y -= adjust;
+      break;
+    case DIR_EAST:
+      pos->x += adjust;
+      break;
+    case DIR_SOUTH:
+      pos->y += adjust;
+      break;
+    case DIR_WEST:
+      pos->x -= adjust;
+      break;
+    default:
+      g_return_if_reached ();
   }
 }
+
 
 /*!
  * \brief Parallel layout

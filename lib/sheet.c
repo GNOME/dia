@@ -350,7 +350,7 @@ load_register_sheet (const gchar *dirname,
       g_assert (!stat_ret);
 
       if (this_file.st_mtime > first_file.st_mtime) {
-        gchar *tmp = g_strdup_printf ("%s [Copy of system]", name);
+        gchar *tmp2 = g_strdup_printf ("%s [Copy of system]", name);
         message_notice (_("The system sheet '%s' appears to be more recent"
                           " than your custom\n"
                           "version and has been loaded as '%s' for this session."
@@ -358,9 +358,9 @@ load_register_sheet (const gchar *dirname,
                           "Move new objects (if any) from '%s' into your custom"
                           " sheet\n"
                           "or remove '%s', using the 'Sheets and Objects' dialog."),
-                          name, tmp, tmp, tmp);
+                          name, tmp2, tmp2, tmp2);
         xmlFree (name);
-        name = tmp;
+        name = tmp2;
         name_is_gmalloced = TRUE;
         shadowing = sheetp->data;  /* This copy-of-system sheet shadows
                                       a user sheet */

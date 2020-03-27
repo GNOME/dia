@@ -79,6 +79,7 @@ static gboolean _ddisplay_vruler_motion_notify (GtkWidget *widget,
         GdkEventMotion *event,
         DDisplay *ddisp);
 
+
 static void
 dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                  GdkDragContext   *context,
@@ -89,59 +90,59 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                  guint             time,
                                  DDisplay         *ddisp)
 {
-  switch (gdk_drag_context_get_selected_action(context))
-    {
+  switch (gdk_drag_context_get_selected_action (context)) {
     case GDK_ACTION_DEFAULT:
     case GDK_ACTION_COPY:
     case GDK_ACTION_MOVE:
     case GDK_ACTION_LINK:
     case GDK_ACTION_ASK:
+    case GDK_ACTION_PRIVATE:
     default:
       {
         Diagram *diagram = NULL;
         gchar *sPath = NULL, *pFrom, *pTo;
 
-        pFrom = strstr((gchar *) gtk_selection_data_get_data(data), "file:");
+        pFrom = strstr ((gchar *) gtk_selection_data_get_data (data), "file:");
         while (pFrom) {
           GError *error = NULL;
 
           pTo = pFrom;
           while (*pTo != 0 && *pTo != 0xd && *pTo != 0xa) pTo ++;
-          sPath = g_strndup(pFrom, pTo - pFrom);
+          sPath = g_strndup (pFrom, pTo - pFrom);
 
           /* format changed with Gtk+2.0, use conversion */
           pFrom = g_filename_from_uri (sPath, NULL, &error);
-	  if (!ddisp)
+          if (!ddisp) {
             diagram = diagram_load (pFrom, NULL);
-	  else {
-	    diagram = ddisp->diagram;
-	    if (!diagram_load_into (diagram, pFrom, NULL)) {
-	      /* the import filter is supposed to show the error message */
+          } else {
+            diagram = ddisp->diagram;
+            if (!diagram_load_into (diagram, pFrom, NULL)) {
+              /* the import filter is supposed to show the error message */
               gtk_drag_finish (context, TRUE, FALSE, time);
-	      break;
-	    }
-	  }
+              break;
+            }
+          }
 
           g_free (pFrom);
-          g_free(sPath);
+          g_free (sPath);
 
           if (diagram != NULL) {
             diagram_update_extents(diagram);
             layer_dialog_set_diagram(diagram);
 
-	    if (diagram->displays == NULL) {
-	      new_display(diagram);
-	    }
+            if (diagram->displays == NULL) {
+              new_display (diagram);
+            }
           }
 
-          pFrom = strstr(pTo, "file:");
+          pFrom = strstr (pTo, "file:");
         } /* while */
         gtk_drag_finish (context, TRUE, FALSE, time);
       }
       break;
-    }
-  return;
+  }
 }
+
 
 static GtkWidget *toolbox_shell = NULL;
 

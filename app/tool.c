@@ -140,30 +140,31 @@ tool_select(ToolType type, gpointer extra_data,
     active_button = button;
 }
 
+
 void
-tool_options_dialog_show(ToolType type, gpointer extra_data,
-			 gpointer user_data, GtkWidget *button,
-                         int invert_persistence)
+tool_options_dialog_show (ToolType   type,
+                          gpointer   extra_data,
+                          gpointer   user_data,
+                          GtkWidget *button,
+                          int        invert_persistence)
 {
   DiaObjectType *objtype;
 
-  if (active_tool->type != type)
-    tool_select(type,extra_data,user_data,button,invert_persistence);
+  if (active_tool->type != type) {
+    tool_select (type, extra_data, user_data, button, invert_persistence);
+  }
 
-  switch(type) {
-  case MODIFY_TOOL:
+  switch (type) {
+    case CREATE_OBJECT_TOOL:
+      objtype = object_get_type ((char *) extra_data);
+      defaults_show (objtype, user_data);
       break;
-  case CREATE_OBJECT_TOOL:
-    objtype = object_get_type((char *)extra_data);
-    defaults_show(objtype, user_data);
-    break;
-  case MAGNIFY_TOOL:
-    break;
-  case SCROLL_TOOL:
-    break;
-  case TEXTEDIT_TOOL :
-    break;
-  case GUIDE_TOOL :
-    break;
+    case MODIFY_TOOL:
+    case MAGNIFY_TOOL:
+    case SCROLL_TOOL:
+    case TEXTEDIT_TOOL:
+    case GUIDE_TOOL:
+    default:
+      break;
   }
 }

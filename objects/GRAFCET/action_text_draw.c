@@ -89,6 +89,8 @@ action_text_draw (Text *text, DiaRenderer *renderer)
       case ALIGN_RIGHT:
         curs_x -= str_width_whole; /* undefined behaviour ! */
         break;
+      default:
+        g_return_if_reached ();
     }
 
     p1.x = curs_x;
@@ -102,29 +104,33 @@ action_text_draw (Text *text, DiaRenderer *renderer)
   }
 }
 
+
 void
-action_text_calc_boundingbox(Text *text, DiaRectangle *box)
+action_text_calc_boundingbox (Text *text, DiaRectangle *box)
 {
   real width;
   int i;
 
   box->left = text->position.x;
   switch (text->alignment) {
-  case ALIGN_LEFT:
-    break;
-  case ALIGN_CENTER:
-    box->left -= text->max_width / 2.0;
-    break;
-  case ALIGN_RIGHT:
-    box->left -= text->max_width;
-    break;
+    case ALIGN_LEFT:
+      break;
+    case ALIGN_CENTER:
+      box->left -= text->max_width / 2.0;
+      break;
+    case ALIGN_RIGHT:
+      box->left -= text->max_width;
+      break;
+    default:
+      g_return_if_reached ();
   }
 
   width = 0;
-  for (i=0; i<text->numlines; i++)
-    width += text_get_line_width(text, i);
+  for (i = 0; i < text->numlines; i++) {
+    width += text_get_line_width (text, i);
+  }
 
-  width += text->numlines * 2.0 * action_text_spacewidth(text);
+  width += text->numlines * 2.0 * action_text_spacewidth (text);
 
   box->right = box->left + width;
 
@@ -133,10 +139,9 @@ action_text_calc_boundingbox(Text *text, DiaRectangle *box)
   box->bottom = box->top + text->height;
 }
 
+
 real
-action_text_spacewidth(Text *text)
+action_text_spacewidth (Text *text)
 {
   return .2 * text->height;
 }
-
-

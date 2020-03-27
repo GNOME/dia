@@ -310,6 +310,8 @@ classicon_draw (Classicon *icon, DiaRenderer *renderer)
                               &p1, &p2,
                               &icon->line_color);
       break;
+    default:
+      g_return_if_reached ();
   }
 
   text_draw (icon->text, renderer);

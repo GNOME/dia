@@ -980,12 +980,14 @@ draw_string(DiaRenderer *renderer,
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   switch (alignment) {
-  case ALIGN_LEFT:
-    break;
-  case ALIGN_CENTER:
-    break;
-  case ALIGN_RIGHT:
-    break;
+    case ALIGN_LEFT:
+      break;
+    case ALIGN_CENTER:
+      break;
+    case ALIGN_RIGHT:
+      break;
+    default:
+      break;
   }
 
   func = PyObject_GetAttrString (self, "draw_string");

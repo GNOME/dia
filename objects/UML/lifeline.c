@@ -470,8 +470,9 @@ lifeline_change_free(LifelineChange *change)
   }
 }
 
+
 static ObjectChange *
-lifeline_create_change(Lifeline *lifeline, LifelineChangeType changetype, Point *clicked)
+lifeline_create_change (Lifeline *lifeline, LifelineChangeType changetype, Point *clicked)
 {
   LifelineChange *vc;
 
@@ -481,8 +482,7 @@ lifeline_create_change(Lifeline *lifeline, LifelineChangeType changetype, Point 
   vc->obj_change.free = (ObjectChangeFreeFunc)lifeline_change_free;
   vc->type = changetype;
 
-  switch( vc->type )
-  {
+  switch (vc->type) {
     case LIFELINE_CHANGE_ADD:
       if (lifeline_point_above_mid (lifeline, clicked)) {
         vc->east = connpointline_add_point(lifeline->northeast,clicked);
@@ -513,10 +513,13 @@ lifeline_create_change(Lifeline *lifeline, LifelineChangeType changetype, Point 
       vc->cp_distance_change = LIFELINE_CP_DEFAULT_DISTANCE*2 - lifeline->cp_distance;
       lifeline->cp_distance += vc->cp_distance_change;
       break;
+    default:
+      g_return_val_if_reached (NULL);
   }
-  lifeline_update_data(lifeline);
-  return (ObjectChange *)vc;
+  lifeline_update_data (lifeline);
+  return (ObjectChange *) vc;
 }
+
 
 static ObjectChange *
 lifeline_cp_callback(DiaObject *obj, Point *clicked, gpointer data)

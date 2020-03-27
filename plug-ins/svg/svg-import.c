@@ -284,6 +284,7 @@ use_position (DiaObject *obj, xmlNodePtr node, DiaContext *ctx)
     }
 }
 
+
 /*!
  * \brief Lookup and apply CSS style
  *
@@ -300,23 +301,26 @@ use_position (DiaObject *obj, xmlNodePtr node, DiaContext *ctx)
  * \ingroup SvgImport
  */
 static void
-_css_parse_style (DiaSvgStyle *s, real user_scale,
-		  gchar *tag, gchar *klass, gchar *id,
-		  GHashTable *style_ht)
+_css_parse_style (DiaSvgStyle *s,
+                  real         user_scale_arg,
+                  gchar       *tag,
+                  gchar       *klass,
+                  gchar       *id,
+                  GHashTable  *style_ht)
 {
   gchar *style = NULL;
 
   /* always try and apply '*' */
   style = g_hash_table_lookup (style_ht, "*");
   if (style) {
-    dia_svg_parse_style_string (s, user_scale, style);
+    dia_svg_parse_style_string (s, user_scale_arg, style);
     style = NULL;
   }
 
   /* also type only style */
   style = g_hash_table_lookup (style_ht, tag);
   if (style) {
-    dia_svg_parse_style_string (s, user_scale, style);
+    dia_svg_parse_style_string (s, user_scale_arg, style);
     style = NULL;
   }
 
@@ -341,7 +345,7 @@ _css_parse_style (DiaSvgStyle *s, real user_scale,
   }
   /* apply most specific style from class lookup */
   if (style) {
-    dia_svg_parse_style_string (s, user_scale, style);
+    dia_svg_parse_style_string (s, user_scale_arg, style);
     style = NULL;
   }
 
@@ -350,50 +354,59 @@ _css_parse_style (DiaSvgStyle *s, real user_scale,
     gchar *key = g_strdup_printf ("#%s", id);
     style = g_hash_table_lookup (style_ht, key);
     if (style) {
-      dia_svg_parse_style_string (s, user_scale, style);
+      dia_svg_parse_style_string (s, user_scale_arg, style);
     }
     g_free (key);
     key = g_strdup_printf ("%s#%s", tag, id);
     style = g_hash_table_lookup (style_ht, key);
     if (style) {
-      dia_svg_parse_style_string (s, user_scale, style);
+      dia_svg_parse_style_string (s, user_scale_arg, style);
     }
     g_free (key);
   }
 }
+
 
 /*!
  * \brief from the given node derive the CSS style if any
  * \ingroup SvgImport
  */
 static void
-_node_css_parse_style (xmlNodePtr node,
-		       DiaSvgStyle *gs,
-		       real user_scale,
-		       GHashTable *style_ht)
+_node_css_parse_style (xmlNodePtr   node,
+                       DiaSvgStyle *gs,
+                       real         user_scale_arg,
+                       GHashTable  *style_ht)
 {
   if (g_hash_table_size (style_ht) > 0) {
     /* only do all these expensive variants if we have some style at all */
-    xmlChar *id = xmlGetProp (node, (xmlChar *)"id");
-    xmlChar *klass = xmlGetProp (node, (xmlChar *)"class");
+    xmlChar *id = xmlGetProp (node, (xmlChar *) "id");
+    xmlChar *klass = xmlGetProp (node, (xmlChar *) "class");
 
     if (klass) {
-      gchar **klasses = g_regex_split_simple ("[\\s,;]+", (gchar *)klass, 0, 0);
+      gchar **klasses = g_regex_split_simple ("[\\s,;]+",
+                                              (gchar *) klass, 0, 0);
       int i = 0;
       while (klasses[i]) {
-	_css_parse_style (gs, user_scale, (gchar *)node->name, klasses[i], (gchar *)id, style_ht);
-	++i;
+        _css_parse_style (gs, user_scale_arg, (gchar *) node->name,
+                          klasses[i], (gchar *) id, style_ht);
+        ++i;
       }
       g_strfreev (klasses);
     } else {
-      _css_parse_style (gs, user_scale, (gchar *)node->name, (gchar *)klass, (gchar *)id, style_ht);
+      _css_parse_style (gs, user_scale_arg, (gchar *) node->name,
+                        (gchar *) klass, (gchar *) id, style_ht);
     }
-    if (id)
+
+    if (id) {
       xmlFree (id);
-    if (klass)
+    }
+
+    if (klass) {
       xmlFree (klass);
+    }
   }
 }
+
 
 static void
 _set_pattern_from_key (DiaObject *obj, BoolProperty *bprop,

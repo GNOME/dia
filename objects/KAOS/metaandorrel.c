@@ -417,6 +417,7 @@ draw_agent_icon (Maor        *maor,
   dia_renderer_draw_line (renderer,&p1,&p2,&MAOR_FG_COLOR);
 }
 
+
 /* drawing here -- TBD inverse flow ??  */
 static void
 maor_draw (Maor *maor, DiaRenderer *renderer)
@@ -476,23 +477,34 @@ maor_draw (Maor *maor, DiaRenderer *renderer)
       dia_renderer_draw_polygon (renderer,pl,7,&MAOR_BG_COLOR,&MAOR_FG_COLOR);
       draw_agent_icon (maor,MAOR_REF_WIDTH,MAOR_REF_HEIGHT,renderer);
       break;
+
+    default:
+      g_return_if_reached ();
   }
 
   /** writing text on arrow (maybe not a good idea) **/
-  dia_renderer_set_font (renderer,maor_font,MAOR_FONTHEIGHT);
+  dia_renderer_set_font (renderer, maor_font, MAOR_FONTHEIGHT);
 
-  if (mname && strlen (mname) != 0)
-    dia_renderer_draw_string (renderer,mname,&maor->text_pos, ALIGN_CENTER,&color_black);
+  if (mname && strlen (mname) != 0) {
+    dia_renderer_draw_string (renderer,
+                              mname,
+                              &maor->text_pos,
+                              ALIGN_CENTER,
+                              &color_black);
+  }
 
-  if (mname) g_free(mname);
+  if (mname) {
+    g_free (mname);
+  }
 }
+
 
 /* creation here */
 static DiaObject *
-maor_create(Point *startpoint,
-		  void *user_data,
-		  Handle **handle1,
-		  Handle **handle2)
+maor_create (Point   *startpoint,
+             void    *user_data,
+             Handle **handle1,
+             Handle **handle2)
 {
   Maor *maor;
   Connection *conn;
@@ -501,10 +513,10 @@ maor_create(Point *startpoint,
 
   if (maor_font == NULL) {
     maor_font =
-      dia_font_new_from_style(DIA_FONT_SANS, MAOR_FONTHEIGHT);
+      dia_font_new_from_style (DIA_FONT_SANS, MAOR_FONTHEIGHT);
   }
 
-  maor = g_malloc0(sizeof(Maor));
+  maor = g_malloc0 (sizeof (Maor));
 
   conn = &maor->connection;
   conn->endpoints[0] = *startpoint;

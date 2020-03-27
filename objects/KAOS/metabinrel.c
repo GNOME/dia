@@ -331,17 +331,40 @@ compute_line(Point* p1, Point* p2, Point *pm, BezPoint* line) {
   line[2].p2.y=p2->y-dy2*OFF;
 }
 
-static gchar* compute_text(Mbr *mbr) {
+
+static gchar *
+compute_text (Mbr *mbr)
+{
   gchar* annot;
   switch (mbr->type) {
-    case MBR_RESP:      annot = g_strdup("Resp"); break;
-    case MBR_MONITORS:  annot = g_strdup("Mon"); break;
-    case MBR_CONTROLS:  annot = g_strdup("Ctrl"); break;
-    case MBR_CAPABLEOF: annot = g_strdup("CapOf"); break;
-    case MBR_PERFORMS:  annot = g_strdup("Perf"); break;
-    case MBR_INPUT:     annot = g_strdup("In"); break;
-    case MBR_OUTPUT:    annot = g_strdup("Out"); break;
-    default:            annot = g_strdup("");
+    case MBR_RESP:
+      annot = g_strdup ("Resp");
+      break;
+    case MBR_MONITORS:
+      annot = g_strdup ("Mon");
+      break;
+    case MBR_CONTROLS:
+      annot = g_strdup ("Ctrl");
+      break;
+    case MBR_CAPABLEOF:
+      annot = g_strdup ("CapOf");
+      break;
+    case MBR_PERFORMS:
+      annot = g_strdup ("Perf");
+      break;
+    case MBR_INPUT:
+      annot = g_strdup ("In");
+      break;
+    case MBR_OUTPUT:
+      annot = g_strdup ("Out");
+      break;
+    // TODO: Are we sure these are ""
+    case MBR_CONTRIBUTES:
+    case MBR_OBSTRUCTS:
+    case MBR_CONFLICTS:
+    default:
+      annot = g_strdup ("");
+      break;
   }
   return annot;
 }

@@ -337,6 +337,8 @@ flow_draw (Flow *flow, DiaRenderer *renderer)
     case FLOW_ENERGY:
       render_color = &flow_color_energy;
       dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+    default:
+      g_return_if_reached ();
   }
 
   p1 = endpoints[n1];
@@ -472,17 +474,19 @@ flow_update_data(Flow *flow)
   obj->position = conn->endpoints[0];
 
   switch (flow->type) {
-  case FLOW_ENERGY:
-    color = &flow_color_energy ;
-    break ;
-  case FLOW_MATERIAL:
-    color = &flow_color_material ;
-    break ;
-  case FLOW_SIGNAL:
-    color = &flow_color_signal ;
-    break ;
+    case FLOW_ENERGY:
+      color = &flow_color_energy ;
+      break;
+    case FLOW_MATERIAL:
+      color = &flow_color_material ;
+      break;
+    case FLOW_SIGNAL:
+      color = &flow_color_signal ;
+      break;
+    default:
+      g_return_if_reached ();
   }
-  text_set_color( flow->text, color ) ;
+  text_set_color (flow->text, color);
 
   flow->text->position = flow->textpos;
   flow->text_handle.pos = flow->textpos;

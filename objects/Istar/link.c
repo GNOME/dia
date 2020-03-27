@@ -499,6 +499,8 @@ link_draw (Link *link, DiaRenderer *renderer)
     case UNSPECIFIED: /* use above defaults */
       annot = g_strdup("");
       break;
+    default:
+      g_return_if_reached ();
   }
 
   /** drawing line **/

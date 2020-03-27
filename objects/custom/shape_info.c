@@ -596,8 +596,9 @@ check_point(ShapeInfo *info, Point *pt)
     info->shape_bounds.bottom = pt->y;
 }
 
+
 static void
-update_bounds(ShapeInfo *info)
+update_bounds (ShapeInfo *info)
 {
   GList *tmp;
   Point pt;
@@ -606,67 +607,72 @@ update_bounds(ShapeInfo *info)
     int i;
 
     switch (el->type) {
-    case GE_SUBSHAPE:
-      /* subshapes are not supposed to have an influence on bounds */
-      break;
-    case GE_LINE:
-      check_point(info, &(el->line.p1));
-      check_point(info, &(el->line.p2));
-      break;
-    case GE_POLYLINE:
-      for (i = 0; i < el->polyline.npoints; i++)
-	check_point(info, &(el->polyline.points[i]));
-      break;
-    case GE_POLYGON:
-      for (i = 0; i < el->polygon.npoints; i++)
-	check_point(info, &(el->polygon.points[i]));
-      break;
-    case GE_RECT:
-      check_point(info, &(el->rect.corner1));
-      check_point(info, &(el->rect.corner2));
-      /* el->rect.corner_radius has no infulence on the bounding rectangle */
-      break;
-    case GE_TEXT:
-      check_point(info, &(el->text.anchor));
-      break;
-    case GE_ELLIPSE:
-      pt = el->ellipse.center;
-      pt.x -= el->ellipse.width / 2.0;
-      pt.y -= el->ellipse.height / 2.0;
-      check_point(info, &pt);
-      pt.x += el->ellipse.width;
-      pt.y += el->ellipse.height;
-      check_point(info, &pt);
-      break;
-    case GE_PATH:
-    case GE_SHAPE:
+      case GE_SUBSHAPE:
+        /* subshapes are not supposed to have an influence on bounds */
+        break;
+      case GE_LINE:
+        check_point (info, &(el->line.p1));
+        check_point (info, &(el->line.p2));
+        break;
+      case GE_POLYLINE:
+        for (i = 0; i < el->polyline.npoints; i++) {
+          check_point (info, &(el->polyline.points[i]));
+        }
+        break;
+      case GE_POLYGON:
+        for (i = 0; i < el->polygon.npoints; i++) {
+          check_point (info, &(el->polygon.points[i]));
+        }
+        break;
+      case GE_RECT:
+        check_point (info, &(el->rect.corner1));
+        check_point (info, &(el->rect.corner2));
+        /* el->rect.corner_radius has no infulence on the bounding rectangle */
+        break;
+      case GE_TEXT:
+        check_point (info, &(el->text.anchor));
+        break;
+      case GE_ELLIPSE:
+        pt = el->ellipse.center;
+        pt.x -= el->ellipse.width / 2.0;
+        pt.y -= el->ellipse.height / 2.0;
+        check_point (info, &pt);
+        pt.x += el->ellipse.width;
+        pt.y += el->ellipse.height;
+        check_point (info, &pt);
+        break;
+      case GE_PATH:
+      case GE_SHAPE:
 #if 1
-      {
-        DiaRectangle bbox;
-        PolyBBExtras extra = { 0, };
+        {
+          DiaRectangle bbox;
+          PolyBBExtras extra = { 0, };
 
-        polybezier_bbox (&el->path.points[0],el->path.npoints,
-                         &extra,el->type == GE_SHAPE,&bbox);
-        rectangle_union (&info->shape_bounds, &bbox);
-      }
+          polybezier_bbox (&el->path.points[0],el->path.npoints,
+                           &extra,el->type == GE_SHAPE,&bbox);
+          rectangle_union (&info->shape_bounds, &bbox);
+        }
 #else
-      for (i = 0; i < el->path.npoints; i++)
-	switch (el->path.points[i].type) {
-	case BEZ_CURVE_TO:
-	  check_point(info, &el->path.points[i].p3);
-	  check_point(info, &el->path.points[i].p2);
-	case BEZ_MOVE_TO:
-	case BEZ_LINE_TO:
-	  check_point(info, &el->path.points[i].p1);
-	}
+        for (i = 0; i < el->path.npoints; i++) {
+          switch (el->path.points[i].type) {
+            case BEZ_CURVE_TO:
+              check_point(info, &el->path.points[i].p3);
+              check_point(info, &el->path.points[i].p2);
+            case BEZ_MOVE_TO:
+            case BEZ_LINE_TO:
+              check_point(info, &el->path.points[i].p1);
+          }
+        }
 #endif
-      break;
-    case GE_IMAGE:
-      check_point(info, &(el->image.topleft));
-      pt.x = el->image.topleft.x + el->image.width;
-      pt.y = el->image.topleft.y + el->image.height;
-      check_point(info, &pt);
-      break;
+        break;
+      case GE_IMAGE:
+        check_point (info, &(el->image.topleft));
+        pt.x = el->image.topleft.x + el->image.width;
+        pt.y = el->image.topleft.y + el->image.height;
+        check_point (info, &pt);
+        break;
+      default:
+        g_return_if_reached ();
     }
   }
 
@@ -682,16 +688,17 @@ update_bounds(ShapeInfo *info)
   }
 }
 
-/*!
- * \brief Contructor for ShapeInfo from file
+
+/**
+ * load_shape_info:
+ *
+ * Contructor for ShapeInfo from file
  *
  * Load the full shape info from file potentially reusing the preloaded
  * ShapeInfo loaded by shape_typeinfo_load()
- *
- * \extends _ShapeInfo
  */
 static ShapeInfo *
-load_shape_info(const gchar *filename, ShapeInfo *preload)
+load_shape_info (const gchar *filename, ShapeInfo *preload)
 {
   xmlErrorPtr error_xml = NULL;
   xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
@@ -932,117 +939,138 @@ load_shape_info(const gchar *filename, ShapeInfo *preload)
   return info;
 }
 
+
 void
-shape_info_print(ShapeInfo *info)
+shape_info_print (ShapeInfo *info)
 {
   GList *tmp;
   int i;
 
-  g_print("Name        : %s\n", info->name);
-  g_print("Connections :\n");
-  for (i = 0; i < info->nconnections; i++)
+  g_print ("Name        : %s\n", info->name);
+  g_print ("Connections :\n");
+  for (i = 0; i < info->nconnections; i++) {
     g_print("  (%g, %g)\n", info->connections[i].x, info->connections[i].y);
-  g_print("Shape bounds: (%g, %g) - (%g, %g)\n",
-	  info->shape_bounds.left, info->shape_bounds.top,
-	  info->shape_bounds.right, info->shape_bounds.bottom);
-  if (info->has_text)
-    g_print("Text bounds : (%g, %g) - (%g, %g)\n",
-	    info->text_bounds.left, info->text_bounds.top,
-	    info->text_bounds.right, info->text_bounds.bottom);
-  g_print("Aspect ratio: ");
-  switch (info->aspect_type) {
-  case SHAPE_ASPECT_FREE: g_print("free\n"); break;
-  case SHAPE_ASPECT_FIXED: g_print("fixed\n"); break;
-  case SHAPE_ASPECT_RANGE:
-    g_print("range %g - %g\n", info->aspect_min, info->aspect_max); break;
   }
-  g_print("Display list:\n");
-  for (tmp = info->display_list; tmp; tmp = tmp->next) {
-    GraphicElement *el = tmp->data;
-    int i;
-
-    switch (el->type) {
-    case GE_LINE:
-      g_print("  line: (%g, %g) (%g, %g)\n", el->line.p1.x, el->line.p1.y,
-	      el->line.p2.x, el->line.p2.y);
+  g_print ("Shape bounds: (%g, %g) - (%g, %g)\n",
+           info->shape_bounds.left, info->shape_bounds.top,
+           info->shape_bounds.right, info->shape_bounds.bottom);
+  if (info->has_text) {
+    g_print ("Text bounds : (%g, %g) - (%g, %g)\n",
+             info->text_bounds.left, info->text_bounds.top,
+             info->text_bounds.right, info->text_bounds.bottom);
+  }
+  g_print ("Aspect ratio: ");
+  switch (info->aspect_type) {
+    case SHAPE_ASPECT_FREE:
+      g_print ("free\n");
       break;
-    case GE_POLYLINE:
-      g_print("  polyline:");
-      for (i = 0; i < el->polyline.npoints; i++)
-	g_print(" (%g, %g)", el->polyline.points[i].x,
-		el->polyline.points[i].y);
-      g_print("\n");
+    case SHAPE_ASPECT_FIXED:
+      g_print ("fixed\n");
       break;
-    case GE_POLYGON:
-      g_print("  polygon:");
-      for (i = 0; i < el->polygon.npoints; i++)
-	g_print(" (%g, %g)", el->polygon.points[i].x,
-		el->polygon.points[i].y);
-      g_print("\n");
-      break;
-    case GE_RECT:
-      g_print("  rect: (%g, %g) (%g, %g)\n",
-	      el->rect.corner1.x, el->rect.corner1.y,
-	      el->rect.corner2.x, el->rect.corner2.y);
-      break;
-    case GE_TEXT:
-      g_print("  text: (%g, %g)\n",
-	      el->text.anchor.x, el->text.anchor.y);
-      break;
-    case GE_ELLIPSE:
-      g_print("  ellipse: center=(%g, %g) width=%g height=%g\n",
-	      el->ellipse.center.x, el->ellipse.center.y,
-	      el->ellipse.width, el->ellipse.height);
-      break;
-    case GE_PATH:
-      g_print("  path:");
-      for (i = 0; i < el->path.npoints; i++)
-	switch (el->path.points[i].type) {
-	case BEZ_MOVE_TO:
-	  g_print(" M (%g, %g)", el->path.points[i].p1.x,
-		  el->path.points[i].p1.y);
-	  break;
-	case BEZ_LINE_TO:
-	  g_print(" L (%g, %g)", el->path.points[i].p1.x,
-		  el->path.points[i].p1.y);
-	  break;
-	case BEZ_CURVE_TO:
-	  g_print(" C (%g, %g) (%g, %g) (%g, %g)", el->path.points[i].p1.x,
-		  el->path.points[i].p1.y, el->path.points[i].p2.x,
-		  el->path.points[i].p2.y, el->path.points[i].p3.x,
-		  el->path.points[i].p3.y);
-	  break;
-	}
-      break;
-    case GE_SHAPE:
-      g_print("  shape:");
-      for (i = 0; i < el->path.npoints; i++)
-	switch (el->path.points[i].type) {
-	case BEZ_MOVE_TO:
-	  g_print(" M (%g, %g)", el->path.points[i].p1.x,
-		  el->path.points[i].p1.y);
-	  break;
-	case BEZ_LINE_TO:
-	  g_print(" L (%g, %g)", el->path.points[i].p1.x,
-		  el->path.points[i].p1.y);
-	  break;
-	case BEZ_CURVE_TO:
-	  g_print(" C (%g, %g) (%g, %g) (%g, %g)", el->path.points[i].p1.x,
-		  el->path.points[i].p1.y, el->path.points[i].p2.x,
-		  el->path.points[i].p2.y, el->path.points[i].p3.x,
-		  el->path.points[i].p3.y);
-	  break;
-	}
-      break;
-    case GE_IMAGE :
-      g_print("  image topleft=(%g, %g) width=%g height=%g file=%s\n",
-              el->image.topleft.x, el->image.topleft.y,
-              el->image.width, el->image.height,
-              el->image.image ? dia_image_filename(el->image.image) : "(nil)");
+    case SHAPE_ASPECT_RANGE:
+      g_print ("range %g - %g\n", info->aspect_min, info->aspect_max);
       break;
     default:
-      break;
+      g_return_if_reached ();
+  }
+  g_print ("Display list:\n");
+  for (tmp = info->display_list; tmp; tmp = tmp->next) {
+    GraphicElement *el = tmp->data;
+    int j;
+
+    switch (el->type) {
+      case GE_LINE:
+        g_print ("  line: (%g, %g) (%g, %g)\n", el->line.p1.x, el->line.p1.y,
+                 el->line.p2.x, el->line.p2.y);
+        break;
+      case GE_POLYLINE:
+        g_print ("  polyline:");
+        for (j = 0; j < el->polyline.npoints; j++) {
+          g_print (" (%g, %g)", el->polyline.points[j].x,
+                   el->polyline.points[j].y);
+        }
+        g_print ("\n");
+        break;
+      case GE_POLYGON:
+        g_print ("  polygon:");
+        for (j = 0; j < el->polygon.npoints; j++) {
+          g_print (" (%g, %g)", el->polygon.points[j].x,
+                   el->polygon.points[j].y);
+        }
+        g_print ("\n");
+        break;
+      case GE_RECT:
+        g_print ("  rect: (%g, %g) (%g, %g)\n",
+                 el->rect.corner1.x, el->rect.corner1.y,
+                 el->rect.corner2.x, el->rect.corner2.y);
+        break;
+      case GE_TEXT:
+        g_print ("  text: (%g, %g)\n",
+                 el->text.anchor.x, el->text.anchor.y);
+        break;
+      case GE_ELLIPSE:
+        g_print ("  ellipse: center=(%g, %g) width=%g height=%g\n",
+                 el->ellipse.center.x, el->ellipse.center.y,
+                 el->ellipse.width, el->ellipse.height);
+        break;
+      case GE_PATH:
+        g_print ("  path:");
+        for (j = 0; j < el->path.npoints; j++) {
+          switch (el->path.points[j].type) {
+            case BEZ_MOVE_TO:
+              g_print (" M (%g, %g)", el->path.points[j].p1.x,
+                       el->path.points[j].p1.y);
+              break;
+            case BEZ_LINE_TO:
+              g_print (" L (%g, %g)", el->path.points[j].p1.x,
+                       el->path.points[j].p1.y);
+              break;
+            case BEZ_CURVE_TO:
+              g_print (" C (%g, %g) (%g, %g) (%g, %g)", el->path.points[j].p1.x,
+                       el->path.points[j].p1.y, el->path.points[j].p2.x,
+                       el->path.points[j].p2.y, el->path.points[j].p3.x,
+                       el->path.points[j].p3.y);
+              break;
+            default:
+              g_return_if_reached ();
+          }
+        }
+        break;
+      case GE_SHAPE:
+        g_print("  shape:");
+        for (j = 0; j < el->path.npoints; j++) {
+          switch (el->path.points[j].type) {
+            case BEZ_MOVE_TO:
+              g_print (" M (%g, %g)", el->path.points[j].p1.x,
+                       el->path.points[j].p1.y);
+              break;
+            case BEZ_LINE_TO:
+              g_print (" L (%g, %g)", el->path.points[j].p1.x,
+                       el->path.points[j].p1.y);
+              break;
+            case BEZ_CURVE_TO:
+              g_print (" C (%g, %g) (%g, %g) (%g, %g)", el->path.points[j].p1.x,
+                       el->path.points[j].p1.y, el->path.points[j].p2.x,
+                       el->path.points[j].p2.y, el->path.points[j].p3.x,
+                       el->path.points[j].p3.y);
+              break;
+            default:
+              g_return_if_reached ();
+          }
+        }
+        break;
+      case GE_IMAGE:
+        g_print ("  image topleft=(%g, %g) width=%g height=%g file=%s\n",
+                 el->image.topleft.x, el->image.topleft.y,
+                 el->image.width, el->image.height,
+                 el->image.image ? dia_image_filename(el->image.image) : "(nil)");
+        break;
+      case GE_SUBSHAPE:
+        g_print ("   subshape\n");
+        break;
+      default:
+        break;
     }
   }
-  g_print("\n");
+  g_print ("\n");
 }

@@ -197,8 +197,10 @@ diamond_set_props(Diamond *diamond, GPtrArray *props)
   diamond_update_data(diamond,ANCHOR_MIDDLE,ANCHOR_MIDDLE);
 }
 
+
 static void
-init_default_values() {
+init_default_values (void)
+{
   static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
@@ -208,8 +210,9 @@ init_default_values() {
   }
 }
 
+
 static real
-diamond_distance_from(Diamond *diamond, Point *point)
+diamond_distance_from (Diamond *diamond, Point *point)
 {
   Element *elem = &diamond->element;
   DiaRectangle rect;
@@ -219,48 +222,55 @@ diamond_distance_from(Diamond *diamond, Point *point)
   rect.top = elem->corner.y - diamond->border_width/2;
   rect.bottom = elem->corner.y + elem->height + diamond->border_width/2;
 
-  if (rect.top > point->y)
+  if (rect.top > point->y) {
     return rect.top - point->y +
       fabs(point->x - elem->corner.x + elem->width / 2.0);
-  else if (point->y > rect.bottom)
+  } else if (point->y > rect.bottom) {
     return point->y - rect.bottom +
       fabs(point->x - elem->corner.x + elem->width / 2.0);
-  else if (rect.left > point->x)
+  } else if (rect.left > point->x) {
     return rect.left - point->x +
       fabs(point->y - elem->corner.y + elem->height / 2.0);
-  else if (point->x > rect.right)
+  } else if (point->x > rect.right) {
     return point->x - rect.right +
       fabs(point->y - elem->corner.y + elem->height / 2.0);
-  else {
+  } else {
     /* inside the bounding box of diamond ... this is where it gets harder */
     real x = point->x, y = point->y;
     real dx, dy;
 
     /* reflect point into upper left quadrant of diamond */
-    if (x > elem->corner.x + elem->width / 2.0)
+    if (x > elem->corner.x + elem->width / 2.0) {
       x = 2 * (elem->corner.x + elem->width / 2.0) - x;
-    if (y > elem->corner.y + elem->height / 2.0)
+    }
+    if (y > elem->corner.y + elem->height / 2.0) {
       y = 2 * (elem->corner.y + elem->height / 2.0) - y;
+    }
 
     dx = -x + elem->corner.x + elem->width / 2.0 -
       elem->width/elem->height * (y-elem->corner.y) - diamond->border_width/2;
     dy = -y + elem->corner.y + elem->height / 2.0 -
       elem->height/elem->width * (x-elem->corner.x) - diamond->border_width/2;
+
     if (dx <= 0 || dy <= 0)
       return 0;
-    return MIN(dx, dy);
+
+    return MIN (dx, dy);
   }
 }
 
-static void
-diamond_select(Diamond *diamond, Point *clicked_point,
-	   DiaRenderer *interactive_renderer)
-{
-  text_set_cursor(diamond->text, clicked_point, interactive_renderer);
-  text_grab_focus(diamond->text, &diamond->element.object);
 
-  element_update_handles(&diamond->element);
+static void
+diamond_select (Diamond     *diamond,
+                Point       *clicked_point,
+                DiaRenderer *interactive_renderer)
+{
+  text_set_cursor (diamond->text, clicked_point, interactive_renderer);
+  text_grab_focus (diamond->text, &diamond->element.object);
+
+  element_update_handles (&diamond->element);
 }
+
 
 static ObjectChange*
 diamond_move_handle(Diamond *diamond, Handle *handle,
@@ -271,42 +281,66 @@ diamond_move_handle(Diamond *diamond, Handle *handle,
   Point corner;
   real width, height;
 
-  assert(diamond!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (diamond != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   /* remember ... */
   corner = diamond->element.corner;
   width = diamond->element.width;
   height = diamond->element.height;
 
-  element_move_handle(&diamond->element, handle->id, to, cp,
-		      reason, modifiers);
+  element_move_handle (&diamond->element, handle->id, to, cp,
+                       reason, modifiers);
 
   switch (handle->id) {
-  case HANDLE_RESIZE_NW:
-    horiz = ANCHOR_END; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_N:
-    vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_NE:
-    horiz = ANCHOR_START; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_E:
-    horiz = ANCHOR_START; break;
-  case HANDLE_RESIZE_SE:
-    horiz = ANCHOR_START; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_S:
-    vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_SW:
-    horiz = ANCHOR_END; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_W:
-    horiz = ANCHOR_END; break;
-  default:
-    break;
+    case HANDLE_RESIZE_NW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_N:
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_NE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_E:
+      horiz = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_S:
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_W:
+      horiz = ANCHOR_END;
+      break;
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_CUSTOM1:
+    case HANDLE_CUSTOM2:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      break;
   }
-  diamond_update_data(diamond, horiz, vert);
+  diamond_update_data (diamond, horiz, vert);
 
-  if (width != diamond->element.width && height != diamond->element.height)
+  if (width != diamond->element.width && height != diamond->element.height) {
     return element_change_new (&corner, width, height, &diamond->element);
+  }
 
   return NULL;
 }
@@ -399,20 +433,27 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
 
   /* move shape if necessary ... */
   switch (horiz) {
-  case ANCHOR_MIDDLE:
-    elem->corner.x = center.x - elem->width/2; break;
-  case ANCHOR_END:
-    elem->corner.x = bottom_right.x - elem->width; break;
-  default:
-    break;
+    case ANCHOR_MIDDLE:
+      elem->corner.x = center.x - elem->width/2;
+      break;
+    case ANCHOR_END:
+      elem->corner.x = bottom_right.x - elem->width;
+      break;
+    case ANCHOR_START:
+    default:
+      break;
   }
+
   switch (vert) {
-  case ANCHOR_MIDDLE:
-    elem->corner.y = center.y - elem->height/2; break;
-  case ANCHOR_END:
-    elem->corner.y = bottom_right.y - elem->height; break;
-  default:
-    break;
+    case ANCHOR_MIDDLE:
+      elem->corner.y = center.y - elem->height/2;
+      break;
+    case ANCHOR_END:
+      elem->corner.y = bottom_right.y - elem->height;
+      break;
+    case ANCHOR_START:
+    default:
+      break;
   }
 
   p = elem->corner;
@@ -420,16 +461,17 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
   p.y += elem->height / 2.0 - diamond->text->height*diamond->text->numlines/2 +
       diamond->text->ascent;
   switch (diamond->text->alignment) {
-  case ALIGN_LEFT:
-    p.x -= width/2;
-    break;
-  case ALIGN_RIGHT:
-    p.x += width/2;
-    break;
-  case ALIGN_CENTER:
-    break;
+    case ALIGN_LEFT:
+      p.x -= width/2;
+      break;
+    case ALIGN_RIGHT:
+      p.x += width/2;
+      break;
+    case ALIGN_CENTER:
+    default:
+      break;
   }
-  text_set_position(diamond->text, &p);
+  text_set_position (diamond->text, &p);
 
   dw = elem->width / 8.0;
   dh = elem->height / 8.0;

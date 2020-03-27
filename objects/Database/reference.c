@@ -437,21 +437,18 @@ update_desc_data (Point * desc_pos, Alignment * desc_align,
   real dist = font_height/4.0 + line_width/2.0;
 
   *desc_pos = *end_point;
-  switch (orientation)
-    {
+
+  switch (orientation) {
     case HORIZONTAL:
       /* for horizontal lines the label is above the line */
       desc_pos->y -= dist;
-      if (end_point->x <= nearest_point->x)
-        {
-          desc_pos->x += dist;
-          *desc_align = ALIGN_LEFT;
-        }
-      else
-        {
-          desc_pos->x -= dist;
-          *desc_align = ALIGN_RIGHT;
-        }
+      if (end_point->x <= nearest_point->x) {
+        desc_pos->x += dist;
+        *desc_align = ALIGN_LEFT;
+      } else {
+        desc_pos->x -= dist;
+        *desc_align = ALIGN_RIGHT;
+      }
       break;
 
     case VERTICAL:
@@ -463,7 +460,10 @@ update_desc_data (Point * desc_pos, Alignment * desc_align,
       else
         desc_pos->y -= dist;
       break;
-    }
+
+    default:
+      g_return_if_reached ();
+  }
 }
 
 static void

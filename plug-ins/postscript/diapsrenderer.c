@@ -207,8 +207,9 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   fprintf(renderer->file, "%d slj\n", ps_mode);
 }
 
+
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
   real hole_width;
@@ -217,62 +218,67 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
   gchar holew_buf[DTOSTR_BUF_SIZE];
   real dot_length;
 
-  if (dash_length<0.001)
-     dash_length = 0.001;
+  if (dash_length < 0.001) {
+    dash_length = 0.001;
+  }
 
   dot_length = dash_length*0.2; /* dot = 20% of len */
 
-  switch(mode) {
-  case LINESTYLE_DEFAULT:
-  case LINESTYLE_SOLID:
-    fprintf(renderer->file, "[] 0 sd\n");
-    break;
-  case LINESTYLE_DASHED:
-    fprintf(renderer->file, "[%s] 0 sd\n",
-	    psrenderer_dtostr(dashl_buf, dash_length) );
-    break;
-  case LINESTYLE_DASH_DOT:
-    hole_width = (dash_length - dot_length) / 2.0;
-    psrenderer_dtostr(holew_buf, hole_width);
-    psrenderer_dtostr(dashl_buf, dash_length);
-    psrenderer_dtostr(dotl_buf, dot_length);
-    fprintf(renderer->file, "[%s %s %s %s] 0 sd\n",
-	    dashl_buf,
-	    holew_buf,
-	    dotl_buf,
-	    holew_buf );
-    break;
-  case LINESTYLE_DASH_DOT_DOT:
-    hole_width = (dash_length - 2.0*dot_length) / 3.0;
-    psrenderer_dtostr(holew_buf, hole_width);
-    psrenderer_dtostr(dashl_buf, dash_length);
-    psrenderer_dtostr(dotl_buf, dot_length);
-    fprintf(renderer->file, "[%s %s %s %s %s %s] 0 sd\n",
-	    dashl_buf,
-	    holew_buf,
-	    dotl_buf,
-	    holew_buf,
-	    dotl_buf,
-	    holew_buf );
-    break;
-  case LINESTYLE_DOTTED:
-    fprintf(renderer->file, "[%s] 0 sd\n",
-	    psrenderer_dtostr(dotl_buf, dot_length) );
-    break;
+  switch (mode) {
+    case LINESTYLE_DEFAULT:
+    case LINESTYLE_SOLID:
+      fprintf (renderer->file, "[] 0 sd\n");
+      break;
+    case LINESTYLE_DASHED:
+      fprintf (renderer->file, "[%s] 0 sd\n",
+               psrenderer_dtostr (dashl_buf, dash_length) );
+      break;
+    case LINESTYLE_DASH_DOT:
+      hole_width = (dash_length - dot_length) / 2.0;
+      psrenderer_dtostr (holew_buf, hole_width);
+      psrenderer_dtostr (dashl_buf, dash_length);
+      psrenderer_dtostr (dotl_buf, dot_length);
+      fprintf (renderer->file, "[%s %s %s %s] 0 sd\n",
+               dashl_buf,
+               holew_buf,
+               dotl_buf,
+               holew_buf );
+      break;
+    case LINESTYLE_DASH_DOT_DOT:
+      hole_width = (dash_length - 2.0*dot_length) / 3.0;
+      psrenderer_dtostr (holew_buf, hole_width);
+      psrenderer_dtostr (dashl_buf, dash_length);
+      psrenderer_dtostr (dotl_buf, dot_length);
+      fprintf (renderer->file, "[%s %s %s %s %s %s] 0 sd\n",
+               dashl_buf,
+               holew_buf,
+               dotl_buf,
+               holew_buf,
+               dotl_buf,
+               holew_buf );
+      break;
+    case LINESTYLE_DOTTED:
+      fprintf (renderer->file, "[%s] 0 sd\n",
+               psrenderer_dtostr (dotl_buf, dot_length) );
+      break;
+    default:
+      g_return_if_reached ();
   }
 }
 
+
 static void
-set_fillstyle(DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, FillStyle mode)
 {
-  switch(mode) {
-  case FILLSTYLE_SOLID:
-    break;
-  default:
-    g_warning ("%s: Unsupported fill mode specified!",
-	       G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (self)));
+  switch (mode) {
+    case FILLSTYLE_SOLID:
+      break;
+    default:
+      g_warning ("%s: Unsupported fill mode specified!",
+                 G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (self)));
   }
 }
+
 
 static void
 set_font (DiaRenderer *self, DiaFont *font, real height)
@@ -467,25 +473,33 @@ psrenderer_ellipse(DiaPsRenderer *renderer,
 	  filled ? "f" : "cp s" );
 }
 
-static void
-draw_ellipse(DiaRenderer *self,
-	     Point *center,
-	     real width, real height,
-	     Color *fill, Color *stroke)
-{
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  if (fill)
-    psrenderer_ellipse(renderer, center, width, height, fill, TRUE);
-  if (stroke)
-    psrenderer_ellipse(renderer, center, width, height, stroke, FALSE);
-}
 
 static void
-psrenderer_bezier(DiaPsRenderer *renderer,
-		  BezPoint *points,
-		  gint numpoints,
-		  Color *color,
-		  gboolean filled)
+draw_ellipse (DiaRenderer *self,
+              Point       *center,
+              real         width,
+              real         height,
+              Color       *fill,
+              Color       *stroke)
+{
+  DiaPsRenderer *renderer = DIA_PS_RENDERER (self);
+
+  if (fill) {
+    psrenderer_ellipse (renderer, center, width, height, fill, TRUE);
+  }
+
+  if (stroke) {
+    psrenderer_ellipse (renderer, center, width, height, stroke, FALSE);
+  }
+}
+
+
+static void
+psrenderer_bezier (DiaPsRenderer *renderer,
+                   BezPoint      *points,
+                   gint           numpoints,
+                   Color         *color,
+                   gboolean       filled)
 {
   gint  i;
   gchar p1x_buf[DTOSTR_BUF_SIZE];
@@ -495,69 +509,81 @@ psrenderer_bezier(DiaPsRenderer *renderer,
   gchar p3x_buf[DTOSTR_BUF_SIZE];
   gchar p3y_buf[DTOSTR_BUF_SIZE];
 
-  lazy_setcolor(renderer,color);
+  lazy_setcolor (renderer,color);
 
-  if (points[0].type != BEZ_MOVE_TO)
-    g_warning("first BezPoint must be a BEZ_MOVE_TO");
+  if (points[0].type != BEZ_MOVE_TO) {
+    g_warning ("first BezPoint must be a BEZ_MOVE_TO");
+  }
 
-  fprintf(renderer->file, "n %s %s m",
-	  psrenderer_dtostr(p1x_buf, (gdouble) points[0].p1.x),
-	  psrenderer_dtostr(p1y_buf, (gdouble) points[0].p1.y) );
+  fprintf (renderer->file, "n %s %s m",
+           psrenderer_dtostr (p1x_buf, (gdouble) points[0].p1.x),
+           psrenderer_dtostr (p1y_buf, (gdouble) points[0].p1.y) );
 
-  for (i = 1; i < numpoints; i++)
+  for (i = 1; i < numpoints; i++) {
     switch (points[i].type) {
-    case BEZ_MOVE_TO:
-      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-      break;
-    case BEZ_LINE_TO:
-      fprintf(renderer->file, " %s %s l",
-	      psrenderer_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-	      psrenderer_dtostr(p1y_buf, (gdouble) points[i].p1.y) );
-      break;
-    case BEZ_CURVE_TO:
-      fprintf(renderer->file, " %s %s %s %s %s %s c",
-	      psrenderer_dtostr(p1x_buf, (gdouble) points[i].p1.x),
-	      psrenderer_dtostr(p1y_buf, (gdouble) points[i].p1.y),
-	      psrenderer_dtostr(p2x_buf, (gdouble) points[i].p2.x),
-	      psrenderer_dtostr(p2y_buf, (gdouble) points[i].p2.y),
-	      psrenderer_dtostr(p3x_buf, (gdouble) points[i].p3.x),
-	      psrenderer_dtostr(p3y_buf, (gdouble) points[i].p3.y) );
-      break;
+      case BEZ_MOVE_TO:
+        g_warning ("only first BezPoint can be a BEZ_MOVE_TO");
+        break;
+      case BEZ_LINE_TO:
+        fprintf (renderer->file, " %s %s l",
+                psrenderer_dtostr (p1x_buf, (gdouble) points[i].p1.x),
+                psrenderer_dtostr (p1y_buf, (gdouble) points[i].p1.y) );
+        break;
+      case BEZ_CURVE_TO:
+        fprintf (renderer->file, " %s %s %s %s %s %s c",
+                psrenderer_dtostr (p1x_buf, (gdouble) points[i].p1.x),
+                psrenderer_dtostr (p1y_buf, (gdouble) points[i].p1.y),
+                psrenderer_dtostr (p2x_buf, (gdouble) points[i].p2.x),
+                psrenderer_dtostr (p2y_buf, (gdouble) points[i].p2.y),
+                psrenderer_dtostr (p3x_buf, (gdouble) points[i].p3.x),
+                psrenderer_dtostr (p3y_buf, (gdouble) points[i].p3.y) );
+        break;
+      default:
+        g_return_if_reached ();
     }
+  }
 
-  if (filled)
-    fprintf(renderer->file, " ef\n");
-  else
-    fprintf(renderer->file, " s\n");
+  if (filled) {
+    fprintf (renderer->file, " ef\n");
+  } else {
+    fprintf (renderer->file, " s\n");
+  }
 }
+
 
 static void
-draw_bezier(DiaRenderer *self,
-	    BezPoint *points,
-	    int numpoints, /* numpoints = 4+3*n, n=>0 */
-	    Color *color)
+draw_bezier (DiaRenderer *self,
+             BezPoint    *points,
+             int          numpoints, /* numpoints = 4+3*n, n=>0 */
+             Color       *color)
 {
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  psrenderer_bezier(renderer, points, numpoints, color, FALSE);
+  DiaPsRenderer *renderer = DIA_PS_RENDERER (self);
+
+  psrenderer_bezier (renderer, points, numpoints, color, FALSE);
 }
+
 
 static void
 draw_beziergon (DiaRenderer *self,
-		BezPoint *points, /* Last point must be same as first point */
-		int numpoints,
-		Color *fill,
-		Color *stroke)
+                /* Last point must be same as first point */
+                BezPoint    *points,
+                int          numpoints,
+                Color       *fill,
+                Color       *stroke)
 {
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  if (fill)
-    psrenderer_bezier(renderer, points, numpoints, fill, TRUE);
+  DiaPsRenderer *renderer = DIA_PS_RENDERER (self);
+  if (fill) {
+    psrenderer_bezier (renderer, points, numpoints, fill, TRUE);
+  }
   /* XXX: still not closing the path */
-  if (stroke)
-    psrenderer_bezier(renderer, points, numpoints, stroke, FALSE);
+  if (stroke) {
+    psrenderer_bezier (renderer, points, numpoints, stroke, FALSE);
+  }
 }
 
+
 static char*
-ps_convert_string(const char *text, DiaContext *ctx)
+ps_convert_string (const char *text, DiaContext *ctx)
 {
   char *buffer;
   gchar *localestr;
@@ -565,57 +591,62 @@ ps_convert_string(const char *text, DiaContext *ctx)
   gint len;
   GError * error = NULL;
 
-  localestr = g_convert(text, -1, "LATIN1", "UTF-8", NULL, NULL, &error);
+  localestr = g_convert (text, -1, "LATIN1", "UTF-8", NULL, NULL, &error);
 
   if (localestr == NULL) {
-    dia_context_add_message(ctx, "Can't convert string %s: %s\n", text, error->message);
-    localestr = g_strdup(text);
+    dia_context_add_message (ctx, "Can't convert string %s: %s\n",
+                             text, error->message);
+    localestr = g_strdup (text);
   }
 
   /* Escape all '(' and ')':  */
-  buffer = g_malloc(2*strlen(localestr)+1);
+  buffer = g_malloc (2 * strlen (localestr) + 1);
   *buffer = 0;
   str = localestr;
   while (*str != 0) {
-    len = strcspn(str,"()\\");
-    strncat(buffer, str, len);
+    len = strcspn (str,"()\\");
+    strncat (buffer, str, len);
     str += len;
     if (*str != 0) {
-      strcat(buffer,"\\");
-      strncat(buffer, str, 1);
+      strcat (buffer,"\\");
+      strncat (buffer, str, 1);
       str++;
     }
   }
-  g_free(localestr);
+  g_free (localestr);
   return buffer;
 }
 
+
 static void
 put_text_alignment (DiaPsRenderer *renderer,
-		    Alignment alignment,
-		    Point *pos)
+                    Alignment      alignment,
+                    Point         *pos)
 {
   gchar px_buf[DTOSTR_BUF_SIZE];
   gchar py_buf[DTOSTR_BUF_SIZE];
 
   switch (alignment) {
-  case ALIGN_LEFT:
-    fprintf(renderer->file, "%s %s m\n",
-	    psrenderer_dtostr(px_buf, pos->x),
-	    psrenderer_dtostr(py_buf, pos->y) );
-    break;
-  case ALIGN_CENTER:
-    fprintf(renderer->file, "dup sw 2 div %s ex sub %s m\n",
-	    psrenderer_dtostr(px_buf, pos->x),
-	    psrenderer_dtostr(py_buf, pos->y) );
-    break;
-  case ALIGN_RIGHT:
-    fprintf(renderer->file, "dup sw %s ex sub %s m\n",
-	    psrenderer_dtostr(px_buf, pos->x),
-	    psrenderer_dtostr(py_buf, pos->y) );
-    break;
+    case ALIGN_LEFT:
+      fprintf (renderer->file, "%s %s m\n",
+               psrenderer_dtostr (px_buf, pos->x),
+               psrenderer_dtostr (py_buf, pos->y) );
+      break;
+    case ALIGN_CENTER:
+      fprintf (renderer->file, "dup sw 2 div %s ex sub %s m\n",
+               psrenderer_dtostr (px_buf, pos->x),
+               psrenderer_dtostr (py_buf, pos->y) );
+      break;
+    case ALIGN_RIGHT:
+      fprintf (renderer->file, "dup sw %s ex sub %s m\n",
+               psrenderer_dtostr (px_buf, pos->x),
+               psrenderer_dtostr (py_buf, pos->y) );
+      break;
+    default:
+      g_return_if_reached ();
   }
 }
+
 
 static void
 draw_string(DiaRenderer *self,

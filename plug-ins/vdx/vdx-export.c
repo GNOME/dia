@@ -411,50 +411,61 @@ vdxCheckFont(VDXRenderer *renderer)
     return renderer->Fonts->len - 1;
 }
 
-/** Create a Visio line style object
- * @param self a VDXRenderer
- * @param color a colour
- * @param Line a Line object
- * @param start_arrow optional start arrow
- * @param end_arrow optional end arrow
+
+/**
+ * create_Line:
+ * @self: a VDXRenderer
+ * @color: a colour
+ * @Line: a Line object
+ * @start_arrow: optional start arrow
+ * @end_arrow: optional end arrow
+ *
+ * Create a Visio line style object
+ *
  * @todo join, caps, dashlength
  */
 static void
-create_Line(VDXRenderer *renderer, Color *color, struct vdx_Line *Line,
-            Arrow *start_arrow, Arrow *end_arrow)
+create_Line (VDXRenderer     *renderer,
+             Color           *color,
+             struct vdx_Line *Line,
+             Arrow           *start_arrow,
+             Arrow           *end_arrow)
 {
-    /* A Line (colour etc) */
-    memset(Line, 0, sizeof(*Line));
-    Line->any.type = vdx_types_Line;
-    switch (renderer->stylemode)
-    {
+  /* A Line (colour etc) */
+  memset (Line, 0, sizeof (*Line));
+
+  Line->any.type = vdx_types_Line;
+
+  switch (renderer->stylemode) {
     case LINESTYLE_DASHED:
-        Line->LinePattern = 2;
-        break;
+      Line->LinePattern = 2;
+      break;
     case LINESTYLE_DOTTED:
-        Line->LinePattern = 3;
-        break;
+      Line->LinePattern = 3;
+      break;
     case LINESTYLE_DASH_DOT:
-        Line->LinePattern = 4;
-        break;
+      Line->LinePattern = 4;
+      break;
     case LINESTYLE_DASH_DOT_DOT:
-        Line->LinePattern = 5;
-        break;
-    default:
+      Line->LinePattern = 5;
+      break;
+    case LINESTYLE_DEFAULT:
     case LINESTYLE_SOLID:
-        Line->LinePattern = 1;
-        break;
-    }
-    Line->LineColor = *color;
-    Line->LineColorTrans = 1.0 - color->alpha;
-    Line->LineWeight = renderer->linewidth / vdx_Line_Scale;
-    /* VDX only has Rounded (0) or Square (1) ends */
-    if (renderer->capsmode != LINECAPS_ROUND)
-	Line->LineCap = 1; /* Square */
-    if (start_arrow || end_arrow)
-    {
-        g_debug("create_Line (ARROWS)");
-    }
+    default:
+      Line->LinePattern = 1;
+      break;
+  }
+  Line->LineColor = *color;
+  Line->LineColorTrans = 1.0 - color->alpha;
+  Line->LineWeight = renderer->linewidth / vdx_Line_Scale;
+  /* VDX only has Rounded (0) or Square (1) ends */
+  if (renderer->capsmode != LINECAPS_ROUND) {
+    Line->LineCap = 1; /* Square */
+  }
+
+  if (start_arrow || end_arrow) {
+    g_debug("create_Line (ARROWS)");
+  }
 }
 
 
@@ -1293,15 +1304,17 @@ static void draw_string(DiaRenderer *self,
     text_width *= 1.2;
     a.y += dia_font_descent(text, renderer->font, renderer->fontheight);
     switch (alignment) {
-    case ALIGN_LEFT:
-      /* nothing to do this appears to be default */
-      break;
-    case ALIGN_CENTER:
-      a.x -= text_width / 2.0;
-      break;
-    case ALIGN_RIGHT:
-      a.x -= text_width;
-      break;
+      case ALIGN_LEFT:
+        /* nothing to do this appears to be default */
+        break;
+      case ALIGN_CENTER:
+        a.x -= text_width / 2.0;
+        break;
+      case ALIGN_RIGHT:
+        a.x -= text_width;
+        break;
+      default:
+        g_return_if_reached ();
     }
     a = visio_point(a);
     XForm.PinX = a.x;
@@ -1544,7 +1557,6 @@ write_header(DiagramData *data, VDXRenderer *renderer)
     struct vdx_Char Char;
     struct vdx_Para Para;
     struct vdx_Tabs Tabs;
-    static Color color_black = { 0.0, 0.0, 0.0, 1.0 };
 
     g_debug("write_header");
 

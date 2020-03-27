@@ -64,21 +64,24 @@
 #pragma message ("DiaCairo can EMF;)")
 #endif
 
+
 /* dia export funtion */
 gboolean
-cairo_export_data(DiagramData *data, DiaContext *ctx,
-	    const gchar *filename, const gchar *diafilename,
-            void* user_data)
+cairo_export_data (DiagramData *data,
+                   DiaContext  *ctx,
+                   const gchar *filename,
+                   const gchar *diafilename,
+                   void        *user_data)
 {
   DiaCairoRenderer *renderer;
   FILE *file;
   real width, height;
-  OutputKind kind = (OutputKind)user_data;
+  OutputKind kind = (OutputKind) user_data;
   /* the passed in filename is in GLib's filename encoding. On Linux everything
    * should be fine in passing it to the C-runtime (or cairo). On win32 GLib's
    * filename encdong is always utf-8, so another conversion is needed.
    */
-  gchar *filename_crt = (gchar *)filename;
+  gchar *filename_crt = (gchar *) filename;
 #if DIA_CAIRO_CAN_EMF
   HDC hFileDC = NULL;
 #endif
@@ -228,6 +231,11 @@ cairo_export_data(DiagramData *data, DiaContext *ctx,
 	renderer->scale *= 0.72; /* Works w/o for XP, but not on Vista/Win7 */
     }
     break;
+#else
+  case OUTPUT_EMF:
+  case OUTPUT_WMF:
+  case OUTPUT_CLIPBOARD:
+    g_return_val_if_reached (FALSE);
 #endif
   default :
     /* quite arbitrary, but consistent with ../pixbuf ;-) */

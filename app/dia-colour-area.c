@@ -205,61 +205,62 @@ dia_colour_area_edit (DiaColourArea *self)
     gtk_widget_show (self->color_select);
   }
 
-  selection = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (self->color_select));
+  selection =
+    gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (self->color_select));
 
-  gtk_color_selection_set_current_color (GTK_COLOR_SELECTION (selection), &gdk_color);
+  gtk_color_selection_set_current_color (GTK_COLOR_SELECTION (selection),
+                                         &gdk_color);
   gtk_color_selection_set_current_alpha (GTK_COLOR_SELECTION (selection),
                                          (guint) (color.alpha * 65535.0));
   //gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (self->color_select), &color);
 }
 
-static gint
-dia_colour_area_event (GtkWidget *widget,
-                       GdkEvent  *event)
+
+static gboolean
+dia_colour_area_button_press_event (GtkWidget      *widget,
+                                    GdkEventButton *event)
 {
   DiaColourArea *self = DIA_COLOUR_AREA (widget);
-  GdkEventButton *bevent;
   int target;
 
-  switch (event->type) {
-    case GDK_BUTTON_PRESS:
-      bevent = (GdkEventButton *) event;
+  if (event->type != GDK_BUTTON_PRESS) {
+    return FALSE;
+  }
 
-      if (bevent->button == 1) {
-        switch ((target = dia_colour_area_target (self, bevent->x, bevent->y))) {
-          case FORE_AREA:
-          case BACK_AREA:
-            if (target == self->active_color) {
-              dia_colour_area_edit (self);
-            } else {
-              self->active_color = target;
-              /* Trigger redraw */
-              gtk_widget_queue_draw (GTK_WIDGET (self));
-            }
-            break;
-          case SWAP_AREA:
-            attributes_swap_fgbg();
-            /* Trigger redraw */
-            gtk_widget_queue_draw (GTK_WIDGET (self));
-            break;
-          case DEF_AREA:
-            attributes_default_fgbg();
-            /* Trigger redraw */
-            gtk_widget_queue_draw (GTK_WIDGET (self));
-            break;
+  if (event->button == 1) {
+    switch ((target = dia_colour_area_target (self, event->x, event->y))) {
+      case FORE_AREA:
+      case BACK_AREA:
+        if (target == self->active_color) {
+          dia_colour_area_edit (self);
+        } else {
+          self->active_color = target;
+          /* Trigger redraw */
+          gtk_widget_queue_draw (GTK_WIDGET (self));
         }
-      }
-      break;
-
-    default:
-      break;
+        break;
+      case SWAP_AREA:
+        attributes_swap_fgbg ();
+        /* Trigger redraw */
+        gtk_widget_queue_draw (GTK_WIDGET (self));
+        break;
+      case DEF_AREA:
+        attributes_default_fgbg ();
+        /* Trigger redraw */
+        gtk_widget_queue_draw (GTK_WIDGET (self));
+        break;
+      default:
+        g_return_val_if_reached (FALSE);
+    }
   }
 
   return FALSE;
 }
 
+
 #include "pixmaps/swap.xpm"
 #include "pixmaps/default.xpm"
+
 
 static void
 dia_colour_area_class_init (DiaColourAreaClass *class)
@@ -268,11 +269,14 @@ dia_colour_area_class_init (DiaColourAreaClass *class)
 
   widget_class = GTK_WIDGET_CLASS (class);
   widget_class->expose_event = dia_colour_area_draw;
-  widget_class->event = dia_colour_area_event;
+  widget_class->button_press_event = dia_colour_area_button_press_event;
 
-  attributes_set_foreground (persistence_register_color ("fg_color", &color_black));
-  attributes_set_background (persistence_register_color ("bg_color", &color_white));
+  attributes_set_foreground (persistence_register_color ("fg_color",
+                                                         &color_black));
+  attributes_set_background (persistence_register_color ("bg_color",
+                                                         &color_white));
 }
+
 
 static void
 dia_colour_area_init (DiaColourArea *self)
@@ -287,6 +291,7 @@ dia_colour_area_init (DiaColourArea *self)
 
   gtk_widget_set_events (GTK_WIDGET (self), GDK_BUTTON_PRESS_MASK);
 }
+
 
 GtkWidget *
 dia_colour_area_new (int width,

@@ -1247,282 +1247,292 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
 
     /* actually parse the path component */
     switch (last_type) {
-    case PATH_MOVE:
-      if (points->len - points_at_start > 1)
-	g_warning ("Only first point should be 'move'");
-      bez.type = BEZ_MOVE_TO;
-      bez.p1.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p1.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      if (last_relative) {
-	bez.p1.x += last_point.x;
-	bez.p1.y += last_point.y;
-      }
-      last_point = bez.p1;
-      last_control = bez.p1;
-      last_open = bez.p1;
-      if (points->len - points_at_start == 1) /* stupid svg, but we can handle it */
-	g_array_index(points,BezPoint,0) = bez;
-      else
-        g_array_append_val(points, bez);
-      /* [SVG11 8.3.2] If a moveto is followed by multiple pairs of coordinates,
-       * the subsequent pairs are treated as implicit lineto commands
-       */
-      last_type = PATH_LINE;
-      break;
-    case PATH_LINE:
-      bez.type = BEZ_LINE_TO;
-      bez.p1.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p1.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      if (last_relative) {
-	bez.p1.x += last_point.x;
-	bez.p1.y += last_point.y;
-      }
-      /* Strictly speeaking it should not be necessary to assign the other
-       * two points. But it helps hiding a serious limitation with the
-       * standard bezier serialization, namely only saving one move-to
-       * and the rest as curve-to */
+      case PATH_MOVE:
+        if (points->len - points_at_start > 1) {
+          g_warning ("Only first point should be 'move'");
+        }
+        bez.type = BEZ_MOVE_TO;
+        bez.p1.x = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        bez.p1.y = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        if (last_relative) {
+          bez.p1.x += last_point.x;
+          bez.p1.y += last_point.y;
+        }
+        last_point = bez.p1;
+        last_control = bez.p1;
+        last_open = bez.p1;
+        if (points->len - points_at_start == 1) {
+          /* stupid svg, but we can handle it */
+          g_array_index (points, BezPoint, 0) = bez;
+        } else {
+          g_array_append_val (points, bez);
+        }
+        /* [SVG11 8.3.2] If a moveto is followed by multiple pairs of coordinates,
+        * the subsequent pairs are treated as implicit lineto commands
+        */
+        last_type = PATH_LINE;
+        break;
+      case PATH_LINE:
+        bez.type = BEZ_LINE_TO;
+        bez.p1.x = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        bez.p1.y = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        if (last_relative) {
+          bez.p1.x += last_point.x;
+          bez.p1.y += last_point.y;
+        }
+        /* Strictly speeaking it should not be necessary to assign the other
+         * two points. But it helps hiding a serious limitation with the
+         * standard bezier serialization, namely only saving one move-to
+         * and the rest as curve-to */
 #define INIT_LINE_TO_AS_CURVE_TO bez.p3 = bez.p1; bez.p2 = last_point
 
-      INIT_LINE_TO_AS_CURVE_TO;
+        INIT_LINE_TO_AS_CURVE_TO;
 
-      last_point = bez.p1;
-      last_control = bez.p1;
+        last_point = bez.p1;
+        last_control = bez.p1;
 
-      g_array_append_val(points, bez);
-      break;
-    case PATH_HLINE:
-      bez.type = BEZ_LINE_TO;
-      bez.p1.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p1.y = last_point.y;
-      if (last_relative)
-	bez.p1.x += last_point.x;
+        g_array_append_val (points, bez);
+        break;
+      case PATH_HLINE:
+        bez.type = BEZ_LINE_TO;
+        bez.p1.x = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        bez.p1.y = last_point.y;
+        if (last_relative) {
+          bez.p1.x += last_point.x;
+        }
 
-      INIT_LINE_TO_AS_CURVE_TO;
+        INIT_LINE_TO_AS_CURVE_TO;
 
-      last_point = bez.p1;
-      last_control = bez.p1;
+        last_point = bez.p1;
+        last_control = bez.p1;
 
-      g_array_append_val(points, bez);
-      break;
-    case PATH_VLINE:
-      bez.type = BEZ_LINE_TO;
-      bez.p1.x = last_point.x;
-      bez.p1.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      if (last_relative)
-	bez.p1.y += last_point.y;
+        g_array_append_val (points, bez);
+        break;
+      case PATH_VLINE:
+        bez.type = BEZ_LINE_TO;
+        bez.p1.x = last_point.x;
+        bez.p1.y = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        if (last_relative) {
+          bez.p1.y += last_point.y;
+        }
 
-      INIT_LINE_TO_AS_CURVE_TO;
+        INIT_LINE_TO_AS_CURVE_TO;
 
-#undef INIT_LINE_TO_AS_CURVE_TO
+  #undef INIT_LINE_TO_AS_CURVE_TO
 
-      last_point = bez.p1;
-      last_control = bez.p1;
+        last_point = bez.p1;
+        last_control = bez.p1;
 
-      g_array_append_val(points, bez);
-      break;
-    case PATH_CURVE:
-      bez.type = BEZ_CURVE_TO;
-      bez.p1.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p1.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p2.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p2.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p3.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p3.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      if (last_relative) {
-	bez.p1.x += last_point.x;
-	bez.p1.y += last_point.y;
-	bez.p2.x += last_point.x;
-	bez.p2.y += last_point.y;
-	bez.p3.x += last_point.x;
-	bez.p3.y += last_point.y;
-      }
-      last_point = bez.p3;
-      last_control = bez.p2;
+        g_array_append_val (points, bez);
+        break;
+      case PATH_CURVE:
+        bez.type = BEZ_CURVE_TO;
+        bez.p1.x = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        bez.p1.y = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        bez.p2.x = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        bez.p2.y = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        bez.p3.x = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        bez.p3.y = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        if (last_relative) {
+          bez.p1.x += last_point.x;
+          bez.p1.y += last_point.y;
+          bez.p2.x += last_point.x;
+          bez.p2.y += last_point.y;
+          bez.p3.x += last_point.x;
+          bez.p3.y += last_point.y;
+        }
+        last_point = bez.p3;
+        last_control = bez.p2;
 
-      g_array_append_val(points, bez);
-      break;
-    case PATH_SMOOTHCURVE:
-      bez.type = BEZ_CURVE_TO;
-      bez.p1.x = 2 * last_point.x - last_control.x;
-      bez.p1.y = 2 * last_point.y - last_control.y;
-      bez.p2.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p2.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p3.x = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      bez.p3.y = g_ascii_strtod(path, &path);
-      path_chomp(path);
-      if (last_relative) {
-	bez.p2.x += last_point.x;
-	bez.p2.y += last_point.y;
-	bez.p3.x += last_point.x;
-	bez.p3.y += last_point.y;
-      }
-      last_point = bez.p3;
-      last_control = bez.p2;
+        g_array_append_val (points, bez);
+        break;
+      case PATH_SMOOTHCURVE:
+        bez.type = BEZ_CURVE_TO;
+        bez.p1.x = 2 * last_point.x - last_control.x;
+        bez.p1.y = 2 * last_point.y - last_control.y;
+        bez.p2.x = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        bez.p2.y = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        bez.p3.x = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        bez.p3.y = g_ascii_strtod (path, &path);
+        path_chomp (path);
+        if (last_relative) {
+          bez.p2.x += last_point.x;
+          bez.p2.y += last_point.y;
+          bez.p3.x += last_point.x;
+          bez.p3.y += last_point.y;
+        }
+        last_point = bez.p3;
+        last_control = bez.p2;
 
-      g_array_append_val(points, bez);
-      break;
-    case PATH_QUBICCURVE: {
-	/* raise quadratic bezier to cubic (copied from librsvg) */
-	real x1, y1;
-	x1 = g_ascii_strtod(path, &path);
-	path_chomp(path);
-	y1 = g_ascii_strtod(path, &path);
-	path_chomp(path);
-	if (last_relative) {
-	  x1 += last_point.x;
-	  y1 += last_point.y;
-	}
-	bez.type = BEZ_CURVE_TO;
-	bez.p1.x = (last_point.x + 2 * x1) * (1.0 / 3.0);
-	bez.p1.y = (last_point.y + 2 * y1) * (1.0 / 3.0);
-	bez.p3.x = g_ascii_strtod(path, &path);
-	path_chomp(path);
-	bez.p3.y = g_ascii_strtod(path, &path);
-	path_chomp(path);
-	if (last_relative) {
-	  bez.p3.x += last_point.x;
-	  bez.p3.y += last_point.y;
-	}
-	bez.p2.x = (bez.p3.x + 2 * x1) * (1.0 / 3.0);
-	bez.p2.y = (bez.p3.y + 2 * y1) * (1.0 / 3.0);
-	last_point = bez.p3;
-	last_control.x = x1;
-	last_control.y = y1;
-        g_array_append_val(points, bez);
-      }
-      break;
-    case PATH_TTQCURVE:
-      {
-	/* Truetype quadratic bezier curveto */
-	double xc, yc; /* quadratic control point */
+        g_array_append_val (points, bez);
+        break;
+      case PATH_QUBICCURVE: {
+          /* raise quadratic bezier to cubic (copied from librsvg) */
+          real x1, y1;
+          x1 = g_ascii_strtod (path, &path);
+          path_chomp (path);
+          y1 = g_ascii_strtod (path, &path);
+          path_chomp (path);
+          if (last_relative) {
+            x1 += last_point.x;
+            y1 += last_point.y;
+          }
+          bez.type = BEZ_CURVE_TO;
+          bez.p1.x = (last_point.x + 2 * x1) * (1.0 / 3.0);
+          bez.p1.y = (last_point.y + 2 * y1) * (1.0 / 3.0);
+          bez.p3.x = g_ascii_strtod (path, &path);
+          path_chomp (path);
+          bez.p3.y = g_ascii_strtod (path, &path);
+          path_chomp (path);
+          if (last_relative) {
+            bez.p3.x += last_point.x;
+            bez.p3.y += last_point.y;
+          }
+          bez.p2.x = (bez.p3.x + 2 * x1) * (1.0 / 3.0);
+          bez.p2.y = (bez.p3.y + 2 * y1) * (1.0 / 3.0);
+          last_point = bez.p3;
+          last_control.x = x1;
+          last_control.y = y1;
+          g_array_append_val (points, bez);
+        }
+        break;
+      case PATH_TTQCURVE:
+        {
+          /* Truetype quadratic bezier curveto */
+          double xc, yc; /* quadratic control point */
 
-	xc = 2 * last_point.x - last_control.x;
-	yc = 2 * last_point.y - last_control.y;
-	/* generate a quadratic bezier with control point = xc, yc */
-	bez.type = BEZ_CURVE_TO;
-	bez.p1.x = (last_point.x + 2 * xc) * (1.0 / 3.0);
-	bez.p1.y = (last_point.y + 2 * yc) * (1.0 / 3.0);
-	bez.p3.x = g_ascii_strtod(path, &path);
-	path_chomp(path);
-	bez.p3.y = g_ascii_strtod(path, &path);
-	path_chomp(path);
-	if (last_relative) {
-	  bez.p3.x += last_point.x;
-	  bez.p3.y += last_point.y;
-	}
-	bez.p2.x = (bez.p3.x + 2 * xc) * (1.0 / 3.0);
-	bez.p2.y = (bez.p3.y + 2 * yc) * (1.0 / 3.0);
-	last_point = bez.p3;
-	last_control.x = xc;
-	last_control.y = yc;
-        g_array_append_val(points, bez);
-      }
-      break;
-    case PATH_ARC :
-      {
-	real  rx, ry;
-	real  xrot;
-	int   largearc, sweep;
-	Point dest, dest_c;
-	dest_c.x=0;
-	dest_c.y=0;
+          xc = 2 * last_point.x - last_control.x;
+          yc = 2 * last_point.y - last_control.y;
+          /* generate a quadratic bezier with control point = xc, yc */
+          bez.type = BEZ_CURVE_TO;
+          bez.p1.x = (last_point.x + 2 * xc) * (1.0 / 3.0);
+          bez.p1.y = (last_point.y + 2 * yc) * (1.0 / 3.0);
+          bez.p3.x = g_ascii_strtod (path, &path);
+          path_chomp (path);
+          bez.p3.y = g_ascii_strtod (path, &path);
+          path_chomp (path);
+          if (last_relative) {
+            bez.p3.x += last_point.x;
+            bez.p3.y += last_point.y;
+          }
+          bez.p2.x = (bez.p3.x + 2 * xc) * (1.0 / 3.0);
+          bez.p2.y = (bez.p3.y + 2 * yc) * (1.0 / 3.0);
+          last_point = bez.p3;
+          last_control.x = xc;
+          last_control.y = yc;
+          g_array_append_val (points, bez);
+        }
+        break;
+      case PATH_ARC:
+        {
+          real  rx, ry;
+          real  xrot;
+          int   largearc, sweep;
+          Point dest, dest_c;
+          dest_c.x=0;
+          dest_c.y=0;
 
-	rx = g_ascii_strtod(path, &path);
-	path_chomp(path);
-	ry = g_ascii_strtod(path, &path);
-	path_chomp(path);
-#if 1 /* ok if it is all properly separated */
-	xrot = g_ascii_strtod(path, &path);
-	path_chomp(path);
+          rx = g_ascii_strtod (path, &path);
+          path_chomp (path);
+          ry = g_ascii_strtod (path, &path);
+          path_chomp (path);
+        #if 1 /* ok if it is all properly separated */
+          xrot = g_ascii_strtod (path, &path);
+          path_chomp (path);
 
-	largearc = (int)g_ascii_strtod(path, &path);
-	path_chomp(path);
-	sweep = (int)g_ascii_strtod(path, &path);
-	path_chomp(path);
-#else
-	/* Actually three flags, which might not be properly separated,
-	 * but even with this paths-data-20-f.svg does not work. IMHO the
-	 * test case is seriously borked and can only pass if parsing
-	 * the arc is tweaked against the test. In other words that test
-	 * looks like it is built against one specific implementation.
-	 * Inkscape and librsvg fail, Firefox pass.
-	 */
-	xrot = path[0] == '0' ? 0.0 : 1.0; ++path;
-	path_chomp(path);
+          largearc = (int) g_ascii_strtod (path, &path);
+          path_chomp (path);
+          sweep = (int) g_ascii_strtod (path, &path);
+          path_chomp (path);
+        #else
+          /* Actually three flags, which might not be properly separated,
+          * but even with this paths-data-20-f.svg does not work. IMHO the
+          * test case is seriously borked and can only pass if parsing
+          * the arc is tweaked against the test. In other words that test
+          * looks like it is built against one specific implementation.
+          * Inkscape and librsvg fail, Firefox pass.
+          */
+          xrot = path[0] == '0' ? 0.0 : 1.0; ++path;
+          path_chomp(path);
 
-	largearc = path[0] == '0' ? 0 : 1; ++path;
-	path_chomp(path);
-	sweep =  path[0] == '0' ? 0 : 1; ++path;
-	path_chomp(path);
-#endif
+          largearc = path[0] == '0' ? 0 : 1; ++path;
+          path_chomp(path);
+          sweep =  path[0] == '0' ? 0 : 1; ++path;
+          path_chomp(path);
+        #endif
 
-	dest.x = g_ascii_strtod(path, &path);
-	path_chomp(path);
-	dest.y = g_ascii_strtod(path, &path);
-	path_chomp(path);
+          dest.x = g_ascii_strtod (path, &path);
+          path_chomp (path);
+          dest.y = g_ascii_strtod (path, &path);
+          path_chomp (path);
 
-	if (last_relative) {
-	  dest.x += last_point.x;
-	  dest.y += last_point.y;
-	}
+          if (last_relative) {
+            dest.x += last_point.x;
+            dest.y += last_point.y;
+          }
 
-	/* avoid matherr with bogus values - just ignore them
-	 * does happen e.g. with 'Chem-Widgets - clamp-large'
-	 */
-	if (last_point.x != dest.x || last_point.y != dest.y)
-	  _path_arc (points, last_point.x, last_point.y,
-		     rx, ry, xrot, largearc, sweep, dest.x, dest.y,
-		     &dest_c);
-	last_point = dest;
-	last_control = dest_c;
-      }
-      break;
-    case PATH_CLOSE:
-      /* close the path with a line - second condition to ignore single close */
-      if (!*closed && (points->len != points_at_start)) {
-	const BezPoint *bpe = &g_array_index(points, BezPoint, points->len-1);
-	/* if the last point already meets the first point dont add it again */
-	const Point pte = bpe->type == BEZ_CURVE_TO ? bpe->p3 : bpe->p1;
-	if (pte.x != last_open.x || pte.y != last_open.y) {
-	  bez.type = BEZ_LINE_TO;
-	  bez.p1 = last_open;
-	  g_array_append_val(points, bez);
-	}
-	last_point = last_open;
-      }
-      *closed = TRUE;
-      need_next_element = TRUE;
-      break;
-    case PATH_END:
-      while (*path != '\0')
-	path++;
-      need_next_element = FALSE;
-      break;
+          /* avoid matherr with bogus values - just ignore them
+          * does happen e.g. with 'Chem-Widgets - clamp-large'
+          */
+          if (last_point.x != dest.x || last_point.y != dest.y) {
+            _path_arc (points, last_point.x, last_point.y,
+                      rx, ry, xrot, largearc, sweep, dest.x, dest.y,
+                      &dest_c);
+          }
+          last_point = dest;
+          last_control = dest_c;
+        }
+        break;
+      case PATH_CLOSE:
+        /* close the path with a line - second condition to ignore single close */
+        if (!*closed && (points->len != points_at_start)) {
+          const BezPoint *bpe = &g_array_index (points, BezPoint, points->len-1);
+          /* if the last point already meets the first point dont add it again */
+          const Point pte = bpe->type == BEZ_CURVE_TO ? bpe->p3 : bpe->p1;
+          if (pte.x != last_open.x || pte.y != last_open.y) {
+            bez.type = BEZ_LINE_TO;
+            bez.p1 = last_open;
+            g_array_append_val (points, bez);
+          }
+          last_point = last_open;
+        }
+        *closed = TRUE;
+        need_next_element = TRUE;
+        break;
+      case PATH_END:
+        while (*path != '\0') {
+          path++;
+        }
+        need_next_element = FALSE;
+        break;
+      default:
+        g_return_val_if_reached (FALSE);
     }
     /* get rid of any ignorable characters */
-    path_chomp(path);
+    path_chomp (path);
 MORETOPARSE:
     if (need_next_element) {
       /* check if there really is more to be parsed */
-      if (path[0] != 0)
-	*unparsed = path;
-      else
-	*unparsed = NULL;
+      if (path[0] != 0) {
+        *unparsed = path;
+      } else {
+        *unparsed = NULL;
+      }
       break; /* while */
     }
   }
@@ -1532,12 +1542,16 @@ MORETOPARSE:
    * would crash on it.
    */
   if (points->len < 2) {
-    g_array_set_size(points, 0);
+    g_array_set_size (points, 0);
   }
-  if (current_point)
+
+  if (current_point) {
     *current_point = last_point;
+  }
+
   return (points->len > 1);
 }
+
 
 static gboolean
 _parse_transform (const gchar *trans, DiaMatrix *m, real scale)

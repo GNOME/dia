@@ -423,15 +423,17 @@ node_set_text_style (xmlNodePtr      node,
    * 'right' for those.
    */
   switch (alignment) {
-  case ALIGN_LEFT:
-    g_string_append (style, ";text-anchor:start");
-    break;
-  case ALIGN_CENTER:
-    g_string_append (style, ";text-anchor:middle");
-    break;
-  case ALIGN_RIGHT:
-    g_string_append (style, ";text-anchor:end");
-    break;
+    case ALIGN_LEFT:
+      g_string_append (style, ";text-anchor:start");
+      break;
+    case ALIGN_CENTER:
+      g_string_append (style, ";text-anchor:middle");
+      break;
+    case ALIGN_RIGHT:
+      g_string_append (style, ";text-anchor:end");
+      break;
+    default:
+      g_return_if_reached ();
   }
 #if 0 /* would need a unit according to https://bugzilla.mozilla.org/show_bug.cgi?id=707071#c4 */
   tmp = g_strdup_printf("%s;font-size:%s", style,
@@ -440,19 +442,21 @@ node_set_text_style (xmlNodePtr      node,
   style = tmp;
 #else
   /* font-size as attribute can work like the other length w/o unit */
-  dia_svg_dtostr(d_buf, font_size);
-  xmlSetProp(node, (const xmlChar *)"font-size", (xmlChar *) d_buf);
+  dia_svg_dtostr (d_buf, font_size);
+  xmlSetProp (node, (const xmlChar *) "font-size", (xmlChar *) d_buf);
 #endif
 
   if (font) {
-     g_string_append_printf (style, ";font-family:%s;font-style:%s;font-weight:%s",
-			     strcmp(family, "sans") == 0 ? "sans-serif" : family,
-			     dia_font_get_slant_string(font),
-			     dia_font_get_weight_string(font));
+     g_string_append_printf (style,
+                             ";font-family:%s;font-style:%s;font-weight:%s",
+                             strcmp (family, "sans") == 0 ? "sans-serif" : family,
+                             dia_font_get_slant_string (font),
+                             dia_font_get_weight_string (font));
   }
-  xmlSetProp(node, (xmlChar *)"style", (xmlChar *)style->str);
+  xmlSetProp (node, (xmlChar *) "style", (xmlChar *) style->str);
   g_string_free (style, TRUE);
 }
+
 
 /*!
  * To minimize impact of this deprecated attribute we set it as locally as

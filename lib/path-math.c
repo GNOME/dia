@@ -247,27 +247,34 @@ bezier_bezier_intersection (GArray              *crossing,
   }
 }
 
+
 static gboolean
 _segment_from_path (BezierSegment *a, const GArray *p1, int i)
 {
   const BezPoint *abp0 = &g_array_index (p1, BezPoint, i-1);
   const BezPoint *abp1 = &g_array_index (p1, BezPoint, i);
+
   a->p0 = abp0->type == BEZ_CURVE_TO ? abp0->p3 : abp0->p1;
+
   switch (abp1->type) {
-  case BEZ_CURVE_TO :
-    a->p1 = abp1->p1; a->p2 = abp1->p2; a->p3 = abp1->p3;
-    break;
-  case BEZ_LINE_TO :
-    if (distance_point_point (&a->p0, &abp1->p1) < EPSILON)
-      return FALSE; /* avoid a zero length line-to for confusion with move-to */
-    a->p1 = a->p2 = a->p3 = abp1->p1;
-    break;
-  case BEZ_MOVE_TO :
-    a->p0 = a->p1 = a->p2 = a->p3 = abp1->p1;
-    break;
+    case BEZ_CURVE_TO :
+      a->p1 = abp1->p1; a->p2 = abp1->p2; a->p3 = abp1->p3;
+      break;
+    case BEZ_LINE_TO :
+      if (distance_point_point (&a->p0, &abp1->p1) < EPSILON)
+        return FALSE; /* avoid a zero length line-to for confusion with move-to */
+      a->p1 = a->p2 = a->p3 = abp1->p1;
+      break;
+    case BEZ_MOVE_TO :
+      a->p0 = a->p1 = a->p2 = a->p3 = abp1->p1;
+      break;
+    default:
+      g_return_val_if_reached (FALSE);
   }
+
   return TRUE;
 }
+
 
 static void
 _curve_from_segment (BezPoint *bp, const BezierSegment *a, gboolean flip)
@@ -806,38 +813,40 @@ path_combine (const GArray   *p1,
 				    0 /* line width */, &g_array_index (p1, BezPoint, 0).p1) == 0;
 
     switch (mode) {
-    case PATH_UNION: /* Union and Exclusion just join the pathes */
-      if (two_in_one)
-	result = _path_copy (p1);
-      else if (one_in_two) /* the bigger one */
-	result = _path_copy (p2);
-      else
-	result = _make_path0 (one, NULL, two, NULL);
-      break;
-    case PATH_DIFFERENCE: /* Difference does it too, if p2 is inside p1 */
-      if (two_in_one)
-	result = _make_path0 (one, NULL, two, NULL);
-      else if (one_in_two)
-	result = NULL;
-      else
-	result = _path_copy (p1);
-      break;
-    case PATH_INTERSECTION:
-      if (two_in_one)
-	result = _path_copy (p2);
-      else if (one_in_two)
-	result = _path_copy (p1);
-      else
-	result = NULL; /* Intersection is just emtpy w/o crossing */
-      break;
-    case PATH_EXCLUSION:
-      if (two_in_one)/* with two_in_one this is like difference */
-	result = _make_path0 (one, NULL, two, NULL);
-      else if (one_in_two)
-	result = _make_path0 (two, NULL, one, NULL);
-      else /* join */
-	result = _make_path0 (one, NULL, two, NULL);
-      break;
+      case PATH_UNION: /* Union and Exclusion just join the pathes */
+        if (two_in_one)
+          result = _path_copy (p1);
+        else if (one_in_two) /* the bigger one */
+          result = _path_copy (p2);
+        else
+          result = _make_path0 (one, NULL, two, NULL);
+        break;
+      case PATH_DIFFERENCE: /* Difference does it too, if p2 is inside p1 */
+        if (two_in_one)
+          result = _make_path0 (one, NULL, two, NULL);
+        else if (one_in_two)
+          result = NULL;
+        else
+          result = _path_copy (p1);
+        break;
+      case PATH_INTERSECTION:
+        if (two_in_one)
+          result = _path_copy (p2);
+        else if (one_in_two)
+          result = _path_copy (p1);
+        else
+          result = NULL; /* Intersection is just emtpy w/o crossing */
+        break;
+      case PATH_EXCLUSION:
+        if (two_in_one)/* with two_in_one this is like difference */
+          result = _make_path0 (one, NULL, two, NULL);
+        else if (one_in_two)
+          result = _make_path0 (two, NULL, one, NULL);
+        else /* join */
+          result = _make_path0 (one, NULL, two, NULL);
+        break;
+      default:
+        g_return_val_if_reached (NULL);
     }
   }
   g_array_free (one, TRUE);

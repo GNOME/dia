@@ -850,7 +850,7 @@ diagram_select(Diagram *diagram, DiaObject *obj)
 }
 
 void
-diagram_select_list(Diagram *dia, GList *list)
+diagram_select_list (Diagram *dia, GList *list)
 {
   g_return_if_fail (dia && list);
   /* otherwise we would signal objects step by step */
@@ -858,25 +858,27 @@ diagram_select_list(Diagram *dia, GList *list)
   while (list != NULL) {
     DiaObject *obj = (DiaObject *)list->data;
 
-    diagram_select(dia, obj);
+    diagram_select (dia, obj);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
-  if (get_active_focus((DiagramData*) dia) == NULL) {
-    textedit_activate_first(ddisplay_active());
+  if (get_active_focus ((DiagramData*) dia) == NULL) {
+    textedit_activate_first (ddisplay_active ());
   }
   g_signal_handlers_unblock_by_func (dia, DIA_DIAGRAM_DATA_GET_CLASS (dia)->selection_changed, NULL);
   g_signal_emit_by_name (dia, "selection_changed", g_list_length (dia->data->selected));
 }
 
+
 int
-diagram_is_selected(Diagram *diagram, DiaObject *obj)
+diagram_is_selected (Diagram *diagram, DiaObject *obj)
 {
-  return g_list_find(diagram->data->selected, obj) != NULL;
+  return g_list_find (diagram->data->selected, obj) != NULL;
 }
 
+
 void
-diagram_redraw_all()
+diagram_redraw_all (void)
 {
   GList *list;
   Diagram *dia;
@@ -886,16 +888,18 @@ diagram_redraw_all()
   while (list != NULL) {
     dia = (Diagram *) list->data;
 
-    diagram_add_update_all(dia);
-    diagram_flush(dia);
+    diagram_add_update_all (dia);
+    diagram_flush (dia);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
+
   return;
 }
 
+
 void
-diagram_add_update_all(Diagram *dia)
+diagram_add_update_all (Diagram *dia)
 {
   GSList *l;
   DDisplay *ddisp;
@@ -904,11 +908,12 @@ diagram_add_update_all(Diagram *dia)
   while (l!=NULL) {
     ddisp = (DDisplay *) l->data;
 
-    ddisplay_add_update_all(ddisp);
+    ddisplay_add_update_all (ddisp);
 
-    l = g_slist_next(l);
+    l = g_slist_next (l);
   }
 }
+
 
 void
 diagram_add_update (Diagram *dia, const DiaRectangle *update)
@@ -1751,6 +1756,7 @@ dia_diagram_pick_guide_h (Diagram *dia,
         }
         break;
 
+      case GTK_ORIENTATION_VERTICAL:
       default:
         continue;
       }
@@ -1804,6 +1810,7 @@ dia_diagram_pick_guide_v (Diagram *dia,
         }
         break;
 
+      case GTK_ORIENTATION_HORIZONTAL:
       default:
         continue;
     }

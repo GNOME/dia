@@ -390,124 +390,132 @@ begin_render(DiaRenderer *self, const DiaRectangle *update)
 {
 }
 
-static void
-end_render(DiaRenderer *self)
-{
-    PgfRenderer *renderer = PGF_RENDERER(self);
 
-    fprintf(renderer->file,"\\end{tikzpicture}\n");
-    fclose(renderer->file);
+static void
+end_render (DiaRenderer *self)
+{
+  PgfRenderer *renderer = PGF_RENDERER (self);
+
+  fprintf (renderer->file, "\\end{tikzpicture}\n");
+  fclose (renderer->file);
 }
 
+
 static void
-set_linewidth(DiaRenderer *self, real linewidth)
-{  /* 0 == hairline (thinnest possible line on device) **/
-    PgfRenderer *renderer = PGF_RENDERER(self);
-    gchar d_buf[DTOSTR_BUF_SIZE];
+set_linewidth (DiaRenderer *self, real linewidth)
+{
+  /* 0 == hairline (thinnest possible line on device) **/
+  PgfRenderer *renderer = PGF_RENDERER (self);
+  gchar d_buf[DTOSTR_BUF_SIZE];
 
 
-    fprintf(renderer->file, "\\pgfsetlinewidth{%s\\du}\n",
-	    pgf_dtostr(d_buf, (gdouble) linewidth) );
+   fprintf (renderer->file, "\\pgfsetlinewidth{%s\\du}\n",
+            pgf_dtostr(d_buf, (gdouble) linewidth) );
 }
 
-static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
-{
-    PgfRenderer *renderer = PGF_RENDERER(self);
 
-    switch(mode) {
+static void
+set_linecaps (DiaRenderer *self, LineCaps mode)
+{
+  PgfRenderer *renderer = PGF_RENDERER(self);
+
+  switch (mode) {
     case LINECAPS_BUTT:
-	fprintf(renderer->file, "\\pgfsetbuttcap\n");
-	break;
+      fprintf (renderer->file, "\\pgfsetbuttcap\n");
+      break;
     case LINECAPS_ROUND:
-	fprintf(renderer->file, "\\pgfsetroundcap\n");
-	break;
+      fprintf (renderer->file, "\\pgfsetroundcap\n");
+      break;
     case LINECAPS_PROJECTING:
-	fprintf(renderer->file, "\\pgfsetrectcap\n");
-	break;
+      fprintf (renderer->file, "\\pgfsetrectcap\n");
+      break;
+    case LINECAPS_DEFAULT:
     default:
-	fprintf(renderer->file, "\\pgfsetbuttcap\n");
-    }
-
+      fprintf (renderer->file, "\\pgfsetbuttcap\n");
+  }
 }
 
-static void
-set_linejoin(DiaRenderer *self, LineJoin mode)
-{
-    PgfRenderer *renderer = PGF_RENDERER(self);
-    /* int ps_mode; */
 
-    switch(mode) {
+static void
+set_linejoin (DiaRenderer *self, LineJoin mode)
+{
+  PgfRenderer *renderer = PGF_RENDERER(self);
+  /* int ps_mode; */
+
+  switch(mode) {
     case LINEJOIN_DEFAULT:
     case LINEJOIN_MITER:
-	fprintf(renderer->file, "\\pgfsetmiterjoin\n");
-	break;
+      fprintf(renderer->file, "\\pgfsetmiterjoin\n");
+      break;
     case LINEJOIN_ROUND:
-	fprintf(renderer->file, "\\pgfsetroundjoin\n");
-	break;
+      fprintf(renderer->file, "\\pgfsetroundjoin\n");
+      break;
     case LINEJOIN_BEVEL:
-	fprintf(renderer->file, "\\pgfsetbeveljoin\n");
-	break;
+      fprintf(renderer->file, "\\pgfsetbeveljoin\n");
+      break;
     default:
-	fprintf(renderer->file, "\\pgfsetmiterjoin\n");
-    }
-
+      fprintf(renderer->file, "\\pgfsetmiterjoin\n");
+  }
 }
 
+
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
 {
-    PgfRenderer *renderer = PGF_RENDERER(self);
-    real hole_width;
-    gchar dash_length_buf[DTOSTR_BUF_SIZE];
-    gchar dot_length_buf[DTOSTR_BUF_SIZE];
-    gchar hole_width_buf[DTOSTR_BUF_SIZE];
-    real dot_length;
+  PgfRenderer *renderer = PGF_RENDERER(self);
+  real hole_width;
+  gchar dash_length_buf[DTOSTR_BUF_SIZE];
+  gchar dot_length_buf[DTOSTR_BUF_SIZE];
+  gchar hole_width_buf[DTOSTR_BUF_SIZE];
+  real dot_length;
 
-    if (dash_length<0.001)
-	dash_length = 0.001;
-    /* dot = 20% of len - elsewhere 10% */
-    dot_length = dash_length * 0.2;
+  if (dash_length < 0.001) {
+    dash_length = 0.001;
+  }
 
-    switch(mode) {
+  /* dot = 20% of len - elsewhere 10% */
+  dot_length = dash_length * 0.2;
+
+  switch(mode) {
     case LINESTYLE_DEFAULT:
     case LINESTYLE_SOLID:
-	fprintf(renderer->file, "\\pgfsetdash{}{0pt}\n");
-	break;
+    default:
+      fprintf (renderer->file, "\\pgfsetdash{}{0pt}\n");
+      break;
     case LINESTYLE_DASHED:
-	pgf_dtostr(dash_length_buf, dash_length);
-	fprintf(renderer->file, "\\pgfsetdash{{%s\\du}{%s\\du}}{0\\du}\n",
-		dash_length_buf,
-		dash_length_buf);
-	break;
+      pgf_dtostr (dash_length_buf, dash_length);
+      fprintf (renderer->file, "\\pgfsetdash{{%s\\du}{%s\\du}}{0\\du}\n",
+               dash_length_buf,
+               dash_length_buf);
+      break;
     case LINESTYLE_DASH_DOT:
-	hole_width = ( dash_length -  dot_length) / 2.0;
-	pgf_dtostr(hole_width_buf,hole_width);
-	pgf_dtostr(dot_length_buf, dot_length);
-	pgf_dtostr(dash_length_buf, dash_length);
-	fprintf(renderer->file, "\\pgfsetdash{{%s\\du}{%s\\du}{%s\\du}{%s\\du}}{0cm}\n",
-		dash_length_buf,
-		hole_width_buf,
-		dot_length_buf,
-		hole_width_buf );
-	break;
+      hole_width = ( dash_length -  dot_length) / 2.0;
+      pgf_dtostr (hole_width_buf, hole_width);
+      pgf_dtostr (dot_length_buf, dot_length);
+      pgf_dtostr (dash_length_buf, dash_length);
+      fprintf (renderer->file, "\\pgfsetdash{{%s\\du}{%s\\du}{%s\\du}{%s\\du}}{0cm}\n",
+               dash_length_buf,
+               hole_width_buf,
+               dot_length_buf,
+               hole_width_buf );
+      break;
     case LINESTYLE_DASH_DOT_DOT:
-	hole_width = ( dash_length - 2.0* dot_length) / 3.0;
-	pgf_dtostr(hole_width_buf,hole_width);
-	pgf_dtostr(dot_length_buf, dot_length);
-	pgf_dtostr(dash_length_buf, dash_length);
-	fprintf(renderer->file, "\\pgfsetdash{{%s\\du}{%s\\du}{%s\\du}{%s\\du}{%s\\du}{%s\\du}}{0cm}\n",
-		dash_length_buf,
-		hole_width_buf,
-		dot_length_buf,
-		hole_width_buf,
-		dot_length_buf,
-		hole_width_buf );
-	break;
+      hole_width = ( dash_length - 2.0* dot_length) / 3.0;
+      pgf_dtostr (hole_width_buf, hole_width);
+      pgf_dtostr (dot_length_buf, dot_length);
+      pgf_dtostr (dash_length_buf, dash_length);
+      fprintf (renderer->file, "\\pgfsetdash{{%s\\du}{%s\\du}{%s\\du}{%s\\du}{%s\\du}{%s\\du}}{0cm}\n",
+               dash_length_buf,
+               hole_width_buf,
+               dot_length_buf,
+               hole_width_buf,
+               dot_length_buf,
+               hole_width_buf );
+      break;
     case LINESTYLE_DOTTED:
-	pgf_dtostr(dot_length_buf, dot_length);
-	fprintf(renderer->file, "\\pgfsetdash{{\\pgflinewidth}{%s\\du}}{0cm}\n", dot_length_buf);
-	break;
+      pgf_dtostr(dot_length_buf, dot_length);
+      fprintf(renderer->file, "\\pgfsetdash{{\\pgflinewidth}{%s\\du}}{0cm}\n", dot_length_buf);
+      break;
     }
 }
 
@@ -823,132 +831,213 @@ draw_ellipse(DiaRenderer *self,
 	pgf_ellipse(renderer,center,width,height,stroke,FALSE);
 }
 
+
 static void
 pgf_bezier (PgfRenderer *renderer,
-	    BezPoint *points,
-	    gint numpoints,
-	    Color *fill, Color *stroke,
-	    gboolean closed)
+            BezPoint    *points,
+            gint         numpoints,
+            Color       *fill,
+            Color       *stroke,
+            gboolean     closed)
 {
-    gint i;
-    gchar p1x_buf[DTOSTR_BUF_SIZE];
-    gchar p1y_buf[DTOSTR_BUF_SIZE];
-    gchar p2x_buf[DTOSTR_BUF_SIZE];
-    gchar p2y_buf[DTOSTR_BUF_SIZE];
-    gchar p3x_buf[DTOSTR_BUF_SIZE];
-    gchar p3y_buf[DTOSTR_BUF_SIZE];
+  gint i;
+  gchar p1x_buf[DTOSTR_BUF_SIZE];
+  gchar p1y_buf[DTOSTR_BUF_SIZE];
+  gchar p2x_buf[DTOSTR_BUF_SIZE];
+  gchar p2y_buf[DTOSTR_BUF_SIZE];
+  gchar p3x_buf[DTOSTR_BUF_SIZE];
+  gchar p3y_buf[DTOSTR_BUF_SIZE];
 
-    if (fill)
-	set_fill_color(renderer,fill);
-    if (stroke)
-	set_line_color(renderer,stroke);
+  if (fill) {
+    set_fill_color (renderer, fill);
+  }
+  if (stroke) {
+    set_line_color (renderer, stroke);
+  }
 
-    if (points[0].type != BEZ_MOVE_TO)
-	g_warning("first BezPoint must be a BEZ_MOVE_TO");
+  if (points[0].type != BEZ_MOVE_TO) {
+    g_warning("first BezPoint must be a BEZ_MOVE_TO");
+  }
 
-    for (i = 0; i < numpoints; i++)
-	switch (points[i].type) {
-	case BEZ_MOVE_TO:
-    	    fprintf(renderer->file, "\\pgfpathmoveto{\\pgfpoint{%s\\du}{%s\\du}}\n",
-		pgf_dtostr(p1x_buf,points[i].p1.x),
-		pgf_dtostr(p1y_buf,points[i].p1.y) );
-	    break;
-	case BEZ_LINE_TO:
-	    fprintf(renderer->file, "\\pgfpathlineto{\\pgfpoint{%s\\du}{%s\\du}}\n",
-		    pgf_dtostr(p1x_buf,points[i].p1.x),
-		    pgf_dtostr(p1y_buf,points[i].p1.y) );
-	    break;
-	case BEZ_CURVE_TO:
-	    fprintf(renderer->file, "\\pgfpathcurveto{\\pgfpoint{%s\\du}{%s\\du}}"
-	    "{\\pgfpoint{%s\\du}{%s\\du}}"
-	    "{\\pgfpoint{%s\\du}{%s\\du}}\n",
-		    pgf_dtostr(p1x_buf,points[i].p1.x),
-		    pgf_dtostr(p1y_buf,points[i].p1.y),
-		    pgf_dtostr(p2x_buf,points[i].p2.x),
-		    pgf_dtostr(p2y_buf,points[i].p2.y),
-		    pgf_dtostr(p3x_buf,points[i].p3.x),
-		    pgf_dtostr(p3y_buf,points[i].p3.y) );
-	    break;
-	}
+  for (i = 0; i < numpoints; i++) {
+    switch (points[i].type) {
+      case BEZ_MOVE_TO:
+        fprintf (renderer->file,
+                 "\\pgfpathmoveto{\\pgfpoint{%s\\du}{%s\\du}}\n",
+                 pgf_dtostr (p1x_buf, points[i].p1.x),
+                 pgf_dtostr (p1y_buf, points[i].p1.y) );
+        break;
+      case BEZ_LINE_TO:
+        fprintf (renderer->file,
+                 "\\pgfpathlineto{\\pgfpoint{%s\\du}{%s\\du}}\n",
+                 pgf_dtostr (p1x_buf,points[i].p1.x),
+                 pgf_dtostr (p1y_buf,points[i].p1.y) );
+        break;
+      case BEZ_CURVE_TO:
+        fprintf (renderer->file,
+                 "\\pgfpathcurveto{\\pgfpoint{%s\\du}{%s\\du}}"
+                 "{\\pgfpoint{%s\\du}{%s\\du}}"
+                 "{\\pgfpoint{%s\\du}{%s\\du}}\n",
+                 pgf_dtostr (p1x_buf, points[i].p1.x),
+                 pgf_dtostr (p1y_buf, points[i].p1.y),
+                 pgf_dtostr (p2x_buf, points[i].p2.x),
+                 pgf_dtostr (p2y_buf, points[i].p2.y),
+                 pgf_dtostr (p3x_buf, points[i].p3.x),
+                 pgf_dtostr (p3y_buf, points[i].p3.y) );
+        break;
+      default:
+        g_return_if_reached ();
+    }
+  }
 
-    if (closed)
-	fprintf(renderer->file, "\\pgfpathclose\n");
-    if (fill && stroke)
-	fprintf(renderer->file, "\\pgfusepath{fill,stroke}\n");
-    else if (fill)
-	fprintf(renderer->file, "\\pgfusepath{fill}\n");
-/*	fill[fillstyle=solid,fillcolor=diafillcolor,linecolor=diafillcolor]}\n"); */
-    else if (stroke)
-	fprintf(renderer->file, "\\pgfusepath{stroke}\n");
+  if (closed) {
+    fprintf(renderer->file, "\\pgfpathclose\n");
+  }
+
+  if (fill && stroke) {
+    fprintf(renderer->file, "\\pgfusepath{fill,stroke}\n");
+  } else if (fill) {
+    fprintf (renderer->file, "\\pgfusepath{fill}\n");
+    /*	fill[fillstyle=solid,fillcolor=diafillcolor,linecolor=diafillcolor]}\n"); */
+  } else if (stroke) {
+    fprintf (renderer->file, "\\pgfusepath{stroke}\n");
+  }
 }
+
 
 static void
-draw_bezier(DiaRenderer *self,
-	    BezPoint *points,
-	    int numpoints, /* numpoints = 4+3*n, n=>0 */
-	    Color *color)
+draw_bezier (DiaRenderer *self,
+             BezPoint    *points,
+             int          numpoints, /* numpoints = 4+3*n, n=>0 */
+             Color       *color)
 {
-    PgfRenderer *renderer = PGF_RENDERER(self);
+  PgfRenderer *renderer = PGF_RENDERER(self);
 
-    pgf_bezier(renderer,points,numpoints,NULL,color,FALSE);
+  pgf_bezier (renderer, points, numpoints, NULL, color, FALSE);
 }
-
 
 
 static void
 draw_beziergon (DiaRenderer *self,
-		BezPoint *points,
-		int numpoints,
-		Color *fill,
-		Color *stroke)
+                BezPoint    *points,
+                int          numpoints,
+                Color       *fill,
+                Color       *stroke)
 {
-    PgfRenderer *renderer = PGF_RENDERER(self);
+  PgfRenderer *renderer = PGF_RENDERER (self);
 
-    pgf_bezier(renderer,points,numpoints,fill,stroke,TRUE);
+  pgf_bezier (renderer, points, numpoints, fill, stroke, TRUE);
 }
 
-static int
-set_arrows(PgfRenderer *renderer, Arrow *start_arrow, Arrow *end_arrow)
-{
-    int modified = 2|1; /*=3*/
-    fprintf(renderer->file, "%% was here!!!\n");
-    switch (start_arrow->type)
-    {
-    case ARROW_NONE:
-       break;
-    case ARROW_LINES:
-       fprintf(renderer->file, "\\pgfsetarrowsstart{to}\n");
-       break;
-    case ARROW_FILLED_TRIANGLE:
-       fprintf(renderer->file, "\\pgfsetarrowsstart{latex}\n");
-       break;
-    case ARROW_FILLED_CONCAVE:
-       fprintf(renderer->file, "\\pgfsetarrowsstart{stealth}\n");
-       break;
-    default:
-       modified ^= 2;
-    }
-    if (modified & 2) start_arrow->type = ARROW_NONE;
 
-    switch (end_arrow->type)
-    {
+static int
+set_arrows (PgfRenderer *renderer, Arrow *start_arrow, Arrow *end_arrow)
+{
+  int modified = 2|1; /*=3*/
+  fprintf (renderer->file, "%% was here!!!\n");
+  switch (start_arrow->type) {
     case ARROW_NONE:
-       break;
+      break;
     case ARROW_LINES:
-       fprintf(renderer->file, "\\pgfsetarrowsend{to}\n");
-       break;
+      fprintf (renderer->file, "\\pgfsetarrowsstart{to}\n");
+      break;
     case ARROW_FILLED_TRIANGLE:
-       fprintf(renderer->file, "\\pgfsetarrowsend{latex}\n");
-       break;
+      fprintf (renderer->file, "\\pgfsetarrowsstart{latex}\n");
+      break;
     case ARROW_FILLED_CONCAVE:
-       fprintf(renderer->file, "\\pgfsetarrowsend{stealth}\n");
-       break;
+      fprintf (renderer->file, "\\pgfsetarrowsstart{stealth}\n");
+      break;
+    case ARROW_HOLLOW_TRIANGLE:
+    case ARROW_HOLLOW_DIAMOND:
+    case ARROW_FILLED_DIAMOND:
+    case ARROW_HALF_HEAD:
+    case ARROW_SLASHED_CROSS:
+    case ARROW_FILLED_ELLIPSE:
+    case ARROW_HOLLOW_ELLIPSE:
+    case ARROW_DOUBLE_HOLLOW_TRIANGLE:
+    case ARROW_DOUBLE_FILLED_TRIANGLE:
+    case ARROW_UNFILLED_TRIANGLE:
+    case ARROW_FILLED_DOT:
+    case ARROW_DIMENSION_ORIGIN:
+    case ARROW_BLANKED_DOT:
+    case ARROW_FILLED_BOX:
+    case ARROW_BLANKED_BOX:
+    case ARROW_SLASH_ARROW:
+    case ARROW_INTEGRAL_SYMBOL:
+    case ARROW_CROW_FOOT:
+    case ARROW_CROSS:
+    case ARROW_BLANKED_CONCAVE:
+    case ARROW_ROUNDED:
+    case ARROW_HALF_DIAMOND:
+    case ARROW_OPEN_ROUNDED:
+    case ARROW_FILLED_DOT_N_TRIANGLE:
+    case ARROW_ONE_OR_MANY:
+    case ARROW_NONE_OR_MANY:
+    case ARROW_ONE_OR_NONE:
+    case ARROW_ONE_EXACTLY:
+    case ARROW_BACKSLASH:
+    case ARROW_THREE_DOTS:
+    case MAX_ARROW_TYPE:
+    default:
+      modified ^= 2;
+  }
+
+  if (modified & 2) {
+    start_arrow->type = ARROW_NONE;
+  }
+
+  switch (end_arrow->type) {
+    case ARROW_NONE:
+      break;
+    case ARROW_LINES:
+      fprintf (renderer->file, "\\pgfsetarrowsend{to}\n");
+      break;
+    case ARROW_FILLED_TRIANGLE:
+      fprintf (renderer->file, "\\pgfsetarrowsend{latex}\n");
+      break;
+    case ARROW_FILLED_CONCAVE:
+      fprintf( renderer->file, "\\pgfsetarrowsend{stealth}\n");
+      break;
+    case ARROW_HOLLOW_TRIANGLE:
+    case ARROW_HOLLOW_DIAMOND:
+    case ARROW_FILLED_DIAMOND:
+    case ARROW_HALF_HEAD:
+    case ARROW_SLASHED_CROSS:
+    case ARROW_FILLED_ELLIPSE:
+    case ARROW_HOLLOW_ELLIPSE:
+    case ARROW_DOUBLE_HOLLOW_TRIANGLE:
+    case ARROW_DOUBLE_FILLED_TRIANGLE:
+    case ARROW_UNFILLED_TRIANGLE:
+    case ARROW_FILLED_DOT:
+    case ARROW_DIMENSION_ORIGIN:
+    case ARROW_BLANKED_DOT:
+    case ARROW_FILLED_BOX:
+    case ARROW_BLANKED_BOX:
+    case ARROW_SLASH_ARROW:
+    case ARROW_INTEGRAL_SYMBOL:
+    case ARROW_CROW_FOOT:
+    case ARROW_CROSS:
+    case ARROW_BLANKED_CONCAVE:
+    case ARROW_ROUNDED:
+    case ARROW_HALF_DIAMOND:
+    case ARROW_OPEN_ROUNDED:
+    case ARROW_FILLED_DOT_N_TRIANGLE:
+    case ARROW_ONE_OR_MANY:
+    case ARROW_NONE_OR_MANY:
+    case ARROW_ONE_OR_NONE:
+    case ARROW_ONE_EXACTLY:
+    case ARROW_BACKSLASH:
+    case ARROW_THREE_DOTS:
+    case MAX_ARROW_TYPE:
     default:
        modified ^= 1;
-    }
-    if (modified & 1) end_arrow->type = ARROW_NONE;
+  }
 
-    return modified; /* =0 if no native arrow is used */
+  if (modified & 1) {
+    end_arrow->type = ARROW_NONE;
+  }
+
+  return modified; /* =0 if no native arrow is used */
 }
 
 static void
@@ -1196,40 +1285,44 @@ tex_escape_string(const gchar *src, DiaContext *ctx)
     return p;
 }
 
+
 static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *color)
+draw_string (DiaRenderer *self,
+             const char  *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *color)
 {
-    PgfRenderer *renderer = PGF_RENDERER(self);
-    gchar *escaped = tex_escape_string(text, renderer->ctx);
-    gchar px_buf[DTOSTR_BUF_SIZE];
-    gchar py_buf[DTOSTR_BUF_SIZE];
+  PgfRenderer *renderer = PGF_RENDERER(self);
+  gchar *escaped = tex_escape_string (text, renderer->ctx);
+  gchar px_buf[DTOSTR_BUF_SIZE];
+  gchar py_buf[DTOSTR_BUF_SIZE];
 
-    set_line_color(renderer,color);
-    set_fill_color(renderer,color);
+  set_line_color (renderer,color);
+  set_fill_color (renderer,color);
 
-    fprintf(renderer->file,"\\node");
-    switch (alignment) {
+  fprintf (renderer->file,"\\node");
+  switch (alignment) {
     case ALIGN_LEFT:
-	fprintf(renderer->file,
-		"[anchor=base west,inner sep=0pt,outer sep=0pt,color=dialinecolor]");
-	break;
+      fprintf (renderer->file,
+        "[anchor=base west,inner sep=0pt,outer sep=0pt,color=dialinecolor]");
+      break;
     case ALIGN_CENTER:
-	fprintf(renderer->file,
-		"[anchor=base,inner sep=0pt, outer sep=0pt,color=dialinecolor]");
-	break;
+      fprintf (renderer->file,
+        "[anchor=base,inner sep=0pt, outer sep=0pt,color=dialinecolor]");
+      break;
     case ALIGN_RIGHT:
-	fprintf(renderer->file,
-		"[anchor=base east,inner sep=0pt, outer sep=0pt,color=dialinecolor]");
-	break;
-    }
-    fprintf(renderer->file," at (%s\\du,%s\\du){%s};\n",
-	    pgf_dtostr(px_buf,pos->x),
-	    pgf_dtostr(py_buf,pos->y),
-	    escaped);
-    g_free(escaped);
+      fprintf (renderer->file,
+        "[anchor=base east,inner sep=0pt, outer sep=0pt,color=dialinecolor]");
+      break;
+    default:
+      g_return_if_reached ();
+  }
+  fprintf (renderer->file, " at (%s\\du,%s\\du){%s};\n",
+            pgf_dtostr (px_buf,pos->x),
+            pgf_dtostr (py_buf,pos->y),
+            escaped);
+  g_free (escaped);
 }
 
 static void

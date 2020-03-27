@@ -1313,7 +1313,7 @@ diagram_autosave(Diagram *dia)
 
       dia->autosavefilename = save_filename;
 #ifdef G_THREADS_ENABLED
-      if (g_thread_supported ()) {
+      {
         AutoSaveInfo *asi = g_new (AutoSaveInfo, 1);
         GError *error = NULL;
 
@@ -1327,13 +1327,6 @@ diagram_autosave(Diagram *dia)
         }
         /* FIXME: need better synchronization */
         dia->autosaved = TRUE;
-      } else {
-        /* no extra threads supported, stay in this one */
-        DiaContext *ctx = dia_context_new (_("Auto save"));
-        dia_context_set_filename (ctx, save_filename);
-        diagram_data_raw_save (dia->data, save_filename, ctx);
-        dia->autosaved = TRUE;
-        dia_context_release (ctx);
       }
 #else
       {

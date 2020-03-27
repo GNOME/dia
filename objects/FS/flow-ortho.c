@@ -497,7 +497,7 @@ orthflow_copy(Orthflow *orthflow)
 
 
 static void
-orthflow_update_data(Orthflow *orthflow)
+orthflow_update_data (Orthflow *orthflow)
 {
   OrthConn *orth = &orthflow->orth ;
   DiaObject *obj = &orth->object;
@@ -505,30 +505,32 @@ orthflow_update_data(Orthflow *orthflow)
   Color* color = &orthflow_color_signal;
 
   switch (orthflow->type) {
-  case ORTHFLOW_ENERGY:
-    color = &orthflow_color_energy ;
-    break ;
-  case ORTHFLOW_MATERIAL:
-    color = &orthflow_color_material ;
-    break ;
-  case ORTHFLOW_SIGNAL:
-    color = &orthflow_color_signal ;
-    break ;
+    case ORTHFLOW_ENERGY:
+      color = &orthflow_color_energy ;
+      break;
+    case ORTHFLOW_MATERIAL:
+      color = &orthflow_color_material ;
+      break;
+    case ORTHFLOW_SIGNAL:
+      color = &orthflow_color_signal ;
+      break;
+    default:
+      g_return_if_reached ();
   }
-  text_set_color( orthflow->text, color ) ;
+  text_set_color (orthflow->text, color) ;
 
-  text_set_position( orthflow->text, &orthflow->textpos ) ;
+  text_set_position (orthflow->text, &orthflow->textpos) ;
   orthflow->text_handle.pos = orthflow->textpos;
 
-  orthconn_update_data(orth);
+  orthconn_update_data (orth);
   obj->position = orth->points[0];
 
   /* Boundingbox: */
-  orthconn_update_boundingbox(orth);
+  orthconn_update_boundingbox (orth);
 
   /* Add boundingbox for text: */
-  text_calc_boundingbox(orthflow->text, &rect) ;
-  rectangle_union(&obj->bounding_box, &rect);
+  text_calc_boundingbox (orthflow->text, &rect) ;
+  rectangle_union (&obj->bounding_box, &rect);
 }
 
 
