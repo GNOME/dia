@@ -44,7 +44,7 @@ struct PointChange {
 
   enum change_type type;
   int applied;
-  
+
   BezPoint point;
   BezCornerType corner_type;
   int pos;
@@ -122,186 +122,220 @@ get_handle_nr (BezierConn *bezier, Handle *handle)
 #define get_comp_nr(hnum) (((int)(hnum)+2)/3)
 #define get_major_nr(hnum) (((int)(hnum)+1)/3)
 
-void new_handles(BezierConn *bezier, int num_points);
+void new_handles (BezierConn *bezier, int num_points);
 
-/*!
- * \brief Move one of the handles associated with the
- * @param bezier The object whose handle is being moved.
- * @param handle The handle being moved.
- * @param to The position it has been moved to (corrected for
+
+/**
+ * bezierconn_move_handle:
+ * @bezier: The object whose handle is being moved.
+ * @handle: The handle being moved.
+ * @to: The position it has been moved to (corrected for
  *   vertical/horizontal only movement).
- * @param cp If non-NULL, the connectionpoint found at this position.
- *   If @a cp is NULL, there may or may not be a connectionpoint.
- * @param reason ignored
- * @param modifiers ignored
- * @return NULL
- * \memberof BezierConn
+ * @cp: If non-%NULL, the connectionpoint found at this position.
+ *   If @a cp is %NULL, there may or may not be a connectionpoint.
+ * @reason: ignored
+ * @modifiers: ignored
+ *
+ * Move one of the handles associated with the BezierConn
+ *
+ * Returns: %NULL
  */
 ObjectChange*
-bezierconn_move_handle (BezierConn *bezier,
-			Handle *handle,
-			Point *to,
-			ConnectionPoint *cp,
-			HandleMoveReason reason,
-			ModifierKeys modifiers)
+bezierconn_move_handle (BezierConn       *bezier,
+                        Handle           *handle,
+                        Point            *to,
+                        ConnectionPoint  *cp,
+                        HandleMoveReason  reason,
+                        ModifierKeys      modifiers)
 {
   int handle_nr, comp_nr;
   Point delta, pt;
-  
-  delta = *to;
-  point_sub(&delta, &handle->pos);
 
-  handle_nr = get_handle_nr(bezier, handle);
-  comp_nr = get_comp_nr(handle_nr);
-  switch(handle->id) {
-  case HANDLE_MOVE_STARTPOINT:
-    bezier->bezier.points[0].p1 = *to;
-    /* shift adjacent point */
-    point_add(&bezier->bezier.points[1].p1, &delta);
-    break;
-  case HANDLE_MOVE_ENDPOINT:
-    bezier->bezier.points[bezier->bezier.num_points-1].p3 = *to;
-    /* shift adjacent point */
-    point_add(&bezier->bezier.points[bezier->bezier.num_points-1].p2, &delta);
-    break;
-  case HANDLE_BEZMAJOR:
-    bezier->bezier.points[comp_nr].p3 = *to;
-    /* shift adjacent point */
-    point_add(&bezier->bezier.points[comp_nr].p2, &delta);
-    point_add(&bezier->bezier.points[comp_nr+1].p1, &delta);
-    break;
-  case HANDLE_LEFTCTRL:
-    bezier->bezier.points[comp_nr].p2 = *to;
-    if (comp_nr < bezier->bezier.num_points - 1) {
-      switch (bezier->bezier.corner_types[comp_nr]) {
-      case BEZ_CORNER_SYMMETRIC:
-	pt = bezier->bezier.points[comp_nr].p3;
-	point_sub(&pt, &bezier->bezier.points[comp_nr].p2);
-	point_add(&pt, &bezier->bezier.points[comp_nr].p3);
-	bezier->bezier.points[comp_nr+1].p1 = pt;
-	break;
-      case BEZ_CORNER_SMOOTH: {
-	real len;
-	pt = bezier->bezier.points[comp_nr+1].p1;
-	point_sub(&pt, &bezier->bezier.points[comp_nr].p3);
-	len = point_len(&pt);
-	pt = bezier->bezier.points[comp_nr].p2;
-	point_sub(&pt, &bezier->bezier.points[comp_nr].p3);
-	if (point_len(&pt) > 0)
-	  point_normalize(&pt);
-	else { pt.x = 1.0; pt.y = 0.0; }
-	point_scale(&pt, -len);
-	point_add(&pt, &bezier->bezier.points[comp_nr].p3);
-	bezier->bezier.points[comp_nr+1].p1 = pt;
-	break;
-      }	
-      case BEZ_CORNER_CUSP:
-	/* Do nothing to the other guy */
-	break;
+  delta = *to;
+  point_sub (&delta, &handle->pos);
+
+  handle_nr = get_handle_nr (bezier, handle);
+  comp_nr = get_comp_nr (handle_nr);
+
+  switch (handle->id) {
+    case HANDLE_MOVE_STARTPOINT:
+      bezier->bezier.points[0].p1 = *to;
+      /* shift adjacent point */
+      point_add (&bezier->bezier.points[1].p1, &delta);
+      break;
+    case HANDLE_MOVE_ENDPOINT:
+      bezier->bezier.points[bezier->bezier.num_points-1].p3 = *to;
+      /* shift adjacent point */
+      point_add (&bezier->bezier.points[bezier->bezier.num_points-1].p2,
+                 &delta);
+      break;
+    case HANDLE_BEZMAJOR:
+      bezier->bezier.points[comp_nr].p3 = *to;
+      /* shift adjacent point */
+      point_add (&bezier->bezier.points[comp_nr].p2, &delta);
+      point_add (&bezier->bezier.points[comp_nr+1].p1, &delta);
+      break;
+    case HANDLE_LEFTCTRL:
+      bezier->bezier.points[comp_nr].p2 = *to;
+      if (comp_nr < bezier->bezier.num_points - 1) {
+        switch (bezier->bezier.corner_types[comp_nr]) {
+          case BEZ_CORNER_SYMMETRIC:
+            pt = bezier->bezier.points[comp_nr].p3;
+            point_sub (&pt, &bezier->bezier.points[comp_nr].p2);
+            point_add (&pt, &bezier->bezier.points[comp_nr].p3);
+            bezier->bezier.points[comp_nr+1].p1 = pt;
+            break;
+          case BEZ_CORNER_SMOOTH: {
+              real len;
+              pt = bezier->bezier.points[comp_nr+1].p1;
+              point_sub (&pt, &bezier->bezier.points[comp_nr].p3);
+              len = point_len (&pt);
+              pt = bezier->bezier.points[comp_nr].p2;
+              point_sub (&pt, &bezier->bezier.points[comp_nr].p3);
+              if (point_len (&pt) > 0) {
+                point_normalize (&pt);
+              } else {
+                pt.x = 1.0;
+                pt.y = 0.0;
+              }
+              point_scale (&pt, -len);
+              point_add (&pt, &bezier->bezier.points[comp_nr].p3);
+              bezier->bezier.points[comp_nr+1].p1 = pt;
+              break;
+            }
+          case BEZ_CORNER_CUSP:
+          default:
+            /* Do nothing to the other guy */
+            break;
+        }
       }
-    }
-    break;
-  case HANDLE_RIGHTCTRL:
-    bezier->bezier.points[comp_nr].p1 = *to;
-    if (comp_nr > 1) {
-      switch (bezier->bezier.corner_types[comp_nr-1]) {
-      case BEZ_CORNER_SYMMETRIC:
-	pt = bezier->bezier.points[comp_nr - 1].p3;
-	point_sub(&pt, &bezier->bezier.points[comp_nr].p1);
-	point_add(&pt, &bezier->bezier.points[comp_nr - 1].p3);
-	bezier->bezier.points[comp_nr-1].p2 = pt;
-	break;
-      case BEZ_CORNER_SMOOTH: {
-	real len;
-	pt = bezier->bezier.points[comp_nr-1].p2;
-	point_sub(&pt, &bezier->bezier.points[comp_nr-1].p3);
-	len = point_len(&pt);
-	pt = bezier->bezier.points[comp_nr].p1;
-	point_sub(&pt, &bezier->bezier.points[comp_nr-1].p3);
-	if (point_len(&pt) > 0)
-	  point_normalize(&pt);
-	else { pt.x = 1.0; pt.y = 0.0; }
-	point_scale(&pt, -len);
-	point_add(&pt, &bezier->bezier.points[comp_nr-1].p3);
-	bezier->bezier.points[comp_nr-1].p2 = pt;
-	break;
-      }	
-      case BEZ_CORNER_CUSP:
-	/* Do nothing to the other guy */
-	break;
+      break;
+    case HANDLE_RIGHTCTRL:
+      bezier->bezier.points[comp_nr].p1 = *to;
+      if (comp_nr > 1) {
+        switch (bezier->bezier.corner_types[comp_nr-1]) {
+          case BEZ_CORNER_SYMMETRIC:
+            pt = bezier->bezier.points[comp_nr - 1].p3;
+            point_sub (&pt, &bezier->bezier.points[comp_nr].p1);
+            point_add (&pt, &bezier->bezier.points[comp_nr - 1].p3);
+            bezier->bezier.points[comp_nr-1].p2 = pt;
+            break;
+          case BEZ_CORNER_SMOOTH: {
+            real len;
+            pt = bezier->bezier.points[comp_nr-1].p2;
+            point_sub (&pt, &bezier->bezier.points[comp_nr-1].p3);
+            len = point_len (&pt);
+            pt = bezier->bezier.points[comp_nr].p1;
+            point_sub (&pt, &bezier->bezier.points[comp_nr-1].p3);
+            if (point_len (&pt) > 0) {
+              point_normalize (&pt);
+            } else {
+              pt.x = 1.0;
+              pt.y = 0.0;
+            }
+            point_scale (&pt, -len);
+            point_add (&pt, &bezier->bezier.points[comp_nr-1].p3);
+            bezier->bezier.points[comp_nr-1].p2 = pt;
+            break;
+          }
+          case BEZ_CORNER_CUSP:
+            /* Do nothing to the other guy */
+            break;
+          default:
+            g_return_val_if_reached (NULL);
+        }
       }
-    }
-    break;
-  default:
-    g_warning("Internal error in bezierconn_move_handle.\n");
-    break;
+      break;
+    case HANDLE_RESIZE_N:
+    case HANDLE_RESIZE_NE:
+    case HANDLE_RESIZE_E:
+    case HANDLE_RESIZE_SE:
+    case HANDLE_RESIZE_S:
+    case HANDLE_RESIZE_SW:
+    case HANDLE_RESIZE_W:
+    case HANDLE_RESIZE_NW:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      g_warning ("Internal error in bezierconn_move_handle.\n");
+      break;
   }
+
   return NULL;
 }
 
-/*!
- * \brief Move the entire object.
+
+/**
+ * bezierconn_move:
  * @param bezier The object being moved.
  * @param to Where the object is being moved to.  This is the first point
  * of the points array.
- * @return NULL
- * \memberof _BezierConn
+ *
+ * Move the entire object.
+ *
+ * Returns: %NULL
  */
 ObjectChange*
 bezierconn_move (BezierConn *bezier, Point *to)
 {
   Point p;
   int i;
-  
+
   p = *to;
-  point_sub(&p, &bezier->bezier.points[0].p1);
+  point_sub (&p, &bezier->bezier.points[0].p1);
 
   bezier->bezier.points[0].p1 = *to;
   for (i = 1; i < bezier->bezier.num_points; i++) {
-    point_add(&bezier->bezier.points[i].p1, &p);
-    point_add(&bezier->bezier.points[i].p2, &p);
-    point_add(&bezier->bezier.points[i].p3, &p);
+    point_add (&bezier->bezier.points[i].p1, &p);
+    point_add (&bezier->bezier.points[i].p2, &p);
+    point_add (&bezier->bezier.points[i].p3, &p);
   }
 
   return NULL;
 }
 
-/*!
- * \brief Return the handle closest to a given point.
- * @param bezier A bezier object
- * @param point A point to find distances from
- * @return The handle on `bezier' closest to `point'.
+
+/**
+ * bezierconn_closest_handle:
+ * @bezier: A bezier object
+ * @point: A point to find distances from
  *
- * \memberof _BezierConn
+ * Return the handle closest to a given point.
+ *
+ * Returns: The handle on `bezier' closest to `point'.
  */
 Handle *
 bezierconn_closest_handle (BezierConn *bezier,
-			   Point *point)
+                           Point      *point)
 {
   int i, hn;
   real dist;
   Handle *closest;
-  
+
   closest = bezier->object.handles[0];
-  dist = distance_point_point( point, &closest->pos);
+  dist = distance_point_point (point, &closest->pos);
   for (i = 1, hn = 1; i < bezier->bezier.num_points; i++, hn++) {
     real new_dist;
 
-    new_dist = distance_point_point(point, &bezier->bezier.points[i].p1);
+    new_dist = distance_point_point (point, &bezier->bezier.points[i].p1);
     if (new_dist < dist) {
       dist = new_dist;
       closest = bezier->object.handles[hn];
     }
     hn++;
 
-    new_dist = distance_point_point(point, &bezier->bezier.points[i].p2);
+    new_dist = distance_point_point (point, &bezier->bezier.points[i].p2);
     if (new_dist < dist) {
       dist = new_dist;
       closest = bezier->object.handles[hn];
     }
     hn++;
 
-    new_dist = distance_point_point(point, &bezier->bezier.points[i].p3);
+    new_dist = distance_point_point (point, &bezier->bezier.points[i].p3);
     if (new_dist < dist) {
       dist = new_dist;
       closest = bezier->object.handles[hn];
@@ -310,24 +344,30 @@ bezierconn_closest_handle (BezierConn *bezier,
   return closest;
 }
 
-/*!
- * \brief Return the major handle for the control point with the handle closest to
+
+/**
+ * bezierconn_closest_major_handle:
+ * @bezier: A bezier connection
+ * @point: A point
+ *
+ * Return the major handle for the control point with the handle closest to
  * a given point.
- * @param bezier A bezier connection
- * @param point A point
- * @return The major (middle) handle of the bezier control that has the
- * handle closest to point.
+ *
  * @bug Don't we really want the major handle that's actually closest to
  * the point?  This is used in connection with object menus and could cause
  * some unexpected selection of handles if a different segment has a control
  * point close to the major handle.
+ *
+ * Returns: The major (middle) handle of the bezier control that has the
+ *          handle closest to point.
  */
 Handle *
 bezierconn_closest_major_handle (BezierConn *bezier, Point *point)
 {
-  Handle *closest = bezierconn_closest_handle(bezier, point);
+  Handle *closest = bezierconn_closest_handle (bezier, point);
 
-  return bezier->object.handles[3*get_major_nr(get_handle_nr(bezier, closest))];
+  return bezier->object.handles[3 * get_major_nr (get_handle_nr (bezier,
+                                                                 closest))];
 }
 
 /*!
@@ -524,7 +564,7 @@ bezierconn_remove_segment (BezierConn *bezier, int pos)
   cpt1 = old_handle1->connected_to;
   cpt2 = old_handle2->connected_to;
   cpt3 = old_handle3->connected_to;
-  
+
   object_unconnect((DiaObject *)bezier, old_handle1);
   object_unconnect((DiaObject *)bezier, old_handle2);
   object_unconnect((DiaObject *)bezier, old_handle3);
@@ -532,7 +572,7 @@ bezierconn_remove_segment (BezierConn *bezier, int pos)
   remove_handles(bezier, pos);
 
   bezierconn_update_data(bezier);
-  
+
   return bezierconn_create_point_change(bezier, TYPE_REMOVE_POINT,
 					&old_point, old_ctype, pos,
 					old_handle1, cpt1,
@@ -540,110 +580,136 @@ bezierconn_remove_segment (BezierConn *bezier, int pos)
 					old_handle3, cpt3);
 }
 
-/*!
- * \brief Limit movability of control handles
+
+/**
+ * bezierconn_straighten_corner:
+ * @bezier: A bezierconn to straighten a corner of
+ * @comp_nr: The index into the corner_types array of the corner to
+ *           straighten.
+ *
+ * Limit movability of control handles
  *
  * Update a corner to have less freedom in its control handles, arranging
  * the control points at some reasonable places.
- * @param bezier A bezierconn to straighten a corner of
- * @param comp_nr The index into the corner_types array of the corner to
- *                straighten.
- * \memberof _BezierConn
  */
 static void
 bezierconn_straighten_corner (BezierConn *bezier, int comp_nr)
 {
   int next_nr = comp_nr+1;
+
   /* Neat thing would be to have the kind of straigthening depend on
      which handle was chosen:  Mid-handle does average, other leaves that
      handle where it is. */
   switch (bezier->bezier.corner_types[comp_nr]) {
-  case BEZ_CORNER_SYMMETRIC: {
-    Point pt1, pt2;
+    case BEZ_CORNER_SYMMETRIC: {
+        Point pt1, pt2;
 
-    pt1 = bezier->bezier.points[comp_nr].p3;
-    point_sub(&pt1, &bezier->bezier.points[comp_nr].p2);
-    pt2 = bezier->bezier.points[comp_nr].p3;
-    point_sub(&pt2, &bezier->bezier.points[next_nr].p1);
-    point_scale(&pt2, -1.0);
-    point_add(&pt1, &pt2);
-    point_scale(&pt1, 0.5);
-    pt2 = pt1;
-    point_scale(&pt1, -1.0);
-    point_add(&pt1, &bezier->bezier.points[comp_nr].p3);
-    point_add(&pt2, &bezier->bezier.points[comp_nr].p3);
-    bezier->bezier.points[comp_nr].p2 = pt1;
-    bezier->bezier.points[next_nr].p1 = pt2;
-    bezierconn_update_data(bezier);
-  }
-  break;
-  case BEZ_CORNER_SMOOTH: {
-    Point pt1, pt2;
-    real len1, len2;
-    pt1 = bezier->bezier.points[comp_nr].p3;
-    point_sub(&pt1, &bezier->bezier.points[comp_nr].p2);
-    pt2 = bezier->bezier.points[comp_nr].p3;
-    point_sub(&pt2, &bezier->bezier.points[next_nr].p1);
-    len1 = point_len(&pt1);
-    len2 = point_len(&pt2);
-    point_scale(&pt2, -1.0);
-    if (len1 > 0)
-      point_normalize(&pt1);
-    if (len2 > 0)
-      point_normalize(&pt2);
-    point_add(&pt1, &pt2);
-    point_scale(&pt1, 0.5);
-    pt2 = pt1;
-    point_scale(&pt1, -len1);
-    point_add(&pt1, &bezier->bezier.points[comp_nr].p3);
-    point_scale(&pt2, len2);
-    point_add(&pt2, &bezier->bezier.points[comp_nr].p3);
-    bezier->bezier.points[comp_nr].p2 = pt1;
-    bezier->bezier.points[next_nr].p1 = pt2;
-    bezierconn_update_data(bezier);
-  }
-    break;
-  case BEZ_CORNER_CUSP:
-    break;
+        pt1 = bezier->bezier.points[comp_nr].p3;
+        point_sub (&pt1, &bezier->bezier.points[comp_nr].p2);
+        pt2 = bezier->bezier.points[comp_nr].p3;
+        point_sub (&pt2, &bezier->bezier.points[next_nr].p1);
+        point_scale (&pt2, -1.0);
+        point_add (&pt1, &pt2);
+        point_scale (&pt1, 0.5);
+        pt2 = pt1;
+        point_scale (&pt1, -1.0);
+        point_add (&pt1, &bezier->bezier.points[comp_nr].p3);
+        point_add (&pt2, &bezier->bezier.points[comp_nr].p3);
+        bezier->bezier.points[comp_nr].p2 = pt1;
+        bezier->bezier.points[next_nr].p1 = pt2;
+        bezierconn_update_data (bezier);
+      }
+      break;
+    case BEZ_CORNER_SMOOTH: {
+        Point pt1, pt2;
+        real len1, len2;
+        pt1 = bezier->bezier.points[comp_nr].p3;
+        point_sub (&pt1, &bezier->bezier.points[comp_nr].p2);
+        pt2 = bezier->bezier.points[comp_nr].p3;
+        point_sub (&pt2, &bezier->bezier.points[next_nr].p1);
+        len1 = point_len (&pt1);
+        len2 = point_len (&pt2);
+        point_scale (&pt2, -1.0);
+        if (len1 > 0)
+          point_normalize (&pt1);
+        if (len2 > 0)
+          point_normalize (&pt2);
+        point_add (&pt1, &pt2);
+        point_scale (&pt1, 0.5);
+        pt2 = pt1;
+        point_scale (&pt1, -len1);
+        point_add (&pt1, &bezier->bezier.points[comp_nr].p3);
+        point_scale (&pt2, len2);
+        point_add (&pt2, &bezier->bezier.points[comp_nr].p3);
+        bezier->bezier.points[comp_nr].p2 = pt1;
+        bezier->bezier.points[next_nr].p1 = pt2;
+        bezierconn_update_data (bezier);
+      }
+      break;
+    case BEZ_CORNER_CUSP:
+      break;
+    default:
+      g_return_if_reached ();
   }
 }
 
-/** Change the corner type of a bezier line.
- * @param bezier The bezierconn that has the corner
- * @param handle The handle whose corner should be set.
- * @param corner_type What type of corner the handle should have.
- * @returns Undo information about the corner change.
+
+/**
+ * bezierconn_set_corner_type:
+ * @bezier: The bezierconn that has the corner
+ * @handle: The handle whose corner should be set.
+ * @corner_type: What type of corner the handle should have.
+ *
+ * Change the corner type of a bezier line.
+ *
+ * Returns: Undo information about the corner change.
  */
 ObjectChange *
-bezierconn_set_corner_type (BezierConn *bezier,
-			    Handle *handle,
-			    BezCornerType corner_type)
+bezierconn_set_corner_type (BezierConn    *bezier,
+                            Handle        *handle,
+                            BezCornerType  corner_type)
 {
   Handle *mid_handle;
   Point old_left, old_right;
   int old_type;
   int handle_nr, comp_nr;
 
-  handle_nr = get_handle_nr(bezier, handle);
+  handle_nr = get_handle_nr (bezier, handle);
 
   switch (handle->id) {
-  case HANDLE_BEZMAJOR:
-    mid_handle = handle;
-    break;
-  case HANDLE_LEFTCTRL:
-    handle_nr++;
-    mid_handle = bezier->object.handles[handle_nr];
-    break;
-  case HANDLE_RIGHTCTRL:
-    handle_nr--;
-    mid_handle = bezier->object.handles[handle_nr];
-    break;
-  default:
-    g_warning("Internal error: Setting corner type of endpoint of bezier");
-    return NULL;
+    case HANDLE_BEZMAJOR:
+      mid_handle = handle;
+      break;
+    case HANDLE_LEFTCTRL:
+      handle_nr++;
+      mid_handle = bezier->object.handles[handle_nr];
+      break;
+    case HANDLE_RIGHTCTRL:
+      handle_nr--;
+      mid_handle = bezier->object.handles[handle_nr];
+      break;
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_RESIZE_N:
+    case HANDLE_RESIZE_NE:
+    case HANDLE_RESIZE_E:
+    case HANDLE_RESIZE_SE:
+    case HANDLE_RESIZE_S:
+    case HANDLE_RESIZE_SW:
+    case HANDLE_RESIZE_W:
+    case HANDLE_RESIZE_NW:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      g_warning ("Internal error: Setting corner type of endpoint of bezier");
+      return NULL;
   }
 
-  comp_nr = get_major_nr(handle_nr);
+  comp_nr = get_major_nr (handle_nr);
 
   old_type = bezier->bezier.corner_types[comp_nr];
   old_left = bezier->bezier.points[comp_nr].p2;
@@ -651,10 +717,11 @@ bezierconn_set_corner_type (BezierConn *bezier,
 
   bezier->bezier.corner_types[comp_nr] = corner_type;
 
-  bezierconn_straighten_corner(bezier, comp_nr);
+  bezierconn_straighten_corner (bezier, comp_nr);
 
-  return bezierconn_create_corner_change(bezier, mid_handle, &old_left, &old_right,
-					 old_type, corner_type);
+  return bezierconn_create_corner_change (bezier, mid_handle,
+                                          &old_left, &old_right,
+                                          old_type, corner_type);
 }
 
 /** Update handle array and handle positions after changes.
@@ -665,7 +732,7 @@ bezierconn_update_data (BezierConn *bezier)
 {
   int i;
   DiaObject *obj = &bezier->object;
-  
+
   /* handle the case of whole points array update (via set_prop) */
   if (3*bezier->bezier.num_points-2 != obj->num_handles) {
     /* also maintain potential connections */
@@ -685,7 +752,7 @@ bezierconn_update_data (BezierConn *bezier)
     g_free(obj->handles);
 
     obj->num_handles = 3*bezier->bezier.num_points-2;
-    obj->handles = g_new(Handle*, obj->num_handles); 
+    obj->handles = g_new(Handle*, obj->num_handles);
 
     new_handles(bezier, bezier->bezier.num_points);
     /* we may assign NULL once more here */
@@ -741,10 +808,10 @@ new_handles (BezierConn *bezier, int num_points)
     obj->handles[3*i-2] = g_new0(Handle,1);
     obj->handles[3*i-1] = g_new0(Handle,1);
     obj->handles[3*i] = g_new0(Handle,1);
-  
+
     setup_handle(obj->handles[3*i-2], HANDLE_RIGHTCTRL);
     setup_handle(obj->handles[3*i-1], HANDLE_LEFTCTRL);
-  
+
     obj->handles[3*i]->connect_type = HANDLE_CONNECTABLE;
     obj->handles[3*i]->connected_to = NULL;
     obj->handles[3*i]->type = HANDLE_MAJOR_CONTROL;
@@ -753,7 +820,7 @@ new_handles (BezierConn *bezier, int num_points)
 }
 
 /** Initialize a bezier object with the given amount of points.
- * The points array of the bezier object might not be previously 
+ * The points array of the bezier object might not be previously
  * initialized with appropriate positions.
  * This will set up handles and make all corners symmetric.
  * @param bezier A newly allocated bezierconn object.
@@ -768,7 +835,7 @@ bezierconn_init (BezierConn *bezier, int num_points)
   obj = &bezier->object;
 
   object_init(obj, 3*num_points-2, 0);
-  
+
   bezier->bezier.num_points = num_points;
 
   bezier->bezier.points = g_new(BezPoint, num_points);
@@ -840,7 +907,7 @@ bezierconn_destroy (BezierConn *bezier)
   for (i = 0; i < nh; i++)
     g_free(temp_handles[i]);
   g_free(temp_handles);
-  
+
   g_free(bezier->bezier.points);
   g_free(bezier->bezier.corner_types);
 }
@@ -891,7 +958,7 @@ bezierconn_load (BezierConn *bezier,
   int i;
   AttributeNode attr;
   DataNode data;
-  
+
   DiaObject *obj = &bezier->object;
 
   object_load(obj, obj_node, ctx);
@@ -942,7 +1009,7 @@ bezierconn_load (BezierConn *bezier,
   obj->handles[0]->connected_to = NULL;
   obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[0]->id = HANDLE_MOVE_STARTPOINT;
-  
+
   for (i = 1; i < bezier->bezier.num_points; i++) {
     obj->handles[3*i-2] = g_new0(Handle,1);
     setup_handle(obj->handles[3*i-2], HANDLE_RIGHTCTRL);
@@ -979,56 +1046,74 @@ bezierconn_point_change_free (struct PointChange *change)
   }
 }
 
-/** Apply a point addition/removal.
- * @param change The change to apply.
- * @param obj The object (must be a BezierConn) to apply the change to.
+
+/**
+ * bezierconn_point_change_apply:
+ * @change: The change to apply.
+ * @obj: The object (must be a BezierConn) to apply the change to.
+ *
+ * Apply a point addition/removal.
  */
 static void
 bezierconn_point_change_apply (struct PointChange *change, DiaObject *obj)
 {
   change->applied = 1;
   switch (change->type) {
-  case TYPE_ADD_POINT:
-    add_handles((BezierConn *)obj, change->pos, &change->point,
-		change->corner_type,
-		change->handle1, change->handle2, change->handle3);
-    break;
-  case TYPE_REMOVE_POINT:
-    object_unconnect(obj, change->handle1);
-    object_unconnect(obj, change->handle2);
-    object_unconnect(obj, change->handle3);
-    remove_handles((BezierConn *)obj, change->pos);
-    break;
+    case TYPE_ADD_POINT:
+      add_handles ((BezierConn *) obj, change->pos, &change->point,
+                   change->corner_type,
+                   change->handle1, change->handle2, change->handle3);
+      break;
+    case TYPE_REMOVE_POINT:
+      object_unconnect (obj, change->handle1);
+      object_unconnect (obj, change->handle2);
+      object_unconnect (obj, change->handle3);
+      remove_handles ((BezierConn *) obj, change->pos);
+      break;
+    default:
+      g_return_if_reached ();
   }
 }
 
-/** Revert (unapply) a point addition/removal.
- * @param change The change to revert.
- * @param obj The object (must be a BezierConn) to revert the change of.
+
+/**
+ * bezierconn_point_change_revert:
+ * @change: The change to revert.
+ * @obj: The object (must be a BezierConn) to revert the change of.
+ *
+ * Revert (unapply) a point addition/removal.
  */
 static void
 bezierconn_point_change_revert (struct PointChange *change, DiaObject *obj)
 {
   switch (change->type) {
-  case TYPE_ADD_POINT:
-    remove_handles((BezierConn *)obj, change->pos);
-    break;
-  case TYPE_REMOVE_POINT:
-    add_handles((BezierConn *)obj, change->pos, &change->point,
-		change->corner_type,
-		change->handle1, change->handle2, change->handle3);
+    case TYPE_ADD_POINT:
+      remove_handles ((BezierConn *) obj, change->pos);
+      break;
+    case TYPE_REMOVE_POINT:
+      add_handles ((BezierConn *) obj, change->pos, &change->point,
+                   change->corner_type,
+                   change->handle1, change->handle2, change->handle3);
 
-    if (change->connected_to1)
-      object_connect(obj, change->handle1, change->connected_to1);
-    if (change->connected_to2)
-      object_connect(obj, change->handle2, change->connected_to2);
-    if (change->connected_to3)
-      object_connect(obj, change->handle3, change->connected_to3);
-      
-    break;
+      if (change->connected_to1) {
+        object_connect (obj, change->handle1, change->connected_to1);
+      }
+
+      if (change->connected_to2) {
+        object_connect (obj, change->handle2, change->connected_to2);
+      }
+
+      if (change->connected_to3) {
+        object_connect (obj, change->handle3, change->connected_to3);
+      }
+
+      break;
+    default:
+      g_return_if_reached ();
   }
   change->applied = 0;
 }
+
 
 /** Create undo information about a point being added or removed.
  * @param bezier The object that the change applies to (ignored)
@@ -1112,7 +1197,7 @@ bezierconn_corner_change_revert(struct CornerChange *change,
 
   bezier->bezier.points[comp_nr].p2 = change->point_left;
   bezier->bezier.points[comp_nr+1].p1 = change->point_right;
-  bezier->bezier.corner_types[comp_nr] = change->old_type;  
+  bezier->bezier.corner_types[comp_nr] = change->old_type;
 
   change->applied = 0;
 }
