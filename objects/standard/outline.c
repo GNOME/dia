@@ -433,24 +433,33 @@ outline_set_props (Outline *outline, GPtrArray *props)
   object_set_props_from_offsets(&outline->object, outline_offsets, props);
   outline_update_data (outline);
 }
-/*!
- * \brief Calculate the distance of the whole object to the given point
- * \memberof Outline
+
+
+/**
+ * outline_distance_from:
+ *
+ * Calculate the distance of the whole object to the given point
  */
 static real
 outline_distance_from (Outline *outline, Point *point)
 {
-  return distance_polygon_point (&outline->ink_rect[0], 4, outline->line_width, point);
+  return distance_polygon_point (&outline->ink_rect[0], 4,
+                                 outline->line_width, point);
 }
-/*!
- * \brief Move one of the objects handles
- * \memberof Outline
+
+
+/**
+ * outline_move_handle:
+ *
+ * Move one of the objects handles
  */
 static ObjectChange*
-outline_move_handle (Outline *outline,
-                     Handle *handle,
-		     Point *to, ConnectionPoint *cp,
-		     HandleMoveReason reason, ModifierKeys modifiers)
+outline_move_handle (Outline          *outline,
+                     Handle           *handle,
+                     Point            *to,
+                     ConnectionPoint  *cp,
+                     HandleMoveReason  reason,
+                     ModifierKeys      modifiers)
 {
   DiaObject *obj = &outline->object;
   Point start = obj->position;
@@ -459,17 +468,36 @@ outline_move_handle (Outline *outline,
   Point norm = end;
   point_sub (&norm, &start);
   point_normalize (&norm);
+
   /* we use this to modify angle and scale */
   switch (handle->id) {
-  case HANDLE_RESIZE_NW :
-    start = *to;
-    break;
-  case HANDLE_RESIZE_SE :
-    end = *to;
-    break;
-  default :
-    g_warning ("Outline unknown handle");
+    case HANDLE_RESIZE_NW :
+      start = *to;
+      break;
+    case HANDLE_RESIZE_SE :
+      end = *to;
+      break;
+    case HANDLE_RESIZE_N:
+    case HANDLE_RESIZE_NE:
+    case HANDLE_RESIZE_W:
+    case HANDLE_RESIZE_E:
+    case HANDLE_RESIZE_SW:
+    case HANDLE_RESIZE_S:
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_CUSTOM1:
+    case HANDLE_CUSTOM2:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      g_warning ("Outline unknown handle");
   }
+
   dist = distance_point_point (&start, &end);
   /* disallow everything below a certain level, otherwise the font-size could become invalid */
   if (dist > 0.1) {
@@ -479,8 +507,11 @@ outline_move_handle (Outline *outline,
 
     outline_update_data (outline);
   }
+
   return NULL;
 }
+
+
 /*!
  * \brief Move the whole object to the given position
  *

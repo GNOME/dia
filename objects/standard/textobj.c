@@ -321,28 +321,33 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
   }
 }
 
+
 static void
 textobj_valign_point (Textobj *textobj, Point* p)
 {
   DiaRectangle *bb  = &(textobj->object.bounding_box);
   real offset;
+
   switch (textobj->vert_align){
-  case VALIGN_BOTTOM:
-    offset = bb->bottom - textobj->object.position.y;
-    p->y -= offset;
-    break;
-  case VALIGN_TOP:
-    offset = bb->top - textobj->object.position.y;
-    p->y -= offset;
-    break;
-  case VALIGN_CENTER:
-    offset = (bb->bottom + bb->top)/2 - textobj->object.position.y;
-    p->y -= offset;
-    break;
-  case VALIGN_FIRST_LINE:
-    break;
+    case VALIGN_BOTTOM:
+      offset = bb->bottom - textobj->object.position.y;
+      p->y -= offset;
+      break;
+    case VALIGN_TOP:
+      offset = bb->top - textobj->object.position.y;
+      p->y -= offset;
+      break;
+    case VALIGN_CENTER:
+      offset = (bb->bottom + bb->top)/2 - textobj->object.position.y;
+      p->y -= offset;
+      break;
+    case VALIGN_FIRST_LINE:
+      break;
+    default:
+      g_return_if_reached ();
   }
 }
+
 
 static void
 textobj_update_data (Textobj *textobj)

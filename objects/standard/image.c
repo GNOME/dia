@@ -319,22 +319,29 @@ image_distance_from(Image *image, Point *point)
   return distance_rectangle_point(&rect, point);
 }
 
+
 static void
-image_select(Image *image, Point *clicked_point,
-	     DiaRenderer *interactive_renderer)
+image_select (Image       *image,
+              Point       *clicked_point,
+              DiaRenderer *interactive_renderer)
 {
-  element_update_handles(&image->element);
+  element_update_handles (&image->element);
 }
 
+
 static ObjectChange*
-image_move_handle(Image *image, Handle *handle,
-		  Point *to, ConnectionPoint *cp,
-		  HandleMoveReason reason, ModifierKeys modifiers)
+image_move_handle (Image            *image,
+                   Handle           *handle,
+                   Point            *to,
+                   ConnectionPoint  *cp,
+                   HandleMoveReason  reason,
+                   ModifierKeys      modifiers)
 {
   Element *elem = &image->element;
-  assert(image!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+
+  g_return_val_if_fail (image != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (image->keep_aspect) {
     float width, height;
@@ -343,96 +350,108 @@ image_move_handle(Image *image, Handle *handle,
     height = image->element.height;
 
     switch (handle->id) {
-    case HANDLE_RESIZE_NW:
-      new_width = -(to->x-image->element.corner.x)+width;
-      new_height = -(to->y-image->element.corner.y)+height;
-      if (new_height == 0 || new_width/new_height > width/height) {
-	new_height = new_width*height/width;
-      } else {
-	new_width = new_height*width/height;
-      }
-      to->x = image->element.corner.x+(image->element.width-new_width);
-      to->y = image->element.corner.y+(image->element.height-new_height);
-      element_move_handle(elem, HANDLE_RESIZE_NW, to, cp, reason, modifiers);
-      break;
-    case HANDLE_RESIZE_N:
-      new_width = (-(to->y-image->element.corner.y)+height)*width/height;
-      to->x = image->element.corner.x+new_width;
-      element_move_handle(elem, HANDLE_RESIZE_NE, to, cp, reason, modifiers);
-      break;
-    case HANDLE_RESIZE_NE:
-      new_width = to->x-image->element.corner.x;
-      new_height = -(to->y-image->element.corner.y)+height;
-      if (new_height == 0 || new_width/new_height > width/height) {
-	new_height = new_width*height/width;
-      } else {
-	new_width = new_height*width/height;
-      }
-      to->x = image->element.corner.x+new_width;
-      to->y = image->element.corner.y+(image->element.height-new_height);
-      element_move_handle(elem, HANDLE_RESIZE_NE, to, cp, reason, modifiers);
-      break;
-    case HANDLE_RESIZE_E:
-      new_height = (to->x-image->element.corner.x)*height/width;
-      to->y = image->element.corner.y+new_height;
-      element_move_handle(elem, HANDLE_RESIZE_SE, to, cp, reason, modifiers);
-      break;
-    case HANDLE_RESIZE_SE:
-      new_width = to->x-image->element.corner.x;
-      new_height = to->y-image->element.corner.y;
-      if (new_height == 0 || new_width/new_height > width/height) {
-	new_height = new_width*height/width;
-      } else {
-	new_width = new_height*width/height;
-      }
-      to->x = image->element.corner.x+new_width;
-      to->y = image->element.corner.y+new_height;
-      element_move_handle(elem, HANDLE_RESIZE_SE, to, cp, reason, modifiers);
-      break;
-    case HANDLE_RESIZE_S:
-      new_width = (to->y-image->element.corner.y)*width/height;
-      to->x = image->element.corner.x+new_width;
-      element_move_handle(elem, HANDLE_RESIZE_SE, to, cp, reason, modifiers);
-      break;
-    case HANDLE_RESIZE_SW:
-      new_width = -(to->x-image->element.corner.x)+width;
-      new_height = to->y-image->element.corner.y;
-      if (new_height == 0 || new_width/new_height > width/height) {
-	new_height = new_width*height/width;
-      } else {
-	new_width = new_height*width/height;
-      }
-      to->x = image->element.corner.x+(image->element.width-new_width);
-      to->y = image->element.corner.y+new_height;
-      element_move_handle(elem, HANDLE_RESIZE_SW, to, cp, reason, modifiers);
-      break;
-    case HANDLE_RESIZE_W:
-      new_height = (-(to->x-image->element.corner.x)+width)*height/width;
-      to->y = image->element.corner.y+new_height;
-      element_move_handle(elem, HANDLE_RESIZE_SW, to, cp, reason, modifiers);
-      break;
-    default:
-      message_warning("Unforeseen handle in image_move_handle: %d\n",
-		      handle->id);
-
+      case HANDLE_RESIZE_NW:
+        new_width = -(to->x-image->element.corner.x)+width;
+        new_height = -(to->y-image->element.corner.y)+height;
+        if (new_height == 0 || new_width/new_height > width/height) {
+          new_height = new_width*height/width;
+        } else {
+          new_width = new_height*width/height;
+        }
+        to->x = image->element.corner.x+(image->element.width-new_width);
+        to->y = image->element.corner.y+(image->element.height-new_height);
+        element_move_handle (elem, HANDLE_RESIZE_NW, to, cp, reason, modifiers);
+        break;
+      case HANDLE_RESIZE_N:
+        new_width = (-(to->y-image->element.corner.y)+height)*width/height;
+        to->x = image->element.corner.x+new_width;
+        element_move_handle (elem, HANDLE_RESIZE_NE, to, cp, reason, modifiers);
+        break;
+      case HANDLE_RESIZE_NE:
+        new_width = to->x-image->element.corner.x;
+        new_height = -(to->y-image->element.corner.y)+height;
+        if (new_height == 0 || new_width/new_height > width/height) {
+          new_height = new_width*height/width;
+        } else {
+          new_width = new_height*width/height;
+        }
+        to->x = image->element.corner.x+new_width;
+        to->y = image->element.corner.y+(image->element.height-new_height);
+        element_move_handle (elem, HANDLE_RESIZE_NE, to, cp, reason, modifiers);
+        break;
+      case HANDLE_RESIZE_E:
+        new_height = (to->x-image->element.corner.x)*height/width;
+        to->y = image->element.corner.y+new_height;
+        element_move_handle (elem, HANDLE_RESIZE_SE, to, cp, reason, modifiers);
+        break;
+      case HANDLE_RESIZE_SE:
+        new_width = to->x-image->element.corner.x;
+        new_height = to->y-image->element.corner.y;
+        if (new_height == 0 || new_width/new_height > width/height) {
+          new_height = new_width*height/width;
+        } else {
+          new_width = new_height*width/height;
+        }
+        to->x = image->element.corner.x+new_width;
+        to->y = image->element.corner.y+new_height;
+        element_move_handle (elem, HANDLE_RESIZE_SE, to, cp, reason, modifiers);
+        break;
+      case HANDLE_RESIZE_S:
+        new_width = (to->y-image->element.corner.y)*width/height;
+        to->x = image->element.corner.x+new_width;
+        element_move_handle (elem, HANDLE_RESIZE_SE, to, cp, reason, modifiers);
+        break;
+      case HANDLE_RESIZE_SW:
+        new_width = -(to->x-image->element.corner.x)+width;
+        new_height = to->y-image->element.corner.y;
+        if (new_height == 0 || new_width/new_height > width/height) {
+          new_height = new_width*height/width;
+        } else {
+          new_width = new_height*width/height;
+        }
+        to->x = image->element.corner.x+(image->element.width-new_width);
+        to->y = image->element.corner.y+new_height;
+        element_move_handle (elem, HANDLE_RESIZE_SW, to, cp, reason, modifiers);
+        break;
+      case HANDLE_RESIZE_W:
+        new_height = (-(to->x-image->element.corner.x)+width)*height/width;
+        to->y = image->element.corner.y+new_height;
+        element_move_handle (elem, HANDLE_RESIZE_SW, to, cp, reason, modifiers);
+        break;
+      case HANDLE_MOVE_STARTPOINT:
+      case HANDLE_MOVE_ENDPOINT:
+      case HANDLE_CUSTOM1:
+      case HANDLE_CUSTOM2:
+      case HANDLE_CUSTOM3:
+      case HANDLE_CUSTOM4:
+      case HANDLE_CUSTOM5:
+      case HANDLE_CUSTOM6:
+      case HANDLE_CUSTOM7:
+      case HANDLE_CUSTOM8:
+      case HANDLE_CUSTOM9:
+      default:
+        message_warning ("Unforeseen handle in image_move_handle: %d\n",
+                        handle->id);
     }
   } else {
-    element_move_handle(elem, handle->id, to, cp, reason, modifiers);
+    element_move_handle (elem, handle->id, to, cp, reason, modifiers);
   }
-  image_update_data(image);
+  image_update_data (image);
 
   return NULL;
 }
 
+
 static ObjectChange*
-image_move(Image *image, Point *to)
+image_move (Image *image, Point *to)
 {
   image->element.corner = *to;
 
-  image_update_data(image);
+  image_update_data (image);
 
   return NULL;
 }
+
 
 static void
 image_draw (Image *image, DiaRenderer *renderer)
@@ -526,8 +545,9 @@ image_transform(Image *image, const DiaMatrix *m)
   return TRUE;
 }
 
+
 static void
-image_update_data(Image *image)
+image_update_data (Image *image)
 {
   Element *elem = &image->element;
   ElementBBExtras *extra = &elem->extra_spacing;
@@ -535,8 +555,8 @@ image_update_data(Image *image)
 
   if (image->keep_aspect && image->image) {
     /* maybe the image got changes since */
-    real aspect_org = (float)dia_image_width(image->image)
-                    / (float)dia_image_height(image->image);
+    real aspect_org = (float) dia_image_width (image->image)
+                    / (float) dia_image_height (image->image);
     real aspect_now = elem->width / elem->height;
 
     if (fabs (aspect_now - aspect_org) > 1e-4) {
@@ -553,7 +573,7 @@ image_update_data(Image *image)
     DiaMatrix m = { 1.0, 0.0, 0.0, 1.0, cx, cy };
     DiaMatrix t = { 1.0, 0.0, 0.0, 1.0, -cx, -cy };
     int i;
-    PolyBBExtras extra = { 0, };
+    PolyBBExtras extraa = { 0, };
     Point poly[4];
 
 
@@ -563,15 +583,15 @@ image_update_data(Image *image)
       transform_point (&image->connections[i].pos, &m);
 
     element_get_poly (elem, image->angle, poly);
-    extra.middle_trans = (image->draw_border ? image->border_width : 0.0);
-    polyline_bbox(poly, 4, &extra, TRUE, &elem->object.bounding_box);
+    extraa.middle_trans = (image->draw_border ? image->border_width : 0.0);
+    polyline_bbox (poly, 4, &extraa, TRUE, &elem->object.bounding_box);
   } else {
     /* the image border is drawn completely outside of the image, so no /2.0 on border width */
     extra->border_trans = (image->draw_border ? image->border_width : 0.0);
-    element_update_boundingbox(elem);
+    element_update_boundingbox (elem);
   }
   obj->position = elem->corner;
-  element_update_handles(elem);
+  element_update_handles (elem);
 }
 
 
