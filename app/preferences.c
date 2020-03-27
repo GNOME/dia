@@ -292,36 +292,37 @@ prefs_set_defaults(void)
   if (default_paper_name == NULL)
     default_paper_name = get_paper_name(get_default_paper());
 
-  for (i=0;i<NUM_PREFS_DATA;i++) {
-    ptr = (char *)&prefs + prefs_data[i].offset;
+  for (i = 0; i < NUM_PREFS_DATA; i++) {
+    ptr = (char *) &prefs + prefs_data[i].offset;
 
     switch (prefs_data[i].type) {
-    case PREF_BOOLEAN:
-      *(int *)ptr = *(int *)prefs_data[i].default_value;
-      *(int *)ptr = persistence_register_boolean(prefs_data[i].name, *(int *)ptr);
-      break;
-    case PREF_INT:
-    case PREF_UINT:
-      *(int *)ptr = *(int *)prefs_data[i].default_value;
-      *(int *)ptr = persistence_register_integer(prefs_data[i].name, *(int *)ptr);
-      break;
-    case PREF_REAL:
-    case PREF_UREAL:
-      *(real *)ptr = *(real *)prefs_data[i].default_value;
-      *(real *)ptr = persistence_register_real(prefs_data[i].name, *(real *)ptr);
-      break;
-    case PREF_COLOUR:
-      *(Color *)ptr = *(Color *)prefs_data[i].default_value;
-      *(Color *)ptr = *persistence_register_color(prefs_data[i].name, (Color *)ptr);
-      break;
-    case PREF_CHOICE:
-    case PREF_STRING:
-      *(gchar **)ptr = *(gchar **)prefs_data[i].default_value;
-      *(gchar **)ptr = persistence_register_string(prefs_data[i].name, *(gchar **)ptr);
-      break;
-    case PREF_NONE:
-    case PREF_END_GROUP:
-      break;
+      case PREF_BOOLEAN:
+        *(int *) ptr = *(int *)prefs_data[i].default_value;
+        *(int *) ptr = persistence_register_boolean(prefs_data[i].name, *(int *)ptr);
+        break;
+      case PREF_INT:
+      case PREF_UINT:
+        *(int *) ptr = *(int *)prefs_data[i].default_value;
+        *(int *) ptr = persistence_register_integer(prefs_data[i].name, *(int *)ptr);
+        break;
+      case PREF_REAL:
+      case PREF_UREAL:
+        *(real *) ptr = *(real *)prefs_data[i].default_value;
+        *(real *) ptr = persistence_register_real(prefs_data[i].name, *(real *)ptr);
+        break;
+      case PREF_COLOUR:
+        *(Color *) ptr = *(Color *)prefs_data[i].default_value;
+        *(Color *) ptr = *persistence_register_color(prefs_data[i].name, (Color *)ptr);
+        break;
+      case PREF_CHOICE:
+      case PREF_STRING:
+        *(gchar **) ptr = *(gchar **)prefs_data[i].default_value;
+        *(gchar **) ptr = persistence_register_string(prefs_data[i].name, *(gchar **)ptr);
+        break;
+      case PREF_NONE:
+      case PREF_END_GROUP:
+      default:
+        break;
     }
     /* set initial preferences, but dont talk about restarting */
     if (prefs_data[i].update_function)
@@ -342,234 +343,254 @@ prefs_save(void)
     ptr = (char *)&prefs + prefs_data[i].offset;
 
     switch (prefs_data[i].type) {
-    case PREF_BOOLEAN:
-      persistence_set_boolean(prefs_data[i].name, *(gint *)ptr);
-      break;
-    case PREF_INT:
-    case PREF_UINT:
-      persistence_set_integer(prefs_data[i].name, *(gint *)ptr);
-      break;
-    case PREF_REAL:
-    case PREF_UREAL:
+      case PREF_BOOLEAN:
+        persistence_set_boolean (prefs_data[i].name, *(gint *)ptr);
+        break;
+      case PREF_INT:
+      case PREF_UINT:
+        persistence_set_integer (prefs_data[i].name, *(gint *)ptr);
+        break;
+      case PREF_REAL:
+      case PREF_UREAL:
 
-      persistence_set_real(prefs_data[i].name, *(real *)ptr);
-      break;
-    case PREF_COLOUR:
-      persistence_set_color(prefs_data[i].name, (Color *)ptr);
-      break;
-    case PREF_CHOICE:
-    case PREF_STRING:
-      persistence_set_string(prefs_data[i].name, *(gchar **)ptr);
-      break;
-    case PREF_NONE:
-    case PREF_END_GROUP:
-      break;
+        persistence_set_real (prefs_data[i].name, *(real *)ptr);
+        break;
+      case PREF_COLOUR:
+        persistence_set_color (prefs_data[i].name, (Color *)ptr);
+        break;
+      case PREF_CHOICE:
+      case PREF_STRING:
+        persistence_set_string (prefs_data[i].name, *(gchar **)ptr);
+        break;
+      case PREF_NONE:
+      case PREF_END_GROUP:
+      default:
+        break;
     }
   }
 }
-
 
 
 void
-prefs_init(void)
+prefs_init (void)
 {
-  prefs_set_defaults();
+  prefs_set_defaults ();
 }
 
+
 static void
-prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,
-			  gpointer ptr)
+prefs_set_value_in_widget (GtkWidget   *widget,
+                           DiaPrefData *data,
+                           gpointer     ptr)
 {
-  switch(data->type) {
-  case PREF_BOOLEAN:
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), *((int *)ptr));
-    break;
-  case PREF_INT:
-  case PREF_UINT:
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(widget),
-			      (gfloat) (*((int *)ptr)));
-    break;
-  case PREF_REAL:
-  case PREF_UREAL:
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(widget),
-			      (gfloat) (*((real *)ptr)));
-    break;
-  case PREF_COLOUR:
-    dia_color_selector_set_color(widget, (Color *)ptr);
-    break;
-  case PREF_CHOICE: {
-    GList *names = (data->choice_list_function)(data);
-    int index;
-    char *val = *((gchar**)ptr);
-    for (index = 0; names != NULL; names = g_list_next(names), index++) {
-      if (!val || !strcmp(val, (gchar *)names->data))
-	break;
+  switch (data->type) {
+    case PREF_BOOLEAN:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), *((int *)ptr));
+      break;
+    case PREF_INT:
+    case PREF_UINT:
+      gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget),
+                                 (gfloat) (*((int *) ptr)));
+      break;
+    case PREF_REAL:
+    case PREF_UREAL:
+      gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget),
+                                 (gfloat) (*((real *) ptr)));
+      break;
+    case PREF_COLOUR:
+      dia_color_selector_set_color (widget, (Color *) ptr);
+      break;
+    case PREF_CHOICE: {
+      GList *names = (data->choice_list_function) (data);
+      int index;
+      char *val = *((gchar**) ptr);
+      for (index = 0; names != NULL; names = g_list_next(names), index++) {
+        if (!val || !strcmp (val, (gchar *) names->data)) {
+          break;
+        }
+      }
+      if (names == NULL) return;
+      gtk_combo_box_set_active (GTK_COMBO_BOX (widget), index);
+      break;
     }
-    if (names == NULL) return;
-    gtk_combo_box_set_active (GTK_COMBO_BOX (widget), index);
-    break;
-  }
-  case PREF_STRING:
-    gtk_entry_set_text(GTK_ENTRY(widget), (gchar *)(*((gchar **)ptr)));
-    break;
-  case PREF_NONE:
-  case PREF_END_GROUP:
-    break;
+    case PREF_STRING:
+      gtk_entry_set_text (GTK_ENTRY (widget), (gchar *) (*((gchar **) ptr)));
+      break;
+    case PREF_NONE:
+    case PREF_END_GROUP:
+    default:
+      break;
   }
 }
 
+
 static void
-prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data,
-			    gpointer ptr)
+prefs_get_value_from_widget (GtkWidget   *widget,
+                             DiaPrefData *data,
+                             gpointer     ptr)
 {
   gboolean changed = FALSE;
-  switch(data->type) {
-  case PREF_BOOLEAN: {
-      int prev = *((int *)ptr);
-      *((int *)ptr) = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-      changed = (prev != *((int *)ptr));
+  switch (data->type) {
+    case PREF_BOOLEAN:
+      {
+        int prev = *((int *) ptr);
+        *((int *)ptr) = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+        changed = (prev != *((int *) ptr));
+      }
+      break;
+    case PREF_INT:
+    case PREF_UINT:
+      {
+        int prev = *((int *) ptr);
+        *((int *)ptr) = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
+        changed = (prev != *((int *) ptr));
+      }
+      break;
+    case PREF_REAL:
+    case PREF_UREAL:
+      {
+        real prev = *((real *) ptr);
+        *((real *) ptr) = (real)
+          gtk_spin_button_get_value (GTK_SPIN_BUTTON (widget));
+        changed = (prev != *((real *) ptr));
+      }
+      break;
+    case PREF_COLOUR:
+      {
+        Color prev = *(Color *) ptr;
+        dia_color_selector_get_color (widget, (Color *) ptr);
+        changed = memcmp (&prev, ptr, sizeof (Color));
+      }
+      break;
+    case PREF_CHOICE: {
+      int index = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
+      GList *names = (data->choice_list_function) (data);
+      *((gchar **)ptr) = g_strdup ((gchar *) g_list_nth_data (names, index));
+      /* XXX changed */
+      changed = TRUE;
+      break;
     }
-    break;
-  case PREF_INT:
-  case PREF_UINT: {
-      int prev = *((int *)ptr);
-      *((int *)ptr) = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget));
-      changed = (prev != *((int *)ptr));
-    }
-    break;
-  case PREF_REAL:
-  case PREF_UREAL: {
-      real prev = *((real *)ptr);
-      *((real *)ptr) = (real)
-        gtk_spin_button_get_value (GTK_SPIN_BUTTON(widget));
-      changed = (prev != *((real *)ptr));
-    }
-    break;
-  case PREF_COLOUR: {
-      Color prev = *(Color *)ptr;
-      dia_color_selector_get_color(widget, (Color *)ptr);
-      changed = memcmp (&prev, ptr, sizeof(Color));
-    }
-    break;
-  case PREF_CHOICE: {
-    int index = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
-    GList *names = (data->choice_list_function)(data);
-    *((gchar **)ptr) = g_strdup((gchar *)g_list_nth_data(names, index));
-    /* XXX changed */
-    changed = TRUE;
-    break;
-  }
-  case PREF_STRING:
-    *((gchar **)ptr) = (gchar *)gtk_entry_get_text(GTK_ENTRY(widget));
-    /* XXX changed */
-    changed = TRUE;
-    break;
-  case PREF_NONE:
-  case PREF_END_GROUP:
-    break;
+    case PREF_STRING:
+      *((gchar **)ptr) = (gchar *) gtk_entry_get_text (GTK_ENTRY (widget));
+      /* XXX changed */
+      changed = TRUE;
+      break;
+    case PREF_NONE:
+    case PREF_END_GROUP:
+    default:
+      break;
   }
   if (changed && data->update_function != NULL) {
-    (data->update_function)(data, ptr);
+    (data->update_function) (data, ptr);
   }
 }
+
 
 static void
 prefs_boolean_toggle(GtkWidget *widget, gpointer data)
 {
-  gboolean active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget));
-  gtk_button_set_label(GTK_BUTTON(widget), active ? _("Yes") : _("No"));
+  gboolean active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+  gtk_button_set_label (GTK_BUTTON (widget), active ? _("Yes") : _("No"));
 }
 
+
 static GtkWidget *
-prefs_get_property_widget(DiaPrefData *data)
+prefs_get_property_widget (DiaPrefData *data)
 {
   GtkWidget *widget = NULL;
   GtkAdjustment *adj;
 
   switch(data->type) {
-  case PREF_BOOLEAN:
-    widget = gtk_toggle_button_new_with_label (_("No"));
-    g_signal_connect (G_OBJECT (widget), "toggled",
-		      G_CALLBACK (prefs_boolean_toggle), NULL);
-    break;
-  case PREF_INT:
-    adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
-					    G_MININT, G_MAXINT,
-					    1.0, 10.0, 0));
-    widget = gtk_spin_button_new (adj, 1.0, 0);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
-    gtk_widget_set_size_request (widget, 80, -1);
-    break;
-  case PREF_UINT:
-    adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
-					    0.0, G_MAXINT,
-					    1.0, 10.0, 0));
-    widget = gtk_spin_button_new (adj, 1.0, 0);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
-    gtk_widget_set_size_request (widget, 80, -1);
-    break;
-  case PREF_REAL:
-    adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
-					    G_MINFLOAT, G_MAXFLOAT,
-					    1.0, 10.0, 0));
-    widget = gtk_spin_button_new (adj, 1.0, 3);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
-    gtk_widget_set_size_request (widget, 80, -1);
-    break;
-  case PREF_UREAL:
-    adj = GTK_ADJUSTMENT(gtk_adjustment_new(0.0,
-					    0.0, G_MAXFLOAT,
-					    1.0, 10.0, 0 ));
-    widget = gtk_spin_button_new (adj, 1.0, 3);
-    gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(widget), TRUE);
-    gtk_widget_set_size_request (widget, 80, -1);
-    break;
-  case PREF_COLOUR:
-    widget = dia_color_selector_new();
-    break;
-  case PREF_STRING:
-    widget = gtk_entry_new();
-    break;
-  case PREF_CHOICE: {
-    GList *names;
-    widget = gtk_combo_box_text_new ();
-    for (names = (data->choice_list_function)(data);
-         names != NULL;
-         names = g_list_next(names)) {
-      gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (widget), (gchar *)names->data);
+    case PREF_BOOLEAN:
+      widget = gtk_toggle_button_new_with_label (_("No"));
+      g_signal_connect (G_OBJECT (widget), "toggled",
+                        G_CALLBACK (prefs_boolean_toggle), NULL);
+      break;
+    case PREF_INT:
+      adj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
+                                                G_MININT, G_MAXINT,
+                                                1.0, 10.0, 0));
+      widget = gtk_spin_button_new (adj, 1.0, 0);
+      gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (widget), TRUE);
+      gtk_widget_set_size_request (widget, 80, -1);
+      break;
+    case PREF_UINT:
+      adj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
+                                                0.0, G_MAXINT,
+                                                1.0, 10.0, 0));
+      widget = gtk_spin_button_new (adj, 1.0, 0);
+      gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (widget), TRUE);
+      gtk_widget_set_size_request (widget, 80, -1);
+      break;
+    case PREF_REAL:
+      adj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
+                                                G_MINFLOAT, G_MAXFLOAT,
+                                                1.0, 10.0, 0));
+      widget = gtk_spin_button_new (adj, 1.0, 3);
+      gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (widget), TRUE);
+      gtk_widget_set_size_request (widget, 80, -1);
+      break;
+    case PREF_UREAL:
+      adj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
+                                                0.0, G_MAXFLOAT,
+                                                1.0, 10.0, 0 ));
+      widget = gtk_spin_button_new (adj, 1.0, 3);
+      gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (widget), TRUE);
+      gtk_widget_set_size_request (widget, 80, -1);
+      break;
+    case PREF_COLOUR:
+      widget = dia_color_selector_new();
+      break;
+    case PREF_STRING:
+      widget = gtk_entry_new();
+      break;
+    case PREF_CHOICE: {
+      GList *names;
+      widget = gtk_combo_box_text_new ();
+      for (names = (data->choice_list_function)(data);
+          names != NULL;
+          names = g_list_next(names)) {
+        gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (widget), (gchar *)names->data);
+      }
+      break;
     }
-    break;
+    case PREF_NONE:
+    case PREF_END_GROUP:
+    default:
+      widget = NULL;
+      break;
   }
-  case PREF_NONE:
-  case PREF_END_GROUP:
-    widget = NULL;
-    break;
+
+  if (widget != NULL) {
+    gtk_widget_show (widget);
   }
-  if (widget != NULL)
-    gtk_widget_show(widget);
+
   return widget;
 }
 
+
 static gint
-prefs_respond(GtkWidget *widget,
-                   gint       response_id,
-                   gpointer   data)
+prefs_respond (GtkWidget *widget,
+               gint       response_id,
+               gpointer   data)
 {
   if (   response_id == GTK_RESPONSE_APPLY
       || response_id == GTK_RESPONSE_OK) {
-    prefs_update_prefs_from_dialog();
-    prefs_save();
-    diagram_redraw_all();
+    prefs_update_prefs_from_dialog ();
+    prefs_save ();
+    diagram_redraw_all ();
   }
 
-  if (response_id != GTK_RESPONSE_APPLY)
-    gtk_widget_hide(widget);
+  if (response_id != GTK_RESPONSE_APPLY) {
+    gtk_widget_hide (widget);
+  }
 
   return 0;
 }
 
+
 static void
-prefs_create_dialog(void)
+prefs_create_dialog (void)
 {
   GtkWidget *label;
   GtkWidget *dialog_vbox;
@@ -579,8 +600,9 @@ prefs_create_dialog(void)
   int i;
   int tab_idx = -1;
 
-  if (prefs_dialog != NULL)
+  if (prefs_dialog != NULL) {
     return;
+  }
 
   prefs_dialog = gtk_dialog_new_with_buttons (_("Preferences"),
                                               GTK_WINDOW (interface_get_toolbox_shell ()),
@@ -600,9 +622,9 @@ prefs_create_dialog(void)
                    G_CALLBACK (prefs_respond), NULL);
 
   g_signal_connect (G_OBJECT (prefs_dialog), "delete_event",
-		    G_CALLBACK(gtk_widget_hide), NULL);
+                    G_CALLBACK (gtk_widget_hide), NULL);
   g_signal_connect (G_OBJECT (prefs_dialog), "destroy",
-		    G_CALLBACK(gtk_widget_destroyed), &prefs_dialog);
+                    G_CALLBACK (gtk_widget_destroyed), &prefs_dialog);
 
   notebook = gtk_notebook_new ();
   gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
@@ -610,17 +632,17 @@ prefs_create_dialog(void)
   gtk_container_set_border_width (GTK_CONTAINER (notebook), 2);
   gtk_widget_show (notebook);
 
-  for (i=0;i<NUM_PREFS_TABS;i++) {
+  for (i = 0; i < NUM_PREFS_TABS; i++) {
     GtkWidget *table;
     GtkWidget *notebook_page;
 
-    label = gtk_label_new(gettext(prefs_tabs[i].title));
-    gtk_widget_show(label);
+    label = gtk_label_new (gettext (prefs_tabs[i].title));
+    gtk_widget_show (label);
 
     table = gtk_table_new (9, 2, FALSE);
     prefs_tabs[i].table = GTK_TABLE(table);
-    gtk_widget_set_size_request(table, -1, -1);
-    gtk_widget_show(table);
+    gtk_widget_set_size_request (table, -1, -1);
+    gtk_widget_show (table);
 
 #ifdef SCROLLED_PAGES
     notebook_page = gtk_scrolled_window_new (NULL, NULL);
@@ -631,7 +653,7 @@ prefs_create_dialog(void)
     notebook_page = table;
 #endif/* SCROLLED_PAGES */
 
-    gtk_notebook_append_page(GTK_NOTEBOOK(notebook), notebook_page, label);
+    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), notebook_page, label);
 
 #ifdef SCROLLED_PAGES
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(notebook_page),
@@ -641,59 +663,69 @@ prefs_create_dialog(void)
 #endif /* SCROLLED_PAGES */
 
   }
-  gtk_notebook_set_tab_pos(GTK_NOTEBOOK(notebook), GTK_POS_LEFT);
+  gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_LEFT);
 
   tab_idx = -1;
-  for (i=0;i<NUM_PREFS_DATA;i++) {
+  for (i = 0; i < NUM_PREFS_DATA; i++) {
     GtkWidget *widget = NULL;
     int row;
 
-    if (prefs_data[i].hidden)
+    if (prefs_data[i].hidden) {
       continue;
+    }
 
     if (tab_idx != prefs_data[i].tab) {
       tab_idx = prefs_data[i].tab;
       top_table = prefs_tabs[prefs_data[i].tab].table;
       current_table = top_table;
     }
+
     row = prefs_tabs[tab_idx].row++;
-    switch(prefs_data[i].type) {
-    case PREF_NONE:
-      widget = gtk_frame_new(gettext(prefs_data[i].label_text));
-      gtk_widget_show (widget);
-      gtk_table_attach (current_table, widget, 0, 2,
-			row, row + 1,
-			GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
-      current_table = GTK_TABLE(gtk_table_new (9, 2, FALSE));
-      gtk_container_add(GTK_CONTAINER(widget), GTK_WIDGET(current_table));
-      gtk_widget_show(GTK_WIDGET(current_table));
-      break;
-    case PREF_END_GROUP:
-      current_table = top_table;
-      break;
-    case PREF_BOOLEAN:
-      widget = gtk_check_button_new_with_label (gettext(prefs_data[i].label_text));
-      gtk_widget_show (widget);
-      gtk_table_attach (current_table, widget, 0, 2,
-			row, row + 1,
-			GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
-      break;
-    default:
-      label = gtk_label_new (gettext(prefs_data[i].label_text));
-      gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.3);
-      gtk_widget_show (label);
 
-      gtk_table_attach (current_table, label, 0, 1,
-			row, row + 1,
-			GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
+    switch (prefs_data[i].type) {
+      case PREF_NONE:
+        widget = gtk_frame_new (gettext (prefs_data[i].label_text));
+        gtk_widget_show (widget);
+        gtk_table_attach (current_table, widget, 0, 2,
+                          row, row + 1,
+                          GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
+        current_table = GTK_TABLE (gtk_table_new (9, 2, FALSE));
+        gtk_container_add (GTK_CONTAINER (widget), GTK_WIDGET (current_table));
+        gtk_widget_show (GTK_WIDGET (current_table));
+        break;
+      case PREF_END_GROUP:
+        current_table = top_table;
+        break;
+      case PREF_BOOLEAN:
+        widget = gtk_check_button_new_with_label (gettext (prefs_data[i].label_text));
+        gtk_widget_show (widget);
+        gtk_table_attach (current_table, widget, 0, 2,
+                          row, row + 1,
+                          GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
+        break;
+      case PREF_INT:
+      case PREF_UINT:
+      case PREF_REAL:
+      case PREF_UREAL:
+      case PREF_COLOUR:
+      case PREF_CHOICE:
+      case PREF_STRING:
+      default:
+        label = gtk_label_new (gettext (prefs_data[i].label_text));
+        gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.3);
+        gtk_widget_show (label);
 
-      widget = prefs_get_property_widget(&prefs_data[i]);
-      if (widget != NULL) {
-	gtk_table_attach (current_table, widget, 1, 2,
-			  row, row + 1,
-			  GTK_FILL, GTK_FILL, 1, 1);
-      }
-      break;
+        gtk_table_attach (current_table, label, 0, 1,
+                          row, row + 1,
+                          GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
+
+        widget = prefs_get_property_widget (&prefs_data[i]);
+        if (widget != NULL) {
+          gtk_table_attach (current_table, widget, 1, 2,
+                            row, row + 1,
+                            GTK_FILL, GTK_FILL, 1, 1);
+        }
+        break;
     }
     prefs_data[i].widget = widget;
 
