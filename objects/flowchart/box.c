@@ -185,6 +185,7 @@ static PropOffset box_offsets[] = {
   { NULL, 0, 0 },
 };
 
+
 static void
 box_get_props(Box *box, GPtrArray *props)
 {
@@ -192,16 +193,19 @@ box_get_props(Box *box, GPtrArray *props)
                                 box_offsets,props);
 }
 
-static void
-box_set_props(Box *box, GPtrArray *props)
-{
-  object_set_props_from_offsets(&box->element.object,
-                                box_offsets,props);
-  box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-}
 
 static void
-init_default_values() {
+box_set_props (Box *box, GPtrArray *props)
+{
+  object_set_props_from_offsets (DIA_OBJECT (box),
+                                 box_offsets,props);
+  box_update_data (box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+}
+
+
+static void
+init_default_values (void)
+{
   static int defaults_initialized = 0;
 
   if (!defaults_initialized) {
@@ -211,8 +215,9 @@ init_default_values() {
   }
 }
 
+
 static real
-box_distance_from(Box *box, Point *point)
+box_distance_from (Box *box, Point *point)
 {
   Element *elem = &box->element;
   DiaRectangle rect;
@@ -221,25 +226,28 @@ box_distance_from(Box *box, Point *point)
   rect.right = elem->corner.x + elem->width + box->border_width/2;
   rect.top = elem->corner.y - box->border_width/2;
   rect.bottom = elem->corner.y + elem->height + box->border_width/2;
-  return distance_rectangle_point(&rect, point);
+
+  return distance_rectangle_point (&rect, point);
 }
 
+
 static void
-box_select(Box *box, Point *clicked_point,
-	   DiaRenderer *interactive_renderer)
+box_select (Box         *box,
+            Point       *clicked_point,
+            DiaRenderer *interactive_renderer)
 {
   real radius;
 
-  text_set_cursor(box->text, clicked_point, interactive_renderer);
-  text_grab_focus(box->text, &box->element.object);
+  text_set_cursor (box->text, clicked_point, interactive_renderer);
+  text_grab_focus (box->text, &box->element.object);
 
-  element_update_handles(&box->element);
+  element_update_handles (&box->element);
 
   if (box->corner_radius > 0) {
-    Element *elem = (Element *)box;
+    Element *elem = (Element *) box;
     radius = box->corner_radius;
-    radius = MIN(radius, elem->width/2);
-    radius = MIN(radius, elem->height/2);
+    radius = MIN (radius, elem->width/2);
+    radius = MIN (radius, elem->height/2);
     radius *= (1-M_SQRT1_2);
 
     elem->resize_handles[0].pos.x += radius;
@@ -253,63 +261,93 @@ box_select(Box *box, Point *clicked_point,
   }
 }
 
-static ObjectChange*
-box_move_handle(Box *box, Handle *handle,
-		Point *to, ConnectionPoint *cp,
-		HandleMoveReason reason, ModifierKeys modifiers)
+
+static ObjectChange *
+box_move_handle (Box              *box,
+                 Handle           *handle,
+                 Point            *to,
+                 ConnectionPoint  *cp,
+                 HandleMoveReason  reason,
+                 ModifierKeys      modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
   Point corner;
   real width, height;
 
-  assert(box!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (box != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   /* remember ... */
   corner = box->element.corner;
   width = box->element.width;
   height = box->element.height;
 
-  element_move_handle(&box->element, handle->id, to, cp, reason, modifiers);
+  element_move_handle (&box->element, handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
-  case HANDLE_RESIZE_NW:
-    horiz = ANCHOR_END; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_N:
-    vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_NE:
-    horiz = ANCHOR_START; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_E:
-    horiz = ANCHOR_START; break;
-  case HANDLE_RESIZE_SE:
-    horiz = ANCHOR_START; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_S:
-    vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_SW:
-    horiz = ANCHOR_END; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_W:
-    horiz = ANCHOR_END; break;
-  default:
-    break;
+    case HANDLE_RESIZE_NW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_N:
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_NE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_E:
+      horiz = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_S:
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_W:
+      horiz = ANCHOR_END;
+      break;
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_CUSTOM1:
+    case HANDLE_CUSTOM2:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      break;
   }
-  box_update_data(box, horiz, vert);
+  box_update_data (box, horiz, vert);
 
-  if (width != box->element.width && height != box->element.height)
+  if (width != box->element.width && height != box->element.height) {
     return element_change_new (&corner, width, height, &box->element);
+  }
 
   return NULL;
 }
 
+
 static ObjectChange*
-box_move(Box *box, Point *to)
+box_move (Box *box, Point *to)
 {
   box->element.corner = *to;
 
-  box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  box_update_data (box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return NULL;
 }
+
 
 static void
 box_draw (Box *box, DiaRenderer *renderer)
@@ -383,20 +421,27 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 
   /* move shape if necessary ... */
   switch (horiz) {
-  case ANCHOR_MIDDLE:
-    elem->corner.x = center.x - elem->width/2; break;
-  case ANCHOR_END:
-    elem->corner.x = bottom_right.x - elem->width; break;
-  default:
-    break;
+    case ANCHOR_MIDDLE:
+      elem->corner.x = center.x - elem->width/2;
+      break;
+    case ANCHOR_END:
+      elem->corner.x = bottom_right.x - elem->width;
+      break;
+    case ANCHOR_START:
+    default:
+      break;
   }
+
   switch (vert) {
-  case ANCHOR_MIDDLE:
-    elem->corner.y = center.y - elem->height/2; break;
-  case ANCHOR_END:
-    elem->corner.y = bottom_right.y - elem->height; break;
-  default:
-    break;
+    case ANCHOR_MIDDLE:
+      elem->corner.y = center.y - elem->height/2;
+      break;
+    case ANCHOR_END:
+      elem->corner.y = bottom_right.y - elem->height;
+      break;
+    case ANCHOR_START:
+    default:
+      break;
   }
 
   p = elem->corner;
@@ -404,14 +449,15 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   p.y += elem->height / 2.0 - box->text->height * box->text->numlines / 2 +
     box->text->ascent;
   switch (box->text->alignment) {
-  case ALIGN_LEFT:
-    p.x -= (elem->width - box->padding*2 + box->border_width)/2;
-    break;
-  case ALIGN_RIGHT:
-    p.x += (elem->width - box->padding*2 + box->border_width)/2;
-    break;
-  case ALIGN_CENTER:
-    break;
+    case ALIGN_LEFT:
+      p.x -= (elem->width - box->padding*2 + box->border_width)/2;
+      break;
+    case ALIGN_RIGHT:
+      p.x += (elem->width - box->padding*2 + box->border_width)/2;
+      break;
+    case ALIGN_CENTER:
+    default:
+      break;
   }
 
   text_set_position(box->text, &p);
