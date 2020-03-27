@@ -224,27 +224,34 @@ static PropOffset box_offsets[] = {
   {NULL}
 };
 
-static void
-jackson_box_get_props(Box *box, GPtrArray *props)
-{
-  object_get_props_from_offsets(&box->element.object,
-                                box_offsets,props);
-}
 
 static void
-jackson_box_set_props(Box *box, GPtrArray *props)
+jackson_box_get_props (Box *box, GPtrArray *props)
 {
-  if (box->init==-1) { box->init++; return; }   /* workaround init bug */
+  object_get_props_from_offsets (&box->element.object,
+                                 box_offsets,props);
+}
 
-  object_set_props_from_offsets(&box->element.object,
-                                box_offsets,props);
 
-  jackson_box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+static void
+jackson_box_set_props (Box *box, GPtrArray *props)
+{
+  if (box->init==-1) {
+    box->init++;
+    return;
+  }
+  /* workaround init bug */
+
+  object_set_props_from_offsets (&box->element.object,
+                                 box_offsets,props);
+
+  jackson_box_update_data (box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
 }
+
 
 static real
-jackson_box_distance_from(Box *box, Point *point)
+jackson_box_distance_from (Box *box, Point *point)
 {
   Element *elem = &box->element;
   DiaRectangle rect;
@@ -254,63 +261,97 @@ jackson_box_distance_from(Box *box, Point *point)
   rect.top = elem->corner.y - JACKSON_BOX_LINE_WIDTH/2;
   rect.bottom = elem->corner.y + elem->height + JACKSON_BOX_LINE_WIDTH/2;
 
-  return distance_rectangle_point(&rect, point);
+  return distance_rectangle_point (&rect, point);
 }
+
 
 static void
-jackson_box_select(Box *box, Point *clicked_point,
-	   DiaRenderer *interactive_renderer)
+jackson_box_select (Box         *box,
+                    Point       *clicked_point,
+                    DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(box->text, clicked_point, interactive_renderer);
-  text_grab_focus(box->text, &box->element.object);
-  element_update_handles(&box->element);
+  text_set_cursor (box->text, clicked_point, interactive_renderer);
+  text_grab_focus (box->text, &box->element.object);
+  element_update_handles (&box->element);
 }
 
+
 static ObjectChange*
-jackson_box_move_handle(Box *box, Handle *handle,
-		Point *to, ConnectionPoint *cp,
-		HandleMoveReason reason, ModifierKeys modifiers)
+jackson_box_move_handle (Box              *box,
+                         Handle           *handle,
+                         Point            *to,
+                         ConnectionPoint  *cp,
+                         HandleMoveReason  reason,
+                         ModifierKeys      modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
 
-  assert(box!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (box != NULL, NULL);
+  g_return_val_if_fail (handle !=NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  element_move_handle(&box->element, handle->id, to, cp, reason, modifiers);
+  element_move_handle (&box->element, handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
-  case HANDLE_RESIZE_NW:
-    horiz = ANCHOR_END; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_N:
-    vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_NE:
-    horiz = ANCHOR_START; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_E:
-    horiz = ANCHOR_START; break;
-  case HANDLE_RESIZE_SE:
-    horiz = ANCHOR_START; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_S:
-    vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_SW:
-    horiz = ANCHOR_END; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_W:
-    horiz = ANCHOR_END; break;
-  default:
-    break;
+    case HANDLE_RESIZE_NW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_N:
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_NE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_E:
+      horiz = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SE:
+      horiz = ANCHOR_START;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_S:
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SW:
+      horiz = ANCHOR_END;
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_W:
+      horiz = ANCHOR_END;
+      break;
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_CUSTOM1:
+    case HANDLE_CUSTOM2:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      break;
   }
-  jackson_box_update_data(box, horiz, vert);
+
+  jackson_box_update_data (box, horiz, vert);
+
   return NULL;
 }
 
+
 static ObjectChange*
-jackson_box_move(Box *box, Point *to)
+jackson_box_move (Box *box, Point *to)
 {
   box->element.corner = *to;
 
-  jackson_box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  jackson_box_update_data (box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
   return NULL;
 }
+
 
 /* draw method */
 static void
@@ -350,14 +391,15 @@ jackson_box_draw (Box *box, DiaRenderer *renderer)
   dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
 
-  dia_renderer_draw_rect (renderer, &b0, &b1, &JACKSON_BOX_BG_COLOR, &JACKSON_BOX_FG_COLOR);
+  dia_renderer_draw_rect (renderer, &b0, &b1,
+                          &JACKSON_BOX_BG_COLOR, &JACKSON_BOX_FG_COLOR);
 
   /* adding lines for designed/machine domains */
-  if (box->domtype!=DOMAIN_GIVEN) {
+  if (box->domtype != DOMAIN_GIVEN) {
     dia_renderer_draw_line (renderer, &p1t, &p1b, &JACKSON_BOX_FG_COLOR);
   }
 
-  if (box->domtype==DOMAIN_MACHINE) {
+  if (box->domtype == DOMAIN_MACHINE) {
     dia_renderer_draw_line (renderer, &p2t, &p2b, &JACKSON_BOX_FG_COLOR);
   }
 
@@ -371,23 +413,34 @@ jackson_box_draw (Box *box, DiaRenderer *renderer)
   b3.y -= idfontheight;
 
   switch (box->domkind) {
-    case DOMAIN_CAUSAL:   s="C"; break;
-    case DOMAIN_BIDDABLE: s="B"; break;
-    case DOMAIN_LEXICAL:  s="L"; break;
-    default: s=NULL;
+    case DOMAIN_CAUSAL:
+      s = "C";
+      break;
+    case DOMAIN_BIDDABLE:
+      s = "B";
+      break;
+    case DOMAIN_LEXICAL:
+      s = "L";
+      break;
+    case DOMAIN_NONE:
+    default:
+      s = NULL;
   }
 
   if (s != NULL) {
-    dia_renderer_draw_rect (renderer, &b3, &b1, NULL, &JACKSON_BOX_FG_COLOR);
-    dia_renderer_draw_string (renderer, s, &b2, ALIGN_RIGHT, &box->text->color);
+    dia_renderer_draw_rect (renderer, &b3, &b1,
+                            NULL, &JACKSON_BOX_FG_COLOR);
+    dia_renderer_draw_string (renderer, s, &b2,
+                              ALIGN_RIGHT, &box->text->color);
   }
 
   text_draw (box->text, renderer);
 }
 
+
 /* resize stuff */
 static void
-jackson_box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
+jackson_box_update_data (Box *box, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &box->element;
   ElementBBExtras *extra = &elem->extra_spacing;
@@ -414,18 +467,24 @@ jackson_box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   /* move shape if necessary ... */
   switch (horiz) {
     case ANCHOR_MIDDLE:
-      elem->corner.x = center.x - elem->width/2; break;
+      elem->corner.x = center.x - elem->width/2;
+      break;
     case ANCHOR_END:
-      elem->corner.x = bottom_right.x - elem->width; break;
+      elem->corner.x = bottom_right.x - elem->width;
+      break;
+    case ANCHOR_START:
     default:
       break;
   }
 
   switch (vert) {
     case ANCHOR_MIDDLE:
-      elem->corner.y = center.y - elem->height/2; break;
+      elem->corner.y = center.y - elem->height/2;
+      break;
     case ANCHOR_END:
-      elem->corner.y = bottom_right.y - elem->height; break;
+      elem->corner.y = bottom_right.y - elem->height;
+      break;
+    case ANCHOR_START:
     default:
       break;
   }
@@ -433,14 +492,14 @@ jackson_box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   p = elem->corner;
   p.x += (LEFT_SPACE+elem->width-RIGHT_SPACE) / 2.0;
   p.y += elem->height / 2.0 - box->text->height * box->text->numlines / 2 + box->text->ascent;
-  text_set_position(box->text, &p);
+  text_set_position (box->text, &p);
 
   extra->border_trans = JACKSON_BOX_LINE_WIDTH / 2.0;
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 
   /* Update connections: */
   nw = elem->corner;
@@ -451,74 +510,103 @@ jackson_box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   sw.y = se.y;
   sw.x = nw.x;
 
-  connpointline_update(box->north);
-  connpointline_putonaline(box->north,&ne,&nw,DIR_NORTH);
-  connpointline_update(box->west);
-  connpointline_putonaline(box->west,&nw,&sw,DIR_WEST);
-  connpointline_update(box->south);
-  connpointline_putonaline(box->south,&sw,&se,DIR_SOUTH);
-  connpointline_update(box->east);
-  connpointline_putonaline(box->east,&se,&ne,DIR_EAST);
+  connpointline_update (box->north);
+  connpointline_putonaline (box->north, &ne, &nw, DIR_NORTH);
+  connpointline_update (box->west);
+  connpointline_putonaline (box->west, &nw, &sw, DIR_WEST);
+  connpointline_update (box->south);
+  connpointline_putonaline (box->south, &sw, &se, DIR_SOUTH);
+  connpointline_update (box->east);
+  connpointline_putonaline (box->east, &se, &ne, DIR_EAST);
 }
 
 
 static ConnPointLine *
-jackson_box_get_clicked_border(Box *box, Point *clicked)
+jackson_box_get_clicked_border (Box *box, Point *clicked)
 {
   ConnPointLine *cpl;
   real dist,dist2;
 
   cpl = box->north;
-  dist = distance_line_point(&box->north->start,&box->north->end,0,clicked);
+  dist = distance_line_point (&box->north->start,
+                              &box->north->end,
+                              0,
+                              clicked);
 
-  dist2 = distance_line_point(&box->west->start,&box->west->end,0,clicked);
+  dist2 = distance_line_point (&box->west->start,
+                               &box->west->end,
+                               0,
+                               clicked);
+
   if (dist2 < dist) {
     cpl = box->west;
     dist = dist2;
   }
-  dist2 = distance_line_point(&box->south->start,&box->south->end,0,clicked);
+
+  dist2 = distance_line_point (&box->south->start,
+                               &box->south->end,
+                               0,
+                               clicked);
+
   if (dist2 < dist) {
     cpl = box->south;
     dist = dist2;
   }
-  dist2 = distance_line_point(&box->east->start,&box->east->end,0,clicked);
+
+  dist2 = distance_line_point (&box->east->start,
+                               &box->east->end,
+                               0,
+                               clicked);
+
   if (dist2 < dist) {
     cpl = box->east;
     /*dist = dist2;*/
   }
+
   return cpl;
 }
 
+
 inline static ObjectChange *
-jackson_box_create_change(Box *box, ObjectChange *inner, ConnPointLine *cpl) {
-  return (ObjectChange *)inner;
+jackson_box_create_change (Box *box, ObjectChange *inner, ConnPointLine *cpl)
+{
+  return (ObjectChange *) inner;
 }
 
+
 static ObjectChange *
-jackson_box_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
+jackson_box_add_connpoint_callback (DiaObject *obj,
+                                    Point     *clicked,
+                                    gpointer   data)
 {
   ObjectChange *change;
   ConnPointLine *cpl;
   Box *box = (Box *)obj;
 
-  cpl = jackson_box_get_clicked_border(box,clicked);
-  change = connpointline_add_point(cpl, clicked);
-  jackson_box_update_data((Box *)obj,ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return jackson_box_create_change(box,change,cpl);
+  cpl = jackson_box_get_clicked_border (box, clicked);
+  change = connpointline_add_point (cpl, clicked);
+  jackson_box_update_data ((Box *) obj, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
+  return jackson_box_create_change (box, change, cpl);
 }
 
+
 static ObjectChange *
-jackson_box_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
+jackson_box_remove_connpoint_callback (DiaObject *obj,
+                                       Point     *clicked,
+                                       gpointer   data)
 {
   ObjectChange *change;
   ConnPointLine *cpl;
   Box *box = (Box *)obj;
 
-  cpl = jackson_box_get_clicked_border(box,clicked);
-  change = connpointline_remove_point(cpl, clicked);
-  jackson_box_update_data((Box *)obj,ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return jackson_box_create_change(box,change,cpl);
+  cpl = jackson_box_get_clicked_border (box,clicked);
+  change = connpointline_remove_point (cpl, clicked);
+  jackson_box_update_data ((Box *) obj, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
+  return jackson_box_create_change (box, change, cpl);
 }
+
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add connection point"), jackson_box_add_connpoint_callback, NULL, 1 },
@@ -526,31 +614,37 @@ static DiaMenuItem object_menu_items[] = {
     NULL, 1 },
 };
 
+
 static DiaMenu object_menu = {
   N_("Jackson domain"),
-  sizeof(object_menu_items)/sizeof(DiaMenuItem),
+  sizeof (object_menu_items) / sizeof (DiaMenuItem),
   object_menu_items,
   NULL
 };
 
+
 static DiaMenu *
-jackson_box_get_object_menu(Box *box, Point *clickedpoint)
+jackson_box_get_object_menu (Box *box, Point *clickedpoint)
 {
   ConnPointLine *cpl;
 
-  cpl = jackson_box_get_clicked_border(box,clickedpoint);
+  cpl = jackson_box_get_clicked_border (box,clickedpoint);
   /* Set entries sensitive/selected etc here */
-  object_menu_items[0].active = connpointline_can_add_point(cpl, clickedpoint);
-  object_menu_items[1].active = connpointline_can_remove_point(cpl, clickedpoint);
+  object_menu_items[0].active = connpointline_can_add_point (cpl,
+                                                             clickedpoint);
+  object_menu_items[1].active = connpointline_can_remove_point (cpl,
+                                                                clickedpoint);
+
   return &object_menu;
 }
 
+
 /* create */
 static DiaObject *
-jackson_box_create(Point *startpoint,
-	   void *user_data,
-	   Handle **handle1,
-	   Handle **handle2)
+jackson_box_create (Point   *startpoint,
+                    void    *user_data,
+                    Handle **handle1,
+                    Handle **handle2)
 {
   Box *box;
   Element *elem;
@@ -558,7 +652,7 @@ jackson_box_create(Point *startpoint,
   Point p;
   DiaFont* font;
 
-  box = g_malloc0(sizeof(Box));
+  box = g_malloc0 (sizeof (Box));
   elem = &box->element;
   obj = &elem->object;
 
@@ -592,23 +686,27 @@ jackson_box_create(Point *startpoint,
   box->east = connpointline_create(obj,1);
 
   box->element.extra_spacing.border_trans = JACKSON_BOX_LINE_WIDTH/2.0;
-  jackson_box_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  jackson_box_update_data (box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   *handle1 = NULL;
   *handle2 = obj->handles[7];
 
   /* template information here */
 
-  switch (GPOINTER_TO_INT(user_data)) {
-    case 1:  box->domtype=DOMAIN_GIVEN; break;
-    case 2:  box->domtype=DOMAIN_DESIGNED; break;
-    case 3:  box->domtype=DOMAIN_MACHINE; break;
-    default: box->domtype=DOMAIN_GIVEN; break;
+  switch (GPOINTER_TO_INT (user_data)) {
+    case 1:  box->domtype = DOMAIN_GIVEN; break;
+    case 2:  box->domtype = DOMAIN_DESIGNED; break;
+    case 3:  box->domtype = DOMAIN_MACHINE; break;
+    default: box->domtype = DOMAIN_GIVEN; break;
   }
 
-  box->domkind=DOMAIN_NONE;
+  box->domkind = DOMAIN_NONE;
 
-  if (GPOINTER_TO_INT(user_data)!=0) box->init=-1; else box->init=0;
+  if (GPOINTER_TO_INT (user_data) != 0) {
+    box->init=-1;
+  } else {
+    box->init=0;
+  }
 
   return &box->element.object;
 }
