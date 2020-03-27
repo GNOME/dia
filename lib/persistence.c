@@ -243,105 +243,117 @@ static GHashTable *type_handlers;
  * func is a void (*func)(gchar *role, xmlNodePtr *node, DiaContext *ctx)
  */
 static void
-persistence_load_type(xmlNodePtr node, DiaContext *ctx)
+persistence_load_type (xmlNodePtr node, DiaContext *ctx)
 {
   const gchar *typename = (gchar *) node->name;
   gchar *name;
 
   PersistenceLoadFunc func =
-    (PersistenceLoadFunc)g_hash_table_lookup(type_handlers, typename);
+    (PersistenceLoadFunc) g_hash_table_lookup (type_handlers, typename);
   if (func == NULL) {
     return;
   }
 
-  name = (gchar *)xmlGetProp(node, (const xmlChar *)"role");
+  name = (gchar *) xmlGetProp (node, (const xmlChar *) "role");
   if (name == NULL) {
     return;
   }
 
-  (*func)(name, node, ctx);
+  (*func) (name, node, ctx);
 }
 
-static void
-persistence_set_type_handler(gchar *name, PersistenceLoadFunc func)
-{
-  if (type_handlers == NULL)
-    type_handlers = g_hash_table_new(g_str_hash,g_str_equal);
 
-  g_hash_table_insert(type_handlers, name, (gpointer)func);
+static void
+persistence_set_type_handler (gchar *name, PersistenceLoadFunc func)
+{
+  if (type_handlers == NULL) {
+    type_handlers = g_hash_table_new (g_str_hash, g_str_equal);
+  }
+
+  g_hash_table_insert (type_handlers, name, (gpointer)func);
 }
 
+
 static void
-persistence_init()
+persistence_init(void)
 {
-  persistence_set_type_handler("window", persistence_load_window);
-  persistence_set_type_handler("entrystring", persistence_load_entrystring);
-  persistence_set_type_handler("list", persistence_load_list);
-  persistence_set_type_handler("integer", persistence_load_integer);
-  persistence_set_type_handler("real", persistence_load_real);
-  persistence_set_type_handler("boolean", persistence_load_boolean);
-  persistence_set_type_handler("string", persistence_load_string);
-  persistence_set_type_handler("color", persistence_load_color);
+  persistence_set_type_handler ("window", persistence_load_window);
+  persistence_set_type_handler ("entrystring", persistence_load_entrystring);
+  persistence_set_type_handler ("list", persistence_load_list);
+  persistence_set_type_handler ("integer", persistence_load_integer);
+  persistence_set_type_handler ("real", persistence_load_real);
+  persistence_set_type_handler ("boolean", persistence_load_boolean);
+  persistence_set_type_handler ("string", persistence_load_string);
+  persistence_set_type_handler ("color", persistence_load_color);
 
   if (persistent_windows == NULL) {
-    persistent_windows = _dia_hash_table_str_any_new();
+    persistent_windows = _dia_hash_table_str_any_new ();
   }
+
   if (persistent_entrystrings == NULL) {
-    persistent_entrystrings = _dia_hash_table_str_any_new();
+    persistent_entrystrings = _dia_hash_table_str_any_new ();
   }
+
   if (persistent_lists == NULL) {
-    persistent_lists = _dia_hash_table_str_any_new();
+    persistent_lists = _dia_hash_table_str_any_new ();
   }
+
   if (persistent_integers == NULL) {
-    persistent_integers = _dia_hash_table_str_any_new();
+    persistent_integers = _dia_hash_table_str_any_new ();
   }
+
   if (persistent_reals == NULL) {
-    persistent_reals = _dia_hash_table_str_any_new();
+    persistent_reals = _dia_hash_table_str_any_new ();
   }
+
   if (persistent_booleans == NULL) {
-    persistent_booleans = _dia_hash_table_str_any_new();
+    persistent_booleans = _dia_hash_table_str_any_new ();
   }
+
   if (persistent_strings == NULL) {
-    persistent_strings = _dia_hash_table_str_any_new();
+    persistent_strings = _dia_hash_table_str_any_new ();
   }
+
   if (persistent_colors == NULL) {
-    persistent_colors = _dia_hash_table_str_any_new();
+    persistent_colors = _dia_hash_table_str_any_new ();
   }
 }
+
 
 /* Load all persistent data. */
 void
-persistence_load()
+persistence_load (void)
 {
   xmlDocPtr doc;
-  gchar *filename = dia_config_filename("persistence");
+  gchar *filename = dia_config_filename ("persistence");
   DiaContext *ctx;
 
-  persistence_init();
+  persistence_init ();
 
-  if (!g_file_test(filename, G_FILE_TEST_IS_REGULAR)) {
+  if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
     g_free (filename);
     return;
   }
-  ctx = dia_context_new(_("Persistence"));
-  dia_context_set_filename(ctx, filename);
-  doc = diaXmlParseFile(filename, ctx, FALSE);
+  ctx = dia_context_new (_("Persistence"));
+  dia_context_set_filename (ctx, filename);
+  doc = diaXmlParseFile (filename, ctx, FALSE);
   if (doc != NULL) {
     if (doc->xmlRootNode != NULL) {
-      xmlNsPtr namespace = xmlSearchNs(doc, doc->xmlRootNode, (const xmlChar *)"dia");
+      xmlNsPtr namespace = xmlSearchNs (doc, doc->xmlRootNode, (const xmlChar *) "dia");
       if (!xmlStrcmp (doc->xmlRootNode->name, (const xmlChar *)"persistence") &&
-	  namespace != NULL) {
-	xmlNodePtr child_node = doc->xmlRootNode->children;
-	for (; child_node != NULL; child_node = child_node->next) {
-	  persistence_load_type(child_node, ctx);
-	}
+          namespace != NULL) {
+        xmlNodePtr child_node = doc->xmlRootNode->children;
+        for (; child_node != NULL; child_node = child_node->next) {
+          persistence_load_type (child_node, ctx);
+        }
       }
     }
-    xmlFreeDoc(doc);
+    xmlFreeDoc (doc);
   }
-  g_free(filename);
-  dia_context_release(ctx);
+  g_free (filename);
+  dia_context_release (ctx);
 }
+
 
 /* *********************** SAVING FUNCTIONS *********************** */
 typedef struct
@@ -480,37 +492,38 @@ persistence_save_type(xmlDocPtr doc, DiaContext *ctx, GHashTable *entries, GHFun
   }
 }
 
+
 /* Save all persistent data. */
 void
-persistence_save()
+persistence_save (void)
 {
   xmlDocPtr doc;
   xmlNs *name_space;
   DiaContext *ctx;
-  gchar *filename = dia_config_filename("persistence");
+  gchar *filename = dia_config_filename ("persistence");
 
   ctx = dia_context_new ("Persistence");
-  doc = xmlNewDoc((const xmlChar *)"1.0");
-  doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
-  doc->xmlRootNode = xmlNewDocNode(doc, NULL, (const xmlChar *)"persistence", NULL);
+  doc = xmlNewDoc ((const xmlChar *) "1.0");
+  doc->encoding = xmlStrdup ((const xmlChar *) "UTF-8");
+  doc->xmlRootNode = xmlNewDocNode (doc, NULL, (const xmlChar *) "persistence", NULL);
 
-  name_space = xmlNewNs(doc->xmlRootNode,
-                        (const xmlChar *) DIA_XML_NAME_SPACE_BASE,
-			(const xmlChar *)"dia");
-  xmlSetNs(doc->xmlRootNode, name_space);
+  name_space = xmlNewNs (doc->xmlRootNode,
+                         (const xmlChar *) DIA_XML_NAME_SPACE_BASE,
+                         (const xmlChar *)"dia");
+  xmlSetNs (doc->xmlRootNode, name_space);
 
-  persistence_save_type(doc, ctx, persistent_windows, persistence_save_window);
-  persistence_save_type(doc, ctx, persistent_entrystrings, persistence_save_string);
-  persistence_save_type(doc, ctx, persistent_lists, persistence_save_list);
-  persistence_save_type(doc, ctx, persistent_integers, persistence_save_integer);
-  persistence_save_type(doc, ctx, persistent_reals, persistence_save_real);
-  persistence_save_type(doc, ctx, persistent_booleans, persistence_save_boolean);
-  persistence_save_type(doc, ctx, persistent_strings, persistence_save_string);
-  persistence_save_type(doc, ctx, persistent_colors, persistence_save_color);
+  persistence_save_type (doc, ctx, persistent_windows, persistence_save_window);
+  persistence_save_type (doc, ctx, persistent_entrystrings, persistence_save_string);
+  persistence_save_type (doc, ctx, persistent_lists, persistence_save_list);
+  persistence_save_type (doc, ctx, persistent_integers, persistence_save_integer);
+  persistence_save_type (doc, ctx, persistent_reals, persistence_save_real);
+  persistence_save_type (doc, ctx, persistent_booleans, persistence_save_boolean);
+  persistence_save_type (doc, ctx, persistent_strings, persistence_save_string);
+  persistence_save_type (doc, ctx, persistent_colors, persistence_save_color);
 
-  xmlDiaSaveFile(filename, doc);
-  g_free(filename);
-  xmlFreeDoc(doc);
+  xmlDiaSaveFile (filename, doc);
+  g_free (filename);
+  xmlFreeDoc (doc);
   dia_context_release (ctx);
 }
 
@@ -584,56 +597,92 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
   wininfo->isopen = !isclosed;
 }
 
-/*!
- * \brief Event handler for window persitence
+
+/**
+ * persistence_window_configure:
+ * @window: The GTK window to store for.
+ * @event: the GDK event that caused us to be called. Note that the
+ *         window state hasn't been updated by the event yet.
+ * @data: Userdata passed when adding signal handler.
+ *
+ * Event handler for window persitence
  *
  * Handler for window-related events that should cause persistent storage changes.
- * @param window The GTK window to store for.
- * @param event the GDK event that caused us to be called.  Note that the
- * window state hasn't been updated by the event yet.
- * @param data Userdata passed when adding signal handler.
- * @return Always FALSE to continue processing of events
+ *
+ * Returns: Always %FALSE to continue processing of events
  */
 static gboolean
-persistence_window_event_handler(GtkWindow *window, GdkEvent *event, gpointer data)
+persistence_window_configure (GtkWindow *window,
+                              GdkEvent  *event,
+                              gpointer   data)
 {
-  switch (event->type) {
-  case GDK_UNMAP :
-    dia_log_message ("unmap (%s)", persistence_get_window_name(window));
-    break;
-  case GDK_MAP :
-    dia_log_message  ("map (%s)", persistence_get_window_name(window));
-    break;
-  case GDK_CONFIGURE :
-    dia_log_message ("configure (%s)", persistence_get_window_name(window));
-    break;
-  default :
-    /* silence gcc */
-    break;
-  }
+  g_return_val_if_fail (event->type == GDK_CONFIGURE, FALSE);
+
+  dia_log_message ("configure (%s)", persistence_get_window_name (window));
+
   persistence_update_window (window,
                              !gtk_widget_get_mapped (GTK_WIDGET (window)));
+
   /* continue processing */
   return FALSE;
 }
 
-/*!
- * \brief Handler for when a window has been opened or closed.
+
+static gboolean
+persistence_window_map (GtkWindow *window,
+                        GdkEvent  *event,
+                        gpointer   data)
+{
+  g_return_val_if_fail (event->type == GDK_MAP, FALSE);
+
+  dia_log_message  ("map (%s)", persistence_get_window_name (window));
+
+  persistence_update_window (window,
+                             !gtk_widget_get_mapped (GTK_WIDGET (window)));
+
+  /* continue processing */
+  return FALSE;
+}
+
+
+static gboolean
+persistence_window_unmap (GtkWindow *window,
+                          GdkEvent  *event,
+                          gpointer   data)
+{
+  g_return_val_if_fail (event->type != GDK_UNMAP, FALSE);
+
+  dia_log_message ("unmap (%s)", persistence_get_window_name (window));
+
+  persistence_update_window (window,
+                             !gtk_widget_get_mapped (GTK_WIDGET (window)));
+
+  /* continue processing */
+  return FALSE;
+}
+
+
+/**
+ * persistence_hide_show_window:
+ * @window: The GTK window to store for.
+ * @data: Userdata passed when adding signal handler.
  *
- * @param window The GTK window to store for.
- * @param data Userdata passed when adding signal handler.
+ * Handler for when a window has been opened or closed.
  */
 static gboolean
-persistence_hide_show_window(GtkWindow *window, gpointer data)
+persistence_hide_show_window (GtkWindow *window, gpointer data)
 {
   persistence_update_window (window,
-                             !(gtk_widget_get_mapped (GTK_WIDGET(window))));
+                             !(gtk_widget_get_mapped (GTK_WIDGET (window))));
 
   return FALSE;
 }
 
-/*!
- * \brief Check stored window information against screen size
+
+/**
+ * wininfo_in_range:
+ *
+ * Check stored window information against screen size
  *
  * If the screen size has changed some persistent info maybe out of the visible area.
  * This function checks that stored coordinates are at least paritally visible on some
@@ -644,8 +693,13 @@ wininfo_in_range (const PersistentWindow *wininfo)
 {
   GdkScreen *screen = gdk_screen_get_default ();
   gint num_monitors = gdk_screen_get_n_monitors (screen), i;
-  GdkRectangle rwin = {wininfo->x, wininfo->y, wininfo->width, wininfo->height};
-  GdkRectangle rres = {0, 0, 0, 0};
+  GdkRectangle rwin = {
+    wininfo->x,
+    wininfo->y,
+    wininfo->width,
+    wininfo->height
+  };
+  GdkRectangle rres = { 0, 0, 0, 0 };
 
   for (i = 0; i < num_monitors; ++i) {
     GdkRectangle rmon;
@@ -660,82 +714,104 @@ wininfo_in_range (const PersistentWindow *wininfo)
   return (rres.width * rres.height > 0);
 }
 
-/*!
- * \brief Register a window with a role for persitence
+
+/**
+ * persistence_register_window:
+ *
+ * Register a window with a role for persitence
  *
  * Call this function after the window has a role assigned to use any
  * persistence information about the window.
  */
 void
-persistence_register_window(GtkWindow *window)
+persistence_register_window (GtkWindow *window)
 {
-  const gchar *name = persistence_get_window_name(window);
+  const gchar *name = persistence_get_window_name (window);
   PersistentWindow *wininfo;
 
-  if (name == NULL) return;
-  if (persistent_windows == NULL) {
-    persistent_windows = _dia_hash_table_str_any_new();
+  if (name == NULL) {
+    return;
   }
-  wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, name);
+
+  if (persistent_windows == NULL) {
+    persistent_windows = _dia_hash_table_str_any_new ();
+  }
+
+  wininfo = (PersistentWindow *) g_hash_table_lookup (persistent_windows, name);
   if (wininfo != NULL) {
     if (wininfo_in_range (wininfo)) {
       /* only restore position if partially visible */
-      gtk_window_move(window, wininfo->x, wininfo->y);
-      gtk_window_resize(window, wininfo->width, wininfo->height);
+      gtk_window_move (window, wininfo->x, wininfo->y);
+      gtk_window_resize (window, wininfo->width, wininfo->height);
     }
-    if (wininfo->isopen) gtk_widget_show(GTK_WIDGET(window));
+
+    if (wininfo->isopen) {
+      gtk_widget_show (GTK_WIDGET (window));
+    }
   } else {
-    wininfo = g_new0(PersistentWindow, 1);
-    gtk_window_get_position(window, &wininfo->x, &wininfo->y);
-    gtk_window_get_size(window, &wininfo->width, &wininfo->height);
+    wininfo = g_new0 (PersistentWindow, 1);
+    gtk_window_get_position (window, &wininfo->x, &wininfo->y);
+    gtk_window_get_size (window, &wininfo->width, &wininfo->height);
     /* Drawable means visible & mapped, what we usually think of as open. */
-    wininfo->isopen = gtk_widget_is_drawable(GTK_WIDGET(window));
-    g_hash_table_insert(persistent_windows, (gchar *)name, wininfo);
+    wininfo->isopen = gtk_widget_is_drawable (GTK_WIDGET(window));
+    g_hash_table_insert (persistent_windows, (gchar *) name, wininfo);
   }
+
   if (wininfo->window != NULL && wininfo->window != window) {
-    g_object_unref(wininfo->window);
+    g_object_unref (wininfo->window);
     wininfo->window = NULL;
   }
+
   if (wininfo->window == NULL) {
     wininfo->window = window;
-    g_object_ref(window);
+    g_object_ref (window);
   }
 
-  g_signal_connect(G_OBJECT(window), "configure-event",
-		   G_CALLBACK(persistence_window_event_handler), NULL);
-  g_signal_connect(G_OBJECT(window), "map-event",
-		   G_CALLBACK(persistence_window_event_handler), NULL);
-  g_signal_connect(G_OBJECT(window), "unmap-event",
-		   G_CALLBACK(persistence_window_event_handler), NULL);
-
-  g_signal_connect(G_OBJECT(window), "hide",
-		   G_CALLBACK(persistence_hide_show_window), NULL);
-  g_signal_connect(G_OBJECT(window), "show",
-		   G_CALLBACK(persistence_hide_show_window), NULL);
+  g_signal_connect (G_OBJECT (window), "configure-event",
+                    G_CALLBACK (persistence_window_configure), NULL);
+  g_signal_connect (G_OBJECT (window), "map-event",
+                    G_CALLBACK (persistence_window_map), NULL);
+  g_signal_connect (G_OBJECT (window), "unmap-event",
+                    G_CALLBACK (persistence_window_unmap), NULL);
+  g_signal_connect (G_OBJECT (window), "hide",
+                    G_CALLBACK (persistence_hide_show_window), NULL);
+  g_signal_connect (G_OBJECT (window), "show",
+                    G_CALLBACK (persistence_hide_show_window), NULL);
 }
 
-/*!
- * \brief Restore a window position from it's stored information
+
+/**
+ * persistence_register_window_create:
+ * @role: The role of the window, as will be set by gtk_window_set_role()
+ * @func: A 0-argument function that creates the window. This
+ *        function will be called if the persistence information indicates
+ *        that the window should be open. The function should create and
+ *        show the window.
+ *
+ * Restore a window position from it's stored information
  *
  * Call this function at start-up to have a window creation function
  * called if the window should be opened at startup.
  * If no persistence information is available for the given role,
  * nothing happens.
- * @arg role The role of the window, as will be set by gtk_window_set_role()
- * @arg func A 0-argument function that creates the window.  This
- * function will be called if the persistence information indicates that the
- * window should be open.  The function should create and show the window.
  */
 void
-persistence_register_window_create(gchar *role, NullaryFunc *func)
+persistence_register_window_create (gchar *role, NullaryFunc *func)
 {
   PersistentWindow *wininfo;
 
-  if (role == NULL) return;
-  if (persistent_windows == NULL) return;
-  wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, role);
+  if (role == NULL) {
+    return;
+  }
+
+  if (persistent_windows == NULL) {
+    return;
+  }
+
+  wininfo = (PersistentWindow *) g_hash_table_lookup (persistent_windows,
+                                                      role);
   if (wininfo != NULL) {
-    (*func)();
+    (*func) ();
   }
 }
 
