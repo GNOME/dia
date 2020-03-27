@@ -636,31 +636,36 @@ association_update_data_end(Association *assoc, int endnum)
   end = &assoc->end[endnum];
   end->text_pos = points[fp];
   switch (dir) {
-  case HORIZONTAL:
-    end->text_pos.y -= end->role_descent;
-    if (points[fp].x < points[sp].x) {
+    case HORIZONTAL:
+      end->text_pos.y -= end->role_descent;
+      if (points[fp].x < points[sp].x) {
+        end->text_align = ALIGN_LEFT;
+        end->text_pos.x += (get_aggregate_pos_diff (end, assoc) + ASSOCIATION_END_SPACE);
+      } else {
+        end->text_align = ALIGN_RIGHT;
+        end->text_pos.x -= (get_aggregate_pos_diff (end, assoc) + ASSOCIATION_END_SPACE);
+      }
+      break;
+    case VERTICAL:
+      if (end->arrow || end->aggregate != AGGREGATE_NONE) {
+        end->text_pos.x += ASSOCIATION_DIAMONDWIDTH / 2;
+      }
+      end->text_pos.x += ASSOCIATION_END_SPACE;
+
+      end->text_pos.y += end->role_ascent;
+      if (points[fp].y > points[sp].y) {
+        if (end->role != NULL && *end->role) {
+          end->text_pos.y -= assoc->font_height;
+        }
+        if (end->multiplicity != NULL) {
+          end->text_pos.y -= assoc->font_height;
+        }
+      }
+
       end->text_align = ALIGN_LEFT;
-      end->text_pos.x += (get_aggregate_pos_diff(end, assoc) + ASSOCIATION_END_SPACE);
-    } else {
-      end->text_align = ALIGN_RIGHT;
-      end->text_pos.x -= (get_aggregate_pos_diff(end, assoc) + ASSOCIATION_END_SPACE);
-    }
-    break;
-  case VERTICAL:
-    if (end->arrow || end->aggregate != AGGREGATE_NONE)
-	end->text_pos.x += ASSOCIATION_DIAMONDWIDTH / 2;
-    end->text_pos.x += ASSOCIATION_END_SPACE;
-
-    end->text_pos.y += end->role_ascent;
-    if (points[fp].y > points[sp].y) {
-      if (end->role!=NULL && *end->role)
-          end->text_pos.y -= assoc->font_height;
-      if (end->multiplicity!=NULL)
-          end->text_pos.y -= assoc->font_height;
-    }
-
-    end->text_align = ALIGN_LEFT;
-    break;
+      break;
+    default:
+      g_return_if_reached ();
   }
   /* Add the text recangle to the bounding box: */
   rect.left = end->text_pos.x
@@ -741,16 +746,18 @@ association_update_data(Association *assoc)
     dir = VERTICAL;
 
   switch (dir) {
-  case HORIZONTAL:
-    assoc->text_align = ALIGN_CENTER;
-    assoc->text_pos.x = 0.5*(points[i].x+points[i+1].x);
-    assoc->text_pos.y = points[i].y - assoc->descent;
-    break;
-  case VERTICAL:
-    assoc->text_align = ALIGN_LEFT;
-    assoc->text_pos.x = points[i].x + 0.1;
-    assoc->text_pos.y = 0.5*(points[i].y+points[i+1].y) - assoc->descent;
-    break;
+    case HORIZONTAL:
+      assoc->text_align = ALIGN_CENTER;
+      assoc->text_pos.x = 0.5*(points[i].x+points[i+1].x);
+      assoc->text_pos.y = points[i].y - assoc->descent;
+      break;
+    case VERTICAL:
+      assoc->text_align = ALIGN_LEFT;
+      assoc->text_pos.x = points[i].x + 0.1;
+      assoc->text_pos.y = 0.5*(points[i].y+points[i+1].y) - assoc->descent;
+      break;
+    default:
+      g_return_if_reached ();
   }
 
   /* Add the text recangle to the bounding box: */
@@ -767,6 +774,7 @@ association_update_data(Association *assoc)
   association_update_data_end(assoc, 1);
 }
 
+
 static double
 get_aggregate_pos_diff (AssociationEnd *end, const Association *assoc)
 {
@@ -774,22 +782,24 @@ get_aggregate_pos_diff (AssociationEnd *end, const Association *assoc)
   if (end->arrow){
     width = ASSOCIATION_TRIANGLESIZE;
   }
-  switch(end->aggregate){
-  case AGGREGATE_COMPOSITION:
-  case AGGREGATE_NORMAL:
-    if(width!=0) width = MAX(ASSOCIATION_TRIANGLESIZE, ASSOCIATION_DIAMONDLEN);
-    else width = ASSOCIATION_DIAMONDLEN;
-  case AGGREGATE_NONE:
-    break;
+  switch (end->aggregate) {
+    case AGGREGATE_COMPOSITION:
+    case AGGREGATE_NORMAL:
+      if(width!=0) width = MAX(ASSOCIATION_TRIANGLESIZE, ASSOCIATION_DIAMONDLEN);
+      else width = ASSOCIATION_DIAMONDLEN;
+    case AGGREGATE_NONE:
+    default:
+      break;
   }
   return width;
 }
 
+
 static DiaObject *
-association_create(Point *startpoint,
-	       void *user_data,
-  	       Handle **handle1,
-	       Handle **handle2)
+association_create (Point   *startpoint,
+                    void    *user_data,
+                    Handle **handle1,
+                    Handle **handle2)
 {
   Association *assoc;
   OrthConn *orth;
@@ -797,7 +807,7 @@ association_create(Point *startpoint,
   int i;
   int user_d;
 
-  assoc = g_malloc0(sizeof(Association));
+  assoc = g_malloc0 (sizeof (Association));
   orth = &assoc->orth;
   obj = &orth->object;
 
@@ -805,20 +815,21 @@ association_create(Point *startpoint,
 
   obj->ops = &association_ops;
 
-  orthconn_init(orth, startpoint);
+  orthconn_init (orth, startpoint);
 
   /* old defaults */
   assoc->font_height = 0.8;
-  assoc->font = dia_font_new_from_style(DIA_FONT_MONOSPACE, assoc->font_height);
+  assoc->font = dia_font_new_from_style (DIA_FONT_MONOSPACE,
+                                         assoc->font_height);
 
   assoc->text_color = color_black;
   assoc->line_width = 0.1; /* old default */
-  assoc->line_color = attributes_get_foreground();
+  assoc->line_color = attributes_get_foreground ();
   assoc->name = NULL;
   assoc->assoc_type = AGGREGATE_NORMAL;
   assoc->direction = ASSOC_RIGHT;
   assoc->show_direction = FALSE;
-  for (i=0;i<2;i++) {
+  for (i = 0; i < 2; i++) {
     assoc->end[i].role = NULL;
     assoc->end[i].multiplicity = NULL;
     assoc->end[i].arrow = FALSE;
@@ -829,19 +840,21 @@ association_create(Point *startpoint,
 
   assoc->text_width = 0.0;
 
-  user_d = GPOINTER_TO_INT(user_data);
+  user_d = GPOINTER_TO_INT (user_data);
   switch (user_d) {
-  case 0:
-    assoc->assoc_type = AGGREGATE_NONE;
-    assoc->show_direction = TRUE;
-    break;
-  case 1:
-    assoc->assoc_type = AGGREGATE_NORMAL;
-    assoc->show_direction = FALSE;
-    break;
+    case 0:
+      assoc->assoc_type = AGGREGATE_NONE;
+      assoc->show_direction = TRUE;
+      break;
+    case 1:
+      assoc->assoc_type = AGGREGATE_NORMAL;
+      assoc->show_direction = FALSE;
+      break;
+    default:
+      g_return_val_if_reached (NULL);
   }
 
-  association_update_data(assoc);
+  association_update_data (assoc);
 
   *handle1 = orth->handles[0];
   *handle2 = orth->handles[orth->numpoints-2];
@@ -849,21 +862,31 @@ association_create(Point *startpoint,
   return &assoc->orth.object;
 }
 
+
 static ObjectChange *
-association_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+association_add_segment_callback (DiaObject *obj,
+                                  Point     *clicked,
+                                  gpointer   data)
 {
   ObjectChange *change;
-  change = orthconn_add_segment((OrthConn *)obj, clicked);
-  association_update_data((Association *)obj);
+
+  change = orthconn_add_segment ((OrthConn *) obj, clicked);
+  association_update_data ((Association *) obj);
+
   return change;
 }
 
+
 static ObjectChange *
-association_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+association_delete_segment_callback (DiaObject *obj,
+                                     Point     *clicked,
+                                     gpointer   data)
 {
   ObjectChange *change;
-  change = orthconn_delete_segment((OrthConn *)obj, clicked);
-  association_update_data((Association *)obj);
+
+  change = orthconn_delete_segment ((OrthConn *) obj, clicked);
+  association_update_data ((Association *) obj);
+
   return change;
 }
 
@@ -874,43 +897,49 @@ static DiaMenuItem object_menu_items[] = {
   ORTHCONN_COMMON_MENUS,
 };
 
+
 static DiaMenu object_menu = {
   "Association",
-  sizeof(object_menu_items)/sizeof(DiaMenuItem),
+  sizeof (object_menu_items) / sizeof (DiaMenuItem),
   object_menu_items,
   NULL
 };
 
+
 static DiaMenu *
-association_get_object_menu(Association *assoc, Point *clickedpoint)
+association_get_object_menu (Association *assoc, Point *clickedpoint)
 {
   OrthConn *orth;
 
   orth = &assoc->orth;
   /* Set entries sensitive/selected etc here */
-  object_menu_items[0].active = orthconn_can_add_segment(orth, clickedpoint);
-  object_menu_items[1].active = orthconn_can_delete_segment(orth, clickedpoint);
-  orthconn_update_object_menu(orth, clickedpoint, &object_menu_items[2]);
+  object_menu_items[0].active = orthconn_can_add_segment (orth, clickedpoint);
+  object_menu_items[1].active = orthconn_can_delete_segment (orth,
+                                                             clickedpoint);
+  orthconn_update_object_menu (orth, clickedpoint, &object_menu_items[2]);
+
   return &object_menu;
 }
 
+
 static void
-association_destroy(Association *assoc)
+association_destroy (Association *assoc)
 {
   int i;
 
-  orthconn_destroy(&assoc->orth);
+  orthconn_destroy (&assoc->orth);
   g_clear_object (&assoc->font);
-  g_free(assoc->name);
+  g_free (assoc->name);
 
-  for (i=0;i<2;i++) {
-    g_free(assoc->end[i].role);
-    g_free(assoc->end[i].multiplicity);
+  for (i = 0; i < 2; i++) {
+    g_free (assoc->end[i].role);
+    g_free (assoc->end[i].multiplicity);
   }
 }
 
+
 static DiaObject *
-association_copy(Association *assoc)
+association_copy (Association *assoc)
 {
   Association *newassoc;
   OrthConn *orth, *neworth;
@@ -918,12 +947,12 @@ association_copy(Association *assoc)
 
   orth = &assoc->orth;
 
-  newassoc = g_malloc0(sizeof(Association));
+  newassoc = g_malloc0 (sizeof (Association));
   neworth = &newassoc->orth;
 
-  orthconn_copy(orth, neworth);
+  orthconn_copy (orth, neworth);
 
-  newassoc->name = g_strdup(assoc->name);
+  newassoc->name = g_strdup (assoc->name);
   newassoc->direction = assoc->direction;
   newassoc->show_direction = assoc->show_direction;
   newassoc->assoc_type = assoc->assoc_type;
@@ -932,23 +961,26 @@ association_copy(Association *assoc)
   newassoc->text_color = assoc->text_color;
   newassoc->line_width = assoc->line_width;
   newassoc->line_color = assoc->line_color;
-  for (i=0;i<2;i++) {
+  for (i = 0; i < 2; i++) {
     newassoc->end[i] = assoc->end[i];
     newassoc->end[i].role =
-      (assoc->end[i].role != NULL)?g_strdup(assoc->end[i].role):NULL;
+      (assoc->end[i].role != NULL) ? g_strdup (assoc->end[i].role) : NULL;
+
     newassoc->end[i].multiplicity =
-      (assoc->end[i].multiplicity != NULL)?g_strdup(assoc->end[i].multiplicity):NULL;
+      (assoc->end[i].multiplicity != NULL) ?
+        g_strdup (assoc->end[i].multiplicity) : NULL;
   }
 
   newassoc->text_width = assoc->text_width;
 
-  association_update_data(newassoc);
+  association_update_data (newassoc);
 
   return &newassoc->orth.object;
 }
 
+
 static DiaObject *
-association_load(ObjectNode obj_node, int version, DiaContext *ctx)
+association_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Association *assoc;
   AttributeNode attr;
@@ -958,73 +990,82 @@ association_load(ObjectNode obj_node, int version, DiaContext *ctx)
   int i;
 
   /* first calls our _create() method */
-  obj = object_load_using_properties(&association_type, obj_node, version, ctx);
-  assoc = (Association *)obj;
+  obj = object_load_using_properties (&association_type,
+                                      obj_node, version, ctx);
+  assoc = (Association *) obj;
   orth = &assoc->orth;
   /* ... butnot orthconn_load()  */
-  if (version < 1)
+  if (version < 1) {
     orth->autorouting = FALSE;
+  }
 
   if (version < 2) {
     /* vesrion 1 used to name it differently */
-    attr = object_find_attribute(obj_node, "autorouting");
-    if (attr != NULL)
-      orth->autorouting = data_boolean(attribute_first_data(attr), ctx);
+    attr = object_find_attribute (obj_node, "autorouting");
+    if (attr != NULL) {
+      orth->autorouting = data_boolean (attribute_first_data (attr), ctx);
+    }
 
-    attr = object_find_attribute(obj_node, "ends");
-    composite = attribute_first_data(attr);
-    for (i=0;i<2;i++) {
+    attr = object_find_attribute (obj_node, "ends");
+    composite = attribute_first_data (attr);
+    for (i = 0; i < 2; i++) {
 
       assoc->end[i].role = NULL;
-      attr = composite_find_attribute(composite, "role");
+      attr = composite_find_attribute (composite, "role");
       if (attr != NULL) {
-        assoc->end[i].role = data_string(attribute_first_data(attr), ctx);
+        assoc->end[i].role = data_string (attribute_first_data (attr), ctx);
       }
       if (   assoc->end[i].role != NULL
-          && 0 == strcmp(assoc->end[i].role, "")) {
-        g_free(assoc->end[i].role);
+          && 0 == strcmp (assoc->end[i].role, "")) {
+        g_free (assoc->end[i].role);
         assoc->end[i].role = NULL;
       }
 
       assoc->end[i].multiplicity = NULL;
-      attr = composite_find_attribute(composite, "multiplicity");
+      attr = composite_find_attribute (composite, "multiplicity");
       if (attr != NULL) {
-        assoc->end[i].multiplicity = data_string(attribute_first_data(attr), ctx);
+        assoc->end[i].multiplicity = data_string (attribute_first_data (attr),
+                                                  ctx);
       }
       if (   assoc->end[i].multiplicity != NULL
-	  && 0 == strcmp(assoc->end[i].multiplicity, "")) {
-        g_free(assoc->end[i].multiplicity);
+          && 0 == strcmp (assoc->end[i].multiplicity, "")) {
+        g_free (assoc->end[i].multiplicity);
         assoc->end[i].multiplicity = NULL;
       }
 
       assoc->end[i].arrow = FALSE;
-      attr = composite_find_attribute(composite, "arrow");
-      if (attr != NULL)
-        assoc->end[i].arrow = data_boolean(attribute_first_data(attr), ctx);
+      attr = composite_find_attribute (composite, "arrow");
+      if (attr != NULL) {
+        assoc->end[i].arrow = data_boolean (attribute_first_data (attr), ctx);
+      }
 
       assoc->end[i].aggregate = AGGREGATE_NONE;
-      attr = composite_find_attribute(composite, "aggregate");
-      if (attr != NULL)
-        assoc->end[i].aggregate = data_enum(attribute_first_data(attr), ctx);
+      attr = composite_find_attribute (composite, "aggregate");
+      if (attr != NULL) {
+        assoc->end[i].aggregate = data_enum (attribute_first_data (attr),
+                                             ctx);
+      }
 
       assoc->end[i].visibility = FALSE;
-      attr = composite_find_attribute(composite, "visibility");
-      if (attr != NULL)
-        assoc->end[i].visibility = data_enum(attribute_first_data(attr), ctx);
+      attr = composite_find_attribute (composite, "visibility");
+      if (attr != NULL) {
+        assoc->end[i].visibility = data_enum (attribute_first_data (attr),
+                                              ctx);
+      }
 
       assoc->end[i].text_width = 0.0;
       if (assoc->end[i].role != NULL) {
         assoc->end[i].text_width =
-          dia_font_string_width(assoc->end[i].role, assoc->font,
-                                assoc->font_height);
+          dia_font_string_width (assoc->end[i].role, assoc->font,
+                                 assoc->font_height);
       }
       if (assoc->end[i].multiplicity != NULL) {
         assoc->end[i].text_width =
           MAX(assoc->end[i].text_width,
-              dia_font_string_width(assoc->end[i].multiplicity,
-                                    assoc->font, assoc->font_height) );
+              dia_font_string_width (assoc->end[i].multiplicity,
+                                     assoc->font, assoc->font_height) );
       }
-      composite = data_next(composite);
+      composite = data_next (composite);
     }
     /* derive new members state from ends */
     assoc->show_direction = (assoc->direction != ASSOC_NODIR);
@@ -1043,8 +1084,7 @@ association_load(ObjectNode obj_node, int version, DiaContext *ctx)
     }
   } /* version < 2 */
 
-  association_set_state(assoc, association_get_state(assoc));
+  association_set_state (assoc, association_get_state (assoc));
 
   return &assoc->orth.object;
 }
-
