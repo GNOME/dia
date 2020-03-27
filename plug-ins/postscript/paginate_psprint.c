@@ -230,8 +230,9 @@ diagram_print_destroy(GtkWidget *widget)
   return FALSE;
 }
 
+
 void
-diagram_print_ps(DiagramData *dia, const gchar* original_filename)
+diagram_print_ps (DiagramData *dia, const gchar* original_filename)
 {
   GtkWidget *dialog;
   GtkWidget *vbox, *frame, *table, *box, *button;
@@ -257,56 +258,56 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
 #endif
 
   /* create the dialog */
-  dialog = gtk_dialog_new();
+  dialog = gtk_dialog_new ();
   /* the dialog has it's own reference to the diagram */
-  g_object_ref(dia);
-  g_object_set_data(G_OBJECT(dialog), "diagram", dia);
-  g_signal_connect(G_OBJECT(dialog), "destroy",
-		   G_CALLBACK(diagram_print_destroy), NULL);
-  g_signal_connect(G_OBJECT(dialog), "delete_event",
-		   G_CALLBACK(gtk_main_quit), NULL);
-  g_signal_connect(G_OBJECT(dialog), "delete_event",
-		   G_CALLBACK(gtk_true), NULL);
-  vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+  g_object_ref (dia);
+  g_object_set_data (G_OBJECT (dialog), "diagram", dia);
+  g_signal_connect (G_OBJECT (dialog), "destroy",
+                    G_CALLBACK (diagram_print_destroy), NULL);
+  g_signal_connect (G_OBJECT (dialog), "delete_event",
+                    G_CALLBACK (gtk_main_quit), NULL);
+  g_signal_connect (G_OBJECT (dialog), "delete_event",
+                    G_CALLBACK (gtk_true), NULL);
+  vbox = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
-  frame = gtk_frame_new(_("Select Printer"));
-  gtk_container_set_border_width(GTK_CONTAINER(frame), 5);
-  gtk_box_pack_start(GTK_BOX(vbox), frame, TRUE, TRUE, 0);
-  gtk_widget_show(frame);
+  frame = gtk_frame_new (_("Select Printer"));
+  gtk_container_set_border_width (GTK_CONTAINER (frame), 5);
+  gtk_box_pack_start (GTK_BOX (vbox), frame, TRUE, TRUE, 0);
+  gtk_widget_show (frame);
 
-  table = gtk_table_new(2, 2, FALSE);
-  gtk_container_set_border_width(GTK_CONTAINER(table), 5);
-  gtk_table_set_row_spacings(GTK_TABLE(table), 5);
-  gtk_table_set_col_spacings(GTK_TABLE(table), 5);
-  gtk_container_add(GTK_CONTAINER(frame), table);
-  gtk_widget_show(table);
+  table = gtk_table_new (2, 2, FALSE);
+  gtk_container_set_border_width (GTK_CONTAINER (table), 5);
+  gtk_table_set_row_spacings (GTK_TABLE (table), 5);
+  gtk_table_set_col_spacings (GTK_TABLE (table), 5);
+  gtk_container_add (GTK_CONTAINER (frame), table);
+  gtk_widget_show (table);
 
-  iscmd = gtk_radio_button_new_with_label(NULL, _("Printer"));
-  gtk_table_attach(GTK_TABLE(table), iscmd, 0,1, 0,1,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(iscmd);
+  iscmd = gtk_radio_button_new_with_label (NULL, _("Printer"));
+  gtk_table_attach (GTK_TABLE (table), iscmd, 0,1, 0,1,
+                    GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show (iscmd);
 
-  cmd = gtk_entry_new();
-  gtk_table_attach(GTK_TABLE(table), cmd, 1,2, 0,1,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(cmd);
+  cmd = gtk_entry_new ();
+  gtk_table_attach (GTK_TABLE (table), cmd, 1,2, 0,1,
+                    GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show (cmd);
 
-  g_signal_connect(G_OBJECT(iscmd), "toggled",
-		   G_CALLBACK(change_entry_state), cmd);
+  g_signal_connect (G_OBJECT (iscmd), "toggled",
+                    G_CALLBACK (change_entry_state), cmd);
 
-  isofile = gtk_radio_button_new_with_label(gtk_radio_button_get_group(GTK_RADIO_BUTTON(iscmd)),
-					    _("File"));
-  gtk_table_attach(GTK_TABLE(table), isofile, 0,1, 1,2,
-		   GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(isofile);
+  isofile = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON (iscmd)),
+                                             _("File"));
+  gtk_table_attach (GTK_TABLE (table), isofile, 0,1, 1,2,
+                    GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show (isofile);
 
-  ofile = gtk_entry_new();
-  gtk_widget_set_sensitive(ofile, FALSE);
-  gtk_table_attach(GTK_TABLE(table), ofile, 1,2, 1,2,
-		   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
-  gtk_widget_show(ofile);
-  g_signal_connect(G_OBJECT(isofile), "toggled",
-		   G_CALLBACK(change_entry_state), ofile);
+  ofile = gtk_entry_new ();
+  gtk_widget_set_sensitive (ofile, FALSE);
+  gtk_table_attach (GTK_TABLE (table), ofile, 1,2, 1,2,
+                    GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_widget_show (ofile);
+  g_signal_connect (G_OBJECT (isofile), "toggled",
+                    G_CALLBACK (change_entry_state), ofile);
 
   box = gtk_dialog_get_action_area(GTK_DIALOG(dialog));
 
@@ -318,128 +319,137 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
   gtk_widget_grab_default (button);
   gtk_widget_show (button);
 
-  button = gtk_button_new_with_label(_("Cancel"));
+  button = gtk_button_new_with_label (_("Cancel"));
   g_signal_connect (G_OBJECT (button), "clicked",
                     G_CALLBACK (gtk_main_quit), NULL);
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
-  gtk_box_pack_start(GTK_BOX(box), button, TRUE, TRUE, 0);
-  gtk_widget_show(button);
+  gtk_box_pack_start (GTK_BOX(box), button, TRUE, TRUE, 0);
+  gtk_widget_show (button);
 
   /* Set default or old dialog values: */
 #ifdef G_OS_WIN32
-  gtk_entry_set_text(GTK_ENTRY(cmd), win32_printer_default ());
+  gtk_entry_set_text (GTK_ENTRY (cmd), win32_printer_default ());
 #else
   {
-    const gchar *printer = g_getenv("PRINTER");
+    const gchar *printer = g_getenv ("PRINTER");
 
     if (printer) {
-      printcmd = g_strdup_printf("lpr -P%s", printer);
+      printcmd = g_strdup_printf ("lpr -P%s", printer);
     } else {
-      printcmd = g_strdup("lpr");
+      printcmd = g_strdup ("lpr");
     }
 
-    gtk_entry_set_text(GTK_ENTRY(cmd), printcmd);
-    g_free(printcmd);
+    gtk_entry_set_text (GTK_ENTRY (cmd), printcmd);
+    g_free (printcmd);
     printcmd = NULL;
   }
 #endif
-  persistence_register_string_entry("printer-command", cmd);
-  printcmd = g_strdup(gtk_entry_get_text(GTK_ENTRY(cmd)));
+  persistence_register_string_entry ("printer-command", cmd);
+  printcmd = g_strdup (gtk_entry_get_text (GTK_ENTRY (cmd)));
   orig_command = printcmd;
 
   /* Work out diagram filename and use this as default .ps file */
-  filename = g_path_get_basename(original_filename);
+  filename = g_path_get_basename (original_filename);
 
-  printer_filename = g_malloc(strlen(filename) + 4);
-  printer_filename = strcpy(printer_filename, filename);
-  dot = strrchr(printer_filename, '.');
-  if ((dot != NULL) && (strcmp(dot, ".dia") == 0))
+  printer_filename = g_malloc (strlen (filename) + 4);
+  printer_filename = strcpy (printer_filename, filename);
+  dot = strrchr (printer_filename, '.');
+  if ((dot != NULL) && (strcmp (dot, ".dia") == 0)) {
     *dot = '\0';
-  printer_filename = strcat(printer_filename, ".ps");
-  gtk_entry_set_text(GTK_ENTRY(ofile), printer_filename);
-  g_free(printer_filename);
-  orig_file = g_strdup(gtk_entry_get_text(GTK_ENTRY(ofile)));
+  }
+  printer_filename = strcat (printer_filename, ".ps");
+  gtk_entry_set_text (GTK_ENTRY (ofile), printer_filename);
+  g_free (printer_filename);
+  orig_file = g_strdup (gtk_entry_get_text (GTK_ENTRY (ofile)));
 
   /* Scaling is already set at creation. */
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(iscmd), last_print_options.printer);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(isofile), !last_print_options.printer);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (iscmd),
+                                last_print_options.printer);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (isofile),
+                                !last_print_options.printer);
 
-  gtk_widget_show(dialog);
+  gtk_widget_show (dialog);
 
   do {
     cont = FALSE;
     write_file = TRUE;
-    gtk_main();
+    gtk_main ();
 
-    if(!dia) {
-      gtk_widget_destroy(dialog);
+    if (!dia) {
+      gtk_widget_destroy (dialog);
       return;
     }
 
     if (!cont) {
-      persistence_change_string_entry("printer-command", orig_command, cmd);
-      gtk_widget_destroy(dialog);
-      g_free(orig_command);
-      g_free(orig_file);
+      persistence_change_string_entry ("printer-command", orig_command, cmd);
+      gtk_widget_destroy (dialog);
+      g_free (orig_command);
+      g_free (orig_file);
       return;
     }
 
-    if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd))) {
-      printcmd = g_strdup(gtk_entry_get_text(GTK_ENTRY(cmd)));
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (iscmd))) {
+      printcmd = g_strdup (gtk_entry_get_text (GTK_ENTRY (cmd)));
 #ifdef G_OS_WIN32
       file = win32_printer_open (printcmd);
 #else
-      file = popen(printcmd, "w");
+      file = popen (printcmd, "w");
 #endif
       is_pipe = TRUE;
     } else {
-      const gchar *filename = gtk_entry_get_text(GTK_ENTRY(ofile));
+      const gchar *new_filename = gtk_entry_get_text (GTK_ENTRY (ofile));
       struct stat statbuf;
 
-      if (g_stat(filename, &statbuf) == 0) {	/* Output file exists */
+      if (g_stat (new_filename, &statbuf) == 0) {
+        /* Output file exists */
         GtkWidget *confirm_overwrite_dialog = NULL;
         char *utf8filename = NULL;
 
-        if (!g_utf8_validate(filename, -1, NULL)) {
-          utf8filename = g_filename_to_utf8(filename, -1, NULL, NULL, NULL);
+        if (!g_utf8_validate (new_filename, -1, NULL)) {
+          utf8filename = g_filename_to_utf8 (new_filename, -1, NULL, NULL, NULL);
 
           if (utf8filename == NULL) {
-            message_warning(_("Some characters in the filename are neither "
-			    "UTF-8\nnor your local encoding.\nSome things will break."));
+            message_warning (_("Some characters in the filename are neither "
+                               "UTF-8\nnor your local encoding.\n"
+                               "Some things will break."));
           }
         }
 
-        if (utf8filename == NULL)
-	  utf8filename = g_strdup(filename);
-        confirm_overwrite_dialog = gtk_message_dialog_new(GTK_WINDOW (dialog),
-                       GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
-                       GTK_BUTTONS_YES_NO,
-                       _("The file '%s' already exists.\n"
-                         "Do you want to overwrite it?"), utf8filename);
-        g_free(utf8filename);
-        gtk_window_set_title(GTK_WINDOW (confirm_overwrite_dialog),
-	                   _("File already exists"));
+        if (utf8filename == NULL) {
+          utf8filename = g_strdup (new_filename);
+        }
+        confirm_overwrite_dialog =
+          gtk_message_dialog_new (GTK_WINDOW (dialog),
+                                  GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION,
+                                  GTK_BUTTONS_YES_NO,
+                                  _("The file '%s' already exists.\n"
+                                    "Do you want to overwrite it?"),
+                                  utf8filename);
+        g_free (utf8filename);
+        gtk_window_set_title (GTK_WINDOW (confirm_overwrite_dialog),
+                              _("File already exists"));
         gtk_dialog_set_default_response (GTK_DIALOG (confirm_overwrite_dialog),
-	                   GTK_RESPONSE_NO);
+                                         GTK_RESPONSE_NO);
 
-        if (gtk_dialog_run(GTK_DIALOG(confirm_overwrite_dialog))
-	                   != GTK_RESPONSE_YES) {
+        if (gtk_dialog_run (GTK_DIALOG (confirm_overwrite_dialog))
+                         != GTK_RESPONSE_YES) {
           write_file = FALSE;
-		  file = 0;
+          file = 0;
         }
 
-        gtk_widget_destroy(confirm_overwrite_dialog);
+        gtk_widget_destroy (confirm_overwrite_dialog);
       }
 
       if (write_file) {
-        if (!g_path_is_absolute(filename)) {
+        if (!g_path_is_absolute (new_filename)) {
           char *full_filename;
 
-          full_filename = g_build_filename(g_get_home_dir(), filename, NULL);
-          file = g_fopen(full_filename, "w");
-          g_free(full_filename);
+          full_filename = g_build_filename (g_get_home_dir (),
+                                            new_filename, NULL);
+          file = g_fopen (full_filename, "w");
+          g_free (full_filename);
         } else {
-          file = g_fopen(filename, "w");
+          file = g_fopen (new_filename, "w");
         }
       }
 
@@ -447,49 +457,56 @@ diagram_print_ps(DiagramData *dia, const gchar* original_filename)
     }
 
     /* Store dialog values */
-    last_print_options.printer = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(iscmd));
+    last_print_options.printer =
+      gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (iscmd));
 
     if (write_file) {
       if (!file) {
         if (is_pipe) {
-          message_warning(_("Could not run command '%s': %s"), printcmd, strerror(errno));
-          g_free(printcmd);
+          message_warning (_("Could not run command '%s': %s"),
+                           printcmd, strerror (errno));
+          g_free (printcmd);
         } else
-          message_warning(_("Could not open '%s' for writing: %s"),
-		      gtk_entry_get_text(GTK_ENTRY(ofile)), strerror(errno));
+          message_warning (_("Could not open '%s' for writing: %s"),
+                           gtk_entry_get_text (GTK_ENTRY (ofile)),
+                           strerror(errno));
       } else
         done = TRUE;
     }
-  } while(!done);
+  } while (!done);
 
-  g_free(orig_command);
-  g_free(orig_file);
+  g_free (orig_command);
+  g_free (orig_file);
 #ifndef G_OS_WIN32
   /* set up a SIGPIPE handler to catch IO errors, rather than segfaulting */
   sigpipe_received = FALSE;
-  memset(&sigpipe_action, 0, sizeof(struct sigaction));
+  memset (&sigpipe_action, 0, sizeof (struct sigaction));
   sigpipe_action.sa_handler = pipe_handler;
-  sigaction(SIGPIPE, &sigpipe_action, &old_sigpipe_action);
+  sigaction (SIGPIPE, &sigpipe_action, &old_sigpipe_action);
 #endif
 
-  paginate_psprint(dia, file);
-  gtk_widget_destroy(dialog);
+  paginate_psprint (dia, file);
+  gtk_widget_destroy (dialog);
   if (is_pipe) {
-    int exitval = pclose(file);
+    int exitval = pclose (file);
     if (exitval != 0) {
-      message_error(_("Printing error: command '%s' returned %d\n"),
-		    printcmd, exitval);
+      message_error (_("Printing error: command '%s' returned %d\n"),
+                     printcmd, exitval);
     }
-  } else
-    fclose(file);
+  } else {
+    fclose (file);
+  }
 
 #ifndef G_OS_WIN32
   /* restore original behaviour */
-  sigaction(SIGPIPE, &old_sigpipe_action, NULL);
+  sigaction (SIGPIPE, &old_sigpipe_action, NULL);
 #endif
-  if (sigpipe_received)
-    message_error(_("Printing error: command '%s' caused sigpipe."),
-		  printcmd);
+  if (sigpipe_received) {
+    message_error (_("Printing error: command '%s' caused sigpipe."),
+                   printcmd);
+  }
 
-  if (is_pipe) g_free(printcmd);
+  if (is_pipe) {
+    g_free (printcmd);
+  }
 }
