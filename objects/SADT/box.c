@@ -203,52 +203,78 @@ sadtbox_distance_from(Box *box, Point *point)
   return distance_rectangle_point(&rect, point);
 }
 
+
 static void
-sadtbox_select(Box *box, Point *clicked_point,
-	   DiaRenderer *interactive_renderer)
+sadtbox_select (Box         *box,
+                Point       *clicked_point,
+                DiaRenderer *interactive_renderer)
 {
-  text_set_cursor(box->text, clicked_point, interactive_renderer);
-  text_grab_focus(box->text, &box->element.object);
-  element_update_handles(&box->element);
+  text_set_cursor (box->text, clicked_point, interactive_renderer);
+  text_grab_focus (box->text, &box->element.object);
+  element_update_handles (&box->element);
 }
 
+
 static ObjectChange*
-sadtbox_move_handle(Box *box, Handle *handle,
-		    Point *to, ConnectionPoint *cp,
-		    HandleMoveReason reason, ModifierKeys modifiers)
+sadtbox_move_handle (Box              *box,
+                     Handle           *handle,
+                     Point            *to,
+                     ConnectionPoint  *cp,
+                     HandleMoveReason  reason,
+                     ModifierKeys      modifiers)
 {
   AnchorShape horiz = ANCHOR_MIDDLE, vert = ANCHOR_MIDDLE;
 
-  assert(box!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (box != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  element_move_handle(&box->element, handle->id, to, cp, reason, modifiers);
+  element_move_handle (&box->element, handle->id, to, cp, reason, modifiers);
 
   switch (handle->id) {
-  case HANDLE_RESIZE_NW:
-    horiz = ANCHOR_END; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_N:
-    vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_NE:
-    horiz = ANCHOR_START; vert = ANCHOR_END; break;
-  case HANDLE_RESIZE_E:
-    horiz = ANCHOR_START; break;
-  case HANDLE_RESIZE_SE:
-    horiz = ANCHOR_START; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_S:
-    vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_SW:
-    horiz = ANCHOR_END; vert = ANCHOR_START; break;
-  case HANDLE_RESIZE_W:
-    horiz = ANCHOR_END; break;
-  default:
-    break;
+    case HANDLE_RESIZE_NW:
+      horiz = ANCHOR_END; vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_N:
+      vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_NE:
+      horiz = ANCHOR_START; vert = ANCHOR_END;
+      break;
+    case HANDLE_RESIZE_E:
+      horiz = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SE:
+      horiz = ANCHOR_START; vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_S:
+      vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_SW:
+      horiz = ANCHOR_END; vert = ANCHOR_START;
+      break;
+    case HANDLE_RESIZE_W:
+      horiz = ANCHOR_END;
+      break;
+    case HANDLE_MOVE_STARTPOINT:
+    case HANDLE_MOVE_ENDPOINT:
+    case HANDLE_CUSTOM1:
+    case HANDLE_CUSTOM2:
+    case HANDLE_CUSTOM3:
+    case HANDLE_CUSTOM4:
+    case HANDLE_CUSTOM5:
+    case HANDLE_CUSTOM6:
+    case HANDLE_CUSTOM7:
+    case HANDLE_CUSTOM8:
+    case HANDLE_CUSTOM9:
+    default:
+      break;
   }
-  sadtbox_update_data(box, horiz, vert);
+  sadtbox_update_data (box, horiz, vert);
 
   return NULL;
 }
+
 
 static ObjectChange*
 sadtbox_move(Box *box, Point *to)
@@ -300,8 +326,9 @@ sadtbox_draw (Box *box, DiaRenderer *renderer)
                             &box->text->color);
 }
 
+
 static void
-sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
+sadtbox_update_data (Box *box, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &box->element;
   ElementBBExtras *extra = &elem->extra_spacing;
@@ -318,7 +345,7 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox(box->text, NULL);
+  text_calc_boundingbox (box->text, NULL);
   width = box->text->max_width + box->padding*2;
   height = box->text->height * box->text->numlines + box->padding*2;
 
@@ -327,34 +354,41 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
 
   /* move shape if necessary ... */
   switch (horiz) {
-  case ANCHOR_MIDDLE:
-    elem->corner.x = center.x - elem->width/2; break;
-  case ANCHOR_END:
-    elem->corner.x = bottom_right.x - elem->width; break;
-  default:
-    break;
+    case ANCHOR_MIDDLE:
+      elem->corner.x = center.x - elem->width/2;
+      break;
+    case ANCHOR_END:
+      elem->corner.x = bottom_right.x - elem->width;
+      break;
+    case ANCHOR_START:
+    default:
+      break;
   }
+
   switch (vert) {
-  case ANCHOR_MIDDLE:
-    elem->corner.y = center.y - elem->height/2; break;
-  case ANCHOR_END:
-    elem->corner.y = bottom_right.y - elem->height; break;
-  default:
-    break;
+    case ANCHOR_MIDDLE:
+      elem->corner.y = center.y - elem->height/2;
+      break;
+    case ANCHOR_END:
+      elem->corner.y = bottom_right.y - elem->height;
+      break;
+    case ANCHOR_START:
+    default:
+      break;
   }
 
   p = elem->corner;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - box->text->height * box->text->numlines / 2 +
     box->text->ascent;
-  text_set_position(box->text, &p);
+  text_set_position (box->text, &p);
 
   extra->border_trans = SADTBOX_LINE_WIDTH / 2.0;
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 
   /* Update connections: */
   nw = elem->corner;
@@ -366,37 +400,49 @@ sadtbox_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   sw.y = se.y;
   sw.x = nw.x;
 
-  connpointline_update(box->north);
-  connpointline_putonaline(box->north,&ne,&nw,DIR_NORTH);
-  connpointline_update(box->west);
-  connpointline_putonaline(box->west,&nw,&sw,DIR_WEST);
-  connpointline_update(box->south);
-  connpointline_putonaline(box->south,&sw,&se,DIR_SOUTH);
-  connpointline_update(box->east);
-  connpointline_putonaline(box->east,&se,&ne,DIR_EAST);
+  connpointline_update (box->north);
+  connpointline_putonaline (box->north, &ne, &nw, DIR_NORTH);
+  connpointline_update (box->west);
+  connpointline_putonaline (box->west, &nw, &sw, DIR_WEST);
+  connpointline_update (box->south);
+  connpointline_putonaline (box->south, &sw, &se, DIR_SOUTH);
+  connpointline_update (box->east);
+  connpointline_putonaline (box->east, &se, &ne, DIR_EAST);
 }
 
 
 static ConnPointLine *
-sadtbox_get_clicked_border(Box *box, Point *clicked)
+sadtbox_get_clicked_border (Box *box, Point *clicked)
 {
   ConnPointLine *cpl;
   real dist,dist2;
 
   cpl = box->north;
-  dist = distance_line_point(&box->north->start,&box->north->end,0,clicked);
+  dist = distance_line_point (&box->north->start,
+                              &box->north->end,
+                              0,
+                              clicked);
 
-  dist2 = distance_line_point(&box->west->start,&box->west->end,0,clicked);
+  dist2 = distance_line_point (&box->west->start,
+                               &box->west->end,
+                               0,
+                               clicked);
   if (dist2 < dist) {
     cpl = box->west;
     dist = dist2;
   }
-  dist2 = distance_line_point(&box->south->start,&box->south->end,0,clicked);
+  dist2 = distance_line_point (&box->south->start,
+                               &box->south->end,
+                               0,
+                               clicked);
   if (dist2 < dist) {
     cpl = box->south;
     dist = dist2;
   }
-  dist2 = distance_line_point(&box->east->start,&box->east->end,0,clicked);
+  dist2 = distance_line_point (&box->east->start,
+                               &box->east->end,
+                               0,
+                               clicked);
   if (dist2 < dist) {
     cpl = box->east;
     /*dist = dist2;*/
