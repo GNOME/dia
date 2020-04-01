@@ -1,5 +1,6 @@
 EXPORTS
 ; exported functions
+
  apply_textattr_properties
  apply_textstr_properties
  arrow_bbox
@@ -203,7 +204,7 @@ EXPORTS
 
  dia_assert_true
  dia_color_selector_get_color
-; dia_color_selector_get_type
+ dia_color_selector_get_type
  dia_color_selector_new
  dia_color_selector_set_color
  dia_color_selector_set_use_alpha
@@ -549,7 +550,6 @@ EXPORTS
 
  get_active_focus
  give_focus
-; give_focus_to_object
 
  int_rectangle_union
 
