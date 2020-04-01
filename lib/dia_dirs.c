@@ -143,23 +143,19 @@ dia_get_lib_directory(void)
 #endif
 }
 
-gchar*
-dia_get_locale_directory(void)
+
+char *
+dia_get_locale_directory (void)
 {
 #ifdef G_OS_WIN32
-  gchar *sLoc = _dia_get_module_directory ();
-  gchar *returnPath = NULL;
-#  if defined(PREFIX) && defined(LOCALEDIR)
-    returnPath = replace_prefix(sLoc, LOCALEDIR);
-#  else
-  returnPath = g_strconcat (sLoc, "locale", NULL);
-#  endif
-  g_free (sLoc);
-  return returnPath;
+  g_autofree char *sLoc = _dia_get_module_directory ();
+
+  return replace_prefix (sLoc, LOCALEDIR);
 #else
-  return g_strconcat (LOCALEDIR, G_DIR_SEPARATOR_S, "", NULL);
+  return g_strdup (LOCALEDIR);
 #endif
 }
+
 
 /** Get the name of a file under the Dia config directory.  If no home
  *  directory can be found, uses a temporary directory.

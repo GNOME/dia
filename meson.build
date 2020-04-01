@@ -33,18 +33,13 @@ conf.set('HAVE_OGDF', libogdf_dep.found())
 libxslt_dep = dependency('libxslt', required: false)
 conf.set('HAVE_XSLT', libxslt_dep.found())
 
-datadir = join_paths(get_option('prefix'),
-                     get_option('datadir'))
+prefix = get_option('prefix')
+datadir = prefix / get_option('datadir')
 
-po_dir = join_paths(meson.current_source_dir(), 'po')
-pkgdatadir = join_paths(datadir, meson.project_name())
-
-dialibdir = join_paths(get_option('prefix'),
-                       get_option('libdir'),
-                       meson.project_name())
-
-dialocaledir = join_paths(get_option('prefix'),
-                          get_option('localedir'))
+po_dir = meson.current_source_dir() / 'po'
+pkgdatadir = datadir / meson.project_name()
+dialibdir = prefix / get_option('libdir') / meson.project_name()
+dialocaledir = prefix / get_option('localedir')
 
 # Specify a header configuration file
 conf.set_quoted('VERSION', '@VCS_TAG@')

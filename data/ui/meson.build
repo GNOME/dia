@@ -11,4 +11,4 @@ ui_files = [
     'properties-dialog.ui',
 ]
 
-install_data(ui_files, install_dir: join_paths(pkgdatadir, 'ui'))
+install_data(ui_files, install_dir: pkgdatadir / 'ui')

@@ -75,7 +75,7 @@ custom_target(lang + '-dia.pdf',
     depend_files: xml_deps,
     command: [dblatex, '-t', 'pdf', '-q', '-o', '@OUTPUT@', '@INPUT@'],
     install: true,
-    install_dir: join_paths(docdir, lang)
+    install_dir: docdir / lang
 )
 
 if xsltproc.found()
@@ -89,12 +89,12 @@ if xsltproc.found()
             '@INPUT@'
         ],
         install: true,
-        install_dir: join_paths(get_option('mandir'), 'man1')
+        install_dir: get_option('mandir') / 'man1'
     )
     # TODO: this should fixed in meson: https://github.com/mesonbuild/meson/issues/1550
     #install_man(dia_man, language: lang)
 
-    html_dir = join_paths(helpdir, lang)
+    html_dir = helpdir / lang
 
     custom_target(lang + '-dia_html',
         input: [ 'html.xsl', 'dia.xml' ],
@@ -102,7 +102,7 @@ if xsltproc.found()
         command: [
             xsltproc,
             '--stringparam', 'graphic.default.extension', 'png',
-            '-o', join_paths('@OUTDIR@', ''),
+            '-o', '@OUTDIR@',
             '@INPUT@'
         ],
         depend_files: xml_deps,
@@ -116,7 +116,7 @@ if xsltproc.found()
     )
 
     install_subdir(
-        join_paths('..', 'html'),
+        '..' / 'html',
         install_dir: html_dir,
         strip_directory: true
     )

@@ -61,7 +61,7 @@ lang = 'de'
 #)
 
 if xsltproc.found()
-    html_dir = join_paths(helpdir, lang)
+    html_dir = helpdir / lang
 
     custom_target(lang + '-dia_html',
         input: [ 'html.xsl', 'dia.xml' ],
@@ -69,7 +69,7 @@ if xsltproc.found()
         command: [
             xsltproc,
             '--stringparam', 'graphic.default.extension', 'png',
-            '-o', join_paths('@OUTDIR@', ''),
+            '-o', '@OUTDIR@',
             '@INPUT@'
         ],
         depend_files: xml_deps,
@@ -83,7 +83,7 @@ if xsltproc.found()
     )
 
     install_subdir(
-        join_paths('..', 'html'),
+        '..' / 'html',
         install_dir: html_dir,
         strip_directory: true,
     )

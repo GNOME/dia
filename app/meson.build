@@ -55,6 +55,12 @@ dia_sources = [
     'dia-props.c',
     'gtkwrapbox.c',
     'gtkhwrapbox.c',
+
+    'gtklist.c',
+    'gtklist.h',
+    'gtklistitem.c',
+    'gtklistitem.h',
+
     'cursor.c',
     'splash.c',
     'recent_files.c',

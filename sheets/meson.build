@@ -1,4 +1,4 @@
-sheetsdir = join_paths(pkgdatadir, 'sheets')
+sheetsdir = pkgdatadir / 'sheets'
 
 sheet_files = [
     'UML.sheet',

@@ -16,7 +16,7 @@ xsls = files(
     'dia-uml2componentlist.xsl',
 )
 
-install_data(xsls, install_dir: join_paths(pkgdatadir, 'xslt'))
+install_data(xsls, install_dir: pkgdatadir / 'xslt')
 
 if libxslt_dep.found()
     library(

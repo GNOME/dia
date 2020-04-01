@@ -1,4 +1,4 @@
-shapesdir = join_paths(pkgdatadir, 'shapes')
+shapesdir = pkgdatadir / 'shapes'
 
 shapes = []
 
@@ -29,6 +29,6 @@ subdir('EDPC')
 foreach shape_info : shapes
     install_data(
         shape_info.get('sources'),
-        install_dir: join_paths(shapesdir, shape_info.get('name'))
+        install_dir: shapesdir / shape_info.get('name')
     )
 endforeach

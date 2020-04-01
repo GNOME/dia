@@ -5,7 +5,7 @@ desktop_file = i18n.merge_file(
   type: 'desktop',
   po_dir: po_dir,
   install: true,
-  install_dir: join_paths(datadir, 'applications')
+  install_dir: datadir / 'applications'
 )
 # Validate Desktop file
 desktop_file_validate = find_program('desktop-file-validate', required: false)
@@ -24,7 +24,7 @@ appdata_file = i18n.merge_file (
   output: '@BASENAME@',
   po_dir: po_dir,
   install: true,
-  install_dir: join_paths(datadir, 'metainfo')
+  install_dir: datadir / 'metainfo'
 )
 # Validate Appdata
 appstream_util = find_program('appstream-util', required: false)
@@ -38,12 +38,12 @@ if appstream_util.found()
 endif
 
 install_data('org.gnome.Dia.svg',
-             install_dir: join_paths([datadir,'icons/hicolor/scalable/apps']))
+             install_dir: datadir / 'icons' / 'hicolor' / 'scalable' / 'apps')
 
 install_data('org.gnome.Dia-symbolic.svg',
-             install_dir: join_paths([datadir,'icons/hicolor/symbolic/apps']))
+             install_dir: datadir / 'icons' / 'hicolor' / 'symbolic' / 'apps')
 
 install_data('org.gnome.Dia.thumbnailer',
-             install_dir: join_paths(datadir, 'thumbnailers'))
+             install_dir: datadir / 'thumbnailers')
 
 subdir('ui')

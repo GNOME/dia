@@ -52,7 +52,7 @@ shape_sources = files(
 )
 
 # TODO: There is no need to join paths.  Can we avoid it?
-name = join_paths('Map', 'Isometric')
+name = 'Map' / 'Isometric'
 shapes += {
     'sources': shape_sources,
     'name': name,

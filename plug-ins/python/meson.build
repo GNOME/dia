@@ -57,6 +57,6 @@ if py_dep.found()
         install_dir: dialibdir
     )
 
-    install_data(python_scripts, install_dir: join_paths(pkgdatadir, 'python'))
+    install_data(python_scripts, install_dir: pkgdatadir / 'python')
     install_data('python-startup.py', install_dir: pkgdatadir)
 endif
