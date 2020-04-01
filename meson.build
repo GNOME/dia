@@ -53,7 +53,6 @@ conf.set_quoted('PREFIX', get_option('prefix'))
 conf.set_quoted('PKGDATADIR', pkgdatadir)
 conf.set_quoted('DIALIBDIR',  dialibdir)
 conf.set_quoted('LOCALEDIR', dialocaledir)
-conf.set('ENABLE_NLS', true)
 
 foreach h : ['stddef.h', 'fcntl.h', 'unistd.h', 'utime.h']
     conf.set10('HAVE_' + h.underscorify().to_upper(), cc.has_header(h))

@@ -545,26 +545,6 @@ _check_option_output_directory (const gchar    *option_name,
   return FALSE;
 }
 
-static void
-_setup_textdomains (void)
-{
-#ifdef G_OS_WIN32
-  /* calculate runtime directory */
-  {
-    gchar* localedir = dia_get_locale_directory ();
-
-    bindtextdomain(GETTEXT_PACKAGE, localedir);
-    g_free (localedir);
-  }
-#else
-  bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-#endif
-
-#if defined ENABLE_NLS && defined HAVE_BIND_TEXTDOMAIN_CODESET
-  bind_textdomain_codeset(GETTEXT_PACKAGE,"UTF-8");
-#endif
-  textdomain (GETTEXT_PACKAGE);
-}
 
 void
 app_init (int argc, char **argv)
@@ -585,7 +565,6 @@ app_init (int argc, char **argv)
   GSList *files = NULL;
   static const gchar **filenames = NULL;
   int i = 0;
-
   GOptionContext *context = NULL;
   static GOptionEntry options[] =
   {
@@ -622,6 +601,7 @@ app_init (int argc, char **argv)
       NULL, NULL },
     { NULL }
   };
+  g_autofree char *localedir = dia_get_locale_directory ();
 
   /* for users of app_init() the default is interactive */
   dia_is_interactive = TRUE;
@@ -636,7 +616,10 @@ app_init (int argc, char **argv)
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
   setlocale(LC_NUMERIC, "C");
-  _setup_textdomains ();
+
+  bindtextdomain (GETTEXT_PACKAGE, localedir);
+  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+  textdomain (GETTEXT_PACKAGE);
 
   context = g_option_context_new (_("[FILE...]"));
   g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
