@@ -47,8 +47,8 @@ matrixprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 static void
 matrixprop_free(MatrixProperty *prop)
 {
-  g_free (prop->matrix);
-  g_free(prop);
+  g_clear_pointer (&prop->matrix, g_free);
+  g_clear_pointer (&prop, g_free);
 }
 
 static MatrixProperty *
@@ -93,7 +93,7 @@ data_matrix (DataNode data)
   if (matrix->xx == 1.0 && matrix->yx == 0.0 &&
       matrix->xy == 0.0 && matrix->yy == 1.0 &&
       matrix->x0 == 0.0 && matrix->y0 == 0.0) {
-    g_free (matrix);
+    g_clear_pointer (&matrix, g_free);
     return NULL;
   }
   /* TODO: check it's invertible? */
@@ -154,8 +154,8 @@ matrixprop_set_from_offset(MatrixProperty *prop,
                            void *base, guint offset, guint offset2)
 {
   DiaMatrix *dest = struct_member(base,offset,DiaMatrix *);
-  if (dest)
-    g_free (dest);
+
+  g_clear_pointer (&dest, g_free);
 
   struct_member(base,offset, DiaMatrix *) = g_memdup (prop->matrix, sizeof (DiaMatrix));
 }
@@ -254,8 +254,7 @@ matrixprop_set_from_widget(MatrixProperty *prop, GtkWidget *widget)
     }
     dia_matrix_set_angle_and_scales (prop->matrix, -angle/180.0*G_PI, sx, sy);
   } else {
-    g_free (prop->matrix);
-    prop->matrix = NULL;
+    g_clear_pointer (&prop->matrix, g_free);
   }
 }
 

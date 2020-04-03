@@ -158,9 +158,10 @@ create_magnify_tool(void)
   return (Tool *) tool;
 }
 
+
 void
-free_magnify_tool(Tool *tool)
+free_magnify_tool (Tool *tool)
 {
-  g_free(tool);
-  ddisplay_set_all_cursor(default_cursor);
+  g_clear_pointer (&tool, g_free);
+  ddisplay_set_all_cursor (default_cursor);
 }

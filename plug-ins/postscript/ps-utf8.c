@@ -2,11 +2,11 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * ps-utf8.c: builds custom Postscript encodings to write arbitrary utf8
- * strings and have the device understand what's going on. 
+ * strings and have the device understand what's going on.
  * Copyright (C) 2001 Cyrille Chepelov <chepelov@calixo.net>
- * 
- * Portions derived from Gnome-Print/gp-ps-unicode.c, written by 
- * Lauris Kaplinski <lauris@helixcode.com>, 
+ *
+ * Portions derived from Gnome-Print/gp-ps-unicode.c, written by
+ * Lauris Kaplinski <lauris@helixcode.com>,
  * Copyright (C) 1999-2000 Helix Code, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -42,16 +42,16 @@ static void font_descriptor_destroy(PSFontDescriptor *fd);
 static void use_font(PSUnicoder *psu, PSFontDescriptor *fd);
 static PSEncodingPage *encoding_page_new(int num);
 static void encoding_page_destroy(PSEncodingPage *ep);
-static int encoding_page_add_unichar(PSEncodingPage *ep, 
+static int encoding_page_add_unichar(PSEncodingPage *ep,
                                      gunichar uchar);
 
 static void use_encoding(PSUnicoder *psu, PSEncodingPage *ep);
- 
+
 static void psu_add_encoding(PSUnicoder *psu, gunichar uchar);
 static void psu_make_new_encoding_page(PSUnicoder *psu);
 /* Unicoder functions */
 
-extern PSUnicoder *ps_unicoder_new(const PSUnicoderCallbacks *psucbk, 
+extern PSUnicoder *ps_unicoder_new(const PSUnicoderCallbacks *psucbk,
                                    gpointer usrdata)
 {
   PSUnicoder *psu = g_new0(PSUnicoder,1);
@@ -60,12 +60,12 @@ extern PSUnicoder *ps_unicoder_new(const PSUnicoderCallbacks *psucbk,
 
   psu->defined_fonts = g_hash_table_new(g_str_hash,g_str_equal);
   psu->unicode_to_page = g_hash_table_new(NULL,NULL);
-  
+
   psu_make_new_encoding_page(psu);
   return psu;
 }
 
-static gboolean 
+static gboolean
 ghrfunc_remove_font(gpointer key, gpointer value, gpointer user_data)
 {
   font_descriptor_destroy((PSFontDescriptor *)value);
@@ -89,10 +89,10 @@ extern void ps_unicoder_destroy(PSUnicoder *psu)
   g_slist_foreach(psu->encoding_pages,
                   gfunc_free_encoding_page,
                   NULL);
-  g_free(psu);
+  g_clear_pointer (&psu, g_free);
 }
 
-extern void 
+extern void
 psu_set_font_face(PSUnicoder *psu, const gchar *face, float size)
 {
   psu->face = face;
@@ -102,14 +102,14 @@ psu_set_font_face(PSUnicoder *psu, const gchar *face, float size)
 
 static void psu_make_new_encoding_page(PSUnicoder *psu)
 {
-  int num = 0;  
+  int num = 0;
   PSEncodingPage *ep;
 
   if (psu->last_page) num = psu->last_page->page_num + 1;
   ep = encoding_page_new(num);
   psu->last_page = ep;
   psu->encoding_pages = g_slist_append(psu->encoding_pages,ep);
-  
+
   if (num == 1) {
     g_warning("You are going to use more than %d different characters; dia will begin to \n"
               "heavily use encoding switching. This feature has never been tested; \n"
@@ -126,7 +126,7 @@ static void psu_add_encoding(PSUnicoder *psu, gunichar uchar)
   }
   if (!encoding_page_add_unichar(psu->last_page,uchar)) {
     psu_make_new_encoding_page(psu);
-    if (!encoding_page_add_unichar(psu->last_page,uchar)) 
+    if (!encoding_page_add_unichar(psu->last_page,uchar))
       {
 	g_assert_not_reached();
       }
@@ -140,8 +140,8 @@ static void psu_add_encoding(PSUnicoder *psu, gunichar uchar)
   }
 }
 
-extern void 
-psu_check_string_encodings(PSUnicoder *psu, 
+extern void
+psu_check_string_encodings(PSUnicoder *psu,
                            const char *utf8_string)
 {
   gunichar uchar;
@@ -155,7 +155,7 @@ psu_check_string_encodings(PSUnicoder *psu,
     if ((uchar > 32) && (uchar < 2048)) {
       psu_add_encoding(psu,uchar);
     }
-  }  
+  }
 }
 
 #define BUFSIZE 256
@@ -175,10 +175,10 @@ static void psu_show_flush_buffer(const PSUnicoder *psu,
 }
 
 
-static void 
-encoded_psu_show_string(PSUnicoder *psu,
-                        const char *utf8_string,
-                        FlushFunc flushfunc)
+static void
+encoded_psu_show_string (PSUnicoder *psu,
+                         const char *utf8_string,
+                         FlushFunc   flushfunc)
 {
   gunichar uchar;
   gchar c;
@@ -194,13 +194,13 @@ encoded_psu_show_string(PSUnicoder *psu,
     len++;
 
     if (psu->current_encoding) {
-      c = 
+      c =
         (gchar)GPOINTER_TO_INT(g_hash_table_lookup(psu->current_encoding->backpage,
                                                    GINT_TO_POINTER(uchar)));
     } else {
       c = 0;
     }
-      
+
     if (!c) {
       /* No page or not the right page... switch ! */
       PSEncodingPage *ep = g_hash_table_lookup(psu->unicode_to_page,
@@ -211,7 +211,7 @@ encoded_psu_show_string(PSUnicoder *psu,
         c = (gchar)GPOINTER_TO_INT(g_hash_table_lookup(ep->backpage,
                                                        GINT_TO_POINTER(uchar)));
       } else {
-        c = 31; 
+        c = 31;
       }
 
       if ((!c)||(c==31)) {
@@ -221,27 +221,27 @@ encoded_psu_show_string(PSUnicoder *psu,
     }
     /* We now are in the right page, and c is the image of uchar with that
        encoding. */
-    
-    if ( ((!psu->current_font) || 
+
+    if ( ((!psu->current_font) ||
           (psu->current_font->encoding != psu->current_encoding))) {
       PSFontDescriptor *fd;
-      const gchar *font_name;
+      char *font_name;
       if (bufu) {
         psu_show_flush_buffer(psu,buf,&bufu,flushfunc,first);
         first = FALSE;
       }
 
-      font_name = make_font_descriptor_name(psu->face,
-                                            psu->current_encoding->name);
-      fd = g_hash_table_lookup(psu->defined_fonts,font_name);
+      font_name = make_font_descriptor_name (psu->face,
+                                             psu->current_encoding->name);
+      fd = g_hash_table_lookup (psu->defined_fonts, font_name);
       if (fd) {
-        g_free((gpointer)font_name);
+        g_clear_pointer (&font_name, g_free);
         font_name = fd->name;
       } else {
-        fd = font_descriptor_new(psu->face,
-                                 psu->current_encoding,
-                                 font_name);
-        g_free((gpointer)font_name);
+        fd = font_descriptor_new (psu->face,
+                                  psu->current_encoding,
+                                  font_name);
+        g_clear_pointer (&font_name, g_free);
         font_name = fd->name;
         g_hash_table_insert(psu->defined_fonts,(gpointer)font_name,fd);
       }
@@ -252,12 +252,12 @@ encoded_psu_show_string(PSUnicoder *psu,
       first = FALSE;
     }
     buf[bufu++] = c;
-  } 
+  }
   if ((bufu)||(!len)) /* even if !len, to avoid crashing the PS stack. */
     psu_show_flush_buffer(psu,buf,&bufu,flushfunc,first);
 }
 
-static void 
+static void
 symbol_psu_show_string(PSUnicoder *psu,
                         const char *utf8_string,
                         FlushFunc flushfunc)
@@ -318,7 +318,7 @@ symbol_psu_show_string(PSUnicoder *psu,
     psu_show_flush_buffer(psu,buf,&bufu,flushfunc,first);
 }
 
-static void 
+static void
 flush_show_string(const PSUnicoder *psu,
                   const gchar *buf,
                   gboolean first)
@@ -326,19 +326,19 @@ flush_show_string(const PSUnicoder *psu,
   psu->callbacks->show_string(psu->usrdata,buf);
 }
 
-extern void 
+extern void
 psu_show_string(PSUnicoder *psu,
                 const char *utf8_string)
 {
   if (0==strcmp(psu->face,"Symbol")) {
     symbol_psu_show_string(psu,utf8_string,&flush_show_string);
-  } else { 
+  } else {
     encoded_psu_show_string(psu,utf8_string,&flush_show_string);
   }
 }
 
 
-static void 
+static void
 flush_get_string_width(const PSUnicoder *psu,
                             const char *buf,
                             gboolean first)
@@ -346,13 +346,13 @@ flush_get_string_width(const PSUnicoder *psu,
   psu->callbacks->get_string_width(psu->usrdata,buf,first);
 }
 
-extern void 
+extern void
 psu_get_string_width(PSUnicoder *psu,
                      const char *utf8_string)
 {
   if (0==strcmp(psu->face,"Symbol")) {
     symbol_psu_show_string(psu,utf8_string,&flush_get_string_width);
-  } else { 
+  } else {
     encoded_psu_show_string(psu,utf8_string,&flush_get_string_width);
   }
 }
@@ -364,7 +364,7 @@ static PSEncodingPage *
 encoding_page_new(int num)
 {
   PSEncodingPage *ep = g_new0(PSEncodingPage,1);
-  
+
   ep->name = g_strdup_printf("e%d",num);
   ep->page_num = 0;
   ep->serial_num = 0;
@@ -374,36 +374,39 @@ encoding_page_new(int num)
   return ep;
 }
 
-static void encoding_page_destroy(PSEncodingPage *ep)
+
+static void
+encoding_page_destroy (PSEncodingPage *ep)
 {
-  g_free((gpointer)ep->name);
-  g_hash_table_destroy(ep->backpage);
-  g_free(ep);
+  g_clear_pointer (&ep->name, g_free);
+  g_hash_table_destroy (ep->backpage);
+  g_clear_pointer (&ep, g_free);
 }
 
-static int 
+
+static int
 encoding_page_add_unichar(PSEncodingPage *ep, gunichar uchar)
 {
   int res;
   if (ep->entries >= PSEPAGE_SIZE) return 0; /* page is full. */
-  
+
   while ((ep->entries == (')'-PSEPAGE_BEGIN)) ||
          (ep->entries == ('\\' - PSEPAGE_BEGIN)) ||
          (ep->entries == ('('-PSEPAGE_BEGIN))) ep->entries++;
 
   res = ep->entries++;
-  
+
   ep->page[res] = uchar;
-  
+
   res += PSEPAGE_BEGIN;
   g_hash_table_insert(ep->backpage,
                       GINT_TO_POINTER(uchar),GINT_TO_POINTER(res));
   ep->serial_num++;
   return res;
-  
+
 }
 
-static void 
+static void
 use_encoding(PSUnicoder *psu, PSEncodingPage *ep)
 {
   if (ep->serial_num != ep->last_realized) {
@@ -430,26 +433,28 @@ font_descriptor_new(const gchar *face,
                     const gchar *name)
 {
   PSFontDescriptor *fd = g_new(PSFontDescriptor,1);
-  
+
   fd->face = face;
   fd->encoding = encoding;
   fd->encoding_serial_num = -1;
 
-  if (name) 
+  if (name)
     fd->name = g_strdup(name);
   else
     fd->name = make_font_descriptor_name(face,encoding->name);
   return fd;
 }
 
-static void 
-font_descriptor_destroy(PSFontDescriptor *fd)
+
+static void
+font_descriptor_destroy (PSFontDescriptor *fd)
 {
-  g_free((gpointer)fd->name);
-  g_free(fd);
+  g_clear_pointer (&fd->name, g_free);
+  g_clear_pointer (&fd, g_free);
 }
 
-static void 
+
+static void
 use_font(PSUnicoder *psu, PSFontDescriptor *fd)
 {
   if (psu->current_font == fd) return; /* Already done. */
@@ -458,7 +463,7 @@ use_font(PSUnicoder *psu, PSFontDescriptor *fd)
     psu->callbacks->select_ps_font(psu->usrdata,fd->name,psu->size);
   } else {
     gboolean undef,define,select;
-  
+
     define = (fd->encoding->serial_num != fd->encoding_serial_num);
     undef = (define && (fd->encoding_serial_num <= 0));
     select = ((psu->current_font != fd) || (psu->current_size != psu->size));

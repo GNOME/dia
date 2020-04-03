@@ -101,7 +101,7 @@ text_delete_line(Text *text, int line_no)
 {
   int i;
 
-  g_free(text->lines[line_no]);
+  g_clear_pointer (&text->lines[line_no], g_free);
   for (i = line_no; i < text->numlines - 1; i++) {
     text->lines[i] = text->lines[i+1];
   }
@@ -215,8 +215,7 @@ free_string(Text *text)
     text_line_destroy(text->lines[i]);
   }
 
-  g_free(text->lines);
-  text->lines = NULL;
+  g_clear_pointer (&text->lines, g_free);
 }
 
 static void
@@ -264,7 +263,7 @@ set_string(Text *text, const char *string)
     }
     string_line = g_strndup(s, s2 - s);
     text_set_line_text(text, i, string_line);
-    g_free(string_line);
+    g_clear_pointer (&string_line, g_free);
     s = s2;
     if (*s) {
       s = g_utf8_next_char(s);
@@ -278,7 +277,7 @@ set_string(Text *text, const char *string)
   if (text->cursor_pos > text_get_line_strlen(text, text->cursor_row)) {
     text->cursor_pos = text_get_line_strlen(text, text->cursor_row);
   }
-  g_free (fallback);
+  g_clear_pointer (&fallback, g_free);
 }
 
 void
@@ -383,7 +382,7 @@ text_destroy (Text *text)
 {
   free_string (text);
   g_clear_object (&text->font);
-  g_free (text);
+  g_clear_pointer (&text, g_free);
 }
 
 void
@@ -763,7 +762,7 @@ text_join_lines(Text *text, int first_line)
 			      text_get_line(text, first_line + 1), NULL);
   text_delete_line(text, first_line);
   text_set_line_text(text, first_line, combined_line);
-  g_free(combined_line);
+  g_clear_pointer (&combined_line, g_free);
 
   text->max_width = MAX(text->max_width, text_get_line_width(text, first_line));
 
@@ -771,15 +770,16 @@ text_join_lines(Text *text, int first_line)
   text->cursor_pos = len1;
 }
 
+
 static void
-text_delete_forward(Text *text)
+text_delete_forward (Text *text)
 {
   int row;
   int i;
-  real width;
-  gchar *line;
-  gchar *utf8_before, *utf8_after;
-  gchar *str1, *str;
+  double width;
+  char *line;
+  char *utf8_before, *utf8_after;
+  char *str1, *str;
 
   row = text->cursor_row;
 
@@ -795,8 +795,8 @@ text_delete_forward(Text *text)
   str1 = g_strndup(line, utf8_before - line);
   str = g_strconcat(str1, utf8_after, NULL);
   text_set_line_text(text, row, str);
-  g_free(str1);
-  g_free(str);
+  g_clear_pointer (&str1, g_free);
+  g_clear_pointer (&str, g_free);
 
   if (text->cursor_pos > text_get_line_strlen(text, text->cursor_row))
     text->cursor_pos = text_get_line_strlen(text, text->cursor_row);
@@ -808,15 +808,16 @@ text_delete_forward(Text *text)
   text->max_width = width;
 }
 
+
 static void
-text_delete_backward(Text *text)
+text_delete_backward (Text *text)
 {
   int row;
   int i;
-  real width;
-  gchar *line;
-  gchar *utf8_before, *utf8_after;
-  gchar *str1, *str;
+  double width;
+  char *line;
+  char *utf8_before, *utf8_after;
+  char *str1, *str;
 
   row = text->cursor_row;
 
@@ -832,8 +833,8 @@ text_delete_backward(Text *text)
   str1 = g_strndup(line, utf8_before - line);
   str = g_strconcat(str1, utf8_after, NULL);
   text_set_line_text(text, row, str);
-  g_free(str);
-  g_free(str1);
+  g_clear_pointer (&str, g_free);
+  g_clear_pointer (&str1, g_free);
 
   text->cursor_pos --;
   if (text->cursor_pos > text_get_line_strlen(text, text->cursor_row))
@@ -847,13 +848,13 @@ text_delete_backward(Text *text)
 }
 
 static void
-text_split_line(Text *text)
+text_split_line (Text *text)
 {
   int i;
   char *line;
-  real width;
-  gchar *utf8_before;
-  gchar *str1, *str2;
+  double width;
+  char *utf8_before;
+  char *str1, *str2;
 
   /* Split the lines at cursor_pos */
   line = text_get_line(text, text->cursor_row);
@@ -863,8 +864,8 @@ text_split_line(Text *text)
   str2 = g_strdup(utf8_before); /* Must copy before dealloc */
   text_set_line_text(text, text->cursor_row, str1);
   text_set_line_text(text, text->cursor_row + 1, str2);
-  g_free(str2);
-  g_free(str1);
+  g_clear_pointer (&str2, g_free);
+  g_clear_pointer (&str1, g_free);
 
   text->cursor_row ++;
   text->cursor_pos = 0;
@@ -876,15 +877,16 @@ text_split_line(Text *text)
   text->max_width = width;
 }
 
+
 static void
-text_insert_char(Text *text, gunichar c)
+text_insert_char (Text *text, gunichar c)
 {
-  gchar ch[7];
+  char ch[7];
   int unilen;
   int row;
-  gchar *line, *str;
-  gchar *utf8_before;
-  gchar *str1;
+  char *line, *str;
+  char *utf8_before;
+  char *str1;
 
   /* Make a string of the the char */
   unilen = g_unichar_to_utf8 (c, ch);
@@ -898,8 +900,8 @@ text_insert_char(Text *text, gunichar c)
   str1 = g_strndup(line, utf8_before - line);
   str = g_strconcat(str1, ch, utf8_before, NULL);
   text_set_line_text(text, row, str);
-  g_free(str);
-  g_free(str1);
+  g_clear_pointer (&str, g_free);
+  g_clear_pointer (&str1, g_free);
 
   text->cursor_pos++;
   text->max_width = MAX(text->max_width, text_get_line_width(text, row));
@@ -1104,7 +1106,7 @@ data_add_text(AttributeNode attr, Text *text, DiaContext *ctx)
   str = text_get_string_copy(text);
   data_add_string(composite_add_attribute(composite, "string"),
 		  str, ctx);
-  g_free(str);
+  g_clear_pointer (&str, g_free);
   data_add_font(composite_add_attribute(composite, "font"),
 		text->font, ctx);
   data_add_real(composite_add_attribute(composite, "height"),
@@ -1162,7 +1164,7 @@ data_text(AttributeNode text_attr, DiaContext *ctx)
 
   text = new_text (string ? string : "", font, height, &pos, &col, align);
   g_clear_object (&font);
-  if (string) g_free(string);
+  g_clear_pointer (&string, g_free);
   return text;
 }
 
@@ -1280,7 +1282,7 @@ text_change_revert(struct TextObjectChange *change, DiaObject *obj)
 static void
 text_change_free (struct TextObjectChange *change)
 {
-  g_free (change->str);
+  g_clear_pointer (&change->str, g_free);
   prop_list_free (change->props);
 }
 

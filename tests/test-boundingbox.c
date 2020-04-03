@@ -141,19 +141,20 @@ _check_one_bezier (gconstpointer p)
   polybezier_bbox (test->pts, test->num, &extra, FALSE, &rect);
   g_assert (rectangle_in_rectangle (&test->box, &rect));
 }
+
+
 static void
 _add_bezier_tests (void)
 {
-  int i, num = sizeof(_test_beziers)/sizeof(struct _TestBeziers);
+  int i, num = sizeof (_test_beziers) / sizeof (struct _TestBeziers);
 
-  for (i = 0; i < num; ++i)
-    {
-      gchar *testpath = g_strdup_printf ("/Dia/BoundingBox/Bezier%d", i+1);
+  for (i = 0; i < num; ++i) {
+    char *testpath = g_strdup_printf ("/Dia/BoundingBox/Bezier%d", i+1);
 
-      g_test_add_data_func (testpath, &_test_beziers[i], _check_one_bezier);
+    g_test_add_data_func (testpath, &_test_beziers[i], _check_one_bezier);
 
-      g_free (testpath);
-    }
+    g_clear_pointer (&testpath, g_free);
+  }
 }
 
 #ifdef G_OS_WIN32

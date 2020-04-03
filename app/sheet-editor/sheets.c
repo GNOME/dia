@@ -135,7 +135,7 @@ find_sheet (GtkTreeModel *model,
     gtk_combo_box_set_active_iter (GTK_COMBO_BOX (data->combo), iter);
   }
 
-  g_free (item);
+  g_clear_pointer (&item, g_free);
 
   return res;
 }
@@ -345,14 +345,15 @@ create_object_pixmap (SheetObject  *so,
       pixbuf = pixbuf_from_resource (((char *) so->pixmap) + 4);
 
       gdk_pixbuf_render_pixmap_and_mask (pixbuf, pixmap, mask, 1.0);
-      g_object_unref (pixbuf);
+
+      g_clear_object (&pixbuf);
     } else {
       *pixmap =
         gdk_pixmap_colormap_create_from_xpm_d (NULL,
-                                                gtk_widget_get_colormap (parent),
-                                                mask,
-                                                &style->bg[GTK_STATE_NORMAL],
-                                                (gchar **) so->pixmap);
+                                               gtk_widget_get_colormap (parent),
+                                               mask,
+                                               &style->bg[GTK_STATE_NORMAL],
+                                               (char **) so->pixmap);
     }
   } else {
     if (so->pixmap_file != NULL) {
@@ -371,14 +372,14 @@ create_object_pixmap (SheetObject  *so,
                                               height > 22 ? (height - 22) / 2 : 0,
                                               22,
                                               height > 22 ? 22 : height);
-          g_object_unref (pixbuf);
+          g_clear_object (&pixbuf);
           pixbuf = cropped;
         }
         gdk_pixbuf_render_pixmap_and_mask (pixbuf, pixmap, mask, 1.0);
-        g_object_unref (pixbuf);
+        g_clear_object (&pixbuf);
       } else {
         message_warning ("%s", error->message);
-        g_error_free (error);
+        g_clear_error (&error);
         *pixmap = gdk_pixmap_colormap_create_from_xpm_d (NULL,
                                                          gtk_widget_get_colormap (parent),
                                                          mask,

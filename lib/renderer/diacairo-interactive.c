@@ -249,7 +249,7 @@ dia_cairo_interactive_renderer_get_text_width (DiaRenderer *object,
     }
     shorter = g_strndup (text, ulen);
     text_line = text_line_new (shorter, font, font_height);
-    g_free (shorter);
+    g_clear_pointer (&shorter, g_free);
   } else {
     text_line = text_line_new (text, font, font_height);
   }
@@ -388,7 +388,7 @@ dia_cairo_interactive_renderer_clip_region_add_rect (DiaInteractiveRenderer *obj
   transform = dia_transform_new (renderer->visible,renderer->zoom_factor);
   dia_transform_coords (transform, rect->left, rect->top, &x1, &y1);
   dia_transform_coords (transform, rect->right, rect->bottom, &x2, &y2);
-  g_object_unref (transform);
+  g_clear_object (&transform);
 
   clip_rect.x = x1;
   clip_rect.y = y1;

@@ -486,8 +486,7 @@ bezierline_create(Point *startpoint,
 static void
 bezierline_destroy(Bezierline *bezierline)
 {
-  g_free (bezierline->bez.object.enclosing_box);
-  bezierline->bez.object.enclosing_box = NULL;
+  g_clear_pointer (&bezierline->bez.object.enclosing_box, g_free);
   bezierconn_destroy(&bezierline->bez);
 }
 

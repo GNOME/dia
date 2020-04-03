@@ -197,18 +197,21 @@ static PropOffset objet_offsets[] = {
   { NULL, 0, 0 },
 };
 
+
 static void
-objet_get_props(Objet * objet, GPtrArray *props)
+objet_get_props (Objet * objet, GPtrArray *props)
 {
-  text_get_attributes(objet->text,&objet->text_attrs);
+  text_get_attributes (objet->text, &objet->text_attrs);
   /* the aligement is _not_ part of the deal */
   objet->text_attrs.alignment = ALIGN_CENTER;
-  if (objet->attrib) g_free(objet->attrib);
-  objet->attrib = text_get_string_copy(objet->attributes);
+  g_clear_pointer (&objet->attrib, g_free);
+  objet->attrib = text_get_string_copy (objet->attributes);
 
-  object_get_props_from_offsets(&objet->element.object,
-                                objet_offsets,props);
+  object_get_props_from_offsets (&objet->element.object,
+                                 objet_offsets,
+                                 props);
 }
+
 
 static void
 objet_set_props(Objet *objet, GPtrArray *props)
@@ -223,8 +226,7 @@ objet_set_props(Objet *objet, GPtrArray *props)
   objet->text_attrs.alignment = ALIGN_LEFT;
   apply_textattr_properties(props,objet->attributes,"attrib",&objet->text_attrs);
   objet->text_attrs.alignment = ALIGN_CENTER;
-  g_free(objet->st_stereotype);
-  objet->st_stereotype = NULL;
+  g_clear_pointer (&objet->st_stereotype, g_free);
   objet_update_data(objet);
 }
 
@@ -516,19 +518,21 @@ objet_create(Point *startpoint,
   return &ob->element.object;
 }
 
+
 static void
-objet_destroy(Objet *ob)
+objet_destroy (Objet *ob)
 {
-  text_destroy(ob->text);
-  text_destroy(ob->attributes);
+  text_destroy (ob->text);
+  text_destroy (ob->attributes);
 
-  g_free(ob->stereotype);
-  g_free(ob->st_stereotype);
-  g_free(ob->exstate);
-  g_free(ob->attrib);
+  g_clear_pointer (&ob->stereotype, g_free);
+  g_clear_pointer (&ob->st_stereotype, g_free);
+  g_clear_pointer (&ob->exstate, g_free);
+  g_clear_pointer (&ob->attrib, g_free);
 
-  element_destroy(&ob->element);
+  element_destroy (&ob->element);
 }
+
 
 static DiaObject *
 objet_load(ObjectNode obj_node, int version,DiaContext *ctx)

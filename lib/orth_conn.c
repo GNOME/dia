@@ -344,7 +344,7 @@ adjust_handle_count_to(OrthConn *orth, gint count) {
     for (i=count-1; i<orth->numhandles-1; i++) {
       Handle *handle = orth->handles[i];
       object_remove_handle(&orth->object,handle);
-      g_free(handle);
+      g_clear_pointer (&handle, g_free);
       orth->handles[i] = NULL;
     }
     orth->handles[count-1] = orth->handles[orth->numhandles-1];
@@ -406,7 +406,7 @@ orthconn_update_data(OrthConn *orth)
 	     new_points[orth->numpoints-1].x, new_points[orth->numpoints-1].y);
       */
     }
-    g_free(points);
+    g_clear_pointer (&points, g_free);
     orth->points = new_points;
   }
 
@@ -549,9 +549,7 @@ orthconn_set_points (OrthConn *orth, int num_points, Point *points)
 
   orth->numpoints = num_points;
 
-  if (orth->points) {
-    g_free (orth->points);
-  }
+  g_clear_pointer (&orth->points, g_free);
 
   orth->points = g_new0 (Point, orth->numpoints);
 
@@ -562,7 +560,7 @@ orthconn_set_points (OrthConn *orth, int num_points, Point *points)
   /* Set up the orientation array. */
   /* Maybe we could get rid of this array altogether? */
   orth->numorient = orth->numpoints-1;
-  if (orth->orientation) g_free(orth->orientation);
+  g_clear_pointer (&orth->orientation, g_free);
   orth->orientation = g_new(Orientation, orth->numorient);
   horiz = (fabs(orth->points[0].y-orth->points[1].y) < 0.00001);
   for (i = 0; i < orth->numorient; i++) {
@@ -619,13 +617,13 @@ orthconn_destroy(OrthConn *orth)
   connpointline_destroy(orth->midpoints);
   object_destroy(&orth->object);
 
-  g_free(orth->points);
-  g_free(orth->orientation);
+  g_clear_pointer (&orth->points, g_free);
+  g_clear_pointer (&orth->orientation, g_free);
 
   for (i=0;i<orth->numpoints-1;i++)
-    g_free(orth->handles[i]);
+    g_clear_pointer (&orth->handles[i], g_free);
 
-  g_free(orth->handles);
+  g_clear_pointer (&orth->handles, g_free);
 }
 
 static void
@@ -953,17 +951,13 @@ endsegment_change_free (struct EndSegmentChange *change)
 {
   if ( (change->type==TYPE_ADD_SEGMENT && !change->applied) ||
        (change->type==TYPE_REMOVE_SEGMENT && change->applied) ){
-    if (change->handle) {
-      g_free (change->handle);
-    }
-    change->handle = NULL;
+    g_clear_pointer (&change->handle, g_free);
   }
   if (change->cplchange) {
     if (change->cplchange->free) {
       change->cplchange->free (change->cplchange);
     }
-    g_free (change->cplchange);
-    change->cplchange = NULL;
+    g_clear_pointer (&change->cplchange, g_free);
   }
 }
 
@@ -1107,25 +1101,20 @@ midsegment_change_free(struct MidSegmentChange *change)
 {
   if ( (change->type==TYPE_ADD_SEGMENT && !change->applied) ||
        (change->type==TYPE_REMOVE_SEGMENT && change->applied) ){
-    if (change->handles[0])
-      g_free(change->handles[0]);
-    change->handles[0] = NULL;
-    if (change->handles[1])
-      g_free(change->handles[1]);
-    change->handles[1] = NULL;
+    g_clear_pointer (&change->handles[0], g_free);
+    g_clear_pointer (&change->handles[1], g_free);
   }
 
   if (change->cplchange[0]) {
     if (change->cplchange[0]->free)
       change->cplchange[0]->free(change->cplchange[0]);
-    g_free(change->cplchange[0]);
-    change->cplchange[0] = NULL;
+    g_clear_pointer (&change->cplchange[0], g_free);
   }
+
   if (change->cplchange[1]) {
     if (change->cplchange[1]->free)
       change->cplchange[1]->free(change->cplchange[1]);
-    g_free(change->cplchange[1]);
-    change->cplchange[1] = NULL;
+    g_clear_pointer (&change->cplchange[1], g_free);
   }
 }
 
@@ -1239,7 +1228,7 @@ midsegment_create_change(OrthConn *orth, enum change_type type,
 static void
 autoroute_change_free(struct AutorouteChange *change)
 {
-  g_free(change->points);
+  g_clear_pointer (&change->points, g_free);
 }
 
 static void

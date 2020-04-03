@@ -109,7 +109,7 @@ attributes_set_values (UMLClassDialog *prop_dialog, UMLAttribute *attr)
   gtk_text_buffer_set_text (prop_dialog->attr_comment_buffer,
                             comment,
                             -1);
-  g_free (comment);
+  g_clear_pointer (&comment, g_free);
 
   dia_option_menu_set_active (DIA_OPTION_MENU (prop_dialog->attr_visible),
                               attr->visibility);

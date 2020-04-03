@@ -287,9 +287,9 @@ dia_diagram_properties_dialog_init (DiaDiagramPropertiesDialog *self)
   uifile = build_ui_filename ("ui/properties-dialog.ui");
   if (!gtk_builder_add_from_file (builder, uifile, &error)) {
     g_warning ("Couldn't load builder file: %s", error->message);
-    g_error_free (error);
+    g_clear_error (&error);
   }
-  g_free (uifile);
+  g_clear_pointer (&uifile, g_free);
 
   notebook = GTK_WIDGET (gtk_builder_get_object (builder, "notebook"));
   gtk_box_pack_start (GTK_BOX (dialog_vbox), notebook, TRUE, TRUE, 0);

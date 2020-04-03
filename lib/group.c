@@ -365,20 +365,17 @@ void
 group_destroy_shallow(DiaObject *obj)
 {
   Group *group = (Group *)obj;
-  if (obj->handles)
-    g_free(obj->handles);
 
-  if (obj->connections)
-    g_free(obj->connections);
+  g_clear_pointer (&obj->handles, g_free);
+  g_clear_pointer (&obj->connections, g_free);
 
   g_list_free(group->objects);
 
   prop_desc_list_free_handler_chain((PropDescription *)group->pdesc);
-  g_free((PropDescription *)group->pdesc);
 
-  g_free (group->matrix);
-
-  g_free(group);
+  g_free ((PropDescription *) group->pdesc);
+  g_clear_pointer (&group->matrix, g_free);
+  g_clear_pointer (&group, g_free);
 }
 
 static void
@@ -392,10 +389,10 @@ group_destroy(Group *group)
      been unconnected and freed. */
   obj->num_connections = 0;
 
-  prop_desc_list_free_handler_chain((PropDescription *)group->pdesc);
-  g_free((PropDescription *)group->pdesc);
+  prop_desc_list_free_handler_chain((PropDescription *) group->pdesc);
 
-  g_free (group->matrix);
+  g_free ((PropDescription *) group->pdesc);
+  g_clear_pointer (&group->matrix, g_free);
 
   object_destroy(obj);
 }
@@ -530,7 +527,7 @@ group_create_with_matrix(GList *objects, DiaMatrix *matrix)
 
   if (dia_matrix_is_identity (matrix)) {
     /* just drop it as it has no effect */
-    g_free (matrix);
+    g_clear_pointer (&matrix, g_free);
     matrix = NULL;
   }
   group->matrix = matrix;
@@ -705,8 +702,8 @@ group_describe_props(Group *group)
 	  /* these are not meant to be saved/loaded with the group */
 	  arr[i].flags |= (PROP_FLAG_DONT_SAVE|PROP_FLAG_OPTIONAL);
 	}
-	g_free ((PropDescription *)group->pdesc);
-	group->pdesc = arr;
+        g_free ((PropDescription *) group->pdesc);
+        group->pdesc = arr;
       }
     }
   }
@@ -897,7 +894,7 @@ group_prop_change_free(GroupPropChange *change)
        tmp = g_list_next(tmp)) {
     ObjectChange *obj_change = (ObjectChange*)tmp->data;
     obj_change->free(obj_change);
-    g_free(obj_change);
+    g_clear_pointer (&obj_change, g_free);
   }
   g_list_free(change->changes_per_object);
 }

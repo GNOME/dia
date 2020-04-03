@@ -170,21 +170,23 @@ dependency_get_props(Dependency * dependency, GPtrArray *props)
                                 dependency_offsets,props);
 }
 
+
 static void
-dependency_set_props(Dependency *dependency, GPtrArray *props)
+dependency_set_props (Dependency *dependency, GPtrArray *props)
 {
-  object_set_props_from_offsets(&dependency->orth.object,
-                                dependency_offsets, props);
-  g_free(dependency->st_stereotype);
-  dependency->st_stereotype = NULL;
-  dependency_update_data(dependency);
+  object_set_props_from_offsets (&dependency->orth.object,
+                                 dependency_offsets, props);
+  g_clear_pointer (&dependency->st_stereotype, g_free);
+  dependency_update_data (dependency);
 }
 
-static real
-dependency_distance_from(Dependency *dep, Point *point)
+
+static double
+dependency_distance_from (Dependency *dep, Point *point)
 {
   OrthConn *orth = &dep->orth;
-  return orthconn_distance_from(orth, point, dep->line_width);
+
+  return orthconn_distance_from (orth, point, dep->line_width);
 }
 
 static void
@@ -444,15 +446,17 @@ dependency_create(Point *startpoint,
   return (DiaObject *)dep;
 }
 
+
 static void
 dependency_destroy (Dependency *dep)
 {
-  g_free (dep->name);
-  g_free (dep->stereotype);
-  g_free (dep->st_stereotype);
+  g_clear_pointer (&dep->name, g_free);
+  g_clear_pointer (&dep->stereotype, g_free);
+  g_clear_pointer (&dep->st_stereotype, g_free);
   g_clear_object (&dep->font);
   orthconn_destroy (&dep->orth);
 }
+
 
 static DiaObject *
 dependency_load(ObjectNode obj_node, int version,DiaContext *ctx)

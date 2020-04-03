@@ -48,44 +48,34 @@ struct _DiaImage {
   cairo_surface_t *surface;
 };
 
+
 G_DEFINE_TYPE (DiaImage, dia_image, G_TYPE_OBJECT)
 
-/*!
- * \brief Destructor
- * \memberof _DiaImage
- */
+
 static void
-dia_image_finalize (GObject* object)
+dia_image_finalize (GObject *object)
 {
-  DiaImage *image = DIA_IMAGE(object);
+  DiaImage *image = DIA_IMAGE (object);
 
-  if (image->scaled) {
-    g_object_unref (image->scaled);
-  }
-  image->scaled = NULL;
+  g_clear_object (&image->scaled);
+  g_clear_object (&image->image);
 
-  if (image->image) {
-    g_object_unref (image->image);
-  }
-  image->image = NULL;
-
-  g_free (image->filename);
-  image->filename = NULL;
-
-  g_free (image->mime_type);
-  image->mime_type = NULL;
+  g_clear_pointer (&image->filename, g_free);
+  g_clear_pointer (&image->mime_type, g_free);
 
   cairo_surface_destroy (image->surface);
   image->surface = NULL;
 }
 
+
 static void
-dia_image_class_init (DiaImageClass* klass)
+dia_image_class_init (DiaImageClass *klass)
 {
-  GObjectClass* object_class = G_OBJECT_CLASS (klass);
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   object_class->finalize = dia_image_finalize;
 }
+
 
 /*!
  * \brief Constructor
@@ -149,7 +139,9 @@ dia_image_load (const gchar *filename)
     if (g_file_test (filename, G_FILE_TEST_EXISTS)) {
       message_warning ("%s\n", error->message);
     }
-    g_error_free (error);
+
+    g_clear_error (&error);
+
     return NULL;
   }
 
@@ -205,6 +197,7 @@ dia_image_add_ref (DiaImage *image)
   g_object_ref (image);
 }
 
+
 /**
  * dia_image_unref:
  * @image: Image to unreference.
@@ -214,9 +207,10 @@ dia_image_add_ref (DiaImage *image)
 void
 dia_image_unref (DiaImage *image)
 {
-  // TODO: Drop
-  g_object_unref (image);
+  // TODO: Drop this func
+  g_clear_object (&image);
 }
+
 
 /*!
  * \brief Create a scaled variant of the underlying pixbuf.
@@ -238,9 +232,7 @@ dia_image_get_scaled_pixbuf (DiaImage *image, int width, int height)
     /* Using TILES to make it look more like PostScript */
     if (image->scaled == NULL ||
         image->scaled_width != width || image->scaled_height != height) {
-      if (image->scaled) {
-        g_object_unref(image->scaled);
-      }
+      g_clear_object (&image->scaled);
       image->scaled = gdk_pixbuf_scale_simple (image->image,
                                                width,
                                                height,
@@ -316,7 +308,7 @@ dia_image_save (DiaImage *image, const gchar *filename)
       saved = gdk_pixbuf_save (image->image, filename, type, &error, NULL);
     }
     if (saved) {
-      g_free (image->filename);
+      g_clear_pointer (&image->filename, g_free);
       image->filename = g_strdup (filename);
     } else if (!type) {
       /* pathologic case - pixbuf not even supporting PNG? */
@@ -326,10 +318,10 @@ dia_image_save (DiaImage *image, const gchar *filename)
       message_warning (_("Could not save file:\n%s\n%s\n"),
                        dia_message_filename(filename),
                        error->message);
-      g_error_free (error);
+      g_clear_error (&error);
     }
 
-    g_free (type);
+    g_clear_pointer (&type, g_free);
   }
   return saved;
 }
@@ -417,7 +409,7 @@ dia_image_get_mime_type (const DiaImage *image)
 void
 dia_image_set_mime_type (DiaImage *image, const gchar *mime_type)
 {
-  g_free (image->mime_type);
+  g_clear_pointer (&image->mime_type, g_free);
 
   image->mime_type = g_strdup (mime_type);
 }

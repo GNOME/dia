@@ -227,6 +227,7 @@ dia_cairo_renderer_is_capable_to (DiaRenderer      *renderer,
   return FALSE;
 }
 
+
 /*!
  * \brief Remember the given pattern to use for consecutive fill
  * @param self explicit this pointer
@@ -237,18 +238,10 @@ dia_cairo_renderer_set_pattern (DiaRenderer *self,
                                 DiaPattern  *pattern)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
-  DiaPattern *prev = renderer->pattern;
 
-  if (pattern) {
-    renderer->pattern = g_object_ref (pattern);
-  } else {
-    renderer->pattern = pattern;
-  }
-
-  if (prev) {
-    g_object_unref (prev);
-  }
+  g_set_object (&renderer->pattern, pattern);
 }
+
 
 static gboolean
 _add_color_stop (real ofs, const Color *col, gpointer user_data)
@@ -1259,10 +1252,8 @@ cairo_renderer_finalize (GObject *object)
   if (renderer->surface) {
     cairo_surface_destroy (renderer->surface);
   }
-  if (renderer->layout) {
-    g_object_unref (renderer->layout);
-  }
 
+  g_clear_object (&renderer->layout);
   g_clear_object (&renderer->font);
 
   G_OBJECT_CLASS (dia_cairo_renderer_parent_class)->finalize (object);

@@ -24,20 +24,24 @@
 
 #include <structmember.h> /* PyMemberDef */
 
+
 /*
  * New
  */
-PyObject* PyDiaPaperinfo_New (const PaperInfo *paper)
+PyObject *
+PyDiaPaperinfo_New (const PaperInfo *paper)
 {
   PyDiaPaperinfo *self;
-  
-  self = PyObject_NEW(PyDiaPaperinfo, &PyDiaPaperinfo_Type);
+
+  self = PyObject_NEW (PyDiaPaperinfo, &PyDiaPaperinfo_Type);
+
   if (!self) return NULL;
-  
+
   self->paper = paper;
 
   return (PyObject *)self;
 }
+
 
 /*
  * Dealloc
@@ -68,14 +72,15 @@ PyDiaPaperinfo_Hash(PyObject *self)
   return (long)self;
 }
 
+
 /*
  * GetAttr
  */
 static PyObject *
-PyDiaPaperinfo_GetAttr(PyDiaPaperinfo *self, gchar *attr)
+PyDiaPaperinfo_GetAttr(PyDiaPaperinfo *self, char *attr)
 {
   if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[sssss]", "name", "is_portrait", 
+    return Py_BuildValue("[sssss]", "name", "is_portrait",
                                     "scaling",
                                     "width", "height");
   else if (!strcmp(attr, "name"))
@@ -93,6 +98,7 @@ PyDiaPaperinfo_GetAttr(PyDiaPaperinfo *self, gchar *attr)
   return NULL;
 }
 
+
 /*
  * Repr / _Str
  */
@@ -100,14 +106,16 @@ static PyObject *
 PyDiaPaperinfo_Str(PyDiaPaperinfo *self)
 {
   PyObject* py_s;
-  gchar* s = g_strdup_printf("%s - %fx%f %f%%",
-                             self->paper->name ? self->paper->name : "(null)", 
-			     self->paper->width, self->paper->height,
-			     self->paper->scaling);
-  py_s = PyString_FromString(s);
-  g_free (s);
+  char* s = g_strdup_printf ("%s - %fx%f %f%%",
+                             self->paper->name ? self->paper->name : "(null)",
+                             self->paper->width,
+                             self->paper->height,
+                             self->paper->scaling);
+  py_s = PyString_FromString (s);
+  g_clear_pointer (&s, g_free);
   return py_s;
 }
+
 
 #define T_INVALID -1 /* can't allow direct access due to pyobject->paper indirection */
 static PyMemberDef PyDiaPaperinfo_Members[] = {

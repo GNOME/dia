@@ -56,7 +56,7 @@ struct _Message {
 
   Handle text_handle;
 
-  gchar *text;
+  char *text;
   Point text_pos;
   real text_width;
 
@@ -259,7 +259,7 @@ message_draw (Message *message, DiaRenderer *renderer)
   Point *endpoints, p1, p2;
   Arrow arrow;
   int n1 = 1, n2 = 0;
-  gchar *mname = g_strdup (message->text);
+  char *mname = g_strdup (message->text);
 
   /* some asserts */
   assert(message != NULL);
@@ -302,7 +302,7 @@ message_draw (Message *message, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer, mname, &message->text_pos, ALIGN_CENTER, &color_black);
   }
 
-  if (mname) g_free (mname);
+  g_clear_pointer (&mname, g_free);
 }
 
 /* creation here */
@@ -372,7 +372,7 @@ message_destroy(Message *message)
 {
   connection_destroy(&message->connection);
 
-  g_free(message->text);
+  g_clear_pointer (&message->text, g_free);
 }
 
 static void

@@ -305,7 +305,7 @@ sheets_dialog_object_set_tooltip (SheetObjectMod *som, GtkWidget *button)
   }
 
   gtk_widget_set_tooltip_text (button, tip);
-  g_free (tip);
+  g_clear_pointer (&tip, g_free);
 }
 
 static GtkWidget *
@@ -754,14 +754,14 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
       if (strcmp (p, ".shape")) {
         message_error (_("Filename must end with '%s': '%s'"),
                        ".shape", dia_message_filename (file_name));
-        g_free (file_name);
+        g_clear_pointer (&file_name, g_free);
         return;
       }
 
       if (g_stat (file_name, &stat_buf) == -1) {
         message_error (_("Error examining %s: %s"),
                          dia_message_filename (file_name), strerror (errno));
-        g_free (file_name);
+        g_clear_pointer (&file_name, g_free);
         return;
       }
 
@@ -793,7 +793,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
         }
         message_error (_("Could not interpret shape file: '%s'"),
                         dia_message_filename (file_name));
-        g_free(file_name);
+        g_clear_pointer (&file_name, g_free);
         return;
       }
       object_register_type (ot);
@@ -1558,21 +1558,21 @@ write_user_sheet (Sheet *sheet)
     basename = g_strdelimit (basename, G_STR_DELIMITERS G_DIR_SEPARATOR_S, '_');
     filename = g_strdup_printf ("%s%s%s.sheet", dir_user_sheets,
                                 G_DIR_SEPARATOR_S, basename);
-    g_free (basename);
+    g_clear_pointer (&basename, g_free);
   } else {
     gchar *basename;
 
     basename = g_path_get_basename (sheet->filename);
     filename = g_strdup_printf ("%s%s%s", dir_user_sheets,
                                 G_DIR_SEPARATOR_S, basename);
-    g_free (basename);
+    g_clear_pointer (&basename, g_free);
   }
   file = g_fopen (filename, "w");
 
   if (file == NULL) {
     message_error (_("Couldn't open: '%s' for writing"),
                    dia_message_filename(filename));
-    g_free(filename);
+    g_clear_pointer (&filename, g_free);
     return FALSE;
   }
   fclose (file);
@@ -1643,17 +1643,17 @@ write_user_sheet (Sheet *sheet)
 
       basename = g_path_get_basename (som->svg_filename);
       dest = g_strdup_printf ("%s%s%s", dia_user_shapes, G_DIR_SEPARATOR_S, basename);
-      g_free (basename);
+      g_clear_pointer (&basename, g_free);
       copy_file (som->svg_filename, dest);
-      g_free (dest);
+      g_clear_pointer (&dest, g_free);
 
       /* avoid crashing when there is no icon */
       if (som->sheet_object.pixmap_file) {
         basename = g_path_get_basename (som->sheet_object.pixmap_file);
         dest = g_strdup_printf ("%s%s%s", dia_user_shapes, G_DIR_SEPARATOR_S, basename);
-        g_free (basename);
+        g_clear_pointer (&basename, g_free);
         copy_file (som->sheet_object.pixmap_file, dest);
-        g_free (dest);
+        g_clear_pointer (&dest, g_free);
       }
     }
 
@@ -1667,7 +1667,7 @@ write_user_sheet (Sheet *sheet)
 
       user_data = g_strdup_printf ("%u", GPOINTER_TO_UINT (sheetobject->user_data));
       xmlSetProp (object_node, (const xmlChar *) "intdata", (xmlChar *) user_data);
-      g_free (user_data);
+      g_clear_pointer (&user_data, g_free);
     }
 
     xmlAddChild (object_node, xmlNewText ((const xmlChar *) "\n"));
@@ -1695,9 +1695,9 @@ write_user_sheet (Sheet *sheet)
       }
       xmlAddChild (icon_node, xmlNewText ((xmlChar *) icon));
       xmlAddChild (object_node, xmlNewText ((const xmlChar *) "\n"));
-      g_free (canonical_icon);
-      g_free (canonical_user_sheets);
-      g_free (canonical_sheets);
+      g_clear_pointer (&canonical_icon, g_free);
+      g_clear_pointer (&canonical_user_sheets, g_free);
+      g_clear_pointer (&canonical_sheets, g_free);
     }
   }
   xmlSetDocCompressMode (doc, 0);

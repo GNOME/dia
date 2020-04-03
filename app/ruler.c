@@ -119,7 +119,9 @@ dia_ruler_draw (GtkWidget *widget,
         cairo_restore (cr);
       }
     }
-    g_object_unref (layout);
+
+    g_clear_object (&layout);
+
     /* arrow */
     if (ruler->position > ruler->lower && ruler->position < ruler->upper) {
       real r_pos = ruler->position;
@@ -237,13 +239,14 @@ dia_ruler_new (GtkOrientation orientation, GtkWidget *shell, DDisplay *ddisp)
   GtkWidget *rule = g_object_new (DIA_TYPE_RULER, NULL);
   /* calculate from style settings  */
   PangoLayout *layout = gtk_widget_create_pango_layout (shell, "X");
-  gint height;
+  int height;
+
   pango_layout_get_pixel_size (layout, NULL, &height);
   gtk_widget_set_size_request (rule, height, height);
-  g_object_unref (layout);
+  g_clear_object (&layout);
 
-  DIA_RULER(rule)->orientation = orientation;
-  DIA_RULER(rule)->ddisp = ddisp;
+  DIA_RULER (rule)->orientation = orientation;
+  DIA_RULER (rule)->ddisp = ddisp;
 
   gtk_widget_set_events (rule, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK);
 

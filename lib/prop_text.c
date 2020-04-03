@@ -78,8 +78,8 @@ stringprop_copy(StringProperty *src)
 static void
 stringprop_free(StringProperty *prop)
 {
-  g_free(prop->string_data);
-  g_free(prop);
+  g_clear_pointer (&prop->string_data, g_free);
+  g_clear_pointer (&prop, g_free);
 }
 
 static GtkWidget *
@@ -101,7 +101,7 @@ stringprop_reset_widget(StringProperty *prop, GtkWidget *widget)
 static void
 stringprop_set_from_widget(StringProperty *prop, GtkWidget *widget)
 {
-  g_free(prop->string_data);
+  g_clear_pointer (&prop->string_data, g_free);
   prop->string_data =
     g_strdup (gtk_entry_get_text (GTK_ENTRY(widget)));
 }
@@ -149,7 +149,7 @@ multistringprop_set_from_widget(StringProperty *prop, GtkWidget *widget) {
   GtkTextIter start, end;
   gtk_text_buffer_get_start_iter(buffer, &start);
   gtk_text_buffer_get_end_iter(buffer, &end);
-  g_free(prop->string_data);
+  g_clear_pointer (&prop->string_data, g_free);
   prop->string_data =
     g_strdup (gtk_text_buffer_get_text (buffer, &start, &end, TRUE));
 }
@@ -174,7 +174,7 @@ fileprop_reset_widget(StringProperty *prop, GtkWidget *widget)
 static void
 fileprop_set_from_widget(StringProperty *prop, GtkWidget *widget)
 {
-  g_free(prop->string_data);
+  g_clear_pointer (&prop->string_data, g_free);
   prop->string_data =
     g_strdup(dia_file_selector_get_file(DIAFILESELECTOR(widget)));
 }
@@ -182,7 +182,7 @@ fileprop_set_from_widget(StringProperty *prop, GtkWidget *widget)
 static void
 stringprop_load(StringProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  g_free(prop->string_data);
+  g_clear_pointer (&prop->string_data, g_free);
   prop->string_data = data_string(data, ctx);
   if (prop->string_data == NULL) {
     prop->string_data = g_strdup("");
@@ -196,20 +196,26 @@ stringprop_save(StringProperty *prop, AttributeNode attr, DiaContext *ctx)
 }
 
 static void
-stringprop_get_from_offset(StringProperty *prop,
-                           void *base, guint offset, guint offset2)
+stringprop_get_from_offset (StringProperty *prop,
+                            void           *base,
+                            guint           offset,
+                            guint           offset2)
 {
-  g_free(prop->string_data);
-  prop->string_data = g_strdup(struct_member(base,offset,gchar *));
+  g_clear_pointer (&prop->string_data, g_free);
+  prop->string_data = g_strdup (struct_member (base, offset, char *));
 }
 
+
 static void
-stringprop_set_from_offset(StringProperty *prop,
-                           void *base, guint offset, guint offset2)
+stringprop_set_from_offset (StringProperty *prop,
+                            void           *base,
+                            guint           offset,
+                            guint           offset2)
 {
-  g_free(struct_member(base,offset,gchar *));
-  struct_member(base,offset,gchar *) = g_strdup(prop->string_data);
+  g_clear_pointer (&struct_member(base, offset, char *), g_free);
+  struct_member (base, offset, char *) = g_strdup (prop->string_data);
 }
+
 
 static int
 stringprop_get_data_size(StringProperty *prop)
@@ -231,7 +237,7 @@ stringlistprop_free(StringListProperty *prop)
 {
   g_list_foreach(prop->string_list, (GFunc)g_free, NULL);
   g_list_free(prop->string_list);
-  g_free(prop);
+  g_clear_pointer (&prop, g_free);
 }
 
 static StringListProperty *
@@ -388,15 +394,15 @@ static void
 textprop_free (TextProperty *prop)
 {
   g_clear_object (&prop->attr.font);
-  g_free (prop->text_data);
-  g_free (prop);
+  g_clear_pointer (&prop->text_data, g_free);
+  g_clear_pointer (&prop, g_free);
 }
 
 static void
 textprop_load(TextProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   Text *text;
-  g_free(prop->text_data);
+  g_clear_pointer (&prop->text_data, g_free);
   text = data_text(data, ctx);
   text_get_attributes(text,&prop->attr);
   prop->text_data = text_get_string_copy(text);
@@ -421,7 +427,7 @@ textprop_get_from_offset(TextProperty *prop,
                          void *base, guint offset, guint offset2)
 {
   Text *text = struct_member(base,offset,Text *);
-  g_free(prop->text_data);
+  g_clear_pointer (&prop->text_data, g_free);
   prop->text_data = text_get_string_copy(text);
   text_get_attributes(text,&prop->attr);
 }

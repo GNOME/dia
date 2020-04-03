@@ -24,20 +24,24 @@
 
 #include <structmember.h> /* PyMemberDef */
 
+
 /*
  * New
  */
-PyObject* PyDiaMenuitem_New (const DiaMenuItem *menuitem)
+PyObject *
+PyDiaMenuitem_New (const DiaMenuItem *menuitem)
 {
   PyDiaMenuitem *self;
-  
-  self = PyObject_NEW(PyDiaMenuitem, &PyDiaMenuitem_Type);
+
+  self = PyObject_NEW (PyDiaMenuitem, &PyDiaMenuitem_Type);
+
   if (!self) return NULL;
-  
+
   self->menuitem = menuitem;
 
   return (PyObject *)self;
 }
+
 
 /*
  * Dealloc
@@ -97,7 +101,7 @@ PyDiaMenuitem_Call(PyDiaMenuitem *self, PyObject *args)
   if (!PyArg_ParseTuple(args, "O!(dd)|ii:Menuitem.callback",
                         &PyDiaObject_Type, &obj, &clicked.x, &clicked.y))
     return NULL;
-    
+
   mi = self->menuitem;
 
   oc = mi->callback (obj, &clicked, mi->callback_data);
@@ -105,7 +109,7 @@ PyDiaMenuitem_Call(PyDiaMenuitem *self, PyObject *args)
   if (oc) {
     if (oc->free)
       oc->free(oc);
-    g_free (oc);
+    g_clear_pointer (&oc, g_free);
   }
 
   Py_INCREF(Py_None);
@@ -118,13 +122,13 @@ static PyObject *
 PyDiaMenuitem_Str(PyDiaMenuitem *self)
 {
   PyObject* py_s;
-  gchar* s = g_strdup_printf("%s - %s,%s,%s",
-                             self->menuitem->text, 
-			     self->menuitem->active & DIAMENU_ACTIVE ? "active" : "inactive",
-			     self->menuitem->active & DIAMENU_TOGGLE ? "toggle" : "",
-			     self->menuitem->active & DIAMENU_TOGGLE_ON ? "on" : "");
-  py_s = PyString_FromString(s);
-  g_free (s);
+  gchar* s = g_strdup_printf ("%s - %s,%s,%s",
+                              self->menuitem->text,
+                              self->menuitem->active & DIAMENU_ACTIVE ? "active" : "inactive",
+                              self->menuitem->active & DIAMENU_TOGGLE ? "toggle" : "",
+                              self->menuitem->active & DIAMENU_TOGGLE_ON ? "on" : "");
+  py_s = PyString_FromString (s);
+  g_clear_pointer (&s, g_free);
   return py_s;
 }
 

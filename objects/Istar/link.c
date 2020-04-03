@@ -455,7 +455,7 @@ link_draw (Link *link, DiaRenderer *renderer)
 {
   Point *endpoints, p1, p2, pa;
   Arrow arrow;
-  gchar *annot;
+  char *annot;
   double w;
   BezPoint bpl[4];
 
@@ -520,7 +520,7 @@ link_draw (Link *link, DiaRenderer *renderer)
   if ((annot != NULL) && strlen (annot) != 0) {
     dia_renderer_draw_string (renderer, annot, &pa, ALIGN_CENTER, &color_black);
   }
-  if (annot!=NULL) g_free(annot);
+  g_clear_pointer (&annot, g_free);
 
   /** special stuff for dependency **/
   if (link->type == DEPENDENCY) {

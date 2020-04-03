@@ -51,7 +51,7 @@ umlclass_dialog_free (UMLClassDialog *dialog)
 {
   g_list_free(dialog->deleted_connections);
   gtk_widget_destroy(dialog->dialog);
-  /* destroy-signal destroy_properties_dialog already does 'g_free(dialog);' and more */
+  /* destroy-signal destroy_properties_dialog already does 'g_clear_pointer (&dialog, g_free);' and more */
 }
 
 typedef struct _Disconnect {
@@ -193,10 +193,9 @@ _class_set_comment (GtkTextView *view, gchar *text)
 static void
 class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
 {
-  const gchar *s;
+  const char *s;
 
-  if (umlclass->name != NULL)
-    g_free(umlclass->name);
+  g_clear_pointer (&umlclass->name, g_free);
 
   s = gtk_entry_get_text (prop_dialog->classname);
   if (s && s[0])
@@ -204,8 +203,7 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   else
     umlclass->name = NULL;
 
-  if (umlclass->stereotype != NULL)
-    g_free(umlclass->stereotype);
+  g_clear_pointer (&umlclass->stereotype, g_free);
 
   s = gtk_entry_get_text(prop_dialog->stereotype);
   if (s && s[0])
@@ -213,8 +211,7 @@ class_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog)
   else
     umlclass->stereotype = NULL;
 
-  if (umlclass->comment != NULL)
-    g_free (umlclass->comment);
+  g_clear_pointer (&umlclass->comment, g_free);
 
   s = _class_get_comment(prop_dialog->comment);
   if (s && s[0])
@@ -573,8 +570,7 @@ destroy_properties_dialog (GtkWidget* widget,
   /* dialog gone, mark as such */
   UMLClass *umlclass = (UMLClass *) user_data;
 
-  g_free (umlclass->properties_dialog);
-  umlclass->properties_dialog = NULL;
+  g_clear_pointer (&umlclass->properties_dialog, g_free);
 }
 
 
@@ -747,9 +743,9 @@ umlclass_free_state (UMLClassState *state)
   g_clear_object (&state->abstract_classname_font);
   g_clear_object (&state->comment_font);
 
-  g_free (state->name);
-  g_free (state->stereotype);
-  g_free (state->comment);
+  g_clear_pointer (&state->name, g_free);
+  g_clear_pointer (&state->stereotype, g_free);
+  g_clear_pointer (&state->comment, g_free);
 
   g_list_free_full (state->attributes, (GDestroyNotify) uml_attribute_unref);
   g_list_free_full (state->operations, (GDestroyNotify) uml_operation_unref);
@@ -932,18 +928,12 @@ umlclass_set_state(UMLClass *umlclass, UMLClassState *state)
   umlclass->comment_font_height = state->comment_font_height;
 
   /* transfer ownership, but don't leak the previous font */
-  g_object_unref (umlclass->normal_font);
-  umlclass->normal_font = state->normal_font;
-  g_object_unref (umlclass->abstract_font);
-  umlclass->abstract_font = state->abstract_font;
-  g_object_unref (umlclass->polymorphic_font);
-  umlclass->polymorphic_font = state->polymorphic_font;
-  g_object_unref (umlclass->classname_font);
-  umlclass->classname_font = state->classname_font;
-  g_object_unref (umlclass->abstract_classname_font);
-  umlclass->abstract_classname_font = state->abstract_classname_font;
-  g_object_unref (umlclass->comment_font);
-  umlclass->comment_font = state->comment_font;
+  g_set_object (&umlclass->normal_font, state->normal_font);
+  g_set_object (&umlclass->abstract_font, state->abstract_font);
+  g_set_object (&umlclass->polymorphic_font, state->polymorphic_font);
+  g_set_object (&umlclass->classname_font, state->classname_font);
+  g_set_object (&umlclass->abstract_classname_font, state->abstract_classname_font);
+  g_set_object (&umlclass->comment_font, state->comment_font);
 
   umlclass->name = state->name;
   umlclass->stereotype = state->stereotype;
@@ -970,7 +960,7 @@ umlclass_set_state(UMLClass *umlclass, UMLClassState *state)
   umlclass->template = state->template;
   umlclass->formal_params = state->formal_params;
 
-  g_free(state);
+  g_clear_pointer (&state, g_free);
 
   umlclass_update_connectionpoints(umlclass);
 
@@ -1030,7 +1020,7 @@ umlclass_change_free(UMLClassChange *change)
   GList *list, *free_list;
 
   umlclass_free_state(change->saved_state);
-  g_free(change->saved_state);
+  g_clear_pointer (&change->saved_state, g_free);
 
   /* Doesn't this mean only one of add, delete can be done in each apply? */
   if (change->applied)
@@ -1044,7 +1034,7 @@ umlclass_change_free(UMLClassChange *change)
 
     g_assert(connection->connected == NULL); /* Paranoid */
     object_remove_connections_to(connection); /* Shouldn't be needed */
-    g_free(connection);
+    g_clear_pointer (&connection, g_free);
 
     list = g_list_next(list);
   }

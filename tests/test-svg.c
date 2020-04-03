@@ -106,25 +106,28 @@ _check_one_path (gconstpointer _p)
 
   g_array_free (points, TRUE);
 }
+
+
 static void
 _add_path_tests (void)
 {
-  int i, num = sizeof(_test_path)/sizeof(PathData);
-  
-  for (i = 0; i < num; ++i)
-    {
-      gchar *testpath = g_strdup_printf ("/Dia/svg/test-path%d", i);
+  int i, num = sizeof (_test_path) / sizeof (PathData);
 
-      g_test_add_data_func (testpath, &_test_path[i], _check_one_path);
+  for (i = 0; i < num; ++i) {
+    char *testpath = g_strdup_printf ("/Dia/svg/test-path%d", i);
 
-      g_free (testpath);
-    }
+    g_test_add_data_func (testpath, &_test_path[i], _check_one_path);
+
+    g_clear_pointer (&testpath, g_free);
+  }
 }
+
+
 int
 main (int argc, char** argv)
 {
   int ret;
-  
+
   g_test_init (&argc, &argv, NULL);
 
   libdia_init (DIA_MESSAGE_STDERR);

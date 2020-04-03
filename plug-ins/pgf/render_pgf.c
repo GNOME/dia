@@ -1322,7 +1322,7 @@ draw_string (DiaRenderer *self,
             pgf_dtostr (px_buf,pos->x),
             pgf_dtostr (py_buf,pos->y),
             escaped);
-  g_free (escaped);
+  g_clear_pointer (&escaped, g_free);
 }
 
 static void
@@ -1405,11 +1405,11 @@ export_pgf(DiagramData *data, DiaContext *ctx,
     initial_color.blue=1.;
     set_fill_color(renderer,&initial_color);
 
-    data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+  data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
-    g_object_unref(renderer);
+  g_clear_object (&renderer);
 
-    return TRUE;
+  return TRUE;
 }
 
 static const gchar *extensions[] = { "tex", NULL };

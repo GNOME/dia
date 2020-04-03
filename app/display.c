@@ -73,54 +73,56 @@ update_zoom_status (DDisplay *ddisp)
                         zoom_text);
   }
 
-  g_free (zoom_text); /* Copied by gtk_entry_set_text */
+  g_clear_pointer (&zoom_text, g_free); /* Copied by gtk_entry_set_text */
 }
 
+
 static void
-selection_changed (Diagram* dia, int n, DDisplay* ddisp)
+selection_changed (Diagram *dia, int n, DDisplay *ddisp)
 {
   GtkStatusbar *statusbar;
   guint context_id;
 
   /* nothing to do if there is no display with the diagram anymore */
-  if (g_slist_length(dia->displays) < 1)
+  if (g_slist_length (dia->displays) < 1) {
     return;
+  }
 
   statusbar = GTK_STATUSBAR (ddisp->modified_status);
   context_id = gtk_statusbar_get_context_id (statusbar, "Selection");
 
-  if (n > 1)
-  {
-    gchar *msg;
-
+  if (n > 1) {
     /* http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
      * Althoug the single objects wont get triggered here some languages have variations on the other numbers
      */
-    msg = g_strdup_printf (ngettext ("Selection of %d object", "Selection of %d objects", n), n);
+    char *msg = g_strdup_printf (ngettext ("Selection of %d object",
+                                           "Selection of %d objects",
+                                           n),
+                                 n);
+
     gtk_statusbar_pop (statusbar, context_id);
     gtk_statusbar_push (statusbar, context_id, msg);
-    g_free (msg);
-  }
-  else if (n == 1)
-  {
+
+    g_clear_pointer (&msg, g_free);
+  } else if (n == 1) {
     /* find the selected objects name - and display it */
-    DiaObject *object = (DiaObject *)ddisp->diagram->data->selected->data;
-    gchar *name = object_get_displayname (object);
-    gchar *msg = g_strdup_printf (_("Selected '%s'"), _(name));
+    DiaObject *object = (DiaObject *) ddisp->diagram->data->selected->data;
+    char *name = object_get_displayname (object);
+    char *msg = g_strdup_printf (_("Selected '%s'"), _(name));
 
     gtk_statusbar_pop (statusbar, context_id);
     gtk_statusbar_push (statusbar, context_id, msg);
 
-    g_free (name);
-    g_free (msg);
-  }
-  else
-  {
+    g_clear_pointer (&name, g_free);
+    g_clear_pointer (&msg, g_free);
+  } else {
     gtk_statusbar_pop (statusbar, context_id);
   }
+
   /* selection-changed signal can also be emitted from outside of the dia core */
   ddisplay_do_update_menu_sensitivity (ddisp);
 }
+
 
 /** Initialize the various GTK-level thinks in a display after the internal
  *  data has been set.
@@ -377,15 +379,10 @@ ddisplay_add_update_pixels (DDisplay *ddisp,
 static void
 ddisplay_free_update_areas (DDisplay *ddisp)
 {
-  GSList *l;
-  l = ddisp->update_areas;
-  while(l!=NULL) {
-    g_free(l->data);
-    l = g_slist_next(l);
-  }
-  g_slist_free(ddisp->update_areas);
+  g_slist_free_full (ddisp->update_areas, g_free);
   ddisp->update_areas = NULL;
 }
+
 
 /** Marks the entire visible area for update.
  * Throws out old updates, since everything will be updated anyway.
@@ -1151,8 +1148,7 @@ ddisp_destroy (DDisplay *ddisp)
 {
   g_signal_handlers_disconnect_by_func (ddisp->diagram, selection_changed, ddisp);
 
-  g_object_unref (G_OBJECT (ddisp->im_context));
-  ddisp->im_context = NULL;
+  g_clear_object (&ddisp->im_context);
 
   ddisplay_im_context_preedit_reset (ddisp, get_active_focus ((DiagramData *) ddisp->diagram));
 
@@ -1324,10 +1320,9 @@ ddisplay_do_update_menu_sensitivity (DDisplay *ddisp)
 }
 
 
-
 /* This is called when ddisp->shell is destroyed... */
 void
-ddisplay_really_destroy(DDisplay *ddisp)
+ddisplay_really_destroy (DDisplay *ddisp)
 {
   if (active_display == ddisp)
     display_set_active(NULL);
@@ -1343,7 +1338,7 @@ ddisplay_really_destroy(DDisplay *ddisp)
   /* Free update_areas list: */
   ddisplay_free_update_areas(ddisp);
 
-  g_free(ddisp);
+  g_clear_pointer (&ddisp, g_free);
 }
 
 
@@ -1369,7 +1364,7 @@ ddisplay_set_title(DDisplay  *ddisp, char *title)
         /* not using the passed in title here, because it may be too long */
         gchar *name = diagram_get_name(ddisp->diagram);
         gtk_label_set_text(label,name);
-        g_free(name);
+        g_clear_pointer (&name, g_free);
         break;
       }
     }
@@ -1378,13 +1373,14 @@ ddisplay_set_title(DDisplay  *ddisp, char *title)
       const gchar *pname = g_get_prgname();
       gchar *fulltitle = g_strdup_printf ("%s - %s", title, pname ? pname : "Dia");
       gtk_window_set_title (GTK_WINDOW (ddisp->shell), fulltitle);
-      g_free(fulltitle);
+      g_clear_pointer (&fulltitle, g_free);
     }
   }
 }
 
+
 void
-ddisplay_set_all_cursor(GdkCursor *cursor)
+ddisplay_set_all_cursor (GdkCursor *cursor)
 {
   Diagram *dia;
   DDisplay *ddisp;
@@ -1578,13 +1574,10 @@ ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus)
       }
     }
 
-    g_free(ddisp->preedit_string);
-    ddisp->preedit_string = NULL;
+    g_clear_pointer (&ddisp->preedit_string, g_free);
   }
-  if (ddisp->preedit_attrs != NULL) {
-    pango_attr_list_unref(ddisp->preedit_attrs);
-    ddisp->preedit_attrs = NULL;
-  }
+
+  g_clear_pointer (&ddisp->preedit_attrs, pango_attr_list_unref);
 }
 
 /** Get the active focus for the given display, or NULL.

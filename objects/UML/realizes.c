@@ -164,23 +164,26 @@ realizes_get_props(Realizes * realizes, GPtrArray *props)
                                 realizes_offsets,props);
 }
 
+
 static void
-realizes_set_props(Realizes *realizes, GPtrArray *props)
+realizes_set_props (Realizes *realizes, GPtrArray *props)
 {
-  object_set_props_from_offsets(&realizes->orth.object,
-                                realizes_offsets, props);
-  g_free(realizes->st_stereotype);
-  realizes->st_stereotype = NULL;
+  object_set_props_from_offsets (&realizes->orth.object,
+                                 realizes_offsets,
+                                 props);
+  g_clear_pointer (&realizes->st_stereotype, g_free);
   realizes_update_data(realizes);
 }
 
 
-static real
-realizes_distance_from(Realizes *realize, Point *point)
+static double
+realizes_distance_from (Realizes *realize, Point *point)
 {
   OrthConn *orth = &realize->orth;
-  return orthconn_distance_from(orth, point, realize->line_width);
+
+  return orthconn_distance_from (orth, point, realize->line_width);
 }
+
 
 static void
 realizes_select(Realizes *realize, Point *clicked_point,
@@ -440,15 +443,17 @@ realizes_create(Point *startpoint,
   return &realize->orth.object;
 }
 
+
 static void
 realizes_destroy (Realizes *realize)
 {
-  g_free (realize->name);
-  g_free (realize->stereotype);
-  g_free (realize->st_stereotype);
+  g_clear_pointer (&realize->name, g_free);
+  g_clear_pointer (&realize->stereotype, g_free);
+  g_clear_pointer (&realize->st_stereotype, g_free);
   g_clear_object (&realize->font);
   orthconn_destroy (&realize->orth);
 }
+
 
 static DiaObject *
 realizes_load(ObjectNode obj_node, int version,DiaContext *ctx)

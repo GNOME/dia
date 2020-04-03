@@ -225,7 +225,7 @@ PyDiaLayer_Render (PyDiaLayer *self, PyObject *args)
                     NULL, /* no special object renderer */
                     NULL, /* no user data */
                     active);
-  g_object_unref (wrapper);
+  g_clear_object (&wrapper);
 
   Py_INCREF (Py_None);
   return Py_None;

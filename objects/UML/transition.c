@@ -41,11 +41,11 @@ struct _Transition {
 
   Handle trigger_text_handle;
   Point trigger_text_pos;
-  gchar *trigger_text;
-  gchar *action_text;
+  char *trigger_text;
+  char *action_text;
   Handle guard_text_handle;
   Point guard_text_pos;
-  gchar *guard_text;
+  char *guard_text;
   gboolean direction_inverted;
 };
 
@@ -291,11 +291,11 @@ transition_describe_props (Transition *transition)
 
 
 static void
-transition_destroy(Transition* transition)
+transition_destroy (Transition* transition)
 {
-  g_free (transition->trigger_text);
-  g_free (transition->action_text);
-  g_free (transition->guard_text);
+  g_clear_pointer (&transition->trigger_text, g_free);
+  g_clear_pointer (&transition->action_text, g_free);
+  g_clear_pointer (&transition->guard_text, g_free);
   orthconn_destroy (&transition->orth);
 }
 
@@ -317,10 +317,10 @@ transition_get_object_menu (Transition *transition, Point *clickedpoint)
 }
 
 
-static gchar *
+static char *
 create_event_action_text (Transition* transition)
 {
-  gchar *temp_text;
+  char *temp_text;
 
   if (transition->action_text && strlen (transition->action_text) != 0) {
     temp_text = g_strdup_printf ("%s/%s", transition->trigger_text,
@@ -334,12 +334,10 @@ create_event_action_text (Transition* transition)
 }
 
 
-static gchar *
+static char *
 create_guard_text (Transition* transition)
 {
-  gchar *temp_text;
-  temp_text = g_strdup_printf ("[%s]", transition->guard_text);
-  return temp_text;
+  return g_strdup_printf ("[%s]", transition->guard_text);
 }
 
 
@@ -394,29 +392,29 @@ transition_draw (Transition *transition, DiaRenderer *renderer)
 
   /* Draw the guard text */
   if (transition->guard_text && strlen (transition->guard_text) != 0) {
-    gchar *text = create_guard_text (transition);
+    char *text = create_guard_text (transition);
     dia_renderer_draw_string (renderer,
                               text,
                               &transition->guard_text_pos,
                               ALIGN_CENTER,
                               &transition->text_color);
-    g_free (text);
+    g_clear_pointer (&text, g_free);
   }
 
   /* Draw the trigger text */
   if (transition->trigger_text && strlen (transition->trigger_text) != 0) {
-    gchar *text = create_event_action_text (transition);
+    char *text = create_event_action_text (transition);
     dia_renderer_draw_string (renderer,
                               text,
                               &transition->trigger_text_pos,
                               ALIGN_CENTER,
                               &transition->text_color);
-    g_free (text);
+    g_clear_pointer (&text, g_free);
   }
 }
 
 
-static real
+static double
 transition_distance (Transition *transition, Point *point)
 {
   return orthconn_distance_from (&transition->orth, point, TRANSITION_WIDTH);
@@ -561,10 +559,10 @@ transition_del_segment_cb (DiaObject *obj,
 static void
 expand_bbox_for_text (DiaRectangle *bbox,
                       Point        *text_pos,
-                      gchar        *text)
+                      char         *text)
 {
   DiaRectangle text_box;
-  real text_width;
+  double text_width;
 
   text_width = dia_font_string_width (text, transition_font,
                                       TRANSITION_FONTHEIGHT);
@@ -580,7 +578,7 @@ expand_bbox_for_text (DiaRectangle *bbox,
 static void
 uml_transition_update_data (Transition *transition)
 {
-  gchar *temp_text;
+  char *temp_text;
   Point *points;
 
   /* Setup helpful pointers as shortcuts */
@@ -609,10 +607,10 @@ uml_transition_update_data (Transition *transition)
   temp_text = create_event_action_text (transition);
   expand_bbox_for_text (&obj->bounding_box, &transition->trigger_text_pos,
                         temp_text);
-  g_free (temp_text);
+  g_clear_pointer (&temp_text, g_free);
   /* Update the bounding box to match the new guard text size and position */
   temp_text = g_strdup_printf ("[%s]", transition->guard_text ? transition->guard_text : "");
   expand_bbox_for_text (&obj->bounding_box, &transition->guard_text_pos,
                         temp_text);
-  g_free (temp_text);
+  g_clear_pointer (&temp_text, g_free);
 }

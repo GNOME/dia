@@ -177,7 +177,7 @@ autoroute_layout_orthconn(OrthConn *conn,
 		   this_badness, min_badness);
 	    */
 	    min_badness = this_badness;
-	    if (best_layout != NULL) g_free(best_layout);
+	    g_clear_pointer (&best_layout, g_free);
 	    best_layout = unnormalized;
 	    best_num_points = this_num_points;
             /* revert adjusting start and end point */
@@ -187,7 +187,7 @@ autoroute_layout_orthconn(OrthConn *conn,
 	                                -conn->extra_spacing.end_trans);
 	    best_intersects = intersects;
 	  } else {
-	    g_free(unnormalized);
+	    g_clear_pointer (&unnormalized, g_free);
 	  }
 	}
       }
@@ -196,10 +196,10 @@ autoroute_layout_orthconn(OrthConn *conn,
 
   if (min_badness < MAX_BADNESS) {
     orthconn_set_points(conn, best_num_points, best_layout);
-    g_free(best_layout);
+    g_clear_pointer (&best_layout, g_free);
     return TRUE;
   } else {
-    g_free(best_layout);
+    g_clear_pointer (&best_layout, g_free);
     return FALSE;
   }
 }
@@ -679,6 +679,6 @@ autolayout_unnormalize_points(guint startdir,
       point_add(&newpoints[i], &start);
     }
   }
-  g_free(points);
+  g_clear_pointer (&points, g_free);
   return newpoints;
 }

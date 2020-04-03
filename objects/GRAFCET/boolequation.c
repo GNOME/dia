@@ -44,13 +44,14 @@ typedef struct {
   BlockDestroyFunc destroy;
 } BlockOps;
 
+
 struct _Block {
   BlockType type;
   BlockOps *ops;
   Point bl, ur, pos;
   union {
     Block *inside; /* overline, parens */
-    const gchar *text;
+    char *text;
     GSList *contained;
     OperatorType operator;
   } d;
@@ -116,14 +117,18 @@ textblock_draw (Block *block, Boolequation *booleq, DiaRenderer *renderer)
                             &booleq->color);
 }
 
+
 static void
-textblock_destroy(Block *block)
+textblock_destroy (Block *block)
 {
   if (!block) return;
-  g_assert(block->type == BLOCK_TEXT);
-  g_free((void *)block->d.text);
-  g_free(block);
+
+  g_return_if_fail (block->type == BLOCK_TEXT);
+
+  g_clear_pointer (&block->d.text, g_free);
+  g_free (block);
 }
+
 
 static BlockOps text_block_ops = {
   textblock_get_boundingbox,
@@ -215,12 +220,17 @@ opblock_draw (Block *block, Boolequation *booleq, DiaRenderer *renderer)
                             &booleq->color);
 }
 
-static void opblock_destroy(Block *block)
+
+static void
+opblock_destroy (Block *block)
 {
   if (!block) return;
-  g_assert(block->type == BLOCK_OPERATOR);
-  g_free(block);
+
+  g_return_if_fail (block->type == BLOCK_OPERATOR);
+
+  g_free (block);
 }
+
 
 static BlockOps operator_block_ops = {
   opblock_get_boundingbox,
@@ -310,14 +320,19 @@ overlineblock_draw (Block *block, Boolequation *booleq, DiaRenderer *renderer)
   dia_renderer_draw_line (renderer,&ul,&ur,&booleq->color);
 }
 
+
 static void
-overlineblock_destroy(Block *block)
+overlineblock_destroy (Block *block)
 {
   if (!block) return;
-  g_assert(block->type == BLOCK_OVERLINE);
+
+  g_return_if_fail(block->type == BLOCK_OVERLINE);
+
   block->d.inside->ops->destroy(block->d.inside);
-  g_free(block);
+
+  g_free (block);
 }
+
 
 static BlockOps overline_block_ops = {
   overlineblock_get_boundingbox,
@@ -382,14 +397,19 @@ parensblock_draw (Block *block, Boolequation *booleq, DiaRenderer *renderer)
   dia_renderer_draw_string (renderer,")",&pt,ALIGN_LEFT,&booleq->color);
 }
 
+
 static void
-parensblock_destroy(Block *block)
+parensblock_destroy (Block *block)
 {
   if (!block) return;
-  g_assert(block->type == BLOCK_PARENS);
-  block->d.inside->ops->destroy(block->d.inside);
-  g_free(block);
+
+  g_return_if_fail (block->type == BLOCK_PARENS);
+
+  block->d.inside->ops->destroy (block->d.inside);
+
+  g_free (block);
 }
+
 
 static BlockOps parens_block_ops = {
   parensblock_get_boundingbox,
@@ -485,7 +505,7 @@ compoundblock_destroy(Block *block)
   }
 
   g_slist_free(block->d.contained);
-  g_free(block);
+  g_clear_pointer (&block, g_free);
 }
 
 static BlockOps compound_block_ops = {
@@ -556,14 +576,17 @@ compoundblock_create(const gchar **str)
 
 /* Boolequation : */
 void
-boolequation_set_value(Boolequation *booleq, const gchar *value)
+boolequation_set_value (Boolequation *booleq, const char *value)
 {
-  g_return_if_fail(booleq);
-  if (booleq->value) g_free((gchar *)booleq->value);
-  if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
+  g_return_if_fail (booleq);
+  g_clear_pointer (&booleq->value, g_free);
 
-  booleq->value = g_strdup(value);
-  booleq->rootblock = compoundblock_create(&value);
+  if (booleq->rootblock) {
+    booleq->rootblock->ops->destroy (booleq->rootblock);
+  }
+
+  booleq->value = g_strdup (value);
+  booleq->rootblock = compoundblock_create (&value);
   /* a good bounding box recalc here would be nice. */
 }
 
@@ -585,15 +608,19 @@ boolequation_create (const gchar *value,
   return booleq;
 }
 
+
 void
 boolequation_destroy(Boolequation *booleq)
 {
-  g_return_if_fail(booleq);
+  g_return_if_fail (booleq);
   g_clear_object (&booleq->font);
-  if (booleq->value) g_free((gchar *)booleq->value);
-  if (booleq->rootblock) booleq->rootblock->ops->destroy(booleq->rootblock);
+  g_clear_pointer (&booleq->value, g_free);
+
+  if (booleq->rootblock) booleq->rootblock->ops->destroy (booleq->rootblock);
+
   g_free (booleq);
 }
+
 
 void
 save_boolequation(ObjectNode obj_node, const gchar *attrname,

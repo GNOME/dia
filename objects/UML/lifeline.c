@@ -456,17 +456,19 @@ lifeline_change_revert(LifelineChange *change, DiaObject *obj)
   }
 }
 
+
 static void
-lifeline_change_free(LifelineChange *change)
+lifeline_change_free (LifelineChange *change)
 {
-  if( change->type == LIFELINE_CHANGE_ADD ||  change->type == LIFELINE_CHANGE_DEL ) {
+  if (change->type == LIFELINE_CHANGE_ADD ||
+      change->type == LIFELINE_CHANGE_DEL) {
     if (change->east->free)
-      change->east->free(change->east);
-    g_free(change->east);
+      change->east->free (change->east);
+    g_clear_pointer (&change->east, g_free);
 
     if (change->west->free)
-      change->west->free(change->west);
-    g_free(change->west);
+      change->west->free (change->west);
+    g_clear_pointer (&change->west, g_free);
   }
 }
 

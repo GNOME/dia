@@ -289,8 +289,11 @@ draw_object (DiaRenderer *renderer,
   if (matrix) {
 #if 1
     DiaRenderer *tr = dia_transform_renderer_new (renderer);
+
     dia_renderer_draw_object (tr, object, matrix);
-    g_object_unref (tr);
+
+    g_clear_object (&tr);
+
     return;
 #else
     /* visual complaints - not completely correct */
@@ -326,9 +329,8 @@ dia_renderer_finalize (GObject *object)
   g_clear_object (&priv->font);
 
   if (priv->bezier) {
-    if (priv->bezier->points)
-      g_free (priv->bezier->points);
-    g_free (priv->bezier);
+    g_clear_pointer (&priv->bezier->points, g_free);
+    g_clear_pointer (&priv->bezier, g_free);
   }
 
   G_OBJECT_CLASS (dia_renderer_parent_class)->finalize (object);
@@ -1906,7 +1908,8 @@ get_text_width (DiaRenderer *renderer,
     char *str = g_strndup (text, length);
 
     ret = dia_font_string_width (str, font, font_height);
-    g_free (str);
+
+    g_clear_pointer (&str, g_free);
   } else {
     g_warning ("%s::get_text_width not implemented (and font == NULL)!",
                G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));

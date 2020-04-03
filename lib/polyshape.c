@@ -424,7 +424,7 @@ polyshape_set_points(PolyShape *poly, int num_points, Point *points)
 
   poly->numpoints = num_points;
 
-  if (poly->points) g_free(poly->points);
+  g_clear_pointer (&poly->points, g_free);
   poly->points = g_new(Point, num_points);
 
   for (i = 0; i < num_points; i++) {
@@ -482,16 +482,16 @@ polyshape_destroy (PolyShape *poly)
   object_destroy (&poly->object);
 
   for (i = 0; i < poly->numpoints;i++) {
-    g_free (temp_handles[i]);
+    g_clear_pointer (&temp_handles[i], g_free);
   }
-  g_free (temp_handles);
+  g_clear_pointer (&temp_handles, g_free);
 
   for (i = 0; i < NUM_CONNECTIONS (poly); i++) {
-    g_free (temp_cps[i]);
+    g_clear_pointer (&temp_cps[i], g_free);
   }
-  g_free (temp_cps);
+  g_clear_pointer (&temp_cps, g_free);
 
-  g_free (poly->points);
+  g_clear_pointer (&poly->points, g_free);
 }
 
 
@@ -555,12 +555,9 @@ polyshape_change_free(struct PointChange *change)
 {
   if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
        (change->type==TYPE_REMOVE_POINT && change->applied) ){
-    g_free(change->handle);
-    g_free(change->cp1);
-    g_free(change->cp2);
-    change->handle = NULL;
-    change->cp1 = NULL;
-    change->cp2 = NULL;
+    g_clear_pointer (&change->handle, g_free);
+    g_clear_pointer (&change->cp1, g_free);
+    g_clear_pointer (&change->cp2, g_free);
   }
 }
 

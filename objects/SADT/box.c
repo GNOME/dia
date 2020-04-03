@@ -576,7 +576,7 @@ sadtbox_destroy(Box *box)
   connpointline_destroy(box->west);
   connpointline_destroy(box->north);
 
-  g_free(box->id);
+  g_clear_pointer (&box->id, g_free);
 
   element_destroy(&box->element);
 }

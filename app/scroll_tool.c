@@ -53,13 +53,14 @@ create_scroll_tool(void)
   return (Tool *)tool;
 }
 
-void
-free_scroll_tool(Tool *tool)
-{
-  g_free(tool);
-  ddisplay_set_all_cursor(default_cursor);
 
+void
+free_scroll_tool (Tool *tool)
+{
+  g_clear_pointer (&tool, g_free);
+  ddisplay_set_all_cursor (default_cursor);
 }
+
 
 static void
 scroll_double_click(ScrollTool *tool, GdkEventButton *event,

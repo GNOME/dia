@@ -632,7 +632,7 @@ static void
 step_destroy (Step *step)
 {
   g_clear_object (&step->font);
-  g_free (step->id);
+  g_clear_pointer (&step->id, g_free);
   element_destroy (&step->element);
 }
 

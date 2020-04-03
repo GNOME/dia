@@ -179,7 +179,7 @@ parameters_set_values (UMLClassDialog *prop_dialog,
   gtk_text_buffer_set_text (prop_dialog->param_comment_buffer,
                             comment,
                             -1);
-  g_free (comment);
+  g_clear_pointer (&comment, g_free);
 
   dia_option_menu_set_active (DIA_OPTION_MENU (prop_dialog->param_kind),
                               param->kind);
@@ -418,7 +418,7 @@ operations_set_values (UMLClassDialog *prop_dialog, UMLOperation *op)
   gtk_text_buffer_set_text (prop_dialog->op_comment_buffer,
                             comment,
                             -1);
-  g_free (comment);
+  g_clear_pointer (&comment, g_free);
 
   dia_option_menu_set_active (DIA_OPTION_MENU (prop_dialog->op_visible),
                               op->visibility);
@@ -439,7 +439,7 @@ operations_set_values (UMLClassDialog *prop_dialog, UMLOperation *op)
     gtk_list_store_append (prop_dialog->parameters_store, &iter);
     update_parameter (prop_dialog, param, &iter);
 
-    g_free (str);
+    g_clear_pointer (&str, g_free);
 
     list = g_list_next (list);
   }

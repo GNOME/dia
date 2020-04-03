@@ -96,17 +96,17 @@ dia_get_data_directory(const gchar* subdir)
     returnPath = g_strdup(tmpPath);
   else
     returnPath = g_build_path(G_DIR_SEPARATOR_S, tmpPath, subdir, NULL);
-  g_free(tmpPath);
+  g_clear_pointer (&tmpPath, g_free);
 #  else
   returnPath = g_strconcat (sLoc , subdir, NULL);
 #  endif
-  g_free (sLoc);
+  g_clear_pointer (&sLoc, g_free);
   return returnPath;
 #else
   gchar *base = g_strdup (PKGDATADIR);
   char  *ret;
   if (g_getenv ("DIA_BASE_PATH") != NULL) {
-    g_free (base);
+    g_clear_pointer (&base, g_free);
     /* a small hack cause the final destination and the local path differ */
     base = g_build_filename (g_getenv ("DIA_BASE_PATH"), "data", NULL);
   }
@@ -114,7 +114,7 @@ dia_get_data_directory(const gchar* subdir)
     ret = g_strconcat (base, NULL);
   else
     ret = g_strconcat (base, G_DIR_SEPARATOR_S, subdir, NULL);
-  g_free (base);
+  g_clear_pointer (&base, g_free);
   return ret;
 #endif
 }
@@ -136,7 +136,7 @@ dia_get_lib_directory(void)
 #  else
   returnPath = g_strconcat (sLoc , "dia", NULL);
 #  endif
-  g_free (sLoc);
+  g_clear_pointer (&sLoc, g_free);
   return returnPath;
 #else
   return g_strconcat (DIALIBDIR, G_DIR_SEPARATOR_S, "", NULL);
@@ -201,7 +201,7 @@ dia_config_ensure_dir(const gchar *filename)
   } else {
     exists = FALSE;
   }
-  g_free(dir);
+  g_clear_pointer (&dir, g_free);
   return exists;
 }
 
@@ -225,18 +225,18 @@ dia_get_canonical_path(const gchar *path)
   while (list[i] != NULL) {
     if (0 == strcmp (list[i], ".")) {
       /* simple, just remove it */
-      g_free (list[i]);
+      g_clear_pointer (&list[i], g_free);
       list[i] = g_strdup ("");
     }
     else if  (0 == strcmp (list[i], "..")) {
       /* need to 'remove' the previous non empty part too */
       n = i;
-      g_free (list[i]);
+      g_clear_pointer (&list[i], g_free);
       list[i] = g_strdup ("");
       while (n >= 0) {
         if (0 != strlen(list[n])) {
           /* remove it */
-          g_free (list[n]);
+          g_clear_pointer (&list[n], g_free);
           list[n] = g_strdup ("");
           break;
         }
@@ -290,7 +290,7 @@ dia_message_filename(const gchar *filename)
   /* Stick in the quark table so that we can return a static result
    */
   msg_quark = g_quark_from_string (tmp);
-  g_free (tmp);
+  g_clear_pointer (&tmp, g_free);
   tmp = (gchar *) g_quark_to_string (msg_quark);
   return tmp;
 }
@@ -309,7 +309,7 @@ dia_get_absolute_filename (const gchar *filename)
   if (g_path_is_absolute(filename)) return dia_get_canonical_path(filename);
   current_dir = g_get_current_dir();
   fullname = g_build_filename(current_dir, filename, NULL);
-  g_free(current_dir);
+  g_clear_pointer (&current_dir, g_free);
   if (strchr(fullname, '.') == NULL) return fullname;
   canonical = dia_get_canonical_path(fullname);
   if (canonical == NULL) {
@@ -317,7 +317,7 @@ dia_get_absolute_filename (const gchar *filename)
                     dia_message_filename(filename));
     return g_strdup(filename);
   }
-  g_free(fullname);
+  g_clear_pointer (&fullname, g_free);
   return canonical;
 }
 
@@ -353,18 +353,20 @@ dia_relativize_filename (const gchar *master, const gchar *slave)
     for (p = rel; *p != '\0'; p++)
       if (*p == '\\') *p = '/';
   }
-  g_free (bp1);
-  g_free (bp2);
+  g_clear_pointer (&bp1, g_free);
+  g_clear_pointer (&bp2, g_free);
 
   return rel;
 }
 
-gchar *
-dia_absolutize_filename (const gchar *master, const gchar *slave)
-{
-  gchar *path = g_path_get_dirname (master);
-  gchar *result = g_build_path (G_DIR_SEPARATOR_S, path, slave, NULL);
 
-  g_free (path);
+char *
+dia_absolutize_filename (const char *master, const char *slave)
+{
+  char *path = g_path_get_dirname (master);
+  char *result = g_build_path (G_DIR_SEPARATOR_S, path, slave, NULL);
+
+  g_clear_pointer (&path, g_free);
+
   return result;
 }

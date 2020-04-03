@@ -241,6 +241,7 @@ ellipse_bbox(const Point *centre, real width, real height,
   rectangle_bbox(&rin,extra,rect);
 }
 
+
 /**  Allocate some scratch space to hold a big enough Bezier.
  * That space is not guaranteed to be preserved upon the next allocation
  * (in fact it's guaranteed it's not).
@@ -248,18 +249,20 @@ ellipse_bbox(const Point *centre, real width, real height,
  * @returns Newly allocated array of points.
  */
 static BezPoint *
-alloc_polybezier_space(int numpoints)
+alloc_polybezier_space (int numpoints)
 {
   static int alloc_np = 0;
   static BezPoint *alloced = NULL;
 
   if (alloc_np < numpoints) {
-    g_free(alloced);
+    g_clear_pointer (&alloced, g_free);
     alloc_np = numpoints;
-    alloced = g_new0(BezPoint,numpoints);
+    alloced = g_new0 (BezPoint, numpoints);
   }
+
   return alloced;
 }
+
 
 /** Free the scratch space allocated above.
  * @param points Previously allocated list of points.

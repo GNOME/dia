@@ -373,16 +373,18 @@ tree_create(Point *startpoint,
   return &tree->connection.object;
 }
 
+
 static void
-tree_destroy(Tree *tree)
+tree_destroy (Tree *tree)
 {
-  int i;
-  connection_destroy(&tree->connection);
-  for (i=0;i<tree->num_handles;i++)
-    g_free(tree->handles[i]);
-  g_free(tree->handles);
-  g_free(tree->parallel_points);
+  connection_destroy (&tree->connection);
+  for (int i = 0; i < tree->num_handles; i++) {
+    g_clear_pointer (&tree->handles[i], g_free);
+  }
+  g_clear_pointer (&tree->handles, g_free);
+  g_clear_pointer (&tree->parallel_points, g_free);
 }
+
 
 static DiaObject *
 tree_copy(Tree *tree)
@@ -695,9 +697,7 @@ tree_change_free(struct PointChange *change)
 {
   if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
        (change->type==TYPE_REMOVE_POINT && change->applied) ){
-    if (change->handle)
-      g_free(change->handle);
-    change->handle = NULL;
+    g_clear_pointer (&change->handle, g_free);
   }
 }
 

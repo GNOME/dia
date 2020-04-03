@@ -373,9 +373,9 @@ _parse_color(gint32 *color, const char *str)
     } else {
       /* need to make a copy of the color only */
       gboolean ret;
-      gchar *sc = g_strndup (str, se - str);
+      char *sc = g_strndup (str, se - str);
       ret = svg_named_color (sc, color);
-      g_free (sc);
+      g_clear_pointer (&sc, g_free);
       return ret;
     }
   }
@@ -505,42 +505,49 @@ _parse_linecap (DiaSvgStyle *s, const char *val)
 static void
 _style_adjust_font (DiaSvgStyle *s, const char *family, const char *style, const char *weight)
 {
-    g_clear_object (&s->font);
-    /* given font_height is bogus, especially if not given at all
-     * or without unit ... see bug 665648 about invalid CSS
-     */
-    s->font = dia_font_new_from_style(DIA_FONT_SANS, s->font_height > 0 ? s->font_height : 1.0);
-    if (family) {
-      /* SVG allows a list of families here, also there is some strange formatting
-       * seen, like 'Arial'. If the given family name can not be resolved by
-       * Pango it complaints loudly with g_warning().
-       */
-      gchar **families = g_strsplit(family, ",", -1);
-      int i = 0;
-      gboolean found = FALSE;
-      while (!found && families[i]) {
-	const gchar *chomped = g_strchomp (g_strdelimit(families[i], "'", ' '));
-	PangoFont *loaded;
-        dia_font_set_any_family(s->font, chomped);
-	loaded = pango_context_load_font(dia_font_get_context(),
-					 dia_font_get_description(s->font));
-	if (loaded) {
-	  g_object_unref(loaded);
-	  found = TRUE;
-	}
-	++i;
+  g_clear_object (&s->font);
+  /* given font_height is bogus, especially if not given at all
+    * or without unit ... see bug 665648 about invalid CSS
+    */
+  s->font = dia_font_new_from_style (DIA_FONT_SANS, s->font_height > 0 ? s->font_height : 1.0);
+  if (family) {
+    /* SVG allows a list of families here, also there is some strange formatting
+      * seen, like 'Arial'. If the given family name can not be resolved by
+      * Pango it complaints loudly with g_warning().
+      */
+    gchar **families = g_strsplit (family, ",", -1);
+    int i = 0;
+    gboolean found = FALSE;
+    while (!found && families[i]) {
+      const char *chomped = g_strchomp (g_strdelimit (families[i], "'", ' '));
+      PangoFont *loaded;
+
+      dia_font_set_any_family(s->font, chomped);
+      loaded = pango_context_load_font (dia_font_get_context (),
+                                        dia_font_get_description (s->font));
+      if (loaded) {
+        g_clear_object (&loaded);
+        found = TRUE;
       }
-      if (!found)
-	dia_font_set_any_family(s->font, "sans");
-      g_strfreev(families);
+      ++i;
     }
-    if (style) {
-      dia_font_set_slant_from_string(s->font,style);
+
+    if (!found) {
+      dia_font_set_any_family (s->font, "sans");
     }
-    if (weight) {
-      dia_font_set_weight_from_string(s->font,weight);
-    }
+
+    g_strfreev (families);
+  }
+
+  if (style) {
+    dia_font_set_slant_from_string (s->font, style);
+  }
+
+  if (weight) {
+    dia_font_set_weight_from_string (s->font, weight);
+  }
 }
+
 
 static void
 _parse_text_align(DiaSvgStyle *s, const gchar *ptr)
@@ -723,9 +730,9 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
   if (family || style || weight) {
     _style_adjust_font (s, family, style, weight);
 
-    g_free(family);
-    g_free(style);
-    g_free(weight);
+    g_clear_pointer (&family, g_free);
+    g_clear_pointer (&style, g_free);
+    g_clear_pointer (&weight, g_free);
   }
 }
 

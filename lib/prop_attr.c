@@ -203,12 +203,12 @@ arrowprop_load(ArrowProperty *prop, AttributeNode attr, DataNode data, DiaContex
     if ((attr = object_find_attribute(obj_node, str)) &&
         (data = attribute_first_data(attr)))
       prop->arrow_data.length = data_real(data, ctx);
-    g_free(str);
+    g_clear_pointer (&str, g_free);
     str = g_strconcat(prop->common.descr->name, "_width", NULL);
     if ((attr = object_find_attribute(obj_node, str)) &&
         (data = attribute_first_data(attr)))
       prop->arrow_data.width = data_real(data, ctx);
-    g_free(str);
+    g_clear_pointer (&str, g_free);
   }
 }
 
@@ -220,11 +220,11 @@ arrowprop_save(ArrowProperty *prop, AttributeNode attr, DiaContext *ctx)
     ObjectNode obj_node = attr->parent;
     gchar *str = g_strconcat(prop->common.descr->name, "_length", NULL);
     attr = new_attribute(obj_node, str);
-    g_free(str);
+    g_clear_pointer (&str, g_free);
     data_add_real(attr, prop->arrow_data.length, ctx);
     str = g_strconcat(prop->common.descr->name, "_width", NULL);
     attr = new_attribute(obj_node, str);
-    g_free(str);
+    g_clear_pointer (&str, g_free);
     data_add_real(attr, prop->arrow_data.width, ctx);
   }
 }
@@ -377,12 +377,14 @@ fontprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
   return prop;
 }
 
+
 static void
 fontprop_free (FontProperty *prop)
 {
   g_clear_object (&prop->font_data);
-  g_free (prop);
+  g_clear_pointer (&prop, g_free);
 }
+
 
 static FontProperty *
 fontprop_copy(FontProperty *src)

@@ -469,8 +469,7 @@ static void
 textobj_destroy(Textobj *textobj)
 {
   text_destroy(textobj->text);
-  g_free (textobj->object.enclosing_box);
-  textobj->object.enclosing_box = NULL;
+  g_clear_pointer (&textobj->object.enclosing_box, g_free);
   object_destroy(&textobj->object);
 }
 

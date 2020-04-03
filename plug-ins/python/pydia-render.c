@@ -151,12 +151,12 @@ end_render(DiaRenderer *renderer)
     Py_DECREF(self);
   }
 
-  Py_DECREF (DIA_PY_RENDERER(renderer)->diagram_data);
-  g_free (DIA_PY_RENDERER(renderer)->filename);
-  DIA_PY_RENDERER(renderer)->filename = NULL;
+  Py_DECREF (DIA_PY_RENDERER (renderer)->diagram_data);
+  g_clear_pointer (&(DIA_PY_RENDERER (renderer)->filename), g_free);
 
-  setlocale(LC_NUMERIC, DIA_PY_RENDERER(renderer)->old_locale);
+  setlocale (LC_NUMERIC, DIA_PY_RENDERER (renderer)->old_locale);
 }
+
 
 /*!
  * \brief Set linewidth for later use
@@ -496,6 +496,7 @@ draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
   }
 }
 
+
 /*!
  * \brief Draw line
  *
@@ -505,40 +506,41 @@ draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
  * \memberof _DiaPyRenderer
  */
 static void
-draw_line(DiaRenderer *renderer,
-          Point *start, Point *end,
-          Color *line_colour)
+draw_line (DiaRenderer *renderer,
+           Point       *start,
+           Point       *end,
+           Color       *line_colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_line");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *ostart = PyDiaPoint_New (start);
     PyObject *oend = PyDiaPoint_New (end);
     PyObject *ocolor = PyDiaColor_New (line_colour);
 
-    Py_INCREF(self);
-    Py_INCREF(func);
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(OOO)", ostart, oend, ocolor);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (ostart);
     Py_XDECREF (oend);
     Py_XDECREF (ocolor);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  }
-  else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.draw_line() implementation missing.",
-				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-    PyErr_Clear();
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else { /* member not optional */
+    char *msg = g_strdup_printf ("%s.draw_line() implementation missing.",
+                                 G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+    PyErr_Clear ();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
-    g_free (msg);
+    g_clear_pointer (&msg, g_free);
   }
 }
+
 
 /*!
  * \brief Draw polyline
@@ -738,13 +740,12 @@ draw_arc(DiaRenderer *renderer,
     Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
-  }
-  else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.draw_arc() implementation missing.",
-				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+  } else { /* member not optional */
+    char *msg = g_strdup_printf ("%s.draw_arc() implementation missing.",
+                                 G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
     PyErr_Clear();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
-    g_free (msg);
+    g_clear_pointer (&msg, g_free);
   }
 }
 
@@ -784,13 +785,12 @@ fill_arc(DiaRenderer *renderer,
     Py_XDECREF (ocolor);
     Py_DECREF(func);
     Py_DECREF(self);
-  }
-  else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.fill_arc() implementation missing.",
-				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-    PyErr_Clear();
+  } else { /* member not optional */
+    char *msg = g_strdup_printf ("%s.fill_arc() implementation missing.",
+                                 G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+    PyErr_Clear ();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
-    g_free (msg);
+    g_clear_pointer (&msg, g_free);
   }
 }
 
@@ -839,11 +839,11 @@ draw_ellipse(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   } else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.draw_ellipse() implementation missing.",
-				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-    PyErr_Clear();
+    char *msg = g_strdup_printf ("%s.draw_ellipse() implementation missing.",
+                                 G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+    PyErr_Clear ();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
-    g_free (msg);
+    g_clear_pointer (&msg, g_free);
   }
 }
 
@@ -1008,11 +1008,11 @@ draw_string(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   } else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.draw_string() implementation missing.",
-				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-    PyErr_Clear();
+    char *msg = g_strdup_printf ("%s.draw_string() implementation missing.",
+                                 G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+    PyErr_Clear ();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
-    g_free (msg);
+    g_clear_pointer (&msg, g_free);
   }
 }
 
@@ -1050,17 +1050,21 @@ draw_image(DiaRenderer *renderer,
     Py_DECREF(func);
     Py_DECREF(self);
   } else { /* member not optional */
-    gchar *msg = g_strdup_printf ("%s.draw_image() implementation missing.",
-				  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
-    PyErr_Clear();
+    char *msg = g_strdup_printf ("%s.draw_image() implementation missing.",
+                                 G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
+    PyErr_Clear ();
     PyErr_Warn (PyExc_RuntimeWarning, msg);
-    g_free (msg);
+    g_clear_pointer (&msg, g_free);
   }
 }
 
+
 gboolean
-PyDia_export_data(DiagramData *data, DiaContext *ctx,
-		  const gchar *filename, const gchar *diafilename, void* user_data)
+PyDia_export_data (DiagramData *data,
+                   DiaContext  *ctx,
+                   const char  *filename,
+                   const char  *diafilename,
+                   void        *user_data)
 {
   DiaPyRenderer *renderer;
 
@@ -1080,18 +1084,19 @@ PyDia_export_data(DiagramData *data, DiaContext *ctx,
   renderer = g_object_new (DIA_TYPE_PY_RENDERER, NULL);
 
   renderer->filename = g_strdup (filename);
-  renderer->diagram_data = PyDiaDiagramData_New(data);
+  renderer->diagram_data = PyDiaDiagramData_New (data);
 
   /* The Python Renderer object was created at PyDia_Register */
-  renderer->self = (PyObject*)user_data;
+  renderer->self = (PyObject*) user_data;
 
   /* this will call the required callback functions above */
-  data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+  data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
-  g_object_unref(renderer);
+  g_clear_object (&renderer);
 
   return TRUE;
 }
+
 
 DiaRenderer *
 PyDia_new_renderer_wrapper (PyObject *self)
@@ -1142,8 +1147,7 @@ dia_py_renderer_finalize (GObject *object)
 {
   DiaPyRenderer *renderer = DIA_PY_RENDERER (object);
 
-  if (renderer->filename)
-    g_free (renderer->filename);
+  g_clear_pointer (&renderer->filename, g_free);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }

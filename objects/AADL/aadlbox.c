@@ -54,9 +54,9 @@ static void
 free_port(Aadlport *port)
 {
   if (port) {
-    g_free(port->handle);
-    g_free(port->declaration);
-    g_free(port);
+    g_clear_pointer (&port->handle, g_free);
+    g_clear_pointer (&port->declaration, g_free);
+    g_clear_pointer (&port, g_free);
   }
 }
 
@@ -242,13 +242,10 @@ aadlbox_change_free(struct PointChange *change)
 
     free_port (change->port);
     change->port = NULL;
+  } else if ((change->type==TYPE_ADD_CONNECTION && !change->applied) ||
+             (change->type==TYPE_REMOVE_CONNECTION && change->applied)) {
 
-  } else if ( (change->type==TYPE_ADD_CONNECTION && !change->applied) ||
-	    (change->type==TYPE_REMOVE_CONNECTION && change->applied) ) {
-
-    g_free (change->connection);
-    change->connection = NULL;
-
+    g_clear_pointer (&change->connection, g_free);
   }
 }
 

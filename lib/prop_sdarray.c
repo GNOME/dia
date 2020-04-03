@@ -63,7 +63,7 @@ arrayprop_free(ArrayProperty *prop)
 {
   arrayprop_freerecords(prop);
   g_ptr_array_free(prop->records,TRUE);
-  g_free(prop);
+  g_clear_pointer (&prop, g_free);
 }
 
 static ArrayProperty *

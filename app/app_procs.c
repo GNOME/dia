@@ -102,11 +102,15 @@ build_output_file_name(const char *infname, const char *format, const char *outd
   memcpy(tmp,pp,pe-pp);
   strcat(tmp,".");
   strcat(tmp,format);
+
   if (outdir) {
     char *ret = g_strconcat(outdir, G_DIR_SEPARATOR_S, tmp, NULL);
-    g_free(tmp);
+
+    g_clear_pointer (&tmp, g_free);
+
     return ret;
   }
+
   return tmp;
 }
 
@@ -280,7 +284,7 @@ handle_show_layers (DiagramData *diagdata,
       dia_layer_set_visible (layer, FALSE);
     }
   }
-  g_free(visible_layers);
+  g_clear_pointer (&visible_layers, g_free);
 }
 
 
@@ -353,7 +357,7 @@ do_convert (const char      *infname,
   }
   /* if (!quiet) */
   g_printerr (_("%s --> %s\n"), infname, outfname);
-  g_object_unref (diagdata);
+  g_clear_object (&diagdata);
   dia_context_release (ctx);
   return TRUE;
 }
@@ -457,7 +461,7 @@ handle_initial_diagram (const char *in_file_name,
                     export_file_format);
         return FALSE;
       }
-      g_free (export_file_name);
+      g_clear_pointer (&export_file_name, g_free);
       export_file_name = build_output_file_name (in_file_name,
                                                  ef->extensions[0],
                                                  outdir);
@@ -467,7 +471,7 @@ handle_initial_diagram (const char *in_file_name,
                                     ef,
                                     size,
                                     show_layers);
-    g_free (export_file_name);
+    g_clear_pointer (&export_file_name, g_free);
   } else if (out_file_name) {
     DiaExportFilter *ef = NULL;
     made_conversions |= do_convert (in_file_name,
@@ -493,7 +497,7 @@ handle_initial_diagram (const char *in_file_name,
         /* the display initial diagram holds two references */
         new_display (diagram);
       } else {
-        g_object_unref (diagram);
+        g_clear_object (&diagram);
       }
     }
   }
@@ -510,6 +514,7 @@ handle_initial_diagram (const char *in_file_name,
 static const gchar *input_directory = NULL;
 static const gchar *output_directory = NULL;
 
+
 static gboolean
 _check_option_input_directory (const gchar    *option_name,
                                const gchar    *value,
@@ -524,9 +529,11 @@ _check_option_input_directory (const gchar    *option_name,
   }
   g_set_error (error, DIA_ERROR, DIA_ERROR_DIRECTORY,
                _("Input directory '%s' must exist!\n"), directory);
-  g_free (directory);
+  g_clear_pointer (&directory, g_free);
   return FALSE;
 }
+
+
 static gboolean
 _check_option_output_directory (const gchar    *option_name,
                                 const gchar    *value,
@@ -541,7 +548,7 @@ _check_option_output_directory (const gchar    *option_name,
   }
   g_set_error (error, DIA_ERROR, DIA_ERROR_DIRECTORY,
                _("Output directory '%s' must exist!\n"), directory);
-  g_free (directory);
+  g_clear_pointer (&directory, g_free);
   return FALSE;
 }
 
@@ -631,7 +638,7 @@ app_init (int argc, char **argv)
     if (!g_option_context_parse (context, &argc, &argv, &error)) {
       if (error) { /* IMO !error here is a bug upstream, triggered e.g. with --gdk-debug=updates */
         g_printerr ("%s", error->message);
-        g_error_free (error);
+        g_clear_error (&error);
       } else {
         g_printerr (_("Invalid option?"));
       }
@@ -650,7 +657,7 @@ app_init (int argc, char **argv)
           if (!g_utf8_validate (filename, -1, NULL)) {
             gchar *tfn = filename;
             filename = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL);
-            g_free (tfn);
+            g_clear_pointer (&tfn, g_free);
           }
         } else {
           filename = g_filename_to_utf8 (filenames[i], -1, NULL, NULL, NULL);
@@ -673,10 +680,10 @@ app_init (int argc, char **argv)
           files = g_slist_append (files, filename);
         } else {
           g_printerr (_("Missing input: %s\n"), filename);
-          g_free (filename);
+          g_clear_pointer (&filename, g_free);
         }
         if (filename != testpath) {
-          g_free (testpath);
+          g_clear_pointer (&testpath, g_free);
         }
         ++i;
       }
@@ -703,7 +710,7 @@ app_init (int argc, char **argv)
     pixbuf = pixbuf_from_resource ("/org/gnome/Dia/icons/org.gnome.Dia.png");
     if (pixbuf) {
       gtk_window_set_default_icon (pixbuf);
-      g_object_unref (pixbuf);
+      g_clear_object (&pixbuf);
     }
   } else {
     /*
@@ -727,8 +734,8 @@ app_init (int argc, char **argv)
 #endif
     ver_locale = g_locale_from_utf8 (ver_utf8, -1, NULL, NULL, NULL);
     printf ("%s\n", ver_locale);
-    g_free (ver_locale);
-    g_free (ver_utf8);
+    g_clear_pointer (&ver_locale, g_free);
+    g_clear_pointer (&ver_utf8, g_free);
     if (verbose) {
       dump_dependencies ();
     }
@@ -921,7 +928,7 @@ app_exit (void)
           } else {
             dia_context_reset (ctx);
           }
-          g_free (filename);
+          g_clear_pointer (&filename, g_free);
         }
         dia_context_release (ctx);
         exit_dialog_free_items (items);
@@ -1040,15 +1047,15 @@ create_user_dirs (void)
   /* it is no big deal if these directories can't be created */
   subdir = g_strconcat (dir, G_DIR_SEPARATOR_S "objects", NULL);
   g_mkdir (subdir, 0755);
-  g_free (subdir);
+  g_clear_pointer (&subdir, g_free);
   subdir = g_strconcat (dir, G_DIR_SEPARATOR_S "shapes", NULL);
   g_mkdir (subdir, 0755);
-  g_free (subdir);
+  g_clear_pointer (&subdir, g_free);
   subdir = g_strconcat (dir, G_DIR_SEPARATOR_S "sheets", NULL);
   g_mkdir (subdir, 0755);
-  g_free (subdir);
+  g_clear_pointer (&subdir, g_free);
 
-  g_free (dir);
+  g_clear_pointer (&dir, g_free);
 }
 
 static PluginInitResult
@@ -1097,7 +1104,7 @@ handle_all_diagrams (GSList     *files,
                               show_layers,
                               output_dir);
     if (inpath != node->data) {
-      g_free (inpath);
+      g_clear_pointer (&inpath, g_free);
     }
   }
   return made_conversions;

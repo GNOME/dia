@@ -58,7 +58,7 @@ custom_get_relative_filename(const gchar *current, const gchar *relative)
     return g_strdup(relative);
   dirname = g_path_get_dirname(current);
   tmp = g_build_filename(dirname, relative, NULL);
-  g_free(dirname);
+  g_clear_pointer (&dirname, g_free);
   return tmp;
 }
 
@@ -345,13 +345,13 @@ line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo* info)
       continue;
     else if (!strcmp((char*)node->name, "name")) {
       tmp = xmlNodeGetContent(node);
-/*      g_free(info->name);*/
+/*      g_clear_pointer (&info->name, g_free);*/
       info->name = g_strdup((char*)tmp);
 /*	  fprintf( stderr, "New shape of type: `%s'\n", info->name ); */
       xmlFree(tmp);
     } else if ( !strcmp((char*)node->name, "icon")) {
       tmp = xmlNodeGetContent(node);
-      g_free(info->icon_filename);
+      g_clear_pointer (&info->icon_filename, g_free);
       info->icon_filename = custom_get_relative_filename(filename, (char*)tmp);
       xmlFree(tmp);
     } else if ( !strcmp((char*)node->name, "type")) {

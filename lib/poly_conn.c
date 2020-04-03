@@ -382,8 +382,7 @@ polyconn_set_points(PolyConn *poly, int num_points, Point *points)
 
   poly->numpoints = num_points;
 
-  if (poly->points)
-    g_free(poly->points);
+  g_clear_pointer (&poly->points, g_free);
 
   poly->points = g_malloc((poly->numpoints)*sizeof(Point));
 
@@ -436,11 +435,11 @@ polyconn_destroy (PolyConn *poly)
   object_destroy (&poly->object);
 
   for (i = 0; i < poly->numpoints; i++) {
-    g_free (temp_handles[i]);
+    g_clear_pointer (&temp_handles[i], g_free);
   }
-  g_free (temp_handles);
+  g_clear_pointer (&temp_handles, g_free);
 
-  g_free (poly->points);
+  g_clear_pointer (&poly->points, g_free);
 }
 
 
@@ -511,9 +510,7 @@ polyconn_change_free(struct PointChange *change)
 {
   if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
        (change->type==TYPE_REMOVE_POINT && change->applied) ){
-    if (change->handle)
-      g_free(change->handle);
-    change->handle = NULL;
+    g_clear_pointer (&change->handle, g_free);
   }
 }
 

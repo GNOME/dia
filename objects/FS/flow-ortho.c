@@ -225,7 +225,7 @@ orthflow_change_apply_revert(ObjectChange* objchg, DiaObject* obj)
   if ( change->change_type & TEXT_EDIT  || change->change_type == BOTH ) {
     char* tmp = text_get_string_copy( oflow->text ) ;
     text_set_string( oflow->text, change->text ) ;
-    g_free( change->text ) ;
+    g_clear_pointer (&change->text, g_free);
     change->text = tmp ;
   }
 }
@@ -236,7 +236,7 @@ orthflow_change_free(ObjectChange* objchg)
   struct _OrthflowChange* change = (struct _OrthflowChange*) objchg ;
 
   if (change->change_type & TEXT_EDIT  || change->change_type == BOTH ) {
-    g_free(change->text) ;
+    g_clear_pointer (&change->text, g_free) ;
   }
 }
 

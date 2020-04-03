@@ -154,13 +154,13 @@ gdk_event_to_dia_ModifierKeys(guint event_state)
 
 
 void
-free_modify_tool(Tool *tool)
+free_modify_tool (Tool *tool)
 {
   ModifyTool *mtool = (ModifyTool *)tool;
-  if (mtool->gc)
-    g_object_unref(mtool->gc);
-  g_free(mtool);
+  g_clear_object (&mtool->gc);
+  g_clear_pointer (&mtool, g_free);
 }
+
 
 static DiaObject *
 click_select_object(DDisplay *ddisp, Point *clickedpoint,
@@ -559,7 +559,7 @@ modify_motion (ModifyTool     *tool,
       gtk_statusbar_pop (statusbar, context_id);
       gtk_statusbar_push (statusbar, context_id, postext);
 
-      g_free(postext);
+      g_clear_pointer (&postext, g_free);
     }
 
     diagram_update_connections_selection(ddisp->diagram);
@@ -645,10 +645,10 @@ modify_motion (ModifyTool     *tool,
       gtk_statusbar_pop (statusbar, context_id);
       gtk_statusbar_push (statusbar, context_id, postext);
 
-      g_free(postext);
+      g_clear_pointer (&postext, g_free);
     }
 
-    object_add_updates(tool->object, ddisp->diagram);
+    object_add_updates (tool->object, ddisp->diagram);
 
     /* Handle undo */
     if (tool->object)
@@ -807,10 +807,7 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
 
     undo_set_transactionpoint(ddisp->diagram->undo);
 
-    if (tool->orig_pos != NULL) {
-      g_free(tool->orig_pos);
-      tool->orig_pos = NULL;
-    }
+    g_clear_pointer (&tool->orig_pos, g_free);
 
     break;
   case STATE_BOX_SELECT:

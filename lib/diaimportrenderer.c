@@ -720,6 +720,7 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
   return TRUE;
 }
 
+
 /*!
  * \brief Remember the pattern for later reference
  * \memberof _DiaImportRenderer
@@ -728,11 +729,12 @@ static void
 set_pattern (DiaRenderer *renderer, DiaPattern *pat)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
+
   if (self->pattern && self->pattern != pat) {
-    g_object_unref (self->pattern);
-    self->pattern = g_object_ref (pat);
+    g_set_object (&self->pattern, pat);
   }
 }
+
 
 /*!
  * \brief Take ownership of the objects created so far

@@ -86,10 +86,12 @@ confirm_export_size (Diagram *dia, GtkWindow *parent, guint flags)
 					      "Alternatively use 'Best Fit' "
 					      "to move objects/handles into the intended bounds."));
   gtk_window_set_title (GTK_WINDOW (dialog), _("Confirm Diagram Size"));
-  g_free (size);
+  g_clear_pointer (&size, g_free);
 
-  g_signal_connect(G_OBJECT (dialog), "response",
-		   G_CALLBACK(confirm_respond), NULL);
+  g_signal_connect (G_OBJECT (dialog),
+                    "response",
+                    G_CALLBACK (confirm_respond),
+                    NULL);
 
   ret = (GTK_RESPONSE_OK == gtk_dialog_run (GTK_DIALOG (dialog)));
   gtk_widget_destroy(dialog);

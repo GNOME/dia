@@ -307,15 +307,15 @@ beziergon_create(Point *startpoint,
   return &beziergon->bezier.object;
 }
 
+
 static void
 beziergon_destroy(Beziergon *beziergon)
 {
-  if (beziergon->pattern)
-    g_object_unref (beziergon->pattern);
-  g_free (beziergon->bezier.object.enclosing_box);
-  beziergon->bezier.object.enclosing_box = NULL;
-  beziershape_destroy(&beziergon->bezier);
+  g_clear_object (&beziergon->pattern);
+  g_clear_pointer (&beziergon->bezier.object.enclosing_box, g_free);
+  beziershape_destroy (&beziergon->bezier);
 }
+
 
 static DiaObject *
 beziergon_copy(Beziergon *beziergon)

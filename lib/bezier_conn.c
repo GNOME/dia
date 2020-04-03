@@ -747,9 +747,10 @@ bezierconn_update_data (BezierConn *bezier)
       object_unconnect (&bezier->object, bezier->object.handles[obj->num_handles-1]);
 
     /* delete the old ones */
-    for (i = 0; i < obj->num_handles; i++)
-      g_free(obj->handles[i]);
-    g_free(obj->handles);
+    for (i = 0; i < obj->num_handles; i++) {
+      g_clear_pointer (&obj->handles[i], g_free);
+    }
+    g_clear_pointer (&obj->handles, g_free);
 
     obj->num_handles = 3*bezier->bezier.num_points-2;
     obj->handles = g_new(Handle*, obj->num_handles);
@@ -904,12 +905,13 @@ bezierconn_destroy (BezierConn *bezier)
 
   object_destroy(&bezier->object);
 
-  for (i = 0; i < nh; i++)
-    g_free(temp_handles[i]);
-  g_free(temp_handles);
+  for (i = 0; i < nh; i++) {
+    g_clear_pointer (&temp_handles[i], g_free);
+  }
+  g_clear_pointer (&temp_handles, g_free);
 
-  g_free(bezier->bezier.points);
-  g_free(bezier->bezier.corner_types);
+  g_clear_pointer (&bezier->bezier.points, g_free);
+  g_clear_pointer (&bezier->bezier.corner_types, g_free);
 }
 
 
@@ -1037,12 +1039,9 @@ bezierconn_point_change_free (struct PointChange *change)
 {
   if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
        (change->type==TYPE_REMOVE_POINT && change->applied) ){
-    g_free(change->handle1);
-    g_free(change->handle2);
-    g_free(change->handle3);
-    change->handle1 = NULL;
-    change->handle2 = NULL;
-    change->handle3 = NULL;
+    g_clear_pointer (&change->handle1, g_free);
+    g_clear_pointer (&change->handle2, g_free);
+    g_clear_pointer (&change->handle3, g_free);
   }
 }
 

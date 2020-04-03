@@ -140,13 +140,12 @@ defaults_show(DiaObjectType *objtype, gpointer user_data)
   gtk_box_pack_start(GTK_BOX(dialog_vbox), defaults, TRUE, TRUE, 0);
   gtk_widget_show (defaults);
 
-  if (title)
-    {
-      gtk_window_set_title(GTK_WINDOW(dialog), title);
-      g_free(title);
-    }
-  else
-      gtk_window_set_title (GTK_WINDOW (dialog), _("Object defaults"));
+  if (title) {
+    gtk_window_set_title (GTK_WINDOW (dialog), title);
+    g_clear_pointer (&title, g_free);
+  } else {
+    gtk_window_set_title (GTK_WINDOW (dialog), _("Object defaults"));
+  }
 
   if (object_part != defaults) {
     gtk_window_resize (GTK_WINDOW(dialog), 1, 1); /* shrink to default */

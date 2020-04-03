@@ -231,7 +231,7 @@ dia_arrow_preview_expose(GtkWidget *widget, GdkEventExpose *event)
                   linewidth, &color_fg, &color_bg);
     }
     dia_renderer_end_render (DIA_RENDERER (renderer));
-    g_object_unref (renderer);
+    g_clear_object (&renderer);
 
     ctx = gdk_cairo_create (win);
     cairo_set_source_surface (ctx, surface, x, y);

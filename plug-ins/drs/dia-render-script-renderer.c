@@ -80,7 +80,7 @@ set_font (DiaRenderer *self, DiaFont *font, real height)
   _node_set_real (node, "size", dia_font_get_size (font));
   _node_set_real (node, "height", height);
 
-  g_free (desc);
+  g_clear_pointer (&desc, g_free);
 }
 
 static void
@@ -233,11 +233,13 @@ draw_object (DiaRenderer *self,
   }
   renderer->root = g_queue_pop_tail (renderer->parents);
 
-  if (matrix)
+  if (matrix) {
     g_queue_pop_tail (renderer->matrices);
+  }
+
   /* one lost demand destruction */
   if (renderer->transformer && g_queue_is_empty (renderer->matrices)) {
-    g_object_unref (renderer->transformer);
+    g_clear_object (&renderer->transformer);
     renderer->transformer = NULL;
   }
 }
@@ -275,10 +277,12 @@ _node_set_color (xmlNodePtr node, const char *name, const Color *color)
   gchar *value;
 
   value = g_strdup_printf ("#%02x%02x%02x%02x",
-			   (int)(255*color->red), (int)(255*color->green),
-			   (int)(255*color->blue), (int)(255*color->alpha));
-  xmlSetProp(node, (const xmlChar *)name, (xmlChar *)value);
-  g_free (value);
+                           (int) (255 * color->red),
+                           (int) (255 * color->green),
+                           (int) (255 * color->blue),
+                           (int) (255 * color->alpha));
+  xmlSetProp (node, (const xmlChar *) name, (xmlChar *) value);
+  g_clear_pointer (&value, g_free);
 }
 
 static void
@@ -756,7 +760,7 @@ draw_image(DiaRenderer *self,
   uri = g_filename_to_uri (dia_image_filename(image), NULL, NULL);
   if (uri)
     xmlSetProp (node, (const xmlChar *)"uri", (xmlChar *) uri);
-  g_free (uri);
+  g_clear_pointer (&uri, g_free);
 }
 
 static void

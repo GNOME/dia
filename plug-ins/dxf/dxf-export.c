@@ -626,12 +626,13 @@ export_dxf(DiagramData *data, DiaContext *ctx,
         dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
     }
 
-    dia_renderer_end_render (DIA_RENDERER (renderer));
+  dia_renderer_end_render (DIA_RENDERER (renderer));
 
-    g_object_unref (renderer);
+  g_clear_object (&renderer);
 
-    return TRUE;
+  return TRUE;
 }
+
 
 static const gchar *extensions[] = { "dxf", NULL };
 DiaExportFilter dxf_export_filter = {

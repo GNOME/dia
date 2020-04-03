@@ -149,9 +149,9 @@ _gradient_do (gpointer key,
   }
   /* don't miss to set the id */
   {
-    gchar *id = _make_pattern_key (pattern);
+    char *id = _make_pattern_key (pattern);
     xmlSetProp (gradient, (const xmlChar *)"id", (const xmlChar *)id);
-    g_free (id);
+    g_clear_pointer (&id, g_free);
   }
   if (flags & DIA_PATTERN_USER_SPACE)
     xmlSetProp (gradient, (const xmlChar *)"gradientUnits", (const xmlChar *)"userSpaceOnUse");
@@ -177,7 +177,7 @@ static void
 end_render(DiaRenderer *self)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-  g_free(renderer->linestyle);
+  g_clear_pointer (&renderer->linestyle, g_free);
 
   /* handle potential patterns */
   if (renderer->patterns) {
@@ -191,7 +191,7 @@ end_render(DiaRenderer *self)
   }
   xmlSetDocCompressMode(renderer->doc, 0);
   xmlDiaSaveFile(renderer->filename, renderer->doc);
-  g_free(renderer->filename);
+  g_clear_pointer (&renderer->filename, g_free);
   xmlFreeDoc(renderer->doc);
 }
 
@@ -296,7 +296,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
     dash_length = 0.001;
   dot_length = dash_length*0.2;
 
-  g_free (renderer->linestyle);
+  g_clear_pointer (&renderer->linestyle, g_free);
   switch (mode) {
     case LINESTYLE_SOLID:
       renderer->linestyle = NULL;
@@ -381,8 +381,7 @@ set_pattern(DiaRenderer *self, DiaPattern *pattern)
     renderer->active_pattern = NULL;
   }
 
-  if (prev)
-    g_object_unref (prev);
+  g_clear_object (&prev);
 }
 
 /*!
@@ -410,7 +409,7 @@ get_draw_style(DiaSvgRenderer *renderer,
     if (renderer->active_pattern) {
       gchar *key = _make_pattern_key (renderer->active_pattern);
       g_string_printf(str, "fill:url(#%s)", key);
-      g_free (key);
+      g_clear_pointer (&key, g_free);
     } else {
       g_string_printf(str, "fill: #%02x%02x%02x; fill-opacity: %s",
 		      (int)(255*fill->red), (int)(255*fill->green),
@@ -903,14 +902,14 @@ draw_image(DiaRenderer *self,
     if (!uri)
       uri = g_strdup ("(null)");
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
-    g_free (prefix);
+    g_clear_pointer (&prefix, g_free);
   } else if ((uri = dia_relativize_filename (renderer->filename, dia_image_filename(image))) != NULL)
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
   else if ((uri = g_filename_to_uri(dia_image_filename(image), NULL, NULL)) != NULL)
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) uri);
   else /* not sure if this fallback is better than nothing */
     xmlSetProp(node, (const xmlChar *)"xlink:href", (xmlChar *) dia_image_filename(image));
-  g_free (uri);
+  g_clear_pointer (&uri, g_free);
 }
 
 /*!

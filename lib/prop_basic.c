@@ -68,11 +68,11 @@ make_new_prop(const char *name, PropertyType type, guint flags)
   if (!hash) hash = g_hash_table_new((GHashFunc)desc_hash_hash,
                                      (GCompareFunc)desc_hash_compare);
 
-  descr = g_hash_table_lookup(hash,moniker);
+  descr = g_hash_table_lookup (hash,moniker);
   if (descr) {
-    g_free(moniker);
+    g_clear_pointer (&moniker, g_free);
   } else {
-    descr = g_new0(PropDescription,1);
+    descr = g_new0 (PropDescription,1);
     descr->name = name;
     descr->type = type;
     descr->flags = flags;
@@ -237,11 +237,13 @@ noopprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
   return prop;
 }
 
+
 void
-noopprop_free(NoopProperty *prop)
+noopprop_free (NoopProperty *prop)
 {
-  g_free(prop);
+  g_clear_pointer (&prop, g_free);
 }
+
 
 NoopProperty *
 noopprop_copy(NoopProperty *src)

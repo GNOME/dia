@@ -154,13 +154,13 @@ uml_attribute_ref (UMLAttribute *self)
 static void
 attribute_destroy (UMLAttribute *attr)
 {
-  g_free (attr->name);
-  g_free (attr->type);
-  g_free (attr->value);
-  g_free (attr->comment);
+  g_clear_pointer (&attr->name, g_free);
+  g_clear_pointer (&attr->type, g_free);
+  g_clear_pointer (&attr->value, g_free);
+  g_clear_pointer (&attr->comment, g_free);
 #if 0 /* free'd elsewhere */
-  g_free(attr->left_connection);
-  g_free(attr->right_connection);
+  g_clear_pointer (&attr->left_connection, g_free);
+  g_clear_pointer (&attr->right_connection, g_free);
 #endif
 }
 

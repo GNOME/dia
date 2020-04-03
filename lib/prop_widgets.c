@@ -131,8 +131,8 @@ frame_beginprop_get_widget(FrameProperty *prop, PropDialog *dialog)
 
   struct FoldButtonInfo *info = g_new(struct FoldButtonInfo, 1);
 
-  g_free(foldstring);
-  g_free(unfoldstring);
+  g_clear_pointer (&foldstring, g_free);
+  g_clear_pointer (&unfoldstring, g_free);
 
   info->frame = frame;
   info->unfoldbutton = unfoldbutton;
@@ -391,7 +391,7 @@ listprop_emptylines_realloc (ListProperty *prop, guint new_size) {
   guint i;
 
   for (i = 0; i < prop->lines->len; i++) {
-    g_free (g_ptr_array_index (prop->lines, i));
+    g_clear_pointer (&g_ptr_array_index (prop->lines, i), g_free);
   }
   g_ptr_array_set_size (prop->lines,new_size);
 }

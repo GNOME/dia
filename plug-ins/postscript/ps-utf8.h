@@ -2,9 +2,9 @@
  * Copyright (C) 1998 Alexander Larsson
  *
  * ps-utf8.h: builds custom Postscript encodings to write arbitrary utf8
- * strings and have the device understand what's going on. 
+ * strings and have the device understand what's going on.
  * Copyright (C) 2001 Cyrille Chepelov <chepelov@calixo.net>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -37,13 +37,13 @@ typedef struct _PSUnicoderCallbacks PSUnicoderCallbacks;
 #define PSEPAGE_SIZE (256-PSEPAGE_BEGIN)
 
 struct _PSFontDescriptor {
-  const gchar *face; /* LE */
-  const gchar *name; /* LE */
+  const char *face; /* LE */
+  char *name; /* LE */
   const PSEncodingPage *encoding; /* DNLE */
   int encoding_serial_num; /* if encoding->serial_num > this, we have to
                               re-emit the font. If it's negative,
                               the font has never been emitted. */
-}; 
+};
 
 /* "defined_fonts" cache is simply a dictionary (g_hash_table):
        ("face-e%d-%f" % (encoding_page_#,size)) --> font descriptor
@@ -51,7 +51,7 @@ struct _PSFontDescriptor {
 */
 
 struct _PSEncodingPage {
-  const gchar *name; /* LE. */
+  char *name; /* LE. */
   int page_num;
   int serial_num;
   int last_realized;
@@ -64,7 +64,7 @@ struct _PSUnicoder {
   gpointer usrdata;
   const PSUnicoderCallbacks *callbacks;
 
-  const gchar *face;
+  const char *face;
   float size;
   float current_size; /* might lag a little... */
   PSFontDescriptor *current_font; /* DNLE */
@@ -76,26 +76,26 @@ struct _PSUnicoder {
   const PSEncodingPage *current_encoding; /* DNLE */
 };
 
-typedef void (*DestroyPSFontFunc)(gpointer usrdata, const gchar *fontname);
-typedef void (*BuildPSEncodingFunc)(gpointer usrdata, 
-                                    const gchar *name,
+typedef void (*DestroyPSFontFunc)(gpointer usrdata, const char *fontname);
+typedef void (*BuildPSEncodingFunc)(gpointer usrdata,
+                                    const char *name,
                                     const gunichar table[PSEPAGE_SIZE]);
-/* note: the first $PSEPAGE_BEGIN will always be /.notdef, likewise 
+/* note: the first $PSEPAGE_BEGIN will always be /.notdef, likewise
    for ( and ) */
-typedef void (*BuildPSFontFunc)(gpointer usrdata, 
-                                const gchar *name,
-                                const gchar *face,
-                                const gchar *encoding_name);
-/* must definefont a font under "fontname", with the "encname" encoding 
+typedef void (*BuildPSFontFunc)(gpointer usrdata,
+                                const char *name,
+                                const char *face,
+                                const char *encoding_name);
+/* must definefont a font under "fontname", with the "encname" encoding
    (already defined). */
-typedef void (*SelectPSFontFunc)(gpointer usrdata, 
-                                 const gchar *fontname,
+typedef void (*SelectPSFontFunc)(gpointer usrdata,
+                                 const char *fontname,
                                  float size);
 /* must select (setfont) an already found and defined font. */
-typedef void (*ShowStringFunc)(gpointer usrdata, const gchar *string);
+typedef void (*ShowStringFunc)(gpointer usrdata, const char *string);
 /* typically, does "(string) show" (but can do other things).
    string is guaranteed to not have escaping issues. */
-typedef void (*GetStringWidthFunc)(gpointer usrdata, const gchar *string,
+typedef void (*GetStringWidthFunc)(gpointer usrdata, const char *string,
                                gboolean first);
 /* gets the string width on the PS stack. if !first, adds it to the previous
    element of the stack. */
@@ -108,16 +108,16 @@ struct _PSUnicoderCallbacks {
   ShowStringFunc show_string;
   GetStringWidthFunc get_string_width;
 };
-  
- 
-extern PSUnicoder *ps_unicoder_new(const PSUnicoderCallbacks *psucbk, 
+
+
+extern PSUnicoder *ps_unicoder_new(const PSUnicoderCallbacks *psucbk,
                                    gpointer usrdata);
 extern void ps_unicoder_destroy(PSUnicoder *psu);
 
-extern void psu_set_font_face(PSUnicoder *psu, const gchar *face, float size);
+extern void psu_set_font_face(PSUnicoder *psu, const char *face, float size);
 /* just stores the font face and size we'll later use */
 
-extern void psu_check_string_encodings(PSUnicoder *psu, 
+extern void psu_check_string_encodings(PSUnicoder *psu,
                                        const char *utf8_string);
 /* appends what's going to be needed in the encoding tables */
 
@@ -131,7 +131,7 @@ extern void psu_get_string_width(PSUnicoder *psu,
 
 extern const char *unicode_to_ps_name(gunichar val);
 /* returns "uni1234", or a special Adobe entity name. */
- 
+
 
 #endif /* !PS_UTF8_H */
 

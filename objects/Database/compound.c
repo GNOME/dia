@@ -291,12 +291,14 @@ compound_state_set (CompoundState * state, Compound * comp)
   compound_sanity_check (comp, "Restored state");
 }
 
+
 static void
 compound_state_free (CompoundState * state)
 {
-  g_free (state->handle_states);
+  g_clear_pointer (&state->handle_states, g_free);
   g_free (state);
 }
+
 
 static CompoundChange *
 compound_change_new (Compound * comp, CompoundState * state)
@@ -514,14 +516,16 @@ compound_save (Compound *comp, ObjectNode obj_node, DiaContext *ctx)
   data_add_color (attr, &comp->line_color, ctx);
 }
 
+
 static void
 compound_destroy (Compound * comp)
 {
   compound_sanity_check (comp, "Destroying");
 
   object_destroy (&comp->object);
-  g_free (comp->handles);
+  g_clear_pointer (&comp->handles, g_free);
 }
+
 
 static void
 compound_draw (Compound * comp, DiaRenderer * renderer)

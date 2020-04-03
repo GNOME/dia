@@ -378,14 +378,17 @@ _comment_get_state (DiaObject *obj)
   state->visible_comments = ((UMLClass *)obj)->visible_comments;
   return (ObjectState *)state;
 }
+
+
 static void
 _comment_set_state (DiaObject *obj, ObjectState *state)
 {
-  ((UMLClass *)obj)->visible_comments = ((CommentState *)state)->visible_comments;
+  ((UMLClass *) obj)->visible_comments = ((CommentState *) state)->visible_comments;
   g_free (state); /* rather strange convention set_state consumes the state */
-  umlclass_calculate_data((UMLClass *)obj);
-  umlclass_update_data((UMLClass *)obj);
+  umlclass_calculate_data ((UMLClass *)obj);
+  umlclass_update_data ((UMLClass *)obj);
 }
+
 
 static ObjectChange *
 umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data)
@@ -574,9 +577,9 @@ uml_underline_text (DiaRenderer  *renderer,
                     real          line_width,
                     real          underline_width)
 {
-  Point    UnderlineStartPoint;
-  Point    UnderlineEndPoint;
-  gchar *whitespaces;
+  Point UnderlineStartPoint;
+  Point UnderlineEndPoint;
+  char *whitespaces;
   int first_non_whitespace = 0;
 
   UnderlineStartPoint = StartPoint;
@@ -592,7 +595,7 @@ uml_underline_text (DiaRenderer  *renderer,
   whitespaces = g_strdup (string);
   whitespaces[first_non_whitespace] = '\0';
   UnderlineStartPoint.x += dia_font_string_width (whitespaces, font, font_height);
-  g_free(whitespaces);
+  g_clear_pointer (&whitespaces, g_free);
   UnderlineEndPoint.x += dia_font_string_width (string, font, font_height);
   dia_renderer_set_linewidth (renderer, underline_width);
   dia_renderer_draw_line (renderer, &UnderlineStartPoint, &UnderlineEndPoint, color);
@@ -753,7 +756,7 @@ uml_draw_comments (DiaRenderer *renderer,
     }
   }
   p->y += font_height - ascent;
-  g_free (CommentString);
+  g_clear_pointer (&CommentString, g_free);
 }
 
 
@@ -944,7 +947,7 @@ umlclass_draw_attributebox (UMLClass    *umlclass,
       }
       list = g_list_next (list);
       i++;
-      g_free (attstr);
+      g_clear_pointer (&attstr, g_free);
     }
   }
   return Yoffset;
@@ -1112,11 +1115,9 @@ umlclass_draw_operationbox (UMLClass    *umlclass,
 
       list = g_list_next (list);
       i++;
-      g_free (opstr);
+      g_clear_pointer (&opstr, g_free);
     }
-    if (part_opstr) {
-      g_free (part_opstr);
-    }
+    g_clear_pointer (&part_opstr, g_free);
   }
   return Yoffset;
 }
@@ -1144,12 +1145,12 @@ umlclass_draw_template_parameters_box (UMLClass    *umlclass,
   Point TextInsert;
   GList *list;
   gint   i;
-  DiaFont   *font = umlclass->normal_font;
-  real       font_height = umlclass->font_height;
-  real       ascent;
-  Color     *fill_color = &umlclass->fill_color;
-  Color     *line_color = &umlclass->line_color;
-  Color     *text_color = &umlclass->text_color;
+  DiaFont *font = umlclass->normal_font;
+  real     font_height = umlclass->font_height;
+  real     ascent;
+  Color   *fill_color = &umlclass->fill_color;
+  Color   *line_color = &umlclass->line_color;
+  Color   *text_color = &umlclass->text_color;
 
 
   /*
@@ -1180,9 +1181,10 @@ umlclass_draw_template_parameters_box (UMLClass    *umlclass,
 
     list = g_list_next (list);
     i++;
-    g_free (paramstr);
+    g_clear_pointer (&paramstr, g_free);
   }
 }
+
 
 /**
  * Draw the class icon for the specified UMLClass object.
@@ -1195,15 +1197,14 @@ umlclass_draw_template_parameters_box (UMLClass    *umlclass,
  * @param   DiaRenderer  renderer used to draw the object
  *
  */
-
 static void
 umlclass_draw (UMLClass *umlclass, DiaRenderer *renderer)
 {
-  real     y  = 0.0;
+  double y = 0.0;
   Element *elem;
 
-  assert(umlclass != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (umlclass != NULL);
+  g_return_if_fail (renderer != NULL);
 
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   dia_renderer_set_linewidth (renderer, umlclass->line_width);
@@ -1313,12 +1314,12 @@ umlclass_update_data(UMLClass *umlclass)
 
     y += umlclass->font_height;
     if (umlclass->visible_comments && attr->comment != NULL && attr->comment[0] != '\0') {
-      gint NumberOfLines = 0;
-      gchar *CommentString = 0;
+      int NumberOfLines = 0;
+      char *CommentString = 0;
 
       CommentString =
-        uml_create_documentation_tag(attr->comment, umlclass->comment_tagging, umlclass->comment_line_length, &NumberOfLines);
-      g_free(CommentString);
+        uml_create_documentation_tag (attr->comment, umlclass->comment_tagging, umlclass->comment_line_length, &NumberOfLines);
+      g_clear_pointer (&CommentString, g_free);
       y += umlclass->comment_font_height*NumberOfLines + umlclass->comment_font_height/2;
     }
 
@@ -1348,12 +1349,12 @@ umlclass_update_data(UMLClass *umlclass)
       y += umlclass->font_height;
     }
     if (umlclass->visible_comments && op->comment != NULL && op->comment[0] != '\0') {
-      gint NumberOfLines = 0;
-      gchar *CommentString = 0;
+      int NumberOfLines = 0;
+      char *CommentString = 0;
 
       CommentString =
         uml_create_documentation_tag(op->comment, umlclass->comment_tagging, umlclass->comment_line_length, &NumberOfLines);
-      g_free(CommentString);
+      g_clear_pointer (&CommentString, g_free);
       y += umlclass->comment_font_height*NumberOfLines + umlclass->comment_font_height/2;
     }
     list = g_list_next(list);
@@ -1409,9 +1410,8 @@ umlclass_calculate_name_data(UMLClass *umlclass)
   }
 
   umlclass->namebox_height = umlclass->classname_font_height + 4*0.1;
-  if (umlclass->stereotype_string != NULL) {
-    g_free(umlclass->stereotype_string);
-  }
+  g_clear_pointer (&umlclass->stereotype_string, g_free);
+
   if (umlclass->stereotype != NULL && umlclass->stereotype[0] != '\0') {
     umlclass->namebox_height += umlclass->font_height;
     umlclass->stereotype_string = g_strconcat ( UML_STEREOTYPE_START,
@@ -1435,12 +1435,12 @@ umlclass_calculate_name_data(UMLClass *umlclass)
                                                          umlclass->comment_line_length,
                                                          &NumberOfLines);
     width = dia_font_string_width (CommentString,
-                                    umlclass->comment_font,
-                                    umlclass->comment_font_height);
+                                   umlclass->comment_font,
+                                   umlclass->comment_font_height);
 
-    g_free(CommentString);
+    g_clear_pointer (&CommentString, g_free);
     umlclass->namebox_height += umlclass->comment_font_height * NumberOfLines;
-    maxwidth = MAX(width, maxwidth);
+    maxwidth = MAX (width, maxwidth);
   }
   return maxwidth;
 }
@@ -1490,21 +1490,21 @@ umlclass_calculate_attribute_data(UMLClass *umlclass)
       if (umlclass->visible_comments && attr->comment != NULL && attr->comment[0] != '\0')
       {
         int NumberOfLines = 0;
-        gchar *CommentString = uml_create_documentation_tag(attr->comment,
+        char *CommentString = uml_create_documentation_tag (attr->comment,
                                                             umlclass->comment_tagging,
                                                             umlclass->comment_line_length,
                                                             &NumberOfLines);
         width = dia_font_string_width(CommentString,
                                        umlclass->comment_font,
                                        umlclass->comment_font_height);
-        g_free(CommentString);
+        g_clear_pointer (&CommentString, g_free);
         umlclass->attributesbox_height += umlclass->comment_font_height * NumberOfLines + umlclass->comment_font_height/2;
         maxwidth = MAX(width, maxwidth);
       }
 
       i++;
       list = g_list_next(list);
-      g_free (attstr);
+      g_clear_pointer (&attstr, g_free);
     }
   }
 
@@ -1669,21 +1669,21 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
 
       if (umlclass->visible_comments && op->comment != NULL && op->comment[0] != '\0'){
         int NumberOfLines = 0;
-        gchar *CommentString = uml_create_documentation_tag(op->comment,
+        char *CommentString = uml_create_documentation_tag (op->comment,
                                                             umlclass->comment_tagging,
                                                             umlclass->comment_line_length,
                                                             &NumberOfLines);
         width = dia_font_string_width(CommentString,
                                        umlclass->comment_font,
                                        umlclass->comment_font_height);
-        g_free(CommentString);
+        g_clear_pointer (&CommentString, g_free);
         umlclass->operationsbox_height += umlclass->comment_font_height * NumberOfLines + umlclass->comment_font_height/2;
         maxwidth = MAX(width, maxwidth);
       }
 
       i++;
       list = g_list_next(list);
-      g_free (opstr);
+      g_clear_pointer (&opstr, g_free);
     }
   }
 
@@ -1769,7 +1769,7 @@ umlclass_calculate_data(UMLClass *umlclass)
 
         i++;
         list = g_list_next(list);
-	g_free (paramstr);
+        g_clear_pointer (&paramstr, g_free);
       }
     }
     umlclass->templates_width = maxwidth + 2*0.2;
@@ -1949,15 +1949,15 @@ umlclass_destroy(UMLClass *umlclass)
 
   element_destroy (&umlclass->element);
 
-  g_free(umlclass->name);
-  g_free(umlclass->stereotype);
-  g_free(umlclass->comment);
+  g_clear_pointer (&umlclass->name, g_free);
+  g_clear_pointer (&umlclass->stereotype, g_free);
+  g_clear_pointer (&umlclass->comment, g_free);
 
   list = umlclass->attributes;
   while (list != NULL) {
     attr = (UMLAttribute *)list->data;
-    g_free(attr->left_connection);
-    g_free(attr->right_connection);
+    g_clear_pointer (&attr->left_connection, g_free);
+    g_clear_pointer (&attr->right_connection, g_free);
     uml_attribute_unref (attr);
     list = g_list_next (list);
   }
@@ -1966,8 +1966,8 @@ umlclass_destroy(UMLClass *umlclass)
   list = umlclass->operations;
   while (list != NULL) {
     op = (UMLOperation *)list->data;
-    g_free (op->left_connection);
-    g_free (op->right_connection);
+    g_clear_pointer (&op->left_connection, g_free);
+    g_clear_pointer (&op->right_connection, g_free);
     uml_operation_unref (op);
     list = g_list_next (list);
   }
@@ -1976,9 +1976,7 @@ umlclass_destroy(UMLClass *umlclass)
   g_list_free_full (umlclass->formal_params, (GDestroyNotify) uml_formal_parameter_unref);
   umlclass->formal_params = NULL;
 
-  if (umlclass->stereotype_string != NULL) {
-    g_free (umlclass->stereotype_string);
-  }
+  g_clear_pointer (&umlclass->stereotype_string, g_free);
 
   if (umlclass->properties_dialog != NULL) {
     umlclass_dialog_free (umlclass->properties_dialog);

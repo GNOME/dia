@@ -23,18 +23,20 @@
 #include <string.h>
 #include "stereotype.h"
 
-gchar *
-string_to_bracketted (gchar *str, 
-		      const char *start_bracket, 
-		      const char *end_bracket)
+
+char *
+string_to_bracketted (char       *str,
+                      const char *start_bracket,
+                      const char *end_bracket)
 {
   return g_strconcat (start_bracket, (str ? str : ""), end_bracket, NULL);
 }
 
-gchar *
-bracketted_to_string (gchar *bracketted,
-		      const char *start_bracket,
-		      const char *end_bracket)
+
+char *
+bracketted_to_string (char       *bracketted,
+                      const char *start_bracket,
+                      const char *end_bracket)
 {
   const char *utfstart, *utfend, *utfstr;
   int start_len, end_len, str_len;
@@ -60,30 +62,38 @@ bracketted_to_string (gchar *bracketted,
   return g_strndup (utfstr, str_len);
 }
 
-gchar *
-string_to_stereotype (gchar *str)
+
+char *
+string_to_stereotype (char *str)
 {
-  if ((str) && str[0] != '\0')  
-    return string_to_bracketted(str, UML_STEREOTYPE_START, UML_STEREOTYPE_END);
-  return g_strdup(str);
+  if ((str) && str[0] != '\0') {
+    return string_to_bracketted (str,
+                                 UML_STEREOTYPE_START,
+                                 UML_STEREOTYPE_END);
+  }
+  return g_strdup (str);
 }
 
-gchar *
-remove_stereotype_from_string (gchar *stereotype)
+
+char *
+remove_stereotype_from_string (char *stereotype)
 {
-  if (stereotype) { 
-    char *tmp = bracketted_to_string (stereotype, 
-					 UML_STEREOTYPE_START, UML_STEREOTYPE_END);
-    g_free(stereotype);
+  if (stereotype) {
+    char *tmp = bracketted_to_string (stereotype,
+                                      UML_STEREOTYPE_START,
+                                      UML_STEREOTYPE_END);
+    g_free (stereotype);
     return tmp;
   } else {
     return NULL;
   }
 }
 
-gchar *
-stereotype_to_string (gchar *stereotype)
+
+char *
+stereotype_to_string (char *stereotype)
 {
-  return bracketted_to_string(stereotype, 
-                              UML_STEREOTYPE_START, UML_STEREOTYPE_END);
+  return bracketted_to_string (stereotype,
+                               UML_STEREOTYPE_START,
+                               UML_STEREOTYPE_END);
 }

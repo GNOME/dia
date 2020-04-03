@@ -173,12 +173,12 @@ get_family_from_name (GtkWidget *widget, const gchar *fontname)
   for (i = 0; i < n_families; i++) {
     if (!(g_ascii_strcasecmp (pango_font_family_get_name (families[i]), fontname))) {
       PangoFontFamily *fam = families[i];
-      g_free (families);
+      g_clear_pointer (&families, g_free);
       return fam;
     }
   }
   g_warning (_("Couldn't find font family for %s\n"), fontname);
-  g_free (families);
+  g_clear_pointer (&families, g_free);
   return NULL;
 }
 
@@ -222,7 +222,7 @@ set_styles (DiaFontSelector *fs,
     pango_font_description_free (pfd);
   }
 
-  g_free (faces);
+  g_clear_pointer (&faces, g_free);
 
   if (stylebits == 0) {
     g_warning ("'%s' has no style!",
@@ -355,7 +355,7 @@ font_changed (GtkComboBox     *widget,
 
   gtk_tree_path_free (path);
   gtk_tree_path_free (active_path);
-  g_free (family);
+  g_clear_pointer (&family, g_free);
 }
 
 
@@ -371,7 +371,7 @@ is_separator (GtkTreeModel *model,
 
   result = g_strcmp0 (family, "separator") == 0;
 
-  g_free (family);
+  g_clear_pointer (&family, g_free);
 
   return result;
 }
@@ -541,7 +541,7 @@ dia_font_selector_init (DiaFontSelector *fs)
                         FONT_COL_FAMILY, pango_font_family_get_name (families[i]),
                         -1);
   }
-  g_free (families);
+  g_clear_pointer (&families, g_free);
 
   gtk_box_pack_start (GTK_BOX (fs), GTK_WIDGET (priv->fonts), FALSE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (fs), GTK_WIDGET (priv->styles), FALSE, TRUE, 0);
@@ -576,7 +576,7 @@ set_font (GtkTreeModel *model,
     gtk_combo_box_set_active_iter (GTK_COMBO_BOX (priv->fonts), iter);
   }
 
-  g_free (font);
+  g_clear_pointer (&font, g_free);
 
   return res;
 }
@@ -638,7 +638,7 @@ dia_font_selector_get_font (DiaFontSelector *self)
 
   font = dia_font_new (fontname, style, 1.0);
 
-  g_free (fontname);
+  g_clear_pointer (&fontname, g_free);
 
   return font;
 }

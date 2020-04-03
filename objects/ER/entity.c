@@ -419,13 +419,15 @@ entity_create(Point *startpoint,
   return &entity->element.object;
 }
 
+
 static void
 entity_destroy (Entity *entity)
 {
   g_clear_object (&entity->font);
   element_destroy (&entity->element);
-  g_free (entity->name);
+  g_clear_pointer (&entity->name, g_free);
 }
+
 
 static DiaObject *
 entity_copy(Entity *entity)

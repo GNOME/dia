@@ -157,6 +157,7 @@ create_textedit_tool(void)
   return (Tool *)tool;
 }
 
+
 void
 free_textedit_tool (Tool *tool)
 {
@@ -167,5 +168,5 @@ free_textedit_tool (Tool *tool)
   }
   ddisplay_set_all_cursor(default_cursor);
 
-  g_free (tool);
+  g_clear_pointer (&tool, g_free);
 }

@@ -1038,10 +1038,9 @@ dia_layer_set_parent_diagram (DiaLayer    *layer,
 
   priv = dia_layer_get_instance_private (layer);
 
-  g_clear_weak_pointer (&priv->parent_diagram);
-  g_set_weak_pointer (&priv->parent_diagram, diagram);
-
-  g_object_notify_by_pspec (G_OBJECT (layer), pspecs[PROP_PARENT_DIAGRAM]);
+  if (g_set_weak_pointer (&priv->parent_diagram, diagram)) {
+    g_object_notify_by_pspec (G_OBJECT (layer), pspecs[PROP_PARENT_DIAGRAM]);
+  }
 }
 
 /**

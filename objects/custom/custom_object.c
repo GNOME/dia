@@ -317,38 +317,36 @@ custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
 	continue;
       if (node->type != XML_ELEMENT_NODE)
 	continue;
-      if (!xmlStrcmp(node->name, (const xmlChar *)"ext_attribute"))
-      {
-	gchar *pname, *ptype = 0;
+      if (!xmlStrcmp(node->name, (const xmlChar *) "ext_attribute")) {
+      char *pname, *ptype = 0;
 
-	str = xmlGetProp(node, (const xmlChar *)"name");
-	if (!str)
-	  continue;
-	pname = g_strdup((gchar *) str);
-	xmlFree(str);
+      str = xmlGetProp(node, (const xmlChar *)"name");
+      if (!str) {
+        continue;
+      }
+      pname = g_strdup((char *) str);
+      xmlFree(str);
 
-	str = xmlGetProp(node, (const xmlChar *)"type");
-	if (!str)
-	{
-	  g_free (pname);
-	  continue;
-	}
-	ptype = g_strdup((gchar *) str);
-	xmlFree(str);
+      str = xmlGetProp(node, (const xmlChar *)"type");
+      if (!str) {
+        g_clear_pointer (&pname, g_free);
+        continue;
+      }
+      ptype = g_strdup((char *) str);
+      xmlFree(str);
 
-	/* we got here, then fill an entry */
-	info->props[i].name = g_strdup_printf("custom:%s", pname);
-	info->props[i].type = ptype;
-	info->props[i].flags = PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL;
+      /* we got here, then fill an entry */
+      info->props[i].name = g_strdup_printf ("custom:%s", pname);
+      info->props[i].type = ptype;
+      info->props[i].flags = PROP_FLAG_VISIBLE|PROP_FLAG_OPTIONAL;
 
-	str = xmlGetProp(node, (const xmlChar *)"description");
-	if (str)
-	{
-	  g_free (pname);
-	  pname = g_strdup((gchar *) str);
-	  xmlFree(str);
-	}
-	info->props[i++].description = pname;
+        str = xmlGetProp (node, (const xmlChar *) "description");
+        if (str) {
+          g_clear_pointer (&pname, g_free);
+          pname = g_strdup ((char *) str);
+          xmlFree (str);
+        }
+        info->props[i++].description = pname;
       }
     }
   }
@@ -1449,7 +1447,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 	     custom->text->height * custom->text->numlines) / 2 +
 	dia_font_ascent(txs,custom->text->font, custom->text->height);
     text_set_position(custom->text, &p);
-    g_free(txs);
+    g_clear_pointer (&txs, g_free);
   }
 
   for (i = 0; i < info->nconnections; i++)
@@ -1762,7 +1760,7 @@ custom_destroy(Custom *custom)
 
   element_destroy(&custom->element);
 
-  g_free(custom->connections);
+  g_clear_pointer (&custom->connections, g_free);
 }
 
 static DiaObject *

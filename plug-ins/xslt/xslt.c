@@ -62,12 +62,10 @@ export_xslt (DiagramData *data,
              const gchar *diaf,
              void        *user_data)
 {
-  if (filename != NULL)
-    g_free (filename);
+  g_clear_pointer (&filename, g_free);
 
   filename = g_strdup (f);
-  if (diafilename != NULL)
-    g_free (diafilename);
+  g_clear_pointer (&diafilename, g_free);
 
   diafilename = g_strdup (diaf);
 
@@ -89,11 +87,11 @@ xslt_ok (void)
   xmlErrorPtr error_xml = NULL;
   gchar *directory = g_path_get_dirname (filename);
   gchar *uri = g_filename_to_uri (directory, NULL, NULL);
-  g_free (directory);
+  g_clear_pointer (&directory, g_free);
 
   /* strange: requires an uri, but the last char is platform specifc?! */
   params[1] = g_strconcat ("'", uri, G_DIR_SEPARATOR_S, "'", NULL);
-  g_free (uri);
+  g_clear_pointer (&uri, g_free);
 
   file = g_fopen (diafilename, "r");
 
@@ -206,7 +204,7 @@ read_implementations (xmlNodePtr cur, gchar *path)
       if (to->xsl) {
         xmlFree(to->xsl);
       }
-      g_free(to);
+      g_clear_pointer (&to, g_free);
       to = NULL;
     } else {
       if (first == NULL) {
@@ -272,8 +270,7 @@ read_configuration(const char *config)
 
       if (!(new_from->name && new_from->xsl)) {
         g_warning ("'name' and 'stylesheet' attributes are required for the language element %s in XSLT plugin configuration file", cur->name);
-        g_free (new_from);
-        new_from = NULL;
+        g_clear_pointer (&new_from, g_free);
       } else {
         /* make filename absolute */
         {
@@ -299,7 +296,7 @@ read_configuration(const char *config)
     g_warning ("No stylesheets configured in %s for XSLT plugin", config);
   }
 
-  g_free (path);
+  g_clear_pointer (&path, g_free);
   xmlFreeDoc (doc);
   xmlCleanupParser ();
 
@@ -342,11 +339,11 @@ dia_plugin_init (PluginInfo *info)
   }
 
   global_res = read_configuration (path);
-  g_free (path);
+  g_clear_pointer (&path, g_free);
 
   path = dia_config_filename ("xslt" G_DIR_SEPARATOR_S "stylesheets.xml");
   user_res = read_configuration(path);
-  g_free (path);
+  g_clear_pointer (&path, g_free);
 
   if (global_res == DIA_PLUGIN_INIT_OK || user_res == DIA_PLUGIN_INIT_OK) {
     xsl_from = g_ptr_array_index (froms, 0);

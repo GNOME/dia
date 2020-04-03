@@ -79,9 +79,9 @@ dia_plugin_info_init(PluginInfo *info,
 		     PluginCanUnloadFunc can_unload_func,
 		     PluginUnloadFunc unload_func)
 {
-  g_free(info->name);
+  g_clear_pointer (&info->name, g_free);
   info->name = g_strdup(name);
-  g_free(info->description);
+  g_clear_pointer (&info->description, g_free);
   info->description = g_strdup(description);
   info->can_unload_func = can_unload_func;
   info->unload_func = unload_func;
@@ -297,10 +297,10 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
   if (g_stat(directory, &statbuf) < 0)
     return;
 
-  dp = g_dir_open(directory, 0, &error);
+  dp = g_dir_open (directory, 0, &error);
   if (dp == NULL) {
-    g_warning("Could not open `%s'\n`%s'", directory, error->message);
-    g_error_free (error);
+    g_warning ("Could not open `%s'\n`%s'", directory, error->message);
+    g_clear_error (&error);
     return;
   }
 
@@ -308,7 +308,7 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
     gchar *name = g_build_filename(directory,dentry,NULL);
 
     if (filter(name)) dofunc(name);
-    g_free(name);
+    g_clear_pointer (&name, g_free);
   }
   g_dir_close(dp);
 }
@@ -338,16 +338,16 @@ dia_register_plugins_in_dir(const gchar *directory)
 void
 dia_register_plugins(void)
 {
-  const gchar *library_path;
-  const gchar *lib_dir;
+  const char *library_path;
+  char *lib_dir;
 
-  library_path = g_getenv("DIA_LIB_PATH");
+  library_path = g_getenv ("DIA_LIB_PATH");
 
-  lib_dir = dia_config_filename("objects");
+  lib_dir = dia_config_filename ("objects");
 
   if (lib_dir != NULL) {
-    dia_register_plugins_in_dir(lib_dir);
-    g_free((char *)lib_dir);
+    dia_register_plugins_in_dir (lib_dir);
+    g_clear_pointer (&lib_dir, g_free);
   }
 
   if (library_path != NULL) {
@@ -359,13 +359,13 @@ dia_register_plugins(void)
     }
     g_strfreev(paths);
   } else {
-    library_path = dia_get_lib_directory();
+    lib_dir = dia_get_lib_directory ();
 
-    dia_register_plugins_in_dir(library_path);
-    g_free((char *)library_path);
+    dia_register_plugins_in_dir (lib_dir);
+    g_clear_pointer (&lib_dir, g_free);
   }
   /* FIXME: this isn't needed anymore */
-  free_pluginrc();
+  free_pluginrc ();
 }
 
 void
@@ -381,7 +381,7 @@ dia_register_builtin_plugin(PluginInitFunc init_func)
   info->init_func = init_func;
 
   if ((* init_func)(info) != DIA_PLUGIN_INIT_OK) {
-    g_free(info);
+    g_clear_pointer (&info, g_free);
     return;
   }
   plugins = g_list_prepend(plugins, info);
@@ -420,7 +420,7 @@ ensure_pluginrc(void)
   else
     pluginrc = NULL;
 
-  g_free(filename);
+  g_clear_pointer (&filename, g_free);
 
   if (!pluginrc) {
     pluginrc = xmlNewDoc((const xmlChar *)"1.0");
@@ -516,10 +516,10 @@ info_fill_from_pluginrc(PluginInfo *info)
 	  continue;
 	content = (gchar *)xmlNodeGetContent(node2);
 	if (!xmlStrcmp(node2->name, (const xmlChar *)"name")) {
-	  g_free(info->name);
+	  g_clear_pointer (&info->name, g_free);
 	  info->name = g_strdup(content);
 	} else if (!xmlStrcmp(node2->name, (const xmlChar *)"description")) {
-	  g_free(info->description);
+	  g_clear_pointer (&info->description, g_free);
 	  info->description = g_strdup(content);
 	}
 	xmlFree(content);
@@ -586,7 +586,7 @@ dia_pluginrc_write(void)
 
   xmlDiaSaveFile(filename, pluginrc);
 
-  g_free(filename);
+  g_clear_pointer (&filename, g_free);
   free_pluginrc();
 }
 

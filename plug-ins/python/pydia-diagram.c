@@ -36,25 +36,30 @@
 #include "app/load_save.h"
 #include "app/connectionpoint_ops.h"
 
+
 PyObject *
-PyDiaDiagram_New(Diagram *dia)
+PyDiaDiagram_New (Diagram *dia)
 {
-    PyDiaDiagram *self;
+  PyDiaDiagram *self;
 
-    self = PyObject_NEW(PyDiaDiagram, &PyDiaDiagram_Type);
+  self = PyObject_NEW (PyDiaDiagram, &PyDiaDiagram_Type);
 
-    if (!self) return NULL;
-    g_object_ref(dia);
-    self->dia = dia;
-    return (PyObject *)self;
+  if (!self) return NULL;
+
+  g_set_object (&self->dia, dia);
+
+  return (PyObject *) self;
 }
+
 
 static void
-PyDiaDiagram_Dealloc(PyDiaDiagram *self)
+PyDiaDiagram_Dealloc (PyDiaDiagram *self)
 {
-    g_object_unref(self->dia);
-    PyObject_DEL(self);
+  g_clear_object (&self->dia);
+
+  PyObject_DEL (self);
 }
+
 
 static int
 PyDiaDiagram_Compare(PyDiaDiagram *self, PyDiaDiagram *other)

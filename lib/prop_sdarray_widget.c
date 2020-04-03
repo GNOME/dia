@@ -155,7 +155,7 @@ _text_edited (GtkCellRenderer *renderer,
 
   gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
                       column, &value, -1);
-  g_free (value);
+  g_clear_pointer (&value, g_free);
   gtk_tree_store_set (GTK_TREE_STORE (model), &iter,
                       column, g_strdup (new_text), -1);
   g_object_set_data (G_OBJECT (model), "modified", GINT_TO_POINTER (1));
@@ -374,7 +374,7 @@ _update_branch (GtkTreeSelection *selection,
       gtk_tree_store_set (GTK_TREE_STORE (model), &iter, column, branch_model, -1);
     }
     gtk_tree_view_set_model (branch_view, branch_model);
-    g_object_unref (branch_model);
+    g_clear_object (&branch_model);
   } else {
     gtk_tree_view_set_model (branch_view, NULL);
   }
@@ -594,11 +594,11 @@ _write_store (GtkTreeStore *store, GtkTreeIter *parent_iter, ArrayProperty *prop
 	continue;
 
       if (p->type_quark == g_quark_from_static_string (PROP_TYPE_DARRAY)) {
-	/* recurse - with own store */
-	GtkTreeStore *child_store = create_sdarray_model ((ArrayProperty *)p);
-	_write_store (child_store, NULL, (ArrayProperty *)p);
-	gtk_tree_store_set (store, &iter, i, child_store, -1);
-	g_object_unref (child_store);
+        /* recurse - with own store */
+        GtkTreeStore *child_store = create_sdarray_model ((ArrayProperty *)p);
+        _write_store (child_store, NULL, (ArrayProperty *)p);
+        gtk_tree_store_set (store, &iter, i, child_store, -1);
+        g_clear_object (&child_store);
       } else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_BOOL))
 	gtk_tree_store_set (store, &iter, i, ((BoolProperty *)p)->bool_data, -1);
       else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_INT))
@@ -718,15 +718,16 @@ _read_store (GtkTreeStore *store, GtkTreeIter *iter, ArrayProperty *prop)
 	continue;
 
       if (p->type_quark == g_quark_from_static_string (PROP_TYPE_DARRAY)) {
-	/* recurse - with own store */
-	GtkTreeStore *child_store;
-	GtkTreeIter child_iter;
+        /* recurse - with own store */
+        GtkTreeStore *child_store;
+        GtkTreeIter child_iter;
 
-	gtk_tree_model_get (model, iter, i, &child_store, -1);
-	if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (child_store), &child_iter))
-	  _read_store (child_store, &child_iter, (ArrayProperty *)p);
-	/* FIXME: if this is working we might have a string leak below */
-	g_object_unref (child_store);
+        gtk_tree_model_get (model, iter, i, &child_store, -1);
+        if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (child_store), &child_iter)) {
+          _read_store (child_store, &child_iter, (ArrayProperty *) p);
+        }
+        /* FIXME: if this is working we might have a string leak below */
+        g_clear_object (&child_store);
       } else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_BOOL))
 	gtk_tree_model_get (model, iter, i, &((BoolProperty *)p)->bool_data, -1);
       else if (p->type_quark == g_quark_from_static_string (PROP_TYPE_INT))
@@ -740,7 +741,7 @@ _read_store (GtkTreeStore *store, GtkTreeIter *iter, ArrayProperty *prop)
 	StringProperty *pst = (StringProperty *)p;
 	gchar *value;
 	gtk_tree_model_get (model, iter, i, &value, -1);
-	g_free (pst->string_data);
+	g_clear_pointer (&pst->string_data, g_free);
 	pst->string_data = g_strdup (value);
       } else {
 	/* only complain if we have a visible widget */

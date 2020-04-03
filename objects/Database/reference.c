@@ -194,14 +194,16 @@ reference_create (Point *startpoint,
   return &ref->orth.object;
 }
 
+
 static void
 reference_destroy (TableReference * ref)
 {
   orthconn_destroy (&ref->orth);
 
-  g_free (ref->start_point_desc);
-  g_free (ref->end_point_desc);
+  g_clear_pointer (&ref->start_point_desc, g_free);
+  g_clear_pointer (&ref->end_point_desc, g_free);
 }
+
 
 static DiaObject *
 reference_load (ObjectNode obj_node, int version,DiaContext *ctx)

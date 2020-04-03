@@ -61,63 +61,70 @@ PyDiaObject_Hash(PyDiaObject *self)
     return (long)self->object;
 }
 
-static PyObject *
-PyDiaObject_Str(PyDiaObject *self)
-{
-    gchar *strname = g_strdup_printf("<DiaObject of type \"%s\" at %lx>",
-				     self->object->type->name,
-				     (long)self->object);
-    PyObject *ret = PyString_FromString(strname);
 
-    g_free(strname);
-    return ret;
+static PyObject *
+PyDiaObject_Str (PyDiaObject *self)
+{
+  char *strname = g_strdup_printf ("<DiaObject of type \"%s\" at %lx>",
+                                  self->object->type->name,
+                                  (long) self->object);
+  PyObject *ret = PyString_FromString (strname);
+
+  g_clear_pointer (&strname, g_free);
+  return ret;
 }
+
 
 static PyObject *
 PyDiaObject_Destroy(PyDiaObject *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Object.destroy"))
-	return NULL;
+  if (!PyArg_ParseTuple (args, ":Object.destroy")) {
+    return NULL;
+  }
 
-    if (!self->object->ops->destroy) {
-	PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
-	return NULL;
-    }
+  if (!self->object->ops->destroy) {
+    PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
+    return NULL;
+  }
 
-    self->object->ops->destroy(self->object);
-    g_free(self->object);
-    self->object = NULL;
-    Py_INCREF(Py_None);
-    return Py_None;
+  self->object->ops->destroy (self->object);
+  g_clear_pointer (&self->object, g_free);
+  Py_INCREF (Py_None);
+
+  return Py_None;
 }
+
 
 static PyObject *
-PyDiaObject_Draw(PyDiaObject *self, PyObject *args)
+PyDiaObject_Draw (PyDiaObject *self, PyObject *args)
 {
-    PyObject* renderer;
-    DiaRenderer *wrapper;
+  PyObject* renderer;
+  DiaRenderer *wrapper;
 
-    if (!PyArg_ParseTuple(args, "O:Object.draw", &renderer))
-	return NULL;
+  if (!PyArg_ParseTuple (args, "O:Object.draw", &renderer)) {
+    return NULL;
+  }
 
-    /* We need to create the PythonRenderer wrapper to provide the gobject interface.
-     * This could be done much more efficient if it would somehow be cached for the
-     * whole rendering pass ...
-     */
-    wrapper = PyDia_new_renderer_wrapper (renderer);
+  /* We need to create the PythonRenderer wrapper to provide the gobject interface.
+    * This could be done much more efficient if it would somehow be cached for the
+    * whole rendering pass ...
+    */
+  wrapper = PyDia_new_renderer_wrapper (renderer);
 
-    if (!self->object->ops->draw) {
-	PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
-	return NULL;
-    }
+  if (!self->object->ops->draw) {
+    PyErr_SetString (PyExc_RuntimeError, "object does not implement method");
+    return NULL;
+  }
 
-    self->object->ops->draw(self->object, wrapper);
+  dia_object_draw (self->object, wrapper);
 
-    g_object_unref (wrapper);
+  g_clear_object (&wrapper);
 
-    Py_INCREF(Py_None);
-    return Py_None;
+  Py_INCREF (Py_None);
+
+  return Py_None;
 }
+
 
 static PyObject *
 PyDiaObject_DistanceFrom(PyDiaObject *self, PyObject *args)
@@ -166,11 +173,11 @@ PyDiaObject_GetMenu(PyDiaObject *self, PyObject *args)
     Point clicked = { 0, 0 };
     DiaMenu *m;
     int i;
-    
+
 
     if (!PyArg_ParseTuple(args, ":Object.get_object_menu"))
 	return NULL;
-	
+
     if (!self->object->ops->get_object_menu ||
         !(m = self->object->ops->get_object_menu (self->object, &clicked))) {
         Py_INCREF(Py_None);
@@ -279,8 +286,9 @@ static PyMemberDef PyDiaObject_Members[] = {
     { NULL }
 };
 
+
 static PyObject *
-PyDiaObject_GetAttr(PyDiaObject *self, gchar *attr)
+PyDiaObject_GetAttr (PyDiaObject *self, char *attr)
 {
     if (!strcmp(attr, "__members__"))
 	return Py_BuildValue("[sssss]", "bounding_box", "connections",
@@ -384,16 +392,18 @@ PyDiaObjectType_Hash(PyDiaObjectType *self)
     return (long)self->otype;
 }
 
+
 static PyObject *
 PyDiaObjectType_Repr(PyDiaObjectType *self)
 {
-    gchar *strname = g_strdup_printf("<DiaObjectType \"%s\">",
-				     self->otype->name);
-    PyObject *ret = PyString_FromString(strname);
+  char *strname = g_strdup_printf ("<DiaObjectType \"%s\">",
+                                   self->otype->name);
+  PyObject *ret = PyString_FromString (strname);
 
-    g_free(strname);
-    return ret;
+  g_clear_pointer (&strname, g_free);
+  return ret;
 }
+
 
 static PyObject *
 PyDiaObjectType_Str(PyDiaObjectType *self)
@@ -401,45 +411,54 @@ PyDiaObjectType_Str(PyDiaObjectType *self)
     return PyString_FromString(self->otype->name);
 }
 
-static PyObject *
-PyDiaObjectType_Create(PyDiaObjectType *self, PyObject *args)
-{
-    Point p;
-    gint data = 0;
-    gpointer user_data;
-    DiaObject *ret;
-    Handle *h1 = NULL, *h2 = NULL;
-    PyObject *pyret;
 
-    if (!PyArg_ParseTuple(args, "dd|i:ObjectType.create", &p.x,&p.y, &data))
-	return NULL;
-    user_data = GINT_TO_POINTER(data);
-    if (!self->otype->ops) {
-	PyErr_SetString(PyExc_RuntimeError, "Type has no ops!?");
-	return NULL;
-    }
-    ret = self->otype->ops->create(&p, 
-		  user_data ? user_data : self->otype->default_user_data, &h1, &h2);
-    if (!ret) {
-	PyErr_SetString(PyExc_RuntimeError, "could not create new object");
-	return NULL;
-    }
-    pyret = PyTuple_New(3);
-    PyTuple_SetItem(pyret, 0, PyDiaObject_New(ret));
-    if (h1)
-	PyTuple_SetItem(pyret, 1, PyDiaHandle_New(h1, ret));
-    else {
-	Py_INCREF(Py_None);
-	PyTuple_SetItem(pyret, 1, Py_None);
-    }
-    if (h2)
-	PyTuple_SetItem(pyret, 2, PyDiaHandle_New(h2, ret));
-    else {
-	Py_INCREF(Py_None);
-	PyTuple_SetItem(pyret, 2, Py_None);
-    }
-    return pyret;
+static PyObject *
+PyDiaObjectType_Create (PyDiaObjectType *self, PyObject *args)
+{
+  Point p;
+  gint data = 0;
+  gpointer user_data;
+  DiaObject *ret;
+  Handle *h1 = NULL, *h2 = NULL;
+  PyObject *pyret;
+
+  if (!PyArg_ParseTuple(args, "dd|i:ObjectType.create", &p.x,&p.y, &data)) {
+    return NULL;
+  }
+  user_data = GINT_TO_POINTER (data);
+  if (!self->otype->ops) {
+    PyErr_SetString (PyExc_RuntimeError, "Type has no ops!?");
+    return NULL;
+  }
+  ret = self->otype->ops->create (&p,
+                                  user_data ? user_data : self->otype->default_user_data,
+                                  &h1,
+                                  &h2);
+
+  if (!ret) {
+    PyErr_SetString (PyExc_RuntimeError, "could not create new object");
+    return NULL;
+  }
+
+  pyret = PyTuple_New (3);
+  PyTuple_SetItem (pyret, 0, PyDiaObject_New (ret));
+
+  if (h1) {
+    PyTuple_SetItem (pyret, 1, PyDiaHandle_New (h1, ret));
+  } else {
+    Py_INCREF (Py_None);
+    PyTuple_SetItem (pyret, 1, Py_None);
+  }
+
+  if (h2) {
+    PyTuple_SetItem (pyret, 2, PyDiaHandle_New (h2, ret));
+  } else {
+    Py_INCREF (Py_None);
+    PyTuple_SetItem (pyret, 2, Py_None);
+  }
+  return pyret;
 }
+
 
 static PyMethodDef PyDiaObjectType_Methods[] = {
     { "create", (PyCFunction)PyDiaObjectType_Create, METH_VARARGS,
@@ -456,18 +475,21 @@ static PyMemberDef PyDiaObjectType_Members[] = {
     { NULL }
 };
 
-static PyObject *
-PyDiaObjectType_GetAttr(PyDiaObjectType *self, gchar *attr)
-{
-    if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[ss]", "name", "version");
-    else if (!strcmp(attr, "name"))
-	return PyString_FromString(self->otype->name);
-    else if (!strcmp(attr, "version"))
-	return PyInt_FromLong(self->otype->version);
 
-    return Py_FindMethod(PyDiaObjectType_Methods, (PyObject *)self, attr);
+static PyObject *
+PyDiaObjectType_GetAttr (PyDiaObjectType *self, char *attr)
+{
+  if (!strcmp (attr, "__members__")) {
+    return Py_BuildValue ("[ss]", "name", "version");
+  } else if (!strcmp (attr, "name")) {
+    return PyString_FromString (self->otype->name);
+  } else if (!strcmp (attr, "version")) {
+    return PyInt_FromLong (self->otype->version);
+  }
+
+  return Py_FindMethod (PyDiaObjectType_Methods, (PyObject *) self, attr);
 }
+
 
 PyTypeObject PyDiaObjectType_Type = {
     PyObject_HEAD_INIT(NULL)

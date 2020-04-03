@@ -498,7 +498,7 @@ grid_object_reallocate_cells (Grid_Object* grid_object)
       }
     }
 
-  g_free(grid_object->cells);
+  g_clear_pointer (&grid_object->cells, g_free);
   grid_object->cells = new_cells;
   grid_object->cells_rows = new_rows;
   grid_object->cells_cols = new_cols;
@@ -508,7 +508,7 @@ static void
 grid_object_destroy(Grid_Object *grid_object)
 {
   element_destroy(&grid_object->element);
-  g_free(grid_object->cells);
+  g_clear_pointer (&grid_object->cells, g_free);
 }
 
 static DiaObject *

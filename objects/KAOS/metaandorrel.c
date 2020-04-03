@@ -62,7 +62,7 @@ struct _Maor {
 
   Handle text_handle;
 
-  gchar *text;
+  char *text;
   Point text_pos;
   real text_width;
 
@@ -426,7 +426,7 @@ maor_draw (Maor *maor, DiaRenderer *renderer)
   Arrow arrow;
   BezPoint bpl[6];
   Point pl[7];
-  gchar *mname = g_strdup(maor->text);
+  char *mname = g_strdup (maor->text);
 
   /* some asserts */
   assert(maor != NULL);
@@ -493,9 +493,7 @@ maor_draw (Maor *maor, DiaRenderer *renderer)
                               &color_black);
   }
 
-  if (mname) {
-    g_free (mname);
-  }
+  g_clear_pointer (&mname, g_free);
 }
 
 
@@ -576,7 +574,7 @@ maor_destroy(Maor *maor)
 {
   connection_destroy(&maor->connection);
 
-  g_free(maor->text);
+  g_clear_pointer (&maor->text, g_free);
 }
 
 static void

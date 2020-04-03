@@ -89,13 +89,15 @@ new_undo_stack(Diagram *dia)
   return stack;
 }
 
+
 void
 undo_destroy(UndoStack *stack)
 {
   undo_clear(stack);
 
-  g_free(stack);
+  g_free (stack);
 }
+
 
 static void
 undo_remove_redo_info(UndoStack *stack)
@@ -425,9 +427,9 @@ dia_move_objects_change_free (DiaChange *self)
 {
   DiaMoveObjectsChange *change = DIA_MOVE_OBJECTS_CHANGE (self);
 
-  g_free(change->orig_pos);
-  g_free(change->dest_pos);
-  g_list_free(change->obj_list);
+  g_clear_pointer (&change->orig_pos, g_free);
+  g_clear_pointer (&change->dest_pos, g_free);
+  g_list_free (change->obj_list);
 }
 
 
@@ -986,9 +988,11 @@ dia_object_change_change_free (DiaChange *self)
   DiaObjectChangeChange *change = DIA_OBJECT_CHANGE_CHANGE (self);
 
   g_debug ("state_change_free()");
-  if (change->obj_change->free)
-    (*change->obj_change->free)(change->obj_change);
-  g_free(change->obj_change);
+  if (change->obj_change->free) {
+    (*change->obj_change->free) (change->obj_change);
+  }
+
+  g_clear_pointer (&change->obj_change, g_free);
 }
 
 
@@ -1728,7 +1732,7 @@ dia_add_guide_change_apply (DiaChange *self, Diagram *dia)
   g_debug ("add_guide_apply()");
 
   new_guide = dia_diagram_add_guide (dia, change->guide->position, change->guide->orientation, FALSE);
-  g_free (change->guide);
+  g_clear_pointer (&change->guide, g_free);
   change->guide = new_guide;
 
   /* Force redraw. */
@@ -1768,7 +1772,7 @@ dia_add_guide_change_free (DiaChange *self)
   g_debug ("add_guide_free()");
 
   if (!change->applied) {
-    g_free (change->guide);
+    g_clear_pointer (&change->guide, g_free);
   }
 }
 
@@ -1835,7 +1839,7 @@ dia_delete_guide_change_revert (DiaChange *self, Diagram *dia)
                                      FALSE);
 
   /* Reassign. */
-  g_free (change->guide);
+  g_clear_pointer (&change->guide, g_free);
   change->guide = new_guide;
 
   /* Force redraw. */
@@ -1856,7 +1860,7 @@ dia_delete_guide_change_free (DiaChange *self)
   g_debug ("delete_guide_free()");
 
   if (change->applied) {
-    g_free (change->guide);
+    g_clear_pointer (&change->guide, g_free);
   }
 }
 

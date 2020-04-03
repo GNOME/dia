@@ -575,27 +575,38 @@ _dtm_finalize (GObject *object)
   G_OBJECT_CLASS(_dtm_parent_class)->finalize (object);
 }
 
+
 /* SORTABLE
  * Wrapper around the original model to allow sorting by various columns IDs
  */
-static gint
-cmp_diagram (GtkTreeIter  *a,
-	     GtkTreeIter  *b)
+static int
+cmp_diagram (GtkTreeIter *a,
+             GtkTreeIter *b)
 {
-  DiagramData *pa = NODE_DIAGRAM(a), *pb = NODE_DIAGRAM(b);
-  gchar *na, *nb;
-  gint ret;
-  if (pa == pb)
+  DiagramData *pa = NODE_DIAGRAM (a), *pb = NODE_DIAGRAM (b);
+  char *na, *nb;
+  int ret;
+
+  if (pa == pb) {
     return 0;
-  na = diagram_get_name (DIA_DIAGRAM(pa));
-  nb = diagram_get_name (DIA_DIAGRAM(pa));
-  if (!na || !nb)
+  }
+
+  na = diagram_get_name (DIA_DIAGRAM (pa));
+  nb = diagram_get_name (DIA_DIAGRAM (pa));
+
+  if (!na || !nb) {
     return (na > nb) ? -1 : 1;
+  }
+
   ret = strcmp (na, nb);
-  g_free (na);
-  g_free (nb);
+
+  g_clear_pointer (&na, g_free);
+  g_clear_pointer (&nb, g_free);
+
   return ret;
 }
+
+
 static gint
 cmp_layer (GtkTreeIter  *a,
 	   GtkTreeIter  *b)
@@ -613,33 +624,50 @@ cmp_layer (GtkTreeIter  *a,
 
   return ret;
 }
-static gint
+
+
+static int
 name_sort_func (GtkTreeModel *model,
-		GtkTreeIter  *a,
-		GtkTreeIter  *b,
-		gpointer      user_data)
+                GtkTreeIter  *a,
+                GtkTreeIter  *b,
+                gpointer      user_data)
 {
-  DiaObject *pa = NODE_OBJECT(a), *pb = NODE_OBJECT(b);
-  gchar *na, *nb;
-  gint ret = cmp_diagram (a, b);
-  if (ret)
+  DiaObject *pa = NODE_OBJECT (a), *pb = NODE_OBJECT (b);
+  char *na, *nb;
+  int ret = cmp_diagram (a, b);
+
+  if (ret) {
     return ret;
+  }
+
   ret = cmp_layer (a, b);
-  if (ret)
+
+  if (ret) {
     return ret;
-  if (pa == pb)
+  }
+
+  if (pa == pb) {
     return 0;
-  else if (!pa || !pb)
+  } else if (!pa || !pb) {
     return (pa > pb) ? -1 : 1;
+  }
+
   na = object_get_displayname (pa);
   nb = object_get_displayname (pb);
-  if (!na || !nb)
-      return (na > nb) ? -1 : 1;
+
+  if (!na || !nb) {
+    return (na > nb) ? -1 : 1;
+  }
+
   ret = strcmp (na, nb);
-  g_free (na);
-  g_free (nb);
+
+  g_clear_pointer (&na, g_free);
+  g_clear_pointer (&nb, g_free);
+
   return ret;
 }
+
+
 static gint
 type_sort_func (GtkTreeModel *model,
 		GtkTreeIter  *a,

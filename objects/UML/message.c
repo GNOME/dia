@@ -358,8 +358,9 @@ message_draw (Message *message, DiaRenderer *renderer)
                               &message->text_color);
   }
 
-  if (message->type == MESSAGE_CREATE || message->type == MESSAGE_DESTROY) {
-    g_free(mname);
+  if (message->type == MESSAGE_CREATE ||
+      message->type == MESSAGE_DESTROY) {
+    g_clear_pointer (&mname, g_free);
   }
 }
 
@@ -420,13 +421,15 @@ message_create(Point *startpoint,
   return &message->connection.object;
 }
 
-static void
-message_destroy(Message *message)
-{
-  connection_destroy(&message->connection);
 
-  g_free(message->text);
+static void
+message_destroy (Message *message)
+{
+  connection_destroy (&message->connection);
+
+  g_clear_pointer (&message->text, g_free);
 }
+
 
 static void
 message_update_data(Message *message)

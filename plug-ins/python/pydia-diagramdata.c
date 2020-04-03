@@ -35,25 +35,30 @@
 #include "dia-layer.h"
 #include "pydia-diagram.h" /* support dynamic_cast */
 
+
 PyObject *
-PyDiaDiagramData_New(DiagramData *dd)
+PyDiaDiagramData_New (DiagramData *dd)
 {
-    PyDiaDiagramData *self;
+  PyDiaDiagramData *self;
 
-    self = PyObject_NEW(PyDiaDiagramData, &PyDiaDiagramData_Type);
+  self = PyObject_NEW (PyDiaDiagramData, &PyDiaDiagramData_Type);
 
-    if (!self) return NULL;
-    g_object_ref (dd);
-    self->data = dd;
-    return (PyObject *)self;
+  if (!self) return NULL;
+
+  g_set_object (&self->data, dd);
+
+  return (PyObject *) self;
 }
+
 
 static void
-PyDiaDiagramData_Dealloc(PyDiaDiagramData *self)
+PyDiaDiagramData_Dealloc (PyDiaDiagramData *self)
 {
-    g_object_unref (self->data);
-    PyObject_DEL(self);
+  g_clear_object (&self->data);
+
+  PyObject_DEL(self);
 }
+
 
 static int
 PyDiaDiagramData_Compare(PyDiaDiagramData *self, PyDiaDiagramData *other)
@@ -69,15 +74,17 @@ PyDiaDiagramData_Hash(PyDiaDiagramData *self)
     return (long)self->data;
 }
 
+
 static PyObject *
 PyDiaDiagramData_Str(PyDiaDiagramData *self)
 {
-    PyObject* py_s;
-    gchar* s = g_strdup_printf ("<PyDiaDiagramData %p>", self);
-    py_s = PyString_FromString(s);
-    g_free(s);
-    return py_s;
+  PyObject* py_s;
+  char* s = g_strdup_printf ("<PyDiaDiagramData %p>", self);
+  py_s = PyString_FromString (s);
+  g_clear_pointer (&s, g_free);
+  return py_s;
 }
+
 
 /*
  * "real" member function implementaion ?
@@ -112,10 +119,11 @@ PyDiaDiagramData_GetSortedSelected(PyDiaDiagramData *self, PyObject *args)
     return ret;
 }
 
+
 static PyObject *
 PyDiaDiagramData_AddLayer (PyDiaDiagramData *self, PyObject *args)
 {
-  gchar *name;
+  char *name;
   int pos = -1;
   DiaLayer *layer;
 
@@ -343,8 +351,9 @@ static PyMemberDef PyDiaDiagramData_Members[] = {
     { NULL }
 };
 
+
 static PyObject *
-PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
+PyDiaDiagramData_GetAttr (PyDiaDiagramData *self, char *attr)
 {
     DiagramData *data = self->data;
 
@@ -384,19 +393,21 @@ PyDiaDiagramData_GetAttr(PyDiaDiagramData *self, gchar *attr)
     } else if (!strcmp(attr, "active_layer")) {
       return PyDiaLayer_New(data->active_layer);
     } else if (!strcmp(attr, "selected")) {
-	PyObject *ret;
-	GList *tmp;
-	gint i;
+      PyObject *ret;
+      GList *tmp;
+      int i;
 
-	ret = PyTuple_New(g_list_length(self->data->selected));
-	for (i = 0, tmp = data->selected; tmp; i++, tmp = tmp->next)
-	    PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
-	return ret;
+      ret = PyTuple_New (g_list_length (self->data->selected));
+      for (i = 0, tmp = data->selected; tmp; i++, tmp = tmp->next) {
+        PyTuple_SetItem (ret, i, PyDiaObject_New ((DiaObject *) tmp->data));
+      }
+      return ret;
     } else if (!strcmp(attr, "diagram")) {
-	if (DIA_IS_DIAGRAM (self->data))
-	    return PyDiaDiagram_New (DIA_DIAGRAM (self->data));
-	Py_INCREF(Py_None);
-	return Py_None;
+      if (DIA_IS_DIAGRAM (self->data)) {
+        return PyDiaDiagram_New (DIA_DIAGRAM (self->data));
+      }
+      Py_INCREF (Py_None);
+      return Py_None;
     } else {
       /* In the interactive case diagramdata is_a diagram */
       if (DIA_IS_DIAGRAM (self->data)) {

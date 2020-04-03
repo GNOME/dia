@@ -96,25 +96,21 @@ export_data(DiagramData *data, DiaContext *ctx,
                                            0, 0, 0, 0, width, height);
   }
   #endif
-  if (pixbuf)
-    {
-      gdk_pixbuf_save (pixbuf, filename, format, &error, NULL);
-      g_object_unref (pixbuf);
-    }
-  else
-    {
-      dia_context_add_message(ctx, _("Failed to create pixbuf from drawable."));
-    }
+  if (pixbuf) {
+    gdk_pixbuf_save (pixbuf, filename, format, &error, NULL);
+    g_clear_object (&pixbuf);
+  } else {
+    dia_context_add_message (ctx, _("Failed to create pixbuf from drawable."));
+  }
 
-  if (error)
-    {
-      dia_context_add_message(ctx, _("Could not save file:\n%s\n%s"),
-		              dia_context_get_filename(ctx),
-			      error->message);
-      g_error_free (error);
-    }
+  if (error) {
+    dia_context_add_message (ctx, _("Could not save file:\n%s\n%s"),
+                             dia_context_get_filename(ctx),
+                             error->message);
+    g_clear_error (&error);
+  }
 
-  g_object_unref (renderer);
+  g_clear_object (&renderer);
 
   return TRUE;
 }
@@ -183,19 +179,19 @@ _plugin_unload (PluginInfo *info)
   for (p = _import_filters; p != NULL; p = g_list_next(p)) {
     DiaImportFilter *ifilter = (DiaImportFilter *)p->data;
     filter_unregister_import (ifilter);
-    g_free ((gchar*)ifilter->description);
+    g_free ((char *) ifilter->description);
     g_strfreev ((gchar**)ifilter->extensions);
-    g_free ((gpointer)ifilter->user_data);
-    g_free ((gchar*)ifilter->unique_name);
+    g_clear_pointer (&ifilter->user_data, g_free);
+    g_free ((char *) ifilter->unique_name);
   }
   g_list_free (_import_filters);
   for (p = _export_filters; p != NULL; p = g_list_next(p)) {
     DiaExportFilter *efilter = p->data;
     filter_unregister_export (efilter);
-    g_free ((gchar*)efilter->description);
+    g_free ((char *) efilter->description);
     g_strfreev ((gchar**)efilter->extensions);
-    g_free ((gpointer)efilter->user_data);
-    g_free ((gchar*)efilter->unique_name);
+    g_clear_pointer (&efilter->user_data, g_free);
+    g_free ((char *) efilter->unique_name);
   }
   g_list_free (_export_filters);
 }
@@ -244,7 +240,7 @@ dia_plugin_init(PluginInfo *info)
           efilter->export_func = export_data;
           efilter->user_data = g_strdup (name);
           efilter->unique_name = g_strdup_printf ("pixbuf-%s", (gchar*)efilter->user_data);
-          g_free (name);
+          g_clear_pointer (&name, g_free);
           _export_filters = g_list_append (_export_filters, efilter);
           filter_register_export(efilter);
         }
@@ -266,7 +262,7 @@ dia_plugin_init(PluginInfo *info)
               || strcmp (name, "wbmp") == 0
               || strcmp (name, "xbm") == 0)
             {
-              g_free (name);
+              g_clear_pointer (&name, g_free);
               continue;
             }
 	  ifilter = g_new0 (DiaImportFilter, 1);
@@ -283,7 +279,7 @@ dia_plugin_init(PluginInfo *info)
 	      || strcmp (name, "wmf") == 0
 	      || strcmp (name, "emf") == 0)
 	    ifilter->hints = FILTER_DONT_GUESS;
-          g_free (name);
+          g_clear_pointer (&name, g_free);
           _import_filters = g_list_append (_import_filters, ifilter);
           filter_register_import(ifilter);
         }

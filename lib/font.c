@@ -69,22 +69,26 @@ struct _DiaFont
  */
 static real global_zoom_factor = 20.0;
 
+
 static void
-dia_font_check_for_font(int font)
+dia_font_check_for_font (int font)
 {
   DiaFont *check;
   PangoFont *loaded;
-  static real height = 1.0;
+  static double height = 1.0;
 
-  check = dia_font_new_from_style(font, height);
-  loaded = pango_context_load_font(dia_font_get_context(), check->pfd);
+  check = dia_font_new_from_style (font, height);
+  loaded = pango_context_load_font (dia_font_get_context (), check->pfd);
+
   if (!loaded) {
-    message_error(_("Can't load font %s.\n"), dia_font_get_family(check));
+    message_error (_("Can't load font %s.\n"), dia_font_get_family (check));
   } else {
-    g_object_unref(loaded);
+    g_clear_object (&loaded);
   }
+
   g_clear_object (&check);
 }
+
 
 void
 dia_font_init(PangoContext* pcontext)
@@ -114,7 +118,7 @@ dia_font_push_context (PangoContext *pcontext)
 void
 dia_font_pop_context (void)
 {
-  g_object_unref (pango_context);
+  g_clear_object (&pango_context);
   pango_context = (PangoContext*) pango_contexts->data;
   pango_context_set_language (pango_context, gtk_get_default_language ());
   pango_contexts = g_list_next (pango_contexts);
@@ -232,9 +236,10 @@ _dia_font_adjust_size (DiaFont *font, real height, gboolean recalc_alwways)
     dia_pfd_set_height (font->pfd, height);
     /* need to load a font to get it's metrics */
     loaded = font->loaded;
-    font->loaded = pango_context_load_font(dia_font_get_context(), font->pfd);
-    if (loaded) /* drop old reference */
-      g_object_unref (loaded);
+    font->loaded = pango_context_load_font (dia_font_get_context (), font->pfd);
+
+    g_clear_object (&loaded);
+
     if (font->metrics)
       pango_font_metrics_unref (font->metrics);
 
@@ -363,22 +368,24 @@ DiaFont* dia_font_copy(const DiaFont* font)
                       dia_font_get_height(font));
 }
 
+
 void
-dia_font_finalize(GObject* object)
+dia_font_finalize(GObject *object)
 {
-  DiaFont* font = DIA_FONT(object);
+  DiaFont *font = DIA_FONT (object);
 
   if (font->pfd)
-    pango_font_description_free(font->pfd);
+    pango_font_description_free (font->pfd);
   font->pfd = NULL;
   if (font->metrics)
-    pango_font_metrics_unref(font->metrics);
+    pango_font_metrics_unref (font->metrics);
   font->metrics = NULL;
-  if (font->loaded)
-    g_object_unref(font->loaded);
-  font->loaded = NULL;
-  G_OBJECT_CLASS(parent_class)->finalize(object);
+
+  g_clear_object (&font->loaded);
+
+  G_OBJECT_CLASS (parent_class)->finalize (object);
 }
+
 
 DiaFontStyle
 dia_font_get_style(const DiaFont* font)
@@ -476,23 +483,21 @@ dia_font_set_any_family(DiaFont* font, const char* family)
   pango_font_description_set_family(font->pfd, family);
   if (changed) /* force recalculation on name change */
     _dia_font_adjust_size (font, font->height, TRUE);
-  if (font->legacy_name) {
-    g_free(font->legacy_name);
-    font->legacy_name = NULL;
-  }
+
+  g_clear_pointer (&font->legacy_name, g_free);
 }
+
 
 void
-dia_font_set_family(DiaFont* font, DiaFontFamily family)
+dia_font_set_family  (DiaFont *font, DiaFontFamily family)
 {
-  g_return_if_fail(font != NULL);
+  g_return_if_fail (font != NULL);
 
-  dia_pfd_set_family(font->pfd,family);
-  if (font->legacy_name) {
-    g_free(font->legacy_name);
-    font->legacy_name = NULL;
-  }
+  dia_pfd_set_family (font->pfd,family);
+
+  g_clear_pointer (&font->legacy_name, g_free);
 }
+
 
 void
 dia_font_set_weight(DiaFont* font, DiaFontWeight weight)
@@ -813,7 +818,7 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
   }
 
   pango_layout_iter_free(iter);
-  g_object_unref(G_OBJECT(layout));
+  g_clear_object (&layout);
 
   *ascent = bline-top;
   *descent = bottom-bline;

@@ -117,137 +117,166 @@ static inline int isinf_ld (long double x) { return isnan (x - x); }
  *       better than this. I dont. --hb
  * \ingroup DiagramXmlIo
  */
-static const gchar *
-xml_file_check_encoding(const gchar *filename, const gchar *default_enc, DiaContext *ctx)
+static char *
+xml_file_check_encoding (const char *filename,
+                         const char *default_enc,
+                         DiaContext *ctx)
 {
   int fd = g_open (filename, O_RDONLY, 0);
   /* If the next call exits the program (without any message) check if
    * you are loading an incompatible version of zlib*.dll, e.g. one
    * built against a newer version of msvcrt*.dll
    */
-  gzFile zf = gzdopen(fd,"rb");
-  gchar *buf;
-  gchar *p,*pmax;
+  gzFile zf = gzdopen (fd, "rb");
+  char *buf;
+  char *p,*pmax;
   int len;
-  gchar *tmp,*res;
   int uf;
   gboolean well_formed_utf8;
   int write_ok;
+  char *res = g_strdup (filename);
+  GError *error = NULL;
 
   static char magic_xml[] =
   {0x3c,0x3f,0x78,0x6d,0x6c,0x00}; /* "<?xml" in ASCII */
 
   if (!zf) {
-    dia_log_message("%s can not be opened for encoding check (%s)", filename, fd > 0 ? "gzdopen" : "g_open");
+    dia_log_message ("%s can not be opened for encoding check (%s)",
+                     filename,
+                     fd > 0 ? "gzdopen" : "g_open");
     /* XXX perhaps we can just chicken out to libxml ? -- CC */
-    return filename;
+    return res;
   }
-  p = buf = g_malloc0(BUFLEN);
-  len = gzread(zf,buf,BUFLEN);
+
+  p = buf = g_malloc0 (BUFLEN);
+  len = gzread (zf, buf, BUFLEN);
   pmax = p + len;
 
   /* first, we expect the magic <?xml string */
-  if ((0 != strncmp(p,magic_xml,5)) || (len < 5)) {
-    gzclose(zf);
-    g_free(buf);
-    return filename; /* let libxml figure out what this is. */
+  if ((0 != strncmp (p, magic_xml, 5)) || (len < 5)) {
+    gzclose (zf);
+    g_clear_pointer (&buf, g_free);
+    return res; /* let libxml figure out what this is. */
   }
+
   /* now, we're sure we have some asciish XML file. */
   p += 5;
-  while (((*p == 0x20)||(*p == 0x09)||(*p == 0x0d)||(*p == 0x0a))
-         && (p<pmax)) p++;
-  if (p>=pmax) { /* whoops ? */
-    gzclose(zf);
-    g_free(buf);
-    return filename;
+  while (((*p == 0x20) || (*p == 0x09) || (*p == 0x0d) || (*p == 0x0a))
+         && (p < pmax)) {
+    p++;
   }
-  if (0 != strncmp(p,"version=\"",9)) {
-    gzclose(zf); /* chicken out. */
-    g_free(buf);
-    return filename;
+
+  if (p >= pmax) { /* whoops ? */
+    gzclose (zf);
+    g_clear_pointer (&buf, g_free);
+    return res;
+  }
+
+  if (0 != strncmp (p, "version=\"", 9)) {
+    gzclose (zf); /* chicken out. */
+    g_clear_pointer (&buf, g_free);
+    return res;
   }
   p += 9;
+
   /* The header is rather well formed. */
   if (p>=pmax) { /* whoops ? */
     gzclose(zf);
-    g_free(buf);
-    return filename;
+    g_clear_pointer (&buf, g_free);
+    return res;
   }
-  while ((*p != '"') && (p < pmax)) p++;
+
+  while ((*p != '"') && (p < pmax)) {
+    p++;
+  }
   p++;
+
   while (((*p == 0x20)||(*p == 0x09)||(*p == 0x0d)||(*p == 0x0a))
-         && (p<pmax)) p++;
-  if (p>=pmax) { /* whoops ? */
-    gzclose(zf);
-    g_free(buf);
-    return filename;
+         && (p<pmax)) {
+    p++;
   }
-  if (0 == strncmp(p,"encoding=\"",10)) {
+
+  if (p >= pmax) { /* whoops ? */
+    gzclose (zf);
+    g_clear_pointer (&buf, g_free);
+    return res;
+  }
+
+  if (0 == strncmp (p, "encoding=\"", 10)) {
     gzclose(zf); /* this file has an encoding string. Good. */
-    g_free(buf);
-    return filename;
+    g_clear_pointer (&buf, g_free);
+    return res;
   }
+
   /* now let's read the whole file, to see if there are offending bits.
    * We can call it well formed UTF-8 if the highest isn't used
    */
   well_formed_utf8 = TRUE;
   do {
     int i;
-    for (i = 0; i < len; i++)
-      if (buf[i] & 0x80 || buf[i] == '&')
+    for (i = 0; i < len; i++) {
+      if (buf[i] & 0x80 || buf[i] == '&') {
         well_formed_utf8 = FALSE;
-    len = gzread(zf,buf,BUFLEN);
+      }
+    }
+    len = gzread (zf, buf, BUFLEN);
   } while (len > 0 && well_formed_utf8);
+
   if (well_formed_utf8) {
-    gzclose(zf); /* this file is utf-8 compatible  */
-    g_free(buf);
-    return filename;
+    gzclose (zf); /* this file is utf-8 compatible  */
+    g_clear_pointer (&buf, g_free);
+    return res;
   } else {
-    gzclose(zf); /* poor man's fseek */
+    gzclose (zf); /* poor man's fseek */
     fd = g_open (filename, O_RDONLY, 0);
-    zf = gzdopen(fd,"rb");
-    len = gzread(zf,buf,BUFLEN);
+    zf = gzdopen (fd,"rb");
+    len = gzread (zf, buf, BUFLEN);
   }
 
-  if (0 != strcmp(default_enc,"UTF-8")) {
+  if (0 != strcmp (default_enc, "UTF-8")) {
     dia_context_add_message (ctx,
                              _("The file %s has no encoding specification;\n"
-			     "assuming it is encoded in %s"),
-			     dia_context_get_filename(ctx), default_enc);
+                               "assuming it is encoded in %s"),
+                             dia_context_get_filename (ctx),
+                             default_enc);
   } else {
-    gzclose(zf); /* we apply the standard here. */
-    g_free(buf);
-    return filename;
+    gzclose (zf); /* we apply the standard here. */
+    g_clear_pointer (&buf, g_free);
+    return res;
   }
 
-  tmp = getenv("TMP");
-  if (!tmp) tmp = getenv("TEMP");
-  if (!tmp) tmp = "/tmp";
+  uf = g_file_open_tmp ("dia-xml-fix-encodingXXXXXX", &res, &error);
 
-  res = g_strconcat(tmp,G_DIR_SEPARATOR_S,"dia-xml-fix-encodingXXXXXX",NULL);
-  uf = g_mkstemp(res);
+  if (error) {
+    g_warning ("%s", error->message);
+  }
+
   write_ok = (uf > 0);
-  write_ok = write_ok && (write(uf,buf,p-buf) > 0);
-  write_ok = write_ok && (write(uf," encoding=\"",11) > 0);
-  write_ok = write_ok && (write(uf,default_enc,strlen(default_enc)) > 0);
-  write_ok = write_ok && (write(uf,"\" ",2) > 0);
-  write_ok = write_ok && (write(uf,p,pmax - p) > 0);
+  write_ok = write_ok && (write (uf, buf, p - buf) > 0);
+  write_ok = write_ok && (write (uf, " encoding=\"", 11) > 0);
+  write_ok = write_ok && (write (uf, default_enc, strlen (default_enc)) > 0);
+  write_ok = write_ok && (write (uf, "\" ", 2) > 0);
+  write_ok = write_ok && (write (uf, p, pmax - p) > 0);
 
   while (write_ok) {
-    len = gzread(zf,buf,BUFLEN);
-    if (len <= 0) break;
-    write_ok = write_ok && (write(uf,buf,len) > 0);
+    len = gzread (zf, buf, BUFLEN);
+    if (len <= 0) {
+      break;
+    }
+    write_ok = write_ok && (write (uf, buf, len) > 0);
   }
-  gzclose(zf);
-  if (uf > 0)
-    close(uf);
-  g_free(buf);
-  if (!write_ok) {
-    g_free(res);
-    res = NULL;
+
+  gzclose (zf);
+
+  if (uf > 0) {
+    close (uf);
   }
+
+  g_clear_pointer (&buf, g_free);
+
   return res; /* caller frees the name and unlinks the file. */
 }
+
 
 /*!
  * \brief Parse a given file into XML, handling old broken files correctly.
@@ -258,32 +287,35 @@ xml_file_check_encoding(const gchar *filename, const gchar *default_enc, DiaCont
  * \ingroup DiagramXmlIo
  */
 static xmlDocPtr
-xmlDiaParseFile(const char *filename, DiaContext *ctx)
+xmlDiaParseFile (const char *filename, DiaContext *ctx)
 {
   const char *local_charset = NULL;
   xmlErrorPtr error_xml = NULL;
   xmlDocPtr ret = NULL;
 
-  if (   !g_get_charset(&local_charset)
+  if (   !g_get_charset (&local_charset)
       && local_charset) {
     /* we're not in an UTF-8 environment. */
-    const gchar *fname = xml_file_check_encoding(filename,local_charset, ctx);
+    char *fname = xml_file_check_encoding(filename, local_charset, ctx);
     if (fname != filename) {
       /* We've got a corrected file to parse. */
-      ret = xmlDoParseFile(fname, &error_xml);
-      unlink(fname);
+      ret = xmlDoParseFile (fname, &error_xml);
+      unlink (fname);
       /* printf("has read %s instead of %s\n",fname,filename); */
-      g_free((void *)fname);
     } else {
       /* the XML file is good. libxml is "old enough" to handle it correctly.
        */
-      ret = xmlDoParseFile(filename, &error_xml);
+      ret = xmlDoParseFile (filename, &error_xml);
     }
+    g_clear_pointer (&fname, g_free);
   } else {
-    ret = xmlDoParseFile(filename, &error_xml);
+    ret = xmlDoParseFile (filename, &error_xml);
   }
-  if (error_xml)
+
+  if (error_xml) {
     dia_context_add_message (ctx, "%s", error_xml->message);
+  }
+
   return ret;
 }
 
@@ -921,7 +953,7 @@ data_string(DataNode data, DiaContext *ctx)
     *p = 0;
     xmlFree(val);
     str2 = g_strdup(str);  /* to remove the extra space */
-    g_free(str);
+    g_clear_pointer (&str, g_free);
     return str2;
   }
 
@@ -946,6 +978,7 @@ data_string(DataNode data, DiaContext *ctx)
   return NULL;
 }
 
+
 /*!
  * \brief Return the value of a filename-type data node.
  * @param data The data node to read from.
@@ -964,14 +997,16 @@ data_filename(DataNode data, DiaContext *ctx)
 
   if (utf8) {
     GError *error = NULL;
-    if ((filename = g_filename_from_utf8(utf8, -1, NULL, NULL, &error)) == NULL) {
+    if ((filename = g_filename_from_utf8 (utf8, -1, NULL, NULL, &error)) == NULL) {
       dia_context_add_message (ctx, "%s", error->message);
-      g_error_free (error);
+      g_clear_error (&error);
     }
-    g_free(utf8);
+    g_clear_pointer (&utf8, g_free);
   }
+
   return filename;
 }
+
 
 /*!
  * \brief Return the value of a font-type data node.
@@ -1207,7 +1242,7 @@ data_add_point(AttributeNode attr, const Point *point, DiaContext *ctx)
 
   data_node = xmlNewChild(attr, NULL, (const xmlChar *)"point", NULL);
   xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
-  g_free(buffer);
+  g_clear_pointer (&buffer, g_free);
 }
 
 /*!
@@ -1237,14 +1272,14 @@ data_add_bezpoint(AttributeNode attr, const BezPoint *point, DiaContext *ctx)
 
   buffer = _str_point (&point->p1);
   xmlSetProp(data_node, (const xmlChar *)"p1", (xmlChar *)buffer);
-  g_free (buffer);
+  g_clear_pointer (&buffer, g_free);
   if (point->type == BEZ_CURVE_TO) {
     buffer = _str_point (&point->p2);
     xmlSetProp(data_node, (const xmlChar *)"p2", (xmlChar *)buffer);
-    g_free (buffer);
+    g_clear_pointer (&buffer, g_free);
     buffer = _str_point (&point->p3);
     xmlSetProp(data_node, (const xmlChar *)"p3", (xmlChar *)buffer);
-    g_free (buffer);
+    g_clear_pointer (&buffer, g_free);
   }
 }
 
@@ -1275,7 +1310,7 @@ data_add_rectangle(AttributeNode attr, const DiaRectangle *rect, DiaContext *ctx
   data_node = xmlNewChild(attr, NULL, (const xmlChar *)"rectangle", NULL);
   xmlSetProp(data_node, (const xmlChar *)"val", (xmlChar *)buffer);
 
-  g_free(buffer);
+  g_clear_pointer (&buffer, g_free);
 }
 
 /*!
@@ -1304,7 +1339,7 @@ data_add_string(AttributeNode attr, const char *str, DiaContext *ctx)
 
     (void)xmlNewChild(attr, NULL, (const xmlChar *)"string", (xmlChar *) sharped_str);
 
-    g_free(sharped_str);
+    g_clear_pointer (&sharped_str, g_free);
 }
 
 /*!
@@ -1322,7 +1357,7 @@ data_add_filename(DataNode data, const char *str, DiaContext *ctx)
 
   data_add_string(data, utf8, ctx);
 
-  g_free(utf8);
+  g_clear_pointer (&utf8, g_free);
 }
 
 /*!

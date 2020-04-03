@@ -161,19 +161,21 @@ smallpackage_get_props(SmallPackage * smallpackage,
                                 smallpackage_offsets,props);
 }
 
+
 static void
-smallpackage_set_props(SmallPackage *smallpackage,
-                       GPtrArray *props)
+smallpackage_set_props (SmallPackage *smallpackage,
+                        GPtrArray    *props)
 {
-  object_set_props_from_offsets(&smallpackage->element.object,
-                                smallpackage_offsets, props);
-  g_free(smallpackage->st_stereotype);
-  smallpackage->st_stereotype = NULL;
+  object_set_props_from_offsets (&smallpackage->element.object,
+                                 smallpackage_offsets,
+                                 props);
+  g_clear_pointer (&smallpackage->st_stereotype, g_free);
   smallpackage_update_data(smallpackage);
 }
 
-static real
-smallpackage_distance_from(SmallPackage *pkg, Point *point)
+
+static double
+smallpackage_distance_from (SmallPackage *pkg, Point *point)
 {
   /* need to calculate the distance from both rects to make the autogap
    * use the right boundaries
@@ -390,16 +392,18 @@ smallpackage_create(Point *startpoint,
   return &pkg->element.object;
 }
 
+
 static void
-smallpackage_destroy(SmallPackage *pkg)
+smallpackage_destroy (SmallPackage *pkg)
 {
-  text_destroy(pkg->text);
+  text_destroy (pkg->text);
 
-  g_free(pkg->stereotype);
-  g_free(pkg->st_stereotype);
+  g_clear_pointer (&pkg->stereotype, g_free);
+  g_clear_pointer (&pkg->st_stereotype, g_free);
 
-  element_destroy(&pkg->element);
+  element_destroy (&pkg->element);
 }
+
 
 static DiaObject *
 smallpackage_load(ObjectNode obj_node, int version,DiaContext *ctx)

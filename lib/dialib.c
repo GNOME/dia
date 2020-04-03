@@ -35,33 +35,33 @@
 #include "properties.h" /* stdprops_init() */
 #include "standard-path.h"
 
-static void
-stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
-			const char *fmt, va_list args,  va_list args2) G_GNUC_PRINTF(3, 0);
 
 static void
-stderr_message_internal(const char *title, enum ShowAgainStyle showAgain,
-			const char *fmt, va_list args,  va_list args2)
+stderr_message_internal (const char          *title,
+                         enum ShowAgainStyle  showAgain,
+                         const char          *fmt,
+                         va_list              args,
+                         va_list              args2)
 {
-  static gchar *buf = NULL;
-  static gint   alloc = 0;
-  gint len;
+  static char *buf = NULL;
+  static int   alloc = 0;
+  int len;
 
   len = g_printf_string_upper_bound (fmt, args);
 
   if (len >= alloc) {
-    if (buf)
-      g_free (buf);
+    g_clear_pointer (&buf, g_free);
 
-    alloc = nearest_pow (MAX(len + 1, 1024));
+    alloc = nearest_pow (MAX (len + 1, 1024));
 
-    buf = g_new (char, alloc);
+    buf = g_new0 (char, alloc);
   }
 
   vsprintf (buf, fmt, args2);
 
   g_printerr ("%s: %s\n", title, buf);
 }
+
 
 #ifdef G_OS_WIN32
 static void
@@ -75,7 +75,7 @@ myXmlErrorReporting (void *ctx, const char* msg, ...)
   g_printerr ("%s", string ? string : "xml error (null)?");
   va_end(args);
 
-  g_free(string);
+  g_clear_pointer (&string, g_free);
 }
 #endif
 
@@ -118,7 +118,7 @@ libdia_init (guint flags)
     diagtkrc = dia_config_filename("diagtkrc");
     dia_log_message ("Config from %s", diagtkrc);
     gtk_rc_parse(diagtkrc);
-    g_free(diagtkrc);
+    g_clear_pointer (&diagtkrc, g_free);
 
     color_init();
   }

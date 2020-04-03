@@ -410,7 +410,7 @@ create_standard_image(real xpos, real ypos, real width, real height,
     props = prop_list_from_descs (create_file_prop_descs, pdtpp_true);
     g_assert (props->len == 1);
     sprop = g_ptr_array_index (props, 0);
-    g_free (sprop->string_data);
+    g_clear_pointer (&sprop->string_data, g_free);
     sprop->string_data = g_strdup (file);
     dia_object_set_properties (new_obj, props);
     prop_list_free (props);

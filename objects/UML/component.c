@@ -166,8 +166,7 @@ component_set_props(Component *component, GPtrArray *props)
 {
   object_set_props_from_offsets(&component->element.object,
                                 component_offsets, props);
-  g_free(component->st_stereotype);
-  component->st_stereotype = NULL;
+  g_clear_pointer (&component->st_stereotype, g_free);
   component_update_data(component);
 }
 
@@ -439,8 +438,8 @@ static void
 component_destroy(Component *cmp)
 {
   text_destroy(cmp->text);
-  g_free(cmp->stereotype);
-  g_free(cmp->st_stereotype);
+  g_clear_pointer (&cmp->stereotype, g_free);
+  g_clear_pointer (&cmp->st_stereotype, g_free);
   element_destroy(&cmp->element);
 }
 

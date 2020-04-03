@@ -168,7 +168,7 @@ file_new_callback (GtkAction *action)
 
   new_display (dia);
 
-  g_free (name);
+  g_clear_pointer (&name, g_free);
   g_clear_object (&file);
 }
 
@@ -312,7 +312,7 @@ received_clipboard_image_handler (GtkClipboard *clipboard,
       change = dia_object_set_pixbuf (obj, pixbuf);
       if (change) { /* ... but drop undo info */
         change->free (change);
-        g_free (change);
+        g_clear_pointer (&change, g_free);
       }
       /* allow undo of the whole thing */
       dia_insert_objects_change_new (dia, g_list_prepend (NULL, obj), 1);
@@ -380,13 +380,13 @@ received_clipboard_content_handler (GtkClipboard     *clipboard,
       GdkPixbuf *pixbuf = gtk_selection_data_get_pixbuf (selection_data);
       if (pixbuf) {
         received_clipboard_image_handler (clipboard, pixbuf, ddisp);
-        g_object_unref (pixbuf);
+        g_clear_object (&pixbuf);
       } else {
         message_error (_("Paste failed: %s"), type_name);
       }
     }
     dia_log_message ("Content is %s (size=%d)", type_name, len);
-    g_free (type_name);
+    g_clear_pointer (&type_name, g_free);
   }
 }
 
@@ -418,7 +418,7 @@ edit_paste_image_callback (GtkAction *action)
         done = TRUE;
       }
       dia_log_message ("clipboard-targets %d: %s", i, aname);
-      g_free (aname);
+      g_clear_pointer (&aname, g_free);
       if (done) {
         break;
       }
@@ -428,7 +428,7 @@ edit_paste_image_callback (GtkAction *action)
                                    received_clipboard_image_handler,
                                    ddisp);
     }
-    g_free (targets);
+    g_clear_pointer (&targets, g_free);
   }
 }
 
@@ -437,6 +437,7 @@ static PropDescription text_prop_singleton_desc[] = {
   PROP_DESC_END
 };
 
+
 static void
 make_text_prop_singleton (GPtrArray **props, TextProperty **prop)
 {
@@ -444,9 +445,9 @@ make_text_prop_singleton (GPtrArray **props, TextProperty **prop)
   g_assert ((*props)->len == 1);
 
   *prop = g_ptr_array_index ((*props),0);
-  g_free ((*prop)->text_data);
-  (*prop)->text_data = NULL;
+  g_clear_pointer (&(*prop)->text_data, g_free);
 }
+
 
 static GtkTargetEntry target_entries[] = {
   { "image/svg", GTK_TARGET_OTHER_APP, 1 },
@@ -493,7 +494,7 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
   } else if (g_str_has_suffix (ext, "+xml")) {
     gchar *ext2 = g_strndup (ext, strlen (ext) - 4);
     tmplate = g_strdup_printf ("dia-cb-XXXXXX.%s", ext2);
-    g_free (ext2);
+    g_clear_pointer (&ext2, g_free);
   } else {
     tmplate = g_strdup_printf ("dia-cb-XXXXXX.%s", ext);
   }
@@ -503,10 +504,9 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
     close (fd);
   } else {
     g_warning ("%s", error->message);
-    g_error_free (error);
-    error = NULL;
+    g_clear_error (&error);
   }
-  g_free (tmplate);
+  g_clear_pointer (&tmplate, g_free);
 
   if (ef) {
     /* for png use alpha-rendering if available */
@@ -528,7 +528,7 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
       GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file (outfname, &error);
       if (pixbuf) {
         gtk_selection_data_set_pixbuf (selection_data, pixbuf);
-        g_object_unref (pixbuf);
+        g_clear_object (&pixbuf);
       }
     } else {
       struct stat st;
@@ -545,18 +545,21 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
                                     (guint8 *)buf, st.st_size);
           }
         }
-        g_free (buf);
+        g_clear_pointer (&buf, g_free);
         fclose (f);
         g_unlink (outfname);
       }
     }
   }
+
   if (error) {
     dia_context_add_message (ctx, "%s", error->message);
-    g_error_free (error);
   }
+
+  g_clear_error (&error);
   dia_context_release (ctx);
 }
+
 
 /** GtkClipboardClearFunc */
 static void
@@ -566,9 +569,10 @@ _clipboard_clear_data_callback (GtkClipboard *clipboard,
   DiagramData *dia = owner_or_user_data; /* todo: check it's still valid */
 
   if (dia) {
-    g_object_unref (dia);
+    g_clear_object (&dia);
   }
 }
+
 
 void
 edit_copy_callback (GtkAction *action)
@@ -1034,7 +1038,7 @@ help_manual_callback (GtkAction *action)
   if (!dp) {
     message_warning (_("Could not open help directory:\n%s"),
                      error->message);
-    g_error_free (error);
+    g_clear_error (&error);
     return;
   }
 
@@ -1044,7 +1048,7 @@ help_manual_callback (GtkAction *action)
     score = intl_score_locale (dentry);
     if (score < bestscore) {
       if (helpindex) {
-        g_free(helpindex);
+        g_clear_pointer (&helpindex, g_free);
       }
 #ifdef G_OS_WIN32
       /* use HTML Help on win32 if available */
@@ -1071,7 +1075,7 @@ help_manual_callback (GtkAction *action)
     }
   }
   g_dir_close (dp);
-  g_free (helpdir);
+  g_clear_pointer (&helpdir, g_free);
   if (!helpindex) {
     message_warning (_("Could not find help directory"));
     return;
@@ -1083,10 +1087,10 @@ help_manual_callback (GtkAction *action)
 #else
   command = g_strdup_printf ("file://%s", helpindex);
   gtk_show_uri (screen, command, gtk_get_current_event_time (), NULL);
-  g_free (command);
+  g_clear_pointer (&command, g_free);
 #endif
 
-  g_free (helpindex);
+  g_clear_pointer (&helpindex, g_free);
 }
 
 void
@@ -1144,10 +1148,10 @@ help_about_callback (GtkAction *action)
                                                 ? translators : NULL,
                          "license", license,
                          NULL);
-  if (logo) {
-    g_object_unref (logo);
-  }
+
+  g_clear_object (&logo);
 }
+
 
 void
 view_zoom_in_callback (GtkAction *action)

@@ -45,7 +45,7 @@ static GSList *sheets = NULL;
 
 Sheet *
 new_sheet (char       *name,
-           gchar      *description,
+           char       *description,
            char       *filename,
            SheetScope  scope,
            Sheet      *shadowing)
@@ -110,15 +110,16 @@ get_sheets_list (void)
 
 /* Sheet file management */
 
-static void load_sheets_from_dir (const gchar *directory,
-                                  SheetScope   scope);
-static void load_register_sheet  (const gchar *directory,
-                                  const gchar *filename,
-                                  SheetScope   scope);
+static void load_sheets_from_dir (const char *directory,
+                                  SheetScope  scope);
+static void load_register_sheet  (const char *directory,
+                                  const char *filename,
+                                  SheetScope  scope);
+
 
 /** Sort the list of sheets by *locale*.
  */
-static gint
+static int
 dia_sheet_sort_callback (gconstpointer a, gconstpointer b)
 {
   // TODO: Don't gettext random strings
@@ -142,7 +143,7 @@ load_all_sheets (void)
   if (home_dir) {
     dia_log_message ("sheets from '%s'", home_dir);
     load_sheets_from_dir (home_dir, SHEET_SCOPE_USER);
-    g_free (home_dir);
+    g_clear_pointer (&home_dir, g_free);
   }
 
   sheet_path = getenv ("DIA_SHEET_PATH");
@@ -159,7 +160,7 @@ load_all_sheets (void)
     char *thedir = dia_get_data_directory ("sheets");
     dia_log_message ("sheets from '%s'", thedir);
     load_sheets_from_dir (thedir, SHEET_SCOPE_SYSTEM);
-    g_free (thedir);
+    g_clear_pointer (&thedir, g_free);
   }
 
   /* Sorting their sheets alphabetically makes user merging easier */
@@ -167,13 +168,14 @@ load_all_sheets (void)
   dia_sort_sheets ();
 }
 
+
 static void
-load_sheets_from_dir (const gchar *directory,
-                      SheetScope   scope)
+load_sheets_from_dir (const char *directory,
+                      SheetScope  scope)
 {
   GDir *dp;
   const char *dentry;
-  gchar *p;
+  char *p;
 
   dp = g_dir_open (directory, 0, NULL);
   if (!dp) {
@@ -181,38 +183,39 @@ load_sheets_from_dir (const gchar *directory,
   }
 
   while ((dentry = g_dir_read_name (dp))) {
-    gchar *filename = g_strconcat (directory, G_DIR_SEPARATOR_S, dentry, NULL);
+    char *filename = g_strconcat (directory, G_DIR_SEPARATOR_S, dentry, NULL);
 
     if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
-      g_free (filename);
+      g_clear_pointer (&filename, g_free);
       continue;
     }
 
     /* take only .sheet files */
     p = filename + strlen (filename) - 6 /* strlen(".sheet") */;
     if (0 != strncmp (p, ".sheet", 6)) {
-      g_free (filename);
+      g_clear_pointer (&filename, g_free);
       continue;
     }
 
     load_register_sheet (directory, filename, scope);
-    g_free (filename);
+    g_clear_pointer (&filename, g_free);
   }
 
   g_dir_close (dp);
 }
 
+
 static void
-load_register_sheet (const gchar *dirname,
-                     const gchar *filename,
-                     SheetScope   scope)
+load_register_sheet (const char *dirname,
+                     const char *filename,
+                     SheetScope  scope)
 {
   xmlErrorPtr error_xml = NULL;
   xmlDocPtr doc;
   xmlNsPtr ns;
   xmlNodePtr node, contents,subnode,root;
   xmlChar *tmp;
-  gchar *name = NULL, *description = NULL;
+  char *name = NULL, *description = NULL;
   int name_score = -1;
   int descr_score = -1;
   Sheet *sheet = NULL;
@@ -270,7 +273,7 @@ load_register_sheet (const gchar *dirname,
     }
 
     if (node->ns == ns && !xmlStrcmp (node->name, (const xmlChar *) "name")) {
-      gint score;
+      int score;
 
       /* compare the xml:lang property on this element to see if we get a
        * better language match.  LibXML seems to throw away attribute
@@ -296,7 +299,7 @@ load_register_sheet (const gchar *dirname,
         name = (char *) xmlNodeGetContent (node);
       }
     } else if (node->ns == ns && !xmlStrcmp (node->name, (const xmlChar *) "description")) {
-      gint score;
+      int score;
 
       /* compare the xml:lang property on this element to see if we get a
        * better language match.  LibXML seems to throw away attribute
@@ -350,7 +353,7 @@ load_register_sheet (const gchar *dirname,
       g_assert (!stat_ret);
 
       if (this_file.st_mtime > first_file.st_mtime) {
-        gchar *tmp2 = g_strdup_printf ("%s [Copy of system]", name);
+        char *tmp2 = g_strdup_printf ("%s [Copy of system]", name);
         message_notice (_("The system sheet '%s' appears to be more recent"
                           " than your custom\n"
                           "version and has been loaded as '%s' for this session."
@@ -380,7 +383,7 @@ load_register_sheet (const gchar *dirname,
   }
 
   if (name_is_gmalloced == TRUE) {
-    g_free (name);
+    g_clear_pointer (&name, g_free);
   } else {
     xmlFree (name);
   }
@@ -389,20 +392,20 @@ load_register_sheet (const gchar *dirname,
   for (node = contents->xmlChildrenNode; node != NULL; node = node->next) {
     SheetObject *sheet_obj;
     DiaObjectType *otype;
-    gchar *iconname = NULL;
+  char *iconname = NULL;
 
     int subdesc_score = -1;
     xmlChar *objdesc = NULL;
 
-    gint intdata = 0;
-    gchar *chardata = NULL;
+    int intdata = 0;
+    char *chardata = NULL;
 
     gboolean has_intdata = FALSE;
     gboolean has_icon_on_sheet = FALSE;
 
     xmlChar *ot_name = NULL;
 
-    gchar *sheetdir = dia_get_data_directory ("sheets");
+    char *sheetdir = dia_get_data_directory ("sheets");
 
     if (xmlIsBlankNode (node)) {
       continue;
@@ -432,12 +435,12 @@ load_register_sheet (const gchar *dirname,
     tmp = xmlGetProp (node, (const xmlChar *) "intdata");
     if (tmp) {
       char *p;
-      intdata = (gint) strtol ((char *) tmp, &p, 0);
+      intdata = (int) strtol ((char *) tmp, &p, 0);
       if (*p != 0) intdata = 0;
       xmlFree (tmp);
       has_intdata = TRUE;
     }
-    chardata = (gchar *) xmlGetProp (node, (const xmlChar *) "chardata");
+    chardata = (char *) xmlGetProp (node, (const xmlChar *) "chardata");
     /* TODO.... */
     if (chardata) {
       xmlFree (chardata);
@@ -453,7 +456,7 @@ load_register_sheet (const gchar *dirname,
       }
 
       if (subnode->ns == ns && !xmlStrcmp (subnode->name, (const xmlChar *) "description")) {
-        gint score;
+        int score;
 
         /* compare the xml:lang property on this element to see if we get a
         * better language match.  LibXML seems to throw away attribute
@@ -497,7 +500,7 @@ load_register_sheet (const gchar *dirname,
       }
     }
 
-    g_free (sheetdir);
+    g_clear_pointer (&sheetdir, g_free);
 
     sheet_obj = g_new (SheetObject, 1);
     sheet_obj->object_type = g_strdup ((char *) ot_name);
@@ -523,12 +526,10 @@ load_register_sheet (const gchar *dirname,
     if ((otype = object_get_type ((char *) ot_name)) == NULL) {
       /* Don't complain. This does happen when disabling plug-ins too.
       g_warning("object_get_type(%s) returned NULL", tmp); */
-      if (sheet_obj->description) {
-        g_free (sheet_obj->description);
-      }
-      g_free (sheet_obj->pixmap_file);
-      g_free (sheet_obj->object_type);
-      g_free (sheet_obj);
+      g_clear_pointer (&sheet_obj->description, g_free);
+      g_clear_pointer (&sheet_obj->pixmap_file, g_free);
+      g_clear_pointer (&sheet_obj->object_type, g_free);
+      g_clear_pointer (&sheet_obj, g_free);
       if (tmp) {
         xmlFree (ot_name);
       }

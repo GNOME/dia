@@ -70,9 +70,9 @@ static void edit_port_declaration_revert
 static void edit_port_declaration_free (struct EditPortDeclarationChange *change)
 {
   if (change->applied)
-    g_free(change->oldvalue);
+    g_clear_pointer (&change->oldvalue, g_free);
   else
-    g_free(change->newvalue);
+    g_clear_pointer (&change->newvalue, g_free);
 }
 
 

@@ -39,7 +39,7 @@ typedef struct {
 
   Point pos;
 
-  const gchar *value;
+  char *value;
 
   Block *rootblock;
 

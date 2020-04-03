@@ -108,7 +108,7 @@ dia_arrow_copy (Arrow *self)
 void
 dia_arrow_free (Arrow *self)
 {
-  g_free (self);
+  g_clear_pointer (&self, g_free);
 }
 
 

@@ -151,11 +151,11 @@ export_data(DiagramData *data, DiaContext *ctx,
 
   drs_data_render(data, DIA_RENDERER(renderer));
 
-  xmlSetDocCompressMode(doc, 1);
-  xmlDiaSaveFile(filename, doc);
-  xmlFreeDoc(doc);
+  xmlSetDocCompressMode (doc, 1);
+  xmlDiaSaveFile (filename, doc);
+  xmlFreeDoc (doc);
 
-  g_object_unref(renderer);
+  g_clear_object (&renderer);
 
   return TRUE;
 }

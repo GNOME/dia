@@ -208,7 +208,7 @@ more_colours (DiaColorSelector *cs)
   for (tmplist = persistent_list_get_glist (PERSIST_NAME);
         tmplist != NULL;
         tmplist = g_list_next (tmplist)) {
-    gchar *spec;
+    char *spec;
     Color colour;
 
     dia_colour_parse (&colour, tmplist->data);
@@ -220,7 +220,7 @@ more_colours (DiaColorSelector *cs)
     g_string_append (palette, spec);
     g_string_append (palette, ":");
 
-    g_free (spec);
+    g_clear_pointer (&spec, g_free);
   }
 
   g_object_set (gtk_widget_get_settings (GTK_WIDGET (colorsel)),
@@ -515,10 +515,11 @@ dia_color_selector_set_color (GtkWidget   *widget,
                         COL_TEXT, text,
                         -1);
 
-    g_free (text);
+    g_clear_pointer (&text, g_free);
 
     gtk_combo_box_set_active_iter (GTK_COMBO_BOX (cs->combo), &iter);
   }
+
   cs->looking_for = NULL;
   cs->found = FALSE;
 }

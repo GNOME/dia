@@ -69,14 +69,17 @@ _obj_create (gpointer key,
     g_hash_table_insert(ht, obj->type->name, obj);
 }
 
+
 static void
 _obj_destroy (gpointer val)
 {
   DiaObject *obj = (DiaObject *)val;
 
   object_destroy (obj);
-  g_free (obj);
+
+  g_clear_pointer (&obj, g_free);
 }
+
 
 /**
  * dia_object_defaults_load:
@@ -109,7 +112,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContex
 
   /* overload properties from file */
   if (!filename) {
-    gchar *default_filename = dia_config_filename("defaults.dia");
+    char *default_filename = dia_config_filename ("defaults.dia");
 
     dia_context_set_filename (ctx, default_filename);
     if (g_file_test (default_filename, G_FILE_TEST_EXISTS)) {
@@ -117,7 +120,7 @@ dia_object_defaults_load (const gchar *filename, gboolean create_lazy, DiaContex
     } else {
       doc = NULL;
     }
-    g_free (default_filename);
+    g_clear_pointer (&default_filename, g_free);
   } else {
     dia_context_set_filename (ctx, filename);
     doc = diaXmlParseFile (filename, ctx, FALSE);
@@ -326,17 +329,16 @@ _obj_store (gpointer key,
     layer_name = g_strdup ("default");
 
   li = g_hash_table_lookup (ri->layer_hash, layer_name);
-  if (!li)
-    {
-      li = g_new (MyLayerInfo, 1);
-      li->node = xmlNewChild(ri->node, ri->name_space, (const xmlChar *)"layer", NULL);
-      xmlSetProp(li->node, (const xmlChar *)"name", (xmlChar *)layer_name);
-      xmlSetProp(li->node, (const xmlChar *)"visible", (const xmlChar *)"false");
-      li->pos.x = li->pos.y = 0.0;
-      g_hash_table_insert (ri->layer_hash, layer_name, li);
-    }
-  else
-    g_free (layer_name);
+  if (!li) {
+    li = g_new0 (MyLayerInfo, 1);
+    li->node = xmlNewChild(ri->node, ri->name_space, (const xmlChar *)"layer", NULL);
+    xmlSetProp(li->node, (const xmlChar *)"name", (xmlChar *)layer_name);
+    xmlSetProp(li->node, (const xmlChar *)"visible", (const xmlChar *)"false");
+    li->pos.x = li->pos.y = 0.0;
+    g_hash_table_insert (ri->layer_hash, layer_name, li);
+  } else {
+    g_clear_pointer (&layer_name, g_free);
+  }
 
   obj_node = xmlNewChild(li->node, NULL, (const xmlChar *)"object", NULL);
   xmlSetProp(obj_node, (const xmlChar *)"type", (xmlChar *) obj->type->name);
@@ -401,8 +403,8 @@ dia_object_defaults_save (const gchar *filename, DiaContext *ctx)
   g_hash_table_foreach (defaults_hash, _obj_store, &ni);
 
   ret = xmlDiaSaveFile (real_filename, doc);
-  g_free (real_filename);
-  xmlFreeDoc(doc);
+  g_clear_pointer (&real_filename, g_free);
+  xmlFreeDoc (doc);
 
   g_hash_table_destroy (ni.layer_hash);
 

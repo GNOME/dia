@@ -613,7 +613,7 @@ ps_convert_string (const char *text, DiaContext *ctx)
       str++;
     }
   }
-  g_free (localestr);
+  g_clear_pointer (&localestr, g_free);
   return buffer;
 }
 
@@ -666,7 +666,7 @@ draw_string(DiaRenderer *self,
   buffer = ps_convert_string(text, renderer->ctx);
 
   fprintf(renderer->file, "(%s) ", buffer);
-  g_free(buffer);
+  g_clear_pointer (&buffer, g_free);
 
   pos_adj.x = pos->x;
   pos_adj.y = pos->y - dia_font_descent ("", renderer->font, renderer->font_height);
@@ -742,8 +742,8 @@ draw_image(DiaRenderer *self,
   fprintf(renderer->file, "gr\n");
   fprintf(renderer->file, "\n");
 
-  g_free(rgb_data);
-  g_free(mask_data);
+  g_clear_pointer (&rgb_data, g_free);
+  g_clear_pointer (&mask_data, g_free);
 }
 
 static void
@@ -1031,7 +1031,7 @@ dia_ps_renderer_finalize (GObject *object)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER (object);
 
-  g_free(renderer->title);
+  g_clear_pointer (&renderer->title, g_free);
   g_clear_object (&renderer->font);
   /*  fclose(renderer->file);*/
 

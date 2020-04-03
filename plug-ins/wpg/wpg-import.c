@@ -309,8 +309,10 @@ import_object(DiaRenderer* self, DiagramData *dia,
       g_warning ("Uknown type %i", type);
       break;
   } /* switch */
-  g_free (points);
-  DIAG_NOTE(g_message("Type %d Num pts %d Size %d", type, iNum, iSize));
+
+  g_clear_pointer (&points, g_free);
+
+  DIAG_NOTE (g_message ("Type %d Num pts %d Size %d", type, iNum, iSize));
 }
 
 static void
@@ -429,8 +431,10 @@ _render_bmp (WpgImportRenderer *ren, WPGBitmap2 *bmp, FILE *f, int len)
                                (bmp->Bottom - bmp->Top) / WPU_PER_DCM,
                                image);
     }
-    g_object_unref (pixbuf);
-    g_object_unref (image);
+
+    g_clear_object (&pixbuf);
+    g_clear_object (&image);
+
     return bRet;
   }
 #undef PUT_PIXEL
@@ -585,7 +589,7 @@ import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* use
             pData = g_new(guchar, iSize);
             bRet = (iSize == (int)fread(pData, 1, iSize, f));
             import_object(DIA_RENDERER(ren), dia, rh.Type, iSize, pData);
-            g_free(pData);
+            g_clear_pointer (&pData, g_free);
           }
           break;
         case WPG_COLORMAP:
@@ -664,11 +668,15 @@ import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* use
     }
     while ((iSize > 0) && (bRet));
 
-    if (!bRet)
-      dia_context_add_message (ctx, _("Unexpected end of file. WPG type %d, size %d.\n"),
-			       rh.Type, iSize);
-    if (ren->pPal)
-      g_free(ren->pPal);
+    if (!bRet) {
+      dia_context_add_message (ctx,
+                               _("Unexpected end of file. WPG type %d, size %d.\n"),
+                               rh.Type,
+                               iSize);
+    }
+
+    g_clear_pointer (&ren->pPal, g_free);
+
     /* transfer to diagram data */
     {
       DiaObject *objs = dia_import_renderer_get_objects (DIA_RENDERER(ren));
@@ -679,10 +687,12 @@ import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* use
         bRet = FALSE;
       }
     }
-    g_object_unref (ren);
+    g_clear_object (&ren);
   } /* bRet */
 
-  if (f)
-    fclose(f);
+  if (f) {
+    fclose (f);
+  }
+
   return bRet;
 }

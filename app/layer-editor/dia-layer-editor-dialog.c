@@ -195,7 +195,7 @@ diagrams_changed (GListModel *diagrams,
 
     i++;
 
-    g_free (basename);
+    g_clear_pointer (&basename, g_free);
     g_clear_object (&dia);
   }
 

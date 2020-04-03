@@ -41,26 +41,29 @@ struct _PageSetup {
 static void pagesetup_changed  (GtkWidget *wid, PageSetup *ps);
 static void pagesetup_apply    (GtkWidget *wid, PageSetup *ps);
 
-static gint
-pagesetup_respond(GtkWidget *widget,
-                   gint       response_id,
+
+static int
+pagesetup_respond (GtkWidget *widget,
+                   int        response_id,
                    gpointer   data)
 {
   PageSetup *ps = (PageSetup *)data;
 
   if (   response_id == GTK_RESPONSE_APPLY
       || response_id == GTK_RESPONSE_OK) {
-    if (ps->changed)
-      pagesetup_apply(widget, ps);
+    if (ps->changed) {
+      pagesetup_apply (widget, ps);
+    }
   }
 
   if (response_id != GTK_RESPONSE_APPLY) {
-    g_object_unref(ps->dia);
+    g_object_unref (&ps->dia);
     gtk_widget_destroy(ps->window);
   }
 
   return 0;
 }
+
 
 void
 create_page_setup_dlg(Diagram *dia)
@@ -169,15 +172,15 @@ pagesetup_apply(GtkWidget *wid, PageSetup *ps)
   dia_mem_swap_change_new (ps->dia, &ps->dia->data->paper, sizeof(ps->dia->data->paper));
   undo_set_transactionpoint(ps->dia->undo);
 
-  g_free(ps->dia->data->paper.name);
+  g_clear_pointer (&ps->dia->data->paper.name, g_free);
   ps->dia->data->paper.name =
-    g_strdup(dia_page_layout_get_paper(DIA_PAGE_LAYOUT(ps->paper)));
+    g_strdup (dia_page_layout_get_paper (DIA_PAGE_LAYOUT (ps->paper)));
 
-  dia_page_layout_get_margins(DIA_PAGE_LAYOUT(ps->paper),
-			      &ps->dia->data->paper.tmargin,
-			      &ps->dia->data->paper.bmargin,
-			      &ps->dia->data->paper.lmargin,
-			      &ps->dia->data->paper.rmargin);
+  dia_page_layout_get_margins (DIA_PAGE_LAYOUT (ps->paper),
+                               &ps->dia->data->paper.tmargin,
+                               &ps->dia->data->paper.bmargin,
+                               &ps->dia->data->paper.lmargin,
+                               &ps->dia->data->paper.rmargin);
 
   ps->dia->data->paper.is_portrait =
     dia_page_layout_get_orientation(DIA_PAGE_LAYOUT(ps->paper)) ==

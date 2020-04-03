@@ -174,15 +174,17 @@ largepackage_get_props(LargePackage * largepackage, GPtrArray *props)
                                 largepackage_offsets, props);
 }
 
+
 static void
-largepackage_set_props(LargePackage *largepackage, GPtrArray *props)
+largepackage_set_props (LargePackage *largepackage, GPtrArray *props)
 {
-  object_set_props_from_offsets(&largepackage->element.object,
-                                largepackage_offsets, props);
-  g_free(largepackage->st_stereotype);
-  largepackage->st_stereotype = NULL;
-  largepackage_update_data(largepackage);
+  object_set_props_from_offsets (&largepackage->element.object,
+                                 largepackage_offsets,
+                                 props);
+  g_clear_pointer (&largepackage->st_stereotype, g_free);
+  largepackage_update_data (largepackage);
 }
+
 
 static real
 largepackage_distance_from(LargePackage *pkg, Point *point)
@@ -400,16 +402,18 @@ largepackage_create(Point *startpoint,
   return &pkg->element.object;
 }
 
+
 static void
 largepackage_destroy (LargePackage *pkg)
 {
   g_clear_object (&pkg->font);
-  g_free (pkg->stereotype);
-  g_free (pkg->st_stereotype);
-  g_free (pkg->name);
+  g_clear_pointer (&pkg->stereotype, g_free);
+  g_clear_pointer (&pkg->st_stereotype, g_free);
+  g_clear_pointer (&pkg->name, g_free);
 
   element_destroy (&pkg->element);
 }
+
 
 static DiaObject *
 largepackage_load(ObjectNode obj_node, int version,DiaContext *ctx)

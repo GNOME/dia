@@ -322,7 +322,7 @@ begin_render(DiaRenderer *self, const DiaRectangle *update)
   WriteFillAttr(renderer, &color, TRUE);
   WriteFillAttr(renderer, &color, FALSE);
 
-  g_free(pPal);
+  g_clear_pointer (&pPal, g_free);
 }
 
 static void
@@ -515,7 +515,7 @@ draw_polyline(DiaRenderer *self,
 
   fwrite_le(pData, sizeof(gint16), num_points*2, renderer->file);
 
-  g_free(pData);
+  g_clear_pointer (&pData, g_free);
 }
 
 static void
@@ -560,7 +560,7 @@ draw_polygon(DiaRenderer *self,
   /* switch off fill */
   WriteFillAttr(renderer, fill ? fill : stroke, FALSE);
 
-  g_free(pData);
+  g_clear_pointer (&pData, g_free);
 }
 
 static void
@@ -597,7 +597,7 @@ draw_rect(DiaRenderer *self,
     renderer->LineAttr.Type = lt;
   /* switch off fill */
   WriteFillAttr(renderer, fill ? fill : stroke, FALSE);
-  g_free(pData);
+  g_clear_pointer (&pData, g_free);
 }
 
 static void
@@ -774,7 +774,7 @@ draw_bezier(DiaRenderer *self,
   }
 
   fwrite_le (pts, sizeof (gint16), 2 * (numpoints*3-2), renderer->file);
-  g_free (pts);
+  g_clear_pointer (&pts, g_free);
 }
 
 static gpointer parent_class = NULL;
@@ -976,8 +976,8 @@ draw_image(DiaRenderer *self,
     fclose(f);
   }
 #endif
-  g_free(pDiaImg);
-  g_free(pOut);
+  g_clear_pointer (&pDiaImg, g_free);
+  g_clear_pointer (&pOut, g_free);
 }
 
 /* gobject boiler plate */
@@ -1170,7 +1170,7 @@ export_data(DiagramData *data, DiaContext *ctx,
 
   data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
-  g_object_unref(renderer);
+  g_clear_object (&renderer);
 
   return TRUE;
 }

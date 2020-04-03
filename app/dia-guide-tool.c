@@ -81,11 +81,15 @@ Tool *create_guide_tool(void)
   return (Tool *)tool;
 }
 
-void free_guide_tool(Tool *tool)
+
+void
+free_guide_tool (Tool *tool)
 {
-  GuideTool *gtool = (GuideTool *)tool;
-  g_free(gtool);
+  GuideTool *gtool = (GuideTool *) tool;
+
+  g_clear_pointer (&gtool, g_free);
 }
+
 
 static void
 guide_button_release(GuideTool *tool, GdkEventButton *event,

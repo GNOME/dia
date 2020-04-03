@@ -536,13 +536,14 @@ ellipse_create(Point *startpoint,
   return &ellipse->element.object;
 }
 
+
 static void
 ellipse_destroy(Ellipse *ellipse)
 {
-  if (ellipse->pattern)
-    g_object_unref (ellipse->pattern);
-  element_destroy(&ellipse->element);
+  g_clear_object (&ellipse->pattern);
+  element_destroy (&ellipse->element);
 }
+
 
 static DiaObject *
 ellipse_copy(Ellipse *ellipse)

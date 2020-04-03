@@ -212,15 +212,19 @@ gboolean parent_handle_move_in_check(DiaObject *object, Point *to, Point *start_
       If delta is not present, these are the extents *before* any moves
       If delta is present, delta is considered into the extents's position
       */
-Point parent_move_child_delta (DiaRectangle *p_ext, DiaRectangle *c_ext, Point *delta)
+Point
+parent_move_child_delta (DiaRectangle *p_ext,
+                         DiaRectangle *c_ext,
+                         Point        *delta)
 {
-    Point new_delta = {0, 0};
-    gboolean free_delta = FALSE;
-    if (delta == NULL)
-    {
-      delta = g_new0(Point, 1);
-      free_delta = TRUE;
-    }
+  Point new_delta = { 0, 0 };
+  gboolean free_delta = FALSE;
+
+  if (delta == NULL) {
+    delta = g_new0 (Point, 1);
+    free_delta = TRUE;
+  }
+
     /* we check if the child extent would be inside the parent extent after the move
       if not, we calculate how far we have to move the extent back to place it back
       inside the parent extent */
@@ -234,10 +238,11 @@ Point parent_move_child_delta (DiaRectangle *p_ext, DiaRectangle *c_ext, Point *
     else if (c_ext->top + delta->y + (c_ext->bottom - c_ext->top) > p_ext->bottom)
       new_delta.y = p_ext->bottom  - (c_ext->top + delta->y + (c_ext->bottom - c_ext->top));
 
-    if (free_delta)
-      g_free(delta);
+  if (free_delta) {
+    g_clear_pointer (&delta, g_free);
+  }
 
-    return new_delta;
+  return new_delta;
 }
 
 /* the caller must free the returned rectangle */

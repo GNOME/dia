@@ -28,21 +28,25 @@
 
 #include <structmember.h> /* PyMemberDef */
 
+
 /*
  * New
  */
-PyObject* PyDiaText_New (gchar *text_data, TextAttributes *attr)
+PyObject *
+PyDiaText_New (char *text_data, TextAttributes *attr)
 {
   PyDiaText *self;
-  
-  self = PyObject_NEW(PyDiaText, &PyDiaText_Type);
+
+  self = PyObject_NEW (PyDiaText, &PyDiaText_Type);
+
   if (!self) return NULL;
-  
+
   self->text_data = g_strdup (text_data);
   self->attr = *attr;
 
   return (PyObject *)self;
 }
+
 
 /*
  * Dealloc
@@ -50,7 +54,7 @@ PyObject* PyDiaText_New (gchar *text_data, TextAttributes *attr)
 static void
 PyDiaText_Dealloc(PyDiaText *self)
 {
-  g_free (self->text_data);
+  g_clear_pointer (&self->text_data, g_free);
   PyObject_DEL(self);
 }
 
@@ -81,10 +85,10 @@ PyDiaText_Hash(PyObject *self)
  * GetAttr
  */
 static PyObject *
-PyDiaText_GetAttr(PyDiaText *self, gchar *attr)
+PyDiaText_GetAttr(PyDiaText *self, char *attr)
 {
   if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[sssss]", "text", "font", "height", 
+    return Py_BuildValue("[sssss]", "text", "font", "height",
                          "position", "color", "alignment");
   else if (!strcmp(attr, "text"))
     return PyString_FromString(self->text_data);
@@ -109,12 +113,12 @@ PyDiaText_GetAttr(PyDiaText *self, gchar *attr)
 static PyObject *
 PyDiaText_Str(PyDiaText *self)
 {
-  gchar *strname = g_strdup_printf("<DiaText \"%s\" at %lx>",
+  char *strname = g_strdup_printf ("<DiaText \"%s\" at %lx>",
                                    self->attr.font ? dia_font_get_family (self->attr.font) : "none",
                                    (long)self);
   PyObject *ret = PyString_FromString(strname);
 
-  g_free(strname);
+  g_clear_pointer (&strname, g_free);
   return ret;
 }
 

@@ -377,11 +377,12 @@ static void
 bus_destroy(Bus *bus)
 {
   int i;
-  connection_destroy(&bus->connection);
-  for (i=0;i<bus->num_handles;i++)
-    g_free(bus->handles[i]);
-  g_free(bus->handles);
-  g_free(bus->parallel_points);
+  connection_destroy (&bus->connection);
+  for (i=0;i<bus->num_handles;i++) {
+    g_clear_pointer (&bus->handles[i], g_free);
+  }
+  g_clear_pointer (&bus->handles, g_free);
+  g_clear_pointer (&bus->parallel_points, g_free);
 }
 
 static DiaObject *
@@ -695,9 +696,7 @@ bus_change_free(struct PointChange *change)
 {
   if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
        (change->type==TYPE_REMOVE_POINT && change->applied) ){
-    if (change->handle)
-      g_free(change->handle);
-    change->handle = NULL;
+    g_clear_pointer (&change->handle, g_free);
   }
 }
 

@@ -75,7 +75,7 @@ GtkWidget * create_layer_view_widget (void)
   rcstyle = gtk_rc_style_new ();
   rcstyle->xthickness = rcstyle->ythickness = 0;
   gtk_widget_modify_style (hide_button, rcstyle);
-  g_object_unref (rcstyle);
+  g_clear_object (&rcstyle);
 
   image = gtk_image_new_from_icon_name ("window-close-symbolic",
                                         GTK_ICON_SIZE_MENU);

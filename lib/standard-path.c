@@ -285,7 +285,7 @@ stdpath_create (Point *startpoint,
       g_warning ("'Standard - Path' needs at least two points");
       /* this is a stress test - object might not be setup completely */
       object_destroy (obj);
-      g_free (stdpath);
+      g_clear_pointer (&stdpath, g_free);
       return NULL;
     }
     stdpath->num_points = bcd->num_points;
@@ -1022,6 +1022,8 @@ stdpath_copy (StdPath *from)
   to = object_copy_using_properties (&from->object);
   return to;
 }
+
+
 /*!
  * \brief Destruction of the object
  * \memberof _StdPath
@@ -1029,12 +1031,13 @@ stdpath_copy (StdPath *from)
 static void
 stdpath_destroy (StdPath *stdpath)
 {
-  object_destroy(&stdpath->object);
-  if (stdpath->pattern)
-    g_object_unref (stdpath->pattern);
-  g_free (stdpath->points);
+  object_destroy (&stdpath->object);
+  g_clear_object (&stdpath->pattern);
+  g_clear_pointer (&stdpath->points, g_free);
   /* but not the object itself */
 }
+
+
 /*!
  * \brief Change the object state regarding selection
  * \memberof _StdPath
@@ -1086,7 +1089,7 @@ text_to_path (const Text *text, GArray *points)
 
   str = text_get_string_copy (text);
   pango_layout_set_text (layout, str, -1);
-  g_free (str);
+  g_clear_pointer (&str, g_free);
 
   pango_layout_get_extents (layout, &ink_rect, NULL);
   /* any surface should do - this one is always available */
@@ -1137,7 +1140,7 @@ text_to_path (const Text *text, GArray *points)
   /* finally scale it ? */
 
   /* clean up */
-  g_object_unref (layout);
+  g_clear_object (&layout);
   cairo_destroy (cr);
 
   return ret;

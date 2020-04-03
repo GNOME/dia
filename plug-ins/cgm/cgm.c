@@ -1208,14 +1208,14 @@ export_cgm(DiagramData *data, DiaContext *ctx,
     write_real(file, 0.0);
     write_real(file, 0.0);
 
-    init_attributes(renderer);
+  init_attributes (renderer);
 
-    data_render (data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+  data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
-    g_clear_object (&renderer->font);
-    g_object_unref (renderer);
+  g_clear_object (&renderer->font);
+  g_clear_object (&renderer);
 
-    return TRUE;
+  return TRUE;
 }
 
 /* GObject stuff */

@@ -429,14 +429,16 @@ condition_create(Point *startpoint,
   return &condition->connection.object;
 }
 
+
 static void
-condition_destroy(Condition *condition)
+condition_destroy (Condition *condition)
 {
   g_clear_object (&condition->cond_font);
   boolequation_destroy (condition->cond);
-  g_free (condition->cond_value);
+  g_clear_pointer (&condition->cond_value, g_free);
   connection_destroy (&condition->connection);
 }
+
 
 static DiaObject *
 condition_load(ObjectNode obj_node, int version, DiaContext *ctx)

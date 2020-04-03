@@ -247,8 +247,7 @@ image_set_props(Image *image, GPtrArray *props)
       DiaImage *old_image = image->image;
       image->image = dia_image_new_from_pixbuf (image->pixbuf);
       image->pixbuf = g_object_ref ((GdkPixbuf *)dia_image_pixbuf (image->image));
-      if (old_image)
-        g_object_unref (old_image);
+      g_clear_object (&old_image);
       image->inline_data = TRUE;
     } else {
       image->inline_data = FALSE;
@@ -264,9 +263,7 @@ image_set_props(Image *image, GPtrArray *props)
     }
     if (!image->inline_data) {
       /* drop the pixbuf reference */
-      if (image->pixbuf)
-        g_object_unref (image->pixbuf);
-      image->pixbuf = NULL;
+      g_clear_object (&image->pixbuf);
     }
   } else if (   image->file && strlen(image->file) > 0
 	     && (   (!old_file || (strcmp (old_file, image->file) != 0))
@@ -293,7 +290,7 @@ image_set_props(Image *image, GPtrArray *props)
 	         image->file ? image->file : "",
 	         image->pixbuf, image->inline_data ? "TRUE" : "FALSE");
   }
-  g_free(old_file);
+  g_clear_pointer (&old_file, g_free);
   /* remember modification time */
   image->mtime = mtime;
 
@@ -654,20 +651,18 @@ image_create(Point *startpoint,
   return &image->element.object;
 }
 
+
 static void
-image_destroy(Image *image)
+image_destroy (Image *image)
 {
-  if (image->file != NULL)
-    g_free(image->file);
+  g_clear_pointer (&image->file, g_free);
 
-  if (image->image != NULL)
-    dia_image_unref(image->image);
+  g_clear_object (&image->image);
+  g_clear_object (&image->pixbuf);
 
-  if (image->pixbuf != NULL)
-    g_object_unref(image->pixbuf);
-
-  element_destroy(&image->element);
+  element_destroy (&image->element);
 }
+
 
 static DiaObject *
 image_copy(Image *image)
@@ -753,7 +748,7 @@ image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
     if (relative) {
       /* The image pathname has the diagram file pathname in the beginning */
       data_add_filename(new_attribute(obj_node, "file"), relative, ctx);
-      g_free (relative);
+      g_clear_pointer (&relative, g_free);
     } else {
       /* Save the absolute path: */
       data_add_filename(new_attribute(obj_node, "file"), image->file, ctx);
@@ -855,18 +850,18 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
       image->image = dia_image_load(image_filename);
       if (image->image != NULL) {
-	/* Found file in same directory as diagram. */
-	g_free(image->file);
-	image->file = image_filename;
+        /* Found file in same directory as diagram. */
+        g_clear_pointer (&image->file, g_free);
+        image->file = image_filename;
       } else {
-	/* not found as relative path, try literally */
-	g_free (image_filename);
+        /* not found as relative path, try literally */
+        g_clear_pointer (&image_filename, g_free);
 
-	image->image = dia_image_load(image->file);
-	if (image->image == NULL) {
-	  /* Didn't find file in current directory. */
-	  dia_context_add_message (ctx, _("The image file '%s' was not found.\n"), image->file);
-	}
+        image->image = dia_image_load(image->file);
+        if (image->image == NULL) {
+          /* Didn't find file in current directory. */
+          dia_context_add_message (ctx, _("The image file '%s' was not found.\n"), image->file);
+        }
       }
     }
   }
@@ -877,10 +872,10 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
       GdkPixbuf *pixbuf = data_pixbuf (attribute_first_data(attr), ctx);
 
       if (pixbuf) {
-	image->image = dia_image_new_from_pixbuf (pixbuf);
-	image->inline_data = TRUE; /* avoid loosing it */
-	/* FIXME: should we reset the filename? */
-	g_object_unref (pixbuf);
+        image->image = dia_image_new_from_pixbuf (pixbuf);
+        image->inline_data = TRUE; /* avoid loosing it */
+        /* FIXME: should we reset the filename? */
+        g_clear_object (&pixbuf);
       }
     }
   } else {

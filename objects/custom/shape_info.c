@@ -479,32 +479,35 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       if (!str) /* this doesn't look right but it appears to work w/o namespace --hb */
         str = xmlGetProp(node, (const xmlChar *)"href");
       if (str) {
-        gchar *imgfn = NULL;
-        const char* data = strchr((char *)str, ',');
+        char *imgfn = NULL;
+        const char* data = strchr ((char *) str, ',');
 
-	/* first check for inlined data */
-	if (data) {
-	  GdkPixbuf *pixbuf = pixbuf_decode_base64 (data+1);
+        /* first check for inlined data */
+        if (data) {
+          GdkPixbuf *pixbuf = pixbuf_decode_base64 (data + 1);
 
-	  if (pixbuf) {
-	    image->image = dia_image_new_from_pixbuf (pixbuf);
-	    g_object_unref (pixbuf);
-	  }
-	} else {
-	  imgfn = g_filename_from_uri((gchar *) str, NULL, NULL);
-          if (!imgfn)
-	    /* despite it's name it ensures an absolute filename */
-            imgfn = custom_get_relative_filename(filename, (gchar *) str);
+          if (pixbuf) {
+            image->image = dia_image_new_from_pixbuf (pixbuf);
+            g_clear_object (&pixbuf);
+          }
+        } else {
+          imgfn = g_filename_from_uri ((char *) str, NULL, NULL);
+          if (!imgfn) {
+            /* despite it's name it ensures an absolute filename */
+            imgfn = custom_get_relative_filename (filename, (char *) str);
+          }
 
-          image->image = dia_image_load(imgfn);
-	}
+          image->image = dia_image_load (imgfn);
+        }
+
         if (!image->image) {
           g_debug ("%s: failed to load image file %s",
                    G_STRLOC,
                    imgfn ? imgfn : "(data:)");
         }
-        g_free(imgfn);
-        xmlFree(str);
+
+        g_clear_pointer (&imgfn, g_free);
+        xmlFree (str);
       }
       /* w/o the image we would crash later */
       if (!image->image)
@@ -762,18 +765,18 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
           g_warning ("Shape(preload) '%s' can't change name '%s'", info->name, tmp);
         /* the key name is already used as key in name_to_info */
       } else {
-        g_free(info->name);
+        g_clear_pointer (&info->name, g_free);
         info->name = g_strdup(tmp);
       }
       xmlFree(tmp);
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"icon")) {
-      tmp = (gchar *) xmlNodeGetContent(node);
+      tmp = (char *) xmlNodeGetContent(node);
       if (preload) {
         if (strstr (info->icon, tmp) == NULL) /* the left including the absolute path */
           g_warning ("Shape(preload) '%s' can't change icon '%s'", info->icon, tmp);
         /* the key name is already used as key in name_to_info */
       } else {
-        g_free(info->icon);
+        g_clear_pointer (&info->icon, g_free);
         info->icon = custom_get_relative_filename(filename, tmp);
       }
       xmlFree(tmp);
@@ -784,35 +787,37 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
       for (pt_node = node->xmlChildrenNode;
            pt_node != NULL;
            pt_node = pt_node->next) {
-        if (xmlIsBlankNode(pt_node)) continue;
+        if (xmlIsBlankNode(pt_node)) {
+          continue;
+        }
 
-	if (pt_node->ns == shape_ns && !xmlStrcmp(pt_node->name, (const xmlChar *)"point")) {
-	  Point pt = { 0.0, 0.0 };
-	  xmlChar *str;
+        if (pt_node->ns == shape_ns && !xmlStrcmp(pt_node->name, (const xmlChar *)"point")) {
+          Point pt = { 0.0, 0.0 };
+          xmlChar *str;
 
-	  str = xmlGetProp(pt_node, (const xmlChar *)"x");
-	  if (str) {
-	    pt.x = g_ascii_strtod((gchar *) str, NULL);
-	    xmlFree(str);
-	  }
-	  str = xmlGetProp(pt_node, (const xmlChar *)"y");
-	  if (str) {
-	    pt.y = g_ascii_strtod((gchar *) str, NULL);
-	    xmlFree(str);
-	  }
-	  g_array_append_val(arr, pt);
-	  str = xmlGetProp(pt_node, (const xmlChar *)"main");
-	  if (str && str[0] != '\0') {
-	    if (info->main_cp != -1) {
-	      message_warning("More than one main connection point in %s.  Only the first one will be used.\n",
-			      info->name);
-	    } else {
-	      info->main_cp = i;
-	    }
-	    xmlFree(str);
-	  }
-	}
-	i++;
+          str = xmlGetProp(pt_node, (const xmlChar *) "x");
+          if (str) {
+            pt.x = g_ascii_strtod ((char *) str, NULL);
+            xmlFree(str);
+          }
+          str = xmlGetProp (pt_node, (const xmlChar *) "y");
+          if (str) {
+            pt.y = g_ascii_strtod ((char *) str, NULL);
+            xmlFree(str);
+          }
+          g_array_append_val (arr, pt);
+          str = xmlGetProp (pt_node, (const xmlChar *) "main");
+          if (str && str[0] != '\0') {
+            if (info->main_cp != -1) {
+              message_warning ("More than one main connection point in %s.  Only the first one will be used.\n",
+                               info->name);
+            } else {
+              info->main_cp = i;
+            }
+            xmlFree (str);
+          }
+        }
+        i++;
       }
       info->nconnections = arr->len;
       info->connections = (Point *)arr->data;

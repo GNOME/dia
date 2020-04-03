@@ -294,7 +294,7 @@ fig_read_arrow(FILE *file, DiaContext *ctx)
 	break;
     default:
 	dia_context_add_message(ctx, _("Unknown arrow type %d\n"), arrow_type);
-	g_free(arrow);
+	g_clear_pointer (&arrow, g_free);
 	return NULL;
     }
     arrow->width = width/FIG_UNIT;
@@ -343,7 +343,7 @@ fig_fix_text(gchar *text) {
         g_printerr ("Fails to validate %s\n", converted);
         return text;
       }
-      if (text != converted) g_free(text);
+      if (text != converted) g_clear_pointer (&text, g_free);
       return converted;
     } else {
       return text;
@@ -601,9 +601,9 @@ fig_read_polyline(FILE *file, DiaContext *ctx)
  exit:
     setlocale(LC_NUMERIC, old_locale);
     prop_list_free(props);
-    g_free(forward_arrow_info);
-    g_free(backward_arrow_info);
-    g_free(image_file);
+    g_clear_pointer (&forward_arrow_info, g_free);
+    g_clear_pointer (&backward_arrow_info, g_free);
+    g_clear_pointer (&image_file, g_free);
     return newobj;
 }
 
@@ -826,9 +826,9 @@ fig_read_spline(FILE *file, DiaContext *ctx)
  exit:
     setlocale(LC_NUMERIC, old_locale);
     prop_list_free(props);
-    g_free(forward_arrow_info);
-    g_free(backward_arrow_info);
-    g_free(points);
+    g_clear_pointer (&forward_arrow_info, g_free);
+    g_clear_pointer (&backward_arrow_info, g_free);
+    g_clear_pointer (&points, g_free);
     return newobj;
 }
 
@@ -925,8 +925,8 @@ fig_read_arc(FILE *file, DiaContext *ctx)
 
  exit:
     setlocale(LC_NUMERIC, old_locale);
-    g_free(forward_arrow_info);
-    g_free(backward_arrow_info);
+    g_clear_pointer (&forward_arrow_info, g_free);
+    g_clear_pointer (&backward_arrow_info, g_free);
     return newobj;
 }
 
@@ -987,7 +987,7 @@ fig_read_text(FILE *file, DiaContext *ctx)
 
     tprop = g_ptr_array_index(props,0);
     tprop->text_data = g_strdup(text_buf);
-    /*g_free(text_buf); */
+    /*g_clear_pointer (&text_buf, g_free); */
     tprop->attr.alignment = sub_type;
     tprop->attr.position.x = x/FIG_UNIT;
     tprop->attr.position.y = y/FIG_UNIT;
@@ -1017,15 +1017,16 @@ fig_read_text(FILE *file, DiaContext *ctx)
     }
     tprop->attr.height = font_size*2.54/72.0;
     tprop->attr.color = fig_color(color, ctx);
-    newobj->ops->set_props(newobj, props);
+    dia_object_set_properties (newobj, props);
 
     /* Depth field */
     add_at_depth(newobj, depth, ctx);
 
  exit:
-    setlocale(LC_NUMERIC, old_locale);
-    if (text_buf != NULL) g_free(text_buf);
-    if (props != NULL) prop_list_free(props);
+    setlocale (LC_NUMERIC, old_locale);
+    g_clear_pointer (&text_buf, g_free);
+    g_clear_pointer (&props, prop_list_free);
+
     return newobj;
 }
 

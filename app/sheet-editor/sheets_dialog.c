@@ -41,15 +41,17 @@
 #include "persistence.h"
 #include "menus.h"
 
+
 static void
 sheets_dialog_destroyed (GtkWidget *widget, gpointer user_data)
 {
   GObject *builder = g_object_get_data (G_OBJECT (widget), "_sheet_dialogs_builder");
-  if (builder) {
-    g_object_unref (builder);
-  }
+
+  g_clear_object (&builder);
+
   g_object_set_data (G_OBJECT (widget), "_sheet_dialogs_builder", NULL);
 }
+
 
 GtkWidget*
 create_sheets_main_dialog (void)

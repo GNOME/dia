@@ -164,22 +164,25 @@ generalization_get_props(Generalization * generalization, GPtrArray *props)
                                 generalization_offsets,props);
 }
 
+
 static void
-generalization_set_props(Generalization *generalization, GPtrArray *props)
+generalization_set_props (Generalization *generalization, GPtrArray *props)
 {
-  object_set_props_from_offsets(&generalization->orth.object,
-                                generalization_offsets, props);
-  g_free(generalization->st_stereotype);
-  generalization->st_stereotype = NULL;
-  generalization_update_data(generalization);
+  object_set_props_from_offsets (&generalization->orth.object,
+                                 generalization_offsets, props);
+  g_clear_pointer (&generalization->st_stereotype, g_free);
+  generalization_update_data (generalization);
 }
 
-static real
-generalization_distance_from(Generalization *genlz, Point *point)
+
+static double
+generalization_distance_from (Generalization *genlz, Point *point)
 {
   OrthConn *orth = &genlz->orth;
-  return orthconn_distance_from(orth, point, genlz->line_width);
+
+  return orthconn_distance_from (orth, point, genlz->line_width);
 }
+
 
 static void
 generalization_select(Generalization *genlz, Point *clicked_point,
@@ -442,15 +445,17 @@ generalization_create(Point *startpoint,
   return (DiaObject *)genlz;
 }
 
+
 static void
 generalization_destroy (Generalization *genlz)
 {
-  g_free (genlz->name);
-  g_free (genlz->stereotype);
-  g_free (genlz->st_stereotype);
+  g_clear_pointer (&genlz->name, g_free);
+  g_clear_pointer (&genlz->stereotype, g_free);
+  g_clear_pointer (&genlz->st_stereotype, g_free);
   g_clear_object (&genlz->font);
   orthconn_destroy (&genlz->orth);
 }
+
 
 static DiaObject *
 generalization_load(ObjectNode obj_node, int version,DiaContext *ctx)

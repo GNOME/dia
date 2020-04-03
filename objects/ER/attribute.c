@@ -458,7 +458,7 @@ static void
 attribute_destroy(Attribute *attribute)
 {
   element_destroy(&attribute->element);
-  g_free(attribute->name);
+  g_clear_pointer (&attribute->name, g_free);
 }
 
 static DiaObject *

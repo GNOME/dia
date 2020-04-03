@@ -39,13 +39,11 @@ static void clear_layout_offset (TextLine *text_line);
  * \memberof TextLine
  */
 void
-text_line_set_string(TextLine *text_line, const gchar *string)
+text_line_set_string (TextLine *text_line, const char *string)
 {
   if (text_line->chars == NULL ||
-      strcmp(text_line->chars, string)) {
-    if (text_line->chars != NULL) {
-      g_free(text_line->chars);
-    }
+      strcmp (text_line->chars, string)) {
+    g_clear_pointer (&text_line->chars, g_free);
 
     text_line->chars = g_strdup(string);
 
@@ -125,12 +123,10 @@ text_line_copy(const TextLine *text_line)
 void
 text_line_destroy (TextLine *text_line)
 {
-  if (text_line->chars != NULL) {
-    g_free (text_line->chars);
-  }
+  g_clear_pointer (&text_line->chars, g_free);
   g_clear_object (&text_line->font);
   clear_layout_offset (text_line);
-  g_free (text_line->offsets);
+  g_clear_pointer (&text_line->offsets, g_free);
   g_free (text_line);
 }
 
@@ -240,12 +236,11 @@ clear_layout_offset (TextLine *text_line)
     for (; runs != NULL; runs = g_slist_next(runs)) {
       PangoGlyphItem *run = (PangoGlyphItem *) runs->data;
 
-      g_free(run->glyphs->glyphs);
-      g_free(run->glyphs);
+      g_clear_pointer (&run->glyphs->glyphs, g_free);
+      g_clear_pointer (&run->glyphs, g_free);
     }
     g_slist_free(runs);
-    g_free(text_line->layout_offsets);
-    text_line->layout_offsets = NULL;
+    g_clear_pointer (&text_line->layout_offsets, g_free);
   }
 }
 
@@ -258,10 +253,7 @@ text_line_cache_values(TextLine *text_line)
       text_line->height != text_line->height_cache) {
     int n_offsets;
 
-    if (text_line->offsets != NULL) {
-      g_free(text_line->offsets);
-      text_line->offsets = NULL;
-    }
+    g_clear_pointer (&text_line->offsets, g_free);
     clear_layout_offset (text_line);
 
     if (text_line->chars == NULL ||
@@ -273,7 +265,7 @@ text_line_cache_values(TextLine *text_line)
 			   &text_line->descent, &n_offsets,
 			   &text_line->layout_offsets);
       clear_layout_offset (text_line);
-      g_free (text_line->offsets);
+      g_clear_pointer (&text_line->offsets, g_free);
       text_line->offsets = g_new (real,0); /* another way to assign NULL;) */
       text_line->width = 0;
     } else {

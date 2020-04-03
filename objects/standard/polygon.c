@@ -295,13 +295,14 @@ polygon_create(Point *startpoint,
   return &polygon->poly.object;
 }
 
+
 static void
 polygon_destroy(Polygon *polygon)
 {
-  if (polygon->pattern)
-    g_object_unref (polygon->pattern);
-  polyshape_destroy(&polygon->poly);
+  g_clear_object (&polygon->pattern);
+  polyshape_destroy (&polygon->poly);
 }
+
 
 static DiaObject *
 polygon_copy(Polygon *polygon)

@@ -458,7 +458,7 @@ void prop_list_add_filename (GPtrArray *plist, const char *name, const char *val
 /* adding an enum given an int */
 void prop_list_add_enum (GPtrArray *plist, const char *name, int val);
 /* adding a font */
-void prop_list_add_font (GPtrArray *plist, const char *name, const DiaFont *font);
+void prop_list_add_font (GPtrArray *plist, const char *name, DiaFont *font);
 /* add transformation matrix */
 void prop_list_add_matrix (GPtrArray *plist, const DiaMatrix *m);
 

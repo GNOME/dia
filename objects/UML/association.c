@@ -86,14 +86,14 @@ typedef enum {
 } AggregateType;
 
 typedef struct _AssociationEnd {
-  gchar *role; /* Can be NULL */
-  gchar *multiplicity; /* Can be NULL */
+  char *role; /* Can be NULL */
+  char *multiplicity; /* Can be NULL */
   Point text_pos;
-  real text_width;
-  real role_ascent;
-  real role_descent;
-  real multi_ascent;
-  real multi_descent;
+  double text_width;
+  double role_ascent;
+  double role_descent;
+  double multi_ascent;
+  double multi_descent;
   Alignment text_align;
   UMLVisibility visibility;	/* This value is only relevant if role is not null */
 
@@ -104,12 +104,12 @@ typedef struct _AssociationEnd {
 struct _AssociationState {
   ObjectState obj_state;
 
-  gchar *name;
+  char *name;
   AssociationDirection direction;
 
   struct {
-    gchar *role;
-    gchar *multiplicity;
+    char *role;
+    char *multiplicity;
     UMLVisibility visibility;	/* This value is only relevant if role is not null */
 
     int arrow;
@@ -123,11 +123,11 @@ struct _Association {
 
   Point text_pos;
   Alignment text_align;
-  real text_width;
-  real ascent;
-  real descent;
+  double text_width;
+  double ascent;
+  double descent;
 
-  gchar *name;
+  char *name;
   AssociationDirection direction;
   AggregateType assoc_type;
 
@@ -139,8 +139,8 @@ struct _Association {
   Color line_color;
 
   DiaFont *font;
-  real     font_height;
-  real     line_width;
+  double   font_height;
+  double   line_width;
 };
 
 #define ASSOCIATION_TRIANGLESIZE (assoc->font_height)
@@ -477,13 +477,13 @@ association_draw (Association *assoc, DiaRenderer *renderer)
     pos = end->text_pos;
 
     if (end->role != NULL && *end->role) {
-      gchar *role_name = g_strdup_printf ("%c%s", visible_char[(int) end->visibility], end->role);
+      char *role_name = g_strdup_printf ("%c%s", visible_char[(int) end->visibility], end->role);
       dia_renderer_draw_string (renderer,
                                 role_name,
                                 &pos,
                                 end->text_align,
                                 &assoc->text_color);
-      g_free (role_name);
+      g_clear_pointer (&role_name, g_free);
       pos.y += assoc->font_height;
     }
     if (end->multiplicity != NULL) {
@@ -496,18 +496,20 @@ association_draw (Association *assoc, DiaRenderer *renderer)
   }
 }
 
-static void
-association_state_free(ObjectState *ostate)
-{
-  AssociationState *state = (AssociationState *)ostate;
-  int i;
-  g_free(state->name);
 
-  for (i=0;i<2;i++) {
-    g_free(state->end[i].role);
-    g_free(state->end[i].multiplicity);
+static void
+association_state_free (ObjectState *ostate)
+{
+  AssociationState *state = (AssociationState *) ostate;
+
+  g_clear_pointer (&state->name, g_free);
+
+  for (int i = 0; i < 2; i++) {
+    g_clear_pointer (&state->end[i].role, g_free);
+    g_clear_pointer (&state->end[i].multiplicity, g_free);
   }
 }
+
 
 static AssociationState *
 association_get_state(Association *assoc)
@@ -540,7 +542,7 @@ association_set_state(Association *assoc, AssociationState *state)
   int i;
   AssociationEnd *end;
 
-  g_free(assoc->name);
+  g_clear_pointer (&assoc->name, g_free);
   assoc->name = state->name;
   assoc->text_width = 0.0;
   assoc->ascent = 0.0;
@@ -558,8 +560,8 @@ association_set_state(Association *assoc, AssociationState *state)
 
   for (i=0;i<2;i++) {
     end = &assoc->end[i];
-    g_free(end->role);
-    g_free(end->multiplicity);
+    g_clear_pointer (&end->role, g_free);
+    g_clear_pointer (&end->multiplicity, g_free);
     end->role = state->end[i].role;
     end->multiplicity = state->end[i].multiplicity;
     end->arrow = state->end[i].arrow;
@@ -591,7 +593,7 @@ association_set_state(Association *assoc, AssociationState *state)
     }
   }
 
-  g_free(state);
+  g_clear_pointer (&state, g_free);
 
   association_update_data(assoc);
 }
@@ -925,15 +927,13 @@ association_get_object_menu (Association *assoc, Point *clickedpoint)
 static void
 association_destroy (Association *assoc)
 {
-  int i;
-
   orthconn_destroy (&assoc->orth);
   g_clear_object (&assoc->font);
-  g_free (assoc->name);
+  g_clear_pointer (&assoc->name, g_free);
 
-  for (i = 0; i < 2; i++) {
-    g_free (assoc->end[i].role);
-    g_free (assoc->end[i].multiplicity);
+  for (int i = 0; i < 2; i++) {
+    g_clear_pointer (&assoc->end[i].role, g_free);
+    g_clear_pointer (&assoc->end[i].multiplicity, g_free);
   }
 }
 
@@ -1008,17 +1008,17 @@ association_load (ObjectNode obj_node, int version, DiaContext *ctx)
 
     attr = object_find_attribute (obj_node, "ends");
     composite = attribute_first_data (attr);
-    for (i = 0; i < 2; i++) {
 
+    for (i = 0; i < 2; i++) {
       assoc->end[i].role = NULL;
       attr = composite_find_attribute (composite, "role");
       if (attr != NULL) {
         assoc->end[i].role = data_string (attribute_first_data (attr), ctx);
       }
+
       if (   assoc->end[i].role != NULL
           && 0 == strcmp (assoc->end[i].role, "")) {
-        g_free (assoc->end[i].role);
-        assoc->end[i].role = NULL;
+        g_clear_pointer (&assoc->end[i].role, g_free);
       }
 
       assoc->end[i].multiplicity = NULL;
@@ -1027,10 +1027,10 @@ association_load (ObjectNode obj_node, int version, DiaContext *ctx)
         assoc->end[i].multiplicity = data_string (attribute_first_data (attr),
                                                   ctx);
       }
+
       if (   assoc->end[i].multiplicity != NULL
           && 0 == strcmp (assoc->end[i].multiplicity, "")) {
-        g_free (assoc->end[i].multiplicity);
-        assoc->end[i].multiplicity = NULL;
+        g_clear_pointer (&assoc->end[i].multiplicity, g_free);
       }
 
       assoc->end[i].arrow = FALSE;

@@ -88,32 +88,42 @@ recent_file_history_make_menu (void)
 
     gtk_action_group_add_action_with_accel (group, action, accel);
 
-    g_free (name);
-    g_free (file);
+    g_clear_pointer (&name, g_free);
+    g_clear_pointer (&file, g_free);
     g_strfreev (split);
-    g_free (file_escaped);
-    g_free (label);
-    g_free (accel);
+    g_clear_pointer (&file_escaped, g_free);
+    g_clear_pointer (&label, g_free);
+    g_clear_pointer (&accel, g_free);
   }
   menus_set_recent (group);
 }
 
-/** Add a new item to the file history list.
+
+/**
+ * recent_file_history_add:
+ * @fname: filename to add
+ *
+ * Add a new item to the file history list.
  * Can also handle the addition of an already exisiting file. The whole recent menu is rebuild every time but
  * it should be fast enough to favor simplicity of the code.
+ *
+ * Since: dawn-of-time
  */
 void
-recent_file_history_add(const char *fname)
+recent_file_history_add (const char *fname)
 {
-  gchar *absname = dia_get_absolute_filename(fname);
-  gchar *filename = g_filename_to_utf8(absname, -1, NULL, NULL, NULL);
-  recent_file_history_clear_menu();
-  persistent_list_add("recent-files", filename);
-  g_free(absname);
-  g_free(filename);
+  char *absname = dia_get_absolute_filename (fname);
+  char *filename = g_filename_to_utf8 (absname, -1, NULL, NULL, NULL);
 
-  recent_file_history_make_menu();
+  recent_file_history_clear_menu ();
+  persistent_list_add ("recent-files", filename);
+
+  g_clear_pointer (&absname, g_free);
+  g_clear_pointer (&filename, g_free);
+
+  recent_file_history_make_menu ();
 }
+
 
 /* load the recent file history */
 void
@@ -126,22 +136,33 @@ recent_file_history_init (void)
   recent_file_history_make_menu();
 }
 
-/* remove a broken file from the history and update menu accordingly
- * Xing Wang, 2002.06 */
+
+/**
+ * recent_file_history_remove:
+ * @fname: filename to remove
+ *
+ * Remove a broken file from the history and update menu accordingly
+ *
+ * Xing Wang, 2002.06
+ *
+ * Since: dawn-of-time
+ */
 void
 recent_file_history_remove (const char *fname)
 {
-  gchar *absname = dia_get_absolute_filename(fname);
-  gchar *filename = g_filename_to_utf8(absname, -1, NULL, NULL, NULL);
+  char *absname = dia_get_absolute_filename (fname);
+  char *filename = g_filename_to_utf8 (absname, -1, NULL, NULL, NULL);
 
   recent_file_history_clear_menu();
 
   persistent_list_remove("recent-files", filename);
-  g_free(absname);
-  g_free(filename);
 
-  recent_file_history_make_menu();
+  g_clear_pointer (&absname, g_free);
+  g_clear_pointer (&filename, g_free);
+
+  recent_file_history_make_menu ();
 }
+
 
 static void
 open_recent_file_callback(GtkWidget *widget, gpointer data)
@@ -159,7 +180,9 @@ open_recent_file_callback(GtkWidget *widget, gpointer data)
     if (diagram->displays == NULL) {
       new_display(diagram);
     }
-  } else
+  } else {
     recent_file_history_remove (filename);
-  g_free(filename);
+  }
+
+  g_clear_pointer (&filename, g_free);
 }

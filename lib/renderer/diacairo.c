@@ -276,7 +276,7 @@ cairo_export_data (DiagramData *data,
       dia_context_add_message(ctx, _("Can't write %d bytes to %s"), nSize, filename);
     }
     DeleteEnhMetaFile (hEmf);
-    g_free (pData);
+    g_clear_pointer (&pData, g_free);
   } else if (OUTPUT_WMF == kind) {
     FILE* f = g_fopen(filename, "wb");
     HENHMETAFILE hEmf = CloseEnhMetaFile(hFileDC);
@@ -293,7 +293,7 @@ cairo_export_data (DiagramData *data,
     }
     ReleaseDC(NULL, hdc);
     DeleteEnhMetaFile (hEmf);
-    g_free (pData);
+    g_clear_pointer (&pData, g_free);
   } else if (OUTPUT_CLIPBOARD == kind) {
     HENHMETAFILE hEmf = CloseEnhMetaFile(hFileDC);
     if (   OpenClipboard(NULL)
@@ -307,9 +307,9 @@ cairo_export_data (DiagramData *data,
     }
   }
 #endif
-  g_object_unref(renderer);
+  g_clear_object (&renderer);
   if (filename != filename_crt)
-    g_free (filename_crt);
+    g_clear_pointer (&filename_crt, g_free);
   return TRUE;
 }
 
@@ -336,10 +336,12 @@ export_print_data (DiagramData *data, DiaContext *ctx,
 
   gtk_print_operation_set_export_filename (op, filename_utf8 ? filename_utf8 : "output.pdf");
   res = gtk_print_operation_run (op, GTK_PRINT_OPERATION_ACTION_EXPORT, NULL, &error);
+
   if (GTK_PRINT_OPERATION_RESULT_ERROR == res) {
-    dia_context_add_message(ctx, "%s", error->message);
-    g_error_free (error);
+    dia_context_add_message (ctx, "%s", error->message);
+    g_clear_error (&error);
     return FALSE;
   }
+
   return TRUE;
 }

@@ -100,31 +100,32 @@ _dtv_button_press (GtkWidget      *widget,
       gtk_tree_path_free (path);
     }
 
-    gtk_menu_popup (DIAGRAM_TREE_VIEW(widget)->popup, NULL, NULL, NULL, NULL, event->button, event->time);
-
+    gtk_menu_popup (DIAGRAM_TREE_VIEW (widget)->popup, NULL, NULL, NULL, NULL, event->button, event->time);
   } else {
     GTK_WIDGET_CLASS (_dtv_parent_class)->button_press_event (widget, event);
 
     if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW (widget),
-					event->x, event->y,
-                                        &path, NULL, NULL, NULL)) {
+                                       event->x, event->y,
+                                       &path, NULL, NULL, NULL)) {
       model = gtk_tree_view_get_model (GTK_TREE_VIEW (widget));
       gtk_tree_model_get_iter (model, &iter, path);
       gtk_tree_model_get (model, &iter, OBJECT_COLUMN, &object, -1);
       gtk_tree_model_get (model, &iter, DIAGRAM_COLUMN, &diagram, -1);
 
-      if (object && diagram && ddisplay_active_diagram() == diagram) {
-	if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) /* double-click 'locates' */
-	  ddisplay_present_object (ddisplay_active(), object);
+      if (object && diagram && ddisplay_active_diagram () == diagram) {
+        if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
+          /* double-click 'locates' */
+          ddisplay_present_object (ddisplay_active(), object);
+        }
       }
-      if (diagram)
-	g_object_unref(diagram);
+      g_clear_object (&diagram);
       gtk_tree_path_free (path);
     }
   }
 
   return TRUE;
 }
+
 
 static gboolean
 _dtv_query_tooltip (GtkWidget  *widget,
@@ -163,34 +164,61 @@ _dtv_query_tooltip (GtkWidget  *widget,
       markup = g_string_new (NULL);
 
       if (diagram) {
-        gchar *em = g_markup_printf_escaped ("<b>%s</b>: %s\n", _("Diagram"), diagram->filename);
+        char *em = g_markup_printf_escaped ("<b>%s</b>: %s\n",
+                                            _("Diagram"),
+                                            diagram->filename);
+
         g_string_append (markup, em);
-        g_free (em);
+
+        g_clear_pointer (&em, g_free);
       }
 
       if (layer) {
         const char *name = dia_layer_get_name (layer);
-        gchar *em = g_markup_printf_escaped ("<b>%s</b>: %s\n", _("Layer"), name);
+        char *em = g_markup_printf_escaped ("<b>%s</b>: %s\n",
+                                            _("Layer"),
+                                            name);
+
         g_string_append (markup, em);
-        g_free (em);
+
+        g_clear_pointer (&em, g_free);
       } else if (diagram) {
-	int layers = data_layer_count (DIA_DIAGRAM_DATA (diagram));
-	g_string_append_printf (markup, g_dngettext (GETTEXT_PACKAGE, "%d Layer", "%d Layers",
-			        layers), layers);
+        int layers = data_layer_count (DIA_DIAGRAM_DATA (diagram));
+
+        g_string_append_printf (markup,
+                                g_dngettext (GETTEXT_PACKAGE,
+                                             "%d Layer",
+                                             "%d Layers",
+                                             layers),
+                                layers);
       }
+
       if (object) {
-        gchar *em = g_markup_printf_escaped ("<b>%s</b>: %s\n", _("Type"), object->type->name);
+        char *em = g_markup_printf_escaped ("<b>%s</b>: %s\n",
+                                            _("Type"),
+                                            object->type->name);
+
         g_string_append (markup, em);
-        g_free (em);
-        g_string_append_printf (markup, "<b>%s</b>: %g,%g\n", Q_("object|Position"),
-			        object->position.x, object->position.y);
-	g_string_append_printf (markup, "%d %s",
-	                        g_list_length (object->children), _("Children"));
+
+        g_clear_pointer (&em, g_free);
+
+        g_string_append_printf (markup,
+                                "<b>%s</b>: %g,%g\n",
+                                Q_("object|Position"),
+                                object->position.x,
+                                object->position.y);
+        g_string_append_printf (markup,
+                                "%d %s",
+                                g_list_length (object->children),
+                                _("Children"));
         /* and some dia_object_get_meta ? */
       } else if (layer) {
         int objects = dia_layer_object_count (layer);
+
         g_string_append_printf (markup,
-                                g_dngettext (GETTEXT_PACKAGE, "%d Object", "%d Objects",
+                                g_dngettext (GETTEXT_PACKAGE,
+                                             "%d Object",
+                                             "%d Objects",
                                              objects),
                                 objects);
       }
@@ -198,28 +226,34 @@ _dtv_query_tooltip (GtkWidget  *widget,
       if (markup->len > 0) {
         gtk_tree_view_get_cell_area (GTK_TREE_VIEW (widget), path, column, &cell_area);
 
-        gtk_tree_view_convert_bin_window_to_widget_coords
-			(GTK_TREE_VIEW (widget), cell_area.x, cell_area.y,
-			 &cell_area.x, &cell_area.y);
+        gtk_tree_view_convert_bin_window_to_widget_coords (GTK_TREE_VIEW (widget),
+                                                           cell_area.x,
+                                                           cell_area.y,
+                                                           &cell_area.x,
+                                                           &cell_area.y);
 
         gtk_tooltip_set_tip_area (tooltip, &cell_area);
         gtk_tooltip_set_markup (tooltip, markup->str);
-	had_info = TRUE;
+        had_info = TRUE;
       }
 
       /* drop references */
-      if (diagram)
-        g_object_unref (diagram);
+      g_clear_object (&diagram);
       g_string_free (markup, TRUE);
     }
     gtk_tree_path_free (path);
-    if (had_info)
+    if (had_info) {
       return TRUE;
+    }
   }
 
-  return GTK_WIDGET_CLASS (_dtv_parent_class)->query_tooltip
-						(widget, x, y, keyboard_mode, tooltip);
+  return GTK_WIDGET_CLASS (_dtv_parent_class)->query_tooltip (widget,
+                                                              x,
+                                                              y,
+                                                              keyboard_mode,
+                                                              tooltip);
 }
+
 
 static void
 _dtv_row_activated (GtkTreeView       *view,
@@ -292,9 +326,9 @@ _dtv_cell_pixbuf_func (GtkCellLayout   *layout,
   }
 
   g_object_set (cell, "pixbuf", pixbuf, NULL);
-  if (pixbuf)
-    g_object_unref (pixbuf);
+  g_clear_object (&pixbuf);
 }
+
 
 static void
 _dtv_select_items (GtkAction *action,
@@ -331,8 +365,8 @@ _dtv_select_items (GtkAction *action,
         diagram_select (diagram, object);
       if (diagram) {
         diagram_add_update_all (diagram);
-        diagram_flush(diagram);
-        g_object_unref (diagram);
+        diagram_flush (diagram);
+        g_clear_object (&diagram);
       }
     }
     r = g_list_next (r);
@@ -377,9 +411,7 @@ _dtv_locate_item (GtkAction *action,
         }
       }
       /* drop all references got from the model */
-      if (diagram) {
-        g_object_unref (diagram);
-      }
+      g_clear_object (&diagram);
     }
     r = g_list_next (r);
   }
@@ -408,26 +440,32 @@ _dtv_showprops_item (GtkAction *action,
 
       gtk_tree_model_get (model, &iter, DIAGRAM_COLUMN, &current_diagram, -1);
       gtk_tree_model_get (model, &iter, OBJECT_COLUMN, &object, -1);
-      if (object)
+
+      if (object) {
         selected = g_list_append (selected, object);
-      if (!diagram) /* keep the reference */
+      }
+
+      if (!diagram) {
+        /* keep the reference */
         diagram = current_diagram;
-      else if (diagram == current_diagram) /* still the same */
-        g_object_unref (current_diagram);
-      else {
-        g_object_unref (current_diagram);
-	break; /* can only handle one diagram's objects */
+      } else if (diagram == current_diagram) {
+        /* still the same */
+        g_clear_object (&current_diagram);
+      } else {
+        g_clear_object (&current_diagram);
+        break; /* can only handle one diagram's objects */
       }
     }
     r = g_list_next (r);
   }
 
-  if (diagram && selected)
+  if (diagram && selected) {
     object_list_properties_show (diagram, selected);
-  else if (diagram)
-    diagram_properties_show(diagram);
-  if (diagram)
-    g_object_unref(diagram);
+  } else if (diagram) {
+    diagram_properties_show (diagram);
+  }
+
+  g_clear_object (&diagram);
 
   g_list_foreach (rows, (GFunc) gtk_tree_path_free, NULL);
   g_list_free (rows);

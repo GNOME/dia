@@ -189,13 +189,13 @@ paginate_psprint(DiagramData *dia, FILE *file)
       page_bounds.top = y;
       page_bounds.bottom = y + height;
 
-      nobjs += print_page(dia,rend, &page_bounds);
+      nobjs += print_page (dia,rend, &page_bounds);
     }
   }
 
-  g_object_unref(rend);
-
+  g_clear_object (&rend);
 }
+
 
 static void
 change_entry_state(GtkToggleButton *radio, GtkWidget *entry)
@@ -217,14 +217,15 @@ pipe_handler(int signum)
   sigpipe_received = TRUE;
 }
 
+
 static gboolean
-diagram_print_destroy(GtkWidget *widget)
+diagram_print_destroy (GtkWidget *widget)
 {
   DiagramData *dia;
 
-  if ((dia = g_object_get_data(G_OBJECT(widget), "diagram")) != NULL) {
-    g_object_unref(dia);
-    g_object_set_data(G_OBJECT(widget), "diagram", NULL);
+  if ((dia = g_object_get_data (G_OBJECT (widget), "diagram")) != NULL) {
+    g_clear_object (&dia);
+    g_object_set_data (G_OBJECT (widget), "diagram", NULL);
   }
 
   return FALSE;
@@ -340,7 +341,7 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
     }
 
     gtk_entry_set_text (GTK_ENTRY (cmd), printcmd);
-    g_free (printcmd);
+    g_clear_pointer (&printcmd, g_free);
     printcmd = NULL;
   }
 #endif
@@ -359,7 +360,7 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
   }
   printer_filename = strcat (printer_filename, ".ps");
   gtk_entry_set_text (GTK_ENTRY (ofile), printer_filename);
-  g_free (printer_filename);
+  g_clear_pointer (&printer_filename, g_free);
   orig_file = g_strdup (gtk_entry_get_text (GTK_ENTRY (ofile)));
 
   /* Scaling is already set at creation. */
@@ -383,8 +384,8 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
     if (!cont) {
       persistence_change_string_entry ("printer-command", orig_command, cmd);
       gtk_widget_destroy (dialog);
-      g_free (orig_command);
-      g_free (orig_file);
+      g_clear_pointer (&orig_command, g_free);
+      g_clear_pointer (&orig_file, g_free);
       return;
     }
 
@@ -425,7 +426,7 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
                                   _("The file '%s' already exists.\n"
                                     "Do you want to overwrite it?"),
                                   utf8filename);
-        g_free (utf8filename);
+        g_clear_pointer (&utf8filename, g_free);
         gtk_window_set_title (GTK_WINDOW (confirm_overwrite_dialog),
                               _("File already exists"));
         gtk_dialog_set_default_response (GTK_DIALOG (confirm_overwrite_dialog),
@@ -447,7 +448,7 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
           full_filename = g_build_filename (g_get_home_dir (),
                                             new_filename, NULL);
           file = g_fopen (full_filename, "w");
-          g_free (full_filename);
+          g_clear_pointer (&full_filename, g_free);
         } else {
           file = g_fopen (new_filename, "w");
         }
@@ -465,7 +466,7 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
         if (is_pipe) {
           message_warning (_("Could not run command '%s': %s"),
                            printcmd, strerror (errno));
-          g_free (printcmd);
+          g_clear_pointer (&printcmd, g_free);
         } else
           message_warning (_("Could not open '%s' for writing: %s"),
                            gtk_entry_get_text (GTK_ENTRY (ofile)),
@@ -475,8 +476,8 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
     }
   } while (!done);
 
-  g_free (orig_command);
-  g_free (orig_file);
+  g_clear_pointer (&orig_command, g_free);
+  g_clear_pointer (&orig_file, g_free);
 #ifndef G_OS_WIN32
   /* set up a SIGPIPE handler to catch IO errors, rather than segfaulting */
   sigpipe_received = FALSE;
@@ -507,6 +508,6 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
   }
 
   if (is_pipe) {
-    g_free (printcmd);
+    g_clear_pointer (&printcmd, g_free);
   }
 }

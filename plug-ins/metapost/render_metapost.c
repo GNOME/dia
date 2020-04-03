@@ -944,8 +944,8 @@ draw_image(DiaRenderer *self,
         }
     }
 
-    g_free(mask_data);
-    g_free(rgb_data);
+    g_clear_pointer (&mask_data, g_free);
+    g_clear_pointer (&rgb_data, g_free);
 }
 
 /* GObject stuff */
@@ -1169,22 +1169,23 @@ export_metapost(DiagramData *data, DiaContext *ctx,
     fprintf(renderer->file,"  t = %s;\n\n",
 	    mp_dtostr(d1_buf, data->paper.scaling));
 
-    initial_color.red=0.;
-    initial_color.green=0.;
-    initial_color.blue=0.;
-    initial_color.alpha=1.;
-    set_line_color(renderer,&initial_color);
+  initial_color.red= 0.0;
+  initial_color.green= 0.0;
+  initial_color.blue= 0.0;
+  initial_color.alpha= 1.0;
+  set_line_color (renderer,&initial_color);
 
-    data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+  data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
-    g_object_unref(renderer);
+  g_clear_object (&renderer);
 
-    return TRUE;
+  return TRUE;
 }
+
 
 static const gchar *extensions[] = { "mp", NULL };
 DiaExportFilter metapost_export_filter = {
-    N_("TeX Metapost macros"),
-    extensions,
-    export_metapost
+  N_("TeX Metapost macros"),
+  extensions,
+  export_metapost
 };

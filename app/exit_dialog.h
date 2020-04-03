@@ -1,4 +1,4 @@
-/* 
+/*
  * exit_dialog.h: Dialog to allow the user to choose which data to
  * save on exit or to cancel exit.
  *
@@ -37,18 +37,18 @@ exit_dialog_make (GtkWindow * parent_window,
                   gchar *     title);
 
 void
-exit_dialog_add_item (GtkWidget *    dialog,
-                      const gchar *  name, 
-                      const gchar *  filepath, 
-                      const gpointer optional_data);
+exit_dialog_add_item (GtkWidget      *dialog,
+                      const char     *name,
+                      const char     *filepath,
+                      const gpointer  optional_data);
 
-typedef struct 
-{
-  const gchar * name;
-  const gchar * path;
-  gpointer      data;
 
+typedef struct {
+  char     *name;
+  char     *path;
+  gpointer  data;
 } exit_dialog_item_t;
+
 
 typedef struct
 {

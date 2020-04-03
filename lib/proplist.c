@@ -186,7 +186,7 @@ prop_list_save(GPtrArray *props, DataNode data, DiaContext *ctx)
  * called prop_list_find_prop_by_name()
  */
 Property *
-find_prop_by_name(const GPtrArray *props, const gchar *name)
+find_prop_by_name (const GPtrArray *props, const char *name)
 {
   guint i;
   GQuark prop_quark = g_quark_from_string(name);
@@ -198,9 +198,11 @@ find_prop_by_name(const GPtrArray *props, const gchar *name)
   return NULL;
 }
 
+
 Property *
-find_prop_by_name_and_type(const GPtrArray *props, const gchar *name,
-                           PropertyType type)
+find_prop_by_name_and_type (const GPtrArray *props,
+                            const char      *name,
+                            PropertyType     type)
 {
   Property *ret = find_prop_by_name(props,name);
   GQuark type_quark = g_quark_from_string(type);
@@ -208,6 +210,7 @@ find_prop_by_name_and_type(const GPtrArray *props, const gchar *name,
   if (type_quark != ret->type_quark) return NULL;
   return ret;
 }
+
 
 void
 prop_list_add_list (GPtrArray *props, const GPtrArray *ptoadd)
@@ -295,47 +298,53 @@ prop_list_add_fontsize (GPtrArray *plist, const char *name, real value)
   ((RealProperty *)prop)->real_data = value;
   g_ptr_array_add (plist, prop);
 }
+
+
 void
 prop_list_add_string (GPtrArray *plist, const char *name, const char *value)
 {
   Property *prop = make_new_prop (name, PROP_TYPE_STRING, 0);
 
-  g_free (((StringProperty *)prop)->string_data);
+  g_clear_pointer (&((StringProperty *) prop)->string_data, g_free);
   ((StringProperty *)prop)->string_data = g_strdup (value);
   g_ptr_array_add (plist, prop);
 }
+
+
 void
 prop_list_add_text (GPtrArray *plist, const char *name, const char *value)
 {
   Property *prop = make_new_prop (name, PROP_TYPE_TEXT, 0);
 
-  g_free (((TextProperty *)prop)->text_data);
+  g_clear_pointer (&((TextProperty *) prop)->text_data, g_free);
   ((TextProperty *)prop)->text_data = g_strdup (value);
   g_ptr_array_add (plist, prop);
 }
+
+
 void
 prop_list_add_filename (GPtrArray *plist, const char *name, const char *value)
 {
   Property *prop = make_new_prop (name, PROP_TYPE_FILE, 0);
 
-  g_free (((StringProperty *)prop)->string_data);
+  g_clear_pointer (&((StringProperty *) prop)->string_data, g_free);
   ((StringProperty *)prop)->string_data = g_strdup (value);
   g_ptr_array_add (plist, prop);
 }
 
+
 void
-prop_list_add_font (GPtrArray *plist, const char *name, const DiaFont *font)
+prop_list_add_font (GPtrArray *plist, const char *name, DiaFont *font)
 {
   Property *prop = make_new_prop (name, PROP_TYPE_FONT, 0);
   FontProperty *fp = (FontProperty *)prop;
 
-  if (fp->font_data == font)
-    return;
-  if (fp->font_data)
-    g_object_unref (fp->font_data);
-  fp->font_data = g_object_ref ((gpointer)font);
-  g_ptr_array_add (plist, prop);
+  if (g_set_object (&fp->font_data, font)) {
+    g_ptr_array_add (plist, prop);
+  }
 }
+
+
 void
 prop_list_add_enum (GPtrArray *plist, const char *name, int value)
 {
@@ -344,17 +353,21 @@ prop_list_add_enum (GPtrArray *plist, const char *name, int value)
   ((EnumProperty *)prop)->enum_data = value;
   g_ptr_array_add (plist, prop);
 }
+
+
 void
 prop_list_add_text_colour (GPtrArray *plist, const Color *color)
 {
   _prop_list_add_colour (plist, "text_colour", color);
 }
+
+
 void
 prop_list_add_matrix (GPtrArray *plist, const DiaMatrix *m)
 {
   Property *prop = make_new_prop ("matrix", PROP_TYPE_MATRIX, 0);
 
-  g_free (((MatrixProperty *)prop)->matrix);
+  g_clear_pointer (&((MatrixProperty *) prop)->matrix, g_free);
   (( MatrixProperty *)prop)->matrix = g_memdup (m, sizeof(DiaMatrix));
   g_ptr_array_add (plist, prop);
 }

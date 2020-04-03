@@ -239,13 +239,13 @@ object_list_properties_show(Diagram *dia, GList *objects)
 
   if (one_obj) {
     DiaObjectType *otype = one_obj->type;
-    gchar *buf;
+    char *buf;
 
-    buf = g_strconcat(_("Properties: "), _(otype->name), NULL);
-    gtk_window_set_title(GTK_WINDOW(dialog), buf);
-    g_free(buf);
+    buf = g_strconcat (_("Properties: "), _(otype->name), NULL);
+    gtk_window_set_title (GTK_WINDOW (dialog), buf);
+    g_clear_pointer (&buf, g_free);
   } else {
-    gtk_window_set_title(GTK_WINDOW(dialog), _("Object properties:"));
+    gtk_window_set_title (GTK_WINDOW (dialog), _("Object properties:"));
   }
 
   g_signal_connect (G_OBJECT (properties), "destroy",

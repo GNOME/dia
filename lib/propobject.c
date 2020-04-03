@@ -399,9 +399,7 @@ dia_object_set_pixbuf (DiaObject *object,
   pp = (PixbufProperty *)prop;
   if (pp->pixbuf == pixbuf)
     return change_list_create ();
-  if (pp->pixbuf)
-    g_object_unref (pp->pixbuf);
-  pp->pixbuf = g_object_ref (pixbuf);
+  g_set_object (&pp->pixbuf, pixbuf);
   props = prop_list_from_single (prop);
   change = object_apply_props (object, props);
   prop_list_free (props);
@@ -436,9 +434,7 @@ dia_object_set_pattern (DiaObject  *object,
   pp = (PatternProperty *)prop;
   if (pp->pattern == pattern)
     return change_list_create ();
-  if (pp->pattern)
-    g_object_unref (pp->pattern);
-  pp->pattern = g_object_ref (pattern);
+  g_set_object (&pp->pattern, pattern);
   props = prop_list_from_single (prop);
   change = object_apply_props (object, props);
   prop_list_free (props);
@@ -471,12 +467,12 @@ dia_object_set_string (DiaObject *object,
     prop = object_prop_by_name_type (object, name, PROP_TYPE_FILE);
   if (prop) {
     StringProperty *pp = (StringProperty *)prop;
-    g_free (pp->string_data);
+    g_clear_pointer (&pp->string_data, g_free);
     pp->string_data = g_strdup (value);
     props = prop_list_from_single (prop);
   } else if ((prop = object_prop_by_name_type (object, name, PROP_TYPE_TEXT)) != NULL) {
     TextProperty *pp = (TextProperty *)prop;
-    g_free (pp->text_data);
+    g_clear_pointer (&pp->text_data, g_free);
     pp->text_data = g_strdup (value);
     props = prop_list_from_single (prop);
   }

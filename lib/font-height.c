@@ -73,26 +73,28 @@ dump_font_sizes (PangoContext *context, FILE *f, guint flags)
       font = pango_context_load_font (context, pfd);
       if (font) {
         PangoFontMetrics *metrics = pango_font_get_metrics (font, NULL);
-	/* now make a font-size where the font/line-height matches the given pixel size */
-	real total = ((double)pango_font_metrics_get_ascent (metrics)
-	                    + pango_font_metrics_get_descent (metrics)) / PANGO_SCALE;
-	real factor = height*pixels_per_cm/total;
-	real line_height;
+        /* now make a font-size where the font/line-height matches the given pixel size */
+        double total = ((double) pango_font_metrics_get_ascent (metrics)
+                             + pango_font_metrics_get_descent (metrics)) / PANGO_SCALE;
+        double factor = height*pixels_per_cm/total;
+        double line_height;
 
         if (flags & DUMP_ABSOLUTE)
           pango_font_description_set_absolute_size (pfd, factor * height * pixels_per_cm * PANGO_SCALE);
-	else
+        else {
           pango_font_description_set_size (pfd, factor * height * pixels_per_cm * PANGO_SCALE);
-	pango_font_metrics_unref (metrics);
-	g_object_unref (font);
+        }
 
-	font = pango_context_load_font (context, pfd);
-	metrics = pango_font_get_metrics (font, NULL);
+        pango_font_metrics_unref (metrics);
+        g_clear_object (&font);
 
-	line_height = ((double)pango_font_metrics_get_ascent (metrics)
-	                     + pango_font_metrics_get_descent (metrics)) / PANGO_SCALE;
-        fprintf (f, "\t%.3g",  flags & DUMP_FACTORS ? factor : line_height);
-	g_object_unref (font);
+        font = pango_context_load_font (context, pfd);
+        metrics = pango_font_get_metrics (font, NULL);
+
+        line_height = ((double) pango_font_metrics_get_ascent (metrics)
+                              + pango_font_metrics_get_descent (metrics)) / PANGO_SCALE;
+        fprintf (f, "\t%.3g", flags & DUMP_FACTORS ? factor : line_height);
+        g_clear_object (&font);
       }
       pango_font_description_free (pfd);
     }

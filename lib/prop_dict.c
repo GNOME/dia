@@ -61,7 +61,7 @@ dictprop_free(DictProperty *prop)
 {
   if (prop->dict)
     g_hash_table_destroy(prop->dict);
-  g_free(prop);
+  g_clear_pointer (&prop, g_free);
 }
 
 static void

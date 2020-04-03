@@ -125,12 +125,11 @@ navigation_popup_new (DDisplay *ddisp)
                                                  nav_xpm);
 
   image = gtk_image_new_from_pixmap (pixmap, mask);
-  g_object_unref(pixmap);
-  g_object_unref(mask);
+  g_clear_object (&pixmap);
+  g_clear_object (&mask);
 
   gtk_container_add (GTK_CONTAINER (button), image);
-  gtk_widget_show(image);
-
+  gtk_widget_show (image);
 
   return button;
 }
@@ -247,7 +246,7 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
 
     bitmap = gdk_bitmap_create_from_data(NULL, cursor_none_data, 1, 1);
     nav->cursor = gdk_cursor_new_from_pixmap(bitmap, bitmap, &fg, &bg, 1, 1);
-    g_object_unref(bitmap);
+    g_clear_object (&bitmap);
   }
 
   /*grab the pointer*/
@@ -261,14 +260,14 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
   nav->surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
                                             nav->width, nav->height);
 
-  renderer = g_object_new (g_type_from_name ("DiaCairoRenderer"), NULL);
+  renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
   renderer->scale = zoom;
   renderer->surface = cairo_surface_reference (nav->surface);
 
   /*render the data*/
   data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
-  g_object_unref (renderer);
+  g_clear_object (&renderer);
 
   nav->is_first_expose = TRUE;/*set to request to draw the miniframe*/
 }

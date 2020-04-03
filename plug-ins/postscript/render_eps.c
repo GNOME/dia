@@ -63,42 +63,39 @@
 #include "font.h"
 #include "diapsrenderer.h"
 
-static gboolean export_eps        (DiagramData *data,
-                                   DiaContext  *ctx,
-                                   const gchar *filename,
-                                   const gchar *diafilename,
-                                   void        *user_data);
 
 static gboolean export_render_eps (DiaPsRenderer *renderer,
                                    DiagramData   *data,
                                    DiaContext    *ctx,
-                                   const gchar   *filename,
-                                   const gchar   *diafilename,
+                                   const char    *filename,
+                                   const char    *diafilename,
                                    void          *user_data);
+
 
 static gboolean
 export_eps (DiagramData *data,
             DiaContext  *ctx,
-            const gchar *filename,
-            const gchar *diafilename,
+            const char  *filename,
+            const char  *diafilename,
             void        *user_data)
 {
   gboolean ret;
   DiaPsRenderer *renderer = g_object_new (DIA_TYPE_PS_RENDERER, NULL);
 
   renderer->ctx = ctx;
-  ret = export_render_eps(renderer, data, ctx, filename, diafilename, user_data);
-  g_object_unref (renderer);
+  ret = export_render_eps (renderer, data, ctx, filename, diafilename, user_data);
+  g_clear_object (&renderer);
 
   return ret;
 }
+
 
 static gboolean
 export_render_eps (DiaPsRenderer *renderer,
                    DiagramData   *data,
                    DiaContext    *ctx,
-                   const gchar   *filename,
-                   const gchar   *diafilename,
+                   const char    *filename,
+                   const char    *diafilename,
                    void          *user_data)
 {
   FILE *outfile;

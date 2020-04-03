@@ -1110,19 +1110,20 @@ draw_string(DiaRenderer *self,
     return;
   }
 
-  figtext = figText(renderer, (unsigned char *) text);
+  figtext = figText (renderer, (unsigned char *) text);
   /* xfig texts are specials */
-  fprintf(renderer->file, "4 %d %d %d 0 %d %s 0.0 6 0.0 0.0 %d %d %s\\001\n",
-	  figAlignment(renderer, alignment),
-	  figColor(renderer, color),
-	  figDepth(renderer),
-	  figFont(renderer),
-	  xfig_dtostr(d_buf, figFontSize(renderer)),
-	  (int)figCoord(renderer, pos->x),
-	  (int)figCoord(renderer, pos->y),
-	  figtext);
-  g_free(figtext);
+  fprintf (renderer->file, "4 %d %d %d 0 %d %s 0.0 6 0.0 0.0 %d %d %s\\001\n",
+           figAlignment (renderer, alignment),
+           figColor (renderer, color),
+           figDepth (renderer),
+           figFont (renderer),
+           xfig_dtostr (d_buf, figFontSize (renderer)),
+           (int) figCoord (renderer, pos->x),
+           (int) figCoord (renderer, pos->y),
+           figtext);
+  g_clear_pointer (&figtext, g_free);
 }
+
 
 static void
 draw_image(DiaRenderer *self,
@@ -1150,10 +1151,11 @@ draw_image(DiaRenderer *self,
 	  (int)figCoord(renderer, point->x), (int)figCoord(renderer, point->y));
 }
 
+
 static void
-draw_object(DiaRenderer *self,
-            DiaObject   *object,
-	    DiaMatrix   *matrix)
+draw_object (DiaRenderer *self,
+             DiaObject   *object,
+             DiaMatrix   *matrix)
 {
   XfigRenderer *renderer = XFIG_RENDERER(self);
 
@@ -1164,14 +1166,17 @@ draw_object(DiaRenderer *self,
     fprintf(renderer->file, "6 0 0 0 0\n");
     if (matrix) {
       DiaRenderer *tr = dia_transform_renderer_new (self);
+
       dia_renderer_draw_object (tr, object, matrix);
-      g_object_unref (tr);
+
+      g_clear_object (&tr);
     } else {
       dia_object_draw (object, DIA_RENDERER (renderer));
     }
     fprintf(renderer->file, "-6\n");
   }
 }
+
 
 static gboolean
 export_fig(DiagramData *data, DiaContext *ctx,
@@ -1236,7 +1241,7 @@ export_fig(DiagramData *data, DiaContext *ctx,
 
   dia_renderer_end_render (DIA_RENDERER (renderer));
 
-  g_object_unref (renderer);
+  g_clear_object (&renderer);
 
   fclose (file);
 

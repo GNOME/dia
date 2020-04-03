@@ -76,6 +76,8 @@ dia_transform_renderer_init (DiaTransformRenderer *self)
 {
   self->matrices = g_queue_new ();
 }
+
+
 /*!
  * \brief Destructor
  * If there are still matrices left, deallocate them
@@ -88,8 +90,9 @@ dia_path_renderer_finalize (GObject *object)
 
   g_queue_free (self->matrices);
   /* drop our reference */
-  g_object_unref (self->worker);
+  g_clear_object (&self->worker);
 }
+
 
 /*!
  * \brief Starting a new rendering run

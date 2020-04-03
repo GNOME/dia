@@ -62,11 +62,11 @@ struct _State {
   Color line_color;
   Color fill_color;
 
-  real line_width;
+  double line_width;
 
-  gchar* entry_action;
-  gchar* do_action;
-  gchar* exit_action;
+  char *entry_action;
+  char *do_action;
+  char *exit_action;
 };
 
 
@@ -96,7 +96,7 @@ static PropDescription *state_describe_props(State *state);
 static void state_get_props(State *state, GPtrArray *props);
 static void state_set_props(State *state, GPtrArray *props);
 static void state_update_data(State *state);
-static gchar* state_get_action_text(State* state, StateAction action);
+static char* state_get_action_text (State* state, StateAction action);
 static void state_calc_action_text_pos(State* state, StateAction action, Point* pos);
 
 static ObjectTypeOps state_type_ops =
@@ -244,11 +244,15 @@ state_move(State *state, Point *to)
   return NULL;
 }
 
+
 static void
-state_draw_action_string (State *state, DiaRenderer *renderer, StateAction action)
+state_draw_action_string (State       *state,
+                          DiaRenderer *renderer,
+                          StateAction  action)
 {
   Point pos;
-  gchar* action_text = state_get_action_text (state, action);
+  char *action_text = state_get_action_text (state, action);
+
   state_calc_action_text_pos (state, action, &pos);
   dia_renderer_set_font (renderer, state->text->font, state->text->height);
   dia_renderer_draw_string (renderer,
@@ -256,8 +260,9 @@ state_draw_action_string (State *state, DiaRenderer *renderer, StateAction actio
                             &pos,
                             ALIGN_LEFT,
                             &state->text->color);
-  g_free (action_text);
+  g_clear_pointer (&action_text, g_free);
 }
+
 
 static void
 state_draw (State *state, DiaRenderer *renderer)
@@ -343,22 +348,25 @@ state_draw (State *state, DiaRenderer *renderer)
 
 
 static void
-state_update_width_and_height_with_action_text(State* state,
-                                               StateAction action,
-                                               real* width,
-                                               real* height)
+state_update_width_and_height_with_action_text (State       *state,
+                                                StateAction  action,
+                                                double      *width,
+                                                double      *height)
 {
-  gchar* action_text = state_get_action_text(state, action);
-  *width = MAX(*width, dia_font_string_width(action_text, state->text->font,
-                                             state->text->height) + 2*STATE_MARGIN_X);
-  g_free(action_text);
+  char *action_text = state_get_action_text (state, action);
+  *width = MAX (*width,
+                dia_font_string_width (action_text,
+                                       state->text->font,
+                                       state->text->height) + 2 * STATE_MARGIN_X);
+  g_clear_pointer (&action_text, g_free);
   *height += state->text->height;
 }
 
+
 static void
-state_update_data(State *state)
+state_update_data (State *state)
 {
-  real w, h;
+  double w, h;
 
   Element *elem = &state->element;
   ElementBBExtras *extra = &elem->extra_spacing;
@@ -468,9 +476,9 @@ state_create(Point *startpoint,
 static void
 state_destroy (State *state)
 {
-  g_free (state->entry_action);
-  g_free (state->do_action);
-  g_free (state->exit_action);
+  g_clear_pointer (&state->entry_action, g_free);
+  g_clear_pointer (&state->do_action, g_free);
+  g_clear_pointer (&state->exit_action, g_free);
 
   text_destroy (state->text);
 
@@ -533,7 +541,7 @@ state_calc_action_text_pos (State* state, StateAction action, Point* pos)
 }
 
 
-static gchar*
+static char *
 state_get_action_text (State* state, StateAction action)
 {
   switch (action) {

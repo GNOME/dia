@@ -202,8 +202,8 @@ function_change_apply_revert( ObjectChange* objchg, DiaObject* obj)
   if ( change->change_type == TEXT_EDIT || change->change_type == ALL ) {
      ttxt = text_get_string_copy( fcn->text ) ;
      text_set_string( fcn->text, change->text ) ;
-     g_free( change->text ) ;
-     change->text = ttxt ;
+    g_clear_pointer (&change->text, g_free);
+    change->text = ttxt;
   }
 }
 
@@ -213,7 +213,7 @@ function_change_free( ObjectChange* objchg )
   FunctionChange* change = (FunctionChange*) objchg ;
 
   if ( change->change_type == TEXT_EDIT ) {
-     g_free( change->text ) ;
+    g_clear_pointer (&change->text, g_free);
   }
 }
 
@@ -596,8 +596,8 @@ function_insert_word( Function* func, const char* word, gboolean newline )
 		  	+ ( newline ? 2 : 1) ) ;
   sprintf( new_chars, newline ? "%s\n%s" : "%s%s", old_chars, word ) ;
   text_set_string( func->text, new_chars ) ;
-  g_free( new_chars ) ;
-  g_free( old_chars ) ;
+  g_clear_pointer (&new_chars, g_free) ;
+  g_clear_pointer (&old_chars, g_free) ;
   function_update_data( func ) ;
   text_set_cursor_at_end( func->text ) ;
 

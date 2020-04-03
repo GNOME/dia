@@ -670,8 +670,8 @@ chronoline_create(Point *startpoint,
 static void
 chronoline_destroy (Chronoline *chronoline)
 {
-  g_free (chronoline->name);
-  g_free (chronoline->events);
+  g_clear_pointer (&chronoline->name, g_free);
+  g_clear_pointer (&chronoline->events, g_free);
   g_clear_object (&chronoline->font);
   connpointline_destroy (chronoline->snap);
   destroy_clevent_list (chronoline->evtlist);

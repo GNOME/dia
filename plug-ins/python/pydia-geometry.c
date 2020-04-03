@@ -213,8 +213,9 @@ PyDiaGeometry_Hash(PyObject *self)
     return (long)self;
 }
 
+
 static PyObject *
-PyDiaRectangle_GetAttr(PyDiaRectangle *self, gchar *attr)
+PyDiaRectangle_GetAttr(PyDiaRectangle *self, char *attr)
 {
 #define I_OR_F(v) \
   (self->is_int ? \
@@ -237,8 +238,9 @@ PyDiaRectangle_GetAttr(PyDiaRectangle *self, gchar *attr)
 #undef I_O_F
 }
 
+
 static PyObject *
-PyDiaBezPoint_GetAttr(PyDiaBezPoint *self, gchar *attr)
+PyDiaBezPoint_GetAttr(PyDiaBezPoint *self, char *attr)
 {
   if (!strcmp(attr, "__members__"))
     return Py_BuildValue("[ssss]", "type", "p1", "p2", "p3");
@@ -265,209 +267,248 @@ PyDiaBezPoint_GetAttr(PyDiaBezPoint *self, gchar *attr)
  * Repr / _Str
  */
 static PyObject *
-PyDiaPoint_Str(PyDiaPoint *self)
+PyDiaPoint_Str (PyDiaPoint *self)
 {
-    PyObject* py_s;
+  PyObject *py_s;
+
 #ifndef _DEBUG /* gives crashes with nan */
-    gchar* s = g_strdup_printf ("(%f,%f)",
-                                (float)(self->pt.x), (float)(self->pt.y));
+  char *s = g_strdup_printf ("(%f,%f)",
+                             (float) (self->pt.x),
+                             (float) (self->pt.y));
 #else
-    gchar* s = g_strdup_printf ("(%e,%e)",
-                                (float)(self->pt.x), (float)(self->pt.y));
+  char *s = g_strdup_printf ("(%e,%e)",
+                             (float) (self->pt.x),
+                             (float) (self->pt.y));
 #endif
-    py_s = PyString_FromString(s);
-    g_free(s);
-    return py_s;
+
+  py_s = PyString_FromString (s);
+  g_clear_pointer (&s, g_free);
+  return py_s;
 }
 
+
 static PyObject *
-PyDiaRectangle_Str(PyDiaRectangle *self)
+PyDiaRectangle_Str (PyDiaRectangle *self)
 {
-    PyObject* py_s;
-    gchar* s;
-    if (self->is_int)
-      s = g_strdup_printf ("((%d,%d),(%d,%d))",
-                           (self->r.ri.left), (self->r.ri.top),
-                           (self->r.ri.right), (self->r.ri.bottom));
-    else
+  PyObject *py_s;
+  char *s;
+
+  if (self->is_int) {
+    s = g_strdup_printf ("((%d,%d),(%d,%d))",
+                         (self->r.ri.left),
+                         (self->r.ri.top),
+                         (self->r.ri.right),
+                         (self->r.ri.bottom));
+  } else {
 #ifndef _DEBUG /* gives crashes with nan */
-      s = g_strdup_printf ("((%f,%f),(%f,%f))",
-                           (float)(self->r.rf.left), (float)(self->r.rf.top),
-                           (float)(self->r.rf.right), (float)(self->r.rf.bottom));
+    s = g_strdup_printf ("((%f,%f),(%f,%f))",
+                         (float) (self->r.rf.left),
+                         (float) (self->r.rf.top),
+                         (float) (self->r.rf.right),
+                         (float) (self->r.rf.bottom));
 #else
-      s = g_strdup_printf ("((%e,%e),(%e,%e))",
-                           (float)(self->r.rf.left), (float)(self->r.rf.top),
-                           (float)(self->r.rf.right), (float)(self->r.rf.bottom));
+    s = g_strdup_printf ("((%e,%e),(%e,%e))",
+                         (float) (self->r.rf.left),
+                         (float) (self->r.rf.top),
+                         (float) (self->r.rf.right),
+                         (float) (self->r.rf.bottom));
 #endif
-    py_s = PyString_FromString(s);
-    g_free(s);
-    return py_s;
+  }
+  py_s = PyString_FromString (s);
+  g_clear_pointer (&s, g_free);
+  return py_s;
 }
+
 
 static PyObject *
 PyDiaBezPoint_Str(PyDiaBezPoint *self)
 {
-    PyObject* py_s;
+  PyObject *py_s;
 #if 0 /* FIXME: this is causing bad crashes with unintialized points.
        * Probably a glib and a Dia problem ... */
-    gchar* s = g_strdup_printf ("((%f,%f),(%f,%f),(%f,%f),%s)",
-                                (float)(self->bpn.p1.x), (float)(self->bpn.p1.y),
-                                (float)(self->bpn.p2.x), (float)(self->bpn.p2.y),
-                                (float)(self->bpn.p3.x), (float)(self->bpn.p3.y),
-                                (self->bpn.type == BEZ_MOVE_TO ? "MOVE_TO" :
-                                  (self->bpn.type == BEZ_LINE_TO ? "LINE_TO" : "CURVE_TO")));
+  char* s = g_strdup_printf ("((%f,%f),(%f,%f),(%f,%f),%s)",
+                             (float)(self->bpn.p1.x), (float)(self->bpn.p1.y),
+                             (float)(self->bpn.p2.x), (float)(self->bpn.p2.y),
+                             (float)(self->bpn.p3.x), (float)(self->bpn.p3.y),
+                             (self->bpn.type == BEZ_MOVE_TO ? "MOVE_TO" :
+                             (self->bpn.type == BEZ_LINE_TO ? "LINE_TO" : "CURVE_TO")));
 #else
-    gchar* s = g_strdup_printf ("%s",
-                                (self->bpn.type == BEZ_MOVE_TO ? "MOVE_TO" :
-                                  (self->bpn.type == BEZ_LINE_TO ? "LINE_TO" : "CURVE_TO")));
+  char* s = g_strdup_printf ("%s",
+                             (self->bpn.type == BEZ_MOVE_TO ? "MOVE_TO" :
+                             (self->bpn.type == BEZ_LINE_TO ? "LINE_TO" : "CURVE_TO")));
 #endif
-    py_s = PyString_FromString(s);
-    g_free(s);
-    return py_s;
+  py_s = PyString_FromString (s);
+  g_clear_pointer (&s, g_free);
+  return py_s;
 }
 
 
 static PyObject *
 PyDiaArrow_Str(PyDiaArrow *self)
 {
-    PyObject* py_s;
-    gchar* s = g_strdup_printf ("(%f,%f, %d)",
-                                (float)(self->arrow.width),
-                                (float)(self->arrow.length),
-                                (int)(self->arrow.type));
-    py_s = PyString_FromString(s);
-    g_free(s);
-    return py_s;
+  PyObject* py_s;
+  char* s = g_strdup_printf ("(%f,%f, %d)",
+                             (float) (self->arrow.width),
+                             (float) (self->arrow.length),
+                             (int) (self->arrow.type));
+  py_s = PyString_FromString (s);
+  g_clear_pointer (&s, g_free);
+  return py_s;
 }
+
 
 static PyObject *
 PyDiaMatrix_Str(PyDiaMatrix *self)
 {
-    PyObject* py_s;
-    gchar* s = g_strdup_printf ("(%f, %f, %f, %f, %f, %f)",
-                                (float)(self->matrix.xx),
-                                (float)(self->matrix.yx),
-                                (float)(self->matrix.xy),
-                                (float)(self->matrix.yy),
-                                (float)(self->matrix.x0),
-                                (float)(self->matrix.y0));
-    py_s = PyString_FromString(s);
-    g_free(s);
-    return py_s;
+  PyObject *py_s;
+  char *s = g_strdup_printf ("(%f, %f, %f, %f, %f, %f)",
+                             (float) (self->matrix.xx),
+                             (float) (self->matrix.yx),
+                             (float) (self->matrix.xy),
+                             (float) (self->matrix.yy),
+                             (float) (self->matrix.x0),
+                             (float) (self->matrix.y0));
+  py_s = PyString_FromString (s);
+  g_clear_pointer (&s, g_free);
+  return py_s;
 }
+
 
 /*
  * sequence interface (query only)
  */
 /* Point */
 static gssize
-point_length(PyObject *self)
+point_length (PyObject *self)
 {
   return 2;
 }
+
+
 static PyObject *
-point_item(PyObject* o, gssize i)
+point_item (PyObject* o, gssize i)
 {
   PyDiaPoint* self = (PyDiaPoint*)o;
 
   switch (i) {
-  case 0 : return PyFloat_FromDouble(self->pt.x);
-  case 1 : return PyFloat_FromDouble(self->pt.y);
-  default :
-    PyErr_SetString(PyExc_IndexError, "PyDiaPoint index out of range");
-    return NULL;
+    case 0:
+      return PyFloat_FromDouble (self->pt.x);
+    case 1:
+      return PyFloat_FromDouble (self->pt.y);
+    default :
+      PyErr_SetString (PyExc_IndexError, "PyDiaPoint index out of range");
+      return NULL;
   }
 }
+
+
 static PyObject *
-point_slice(PyObject *o, gssize i, gssize j)
+point_slice (PyObject *o, gssize i, gssize j)
 {
   PyObject *ret;
 
   /* j maybe negative */
-  if (j <= 0)
+  if (j <= 0) {
     j = 1 + j;
+  }
   /* j may be rather huge [:] ^= 0:0x7FFFFFFF */
-  if (j > 1)
+  if (j > 1) {
     j = 1;
-  ret = PyTuple_New(j - i + 1);
+  }
+  ret = PyTuple_New (j - i + 1);
   if (ret) {
-    gssize k;
-    for (k = i; k <= j && k < 2; k++)
-      PyTuple_SetItem(ret, k - i, point_item(o, k));
+    for (gssize k = i; k <= j && k < 2; k++) {
+      PyTuple_SetItem (ret, k - i, point_item (o, k));
+    }
   }
   return ret;
 }
 
+
 static PySequenceMethods point_as_sequence = {
-	point_length, /*sq_length*/
-	(binaryfunc)0, /*sq_concat*/
-	0, /*sq_repeat*/
-	point_item, /*sq_item*/
-	point_slice, /*sq_slice*/
-	0,		/*sq_ass_item*/
-	0,		/*sq_ass_slice*/
-	(objobjproc)0 /*sq_contains*/
+  point_length,   /*sq_length*/
+  (binaryfunc) 0, /*sq_concat*/
+  0,              /*sq_repeat*/
+  point_item,     /*sq_item*/
+  point_slice,    /*sq_slice*/
+  0,              /*sq_ass_item*/
+  0,              /*sq_ass_slice*/
+  (objobjproc) 0  /*sq_contains*/
 };
+
 
 /* Rect */
 static gssize
-rect_length(PyObject *o)
+rect_length (PyObject *o)
 {
   return 4;
 }
+
+
 static PyObject *
-rect_item(PyObject *o, gssize i)
+rect_item (PyObject *o, gssize i)
 {
-  PyDiaRectangle* self = (PyDiaRectangle *)o;
+  PyDiaRectangle *self = (PyDiaRectangle *) o;
 
   switch (i) {
-  case 0 : return PyDiaRectangle_GetAttr(self, "left");
-  case 1 : return PyDiaRectangle_GetAttr(self, "top");
-  case 2 : return PyDiaRectangle_GetAttr(self, "right");
-  case 3 : return PyDiaRectangle_GetAttr(self, "bottom");
-  default :
-    PyErr_SetString(PyExc_IndexError, "PyDiaRectangle index out of range");
-    return NULL;
+    case 0:
+      return PyDiaRectangle_GetAttr (self, "left");
+    case 1:
+      return PyDiaRectangle_GetAttr (self, "top");
+    case 2:
+      return PyDiaRectangle_GetAttr (self, "right");
+    case 3:
+      return PyDiaRectangle_GetAttr (self, "bottom");
+    default :
+      PyErr_SetString (PyExc_IndexError, "PyDiaRectangle index out of range");
+      return NULL;
   }
 }
+
+
 static PyObject *
-rect_slice(PyObject* o, gssize i, gssize j)
+rect_slice (PyObject* o, gssize i, gssize j)
 {
   PyObject *ret;
 
   /* j maybe negative */
-  if (j <= 0)
+  if (j <= 0) {
     j = 3 + j;
+  }
   /* j may be rather huge [:] ^= 0:0x7FFFFFFF */
-  if (j > 3)
+  if (j > 3) {
     j = 3;
-  ret = PyTuple_New(j - i + 1);
+  }
+  ret = PyTuple_New (j - i + 1);
   if (ret) {
-    int k;
-    for (k = i; k <= j && k < 4; k++)
-      PyTuple_SetItem(ret, k - i, rect_item(o, k));
+    for (int k = i; k <= j && k < 4; k++) {
+      PyTuple_SetItem (ret, k - i, rect_item (o, k));
+    }
   }
   return ret;
 }
 
 static PySequenceMethods rect_as_sequence = {
-	rect_length, /*sq_length*/
-	(binaryfunc)0, /*sq_concat*/
-	0, /*sq_repeat*/
-	rect_item, /*sq_item*/
-	rect_slice, /*sq_slice*/
-	0,		/*sq_ass_item*/
-	0,		/*sq_ass_slice*/
-	(objobjproc)0 /*sq_contains*/
+  rect_length,    /*sq_length*/
+  (binaryfunc) 0, /*sq_concat*/
+  0,              /*sq_repeat*/
+  rect_item,      /*sq_item*/
+  rect_slice,     /*sq_slice*/
+  0,              /*sq_ass_item*/
+  0,              /*sq_ass_slice*/
+  (objobjproc) 0  /*sq_contains*/
 };
 
+
 static PyMemberDef PyDiaPoint_Members[] = {
-    { "x", T_DOUBLE, offsetof(PyDiaPoint, pt.x), 0,
-      "double: coordinate horizontal part" },
-    { "y", T_DOUBLE, offsetof(PyDiaPoint, pt.y), 0,
-      "double: coordinate vertical part" },
-    { NULL }
+  { "x", T_DOUBLE, offsetof (PyDiaPoint, pt.x), 0,
+    "double: coordinate horizontal part" },
+  { "y", T_DOUBLE, offsetof (PyDiaPoint, pt.y), 0,
+    "double: coordinate vertical part" },
+  { NULL }
 };
+
+
 /*
  * Python objetcs
  */

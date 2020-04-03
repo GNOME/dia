@@ -96,14 +96,14 @@ object_menu_item_proxy(GtkWidget *widget, gpointer data)
   diagram_flush(ddisp->diagram);
 }
 
+
 static void
 dia_menu_free(DiaMenu *dia_menu)
 {
-  if (dia_menu->app_data)
-    g_object_unref ((GObject *)dia_menu->app_data);
-  dia_menu->app_data = NULL;
+  g_clear_object (&dia_menu->app_data);
   dia_menu->app_data_free = NULL;
 }
+
 
 /*
   This add a Properties... menu item to the GtkMenu passed, at the
@@ -128,16 +128,18 @@ add_properties_menu_item (GtkMenu *menu, gboolean separator)
   gtk_menu_shell_append (GTK_MENU_SHELL (menu), menu_item);
   gtk_widget_show(menu_item);
 }
+
+
 static void
 _follow_link_callback (GtkAction *action, gpointer data)
 {
   DiaObject *obj;
   DDisplay *ddisp = ddisplay_active();
-  gchar *url;
+  char *url;
 
   if (!ddisp) return;
 
-  obj = (DiaObject *)ddisp->diagram->data->selected->data;
+  obj = (DiaObject *) ddisp->diagram->data->selected->data;
 
   url = dia_object_get_meta (obj, "url");
 
@@ -147,18 +149,24 @@ _follow_link_callback (GtkAction *action, gpointer data)
     if (!g_path_is_absolute(url)) {
       gchar *p = NULL;
 
-      if (ddisp->diagram->filename)
+      if (ddisp->diagram->filename) {
         p = dia_absolutize_filename (ddisp->diagram->filename, url);
+      }
+
       if (p) {
-	g_free (url);
-	url = p;
+        g_clear_pointer (&url, g_free);
+        url = p;
       }
     }
     dia_file_open (url, NULL);
-  } else
+  } else {
     activate_url (GTK_WIDGET (ddisp->shell), url, NULL);
-  g_free (url);
+  }
+
+  g_clear_pointer (&url, g_free);
 }
+
+
 static void
 add_follow_link_menu_item (GtkMenu *menu)
 {
@@ -1227,11 +1235,11 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
     }
 
     if (child_width > parent_width ||
-	child_height > parent_height) {
-      message_error(_("The object you dropped cannot fit into its parent. \nEither expand the parent object, or drop the object elsewhere."));
+        child_height > parent_height) {
+      message_error (_("The object you dropped cannot fit into its parent. \nEither expand the parent object, or drop the object elsewhere."));
       obj->parent->children = g_list_remove(obj->parent->children, obj);
       obj->ops->destroy (obj);
-      g_free (obj);
+      g_clear_pointer (&obj, g_free);
       return NULL;
     }
 

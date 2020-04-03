@@ -275,7 +275,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
    * to sort them out by position.
    */
   if (align == DIA_ALIGN_EQUAL || align == DIA_ALIGN_ADJACENT) {
-    DiaObject **object_array = (DiaObject **) g_malloc (sizeof (DiaObject *) * nobjs);
+    DiaObject **object_array = g_new0 (DiaObject *, nobjs);
     int j = 0;
 
     list = objects;
@@ -295,7 +295,7 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
 
     g_list_free (unconnected);
     objects = unconnected = list;
-    g_free (object_array);
+    g_clear_pointer (&object_array, g_free);
   }
 
   switch (align) {
@@ -438,7 +438,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
    * to sort them out by position.
    */
   if (align == DIA_ALIGN_EQUAL || align == DIA_ALIGN_ADJACENT) {
-    DiaObject **object_array = (DiaObject **)g_malloc(sizeof(DiaObject*)*nobjs);
+    DiaObject **object_array = g_new0 (DiaObject *, nobjs);
     int j = 0;
 
     list = objects;
@@ -456,7 +456,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
     g_assert (objects == unconnected);
     g_list_free (unconnected);
     objects = unconnected = list;
-    g_free(object_array);
+    g_clear_pointer (&object_array, g_free);
   }
 
   switch (align) {

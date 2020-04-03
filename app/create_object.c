@@ -265,9 +265,9 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
   gtk_statusbar_pop (statusbar, context_id);
   gtk_statusbar_push (statusbar, context_id, postext);
 
-  g_free(postext);
+  g_clear_pointer (&postext, g_free);
 
-  diagram_flush(ddisp->diagram);
+  diagram_flush (ddisp->diagram);
 
   tool->last_to = to;
 
@@ -308,13 +308,16 @@ create_create_object_tool(DiaObjectType *objtype, void *user_data,
   return (Tool *) tool;
 }
 
-void free_create_object_tool(Tool *tool)
+
+void
+free_create_object_tool(Tool *tool)
 {
   CreateObjectTool *real_tool = (CreateObjectTool *)tool;
 
   if (real_tool->moving) { /* should not get here, but see bug #619246 */
     gdk_pointer_ungrab (GDK_CURRENT_TIME);
-    ddisplay_set_all_cursor(default_cursor);
+    ddisplay_set_all_cursor (default_cursor);
   }
-  g_free(tool);
+
+  g_clear_pointer (&tool, g_free);
 }

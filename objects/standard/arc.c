@@ -734,8 +734,7 @@ arc_create(Point *startpoint,
 static void
 arc_destroy(Arc *arc)
 {
-  g_free (arc->connection.object.enclosing_box);
-  arc->connection.object.enclosing_box = NULL;
+  g_clear_pointer (&arc->connection.object.enclosing_box, g_free);
   connection_destroy(&arc->connection);
 }
 

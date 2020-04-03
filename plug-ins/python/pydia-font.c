@@ -107,22 +107,24 @@ PyDiaFont_GetAttr(PyDiaFont *self, gchar *attr)
   return NULL;
 }
 
+
 /*
  * Repr / _Str
  */
 static PyObject *
-PyDiaFont_Str(PyDiaFont *self)
+PyDiaFont_Str (PyDiaFont *self)
 {
   PyObject *ret;
-  gchar *s = self->font ? g_strdup_printf ("%s %s %s",
-  	dia_font_get_family (self->font),
-	dia_font_get_weight_string (self->font),
-	dia_font_get_slant_string (self->font)) : g_strdup("<DiaFont NULL>");
+  char *s = self->font ? g_strdup_printf ("%s %s %s",
+                                          dia_font_get_family (self->font),
+                                          dia_font_get_weight_string (self->font),
+                                          dia_font_get_slant_string (self->font)) : g_strdup ("<DiaFont NULL>");
 
-  ret = PyString_FromString(s);
-  g_free (s);
+  ret = PyString_FromString (s);
+  g_clear_pointer (&s, g_free);
   return ret;
 }
+
 
 #define T_INVALID -1 /* can't allow direct access due to pyobject->cpoint indirection */
 static PyMemberDef PyDiaFont_Members[] = {

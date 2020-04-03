@@ -303,12 +303,14 @@ PyDia_set_Matrix (Property *prop, PyObject *val)
   }
   return -1;
 }
+
+
 static int
 PyDia_set_Color (Property *prop, PyObject *val)
 {
   ColorProperty *p = (ColorProperty*)prop;
   if (PyString_Check(val)) {
-    gchar *str = PyString_AsString(val);
+    char *str = PyString_AsString(val);
     PangoColor color;
     if (pango_color_parse(&color, str)) {
       p->color_data.red = color.red / 65535.0;
@@ -400,69 +402,82 @@ PyDia_set_Fontsize(Property *prop, PyObject *val)
   return -1;
 }
 
+
 static int
-PyDia_set_String(Property *prop, PyObject *val)
+PyDia_set_String (Property *prop, PyObject *val)
 {
   StringProperty *p = (StringProperty *)prop;
+
   if (Py_None == val) {
     /* XXX: maybe a little dangerous, string = NULL not handle in everystring prop */
-    g_free (p->string_data);
-    p->string_data = NULL;
+    g_clear_pointer (&p->string_data, g_free);
     p->num_lines = 0;
     return 0;
   } else if (PyString_Check (val)) {
-    gchar *str = PyString_AsString (val);
-    g_free (p->string_data);
+    char *str = PyString_AsString (val);
+    g_clear_pointer (&p->string_data, g_free);
     p->string_data = g_strdup (str);
     p->num_lines = 1;
     return 0;
   } else if (PyUnicode_Check (val)) {
     PyObject *uval = PyUnicode_AsUTF8String (val);
-    gchar *str = PyString_AsString(uval);
-    g_free (p->string_data);
+    char *str = PyString_AsString(uval);
+    g_clear_pointer (&p->string_data, g_free);
     p->string_data = g_strdup (str);
     p->num_lines = 1;
     Py_DECREF (uval);
     return 0;
   }
+
   return -1;
 }
+
+
 static int
-PyDia_set_Text(Property *prop, PyObject *val)
+PyDia_set_Text (Property *prop, PyObject *val)
 {
   TextProperty *p = (TextProperty *)prop;
+
   if (PyString_Check (val)) {
-    gchar *str = PyString_AsString (val);
-    g_free (p->text_data);
+    char *str = PyString_AsString (val);
+    g_clear_pointer (&p->text_data, g_free);
     p->text_data = g_strdup (str);
     /* XXX: update size calculation ? */
     return 0;
   } else if (PyUnicode_Check (val)) {
     PyObject *uval = PyUnicode_AsUTF8String (val);
-    gchar *str = PyString_AsString(uval);
-    g_free (p->text_data);
+    char *str = PyString_AsString(uval);
+    g_clear_pointer (&p->text_data, g_free);
     p->text_data = g_strdup (str);
     Py_DECREF (uval);
     return 0;
   }
+
   return -1;
 }
+
+
 static int
-PyDia_set_Point(Property *prop, PyObject *val)
+PyDia_set_Point (Property *prop, PyObject *val)
 {
-  PointProperty *p = (PointProperty*)prop;
+  PointProperty *p = (PointProperty*) prop;
+
   if (PyTuple_Check(val) && PyTuple_Size(val) == 2) {
     p->point_data.x = PyFloat_AsDouble(PyTuple_GetItem(val, 0));
     p->point_data.y = PyFloat_AsDouble(PyTuple_GetItem(val, 1));
     return 0;
   }
+
   return -1;
 }
+
+
 static int
-PyDia_set_PointArray(Property *prop, PyObject *val)
+PyDia_set_PointArray (Property *prop, PyObject *val)
 {
   /* accept either tuple or list */
-  PointarrayProperty *ptp = (PointarrayProperty *)prop;
+  PointarrayProperty *ptp = (PointarrayProperty *) prop;
+
   if (PyTuple_Check(val) || PyList_Check(val)) {
     Point pt;
     gboolean is_list = !PyTuple_Check(val);
@@ -472,16 +487,16 @@ PyDia_set_PointArray(Property *prop, PyObject *val)
     for (i = 0; i < len; i++) {
       PyObject *o = is_list ? PyList_GetItem(val, i) : PyTuple_GetItem(val, i);
       if (PyTuple_Check(o)) {
-	pt.x = PyFloat_AsDouble(PyTuple_GetItem(o, 0));
-	pt.y = PyFloat_AsDouble(PyTuple_GetItem(o, 1));
-        g_array_index(ptp->pointarray_data,Point,i) = pt;
-	is_flat = FALSE;
+        pt.x = PyFloat_AsDouble (PyTuple_GetItem (o, 0));
+        pt.y = PyFloat_AsDouble (PyTuple_GetItem (o, 1));
+        g_array_index (ptp->pointarray_data, Point, i) = pt;
+        is_flat = FALSE;
       } else {
-	if (i % 2) {
-	  pt.x = PyFloat_AsDouble(PyTuple_GetItem(val, i-1));
-	  pt.y = PyFloat_AsDouble(PyTuple_GetItem(val, i));
-          g_array_index(ptp->pointarray_data,Point,i/2) = pt;
-	}
+        if (i % 2) {
+          pt.x = PyFloat_AsDouble(PyTuple_GetItem(val, i - 1));
+          pt.y = PyFloat_AsDouble(PyTuple_GetItem(val, i));
+          g_array_index (ptp->pointarray_data, Point, i / 2) = pt;
+        }
       }
     }
     if (is_flat)
@@ -648,7 +663,7 @@ PyDia_get_Array (ArrayProperty *prop)
       }
       PyTuple_SetItem(ret, i, o);
     }
-    g_free(getters);
+    g_clear_pointer (&getters, g_free);
   }
 
   return ret;
@@ -672,7 +687,7 @@ PyDia_set_Array (Property *prop, PyObject *val)
     }
     if (!setters[i]) {
       g_debug ("%s: No setter for '%s'", G_STRLOC, ex->descr->type);
-      g_free(setters);
+      g_clear_pointer (&setters, g_free);
       return -1;
     }
   }
@@ -728,35 +743,46 @@ PyDia_set_Array (Property *prop, PyObject *val)
         break;
     }
   }
-  g_free(setters);
+  g_clear_pointer (&setters, g_free);
   return ret;
 }
+
 
 static void
 _keyvalue_get (gpointer key,
                gpointer value,
                gpointer user_data)
 {
-  gchar *name = (gchar *)key;
-  gchar *val = (gchar *)value;
+  char *name = (char *) key;
+  char *val = (char *) value;
   PyObject *dict = (PyObject *)user_data;
   PyObject *k, *v;
 
-  k = PyString_FromString(name);
-  v = PyString_FromString(val);
-  if (k && v)
-    PyDict_SetItem(dict, k, v);
-  Py_XDECREF(k);
-  Py_XDECREF(v);
+  k = PyString_FromString (name);
+  v = PyString_FromString (val);
+
+  if (k && v) {
+    PyDict_SetItem (dict, k, v);
+  }
+
+  Py_XDECREF (k);
+  Py_XDECREF (v);
 }
+
+
 static PyObject *
 PyDia_get_Dict (DictProperty *prop)
 {
   PyObject *dict = PyDict_New();
-  if (prop->dict)
+
+  if (prop->dict) {
     g_hash_table_foreach (prop->dict, _keyvalue_get, dict);
+  }
+
   return dict;
 }
+
+
 static int
 PyDia_set_Dict (Property *prop, PyObject *val)
 {
@@ -767,8 +793,9 @@ PyDia_set_Dict (Property *prop, PyObject *val)
     PyObject *key, *value;
 
 
-    if (!p->dict)
+    if (!p->dict) {
       p->dict = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+    }
 
     while (PyDict_Next(val, &i, &key, &value)) {
       /* CHECK semantics: replace or add? */
@@ -780,6 +807,7 @@ PyDia_set_Dict (Property *prop, PyObject *val)
   }
   return -1;
 }
+
 
 static PyObject *
 PyDia_get_Pixbuf (PixbufProperty *prop)
@@ -794,10 +822,12 @@ PyDia_get_Pixbuf (PixbufProperty *prop)
 
   return pb;
 }
+
+
 static int
 PyDia_set_Pixbuf (Property *prop, PyObject *val)
 {
-  PixbufProperty *p = (PixbufProperty *)prop;
+  PixbufProperty *p = (PixbufProperty *) prop;
 
   if PyCObject_Check(val) {
     gpointer pp = PyCObject_AsVoidPtr (val);
@@ -809,11 +839,12 @@ PyDia_set_Pixbuf (Property *prop, PyObject *val)
   return -1;
 }
 
+
 /*
  * GetAttr
  */
 static PyObject *
-PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
+PyDiaProperty_GetAttr(PyDiaProperty *self, char *attr)
 {
 
   if (!strcmp(attr, "__members__"))
@@ -851,14 +882,15 @@ PyDiaProperty_GetAttr(PyDiaProperty *self, gchar *attr)
   return NULL;
 }
 
+
 /*
  * Similar to SetAttr but the property is directly applied
  * to the DiaObject
  */
-int PyDiaProperty_ApplyToObject (DiaObject   *object,
-                                 gchar    *key,
-                                 Property *prop,
-                                 PyObject *val)
+int PyDiaProperty_ApplyToObject (DiaObject *object,
+                                 char      *key,
+                                 Property  *prop,
+                                 PyObject  *val)
 {
   int ret = -1;
 
@@ -915,24 +947,26 @@ int PyDiaProperty_ApplyToObject (DiaObject   *object,
   return ret;
 }
 
+
 /*
  * Repr / _Str
  */
 static PyObject *
-PyDiaProperty_Str(PyDiaProperty *self)
+PyDiaProperty_Str (PyDiaProperty *self)
 {
   PyObject* py_s;
-  gchar* s;
+  char* s;
 
-  s = g_strdup_printf("<DiaProperty at %p, \"%s\", %s>",
-                      self,
-                      self->property->descr->name,
-                      self->property->descr->type);
+  s = g_strdup_printf ("<DiaProperty at %p, \"%s\", %s>",
+                       self,
+                       self->property->descr->name,
+                       self->property->descr->type);
 
   py_s = PyString_FromString(s);
-  g_free (s);
+  g_clear_pointer (&s, g_free);
   return py_s;
 }
+
 
 #define T_INVALID -1 /* can't allow direct access due to pyobject->property indirection */
 static PyMemberDef PyDiaProperty_Members[] = {

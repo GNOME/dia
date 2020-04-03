@@ -347,7 +347,7 @@ load_accels (void)
 
   if (accelfilename) {
     gtk_accel_map_load (accelfilename);
-    g_free (accelfilename);
+    g_clear_pointer (&accelfilename, g_free);
   }
 }
 
@@ -557,7 +557,7 @@ ensure_menu_path (GtkUIManager   *ui_manager,
       if (!gtk_action_group_get_action (actions, action_name)) {
         gtk_action_group_add_action (actions, action);
       }
-      g_object_unref (G_OBJECT (action));
+      g_clear_object (&action);
 
       gtk_ui_manager_add_ui (ui_manager,
                              id,
@@ -569,7 +569,7 @@ ensure_menu_path (GtkUIManager   *ui_manager,
     } else {
       g_warning ("ensure_menu_path() invalid menu path: %s.", subpath ? subpath : "NULL");
     }
-    g_free (subpath);
+    g_clear_pointer (&subpath, g_free);
   }
   return id;
 }
@@ -592,13 +592,12 @@ create_integrated_ui_toolbar (void)
   uifile = build_ui_filename ("ui/toolbar-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (_ui_manager, uifile, &error)) {
     g_critical ("building menus failed: %s", error->message);
-    g_error_free (error);
-    error = NULL;
+    g_clear_error (&error);
     toolbar = GTK_TOOLBAR (gtk_toolbar_new ());
   } else {
     toolbar = GTK_TOOLBAR (gtk_ui_manager_get_widget (_ui_manager, "/Toolbar"));
   }
-  g_free (uifile);
+  g_clear_pointer (&uifile, g_free);
 
   store = gtk_list_store_new (N_COL, G_TYPE_STRING, G_TYPE_DOUBLE);
 
@@ -783,7 +782,7 @@ create_or_ref_tool_actions (void)
         gtk_icon_factory_add (icon_factory, tool_data[i].action_name, is);
         gtk_action_set_stock_id (action, tool_data[i].action_name);
 
-        g_object_unref (pb);
+        g_clear_object (&pb);
       }
     } else {
       g_warning ("couldn't find tool menu item %s", tool_data[i].action_name);
@@ -809,12 +808,11 @@ add_plugin_actions (GtkUIManager *ui_manager, const gchar *base_path)
   actions = gtk_action_group_new (name);
   gtk_action_group_set_translation_domain (actions, NULL);
   gtk_action_group_set_translate_func (actions, _dia_translate, NULL, NULL);
-  g_free (name);
-  name = NULL;
+
+  g_clear_pointer (&name, g_free);
   cnt++;
 
   gtk_ui_manager_insert_action_group (ui_manager, actions, 5 /* "back" */);
-  g_object_unref (actions);
 
   for (cblist = filter_get_callbacks(); cblist; cblist = cblist->next) {
     gchar *menu_path = NULL;
@@ -845,22 +843,27 @@ add_plugin_actions (GtkUIManager *ui_manager, const gchar *base_path)
     }
 
     action = gtk_action_new (cbf->action, gettext (cbf->description), NULL, NULL);
-    g_signal_connect (G_OBJECT (action), "activate",
-		      G_CALLBACK (plugin_callback), (gpointer) cbf);
+    g_signal_connect (G_OBJECT (action),
+                      "activate",
+                      G_CALLBACK (plugin_callback),
+                      (gpointer) cbf);
 
     gtk_action_group_add_action (actions, action);
-    g_object_unref (G_OBJECT (action));
+    g_clear_object (&action);
 
     id = ensure_menu_path (ui_manager, actions, menu_path ? menu_path : cbf->menupath, TRUE);
     gtk_ui_manager_add_ui (ui_manager, id,
-			   menu_path ? menu_path : cbf->menupath,
-			   cbf->description,
-			   cbf->action,
-			   GTK_UI_MANAGER_AUTO,
-			   FALSE);
-    g_free (menu_path);
+                           menu_path ? menu_path : cbf->menupath,
+                           cbf->description,
+                           cbf->action,
+                           GTK_UI_MANAGER_AUTO,
+                           FALSE);
+    g_clear_pointer (&menu_path, g_free);
   }
+
+  g_clear_object (&actions);
 }
+
 
 static void
 _add_stock_icon_name (GtkIconFactory *factory, const char *name, const gchar *icon)
@@ -873,8 +876,8 @@ _add_stock_icon_name (GtkIconFactory *factory, const char *name, const gchar *ic
   pixbuf = pixbuf_from_resource (path);
   set = gtk_icon_set_new_from_pixbuf (pixbuf);
   gtk_icon_factory_add (factory, name, set);
-  g_object_unref (pixbuf);
-  g_free (path);
+  g_clear_object (&pixbuf);
+  g_clear_pointer (&path, g_free);
   pixbuf = NULL;
 }
 
@@ -895,8 +898,7 @@ register_stock_icons (void)
   _add_stock_icon_name (factory, DIA_STOCK_LAYERS, "dia-layers");
 
   gtk_icon_factory_add_default (factory);
-  g_object_unref (factory);
-  factory = NULL;
+  g_clear_object (&factory);
 }
 
 gchar*
@@ -923,9 +925,9 @@ builder_new_from_file (const char *filename)
   uifile = build_ui_filename (filename);
   if (!gtk_builder_add_from_file (builder, uifile, &error)) {
     g_warning ("Couldn't load builder file: %s", error->message);
-    g_error_free (error);
+    g_clear_error (&error);
   }
-  g_free (uifile);
+  g_clear_pointer (&uifile, g_free);
   return builder;
 }
 
@@ -946,7 +948,7 @@ _ui_manager_connect_proxy (GtkUIManager *manager,
 
     if (tooltip) {
       gtk_widget_set_tooltip_text (proxy, tooltip);
-      g_free (tooltip);
+      g_clear_pointer (&tooltip, g_free);
     }
   }
 }
@@ -1057,10 +1059,9 @@ menus_init(void)
   uifile = build_ui_filename ("ui/toolbox-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (_ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
-    g_error_free (error);
-    error = NULL;
+    g_clear_error (&error);
   }
-  g_free (uifile);
+  g_clear_pointer (&uifile, g_free);
 
   /* the display menu */
   display_actions = create_or_ref_display_actions (TRUE);
@@ -1074,8 +1075,7 @@ menus_init(void)
   gtk_ui_manager_insert_action_group (display_ui_manager, tool_actions, 0);
   if (!gtk_ui_manager_add_ui_from_string (display_ui_manager, ui_info, -1, &error)) {
     g_warning ("built-in menus failed: %s", error->message);
-    g_error_free (error);
-    error = NULL;
+    g_clear_error (&error);
   }
 
   uifile = build_ui_filename ("ui/popup-ui.xml");
@@ -1083,10 +1083,9 @@ menus_init(void)
    * menu hierarchy and merge it into a popup somehow. */
   if (!gtk_ui_manager_add_ui_from_file (display_ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
-    g_error_free (error);
-    error = NULL;
+    g_clear_error (&error);
   }
-  g_free (uifile);
+  g_clear_pointer (&uifile, g_free);
 
   display_accels = gtk_ui_manager_get_accel_group (display_ui_manager);
   display_menubar = gtk_ui_manager_get_widget (display_ui_manager, DISPLAY_MENU);
@@ -1127,14 +1126,13 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
   uifile = build_ui_filename ("ui/integrated-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (_ui_manager, uifile, &error)) {
     g_warning ("building integrated ui menus failed: %s", error->message);
-    g_error_free (error);
-    error = NULL;
+    g_clear_error (&error);
   }
-  g_free (uifile);
+  g_clear_pointer (&uifile, g_free);
+
   if (!gtk_ui_manager_add_ui_from_string (_ui_manager, ui_info, -1, &error)) {
     g_warning ("built-in menus failed: %s", error->message);
-    g_error_free (error);
-    error = NULL;
+    g_clear_error (&error);
   }
 
   add_plugin_actions (_ui_manager, NULL);
@@ -1198,16 +1196,16 @@ menus_create_display_menubar (GtkUIManager   **ui_manager,
   *ui_manager = gtk_ui_manager_new ();
   gtk_ui_manager_insert_action_group (*ui_manager, *actions, 0);
   gtk_ui_manager_insert_action_group (*ui_manager, tool_actions, 0);
-  g_object_unref (G_OBJECT (tool_actions));
+  g_clear_object (&tool_actions);
 
   uifile = build_ui_filename ("ui/display-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (*ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
-    g_error_free (error);
-    g_free (uifile);
+    g_clear_error (&error);
+    g_clear_pointer (&uifile, g_free);
     return NULL;
   }
-  g_free (uifile);
+  g_clear_pointer (&uifile, g_free);
 
   add_plugin_actions (*ui_manager, DISPLAY_MENU);
   menu_bar = gtk_ui_manager_get_widget (*ui_manager, DISPLAY_MENU);
@@ -1330,8 +1328,7 @@ menus_clear_recent (void)
 
   if (recent_actions) {
     gtk_ui_manager_remove_action_group (_ui_manager, recent_actions);
-    g_object_unref (G_OBJECT (recent_actions));
-    recent_actions = NULL;
+    g_clear_object (&recent_actions);
   }
 }
 
@@ -1371,7 +1368,7 @@ plugin_callback (GtkWidget *widget, gpointer data)
       } else { /* no diagram to keep the change, throw it away */
         if (change->free)
           change->free(change);
-        g_free(change);
+        g_clear_pointer (&change, g_free);
       }
     }
   }

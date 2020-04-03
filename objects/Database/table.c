@@ -89,19 +89,19 @@ static TableChange *table_change_new (Table *, TableState *,
                                       GList *, GList *, GList *);
 static void table_update_primary_key_font (Table *);
 
-static gchar * create_documentation_tag (gchar * comment,
-                                         gboolean tagging,
-                                         gint WrapPoint,
-                                         gint *NumberOfLines);
-static void draw_comments(DiaRenderer *renderer,
-                          DiaFont     *font,
-                          real         font_height,
-                          Color       *text_color,
-                          gchar       *comment,
-                          gboolean     comment_tagging,
-                          gint         Comment_line_length,
-                          Point       *p,
-                          gint         alignment);
+static char *create_documentation_tag (char     *comment,
+                                       gboolean  tagging,
+                                       int       WrapPoint,
+                                       int      *NumberOfLines);
+static void draw_comments (DiaRenderer *renderer,
+                           DiaFont     *font,
+                           double       font_height,
+                           Color       *text_color,
+                           char        *comment,
+                           gboolean     comment_tagging,
+                           int          Comment_line_length,
+                           Point       *p,
+                           int          alignment);
 
 /* ----------------------------------------------------------------------- */
 
@@ -324,6 +324,7 @@ table_attribute_ensure_connection_points (TableAttribute * attr,
   attr->right_connection->object = obj;
 }
 
+
 /**
  * Free a TableAttribute and its allocated resources. Upon return of
  * this function the passed pointer will not be valid anymore.
@@ -331,14 +332,15 @@ table_attribute_ensure_connection_points (TableAttribute * attr,
 static void
 table_attribute_free (TableAttribute * attr)
 {
-  if (attr->name) g_free (attr->name);
-  if (attr->type) g_free (attr->type);
-  if (attr->comment) g_free (attr->comment);
+  g_clear_pointer (&attr->name, g_free);
+  g_clear_pointer (&attr->type, g_free);
+  g_clear_pointer (&attr->comment, g_free);
 
   /* do not free the connection points here as they may be shared */
 
   g_free (attr);
 }
+
 
 /**
  * Create a copy of the passed attribute. The returned copy of the
@@ -499,8 +501,8 @@ table_destroy (Table * table)
 
   element_destroy (&table->element);
 
-  g_free (table->name);
-  g_free (table->comment);
+  g_clear_pointer (&table->name, g_free);
+  g_clear_pointer (&table->comment, g_free);
 
   list = table->attributes;
   while (list != NULL) {
@@ -606,17 +608,17 @@ draw_comments (DiaRenderer *renderer,
                DiaFont     *font,
                real         font_height,
                Color       *text_color,
-               gchar       *comment,
+               char        *comment,
                gboolean     comment_tagging,
                gint         Comment_line_length,
                Point       *p,
-               gint         alignment)
+               int          alignment)
 {
-  gint      NumberOfLines = 0;
-  gint      Index;
-  gchar     *CommentString = 0;
-  gchar     *NewLineP= NULL;
-  gchar     *RenderP;
+  int   NumberOfLines = 0;
+  int   Index;
+  char *CommentString = 0;
+  char *NewLineP= NULL;
+  char *RenderP;
 
   CommentString =
     create_documentation_tag (comment, comment_tagging, Comment_line_length, &NumberOfLines);
@@ -634,8 +636,9 @@ draw_comments (DiaRenderer *renderer,
       break;
     }
   }
-  g_free (CommentString);
+  g_clear_pointer (&CommentString, g_free);
 }
+
 
 static void
 fill_diamond (DiaRenderer *renderer,
@@ -991,15 +994,15 @@ table_init_attributesbox_height (Table * table)
     if (table->visible_comment && IS_NOT_EMPTY(attrib->comment))
       {
         int num_of_lines = 0;
-        gchar * cmt_str = create_documentation_tag (attrib->comment,
-                                                    table->tagging_comment,
-                                                    TABLE_COMMENT_MAXWIDTH,
-                                                    &num_of_lines);
+        char * cmt_str = create_documentation_tag (attrib->comment,
+                                                   table->tagging_comment,
+                                                   TABLE_COMMENT_MAXWIDTH,
+                                                   &num_of_lines);
         width = dia_font_string_width (cmt_str,
                                        comment_font,
                                        comment_font_height);
         width += TABLE_ATTR_COMMENT_OFFSET;
-        g_free (cmt_str);
+        g_clear_pointer (&cmt_str, g_free);
 
         table->attributesbox_height += (comment_font_height * num_of_lines);
         table->attributesbox_height += comment_font_height / 2;
@@ -1084,26 +1087,26 @@ underline_table_attribute (DiaRenderer     *renderer,
  *      This function should most likely be move to a source file for
  *      handling global UML functionallity at some point.
  */
-static gchar *
-create_documentation_tag (gchar * comment,
-                          gboolean tagging,
-                          gint WrapPoint,
-                          gint *NumberOfLines)
+static char *
+create_documentation_tag (char     *comment,
+                          gboolean  tagging,
+                          int       WrapPoint,
+                          int      *NumberOfLines)
 {
-  gchar  *CommentTag           = tagging ? "{documentation = " : "";
-  gint   TagLength             = strlen(CommentTag);
+  char *CommentTag = tagging ? "{documentation = " : "";
+  int   TagLength  = strlen (CommentTag);
   /* Make sure that there is at least some value greater then zero for the WrapPoint to
    * support diagrams from earlier versions of Dia. So if the WrapPoint is zero then use
    * the taglength as the WrapPoint. If the Tag has been changed such that it has a length
    * of 0 then use 1.
    */
-  gint     WorkingWrapPoint = (TagLength<WrapPoint) ? WrapPoint : ((TagLength<=0)?1:TagLength);
-  gint     RawLength        = TagLength + strlen(comment) + (tagging?1:0);
-  gint     MaxCookedLength  = RawLength + RawLength/WorkingWrapPoint;
-  gchar    *WrappedComment  = g_malloc0(MaxCookedLength+1);
-  gint     AvailSpace       = WorkingWrapPoint - TagLength;
-  gchar    *Scan;
-  gchar    *BreakCandidate;
+  int   WorkingWrapPoint = (TagLength<WrapPoint) ? WrapPoint : ((TagLength<=0)?1:TagLength);
+  int   RawLength        = TagLength + strlen(comment) + (tagging?1:0);
+  int   MaxCookedLength  = RawLength + RawLength/WorkingWrapPoint;
+  char *WrappedComment   = g_malloc0(MaxCookedLength+1);
+  int   AvailSpace       = WorkingWrapPoint - TagLength;
+  char *Scan;
+  char *BreakCandidate;
   gunichar ScanChar;
   gboolean AddNL            = FALSE;
 
@@ -1149,6 +1152,7 @@ create_documentation_tag (gchar * comment,
   return WrappedComment;
 }
 
+
 /**
  * Compute the dimension of the box surrounding the table's name and its
  * comment if any and if it is visible, store it (the height) in the
@@ -1156,37 +1160,36 @@ create_documentation_tag (gchar * comment,
  * function makes use of the fonts defined in the passed table
  * structure, so be sure to initialize them before calling this routine.
  */
-static real
+static double
 table_calculate_namebox_data (Table * table)
 {
-  real maxwidth = 0.0;
+  double maxwidth = 0.0;
 
-  if (IS_NOT_EMPTY(table->name))
-    {
-      maxwidth = dia_font_string_width (table->name,
-                                        table->name_font,
-                                        table->name_font_height);
-    }
+  if (IS_NOT_EMPTY (table->name)) {
+    maxwidth = dia_font_string_width (table->name,
+                                      table->name_font,
+                                      table->name_font_height);
+  }
   table->namebox_height = table->name_font_height + 2*0.1;
 
-  if (table->visible_comment && IS_NOT_EMPTY(table->comment))
-    {
-      real width;
-      gint numOfCommentLines = 0;
-      gchar * wrapped_box = create_documentation_tag (table->comment,
-                                                      table->tagging_comment,
-                                                      TABLE_COMMENT_MAXWIDTH,
-                                                      &numOfCommentLines);
-      width = dia_font_string_width (wrapped_box,
-                                     table->comment_font,
-                                     table->comment_font_height);
-      g_free (wrapped_box);
-      table->namebox_height += table->comment_font_height * numOfCommentLines;
-      maxwidth = MAX(width, maxwidth);
-    }
+  if (table->visible_comment && IS_NOT_EMPTY (table->comment)) {
+    double width;
+    int numOfCommentLines = 0;
+    char * wrapped_box = create_documentation_tag (table->comment,
+                                                   table->tagging_comment,
+                                                   TABLE_COMMENT_MAXWIDTH,
+                                                   &numOfCommentLines);
+    width = dia_font_string_width (wrapped_box,
+                                   table->comment_font,
+                                   table->comment_font_height);
+    g_clear_pointer (&wrapped_box, g_free);
+    table->namebox_height += table->comment_font_height * numOfCommentLines;
+    maxwidth = MAX(width, maxwidth);
+  }
 
   return maxwidth;
 }
+
 
 static void
 table_update_positions (Table *table)
@@ -1269,17 +1272,16 @@ table_update_positions (Table *table)
 
       y += attr_font_height;
 
-      if (table->visible_comment && IS_NOT_EMPTY(attr->comment))
-        {
-          gint num_of_lines = 0;
-          gchar * str = create_documentation_tag (attr->comment,
-                                                  table->tagging_comment,
-                                                  TABLE_COMMENT_MAXWIDTH,
-                                                  &num_of_lines);
-          y += table->comment_font_height * num_of_lines;
-          y += table->comment_font_height/2.0;
-          g_free (str);
-        }
+      if (table->visible_comment && IS_NOT_EMPTY (attr->comment)) {
+        int num_of_lines = 0;
+        char * str = create_documentation_tag (attr->comment,
+                                               table->tagging_comment,
+                                               TABLE_COMMENT_MAXWIDTH,
+                                               &num_of_lines);
+        y += table->comment_font_height * num_of_lines;
+        y += table->comment_font_height / 2.0;
+        g_clear_pointer (&str, g_free);
+      }
 
       list = g_list_next (list);
     }
@@ -1453,8 +1455,8 @@ table_state_free (TableState * state)
 {
   GList * list;
 
-  g_free (state->name);
-  g_free (state->comment);
+  g_clear_pointer (&state->name, g_free);
+  g_clear_pointer (&state->comment, g_free);
 
   list = state->attributes;
   while (list != NULL)
@@ -1511,7 +1513,7 @@ table_change_free (TableChange *change)
       ConnectionPoint * cp = (ConnectionPoint *) lst->data;
       g_assert (cp->connected == NULL);
       object_remove_connections_to (cp);
-      g_free (cp);
+      g_clear_pointer (&cp, g_free);
 
       lst = g_list_next (lst);
     }

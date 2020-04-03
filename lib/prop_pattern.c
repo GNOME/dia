@@ -45,18 +45,19 @@ patternprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
   return prop;
 }
 
+
 static void
-patternprop_free(PatternProperty *prop) 
+patternprop_free (PatternProperty *prop)
 {
-  if (prop->pattern)
-    g_object_unref (prop->pattern);
-  g_free(prop);
-} 
+  g_clear_object (&prop->pattern);
+  g_free (prop);
+}
+
 
 static PatternProperty *
-patternprop_copy(PatternProperty *src) 
+patternprop_copy(PatternProperty *src)
 {
-  PatternProperty *prop = 
+  PatternProperty *prop =
     (PatternProperty *)src->common.ops->new_prop(src->common.descr,
                                               src->common.reason);
   if (src->pattern) /* TODO: rethink on edit - ...copy() ? */
@@ -116,11 +117,11 @@ data_pattern (DataNode node, DiaContext *ctx)
 	dia_pattern_add_color (pattern, offset, &color);
       }
     }
-  } 
+  }
   return pattern;
 }
 
-static void 
+static void
 patternprop_load(PatternProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
   prop->pattern = data_pattern (data, ctx);
@@ -172,17 +173,17 @@ data_add_pattern (AttributeNode attr, DiaPattern *pattern, DiaContext *ctx)
   dia_pattern_foreach (pattern, _data_add_stop, &ud);
 }
 
-static void 
-patternprop_save(PatternProperty *prop, AttributeNode attr, DiaContext *ctx) 
+static void
+patternprop_save(PatternProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
   if (prop->pattern) {
     data_add_pattern (attr, prop->pattern, ctx);
   }
 }
 
-static void 
+static void
 patternprop_get_from_offset(PatternProperty *prop,
-                         void *base, guint offset, guint offset2) 
+                         void *base, guint offset, guint offset2)
 {
   /* before we start editing a simple reference should be enough */
   DiaPattern *pattern = struct_member(base,offset,DiaPattern *);
@@ -193,22 +194,28 @@ patternprop_get_from_offset(PatternProperty *prop,
     prop->pattern = NULL;
 }
 
-static void 
-patternprop_set_from_offset(PatternProperty *prop,
-                           void *base, guint offset, guint offset2)
+
+static void
+patternprop_set_from_offset (PatternProperty *prop,
+                             void            *base,
+                             guint            offset,
+                             guint            offset2)
 {
-  DiaPattern *dest = struct_member(base,offset,DiaPattern *);
-  if (dest)
-    g_object_unref (dest);
-  if (prop->pattern)
-    struct_member(base,offset, DiaPattern *) = g_object_ref (prop->pattern);
-  else
-    struct_member(base,offset, DiaPattern *) = NULL;
+  DiaPattern *dest = struct_member (base, offset, DiaPattern *);
+
+  g_clear_object (&dest);
+
+  if (prop->pattern) {
+    struct_member (base, offset, DiaPattern *) = g_object_ref (prop->pattern);
+  } else {
+    struct_member (base, offset, DiaPattern *) = NULL;
+  }
 }
 
+
 static GtkWidget *
-patternprop_get_widget (PatternProperty *prop, PropDialog *dialog) 
-{ 
+patternprop_get_widget (PatternProperty *prop, PropDialog *dialog)
+{
   GtkWidget *ret = dia_pattern_selector_new ();
   prophandler_connect(&prop->common, G_OBJECT(ret), "value_changed");
   return ret;
@@ -220,15 +227,15 @@ patternprop_reset_widget(PatternProperty *prop, GtkWidget *widget)
   dia_pattern_selector_set_pattern (widget, prop->pattern);
 }
 
+
 static void
-patternprop_set_from_widget(PatternProperty *prop, GtkWidget *widget) 
+patternprop_set_from_widget (PatternProperty *prop, GtkWidget *widget)
 {
   DiaPattern *pat = dia_pattern_selector_get_pattern (widget);
 
-  if (prop->pattern)
-    g_object_unref (prop->pattern);
-  prop->pattern = pat;
+  g_set_object (&prop->pattern, pat);
 }
+
 
 static const PropertyOps patternprop_ops = {
   (PropertyType_New) patternprop_new,
@@ -245,7 +252,7 @@ static const PropertyOps patternprop_ops = {
   (PropertyType_SetFromOffset) patternprop_set_from_offset
 };
 
-void 
+void
 prop_patterntypes_register(void)
 {
   prop_type_register(PROP_TYPE_PATTERN, &patternprop_ops);

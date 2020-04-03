@@ -87,15 +87,18 @@ static gboolean diagram_data_save(DiagramData *data, DiaContext *ctx, const char
 
 
 static void
-GHFuncUnknownObjects(gpointer key,
-                     gpointer value,
-                     gpointer user_data)
+GHFuncUnknownObjects (gpointer key,
+                      gpointer value,
+                      gpointer user_data)
 {
-  GString* s = (GString*)user_data;
-  g_string_append(s, "\n");
-  g_string_append(s, (gchar*)key);
-  g_free(key);
+  GString *s = (GString *) user_data;
+
+  g_string_append (s, "\n");
+  g_string_append (s, (char*) key);
+
+  g_free (key);
 }
+
 
 /**
  * Recursive function to read objects from a specific level in the xml.
@@ -337,13 +340,15 @@ read_connections(GList *objects, xmlNodePtr layer_node,
   }
 }
 
+
 static void
-hash_free_string(gpointer       key,
-		 gpointer       value,
-		 gpointer       user_data)
+hash_free_string (gpointer key,
+                  gpointer value,
+                  gpointer user_data)
 {
-  g_free(key);
+  g_free (key);
 }
+
 
 static xmlNodePtr
 find_node_named (xmlNodePtr p, const char *name)
@@ -467,7 +472,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
 
     attr = composite_find_attribute(paperinfo, "name");
     if (attr != NULL) {
-      g_free(data->paper.name);
+      g_clear_pointer (&data->paper.name, g_free);
       data->paper.name = data_string(attribute_first_data(attr), ctx);
     }
     if (data->paper.name == NULL || data->paper.name[0] == '\0') {
@@ -1135,7 +1140,7 @@ diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
     filename = g_file_read_link(user_filename, &error);
     if (!filename) {
       dia_context_add_message (ctx, "%s", error->message);
-      g_error_free(error);
+      g_clear_error (&error);
       goto CLEANUP;
     }
   }
@@ -1146,7 +1151,7 @@ diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
   if (p) {
     *(p+1) = 0;
   } else {
-    g_free(dirname);
+    g_clear_pointer (&dirname, g_free);
     dirname = g_strdup("." G_DIR_SEPARATOR_S);
   }
   tmpname = g_strconcat(dirname,"__diaXXXXXX",NULL);
@@ -1207,10 +1212,10 @@ diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
   }
 CLEANUP:
   if (filename != user_filename)
-    g_free(filename);
-  g_free(tmpname);
-  g_free(dirname);
-  g_free(bakname);
+    g_clear_pointer (&filename, g_free);
+  g_clear_pointer (&tmpname, g_free);
+  g_clear_pointer (&dirname, g_free);
+  g_clear_pointer (&bakname, g_free);
   return (ret?FALSE:TRUE);
 }
 
@@ -1249,7 +1254,7 @@ diagram_cleanup_autosave(Diagram *dia)
   if (g_stat(savefile, &statbuf) == 0) { /* Success */
     g_unlink(savefile);
   }
-  g_free(savefile);
+  g_clear_pointer (&savefile, g_free);
   dia->autosavefilename = NULL;
   dia->autosaved = FALSE;
 }
@@ -1278,13 +1283,13 @@ _autosave_in_thread (gpointer data)
   AutoSaveInfo *asi = (AutoSaveInfo *)data;
 
   diagram_data_raw_save(asi->clone, asi->filename, asi->ctx);
-  g_object_unref (asi->clone);
-  g_free (asi->filename);
+  g_clear_object (&asi->clone);
+  g_clear_pointer (&asi->filename, g_free);
   /* FIXME: this is throwing away potential messages ... */
   dia_context_reset (asi->ctx);
   /* ... to avoid creating a message_box within this thread */
   dia_context_release (asi->ctx);
-  g_free (asi);
+  g_clear_pointer (&asi, g_free);
 
   return NULL;
 }
@@ -1308,8 +1313,7 @@ diagram_autosave(Diagram *dia)
         !diagram->autosaved) {
       save_filename = g_strdup_printf ("%s.autosave", dia->filename);
 
-      if (dia->autosavefilename != NULL)
-        g_free(dia->autosavefilename);
+      g_clear_pointer (&dia->autosavefilename, g_free);
 
       dia->autosavefilename = save_filename;
 #ifdef G_THREADS_ENABLED
@@ -1323,7 +1327,7 @@ diagram_autosave(Diagram *dia)
 
         if (!g_thread_try_new ("Autosave", _autosave_in_thread, asi, &error)) {
           message_error ("%s", error->message);
-          g_error_free (error);
+          g_clear_error (&error);
         }
         /* FIXME: need better synchronization */
         dia->autosaved = TRUE;

@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#include <config.h> 
+#include <config.h>
 
 #include "diapatternselector.h"
 #include "intl.h"
@@ -48,13 +48,15 @@ static guint dia_patternsel_signals[DIA_PATTERNSEL_LAST_SIGNAL] = { 0 };
 
 static DiaPattern *_create_preset_pattern (guint n);
 
+
 static void
-dia_pattern_selector_finalize(GObject* object)
+dia_pattern_selector_finalize(GObject *object)
 {
-  DiaPatternSelector *ps = (DiaPatternSelector *)object;
-  if (ps->pattern)
-    g_object_unref (ps->pattern);
+  DiaPatternSelector * ps = (DiaPatternSelector *)object;
+
+  g_clear_object (&ps->pattern);
 }
+
 
 static void
 dia_pattern_selector_class_init (DiaPatternSelectorClass *klass)
@@ -72,10 +74,11 @@ dia_pattern_selector_class_init (DiaPatternSelectorClass *klass)
 }
 
 static GType dia_pattern_selector_get_type (void);
- 
+
 G_DEFINE_TYPE (DiaPatternSelector, dia_pattern_selector, GTK_TYPE_HBOX);
 
-/* GUI stuff - not completely done yet 
+
+/* GUI stuff - not completely done yet
    - add/remove color stops
    - toggle between radial/linear
    - have some visual representation of the gradient
@@ -83,20 +86,21 @@ G_DEFINE_TYPE (DiaPatternSelector, dia_pattern_selector, GTK_TYPE_HBOX);
      horizontal/vertical/radial, ...
  */
 static void
-_pattern_toggled(GtkWidget *wid, DiaPatternSelector *ps)
+_pattern_toggled (GtkWidget *wid, DiaPatternSelector *ps)
 {
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(wid))) {
-    gtk_label_set_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(wid))), _("Yes"));
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (wid))) {
+    gtk_label_set_text (GTK_LABEL (gtk_bin_get_child (GTK_BIN (wid))), _("Yes"));
     if (!ps->pattern)
       ps->pattern = _create_preset_pattern (0);
   } else {
-    gtk_label_set_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(wid))), _("No"));
-    if (ps->pattern)
-      g_object_unref (ps->pattern);
-    ps->pattern = NULL;
+    gtk_label_set_text (GTK_LABEL (gtk_bin_get_child (GTK_BIN (wid))), _("No"));
+    g_clear_object (&ps->pattern);
   }
+
   g_signal_emit (G_OBJECT (ps), dia_patternsel_signals[DIA_PATTERNSEL_VALUE_CHANGED], 0);
 }
+
+
 /*! Create the pattern preset pop-up menu */
 typedef enum {
   LEFT = 0x1,
@@ -143,7 +147,7 @@ _create_preset_pattern (guint n)
   color = attributes_get_foreground ();
   dia_pattern_add_color (pat, 1.0, &color);
 
-  return pat; 
+  return pat;
 }
 
 #define PRESET_KEY "preset-pattern-key"
@@ -152,13 +156,14 @@ static void
 _pattern_activate_preset(GtkWidget *widget, gpointer data)
 {
   DiaPatternSelector *ps = (DiaPatternSelector *)data;
-  guint n = GPOINTER_TO_UINT(g_object_get_data (G_OBJECT(widget), PRESET_KEY));
-  if (ps->pattern)
-    g_object_unref (ps->pattern);
-  ps->pattern = _create_preset_pattern (n);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ps->state), ps->pattern != NULL);
+  guint n = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (widget), PRESET_KEY));
+
+  g_set_object (&ps->pattern, _create_preset_pattern (n));
+
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ps->state), ps->pattern != NULL);
   g_signal_emit (G_OBJECT (ps), dia_patternsel_signals[DIA_PATTERNSEL_VALUE_CHANGED], 0);
 }
+
 
 static gint
 _popup_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)

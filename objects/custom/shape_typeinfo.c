@@ -100,24 +100,24 @@ _characters (void *ctx,
   if (READ_DONE == context->state)
     /* no more to do */;
   if (READ_NAME == context->state) {
-    gchar *prev = context->si->name;
-    if (!prev)
-      context->si->name = g_strndup ((const gchar*)ch, len);
-    else {
-      gchar *now = g_strndup ((const gchar*)ch, len);
+    char *prev = context->si->name;
+    if (!prev) {
+      context->si->name = g_strndup ((const char*) ch, len);
+    } else {
+      char *now = g_strndup ((const char*) ch, len);
       context->si->name = g_strconcat (prev, now, NULL);
-      g_free (prev);
-      g_free (now);
+      g_clear_pointer (&prev, g_free);
+      g_clear_pointer (&now, g_free);
     }
   } else if (READ_ICON == context->state) {
-    gchar *prev = context->si->icon;
-    if (!prev)
+    char *prev = context->si->icon;
+    if (!prev) {
       context->si->icon = g_strndup ((const char*)ch, len);
-    else {
-      gchar *now = g_strndup ((const char*)ch, len);
+    } else {
+      char *now = g_strndup ((const char*)ch, len);
       context->si->icon = g_strconcat (prev, now, NULL);
-      g_free (prev);
-      g_free (now);
+      g_clear_pointer (&prev, g_free);
+      g_clear_pointer (&now, g_free);
     }
   }
 }
@@ -228,10 +228,10 @@ shape_typeinfo_load (ShapeInfo* info)
   }
   fclose (f);
   if (ctx.state == READ_DONE) {
-    gchar* tmp = info->icon;
+    char *tmp = info->icon;
     if (tmp) {
       info->icon = custom_get_relative_filename (info->filename, tmp);
-      g_free (tmp);
+      g_clear_pointer (&tmp, g_free);
     }
     return TRUE;
   } else {

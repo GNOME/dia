@@ -450,12 +450,14 @@ pointarrayprop_new(const PropDescription *pdesc,
   return prop;
 }
 
+
 static void
-pointarrayprop_free(PointarrayProperty *prop)
+pointarrayprop_free (PointarrayProperty *prop)
 {
-  g_array_free(prop->pointarray_data,TRUE);
-  g_free(prop);
+  g_array_free (prop->pointarray_data,TRUE);
+  g_clear_pointer (&prop, g_free);
 }
+
 
 static PointarrayProperty *
 pointarrayprop_copy(PointarrayProperty *src)
@@ -506,17 +508,21 @@ pointarrayprop_get_from_offset(PointarrayProperty *prop,
       struct_member(ofs_val,i * sizeof(Point),Point);
 }
 
+
 static void
-pointarrayprop_set_from_offset(PointarrayProperty *prop,
-                               void *base, guint offset, guint offset2)
+pointarrayprop_set_from_offset (PointarrayProperty *prop,
+                                void               *base,
+                                guint               offset,
+                                guint               offset2)
 {
   guint nvals = prop->pointarray_data->len;
-  Point *vals = g_memdup(&g_array_index(prop->pointarray_data,Point,0),
-                         sizeof(Point) * nvals);
-  g_free(struct_member(base,offset,Point *));
-  struct_member(base,offset,Point *) = vals;
-  struct_member(base,offset2,guint) = nvals;
+  Point *vals = g_memdup (&g_array_index (prop->pointarray_data, Point, 0),
+                          sizeof(Point) * nvals);
+  g_clear_pointer (&struct_member (base, offset, Point *), g_free);
+  struct_member (base, offset, Point *) = vals;
+  struct_member (base, offset2, guint) = nvals;
 }
+
 
 static const PropertyOps pointarrayprop_ops = {
   (PropertyType_New) pointarrayprop_new,
@@ -618,7 +624,7 @@ static void
 bezpointarrayprop_free(BezPointarrayProperty *prop)
 {
   g_array_free(prop->bezpointarray_data,TRUE);
-  g_free(prop);
+  g_clear_pointer (&prop, g_free);
 }
 
 static BezPointarrayProperty *
@@ -662,31 +668,39 @@ bezpointarrayprop_save(BezPointarrayProperty *prop, AttributeNode attr, DiaConte
                       &g_array_index(prop->bezpointarray_data,BezPoint,i), ctx);
 }
 
+
 static void
-bezpointarrayprop_get_from_offset(BezPointarrayProperty *prop,
-                                  void *base, guint offset, guint offset2)
+bezpointarrayprop_get_from_offset (BezPointarrayProperty *prop,
+                                   void                  *base,
+                                   guint                  offset,
+                                   guint                  offset2)
 {
-  guint nvals = struct_member(base,offset2,guint);
+  guint nvals = struct_member (base, offset2, guint);
   guint i;
-  void *ofs_val = struct_member(base,offset,void *);
-  g_array_set_size(prop->bezpointarray_data,nvals);
-  for (i = 0; i < nvals; i++)
-    g_array_index(prop->bezpointarray_data,BezPoint,i) =
-      struct_member(ofs_val,i * sizeof(BezPoint),BezPoint);
+  void *ofs_val = struct_member (base, offset, void *);
+  g_array_set_size (prop->bezpointarray_data, nvals);
+  for (i = 0; i < nvals; i++) {
+    g_array_index (prop->bezpointarray_data, BezPoint, i) =
+      struct_member (ofs_val, i * sizeof (BezPoint), BezPoint);
+  }
 }
+
 
 static void
 bezpointarrayprop_set_from_offset(BezPointarrayProperty *prop,
-                                  void *base, guint offset, guint offset2)
+                                  void                  *base,
+                                  guint                  offset,
+                                  guint                  offset2)
 {
   guint nvals = prop->bezpointarray_data->len;
-  BezPoint *vals = g_memdup(&g_array_index(prop->bezpointarray_data,
-                                           BezPoint,0),
-                            sizeof(BezPoint) * nvals);
-  g_free(struct_member(base,offset,gint *));
-  struct_member(base,offset,BezPoint *) = vals;
-  struct_member(base,offset2,guint) = nvals;
+  BezPoint *vals = g_memdup (&g_array_index (prop->bezpointarray_data,
+                                             BezPoint, 0),
+                             sizeof (BezPoint) * nvals);
+  g_clear_pointer (&struct_member (base, offset, int *), g_free);
+  struct_member (base, offset, BezPoint *) = vals;
+  struct_member (base, offset2, guint) = nvals;
 }
+
 
 static const PropertyOps bezpointarrayprop_ops = {
   (PropertyType_New) bezpointarrayprop_new,

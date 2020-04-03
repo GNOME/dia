@@ -150,11 +150,8 @@ dia_diagram_finalize (GObject *object)
   assert (dia->displays==NULL);
 
   g_clear_object (&priv->file);
-
-  if (dia->filename)
-    g_free (dia->filename);
-  dia->filename = NULL;
-
+  g_clear_pointer (&dia->filename, g_free);
+  
   G_OBJECT_CLASS (dia_diagram_parent_class)->finalize (object);
 }
 
@@ -314,17 +311,17 @@ diagram_load_into (Diagram         *diagram,
 
         if (suffix_offset != NULL) {
           new_filename = g_strndup (old_filename, suffix_offset - old_filename);
-          g_free (old_filename);
+          g_clear_pointer (&old_filename, g_free);
         } else {
           new_filename = old_filename;
         }
         old_filename = g_strconcat (new_filename, ".dia", NULL);
-        g_free (new_filename);
+        g_clear_pointer (&new_filename, g_free);
 
         file = g_file_new_for_path (old_filename);
         dia_diagram_set_file (diagram, file);
 
-        g_free (old_filename);
+        g_clear_pointer (&old_filename, g_free);
 
         diagram->unsaved = TRUE;
 
@@ -418,11 +415,12 @@ dia_diagram_new (GFile *file)
   return dia;
 }
 
+// TODO: This seems bad
 void
 diagram_destroy(Diagram *dia)
 {
   g_signal_emit (dia, diagram_signals[REMOVED], 0);
-  g_object_unref(dia);
+  g_clear_object (&dia);
 }
 
 /** Returns true if we consider the diagram modified.
@@ -444,8 +442,8 @@ diagram_modified(Diagram *dia)
   gchar *extra = g_path_get_dirname (dia->filename);
   gchar *title = g_strdup_printf ("%s%s (%s)", diagram_is_modified(dia) ? "*" : "", dia_name, extra ? extra : " ");
 
-  g_free (dia_name);
-  g_free (extra);
+  g_clear_pointer (&dia_name, g_free);
+  g_clear_pointer (&extra, g_free);
   displays = dia->displays;
   while (displays!=NULL) {
     DDisplay *ddisp = (DDisplay *) displays->data;
@@ -459,7 +457,7 @@ diagram_modified(Diagram *dia)
     dia->is_default = FALSE;
   }
   /*  diagram_set_modified(dia, TRUE);*/
-  g_free (title);
+  g_clear_pointer (&title, g_free);
 }
 
 /** Set this diagram explicitly modified.  This should not be called
@@ -1593,7 +1591,7 @@ dia_diagram_set_file (Diagram *self,
     l = g_slist_next (l);
   }
 
-  g_free (title);
+  g_clear_pointer (&title, g_free);
 
   /* signal about the change */
   dia_application_diagram_change (dia_application_get_default (),

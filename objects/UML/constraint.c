@@ -165,8 +165,7 @@ constraint_set_props(Constraint *constraint, GPtrArray *props)
 {
   object_set_props_from_offsets(&constraint->connection.object,
                                 constraint_offsets, props);
-  g_free(constraint->brtext);
-  constraint->brtext = NULL;
+  g_clear_pointer (&constraint->brtext, g_free);
   constraint_update_data(constraint);
 }
 
@@ -339,8 +338,8 @@ constraint_destroy (Constraint *constraint)
 {
   connection_destroy (&constraint->connection);
   g_clear_object (&constraint->font);
-  g_free (constraint->brtext);
-  g_free (constraint->text);
+  g_clear_pointer (&constraint->brtext, g_free);
+  g_clear_pointer (&constraint->text, g_free);
 }
 
 static void
@@ -353,7 +352,7 @@ constraint_update_data(Constraint *constraint)
 
   if ((constraint->text) && (constraint->text[0] == '{')) {
     /* we might have a string loaded from an older dia. Clean it up. */
-    g_free(constraint->brtext);
+    g_clear_pointer (&constraint->brtext, g_free);
     constraint->brtext = constraint->text;
     constraint->text = bracketted_to_string(constraint->text,"{","}");
   } else if (!constraint->brtext) {

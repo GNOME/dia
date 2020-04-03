@@ -835,42 +835,44 @@ draw_string (DiaRenderer *self,
             pstricks_dtostr (px_buf,pos->x),
             pstricks_dtostr (py_buf,pos->y),
             escaped ? escaped : text);
-  g_free (escaped);
+  g_clear_pointer (&escaped, g_free);
 }
 
 
 static void
-draw_image(DiaRenderer *self,
-	   Point *point,
-	   real width, real height,
-	   DiaImage *image)
+draw_image (DiaRenderer *self,
+            Point       *point,
+            double       width,
+            double       height,
+            DiaImage    *image)
 {
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-    int img_width, img_height;
-    int v;
-    int                 x, y;
-    unsigned char      *ptr;
-    guint8 *rgb_data;
-    gdouble points_in_inch = POINTS_in_INCH;
-    gchar points_in_inch_buf[DTOSTR_BUF_SIZE];
-    gchar px_buf[DTOSTR_BUF_SIZE];
-    gchar py_buf[DTOSTR_BUF_SIZE];
-    gchar width_buf[DTOSTR_BUF_SIZE];
-    gchar height_buf[DTOSTR_BUF_SIZE];
+  PstricksRenderer *renderer = PSTRICKS_RENDERER (self);
+  int img_width, img_height;
+  int v;
+  int                 x, y;
+  unsigned char      *ptr;
+  guint8 *rgb_data;
+  double points_in_inch = POINTS_in_INCH;
+  char points_in_inch_buf[DTOSTR_BUF_SIZE];
+  char px_buf[DTOSTR_BUF_SIZE];
+  char py_buf[DTOSTR_BUF_SIZE];
+  char width_buf[DTOSTR_BUF_SIZE];
+  char height_buf[DTOSTR_BUF_SIZE];
 
-    pstricks_dtostr(points_in_inch_buf,points_in_inch);
+  pstricks_dtostr (points_in_inch_buf, points_in_inch);
 
-    img_width = dia_image_width(image);
-    img_height = dia_image_height(image);
+  img_width = dia_image_width(image);
+  img_height = dia_image_height(image);
 
-    rgb_data = dia_image_rgb_data(image);
-    if (!rgb_data) {
-        dia_context_add_message(renderer->ctx, _("Not enough memory for image drawing."));
-        return;
-    }
+  rgb_data = dia_image_rgb_data(image);
+  if (!rgb_data) {
+    dia_context_add_message(renderer->ctx, _("Not enough memory for image drawing."));
+    return;
+  }
 
-    fprintf(renderer->file, "\\pscustom{\\code{gsave\n");
-    if (1) { /* Color output */
+  fprintf (renderer->file, "\\pscustom{\\code{gsave\n");
+
+  if (1) { /* Color output */
 	fprintf(renderer->file, "/pix %i string def\n", img_width * 3);
 	fprintf(renderer->file, "/grays %i string def\n", img_width);
 	fprintf(renderer->file, "/npixls 0 def\n");
@@ -931,38 +933,43 @@ draw_image(DiaRenderer *self,
     fprintf(renderer->file, "grestore\n");
     fprintf(renderer->file, "}}\n");
 
-    g_free (rgb_data);
+  g_clear_pointer (&rgb_data, g_free);
 }
+
 
 /* --- export filter interface --- */
 static gboolean
-export_pstricks(DiagramData *data, DiaContext *ctx,
-		const gchar *filename, const gchar *diafilename,
-		void* user_data)
+export_pstricks (DiagramData *data,
+                 DiaContext  *ctx,
+                 const char  *filename,
+                 const char  *diafilename,
+                 void        *user_data)
 {
-    PstricksRenderer *renderer;
-    FILE *file;
-    time_t time_now;
-    DiaRectangle *extent;
-    const char *name;
-    gchar el_buf[DTOSTR_BUF_SIZE];
-    gchar er_buf[DTOSTR_BUF_SIZE];
-    gchar eb_buf[DTOSTR_BUF_SIZE];
-    gchar et_buf[DTOSTR_BUF_SIZE];
-    gchar scale1_buf[DTOSTR_BUF_SIZE];
-    gchar scale2_buf[DTOSTR_BUF_SIZE];
+  PstricksRenderer *renderer;
+  FILE *file;
+  time_t time_now;
+  DiaRectangle *extent;
+  const char *name;
+  char el_buf[DTOSTR_BUF_SIZE];
+  char er_buf[DTOSTR_BUF_SIZE];
+  char eb_buf[DTOSTR_BUF_SIZE];
+  char et_buf[DTOSTR_BUF_SIZE];
+  char scale1_buf[DTOSTR_BUF_SIZE];
+  char scale2_buf[DTOSTR_BUF_SIZE];
 
-    Color initial_color;
+  Color initial_color;
 
-    file = g_fopen(filename, "wb");
+  file = g_fopen(filename, "wb");
 
-    if (file == NULL) {
-	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
-					    dia_context_get_filename(ctx));
-	return FALSE;
-    }
+  if (file == NULL) {
+    dia_context_add_message_with_errno (ctx,
+                                        errno,
+                                        _("Can't open output file %s"),
+                                        dia_context_get_filename (ctx));
+    return FALSE;
+  }
 
-    renderer = g_object_new(PSTRICKS_TYPE_RENDERER, NULL);
+  renderer = g_object_new (PSTRICKS_TYPE_RENDERER, NULL);
 
     renderer->pagenum = 1;
     renderer->file = file;
@@ -998,37 +1005,38 @@ export_pstricks(DiagramData *data, DiaContext *ctx,
 	ctime(&time_now),
 	name);
 
-    fprintf(renderer->file,"\\pspicture(%s,%s)(%s,%s)\n",
-	    pstricks_dtostr(el_buf,extent->left * data->paper.scaling),
-	    pstricks_dtostr(eb_buf,-extent->bottom * data->paper.scaling),
-	    pstricks_dtostr(er_buf,extent->right * data->paper.scaling),
-	    pstricks_dtostr(et_buf,-extent->top * data->paper.scaling) );
-    fprintf(renderer->file,"\\psscalebox{%s %s}{\n",
-	    pstricks_dtostr(scale1_buf,data->paper.scaling),
-	    pstricks_dtostr(scale2_buf,-data->paper.scaling) );
+  fprintf (renderer->file,"\\pspicture(%s,%s)(%s,%s)\n",
+           pstricks_dtostr (el_buf, extent->left * data->paper.scaling),
+           pstricks_dtostr (eb_buf, -extent->bottom * data->paper.scaling),
+           pstricks_dtostr (er_buf, extent->right * data->paper.scaling),
+           pstricks_dtostr (et_buf, -extent->top * data->paper.scaling) );
+  fprintf (renderer->file,"\\psscalebox{%s %s}{\n",
+           pstricks_dtostr (scale1_buf, data->paper.scaling),
+           pstricks_dtostr (scale2_buf, -data->paper.scaling) );
 
-    initial_color.red=0.;
-    initial_color.green=0.;
-    initial_color.blue=0.;
-    set_line_color(renderer,&initial_color);
+  initial_color.red = 0.0;
+  initial_color.green = 0.0;
+  initial_color.blue = 0.0;
+  set_line_color (renderer, &initial_color);
 
-    initial_color.red=1.;
-    initial_color.green=1.;
-    initial_color.blue=1.;
-    set_fill_color(renderer,&initial_color);
+  initial_color.red= 1.0;
+  initial_color.green= 1.0;
+  initial_color.blue= 1.0;
+  set_fill_color (renderer, &initial_color);
 
-    data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+  data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
-    g_object_unref(renderer);
+  g_clear_object (&renderer);
 
-    return TRUE;
+  return TRUE;
 }
+
 
 static const gchar *extensions[] = { "tex", NULL };
 DiaExportFilter pstricks_export_filter = {
-    N_("TeX PSTricks macros"),
-    extensions,
-    export_pstricks,
-    NULL,
-    "pstricks-tex"
+  N_("TeX PSTricks macros"),
+  extensions,
+  export_pstricks,
+  NULL,
+  "pstricks-tex"
 };

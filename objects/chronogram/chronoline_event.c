@@ -57,10 +57,10 @@ compare_cle (gconstpointer a, gconstpointer b)
 
 
 void
-destroy_cle(gpointer data, gpointer user_data)
+destroy_cle (gpointer data, gpointer user_data)
 {
-  CLEvent *cle = (CLEvent *)data;
-  g_free(cle);
+  CLEvent *cle = (CLEvent *) data;
+  g_clear_pointer (&cle, g_free);
 }
 
 
@@ -321,7 +321,7 @@ reparse_clevent(const gchar *events, CLEventList **lst,
   destroy_clevent_list(*lst);
   *lst = parse_clevent(ps,rise,fall);
   if (ps != events)
-    g_free(ps);
+    g_clear_pointer (&ps, g_free);
   *chksum = newsum;
 }
 

@@ -75,14 +75,16 @@ _match_text_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement
 
   /* search part */
   if (sd->flags & MATCH_CASE) {
-    const gchar *p = strstr (*value_to_match, sd->key);
+    const char *p = strstr (*value_to_match, sd->key);
     is_match = p != NULL;
     if (p && replacement) {
-      gchar *a = g_strndup (*value_to_match, p - *value_to_match);
-      gchar *b = g_strdup (p + strlen(sd->key));
+      char *a = g_strndup (*value_to_match, p - *value_to_match);
+      char *b = g_strdup (p + strlen (sd->key));
+
       repl = g_strdup_printf ("%s%s%s", a, replacement, b);
-      g_free (a);
-      g_free (b);
+
+      g_clear_pointer (&a, g_free);
+      g_clear_pointer (&b, g_free);
     }
   } else {
     gchar *s1 = g_utf8_casefold (*value_to_match, -1);
@@ -90,14 +92,17 @@ _match_text_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement
     const gchar *p = strstr (s1, s2);
     is_match = p != NULL;
     if (p && replacement) {
-      gchar *a = g_strndup (*value_to_match, p - s1);
-      gchar *b = g_strdup (*value_to_match + strlen(a) + strlen(sd->key));
+      char *a = g_strndup (*value_to_match, p - s1);
+      char *b = g_strdup (*value_to_match + strlen(a) + strlen(sd->key));
+
       repl = g_strdup_printf ("%s%s%s", a, replacement, b);
-      g_free (a);
-      g_free (b);
+
+      g_clear_pointer (&a, g_free);
+      g_clear_pointer (&b, g_free);
     }
-    g_free (s1);
-    g_free (s2);
+
+    g_clear_pointer (&s1, g_free);
+    g_clear_pointer (&s2, g_free);
   }
 
   if (sd->flags & MATCH_WORD)
@@ -105,10 +110,10 @@ _match_text_prop (DiaObject *obj, const SearchData *sd, const gchar *replacement
 
   /* replace part */
   if (is_match && replacement) {
-    g_free (*value_to_match);
+    g_clear_pointer (&*value_to_match, g_free);
     *value_to_match = repl;
   } else {
-    g_free (repl);
+    g_clear_pointer (&repl, g_free);
   }
 
   return is_match;
@@ -157,8 +162,8 @@ _match_value (gpointer  key,
     gchar *s1 = g_utf8_casefold ((char *)value, -1);
     gchar *s2 = g_utf8_casefold (sd->key, -1);
     gboolean matched = strstr (s1, s2) != NULL;
-    g_free (s1);
-    g_free (s2);
+    g_clear_pointer (&s1, g_free);
+    g_clear_pointer (&s2, g_free);
     return matched;
   }
 }

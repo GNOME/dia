@@ -77,10 +77,10 @@ static PyObject *
 PyDiaProperties_Str(PyDiaProperties *self)
 {
   PyObject* py_s;
-  gchar* s = g_strdup_printf("<DiaProperties at %p of DiaObject at %p>",
+  char* s = g_strdup_printf ("<DiaProperties at %p of DiaObject at %p>",
                              self, self->object );
-  py_s = PyString_FromString(s);
-  g_free (s);
+  py_s = PyString_FromString (s);
+  g_clear_pointer (&s, g_free);
   return py_s;
 }
 
@@ -274,7 +274,7 @@ static PyMemberDef PyDiaProperties_Members[] = {
  * GetAttr
  */
 static PyObject*
-PyDiaProperties_GetAttr(PyDiaProperties *self, gchar *attr)
+PyDiaProperties_GetAttr(PyDiaProperties *self, char *attr)
 {
   return Py_FindMethod(PyDiaProperties_Methods, (PyObject *)self, attr);
 }

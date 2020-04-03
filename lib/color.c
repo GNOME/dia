@@ -95,7 +95,7 @@ dia_colour_copy (Color *self)
 void
 dia_colour_free (Color *self)
 {
-  g_free (self);
+  g_clear_pointer (&self, g_free);
 }
 
 

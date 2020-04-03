@@ -352,10 +352,11 @@ draw_object(DiaRenderer *self,
     GList *objs = group_objects (object);
 
     if (gm) {
-      gchar *s = dia_svg_from_matrix (gm, renderer->scale);
+      char *s = dia_svg_from_matrix (gm, renderer->scale);
       xmlSetProp(renderer->root, (const xmlChar *)"transform", (xmlChar *) s);
-      g_free (s);
+      g_clear_pointer (&s, g_free);
     }
+
     while (objs) {
       DiaObject *obj = (DiaObject *)objs->data;
 
@@ -366,9 +367,9 @@ draw_object(DiaRenderer *self,
     xmlAddChild (renderer->root, group);
   } else {
     if (matrix) {
-      gchar *s = dia_svg_from_matrix (matrix, renderer->scale);
+      char *s = dia_svg_from_matrix (matrix, renderer->scale);
       xmlSetProp(renderer->root, (const xmlChar *)"transform", (xmlChar *) s);
-      g_free (s);
+      g_clear_pointer (&s, g_free);
     }
 
     object->ops->draw(object, DIA_RENDERER (renderer));
@@ -438,7 +439,7 @@ node_set_text_style (xmlNodePtr      node,
 #if 0 /* would need a unit according to https://bugzilla.mozilla.org/show_bug.cgi?id=707071#c4 */
   tmp = g_strdup_printf("%s;font-size:%s", style,
 			dia_svg_dtostr(d_buf, font_size) );
-  g_free (style);
+  g_clear_pointer (&style, g_free);
   style = tmp;
 #else
   /* font-size as attribute can work like the other length w/o unit */
@@ -560,17 +561,18 @@ draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
   Point pos = text->position;
   int i;
   xmlNodePtr node_text, node_tspan;
-  gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  char d_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
   node_text = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text", NULL);
   /* text 'global' properties  */
   node_set_text_style(node_text, renderer, text->font, text->height, text->alignment, &text->color);
+
   if (angle != 0) {
-     gchar x_buf0[G_ASCII_DTOSTR_BUF_SIZE];
-     gchar y_buf0[G_ASCII_DTOSTR_BUF_SIZE];
-     gchar x_buf1[G_ASCII_DTOSTR_BUF_SIZE];
-     gchar y_buf1[G_ASCII_DTOSTR_BUF_SIZE];
-     gchar *trans;
+    char x_buf0[G_ASCII_DTOSTR_BUF_SIZE];
+    char y_buf0[G_ASCII_DTOSTR_BUF_SIZE];
+    char x_buf1[G_ASCII_DTOSTR_BUF_SIZE];
+    char y_buf1[G_ASCII_DTOSTR_BUF_SIZE];
+    char *trans;
      if (center)
        pos = *center;
      g_ascii_formatd (d_buf, sizeof(d_buf), "%g", angle);
@@ -581,7 +583,7 @@ draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
      trans = g_strdup_printf ("translate(%s,%s) rotate(%s) translate(%s,%s)",
 			      x_buf0, y_buf0, d_buf, x_buf1, y_buf1);
      xmlSetProp(node_text, (const xmlChar *)"transform", (xmlChar *) trans);
-     g_free (trans);
+     g_clear_pointer (&trans, g_free);
   } else {
     dia_svg_dtostr(d_buf, pos.x);
     xmlSetProp(node_text, (const xmlChar *)"x", (xmlChar *) d_buf);
@@ -634,30 +636,37 @@ draw_rotated_image (DiaRenderer *self,
     dia_svg_dtostr(x_buf1, -pos.x);
     dia_svg_dtostr(y_buf1, -pos.y);
     trans = g_strdup_printf ("translate(%s,%s) rotate(%s) translate(%s,%s)",
-			     x_buf0, y_buf0, d_buf, x_buf1, y_buf1);
-    xmlSetProp(node, (const xmlChar *)"transform", (xmlChar *) trans);
-    g_free (trans);
+                             x_buf0, y_buf0, d_buf, x_buf1, y_buf1);
+    xmlSetProp (node, (const xmlChar *)"transform", (xmlChar *) trans);
+    g_clear_pointer (&trans, g_free);
   }
 }
+
 
 /*!
  * \brief Callback function registered for export
  * \ingroup SvgExport
  */
 static gboolean
-export_svg(DiagramData *data, DiaContext *ctx,
-	   const gchar *filename, const gchar *diafilename,
-	   void* user_data)
+export_svg (DiagramData *data,
+            DiaContext  *ctx,
+            const char  *filename,
+            const char  *diafilename,
+            void        *user_data)
 {
   DiaSvgRenderer *renderer;
 
-  if ((renderer = new_svg_renderer(data, filename))) {
-    data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
-    g_object_unref(renderer);
+  if ((renderer = new_svg_renderer (data, filename))) {
+    data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
+
+    g_clear_object (&renderer);
+
     return TRUE;
   }
+
   return FALSE;
 }
+
 
 static const gchar *extensions[] = { "svg", NULL };
 DiaExportFilter svg_export_filter = {

@@ -126,7 +126,7 @@ diagram_data_init(DiagramData *data)
 
   first_layer = dia_layer_new (_("Background"), data);
 
-  data->layers = g_ptr_array_new ();
+  data->layers = g_ptr_array_new_with_free_func (g_object_unref);
   g_ptr_array_add (data->layers, first_layer);
   data->active_layer = first_layer;
 
@@ -150,13 +150,8 @@ diagram_data_finalize (GObject *object)
 {
   DiagramData *data = DIA_DIAGRAM_DATA (object);
 
-  guint i;
+  g_clear_pointer (&data->paper.name, g_free);
 
-  g_free (data->paper.name);
-
-  for (i=0;i<data->layers->len;i++) {
-    g_object_unref (g_ptr_array_index (data->layers, i));
-  }
   g_ptr_array_free (data->layers, TRUE);
   data->active_layer = NULL;
 
@@ -192,7 +187,7 @@ diagram_data_clone (DiagramData *data)
   clone->paper.name = g_strdup (data->paper.name);
   clone->is_compressed = data->is_compressed;
 
-  g_object_unref (g_ptr_array_index (clone->layers, 0));
+  g_ptr_array_remove_index (clone->layers, 0);
   g_ptr_array_remove (clone->layers, clone->active_layer);
 
   for (i=0; i < data->layers->len; ++i) {
@@ -510,15 +505,21 @@ data_highlight_add(DiagramData *data, DiaObject *obj, DiaHighlightType type)
   data->highlighted = g_list_prepend(data->highlighted, oh);
 }
 
+
 void
-data_highlight_remove(DiagramData *data, DiaObject *obj)
+data_highlight_remove (DiagramData *data, DiaObject *obj)
 {
   ObjectHighlight *oh;
-  if (!(oh = find_object_highlight (data->highlighted, obj)))
+
+  if (!(oh = find_object_highlight (data->highlighted, obj))) {
     return; /* should this be an error?`*/
-  data->highlighted = g_list_remove(data->highlighted, oh);
-  g_free(oh);
+  }
+
+  data->highlighted = g_list_remove (data->highlighted, oh);
+
+  g_clear_pointer (&oh, g_free);
 }
+
 
 DiaHighlightType
 data_object_get_highlight(DiagramData *data, DiaObject *obj)

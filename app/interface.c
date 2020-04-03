@@ -123,8 +123,8 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
             }
           }
 
-          g_free (pFrom);
-          g_free (sPath);
+          g_clear_pointer (&pFrom, g_free);
+          g_clear_pointer (&sPath, g_free);
 
           if (diagram != NULL) {
             diagram_update_extents(diagram);
@@ -252,7 +252,7 @@ zoom_activate_callback (GtkWidget *item, gpointer user_data)
     // Translators: Current zoom level
     zoomamount = g_strdup_printf (_("%f%%"), zoom_amount);
     gtk_entry_set_text (GTK_ENTRY (g_object_get_data (G_OBJECT (ddisp->zoom_status), "user_data")), zoomamount);
-    g_free (zoomamount);
+    g_clear_pointer (&zoomamount, g_free);
     magnify = (zoom_amount*DDISPLAY_NORMAL_ZOOM/100.0)/ddisp->zoom_factor;
     if (fabs (magnify - 1.0) > 0.000001) {
       ddisplay_zoom_middle (ddisp, magnify);
@@ -472,12 +472,7 @@ canvas_expose_event (GtkWidget      *widget,
       l = g_slist_next (l);
     }
     /* Free update_areas list: */
-    l = ddisp->update_areas;
-    while (l!=NULL) {
-      g_free (l->data);
-      l = g_slist_next (l);
-    }
-    g_slist_free (ddisp->update_areas);
+    g_slist_free_full (ddisp->update_areas, g_free);
     ddisp->update_areas = NULL;
 
     totrect.left -= 0.1;
@@ -684,7 +679,7 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   rcstyle = gtk_rc_style_new ();
   rcstyle->xthickness = rcstyle->ythickness = 0;
   gtk_widget_modify_style (close_button, rcstyle);
-  g_object_unref (rcstyle),
+  g_clear_object (&rcstyle);
 
   image = gtk_image_new_from_icon_name ("window-close-symbolic", GTK_ICON_SIZE_MENU);
 
@@ -1454,7 +1449,7 @@ parse_zoom (const char *zoom)
 
   res = g_ascii_strtod (num, NULL);
 
-  g_free (num);
+  g_clear_pointer (&num, g_free);
   g_match_info_free (match_info);
 
   return res * 10;

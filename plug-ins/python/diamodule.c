@@ -449,8 +449,8 @@ PyDia_RegisterCallback(PyObject *self, PyObject *args)
       *(strrchr (path, '/')) = '\0';
 #endif
     ret = _RegisterAction (action, desc, path, func);
-    g_free (path);
-    g_free (action);
+    g_clear_pointer (&path, g_free);
+    g_clear_pointer (&action, g_free);
 
     return ret;
 }

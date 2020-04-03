@@ -136,7 +136,7 @@ _test_creation (gconstpointer user_data)
 
   /* finally */
   o->ops->destroy (o);
-  g_free (o);
+  g_clear_pointer (&o, g_free);
 }
 
 static void
@@ -185,9 +185,9 @@ _test_copy (gconstpointer user_data)
 
   /* finally */
   o->ops->destroy (o);
-  g_free (o);
+  g_clear_pointer (&o, g_free);
   oc->ops->destroy (oc);
-  g_free (oc);
+  g_clear_pointer (&oc, g_free);
 }
 
 /* small helper to just throw it away */
@@ -197,7 +197,7 @@ _object_change_free(ObjectChange *change)
   if (change) { /* usually this is NULL for move */
     if (change->free) {
       change->free(change);
-      g_free(change);
+      g_clear_pointer (&change, g_free);
     }
   }
 }
@@ -290,7 +290,7 @@ _test_movement (gconstpointer user_data)
     }
   /* finally */
   o->ops->destroy (o);
-  g_free (o);
+  g_clear_pointer (&o, g_free);
 }
 
 static void
@@ -321,7 +321,7 @@ _test_change (gconstpointer user_data)
   }
   /* finally */
   o->ops->destroy (o);
-  g_free (o);
+  g_clear_pointer (&o, g_free);
 }
 static void
 _test_move_handle (gconstpointer user_data)
@@ -434,10 +434,10 @@ _test_move_handle (gconstpointer user_data)
     }
   /* finally */
   o->ops->destroy (o);
-  g_free (o);
+  g_clear_pointer (&o, g_free);
   if (o2) {
     o2->ops->destroy (o2);
-    g_free (o2);
+    g_clear_pointer (&o2, g_free);
   }
 }
 static void
@@ -589,7 +589,7 @@ _test_connectionpoint_consistency (gconstpointer user_data)
   }
   /* finally */
   o->ops->destroy (o);
-  g_free (o);
+  g_clear_pointer (&o, g_free);
 }
 static void
 _test_object_menu (gconstpointer user_data)
@@ -657,7 +657,7 @@ _test_object_menu (gconstpointer user_data)
   }
   /* finally */
   o->ops->destroy (o);
-  g_free (o);
+  g_clear_pointer (&o, g_free);
 }
 
 static void
@@ -789,7 +789,7 @@ _test_draw (gconstpointer user_data)
 	}
       /* destroy path object */
       p->ops->destroy (p);
-      g_free (p);
+      g_clear_pointer (&p, g_free);
     }
   else
     {
@@ -797,7 +797,7 @@ _test_draw (gconstpointer user_data)
     }
   /* finally */
   o->ops->destroy (o);
-  g_free (o);
+  g_clear_pointer (&o, g_free);
 }
 
 static void
@@ -842,7 +842,7 @@ _test_distance_from (gconstpointer user_data)
 
   /* finally */
   o->ops->destroy (o);
-  g_free (o);
+  g_clear_pointer (&o, g_free);
 }
 
 #include "lib/prop_geomtypes.h" /* BezPointarrayProperty */
@@ -997,7 +997,7 @@ _test_segments (gconstpointer user_data)
     prop->ops->free (prop);
   /* finally */
   o->ops->destroy (o);
-  g_free (o);
+  g_clear_pointer (&o, g_free);
 }
 /*
  * A dictionary interface to all registered object(-types)
@@ -1014,43 +1014,43 @@ _ot_item (gpointer key,
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Creation");
   g_test_add_data_func (testpath, type, _test_creation);
-  g_free (testpath);
+  g_clear_pointer (&testpath, g_free);
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Copy");
   g_test_add_data_func (testpath, type, _test_copy);
-  g_free (testpath);
+  g_clear_pointer (&testpath, g_free);
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Movement");
   g_test_add_data_func (testpath, type, _test_movement);
-  g_free (testpath);
+  g_clear_pointer (&testpath, g_free);
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Change");
   g_test_add_data_func (testpath, type, _test_change);
-  g_free (testpath);
+  g_clear_pointer (&testpath, g_free);
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "MoveHandle");
   g_test_add_data_func (testpath, type, _test_move_handle);
-  g_free (testpath);
+  g_clear_pointer (&testpath, g_free);
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "ConnectionPoints");
   g_test_add_data_func (testpath, type, _test_connectionpoint_consistency);
-  g_free (testpath);
+  g_clear_pointer (&testpath, g_free);
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "ObjectMenu");
   g_test_add_data_func (testpath, type, _test_object_menu);
-  g_free (testpath);
+  g_clear_pointer (&testpath, g_free);
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Draw");
   g_test_add_data_func (testpath, type, _test_draw);
-  g_free (testpath);
+  g_clear_pointer (&testpath, g_free);
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "DistanceFrom");
   g_test_add_data_func (testpath, type, _test_distance_from);
-  g_free (testpath);
+  g_clear_pointer (&testpath, g_free);
 
   testpath = g_strdup_printf ("%s/%s/%s", base, name, "Segments");
   g_test_add_data_func (testpath, type, _test_segments);
-  g_free (testpath);
+  g_clear_pointer (&testpath, g_free);
 
   ++num_objects;
 }

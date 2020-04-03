@@ -107,9 +107,11 @@ struct _VDXRenderer
 
 static void vdx_renderer_class_init (VDXRendererClass *klass);
 
-static gboolean export_vdx(DiagramData *data, DiaContext *ctx,
-			   const gchar *filename, const gchar *diafilename,
-			   void* user_data);
+static gboolean export_vdx (DiagramData *data,
+                            DiaContext  *ctx,
+                            const char  *filename,
+                            const char  *diafilename,
+                            void        *user_data);
 
 static int
 vdxCheckColor(VDXRenderer *renderer, Color *color);
@@ -696,7 +698,7 @@ static void draw_polyline(DiaRenderer *self, Point *points, int num_points,
     /* Free up list entries */
     g_slist_free(Geom.any.children);
     g_slist_free(Shape.any.children);
-    g_free(LineTo);
+    g_clear_pointer (&LineTo, g_free);
 }
 
 static void
@@ -811,14 +813,15 @@ _polygon (DiaRenderer *self,
 	Shape.any.children = g_slist_append(Shape.any.children, &Line);
     Shape.any.children = g_slist_append(Shape.any.children, &Geom);
 
-    /* Write out XML */
-    vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
+  /* Write out XML */
+  vdx_write_object (renderer->file, renderer->xml_depth, &Shape);
 
-    /* Free up list entries */
-    g_slist_free(Geom.any.children);
-    g_slist_free(Shape.any.children);
-    g_free(LineTo);
+  /* Free up list entries */
+  g_slist_free (Geom.any.children);
+  g_slist_free (Shape.any.children);
+  g_clear_pointer (&LineTo, g_free);
 }
+
 
 /** Render a Dia filled polygon
  * @param self a renderer
@@ -1464,25 +1467,25 @@ static void draw_image(DiaRenderer *self,
     Shape.any.children = g_slist_append(Shape.any.children, &ForeignData);
     ForeignData.any.children = g_slist_append(ForeignData.any.children, &text);
 
-    /* Write out XML */
-    vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
+  /* Write out XML */
+  vdx_write_object (renderer->file, renderer->xml_depth, &Shape);
 
-    /* Free up list entries */
-    g_slist_free(ForeignData.any.children);
-    g_slist_free(Shape.any.children);
+  /* Free up list entries */
+  g_slist_free (ForeignData.any.children);
+  g_slist_free (Shape.any.children);
 
-    /* And the Base64 data */
-    g_free(text.text);
+  /* And the Base64 data */
+  g_clear_pointer (&text.text, g_free);
 }
+
 
 /** Convert Dia colour to hex string
  * @param c a colour
  * @returns string in form #000000
  * @note static buffer overwritten with next call; not thread-safe
  */
-
 const char *
-vdx_string_color(const Color c)
+vdx_string_color (const Color c)
 {
     static char buf[8];
     sprintf(buf, "#%.2X%.2X%.2X",
@@ -1752,6 +1755,7 @@ write_trailer(DiagramData *data, VDXRenderer *renderer)
     fprintf(file, "</VisioDocument>\n");
 }
 
+
 /** Write VDX file
  * @param data diagram data
  * @param filename output file (should check suffix)
@@ -1759,11 +1763,12 @@ write_trailer(DiagramData *data, VDXRenderer *renderer)
  * @param user_data user data (unused)
  * @note Must know if 2002 or 2003 before start
  */
-
 static gboolean
-export_vdx(DiagramData *data, DiaContext *ctx,
-	   const gchar *filename, const gchar *diafilename,
-	   void* user_data)
+export_vdx (DiagramData *data,
+            DiaContext  *ctx,
+            const char  *filename,
+            const char  *diafilename,
+            void        *user_data)
 {
     FILE *file;
     VDXRenderer *renderer;
@@ -1822,26 +1827,28 @@ export_vdx(DiagramData *data, DiaContext *ctx,
 
     dia_renderer_end_render (DIA_RENDERER (renderer));
 
-    /* Done */
+  /* Done */
 
-    write_trailer(data, renderer);
+  write_trailer (data, renderer);
 
-    g_object_unref(renderer);
+  g_clear_object (&renderer);
 
-    /* dont screw Dia's global state */
-    setlocale(LC_NUMERIC, old_locale);
+  /* dont screw Dia's global state */
+  setlocale (LC_NUMERIC, old_locale);
 
-    if (fclose(file) != 0) {
-	dia_context_add_message_with_errno (ctx, errno, _("Saving file '%s' failed."),
-					    dia_context_get_filename(ctx));
-	return FALSE;
-    }
-    return TRUE;
+  if (fclose (file) != 0) {
+    dia_context_add_message_with_errno (ctx, errno,
+                                        _("Saving file '%s' failed."),
+                                        dia_context_get_filename (ctx));
+    return FALSE;
+  }
+
+  return TRUE;
 }
 
 /* interface from filter.h */
 
-static const gchar *extensions[] = { "vdx", NULL };
+static const char *extensions[] = { "vdx", NULL };
 DiaExportFilter vdx_export_filter = {
   N_("Visio XML format"),
   extensions,

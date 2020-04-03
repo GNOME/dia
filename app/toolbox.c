@@ -315,22 +315,26 @@ fill_sheet_wbox(Sheet *sheet)
 
       pixbuf = gdk_pixbuf_new_from_file(sheet_obj->pixmap_file, &gerror);
       if (pixbuf != NULL) {
-          int width = gdk_pixbuf_get_width (pixbuf);
-          int height = gdk_pixbuf_get_height (pixbuf);
-          if (width > 22 && prefs.fixed_icon_size) {
-	    GdkPixbuf *cropped;
-	    g_warning ("Shape icon '%s' size wrong, cropped.", sheet_obj->pixmap_file);
-	    cropped = gdk_pixbuf_new_subpixbuf (pixbuf,
-	                                       (width - 22) / 2, height > 22 ? (height - 22) / 2 : 0,
-					       22, height > 22 ? 22 : height);
-	    g_object_unref (pixbuf);
-	    pixbuf = cropped;
-	  }
+        int width = gdk_pixbuf_get_width (pixbuf);
+        int height = gdk_pixbuf_get_height (pixbuf);
+        if (width > 22 && prefs.fixed_icon_size) {
+          GdkPixbuf *cropped;
+          g_warning ("Shape icon '%s' size wrong, cropped.",
+                     sheet_obj->pixmap_file);
+          cropped = gdk_pixbuf_new_subpixbuf (pixbuf,
+                                              (width - 22) / 2,
+                                              height > 22 ? (height - 22) / 2 : 0,
+                                              22,
+                                              height > 22 ? 22 : height);
+          g_clear_object (&pixbuf);
+          pixbuf = cropped;
+        }
       } else {
-          pixbuf = gdk_pixbuf_new_from_xpm_data (missing);
+        pixbuf = gdk_pixbuf_new_from_xpm_data (missing);
 
-          message_warning("failed to load icon for file\n %s\n cause=%s",
-                          sheet_obj->pixmap_file,gerror?gerror->message:"[NULL]");
+        message_warning ("failed to load icon for file\n %s\n cause=%s",
+                         sheet_obj->pixmap_file,
+                         gerror ? gerror->message : "[NULL]");
       }
     } else {
       DiaObjectType *type;
@@ -370,10 +374,10 @@ fill_sheet_wbox(Sheet *sheet)
     g_signal_connect (G_OBJECT (button), "button_press_event",
 		      G_CALLBACK (tool_button_press), data);
 
-    tool_setup_drag_source(button, data, pixbuf);
-    g_object_unref(pixbuf);
+    tool_setup_drag_source (button, data, pixbuf);
+    g_clear_object (&pixbuf);
 
-    gtk_widget_set_tooltip_text (button, gettext(sheet_obj->description));
+    gtk_widget_set_tooltip_text (button, gettext (sheet_obj->description));
   }
   /* If the selection is in the old sheet, steal it */
   if (active_tool != NULL &&
@@ -424,7 +428,7 @@ set_sheet (GtkTreeModel *model,
     gtk_combo_box_set_active_iter (GTK_COMBO_BOX (sheet_menu.combo), iter);
   }
 
-  g_free (sheet);
+  g_clear_pointer (&sheet, g_free);
 
   return res;
 }
@@ -513,7 +517,7 @@ sheet_changed (GtkComboBox *widget, gpointer user_data)
         fill_sheet_wbox (sheet);
       }
 
-      g_free (name);
+      g_clear_pointer (&name, g_free);
       break;
     case SPECIAL_RESET:
       persistent_list_clear (SHEET_PERSIST_NAME);
@@ -707,14 +711,18 @@ create_sheet_dropdown_menu(GtkWidget *parent)
   gtk_widget_show (sheet_menu.combo);
 }
 
+
 void
-fill_sheet_menu(void)
+fill_sheet_menu (void)
 {
-  gchar *selection = get_current_sheet ();
+  char *selection = get_current_sheet ();
+
   create_sheet_dropdown_menu (gtk_widget_get_parent (sheet_menu.combo));
   set_current_sheet (selection);
-  g_free(selection);
+
+  g_clear_pointer (&selection, g_free);
 }
+
 
 static void
 create_sheets(GtkWidget *parent)
@@ -756,7 +764,7 @@ create_sheets(GtkWidget *parent)
     fill_sheet_wbox(sheet);
     set_current_sheet (sheetname);
   }
-  g_free(sheetname);
+  g_clear_pointer (&sheetname, g_free);
 }
 
 static void
@@ -841,7 +849,7 @@ create_lineprops_area(GtkWidget *parent)
   arrow.length = persistence_register_real("start-arrow-length", DEFAULT_ARROW_LENGTH);
   arrow_name = persistence_register_string("start-arrow-type", "None");
   arrow.type = arrow_type_from_name(arrow_name);
-  g_free(arrow_name);
+  g_clear_pointer (&arrow_name, g_free);
   dia_arrow_chooser_set_arrow(DIA_ARROW_CHOOSER(chooser), &arrow);
   attributes_set_default_start_arrow(arrow);
   gtk_widget_set_tooltip_text(chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details…"));
@@ -860,7 +868,7 @@ create_lineprops_area(GtkWidget *parent)
   arrow.length = persistence_register_real("end-arrow-length", DEFAULT_ARROW_LENGTH);
   arrow_name = persistence_register_string("end-arrow-type", "Filled Concave");
   arrow.type = arrow_type_from_name(arrow_name);
-  g_free(arrow_name);
+  g_clear_pointer (&arrow_name, g_free);
   dia_arrow_chooser_set_arrow(DIA_ARROW_CHOOSER(chooser), &arrow);
   attributes_set_default_end_arrow(arrow);
 
@@ -904,7 +912,7 @@ tool_get_pixbuf (ToolButton *tb)
   } else {
     path = g_strdup_printf ("/org/gnome/Dia/icons/%s.png", tb->icon_name);
     pixbuf = pixbuf_from_resource (path);
-    g_free (path);
+    g_clear_pointer (&path, g_free);
   }
 
   return pixbuf;
@@ -951,27 +959,29 @@ create_tools(GtkWidget *parent)
     if (tool_data[i].callback_data.type == CREATE_OBJECT_TOOL)
       tool_setup_drag_source(button, &tool_data[i].callback_data, pixbuf);
 
-    if (pixbuf)
-      g_object_unref(pixbuf);
+    g_clear_object (&pixbuf);
 
     tool_data[i].callback_data.widget = button;
 
     if (tool_data[i].tool_accelerator) {
-	guint key;
-	GdkModifierType mods;
-	gchar *alabel, *atip;
+      guint key;
+      GdkModifierType mods;
+      char *alabel, *atip;
 
-	gtk_accelerator_parse (tool_data[i].tool_accelerator, &key, &mods);
+      gtk_accelerator_parse (tool_data[i].tool_accelerator, &key, &mods);
 
-	alabel = gtk_accelerator_get_label(key, mods);
-	atip = g_strconcat(gettext(tool_data[i].tool_desc), " (", alabel, ")", NULL);
-	gtk_widget_set_tooltip_text (button, atip);
-	g_free (atip);
-	g_free (alabel);
+      alabel = gtk_accelerator_get_label (key, mods);
+      atip = g_strconcat (gettext (tool_data[i].tool_desc),
+                          " (",
+                          alabel,
+                          ")",
+                          NULL);
+      gtk_widget_set_tooltip_text (button, atip);
 
+      g_clear_pointer (&atip, g_free);
+      g_clear_pointer (&alabel, g_free);
     } else {
-	gtk_widget_set_tooltip_text (button,
-				gettext(tool_data[i].tool_desc));
+      gtk_widget_set_tooltip_text (button, gettext (tool_data[i].tool_desc));
     }
 
     gtk_widget_show (image);

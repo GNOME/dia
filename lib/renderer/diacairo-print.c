@@ -179,16 +179,18 @@ draw_page (GtkPrintOperation *operation,
   cairo_restore (cairo_renderer->cr);
 }
 
+
 static void
 end_print (GtkPrintOperation *operation,
            GtkPrintContext   *context,
            PrintData         *print_data)
 {
-  g_object_unref (print_data->data);
-  g_object_unref (print_data->renderer);
+  g_clear_object (&print_data->data);
+  g_clear_object (&print_data->renderer);
 
-  g_free (print_data);
+  g_clear_pointer (&print_data, g_free);
 }
+
 
 GtkPrintOperation *
 create_print_operation (DiagramData *data, const char *name)
@@ -212,7 +214,7 @@ create_print_operation (DiagramData *data, const char *name)
     setup = gtk_page_setup_new ();
   _dia_to_gtk_page_setup (print_data->data, setup);
   gtk_print_operation_set_default_page_setup (operation, setup);
-  g_object_unref (setup);
+  g_clear_object (&setup);
 
   /* similar logic draw_page() but we need to set the total pages in advance */
   if (data->paper.fitto) {
@@ -233,20 +235,26 @@ create_print_operation (DiagramData *data, const char *name)
   return operation;
 }
 
+
 ObjectChange *
 cairo_print_callback (DiagramData *data,
-                      const gchar *filename,
-                      guint flags, /* further additions */
-                      void *user_data)
+                      const char  *filename,
+                      guint        flags, /* further additions */
+                      void        *user_data)
 {
   GtkPrintOperation *op = create_print_operation (data, filename ? filename : "diagram");
   GtkPrintOperationResult res;
   GError *error = NULL;
 
-  res = gtk_print_operation_run (op, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG, NULL, &error);
+  res = gtk_print_operation_run (op,
+                                 GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
+                                 NULL,
+                                 &error);
+
   if (GTK_PRINT_OPERATION_RESULT_ERROR == res) {
     message_error ("%s", error->message);
-    g_error_free (error);
+    g_clear_error (&error);
   }
+
   return NULL;
 }

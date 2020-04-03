@@ -74,12 +74,8 @@ object_destroy (DiaObject *obj)
 {
   object_unconnect_all (obj);
 
-  if (obj->handles)
-    g_free (obj->handles);
-  obj->handles = NULL;
-  if (obj->connections)
-    g_free (obj->connections);
-  obj->connections = NULL;
+  g_clear_pointer (&obj->handles, g_free);
+  g_clear_pointer (&obj->connections, g_free);
   if (obj->meta)
     g_hash_table_destroy (obj->meta);
   obj->meta = NULL;
@@ -116,16 +112,16 @@ object_copy (DiaObject *from, DiaObject *to)
   to->bounding_box = from->bounding_box;
 
   to->num_handles = from->num_handles;
-  if (to->handles != NULL) g_free (to->handles);
+  g_clear_pointer (&to->handles, g_free);
   if (to->num_handles > 0)
-    to->handles = g_malloc (sizeof (Handle *)*to->num_handles);
+    to->handles = g_new0 (Handle *, to->num_handles);
   else
     to->handles = NULL;
 
   to->num_connections = from->num_connections;
-  if (to->connections != NULL) g_free (to->connections);
+  g_clear_pointer (&to->connections, g_free);
   if (to->num_connections > 0)
-    to->connections = g_malloc0 (sizeof (ConnectionPoint *) * to->num_connections);
+    to->connections = g_new0 (ConnectionPoint *, to->num_connections);
   else
     to->connections = NULL;
 
@@ -519,8 +515,8 @@ _object_exchange_free (ObjectChange *change)
   DiaObject *obj = c->applied ? c->orig : c->subst;
 
   if (obj) {
-    obj->ops->destroy(obj);
-    g_free(obj);
+    obj->ops->destroy (obj);
+    g_clear_pointer (&obj, g_free);
   }
 }
 
@@ -571,10 +567,10 @@ destroy_object_list (GList *list_to_be_destroyed)
   while (list != NULL) {
     obj = (DiaObject *)list->data;
 
-    obj->ops->destroy(obj);
-    g_free(obj);
+    obj->ops->destroy (obj);
+    g_clear_pointer (&obj, g_free);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 
   g_list_free(list_to_be_destroyed);
@@ -1322,7 +1318,7 @@ dia_object_type_get_icon (const DiaObjectType *type)
     pixbuf = gdk_pixbuf_new_from_file (type->pixmap_file, &error);
     if (error) {
       g_warning ("%s", error->message);
-      g_error_free (error);
+      g_clear_error (&error);
     }
   } else {
     const char **pixmap_data = icon_data;

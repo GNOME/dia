@@ -356,7 +356,7 @@ implements_destroy (Implements *implements)
 {
   connection_destroy (&implements->connection);
   g_clear_object (&implements->font);
-  g_free (implements->text);
+  g_clear_pointer (&implements->text, g_free);
 }
 
 static void

@@ -476,15 +476,17 @@ relationship_create(Point *startpoint,
   return &relationship->element.object;
 }
 
+
 static void
 relationship_destroy (Relationship *relationship)
 {
   g_clear_object (&relationship->font);
   element_destroy (&relationship->element);
-  g_free (relationship->name);
-  g_free (relationship->left_cardinality);
-  g_free (relationship->right_cardinality);
+  g_clear_pointer (&relationship->name, g_free);
+  g_clear_pointer (&relationship->left_cardinality, g_free);
+  g_clear_pointer (&relationship->right_cardinality, g_free);
 }
+
 
 static DiaObject *
 relationship_copy(Relationship *relationship)

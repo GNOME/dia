@@ -332,10 +332,10 @@ compute_line(Point* p1, Point* p2, Point *pm, BezPoint* line) {
 }
 
 
-static gchar *
+static char *
 compute_text (Mbr *mbr)
 {
-  gchar* annot;
+  char *annot;
   switch (mbr->type) {
     case MBR_RESP:
       annot = g_strdup ("Resp");
@@ -369,6 +369,7 @@ compute_text (Mbr *mbr)
   return annot;
 }
 
+
 /* drawing here -- TBD inverse flow ??  */
 static void
 mbr_draw (Mbr *mbr, DiaRenderer *renderer)
@@ -377,7 +378,7 @@ mbr_draw (Mbr *mbr, DiaRenderer *renderer)
   Point p1,p2,pm1,pm2;
   Point pa1,pa2;
   Arrow arrow;
-  gchar *annot;
+  char *annot;
   double k,dx,dy,dxn,dyn,dxp,dyp;
 
   /* some asserts */
@@ -464,7 +465,7 @@ mbr_draw (Mbr *mbr, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer,annot,&mbr->pm,ALIGN_CENTER,&MBR_FG_COLOR);
   }
 
-  g_free (annot);
+  g_clear_pointer (&annot, g_free);
 }
 
 /* creation here */
@@ -552,7 +553,7 @@ mbr_update_data(Mbr *mbr)
   DiaRectangle rect;
   Point p1,p2;
   Point p3,p4;
-  gchar *text;
+  char *text;
 
 /* Too complex to easily decide -- this is essentially a bezier curve */
 /*
@@ -598,7 +599,7 @@ mbr_update_data(Mbr *mbr)
   rect.bottom = rect.top + MBR_DECFONTHEIGHT;
   rectangle_union(&obj->bounding_box, &rect);
 
-  g_free(text);   /* free auxilliary text */
+  g_clear_pointer (&text, g_free);   /* free auxilliary text */
 }
 
 static DiaObject *

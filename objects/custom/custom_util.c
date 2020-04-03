@@ -23,18 +23,21 @@
 
 #include "custom_util.h"
 
-gchar *
-custom_get_relative_filename(const gchar *current, const gchar *relative)
+
+char *
+custom_get_relative_filename (const char *current, const gchar *relative)
 {
-  gchar *dirname, *tmp;
+  char *dirname, *tmp;
 
   g_return_val_if_fail(current != NULL, NULL);
   g_return_val_if_fail(relative != NULL, NULL);
 
-  if (g_path_is_absolute(relative))
-    return g_strdup(relative);
-  dirname = g_path_get_dirname(current);
-  tmp = g_build_filename(dirname, relative, NULL);
-  g_free(dirname);
+  if (g_path_is_absolute (relative)) {
+    return g_strdup (relative);
+  }
+
+  dirname = g_path_get_dirname (current);
+  tmp = g_build_filename (dirname, relative, NULL);
+  g_clear_pointer (&dirname, g_free);
   return tmp;
 }

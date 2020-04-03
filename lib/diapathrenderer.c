@@ -842,7 +842,7 @@ create_standard_path_from_object (DiaObject *obj)
       path = group_create (list);
     }
   }
-  g_object_unref (renderer);
+  g_clear_object (&renderer);
 
   return path;
 }

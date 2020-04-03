@@ -132,37 +132,17 @@ uml_operation_copy_into (UMLOperation *srcop, UMLOperation *destop)
 
   destop->internal_id = srcop->internal_id;
 
-  if (destop->name != NULL) {
-    g_free (destop->name);
-  }
+  g_clear_pointer (&destop->name, g_free);
   destop->name = g_strdup (srcop->name);
 
-  if (destop->type != NULL) {
-    g_free (destop->type);
-  }
-  if (srcop->type != NULL) {
-    destop->type = g_strdup (srcop->type);
-  } else {
-    destop->type = NULL;
-  }
+  g_clear_pointer (&destop->type, g_free);
+  destop->type = g_strdup (srcop->type);
 
-  if (destop->stereotype != NULL) {
-    g_free (destop->stereotype);
-  }
-  if(srcop->stereotype != NULL) {
-    destop->stereotype = g_strdup (srcop->stereotype);
-  } else {
-    destop->stereotype = NULL;
-  }
+  g_clear_pointer (&destop->stereotype, g_free);
+  destop->stereotype = g_strdup (srcop->stereotype);
 
-  if (destop->comment != NULL) {
-    g_free (destop->comment);
-  }
-  if (srcop->comment != NULL) {
-    destop->comment = g_strdup (srcop->comment);
-  } else {
-    destop->comment = NULL;
-  }
+  g_clear_pointer (&destop->comment, g_free);
+  destop->comment = g_strdup (srcop->comment);
 
   destop->visibility = srcop->visibility;
   destop->class_scope = srcop->class_scope;
@@ -219,13 +199,10 @@ uml_operation_ref (UMLOperation *self)
 static void
 operation_free (UMLOperation *op)
 {
-  g_free (op->name);
-  if (op->type != NULL)
-    g_free (op->type);
-  if (op->stereotype != NULL)
-    g_free (op->stereotype);
-
-  g_free (op->comment);
+  g_clear_pointer (&op->name, g_free);
+  g_clear_pointer (&op->type, g_free);
+  g_clear_pointer (&op->stereotype, g_free);
+  g_clear_pointer (&op->comment, g_free);
 
   g_list_free_full (op->parameters, (GDestroyNotify) uml_parameter_unref);
 
@@ -235,8 +212,8 @@ operation_free (UMLOperation *op)
 
 #if 0 /* freed elsewhere */
   /* These are merely temporary reminders, don't need to unconnect */
-  g_free(op->left_connection);
-  g_free(op->right_connection);
+  g_clear_pointer (&op->left_connection, g_free);
+  g_clear_pointer (&op->right_connection, g_free);
 #endif
 }
 

@@ -91,8 +91,8 @@ uml_formal_parameter_ref (UMLFormalParameter *param)
 static void
 formal_parameter_destroy (UMLFormalParameter *param)
 {
-  g_free (param->name);
-  g_free (param->type);
+  g_clear_pointer (&param->name, g_free);
+  g_clear_pointer (&param->type, g_free);
 }
 
 

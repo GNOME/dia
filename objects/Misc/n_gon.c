@@ -339,7 +339,7 @@ _ngon_make_name (Ngon *ng)
   const char *name = NULL;
   int i = 0;
 
-  g_free (ng->name);
+  g_clear_pointer (&ng->name, g_free);
   for (i = 0; i < G_N_ELEMENTS(_keys); ++i) {
     if (_keys[i].v == ng->num_rays) {
       if (ng->kind == NGON_CONVEX)
@@ -489,15 +489,18 @@ _ngon_update_data (Ngon *ng)
   element_update_handles(elem);
 
 }
+
+
 static void
 _ngon_destroy(Ngon *ng)
 {
   g_array_free (ng->points, TRUE);
-  if (ng->pattern)
-    g_object_unref (ng->pattern);
-  g_free (ng->name);
+  g_clear_object (&ng->pattern);
+  g_clear_pointer (&ng->name, g_free);
   element_destroy(&ng->element);
 }
+
+
 static DiaObject *
 _ngon_copy(Ngon *from)
 {

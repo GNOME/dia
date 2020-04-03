@@ -5,7 +5,7 @@
 #include <gtk/gtk.h> /* just for version */
 
 #ifdef G_OS_WIN32
-#define Rectangle Win32Rectangle 
+#define Rectangle Win32Rectangle
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h> /* native file api */
 #undef Rectangle
@@ -43,7 +43,7 @@ WinMain (struct HINSTANCE__ *hInstance,
     setProcessDPIAware ();
 
   dia_redirect_console ();
-  
+
   app_init (__argc, __argv);
 
   if (!app_is_interactive())
@@ -52,7 +52,7 @@ WinMain (struct HINSTANCE__ *hInstance,
   toolbox_show();
 
   app_splash_done();
-  
+
   gtk_main ();
 
   return 0;
@@ -100,7 +100,7 @@ dia_log_func (const gchar    *log_domain,
 void
 dia_print_func (const char* string)
 {
-  
+
 }
 
 void
@@ -131,13 +131,13 @@ dia_redirect_console (void)
     /* overwrite at startup */
     redirected = g_build_filename (g_get_tmp_dir (), logname, NULL);
     /* not using standard c runtime functions to
-     * deal with possibly multiple instances 
-     */    
+     * deal with possibly multiple instances
+     */
     file = CreateFile (redirected, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_FLAG_WRITE_THROUGH, 0);
     if (file == INVALID_HANDLE_VALUE)
       {
         i++;
-        g_free (redirected);
+        g_clear_pointer (&redirected, g_free);
         logname[3] = '0' + i;
       }
   } while (file == INVALID_HANDLE_VALUE && i < MAX_TRIES);
@@ -164,9 +164,9 @@ dia_redirect_console (void)
         {
           char* emsg = g_win32_error_message (GetLastError ());
           g_printerr ("Logfile %s writing failed: %s", redirected, emsg);
-          g_free (emsg);
+          g_clear_pointer (&emsg, g_free);
         }
-      g_free (log);
+      g_clear_pointer (&log, g_free);
     }
 }
 

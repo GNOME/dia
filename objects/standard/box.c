@@ -517,13 +517,14 @@ box_create(Point *startpoint,
   return &box->element.object;
 }
 
+
 static void
 box_destroy(Box *box)
 {
-  if (box->pattern)
-    g_object_unref (box->pattern);
-  element_destroy(&box->element);
+  g_clear_object (&box->pattern);
+  element_destroy (&box->element);
 }
+
 
 static DiaObject *
 box_copy(Box *box)

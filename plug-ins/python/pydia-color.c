@@ -24,28 +24,32 @@
 
 #include <structmember.h> /* PyMemberDef */
 
+
 /*
  * New
  */
-PyObject* PyDiaColor_New (Color* color)
+PyObject *
+PyDiaColor_New (Color* color)
 {
   PyDiaColor *self;
-  
-  self = PyObject_NEW(PyDiaColor, &PyDiaColor_Type);
+
+  self = PyObject_NEW (PyDiaColor, &PyDiaColor_Type);
+
   if (!self) return NULL;
-  
+
   self->color = *color;
 
-  return (PyObject *)self;
+  return (PyObject *) self;
 }
+
 
 /*
  * Dealloc
  */
 static void
-PyDiaColor_Dealloc(PyObject *self)
+PyDiaColor_Dealloc (PyObject *self)
 {
-  PyObject_DEL(self);
+  PyObject_DEL (self);
 }
 
 /*
@@ -67,22 +71,24 @@ PyDiaColor_Hash(PyObject *self)
   return (long)self;
 }
 
+
 /*
  * Repr / _Str
  */
 static PyObject *
-PyDiaColor_Str(PyDiaColor *self)
+PyDiaColor_Str (PyDiaColor *self)
 {
   PyObject* py_s;
-  gchar* s = g_strdup_printf("(%f,%f,%f,%f)",
-                             (float)(self->color.red),
-                             (float)(self->color.green),
-                             (float)(self->color.blue),
-                             (float)(self->color.alpha));
-  py_s = PyString_FromString(s);
-  g_free (s);
+  gchar* s = g_strdup_printf ("(%f,%f,%f,%f)",
+                              (float) (self->color.red),
+                              (float) (self->color.green),
+                              (float) (self->color.blue),
+                              (float) (self->color.alpha));
+  py_s = PyString_FromString (s);
+  g_clear_pointer (&s, g_free);
   return py_s;
 }
+
 
 static PyMemberDef PyDiaColor_Members[] = {
     { "red", T_FLOAT, offsetof(PyDiaColor, color.red), 0,

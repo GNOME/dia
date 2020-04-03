@@ -370,14 +370,18 @@ _render_object (xmlNodePtr render, DiaContext *ctx)
       } else if (node->type == XML_ELEMENT_NODE) {
         g_warning ("%s not handled", node->name);
       }
-      g_free (fill);
-      g_free (stroke);
+      g_clear_pointer (&fill, g_free);
+      g_clear_pointer (&stroke, g_free);
     }
   }
+
   o = dia_import_renderer_get_objects (ir);
-  g_object_unref (ir);
+
+  g_clear_object (&ir);
+
   return o;
 }
+
 
 static xmlNodePtr
 find_child_named (xmlNodePtr node, const char *name)

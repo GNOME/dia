@@ -434,7 +434,7 @@ _convert_to_bezierline_callback (DiaObject *obj, Point *clicked, gpointer data)
     }
   }
   bezier = create_standard_bezierline(num_points, bp, &zigzagline->end_arrow, &zigzagline->start_arrow);
-  g_free(bp);
+  g_clear_pointer (&bp, g_free);
 
   return object_substitute (obj, bezier);
 }

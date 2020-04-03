@@ -488,7 +488,7 @@ transition_destroy (Transition *transition)
 {
   g_clear_object (&transition->rcep_font);
   boolequation_destroy (transition->receptivity);
-  g_free (transition->rcep_value);
+  g_clear_pointer (&transition->rcep_value, g_free);
   element_destroy (&transition->element);
 }
 

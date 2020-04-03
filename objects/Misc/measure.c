@@ -226,7 +226,7 @@ measure_update_data (Measure *measure)
   extra->start_long  =
   extra->end_long    = (measure->line_width / 2.0);
 
-  g_free (measure->name);
+  g_clear_pointer (&measure->name, g_free);
   value = distance_point_point (&ends[0], &ends[1]);
   value *= measure->scale;
   value *= (28.346457 / units[measure->unit].factor);

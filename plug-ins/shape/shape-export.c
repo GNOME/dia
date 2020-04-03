@@ -176,23 +176,23 @@ new_shape_renderer(DiagramData *data, const char *filename)
   sheetname = g_path_get_basename(dirname);
   basename = g_path_get_basename(filename);
   shapename = g_strndup(basename, strlen(basename)-6);
-  g_free(basename);
+  g_clear_pointer (&basename, g_free);
   fullname = g_strdup_printf ("%s - %s", sheetname, shapename);
-  g_free(dirname);
-  g_free(sheetname);
-  g_free(shapename);
+  g_clear_pointer (&dirname, g_free);
+  g_clear_pointer (&sheetname, g_free);
+  g_clear_pointer (&shapename, g_free);
 
   xmlNewChild(renderer->root, NULL, (const xmlChar *)"name", (xmlChar *) fullname);
-  g_free(fullname);
+  g_clear_pointer (&fullname, g_free);
   point = strrchr(filename, '.');
   i = (int)(point-filename);
   point = g_strndup(filename, i);
   png_filename = g_strdup_printf("%s.png",point);
-  g_free(point);
+  g_clear_pointer (&point, g_free);
   basename = g_path_get_basename(png_filename);
   xmlNewChild(renderer->root, NULL, (const xmlChar *)"icon", (xmlChar *) basename);
-  g_free(basename);
-  g_free(png_filename);
+  g_clear_pointer (&basename, g_free);
+  g_clear_pointer (&png_filename, g_free);
   shape_renderer->connection_root = xmlNewChild(renderer->root, NULL, (const xmlChar *)"connections", NULL);
   shape_renderer->design_connection = FALSE;
   xml_node_ptr = xmlNewChild(renderer->root, NULL, (const xmlChar *)"aspectratio",NULL);
@@ -303,12 +303,12 @@ end_render(DiaRenderer *self)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
 
-  g_free(renderer->linestyle);
+  g_clear_pointer (&renderer->linestyle, g_free);
   renderer->linestyle = NULL;
 
   xmlSetDocCompressMode(renderer->doc, 0);
   xmlDiaSaveFile(renderer->filename, renderer->doc);
-  g_free(renderer->filename);
+  g_clear_pointer (&renderer->filename, g_free);
   renderer->filename = NULL;
   xmlFreeDoc(renderer->doc);
 }
@@ -625,26 +625,32 @@ export_shape(DiagramData *data, DiaContext *ctx,
     i = (int)(point-filename);
     point = g_strndup(filename, i);
     png_filename = g_strdup_printf("%s.png",point);
-    g_free(point);
+    g_clear_pointer (&point, g_free);
     exportfilter = filter_guess_export_filter(png_filename);
 
     if (!exportfilter) {
-      dia_context_add_message(ctx, _("Can't export PNG icon without export plugin!"));
+      dia_context_add_message (ctx, _("Can't export PNG icon without export plugin!"));
     } else {
       /* get the scaling right */
       old_scaling = data->paper.scaling;
-      scaling_x = 22/((ext->right - ext->left) * 20);
-      scaling_y = 22/((ext->bottom - ext->top) * 20);
-      data->paper.scaling = MIN(scaling_x, scaling_y);
-      exportfilter->export_func(data, ctx, png_filename, diafilename, exportfilter->user_data);
+      scaling_x = 22 / ((ext->right - ext->left) * 20);
+      scaling_y = 22 / ((ext->bottom - ext->top) * 20);
+      data->paper.scaling = MIN (scaling_x, scaling_y);
+      exportfilter->export_func (data,
+                                 ctx,
+                                 png_filename,
+                                 diafilename,
+                                 exportfilter->user_data);
       data->paper.scaling = old_scaling;
     }
-    g_free(png_filename);
+    g_clear_pointer (&png_filename, g_free);
 
     /* create the shape */
-    if((renderer = new_shape_renderer(data, filename))) {
-      data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
-      g_object_unref (renderer);
+    if((renderer = new_shape_renderer (data, filename))) {
+      data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
+
+      g_clear_object (&renderer);
+
       return TRUE;
     }
 
@@ -652,6 +658,7 @@ export_shape(DiagramData *data, DiaContext *ctx,
 
     return FALSE;
 }
+
 
 static const gchar *extensions[] = { "shape", NULL };
 DiaExportFilter shape_export_filter = {

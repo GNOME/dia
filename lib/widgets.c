@@ -296,8 +296,8 @@ struct _DiaFileSelector
   GtkEntry *entry;
   GtkButton *browse;
   GtkWidget *dialog;
-  gchar *sys_filename;
-  gchar *pattern; /* for supported formats */
+  char *sys_filename;
+  char *pattern; /* for supported formats */
 };
 
 struct _DiaFileSelectorClass
@@ -321,14 +321,8 @@ dia_file_selector_unrealize(GtkWidget *widget)
     gtk_widget_destroy(GTK_WIDGET(fs->dialog));
     fs->dialog = NULL;
   }
-  if (fs->sys_filename) {
-    g_free(fs->sys_filename);
-    fs->sys_filename = NULL;
-  }
-  if (fs->pattern) {
-    g_free (fs->pattern);
-    fs->pattern = NULL;
-  }
+  g_clear_pointer (&fs->sys_filename, g_free);
+  g_clear_pointer (&fs->pattern, g_free);
 
   (* GTK_WIDGET_CLASS (g_type_class_peek_parent (G_OBJECT_GET_CLASS (fs)))->unrealize) (widget);
 }
@@ -358,6 +352,7 @@ dia_file_selector_entry_changed(GtkEditable *editable
   g_signal_emit(fs, dfile_signals[DFILE_VALUE_CHANGED], 0);
 }
 
+
 static void
 file_open_response_callback(GtkWidget *dialog,
                             gint       response,
@@ -367,20 +362,22 @@ file_open_response_callback(GtkWidget *dialog,
     DIAFILESELECTOR(g_object_get_data(G_OBJECT(dialog), "user_data"));
 
   if (response == GTK_RESPONSE_ACCEPT || response == GTK_RESPONSE_OK) {
-    gchar *utf8 = g_filename_to_utf8(gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog)),
+    char *utf8 = g_filename_to_utf8 (gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog)),
                             -1, NULL, NULL, NULL);
-    gtk_entry_set_text(GTK_ENTRY(fs->entry), utf8);
-    g_free(utf8);
+    gtk_entry_set_text (GTK_ENTRY (fs->entry), utf8);
+    g_clear_pointer (&utf8, g_free);
   }
-  gtk_widget_destroy(GTK_WIDGET(dialog));
+
+  gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
+
 static void
-dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
+dia_file_selector_browse_pressed (GtkWidget *widget, gpointer data)
 {
   GtkWidget *dialog;
   DiaFileSelector *fs = DIAFILESELECTOR(data);
-  gchar *filename;
+  char *filename;
   GtkWidget *toplevel = gtk_widget_get_toplevel (widget);
 
   if (toplevel && !GTK_WINDOW(toplevel))
@@ -423,7 +420,7 @@ dia_file_selector_browse_pressed(GtkWidget *widget, gpointer data)
   if (g_path_is_absolute(filename))
     gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(fs->dialog), filename);
 
-  g_free(filename);
+  g_clear_pointer (&filename, g_free);
 
   gtk_widget_show(GTK_WIDGET(fs->dialog));
 }
@@ -482,12 +479,12 @@ dia_file_selector_new (void)
 }
 
 void
-dia_file_selector_set_extensions  (DiaFileSelector *fs, const gchar **exts)
+dia_file_selector_set_extensions  (DiaFileSelector *fs, const char **exts)
 {
   GString *pattern = g_string_new ("*.");
   int i = 0;
 
-  g_free (fs->pattern);
+  g_clear_pointer (&fs->pattern, g_free);
 
   while (exts[i] != NULL) {
     if (i != 0)
@@ -499,20 +496,22 @@ dia_file_selector_set_extensions  (DiaFileSelector *fs, const gchar **exts)
   g_string_free (pattern, FALSE);
 }
 
+
 void
-dia_file_selector_set_file(DiaFileSelector *fs, gchar *file)
+dia_file_selector_set_file (DiaFileSelector *fs, char *file)
 {
   /* filename is in system encoding */
-  gchar *utf8 = g_filename_to_utf8(file, -1, NULL, NULL, NULL);
-  gtk_entry_set_text(GTK_ENTRY(fs->entry), utf8);
-  g_free(utf8);
+  char *utf8 = g_filename_to_utf8 (file, -1, NULL, NULL, NULL);
+  gtk_entry_set_text (GTK_ENTRY (fs->entry), utf8);
+  g_clear_pointer (&utf8, g_free);
 }
 
-const gchar *
+
+const char *
 dia_file_selector_get_file(DiaFileSelector *fs)
 {
   /* let it behave like gtk_file_selector_get_file */
-  g_free(fs->sys_filename);
+  g_clear_pointer (&fs->sys_filename, g_free);
   fs->sys_filename = g_filename_from_utf8(gtk_entry_get_text(GTK_ENTRY(fs->entry)),
                                           -1, NULL, NULL, NULL);
   return fs->sys_filename;
@@ -593,11 +592,12 @@ dia_unit_spinner_new(GtkAdjustment *adjustment, DiaUnit adj_unit)
   return GTK_WIDGET(self);
 }
 
+
 static gboolean
-dia_unit_spinner_input(DiaUnitSpinner *self, gdouble *value)
+dia_unit_spinner_input (DiaUnitSpinner *self, double *value)
 {
-  gfloat val, factor = 1.0;
-  gchar *extra = NULL;
+  float val, factor = 1.0;
+  char *extra = NULL;
 
   val = g_strtod(gtk_entry_get_text(GTK_ENTRY(self)), &extra);
 
@@ -711,21 +711,18 @@ dia_toggle_button_swap_images(GtkToggleButton *widget,
   }
 }
 
-static void
-dia_toggle_button_destroy(GtkWidget *widget, gpointer data)
-{
-  struct image_pair *images = (struct image_pair *)data;
 
-  if (images->on)
-    g_object_unref(images->on);
-  images->on = NULL;
-  if (images->off)
-    g_object_unref(images->off);
-  images->off = NULL;
-  if (images)
-    g_free(images);
-  images = NULL;
+static void
+dia_toggle_button_destroy (GtkWidget *widget, gpointer data)
+{
+  struct image_pair *images = (struct image_pair *) data;
+
+  g_clear_object (&images->on);
+  g_clear_object (&images->off);
+  g_clear_pointer (&images, g_free);
+
 }
+
 
 /** Create a toggle button given two image widgets for on and off */
 static GtkWidget *
@@ -755,7 +752,7 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
   rcstyle = gtk_rc_style_new ();
   rcstyle->xthickness = rcstyle->ythickness = 0;
   gtk_widget_modify_style (button, rcstyle);
-  g_object_unref (rcstyle);
+  g_clear_object (&rcstyle);
 
   gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
   /*  gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);*/
@@ -779,7 +776,7 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
 /* GTK3: This is built-in (new_from_resource, add_resource_path....) */
 /* Adapted from Gtk */
 GdkPixbuf *
-pixbuf_from_resource (const gchar *path)
+pixbuf_from_resource (const char *path)
 {
   GdkPixbufLoader *loader = NULL;
   GdkPixbuf *pixbuf = NULL;
@@ -806,15 +803,16 @@ pixbuf_from_resource (const gchar *path)
 
  out:
   gdk_pixbuf_loader_close (loader, NULL);
-  g_object_unref (loader);
+  g_clear_object (&loader);
   g_bytes_unref (bytes);
 
   return pixbuf;
 }
 
+
 GtkWidget *
-dia_toggle_button_new_with_icon_names (const gchar *on,
-                                       const gchar *off)
+dia_toggle_button_new_with_icon_names (const char *on,
+                                       const char *off)
 {
   GtkWidget *on_img, *off_img;
 

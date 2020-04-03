@@ -5,9 +5,9 @@
  * Copyright (C) 2002, 2004, 2006 Edward G. Bruck <ebruck@users.sourceforge.net>
  * Copyright (C) 2006, 2009 , 2010 Steffen Macke <sdteffen@sdteffen.de>
  *
- * dia-win-remote is a program that allows the user running 2000/XP/Vista 
- * to open a dia file in an already running Dia process. If Dia 
- * isn't running, dia-win-remote will launch it and open the requested 
+ * dia-win-remote is a program that allows the user running 2000/XP/Vista
+ * to open a dia file in an already running Dia process. If Dia
+ * isn't running, dia-win-remote will launch it and open the requested
  * file(s).
  *
  * This program is free software; you can redistribute it and/or modify
@@ -28,7 +28,7 @@
 /**
  * INCLUDES:
  */
-#include <stdio.h> 
+#include <stdio.h>
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <shlobj.h>
@@ -75,30 +75,30 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                    gszVersion, MB_ICONSTOP);
         return -1;
     }
-	
+
 	szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
 	if( NULL == szArglist )
 	{
 		MessageBox(NULL, "CommandLineToArgvW failed\n", gszVersion, MB_ICONSTOP);
 		return -1;
 	}
-	
+
 	/**
 	 * Check if first argument is an executable.
 	 */
 	filename_utf8 = g_utf16_to_utf8(szArglist[1], -1, NULL, NULL, &error);
 	if(error) {
 		MessageBox(NULL, "Error converting to UTF-8!", gszVersion, MB_ICONEXCLAMATION);
-		g_free(filename_utf8);
+		g_clear_pointer (&filename_utf8, g_free);
 		LocalFree(szArglist);
 		return -1;
 	}
 	filename_utf8_down = g_utf8_strdown(filename_utf8, -1);
-	g_free(filename_utf8);
+	g_clear_pointer (&filename_utf8, g_free);
 	if(g_pattern_match_simple("*.exe", filename_utf8_down))
 		start_at = 2;
-	g_free(filename_utf8_down);
-	 
+	g_clear_pointer (&filename_utf8_down, g_free);
+
     /**
      * Can't just look for "Dia" as other languages use
      * different title text. Lets do this the hard way
@@ -114,7 +114,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         retval = DragAndDropDia(hWnd, nArgs, szArglist, start_at);
     }
     else
-    { 
+    {
 		retval = LaunchDia(nArgs, szArglist, start_at);
     }
 	LocalFree(szArglist);
@@ -139,7 +139,7 @@ int LaunchDia(int nArgs, LPWSTR *szArglist, int start_at)
 	GError *error = NULL;
 
     /* Read path to Dia */
-    sprintf(szDiaKey, "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\%s", 
+    sprintf(szDiaKey, "Software\\Microsoft\\Windows\\CurrentVersion\\App Paths\\%s",
             (gUseRegVal) ? gszDiaExe : __argv[1]);
 
     if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, szDiaKey, 0, KEY_READ, &hRegData) == ERROR_SUCCESS)
@@ -160,14 +160,14 @@ int LaunchDia(int nArgs, LPWSTR *szArglist, int start_at)
             if (pEnd != NULL)
             {
                 int len = pEnd-szAppPath;
-                
+
                 /* just incase */
                 if (len > 0 && len < _MAX_PATH)
                 {
                     strncpy(szPath, szAppPath, len);
                 }
             }
-          
+
 			/**
 			 * Create commandline with URIs
 			 */
@@ -177,7 +177,7 @@ int LaunchDia(int nArgs, LPWSTR *szArglist, int start_at)
 				if((0 == wcsncmp(szArglist[i], L"--", 2)) && !PathFileExistsW(szArglist[i]))
 				{
 					uri_args = g_strdup_printf("%s %s", uri_args_cpy, __argv[i]);
-					g_free(uri_args_cpy);
+					g_clear_pointer (&uri_args_cpy, g_free);
 					uri_args_cpy = uri_args;
 				}
 				else
@@ -185,29 +185,29 @@ int LaunchDia(int nArgs, LPWSTR *szArglist, int start_at)
 					filename_utf8 = g_utf16_to_utf8(szArglist[i], -1, NULL, NULL, &error);
 					if(error) {
 						MessageBox(NULL, "Error converting to UTF-8!", gszVersion, MB_ICONEXCLAMATION);
-						g_free(filename_utf8);
-						g_free(uri_args);
-						g_free(uri_args_cpy);
+						g_clear_pointer (&filename_utf8, g_free);
+						g_clear_pointer (&uri_args, g_free);
+						g_clear_pointer (&uri_args_cpy, g_free);
 						return -1;
 					}
-					
+
 					filename_uri = g_filename_to_uri(filename_utf8, NULL, &error);
 					if(error) {
 						MessageBox(NULL, "Error converting to URI!", gszVersion, MB_ICONEXCLAMATION);
-						g_free(filename_uri);
-						g_free(uri_args);
-						g_free(uri_args_cpy);					
-						g_free(filename_utf8);
+						g_clear_pointer (&filename_uri, g_free);
+						g_clear_pointer (&uri_args, g_free);
+						g_clear_pointer (&uri_args_cpy, g_free);
+						g_clear_pointer (&filename_utf8, g_free);
 						return -1;
 					}
 					else
 					{
 						uri_args = g_strdup_printf("%s %s", uri_args_cpy, filename_uri);
-						g_free(uri_args_cpy);
-						g_free(filename_uri);
+						g_clear_pointer (&uri_args_cpy, g_free);
+						g_clear_pointer (&filename_uri, g_free);
 						uri_args_cpy = uri_args;
 					}
-					g_free(filename_utf8);
+					g_clear_pointer (&filename_utf8, g_free);
 				}
 			}
             /**
@@ -222,8 +222,8 @@ int LaunchDia(int nArgs, LPWSTR *szArglist, int start_at)
             {
                 iRetCode = 0;
             }
-			g_free(uri_args);
-			g_free(uri_args_cpy);
+			g_clear_pointer (&uri_args, g_free);
+			g_clear_pointer (&uri_args_cpy, g_free);
         }
     }
     else
@@ -260,7 +260,7 @@ int DragAndDropDia(HWND hWnd, int nArgs, LPWSTR *szArglist, int start_at)
     /* lock the memory */
     pDropFiles = (LPDROPFILES)GlobalLock(hGlobal);
 
-    /* set offset where the file list begins */ 
+    /* set offset where the file list begins */
     pDropFiles->pFiles = sizeof(DROPFILES);
 
     /* no wide chars and drop point is in client coordinates */
@@ -302,7 +302,7 @@ int DragAndDropDia(HWND hWnd, int nArgs, LPWSTR *szArglist, int start_at)
 /**
  * Callback to enumerate all windows searching for
  * Dia as the user could be running under a different language.
- */ 
+ */
 BOOL CALLBACK FindDiaWindow(HWND hWnd, LPARAM lParam)
 {
     char szTitle[MAX_PATH + 40]; /* should be enough to find diaw.exe */
@@ -315,15 +315,15 @@ BOOL CALLBACK FindDiaWindow(HWND hWnd, LPARAM lParam)
         {
             if (stricmp(pszToken,"diaw.exe") == 0)
             {
-                /* sanity check class name */         
+                /* sanity check class name */
                 char szClass[20]; /* should be enough */
 
                 if (GetClassName(hWnd, szClass, sizeof(szClass)) != 0)
                 {
                     /* For some reason the latest revs of Dia have a hidden
-                     * window that we may be brought to the front which causes Dia 
-                     * to appear only in the tray. 
-		     */ 
+                     * window that we may be brought to the front which causes Dia
+                     * to appear only in the tray.
+		     */
                     if (IsWindowVisible(hWnd))
                     {
                         /* if ok, then stop enumerating */
@@ -339,19 +339,19 @@ BOOL CALLBACK FindDiaWindow(HWND hWnd, LPARAM lParam)
             pszToken = strtok(NULL, " ");
         }
     }
-     
+
     return TRUE;
 }
 
 void LoadRegSettings()
-{   
+{
     HKEY hRegData;
 
     /** Many users have had problems using older versions and wanting to send
      * files from a third party application. Having this value in the registry
      * will allow users to send files without specifying the dia version to run.
      */
-    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\GNU\\dia-win-remote", 
+    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\GNU\\dia-win-remote",
                      0, KEY_READ, &hRegData) == ERROR_SUCCESS)
     {
         DWORD dwSize = sizeof(gszDiaExe);

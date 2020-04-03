@@ -153,7 +153,7 @@ persistence_load_list(gchar *role, xmlNodePtr node, DiaContext *ctx)
     /* This frees the strings, too? */
     g_strfreev(strings);
     /* yes but not the other one --hb */
-    g_free (string);
+    g_clear_pointer (&string, g_free);
     plist = g_new(PersistentList, 1);
     plist->glist = list;
     plist->role = role;
@@ -331,7 +331,7 @@ persistence_load (void)
   persistence_init ();
 
   if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR)) {
-    g_free (filename);
+    g_clear_pointer (&filename, g_free);
     return;
   }
   ctx = dia_context_new (_("Persistence"));
@@ -350,7 +350,7 @@ persistence_load (void)
     }
     xmlFreeDoc (doc);
   }
-  g_free (filename);
+  g_clear_pointer (&filename, g_free);
   dia_context_release (ctx);
 }
 
@@ -522,7 +522,7 @@ persistence_save (void)
   persistence_save_type (doc, ctx, persistent_colors, persistence_save_color);
 
   xmlDiaSaveFile (filename, doc);
-  g_free (filename);
+  g_clear_pointer (&filename, g_free);
   xmlFreeDoc (doc);
   dia_context_release (ctx);
 }
@@ -579,20 +579,15 @@ persistence_update_window(GtkWindow *window, gboolean isclosed)
   wininfo = (PersistentWindow *)g_hash_table_lookup(persistent_windows, name);
 
   if (wininfo != NULL) {
-    persistence_store_window_info(window, wininfo, isclosed);
+    persistence_store_window_info (window, wininfo, isclosed);
   } else {
-    wininfo = g_new0(PersistentWindow, 1);
-    persistence_store_window_info(window, wininfo, FALSE);
-    g_hash_table_insert(persistent_windows, (gchar *)name, wininfo);
+    wininfo = g_new0 (PersistentWindow, 1);
+    persistence_store_window_info (window, wininfo, FALSE);
+    g_hash_table_insert (persistent_windows, (char *) name, wininfo);
   }
-  if (wininfo->window != NULL && wininfo->window != window) {
-    g_object_unref(wininfo->window);
-    wininfo->window = NULL;
-  }
-  if (wininfo->window == NULL) {
-    wininfo->window = window;
-    g_object_ref(window);
-  }
+
+  g_set_object (&wininfo->window, window);
+
   /* catch the transistion */
   wininfo->isopen = !isclosed;
 }
@@ -650,7 +645,7 @@ persistence_window_unmap (GtkWindow *window,
                           GdkEvent  *event,
                           gpointer   data)
 {
-  g_return_val_if_fail (event->type != GDK_UNMAP, FALSE);
+  g_return_val_if_fail (event->type == GDK_UNMAP, FALSE);
 
   dia_log_message ("unmap (%s)", persistence_get_window_name (window));
 
@@ -757,15 +752,7 @@ persistence_register_window (GtkWindow *window)
     g_hash_table_insert (persistent_windows, (gchar *) name, wininfo);
   }
 
-  if (wininfo->window != NULL && wininfo->window != window) {
-    g_object_unref (wininfo->window);
-    wininfo->window = NULL;
-  }
-
-  if (wininfo->window == NULL) {
-    wininfo->window = window;
-    g_object_ref (window);
-  }
+  g_set_object (&wininfo->window, window);
 
   g_signal_connect (G_OBJECT (window), "configure-event",
                     G_CALLBACK (persistence_window_configure), NULL);
@@ -973,7 +960,7 @@ persistent_list_add(const gchar *role, const gchar *item)
        * selecting a file there several times.  Yes, it should be strdup'd,
        * but it isn't.
        */
-      /*g_free(old_elem->data);*/
+      /*g_clear_pointer (&old_elem->data, g_free);*/
       g_list_free_1(old_elem);
       old_elem = g_list_find_custom(tmplist, item, (GCompareFunc)g_ascii_strcasecmp);
       existed = TRUE;
@@ -1007,9 +994,11 @@ persistent_list_remove(const gchar *role, const gchar *item)
   GList *entry = g_list_find_custom(plist->glist, item, (GCompareFunc)g_ascii_strcasecmp);
   if (entry != NULL) {
     plist->glist = g_list_remove_link(plist->glist, entry);
-    g_free(entry->data);
+    g_clear_pointer (&entry->data, g_free);
     return TRUE;
-  } else return FALSE;
+  } else {
+    return FALSE;
+  }
 }
 
 void

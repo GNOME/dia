@@ -556,7 +556,7 @@ read_entity_polyline_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
 
   memcpy (pcd->points, p, sizeof (Point) * pcd->num_points);
 
-  g_free (p);
+  g_clear_pointer (&p, g_free);
 
   polyline_obj = otype->ops->create (NULL, pcd, &h1, &h2);
 
@@ -976,7 +976,7 @@ read_entity_text_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
   g_return_val_if_fail (props->len == 1, NULL);
 
   tprop = g_ptr_array_index (props, 0);
-  g_free (tprop->text_data);
+  g_clear_pointer (&tprop->text_data, g_free);
   tprop->text_data = textvalue;
   tprop->attr.alignment = textalignment;
   tprop->attr.position.x = location.x;
@@ -1302,48 +1302,55 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
     } while((data->code != 0) || (strcmp(data->value, "ENDSEC") != 0));
 }
 
+
 /* imports the given dxf-file, returns TRUE if successful */
 static gboolean
-import_dxf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
+import_dxf (const char  *filename,
+            DiagramData *dia,
+            DiaContext  *ctx,
+            void        *user_data)
 {
-    FILE *filedxf;
-    DxfData *data;
+  FILE *filedxf;
+  DxfData *data;
 
-    filedxf = g_fopen(filename,"r");
-    if(filedxf == NULL){
-        dia_context_add_message(ctx, _("Couldn't open: '%s' for reading.\n"),
-				dia_context_get_filename (ctx));
+  filedxf = g_fopen (filename,"r");
+  if (filedxf == NULL){
+    dia_context_add_message (ctx,
+                             _("Couldn't open: '%s' for reading.\n"),
+                             dia_context_get_filename (ctx));
+    return FALSE;
+  }
+
+  data = g_new0 (DxfData, 1);
+
+  do {
+    if (read_dxf_codes (filedxf, data) == FALSE) {
+      g_clear_pointer (&data, g_free);
+      dia_context_add_message (ctx,
+                                _("read_dxf_codes failed on '%s'"),
+                                dia_context_get_filename (ctx));
         return FALSE;
-    }
+    } else {
+      if (0 == data->code && strstr (data->codeline, "AutoCAD Binary DXF")) {
+        g_clear_pointer (&data, g_free);
+        dia_context_add_message (ctx,
+                                  _("Binary DXF from '%s' not supported"),
+                                  dia_context_get_filename (ctx));
+        return FALSE;
+      }
 
-    data = g_new(DxfData, 1);
-
-    do {
-        if(read_dxf_codes(filedxf, data) == FALSE) {
-            g_free(data);
-	    dia_context_add_message(ctx, _("read_dxf_codes failed on '%s'"),
-			            dia_context_get_filename(ctx) );
-            return FALSE;
+      if (0 == data->code) {
+        if (strcmp (data->value, "SECTION") == 0) {
+          /* don't think we need to do anything */
+        } else if (strcmp (data->value, "ENDSEC") == 0) {
+          /* don't think we need to do anything */
+        } else if (strcmp (data->value, "EOF") == 0) {
+          /* handled below */
+        } else {
+          g_printerr ("DXF 0:%s not handled\n", data->value);
         }
-        else {
-            if (0 == data->code && strstr(data->codeline, "AutoCAD Binary DXF")) {
-                g_free(data);
-	        dia_context_add_message(ctx, _("Binary DXF from '%s' not supported"),
-			                dia_context_get_filename(ctx));
-                return FALSE;
-            }
-	    if (0 == data->code) {
-                if(strcmp(data->value, "SECTION") == 0) {
-		  /* don't think we need to do anything */
-                } else if(strcmp(data->value, "ENDSEC") == 0) {
-		  /* don't think we need to do anything */
-                } else if(strcmp(data->value, "EOF") == 0) {
-		  /* handled below */
-		} else {
-		  g_printerr ("DXF 0:%s not handled\n", data->value);
-		}
-            } else if(data->code == 2) {
-                if(strcmp(data->value, "ENTITIES") == 0) {
+      } else if (data->code == 2) {
+        if (strcmp (data->value, "ENTITIES") == 0) {
 		   /*printf( "reading section entities\n" );*/
                     read_section_entities_dxf(filedxf, data, dia);
                 }
@@ -1375,7 +1382,7 @@ import_dxf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
         }
     }while((data->code != 0) || (strcmp(data->value, "EOF") != 0));
 
-    g_free(data);
+    g_clear_pointer (&data, g_free);
     if (_color_by_layer_ht) {
         g_hash_table_destroy (_color_by_layer_ht);
         _color_by_layer_ht = NULL;

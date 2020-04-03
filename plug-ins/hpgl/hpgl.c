@@ -766,11 +766,11 @@ export_data(DiagramData *data, DiaContext *ctx,
             hpgl_scale(renderer, extent->bottom),
             hpgl_scale(renderer, extent->top));
 #endif
-    data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
+  data_render(data, DIA_RENDERER(renderer), NULL, NULL, NULL);
 
-    g_object_unref(renderer);
+  g_clear_object (&renderer);
 
-    return TRUE;
+  return TRUE;
 }
 
 static const gchar *extensions[] = { "plt", "hpgl", NULL };

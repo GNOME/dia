@@ -151,7 +151,7 @@ create_vdx_beziergon(int num_points,
     new_obj = otype->ops->create(NULL, bcd,
 				 &h1, &h2);
 
-    g_free(bcd);
+    g_clear_pointer (&bcd, g_free);
 
     /* Convert all points to cusps - not in API */
 
@@ -445,7 +445,7 @@ free_children(void *p)
         {
             if (!list->data) continue;
             free_children(list->data);
-            g_free(list->data);
+            g_clear_pointer (&list->data, g_free);
         }
         g_slist_free(list);
     }
@@ -1015,8 +1015,8 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     }
     if (newobj)
         vdx_simple_properties(newobj, Fill, Line, theDoc, ctx);
-    g_free(end_arrow_p);
-    g_free(start_arrow_p);
+    g_clear_pointer (&end_arrow_p, g_free);
+    g_clear_pointer (&start_arrow_p, g_free);
     return newobj;
 }
 
@@ -1573,13 +1573,13 @@ plot_bezier(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
                     g_debug("Empty polyline");
             }
         }
-        g_free(points);
+        g_clear_pointer (&points, g_free);
     }
-    g_free(bezpoints);
+    g_clear_pointer (&bezpoints, g_free);
     if (newobj)
         vdx_simple_properties(newobj, Fill, Line, theDoc, ctx);
-    g_free(end_arrow_p);
-    g_free(start_arrow_p);
+    g_clear_pointer (&end_arrow_p, g_free);
+    g_clear_pointer (&start_arrow_p, g_free);
     return newobj;
 }
 
@@ -1970,11 +1970,11 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 
     newobj = create_standard_polyline(num_points, points, end_arrow_p, start_arrow_p);
 
-    g_free(end_arrow_p);
-    g_free(start_arrow_p);
-    g_free(control);
-    g_free(weight);
-    g_free(knot);
+    g_clear_pointer (&end_arrow_p, g_free);
+    g_clear_pointer (&start_arrow_p, g_free);
+    g_clear_pointer (&control, g_free);
+    g_clear_pointer (&weight, g_free);
+    g_clear_pointer (&knot, g_free);
 
     vdx_simple_properties(newobj, Fill, Line, theDoc, ctx);
     return newobj;
@@ -2297,11 +2297,10 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
 
     /* set up the text property by including all children */
     tprop->text_data = g_strdup(text->text);
-    while((text = find_child_next(vdx_types_text, Text, text)))
-    {
-        char *s = tprop->text_data;
-        tprop->text_data = g_strconcat(tprop->text_data, text->text, NULL);
-        g_free(s);
+    while ((text = find_child_next (vdx_types_text, Text, text))) {
+      char *s = tprop->text_data;
+      tprop->text_data = g_strconcat (tprop->text_data, text->text, NULL);
+      g_clear_pointer (&s, g_free);
     }
 
     /* Fix Unicode line breaks */
@@ -2620,40 +2619,38 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
         if (Geom->NoLine) Line = 0;
 
         more = Geom->any.children;
-        do
-        {
-	    DiaObject *object = plot_geom(Geom, XForm, XForm1D, Fill, Line,
-                                          Foreign, ForeignData, theDoc, &more,
-                                          &current, ctx);
+        do {
+          DiaObject *object = plot_geom (Geom, XForm, XForm1D, Fill, Line,
+                                         Foreign, ForeignData, theDoc, &more,
+                                         &current, ctx);
             /* object can be NULL for Text */
-	    if (object)
-	    {
-		gchar *id = g_strdup_printf ("%d", Shape->ID);
-		objects = g_slist_append(objects, object);
-		dia_object_set_meta (object, "id", id);
-		g_free (id);
-	    }
-            if (more && theDoc->debug_comments)
-            {
-                g_debug("Additional Geom");
-            }
+          if (object) {
+            char *id = g_strdup_printf ("%d", Shape->ID);
+            objects = g_slist_append (objects, object);
+            dia_object_set_meta (object, "id", id);
+            g_clear_pointer (&id, g_free);
+          }
+
+          if (more && theDoc->debug_comments) {
+              g_debug ("Additional Geom");
+          }
         } while (more);
+
         /* Yes, you can have multiple (disconnected) Geoms */
         Geom = find_child_next(vdx_types_Geom, Shape, Geom);
     }
+
     /* Text always after the object it's attached to,
        so it appears on top */
-    if (Text && find_child(vdx_types_text, Text))
-    {
-        DiaObject *object = plot_text(Text, XForm, Char, Para,
-                                      TextBlock, TextXForm, theDoc);
-	if (object)
-	{
-	    gchar *id = g_strdup_printf ("%d", Shape->ID);
-            objects = g_slist_append(objects, object);
-	    dia_object_set_meta (object, "id", id);
-	    g_free (id);
-	}
+    if (Text && find_child (vdx_types_text, Text)) {
+      DiaObject *object = plot_text (Text, XForm, Char, Para,
+                                     TextBlock, TextXForm, theDoc);
+      if (object) {
+        char *id = g_strdup_printf ("%d", Shape->ID);
+        objects = g_slist_append (objects, object);
+        dia_object_set_meta (object, "id", id);
+        g_clear_pointer (&id, g_free);
+      }
     }
 
     /* Wipe the child XForm list to avoid double-free */
@@ -2919,7 +2916,7 @@ vdx_free(VDXDocument *theDoc)
     }
     if (theDoc->LayerNames) g_array_free(theDoc->LayerNames, TRUE);
     if (theDoc->PageLayers) g_array_free(theDoc->PageLayers, TRUE);
-    g_free(theDoc->debug_shape_ids);
+    g_clear_pointer (&theDoc->debug_shape_ids, g_free);
 }
 
 
@@ -2930,7 +2927,7 @@ vdx_free(VDXDocument *theDoc)
  * @returns TRUE if successful, FALSE otherwise
  */
 static gboolean
-import_vdx(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
+import_vdx (const char *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
     xmlErrorPtr error_xml = NULL;
     xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
@@ -3042,7 +3039,7 @@ import_vdx(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
 
 /* interface from filter.h */
 
-static const gchar *extensions[] = {"vdx", NULL };
+static const char *extensions[] = {"vdx", NULL };
 DiaImportFilter vdx_import_filter = {
     N_("Visio XML File Format"),
     extensions,

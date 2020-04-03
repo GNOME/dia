@@ -41,7 +41,7 @@ dia_guide_copy (DiaGuide * self)
 void
 dia_guide_free (DiaGuide * self)
 {
-  g_free (self);
+  g_clear_pointer (&self, g_free);
 }
 
 

@@ -261,9 +261,9 @@ participation_draw (Participation *participation, DiaRenderer *renderer)
 
     dia_renderer_draw_polyline (renderer, left_points, n, &color_black);
     dia_renderer_draw_polyline (renderer, right_points, n, &color_black);
-    g_free (left_points);
-    g_free (right_points);
-  }  else {
+    g_clear_pointer (&left_points, g_free);
+    g_clear_pointer (&right_points, g_free);
+  } else {
     dia_renderer_draw_polyline (renderer, points, n, &color_black);
   }
 }
