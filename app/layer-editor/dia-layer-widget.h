@@ -22,16 +22,17 @@
 
 #include "dia-layer.h"
 #include "dia-layer-editor.h"
-#include "dia-list-item.h"
 
 G_BEGIN_DECLS
 
 #define DIA_TYPE_LAYER_WIDGET dia_layer_widget_get_type ()
 
-G_DECLARE_DERIVABLE_TYPE (DiaLayerWidget, dia_layer_widget, DIA, LAYER_WIDGET, DiaListItem)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkBin, g_object_unref)
+
+G_DECLARE_DERIVABLE_TYPE (DiaLayerWidget, dia_layer_widget, DIA, LAYER_WIDGET, GtkBin)
 
 struct _DiaLayerWidgetClass {
-  DiaListItemClass parent;
+  GtkBinClass parent_class;
 };
 
 GtkWidget      *dia_layer_widget_new             (DiaLayer       *layer,

@@ -29,7 +29,7 @@
 #include <gtk/gtk.h>
 
 #include "dia-list.h"
-#include "dia-list-item.h"
+#include "dia-layer-widget.h"
 
 
 typedef struct _DiaListPrivate DiaListPrivate;
@@ -38,25 +38,13 @@ struct _DiaListPrivate
   GtkContainer container;
 
   GList *children;
-  DiaListItem *selected;
+  DiaLayerWidget *selected;
 
   GtkWidget *last_focus_child;
-  GtkWidget *undo_focus_child;
-
-  guint htimer;
-  guint vtimer;
 };
 
 
 G_DEFINE_TYPE_WITH_PRIVATE (DiaList, dia_list, GTK_TYPE_CONTAINER)
-
-
-enum {
-  SELECT_CHILD,
-  UNSELECT_CHILD,
-  LAST_SIGNAL
-};
-static guint signals[LAST_SIGNAL] = { 0 };
 
 
 static void
@@ -225,7 +213,7 @@ dia_list_button_press (GtkWidget      *widget,
 
   item = gtk_get_event_widget ((GdkEvent*) event);
 
-  while (item && !DIA_IS_LIST_ITEM (item)) {
+  while (item && !DIA_IS_LAYER_WIDGET (item)) {
     item = gtk_widget_get_parent (item);
   }
 
@@ -261,7 +249,7 @@ dia_list_add (GtkContainer *container,
 {
   GList *item_list;
 
-  g_return_if_fail (DIA_IS_LIST_ITEM (widget));
+  g_return_if_fail (DIA_IS_LAYER_WIDGET (widget));
 
   item_list = g_list_alloc ();
   item_list->data = widget;
@@ -312,7 +300,7 @@ dia_list_forall (GtkContainer  *container,
 static GType
 dia_list_child_type (GtkContainer *container)
 {
-  return DIA_TYPE_LIST_ITEM;
+  return DIA_TYPE_LAYER_WIDGET;
 }
 
 
@@ -362,7 +350,7 @@ dia_list_set_focus_child (GtkContainer *container,
                                  alloc.height));
     }
 
-    dia_list_select_child (list, DIA_LIST_ITEM (child));
+    dia_list_select_child (list, DIA_LAYER_WIDGET (child));
   }
 }
 
@@ -407,53 +395,6 @@ dia_list_focus (GtkWidget        *widget,
 
 
 static void
-dia_list_real_select_child (DiaList     *self,
-                            DiaListItem *item)
-{
-  DiaListPrivate *priv;
-  DiaListItem *old = NULL;
-
-  g_return_if_fail (DIA_IS_LIST (self));
-  g_return_if_fail (DIA_IS_LIST_ITEM (item));
-
-  priv = dia_list_get_instance_private (self);
-
-  if (priv->selected) {
-    old = g_object_ref (priv->selected);
-  }
-
-  if (g_set_object (&priv->selected, item)) {
-    if (old) {
-      gtk_widget_set_state (GTK_WIDGET (old), GTK_STATE_NORMAL);
-    }
-
-    gtk_widget_set_state (GTK_WIDGET (item), GTK_STATE_SELECTED);
-  }
-
-  g_clear_object (&old);
-}
-
-
-static void
-dia_list_real_unselect_child (DiaList     *self,
-                              DiaListItem *item)
-{
-  DiaListPrivate *priv;
-
-  g_return_if_fail (DIA_IS_LIST (self));
-  g_return_if_fail (DIA_IS_LIST_ITEM (item));
-
-  priv = dia_list_get_instance_private (self);
-
-  g_return_if_fail (priv->selected == item);
-
-  gtk_widget_set_state (GTK_WIDGET (priv->selected), GTK_STATE_NORMAL);
-
-  g_clear_object (&priv->selected);
-}
-
-
-static void
 dia_list_class_init (DiaListClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -475,26 +416,6 @@ dia_list_class_init (DiaListClass *klass)
   container_class->forall = dia_list_forall;
   container_class->child_type = dia_list_child_type;
   container_class->set_focus_child = dia_list_set_focus_child;
-
-  klass->select_child = dia_list_real_select_child;
-  klass->unselect_child = dia_list_real_unselect_child;
-
-  signals[SELECT_CHILD] =
-    g_signal_new ("select-child",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_FIRST,
-                  G_STRUCT_OFFSET (DiaListClass, select_child),
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE, 1,
-                  DIA_TYPE_LIST_ITEM);
-  signals[UNSELECT_CHILD] =
-    g_signal_new ("unselect-child",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_FIRST,
-                  G_STRUCT_OFFSET (DiaListClass, unselect_child),
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE, 1,
-                  DIA_TYPE_LIST_ITEM);
 }
 
 
@@ -507,14 +428,10 @@ dia_list_init (DiaList *list)
   priv->selected = NULL;
 
   priv->last_focus_child = NULL;
-  priv->undo_focus_child = NULL;
-
-  priv->htimer = 0;
-  priv->vtimer = 0;
 }
 
 
-GtkWidget*
+GtkWidget *
 dia_list_new (void)
 {
   return g_object_new (DIA_TYPE_LIST, NULL);
@@ -522,10 +439,10 @@ dia_list_new (void)
 
 
 static void
-scroll_vertical (DiaListItem   *list_item,
-                 GtkScrollType  scroll_type,
-                 double         position,
-                 DiaList       *list)
+scroll_vertical (DiaLayerWidget *list_item,
+                 GtkScrollType   scroll_type,
+                 double          position,
+                 DiaList        *list)
 {
   GtkContainer *container;
   DiaListPrivate *priv;
@@ -782,14 +699,14 @@ dia_list_insert_items (DiaList *list,
 
   if (priv->children && !priv->selected) {
     widget = priv->children->data;
-    dia_list_select_child (list, DIA_LIST_ITEM (widget));
+    dia_list_select_child (list, DIA_LAYER_WIDGET (widget));
   }
 }
 
 
 void
 dia_list_append_items (DiaList *list,
-                           GList   *items)
+                       GList   *items)
 {
   g_return_if_fail (DIA_IS_LIST (list));
 
@@ -799,7 +716,7 @@ dia_list_append_items (DiaList *list,
 
 void
 dia_list_prepend_items (DiaList *list,
-                            GList      *items)
+                        GList   *items)
 {
   g_return_if_fail (DIA_IS_LIST (list));
 
@@ -838,7 +755,7 @@ dia_list_remove_items (DiaList *list,
     tmp_list = tmp_list->next;
 
     if (gtk_widget_get_state (widget) == GTK_STATE_SELECTED) {
-      dia_list_unselect_child (list, DIA_LIST_ITEM (widget));
+      dia_list_unselect_child (list, DIA_LAYER_WIDGET (widget));
     }
   }
 
@@ -876,10 +793,6 @@ dia_list_remove_items (DiaList *list,
     priv->children = g_list_remove (priv->children, widget);
     gtk_widget_unparent (widget);
 
-    if (widget == priv->undo_focus_child) {
-      priv->undo_focus_child = NULL;
-    }
-
     if (widget == priv->last_focus_child) {
       priv->last_focus_child = NULL;
     }
@@ -898,7 +811,7 @@ dia_list_remove_items (DiaList *list,
 
     if (!priv->selected) {
       priv->last_focus_child = new_focus_child;
-      dia_list_select_child (list, DIA_LIST_ITEM (new_focus_child));
+      dia_list_select_child (list, DIA_LAYER_WIDGET (new_focus_child));
     }
   }
 
@@ -910,8 +823,8 @@ dia_list_remove_items (DiaList *list,
 
 void
 dia_list_clear_items (DiaList *list,
-                          int         start,
-                          int         end)
+                      int         start,
+                      int         end)
 {
   GtkContainer *container;
   GtkWidget *widget;
@@ -984,15 +897,12 @@ dia_list_clear_items (DiaList *list,
     g_object_ref (widget);
 
     if (gtk_widget_get_state (widget) == GTK_STATE_SELECTED) {
-      dia_list_unselect_child (list, DIA_LIST_ITEM (widget));
+      dia_list_unselect_child (list, DIA_LAYER_WIDGET (widget));
     }
 
     g_signal_handlers_disconnect_by_data (widget, list);
     gtk_widget_unparent (widget);
 
-    if (widget == priv->undo_focus_child) {
-      priv->undo_focus_child = NULL;
-    }
     if (widget == priv->last_focus_child) {
       priv->last_focus_child = NULL;
     }
@@ -1011,7 +921,7 @@ dia_list_clear_items (DiaList *list,
 
     if (!priv->selected) {
       priv->last_focus_child = new_focus_child;
-      dia_list_select_child (list, DIA_LIST_ITEM (new_focus_child));
+      dia_list_select_child (list, DIA_LAYER_WIDGET (new_focus_child));
     }
   }
 
@@ -1040,31 +950,66 @@ dia_list_select_item (DiaList *list,
 
 
 void
-dia_list_select_child (DiaList     *self,
-                       DiaListItem *item)
+dia_list_select_child (DiaList        *self,
+                       DiaLayerWidget *item)
 {
-  g_signal_emit (self, signals[SELECT_CHILD], 0, item);
+  DiaListPrivate *priv;
+  DiaLayerWidget *old = NULL;
+
+  g_return_if_fail (DIA_IS_LIST (self));
+  g_return_if_fail (DIA_IS_LAYER_WIDGET (item));
+
+  priv = dia_list_get_instance_private (self);
+
+  if (priv->selected) {
+    old = g_object_ref (priv->selected);
+  }
+
+  if (g_set_object (&priv->selected, item)) {
+    if (old) {
+      gtk_widget_set_state (GTK_WIDGET (old), GTK_STATE_NORMAL);
+    }
+
+    gtk_widget_set_state (GTK_WIDGET (item), GTK_STATE_SELECTED);
+
+    dia_layer_widget_select (item);
+  }
+
+  g_clear_object (&old);
 }
 
 
 void
-dia_list_unselect_child (DiaList     *self,
-                         DiaListItem *item)
+dia_list_unselect_child (DiaList        *self,
+                         DiaLayerWidget *item)
 {
-  g_signal_emit (self, signals[UNSELECT_CHILD], 0, item);
+  DiaListPrivate *priv;
+
+  g_return_if_fail (DIA_IS_LIST (self));
+  g_return_if_fail (DIA_IS_LAYER_WIDGET (item));
+
+  priv = dia_list_get_instance_private (self);
+
+  g_return_if_fail (priv->selected == item);
+
+  gtk_widget_set_state (GTK_WIDGET (priv->selected), GTK_STATE_NORMAL);
+
+  g_clear_object (&priv->selected);
+
+  dia_layer_widget_deselect (item);
 }
 
 
 int
-dia_list_child_position (DiaList     *self,
-                         DiaListItem *item)
+dia_list_child_position (DiaList        *self,
+                         DiaLayerWidget *item)
 {
   DiaListPrivate *priv;
   GList *children;
   int pos;
 
   g_return_val_if_fail (DIA_IS_LIST (self), -1);
-  g_return_val_if_fail (DIA_IS_LIST_ITEM (item), -1);
+  g_return_val_if_fail (DIA_IS_LAYER_WIDGET (item), -1);
 
   priv = dia_list_get_instance_private (self);
 
@@ -1084,7 +1029,7 @@ dia_list_child_position (DiaList     *self,
 }
 
 
-DiaListItem *
+DiaLayerWidget *
 dia_list_get_selected (DiaList *self)
 {
   DiaListPrivate *priv;

@@ -27,6 +27,7 @@
 #include "dia-layer-editor.h"
 #include "dia-layer-properties.h"
 #include "dia-layer.h"
+#include "dia-list.h"
 #include "layer_dialog.h"
 
 typedef struct _ButtonData ButtonData;
@@ -131,41 +132,22 @@ dia_layer_editor_class_init (DiaLayerEditorClass *klass)
 
 static void rename_layer (GtkWidget *widget, DiaLayerEditor *self);
 
+
 static gint
-list_event (GtkWidget      *widget,
-            GdkEvent       *event,
-            DiaLayerEditor *self)
+list_button_press (GtkWidget      *widget,
+                   GdkEvent       *event,
+                   DiaLayerEditor *self)
 {
-  GdkEventKey *kevent;
   GtkWidget *event_widget;
   DiaLayerWidget *layer_widget;
 
   event_widget = gtk_get_event_widget (event);
 
-  if (GTK_IS_LIST_ITEM (event_widget)) {
+  if (DIA_IS_LAYER_WIDGET (event_widget)) {
     layer_widget = DIA_LAYER_WIDGET (event_widget);
 
-    switch (event->type) {
-      case GDK_2BUTTON_PRESS:
-        rename_layer (GTK_WIDGET (layer_widget), self);
-        return TRUE;
-
-      case GDK_KEY_PRESS:
-        kevent = (GdkEventKey *) event;
-        switch (kevent->keyval) {
-          case GDK_Up:
-            /* printf ("up arrow\n"); */
-            break;
-          case GDK_Down:
-            /* printf ("down arrow\n"); */
-            break;
-          default:
-            return FALSE;
-        }
-        return TRUE;
-
-      default:
-        break;
+    if (event->type == GDK_2BUTTON_PRESS) {
+      rename_layer (GTK_WIDGET (layer_widget), self);
     }
   }
 
@@ -188,13 +170,13 @@ exclusive_connectable (DiaLayerWidget *layer_row,
   for (i = 0; i < data_layer_count (DIA_DIAGRAM_DATA (priv->diagram)); i++) {
     layer = data_layer_get_nth (DIA_DIAGRAM_DATA (priv->diagram), i);
 
-    if (dia_layer_widget_get_layer (DIA_LAYER_WIDGET (layer_row)) != layer) {
+    if (dia_layer_widget_get_layer (layer_row) != layer) {
       connectable |= dia_layer_is_connectable (layer);
     }
   }
 
   /*  Now, toggle the connectability for all layers except the specified one  */
-  list = GTK_LIST (priv->list)->children;
+  list = gtk_container_get_children (GTK_CONTAINER (priv->list));
   while (list) {
     lw = DIA_LAYER_WIDGET (list->data);
     if (lw != layer_row) {
@@ -215,7 +197,7 @@ new_layer (GtkWidget *widget, DiaLayerEditor *self)
   DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
   DiaLayer *layer;
   Diagram *dia;
-  GtkWidget *selected;
+  DiaLayerWidget *selected;
   GList *list = NULL;
   GtkWidget *layer_widget;
   int pos;
@@ -224,15 +206,19 @@ new_layer (GtkWidget *widget, DiaLayerEditor *self)
   dia = priv->diagram;
 
   if (dia != NULL) {
-    gchar* new_layer_name = g_strdup_printf (_("New layer %d"),
-                                             next_layer_num++);
+    char* new_layer_name = g_strdup_printf (_("New layer %d"),
+                                            next_layer_num++);
     layer = dia_layer_new (new_layer_name, dia->data);
 
-    g_assert (GTK_LIST (priv->list)->selection != NULL);
-    selected = GTK_LIST (priv->list)->selection->data;
-    pos = gtk_list_child_position (GTK_LIST (priv->list), selected);
+    selected = dia_list_get_selected (DIA_LIST (priv->list));
 
-    data_add_layer_at (dia->data, layer, dia->data->layers->len - pos);
+    g_return_if_fail (selected != NULL);
+
+    pos = dia_list_child_position (DIA_LIST (priv->list), selected);
+
+    data_add_layer_at (DIA_DIAGRAM_DATA (dia),
+                       layer,
+                       data_layer_count (DIA_DIAGRAM_DATA (dia)) - pos);
 
     diagram_add_update_all (dia);
     diagram_flush (dia);
@@ -246,14 +232,18 @@ new_layer (GtkWidget *widget, DiaLayerEditor *self)
 
     list = g_list_prepend (list, layer_widget);
 
-    gtk_list_insert_items (GTK_LIST (priv->list), list, pos);
+    dia_list_insert_items (DIA_LIST (priv->list), list, pos);
 
-    gtk_list_select_item (GTK_LIST (priv->list), pos);
+    dia_list_select_item (DIA_LIST (priv->list), pos);
 
-    dia_layer_change_new (dia, layer, TYPE_ADD_LAYER, dia->data->layers->len - pos);
+    dia_layer_change_new (dia,
+                          layer,
+                          TYPE_ADD_LAYER,
+                          data_layer_count (DIA_DIAGRAM_DATA (dia)) - pos);
     undo_set_transactionpoint (dia->undo);
 
-    g_free (new_layer_name);
+    g_clear_pointer (&new_layer_name, g_free);
+    g_clear_object (&layer);
   }
 }
 
@@ -272,12 +262,12 @@ rename_layer (GtkWidget *widget, DiaLayerEditor *self)
     return;
   }
 
-  layer = dia->data->active_layer;
+  layer = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
 
   dlg = g_object_new (DIA_TYPE_LAYER_PROPERTIES,
-                     "layer", layer,
-                     "visible", TRUE,
-                     NULL);
+                      "layer", layer,
+                      "visible", TRUE,
+                      NULL);
   gtk_widget_show (dlg);
 }
 
@@ -287,34 +277,36 @@ delete_layer (GtkWidget *widget, DiaLayerEditor *self)
 {
   DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
   Diagram *dia;
-  GtkWidget *selected;
+  DiaLayerWidget *selected;
   DiaLayer *layer;
   int pos;
 
   dia = priv->diagram;
 
-  if ((dia != NULL) && (dia->data->layers->len > 1)) {
-    g_assert (GTK_LIST (priv->list)->selection != NULL);
-    selected = GTK_LIST (priv->list)->selection->data;
 
-    layer = dia->data->active_layer;
+  if ((dia != NULL) && (data_layer_count (DIA_DIAGRAM_DATA (dia)) > 1)) {
+    selected = dia_list_get_selected (DIA_LIST (priv->list));
+
+    g_return_if_fail (selected != NULL);
+
+    layer = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
+
+    pos = dia_list_child_position (DIA_LIST (priv->list), selected);
+    gtk_container_remove (GTK_CONTAINER (priv->list), GTK_WIDGET (selected));
+
+    dia_layer_change_new (dia, layer, TYPE_DELETE_LAYER,
+                          data_layer_count (DIA_DIAGRAM_DATA (dia)) - pos);
+    undo_set_transactionpoint (dia->undo);
 
     data_remove_layer (dia->data, layer);
     diagram_add_update_all (dia);
     diagram_flush (dia);
 
-    pos = gtk_list_child_position (GTK_LIST (priv->list), selected);
-    gtk_container_remove (GTK_CONTAINER (priv->list), selected);
-
-    dia_layer_change_new (dia, layer, TYPE_DELETE_LAYER,
-                          dia->data->layers->len - pos);
-    undo_set_transactionpoint (dia->undo);
-
     if (--pos < 0) {
       pos = 0;
     }
 
-    gtk_list_select_item (GTK_LIST (priv->list), pos);
+    dia_list_select_item (DIA_LIST (priv->list), pos);
   }
 }
 
@@ -325,35 +317,36 @@ raise_layer (GtkWidget *widget, DiaLayerEditor *self)
   DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
   DiaLayer *layer;
   Diagram *dia;
-  GtkWidget *selected;
+  DiaLayerWidget *selected;
   GList *list = NULL;
   int pos;
 
   dia = priv->diagram;
 
-  if ((dia != NULL) && (dia->data->layers->len > 1)) {
-    g_assert (GTK_LIST (priv->list)->selection != NULL);
-    selected = GTK_LIST (priv->list)->selection->data;
+  if ((dia != NULL) && (data_layer_count (DIA_DIAGRAM_DATA (dia)) > 1)) {
+    selected = dia_list_get_selected (DIA_LIST (priv->list));
 
-    pos = gtk_list_child_position (GTK_LIST (priv->list), selected);
+    g_return_if_fail (selected != NULL);
+
+    pos = dia_list_child_position (DIA_LIST (priv->list), selected);
 
     if (pos > 0) {
-      layer = dia_layer_widget_get_layer (DIA_LAYER_WIDGET (selected));
-      data_raise_layer (dia->data, layer);
+      layer = dia_layer_widget_get_layer (selected);
+      data_raise_layer (DIA_DIAGRAM_DATA (dia), layer);
 
       list = g_list_prepend (list, selected);
 
       g_object_ref (selected);
 
-      gtk_list_remove_items (GTK_LIST (priv->list),
+      dia_list_remove_items (DIA_LIST (priv->list),
                              list);
 
-      gtk_list_insert_items (GTK_LIST (priv->list),
+      dia_list_insert_items (DIA_LIST (priv->list),
                              list, pos - 1);
 
-      g_object_unref (selected);
+      g_clear_object (&selected);
 
-      gtk_list_select_item (GTK_LIST (priv->list), pos-1);
+      dia_list_select_item (DIA_LIST (priv->list), pos-1);
 
       diagram_add_update_all (dia);
       diagram_flush (dia);
@@ -371,35 +364,36 @@ lower_layer (GtkWidget *widget, DiaLayerEditor *self)
   DiaLayerEditorPrivate *priv = dia_layer_editor_get_instance_private (self);
   DiaLayer *layer;
   Diagram *dia;
-  GtkWidget *selected;
+  DiaLayerWidget *selected;
   GList *list = NULL;
   int pos;
 
   dia = priv->diagram;
 
-  if ((dia != NULL) && (dia->data->layers->len > 1)) {
-    g_assert (GTK_LIST (priv->list)->selection != NULL);
-    selected = GTK_LIST (priv->list)->selection->data;
+  if ((dia != NULL) && (data_layer_count (DIA_DIAGRAM_DATA (dia)) > 1)) {
+    selected = dia_list_get_selected (DIA_LIST (priv->list));
 
-    pos = gtk_list_child_position (GTK_LIST (priv->list), selected);
+    g_return_if_fail (selected != NULL);
 
-    if (pos < dia->data->layers->len-1) {
-      layer = dia_layer_widget_get_layer (DIA_LAYER_WIDGET (selected));
-      data_lower_layer (dia->data, layer);
+    pos = dia_list_child_position (DIA_LIST (priv->list), selected);
+
+    if (pos < data_layer_count (DIA_DIAGRAM_DATA (dia)) - 1) {
+      layer = dia_layer_widget_get_layer (selected);
+      data_lower_layer (DIA_DIAGRAM_DATA (dia), layer);
 
       list = g_list_prepend (list, selected);
 
       g_object_ref (selected);
 
-      gtk_list_remove_items (GTK_LIST (priv->list),
+      dia_list_remove_items (DIA_LIST (priv->list),
                              list);
 
-      gtk_list_insert_items (GTK_LIST (priv->list),
+      dia_list_insert_items (DIA_LIST (priv->list),
                              list, pos + 1);
 
-      g_object_unref (selected);
+      g_clear_object (&selected);
 
-      gtk_list_select_item (GTK_LIST (priv->list), pos+1);
+      dia_list_select_item (DIA_LIST (priv->list), pos+1);
 
       diagram_add_update_all (dia);
       diagram_flush (dia);
@@ -442,16 +436,16 @@ dia_layer_editor_init (DiaLayerEditor *self)
                                   GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX (self), scrolled_win, TRUE, TRUE, 2);
 
-  priv->list = gtk_list_new ();
+  priv->list = dia_list_new ();
+
   gtk_widget_show (priv->list);
-  gtk_list_set_selection_mode (GTK_LIST (priv->list), GTK_SELECTION_BROWSE);
   gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win), priv->list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (priv->list),
                                        gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
 
   g_signal_connect (G_OBJECT (priv->list),
-                    "event",
-                    G_CALLBACK (list_event),
+                    "button-press-event",
+                    G_CALLBACK (list_button_press),
                     self);
 
   // inline-toolbar
@@ -492,21 +486,6 @@ dia_layer_editor_new (void)
 }
 
 
-/*
- * Used to avoid writing to possibly already deleted layer in
- * dia_layer_widget_connectable_toggled(). Must be called before
- * e.g. gtk_list_clear_items() cause that will emit the toggled
- * signal to last focus widget. See bug #329096
- */
-static void
-_layer_widget_clear_layer (GtkWidget *widget, gpointer user_data)
-{
-  DiaLayerWidget *lw = DIA_LAYER_WIDGET (widget);
-
-  dia_layer_widget_set_layer (lw, NULL);
-}
-
-
 void
 dia_layer_editor_set_diagram (DiaLayerEditor *self,
                               Diagram        *dia)
@@ -532,11 +511,9 @@ dia_layer_editor_set_diagram (DiaLayerEditor *self,
 
   priv->diagram = g_object_ref (dia);
 
-  active_layer = DIA_DIAGRAM_DATA (dia)->active_layer;
+  active_layer = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
 
-  gtk_container_foreach (GTK_CONTAINER (priv->list),
-                         _layer_widget_clear_layer, NULL);
-  gtk_list_clear_items (GTK_LIST (priv->list), 0, -1);
+  dia_list_clear_items (DIA_LIST (priv->list), 0, -1);
 
   sel_pos = 0;
   for (i = data_layer_count (DIA_DIAGRAM_DATA (dia)) - 1, j = 0; i >= 0; i--, j++) {
@@ -553,7 +530,7 @@ dia_layer_editor_set_diagram (DiaLayerEditor *self,
     }
   }
 
-  gtk_list_select_item (GTK_LIST (priv->list), sel_pos);
+  dia_list_select_item (DIA_LIST (priv->list), sel_pos);
 
   g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_DIAGRAM]);
 }

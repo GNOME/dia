@@ -11,6 +11,8 @@ dia_sources = [
     'dia-change.h',
     'object_ops.c',
 
+    'layer-editor/dia-list.c',
+    'layer-editor/dia-list.h',
     'layer-editor/dia-layer-widget.c',
     'layer-editor/dia-layer-widget.h',
     'layer-editor/dia-layer-editor.c',
@@ -55,11 +57,6 @@ dia_sources = [
     'dia-props.c',
     'gtkwrapbox.c',
     'gtkhwrapbox.c',
-
-    'dia-list.c',
-    'dia-list.h',
-    'dia-list-item.c',
-    'dia-list-item.h',
 
     'cursor.c',
     'splash.c',
