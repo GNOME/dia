@@ -71,6 +71,7 @@ highlight_reset_objects(GList *objects, Diagram *dia)
   }
 }
 
+
 /* Currently does a brute-force run-through of all objects.
  * If this is too slow, we could create a list of currently highlighted
  * objects in the diagram and traverse that before killing it.
@@ -78,9 +79,9 @@ highlight_reset_objects(GList *objects, Diagram *dia)
  * the active layer.
  */
 void
-highlight_reset_all (Diagram *dia) {
-  int i;
-  for (i = 0; i < dia->data->layers->len; i++) {
-    highlight_reset_objects (dia_layer_get_object_list (DIA_LAYER (g_ptr_array_index (dia->data->layers, i))), dia);
-  }
+highlight_reset_all (Diagram *dia)
+{
+  DIA_FOR_LAYER_IN_DIAGRAM (DIA_DIAGRAM_DATA (dia), layer, i, {
+    highlight_reset_objects (dia_layer_get_object_list (layer), dia);
+  });
 }

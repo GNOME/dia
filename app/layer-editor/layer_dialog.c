@@ -160,16 +160,16 @@ dia_layer_change_apply (DiaChange *self, Diagram *dia)
 
   switch (change->type) {
     case TYPE_DELETE_LAYER:
-      data_remove_layer(dia->data, change->layer);
+      data_remove_layer (dia->data, change->layer);
       break;
     case TYPE_ADD_LAYER:
-      data_add_layer_at(dia->data, change->layer, change->index);
+      data_add_layer_at (dia->data, change->layer, change->index);
       break;
     case TYPE_RAISE_LAYER:
-      data_raise_layer(dia->data, change->layer);
+      data_raise_layer (dia->data, change->layer);
       break;
     case TYPE_LOWER_LAYER:
-      data_lower_layer(dia->data, change->layer);
+      data_lower_layer (dia->data, change->layer);
       break;
     default:
       g_return_if_reached ();
@@ -186,16 +186,16 @@ dia_layer_change_revert (DiaChange *self, Diagram *dia)
 
   switch (change->type) {
     case TYPE_DELETE_LAYER:
-      data_add_layer_at(dia->data, change->layer, change->index);
+      data_add_layer_at (dia->data, change->layer, change->index);
       break;
     case TYPE_ADD_LAYER:
-      data_remove_layer(dia->data, change->layer);
+      data_remove_layer (dia->data, change->layer);
       break;
     case TYPE_RAISE_LAYER:
-      data_lower_layer(dia->data, change->layer);
+      data_lower_layer (dia->data, change->layer);
       break;
     case TYPE_LOWER_LAYER:
-      data_raise_layer(dia->data, change->layer);
+      data_raise_layer (dia->data, change->layer);
       break;
     default:
       g_return_if_reached ();
@@ -212,23 +212,9 @@ dia_layer_change_free (DiaChange *self)
 {
   DiaLayerChange *change = DIA_LAYER_CHANGE (self);
 
-  switch (change->type) {
-    case TYPE_DELETE_LAYER:
-      if (change->applied) {
-        g_clear_object (&change->layer);
-      }
-      break;
-    case TYPE_ADD_LAYER:
-      if (!change->applied) {
-        g_clear_object (&change->layer);
-      }
-      break;
-    case TYPE_RAISE_LAYER:
-    case TYPE_LOWER_LAYER:
-    default:
-      break;
-  }
+  g_clear_object (&change->layer);
 }
+
 
 DiaChange *
 dia_layer_change_new (Diagram *dia, DiaLayer *layer, enum LayerChangeType type, int index)
@@ -236,7 +222,7 @@ dia_layer_change_new (Diagram *dia, DiaLayer *layer, enum LayerChangeType type, 
   DiaLayerChange *change = dia_change_new (DIA_TYPE_LAYER_CHANGE);
 
   change->type = type;
-  change->layer = layer;
+  g_set_object (&change->layer, layer);
   change->index = index;
   change->applied = 1;
 
@@ -264,34 +250,30 @@ dia_layer_visibility_change_apply (DiaChange *self,
                                    Diagram   *dia)
 {
   DiaLayerVisibilityChange *change = DIA_LAYER_VISIBILITY_CHANGE (self);
-  GPtrArray *layers;
   DiaLayer *layer = change->layer;
   int visible = FALSE;
-  int i;
 
   if (change->is_exclusive) {
     /*  First determine if _any_ other layer widgets are set to visible.
      *  If there is, exclusive switching turns all off.  */
-    for (i=0;i<dia->data->layers->len;i++) {
-      DiaLayer *temp_layer = g_ptr_array_index(dia->data->layers, i);
+    DIA_FOR_LAYER_IN_DIAGRAM (DIA_DIAGRAM_DATA (dia), temp_layer, i, {
       if (temp_layer != layer) {
         visible |= dia_layer_is_visible (temp_layer);
       }
-    }
+    });
 
     /*  Now, toggle the visibility for all layers except the specified one  */
-    layers = dia->data->layers;
-    for (i = 0; i < layers->len; i++) {
-      DiaLayer *temp_layer = (DiaLayer *) g_ptr_array_index(layers, i);
+    DIA_FOR_LAYER_IN_DIAGRAM (DIA_DIAGRAM_DATA (dia), temp_layer, i, {
       if (temp_layer == layer) {
         dia_layer_set_visible (temp_layer, TRUE);
       } else {
         dia_layer_set_visible (temp_layer, !visible);
       }
-    }
+    });
   } else {
     dia_layer_set_visible (layer, !dia_layer_is_visible (layer));
   }
+
   diagram_add_update_all (dia);
 }
 
@@ -305,17 +287,17 @@ dia_layer_visibility_change_revert (DiaChange *self,
 {
   DiaLayerVisibilityChange *change = DIA_LAYER_VISIBILITY_CHANGE (self);
   GList *vis = change->original_visibility;
-  GPtrArray *layers = dia->data->layers;
   int i;
 
-  for (i = 0; vis != NULL && i < layers->len; vis = g_list_next(vis), i++) {
-    DiaLayer *layer = DIA_LAYER (g_ptr_array_index (layers, i));
+  for (i = 0; vis != NULL && i < data_layer_count (DIA_DIAGRAM_DATA (dia)); vis = g_list_next (vis), i++) {
+    DiaLayer *layer = data_layer_get_nth (DIA_DIAGRAM_DATA (dia), i);
     dia_layer_set_visible (layer, GPOINTER_TO_INT (vis->data));
   }
 
-  if (vis != NULL || i < layers->len) {
-    g_printerr ("Internal error: visibility undo has %d visibilities, but %d layers\n",
-                g_list_length(change->original_visibility), layers->len);
+  if (vis != NULL || i < data_layer_count (DIA_DIAGRAM_DATA (dia))) {
+    g_critical ("Internal error: visibility undo has %d visibilities, but %d layers\n",
+                g_list_length (change->original_visibility),
+                data_layer_count (DIA_DIAGRAM_DATA (dia)));
   }
 
   diagram_add_update_all(dia);
@@ -336,13 +318,11 @@ dia_layer_visibility_change_new (Diagram *dia, DiaLayer *layer, gboolean exclusi
 {
   DiaLayerVisibilityChange *change = dia_change_new (DIA_TYPE_LAYER_VISIBILITY_CHANGE);
   GList *visibilities = NULL;
-  int i;
-  GPtrArray *layers = dia->data->layers;
 
-  for (i = 0; i < layers->len; i++) {
-    DiaLayer *temp_layer = DIA_LAYER (g_ptr_array_index (layers, i));
-    visibilities = g_list_append (visibilities, GINT_TO_POINTER (dia_layer_is_visible (temp_layer)));
-  }
+  DIA_FOR_LAYER_IN_DIAGRAM (DIA_DIAGRAM_DATA (dia), temp_layer, i, {
+    visibilities = g_list_append (visibilities,
+                                  GINT_TO_POINTER (dia_layer_is_visible (temp_layer)));
+  });
 
   change->original_visibility = visibilities;
   change->layer = layer;

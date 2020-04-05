@@ -1799,8 +1799,8 @@ export_vdx (DiagramData *data,
     dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
     /* First run through without drawing to setup tables */
-    for (i = 0; i < data->layers->len; i++) {
-      layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
+    for (i = 0; i < data_layer_count (data); i++) {
+      layer = data_layer_get_nth (data, i);
       if (dia_layer_is_visible (layer)) {
         dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       }
@@ -1817,8 +1817,8 @@ export_vdx (DiagramData *data,
 
     /* Now render */
 
-    for (i = 0; i < data->layers->len; i++) {
-      layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
+    for (i = 0; i < data_layer_count (data); i++) {
+      layer = data_layer_get_nth (data, i);
       if (dia_layer_is_visible (layer)) {
         dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       }

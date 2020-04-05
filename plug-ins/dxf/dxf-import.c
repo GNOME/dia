@@ -122,31 +122,33 @@ _color_init_from_rgb (Color *color, RGB_t rgb)
   color->alpha = 1.0;
 }
 
+
 /* returns the layer with the given name */
 /* TODO: merge this with other layer code? */
 static DiaLayer *
-layer_find_by_name(char *layername, DiagramData *dia)
+layer_find_by_name (char *layername, DiagramData *dia)
 {
-  DiaLayer *matching_layer, *layer;
-  guint i;
+  DiaLayer *matching_layer;
 
   matching_layer = NULL;
 
-  for (i=0; i<dia->layers->len; i++) {
-    layer = DIA_LAYER (g_ptr_array_index (dia->layers, i));
+  DIA_FOR_LAYER_IN_DIAGRAM (dia, layer, i, {
     if (strcmp (dia_layer_get_name (layer), layername) == 0) {
       matching_layer = layer;
       break;
     }
-  }
+  });
 
   if (matching_layer == NULL) {
     matching_layer = dia_layer_new (layername, dia);
     data_add_layer (dia, matching_layer);
+    // dia now owns the layer
+    g_object_unref (matching_layer);
   }
 
   return matching_layer;
 }
+
 
 /* returns the matching dia linestyle for a given dxf linestyle */
 /* if no matching style is found, LINESTYLE solid is returned as a default */
@@ -182,7 +184,7 @@ read_entity_line_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
 
     real line_width = DEFAULT_LINE_WIDTH;
     LineStyle style = LINESTYLE_SOLID;
-    DiaLayer *layer = dia->active_layer;
+    DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
 
     end.x=0;
     end.y=0;
@@ -269,7 +271,7 @@ read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
 
    real line_width = 0.001;
    LineStyle style = LINESTYLE_SOLID;
-   DiaLayer *layer = dia->active_layer;
+   DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
    RGB_t color  = { 127, 127, 127 };
 
 /*   printf( "Solid " ); */
@@ -411,7 +413,7 @@ read_entity_polyline_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
   real line_width = DEFAULT_LINE_WIDTH;
   real radius, start_angle = 0;
   LineStyle style = LINESTYLE_SOLID;
-  DiaLayer *layer = dia->active_layer;
+  DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
   RGB_t color = { 0, };
   unsigned char closed = 0;
   int points = 0;
@@ -600,7 +602,7 @@ read_entity_circle_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
   GPtrArray *props;
 
   real line_width = DEFAULT_LINE_WIDTH;
-  DiaLayer *layer = dia->active_layer;
+  DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
 
   do {
     if (read_dxf_codes (filedxf, data) == FALSE) {
@@ -681,7 +683,7 @@ read_entity_arc_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
   GPtrArray *props;
 
   real line_width = DEFAULT_LINE_WIDTH;
-  DiaLayer *layer = dia->active_layer;
+  DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
 
   do {
     if (read_dxf_codes (filedxf, data) == FALSE){
@@ -775,7 +777,7 @@ read_entity_ellipse_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
   GPtrArray *props;
 
   real line_width = DEFAULT_LINE_WIDTH;
-  DiaLayer *layer = dia->active_layer;
+  DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
 
   do {
     if (read_dxf_codes (filedxf, data) == FALSE) {
@@ -865,7 +867,7 @@ read_entity_text_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
   TextProperty *tprop;
   GPtrArray *props;
 
-  DiaLayer *layer = dia->active_layer;
+  DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
 
   do {
     if (read_dxf_codes (filedxf, data) == FALSE) {
@@ -1267,13 +1269,14 @@ read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
         } else if((data->code == 0) && (strcmp(data->value, "ENDBLK") == 0)) {
                 /* printf( "End group %d\n", group_items ); */
 
-            if( group && group_items > 0 && group_list != NULL )
-            {
-                obj = group_create( group_list );
-                if (NULL == group_layer )
-                  dia_layer_add_object( dia->active_layer, obj );
-                else
-                  dia_layer_add_object( group_layer, obj );
+            if (group && group_items > 0 && group_list != NULL) {
+              obj = group_create (group_list);
+              if (NULL == group_layer) {
+                dia_layer_add_object (dia_diagram_data_get_active_layer (dia),
+                                      obj);
+              } else {
+                dia_layer_add_object (group_layer, obj);
+              }
             }
 
             group = FALSE;

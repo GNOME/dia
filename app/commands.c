@@ -1513,6 +1513,7 @@ layers_add_layer_callback (GtkAction *action)
   diagram_edit_layer (dia, NULL);
 }
 
+
 void
 layers_rename_layer_callback (GtkAction *action)
 {
@@ -1523,8 +1524,10 @@ layers_rename_layer_callback (GtkAction *action)
     return;
   }
 
-  diagram_edit_layer (dia, dia->data->active_layer);
+  diagram_edit_layer (dia,
+                      dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)));
 }
+
 
 void
 objects_place_over_callback (GtkAction *action)

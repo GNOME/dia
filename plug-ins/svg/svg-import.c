@@ -1976,6 +1976,9 @@ import_shape_info (xmlNodePtr start_node, DiagramData *dia, DiaContext *ctx)
     } else if (!xmlStrcmp(node->name, (const xmlChar *)"can-parent")) {
     }
   }
+
+  g_clear_object (&layer);
+
   return TRUE;
 }
 
@@ -2130,7 +2133,6 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
 
     if (groups_to_layers) {
       char *name = dia_object_get_meta (obj, "id");
-      /* new_layer() is taking ownership of the name */
       DiaLayer *layer = dia_layer_new (name, dia);
 
       g_clear_pointer (&name, g_free);
@@ -2138,10 +2140,13 @@ import_svg (xmlDocPtr doc, DiagramData *dia,
       /* keep the group for potential transformation */
       dia_layer_add_object (layer, obj);
       data_add_layer (dia, layer);
+
+      g_clear_object (&layer);
     } else {
+      DiaLayer *active = dia_diagram_data_get_active_layer (dia);
       /* Just as before: throw it in the active layer */
-      dia_layer_add_object (dia->active_layer, obj);
-      dia_layer_update_extents (dia->active_layer);
+      dia_layer_add_object (active, obj);
+      dia_layer_update_extents (active);
     }
   }
 

@@ -132,12 +132,16 @@ PyDiaDiagramData_AddLayer (PyDiaDiagramData *self, PyObject *args)
 
   layer = dia_layer_new (name, self->data);
   if (pos != -1) {
-    data_add_layer_at(self->data, layer, pos);
+    data_add_layer_at (self->data, layer, pos);
   } else {
     data_add_layer (self->data, layer);
   }
+  // self->data now owns the layer
+  g_object_unref (layer);
+
   return PyDiaLayer_New (layer);
 }
+
 
 static PyObject *
 PyDiaDiagramData_RaiseLayer(PyDiaDiagramData *self, PyObject *args)
@@ -355,75 +359,64 @@ static PyMemberDef PyDiaDiagramData_Members[] = {
 static PyObject *
 PyDiaDiagramData_GetAttr (PyDiaDiagramData *self, char *attr)
 {
-    DiagramData *data = self->data;
+  DiagramData *data = self->data;
 
-    if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[ssssssssssss]",
-                           "extents", "bg_color", "paper",
-                           "layers", "active_layer",
-                           "grid_width", "grid_visible",
-                           "hguides", "vguides",
-                           "layers", "active_layer",
-                           "selected" );
-    else if (!strcmp(attr, "extents"))
-      return PyDiaRectangle_New(&data->extents, NULL);
-    else if (!strcmp(attr, "bg_color")) {
-      return PyDiaColor_New (&(data->bg_color));
+  if (!strcmp (attr, "__members__")) {
+    return Py_BuildValue ("[ssssssssssss]",
+                          "extents", "bg_color", "paper",
+                          "layers", "active_layer",
+                          "grid_width", "grid_visible",
+                          "hguides", "vguides",
+                          "selected" );
+  } else if (!strcmp (attr, "extents")) {
+    return PyDiaRectangle_New (&data->extents, NULL);
+  } else if (!strcmp (attr, "bg_color")) {
+    return PyDiaColor_New (&(data->bg_color));
+  } else if (!strcmp (attr, "layers")) {
+    PyObject *ret = PyTuple_New (data_layer_count (data));
+
+    DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
+      PyTuple_SetItem (ret, i, PyDiaLayer_New (layer));
+    });
+
+    return ret;
+  } else if (!strcmp (attr, "active_layer")) {
+    return PyDiaLayer_New (dia_diagram_data_get_active_layer (data));
+  } else if (!strcmp (attr, "paper")) {
+    return PyDiaPaperinfo_New (&data->paper);
+  } else if (!strcmp(attr, "selected")) {
+    PyObject *ret;
+    GList *tmp;
+    int i;
+
+    ret = PyTuple_New (g_list_length (self->data->selected));
+    for (i = 0, tmp = data->selected; tmp; i++, tmp = tmp->next) {
+      PyTuple_SetItem (ret, i, PyDiaObject_New ((DiaObject *) tmp->data));
     }
-    else if (!strcmp(attr, "layers")) {
-	guint i, len = data->layers->len;
-	PyObject *ret = PyTuple_New(len);
-
-	for (i = 0; i < len; i++)
-	    PyTuple_SetItem(ret, i, PyDiaLayer_New(
-			g_ptr_array_index(data->layers, i)));
-	return ret;
-    } else if (!strcmp(attr, "active_layer")) {
-	return PyDiaLayer_New(data->active_layer);
-    } else if (!strcmp(attr, "paper")) {
-        return PyDiaPaperinfo_New (&data->paper);
-    } else if (!strcmp(attr, "layers")) {
-	guint i, len = data->layers->len;
-	PyObject *ret = PyTuple_New(len);
-
-	for (i = 0; i < len; i++)
-	    PyTuple_SetItem(ret, i, PyDiaLayer_New(
-			g_ptr_array_index(self->data->layers, i)));
-	return ret;
-    } else if (!strcmp(attr, "active_layer")) {
-      return PyDiaLayer_New(data->active_layer);
-    } else if (!strcmp(attr, "selected")) {
-      PyObject *ret;
-      GList *tmp;
-      int i;
-
-      ret = PyTuple_New (g_list_length (self->data->selected));
-      for (i = 0, tmp = data->selected; tmp; i++, tmp = tmp->next) {
-        PyTuple_SetItem (ret, i, PyDiaObject_New ((DiaObject *) tmp->data));
-      }
-      return ret;
-    } else if (!strcmp(attr, "diagram")) {
-      if (DIA_IS_DIAGRAM (self->data)) {
-        return PyDiaDiagram_New (DIA_DIAGRAM (self->data));
-      }
-      Py_INCREF (Py_None);
-      return Py_None;
-    } else {
-      /* In the interactive case diagramdata is_a diagram */
-      if (DIA_IS_DIAGRAM (self->data)) {
-        Diagram *diagram = DIA_DIAGRAM (self->data);
-        if (diagram) { /* paranoid and helping scan-build */
-          if (!strcmp (attr, "grid_width")) {
-            return Py_BuildValue ("(dd)", diagram->grid.width_x, diagram->grid.width_y);
-          } else if (!strcmp (attr, "grid_visible")) {
-            return Py_BuildValue ("(ii)", diagram->grid.visible_x, diagram->grid.visible_y);
-          }
+    return ret;
+  } else if (!strcmp(attr, "diagram")) {
+    if (DIA_IS_DIAGRAM (self->data)) {
+      return PyDiaDiagram_New (DIA_DIAGRAM (self->data));
+    }
+    Py_INCREF (Py_None);
+    return Py_None;
+  } else {
+    /* In the interactive case diagramdata is_a diagram */
+    if (DIA_IS_DIAGRAM (self->data)) {
+      Diagram *diagram = DIA_DIAGRAM (self->data);
+      if (diagram) { /* paranoid and helping scan-build */
+        if (!strcmp (attr, "grid_width")) {
+          return Py_BuildValue ("(dd)", diagram->grid.width_x, diagram->grid.width_y);
+        } else if (!strcmp (attr, "grid_visible")) {
+          return Py_BuildValue ("(ii)", diagram->grid.visible_x, diagram->grid.visible_y);
         }
       }
     }
+  }
 
-    return Py_FindMethod(PyDiaDiagramData_Methods, (PyObject *)self, attr);
+  return Py_FindMethod (PyDiaDiagramData_Methods, (PyObject *) self, attr);
 }
+
 
 PyTypeObject PyDiaDiagramData_Type = {
     PyObject_HEAD_INIT(NULL)

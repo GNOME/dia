@@ -488,17 +488,16 @@ import_drs (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user
   for (node = root->children; node != NULL; node = node->next) {
     if (xmlStrcmp (node->name, (const xmlChar *) "layer") == 0) {
       xmlChar *str;
-      xmlChar *name = xmlGetProp (node, (const xmlChar *) "name");
-      DiaLayer *layer = dia_layer_new (name ? (gchar *) name : _("Layer"), dia);
+      xmlChar *name = xmlGetProp (node, "name");
+      DiaLayer *layer = dia_layer_new (name ? (char *) name : _("Layer"), dia);
 
-      if (name)
-        xmlFree (name);
+      dia_clear_xml_string (&name);
 
-      str = xmlGetProp (node, (const xmlChar *) "active");
-      if (xmlStrcmp (str, (const xmlChar *) "true")) {
-        active_layer = layer;
-        xmlFree (str);
+      str = xmlGetProp (node, "active");
+      if (xmlStrcmp (str, "true")) {
+        g_set_object (&active_layer, layer);
       }
+      dia_clear_xml_string (&str);
 
       items = read_items (node->children, ctx);
       for (item = items; item != NULL; item = g_list_next (item)) {
@@ -507,10 +506,17 @@ import_drs (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user
       }
       g_list_free (items);
       data_add_layer (dia, layer);
+
+      g_clear_object (&layer);
     }
   }
-  if (active_layer)
+
+  if (active_layer) {
     data_set_active_layer (dia, active_layer);
+  }
+
   xmlFreeDoc(doc);
+  g_clear_object (&active_layer);
+
   return TRUE;
 }

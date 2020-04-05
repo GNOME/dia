@@ -1328,32 +1328,38 @@ import_fig(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
 	return FALSE;
     }
 
-    if (!fig_read_meta_data(figfile, dia, ctx)) {
-	fclose(figfile);
-	return FALSE;
+  if (!fig_read_meta_data (figfile, dia, ctx)) {
+    fclose (figfile);
+    return FALSE;
+  }
+
+  compound_stack = NULL;
+
+  do {
+    if (!skip_comments (figfile)) {
+      if (!feof (figfile)) {
+        dia_context_add_message_with_errno (ctx,
+                                            errno,
+                                            _("Error reading Fig file."));
+      } else {
+        break;
+      }
     }
 
-    compound_stack = NULL;
-
-    do {
-	if (!skip_comments(figfile)) {
-	    if (!feof(figfile)) {
-		dia_context_add_message_with_errno(ctx, errno, _("Error reading Fig file."));
-	    } else {
-		break;
-	    }
-	}
-	if (! fig_read_object(figfile, ctx)) {
-	    fclose(figfile);
-	    break;
-	}
-    } while (TRUE);
+    if (!fig_read_object (figfile, ctx)) {
+      fclose (figfile);
+      break;
+    }
+  } while (TRUE);
 
   /* Now we can reorder for the depth fields */
   for (i = 0; i < FIG_MAX_DEPTHS; i++) {
-    if (depths[i] != NULL)
-      dia_layer_add_objects_first (dia->active_layer, depths[i]);
+    if (depths[i] != NULL) {
+      dia_layer_add_objects_first (dia_diagram_data_get_active_layer (dia),
+                                   depths[i]);
+    }
   }
+
   return TRUE;
 }
 

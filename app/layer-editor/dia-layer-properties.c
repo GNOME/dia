@@ -136,7 +136,7 @@ dia_layer_properties_response (GtkDialog *dialog,
   } else if (priv->diagram) {
     DiaLayer *layer;
     int pos = data_layer_get_index (DIA_DIAGRAM_DATA (priv->diagram),
-                                    DIA_DIAGRAM_DATA (priv->diagram)->active_layer) + 1;
+                                    dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (priv->diagram)) + 1);
 
     layer = dia_layer_new (gtk_entry_get_text (GTK_ENTRY (priv->entry)),
                            DIA_DIAGRAM_DATA (priv->diagram));
@@ -148,6 +148,8 @@ dia_layer_properties_response (GtkDialog *dialog,
 
     dia_layer_change_new (priv->diagram, layer, TYPE_ADD_LAYER, pos);
     undo_set_transactionpoint (priv->diagram->undo);
+
+    g_clear_object (&layer);
   } else {
     g_critical ("Huh, no layer or diagram");
   }
@@ -312,7 +314,7 @@ dia_layer_properties_set_diagram (DiaLayerProperties *self,
                             data_layer_count (DIA_DIAGRAM_DATA (dia)));
     gtk_entry_set_text (GTK_ENTRY (priv->entry), name);
 
-    g_free (name);
+    g_clear_pointer (&name, g_free);
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), lp_pspecs[LP_PROP_DIAGRAM]);

@@ -151,7 +151,7 @@ dia_diagram_finalize (GObject *object)
 
   g_clear_object (&priv->file);
   g_clear_pointer (&dia->filename, g_free);
-  
+
   G_OBJECT_CLASS (dia_diagram_parent_class)->finalize (object);
 }
 
@@ -714,21 +714,26 @@ diagram_remove_ddisplay (Diagram *dia, DDisplay *ddisp)
   }
 }
 
+
 void
 diagram_add_object (Diagram *dia, DiaObject *obj)
 {
-  dia_layer_add_object (dia->data->active_layer, obj);
+  dia_layer_add_object (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)),
+                        obj);
 
   diagram_modified (dia);
 }
+
 
 void
 diagram_add_object_list (Diagram *dia, GList *list)
 {
-  dia_layer_add_objects (dia->data->active_layer, list);
+  dia_layer_add_objects (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)),
+                         list);
 
   diagram_modified (dia);
 }
+
 
 void
 diagram_selected_break_external (Diagram *dia)
@@ -996,7 +1001,7 @@ diagram_find_clicked_object (Diagram *dia,
                              Point   *pos,
                              real     maxdist)
 {
-  return dia_layer_find_closest_object_except (dia->data->active_layer,
+  return dia_layer_find_closest_object_except (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)),
                                                pos, maxdist, NULL);
 }
 
@@ -1006,7 +1011,7 @@ diagram_find_clicked_object_except (Diagram *dia,
                                     real     maxdist,
                                     GList   *avoid)
 {
-  return dia_layer_find_closest_object_except (dia->data->active_layer,
+  return dia_layer_find_closest_object_except (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)),
                                                pos,
                                                maxdist,
                                                avoid);
@@ -1058,9 +1063,8 @@ diagram_find_closest_connectionpoint (Diagram          *dia,
                                       DiaObject        *notthis)
 {
   real dist = 100000000.0;
-  guint i;
-  for (i = 0; i < dia->data->layers->len; i++) {
-    DiaLayer *layer = DIA_LAYER (g_ptr_array_index (dia->data->layers, i));
+
+  DIA_FOR_LAYER_IN_DIAGRAM (DIA_DIAGRAM_DATA (dia), layer, i, {
     ConnectionPoint *this_cp;
     real this_dist;
     if (dia_layer_is_connectable (layer)) {
@@ -1073,7 +1077,8 @@ diagram_find_closest_connectionpoint (Diagram          *dia,
         *closest = this_cp;
       }
     }
-  }
+  });
+
   return dist;
 }
 
@@ -1287,7 +1292,7 @@ diagram_group_selected (Diagram *dia)
   dia->data->selected = parent_list_affected(dia->data->selected);
 #endif
 
-  orig_list = g_list_copy (dia_layer_get_object_list (DIA_DIAGRAM_DATA (dia)->active_layer));
+  orig_list = g_list_copy (dia_layer_get_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia))));
 
   /* We have to rebuild the selection list so that it is the same
      order as in the Diagram list. */
@@ -1348,7 +1353,7 @@ void diagram_ungroup_selected(Diagram *dia)
 
       group_list = group_objects(group);
 
-      group_index = dia_layer_object_get_index (dia->data->active_layer, group);
+      group_index = dia_layer_object_get_index (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)), group);
 
       change = dia_ungroup_objects_change_new (dia, group_list, group, group_index);
       dia_change_apply (change, dia);
@@ -1393,11 +1398,11 @@ diagram_place_under_selected (Diagram *dia)
   if (g_list_length (dia->data->selected) == 0)
     return;
 
-  orig_list = g_list_copy (dia_layer_get_object_list (DIA_DIAGRAM_DATA (dia)->active_layer));
+  orig_list = g_list_copy (dia_layer_get_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia))));
 
   sorted_list = diagram_get_sorted_selected_remove (dia);
   object_add_updates_list (sorted_list, dia);
-  dia_layer_add_objects_first (dia->data->active_layer, sorted_list);
+  dia_layer_add_objects_first (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)), sorted_list);
 
   dia_reorder_objects_change_new (dia, g_list_copy (sorted_list), orig_list);
 
@@ -1415,11 +1420,11 @@ diagram_place_over_selected(Diagram *dia)
   if (g_list_length (dia->data->selected) == 0)
     return;
 
-  orig_list = g_list_copy (dia_layer_get_object_list (dia->data->active_layer));
+  orig_list = g_list_copy (dia_layer_get_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia))));
 
   sorted_list = diagram_get_sorted_selected_remove (dia);
   object_add_updates_list (sorted_list, dia);
-  dia_layer_add_objects (dia->data->active_layer, sorted_list);
+  dia_layer_add_objects (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)), sorted_list);
 
   dia_reorder_objects_change_new (dia, g_list_copy (sorted_list), orig_list);
 
@@ -1439,7 +1444,7 @@ diagram_place_up_selected(Diagram *dia)
   if (g_list_length (dia->data->selected) == 0)
     return;
 
-  orig_list = g_list_copy (dia_layer_get_object_list (DIA_DIAGRAM_DATA (dia)->active_layer));
+  orig_list = g_list_copy (dia_layer_get_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia))));
 
   sorted_list = diagram_get_sorted_selected(dia);
   object_add_updates_list(orig_list, dia);
@@ -1462,7 +1467,7 @@ diagram_place_up_selected(Diagram *dia)
     }
   }
 
-  dia_layer_set_object_list (dia->data->active_layer, new_list);
+  dia_layer_set_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)), new_list);
 
   dia_reorder_objects_change_new (dia, g_list_copy (sorted_list), orig_list);
 
@@ -1482,7 +1487,7 @@ diagram_place_down_selected (Diagram *dia)
   if (g_list_length (dia->data->selected) == 0)
     return;
 
-  orig_list = g_list_copy (dia_layer_get_object_list (DIA_DIAGRAM_DATA (dia)->active_layer));
+  orig_list = g_list_copy (dia_layer_get_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia))));
 
   sorted_list = diagram_get_sorted_selected (dia);
   object_add_updates_list (orig_list, dia);
@@ -1508,7 +1513,7 @@ diagram_place_down_selected (Diagram *dia)
     }
   }
 
-  dia_layer_set_object_list (dia->data->active_layer, new_list);
+  dia_layer_set_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)), new_list);
 
   dia_reorder_objects_change_new (dia, g_list_copy (sorted_list), orig_list);
 

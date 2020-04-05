@@ -210,8 +210,7 @@ PyDiaLayer_Render (PyDiaLayer *self, PyObject *args)
   PyObject* renderer;
   DiaRenderer *wrapper;
   DiaRectangle *update = NULL;
-  gboolean active = FALSE; /* could derive from layer->parent_diagram->active_layer
-          * but not sure if it's worth the effort. */
+  gboolean active = FALSE; /* could derive but not sure if it's worth the effort. */
 
   if (!PyArg_ParseTuple (args, "O:Layer.render", &renderer))
     return NULL;

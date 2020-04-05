@@ -115,5 +115,8 @@ void data_add_pattern(AttributeNode attr, DiaPattern *pat, DiaContext *ctx);
 
 xmlDocPtr diaXmlParseFile(const char *filename, DiaContext *ctx, gboolean try_harder);
 
+#define dia_clear_xml_string(pointer) g_clear_pointer(pointer, xmlFree)
+
+
 #endif /* DIA_XML_H */
 

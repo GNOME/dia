@@ -564,19 +564,20 @@ dxf_renderer_class_init (DxfRendererClass *klass)
   g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
-static gboolean
-export_dxf(DiagramData *data, DiaContext *ctx,
-	   const gchar *filename, const gchar *diafilename,
-           void* user_data)
-{
-    DxfRenderer *renderer;
-    FILE *file;
-    int i;
-    DiaLayer *layer;
-    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
-    gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
 
-    file = g_fopen(filename, "w");
+static gboolean
+export_dxf (DiagramData *data,
+            DiaContext  *ctx,
+            const char  *filename,
+            const char  *diafilename,
+            void        *user_data)
+{
+  DxfRenderer *renderer;
+  FILE *file;
+  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+  gchar buf2[G_ASCII_DTOSTR_BUF_SIZE];
+
+  file = g_fopen(filename, "w");
 
     if (file == NULL) {
 	dia_context_add_message_with_errno (ctx, errno, _("Can't open output file %s"),
@@ -599,19 +600,19 @@ export_dxf(DiagramData *data, DiaContext *ctx,
     fprintf(file, "  0\nENDSEC\n");
 
     /* write layer description */
-    fprintf(file,"  0\nSECTION\n  2\nTABLES\n  0\nTABLE\n");
+    fprintf (file,"  0\nSECTION\n  2\nTABLES\n  0\nTABLE\n");
     /* some dummy entry to make it work for more DXF viewers */
-    fprintf(file,"  2\nLAYER\n 70\n255\n");
+    fprintf (file,"  2\nLAYER\n 70\n255\n");
 
-    for (i=0; i<data->layers->len; i++) {
-      layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
-      fprintf (file,"  0\nLAYER\n  2\n%s\n", dia_layer_get_name (layer));
-      if (dia_layer_is_visible (layer))
-        fprintf (file," 62\n%d\n",i+1);
-      else
-        fprintf (file," 62\n%d\n",(-1)*(i+1));
+  DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
+    fprintf (file,"  0\nLAYER\n  2\n%s\n", dia_layer_get_name (layer));
+    if (dia_layer_is_visible (layer)) {
+      fprintf (file, " 62\n%d\n", i + 1);
+    } else {
+      fprintf (file, " 62\n%d\n", (-1) * (i + 1));
     }
-    fprintf(file, "  0\nENDTAB\n  0\nENDSEC\n");
+  });
+  fprintf (file, "  0\nENDTAB\n  0\nENDSEC\n");
 
     /* write graphics */
     fprintf(file,"  0\nSECTION\n  2\nENTITIES\n");
@@ -620,11 +621,10 @@ export_dxf(DiagramData *data, DiaContext *ctx,
 
     dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
-    for (i=0; i<data->layers->len; i++) {
-        layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
-        renderer->layername = dia_layer_get_name (layer);
-        dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
-    }
+  DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
+    renderer->layername = dia_layer_get_name (layer);
+    dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
+  });
 
   dia_renderer_end_render (DIA_RENDERER (renderer));
 

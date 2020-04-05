@@ -1179,14 +1179,14 @@ draw_object (DiaRenderer *self,
 
 
 static gboolean
-export_fig(DiagramData *data, DiaContext *ctx,
-	   const gchar *filename, const gchar *diafilename,
-	   void* user_data)
+export_fig (DiagramData *data,
+            DiaContext  *ctx,
+            const char  *filename,
+            const char  *diafilename,
+            void        *user_data)
 {
   FILE *file;
   XfigRenderer *renderer;
-  int i;
-  DiaLayer *layer;
   gchar d_buf[DTOSTR_BUF_SIZE];
 
   file = g_fopen(filename, "w");
@@ -1199,7 +1199,7 @@ export_fig(DiagramData *data, DiaContext *ctx,
     return FALSE;
   }
 
-  renderer = g_object_new(XFIG_TYPE_RENDERER, NULL);
+  renderer = g_object_new (XFIG_TYPE_RENDERER, NULL);
 
   renderer->file = file;
 
@@ -1217,13 +1217,12 @@ export_fig(DiagramData *data, DiaContext *ctx,
 
   dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
-  for (i = 0; i < data->layers->len; i++) {
-    layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
+  DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
     if (dia_layer_is_visible (layer)) {
       dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       renderer->depth++;
     }
-  }
+  });
 
   dia_renderer_end_render (DIA_RENDERER (renderer));
 
@@ -1231,13 +1230,12 @@ export_fig(DiagramData *data, DiaContext *ctx,
 
   dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
 
-  for (i=0; i<data->layers->len; i++) {
-    layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
+  DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
     if (dia_layer_is_visible (layer)) {
       dia_layer_render (layer, DIA_RENDERER (renderer), NULL, NULL, data, 0);
       renderer->depth++;
     }
-  }
+  });
 
   dia_renderer_end_render (DIA_RENDERER (renderer));
 

@@ -250,7 +250,8 @@ connectable_toggled (GtkToggleButton *widget,
                                gtk_toggle_button_get_active (widget));
   }
 
-  if (priv->layer == dia_layer_get_parent_diagram (priv->layer)->active_layer) {
+
+  if (priv->layer == dia_diagram_data_get_active_layer (dia_layer_get_parent_diagram (priv->layer))) {
     priv->connect_off = !gtk_toggle_button_get_active (widget);
     if (priv->connect_off) {
       priv->connect_on = FALSE;
@@ -271,6 +272,7 @@ connectable_toggled (GtkToggleButton *widget,
     diagram_flush (diagram);
   }
 }
+
 
 static void
 visible_clicked (GtkToggleButton *widget,
@@ -427,7 +429,19 @@ dia_layer_widget_set_layer (DiaLayerWidget *self,
   if (layer) {
     priv->layer = g_object_ref (layer);
 
+  if (g_set_object (&priv->layer, layer)) {
     g_clear_object (&priv->name_binding);
+
+    g_message (" -> accepted %p", priv->layer);
+
+    if (!layer) {
+      gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
+
+      g_object_notify_by_pspec (G_OBJECT (self), lw_pspecs[LW_PROP_LAYER]);
+
+      return;
+    }
+
     priv->name_binding = g_object_bind_property (layer, "name",
                                                 priv->label, "label",
                                                 G_BINDING_SYNC_CREATE);
@@ -449,11 +463,9 @@ dia_layer_widget_set_layer (DiaLayerWidget *self,
     priv->connect_off = FALSE;
 
     gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
-  } else {
-    gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
-  }
 
   g_object_notify_by_pspec (G_OBJECT (self), lw_pspecs[LW_PROP_LAYER]);
+}
 }
 
 

@@ -164,12 +164,14 @@ show_layers_parse_numbers (DiagramData *diagdata,
     g_warning (_("invalid layer range %lu - %lu"), low, high - 1);
     return;
   }
-  if (high > n_layers)
+
+  if (high > n_layers) {
     high = n_layers;
+  }
 
   /* Set the visible layers */
-  for ( i = low; i < high; i++ ) {
-    DiaLayer *lay = DIA_LAYER (g_ptr_array_index (diagdata->layers, i));
+  for (i = low; i < high; i++) {
+    DiaLayer *lay = data_layer_get_nth (diagdata, i);
 
     if (visible_layers[i] == TRUE) {
       g_warning (_("Layer %lu (%s) selected more than once."),
@@ -180,41 +182,37 @@ show_layers_parse_numbers (DiagramData *diagdata,
   }
 }
 
+
 static void
 show_layers_parse_word (DiagramData *diagdata,
                         gboolean    *visible_layers,
                         gint         n_layers,
                         const char  *str)
 {
-  GPtrArray *layers = diagdata->layers;
   gboolean found = FALSE;
+  int len;
+  char *p;
+  const char *name;
 
   /* Apply --show-layers=LAYER,LAYER,... switch. 13.3.2004 sampo@iki.fi */
-  if (layers) {
-    int len, k = 0;
-    DiaLayer *lay;
-    char *p;
-    const char *name;
 
-    for (k = 0; k < layers->len; k++) {
-      lay = DIA_LAYER (g_ptr_array_index (layers, k));
-      name = dia_layer_get_name (lay);
+  DIA_FOR_LAYER_IN_DIAGRAM (diagdata, lay, k, {
+    name = dia_layer_get_name (lay);
 
-      if (name) {
-        len = strlen (name);
-        if ((p = strstr (str, name)) != NULL) {
-          if (((p == str) || (p[-1] == ','))    /* zap false positives */
-              && ((p[len] == 0) || (p[len] == ','))){
-            found = TRUE;
-            if (visible_layers[k] == TRUE) {
-              g_warning (_("Layer %d (%s) selected more than once."), k, name);
-            }
-            visible_layers[k] = TRUE;
+    if (name) {
+      len = strlen (name);
+      if ((p = strstr (str, name)) != NULL) {
+        if (((p == str) || (p[-1] == ','))    /* zap false positives */
+            && ((p[len] == 0) || (p[len] == ','))){
+          found = TRUE;
+          if (visible_layers[k] == TRUE) {
+            g_warning (_("Layer %d (%s) selected more than once."), k, name);
           }
+          visible_layers[k] = TRUE;
         }
       }
     }
-  }
+  });
 
   if (found == FALSE) {
     g_warning (_("There is no layer named %s."), str);
@@ -262,21 +260,21 @@ handle_show_layers (DiagramData *diagdata,
   DiaLayer *layer;
   int i;
 
-  visible_layers = g_new (gboolean, diagdata->layers->len);
+  visible_layers = g_new (gboolean, data_layer_count (diagdata));
   /* Assume all layers are non-visible */
-  for (i = 0; i < diagdata->layers->len; i++) {
+  for (i = 0; i < data_layer_count (diagdata); i++) {
     visible_layers[i] = FALSE;
   }
 
   /* Split the layer-range by commas */
   show_layers_parse_string (diagdata,
                             visible_layers,
-                            diagdata->layers->len,
+                            data_layer_count (diagdata),
                             show_layers);
 
   /* Set the visibility of the layers */
-  for (i = 0; i < diagdata->layers->len; i++) {
-    layer = g_ptr_array_index (diagdata->layers, i);
+  for (i = 0; i < data_layer_count (diagdata); i++) {
+    layer = data_layer_get_nth (diagdata, i);
 
     if (visible_layers[i] == TRUE) {
       dia_layer_set_visible (layer, TRUE);

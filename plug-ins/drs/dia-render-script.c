@@ -97,19 +97,22 @@ drs_render_layer (DiaRenderer *self, DiaLayer *layer, gboolean active)
   renderer->root = g_queue_pop_tail (renderer->parents);
 }
 
+
 /*! own version to render invisible layers, too */
 static void
 drs_data_render (DiagramData *data, DiaRenderer *renderer)
 {
-  int i;
+  DiaLayer *active = dia_diagram_data_get_active_layer (data);
 
   dia_renderer_begin_render (renderer, NULL);
-  for (i=0; i < data->layers->len; i++) {
-    DiaLayer *layer = DIA_LAYER (g_ptr_array_index (data->layers, i));
-    drs_render_layer (renderer, layer, layer == data->active_layer);
-  }
+
+  DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
+    drs_render_layer (renderer, layer, layer == active);
+  });
+
   dia_renderer_end_render (renderer);
 }
+
 
 /* dia export funtion */
 static gboolean

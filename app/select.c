@@ -41,7 +41,7 @@ select_all_callback(GtkAction *action)
   if (!ddisp || textedit_mode(ddisp)) return;
   dia = ddisp->diagram;
 
-  objects = dia_layer_get_object_list (dia->data->active_layer);
+  objects = dia_layer_get_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)));
 
   while (objects != NULL) {
     DiaObject *obj = DIA_OBJECT (objects->data);
@@ -84,7 +84,7 @@ select_invert_callback (GtkAction *action)
   if (!ddisp || textedit_mode (ddisp)) return;
   dia = ddisp->diagram;
 
-  tmp =  dia_layer_get_object_list (dia->data->active_layer);
+  tmp =  dia_layer_get_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)));
 
   for (; tmp != NULL; tmp = g_list_next (tmp)) {
     DiaObject *obj = DIA_OBJECT (tmp->data);
@@ -233,7 +233,7 @@ select_same_type_callback (GtkAction *action)
   if (!ddisp || textedit_mode (ddisp)) return;
   dia = ddisp->diagram;
 
-  tmp = dia_layer_get_object_list (dia->data->active_layer);
+  tmp = dia_layer_get_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)));
 
   objects = dia->data->selected;
 

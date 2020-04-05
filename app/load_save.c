@@ -373,8 +373,12 @@ _get_bool_prop (xmlNodePtr node, const char *name, gboolean preset)
   return ret;
 }
 
+
 static gboolean
-diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, void* user_data)
+diagram_data_load (const char  *filename,
+                   DiagramData *data,
+                   DiaContext  *ctx,
+                   void        *user_data)
 {
   GHashTable *objects_hash;
   int fd;
@@ -393,21 +397,24 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
   GHashTable* unknown_objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
   int num_layers_added = 0;
 
-  g_return_val_if_fail(data!=NULL, FALSE);
+  g_return_val_if_fail (data != NULL, FALSE);
 
   if (g_file_test (filename, G_FILE_TEST_IS_DIR)) {
-    dia_context_add_message(ctx, _("You must specify a file, not a directory."));
+    dia_context_add_message (ctx,
+                             _("You must specify a file, not a directory."));
     return FALSE;
   }
 
-  fd = g_open(filename, O_RDONLY, 0);
+  fd = g_open (filename, O_RDONLY, 0);
 
   if (fd==-1) {
-    dia_context_add_message(ctx, _("Couldn't open: '%s' for reading.\n"), filename);
+    dia_context_add_message (ctx,
+                             _("Couldn't open: '%s' for reading.\n"),
+                             filename);
     return FALSE;
   }
 
-  if (read(fd, &firstchar, 1)) {
+  if (read (fd, &firstchar, 1)) {
     data->is_compressed = (firstchar != '<');
   } else {
     /* Couldn't read a single char?  Set to default. */
@@ -415,39 +422,40 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
   }
 
   /* Note that this closing and opening means we can't read from a pipe */
-  close(fd);
+  close (fd);
 
   doc = diaXmlParseFile (filename, ctx, TRUE);
 
   if (doc == NULL){
     /* this was talking about unknown file type but it could as well be broken XML */
-    dia_context_add_message(ctx, _("Error loading diagram %s."), filename);
+    dia_context_add_message (ctx, _("Error loading diagram %s."), filename);
     return FALSE;
   }
 
   root = doc->xmlRootNode;
   /* skip comments */
-  while (root && (root->type != XML_ELEMENT_NODE))
+  while (root && (root->type != XML_ELEMENT_NODE)) {
     root = root->next;
+  }
+
   if (root == NULL) {
-    message_error(_("Error loading diagram %s.\nUnknown file type."),
-		  dia_message_filename(filename));
+    message_error (_("Error loading diagram %s.\nUnknown file type."),
+                   dia_message_filename (filename));
     xmlFreeDoc (doc);
     return FALSE;
   }
 
-  namespace = xmlSearchNs(doc, root, (const xmlChar *)"dia");
-  if (xmlStrcmp (root->name, (const xmlChar *)"diagram") || (namespace == NULL)){
-    message_error(_("Error loading diagram %s.\nNot a Dia file."),
-		  dia_message_filename(filename));
+  namespace = xmlSearchNs (doc, root, "dia");
+  if (xmlStrcmp (root->name, "diagram") || (namespace == NULL)) {
+    message_error (_("Error loading diagram %s.\nNot a Dia file."),
+                   dia_message_filename (filename));
     xmlFreeDoc (doc);
     return FALSE;
   }
 
   /* Destroy the default layer: */
-  if (dia_layer_object_count (data->active_layer) == 0) {
-    g_ptr_array_remove (data->layers, data->active_layer);
-    g_clear_object (&data->active_layer);
+  if (dia_layer_object_count (dia_diagram_data_get_active_layer (data)) == 0) {
+    data_remove_layer (data, dia_diagram_data_get_active_layer (data));
   }
 
   diagramdata =
@@ -455,80 +463,98 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
 
   /* Read in diagram data: */
   data->bg_color = prefs.new_diagram.bg_color;
-  attr = composite_find_attribute(diagramdata, "background");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &data->bg_color, ctx);
+  attr = composite_find_attribute (diagramdata, "background");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &data->bg_color, ctx);
+  }
 
   if (diagram) {
     diagram->pagebreak_color = prefs.new_diagram.pagebreak_color;
-    attr = composite_find_attribute(diagramdata, "pagebreak");
-    if (attr != NULL)
-      data_color(attribute_first_data(attr), &diagram->pagebreak_color, ctx);
+    attr = composite_find_attribute (diagramdata, "pagebreak");
+    if (attr != NULL) {
+      data_color (attribute_first_data (attr), &diagram->pagebreak_color, ctx);
+    }
   }
-  /* load paper information from diagramdata section */
-  attr = composite_find_attribute(diagramdata, "paper");
-  if (attr != NULL) {
-    paperinfo = attribute_first_data(attr);
 
-    attr = composite_find_attribute(paperinfo, "name");
+  /* load paper information from diagramdata section */
+  attr = composite_find_attribute (diagramdata, "paper");
+  if (attr != NULL) {
+    paperinfo = attribute_first_data (attr);
+
+    attr = composite_find_attribute (paperinfo, "name");
     if (attr != NULL) {
       g_clear_pointer (&data->paper.name, g_free);
-      data->paper.name = data_string(attribute_first_data(attr), ctx);
+      data->paper.name = data_string (attribute_first_data (attr), ctx);
     }
+
     if (data->paper.name == NULL || data->paper.name[0] == '\0') {
-      data->paper.name = g_strdup(prefs.new_diagram.papertype);
+      data->paper.name = g_strdup (prefs.new_diagram.papertype);
     }
+
     /* set default margins for paper size ... */
-    dia_page_layout_get_default_margins(data->paper.name,
-					&data->paper.tmargin,
-					&data->paper.bmargin,
-					&data->paper.lmargin,
-					&data->paper.rmargin);
+    dia_page_layout_get_default_margins (data->paper.name,
+                                         &data->paper.tmargin,
+                                         &data->paper.bmargin,
+                                         &data->paper.lmargin,
+                                         &data->paper.rmargin);
 
-    attr = composite_find_attribute(paperinfo, "tmargin");
-    if (attr != NULL)
-      data->paper.tmargin = data_real(attribute_first_data(attr), ctx);
-    attr = composite_find_attribute(paperinfo, "bmargin");
-    if (attr != NULL)
-      data->paper.bmargin = data_real(attribute_first_data(attr), ctx);
-    attr = composite_find_attribute(paperinfo, "lmargin");
-    if (attr != NULL)
-      data->paper.lmargin = data_real(attribute_first_data(attr), ctx);
-    attr = composite_find_attribute(paperinfo, "rmargin");
-    if (attr != NULL)
-      data->paper.rmargin = data_real(attribute_first_data(attr), ctx);
+    attr = composite_find_attribute (paperinfo, "tmargin");
+    if (attr != NULL) {
+      data->paper.tmargin = data_real (attribute_first_data(attr), ctx);
+    }
 
-    attr = composite_find_attribute(paperinfo, "is_portrait");
+    attr = composite_find_attribute (paperinfo, "bmargin");
+    if (attr != NULL) {
+      data->paper.bmargin = data_real (attribute_first_data (attr), ctx);
+    }
+
+    attr = composite_find_attribute (paperinfo, "lmargin");
+    if (attr != NULL) {
+      data->paper.lmargin = data_real (attribute_first_data (attr), ctx);
+    }
+
+    attr = composite_find_attribute (paperinfo, "rmargin");
+    if (attr != NULL) {
+      data->paper.rmargin = data_real (attribute_first_data (attr), ctx);
+    }
+
+    attr = composite_find_attribute (paperinfo, "is_portrait");
     data->paper.is_portrait = TRUE;
-    if (attr != NULL)
-      data->paper.is_portrait = data_boolean(attribute_first_data(attr), ctx);
+    if (attr != NULL) {
+      data->paper.is_portrait = data_boolean (attribute_first_data (attr),
+                                              ctx);
+    }
 
-    attr = composite_find_attribute(paperinfo, "scaling");
+    attr = composite_find_attribute (paperinfo, "scaling");
     data->paper.scaling = 1.0;
-    if (attr != NULL)
-      data->paper.scaling = data_real(attribute_first_data(attr), ctx);
+    if (attr != NULL) {
+      data->paper.scaling = data_real (attribute_first_data (attr), ctx);
+    }
 
-    attr = composite_find_attribute(paperinfo, "fitto");
+    attr = composite_find_attribute (paperinfo, "fitto");
     data->paper.fitto = FALSE;
-    if (attr != NULL)
-      data->paper.fitto = data_boolean(attribute_first_data(attr), ctx);
+    if (attr != NULL) {
+      data->paper.fitto = data_boolean (attribute_first_data (attr), ctx);
+    }
 
-    attr = composite_find_attribute(paperinfo, "fitwidth");
+    attr = composite_find_attribute (paperinfo, "fitwidth");
     data->paper.fitwidth = 1;
-    if (attr != NULL)
-      data->paper.fitwidth = data_int(attribute_first_data(attr), ctx);
+    if (attr != NULL) {
+      data->paper.fitwidth = data_int (attribute_first_data (attr), ctx);
+    }
 
-    attr = composite_find_attribute(paperinfo, "fitheight");
+    attr = composite_find_attribute (paperinfo, "fitheight");
     data->paper.fitheight = 1;
-    if (attr != NULL)
-      data->paper.fitheight = data_int(attribute_first_data(attr), ctx);
+    if (attr != NULL) {
+      data->paper.fitheight = data_int (attribute_first_data (attr), ctx);
+    }
 
     /* calculate effective width/height */
-    dia_page_layout_get_paper_size(data->paper.name,
-				   &data->paper.width,
-				   &data->paper.height);
+    dia_page_layout_get_paper_size (data->paper.name,
+                                    &data->paper.width,
+                                    &data->paper.height);
     if (!data->paper.is_portrait) {
-      gfloat tmp = data->paper.width;
+      float tmp = data->paper.width;
 
       data->paper.width = data->paper.height;
       data->paper.height = tmp;
@@ -616,37 +642,44 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     if (attr != NULL) {
       DataNode dispinfo;
 
-      dispinfo = attribute_first_data(attr);
+      dispinfo = attribute_first_data (attr);
       /* using the diagramdata object as temporary storage is a bit hacky,
        * and also the magic numbers (keeping 0 as dont care) */
 
-      attr = composite_find_attribute(dispinfo, "antialiased");
-      if (attr != NULL)
-	g_object_set_data(G_OBJECT(diagram),
-	  "antialiased", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
+      attr = composite_find_attribute (dispinfo, "antialiased");
+      if (attr != NULL) {
+        g_object_set_data (G_OBJECT (diagram),
+                           "antialiased",
+                           GINT_TO_POINTER (data_boolean (attribute_first_data (attr), ctx) ? 1 : -1));
+      }
 
-      attr = composite_find_attribute(dispinfo, "snap-to-grid");
-      if (attr != NULL)
-	g_object_set_data(G_OBJECT(diagram),
-	  "snap-to-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
+      attr = composite_find_attribute (dispinfo, "snap-to-grid");
+      if (attr != NULL) {
+        g_object_set_data (G_OBJECT (diagram),
+                           "snap-to-grid",
+                           GINT_TO_POINTER (data_boolean (attribute_first_data (attr), ctx) ? 1 : -1));
+      }
 
-      attr = composite_find_attribute(dispinfo, "snap-to-guides");
+      attr = composite_find_attribute (dispinfo, "snap-to-guides");
       if (attr != NULL) {
         g_object_set_data (G_OBJECT (diagram),
                            "snap-to-guides",
                            GINT_TO_POINTER (data_boolean (attribute_first_data (attr), ctx) ? 1 : -1));
       }
 
-      attr = composite_find_attribute(dispinfo, "snap-to-object");
-      if (attr != NULL)
-        g_object_set_data(G_OBJECT(diagram),
-	  "snap-to-object", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
+      attr = composite_find_attribute (dispinfo, "snap-to-object");
+      if (attr != NULL) {
+        g_object_set_data (G_OBJECT (diagram),
+                           "snap-to-object",
+                           GINT_TO_POINTER (data_boolean (attribute_first_data (attr), ctx) ? 1 : -1));
+      }
 
-      attr = composite_find_attribute(dispinfo, "show-grid");
-      if (attr != NULL)
-        g_object_set_data(G_OBJECT(diagram),
-	  "show-grid", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
-
+      attr = composite_find_attribute (dispinfo, "show-grid");
+      if (attr != NULL) {
+        g_object_set_data (G_OBJECT (diagram),
+                           "show-grid",
+                           GINT_TO_POINTER (data_boolean (attribute_first_data (attr), ctx) ? 1 : -1));
+      }
 
       attr = composite_find_attribute(dispinfo, "show-guides");
       if (attr != NULL) {
@@ -655,34 +688,35 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
                            GINT_TO_POINTER (data_boolean (attribute_first_data (attr), ctx) ? 1 : -1));
       }
 
-      attr = composite_find_attribute(dispinfo, "show-connection-points");
-      if (attr != NULL)
-        g_object_set_data(G_OBJECT(diagram),
-	  "show-connection-points", GINT_TO_POINTER (data_boolean(attribute_first_data(attr), ctx) ? 1 : -1));
+      attr = composite_find_attribute (dispinfo, "show-connection-points");
+      if (attr != NULL) {
+        g_object_set_data (G_OBJECT (diagram),
+                           "show-connection-points",
+                           GINT_TO_POINTER (data_boolean (attribute_first_data(attr), ctx) ? 1 : -1));
+      }
     }
   }
   /* Read in all layers: */
   layer_node =
     find_node_named (root->xmlChildrenNode, "layer");
 
-  objects_hash = g_hash_table_new(g_str_hash, g_str_equal);
+  objects_hash = g_hash_table_new (g_str_hash, g_str_equal);
 
   while (layer_node != NULL) {
-    gchar *name;
-    gboolean active;
+    xmlChar *name;
 
-    if (xmlIsBlankNode(layer_node)) {
+    if (xmlIsBlankNode (layer_node)) {
       layer_node = layer_node->next;
       continue;
     }
 
     if (!layer_node) break;
 
-    name = (char *)xmlGetProp(layer_node, (const xmlChar *)"name");
+    name = xmlGetProp (layer_node, "name");
     if (!name) break; /* name is mandatory */
 
-    layer = dia_layer_new (name, data);
-    if (name) xmlFree (name);
+    layer = dia_layer_new ((char *) name, data);
+    dia_clear_xml_string (&name);
 
     g_object_set (layer,
                   "visible", _get_bool_prop (layer_node, "visible", FALSE),
@@ -696,9 +730,11 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     data_add_layer (data, layer);
     ++num_layers_added;
 
-    active = _get_bool_prop (layer_node, "active", FALSE);
-    if (active)
-      active_layer = layer;
+    if (_get_bool_prop (layer_node, "active", FALSE)) {
+      g_set_object (&active_layer, layer);
+    }
+
+    g_clear_object (&layer);
 
     layer_node = layer_node->next;
   }
@@ -708,7 +744,7 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     int i = data_layer_count (data) - num_layers_added;
     layer_node = find_node_named (root->xmlChildrenNode, "layer");
     for (; i < data_layer_count (data); ++i) {
-      layer = (DiaLayer *) g_ptr_array_index(data->layers, i);
+      layer = data_layer_get_nth (data, i);
 
       while (layer_node && xmlStrcmp (layer_node->name, (xmlChar *)"layer") != 0)
         layer_node = layer_node->next;
@@ -723,36 +759,39 @@ diagram_data_load(const gchar *filename, DiagramData *data, DiaContext *ctx, voi
     }
   }
 
-  if (!active_layer)
-    data->active_layer = DIA_LAYER (g_ptr_array_index (data->layers, 0));
-  else
+  if (!active_layer) {
+    data_set_active_layer (data, data_layer_get_nth (data, 0));
+  } else {
     data_set_active_layer (data, active_layer);
+  }
 
-  xmlFreeDoc(doc);
+  g_clear_object (&active_layer);
+  xmlFreeDoc (doc);
 
-  g_hash_table_foreach(objects_hash, hash_free_string, NULL);
+  g_hash_table_foreach (objects_hash, hash_free_string, NULL);
 
-  g_hash_table_destroy(objects_hash);
+  g_hash_table_destroy (objects_hash);
 
-  if (data->layers->len < 1) {
+  if (data_layer_count (data) < 1) {
     message_error (_("Error loading diagram:\n%s.\n"
                      "A valid Dia file defines at least one layer."),
-		     dia_message_filename(filename));
+                   dia_message_filename(filename));
     return FALSE;
-  } else if (0 < g_hash_table_size(unknown_objects_hash)) {
-    GString*    unknown_str = g_string_new("Unknown types while reading diagram file");
+  } else if (0 < g_hash_table_size (unknown_objects_hash)) {
+    GString *unknown_str = g_string_new ("Unknown types while reading diagram file");
 
     /* show all the unknown types in one message */
-    g_hash_table_foreach(unknown_objects_hash,
-			 GHFuncUnknownObjects,
-			 unknown_str);
-    message_warning("%s", unknown_str->str);
-    g_string_free(unknown_str, TRUE);
+    g_hash_table_foreach (unknown_objects_hash,
+                          GHFuncUnknownObjects,
+                          unknown_str);
+    message_warning ("%s", unknown_str->str);
+    g_string_free (unknown_str, TRUE);
   }
-  g_hash_table_destroy(unknown_objects_hash);
+  g_hash_table_destroy (unknown_objects_hash);
 
   return TRUE;
 }
+
 
 static gboolean
 write_objects(GList *objects, xmlNodePtr objects_node,
@@ -908,8 +947,6 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
   GHashTable *objects_hash;
   gboolean res;
   int obj_nr;
-  guint i;
-  DiaLayer *layer;
   AttributeNode attr;
   xmlNs *name_space;
   Diagram *diagram = DIA_IS_DIAGRAM (data) ? DIA_DIAGRAM (data) : NULL;
@@ -1024,11 +1061,10 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
 
   obj_nr = 0;
 
-  for (i = 0; i < data->layers->len; i++) {
+  DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
     layer_node = xmlNewChild (doc->xmlRootNode,
                               name_space,
                               (const xmlChar *) "layer", NULL);
-    layer = (DiaLayer *) g_ptr_array_index (data->layers, i);
     xmlSetProp (layer_node,
                 (const xmlChar *) "name",
                 (xmlChar *) dia_layer_get_name (layer));
@@ -1040,7 +1076,7 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
                 (const xmlChar *) "connectable",
                 (const xmlChar *) (dia_layer_is_connectable (layer) ? "true" : "false"));
 
-    if (layer == data->active_layer) {
+    if (layer == dia_diagram_data_get_active_layer (data)) {
       xmlSetProp (layer_node,
                   (const xmlChar *) "active",
                   (const xmlChar *) "true");
@@ -1052,14 +1088,13 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
                    &obj_nr,
                    filename,
                    ctx);
-  }
+  });
   /* The connections are stored per layer in the file format, but connections are not any longer
    * restricted to objects on the same layer. So we iterate over all the layer (nodes) again to
    * 'know' all objects we might have to connect to
    */
   layer_node = doc->xmlRootNode->children;
-  for (i = 0; i < data->layers->len; i++) {
-    layer = (DiaLayer *) g_ptr_array_index (data->layers, i);
+  DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
     while (layer_node && xmlStrcmp (layer_node->name, (xmlChar *) "layer") != 0) {
       layer_node = layer_node->next;
     }
@@ -1078,17 +1113,19 @@ diagram_data_write_doc(DiagramData *data, const char *filename, DiaContext *ctx)
                                dia_layer_get_name (layer));
     }
     layer_node = layer_node->next;
+  });
+
+  g_hash_table_destroy (objects_hash);
+
+  if (data->is_compressed) {
+    xmlSetDocCompressMode (doc, 9);
+  } else {
+    xmlSetDocCompressMode (doc, 0);
   }
-
-  g_hash_table_destroy(objects_hash);
-
-  if (data->is_compressed)
-    xmlSetDocCompressMode(doc, 9);
-  else
-    xmlSetDocCompressMode(doc, 0);
 
   return doc;
 }
+
 
 /** This tries to save the diagram into a file, without any backup
  * Returns >= 0 on success.

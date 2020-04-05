@@ -115,48 +115,50 @@ export_data(DiagramData *data, DiaContext *ctx,
   return TRUE;
 }
 
+
 static gboolean
-import_data (const gchar *filename, DiagramData *data, DiaContext *ctx, void* user_data)
+import_data (const char  *filename,
+             DiagramData *data,
+             DiaContext  *ctx,
+             void        *user_data)
 {
-  DiaObjectType *otype = object_get_type("Standard - Image");
+  DiaObjectType *otype = object_get_type ("Standard - Image");
   gint width, height;
 
   if (!otype) /* this would be really broken */
     return FALSE;
 
   if (!user_data) {
-    dia_context_add_message(ctx, _("Calling error, missing user_data."));
+    dia_context_add_message (ctx, _("Calling error, missing user_data."));
     return FALSE;
   }
 
-  if (gdk_pixbuf_get_file_info (filename, &width, &height))
-    {
-      DiaObject *obj;
-      Handle *h1, *h2;
-      Point point;
-      point.x = point.y = 0.0;
+  if (gdk_pixbuf_get_file_info (filename, &width, &height)) {
+    DiaObject *obj;
+    Handle *h1, *h2;
+    Point point;
+    point.x = point.y = 0.0;
 
-      obj = otype->ops->create(&point, otype->default_user_data, &h1, &h2);
-      if (obj)
-        {
-          GPtrArray *plist = g_ptr_array_new ();
+    obj = otype->ops->create(&point, otype->default_user_data, &h1, &h2);
+    if (obj) {
+      GPtrArray *plist = g_ptr_array_new ();
 
-          prop_list_add_filename (plist, "image_file", filename);
-          prop_list_add_real (plist, "elem_width", width / 20.0);
-          prop_list_add_real (plist, "elem_height", height / 20.0);
+      prop_list_add_filename (plist, "image_file", filename);
+      prop_list_add_real (plist, "elem_width", width / 20.0);
+      prop_list_add_real (plist, "elem_height", height / 20.0);
 
-          dia_object_set_properties (obj, plist);
-          prop_list_free (plist);
+      dia_object_set_properties (obj, plist);
+      prop_list_free (plist);
 
-          dia_layer_add_object (data->active_layer, obj);
-          return TRUE;
-        }
+      dia_layer_add_object (dia_diagram_data_get_active_layer (data), obj);
+      return TRUE;
     }
-  else
-    {
-      dia_context_add_message(ctx, _("Pixbuf[%s] can't load:\n%s"),
-			      (gchar*)user_data, dia_context_get_filename(ctx));
-    }
+  } else {
+    dia_context_add_message (ctx,
+                             _("Pixbuf[%s] can't load:\n%s"),
+                             (char *) user_data,
+                             dia_context_get_filename (ctx));
+  }
 
   return FALSE;
 }

@@ -931,6 +931,7 @@ dia_object_get_parent_with_flags(DiaObject *obj, guint flags)
   return top;
 }
 
+
 /** Utility function: Checks if an objects can be selected.
  * Reasons for not being selectable include:
  * Being inside a closed group.
@@ -940,12 +941,12 @@ dia_object_get_parent_with_flags(DiaObject *obj, guint flags)
  * @returns TRUE if the object is not currently selected.
  */
 gboolean
-dia_object_is_selectable(DiaObject *obj)
+dia_object_is_selectable (DiaObject *obj)
 {
   if (obj->parent_layer == NULL) {
     return FALSE;
   }
-  return obj->parent_layer == dia_layer_get_parent_diagram (obj->parent_layer)->active_layer;
+  return obj->parent_layer == dia_diagram_data_get_active_layer (dia_layer_get_parent_diagram (obj->parent_layer));
 }
 
 

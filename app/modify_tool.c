@@ -708,10 +708,10 @@ find_selected_objects(DDisplay *ddisp, ModifyTool *tool)
   if (prefs.reverse_rubberbanding_intersects &&
       tool->start_box.x > tool->end_box.x) {
     return
-      dia_layer_find_objects_intersecting_rectangle (ddisp->diagram->data->active_layer, &r);
+      dia_layer_find_objects_intersecting_rectangle (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (ddisp->diagram)), &r);
   } else {
     return
-      dia_layer_find_objects_in_rectangle (ddisp->diagram->data->active_layer, &r);
+      dia_layer_find_objects_in_rectangle (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (ddisp->diagram)), &r);
   }
 }
 

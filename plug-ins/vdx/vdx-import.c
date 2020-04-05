@@ -2735,7 +2735,7 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
       if (theDoc->debug_comments)
           g_debug("Layer %d", dia_layer_num);
   }
-  diaLayer = DIA_LAYER (g_ptr_array_index (dia->layers, dia_layer_num));
+  diaLayer = data_layer_get_nth (dia, dia_layer_num);
 
   /* Draw the shape (or group) and get list of created objects */
   objects = vdx_plot_shape (&theShape, objects, 0, theDoc, ctx);
@@ -2753,80 +2753,91 @@ vdx_parse_shape(xmlNodePtr Shape, struct vdx_PageSheet *PageSheet,
   g_slist_free (objects);
 }
 
-/** Parse the pages of the VDX
- * @param PageSheet the PageSheet
- * @param theDoc the document
- * @param dia the growing diagram
- * @bug This doesn't handle multi-page diagrams very well
+
+/**
+ * vdx_setup_layers:
+ * @PageSheet: the PageSheet
+ * @theDoc: the document
+ * @dia: the growing diagram
+ *
+ * Parse the pages of the VDX
+ *
+ * Bug: This doesn't handle multi-page diagrams very well
  */
-
 static void
-vdx_setup_layers(struct vdx_PageSheet* PageSheet, VDXDocument* theDoc,
-                 DiagramData *dia)
+vdx_setup_layers (struct vdx_PageSheet *PageSheet,
+                  VDXDocument          *theDoc,
+                  DiagramData          *dia)
 {
-    GSList *child = NULL;
-    GSList *layernames = NULL;
-    GSList *layername = NULL;
-    struct vdx_any* Any;
-    struct vdx_Layer *theLayer;
-    DiaLayer *diaLayer = 0;
-    unsigned int found_layer, page_layer;
-    gboolean found;
+  GSList *child = NULL;
+  GSList *layernames = NULL;
+  GSList *layername = NULL;
+  struct vdx_any* Any;
+  struct vdx_Layer *theLayer;
+  DiaLayer *diaLayer = 0;
+  unsigned int found_layer, page_layer;
+  gboolean found;
 
-    /* What layers are on this page? */
+  /* What layers are on this page? */
 
-    if (!PageSheet)
-    {
-        g_debug("vdx_setup_layers() called with PageSheet=0");
-        return;
+  if (!PageSheet) {
+    g_debug ("vdx_setup_layers() called with PageSheet=0");
+    return;
+  }
+
+  for (child = PageSheet->any.children; child; child = child->next) {
+    if (!child || !child->data) {
+      continue;
     }
 
-    for (child = PageSheet->any.children; child; child = child->next)
-    {
-        if (!child || !child->data) continue;
-        Any = (struct vdx_any *)(child->data);
-        if (Any->type != vdx_types_Layer) continue;
-        theLayer = (struct vdx_Layer *)child->data;
-        layernames = g_slist_prepend(layernames, theLayer->Name);
+    Any = (struct vdx_any *) (child->data);
+    if (Any->type != vdx_types_Layer) {
+      continue;
     }
 
-    /* Add any missing layers to Dia's list
-       Must be back to front
-       Also construct translation table for this page's layers */
+    theLayer = (struct vdx_Layer *) child->data;
+    layernames = g_slist_prepend (layernames, theLayer->Name);
+  }
 
-    if (theDoc->PageLayers) g_array_free(theDoc->PageLayers, TRUE);
-    theDoc->PageLayers = g_array_new(FALSE, TRUE, sizeof (unsigned int));
+  /* Add any missing layers to Dia's list
+     Must be back to front
+     Also construct translation table for this page's layers */
 
-    if (!theDoc->LayerNames)
-        theDoc->LayerNames = g_array_new(FALSE, TRUE, sizeof (char *));
+  if (theDoc->PageLayers) {
+    g_array_free (theDoc->PageLayers, TRUE);
+  }
+  theDoc->PageLayers = g_array_new (FALSE, TRUE, sizeof (unsigned int));
 
-    page_layer = 0;
-    for (layername = layernames; layername; layername = layername->next)
-    {
-        found = FALSE;
-        for (found_layer = 0; found_layer < theDoc->LayerNames->len;
-             found_layer++)
-        {
-            if (layername->data &&
-                g_array_index(theDoc->LayerNames, char *, found_layer) &&
-                !strcmp((char *)layername->data,
-                        g_array_index(theDoc->LayerNames, char *,
-                                      found_layer)))
-            {
-                found = TRUE;
-                break;
-            }
-        }
-        if (!found)
-        {
-            g_array_append_val(theDoc->LayerNames, layername->data);
-            diaLayer = dia_layer_new (((char*) layername->data), dia);
-            data_add_layer (dia, diaLayer);
-        }
-        page_layer++;
-        g_array_prepend_val(theDoc->PageLayers, page_layer);
+  if (!theDoc->LayerNames) {
+    theDoc->LayerNames = g_array_new(FALSE, TRUE, sizeof (char *));
+  }
+
+  page_layer = 0;
+  for (layername = layernames; layername; layername = layername->next) {
+    found = FALSE;
+    for (found_layer = 0; found_layer < theDoc->LayerNames->len; found_layer++) {
+      if (layername->data &&
+          g_array_index (theDoc->LayerNames, char *, found_layer) &&
+          !strcmp ((char *) layername->data,
+                   g_array_index (theDoc->LayerNames, char *, found_layer)))
+      {
+        found = TRUE;
+        break;
+      }
     }
-    data_set_active_layer(dia, diaLayer);
+
+    if (!found) {
+      g_array_append_val (theDoc->LayerNames, layername->data);
+      g_clear_object (&diaLayer);
+      diaLayer = dia_layer_new (((char*) layername->data), dia);
+      data_add_layer (dia, diaLayer);
+    }
+    page_layer++;
+    g_array_prepend_val (theDoc->PageLayers, page_layer);
+  }
+
+  data_set_active_layer (dia, diaLayer);
+  g_clear_object (&diaLayer);
 }
 
 /** Parse the pages of the VDX

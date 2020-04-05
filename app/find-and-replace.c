@@ -408,7 +408,7 @@ fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
     sd.last = sd.found ? sd.found : sd.first;
     g_object_set_data (G_OBJECT (widget), "last-found", sd.last);
     if (sd.last) {
-      if (dia_object_get_parent_layer(sd.last) != ddisp->diagram->data->active_layer) {
+      if (dia_object_get_parent_layer(sd.last) != dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (ddisp->diagram))) {
         /* can only select objects in the active layer */
         data_set_active_layer(ddisp->diagram->data, dia_object_get_parent_layer(sd.last));
         diagram_add_update_all(ddisp->diagram);

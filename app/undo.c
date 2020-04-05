@@ -751,9 +751,9 @@ dia_delete_objects_change_new (Diagram *dia, GList *obj_list)
 {
   DiaDeleteObjectsChange *change = dia_change_new (DIA_TYPE_DELETE_OBJECTS_CHANGE);
 
-  change->layer = dia->data->active_layer;
+  change->layer = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
   change->obj_list = obj_list;
-  change->original_objects = g_list_copy (dia_layer_get_object_list (dia->data->active_layer));
+  change->original_objects = g_list_copy (dia_layer_get_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia))));
   change->applied = 0;
 
   undo_push_change (dia->undo, DIA_CHANGE (change));
@@ -829,7 +829,7 @@ dia_insert_objects_change_new (Diagram *dia, GList *obj_list, int applied)
 {
   DiaInsertObjectsChange *change = dia_change_new (DIA_TYPE_INSERT_OBJECTS_CHANGE);
 
-  change->layer = dia->data->active_layer;
+  change->layer = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
   change->obj_list = obj_list;
   change->applied = applied;
 
@@ -895,10 +895,10 @@ dia_reorder_objects_change_new (Diagram *dia, GList *changed_list, GList *orig_l
 {
   DiaReorderObjectsChange *change = dia_change_new (DIA_TYPE_REORDER_OBJECTS_CHANGE);
 
-  change->layer = dia->data->active_layer;
+  change->layer = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
   change->changed_list = changed_list;
   change->original_objects = orig_list;
-  change->reordered_objects = g_list_copy (dia_layer_get_object_list (DIA_DIAGRAM_DATA (dia)->active_layer));
+  change->reordered_objects = g_list_copy (dia_layer_get_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia))));
 
   undo_push_change (dia->undo, DIA_CHANGE (change));
 
@@ -1109,7 +1109,7 @@ dia_group_objects_change_new (Diagram   *dia,
 {
   DiaGroupObjectsChange *change = dia_change_new (DIA_TYPE_GROUP_OBJECTS_CHANGE);
 
-  change->layer = dia->data->active_layer;
+  change->layer = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
   change->group = group;
   change->obj_list = obj_list;
   change->orig_list = orig_list;
@@ -1207,7 +1207,7 @@ dia_ungroup_objects_change_new (Diagram   *dia,
 {
   DiaUngroupObjectsChange *change = dia_change_new (DIA_TYPE_UNGROUP_OBJECTS_CHANGE);
 
-  change->layer = dia->data->active_layer;
+  change->layer = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
   change->group = group;
   change->obj_list = obj_list;
   change->group_index = group_index;
@@ -1344,21 +1344,19 @@ move_object_layer_relative (Diagram *dia, GList *objects, gint dist)
   DiaLayer *active, *target;
   guint pos;
 
-  g_return_if_fail (dia->data->active_layer);
-  g_return_if_fail (dia->data->layers->len != 0);
+  g_return_if_fail (data_layer_count (DIA_DIAGRAM_DATA (dia)) != 0);
 
-  active =  dia->data->active_layer;
-  for (pos = 0; pos < dia->data->layers->len; ++pos) {
-    if (active == g_ptr_array_index (dia->data->layers, pos)) {
-      break;
-    }
-  }
+  active = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
 
-  pos = (pos + dia->data->layers->len + dist) % dia->data->layers->len;
-  target = g_ptr_array_index (dia->data->layers, pos);
+  g_return_if_fail (active);
+
+  pos = data_layer_get_index (DIA_DIAGRAM_DATA (dia), active);
+
+  pos = (pos + data_layer_count (DIA_DIAGRAM_DATA (dia)) + dist) % data_layer_count (DIA_DIAGRAM_DATA (dia));
+  target = data_layer_get_nth (DIA_DIAGRAM_DATA (dia), pos);
   object_add_updates_list (objects, dia);
   dia_layer_remove_objects (active, objects);
-  dia_layer_add_objects (target, g_list_copy(objects));
+  dia_layer_add_objects (target, g_list_copy (objects));
   data_set_active_layer (dia->data, target);
 }
 
@@ -1413,8 +1411,8 @@ dia_move_object_to_layer_change_new (Diagram  *dia,
 {
   DiaMoveObjectToLayerChange *movetolayerchange = dia_change_new (DIA_TYPE_MOVE_OBJECT_TO_LAYER_CHANGE);
 
-  movetolayerchange->orig_layer = dia->data->active_layer;
-  movetolayerchange->orig_list = g_list_copy (dia_layer_get_object_list (DIA_DIAGRAM_DATA (dia)->active_layer));
+  movetolayerchange->orig_layer = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
+  movetolayerchange->orig_list = g_list_copy (dia_layer_get_object_list (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia))));
   movetolayerchange->objects = g_list_copy (selected_list);
   movetolayerchange->moving_up = moving_up;
 
@@ -1442,7 +1440,7 @@ dia_import_change_apply (DiaChange *self,
 {
   DiaImportChange *change = DIA_IMPORT_CHANGE (self);
   GList *list;
-  DiaLayer *layer = dia->data->active_layer;
+  DiaLayer *layer = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
 
   /* add all objects and layers added from the diagram */
   for (list = change->layers; list != NULL; list = list->next) {

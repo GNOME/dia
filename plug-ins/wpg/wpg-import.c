@@ -681,7 +681,7 @@ import_data (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* use
     {
       DiaObject *objs = dia_import_renderer_get_objects (DIA_RENDERER(ren));
       if (objs) {
-        dia_layer_add_object (dia->active_layer, objs);
+        dia_layer_add_object (dia_diagram_data_get_active_layer (dia), objs);
       } else {
         dia_context_add_message (ctx, _("Empty WPG file?"));
         bRet = FALSE;

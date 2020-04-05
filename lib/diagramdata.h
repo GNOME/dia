@@ -30,6 +30,13 @@
 
 G_BEGIN_DECLS
 
+#ifndef __in_diagram_data
+#define DIA_DIAGRAM_DATA_PRIVATE(name) __priv_##name
+#else
+#define DIA_DIAGRAM_DATA_PRIVATE(name) name
+#endif
+
+
 /*!
  * \brief Helper to create new diagram
  */
@@ -72,8 +79,10 @@ struct _DiagramData {
   gboolean is_compressed; /*!< TRUE if by default it should be save compressed.
 			     The user can override this in Save As... */
 
-  GPtrArray *layers;     /*!< Layers ordered by decreasing z-order */
-  DiaLayer *active_layer;   /*!< The active layer, Defensive programmers check for NULL */
+  /*!< Layers ordered by decreasing z-order */
+  GPtrArray *DIA_DIAGRAM_DATA_PRIVATE(layers);
+  /*!< The active layer, Defensive programmers check for NULL */
+  DiaLayer  *DIA_DIAGRAM_DATA_PRIVATE(active_layer);
 
   guint selected_count_private; /*!< kept for binary compatibility and sanity, don't use ! */
   GList *selected;        /*!< List of objects that are selected,
@@ -116,6 +125,7 @@ void data_lower_layer(DiagramData *data, DiaLayer *layer);
 void data_add_layer(DiagramData *data, DiaLayer *layer);
 void data_add_layer_at(DiagramData *data, DiaLayer *layer, int pos);
 void data_set_active_layer(DiagramData *data, DiaLayer *layer);
+DiaLayer *dia_diagram_data_get_active_layer (DiagramData *self);
 void data_remove_layer(DiagramData *data, DiaLayer *layer);
 int  data_layer_get_index (const DiagramData *data, const DiaLayer *layer);
 int data_layer_count(const DiagramData *data);
@@ -146,6 +156,15 @@ void data_render_paginated(DiagramData *data, DiaRenderer *renderer, gpointer us
 
 DiagramData *diagram_data_clone (DiagramData *data);
 DiagramData *diagram_data_clone_selected (DiagramData *data);
+
+#define DIA_FOR_LAYER_IN_DIAGRAM(diagram, layer, i, body) \
+  G_STMT_START {                                          \
+    int __dia_layers_len = data_layer_count (diagram);    \
+    for (int i = 0; i < __dia_layers_len; i++) {          \
+      DiaLayer *layer = data_layer_get_nth (diagram, i);  \
+      body                                                \
+    }                                                     \
+  } G_STMT_END
 
 G_END_DECLS
 
