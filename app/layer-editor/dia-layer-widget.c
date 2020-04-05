@@ -65,7 +65,7 @@ struct _DiaLayerWidgetPrivate
   gboolean shifted;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (DiaLayerWidget, dia_layer_widget, GTK_TYPE_LIST_ITEM)
+G_DEFINE_TYPE_WITH_PRIVATE (DiaLayerWidget, dia_layer_widget, DIA_TYPE_LIST_ITEM)
 
 enum {
   EXCLUSIVE,
@@ -230,6 +230,7 @@ button_event (GtkWidget      *widget,
   return FALSE;
 }
 
+
 static void
 connectable_toggled (GtkToggleButton *widget,
                      gpointer         userdata)
@@ -294,48 +295,6 @@ visible_clicked (GtkToggleButton *widget,
   }
 }
 
-static void
-select_callback (GtkWidget *widget, gpointer data)
-{
-  DiaLayerWidget *self = DIA_LAYER_WIDGET (widget);
-  DiaLayerWidgetPrivate *priv = dia_layer_widget_get_instance_private (self);
-  DiagramData *diagram;
-
-  g_return_if_fail (priv->layer != NULL);
-
-  diagram = dia_layer_get_parent_diagram (priv->layer);
-
-  /* Don't deselect if we're selected the active layer.  This can happen
-   * if the window has been defocused. */
-  if (diagram->active_layer != priv->layer) {
-    diagram_remove_all_selected (DIA_DIAGRAM (diagram), TRUE);
-  }
-  diagram_update_extents (DIA_DIAGRAM (diagram));
-  data_set_active_layer (diagram, priv->layer);
-  diagram_add_update_all (DIA_DIAGRAM (diagram));
-  diagram_flush (DIA_DIAGRAM (diagram));
-
-  priv->internal_call = TRUE;
-  if (priv->connect_off) { /* If the user wants this off, it becomes so */
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->connectable), FALSE);
-  } else {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->connectable), TRUE);
-  }
-  priv->internal_call = FALSE;
-}
-
-static void
-deselect_callback (GtkWidget *widget, gpointer data)
-{
-  DiaLayerWidget *self = DIA_LAYER_WIDGET (widget);
-  DiaLayerWidgetPrivate *priv = dia_layer_widget_get_instance_private (self);
-
-  priv->internal_call = TRUE;
-  /** Set to on if the user has requested so. */
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->connectable),
-                                priv->connect_on);
-  priv->internal_call = FALSE;
-}
 
 static void
 dia_layer_widget_init (DiaLayerWidget *self)
@@ -373,8 +332,6 @@ dia_layer_widget_init (DiaLayerWidget *self)
   gtk_box_pack_start (GTK_BOX (hbox), priv->visible, FALSE, TRUE, 2);
   gtk_widget_show (priv->visible);
 
-  /*gtk_image_new_from_stock(GTK_STOCK_CONNECT,
-			    GTK_ICON_SIZE_BUTTON), */
   priv->connectable =
     dia_toggle_button_new_with_icon_names ("dia-connectable",
                                            "dia-connectable-empty");
@@ -403,15 +360,6 @@ dia_layer_widget_init (DiaLayerWidget *self)
   gtk_widget_show (hbox);
 
   gtk_container_add (GTK_CONTAINER (self), hbox);
-
-  g_signal_connect (G_OBJECT (self),
-                    "select",
-                    G_CALLBACK (select_callback),
-                    NULL);
-  g_signal_connect (G_OBJECT (self),
-                    "deselect",
-                    G_CALLBACK (deselect_callback),
-                    NULL);
 }
 
 
@@ -549,4 +497,55 @@ dia_layer_widget_new (DiaLayer *layer, DiaLayerEditor *editor)
                        "layer", layer,
                        "editor", editor,
                        NULL);
+}
+
+
+void
+dia_layer_widget_select (DiaLayerWidget *self)
+{
+  DiaLayerWidgetPrivate *priv;
+  DiagramData *diagram;
+
+  g_return_if_fail (DIA_IS_LAYER_WIDGET (self));
+
+  priv = dia_layer_widget_get_instance_private (self);
+
+  g_return_if_fail (priv->layer != NULL);
+
+  diagram = dia_layer_get_parent_diagram (priv->layer);
+
+  /* Don't deselect if we're selected the active layer.  This can happen
+   * if the window has been defocused. */
+  if (dia_diagram_data_get_active_layer (diagram) != priv->layer) {
+    diagram_remove_all_selected (DIA_DIAGRAM (diagram), TRUE);
+  }
+  diagram_update_extents (DIA_DIAGRAM (diagram));
+  data_set_active_layer (diagram, priv->layer);
+  diagram_add_update_all (DIA_DIAGRAM (diagram));
+  diagram_flush (DIA_DIAGRAM (diagram));
+
+  priv->internal_call = TRUE;
+  if (priv->connect_off) { /* If the user wants this off, it becomes so */
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->connectable), FALSE);
+  } else {
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->connectable), TRUE);
+  }
+  priv->internal_call = FALSE;
+}
+
+
+void
+dia_layer_widget_deselect (DiaLayerWidget *self)
+{
+  DiaLayerWidgetPrivate *priv;
+
+  g_return_if_fail (DIA_IS_LAYER_WIDGET (self));
+
+  priv = dia_layer_widget_get_instance_private (self);
+
+  priv->internal_call = TRUE;
+  /** Set to on if the user has requested so. */
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (priv->connectable),
+                                priv->connect_on);
+  priv->internal_call = FALSE;
 }

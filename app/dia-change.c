@@ -38,7 +38,7 @@ static void
 dia_change_real_revert (DiaChange *self,
                         Diagram   *diagram)
 {
- g_critical ("%s doesn't implement revert", DIA_CHANGE_TYPE_NAME (self));
+  g_critical ("%s doesn't implement revert", DIA_CHANGE_TYPE_NAME (self));
 }
 
 

@@ -79,6 +79,7 @@ add_project_arguments([
   '-DGLIB_VERSION_MIN_REQUIRED=@0@'.format(glib_ver),
   '-DGLIB_VERSION_MAX_ALLOWED=@0@'.format(glib_ver),
   '-DGSEAL_ENABLE',
+  '-DGTK_DISABLE_DEPRECATED',
 ], language: 'c')
 
 
