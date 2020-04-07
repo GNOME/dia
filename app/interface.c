@@ -1057,7 +1057,7 @@ _create_mac_integration (GtkWidget *menubar)
     gtk_widget_hide (menubar); /* not working, it's shown elsewhere */
     /* setup the dock icon */
     gtkosx_application_set_dock_icon_pixbuf (theOsxApp,
-	gdk_pixbuf_new_from_inline (-1, dia_app_icon, FALSE, NULL));
+       pixbuf_from_resource ("/org/gnome/Dia/icons/org.gnome.Dia.png"));
   }
   /* Don't quit without asking to save files first */
   g_signal_connect (theOsxApp, "NSApplicationBlockTermination",

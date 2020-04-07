@@ -33,6 +33,17 @@ conf.set('HAVE_OGDF', libogdf_dep.found())
 libxslt_dep = dependency('libxslt', required: false)
 conf.set('HAVE_XSLT', libxslt_dep.found())
 
+libgdk_dep  = dependency('gdk-2.0')
+gdk_target = libgdk_dep.get_pkgconfig_variable('target')
+
+if gdk_target == 'quartz'
+    gtk_mac_dep = dependency('gtk-mac-integration')
+    conf.set('HAVE_MAC_INTEGRATION', true)
+else
+    # non-dependency
+    gtk_mac_dep = dependency('', required: false)
+endif
+
 prefix = get_option('prefix')
 datadir = prefix / get_option('datadir')
 

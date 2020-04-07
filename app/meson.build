@@ -95,7 +95,7 @@ resources = gnome.compile_resources('dia-resources', 'dia.gresource.xml',
 
 diaapp_lib = both_libraries('diaapp',
                             dia_sources + [diamarshal_h, config_h],
-                            dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep],
+                            dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep, gtk_mac_dep],
                             link_args: dia_link_args,
                             export_dynamic: true,  # some plugins require this.
                             include_directories: [configuration_inc])
