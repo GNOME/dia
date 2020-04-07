@@ -61,7 +61,7 @@ if xsltproc.found()
         command: [
             xsltproc,
             '--stringparam', 'graphic.default.extension', 'png',
-            '-o', '@OUTDIR@',
+            '--output', '@OUTDIR@/',
             '@INPUT@'
         ],
         depend_files: xml_deps,
