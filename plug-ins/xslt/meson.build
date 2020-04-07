@@ -25,6 +25,7 @@ if libxslt_dep.found()
         dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep, libdia_dep, libxslt_dep],
         include_directories: [configuration_inc],
         install: true,
-        install_dir: dialibdir
+        install_dir: dialibdir,
+        name_suffix: g_module_suffix,
     )
 endif

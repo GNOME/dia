@@ -103,6 +103,15 @@ add_project_arguments(
 )
 
 
+# Follow the file extensions used by GLib for modules
+# https://developer.gnome.org/glib/stable/glib-Dynamic-Loading-of-Modules.html#G-MODULE-SUFFIX:CAPS
+if host_machine.system() == 'windows'
+  g_module_suffix = 'dll'
+else
+  g_module_suffix = 'so'
+endif
+
+
 subdir('po')
 subdir('lib')
 subdir('objects')

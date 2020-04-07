@@ -54,7 +54,8 @@ if py_dep.found()
         include_directories: [configuration_inc, diaapp_inc],
         link_with: [diaapp], # Naughty
         install: true,
-        install_dir: dialibdir
+        install_dir: dialibdir,
+        name_suffix: g_module_suffix,
     )
 
     install_data(python_scripts, install_dir: pkgdatadir / 'python')
