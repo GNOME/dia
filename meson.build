@@ -23,8 +23,7 @@ libm_dep = cc.find_library('m', required: false)
 libc_dep = cc.find_library('c', required: false)
 
 # Optional deps
-# TODO: Until issue #23 is fixed, we need to keep version below 0.62.
-libpoppler_dep = dependency('poppler', version: '<= 0.62.0', required: false)
+libpoppler_dep = dependency('poppler', version: '> 0.62.0', required: false)
 conf.set('HAVE_POPPLER', libpoppler_dep.found())
 libemf_dep = cc.find_library('emf', required: false)
 conf.set('HAVE_LIBEMF', libemf_dep.found())
