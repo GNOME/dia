@@ -18,5 +18,6 @@ library(
     dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep, libdia_dep] + deps,
     include_directories: [configuration_inc],
     install: libemf_dep.found(),
-    install_dir: dialibdir
+    install_dir: dialibdir,
+    name_suffix: g_module_suffix,
 )
