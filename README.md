@@ -94,7 +94,7 @@ anybody to contribute patches:
 of the following ways:
   2. Local laptop, desktop, etc
   3. Premade box from https://www.osboxes.org/ or similar
-  4. Instal a virtual machine from ISO
+  4. Install a virtual machine from ISO
   5. Follow the compilation & installation instructions for Dia
   6. See if you can get all the features of Dia running.
   7. Try various meson options: https://mesonbuild.com/Configuring-a-build-directory.html
