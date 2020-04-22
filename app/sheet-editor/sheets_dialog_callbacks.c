@@ -1683,10 +1683,10 @@ write_user_sheet (Sheet *sheet)
 
       xmlAddChild (object_node, xmlNewText ((const xmlChar *) "\n"));
       icon_node = xmlNewChild (object_node, NULL, (const xmlChar *) "icon", NULL);
-      canonical_icon = dia_get_canonical_path (sheetobject->pixmap_file);
+      canonical_icon = g_canonicalize_filename (sheetobject->pixmap_file, NULL);
       icon = canonical_icon;
-      canonical_user_sheets = dia_get_canonical_path (dir_user_sheets);
-      canonical_sheets = dia_get_canonical_path (dia_get_data_directory ("sheets"));
+      canonical_user_sheets = g_canonicalize_filename (dir_user_sheets, NULL);
+      canonical_sheets = g_canonicalize_filename (dia_get_data_directory ("sheets"), NULL);
       if (g_str_has_prefix (icon, canonical_user_sheets)) {
         icon += strlen (canonical_user_sheets) + 1;
       }

@@ -692,12 +692,17 @@ dia_font_build_layout(const char* string, DiaFont* font, real height)
   return layout;
 }
 
-/** Find the offsets of the individual letters in the iter and place them
+
+/**
+ * get_string_offsets:
+ * @iter: The #PangoLayoutIter to count characters in.
+ * @offsets: The place to return the offsets
+ * @n_offsets: The place to return the number of offsets
+ *
+ * Find the offsets of the individual letters in the iter and place them
  * in an array.
+ *
  * This currently assumes only one run per iter, which is all we can input.
- * @param iter The PangoLayoutIter to count characters in.
- * @param offsets The place to return the offsets
- * @param n_offsets The place to return the number of offsets
  */
 static void
 get_string_offsets(PangoLayoutIter *iter, real** offsets, int* n_offsets)
@@ -725,7 +730,8 @@ get_string_offsets(PangoLayoutIter *iter, real** offsets, int* n_offsets)
   }
 }
 
-/** Copy the offsets into a storage object, adjusting for exaggerated size.
+/*
+ * Copy the offsets into a storage object, adjusting for exaggerated size.
  */
 static void
 get_layout_offsets(PangoLayoutLine *line, PangoLayoutLine **layout_line)
@@ -768,14 +774,33 @@ get_layout_offsets(PangoLayoutLine *line, PangoLayoutLine **layout_line)
   (*layout_line)->runs = layout_runs;
 }
 
-/** Get size information for the given string, font and height.
+
+/**
+ * dia_font_get_sizes:
+ * @string: text to measure
+ * @font: the font to use
+ * @height: the font height to use
+ * @width: (out): width of @string
+ * @ascent: (out): width of @ascent
+ * @descent: (out): width of @descent
+ * @n_offsets: (out): number of @layout_offsets
+ * @layout_offsets: (out): offsets of @string
  *
- * @returns an array of offsets of the individual glyphs in the layout.
+ * Get size information for the given string, font and height.
+ *
+ * Returns: an array of offsets of the individual glyphs in the layout.
+ *
+ * Since: dawn-of-time
  */
-real*
-dia_font_get_sizes(const char* string, DiaFont *font, real height,
-		   real *width, real *ascent, real *descent, int *n_offsets,
-		   PangoLayoutLine **layout_offsets)
+double *
+dia_font_get_sizes (const char       *string,
+                    DiaFont          *font,
+                    double            height,
+                    double           *width,
+                    double           *ascent,
+                    double           *descent,
+                    int              *n_offsets,
+                    PangoLayoutLine **layout_offsets)
 {
   PangoLayout* layout;
   PangoLayoutIter* iter;
@@ -834,7 +859,7 @@ dia_font_get_sizes(const char* string, DiaFont *font, real height,
 }
 
 
-/**
+/*
  * Compatibility with older files out of pre Pango Time.
  * Make old files look as similar as possible
  * List should be kept alphabetically sorted by oldname, in case of
@@ -919,11 +944,16 @@ static struct _legacy_font {
 
 
 /**
+ * dia_font_new_from_legacy_name:
+ * @name: the legacy name
+ *
  * Given a legacy name as stored until Dia-0.90 construct
  * a new DiaFont which is as similar as possible
+ *
+ * Since: dawn-of-time
  */
 DiaFont*
-dia_font_new_from_legacy_name(const char* name)
+dia_font_new_from_legacy_name (const char* name)
 {
   /* do NOT translate anything here !!! */
   DiaFont* retval;

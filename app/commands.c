@@ -1112,12 +1112,13 @@ activate_url (GtkWidget   *parent,
 #endif
 }
 
+
 void
 help_about_callback (GtkAction *action)
 {
-  const gchar *translators = _("translator_credits-PLEASE_ADD_YOURSELF_HERE");
+  const char *translators = _("translator_credits-PLEASE_ADD_YOURSELF_HERE");
   // TODO: Gtk3 has license-type
-  const gchar *license = _(
+  const char *license = _(
     "This program is free software; you can redistribute it and/or modify\n"
     "it under the terms of the GNU General Public License as published by\n"
     "the Free Software Foundation; either version 2 of the License, or\n"
@@ -1136,11 +1137,11 @@ help_about_callback (GtkAction *action)
 
   gtk_show_about_dialog (NULL,
                          "logo", logo,
-                         "program-name", "Dia",
+                         "program-name", _("Dia Diagram Editor"),
                          "version", VERSION,
                          "comments", _("A program for drawing structured diagrams."),
                          "copyright", "(C) 1998-2011 The Free Software Foundation and the authors\n"
-                                      "© 2018-2020 Zander Brown et al\n",
+                                      "© 2018-2021 Zander Brown et al\n",
                          "website", "https://wiki.gnome.org/Apps/Dia/",
                          "authors", authors,
                          "documenters", documentors,

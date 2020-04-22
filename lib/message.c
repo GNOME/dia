@@ -75,7 +75,9 @@ message_dialog_destroyed(GtkWidget *widget, gpointer userdata)
   msginfo->no_show_again = NULL;
 }
 
-/** Set up a dialog for these messages.
+
+/*
+ * Set up a dialog for these messages.
  * Msginfo may contain repeats, and should be filled out
  */
 static void
@@ -93,13 +95,17 @@ message_create_dialog(const gchar *title, DiaMessageInfo *msginfo, gchar *buf)
     else if (0 == strcmp (title, _("Warning")))
       type = GTK_MESSAGE_WARNING;
   }
-  if (msginfo->repeats != NULL)
-    buf = (gchar *)msginfo->repeats->data;
+
+  if (msginfo->repeats != NULL) {
+    buf = (char *) msginfo->repeats->data;
+  }
+
   dialog = gtk_message_dialog_new (NULL, /* no parent window */
-				   0,    /* GtkDialogFlags */
-				   type,
-				   GTK_BUTTONS_CLOSE,
-				   "%s", buf);
+                                   0,    /* GtkDialogFlags */
+                                   type,
+                                   GTK_BUTTONS_CLOSE,
+                                   "%s", buf);
+  gtk_window_set_keep_above (GTK_WINDOW (dialog), TRUE);
   if (title) {
     char *real_title;
 
@@ -110,23 +116,23 @@ message_create_dialog(const gchar *title, DiaMessageInfo *msginfo, gchar *buf)
   }
   gtk_widget_show (dialog);
   g_signal_connect (G_OBJECT (dialog), "response",
-		    G_CALLBACK (gtk_widget_hide),
-		    NULL);
+                    G_CALLBACK (gtk_widget_hide),
+                    NULL);
   msginfo->dialog = dialog;
   g_signal_connect (G_OBJECT (dialog), "destroy",
-		    G_CALLBACK (message_dialog_destroyed),
-		    msginfo);
+                    G_CALLBACK (message_dialog_destroyed),
+                    msginfo);
 
-  msginfo->repeat_label = gtk_label_new(_("There is one similar message."));
-  gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(msginfo->dialog))),
-		    msginfo->repeat_label);
+  msginfo->repeat_label = gtk_label_new (_("There is one similar message."));
+  gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (msginfo->dialog))),
+                     msginfo->repeat_label);
 
   msginfo->show_repeats =
-    gtk_check_button_new_with_label(_("Show repeated messages"));
-  gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(msginfo->dialog))),
-		    msginfo->show_repeats);
-  g_signal_connect(G_OBJECT(msginfo->show_repeats), "toggled",
-		   G_CALLBACK(gtk_message_toggle_repeats), msginfo);
+    gtk_check_button_new_with_label (_("Show repeated messages"));
+  gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (msginfo->dialog))),
+                     msginfo->show_repeats);
+  g_signal_connect (G_OBJECT (msginfo->show_repeats), "toggled",
+                    G_CALLBACK (gtk_message_toggle_repeats), msginfo);
 
   msginfo->repeat_view = gtk_text_view_new();
   gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(msginfo->dialog))),
@@ -258,49 +264,70 @@ message(const char *title, const char *format, ...)
   va_end (args2);
 }
 
-/** Emit a message about something the user should be aware of.
- *  In the default GTK message system, this message will by default only
- *  be shown once.
+
+/**
+ * message_notice:
+ * @format: the message
+ *
+ * Emit a message about something the user should be aware of.
+ * In the default GTK message system, this message will by default only
+ * be shown once.
+ *
+ * Since: dawn-of-time
  */
 void
-message_notice(const char *format, ...)
+message_notice (const char *format, ...)
 {
   va_list args, args2;
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(_("Notice"), SUGGEST_NO_SHOW_AGAIN, format, args, args2);
+  message_internal (_("Notice"), SUGGEST_NO_SHOW_AGAIN, format, args, args2);
   va_end (args);
   va_end (args2);
 }
 
-/** Emit a message about a possible danger.
- *  In the default GTK message system, this message can be made to only be
- *  shown once, but is by default shown every time it is invoked.
+
+/**
+ * message_warning:
+ * @format: the message
+ *
+ * Emit a message about a possible danger.
+ * In the default GTK message system, this message can be made to only be
+ * shown once, but is by default shown every time it is invoked.
+ *
+ * Since: dawn-of-time
  */
 void
-message_warning(const char *format, ...)
+message_warning (const char *format, ...)
 {
   va_list args, args2;
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(_("Warning"), SUGGEST_SHOW_AGAIN, format, args, args2);
+  message_internal (_("Warning"), SUGGEST_SHOW_AGAIN, format, args, args2);
   va_end (args);
   va_end (args2);
 }
 
-/** Emit a message about an error.
- *  In the default GTK message system, this message is always shown.
+
+/**
+ * message_error:
+ * @format: the message
+ *
+ * Emit a message about an error.
+ * In the default GTK message system, this message is always shown.
+ *
+ * Since: dawn-of-time
  */
 void
-message_error(const char *format, ...)
+message_error (const char *format, ...)
 {
   va_list args, args2;
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(_("Error"), ALWAYS_SHOW, format, args, args2);
+  message_internal (_("Error"), ALWAYS_SHOW, format, args, args2);
   va_end (args);
   va_end (args2);
 }

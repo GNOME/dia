@@ -20,7 +20,7 @@
 #include "connectionpoint.h"
 
 /**
- * SECTION:dia-connectionpoint
+ * SECTION:connectionpoint
  * @title: ConnectionPoint
  * @short_description: Connections between #DiaObjects
  *

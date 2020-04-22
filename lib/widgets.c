@@ -119,7 +119,8 @@ dia_size_selector_ratio_callback(GtkAdjustment *limits, gpointer userdata)
 
 }
 
-/** Update the ratio of this DSS to be the ratio of width to height.
+/*
+ * Update the ratio of this DSS to be the ratio of width to height.
  * If height is 0, ratio becomes 0.0.
  */
 static void
@@ -768,7 +769,9 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
   return button;
 }
 
-/** Create a toggle button with two icons (created with gdk-pixbuf-csource,
+
+/*
+ * Create a toggle button with two icons (created with gdk-pixbuf-csource,
  * for instance).  The icons represent on and off.
  */
 

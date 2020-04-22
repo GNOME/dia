@@ -21,208 +21,318 @@
 #include "intl.h"
 #include "persistence.h"
 
+
 static Color attributes_foreground = { 0.0f, 0.0f, 0.0f, 1.0f };
 static Color attributes_background = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-static real attributes_default_linewidth = 0.1;
+static double attributes_default_linewidth = 0.1;
 
-static Arrow attributes_start_arrow = { ARROW_NONE,
-					DEFAULT_ARROW_SIZE,
-					DEFAULT_ARROW_SIZE };
-static Arrow attributes_end_arrow = { ARROW_NONE,
-				      DEFAULT_ARROW_SIZE,
-				      DEFAULT_ARROW_SIZE };
+static Arrow attributes_start_arrow = {
+  ARROW_NONE,
+  DEFAULT_ARROW_SIZE,
+  DEFAULT_ARROW_SIZE
+};
+
+static Arrow attributes_end_arrow = {
+  ARROW_NONE,
+  DEFAULT_ARROW_SIZE,
+  DEFAULT_ARROW_SIZE
+};
 
 static LineStyle attributes_linestyle = LINESTYLE_SOLID;
-static real attributes_dash_length = 1.0;
+static double attributes_dash_length = 1.0;
 
 static DiaFont *attributes_font = NULL;
-static real attributes_font_height = 0.8;
+static double attributes_font_height = 0.8;
 
-/** Get the foreground color attribute (lines and text)
- * @returns The current foreground color as set in the toolbox.
+
+/**
+ * attributes_get_foreground:
+ *
+ * Get the foreground color attribute (lines and text)
+ *
+ * Returns: The current foreground color as set in the toolbox.
+ *
+ * Since: dawn-of-time
  */
 Color
-attributes_get_foreground(void)
+attributes_get_foreground (void)
 {
   return attributes_foreground;
 }
 
-/** Get the background color attribute (for box background and such)
- * @returns The current background color as set in the toolbox.
+
+/**
+ * attributes_get_background:
+ *
+ * Get the background color attribute (for box background and such)
+ *
+ * Returns: The current background color as set in the toolbox.
+ *
+ * Since: dawn-of-time
  */
 Color
-attributes_get_background(void)
+attributes_get_background (void)
 {
   return attributes_background;
 }
 
-/** Set the default foreground color for new objects.
- * @param color A color object to use for foreground color.  This object is
- * not stored by ths function and can be freed afterwards.
+
+/**
+ * attributes_set_foreground:
+ * @color: A color object to use for foreground color. This object is
+ *         not stored by ths function and can be freed afterwards.
+ *
+ * Set the default foreground color for new objects.
+ *
+ * Since: dawn-of-time
  */
 void
-attributes_set_foreground(Color *color)
+attributes_set_foreground (Color *color)
 {
   attributes_foreground = *color;
-  persistence_set_color("fg_color", color);
+  persistence_set_color ("fg_color", color);
 }
 
-/** Set the default background color for new objects.
- * @param color A color object to use for background color.  This object is
- * not stored by ths function and can be freed afterwards.
+
+/**
+ * attributes_set_background:
+ * @color: A color object to use for background color. This object is
+ *         not stored by ths function and can be freed afterwards.
+ *
+ * Set the default background color for new objects.
+ *
+ * Since: dawn-of-time
  */
 void
-attributes_set_background(Color *color)
+attributes_set_background (Color *color)
 {
   attributes_background = *color;
-  persistence_set_color("bg_color", color);
+  persistence_set_color ("bg_color", color);
 }
 
-/** Swap the current foreground and background colors
+
+/**
+ * attributes_swap_fgbg:
+ *
+ * Swap the current foreground and background colors
+ *
+ * Since: dawn-of-time
  */
 void
-attributes_swap_fgbg(void)
+attributes_swap_fgbg (void)
 {
   Color temp;
   temp = attributes_foreground;
-  attributes_set_foreground(&attributes_background);
-  attributes_set_background(&temp);
+  attributes_set_foreground (&attributes_background);
+  attributes_set_background (&temp);
 }
 
-/** Set the default foreground and background colors to black and white.
+
+/**
+ * attributes_default_fgbg:
+ *
+ * Set the default foreground and background colors to black and white.
+ *
+ * Since: dawn-of-time
  */
 void
-attributes_default_fgbg(void)
+attributes_default_fgbg (void)
 {
-  attributes_set_foreground(&color_black);
-  attributes_set_background(&color_white);
+  attributes_set_foreground (&color_black);
+  attributes_set_background (&color_white);
 }
 
-/** Get the default line width as defined by the toolbox.
- * @returns A linewidth (0.0 < linewidth < 10.0) that should be used as default
+
+/**
+ * attributes_get_default_linewidth:
+ *
+ * Get the default line width as defined by the toolbox.
+ *
+ * Returns: A linewidth (0.0 < linewidth < 10.0) that should be used as default
  *          for new objects.
+ *
+ * Since: dawn-of-time
  */
-real
-attributes_get_default_linewidth(void)
+double
+attributes_get_default_linewidth (void)
 {
   return attributes_default_linewidth;
 }
 
-/** Set the default line width.
- * @param width The line width (0.0 < linewidth < 10.0) to use for new objects.
+
+/**
+ * attributes_set_default_linewidth:
+ * @width: The line width (0.0 < linewidth < 10.0) to use for new objects.
+ *
+ * Set the default line width.
+ *
+ * Since: dawn-of-time
  */
 void
-attributes_set_default_linewidth(real width)
+attributes_set_default_linewidth (double width)
 {
   attributes_default_linewidth = width;
-  persistence_set_real("linewidth", width);
+  persistence_set_real ("linewidth", width);
 }
 
-/** Get the default arrow type to put at the start (origin) of a connector.
- * @returns An arrow object for the arrow type defined in the toolbox.
+
+/**
+ * attributes_get_default_start_arrow:
+ *
+ * Get the default arrow type to put at the start (origin) of a connector.
+ *
+ * Returns: An arrow object for the arrow type defined in the toolbox.
+ *
+ * Since: dawn-of-time
  */
 Arrow
-attributes_get_default_start_arrow(void)
+attributes_get_default_start_arrow (void)
 {
   return attributes_start_arrow;
 }
 
-/** Set the default arrow type that the toolbox will supply for new objects.
- * @param arrow An arrow object to be used for the start of new connectors.
+
+/**
+ * attributes_set_default_start_arrow:
+ * @arrow: An arrow object to be used for the start of new connectors.
+ *
+ * Set the default arrow type that the toolbox will supply for new objects.
+ *
+ * Since: dawn-of-time
  */
 void
-attributes_set_default_start_arrow(Arrow arrow)
+attributes_set_default_start_arrow (Arrow arrow)
 {
   attributes_start_arrow = arrow;
-  persistence_set_string("start-arrow-type",
-			 arrow_get_name_from_type(arrow.type));
-  persistence_set_real("start-arrow-width", arrow.width);
-  persistence_set_real("start-arrow-length", arrow.length);
+  persistence_set_string ("start-arrow-type",
+                          arrow_get_name_from_type (arrow.type));
+  persistence_set_real ("start-arrow-width", arrow.width);
+  persistence_set_real ("start-arrow-length", arrow.length);
 }
 
-/** Get the default arrow type to put at the end (target) of a connector.
- * @returns An arrow object for the arrow type defined in the toolbox.
+
+/**
+ * attributes_get_default_end_arrow:
+ *
+ * Get the default arrow type to put at the end (target) of a connector.
+ *
+ * Returns: An arrow object for the arrow type defined in the toolbox.
+ *
+ * Since: dawn-of-time
  */
 Arrow
-attributes_get_default_end_arrow(void)
+attributes_get_default_end_arrow (void)
 {
   return attributes_end_arrow;
 }
 
-/** Set the default arrow type that the toolbox will supply for new objects.
- * @param arrow An arrow object to be used for the end of new connectors.
+
+/**
+ * attributes_set_default_end_arrow:
+ * @arrow: An arrow object to be used for the end of new connectors.
+ *
+ * Set the default arrow type that the toolbox will supply for new objects.
+ *
+ * Since: dawn-of-time
  */
 void
-attributes_set_default_end_arrow(Arrow arrow)
+attributes_set_default_end_arrow (Arrow arrow)
 {
   attributes_end_arrow = arrow;
-  persistence_set_string("end-arrow-type",
-			 arrow_get_name_from_type(arrow.type));
-  persistence_set_real("end-arrow-width", arrow.width);
-  persistence_set_real("end-arrow-length", arrow.length);
+  persistence_set_string ("end-arrow-type",
+                          arrow_get_name_from_type (arrow.type));
+  persistence_set_real ("end-arrow-width", arrow.width);
+  persistence_set_real ("end-arrow-length", arrow.length);
 }
 
-/** Get the default line style (dashes, dots etc)
- * @param style A place to return the style (number of dots and dashes)
- * @param dash_length A place to return how long a dash is
- *                    (0.0 < dash_length < ???)
- * @see dia-enums.h for possible values for style.
+
+/**
+ * attributes_get_default_line_style:
+ * @style: (out): A place to return the style (number of dots and dashes)
+ * @dash_length: (out): A place to return how long a dash is
+ *                      (0.0 < dash_length < ???)
+ *
+ * Get the default line style (dashes, dots etc)
+ *
+ * Since: dawn-of-time
  */
 void
-attributes_get_default_line_style(LineStyle *style, real *dash_length)
+attributes_get_default_line_style (LineStyle *style, double *dash_length)
 {
-  if (style)
+  if (style) {
     *style = attributes_linestyle;
-  if (dash_length)
+  }
+  if (dash_length) {
     *dash_length = attributes_dash_length;
+  }
 }
 
-/** Set the default line style (dashes, dots etc)
- * @param style The style (number of dots and dashes)
- * @param dash_length The length of a dash (0.0 < dash_length < ???)
- * @see dia-enums.h for possible values for style.
+
+/**
+ * attributes_set_default_line_style:
+ * @style: The style (number of dots and dashes)
+ * @dash_length: The length of a dash (0.0 < dash_length < ???)
+ *
+ * Set the default line style (dashes, dots etc)
+ *
+ * Since: dawn-of-time
  */
 void
-attributes_set_default_line_style(LineStyle style, real dash_length)
+attributes_set_default_line_style (LineStyle style, double dash_length)
 {
   attributes_linestyle = style;
   attributes_dash_length = dash_length;
-  persistence_set_integer("line-style", style);
-  persistence_set_real("dash-length", dash_length);
+  persistence_set_integer ("line-style", style);
+  persistence_set_real ("dash-length", dash_length);
 }
 
-/** Get the default font.
+
+/**
+ * attributes_get_default_font:
+ * @font: (out): A place to return the default font description set by the user
+ * @font_height: (out): A place to return the default font height set by the user
+ *
+ * Get the default font.
+ *
  * Note that there is currently no way for the user to set these.
- * @param font A place to return the default font description set by the user
- * @param font_height A place to return the default font height set by the user
+ *
+ * Since: dawn-of-time
  */
 void
-attributes_get_default_font (DiaFont **font, real *font_height)
+attributes_get_default_font (DiaFont **font, double *font_height)
 {
   if (!attributes_font) {
     attributes_font = dia_font_new_from_style (DIA_FONT_SANS,
                                                attributes_font_height);
   }
 
-  if (font)
+  if (font) {
     *font = g_object_ref (attributes_font);
+  }
 
-  if (font_height)
+  if (font_height) {
     *font_height = attributes_font_height;
+  }
 }
 
-/** Set the default font.
+
+/**
+ * attributes_set_default_font:
+ * @font: The font to set as the new default. This object will be ref'd by
+ *        this call.
+ * @font_height: The font height to set as the new default.
+ *
+ * Set the default font.
+ *
  * Note that this is not currently stored persistently.
- * @param font The font to set as the new default.
- *        This object will be ref'd by this call.
- * @param font_height The font height to set as the new default.
+ *
+ * Since: dawn-of-time
  */
 void
 attributes_set_default_font (DiaFont *font, real font_height)
 {
-  g_clear_object (&attributes_font);
+  g_set_object (&attributes_font, font);
 
-  attributes_font = g_object_ref (font);
   attributes_font_height = font_height;
 }

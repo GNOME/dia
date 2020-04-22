@@ -5,8 +5,8 @@
 
 G_BEGIN_DECLS
 
-enum DiaInitFlags
-{
+
+enum DiaInitFlags {
   DIA_INTERACTIVE = (1<<0),
   DIA_MESSAGE_STDERR = (1<<1),
   DIA_VERBOSE = (1<<2)

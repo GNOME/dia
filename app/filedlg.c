@@ -288,12 +288,14 @@ file_open_callback(GtkAction *action)
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER(opendlg), FALSE);
     gtk_dialog_set_default_response(GTK_DIALOG(opendlg), GTK_RESPONSE_ACCEPT);
     gtk_window_set_role(GTK_WINDOW(opendlg), "open_diagram");
-    if (dia && dia->filename)
-      filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
+    if (dia && dia->filename) {
+      filename = g_filename_from_utf8 (dia->filename, -1, NULL, NULL, NULL);
+    }
     if (filename != NULL) {
-      char* fnabs = dia_get_absolute_filename (filename);
-      if (fnabs)
-        gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(opendlg), fnabs);
+      char *fnabs = g_canonicalize_filename (filename, NULL);
+      if (fnabs) {
+        gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (opendlg), fnabs);
+      }
       g_clear_pointer (&fnabs, g_free);
       g_clear_pointer (&filename, g_free);
     }
@@ -528,16 +530,19 @@ file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp)
       return savedlg;
     }
   }
-  if (dia && dia->filename)
-    filename = g_filename_from_utf8(dia->filename, -1, NULL, NULL, NULL);
+
+  if (dia && dia->filename) {
+    filename = g_filename_from_utf8 (dia->filename, -1, NULL, NULL, NULL);
+  }
+
   if (filename != NULL) {
-    char* fnabs = dia_get_absolute_filename (filename);
+    char *fnabs = g_canonicalize_filename (filename, NULL);
     if (fnabs) {
-      gchar *base = g_path_get_basename(dia->filename);
-      gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(savedlg), fnabs);
+      char *base = g_path_get_basename (dia->filename);
+      gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (savedlg), fnabs);
       /* FileChooser api insist on exiting files for set_filename  */
       /* ... and does not use filename encoding on this one. */
-      gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(savedlg), base);
+      gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (savedlg), base);
       g_clear_pointer (&base, g_free);
     }
     g_clear_pointer (&fnabs, g_free);
@@ -836,7 +841,7 @@ file_export_callback(GtkAction *action)
   }
 
   if (filename != NULL) {
-    char* fnabs = dia_get_absolute_filename (filename);
+    char* fnabs = g_canonicalize_filename (filename, NULL);
 
     if (fnabs) {
       char *folder = g_path_get_dirname (fnabs);

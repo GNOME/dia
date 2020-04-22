@@ -79,9 +79,10 @@ myXmlErrorReporting (void *ctx, const char* msg, ...)
 }
 #endif
 
+
 /**
  * libdia_init:
- * @flags: a set of %DIA_INTERACTIVE, %DIA_MESSAGE_STDERR
+ * @flags: a set of #DiaInitFlags
  *
  * Basic (i.e. minimal) initialization of libdia.
  *

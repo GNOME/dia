@@ -952,58 +952,46 @@ dia_object_is_selectable (DiaObject *obj)
 
 /****** DiaObject register: **********/
 
-static guint hash(gpointer key)
-{
-  char *string = (char *)key;
-  int sum;
-
-  sum = 0;
-  while (*string) {
-    sum += (*string);
-    string++;
-  }
-
-  return sum;
-}
-
-static gint compare(gpointer a, gpointer b)
-{
-  return strcmp((char *)a, (char *)b)==0;
-}
 
 static GHashTable *object_type_table = NULL;
 
-/** Initialize the object registry. */
+/* Initialize the object registry. */
 void
-object_registry_init(void)
+object_registry_init (void)
 {
-  object_type_table = g_hash_table_new( (GHashFunc) hash, (GCompareFunc) compare );
+  object_type_table = g_hash_table_new (g_str_hash, g_str_equal);
 }
 
-/** Register the type of an object.
- *  This should be called as part of dia_plugin_init calls in modules that
- *  define objects for sheets.  If an object type with the given name is
- *  already registered (typically due to a user saving a local copy), a
- *  warning is display to the user.
- * @param type The type information.
+
+/**
+ * Register the type of an object.
+ * @type: The type information.
+ *
+ * This should be called as part of dia_plugin_init calls in modules that
+ * define objects for sheets. If an object type with the given name is
+ * already registered (typically due to a user saving a local copy), a
+ * warning is display to the user.
  */
 void
-object_register_type(DiaObjectType *type)
+object_register_type (DiaObjectType *type)
 {
-  if (g_hash_table_lookup(object_type_table, type->name) != NULL) {
-    message_warning("Several object-types were named %s.\n"
-		    "Only first one will be used.\n"
-		    "Some things might not work as expected.\n",
-		    type->name);
+  if (g_hash_table_lookup (object_type_table, type->name) != NULL) {
+    message_warning ("Several object-types were named %s.\n"
+                     "Only first one will be used.\n"
+                     "Some things might not work as expected.\n",
+                     type->name);
     return;
   }
-  g_hash_table_insert(object_type_table, type->name, type);
+  g_hash_table_insert (object_type_table, type->name, type);
 }
 
 
-/** Performs a function on each registered object type.
- * @param func A function foo(DiaObjectType, gpointer) to call.
- * @param user_data Data passed through to the functions.
+/**
+ * object_registry_foreach:
+ * @func: A function foo(DiaObjectType, gpointer) to call.
+ * @user_data: Data passed through to the functions.
+ *
+ * Performs a function on each registered object type.
  */
 void
 object_registry_foreach (GHFunc func, gpointer user_data)
@@ -1011,78 +999,116 @@ object_registry_foreach (GHFunc func, gpointer user_data)
   g_hash_table_foreach (object_type_table, func, user_data);
 }
 
-/** Get the object type information associated with a name.
- * @param name A type name.
- * @return A DiaObjectType for an object type with the given name, or
- *         NULL if no such type is registered.
+
+/**
+ * object_get_type:
+ * @name: A type name.
+ *
+ * Get the object type information associated with a name.
+ *
+ * Returns: A #DiaObjectType for an object type with the given name, or
+ *          %NULL if no such type is registered.
+ *
+ * Since: dawn-of-time
  */
 DiaObjectType *
-object_get_type(char *name)
+object_get_type (char *name)
 {
   /* FIXME: this was added here to get some visibility.  Idealy we should have a common way
    * of ensuring g_hash_table_lookup return a non-NULL. */
-  DiaObjectType *type = (DiaObjectType *)g_hash_table_lookup(object_type_table, name);
+  DiaObjectType *type = (DiaObjectType *) g_hash_table_lookup (object_type_table, name);
   if (type == NULL) {
-    g_warning("Unable to find object type: %s", name);
+    g_warning ("Unable to find object type: %s", name);
   }
   return type;
 }
 
-/** True if all the given flags are set, false otherwise.
- * @param obj An object to test.
- * @param flags Flags to check if they are set.  See definitions in object.h
- * @return TRUE if all the flags given are set on the object.
+
+/**
+ * object_flags_set:
+ * @obj: An object to test.
+ * @flags: Flags to check if they are set.  See definitions in object.h
+ *
+ * True if all the given flags are set, false otherwise.
+ *
+ * Returns: %TRUE if all the flags given are set on the object.
+ *
+ * Since: dawn-of-time
  */
 gboolean
-object_flags_set(DiaObject *obj, gint flags)
+object_flags_set (DiaObject *obj, int flags)
 {
   return (obj->type->flags & flags) == flags;
 }
 
-/** Load an object from XML based on its properties.
- *  This function is suitable for implementing the object load function
- *  for an object with normal attributes.  Any version-dependent handling
- *  should be done after calling this function.
- * @param type The type of the object, used for creation.
- * @param obj_node The XML node defining the object.
- * @param version The version of the object found in the XML structure.
- * @param ctx The context in which this function is called
- * @return A newly created object with properties loaded.
+
+/**
+ * object_load_using_properties:
+ * @type: The type of the object, used for creation.
+ * @obj_node: The XML node defining the object.
+ * @version: The version of the object found in the XML structure.
+ * @ctx: The context in which this function is called
+ *
+ * Load an object from XML based on its properties.
+ *
+ * This function is suitable for implementing the object load function
+ * for an object with normal attributes. Any version-dependent handling
+ * should be done after calling this function.
+ *
+ * Returns: A newly created object with properties loaded.
+ *
+ * Since: dawn-of-time
  */
 DiaObject *
-object_load_using_properties(const DiaObjectType *type,
-                             ObjectNode obj_node, int version,
-                             DiaContext *ctx)
+object_load_using_properties (const DiaObjectType *type,
+                              ObjectNode           obj_node,
+                              int                  version,
+                              DiaContext          *ctx)
 {
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
 
-  obj = type->ops->create(&startpoint,NULL, &handle1,&handle2);
-  object_load_props(obj,obj_node,ctx);
+  obj = type->ops->create (&startpoint,NULL, &handle1, &handle2);
+  object_load_props (obj,obj_node,ctx);
   return obj;
 }
 
-/** Save an object into an XML structure based on its properties.
- *  This function is suitable for implementing the object save function
- *  for an object with normal attributes.
- * @param obj The object to save.
- * @param obj_node The XML structure to save into.
- * @param ctx The context to transport error information.
+
+/**
+ * object_save_using_properties:
+ * @obj: The object to save.
+ * @obj_node: The XML structure to save into.
+ * @ctx: The context to transport error information.
+ *
+ * Save an object into an XML structure based on its properties.
+ * This function is suitable for implementing the object save function
+ * for an object with normal attributes.
+ *
+ * Since: dawn-of-time
  */
 void
-object_save_using_properties(DiaObject *obj, ObjectNode obj_node,
-                             DiaContext *ctx)
+object_save_using_properties (DiaObject  *obj,
+                              ObjectNode  obj_node,
+                              DiaContext *ctx)
 {
   object_save_props (obj, obj_node, ctx);
 }
 
-/** Copy an object based solely on its properties.
- *  This function is suitable for implementing the object save function
- *  for an object with normal attributes.
- * @param obj An object to copy.
+
+/**
+ * object_copy_using_properties:
+ * @obj: An object to copy.
+ *
+ * Copy an object based solely on its properties.
+ *
+ * This function is suitable for implementing the object save function
+ * for an object with normal attributes.
+ *
+ * Since: dawn-of-time
  */
-DiaObject *object_copy_using_properties(DiaObject *obj)
+DiaObject *
+object_copy_using_properties (DiaObject *obj)
 {
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
@@ -1104,7 +1130,8 @@ DiaObject *object_copy_using_properties(DiaObject *obj)
  *  be freed after use, as it belongs to the object.
  */
 const DiaRectangle *
-dia_object_get_bounding_box (const DiaObject *obj) {
+dia_object_get_bounding_box (const DiaObject *obj)
+{
   return &obj->bounding_box;
 }
 

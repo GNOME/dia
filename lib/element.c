@@ -16,10 +16,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** The Element object type is a rectangular box that has
- *  non-connectable handles on its corners and on the midsts of the
- *  edges.  It also has connectionpoints in the same places as the
- *  handles as well as a mainpoint in the middle.
+/**
+ * SECTION:element:
+ * @title: Element
+ *
+ * The Element object type is a rectangular box that has
+ * non-connectable handles on its corners and on the midsts of the
+ * edges.  It also has connectionpoints in the same places as the
+ * handles as well as a mainpoint in the middle.
  */
 
 #include <config.h>
@@ -38,11 +42,18 @@
 PropNumData width_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
 #endif
 
-/** Update the boundingbox information for this element.
- * @param An object to update bounding box on.
+
+/**
+ * element_update_boundingbox:
+ * @elem: An object to update bounding box on.
+ *
+ * Update the boundingbox information for this element.
+ *
+ * Since: dawn-of-time
  */
 void
-element_update_boundingbox (Element *elem) {
+element_update_boundingbox (Element *elem)
+{
   DiaRectangle bb;
   Point *corner;
   ElementBBExtras *extra = &elem->extra_spacing;
@@ -58,19 +69,23 @@ element_update_boundingbox (Element *elem) {
   rectangle_bbox(&bb,extra,&elem->object.bounding_box);
 }
 
-/** Update the 9 connections of this element to form a rectangle and
+
+/**
+ * element_update_connections_rectangle:
+ * @elem: The element to update
+ * @cps: The list of connectionpoints to update, in the order described.
+ *       Usually, this will be the same list as elem->connectionpoints.
+ *
+ * Update the 9 connections of this element to form a rectangle and
  * point in the center.
  * The connections go left-to-right, first top row, then middle row, then
  * bottom row, then center.  Do not blindly use this in old objects where
  * the order is different, as it will mess with the saved files.  If an
  * object uses element_update_handles, it can use this.
- * @param elem The element to update
- * @param cps The list of connectionpoints to update, in the order described.
- *            Usually, this will be the same list as elem->connectionpoints.
  */
 void
-element_update_connections_rectangle(Element *elem,
-				     ConnectionPoint* cps)
+element_update_connections_rectangle (Element         *elem,
+                                      ConnectionPoint *cps)
 {
   cps[0].pos = elem->corner;
   cps[1].pos.x = elem->corner.x + elem->width / 2.0;
@@ -105,11 +120,15 @@ element_update_connections_rectangle(Element *elem,
 
 /**
  * element_update_connections_directions:
+ * @elem: the #Element
+ * @cps: list of #ConnectionPoint
  *
  * More elaborate variant to calculate connection point directions
  *
  * It works for any number of connection points.
  * It calculates them based on qudrants, so works best for symmetric elements.
+ *
+ * Since: dawn-of-time
  */
 void
 element_update_connections_directions (Element         *elem,
@@ -416,7 +435,7 @@ element_move_handle_aspect (Element  *elem,
  * @num_handles: The number of handles to set up (>= 8). The handles
  *               will be initialized by this function.
  * @num_connections: The number of connectionpoints to set up (>= 9).
- *                   The connectionpoints will <em>not</em> be
+ *                   The connectionpoints will _not_ be
  *                   initialized by this function.
  *
  * Initialization function for element objects.
@@ -482,7 +501,7 @@ element_copy (Element *from, Element *to)
 
 /**
  * element_destroy:
- * @elem: The element to destroy.  It will <em>not</em> be deallocated
+ * @elem: The element to destroy. It will _not_ be deallocated
  *        by this call, but will not be valid afterwards.
  *
  * Destroy an elements private information.

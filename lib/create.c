@@ -17,7 +17,7 @@
  */
 
 /**
- * SECTION:dia-create
+ * SECTION:create
  * @title: Create
  * @short_description: Construct objects
  *

@@ -26,7 +26,7 @@
 G_DEFINE_INTERFACE (DiaInteractiveRenderer, dia_interactive_renderer, DIA_TYPE_RENDERER)
 
 /**
- * SECTION:dia-interactive-renderer
+ * SECTION:diainteractiverenderer
  * @title: DiaInteractiveRenderer
  * @short_description: #DiaRenderer for displays
  *

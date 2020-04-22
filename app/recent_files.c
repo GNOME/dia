@@ -112,7 +112,7 @@ recent_file_history_make_menu (void)
 void
 recent_file_history_add (const char *fname)
 {
-  char *absname = dia_get_absolute_filename (fname);
+  char *absname = g_canonicalize_filename (fname, NULL);
   char *filename = g_filename_to_utf8 (absname, -1, NULL, NULL, NULL);
 
   recent_file_history_clear_menu ();
@@ -150,12 +150,12 @@ recent_file_history_init (void)
 void
 recent_file_history_remove (const char *fname)
 {
-  char *absname = dia_get_absolute_filename (fname);
+  char *absname = g_canonicalize_filename (fname, NULL);
   char *filename = g_filename_to_utf8 (absname, -1, NULL, NULL, NULL);
 
-  recent_file_history_clear_menu();
+  recent_file_history_clear_menu ();
 
-  persistent_list_remove("recent-files", filename);
+  persistent_list_remove ("recent-files", filename);
 
   g_clear_pointer (&absname, g_free);
   g_clear_pointer (&filename, g_free);

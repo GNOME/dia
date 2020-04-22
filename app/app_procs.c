@@ -336,11 +336,11 @@ do_convert (const char      *infname,
 
   /* Apply --show-layers */
   if (show_layers) {
-    handle_show_layers(diagdata, show_layers);
+    handle_show_layers (diagdata, show_layers);
   }
 
   /* recalculate before export */
-  data_update_extents    (diagdata);
+  data_update_extents (diagdata);
 
   /* Do our best in providing the size to the filter, but don't abuse user_data
    * too much for it. It _must not_ be changed after initialization and there

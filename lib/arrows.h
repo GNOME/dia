@@ -124,7 +124,7 @@ typedef enum {
  * MIN_ARROW_DIMENSION:
  *
  * The minimum width or length of an arrowhead. This to avoid borderline
- * cases that break trig functions, as seen in bug #144394
+ * cases that break trig functions, as seen in bug # 144394
  */
 #define MIN_ARROW_DIMENSION 0.001
 

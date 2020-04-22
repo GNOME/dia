@@ -16,7 +16,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** This files handles which text elements are currently eligible to get
+/**
+ * SECTION:focus:
+ *
+ * This files handles which text elements are currently eligible to get
  * the input focus, and moving back and forth between them.  Objects can
  * add their texts to the list with request_focus (more than one can be
  * added), which doesn't give them focus outright, but makes them part of
@@ -38,20 +41,35 @@ get_text_foci(DiagramData *dia)
   return dia->text_edits;
 }
 
-/** Get the currently active focus for the given diagram, if any */
+
+/**
+ * get_active_focus:
+ * @dia: the #DiagramData
+ *
+ * Get the currently active focus for the given diagram, if any
+ *
+ * Since: dawn-of-time
+ */
 Focus *
-get_active_focus(DiagramData *dia)
+get_active_focus (DiagramData *dia)
 {
   return dia->active_text_edit;
 }
 
-/** Set which focus is active for the given diagram.
- * @param dia Diagram to set active focus for.
- * @param focus Focus to be active, or null if no focus should be active.
+
+/**
+ * set_active_focus:
+ * @dia: #DiagramData to set active focus for.
+ * @focus: #Focus to be active, or %NULL if no focus should be active.
+ *
+ * Set which focus is active for the given diagram.
+ *
  * The focus should be on the get_text_foci list.
+ *
+ * Since: dawn-of-time
  */
 static void
-set_active_focus(DiagramData *dia, Focus *focus)
+set_active_focus (DiagramData *dia, Focus *focus)
 {
   if (dia->active_text_edit != NULL) {
     dia->active_text_edit->has_focus = FALSE;
@@ -62,39 +80,65 @@ set_active_focus(DiagramData *dia, Focus *focus)
   }
 }
 
-/** Add a focus to the list of foci that can be activated for the given
- * diagram. */
+
+/**
+ * add_text_focus:
+ * @dia: #DiagramData to add #Focus to
+ * @focus: #Focus to add
+ *
+ * Add a focus to the list of foci that can be activated for the given
+ * diagram.
+ *
+ * Since: dawn-of-time
+ */
 static void
-add_text_focus(DiagramData *dia, Focus *focus)
+add_text_focus (DiagramData *dia, Focus *focus)
 {
-  dia->text_edits = g_list_append(dia->text_edits, focus);
+  dia->text_edits = g_list_append (dia->text_edits, focus);
 }
 
-/** Set the list of foci for a diagram.  The old list, if any, will be
+
+/**
+ * set_text_foci:
+ * @dia: #DiagramData to set list for
+ * @foci: the new list
+ *
+ * Set the list of foci for a diagram. The old list, if any, will be
  * returned, not freed.
+ *
+ * Since: dawn-of-time
  */
 static GList *
-set_text_foci(DiagramData *dia, GList *foci)
+set_text_foci (DiagramData *dia, GList *foci)
 {
-  GList *old_foci = get_text_foci(dia);
+  GList *old_foci = get_text_foci (dia);
   dia->text_edits = NULL;
   return old_foci;
 }
 
-/** Request that the give focus become active.
+
+/**
+ * request_focus:
+ * @focus: the #Focus to make active
+ *
+ * Request that the give focus become active.
  * Also adds the focus to the list of available foci.
- * Eventually, this will only add the focus to the list. */
+ * Eventually, this will only add the focus to the list.
+ *
+ * Since: dawn-of-time
+ */
 void
 request_focus(Focus *focus)
 {
   DiagramData *dia = dia_layer_get_parent_diagram (focus->obj->parent_layer);
-  GList *text_foci = get_text_foci(dia);
+  GList *text_foci = get_text_foci (dia);
   /* Only add to focus list if not already there, and don't snatch focus. */
-  if (!g_list_find(text_foci, focus)) {
-    add_text_focus(dia, focus);
+  if (!g_list_find (text_foci, focus)) {
+    add_text_focus (dia, focus);
   }
   return;
 }
+
 
 void
 give_focus(Focus *focus)
@@ -124,15 +168,23 @@ focus_get_first_on_object(DiaObject *obj)
   return NULL;
 }
 
-/** Return the object that this focus belongs to.  Note that each
- * object may have more than one Text associated with it, the
+
+/**
+ * focus_get_object:
+ * @focus: the #Focus
+ *
+ * Return the object that this focus belongs to.  Note that each
+ * object may have more than one #Text associated with it, the
  * focus will be on one of those.
+ *
+ * Since: dawn-of-time
  */
 DiaObject*
-focus_get_object(Focus *focus)
+focus_get_object (Focus *focus)
 {
   return focus->obj;
 }
+
 
 Focus *
 focus_next_on_diagram(DiagramData *dia)
@@ -178,37 +230,45 @@ reset_foci_on_diagram(DiagramData *dia)
   g_list_free(old_foci);
 }
 
-/** Removes all foci owned by the object.
- * Returns TRUE if the object had the active focus for its diagram.
+
+/**
+ * remove_focus_object:
+ * @obj: the #DiaObject
+ *
+ * Removes all foci owned by the object.
+ *
+ * Returns: %TRUE if the object had the active focus for its diagram.
  */
 gboolean
-remove_focus_object(DiaObject *obj)
+remove_focus_object (DiaObject *obj)
 {
   DiagramData *dia = dia_layer_get_parent_diagram (obj->parent_layer);
-  GList *tmplist = get_text_foci(dia);
+  GList *tmplist = get_text_foci (dia);
   gboolean active = FALSE;
   Focus *next_focus = NULL;
-  Focus *active_focus = get_active_focus(dia);
+  Focus *active_focus = get_active_focus (dia);
 
   for (; tmplist != NULL; ) {
-    Focus *focus = (Focus*)tmplist->data;
+    Focus *focus = (Focus*) tmplist->data;
     GList *link = tmplist;
-    tmplist = g_list_next(tmplist);
-    if (focus_get_object(focus) == obj) {
+    tmplist = g_list_next (tmplist);
+    if (focus_get_object (focus) == obj) {
       if (focus == active_focus) {
-	next_focus = focus_next_on_diagram(dia);
-	active = TRUE;
+        next_focus = focus_next_on_diagram (dia);
+        active = TRUE;
       }
-      set_text_foci(dia, g_list_delete_link(get_text_foci(dia), link));
+      set_text_foci (dia, g_list_delete_link (get_text_foci (dia), link));
     }
   }
-  if (next_focus != NULL && get_text_foci(dia) != NULL) {
-    give_focus(next_focus);
+
+  if (next_focus != NULL && get_text_foci (dia) != NULL) {
+    give_focus (next_focus);
   } else {
-    if (get_text_foci(dia) == NULL) {
-      set_active_focus(dia, NULL);
+    if (get_text_foci (dia) == NULL) {
+      set_active_focus (dia, NULL);
     }
   }
+
   return active;
 }
 
