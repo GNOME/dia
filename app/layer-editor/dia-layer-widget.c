@@ -34,8 +34,7 @@
  */
 
 typedef struct _DiaLayerWidgetPrivate DiaLayerWidgetPrivate;
-struct _DiaLayerWidgetPrivate
-{
+struct _DiaLayerWidgetPrivate {
   DiaLayer *layer;
 
   GBinding *name_binding;
@@ -53,8 +52,6 @@ struct _DiaLayerWidgetPrivate
    */
   gboolean connect_off;
 
-  DiaLayerEditor *editor;
-
   /* If TRUE, we're in the middle of a internal call to
    * dia_layer_widget_*_toggled and should not make undo, update diagram etc.
    *
@@ -68,22 +65,21 @@ struct _DiaLayerWidgetPrivate
 
 G_DEFINE_TYPE_WITH_PRIVATE (DiaLayerWidget, dia_layer_widget, GTK_TYPE_BIN)
 
+
 enum {
   EXCLUSIVE,
   SCROLL_VERTICAL,
   LAST_SIGNAL
 };
-
 static guint signals[LAST_SIGNAL] = { 0, };
+
 
 enum {
   LW_PROP_0,
   LW_PROP_LAYER,
-  LW_PROP_EDITOR,
   LW_PROP_CONNECTABLE,
   LAST_LW_PROP
 };
-
 static GParamSpec *lw_pspecs[LAST_LW_PROP] = { NULL, };
 
 
@@ -98,9 +94,6 @@ dia_layer_widget_set_property (GObject      *object,
   switch (property_id) {
     case LW_PROP_LAYER:
       dia_layer_widget_set_layer (self, g_value_get_object (value));
-      break;
-    case LW_PROP_EDITOR:
-      dia_layer_widget_set_editor (self, g_value_get_object (value));
       break;
     case LW_PROP_CONNECTABLE:
       dia_layer_widget_set_connectable (self, g_value_get_boolean (value));
@@ -124,9 +117,6 @@ dia_layer_widget_get_property (GObject    *object,
     case LW_PROP_LAYER:
       g_value_set_object (value, dia_layer_widget_get_layer (self));
       break;
-    case LW_PROP_EDITOR:
-      g_value_set_object (value, dia_layer_widget_get_editor (self));
-      break;
     case LW_PROP_CONNECTABLE:
       g_value_set_boolean (value, dia_layer_widget_get_connectable (self));
       break;
@@ -144,7 +134,6 @@ dia_layer_widget_finalize (GObject *object)
   DiaLayerWidgetPrivate *priv = dia_layer_widget_get_instance_private (self);
 
   g_clear_object (&priv->layer);
-  g_clear_object (&priv->editor);
 
   G_OBJECT_CLASS (dia_layer_widget_parent_class)->finalize (object);
 }
@@ -375,20 +364,6 @@ dia_layer_widget_class_init (DiaLayerWidgetClass *klass)
                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * DiaLayerWidget:editor:
-   *
-   * The #DiaLayerEditor this is for
-   *
-   * Since: 0.98
-   */
-  lw_pspecs[LW_PROP_EDITOR] =
-    g_param_spec_object ("editor",
-                         "Editor",
-                         "The editor",
-                         DIA_TYPE_LAYER_EDITOR,
-                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
    * DiaLayerWidget:connectable:
    *
    * Is the layer connectable
@@ -494,7 +469,6 @@ connectable_toggled (GtkToggleButton *widget,
                                gtk_toggle_button_get_active (widget));
   }
 
-
   if (priv->layer == dia_diagram_data_get_active_layer (dia_layer_get_parent_diagram (priv->layer))) {
     priv->connect_off = !gtk_toggle_button_get_active (widget);
     if (priv->connect_off) {
@@ -519,7 +493,7 @@ connectable_toggled (GtkToggleButton *widget,
 
 
 static void
-visible_clicked (GtkToggleButton *widget,
+visible_toggled (GtkToggleButton *widget,
                  gpointer         userdata)
 {
   DiaLayerWidget *self = DIA_LAYER_WIDGET (userdata);
@@ -527,7 +501,7 @@ visible_clicked (GtkToggleButton *widget,
   DiaChange *change;
 
   /* Have to use this internal_call hack 'cause there's no way to switch
-   * a toggle button without causing the 'clicked' event:(
+   * a toggle button without causing the 'toggled' event:(
    */
   if (!priv->internal_call) {
     Diagram *dia = DIA_DIAGRAM (dia_layer_get_parent_diagram (priv->layer));
@@ -561,8 +535,6 @@ dia_layer_widget_init (DiaLayerWidget *self)
   priv->visible = dia_toggle_button_new_with_icon_names ("dia-visible",
                                                          "dia-visible-empty");
 
-  priv->editor = NULL;
-
   g_signal_connect (G_OBJECT (priv->visible),
                     "button-release-event",
                     G_CALLBACK (button_event),
@@ -572,8 +544,8 @@ dia_layer_widget_init (DiaLayerWidget *self)
                     G_CALLBACK (button_event),
                     self);
   g_signal_connect (G_OBJECT (priv->visible),
-                    "clicked",
-                    G_CALLBACK (visible_clicked),
+                    "toggled",
+                    G_CALLBACK (visible_toggled),
                     self);
   gtk_box_pack_start (GTK_BOX (hbox), priv->visible, FALSE, TRUE, 2);
   gtk_widget_show (priv->visible);
@@ -591,7 +563,7 @@ dia_layer_widget_init (DiaLayerWidget *self)
                     G_CALLBACK (button_event),
                     self);
   g_signal_connect (G_OBJECT (priv->connectable),
-                    "clicked",
+                    "toggled",
                     G_CALLBACK (connectable_toggled),
                     self);
 
@@ -619,14 +591,8 @@ dia_layer_widget_set_layer (DiaLayerWidget *self,
 
   priv = dia_layer_widget_get_instance_private (self);
 
-  g_clear_object (&priv->layer);
-  if (layer) {
-    priv->layer = g_object_ref (layer);
-
   if (g_set_object (&priv->layer, layer)) {
     g_clear_object (&priv->name_binding);
-
-    g_message (" -> accepted %p", priv->layer);
 
     if (!layer) {
       gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
@@ -677,38 +643,6 @@ dia_layer_widget_get_layer (DiaLayerWidget *self)
 
 
 void
-dia_layer_widget_set_editor (DiaLayerWidget *self,
-                             DiaLayerEditor *editor)
-{
-  DiaLayerWidgetPrivate *priv;
-
-  g_return_if_fail (DIA_IS_LAYER_WIDGET (self));
-
-  priv = dia_layer_widget_get_instance_private (self);
-
-  g_clear_object (&priv->editor);
-  if (editor) {
-    priv->editor = g_object_ref (editor);
-  }
-
-  g_object_notify_by_pspec (G_OBJECT (self), lw_pspecs[LW_PROP_EDITOR]);
-}
-
-
-DiaLayerEditor *
-dia_layer_widget_get_editor (DiaLayerWidget *self)
-{
-  DiaLayerWidgetPrivate *priv;
-
-  g_return_val_if_fail (DIA_IS_LAYER_WIDGET (self), NULL);
-
-  priv = dia_layer_widget_get_instance_private (self);
-
-  return priv->editor;
-}
-
-
-void
 dia_layer_widget_set_connectable (DiaLayerWidget *self, gboolean on)
 {
   DiaLayerWidgetPrivate *priv;
@@ -737,12 +671,9 @@ dia_layer_widget_get_connectable (DiaLayerWidget *self)
 
 
 GtkWidget *
-dia_layer_widget_new (DiaLayer *layer, DiaLayerEditor *editor)
+dia_layer_widget_new (DiaLayer *layer)
 {
-  return g_object_new (DIA_TYPE_LAYER_WIDGET,
-                       "layer", layer,
-                       "editor", editor,
-                       NULL);
+  return g_object_new (DIA_TYPE_LAYER_WIDGET, "layer", layer, NULL);
 }
 
 

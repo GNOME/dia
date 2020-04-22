@@ -16,7 +16,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** \file diagramdata.c  This file defines the DiagramData object, which holds (mostly) saveable
+/**
+ * SECTION:diagramdata:
+ *
+ * This file defines the #DiagramData object, which holds (mostly) saveable
  * data global to a diagram.
  */
 
@@ -38,27 +41,35 @@
 
 static const DiaRectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 
-static void diagram_data_class_init (DiagramDataClass *klass);
+static void dia_diagram_data_class_init (DiagramDataClass *klass);
 static void diagram_data_init (DiagramData *object);
-
-enum {
-  OBJECT_ADD,
-  OBJECT_REMOVE,
-  SELECTION_CHANGED,
-  LAST_SIGNAL
-};
 
 typedef struct {
   DiaObject *obj;
   DiaHighlightType type;
 } ObjectHighlight;
 
-static guint diagram_data_signals[LAST_SIGNAL] = { 0, };
+
+enum {
+  PROP_0,
+  PROP_ACTIVE_LAYER,
+  LAST_PROP
+};
+static GParamSpec *pspecs[LAST_PROP] = { NULL, };
+
+
+enum {
+  OBJECT_ADD,
+  OBJECT_REMOVE,
+  SELECTION_CHANGED,
+  LAYERS_CHANGED,
+  LAST_SIGNAL
+};
+static guint signals[LAST_SIGNAL] = { 0, };
 
 static gpointer parent_class = NULL;
 
-/** Get the type object for the DiagramData class.
- */
+
 GType
 diagram_data_get_type(void)
 {
@@ -71,7 +82,7 @@ diagram_data_get_type(void)
         sizeof (DiagramDataClass),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) diagram_data_class_init,
+        (GClassInitFunc) dia_diagram_data_class_init,
         NULL,           /* class_finalize */
         NULL,           /* class_data */
         sizeof (DiagramData),
@@ -107,9 +118,7 @@ _diagram_data_selection_changed (DiagramData* dia, int n)
 {
 }
 
-/** Initialize a new diagram data object.
- * @param data A diagram data object to initialize.
- */
+
 static void
 diagram_data_init(DiagramData *data)
 {
@@ -146,9 +155,18 @@ diagram_data_init(DiagramData *data)
 }
 
 
-/** Deallocate memory owned by a DiagramData object.
- * @param object A DiagramData object to finalize.
- */
+static void
+active_layer_died (gpointer  data,
+                   GObject  *dead_object)
+{
+  DiagramData *self = DIA_DIAGRAM_DATA (data);
+
+  self->active_layer = NULL;
+
+  g_object_notify_by_pspec (G_OBJECT (self), pspecs[PROP_ACTIVE_LAYER]);
+}
+
+
 static void
 diagram_data_finalize (GObject *object)
 {
@@ -156,7 +174,11 @@ diagram_data_finalize (GObject *object)
 
   g_clear_pointer (&data->paper.name, g_free);
 
-  g_clear_weak_pointer (&data->active_layer);
+  if (data->active_layer) {
+    g_object_weak_unref (G_OBJECT (data->active_layer),
+                         active_layer_died,
+                         data);
+  }
   g_ptr_array_free (data->layers, TRUE);
 
   g_list_free (data->selected);
@@ -164,6 +186,44 @@ diagram_data_finalize (GObject *object)
   data->selected_count_private = 0;
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
+}
+
+
+static void
+dia_diagram_data_set_property (GObject      *object,
+                               guint         property_id,
+                               const GValue *value,
+                               GParamSpec   *pspec)
+{
+  DiagramData *self = DIA_DIAGRAM_DATA (object);
+
+  switch (property_id) {
+    case PROP_ACTIVE_LAYER:
+      data_set_active_layer (self, g_value_get_object (value));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
+}
+
+
+static void
+dia_diagram_data_get_property (GObject    *object,
+                               guint       property_id,
+                               GValue     *value,
+                               GParamSpec *pspec)
+{
+  DiagramData *self = DIA_DIAGRAM_DATA (object);
+
+  switch (property_id) {
+    case PROP_ACTIVE_LAYER:
+      g_value_set_object (value, dia_diagram_data_get_active_layer (self));
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
 }
 
 
@@ -244,17 +304,37 @@ diagram_data_clone_selected (DiagramData *data)
   return clone;
 }
 
-/** Initialize the DiagramData class data.
- * @param klass The class object to initialize functions for.
- */
+
 static void
-diagram_data_class_init(DiagramDataClass *klass)
+dia_diagram_data_class_init (DiagramDataClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  object_class->finalize = diagram_data_finalize;
+  object_class->set_property = dia_diagram_data_set_property;
+  object_class->get_property = dia_diagram_data_get_property;
+
+  klass->object_add = _diagram_data_object_add;
+  klass->object_remove = _diagram_data_object_remove;
+  klass->selection_changed = _diagram_data_selection_changed;
+
   parent_class = g_type_class_peek_parent (klass);
 
-  diagram_data_signals[OBJECT_ADD] =
+  /**
+   * DiagramData:active-layer:
+   *
+   * Since: 0.98
+   */
+  pspecs[PROP_ACTIVE_LAYER] =
+    g_param_spec_object ("active-layer",
+                         "Active Layer",
+                         "The active layer",
+                         DIA_TYPE_LAYER,
+                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_PROP, pspecs);
+
+  signals[OBJECT_ADD] =
     g_signal_new ("object_add",
               G_TYPE_FROM_CLASS (klass),
               G_SIGNAL_RUN_FIRST,
@@ -266,7 +346,7 @@ diagram_data_class_init(DiagramDataClass *klass)
               G_TYPE_POINTER,
               G_TYPE_POINTER);
 
-  diagram_data_signals[OBJECT_REMOVE] =
+  signals[OBJECT_REMOVE] =
     g_signal_new ("object_remove",
               G_TYPE_FROM_CLASS (klass),
               G_SIGNAL_RUN_FIRST,
@@ -278,51 +358,79 @@ diagram_data_class_init(DiagramDataClass *klass)
               G_TYPE_POINTER,
               G_TYPE_POINTER);
 
-  diagram_data_signals[SELECTION_CHANGED] =
+  signals[SELECTION_CHANGED] =
     g_signal_new ("selection_changed",
-	          G_TYPE_FROM_CLASS (klass),
-	          G_SIGNAL_RUN_FIRST,
-	          G_STRUCT_OFFSET (DiagramDataClass, selection_changed),
-	          NULL, NULL,
-	          dia_marshal_VOID__INT,
-		  G_TYPE_NONE, 1,
-		  G_TYPE_INT);
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  G_STRUCT_OFFSET (DiagramDataClass, selection_changed),
+                  NULL, NULL,
+                  dia_marshal_VOID__INT,
+                  G_TYPE_NONE, 1,
+                  G_TYPE_INT);
 
-  object_class->finalize = diagram_data_finalize;
-  klass->object_add = _diagram_data_object_add;
-  klass->object_remove = _diagram_data_object_remove;
-  klass->selection_changed = _diagram_data_selection_changed;
+  /**
+   * DiagramData::layers-changed:
+   * @self: the #DiagramData
+   * @position: where the change happened
+   * @removed: number of layers removed
+   * @added: number of layers added
+   *
+   * Since: 0.98
+   */
+  signals[LAYERS_CHANGED] =
+    g_signal_new ("layers-changed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  0, NULL, NULL,
+                  dia_marshal_VOID__UINT_UINT_UINT,
+                  G_TYPE_NONE, 3,
+                  G_TYPE_UINT, G_TYPE_UINT, G_TYPE_UINT);
 }
 
 
-/*!
- * \brief Raise a layer up one in a diagram.
- * @param data The diagram that the layer belongs to.
- * @param layer The layer to raise.
- * \memberof _DiagramData
+/**
+ * data_raise_layer:
+ * @data: The diagram that the layer belongs to.
+ * @layer: The layer to raise.
+ *
+ * Raise a layer up one in a diagram.
+ *
+ * Since: dawn-of-time
  */
 void
 data_raise_layer (DiagramData *data, DiaLayer *layer)
 {
-  guint layer_nr = 0;
+  int layer_nr = -1;
   DiaLayer *tmp;
 
   layer_nr = data_layer_get_index (data, layer);
 
-  if (layer_nr < data_layer_count (data) - 1) {
-    tmp = g_ptr_array_index (data->layers, layer_nr + 1);
-    g_ptr_array_index (data->layers, layer_nr + 1) =
+  g_return_if_fail (layer_nr >= 0);
+
+  if (layer_nr > 0) {
+    tmp = g_ptr_array_index (data->layers, layer_nr - 1);
+    g_ptr_array_index (data->layers, layer_nr - 1) =
                                 g_ptr_array_index (data->layers, layer_nr);
     g_ptr_array_index (data->layers, layer_nr) = tmp;
+
+    g_signal_emit (data,
+                   signals[LAYERS_CHANGED],
+                   0,
+                   layer_nr - 1,
+                   2,
+                   2);
   }
 }
 
 
-/*!
- * \brief Lower a layer by one in a diagram.
- * @param data The diagram that the layer belongs to.
- * @param layer The layer to lower.
- * \memberof _DiagramData
+/**
+ * data_lower_layer:
+ * @data: The diagram that the layer belongs to.
+ * @layer: The layer to lower.
+ *
+ * Lower a layer by one in a diagram.
+ *
+ * Since: dawn-of-time
  */
 void
 data_lower_layer (DiagramData *data, DiaLayer *layer)
@@ -334,11 +442,18 @@ data_lower_layer (DiagramData *data, DiaLayer *layer)
 
   g_return_if_fail (layer_nr >= 0);
 
-  if (layer_nr > 0) {
-    tmp = g_ptr_array_index (data->layers, layer_nr-1);
-    g_ptr_array_index (data->layers, layer_nr-1) =
-                                g_ptr_array_index(data->layers, layer_nr);
-    g_ptr_array_index (data->layers, layer_nr) = tmp;
+  if (layer_nr < data_layer_count (data) - 1) {
+    tmp = g_ptr_array_index (data->layers, layer_nr);
+    g_ptr_array_index (data->layers, layer_nr) =
+                                g_ptr_array_index (data->layers, layer_nr + 1);
+    g_ptr_array_index (data->layers, layer_nr + 1) = tmp;
+
+    g_signal_emit (data,
+                   signals[LAYERS_CHANGED],
+                   0,
+                   layer_nr,
+                   2,
+                   2);
   }
 }
 
@@ -382,6 +497,8 @@ data_add_layer_at (DiagramData *data, DiaLayer *layer, int pos)
     }
     g_ptr_array_index (data->layers, pos) = layer;
   }
+
+  g_signal_emit (data, signals[LAYERS_CHANGED], 0, pos, 0, 1);
 
   dia_layer_set_parent_diagram (layer, data);
   data_emit (data, layer, NULL, "object_add");
@@ -467,7 +584,21 @@ data_layer_count (const DiagramData *data)
 void
 data_set_active_layer (DiagramData *data, DiaLayer *layer)
 {
-  g_set_weak_pointer (&data->active_layer, layer);
+  g_return_if_fail (DIA_IS_DIAGRAM_DATA (data));
+
+  if (data->active_layer == layer) {
+    return;
+  }
+
+  if (data->active_layer) {
+    g_object_weak_unref (G_OBJECT (data->active_layer),
+                         active_layer_died,
+                         data);
+  }
+  data->active_layer = layer;
+  g_object_weak_ref (G_OBJECT (data->active_layer), active_layer_died, data);
+
+  g_object_notify_by_pspec (G_OBJECT (data), pspecs[PROP_ACTIVE_LAYER]);
 }
 
 
@@ -500,21 +631,38 @@ dia_diagram_data_get_active_layer (DiagramData *self)
 void
 data_remove_layer (DiagramData *data, DiaLayer *layer)
 {
+  DiaLayer *active;
+  int location;
+
   if (data_layer_count (data) <= 1) {
     return;
   }
 
-  if (dia_diagram_data_get_active_layer (data) == layer) {
+  active = dia_diagram_data_get_active_layer (data);
+
+  if (active == layer) {
     data_remove_all_selected (data);
   }
 
   data_emit (data, layer, NULL, "object_remove");
-  dia_layer_set_parent_diagram (layer, NULL);
-  g_ptr_array_remove (data->layers, layer);
 
-  if (dia_diagram_data_get_active_layer (data) == NULL) {
-    data_set_active_layer (data, data_layer_get_nth (data, 0));
+  g_object_ref (layer);
+  location = data_layer_get_index (data, layer);
+  g_ptr_array_remove_index (data->layers, location);
+
+  g_signal_emit (data, signals[LAYERS_CHANGED], 0, location, 1, 0);
+
+  if (active == layer || active == NULL) {
+    DiaLayer *next_layer = data_layer_get_nth (data, location);
+    if (next_layer) {
+      data_set_active_layer (data, next_layer);
+    } else {
+      data_set_active_layer (data, data_layer_get_nth (data, location - 1));
+    }
   }
+
+  dia_layer_set_parent_diagram (layer, NULL);
+  g_object_unref (layer);
 }
 
 
@@ -587,7 +735,7 @@ data_select(DiagramData *data, DiaObject *obj)
     return; /* should this be an error?`*/
   data->selected = g_list_prepend(data->selected, obj);
   data->selected_count_private++;
-  g_signal_emit (data, diagram_data_signals[SELECTION_CHANGED], 0, data->selected_count_private);
+  g_signal_emit (data, signals[SELECTION_CHANGED], 0, data->selected_count_private);
 }
 
 /*!
@@ -606,7 +754,7 @@ data_unselect(DiagramData *data, DiaObject *obj)
     return; /* should this be an error?`*/
   data->selected = g_list_remove(data->selected, obj);
   data->selected_count_private--;
-  g_signal_emit (data, diagram_data_signals[SELECTION_CHANGED], 0, data->selected_count_private);
+  g_signal_emit (data, signals[SELECTION_CHANGED], 0, data->selected_count_private);
 }
 
 /*!
@@ -621,7 +769,7 @@ data_remove_all_selected(DiagramData *data)
   g_list_free(data->selected); /* Remove previous selection */
   data->selected = NULL;
   data->selected_count_private = 0;
-  g_signal_emit (data, diagram_data_signals[SELECTION_CHANGED], 0, data->selected_count_private);
+  g_signal_emit (data, signals[SELECTION_CHANGED], 0, data->selected_count_private);
 }
 
 
@@ -854,10 +1002,10 @@ data_emit (DiagramData *data,
 {
   /* check what signal it is */
   if (strcmp("object_add",signal_name) == 0)
-    g_signal_emit(data, diagram_data_signals[OBJECT_ADD], 0, layer, obj);
+    g_signal_emit(data, signals[OBJECT_ADD], 0, layer, obj);
 
   if (strcmp("object_remove",signal_name) == 0)
-    g_signal_emit(data, diagram_data_signals[OBJECT_REMOVE], 0, layer, obj);
+    g_signal_emit(data, signals[OBJECT_REMOVE], 0, layer, obj);
 
 }
 

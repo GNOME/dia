@@ -445,8 +445,8 @@ diagram_data_load (const char  *filename,
     return FALSE;
   }
 
-  namespace = xmlSearchNs (doc, root, "dia");
-  if (xmlStrcmp (root->name, "diagram") || (namespace == NULL)) {
+  namespace = xmlSearchNs (doc, root, (const xmlChar *) "dia");
+  if (xmlStrcmp (root->name, (const xmlChar *) "diagram") || (namespace == NULL)) {
     message_error (_("Error loading diagram %s.\nNot a Dia file."),
                    dia_message_filename (filename));
     xmlFreeDoc (doc);
@@ -712,7 +712,7 @@ diagram_data_load (const char  *filename,
 
     if (!layer_node) break;
 
-    name = xmlGetProp (layer_node, "name");
+    name = xmlGetProp (layer_node, (const xmlChar *) "name");
     if (!name) break; /* name is mandatory */
 
     layer = dia_layer_new ((char *) name, data);

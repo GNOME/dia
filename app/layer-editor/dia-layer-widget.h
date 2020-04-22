@@ -35,8 +35,7 @@ struct _DiaLayerWidgetClass {
   GtkBinClass parent_class;
 };
 
-GtkWidget      *dia_layer_widget_new             (DiaLayer       *layer,
-                                                  DiaLayerEditor *editor);
+GtkWidget      *dia_layer_widget_new             (DiaLayer       *layer);
 void            dia_layer_widget_set_layer       (DiaLayerWidget *self,
                                                   DiaLayer       *layer);
 DiaLayer       *dia_layer_widget_get_layer       (DiaLayerWidget *self);

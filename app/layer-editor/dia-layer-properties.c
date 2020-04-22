@@ -136,7 +136,7 @@ dia_layer_properties_response (GtkDialog *dialog,
   } else if (priv->diagram) {
     DiaLayer *layer;
     int pos = data_layer_get_index (DIA_DIAGRAM_DATA (priv->diagram),
-                                    dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (priv->diagram)) + 1);
+                                    dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (priv->diagram))) + 1;
 
     layer = dia_layer_new (gtk_entry_get_text (GTK_ENTRY (priv->entry)),
                            DIA_DIAGRAM_DATA (priv->diagram));

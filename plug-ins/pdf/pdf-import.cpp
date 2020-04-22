@@ -414,8 +414,9 @@ public :
 		      this->page_height * ((this->pageNum - 1) / m)};
     advance.x += group->position.x;
     advance.y += group->position.y;
-    group->ops->move (group, &advance);
-    dia_layer_add_object (this->dia->active_layer, group);
+    dia_object_move (group, &advance);
+    dia_layer_add_object (dia_diagram_data_get_active_layer (this->dia),
+                          group);
     dia_object_set_meta (group, "name", name);
     g_free (name);
   }

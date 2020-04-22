@@ -488,13 +488,13 @@ import_drs (const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user
   for (node = root->children; node != NULL; node = node->next) {
     if (xmlStrcmp (node->name, (const xmlChar *) "layer") == 0) {
       xmlChar *str;
-      xmlChar *name = xmlGetProp (node, "name");
+      xmlChar *name = xmlGetProp (node, (const xmlChar *) "name");
       DiaLayer *layer = dia_layer_new (name ? (char *) name : _("Layer"), dia);
 
       dia_clear_xml_string (&name);
 
-      str = xmlGetProp (node, "active");
-      if (xmlStrcmp (str, "true")) {
+      str = xmlGetProp (node, (const xmlChar *) "active");
+      if (xmlStrcmp (str, (const xmlChar *) "true")) {
         g_set_object (&active_layer, layer);
       }
       dia_clear_xml_string (&str);

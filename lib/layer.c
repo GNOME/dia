@@ -73,11 +73,16 @@ static GParamSpec *pspecs[LAST_PROP] = { NULL, };
  */
 
 
+static int count = 0;
+
 static void
 dia_layer_finalize (GObject *object)
 {
   DiaLayer *self = DIA_LAYER (object);
   DiaLayerPrivate *priv = dia_layer_get_instance_private (self);
+
+  count--;
+  g_message ("RIP Layer %p %p (%i)", self, priv->parent_diagram, count);
 
   g_clear_pointer (&priv->name, g_free);
   destroy_object_list (priv->objects);
@@ -221,6 +226,9 @@ dia_layer_init (DiaLayer *self)
   priv->extents.right = 10.0;
   priv->extents.top = 0.0;
   priv->extents.bottom = 10.0;
+
+  g_message ("NEW Layer %p %p (%i)", self, priv->parent_diagram, count);
+  count++;
 }
 
 
@@ -985,8 +993,9 @@ dia_layer_set_object_list (DiaLayer *layer, GList *list)
   g_list_free (ol);
 }
 
+
 /**
- * dia_layer_set_object_list:
+ * dia_layer_get_object_list:
  * @layer: the #DiaLayer
  *
  * Since: 0.98
@@ -1002,6 +1011,7 @@ dia_layer_get_object_list (DiaLayer *layer)
 
   return priv->objects;
 }
+
 
 /**
  * dia_layer_get_parent_diagram:
@@ -1020,6 +1030,7 @@ dia_layer_get_parent_diagram (DiaLayer *layer)
 
   return priv->parent_diagram;
 }
+
 
 /**
  * dia_layer_set_parent_diagram:
@@ -1042,6 +1053,7 @@ dia_layer_set_parent_diagram (DiaLayer    *layer,
     g_object_notify_by_pspec (G_OBJECT (layer), pspecs[PROP_PARENT_DIAGRAM]);
   }
 }
+
 
 /**
  * dia_layer_is_connectable:

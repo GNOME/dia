@@ -11,8 +11,8 @@ dia_sources = [
     'dia-change.h',
     'object_ops.c',
 
-    'layer-editor/dia-list.c',
-    'layer-editor/dia-list.h',
+    'layer-editor/dia-layer-list.c',
+    'layer-editor/dia-layer-list.h',
     'layer-editor/dia-layer-widget.c',
     'layer-editor/dia-layer-widget.h',
     'layer-editor/dia-layer-editor.c',
