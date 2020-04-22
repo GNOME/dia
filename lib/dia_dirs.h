@@ -16,20 +16,20 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef DIA_DIRS_H
-#define DIA_DIRS_H
-
+#pragma once
 #include <glib.h>
 
-gchar *dia_get_data_directory (const gchar* subdir);
-gchar *dia_get_lib_directory  (void);
-gchar *dia_get_locale_directory (void);
-gchar *dia_config_filename    (const gchar* file);
-gboolean dia_config_ensure_dir  (const gchar* filename);
-gchar *dia_get_absolute_filename (const gchar *filename);
-gchar *dia_relativize_filename (const gchar *master, const gchar *slave);
-gchar *dia_absolutize_filename (const gchar *master, const gchar *slave);
-gchar *dia_get_canonical_path (const gchar *path);
-const gchar *dia_message_filename (const gchar *filename);
+G_BEGIN_DECLS
 
-#endif /* DIA_DIRS_H */
+char        *dia_get_data_directory    (const char *subdir);
+char        *dia_get_lib_directory     (void);
+char        *dia_get_locale_directory  (void);
+char        *dia_config_filename       (const char *file);
+gboolean     dia_config_ensure_dir     (const char *filename);
+char        *dia_relativize_filename   (const char *master,
+                                        const char *slave);
+char        *dia_absolutize_filename   (const char *master,
+                                        const char *slave);
+const gchar *dia_message_filename      (const char *filename);
+
+G_END_DECLS
