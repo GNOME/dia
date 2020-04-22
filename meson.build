@@ -31,6 +31,8 @@ libogdf_dep = cc.find_library('ogdf', required: false)
 conf.set('HAVE_OGDF', libogdf_dep.found())
 libxslt_dep = dependency('libxslt', required: false)
 conf.set('HAVE_XSLT', libxslt_dep.found())
+# TODO: Why does Win32 break without this
+conf.set('ENABLE_NLS', true)
 
 libgdk_dep  = dependency('gdk-2.0')
 gdk_target = libgdk_dep.get_pkgconfig_variable('target')
