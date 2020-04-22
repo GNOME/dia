@@ -17,16 +17,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef PYDIA_DIAGRAM_H
-#define PYDIA_DIAGRAM_H
-
 #include <Python.h>
 
 #include "app/diagram.h"
+#include "pydia-diagramdata.h"
+
+#pragma once
+
+G_BEGIN_DECLS
 
 typedef struct {
-    PyObject_HEAD
-    Diagram *dia;
+  PyDiaDiagramData parent;
 } PyDiaDiagram;
 
 
@@ -34,4 +35,4 @@ extern PyTypeObject PyDiaDiagram_Type;
 
 PyObject *PyDiaDiagram_New(Diagram *dia);
 
-#endif
+G_END_DECLS

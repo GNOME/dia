@@ -29,8 +29,6 @@
 #include "pydia-paperinfo.h"
 #include "pydia-error.h"
 
-#include <structmember.h> /* PyMemberDef */
-
 #include "app/diagram.h"
 #include "dia-layer.h"
 #include "pydia-diagram.h" /* support dynamic_cast */
@@ -41,11 +39,16 @@ PyDiaDiagramData_New (DiagramData *dd)
 {
   PyDiaDiagramData *self;
 
+  // Bit of a hack
+  if (DIA_IS_DIAGRAM (dd)) {
+    return PyDiaDiagram_New (DIA_DIAGRAM (dd));
+  }
+
   self = PyObject_NEW (PyDiaDiagramData, &PyDiaDiagramData_Type);
 
   if (!self) return NULL;
 
-  g_set_object (&self->data, dd);
+  self->data = g_object_ref (dd);
 
   return (PyObject *) self;
 }
@@ -56,32 +59,36 @@ PyDiaDiagramData_Dealloc (PyDiaDiagramData *self)
 {
   g_clear_object (&self->data);
 
-  PyObject_DEL(self);
+  PyObject_DEL (self);
 }
 
 
 static int
-PyDiaDiagramData_Compare(PyDiaDiagramData *self, PyDiaDiagramData *other)
+PyDiaDiagramData_Compare (PyDiaDiagramData *self, PyDiaDiagramData *other)
 {
-    if (self->data == other->data) return 0;
-    if (self->data > other->data) return -1;
-    return 1;
+  if (self->data == other->data) return 0;
+  if (self->data > other->data) return -1;
+  return 1;
 }
 
+
 static long
-PyDiaDiagramData_Hash(PyDiaDiagramData *self)
+PyDiaDiagramData_Hash (PyDiaDiagramData *self)
 {
-    return (long)self->data;
+  return (long) self->data;
 }
 
 
 static PyObject *
-PyDiaDiagramData_Str(PyDiaDiagramData *self)
+PyDiaDiagramData_Str (PyDiaDiagramData *self)
 {
-  PyObject* py_s;
-  char* s = g_strdup_printf ("<PyDiaDiagramData %p>", self);
+  PyObject *py_s;
+  char *s = g_strdup_printf ("<PyDiaDiagramData %p>", self);
+
   py_s = PyString_FromString (s);
+
   g_clear_pointer (&s, g_free);
+
   return py_s;
 }
 
@@ -90,33 +97,41 @@ PyDiaDiagramData_Str(PyDiaDiagramData *self)
  * "real" member function implementaion ?
  */
 static PyObject *
-PyDiaDiagramData_UpdateExtents(PyDiaDiagramData *self, PyObject *args)
+PyDiaDiagramData_UpdateExtents (PyDiaDiagramData *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":DiagramData.update_extents"))
-	return NULL;
-    data_update_extents(self->data);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple (args, ":DiagramData.update_extents")) {
+    return NULL;
+  }
+
+  data_update_extents(self->data);
+
+  Py_RETURN_NONE;
 }
 
+
 static PyObject *
-PyDiaDiagramData_GetSortedSelected(PyDiaDiagramData *self, PyObject *args)
+PyDiaDiagramData_GetSortedSelected (PyDiaDiagramData *self, PyObject *args)
 {
-    GList *list, *tmp;
-    PyObject *ret;
-    guint i, len;
+  GList *list, *tmp;
+  PyObject *ret;
+  guint i, len;
 
-    if (!PyArg_ParseTuple(args, ":DiagramData.get_sorted_selected"))
-	return NULL;
-    list = data_get_sorted_selected(self->data);
+  if (!PyArg_ParseTuple(args, ":DiagramData.get_sorted_selected")) {
+    return NULL;
+  }
 
-    len = g_list_length (list);
-    ret = PyTuple_New(len);
+  list = data_get_sorted_selected (self->data);
 
-    for (i = 0, tmp = list; tmp; i++, tmp = tmp->next)
-	PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
-    g_list_free(list);
-    return ret;
+  len = g_list_length (list);
+  ret = PyTuple_New (len);
+
+  for (i = 0, tmp = list; tmp; i++, tmp = tmp->next) {
+    PyTuple_SetItem (ret, i, PyDiaObject_New (DIA_OBJECT (tmp->data)));
+  }
+
+  g_list_free (list);
+
+  return ret;
 }
 
 
@@ -328,128 +343,137 @@ static PyMethodDef PyDiaDiagramData_Methods[] = {
     {NULL, 0, 0, NULL}
 };
 
-#define T_INVALID -1 /* can't allow direct access due to pyobject->data indirection */
-static PyMemberDef PyDiaDiagramData_Members[] = {
-    { "extents", T_INVALID, 0, RESTRICTED|READONLY,
-      "Rectangle covering all object's bounding boxes." },
-    { "bg_color", T_INVALID, 0, RESTRICTED|READONLY,
-      "Color of the diagram's background."},
-    { "paper", T_INVALID, 0, RESTRICTED|READONLY,
-      "Paperinfo of the diagram."},
-    { "layers", T_INVALID, 0, RESTRICTED|READONLY,
-      "Read-only list of the diagrams layers."},
-    { "active_layer", T_INVALID, 0, RESTRICTED|READONLY,
-      "Layer currently active in the diagram."},
-    { "grid_width", T_INVALID, 0, RESTRICTED|READONLY,
-      "Tuple(real: x, real: y) : describing the grid size."},
-    { "grid_visible", T_INVALID, 0, RESTRICTED|READONLY,
-      "bool: visibility of the grid."},
-    { "hguides", T_INVALID, 0, RESTRICTED|READONLY,
-      "List of real: horizontal guides."},
-    { "vguides", T_INVALID, 0, RESTRICTED|READONLY,
-      "List of real: vertical guides."},
-    { "selected", T_INVALID, 0, RESTRICTED|READONLY,
-      "List of Object: current selection."},
-    { "diagram", T_INVALID, 0, RESTRICTED|READONLY,
-      "This data objects Diagram or None"},
-    { NULL }
-};
-
 
 static PyObject *
-PyDiaDiagramData_GetAttr (PyDiaDiagramData *self, char *attr)
+PyDiaDiagramData_GetExtents (PyDiaDiagramData *self, void *closure)
 {
-  DiagramData *data = self->data;
-
-  if (!strcmp (attr, "__members__")) {
-    return Py_BuildValue ("[ssssssssssss]",
-                          "extents", "bg_color", "paper",
-                          "layers", "active_layer",
-                          "grid_width", "grid_visible",
-                          "hguides", "vguides",
-                          "selected" );
-  } else if (!strcmp (attr, "extents")) {
-    return PyDiaRectangle_New (&data->extents, NULL);
-  } else if (!strcmp (attr, "bg_color")) {
-    return PyDiaColor_New (&(data->bg_color));
-  } else if (!strcmp (attr, "layers")) {
-    PyObject *ret = PyTuple_New (data_layer_count (data));
-
-    DIA_FOR_LAYER_IN_DIAGRAM (data, layer, i, {
-      PyTuple_SetItem (ret, i, PyDiaLayer_New (layer));
-    });
-
-    return ret;
-  } else if (!strcmp (attr, "active_layer")) {
-    return PyDiaLayer_New (dia_diagram_data_get_active_layer (data));
-  } else if (!strcmp (attr, "paper")) {
-    return PyDiaPaperinfo_New (&data->paper);
-  } else if (!strcmp(attr, "selected")) {
-    PyObject *ret;
-    GList *tmp;
-    int i;
-
-    ret = PyTuple_New (g_list_length (self->data->selected));
-    for (i = 0, tmp = data->selected; tmp; i++, tmp = tmp->next) {
-      PyTuple_SetItem (ret, i, PyDiaObject_New ((DiaObject *) tmp->data));
-    }
-    return ret;
-  } else if (!strcmp(attr, "diagram")) {
-    if (DIA_IS_DIAGRAM (self->data)) {
-      return PyDiaDiagram_New (DIA_DIAGRAM (self->data));
-    }
-    Py_INCREF (Py_None);
-    return Py_None;
-  } else {
-    /* In the interactive case diagramdata is_a diagram */
-    if (DIA_IS_DIAGRAM (self->data)) {
-      Diagram *diagram = DIA_DIAGRAM (self->data);
-      if (diagram) { /* paranoid and helping scan-build */
-        if (!strcmp (attr, "grid_width")) {
-          return Py_BuildValue ("(dd)", diagram->grid.width_x, diagram->grid.width_y);
-        } else if (!strcmp (attr, "grid_visible")) {
-          return Py_BuildValue ("(ii)", diagram->grid.visible_x, diagram->grid.visible_y);
-        }
-      }
-    }
-  }
-
-  return Py_FindMethod (PyDiaDiagramData_Methods, (PyObject *) self, attr);
+  return PyDiaRectangle_New (&self->data->extents, NULL);
 }
 
 
+static PyObject *
+PyDiaDiagramData_GetBgColor (PyDiaDiagramData *self, void *closure)
+{
+  return PyDiaColor_New (&(self->data->bg_color));
+}
+
+
+static PyObject *
+PyDiaDiagramData_GetPaper (PyDiaDiagramData *self, void *closure)
+{
+  return PyDiaPaperinfo_New (&self->data->paper);
+}
+
+
+static PyObject *
+PyDiaDiagramData_GetLayers (PyDiaDiagramData *self, void *closure)
+{
+  PyObject *ret = PyTuple_New (data_layer_count (self->data));
+
+  DIA_FOR_LAYER_IN_DIAGRAM (self->data, layer, i, {
+    PyTuple_SetItem (ret, i, PyDiaLayer_New (layer));
+  });
+
+  return ret;
+}
+
+
+static PyObject *
+PyDiaDiagramData_GetActiveLayer (PyDiaDiagramData *self, void *closure)
+{
+  return PyDiaLayer_New (dia_diagram_data_get_active_layer (self->data));
+}
+
+
+static PyObject *
+PyDiaDiagramData_GetGridWidth (PyDiaDiagramData *self, void *closure)
+{
+  if (DIA_IS_DIAGRAM (self->data)) {
+    return Py_BuildValue ("(dd)",
+                          DIA_DIAGRAM (self->data)->grid.width_x,
+                          DIA_DIAGRAM (self->data)->grid.width_y);
+  }
+
+  Py_RETURN_NONE;
+}
+
+
+static PyObject *
+PyDiaDiagramData_GetGridVisible (PyDiaDiagramData *self, void *closure)
+{
+  return Py_BuildValue ("(ii)",
+                        DIA_DIAGRAM (self->data)->grid.visible_x,
+                        DIA_DIAGRAM (self->data)->grid.visible_y);
+}
+
+
+static PyObject *
+PyDiaDiagramData_GetSelected (PyDiaDiagramData *self, void *closure)
+{
+  PyObject *ret;
+  GList *tmp;
+  int i;
+
+  ret = PyTuple_New (g_list_length (self->data->selected));
+  for (i = 0, tmp = self->data->selected; tmp; i++, tmp = tmp->next) {
+    PyTuple_SetItem (ret, i, PyDiaObject_New ((DiaObject *) tmp->data));
+  }
+
+  return ret;
+}
+
+
+static PyObject *
+PyDiaDiagramData_GetDiagram (PyDiaDiagramData *self, void *closure)
+{
+  g_warning ("Use of <PyDiaDiagramData>.diagram. PyDiaDiagram is PyDiaDiagramData, use directly");
+
+  if (DIA_IS_DIAGRAM (self->data)) {
+    Py_INCREF (self);
+    return (PyObject *) self;
+  }
+
+  Py_RETURN_NONE;
+}
+
+
+static PyGetSetDef PyDiaDiagramData_GetSetters[] = {
+  { "extents", (getter) PyDiaDiagramData_GetExtents, NULL,
+    "Rectangle covering all object's bounding boxes.", NULL },
+  { "bg_color", (getter) PyDiaDiagramData_GetBgColor, NULL,
+    "Color of the diagram's background.", NULL },
+  { "paper", (getter) PyDiaDiagramData_GetPaper, NULL,
+    "Paperinfo of the diagram.", NULL },
+  { "layers", (getter) PyDiaDiagramData_GetLayers, NULL,
+    "Read-only list of the diagrams layers.", NULL },
+  { "active_layer", (getter) PyDiaDiagramData_GetActiveLayer, NULL,
+    "Layer currently active in the diagram.", NULL },
+  { "grid_width", (getter) PyDiaDiagramData_GetGridWidth, NULL,
+    "Tuple(real: x, real: y) : describing the grid size.", NULL },
+  { "grid_visible", (getter) PyDiaDiagramData_GetGridVisible, NULL,
+    "bool: visibility of the grid.", NULL },
+  { "selected", (getter) PyDiaDiagramData_GetSelected, NULL,
+    "List of Object: current selection.", NULL },
+  { "diagram", (getter) PyDiaDiagramData_GetDiagram, NULL,
+    "This data objects Diagram or None", NULL },
+  { NULL }
+};
+
+
 PyTypeObject PyDiaDiagramData_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.DiagramData",
-    sizeof(PyDiaDiagramData),
-    0,
-    (destructor)PyDiaDiagramData_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaDiagramData_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaDiagramData_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaDiagramData_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaDiagramData_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "The 'low level' diagram object. It contains everything to manipulate diagrams from im- and export "
-    "filters as well as from the UI. It does not provide any access to GUI elements related to the diagram."
-    "Use the subclass dia.Diagram object for such matters.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    PyDiaDiagramData_Methods, /* tp_methods */
-    PyDiaDiagramData_Members, /* tp_members */
-    0
+  PyObject_HEAD_INIT (NULL)
+  .tp_name = "dia.DiagramData",
+  .tp_basicsize = sizeof (PyDiaDiagramData),
+  .tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
+  .tp_dealloc = (destructor) PyDiaDiagramData_Dealloc,
+  .tp_compare = (cmpfunc) PyDiaDiagramData_Compare,
+  .tp_hash = (hashfunc) PyDiaDiagramData_Hash,
+  .tp_str = (reprfunc) PyDiaDiagramData_Str,
+  .tp_doc = "The 'low level' diagram object. It contains everything to "
+            "manipulate diagrams from im- and export filters as well as"
+            " from the UI. It does not provide any access to GUI elements "
+            "related to the diagram. Use the subclass dia.Diagram object"
+            " for such matters.",
+  .tp_methods = PyDiaDiagramData_Methods,
+  .tp_getset = PyDiaDiagramData_GetSetters,
 };

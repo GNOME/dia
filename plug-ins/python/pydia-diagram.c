@@ -31,11 +31,11 @@
 #include "pydia-color.h"
 #include "pydia-error.h"
 
-#include <structmember.h> /* PyMemberDef */
-
 #include "app/load_save.h"
 #include "app/connectionpoint_ops.h"
 
+
+#define PYDIA_DIAGRAM(self) DIA_DIAGRAM (((PyDiaDiagramData *) self)->data)
 
 PyObject *
 PyDiaDiagram_New (Diagram *dia)
@@ -46,7 +46,7 @@ PyDiaDiagram_New (Diagram *dia)
 
   if (!self) return NULL;
 
-  g_set_object (&self->dia, dia);
+  ((PyDiaDiagramData *) self)->data = DIA_DIAGRAM_DATA (g_object_ref (dia));
 
   return (PyObject *) self;
 }
@@ -55,296 +55,350 @@ PyDiaDiagram_New (Diagram *dia)
 static void
 PyDiaDiagram_Dealloc (PyDiaDiagram *self)
 {
-  g_clear_object (&self->dia);
-
   PyObject_DEL (self);
 }
 
 
-static int
-PyDiaDiagram_Compare(PyDiaDiagram *self, PyDiaDiagram *other)
+static PyObject *
+PyDiaDiagram_Str (PyDiaDiagram *self)
 {
-    if (self->dia == other->dia) return 0;
-    if (self->dia > other->dia) return -1;
-    return 1;
+  return PyString_FromString (PYDIA_DIAGRAM (self)->filename);
 }
 
-static long
-PyDiaDiagram_Hash(PyDiaDiagram *self)
-{
-    return (long)self->dia;
-}
 
 static PyObject *
-PyDiaDiagram_Str(PyDiaDiagram *self)
+PyDiaDiagram_Select (PyDiaDiagram *self, PyObject *args)
 {
-    return PyString_FromString(self->dia->filename);
+  PyDiaObject *obj;
+
+  if (!PyArg_ParseTuple (args, "O!:Diagram.select",
+      &PyDiaObject_Type, &obj)) {
+    return NULL;
+  }
+  diagram_select (PYDIA_DIAGRAM (self), obj->object);
+
+  Py_RETURN_NONE;
 }
 
-static PyObject *
-PyDiaDiagram_Select(PyDiaDiagram *self, PyObject *args)
-{
-    PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "O!:Diagram.select",
-			  &PyDiaObject_Type, &obj))
-	return NULL;
-    diagram_select(self->dia, obj->object);
-    Py_INCREF(Py_None);
-    return Py_None;
+static PyObject *
+PyDiaDiagram_IsSelected (PyDiaDiagram *self, PyObject *args)
+{
+  PyDiaObject *obj;
+
+  if (!PyArg_ParseTuple (args, "O!:Diagram.is_selected",
+                         &PyDiaObject_Type, &obj)) {
+    return NULL;
+  }
+
+  return PyBool_FromLong (diagram_is_selected (PYDIA_DIAGRAM (self),
+                                               obj->object));
 }
 
-static PyObject *
-PyDiaDiagram_IsSelected(PyDiaDiagram *self, PyObject *args)
-{
-    PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "O!:Diagram.is_selected",
-			  &PyDiaObject_Type, &obj))
-	return NULL;
-    return PyInt_FromLong(diagram_is_selected(self->dia, obj->object));
+static PyObject *
+PyDiaDiagram_Unselect (PyDiaDiagram *self, PyObject *args)
+{
+  PyDiaObject *obj;
+
+  if (!PyArg_ParseTuple (args, "O!:Diagram.unselect",
+                         &PyDiaObject_Type, &obj)) {
+    return NULL;
+  }
+
+  diagram_unselect_object (PYDIA_DIAGRAM (self),
+                           obj->object);
+
+  Py_RETURN_NONE;
 }
 
-static PyObject *
-PyDiaDiagram_Unselect(PyDiaDiagram *self, PyObject *args)
-{
-    PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "O!:Diagram.unselect",
-			  &PyDiaObject_Type, &obj))
-	return NULL;
-    diagram_unselect_object(self->dia, obj->object);
-    Py_INCREF(Py_None);
-    return Py_None;
+static PyObject *
+PyDiaDiagram_RemoveAllSelected (PyDiaDiagram *self, PyObject *args)
+{
+  if (!PyArg_ParseTuple (args, ":Diagram.remove_all_selected")) {
+    return NULL;
+  }
+
+  diagram_remove_all_selected (PYDIA_DIAGRAM (self), TRUE);
+
+  Py_RETURN_NONE;
 }
 
+
 static PyObject *
-PyDiaDiagram_RemoveAllSelected(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_UpdateExtents (PyDiaDiagram *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Diagram.remove_all_selected"))
-	return NULL;
-    diagram_remove_all_selected(self->dia, TRUE);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple (args, ":Diagram.update_extents")) {
+    return NULL;
+  }
+
+  diagram_update_extents (PYDIA_DIAGRAM (self));
+
+  Py_RETURN_NONE;
 }
 
+
 static PyObject *
-PyDiaDiagram_UpdateExtents(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_GetSortedSelected (PyDiaDiagram *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Diagram.update_extents"))
-	return NULL;
-    diagram_update_extents(self->dia);
-    Py_INCREF(Py_None);
-    return Py_None;
+  GList *list, *tmp;
+  PyObject *ret;
+  guint i, len;
+
+  if (!PyArg_ParseTuple (args, ":Diagram.get_sorted_selected")) {
+    return NULL;
+  }
+
+  list = diagram_get_sorted_selected (PYDIA_DIAGRAM (self));
+
+  len = g_list_length (list);
+  ret = PyTuple_New (len);
+
+  for (i = 0, tmp = list; tmp; i++, tmp = tmp->next) {
+    PyTuple_SetItem (ret, i, PyDiaObject_New (DIA_OBJECT (tmp->data)));
+  }
+
+  g_list_free (list);
+
+  return ret;
 }
 
+
 static PyObject *
-PyDiaDiagram_GetSortedSelected(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_GetSortedSelectedRemove (PyDiaDiagram *self, PyObject *args)
 {
-    GList *list, *tmp;
-    PyObject *ret;
-    guint i, len;
+  GList *list, *tmp;
+  PyObject *ret;
+  guint i, len;
 
-    if (!PyArg_ParseTuple(args, ":Diagram.get_sorted_selected"))
-	return NULL;
-    list = diagram_get_sorted_selected(self->dia);
+  if (!PyArg_ParseTuple (args, ":Diagram.get_sorted_selected_remove")) {
+    return NULL;
+  }
 
-    len = g_list_length (list);
-    ret = PyTuple_New(len);
+  list = diagram_get_sorted_selected_remove (PYDIA_DIAGRAM (self));
 
-    for (i = 0, tmp = list; tmp; i++, tmp = tmp->next)
-	PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
-    g_list_free(list);
-    return ret;
+  len = g_list_length (list);
+  ret = PyTuple_New (len);
+
+  for (i = 0, tmp = list; tmp; i++, tmp = tmp->next) {
+    PyTuple_SetItem (ret, i, PyDiaObject_New (DIA_OBJECT (tmp->data)));
+  }
+
+  g_list_free (list);
+
+  return ret;
 }
 
-static PyObject *
-PyDiaDiagram_GetSortedSelectedRemove(PyDiaDiagram *self, PyObject *args)
-{
-    GList *list, *tmp;
-    PyObject *ret;
-    guint i, len;
-
-    if (!PyArg_ParseTuple(args, ":Diagram.get_sorted_selected_remove"))
-	return NULL;
-    list = diagram_get_sorted_selected_remove(self->dia);
-
-    len = g_list_length (list);
-    ret = PyTuple_New(len);
-
-    for (i = 0, tmp = list; tmp; i++, tmp = tmp->next)
-	PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
-    g_list_free(list);
-    return ret;
-}
 
 static PyObject *
-PyDiaDiagram_AddUpdate(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_AddUpdate (PyDiaDiagram *self, PyObject *args)
 {
   DiaRectangle r;
 
   if (!PyArg_ParseTuple (args, "dddd:Diagram.add_update", &r.top,
-      &r.left, &r.bottom, &r.right))
+                         &r.left, &r.bottom, &r.right)) {
     return NULL;
+  }
 
-  diagram_add_update (self->dia, &r);
-  Py_INCREF (Py_None);
-  return Py_None;
+  diagram_add_update (PYDIA_DIAGRAM (self), &r);
+
+  Py_RETURN_NONE;
 }
+
 
 static PyObject *
-PyDiaDiagram_AddUpdateAll(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_AddUpdateAll (PyDiaDiagram *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Diagram.add_update_all"))
-	return NULL;
-    diagram_add_update_all(self->dia);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple (args, ":Diagram.add_update_all")) {
+    return NULL;
+  }
+
+  diagram_add_update_all (PYDIA_DIAGRAM (self));
+
+  Py_RETURN_NONE;
 }
+
 
 static PyObject *
-PyDiaDiagram_UpdateConnections(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_UpdateConnections (PyDiaDiagram *self, PyObject *args)
 {
-    PyDiaObject *obj;
+  PyDiaObject *obj;
 
-    if (!PyArg_ParseTuple(args, "O!:Diagram.update_connections",
-                          &PyDiaObject_Type, &obj))
-	return NULL;
-    diagram_update_connections_object(self->dia, obj->object, TRUE);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple (args, "O!:Diagram.update_connections",
+                         &PyDiaObject_Type, &obj)) {
+    return NULL;
+  }
+
+  diagram_update_connections_object (PYDIA_DIAGRAM (self), obj->object, TRUE);
+
+  Py_RETURN_NONE;
 }
+
 
 static PyObject *
 PyDiaDiagram_Flush(PyDiaDiagram *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Diagram.flush"))
-	return NULL;
-    diagram_flush(self->dia);
+  if (!PyArg_ParseTuple (args, ":Diagram.flush")) {
+    return NULL;
+  }
+
+  diagram_flush (PYDIA_DIAGRAM (self));
+
+  Py_RETURN_NONE;
+}
+
+
+static PyObject *
+PyDiaDiagram_FindClickedObject (PyDiaDiagram *self, PyObject *args)
+{
+  Point p;
+  double dist;
+  DiaObject *obj;
+
+  if (!PyArg_ParseTuple (args, "(dd)d:Diagram.find_clicked_object",
+                         &p.x, &p.y, &dist)) {
+    return NULL;
+  }
+  obj = diagram_find_clicked_object (PYDIA_DIAGRAM (self), &p, dist);
+  if (obj) {
+    return PyDiaObject_New (obj);
+  }
+
+  Py_RETURN_NONE;
+}
+
+
+static PyObject *
+PyDiaDiagram_FindClosestHandle (PyDiaDiagram *self, PyObject *args)
+{
+  Point p;
+  double dist;
+  Handle *handle;
+  DiaObject *obj;
+  PyObject *ret;
+
+  if (!PyArg_ParseTuple (args, "dd:Diagram.find_closest_handle",
+                         &p.x, &p.y)) {
+    return NULL;
+  }
+
+  dist = diagram_find_closest_handle (PYDIA_DIAGRAM (self), &handle, &obj, &p);
+  ret = PyTuple_New (3);
+  PyTuple_SetItem (ret, 0, PyFloat_FromDouble (dist));
+  if (handle) {
+    PyTuple_SetItem (ret, 1, PyDiaHandle_New (handle, obj));
+  } else {
+    Py_INCREF (Py_None);
+    PyTuple_SetItem (ret, 1, Py_None);
+  }
+
+  if (obj) {
+    PyTuple_SetItem (ret, 1, PyDiaObject_New (obj));
+  } else {
     Py_INCREF(Py_None);
-    return Py_None;
+    PyTuple_SetItem (ret, 1, Py_None);
+  }
+
+  return ret;
 }
+
 
 static PyObject *
-PyDiaDiagram_FindClickedObject(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_FindClosestConnectionPoint (PyDiaDiagram *self, PyObject *args)
 {
-    Point p;
-    double dist;
-    DiaObject *obj;
+  Point p;
+  double dist;
+  ConnectionPoint *cpoint;
+  PyObject *ret;
+  PyDiaObject *obj = NULL;
 
-    if (!PyArg_ParseTuple(args, "(dd)d:Diagram.find_clicked_object",
-			  &p.x, &p.y, &dist))
-	return NULL;
-    obj = diagram_find_clicked_object(self->dia, &p, dist);
-    if (obj)
-	return PyDiaObject_New(obj);
-    Py_INCREF(Py_None);
-    return Py_None;
+  if (!PyArg_ParseTuple (args, "dd|O!:Diagram.find_closest_connectionpoint",
+                         &p.x, &p.y, PyDiaObject_Type, &obj)) {
+    return NULL;
+  }
+
+  dist = diagram_find_closest_connectionpoint (PYDIA_DIAGRAM (self),
+                                               &cpoint,
+                                               &p,
+                                               obj ? obj->object : NULL);
+
+  ret = PyTuple_New (2);
+  PyTuple_SetItem (ret, 0, PyFloat_FromDouble (dist));
+
+  if (cpoint) {
+    PyTuple_SetItem(ret, 1, PyDiaConnectionPoint_New (cpoint));
+  } else {
+    Py_INCREF (Py_None);
+    PyTuple_SetItem (ret, 1, Py_None);
+  }
+
+  return ret;
 }
+
 
 static PyObject *
-PyDiaDiagram_FindClosestHandle(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_GroupSelected (PyDiaDiagram *self, PyObject *args)
 {
-    Point p;
-    double dist;
-    Handle *handle;
-    DiaObject *obj;
-    PyObject *ret;
+  if (!PyArg_ParseTuple(args, ":Diagram.group_selected")) {
+    return NULL;
+  }
 
-    if (!PyArg_ParseTuple(args, "dd:Diagram.find_closest_handle",
-			  &p.x, &p.y))
-	return NULL;
-    dist = diagram_find_closest_handle(self->dia, &handle, &obj, &p);
-    ret = PyTuple_New(3);
-    PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));
-    if (handle)
-	PyTuple_SetItem(ret, 1, PyDiaHandle_New(handle, obj));
-    else {
-	Py_INCREF(Py_None);
-	PyTuple_SetItem(ret, 1, Py_None);
-    }
-    if (obj)
-	PyTuple_SetItem(ret, 1, PyDiaObject_New(obj));
-    else {
-	Py_INCREF(Py_None);
-	PyTuple_SetItem(ret, 1, Py_None);
-    }
-    return ret;
+  diagram_group_selected (PYDIA_DIAGRAM (self));
+
+  Py_RETURN_NONE;
 }
+
 
 static PyObject *
-PyDiaDiagram_FindClosestConnectionPoint(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_UngroupSelected (PyDiaDiagram *self, PyObject *args)
 {
-    Point p;
-    double dist;
-    ConnectionPoint *cpoint;
-    PyObject *ret;
-    PyDiaObject *obj = NULL;
+  if (!PyArg_ParseTuple (args, ":Diagram.ungroup_selected")) {
+    return NULL;
+  }
 
-    if (!PyArg_ParseTuple(args, "dd|O!:Diagram.find_closest_connectionpoint",
-			  &p.x, &p.y, PyDiaObject_Type, &obj))
-	return NULL;
-    dist = diagram_find_closest_connectionpoint(self->dia, &cpoint, &p,
-						obj ? obj->object : NULL);
-    ret = PyTuple_New(2);
-    PyTuple_SetItem(ret, 0, PyFloat_FromDouble(dist));
-    if (cpoint)
-	PyTuple_SetItem(ret, 1, PyDiaConnectionPoint_New(cpoint));
-    else {
-	Py_INCREF(Py_None);
-	PyTuple_SetItem(ret, 1, Py_None);
-    }
-    return ret;
+  diagram_ungroup_selected (PYDIA_DIAGRAM (self));
+
+  Py_RETURN_NONE;
 }
+
 
 static PyObject *
-PyDiaDiagram_GroupSelected(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_Save (PyDiaDiagram *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Diagram.group_selected"))
-	return NULL;
-    diagram_group_selected(self->dia);
-    Py_INCREF(Py_None);
-    return Py_None;
+  DiaContext *ctx;
+  char *filename = PYDIA_DIAGRAM (self)->filename;
+  int ret;
+
+  if (!PyArg_ParseTuple(args, "|s:Diagram.save", &filename)) {
+    return NULL;
+  }
+
+  ctx = dia_context_new ("PyDia Save");
+  dia_context_set_filename (ctx, filename);
+  ret = diagram_save (PYDIA_DIAGRAM (self), filename, ctx);
+  /* FIXME: throwing away possible error messages */
+  dia_context_reset (ctx);
+  dia_context_release (ctx);
+
+  return PyInt_FromLong (ret);
 }
+
 
 static PyObject *
-PyDiaDiagram_UngroupSelected(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_Display (PyDiaDiagram *self, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ":Diagram.ungroup_selected"))
-	return NULL;
-    diagram_ungroup_selected(self->dia);
-    Py_INCREF(Py_None);
-    return Py_None;
+  DDisplay *disp;
+
+  if (!PyArg_ParseTuple (args, ":Diagram.display")) {
+    return NULL;
+  }
+
+  disp = new_display (PYDIA_DIAGRAM (self));
+
+  return PyDiaDisplay_New(disp);
 }
 
-static PyObject *
-PyDiaDiagram_Save(PyDiaDiagram *self, PyObject *args)
-{
-    DiaContext *ctx;
-    gchar *filename = self->dia->filename;
-    int ret;
-
-    if (!PyArg_ParseTuple(args, "|s:Diagram.save", &filename))
-	return NULL;
-    ctx = dia_context_new ("PyDia Save");
-    dia_context_set_filename (ctx, filename);
-    ret = diagram_save(self->dia, filename, ctx);
-    /* FIXME: throwing away possible error messages */
-    dia_context_reset (ctx);
-    dia_context_release (ctx);
-    return PyInt_FromLong(ret);
-}
-
-static PyObject *
-PyDiaDiagram_Display(PyDiaDiagram *self, PyObject *args)
-{
-    DDisplay *disp;
-
-    if (!PyArg_ParseTuple(args, ":Diagram.display"))
-	return NULL;
-    disp = new_display(self->dia);
-    return PyDiaDisplay_New(disp);
-}
 
 /*
  *  Callback for "removed" signal, used by the connect_after method,
@@ -354,39 +408,40 @@ PyDiaDiagram_Display(PyDiaDiagram *self, PyObject *args)
  *  @param user_data The python function to be called by the callback.
  */
 static void
-PyDiaDiagram_CallbackRemoved(Diagram *dia,void *user_data)
+PyDiaDiagram_CallbackRemoved (Diagram *dia, void *user_data)
 {
-    /* Check that we got a function */
-    PyObject *diaobj,*res,*arg;
-    PyObject *func = user_data;
+  /* Check that we got a function */
+  PyObject *diaobj, *res, *arg;
+  PyObject *func = user_data;
 
-    if (!func || !PyCallable_Check (func)) {
-        g_warning ("Callback called without valid callback function.");
-        return;
-    }
+  if (!func || !PyCallable_Check (func)) {
+    g_warning ("Callback called without valid callback function.");
+    return;
+  }
 
-    /* Create a new PyDiaDiagram object. This really should reuse the object that we connected to.
-     * We'll do that later.
-     */
-    if (dia)
-        diaobj = PyDiaDiagram_New (dia);
-    else {
-        diaobj = Py_None;
-        Py_INCREF (diaobj);
-    }
+  /*
+   * Create a new PyDiaDiagram object. This really should reuse the object
+   * that we connected to. We'll do that later.
+   */
+  if (dia) {
+    diaobj = PyDiaDiagram_New (dia);
+  } else {
+    diaobj = Py_None;
+    Py_INCREF (diaobj);
+  }
 
-    Py_INCREF(func);
+  Py_INCREF (func);
 
-    /* Call the callback. */
-    arg = Py_BuildValue ("(O)", diaobj);
-    if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
-    }
-    Py_XDECREF (arg);
+  /* Call the callback. */
+  arg = Py_BuildValue ("(O)", diaobj);
+  if (arg) {
+    res = PyEval_CallObject (func, arg);
+    ON_RES (res, FALSE);
+  }
+  Py_XDECREF (arg);
 
-    Py_DECREF(func);
-    Py_XDECREF(diaobj);
+  Py_DECREF (func);
+  Py_XDECREF (diaobj);
 }
 
 
@@ -399,41 +454,42 @@ PyDiaDiagram_CallbackRemoved(Diagram *dia,void *user_data)
  *  @param user_data The python function to be called by the callback.
  */
 static void
-PyDiaDiagram_CallbackSelectionChanged(Diagram *dia,int sel,void *user_data)
+PyDiaDiagram_CallbackSelectionChanged (Diagram *dia, int sel, void *user_data)
 {
-    /* Check that we got a function */
-    PyObject *dgm,*res,*arg;
-    PyObject *func = user_data;
+  /* Check that we got a function */
+  PyObject *dgm, *res, *arg;
+  PyObject *func = user_data;
 
-    if (!func || !PyCallable_Check (func)) {
-        g_warning ("Callback called without valid callback function.");
-        return;
-    }
+  if (!func || !PyCallable_Check (func)) {
+    g_warning ("Callback called without valid callback function.");
+    return;
+  }
 
-    /* Create a new PyDiaDiagram object. This really should reuse the object that we connected to.
-     * We'll do that later.
-     */
-    if (dia)
-        dgm = PyDiaDiagram_New (dia);
-    else {
-        dgm = Py_None;
-        Py_INCREF (dgm);
-    }
+  /*
+   * Create a new PyDiaDiagram object. This really should reuse the object
+   * that we connected to. We'll do that later.
+   */
+  if (dia) {
+    dgm = PyDiaDiagram_New (dia);
+  } else {
+    dgm = Py_None;
+    Py_INCREF (dgm);
+  }
 
+  Py_INCREF (func);
 
-    Py_INCREF(func);
+  /* Call the callback. */
+  arg = Py_BuildValue ("(Oi)", dgm, sel);
+  if (arg) {
+    res = PyEval_CallObject (func, arg);
+    ON_RES (res, FALSE);
+  }
+  Py_XDECREF (arg);
 
-    /* Call the callback. */
-    arg = Py_BuildValue ("(Oi)", dgm,sel);
-    if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
-    }
-    Py_XDECREF (arg);
-
-    Py_DECREF(func);
-    Py_XDECREF(dgm);
+  Py_DECREF (func);
+  Py_XDECREF (dgm);
 }
+
 
 /** Connects a python function to a signal.
  *  @param self The PyDiaDiagram this is a method of.
@@ -441,44 +497,48 @@ PyDiaDiagram_CallbackSelectionChanged(Diagram *dia,int sel,void *user_data)
  *  and a callable object (like a function)
  */
 static PyObject *
-PyDiaDiagram_ConnectAfter(PyDiaDiagram *self, PyObject *args)
+PyDiaDiagram_ConnectAfter (PyDiaDiagram *self, PyObject *args)
 {
-    PyObject *func;
-    char *signal;
+  PyObject *func;
+  char *signal;
 
-    /* Check arguments */
-    if (!PyArg_ParseTuple(args, "sO:connect_after",&signal,&func))
-        return NULL;
+  /* Check arguments */
+  if (!PyArg_ParseTuple (args, "sO:connect_after", &signal, &func)) {
+    return NULL;
+  }
 
-    /* Check that the arg is callable */
-    if (!PyCallable_Check(func)) {
-        PyErr_SetString(PyExc_TypeError, "Second parameter must be callable");
-        return NULL;
+  /* Check that the arg is callable */
+  if (!PyCallable_Check (func)) {
+    PyErr_SetString (PyExc_TypeError, "Second parameter must be callable");
+    return NULL;
+  }
+
+  /* check if the signals name is valid */
+  if (g_strcmp0 ("removed", signal) == 0 ||
+      g_strcmp0 ("selection_changed", signal) == 0) {
+
+    Py_INCREF (func); /* stay alive, where to kill ?? */
+
+    /* connect to signal after by signal name */
+    if (g_strcmp0 ("removed", signal) == 0) {
+      g_signal_connect_after (PYDIA_DIAGRAM (self),
+                              "removed",
+                              G_CALLBACK (PyDiaDiagram_CallbackRemoved),
+                              func);
     }
 
-    /* check if the signals name is valid */
-    if ( strcmp("removed",signal) == 0 || strcmp("selection_changed",signal) == 0) {
-
-        Py_INCREF(func); /* stay alive, where to kill ?? */
-
-        /* connect to signal after by signal name */
-        if (strcmp("removed",signal) == 0)
-        {
-            g_signal_connect_after(DIA_DIAGRAM(self->dia),"removed",G_CALLBACK(PyDiaDiagram_CallbackRemoved), func);
-        }
-
-        if (strcmp("selection_changed",signal) == 0)
-        {
-            g_signal_connect_after(DIA_DIAGRAM(self->dia),"selection_changed",G_CALLBACK(PyDiaDiagram_CallbackSelectionChanged), func);
-        }
-
-        Py_INCREF(Py_None);
-        return Py_None;
+    if (strcmp ("selection_changed", signal) == 0) {
+      g_signal_connect_after (PYDIA_DIAGRAM (self),
+                              "selection_changed",
+                              G_CALLBACK (PyDiaDiagram_CallbackSelectionChanged),
+                              func);
     }
-    else {
-            PyErr_SetString(PyExc_TypeError, "Wrong signal name");
-            return NULL;
-    }
+
+    Py_RETURN_NONE;
+  } else {
+    PyErr_SetString (PyExc_TypeError, "Wrong signal name");
+    return NULL;
+  }
 }
 
 static PyMethodDef PyDiaDiagram_Methods[] = {
@@ -532,90 +592,97 @@ static PyMethodDef PyDiaDiagram_Methods[] = {
     {NULL, 0, 0, NULL}
 };
 
-#define T_INVALID -1 /* can't allow direct access due to pyobject->handle indirection */
-static PyMemberDef PyDiaDiagram_Members[] = {
-    { "data", T_INVALID, 0, RESTRICTED|READONLY, /* can't allow direct access due to pyobject->dia indirection */
-      "Backward-compatible base-class access" },
-    { "displays", T_INVALID, 0, RESTRICTED|READONLY,
-      "The list of current displays of this diagram." },
-    { "filename", T_INVALID, 0, RESTRICTED|READONLY,
-      "Filename in utf-8 encoding." },
-    { "modified", T_INVALID, 0, RESTRICTED|READONLY,
-      "Modification state." },
-    { "selected", T_INVALID, 0, RESTRICTED|READONLY,
-      "The current object selection." },
-    { "unsaved", T_INVALID, 0, RESTRICTED|READONLY,
-      "True if the diagram was not saved yet." },
-    { NULL }
-};
 
 static PyObject *
-PyDiaDiagram_GetAttr(PyDiaDiagram *self, gchar *attr)
+PyDiaDiagram_GetData (PyDiaDiagram *self, void *closure)
 {
-    if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[sssss]",
-			     "data", "displays", "filename",
-			     "modified", "selected", "unsaved");
-    else if (!strcmp(attr, "data"))
-        return PyDiaDiagramData_New (self->dia->data);
-    else if (!strcmp(attr, "filename"))
-	return PyString_FromString(self->dia->filename);
-    else if (!strcmp(attr, "unsaved"))
-	return PyInt_FromLong(self->dia->unsaved);
-    else if (!strcmp(attr, "modified"))
-	return PyInt_FromLong(diagram_is_modified(self->dia));
-    else if (!strcmp(attr, "selected")) {
-	guint i, len = g_list_length (self->dia->data->selected);
-	PyObject *ret = PyTuple_New(len);
-	GList *tmp;
+  Py_INCREF (self);
 
-	for (i = 0, tmp = self->dia->data->selected; tmp; i++, tmp = tmp->next)
-	    PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
-	return ret;
-    } else if (!strcmp(attr, "displays")) {
-	PyObject *ret;
-	GSList *tmp;
-	gint i;
+  g_warning ("Use of <PyDiaDiagram>.data. PyDiaDiagram is PyDiaDiagramData, use directly");
 
-	ret = PyTuple_New(g_slist_length(self->dia->displays));
-	for (i = 0, tmp = self->dia->displays; tmp; i++, tmp = tmp->next)
-	    PyTuple_SetItem(ret, i, PyDiaDisplay_New((DDisplay *)tmp->data));
-	return ret;
-    }
-
-    return Py_FindMethod(PyDiaDiagram_Methods, (PyObject *)self, attr);
+  return (PyObject *) self;
 }
 
+
+static PyObject *
+PyDiaDiagram_GetDisplays (PyDiaDiagram *self, void *closure)
+{
+  PyObject *ret;
+  GSList *tmp;
+  int i;
+
+  ret = PyTuple_New (g_slist_length (PYDIA_DIAGRAM (self)->displays));
+
+  for (i = 0, tmp = PYDIA_DIAGRAM (self)->displays; tmp; i++, tmp = tmp->next) {
+    PyTuple_SetItem (ret, i, PyDiaDisplay_New ((DDisplay *) tmp->data));
+  }
+
+  return ret;
+}
+
+
+static PyObject *
+PyDiaDiagram_GetFilename (PyDiaDiagram *self, void *closure)
+{
+  return PyString_FromString (PYDIA_DIAGRAM (self)->filename);
+}
+
+
+static PyObject *
+PyDiaDiagram_GetModified (PyDiaDiagram *self, void *closure)
+{
+  return PyBool_FromLong (diagram_is_modified (PYDIA_DIAGRAM (self)));
+}
+
+
+static PyObject *
+PyDiaDiagram_GetSelected (PyDiaDiagram *self, void *closure)
+{
+  guint i, len = g_list_length (DIA_DIAGRAM_DATA (PYDIA_DIAGRAM (self))->selected);
+  PyObject *ret = PyTuple_New (len);
+  GList *tmp;
+
+  for (i = 0, tmp = DIA_DIAGRAM_DATA (PYDIA_DIAGRAM (self))->selected; tmp; i++, tmp = tmp->next) {
+    PyTuple_SetItem (ret, i, PyDiaObject_New (DIA_OBJECT (tmp->data)));
+  }
+
+  return ret;
+}
+
+
+static PyObject *
+PyDiaDiagram_GetUnsaved (PyDiaDiagram *self, void *closure)
+{
+  return PyBool_FromLong (PYDIA_DIAGRAM (self)->unsaved);
+}
+
+
+static PyGetSetDef PyDiaDiagram_GetSetters[] = {
+  { "data", (getter) PyDiaDiagram_GetData, NULL,
+    "Backward-compatible base-class access", NULL },
+  { "displays", (getter) PyDiaDiagram_GetDisplays, NULL,
+    "The list of current displays of this diagram.", NULL },
+  { "filename", (getter) PyDiaDiagram_GetFilename, NULL,
+    "Filename in utf-8 encoding.", NULL },
+  { "modified", (getter) PyDiaDiagram_GetModified, NULL,
+    "Modification state.", NULL },
+  { "selected", (getter) PyDiaDiagram_GetSelected, NULL,
+    "The current object selection.", NULL },
+  { "unsaved", (getter) PyDiaDiagram_GetUnsaved, NULL,
+    "True if the diagram was not saved yet.", NULL },
+  { NULL }
+};
+
+
 PyTypeObject PyDiaDiagram_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Diagram",
-    sizeof(PyDiaDiagram),
-    0,
-    (destructor)PyDiaDiagram_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaDiagram_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaDiagram_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaDiagram_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaDiagram_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "Subclass of dia.DiagramData (at least in the C implementation) adding interfacing the GUI elements.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    PyDiaDiagram_Methods, /* tp_methods */
-    PyDiaDiagram_Members, /* tp_members */
-    0
+  PyObject_HEAD_INIT (NULL)
+  .tp_name = "dia.Diagram",
+  .tp_basicsize = sizeof (PyDiaDiagram),
+  .tp_flags = Py_TPFLAGS_DEFAULT,
+  .tp_dealloc = (destructor) PyDiaDiagram_Dealloc,
+  .tp_str = (reprfunc) PyDiaDiagram_Str,
+  .tp_doc = "Subclass of dia.DiagramData adding interfacing the GUI "
+            "elements.",
+  .tp_methods = PyDiaDiagram_Methods,
+  .tp_getset = PyDiaDiagram_GetSetters,
 };

@@ -361,54 +361,60 @@ PyDia_RegisterImport(PyObject *self, PyObject *args)
     return Py_None;
 }
 
+
 /*
  * This function gets called by Dia as a reaction to a menu item.
  * It needs to be registered before via Python function
  * dia.register_action (or dia.register_callback)
  */
 static ObjectChange *
-PyDia_callback_func (DiagramData *dia, const gchar *filename, guint flags, void *user_data)
+PyDia_callback_func (DiagramData *dia,
+                     const char  *filename,
+                     guint        flags,
+                     void        *user_data)
 {
-    PyObject *diaobj, *res, *arg, *func = user_data;
-    if (!func || !PyCallable_Check (func)) {
-        g_warning ("Callback called without valid callback function.");
-        return NULL;
-    }
+  PyObject *diaobj, *res, *arg, *func = user_data;
 
-    if (dia)
-        diaobj = PyDiaDiagramData_New (dia);
-    else {
-        diaobj = Py_None;
-        Py_INCREF (diaobj);
-    }
-
-    Py_INCREF(func);
-
-    arg = Py_BuildValue ("(Oi)", diaobj, flags);
-    if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, TRUE);
-    }
-    Py_XDECREF (arg);
-
-    Py_DECREF(func);
-    Py_XDECREF(diaobj);
-
+  if (!func || !PyCallable_Check (func)) {
+    g_warning ("Callback called without valid callback function.");
     return NULL;
+  }
+
+  if (dia) {
+    diaobj = PyDiaDiagramData_New (dia);
+  } else {
+    diaobj = Py_None;
+    Py_INCREF (diaobj);
+  }
+
+  Py_INCREF (func);
+
+  arg = Py_BuildValue ("(Oi)", diaobj, flags);
+  if (arg) {
+    res = PyEval_CallObject (func, arg);
+    ON_RES(res, TRUE);
+  }
+  Py_XDECREF (arg);
+
+  Py_DECREF (func);
+  Py_XDECREF (diaobj);
+
+  return NULL;
 }
 
-static PyObject *
-_RegisterAction (gchar *action,
-                 gchar *desc,
-                 gchar *menupath,
-                 PyObject *func);
 
-static gchar *
-_strip_non_alphanum (gchar* in)
+static PyObject *_RegisterAction (char     *action,
+                                  char     *desc,
+                                  char     *menupath,
+                                  PyObject *func);
+
+
+static char *
+_strip_non_alphanum (char* in)
 {
   int i, o;
   int len = strlen (in);
-  gchar *out = g_new (gchar, len);
+  char *out = g_new (char, len);
 
   for (i = 0, o = 0; i < len; ++i) {
     if (g_ascii_isalnum (in[i])) {
@@ -417,107 +423,116 @@ _strip_non_alphanum (gchar* in)
     }
   }
   out[o] = '\0';
+
   return out;
 }
 
+
 static PyObject *
-PyDia_RegisterCallback(PyObject *self, PyObject *args)
+PyDia_RegisterCallback (PyObject *self, PyObject *args)
 {
-    gchar *desc;
-    gchar *menupath;
-    gchar *path;
-    PyObject *func;
-    gchar *action;
-    PyObject *ret;
+  char *desc;
+  char *menupath;
+  char *path;
+  PyObject *func;
+  char *action;
+  PyObject *ret;
 
-    if (!PyArg_ParseTuple(args, "ssO:dia.register_callback",
-			  &desc, &menupath, &func))
-	return NULL;
+  if (!PyArg_ParseTuple (args, "ssO:dia.register_callback",
+                         &desc, &menupath, &func)) {
+    return NULL;
+  }
 
-    /* if root node name does not match : <Display> -> /DisplayMenu */
-    if (strstr (menupath, "<Display>") == menupath)
-        path = g_strdup_printf ("/DisplayMenu%s", menupath + strlen("<Display>"));
-    else if (strstr (menupath, "<Toolbox>") == menupath)
-        path = g_strdup_printf ("/ToolboxMenu%s", menupath + strlen("<Toolbox>"));
-    else {
-        /* no need for g_warning here, we'll get one when entering into the GtkUiManager */
-	path = g_strdup (menupath);
-    }
-    action = _strip_non_alphanum (path);
+  /* if root node name does not match : <Display> -> /DisplayMenu */
+  if (strstr (menupath, "<Display>") == menupath) {
+    path = g_strdup_printf ("/DisplayMenu%s", menupath + strlen ("<Display>"));
+  } else if (strstr (menupath, "<Toolbox>") == menupath) {
+    path = g_strdup_printf ("/ToolboxMenu%s", menupath + strlen ("<Toolbox>"));
+  } else {
+    /* no need for g_warning here, we'll get one when entering into the GtkUiManager */
+    path = g_strdup (menupath);
+  }
+  action = _strip_non_alphanum (path);
 #if 1
-    if (strrchr (path, '/') - path < strlen(path))
-      *(strrchr (path, '/')) = '\0';
+  if (strrchr (path, '/') - path < strlen(path)) {
+    *(strrchr (path, '/')) = '\0';
+  }
 #endif
-    ret = _RegisterAction (action, desc, path, func);
-    g_clear_pointer (&path, g_free);
-    g_clear_pointer (&action, g_free);
+  ret = _RegisterAction (action, desc, path, func);
+  g_clear_pointer (&path, g_free);
+  g_clear_pointer (&action, g_free);
 
-    return ret;
+  return ret;
 }
+
 
 static PyObject *
 PyDia_RegisterAction (PyObject *self, PyObject *args)
 {
-    gchar *action;
-    gchar *desc;
-    gchar *menupath;
-    PyObject *func;
+  char *action;
+  char *desc;
+  char *menupath;
+  PyObject *func;
 
-    if (!PyArg_ParseTuple(args, "sssO:dia.register_action",
-			  &action, &desc, &menupath, &func))
-	return NULL;
+  if (!PyArg_ParseTuple (args, "sssO:dia.register_action",
+                         &action, &desc, &menupath, &func)) {
+    return NULL;
+  }
 
-    return _RegisterAction (action, desc, menupath, func);
+  return _RegisterAction (action, desc, menupath, func);
 }
+
 
 static PyObject *
-_RegisterAction (gchar *action,
-                 gchar *desc,
-                 gchar *menupath,
+_RegisterAction (char     *action,
+                 char     *desc,
+                 char     *menupath,
                  PyObject *func)
 {
-	DiaCallbackFilter *filter;
+  DiaCallbackFilter *filter;
 
-    if (!PyCallable_Check(func)) {
-        PyErr_SetString(PyExc_TypeError, "third parameter must be callable");
-        return NULL;
-    }
+  if (!PyCallable_Check (func)) {
+    PyErr_SetString (PyExc_TypeError, "third parameter must be callable");
+    return NULL;
+  }
 
-    Py_INCREF(func); /* stay alive, where to kill ?? */
+  Py_INCREF (func); /* stay alive, where to kill ?? */
 
-    filter = g_new0 (DiaCallbackFilter, 1);
-    filter->action = g_strdup (action);
-    filter->description = g_strdup (desc);
-    filter->menupath = g_strdup (menupath);
-    filter->callback = &PyDia_callback_func;
-    filter->user_data = func;
+  filter = g_new0 (DiaCallbackFilter, 1);
+  filter->action = g_strdup (action);
+  filter->description = g_strdup (desc);
+  filter->menupath = g_strdup (menupath);
+  filter->callback = &PyDia_callback_func;
+  filter->user_data = func;
 
-    filter_register_callback(filter);
+  filter_register_callback (filter);
 
-    Py_INCREF(Py_None);
-    return Py_None;
+  Py_RETURN_NONE;
 }
+
 
 static PyObject *
 PyDia_Message (PyObject *self, PyObject *args)
 {
-    int type = 0;
-    char *text = "Huh?";
+  int type = 0;
+  char *text = "Huh?";
 
-    if (!PyArg_ParseTuple(args, "is:dia.message",
-			  &type, &text))
-	return NULL;
+  if (!PyArg_ParseTuple (args, "is:dia.message",
+                         &type, &text)) {
+    return NULL;
+  }
 
-    if (0 == type)
-	message_notice ("%s", text);
-    else if (1 == type)
-	message_warning ("%s", text);
-    else
-	message_error ("%s", text);
+  if (0 == type) {
+    message_notice ("%s", text);
+  } else if (1 == type) {
+    message_warning ("%s", text);
+  } else {
+    message_error ("%s", text);
+  }
 
-    Py_INCREF(Py_None);
-    return Py_None;
+  Py_RETURN_NONE;
 }
+
 
 static PyMethodDef dia_methods[] = {
     { "group_create", PyDia_GroupCreate, METH_VARARGS,
@@ -565,119 +580,80 @@ static PyMethodDef dia_methods[] = {
     { NULL, NULL }
 };
 
-PyDoc_STRVAR(dia_module_doc,
-"The dia module allows to write Python plug-ins for Dia [http://live.gnome.org/Dia/Python]\n"
-"\n"
-"This modules is designed to run Python scripts embedded in Dia. To make your script accessible\n"
-"to Dia you have to put it into $HOME/.dia/python and let it call one of the register_*() functions.\n"
-"It is possible to write import filters [register_import()] and export filters [register_export()], "
-"as well as scripts to manipulate existing diagrams or create new ones [register_action()].\n"
-"\n"
-"For stand-alone Python bindings to Dia see http://mail.gnome.org/archives/dia-list/2007-March/msg00092.html");
 
-DL_EXPORT(void) initdia(void);
+PyDoc_STRVAR (dia_module_doc,
+              "The dia module allows to write Python plug-ins for Dia "
+              "[https://wiki.gnome.org/Apps/Dia/Python]\n"
+              "\n"
+              "This modules is designed to run Python scripts embedded in Dia."
+              " To make your script accessible\n"
+              "to Dia you have to put it into $HOME/.dia/python and let it "
+              "call one of the register_*() functions.\n"
+              "It is possible to write import filters [register_import()] and"
+              " export filters [register_export()], as well as scripts to "
+              "manipulate existing diagrams or create new ones"
+              " [register_action()].\n");
 
-DL_EXPORT(void)
-initdia(void)
+
+DL_EXPORT (void) initdia (void);
+
+
+#define ADD_TYPE(Name)                                                  \
+  {                                                                     \
+    if (PyType_Ready (&PyDia##Name##_Type) != 0) {                      \
+      g_critical ("Failed to register PyDia##Name##_Type");             \
+    }                                                                   \
+                                                                        \
+    Py_INCREF (&PyDia##Name##_Type);                                    \
+    if (PyModule_AddObject (module,                                     \
+                            #Name,                                      \
+                            (PyObject *) &PyDia##Name##_Type) < 0) {    \
+      Py_DECREF (&PyDia##Name##_Type);                                  \
+      Py_DECREF (module);                                               \
+                                                                        \
+      g_critical ("Failed to add PyDia##Name##_Type");                  \
+    }                                                                   \
+  }
+
+
+PyMODINIT_FUNC
+initdia (void)
 {
-    PyObject *m, *d;
+  PyObject *module;
 
-    /* see: Python FAQ 3.24 "Initializer not a constant." */
-    /* https://docs.python.org/2/c-api/typeobj.html#c.PyObject.ob_type */
-    PyDiaConnectionPoint_Type.ob_type = &PyType_Type;
-    PyDiaDiagram_Type.ob_type = &PyType_Type;
-    PyDiaDisplay_Type.ob_type = &PyType_Type;
-    PyDiaHandle_Type.ob_type = &PyType_Type;
-    PyDiaLayer_Type.ob_type = &PyType_Type;
-    PyDiaObject_Type.ob_type = &PyType_Type;
-    PyDiaObjectType_Type.ob_type = &PyType_Type;
+  PyDiaDiagram_Type.tp_base = &PyDiaDiagramData_Type,
 
-    PyDiaExportFilter_Type.ob_type = &PyType_Type;
-    PyDiaDiagramData_Type.ob_type = &PyType_Type;
+  module = Py_InitModule3 ("dia", dia_methods, dia_module_doc);
 
-    PyDiaPoint_Type.ob_type = &PyType_Type;
-    PyDiaRectangle_Type.ob_type = &PyType_Type;
-    PyDiaBezPoint_Type.ob_type = &PyType_Type;
-    PyDiaArrow_Type.ob_type = &PyType_Type;
-    PyDiaMatrix_Type.ob_type = &PyType_Type;
+  ADD_TYPE (Display);
+  ADD_TYPE (Layer);
+  ADD_TYPE (Object);
+  ADD_TYPE (ObjectType);
+  ADD_TYPE (ConnectionPoint);
+  ADD_TYPE (Handle);
+  ADD_TYPE (ExportFilter);
+  ADD_TYPE (DiagramData);
+  ADD_TYPE (Diagram);
+  ADD_TYPE (Point);
+  ADD_TYPE (Rectangle);
+  ADD_TYPE (BezPoint);
+  ADD_TYPE (Font);
+  ADD_TYPE (Color);
+  ADD_TYPE (Image);
+  ADD_TYPE (Property);
+  ADD_TYPE (Properties);
+  ADD_TYPE (Error);
+  ADD_TYPE (Arrow);
+  ADD_TYPE (Matrix);
+  ADD_TYPE (Text);
+  ADD_TYPE (Paperinfo);
+  ADD_TYPE (Menuitem);
+  ADD_TYPE (Sheet);
 
-    PyDiaFont_Type.ob_type = &PyType_Type;
-    PyDiaColor_Type.ob_type = &PyType_Type;
-    PyDiaImage_Type.ob_type = &PyType_Type;
-    PyDiaProperty_Type.ob_type = &PyType_Type;
-    PyDiaProperties_Type.ob_type = &PyType_Type;
-    PyDiaError_Type.ob_type = &PyType_Type;
-    PyDiaText_Type.ob_type = &PyType_Type;
-    PyDiaPaperinfo_Type.ob_type = &PyType_Type;
-    PyDiaMenuitem_Type.ob_type = &PyType_Type;
-    PyDiaSheet_Type.ob_type = &PyType_Type;
-
-    m = Py_InitModule3("dia", dia_methods, dia_module_doc);
-    d = PyModule_GetDict(m);
-
-    /*
-     * The postfix 'Type' should not be there (one obvious exception, but there
-     * it isn't a Postfix). That is: names here and in the respective
-     * PyTypeObject must match.
-     * The extra namespacing (prefix 'Dia') isn't necessary either, we use the
-     * pythonesque namespacing instead.
-     */
-    /* instead to cast to PyObject* we use void* just to silence the ugly
-     * warning: dereferencing type-punned pointer will break strict-aliasing rules
-     */
-    PyDict_SetItemString(d, "Diagram",
-			 (void *)&PyDiaDiagram_Type);
-    PyDict_SetItemString(d, "Display",
-			 (void *)&PyDiaDisplay_Type);
-    PyDict_SetItemString(d, "Layer",
-			 (void *)&PyDiaLayer_Type);
-    PyDict_SetItemString(d, "Object",
-			 (void *)&PyDiaObject_Type);
-    PyDict_SetItemString(d, "ObjectType",
-			 (void *)&PyDiaObjectType_Type);
-    PyDict_SetItemString(d, "ConnectionPoint",
-			 (void *)&PyDiaConnectionPoint_Type);
-    PyDict_SetItemString(d, "Handle",
-			 (void *)&PyDiaHandle_Type);
-    PyDict_SetItemString(d, "ExportFilter",
-			 (void *)&PyDiaExportFilter_Type);
-    PyDict_SetItemString(d, "DiagramData",
-			 (void *)&PyDiaDiagramData_Type);
-    PyDict_SetItemString(d, "Point",
-			 (void *)&PyDiaPoint_Type);
-    PyDict_SetItemString(d, "Rectangle",
-			 (void *)&PyDiaRectangle_Type);
-    PyDict_SetItemString(d, "BezPoint",
-			 (void *)&PyDiaBezPoint_Type);
-    PyDict_SetItemString(d, "Font",
-			 (void *)&PyDiaFont_Type);
-    PyDict_SetItemString(d, "Color",
-			 (void *)&PyDiaColor_Type);
-    PyDict_SetItemString(d, "Image",
-			 (void *)&PyDiaImage_Type);
-    PyDict_SetItemString(d, "Property",
-			 (void *)&PyDiaProperty_Type);
-    PyDict_SetItemString(d, "Properties",
-			 (void *)&PyDiaProperties_Type);
-    PyDict_SetItemString(d, "Error",
-			 (void *)&PyDiaError_Type);
-    PyDict_SetItemString(d, "Arrow",
-			 (void *)&PyDiaArrow_Type);
-    PyDict_SetItemString(d, "Matrix",
-			 (void *)&PyDiaMatrix_Type);
-    PyDict_SetItemString(d, "Text",
-			 (void *)&PyDiaText_Type);
-    PyDict_SetItemString(d, "Paperinfo",
-			 (void *)&PyDiaPaperinfo_Type);
-    PyDict_SetItemString(d, "Menuitem",
-			 (void *)&PyDiaMenuitem_Type);
-    PyDict_SetItemString(d, "Sheet",
-			 (void *)&PyDiaSheet_Type);
-
-    if (PyErr_Occurred ())
-      Py_FatalError ("can't initialize module dia");
-    else {
-      /* should all be no-ops when used embedded */
-      libdia_init (DIA_MESSAGE_STDERR);
-    }
+  if (PyErr_Occurred ()) {
+    Py_FatalError ("can't initialize module dia");
+  } else {
+    /* should all be no-ops when used embedded */
+    libdia_init (DIA_MESSAGE_STDERR);
+  }
 }
