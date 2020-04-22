@@ -36,6 +36,7 @@ pygtk.require("2.0")
 import gtk
 import gtk.keysyms
 import gobject
+import pango
 
 import gettext
 _ = gettext.gettext
@@ -109,7 +110,6 @@ class gtkoutfile:
 class Console(gtk.VBox):
 	def __init__(self, namespace={}, copyright='', quit_cb=None):
 		gtk.VBox.__init__(self, spacing=2)
-		self.set_border_width(2)
 		self.copyright = copyright
 
 		self.quit_cb = quit_cb
@@ -118,11 +118,17 @@ class Console(gtk.VBox):
 		self.pack_start(self.inp)
 		self.inp.show()
 
+		self.scroll = gtk.ScrolledWindow()
+		self.inp.pack_start(self.scroll)
+		self.scroll.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
+		self.scroll.show()
+
 		self.text = gtk.TextView()
+		self.text.modify_font(pango.FontDescription("monospace 8"))
 		self.text.set_editable(False)
 		self.text.set_wrap_mode (gtk.WRAP_WORD)
 		self.text.set_size_request(500, 400)
-		self.inp.pack_start(self.text, padding=1)
+		self.scroll.add(self.text)
 		self.text.show()
 
 		buffer = self.text.get_buffer()
@@ -132,15 +138,8 @@ class Console(gtk.VBox):
 		self.error = buffer.create_tag("error")
 		self.error.set_property("foreground", "red")
 		self.command = buffer.create_tag('command')
-		self.command.set_property("family", "Sans")
+		self.command.set_property("weight", 600)
 		self.command.set_property("foreground", "blue")
-
-		vadj = gtk.Adjustment()
-		hadj = gtk.Adjustment()
-		self.text.set_scroll_adjustments (hadj, vadj)
-		self.vscroll = gtk.VScrollbar(vadj)
-		self.inp.pack_end(self.vscroll, expand=False)
-		self.vscroll.show()
 
 		self.inputbox = gtk.HBox(spacing=2)
 		self.pack_end(self.inputbox, expand=False)
@@ -151,11 +150,6 @@ class Console(gtk.VBox):
 		self.prompt.set_size_request(26, -1)
 		self.inputbox.pack_start(self.prompt, fill=False, expand=False)
 		self.prompt.show()
-
-		self.closer = gtk.Button("Close")
-		self.closer.connect("clicked", self.quit)
-		self.inputbox.pack_end(self.closer, fill=False, expand=False)
-		self.closer.show()
 
 		self.line = gtk.Entry()
 		self.line.set_size_request(400,-1)
