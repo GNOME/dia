@@ -571,8 +571,7 @@ app_init (int argc, char **argv)
   static const gchar **filenames = NULL;
   int i = 0;
   GOptionContext *context = NULL;
-  static GOptionEntry options[] =
-  {
+  static GOptionEntry options[] = {
     {"export", 'e', 0, G_OPTION_ARG_FILENAME, NULL /* &export_file_name */,
      N_("Export loaded file and exit"), N_("OUTPUT")},
     {"filter", 't', 0, G_OPTION_ARG_STRING, NULL /* &export_file_format */,
@@ -606,7 +605,7 @@ app_init (int argc, char **argv)
       NULL, NULL },
     { NULL }
   };
-  g_autofree char *localedir = dia_get_locale_directory ();
+  char *localedir = dia_get_locale_directory ();
 
   /* for users of app_init() the default is interactive */
   dia_is_interactive = TRUE;
@@ -615,16 +614,18 @@ app_init (int argc, char **argv)
   options[1].arg_data = &export_file_format;
   options[3].arg_data = &size;
   options[4].arg_data = &show_layers;
-  g_assert (strcmp (options[14].long_name, G_OPTION_REMAINING) == 0);
+  g_return_if_fail (g_strcmp0 (options[14].long_name, G_OPTION_REMAINING) == 0);
   options[14].arg_data = (void*)&filenames;
 
   argv0 = (argc > 0) ? argv[0] : "(none)";
 
-  setlocale(LC_NUMERIC, "C");
+  setlocale (LC_NUMERIC, "C");
 
   bindtextdomain (GETTEXT_PACKAGE, localedir);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   textdomain (GETTEXT_PACKAGE);
+
+  g_clear_pointer (&localedir, g_free);
 
   context = g_option_context_new (_("[FILE...]"));
   g_option_context_add_main_entries (context, options, GETTEXT_PACKAGE);
@@ -641,19 +642,20 @@ app_init (int argc, char **argv)
         g_printerr (_("Invalid option?"));
       }
 
-      g_option_context_free(context);
-      exit(1);
+      g_clear_pointer (&context, g_option_context_free);
+      exit (1);
     }
+
     /* second level check of command line options, existance of input files etc. */
     if (filenames) {
       while (filenames[i] != NULL) {
-        gchar *filename;
-        gchar *testpath;
+        char *filename;
+        char *testpath;
 
         if (g_str_has_prefix (filenames[i], "file://")) {
           filename = g_filename_from_uri (filenames[i], NULL, NULL);
           if (!g_utf8_validate (filename, -1, NULL)) {
-            gchar *tfn = filename;
+            char *tfn = filename;
             filename = g_filename_to_utf8 (filename, -1, NULL, NULL, NULL);
             g_clear_pointer (&tfn, g_free);
           }
@@ -680,9 +682,11 @@ app_init (int argc, char **argv)
           g_printerr (_("Missing input: %s\n"), filename);
           g_clear_pointer (&filename, g_free);
         }
+
         if (filename != testpath) {
           g_clear_pointer (&testpath, g_free);
         }
+
         ++i;
       }
     }
@@ -716,27 +720,29 @@ app_init (int argc, char **argv)
      * On X11 we need gtk_init_check() to avoid exit() just because there is no display
      * running outside of X11.
      */
-    if (!gtk_init_check(&argc, &argv)) {
+    if (!gtk_init_check (&argc, &argv)) {
       dia_log_message ("Running without display");
     }
   }
 
   if (version) {
-    gchar *ver_utf8;
-    gchar *ver_locale;
+    char *ver_str;
+
 #if (defined __TIME__) && (defined __DATE__)
     /* TRANSLATOR: 2nd and 3rd %s are time and date respectively. */
-    ver_utf8 = g_strdup_printf (_("Dia version %s, compiled %s %s\n"), VERSION, __TIME__, __DATE__);
+    ver_str = g_strdup_printf (_("Dia version %s, compiled %s %s\n"), VERSION, __TIME__, __DATE__);
 #else
-    ver_utf8 = g_strdup_printf (_("Dia version %s\n"), VERSION);
+    ver_str = g_strdup_printf (_("Dia version %s\n"), VERSION);
 #endif
-    ver_locale = g_locale_from_utf8 (ver_utf8, -1, NULL, NULL, NULL);
-    printf ("%s\n", ver_locale);
-    g_clear_pointer (&ver_locale, g_free);
-    g_clear_pointer (&ver_utf8, g_free);
+
+    g_print ("%s\n", ver_str);
+
+    g_clear_pointer (&ver_str, g_free);
+
     if (verbose) {
       dump_dependencies ();
     }
+
     exit (0);
   }
 
@@ -787,8 +793,8 @@ app_init (int argc, char **argv)
     message_error (_("Couldn't find standard objects when looking for "
                      "object-libs; exiting..."));
     g_critical (_("Couldn't find standard objects when looking for "
-                  "object-libs in '%s'; exiting..."),
-                dia_get_lib_directory());
+                  "object-libs in “%s”; exiting..."),
+                dia_get_lib_directory ());
     exit (1);
   }
 
@@ -811,6 +817,7 @@ app_init (int argc, char **argv)
       persistence_register_window_create ("layer_window",
                                           (NullaryFunc*) &layer_dialog_create);
     }
+
     /*fill recent file menu */
     recent_file_history_init ();
 
@@ -818,8 +825,8 @@ app_init (int argc, char **argv)
     g_timeout_add_seconds (5 * 60, autosave_check_autosave, NULL);
 
 #if 0 /* do we really open these automatically in the next session? */
-    persistence_register_window_create("diagram_tree",
-                                       &diagram_tree_show);
+    persistence_register_window_create ("diagram_tree",
+                                        &diagram_tree_show);
 #endif
     persistence_register_window_create ("sheets_main_dialog",
                                         (NullaryFunc*) &sheets_dialog_create);
@@ -838,13 +845,13 @@ app_init (int argc, char **argv)
                                           output_directory);
 
   if (dia_is_interactive && files == NULL && !nonew) {
-    GList * list;
+    GList *list;
 
     file_new_callback (NULL);
 
     list = dia_open_diagrams ();
     if (list) {
-      Diagram * diagram = list->data;
+      Diagram *diagram = list->data;
       diagram_update_extents (diagram);
       diagram->is_default = TRUE;
       layer_dialog_set_diagram (diagram);
@@ -858,6 +865,7 @@ app_init (int argc, char **argv)
   dynobj_refresh_init ();
   dia_log_message ("initialized");
 }
+
 
 gboolean
 app_exit (void)
