@@ -77,7 +77,7 @@ def autodoc_cb (data, flags, update) :
 	if not data : # not set when called by the toolbox menu
 		diagram = dia.new("PyDiaObjects.dia")
 		# passed in data is not necessary valid - we are called from the Toolbox menu
-		data = diagram.data
+		data = diagram
 		display = diagram.display()
 	else :
 		diagram = None

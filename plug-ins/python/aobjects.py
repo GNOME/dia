@@ -37,11 +37,11 @@ def set_object_string (o) :
 def aobjects_cb(data, flags) :
 
 	# copied from otypes.py
-	if data :
+	if data:
 		diagram = None # we may be running w/o GUI
 	else :
 		diagram = dia.new("All Objects.dia")
-		data = diagram.data
+		data = diagram
 	layer = data.active_layer
 
 	otypes = dia.registered_types()

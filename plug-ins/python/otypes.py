@@ -35,11 +35,11 @@ def _log(s, append=1) :
 
 def otypes_cb(data, flags) :
 
-	if data :
+	if data:
 		diagram = None # we may be running w/o GUI
 	else :
 		diagram = dia.new("Object Types.dia")
-		data = diagram.data
+		data = diagram
 	layer = data.active_layer
 
 	otypes = dia.registered_types()

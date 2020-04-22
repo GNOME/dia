@@ -44,10 +44,9 @@ class DissectRenderer :
 		self._open (filename)
 		self.extents = data.extents
 		try :
-			# this can fail for two reason:
-			#  1) data.diagram is None, e.g. when running from pure bindings
-			#  2) there is no member data.diagram because Dia is just too old
-			self.f.write ("# Dissect %s\n" % (data.diagram.filename,))
+			# this can fail when data is not interative,
+			# e.g. when running from pure bindings
+			self.f.write ("# Dissect %s\n" % (data.filename,))
 		except :
 			self.f.write ("# Dissect %s\n" % (filename,))
 	def end_render (self) :

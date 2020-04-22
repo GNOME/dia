@@ -27,11 +27,11 @@ _ = gettext.gettext
 def allprops_cb(data, flags) :
 
 	# copied from otypes.py
-	if data :
+	if data:
 		diagram = None # we may be running w/o GUI
 	else :
 		diagram = dia.new("All Object Properties.dia")
-		data = diagram.data
+		data = diagram
 	layer = data.active_layer
 
 	props_by_name = {}

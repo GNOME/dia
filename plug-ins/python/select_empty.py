@@ -21,12 +21,11 @@ import gettext
 _ = gettext.gettext
 
 def select_empty_cb (data, flags) :
-	diagram = dia.active_display().diagram
 	objs = data.active_layer.objects
 	for o in objs :
 		if o.bounding_box.right == o.bounding_box.left \
 			or o.bounding_box.top == o.bounding_box.bottom :
-			diagram.select (o)
+			data.select (o)
 
 dia.register_action ("SelectEmpty", _("_Empty"),
                        "/DisplayMenu/Select/By/SelectByExtensionStart",

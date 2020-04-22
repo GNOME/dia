@@ -29,7 +29,7 @@ import gettext
 _ = gettext.gettext
 
 class CScaleDialog :
-	def __init__(self, d, data) :
+	def __init__(self, data) :
 		import pygtk
 		pygtk.require("2.0")
 		import gtk
@@ -37,8 +37,7 @@ class CScaleDialog :
 		win.connect("delete_event", self.on_delete)
 		win.set_title(_("Simple Scaling"))
 
-		self.diagram = d
-		self.data = data
+		self.diagram = data
 		self.win = win
 
 		box1 = gtk.VBox()
@@ -76,8 +75,8 @@ class CScaleDialog :
 		s = self.entry.get_text()
 		scale = float(s)
 		if scale > 0.001 and scale < 1000 :
-			SimpleScale (self.data, float(s))
-			self.data.update_extents ()
+			SimpleScale (self.diagram, float(s))
+			self.diagram.update_extents ()
 			self.diagram.flush()
 		else :
 			dia.message(1, "Value out of range!")
@@ -147,7 +146,7 @@ def SimpleScale(data, factor) :
 	dia.active_display().add_update_all()
 
 def scale_cb(data, flags) :
-	dlg = CScaleDialog(dia.active_display().diagram, data)
+	dlg = CScaleDialog(data)
 
 dia.register_action ("ObjectsSimplescaling", _("Simple _Scaling"),
 		     "/DisplayMenu/Objects/ObjectsExtensionStart",

@@ -22,7 +22,7 @@ import gettext
 _ = gettext.gettext
 
 class CRotateDialog :
-	def __init__(self, d, data) :
+	def __init__(self, data) :
 		import pygtk
 		pygtk.require("2.0")
 		import gtk
@@ -30,8 +30,7 @@ class CRotateDialog :
 		win.connect("delete_event", self.on_delete)
 		win.set_title(_("Rotate counter-clockwise"))
 
-		self.diagram = d
-		self.data = data
+		self.diagram = data
 		self.win = win
 
 		box1 = gtk.VBox()
@@ -74,8 +73,8 @@ class CRotateDialog :
 		s = self.entry.get_text()
 		angle = float(s)
 		if angle >= 0 and angle <= 360 :
-			SimpleRotate (self.data, angle)
-			self.data.update_extents()
+			SimpleRotate (self.diagram, angle)
+			self.diagram.update_extents()
 			self.diagram.flush()
 		else :
 			dia.message(1, "Please enter an angle between 0 and 360 degrees.")
@@ -121,7 +120,7 @@ def SimpleRotate(data, angle) :
 	dia.active_display().add_update_all()
 
 def rotate_cb(data, flags) :
-	dlg = CRotateDialog(dia.active_display().diagram, data)
+	dlg = CRotateDialog(data)
 
 dia.register_action ("ObjectsSimplerotation", _("Simple _Rotation"),
 		     "/DisplayMenu/Objects/ObjectsExtensionStart",

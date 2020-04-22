@@ -31,13 +31,12 @@ import gettext
 _ = gettext.gettext
 
 class CPropsDialog :
-	def __init__(self, diagram, data, props) :
+	def __init__(self, diagram, props) :
 		import pygtk
 		pygtk.require("2.0")
 		import gtk
 
 		self.diagram = diagram
-		self.data = data
 		self.props = props
 
 		self.win = gtk.Window ()
@@ -118,7 +117,7 @@ class CPropsDialog :
 				for o in grp :
 					s = self.props.keys()[i]
 					o.properties[s] = self.props[s].opts[om.get_history()]
-		self.data.update_extents ()
+		self.diagram.update_extents ()
 		self.diagram.flush()
 		self.win.destroy()
 
@@ -138,8 +137,7 @@ class PropInfo :
 		self.opts.append(o)
 
 def dia_objects_props_cb (data, flags) :
-	d = dia.active_display().diagram
-	grp = d.get_sorted_selected()
+	grp = data.get_sorted_selected()
 	allProps = {}
 	numProps = len(grp)
 	# check for properties common to all select objects
@@ -176,7 +174,7 @@ def dia_objects_props_cb (data, flags) :
 				allProps[s].opts.append(uniques[v])
 	# display the dialog
 	try :
-		dlg = CPropsDialog(d, data, allProps)
+		dlg = CPropsDialog(data, allProps)
 	except ImportError :
 		dia.message(0, "Dialog creation failed. Missing pygtk?")
 

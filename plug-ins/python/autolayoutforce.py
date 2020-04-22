@@ -99,8 +99,7 @@ def layout_force (nodes, rconst, aconst, timestep, damping) :
 		energy[1] += mass * math.pow (velocity[1], 2) / 2
 	return energy
 
-def layout_force_cb (data, flags) :
-	diagram = dia.active_display().diagram
+def layout_force_cb(data, flags):
 	# the things (nodes) we are moving around are all connected 'elements',
 	# connection objects are only moving as a side effect
 	nodes = []
@@ -117,10 +116,10 @@ def layout_force_cb (data, flags) :
 		e = layout_force (nodes, 2.0, 3.0, 2e-1, 5e-1)
 		n += 1
 	for o in nodes :
-		diagram.update_connections (o)
+		data.update_connections (o)
 	data.active_layer.update_extents() # data/diagram _update_extents don't recalculate?
-	diagram.update_extents ()
-	diagram.flush()
+	data.update_extents ()
+	data.flush()
 	print n, "iterations"
 
 dia.register_action ("LayoutForcePy", _("_Layout (force)"),

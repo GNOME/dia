@@ -28,7 +28,7 @@ import gettext
 _ = gettext.gettext
 
 class CFindDialog :
-	def __init__(self, d, data) :
+	def __init__(self, data) :
 		import pygtk
 		pygtk.require("2.0")
 		import gtk
@@ -37,8 +37,7 @@ class CFindDialog :
 		win.connect("delete_event", self.on_delete)
 		win.set_title(_("Select by name"))
 
-		self.diagram = d
-		self.data = data
+		self.diagram = data
 		self.win = win
 
 		box1 = gtk.VBox()
@@ -74,41 +73,39 @@ class CFindDialog :
 
 	def on_find(self, *args) :
 		s = self.entry.get_text()
-		select_by (self.diagram, self.data, "name", s)
-		self.data.update_extents ()
+		select_by (self.diagram, "name", s)
+		self.diagram.update_extents ()
 		self.diagram.flush()
 
 	def on_delete (self, *args) :
 		self.win.destroy ()
 
-def do_dialog (d, data) :
+def do_dialog(data):
 	# let the dialog do it's work
-	dlg = CFindDialog (d, data)
+	dlg = CFindDialog(data)
 
-def select_by (diagram, data, name, value) :
-	objs = data.active_layer.objects
+def select_by (diagram, name, value) :
+	objs = diagram.active_layer.objects
 	for o in objs :
 		if o.properties.has_key (name) :
 			print "<==", o.properties[name].value
 			if value == None or o.properties[name].value == value :
 				diagram.select (o)
 
-def select_by_name_cb (data, flags) :
-	d = dia.active_display().diagram
-	do_dialog (d, data)
+def select_by_name_cb (data, flags):
+	do_dialog (data)
 
 def select_by_selected (data, name) :
-	d = dia.active_display().diagram
 	grp = data.get_sorted_selected()
 	bFoundAny = 0
 	for o in grp :
 		if o.properties.has_key(name) :
-			select_by (d, data, name, o.properties[name].value)
+			select_by (data, name, o.properties[name].value)
 			bFoundAny = 1
 	if not bFoundAny :
 		dia.message(0, "No selected object has the property '%s'." % name)
 	data.update_extents ()
-	d.flush()
+	data.flush()
 
 def select_by_fill_color_cb (data, flags) :
 	select_by_selected (data, "fill_colour")
@@ -121,7 +118,6 @@ def select_by_size_cb (data, flags) :
 	""" From the diagrams selection derive the minimum and maximum object size.
 	    Select every other object within this range.
 	"""
-	d = dia.active_display().diagram
 	grp = data.get_sorted_selected()
 	smin = 100000
 	smax = 0
@@ -139,8 +135,8 @@ def select_by_size_cb (data, flags) :
 		h = o.bounding_box.bottom - o.bounding_box.top
 		s = w * h
 		if s >= smin and s <= smax :
-			d.select(o)
-	d.flush()
+			data.select(o)
+	data.flush()
 
 
 dia.register_action ("SelectByName", _("_Name"),
