@@ -79,6 +79,8 @@ dia_sources = [
     'textedit_tool.c',
 ]
 
+sources += gnome.mkenums_simple('dia-app-enums', sources: 'exit_dialog.h')
+
 #TODO: this is workaround for openbsd where libraries are in /usr/lib/local
 # Potential parent issues: https://github.com/mesonbuild/meson/issues/3570
 # https://github.com/mesonbuild/meson/issues/4468

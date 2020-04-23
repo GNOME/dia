@@ -19,460 +19,374 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* TODO: Non-modal api */
 
 #include <config.h>
 
+#include <gtk/gtk.h>
+#include <glib.h>
+#include <glib/gi18n-lib.h>
+
 #include "exit_dialog.h"
 
-#include "intl.h"
 
-#include <gtk/gtk.h>
+typedef struct _DiaExitDialogPrivate DiaExitDialogPrivate;
+struct _DiaExitDialogPrivate {
+  GtkWidget    *dialog;
 
-#include <glib.h>
+  GtkWidget    *file_box;
+  GtkWidget    *file_list;
+  GtkListStore *file_store;
+};
 
-#define EXIT_DIALOG_TREEVIEW "EXIT_DIALOG_TREEVIEW"
 
 enum {
-  CHECK_COL,
-  NAME_COL,
-  PATH_COL,
-  DATA_COL, /* To store optional data (not shown in listview) */
+  COL_SAVE,
+  COL_NAME,
+  COL_PATH,
+  COL_DIAGRAM,
   NUM_COL
 };
 
-static void selected_state_set_all   (GtkTreeView * treeview,
-                                      gboolean      state);
 
-static gint get_selected_items (GtkWidget * dialog,
-                                exit_dialog_item_array_t ** items);
+G_DEFINE_TYPE_WITH_PRIVATE (DiaExitDialog, dia_exit_dialog, G_TYPE_OBJECT)
 
-/* Event Handlers */
-static void exit_dialog_destroy  (GtkWidget * exit_dialog,
-                                  gpointer    data);
 
-static void select_all_clicked   (GtkButton * button,
-                                  gpointer    data);
-
-static void select_none_clicked  (GtkButton * button,
-                                  gpointer    data);
-
-static void toggle_check_button  (GtkCellRendererToggle * renderer,
-                                  gchar * path,
-                                  GtkTreeView * treeview);
-
-/* A dialog to allow a user to select which unsaved files to save
- * (if any) or to abort exiting
- *
- * @param parent_window This is needed for modal behavior.
- * @param title Text display on the dialog's title bar.
- * @return The dialog.
- */
-GtkWidget *
-exit_dialog_make (GtkWindow * parent_window,
-                  gchar *     title)
+static void
+dia_exit_dialog_finalize (GObject *object)
 {
-    GtkWidget * dialog = gtk_dialog_new_with_buttons (title, parent_window,
-                                                      GTK_DIALOG_MODAL,
-                                                      _("_Do Not Exit"),
-                                                      EXIT_DIALOG_EXIT_CANCEL,
-                                                      _("_Exit Without Save"),
-                                                      EXIT_DIALOG_EXIT_NO_SAVE,
-                                                      _("_Save Selected"),
-                                                      EXIT_DIALOG_EXIT_SAVE_SELECTED,
-                                                      NULL);
+  DiaExitDialog *self = DIA_EXIT_DIALOG (object);
+  DiaExitDialogPrivate *priv = dia_exit_dialog_get_instance_private (self);
 
-    GtkBox * vbox = GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG(dialog)));
+  g_signal_handlers_disconnect_by_data (priv->dialog, self);
+  gtk_widget_destroy (priv->dialog);
 
-    GtkWidget * label = gtk_label_new (_("The following are not saved:"));
+  g_clear_object (&priv->file_store);
 
-    GtkWidget * scrolled;
-    GtkWidget * button;
-    GtkWidget * hbox;
-
-    GtkWidget *         treeview;
-    GtkListStore *      model;
-    GtkCellRenderer *   renderer;
-    GtkTreeViewColumn * column;
-
-    GdkGeometry geometry = { 0 };
-
-    gtk_box_pack_start (vbox, label, FALSE, FALSE, 0);
-
-    gtk_widget_show (label);
-
-    /* Scrolled window for displaying things which need saving */
-    scrolled = gtk_scrolled_window_new (NULL, NULL);
-    gtk_box_pack_start (vbox, scrolled, TRUE, TRUE, 0);
-    gtk_widget_show (scrolled);
-
-    model = gtk_list_store_new (NUM_COL, G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
-
-    treeview = gtk_tree_view_new_with_model ( GTK_TREE_MODEL(model));
-
-    renderer = gtk_cell_renderer_toggle_new ();
-
-    column   = gtk_tree_view_column_new_with_attributes (_("Save"), renderer,
-                                                         "active", CHECK_COL,
-                                                          NULL);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
-
-    g_signal_connect (G_OBJECT (renderer), "toggled",
-                      G_CALLBACK (toggle_check_button),
-                      treeview);
-
-    renderer = gtk_cell_renderer_text_new ();
-    column   = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,
-                                                         "text", NAME_COL,
-                                                          NULL);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
-
-    renderer = gtk_cell_renderer_text_new ();
-    column   = gtk_tree_view_column_new_with_attributes (_("Path"), renderer,
-                                                         "text", PATH_COL,
-                                                          NULL);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
-
-
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled), GTK_WIDGET (treeview));
-
-
-    hbox = gtk_hbox_new (FALSE, 3);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
-    gtk_widget_show (hbox);
-
-    button = gtk_button_new_with_label (_("Select All"));
-    gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 3);
-    gtk_widget_show (button);
-
-    g_signal_connect (G_OBJECT (button), "clicked",
-                      G_CALLBACK (select_all_clicked),
-                      treeview);
-
-    button = gtk_button_new_with_label (_("Select None"));
-    gtk_box_pack_start (GTK_BOX (hbox), button, FALSE, FALSE, 3);
-    gtk_widget_show (button);
-
-    g_signal_connect (G_OBJECT (button), "clicked",
-                      G_CALLBACK (select_none_clicked),
-                      treeview);
-
-    g_clear_object (&model);
-    gtk_widget_show (GTK_WIDGET (treeview));
-
-    gtk_widget_show_all (GTK_WIDGET(vbox));
-
-    g_object_set_data (G_OBJECT (dialog), EXIT_DIALOG_TREEVIEW,  treeview);
-
-    g_signal_connect (G_OBJECT (dialog), "destroy",
-                      G_CALLBACK (exit_dialog_destroy),
-                      treeview);
-
-    /* golden ratio */
-    geometry.min_aspect = 0.618;
-    geometry.max_aspect = 1.618;
-    geometry.win_gravity = GDK_GRAVITY_CENTER;
-    gtk_window_set_geometry_hints (GTK_WINDOW (dialog), GTK_WIDGET (vbox), &geometry,
-                                   GDK_HINT_ASPECT|GDK_HINT_WIN_GRAVITY);
-    return dialog;
+  G_OBJECT_CLASS (dia_exit_dialog_parent_class)->finalize (object);
 }
 
-/**
- * Add name and path of a file that needs to be saved
- * @param dialog Exit dialog created with exit_dialog_make()
- * @param name User identifiable name of the thing which needs saving.
- * @param path File system path of the thing which needs saving.
- * @param optional_data Optional data to be returned with selected file info.
- */
-void
-exit_dialog_add_item (GtkWidget *    dialog,
-                      const gchar *  name,
-                      const gchar *  path,
-                      const gpointer optional_data)
+
+static void
+dia_exit_dialog_class_init (DiaExitDialogClass *klass)
 {
-    GtkTreeView *  treeview;
-    GtkTreeIter    iter;
-    GtkListStore * model;
-    const gchar *  name_copy = g_strdup (name);
-    const gchar *  path_copy = g_strdup (path);
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-    treeview = g_object_get_data (G_OBJECT (dialog), EXIT_DIALOG_TREEVIEW);
-
-    model = GTK_LIST_STORE (gtk_tree_view_get_model (treeview));
-
-    gtk_list_store_append (model, &iter);
-
-    gtk_list_store_set (model, &iter,
-                        CHECK_COL, 1,
-                        NAME_COL, name_copy,
-                        PATH_COL, path_copy,
-                        DATA_COL, optional_data,
-                        -1);
+  object_class->finalize = dia_exit_dialog_finalize;
 }
 
-gint
-exit_dialog_run (GtkWidget * dialog,
-                 exit_dialog_item_array_t ** items)
+
+static void
+clear_item (gpointer data)
 {
-    gint                       result;
-    gint                       count;
+  DiaExitDialogItem *item = data;
 
-    while (TRUE)
-    {
-        result = gtk_dialog_run ( GTK_DIALOG(dialog));
+  g_clear_pointer (&item->name, g_free);
+  g_clear_pointer (&item->path, g_free);
+  g_clear_object (&item->data);
 
-        switch (result)
-        {
-            case EXIT_DIALOG_EXIT_CANCEL:
-            case EXIT_DIALOG_EXIT_NO_SAVE:
-                *items = NULL;
-                return result;
-	    case EXIT_DIALOG_EXIT_SAVE_SELECTED :
-		break;
-	    default : /* e.g. if closed by window manager button */
-	        return EXIT_DIALOG_EXIT_CANCEL;
-        }
-
-        count = get_selected_items (dialog, items);
-
-        if (count == 0)
-        {
-           GtkWidget * msg_dialog = gtk_message_dialog_new (GTK_WINDOW (dialog),
-                                                            GTK_DIALOG_MODAL,
-                                                            GTK_MESSAGE_WARNING,
-                                                            GTK_BUTTONS_YES_NO,
-                                                            _("Nothing selected for saving.  Would you like to try again?"));
-
-           gint yes_or_no = gtk_dialog_run (GTK_DIALOG (msg_dialog));
-
-           gtk_widget_destroy (msg_dialog);
-
-           if (yes_or_no == GTK_RESPONSE_NO)
-           {
-               return EXIT_DIALOG_EXIT_NO_SAVE;
-           }
-        }
-        else
-        {
-            return EXIT_DIALOG_EXIT_SAVE_SELECTED;
-        }
-    }
+  g_free (data);
 }
 
 
 /**
  * Gets the list of items selected for saving by the user.
- * @param dialog Exit dialog.
- * @param items Structure to hold the selected items.  Set to NULL if not items selected.
- * @return The number of selected items.
+ * @self: the #DiaExitDialog
+ *
+ * Returns: The selected items.
+ *
+ * Since: 0.98
  */
-int
-get_selected_items (GtkWidget                 *dialog,
-                    exit_dialog_item_array_t **items)
+static GPtrArray *
+get_selected_items (DiaExitDialog *self)
 {
-  GtkTreeView  *treeview;
-  GtkTreeIter   iter;
-  GtkListStore *model;
-  gboolean      valid;
-  GSList       *list = NULL;
-  GSList       *list_iter;
-  int           selected_count;
-  int           i;
+  DiaExitDialogPrivate *priv = dia_exit_dialog_get_instance_private (self);
+  GtkTreeIter           iter;
+  gboolean              valid;
+  GPtrArray            *selected;
 
-  treeview = g_object_get_data (G_OBJECT (dialog), EXIT_DIALOG_TREEVIEW);
-
-  model = GTK_LIST_STORE (gtk_tree_view_get_model (treeview));
+  selected = g_ptr_array_new_with_free_func (clear_item);
 
   /* Get the first iter in the list */
-  valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &iter);
+  valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (priv->file_store),
+                                         &iter);
 
   /* Get the selected items */
   while (valid) {
-    char     *name;
-    char     *path;
-    gpointer  data;
-    gboolean  is_selected;
+    DiaExitDialogItem *item = g_new (DiaExitDialogItem, 1);
+    gboolean           is_selected;
 
-    gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
-                        CHECK_COL, &is_selected,
-                        NAME_COL,  &name,
-                        PATH_COL,  &path,
-                        DATA_COL,  &data,
+    gtk_tree_model_get (GTK_TREE_MODEL (priv->file_store), &iter,
+                        COL_SAVE,    &is_selected,
+                        COL_NAME,    &item->name,
+                        COL_PATH,    &item->path,
+                        COL_DIAGRAM, &item->data,
                         -1);
 
     if (is_selected) {
-      exit_dialog_item_t *item = g_new (exit_dialog_item_t, 1);
-      item->name = name;
-      item->path = path;
-      item->data = data;
-      list = g_slist_prepend (list, item);
+      g_ptr_array_add (selected, item);
+    } else {
+      clear_item (item);
     }
 
-    valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter);
+    valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (priv->file_store),
+                                      &iter);
   }
 
-    selected_count = g_slist_length (list);
-
-    if (selected_count > 0)
-    {
-        *items              = g_new (exit_dialog_item_array_t,1);
-       (*items)->array_size = selected_count;
-       (*items)->array      = g_new (exit_dialog_item_t, (*items)->array_size);
-
-        list_iter = list;
-        for(i = 0 ; i < selected_count ; i++)
-        {
-	    exit_dialog_item_t * item;
-            g_assert(list_iter!=NULL); /* can't be if g_slist_length works */
-            item = list_iter->data;
-            (*items)->array[i].name = item->name;
-            (*items)->array[i].path = item->path;
-            (*items)->array[i].data = item->data;
-            list_iter = g_slist_next(list_iter);
-        }
-
-        g_slist_free (list);
-    }
-    else
-    {
-      *items = NULL;
-    }
-
-    return selected_count;
+  return selected;
 }
 
 
-/**
- * Free memory allocated for the exit_dialog_item_array_t.  This
- * will not free any memory not allocated by the dialog itself
- * @param items Item array struct returned by exit_dialog_run()
- */
-void
-exit_dialog_free_items (exit_dialog_item_array_t * items)
+static void
+save_sensitive (DiaExitDialog *self)
 {
-  if (items) {
-    for (int i = 0 ; i < items->array_size ; i++) {
-      /* Cast is needed to remove warning because of const decl */
-      g_clear_pointer (&items->array[i].name, g_free);
-      g_clear_pointer (&items->array[i].path, g_free);
-    }
+  DiaExitDialogPrivate *priv = dia_exit_dialog_get_instance_private (self);
+  GPtrArray *selected = get_selected_items (self);
 
-    g_clear_pointer (&items, g_free);
-  }
-}
+  gtk_dialog_set_response_sensitive (GTK_DIALOG (priv->dialog),
+                                     DIA_EXIT_DIALOG_SAVE,
+                                     selected->len > 0);
 
-
-/**
- * Handler for the check box (button) in the exit dialogs treeview.
- * This is needed to cause the check box to change state when the
- * user clicks it
- */
-static void toggle_check_button (GtkCellRendererToggle * renderer,
-                                 gchar * path,
-                                 GtkTreeView * treeview)
-{
-    GtkTreeModel * model;
-    GtkTreeIter    iter;
-    gboolean       value;
-
-    model = gtk_tree_view_get_model (treeview);
-    if (gtk_tree_model_get_iter_from_string (model, &iter, path))
-    {
-        gtk_tree_model_get (model, &iter, CHECK_COL, &value, -1);
-        gtk_list_store_set (GTK_LIST_STORE (model), &iter, CHECK_COL, !value, -1);
-    }
+  g_clear_pointer (&selected, g_ptr_array_unref);
 }
 
 
 /*
- * Signal handler for "destroy" event to free memory allocated for the exit_dialog.
- *
- * @param exit_dialog
- * @param data Exit dialog's treeview
+ * Handler for the check box (button) in the exit dialogs treeview.
+ * This is needed to cause the check box to change state when the
+ * user clicks it
  */
 static void
-exit_dialog_destroy (GtkWidget *exit_dialog,
-                     gpointer   data)
+toggle_check_button (GtkCellRendererToggle *renderer,
+                     char                  *path,
+                     DiaExitDialog         *self)
 {
-  GtkTreeView  *treeview;
-  GtkTreeIter   iter;
-  GtkTreeModel *model;
-  gboolean      valid;
+  DiaExitDialogPrivate *priv = dia_exit_dialog_get_instance_private (self);
+  GtkTreeIter           iter;
+  gboolean              value;
 
-  treeview = g_object_get_data (G_OBJECT (exit_dialog), EXIT_DIALOG_TREEVIEW);
-
-  model = GTK_TREE_MODEL (gtk_tree_view_get_model (treeview));
-
-  /* Get the first iter in the list */
-  valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &iter);
-
-  while (valid) {
-    char *name = NULL;
-    char *path = NULL;
-
-    gtk_tree_model_get (model, &iter,
-                        NAME_COL, &name,
-                        PATH_COL, &path,
+  if (gtk_tree_model_get_iter_from_string (GTK_TREE_MODEL (priv->file_store),
+                                           &iter,
+                                           path)) {
+    gtk_tree_model_get (GTK_TREE_MODEL (priv->file_store), &iter,
+                        COL_SAVE, &value,
                         -1);
+    gtk_list_store_set (priv->file_store, &iter, COL_SAVE, !value, -1);
 
-    g_clear_pointer (&name, g_free);
-    g_clear_pointer (&path, g_free);
-
-    valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter);
+    save_sensitive (self);
   }
 }
 
 
-/**
- * Sets the state of the save checkbox in the treeview to the
- * state specified by the caller.
- * @param treeview The treeview in the exit dialog box.
- * @param state Set to TRUE to select all, FALSE to de-select all.
- */
-static void selected_state_set_all (GtkTreeView * treeview,
-                                    gboolean      state)
+static void
+dia_exit_dialog_init (DiaExitDialog *self)
 {
-    GtkTreeIter    iter;
-    GtkListStore * model;
-    gboolean       valid;
+  DiaExitDialogPrivate *priv = dia_exit_dialog_get_instance_private (self);
 
-    model = GTK_LIST_STORE (gtk_tree_view_get_model (treeview));
+  GtkWidget *label;
 
-    /* Get the first iter in the list */
-    valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &iter);
+  GtkWidget *scrolled;
+  GtkWidget *button;
 
-    while (valid)
-    {
-        gtk_list_store_set (model, &iter,
-                            CHECK_COL, state,
-                            -1);
+  GtkCellRenderer   *renderer;
+  GtkTreeViewColumn *column;
 
-        valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (model), &iter);
-    }
+  priv->dialog = gtk_message_dialog_new (NULL,
+                                         GTK_DIALOG_MODAL,
+                                         GTK_MESSAGE_QUESTION,
+                                         GTK_BUTTONS_NONE,
+                                         NULL);
+
+  gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (priv->dialog),
+                                            _("If you don’t save, all your changes will be permanently lost."));
+
+  button = gtk_dialog_add_button (GTK_DIALOG (priv->dialog),
+                                  _("Close _without Saving"),
+                                  DIA_EXIT_DIALOG_QUIT);
+
+  /* "use" it for gtk2 */
+  gtk_widget_get_name (button);
+  /*
+  GTK3:
+  gtk_style_context_add_class (gtk_widget_get_style_context (button),
+                               "destructive-action");
+  */
+
+  gtk_dialog_add_button (GTK_DIALOG (priv->dialog),
+                         _("_Cancel"),
+                         DIA_EXIT_DIALOG_CANCEL);
+
+  gtk_dialog_add_button (GTK_DIALOG (priv->dialog),
+                         _("_Save"),
+                         DIA_EXIT_DIALOG_SAVE);
+
+  gtk_dialog_set_default_response (GTK_DIALOG (priv->dialog),
+                                   DIA_EXIT_DIALOG_SAVE);
+
+
+  priv->file_box = gtk_vbox_new (FALSE, 6);
+  gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (priv->dialog))),
+                      priv->file_box,
+                      FALSE,
+                      FALSE,
+                      0);
+  gtk_widget_show (priv->file_box);
+
+
+  /* Scrolled window for displaying things which need saving */
+  scrolled = gtk_scrolled_window_new (NULL, NULL);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled),
+                                       GTK_SHADOW_IN);
+  /* gtk_scrolled_window_set_min_content_height (GTK_SCROLLED_WINDOW (scrolled),
+                                              90); */
+  g_object_set (scrolled, "height-request", 90, NULL);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled),
+                                  GTK_POLICY_NEVER,
+                                  GTK_POLICY_AUTOMATIC);
+  gtk_widget_show (scrolled);
+
+  priv->file_store = gtk_list_store_new (NUM_COL,
+                                         G_TYPE_BOOLEAN,
+                                         G_TYPE_STRING,
+                                         G_TYPE_STRING,
+                                         DIA_TYPE_DIAGRAM);
+
+  priv->file_list = gtk_tree_view_new_with_model (GTK_TREE_MODEL (priv->file_store));
+  gtk_tree_view_set_tooltip_column (GTK_TREE_VIEW (priv->file_list),
+                                    COL_PATH);
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (priv->file_list), FALSE);
+  gtk_widget_show (priv->file_list);
+
+  renderer = gtk_cell_renderer_toggle_new ();
+  gtk_cell_renderer_toggle_set_activatable (GTK_CELL_RENDERER_TOGGLE (renderer),
+                                            TRUE);
+  column = gtk_tree_view_column_new_with_attributes (_("Save"), renderer,
+                                                     "active", COL_SAVE,
+                                                     NULL);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (priv->file_list), column);
+
+  g_signal_connect (G_OBJECT (renderer), "toggled",
+                    G_CALLBACK (toggle_check_button),
+                    self);
+
+  renderer = gtk_cell_renderer_text_new ();
+  column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,
+                                                     "text", COL_NAME,
+                                                     NULL);
+  gtk_tree_view_append_column (GTK_TREE_VIEW (priv->file_list), column);
+
+
+  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled),
+                                         priv->file_list);
+
+  label = g_object_new (GTK_TYPE_LABEL,
+                        "label", _("S_elect the diagrams you want to save:"),
+                        "use-underline", TRUE,
+                        "mnemonic-widget", priv->file_list,
+                        "xalign", 0.0,
+                        "visible", TRUE,
+                        NULL);
+
+
+  gtk_box_pack_start (GTK_BOX (priv->file_box), label, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (priv->file_box), scrolled, FALSE, FALSE, 0);
+
+  g_signal_connect_swapped (G_OBJECT (priv->dialog), "destroy",
+                            G_CALLBACK (g_object_unref),
+                            self);
 }
 
-/**
- * Handler for Select All button.  Causes all checkboxes in the
- * exit dialog box treeview to be checked.
- * @param button The Select all button.
- * @param data The treeview
- */
-static void select_all_clicked   (GtkButton * button,
-                                  gpointer    data)
-{
-    selected_state_set_all (data, TRUE);
-}
 
 /**
- * Handler for Select All button.  Causes all checkboxes in the
- * exit dialog box treeview to be un-checked.
- * @param button The Select all button.
- * @param data The treeview
+ * dia_exit_dialog_new:
+ * @parent: This is needed for modal behavior.
+ *
+ * A dialog to allow a user to select which unsaved files to save
+ * (if any) or to abort exiting
+ *
+ * Since: 0.98
  */
-static void select_none_clicked  (GtkButton * button,
-                                  gpointer    data)
+DiaExitDialog *
+dia_exit_dialog_new (GtkWindow *parent)
 {
-    selected_state_set_all (data, FALSE);
+  DiaExitDialog *self = g_object_new (DIA_TYPE_EXIT_DIALOG, NULL);
+  DiaExitDialogPrivate *priv = dia_exit_dialog_get_instance_private (self);
+
+  gtk_window_set_transient_for (GTK_WINDOW (priv->dialog), parent);
+
+  return self;
 }
 
 
+/**
+ * dia_exit_dialog_add_item:
+ * @self: the #DiaExitDialog
+ * @name: User identifiable name of the thing which needs saving.
+ * @path: File system path of the thing which needs saving.
+ * @diagram: The unsaved #Diagram
+ *
+ * Add name and path of a file that needs to be saved
+ *
+ * Since: 0.98
+ */
+void
+dia_exit_dialog_add_item (DiaExitDialog *self,
+                          const char    *name,
+                          const char    *filepath,
+                          Diagram       *diagram)
+{
+  DiaExitDialogPrivate *priv = dia_exit_dialog_get_instance_private (self);
+  GtkTreeIter   iter;
+  char *title = NULL;
+  int n;
+
+  gtk_list_store_append (priv->file_store, &iter);
+  gtk_list_store_set (priv->file_store, &iter,
+                      COL_SAVE, 1,
+                      COL_NAME, name,
+                      COL_PATH, filepath,
+                      COL_DIAGRAM, diagram,
+                      -1);
+
+  save_sensitive (self);
+
+  n = gtk_tree_model_iter_n_children (GTK_TREE_MODEL (priv->file_store), NULL);
+
+  if (n == 1) {
+    title = g_markup_printf_escaped ("Save changes to diagram “%s” before closing?",
+                                     name);
+    gtk_widget_hide (priv->file_box);
+  } else {
+    title = g_markup_printf_escaped (ngettext ("There is %d diagram with unsaved changes. "
+                                              "Save changes before closing?",
+                                              "There are %d diagrams with unsaved changes. "
+                                              "Save changes before closing?",
+                                              n), n);
+    gtk_widget_show (priv->file_box);
+  }
+
+  g_object_set (priv->dialog, "text", title, NULL);
+
+  g_clear_pointer (&title, g_free);
+}
+
+
+DiaExitDialogResult
+dia_exit_dialog_run (DiaExitDialog  *self,
+                     GPtrArray     **items)
+{
+  DiaExitDialogPrivate *priv = dia_exit_dialog_get_instance_private (self);
+  int                   result;
+
+  result = gtk_dialog_run (GTK_DIALOG (priv->dialog));
+
+  *items = NULL;
+
+  if (result == DIA_EXIT_DIALOG_SAVE) {
+    *items = get_selected_items (self);
+  } else if (result != DIA_EXIT_DIALOG_QUIT &&
+             result != DIA_EXIT_DIALOG_CANCEL) {
+    result = DIA_EXIT_DIALOG_CANCEL;
+  }
+
+  return result;
+}

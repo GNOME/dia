@@ -19,51 +19,55 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef EXIT_DIALOG_H
-#define EXIT_DIALOG_H
+#pragma once
 
 #include <gtk/gtk.h>
 
+#include "diagram.h"
+
+
 G_BEGIN_DECLS
 
-enum {
-  EXIT_DIALOG_EXIT_NO_SAVE,
-  EXIT_DIALOG_EXIT_SAVE_SELECTED,
-  EXIT_DIALOG_EXIT_CANCEL
-};
 
-GtkWidget *
-exit_dialog_make (GtkWindow * parent_window,
-                  gchar *     title);
-
-void
-exit_dialog_add_item (GtkWidget      *dialog,
-                      const char     *name,
-                      const char     *filepath,
-                      const gpointer  optional_data);
+/**
+ * DiaExitDialogResult:
+ * @DIA_EXIT_DIALOG_SAVE: The selectd diagrams should be saved, then quit
+ * @DIA_EXIT_DIALOG_CANCEL: Don't quit, don't save
+ * @DIA_EXIT_DIALOG_QUIT: Close anyway, loosing changes
+ *
+ * Since: 0.98
+ */
+typedef enum /*< enum,prefix=DIA >*/
+{
+  DIA_EXIT_DIALOG_SAVE,   /*< nick=save >*/
+  DIA_EXIT_DIALOG_CANCEL, /*< nick=cancel >*/
+  DIA_EXIT_DIALOG_QUIT,   /*< nick=quit >*/
+} DiaExitDialogResult;
 
 
 typedef struct {
-  char     *name;
-  char     *path;
-  gpointer  data;
-} exit_dialog_item_t;
+  char    *name;
+  char    *path;
+  Diagram *data;
+} DiaExitDialogItem;
 
 
-typedef struct
-{
-  size_t               array_size;
-  exit_dialog_item_t * array;
+struct _DiaExitDialog {
+  GObject parent;
+};
 
-} exit_dialog_item_array_t;
 
-gint
-exit_dialog_run (GtkWidget * dialog,
-                 exit_dialog_item_array_t ** items_to_save);
+#define DIA_TYPE_EXIT_DIALOG dia_exit_dialog_get_type ()
+G_DECLARE_FINAL_TYPE (DiaExitDialog, dia_exit_dialog, DIA, EXIT_DIALOG, GObject)
 
-void exit_dialog_free_items (exit_dialog_item_array_t *);
+
+DiaExitDialog       *dia_exit_dialog_new      (GtkWindow      *parent);
+void                 dia_exit_dialog_add_item (DiaExitDialog  *self,
+                                               const char     *name,
+                                               const char     *filepath,
+                                               Diagram        *diagram);
+DiaExitDialogResult  dia_exit_dialog_run      (DiaExitDialog  *self,
+                                               GPtrArray     **items);
+
 
 G_END_DECLS
-
-#endif
-

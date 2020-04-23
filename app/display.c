@@ -47,6 +47,8 @@
 #include "recent_files.h"
 #include "filedlg.h"
 #include "dia-layer.h"
+#include "exit_dialog.h"
+
 
 static GdkCursor *current_cursor = NULL;
 
@@ -1167,97 +1169,81 @@ ddisp_destroy (DDisplay *ddisp)
 }
 
 
-static void
-are_you_sure_close_dialog_respond (GtkWidget *widget, /* the dialog */
-                                   gint       response_id,
-                                   gpointer   user_data) /* the display */
-{
-  DDisplay *ddisp = (DDisplay *)user_data;
-  gboolean close_ddisp = TRUE;
-
-  switch (response_id) {
-  case GTK_RESPONSE_YES :
-    /* save changes */
-    if (ddisp->diagram->unsaved) {
-      /* we have to open the file dlg, close this one first */
-      gtk_widget_destroy(widget);
-      if (file_save_as(ddisp->diagram, ddisp))
-        ddisp_destroy (ddisp);
-      /* no way back */
-      return;
-    } else {
-      DiaContext *ctx = dia_context_new (_("Save"));
-      if (!diagram_save(ddisp->diagram, ddisp->diagram->filename, ctx))
-        close_ddisp = FALSE;
-      dia_context_release (ctx);
-    }
-    if (close_ddisp) /* saving succeeded */
-      recent_file_history_add(ddisp->diagram->filename);
-
-    /* fall through */
-  case GTK_RESPONSE_NO :
-    if (close_ddisp)
-      ddisp_destroy (ddisp);
-    /* fall through */
-  case GTK_RESPONSE_CANCEL :
-  case GTK_RESPONSE_NONE :
-  case GTK_RESPONSE_DELETE_EVENT : /* closing via window manager */
-    gtk_widget_destroy(widget);
-    break;
-  default :
-    g_assert_not_reached();
-  }
-}
-
 void
 ddisplay_close (DDisplay *ddisp)
 {
   Diagram *dia;
-  GtkWidget *dialog, *button;
-  gchar *fname;
+  DiaExitDialog *dialog;
+  DiaExitDialogResult res;
+  GPtrArray *items = NULL;
+  char *fname;
+  char *path;
+  GFile *file;
+  gboolean close_ddisp = TRUE;
 
-  g_return_if_fail(ddisp != NULL);
+  g_return_if_fail (ddisp != NULL);
 
   dia = ddisp->diagram;
 
-  if ( (g_slist_length(dia->displays) > 1) ||
-       (!diagram_is_modified(dia)) ) {
-    ddisp_destroy(ddisp);
+  if ((g_slist_length (dia->displays) > 1) || (!diagram_is_modified (dia))) {
+    ddisp_destroy (ddisp);
     return;
   }
 
-  fname = dia->filename;
-  if (!fname)
-    fname = _("<unnamed>");
+  file = dia_diagram_get_file (dia);
 
-  dialog = gtk_message_dialog_new(GTK_WINDOW (ddisp->shell),
-                                  GTK_DIALOG_MODAL,
-                                  GTK_MESSAGE_QUESTION,
-                                  GTK_BUTTONS_NONE, /* no standard buttons */
-				  _("Closing diagram without saving"));
-  gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
-    _("The diagram '%s'\n"
-      "has not been saved. Save changes now?"), fname);
-  gtk_window_set_title (GTK_WINDOW(dialog), _("Close Diagram"));
+  if (file) {
+    fname = g_file_get_basename (file);
+    path = g_file_get_path (file);
+  } else {
+    fname = g_strdup (_("Unsaved Diagram"));
+    path = NULL;
+  }
 
-  button = gtk_button_new_with_mnemonic (_("_Cancel"));
-  gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_CANCEL);
+  dialog = dia_exit_dialog_new (GTK_WINDOW (ddisp->shell));
+  dia_exit_dialog_add_item (dialog, fname, path, dia);
 
-  button = gtk_button_new_with_mnemonic (_("_Discard Changes"));
-  gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_NO);
+  res = dia_exit_dialog_run (dialog, &items);
 
-  /* button = gtk_button_new_with_label (_("Save and Close")); */
-  button = gtk_button_new_with_mnemonic (_("_Save"));
-  gtk_dialog_add_action_widget (GTK_DIALOG(dialog), button, GTK_RESPONSE_YES);
-  gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
-  gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_YES);
+  g_clear_object (&dialog);
+  g_clear_pointer (&items, g_ptr_array_unref);
 
-  g_signal_connect (G_OBJECT (dialog), "response",
-		    G_CALLBACK(are_you_sure_close_dialog_respond),
-		    ddisp);
+  g_clear_pointer (&fname, g_free);
+  g_clear_pointer (&path, g_free);
 
-  gtk_widget_show_all(dialog);
+  switch (res) {
+    case DIA_EXIT_DIALOG_SAVE:
+      /* save changes */
+      if (ddisp->diagram->unsaved) {
+        if (file_save_as (ddisp->diagram, ddisp)) {
+          ddisp_destroy (ddisp);
+        }
+        /* no way back */
+        return;
+      } else {
+        DiaContext *ctx = dia_context_new (_("Save"));
+        if (!diagram_save (ddisp->diagram, ddisp->diagram->filename, ctx)) {
+          close_ddisp = FALSE;
+        }
+        dia_context_release (ctx);
+      }
+
+      if (close_ddisp) {
+        /* saving succeeded */
+        recent_file_history_add(ddisp->diagram->filename);
+      }
+
+    case DIA_EXIT_DIALOG_QUIT:
+      if (close_ddisp) {
+        ddisp_destroy (ddisp);
+      }
+    case DIA_EXIT_DIALOG_CANCEL:
+      break;
+    default:
+      g_return_if_reached ();
+  }
 }
+
 
 void
 display_update_menu_state(DDisplay *ddisp)

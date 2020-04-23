@@ -889,56 +889,60 @@ app_exit (void)
 
   if (diagram_modified_exists()) {
     if (is_integrated_ui ()) {
-      GtkWidget                *dialog;
-      int                       result;
-      exit_dialog_item_array_t *items  = NULL;
-      GList *                   diagrams;
-      Diagram *                 diagram;
+      DiaExitDialog *dialog;
+      int            result;
+      GPtrArray     *items  = NULL;
+      GList         *diagrams;
+      Diagram       *diagram;
 
-      dialog = exit_dialog_make (GTK_WINDOW (interface_get_toolbox_shell ()),
-                                 _("Exiting Dia"));
+      dialog = dia_exit_dialog_new (GTK_WINDOW (interface_get_toolbox_shell ()));
 
       diagrams = dia_open_diagrams ();
       while (diagrams) {
         diagram = diagrams->data;
 
         if (diagram_is_modified (diagram)) {
-          const gchar * name = diagram_get_name (diagram);
-          const gchar * path = diagram->filename;
-          exit_dialog_add_item (dialog, name, path, diagram);
+          const char *name = diagram_get_name (diagram);
+          const char *path = diagram->filename;
+          dia_exit_dialog_add_item (dialog, name, path, diagram);
         }
 
         diagrams = g_list_next (diagrams);
       }
 
-      result = exit_dialog_run (dialog, &items);
+      result = dia_exit_dialog_run (dialog, &items);
 
-      gtk_widget_destroy (dialog);
+      g_clear_object (&dialog);
 
-      if (result == EXIT_DIALOG_EXIT_CANCEL) {
+      if (result == DIA_EXIT_DIALOG_CANCEL) {
         return FALSE;
-      } else if (result == EXIT_DIALOG_EXIT_SAVE_SELECTED) {
-        DiaContext *ctx = dia_context_new(_("Save"));
-        int i;
-        for (i = 0; i < items->array_size; i++) {
-          gchar *filename;
+      } else if (result == DIA_EXIT_DIALOG_SAVE) {
+        DiaContext *ctx = dia_context_new (_("Save"));
 
-          diagram  = items->array[i].data;
-          filename = g_filename_from_utf8 (diagram->filename, -1, NULL, NULL, NULL);
-          diagram_update_extents (diagram);
+        for (int i = 0; i < items->len; i++) {
+          DiaExitDialogItem *item = g_ptr_array_index (items, i);
+          char *filename;
+
+          filename = g_filename_from_utf8 (item->data->filename, -1, NULL, NULL, NULL);
+          diagram_update_extents (item->data);
           dia_context_set_filename (ctx, filename);
-          if (!diagram_save (diagram, filename, ctx)) {
-            exit_dialog_free_items (items);
+
+          if (!diagram_save (item->data, filename, ctx)) {
             dia_context_release (ctx);
+
+            g_clear_pointer (&filename, g_free);
+            g_clear_pointer (&items, g_ptr_array_unref);
+
             return FALSE;
           } else {
             dia_context_reset (ctx);
           }
+
           g_clear_pointer (&filename, g_free);
         }
+
         dia_context_release (ctx);
-        exit_dialog_free_items (items);
-      } else if (result == EXIT_DIALOG_EXIT_NO_SAVE) {
+      } else if (result == DIA_EXIT_DIALOG_QUIT) {
         diagrams = dia_open_diagrams ();
         while (diagrams) {
           diagram = diagrams->data;
@@ -949,6 +953,8 @@ app_exit (void)
           diagrams = g_list_next (diagrams);
         }
       }
+
+      g_clear_pointer (&items, g_ptr_array_unref);
     } else {
       GtkWidget *dialog;
       GtkWidget *button;
