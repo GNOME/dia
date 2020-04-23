@@ -33,6 +33,7 @@
 enum {
   COL_ATTR_TITLE,
   COL_ATTR_ATTR,
+  COL_ATTR_UNDERLINE,
   N_COLS
 };
 
@@ -66,14 +67,17 @@ update_attribute (UMLClassDialog *dialog,
                   UMLAttribute   *attr,
                   GtkTreeIter    *iter)
 {
+  PangoUnderline underline;
   char *title;
 
+  underline = attr->class_scope ? PANGO_UNDERLINE_SINGLE : PANGO_UNDERLINE_NONE;
   title = uml_attribute_get_string (attr);
 
   gtk_list_store_set (dialog->attributes_store,
                       iter,
                       COL_ATTR_ATTR, attr,
                       COL_ATTR_TITLE, title,
+                      COL_ATTR_UNDERLINE, underline,
                       -1);
 
   g_clear_pointer (&title, g_free);
@@ -561,7 +565,8 @@ _attributes_create_page (GtkNotebook *notebook, UMLClass *umlclass)
 
   prop_dialog->attributes_store = gtk_list_store_new (N_COLS,
                                                       G_TYPE_STRING,
-                                                      DIA_UML_TYPE_ATTRIBUTE);
+                                                      DIA_UML_TYPE_ATTRIBUTE,
+                                                      PANGO_TYPE_UNDERLINE);
   prop_dialog->attributes = gtk_tree_view_new_with_model (GTK_TREE_MODEL (prop_dialog->attributes_store));
   gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (prop_dialog->attributes), FALSE);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (prop_dialog->attributes),
@@ -579,6 +584,8 @@ _attributes_create_page (GtkNotebook *notebook, UMLClass *umlclass)
                                                      renderer,
                                                      "text",
                                                      COL_ATTR_TITLE,
+                                                     "underline",
+                                                     COL_ATTR_UNDERLINE,
                                                      NULL);
   gtk_tree_view_append_column (GTK_TREE_VIEW (prop_dialog->attributes),
                                column);
