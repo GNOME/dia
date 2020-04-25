@@ -178,6 +178,7 @@ EXPORTS
  data_render_paginated
  data_select
  data_set_active_layer
+ dia_diagram_data_get_active_layer
  data_string
  data_text
  data_unselect
