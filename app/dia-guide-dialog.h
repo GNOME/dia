@@ -29,6 +29,7 @@ G_BEGIN_DECLS
 G_DECLARE_DERIVABLE_TYPE (DiaGuideDialog, dia_guide_dialog, DIA, GUIDE_DIALOG, GtkDialog)
 
 struct _DiaGuideDialogClass {
+  /*< private >*/
   GtkDialogClass parent;
 };
 

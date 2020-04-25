@@ -423,55 +423,83 @@ diagram_destroy(Diagram *dia)
   g_clear_object (&dia);
 }
 
-/** Returns true if we consider the diagram modified.
+
+/**
+ * diagram_is_modified:
+ * @dia: the #Diagram
+ *
+ * Returns: %TRUE if we consider the diagram modified.
+ *
+ * Since: dawn-of-time
  */
 gboolean
-diagram_is_modified(Diagram *dia)
+diagram_is_modified (Diagram *dia)
 {
-  return dia->mollified || !undo_is_saved(dia->undo);
+  return dia->mollified || !undo_is_saved (dia->undo);
 }
 
-/** We might just have change the diagrams modified status.
+
+/**
+ * diagram_modified:
+ * @dia: the #Diagram
+ *
+ * We might just have change the diagrams modified status.
+ *
  * This doesn't set the status, but merely updates the display.
+ *
+ * Since: dawn-of-time
  */
 void
-diagram_modified(Diagram *dia)
+diagram_modified (Diagram *dia)
 {
   GSList *displays;
-  gchar *dia_name = diagram_get_name(dia);
-  gchar *extra = g_path_get_dirname (dia->filename);
-  gchar *title = g_strdup_printf ("%s%s (%s)", diagram_is_modified(dia) ? "*" : "", dia_name, extra ? extra : " ");
+  char *dia_name = diagram_get_name (dia);
+  char *extra = g_path_get_dirname (dia->filename);
+  char *title = g_strdup_printf ("%s%s (%s)",
+                                 diagram_is_modified (dia) ? "*" : "",
+                                 dia_name,
+                                 extra ? extra : " ");
 
   g_clear_pointer (&dia_name, g_free);
   g_clear_pointer (&extra, g_free);
+
   displays = dia->displays;
   while (displays!=NULL) {
     DDisplay *ddisp = (DDisplay *) displays->data;
 
-    ddisplay_set_title(ddisp, title);
+    ddisplay_set_title (ddisp, title);
 
-    displays = g_slist_next(displays);
+    displays = g_slist_next (displays);
   }
-  if (diagram_is_modified(dia)) {
+
+  if (diagram_is_modified (dia)) {
     dia->autosaved = FALSE;
     dia->is_default = FALSE;
   }
-  /*  diagram_set_modified(dia, TRUE);*/
+
+  /* diagram_set_modified(dia, TRUE); */
   g_clear_pointer (&title, g_free);
 }
 
-/** Set this diagram explicitly modified.  This should not be called
+
+/**
+ * diagram_set_modified:
+ * @dia: the #Diagram
+ * @modified: the new state
+ *
+ * Set this diagram explicitly modified.  This should not be called
  * by things that change the undo stack, as those modifications are
  * noticed through changes in the undo stack.
+ *
+ * Since: dawn-of-time
  */
 void
-diagram_set_modified(Diagram *dia, int modified)
+diagram_set_modified (Diagram *dia, gboolean modified)
 {
-  if (dia->mollified != modified)
-  {
+  if (dia->mollified != modified) {
     dia->mollified = modified;
   }
-  diagram_modified(dia);
+  diagram_modified (dia);
 }
 
 /* ************ Functions that check for menu sensitivity ********* */
@@ -517,8 +545,15 @@ diagram_selected_any_children(Diagram *dia) {
   return FALSE;
 }
 
-/** This is slightly more complex -- must see if any non-parented objects
+
+/**
+ * diagram_selected_can_parent:
+ * @dia: the #Diagram
+ *
+ * This is slightly more complex -- must see if any non-parented objects
  * are within a parenting object.
+ *
+ * Since: dawn-of-time
  */
 static gboolean
 diagram_selected_can_parent(Diagram *dia) {
@@ -836,14 +871,20 @@ diagram_unselect_objects(Diagram *dia, GList *obj_list)
   g_signal_emit_by_name (dia, "selection_changed", g_list_length (dia->data->selected));
 }
 
-/** Make a single object selected.
+
+/**
+ * diagram_select:
+ * @diagram: the #Diagram that the object belongs to (sorta redundant now)
+ * @obj: the object that should be made selected.
+ *
+ * Make a single object selected.
  * Note that an object inside a closed group cannot be made selected, nor
  * can an object in a non-active layer.
- * @param diagram The diagram that the object belongs to (sorta redundant now)
- * @param obj The object that should be made selected.
+ *
+ * Since: dawn-of-time
  */
 void
-diagram_select(Diagram *diagram, DiaObject *obj)
+diagram_select (Diagram *diagram, DiaObject *obj)
 {
   if (dia_object_is_selectable(obj)) {
     data_select(diagram->data, obj);
@@ -1378,11 +1419,19 @@ diagram_get_sorted_selected(Diagram *dia)
   return data_get_sorted_selected(dia->data);
 }
 
-/** Remove the currently selected objects from the diagram's object list.
- * Returns a newly created list of the selected objects, in order.
+
+/**
+ * diagram_get_sorted_selected_remove:
+ * @dia: the #Diagram
+ *
+ * Remove the currently selected objects from the diagram's object list.
+ *
+ * Returns: a newly created list of the selected objects, in order.
+ *
+ * Since: dawn-of-time
  */
 GList *
-diagram_get_sorted_selected_remove(Diagram *dia)
+diagram_get_sorted_selected_remove (Diagram *dia)
 {
   diagram_modified(dia);
 
@@ -1523,17 +1572,28 @@ diagram_place_down_selected (Diagram *dia)
 }
 
 
-/** Returns a string with a 'sensible' (human-readable) name for the
- * diagram.  The string should be freed after use.
+/**
+ * diagram_get_name:
+ * @dia: the #Diagram
+ *
+ * Get the 'sensible' (human-readable) name for the
+ * diagram.
+ *
  * This name may or may not be the same as the filename.
+ *
+ * Returns: A newly allocated string
+ *
+ * Since: dawn-of-time
  */
-gchar *
-diagram_get_name(Diagram *dia)
+char *
+diagram_get_name (Diagram *dia)
 {
-  return g_path_get_basename(dia->filename);
+  return g_path_get_basename (dia->filename);
 }
 
-int diagram_modified_exists(void)
+
+int
+diagram_modified_exists (void)
 {
   GList *list;
   Diagram *dia;

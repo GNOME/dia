@@ -29,6 +29,7 @@ G_BEGIN_DECLS
 G_DECLARE_DERIVABLE_TYPE (DiaLayerProperties, dia_layer_properties, DIA, LAYER_PROPERTIES, GtkDialog)
 
 struct _DiaLayerPropertiesClass {
+  /*< private >*/
   GtkDialogClass parent;
 };
 

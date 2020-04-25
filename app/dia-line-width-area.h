@@ -20,9 +20,11 @@
 
 #include <gtk/gtk.h>
 
+#ifndef __GTK_DOC_IGNORE__
 #ifndef EVENT_APTR
 #define EVENT_APTR
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkEventBox, g_object_unref)
+#endif
 #endif
 
 #define DIA_TYPE_LINE_WIDTH_AREA (dia_line_width_area_get_type ())

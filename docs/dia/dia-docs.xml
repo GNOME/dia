@@ -92,7 +92,6 @@
     <xi:include href="xml/dynamic_obj.xml"/>
     <xi:include href="xml/path-math.xml"/>
     <xi:include href="xml/text.xml"/>
-    <xi:include href="xml/diacellrendererproperty.xml"/>
     <xi:include href="xml/pattern.xml"/>
     <xi:include href="xml/diacontext.xml"/>
     <xi:include href="xml/element.xml"/>
@@ -102,7 +101,6 @@
     <xi:include href="xml/filter.xml"/>
     <xi:include href="xml/poly_conn.xml"/>
     <xi:include href="xml/units.xml"/>
-    <xi:include href="xml/diadynamicmenu.xml"/>
     <xi:include href="xml/polyshape.xml"/>
     <xi:include href="xml/utils.xml"/>
     <xi:include href="xml/dia-enums.xml"/>
@@ -116,6 +114,11 @@
     <xi:include href="xml/prop_attr.xml"/>
     <xi:include href="xml/prop_basic.xml"/>
     <xi:include href="xml/diamarshal.xml"/>
+    <xi:include href="xml/paper.xml"/>
+    <xi:include href="xml/dia-simple-list.xml"/>
+    <xi:include href="xml/dia-arrow-cell-renderer.xml"/>
+    <xi:include href="xml/dia-line-cell-renderer.xml"/>
+    <xi:include href="xml/dia-colour-cell-renderer.xml"/>
   </part>
 
   <chapter id="object-tree">
@@ -131,6 +134,11 @@
   <index id="api-index-0.98">
     <title>API added in 0.98</title>
     <xi:include href="xml/api-index-0.98.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-dawn-of-time">
+    <title>API added before 0.98</title>
+    <xi:include href="xml/api-index-dawn-of-time.xml"><xi:fallback /></xi:include>
   </index>
 
   <index id="deprecated-api-index" role="deprecated">

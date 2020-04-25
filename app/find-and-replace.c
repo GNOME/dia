@@ -523,11 +523,17 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
   gtk_widget_show_all (vbox);
 }
 
+
 /**
- * React to <Display>/Edit/Find
+ * edit_find_callback:
+ * @action: the #GtkAction
+ *
+ * React to `<Display>/Edit/Find`
+ *
+ * Since: dawn-of-time
  */
 void
-edit_find_callback(GtkAction *action)
+edit_find_callback (GtkAction *action)
 {
   DDisplay *ddisp;
   GtkWidget *dialog;
@@ -552,8 +558,14 @@ edit_find_callback(GtkAction *action)
   gtk_dialog_run (GTK_DIALOG (dialog));
 }
 
+
 /**
- * React to <Display>/Edit/Replace
+ * edit_replace_callback:
+ * @action: the #GtkAction
+ *
+ * React to `<Display>/Edit/Replace`
+ *
+ * Since: dawn-of-time
  */
 void
 edit_replace_callback(GtkAction *action)

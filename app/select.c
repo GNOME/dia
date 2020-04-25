@@ -103,14 +103,21 @@ select_invert_callback (GtkAction *action)
 
 }
 
-/** Select objects that are directly connected to the currently selected
+
+/**
+ * select_connected_callback:
+ * @action: the #GtkAction
+ *
+ * Select objects that are directly connected to the currently selected
  * objects, but only in the active layer.
+ *
+ * Since: dawn-of-time
  */
 void
-select_connected_callback(GtkAction *action)
+select_connected_callback (GtkAction *action)
 {
   Diagram *dia;
-  DDisplay * ddisp = ddisplay_active();
+  DDisplay * ddisp = ddisplay_active ();
   GList *objects, *tmp;
 
   if (!ddisp || textedit_mode(ddisp)) return;
@@ -197,13 +204,20 @@ select_transitively(Diagram *dia, DiaObject *obj)
   }
 }
 
-/** Select objects that are in any way connected with a currently selected
+
+/**
+ * select_transitive_callback:
+ * @action: the #GtkAction
+ *
+ * Select objects that are in any way connected with a currently selected
  * object, but only in the active layer.
+ *
+ * Since: dawn-of-time
  */
 void
-select_transitive_callback(GtkAction *action)
+select_transitive_callback (GtkAction *action)
 {
-  DDisplay *ddisp = ddisplay_active();
+  DDisplay *ddisp = ddisplay_active ();
   Diagram *dia;
   GList *objects, *tmp;
 

@@ -258,39 +258,66 @@ undo_clear(UndoStack *stack)
   undo_update_menus(stack);
 }
 
-/** Make updates to menus associated with undo.
- *  Currently just changes sensitivity, but should in the future also
- *  include changing the labels.
+
+/**
+ * undo_update_menus:
+ * @stack: the #UndoStack
+ *
+ * Make updates to menus associated with undo.
+ *
+ * Currently just changes sensitivity, but should in the future also
+ * include changing the labels.
+ *
+ * Since: dawn-of-time
  */
 void
-undo_update_menus(UndoStack *stack)
+undo_update_menus (UndoStack *stack)
 {
-  ddisplay_do_update_menu_sensitivity(ddisplay_active());
+  ddisplay_do_update_menu_sensitivity (ddisplay_active ());
 }
 
-/** Marks the undo stack at the time of a save.
+
+/**
+ * undo_mark_save:
+ * @stack: the #UndoStack
+ *
+ * Marks the undo stack at the time of a save.
  */
 void
-undo_mark_save(UndoStack *stack)
+undo_mark_save (UndoStack *stack)
 {
   stack->last_save = stack->current_change;
 }
 
-/** Returns true if the diagram is undo-wise in the same state as at
- * last save, i.e. the current change is the same as it was at last save.
+
+/**
+ * undo_is_saved:
+ * @stack: the #UndoStack
+ *
+ * Returns: %TRUE if the diagram is undo-wise in the same state as at last
+ *          save, i.e. the current change is the same as it was at last save.
  */
 gboolean
-undo_is_saved(UndoStack *stack)
+undo_is_saved (UndoStack *stack)
 {
   return stack->last_save == stack->current_change;
 }
 
-/** Returns TRUE if there is an undo or redo item available in the stack.
- * If undo is true, returns TRUE if there's something to undo, otherwise
- * returns TRUE if there's something to redo.
+
+/**
+ * undo_available:
+ * @stack: the #UndoStack
+ * @undo: /shrug
+ *
+ * If @undo is %TRUE, returns %TRUE if there's something to undo, otherwise
+ * returns %TRUE if there's something to redo.
+ *
+ * Returns: %TRUE if there is an undo or redo item available in the stack.
+ *
+ * Since: dawn-of-time
  */
 gboolean
-undo_available(UndoStack *stack, gboolean undo)
+undo_available (UndoStack *stack, gboolean undo)
 {
   if (undo) {
     return stack->current_change != NULL;
@@ -1013,7 +1040,10 @@ dia_object_change_change_new (Diagram      *dia,
 
 /******** Group object list: */
 
-/** Grouping and ungrouping are two subtly different changes:  While
+/**
+ * DiaGroupObjectsChange:
+ *
+ * Grouping and ungrouping are two subtly different changes:  While
  * ungrouping preserves the front/back position, grouping cannot do that,
  * since the act of grouping destroys positions for the members of the
  * group, and those positions have to be restored in the undo.

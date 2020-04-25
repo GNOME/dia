@@ -30,6 +30,7 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkVBox, g_object_unref)
 G_DECLARE_DERIVABLE_TYPE (DiaLayerEditor, dia_layer_editor, DIA, LAYER_EDITOR, GtkVBox)
 
 struct _DiaLayerEditorClass {
+  /*< private >*/
   GtkVBoxClass parent;
 };
 

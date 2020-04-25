@@ -42,6 +42,7 @@
     <xi:include href="xml/dia-line-width-area.xml" />
     <xi:include href="xml/diapagelayout.xml" />
     <xi:include href="xml/dia-props.xml" />
+    <xi:include href="xml/app_procs.xml" />
     <xi:include href="xml/disp_callbacks.xml" />
     <xi:include href="xml/display.xml" />
     <xi:include href="xml/dynamic_refresh.xml" />
@@ -56,8 +57,9 @@
     <xi:include href="xml/interface.xml" />
     <chapter id="layer-editor">
         <title>Layer Editor</title>
-        <xi:include href="xml/dia-layer-editor.xml" />
         <xi:include href="xml/dia-layer-widget.xml" />
+        <xi:include href="xml/dia-layer-list.xml" />
+        <xi:include href="xml/dia-layer-editor.xml" />
         <xi:include href="xml/dia-layer-editor-dialog.xml" />
         <xi:include href="xml/dia-layer-properties.xml" />
         <xi:include href="xml/layer_dialog.xml" />
@@ -65,7 +67,6 @@
     <xi:include href="xml/load_save.xml" />
     <xi:include href="xml/menus.xml" />
     <xi:include href="xml/navigation.xml" />
-    <xi:include href="xml/object_index.sgml" />
     <xi:include href="xml/object_ops.xml" />
     <xi:include href="xml/pagesetup.xml" />
     <xi:include href="xml/plugin-manager.xml" />
@@ -112,6 +113,11 @@
   <index id="api-index-0.98">
     <title>API added in 0.98</title>
     <xi:include href="xml/api-index-0.98.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-dawn-of-time">
+    <title>API from dawn of time</title>
+    <xi:include href="xml/api-index-dawn-of-time.xml"><xi:fallback /></xi:include>
   </index>
 
   <index id="deprecated-api-index" role="deprecated">

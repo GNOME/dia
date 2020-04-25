@@ -31,6 +31,7 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkDialog, g_object_unref)
 G_DECLARE_DERIVABLE_TYPE (DiaDiagramPropertiesDialog, dia_diagram_properties_dialog, DIA, DIAGRAM_PROPERTIES_DIALOG, GtkDialog)
 
 struct _DiaDiagramPropertiesDialogClass {
+  /*< private >*/
   GtkDialogClass parent;
 };
 

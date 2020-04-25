@@ -408,7 +408,8 @@ modify_double_click(ModifyTool *tool, GdkEventButton *event,
 
 #define MIN_PIXELS 10
 
-/** Makes sure that objects aren't accidentally moved when double-clicking
+/*
+ * Makes sure that objects aren't accidentally moved when double-clicking
  * for properties.  Objects do not move unless double click time has passed
  * or the move is 'significant'.  Allowing the 'significant' move makes a
  * regular grab-and-move less jerky.

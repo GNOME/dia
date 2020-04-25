@@ -126,19 +126,24 @@ selection_changed (Diagram *dia, int n, DDisplay *ddisp)
 }
 
 
-/** Initialize the various GTK-level thinks in a display after the internal
- *  data has been set.
- * @param ddisp A display with all non-GTK/GDK items set.
+/**
+ * initialize_display_widgets:
+ * @ddisp: A #DDisplay with all non-GTK/GDK items set.
+ *
+ * Initialize the various GTK-level thinks in a display after the internal
+ * data has been set.
+ *
+ * Since: dawn-of-time
  */
 static void
-initialize_display_widgets(DDisplay *ddisp)
+initialize_display_widgets (DDisplay *ddisp)
 {
   Diagram *dia = ddisp->diagram;
-  gchar *filename;
+  char *filename;
 
   g_return_if_fail (dia && dia->filename);
 
-  ddisp->im_context = gtk_im_multicontext_new();
+  ddisp->im_context = gtk_im_multicontext_new ();
   g_signal_connect (G_OBJECT (ddisp->im_context), "commit",
                     G_CALLBACK (ddisplay_im_context_commit), ddisp);
   ddisp->preedit_string = NULL;
@@ -147,40 +152,49 @@ initialize_display_widgets(DDisplay *ddisp)
                     ddisp);
   ddisp->preedit_attrs = NULL;
 
-  filename = strrchr(dia->filename, G_DIR_SEPARATOR);
+  filename = strrchr (dia->filename, G_DIR_SEPARATOR);
   if (filename==NULL) {
     filename = dia->filename;
   } else {
     filename++;
   }
-  create_display_shell(ddisp, prefs.new_view.width, prefs.new_view.height,
-		       filename, prefs.new_view.use_menu_bar);
+
+  create_display_shell (ddisp,
+                        prefs.new_view.width,
+                        prefs.new_view.height,
+                        filename,
+                        prefs.new_view.use_menu_bar);
 
   ddisplay_update_statusbar (ddisp);
 
-  ddisplay_set_cursor(ddisp, current_cursor);
+  ddisplay_set_cursor (ddisp, current_cursor);
 }
 
-/** Make a copy of an existing display.  The original does not need to have
- *  the various GTK-related fields initialized, and so can just have been read
- *  from a savefile.
- *  Note that size and position are not handled here yet, but taken from prefs.
- * @param A display object with non-GTK/GDK fields initialized (same fields as
- *  new_display initializes before calling initialize_display_widgets()).
- * @returns A newly allocated display, inserted into the diagram list, with
- *  same basic layout as the original.
+
+/**
+ * copy_display:
+ * @orig_ddisp: the #DDisplay to copy
+ *
+ * Make a copy of an existing display. The original does not need to have
+ * the various GTK-related fields initialized, and so can just have been read
+ * from a savefile.
+ *
+ * Returns: A newly allocated #DDisplay, inserted into the diagram list, with
+ *          same basic layout as the original.
+ *
+ * Since: dawn-of-time
  */
 DDisplay *
-copy_display(DDisplay *orig_ddisp)
+copy_display (DDisplay *orig_ddisp)
 {
   DDisplay *ddisp;
   Diagram *dia = orig_ddisp->diagram;
 
-  ddisp = g_new0(DDisplay,1);
+  ddisp = g_new0 (DDisplay,1);
 
   ddisp->diagram = orig_ddisp->diagram;
   /* Every display has its own reference */
-  g_object_ref(dia);
+  g_object_ref (dia);
 
   ddisp->grid = orig_ddisp->grid;
 
@@ -207,9 +221,15 @@ copy_display(DDisplay *orig_ddisp)
 }
 
 
-/** Create a new display for a diagram, using prefs settings.
- * @param dia Otherwise initialize diagram to create a display for.
- * @returns A newly created display.
+/**
+ * new_display:
+ * @dia: #Diagram the #DDisplay is for
+ *
+ * Create a new display for a diagram, using prefs settings.
+ *
+ * Returns: A newly created display.
+ *
+ * Since: dawn-of-time
  */
 DDisplay *
 new_display(Diagram *dia)
@@ -386,16 +406,23 @@ ddisplay_free_update_areas (DDisplay *ddisp)
 }
 
 
-/** Marks the entire visible area for update.
+/**
+ * ddisplay_add_update_all:
+ * @ddisp: the #DDisplay
+ *
+ * Marks the entire visible area for update.
  * Throws out old updates, since everything will be updated anyway.
+ *
+ * Since: dawn-of-time
  */
 void
-ddisplay_add_update_all(DDisplay *ddisp)
+ddisplay_add_update_all (DDisplay *ddisp)
 {
   if (ddisp->update_areas != NULL) {
-    ddisplay_free_update_areas(ddisp);
+    ddisplay_free_update_areas (ddisp);
   }
-  ddisplay_add_update(ddisp, &ddisp->visible);
+
+  ddisplay_add_update (ddisp, &ddisp->visible);
 }
 
 
@@ -1035,11 +1062,14 @@ ddisplay_present_object (DDisplay *ddisp, DiaObject *obj)
 
 
 /**
+ * ddisplay_set_clicked_point:
  * @ddisp: the #DDisplay
  * @x: the x position
  * @y: the y position
  *
  * Remember the last clicked point given in pixel coodinates
+ *
+ * Since: dawn-of-time
  */
 void
 ddisplay_set_clicked_point (DDisplay *ddisp, int x, int y)
@@ -1054,7 +1084,7 @@ ddisplay_set_clicked_point (DDisplay *ddisp, int x, int y)
 
 /**
  * ddisplay_get_clicked_position:
- * @ddisp: the #DDisp
+ * @ddisp: the #DDisplay
  *
  * Get the last clicked point in diagram coordinates
  */
@@ -1417,60 +1447,78 @@ ddisplay_set_cursor(DDisplay *ddisp, GdkCursor *cursor)
     gdk_window_set_cursor(gtk_widget_get_window(ddisp->canvas), cursor);
 }
 
-/** Returns whether the rulers are currently showing on the display.
+
+/**
+ * display_get_rulers_showing:
+ * @ddisp: the #DDisplay
+ *
+ * Returns: whether the rulers are currently showing on the display.
  */
-gboolean display_get_rulers_showing(DDisplay *ddisp) {
+gboolean
+display_get_rulers_showing (DDisplay *ddisp) {
   return ddisp->rulers_are_showing;
 }
 
 
 /**
+ * display_rulers_show:
+ * @ddisp: The #DDisplay to show the rulers on.
+ *
  * Shows the rulers and sets flag ddisp->rulers_are_showing.  This
  * is needed to detect whether a show() has been issued.  There is a
  * delay between the time that gtk_widget_show() is called and the time
  * when GTK_WIDGET_IS_VISIBLE(w) will indicate true.
- * @param ddisp The display to show the rulers on.
+ *
+ * Since: dawn-of-time
  */
-void display_rulers_show (DDisplay *ddisp)
+void
+display_rulers_show (DDisplay *ddisp)
 {
-  if (ddisp)
-  {
+  if (ddisp) {
     GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (ddisp->origin));
 
     gtk_widget_show (ddisp->origin);
     gtk_widget_show (ddisp->hrule);
     gtk_widget_show (ddisp->vrule);
 
-    if (gtk_widget_get_visible (parent))
+    if (gtk_widget_get_visible (parent)) {
       gtk_widget_queue_resize (parent);
+    }
 
     ddisp->rulers_are_showing = TRUE;
   }
 }
 
+
 /**
- * Hides the rulers and resets the flag ddisp->rulers_are_showing.  This
- * is needed to detect whether a hide() has been issued.  There is a
+ * display_rulers_hide:
+ * @ddisp: The #DDisplay to hide the rulers on.
+ *
+ * Hides the rulers and resets the flag ddisp->rulers_are_showing. This
+ * is needed to detect whether a hide() has been issued. There is a
  * delay between the time that gtk_widget_hide() is called and the time
  * when GTK_WIDGET_IS_VISIBLE(w) will indicate false.
- * @param ddisp The display to hide the rulers on.
+ *
+ * Since: dawn-of-time
  */
-void display_rulers_hide (DDisplay *ddisp)
+void
+display_rulers_hide (DDisplay *ddisp)
 {
-  if (ddisp)
-  {
+  if (ddisp) {
     GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (ddisp->origin));
 
     gtk_widget_hide (ddisp->origin);
     gtk_widget_hide (ddisp->hrule);
     gtk_widget_hide (ddisp->vrule);
 
-    if (gtk_widget_get_visible (parent))
+    if (gtk_widget_get_visible (parent)) {
       gtk_widget_queue_resize (parent);
+    }
 
     ddisp->rulers_are_showing = FALSE;
   }
 }
+
 
 void
 ddisplay_update_statusbar(DDisplay *ddisp)
@@ -1566,15 +1614,21 @@ ddisplay_im_context_preedit_reset(DDisplay *ddisp, Focus *focus)
   g_clear_pointer (&ddisp->preedit_attrs, pango_attr_list_unref);
 }
 
-/** Get the active focus for the given display, or NULL.
+
+/**
+ * ddisplay_active_focus:
+ * @ddisp: #DDisplay to get active focus for. This display need not be the
+ *         currently active display.
  *
- * @param ddisp Display to get active focus for.  This display need not
- *              be the currently active display.
- * @returns The focus that is active for the given display, or NULL if no
+ * Get the active focus for the given display, or %NULL.
+ *
+ * Returns: The focus that is active for the given display, or %NULL if no
  *          focus is active (i.e. no text is being edited).
+ *
+ * Since: dawn-of-time
  */
 Focus *
-ddisplay_active_focus(DDisplay *ddisp)
+ddisplay_active_focus (DDisplay *ddisp)
 {
   /* The functions doing the transition rely on this being slightly
    * out of sync with get_active_focus(). But we would not need the
@@ -1583,20 +1637,25 @@ ddisplay_active_focus(DDisplay *ddisp)
   return ddisp ? ddisp->active_focus : NULL;
 }
 
-/** Set the currently active focus for this display.  This field should be
- *  set to non-null when a text is being edited and to null when no text
- *  is being edited.  Only textedit.c really needs to call this function.
+
+/**
+ * ddisplay_set_active_focus:
+ * @ddisp: The display to set active focus for.
+ * @focus: The focus that should be active for this display. May be %NULL,
+ *         indicating that no text is currently being edited on this display.
  *
- * @param ddisp The display to set active focus for.
- * @param focus The focus that should be active for this display.  May be
- *              NULL, indicating that no text is currently being edited on
- *              this display.
+ * Set the currently active focus for this display. This field should be
+ * set to non-%NULL when a text is being edited and to %NULL when no text
+ * is being edited.  Only textedit.c really needs to call this function.
+ *
+ * Since: dawn-of-time
  */
 void
-ddisplay_set_active_focus(DDisplay *ddisp, Focus *focus)
+ddisplay_set_active_focus (DDisplay *ddisp, Focus *focus)
 {
   ddisp->active_focus = focus;
 }
+
 
 void
 ddisplay_show_all (DDisplay *ddisp)

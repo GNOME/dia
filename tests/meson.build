@@ -4,8 +4,8 @@ run_env_dict = {
     'DIA_LIB_PATH'   : [meson.build_root() / 'objects',
                         meson.build_root() / 'plug-ins'],
     'DIA_SHAPE_PATH' : [meson.source_root() / 'shapes'],
-    'DIA_XSLT_PATH'  : [meson.source_root() / 'plug-ins' / 'xslt')],
-    'DIA_PYTHON_PATH': [meson.source_root() / 'plug-ins' / 'python')],
+    'DIA_XSLT_PATH'  : [meson.source_root() / 'plug-ins' / 'xslt'],
+    'DIA_PYTHON_PATH': [meson.source_root() / 'plug-ins' / 'python'],
     'DIA_SHEET_PATH' : [meson.build_root() / 'sheets'],
 }
 

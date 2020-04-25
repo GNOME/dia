@@ -63,7 +63,10 @@ struct _Diagram {
 };
 
 typedef struct _DiagramClass {
+  /*< private >*/
   DiagramDataClass parent_class;
+
+  /*< public >*/
 
   /* signals */
   void (* removed)           (Diagram*);

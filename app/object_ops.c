@@ -66,20 +66,27 @@ object_add_updates_list(GList *list, Diagram *dia)
   }
 }
 
-/** Find a connectionpoint sufficiently close to the given point.
+
+/**
+ * object_find_connectpoint_display:
+ * @ddisp: The display to search
+ * @pos: A position in the display, typically mouse position
+ * @notthis: If not null, an object to ignore (typically the object
+ *           connecting)
+ * @snap_to_objects: Whether snapping to objects should be in effect
+ *                   in this call (anded to the display-wide setting).
  *
- * @param ddisp The display to search
- * @param pos A position in the display, typically mouse position
- * @param notthis If not null, an object to ignore (typically the object
- * connecting)
- * @param snap_to_objects Whether snapping to objects should be in effect
- * in this call (anded to the display-wide setting).
+ * Find a connectionpoint sufficiently close to the given point.
+ *
+ * Since: dawn-of-time
  */
 ConnectionPoint *
-object_find_connectpoint_display(DDisplay *ddisp, Point *pos,
-				 DiaObject *notthis, gboolean snap_to_objects)
+object_find_connectpoint_display (DDisplay  *ddisp,
+                                  Point     *pos,
+                                  DiaObject *notthis,
+                                  gboolean   snap_to_objects)
 {
-  real distance;
+  double distance;
   ConnectionPoint *connectionpoint;
   GList *avoid = NULL;
   DiaObject *obj_here;

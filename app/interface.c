@@ -146,25 +146,31 @@ dia_dnd_file_drag_data_received (GtkWidget        *widget,
 
 static GtkWidget *toolbox_shell = NULL;
 
-static struct
-{
-    GtkWindow    * main_window;
-    GtkToolbar   * toolbar;
-    GtkNotebook  * diagram_notebook;
-    GtkStatusbar * statusbar;
-    GtkWidget    * layer_view;
+static struct {
+  GtkWindow    *main_window;
+  GtkToolbar   *toolbar;
+  GtkNotebook  *diagram_notebook;
+  GtkStatusbar *statusbar;
+  GtkWidget    *layer_view;
 } ui;
 
+
 /**
- * Used to determine if the current user interface is the integrated interface or
- * the distributed interface.  This cannot presently be determined by the preferences
- * setting because changing that setting at run time does not change the interface.
- * @return Non-zero if the integrated interface is present, else zero.
+ * is_integrated_ui:
+ *
+ * Used to determine if the current user interface is the integrated interface
+ * or the distributed interface.  This cannot presently be determined by the
+ * preferences setting because changing that setting at run time does not
+ * change the interface.
+ *
+ * Returns: %TRUE if the integrated interface is present, else %FALSE.
  */
-int is_integrated_ui (void)
+int
+is_integrated_ui (void)
 {
-  return ui.main_window == NULL? 0 : 1;
+  return ui.main_window == NULL ? FALSE : TRUE;
 }
+
 
 static void
 grid_toggle_snap(GtkWidget *widget, gpointer data)
@@ -368,20 +374,25 @@ display_data_received_callback (GtkWidget *widget,
   gtk_window_present(GTK_WINDOW(ddisp->shell));
 }
 
+
 /**
- * @param button The notebook close button.
- * @param user_data Container widget (e.g. VBox).
+ * close_notebook_page_callback:
+ * @button: The notebook close button.
+ * @user_data: Container widget (e.g. VBox).
+ *
+ * Since: dawn-of-time
  */
 void
 close_notebook_page_callback (GtkButton *button,
                               gpointer   user_data)
 {
-  GtkBox      *page     = user_data;
-  DDisplay    *ddisp    = g_object_get_data (G_OBJECT (page), "DDisplay");
+  GtkBox *page = user_data;
+  DDisplay *ddisp = g_object_get_data (G_OBJECT (page), "DDisplay");
 
   /* When the page widget is destroyed it removes itself from the notebook */
   ddisplay_close (ddisp);
 }
+
 
 static void
 notebook_switch_page (GtkNotebook *notebook,
@@ -640,12 +651,16 @@ _ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *table, gboolean top_left
     ddisp->origin = g_object_ref (navigation_button);
 }
 
+
 /**
- * @param ddisp The diagram display object that a window is created for
- * @param title
+ * use_integrated_ui_for_display_shell:
+ * @ddisp: The diagram #DDisplay object that a window is created for
+ * @title: the title
+ *
+ * Since: dawn-of-time
  */
 static void
-use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
+use_integrated_ui_for_display_shell (DDisplay *ddisp, char *title)
 {
   GtkWidget *table;
   GtkWidget *label;                /* Text label for the notebook page */
@@ -756,17 +771,23 @@ use_integrated_ui_for_display_shell(DDisplay *ddisp, char *title)
   gtk_widget_grab_focus (ddisp->canvas);
 }
 
+
 /**
- * @param ddisp The diagram display object that a window is created for
- * @param width Diagram widgth
- * @param height Diagram Height
- * @param title Window title
- * @param use_mbar Flag to indicate whether to add a menubar to the window
+ * create_display_shell:
+ * @ddisp: The diagram display object that a window is created for
+ * @width: Diagram widgth
+ * @height: Diagram Height
+ * @title: Window title
+ * @use_mbar: Flag to indicate whether to add a menubar to the window
+ *
+ * Since: dawn-of-time
  */
 void
-create_display_shell(DDisplay *ddisp,
-		     int width, int height,
-		     char *title, int use_mbar)
+create_display_shell (DDisplay *ddisp,
+                      int       width,
+                      int       height,
+                      char     *title,
+                      int       use_mbar)
 {
   GtkWidget *table, *widget;
   GtkWidget *status_hbox;
@@ -962,27 +983,34 @@ create_display_shell(DDisplay *ddisp,
   gtk_widget_grab_focus (ddisp->canvas);
 }
 
+
 /**
+ * ddisplay_update_rulers:
+ * @ddisp: The #DDisplay to hide the rulers on.
+ * @extents: the diagram extents
+ * @visible: the visible area
+ *
  * Adapt the rulers to current field of view
  *
- * @param ddisp The display to hide the rulers on.
+ * Since: dawn-of-time
  */
 void
 ddisplay_update_rulers (DDisplay           *ddisp,
                         const DiaRectangle *extents,
                         const DiaRectangle *visible)
 {
-  dia_ruler_set_range  (ddisp->hrule,
-			visible->left,
-			visible->right,
-			0.0f /* position*/,
-			MAX(extents->right, visible->right)/* max_size*/);
-  dia_ruler_set_range  (ddisp->vrule,
-			visible->top,
-			visible->bottom,
-			0.0f /*        position*/,
-			MAX(extents->bottom, visible->bottom)/* max_size*/);
+  dia_ruler_set_range (ddisp->hrule,
+                       visible->left,
+                       visible->right,
+                       0.0f /* position*/,
+                       MAX (extents->right, visible->right)/* max_size*/);
+  dia_ruler_set_range (ddisp->vrule,
+                       visible->top,
+                       visible->bottom,
+                       0.0f /*        position*/,
+                       MAX (extents->bottom, visible->bottom)/* max_size*/);
 }
+
 
 static void
 toolbox_destroy (GtkWidget *widget, gpointer data)
@@ -1062,8 +1090,13 @@ _create_mac_integration (GtkWidget *menubar)
 }
 #endif
 
+
 /**
+ * create_integrated_ui:
+ *
  * Create integrated user interface
+ *
+ * Since: dawn-of-time
  */
 void
 create_integrated_ui (void)
@@ -1177,8 +1210,13 @@ create_integrated_ui (void)
   toolbox_shell = window;
 }
 
+
 /**
+ * create_toolbox:
+ *
  * Create toolbox component for distributed user interface
+ *
+ * Since: dawn-of-time
  */
 void
 create_toolbox (void)

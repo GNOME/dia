@@ -42,13 +42,20 @@ autosave_save_diagram(gpointer data)
   diagram_autosave(dia);
 }
 
-/** Makes autosave copies of the diagrams in the appropriate directory
+
+/**
+ * autosave_check_autosave:
+ * @data: unused???
+ *
+ * Makes autosave copies of the diagrams in the appropriate directory
  * This function will be called after a diagram is modified, and will
  * only save documents that are modified and not already autosaved,
  * and only at the next idle period.
+ *
+ * Since: dawn-of-time
  */
 gboolean
-autosave_check_autosave(gpointer data)
+autosave_check_autosave (gpointer data)
 {
   GList *diagrams = dia_open_diagrams();
   Diagram *diagram;

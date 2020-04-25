@@ -50,8 +50,13 @@ recent_file_history_clear_menu (void)
   menus_clear_recent ();
 }
 
+
 /**
+ * recent_file_history_make_menu:
+ *
  * Build and insert the recent files menu.
+ *
+ * Since: dawn-of-time
  */
 static void
 recent_file_history_make_menu (void)

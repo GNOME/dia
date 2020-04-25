@@ -22,9 +22,11 @@
 
 #include "color.h"
 
+#ifndef __GTK_DOC_IGNORE__
 #ifndef EVENT_APTR
 #define EVENT_APTR
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkEventBox, g_object_unref)
+#endif
 #endif
 
 #define DIA_TYPE_COLOUR_AREA (dia_colour_area_get_type ())

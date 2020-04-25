@@ -24,8 +24,10 @@
 
 #include <glib-object.h>
 
+#ifndef __GTK_DOC_IGNORE__
 // TODO: Fix the diagram.h cycle
 typedef struct _Diagram Diagram;
+#endif
 
 G_BEGIN_DECLS
 
@@ -48,6 +50,38 @@ typedef struct _DiaChangeClass DiaChangeClass;
 #define G_VALUE_HOLDS_CHANGE(value)  (G_TYPE_CHECK_VALUE_TYPE ((value), DIA_TYPE_CHANGE))
 
 
+/**
+ * DIA_DEFINE_CHANGE:
+ * @TypeName: CamelCase name of the type
+ * @type_name: python_case name of the type
+ *
+ * G_DEFINE_TYPE() wrapper for implementing #DiaChange types, however unlike
+ * G_DEFINE_TYPE() the _init and _class_init are implemented for you. Instead
+ * you provide apply, revert & free functions
+ *
+ * |[<!-- language="C" -->
+ * DIA_DEFINE_CHANGE (SomeChange, some_change)
+ *
+ * static void
+ * some_change_apply (DiaChange *change,
+ *                    Diagram   *diagram)
+ * {
+ * }
+ *
+ * static void
+ * some_change_revert (DiaChange *change,
+ *                     Diagram   *diagram)
+ * {
+ * }
+ *
+ * static void
+ * some_change_free (DiaChange *change)
+ * {
+ * }
+ * ]|
+ *
+ * Since: 0.98
+ */
 #define DIA_DEFINE_CHANGE(TypeName, type_name)                               \
   G_DEFINE_TYPE (TypeName, type_name, DIA_TYPE_CHANGE)                       \
                                                                              \

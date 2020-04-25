@@ -288,7 +288,8 @@ handle_show_layers (DiagramData *diagdata,
 
 const char *argv0 = NULL;
 
-/** Convert infname to outfname, using input filter inf and export filter
+/*
+ * Convert infname to outfname, using input filter inf and export filter
  * ef.  If either is null, try to guess them.
  * size might be NULL.
  */
@@ -426,10 +427,11 @@ app_is_interactive (void)
   return dia_is_interactive;
 }
 
-/** Handle loading of diagrams given on command line, including conversions.
- * Returns TRUE if any automatic conversions were performed.
- * Note to future hackers:  'size' is currently the only argument that can be
- * sent to exporters.  If more arguments are desired, please don't just add
+/*
+ * Handle loading of diagrams given on command line, including conversions.
+ * Returns %TRUE if any automatic conversions were performed.
+ * Note to future hackers: 'size' is currently the only argument that can be
+ * sent to exporters. If more arguments are desired, please don't just add
  * even more arguments, but create a more general system.
  */
 static gboolean

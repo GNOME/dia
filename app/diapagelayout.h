@@ -29,6 +29,13 @@ typedef struct _DiaPageLayout DiaPageLayout;
 GType      dia_page_layout_get_type    (void);
 #define DIA_PAGE_LAYOUT(obj) G_TYPE_CHECK_INSTANCE_CAST (obj, dia_page_layout_get_type(), DiaPageLayout)
 
+/**
+ * DiaPageOrientation:
+ * @DIA_PAGE_ORIENT_PORTRAIT: The page is portrait
+ * @DIA_PAGE_ORIENT_LANDSCAPE: The page is landscape
+ *
+ * Since: dawn-of-time
+ */
 typedef enum {
   DIA_PAGE_ORIENT_PORTRAIT,
   DIA_PAGE_ORIENT_LANDSCAPE

@@ -101,6 +101,13 @@ GHFuncUnknownObjects (gpointer key,
 
 
 /**
+ * read_objects:
+ * @objects: node to read from
+ * @objects_hash: object id -> object of read objects
+ * @ctx: the current #DiaContent
+ * @parent: the parent #DiaObject
+ * @unknown_objects_hash: objects with unknown type
+ *
  * Recursive function to read objects from a specific level in the xml.
  *
  * Nowadays there are quite a few of them :
@@ -116,13 +123,15 @@ GHFuncUnknownObjects (gpointer key,
  *   themselves. But to maintain forward compatibility (allow to let older versions
  *   of Dia to see as much as possible) they were added all on the same level and
  *   the parent child relation is reconstructed from additional attributes.
+ *
+ * Since: dawn-of-time
  */
 static GList *
-read_objects(xmlNodePtr objects,
-             GHashTable *objects_hash,
-	     DiaContext *ctx,
-	     DiaObject *parent,
-	     GHashTable *unknown_objects_hash)
+read_objects (xmlNodePtr objects,
+              GHashTable *objects_hash,
+              DiaContext *ctx,
+              DiaObject  *parent,
+              GHashTable *unknown_objects_hash)
 {
   GList *list;
   DiaObjectType *type;
@@ -1331,14 +1340,20 @@ _autosave_in_thread (gpointer data)
   return NULL;
 }
 
-/** Absolutely autosave a diagram.
+
+/**
+ * diagram_autosave:
+ * @dia: the #Diagram
+ *
+ * Absolutely autosave a diagram.
  * Called (in the GUI thread) after a periodic check at the first idleness.
  *
+ * Since: dawn-of-time
  */
 void
-diagram_autosave(Diagram *dia)
+diagram_autosave (Diagram *dia)
 {
-  gchar *save_filename;
+  char *save_filename;
 
   /* Must check if the diagram is still valid, or Death Ensues! */
   GList *diagrams = dia_open_diagrams();

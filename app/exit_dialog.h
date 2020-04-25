@@ -45,6 +45,12 @@ typedef enum /*< enum,prefix=DIA >*/
 } DiaExitDialogResult;
 
 
+/**
+ * DiaExitDialogItem:
+ * @name: the name of the item, show in the dialogue
+ * @path: the full path of the item, show in the tooltop
+ * @data: the #Diagram itself
+ */
 typedef struct {
   char    *name;
   char    *path;

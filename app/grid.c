@@ -28,11 +28,18 @@
 #include "preferences.h"
 #include "diainteractiverenderer.h"
 
-/** Calculate the width (in cm) of the gap between grid lines in dynamic
+
+/**
+ * calculate_dynamic_grid:
+ * @ddisp: the #DDisplay
+ * @width_x: (out): the grid width x
+ * @width_y: (out): the grid width y
+ *
+ * Calculate the width (in cm) of the gap between grid lines in dynamic
  * grid mode.
  */
 static void
-calculate_dynamic_grid(DDisplay *ddisp, real *width_x, real *width_y)
+calculate_dynamic_grid (DDisplay *ddisp, double *width_x, double *width_y)
 {
   real zoom = ddisplay_untransform_length(ddisp, 1.0);
   real ret, tmp;

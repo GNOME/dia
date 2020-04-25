@@ -30,6 +30,7 @@ G_BEGIN_DECLS
 G_DECLARE_DERIVABLE_TYPE (DiaLayerEditorDialog, dia_layer_editor_dialog, DIA, LAYER_EDITOR_DIALOG, GtkDialog)
 
 struct _DiaLayerEditorDialogClass {
+  /*< private >*/
   GtkDialogClass parent;
 };
 

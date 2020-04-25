@@ -56,17 +56,25 @@ highlight_object_off(DiaObject *obj, Diagram *dia)
   data_highlight_remove(dia->data, obj);
 }
 
-/** Resets all highlighting in this layer.  Helper function for
+
+/**
+ * highlight_reset_objects:
+ * @objects: objects to reset
+ * @dia: the #Diagram
+ *
+ * Resets all highlighting in this layer. Helper function for
  * highlight_reset_all
+ *
+ * Since: dawn-of-time
  */
 static void
-highlight_reset_objects(GList *objects, Diagram *dia)
+highlight_reset_objects (GList *objects, Diagram *dia)
 {
-  for (; objects != NULL; objects = g_list_next(objects)) {
-    DiaObject *object = (DiaObject*)objects->data;
-    highlight_object_off(object, dia);
-    if (IS_GROUP(object)) {
-      highlight_reset_objects(group_objects(object), dia);
+  for (; objects != NULL; objects = g_list_next (objects)) {
+    DiaObject *object = DIA_OBJECT (objects->data);
+    highlight_object_off (object, dia);
+    if (IS_GROUP (object)) {
+      highlight_reset_objects (group_objects (object), dia);
     }
   }
 }

@@ -173,11 +173,18 @@ properties_respond(GtkWidget *widget,
   return 0;
 }
 
-/** Give focus to the first focusable widget found in `widget'.
- * @param widget Some (possibly composite) widget.
+
+/**
+ * properties_give_focus:
+ * @widget: Some (possibly composite) widget.
+ * @data: user data
+ *
+ * Give focus to the first focusable widget found in `widget'.
+ *
+ * Since: dawn-of-time
  */
 static void
-properties_give_focus(GtkWidget *widget, gpointer data)
+properties_give_focus (GtkWidget *widget, gpointer data)
 {
   if (gtk_widget_get_can_focus(widget)) {
     gtk_widget_grab_focus(widget);

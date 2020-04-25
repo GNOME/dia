@@ -24,11 +24,14 @@ enum {
 
   LAST_SIGNAL
 };
-
 static guint signals[LAST_SIGNAL] = { 0, };
 
+
 /**
- * The central place managing global state changes like (dis-)appearance of diagrams
+ * DiaApplication:
+ *
+ * The central place managing global state changes like (dis-)appearance
+ * of diagrams
  */
 struct _DiaApplication
 {

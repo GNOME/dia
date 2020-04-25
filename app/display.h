@@ -29,9 +29,11 @@ typedef struct _DDisplay DDisplay;
 
 G_BEGIN_DECLS
 
-/** Defines the pixels per cm, default is 20 pixels = 1 cm */
-/** This is close to, but not quite the same as, the physical display size
- * in most cases */
+/*
+ * Defines the pixels per cm, default is 20 pixels = 1 cm
+ * This is close to, but not quite the same as, the physical display size
+ * in most cases
+ */
 
 #define DDISPLAY_MAX_ZOOM 2000.0
 #define DDISPLAY_NORMAL_ZOOM 20.0

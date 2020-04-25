@@ -89,8 +89,10 @@ clear_item (gpointer data)
 
 
 /**
- * Gets the list of items selected for saving by the user.
+ * get_selected_items:
  * @self: the #DiaExitDialog
+ *
+ * Gets the list of items selected for saving by the user.
  *
  * Returns: The selected items.
  *
@@ -321,7 +323,7 @@ dia_exit_dialog_new (GtkWindow *parent)
  * dia_exit_dialog_add_item:
  * @self: the #DiaExitDialog
  * @name: User identifiable name of the thing which needs saving.
- * @path: File system path of the thing which needs saving.
+ * @filepath: File system path of the thing which needs saving.
  * @diagram: The unsaved #Diagram
  *
  * Add name and path of a file that needs to be saved

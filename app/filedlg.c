@@ -63,9 +63,16 @@ toggle_compress_callback(GtkWidget *widget)
     gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
 }
 
+
 /**
+ * ifilter_by_index:
+ * @index: the index of the #DiaImportFilter to get
+ * @filename: filename to guess a filter for
+ *
  * Given an import filter index and optionally a filename for fallback
  * return the import filter to use
+ *
+ * Since: dawn-of-time
  */
 static DiaImportFilter *
 ifilter_by_index (int index, const char* filename)
@@ -82,15 +89,22 @@ ifilter_by_index (int index, const char* filename)
 
 typedef void* (* FilterGuessFunc) (const gchar* filename);
 
+
 /**
+ * matching_extensions_filter:
+ * @fi: the #GtkFileFilterInfo
+ * @data: the filter function
+ *
  * Respond to the file chooser filter facility, that is match
  * the extension of a given filename to the selected filter
+ *
+ * Since: dawn-of-time
  */
 static gboolean
 matching_extensions_filter (const GtkFileFilterInfo* fi,
-                            gpointer               data)
+                            gpointer                 data)
 {
-  FilterGuessFunc guess_func = (FilterGuessFunc)data;
+  FilterGuessFunc guess_func = (FilterGuessFunc) data;
 
   g_assert (guess_func);
 
@@ -103,7 +117,12 @@ matching_extensions_filter (const GtkFileFilterInfo* fi,
   return 0;
 }
 
+
 /**
+ * diagram_removed:
+ * @dia: the #Diagram
+ * @dialog: the dialogue
+ *
  * React on the diagram::removed signal by destroying the dialog
  *
  * This function isn't used cause it conflicts with the pattern introduced:
@@ -178,11 +197,16 @@ import_adapt_extension_callback(GtkWidget *widget)
   }
 }
 
+
 /**
+ * create_open_menu:
+ *
  * Create the combobox menu to select Import Filter options
+ *
+ * Since: dawn-of-time
  */
 static GtkWidget *
-create_open_menu(void)
+create_open_menu (void)
 {
   GtkWidget *menu;
   GList *tmp;
@@ -206,19 +230,27 @@ create_open_menu(void)
   return menu;
 }
 
+
 /**
+ * file_open_response_callback:
+ * @fs: the #GtkFileChooser
+ * @response: the response
+ * @user_data: the user data
+ *
  * Respond to the user finishing the Open Dialog either accept or cancel/destroy
+ *
+ * Since: dawn-of-time
  */
 static void
-file_open_response_callback(GtkWidget *fs,
-                            gint       response,
-                            gpointer   user_data)
+file_open_response_callback (GtkWidget *fs,
+                             int        response,
+                             gpointer   user_data)
 {
   char *filename;
   Diagram *diagram = NULL;
 
   if (response == GTK_RESPONSE_ACCEPT) {
-    gint index = gtk_combo_box_get_active (GTK_COMBO_BOX(user_data));
+    int index = gtk_combo_box_get_active (GTK_COMBO_BOX (user_data));
 
     if (index >= 0) /* remember it */
       persistence_set_integer ("import-filter", index);
@@ -251,13 +283,19 @@ file_open_response_callback(GtkWidget *fs,
   gtk_widget_destroy(opendlg);
 }
 
+
 /**
+ * file_open_callback:
+ * @action: the #GtkAction
+ *
  * Handle menu click File/Open
  *
  * This is either with or without diagram
+ *
+ * Since: dawn-of-time
  */
 void
-file_open_callback(GtkAction *action)
+file_open_callback (GtkAction *action)
 {
   if (!opendlg) {
     DDisplay *ddisp;
@@ -348,8 +386,16 @@ file_open_callback(GtkAction *action)
   gtk_widget_show(opendlg);
 }
 
+
 /**
+ * file_save_as_response_callback:
+ * @fs: the #GtkFileChooser
+ * @response: the response
+ * @user_data: the user data
+ *
  * Respond to a button press (also destroy) in the save as dialog.
+ *
+ * Since: dawn-of-time
  */
 static void
 file_save_as_response_callback(GtkWidget *fs,
@@ -436,28 +482,35 @@ file_save_as_response_callback(GtkWidget *fs,
 
 static GtkWidget *file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp);
 
+
 /**
+ * file_save_as_callback:
+ * @action: the #GtkAction
+ *
  * Respond to the File/Save As.. menu
  *
  * We have only one file save dialog at a time. So if the dialog alread exists
  * and the user tries to Save as once more only the diagram refernced will
  * change. Maybe we should also indicate the refernced diagram in the dialog.
+ *
+ * Since: dawn-of-time
  */
 void
-file_save_as_callback(GtkAction *action)
+file_save_as_callback (GtkAction *action)
 {
   DDisplay  *ddisp;
   Diagram   *dia;
   GtkWidget *dlg;
 
-  ddisp = ddisplay_active();
+  ddisp = ddisplay_active ();
   if (!ddisp) return;
   dia = ddisp->diagram;
 
-  dlg = file_save_as_dialog_prepare(dia, ddisp);
+  dlg = file_save_as_dialog_prepare (dia, ddisp);
 
-  gtk_widget_show(dlg);
+  gtk_widget_show (dlg);
 }
+
 
 gboolean
 file_save_as(Diagram *dia, DDisplay *ddisp)
@@ -557,37 +610,56 @@ file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp)
   return savedlg;
 }
 
-/**
+
+/*
+ * file_save_callback:
+ * @action: the #GtkAction
+ *
  * Respond to the File/Save menu entry.
  *
  * Delegates to Save As if there is no filename set yet.
+ *
+ * Since: dawn-of-time
  */
 void
-file_save_callback(GtkAction *action)
+file_save_callback (GtkAction *action)
 {
   Diagram *diagram;
 
-  diagram = ddisplay_active_diagram();
+  diagram = ddisplay_active_diagram ();
   if (!diagram) return;
 
   if (diagram->unsaved) {
-    file_save_as_callback(action);
+    file_save_as_callback (action);
   } else {
-    gchar *filename = g_filename_from_utf8(diagram->filename, -1, NULL, NULL, NULL);
+    char *filename = g_filename_from_utf8 (diagram->filename,
+                                           -1,
+                                           NULL,
+                                           NULL,
+                                           NULL);
     DiaContext *ctx = dia_context_new (_("Save"));
-    diagram_update_extents(diagram);
-    if (diagram_save(diagram, filename, ctx))
-      recent_file_history_add(filename);
+
+    diagram_update_extents (diagram);
+    if (diagram_save (diagram, filename, ctx)) {
+      recent_file_history_add (filename);
+    }
+
     g_clear_pointer (&filename, g_free);
+
     dia_context_release (ctx);
   }
 }
 
-/**
+
+/*
+ * efilter_by_index:
+ * @index: filter index
+ * @ext: (out): the extension of the output
+ *
  * Given an export filter index return the export filter to use
  */
 static DiaExportFilter *
-efilter_by_index (int index, const gchar** ext)
+efilter_by_index (int index, const char **ext)
 {
   DiaExportFilter *efilter = NULL;
 
@@ -596,22 +668,31 @@ efilter_by_index (int index, const gchar** ext)
   if (index >= 0) {
     efilter = g_list_nth_data (filter_get_export_filters(), index);
     if (efilter) {
-      if (ext)
+      if (ext) {
         *ext = efilter->extensions[0];
+      }
       return efilter;
-    }
-    else /* getting here means invalid index */
+    } else {
+      /* getting here means invalid index */
       g_warning ("efilter_by_index() index=%d out of range", index);
+    }
   }
 
   return efilter;
 }
 
+
 /**
+ * export_adapt_extension:
+ * @name: the filename
+ * @index: the index of the filter
+ *
  * Adapt the filename to the export filter index
+ *
+ * Since: dawn-of-time
  */
 static void
-export_adapt_extension (const gchar* name, int index)
+export_adapt_extension (const char* name, int index)
 {
   const gchar* ext = NULL;
   DiaExportFilter *efilter = efilter_by_index (index, &ext);
@@ -647,7 +728,10 @@ export_adapt_extension_callback(GtkWidget *widget)
   g_clear_pointer (&name, g_free);
 }
 
+
 /**
+ * create_export_menu:
+ *
  * Create a new "option menu" for the export options
  */
 static GtkWidget *
@@ -675,13 +759,21 @@ create_export_menu (void)
   return menu;
 }
 
+
 /**
+ * file_export_response_callback:
+ * @fs: the #GtkFileChooser
+ * @response: the response
+ * @user_data: the user data
+ *
  * A button hit in the Export Dialog
+ *
+ * Since: dawn-of-time
  */
 static void
-file_export_response_callback(GtkWidget *fs,
-                              gint       response,
-                              gpointer   user_data)
+file_export_response_callback (GtkWidget *fs,
+                               int        response,
+                               gpointer   user_data)
 {
   char *filename;
   Diagram *dia;
@@ -756,16 +848,21 @@ file_export_response_callback(GtkWidget *fs,
 
 
 /**
- * React to <Display>/File/Export
+ * file_export_callback:
+ * @action: the #GtkAction
+ *
+ * React to `<Display>/File/Export`
+ *
+ * Since: dawn-of-time
  */
 void
-file_export_callback(GtkAction *action)
+file_export_callback (GtkAction *action)
 {
   DDisplay *ddisp;
   Diagram *dia;
   gchar *filename = NULL;
 
-  ddisp = ddisplay_active();
+  ddisp = ddisplay_active ();
   if (!ddisp) return;
   dia = ddisp->diagram;
 

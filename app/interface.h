@@ -55,8 +55,6 @@ extern GtkWidget *modify_tool_button;
 
 void view_zoom_set (double zoom_factor); /* zoom_factor is 10 * percentage */
 
-void fill_sheet_menu(void);
-
 void close_notebook_page_callback (GtkButton *button, gpointer user_data);
 
 double parse_zoom (const char *zoom);

@@ -27,11 +27,14 @@ gint ddisplay_focus_out_event (GtkWidget *widget, GdkEventFocus *event,
 void ddisplay_realize (GtkWidget *widget, gpointer data);
 void ddisplay_unrealize (GtkWidget *widget, gpointer data);
 
-gint ddisplay_canvas_events (GtkWidget *, GdkEvent *, DDisplay *ddisp);
+int ddisplay_canvas_events (GtkWidget *canvas,
+                            GdkEvent  *event,
+                            DDisplay  *ddisp);
+
 void ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event);
-gint ddisplay_hsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
-gint ddisplay_vsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
-gint ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data);
+int ddisplay_hsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
+int ddisplay_vsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
+int ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data);
 void ddisplay_destroy (GtkWidget *widget, gpointer data);
 
 DiaObject *ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,

@@ -21,9 +21,16 @@
 #include <glib.h>
 
 void app_init (int argc, char **argv);
-/** Exit the application, but asking the user for confirmation
+
+/**
+ * app_exit:
+ *
+ * Exit the application, but asking the user for confirmation
  * if there are changed diagrams.
- * Returns TRUE if the application exits.
+ *
+ * Returns: %TRUE if the application exits.
+ *
+ * Since: dawn-of-time
  */
 gboolean app_exit (void);
 

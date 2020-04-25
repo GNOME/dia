@@ -661,27 +661,31 @@ _scroll_step (DDisplay *ddisp, guint keyval)
     ddisplay_flush(ddisp);
     break;
   default :
-    g_assert_not_reached  ();
+    g_assert_not_reached ();
   }
 }
 
-/** Cleanup/Remove Timeout Handler for Button Press and Hold
+
+/*
+ * Cleanup/Remove Timeout Handler for Button Press and Hold
  */
 static void
-hold_remove_handler(void)
+hold_remove_handler (void)
 {
   if (hold_data.tag != 0) {
-    g_source_remove(hold_data.tag);
+    g_source_remove (hold_data.tag);
     hold_data.tag = 0;
-    gdk_event_free(hold_data.event);
+    gdk_event_free (hold_data.event);
   }
 }
 
-/** Timeout Handler for Button Press and Hold
+
+/*
+ * Timeout Handler for Button Press and Hold
  * If this function is called, then the button must still be down,
  * indicating that the user has pressed and held the button, but not moved
  * the pointer (mouse).
- * Dynamic data is cleaned up in ddisplay_canvas_events
+ * Dynamic data is cleaned up in ddisplay_canvas_events()
  */
 static gboolean
 hold_timeout_handler(gpointer data)
@@ -695,10 +699,15 @@ hold_timeout_handler(gpointer data)
 
 /**
  * ddisplay_canvas_events:
+ * @canvas: the canvas
+ * @event: the #GdkEvent received
+ * @ddisp: the #DDisplay
  *
  * Main input handler for a diagram canvas.
+ *
+ * Since: dawn-of-time
  */
-gint
+int
 ddisplay_canvas_events (GtkWidget *canvas,
                         GdkEvent  *event,
                         DDisplay  *ddisp)
