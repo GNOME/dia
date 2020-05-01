@@ -30,19 +30,19 @@ struct DiaPreferences {
     int visible;
     int snap;
     gboolean dynamic;
-    real x;
-    real y;
+    double x;
+    double y;
     int vis_x;
     int vis_y;
     int major_lines;
     int hex;
-    real hex_size;
+    double hex_size;
   } grid;
 
   struct {
     int width;
     int height;
-    real zoom;
+    double zoom;
     int use_menu_bar;
   } new_view;
 
@@ -57,8 +57,8 @@ struct DiaPreferences {
   int reverse_rubberbanding_intersects;
   guint recent_documents_list_size;
 
-  gchar* length_unit;
-  gchar* fontsize_unit;
+  char *length_unit;
+  char *fontsize_unit;
 
   struct {
     int visible;

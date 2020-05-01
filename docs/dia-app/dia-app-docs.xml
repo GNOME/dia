@@ -64,6 +64,7 @@
         <xi:include href="xml/dia-layer-properties.xml" />
         <xi:include href="xml/layer_dialog.xml" />
     </chapter>
+    <xi:include href="xml/dia-builder.xml" />
     <xi:include href="xml/load_save.xml" />
     <xi:include href="xml/menus.xml" />
     <xi:include href="xml/navigation.xml" />

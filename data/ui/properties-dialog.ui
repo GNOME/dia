@@ -55,6 +55,7 @@
             <property name="active">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">manual</property>
+            <signal name="toggled" handler="update_sensitivity" swapped="no"/>
           </object>
           <packing>
             <property name="right_attach">2</property>
@@ -71,6 +72,7 @@
             <property name="use_underline">True</property>
             <property name="active">True</property>
             <property name="draw_indicator">True</property>
+            <signal name="toggled" handler="update_sensitivity" swapped="no"/>
           </object>
           <packing>
             <property name="right_attach">2</property>
@@ -257,6 +259,7 @@
             <property name="active">True</property>
             <property name="draw_indicator">True</property>
             <property name="group">manual</property>
+            <signal name="toggled" handler="update_sensitivity" swapped="no"/>
           </object>
           <packing>
             <property name="right_attach">2</property>

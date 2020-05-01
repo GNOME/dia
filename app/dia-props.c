@@ -30,7 +30,7 @@
 #include "widgets.h"
 #include "display.h"
 #include "undo.h"
-#include "menus.h"
+#include "dia-builder.h"
 
 
 typedef struct _DiaDiagramPropertiesDialogPrivate DiaDiagramPropertiesDialogPrivate;
@@ -264,9 +264,7 @@ dia_diagram_properties_dialog_init (DiaDiagramPropertiesDialog *self)
   DiaDiagramPropertiesDialogPrivate *priv = dia_diagram_properties_dialog_get_instance_private (self);
   GtkWidget *dialog_vbox;
   GtkWidget *notebook;
-  GError *error = NULL;
-  gchar *uifile;
-  GtkBuilder *builder;
+  DiaBuilder *builder;
 
   gtk_dialog_add_buttons (GTK_DIALOG (self),
                           _("_Close"), GTK_RESPONSE_CANCEL,
@@ -283,48 +281,34 @@ dia_diagram_properties_dialog_init (DiaDiagramPropertiesDialog *self)
                     G_CALLBACK (gtk_widget_destroyed), &self);
 
   /* Load UI */
-  builder = gtk_builder_new ();
-  uifile = build_ui_filename ("ui/properties-dialog.ui");
-  if (!gtk_builder_add_from_file (builder, uifile, &error)) {
-    g_warning ("Couldn't load builder file: %s", error->message);
-    g_clear_error (&error);
-  }
-  g_clear_pointer (&uifile, g_free);
+  builder = dia_builder_new ("ui/properties-dialog.ui");
 
-  notebook = GTK_WIDGET (gtk_builder_get_object (builder, "notebook"));
+  dia_builder_get (builder,
+                   "notebook", &notebook,
+                   /* Grid Page */
+                   "dynamic", &priv->dynamic,
+                   "manual", &priv->manual,
+                   "manual_props", &priv->manual_props,
+                   "hex", &priv->hex,
+                   "hex_props", &priv->hex_props,
+                   "spacing_x", &priv->spacing_x,
+                   "spacing_y", &priv->spacing_y,
+                   "vis_spacing_x", &priv->vis_spacing_x,
+                   "vis_spacing_y", &priv->vis_spacing_y,
+                   "hex_size", &priv->hex_size,
+                   /* The background page */
+                   "background", &priv->background,
+                   "grid_lines", &priv->grid_lines,
+                   "page_lines", &priv->page_lines,
+                   "guide_lines", &priv->guide_lines,
+                   NULL);
+
   gtk_box_pack_start (GTK_BOX (dialog_vbox), notebook, TRUE, TRUE, 0);
 
-  /* Grid Page */
-  priv->dynamic = GTK_WIDGET (gtk_builder_get_object (builder, "dynamic"));
-  g_signal_connect (G_OBJECT (priv->dynamic),
-                    "toggled",
-                    G_CALLBACK (update_sensitivity),
-                    self);
-  priv->manual = GTK_WIDGET (gtk_builder_get_object (builder, "manual"));
-  g_signal_connect (G_OBJECT (priv->manual),
-                    "toggled",
-                    G_CALLBACK (update_sensitivity),
-                    self);
-  priv->manual_props = GTK_WIDGET (gtk_builder_get_object (builder, "manual_props"));
-  priv->hex = GTK_WIDGET (gtk_builder_get_object (builder, "hex"));
-  g_signal_connect (G_OBJECT (priv->hex),
-                    "toggled",
-                    G_CALLBACK (update_sensitivity),
-                    self);
-  priv->hex_props = GTK_WIDGET (gtk_builder_get_object (builder, "hex_props"));
-
-  priv->spacing_x = GTK_ADJUSTMENT (gtk_builder_get_object (builder, "spacing_x"));
-  priv->spacing_y = GTK_ADJUSTMENT (gtk_builder_get_object (builder, "spacing_y"));
-  priv->vis_spacing_x = GTK_ADJUSTMENT (gtk_builder_get_object (builder, "vis_spacing_x"));
-  priv->vis_spacing_y = GTK_ADJUSTMENT (gtk_builder_get_object (builder, "vis_spacing_y"));
-  priv->hex_size = GTK_ADJUSTMENT (gtk_builder_get_object (builder, "hex_size"));
-
-  /* The background page */
-
-  priv->background = GTK_WIDGET (gtk_builder_get_object (builder, "background"));
-  priv->grid_lines = GTK_WIDGET (gtk_builder_get_object (builder, "grid_lines"));
-  priv->page_lines = GTK_WIDGET (gtk_builder_get_object (builder, "page_lines"));
-  priv->guide_lines = GTK_WIDGET (gtk_builder_get_object (builder, "guide_lines"));
+  dia_builder_connect (builder,
+                       self,
+                       "update_sensitivity", G_CALLBACK (update_sensitivity),
+                       NULL);
 
   g_clear_object (&builder);
 }

@@ -11,6 +11,9 @@ dia_sources = [
     'dia-change.h',
     'object_ops.c',
 
+    'dia-builder.c',
+    'dia-builder.h',
+
     'layer-editor/dia-layer-list.c',
     'layer-editor/dia-layer-list.h',
     'layer-editor/dia-layer-widget.c',
@@ -102,7 +105,6 @@ diaapp_lib = both_libraries('diaapp',
                             dia_sources + [diamarshal_h, config_h],
                             dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep, gtk_mac_dep],
                             link_args: dia_link_args,
-                            export_dynamic: true,  # some plugins require this.
                             include_directories: [configuration_inc])
 
 diaapp_dep = declare_dependency (sources: [config_h],

@@ -42,6 +42,8 @@
 #include "objchange.h"
 #include "toolbox.h"
 #include "diagram_tree.h"
+#include "dia-builder.h"
+
 
 #define DIA_STOCK_GROUP "dia-stock-group"
 #define DIA_STOCK_UNGROUP "dia-stock-ungroup"
@@ -62,8 +64,6 @@ static void plugin_callback (GtkWidget *widget, gpointer data);
 static GtkWidget *create_integrated_ui_toolbar (void);
 
 static void add_plugin_actions (GtkUIManager *ui_manager, const char *base_path);
-
-gchar *build_ui_filename (const gchar* name);
 
 /* Active/inactive state is set in diagram_update_menu_sensitivity()
  * in diagram.c */
@@ -351,9 +351,12 @@ load_accels (void)
   }
 }
 
+
 /**
+ * integrated_ui_toolbar_object_snap_synchronize_to_display:
+ * @param: #DDisplay to synchronize to.
+ *
  * Synchronized the Object snap property button with the display.
- * @param param Display to synchronize to.
  */
 void
 integrated_ui_toolbar_object_snap_synchronize_to_display (gpointer param)
@@ -369,8 +372,12 @@ integrated_ui_toolbar_object_snap_synchronize_to_display (gpointer param)
 
 
 /**
+ * integrated_ui_toolbar_guides_snap_synchronize_to_display:
+ * @param: #DDisplay to synchronize to.
+ *
  * Synchronized the snap-to-guide property button with the display.
- * @param param Display to synchronize to.
+ *
+ * Since: dawn-of-time
  */
 void
 integrated_ui_toolbar_guides_snap_synchronize_to_display (gpointer param)
@@ -386,9 +393,13 @@ integrated_ui_toolbar_guides_snap_synchronize_to_display (gpointer param)
 
 
 /**
+ * integrated_ui_toolbar_object_snap_toggle:
+ * @b: Object snap toggle button.
+ * @not_used: unused
+ *
  * Sets the Object-snap property for the active display.
- * @param b Object snap toggle button.
- * @param not_used
+ *
+ * Since: dawn-of-time
  */
 static void
 integrated_ui_toolbar_object_snap_toggle (GtkToggleButton *b,
@@ -402,12 +413,16 @@ integrated_ui_toolbar_object_snap_toggle (GtkToggleButton *b,
 
 
 /**
+ * integrated_ui_toolbar_guide_snap_toggle:
+ * @b: Guide snap toggle button.
+ * @not_used: unused
+ *
  * Sets the Guide-snap property for the active display.
- * @param b Guide snap toggle button.
- * @param not_used
+ *
+ * Since: dawn-of-time
  */
 static void
-integrated_ui_toolbar_guide_snap_toggle(GtkToggleButton *b, gpointer *not_used)
+integrated_ui_toolbar_guide_snap_toggle (GtkToggleButton *b, gpointer *not_used)
 {
   DDisplay *ddisp = ddisplay_active ();
   if (ddisp) {
@@ -417,8 +432,12 @@ integrated_ui_toolbar_guide_snap_toggle(GtkToggleButton *b, gpointer *not_used)
 
 
 /**
+ * integrated_ui_toolbar_grid_snap_synchronize_to_display:
+ * @param: #DDisplay to synchronize to.
+ *
  * Synchronizes the Snap-to-grid property button with the display.
- * @param param Display to synchronize to.
+ *
+ * Since: dawn-of-time
  */
 void
 integrated_ui_toolbar_grid_snap_synchronize_to_display (gpointer param)
@@ -432,10 +451,15 @@ integrated_ui_toolbar_grid_snap_synchronize_to_display (gpointer param)
   }
 }
 
+
 /**
+ * integrated_ui_toolbar_grid_snap_toggle:
+ * @b: Snap to grid toggle button.
+ * @not_used: unused
+ *
  * Sets the Snap-to-grid property for the active display.
- * @param b Snap to grid toggle button.
- * @param not_used
+ *
+ * Since: dawn-of-time
  */
 static void
 integrated_ui_toolbar_grid_snap_toggle (GtkToggleButton *b, gpointer *not_used)
@@ -446,13 +470,18 @@ integrated_ui_toolbar_grid_snap_toggle (GtkToggleButton *b, gpointer *not_used)
   }
 }
 
+
 /**
+ * integrated_ui_toolbar_set_zoom_text:
+ * @toolbar: Integrated UI toolbar.
+ * @text: Current zoom percentage for the active window
+ *
  * Sets the zoom text for the toolbar
- * @param toolbar Integrated UI toolbar.
- * @param text Current zoom percentage for the active window
+ *
+ * Since: dawn-of-time
  */
 void
-integrated_ui_toolbar_set_zoom_text (GtkToolbar *toolbar, const gchar * text)
+integrated_ui_toolbar_set_zoom_text (GtkToolbar *toolbar, const char * text)
 {
   if (toolbar) {
     GtkComboBox *combo_entry = g_object_get_data (G_OBJECT (toolbar),
@@ -466,11 +495,16 @@ integrated_ui_toolbar_set_zoom_text (GtkToolbar *toolbar, const gchar * text)
   }
 }
 
+
 /**
+ * integrated_ui_toolbar_add_custom_item:
+ * @toolbar: The #GtkToolbar to add the widget to.
+ * @w: The widget to add to the @toolbar.
+ *
  * Adds a widget to the toolbar making sure that it doesn't take any excess space, and
  * vertically centers it.
- * @param toolbar The toolbar to add the widget to.
- * @param w       The widget to add to the toolbar.
+ *
+ * Since: dawn-of-time
  */
 static void
 integrated_ui_toolbar_add_custom_item (GtkToolbar *toolbar, GtkWidget *w)
@@ -574,9 +608,15 @@ ensure_menu_path (GtkUIManager   *ui_manager,
   return id;
 }
 
+
 /**
+ * create_integrated_ui_toolbar:
+ *
  * Create the toolbar for the integrated UI
- * @return Main toolbar (GtkToolbar*) for the integrated UI main window
+ *
+ * Returns: Main toolbar #GtkToolbar for the integrated UI main window
+ *
+ * Since: dawn-of-time
  */
 static GtkWidget *
 create_integrated_ui_toolbar (void)
@@ -589,7 +629,7 @@ create_integrated_ui_toolbar (void)
   GError       *error = NULL;
   gchar        *uifile;
 
-  uifile = build_ui_filename ("ui/toolbar-ui.xml");
+  uifile = dia_builder_path ("ui/toolbar-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (_ui_manager, uifile, &error)) {
     g_critical ("building menus failed: %s", error->message);
     g_clear_error (&error);
@@ -901,35 +941,6 @@ register_stock_icons (void)
   g_clear_object (&factory);
 }
 
-gchar*
-build_ui_filename (const gchar* name)
-{
-  gchar* uifile;
-
-  if (g_getenv ("DIA_BASE_PATH") != NULL) {
-    uifile = g_build_filename (g_getenv ("DIA_BASE_PATH"), "data", name, NULL);
-  } else
-    uifile = dia_get_data_directory (name);
-
-  return uifile;
-}
-
-GtkBuilder *
-builder_new_from_file (const char *filename)
-{
-  GError *error = NULL;
-  gchar *uifile;
-  GtkBuilder *builder;
-
-  builder = gtk_builder_new ();
-  uifile = build_ui_filename (filename);
-  if (!gtk_builder_add_from_file (builder, uifile, &error)) {
-    g_warning ("Couldn't load builder file: %s", error->message);
-    g_clear_error (&error);
-  }
-  g_clear_pointer (&uifile, g_free);
-  return builder;
-}
 
 /*!
  * Not sure why this service is not provided by GTK+.
@@ -1056,7 +1067,7 @@ menus_init(void)
   initialise = FALSE;
   _setup_global_actions ();
 
-  uifile = build_ui_filename ("ui/toolbox-ui.xml");
+  uifile = dia_builder_path ("ui/toolbox-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (_ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
     g_clear_error (&error);
@@ -1078,7 +1089,7 @@ menus_init(void)
     g_clear_error (&error);
   }
 
-  uifile = build_ui_filename ("ui/popup-ui.xml");
+  uifile = dia_builder_path ("ui/popup-ui.xml");
   /* TODO it would be more elegant if we had only one definition of the
    * menu hierarchy and merge it into a popup somehow. */
   if (!gtk_ui_manager_add_ui_from_file (display_ui_manager, uifile, &error)) {
@@ -1123,7 +1134,7 @@ menus_get_integrated_ui_menubar (GtkWidget     **menubar,
   tool_actions = create_or_ref_tool_actions ();
   gtk_ui_manager_insert_action_group (_ui_manager, tool_actions, 0);
 
-  uifile = build_ui_filename ("ui/integrated-ui.xml");
+  uifile = dia_builder_path ("ui/integrated-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (_ui_manager, uifile, &error)) {
     g_warning ("building integrated ui menus failed: %s", error->message);
     g_clear_error (&error);
@@ -1198,7 +1209,7 @@ menus_create_display_menubar (GtkUIManager   **ui_manager,
   gtk_ui_manager_insert_action_group (*ui_manager, tool_actions, 0);
   g_clear_object (&tool_actions);
 
-  uifile = build_ui_filename ("ui/display-ui.xml");
+  uifile = dia_builder_path ("ui/display-ui.xml");
   if (!gtk_ui_manager_add_ui_from_file (*ui_manager, uifile, &error)) {
     g_warning ("building menus failed: %s", error->message);
     g_clear_error (&error);
