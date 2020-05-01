@@ -51,7 +51,7 @@
 #include "object.h"
 #include "message.h"
 #include "preferences.h"
-#include "diapagelayout.h"
+#include "dia-page-layout.h"
 #include "autosave.h"
 #include "display.h"
 #include "dia-layer.h"

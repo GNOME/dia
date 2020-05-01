@@ -15,15 +15,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef PREFERENCES_H
-#define PREFERENCES_H
 
+#pragma once
+
+#include <gtk/gtk.h>
+
+#include "dia-autoptr.h"
 #include "diatypes.h"
 #include "diagramdata.h"
-
-#define DEFAULT_GRID_COLOR { 0.85, .90, .90, 1.0 }
-#define DEFAULT_PAGEBREAK_COLOR { 0.0, 0.0, 0.6, 1.0 }
-#define DEFAULT_GUIDE_COLOR { 0.0, 1.0, 0.0, 1.0 }
+#include "units.h"
 
 struct DiaPreferences {
   struct {
@@ -57,15 +57,10 @@ struct DiaPreferences {
   int reverse_rubberbanding_intersects;
   guint recent_documents_list_size;
 
-  char *length_unit;
-  char *fontsize_unit;
-
   struct {
     int visible;
     int solid;
   } pagebreak;
-
-  int fixed_icon_size;
 
   int toolbox_on_top;
 
@@ -88,9 +83,9 @@ struct DiaPreferences {
 
 extern struct DiaPreferences prefs;
 
-void prefs_show(void);
-void prefs_set_defaults(void);
-void prefs_save(void);
-void prefs_init(void);
+void dia_preferences_init (void);
 
-#endif /* PREFERENCES_H */
+#define DIA_TYPE_PREFERENCES_DIALOG dia_preferences_dialog_get_type ()
+G_DECLARE_FINAL_TYPE (DiaPreferencesDialog, dia_preferences_dialog, DIA, PREFERENCES_DIALOG, GtkDialog)
+
+void dia_preferences_dialog_show (void);

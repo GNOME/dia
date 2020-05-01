@@ -21,12 +21,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-#ifdef HAVE_STDDEF_H
-#include <stddef.h>
-#endif
 
 #include <gtk/gtk.h>
 
@@ -42,775 +36,1066 @@
 #include "lib/prefs.h"
 #include "persistence.h"
 #include "filter.h"
+#include "dia-builder.h"
+#include "units.h"
 
-#ifdef G_OS_WIN32
-#include <io.h> /* open, close */
-#endif
+
+enum {
+  COL_NAME,
+  COL_UNIT,
+  N_COLS,
+};
+
 
 struct DiaPreferences prefs;
 
-enum DiaPrefType {
-  PREF_NONE,
-  PREF_BOOLEAN,
-  PREF_INT,
-  PREF_UINT,
-  PREF_REAL,
-  PREF_UREAL,
-  PREF_COLOUR,
-  PREF_CHOICE,
-  PREF_STRING,
-  PREF_END_GROUP
+
+struct _DiaPreferencesDialog {
+  /*< private >*/
+  GtkDialog parent;
+
+  GtkWidget *gl_dynamic;
+  GtkWidget *gl_manual;
+  GtkWidget *manual_props;
+  GtkWidget *gl_hex;
+  GtkWidget *gl_hex_size;
 };
 
-typedef struct _DiaPrefData {
-  char *name;
-  enum DiaPrefType type;
-  int offset;
-  const void *default_value;
-  int tab;
-  char *label_text;
-  GtkWidget *widget;
-  gboolean hidden;
-  GList *(*choice_list_function)(struct _DiaPrefData *pref);
-  /** A function to call after a preference item has been updated. */
-  void (*update_function)(struct _DiaPrefData *pref, gpointer ptr);
-  const char *key;
-} DiaPrefData;
 
-static void update_floating_toolbox(DiaPrefData *pref, gpointer ptr);
-static void update_internal_prefs(DiaPrefData *pref, gpointer ptr);
+G_DEFINE_TYPE (DiaPreferencesDialog, dia_preferences_dialog, GTK_TYPE_DIALOG)
 
-static int default_true = 1;
-static int default_false = 0;
-static int default_int_vis_x = 1;
-static int default_int_vis_y = 1;
-static int default_major_lines = 5;
-static real default_real_one = 1.0;
-static real default_real_zoom = 100.0;
-static int default_int_w = 500;
-static int default_int_h = 400;
-static int default_undo_depth = 15;
-static guint default_recent_documents = 5;
-static Color default_colour = DEFAULT_GRID_COLOR;
-static Color pbreak_colour = DEFAULT_PAGEBREAK_COLOR;
-static Color guide_colour = DEFAULT_GUIDE_COLOR;
-static const gchar *default_paper_name = NULL;
-static const gchar *default_length_unit = "Centimeter";
-static const gchar *default_fontsize_unit = "Point";
-static guint default_snap_distance = 10;
-
-static const char *default_favored_filter = N_("any");
-
-struct DiaPrefsTab {
-  char *title;
-  GtkTable *table;
-  int row;
-};
-
-typedef enum {
-  UI_TAB,
-  DIA_TAB,
-  VIEW_TAB,
-  FAVOR_TAB,
-  GRID_TAB
-} TabIndex;
-
-struct DiaPrefsTab prefs_tabs[] =
-{
-  {N_("User Interface"), NULL, 0},
-  {N_("Diagram Defaults"), NULL, 0},
-  {N_("View Defaults"), NULL, 0},
-  {N_("Favorites"), NULL, 0},
-  {N_("Grid Lines"), NULL, 0},
-};
-
-#define NUM_PREFS_TABS (sizeof(prefs_tabs)/sizeof(struct DiaPrefsTab))
-
-static GList *
-_get_units_name_list(DiaPrefData *pref)
-{
-  g_return_val_if_fail(pref->key == NULL, NULL);
-  return get_units_name_list();
-}
-static GList *
-_get_paper_name_list(DiaPrefData *pref)
-{
-  g_return_val_if_fail(pref->key == NULL, NULL);
-  return get_paper_name_list();
-}
-static GList *
-get_exporter_names (DiaPrefData *pref)
-{
-  GList *list = filter_get_unique_export_names(pref->key);
-  list = g_list_prepend (list, N_("any"));
-  return list;
-}
 
 static void
-set_favored_exporter (DiaPrefData *pref, gpointer ptr)
+dia_preferences_dialog_response (GtkDialog *dialog, int response)
 {
-  char *val = *((gchar **)ptr);
-  filter_set_favored_export(pref->key, val);
-}
+  diagram_redraw_all ();
 
-/* retrive a structure offset */
-#ifdef offsetof
-#define PREF_OFFSET(field)        ((int) offsetof (struct DiaPreferences, field))
-#else /* !offsetof */
-#define PREF_OFFSET(field)        ((int) ((char*) &((struct DiaPreferences *) 0)->field))
-#endif /* !offsetof */
-
-DiaPrefData prefs_data[] =
-{
-  { "reset_tools_after_create", PREF_BOOLEAN, PREF_OFFSET(reset_tools_after_create),
-    &default_true, UI_TAB, N_("Reset tools after create") },
-
-  { "undo_depth",               PREF_UINT,    PREF_OFFSET(undo_depth),
-    &default_undo_depth, UI_TAB, N_("Number of undo levels:") },
-
-  { "reverse_rubberbanding_intersects", PREF_BOOLEAN, PREF_OFFSET(reverse_rubberbanding_intersects),
-    &default_true, UI_TAB, N_("Reverse dragging selects\nintersecting objects") },
-
-  { "recent_documents_list_size", PREF_UINT, PREF_OFFSET(recent_documents_list_size),
-    &default_recent_documents, 0, N_("Recent documents list size:") },
-
-  { "use_menu_bar", PREF_BOOLEAN, PREF_OFFSET(new_view.use_menu_bar),
-    &default_true, UI_TAB, N_("Use menu bar") },
-
-  { "toolbox_on_top", PREF_BOOLEAN, PREF_OFFSET(toolbox_on_top),
-    &default_false, UI_TAB, N_("Keep tool box on top of diagram windows"),
-    NULL, FALSE, NULL, update_floating_toolbox},
-  { "length_unit", PREF_CHOICE, PREF_OFFSET(length_unit),
-    &default_length_unit, UI_TAB, N_("Length unit:"), NULL, FALSE,
-    _get_units_name_list, update_internal_prefs },
-  { "fontsize_unit", PREF_CHOICE, PREF_OFFSET(fontsize_unit),
-    &default_fontsize_unit, UI_TAB, N_("Font size unit:"), NULL, FALSE,
-    _get_units_name_list, update_internal_prefs },
-  { "snap_distance", PREF_UINT, PREF_OFFSET(snap_distance),
-    &default_snap_distance, 0, N_("Guide snapping distance:") },
-
-  { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("New diagram:") },
-  { "is_portrait", PREF_BOOLEAN, PREF_OFFSET(new_diagram.is_portrait), &default_true, DIA_TAB, N_("Portrait") },
-  { "new_diagram_papertype", PREF_CHOICE, PREF_OFFSET(new_diagram.papertype),
-    &default_paper_name, DIA_TAB, N_("Paper type:"), NULL, FALSE, _get_paper_name_list },
-  { "new_diagram_bgcolour", PREF_COLOUR, PREF_OFFSET(new_diagram.bg_color),
-    &color_white, DIA_TAB, N_("Background Color:") },
-  { "compress_save",            PREF_BOOLEAN, PREF_OFFSET(new_diagram.compress_save),
-    &default_true, DIA_TAB, N_("Compress saved files") },
-  { NULL, PREF_END_GROUP, 0, NULL, DIA_TAB, NULL },
-
-  { NULL, PREF_NONE, 0, NULL, DIA_TAB, N_("Connection Points:") },
-  { "show_cx_pts", PREF_BOOLEAN, PREF_OFFSET(show_cx_pts), &default_true, DIA_TAB, N_("Visible") },
-  { "snap_object", PREF_BOOLEAN, PREF_OFFSET(snap_object), &default_true, DIA_TAB, N_("Snap to object") },
-  { NULL, PREF_END_GROUP, 0, NULL, DIA_TAB, NULL },
-
-  { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("New window:") },
-  { "new_view_width", PREF_UINT, PREF_OFFSET(new_view.width), &default_int_w, VIEW_TAB, N_("Width:") },
-  { "new_view_height", PREF_UINT, PREF_OFFSET(new_view.height), &default_int_h, VIEW_TAB, N_("Height:") },
-  { "new_view_zoom", PREF_UREAL, PREF_OFFSET(new_view.zoom), &default_real_zoom, VIEW_TAB, N_("Magnify:") },
-  { NULL, PREF_END_GROUP, 0, NULL, 1, NULL },
-
-  { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("Page breaks:") },
-  { "pagebreak_visible", PREF_BOOLEAN, PREF_OFFSET(pagebreak.visible), &default_true, VIEW_TAB, N_("Visible") },
-  { "pagebreak_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.pagebreak_color), &pbreak_colour, VIEW_TAB, N_("Color:") },
-  { "pagebreak_solid", PREF_BOOLEAN, PREF_OFFSET(pagebreak.solid), &default_true, VIEW_TAB, N_("Solid lines") },
-  { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
-
-  { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("Antialias:") },
-  { "view_antialiased", PREF_BOOLEAN, PREF_OFFSET(view_antialiased), &default_false, VIEW_TAB, N_("view antialiased") },
-  { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
-
-  { NULL, PREF_NONE, 0, NULL, VIEW_TAB, N_("Guides:") },
-  { "show_guides", PREF_BOOLEAN, PREF_OFFSET(guides_visible), &default_true, VIEW_TAB, N_("Visible") },
-  { "snap_to_guides", PREF_BOOLEAN, PREF_OFFSET(guides_snap), &default_true, VIEW_TAB, N_("Snap to guides") },
-  { "guide_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.guide_color), &guide_colour, VIEW_TAB, N_("Color:") },
-  { NULL, PREF_END_GROUP, 0, NULL, VIEW_TAB, NULL },
-
-  /* Favored Filter */
-  { NULL, PREF_NONE, 0, NULL, FAVOR_TAB, N_("Export") },
-  { "favored_png_export", PREF_CHOICE, PREF_OFFSET(favored_filter.png), &default_favored_filter,
-    FAVOR_TAB, N_("Portable Network Graphics"), NULL, FALSE, get_exporter_names, set_favored_exporter, "PNG" },
-  { "favored_svg_export", PREF_CHOICE, PREF_OFFSET(favored_filter.svg), &default_favored_filter,
-    FAVOR_TAB, N_("Scalable Vector Graphics"), NULL, FALSE, get_exporter_names, set_favored_exporter, "SVG" },
-  { "favored_ps_export", PREF_CHOICE, PREF_OFFSET(favored_filter.ps), &default_favored_filter,
-    FAVOR_TAB, N_("PostScript"), NULL, FALSE, get_exporter_names, set_favored_exporter, "PS" },
-  { "favored_wmf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.wmf), &default_favored_filter,
-    FAVOR_TAB, N_("Windows Metafile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "WMF" },
-  { "favored_emf_export", PREF_CHOICE, PREF_OFFSET(favored_filter.emf), &default_favored_filter,
-    FAVOR_TAB, N_("Enhanced Metafile"), NULL, FALSE, get_exporter_names, set_favored_exporter, "EMF" },
-  { NULL, PREF_END_GROUP, 0, NULL, FAVOR_TAB, NULL },
-
-  /*{ NULL, PREF_NONE, 0, NULL, 3, N_("Grid:") }, */
-  { "grid_visible", PREF_BOOLEAN, PREF_OFFSET(grid.visible), &default_true, GRID_TAB, N_("Visible") },
-  { "grid_snap", PREF_BOOLEAN, PREF_OFFSET(grid.snap), &default_false, GRID_TAB, N_("Snap to") },
-  { "grid_dynamic", PREF_BOOLEAN, PREF_OFFSET(grid.dynamic), &default_true, GRID_TAB, N_("Dynamic grid resizing") },
-  { "grid_x", PREF_UREAL, PREF_OFFSET(grid.x), &default_real_one, GRID_TAB, N_("X Size:") },
-  { "grid_y", PREF_UREAL, PREF_OFFSET(grid.y), &default_real_one, GRID_TAB, N_("Y Size:") },
-  { "grid_vis_x", PREF_UINT, PREF_OFFSET(grid.vis_x), &default_int_vis_x, GRID_TAB, N_("Visual Spacing X:") },
-  { "grid_vis_y", PREF_UINT, PREF_OFFSET(grid.vis_y), &default_int_vis_y, GRID_TAB, N_("Visual Spacing Y:") },
-  { "grid_colour", PREF_COLOUR, PREF_OFFSET(new_diagram.grid_color), &default_colour, GRID_TAB, N_("Color:") },
-  { "grid_major", PREF_UINT, PREF_OFFSET(grid.major_lines), &default_major_lines, GRID_TAB, N_("Lines per major line") },
-  { "grid_hex", PREF_BOOLEAN, PREF_OFFSET(grid.hex), &default_false, GRID_TAB, N_("Hex grid") },
-  { "grid_hex_size", PREF_UREAL, PREF_OFFSET(grid.hex_size), &default_real_one, GRID_TAB, N_("Hex Size:") },
-  /*  { "grid_solid", PREF_BOOLEAN, PREF_OFFSET(grid.solid), &default_true, 3, N_("Solid lines:") },  */
-
-  { "fixed_icon_size", PREF_BOOLEAN,PREF_OFFSET(fixed_icon_size),
-    &default_true,0,"ensure fixed icon size",NULL, TRUE},
-
-};
-
-#define NUM_PREFS_DATA (sizeof(prefs_data)/sizeof(DiaPrefData))
-
-static void prefs_create_dialog(void);
-static void prefs_set_value_in_widget(GtkWidget * widget, DiaPrefData *data,  gpointer ptr);
-static void prefs_get_value_from_widget(GtkWidget * widget, DiaPrefData *data, gpointer ptr);
-static void prefs_update_dialog_from_prefs(void);
-static void prefs_update_prefs_from_dialog(void);
-/* static gint prefs_apply(GtkWidget *widget, gpointer data); */
-
-
-static GtkWidget *prefs_dialog = NULL;
-
-void
-prefs_show(void)
-{
-  prefs_create_dialog();
-  gtk_widget_show(prefs_dialog);
-
-  prefs_update_dialog_from_prefs();
-}
-
-void
-prefs_set_defaults(void)
-{
-  int i;
-  gpointer ptr;
-
-  /* Since we can't call this in static initialization, we have to
-   * do it here.
-   */
-  if (default_paper_name == NULL)
-    default_paper_name = get_paper_name(get_default_paper());
-
-  for (i = 0; i < NUM_PREFS_DATA; i++) {
-    ptr = (char *) &prefs + prefs_data[i].offset;
-
-    switch (prefs_data[i].type) {
-      case PREF_BOOLEAN:
-        *(int *) ptr = *(int *)prefs_data[i].default_value;
-        *(int *) ptr = persistence_register_boolean(prefs_data[i].name, *(int *)ptr);
-        break;
-      case PREF_INT:
-      case PREF_UINT:
-        *(int *) ptr = *(int *)prefs_data[i].default_value;
-        *(int *) ptr = persistence_register_integer(prefs_data[i].name, *(int *)ptr);
-        break;
-      case PREF_REAL:
-      case PREF_UREAL:
-        *(real *) ptr = *(real *)prefs_data[i].default_value;
-        *(real *) ptr = persistence_register_real(prefs_data[i].name, *(real *)ptr);
-        break;
-      case PREF_COLOUR:
-        *(Color *) ptr = *(Color *)prefs_data[i].default_value;
-        *(Color *) ptr = *persistence_register_color(prefs_data[i].name, (Color *)ptr);
-        break;
-      case PREF_CHOICE:
-      case PREF_STRING:
-        *(gchar **) ptr = *(gchar **)prefs_data[i].default_value;
-        *(gchar **) ptr = persistence_register_string(prefs_data[i].name, *(gchar **)ptr);
-        break;
-      case PREF_NONE:
-      case PREF_END_GROUP:
-      default:
-        break;
-    }
-    /* set initial preferences, but dont talk about restarting */
-    if (prefs_data[i].update_function)
-      (prefs_data[i].update_function)(&prefs_data[i], ptr);
-  }
-  update_internal_prefs(&prefs_data[i], NULL);
-}
-
-void
-prefs_save(void)
-{
-  int i;
-  gpointer ptr;
-  for (i=0;i<NUM_PREFS_DATA;i++) {
-    if ((prefs_data[i].type == PREF_NONE) || (prefs_data[i].type == PREF_END_GROUP))
-      continue;
-
-    ptr = (char *)&prefs + prefs_data[i].offset;
-
-    switch (prefs_data[i].type) {
-      case PREF_BOOLEAN:
-        persistence_set_boolean (prefs_data[i].name, *(gint *)ptr);
-        break;
-      case PREF_INT:
-      case PREF_UINT:
-        persistence_set_integer (prefs_data[i].name, *(gint *)ptr);
-        break;
-      case PREF_REAL:
-      case PREF_UREAL:
-
-        persistence_set_real (prefs_data[i].name, *(real *)ptr);
-        break;
-      case PREF_COLOUR:
-        persistence_set_color (prefs_data[i].name, (Color *)ptr);
-        break;
-      case PREF_CHOICE:
-      case PREF_STRING:
-        persistence_set_string (prefs_data[i].name, *(gchar **)ptr);
-        break;
-      case PREF_NONE:
-      case PREF_END_GROUP:
-      default:
-        break;
-    }
-  }
-}
-
-
-void
-prefs_init (void)
-{
-  prefs_set_defaults ();
+  gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 
 static void
-prefs_set_value_in_widget (GtkWidget   *widget,
-                           DiaPrefData *data,
-                           gpointer     ptr)
+dia_preferences_dialog_class_init (DiaPreferencesDialogClass *klass)
 {
-  switch (data->type) {
-    case PREF_BOOLEAN:
-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), *((int *)ptr));
-      break;
-    case PREF_INT:
-    case PREF_UINT:
-      gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget),
-                                 (gfloat) (*((int *) ptr)));
-      break;
-    case PREF_REAL:
-    case PREF_UREAL:
-      gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget),
-                                 (gfloat) (*((real *) ptr)));
-      break;
-    case PREF_COLOUR:
-      dia_color_selector_set_color (widget, (Color *) ptr);
-      break;
-    case PREF_CHOICE: {
-      GList *names = (data->choice_list_function) (data);
-      int index;
-      char *val = *((gchar**) ptr);
-      for (index = 0; names != NULL; names = g_list_next(names), index++) {
-        if (!val || !strcmp (val, (gchar *) names->data)) {
-          break;
-        }
-      }
-      if (names == NULL) return;
-      gtk_combo_box_set_active (GTK_COMBO_BOX (widget), index);
-      break;
-    }
-    case PREF_STRING:
-      gtk_entry_set_text (GTK_ENTRY (widget), (gchar *) (*((gchar **) ptr)));
-      break;
-    case PREF_NONE:
-    case PREF_END_GROUP:
-    default:
-      break;
+  GtkDialogClass *dialog_class = GTK_DIALOG_CLASS (klass);
+
+  dialog_class->response = dia_preferences_dialog_response;
+}
+
+
+static void
+ui_reset_tools_toggled (GtkCheckButton *check,
+                        gpointer        data)
+{
+  prefs.reset_tools_after_create = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("reset_tools_after_create",
+                           prefs.reset_tools_after_create);
+}
+
+
+static void
+ui_undo_spin_changed (GtkSpinButton *spin,
+                      gpointer       data)
+{
+  prefs.undo_depth = gtk_spin_button_get_value (spin);
+  persistence_set_integer ("undo_depth", prefs.undo_depth);
+}
+
+
+static void
+ui_reverse_drag_toggled (GtkCheckButton *check,
+                         gpointer        data)
+{
+  prefs.reverse_rubberbanding_intersects = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("reverse_rubberbanding_intersects",
+                           prefs.reverse_rubberbanding_intersects);
+}
+
+
+static void
+ui_recent_spin_changed (GtkSpinButton *spin,
+                        gpointer       data)
+{
+  prefs.recent_documents_list_size = gtk_spin_button_get_value (spin);
+  persistence_set_integer ("recent_documents_list_size",
+                           prefs.recent_documents_list_size);
+}
+
+
+static void
+ui_length_unit_changed (GtkComboBox *combo,
+                        gpointer     data)
+{
+  GEnumClass *unit_class = g_type_class_ref (DIA_TYPE_UNIT);
+  GtkTreeIter iter;
+
+  if (gtk_combo_box_get_active_iter (combo, &iter)) {
+    GtkTreeModel *model = gtk_combo_box_get_model (combo);
+    DiaUnit unit;
+
+    gtk_tree_model_get (model, &iter, COL_UNIT, &unit, -1);
+
+    prefs_set_length_unit (unit);
+    persistence_set_string ("length-unit",
+                            g_enum_get_value (unit_class, unit)->value_nick);
   }
 }
 
 
 static void
-prefs_get_value_from_widget (GtkWidget   *widget,
-                             DiaPrefData *data,
-                             gpointer     ptr)
+ui_font_unit_changed (GtkComboBox *combo,
+                      gpointer     data)
 {
-  gboolean changed = FALSE;
-  switch (data->type) {
-    case PREF_BOOLEAN:
-      {
-        int prev = *((int *) ptr);
-        *((int *)ptr) = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
-        changed = (prev != *((int *) ptr));
-      }
-      break;
-    case PREF_INT:
-    case PREF_UINT:
-      {
-        int prev = *((int *) ptr);
-        *((int *)ptr) = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
-        changed = (prev != *((int *) ptr));
-      }
-      break;
-    case PREF_REAL:
-    case PREF_UREAL:
-      {
-        real prev = *((real *) ptr);
-        *((real *) ptr) = (real)
-          gtk_spin_button_get_value (GTK_SPIN_BUTTON (widget));
-        changed = (prev != *((real *) ptr));
-      }
-      break;
-    case PREF_COLOUR:
-      {
-        Color prev = *(Color *) ptr;
-        dia_color_selector_get_color (widget, (Color *) ptr);
-        changed = memcmp (&prev, ptr, sizeof (Color));
-      }
-      break;
-    case PREF_CHOICE: {
-      int index = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
-      GList *names = (data->choice_list_function) (data);
-      *((gchar **)ptr) = g_strdup ((gchar *) g_list_nth_data (names, index));
-      /* XXX changed */
-      changed = TRUE;
-      break;
-    }
-    case PREF_STRING:
-      *((gchar **)ptr) = (gchar *) gtk_entry_get_text (GTK_ENTRY (widget));
-      /* XXX changed */
-      changed = TRUE;
-      break;
-    case PREF_NONE:
-    case PREF_END_GROUP:
-    default:
-      break;
-  }
-  if (changed && data->update_function != NULL) {
-    (data->update_function) (data, ptr);
+  GEnumClass *unit_class = g_type_class_ref (DIA_TYPE_UNIT);
+  GtkTreeIter iter;
+
+  if (gtk_combo_box_get_active_iter (combo, &iter)) {
+    GtkTreeModel *model = gtk_combo_box_get_model (combo);
+    DiaUnit unit;
+
+    gtk_tree_model_get (model, &iter, COL_UNIT, &unit, -1);
+
+    prefs_set_fontsize_unit (unit);
+    persistence_set_string ("font-unit",
+                            g_enum_get_value (unit_class, unit)->value_nick);
   }
 }
 
 
 static void
-prefs_boolean_toggle(GtkWidget *widget, gpointer data)
+ui_snap_distance_changed (GtkSpinButton *spin,
+                          gpointer       data)
 {
-  gboolean active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
-  gtk_button_set_label (GTK_BUTTON (widget), active ? _("Yes") : _("No"));
-}
-
-
-static GtkWidget *
-prefs_get_property_widget (DiaPrefData *data)
-{
-  GtkWidget *widget = NULL;
-  GtkAdjustment *adj;
-
-  switch(data->type) {
-    case PREF_BOOLEAN:
-      widget = gtk_toggle_button_new_with_label (_("No"));
-      g_signal_connect (G_OBJECT (widget), "toggled",
-                        G_CALLBACK (prefs_boolean_toggle), NULL);
-      break;
-    case PREF_INT:
-      adj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
-                                                G_MININT, G_MAXINT,
-                                                1.0, 10.0, 0));
-      widget = gtk_spin_button_new (adj, 1.0, 0);
-      gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (widget), TRUE);
-      gtk_widget_set_size_request (widget, 80, -1);
-      break;
-    case PREF_UINT:
-      adj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
-                                                0.0, G_MAXINT,
-                                                1.0, 10.0, 0));
-      widget = gtk_spin_button_new (adj, 1.0, 0);
-      gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (widget), TRUE);
-      gtk_widget_set_size_request (widget, 80, -1);
-      break;
-    case PREF_REAL:
-      adj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
-                                                G_MINFLOAT, G_MAXFLOAT,
-                                                1.0, 10.0, 0));
-      widget = gtk_spin_button_new (adj, 1.0, 3);
-      gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (widget), TRUE);
-      gtk_widget_set_size_request (widget, 80, -1);
-      break;
-    case PREF_UREAL:
-      adj = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
-                                                0.0, G_MAXFLOAT,
-                                                1.0, 10.0, 0 ));
-      widget = gtk_spin_button_new (adj, 1.0, 3);
-      gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (widget), TRUE);
-      gtk_widget_set_size_request (widget, 80, -1);
-      break;
-    case PREF_COLOUR:
-      widget = dia_color_selector_new();
-      break;
-    case PREF_STRING:
-      widget = gtk_entry_new();
-      break;
-    case PREF_CHOICE: {
-      GList *names;
-      widget = gtk_combo_box_text_new ();
-      for (names = (data->choice_list_function)(data);
-          names != NULL;
-          names = g_list_next(names)) {
-        gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (widget), (gchar *)names->data);
-      }
-      break;
-    }
-    case PREF_NONE:
-    case PREF_END_GROUP:
-    default:
-      widget = NULL;
-      break;
-  }
-
-  if (widget != NULL) {
-    gtk_widget_show (widget);
-  }
-
-  return widget;
-}
-
-
-static gint
-prefs_respond (GtkWidget *widget,
-               gint       response_id,
-               gpointer   data)
-{
-  if (   response_id == GTK_RESPONSE_APPLY
-      || response_id == GTK_RESPONSE_OK) {
-    prefs_update_prefs_from_dialog ();
-    prefs_save ();
-    diagram_redraw_all ();
-  }
-
-  if (response_id != GTK_RESPONSE_APPLY) {
-    gtk_widget_hide (widget);
-  }
-
-  return 0;
+  prefs.snap_distance = gtk_spin_button_get_value (spin);
+  persistence_set_integer ("snap_distance", prefs.snap_distance);
 }
 
 
 static void
-prefs_create_dialog (void)
+update_floating_toolbox (void)
 {
-  GtkWidget *label;
-  GtkWidget *dialog_vbox;
-  GtkWidget *notebook;
-  GtkTable *top_table = NULL; /* top level table for the tab */
-  GtkTable *current_table = NULL;
-  int i;
-  int tab_idx = -1;
-
-  if (prefs_dialog != NULL) {
+  if (!app_is_interactive ()) {
     return;
   }
 
-  prefs_dialog = gtk_dialog_new_with_buttons (_("Preferences"),
-                                              GTK_WINDOW (interface_get_toolbox_shell ()),
-                                              GTK_DIALOG_DESTROY_WITH_PARENT,
-                                              _("_Close"), GTK_RESPONSE_CLOSE,
-                                              _("_Apply"), GTK_RESPONSE_APPLY,
-                                              _("_OK"), GTK_RESPONSE_OK,
-                                              NULL);
-  gtk_dialog_set_default_response (GTK_DIALOG (prefs_dialog), GTK_RESPONSE_OK);
-  gtk_window_set_resizable (GTK_WINDOW (prefs_dialog), TRUE);
-
-  dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (prefs_dialog));
-
-  gtk_window_set_role (GTK_WINDOW (prefs_dialog), "preferences_window");
-
-  g_signal_connect(G_OBJECT (prefs_dialog), "response",
-                   G_CALLBACK (prefs_respond), NULL);
-
-  g_signal_connect (G_OBJECT (prefs_dialog), "delete_event",
-                    G_CALLBACK (gtk_widget_hide), NULL);
-  g_signal_connect (G_OBJECT (prefs_dialog), "destroy",
-                    G_CALLBACK (gtk_widget_destroyed), &prefs_dialog);
-
-  notebook = gtk_notebook_new ();
-  gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_TOP);
-  gtk_box_pack_start (GTK_BOX (dialog_vbox), notebook, TRUE, TRUE, 0);
-  gtk_container_set_border_width (GTK_CONTAINER (notebook), 2);
-  gtk_widget_show (notebook);
-
-  for (i = 0; i < NUM_PREFS_TABS; i++) {
-    GtkWidget *table;
-    GtkWidget *notebook_page;
-
-    label = gtk_label_new (gettext (prefs_tabs[i].title));
-    gtk_widget_show (label);
-
-    table = gtk_table_new (9, 2, FALSE);
-    prefs_tabs[i].table = GTK_TABLE(table);
-    gtk_widget_set_size_request (table, -1, -1);
-    gtk_widget_show (table);
-
-#ifdef SCROLLED_PAGES
-    notebook_page = gtk_scrolled_window_new (NULL, NULL);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (notebook_page),
-				    GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-    gtk_widget_show(notebook_page);
-#else
-    notebook_page = table;
-#endif/* SCROLLED_PAGES */
-
-    gtk_notebook_append_page (GTK_NOTEBOOK (notebook), notebook_page, label);
-
-#ifdef SCROLLED_PAGES
-    gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(notebook_page),
-					  table);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT(gtk_bin_get_child(GTK_BIN(notebook_page))),
-				 GTK_SHADOW_NONE);
-#endif /* SCROLLED_PAGES */
-
+  if (prefs.toolbox_on_top) {
+    /* Go through all diagrams and set toolbox transient for all displays */
+    GList *diagrams;
+    for (diagrams = dia_open_diagrams ();
+         diagrams != NULL;
+         diagrams = g_list_next (diagrams)) {
+      Diagram *diagram = (Diagram *) diagrams->data;
+      GSList *displays;
+      for (displays = diagram->displays;
+           displays != NULL;
+           displays = g_slist_next (displays)) {
+        DDisplay *ddisp = (DDisplay *) displays->data;
+        gtk_window_set_transient_for (GTK_WINDOW (interface_get_toolbox_shell ()),
+                                      GTK_WINDOW (ddisp->shell));
+      }
+    }
+  } else {
+    GtkWindow *shell = GTK_WINDOW (interface_get_toolbox_shell ());
+    if (shell) {
+      gtk_window_set_transient_for (shell, NULL);
+    }
   }
-  gtk_notebook_set_tab_pos (GTK_NOTEBOOK (notebook), GTK_POS_LEFT);
+}
 
-  tab_idx = -1;
-  for (i = 0; i < NUM_PREFS_DATA; i++) {
-    GtkWidget *widget = NULL;
-    int row;
 
-    if (prefs_data[i].hidden) {
-      continue;
-    }
+static void
+ui_menubar_toggled (GtkCheckButton *check,
+                    gpointer        data)
+{
+  prefs.new_view.use_menu_bar = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("use_menu_bar", prefs.new_view.use_menu_bar);
+  update_floating_toolbox ();
+}
 
-    if (tab_idx != prefs_data[i].tab) {
-      tab_idx = prefs_data[i].tab;
-      top_table = prefs_tabs[prefs_data[i].tab].table;
-      current_table = top_table;
-    }
 
-    row = prefs_tabs[tab_idx].row++;
+static void
+ui_toolbox_above_toggled (GtkCheckButton *check,
+                          gpointer        data)
+{
+  prefs.toolbox_on_top = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("toolbox_on_top", prefs.toolbox_on_top);
+  update_floating_toolbox ();
+}
 
-    switch (prefs_data[i].type) {
-      case PREF_NONE:
-        widget = gtk_frame_new (gettext (prefs_data[i].label_text));
-        gtk_widget_show (widget);
-        gtk_table_attach (current_table, widget, 0, 2,
-                          row, row + 1,
-                          GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
-        current_table = GTK_TABLE (gtk_table_new (9, 2, FALSE));
-        gtk_container_add (GTK_CONTAINER (widget), GTK_WIDGET (current_table));
-        gtk_widget_show (GTK_WIDGET (current_table));
-        break;
-      case PREF_END_GROUP:
-        current_table = top_table;
-        break;
-      case PREF_BOOLEAN:
-        widget = gtk_check_button_new_with_label (gettext (prefs_data[i].label_text));
-        gtk_widget_show (widget);
-        gtk_table_attach (current_table, widget, 0, 2,
-                          row, row + 1,
-                          GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
-        break;
-      case PREF_INT:
-      case PREF_UINT:
-      case PREF_REAL:
-      case PREF_UREAL:
-      case PREF_COLOUR:
-      case PREF_CHOICE:
-      case PREF_STRING:
-      default:
-        label = gtk_label_new (gettext (prefs_data[i].label_text));
-        gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.3);
-        gtk_widget_show (label);
 
-        gtk_table_attach (current_table, label, 0, 1,
-                          row, row + 1,
-                          GTK_FILL | GTK_EXPAND, GTK_FILL, 1, 1);
+struct SetCurrentUnit {
+  DiaUnit    to_set;
+  GtkWidget *combo;
+};
 
-        widget = prefs_get_property_widget (&prefs_data[i]);
-        if (widget != NULL) {
-          gtk_table_attach (current_table, widget, 1, 2,
-                            row, row + 1,
-                            GTK_FILL, GTK_FILL, 1, 1);
-        }
-        break;
-    }
-    prefs_data[i].widget = widget;
 
+static gboolean
+set_current_unit (GtkTreeModel *model,
+                  GtkTreePath  *path,
+                  GtkTreeIter  *iter,
+                  gpointer      data)
+{
+  struct SetCurrentUnit *find = data;
+  DiaUnit unit;
+
+  gtk_tree_model_get (model, iter, COL_UNIT, &unit, -1);
+
+  if (unit == find->to_set) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (find->combo), iter);
+
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+
+static void
+dd_portrait_toggled (GtkCheckButton *check,
+                     gpointer        data)
+{
+  prefs.new_diagram.is_portrait = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("is_portrait", prefs.new_diagram.is_portrait);
+}
+
+
+static void
+dd_type_changed (GtkComboBox *combo,
+                 gpointer     data)
+{
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  char *paper;
+
+  model = gtk_combo_box_get_model (combo);
+
+  if (gtk_combo_box_get_active_iter (combo, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_NAME, &paper, -1);
+
+    g_clear_pointer (&prefs.new_diagram.papertype, g_free);
+    prefs.new_diagram.papertype = paper;
+
+    persistence_set_string ("new_diagram_papertype", paper);
+  }
+}
+
+
+static void
+dd_background_changed (DiaColorSelector *selector,
+                       gpointer          data)
+{
+  dia_color_selector_get_color (GTK_WIDGET (selector),
+                                &prefs.new_diagram.bg_color);
+  persistence_set_color ("new_diagram_bgcolour", &prefs.new_diagram.bg_color);
+}
+
+
+static void
+dd_compress_toggled (GtkCheckButton *check,
+                     gpointer        data)
+{
+  prefs.new_diagram.compress_save = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("compress_save", prefs.new_diagram.compress_save);
+}
+
+
+static void
+dd_cp_visible_toggled (GtkCheckButton *check,
+                       gpointer        data)
+{
+  prefs.show_cx_pts = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("show_cx_pts", prefs.show_cx_pts);
+}
+
+
+static void
+dd_cp_snap_toggled (GtkCheckButton *check,
+                    gpointer        data)
+{
+  prefs.snap_object = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("snap_object", prefs.snap_object);
+}
+
+
+struct SetCurrentPaper {
+  const char *to_set;
+  GtkWidget  *combo;
+};
+
+
+static gboolean
+set_current_paper (GtkTreeModel *model,
+                   GtkTreePath  *path,
+                   GtkTreeIter  *iter,
+                   gpointer      data)
+{
+  struct SetCurrentPaper *find = data;
+  char *paper;
+
+  gtk_tree_model_get (model, iter, COL_NAME, &paper, -1);
+
+  if (g_strcmp0 (paper, find->to_set) == 0) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (find->combo), iter);
+
+    g_clear_pointer (&paper, g_free);
+
+    return TRUE;
+  }
+
+  g_clear_pointer (&paper, g_free);
+
+  return FALSE;
+}
+
+
+static void
+vd_width_value_changed (GtkSpinButton *spin,
+                        gpointer       data)
+{
+  prefs.new_view.width = gtk_spin_button_get_value (spin);
+  persistence_set_integer ("new_view_width", prefs.new_view.width);
+}
+
+
+static void
+vd_height_value_changed (GtkSpinButton *spin,
+                         gpointer       data)
+{
+  prefs.new_view.height = gtk_spin_button_get_value (spin);
+  persistence_set_integer ("new_view_height", prefs.new_view.height);
+}
+
+
+static void
+vd_zoom_value_changed (GtkSpinButton *spin,
+                       gpointer       data)
+{
+  prefs.new_view.zoom = gtk_spin_button_get_value (spin);
+  persistence_set_real ("new_view_zoom", prefs.new_view.zoom);
+}
+
+
+static void
+vd_antialiased_toggled (GtkCheckButton *check,
+                        gpointer        data)
+{
+  prefs.view_antialiased = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("view_antialiased", prefs.view_antialiased);
+}
+
+
+static void
+vd_pb_visible_toggled (GtkCheckButton *check,
+                       gpointer        data)
+{
+  prefs.pagebreak.visible = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("pagebreak_visible", prefs.pagebreak.visible);
+}
+
+
+static void
+vd_pb_colour_changed (DiaColorSelector *selector,
+                      gpointer          data)
+{
+  dia_color_selector_get_color (GTK_WIDGET (selector),
+                                &prefs.new_diagram.pagebreak_color);
+  persistence_set_color ("pagebreak_colour", &prefs.new_diagram.pagebreak_color);
+}
+
+
+static void
+vd_pb_solid_toggled (GtkCheckButton *check,
+                     gpointer        data)
+{
+  prefs.pagebreak.solid = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("pagebreak_solid", prefs.pagebreak.solid);
+}
+
+
+static void
+vd_guide_visible_toggled (GtkCheckButton *check,
+                          gpointer        data)
+{
+  prefs.guides_visible = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("show_guides", prefs.guides_snap);
+}
+
+
+static void
+vd_guide_snap_toggled (GtkCheckButton *check,
+                       gpointer        data)
+{
+  prefs.guides_snap = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("snap_to_guides", prefs.guides_snap);
+}
+
+
+static void
+vd_guide_colour_changed (GtkCheckButton *selector,
+                         gpointer        data)
+{
+  dia_color_selector_get_color (GTK_WIDGET (selector),
+                                &prefs.new_diagram.guide_color);
+  persistence_set_color ("guide_colour", &prefs.new_diagram.guide_color);
+}
+
+
+static void
+fv_png_changed (GtkComboBox *combo,
+                gpointer     data)
+{
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  char *filter;
+
+  model = gtk_combo_box_get_model (combo);
+
+  if (gtk_combo_box_get_active_iter (combo, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_UNIT, &filter, -1);
+
+    g_clear_pointer (&prefs.favored_filter.png, g_free);
+    prefs.favored_filter.png = filter;
+    filter_set_favored_export ("PNG", filter);
+    persistence_set_string ("favored_png_export", filter);
+  }
+}
+
+
+static void
+fv_svg_changed (GtkComboBox *combo,
+                gpointer     data)
+{
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  char *filter;
+
+  model = gtk_combo_box_get_model (combo);
+
+  if (gtk_combo_box_get_active_iter (combo, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_UNIT, &filter, -1);
+
+    g_clear_pointer (&prefs.favored_filter.svg, g_free);
+    prefs.favored_filter.svg = filter;
+    filter_set_favored_export ("SVG", filter);
+    persistence_set_string ("favored_svg_export", filter);
+  }
+}
+
+
+static void
+fv_ps_changed (GtkComboBox *combo,
+               gpointer     data)
+{
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  char *filter;
+
+  model = gtk_combo_box_get_model (combo);
+
+  if (gtk_combo_box_get_active_iter (combo, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_UNIT, &filter, -1);
+
+    g_clear_pointer (&prefs.favored_filter.ps, g_free);
+    prefs.favored_filter.ps = filter;
+    filter_set_favored_export ("PS", filter);
+    persistence_set_string ("favored_ps_export", filter);
+  }
+}
+
+
+static void
+fv_wmf_changed (GtkComboBox *combo,
+                gpointer     data)
+{
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  char *filter;
+
+  model = gtk_combo_box_get_model (combo);
+
+  if (gtk_combo_box_get_active_iter (combo, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_UNIT, &filter, -1);
+
+    g_clear_pointer (&prefs.favored_filter.wmf, g_free);
+    prefs.favored_filter.wmf = filter;
+    filter_set_favored_export ("WMF", filter);
+    persistence_set_string ("favored_wmf_export", filter);
+  }
+}
+
+
+static void
+fv_emf_changed (GtkComboBox *combo,
+                gpointer     data)
+{
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  char *filter;
+
+  model = gtk_combo_box_get_model (combo);
+
+  if (gtk_combo_box_get_active_iter (combo, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_UNIT, &filter, -1);
+
+    g_clear_pointer (&prefs.favored_filter.emf, g_free);
+    prefs.favored_filter.emf = filter;
+    filter_set_favored_export ("EMF", filter);
+    persistence_set_string ("favored_emf_export", filter);
+  }
+}
+
+
+struct SetCurrentFilter {
+  const char *to_set;
+  GtkWidget  *combo;
+};
+
+
+static gboolean
+set_current_filter (GtkTreeModel *model,
+                    GtkTreePath  *path,
+                    GtkTreeIter  *iter,
+                    gpointer      data)
+{
+  struct SetCurrentFilter *find = data;
+  char *filter;
+
+  gtk_tree_model_get (model, iter, COL_UNIT, &filter, -1);
+
+  if (g_strcmp0 (filter, find->to_set) == 0) {
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (find->combo), iter);
+
+    g_clear_pointer (&filter, g_free);
+
+    return TRUE;
+  }
+
+  g_clear_pointer (&filter, g_free);
+
+  return FALSE;
+}
+
+
+static void
+gl_visible_toggled (GtkCheckButton *check,
+                    gpointer        data)
+{
+  prefs.grid.visible = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("grid_visible", prefs.grid.visible);
+}
+
+
+static void
+gl_snap_toggled (GtkCheckButton *check,
+                 gpointer        data)
+{
+  prefs.grid.snap = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check));
+  persistence_set_boolean ("grid_snap", prefs.grid.snap);
+}
+
+
+static void
+gl_color_changed (DiaColorSelector *selector,
+                  gpointer          data)
+{
+  dia_color_selector_get_color (GTK_WIDGET (selector),
+                                &prefs.new_diagram.grid_color);
+  persistence_set_color ("grid_colour", &prefs.new_diagram.grid_color);
+}
+
+
+static void
+gl_lines_value_changed (GtkSpinButton *spin,
+                        gpointer       data)
+{
+  prefs.grid.major_lines = gtk_spin_button_get_value (spin);
+  persistence_set_integer ("grid_major", prefs.grid.major_lines);
+}
+
+
+static void
+gl_man_cs_value_changed (GtkSpinButton *spin,
+                         gpointer       data)
+{
+  prefs.grid.x = gtk_spin_button_get_value (spin);
+  persistence_set_real ("grid_x", prefs.grid.x);
+}
+
+
+static void
+gl_man_rs_value_changed (GtkSpinButton *spin,
+                         gpointer       data)
+{
+  prefs.grid.y = gtk_spin_button_get_value (spin);
+  persistence_set_real ("grid_y", prefs.grid.y);
+}
+
+
+static void
+gl_man_cvs_value_changed (GtkSpinButton *spin,
+                          gpointer       data)
+{
+  prefs.grid.vis_x = gtk_spin_button_get_value (spin);
+  persistence_set_integer ("grid_vis_x", prefs.grid.vis_x);
+}
+
+
+static void
+gl_man_rvs_value_changed (GtkSpinButton *spin,
+                          gpointer       data)
+{
+  prefs.grid.vis_y = gtk_spin_button_get_value (spin);
+  persistence_set_integer ("grid_vis_y", prefs.grid.vis_y);
+}
+
+
+static void
+gl_hex_size_value_changed (GtkSpinButton *spin,
+                           gpointer       data)
+{
+  prefs.grid.hex_size = gtk_spin_button_get_value (spin);
+  persistence_set_real ("grid_hex_size", prefs.grid.hex_size);
+}
+
+
+static void
+gl_update_sensitive (GtkRadioButton *radio,
+                     gpointer        data)
+{
+  DiaPreferencesDialog *self = DIA_PREFERENCES_DIALOG (data);
+  gboolean dyn_grid, square_grid, hex_grid;
+
+  prefs.grid.dynamic =
+        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self->gl_dynamic));
+  dyn_grid = prefs.grid.dynamic;
+  if (!dyn_grid) {
+    prefs.grid.hex =
+        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self->gl_hex));
+  }
+
+  square_grid = !dyn_grid && !prefs.grid.hex;
+  hex_grid = !dyn_grid && prefs.grid.hex;
+
+
+  gtk_widget_set_sensitive (self->manual_props, square_grid);
+  gtk_widget_set_sensitive (self->gl_hex_size, hex_grid);
+}
+
+
+static void
+fill_exporter_list (GtkListStore *store, const char *type)
+{
+  GtkTreeIter iter;
+  GList *list = filter_get_unique_export_names (type);
+
+  gtk_list_store_append (store, &iter);
+  gtk_list_store_set (store, &iter,
+                      // TRANSLATORS: The user hasn't set a prefered filter
+                      COL_NAME, _("Unset"),
+                      COL_UNIT, "any",
+                      -1);
+
+  for (GList *l = list; l; l = g_list_next (l)) {
+    gtk_list_store_append (store, &iter);
+    gtk_list_store_set (store, &iter,
+                        COL_NAME, l->data,
+                        COL_UNIT, l->data,
+                        -1);
+  }
+}
+
+
+static void
+dia_preferences_dialog_init (DiaPreferencesDialog *self)
+{
+  struct SetCurrentUnit find_unit;
+  struct SetCurrentPaper find_paper;
+  struct SetCurrentFilter find_filter;
+  GtkWidget *dialog_vbox;
+  DiaBuilder *builder;
+  GtkWidget *content;
+  GtkListStore *units;
+  GtkListStore *paper;
+  GtkListStore *pngs;
+  GtkListStore *svgs;
+  GtkListStore *pss;
+  GtkListStore *wmfs;
+  GtkListStore *emfs;
+  GtkWidget *ui_reset_tools;
+  GtkAdjustment *ui_undo_spin_adj;
+  GtkWidget *ui_reverse_drag;
+  GtkAdjustment *ui_recent_spin_adj;
+  GtkWidget *ui_length_unit;
+  GtkWidget *ui_font_unit;
+  GtkAdjustment *ui_snap_distance_adj;
+  GtkWidget *ui_menubar;
+  GtkWidget *ui_toolbox_above;
+  GtkWidget *dd_portrait;
+  GtkWidget *dd_type;
+  GtkWidget *dd_background;
+  GtkWidget *dd_compress;
+  GtkWidget *dd_cp_visible;
+  GtkWidget *dd_cp_snap;
+  GtkAdjustment *vd_width_adj;
+  GtkAdjustment *vd_height_adj;
+  GtkAdjustment *vd_zoom_adj;
+  GtkWidget *vd_antialiased;
+  GtkWidget *vd_pb_visible;
+  GtkWidget *vd_pb_colour;
+  GtkWidget *vd_pb_solid;
+  GtkWidget *vd_guide_visible;
+  GtkWidget *vd_guide_snap;
+  GtkWidget *vd_guide_colour;
+  GtkWidget *fv_png;
+  GtkWidget *fv_svg;
+  GtkWidget *fv_ps;
+  GtkWidget *fv_wmf;
+  GtkWidget *fv_emf;
+  GtkWidget *gl_visible;
+  GtkWidget *gl_snap;
+  GtkWidget *gl_color;
+  GtkAdjustment *gl_lines_adj;
+  GtkAdjustment *gl_man_cs_adj;
+  GtkAdjustment *gl_man_rs_adj;
+  GtkAdjustment *gl_man_cvs_adj;
+  GtkAdjustment *gl_man_rvs_adj;
+  GtkAdjustment *gl_hex_size_adj;
+  int j = 0;
+  const char *name;
+
+  gtk_dialog_add_buttons (GTK_DIALOG (self),
+                          _("_Done"), GTK_RESPONSE_OK,
+                          NULL);
+  gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_OK);
+
+  gtk_window_set_role (GTK_WINDOW (self), "preferences_window");
+  gtk_window_set_title (GTK_WINDOW (self), _("Preferences"));
+
+  dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
+
+  builder = dia_builder_new ("ui/preferences-dialog.ui");
+
+  dia_builder_get (builder,
+                   "content", &content,
+                   "units", &units,
+                   "paper", &paper,
+                   "pngs", &pngs,
+                   "svgs", &svgs,
+                   "pss", &pss,
+                   "wmfs", &wmfs,
+                   "emfs", &emfs,
+                   /* User Interface */
+                   "ui_reset_tools", &ui_reset_tools,
+                   "ui_undo_spin_adj", &ui_undo_spin_adj,
+                   "ui_reverse_drag", &ui_reverse_drag,
+                   "ui_recent_spin_adj", &ui_recent_spin_adj,
+                   "ui_length_unit", &ui_length_unit,
+                   "ui_font_unit", &ui_font_unit,
+                   "ui_snap_distance_adj", &ui_snap_distance_adj,
+                   "ui_menubar", &ui_menubar,
+                   "ui_toolbox_above", &ui_toolbox_above,
+                   /* Diagram Defaults */
+                   "dd_portrait", &dd_portrait,
+                   "dd_type", &dd_type,
+                   "dd_background", &dd_background,
+                   "dd_compress", &dd_compress,
+                   "dd_cp_visible", &dd_cp_visible,
+                   "dd_cp_snap", &dd_cp_snap,
+                   /* View Defaults */
+                   "vd_width_adj", &vd_width_adj,
+                   "vd_height_adj", &vd_height_adj,
+                   "vd_zoom_adj", &vd_zoom_adj,
+                   "vd_antialiased", &vd_antialiased,
+                   "vd_pb_visible", &vd_pb_visible,
+                   "vd_pb_colour", &vd_pb_colour,
+                   "vd_pb_solid", &vd_pb_solid,
+                   "vd_guide_visible", &vd_guide_visible,
+                   "vd_guide_snap", &vd_guide_snap,
+                   "vd_guide_colour", &vd_guide_colour,
+                   /* Favorites */
+                   "fv_png", &fv_png,
+                   "fv_svg", &fv_svg,
+                   "fv_ps", &fv_ps,
+                   "fv_wmf", &fv_wmf,
+                   "fv_emf", &fv_emf,
+                   /* Grid Lines */
+                   "gl_visible", &gl_visible,
+                   "gl_snap", &gl_snap,
+                   "gl_color", &gl_color,
+                   "gl_lines_adj", &gl_lines_adj,
+                   "gl_dynamic", &self->gl_dynamic,
+                   "gl_manual", &self->gl_manual,
+                   "manual_props", &self->manual_props,
+                   "gl_man_cs_adj", &gl_man_cs_adj,
+                   "gl_man_rs_adj", &gl_man_rs_adj,
+                   "gl_man_cvs_adj", &gl_man_cvs_adj,
+                   "gl_man_rvs_adj", &gl_man_rvs_adj,
+                   "gl_hex", &self->gl_hex,
+                   "gl_hex_size", &self->gl_hex_size,
+                   "gl_hex_size_adj", &gl_hex_size_adj,
+                   NULL);
+
+  for (DiaUnit unit = 0; unit < DIA_LAST_UNIT; unit++) {
+    GtkTreeIter iter;
+
+    gtk_list_store_append (units, &iter);
+    gtk_list_store_set (units, &iter,
+                        COL_NAME, dia_unit_get_name (unit),
+                        COL_UNIT, unit,
+                        -1);
+  }
+
+  while ((name = dia_paper_get_name (j))) {
+    GtkTreeIter iter;
+
+    gtk_list_store_append (paper, &iter);
+    gtk_list_store_set (paper, &iter,
+                        COL_NAME, name,
+                        COL_UNIT, j,
+                        -1);
+
+    j++;
+  }
+
+  fill_exporter_list (pngs, "PNG");
+  fill_exporter_list (svgs, "SVG");
+  fill_exporter_list (pss, "PS");
+  fill_exporter_list (wmfs, "WMF");
+  fill_exporter_list (emfs, "EMF");
+
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui_reset_tools),
+                                prefs.reset_tools_after_create);
+  gtk_adjustment_set_value (ui_undo_spin_adj, prefs.undo_depth);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui_reverse_drag),
+                                prefs.reverse_rubberbanding_intersects);
+  gtk_adjustment_set_value (ui_recent_spin_adj,
+                            prefs.recent_documents_list_size);
+  find_unit.combo = ui_length_unit;
+  find_unit.to_set = prefs_get_length_unit ();
+  gtk_tree_model_foreach (GTK_TREE_MODEL (units), set_current_unit, &find_unit);
+  find_unit.combo = ui_font_unit;
+  find_unit.to_set = prefs_get_fontsize_unit ();
+  gtk_tree_model_foreach (GTK_TREE_MODEL (units), set_current_unit, &find_unit);
+  gtk_adjustment_set_value (ui_snap_distance_adj, prefs.snap_distance);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui_menubar),
+                                prefs.new_view.use_menu_bar);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui_toolbox_above),
+                                prefs.toolbox_on_top);
+
+
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dd_portrait),
+                                prefs.new_diagram.is_portrait);
+  find_paper.combo = dd_type;
+  find_paper.to_set = prefs.new_diagram.papertype;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (paper),
+                          set_current_paper,
+                          &find_paper);
+  dia_color_selector_set_color (dd_background, &prefs.new_diagram.bg_color);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dd_compress),
+                                prefs.new_diagram.compress_save);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dd_cp_visible),
+                                prefs.show_cx_pts);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dd_cp_snap),
+                                prefs.snap_object);
+
+
+  gtk_adjustment_set_value (vd_width_adj, prefs.new_view.width);
+  gtk_adjustment_set_value (vd_height_adj, prefs.new_view.height);
+  gtk_adjustment_set_value (vd_zoom_adj, prefs.new_view.zoom);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (vd_antialiased),
+                                prefs.view_antialiased);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (vd_pb_visible),
+                                prefs.pagebreak.visible);
+  dia_color_selector_set_color (vd_pb_colour,
+                                &prefs.new_diagram.pagebreak_color);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (vd_pb_solid),
+                                prefs.pagebreak.visible);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (vd_guide_visible),
+                                prefs.guides_visible);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (vd_guide_snap),
+                                prefs.guides_snap);
+  dia_color_selector_set_color (vd_guide_colour,
+                                &prefs.new_diagram.guide_color);
+
+
+  find_filter.combo = fv_png;
+  find_filter.to_set = prefs.favored_filter.png;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (pngs),
+                          set_current_filter,
+                          &find_filter);
+  find_filter.combo = fv_svg;
+  find_filter.to_set = prefs.favored_filter.svg;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (svgs),
+                          set_current_filter,
+                          &find_filter);
+  find_filter.combo = fv_ps;
+  find_filter.to_set = prefs.favored_filter.ps;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (pss),
+                          set_current_filter,
+                          &find_filter);
+  find_filter.combo = fv_wmf;
+  find_filter.to_set = prefs.favored_filter.wmf;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (wmfs),
+                          set_current_filter,
+                          &find_filter);
+  find_filter.combo = fv_emf;
+  find_filter.to_set = prefs.favored_filter.emf;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (emfs),
+                          set_current_filter,
+                          &find_filter);
+
+
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (gl_visible),
+                                prefs.grid.visible);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (gl_snap),
+                                prefs.grid.snap);
+  dia_color_selector_set_color (gl_color,
+                                &prefs.new_diagram.grid_color);
+  gtk_adjustment_set_value (gl_lines_adj,
+                             prefs.grid.major_lines);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->gl_dynamic),
+                                prefs.grid.dynamic);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->gl_manual),
+                                !prefs.grid.dynamic && !prefs.grid.hex);
+  gtk_adjustment_set_value (gl_man_cs_adj, prefs.grid.x);
+  gtk_adjustment_set_value (gl_man_rs_adj, prefs.grid.y);
+  gtk_adjustment_set_value (gl_man_cvs_adj, prefs.grid.vis_x);
+  gtk_adjustment_set_value (gl_man_rvs_adj, prefs.grid.vis_y);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->gl_hex),
+                                prefs.grid.hex);
+  gtk_adjustment_set_value (gl_hex_size_adj, prefs.grid.hex_size);
+
+
+  gl_update_sensitive (NULL, self);
+
+
+  dia_builder_connect (builder,
+                       self,
+                       /* User Interface */
+                       "ui_reset_tools_toggled", G_CALLBACK (ui_reset_tools_toggled),
+                       "ui_undo_spin_changed", G_CALLBACK (ui_undo_spin_changed),
+                       "ui_reverse_drag_toggled", G_CALLBACK (ui_reverse_drag_toggled),
+                       "ui_recent_spin_changed", G_CALLBACK (ui_recent_spin_changed),
+                       "ui_length_unit_changed", G_CALLBACK (ui_length_unit_changed),
+                       "ui_font_unit_changed", G_CALLBACK (ui_font_unit_changed),
+                       "ui_snap_distance_changed", G_CALLBACK (ui_snap_distance_changed),
+                       "ui_menubar_toggled", G_CALLBACK (ui_menubar_toggled),
+                       "ui_toolbox_above_toggled", G_CALLBACK (ui_toolbox_above_toggled),
+                       /* Diagram Defaults */
+                       "dd_portrait_toggled", G_CALLBACK (dd_portrait_toggled),
+                       "dd_type_changed", G_CALLBACK (dd_type_changed),
+                       "dd_background_changed", G_CALLBACK (dd_background_changed),
+                       "dd_compress_toggled", G_CALLBACK (dd_compress_toggled),
+                       "dd_cp_visible_toggled", G_CALLBACK (dd_cp_visible_toggled),
+                       "dd_cp_snap_toggled", G_CALLBACK (dd_cp_snap_toggled),
+                       /* View Defaults */
+                       "vd_width_value_changed", G_CALLBACK (vd_width_value_changed),
+                       "vd_height_value_changed", G_CALLBACK (vd_height_value_changed),
+                       "vd_zoom_value_changed", G_CALLBACK (vd_zoom_value_changed),
+                       "vd_antialiased_toggled", G_CALLBACK (vd_antialiased_toggled),
+                       "vd_pb_visible_toggled", G_CALLBACK (vd_pb_visible_toggled),
+                       "vd_pb_colour_changed", G_CALLBACK (vd_pb_colour_changed),
+                       "vd_pb_solid_toggled", G_CALLBACK (vd_pb_solid_toggled),
+                       "vd_guide_visible_toggled", G_CALLBACK (vd_guide_visible_toggled),
+                       "vd_guide_snap_toggled", G_CALLBACK (vd_guide_snap_toggled),
+                       "vd_guide_colour_changed", G_CALLBACK (vd_guide_colour_changed),
+                       /* Favorites */
+                       "fv_png_changed", G_CALLBACK (fv_png_changed),
+                       "fv_svg_changed", G_CALLBACK (fv_svg_changed),
+                       "fv_ps_changed", G_CALLBACK (fv_ps_changed),
+                       "fv_wmf_changed", G_CALLBACK (fv_wmf_changed),
+                       "fv_emf_changed", G_CALLBACK (fv_emf_changed),
+                       /* Grid Lines */
+                       "gl_visible_toggled", G_CALLBACK (gl_visible_toggled),
+                       "gl_snap_toggled", G_CALLBACK (gl_snap_toggled),
+                       "gl_color_changed", G_CALLBACK (gl_color_changed),
+                       "gl_lines_value_changed", G_CALLBACK (gl_lines_value_changed),
+                       "gl_man_cs_value_changed", G_CALLBACK (gl_man_cs_value_changed),
+                       "gl_man_rs_value_changed", G_CALLBACK (gl_man_rs_value_changed),
+                       "gl_man_cvs_value_changed", G_CALLBACK (gl_man_cvs_value_changed),
+                       "gl_man_rvs_value_changed", G_CALLBACK (gl_man_rvs_value_changed),
+                       "gl_hex_size_value_changed", G_CALLBACK (gl_hex_size_value_changed),
+                       "gl_update_sensitive", G_CALLBACK (gl_update_sensitive),
+                       NULL);
+
+  gtk_container_add (GTK_CONTAINER (dialog_vbox), content);
+
+  g_clear_object (&builder);
+}
+
+
+void
+dia_preferences_dialog_show (void)
+{
+  static GtkWidget *prefs_dialog = NULL;
+
+  if (prefs_dialog == NULL) {
+    prefs_dialog = g_object_new (DIA_TYPE_PREFERENCES_DIALOG, NULL);
+    gtk_window_set_transient_for (GTK_WINDOW (prefs_dialog),
+                                  GTK_WINDOW (interface_get_toolbox_shell ()));
+    g_signal_connect (G_OBJECT (prefs_dialog),
+                      "destroy",
+                      G_CALLBACK (gtk_widget_destroyed),
+                      &prefs_dialog);
   }
 
   gtk_widget_show (prefs_dialog);
 }
 
-static void
-prefs_update_prefs_from_dialog(void)
+
+void
+dia_preferences_init (void)
 {
-  GtkWidget *widget;
-  int i;
-  gpointer ptr;
+  GEnumClass *unit_class = g_type_class_ref (DIA_TYPE_UNIT);
+  Color default_bg = { 1.0, 1.0, 1.0, 1.0 };
+  Color break_bg = { 0.0, 0.0, 0.6, 1.0 };
+  Color guide_bg = { 0.0, 1.0, 0.0, 1.0 };
+  Color grid_bg = { 0.85, .90, .90, 1.0 };
 
-  for (i=0;i<NUM_PREFS_DATA;i++) {
-    if (prefs_data[i].hidden) continue;
-    widget = prefs_data[i].widget;
-    ptr = (char *)&prefs + prefs_data[i].offset;
+  prefs.reset_tools_after_create = persistence_register_boolean ("reset_tools_after_create", TRUE);
+  prefs.undo_depth = persistence_register_integer ("undo_depth", 15);
+  prefs.reverse_rubberbanding_intersects = persistence_register_boolean ("reverse_rubberbanding_intersects", TRUE);
+  prefs.recent_documents_list_size = persistence_register_integer ("recent_documents_list_size", 5);
+  /* This used to be length_unit and font_unit but the underlying representation changed */
+  prefs_set_length_unit (g_enum_get_value_by_nick (unit_class, persistence_register_string ("length-unit", "centimetre"))->value);
+  prefs_set_fontsize_unit (g_enum_get_value_by_nick (unit_class, persistence_register_string ("font-unit", "point"))->value);
+  prefs.snap_distance = persistence_register_integer ("snap_distance", 10);
+  prefs.new_view.use_menu_bar = persistence_register_boolean ("use_menu_bar", TRUE);
+  prefs.toolbox_on_top = persistence_register_boolean ("toolbox_on_top", FALSE);
 
-    prefs_get_value_from_widget(widget, &prefs_data[i],  ptr);
-  }
+  prefs.new_diagram.is_portrait = persistence_register_boolean ("is_portrait", TRUE);
+  prefs.new_diagram.papertype = persistence_register_string ("new_diagram_papertype", dia_paper_get_name (get_default_paper ()));
+  prefs.new_diagram.bg_color = *persistence_register_color ("new_diagram_bgcolour", &default_bg);
+  prefs.new_diagram.compress_save = persistence_register_boolean ("compress_save", FALSE);
+  prefs.show_cx_pts = persistence_register_boolean ("show_cx_pts", TRUE);
+  prefs.snap_object = persistence_register_boolean ("snap_object", TRUE);
+
+  prefs.new_view.width = persistence_register_integer ("new_view_width", 500);
+  prefs.new_view.height = persistence_register_integer ("new_view_height", 400);
+  prefs.new_view.zoom = persistence_register_real ("new_view_zoom", 100);
+  prefs.view_antialiased = persistence_register_boolean ("view_antialiased", TRUE);
+  prefs.pagebreak.visible = persistence_register_boolean ("pagebreak_visible", TRUE);
+  prefs.new_diagram.pagebreak_color = *persistence_register_color ("pagebreak_colour", &break_bg);
+  prefs.pagebreak.solid = persistence_register_boolean ("pagebreak_solid", TRUE);
+  prefs.guides_visible = persistence_register_boolean ("show_guides", TRUE);
+  prefs.guides_snap = persistence_register_boolean ("snap_to_guides", TRUE);
+  prefs.new_diagram.guide_color = *persistence_register_color ("guide_colour", &guide_bg);
+
+  prefs.favored_filter.png = persistence_register_string ("favored_png_export", "any");
+  prefs.favored_filter.svg = persistence_register_string ("favored_svg_export", "any");
+  prefs.favored_filter.ps = persistence_register_string ("favored_ps_export", "any");
+  prefs.favored_filter.wmf = persistence_register_string ("favored_wmf_export", "any");
+  prefs.favored_filter.emf = persistence_register_string ("favored_emf_export", "any");
+
+  prefs.grid.visible = persistence_register_boolean ("grid_visible", TRUE);
+  prefs.grid.snap = persistence_register_boolean ("grid_snap", FALSE);
+  prefs.new_diagram.grid_color = *persistence_register_color ("grid_colour", &grid_bg);
+  prefs.grid.major_lines = persistence_register_integer ("grid_major", 5);
+  prefs.grid.dynamic = persistence_register_boolean ("grid_dynamic", TRUE);
+  prefs.grid.x = persistence_register_integer ("grid_x", 1);
+  prefs.grid.y = persistence_register_integer ("grid_y", 1);
+  prefs.grid.vis_x = persistence_register_real ("grid_vis_x", 1);
+  prefs.grid.vis_y = persistence_register_real ("grid_vis_y", 1);
+  prefs.grid.hex = persistence_register_boolean ("grid_hex", FALSE);
+  prefs.grid.hex_size = persistence_register_real ("grid_hex_size", 1);
 }
-
-static void
-prefs_update_dialog_from_prefs(void)
-{
-  GtkWidget *widget;
-  int i;
-  gpointer ptr;
-
-  for (i=0;i<NUM_PREFS_DATA;i++) {
-    if (prefs_data[i].hidden) continue;
-    widget = prefs_data[i].widget;
-    ptr = (char *)&prefs + prefs_data[i].offset;
-
-    prefs_set_value_in_widget(widget, &prefs_data[i],  ptr);
-  }
-}
-
-/** Updates certain preferences that are kept in lib.  Both args
- *  are currently unused and may be null.
- */
-static void
-update_internal_prefs(DiaPrefData *pref, gpointer ptr)
-{
-#if 0
-  char *val = NULL;
-
-  if (!ptr)
-    return;
-  val = *(char **)ptr;
-#endif
-  if (prefs.length_unit)
-    prefs_set_length_unit(prefs.length_unit);
-  if (prefs.fontsize_unit)
-    prefs_set_fontsize_unit(prefs.fontsize_unit);
-}
-
-static void
-update_floating_toolbox(DiaPrefData *pref, gpointer ptr)
-{
-  g_return_if_fail (pref->key == NULL);
-
-  if (!app_is_interactive())
-    return;
-
-  if (prefs.toolbox_on_top) {
-    /* Go through all diagrams and set toolbox transient for all displays */
-    GList *diagrams;
-    for (diagrams = dia_open_diagrams(); diagrams != NULL;
-	 diagrams = g_list_next(diagrams)) {
-      Diagram *diagram = (Diagram *)diagrams->data;
-      GSList *displays;
-      for (displays = diagram->displays; displays != NULL;
-	   displays = g_slist_next(displays)) {
-	DDisplay *ddisp = (DDisplay *)displays->data;
-	gtk_window_set_transient_for(GTK_WINDOW(interface_get_toolbox_shell()),
-				     GTK_WINDOW(ddisp->shell));
-      }
-    }
-  } else {
-    GtkWindow *shell = GTK_WINDOW(interface_get_toolbox_shell());
-    if (shell)
-      gtk_window_set_transient_for(shell, NULL);
-  }
-}
-

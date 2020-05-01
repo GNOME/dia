@@ -25,39 +25,24 @@
 DiaUnit length_unit = DIA_UNIT_CENTIMETER;
 DiaUnit fontsize_unit = DIA_UNIT_POINT;
 
-void
-prefs_set_length_unit(gchar* unit) {
-  GList *name_list = get_units_name_list();
-  int i;
 
-  for (i = 0; name_list != NULL; name_list = g_list_next(name_list), i++) {
-    if (!strcmp(unit, (gchar*) name_list->data)) {
-      length_unit = i;
-      return;
-    }
-  }
-  length_unit = DIA_UNIT_CENTIMETER;
+void
+prefs_set_length_unit (DiaUnit unit) {
+  length_unit = unit;
 }
 
 void
-prefs_set_fontsize_unit(gchar* unit) {
-  GList *name_list = get_units_name_list();
-  int i;
-
-  for (i = 0; name_list != NULL; name_list = g_list_next(name_list), i++) {
-    if (!strcmp(unit, (gchar*) name_list->data)) {
-      fontsize_unit = i;
-      return;
-    }
-  }
-  fontsize_unit = DIA_UNIT_POINT;
+prefs_set_fontsize_unit (DiaUnit unit) {
+  fontsize_unit = unit;
 }
+
 
 DiaUnit
 prefs_get_length_unit(void)
 {
   return length_unit;
 }
+
 
 DiaUnit
 prefs_get_fontsize_unit(void)

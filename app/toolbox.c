@@ -317,7 +317,7 @@ fill_sheet_wbox(Sheet *sheet)
       if (pixbuf != NULL) {
         int width = gdk_pixbuf_get_width (pixbuf);
         int height = gdk_pixbuf_get_height (pixbuf);
-        if (width > 22 && prefs.fixed_icon_size) {
+        if (width > 22) {
           GdkPixbuf *cropped;
           g_warning ("Shape icon '%s' size wrong, cropped.",
                      sheet_obj->pixmap_file);

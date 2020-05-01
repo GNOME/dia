@@ -18,18 +18,11 @@
 
 /* Handling of user prefs that affect internals of Dia. */
 
-#ifndef PREFS_H
-#define PREFS_H
+#pragma once
 
-#include <config.h>
+#include "units.h"
 
-#include "diatypes.h"
-#include "widgets.h"
-
-void prefs_set_length_unit(gchar* unit);
-void prefs_set_fontsize_unit(gchar* unit);
-
-DiaUnit prefs_get_length_unit(void);
-DiaUnit prefs_get_fontsize_unit(void);
-
-#endif
+void    prefs_set_length_unit   (DiaUnit unit);
+void    prefs_set_fontsize_unit (DiaUnit unit);
+DiaUnit prefs_get_length_unit   (void);
+DiaUnit prefs_get_fontsize_unit (void);

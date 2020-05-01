@@ -177,12 +177,12 @@ file_new_callback (GtkAction *action)
   g_clear_object (&file);
 }
 
+
 void
 file_preferences_callback (GtkAction *action)
 {
-  prefs_show ();
+  dia_preferences_dialog_show ();
 }
-
 
 
 /* Signal handler for getting the clipboard contents */

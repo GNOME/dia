@@ -803,7 +803,7 @@ app_init (int argc, char **argv)
   persistence_load ();
 
   /** Must load prefs after persistence */
-  prefs_init ();
+  dia_preferences_init ();
 
   if (dia_is_interactive) {
 
@@ -989,7 +989,6 @@ app_exit (void)
       gtk_widget_destroy (dialog);
     }
   }
-  prefs_save ();
 
   persistence_save ();
 
