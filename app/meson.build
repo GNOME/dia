@@ -52,7 +52,7 @@ dia_sources = [
     'cut_n_paste.c',
     'ruler.c',
     'tool.c',
-    'diapagelayout.c',
+    'dia-page-layout.c',
     'pagesetup.c',
     'filedlg.c',
     'find-and-replace.c',
@@ -82,7 +82,8 @@ dia_sources = [
     'textedit_tool.c',
 ]
 
-sources += gnome.mkenums_simple('dia-app-enums', sources: 'exit_dialog.h')
+dia_sources += gnome.mkenums_simple('dia-app-enums',
+                                    sources: ['dia-page-layout.h', 'exit_dialog.h'])
 
 #TODO: this is workaround for openbsd where libraries are in /usr/lib/local
 # Potential parent issues: https://github.com/mesonbuild/meson/issues/3570

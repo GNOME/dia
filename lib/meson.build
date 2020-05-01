@@ -159,9 +159,13 @@ libdia_sources = stdprop_sources + [
     'dia-line-cell-renderer.h',
     'dia-simple-list.c',
     'dia-simple-list.h',
+    'dia-autoptr.h',
 ]
 
 gnome = import('gnome')
+
+libdia_sources += gnome.mkenums_simple('dia-lib-enums', sources: 'units.h')
+
 diamarshal = gnome.genmarshal(
     'diamarshal',
     prefix: 'dia_marshal',

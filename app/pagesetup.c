@@ -27,7 +27,7 @@
 
 #include "pagesetup.h"
 #include "intl.h"
-#include "diapagelayout.h"
+#include "dia-page-layout.h"
 #include "display.h"
 
 typedef struct _PageSetup PageSetup;
@@ -57,7 +57,7 @@ pagesetup_respond (GtkWidget *widget,
   }
 
   if (response_id != GTK_RESPONSE_APPLY) {
-    g_object_unref (&ps->dia);
+    g_clear_object (&ps->dia);
     gtk_widget_destroy(ps->window);
   }
 
@@ -71,9 +71,8 @@ create_page_setup_dlg(Diagram *dia)
   PageSetup *ps;
   GtkWidget *vbox;
 
-  ps = g_new(PageSetup, 1);
-  ps->dia = dia;
-  g_object_ref(ps->dia);
+  ps = g_new (PageSetup, 1);
+  ps->dia = g_object_ref (dia);
   ps->window = gtk_dialog_new_with_buttons (_("Page Setup"),
                                             GTK_WINDOW (ddisplay_active()->shell),
                                             GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -120,17 +119,20 @@ create_page_setup_dlg(Diagram *dia)
   gtk_widget_show(ps->window);
 }
 
+
 static void
-pagesetup_changed(GtkWidget *wid, PageSetup *ps)
+pagesetup_changed (GtkWidget *wid, PageSetup *ps)
 {
-  gfloat dwidth, dheight;
-  gfloat pwidth, pheight;
-  gfloat xscale, yscale;
-  gint fitw = 0, fith = 0;
-  gfloat cur_scaling;
+  double dwidth, dheight;
+  double pwidth, pheight;
+  double xscale, yscale;
+  int fitw = 0, fith = 0;
+  double cur_scaling;
 
   /* set sensitivity on apply button */
-  gtk_dialog_set_response_sensitive(GTK_DIALOG(ps->window), GTK_RESPONSE_APPLY, TRUE);
+  gtk_dialog_set_response_sensitive (GTK_DIALOG (ps->window),
+                                     GTK_RESPONSE_APPLY,
+                                     TRUE);
   ps->changed = TRUE;
 
   dwidth  = ps->dia->data->extents.right - ps->dia->data->extents.left;
@@ -139,25 +141,25 @@ pagesetup_changed(GtkWidget *wid, PageSetup *ps)
   if (dwidth <= 0.0 || dheight <= 0.0)
     return;
 
-  dia_page_layout_set_changed (DIA_PAGE_LAYOUT(ps->paper), TRUE);
+  dia_page_layout_set_changed (DIA_PAGE_LAYOUT (ps->paper), TRUE);
 
-  cur_scaling = dia_page_layout_get_scaling(DIA_PAGE_LAYOUT(ps->paper));
-  dia_page_layout_get_effective_area(DIA_PAGE_LAYOUT(ps->paper),
-				     &pwidth, &pheight);
+  cur_scaling = dia_page_layout_get_scaling (DIA_PAGE_LAYOUT (ps->paper));
+  dia_page_layout_get_effective_area (DIA_PAGE_LAYOUT (ps->paper),
+                                      &pwidth, &pheight);
   g_return_if_fail (pwidth > 0.0 && pheight > 0.0);
   pwidth *= cur_scaling;
   pheight *= cur_scaling;
 
-  if (dia_page_layout_get_fitto(DIA_PAGE_LAYOUT(ps->paper))) {
-    dia_page_layout_get_fit_dims(DIA_PAGE_LAYOUT(ps->paper), &fitw, &fith);
+  if (dia_page_layout_get_fitto (DIA_PAGE_LAYOUT (ps->paper))) {
+    dia_page_layout_get_fit_dims (DIA_PAGE_LAYOUT (ps->paper), &fitw, &fith);
     xscale = fitw * pwidth / dwidth;
     yscale = fith * pheight / dheight;
-    dia_page_layout_set_scaling(DIA_PAGE_LAYOUT(ps->paper),
-				MIN(xscale, yscale));
+    dia_page_layout_set_scaling (DIA_PAGE_LAYOUT (ps->paper),
+                                 MIN (xscale, yscale));
   } else {
-    fitw = ceil(dwidth * cur_scaling / pwidth);
-    fith = ceil(dheight * cur_scaling / pheight);
-    dia_page_layout_set_fit_dims(DIA_PAGE_LAYOUT(ps->paper), fitw, fith);
+    fitw = ceil (dwidth * cur_scaling / pwidth);
+    fith = ceil (dheight * cur_scaling / pheight);
+    dia_page_layout_set_fit_dims (DIA_PAGE_LAYOUT (ps->paper), fitw, fith);
   }
 
   dia_page_layout_set_changed (DIA_PAGE_LAYOUT(ps->paper), FALSE);

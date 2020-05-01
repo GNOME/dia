@@ -16,36 +16,57 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef PAPER_H
-#define PAPER_H
+#pragma once
 
 #include <glib.h>
 #include <diatypes.h>
 
-struct _PaperInfo {
-  gchar *name;      /* name of the paper */
-  gfloat tmargin, bmargin, lmargin, rmargin; /* margin widths in centimeters */
-  gboolean is_portrait;   /* page is in portrait orientation? */
-  gfloat scaling;         /* scaling factor for image on page */
-  gboolean fitto;         /* if we want to use the fitto mode for scaling */
-  gint fitwidth, fitheight; /* how many pages in each direction */
 
-  gfloat width, height;   /* usable width/height -- calculated from paper type,
-			   * margin widths and paper orientation; the real paper
-			   * size is width*scaling, height*scaling */
+/**
+ * PaperInfo:
+ * @name: name of the paper
+ * @tmargin: margin widths in %DIA_UNIT_CENTIMETER
+ * @bmargin: "
+ * @lmargin: "
+ * @rmargin: "
+ * @is_portrait: page is in portrait orientation?
+ * @scaling: scaling factor for image on page
+ * @fitto: if we want to use the fitto mode for scaling
+ * @fitwidth: how many pages in each direction
+ * @fitheight: "
+ * @width: usable width/height -- calculated from paper type,
+ *         margin widths and paper orientation; the real paper
+ *         size is width*scaling, height*scaling
+ * @height: "
+ *
+ * Since: dawn-of-time
+ */
+struct _PaperInfo {
+  char     *name;
+  double    tmargin;
+  double    bmargin;
+  double    lmargin;
+  double    rmargin;
+  gboolean  is_portrait;
+  double    scaling;
+  gboolean  fitto;
+  int       fitwidth;
+  int       fitheight;
+  double    width;
+  double    height;
 };
 
-int find_paper(const gchar* name);
-int get_default_paper(void);
-void get_paper_info(PaperInfo *paper, int i, NewDiagramData *data);
 
-GList *get_paper_name_list(void);
-const gchar *get_paper_name(int i);
-gdouble get_paper_psheight(int i);
-gdouble get_paper_pswidth(int i);
-gdouble get_paper_lmargin(int i);
-gdouble get_paper_rmargin(int i);
-gdouble get_paper_bmargin(int i);
-gdouble get_paper_tmargin(int i);
-
-#endif
+int         find_paper          (const char     *name);
+int         get_default_paper   (void);
+void        get_paper_info      (PaperInfo      *paper,
+                                 int             i,
+                                 NewDiagramData *data);
+GList      *get_paper_name_list (void);
+const char *dia_paper_get_name  (int             i);
+double      get_paper_psheight  (int             i);
+double      get_paper_pswidth   (int             i);
+double      get_paper_lmargin   (int             i);
+double      get_paper_rmargin   (int             i);
+double      get_paper_bmargin   (int             i);
+double      get_paper_tmargin   (int             i);
