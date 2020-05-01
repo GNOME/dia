@@ -746,8 +746,9 @@ EXPORTS
 
  make_new_prop
  prefs_get_length_unit
- prefs_set_fontsize_unit
  prefs_set_length_unit
+ prefs_get_fontsize_unit
+ prefs_set_fontsize_unit
  prop_desc_find_real_handler
  prop_desc_insert_handler
  prop_desc_list_calculate_quarks
