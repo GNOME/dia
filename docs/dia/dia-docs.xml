@@ -74,7 +74,6 @@
     <xi:include href="xml/create.xml"/>
     <xi:include href="xml/diatransform.xml"/>
     <xi:include href="xml/object_index.sgml"/>
-    <xi:include href="xml/diatypes.xml"/>
     <xi:include href="xml/sheet.xml"/>
     <xi:include href="xml/diavar.xml"/>
     <xi:include href="xml/object.xml"/>

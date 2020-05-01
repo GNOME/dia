@@ -26,6 +26,7 @@
 #include "color.h"
 #include "arrows.h"
 #include "units.h"
+#include "dia-autoptr.h"
 
 /* DiaAlignmentSelector: */
 GtkWidget* dia_alignment_selector_new           (void);
@@ -40,7 +41,7 @@ void       dia_alignment_selector_set_alignment (GtkWidget *as, Alignment align)
 GType      dia_line_style_selector_get_type      (void);
 GtkWidget* dia_line_style_selector_new           (void);
 void       dia_line_style_selector_get_linestyle (DiaLineStyleSelector *as,
-						  LineStyle *linestyle, 
+						  LineStyle *linestyle,
 						  real *dashlength);
 void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
 						  LineStyle linestyle,
@@ -104,12 +105,6 @@ gboolean   dia_size_selector_get_size        (DiaSizeSelector *ss, real *width, 
 
 
 /* DiaUnitSpinner */
-#define DIA_UNIT_SPINNER(obj) G_TYPE_CHECK_INSTANCE_CAST(obj, dia_unit_spinner_get_type(), DiaUnitSpinner)
-#define DIA_UNIT_SPINNER_CLASS(klass) G_TYPE_CHECK_CLASS_CAST(klass, dia_unit_spinner_get_type(), DiaUnitSpinnerClass)
-#define DIA_IS_UNIT_SPINNER(obj) G_TYPE_CHECK_INSTANCE_TYPE(obj, dia_unit_spinner_get_type())
-
-typedef struct _DiaUnitSpinner DiaUnitSpinner;
-typedef struct _DiaUnitSpinnerClass DiaUnitSpinnerClass;
 
 struct _DiaUnitSpinner {
   GtkSpinButton parent;
@@ -117,19 +112,18 @@ struct _DiaUnitSpinner {
   DiaUnit unit_num;
 };
 
-struct _DiaUnitSpinnerClass {
-  GtkSpinButtonClass parent_class;
 
-};
+#define DIA_TYPE_UNIT_SPINNER dia_unit_spinner_get_type ()
+G_DECLARE_FINAL_TYPE (DiaUnitSpinner, dia_unit_spinner, DIA, UNIT_SPINNER, GtkSpinButton)
 
-GType      dia_unit_spinner_get_type  (void);
-GtkWidget *dia_unit_spinner_new       (GtkAdjustment *adjustment,
-				       DiaUnit adj_unit);
-void       dia_unit_spinner_set_value (DiaUnitSpinner *self, gdouble val);
-gdouble    dia_unit_spinner_get_value (DiaUnitSpinner *self);
-void       dia_unit_spinner_set_upper (DiaUnitSpinner *self, gdouble val);
 
-GList *    get_units_name_list(void);
+GtkWidget *dia_unit_spinner_new       (GtkAdjustment  *adjustment,
+                                       DiaUnit         adj_unit);
+void       dia_unit_spinner_set_value (DiaUnitSpinner *self,
+                                       double          val);
+double     dia_unit_spinner_get_value (DiaUnitSpinner *self);
+void       dia_unit_spinner_set_upper (DiaUnitSpinner *self,
+                                       double          val);
 
 /* **** Util functions for Gtk stuff **** */
 

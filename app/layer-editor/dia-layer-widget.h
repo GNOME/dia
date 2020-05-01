@@ -20,15 +20,14 @@
 
 #include <gtk/gtk.h>
 
+#include "dia-autoptr.h"
 #include "dia-layer.h"
 #include "dia-layer-editor.h"
 
 G_BEGIN_DECLS
 
+
 #define DIA_TYPE_LAYER_WIDGET dia_layer_widget_get_type ()
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkBin, g_object_unref)
-
 G_DECLARE_DERIVABLE_TYPE (DiaLayerWidget, dia_layer_widget, DIA, LAYER_WIDGET, GtkBin)
 
 struct _DiaLayerWidgetClass {

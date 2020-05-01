@@ -24,6 +24,8 @@
 
 #include <glib-object.h>
 
+#ifndef __GTK_DOC_IGNORE__
+
 /* from geometry.h - but used more generic */
 typedef double real;
 
@@ -194,3 +196,5 @@ typedef enum {
   PATH_INTERSECTION,
   PATH_EXCLUSION
 } PathCombineMode;
+
+#endif

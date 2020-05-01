@@ -17,13 +17,14 @@
  */
 
 #include <gtk/gtk.h>
+
 #include "diatypes.h"
+#include "dia-autoptr.h"
 
 #pragma once
 
 G_BEGIN_DECLS
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkHBox, g_object_unref)
 
 struct _DiaFontSelector
 {

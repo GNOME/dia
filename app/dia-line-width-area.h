@@ -15,17 +15,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef LINEWDITH_AREA_H
-#define LINEWDITH_AREA_H
+
+#pragma once
 
 #include <gtk/gtk.h>
 
-#ifndef __GTK_DOC_IGNORE__
-#ifndef EVENT_APTR
-#define EVENT_APTR
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkEventBox, g_object_unref)
-#endif
-#endif
+#include "dia-autoptr.h"
+
+G_BEGIN_DECLS
+
 
 #define DIA_TYPE_LINE_WIDTH_AREA (dia_line_width_area_get_type ())
 G_DECLARE_FINAL_TYPE (DiaLineWidthArea, dia_line_width_area, DIA, LINE_WIDTH_AREA, GtkEventBox)
@@ -41,5 +39,4 @@ struct _DiaLineWidthArea
 
 GtkWidget *dia_line_width_area_new ();
 
-
-#endif /* LINEWDITH_AREA_H */
+G_END_DECLS

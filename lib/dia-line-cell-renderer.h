@@ -22,11 +22,12 @@
 
 #include <gtk/gtk.h>
 
+#include "dia-autoptr.h"
+
 #pragma once
 
 G_BEGIN_DECLS
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkCellRenderer, g_object_unref)
 
 #define DIA_TYPE_LINE_CELL_RENDERER dia_line_cell_renderer_get_type ()
 G_DECLARE_DERIVABLE_TYPE (DiaLineCellRenderer, dia_line_cell_renderer, DIA, LINE_CELL_RENDERER, GtkCellRenderer)

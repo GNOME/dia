@@ -25,14 +25,13 @@
 #include <gtk/gtk.h>
 
 #include "diagramdata.h"
+#include "dia-autoptr.h"
 #include "dia-layer-widget.h"
 
 G_BEGIN_DECLS
 
+
 #define DIA_TYPE_LAYER_LIST dia_layer_list_get_type ()
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkContainer, g_object_unref)
-
 G_DECLARE_DERIVABLE_TYPE (DiaLayerList, dia_layer_list, DIA, LAYER_LIST, GtkContainer)
 
 

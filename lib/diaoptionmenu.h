@@ -23,9 +23,10 @@
 
 #include <gtk/gtk.h>
 
+#include "dia-autoptr.h"
+
 G_BEGIN_DECLS
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkComboBox, g_object_unref)
 
 #define DIA_TYPE_OPTION_MENU dia_option_menu_get_type ()
 G_DECLARE_DERIVABLE_TYPE (DiaOptionMenu, dia_option_menu, DIA, OPTION_MENU, GtkComboBox)

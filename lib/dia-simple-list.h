@@ -22,11 +22,11 @@
 
 #include <gtk/gtk.h>
 
+#include "dia-autoptr.h"
+
 #pragma once
 
 G_BEGIN_DECLS
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkTreeView, g_object_unref)
 
 #define DIA_TYPE_SIMPLE_LIST dia_simple_list_get_type ()
 G_DECLARE_DERIVABLE_TYPE (DiaSimpleList, dia_simple_list, DIA, SIMPLE_LIST, GtkTreeView)

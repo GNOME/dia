@@ -17,27 +17,28 @@
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
- * Copyright © 2019 Zander Brown <zbrown@gnome.org>
+ * Copyright © 2020 Zander Brown <zbrown@gnome.org>
  */
 
-#include <gtk/gtk.h>
-
-#include "dia-autoptr.h"
-
 #pragma once
+
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
 
-#define DIA_TYPE_COLOUR_CELL_RENDERER dia_colour_cell_renderer_get_type ()
-G_DECLARE_DERIVABLE_TYPE (DiaColourCellRenderer, dia_colour_cell_renderer, DIA, COLOUR_CELL_RENDERER, GtkCellRendererText)
-
-struct _DiaColourCellRendererClass {
-  GtkCellRendererTextClass parent_class;
-};
-
-
-GtkCellRenderer *dia_colour_cell_renderer_new (void);
-
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkBuilder, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkSpinButton, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkComboBox, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkHBox, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkTreeView, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkCellRenderer, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkCellRendererText, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkBin, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkContainer, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkVBox, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkDialog, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkEventBox, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkTable, g_object_unref)
 
 G_END_DECLS

@@ -24,13 +24,13 @@
 
 #include <gtk/gtk.h>
 
+#include "dia-autoptr.h"
+
 G_BEGIN_DECLS
 
 struct _DiaBuilder {
   GtkBuilder parent;
 };
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkBuilder, g_object_unref)
 
 #define DIA_TYPE_BUILDER dia_builder_get_type()
 G_DECLARE_FINAL_TYPE (DiaBuilder, dia_builder, DIA, BUILDER, GtkBuilder)
