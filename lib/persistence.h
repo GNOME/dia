@@ -16,62 +16,71 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/* persistence.h -- definitions for persistent storage.
- */
+#pragma once
 
-#ifndef PERSISTENCE_H
-#define PERSISTENCE_H
 #include "geometry.h"
 
 #include <gtk/gtk.h>
 
-typedef void (NullaryFunc)();
+G_BEGIN_DECLS
 
-void persistence_load(void);
-void persistence_save(void);
-void persistence_register_window(GtkWindow *window);
-void persistence_register_window_create(gchar *role, NullaryFunc *func);
-void persistence_register_string_entry(gchar *role, GtkWidget *entry);
-gboolean persistence_change_string_entry(gchar *role, gchar *string,
-					 GtkWidget *widget);
+typedef void (NullaryFunc) ();
+
+void     persistence_load                   (void);
+void     persistence_save                   (void);
+void     persistence_register_window        (GtkWindow   *window);
+void     persistence_register_window_create (char        *role,
+                                             NullaryFunc *func);
+void     persistence_register_string_entry  (char        *role,
+                                             GtkWidget   *entry);
+gboolean persistence_change_string_entry    (char        *role,
+                                             char        *string,
+                                             GtkWidget   *widget);
 
 
 typedef struct _PersistentList PersistentList;
 
-typedef void (*PersistenceCallback)(GObject *, gpointer);
+typedef void (*PersistenceCallback) (GObject *, gpointer);
 
-PersistentList *persistence_register_list(const gchar *role);
-PersistentList *persistent_list_get(const gchar *role);
-GList *persistent_list_get_glist(const gchar *role);
-gboolean persistent_list_add(const gchar *role, const gchar *item);
-void persistent_list_set_max_length(const gchar *role, gint max);
-gboolean persistent_list_remove(const gchar *role, const gchar *item);
-void persistent_list_remove_all(const gchar *role);
-void persistent_list_add_listener(const gchar *role, PersistenceCallback func, 
-				  GObject *watch, gpointer userdata);
-void persistent_list_clear(const gchar *role);
+PersistentList *persistence_register_list      (const char          *role);
+PersistentList *persistent_list_get            (const char          *role);
+GList          *persistent_list_get_glist      (const char          *role);
+gboolean        persistent_list_add            (const char          *role,
+                                                const char          *item);
+void            persistent_list_set_max_length (const char          *role,
+                                                int                  max);
+gboolean        persistent_list_remove         (const char          *role,
+                                                const char          *item);
+void            persistent_list_remove_all     (const char          *role);
+void            persistent_list_add_listener   (const char          *role,
+                                                PersistenceCallback  func,
+                                                GObject             *watch,
+                                                gpointer             userdata);
+void            persistent_list_clear          (const char          *role);
+int             persistence_register_integer   (char                *role,
+                                                int                  defaultvalue);
+int             persistence_get_integer        (char                *role);
+void            persistence_set_integer        (char                *role,
+                                                int                  newvalue);
+double          persistence_register_real      (char                *role,
+                                                double               defaultvalue);
+double          persistence_get_real           (char                *role);
+void            persistence_set_real           (char                *role,
+                                                double               newvalue);
+gboolean        persistence_register_boolean   (const char          *role,
+                                                gboolean             defaultvalue);
+gboolean        persistence_get_boolean        (const char          *role);
+void            persistence_set_boolean        (const char          *role,
+                                                gboolean             newvalue);
+char           *persistence_register_string    (char                *role,
+                                                const char          *defaultvalue);
+char           *persistence_get_string         (char                *role);
+void            persistence_set_string         (char                *role,
+                                                const char          *newvalue);
+Color          *persistence_register_color     (char                *role,
+                                                Color               *defaultvalue);
+Color          *persistence_get_color          (char                *role);
+void            persistence_set_color          (char                *role,
+                                                Color               *newvalue);
 
-gboolean persistence_is_registered(gchar *role);
-
-gint persistence_register_integer(gchar *role, int defaultvalue);
-gint persistence_get_integer(gchar *role);
-void persistence_set_integer(gchar *role, gint newvalue);
-
-real persistence_register_real(gchar *role, real defaultvalue);
-real persistence_get_real(gchar *role);
-void persistence_set_real(gchar *role, real newvalue);
-
-gboolean persistence_boolean_is_registered(const gchar *role);
-gboolean persistence_register_boolean(const gchar *role, gboolean defaultvalue);
-gboolean persistence_get_boolean(const gchar *role);
-void persistence_set_boolean(const gchar *role, gboolean newvalue);
-
-gchar *persistence_register_string(gchar *role, gchar *defaultvalue);
-gchar *persistence_get_string(gchar *role);
-void persistence_set_string(gchar *role, const gchar *newvalue);
-
-Color *persistence_register_color(gchar *role, Color *defaultvalue);
-Color *persistence_get_color(gchar *role);
-void persistence_set_color(gchar *role, Color *newvalue);
-
-#endif
+G_END_DECLS
