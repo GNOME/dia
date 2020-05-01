@@ -15,31 +15,39 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef UNITS_H
-#define UNITS_H
 
-#include <config.h>
-#include "diavar.h"
+#pragma once
 
-typedef enum {
-  DIA_UNIT_CENTIMETER,
-  DIA_UNIT_DECIMETER,
-  DIA_UNIT_FEET,
-  DIA_UNIT_INCH,
-  DIA_UNIT_METER,
-  DIA_UNIT_MILLIMETER,
-  DIA_UNIT_POINT,
-  DIA_UNIT_PICA,
+#include "dia-lib-enums.h"
+
+/**
+ * DiaUnit:
+ * @DIA_UNIT_CENTIMETER: 0.01 metre
+ * @DIA_UNIT_DECIMETER: 0.1 metre
+ * @DIA_UNIT_FEET: 0.3048 metre (12 inch)
+ * @DIA_UNIT_INCH: 0.0254 metre
+ * @DIA_UNIT_METER: 1 metre
+ * @DIA_UNIT_MILLIMETER: 0.001 metre
+ * @DIA_UNIT_POINT: 1 pixel
+ * @DIA_UNIT_PICA: 12 pixels
+ * @DIA_LAST_UNIT: Dummy value indicating the number of units
+ *
+ * Since: dawn-of-time
+ */
+typedef enum /*< enum,prefix=DIA >*/ {
+  DIA_UNIT_CENTIMETER, /*< nick=centimetre >*/
+  DIA_UNIT_DECIMETER,  /*< nick=decimetre >*/
+  DIA_UNIT_FEET,       /*< nick=feet >*/
+  DIA_UNIT_INCH,       /*< nick=inch >*/
+  DIA_UNIT_METER,      /*< nick=metre >*/
+  DIA_UNIT_MILLIMETER, /*< nick=millimetre >*/
+  DIA_UNIT_POINT,      /*< nick=point >*/
+  DIA_UNIT_PICA,       /*< nick=pica >*/
+  DIA_LAST_UNIT        /*< skip >*/
 } DiaUnit;
 
-typedef struct _DiaUnitDef DiaUnitDef;
-struct _DiaUnitDef {
-  char* name;
-  char* unit;
-  float factor;
-  int digits; /** Number of digits after the decimal separator */
-};
 
-extern const DIAVAR DiaUnitDef units[];
-
-#endif /* UNITS_H */
+const char *dia_unit_get_name   (DiaUnit self);
+const char *dia_unit_get_symbol (DiaUnit self);
+double      dia_unit_get_factor (DiaUnit self);
+int         dia_unit_get_digits (DiaUnit self);

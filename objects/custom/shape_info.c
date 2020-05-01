@@ -896,35 +896,33 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
 	}
 	xmlFree(tmp);
       }
-    } else if (node->ns == shape_ns && (!xmlStrcmp(node->name, (const xmlChar *)"default-width") || !xmlStrcmp(node->name, (const xmlChar *)"default-height"))) {
-
-      int j = 0;
-      DiaUnitDef ud;
-
-      gdouble val = 0.0;
-
+    } else if (node->ns == shape_ns && (!xmlStrcmp(node->name, (const xmlChar *)"default-width") || !xmlStrcmp(node->name, (const xmlChar *) "default-height"))) {
+      double val = 0.0;
       int unit_ssize = 0;
       int ssize = 0;
-      tmp = (gchar *) xmlNodeGetContent(node);
-      ssize = strlen(tmp);
 
-      val = g_ascii_strtod(tmp, NULL);
+      tmp = (char *) xmlNodeGetContent (node);
+      ssize = strlen (tmp);
 
-      for (ud = units[j]; ud.name; ud = units[++j]) {
-        unit_ssize = strlen(ud.unit);
-        if (ssize > unit_ssize && !strcmp(tmp+(ssize-unit_ssize), ud.unit)) {
-          val *= (ud.factor / 28.346457);
+      val = g_ascii_strtod (tmp, NULL);
+
+      for (int j = 0; j < DIA_LAST_UNIT; j++) {
+        unit_ssize = strlen (dia_unit_get_symbol (j));
+        if (ssize > unit_ssize &&
+            !g_strcmp0 (tmp + (ssize - unit_ssize),
+                        dia_unit_get_symbol (j))) {
+          val *= (dia_unit_get_factor (j) / 28.346457);
           break;
         }
       }
 
-      if (!xmlStrcmp(node->name, (const xmlChar *)"default-width")) {
+      if (!xmlStrcmp (node->name, (const xmlChar *) "default-width")) {
         info->default_width = val;
       } else {
         info->default_height = val;
       }
 
-      xmlFree(tmp);
+      xmlFree (tmp);
     } else if (node->ns == svg_ns && !xmlStrcmp(node->name, (const xmlChar *)"svg")) {
       DiaSvgStyle s = {
 	1.0, DIA_SVG_COLOUR_FOREGROUND, 1.0, DIA_SVG_COLOUR_NONE, 1.0,

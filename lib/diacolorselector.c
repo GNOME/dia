@@ -42,8 +42,7 @@ enum {
   N_COL
 };
 
-struct _DiaColorSelector
-{
+struct _DiaColorSelector {
   GtkHBox         hbox;
 
   gboolean        use_alpha;
@@ -100,12 +99,12 @@ dia_color_selector_class_init (DiaColorSelectorClass *klass)
   object_class->finalize = dia_color_selector_finalize;
 
   dia_colorsel_signals[DIA_COLORSEL_VALUE_CHANGED]
-      = g_signal_new("value_changed",
-		     G_TYPE_FROM_CLASS(klass),
-		     G_SIGNAL_RUN_FIRST,
-		     0, NULL, NULL,
-		     g_cclosure_marshal_VOID__VOID,
-		     G_TYPE_NONE, 0);
+      = g_signal_new ("value_changed",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_FIRST,
+                      0, NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 }
 
 
