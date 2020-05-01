@@ -1359,36 +1359,38 @@ ddisplay_really_destroy (DDisplay *ddisp)
 
 
 void
-ddisplay_set_title(DDisplay  *ddisp, char *title)
+ddisplay_set_title (DDisplay *ddisp, char *title)
 {
-  if (ddisp->is_standalone_window)
+  if (ddisp->is_standalone_window) {
     gtk_window_set_title (GTK_WINDOW (ddisp->shell), title);
-  else
-  {
+  } else {
     GtkNotebook *notebook = g_object_get_data (G_OBJECT (ddisp->shell),
                                                DIA_MAIN_NOTEBOOK);
     /* Find the page with ddisp then set the label on the tab */
-    gint num_pages = gtk_notebook_get_n_pages (notebook);
-    gint num;
+    int num_pages = gtk_notebook_get_n_pages (notebook);
+    int num;
     GtkWidget *page;
-    for (num = 0 ; num < num_pages ; num++)
-    {
+    for (num = 0 ; num < num_pages ; num++) {
       page = gtk_notebook_get_nth_page (notebook,num);
-      if (g_object_get_data (G_OBJECT (page), "DDisplay") == ddisp)
-      {
+      if (g_object_get_data (G_OBJECT (page), "DDisplay") == ddisp) {
         GtkLabel *label = g_object_get_data (G_OBJECT (page), "tab-label");
         /* not using the passed in title here, because it may be too long */
-        gchar *name = diagram_get_name(ddisp->diagram);
-        gtk_label_set_text(label,name);
+        char *name = diagram_get_name (ddisp->diagram);
+
+        gtk_label_set_text (label,name);
+
         g_clear_pointer (&name, g_free);
+
         break;
       }
     }
     /* now modify the application window title */
     {
-      const gchar *pname = g_get_prgname();
-      gchar *fulltitle = g_strdup_printf ("%s - %s", title, pname ? pname : "Dia");
+      const char *pname = g_get_application_name ();
+      char *fulltitle = g_strdup_printf ("%s — %s", title, pname);
+
       gtk_window_set_title (GTK_WINDOW (ddisp->shell), fulltitle);
+
       g_clear_pointer (&fulltitle, g_free);
     }
   }

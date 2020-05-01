@@ -550,12 +550,15 @@ object_substitute (DiaObject *obj, DiaObject *subst)
   return (ObjectChange*)change;
 }
 
+
 /**
  * destroy_object_list:
  * @list_to_be_destroyed: A of objects list to destroy.  The list itself
  *                        will also be freed.
  *
  * Destroy a list of objects by calling ops->destroy on each in turn.
+ *
+ * Since: dawn-of-time
  */
 void
 destroy_object_list (GList *list_to_be_destroyed)

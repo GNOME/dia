@@ -517,10 +517,13 @@ element_destroy (Element *elem)
 
 /**
  * element_save:
- * @elem:
- * @obj_node:
+ * @elem: the #Element to save
+ * @obj_node: the #ObjectNode to save to
+ * @ctx: the current #DiaContent
  *
  * Save the element-specific parts of this element to XML.
+ *
+ * Since: dawn-of-time
  */
 void
 element_save (Element *elem, ObjectNode obj_node, DiaContext *ctx)

@@ -241,21 +241,24 @@ pdtpp_standard_or_defaults (const PropDescription *pdesc)
 
 /**
  * dia_object_default_create:
- * @param type The objects type
- * @param startpoint The left upper corner
- * @param user_data
- * @param handle1
- * @param handle2
- * @return A newly created object.
+ * @type: The objects type
+ * @startpoint: The left upper corner
+ * @user_data:
+ * @handle1:
+ * @handle2:
  *
  * Create an object respecting defaults if available
+ *
+ * Returns: A newly created object.
+ *
+ * Since: dawn-of-time
  */
 DiaObject *
-dia_object_default_create (const DiaObjectType *type,
-                           Point *startpoint,
-                           void *user_data,
-                           Handle **handle1,
-                           Handle **handle2)
+dia_object_default_create (const DiaObjectType  *type,
+                           Point                *startpoint,
+                           void                 *user_data,
+                           Handle              **handle1,
+                           Handle              **handle2)
 {
   const DiaObject *def_obj;
   DiaObject *obj;

@@ -268,6 +268,7 @@ message(const char *title, const char *format, ...)
 /**
  * message_notice:
  * @format: the message
+ * @...: @format arguments
  *
  * Emit a message about something the user should be aware of.
  * In the default GTK message system, this message will by default only
@@ -291,6 +292,7 @@ message_notice (const char *format, ...)
 /**
  * message_warning:
  * @format: the message
+ * @...: @format arguments
  *
  * Emit a message about a possible danger.
  * In the default GTK message system, this message can be made to only be
@@ -314,6 +316,7 @@ message_warning (const char *format, ...)
 /**
  * message_error:
  * @format: the message
+ * @...: @format arguments
  *
  * Emit a message about an error.
  * In the default GTK message system, this message is always shown.

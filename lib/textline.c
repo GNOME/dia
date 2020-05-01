@@ -201,11 +201,13 @@ text_line_get_descent(const TextLine *text_line)
  * Returns: The amount (in diagram lengths) to shift the x positiion of
  * rendering this such that it looks aligned when printed with x at the left.
  * Always a positive number.
+ *
+ * Since: dawn-of-time
  */
-real
+double
 text_line_get_alignment_adjustment (TextLine *text_line, Alignment alignment)
 {
-  text_line_cache_values(text_line);
+  text_line_cache_values (text_line);
   switch (alignment) {
     case ALIGN_CENTER:
      return text_line->width / 2;
@@ -214,18 +216,25 @@ text_line_get_alignment_adjustment (TextLine *text_line, Alignment alignment)
     case ALIGN_LEFT:
     default:
      return 0.0;
-   }
+  }
 }
 
 /* **** Private functions **** */
-/** Mark this object as needing update before usage.
- * @param text_line the object that has changed.
+
+/**
+ * text_line_dirty_cache:
+ * @text_line: the object that has changed.
+ *
+ * Mark this object as needing update before usage.
+ *
+ * Since: dawn-of-time
  */
 static void
 text_line_dirty_cache(TextLine *text_line)
 {
   text_line->clean = FALSE;
 }
+
 
 static void
 clear_layout_offset (TextLine *text_line)
@@ -307,17 +316,21 @@ text_line_adjust_glyphs(TextLine *line, PangoGlyphString *glyphs, real scale)
   }
 }
 
-/** Adjust a layout line to match the more fine-grained values stored in the
- * textline.  This circumvents the rounding errors in Pango and ensures a
+
+/**
+ * text_line_adjust_layout_line:
+ * @line: The #TextLine object that corresponds to the glyphs.
+ * @layoutline: The one set of glyphs contained in the #TextLine's layout.
+ * @scale: The relative height of the font in glyphs.
+ *
+ * Adjust a layout line to match the more fine-grained values stored in the
+ * textline. This circumvents the rounding errors in Pango and ensures a
  * linear scaling for zooming and export filters.
- * @param line The TextLine object that corresponds to the glyphs.
- * @param layoutline The one set of glyphs contained in the TextLine's layout.
- * @param scale The relative height of the font in glyphs.
- * @return An adjusted glyphstring, which should be freed by the caller.
  */
 void
-text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
-			     real scale)
+text_line_adjust_layout_line (TextLine        *line,
+                              PangoLayoutLine *layoutline,
+                              double           scale)
 {
   GSList *layoutruns = layoutline->runs;
   GSList *runs;

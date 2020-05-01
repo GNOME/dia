@@ -77,39 +77,72 @@ G_BEGIN_DECLS
    V  y
  */
 
-/*! \brief A two dimensional position */
+
+/**
+ * Point:
+ * @x: horizontal
+ * @y: vertical
+ *
+ * A two dimensional position
+ *
+ * Since: dawn-of-time
+ */
 struct _Point {
-  double x; /*!< horizontal */
-  double y; /*!< vertical */
+  double x;
+  double y;
 };
+
 
 /**
  * DiaRectangle:
  * @left: top left x co-ord
  * @top: top left y co-ord
  * @right: bottom right x co-ord
- * @button bottom right y co-ord
+ * @button: bottom right y co-ord
  *
  * A rectangle given by upper left and lower right corner
+ *
+ * Since: 0.98
  */
 struct _DiaRectangle {
-  double left; /*!< x1 */
-  double top; /*!< y1 */
-  double right; /*!< x2 */
-  double bottom; /*!< y2 */
+  double left;
+  double top;
+  double right;
+  double bottom;
 };
 
-/*! \brief A rectangle for fixed point e.g. pixel doubleinates */
+
+/**
+ * IntRectangle:
+ * @left: top left x co-ord
+ * @top: top left y co-ord
+ * @right: bottom right x co-ord
+ * @button: bottom right y co-ord
+ *
+ * A rectangle for fixed point e.g. pixel doubleinates
+ *
+ * Since: dawn-of-time
+ */
 struct _IntRectangle {
-  int left; /*!< x1 */
-  int top; /*!< y1 */
-  int right; /*!< x2 */
-  int bottom; /*!< y2 */
+  int left;
+  int top;
+  int right;
+  int bottom;
 };
 
-/*!
- * \brief BezPoint is a bezier point forming _Bezierline or _Beziergon
- * \ingroup ObjectParts
+
+/**
+ * BezPoint:
+ * @BEZ_MOVE_TO: move to point @p1
+ * @BEZ_LINE_TO: line to point @p1
+ * @BEZ_CURVE_TO: curve to point @p3 using @p1 and @p2 as control points
+ * @p1: main point in case of move or line-to, otherwise first control point
+ * @p2: second control point
+ * @p3: main point for 'true' bezier point
+ *
+ * #BezPoint is a bezier point forming #Bezierline or #Beziergon
+ *
+ * Since: dawn-of-time
  */
 struct _BezPoint {
   enum {
@@ -122,31 +155,42 @@ struct _BezPoint {
   Point p3; /*!< main point for 'true' bezier point */
 };
 
-/*!
- * \brief DiaMatrix used for affine transformation
+
+/**
+ * DiaMatrix:
  *
- * The struct is intentionally binary compatible with cairo_matrix_t.
+ * #DiaMatrix used for affine transformation
  *
- * \ingroup ObjectParts
+ * The struct is intentionally binary compatible with #cairo_matrix_t.
+ *
+ * Since: dawn-of-time
  */
 struct _DiaMatrix {
-  real xx; real yx;
-  real xy; real yy;
-  real x0; real y0;
+  double xx;
+  double yx;
+  double xy;
+  double yy;
+  double x0;
+  double y0;
 };
 
-gboolean dia_matrix_is_identity (const DiaMatrix *matix);
+
+gboolean dia_matrix_is_identity          (const DiaMatrix *matix);
 gboolean dia_matrix_get_angle_and_scales (const DiaMatrix *m,
-                                          real            *a,
-					  real            *sx,
-					  real            *sy);
-void dia_matrix_set_angle_and_scales (DiaMatrix *m,
-                                      real       a,
-				      real       sx,
-				      real       sy);
-void dia_matrix_multiply (DiaMatrix *result, const DiaMatrix *a, const DiaMatrix *b);
-gboolean dia_matrix_is_invertible (const DiaMatrix *matrix);
-void dia_matrix_set_rotate_around (DiaMatrix *result, real angle, const Point *around);
+                                          double          *a,
+                                          double          *sx,
+                                          double          *sy);
+void     dia_matrix_set_angle_and_scales (DiaMatrix       *m,
+                                          double           a,
+                                          double           sx,
+                                          double           sy);
+void     dia_matrix_multiply             (DiaMatrix       *result,
+                                          const DiaMatrix *a,
+                                          const DiaMatrix *b);
+gboolean dia_matrix_is_invertible        (const DiaMatrix *matrix);
+void     dia_matrix_set_rotate_around    (DiaMatrix       *result,
+                                          double           angle,
+                                          const Point     *around);
 
 #define ROUND(x) ((int) floor((x)+0.5))
 

@@ -936,20 +936,8 @@ _path_arc_segment(GArray* points,
   g_array_append_val(points, bez);
 }
 
-/**
- * _path_arc:
- * @points:
- * @cpx:
- * @cpy:
- * @rx:
- * @ry:
- * @x_axis_rotation:
- * @large_arc_flag:
- * @sweep_flag:
- * @x:
- * @y:
- * @last_p2:
- *
+
+/*
  * Parse an SVG description of a full arc.
  */
 static void

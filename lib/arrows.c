@@ -2531,6 +2531,7 @@ save_arrow (ObjectNode  obj_node,
                  arrow->width, ctx);
 }
 
+
 /**
  * load_arrow:
  * @obj_node: The XML node to load from.
@@ -2538,7 +2539,7 @@ save_arrow (ObjectNode  obj_node,
  * @type_attribute: the name of the attribute of the arrow type.
  * @length_attribute: the name of the attribute of the arrow length.
  * @width_attribute: the name of the attribte of the arrow width.
- * @ctx:
+ * @ctx: the current #DiaContext
  *
  * Load arrow information from three attributes.
  */

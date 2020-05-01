@@ -32,32 +32,33 @@
  */
 struct _TextLine {
   /* don't change these values directly, use the text_line_set* functions */
-  
+
   /* Text data: */
-  gchar *chars;
+  char *chars;
 
   /* Attributes: */
   DiaFont *font;
-  real height;
-  
-  /* Computed values, only access these through text_line_get* functions  */
-  real ascent;
-  real descent;
-  real width;
+  double height;
 
-  /* Private fields */
-  /** Whether nothing has changed in this object since values were computed. */
+  /* Computed values, only access these through text_line_get* functions  */
+  double ascent;
+  double descent;
+  double width;
+
+  /*< private >*/
+
+  /* Whether nothing has changed in this object since values were computed. */
   gboolean clean;
 
-  /** Copies of the real fields to keep track of changes caused by 
+  /** Copies of the real fields to keep track of changes caused by
    * properties setting.  These may go away if we create TextLine properties.
    */
-  gchar *chars_cache;
+  char *chars_cache;
   DiaFont *font_cache;
-  real height_cache;
+  double height_cache;
 
   /** Offsets of the individual glyphs in the string.  */
-  real *offsets;
+  double *offsets;
   PangoLayoutLine *layout_offsets;
 };
 
@@ -80,7 +81,7 @@ void text_line_adjust_glyphs(TextLine *line,
 			     real scale);
 void text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
 				  real scale);
-real text_line_get_alignment_adjustment(TextLine *text_line, 
+real text_line_get_alignment_adjustment(TextLine *text_line,
 					Alignment alignment);
 
 #endif

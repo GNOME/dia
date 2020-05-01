@@ -213,12 +213,12 @@ void object_copy(DiaObject *from, DiaObject *to);
 void object_save(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 void object_load(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 
-GList *object_copy_list(GList *list);
+GList *object_copy_list (GList *list_orig );
 ObjectChange* object_list_move_delta_r(GList *objects, Point *delta, gboolean affected);
 ObjectChange* object_list_move_delta(GList *objects, Point *delta);
 ObjectChange *object_substitute (DiaObject *obj, DiaObject *subst);
 
-void destroy_object_list(GList *list);
+void destroy_object_list (GList *list_to_be_destroyed);
 void object_add_handle(DiaObject *obj, Handle *handle);
 void object_add_handle_at(DiaObject *obj, Handle *handle, int pos);
 void object_remove_handle(DiaObject *obj, Handle *handle);
@@ -373,8 +373,18 @@ struct _DiaObject {
   GHashTable       *meta;
 };
 
-/*
- * \brief Vtable for _DiaObjectType
+
+/**
+ * DiaObjectType:
+ * @create: the #CreateFunc
+ * @load: the #LoadFunc
+ * @save: the #SaveFunc
+ * @get_defaults: the #GetDefaultsFunc
+ * @apply_defaults: the #ApplyDefaultsFunc
+ *
+ * Vtable for _DiaObjectType
+ *
+ * Since: dawn-of-time
  */
 struct _ObjectTypeOps {
   CreateFunc        create;
@@ -382,14 +392,18 @@ struct _ObjectTypeOps {
   SaveFunc          save;
   GetDefaultsFunc   get_defaults;
   ApplyDefaultsFunc apply_defaults;
+
+  /*< private >*/
+
   /*
     Unused places (for extension).
-    These should be NULL for now. In the future they might be used.
+    These should be %NULL for now. In the future they might be used.
     Then an older object will be binary compatible, because all new code
-    checks if new ops are supported (!= NULL)
+    checks if new ops are supported (!= %NULL)
   */
   void      (*unused[10])(DiaObject *obj,...);
 };
+
 
 /*!
    \brief _DiaObject factory
@@ -397,22 +411,35 @@ struct _ObjectTypeOps {
    Structure so that the ObjectFactory can create objects
    of unknown type. (Read in from a shared lib.)
  */
+
+/**
+ * DiaObjectType:
+ * @name: The type name should follow a pattern of '\<module\> - \<class\>'
+ *        like "UML - Class"
+ * @version: #DiaObject s must be backward compatible, i.e. support possibly
+ *           older versions formats
+ * @pixmap: Also put a pixmap in the sheet_object. This one is used if not
+ *          in sheet but in toolbar. Stored in xpm format.
+ * @ops: Pointer to the vtable
+ * @pixmap_file: fallback if pixmap is %NULL
+ * @default_user_data: use this if no user data is specified in
+ *                     the .sheet file
+ * @prop_descs: Property descriptions
+ * @prop_offsets: #DiaObject struct offsets
+ * @flags: Various flags that can be set for this object, see defines above
+ *
+ * Since: dawn-of-time
+ */
 struct _DiaObjectType {
-
-  char *name; /*!< The type name should follow a pattern of '\<module\> - \<class\>' like "UML - Class" */
-  int version; /*!< DiaObjects must be backward compatible, i.e. support possibly older versions formats */
-
-  const char **pixmap; /*!< Also put a pixmap in the sheet_object.
-		        This one is used if not in sheet but in toolbar.
-		        Stored in xpm format */
-
-  ObjectTypeOps *ops; /* pointer to the vtable */
-
-  char *pixmap_file; /*!< fallback if pixmap is NULL */
-  void *default_user_data; /*!< use this if no user data is specified in the .sheet file */
-  const PropDescription *prop_descs; /*!< property descriptions */
-  const PropOffset *prop_offsets; /*!< DiaObject struct offsets */
-  gint flags; /*!< Various flags that can be set for this object, see defines above */
+  char                  *name;
+  int                    version;
+  const char           **pixmap;
+  ObjectTypeOps         *ops;
+  char                  *pixmap_file;
+  void                  *default_user_data;
+  const PropDescription *prop_descs;
+  const PropOffset      *prop_offsets;
+  int                    flags;
 };
 
 /* base property stuff ... */

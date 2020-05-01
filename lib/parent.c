@@ -255,12 +255,17 @@ parent_point_extents(Point *point, DiaRectangle *extents)
   extents->bottom = point->y;
 }
 
+
 /**
  * parent_handle_extents:
+ * @obj: the #DiaObject
+ * @extents: the extend of the object
  *
  * the caller must provide the 'returned' rectangle,
  * which is initialized to the biggest rectangle containing
  * all the objects handles
+ *
+ * Since: dawn-of-time
  */
 void
 parent_handle_extents (DiaObject *obj, DiaRectangle *extents)
