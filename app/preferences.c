@@ -663,22 +663,20 @@ gl_update_sensitive (GtkRadioButton *radio,
                      gpointer        data)
 {
   DiaPreferencesDialog *self = DIA_PREFERENCES_DIALOG (data);
-  gboolean dyn_grid, square_grid, hex_grid;
+  gboolean manual_grid;
 
   prefs.grid.dynamic =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self->gl_dynamic));
-  dyn_grid = prefs.grid.dynamic;
-  if (!dyn_grid) {
-    prefs.grid.hex =
+  prefs.grid.hex =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self->gl_hex));
-  }
+  manual_grid =
+        gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self->gl_manual));
 
-  square_grid = !dyn_grid && !prefs.grid.hex;
-  hex_grid = !dyn_grid && prefs.grid.hex;
+  persistence_set_boolean ("grid_dynamic", prefs.grid.dynamic);
+  persistence_set_boolean ("grid_hex", prefs.grid.hex);
 
-
-  gtk_widget_set_sensitive (self->manual_props, square_grid);
-  gtk_widget_set_sensitive (self->gl_hex_size, hex_grid);
+  gtk_widget_set_sensitive (self->manual_props, manual_grid);
+  gtk_widget_set_sensitive (self->gl_hex_size, prefs.grid.hex);
 }
 
 
