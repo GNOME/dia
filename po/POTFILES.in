@@ -9,9 +9,9 @@ app/defaults.c
 app/diagram.c
 app/diagram_tree_model.c
 app/diagram_tree_view.c
-app/diapagelayout.c
 app/dia-colour-area.c
 app/dia-line-width-area.c
+app/dia-page-layout.c
 app/dia-props.c
 app/dia-guide-dialog.c
 app/disp_callbacks.c
@@ -40,6 +40,7 @@ app/toolbox.c
 app/winmain.c
 data/org.gnome.Dia.appdata.xml.in
 data/org.gnome.Dia.desktop.in
+data/ui/preferences-dialog.ui
 data/ui/properties-dialog.ui
 data/ui/sheets-edit-dialog.ui
 data/ui/sheets-main-dialog.ui
@@ -85,6 +86,7 @@ lib/prop_widgets.c
 lib/sheet.c
 lib/standard-path.c
 lib/text.c
+lib/units.c
 lib/widgets.c
 lib/renderer/diacairo-interactive.c
 lib/renderer/diacairo-renderer.c
