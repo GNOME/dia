@@ -36,6 +36,7 @@
 #include "standard-path.h"
 
 
+G_GNUC_PRINTF(3, 0)
 static void
 stderr_message_internal (const char          *title,
                          enum ShowAgainStyle  showAgain,
