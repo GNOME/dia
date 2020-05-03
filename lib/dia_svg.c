@@ -30,10 +30,10 @@
 
 #include "dia_svg.h"
 
-/*!
- * \defgroup DiaSvg Services for SVG
- * \ingroup Plugins
- * \brief A set of function helping to read and write SVG with Dia
+/**
+ * SECTION:dia_svg
+ * @title: Dia SVG
+ * @short_description: A set of function helping to read and write SVG with Dia
  *
  * The Dia application supports various variants of SVG. There are
  * at least two importers of SVG dialects, namely \ref Shapes and
@@ -347,7 +347,7 @@ _parse_color(gint32 *color, const char *str)
       *color = ((0xFF<<24) & 0xFF000000) | ((r<<16) & 0xFF0000) | ((g<<8) & 0xFF00) | (b & 0xFF);
     } else if (strchr (str+4, '%')) {
       /* e.g. cairo uses percent values */
-      gchar **vals = g_strsplit (str+4, "%,", -1);
+      char **vals = g_strsplit (str+4, "%,", -1);
       int     i;
 
       *color = 0xFF000000;
@@ -392,7 +392,7 @@ _parse_color(gint32 *color, const char *str)
  * \ingroup DiaSvg
  */
 gboolean
-dia_svg_parse_color (const gchar *str, Color *color)
+dia_svg_parse_color (const char *str, Color *color)
 {
   gint32 c;
   gboolean ret = _parse_color (&c, str);
@@ -412,13 +412,13 @@ enum
 };
 
 static void
-_parse_dasharray (DiaSvgStyle *s, real user_scale, gchar *str, gchar **end)
+_parse_dasharray (DiaSvgStyle *s, double user_scale, char *str, char **end)
 {
-  gchar *ptr;
+  char *ptr;
   /* by also splitting on ';' we can also parse the continued style string */
-  gchar **dashes = g_regex_split_simple ("[\\s,;]+", (gchar *)str, 0, 0);
+  char **dashes = g_regex_split_simple ("[\\s,;]+", (char *)str, 0, 0);
   int n = 0;
-  real dl;
+  double dl;
 
   s->dashlength = g_ascii_strtod(str, &ptr);
   if (s->dashlength <= 0.0) /* e.g. "none" */
@@ -515,7 +515,7 @@ _style_adjust_font (DiaSvgStyle *s, const char *family, const char *style, const
       * seen, like 'Arial'. If the given family name can not be resolved by
       * Pango it complaints loudly with g_warning().
       */
-    gchar **families = g_strsplit (family, ",", -1);
+    char **families = g_strsplit (family, ",", -1);
     int i = 0;
     gboolean found = FALSE;
     while (!found && families[i]) {
@@ -550,7 +550,7 @@ _style_adjust_font (DiaSvgStyle *s, const char *family, const char *style, const
 
 
 static void
-_parse_text_align(DiaSvgStyle *s, const gchar *ptr)
+_parse_text_align (DiaSvgStyle *s, const char *ptr)
 {
   if (!strncmp(ptr, "start", 5))
     s->alignment = ALIGN_LEFT;
@@ -572,10 +572,10 @@ _parse_text_align(DiaSvgStyle *s, const gchar *ptr)
  * \ingroup DiaSvg
  */
 void
-dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
+dia_svg_parse_style_string (DiaSvgStyle *s, double user_scale, const char *str)
 {
   int i = 0;
-  gchar *ptr = (gchar *)str;
+  char *ptr = (char *) str;
   char *family = NULL, *style = NULL, *weight = NULL;
 
   while (ptr[0] != '\0') {
@@ -658,7 +658,7 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
       ptr += 13;
       s->stop_opacity = g_ascii_strtod(ptr, &ptr);
     } else if (!strncmp("opacity", ptr, 7)) {
-      real opacity;
+      double opacity;
       ptr += 7;
       opacity = g_ascii_strtod(ptr, &ptr);
       /* multiplicative effect of opacity */
@@ -751,14 +751,14 @@ dia_svg_parse_style_string (DiaSvgStyle *s, real user_scale, const gchar *str)
  * \ingroup DiaSvg
  */
 void
-dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
+dia_svg_parse_style (xmlNodePtr node, DiaSvgStyle *s, double user_scale)
 {
   xmlChar *str;
 
   str = xmlGetProp(node, (const xmlChar *)"style");
 
   if (str) {
-    dia_svg_parse_style_string (s, user_scale, (gchar *)str);
+    dia_svg_parse_style_string (s, user_scale, (char *)str);
     xmlFree(str);
   }
 
@@ -774,7 +774,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   }
   str = xmlGetProp(node, (const xmlChar *)"opacity");
   if (str) {
-    real opacity = g_ascii_strtod((char *) str, NULL);
+    double opacity = g_ascii_strtod ((char *) str, NULL);
     /* multiplicative effect of opacity */
     s->stroke_opacity *= opacity;
     s->fill_opacity *= opacity;
@@ -823,19 +823,19 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   str = xmlGetProp(node, (const xmlChar *)"stroke-dasharray");
   if (str) {
     if (strcmp ((const char *)str, "inherit") != 0)
-      _parse_dasharray (s, user_scale, (gchar *)str, NULL);
+      _parse_dasharray (s, user_scale, (char *)str, NULL);
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"stroke-linejoin");
   if (str) {
     if (strcmp ((const char *)str, "inherit") != 0)
-      _parse_linejoin (s, (gchar *)str);
+      _parse_linejoin (s, (char *)str);
     xmlFree(str);
   }
   str = xmlGetProp(node, (const xmlChar *)"stroke-linecap");
   if (str) {
     if (strcmp ((const char *)str, "inherit") != 0)
-      _parse_linecap (s, (gchar *)str);
+      _parse_linecap (s, (char *)str);
     xmlFree(str);
   }
 
@@ -846,7 +846,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
      * should be initialized by parent style already
      */
     if (strcmp ((const char *)str, "inherit") != 0) {
-      s->font_height = g_ascii_strtod((gchar *)str, NULL);
+      s->font_height = g_ascii_strtod ((char *)str, NULL);
       if (user_scale > 0)
 	s->font_height /= user_scale;
     }
@@ -854,7 +854,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   }
   str = xmlGetProp(node, (const xmlChar *)"text-anchor");
   if (str) {
-    _parse_text_align (s, (const gchar*)str);
+    _parse_text_align (s, (const char*) str);
     xmlFree(str);
   }
   {
@@ -862,7 +862,7 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
     xmlChar *slant  = xmlGetProp(node, (const xmlChar *)"font-style");
     xmlChar *weight = xmlGetProp(node, (const xmlChar *)"font-weight");
     if (family || slant || weight) {
-      _style_adjust_font (s, (gchar *)family, (gchar *)slant, (gchar *)weight);
+      _style_adjust_font (s, (char *)family, (char *)slant, (char *)weight);
 
       if (family)
         xmlFree(family);
@@ -874,37 +874,45 @@ dia_svg_parse_style(xmlNodePtr node, DiaSvgStyle *s, real user_scale)
   }
 }
 
-/*!
- * \brief Parse a SVG description of an arc segment.
+
+/**
+ * _path_arc_segment:
+ * @points: destination array of #BezPoint
+ * @xc: center x
+ * @yc: center y
+ * @th0: first angle
+ * @th1: second angle
+ * @rx: radius x
+ * @ry: radius y
+ * @x_axis_rotation: rotation of the axis
+ * @last_p2: the resulting current point
+ *
+ * Parse a SVG description of an arc segment.
+ *
  * Code stolen from (and adapted)
  * http://www.inkscape.org/doc/doxygen/html/svg-path_8cpp.php#a7
  * which may have got it from rsvg, hope it is correct ;)
- * @param points destination array of _BezPoint
- * @param xc center x
- * @param yc center y
- * @param th0 first angle
- * @param th1 second angle
- * @param rx radius x
- * @param ry radius y
- * @param x_axis_rotation rotation of the axis
- * @param last_p2 the resulting current point
+ *
  * If you want the description of the algorithm read the SVG specs:
  * http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
  */
 static void
-_path_arc_segment(GArray* points,
-		  real xc, real yc,
-		  real th0, real th1,
-		  real rx, real ry,
-		  real x_axis_rotation,
-		  Point *last_p2)
+_path_arc_segment (GArray *points,
+                   double  xc,
+                   double  yc,
+                   double  th0,
+                   double  th1,
+                   double  rx,
+                   double  ry,
+                   double  x_axis_rotation,
+                   Point  *last_p2)
 {
   BezPoint bez;
-  real sin_th, cos_th;
-  real a00, a01, a10, a11;
-  real x1, y1, x2, y2, x3, y3;
-  real t;
-  real th_half;
+  double sin_th, cos_th;
+  double a00, a01, a10, a11;
+  double x1, y1, x2, y2, x3, y3;
+  double t;
+  double th_half;
 
   sin_th = sin (x_axis_rotation * (M_PI / 180.0));
   cos_th = cos (x_axis_rotation * (M_PI / 180.0));
@@ -1032,20 +1040,21 @@ _path_arc (GArray *points,
 /* routine to chomp off the start of the string */
 #define path_chomp(path) while (path[0]!='\0'&&strchr(" \t\n\r,", path[0])) path++
 
-/*!
- * \brief Takes SVG path content and converts it in an array of BezPoint.
+/**
+ * dia_svg_parse_path:
+ * @path_str: A string describing an SVG path.
+ * @unparsed: The position in @path_str where parsing ended, or %NULL if
+ *            the string was completely parsed. This should be used for
+ *            calling the function until it is fully parsed.
+ * @closed: Whether the path was closed.
+ * @current_point: to retain it over splitting
+ *
+ * Takes SVG path content and converts it in an array of BezPoint.
  *
  * SVG pathes can contain multiple MOVE_TO commands while Dia's bezier
  * object can only contain one so you may need to call this function
  * multiple times.
  *
- * @param path_str A string describing an SVG path.
- * @param unparsed The position in `path_str' where parsing ended, or NULL if
- *                 the string was completely parsed.  This should be used for
- *                 calling the function until it is fully parsed.
- * @param closed Whether the path was closed.
- * @param current_point to retain it over splitting
- * @return TRUE if there is any useful data in parsed to points
  * @bug This function is way too long (324 lines). So dont touch it. please!
  * Shouldn't we try to turn straight lines, simple arc, polylines and
  * zigzaglines into their appropriate objects?  Could either be done by
@@ -1053,10 +1062,15 @@ _path_arc (GArray *points,
  * specific simple paths.
  * NOPE: Dia is capable to handle beziers and the file has given us some so
  * WHY should be break it in to pieces ???
+ *
+ * Returns: %TRUE if there is any useful data in parsed to points
  */
 gboolean
-dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
-		   gboolean *closed, Point *current_point)
+dia_svg_parse_path (GArray      *points,
+                    const char  *path_str,
+                    char       **unparsed,
+                    gboolean    *closed,
+                    Point       *current_point)
 {
   enum {
     PATH_MOVE, PATH_LINE, PATH_HLINE, PATH_VLINE, PATH_CURVE,
@@ -1067,7 +1081,7 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
   Point last_control = {0.0, 0.0};
   gboolean last_relative = FALSE;
   BezPoint bez = { 0, };
-  gchar *path = (gchar *)path_str;
+  char *path = (char *)path_str;
   gboolean need_next_element = FALSE;
   /* we can grow the same array in multiple steps */
   gsize points_at_start = points->len;
@@ -1378,7 +1392,7 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
         break;
       case PATH_QUBICCURVE: {
           /* raise quadratic bezier to cubic (copied from librsvg) */
-          real x1, y1;
+          double x1, y1;
           x1 = g_ascii_strtod (path, &path);
           path_chomp (path);
           y1 = g_ascii_strtod (path, &path);
@@ -1435,10 +1449,10 @@ dia_svg_parse_path(GArray *points, const gchar *path_str, gchar **unparsed,
         break;
       case PATH_ARC:
         {
-          real  rx, ry;
-          real  xrot;
-          int   largearc, sweep;
-          Point dest, dest_c;
+          double rx, ry;
+          double xrot;
+          int    largearc, sweep;
+          Point  dest, dest_c;
           dest_c.x=0;
           dest_c.y=0;
 
@@ -1549,143 +1563,226 @@ MORETOPARSE:
 
 
 static gboolean
-_parse_transform (const gchar *trans, DiaMatrix *m, real scale)
+_parse_transform (const char *trans, graphene_matrix_t *m, double scale)
 {
-  gchar **list;
-  gchar *p = strchr (trans, '(');
+  char **list;
+  char *p = strchr (trans, '(');
   int i = 0;
 
   while (   (*trans != '\0')
-         && (*trans == ' ' || *trans == ',' || *trans == '\t' || *trans == '\n' || *trans == '\r'))
+         && (*trans == ' ' || *trans == ',' || *trans == '\t' ||
+             *trans == '\n' || *trans == '\r')) {
     ++trans; /* skip whitespace */
+  }
 
-  if (!p || !*trans)
+  if (!p || !*trans) {
     return FALSE; /* silently fail */
+  }
 
-  list = g_regex_split_simple ("[\\s,]+", p+1, 0, 0);
+  list = g_regex_split_simple ("[\\s,]+", p + 1, 0, 0);
   if (strncmp (trans, "matrix", 6) == 0) {
-    if (list[i])
-      m->xx = g_ascii_strtod (list[i], NULL), ++i;
-    if (list[i])
-      m->yx = g_ascii_strtod (list[i], NULL), ++i;
-    if (list[i])
-      m->xy = g_ascii_strtod (list[i], NULL), ++i;
-    if (list[i])
-      m->yy = g_ascii_strtod (list[i], NULL), ++i;
-    if (list[i])
-      m->x0 = g_ascii_strtod (list[i], NULL), ++i;
-    if (list[i])
-      m->y0 = g_ascii_strtod (list[i], NULL), ++i;
-  } else if (strncmp (trans, "translate", 9) == 0) {
-    m->xx = m->yy = 1.0;
-    if (list[i])
-      m->x0 = g_ascii_strtod (list[i], NULL), ++i;
-    if (list[i])
-      m->y0 = g_ascii_strtod (list[i], NULL), ++i;
-  } else if (strncmp (trans, "scale", 5) == 0) {
-    if (list[i])
-      m->xx = g_ascii_strtod (list[i], NULL), ++i;
-    if (list[i])
-      m->yy = g_ascii_strtod (list[i], NULL), ++i;
-    else
-      m->yy = m->xx;
-  } else if (strncmp (trans, "rotate", 6) == 0) {
-    DiaMatrix translate = {1, 0, 0, 1, 0, 0 };
-    real angle;
+    float xx = 0, yx = 0, xy = 0, yy = 0, x0 = 0, y0 = 0;
 
-    if (list[i])
-      angle = g_ascii_strtod (list[i], NULL), ++i;
-    else {
-      angle = 0;
+    if (list[i]) {
+      xx = g_ascii_strtod (list[i], NULL);
+      ++i;
+    }
+
+    if (list[i]) {
+      yx = g_ascii_strtod (list[i], NULL);
+      ++i;
+    }
+
+    if (list[i]) {
+      xy = g_ascii_strtod (list[i], NULL);
+      ++i;
+    }
+
+    if (list[i]) {
+      yy = g_ascii_strtod (list[i], NULL);
+      ++i;
+    }
+
+    if (list[i]) {
+      x0 = g_ascii_strtod (list[i], NULL);
+      ++i;
+    }
+
+    if (list[i]) {
+      y0 = g_ascii_strtod (list[i], NULL);
+      ++i;
+    }
+
+    graphene_matrix_init_from_2d (m, xx, yx, xy, yy, x0 / scale, y0 / scale);
+  } else if (strncmp (trans, "translate", 9) == 0) {
+    double x0 = 0, y0 = 0;
+
+    if (list[i]) {
+      x0 = g_ascii_strtod (list[i], NULL);
+      ++i;
+    }
+
+    if (list[i]) {
+      y0 = g_ascii_strtod (list[i], NULL);
+      ++i;
+    }
+
+    graphene_matrix_init_translate (m, &GRAPHENE_POINT3D_INIT (x0 / scale, y0 / scale, 0));
+  } else if (strncmp (trans, "scale", 5) == 0) {
+    double xx = 0, yy = 0;
+
+    if (list[i]) {
+      xx = g_ascii_strtod (list[i], NULL);
+      ++i;
+    }
+
+    if (list[i]) {
+      yy = g_ascii_strtod (list[i], NULL);
+      ++i;
+    } else {
+      yy = xx;
+    }
+
+    graphene_matrix_init_scale (m, xx, yy, 1.0);
+  } else if (strncmp (trans, "rotate", 6) == 0) {
+    double angle = 0;
+    double cx = 0, cy = 0;
+
+    if (list[i]) {
+      angle = g_ascii_strtod (list[i], NULL);
+      ++i;
+    } else {
       g_warning ("transform=rotate no angle?");
     }
-    m->xx =  cos(G_PI*angle/180);
-    m->yx =  sin(G_PI*angle/180);
-    m->xy = -sin(G_PI*angle/180);
-    m->yy =  cos(G_PI*angle/180);
+
     /* FIXME: check with real world data, I'm uncertain */
+    /* rotate around the given offset */
     if (list[i]) {
-      real cx, cy;
-      cx = g_ascii_strtod (list[i], NULL), ++i;
-      if (list[i])
-        cy = g_ascii_strtod (list[i], NULL), ++i;
-      else
+      graphene_point3d_t point;
+
+      cx = g_ascii_strtod (list[i], NULL);
+      ++i;
+
+      if (list[i]) {
+        cy = g_ascii_strtod (list[i], NULL);
+        ++i;
+      } else {
         cy = 0.0; /* if offsets don't come in pairs */
-      /* rotate around the given offset */
-      translate.x0 = cx;
-      translate.y0 = cy;
-      dia_matrix_multiply (m, m, &translate);
-      translate.x0 = -cx;
-      translate.y0 = -cy;
-      dia_matrix_multiply (m, &translate, m);
+      }
+
+      /* translate by -cx,-cy */
+      graphene_point3d_init (&point, -(cx / scale), -(cy / scale), 0);
+      graphene_matrix_init_translate (m, &point);
+
+      /* rotate by angle */
+      graphene_matrix_rotate_z (m, angle);
+
+      /* translate by cx,cy */
+      graphene_point3d_init (&point, cx / scale, cy / scale, 0);
+      graphene_matrix_translate (m, &point);
+    } else {
+      graphene_matrix_init_rotate (m, angle, graphene_vec3_z_axis ());
     }
   } else if (strncmp (trans, "skewX", 5) == 0) {
-    m->xx = m->yy = 1.0;
-    if (list[i])
-      m->xy = tan (G_PI*g_ascii_strtod (list[i], NULL)/180);
+    float skew = 0;
+
+    if (list[i]) {
+      skew = g_ascii_strtod (list[i], NULL);
+    }
+
+    graphene_matrix_init_skew (m, DIA_RADIANS (skew), 0);
   } else if (strncmp (trans, "skewY", 5) == 0) {
-    m->xx = m->yy = 1.0;
-    if (list[i])
-      m->yx = tan (G_PI*g_ascii_strtod (list[i], NULL)/180);
+    float skew = 0;
+
+    if (list[i]) {
+      skew = g_ascii_strtod (list[i], NULL);
+    }
+
+    graphene_matrix_init_skew (m, 0, DIA_RADIANS (skew));
   } else {
     g_warning ("SVG: %s?", trans);
+
     return FALSE;
   }
-  g_strfreev(list);
 
-  if (scale > 0 && m) {
-    m->x0 /= scale;
-    m->y0 /= scale;
-  }
+  g_clear_pointer (&list, g_strfreev);
+
   return TRUE;
 }
 
-DiaMatrix *
-dia_svg_parse_transform(const gchar *trans, real scale)
+
+graphene_matrix_t *
+dia_svg_parse_transform (const char *trans, double scale)
 {
-  DiaMatrix *m = NULL;
-  gchar **transforms = g_regex_split_simple ("\\)", trans, 0, 0);
+  graphene_matrix_t *m = NULL;
+  char **transforms = g_regex_split_simple ("\\)", trans, 0, 0);
   int i = 0;
 
   /* go through the list of transformations - not that one would be enough ;) */
   while (transforms[i]) {
-    DiaMatrix mat = { 0, };
+    graphene_matrix_t mat;
 
     if (_parse_transform (transforms[i], &mat, scale)) {
       if (!m) {
-        m = g_new0 (DiaMatrix, 1);
-        *m = mat;
+        m = graphene_matrix_alloc ();
+        graphene_matrix_init_from_matrix (m, &mat);
       } else {
-        dia_matrix_multiply (m, &mat, m);
+        graphene_matrix_multiply (m, &mat, m);
       }
     }
     ++i;
   }
-  g_strfreev(transforms);
+
+  g_clear_pointer (&transforms, g_strfreev);
 
   return m;
 }
 
-gchar *
-dia_svg_from_matrix(const DiaMatrix *matrix, real scale)
+
+char *
+dia_svg_from_matrix (const graphene_matrix_t *matrix, double scale)
 {
   /*  transform="matrix(1,0,0,1,0,0)" */
-  gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
+  char buf[G_ASCII_DTOSTR_BUF_SIZE];
   GString *sm = g_string_new ("matrix(");
-  gchar *s;
+  char *s;
 
-  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->xx);
-  g_string_append (sm, buf); g_string_append (sm, ",");
-  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->yx);
-  g_string_append (sm, buf); g_string_append (sm, ",");
-  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->xy);
-  g_string_append (sm, buf); g_string_append (sm, ",");
-  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->yy);
-  g_string_append (sm, buf); g_string_append (sm, ",");
-  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->x0 * scale);
-  g_string_append (sm, buf); g_string_append (sm, ",");
-  g_ascii_formatd (buf, sizeof(buf), "%g", matrix->y0 * scale);
-  g_string_append (sm, buf); g_string_append (sm, ")");
+  g_ascii_formatd (buf,
+                   sizeof (buf),
+                   "%g",
+                   graphene_matrix_get_value (matrix, 0, 0));
+  g_string_append (sm, buf);
+  g_string_append (sm, ",");
+  g_ascii_formatd (buf,
+                   sizeof (buf),
+                   "%g",
+                   graphene_matrix_get_value (matrix, 0, 1));
+  g_string_append (sm, buf);
+  g_string_append (sm, ",");
+  g_ascii_formatd (buf,
+                   sizeof (buf),
+                   "%g",
+                   graphene_matrix_get_value (matrix, 1, 0));
+  g_string_append (sm, buf);
+  g_string_append (sm, ",");
+  g_ascii_formatd (buf,
+                   sizeof (buf),
+                   "%g",
+                   graphene_matrix_get_value (matrix, 1, 1));
+  g_string_append (sm, buf);
+  g_string_append (sm, ",");
+  g_ascii_formatd (buf,
+                   sizeof (buf),
+                   "%g",
+                   graphene_matrix_get_x_translation (matrix) * scale);
+  g_string_append (sm, buf);
+  g_string_append (sm, ",");
+  g_ascii_formatd (buf,
+                   sizeof (buf),
+                   "%g",
+                   graphene_matrix_get_y_translation (matrix) * scale);
+  g_string_append (sm, buf);
+  g_string_append (sm, ")");
 
   s = sm->str;
   g_string_free (sm, FALSE);

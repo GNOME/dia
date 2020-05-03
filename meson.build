@@ -15,6 +15,7 @@ libxml_dep  = dependency('libxml-2.0', version: '>= 2.9.4')
 gmodule_dep = dependency('gmodule-2.0')
 libzlib_dep = dependency('zlib')
 libcairo_dep = dependency('cairo')
+graphene_dep = dependency('graphene-1.0')
 
 # Not required since not all platforms ship a separate libm.
 libm_dep = cc.find_library('m', required: false)

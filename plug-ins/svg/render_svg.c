@@ -47,6 +47,7 @@
 #include "textline.h"
 #include "dia_svg.h"
 #include "dia-layer.h"
+#include "dia-graphene.h"
 
 G_BEGIN_DECLS
 
@@ -352,23 +353,37 @@ draw_object(DiaRenderer *self,
     GList *objs = group_objects (object);
 
     if (gm) {
-      char *s = dia_svg_from_matrix (gm, renderer->scale);
-      xmlSetProp(renderer->root, (const xmlChar *)"transform", (xmlChar *) s);
+      char *s;
+      graphene_matrix_t graphene_matrix;
+
+      dia_graphene_from_matrix (&graphene_matrix, gm);
+
+      s = dia_svg_from_matrix (&graphene_matrix, renderer->scale);
+
+      xmlSetProp (renderer->root, (const xmlChar *) "transform", (xmlChar *) s);
+
       g_clear_pointer (&s, g_free);
     }
 
     while (objs) {
       DiaObject *obj = (DiaObject *)objs->data;
 
-      obj->ops->draw(obj, DIA_RENDERER (renderer));
+      dia_object_draw (obj, DIA_RENDERER (renderer));
       objs = objs->next;
     }
     renderer->root = g_queue_pop_tail (svg_renderer->parents);
     xmlAddChild (renderer->root, group);
   } else {
     if (matrix) {
-      char *s = dia_svg_from_matrix (matrix, renderer->scale);
+      char *s;
+      graphene_matrix_t graphene_matrix;
+
+      dia_graphene_from_matrix (&graphene_matrix, matrix);
+
+      s = dia_svg_from_matrix (&graphene_matrix, renderer->scale);
+
       xmlSetProp(renderer->root, (const xmlChar *)"transform", (xmlChar *) s);
+
       g_clear_pointer (&s, g_free);
     }
 

@@ -160,6 +160,7 @@ libdia_sources = stdprop_sources + [
     'dia-simple-list.c',
     'dia-simple-list.h',
     'dia-autoptr.h',
+    'dia-graphene.h',
 ]
 
 gnome = import('gnome')
@@ -187,6 +188,7 @@ libdia_deps = [
     libm_dep,
     libzlib_dep,
     gmodule_dep,
+    graphene_dep,
 ]
 
 libdia_inc = include_directories('.')

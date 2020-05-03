@@ -50,11 +50,14 @@
 #include "attributes.h"
 #include "pattern.h"
 #include "dia-layer.h"
+#include "dia-graphene.h"
 
-/*!
- * \defgroup SvgImport Import SVG
- * \ingroup SvgPlugin
- * \brief Based on \ref DiaSvg this plug-in translates SVG to Dia \ref StandardObjects.
+/**
+ * SECTION:svg-import
+ *
+ * Import SVG
+ *
+ * Based on \ref DiaSvg this plug-in translates SVG to Dia \ref StandardObjects.
  *
  * Sometimes SVG import is the only way to create complex objects ...
  */
@@ -156,19 +159,22 @@ static PropDescription _arrow_prop_descs[] = {
     PROP_DESC_END
 };
 
+
 static void
 reset_arrows (DiaObject *obj)
 {
-    GPtrArray *props;
-    int i;
+  GPtrArray *props;
+  int i;
 
-    props = prop_list_from_descs(_arrow_prop_descs,pdtpp_true);
-    g_assert(props->len == 2);
-    for (i = 0; i < 2; ++i)
-        ((ArrowProperty *)g_ptr_array_index(props, 0))->arrow_data.type = ARROW_NONE;
-    obj->ops->set_props(obj, props);
-    prop_list_free(props);
+  props = prop_list_from_descs (_arrow_prop_descs, pdtpp_true);
+  g_return_if_fail (props->len == 2);
+  for (i = 0; i < 2; ++i) {
+    ((ArrowProperty *) g_ptr_array_index (props, 0))->arrow_data.type = ARROW_NONE;
+  }
+  dia_object_set_properties (obj, props);
+  prop_list_free (props);
 }
+
 
 static GPtrArray *
 make_element_props(real xpos, real ypos,
@@ -211,15 +217,15 @@ _node_get_real (xmlNodePtr node, const char *name, real defval)
     return val;
 }
 
+
 static void
 _transform_object (DiaObject *obj, DiaMatrix *m, DiaContext *ctx)
 {
-  g_return_if_fail (obj->ops->transform != NULL);
-
-  if (!obj->ops->transform (obj, m))
+  if (!dia_object_transform (obj, m)) {
     dia_context_add_message (ctx,
-			     _("Failed to apply transformation for '%s'"),
-			     obj->type->name);
+                             _("Failed to apply transformation for '%s'"),
+                             obj->type->name);
+  }
 }
 
 
@@ -244,7 +250,10 @@ use_position (DiaObject *obj, xmlNodePtr node, DiaContext *ctx)
 
   str = xmlGetProp(node, (const xmlChar *)"transform");
   if (str) {
-    DiaMatrix *m = dia_svg_parse_transform ((char *) str, user_scale);
+    graphene_matrix_t *graphene_matrix = dia_svg_parse_transform ((char *) str, user_scale);
+    DiaMatrix *m = g_new0 (DiaMatrix, 1);
+
+    dia_matrix_from_graphene (m, graphene_matrix);
 
     if (m) {
       if (obj->ops->transform) {
@@ -276,7 +285,7 @@ use_position (DiaObject *obj, xmlNodePtr node, DiaContext *ctx)
         pr = g_ptr_array_index (props, 3);
         pr->real_data *= m->yy;
 
-        obj->ops->set_props (obj, props);
+        dia_object_set_properties (obj, props);
         prop_list_free (props);
       }
       g_clear_pointer (&m, g_free);
@@ -432,143 +441,158 @@ _set_pattern_from_key (DiaObject    *obj,
 }
 
 
-/*!
- * \brief apply SVG style to object
+/**
+ * apply_style
+ *
+ * Apply SVG style to object
+ *
  * Styling with SVG is a complicated thing. The style can be given with:
  *  - single attributes on the node
  *  - a style attribute on the node
  *  - accumulation from parent objects/groups
  *  - a reference to further information in single or style attribute
  *  - inheritance from object type, class, id or a combination thereof
- * This method uses all of this information to apply the best style approximation
- * possible with DIa's rendering model.
- * \ingroup SvgImport
+ *
+ * This method uses all of this information to apply the best style
+ * approximation possible with Dia's rendering model.
  */
 static void
-apply_style(DiaObject *obj, xmlNodePtr node, DiaSvgStyle *parent_style,
-	    GHashTable *style_ht, GHashTable *pattern_ht, gboolean init)
+apply_style (DiaObject   *obj,
+             xmlNodePtr   node,
+             DiaSvgStyle *parent_style,
+             GHashTable  *style_ht,
+             GHashTable  *pattern_ht,
+             gboolean     init)
 {
-      DiaSvgStyle *gs;
-      GPtrArray *props;
-      LinestyleProperty *lsprop;
-      ColorProperty *cprop;
-      RealProperty *rprop;
-      BoolProperty *bprop;
-      EnumProperty *eprop;
-      real scale = 1.0;
+  DiaSvgStyle *gs;
+  GPtrArray *props;
+  LinestyleProperty *lsprop;
+  ColorProperty *cprop;
+  RealProperty *rprop;
+  BoolProperty *bprop;
+  EnumProperty *eprop;
+  real scale = 1.0;
 
 
-      xmlChar *str = xmlGetProp(node, (const xmlChar *)"transform");
-      if (str) {
-	  DiaMatrix *m = dia_svg_parse_transform ((char *)str, user_scale);
-	  if (m) {
-	    transform_length (&scale, m);
-	    g_clear_pointer (&m, g_free);
-	  }
-	  xmlFree(str);
+  xmlChar *str = xmlGetProp(node, (const xmlChar *)"transform");
+  if (str) {
+    graphene_matrix_t *graphene_matrix = dia_svg_parse_transform ((char *) str, user_scale);
+    DiaMatrix *m = g_new0 (DiaMatrix, 1);
+
+    dia_matrix_from_graphene (m, graphene_matrix);
+
+    if (m) {
+      transform_length (&scale, m);
+      g_clear_pointer (&m, g_free);
+      g_clear_pointer (&graphene_matrix, graphene_matrix_free);
+    }
+
+    xmlFree(str);
+  }
+  gs = g_new0(DiaSvgStyle, 1);
+  /* SVG defaults */
+  dia_svg_style_init (gs, parent_style);
+  _node_css_parse_style (node, gs, user_scale, style_ht);
+  dia_svg_parse_style(node, gs, user_scale);
+  props = prop_list_from_descs(svg_style_prop_descs, pdtpp_true);
+  g_assert(props->len == 7);
+
+  cprop = g_ptr_array_index(props,0);
+  if (gs->stroke == DIA_SVG_COLOUR_DEFAULT) {
+    if (init) /* no stroke */
+      cprop->color_data = get_colour(0xFFFFFF, 0.0);
+    else /* leave it alone */
+      cprop->common.experience |= PXP_NOTSET; /* no overwrite */
+  } else if (gs->stroke == DIA_SVG_COLOUR_NONE) /* transparent */
+    cprop->color_data = get_colour(0xFFFFFF, 0.0);
+  else if (gs->stroke == DIA_SVG_COLOUR_FOREGROUND)
+    cprop->color_data = attributes_get_foreground();
+  else if (gs->stroke == DIA_SVG_COLOUR_BACKGROUND)
+    cprop->color_data = attributes_get_background();
+  else
+    cprop->color_data = get_colour(gs->stroke, gs->stroke_opacity);
+
+  rprop = g_ptr_array_index(props,1);
+  rprop->real_data = gs->line_width * scale;
+
+  lsprop = g_ptr_array_index(props,2);
+  if (gs->linestyle != LINESTYLE_DEFAULT)
+    lsprop->style = gs->linestyle;
+  else if (init)
+    lsprop->style = LINESTYLE_SOLID;
+  else
+    lsprop->common.experience |= PXP_NOTSET; /* no overwrite */
+  lsprop->dash = gs->dashlength * scale;
+
+  cprop = g_ptr_array_index(props,3);
+  if (gs->fill == DIA_SVG_COLOUR_DEFAULT) {
+    if (init)
+      cprop->color_data = get_colour(0x000000, gs->fill_opacity); /* black */
+    else
+      cprop->common.experience |= PXP_NOTSET; /* no overwrite */
+  } else if (gs->fill == DIA_SVG_COLOUR_NONE) /* transparent */
+    cprop->color_data = get_colour(0x000000, 0.0);
+  else if (gs->fill == DIA_SVG_COLOUR_FOREGROUND)
+    cprop->color_data = attributes_get_foreground();
+  else if (gs->fill == DIA_SVG_COLOUR_BACKGROUND)
+    cprop->color_data = attributes_get_background();
+  else
+    cprop->color_data = get_colour(gs->fill, gs->fill_opacity);
+
+  bprop = g_ptr_array_index(props,4);
+  if(gs->fill == DIA_SVG_COLOUR_NONE || gs->fill_opacity == 0) {
+    bprop->bool_data = FALSE;
+  } else {
+    if (init)
+      bprop->bool_data = TRUE;
+    else
+      bprop->common.experience |= PXP_NOTSET; /* no overwrite */
+  }
+
+  /* apply pattern, gradient if any */
+  str = xmlGetProp(node, (const xmlChar *)"fill");
+  if (str) {
+    const char *left = strstr ((const char*)str, "url(#");
+    const char *right = strrchr ((const char*)str, ')');
+    if (left && right) {
+      char *key = g_strndup (left + 5, right - left - 5);
+      _set_pattern_from_key (obj, bprop, pattern_ht, key);
+      g_clear_pointer (&key, g_free);
+    }
+    xmlFree(str);
+  } else if (gs->fill == DIA_SVG_COLOUR_NONE) {
+    /* check the style again, it might contain a pattern */
+    str = xmlGetProp(node, (const xmlChar*)"style");
+    if (str) {
+      const char *left = strstr ((const char*)str, "fill:url(#");
+      const char *right = left ? strrchr (left, ')') : NULL;
+      if (left && right) {
+        char *key = g_strndup (left + 10, right - left - 10);
+        _set_pattern_from_key (obj, bprop, pattern_ht, key);
+        g_clear_pointer (&key, g_free);
       }
-      gs = g_new0(DiaSvgStyle, 1);
-      /* SVG defaults */
-      dia_svg_style_init (gs, parent_style);
-      _node_css_parse_style (node, gs, user_scale, style_ht);
-      dia_svg_parse_style(node, gs, user_scale);
-      props = prop_list_from_descs(svg_style_prop_descs, pdtpp_true);
-      g_assert(props->len == 7);
+      xmlFree (str);
+    }
+  }
 
-      cprop = g_ptr_array_index(props,0);
-      if (gs->stroke == DIA_SVG_COLOUR_DEFAULT) {
-        if (init) /* no stroke */
-	  cprop->color_data = get_colour(0xFFFFFF, 0.0);
-	else /* leave it alone */
-	  cprop->common.experience |= PXP_NOTSET; /* no overwrite */
-      } else if (gs->stroke == DIA_SVG_COLOUR_NONE) /* transparent */
-	cprop->color_data = get_colour(0xFFFFFF, 0.0);
-      else if (gs->stroke == DIA_SVG_COLOUR_FOREGROUND)
-	cprop->color_data = attributes_get_foreground();
-      else if (gs->stroke == DIA_SVG_COLOUR_BACKGROUND)
-	cprop->color_data = attributes_get_background();
-      else
-        cprop->color_data = get_colour(gs->stroke, gs->stroke_opacity);
+  eprop = g_ptr_array_index(props,5);
+  if (gs->linejoin != LINEJOIN_DEFAULT)
+    eprop->enum_data = gs->linejoin;
+  else
+    eprop->common.experience |= PXP_NOTSET;
 
-      rprop = g_ptr_array_index(props,1);
-      rprop->real_data = gs->line_width * scale;
-
-      lsprop = g_ptr_array_index(props,2);
-      if (gs->linestyle != LINESTYLE_DEFAULT)
-	lsprop->style = gs->linestyle;
-      else if (init)
-	lsprop->style = LINESTYLE_SOLID;
-      else
-	lsprop->common.experience |= PXP_NOTSET; /* no overwrite */
-      lsprop->dash = gs->dashlength * scale;
-
-      cprop = g_ptr_array_index(props,3);
-      if (gs->fill == DIA_SVG_COLOUR_DEFAULT) {
-	if (init)
-	  cprop->color_data = get_colour(0x000000, gs->fill_opacity); /* black */
-	else
-	  cprop->common.experience |= PXP_NOTSET; /* no overwrite */
-      } else if (gs->fill == DIA_SVG_COLOUR_NONE) /* transparent */
-	cprop->color_data = get_colour(0x000000, 0.0);
-      else if (gs->fill == DIA_SVG_COLOUR_FOREGROUND)
-	cprop->color_data = attributes_get_foreground();
-      else if (gs->fill == DIA_SVG_COLOUR_BACKGROUND)
-	cprop->color_data = attributes_get_background();
-      else
-	cprop->color_data = get_colour(gs->fill, gs->fill_opacity);
-
-      bprop = g_ptr_array_index(props,4);
-      if(gs->fill == DIA_SVG_COLOUR_NONE || gs->fill_opacity == 0) {
-	bprop->bool_data = FALSE;
-      } else {
-	if (init)
-	  bprop->bool_data = TRUE;
-	else
-	  bprop->common.experience |= PXP_NOTSET; /* no overwrite */
-      }
-      /* apply pattern, gradient if any */
-      str = xmlGetProp(node, (const xmlChar *)"fill");
-      if (str) {
-        const char *left = strstr ((const char*)str, "url(#");
-        const char *right = strrchr ((const char*)str, ')');
-        if (left && right) {
-          char *key = g_strndup (left + 5, right - left - 5);
-          _set_pattern_from_key (obj, bprop, pattern_ht, key);
-          g_clear_pointer (&key, g_free);
-        }
-        xmlFree(str);
-      } else if (gs->fill == DIA_SVG_COLOUR_NONE) {
-        /* check the style again, it might contain a pattern */
-        str = xmlGetProp(node, (const xmlChar*)"style");
-        if (str) {
-          const char *left = strstr ((const char*)str, "fill:url(#");
-          const char *right = left ? strrchr (left, ')') : NULL;
-          if (left && right) {
-            char *key = g_strndup (left + 10, right - left - 10);
-            _set_pattern_from_key (obj, bprop, pattern_ht, key);
-            g_clear_pointer (&key, g_free);
-          }
-          xmlFree (str);
-        }
-      }
-
-      eprop = g_ptr_array_index(props,5);
-      if (gs->linejoin != LINEJOIN_DEFAULT)
-	eprop->enum_data = gs->linejoin;
-      else
-	eprop->common.experience |= PXP_NOTSET;
-
-      eprop = g_ptr_array_index(props,6);
-      if (gs->linecap != LINECAPS_DEFAULT)
-        eprop->enum_data = gs->linecap;
-      else
-	eprop->common.experience |= PXP_NOTSET;
+  eprop = g_ptr_array_index(props,6);
+  if (gs->linecap != LINECAPS_DEFAULT)
+    eprop->enum_data = gs->linecap;
+  else
+    eprop->common.experience |= PXP_NOTSET;
 
   dia_object_set_properties (obj, props);
 
   g_clear_object (&gs->font);
   g_clear_pointer (&gs, g_free);
 }
+
 
 /*!
  * \brief Elements (poly, path) can be closed style, too.
@@ -597,8 +621,10 @@ _node_closed_by_style (xmlNodePtr node, DiaSvgStyle *parent_style)
 }
 
 
-/*!
- * \brief Read a SVG path element
+/**
+ * read_path_svg:
+ *
+ * Read a SVG path element
  *
  * This function parses a SVG path element into a Dia object. All
  * the heavy lifting is done with dia_svg_parse_path() which is called multiple
@@ -611,118 +637,126 @@ _node_closed_by_style (xmlNodePtr node, DiaSvgStyle *parent_style)
  * is not directly supported by Dia and also not especially useful.
  * For path elements it is just an easy transformation of all the
  * single points, so it is done here.
- *
- * \ingroup SvgImport
  */
 static GList *
-read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
-	      GHashTable *style_ht, GHashTable *pattern_ht,
-	      GList *list, DiaContext *ctx)
+read_path_svg (xmlNodePtr   node,
+               DiaSvgStyle *parent_style,
+               GHashTable  *style_ht,
+               GHashTable  *pattern_ht,
+               GList       *list,
+               DiaContext  *ctx)
 {
-    DiaObjectType *otype;
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    BezierCreateData *bcd;
-    xmlChar *str;
-    char *pathdata, *unparsed = NULL;
-    GArray *bezpoints = NULL;
-    gboolean closed = FALSE;
-    gint i;
-    DiaMatrix *matrix = NULL;
-    Point current_point = {0.0, 0.0};
-    gboolean use_stdpath = FALSE;
-    gboolean closed_by_style;
+  DiaObjectType *otype;
+  DiaObject *new_obj;
+  Handle *h1, *h2;
+  BezierCreateData *bcd;
+  xmlChar *str;
+  char *pathdata, *unparsed = NULL;
+  GArray *bezpoints = NULL;
+  gboolean closed = FALSE;
+  gint i;
+  DiaMatrix *matrix = NULL;
+  graphene_matrix_t *graphene_matrix = NULL;
+  Point current_point = {0.0, 0.0};
+  gboolean use_stdpath = FALSE;
+  gboolean closed_by_style;
 
-    str = xmlGetProp(node, (const xmlChar *)"transform");
-    if (str) {
-      matrix = dia_svg_parse_transform ((char *)str, user_scale);
-      xmlFree (str);
+  str = xmlGetProp(node, (const xmlChar *)"transform");
+  if (str) {
+    matrix = g_new0 (DiaMatrix, 1);
+    graphene_matrix = dia_svg_parse_transform ((char *) str, user_scale);
+
+    dia_matrix_from_graphene (matrix, graphene_matrix);
+
+    xmlFree (str);
+  }
+
+  closed_by_style = _node_closed_by_style (node, parent_style);
+  str = xmlGetProp(node, (const xmlChar *)"d");
+  pathdata = (char *)str;
+  bezpoints = g_array_new(FALSE, FALSE, sizeof(BezPoint));
+  g_array_set_size(bezpoints, 0);
+  do {
+    int first = bezpoints->len;
+    if (!dia_svg_parse_path (bezpoints, pathdata, &unparsed, &closed, &current_point))
+      break;
+
+    if (!closed) {
+      /* expensive way to possibly close the path */
+      closed = closed_by_style;
+      /* if we close it here add an explicit line-to */
+      if (closed) {
+        BezPoint bp;
+
+        bp.type = BEZ_LINE_TO;
+        bp.p1 = g_array_index(bezpoints, BezPoint, first).p1;
+        g_array_append_val (bezpoints, bp);
+      }
     }
+    if (unparsed) {
+      use_stdpath = TRUE;
+    } else if (bezpoints && bezpoints->len > 0) {
+      /* A stray 'z' can produce extra runs without adding any new BEZ_MOVE_TO.
+      * To have the optimum representation with Dia's objects we check again.
+      */
+      if (use_stdpath) {
+        int move_tos = 0;
+        for (i = 0; i < bezpoints->len; ++i)
+          if (g_array_index(bezpoints, BezPoint, i).type == BEZ_MOVE_TO)
+            ++move_tos;
+        use_stdpath = (move_tos > 1);
+      }
 
-    closed_by_style = _node_closed_by_style (node, parent_style);
-    str = xmlGetProp(node, (const xmlChar *)"d");
-    pathdata = (char *)str;
-    bezpoints = g_array_new(FALSE, FALSE, sizeof(BezPoint));
-    g_array_set_size(bezpoints, 0);
-    do {
-      int first = bezpoints->len;
-      if (!dia_svg_parse_path (bezpoints, pathdata, &unparsed, &closed, &current_point))
+      if (g_array_index(bezpoints, BezPoint, 0).type != BEZ_MOVE_TO) {
+        dia_context_add_message(ctx, _("Invalid path data.\n"
+              "svg:path data must start with moveto."));
         break;
-
-      if (!closed) {
-	/* expensive way to possibly close the path */
-	closed = closed_by_style;
-	/* if we close it here add an explicit line-to */
-	if (closed) {
-	  BezPoint bp;
-
-	  bp.type = BEZ_LINE_TO;
-	  bp.p1 = g_array_index(bezpoints, BezPoint, first).p1;
-	  g_array_append_val (bezpoints, bp);
-	}
+      } else if (use_stdpath) {
+        otype = object_get_type("Standard - Path");
+      } else if (!closed) {
+        otype = object_get_type("Standard - BezierLine");
+      } else if (bezpoints->len < 3) { /* error path: invalid input or parsing error? */
+        /* Our beziergon can not handle less than three points
+        * So line-to the first point again...
+        */
+        BezPoint bpz = g_array_index(bezpoints, BezPoint, 0);
+        bpz.type = BEZ_LINE_TO;
+        g_array_append_val(bezpoints, bpz);
+        otype = object_get_type("Standard - Beziergon");
+      } else {
+        otype = object_get_type("Standard - Beziergon");
       }
-      if (unparsed) {
-	use_stdpath = TRUE;
-      } else if (bezpoints && bezpoints->len > 0) {
-	/* A stray 'z' can produce extra runs without adding any new BEZ_MOVE_TO.
-	 * To have the optimum representation with Dia's objects we check again.
-	 */
-	if (use_stdpath) {
-	  int move_tos = 0;
-	  for (i = 0; i < bezpoints->len; ++i)
-	    if (g_array_index(bezpoints, BezPoint, i).type == BEZ_MOVE_TO)
-	      ++move_tos;
-	  use_stdpath = (move_tos > 1);
-	}
-        if (g_array_index(bezpoints, BezPoint, 0).type != BEZ_MOVE_TO) {
-	  dia_context_add_message(ctx, _("Invalid path data.\n"
-					 "svg:path data must start with moveto."));
-	  break;
-	} else if (use_stdpath) {
-	  otype = object_get_type("Standard - Path");
-	} else if (!closed) {
-	  otype = object_get_type("Standard - BezierLine");
-	} else if (bezpoints->len < 3) { /* error path: invalid input or parsing error? */
-	  /* Our beziergon can not handle less than three points
-	   * So line-to the first point again...
-	   */
-	  BezPoint bpz = g_array_index(bezpoints, BezPoint, 0);
-	  bpz.type = BEZ_LINE_TO;
-	  g_array_append_val(bezpoints, bpz);
-	  otype = object_get_type("Standard - Beziergon");
-	} else {
-	  otype = object_get_type("Standard - Beziergon");
-	}
-	if (otype == NULL){
-	  dia_context_add_message(ctx, _("Can't find standard object"));
-	  break;
-	}
-	bcd = g_new(BezierCreateData, 1);
-	bcd->num_points = bezpoints->len;
-	bcd->points = &(g_array_index(bezpoints, BezPoint, 0));
-	/* dia_svg_parse_path does not scale to the user coordinate system, do it here */
-	for (i = 0; i < bcd->num_points; ++i) {
-	  bcd->points[i].p1.x /= user_scale;
-	  bcd->points[i].p1.y /= user_scale;
-	  bcd->points[i].p2.x /= user_scale;
-	  bcd->points[i].p2.y /= user_scale;
-	  bcd->points[i].p3.x /= user_scale;
-	  bcd->points[i].p3.y /= user_scale;
-	  if (matrix)
-	    transform_bezpoint (&bcd->points[i], matrix);
-	}
-	new_obj = otype->ops->create(NULL, bcd, &h1, &h2);
-	if (!closed)
-	  reset_arrows (new_obj);
-	g_clear_pointer (&bcd, g_free);
-	apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
-	list = g_list_append (list, new_obj);
 
-	g_array_set_size (bezpoints, 0);
+      if (otype == NULL){
+        dia_context_add_message(ctx, _("Can't find standard object"));
+        break;
       }
-      pathdata = unparsed;
-      unparsed = NULL;
-    } while (pathdata);
+      bcd = g_new(BezierCreateData, 1);
+      bcd->num_points = bezpoints->len;
+      bcd->points = &(g_array_index(bezpoints, BezPoint, 0));
+      /* dia_svg_parse_path does not scale to the user coordinate system, do it here */
+      for (i = 0; i < bcd->num_points; ++i) {
+        bcd->points[i].p1.x /= user_scale;
+        bcd->points[i].p1.y /= user_scale;
+        bcd->points[i].p2.x /= user_scale;
+        bcd->points[i].p2.y /= user_scale;
+        bcd->points[i].p3.x /= user_scale;
+        bcd->points[i].p3.y /= user_scale;
+        if (matrix)
+          transform_bezpoint (&bcd->points[i], matrix);
+      }
+      new_obj = otype->ops->create(NULL, bcd, &h1, &h2);
+      if (!closed)
+        reset_arrows (new_obj);
+      g_clear_pointer (&bcd, g_free);
+      apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
+      list = g_list_append (list, new_obj);
+
+      g_array_set_size (bezpoints, 0);
+    }
+    pathdata = unparsed;
+    unparsed = NULL;
+  } while (pathdata);
 
   if (bezpoints) {
     g_array_free (bezpoints, TRUE);
@@ -737,250 +771,281 @@ read_path_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   return list;
 }
 
-/*!
- * \brief Read a SVG text element
- * \ingroup SvgImport
+
+/**
+ * read_text_svg:
+ *
+ * Read a SVG text element
  */
 static GList *
-read_text_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
-	      GHashTable *style_ht, GHashTable *pattern_ht,
-	      GList *list, DiaContext *ctx)
+read_text_svg (xmlNodePtr   node,
+               DiaSvgStyle *parent_style,
+               GHashTable  *style_ht,
+               GHashTable  *pattern_ht,
+               GList       *list,
+               DiaContext  *ctx)
 {
-    DiaObjectType *otype = object_get_type("Standard - Text");
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    Point point;
-    GPtrArray *props;
-    TextProperty *prop;
-    xmlChar *str = NULL;
-    gchar *multiline = NULL;
-    DiaSvgStyle *gs;
-    gboolean any_tspan = FALSE;
-    DiaMatrix *matrix = NULL;
-    real font_height = 0.0;
-    gboolean preserve_space = xmlNodeGetSpacePreserve (node) > 0;
+  DiaObjectType *otype = object_get_type ("Standard - Text");
+  DiaObject *new_obj;
+  Handle *h1, *h2;
+  Point point;
+  GPtrArray *props;
+  TextProperty *prop;
+  xmlChar *str = NULL;
+  gchar *multiline = NULL;
+  DiaSvgStyle *gs;
+  gboolean any_tspan = FALSE;
+  DiaMatrix *matrix = NULL;
+  graphene_matrix_t *graphene_matrix = NULL;
+  real font_height = 0.0;
+  gboolean preserve_space = xmlNodeGetSpacePreserve (node) > 0;
 
-    str = xmlGetProp(node, (const xmlChar *)"transform");
-    if (str) {
-      matrix = dia_svg_parse_transform ((char *)str, user_scale);
-      xmlFree (str);
-    }
+  str = xmlGetProp(node, (const xmlChar *)"transform");
+  if (str) {
+    matrix = g_new0 (DiaMatrix, 1);
+    graphene_matrix = dia_svg_parse_transform ((char *) str, user_scale);
 
-    gs = g_new(DiaSvgStyle, 1);
-    dia_svg_style_init (gs, parent_style);
+    dia_matrix_from_graphene (matrix, graphene_matrix);
 
-    point.x = _node_get_real (node, "x", 0.0);
-    point.y = _node_get_real (node, "y", 0.0);
+    xmlFree (str);
+  }
 
-    /* text property handling is special, don't use apply_style() */
-    _node_css_parse_style (node, gs, user_scale, style_ht);
+  gs = g_new(DiaSvgStyle, 1);
+  dia_svg_style_init (gs, parent_style);
 
-    /* font-size can be given in the style (with absolute unit) or
-     * with it's own attribute. The latter is preferred - also by
-     * Dia's own export.
-     */
-    str = xmlGetProp(node, (const xmlChar *)"font-size");
-    if (str) {
-      font_height = get_value_as_cm((char *) str, NULL);
-      xmlFree(str);
-    }
+  point.x = _node_get_real (node, "x", 0.0);
+  point.y = _node_get_real (node, "y", 0.0);
 
-    /* parse from <text/> before looking at the first <tspan/> */
-    dia_svg_parse_style(node, gs, user_scale);
+  /* text property handling is special, don't use apply_style() */
+  _node_css_parse_style (node, gs, user_scale, style_ht);
 
-    {
-      xmlNode *tspan = node->children;
-      GString *paragraph = g_string_sized_new(512);
-      while (tspan) {
-	if (xmlStrcmp (tspan->name, (const xmlChar*)"tspan") == 0) {
-	  xmlChar *line = xmlNodeGetContent(tspan);
-	  if (any_tspan) { /* every other line needs separation */
-	    g_string_append(paragraph, "\n");
-	  } else { /* only first time with user scale - but w/o matrix - that shall be
-		    * in effect from the context? */
-	    dia_svg_parse_style(tspan, gs, user_scale);
-	    point.x = _node_get_real (tspan, "x", point.x);
-	    point.y = _node_get_real (tspan, "y", point.y);
-	  }
-	  g_string_append(paragraph, (gchar*)line);
-	  xmlFree(line);
-          any_tspan = TRUE;
-	}
-	tspan = tspan->next;
+  /* font-size can be given in the style (with absolute unit) or
+    * with it's own attribute. The latter is preferred - also by
+    * Dia's own export.
+    */
+  str = xmlGetProp(node, (const xmlChar *)"font-size");
+  if (str) {
+    font_height = get_value_as_cm((char *) str, NULL);
+    xmlFree(str);
+  }
+
+  /* parse from <text/> before looking at the first <tspan/> */
+  dia_svg_parse_style(node, gs, user_scale);
+
+  {
+    xmlNode *tspan = node->children;
+    GString *paragraph = g_string_sized_new(512);
+    while (tspan) {
+      if (xmlStrcmp (tspan->name, (const xmlChar*)"tspan") == 0) {
+        xmlChar *line = xmlNodeGetContent(tspan);
+        if (any_tspan) { /* every other line needs separation */
+          g_string_append(paragraph, "\n");
+        } else { /* only first time with user scale - but w/o matrix - that shall be
+            * in effect from the context? */
+          dia_svg_parse_style(tspan, gs, user_scale);
+          point.x = _node_get_real (tspan, "x", point.x);
+          point.y = _node_get_real (tspan, "y", point.y);
+        }
+        g_string_append(paragraph, (gchar*)line);
+        xmlFree(line);
+        any_tspan = TRUE;
       }
-      multiline = paragraph->str;
-      g_string_free (paragraph, FALSE);
-      str = NULL;
+      tspan = tspan->next;
     }
-    if (!any_tspan) {
-      str = xmlNodeGetContent(node);
-      /* so no valid multiline */
-      g_clear_pointer (&multiline, g_free);
-      multiline = NULL;
+    multiline = paragraph->str;
+    g_string_free (paragraph, FALSE);
+    str = NULL;
+  }
+  if (!any_tspan) {
+    str = xmlNodeGetContent(node);
+    /* so no valid multiline */
+    g_clear_pointer (&multiline, g_free);
+    multiline = NULL;
+  }
+  if(str || multiline) {
+    new_obj = otype->ops->create(&point, otype->default_user_data, &h1, &h2);
+    list = g_list_append (list, new_obj);
+
+    props = prop_list_from_descs(svg_text_prop_descs, pdtpp_true);
+    g_assert(props->len == 1);
+
+    if(gs->font == NULL) {
+      gs->font = dia_font_new_from_legacy_name("Courier");
     }
-    if(str || multiline) {
-      new_obj = otype->ops->create(&point, otype->default_user_data,
-				 &h1, &h2);
-      list = g_list_append (list, new_obj);
-
-      props = prop_list_from_descs(svg_text_prop_descs, pdtpp_true);
-      g_assert(props->len == 1);
-
-      if(gs->font == NULL) {
-	gs->font = dia_font_new_from_legacy_name("Courier");
-      }
-      prop = g_ptr_array_index(props, 0);
-      g_clear_pointer (&prop->text_data, g_free);
-      prop->text_data = str ? g_strdup((char *) str) : multiline;
-      if (!preserve_space)
-        prop->text_data = g_strstrip (prop->text_data); /* modifies in-place */
-      xmlFree(str);
-      prop->attr.alignment = gs->alignment;
-      prop->attr.position.x = point.x;
-      prop->attr.position.y = point.y;
-      /* FIXME: looks like a leak but without this an imported svg is
-       * crashing on release */
-      prop->attr.font = g_object_ref (gs->font);
-      if (font_height > 0.0) {
-        /* font-size should be the line-height according to SVG spec,
-        * but see node_set_text_style() - round-trip first */
-        real font_scale = dia_font_get_height (prop->attr.font) / dia_font_get_size (prop->attr.font);
-        prop->attr.height = font_height * font_scale;
-      } else {
-        prop->attr.height = gs->font_height;
-      }
-      /* when operating with default values foreground and background are intentionally swapped
-       * to avoid getting white text by default */
-      switch (gs->fill) {
+    prop = g_ptr_array_index(props, 0);
+    g_clear_pointer (&prop->text_data, g_free);
+    prop->text_data = str ? g_strdup((char *) str) : multiline;
+    if (!preserve_space) {
+      prop->text_data = g_strstrip (prop->text_data); /* modifies in-place */
+    }
+    xmlFree(str);
+    prop->attr.alignment = gs->alignment;
+    prop->attr.position.x = point.x;
+    prop->attr.position.y = point.y;
+    /* FIXME: looks like a leak but without this an imported svg is
+      * crashing on release */
+    prop->attr.font = g_object_ref (gs->font);
+    if (font_height > 0.0) {
+      /* font-size should be the line-height according to SVG spec,
+      * but see node_set_text_style() - round-trip first */
+      real font_scale = dia_font_get_height (prop->attr.font) / dia_font_get_size (prop->attr.font);
+      prop->attr.height = font_height * font_scale;
+    } else {
+      prop->attr.height = gs->font_height;
+    }
+    /* when operating with default values foreground and background are intentionally swapped
+      * to avoid getting white text by default */
+    switch (gs->fill) {
       case DIA_SVG_COLOUR_NONE :
         /* don't use -1 which would be almost white */
       case DIA_SVG_COLOUR_TEXT :
       case DIA_SVG_COLOUR_BACKGROUND :
-	prop->attr.color = attributes_get_foreground();
-	break;
+        prop->attr.color = attributes_get_foreground();
+        break;
       case DIA_SVG_COLOUR_DEFAULT: /* black */
-	prop->attr.color = get_colour(0x000000, gs->fill_opacity);
-	break;
+        prop->attr.color = get_colour(0x000000, gs->fill_opacity);
+        break;
       case DIA_SVG_COLOUR_FOREGROUND :
-	prop->attr.color = attributes_get_background();
-	break;
-      default :
-	prop->attr.color = get_colour (gs->fill, gs->fill_opacity);
-	break;
-      }
-      new_obj->ops->set_props(new_obj, props);
-      prop_list_free (props);
-      if (matrix)
-        _transform_object (new_obj, matrix, ctx);
+        prop->attr.color = attributes_get_background();
+        break;
+      default:
+        prop->attr.color = get_colour (gs->fill, gs->fill_opacity);
+        break;
     }
-    g_clear_object (&gs->font);
-    g_clear_pointer (&gs, g_free);
-    g_clear_pointer (&matrix, g_free);
+    dia_object_set_properties (new_obj, props);
+    prop_list_free (props);
+    if (matrix) {
+      _transform_object (new_obj, matrix, ctx);
+    }
+  }
+  g_clear_object (&gs->font);
+  g_clear_pointer (&gs, g_free);
+  g_clear_pointer (&matrix, g_free);
 
-    return list;
+  return list;
 }
 
-/*!
- * \brief Read a polygon or a polyline
- * Create a _Polyline or _Polygon from the SVG element at node.
- * \ingroup SvgImport
+
+/**
+ * read_poly_svg:
+ *
+ * Read a polygon or a polyline
+ *
+ * Create a #Polyline or #Polygon from the SVG element at node.
  */
 static GList *
-read_poly_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
-	      GHashTable *style_ht, GHashTable *pattern_ht,
-	      GList *list, char *object_type)
+read_poly_svg (xmlNodePtr   node,
+               DiaSvgStyle *parent_style,
+               GHashTable  *style_ht,
+               GHashTable  *pattern_ht,
+               GList       *list,
+               char        *object_type)
 {
-    DiaObjectType *otype;
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    MultipointCreateData *pcd;
-    Point *points;
-    GArray *arr = g_array_new(FALSE, FALSE, sizeof(real));
-    real val, *rarr;
-    xmlChar *str;
-    char *tmp;
-    int i;
-    DiaMatrix *matrix = NULL;
+  DiaObjectType *otype;
+  DiaObject *new_obj;
+  Handle *h1, *h2;
+  MultipointCreateData *pcd;
+  Point *points;
+  GArray *arr = g_array_new (FALSE, FALSE, sizeof (double));
+  double val, *rarr;
+  xmlChar *str;
+  char *tmp;
+  int i;
+  DiaMatrix *matrix = NULL;
+  graphene_matrix_t *graphene_matrix = NULL;
 
-    str = xmlGetProp(node, (const xmlChar *)"transform");
-    if (str) {
-      matrix = dia_svg_parse_transform ((char *)str, user_scale);
-      xmlFree (str);
-    }
+  str = xmlGetProp(node, (const xmlChar *)"transform");
+  if (str) {
+    matrix = g_new0 (DiaMatrix, 1);
+    graphene_matrix = dia_svg_parse_transform ((char *) str, user_scale);
 
-    /* Uh, oh, no : apparently a fill="" in a group above make this a polygon */
-    if (_node_closed_by_style (node, parent_style))
-      otype = object_get_type("Standard - Polygon");
-    else
-      otype = object_get_type(object_type);
+    dia_matrix_from_graphene (matrix, graphene_matrix);
+    xmlFree (str);
+  }
 
-    str = xmlGetProp(node, (const xmlChar *)"points");
-    if (!str) {
-      g_warning ("SVG: '%s' without points", node->name);
-      g_clear_pointer (&matrix, g_free);
-      return list;
-    }
-    tmp = (char *) str;
-    while (tmp[0] != '\0') {
-      /* skip junk */
-      while (tmp[0] != '\0' && !g_ascii_isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
-	tmp++;
-      if (tmp[0] == '\0') break;
-      val = get_value_as_cm(tmp, &tmp);
-      g_array_append_val(arr, val);
-    }
-    xmlFree(str);
+  /* Uh, oh, no : apparently a fill="" in a group above make this a polygon */
+  if (_node_closed_by_style (node, parent_style))
+    otype = object_get_type("Standard - Polygon");
+  else
+    otype = object_get_type(object_type);
 
-    /* If an odd number of coordinates is provided, then the element is in error, cut off below */
-    points = g_malloc0(arr->len/2*sizeof(Point));
-
-    pcd = g_new(MultipointCreateData, 1);
-    pcd->num_points = arr->len/2;
-    rarr = (real *)arr->data;
-    for (i = 0; i < pcd->num_points; i++) {
-      points[i].x = rarr[2*i];
-      points[i].y = rarr[2*i+1];
-      if (matrix) {
-        transform_point (&points[i], matrix);
-      }
-    }
-    g_array_free (arr, TRUE);
+  str = xmlGetProp(node, (const xmlChar *)"points");
+  if (!str) {
+    g_warning ("SVG: '%s' without points", node->name);
     g_clear_pointer (&matrix, g_free);
-
-    pcd->points = points;
-    new_obj = otype->ops->create(NULL, pcd,
-				 &h1, &h2);
-    reset_arrows (new_obj);
-    apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
-    list = g_list_append (list, new_obj);
-    g_clear_pointer (&points, g_free);
-    g_clear_pointer (&pcd, g_free);
-
     return list;
+  }
+  tmp = (char *) str;
+  while (tmp[0] != '\0') {
+    /* skip junk */
+    while (tmp[0] != '\0' && !g_ascii_isdigit(tmp[0]) && tmp[0]!='.'&&tmp[0]!='-')
+tmp++;
+    if (tmp[0] == '\0') break;
+    val = get_value_as_cm(tmp, &tmp);
+    g_array_append_val(arr, val);
+  }
+  xmlFree(str);
+
+  /* If an odd number of coordinates is provided, then the element is in error, cut off below */
+  points = g_malloc0(arr->len/2*sizeof(Point));
+
+  pcd = g_new(MultipointCreateData, 1);
+  pcd->num_points = arr->len/2;
+  rarr = (real *)arr->data;
+  for (i = 0; i < pcd->num_points; i++) {
+    points[i].x = rarr[2*i];
+    points[i].y = rarr[2*i+1];
+    if (matrix) {
+      transform_point (&points[i], matrix);
+    }
+  }
+  g_array_free (arr, TRUE);
+  g_clear_pointer (&matrix, g_free);
+
+  pcd->points = points;
+  new_obj = otype->ops->create (NULL, pcd, &h1, &h2);
+  reset_arrows (new_obj);
+  apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
+  list = g_list_append (list, new_obj);
+  g_clear_pointer (&points, g_free);
+  g_clear_pointer (&pcd, g_free);
+
+  return list;
 }
 
-/*!
- * \brief Read an ellipse or circle from SVG
+
+/**
+ * read_ellipse_svg:
+ *
+ * Read an ellipse or circle from SVG
+ *
  * Creates only _Ellipse objects, but could set the 'circle property'.
- * \ingroup SvgImport
  */
 static GList *
-read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
-		 GHashTable *style_ht, GHashTable *pattern_ht,
-		 GList *list, DiaContext *ctx)
+read_ellipse_svg (xmlNodePtr   node,
+                  DiaSvgStyle *parent_style,
+                  GHashTable  *style_ht,
+                  GHashTable  *pattern_ht,
+                  GList       *list,
+                  DiaContext  *ctx)
 {
   xmlChar *str;
   real width, height;
-  DiaObjectType *otype = object_get_type("Standard - Ellipse");
+  DiaObjectType *otype = object_get_type ("Standard - Ellipse");
   DiaObject *new_obj;
   Handle *h1, *h2;
   GPtrArray *props;
   Point start;
   DiaMatrix *matrix = NULL;
+  graphene_matrix_t *graphene_matrix = NULL;
 
   str = xmlGetProp(node, (const xmlChar *)"transform");
   if (str) {
-    matrix = dia_svg_parse_transform ((char *)str, user_scale);
+    matrix = g_new0 (DiaMatrix, 1);
+    graphene_matrix = dia_svg_parse_transform ((char *) str, user_scale);
+
+    dia_matrix_from_graphene (matrix, graphene_matrix);
+
     xmlFree (str);
   }
 
@@ -1004,7 +1069,7 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
 
   props = make_element_props(start.x-(width/2), start.y-(height/2),
 			     width, height);
-  new_obj->ops->set_props(new_obj, props);
+  dia_object_set_properties(new_obj, props);
   if (matrix) {
     _transform_object (new_obj, matrix, ctx);
     g_clear_pointer (&matrix, g_free);
@@ -1013,27 +1078,37 @@ read_ellipse_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   return g_list_append (list, new_obj);
 }
 
-/*!
- * \brief Read a line element from SVG
- * \ingroup SvgImport
+
+/**
+ * read_line_svg:
+ *
+ * Read a line element from SVG
  */
 static GList *
-read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
-	      GHashTable *style_ht, GHashTable *pattern_ht,
-	      GList *list, DiaContext *ctx)
+read_line_svg (xmlNodePtr   node,
+               DiaSvgStyle *parent_style,
+               GHashTable  *style_ht,
+               GHashTable  *pattern_ht,
+               GList       *list,
+               DiaContext  *ctx)
 {
   xmlChar *str;
-  DiaObjectType *otype = object_get_type("Standard - Line");
+  DiaObjectType *otype = object_get_type ("Standard - Line");
   DiaObject *new_obj;
   Handle *h1, *h2;
   PointProperty *ptprop;
   GPtrArray *props;
   Point start, end;
   DiaMatrix *matrix = NULL;
+  graphene_matrix_t *graphene_matrix = NULL;
 
   str = xmlGetProp(node, (const xmlChar *)"transform");
   if (str) {
-    matrix = dia_svg_parse_transform ((char *)str, user_scale);
+    matrix = g_new0 (DiaMatrix, 1);
+    graphene_matrix = dia_svg_parse_transform ((char *) str, user_scale);
+
+    dia_matrix_from_graphene (matrix, graphene_matrix);
+
     xmlFree (str);
   }
 
@@ -1054,7 +1129,7 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   ptprop = g_ptr_array_index(props,1);
   ptprop->point_data = end;
 
-  new_obj->ops->set_props(new_obj, props);
+  dia_object_set_properties (new_obj, props);
   reset_arrows (new_obj);
 
   prop_list_free(props);
@@ -1069,17 +1144,22 @@ read_line_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   return g_list_append (list, new_obj);
 }
 
-/*!
- * \brief Read a rectangle element from SVG
- * \ingroup SvgImport
+
+/**
+ * read_rect_svg:
+ *
+ * Read a rectangle element from SVG
  */
 static GList *
-read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
-	      GHashTable *style_ht, GHashTable *pattern_ht,
-	      GList *list, DiaContext *ctx)
+read_rect_svg (xmlNodePtr   node,
+               DiaSvgStyle *parent_style,
+               GHashTable  *style_ht,
+               GHashTable  *pattern_ht,
+               GList       *list,
+               DiaContext  *ctx)
 {
   xmlChar *str;
-  real width, height;
+  double width, height;
   DiaObjectType *otype = object_get_type("Standard - Box");
   DiaObject *new_obj;
   Handle *h1, *h2;
@@ -1087,12 +1167,17 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   RealProperty *rprop;
   GPtrArray *props;
   Point start,end;
-  real corner_radius = 0.0;
+  double corner_radius = 0.0;
   DiaMatrix *matrix = NULL;
+  graphene_matrix_t *graphene_matrix = NULL;
 
   str = xmlGetProp(node, (const xmlChar *)"transform");
   if (str) {
-    matrix = dia_svg_parse_transform ((char *)str, user_scale);
+    matrix = g_new0 (DiaMatrix, 1);
+    graphene_matrix = dia_svg_parse_transform ((char *) str, user_scale);
+
+    dia_matrix_from_graphene (matrix, graphene_matrix);
+
     xmlFree (str);
   }
 
@@ -1139,10 +1224,10 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   rprop = g_ptr_array_index(props,2);
   rprop->real_data = corner_radius;
 
-  new_obj->ops->set_props(new_obj, props);
-  prop_list_free(props);
-  props = make_element_props(start.x,start.y,width,height);
-  new_obj->ops->set_props(new_obj, props);
+  dia_object_set_properties (new_obj, props);
+  prop_list_free (props);
+  props = make_element_props (start.x,start.y,width,height);
+  dia_object_set_properties (new_obj, props);
 
   apply_style(new_obj, node, parent_style, style_ht, pattern_ht, TRUE);
   prop_list_free(props);
@@ -1154,24 +1239,36 @@ read_rect_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
   return list;
 }
 
-/*!
- * \brief Read SVG image element
- * The result is an _Image object in the list.
- * \ingroup SvgImport
+
+/**
+ * read_image_svg:
+ *
+ * Read SVG image element
+ *
+ * The result is an #Image object in the list.
  */
 static GList *
-read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
-	       GHashTable *style_ht, GHashTable *pattern_ht,
-	       GList *list, const gchar *filename_svg, DiaContext *ctx)
+read_image_svg (xmlNodePtr   node,
+                DiaSvgStyle *parent_style,
+                GHashTable  *style_ht,
+                GHashTable  *pattern_ht,
+                GList       *list,
+                const char  *filename_svg,
+                DiaContext  *ctx)
 {
   xmlChar *str;
   real x, y, width, height;
   DiaObject *new_obj = NULL;
   DiaMatrix *matrix = NULL;
+  graphene_matrix_t *graphene_matrix = NULL;
 
   str = xmlGetProp(node, (const xmlChar *)"transform");
   if (str) {
-    matrix = dia_svg_parse_transform ((char *)str, user_scale);
+    matrix = g_new0 (DiaMatrix, 1);
+    graphene_matrix = dia_svg_parse_transform ((char *) str, user_scale);
+
+    dia_matrix_from_graphene (matrix, graphene_matrix);
+
     xmlFree (str);
   }
 
@@ -1215,26 +1312,27 @@ read_image_svg(xmlNodePtr node, DiaSvgStyle *parent_style,
         g_clear_pointer (&dir, g_free);
         filename = absfn;
       }
+
       /* Importing svg as "Misc - Diagram" should produce better results than GdkPixbuf rendering */
       if (filename && g_strrstr (filename, ".svg")) {
-	Handle *h1, *h2;
-	Point point = {x, y};
-	DiaObjectType *otype = object_get_type("Misc - Diagram");
+        Handle *h1, *h2;
+        Point point = {x, y};
+        DiaObjectType *otype = object_get_type ("Misc - Diagram");
 
-	if (otype) {
-	  GPtrArray *props = g_ptr_array_new ();
-	  new_obj = otype->ops->create (&point, otype->default_user_data, &h1, &h2);
-	  prop_list_add_filename (props, "diagram_file", filename);
-	  if (new_obj) {
-	    new_obj->ops->set_props (new_obj, props);
-	    point.x += width;
-	    point.y += height;
-	    new_obj->ops->move_handle (new_obj, h2, &point, NULL, HANDLE_MOVE_USER_FINAL, 0);
-	  }
-	  prop_list_free (props);
-	}
+        if (otype) {
+          GPtrArray *props = g_ptr_array_new ();
+          new_obj = otype->ops->create (&point, otype->default_user_data, &h1, &h2);
+          prop_list_add_filename (props, "diagram_file", filename);
+          if (new_obj) {
+            dia_object_set_properties (new_obj, props);
+            point.x += width;
+            point.y += height;
+            dia_object_move_handle (new_obj, h2, &point, NULL, HANDLE_MOVE_USER_FINAL, 0);
+          }
+          prop_list_free (props);
+        }
       } else {
-	new_obj = create_standard_image(x, y, width, height, filename ? filename : "<broken>");
+        new_obj = create_standard_image (x, y, width, height, filename ? filename : "<broken>");
       }
       g_clear_pointer (&filename, g_free);
     }
@@ -1270,6 +1368,7 @@ read_gradient (xmlNodePtr node, DiaSvgStyle *parent_gs, GHashTable  *pattern_ht,
   guint       flags = 0;
   real        old_scale = user_scale;
   DiaMatrix  *matrix = NULL;
+  graphene_matrix_t *graphene_matrix = NULL;
   DiaSvgStyle gradient_gs;
 
   str = xmlGetProp (node, (const xmlChar *)"gradientUnits");
@@ -1289,12 +1388,18 @@ read_gradient (xmlNodePtr node, DiaSvgStyle *parent_gs, GHashTable  *pattern_ht,
     xmlFree (str);
   }
   /* this should not be user_scaled */
-  if ((flags & DIA_PATTERN_USER_SPACE) == 0)
+  if ((flags & DIA_PATTERN_USER_SPACE) == 0) {
     user_scale = 1.0;
+  }
+
   str = xmlGetProp (node, (const xmlChar *)"gradientTransform");
   if (str) {
-    matrix = dia_svg_parse_transform ((char *)str, user_scale);
+    matrix = g_new0 (DiaMatrix, 1);
+    graphene_matrix = dia_svg_parse_transform ((char *) str, user_scale);
+
+    dia_matrix_from_graphene (matrix, graphene_matrix);
   }
+
   if (xmlStrcmp(node->name, (const xmlChar *)"linearGradient")==0) {
     Point p1 = {_node_get_real (node, "x1", 0.0), _node_get_real (node, "y1", 0.0)};
     Point p2 = {_node_get_real (node, "x2", 1.0), _node_get_real (node, "y2", 0.0)};
@@ -1581,6 +1686,7 @@ read_items (xmlNodePtr   startnode,
       GList *moreitems;
       DiaSvgStyle *group_gs;
       DiaMatrix *matrix = NULL;
+      graphene_matrix_t *graphene_matrix = NULL;
       xmlChar *trans;
 
       /* We need to have/apply the groups style before the objects style */
@@ -1591,8 +1697,12 @@ read_items (xmlNodePtr   startnode,
 
       trans = xmlGetProp (node, (xmlChar *)"transform");
       if (trans) {
-	matrix = dia_svg_parse_transform ((char *)trans, user_scale);
-	xmlFree (trans);
+        matrix = g_new0 (DiaMatrix, 1);
+        graphene_matrix = dia_svg_parse_transform ((char *) trans, user_scale);
+
+        dia_matrix_from_graphene (matrix, graphene_matrix);
+
+        xmlFree (trans);
       }
 
       moreitems = read_items (node->xmlChildrenNode, group_gs,

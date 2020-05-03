@@ -68,6 +68,9 @@
 
 G_BEGIN_DECLS
 
+#define DIA_RADIANS(degrees) ((degrees) * G_PI / 180.0)
+#define DIA_DEGREES(radians) ((radians) * 180.0 / G_PI)
+
 
 /*
   Coordinate system used:
