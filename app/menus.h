@@ -27,7 +27,10 @@ G_BEGIN_DECLS
 #define INTEGRATED_MENU "/IntegratedUIMenu"
 #define INVISIBLE_MENU "/InvisibleMenu"
 
-struct zoom_pair { const char *string; const int value; };
+struct zoom_pair {
+  const char *string;
+  const int   value;
+};
 
 extern const struct zoom_pair zooms[10];
 
