@@ -25,6 +25,7 @@ pacman --noconfirm -S --needed \
     mingw-w64-$MSYS2_ARCH-cairo \
     mingw-w64-$MSYS2_ARCH-gdk-pixbuf2 \
     mingw-w64-$MSYS2_ARCH-glib2 \
+    mingw-w64-$MSYS2_ARCH-graphene \
     mingw-w64-$MSYS2_ARCH-pango \
     mingw-w64-$MSYS2_ARCH-shared-mime-info \
     mingw-w64-$MSYS2_ARCH-gtk2
