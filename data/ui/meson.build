@@ -8,6 +8,7 @@ ui_files = [
     'sheets-remove-dialog.ui',
     'toolbar-ui.xml',
     'toolbox-ui.xml',
+    'preferences-dialog.ui',
     'properties-dialog.ui',
 ]
 
