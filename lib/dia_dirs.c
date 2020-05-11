@@ -167,6 +167,7 @@ dia_get_locale_directory (void)
 
   g_clear_pointer (&sLoc, g_free);
 
+  return ret;
 #else
   return g_strdup (LOCALEDIR);
 #endif
