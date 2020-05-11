@@ -65,6 +65,83 @@ struct _DiaPreferencesDialog {
 G_DEFINE_TYPE (DiaPreferencesDialog, dia_preferences_dialog, GTK_TYPE_DIALOG)
 
 
+static const char *langs[] = {
+	"en_US",
+	"am",
+	"ar",
+	"ast",
+	"az",
+	"be",
+	"bg",
+	"bs",
+	"ca",
+	"ca@valencia",
+	"cs",
+	"da",
+	"de",
+	"dz",
+	"el",
+	"en_CA",
+	"en_GB",
+	"eo",
+	"es",
+	"eu",
+	"fa",
+	"fi",
+	"fr",
+	"ga",
+	"gl",
+	"gu",
+	"he",
+	"hr",
+	"hu",
+	"id",
+	"is",
+	"it",
+	"ja",
+	"kk",
+	"kn",
+	"ko",
+	"lt",
+	"lv",
+	"mk",
+	"ml",
+	"mn",
+	"mr",
+	"ms",
+	"nb",
+	"ne",
+	"nl",
+	"nn",
+	"oc",
+	"pa",
+	"pl",
+	"pt",
+	"pt_BR",
+	"ro",
+	"ru",
+	"rw",
+	"sk",
+	"sl",
+	"sq",
+	"sr",
+	"sr@latin",
+	"sv",
+	"th",
+	"tr",
+	"uk",
+	"vi",
+	"zh_CN",
+	"zh_HK",
+	"zh_TW",
+	NULL
+};
+
+static const char * dia_lang_get_name(int i) {
+	return langs[i];
+}
+
+
 static void
 dia_preferences_dialog_response (GtkDialog *dialog, int response)
 {
@@ -279,6 +356,26 @@ dd_type_changed (GtkComboBox *combo,
   }
 }
 
+static void
+lang_changed (GtkComboBox *combo,
+                 gpointer     data)
+{
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  char *lang;
+
+  model = gtk_combo_box_get_model (combo);
+
+  if (gtk_combo_box_get_active_iter (combo, &iter)) {
+    gtk_tree_model_get (model, &iter, COL_NAME, &lang, -1);
+
+    g_clear_pointer (&prefs.lang.lang, g_free);
+    prefs.lang.lang = lang;
+
+    persistence_set_string ("lang_lang", lang);
+  }
+}
+
 
 static void
 dd_background_changed (DiaColorSelector *selector,
@@ -346,6 +443,41 @@ set_current_paper (GtkTreeModel *model,
 
   return FALSE;
 }
+
+
+
+struct SetCurrentLang {
+  const char *to_set;
+  GtkWidget  *combo;
+};
+
+
+static gboolean
+set_current_lang (GtkTreeModel *model,
+                   GtkTreePath  *path,
+                   GtkTreeIter  *iter,
+                   gpointer      data)
+{
+  struct SetCurrentLang *find = data;
+  char *lang;
+
+  gtk_tree_model_get (model, iter, COL_NAME, &lang, -1);
+  GtkComboBox *baby = GTK_COMBO_BOX (find->combo);
+  if (g_strcmp0 (lang, find->to_set) == 0) {
+    gtk_combo_box_set_active_iter (baby, iter);
+
+    g_clear_pointer (&lang, g_free);
+
+    return TRUE;
+  }
+
+  g_clear_pointer (&lang, g_free);
+
+  return FALSE;
+}
+
+
+
 
 
 static void
@@ -709,6 +841,7 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
   struct SetCurrentUnit find_unit;
   struct SetCurrentPaper find_paper;
   struct SetCurrentFilter find_filter;
+  struct SetCurrentLang find_lang;
   GtkWidget *dialog_vbox;
   DiaBuilder *builder;
   GtkWidget *content;
@@ -719,6 +852,7 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
   GtkListStore *pss;
   GtkListStore *wmfs;
   GtkListStore *emfs;
+  GtkListStore *langStore;
   GtkWidget *ui_reset_tools;
   GtkAdjustment *ui_undo_spin_adj;
   GtkWidget *ui_reverse_drag;
@@ -758,9 +892,9 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
   GtkAdjustment *gl_man_cvs_adj;
   GtkAdjustment *gl_man_rvs_adj;
   GtkAdjustment *gl_hex_size_adj;
+  GtkWidget *cbLanguages;
   int j = 0;
   const char *name;
-
   gtk_dialog_add_buttons (GTK_DIALOG (self),
                           _("_Done"), GTK_RESPONSE_OK,
                           NULL);
@@ -831,8 +965,11 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
                    "gl_hex", &self->gl_hex,
                    "gl_hex_size", &self->gl_hex_size,
                    "gl_hex_size_adj", &gl_hex_size_adj,
+				   "cbLanguages", &cbLanguages,
+				   "langStore", &langStore,
                    NULL);
-
+  GtkComboBox *baby = GTK_COMBO_BOX (cbLanguages);
+  GtkTreeModel *baby2 = GTK_TREE_MODEL(langStore);
   for (DiaUnit unit = 0; unit < DIA_LAST_UNIT; unit++) {
     GtkTreeIter iter;
 
@@ -854,6 +991,22 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
 
     j++;
   }
+
+  j = 0;
+  while ((name = dia_lang_get_name (j))) {
+    GtkTreeIter iter;
+
+    gtk_list_store_append (langStore, &iter);
+    gtk_list_store_set (langStore, &iter,
+                        COL_NAME, name,
+                        COL_UNIT, j,
+                        -1);
+
+    j++;
+  }
+
+
+
 
   fill_exporter_list (pngs, "PNG");
   fill_exporter_list (svgs, "SVG");
@@ -888,6 +1041,14 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
   gtk_tree_model_foreach (GTK_TREE_MODEL (paper),
                           set_current_paper,
                           &find_paper);
+
+  find_lang.combo = cbLanguages;
+  find_lang.to_set = prefs.lang.lang;
+  gtk_tree_model_foreach (GTK_TREE_MODEL (langStore),
+                          set_current_lang,
+                          &find_lang);
+
+
   dia_color_selector_set_color (dd_background, &prefs.new_diagram.bg_color);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dd_compress),
                                 prefs.new_diagram.compress_save);
@@ -969,6 +1130,7 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
 
   dia_builder_connect (builder,
                        self,
+					   "lang_changed", G_CALLBACK (lang_changed),
                        /* User Interface */
                        "ui_reset_tools_toggled", G_CALLBACK (ui_reset_tools_toggled),
                        "ui_undo_spin_changed", G_CALLBACK (ui_undo_spin_changed),
@@ -1014,6 +1176,7 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
                        "gl_man_rvs_value_changed", G_CALLBACK (gl_man_rvs_value_changed),
                        "gl_hex_size_value_changed", G_CALLBACK (gl_hex_size_value_changed),
                        "gl_update_sensitive", G_CALLBACK (gl_update_sensitive),
+					   /* Languages */
                        NULL);
 
   gtk_container_add (GTK_CONTAINER (dialog_vbox), content);
@@ -1096,4 +1259,14 @@ dia_preferences_init (void)
   prefs.grid.vis_y = persistence_register_real ("grid_vis_y", 1);
   prefs.grid.hex = persistence_register_boolean ("grid_hex", FALSE);
   prefs.grid.hex_size = persistence_register_real ("grid_hex_size", 1);
+
+  prefs.lang.lang = persistence_register_string ("lang_lang", dia_lang_get_name(0));
+  char* val = getenv ("LANG");
+  if (val == NULL || strcmp(val, prefs.lang.lang) != 0) {
+	  #ifdef G_OS_WIN32
+	  _putenv_s("LANG", prefs.lang.lang);
+	  #else
+	  setenv("LANG", prefs.lang.lang);
+	  #endif
+  }
 }

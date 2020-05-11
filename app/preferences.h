@@ -79,6 +79,9 @@ struct DiaPreferences {
   int guides_visible;   /** Whether guides are visible. */
   int guides_snap;      /** Whether to snap to guides. */
   guint snap_distance;  /** The snapping distance for guides. */
+  struct {
+	  char *lang;
+  } lang;
 };
 
 extern struct DiaPreferences prefs;
