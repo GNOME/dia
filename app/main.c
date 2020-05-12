@@ -20,9 +20,22 @@
 #include "app_procs.h"
 
 #include "interface.h"
+#include "persistence.h"
 
 int main(int argc, char *argv[])
 {
+  char *lang;
+  char *val;
+  persistence_load();
+  lang = persistence_register_string ("lang_lang", "");
+  val = getenv ("LANG");
+  if (val == NULL || lang != NULL && lang[0] != NULL && strcmp(val, lang) != 0) {
+      #ifdef G_OS_WIN32
+      _putenv_s("LANG", lang);
+      #else
+      setenv("LANG", lang, 1);
+      #endif
+  }
   app_init(argc, argv);
 
   if (!app_is_interactive())
