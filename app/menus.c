@@ -275,7 +275,7 @@ static const GtkRadioActionEntry display_select_radio_entries[] =
   { "SelectInverse", NULL, N_("In_verse"), NULL, NULL, SELECT_INVERT }
 };
 
-#define ZOOM_FIT -1
+#define ZOOM_FIT -1.0
 
 enum {
   COL_DISPLAY,
