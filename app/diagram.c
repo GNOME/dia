@@ -282,7 +282,6 @@ diagram_load_into (Diagram         *diagram,
   /* ToDo: move context further up in the callstack and to sth useful with it's content */
   DiaContext *ctx = dia_context_new (_("Load Into"));
 
-  gboolean was_default = diagram->is_default;
   if (!ifilter) {
     ifilter = filter_guess_import_filter (filename);
   }
@@ -299,15 +298,16 @@ diagram_load_into (Diagram         *diagram,
 
   dia_context_set_filename (ctx, filename);
   if (ifilter->import_func (filename, diagram->data, ctx, ifilter->user_data)) {
+    GFile *file = NULL;
+
     if (ifilter != &dia_import_filter) {
       /* When loading non-Dia files, change filename to reflect that saving
        * will produce a Dia file. See bug #440093 */
       if (strcmp (diagram->filename, filename) == 0) {
         /* not a real load into but initial load */
-        gchar *old_filename = g_strdup (diagram->filename);
-        gchar *suffix_offset = g_utf8_strrchr (old_filename, -1, (gunichar) '.');
-        gchar *new_filename;
-        GFile *file;
+        char *old_filename = g_strdup (diagram->filename);
+        char *suffix_offset = g_utf8_strrchr (old_filename, -1, (gunichar) '.');
+        char *new_filename;
 
         if (suffix_offset != NULL) {
           new_filename = g_strndup (old_filename, suffix_offset - old_filename);
@@ -328,13 +328,17 @@ diagram_load_into (Diagram         *diagram,
         diagram_modified (diagram);
       }
     } else {
-      /* the initial diagram should have confirmed filename  */
-      diagram->unsaved =
-        strcmp (filename, diagram->filename) == 0 ? FALSE : was_default;
+      /* Valid existing Dia file opened - file already saved, set filename to diadram */
+      diagram->unsaved = FALSE;
+
+      file = g_file_new_for_path (filename);
+      dia_diagram_set_file (diagram, file);
     }
 
     diagram_set_modified (diagram, TRUE);
     dia_context_release (ctx);
+
+    g_clear_object (&file);
 
     return TRUE;
   } else {
