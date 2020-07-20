@@ -50,7 +50,7 @@ struct _TextLine {
   /* Whether nothing has changed in this object since values were computed. */
   gboolean clean;
 
-  /** Copies of the real fields to keep track of changes caused by
+  /* Copies of the real fields to keep track of changes caused by
    * properties setting.  These may go away if we create TextLine properties.
    */
   char *chars_cache;
