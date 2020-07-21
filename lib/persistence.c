@@ -23,10 +23,9 @@
 
 #include "config.h"
 
-#include <stdio.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <sys/types.h>
+#include <glib.h>
+#include <gtk/gtk.h>
+#include <libxml/tree.h>
 
 #include "persistence.h"
 #include "dia_dirs.h"
@@ -35,9 +34,6 @@
 #include "message.h" /* only for dia_log_message() */
 #include "diacontext.h"
 #include "intl.h"
-
-#include <gtk/gtk.h>
-#include <libxml/tree.h>
 
 
 /**

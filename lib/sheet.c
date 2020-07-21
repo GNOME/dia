@@ -18,23 +18,14 @@
 
 #include <config.h>
 
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
 #include <glib.h>
 #include <glib/gstdio.h> /* g_stat() */
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
 #include "dia_xml_libxml.h"
-#include <string.h>
 
 #include "intl.h"
-
 #include "sheet.h"
 #include "message.h"
 #include "object.h"
@@ -255,6 +246,7 @@ load_register_sheet (const char *dirname,
     xmlFreeDoc (doc);
     return;
   }
+
   if ((root->ns != ns) || (xmlStrcmp (root->name, (const xmlChar *) "sheet"))) {
     g_warning ("root element was %s -- expecting sheet",
                doc->xmlRootNode->name);
@@ -343,7 +335,7 @@ load_register_sheet (const char *dirname,
   sheetp = get_sheets_list ();
   while (sheetp) {
     if (sheetp->data && !strcmp (((Sheet *) (sheetp->data))->name, name)) {
-      struct stat first_file, this_file;
+      GStatBuf first_file, this_file;
       int stat_ret;
 
       stat_ret = g_stat (((Sheet *) (sheetp->data))->filename, &first_file);

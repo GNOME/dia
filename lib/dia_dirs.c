@@ -18,19 +18,16 @@
 
 #include <config.h>
 
-#include <string.h> /* strlen() */
+#ifdef G_OS_WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
+#include <glib/gstdio.h>
+#include <glib.h>
 
 #include "dia_dirs.h"
 #include "intl.h"
 #include "message.h"
-#ifdef G_OS_WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#else
-#include <sys/stat.h>
-#include <sys/types.h>
-#endif
-#include <glib/gstdio.h>
 
 #if defined(G_OS_WIN32) && defined(PREFIX)
 static gchar *

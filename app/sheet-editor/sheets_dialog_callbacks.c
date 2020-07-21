@@ -24,12 +24,6 @@
 #include <config.h>
 
 #include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
 #include <time.h>
 #ifdef HAVE_UTIME_H
 #include <utime.h>
@@ -726,14 +720,13 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 
   switch (active_type) {
     GtkWidget *entry;
-    gchar *file_name;
-    gchar *p;
-    struct stat stat_buf;
+    char *file_name;
+    char *p;
     GList *plugin_list;
     DiaObjectType *ot;
     typedef gboolean (*CustomObjectLoadFunc) (gchar*, DiaObjectType **);
     CustomObjectLoadFunc custom_object_load_fn;
-    gint pos;
+    int pos;
     SheetObjectMod *som;
     SheetMod *sm;
     SheetObject *sheet_obj;
@@ -758,9 +751,10 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
         return;
       }
 
-      if (g_stat (file_name, &stat_buf) == -1) {
+      if (!g_file_test (file_name, G_FILE_TEST_IS_REGULAR)) {
         message_error (_("Error examining %s: %s"),
-                         dia_message_filename (file_name), strerror (errno));
+                       dia_message_filename (file_name),
+                       g_strerror (errno));
         g_clear_pointer (&file_name, g_free);
         return;
       }
@@ -1706,10 +1700,11 @@ write_user_sheet (Sheet *sheet)
   return TRUE;
 }
 
+
 static void
-touch_file (gchar *filename)
+touch_file (char *filename)
 {
-  struct stat stat_buf;
+  GStatBuf stat_buf;
   struct utimbuf utim_buf;
 
   g_stat (filename, &stat_buf);
@@ -1718,10 +1713,11 @@ touch_file (gchar *filename)
   g_utime (filename, &utim_buf);
 }
 
-static gint
+
+static int
 sheets_find_sheet (gconstpointer a, gconstpointer b)
 {
-  if (!strcmp (((Sheet *)a)->name, ((Sheet *)b)->name)) {
+  if (!strcmp (((Sheet *) a)->name, ((Sheet *) b)->name)) {
     return 0;
   } else {
     return 1;

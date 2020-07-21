@@ -17,14 +17,9 @@
  */
 #include <config.h>
 
-#include <assert.h>
-#include <string.h>
 #include <math.h>
-#include <sys/stat.h>
 #include <time.h>
-#ifdef HAVE_UNIST_H
-#include <unistd.h>
-#endif
+#include <glib.h>
 #include <glib/gstdio.h>
 
 #include "intl.h"
@@ -220,25 +215,25 @@ image_get_props(Image *image, GPtrArray *props)
  * - set a new, non NULL pixbuf => use as image, inline
  */
 static void
-image_set_props(Image *image, GPtrArray *props)
+image_set_props (Image *image, GPtrArray *props)
 {
-  struct stat st;
+  GStatBuf st;
   time_t mtime = 0;
-  char *old_file = image->file ? g_strdup(image->file) : NULL;
+  char *old_file = image->file ? g_strdup (image->file) : NULL;
   const GdkPixbuf *old_pixbuf = dia_image_pixbuf (image->image);
   gboolean was_inline = image->inline_data;
 
-  object_set_props_from_offsets(&image->element.object, image_offsets, props);
+  object_set_props_from_offsets (&image->element.object, image_offsets, props);
 
   /* use old value on error */
-  if (!image->file || g_stat (image->file, &st) != 0)
+  if (!image->file || g_stat (image->file, &st) != 0) {
     mtime = image->mtime;
-  else
+  } else {
     mtime = st.st_mtime;
+  }
 
   if (   (!was_inline && image->inline_data && old_pixbuf)
-      || (   (!image->file || strlen(image->file) == 0)
-	  && old_pixbuf)
+      || ((!image->file || strlen (image->file) == 0) && old_pixbuf)
       || (image->pixbuf && (image->pixbuf != old_pixbuf))) { /* switch on inline */
     if (!image->pixbuf || old_pixbuf == image->pixbuf) { /* just reference the old image */
       image->pixbuf = g_object_ref ((GdkPixbuf *)old_pixbuf);
@@ -456,8 +451,8 @@ image_draw (Image *image, DiaRenderer *renderer)
   Point ul_corner, lr_corner;
   Element *elem;
 
-  assert(image != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (image != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &image->element;
 
@@ -769,70 +764,78 @@ image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
   }
 }
 
+
 static DiaObject *
-image_load(ObjectNode obj_node, int version, DiaContext *ctx)
+image_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Image *image;
   Element *elem;
   DiaObject *obj;
-  int i;
   AttributeNode attr;
+  GStatBuf st;
   // char *diafile_dir;
 
-  image = g_malloc0(sizeof(Image));
+  image = g_new0 (Image, 1);
   elem = &image->element;
   obj = &elem->object;
 
   obj->type = &image_type;
   obj->ops = &image_ops;
 
-  element_load(elem, obj_node, ctx);
+  element_load (elem, obj_node, ctx);
 
   image->border_width = 0.1;
-  attr = object_find_attribute(obj_node, "border_width");
-  if (attr != NULL)
-    image->border_width =  data_real(attribute_first_data(attr), ctx);
-
-  image->border_color = color_black;
-  attr = object_find_attribute(obj_node, "border_color");
-  if (attr != NULL)
-    data_color(attribute_first_data(attr), &image->border_color, ctx);
-
-  image->line_style = LINESTYLE_SOLID;
-  attr = object_find_attribute(obj_node, "line_style");
-  if (attr != NULL)
-    image->line_style =  data_enum(attribute_first_data(attr), ctx);
-
-  image->dashlength = DEFAULT_LINESTYLE_DASHLEN;
-  attr = object_find_attribute(obj_node, "dashlength");
-  if (attr != NULL)
-    image->dashlength = data_real(attribute_first_data(attr), ctx);
-
-  image->draw_border = TRUE;
-  attr = object_find_attribute(obj_node, "draw_border");
-  if (attr != NULL)
-    image->draw_border =  data_boolean(attribute_first_data(attr), ctx);
-
-  image->keep_aspect = TRUE;
-  attr = object_find_attribute(obj_node, "keep_aspect");
-  if (attr != NULL)
-    image->keep_aspect =  data_boolean(attribute_first_data(attr), ctx);
-
-  image->angle = 0.0;
-  attr = object_find_attribute(obj_node, "angle");
-  if (attr != NULL)
-    image->angle = data_real(attribute_first_data(attr), ctx);
-
-  attr = object_find_attribute(obj_node, "file");
+  attr = object_find_attribute (obj_node, "border_width");
   if (attr != NULL) {
-    image->file =  data_filename(attribute_first_data(attr), ctx);
-  } else {
-    image->file = g_strdup("");
+    image->border_width = data_real (attribute_first_data (attr), ctx);
   }
 
-  element_init(elem, 8, NUM_CONNECTIONS);
+  image->border_color = color_black;
+  attr = object_find_attribute (obj_node, "border_color");
+  if (attr != NULL) {
+    data_color (attribute_first_data (attr), &image->border_color, ctx);
+  }
 
-  for (i=0;i<NUM_CONNECTIONS;i++) {
+  image->line_style = LINESTYLE_SOLID;
+  attr = object_find_attribute (obj_node, "line_style");
+  if (attr != NULL) {
+    image->line_style = data_enum (attribute_first_data (attr), ctx);
+  }
+
+  image->dashlength = DEFAULT_LINESTYLE_DASHLEN;
+  attr = object_find_attribute (obj_node, "dashlength");
+  if (attr != NULL) {
+    image->dashlength = data_real (attribute_first_data (attr), ctx);
+  }
+
+  image->draw_border = TRUE;
+  attr = object_find_attribute (obj_node, "draw_border");
+  if (attr != NULL) {
+    image->draw_border = data_boolean (attribute_first_data (attr), ctx);
+  }
+
+  image->keep_aspect = TRUE;
+  attr = object_find_attribute (obj_node, "keep_aspect");
+  if (attr != NULL) {
+    image->keep_aspect = data_boolean (attribute_first_data (attr), ctx);
+  }
+
+  image->angle = 0.0;
+  attr = object_find_attribute (obj_node, "angle");
+  if (attr != NULL) {
+    image->angle = data_real (attribute_first_data (attr), ctx);
+  }
+
+  attr = object_find_attribute (obj_node, "file");
+  if (attr != NULL) {
+    image->file = data_filename (attribute_first_data (attr), ctx);
+  } else {
+    image->file = g_strdup ("");
+  }
+
+  element_init (elem, 8, NUM_CONNECTIONS);
+
+  for (int i = 0; i < NUM_CONNECTIONS; i++) {
     obj->connections[i] = &image->connections[i];
     image->connections[i].object = obj;
     image->connections[i].connected = NULL;
@@ -841,14 +844,16 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
   image->image = NULL;
 
-  if (strcmp(image->file, "")!=0) {
+  if (strcmp (image->file, "") != 0) {
     if (   g_path_is_absolute (image->file)
-	&& g_file_test (image->file, G_FILE_TEST_IS_REGULAR)) { /* Absolute pathname */
-      image->image = dia_image_load(image->file);
+        && g_file_test (image->file, G_FILE_TEST_IS_REGULAR)) {
+      /* Absolute pathname */
+      image->image = dia_image_load (image->file);
     } else { /* build from relative pathname */
-      gchar *image_filename = dia_absolutize_filename (dia_context_get_filename (ctx), image->file);
+      char *image_filename = dia_absolutize_filename (dia_context_get_filename (ctx),
+                                                      image->file);
 
-      image->image = dia_image_load(image_filename);
+      image->image = dia_image_load (image_filename);
       if (image->image != NULL) {
         /* Found file in same directory as diagram. */
         g_clear_pointer (&image->file, g_free);
@@ -857,19 +862,22 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
         /* not found as relative path, try literally */
         g_clear_pointer (&image_filename, g_free);
 
-        image->image = dia_image_load(image->file);
+        image->image = dia_image_load (image->file);
         if (image->image == NULL) {
           /* Didn't find file in current directory. */
-          dia_context_add_message (ctx, _("The image file '%s' was not found.\n"), image->file);
+          dia_context_add_message (ctx,
+                                   _("The image file '%s' was not found.\n"),
+                                   image->file);
         }
       }
     }
   }
+
   /* if we don't have an image yet try to recover it from inlined data */
   if (!image->image) {
-    attr = object_find_attribute(obj_node, "pixbuf");
+    attr = object_find_attribute (obj_node, "pixbuf");
     if (attr != NULL) {
-      GdkPixbuf *pixbuf = data_pixbuf (attribute_first_data(attr), ctx);
+      GdkPixbuf *pixbuf = data_pixbuf (attribute_first_data (attr), ctx);
 
       if (pixbuf) {
         image->image = dia_image_new_from_pixbuf (pixbuf);
@@ -879,21 +887,21 @@ image_load(ObjectNode obj_node, int version, DiaContext *ctx)
       }
     }
   } else {
-    attr = object_find_attribute(obj_node, "inline_data");
-    if (attr != NULL)
-      image->inline_data = data_boolean(attribute_first_data(attr), ctx);
+    attr = object_find_attribute (obj_node, "inline_data");
+    if (attr != NULL) {
+      image->inline_data = data_boolean (attribute_first_data (attr), ctx);
+    }
     /* Should be set pixbuf, too? Or leave it till the first get. */
   }
 
   /* update mtime */
-  {
-    struct stat st;
-    if (g_stat (image->file, &st) != 0)
-      st.st_mtime = 0;
-
-    image->mtime = st.st_mtime;
+  if (g_stat (image->file, &st) != 0) {
+    st.st_mtime = 0;
   }
-  image_update_data(image);
+
+  image->mtime = st.st_mtime;
+
+  image_update_data (image);
 
   return &image->element.object;
 }

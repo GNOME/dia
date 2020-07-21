@@ -25,12 +25,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <assert.h>
 #include <gmodule.h>
 #include <math.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
+#include <glib.h>
 #include <glib/gstdio.h>
 
 #include "object.h"
@@ -54,7 +51,7 @@ static DiaObject *custom_bezierline_load (ObjectNode obj_node, int version, DiaC
 
 static void customline_save (DiaObject *object, ObjectNode obj_node, DiaContext *ctx);
 
-static ObjectTypeOps 
+static ObjectTypeOps
 custom_zigzagline_type_ops = {
   (CreateFunc)customline_create,   /* create */
   (LoadFunc)  custom_zigzagline_load,     /* load */
@@ -63,7 +60,7 @@ custom_zigzagline_type_ops = {
   (ApplyDefaultsFunc) NULL /* apply_defaults*/
 };
 
-static ObjectTypeOps 
+static ObjectTypeOps
 custom_polyline_type_ops = {
   (CreateFunc)customline_create,   /* create */
   (LoadFunc)  custom_polyline_load,     /* load */
@@ -72,7 +69,7 @@ custom_polyline_type_ops = {
   (ApplyDefaultsFunc) NULL /* apply_defaults*/
 };
 
-static ObjectTypeOps 
+static ObjectTypeOps
 custom_bezierline_type_ops = {
   (CreateFunc)customline_create,   /* create */
   (LoadFunc)  custom_bezierline_load, /* load */
@@ -151,11 +148,11 @@ custom_bezierline_load (ObjectNode obj_node, int version, DiaContext *ctx)
   return _custom_zigzagline_load(obj_node, version, ctx, bezier_ot);
 }
 
-static void 
+static void
 customline_save (DiaObject *object, ObjectNode obj_node, DiaContext *ctx)
 {
   g_assert (object->type &&  object->type->ops && object->type->ops->save);
-   
+
   if (!ensure_standard_types()) {
     g_warning ("Can't create standard types");
     return;
@@ -167,7 +164,7 @@ customline_save (DiaObject *object, ObjectNode obj_node, DiaContext *ctx)
     polyline_ot->ops->save (object, obj_node, ctx);
   else if (object->type->ops == &custom_bezierline_type_ops)
     bezier_ot->ops->save (object, obj_node, ctx);
-  else 
+  else
     g_warning ("customline_save() no delegate");
 }
 
@@ -183,7 +180,7 @@ _customline_prop_descs[] = {
    PROP_DESC_END
 };
 
-void 
+void
 customline_apply_properties( DiaObject* line, LineInfo* info )
 {
   GPtrArray *props;
@@ -191,30 +188,30 @@ customline_apply_properties( DiaObject* line, LineInfo* info )
   ColorProperty     *cprop;
   RealProperty      *rprop;
   ArrowProperty     *aprop;
-  
+
   props = prop_list_from_descs( _customline_prop_descs, pdtpp_true );
   g_assert( props->len == 6 );
-  
+
   /* order/index/type must match _customline_prop_descs */
   cprop = g_ptr_array_index( props, 0 );
   cprop->color_data = info->line_color;
-  
+
   lsprop = g_ptr_array_index( props, 1 );
   lsprop->style = info->line_style;
   lsprop->dash = info->dashlength;
-  
+
   rprop = g_ptr_array_index( props, 2 );
   rprop->real_data = info->line_width;
-  
+
   rprop = g_ptr_array_index( props, 3 );
   rprop->real_data = info->corner_radius;
-  
+
   aprop = g_ptr_array_index( props, 4 );
   aprop->arrow_data = info->start_arrow;
-  
+
   aprop = g_ptr_array_index( props, 5 );
   aprop->arrow_data = info->end_arrow;
-  
+
   line->ops->set_props( line, props );
 
   prop_list_free(props);
@@ -238,7 +235,7 @@ customline_create(Point *startpoint,
   if (!line_info->object_type->prop_offsets)
   {
     DiaObjectType *ot = line_info->object_type;
-    
+
     if (line_info->type == CUSTOM_LINETYPE_ZIGZAGLINE)
       ot->prop_offsets = zigzag_ot->prop_offsets;
     else if (line_info->type == CUSTOM_LINETYPE_POLYLINE)
@@ -255,7 +252,7 @@ customline_create(Point *startpoint,
     res = polyline_ot->ops->create( startpoint, NULL, handle1, handle2 );
   else if (line_info->type == CUSTOM_LINETYPE_BEZIERLINE)
     res = bezier_ot->ops->create( startpoint, NULL, handle1, handle2 );
-  else 
+  else
     g_warning(_("INTERNAL: CustomLines: Illegal line type in LineInfo object."));
 
   if (res) {
@@ -266,7 +263,7 @@ customline_create(Point *startpoint,
   return( res );
 }
 
-void 
+void
 custom_linetype_new(LineInfo *info, DiaObjectType **otype)
 {
   DiaObjectType *obj = g_new0(DiaObjectType, 1);
@@ -285,7 +282,7 @@ custom_linetype_new(LineInfo *info, DiaObjectType **otype)
 
   obj->name = info->name;
   obj->default_user_data = info;
-  /* we have to either intialize both, or ... 
+  /* we have to either intialize both, or ...
    * provide our own vtable entries for describe_props and get_props
    */
   obj->prop_descs = _customline_prop_descs;
@@ -302,12 +299,13 @@ custom_linetype_new(LineInfo *info, DiaObjectType **otype)
   }
 
   if (info->icon_filename) {
-    struct stat buf;
-    if (0==g_stat(info->icon_filename,&buf)) {
+    if (g_file_test (info->icon_filename, G_FILE_TEST_EXISTS)) {
       obj->pixmap = NULL;
       obj->pixmap_file = info->icon_filename;
     } else {
-      g_warning("Cannot open icon file %s for object type '%s'.", info->icon_filename, obj->name);
+      g_warning ("Cannot open icon file %s for object type '%s'.",
+                 info->icon_filename,
+                 obj->name);
     }
   }
 

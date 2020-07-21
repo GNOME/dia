@@ -33,7 +33,6 @@
 #include <libxml/parser.h>
 #include <libxml/xmlmemory.h>
 #include <float.h>
-#include <sys/stat.h>
 #include <locale.h>
 
 #include "intl.h"

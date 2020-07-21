@@ -482,9 +482,9 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
 {
   DiaContext *ctx = dia_context_new (_("Clipboard Copy"));
   DiagramData *dia = owner_or_user_data; /* todo: check it's still valid */
-  const gchar *ext = strchr (target_entries[info-1].target, '/')+1;
-  gchar *tmplate;
-  gchar *outfname = NULL;
+  const char *ext = strchr (target_entries[info-1].target, '/') + 1;
+  char *tmplate;
+  char *outfname = NULL;
   GError *error = NULL;
   DiaExportFilter *ef = NULL;
   int fd;
@@ -516,7 +516,7 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
 
   if (ef) {
     /* for png use alpha-rendering if available */
-    if (strcmp(ext, "png") == 0 &&
+    if (strcmp (ext, "png") == 0 &&
         filter_export_get_by_name ("cairo-alpha-png") != NULL) {
       ef = filter_export_get_by_name ("cairo-alpha-png");
     }
@@ -537,24 +537,21 @@ _clipboard_get_data_callback (GtkClipboard     *clipboard,
         g_clear_object (&pixbuf);
       }
     } else {
-      struct stat st;
-      FILE *f;
+      char *buf = NULL;
+      gsize length = 0;
 
-      if (   g_stat (outfname, &st) == 0
-          && ((f = g_fopen (outfname, "rb")) != NULL)) {
-        gchar *buf = g_try_malloc (st.st_size);
-
-        if (buf) {
-          if (fread (buf, 1, st.st_size, f) == st.st_size) {
-            gtk_selection_data_set (selection_data,
-                                    gdk_atom_intern_static_string (target_entries[info-1].target), 8,
-                                    (guint8 *)buf, st.st_size);
-          }
-        }
+      if (g_file_get_contents (outfname, &buf, &length, &error)) {
+        gtk_selection_data_set (selection_data,
+                                gdk_atom_intern_static_string (target_entries[info - 1].target),
+                                8,
+                                (guint8 *) buf,
+                                length);
         g_clear_pointer (&buf, g_free);
-        fclose (f);
-        g_unlink (outfname);
+      } else {
+        g_critical ("Failed to read %s: %s", outfname, error->message);
       }
+
+      g_unlink (outfname);
     }
   }
 

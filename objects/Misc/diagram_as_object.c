@@ -242,10 +242,11 @@ _dae_draw (DiagramAsElement *dae, DiaRenderer *renderer)
   }
 }
 
+
 static void
-_dae_update_data(DiagramAsElement *dae)
+_dae_update_data (DiagramAsElement *dae)
 {
-  struct stat statbuf;
+  GStatBuf statbuf;
   Element *elem = &dae->element;
   DiaObject *obj = &elem->object;
   static int working = 0;
@@ -254,8 +255,8 @@ _dae_update_data(DiagramAsElement *dae)
     return; /* protect against infinite recursion */
   ++working;
 
-  if (   strlen(dae->filename)
-      && g_stat(dae->filename, &statbuf) == 0
+  if (   strlen (dae->filename)
+      && g_stat (dae->filename, &statbuf) == 0
       && dae->mtime != statbuf.st_mtime) {
     DiaImportFilter *inf;
 

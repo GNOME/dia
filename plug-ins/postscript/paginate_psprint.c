@@ -23,12 +23,9 @@
 
 /* so we get popen and sigaction even when compiling with -ansi */
 #define _POSIX_C_SOURCE 2
-#include <stdio.h>
-#include <string.h> /* strlen */
 #include <signal.h>
 #include <errno.h>
-#include <sys/stat.h>
-
+#include <glib.h>
 #include <glib/gstdio.h>
 
 #include "intl.h"
@@ -398,10 +395,9 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
 #endif
       is_pipe = TRUE;
     } else {
-      const gchar *new_filename = gtk_entry_get_text (GTK_ENTRY (ofile));
-      struct stat statbuf;
+      const char *new_filename = gtk_entry_get_text (GTK_ENTRY (ofile));
 
-      if (g_stat (new_filename, &statbuf) == 0) {
+      if (g_file_test (new_filename, G_FILE_TEST_EXISTS)) {
         /* Output file exists */
         GtkWidget *confirm_overwrite_dialog = NULL;
         char *utf8filename = NULL;

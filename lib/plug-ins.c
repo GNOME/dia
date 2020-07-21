@@ -286,16 +286,17 @@ typedef void (*ForEachInDirDoFunc)(const gchar *name);
 typedef gboolean (*ForEachInDirFilterFunc)(const gchar *name);
 
 static void
-for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
-                ForEachInDirFilterFunc filter)
+for_each_in_dir (const char             *directory,
+                 ForEachInDirDoFunc      dofunc,
+                 ForEachInDirFilterFunc  filter)
 {
-  struct stat statbuf;
   const char *dentry;
   GDir *dp;
   GError *error = NULL;
 
-  if (g_stat(directory, &statbuf) < 0)
+  if (!g_file_test (directory, G_FILE_TEST_EXISTS)) {
     return;
+  }
 
   dp = g_dir_open (directory, 0, &error);
   if (dp == NULL) {
@@ -304,36 +305,42 @@ for_each_in_dir(const gchar *directory, ForEachInDirDoFunc dofunc,
     return;
   }
 
-  while ((dentry = g_dir_read_name(dp)) != NULL) {
-    gchar *name = g_build_filename(directory,dentry,NULL);
+  while ((dentry = g_dir_read_name (dp)) != NULL) {
+    char *name = g_build_filename (directory, dentry, NULL);
 
-    if (filter(name)) dofunc(name);
+    if (filter (name)) {
+      dofunc (name);
+    }
     g_clear_pointer (&name, g_free);
   }
-  g_dir_close(dp);
+  g_dir_close (dp);
 }
 
+
 static gboolean
-directory_filter(const gchar *name)
+directory_filter (const char *name)
 {
   return g_file_test (name, G_FILE_TEST_IS_DIR);
 }
 
+
 static gboolean
-dia_plugin_filter(const gchar *name)
+dia_plugin_filter (const char *name)
 {
-  return g_str_has_suffix(name, G_MODULE_SUFFIX)
-      && g_file_test(name, G_FILE_TEST_IS_REGULAR);
+  return g_str_has_suffix (name, G_MODULE_SUFFIX)
+              && g_file_test (name, G_FILE_TEST_IS_REGULAR);
 }
 
+
 void
-dia_register_plugins_in_dir(const gchar *directory)
+dia_register_plugins_in_dir (const char *directory)
 {
   g_debug ("%s: Registering plugins in %s", G_STRLOC, directory);
 
-  for_each_in_dir(directory, dia_register_plugin, dia_plugin_filter);
-  for_each_in_dir(directory, dia_register_plugins_in_dir, directory_filter);
+  for_each_in_dir (directory, dia_register_plugin, dia_plugin_filter);
+  for_each_in_dir (directory, dia_register_plugins_in_dir, directory_filter);
 }
+
 
 void
 dia_register_plugins(void)

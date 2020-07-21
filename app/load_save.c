@@ -20,10 +20,6 @@
 /* so we get fdopen declared even when compiling with -ansi */
 #define _POSIX_C_SOURCE 200809L
 #define _DEFAULT_SOURCE 1 /* to get the prototype for fchmod() */
-#include <sys/stat.h>
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
 #include <stdlib.h>
 #include <sys/types.h>
 #include <stdio.h>
@@ -1283,12 +1279,12 @@ diagram_save(Diagram *dia, const char *filename, DiaContext *ctx)
   return res;
 }
 
+
 /* Autosave stuff.  Needs to use low-level save to avoid setting and resetting flags */
 void
-diagram_cleanup_autosave(Diagram *dia)
+diagram_cleanup_autosave (Diagram *dia)
 {
-  gchar *savefile;
-  struct stat statbuf;
+  char *savefile;
 
   savefile = dia->autosavefilename;
   if (savefile == NULL) return;
@@ -1297,13 +1293,15 @@ diagram_cleanup_autosave(Diagram *dia)
               savefile,
               dia->filename ? dia->filename : "<no name>");
 #endif
-  if (g_stat(savefile, &statbuf) == 0) { /* Success */
-    g_unlink(savefile);
+  if (g_file_test (savefile, G_FILE_TEST_EXISTS)) {
+    /* Success */
+    g_unlink (savefile);
   }
   g_clear_pointer (&savefile, g_free);
   dia->autosavefilename = NULL;
   dia->autosaved = FALSE;
 }
+
 
 typedef struct {
   DiagramData *clone;

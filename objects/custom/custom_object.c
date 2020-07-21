@@ -29,11 +29,9 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#include <glib/gstdio.h>
 
 #include "intl.h"
 #include "shape_info.h"
@@ -1931,10 +1929,11 @@ custom_get_object_menu(Custom *custom, Point *clickedpoint)
   return &custom_menu;
 }
 
+
 void
-custom_object_new(ShapeInfo *info, DiaObjectType **otype)
+custom_object_new (ShapeInfo *info, DiaObjectType **otype)
 {
-  DiaObjectType *obj = g_new0(DiaObjectType, 1);
+  DiaObjectType *obj = g_new0 (DiaObjectType, 1);
 
   *obj = custom_type;
 
@@ -1943,13 +1942,13 @@ custom_object_new(ShapeInfo *info, DiaObjectType **otype)
   obj->default_user_data = info;
 
   if (info->icon) {
-    struct stat buf;
-    if (0==g_stat(info->icon,&buf)) {
+    if (g_file_test (info->icon, G_FILE_TEST_EXISTS)) {
       obj->pixmap = NULL;
       obj->pixmap_file = info->icon;
     } else {
-      g_warning(_("Cannot open icon file %s for object type '%s'."),
-                info->icon,obj->name);
+      g_warning (_("Cannot open icon file %s for object type '%s'."),
+                 info->icon,
+                 obj->name);
     }
   }
 

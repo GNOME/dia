@@ -24,13 +24,6 @@
 
 #include <config.h>
 
-#include <stdlib.h>
-#include <string.h>
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <glib.h>
 
 #include "sheet.h"
@@ -38,7 +31,6 @@
 #include "dia_dirs.h"
 #include "intl.h"
 #include "plug-ins.h"
-
 #include "custom_linetypes.h"
 
 char* custom_lines_string_plus( char* lhs, char* mid, char* rhs );
