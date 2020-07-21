@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <interface>
-  <!-- interface-requires gtk+ 2.12 -->
-  <!-- interface-naming-policy toplevel-contextual -->
   <object class="GtkDialog" id="sheets_main_dialog">
     <property name="title" translatable="yes">Sheets and Objects</property>
     <property name="role">sheets_main_dialog</property>
     <property name="type_hint">dialog</property>
+    <signal name="destroy" handler="sheets_dialog_destroyed" swapped="no"/>
+    <signal name="delete_event" handler="on_sheets_main_dialog_delete_event" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog_vbox1">
         <property name="visible">True</property>
@@ -31,6 +31,7 @@
                     <property name="receives_default">True</property>
                     <property name="use_underline">True</property>
                     <accelerator key="e" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                    <signal name="clicked" handler="on_sheets_dialog_button_edit_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -47,6 +48,7 @@
                     <property name="receives_default">True</property>
                     <property name="use-underline">True</property>
                     <accelerator key="u" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                    <signal name="clicked" handler="on_sheets_dialog_button_move_up_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -63,6 +65,7 @@
                     <property name="receives_default">True</property>
                     <property name="use-underline">True</property>
                     <accelerator key="d" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                    <signal name="clicked" handler="on_sheets_dialog_button_move_down_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -94,6 +97,7 @@
                     <property name="receives_default">True</property>
                     <property name="use-underline">True</property>
                     <accelerator key="c" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                    <signal name="clicked" handler="on_sheets_dialog_button_copy_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -108,6 +112,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="use-underline">True</property>
+                    <signal name="clicked" handler="on_sheets_dialog_button_copy_all_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -123,6 +128,7 @@
                     <property name="receives_default">True</property>
                     <property name="use-underline">True</property>
                     <accelerator key="m" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                    <signal name="clicked" handler="on_sheets_dialog_button_move_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -137,6 +143,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="use-underline">True</property>
+                    <signal name="clicked" handler="on_sheets_dialog_button_move_all_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -175,6 +182,7 @@
               <object class="GtkComboBox" id="combo_right">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                 <signal name="changed" handler="on_sheets_dialog_combo_changed" swapped="no"/>
                 <child>
                   <object class="GtkCellRendererText" id="cr_t1"/>
                   <attributes>
@@ -218,6 +226,7 @@
               <object class="GtkComboBox" id="combo_left">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <signal name="changed" handler="on_sheets_dialog_combo_changed" swapped="no"/>
                 <child>
                   <object class="GtkCellRendererText" id="cl_t1"/>
                   <attributes>
@@ -260,6 +269,7 @@
                 <property name="receives_default">False</property>
                 <property name="use-underline">True</property>
                 <accelerator key="n" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <signal name="clicked" handler="on_sheets_dialog_button_new_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -275,6 +285,7 @@
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
                 <property name="use-underline">True</property>
+                <signal name="clicked" handler="on_sheets_dialog_button_apply_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -290,6 +301,7 @@
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_underline">True</property>
+                <signal name="clicked" handler="on_sheets_dialog_button_revert_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -305,6 +317,7 @@
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
                 <property name="use-underline">True</property>
+                <signal name="clicked" handler="on_sheets_dialog_button_close_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>

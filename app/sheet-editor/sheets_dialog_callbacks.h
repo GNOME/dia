@@ -89,9 +89,5 @@ void        on_sheets_dialog_button_apply_clicked                  (GtkButton   
                                                                     gpointer         user_data);
 void        on_sheets_dialog_button_revert_clicked                 (GtkButton       *button,
                                                                     gpointer         user_data);
-void        on_sheets_shapeselection_dialog_button_ok_clicked      (GtkButton       *button,
-                                                                    gpointer         user_data);
-void        on_sheets_shapeselection_dialog_button_cancel_clicked  (GtkButton       *button,
-                                                                    gpointer         user_data);
 GtkWidget  *sheets_dialog_get_active_button                        (GtkWidget      **wrapbox,
                                                                     GList          **button_list);

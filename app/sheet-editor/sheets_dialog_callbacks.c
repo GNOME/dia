@@ -36,10 +36,9 @@
 #endif
 #endif
 
-#include <glib/gstdio.h>
+#include <glib.h>
 #include <gmodule.h>
-
-#undef GTK_DISABLE_DEPRECATED
+#include <glib/gstdio.h>
 #include <gtk/gtk.h>
 
 #include <libxml/tree.h>
@@ -236,6 +235,7 @@ on_sheets_dialog_object_button_toggled (GtkToggleButton *togglebutton,
   g_list_free (wrapbox_button_list);
 }
 
+
 static void
 sheets_dialog_wrapbox_add_line_break (GtkWidget *wrapbox)
 {
@@ -246,7 +246,7 @@ sheets_dialog_wrapbox_add_line_break (GtkWidget *wrapbox)
   GtkWidget *gtkpixmap;
 
   sm = g_object_get_data (G_OBJECT (wrapbox), "sheet_mod");
-  g_assert (sm);
+  g_return_if_fail (sm);
 
   button = gtk_radio_button_new (radio_group);
   gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
@@ -890,35 +890,6 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 
   gtk_widget_destroy (sheets_new_dialog);
   sheets_new_dialog = NULL;
-}
-
-static GtkWidget *sheets_shapeselection_dialog;
-
-void
-on_sheets_shapeselection_dialog_button_cancel_clicked (GtkButton       *button,
-                                                       gpointer         user_data)
-{
-  gtk_widget_destroy (sheets_shapeselection_dialog);
-  sheets_shapeselection_dialog = NULL;
-}
-
-void
-on_sheets_shapeselection_dialog_button_ok_clicked (GtkButton       *button,
-                                                   gpointer         user_data)
-{
-  const gchar *filename;
-  GtkWidget *entry;
-
-  filename =
-      gtk_file_selection_get_filename (
-          GTK_FILE_SELECTION (sheets_shapeselection_dialog));
-
-  entry = lookup_widget (sheets_new_dialog, "combo_entry_from_file");
-  /* Since this is a filename entry from the dialog, no utf is needed */
-  gtk_entry_set_text (GTK_ENTRY (entry), filename);
-
-  gtk_widget_destroy (sheets_shapeselection_dialog);
-  sheets_shapeselection_dialog = NULL;
 }
 
 static GtkWidget *sheets_edit_dialog;

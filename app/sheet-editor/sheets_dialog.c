@@ -22,14 +22,6 @@
 
 #include <config.h>
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#ifdef HAVE_UNISTD_H
-#  include <unistd.h>
-#endif
-#include <string.h>
-
-#undef GTK_DISABLE_DEPRECATED
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 
@@ -53,7 +45,7 @@ sheets_dialog_destroyed (GtkWidget *widget, gpointer user_data)
 }
 
 
-GtkWidget*
+GtkWidget *
 create_sheets_main_dialog (void)
 {
   GtkWidget *sheets_main_dialog;
@@ -62,12 +54,14 @@ create_sheets_main_dialog (void)
   DiaBuilder *builder;
 
   builder = dia_builder_new ("ui/sheets-main-dialog.ui");
-  sheets_main_dialog = GTK_WIDGET (gtk_builder_get_object (GTK_BUILDER (builder),
-                                                           "sheets_main_dialog"));
-  g_object_set_data (G_OBJECT (sheets_main_dialog), "_sheet_dialogs_builder", builder);
 
-  g_signal_connect (G_OBJECT (sheets_main_dialog), "destroy",
-                    G_CALLBACK (sheets_dialog_destroyed), NULL);
+  dia_builder_get (builder,
+                   "sheets_main_dialog", &sheets_main_dialog,
+                   "combo_left", &combo_left,
+                   "combo_right", &combo_right,
+                   NULL);
+
+  g_object_set_data (G_OBJECT (sheets_main_dialog), "_sheet_dialogs_builder", builder);
 
   store = gtk_list_store_new (SO_N_COL,
                               G_TYPE_STRING,
@@ -76,94 +70,35 @@ create_sheets_main_dialog (void)
 
   populate_store (store);
 
-  combo_left = GTK_WIDGET (gtk_builder_get_object (GTK_BUILDER (builder),
-                                                   "combo_left"));
   gtk_combo_box_set_model (GTK_COMBO_BOX (combo_left), GTK_TREE_MODEL (store));
-  g_signal_connect (combo_left,
-                    "changed",
-                    G_CALLBACK (on_sheets_dialog_combo_changed),
-                    NULL);
-
-  combo_right = GTK_WIDGET (gtk_builder_get_object (GTK_BUILDER (builder),
-                                                    "combo_right"));
   gtk_combo_box_set_model (GTK_COMBO_BOX (combo_right), GTK_TREE_MODEL (store));
-  g_signal_connect (combo_right,
-                    "changed",
-                    G_CALLBACK (on_sheets_dialog_combo_changed),
-                    NULL);
 
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "sheets_main_dialog"),
-                    "delete_event",
-                    G_CALLBACK (on_sheets_main_dialog_delete_event),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_copy"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_copy_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_copy_all"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_copy_all_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_move"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_move_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_move_all"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_move_all_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_new"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_new_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_move_up"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_move_up_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_move_down"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_move_down_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_edit"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_edit_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_remove"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_remove_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_apply"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_apply_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_revert"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_revert_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_close"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_dialog_button_close_clicked),
-                    NULL);
+  dia_builder_connect (builder,
+                       NULL,
+                       "sheets_dialog_destroyed", G_CALLBACK (sheets_dialog_destroyed),
+                       "on_sheets_dialog_combo_changed", G_CALLBACK (on_sheets_dialog_combo_changed),
+                       "on_sheets_main_dialog_delete_event", G_CALLBACK (on_sheets_main_dialog_delete_event),
+                       "on_sheets_dialog_button_copy_clicked", G_CALLBACK (on_sheets_dialog_button_copy_clicked),
+                       "on_sheets_dialog_button_copy_all_clicked", G_CALLBACK (on_sheets_dialog_button_copy_all_clicked),
+                       "on_sheets_dialog_button_move_clicked", G_CALLBACK (on_sheets_dialog_button_move_clicked),
+                       "on_sheets_dialog_button_move_all_clicked", G_CALLBACK (on_sheets_dialog_button_move_all_clicked),
+                       "on_sheets_dialog_button_new_clicked", G_CALLBACK (on_sheets_dialog_button_new_clicked),
+                       "on_sheets_dialog_button_move_up_clicked", G_CALLBACK (on_sheets_dialog_button_move_up_clicked),
+                       "on_sheets_dialog_button_move_down_clicked", G_CALLBACK (on_sheets_dialog_button_move_down_clicked),
+                       "on_sheets_dialog_button_edit_clicked", G_CALLBACK (on_sheets_dialog_button_edit_clicked),
+                       "on_sheets_dialog_button_remove_clicked", G_CALLBACK (on_sheets_dialog_button_remove_clicked),
+                       "on_sheets_dialog_button_apply_clicked", G_CALLBACK (on_sheets_dialog_button_apply_clicked),
+                       "on_sheets_dialog_button_revert_clicked", G_CALLBACK (on_sheets_dialog_button_revert_clicked),
+                       "on_sheets_dialog_button_close_clicked", G_CALLBACK (on_sheets_dialog_button_close_clicked),
+                       NULL);
 
   persistence_register_window (GTK_WINDOW (sheets_main_dialog));
 
   return sheets_main_dialog;
 }
 
-GtkWidget*
+
+GtkWidget *
 create_sheets_new_dialog (void)
 {
   GtkWidget *sheets_new_dialog;
@@ -294,36 +229,3 @@ create_sheets_remove_dialog (void)
   */
   return sheets_remove_dialog;
 }
-
-
-GtkWidget*
-create_sheets_shapeselection_dialog (void)
-{
-  GtkWidget *sheets_shapeselection_dialog;
-  GtkWidget *ok_button;
-  GtkWidget *cancel_button1;
-
-  sheets_shapeselection_dialog = gtk_file_selection_new (_("Select SVG Shape File"));
-  g_object_set_data (G_OBJECT (sheets_shapeselection_dialog), "sheets_shapeselection_dialog", sheets_shapeselection_dialog);
-  gtk_container_set_border_width (GTK_CONTAINER (sheets_shapeselection_dialog), 10);
-
-  ok_button = GTK_FILE_SELECTION (sheets_shapeselection_dialog)->ok_button;
-  g_object_set_data (G_OBJECT (sheets_shapeselection_dialog), "ok_button", ok_button);
-  gtk_widget_show (ok_button);
-  gtk_widget_set_can_default (GTK_WIDGET (ok_button), TRUE);
-
-  cancel_button1 = GTK_FILE_SELECTION (sheets_shapeselection_dialog)->cancel_button;
-  g_object_set_data (G_OBJECT (sheets_shapeselection_dialog), "cancel_button1", cancel_button1);
-  gtk_widget_show (cancel_button1);
-  gtk_widget_set_can_default (GTK_WIDGET (cancel_button1), TRUE);
-
-  g_signal_connect (G_OBJECT (ok_button), "clicked",
-                    G_CALLBACK (on_sheets_shapeselection_dialog_button_ok_clicked),
-                    NULL);
-  g_signal_connect (G_OBJECT (cancel_button1), "clicked",
-                    G_CALLBACK (on_sheets_shapeselection_dialog_button_cancel_clicked),
-                    NULL);
-
-  return sheets_shapeselection_dialog;
-}
-
