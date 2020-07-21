@@ -27,6 +27,21 @@
 #define DEBUG_PARENT 0
 #define DEBUG_ORDER 0
 
+
+/**
+ * SECTION:connpoint_line
+ * @Title: ConnPointLine
+ *
+ * Connection point line is a helper struct, to hold a few connection points
+ * on a line segment. There can be a variable number of these connection
+ * points. The user should be made able to add or remove some connection
+ * points.
+ *
+ * #ConnPointLine can be used to implement dynamic #ConnectionPoints for
+ * a #DiaObject. It supports undo/redo, load/save to standard props
+ * and obviously connections to it.
+ */
+
 static void cpl_reorder_connections(ConnPointLine *cpl);
 
 

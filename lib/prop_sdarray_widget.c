@@ -231,8 +231,14 @@ _find_type (const Property *prop)
   return -1;
 }
 
+
 /**
- * Create an empty model (list store) with Dia types mapped to GType
+ * create_sdarray_model:
+ * @prop: the #ArrayProperty to model
+ *
+ * Create an empty model (list store) with Dia types mapped to #GType
+ *
+ * Since: dawn-of-time
  */
 static GtkTreeStore *
 create_sdarray_model (ArrayProperty *prop)

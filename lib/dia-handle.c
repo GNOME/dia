@@ -1,10 +1,5 @@
-/* Dia -- a diagram creation/manipulation program
+/* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
- *
- * $Id$
- *
- * navigation.h : a navigation popup window to browse large diagrams.
- * Copyright (C) 2003 Luc Pionchon
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,15 +15,34 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
+ * Copyright © 2020 Zander Brown <zbrown@gnome.org>
  */
 
-#pragma once
+#include "config.h"
 
-#include <gtk/gtk.h>
-#include "display.h"
+#include "handle.h"
 
-G_BEGIN_DECLS
 
-GtkWidget *navigation_popup_new (DDisplay *ddisp);
+/**
+ * dia_handle_set_position:
+ * @self: the #Handle to move
+ * @point: the new position of @self
+ *
+ * Move a handle to a #graphene_point_t
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+void
+dia_handle_set_position (Handle            *self,
+                         graphene_point_t  *point)
+{
+  g_return_if_fail (self != NULL);
+  g_return_if_fail (point != NULL);
 
-G_END_DECLS
+  self->pos.x = point->x;
+  self->pos.y = point->y;
+}

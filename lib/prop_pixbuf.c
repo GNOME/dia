@@ -64,11 +64,15 @@ pixbufprop_copy(PixbufProperty *src)
   return prop;
 }
 
-/** Convert Base64 to pixbuf
- * @param b64 Base64 encoded data
+
+/**
+ * pixbuf_decode_base64:
+ * @b64: Base64 encoded data
+ *
+ * Convert Base64 to pixbuf
  */
 GdkPixbuf *
-pixbuf_decode_base64 (const gchar *b64)
+pixbuf_decode_base64 (const char *b64)
 {
   /* see lib/prop_pixbuf.c(data_pixbuf) for a very similar implementation */
   GdkPixbuf *pixbuf = NULL;
@@ -77,11 +81,11 @@ pixbuf_decode_base64 (const gchar *b64)
 
   loader = gdk_pixbuf_loader_new ();
   if (loader) {
-    gint state = 0;
+    int state = 0;
     guint save = 0;
 #   define BUF_SIZE 4096
     guchar buf[BUF_SIZE];
-    gchar *in = (gchar *)b64; /* direct access, not involving another xmlStrDup/xmlFree */
+    char *in = (gchar *)b64; /* direct access, not involving another xmlStrDup/xmlFree */
     gssize len = strlen (b64);
 
     do {
@@ -97,8 +101,8 @@ pixbuf_decode_base64 (const gchar *b64)
 
     if (gdk_pixbuf_loader_close (loader, error ? NULL : &error)) {
       GdkPixbufFormat *format = gdk_pixbuf_loader_get_format (loader);
-      gchar  *format_name = gdk_pixbuf_format_get_name (format);
-      gchar **mime_types = gdk_pixbuf_format_get_mime_types (format);
+      char  *format_name = gdk_pixbuf_format_get_name (format);
+      char **mime_types = gdk_pixbuf_format_get_mime_types (format);
 
       dia_log_message ("Loaded pixbuf from '%s' with '%s'", format_name, mime_types[0]);
       pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader));
@@ -118,6 +122,7 @@ pixbuf_decode_base64 (const gchar *b64)
   return pixbuf;
 # undef BUF_SIZE
 }
+
 
 GdkPixbuf *
 data_pixbuf (DataNode data, DiaContext *ctx)
@@ -199,19 +204,26 @@ _pixbuf_encode (const gchar *buf,
   return TRUE;
 }
 
-static const gchar *
+
+static const char *
 _make_pixbuf_type_name (const char *p)
 {
-  if (p && strstr (p, "image/jpeg"))
+  if (p && strstr (p, "image/jpeg")) {
     return "jpeg";
-  if (p && strstr (p, "image/jp2"))
+  }
+  if (p && strstr (p, "image/jp2")) {
     return "jpeg2000";
+  }
   return "png";
 }
 
-/** Reusable variant of pixbuf to base64 string conversion
+
+/**
+ * pixbuf_encode_base64:
+ *
+ * Reusable variant of pixbuf to base64 string conversion
  */
-gchar *
+char *
 pixbuf_encode_base64 (const GdkPixbuf *pixbuf, const char *prefix)
 {
   GError *error = NULL;

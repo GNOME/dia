@@ -17,7 +17,7 @@
  */
 
 /**
- * SECTION:diagramdata:
+ * SECTION:diagramdata
  *
  * This file defines the #DiagramData object, which holds (mostly) saveable
  * data global to a diagram.

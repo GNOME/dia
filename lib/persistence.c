@@ -238,8 +238,8 @@ static GHashTable *type_handlers;
 
 /**
  * persistence_load_type:
- * @node:
- * @ctx:
+ * @node: #xmlNodePtr to read from
+ * @ctx: current #DiaContext
  *
  * Load the named type of entries using the given function.
  * func is a void (*func)(gchar *role, xmlNodePtr *node, DiaContext *ctx)

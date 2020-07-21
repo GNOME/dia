@@ -161,6 +161,8 @@ libdia_sources = stdprop_sources + [
     'dia-simple-list.h',
     'dia-autoptr.h',
     'dia-graphene.h',
+    'dia-handle.c',
+    'handle.h',
 ]
 
 gnome = import('gnome')

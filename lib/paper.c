@@ -24,6 +24,28 @@
 #include "paper.h"
 #include "diagramdata.h" /* for NewDiagramData */
 
+
+/**
+ * PaperInfo:
+ * @name: name of the paper
+ * @tmargin: margin widths in %DIA_UNIT_CENTIMETER
+ * @bmargin: "
+ * @lmargin: "
+ * @rmargin: "
+ * @is_portrait: page is in portrait orientation?
+ * @scaling: scaling factor for image on page
+ * @fitto: if we want to use the fitto mode for scaling
+ * @fitwidth: how many pages in each direction
+ * @fitheight: "
+ * @width: usable width/height -- calculated from paper type,
+ *         margin widths and paper orientation; the real paper
+ *         size is width*scaling, height*scaling
+ * @height: "
+ *
+ * Since: dawn-of-time
+ */
+
+
 /* Paper definitions stolen from gnome-libs.
  * All measurements are in centimetres. */
 

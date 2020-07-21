@@ -17,7 +17,7 @@
  */
 
 /**
- * SECTION:focus:
+ * SECTION:focus
  *
  * This files handles which text elements are currently eligible to get
  * the input focus, and moving back and forth between them.  Objects can

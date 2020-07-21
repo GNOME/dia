@@ -25,8 +25,18 @@
 #include "confirm.h"
 #include "intl.h"
 
-static gint
-confirm_respond (GtkWidget *widget, gint response_id, gpointer data)
+/**
+ * ConfirmationKind:
+ * @CONFIRM_PAGES: Confirm number of pages
+ * @CONFIRM_MEMORY: Confirm memory usage
+ * @CONFIRM_PRINT: This is for printing
+ *
+ * Since: dawn-of-time
+ */
+
+
+static int
+confirm_respond (GtkWidget *widget, int response_id, gpointer data)
 {
   /* just close it in any case */
   gtk_widget_hide (widget);
@@ -42,7 +52,7 @@ confirm_export_size (Diagram *dia, GtkWindow *parent, guint flags)
   GtkWidget *dialog;
   int pages = 0;
   gint64 bytes = 0;
-  gchar *size, *msg;
+  char *size, *msg;
   gboolean ret;
 
   pages = ceil((dia->data->extents.right - dia->data->extents.left) / dia->data->paper.width)

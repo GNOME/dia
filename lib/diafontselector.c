@@ -207,7 +207,7 @@ set_styles (DiaFontSelector *fs,
     PangoFontDescription *pfd = pango_font_face_describe (faces[i]);
     PangoStyle style = pango_font_description_get_style (pfd);
     PangoWeight weight = pango_font_description_get_weight (pfd);
-    /**
+    /*
      * This is a quick and dirty way to pick the styles present,
      * sort them and avoid duplicates.
      * We set a bit for each style present, bit (weight*3+style)
@@ -234,7 +234,7 @@ set_styles (DiaFontSelector *fs,
   for (i = DIA_FONT_NORMAL; i <= (DIA_FONT_HEAVY | DIA_FONT_ITALIC); i+=4) {
     GtkTreeIter iter;
 
-    /**
+    /*
      * bad hack continued ...
      */
     int weight = DIA_FONT_STYLE_GET_WEIGHT (i) >> 4;

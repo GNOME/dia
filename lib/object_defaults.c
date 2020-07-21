@@ -243,9 +243,9 @@ pdtpp_standard_or_defaults (const PropDescription *pdesc)
  * dia_object_default_create:
  * @type: The objects type
  * @startpoint: The left upper corner
- * @user_data:
- * @handle1:
- * @handle2:
+ * @user_data: ???
+ * @handle1: ???
+ * @handle2: ???
  *
  * Create an object respecting defaults if available
  *

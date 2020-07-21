@@ -5,14 +5,6 @@
 
 G_BEGIN_DECLS
 
-/**
- * ConfirmationKind:
- * @CONFIRM_PAGES: Confirm number of pages
- * @CONFIRM_MEMORY: Confirm memory usage
- * @CONFIRM_PRINT: This is for printing
- *
- * Since: dawn-of-time
- */
 typedef enum {
   CONFIRM_PAGES = (1<<0),
   CONFIRM_MEMORY = (1<<1),

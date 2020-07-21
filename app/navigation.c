@@ -31,6 +31,23 @@
 #include "navigation.h"
 
 
+/**
+ * navigation_popup_new:
+ * @ddisp: the #DDisplay to navigate through.
+ *
+ * A button which triggers a popup navigation window.
+ *
+ * The popup window is created when the button is "pressed",
+ * and destroyed when the button is "released". In the meantime, the
+ * popup window grabs the pointer/focus. Moving the mouse adjust the
+ * scrollbars of the given #DDisplay accordingly.
+ *
+ * Returns: a new #GtkButton.
+ *
+ * Since: dawn-of-time
+ */
+
+
 #define THUMBNAIL_MAX_SIZE 150 /*(pixels) this may be a preference*/
 
 

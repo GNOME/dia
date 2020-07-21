@@ -16,34 +16,51 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*! 
- * \file handle.h - describing the different behavious of handles, used e.g. to resize objects
- * \ingroup ObjectConnects
- */
-#ifndef HANDLE_H
-#define HANDLE_H
+#pragma once
+
+#include <graphene.h>
 
 #include "diatypes.h"
 #include "geometry.h"
 
-/*!
- * \brief Some object resizing depends on the placement of the handle
- * \ingroup ObjectConnects
+
+/**
+ * HandleId:
+ * @HANDLE_RESIZE_NW: North/west or top/left
+ * @HANDLE_RESIZE_N: North or top
+ * @HANDLE_RESIZE_NE: North/east or top/right
+ * @HANDLE_RESIZE_W: West or left
+ * @HANDLE_RESIZE_E: East or right
+ * @HANDLE_RESIZE_SW: South/west or bottom/left
+ * @HANDLE_RESIZE_S: South or bottom
+ * @HANDLE_RESIZE_SE: South/east or bottom/right
+ * @HANDLE_MOVE_STARTPOINT: For lines: the beginning
+ * @HANDLE_MOVE_ENDPOINT: For lines: the ending
+ * @HANDLE_CUSTOM1: For custom use by objects
+ * @HANDLE_CUSTOM2: For custom use by objects
+ * @HANDLE_CUSTOM3: For custom use by objects
+ * @HANDLE_CUSTOM4: For custom use by objects
+ * @HANDLE_CUSTOM5: For custom use by objects
+ * @HANDLE_CUSTOM6: For custom use by objects
+ * @HANDLE_CUSTOM7: For custom use by objects
+ * @HANDLE_CUSTOM8: For custom use by objects
+ * @HANDLE_CUSTOM9: For custom use by objects
+ *
+ * Some object resizing depends on the placement of the handle
  */
 typedef enum {
-  HANDLE_RESIZE_NW, /*!< north/west or top/left */
-  HANDLE_RESIZE_N,  /*!< north or top */
-  HANDLE_RESIZE_NE, /*!< north/east or top/right */
-  HANDLE_RESIZE_W,  /*!< west or left */
-  HANDLE_RESIZE_E,  /*!< east or right */
-  HANDLE_RESIZE_SW, /*!< south/west or bottom/left */
-  HANDLE_RESIZE_S,  /*!< south or bottom */
-  HANDLE_RESIZE_SE, /*!< south/east or bottom/right */
-  HANDLE_MOVE_STARTPOINT, /*!< for lines: the beginning */
-  HANDLE_MOVE_ENDPOINT,   /*!< for lines: the ending */
+  HANDLE_RESIZE_NW,
+  HANDLE_RESIZE_N,
+  HANDLE_RESIZE_NE,
+  HANDLE_RESIZE_W,
+  HANDLE_RESIZE_E,
+  HANDLE_RESIZE_SW,
+  HANDLE_RESIZE_S,
+  HANDLE_RESIZE_SE,
+  HANDLE_MOVE_STARTPOINT,
+  HANDLE_MOVE_ENDPOINT,
 
-  /*! These handles can be used privately by objects: */
-  HANDLE_CUSTOM1=200,
+  HANDLE_CUSTOM1 = 200,
   HANDLE_CUSTOM2,
   HANDLE_CUSTOM3,
   HANDLE_CUSTOM4,
@@ -51,55 +68,79 @@ typedef enum {
   HANDLE_CUSTOM6,
   HANDLE_CUSTOM7,
   HANDLE_CUSTOM8,
-  HANDLE_CUSTOM9
+  HANDLE_CUSTOM9,
 } HandleId;
 
-/*!
- * \brief HandleType is used for color coding the different handles
- * \ingroup ObjectConnects
+
+/**
+ * HandleType:
+ * @HANDLE_NON_MOVABLE: ???
+ * @HANDLE_MAJOR_CONTROL: ???
+ * @HANDLE_MINOR_CONTROL: ???
+ * @NUM_HANDLE_TYPES: Must be last
+ *
+ * HandleType is used for color coding the different handles
  */
 typedef enum {
   HANDLE_NON_MOVABLE,
   HANDLE_MAJOR_CONTROL,
   HANDLE_MINOR_CONTROL,
+  NUM_HANDLE_TYPES,
+} HandleType;
 
-  NUM_HANDLE_TYPES /* Must be last */
-}  HandleType;
 
-/*! 
- * \brief When an objects move_handle() function is called this is passed in
- * \ingroup ObjectConnects
+/**
+ * HandleMoveReason:
+ * @HANDLE_MOVE_USER: ???
+ * @HANDLE_MOVE_USER_FINAL: ???
+ * @HANDLE_MOVE_CONNECTED: ???
+ * @HANDLE_MOVE_CREATE: The initial drag during object placement
+ * @HANDLE_MOVE_CREATE_FINAL: Finish of initial drag
+ *
+ * When an objects dia_object_move_handle() function is called this is passed in
  */
 typedef enum {
   HANDLE_MOVE_USER,
   HANDLE_MOVE_USER_FINAL,
   HANDLE_MOVE_CONNECTED,
-  HANDLE_MOVE_CREATE,       /*!< the initial drag during object placement */
-  HANDLE_MOVE_CREATE_FINAL  /*!< finish of initial drag */
+  HANDLE_MOVE_CREATE,
+  HANDLE_MOVE_CREATE_FINAL,
 } HandleMoveReason;
 
-/*!
- * \brief If the handle is connectable or not
- * \ingroup ObjectConnects
+
+/**
+ * HandleConnectType:
+ * @HANDLE_NONCONNECTABLE: Not connectable
+ * @HANDLE_CONNECTABLE: Connectable
+ * @HANDLE_CONNECTABLE_NOBREAK: (unused) Don't break connection on object move
+ *
+ * If the handle is connectable or not
  */
 typedef enum {
-  HANDLE_NONCONNECTABLE,     /*!< not connectable */
-  HANDLE_CONNECTABLE,        /*!< connectable */
-  HANDLE_CONNECTABLE_NOBREAK /*!< (unused) Don't break connection on object move */
+  HANDLE_NONCONNECTABLE,
+  HANDLE_CONNECTABLE,
+  HANDLE_CONNECTABLE_NOBREAK,
 } HandleConnectType;
 
-/*!
- * \brief A handle is used to resize objects or to connet to them.
- * \ingroup ObjectConnects
+
+/**
+ * Handle:
+ * @id: Gives (mostly) the placement relative to the object
+ * @type: Colour coding
+ * @pos: Where the handle currently is in diagram coordinates
+ * @connect_type: How to connect if at all
+ * @connected_to: %NULL if not connected
+ *
+ * A handle is used to resize objects or to connet to them.
  */
 struct _Handle {
-  HandleId id; /*!< gives (mostly) the placement relative to the object */
-  HandleType type; /*!< color coding */
-  Point pos;   /*! where the handle currently is in diagram coordinates */
-  
-  HandleConnectType connect_type; /*!< how to connect if at all */
-  ConnectionPoint *connected_to; /*!< NULL if not connected */
+  HandleId           id;
+  HandleType         type;
+  Point              pos;
+  HandleConnectType  connect_type;
+  ConnectionPoint   *connected_to;
 };
 
-  
-#endif /* HANDLE_H */
+
+void dia_handle_set_position (Handle            *self,
+                              graphene_point_t  *point);
