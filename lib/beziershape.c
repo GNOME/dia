@@ -70,33 +70,38 @@ struct CornerChange {
   BezCornerType old_type, new_type;
 };
 
-static ObjectChange *
-beziershape_create_point_change(BezierShape *bezier,
-				enum change_type type,
-				BezPoint *point,
-				BezCornerType corner_type,
-				int segment,
-				Handle *handle1,
-				Handle *handle2,
-				Handle *handle3,
-				ConnectionPoint *cp1,
-				ConnectionPoint *cp2);
-static ObjectChange *
-beziershape_create_corner_change(BezierShape *bezier,
-				 Handle *handle,
-				 Point *point_left,
-				 Point *point_right,
-				 BezCornerType old_corner_type,
-				 BezCornerType new_corner_type);
 
-static void new_handles_and_connections(BezierShape *bezier, int num_points);
+static ObjectChange *beziershape_create_point_change (BezierShape      *bezier,
+                                                      enum change_type  type,
+                                                      BezPoint         *point,
+                                                      BezCornerType     corner_type,
+                                                      int               segment,
+                                                      Handle           *handle1,
+                                                      Handle           *handle2,
+                                                      Handle           *handle3,
+                                                      ConnectionPoint  *cp1,
+                                                      ConnectionPoint  *cp2);
+static ObjectChange *beziershape_create_corner_change (BezierShape     *bezier,
+                                                       Handle          *handle,
+                                                       Point           *point_left,
+                                                       Point           *point_right,
+                                                       BezCornerType    old_corner_type,
+                                                       BezCornerType    new_corner_type);
+static void new_handles_and_connections               (BezierShape     *bezier,
+                                                       int              num_points);
 
-/** Set up a handle for any part of a bezier
- * @param handle A handle to set up.
- * @param id Handle id (HANDLE_BEZMAJOR or HANDLE_RIGHTCTRL or HANDLE_LEFTCTRL)
+
+/**
+ * setup_handle:
+ * @handle: A handle to set up.
+ * @id: Handle id (%HANDLE_BEZMAJOR or %HANDLE_RIGHTCTRL or %HANDLE_LEFTCTRL)
+ *
+ * Set up a handle for any part of a bezier
+ *
+ * Since: dawn-of-time
  */
 static void
-setup_handle(Handle *handle, HandleId id)
+setup_handle (Handle *handle, HandleId id)
 {
   handle->id = id;
   handle->type =
@@ -107,11 +112,16 @@ setup_handle(Handle *handle, HandleId id)
   handle->connected_to = NULL;
 }
 
-/** Get the number in the array of handles that a given handle has.
- * @param bezier A bezier object with handles set up.
- * @param handle A handle object.
- * @returns The index in bezier->object.handles of the handle object, or -1 if
- *          `handle' is not in the array.
+
+/**
+ * get_handle_nr:
+ * @bezier: A bezier object with handles set up.
+ * @handle: A handle object.
+ *
+ * Get the number in the array of handles that a given handle has.
+ *
+ * Returnss: The index in bezier->object.handles of the handle object, or -1
+ *           if `handle' is not in the array.
  */
 static int
 get_handle_nr (BezierShape *bezier, Handle *handle)
@@ -190,7 +200,7 @@ beziershape_move_handle (BezierShape      *bezier,
           bezier->bezier.points[next_nr].p1 = pt;
           break;
         case BEZ_CORNER_SMOOTH: {
-            real len;
+            double len;
 
             pt = bezier->bezier.points[next_nr].p1;
             point_sub (&pt, &bezier->bezier.points[comp_nr].p3);
@@ -225,7 +235,7 @@ beziershape_move_handle (BezierShape      *bezier,
           bezier->bezier.points[prev_nr].p2 = pt;
           break;
         case BEZ_CORNER_SMOOTH: {
-            real len;
+            double len;
 
             pt = bezier->bezier.points[prev_nr].p2;
             point_sub (&pt, &bezier->bezier.points[prev_nr].p3);
@@ -314,11 +324,11 @@ beziershape_closest_handle (BezierShape *bezier,
 			    Point *point)
 {
   int i, hn;
-  real dist = G_MAXDOUBLE;
+  double dist = G_MAXDOUBLE;
   Handle *closest = NULL;
 
   for (i = 1, hn = 0; i < bezier->bezier.num_points; i++, hn++) {
-    real new_dist;
+    double new_dist;
 
     new_dist = distance_point_point(point, &bezier->bezier.points[i].p1);
     if (new_dist < dist) {
@@ -354,20 +364,30 @@ beziershape_closest_major_handle (BezierShape *bezier, Point *point)
   return bezier->object.handles[3*pos - 1];
 }
 
-/*!
- * \brief Return the distance from a bezier to a point.
- * @param bezier A bezier object.
- * @param point A point to compare with.
- * @param line_width The line width of the bezier line.
- * @return The shortest distance from the point to any part of the bezier.
- * \memberof _BezierShape
+
+/**
+ * beziershape_distance_from:
+ * @bezier: A bezier object.
+ * @point: A point to compare with.
+ * @line_width: The line width of the bezier line.
+ *
+ * Return the distance from a bezier to a point.
+ *
+ * Returns: The shortest distance from the point to any part of the bezier.
+ *
+ * Since: dawn-of-time
  */
-real
-beziershape_distance_from (BezierShape *bezier, Point *point, real line_width)
+double
+beziershape_distance_from (BezierShape *bezier,
+                           Point       *point,
+                           double       line_width)
 {
-  return distance_bez_shape_point(bezier->bezier.points, bezier->bezier.num_points,
-				  line_width, point);
+  return distance_bez_shape_point (bezier->bezier.points,
+                                   bezier->bezier.num_points,
+                                   line_width,
+                                   point);
 }
+
 
 static void
 add_handles (BezierShape *bezier,
@@ -612,7 +632,7 @@ beziershape_straighten_corner (BezierShape *bezier, int comp_nr)
       break;
     case BEZ_CORNER_SMOOTH: {
         Point pt1, pt2;
-        real len1, len2;
+        double len1, len2;
         pt1 = bezier->bezier.points[comp_nr].p3;
         point_sub (&pt1, &bezier->bezier.points[comp_nr].p2);
         pt2 = bezier->bezier.points[comp_nr].p3;
@@ -831,6 +851,7 @@ beziershape_update_boundingbox (BezierShape *bezier)
                   &bezier->object.bounding_box);
 }
 
+
 static void
 new_handles_and_connections (BezierShape *bezier, int num_points)
 {
@@ -840,45 +861,51 @@ new_handles_and_connections (BezierShape *bezier, int num_points)
   obj = &bezier->object;
 
   for (i = 0; i < num_points-1; i++) {
-    obj->handles[3*i] = g_new0(Handle,1);
-    obj->handles[3*i+1] = g_new0(Handle,1);
-    obj->handles[3*i+2] = g_new0(Handle,1);
+    obj->handles[3 * i] = g_new0 (Handle, 1);
+    obj->handles[3 * i + 1] = g_new0 (Handle, 1);
+    obj->handles[3 * i + 2] = g_new0 (Handle, 1);
 
-    obj->handles[3*i]->connect_type = HANDLE_NONCONNECTABLE;
-    obj->handles[3*i]->connected_to = NULL;
-    obj->handles[3*i]->type = HANDLE_MINOR_CONTROL;
-    obj->handles[3*i]->id = HANDLE_RIGHTCTRL;
+    obj->handles[3 * i]->connect_type = HANDLE_NONCONNECTABLE;
+    obj->handles[3 * i]->connected_to = NULL;
+    obj->handles[3 * i]->type = HANDLE_MINOR_CONTROL;
+    obj->handles[3 * i]->id = HANDLE_RIGHTCTRL;
 
-    obj->handles[3*i+1]->connect_type = HANDLE_NONCONNECTABLE;
-    obj->handles[3*i+1]->connected_to = NULL;
-    obj->handles[3*i+1]->type = HANDLE_MINOR_CONTROL;
-    obj->handles[3*i+1]->id = HANDLE_LEFTCTRL;
+    obj->handles[3 * i + 1]->connect_type = HANDLE_NONCONNECTABLE;
+    obj->handles[3 * i + 1]->connected_to = NULL;
+    obj->handles[3 * i + 1]->type = HANDLE_MINOR_CONTROL;
+    obj->handles[3 * i + 1]->id = HANDLE_LEFTCTRL;
 
-    obj->handles[3*i+2]->connect_type = HANDLE_NONCONNECTABLE;
-    obj->handles[3*i+2]->connected_to = NULL;
-    obj->handles[3*i+2]->type = HANDLE_MAJOR_CONTROL;
-    obj->handles[3*i+2]->id = HANDLE_BEZMAJOR;
+    obj->handles[3 * i + 2]->connect_type = HANDLE_NONCONNECTABLE;
+    obj->handles[3 * i + 2]->connected_to = NULL;
+    obj->handles[3 * i + 2]->type = HANDLE_MAJOR_CONTROL;
+    obj->handles[3 * i + 2]->id = HANDLE_BEZMAJOR;
 
-    obj->connections[2*i] = g_new0(ConnectionPoint, 1);
-    obj->connections[2*i+1] = g_new0(ConnectionPoint, 1);
-    obj->connections[2*i]->object = obj;
-    obj->connections[2*i+1]->object = obj;
-    obj->connections[2*i]->flags = 0;
-    obj->connections[2*i+1]->flags = 0;
+    obj->connections[2 * i] = g_new0 (ConnectionPoint, 1);
+    obj->connections[2 * i + 1] = g_new0 (ConnectionPoint, 1);
+    obj->connections[2 * i]->object = obj;
+    obj->connections[2 * i + 1]->object = obj;
+    obj->connections[2 * i]->flags = 0;
+    obj->connections[2 * i + 1]->flags = 0;
   }
 
   /** Main point */
-  obj->connections[obj->num_connections-1] = g_new0(ConnectionPoint, 1);
-  obj->connections[obj->num_connections-1]->object = obj;
-  obj->connections[obj->num_connections-1]->flags = CP_FLAGS_MAIN;
+  obj->connections[obj->num_connections - 1] = g_new0 (ConnectionPoint, 1);
+  obj->connections[obj->num_connections - 1]->object = obj;
+  obj->connections[obj->num_connections - 1]->flags = CP_FLAGS_MAIN;
 }
 
-/** Initialize a bezier object with the given amount of points.
+
+/**
+ * beziershape_init:
+ * @bezier: A newly allocated beziershape object.
+ * @num_points: The initial number of points on the curve.
+ *
+ * Initialize a bezier object with the given amount of points.
  * The points array of the bezier object might not be previously
  * initialized with appropriate positions.
  * This will set up handles and make all corners symmetric.
- * @param bezier A newly allocated beziershape object.
- * @param num_points The initial number of points on the curve.
+ *
+ * Since: dawn-of-time
  */
 void
 beziershape_init (BezierShape *bezier, int num_points)
@@ -888,12 +915,12 @@ beziershape_init (BezierShape *bezier, int num_points)
 
   obj = &bezier->object;
 
-  object_init(obj, 3*(num_points-1), 2*(num_points-1) + 1);
+  object_init (obj, 3 * (num_points - 1), 2 * (num_points - 1) + 1);
 
   bezier->bezier.num_points = num_points;
 
-  bezier->bezier.points = g_new(BezPoint, num_points);
-  bezier->bezier.corner_types = g_new(BezCornerType, num_points);
+  bezier->bezier.points = g_new (BezPoint, num_points);
+  bezier->bezier.corner_types = g_new (BezCornerType, num_points);
   bezier->bezier.points[0].type = BEZ_MOVE_TO;
   bezier->bezier.corner_types[0] = BEZ_CORNER_SYMMETRIC;
   for (i = 1; i < num_points; i++) {
@@ -901,16 +928,22 @@ beziershape_init (BezierShape *bezier, int num_points)
     bezier->bezier.corner_types[i] = BEZ_CORNER_SYMMETRIC;
   }
 
-  new_handles_and_connections(bezier, num_points);
+  new_handles_and_connections (bezier, num_points);
 
   /* The points might not be assigned at this point,
    * so don't try to use them */
   /*  beziershape_update_data(bezier);*/
 }
 
-/** Copy a beziershape objects.  This function in turn invokes object_copy.
- * @param from The object to copy from.
- * @param to The object to copy to.
+
+/**
+ * beziershape_copy:
+ * @from: The object to copy from.
+ * @to: The object to copy to.
+ *
+ * Copy a beziershape objects. This function in turn invokes object_copy().
+ *
+ * Since: dawn-of-time
  */
 void
 beziershape_copy (BezierShape *from, BezierShape *to)
@@ -921,23 +954,27 @@ beziershape_copy (BezierShape *from, BezierShape *to)
   toobj = &to->object;
   fromobj = &from->object;
 
-  object_copy(fromobj, toobj);
+  object_copy (fromobj, toobj);
 
   beziercommon_copy (&from->bezier, &to->bezier);
 
   for (i = 0; i < toobj->num_handles; i++) {
-    toobj->handles[i] = g_new0(Handle,1);
-    setup_handle(toobj->handles[i], fromobj->handles[i]->id);
+    toobj->handles[i] = g_new0 (Handle, 1);
+    setup_handle (toobj->handles[i], fromobj->handles[i]->id);
   }
+
   for (i = 0; i < toobj->num_connections; i++) {
-    toobj->connections[i] = g_new0(ConnectionPoint, 1);
+    toobj->connections[i] = g_new0 (ConnectionPoint, 1);
     toobj->connections[i]->object = &to->object;
     toobj->connections[i]->flags = fromobj->connections[i]->flags;
   }
 
-  memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));
-  beziershape_update_data(to);
+  memcpy (&to->extra_spacing,
+          &from->extra_spacing,
+          sizeof (to->extra_spacing));
+  beziershape_update_data (to);
 }
+
 
 void
 beziershape_destroy (BezierShape *bezier)
@@ -950,8 +987,9 @@ beziershape_destroy (BezierShape *bezier)
      freed by object_destroy() */
   nh = bezier->object.num_handles;
   temp_handles = g_new0 (Handle *, nh);
-  for (i = 0; i < nh; i++)
+  for (i = 0; i < nh; i++) {
     temp_handles[i] = bezier->object.handles[i];
+  }
 
   temp_cps = g_new0 (ConnectionPoint *, bezier->object.num_connections);
   for (i = 0; i < bezier->object.num_connections; i++) {
@@ -975,48 +1013,63 @@ beziershape_destroy (BezierShape *bezier)
 }
 
 
-/** Save the data defined by a beziershape object to XML.
- * @param bezier The object to save.
- * @param obj_node The XML node to save it into
- * @param ctx The context to transport error information.
+/**
+ * beziershape_save:
+ * @bezier: The object to save.
+ * @obj_node: The XML node to save it into
+ * @ctx: The context to transport error information.
+ *
+ * Save the data defined by a beziershape object to XML.
+ *
+ * Since: dawn-of-time
  */
 void
 beziershape_save (BezierShape *bezier,
-		  ObjectNode obj_node,
-		  DiaContext *ctx)
+                  ObjectNode   obj_node,
+                  DiaContext  *ctx)
 {
   int i;
   AttributeNode attr;
 
-  object_save(&bezier->object, obj_node, ctx);
+  object_save (&bezier->object, obj_node, ctx);
 
-  attr = new_attribute(obj_node, "bez_points");
+  attr = new_attribute (obj_node, "bez_points");
 
-  data_add_point(attr, &bezier->bezier.points[0].p1, ctx);
+  data_add_point (attr, &bezier->bezier.points[0].p1, ctx);
   for (i = 1; i < bezier->bezier.num_points; i++) {
-    if (BEZ_MOVE_TO == bezier->bezier.points[i].type)
-      g_warning("only first BezPoint can be a BEZ_MOVE_TO");
-    data_add_point(attr, &bezier->bezier.points[i].p1, ctx);
-    data_add_point(attr, &bezier->bezier.points[i].p2, ctx);
-    if (i < bezier->bezier.num_points - 1)
-      data_add_point(attr, &bezier->bezier.points[i].p3, ctx);
+    if (BEZ_MOVE_TO == bezier->bezier.points[i].type) {
+      g_warning ("only first BezPoint can be a BEZ_MOVE_TO");
+    }
+    data_add_point (attr, &bezier->bezier.points[i].p1, ctx);
+    data_add_point (attr, &bezier->bezier.points[i].p2, ctx);
+    if (i < bezier->bezier.num_points - 1) {
+      data_add_point (attr, &bezier->bezier.points[i].p3, ctx);
+    }
   }
 
-  attr = new_attribute(obj_node, "corner_types");
-  for (i = 0; i < bezier->bezier.num_points; i++)
-    data_add_enum(attr, bezier->bezier.corner_types[i], ctx);
+  attr = new_attribute (obj_node, "corner_types");
+  for (i = 0; i < bezier->bezier.num_points; i++) {
+    data_add_enum (attr, bezier->bezier.corner_types[i], ctx);
+  }
 }
 
-/** Load a beziershape object from XML.
+
+/**
+ * beziershape_load:
+ * @bezier: A newly allocated bezierconn object to load into.
+ * @obj_node: The XML node to load from.
+ * @ctx: The context in which this function is called
+ *
+ * Load a beziershape object from XML.
+ *
  * Does object_init() on the bezierconn object.
- * @param bezier A newly allocated bezierconn object to load into.
- * @param obj_node The XML node to load from.
- * @param ctx The context in which this function is called
+ *
+ * Since: dawn-of-time
  */
 void
 beziershape_load (BezierShape *bezier,
-		  ObjectNode obj_node,
-		  DiaContext *ctx)
+                  ObjectNode   obj_node,
+                  DiaContext  *ctx)
 {
   int i;
   AttributeNode attr;
@@ -1024,82 +1077,93 @@ beziershape_load (BezierShape *bezier,
 
   DiaObject *obj = &bezier->object;
 
-  object_load(obj, obj_node, ctx);
+  object_load (obj, obj_node, ctx);
 
-  attr = object_find_attribute(obj_node, "bez_points");
+  attr = object_find_attribute (obj_node, "bez_points");
 
-  if (attr != NULL)
-    bezier->bezier.num_points = attribute_num_data(attr) / 3 + 1;
-  else
+  if (attr != NULL) {
+    bezier->bezier.num_points = attribute_num_data (attr) / 3 + 1;
+  } else {
     bezier->bezier.num_points = 0;
+  }
 
-  object_init(obj, 3 * (bezier->bezier.num_points - 1),
-	      2 * (bezier->bezier.num_points - 1) + 1);
+  object_init (obj,
+               3 * (bezier->bezier.num_points - 1),
+               2 * (bezier->bezier.num_points - 1) + 1);
 
-  data = attribute_first_data(attr);
+  data = attribute_first_data (attr);
   if (bezier->bezier.num_points != 0) {
-    bezier->bezier.points = g_new(BezPoint, bezier->bezier.num_points);
+    bezier->bezier.points = g_new (BezPoint, bezier->bezier.num_points);
     bezier->bezier.points[0].type = BEZ_MOVE_TO;
-    data_point(data, &bezier->bezier.points[0].p1, ctx);
+    data_point (data, &bezier->bezier.points[0].p1, ctx);
     bezier->bezier.points[0].p3 = bezier->bezier.points[0].p1;
-    data = data_next(data);
+    data = data_next (data);
 
     for (i = 1; i < bezier->bezier.num_points; i++) {
       bezier->bezier.points[i].type = BEZ_CURVE_TO;
-      data_point(data, &bezier->bezier.points[i].p1, ctx);
-      data = data_next(data);
-      data_point(data, &bezier->bezier.points[i].p2, ctx);
-      data = data_next(data);
+      data_point (data, &bezier->bezier.points[i].p1, ctx);
+      data = data_next (data);
+      data_point (data, &bezier->bezier.points[i].p2, ctx);
+      data = data_next (data);
       if (i < bezier->bezier.num_points - 1) {
-	data_point(data, &bezier->bezier.points[i].p3, ctx);
-	data = data_next(data);
-      } else
-	bezier->bezier.points[i].p3 = bezier->bezier.points[0].p1;
+        data_point (data, &bezier->bezier.points[i].p3, ctx);
+        data = data_next (data);
+      } else {
+        bezier->bezier.points[i].p3 = bezier->bezier.points[0].p1;
+      }
     }
   }
 
-  bezier->bezier.corner_types = g_new(BezCornerType, bezier->bezier.num_points);
-  attr = object_find_attribute(obj_node, "corner_types");
+  bezier->bezier.corner_types = g_new (BezCornerType,
+                                       bezier->bezier.num_points);
+  attr = object_find_attribute (obj_node, "corner_types");
   /* if corner_types is missing or corrupt */
-  if (!attr || attribute_num_data(attr) != bezier->bezier.num_points) {
+  if (!attr || attribute_num_data (attr) != bezier->bezier.num_points) {
     for (i = 0; i < bezier->bezier.num_points; i++)
       bezier->bezier.corner_types[i] = BEZ_CORNER_SYMMETRIC;
   } else {
-    data = attribute_first_data(attr);
+    data = attribute_first_data (attr);
     for (i = 0; i < bezier->bezier.num_points; i++) {
-      bezier->bezier.corner_types[i] = data_enum(data, ctx);
-      data = data_next(data);
+      bezier->bezier.corner_types[i] = data_enum (data, ctx);
+      data = data_next (data);
     }
   }
 
   for (i = 0; i < bezier->bezier.num_points - 1; i++) {
-    obj->handles[3*i] = g_new0(Handle,1);
-    obj->handles[3*i+1] = g_new0(Handle,1);
-    obj->handles[3*i+2]   = g_new0(Handle,1);
+    obj->handles[3 * i]     = g_new0 (Handle, 1);
+    obj->handles[3 * i + 1] = g_new0 (Handle, 1);
+    obj->handles[3 * i + 2] = g_new0 (Handle, 1);
 
-    setup_handle(obj->handles[3*i], HANDLE_RIGHTCTRL);
-    setup_handle(obj->handles[3*i+1], HANDLE_LEFTCTRL);
-    setup_handle(obj->handles[3*i+2],   HANDLE_BEZMAJOR);
+    setup_handle (obj->handles[3 * i], HANDLE_RIGHTCTRL);
+    setup_handle (obj->handles[3 * i + 1], HANDLE_LEFTCTRL);
+    setup_handle (obj->handles[3 * i + 2], HANDLE_BEZMAJOR);
   }
   for (i = 0; i < obj->num_connections; i++) {
-    obj->connections[i] = g_new0(ConnectionPoint, 1);
+    obj->connections[i] = g_new0 (ConnectionPoint, 1);
     obj->connections[i]->object = obj;
   }
-  obj->connections[obj->num_connections-1]->flags = CP_FLAGS_MAIN;
+  obj->connections[obj->num_connections - 1]->flags = CP_FLAGS_MAIN;
 
-  beziershape_update_data(bezier);
+  beziershape_update_data (bezier);
 }
 
-/*** Undo support ***/
 
-/** Free undo information about adding or removing points.
- * @param change The undo information to free.
+/* Undo support */
+
+
+/**
+ * beziershape_point_change_free:
+ * @change@ The undo information to free.
+ *
+ * Free undo information about adding or removing points.
+ *
+ * Since: dawn-of-time
  */
 static void
 beziershape_point_change_free (struct BezPointChange *change)
 {
-  if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
-       (change->type==TYPE_REMOVE_POINT && change->applied) ){
+  if ( (change->type == TYPE_ADD_POINT && !change->applied) ||
+       (change->type == TYPE_REMOVE_POINT && change->applied) ){
     g_clear_pointer (&change->handle1, g_free);
     g_clear_pointer (&change->handle2, g_free);
     g_clear_pointer (&change->handle3, g_free);
@@ -1170,27 +1234,27 @@ beziershape_point_change_revert (struct BezPointChange *change,
 
 
 static ObjectChange *
-beziershape_create_point_change (BezierShape *bezier,
-				 enum change_type type,
-				 BezPoint *point,
-				 BezCornerType corner_type,
-				 int pos,
-				 Handle *handle1,
-				 Handle *handle2,
-				 Handle *handle3,
-				 ConnectionPoint *cp1,
-				 ConnectionPoint *cp2)
+beziershape_create_point_change (BezierShape      *bezier,
+                                 enum change_type  type,
+                                 BezPoint         *point,
+                                 BezCornerType     corner_type,
+                                 int               pos,
+                                 Handle           *handle1,
+                                 Handle           *handle2,
+                                 Handle           *handle3,
+                                 ConnectionPoint  *cp1,
+                                 ConnectionPoint  *cp2)
 {
   struct BezPointChange *change;
 
-  change = g_new(struct BezPointChange, 1);
+  change = g_new (struct BezPointChange, 1);
 
   change->obj_change.apply =
-    (ObjectChangeApplyFunc)beziershape_point_change_apply;
+        (ObjectChangeApplyFunc) beziershape_point_change_apply;
   change->obj_change.revert =
-    (ObjectChangeRevertFunc)beziershape_point_change_revert;
+        (ObjectChangeRevertFunc) beziershape_point_change_revert;
   change->obj_change.free =
-    (ObjectChangeFreeFunc)beziershape_point_change_free;
+        (ObjectChangeFreeFunc) beziershape_point_change_free;
 
   change->type = type;
   change->applied = 1;
@@ -1203,89 +1267,113 @@ beziershape_create_point_change (BezierShape *bezier,
   change->cp1 = cp1;
   change->cp2 = cp2;
 
-  return (ObjectChange *)change;
+  return (ObjectChange *) change;
 }
 
-/** Apply a change of corner type.  This may change the position of the
- * control handles by calling beziershape_straighten_corner.
- * @param change The undo information to apply.
- * @param obj The object to apply the undo information too.
+
+/**
+ * beziershape_corner_change_apply:
+ * @change: The undo information to apply.
+ * @obj: The object to apply the undo information too.
+ *
+ * Apply a change of corner type. This may change the position of the
+ * control handles by calling beziershape_straighten_corner().
+ *
+ * Since: dawn-of-time
  */
 static void
 beziershape_corner_change_apply (struct CornerChange *change,
-				 DiaObject *obj)
+                                 DiaObject           *obj)
 {
-  BezierShape *bezier = (BezierShape *)obj;
-  int handle_nr = get_handle_nr(bezier, change->handle);
-  int comp_nr = get_major_nr(handle_nr);
+  BezierShape *bezier = (BezierShape *) obj;
+  int handle_nr = get_handle_nr (bezier, change->handle);
+  int comp_nr = get_major_nr (handle_nr);
 
-  beziershape_straighten_corner(bezier, comp_nr);
+  beziershape_straighten_corner (bezier, comp_nr);
 
   bezier->bezier.corner_types[comp_nr] = change->new_type;
-  if (comp_nr == 0)
+  if (comp_nr == 0) {
     bezier->bezier.corner_types[bezier->bezier.num_points-1] = change->new_type;
-  if (comp_nr == bezier->bezier.num_points - 1)
+  }
+  if (comp_nr == bezier->bezier.num_points - 1) {
     bezier->bezier.corner_types[0] = change->new_type;
+  }
 
   change->applied = 1;
 }
 
-/** Revert (unapply) a change of corner type.  This may move the position
+
+/**
+ * beziershape_corner_change_revert:
+ * @change: Undo information to apply.
+ * @obj: The beziershape object to apply the change to.
+ *
+ * Revert (unapply) a change of corner type. This may move the position
  * of the control handles to what they were before applying.
- * @param change Undo information to apply.
- * @param obj The beziershape object to apply the change to.
+ *
+ * Since: dawn-of-time
  */
 static void
 beziershape_corner_change_revert (struct CornerChange *change,
-				  DiaObject *obj)
+                                  DiaObject           *obj)
 {
   BezierShape *bezier = (BezierShape *)obj;
-  int handle_nr = get_handle_nr(bezier, change->handle);
-  int comp_nr = get_major_nr(handle_nr);
+  int handle_nr = get_handle_nr (bezier, change->handle);
+  int comp_nr = get_major_nr (handle_nr);
 
   bezier->bezier.points[comp_nr].p2 = change->point_left;
-  if (comp_nr == bezier->bezier.num_points - 1)
+  if (comp_nr == bezier->bezier.num_points - 1) {
     bezier->bezier.points[1].p1 = change->point_right;
-  else
-    bezier->bezier.points[comp_nr+1].p1 = change->point_right;
+  } else {
+    bezier->bezier.points[comp_nr + 1].p1 = change->point_right;
+  }
   bezier->bezier.corner_types[comp_nr] = change->old_type;
-  if (comp_nr == 0)
-    bezier->bezier.corner_types[bezier->bezier.num_points-1] = change->new_type;
-  if (comp_nr == bezier->bezier.num_points - 1)
+  if (comp_nr == 0) {
+    bezier->bezier.corner_types[bezier->bezier.num_points - 1] = change->new_type;
+  }
+  if (comp_nr == bezier->bezier.num_points - 1) {
     bezier->bezier.corner_types[0] = change->new_type;
+  }
 
   change->applied = 0;
 }
 
-/** Create new undo information about a changing the type of a corner.
- * Note that the created ObjectChange object has nothing in it that needs
+
+/**
+ * beziershape_create_corner_change:
+ * @bezier: The bezier object this applies to.
+ * @handle: The handle of the corner being changed.
+ * @point_left: The position of the left control handle.
+ * @point_right: The position of the right control handle.
+ * @old_corner_type: The corner type before applying.
+ * @new_corner_type: The corner type being changed to.
+ *
+ * Create new undo information about a changing the type of a corner.
+ * Note that the created #ObjectChange object has nothing in it that needs
  * freeing.
- * @param bezier The bezier object this applies to.
- * @param handle The handle of the corner being changed.
- * @param point_left The position of the left control handle.
- * @param point_right The position of the right control handle.
- * @param old_corner_type The corner type before applying.
- * @param new_corner_type The corner type being changed to.
- * @returns Newly allocated undo information.
+ *
+ * Returns: Newly allocated undo information.
+ *
+ * Since: dawn-of-time
  */
 static ObjectChange *
-beziershape_create_corner_change (BezierShape *bezier,
-				  Handle *handle,
-				  Point *point_left,
-				  Point *point_right,
-				  BezCornerType old_corner_type,
-				  BezCornerType new_corner_type)
+beziershape_create_corner_change (BezierShape   *bezier,
+                                  Handle        *handle,
+                                  Point         *point_left,
+                                  Point         *point_right,
+                                  BezCornerType  old_corner_type,
+                                  BezCornerType  new_corner_type)
 {
   struct CornerChange *change;
 
-  change = g_new(struct CornerChange, 1);
+  change = g_new (struct CornerChange, 1);
 
   change->obj_change.apply =
-	(ObjectChangeApplyFunc)beziershape_corner_change_apply;
+          (ObjectChangeApplyFunc) beziershape_corner_change_apply;
   change->obj_change.revert =
-	(ObjectChangeRevertFunc)beziershape_corner_change_revert;
+          (ObjectChangeRevertFunc) beziershape_corner_change_revert;
   change->obj_change.free =
-	(ObjectChangeFreeFunc)NULL;
+          (ObjectChangeFreeFunc) NULL;
 
   change->old_type = old_corner_type;
   change->new_type = new_corner_type;
@@ -1295,5 +1383,5 @@ beziershape_create_corner_change (BezierShape *bezier,
   change->point_left = *point_left;
   change->point_right = *point_right;
 
-  return (ObjectChange *)change;
+  return (ObjectChange *) change;
 }
