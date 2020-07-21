@@ -498,6 +498,17 @@ gboolean               dia_object_edit_text           (DiaObject              *s
                                                        gchar                  *textchange);
 gboolean               dia_object_transform           (DiaObject              *self,
                                                        const DiaMatrix        *m);
+void                   dia_object_add_handle           (DiaObject               *self,
+                                                        Handle                  *handle,
+                                                        int                      index,
+                                                        HandleId                 id,
+                                                        HandleType               type,
+                                                        HandleConnectType        connect_type);
+void                   dia_object_add_connection_point (DiaObject               *self,
+                                                        ConnectionPoint         *cp,
+                                                        int                      index,
+                                                        ConnectionPointFlags     flags);
+
 
 gboolean       dia_object_defaults_load (const gchar *filename,
                                          gboolean create_lazy,

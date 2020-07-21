@@ -1795,3 +1795,74 @@ dia_object_transform (DiaObject       *self,
 
   return self->ops->transform (self, m);
 }
+
+
+/**
+ * dia_object_add_handle:
+ * @self: the #DiaObject
+ * @handle: the #Handle to register
+ * @index: the index of @handle
+ * @id: the #HandleId of @handle
+ * @type: the #HandleType of @handle
+ * @connect_type: the @HandleConnectType of @handle
+ *
+ * Register @handle with @self, for use in object creation
+ *
+ * This SHOULD NOT be called on arbitary objects
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+void
+dia_object_add_handle (DiaObject               *self,
+                       Handle                  *handle,
+                       int                      index,
+                       HandleId                 id,
+                       HandleType               type,
+                       HandleConnectType        connect_type)
+{
+  g_return_if_fail (self != NULL);
+  g_return_if_fail (handle != NULL);
+  g_return_if_fail (index >= 0 && index < self->num_handles);
+
+  self->handles[index] = handle;
+
+  handle->id = id;
+  handle->type = type;
+  handle->connect_type = connect_type;
+  handle->connected_to = NULL;
+}
+
+
+/**
+ * dia_object_add_connection_point:
+ * @self: the #DiaObject
+ * @cp: the #ConnectionPoint to register
+ * @index: the index of @cp
+ * @flags: the #ConnectionPointFlags for flags
+ *
+ * Register @cp with @self, for use in object creation
+ *
+ * This SHOULD NOT be called on arbitary objects
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+void
+dia_object_add_connection_point (DiaObject            *self,
+                                 ConnectionPoint      *cp,
+                                 int                   index,
+                                 ConnectionPointFlags  flags)
+{
+  g_return_if_fail (self != NULL);
+  g_return_if_fail (cp != NULL);
+  g_return_if_fail (index >= 0 && index < self->num_connections);
+
+  self->connections[index] = cp;
+
+  cp->object = self;
+  cp->connected = NULL;
+  cp->flags = flags;
+}
