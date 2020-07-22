@@ -18,58 +18,12 @@
 
 #include <config.h>
 
-#ifdef G_OS_WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#endif
 #include <glib/gstdio.h>
 #include <glib.h>
 
 #include "dia_dirs.h"
 #include "intl.h"
 #include "message.h"
-
-#if defined(G_OS_WIN32) && defined(PREFIX)
-static gchar *
-replace_prefix (const gchar *runtime_prefix,
-                const gchar *configure_time_path)
-{
-  if (runtime_prefix &&
-      strncmp (configure_time_path, PREFIX "/",
-               strlen (PREFIX) + 1) == 0) {
-    return g_strconcat (runtime_prefix,
-                        configure_time_path + strlen (PREFIX) + 1,
-                        NULL);
-  } else
-    return g_strdup (configure_time_path);
-}
-#endif
-
-#ifdef G_OS_WIN32
-/*
- * Calulate the module directory from executable path
- * Convert to UTF-8 to be compatible with GLib's filename encoding.
- */
-static gchar *
-_dia_get_module_directory (void)
-{
-  wchar_t wsLoc [MAX_PATH+1];
-  HINSTANCE hInst = GetModuleHandle(NULL);
-  gchar *sLoc = NULL;
-
-  if (0 != GetModuleFileNameW(hInst, wsLoc, MAX_PATH))
-    {
-      sLoc = g_utf16_to_utf8 (wsLoc, -1, NULL, NULL, NULL);
-      /* strip the name */
-      if (strrchr(sLoc, G_DIR_SEPARATOR))
-        strrchr(sLoc, G_DIR_SEPARATOR)[0] = 0;
-      /* and one dir (bin) */
-      if (strrchr(sLoc, G_DIR_SEPARATOR))
-        strrchr(sLoc, G_DIR_SEPARATOR)[1] = 0;
-    }
-  return sLoc;
-}
-#endif
 
 
 /**
@@ -89,24 +43,16 @@ char *
 dia_get_data_directory (const char* subdir)
 {
 #ifdef G_OS_WIN32
-  char *tmpPath = NULL;
   char *returnPath = NULL;
   /*
    * Calculate from executable path
    */
-  char *sLoc = _dia_get_module_directory ();
-#  if defined(PREFIX) && defined(PKGDATADIR)
-  tmpPath = replace_prefix (sLoc, PKGDATADIR);
-  if (strlen (subdir) == 0) {
-    returnPath = g_strdup (tmpPath);
-  } else {
-    returnPath = g_build_filename (tmpPath, subdir, NULL);
-  }
-  g_clear_pointer (&tmpPath, g_free);
-#  else
-  returnPath = g_strconcat (sLoc, subdir, NULL);
-#  endif
+  char *sLoc = g_win32_get_package_installation_directory_of_module (NULL);
+
+  returnPath = g_build_filename (sLoc, "share", "dia", subdir, NULL);
+
   g_clear_pointer (&sLoc, g_free);
+
   return returnPath;
 #else
   char *base = g_strdup (PKGDATADIR);
@@ -140,14 +86,11 @@ char *
 dia_get_lib_directory (void)
 {
 #ifdef G_OS_WIN32
-  char *sLoc = _dia_get_module_directory ();
-  char *returnPath = NULL;
-#  if defined(PREFIX) && defined(DIALIBDIR)
-  returnPath = replace_prefix(sLoc, DIALIBDIR);
-#  else
-  returnPath = g_strconcat (sLoc , "dia", NULL);
-#  endif
+  char *sLoc = g_win32_get_package_installation_directory_of_module (NULL);
+  char *returnPath = g_build_filename (sLoc, "dia", NULL);
+
   g_clear_pointer (&sLoc, g_free);
+
   return returnPath;
 #else
   return g_build_filename (DIALIBDIR, "", NULL);
@@ -159,8 +102,8 @@ char *
 dia_get_locale_directory (void)
 {
 #ifdef G_OS_WIN32
-  char *sLoc = _dia_get_module_directory ();
-  char *ret = replace_prefix (sLoc, LOCALEDIR);
+  char *sLoc = g_win32_get_package_installation_directory_of_module (NULL);
+  char *ret = g_build_filename (sLoc, "share", "locale", NULL);
 
   g_clear_pointer (&sLoc, g_free);
 

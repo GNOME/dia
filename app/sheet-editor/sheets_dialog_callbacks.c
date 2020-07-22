@@ -1623,7 +1623,7 @@ write_user_sheet (Sheet *sheet)
   xmlFreeDoc (doc);
 
   g_clear_pointer (&username, g_free);
-  g_clear_errpr (&error);
+  g_clear_error (&error);
 
   return TRUE;
 }
