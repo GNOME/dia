@@ -28,6 +28,8 @@
     <file>icons/dia-guides-snap-on.svg</file>
     <file>icons/dia-guides-snap-off.png</file>
     <file>icons/dia-guides-snap-on.png</file>
+    <file>icons/dia-newline.png</file>
+    <file>icons/dia-object-unknown.png</file>
     <file>dia-splash.png</file>
   </gresource>
 </gresources>

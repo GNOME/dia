@@ -24,22 +24,26 @@
 
 #include <gtk/gtk.h>
 
+#include "dia-autoptr.h"
+#include "sheets.h"
+
 G_BEGIN_DECLS
 
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkBuilder, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkSpinButton, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkComboBox, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkHBox, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkTreeView, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkCellRenderer, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkCellRendererText, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkBin, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkContainer, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkVBox, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkDialog, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkEventBox, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkTable, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkRadioButton, g_object_unref)
+struct _DiaSheetEditorButton {
+  GtkRadioButton parent;
+};
+
+#define DIA_TYPE_SHEET_EDITOR_BUTTON dia_sheet_editor_button_get_type ()
+G_DECLARE_FINAL_TYPE (DiaSheetEditorButton, dia_sheet_editor_button, DIA, SHEET_EDITOR_BUTTON, GtkRadioButton)
+
+
+GtkWidget      *dia_sheet_editor_button_new_object      (GSList               *group,
+                                                         SheetMod             *sheet,
+                                                         SheetObjectMod       *object);
+GtkWidget      *dia_sheet_editor_button_new_newline     (GSList               *group,
+                                                         SheetMod             *sheet);
+SheetMod       *dia_sheet_editor_button_get_sheet       (DiaSheetEditorButton *self);
+SheetObjectMod *dia_sheet_editor_button_get_object      (DiaSheetEditorButton *self);
 
 G_END_DECLS

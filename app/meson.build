@@ -73,6 +73,8 @@ dia_sources = [
     'sheet-editor/sheets.c',
     'sheet-editor/sheets_dialog.c',
     'sheet-editor/sheets_dialog_callbacks.c',
+    'sheet-editor/sheet-editor-button.c',
+    'sheet-editor/sheet-editor-button.h',
 
     'autosave.c',
     'dynamic_refresh.c',
@@ -83,7 +85,10 @@ dia_sources = [
 ]
 
 dia_sources += gnome.mkenums_simple('dia-app-enums',
-                                    sources: ['dia-page-layout.h', 'exit_dialog.h'])
+                                    sources: [
+                                        'dia-page-layout.h',
+                                        'exit_dialog.h',
+                                    ])
 
 #TODO: this is workaround for openbsd where libraries are in /usr/lib/local
 # Potential parent issues: https://github.com/mesonbuild/meson/issues/3570

@@ -32,8 +32,6 @@
 #include "sheet.h"
 #include "message.h"
 #include "object.h"
-#include "pixmaps/missing.xpm"
-
 #include "interface.h"
 #include "sheets.h"
 #include "sheets_dialog.h"
@@ -324,74 +322,6 @@ sheets_dialog_create (void)
   return TRUE;
 }
 
-void
-create_object_pixmap (SheetObject  *so,
-                      GtkWidget    *parent,
-                      GdkPixmap   **pixmap,
-                      GdkBitmap   **mask)
-{
-  GtkStyle *style;
-
-  g_assert (so);
-  g_assert (pixmap);
-  g_assert (mask);
-
-  style = gtk_widget_get_style (parent);
-
-  if (so->pixmap != NULL) {
-    if (g_str_has_prefix ((char *) so->pixmap, "res:")) {
-      GdkPixbuf *pixbuf;
-
-      pixbuf = pixbuf_from_resource (((char *) so->pixmap) + 4);
-
-      gdk_pixbuf_render_pixmap_and_mask (pixbuf, pixmap, mask, 1.0);
-
-      g_clear_object (&pixbuf);
-    } else {
-      *pixmap =
-        gdk_pixmap_colormap_create_from_xpm_d (NULL,
-                                               gtk_widget_get_colormap (parent),
-                                               mask,
-                                               &style->bg[GTK_STATE_NORMAL],
-                                               (char **) so->pixmap);
-    }
-  } else {
-    if (so->pixmap_file != NULL) {
-      GdkPixbuf *pixbuf;
-      GError *error = NULL;
-
-      pixbuf = gdk_pixbuf_new_from_file (so->pixmap_file, &error);
-      if (pixbuf != NULL) {
-        int width = gdk_pixbuf_get_width (pixbuf);
-        int height = gdk_pixbuf_get_height (pixbuf);
-        if (width > 22) {
-          GdkPixbuf *cropped;
-          g_warning ("Shape icon '%s' size wrong, cropped.", so->pixmap_file);
-          cropped = gdk_pixbuf_new_subpixbuf (pixbuf,
-                                              (width - 22) / 2,
-                                              height > 22 ? (height - 22) / 2 : 0,
-                                              22,
-                                              height > 22 ? 22 : height);
-          g_clear_object (&pixbuf);
-          pixbuf = cropped;
-        }
-        gdk_pixbuf_render_pixmap_and_mask (pixbuf, pixmap, mask, 1.0);
-        g_clear_object (&pixbuf);
-      } else {
-        message_warning ("%s", error->message);
-        g_clear_error (&error);
-        *pixmap = gdk_pixmap_colormap_create_from_xpm_d (NULL,
-                                                         gtk_widget_get_colormap (parent),
-                                                         mask,
-                                                         &style->bg[GTK_STATE_NORMAL],
-                                                         (gchar **) missing);
-      }
-    } else {
-      *pixmap = NULL;
-      *mask = NULL;
-    }
-  }
-}
 
 GtkWidget*
 lookup_widget (GtkWidget   *widget,

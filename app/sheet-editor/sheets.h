@@ -80,14 +80,10 @@ extern GtkWidget *sheets_dialog_optionmenu_menu;
 SheetObjectMod *sheets_append_sheet_object_mod   (SheetObject     *so,
                                                   SheetMod        *sm);
 SheetMod       *sheets_append_sheet_mods         (Sheet           *sheet);
-void            create_object_pixmap             (SheetObject     *so,
-                                                  GtkWidget       *parent,
-                                                  GdkPixmap      **pixmap,
-                                                  GdkBitmap      **mask);
-gchar          *sheet_object_mod_get_type_string (SheetObjectMod  *som);
+char           *sheet_object_mod_get_type_string (SheetObjectMod  *som);
 gboolean        sheets_dialog_create             (void);
 GtkWidget      *lookup_widget                    (GtkWidget       *widget,
-                                                  const gchar     *widget_name);
+                                                  const char      *widget_name);
 void            populate_store                   (GtkListStore    *store);
 void            select_sheet                     (GtkWidget       *combo,
-                                                  gchar           *sheet_name);
+                                                  char            *sheet_name);
