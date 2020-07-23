@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uk\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2020-07-22 23:19+0000\n"
-"PO-Revision-Date: 2020-07-23 09:36+0300\n"
+"POT-Creation-Date: 2020-07-23 10:07+0000\n"
+"PO-Revision-Date: 2020-07-23 14:33+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -831,7 +831,6 @@ msgid "All Files"
 msgstr "Всі файли"
 
 #: app/filedlg.c:417
-#| msgid "Save as"
 msgid "Save As"
 msgstr "Зберегти як"
 
@@ -1938,6 +1937,17 @@ msgstr "Форми SVG"
 msgid "Programmed DiaObject"
 msgstr "Запрограмований об'єкт Діа"
 
+#: app/sheet-editor/sheet-editor-button.c:128
+#, c-format
+msgid "No icon for “%s”"
+msgstr "Немає піктограми для «%s»"
+
+#: app/sheet-editor/sheet-editor-button.c:199
+#: app/sheet-editor/sheets_dialog_callbacks.c:971
+#: data/ui/sheets-new-dialog.ui:195
+msgid "Line Break"
+msgstr "Розрив рядка"
+
 #: app/sheet-editor/sheets_dialog_callbacks.c:155
 msgid "Copy ->"
 msgstr "Копіювати →"
@@ -2023,11 +2033,6 @@ msgstr "Не вдалося розпізнати файл форми: «%s»"
 #: app/sheet-editor/sheets_dialog_callbacks.c:826
 msgid "Sheet must have a Name"
 msgstr "Категорія повинна мати назву"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:971
-#: data/ui/sheets-new-dialog.ui:195
-msgid "Line Break"
-msgstr "Розрив рядка"
 
 #: app/sheet-editor/sheets_dialog_callbacks.c:1426
 #: app/sheet-editor/sheets_dialog_callbacks.c:1432
@@ -11307,121 +11312,3 @@ msgstr "Активність"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "Розгалуження/Об'єднанняy"
-
-#~ msgid "Select SVG Shape File"
-#~ msgstr "Вибрати файл з формою SVG"
-
-#~ msgid "any"
-#~ msgstr "будь-яка"
-
-#~ msgid "Number of undo levels:"
-#~ msgstr "Кількість рівнів скасування:"
-
-#~ msgid "New diagram:"
-#~ msgstr "Нова діаграма:"
-
-#~ msgid "Background Color:"
-#~ msgstr "Колір тла:"
-
-#~ msgid "Snap to object"
-#~ msgstr "Прив'язати до об’єкта"
-
-#~ msgid "New window:"
-#~ msgstr "Нове вікно:"
-
-#~ msgid "Width:"
-#~ msgstr "Ширина:"
-
-#~ msgid "Magnify:"
-#~ msgstr "Збільшення:"
-
-#~ msgid "Page breaks:"
-#~ msgstr "Межі сторінок:"
-
-#~ msgid "Color:"
-#~ msgstr "Колір:"
-
-#~ msgid "Antialias:"
-#~ msgstr "Згладжування:"
-
-#~ msgid "view antialiased"
-#~ msgstr "згладжений перегляд"
-
-#~ msgid "Guides:"
-#~ msgstr "Напрямні:"
-
-#~ msgid "Snap to guides"
-#~ msgstr "Прилипання до напрямних"
-
-#~ msgid "Snap to"
-#~ msgstr "Прив'язуватись до"
-
-#~ msgid "Dynamic grid resizing"
-#~ msgstr "Динамічна зміна очка сітки"
-
-#~ msgid "X Size:"
-#~ msgstr "Розмір X:"
-
-#~ msgid "Y Size:"
-#~ msgstr "Розмір Y:"
-
-#~ msgid "Visual Spacing X:"
-#~ msgstr "Видимий проміжок за X:"
-
-#~ msgid "Visual Spacing Y:"
-#~ msgstr "Видимий проміжок за Y:"
-
-#~ msgid "Hex grid"
-#~ msgstr "Гексагональна сітка"
-
-#~ msgid "Hex Size:"
-#~ msgstr "Розмір шестикутника:"
-
-#~ msgid "Exiting Dia"
-#~ msgstr "Вихід з Діа"
-
-#~ msgid "<unnamed>"
-#~ msgstr "<без назви>"
-
-#~ msgid ""
-#~ "The diagram '%s'\n"
-#~ "has not been saved. Save changes now?"
-#~ msgstr ""
-#~ "Діаграма «%s»\n"
-#~ "не була збережена. Зберегти зміни зараз?"
-
-#~ msgid "Close Diagram"
-#~ msgstr "Закрити діаграму"
-
-#~ msgid "_Discard Changes"
-#~ msgstr "_Відмовитися від змін"
-
-#~| msgid "Do Not Exit"
-#~ msgid "_Do Not Exit"
-#~ msgstr "_Не виходити"
-
-#~| msgid "Exit Without Save"
-#~ msgid "_Exit Without Save"
-#~ msgstr "Ви_йти без збереження"
-
-#~| msgid "Save Selected"
-#~ msgid "_Save Selected"
-#~ msgstr "Збе_регти позначені"
-
-#~ msgid "The following are not saved:"
-#~ msgstr "Не збережено такі файли:"
-
-#~ msgid "Path"
-#~ msgstr "Шлях"
-
-#~ msgid "Select All"
-#~ msgstr "Позначити все"
-
-#~ msgid "Select None"
-#~ msgstr "Зняти позначення"
-
-#~ msgid "Nothing selected for saving.  Would you like to try again?"
-#~ msgstr "Нічого не позначено для збереження. Бажаєте повторити спробу?"
-
-#~ msgid "Too many \"..\"s in filename %s\n"
-#~ msgstr "Забагато «..» у назві файла %s\n"
