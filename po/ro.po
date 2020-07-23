@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2020-05-01 09:43+0000\n"
-"PO-Revision-Date: 2020-06-01 15:50+0300\n"
-"Last-Translator: Florentina Mușat <emryslokadottir [at] gmail [dot] com>\n"
+"POT-Creation-Date: 2020-07-23 10:07+0000\n"
+"PO-Revision-Date: 2020-07-23 15:36+0300\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
 "Language-Team: Gnome Romanian Team <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4\n"
 "X-Project-Style: gnome\n"
 
 #. This is not an errror
@@ -186,7 +186,7 @@ msgstr "Conversia de nume de fișier a eșuat: %s\n"
 msgid "Missing input: %s\n"
 msgstr "Intrare lipsă: %s\n"
 
-#: app/app_procs.c:704 app/commands.c:1146
+#: app/app_procs.c:704 app/commands.c:1143
 msgid "Dia Diagram Editor"
 msgstr "Editor de diagrame Dia"
 
@@ -219,7 +219,7 @@ msgstr ""
 "Nu s-au putut găsi obiecte standard la căutarea de object-libs în „%s”; se "
 "iese..."
 
-#: app/app_procs.c:886
+#: app/app_procs.c:896
 msgid ""
 "This shouldn't happen.  Please file a bug report at https://gitlab.gnome.org/"
 "GNOME/dia describing how you caused this message to appear."
@@ -228,17 +228,17 @@ msgstr ""
 "la https://gitlab.gnome.org/GNOME/dia descriind cum ați determinat să apară "
 "acest mesaj."
 
-#: app/app_procs.c:922 app/display.c:1254 app/exit_dialog.c:264
-#: app/filedlg.c:640
+#: app/app_procs.c:932 app/display.c:1254 app/exit_dialog.c:264
+#: app/filedlg.c:604
 msgid "Save"
 msgstr "Salvare"
 
 #. no standard buttons
-#: app/app_procs.c:967
+#: app/app_procs.c:977
 msgid "Quitting without saving modified diagrams"
 msgstr "Ieșire fără salvarea diagramelor modificate"
 
-#: app/app_procs.c:969
+#: app/app_procs.c:979
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -246,32 +246,32 @@ msgstr ""
 "Există diagrame modificate. Sigur doriți să ieșiți din Dia fără să le "
 "salvați?"
 
-#: app/app_procs.c:973 app/menus.c:87
+#: app/app_procs.c:983 app/menus.c:87
 msgid "Quit Dia"
 msgstr "Terminare Dia"
 
-#: app/app_procs.c:975 app/dia-guide-dialog.c:155 app/exit_dialog.c:217
-#: app/filedlg.c:322 app/filedlg.c:542 app/filedlg.c:877
+#: app/app_procs.c:985 app/dia-guide-dialog.c:155 app/exit_dialog.c:217
+#: app/filedlg.c:314 app/filedlg.c:500 app/filedlg.c:822
 #: app/layer-editor/dia-layer-properties.c:245 data/ui/sheets-edit-dialog.ui:33
 #: data/ui/sheets-new-dialog.ui:32 data/ui/sheets-remove-dialog.ui:32
-#: lib/diaarrowchooser.c:369 lib/dialinechooser.c:306 lib/widgets.c:394
+#: lib/diaarrowchooser.c:402 lib/dialinechooser.c:306 lib/widgets.c:394
 #: plug-ins/xslt/xsltdialog.c:83
 msgid "_Cancel"
 msgstr "_Anulează"
 
-#: app/app_procs.c:980 app/menus.c:87
+#: app/app_procs.c:990 app/menus.c:87
 msgid "_Quit"
 msgstr "_Ieșire"
 
-#: app/app_procs.c:998
+#: app/app_procs.c:1008
 msgid "Exit"
 msgstr "Ieșire"
 
-#: app/app_procs.c:1045 app/app_procs.c:1052
+#: app/app_procs.c:1055 app/app_procs.c:1062
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Nu s-a putut crea directorul de configurare per utilizator"
 
-#: app/app_procs.c:1055
+#: app/app_procs.c:1065
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -279,11 +279,11 @@ msgstr ""
 "Nu s-a putut crea directorul de configurare per utilizator. Asigurați-vă că "
 "variabila de mediu HOME indică un director existent."
 
-#: app/app_procs.c:1079
+#: app/app_procs.c:1089
 msgid "Objects and filters internal to Dia"
 msgstr "Obiecte și filtre interne pentru Dia"
 
-#: app/app_procs.c:1142
+#: app/app_procs.c:1152
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -291,7 +291,7 @@ msgstr ""
 "Autorul original al Dia a fost:\n"
 "\n"
 
-#: app/app_procs.c:1147
+#: app/app_procs.c:1157
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -301,7 +301,7 @@ msgstr ""
 "Responsabilii actuali ai Dia sunt:\n"
 "\n"
 
-#: app/app_procs.c:1152
+#: app/app_procs.c:1162
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -311,7 +311,7 @@ msgstr ""
 "Alți autori sunt:\n"
 "\n"
 
-#: app/app_procs.c:1157
+#: app/app_procs.c:1167
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -321,20 +321,20 @@ msgstr ""
 "Dia este documentat de:\n"
 "\n"
 
-#: app/app_procs.c:1197
+#: app/app_procs.c:1207
 msgid "Available Export Filters (for --filter)"
 msgstr "Filtre de export disponibile (pentru --filter)"
 
 #. Translators: be brief or mess up the table for --list-filters
-#: app/app_procs.c:1200
+#: app/app_procs.c:1210
 msgid "Extension"
 msgstr "Extensie"
 
-#: app/app_procs.c:1201 lib/prop_dict.c:42
+#: app/app_procs.c:1211 lib/prop_dict.c:42
 msgid "Identifier"
 msgstr "Identificator"
 
-#: app/app_procs.c:1202 app/plugin-manager.c:273
+#: app/app_procs.c:1212 app/plugin-manager.c:273
 msgid "Description"
 msgstr "Descriere"
 
@@ -373,15 +373,15 @@ msgstr "Lipirea a eșuat: %s"
 msgid "Clipboard Copy"
 msgstr "Copiere din clipboard"
 
-#: app/commands.c:706
+#: app/commands.c:703
 msgid "No existing object to paste.\n"
 msgstr "Nu există obiect de lipit.\n"
 
-#: app/commands.c:1038 app/commands.c:1086
+#: app/commands.c:1035 app/commands.c:1083
 msgid "Could not find help directory"
 msgstr "Nu s-a putut găsi directorul de ajutor"
 
-#: app/commands.c:1045
+#: app/commands.c:1042
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -390,15 +390,15 @@ msgstr ""
 "Nu s-a putut deschide directorul de ajutor:\n"
 "%s"
 
-#: app/commands.c:1125
+#: app/commands.c:1122
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Harald Ersch <hersch AT romatsa DOT ro>\n"
 "Cristian Secară <cristi AT secarica DOT ro>\n"
 "Ion Laurențiu Cristian <ionlaurentiucristian AT gmail DOT com>\n"
-"Florentina Mușat <emryslokadottir [at] gmail [dot] com>, 2020"
+"Florentina Mușat <florentina [dot] musat [dot] 28 [at] gmail [dot] com>, 2020"
 
-#: app/commands.c:1128
+#: app/commands.c:1125
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -430,11 +430,11 @@ msgstr ""
 "GNU General Public License. Dacă nu, scrieți la Free Software\n"
 "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: app/commands.c:1148
+#: app/commands.c:1145
 msgid "A program for drawing structured diagrams."
 msgstr "Un program pentru desenat diagrame structurate."
 
-#: app/confirm.c:67
+#: app/confirm.c:77
 #, c-format
 msgid "You are about to print a diagram with %d page."
 msgid_plural "You are about to print a diagram with %d pages."
@@ -442,7 +442,7 @@ msgstr[0] "Sunteți pe cale de a tipări o diagramă cu %d pagină."
 msgstr[1] "Sunteți pe cale de a tipări o diagramă cu %d pagini."
 msgstr[2] "Sunteți pe cale de a tipări o diagramă cu %d de pagini."
 
-#: app/confirm.c:71
+#: app/confirm.c:81
 #, c-format
 msgid "You are about to export a diagram with %d page."
 msgid_plural "You are about to export a diagram with %d pages."
@@ -450,7 +450,7 @@ msgstr[0] "Sunteți pe cale de a exporta o diagramă cu %d pagină."
 msgstr[1] "Sunteți pe cale de a exporta o diagramă cu %d pagini."
 msgstr[2] "Sunteți pe cale de a exporta o diagramă cu %d de pagini."
 
-#: app/confirm.c:75
+#: app/confirm.c:85
 #, c-format
 msgid ""
 "You are about to export a diagram which may require %s of memory.(%d page)."
@@ -467,7 +467,7 @@ msgstr[2] ""
 "(%d de pagini)."
 
 # „
-#: app/confirm.c:84
+#: app/confirm.c:94
 msgid ""
 "You can adjust the size of the diagram by changing the 'Scaling' in the "
 "'Page Setup' dialog.\n"
@@ -479,7 +479,7 @@ msgstr ""
 "Alternativ, utilizați „Cea mai bună potrivire” pentru a muta obiectele/"
 "mânerele în limitele dorite."
 
-#: app/confirm.c:88
+#: app/confirm.c:98
 msgid "Confirm Diagram Size"
 msgstr "Confirmă dimensiunea diagramei"
 
@@ -495,12 +495,12 @@ msgstr "Implicit pentru obiecte"
 #: app/defaults.c:47 app/dia-props.c:270 app/find-and-replace.c:550
 #: app/find-and-replace.c:585 app/menus.c:118 app/pagesetup.c:79
 #: app/plugin-manager.c:207 app/properties-dialog.c:60
-#: data/ui/sheets-main-dialog.ui:302
+#: data/ui/sheets-main-dialog.ui:314
 msgid "_Close"
 msgstr "În_chide"
 
 #: app/defaults.c:48 app/dia-props.c:271 app/pagesetup.c:80
-#: app/properties-dialog.c:61 data/ui/sheets-main-dialog.ui:272
+#: app/properties-dialog.c:61 data/ui/sheets-main-dialog.ui:282
 msgid "_Apply"
 msgstr "_Aplică"
 
@@ -508,7 +508,7 @@ msgstr "_Aplică"
 #: app/layer-editor/dia-layer-properties.c:244 app/pagesetup.c:81
 #: app/properties-dialog.c:62 data/ui/sheets-edit-dialog.ui:44
 #: data/ui/sheets-new-dialog.ui:43 data/ui/sheets-remove-dialog.ui:43
-#: lib/diaarrowchooser.c:370 lib/dialinechooser.c:307
+#: lib/diaarrowchooser.c:403 lib/dialinechooser.c:307
 #: objects/AADL/edit_port_declaration.c:156 plug-ins/xslt/xsltdialog.c:84
 msgid "_OK"
 msgstr "_OK"
@@ -613,12 +613,12 @@ msgid "Line width"
 msgstr "Lățimea liniei"
 
 #: app/dia-line-width-area.c:105 lib/dialogs.c:66
-#: plug-ins/postscript/paginate_psprint.c:323
+#: plug-ins/postscript/paginate_psprint.c:320
 msgid "Cancel"
 msgstr "Renunță"
 
 #: app/dia-line-width-area.c:106 lib/dialogs.c:65
-#: plug-ins/postscript/paginate_psprint.c:315
+#: plug-ins/postscript/paginate_psprint.c:312
 msgid "OK"
 msgstr "OK"
 
@@ -787,7 +787,7 @@ msgstr "Dacă nu salvați, toate modificările vor fi pierdute permanent."
 msgid "Close _without Saving"
 msgstr "Închide _fără salvare"
 
-#: app/exit_dialog.c:221 app/filedlg.c:543 app/filedlg.c:878 app/menus.c:112
+#: app/exit_dialog.c:221 app/filedlg.c:501 app/filedlg.c:823 app/menus.c:112
 msgid "_Save"
 msgstr "_Salvează"
 
@@ -810,77 +810,52 @@ msgstr[2] ""
 "Există %d de diagrame cu modificări nesalvate. Salvați modificările înainte "
 "de a închide?"
 
-#: app/filedlg.c:163 app/filedlg.c:171 app/filedlg.c:187 app/filedlg.c:919
+#: app/filedlg.c:155 app/filedlg.c:163 app/filedlg.c:179 app/filedlg.c:869
 #: lib/widgets.c:404
 msgid "Supported Formats"
 msgstr "Formatele suportate"
 
-#: app/filedlg.c:216 app/filedlg.c:744
+#: app/filedlg.c:208 app/filedlg.c:708
 msgid "By extension"
 msgstr "După extensie"
 
 # titlu pe bară
-#: app/filedlg.c:319
+#: app/filedlg.c:311
 msgid "Open Diagram"
 msgstr "Deschidere de diagramă"
 
-#: app/filedlg.c:323 lib/widgets.c:395
+#: app/filedlg.c:315 lib/widgets.c:395
 msgid "_Open"
 msgstr "_Deschide"
 
 # titlu pe chenar
-#: app/filedlg.c:351
+#: app/filedlg.c:343
 msgid "Open Options"
 msgstr "Opțiuni de deschidere"
 
-#: app/filedlg.c:359 app/filedlg.c:901
+#: app/filedlg.c:351 app/filedlg.c:849
 msgid "Determine file type:"
 msgstr "Determină tipul de fișier:"
 
-#: app/filedlg.c:379 app/filedlg.c:914 lib/widgets.c:412
+#: app/filedlg.c:371 app/filedlg.c:863 lib/widgets.c:412
 msgid "All Files"
 msgstr "Toate fișierele"
 
-#: app/filedlg.c:426 plug-ins/postscript/paginate_psprint.c:413
-msgid ""
-"Some characters in the filename are neither UTF-8\n"
-"nor your local encoding.\n"
-"Some things will break."
-msgstr ""
-"Unele caractere din numele fișierului nu sunt nici UTF-8\n"
-"nici codarea locală.\n"
-"Unele lucruri vor funcționa prost."
-
-#: app/filedlg.c:436 app/filedlg.c:800
-#: plug-ins/postscript/paginate_psprint.c:431
-msgid "File already exists"
-msgstr "Fișierul există deja"
-
-#: app/filedlg.c:438 app/filedlg.c:802
-#: plug-ins/postscript/paginate_psprint.c:426
-#, c-format
-msgid ""
-"The file '%s' already exists.\n"
-"Do you want to overwrite it?"
-msgstr ""
-"Fișierul „%s” există deja.\n"
-"Vreți să îl suprascrieți?"
-
-#: app/filedlg.c:458
-msgid "Save as"
+#: app/filedlg.c:417
+msgid "Save As"
 msgstr "Salvează ca"
 
-#: app/filedlg.c:539
+#: app/filedlg.c:497
 msgid "Save Diagram"
 msgstr "Salvează diagrama"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:553
+#: app/filedlg.c:511
 msgid "Compress diagram files"
 msgstr "Comprimă fișierele diagramă"
 
-#: app/filedlg.c:562
+#: app/filedlg.c:522
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -892,11 +867,11 @@ msgstr ""
 # titlu pe chenar
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: app/filedlg.c:825 objects/FS/function.c:690 objects/FS/function.c:692
+#: app/filedlg.c:765 objects/FS/function.c:690 objects/FS/function.c:692
 msgid "Export"
 msgstr "Exportă"
 
-#: app/filedlg.c:837
+#: app/filedlg.c:777
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -906,12 +881,12 @@ msgstr ""
 "trebuie folosit pentru a salva „%s”"
 
 # hm ? acțiune sau titlu ?
-#: app/filedlg.c:874
+#: app/filedlg.c:819
 msgid "Export Diagram"
 msgstr "Exportă diagrama"
 
 # hm ? acțiune sau titlu ?
-#: app/filedlg.c:893
+#: app/filedlg.c:841
 msgid "Export Options"
 msgstr "Exportă opțiunile"
 
@@ -1045,7 +1020,7 @@ msgstr "Adăugare strat"
 msgid "Close Layer pane"
 msgstr "Închide panoul de strat"
 
-#: app/load_save.c:279
+#: app/load_save.c:275
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -1053,7 +1028,7 @@ msgstr ""
 "Eroare la încărcarea diagramei.\n"
 "Obiectul legat nu a fost găsit în document."
 
-#: app/load_save.c:283
+#: app/load_save.c:279
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1062,7 +1037,7 @@ msgstr ""
 "Eroare la încărcarea diagramei.\n"
 "Mânerul de conectare %d nu există pe „%s”."
 
-#: app/load_save.c:299
+#: app/load_save.c:295
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1071,16 +1046,16 @@ msgstr ""
 "Eroare la încărcarea diagramei.\n"
 "Punctul de conectare %d nu există pe „%s”."
 
-#: app/load_save.c:339
+#: app/load_save.c:335
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "Nu s-a putut găsi părintele %s al obiectului %s\n"
 
-#: app/load_save.c:413
+#: app/load_save.c:409
 msgid "You must specify a file, not a directory."
 msgstr "Trebuie să specificați un fișier, nu un director."
 
-#: app/load_save.c:421 plug-ins/dxf/dxf-import.c:1322
+#: app/load_save.c:417 plug-ins/dxf/dxf-import.c:1322
 #: plug-ins/wpg/wpg-import.c:504 plug-ins/xfig/xfig-import.c:1300
 #: plug-ins/xslt/xslt.c:99
 #, c-format
@@ -1088,14 +1063,14 @@ msgid "Couldn't open: '%s' for reading.\n"
 msgstr "Nu s-a putut deschide „%s” pentru citire.\n"
 
 #. this was talking about unknown file type but it could as well be broken XML
-#: app/load_save.c:440
+#: app/load_save.c:436
 #, c-format
 msgid "Error loading diagram %s."
 msgstr ""
 "Eroare la încărcarea diagramei %s.\n"
 "Nu este un fișier Dia."
 
-#: app/load_save.c:451
+#: app/load_save.c:447
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1104,7 +1079,7 @@ msgstr ""
 "Eroare la încărcarea diagramei %s.\n"
 "Tip de fișier necunoscut."
 
-#: app/load_save.c:459
+#: app/load_save.c:455
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1113,11 +1088,11 @@ msgstr ""
 "Eroare la încărcarea diagramei %s.\n"
 "Nu este un fișier Dia."
 
-#: app/load_save.c:762
+#: app/load_save.c:758
 msgid "Error reading connections"
 msgstr "Eroare la citirea conexiunilor"
 
-#: app/load_save.c:785
+#: app/load_save.c:781
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1128,27 +1103,27 @@ msgstr ""
 "%s.\n"
 "Un fișier Dia valid are cel puțin un strat."
 
-#: app/load_save.c:1112
+#: app/load_save.c:1108
 #, c-format
 msgid "Error saving connections to layer '%s'"
 msgstr "Eroare la salvarea conexiunilor la stratul „%s”"
 
-#: app/load_save.c:1121
+#: app/load_save.c:1117
 #, c-format
 msgid "Connection saving is incomplete for layer '%s'"
 msgstr "Salvarea conexiunii nu este completă pentru stratul „%s”"
 
-#: app/load_save.c:1178
+#: app/load_save.c:1174
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "Nu este permisă scrierea în fișierul de ieșire %s\n"
 
-#: app/load_save.c:1210
+#: app/load_save.c:1206
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Nu este permisă scrierea de fișiere temporare în %s\n"
 
-#: app/load_save.c:1233 plug-ins/cgm/cgm.c:1097 plug-ins/dxf/dxf-export.c:583
+#: app/load_save.c:1229 plug-ins/cgm/cgm.c:1097 plug-ins/dxf/dxf-export.c:583
 #: plug-ins/metapost/render_metapost.c:1105 plug-ins/pgf/render_pgf.c:1357
 #: plug-ins/postscript/render_eps.c:105 plug-ins/pstricks/render_pstricks.c:967
 #: plug-ins/vdx/vdx-export.c:1782 plug-ins/wmf/wmf.cpp:1417
@@ -1159,21 +1134,21 @@ msgstr "Nu s-a putut deschide fișierul de ieșire %s"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: app/load_save.c:1244
+#: app/load_save.c:1240
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "Eroare internă %d la scrierea fișierului %s\n"
 
-#: app/load_save.c:1255
+#: app/load_save.c:1251
 #, c-format
 msgid "Can't rename %s to final output file %s"
 msgstr "Nu se poate redenumi %s la fișierul de ieșire final %s"
 
-#: app/load_save.c:1378 app/load_save.c:1389
+#: app/load_save.c:1376 app/load_save.c:1387
 msgid "Auto save"
 msgstr "Salvare automată"
 
-#: app/load_save.c:1413 app/load_save.c:1418
+#: app/load_save.c:1411 app/load_save.c:1416
 msgid "Dia Diagram File"
 msgstr "Fișier diagramă Dia"
 
@@ -1181,7 +1156,7 @@ msgstr "Fișier diagramă Dia"
 msgid "_File"
 msgstr "_Fișier"
 
-#: app/menus.c:85 data/ui/sheets-main-dialog.ui:256
+#: app/menus.c:85 data/ui/sheets-main-dialog.ui:265
 msgid "_New"
 msgstr "_Nou"
 
@@ -1950,15 +1925,15 @@ msgstr "Proprietăți: "
 msgid "Object properties:"
 msgstr "Proprietăți obiect:"
 
-#: app/sheet-editor/sheets.c:192 sheets/AADL.sheet:28
+#: app/sheet-editor/sheets.c:190 sheets/AADL.sheet:28
 msgid "System"
 msgstr "Sistem"
 
-#: app/sheet-editor/sheets.c:193
+#: app/sheet-editor/sheets.c:191
 msgid "User"
 msgstr "Utilizator"
 
-#: app/sheet-editor/sheets.c:244
+#: app/sheet-editor/sheets.c:242
 msgid ""
 "Can't get symbol 'custom_type' from any module.\n"
 "Editing shapes is disabled."
@@ -1966,63 +1941,63 @@ msgstr ""
 "Nu s-a putut obține simbolul „custom_type” din niciun modul.\n"
 "Editarea formelor va fi dezactivată."
 
-#: app/sheet-editor/sheets.c:427
+#: app/sheet-editor/sheets.c:357
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Widgetul %s nu a fost găsit"
 
-#: app/sheet-editor/sheets.c:457
+#: app/sheet-editor/sheets.c:387
 msgid "SVG Shape"
 msgstr "Formă SVG"
 
-#: app/sheet-editor/sheets.c:459
+#: app/sheet-editor/sheets.c:389
 msgid "Programmed DiaObject"
 msgstr "Obiect Dia programat"
 
-# titlu pe bară
-#: app/sheet-editor/sheets_dialog.c:306
-msgid "Select SVG Shape File"
-msgstr "Selectare fișier formă SVG"
+#: app/sheet-editor/sheet-editor-button.c:128
+#, c-format
+msgid "No icon for “%s”"
+msgstr "Nicio iconiță pentru „%s”"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:163
-msgid "Copy ->"
-msgstr "Copiază ->"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:165
-msgid "Copy All ->"
-msgstr "Copiază tot ->"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:167
-msgid "Move ->"
-msgstr "Mută ->"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:169
-msgid "Move All ->"
-msgstr "Mută tot ->"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:174
-msgid "<- Copy"
-msgstr "<- Copiază"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:176
-msgid "<- Copy All"
-msgstr "<- Copiază tot"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:178
-msgid "<- Move"
-msgstr "<- Mută"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:180
-msgid "<- Move All"
-msgstr "<- Mută tot"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:282
-#: app/sheet-editor/sheets_dialog_callbacks.c:1036
+#: app/sheet-editor/sheet-editor-button.c:199
+#: app/sheet-editor/sheets_dialog_callbacks.c:971
 #: data/ui/sheets-new-dialog.ui:195
 msgid "Line Break"
 msgstr "Întrerupere linie"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:296
+#: app/sheet-editor/sheets_dialog_callbacks.c:155
+msgid "Copy ->"
+msgstr "Copiază ->"
+
+#: app/sheet-editor/sheets_dialog_callbacks.c:157
+msgid "Copy All ->"
+msgstr "Copiază tot ->"
+
+#: app/sheet-editor/sheets_dialog_callbacks.c:159
+msgid "Move ->"
+msgstr "Mută ->"
+
+#: app/sheet-editor/sheets_dialog_callbacks.c:161
+msgid "Move All ->"
+msgstr "Mută tot ->"
+
+#: app/sheet-editor/sheets_dialog_callbacks.c:166
+msgid "<- Copy"
+msgstr "<- Copiază"
+
+#: app/sheet-editor/sheets_dialog_callbacks.c:168
+msgid "<- Copy All"
+msgstr "<- Copiază tot"
+
+#: app/sheet-editor/sheets_dialog_callbacks.c:170
+msgid "<- Move"
+msgstr "<- Mută"
+
+#: app/sheet-editor/sheets_dialog_callbacks.c:172
+msgid "<- Move All"
+msgstr "<- Mută tot"
+
+#: app/sheet-editor/sheets_dialog_callbacks.c:270
 #, c-format
 msgid ""
 "%s\n"
@@ -2031,7 +2006,7 @@ msgstr ""
 "%s\n"
 "Formă"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:299
+#: app/sheet-editor/sheets_dialog_callbacks.c:273
 #, c-format
 msgid ""
 "%s\n"
@@ -2040,7 +2015,7 @@ msgstr ""
 "%s\n"
 "Obiect"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:303
+#: app/sheet-editor/sheets_dialog_callbacks.c:277
 #, c-format
 msgid ""
 "%s\n"
@@ -2050,64 +2025,64 @@ msgstr ""
 "Tip nealocat"
 
 # titlu pe bară
-#: app/sheet-editor/sheets_dialog_callbacks.c:749
+#: app/sheet-editor/sheets_dialog_callbacks.c:715
 msgid "Please select a .shape file"
 msgstr "Alegeți un fișier .shape"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:755
+#: app/sheet-editor/sheets_dialog_callbacks.c:721
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "Numele fișierului trebuie să se termine cu „%s”: „%s”"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:762
+#: app/sheet-editor/sheets_dialog_callbacks.c:728
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "Eroare la examinarea %s: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:790
+#: app/sheet-editor/sheets_dialog_callbacks.c:757
 msgid "Please export the diagram as a shape."
 msgstr "Exportați diagrama ca formă."
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:794
+#: app/sheet-editor/sheets_dialog_callbacks.c:761
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "Nu s-a putut interpreta fișierul formă „%s”"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:859
+#: app/sheet-editor/sheets_dialog_callbacks.c:826
 msgid "Sheet must have a Name"
 msgstr "Foaia trebuie să aibă un nume"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1513
-#: app/sheet-editor/sheets_dialog_callbacks.c:1519
+#: app/sheet-editor/sheets_dialog_callbacks.c:1426
+#: app/sheet-editor/sheets_dialog_callbacks.c:1432
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Nu s-a putut deschide „%s”: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1573
+#: app/sheet-editor/sheets_dialog_callbacks.c:1488
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Nu s-a putut deschide „%s” pentru scriere"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1583
+#: app/sheet-editor/sheets_dialog_callbacks.c:1498
 msgid "a user"
 msgstr "un utilizator"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1596
+#: app/sheet-editor/sheets_dialog_callbacks.c:1512
 #, c-format
 msgid "File: %s"
 msgstr "Fișier: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1599
+#: app/sheet-editor/sheets_dialog_callbacks.c:1515
 #, c-format
 msgid "Date: %s"
 msgstr "Dată: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1603
+#: app/sheet-editor/sheets_dialog_callbacks.c:1519
 #, c-format
 msgid "For: %s"
 msgstr "Pentru: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1620
+#: app/sheet-editor/sheets_dialog_callbacks.c:1536
 msgid "add shapes here"
 msgstr "adaugă forme aici"
 
@@ -2148,7 +2123,7 @@ msgstr "Mută suprafața diagramei"
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
 #: app/toolbox.c:127 lib/properties.c:94 lib/properties.h:678
-#: objects/AADL/aadlbox.c:153 objects/custom/custom_object.c:225
+#: objects/AADL/aadlbox.c:153 objects/custom/custom_object.c:223
 #: objects/Jackson/requirement.c:128 objects/network/basestation.c:130
 #: objects/network/radiocell.c:129 objects/UML/activity.c:127
 #: objects/UML/actor.c:118 objects/UML/classicon.c:143
@@ -2574,7 +2549,7 @@ msgid "DiaObject"
 msgstr "DiaObject"
 
 #: data/ui/sheets-edit-dialog.ui:261 objects/ER/attribute.c:150
-#: objects/ER/entity.c:132 objects/ER/relationship.c:137
+#: objects/ER/entity.c:132 objects/ER/relationship.c:136
 #: objects/UML/class_attributes_dialog.c:669
 #: objects/UML/class_operations_dialog.c:874
 #: objects/UML/class_operations_dialog.c:1275
@@ -2587,39 +2562,39 @@ msgstr "Nume:"
 msgid "Sheet"
 msgstr "Foaie"
 
-#: data/ui/sheets-main-dialog.ui:6
+#: data/ui/sheets-main-dialog.ui:4
 msgid "Sheets and Objects"
 msgstr "Foi și obiecte"
 
-#: data/ui/sheets-main-dialog.ui:43
+#: data/ui/sheets-main-dialog.ui:44
 msgid "_Up"
 msgstr "S_us"
 
-#: data/ui/sheets-main-dialog.ui:59
+#: data/ui/sheets-main-dialog.ui:61
 msgid "_Down"
 msgstr "_Jos"
 
-#: data/ui/sheets-main-dialog.ui:75
+#: data/ui/sheets-main-dialog.ui:78
 msgid "_Remove"
 msgstr "_Elimină"
 
-#: data/ui/sheets-main-dialog.ui:91
+#: data/ui/sheets-main-dialog.ui:94
 msgid "<- C_opy"
 msgstr "<- C_opiază"
 
-#: data/ui/sheets-main-dialog.ui:106
+#: data/ui/sheets-main-dialog.ui:110
 msgid "<- Copy _All"
 msgstr "<- Copiază to_ate"
 
-#: data/ui/sheets-main-dialog.ui:120
+#: data/ui/sheets-main-dialog.ui:125
 msgid "<- _Move"
 msgstr "<- _Mută"
 
-#: data/ui/sheets-main-dialog.ui:135
+#: data/ui/sheets-main-dialog.ui:141
 msgid "<- Move A_ll"
 msgstr "<- Mută to_ate"
 
-#: data/ui/sheets-main-dialog.ui:287
+#: data/ui/sheets-main-dialog.ui:298
 msgid "_Revert"
 msgstr "_Revenire"
 
@@ -2829,11 +2804,11 @@ msgstr "săgeată necunoscută"
 #: lib/create.c:51 lib/create.c:101 lib/create.c:130 lib/create.c:165
 #: lib/create.c:203 lib/create.c:237 lib/create.c:261 lib/create.c:295
 #: lib/create.c:316 lib/create.c:346 lib/create.c:393
-#: plug-ins/svg/svg-import.c:697 plug-ins/vdx/vdx-import.c:143
+#: plug-ins/svg/svg-import.c:731 plug-ins/vdx/vdx-import.c:142
 msgid "Can't find standard object"
 msgstr "Nu s-a putut găsi obiectul standard"
 
-#: lib/diaarrowchooser.c:366
+#: lib/diaarrowchooser.c:399
 msgid "Arrow Properties"
 msgstr "Proprietăți săgeată"
 
@@ -2892,13 +2867,13 @@ msgstr "Detalii…"
 msgid "Dash length: "
 msgstr "Lungimea liniuței: "
 
-#: lib/diapatternselector.c:92 lib/prop_inttypes.c:157 lib/prop_pixbuf.c:309
+#: lib/diapatternselector.c:92 lib/prop_inttypes.c:157 lib/prop_pixbuf.c:321
 msgid "Yes"
 msgstr "Da"
 
 #: lib/diapatternselector.c:96 lib/diapatternselector.c:189
-#: lib/prop_inttypes.c:159 lib/prop_inttypes.c:185 lib/prop_pixbuf.c:311
-#: lib/prop_pixbuf.c:317
+#: lib/prop_inttypes.c:159 lib/prop_inttypes.c:185 lib/prop_pixbuf.c:323
+#: lib/prop_pixbuf.c:329
 msgid "No"
 msgstr "Nu"
 
@@ -3058,7 +3033,7 @@ msgstr "Rută automată"
 msgid "Autorouting"
 msgstr "Rutare automată"
 
-#: lib/persistence.c:339
+#: lib/persistence.c:335
 msgid "Persistence"
 msgstr "Persistență"
 
@@ -3079,7 +3054,7 @@ msgstr "Lipsește simbolul „dia_plugin_init”"
 msgid "dia_plugin_init() call failed"
 msgstr "apelul dia_plugin_init() a eșuat"
 
-#: lib/plug-ins.c:412
+#: lib/plug-ins.c:419
 msgid "Plugin Configuration"
 msgstr "Configurare de plugin"
 
@@ -3246,7 +3221,7 @@ msgstr "Conversia proprietății de la int la enum a depășit limita"
 msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
 msgstr "Lipsă atribut „%s” (%p) sau lipsă date (%p) în acest atribut"
 
-#: lib/prop_pixbuf.c:112 lib/prop_pixbuf.c:160
+#: lib/prop_pixbuf.c:116 lib/prop_pixbuf.c:165
 #, c-format
 msgid ""
 "Failed to load image form diagram:\n"
@@ -3255,7 +3230,7 @@ msgstr ""
 "Încărcarea imaginii de la diagramă a eșuat:\n"
 "%s"
 
-#: lib/prop_pixbuf.c:228
+#: lib/prop_pixbuf.c:240
 #, c-format
 msgid ""
 "Saving inline pixbuf failed:\n"
@@ -3264,12 +3239,12 @@ msgstr ""
 "Salvarea inline a pixbuf-ului a eșuat:\n"
 "%s"
 
-#: lib/prop_pixbuf.c:336
+#: lib/prop_pixbuf.c:348
 msgid "Cant create image data from scratch!"
 msgstr "Nu se pot crea datele imaginii de la zero!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: lib/prop_sdarray_widget.c:557 objects/chronogram/chronoline.c:159
+#: lib/prop_sdarray_widget.c:563 objects/chronogram/chronoline.c:159
 #: objects/UML/umloperation.c:77
 msgid "Parameters"
 msgstr "Parametri"
@@ -3282,7 +3257,7 @@ msgstr[0] "Grup cu %d obiect"
 msgstr[1] "Grupă cu %d obiecte"
 msgstr[2] "Grupă cu %d de obiecte"
 
-#: lib/sheet.c:75 lib/sheet.c:91
+#: lib/sheet.c:66 lib/sheet.c:82
 #, c-format
 msgid ""
 "DiaObject '%s' needed in sheet '%s' was not found.\n"
@@ -3291,7 +3266,7 @@ msgstr ""
 "DiaObject-ul „%s” necesar în foaia „%s” nu a fost găsit.\n"
 "Nu va fi disponibil pentru utilizare."
 
-#: lib/sheet.c:357
+#: lib/sheet.c:349
 #, c-format
 msgid ""
 "The system sheet '%s' appears to be more recent than your custom\n"
@@ -3308,7 +3283,7 @@ msgstr ""
 "personalizată\n"
 "sau eliminați „%s”, folosind caseta de dialog 'Foi și obiecte'."
 
-#: lib/sheet.c:425
+#: lib/sheet.c:417
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr ""
@@ -3347,11 +3322,11 @@ msgstr "Convertește la Bézier"
 msgid "Invert Path"
 msgstr "Inversează calea"
 
-#: lib/standard-path.c:743 objects/custom/custom_object.c:1912
+#: lib/standard-path.c:743 objects/custom/custom_object.c:1910
 msgid "Flip Horizontal"
 msgstr "Întoarce orizontal"
 
-#: lib/standard-path.c:744 objects/custom/custom_object.c:1913
+#: lib/standard-path.c:744 objects/custom/custom_object.c:1911
 msgid "Flip Vertical"
 msgstr "Răstoarnă vertical"
 
@@ -3603,47 +3578,47 @@ msgstr "Pas minor de timp"
 msgid "Minor step line width"
 msgstr "Lățime linie de pas minor"
 
-#: objects/custom/custom.c:145
+#: objects/custom/custom.c:138
 msgid "Custom"
 msgstr "Personalizat"
 
-#: objects/custom/custom.c:146
+#: objects/custom/custom.c:139
 msgid "Custom XML shapes loader"
 msgstr "Încărcător de forme XML personalizate"
 
-#: objects/custom/custom_object.c:196 objects/custom/custom_object.c:229
+#: objects/custom/custom_object.c:194 objects/custom/custom_object.c:227
 msgid "Flip horizontal"
 msgstr "Întoarce orizontal"
 
-#: objects/custom/custom_object.c:198 objects/custom/custom_object.c:231
+#: objects/custom/custom_object.c:196 objects/custom/custom_object.c:229
 msgid "Flip vertical"
 msgstr "Răstoarnă vertical"
 
-#: objects/custom/custom_object.c:201 objects/custom/custom_object.c:234
+#: objects/custom/custom_object.c:199 objects/custom/custom_object.c:232
 msgid "Scale of the sub-shapes"
 msgstr "Scara sub-formelor"
 
-#: objects/custom/custom_object.c:215 objects/flowchart/box.c:150
+#: objects/custom/custom_object.c:213 objects/flowchart/box.c:150
 #: objects/flowchart/diamond.c:148 objects/flowchart/ellipse.c:147
 #: objects/flowchart/parallelogram.c:152 objects/SADT/box.c:133
 msgid "Text padding"
 msgstr "Umplere text"
 
 # hm ? sau fișierul de pictogramă ?
-#: objects/custom/custom_object.c:1951
+#: objects/custom/custom_object.c:1949
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Nu se poate deschide pictograma %s pentru obiectul de tip „%s”."
 
-#: objects/custom_lines/custom_lines.c:160
+#: objects/custom_lines/custom_lines.c:152
 msgid "CustomLines"
 msgstr "CustomLines"
 
-#: objects/custom_lines/custom_lines.c:160
+#: objects/custom_lines/custom_lines.c:152
 msgid "Custom XML lines loader"
 msgstr "Încărcător personalizat de linii XML"
 
-#: objects/custom_lines/custom_linetypes.c:259
+#: objects/custom_lines/custom_linetypes.c:256
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr "INTERN: CustomLines: Tip de linie ilegal în obiectul LineInfo."
 
@@ -3858,23 +3833,23 @@ msgstr "Obiecte de diagramă entitate/relație"
 msgid "Total:"
 msgstr "Total:"
 
-#: objects/ER/relationship.c:139
+#: objects/ER/relationship.c:138
 msgid "Left Cardinality:"
 msgstr "Cardinalitate stânga:"
 
-#: objects/ER/relationship.c:141
+#: objects/ER/relationship.c:140
 msgid "Right Cardinality:"
 msgstr "Cardinalitate dreapta:"
 
-#: objects/ER/relationship.c:143
+#: objects/ER/relationship.c:142
 msgid "Rotate:"
 msgstr "Rotire:"
 
-#: objects/ER/relationship.c:145
+#: objects/ER/relationship.c:144
 msgid "Identifying:"
 msgstr "Identificare:"
 
-#: objects/ER/relationship.c:462 sheets/ER.sheet:14
+#: objects/ER/relationship.c:488 sheets/ER.sheet:14
 msgid "Relationship"
 msgstr "Relație"
 
@@ -5705,48 +5680,47 @@ msgstr "Aspect fix"
 msgid "Circle"
 msgstr "Cerc"
 
-#: objects/standard/image.c:122
+#: objects/standard/image.c:117
 msgid "Image file"
 msgstr "Fișier de imagine"
 
-#: objects/standard/image.c:124
+#: objects/standard/image.c:119
 msgid "Inline data"
 msgstr "Date intercalate"
 
-#: objects/standard/image.c:124
+#: objects/standard/image.c:119
 msgid "Store image data in diagram"
 msgstr "Stochează datele imaginii în diagramă"
 
-#: objects/standard/image.c:126
+#: objects/standard/image.c:121
 msgid "Pixbuf"
 msgstr "Pixbuf"
 
-#: objects/standard/image.c:126
+#: objects/standard/image.c:121
 msgid "The Pixbuf reference"
 msgstr "Referința Pixbuf"
 
-#: objects/standard/image.c:128
+#: objects/standard/image.c:123
 msgid "Draw border"
 msgstr "Desenează bordura"
 
-#: objects/standard/image.c:130
+#: objects/standard/image.c:125
 msgid "Keep aspect ratio"
 msgstr "Păstrează raportul de aspect"
 
-#: objects/standard/image.c:132
+#: objects/standard/image.c:127
 msgid "Angle"
 msgstr "Unghi"
 
-#: objects/standard/image.c:261
+#: objects/standard/image.c:256
 msgid "Can't save image without filename"
 msgstr "Nu se poate salva imaginea fără nume de fișier"
 
-#: objects/standard/image.c:766
+#: objects/standard/image.c:761
 msgid "Inconsistent pixbuf during image save."
 msgstr "Pixbuf inconsistent în timpul salvării imaginii."
 
-#. Didn't find file in current directory.
-#: objects/standard/image.c:863
+#: objects/standard/image.c:869
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Fișierul de imagine „%s” nu a fost găsit.\n"
@@ -6682,34 +6656,57 @@ msgstr ""
 msgid "gdk-pixbuf-based bitmap export/import"
 msgstr "import/export bitmap bazat pe gdk-pixbuf"
 
-#: plug-ins/postscript/paginate_psprint.c:274
+#: plug-ins/postscript/paginate_psprint.c:271
 msgid "Select Printer"
 msgstr "Selectare imprimantă"
 
-#: plug-ins/postscript/paginate_psprint.c:286 sheets/ciscocomputer.sheet:43
+#: plug-ins/postscript/paginate_psprint.c:283 sheets/ciscocomputer.sheet:43
 msgid "Printer"
 msgstr "Imprimantă"
 
-#: plug-ins/postscript/paginate_psprint.c:300 sheets/Misc.sheet:13
+#: plug-ins/postscript/paginate_psprint.c:297 sheets/Misc.sheet:13
 msgid "File"
 msgstr "Fișier"
 
-#: plug-ins/postscript/paginate_psprint.c:467
+#: plug-ins/postscript/paginate_psprint.c:409
+msgid ""
+"Some characters in the filename are neither UTF-8\n"
+"nor your local encoding.\n"
+"Some things will break."
+msgstr ""
+"Unele caractere din numele fișierului nu sunt nici UTF-8\n"
+"nici codarea locală.\n"
+"Unele lucruri vor funcționa prost."
+
+#: plug-ins/postscript/paginate_psprint.c:422
+#, c-format
+msgid ""
+"The file '%s' already exists.\n"
+"Do you want to overwrite it?"
+msgstr ""
+"Fișierul „%s” există deja.\n"
+"Vreți să îl suprascrieți?"
+
+#: plug-ins/postscript/paginate_psprint.c:427
+msgid "File already exists"
+msgstr "Fișierul există deja"
+
+#: plug-ins/postscript/paginate_psprint.c:463
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "Nu s-a putut rula comanda „%s”: %s"
 
-#: plug-ins/postscript/paginate_psprint.c:471
+#: plug-ins/postscript/paginate_psprint.c:467
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "Nu s-a putut deschide „%s” pentru scriere: %s"
 
-#: plug-ins/postscript/paginate_psprint.c:494
+#: plug-ins/postscript/paginate_psprint.c:490
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Eroare de tipărire: comanda „%s” a întors %d\n"
 
-#: plug-ins/postscript/paginate_psprint.c:506
+#: plug-ins/postscript/paginate_psprint.c:502
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Eroare de tipărire: comanda „%s” a cauzat sigpipe."
@@ -6982,7 +6979,7 @@ msgstr "Nu se poate exporta o pictogramă PNG fără plugin-ul de export!"
 msgid "Dia Shape File"
 msgstr "Fișier formă Dia"
 
-#: plug-ins/svg/render_svg.c:673 plug-ins/svg/svg-import.c:2169
+#: plug-ins/svg/render_svg.c:688 plug-ins/svg/svg-import.c:2279
 msgid "Scalable Vector Graphics"
 msgstr "Scalable Vector Graphics"
 
@@ -6990,12 +6987,12 @@ msgstr "Scalable Vector Graphics"
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Filtru de export și import Scalable Vector Graphics"
 
-#: plug-ins/svg/svg-import.c:221
+#: plug-ins/svg/svg-import.c:226
 #, c-format
 msgid "Failed to apply transformation for '%s'"
 msgstr "Nu s-a putut aplica transformarea pentru „%s”"
 
-#: plug-ins/svg/svg-import.c:678
+#: plug-ins/svg/svg-import.c:711
 msgid ""
 "Invalid path data.\n"
 "svg:path data must start with moveto."
@@ -7003,16 +7000,16 @@ msgstr ""
 "Cale de date nevalidă.\n"
 "Datele svg:path trebuie să înceapă cu moveto."
 
-#: plug-ins/svg/svg-import.c:1935
+#: plug-ins/svg/svg-import.c:2045
 msgid "'Shape Design' shapes missing."
 msgstr "Lipsește forma „desenului formei”."
 
-#: plug-ins/svg/svg-import.c:1969
+#: plug-ins/svg/svg-import.c:2079
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "Crearea obiectului „%s” a eșuat"
 
-#: plug-ins/svg/svg-import.c:1998
+#: plug-ins/svg/svg-import.c:2108
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -7021,7 +7018,7 @@ msgstr ""
 "Eroare de parsare pentru blocul de memorie.\n"
 "%s"
 
-#: plug-ins/svg/svg-import.c:2016
+#: plug-ins/svg/svg-import.c:2126
 #, c-format
 msgid ""
 "SVG parser error for %s\n"
@@ -7031,7 +7028,7 @@ msgstr ""
 "%s"
 
 #. just a warning
-#: plug-ins/svg/svg-import.c:2022
+#: plug-ins/svg/svg-import.c:2132
 #, c-format
 msgid ""
 "SVG parser warning for %s\n"
@@ -7040,11 +7037,11 @@ msgstr ""
 "Avertisment de parsator SVG pentru %s\n"
 "%s"
 
-#: plug-ins/svg/svg-import.c:2055
+#: plug-ins/svg/svg-import.c:2165
 msgid "Expected SVG name-space not found in file"
 msgstr "Spațiul de nume SVG așteptat nu s-a găsit în fișier"
 
-#: plug-ins/svg/svg-import.c:2075
+#: plug-ins/svg/svg-import.c:2185
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr "elementul rădăcină a fost „%s” – se aștepta „svg”."
@@ -7062,39 +7059,39 @@ msgstr "Salvarea fișierului „%s” a eșuat."
 msgid "Visio XML format"
 msgstr "Format XML Visio"
 
-#: plug-ins/vdx/vdx-import.c:221
+#: plug-ins/vdx/vdx-import.c:220
 #, c-format
 msgid "Couldn't read color: %s"
 msgstr "Nu s-a putut citi culoarea: %s"
 
-#: plug-ins/vdx/vdx-import.c:535
+#: plug-ins/vdx/vdx-import.c:534
 #, c-format
 msgid "Couldn't find shape %d"
 msgstr "Nu s-a putut găsi forma %d"
 
-#: plug-ins/vdx/vdx-import.c:1065
+#: plug-ins/vdx/vdx-import.c:1064
 #, c-format
 msgid "Unexpected Ellipse object: %s"
 msgstr "Obiect elipsă neașteptat: %s"
 
-#: plug-ins/vdx/vdx-import.c:1079
+#: plug-ins/vdx/vdx-import.c:1078
 msgid "Can't rotate ellipse"
 msgstr "Nu s-a putut roti elipsa"
 
-#: plug-ins/vdx/vdx-import.c:1410
+#: plug-ins/vdx/vdx-import.c:1409
 msgid "MoveTo not at start of Bezier"
 msgstr "MutăLa nu este la începutul Bezier-ului"
 
-#: plug-ins/vdx/vdx-import.c:1760
+#: plug-ins/vdx/vdx-import.c:1759
 msgid "Invalid NURBS formula"
 msgstr "Formulă NURBS nevalidă"
 
-#: plug-ins/vdx/vdx-import.c:2019
+#: plug-ins/vdx/vdx-import.c:2018
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Nu s-a putut manevra obiectul străin de tip %s"
 
-#: plug-ins/vdx/vdx-import.c:2954
+#: plug-ins/vdx/vdx-import.c:2953
 #, c-format
 msgid ""
 "VDX parser error for %s\n"
@@ -7103,17 +7100,17 @@ msgstr ""
 "Eroare de parsator VDX pentru %s\n"
 "%s"
 
-#: plug-ins/vdx/vdx-import.c:2966
+#: plug-ins/vdx/vdx-import.c:2965
 msgid "Nothing in document!"
 msgstr "În document nu se află nimic!"
 
 # hm ? VisioDocument, sau document Visio ?
-#: plug-ins/vdx/vdx-import.c:2971
+#: plug-ins/vdx/vdx-import.c:2970
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "Era așteptat un VisioDocument, s-a obținut %s"
 
-#: plug-ins/vdx/vdx-import.c:3055
+#: plug-ins/vdx/vdx-import.c:3054
 msgid "Visio XML File Format"
 msgstr "Format de fișier Visio XML"
 
@@ -11358,6 +11355,10 @@ msgstr "Activitate"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "Bifurcație sau uniune"
+
+# titlu pe bară
+#~ msgid "Select SVG Shape File"
+#~ msgstr "Selectare fișier formă SVG"
 
 #~ msgid "Can't connect to session manager!\n"
 #~ msgstr "Nu s-a putut conecta la managerul de sesiuni!\n"
