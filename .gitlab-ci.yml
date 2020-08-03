@@ -5,7 +5,6 @@ include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_
     - _ccache/
 
 variables:
-    BUNDLE: "dia-dev.flatpak"
     GIT_SUBMODULE_STRATEGY: recursive
 
 flatpak:
@@ -13,9 +12,9 @@ flatpak:
     variables:
         MANIFEST_PATH: "build-aux/flatpak/org.gnome.Dia.json"
         FLATPAK_MODULE: "dia"
-        MESON_ARGS: "-Dtests=false"
         RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
         APP_ID: "org.gnome.Dia"
+        BUNDLE: "dia-dev.flatpak"
     extends: .flatpak
 
 nightly:

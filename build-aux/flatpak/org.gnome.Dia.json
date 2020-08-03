@@ -81,6 +81,9 @@
         {
             "name": "dia",
             "buildsystem": "meson",
+            "config-opts": [
+                "-Dtests=false"
+            ],
             "sources": [
                 {
                     "type": "git",
