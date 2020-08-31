@@ -1208,7 +1208,7 @@ msgstr "Preferències de Dia"
 
 #: app/menus.c:98
 msgid "P_lugins…"
-msgstr "C_onnectors"
+msgstr "C_onnectors…"
 
 #: app/menus.c:98
 msgid "Manage plug-ins"
@@ -2246,7 +2246,7 @@ msgstr "Dia"
 
 #: data/org.gnome.Dia.appdata.xml.in:8
 msgid "Dia is a program for drawing diagrams"
-msgstr "Dia és un programa per a dibuixar diagrames."
+msgstr "Dia és un programa per a dibuixar diagrames"
 
 #: data/org.gnome.Dia.appdata.xml.in:10
 msgid ""
@@ -9631,11 +9631,11 @@ msgstr "Components per als circuits de diagrama de contactes"
 
 #: sheets/Contact.sheet:7
 msgid "'if' (normally open) ladder contact"
-msgstr "Contacte 'si' (normalment obert) del diagrama de contactes"
+msgstr "Contacte «si» (normalment obert) del diagrama de contactes"
 
 #: sheets/Contact.sheet:10
 msgid "'if not' (normally closed) ladder contact"
-msgstr "Contacte 'si no' (normalment tancat) del diagrama de contactes"
+msgstr "Contacte «si no» (normalment tancat) del diagrama de contactes"
 
 #: sheets/Contact.sheet:14
 msgid "Simple output variable"
