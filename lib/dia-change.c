@@ -24,19 +24,19 @@
 #include <gobject/gvaluecollector.h>
 
 #include "dia-change.h"
-#include "diagram.h"
+#include "diagramdata.h"
 
 static void
-dia_change_real_apply (DiaChange *self,
-                       Diagram   *diagram)
+dia_change_real_apply (DiaChange   *self,
+                       DiagramData *diagram)
 {
   g_critical ("%s doesn't implement apply", DIA_CHANGE_TYPE_NAME (self));
 }
 
 
 static void
-dia_change_real_revert (DiaChange *self,
-                        Diagram   *diagram)
+dia_change_real_revert (DiaChange   *self,
+                        DiagramData *diagram)
 {
   g_critical ("%s doesn't implement revert", DIA_CHANGE_TYPE_NAME (self));
 }
@@ -267,22 +267,22 @@ dia_change_new (GType type)
 
 
 void
-dia_change_apply (DiaChange *self,
-                  Diagram   *diagram)
+dia_change_apply (DiaChange   *self,
+                  DiagramData *diagram)
 {
   g_return_if_fail (self && DIA_IS_CHANGE (self));
-  g_return_if_fail (diagram && DIA_IS_DIAGRAM (diagram));
+  g_return_if_fail (diagram && DIA_IS_DIAGRAM_DATA (diagram));
 
   DIA_CHANGE_GET_CLASS (self)->apply (self, diagram);
 }
 
 
 void
-dia_change_revert (DiaChange *self,
-                   Diagram   *diagram)
+dia_change_revert (DiaChange   *self,
+                   DiagramData *diagram)
 {
   g_return_if_fail (self && DIA_IS_CHANGE (self));
-  g_return_if_fail (diagram && DIA_IS_DIAGRAM (diagram));
+  g_return_if_fail (diagram && DIA_IS_DIAGRAM_DATA (diagram));
 
   DIA_CHANGE_GET_CLASS (self)->revert (self, diagram);
 }

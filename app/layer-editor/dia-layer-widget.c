@@ -507,7 +507,7 @@ visible_toggled (GtkToggleButton *widget,
     Diagram *dia = DIA_DIAGRAM (dia_layer_get_parent_diagram (priv->layer));
     change = dia_layer_visibility_change_new (dia, priv->layer, priv->shifted);
     /** This apply kills 'lw', thus we have to hold onto 'lw->dia' */
-    dia_change_apply (change, dia);
+    dia_change_apply (change, DIA_DIAGRAM_DATA (dia));
     undo_set_transactionpoint (dia->undo);
   }
 }

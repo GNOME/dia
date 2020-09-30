@@ -662,7 +662,7 @@ edit_cut_callback (GtkAction *action)
     cnp_store_objects (object_copy_list (cut_list), 0);
 
     change = dia_delete_objects_change_new_with_children (ddisp->diagram, cut_list);
-    dia_change_apply (change, ddisp->diagram);
+    dia_change_apply (change, DIA_DIAGRAM_DATA (ddisp->diagram));
 
     ddisplay_do_update_menu_sensitivity (ddisp);
     diagram_flush (ddisp->diagram);
@@ -720,7 +720,7 @@ edit_paste_callback (GtkAction *action)
     }
 
     change = dia_insert_objects_change_new (ddisp->diagram, paste_list, 0);
-    dia_change_apply (change, ddisp->diagram);
+    dia_change_apply (change, DIA_DIAGRAM_DATA (ddisp->diagram));
 
     diagram_modified (ddisp->diagram);
     undo_set_transactionpoint (ddisp->diagram->undo);
@@ -763,7 +763,7 @@ edit_duplicate_callback (GtkAction *action)
   object_list_move_delta (duplicate_list, &delta);
 
   change = dia_insert_objects_change_new (ddisp->diagram, duplicate_list, 0);
-  dia_change_apply (change, ddisp->diagram);
+  dia_change_apply (change, DIA_DIAGRAM_DATA (ddisp->diagram));
 
   diagram_modified (ddisp->diagram);
   undo_set_transactionpoint (ddisp->diagram->undo);
@@ -790,7 +790,7 @@ objects_move_up_layer (GtkAction *action)
 
   change = dia_move_object_to_layer_change_new (ddisp->diagram, selected_list, TRUE);
 
-  dia_change_apply (change, ddisp->diagram);
+  dia_change_apply (change, DIA_DIAGRAM_DATA (ddisp->diagram));
 
   diagram_modified (ddisp->diagram);
   undo_set_transactionpoint (ddisp->diagram->undo);
@@ -816,7 +816,7 @@ objects_move_down_layer (GtkAction *action)
 
   change = dia_move_object_to_layer_change_new (ddisp->diagram, selected_list, FALSE);
 
-  dia_change_apply (change, ddisp->diagram);
+  dia_change_apply (change, DIA_DIAGRAM_DATA (ddisp->diagram));
 
   diagram_modified (ddisp->diagram);
   undo_set_transactionpoint (ddisp->diagram->undo);
@@ -969,7 +969,7 @@ edit_delete_callback (GtkAction *action)
     delete_list = diagram_get_sorted_selected (ddisp->diagram);
     change = dia_delete_objects_change_new_with_children (ddisp->diagram, delete_list);
     g_list_free (delete_list);
-    dia_change_apply (change, ddisp->diagram);
+    dia_change_apply (change, DIA_DIAGRAM_DATA (ddisp->diagram));
   }
   diagram_modified (ddisp->diagram);
   diagram_update_extents (ddisp->diagram);

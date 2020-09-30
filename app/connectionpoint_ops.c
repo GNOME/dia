@@ -218,7 +218,7 @@ diagram_unconnect_selected(Diagram *dia)
           /* don't do this if type is HANDLE_CONNECTABLE_BREAK */
         if (!diagram_is_selected(dia, handle->connected_to->object)) {
           DiaChange *change = dia_unconnect_change_new (dia, selected_obj, handle);
-          dia_change_apply (change, dia);
+          dia_change_apply (change, DIA_DIAGRAM_DATA (dia));
         }
       }
     }

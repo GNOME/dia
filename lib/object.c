@@ -1587,7 +1587,7 @@ dia_object_get_editor (DiaObject *self,
  * The widget parameter is the one created by
  * the get_properties function.
  *
- * Returns: a #Change that can be used for undo/redo, The returned change is
+ * Returns: a #ObjectChange that can be used for undo/redo, The returned change is
  *          already applied.
  *
  * Stability: Stable
@@ -1719,7 +1719,7 @@ dia_object_set_properties (DiaObject *self,
  * is different from SetPropsFunc since this is used to implement
  * undo/redo.
  *
- * Returns: a #Change for undo/redo
+ * Returns: a #ObjectChange for undo/redo
  *
  * Stability: Stable
  *

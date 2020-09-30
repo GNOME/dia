@@ -795,7 +795,7 @@ diagram_selected_break_external (Diagram *dia)
       if (g_list_find (dia->data->selected, other_obj) == NULL) {
         /* other_obj is not selected, break connection */
         DiaChange *change = dia_unconnect_change_new (dia, obj, obj->handles[i]);
-        dia_change_apply (change, dia);
+        dia_change_apply (change, DIA_DIAGRAM_DATA (dia));
         object_add_updates (obj, dia);
       }
     }
@@ -819,7 +819,7 @@ diagram_selected_break_external (Diagram *dia)
               DiaChange *change;
               connected_list = g_list_previous (connected_list);
               change = dia_unconnect_change_new (dia, other_obj, other_obj->handles[j]);
-              dia_change_apply (change, dia);
+              dia_change_apply (change, DIA_DIAGRAM_DATA (dia));
               if (connected_list == NULL)
                 connected_list = obj->connections[i]->connected;
             }
@@ -1162,7 +1162,7 @@ strip_connections(DiaObject *obj, GList *not_strip_list, Diagram *dia)
     if ((handle->connected_to != NULL) &&
         (g_list_find(not_strip_list, handle->connected_to->object)==NULL)) {
       change = dia_unconnect_change_new (dia, obj, handle);
-      dia_change_apply (change, dia);
+      dia_change_apply (change, DIA_DIAGRAM_DATA (dia));
     }
   }
 }
@@ -1227,7 +1227,7 @@ void diagram_parent_selected(Diagram *dia)
       {
         DiaChange *change;
         change = dia_parenting_change_new (dia, oe2->object, oe1->object, TRUE);
-        dia_change_apply (change, dia);
+        dia_change_apply (change, DIA_DIAGRAM_DATA (dia));
         any_parented = TRUE;
         /*
               oe1->object->parent = oe2->object;
@@ -1262,7 +1262,7 @@ void diagram_unparent_selected(Diagram *dia)
       continue;
 
     change = dia_parenting_change_new (dia, parent, obj, FALSE);
-    dia_change_apply (change, dia);
+    dia_change_apply (change, DIA_DIAGRAM_DATA (dia));
     any_unparented = TRUE;
     /*
     parent->children = g_list_remove(parent->children, obj);
@@ -1298,7 +1298,7 @@ void diagram_unparent_children_selected(Diagram *dia)
       child = (DiaObject *) obj->children->data;
       change = dia_parenting_change_new (dia, obj, child, FALSE);
       /* This will remove one item from the list, so the while terminates. */
-      dia_change_apply (change, dia);
+      dia_change_apply (change, DIA_DIAGRAM_DATA (dia));
     }
     if (obj->children != NULL)
       printf("Obj still has %d children\n",
@@ -1357,7 +1357,7 @@ diagram_group_selected (Diagram *dia)
 
   group = group_create (group_list);
   change = dia_group_objects_change_new (dia, group_list, group, orig_list);
-  dia_change_apply (change, dia);
+  dia_change_apply (change, DIA_DIAGRAM_DATA (dia));
 
   /* Select the created group */
   diagram_select (dia, group);
@@ -1397,7 +1397,7 @@ void diagram_ungroup_selected(Diagram *dia)
       group_index = dia_layer_object_get_index (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)), group);
 
       change = dia_ungroup_objects_change_new (dia, group_list, group, group_index);
-      dia_change_apply (change, dia);
+      dia_change_apply (change, DIA_DIAGRAM_DATA (dia));
 
       diagram_select_list(dia, group_list);
       any_groups = 1;

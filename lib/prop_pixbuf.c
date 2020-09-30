@@ -220,6 +220,8 @@ _make_pixbuf_type_name (const char *p)
 
 /**
  * pixbuf_encode_base64:
+ * @pixbuf: the #GdkPixbuf to encode
+ * @prefix: mime type
  *
  * Reusable variant of pixbuf to base64 string conversion
  */

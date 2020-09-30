@@ -241,7 +241,7 @@ _combine_to_path_callback (GtkAction *action, gpointer data)
   if (obj) {
     /* remove the objects just combined */
     DiaChange *change = dia_delete_objects_change_new_with_children (dia, cut_list);
-    dia_change_apply (change, dia);
+    dia_change_apply (change, DIA_DIAGRAM_DATA (dia));
     /* add the new object with undo */
     dia_insert_objects_change_new (dia, g_list_prepend (NULL, obj), 1);
     diagram_add_object (dia, obj);
@@ -251,7 +251,7 @@ _combine_to_path_callback (GtkAction *action, gpointer data)
   } else {
     /* path combination result is empty, this is just a delete */
     DiaChange *change = dia_delete_objects_change_new_with_children (ddisp->diagram, cut_list);
-    dia_change_apply (change, ddisp->diagram);
+    dia_change_apply (change, DIA_DIAGRAM_DATA (ddisp->diagram));
     undo_set_transactionpoint (ddisp->diagram->undo);
   }
   ddisplay_do_update_menu_sensitivity(ddisp);

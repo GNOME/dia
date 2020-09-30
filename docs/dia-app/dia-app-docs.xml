@@ -96,7 +96,6 @@
 
     <chapter id="undo-api">
       <title>Undo</title>
-      <xi:include href="xml/dia-change.xml" />
       <xi:include href="xml/undo.xml" />
     </chapter>
   </part>

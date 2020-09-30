@@ -89,6 +89,8 @@ libdia_sources = stdprop_sources + [
     'beziershape.h',
     'objchange.c',
     'objchange.h',
+    'dia-change.c',
+    'dia-change.h',
     'dialogs.c',
     'dialogs.h',
     'widgets.c',

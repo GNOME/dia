@@ -159,7 +159,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
     if (obj != parent_obj
         && object_within_parent (obj, parent_obj)) {
       DiaChange *change = dia_parenting_change_new (ddisp->diagram, parent_obj, obj, TRUE);
-      dia_change_apply (change, ddisp->diagram);
+      dia_change_apply (change, DIA_DIAGRAM_DATA (ddisp->diagram));
       break;
     /*
     obj->parent = parent_obj;

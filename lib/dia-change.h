@@ -26,7 +26,7 @@
 
 #ifndef __GTK_DOC_IGNORE__
 // TODO: Fix the diagram.h cycle
-typedef struct _Diagram Diagram;
+typedef struct _DiagramData DiagramData;
 #endif
 
 G_BEGIN_DECLS
@@ -63,14 +63,14 @@ typedef struct _DiaChangeClass DiaChangeClass;
  * DIA_DEFINE_CHANGE (SomeChange, some_change)
  *
  * static void
- * some_change_apply (DiaChange *change,
- *                    Diagram   *diagram)
+ * some_change_apply (DiaChange   *change,
+ *                    DiagramData *diagram)
  * {
  * }
  *
  * static void
- * some_change_revert (DiaChange *change,
- *                     Diagram   *diagram)
+ * some_change_revert (DiaChange   *change,
+ *                     DiagramData *diagram)
  * {
  * }
  *
@@ -86,9 +86,9 @@ typedef struct _DiaChangeClass DiaChangeClass;
   G_DEFINE_TYPE (TypeName, type_name, DIA_TYPE_CHANGE)                       \
                                                                              \
   static void type_name##_apply             (DiaChange        *change,       \
-                                             Diagram          *diagram);     \
+                                             DiagramData      *diagram);     \
   static void type_name##_revert            (DiaChange        *change,       \
-                                             Diagram          *diagram);     \
+                                             DiagramData      *diagram);     \
   static void type_name##_free              (DiaChange        *change);      \
                                                                              \
   static void                                                                \
@@ -118,20 +118,20 @@ struct _DiaChange {
 struct _DiaChangeClass {
   GTypeClass parent;
 
-  void (*apply)  (DiaChange *change,
-                  Diagram   *dia);
-  void (*revert) (DiaChange *change,
-                  Diagram   *dia);
-  void (*free)   (DiaChange *change);
+  void (*apply)  (DiaChange   *change,
+                  DiagramData *dia);
+  void (*revert) (DiaChange   *change,
+                  DiagramData *dia);
+  void (*free)   (DiaChange   *change);
 };
 
-void     dia_change_unref  (gpointer   self);
-gpointer dia_change_ref    (gpointer   self);
-gpointer dia_change_new    (GType      type);
-void     dia_change_apply  (DiaChange *self,
-                            Diagram   *diagram);
-void     dia_change_revert (DiaChange *self,
-                            Diagram   *diagram);
+void     dia_change_unref  (gpointer     self);
+gpointer dia_change_ref    (gpointer     self);
+gpointer dia_change_new    (GType        type);
+void     dia_change_apply  (DiaChange   *self,
+                            DiagramData *diagram);
+void     dia_change_revert (DiaChange   *self,
+                            DiagramData *diagram);
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (DiaChange, dia_change_unref)
 

@@ -46,13 +46,13 @@ DIA_DEFINE_CHANGE (DiaTransactionPointChange, dia_transaction_point_change)
 
 
 static void
-dia_transaction_point_change_apply (DiaChange *self, Diagram *dia)
+dia_transaction_point_change_apply (DiaChange *self, DiagramData *dia)
 {
 }
 
 
 static void
-dia_transaction_point_change_revert (DiaChange *self, Diagram *dia)
+dia_transaction_point_change_revert (DiaChange *self, DiagramData *dia)
 {
 }
 
@@ -71,13 +71,13 @@ dia_transaction_point_change_new (void)
 
 
 UndoStack *
-new_undo_stack(Diagram *dia)
+new_undo_stack (Diagram *dia)
 {
   UndoStack *stack;
   DiaChange *transaction;
 
-  stack = g_new(UndoStack, 1);
-  if (stack!=NULL){
+  stack = g_new (UndoStack, 1);
+  if (stack != NULL){
     stack->dia = dia;
     transaction = dia_transaction_point_change_new ();
     transaction->next = transaction->prev = NULL;
@@ -91,16 +91,16 @@ new_undo_stack(Diagram *dia)
 
 
 void
-undo_destroy(UndoStack *stack)
+undo_destroy (UndoStack *stack)
 {
-  undo_clear(stack);
+  undo_clear (stack);
 
   g_free (stack);
 }
 
 
 static void
-undo_remove_redo_info(UndoStack *stack)
+undo_remove_redo_info (UndoStack *stack)
 {
   DiaChange *change;
   DiaChange *next_change;
@@ -116,14 +116,16 @@ undo_remove_redo_info(UndoStack *stack)
     dia_change_unref (change);
     change = next_change;
   }
-  undo_update_menus(stack);
+  undo_update_menus (stack);
 }
+
 
 void
 undo_push_change (UndoStack *stack, DiaChange *change)
 {
-  if (stack->current_change != stack->last_change)
+  if (stack->current_change != stack->last_change) {
     undo_remove_redo_info (stack);
+  }
 
   g_debug ("Push %s at %d", DIA_CHANGE_TYPE_NAME (change), stack->depth);
 
@@ -137,8 +139,9 @@ undo_push_change (UndoStack *stack, DiaChange *change)
   undo_update_menus (stack);
 }
 
+
 static void
-undo_delete_lowest_transaction(UndoStack *stack)
+undo_delete_lowest_transaction (UndoStack *stack)
 {
   DiaChange *change;
   DiaChange *next_change;
@@ -154,8 +157,9 @@ undo_delete_lowest_transaction(UndoStack *stack)
    * Stop if we reach current_change or NULL.
    */
   do {
-    if ( (change == NULL) || (change == stack->current_change))
+    if ((change == NULL) || (change == stack->current_change)) {
       break;
+    }
 
     next_change = change->next;
     g_debug ("freeing one change from the bottom.");
@@ -167,80 +171,91 @@ undo_delete_lowest_transaction(UndoStack *stack)
     stack->depth--;
     g_debug ("Decreasing stack depth to: %d", stack->depth);
   }
-  if (change) /* play safe */
+
+  if (change) {
+    /* play safe */
     change->prev = NULL;
+  }
 }
 
+
 void
-undo_set_transactionpoint(UndoStack *stack)
+undo_set_transactionpoint (UndoStack *stack)
 {
   DiaChange *transaction;
 
-  if (DIA_IS_TRANSACTION_POINT_CHANGE(stack->current_change))
+  if (DIA_IS_TRANSACTION_POINT_CHANGE (stack->current_change)) {
     return;
+  }
 
   transaction = dia_transaction_point_change_new ();
 
-  undo_push_change(stack, transaction);
+  undo_push_change (stack, transaction);
   stack->depth++;
   g_debug ("Increasing stack depth to: %d", stack->depth);
 
   if (prefs.undo_depth > 0) {
-    while (stack->depth > prefs.undo_depth){
-      undo_delete_lowest_transaction(stack);
+    while (stack->depth > prefs.undo_depth) {
+      undo_delete_lowest_transaction (stack);
     }
   }
 }
 
+
 void
-undo_revert_to_last_tp(UndoStack *stack)
+undo_revert_to_last_tp (UndoStack *stack)
 {
   DiaChange *change;
   DiaChange *prev_change;
 
-  if (stack->current_change->prev == NULL)
+  if (stack->current_change->prev == NULL) {
     return; /* Can't revert first transactionpoint */
+  }
 
   change = stack->current_change;
   do {
     prev_change = change->prev;
-    dia_change_revert (change, stack->dia);
+    dia_change_revert (change, DIA_DIAGRAM_DATA (stack->dia));
     change = prev_change;
-  } while (!DIA_IS_TRANSACTION_POINT_CHANGE(change));
+  } while (!DIA_IS_TRANSACTION_POINT_CHANGE (change));
   stack->current_change  = change;
   stack->depth--;
-  undo_update_menus(stack);
+  undo_update_menus (stack);
   g_debug ("Decreasing stack depth to: %d", stack->depth);
 }
 
+
 void
-undo_apply_to_next_tp(UndoStack *stack)
+undo_apply_to_next_tp (UndoStack *stack)
 {
   DiaChange *change;
   DiaChange *next_change;
 
   change = stack->current_change;
 
-  if (change->next == NULL)
+  if (change->next == NULL) {
     return /* Already at top. */;
+  }
 
   do {
     next_change = change->next;
-    dia_change_apply (change, stack->dia);
+    dia_change_apply (change, DIA_DIAGRAM_DATA (stack->dia));
     change = next_change;
-  } while ( (change != NULL) &&
-	    (!DIA_IS_TRANSACTION_POINT_CHANGE(change)) );
-  if (change == NULL)
+  } while ((change != NULL) && (!DIA_IS_TRANSACTION_POINT_CHANGE (change)));
+
+  if (change == NULL) {
     change = stack->last_change;
+  }
+
   stack->current_change = change;
   stack->depth++;
-  undo_update_menus(stack);
+  undo_update_menus (stack);
   g_debug ("Increasing stack depth to: %d", stack->depth);
 }
 
 
 void
-undo_clear(UndoStack *stack)
+undo_clear (UndoStack *stack)
 {
   DiaChange *change;
 
@@ -254,8 +269,8 @@ undo_clear(UndoStack *stack)
 
   stack->current_change = change;
   stack->depth = 0;
-  undo_remove_redo_info(stack);
-  undo_update_menus(stack);
+  undo_remove_redo_info (stack);
+  undo_update_menus (stack);
 }
 
 
@@ -326,6 +341,7 @@ undo_available (UndoStack *stack, gboolean undo)
   }
 }
 
+
 /**
  * undo_remove_to:
  * @stack: The undo stack to remove items from.
@@ -340,11 +356,13 @@ undo_available (UndoStack *stack, gboolean undo)
  * or %NULL otherwise.  In the latter case, the undo stack will be empty.
  */
 DiaChange *
-undo_remove_to(UndoStack *stack, GType type)
+undo_remove_to (UndoStack *stack, GType type)
 {
   DiaChange *current_change = stack->current_change;
-  if (current_change == NULL)
+
+  if (current_change == NULL) {
     return NULL;
+  }
 
   while (current_change &&
          !g_type_is_a (DIA_CHANGE_TYPE (current_change), type)) {
@@ -353,10 +371,10 @@ undo_remove_to(UndoStack *stack, GType type)
 
   if (current_change != NULL) {
     stack->current_change = current_change;
-    undo_remove_redo_info(stack);
+    undo_remove_redo_info (stack);
     return current_change;
   } else {
-    undo_clear(stack);
+    undo_clear (stack);
     return NULL;
   }
 }
@@ -384,68 +402,70 @@ DIA_DEFINE_CHANGE (DiaMoveObjectsChange, dia_move_objects_change)
 
 
 static void
-dia_move_objects_change_apply (DiaChange *self, Diagram *dia)
+dia_move_objects_change_apply (DiaChange *self, DiagramData *dia)
 {
   DiaMoveObjectsChange *change = DIA_MOVE_OBJECTS_CHANGE (self);
   GList *list;
   int i;
   DiaObject *obj;
 
-  object_add_updates_list(change->obj_list, dia);
+  object_add_updates_list (change->obj_list, DIA_DIAGRAM (dia));
 
   list = change->obj_list;
-  i=0;
+  i = 0;
   while (list != NULL) {
-    obj = (DiaObject *)  list->data;
+    obj = DIA_OBJECT (list->data);
 
     dia_object_move (obj, &change->dest_pos[i]);
 
-    list = g_list_next(list); i++;
+    list = g_list_next (list);
+    i++;
   }
 
   list = change->obj_list;
-  while (list!=NULL) {
-    obj = (DiaObject *) list->data;
+  while (list != NULL) {
+    obj = DIA_OBJECT (list->data);
 
-    diagram_update_connections_object(dia, obj, TRUE);
+    diagram_update_connections_object (DIA_DIAGRAM (dia), obj, TRUE);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 
-  object_add_updates_list(change->obj_list, dia);
+  object_add_updates_list (change->obj_list, DIA_DIAGRAM (dia));
 }
 
 
 static void
-dia_move_objects_change_revert (DiaChange *self, Diagram *dia)
+dia_move_objects_change_revert (DiaChange *self, DiagramData *dia)
 {
   DiaMoveObjectsChange *change = DIA_MOVE_OBJECTS_CHANGE (self);
   GList *list;
   int i;
   DiaObject *obj;
 
-  object_add_updates_list(change->obj_list, dia);
+  object_add_updates_list (change->obj_list, DIA_DIAGRAM (dia));
 
   list = change->obj_list;
-  i=0;
+  i = 0;
   while (list != NULL) {
-    obj = (DiaObject *)  list->data;
+    obj = DIA_OBJECT (list->data);
 
-    dia_object_move(obj, &change->orig_pos[i]);
+    dia_object_move (obj, &change->orig_pos[i]);
 
-    list = g_list_next(list); i++;
+    list = g_list_next (list);
+    i++;
   }
 
   list = change->obj_list;
-  while (list!=NULL) {
-    obj = (DiaObject *) list->data;
+  while (list != NULL) {
+    obj = DIA_OBJECT (list->data);
 
-    diagram_update_connections_object(dia, obj, TRUE);
+    diagram_update_connections_object (DIA_DIAGRAM (dia), obj, TRUE);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 
-  object_add_updates_list(change->obj_list, dia);
+  object_add_updates_list (change->obj_list, DIA_DIAGRAM (dia));
 }
 
 
@@ -496,32 +516,38 @@ DIA_DEFINE_CHANGE (DiaMoveHandleChange, dia_move_handle_change)
 
 
 static void
-dia_move_handle_change_apply (DiaChange *self, Diagram *dia)
+dia_move_handle_change_apply (DiaChange *self, DiagramData *dia)
 {
   DiaMoveHandleChange *change = DIA_MOVE_HANDLE_CHANGE (self);
 
-  object_add_updates (change->obj, dia);
+  object_add_updates (change->obj, DIA_DIAGRAM (dia));
   dia_object_move_handle (change->obj,
                           change->handle,
-				&change->dest_pos, NULL,
-				HANDLE_MOVE_USER_FINAL, change->modifiers);
-  object_add_updates(change->obj, dia);
-  diagram_update_connections_object(dia, change->obj, TRUE);
+                          &change->dest_pos,
+                          NULL,
+                          HANDLE_MOVE_USER_FINAL,
+                          change->modifiers);
+  object_add_updates (change->obj, DIA_DIAGRAM (dia));
+  diagram_update_connections_object (DIA_DIAGRAM (dia), change->obj, TRUE);
 }
+
 
 static void
-dia_move_handle_change_revert (DiaChange *self, Diagram *dia)
+dia_move_handle_change_revert (DiaChange *self, DiagramData *dia)
 {
   DiaMoveHandleChange *change = DIA_MOVE_HANDLE_CHANGE (self);
 
-  object_add_updates (change->obj, dia);
+  object_add_updates (change->obj, DIA_DIAGRAM (dia));
   dia_object_move_handle (change->obj,
                           change->handle,
-				&change->orig_pos, NULL,
-				HANDLE_MOVE_USER_FINAL, change->modifiers);
-  object_add_updates(change->obj, dia);
-  diagram_update_connections_object(dia, change->obj, TRUE);
+                          &change->orig_pos,
+                          NULL,
+                          HANDLE_MOVE_USER_FINAL,
+                          change->modifiers);
+  object_add_updates (change->obj, DIA_DIAGRAM (dia));
+  diagram_update_connections_object (DIA_DIAGRAM (dia), change->obj, TRUE);
 }
+
 
 static void
 dia_move_handle_change_free (DiaChange *self)
@@ -566,37 +592,40 @@ DIA_DEFINE_CHANGE (DiaConnectChange, dia_connect_change)
 
 
 static void
-dia_connect_change_apply (DiaChange *self, Diagram *dia)
+dia_connect_change_apply (DiaChange *self, DiagramData *dia)
 {
   DiaConnectChange *change = DIA_CONNECT_CHANGE (self);
 
-  object_connect(change->obj, change->handle, change->connectionpoint);
+  object_connect (change->obj, change->handle, change->connectionpoint);
 
-  object_add_updates (change->obj, dia);
+  object_add_updates (change->obj, DIA_DIAGRAM (dia));
   dia_object_move_handle (change->obj,
                           change->handle,
-				&change->connectionpoint->pos,
-				change->connectionpoint,
-				HANDLE_MOVE_CONNECTED, 0);
+                          &change->connectionpoint->pos,
+                          change->connectionpoint,
+                          HANDLE_MOVE_CONNECTED,
+                          0);
 
-  object_add_updates(change->obj, dia);
+  object_add_updates (change->obj, DIA_DIAGRAM (dia));
 }
 
 
 static void
-dia_connect_change_revert (DiaChange *self, Diagram *dia)
+dia_connect_change_revert (DiaChange *self, DiagramData *dia)
 {
   DiaConnectChange *change = DIA_CONNECT_CHANGE (self);
 
-  object_unconnect(change->obj, change->handle);
+  object_unconnect (change->obj, change->handle);
 
-  object_add_updates (change->obj, dia);
+  object_add_updates (change->obj, DIA_DIAGRAM (dia));
   dia_object_move_handle (change->obj,
                           change->handle,
-				&change->handle_pos, NULL,
-				HANDLE_MOVE_CONNECTED, 0);
+                          &change->handle_pos,
+                          NULL,
+                          HANDLE_MOVE_CONNECTED,
+                          0);
 
-  object_add_updates(change->obj, dia);
+  object_add_updates (change->obj, DIA_DIAGRAM (dia));
 }
 
 
@@ -640,24 +669,24 @@ DIA_DEFINE_CHANGE (DiaUnconnectChange, dia_unconnect_change)
 
 
 static void
-dia_unconnect_change_apply (DiaChange *self, Diagram *dia)
+dia_unconnect_change_apply (DiaChange *self, DiagramData *dia)
 {
   DiaUnconnectChange *change = DIA_UNCONNECT_CHANGE (self);
 
-  object_unconnect(change->obj, change->handle);
+  object_unconnect (change->obj, change->handle);
 
-  object_add_updates(change->obj, dia);
+  object_add_updates (change->obj, DIA_DIAGRAM (dia));
 }
 
 
 static void
-dia_unconnect_change_revert (DiaChange *self, Diagram *dia)
+dia_unconnect_change_revert (DiaChange *self, DiagramData *dia)
 {
   DiaUnconnectChange *change = DIA_UNCONNECT_CHANGE (self);
 
-  object_connect(change->obj, change->handle, change->connectionpoint);
+  object_connect (change->obj, change->handle, change->connectionpoint);
 
-  object_add_updates(change->obj, dia);
+  object_add_updates (change->obj, DIA_DIAGRAM (dia));
 }
 
 
@@ -698,34 +727,37 @@ DIA_DEFINE_CHANGE (DiaDeleteObjectsChange, dia_delete_objects_change)
 
 
 static void
-dia_delete_objects_change_apply (DiaChange *self, Diagram *dia)
+dia_delete_objects_change_apply (DiaChange *self, DiagramData *dia)
 {
   DiaDeleteObjectsChange *change = DIA_DELETE_OBJECTS_CHANGE (self);
   GList *list;
 
   g_debug ("delete_objects_apply()");
   change->applied = 1;
-  diagram_unselect_objects (dia, change->obj_list);
+  diagram_unselect_objects (DIA_DIAGRAM (dia), change->obj_list);
   dia_layer_remove_objects (change->layer, change->obj_list);
-  object_add_updates_list (change->obj_list, dia);
+  object_add_updates_list (change->obj_list, DIA_DIAGRAM (dia));
 
   list = change->obj_list;
   while (list != NULL) {
-    DiaObject *obj = (DiaObject *)list->data;
+    DiaObject *obj = DIA_OBJECT (list->data);
 
-  /* Have to hide any open properties dialog
-     if it contains some object in cut_list */
-    properties_hide_if_shown(dia, obj);
+    /* Have to hide any open properties dialog
+       if it contains some object in cut_list */
+    properties_hide_if_shown (DIA_DIAGRAM (dia), obj);
 
-    if (obj->parent) /* Lose references to deleted object */
-      obj->parent->children = g_list_remove(obj->parent->children, obj);
+    if (obj->parent) {
+      /* Lose references to deleted object */
+      obj->parent->children = g_list_remove (obj->parent->children, obj);
+    }
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 }
 
+
 static void
-dia_delete_objects_change_revert (DiaChange *self, Diagram *dia)
+dia_delete_objects_change_revert (DiaChange *self, DiagramData *dia)
 {
   DiaDeleteObjectsChange *change = DIA_DELETE_OBJECTS_CHANGE (self);
   GList *list;
@@ -734,15 +766,18 @@ dia_delete_objects_change_revert (DiaChange *self, Diagram *dia)
   change->applied = 0;
   dia_layer_set_object_list (change->layer,
                              g_list_copy (change->original_objects));
-  object_add_updates_list (change->obj_list, dia);
+  object_add_updates_list (change->obj_list, DIA_DIAGRAM (dia));
 
   list = change->obj_list;
   while (list) {
-    DiaObject *obj = (DiaObject *) list->data;
-    if (obj->parent) /* Restore child references */
-      obj->parent->children = g_list_append(obj->parent->children, obj);
+    DiaObject *obj = DIA_OBJECT (list->data);
+    if (obj->parent) {
+
+      /* Restore child references */
+      obj->parent->children = g_list_append (obj->parent->children, obj);
+    }
     /* no need to emit object_add signal, already done by layer_set_object_list */
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 }
 
@@ -753,11 +788,12 @@ dia_delete_objects_change_free (DiaChange *self)
   DiaDeleteObjectsChange *change = DIA_DELETE_OBJECTS_CHANGE (self);
 
   g_debug ("delete_objects_free()");
-  if (change->applied)
-    destroy_object_list(change->obj_list);
-  else
-    g_list_free(change->obj_list);
-  g_list_free(change->original_objects);
+  if (change->applied) {
+    destroy_object_list (change->obj_list);
+  } else {
+    g_list_free (change->obj_list);
+  }
+  g_list_free (change->original_objects);
 }
 
 
@@ -804,39 +840,41 @@ DIA_DEFINE_CHANGE (DiaInsertObjectsChange, dia_insert_objects_change)
 
 
 static void
-dia_insert_objects_change_apply (DiaChange *self, Diagram *dia)
+dia_insert_objects_change_apply (DiaChange *self, DiagramData *dia)
 {
   DiaInsertObjectsChange *change = DIA_INSERT_OBJECTS_CHANGE (self);
 
   g_debug ("insert_objects_apply()");
   change->applied = 1;
   dia_layer_add_objects (change->layer, g_list_copy (change->obj_list));
-  object_add_updates_list (change->obj_list, dia);
+  object_add_updates_list (change->obj_list, DIA_DIAGRAM (dia));
 }
 
+
 static void
-dia_insert_objects_change_revert (DiaChange *self, Diagram *dia)
+dia_insert_objects_change_revert (DiaChange *self, DiagramData *dia)
 {
   DiaInsertObjectsChange *change = DIA_INSERT_OBJECTS_CHANGE (self);
   GList *list;
 
   g_debug ("insert_objects_revert()");
   change->applied = 0;
-  diagram_unselect_objects (dia, change->obj_list);
+  diagram_unselect_objects (DIA_DIAGRAM (dia), change->obj_list);
   dia_layer_remove_objects (change->layer, change->obj_list);
-  object_add_updates_list (change->obj_list, dia);
+  object_add_updates_list (change->obj_list, DIA_DIAGRAM (dia));
 
   list = change->obj_list;
   while (list != NULL) {
-    DiaObject *obj = (DiaObject *)list->data;
+    DiaObject *obj = DIA_OBJECT (list->data);
 
-  /* Have to hide any open properties dialog
-     if it contains some object in cut_list */
-    properties_hide_if_shown(dia, obj);
+    /* Have to hide any open properties dialog
+       if it contains some object in cut_list */
+    properties_hide_if_shown (DIA_DIAGRAM (dia), obj);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 }
+
 
 static void
 dia_insert_objects_change_free (DiaChange *self)
@@ -844,10 +882,11 @@ dia_insert_objects_change_free (DiaChange *self)
   DiaInsertObjectsChange *change = DIA_INSERT_OBJECTS_CHANGE (self);
 
   g_debug ("insert_objects_free()");
-  if (!change->applied)
-    destroy_object_list(change->obj_list);
-  else
-    g_list_free(change->obj_list);
+  if (!change->applied) {
+    destroy_object_list (change->obj_list);
+  } else {
+    g_list_free (change->obj_list);
+  }
 }
 
 
@@ -882,26 +921,26 @@ DIA_DEFINE_CHANGE (DiaReorderObjectsChange, dia_reorder_objects_change)
 
 
 static void
-dia_reorder_objects_change_apply (DiaChange *self, Diagram *dia)
+dia_reorder_objects_change_apply (DiaChange *self, DiagramData *dia)
 {
   DiaReorderObjectsChange *change = DIA_REORDER_OBJECTS_CHANGE (self);
 
   g_debug ("reorder_objects_apply()");
   dia_layer_set_object_list (change->layer,
                              g_list_copy (change->reordered_objects));
-  object_add_updates_list (change->changed_list, dia);
+  object_add_updates_list (change->changed_list, DIA_DIAGRAM (dia));
 }
 
 
 static void
-dia_reorder_objects_change_revert (DiaChange *self, Diagram *dia)
+dia_reorder_objects_change_revert (DiaChange *self, DiagramData *dia)
 {
   DiaReorderObjectsChange *change = DIA_REORDER_OBJECTS_CHANGE (self);
 
   g_debug ("reorder_objects_revert()");
   dia_layer_set_object_list (change->layer,
-                             g_list_copy(change->original_objects));
-  object_add_updates_list (change->changed_list, dia);
+                             g_list_copy (change->original_objects));
+  object_add_updates_list (change->changed_list, DIA_DIAGRAM (dia));
 }
 
 
@@ -911,9 +950,9 @@ dia_reorder_objects_change_free (DiaChange *self)
   DiaReorderObjectsChange *change = DIA_REORDER_OBJECTS_CHANGE (self);
 
   g_debug ("reorder_objects_free()");
-  g_list_free(change->changed_list);
-  g_list_free(change->original_objects);
-  g_list_free(change->reordered_objects);
+  g_list_free (change->changed_list);
+  g_list_free (change->original_objects);
+  g_list_free (change->reordered_objects);
 }
 
 
@@ -950,61 +989,67 @@ static void
 _connections_update_func (gpointer data, gpointer user_data)
 {
   DiaObject *obj = data;
-  Diagram   *dia = (Diagram *)user_data;
+  DiagramData *dia = DIA_DIAGRAM_DATA (user_data);
 
-  diagram_update_connections_object(dia, obj, TRUE);
+  diagram_update_connections_object (DIA_DIAGRAM (dia), obj, TRUE);
 }
 
 
 static void
-dia_object_change_change_apply (DiaChange *self,
-                                Diagram   *dia)
+dia_object_change_change_apply (DiaChange   *self,
+                                DiagramData *dia)
 {
   DiaObjectChangeChange *change = DIA_OBJECT_CHANGE_CHANGE (self);
 
-  if (change->obj)
-    object_add_updates(change->obj, dia);
+  if (change->obj) {
+    object_add_updates (change->obj, DIA_DIAGRAM (dia));
+  }
 
-  change->obj_change->apply(change->obj_change, change->obj);
+  change->obj_change->apply (change->obj_change, change->obj);
 
   if (change->obj) {
     /* Make sure object updates its data: */
     Point p = change->obj->position;
     dia_object_move (change->obj, &p);
 
-    object_add_updates(change->obj, dia);
-    diagram_update_connections_object(dia, change->obj, TRUE);
-    properties_update_if_shown(dia, change->obj);
+    object_add_updates (change->obj, DIA_DIAGRAM (dia));
+    diagram_update_connections_object (DIA_DIAGRAM (dia), change->obj, TRUE);
+    properties_update_if_shown (DIA_DIAGRAM (dia), change->obj);
   } else {
     /* pretty big hammer - update all connections */
-    data_foreach_object (DIA_DIAGRAM_DATA (dia), _connections_update_func, dia);
-    diagram_add_update_all(dia);
+    data_foreach_object (DIA_DIAGRAM_DATA (dia),
+                         _connections_update_func,
+                         DIA_DIAGRAM (dia));
+    diagram_add_update_all (DIA_DIAGRAM (dia));
   }
 }
 
 
 static void
-dia_object_change_change_revert (DiaChange *self,
-                                 Diagram   *dia)
+dia_object_change_change_revert (DiaChange   *self,
+                                 DiagramData *dia)
 {
   DiaObjectChangeChange *change = DIA_OBJECT_CHANGE_CHANGE (self);
 
-  if (change->obj)
-    object_add_updates(change->obj, dia);
+  if (change->obj) {
+    object_add_updates (change->obj, DIA_DIAGRAM (dia));
+  }
 
-  change->obj_change->revert(change->obj_change, change->obj);
+  change->obj_change->revert (change->obj_change, change->obj);
 
   if (change->obj) {
     /* Make sure object updates its data: */
     Point p = change->obj->position;
     dia_object_move (change->obj, &p);
 
-    object_add_updates(change->obj, dia);
-    diagram_update_connections_object(dia, change->obj, TRUE);
-    properties_update_if_shown(dia, change->obj);
+    object_add_updates(change->obj, DIA_DIAGRAM (dia));
+    diagram_update_connections_object (DIA_DIAGRAM (dia), change->obj, TRUE);
+    properties_update_if_shown (DIA_DIAGRAM (dia), change->obj);
   } else {
-    data_foreach_object (DIA_DIAGRAM_DATA (dia), _connections_update_func, dia);
-    diagram_add_update_all(dia);
+    data_foreach_object (DIA_DIAGRAM_DATA (dia),
+                         _connections_update_func,
+                         DIA_DIAGRAM (dia));
+    diagram_add_update_all (DIA_DIAGRAM (dia));
   }
 }
 
@@ -1066,7 +1111,7 @@ DIA_DEFINE_CHANGE (DiaGroupObjectsChange, dia_group_objects_change)
 
 
 static void
-dia_group_objects_change_apply (DiaChange *self, Diagram *dia)
+dia_group_objects_change_apply (DiaChange *self, DiagramData *dia)
 {
   DiaGroupObjectsChange *change = DIA_GROUP_OBJECTS_CHANGE (self);
 
@@ -1076,42 +1121,42 @@ dia_group_objects_change_apply (DiaChange *self, Diagram *dia)
 
   change->applied = 1;
 
-  diagram_unselect_objects (dia, change->obj_list);
+  diagram_unselect_objects (DIA_DIAGRAM (dia), change->obj_list);
   dia_layer_remove_objects (change->layer, change->obj_list);
   dia_layer_add_object (change->layer, change->group);
-  object_add_updates (change->group, dia);
+  object_add_updates (change->group, DIA_DIAGRAM (dia));
 
   list = change->obj_list;
   while (list != NULL) {
-    DiaObject *obj = (DiaObject *)list->data;
+    DiaObject *obj = DIA_OBJECT (list->data);
 
-  /* Have to hide any open properties dialog
-     if it contains some object in cut_list */
-    properties_hide_if_shown(dia, obj);
+    /* Have to hide any open properties dialog
+       if it contains some object in cut_list */
+    properties_hide_if_shown (DIA_DIAGRAM (dia), obj);
 
-    object_add_updates(obj, dia);
+    object_add_updates (obj, DIA_DIAGRAM (dia));
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 }
 
 
 static void
-dia_group_objects_change_revert (DiaChange *self, Diagram *dia)
+dia_group_objects_change_revert (DiaChange *self, DiagramData *dia)
 {
   DiaGroupObjectsChange *change = DIA_GROUP_OBJECTS_CHANGE (self);
 
   g_debug ("group_objects_revert()");
   change->applied = 0;
 
-  diagram_unselect_object (dia, change->group);
-  object_add_updates (change->group, dia);
+  diagram_unselect_object (DIA_DIAGRAM (dia), change->group);
+  object_add_updates (change->group, DIA_DIAGRAM (dia));
 
   dia_layer_set_object_list (change->layer, g_list_copy (change->orig_list));
 
-  object_add_updates_list (change->obj_list, dia);
+  object_add_updates_list (change->obj_list, DIA_DIAGRAM (dia));
 
-  properties_hide_if_shown (dia, change->group);
+  properties_hide_if_shown (DIA_DIAGRAM (dia), change->group);
 }
 
 
@@ -1122,12 +1167,12 @@ dia_group_objects_change_free (DiaChange *self)
 
   g_debug ("group_objects_free()");
   if (!change->applied) {
-    group_destroy_shallow(change->group);
+    group_destroy_shallow (change->group);
     change->group = NULL;
     change->obj_list = NULL;
     /** Leak here? */
   }
-  g_list_free(change->orig_list);
+  g_list_free (change->orig_list);
 }
 
 
@@ -1167,7 +1212,7 @@ DIA_DEFINE_CHANGE (DiaUngroupObjectsChange, dia_ungroup_objects_change)
 
 
 static void
-dia_ungroup_objects_change_apply (DiaChange *self, Diagram *dia)
+dia_ungroup_objects_change_apply (DiaChange *self, DiagramData *dia)
 {
   DiaUngroupObjectsChange *change = DIA_UNGROUP_OBJECTS_CHANGE (self);
 
@@ -1175,19 +1220,19 @@ dia_ungroup_objects_change_apply (DiaChange *self, Diagram *dia)
 
   change->applied = 1;
 
-  diagram_unselect_object (dia, change->group);
-  object_add_updates (change->group, dia);
+  diagram_unselect_object (DIA_DIAGRAM (dia), change->group);
+  object_add_updates (change->group, DIA_DIAGRAM (dia));
   dia_layer_replace_object_with_list (change->layer,
                                       change->group,
-                                      g_list_copy(change->obj_list));
-  object_add_updates_list (change->obj_list, dia);
+                                      g_list_copy (change->obj_list));
+  object_add_updates_list (change->obj_list, DIA_DIAGRAM (dia));
 
-  properties_hide_if_shown (dia, change->group);
+  properties_hide_if_shown (DIA_DIAGRAM (dia), change->group);
 }
 
 
 static void
-dia_ungroup_objects_change_revert (DiaChange *self, Diagram *dia)
+dia_ungroup_objects_change_revert (DiaChange *self, DiagramData *dia)
 {
   DiaUngroupObjectsChange *change = DIA_UNGROUP_OBJECTS_CHANGE (self);
   GList *list;
@@ -1196,20 +1241,20 @@ dia_ungroup_objects_change_revert (DiaChange *self, Diagram *dia)
   change->applied = 0;
 
 
-  diagram_unselect_objects( dia, change->obj_list);
+  diagram_unselect_objects (DIA_DIAGRAM (dia), change->obj_list);
   dia_layer_remove_objects (change->layer, change->obj_list);
   dia_layer_add_object_at (change->layer, change->group, change->group_index);
-  object_add_updates (change->group, dia);
+  object_add_updates (change->group, DIA_DIAGRAM (dia));
 
   list = change->obj_list;
   while (list != NULL) {
-    DiaObject *obj = (DiaObject *)list->data;
+    DiaObject *obj = DIA_OBJECT (list->data);
 
-  /* Have to hide any open properties dialog
-     if it contains some object in cut_list */
-    properties_hide_if_shown(dia, obj);
+    /* Have to hide any open properties dialog
+       if it contains some object in cut_list */
+    properties_hide_if_shown (DIA_DIAGRAM (dia), obj);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 }
 
@@ -1222,7 +1267,7 @@ dia_ungroup_objects_change_free (DiaChange *self)
   g_debug ("ungroup_objects_free()");
 
   if (change->applied) {
-    group_destroy_shallow(change->group);
+    group_destroy_shallow (change->group);
     change->group = NULL;
     change->obj_list = NULL;
   }
@@ -1265,26 +1310,26 @@ DIA_DEFINE_CHANGE (DiaParentingChange, dia_parenting_change)
 /** Performs the actual parenting of a child to a parent.
  * Since no display changes arise from this, we need call no update. */
 static void
-parent_object(Diagram *dia, DiaObject *parent, DiaObject *child)
+parent_object (DiagramData *dia, DiaObject *parent, DiaObject *child)
 {
   child->parent = parent;
-  parent->children = g_list_prepend(parent->children, child);
+  parent->children = g_list_prepend (parent->children, child);
 }
 
 
 /** Performs the actual removal of a child from a parent.
  * Since no display changes arise from this, we need call no update. */
 static void
-unparent_object(Diagram *dia, DiaObject *parent, DiaObject *child)
+unparent_object (DiagramData *dia, DiaObject *parent, DiaObject *child)
 {
   child->parent = NULL;
-  parent->children = g_list_remove(parent->children, child);
+  parent->children = g_list_remove (parent->children, child);
 }
 
 
 /** Applies the given ParentChange */
 static void
-dia_parenting_change_apply (DiaChange *change, Diagram *dia)
+dia_parenting_change_apply (DiaChange *change, DiagramData *dia)
 {
   DiaParentingChange *parentchange = DIA_PARENTING_CHANGE (change);
 
@@ -1298,7 +1343,7 @@ dia_parenting_change_apply (DiaChange *change, Diagram *dia)
 
 /** Reverts the given ParentChange */
 static void
-dia_parenting_change_revert (DiaChange *change, Diagram *dia)
+dia_parenting_change_revert (DiaChange *change, DiagramData *dia)
 {
   DiaParentingChange *parentchange = DIA_PARENTING_CHANGE (change);
 
@@ -1368,31 +1413,31 @@ DIA_DEFINE_CHANGE (DiaMoveObjectToLayerChange, dia_move_object_to_layer_change)
  * better make it listen to object-add signal?
  */
 static void
-move_object_layer_relative (Diagram *dia, GList *objects, gint dist)
+move_object_layer_relative (DiagramData *dia, GList *objects, gint dist)
 {
   /* from the active layer to above or below */
   DiaLayer *active, *target;
   guint pos;
 
-  g_return_if_fail (data_layer_count (DIA_DIAGRAM_DATA (dia)) != 0);
+  g_return_if_fail (data_layer_count (dia) != 0);
 
-  active = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
+  active = dia_diagram_data_get_active_layer (dia);
 
   g_return_if_fail (active);
 
-  pos = data_layer_get_index (DIA_DIAGRAM_DATA (dia), active);
+  pos = data_layer_get_index (dia, active);
 
-  pos = (pos + data_layer_count (DIA_DIAGRAM_DATA (dia)) + dist) % data_layer_count (DIA_DIAGRAM_DATA (dia));
-  target = data_layer_get_nth (DIA_DIAGRAM_DATA (dia), pos);
-  object_add_updates_list (objects, dia);
+  pos = (pos + data_layer_count (dia) + dist) % data_layer_count (dia);
+  target = data_layer_get_nth (dia, pos);
+  object_add_updates_list (objects, DIA_DIAGRAM (dia));
   dia_layer_remove_objects (active, objects);
   dia_layer_add_objects (target, g_list_copy (objects));
-  data_set_active_layer (dia->data, target);
+  data_set_active_layer (dia, target);
 }
 
 
 static void
-dia_move_object_to_layer_change_apply (DiaChange *self, Diagram *dia)
+dia_move_object_to_layer_change_apply (DiaChange *self, DiagramData *dia)
 {
   DiaMoveObjectToLayerChange *change = DIA_MOVE_OBJECT_TO_LAYER_CHANGE (self);
 
@@ -1405,18 +1450,18 @@ dia_move_object_to_layer_change_apply (DiaChange *self, Diagram *dia)
 
 
 static void
-dia_move_object_to_layer_change_revert (DiaChange *self, Diagram *dia)
+dia_move_object_to_layer_change_revert (DiaChange *self, DiagramData *dia)
 {
   DiaMoveObjectToLayerChange *change = DIA_MOVE_OBJECT_TO_LAYER_CHANGE (self);
 
   if (change->moving_up) {
     move_object_layer_relative (dia, change->objects, -1);
   } else {
-    diagram_unselect_objects (dia, change->objects);
+    diagram_unselect_objects (DIA_DIAGRAM (dia), change->objects);
     move_object_layer_relative (dia, change->objects, 1);
     /* overwriting the 'unsorted' list of objects to the order it had before */
     dia_layer_set_object_list (change->orig_layer, g_list_copy (change->orig_list));
-    object_add_updates_list (change->orig_list, dia);
+    object_add_updates_list (change->orig_list, DIA_DIAGRAM (dia));
   }
 }
 
@@ -1465,50 +1510,56 @@ DIA_DEFINE_CHANGE (DiaImportChange, dia_import_change)
 
 
 static void
-dia_import_change_apply (DiaChange *self,
-                         Diagram   *dia)
+dia_import_change_apply (DiaChange   *self,
+                         DiagramData *dia)
 {
   DiaImportChange *change = DIA_IMPORT_CHANGE (self);
   GList *list;
-  DiaLayer *layer = dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia));
+  DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
 
   /* add all objects and layers added from the diagram */
   for (list = change->layers; list != NULL; list = list->next) {
     layer = DIA_LAYER (list->data);
     data_add_layer (DIA_DIAGRAM_DATA (change->dia), layer);
   }
+
   for (list = change->objects; list != NULL; list = list->next) {
-    DiaObject *obj = (DiaObject *)list->data;
-     /* ToDo: layer assignment wont be triggered for removed objects.
-      *   Maybe we need to store all the layers with the objects ourself?
-      */
-    if (dia_object_get_parent_layer (obj))
+    DiaObject *obj = DIA_OBJECT (list->data);
+    /* TODO: layer assignment wont be triggered for removed objects.
+     * Maybe we need to store all the layers with the objects ourself?
+     */
+    if (dia_object_get_parent_layer (obj)) {
       layer = dia_object_get_parent_layer (obj);
+    }
+
     dia_layer_add_object (layer, obj);
   }
-  diagram_update_extents (change->dia);
+
+  diagram_update_extents (DIA_DIAGRAM (change->dia));
 }
 
 
 static void
-dia_import_change_revert (DiaChange *self,
-                          Diagram   *diagram)
+dia_import_change_revert (DiaChange   *self,
+                          DiagramData *diagram)
 {
   DiaImportChange *change = DIA_IMPORT_CHANGE (self);
   GList *list;
 
   /* otherwise we might end up with an empty selection */
-  diagram_unselect_objects (change->dia, change->objects);
+  diagram_unselect_objects (DIA_DIAGRAM (change->dia), change->objects);
   /* remove all objects and layers added from the diagram */
   for (list = change->objects; list != NULL; list = list->next) {
     DiaObject *obj = DIA_OBJECT (list->data);
     DiaLayer *layer = dia_object_get_parent_layer (obj);
     dia_layer_remove_object (layer, obj);
   }
+
   for (list = change->layers; list != NULL; list = list->next) {
     DiaLayer *layer = DIA_LAYER (list->data);
     data_remove_layer (DIA_DIAGRAM_DATA (change->dia), layer);
   }
+
   diagram_update_extents (change->dia);
 }
 
@@ -1593,6 +1644,7 @@ dia_import_change_done (Diagram *dia, DiaChange *chg)
     undo_push_change (dia->undo, chg);
     return TRUE;
   }
+
   return FALSE;
 }
 
@@ -1610,7 +1662,7 @@ DIA_DEFINE_CHANGE (DiaMemSwapChange, dia_mem_swap_change)
 
 
 static void
-_swap_mem (DiaMemSwapChange *change, Diagram *dia)
+_swap_mem (DiaMemSwapChange *change, DiagramData *dia)
 {
   gsize  i;
 
@@ -1619,22 +1671,23 @@ _swap_mem (DiaMemSwapChange *change, Diagram *dia)
     change->mem[i] = change->dest[i];
     change->dest[i] = tmp;
   }
-  diagram_add_update_all (dia);
-  diagram_flush (dia);
+
+  diagram_add_update_all (DIA_DIAGRAM (dia));
+  diagram_flush (DIA_DIAGRAM (dia));
 }
 
 
 static void
-dia_mem_swap_change_apply (DiaChange *change,
-                           Diagram   *diagram)
+dia_mem_swap_change_apply (DiaChange   *change,
+                           DiagramData *diagram)
 {
   _swap_mem (DIA_MEM_SWAP_CHANGE (change), diagram);
 }
 
 
 static void
-dia_mem_swap_change_revert (DiaChange *change,
-                            Diagram   *diagram)
+dia_mem_swap_change_revert (DiaChange   *change,
+                            DiagramData *diagram)
 {
   _swap_mem (DIA_MEM_SWAP_CHANGE (change), diagram);
 }

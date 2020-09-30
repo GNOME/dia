@@ -141,7 +141,7 @@ object_connect_display(DDisplay *ddisp, DiaObject *obj, Handle *handle,
                                                   obj,
                                                   handle,
                                                   connectionpoint);
-      dia_change_apply (change, ddisp->diagram);
+      dia_change_apply (change, DIA_DIAGRAM_DATA (ddisp->diagram));
     }
   }
 }
