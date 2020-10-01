@@ -17,63 +17,63 @@
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
- * Copyright © 2019 Zander Brown <zbrown@gnome.org>
+ * Copyright © 2020 Zander Brown <zbrown@gnome.org>
  */
 
 #include <glib-object.h>
 #include <gobject/gvaluecollector.h>
 
-#include "dia-change.h"
-#include "diagramdata.h"
+#include "dia-object-change.h"
+#include "object.h"
 
 
 static void
-dia_change_real_apply (DiaChange   *self,
-                       DiagramData *diagram)
+dia_object_change_real_apply (DiaObjectChange *self,
+                              DiaObject       *object)
 {
-  g_critical ("%s doesn't implement apply", DIA_CHANGE_TYPE_NAME (self));
+  g_critical ("%s doesn't implement apply", DIA_OBJECT_CHANGE_TYPE_NAME (self));
 }
 
 
 static void
-dia_change_real_revert (DiaChange   *self,
-                        DiagramData *diagram)
+dia_object_change_real_revert (DiaObjectChange *self,
+                               DiaObject       *object)
 {
-  g_critical ("%s doesn't implement revert", DIA_CHANGE_TYPE_NAME (self));
+  g_critical ("%s doesn't implement revert", DIA_OBJECT_CHANGE_TYPE_NAME (self));
 }
 
 
 static void
-dia_change_real_free (DiaChange *self)
-{
-}
-
-
-static void
-dia_change_base_class_init (DiaChangeClass *klass)
-{
-  klass->apply = dia_change_real_apply;
-  klass->revert = dia_change_real_revert;
-  klass->free = dia_change_real_free;
-}
-
-
-static void
-dia_change_class_finalize (DiaChangeClass *klass)
-{
-
-}
-
-
-static void
-dia_change_do_class_init (DiaChangeClass *klass)
+dia_object_change_real_free (DiaObjectChange *self)
 {
 }
 
 
 static void
-dia_change_init (DiaChange      *self,
-                 DiaChangeClass *klass)
+dia_object_change_base_class_init (DiaObjectChangeClass *klass)
+{
+  klass->apply = dia_object_change_real_apply;
+  klass->revert = dia_object_change_real_revert;
+  klass->free = dia_object_change_real_free;
+}
+
+
+static void
+dia_object_change_class_finalize (DiaObjectChangeClass *klass)
+{
+
+}
+
+
+static void
+dia_object_change_do_class_init (DiaObjectChangeClass *klass)
+{
+}
+
+
+static void
+dia_object_change_init (DiaObjectChange      *self,
+                 DiaObjectChangeClass *klass)
 {
   g_ref_count_init (&self->refs);
 }
@@ -90,7 +90,7 @@ static void
 g_value_change_free_value (GValue *value)
 {
   if (value->data[0].v_pointer) {
-    dia_change_unref (value->data[0].v_pointer);
+    dia_object_change_unref (value->data[0].v_pointer);
   }
 }
 
@@ -100,7 +100,7 @@ g_value_change_copy_value (const GValue *src_value,
                            GValue       *dest_value)
 {
   if (src_value->data[0].v_pointer) {
-    dest_value->data[0].v_pointer = dia_change_ref (src_value->data[0].v_pointer);
+    dest_value->data[0].v_pointer = dia_object_change_ref (src_value->data[0].v_pointer);
   } else {
     dest_value->data[0].v_pointer = NULL;
   }
@@ -121,22 +121,22 @@ g_value_change_collect_value (GValue      *value,
                               guint        collect_flags)
 {
   if (collect_values[0].v_pointer) {
-    DiaChange *change = collect_values[0].v_pointer;
+    DiaObjectChange *change = collect_values[0].v_pointer;
 
     if (change->g_type_instance.g_class == NULL) {
       return g_strconcat ("invalid unclassed change pointer for value type '",
                           G_VALUE_TYPE_NAME (value),
                           "'",
                           NULL);
-    } else if (!g_value_type_compatible (DIA_CHANGE_TYPE (change), G_VALUE_TYPE (value))) {
+    } else if (!g_value_type_compatible (DIA_OBJECT_CHANGE_TYPE (change), G_VALUE_TYPE (value))) {
       return g_strconcat ("invalid change type '",
-                          DIA_CHANGE_TYPE_NAME (change),
+                          DIA_OBJECT_CHANGE_TYPE_NAME (change),
                           "' for value type '",
                           G_VALUE_TYPE_NAME (value),
                           "'",
                           NULL);
       /* never honour G_VALUE_NOCOPY_CONTENTS for ref-counted types */
-      value->data[0].v_pointer = dia_change_ref (change);
+      value->data[0].v_pointer = dia_object_change_ref (change);
     }
   } else {
     value->data[0].v_pointer = NULL;
@@ -152,7 +152,7 @@ g_value_change_lcopy_value (const GValue *value,
                             GTypeCValue  *collect_values,
                             guint         collect_flags)
 {
-  DiaChange **change_p = collect_values[0].v_pointer;
+  DiaObjectChange **change_p = collect_values[0].v_pointer;
 
   if (!change_p) {
     return g_strdup_printf ("value location for '%s' passed as NULL",
@@ -164,7 +164,7 @@ g_value_change_lcopy_value (const GValue *value,
   } else if (collect_flags & G_VALUE_NOCOPY_CONTENTS) {
     *change_p = value->data[0].v_pointer;
   } else {
-    *change_p = dia_change_ref (value->data[0].v_pointer);
+    *change_p = dia_object_change_ref (value->data[0].v_pointer);
   }
 
   return NULL;
@@ -176,8 +176,8 @@ g_value_change_transform_value (const GValue *src_value,
                                 GValue       *dest_value)
 {
   if (src_value->data[0].v_pointer &&
-      g_type_is_a (DIA_CHANGE_TYPE (src_value->data[0].v_pointer), G_VALUE_TYPE (dest_value))) {
-    dest_value->data[0].v_pointer = dia_change_ref (src_value->data[0].v_pointer);
+      g_type_is_a (DIA_OBJECT_CHANGE_TYPE (src_value->data[0].v_pointer), G_VALUE_TYPE (dest_value))) {
+    dest_value->data[0].v_pointer = dia_object_change_ref (src_value->data[0].v_pointer);
   } else {
     dest_value->data[0].v_pointer = NULL;
   }
@@ -185,7 +185,7 @@ g_value_change_transform_value (const GValue *src_value,
 
 
 GType
-dia_change_get_type (void)
+dia_object_change_get_type (void)
 {
   static volatile GType type_id = 0;
 
@@ -194,15 +194,15 @@ dia_change_get_type (void)
       G_TYPE_FLAG_CLASSED | G_TYPE_FLAG_INSTANTIATABLE | G_TYPE_FLAG_DERIVABLE,
     };
     GTypeInfo info = {
-      sizeof (DiaChangeClass),
-      (GBaseInitFunc) dia_change_base_class_init,
-      (GBaseFinalizeFunc) dia_change_class_finalize,
-      (GClassInitFunc) dia_change_do_class_init,
+      sizeof (DiaObjectChangeClass),
+      (GBaseInitFunc) dia_object_change_base_class_init,
+      (GBaseFinalizeFunc) dia_object_change_class_finalize,
+      (GClassInitFunc) dia_object_change_do_class_init,
       NULL,                         /* class_destroy */
       NULL,                         /* class_data */
-      sizeof (DiaChange),
+      sizeof (DiaObjectChange),
       0,                            /* n_preallocs */
-      (GInstanceInitFunc) dia_change_init,
+      (GInstanceInitFunc) dia_object_change_init,
       NULL,                         /* value_table */
     };
     static const GTypeValueTable value_table = {
@@ -219,7 +219,7 @@ dia_change_get_type (void)
 
     info.value_table = &value_table;
     type = g_type_register_fundamental (g_type_fundamental_next (),
-                                        g_intern_static_string ("DiaChange"),
+                                        g_intern_static_string ("DiaObjectChange"),
                                         &info,
                                         &finfo,
                                         0);
@@ -235,8 +235,8 @@ dia_change_get_type (void)
 
 
 /**
- * dia_change_ref:
- * @self: the #DiaChange
+ * dia_object_change_ref:
+ * @self: the #DiaObjectChange
  *
  * Returns: (transfer full): a new reference
  *
@@ -245,19 +245,19 @@ dia_change_get_type (void)
  * Stability: Stable
  */
 gpointer
-dia_change_ref (gpointer self)
+dia_object_change_ref (gpointer self)
 {
   g_return_val_if_fail (self != NULL, NULL);
 
-  g_ref_count_inc (&((DiaChange *) self)->refs);
+  g_ref_count_inc (&((DiaObjectChange *) self)->refs);
 
   return self;
 }
 
 
 /**
- * dia_change_unref:
- * @self: (transfer full): the #DiaChange
+ * dia_object_change_unref:
+ * @self: (transfer full): the #DiaObjectChange
  *
  * Decrease the ref count of @self potentially freeing it
  *
@@ -266,12 +266,12 @@ dia_change_ref (gpointer self)
  * Stability: Stable
  */
 void
-dia_change_unref (gpointer self)
+dia_object_change_unref (gpointer self)
 {
   g_return_if_fail (self != NULL);
 
-  if (g_ref_count_dec (&((DiaChange *) self)->refs)) {
-    DIA_CHANGE_GET_CLASS (self)->free (self);
+  if (g_ref_count_dec (&((DiaObjectChange *) self)->refs)) {
+    DIA_OBJECT_CHANGE_GET_CLASS (self)->free (self);
 
     g_type_free_instance (self);
   }
@@ -279,31 +279,31 @@ dia_change_unref (gpointer self)
 
 
 /**
- * dia_change_new:
- * @type: the #DiaChange derrived #GType to instantiate
+ * dia_object_change_new:
+ * @type: the #DiaObjectChange derrived #GType to instantiate
  *
  * Create an instance of @type, it's epected this will be used inside a
  * constructor for @type rather than in general code
  *
- * Returns: (transfer full): A new #DiaChange instance
+ * Returns: (transfer full): A new #DiaObjectChange instance
  *
  * Since: 0.98
  *
  * Stability: Stable
  */
 gpointer
-dia_change_new (GType type)
+dia_object_change_new (GType type)
 {
-  g_return_val_if_fail (DIA_TYPE_IS_CHANGE (type), NULL);
+  g_return_val_if_fail (DIA_TYPE_IS_OBJECT_CHANGE (type), NULL);
 
   return g_type_create_instance (type);
 }
 
 
 /**
- * dia_change_apply:
- * @self: a #DiaChange
- * @diagram: the #DiagramData to apply @self to
+ * dia_object_change_apply:
+ * @self: a #DiaObjectChange
+ * @object: the #DiaObject to apply @self to
  *
  * Do a change
  *
@@ -312,20 +312,20 @@ dia_change_new (GType type)
  * Stability: Stable
  */
 void
-dia_change_apply (DiaChange   *self,
-                  DiagramData *diagram)
+dia_object_change_apply (DiaObjectChange *self,
+                         DiaObject       *object)
 {
-  g_return_if_fail (self && DIA_IS_CHANGE (self));
-  g_return_if_fail (diagram && DIA_IS_DIAGRAM_DATA (diagram));
+  g_return_if_fail (self && DIA_IS_OBJECT_CHANGE (self));
+  g_return_if_fail (object && DIA_IS_DIAGRAM_DATA (object));
 
-  DIA_CHANGE_GET_CLASS (self)->apply (self, diagram);
+  DIA_OBJECT_CHANGE_GET_CLASS (self)->apply (self, object);
 }
 
 
 /**
- * dia_change_revert:
- * @self: a #DiaChange
- * @diagram: the #DiagramData to revert @self from
+ * dia_object_change_revert:
+ * @self: a #DiaObjectChange
+ * @object: the #DiaObject to revert @self from
  *
  * Undo a change
  *
@@ -334,11 +334,11 @@ dia_change_apply (DiaChange   *self,
  * Stability: Stable
  */
 void
-dia_change_revert (DiaChange   *self,
-                   DiagramData *diagram)
+dia_object_change_revert (DiaObjectChange *self,
+                          DiaObject       *object)
 {
-  g_return_if_fail (self && DIA_IS_CHANGE (self));
-  g_return_if_fail (diagram && DIA_IS_DIAGRAM_DATA (diagram));
+  g_return_if_fail (self && DIA_IS_OBJECT_CHANGE (self));
+  g_return_if_fail (object && DIA_IS_DIAGRAM_DATA (object));
 
-  DIA_CHANGE_GET_CLASS (self)->revert (self, diagram);
+  DIA_OBJECT_CHANGE_GET_CLASS (self)->revert (self, object);
 }
