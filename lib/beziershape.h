@@ -28,8 +28,15 @@
 #include "boundingbox.h"
 #include "bezier-common.h"
 
-
 G_BEGIN_DECLS
+
+#define DIA_TYPE_BEZIER_SHAPE_POINT_OBJECT_CHANGE dia_bezier_shape_point_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaBezierShapePointObjectChange, dia_bezier_shape_point_object_change, DIA, BEZIER_SHAPE_POINT_OBJECT_CHANGE, DiaObjectChange)
+
+
+#define DIA_TYPE_BEZIER_SHAPE_CORNER_OBJECT_CHANGE dia_bezier_shape_corner_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaBezierShapeCornerObjectChange, dia_bezier_shape_corner_object_change, DIA, BEZIER_SHAPE_CORNER_OBJECT_CHANGE, DiaObjectChange)
+
 
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 

@@ -27,6 +27,14 @@
 
 G_BEGIN_DECLS
 
+#define DIA_TYPE_BEZIER_CONN_POINT_OBJECT_CHANGE dia_bezier_conn_point_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaBezierConnPointObjectChange, dia_bezier_conn_point_object_change, DIA, BEZIER_CONN_POINT_OBJECT_CHANGE, DiaObjectChange)
+
+
+#define DIA_TYPE_BEZIER_CONN_CORNER_OBJECT_CHANGE dia_bezier_conn_corner_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaBezierConnCornerObjectChange, dia_bezier_conn_corner_object_change, DIA, BEZIER_CONN_CORNER_OBJECT_CHANGE, DiaObjectChange)
+
+
 /*!
  * \brief Helper class to implement bezier connections
  *

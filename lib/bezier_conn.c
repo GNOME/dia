@@ -29,7 +29,7 @@
 
 #include "bezier_conn.h"
 #include "diarenderer.h"
-#include "dia-object-change-legacy.h"
+
 
 #define HANDLE_BEZMAJOR  (HANDLE_CUSTOM1)
 #define HANDLE_LEFTCTRL  (HANDLE_CUSTOM2)
@@ -40,52 +40,24 @@ enum change_type {
   TYPE_REMOVE_POINT
 };
 
-struct PointChange {
-  ObjectChange obj_change;
 
-  enum change_type type;
-  int applied;
-
-  BezPoint point;
-  BezCornerType corner_type;
-  int pos;
-
-  /* owning ref when not applied for ADD_POINT
-   * owning ref when applied for REMOVE_POINT */
-  Handle *handle1, *handle2, *handle3;
-  /* NULL if not connected */
-  ConnectionPoint *connected_to1, *connected_to2, *connected_to3;
-};
-
-struct CornerChange {
-  ObjectChange obj_change;
-  /* Only one kind of corner_change */
-  int applied;
-
-  Handle *handle;
-  /* Old places when SET_CORNER_TYPE is applied */
-  Point point_left, point_right;
-  BezCornerType old_type, new_type;
-};
-
-
-static DiaObjectChange *bezierconn_create_point_change  (BezierConn       *bezier,
-                                                         enum change_type  type,
-                                                         BezPoint         *point,
-                                                         BezCornerType     corner_type,
-                                                         int               segment,
-                                                         Handle           *handle1,
-                                                         ConnectionPoint  *connected_to1,
-                                                         Handle           *handle2,
-                                                         ConnectionPoint  *connected_to2,
-                                                         Handle           *handle3,
-                                                         ConnectionPoint  *connected_to3);
-static DiaObjectChange *bezierconn_create_corner_change (BezierConn       *bezier,
-                                                         Handle           *handle,
-                                                         Point            *point_left,
-                                                         Point            *point_right,
-                                                         BezCornerType     old_corner_type,
-                                                         BezCornerType     new_corner_type);
+static DiaObjectChange *dia_bezier_conn_point_object_change_new  (BezierConn       *bezier,
+                                                                  enum change_type  type,
+                                                                  BezPoint         *point,
+                                                                  BezCornerType     corner_type,
+                                                                  int               pos,
+                                                                  Handle           *handle1,
+                                                                  ConnectionPoint  *connected_to1,
+                                                                  Handle           *handle2,
+                                                                  ConnectionPoint  *connected_to2,
+                                                                  Handle           *handle3,
+                                                                  ConnectionPoint  *connected_to3);
+static DiaObjectChange *dia_bezier_conn_corner_object_change_new (BezierConn       *bezier,
+                                                                  Handle           *handle,
+                                                                  Point            *point_left,
+                                                                  Point            *point_right,
+                                                                  BezCornerType     old_corner_type,
+                                                                  BezCornerType     new_corner_type);
 
 
 /**
@@ -573,17 +545,17 @@ bezierconn_add_segment (BezierConn *bezier,
                new_handle2,
                new_handle3);
 
-  return bezierconn_create_point_change (bezier,
-                                         TYPE_ADD_POINT,
-                                         &realpoint,
-                                         corner_type,
-                                         segment + 1,
-                                         new_handle1,
-                                         NULL,
-                                         new_handle2,
-                                         NULL,
-                                         new_handle3,
-                                         NULL);
+  return dia_bezier_conn_point_object_change_new (bezier,
+                                                  TYPE_ADD_POINT,
+                                                  &realpoint,
+                                                  corner_type,
+                                                  segment + 1,
+                                                  new_handle1,
+                                                  NULL,
+                                                  new_handle2,
+                                                  NULL,
+                                                  new_handle3,
+                                                  NULL);
 }
 
 
@@ -635,17 +607,17 @@ bezierconn_remove_segment (BezierConn *bezier, int pos)
 
   bezierconn_update_data (bezier);
 
-  return bezierconn_create_point_change (bezier,
-                                         TYPE_REMOVE_POINT,
-                                         &old_point,
-                                         old_ctype,
-                                         pos,
-                                         old_handle1,
-                                         cpt1,
-                                         old_handle2,
-                                         cpt2,
-                                         old_handle3,
-                                         cpt3);
+  return dia_bezier_conn_point_object_change_new (bezier,
+                                                  TYPE_REMOVE_POINT,
+                                                  &old_point,
+                                                  old_ctype,
+                                                  pos,
+                                                  old_handle1,
+                                                  cpt1,
+                                                  old_handle2,
+                                                  cpt2,
+                                                  old_handle3,
+                                                  cpt3);
 }
 
 
@@ -787,9 +759,12 @@ bezierconn_set_corner_type (BezierConn    *bezier,
 
   bezierconn_straighten_corner (bezier, comp_nr);
 
-  return bezierconn_create_corner_change (bezier, mid_handle,
-                                          &old_left, &old_right,
-                                          old_type, corner_type);
+  return dia_bezier_conn_corner_object_change_new (bezier,
+                                                   mid_handle,
+                                                   &old_left,
+                                                   &old_right,
+                                                   old_type,
+                                                   corner_type);
 }
 
 
@@ -1163,22 +1138,43 @@ bezierconn_load (BezierConn *bezier,
 }
 
 
-/* Undo support */
+struct _DiaBezierConnPointObjectChange {
+  DiaObjectChange obj_change;
+
+  enum change_type type;
+  int applied;
+
+  BezPoint point;
+  BezCornerType corner_type;
+  int pos;
+
+  /* owning ref when not applied for ADD_POINT
+   * owning ref when applied for REMOVE_POINT */
+  Handle *handle1, *handle2, *handle3;
+  /* NULL if not connected */
+  ConnectionPoint *connected_to1, *connected_to2, *connected_to3;
+};
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaBezierConnPointObjectChange,
+                          dia_bezier_conn_point_object_change)
 
 
 /**
- * bezierconn_point_change_free:
+ * dia_bezier_point_object_change_free:
  * @change: The undo information to free.
  *
  * Free undo information about adding or removing points.
  *
- * Since: dawn-of-time
+ * Since: 0.98
  */
 static void
-bezierconn_point_change_free (struct PointChange *change)
+dia_bezier_conn_point_object_change_free (DiaObjectChange *self)
 {
-  if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
-       (change->type==TYPE_REMOVE_POINT && change->applied) ){
+  DiaBezierConnPointObjectChange *change = DIA_BEZIER_CONN_POINT_OBJECT_CHANGE (self);
+
+  if ((change->type == TYPE_ADD_POINT && !change->applied) ||
+      (change->type == TYPE_REMOVE_POINT && change->applied) ){
     g_clear_pointer (&change->handle1, g_free);
     g_clear_pointer (&change->handle2, g_free);
     g_clear_pointer (&change->handle3, g_free);
@@ -1187,17 +1183,19 @@ bezierconn_point_change_free (struct PointChange *change)
 
 
 /**
- * bezierconn_point_change_apply:
+ * dia_bezier_point_object_change_apply:
  * @change: The change to apply.
  * @obj: The object (must be a BezierConn) to apply the change to.
  *
  * Apply a point addition/removal.
  *
- * Since: dawn-of-time
+ * Since: 0.98
  */
 static void
-bezierconn_point_change_apply (struct PointChange *change, DiaObject *obj)
+dia_bezier_conn_point_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaBezierConnPointObjectChange *change = DIA_BEZIER_CONN_POINT_OBJECT_CHANGE (self);
+
   change->applied = 1;
   switch (change->type) {
     case TYPE_ADD_POINT:
@@ -1218,17 +1216,19 @@ bezierconn_point_change_apply (struct PointChange *change, DiaObject *obj)
 
 
 /**
- * bezierconn_point_change_revert:
+ * dia_bezier_conn_point_object_change_revert:
  * @change: The change to revert.
  * @obj: The object (must be a BezierConn) to revert the change of.
  *
  * Revert (unapply) a point addition/removal.
  *
- * Since: dawn-of-time
+ * Since: 0.98
  */
 static void
-bezierconn_point_change_revert (struct PointChange *change, DiaObject *obj)
+dia_bezier_conn_point_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaBezierConnPointObjectChange *change = DIA_BEZIER_CONN_POINT_OBJECT_CHANGE (self);
+
   switch (change->type) {
     case TYPE_ADD_POINT:
       remove_handles ((BezierConn *) obj, change->pos);
@@ -1259,7 +1259,7 @@ bezierconn_point_change_revert (struct PointChange *change, DiaObject *obj)
 
 
 /**
- * bezierconn_create_point_change:
+ * dia_bezier_conn_point_object_change_new:
  * @bezier: The object that the change applies to (ignored)
  * @type: The type of change (either TYPE_ADD_POINT or TYPE_REMOVE_POINT)
  * @point: The point being added or removed.
@@ -1276,28 +1276,24 @@ bezierconn_point_change_revert (struct PointChange *change, DiaObject *obj)
  *
  * Returns: Newly created undo information.
  *
- * Since: dawn-of-time
+ * Since: 0.98
  */
 static DiaObjectChange *
-bezierconn_create_point_change (BezierConn       *bezier,
-                                enum change_type  type,
-                                BezPoint         *point,
-                                BezCornerType     corner_type,
-                                int               pos,
-                                Handle           *handle1,
-                                ConnectionPoint  *connected_to1,
-                                Handle           *handle2,
-                                ConnectionPoint  *connected_to2,
-                                Handle           *handle3,
-                                ConnectionPoint  *connected_to3)
+dia_bezier_conn_point_object_change_new (BezierConn       *bezier,
+                                         enum change_type  type,
+                                         BezPoint         *point,
+                                         BezCornerType     corner_type,
+                                         int               pos,
+                                         Handle           *handle1,
+                                         ConnectionPoint  *connected_to1,
+                                         Handle           *handle2,
+                                         ConnectionPoint  *connected_to2,
+                                         Handle           *handle3,
+                                    ConnectionPoint  *connected_to3)
 {
-  struct PointChange *change;
+  DiaBezierConnPointObjectChange *change;
 
-  change = g_new (struct PointChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) bezierconn_point_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) bezierconn_point_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) bezierconn_point_change_free;
+  change = dia_object_change_new (DIA_TYPE_BEZIER_CONN_POINT_OBJECT_CHANGE);
 
   change->type = type;
   change->applied = 1;
@@ -1311,24 +1307,46 @@ bezierconn_create_point_change (BezierConn       *bezier,
   change->handle3 = handle3;
   change->connected_to3 = connected_to3;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
+}
+
+
+struct _DiaBezierConnCornerObjectChange {
+  DiaObjectChange obj_change;
+  /* Only one kind of corner_change */
+  int applied;
+
+  Handle *handle;
+  /* Old places when SET_CORNER_TYPE is applied */
+  Point point_left, point_right;
+  BezCornerType old_type, new_type;
+};
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaBezierConnCornerObjectChange,
+                          dia_bezier_conn_corner_object_change)
+
+
+static void
+dia_bezier_conn_corner_object_change_free (DiaObjectChange *self)
+{
 }
 
 
 /**
- * bezierconn_corner_change_apply:
+ * dia_bezier_corner_object_change_apply:
  * @change: The undo information to apply.
  * @obj: The object to apply the undo information too.
  *
  * Apply a change of corner type. This may change the position of the
  * control handles by calling bezierconn_straighten_corner.
  *
- * Since: dawn-of-time
+ * Since: 0.98
  */
 static void
-bezierconn_corner_change_apply (struct CornerChange *change,
-                                DiaObject           *obj)
+dia_bezier_conn_corner_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaBezierConnCornerObjectChange *change = DIA_BEZIER_CONN_CORNER_OBJECT_CHANGE (self);
   BezierConn *bezier = (BezierConn *) obj;
   int handle_nr = get_handle_nr (bezier, change->handle);
   int comp_nr = get_major_nr (handle_nr);
@@ -1342,19 +1360,19 @@ bezierconn_corner_change_apply (struct CornerChange *change,
 
 
 /**
- * bezierconn_corner_change_revert:
- * @change: Undo information to apply.
+ * dia_bezier_conn_corner_object_change_revert:
+ * @self: Undo information to apply.
  * @obj: The bezierconn object to apply the change to.
  *
  * Revert (unapply) a change of corner type. This may move the position
  * of the control handles to what they were before applying.
  *
- * Since: dawn-of-time
+ * Since: 0.98
  */
 static void
-bezierconn_corner_change_revert (struct CornerChange *change,
-                                 DiaObject           *obj)
+dia_bezier_conn_corner_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaBezierConnCornerObjectChange *change = DIA_BEZIER_CONN_CORNER_OBJECT_CHANGE (self);
   BezierConn *bezier = (BezierConn *) obj;
   int handle_nr = get_handle_nr (bezier, change->handle);
   int comp_nr = get_major_nr (handle_nr);
@@ -1368,7 +1386,7 @@ bezierconn_corner_change_revert (struct CornerChange *change,
 
 
 /**
- * bezierconn_create_corner_change:
+ * dia_bezier_conn_corner_object_change_new:
  * @bezier: The bezier object this applies to.
  * @handle: The handle of the corner being changed.
  * @point_left: The position of the left control handle.
@@ -1382,26 +1400,19 @@ bezierconn_corner_change_revert (struct CornerChange *change,
  *
  * Returns: Newly allocated undo information.
  *
- * Since: dawn-of-time
+ * Since: 0.98
  */
 static DiaObjectChange *
-bezierconn_create_corner_change (BezierConn    *bezier,
-                                 Handle        *handle,
-                                 Point         *point_left,
-                                 Point         *point_right,
-                                 BezCornerType  old_corner_type,
-                                 BezCornerType  new_corner_type)
+dia_bezier_conn_corner_object_change_new (BezierConn    *bezier,
+                                          Handle        *handle,
+                                          Point         *point_left,
+                                          Point         *point_right,
+                                          BezCornerType  old_corner_type,
+                                          BezCornerType  new_corner_type)
 {
-  struct CornerChange *change;
+  DiaBezierConnCornerObjectChange *change;
 
-  change = g_new (struct CornerChange, 1);
-
-  change->obj_change.apply =
-                (ObjectChangeApplyFunc) bezierconn_corner_change_apply;
-  change->obj_change.revert =
-                (ObjectChangeRevertFunc) bezierconn_corner_change_revert;
-  change->obj_change.free =
-                (ObjectChangeFreeFunc) NULL;
+  change = dia_object_change_new (DIA_TYPE_BEZIER_CONN_CORNER_OBJECT_CHANGE);
 
   change->old_type = old_corner_type;
   change->new_type = new_corner_type;
@@ -1411,5 +1422,5 @@ bezierconn_create_corner_change (BezierConn    *bezier,
   change->point_left = *point_left;
   change->point_right = *point_right;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
