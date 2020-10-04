@@ -72,8 +72,8 @@ typedef struct _Chronoline {
   CLEventList *evtlist;
 
   int checksum;
-  real labelwidth;
-  real y_down,y_up;
+  double labelwidth;
+  double y_down,y_up;
   Color gray, datagray;
 } Chronoline;
 
@@ -81,11 +81,14 @@ typedef struct _Chronoline {
 static real chronoline_distance_from(Chronoline *chronoline, Point *point);
 static void chronoline_select(Chronoline *chronoline, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static ObjectChange* chronoline_move_handle(Chronoline *chronoline, Handle *handle,
-					    Point *to, ConnectionPoint *cp,
-					    HandleMoveReason reason,
-			    ModifierKeys modifiers);
-static ObjectChange* chronoline_move(Chronoline *chronoline, Point *to);
+static DiaObjectChange *chronoline_move_handle    (Chronoline       *chronoline,
+                                                   Handle           *handle,
+                                                   Point            *to,
+                                                   ConnectionPoint  *cp,
+                                                   HandleMoveReason  reason,
+                                                   ModifierKeys      modifiers);
+static DiaObjectChange  *chronoline_move          (Chronoline       *chronoline,
+                                                   Point            *to);
 static void chronoline_draw(Chronoline *chronoline, DiaRenderer *renderer);
 static void chronoline_update_data(Chronoline *chronoline);
 static DiaObject *chronoline_create(Point *startpoint,
@@ -254,30 +257,40 @@ chronoline_select(Chronoline *chronoline, Point *clicked_point,
   element_update_handles(&chronoline->element);
 }
 
-static ObjectChange*
-chronoline_move_handle(Chronoline *chronoline, Handle *handle,
-		       Point *to, ConnectionPoint *cp,
-		       HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+chronoline_move_handle (Chronoline       *chronoline,
+                        Handle           *handle,
+                        Point            *to,
+                        ConnectionPoint  *cp,
+                        HandleMoveReason  reason,
+                        ModifierKeys      modifiers)
 {
   g_assert(chronoline!=NULL);
   g_assert(handle!=NULL);
   g_assert(to!=NULL);
 
-  element_move_handle(&chronoline->element, handle->id, to, cp,
-		      reason, modifiers);
-  chronoline_update_data(chronoline);
+  element_move_handle (&chronoline->element,
+                       handle->id,
+                       to,
+                       cp,
+                       reason,
+                       modifiers);
+  chronoline_update_data (chronoline);
 
   return NULL;
 }
 
-static ObjectChange*
-chronoline_move(Chronoline *chronoline, Point *to)
+
+static DiaObjectChange*
+chronoline_move (Chronoline *chronoline, Point *to)
 {
   chronoline->element.corner = *to;
-  chronoline_update_data(chronoline);
+  chronoline_update_data (chronoline);
 
   return NULL;
 }
+
 
 static void
 cld_onebit (Chronoline  *chronoline,

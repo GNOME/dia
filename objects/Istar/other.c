@@ -85,10 +85,14 @@ typedef struct _Other {
 static real other_distance_from(Other *other, Point *point);
 static void other_select(Other *other, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static ObjectChange* other_move_handle(Other *other, Handle *handle,
-			    Point *to, ConnectionPoint *cp,
-			    HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* other_move(Other *other, Point *to);
+static DiaObjectChange *other_move_handle        (Other            *other,
+                                                  Handle           *handle,
+                                                  Point            *to,
+                                                  ConnectionPoint  *cp,
+                                                  HandleMoveReason  reason,
+                                                  ModifierKeys      modifiers);
+static DiaObjectChange *other_move               (Other            *other,
+                                                  Point            *to);
 static void other_draw(Other *other, DiaRenderer *renderer);
 static void other_update_data(Other *other, AnchorShape horix, AnchorShape vert);
 static DiaObject *other_create(Point *startpoint,
@@ -216,7 +220,7 @@ other_select (Other       *other,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 other_move_handle (Other            *other,
                    Handle           *handle,
                    Point            *to,
@@ -283,7 +287,7 @@ other_move_handle (Other            *other,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 other_move (Other *other, Point *to)
 {
   other->element.corner = *to;
@@ -485,42 +489,51 @@ other_get_clicked_border (Other *other, Point *clicked)
   return cpl;
 }
 
-inline static ObjectChange *
-other_create_change(Other *other, ObjectChange *inner, ConnPointLine *cpl) {
-  return (ObjectChange *)inner;
+
+inline static DiaObjectChange *
+other_create_change (Other *other, DiaObjectChange *inner, ConnPointLine *cpl)
+{
+  return (DiaObjectChange *) inner;
 }
 
-static ObjectChange *
-other_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+other_add_connpoint_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   ConnPointLine *cpl;
   Other *other = (Other *)obj;
 
-  cpl = other_get_clicked_border(other,clicked);
-  change = connpointline_add_point(cpl, clicked);
-  other_update_data((Other *)obj,ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return other_create_change(other,change,cpl);
+  cpl = other_get_clicked_border (other,clicked);
+  change = connpointline_add_point (cpl, clicked);
+  other_update_data ((Other *) obj, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
+  return other_create_change (other, change, cpl);
 }
 
-static ObjectChange *
-other_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+other_remove_connpoint_callback (DiaObject *obj,
+                                 Point     *clicked,
+                                 gpointer   data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   ConnPointLine *cpl;
-  Other *other = (Other *)obj;
+  Other *other = (Other *) obj;
 
-  cpl = other_get_clicked_border(other,clicked);
-  change = connpointline_remove_point(cpl, clicked);
-  other_update_data((Other *)obj,ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return other_create_change(other,change,cpl);
+  cpl = other_get_clicked_border (other, clicked);
+  change = connpointline_remove_point (cpl, clicked);
+  other_update_data ((Other *) obj, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  return other_create_change (other, change, cpl);
 }
+
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add connection point"), other_add_connpoint_callback, NULL, 1 },
   { N_("Delete connection point"), other_remove_connpoint_callback,
     NULL, 1 },
 };
+
 
 static DiaMenu object_menu = {
   N_("i* other"),
@@ -529,8 +542,9 @@ static DiaMenu object_menu = {
   NULL
 };
 
+
 static DiaMenu *
-other_get_object_menu(Other *other, Point *clickedpoint)
+other_get_object_menu (Other *other, Point *clickedpoint)
 {
   ConnPointLine *cpl;
 

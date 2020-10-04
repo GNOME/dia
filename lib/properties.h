@@ -49,6 +49,8 @@
 #include "intl.h"
 #include "textattr.h"
 #include "diacontext.h"
+#include "dia-object-change.h"
+
 
 G_BEGIN_DECLS
 
@@ -523,8 +525,11 @@ gboolean object_set_props_from_offsets(DiaObject *obj, PropOffset *offsets,
 				       GPtrArray *props);
 
 /* apply some properties and return a corresponding object change */
-ObjectChange *object_apply_props(DiaObject *obj, GPtrArray *props);
-ObjectChange *object_toggle_prop (DiaObject *obj, const char *pname, gboolean val);
+DiaObjectChange *object_apply_props (DiaObject  *obj,
+                                     GPtrArray  *props);
+DiaObjectChange *object_toggle_prop (DiaObject  *obj,
+                                     const char *pname,
+                                     gboolean    val);
 
 /*!
  * \brief Creation of object specific property dialog
@@ -535,7 +540,7 @@ ObjectChange *object_toggle_prop (DiaObject *obj, const char *pname, gboolean va
  */
 WIDGET *object_create_props_dialog     (DiaObject *obj, gboolean is_default);
 WIDGET *object_list_create_props_dialog(GList *obj, gboolean is_default);
-ObjectChange *object_apply_props_from_dialog (DiaObject *obj, WIDGET *dialog);
+DiaObjectChange *object_apply_props_from_dialog (DiaObject *obj, WIDGET *dialog);
 /*!
  * \brief Descibe objects properties
  * \memberof DiaObject
@@ -559,11 +564,15 @@ void object_get_props(DiaObject *obj, GPtrArray *props);
 Property *object_prop_by_name(DiaObject *obj, const char *name);
 Property *object_prop_by_name_type(DiaObject *obj, const char *name, const char *type);
 /* Set the pixbuf property if there is one */
-ObjectChange *dia_object_set_pixbuf (DiaObject *object, GdkPixbuf *pixbuf);
+DiaObjectChange *dia_object_set_pixbuf  (DiaObject  *object,
+                                         GdkPixbuf  *pixbuf);
 /* Set the pattern property if there is one */
-ObjectChange *dia_object_set_pattern (DiaObject *object, DiaPattern *pat);
+DiaObjectChange *dia_object_set_pattern (DiaObject  *object,
+                                         DiaPattern *pat);
 /* Set the string property if there is one */
-ObjectChange *dia_object_set_string (DiaObject *object, const char *name, const char *value);
+DiaObjectChange *dia_object_set_string  (DiaObject  *object,
+                                         const char *name,
+                                         const char *value);
 
 /* ************************************************************* */
 

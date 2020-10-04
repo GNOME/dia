@@ -24,6 +24,8 @@
 #include <string.h>
 #include "aadl.h"
 #include "edit_port_declaration.h"
+#include "dia-object-change-legacy.h"
+
 
 int aadlbox_point_near_port(Aadlbox *aadlbox, Point *p);
 
@@ -120,8 +122,10 @@ static gboolean focus_out_event( GtkWidget      *widget,
 /* I have to write this little GTK code, because there's no way to know
    which point was clicked if I use the properties functions (get_props, ...)*/
 
-ObjectChange *edit_port_declaration_callback (DiaObject *obj,
-				    Point *clicked, gpointer data)
+DiaObjectChange *
+edit_port_declaration_callback (DiaObject *obj,
+                                Point     *clicked,
+                                gpointer   data)
 {
   GtkWidget *window;
   GtkWidget *vbox;
@@ -206,7 +210,5 @@ ObjectChange *edit_port_declaration_callback (DiaObject *obj,
 
   change->obj_change.apply((ObjectChange *)change, obj);
 
-  return (ObjectChange *) change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
-
-

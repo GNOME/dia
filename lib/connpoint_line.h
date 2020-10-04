@@ -53,12 +53,12 @@ int connpointline_can_add_point(ConnPointLine *cpl,
 int connpointline_can_remove_point(ConnPointLine *cpl,
 				   Point *clicked);
 
-ObjectChange *connpointline_add_points(ConnPointLine *cpl,
-				       Point *clickedpoint,
-				       int count);
-ObjectChange *connpointline_remove_points(ConnPointLine *cpl,
-					  Point *clickedpoint,
-					  int count);
+DiaObjectChange *connpointline_add_points    (ConnPointLine *cpl,
+                                              Point         *clickedpoint,
+                                              int            count);
+DiaObjectChange *connpointline_remove_points (ConnPointLine *cpl,
+                                              Point         *clickedpoint,
+                                              int            count);
 ConnPointLine *connpointline_load(DiaObject *obj,ObjectNode obj_node,
 				  const gchar *name, int default_nc,
 				  int *realconncount,

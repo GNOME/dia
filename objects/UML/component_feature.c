@@ -79,13 +79,14 @@ struct _Compfeat {
 #define COMPPROP_TEXTOFFSET 1.0
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
 
-static ObjectChange* compfeat_move_handle(Compfeat *compfeat,
-					  Handle *handle,
-					  Point *to,
-					  ConnectionPoint *cp,
-					  HandleMoveReason reason,
-					  ModifierKeys modifiers);
-static ObjectChange* compfeat_move(Compfeat *compfeat, Point *to);
+static DiaObjectChange *compfeat_move_handle     (Compfeat         *compfeat,
+                                                  Handle           *handle,
+                                                  Point            *to,
+                                                  ConnectionPoint  *cp,
+                                                  HandleMoveReason  reason,
+                                                  ModifierKeys      modifiers);
+static DiaObjectChange *compfeat_move            (Compfeat         *compfeat,
+                                                  Point            *to);
 static void compfeat_select(Compfeat *compfeat, Point *clicked_point,
 			    DiaRenderer *interactive_renderer);
 static void compfeat_draw(Compfeat *compfeat, DiaRenderer *renderer);
@@ -164,24 +165,32 @@ static PropDescription compfeat_props[] = {
   PROP_DESC_END
 };
 
-static ObjectChange *
+
+static DiaObjectChange *
 compfeat_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
-  change = orthconn_add_segment((OrthConn *)obj, clicked);
-  compfeat_update_data((Compfeat *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_add_segment ((OrthConn *) obj, clicked);
+  compfeat_update_data ((Compfeat *) obj);
+
   return change;
 }
 
-static ObjectChange *
-compfeat_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+compfeat_delete_segment_callback (DiaObject *obj,
+                                  Point     *clicked,
+                                  gpointer   data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  change = orthconn_delete_segment((OrthConn *)obj, clicked);
-  compfeat_update_data((Compfeat *)obj);
+  change = orthconn_delete_segment ((OrthConn *) obj, clicked);
+  compfeat_update_data ((Compfeat *) obj);
+
   return change;
 }
+
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add segment"), compfeat_add_segment_callback, NULL, 1 },
@@ -269,13 +278,16 @@ compfeat_select(Compfeat *compfeat, Point *clicked_point,
   orthconn_update_data(&compfeat->orth);
 }
 
-static ObjectChange *
-compfeat_move_handle(Compfeat *compfeat, Handle *handle,
-		     Point *to, ConnectionPoint *cp,
-		     HandleMoveReason reason,
-		     ModifierKeys modifiers)
+
+static DiaObjectChange *
+compfeat_move_handle (Compfeat         *compfeat,
+                      Handle           *handle,
+                      Point            *to,
+                      ConnectionPoint  *cp,
+                      HandleMoveReason  reason,
+                      ModifierKeys      modifiers)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   assert(compfeat!=NULL);
   assert(handle!=NULL);
@@ -293,10 +305,11 @@ compfeat_move_handle(Compfeat *compfeat, Handle *handle,
   return change;
 }
 
-static ObjectChange *
-compfeat_move(Compfeat *compfeat, Point *to)
+
+static DiaObjectChange *
+compfeat_move (Compfeat *compfeat, Point *to)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   Point delta = *to;
 
   delta = *to;
@@ -311,6 +324,7 @@ compfeat_move(Compfeat *compfeat, Point *to)
 
   return change;
 }
+
 
 static void
 compfeat_draw (Compfeat *compfeat, DiaRenderer *renderer)

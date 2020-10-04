@@ -27,17 +27,19 @@
 
 #include "stress-memory.h"
 
-static ObjectChange *
+
+static DiaObjectChange *
 stress_memory_callback (DiagramData *data,
-                       const gchar *filename,
-                       guint flags, /* further additions */
-                       void *user_data)
+                        const char  *filename,
+                        /* further additions */
+                        guint        flags,
+                        void        *user_data)
 {
   guint64 avail;
 
   if (vmem_avail (&avail)) {
     guint64 eat = (avail * 9) / 10;
-    
+
     if (vmem_reserve (eat)) {
       guint64 still_avail;
       vmem_avail (&still_avail);

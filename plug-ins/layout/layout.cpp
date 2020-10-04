@@ -48,6 +48,7 @@
 
 #include "ogdf-simple.h"
 #include "dia-graph.h"
+#include "dia-object-change-list.h"
 
 #include <vector>
 
@@ -110,7 +111,9 @@ _obj_get_bends (DiaObject *obj, std::vector<double>& coords)
     prop->ops->free(prop);
   return coords.size();
 }
-static ObjectChange *
+
+
+static DiaObjectChange *
 _obj_set_bends (DiaObject *obj, std::vector<double>& coords)
 {
   Property *prop = NULL;
@@ -198,8 +201,10 @@ _obj_set_bends (DiaObject *obj, std::vector<double>& coords)
     GPtrArray *props = prop_list_from_single (prop);
     return object_apply_props (obj, props);
   }
+
   return NULL;
 }
+
 
 typedef IGraph *(*GraphCreateFunc)();
 
@@ -207,14 +212,14 @@ typedef IGraph *(*GraphCreateFunc)();
  * \brief Calback function invoking layout algorithms from Dia's menu
  * \ingroup LayoutPlugin
  */
-static ObjectChange *
-layout_callback (DiagramData *data,
-                 const gchar *filename,
-                 guint flags, /* further additions */
-                 void *user_data,
-		 GraphCreateFunc func)
+static DiaObjectChange *
+layout_callback (DiagramData     *data,
+                 const char      *filename,
+                 guint            flags, /* further additions */
+                 void            *user_data,
+                 GraphCreateFunc  func)
 {
-  ObjectChange *changes = NULL;
+  DiaObjectChange *changes = NULL;
   GList *nodes = NULL, *edges = NULL, *list;
   const char *algorithm = (const char*)user_data;
 
@@ -259,58 +264,87 @@ layout_callback (DiagramData *data,
         else
           g->AddEdge (g_list_index (nodes, src), g_list_index (nodes, dst), NULL, 0);
       }
+
       IGraph::eResult res;
       if ((res = g->Layout (algorithm)) != IGraph::SUCCESS) {
-	const char *sErr;
-	switch (res) {
-	case IGraph::NO_MODULE : sErr = _("No such module."); break;
-	case IGraph::OUT_OF_MEMORY : sErr = _("Out of memory."); break;
-	case IGraph::NO_TREE: sErr = _("Not a tree."); break;
-	case IGraph::NO_FOREST: sErr = _("Not a forest."); break;
-	case IGraph::FAILED_ALGORITHM: sErr = _("Failed algorithm."); break;
-	case IGraph::FAILED_PRECONDITION: sErr = _("Failed precondition."); break;
-	case IGraph::CRASHED : sErr = _("OGDF crashed."); break;
-	default : sErr = _("Unknown reason"); break;
-	}
-        message_warning (_("Layout '%s' failed.\n%s"), (const char*)user_data, sErr);
+        const char *sErr;
+        switch (res) {
+          case IGraph::NO_MODULE:
+            sErr = _("No such module.");
+            break;
+          case IGraph::OUT_OF_MEMORY:
+            sErr = _("Out of memory.");
+            break;
+          case IGraph::NO_TREE:
+            sErr = _("Not a tree.");
+            break;
+          case IGraph::NO_FOREST:
+            sErr = _("Not a forest.");
+            break;
+          case IGraph::FAILED_ALGORITHM:
+            sErr = _("Failed algorithm.");
+            break;
+          case IGraph::FAILED_PRECONDITION:
+            sErr = _("Failed precondition.");
+            break;
+          case IGraph::CRASHED:
+            sErr = _("OGDF crashed.");
+            break;
+          default:
+            sErr = _("Unknown reason");
+            break;
+        }
+        message_warning (_("Layout '%s' failed.\n%s"),
+                         (const char*) user_data,
+                         sErr);
       } else {
-        changes = change_list_create ();
-	/* transfer back information */
-	int n;
-	for (n = 0, list = nodes; list != NULL; list = g_list_next (list), ++n) {
-	  Point pt;
-	  if (g->GetNodePosition (n, &pt.x, &pt.y)) {
-	    DiaObject *o = (DiaObject *)list->data;
-	    GPtrArray *props = g_ptr_array_new ();
+        changes = dia_object_change_list_new ();
 
-	    //FIXME: can't use "obj_pos", it is not read in usual update_data impementations
-	    // "elem_corner" will only work for Element derived classes, but that covers most
-	    // of the cases here ...
-	    prop_list_add_point (props, "elem_corner", &pt);
-	    change_list_add (changes, object_apply_props (o, props));
-	  }
-	}
-	// first update to reuse the connected points
-	diagram_update_connections_selection(DIA_DIAGRAM (data));
-	/* use edge bends, if any */
-	int e;
-	for (e = 0, list = edges; list != NULL; list = g_list_next (list), ++e) {
-          DiaObject *o = (DiaObject *)list->data;
-	  // number of bends / 2 is the number of points
-	  int n = g->GetEdgeBends (e, NULL, 0);
-	  if (n >= 0) { // with 0 it is just a reset of the exisiting line
-	    try {
-	      coords.resize (n);
-	    } catch (std::bad_alloc& ex) {
-	      g_warning ("%s", ex.what());
-	      continue;
-	    }
-	    g->GetEdgeBends (e, &coords[0], n);
-	    change_list_add (changes, _obj_set_bends (o, coords));
-	  }
-	}
-	/* update view */
-	diagram_update_connections_selection(DIA_DIAGRAM (data));
+        /* transfer back information */
+        int n;
+        for (n = 0, list = nodes;
+             list != NULL;
+             list = g_list_next (list), ++n) {
+          Point pt;
+          if (g->GetNodePosition (n, &pt.x, &pt.y)) {
+            DiaObject *o = DIA_OBJECT (list->data);
+            GPtrArray *props = g_ptr_array_new ();
+
+            // FIXME: can't use "obj_pos", it is not read in usual update_data
+            // impementations "elem_corner" will only work for Element derived
+            // classes, but that covers most of the cases here ...
+            prop_list_add_point (props, "elem_corner", &pt);
+
+            dia_object_change_list_add (DIA_OBJECT_CHANGE_LIST (changes),
+                                        object_apply_props (o, props));
+          }
+        }
+
+        // first update to reuse the connected points
+        diagram_update_connections_selection (DIA_DIAGRAM (data));
+
+        /* use edge bends, if any */
+        int e;
+        for (e = 0, list = edges;
+             list != NULL;
+             list = g_list_next (list), ++e) {
+          DiaObject *o = DIA_OBJECT (list->data);
+          // number of bends / 2 is the number of points
+          int n = g->GetEdgeBends (e, NULL, 0);
+          if (n >= 0) { // with 0 it is just a reset of the exisiting line
+            try {
+              coords.resize (n);
+            } catch (std::bad_alloc& ex) {
+              g_warning ("%s", ex.what());
+              continue;
+            }
+            g->GetEdgeBends (e, &coords[0], n);
+            dia_object_change_list_add (DIA_OBJECT_CHANGE_LIST (changes),
+                                        _obj_set_bends (o, coords));
+          }
+        }
+        /* update view */
+        diagram_update_connections_selection (DIA_DIAGRAM (data));
       }
       g->Release ();
     }
@@ -321,7 +355,8 @@ layout_callback (DiagramData *data,
   return changes;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 layout_callback1 (DiagramData *data,
                   const gchar *filename,
                   guint flags, /* further additions */

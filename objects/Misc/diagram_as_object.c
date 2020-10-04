@@ -150,7 +150,7 @@ _dae_select(DiagramAsElement *dae, Point *clicked_point, DiaRenderer *interactiv
 {
   element_update_handles(&dae->element);
 }
-static ObjectChange*
+static DiaObjectChange*
 _dae_move_handle(DiagramAsElement *dae, Handle *handle,
 		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -166,7 +166,7 @@ _dae_move_handle(DiagramAsElement *dae, Handle *handle,
 
   return NULL;
 }
-static ObjectChange*
+static DiaObjectChange*
 _dae_move(DiagramAsElement *dae, Point *to)
 {
   dae->element.corner = *to;

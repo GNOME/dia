@@ -62,10 +62,10 @@ typedef struct _Action {
   ConnPointLine *cps; /* aaahrg ! again one ! */
 } Action;
 
-static ObjectChange* action_move_handle(Action *action, Handle *handle,
+static DiaObjectChange* action_move_handle(Action *action, Handle *handle,
 					Point *to, ConnectionPoint *cp,
 					HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* action_move(Action *action, Point *to);
+static DiaObjectChange* action_move(Action *action, Point *to);
 static void action_select(Action *action, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void action_draw(Action *action, DiaRenderer *renderer);
@@ -191,7 +191,7 @@ action_select(Action *action, Point *clicked_point,
   text_grab_focus(action->text, &action->connection.object);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 action_move_handle(Action *action, Handle *handle,
 		   Point *to, ConnectionPoint *cp,
 		   HandleMoveReason reason, ModifierKeys modifiers)
@@ -219,7 +219,7 @@ action_move_handle(Action *action, Handle *handle,
 }
 
 
-static ObjectChange*
+static DiaObjectChange*
 action_move(Action *action, Point *to)
 {
   Point start_to_end;

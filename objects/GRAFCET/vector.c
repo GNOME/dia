@@ -50,10 +50,15 @@ typedef struct _Arc {
   gboolean uparrow;
 } Arc;
 
-static ObjectChange* arc_move_handle(Arc *arc, Handle *handle,
-				     Point *to, ConnectionPoint *cp,
-				     HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* arc_move(Arc *arc, Point *to);
+
+static DiaObjectChange *arc_move_handle         (Arc              *arc,
+                                                 Handle           *handle,
+                                                 Point            *to,
+                                                 ConnectionPoint  *cp,
+                                                 HandleMoveReason  reason,
+                                                 ModifierKeys      modifiers);
+static DiaObjectChange *arc_move                (Arc              *arc,
+                                                 Point            *to);
 static void arc_select(Arc *arc, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void arc_draw(Arc *arc, DiaRenderer *renderer);
@@ -169,29 +174,35 @@ arc_select(Arc *arc, Point *clicked_point,
   orthconn_update_data(&arc->orth);
 }
 
-static ObjectChange*
-arc_move_handle(Arc *arc, Handle *handle,
-		Point *to, ConnectionPoint *cp,
-		HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+arc_move_handle (Arc              *arc,
+                 Handle           *handle,
+                 Point            *to,
+                 ConnectionPoint  *cp,
+                 HandleMoveReason  reason,
+                 ModifierKeys      modifiers)
 {
-  ObjectChange *change;
-  change = orthconn_move_handle(&arc->orth, handle, to, cp, reason, modifiers);
-  arc_update_data(arc);
+  DiaObjectChange *change;
+
+  change = orthconn_move_handle (&arc->orth, handle, to, cp, reason, modifiers);
+  arc_update_data (arc);
 
   return change;
 }
 
 
-static ObjectChange*
-arc_move(Arc *arc, Point *to)
+static DiaObjectChange *
+arc_move (Arc *arc, Point *to)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  change = orthconn_move(&arc->orth, to);
-  arc_update_data(arc);
+  change = orthconn_move (&arc->orth, to);
+  arc_update_data (arc);
 
   return change;
 }
+
 
 static void
 arc_draw (Arc *arc, DiaRenderer *renderer)
@@ -288,29 +299,36 @@ arc_update_data(Arc *arc)
 }
 
 
-static ObjectChange *
-arc_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+static DiaObjectChange *
+arc_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
-  change = orthconn_add_segment((OrthConn *)obj, clicked);
-  arc_update_data((Arc *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_add_segment ((OrthConn *) obj, clicked);
+  arc_update_data ((Arc *) obj);
+
   return change;
 }
 
-static ObjectChange *
-arc_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+arc_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
-  change = orthconn_delete_segment((OrthConn *)obj, clicked);
-  arc_update_data((Arc *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_delete_segment ((OrthConn *) obj, clicked);
+  arc_update_data ((Arc *) obj);
+
   return change;
 }
+
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add segment"), arc_add_segment_callback, NULL, 1 },
   { N_("Delete segment"), arc_delete_segment_callback, NULL, 1 },
   ORTHCONN_COMMON_MENUS,
 };
+
 
 static DiaMenu object_menu = {
   "Arc",

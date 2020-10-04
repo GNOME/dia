@@ -51,17 +51,21 @@ struct _Bezierline {
   LineStyle line_style;
   LineJoin line_join;
   LineCaps line_caps;
-  real dashlength;
-  real line_width;
+  double dashlength;
+  double line_width;
   Arrow start_arrow, end_arrow;
-  real absolute_start_gap, absolute_end_gap;
+  double absolute_start_gap, absolute_end_gap;
 };
 
 
-static ObjectChange* bezierline_move_handle(Bezierline *bezierline, Handle *handle,
-					    Point *to, ConnectionPoint *cp,
-					    HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* bezierline_move(Bezierline *bezierline, Point *to);
+static DiaObjectChange* bezierline_move_handle     (Bezierline       *bezierline,
+                                                    Handle           *handle,
+                                                    Point            *to,
+                                                    ConnectionPoint  *cp,
+                                                    HandleMoveReason  reason,
+                                                    ModifierKeys      modifiers);
+static DiaObjectChange* bezierline_move            (Bezierline       *bezierline,
+                                                    Point            *to);
 static void bezierline_select(Bezierline *bezierline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void bezierline_draw(Bezierline *bezierline, DiaRenderer *renderer);
@@ -222,10 +226,14 @@ bezierline_select(Bezierline *bezierline, Point *clicked_point,
   bezierconn_update_data(&bezierline->bez);
 }
 
-static ObjectChange*
-bezierline_move_handle(Bezierline *bezierline, Handle *handle,
-		       Point *to, ConnectionPoint *cp,
-		       HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+bezierline_move_handle (Bezierline       *bezierline,
+                        Handle           *handle,
+                        Point            *to,
+                        ConnectionPoint  *cp,
+                        HandleMoveReason  reason,
+                        ModifierKeys      modifiers)
 {
   assert(bezierline!=NULL);
   assert(handle!=NULL);
@@ -256,14 +264,15 @@ bezierline_move_handle(Bezierline *bezierline, Handle *handle,
 }
 
 
-static ObjectChange*
-bezierline_move(Bezierline *bezierline, Point *to)
+static DiaObjectChange *
+bezierline_move (Bezierline *bezierline, Point *to)
 {
-  bezierconn_move(&bezierline->bez, to);
-  bezierline_update_data(bezierline);
+  bezierconn_move (&bezierline->bez, to);
+  bezierline_update_data (bezierline);
 
   return NULL;
 }
+
 
 static void
 exchange_bez_gap_points(BezierConn * bez, Point* gap_points)
@@ -719,47 +728,57 @@ bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   return &bezierline->bez.object;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 bezierline_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Bezierline *bezierline = (Bezierline*) obj;
   int segment;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  segment = bezierline_closest_segment(bezierline, clicked);
-  change = bezierconn_add_segment(&bezierline->bez, segment, clicked);
-  bezierline_update_data(bezierline);
+  segment = bezierline_closest_segment (bezierline, clicked);
+  change = bezierconn_add_segment (&bezierline->bez, segment, clicked);
+  bezierline_update_data (bezierline);
+
   return change;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 bezierline_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   int seg_nr;
   Bezierline *bezierline = (Bezierline*) obj;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  seg_nr = beziercommon_closest_segment(&bezierline->bez.bezier, clicked, bezierline->line_width);
+  seg_nr = beziercommon_closest_segment (&bezierline->bez.bezier, clicked, bezierline->line_width);
 
-  change = bezierconn_remove_segment(&bezierline->bez, seg_nr+1);
-  bezierline_update_data(bezierline);
+  change = bezierconn_remove_segment (&bezierline->bez, seg_nr+1);
+  bezierline_update_data (bezierline);
+
   return change;
 }
 
-static ObjectChange *
-bezierline_set_corner_type_callback (DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+bezierline_set_corner_type_callback (DiaObject *obj,
+                                     Point     *clicked,
+                                     gpointer   data)
 {
   Handle *closest;
   Bezierline *bezierline = (Bezierline*) obj;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  closest = bezierconn_closest_major_handle(&bezierline->bez, clicked);
-  change = bezierconn_set_corner_type(&bezierline->bez, closest,
-				      GPOINTER_TO_INT(data));
+  closest = bezierconn_closest_major_handle (&bezierline->bez, clicked);
+  change = bezierconn_set_corner_type (&bezierline->bez,
+                                       closest,
+                                       GPOINTER_TO_INT (data));
 
-  bezierline_update_data(bezierline);
+  bezierline_update_data (bezierline);
+
   return change;
 }
+
 
 static DiaMenuItem bezierline_menu_items[] = {
   { N_("Add Segment"), bezierline_add_segment_callback, NULL, 1 },

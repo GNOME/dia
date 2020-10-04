@@ -55,10 +55,10 @@ struct _Note {
 static real note_distance_from(Note *note, Point *point);
 static void note_select(Note *note, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
-static ObjectChange* note_move_handle(Note *note, Handle *handle,
+static DiaObjectChange* note_move_handle(Note *note, Handle *handle,
 				      Point *to, ConnectionPoint *cp,
 				      HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* note_move(Note *note, Point *to);
+static DiaObjectChange* note_move(Note *note, Point *to);
 static void note_draw(Note *note, DiaRenderer *renderer);
 static DiaObject *note_create(Point *startpoint,
 			   void *user_data,
@@ -184,7 +184,7 @@ note_select(Note *note, Point *clicked_point,
   element_update_handles(&note->element);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 note_move_handle(Note *note, Handle *handle,
 		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -198,7 +198,7 @@ note_move_handle(Note *note, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 note_move(Note *note, Point *to)
 {
   note->element.corner = *to;

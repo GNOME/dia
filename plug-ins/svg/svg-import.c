@@ -425,7 +425,7 @@ _set_pattern_from_key (DiaObject    *obj,
                        GHashTable   *pattern_ht,
                        const char   *key)
 {
-  ObjectChange *change = NULL;
+  DiaObjectChange *change = NULL;
   DiaPattern *pattern = g_hash_table_lookup (pattern_ht, key);
 
   if (pattern) {
@@ -434,10 +434,8 @@ _set_pattern_from_key (DiaObject    *obj,
     bprop->bool_data = TRUE;
   }
 
-  if (change) { /* throw it away, no one needs it here  */
-    change->free (change);
-    g_clear_pointer (&change, g_free);
-  }
+  /* throw it away, no one needs it here  */
+  g_clear_pointer (&change, dia_object_change_unref);
 }
 
 
@@ -1289,14 +1287,13 @@ read_image_svg (xmlNodePtr   node,
         GdkPixbuf *pixbuf = pixbuf_decode_base64 (data+1);
 
         if (pixbuf) {
-          ObjectChange *change;
+          DiaObjectChange *change;
 
-          new_obj = create_standard_image(x, y, width, height, NULL);
+          new_obj = create_standard_image (x, y, width, height, NULL);
           change = dia_object_set_pixbuf (new_obj, pixbuf);
-          if (change) { /* throw it away, no one needs it here  */
-            change->free (change);
-            g_clear_pointer (&change, g_free);
-          }
+
+          /* throw it away, no one needs it here  */
+          g_clear_pointer (&change, dia_object_change_unref);
           g_clear_object (&pixbuf);
         }
       }

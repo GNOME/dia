@@ -26,6 +26,7 @@
 
 #include "poly_conn.h"
 #include "diarenderer.h"
+#include "dia-object-change-legacy.h"
 
 
 enum change_type {
@@ -49,10 +50,12 @@ struct PointChange {
 };
 
 
-static ObjectChange *
-polyconn_create_change(PolyConn *poly, enum change_type type,
-		       Point *point, int segment, Handle *handle,
-		       ConnectionPoint *connected_to);
+static DiaObjectChange *polyconn_create_change (PolyConn         *poly,
+                                                enum change_type  type,
+                                                Point            *point,
+                                                int               segment,
+                                                Handle           *handle,
+                                                ConnectionPoint  *connected_to);
 
 typedef enum
 {
@@ -84,7 +87,7 @@ static int get_handle_nr(PolyConn *poly, Handle *handle)
 }
 
 
-ObjectChange *
+DiaObjectChange *
 polyconn_move_handle (PolyConn         *poly,
                       Handle           *handle,
                       Point            *to,
@@ -130,8 +133,8 @@ polyconn_move_handle (PolyConn         *poly,
 }
 
 
-ObjectChange*
-polyconn_move(PolyConn *poly, Point *to)
+DiaObjectChange *
+polyconn_move (PolyConn *poly, Point *to)
 {
   Point p;
   int i;
@@ -263,8 +266,8 @@ remove_handle(PolyConn *poly, int pos)
 
 /* Add a point by splitting segment into two, putting the new point at
  'point' or, if NULL, in the middle */
-ObjectChange *
-polyconn_add_point(PolyConn *poly, int segment, Point *point)
+DiaObjectChange *
+polyconn_add_point (PolyConn *poly, int segment, Point *point)
 {
   Point realpoint;
   Handle *new_handle;
@@ -284,8 +287,9 @@ polyconn_add_point(PolyConn *poly, int segment, Point *point)
 				NULL);
 }
 
-ObjectChange *
-polyconn_remove_point(PolyConn *poly, int pos)
+
+DiaObjectChange *
+polyconn_remove_point (PolyConn *poly, int pos)
 {
   Handle *old_handle;
   ConnectionPoint *connectionpoint;
@@ -557,7 +561,7 @@ polyconn_change_revert (struct PointChange *change, DiaObject *obj)
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 polyconn_create_change (PolyConn         *poly,
                         enum change_type  type,
                         Point            *point,
@@ -580,5 +584,5 @@ polyconn_create_change (PolyConn         *poly,
   change->handle = handle;
   change->connected_to = connected_to;
 
-  return (ObjectChange *) change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }

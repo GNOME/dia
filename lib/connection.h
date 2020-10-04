@@ -39,27 +39,28 @@ struct _Connection {
   LineBBExtras extra_spacing; /*!< calcualted bounding box */
 };
 
-void          connection_update_handles     (Connection       *conn);
-void          connection_update_boundingbox (Connection       *conn);
-void          connection_init               (Connection       *conn,
-                                             int               num_handles,
-                                             int               num_connections);
-void          connection_destroy            (Connection       *conn);
-void          connection_copy               (Connection       *from,
-                                             Connection       *to);
-void          connection_save               (Connection       *conn,
-                                             ObjectNode        obj_node,
-                                             DiaContext       *ctx);
-void          connection_load               (Connection       *conn,
-                                             ObjectNode        obj_node,
-                                             DiaContext       *ctx);
-ObjectChange* connection_move_handle        (Connection       *conn,
-                                             HandleId          id,
-                                             Point            *to,
-                                             ConnectionPoint  *cp,
-                                             HandleMoveReason  reason,
-                                             ModifierKeys      modifiers);
-void          connection_adjust_for_autogap (Connection       *conn);
+
+void             connection_update_handles     (Connection       *conn);
+void             connection_update_boundingbox (Connection       *conn);
+void             connection_init               (Connection       *conn,
+                                                int               num_handles,
+                                                int               num_connections);
+void             connection_destroy            (Connection       *conn);
+void             connection_copy               (Connection       *from,
+                                                Connection       *to);
+void             connection_save               (Connection       *conn,
+                                                ObjectNode        obj_node,
+                                                DiaContext       *ctx);
+void             connection_load               (Connection       *conn,
+                                                ObjectNode        obj_node,
+                                                DiaContext       *ctx);
+DiaObjectChange* connection_move_handle        (Connection       *conn,
+                                                HandleId          id,
+                                                Point            *to,
+                                                ConnectionPoint  *cp,
+                                                HandleMoveReason  reason,
+                                                ModifierKeys      modifiers);
+void             connection_adjust_for_autogap (Connection       *conn);
 
 /* base property stuff... */
 #define CONNECTION_COMMON_PROPERTIES \

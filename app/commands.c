@@ -194,7 +194,7 @@ file_preferences_callback (GtkAction *action)
 static void
 insert_text (DDisplay *ddisp, Focus *focus, const gchar *text)
 {
-  ObjectChange *change = NULL;
+  DiaObjectChange *change = NULL;
   int modified = FALSE, any_modified = FALSE;
   DiaObject *obj = focus_get_object (focus);
 
@@ -273,7 +273,7 @@ received_clipboard_image_handler (GtkClipboard *clipboard,
   DDisplay *ddisp = (DDisplay *) data;
   Diagram  *dia = ddisp->diagram;
   GList *list = dia->data->selected;
-  ObjectChange *change = NULL;
+  DiaObjectChange *change = NULL;
 
   if (!pixbuf) {
     message_error (_("No image from Clipboard to paste."));
@@ -315,10 +315,10 @@ received_clipboard_image_handler (GtkClipboard *clipboard,
                                               &handle2)) != NULL)) {
       /* as above, transfer the data */
       change = dia_object_set_pixbuf (obj, pixbuf);
-      if (change) { /* ... but drop undo info */
-        change->free (change);
-        g_clear_pointer (&change, g_free);
-      }
+
+      /* ... but drop undo info */
+      g_clear_pointer (&change, dia_object_change_unref);
+
       /* allow undo of the whole thing */
       dia_insert_objects_change_new (dia, g_list_prepend (NULL, obj), 1);
 
@@ -876,7 +876,7 @@ edit_cut_text_callback (GtkAction *action)
   DiaObject *obj;
   GPtrArray *textprops;
   TextProperty *prop;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   ddisp = ddisplay_active ();
   if (!ddisp) {
@@ -956,7 +956,7 @@ edit_delete_callback (GtkAction *action)
     return;
   }
   if (textedit_mode (ddisp)) {
-    ObjectChange *change = NULL;
+    DiaObjectChange *change = NULL;
     Focus *focus = get_active_focus ((DiagramData *) ddisp->diagram);
     if (!text_delete_key_handler (focus, &change)) {
       return;

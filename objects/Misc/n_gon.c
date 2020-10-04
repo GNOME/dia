@@ -183,13 +183,18 @@ _ngon_select(Ngon *ng, Point *clicked_point, DiaRenderer *interactive_renderer)
 {
   element_update_handles(&ng->element);
 }
-static ObjectChange*
-_ngon_move_handle (Ngon *ng, Handle *handle,
-		   Point *to, ConnectionPoint *cp,
-		   HandleMoveReason reason, ModifierKeys modifiers)
+
+
+static DiaObjectChange *
+_ngon_move_handle (Ngon             *ng,
+                   Handle           *handle,
+                   Point            *to,
+                   ConnectionPoint  *cp,
+                   HandleMoveReason  reason,
+                   ModifierKeys      modifiers)
 {
   Element *elem = &ng->element;
-  ObjectChange *change = NULL; /* stays NULL for fully reversible move handle */
+  DiaObjectChange *change = NULL; /* stays NULL for fully reversible move handle */
 
   g_return_val_if_fail (handle!=NULL, NULL);
   g_return_val_if_fail (to!=NULL, NULL);
@@ -203,24 +208,27 @@ _ngon_move_handle (Ngon *ng, Handle *handle,
     real d1 = distance_point_point (to, &ng->center);
     ng->ray_len *= (d1 / d0);
     /* not sure if this is useful at all, but we must not do it with our center_handle */
-    change = element_move_handle(elem, handle->id, to, cp, reason, modifiers);
+    change = element_move_handle (elem, handle->id, to, cp, reason, modifiers);
   }
 
-  _ngon_update_data(ng);
+  _ngon_update_data (ng);
 
   return change;
 }
+
+
 /*!
  * \brief Move the object, to is relative to former object position
  */
-static ObjectChange*
-_ngon_move(Ngon *ng, Point *to)
+static DiaObjectChange *
+_ngon_move (Ngon *ng, Point *to)
 {
   ng->center = *to;
-  _ngon_update_data(ng);
+  _ngon_update_data (ng);
 
   return NULL;
 }
+
 
 static void
 _ngon_draw (Ngon *ng, DiaRenderer *renderer)

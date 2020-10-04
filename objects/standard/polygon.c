@@ -64,10 +64,14 @@ static struct _PolygonProperties {
   gboolean show_background;
 } default_properties = { TRUE };
 
-static ObjectChange* polygon_move_handle(Polygon *polygon, Handle *handle,
-					 Point *to, ConnectionPoint *cp,
-					 HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* polygon_move(Polygon *polygon, Point *to);
+static DiaObjectChange* polygon_move_handle    (Polygon          *polygon,
+                                                Handle           *handle,
+                                                Point            *to,
+                                                ConnectionPoint  *cp,
+                                                HandleMoveReason  reason,
+                                                ModifierKeys      modifiers);
+static DiaObjectChange* polygon_move           (Polygon          *polygon,
+                                                Point            *to);
 static void polygon_select(Polygon *polygon, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void polygon_draw(Polygon *polygon, DiaRenderer *renderer);
@@ -185,10 +189,14 @@ polygon_select(Polygon *polygon, Point *clicked_point,
   polyshape_update_data(&polygon->poly);
 }
 
-static ObjectChange*
-polygon_move_handle(Polygon *polygon, Handle *handle,
-		    Point *to, ConnectionPoint *cp,
-		    HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+polygon_move_handle (Polygon          *polygon,
+                     Handle           *handle,
+                     Point            *to,
+                     ConnectionPoint  *cp,
+                     HandleMoveReason  reason,
+                     ModifierKeys      modifiers)
 {
   assert(polygon!=NULL);
   assert(handle!=NULL);
@@ -201,11 +209,11 @@ polygon_move_handle(Polygon *polygon, Handle *handle,
 }
 
 
-static ObjectChange*
-polygon_move(Polygon *polygon, Point *to)
+static DiaObjectChange *
+polygon_move (Polygon *polygon, Point *to)
 {
-  polyshape_move(&polygon->poly, to);
-  polygon_update_data(polygon);
+  polyshape_move (&polygon->poly, to);
+  polygon_update_data (polygon);
 
   return NULL;
 }
@@ -446,27 +454,30 @@ polygon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   return &polygon->poly.object;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 polygon_add_corner_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Polygon *poly = (Polygon*) obj;
   int segment;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  segment = polygon_closest_segment(poly, clicked);
-  change = polyshape_add_point(&poly->poly, segment, clicked);
+  segment = polygon_closest_segment (poly, clicked);
+  change = polyshape_add_point (&poly->poly, segment, clicked);
 
-  polygon_update_data(poly);
+  polygon_update_data (poly);
+
   return change;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 polygon_delete_corner_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Handle *handle;
   int handle_nr, i;
   Polygon *poly = (Polygon*) obj;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   handle = polygon_closest_handle(poly, clicked);
 

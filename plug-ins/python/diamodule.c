@@ -367,7 +367,7 @@ PyDia_RegisterImport(PyObject *self, PyObject *args)
  * It needs to be registered before via Python function
  * dia.register_action (or dia.register_callback)
  */
-static ObjectChange *
+static DiaObjectChange *
 PyDia_callback_func (DiagramData *dia,
                      const char  *filename,
                      guint        flags,

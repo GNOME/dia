@@ -93,10 +93,10 @@ static Color color_red = { 1.0f, 0.0f, 0.0f, 1.0f };
 
 static DiaFont *mbr_font = NULL;
 
-static ObjectChange* mbr_move_handle(Mbr *mbr, Handle *handle,
+static DiaObjectChange* mbr_move_handle(Mbr *mbr, Handle *handle,
 				   Point *to, ConnectionPoint *cp,
 				   HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* mbr_move(Mbr *mbr, Point *to);
+static DiaObjectChange* mbr_move(Mbr *mbr, Point *to);
 static void mbr_select(Mbr *mbr, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void mbr_draw(Mbr *mbr, DiaRenderer *renderer);
@@ -219,7 +219,7 @@ mbr_select(Mbr *mbr, Point *clicked_point,
   connection_update_handles(&mbr->connection);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 mbr_move_handle(Mbr *mbr, Handle *handle,
 		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -248,7 +248,7 @@ mbr_move_handle(Mbr *mbr, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 mbr_move(Mbr *mbr, Point *to)
 {
   Point start_to_end;

@@ -60,8 +60,8 @@ typedef struct _Box {
   ConnPointLine *north,*south,*east,*west;
 
   Text *text;
-  gchar *id;
-  real padding;
+  char *id;
+  double padding;
 
   Color line_color;
   Color fill_color;
@@ -70,11 +70,14 @@ typedef struct _Box {
 static real sadtbox_distance_from(Box *box, Point *point);
 static void sadtbox_select(Box *box, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static ObjectChange* sadtbox_move_handle(Box *box, Handle *handle,
-					 Point *to, ConnectionPoint *cp,
-					 HandleMoveReason reason,
-			    ModifierKeys modifiers);
-static ObjectChange* sadtbox_move(Box *box, Point *to);
+static DiaObjectChange *sadtbox_move_handle          (Box             *box,
+                                                      Handle          *handle,
+                                                      Point           *to,
+                                                      ConnectionPoint *cp,
+                                                      HandleMoveReason  reason,
+                                                      ModifierKeys      modifiers);
+static DiaObjectChange *sadtbox_move                 (Box              *box,
+                                                      Point            *to);
 static void sadtbox_draw(Box *box, DiaRenderer *renderer);
 static void sadtbox_update_data(Box *box, AnchorShape horix, AnchorShape vert);
 static DiaObject *sadtbox_create(Point *startpoint,
@@ -215,7 +218,7 @@ sadtbox_select (Box         *box,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 sadtbox_move_handle (Box              *box,
                      Handle           *handle,
                      Point            *to,
@@ -276,15 +279,16 @@ sadtbox_move_handle (Box              *box,
 }
 
 
-static ObjectChange*
-sadtbox_move(Box *box, Point *to)
+static DiaObjectChange*
+sadtbox_move (Box *box, Point *to)
 {
   box->element.corner = *to;
 
-  sadtbox_update_data(box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  sadtbox_update_data (box, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return NULL;
 }
+
 
 static void
 sadtbox_draw (Box *box, DiaRenderer *renderer)
@@ -450,36 +454,45 @@ sadtbox_get_clicked_border (Box *box, Point *clicked)
   return cpl;
 }
 
-inline static ObjectChange *
-sadtbox_create_change(Box *box, ObjectChange *inner, ConnPointLine *cpl) {
-  return (ObjectChange *)inner;
+
+inline static DiaObjectChange *
+sadtbox_create_change (Box *box, DiaObjectChange *inner, ConnPointLine *cpl)
+{
+  return (DiaObjectChange *)inner;
 }
 
-static ObjectChange *
-sadtbox_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+sadtbox_add_connpoint_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   ConnPointLine *cpl;
   Box *box = (Box *)obj;
 
-  cpl = sadtbox_get_clicked_border(box,clicked);
-  change = connpointline_add_point(cpl, clicked);
-  sadtbox_update_data((Box *)obj,ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return sadtbox_create_change(box,change,cpl);
+  cpl = sadtbox_get_clicked_border (box, clicked);
+  change = connpointline_add_point (cpl, clicked);
+  sadtbox_update_data ((Box *) obj, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
+  return sadtbox_create_change (box, change, cpl);
 }
 
-static ObjectChange *
-sadtbox_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+sadtbox_remove_connpoint_callback (DiaObject *obj,
+                                   Point     *clicked,
+                                   gpointer   data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   ConnPointLine *cpl;
   Box *box = (Box *)obj;
 
-  cpl = sadtbox_get_clicked_border(box,clicked);
-  change = connpointline_remove_point(cpl, clicked);
-  sadtbox_update_data((Box *)obj,ANCHOR_MIDDLE, ANCHOR_MIDDLE);
-  return sadtbox_create_change(box,change,cpl);
+  cpl = sadtbox_get_clicked_border (box, clicked);
+  change = connpointline_remove_point (cpl, clicked);
+  sadtbox_update_data ((Box *) obj, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+
+  return sadtbox_create_change (box, change, cpl);
 }
+
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add connection point"), sadtbox_add_connpoint_callback, NULL, 1 },

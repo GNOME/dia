@@ -19,5 +19,6 @@
 */
 
 
-ObjectChange *edit_port_declaration_callback (DiaObject *obj,
-					      Point *clicked, gpointer data);
+DiaObjectChange *edit_port_declaration_callback (DiaObject *obj,
+                                                 Point     *clicked,
+                                                 gpointer   data);

@@ -80,11 +80,11 @@ DiaObjectType measure_type =
 DiaObjectType *_measure_type = (DiaObjectType *) &measure_type;
 
 /* Class definition */
-static ObjectChange* measure_move_handle (Measure *measure,
+static DiaObjectChange* measure_move_handle (Measure *measure,
                                           Handle *handle,
 					  Point *to, ConnectionPoint *cp,
 					  HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* measure_move (Measure *measure, Point *to);
+static DiaObjectChange* measure_move (Measure *measure, Point *to);
 static void measure_select(Measure *measure, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
 static void measure_draw(Measure *measure, DiaRenderer *renderer);
@@ -319,7 +319,7 @@ measure_select(Measure *measure, Point *clicked_point,
 {
   connection_update_handles(&measure->connection);
 }
-static ObjectChange*
+static DiaObjectChange*
 measure_move_handle (Measure *measure,
                      Handle *handle,
 		     Point *to, ConnectionPoint *cp,
@@ -336,7 +336,7 @@ measure_get_object_menu(Measure *measure,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 measure_move (Measure *measure, Point *to)
 {
   Point start_to_end;

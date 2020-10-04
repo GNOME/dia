@@ -19,7 +19,7 @@
     </releaseinfo>
 
     <copyright>
-      <year>2019</year>
+      <year>2019-2020</year>
       <holder>Zander Brown</holder>
     </copyright>
   </bookinfo>
@@ -72,6 +72,7 @@
     <xi:include href="xml/objchange.xml"/>
     <xi:include href="xml/dia-change.xml" />
     <xi:include href="xml/dia-object-change.xml" />
+    <xi:include href="xml/dia-object-change-legacy.xml" />
     <xi:include href="xml/object-alias.xml"/>
     <xi:include href="xml/create.xml"/>
     <xi:include href="xml/diatransform.xml"/>
@@ -132,24 +133,24 @@
     <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
   </index>
 
-  <index id="api-index-0.98">
+  <index id="api-index-0.98" role="0.98">
     <title>API added in 0.98</title>
     <xi:include href="xml/api-index-0.98.xml"><xi:fallback /></xi:include>
   </index>
 
-  <index id="api-index-dawn-of-time">
+  <index id="api-index-dawn-of-time" role="dawn-of-time">
     <title>API added before 0.98</title>
     <xi:include href="xml/api-index-dawn-of-time.xml"><xi:fallback /></xi:include>
   </index>
 
-  <index id="deprecated-api-index" role="deprecated">
+  <index id="api-index-deprecated" role="deprecated">
     <title>Index of deprecated API</title>
     <xi:include href="xml/api-index-deprecated.xml"><xi:fallback /></xi:include>
   </index>
 
   <index id="annotations-glossary">
-  <title>Annotations glossary</title>
-  <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
+    <title>Annotations glossary</title>
+    <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
   </index>
 
 </book>

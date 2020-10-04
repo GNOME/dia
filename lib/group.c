@@ -25,6 +25,8 @@
 #include "group.h"
 #include "properties.h"
 #include "diarenderer.h"
+#include "dia-object-change-legacy.h"
+
 
 /*!
  * \brief Allow grouping other objects and hiding them from the diagram
@@ -49,26 +51,40 @@ struct _GroupPropChange {
   GList *changes_per_object;
 };
 
-static GroupPropChange* group_apply_properties_list(Group *group, GPtrArray *props);
-static void group_prop_change_apply(GroupPropChange *change, DiaObject *obj);
-static void group_prop_change_revert(GroupPropChange *change, DiaObject *obj);
-static void group_prop_change_free(GroupPropChange *change);
 
-static real group_distance_from(Group *group, Point *point);
-static void group_select(Group *group);
-static ObjectChange* group_move_handle(Group *group, Handle *handle, Point *to, ConnectionPoint *cp,
-					         HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* group_move(Group *group, Point *to);
-static void group_draw(Group *group, DiaRenderer *renderer);
-static void group_update_data(Group *group);
-static void group_update_handles(Group *group);
-static void group_update_connectionpoints(Group *group);
-static void group_destroy(Group *group);
-static DiaObject *group_copy(Group *group);
-static const PropDescription *group_describe_props(Group *group);
-static void group_get_props(Group *group, GPtrArray *props);
-static void group_set_props(Group *group, GPtrArray *props);
-static void group_transform (Group *group, const DiaMatrix *m);
+static DiaObjectChange       *group_apply_properties_list    (Group            *group,
+                                                              GPtrArray        *props);
+static void                   group_prop_change_apply        (GroupPropChange  *change,
+                                                              DiaObject        *obj);
+static void                   group_prop_change_revert       (GroupPropChange  *change,
+                                                              DiaObject        *obj);
+static void                   group_prop_change_free         (GroupPropChange  *change);
+static double                 group_distance_from            (Group            *group,
+                                                              Point            *point);
+static void                   group_select                   (Group            *group);
+static DiaObjectChange       *group_move_handle              (Group            *group,
+                                                              Handle           *handle,
+                                                              Point            *to,
+                                                              ConnectionPoint  *cp,
+                                                              HandleMoveReason  reason,
+                                                              ModifierKeys      modifiers);
+static DiaObjectChange       *group_move                     (Group            *group,
+                                                              Point            *to);
+static void                   group_draw                     (Group            *group,
+                                                              DiaRenderer      *renderer);
+static void                   group_update_data              (Group            *group);
+static void                   group_update_handles           (Group            *group);
+static void                   group_update_connectionpoints  (Group            *group);
+static void                   group_destroy                  (Group            *group);
+static DiaObject             *group_copy                     (Group            *group);
+static const PropDescription *group_describe_props           (Group            *group);
+static void                   group_get_props                (Group            *group,
+                                                              GPtrArray        *props);
+static void                   group_set_props                (Group            *group,
+                                                              GPtrArray        *props);
+static void                   group_transform                (Group            *group,
+                                                              const DiaMatrix  *m);
+
 
 static ObjectOps group_ops = {
   (DestroyFunc)         group_destroy,
@@ -213,7 +229,7 @@ group_objects_move_delta (Group *group, const Point *delta)
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 group_move_handle (Group            *group,
                    Handle           *handle,
                    Point            *to,
@@ -327,8 +343,9 @@ group_move_handle (Group            *group,
   return NULL;
 }
 
-static ObjectChange*
-group_move(Group *group, Point *to)
+
+static DiaObjectChange *
+group_move (Group *group, Point *to)
 {
   Point delta,pos;
 
@@ -785,12 +802,13 @@ group_set_props(Group *group, GPtrArray *props)
   group_update_data (group);
 }
 
-GroupPropChange *
-group_apply_properties_list(Group *group, GPtrArray *props)
+
+DiaObjectChange *
+group_apply_properties_list (Group *group, GPtrArray *props)
 {
   GList *tmp = NULL;
   GList *clist = NULL;
-  ObjectChange *objchange;
+  DiaObjectChange *objchange;
   GroupPropChange *change = NULL;
   GPtrArray *props_list, *props_self;
   guint i;
@@ -841,17 +859,18 @@ group_apply_properties_list(Group *group, GPtrArray *props)
 
   change->changes_per_object = clist;
 
-  return change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
+
 static void
-group_prop_change_apply(GroupPropChange *change, DiaObject *obj)
+group_prop_change_apply (GroupPropChange *change, DiaObject *obj)
 {
   GList *tmp;
 
   for (tmp = change->changes_per_object; tmp != NULL;
-       tmp = g_list_next(tmp)) {
-    ObjectChange *obj_change = (ObjectChange*)tmp->data;
+       tmp = g_list_next (tmp)) {
+    DiaObjectChange *obj_change = DIA_OBJECT_CHANGE (tmp->data);
 
     /*
       This call to apply() depends on the fact that it is actually a
@@ -861,18 +880,19 @@ group_prop_change_apply(GroupPropChange *change, DiaObject *obj)
       in ObjectChange. Read comments near the ObjectChange struct in
       objchange.h
      */
-    obj_change->apply(obj_change, NULL);
+    dia_object_change_apply (obj_change, NULL);
   }
 }
 
+
 static void
-group_prop_change_revert(GroupPropChange *change, DiaObject *obj)
+group_prop_change_revert (GroupPropChange *change, DiaObject *obj)
 {
   GList *tmp;
 
   for (tmp = change->changes_per_object; tmp != NULL;
        tmp = g_list_next(tmp)) {
-    ObjectChange *obj_change = (ObjectChange*)tmp->data;
+    DiaObjectChange *obj_change = DIA_OBJECT_CHANGE (tmp->data);
 
     /*
       This call to revert() depends on the fact that it is actually a
@@ -882,22 +902,17 @@ group_prop_change_revert(GroupPropChange *change, DiaObject *obj)
       in ObjectChange. Read comments near the ObjectChange struct in
       objchange.h
      */
-    obj_change->revert(obj_change, NULL);
+    dia_object_change_revert (obj_change, NULL);
   }
 }
 
+
 static void
-group_prop_change_free(GroupPropChange *change)
+group_prop_change_free (GroupPropChange *change)
 {
-  GList *tmp;
-  for (tmp = change->changes_per_object; tmp != NULL;
-       tmp = g_list_next(tmp)) {
-    ObjectChange *obj_change = (ObjectChange*)tmp->data;
-    obj_change->free(obj_change);
-    g_clear_pointer (&obj_change, g_free);
-  }
-  g_list_free(change->changes_per_object);
+  g_list_free_full (change->changes_per_object, dia_object_change_unref);
 }
+
 
 static void
 group_transform (Group *group, const DiaMatrix *m)

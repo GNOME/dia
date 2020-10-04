@@ -85,10 +85,10 @@ struct _Maor {
 
 static DiaFont *maor_font = NULL;
 
-static ObjectChange* maor_move_handle(Maor *maor, Handle *handle,
+static DiaObjectChange* maor_move_handle(Maor *maor, Handle *handle,
 				   Point *to, ConnectionPoint *cp,
 				   HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* maor_move(Maor *maor, Point *to);
+static DiaObjectChange* maor_move(Maor *maor, Point *to);
 static void maor_select(Maor *maor, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void maor_draw(Maor *maor, DiaRenderer *renderer);
@@ -220,7 +220,7 @@ maor_select(Maor *maor, Point *clicked_point,
   connection_update_handles(&maor->connection);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 maor_move_handle(Maor *maor, Handle *handle,
 		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -250,7 +250,7 @@ maor_move_handle(Maor *maor, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 maor_move(Maor *maor, Point *to)
 {
   Point start_to_end;

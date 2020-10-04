@@ -62,10 +62,10 @@ struct _Constraint {
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
 
-static ObjectChange* constraint_move_handle(Constraint *constraint, Handle *handle,
+static DiaObjectChange* constraint_move_handle(Constraint *constraint, Handle *handle,
 					    Point *to, ConnectionPoint *cp,
 					    HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* constraint_move(Constraint *constraint, Point *to);
+static DiaObjectChange* constraint_move(Constraint *constraint, Point *to);
 static void constraint_select(Constraint *constraint, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void constraint_draw(Constraint *constraint, DiaRenderer *renderer);
@@ -189,7 +189,7 @@ constraint_select(Constraint *constraint, Point *clicked_point,
   connection_update_handles(&constraint->connection);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 constraint_move_handle(Constraint *constraint, Handle *handle,
 		       Point *to, ConnectionPoint *cp,
 		       HandleMoveReason reason, ModifierKeys modifiers)
@@ -221,7 +221,7 @@ constraint_move_handle(Constraint *constraint, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 constraint_move(Constraint *constraint, Point *to)
 {
   Point start_to_end;

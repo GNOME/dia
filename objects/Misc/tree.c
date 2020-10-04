@@ -29,6 +29,7 @@
 #include "attributes.h"
 #include "properties.h"
 #include "diamenu.h"
+#include "dia-object-change-legacy.h"
 
 #include "pixmaps/tree.xpm"
 
@@ -65,10 +66,14 @@ struct PointChange {
   ConnectionPoint *connected_to; /* NULL if not connected */
 };
 
-static ObjectChange* tree_move_handle(Tree *tree, Handle *handle,
-				     Point *to, ConnectionPoint *cp,
-				     HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* tree_move(Tree *tree, Point *to);
+static DiaObjectChange *tree_move_handle         (Tree             *tree,
+                                                  Handle           *handle,
+                                                  Point            *to,
+                                                  ConnectionPoint  *cp,
+                                                  HandleMoveReason  reason,
+                                                  ModifierKeys      modifiers);
+static DiaObjectChange *tree_move                (Tree             *tree,
+                                                  Point            *to);
 static void tree_select(Tree *tree, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static void tree_draw(Tree *tree, DiaRenderer *renderer);
@@ -88,14 +93,14 @@ static void tree_save(Tree *tree, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *tree_load(ObjectNode obj_node, int version,DiaContext *ctx);
 static DiaMenu *tree_get_object_menu(Tree *tree, Point *clickedpoint);
 
-static ObjectChange *
-tree_create_change(Tree *tree, enum change_type type,
-		  Point *point, Handle *handle,
-		  ConnectionPoint *connected_to);
+static DiaObjectChange *tree_create_change (Tree             *tree,
+                                            enum change_type  type,
+                                            Point            *point,
+                                            Handle           *handle,
+                                            ConnectionPoint  *connected_to);
 
 
-static ObjectTypeOps tree_type_ops =
-{
+static ObjectTypeOps tree_type_ops = {
   (CreateFunc) tree_create,
   (LoadFunc)   tree_load,
   (SaveFunc)   tree_save,
@@ -190,10 +195,14 @@ tree_select(Tree *tree, Point *clicked_point,
   connection_update_handles(&tree->connection);
 }
 
-static ObjectChange*
-tree_move_handle(Tree *tree, Handle *handle,
-		Point *to, ConnectionPoint *cp,
-		HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+tree_move_handle (Tree             *tree,
+                  Handle           *handle,
+                  Point            *to,
+                  ConnectionPoint  *cp,
+                  HandleMoveReason  reason,
+                  ModifierKeys      modifiers)
 {
   Connection *conn = &tree->connection;
   Point *endpoints;
@@ -263,8 +272,9 @@ tree_move_handle(Tree *tree, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
-tree_move(Tree *tree, Point *to)
+
+static DiaObjectChange *
+tree_move (Tree *tree, Point *to)
 {
   Point delta;
   Point *endpoints = &tree->connection.endpoints[0];
@@ -535,18 +545,20 @@ tree_remove_handle(Tree *tree, Handle *handle)
   }
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 tree_add_handle_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Tree *tree = (Tree *) obj;
   Handle *handle;
 
-  handle = g_new0(Handle,1);
-  tree_add_handle(tree, clicked, handle);
-  tree_update_data(tree);
+  handle = g_new0 (Handle, 1);
+  tree_add_handle (tree, clicked, handle);
+  tree_update_data (tree);
 
-  return tree_create_change(tree, TYPE_ADD_POINT, clicked, handle, NULL);
+  return tree_create_change (tree, TYPE_ADD_POINT, clicked, handle, NULL);
 }
+
 
 static int
 tree_point_near_handle(Tree *tree, Point *p)
@@ -572,7 +584,8 @@ tree_point_near_handle(Tree *tree, Point *p)
     return -1;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 tree_delete_handle_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Tree *tree = (Tree *) obj;
@@ -743,10 +756,12 @@ tree_change_revert (struct PointChange *change, DiaObject *obj)
 }
 
 
-static ObjectChange *
-tree_create_change(Tree *tree, enum change_type type,
-		  Point *point, Handle *handle,
-		  ConnectionPoint *connected_to)
+static DiaObjectChange *
+tree_create_change (Tree             *tree,
+                    enum change_type  type,
+                    Point            *point,
+                    Handle           *handle,
+                    ConnectionPoint  *connected_to)
 {
   struct PointChange *change;
 
@@ -762,5 +777,5 @@ tree_create_change(Tree *tree, enum change_type type,
   change->handle = handle;
   change->connected_to = connected_to;
 
-  return (ObjectChange *)change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }

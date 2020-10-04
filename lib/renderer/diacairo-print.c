@@ -236,7 +236,7 @@ create_print_operation (DiagramData *data, const char *name)
 }
 
 
-ObjectChange *
+DiaObjectChange *
 cairo_print_callback (DiagramData *data,
                       const char  *filename,
                       guint        flags, /* further additions */

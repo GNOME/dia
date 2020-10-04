@@ -31,6 +31,7 @@
 #include "properties.h"
 #include "connpoint_line.h"
 #include "attributes.h"
+#include "dia-object-change-legacy.h"
 
 #include "pixmaps/lifeline.xpm"
 
@@ -85,11 +86,14 @@ struct _Lifeline {
 #define HANDLE_BOXBOT (HANDLE_CUSTOM2)
 #define HANDLE_BOXMID (HANDLE_CUSTOM3)
 
-static ObjectChange* lifeline_move_handle(Lifeline *lifeline, Handle *handle,
-					  Point *to, ConnectionPoint *cp,
-					  HandleMoveReason reason,
-                                 ModifierKeys modifiers);
-static ObjectChange* lifeline_move(Lifeline *lifeline, Point *to);
+static DiaObjectChange *lifeline_move_handle   (Lifeline         *lifeline,
+                                                Handle           *handle,
+                                                Point            *to,
+                                                ConnectionPoint  *cp,
+                                                HandleMoveReason  reason,
+                                                ModifierKeys      modifiers);
+static DiaObjectChange *lifeline_move          (Lifeline         *lifeline,
+                                                Point            *to);
 static void lifeline_select(Lifeline *lifeline, Point *clicked_point,
                             DiaRenderer *interactive_renderer);
 static void lifeline_draw(Lifeline *lifeline, DiaRenderer *renderer);
@@ -117,7 +121,9 @@ typedef enum {
   LIFELINE_CHANGE_DEF = 0x05
 } LifelineChangeType;
 
-static ObjectChange *lifeline_create_change(Lifeline *lifeline, LifelineChangeType changetype, Point *clicked);
+static DiaObjectChange *lifeline_create_change (Lifeline           *lifeline,
+                                                LifelineChangeType  changetype,
+                                                Point              *clicked);
 
 static ObjectTypeOps lifeline_type_ops =
 {
@@ -252,6 +258,8 @@ lifeline_point_above_mid (Lifeline *lifeline,
 {
   return (pt->y < lifeline->boxmid_handle.pos.y);
 }
+
+
 /*!
  * Moving handles of a lifeline
  *
@@ -263,12 +271,15 @@ lifeline_point_above_mid (Lifeline *lifeline,
  *   by connected points)
  * - the bottom handle just move itself, not beyond the lower box handle
  */
-static ObjectChange*
-lifeline_move_handle(Lifeline *lifeline, Handle *handle,
-		     Point *to, ConnectionPoint *cp,
-		     HandleMoveReason reason, ModifierKeys modifiers)
+static DiaObjectChange*
+lifeline_move_handle (Lifeline         *lifeline,
+                      Handle           *handle,
+                      Point            *to,
+                      ConnectionPoint  *cp,
+                      HandleMoveReason  reason,
+                      ModifierKeys      modifiers)
 {
-  real s, dy;
+  double s, dy;
   Connection *conn;
 
   assert(lifeline!=NULL);
@@ -336,26 +347,28 @@ lifeline_move_handle(Lifeline *lifeline, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
-lifeline_move(Lifeline *lifeline, Point *to)
+
+static DiaObjectChange *
+lifeline_move (Lifeline *lifeline, Point *to)
 {
   Point start_to_end;
   Point delta;
   Point *endpoints = &lifeline->connection.endpoints[0];
 
   delta = *to;
-  point_sub(&delta, &endpoints[0]);
+  point_sub (&delta, &endpoints[0]);
 
   start_to_end = endpoints[1];
-  point_sub(&start_to_end, &endpoints[0]);
+  point_sub (&start_to_end, &endpoints[0]);
 
   endpoints[1] = endpoints[0] = *to;
-  point_add(&endpoints[1], &start_to_end);
+  point_add (&endpoints[1], &start_to_end);
 
-  lifeline_update_data(lifeline);
+  lifeline_update_data (lifeline);
 
   return NULL;
 }
+
 
 static void
 lifeline_draw (Lifeline *lifeline, DiaRenderer *renderer)
@@ -428,29 +441,30 @@ lifeline_draw (Lifeline *lifeline, DiaRenderer *renderer)
 typedef struct {
   ObjectChange obj_change;
 
-  ObjectChange *east, *west;
-  real cp_distance_change;
+  DiaObjectChange *east, *west;
+  double cp_distance_change;
   LifelineChangeType type;
 } LifelineChange;
 
-static void
-lifeline_change_apply(LifelineChange *change, DiaObject *obj)
-{
-  if( change->type == LIFELINE_CHANGE_ADD ||  change->type == LIFELINE_CHANGE_DEL ) {
-    change->west->apply(change->west,obj);
-    change->east->apply(change->east,obj);
-  } else {
-    ((Lifeline*)obj)->cp_distance += change->cp_distance_change;
-  }
 
+static void
+lifeline_change_apply (LifelineChange *change, DiaObject *obj)
+{
+  if (change->type == LIFELINE_CHANGE_ADD || change->type == LIFELINE_CHANGE_DEL) {
+    dia_object_change_apply (change->west,obj);
+    dia_object_change_apply (change->east,obj);
+  } else {
+    ((Lifeline*) obj)->cp_distance += change->cp_distance_change;
+  }
 }
 
+
 static void
-lifeline_change_revert(LifelineChange *change, DiaObject *obj)
+lifeline_change_revert (LifelineChange *change, DiaObject *obj)
 {
-  if( change->type == LIFELINE_CHANGE_ADD ||  change->type == LIFELINE_CHANGE_DEL ) {
-    change->west->revert(change->west,obj);
-    change->east->revert(change->east,obj);
+  if (change->type == LIFELINE_CHANGE_ADD || change->type == LIFELINE_CHANGE_DEL) {
+    dia_object_change_revert (change->west,obj);
+    dia_object_change_revert (change->east,obj);
   } else {
     ((Lifeline*)obj)->cp_distance -= change->cp_distance_change;
   }
@@ -462,23 +476,20 @@ lifeline_change_free (LifelineChange *change)
 {
   if (change->type == LIFELINE_CHANGE_ADD ||
       change->type == LIFELINE_CHANGE_DEL) {
-    if (change->east->free)
-      change->east->free (change->east);
-    g_clear_pointer (&change->east, g_free);
-
-    if (change->west->free)
-      change->west->free (change->west);
-    g_clear_pointer (&change->west, g_free);
+    g_clear_pointer (&change->east, dia_object_change_unref);
+    g_clear_pointer (&change->west, dia_object_change_unref);
   }
 }
 
 
-static ObjectChange *
-lifeline_create_change (Lifeline *lifeline, LifelineChangeType changetype, Point *clicked)
+static DiaObjectChange *
+lifeline_create_change (Lifeline           *lifeline,
+                        LifelineChangeType  changetype,
+                        Point              *clicked)
 {
   LifelineChange *vc;
 
-  vc = g_new0(LifelineChange,1);
+  vc = g_new0 (LifelineChange, 1);
   vc->obj_change.apply = (ObjectChangeApplyFunc)lifeline_change_apply;
   vc->obj_change.revert = (ObjectChangeRevertFunc)lifeline_change_revert;
   vc->obj_change.free = (ObjectChangeFreeFunc)lifeline_change_free;
@@ -518,17 +529,20 @@ lifeline_create_change (Lifeline *lifeline, LifelineChangeType changetype, Point
     default:
       g_return_val_if_reached (NULL);
   }
+
   lifeline_update_data (lifeline);
-  return (ObjectChange *) vc;
+
+  return dia_object_change_legacy_new ((ObjectChange *) vc);
 }
 
 
-static ObjectChange *
-lifeline_cp_callback(DiaObject *obj, Point *clicked, gpointer data)
+static DiaObjectChange *
+lifeline_cp_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  LifelineChangeType type = GPOINTER_TO_INT(data);
-  return lifeline_create_change((Lifeline *)obj, type, clicked);
+  LifelineChangeType type = GPOINTER_TO_INT (data);
+  return lifeline_create_change ((Lifeline *) obj, type, clicked);
 }
+
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add connection points"), lifeline_cp_callback, GINT_TO_POINTER(LIFELINE_CHANGE_ADD), 1 },

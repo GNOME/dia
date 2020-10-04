@@ -115,12 +115,13 @@ properties_key_event(GtkWidget *widget, GdkEventKey *event, gpointer data)
   return FALSE;
 }
 
-static gint
-properties_respond(GtkWidget *widget,
-                   gint       response_id,
-                   gpointer   data)
+
+static int
+properties_respond (GtkWidget *widget,
+                    int        response_id,
+                    gpointer   data)
 {
-  ObjectChange *obj_change = NULL;
+  DiaObjectChange *obj_change = NULL;
   gboolean set_tp = TRUE;
   GList *tmp;
 
@@ -131,7 +132,7 @@ properties_respond(GtkWidget *widget,
 
       for (tmp = current_objects; tmp != NULL; tmp = tmp->next) {
         DiaObject *current_obj = (DiaObject*)tmp->data;
-        obj_change = current_obj->ops->apply_properties_from_dialog(current_obj, object_part);
+        obj_change = dia_object_apply_editor (current_obj, object_part);
         object_add_updates(current_obj, current_dia);
         diagram_update_connections_object(current_dia, current_obj, TRUE);
 

@@ -17,7 +17,7 @@
  */
 
 /**
- * SECTION:element:
+ * SECTION:element
  * @title: Element
  *
  * The Element object type is a rectangular box that has
@@ -35,6 +35,8 @@
 
 #include "element.h"
 #include "properties.h"
+#include "dia-object-change-legacy.h"
+
 
 #ifdef G_OS_WIN32
 /* defined in header */
@@ -214,7 +216,7 @@ element_update_handles (Element *elem)
  *
  * Returns: Undo information for this change.
  */
-ObjectChange *
+DiaObjectChange *
 element_move_handle (Element          *elem,
                      HandleId          id,
                      Point            *to,
@@ -594,10 +596,10 @@ _element_change_swap (ObjectChange *self,
 }
 
 
-ObjectChange *
+DiaObjectChange *
 element_change_new (const Point *corner,
-                    real         width,
-                    real         height,
+                    double       width,
+                    double       height,
                     Element     *elem)
 {
   ElementChange *ec = g_new0 (ElementChange, 1);
@@ -611,7 +613,7 @@ element_change_new (const Point *corner,
   ec->width = elem->width;
   ec->height = elem->height;
 
-  return &ec->object_change;
+  return dia_object_change_legacy_new ((ObjectChange *) ec);
 }
 
 

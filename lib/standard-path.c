@@ -43,6 +43,9 @@
 #include "create.h"
 #include "bezier-common.h"
 #include "pattern.h"
+#include "dia-object-change-legacy.h"
+#include "dia-object-change-list.h"
+
 
 #define NUM_HANDLES 8
 
@@ -167,12 +170,16 @@ DiaObjectType stdpath_type =
   stdpath_offsets
 };
 
+
 /* Class definition */
-static ObjectChange* stdpath_move_handle (StdPath *stdpath,
-                                          Handle *handle,
-					  Point *to, ConnectionPoint *cp,
-					  HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* stdpath_move (StdPath *stdpath, Point *to);
+static DiaObjectChange *stdpath_move_handle (StdPath          *stdpath,
+                                             Handle           *handle,
+                                             Point            *to,
+                                             ConnectionPoint  *cp,
+                                             HandleMoveReason  reason,
+                                             ModifierKeys      modifiers);
+static DiaObjectChange *stdpath_move        (StdPath          *stdpath,
+                                             Point            *to);
 static void stdpath_select(StdPath *stdpath, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
 static void stdpath_draw(StdPath *stdpath, DiaRenderer *renderer);
@@ -437,17 +444,20 @@ stdpath_draw (StdPath *stdpath, DiaRenderer *renderer)
       }
       dia_renderer_bezier_fill (renderer, stdpath->points, stdpath->num_points, &fill);
     }
+
     if (stdpath->stroke_or_fill & PDO_STROKE) {
       dia_renderer_bezier_stroke (renderer, stdpath->points, stdpath->num_points, &stdpath->line_color);
     }
   }
+
   if (stdpath->show_control_lines) {
     bezier_draw_control_lines (stdpath->num_points, stdpath->points, renderer);
   }
 }
 
-static ObjectChange *_path_object_invert_change_create (DiaObject *obj);
-static ObjectChange *_path_object_transform_change_create (DiaObject *obj, DiaMatrix *mat);
+static DiaObjectChange *_path_object_invert_change_create    (DiaObject *obj);
+static DiaObjectChange *_path_object_transform_change_create (DiaObject *obj,
+                                                              DiaMatrix *mat);
 
 /*!
  * \brief Change the direction of the path
@@ -475,28 +485,35 @@ _stdpath_invert (StdPath *stdpath)
   memcpy (stdpath->points, inverted, sizeof(BezPoint)*n);
   stdpath_update_handles (stdpath);
 }
-static ObjectChange *
+
+
+static DiaObjectChange *
 _invert_path_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  StdPath *stdpath = (StdPath *)obj;
+  StdPath *stdpath = (StdPath *) obj;
   _stdpath_invert (stdpath);
   return _path_object_invert_change_create (obj);
 }
+
+
 /* a very simple undo function, complete reversible function */
 static void
 _apply_invert (ObjectChange *change, DiaObject *obj)
 {
-  _stdpath_invert ((StdPath *)obj);
+  _stdpath_invert ((StdPath *) obj);
 }
-static ObjectChange *
+
+
+static DiaObjectChange *
 _path_object_invert_change_create (DiaObject *obj)
 {
-  ObjectChange *change = g_new(ObjectChange, 1);
+  ObjectChange *change = g_new0 (ObjectChange, 1);
   change->apply = _apply_invert;
   change->revert = _apply_invert;
   change->free = NULL;
-  return change;
+  return dia_object_change_legacy_new (change);
 }
+
 
 static void
 _path_transform (StdPath *sp, const DiaMatrix *m)
@@ -511,41 +528,49 @@ _path_transform (StdPath *sp, const DiaMatrix *m)
   stdpath_update_data (sp);
 }
 
+
 typedef struct _PathTransformChange {
   ObjectChange change;
   DiaMatrix    matrix;
 } PathTransformChange;
 
+
 static void
 _ptc_apply (ObjectChange *change, DiaObject *obj)
 {
   PathTransformChange *ptc = (PathTransformChange *)change;
-  StdPath *sp = (StdPath *)obj;
+  StdPath *sp = (StdPath *) obj;
 
   _path_transform (sp, &ptc->matrix);
 }
+
+
 static void
 _ptc_revert (ObjectChange *change, DiaObject *obj)
 {
-  StdPath *sp = (StdPath *)obj;
-  PathTransformChange *ptc = (PathTransformChange *)change;
+  StdPath *sp = (StdPath *) obj;
+  PathTransformChange *ptc = (PathTransformChange *) change;
   DiaMatrix mi = ptc->matrix;
 
-  if (cairo_matrix_invert ((cairo_matrix_t *)&mi) != CAIRO_STATUS_SUCCESS)
+  if (cairo_matrix_invert ((cairo_matrix_t *) &mi) != CAIRO_STATUS_SUCCESS) {
     g_warning ("_ptc_revert matrix invert");
+  }
   _path_transform (sp, &mi);
 }
-static ObjectChange *
+
+
+static DiaObjectChange *
 _path_object_transform_change_create (DiaObject *obj, DiaMatrix *matrix)
 {
-  PathTransformChange *ptc = g_new(PathTransformChange, 1);
+  PathTransformChange *ptc = g_new0 (PathTransformChange, 1);
 
   ptc->change.apply = _ptc_apply;
   ptc->change.revert = _ptc_revert;
   ptc->change.free = NULL;
   ptc->matrix = *matrix;
-  return &ptc->change;
+  return dia_object_change_legacy_new (&ptc->change);
 }
+
 
 /*!
  * \brief Flip the path over the vertical or horizontal axis
@@ -557,7 +582,7 @@ _path_object_transform_change_create (DiaObject *obj, DiaMatrix *matrix)
  *
  * \relates _StdPath
  */
-static ObjectChange *
+static DiaObjectChange *
 _path_flip_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   gboolean horz = data == NULL;
@@ -589,7 +614,7 @@ _path_flip_callback (DiaObject *obj, Point *clicked, gpointer data)
  *
  * \relates _StdPath
  */
-static ObjectChange *
+static DiaObjectChange *
 _path_rotate_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   StdPath *sp = (StdPath *)obj;
@@ -651,7 +676,7 @@ _path_closest_corner_handle (StdPath *sp, const Point *pt)
  *
  * \relates _StdPath
  */
-static ObjectChange *
+static DiaObjectChange *
 _path_shear_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   StdPath *sp = (StdPath *)obj;
@@ -695,33 +720,37 @@ _path_shear_callback (DiaObject *obj, Point *clicked, gpointer data)
  *
  * \relates _StdPath
  */
-static ObjectChange *
+static DiaObjectChange *
 _convert_to_beziers_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   StdPath *stdpath = (StdPath *)obj;
   BezPoint *bezier = stdpath->points;
   GList *list = NULL;
   int i, n = 0;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   for (i = 1; i < stdpath->num_points; ++i) {
-    if (bezier[i].type == BEZ_MOVE_TO || i+1 == stdpath->num_points) {
+    if (bezier[i].type == BEZ_MOVE_TO || i + 1 == stdpath->num_points) {
       DiaObject *rep;
       int num = bezier[i].type == BEZ_MOVE_TO ? i - n : i - n + 1;
-      if (stdpath->stroke_or_fill & PDO_FILL)
-	rep = create_standard_beziergon (num, &bezier[n]);
-      else
-	rep = create_standard_bezierline (num, &bezier[n], NULL, NULL);
-      if (!rep) /* no Standard objects? */
-	break;
+      if (stdpath->stroke_or_fill & PDO_FILL) {
+        rep = create_standard_beziergon (num, &bezier[n]);
+      } else {
+        rep = create_standard_bezierline (num, &bezier[n], NULL, NULL);
+      }
+      if (!rep) {
+        /* no Standard objects? */
+        break;
+      }
       list = g_list_append (list, rep);
       n = i;
     }
   }
+
   if (!list) {
-    change = change_list_create ();
+    change = dia_object_change_list_new ();
   } else if (g_list_length (list) == 1) {
-    change = object_substitute (obj, (DiaObject *)list->data);
+    change = object_substitute (obj, DIA_OBJECT (list->data));
     g_list_free (list);
   } else {
     change = object_substitute (obj, create_standard_group (list));
@@ -729,13 +758,18 @@ _convert_to_beziers_callback (DiaObject *obj, Point *clicked, gpointer data)
 
   return change;
 }
-static ObjectChange *
+
+
+static DiaObjectChange *
 _show_control_lines (DiaObject *obj, Point *clicked, gpointer data)
 {
-  StdPath *stdpath = (StdPath *)obj;
+  StdPath *stdpath = (StdPath *) obj;
 
-  return object_toggle_prop(obj, "show_control_lines", !stdpath->show_control_lines);
+  return object_toggle_prop (obj,
+                             "show_control_lines",
+                             !stdpath->show_control_lines);
 }
+
 
 static DiaMenuItem _stdpath_menu_items[] = {
   { N_("Convert to Bezier"), _convert_to_beziers_callback, NULL, DIAMENU_ACTIVE },
@@ -851,17 +885,20 @@ _stdpath_scale (StdPath *stdpath, real sx, real sy, const Point *around)
   }
 }
 
+
 /*!
  * \brief Move one of the objects handles
  * \memberof _StdPath
  */
-static ObjectChange*
-stdpath_move_handle (StdPath *stdpath,
-		     Handle *handle,
-		     Point *to, ConnectionPoint *cp,
-		     HandleMoveReason reason, ModifierKeys modifiers)
+static DiaObjectChange *
+stdpath_move_handle (StdPath          *stdpath,
+                     Handle           *handle,
+                     Point            *to,
+                     ConnectionPoint  *cp,
+                     HandleMoveReason  reason,
+                     ModifierKeys      modifiers)
 {
-  const real EPSILON = 0.01;
+  const double EPSILON = 0.01;
 
   /* move_handle is supposed to be just moving that and related handles (e.g.
    * when N is moved NE and NW will move too). But 'opposite' handles are not
@@ -992,7 +1029,7 @@ stdpath_move_handle (StdPath *stdpath,
  *
  * \memberof _StdPath
  */
-static ObjectChange*
+static DiaObjectChange *
 stdpath_move (StdPath *stdpath, Point *to)
 {
   DiaObject *obj = &stdpath->object;

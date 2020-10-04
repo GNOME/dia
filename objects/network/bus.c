@@ -29,6 +29,7 @@
 #include "attributes.h"
 #include "diamenu.h"
 #include "properties.h"
+#include "dia-object-change-legacy.h"
 
 #include "pixmaps/bus.xpm"
 
@@ -65,10 +66,15 @@ struct PointChange {
   ConnectionPoint *connected_to; /* NULL if not connected */
 };
 
-static ObjectChange* bus_move_handle(Bus *bus, Handle *handle,
-				     Point *to, ConnectionPoint *cp,
-				     HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* bus_move(Bus *bus, Point *to);
+
+static DiaObjectChange* bus_move_handle        (Bus              *bus,
+                                                Handle           *handle,
+                                                Point            *to,
+                                                ConnectionPoint  *cp,
+                                                HandleMoveReason  reason,
+                                                ModifierKeys      modifiers);
+static DiaObjectChange* bus_move               (Bus              *bus,
+                                                Point            *to);
 static void bus_select(Bus *bus, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static void bus_draw(Bus *bus, DiaRenderer *renderer);
@@ -88,10 +94,11 @@ static void bus_save(Bus *bus, ObjectNode obj_node, DiaContext *ctx);
 static DiaObject *bus_load(ObjectNode obj_node, int version, DiaContext *ctx);
 static DiaMenu *bus_get_object_menu(Bus *bus, Point *clickedpoint);
 
-static ObjectChange *
-bus_create_change(Bus *bus, enum change_type type,
-		  Point *point, Handle *handle,
-		  ConnectionPoint *connected_to);
+static DiaObjectChange *bus_create_change (Bus              *bus,
+                                           enum change_type  type,
+                                           Point            *point,
+                                           Handle           *handle,
+                                           ConnectionPoint  *connected_to);
 
 
 static ObjectTypeOps bus_type_ops =
@@ -190,19 +197,23 @@ bus_select(Bus *bus, Point *clicked_point,
   connection_update_handles(&bus->connection);
 }
 
-static ObjectChange*
-bus_move_handle(Bus *bus, Handle *handle,
-		Point *to, ConnectionPoint *cp,
-		HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+bus_move_handle (Bus              *bus,
+                 Handle           *handle,
+                 Point            *to,
+                 ConnectionPoint  *cp,
+                 HandleMoveReason  reason,
+                 ModifierKeys      modifiers)
 {
   Connection *conn = &bus->connection;
   Point *endpoints;
-  real *parallel=NULL;
-  real *perp=NULL;
+  double *parallel=NULL;
+  double *perp=NULL;
   Point vhat, vhatperp;
   Point u;
-  real vlen, vlen2;
-  real len_scale;
+  double vlen, vlen2;
+  double len_scale;
   int i;
   const int num_handles = bus->num_handles; /* const to help scan-build */
 
@@ -263,8 +274,9 @@ bus_move_handle(Bus *bus, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
-bus_move(Bus *bus, Point *to)
+
+static DiaObjectChange *
+bus_move (Bus *bus, Point *to)
 {
   Point delta;
   Point *endpoints = &bus->connection.endpoints[0];
@@ -534,7 +546,8 @@ bus_remove_handle(Bus *bus, Handle *handle)
   }
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 bus_add_handle_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Bus *bus = (Bus *) obj;
@@ -571,7 +584,8 @@ bus_point_near_handle(Bus *bus, Point *p)
     return -1;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 bus_delete_handle_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Bus *bus = (Bus *) obj;
@@ -744,10 +758,12 @@ bus_change_revert (struct PointChange *change, DiaObject *obj)
 }
 
 
-static ObjectChange *
-bus_create_change(Bus *bus, enum change_type type,
-		  Point *point, Handle *handle,
-		  ConnectionPoint *connected_to)
+static DiaObjectChange *
+bus_create_change (Bus              *bus,
+                   enum change_type  type,
+                   Point            *point,
+                   Handle           *handle,
+                   ConnectionPoint  *connected_to)
 {
   struct PointChange *change;
 
@@ -763,7 +779,5 @@ bus_create_change(Bus *bus, enum change_type type,
   change->handle = handle;
   change->connected_to = connected_to;
 
-  return (ObjectChange *)change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
-
-

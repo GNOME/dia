@@ -50,33 +50,62 @@
 
 /* ----------------------------------------------------------------------- */
 
-static real         table_calculate_namebox_data (Table *);
-static real         table_init_attributesbox_height (Table *);
-static DiaObject *  table_create (Point *, void *, Handle **, Handle **);
-static DiaObject *  table_load (ObjectNode obj_node, int version, DiaContext *ctx);
-static void         table_save (Table *, ObjectNode, DiaContext *ctx);
-static void         table_destroy (Table *);
-static real         table_distance_from (Table *, Point *);
-static void         table_select (Table *, Point *, DiaRenderer *);
-static DiaObject *  table_copy (Table *table);
-static ObjectChange* table_move (Table *, Point *);
-static ObjectChange * table_move_handle (Table *, Handle *,
-                                         Point *, ConnectionPoint *,
-                                         HandleMoveReason, ModifierKeys);
-static PropDescription * table_describe_props (Table *);
-static void         table_get_props (Table *, GPtrArray *);
-static void         table_set_props (Table *, GPtrArray *);
-
-static void         table_draw (Table *, DiaRenderer *);
-static real         table_draw_namebox (Table *, DiaRenderer *, Element *);
-static real         table_draw_attributesbox (Table *, DiaRenderer *,
-                                              Element *, real);
-static DiaMenu * table_object_menu(DiaObject *, Point *);
-static ObjectChange * table_show_comments_cb(DiaObject *, Point *, gpointer);
-static void underline_table_attribute (DiaRenderer  *, Point,
-                                       TableAttribute *, Table *);
-static void fill_diamond (DiaRenderer *, real, real, Point *, Color *);
-static void table_init_fonts (Table *);
+static double           table_calculate_namebox_data    (Table             *);
+static double           table_init_attributesbox_height (Table             *);
+static DiaObject       *table_create                    (Point             *,
+                                                         void              *,
+                                                         Handle           **,
+                                                         Handle           **);
+static DiaObject       *table_load                      (ObjectNode         obj_node,
+                                                         int                version,
+                                                         DiaContext        *ctx);
+static void             table_save                      (Table             *,
+                                                         ObjectNode,
+                                                         DiaContext        *ctx);
+static void             table_destroy                   (Table             *);
+static double           table_distance_from             (Table             *,
+                                                         Point             *);
+static void             table_select                    (Table             *,
+                                                         Point             *,
+                                                         DiaRenderer       *);
+static DiaObject       *table_copy                      (Table             *table);
+static DiaObjectChange *table_move                      (Table             *,
+                                                         Point             *);
+static DiaObjectChange *table_move_handle               (Table             *,
+                                                         Handle            *,
+                                                         Point             *,
+                                                         ConnectionPoint   *,
+                                                         HandleMoveReason,
+                                                         ModifierKeys);
+static PropDescription *table_describe_props            (Table             *);
+static void             table_get_props                 (Table             *,
+                                                         GPtrArray         *);
+static void             table_set_props                 (Table             *,
+                                                         GPtrArray         *);
+static void             table_draw                      (Table             *,
+                                                         DiaRenderer       *);
+static double           table_draw_namebox              (Table             *,
+                                                         DiaRenderer       *,
+                                                         Element           *);
+static double           table_draw_attributesbox        (Table             *,
+                                                         DiaRenderer       *,
+                                                         Element           *,
+                                                         double);
+static DiaMenu         *table_object_menu               (DiaObject         *,
+                                                         Point             *);
+static DiaObjectChange *table_show_comments_cb          (DiaObject         *,
+                                                         Point             *,
+                                                         gpointer);
+static void             underline_table_attribute       (DiaRenderer       *,
+                                                         Point,
+                                                         TableAttribute    *,
+                                                         Table             *);
+static void             fill_diamond                    (DiaRenderer       *,
+                                                         double,
+                                                         double,
+                                                         Point             *,
+                                                         Color             *);
+static void             table_init_fonts                (Table             *);
 
 static TableAttribute *table_attribute_new (void);
 static void table_attribute_free (TableAttribute *);
@@ -85,8 +114,11 @@ static void table_update_connectionpoints (Table *);
 static void table_update_positions (Table *);
 static void table_compute_width_height (Table *);
 static TableState *table_state_new (Table *);
-static TableChange *table_change_new (Table *, TableState *,
-                                      GList *, GList *, GList *);
+static DiaObjectChange *table_change_new                (Table             *,
+                                                         TableState        *,
+                                                         GList             *,
+                                                         GList             *,
+                                                         GList             *);
 static void table_update_primary_key_font (Table *);
 
 static char *create_documentation_tag (char     *comment,
@@ -859,7 +891,8 @@ table_copy(Table * orig)
   return &copy->element.object;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 table_move (Table *table, Point *to)
 {
   table->element.corner = *to;
@@ -867,10 +900,14 @@ table_move (Table *table, Point *to)
   return NULL;
 }
 
-static ObjectChange *
-table_move_handle (Table *table, Handle *handle,
-                   Point *to, ConnectionPoint *cp,
-                   HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+table_move_handle (Table            *table,
+                   Handle           *handle,
+                   Point            *to,
+                   ConnectionPoint  *cp,
+                   HandleMoveReason  reason,
+                   ModifierKeys      modifiers)
 {
   /* ignore this event */
   return NULL;
@@ -1326,8 +1363,9 @@ table_update_connectionpoints (Table * table)
     }
 }
 
+
 static DiaMenu *
-table_object_menu(DiaObject *obj, Point *p)
+table_object_menu (DiaObject *obj, Point *p)
 {
   table_menu_items[0].active = DIAMENU_ACTIVE|DIAMENU_TOGGLE|
     (((Table *)obj)->visible_comment ? DIAMENU_TOGGLE_ON : 0);
@@ -1335,8 +1373,9 @@ table_object_menu(DiaObject *obj, Point *p)
   return &table_menu;
 }
 
-static ObjectChange *
-table_show_comments_cb(DiaObject *obj, Point *pos, gpointer data)
+
+static DiaObjectChange *
+table_show_comments_cb (DiaObject *obj, Point *pos, gpointer data)
 {
   TableState * state;
   Table * table = (Table *) obj;
@@ -1345,8 +1384,10 @@ table_show_comments_cb(DiaObject *obj, Point *pos, gpointer data)
   table->visible_comment = !table->visible_comment;
   table_compute_width_height (table);
   table_update_positions (table);
-  return (ObjectChange *) table_change_new (table, state, NULL, NULL, NULL);
+
+  return table_change_new (table, state, NULL, NULL, NULL);
 }
+
 
 /**
  * This routine updates the font for primary keys. It depends on
@@ -1547,7 +1588,8 @@ table_change_apply (TableChange * change, DiaObject * obj)
   change->applied = TRUE;
 }
 
-static TableChange *
+
+static DiaObjectChange *
 table_change_new (Table * table, TableState * saved_state,
                   GList * added, GList * deleted,
                   GList * disconnects)
@@ -1567,5 +1609,5 @@ table_change_new (Table * table, TableState * saved_state,
   change->applied = TRUE;
   change->saved_state = saved_state;
 
-  return change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }

@@ -51,10 +51,14 @@ struct _Participation {
 static real participation_distance_from(Participation *dep, Point *point);
 static void participation_select(Participation *dep, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
-static ObjectChange* participation_move_handle(Participation *dep, Handle *handle,
-					       Point *to, ConnectionPoint *cp,
-					       HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* participation_move(Participation *dep, Point *to);
+static DiaObjectChange *participation_move_handle    (Participation    *dep,
+                                                      Handle           *handle,
+                                                      Point            *to,
+                                                      ConnectionPoint  *cp,
+                                                      HandleMoveReason  reason,
+                                                      ModifierKeys      modifiers);
+static DiaObjectChange *participation_move           (Participation    *dep,
+                                                      Point            *to);
 static void participation_draw(Participation *dep, DiaRenderer *renderer);
 static DiaObject *participation_create(Point *startpoint,
 				 void *user_data,
@@ -160,12 +164,17 @@ participation_select(Participation *participation, Point *clicked_point,
   orthconn_update_data(&participation->orth);
 }
 
-static ObjectChange*
-participation_move_handle(Participation *participation, Handle *handle,
-			  Point *to, ConnectionPoint *cp,
-			  HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+participation_move_handle (Participation    *participation,
+                           Handle           *handle,
+                           Point            *to,
+                           ConnectionPoint  *cp,
+                           HandleMoveReason  reason,
+                           ModifierKeys      modifiers)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
+
   assert(participation!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -177,16 +186,18 @@ participation_move_handle(Participation *participation, Handle *handle,
   return change;
 }
 
-static ObjectChange*
+
+static DiaObjectChange *
 participation_move(Participation *participation, Point *to)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  change = orthconn_move(&participation->orth, to);
-  participation_update_data(participation);
+  change = orthconn_move (&participation->orth, to);
+  participation_update_data (participation);
 
   return change;
 }
+
 
 static void
 participation_draw (Participation *participation, DiaRenderer *renderer)
@@ -379,23 +390,34 @@ participation_load(ObjectNode obj_node, int version,DiaContext *ctx)
   return &participation->orth.object;
 }
 
-static ObjectChange *
-participation_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+participation_add_segment_callback (DiaObject *obj,
+                                    Point     *clicked,
+                                    gpointer   data)
 {
-  ObjectChange *change;
-  change = orthconn_add_segment((OrthConn *)obj, clicked);
-  participation_update_data((Participation *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_add_segment ((OrthConn *) obj, clicked);
+  participation_update_data ((Participation *) obj);
+
   return change;
 }
 
-static ObjectChange *
-participation_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+participation_delete_segment_callback (DiaObject *obj,
+                                       Point     *clicked,
+                                       gpointer   data)
 {
-  ObjectChange *change;
-  change = orthconn_delete_segment((OrthConn *)obj, clicked);
-  participation_update_data((Participation *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_delete_segment ((OrthConn *) obj, clicked);
+  participation_update_data ((Participation *) obj);
+
   return change;
 }
+
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add segment"), participation_add_segment_callback, NULL, 1 },

@@ -31,13 +31,13 @@
  * \brief Beside OrthCon one of the most use object classes
  *
  * This is a subclass of DiaObject used to help implementing objects
- * of a type with 8 handles. 
+ * of a type with 8 handles.
  *
  * \extends _DiaObject
  */
 struct _Element {
   DiaObject object; /* inheritance */
-  
+
   Handle resize_handles[8]; /*!< not only for resizing but may also be used for connections */
 
   Point corner; /*!< upper-left corner of the Element */
@@ -57,19 +57,22 @@ void element_update_boundingbox(Element *elem);
 void element_init(Element *elem, int num_handles, int num_connections);
 void element_destroy(Element *elem);
 void element_copy(Element *from, Element *to);
-ObjectChange* element_move_handle(Element *elem, HandleId id,
-				  Point *to, ConnectionPoint *cp,
-				  HandleMoveReason reason, 
-				  ModifierKeys modifiers);
+DiaObjectChange *element_move_handle           (Element          *elem,
+                                                HandleId          id,
+                                                Point            *to,
+                                                ConnectionPoint  *cp,
+                                                HandleMoveReason  reason,
+                                                ModifierKeys      modifiers);
 void element_move_handle_aspect(Element *elem, HandleId id,
 				Point *to, real aspect_ratio);
 
 void element_save(Element *elem, ObjectNode obj_node, DiaContext *ctx);
 void element_load(Element *elem, ObjectNode obj_node, DiaContext *ctx);
 
-ObjectChange *element_change_new (const Point *corner, 
-				  real width, real height,
-				  Element *elem);
+DiaObjectChange *element_change_new            (const Point      *corner,
+                                                double            width,
+                                                double            height,
+                                                Element          *elem);
 
 void element_get_poly (const Element *elem, real angle, Point corners[4]);
 
@@ -79,7 +82,7 @@ void element_get_poly (const Element *elem, real angle, Point corners[4]);
 /* see lib/properties.h for the reason */
 static PropNumData width_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
 #else
-/* use extern on Linux/gcc to avoid 
+/* use extern on Linux/gcc to avoid
  * warning: 'width_range' defined but not used */
 extern PropNumData width_range;
 #endif

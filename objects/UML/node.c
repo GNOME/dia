@@ -62,10 +62,10 @@ static const double NODE_TEXT_MARGIN = 0.5;
 static real node_distance_from(Node *node, Point *point);
 static void node_select(Node *node, Point *clicked_point,
 				DiaRenderer *interactive_renderer);
-static ObjectChange* node_move_handle(Node *node, Handle *handle,
+static DiaObjectChange* node_move_handle(Node *node, Handle *handle,
 				      Point *to, ConnectionPoint *cp,
 				      HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* node_move(Node *node, Point *to);
+static DiaObjectChange* node_move(Node *node, Point *to);
 static void node_draw(Node *node, DiaRenderer *renderer);
 static DiaObject *node_create(Point *startpoint,
 				   void *user_data,
@@ -189,7 +189,7 @@ node_select(Node *node, Point *clicked_point,
   element_update_handles(&node->element);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 node_move_handle(Node *node, Handle *handle,
 		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -206,7 +206,7 @@ node_move_handle(Node *node, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 node_move(Node *node, Point *to)
 {
   Point p;

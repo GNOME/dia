@@ -62,10 +62,15 @@ static struct _BeziergonProperties {
   gboolean show_background;
 } default_properties = { TRUE };
 
-static ObjectChange* beziergon_move_handle(Beziergon *beziergon, Handle *handle,
-					   Point *to, ConnectionPoint *cp,
-					   HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* beziergon_move(Beziergon *beziergon, Point *to);
+
+static DiaObjectChange* beziergon_move_handle       (Beziergon        *beziergon,
+                                                     Handle           *handle,
+                                                     Point            *to,
+                                                     ConnectionPoint  *cp,
+                                                     HandleMoveReason  reason,
+                                                     ModifierKeys      modifiers);
+static DiaObjectChange* beziergon_move              (Beziergon        *beziergon,
+                                                     Point            *to);
 static void beziergon_select(Beziergon *beziergon, Point *clicked_point,
 			     DiaRenderer *interactive_renderer);
 static void beziergon_draw(Beziergon *beziergon, DiaRenderer *renderer);
@@ -184,30 +189,35 @@ beziergon_select(Beziergon *beziergon, Point *clicked_point,
   beziershape_update_data(&beziergon->bezier);
 }
 
-static ObjectChange*
-beziergon_move_handle(Beziergon *beziergon, Handle *handle,
-		      Point *to, ConnectionPoint *cp,
-		      HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange*
+beziergon_move_handle (Beziergon        *beziergon,
+                       Handle           *handle,
+                       Point            *to,
+                       ConnectionPoint  *cp,
+                       HandleMoveReason  reason,
+                       ModifierKeys      modifiers)
 {
   assert(beziergon!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  beziershape_move_handle(&beziergon->bezier, handle, to, cp, reason, modifiers);
-  beziergon_update_data(beziergon);
+  beziershape_move_handle (&beziergon->bezier, handle, to, cp, reason, modifiers);
+  beziergon_update_data (beziergon);
 
   return NULL;
 }
 
 
-static ObjectChange*
-beziergon_move(Beziergon *beziergon, Point *to)
+static DiaObjectChange *
+beziergon_move (Beziergon *beziergon, Point *to)
 {
-  beziershape_move(&beziergon->bezier, to);
-  beziergon_update_data(beziergon);
+  beziershape_move (&beziergon->bezier, to);
+  beziergon_update_data (beziergon);
 
   return NULL;
 }
+
 
 static void
 beziergon_draw (Beziergon *beziergon, DiaRenderer *renderer)
@@ -473,12 +483,13 @@ beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   return &beziergon->bezier.object;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 beziergon_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Beziergon *bezier = (Beziergon*) obj;
   int segment;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   segment = beziergon_closest_segment(bezier, clicked);
   change = beziershape_add_segment(&bezier->bezier, segment, clicked);
@@ -487,12 +498,13 @@ beziergon_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
   return change;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 beziergon_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   int seg_nr;
   Beziergon *bezier = (Beziergon*) obj;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   seg_nr = beziergon_closest_segment(bezier, clicked);
   change = beziershape_remove_segment(&bezier->bezier, seg_nr+1);
@@ -501,12 +513,13 @@ beziergon_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer data
   return change;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 beziergon_set_corner_type_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Handle *closest;
   Beziergon *beziergon = (Beziergon *) obj;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   closest = beziershape_closest_major_handle(&beziergon->bezier, clicked);
   change = beziershape_set_corner_type(&beziergon->bezier, closest,

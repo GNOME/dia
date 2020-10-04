@@ -81,10 +81,10 @@ struct _Link {
 
 static DiaFont *link_font = NULL;
 
-static ObjectChange* link_move_handle(Link *link, Handle *handle,
+static DiaObjectChange* link_move_handle(Link *link, Handle *handle,
 				   Point *to, ConnectionPoint *cp,
 				   HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* link_move(Link *link, Point *to);
+static DiaObjectChange* link_move(Link *link, Point *to);
 static void link_select(Link *link, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void link_draw(Link *link, DiaRenderer *renderer);
@@ -208,7 +208,7 @@ link_select(Link *link, Point *clicked_point,
   connection_update_handles(&link->connection);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 link_move_handle(Link *link, Handle *handle,
 		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -237,7 +237,7 @@ link_move_handle(Link *link, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 link_move(Link *link, Point *to)
 {
   Point start_to_end;

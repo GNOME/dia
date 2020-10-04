@@ -652,11 +652,9 @@ DiaOutputDev::_fill (GfxState *state, bool winding)
       obj = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
     applyStyle (obj, true);
     if (this->pattern) {
-      ObjectChange *change = dia_object_set_pattern (obj, this->pattern);
-      if (change) {
-	change->free (change);
-	g_free (change);
-      }
+      DiaObjectChange *change = dia_object_set_pattern (obj, this->pattern);
+
+      g_clear_pointer (&change, dia_object_change_unref);
     }
   }
   g_array_free (points, TRUE);
@@ -779,7 +777,7 @@ DiaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str,
   DiaObject *obj;
   GdkPixbuf *pixbuf;
   Point pos;
-  ObjectChange *change;
+  DiaObjectChange *change;
   const double *ctm = state->getCTM();
 
   pos.x = ctm[4] * scale;
@@ -839,18 +837,21 @@ DiaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str,
     g_hash_table_insert (this->image_cache, str, g_object_ref (pixbuf));
   }
 #endif
-  obj = create_standard_image (pos.x, pos.y,
-			       ctm[0]  * scale,
-			       ctm[3]  * scale, NULL);
+  obj = create_standard_image (pos.x,
+                               pos.y,
+                               ctm[0] * scale,
+                               ctm[3] * scale,
+                               NULL);
+
   if ((change = dia_object_set_pixbuf (obj, pixbuf)) != NULL) {
-    change->free (change);
-    g_free (change);
+    g_clear_pointer (&change, dia_object_change_unref);
   }
 
   g_object_unref (pixbuf);
 
   addObject (obj);
 }
+
 
 extern "C"
 gboolean

@@ -34,7 +34,7 @@
 #include "attributes.h"
 #include "properties.h"
 #include "diamenu.h"
-
+#include "dia-object-change-legacy.h"
 #include "class.h"
 
 #include "pixmaps/umlclass.xpm"
@@ -49,9 +49,14 @@
 static real umlclass_distance_from(UMLClass *umlclass, Point *point);
 static void umlclass_select(UMLClass *umlclass, Point *clicked_point,
 			    DiaRenderer *interactive_renderer);
-static ObjectChange* umlclass_move_handle(UMLClass *umlclass, Handle *handle,
-				 Point *to, ConnectionPoint *cp, HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* umlclass_move(UMLClass *umlclass, Point *to);
+static DiaObjectChange *umlclass_move_handle         (UMLClass         *umlclass,
+                                                      Handle           *handle,
+                                                      Point            *to,
+                                                      ConnectionPoint  *cp,
+                                                      HandleMoveReason  reason,
+                                                      ModifierKeys      modifiers);
+static DiaObjectChange *umlclass_move                (UMLClass         *umlclass,
+                                                      Point            *to);
 static void umlclass_draw(UMLClass *umlclass, DiaRenderer *renderer);
 static DiaObject *umlclass_create(Point *startpoint,
 			       void *user_data,
@@ -65,8 +70,12 @@ static void umlclass_save(UMLClass *umlclass, ObjectNode obj_node,
 static DiaObject *umlclass_load(ObjectNode obj_node, int version, DiaContext *ctx);
 
 static DiaMenu * umlclass_object_menu(DiaObject *obj, Point *p);
-static ObjectChange *umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data);
-static ObjectChange *umlclass_allow_resizing_callback(DiaObject *obj, Point *pos, gpointer data);
+static DiaObjectChange *umlclass_show_comments_callback   (DiaObject *obj,
+                                                           Point     *pos,
+                                                           gpointer   data);
+static DiaObjectChange *umlclass_allow_resizing_callback  (DiaObject *obj,
+                                                           Point     *pos,
+                                                           gpointer   data);
 
 static PropDescription *umlclass_describe_props(UMLClass *umlclass);
 static void umlclass_get_props(UMLClass *umlclass, GPtrArray *props);
@@ -75,7 +84,8 @@ static void umlclass_set_props(UMLClass *umlclass, GPtrArray *props);
 static void fill_in_fontdata(UMLClass *umlclass);
 static int umlclass_num_dynamic_connectionpoints(UMLClass *class);
 
-static ObjectChange *_umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget);
+static DiaObjectChange *_umlclass_apply_props_from_dialog (UMLClass  *umlclass,
+                                                           GtkWidget *widget);
 
 static ObjectTypeOps umlclass_type_ops =
 {
@@ -240,7 +250,8 @@ static PropDescription umlclass_props[] = {
   PROP_DESC_END
 };
 
-ObjectChange *
+
+DiaObjectChange *
 _umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
 {
   DiaObject *obj = &umlclass->element.object;
@@ -250,6 +261,7 @@ _umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget)
   else
     return umlclass_apply_props_from_dialog (umlclass, widget);
 }
+
 
 static PropDescription *
 umlclass_describe_props(UMLClass *umlclass)
@@ -390,25 +402,32 @@ _comment_set_state (DiaObject *obj, ObjectState *state)
 }
 
 
-static ObjectChange *
-umlclass_show_comments_callback(DiaObject *obj, Point *pos, gpointer data)
+static DiaObjectChange *
+umlclass_show_comments_callback (DiaObject *obj, Point *pos, gpointer data)
 {
   ObjectState *old_state = _comment_get_state(obj);
-  ObjectChange *change = new_object_state_change(obj, old_state, _comment_get_state, _comment_set_state );
+  DiaObjectChange *change = new_object_state_change (obj,
+                                                     old_state,
+                                                     _comment_get_state,
+                                                     _comment_set_state );
 
-  ((UMLClass *)obj)->visible_comments = !((UMLClass *)obj)->visible_comments;
-  umlclass_calculate_data((UMLClass *)obj);
-  umlclass_update_data((UMLClass *)obj);
+  ((UMLClass *) obj)->visible_comments = !((UMLClass *) obj)->visible_comments;
+  umlclass_calculate_data ((UMLClass *) obj);
+  umlclass_update_data ((UMLClass *) obj);
   return change;
 }
 
-static ObjectChange *
-umlclass_allow_resizing_callback(DiaObject *obj,
-                                 Point *pos G_GNUC_UNUSED,
-                                 gpointer data G_GNUC_UNUSED)
+
+static DiaObjectChange *
+umlclass_allow_resizing_callback (DiaObject *obj,
+                                  Point     *pos G_GNUC_UNUSED,
+                                  gpointer   data G_GNUC_UNUSED)
 {
-  return object_toggle_prop(obj, "allow_resizing", !((UMLClass *)obj)->allow_resizing);
+  return object_toggle_prop (obj,
+                             "allow_resizing",
+                             !((UMLClass *) obj)->allow_resizing);
 }
+
 
 static void
 umlclass_reflect_resizing(UMLClass *umlclass)
@@ -513,10 +532,14 @@ umlclass_select(UMLClass *umlclass, Point *clicked_point,
   element_update_handles(&umlclass->element);
 }
 
-static ObjectChange*
-umlclass_move_handle(UMLClass *umlclass, Handle *handle,
-		     Point *to, ConnectionPoint *cp,
-                     HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+umlclass_move_handle (UMLClass         *umlclass,
+                      Handle           *handle,
+                      Point            *to,
+                      ConnectionPoint  *cp,
+                      HandleMoveReason  reason,
+                      ModifierKeys      modifiers)
 {
   Element *elem = &umlclass->element;
 
@@ -527,13 +550,18 @@ umlclass_move_handle(UMLClass *umlclass, Handle *handle,
 
   if (handle->type != HANDLE_NON_MOVABLE) {
     if (handle->id == HANDLE_RESIZE_E || handle->id == HANDLE_RESIZE_W) {
-      real dist = (handle->id == HANDLE_RESIZE_E) ?
-             to->x - elem->resize_handles[3].pos.x :
-	     elem->resize_handles[4].pos.x - to->x;
+      double dist = (handle->id == HANDLE_RESIZE_E) ?
+                        to->x - elem->resize_handles[3].pos.x :
+                        elem->resize_handles[4].pos.x - to->x;
       if (umlclass->min_width <= dist) {
-        ObjectChange *oc = element_move_handle (elem, handle->id, to, cp, reason, modifiers);
-	umlclass_update_data(umlclass);
-	return oc;
+        DiaObjectChange *oc = element_move_handle (elem,
+                                                   handle->id,
+                                                   to,
+                                                   cp,
+                                                   reason,
+                                                   modifiers);
+        umlclass_update_data (umlclass);
+        return oc;
       }
     }
   }
@@ -541,14 +569,17 @@ umlclass_move_handle(UMLClass *umlclass, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
-umlclass_move(UMLClass *umlclass, Point *to)
+
+static DiaObjectChange *
+umlclass_move (UMLClass *umlclass, Point *to)
 {
   umlclass->element.corner = *to;
-  umlclass_update_data(umlclass);
+  umlclass_update_data (umlclass);
 
   return NULL;
 }
+
+
 /**
  * underlines the text at the start point using the text to determine
  * the length of the underline. Draw a line under the text represented by

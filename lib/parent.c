@@ -49,17 +49,21 @@ gboolean parent_list_expand(GList *obj_list)
   return nothing_affected;
 }
 
+
 /**
+ * parent_list_affected_hierarchy:
+ * obj_list: the #DiaObject list
+ *
  * Returns the original list minus any items that appear as children
- * (at any depth) of the objects in the original list.  This is very
+ * (at any depth) of the objects in the original list. This is very
  * different from the parent_list_affected function, which returns a
  * list of ALL objects affected.
-
+ *
  * The caller must call g_list_free() on the returned list
  * when the list is no longer needed.
  */
-
-GList *parent_list_affected_hierarchy(GList *obj_list)
+GList *
+parent_list_affected_hierarchy (GList *obj_list)
 {
   GHashTable *object_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
   GList *all_list = g_list_copy(obj_list);
@@ -283,18 +287,22 @@ parent_handle_extents (DiaObject *obj, DiaRectangle *extents)
   }
 }
 
-/** Apply a function to all children of the given object (recursively,
+
+/**
+ * parent_apply_to_children:
+ * @obj: A parent object.
+ * @function: A function that takes a single DiaObject as an argument.
+ *
+ * Apply a function to all children of the given object (recursively,
  * depth-first).
- * @param obj A parent object.
- * @param function A function that takes a single DiaObject as an argument.
  */
 void
-parent_apply_to_children(DiaObject *obj, DiaObjectFunc function)
+parent_apply_to_children (DiaObject *obj, DiaObjectFunc function)
 {
   GList *children;
-  for (children = obj->children; children != NULL; children = g_list_next(children)) {
+  for (children = obj->children; children != NULL; children = g_list_next (children)) {
     DiaObject *child = children->data;
-    (*function)(child);
-    parent_apply_to_children(child, function);
+    (*function) (child);
+    parent_apply_to_children (child, function);
   }
 }

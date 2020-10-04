@@ -66,10 +66,14 @@ struct _Dependency {
 static real dependency_distance_from(Dependency *dep, Point *point);
 static void dependency_select(Dependency *dep, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
-static ObjectChange* dependency_move_handle(Dependency *dep, Handle *handle,
-					    Point *to, ConnectionPoint *cp,
-					    HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* dependency_move(Dependency *dep, Point *to);
+static DiaObjectChange *dependency_move_handle (Dependency       *dep,
+                                                Handle           *handle,
+                                                Point            *to,
+                                                ConnectionPoint  *cp,
+                                                HandleMoveReason  reason,
+                                                ModifierKeys      modifiers);
+static DiaObjectChange *dependency_move        (Dependency       *dep,
+                                                Point            *to);
 static void dependency_draw(Dependency *dep, DiaRenderer *renderer);
 static DiaObject *dependency_create(Point *startpoint,
 				 void *user_data,
@@ -196,32 +200,39 @@ dependency_select(Dependency *dep, Point *clicked_point,
   orthconn_update_data(&dep->orth);
 }
 
-static ObjectChange*
-dependency_move_handle(Dependency *dep, Handle *handle,
-		       Point *to, ConnectionPoint *cp,
-		       HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange*
+dependency_move_handle (Dependency       *dep,
+                        Handle           *handle,
+                        Point            *to,
+                        ConnectionPoint  *cp,
+                        HandleMoveReason  reason,
+                        ModifierKeys      modifiers)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
+
   assert(dep!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  change = orthconn_move_handle(&dep->orth, handle, to, cp, reason, modifiers);
-  dependency_update_data(dep);
+  change = orthconn_move_handle (&dep->orth, handle, to, cp, reason, modifiers);
+  dependency_update_data (dep);
 
   return change;
 }
 
-static ObjectChange*
-dependency_move(Dependency *dep, Point *to)
+
+static DiaObjectChange *
+dependency_move (Dependency *dep, Point *to)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  change = orthconn_move(&dep->orth, to);
-  dependency_update_data(dep);
+  change = orthconn_move (&dep->orth, to);
+  dependency_update_data (dep);
 
   return change;
 }
+
 
 static void
 dependency_draw (Dependency *dep, DiaRenderer *renderer)
@@ -358,21 +369,29 @@ dependency_update_data(Dependency *dep)
   rectangle_union(&obj->bounding_box, &rect);
 }
 
-static ObjectChange *
-dependency_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+dependency_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
-  change = orthconn_add_segment((OrthConn *)obj, clicked);
-  dependency_update_data((Dependency *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_add_segment ((OrthConn *) obj, clicked);
+  dependency_update_data ((Dependency *) obj);
+
   return change;
 }
 
-static ObjectChange *
-dependency_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+dependency_delete_segment_callback (DiaObject *obj,
+                                    Point     *clicked,
+                                    gpointer   data)
 {
-  ObjectChange *change;
-  change = orthconn_delete_segment((OrthConn *)obj, clicked);
-  dependency_update_data((Dependency *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_delete_segment ((OrthConn *) obj, clicked);
+  dependency_update_data ((Dependency *) obj);
+
   return change;
 }
 
@@ -382,6 +401,7 @@ static DiaMenuItem object_menu_items[] = {
   { N_("Delete segment"), dependency_delete_segment_callback, NULL, 1 },
   ORTHCONN_COMMON_MENUS,
 };
+
 
 static DiaMenu object_menu = {
   "Dependency",

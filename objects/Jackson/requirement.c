@@ -69,10 +69,10 @@ struct _Requirement {
 static real req_distance_from(Requirement *req, Point *point);
 static void req_select(Requirement *req, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
-static ObjectChange* req_move_handle(Requirement *req, Handle *handle,
+static DiaObjectChange* req_move_handle(Requirement *req, Handle *handle,
 				Point *to, ConnectionPoint *cp,
 				HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* req_move(Requirement *req, Point *to);
+static DiaObjectChange* req_move(Requirement *req, Point *to);
 static void req_draw(Requirement *req, DiaRenderer *renderer);
 static DiaObject *req_create(Point *startpoint,
 			      void *user_data,
@@ -184,7 +184,7 @@ req_select(Requirement *req, Point *clicked_point,
   element_update_handles(&req->element);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 req_move_handle(Requirement *req, Handle *handle,
                 Point *to, ConnectionPoint *cp,
 		HandleMoveReason reason, ModifierKeys modifiers)
@@ -197,7 +197,7 @@ req_move_handle(Requirement *req, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 req_move(Requirement *req, Point *to)
 {
   real h;

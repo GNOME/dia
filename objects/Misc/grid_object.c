@@ -65,11 +65,11 @@ static real grid_object_distance_from(Grid_Object *grid_object,
 static void grid_object_select(Grid_Object *grid_object,
                                 Point *clicked_point,
                                 DiaRenderer *interactive_renderer);
-static ObjectChange* grid_object_move_handle(Grid_Object *grid_object,
+static DiaObjectChange* grid_object_move_handle(Grid_Object *grid_object,
 					      Handle *handle, Point *to,
 					      ConnectionPoint *cp, HandleMoveReason reason,
                                      ModifierKeys modifiers);
-static ObjectChange* grid_object_move(Grid_Object *grid_object, Point *to);
+static DiaObjectChange* grid_object_move(Grid_Object *grid_object, Point *to);
 static void grid_object_draw(Grid_Object *grid_object, DiaRenderer *renderer);
 static void grid_object_update_data(Grid_Object *grid_object);
 static DiaObject *grid_object_create(Point *startpoint,
@@ -200,7 +200,7 @@ grid_object_select(Grid_Object *grid_object, Point *clicked_point,
   element_update_handles(&grid_object->element);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 grid_object_move_handle(Grid_Object *grid_object, Handle *handle,
 			 Point *to, ConnectionPoint *cp,
 			 HandleMoveReason reason, ModifierKeys modifiers)
@@ -216,7 +216,7 @@ grid_object_move_handle(Grid_Object *grid_object, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 grid_object_move(Grid_Object *grid_object, Point *to)
 {
   grid_object->element.corner = *to;

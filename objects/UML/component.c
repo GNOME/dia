@@ -60,10 +60,10 @@ struct _Component {
 static real component_distance_from(Component *cmp, Point *point);
 static void component_select(Component *cmp, Point *clicked_point,
 				DiaRenderer *interactive_renderer);
-static ObjectChange* component_move_handle(Component *cmp, Handle *handle,
+static DiaObjectChange* component_move_handle(Component *cmp, Handle *handle,
 					   Point *to, ConnectionPoint *cp,
 					   HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* component_move(Component *cmp, Point *to);
+static DiaObjectChange* component_move(Component *cmp, Point *to);
 static void component_draw(Component *cmp, DiaRenderer *renderer);
 static DiaObject *component_create(Point *startpoint,
 				   void *user_data,
@@ -196,7 +196,7 @@ component_select(Component *cmp, Point *clicked_point,
   element_update_handles(&cmp->element);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 component_move_handle(Component *cmp, Handle *handle,
 		      Point *to, ConnectionPoint *cp,
 		      HandleMoveReason reason, ModifierKeys modifiers)
@@ -210,7 +210,7 @@ component_move_handle(Component *cmp, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 component_move(Component *cmp, Point *to)
 {
   cmp->element.corner = *to;

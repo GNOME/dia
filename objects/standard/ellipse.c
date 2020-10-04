@@ -31,6 +31,8 @@
 #include "pattern.h"
 #include "diapathrenderer.h"
 #include "message.h"
+#include "dia-object-change-legacy.h"
+
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 1.0
@@ -71,13 +73,20 @@ static struct _EllipseProperties {
   gboolean show_background;
 } default_properties = { FREE_ASPECT, TRUE };
 
-static real ellipse_distance_from(Ellipse *ellipse, Point *point);
-static void ellipse_select(Ellipse *ellipse, Point *clicked_point,
-			   DiaRenderer *interactive_renderer);
-static ObjectChange* ellipse_move_handle(Ellipse *ellipse, Handle *handle,
-					 Point *to, ConnectionPoint *cp,
-					 HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* ellipse_move(Ellipse *ellipse, Point *to);
+
+static double           ellipse_distance_from   (Ellipse          *ellipse,
+                                                 Point            *point);
+static void             ellipse_select          (Ellipse          *ellipse,
+                                                 Point            *clicked_point,
+                                                 DiaRenderer      *interactive_renderer);
+static DiaObjectChange *ellipse_move_handle     (Ellipse          *ellipse,
+                                                 Handle           *handle,
+                                                 Point            *to,
+                                                 ConnectionPoint  *cp,
+                                                 HandleMoveReason  reason,
+                                                 ModifierKeys      modifiers);
+static DiaObjectChange *ellipse_move            (Ellipse          *ellipse,
+                                                 Point            *to);
 static void ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer);
 static void ellipse_update_data(Ellipse *ellipse);
 static DiaObject *ellipse_create(Point *startpoint,
@@ -233,7 +242,7 @@ ellipse_select (Ellipse     *ellipse,
 }
 
 
-static ObjectChange*
+static DiaObjectChange*
 ellipse_move_handle (Ellipse          *ellipse,
                      Handle           *handle,
                      Point            *to,
@@ -334,14 +343,15 @@ ellipse_move_handle (Ellipse          *ellipse,
 }
 
 
-static ObjectChange*
-ellipse_move(Ellipse *ellipse, Point *to)
+static DiaObjectChange *
+ellipse_move (Ellipse *ellipse, Point *to)
 {
   ellipse->element.corner = *to;
-  ellipse_update_data(ellipse);
+  ellipse_update_data (ellipse);
 
   return NULL;
 }
+
 
 static void
 ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)
@@ -747,7 +757,8 @@ aspect_change_revert(struct AspectChange *change, DiaObject *obj)
   ellipse_update_data(ellipse);
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 aspect_create_change(Ellipse *ellipse, AspectType aspect)
 {
   struct AspectChange *change;
@@ -764,20 +775,21 @@ aspect_create_change(Ellipse *ellipse, AspectType aspect)
   change->width = ellipse->element.width;
   change->height = ellipse->element.height;
 
-  return (ObjectChange *)change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
 
-static ObjectChange *
-ellipse_set_aspect_callback (DiaObject* obj, Point* clicked, gpointer data)
+static DiaObjectChange *
+ellipse_set_aspect_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  change = aspect_create_change((Ellipse*)obj, (AspectType)data);
-  change->apply(change, obj);
+  change = aspect_create_change ((Ellipse *) obj, (AspectType) data);
+  dia_object_change_apply (change, obj);
 
   return change;
 }
+
 
 static DiaMenuItem ellipse_menu_items[] = {
   { N_("Free aspect"), ellipse_set_aspect_callback, (void*)FREE_ASPECT,

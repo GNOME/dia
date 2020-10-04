@@ -142,11 +142,13 @@ static DiaExportFilter wmf_export_filter = {
     FILTER_DONT_GUESS /* don't use this if not asked explicit */
 };
 
-static ObjectChange *
+
+static DiaObjectChange *
 cairo_clipboard_callback (DiagramData *data,
-                          const gchar *filename,
-                          guint flags, /* further additions */
-                          void *user_data)
+                          const char  *filename,
+                          /* further additions */
+                          guint        flags,
+                          void        *user_data)
 {
   DiaContext *ctx = dia_context_new(_("Cairo Clipboard Copy"));
 
@@ -169,13 +171,15 @@ static DiaCallbackFilter cb_clipboard = {
 };
 #endif
 
+
 static DiaCallbackFilter cb_gtk_print = {
-    "FilePrintGTK",
-    N_("Print (GTK) …"),
-    "/InvisibleMenu/File/FilePrint",
-    cairo_print_callback,
-    (void*)OUTPUT_PDF
+  "FilePrintGTK",
+  N_("Print (GTK) …"),
+  "/InvisibleMenu/File/FilePrint",
+  cairo_print_callback,
+  (void *) OUTPUT_PDF
 };
+
 
 static gboolean
 _plugin_can_unload (PluginInfo *info)

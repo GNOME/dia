@@ -16,7 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/** @file object.h -- definitions for Dia objects, in particular the 'virtual'
+/*
+ * Definitions for Dia objects, in particular the 'virtual'
  * functions and the object and type structures.
  */
 #ifndef DIA_OBJECT_H
@@ -29,24 +30,32 @@
 #include "connectionpoint.h"
 #include "handle.h"
 #include "diamenu.h"
-#include "objchange.h"
 #include "dia_xml.h"
 #include "text.h"
 #include "diacontext.h"
 #include "diarenderer.h"
+#include "dia-object-change.h"
 
 G_BEGIN_DECLS
 
-/** Flags for DiaObject */
+/**
+ * DiaObjectFlags:
+ *
+ * Flags for DiaObject
+ */
 typedef enum {
-  /** Set this if the DiaObject can 'contain' other objects that move with
-   *  it, a.k.a. be a parent.  A parent moves its children along and
-   *  constricts its children to live inside its borders.
+  /* Set this if the DiaObject can 'contain' other objects that move with
+   * it, a.k.a. be a parent.  A parent moves its children along and
+   * constricts its children to live inside its borders.
    */
   DIA_OBJECT_CAN_PARENT = 1
 } DiaObjectFlags;
 
-/** This enumeration gives a bitset of modifier keys currently held down.
+
+/**
+ * ModifierKeys:
+ *
+ * This enumeration gives a bitset of modifier keys currently held down.
  */
 typedef enum {
   MODIFIER_NONE,
@@ -176,22 +185,26 @@ typedef void (*DestroyFunc) (DiaObject* obj);
 #define DIA_OBJECT(object) ((DiaObject *) object)
 
 typedef void (*DrawFunc) (DiaObject* obj, DiaRenderer* ddisp);
-typedef real (*DistanceFunc) (DiaObject* obj, Point* point);
+typedef double (*DistanceFunc) (DiaObject* obj, Point* point);
 typedef void (*SelectFunc) (DiaObject*   obj,
 			    Point*    clicked_point,
 			    DiaRenderer* interactive_renderer);
 typedef DiaObject* (*CopyFunc) (DiaObject* obj);
-typedef ObjectChange* (*MoveFunc) (DiaObject* obj, Point * pos);
-typedef ObjectChange* (*MoveHandleFunc) (DiaObject*          obj,
-					 Handle*          handle,
-					 Point*           pos,
-					 ConnectionPoint* cp,
-					 HandleMoveReason reason,
-					 ModifierKeys     modifiers);
-typedef GtkWidget *(*GetPropertiesFunc) (DiaObject* obj, gboolean is_default);
-typedef ObjectChange *(*ApplyPropertiesDialogFunc) (DiaObject* obj, GtkWidget *widget);
-typedef ObjectChange *(*ApplyPropertiesListFunc) (DiaObject* obj, GPtrArray* props);
-typedef const PropDescription *(* DescribePropsFunc) (DiaObject *obj);
+typedef DiaObjectChange       *(*MoveFunc)                  (DiaObject        *obj,
+                                                             Point            *pos);
+typedef DiaObjectChange       *(*MoveHandleFunc)            (DiaObject        *obj,
+                                                             Handle           *handle,
+                                                             Point            *pos,
+                                                             ConnectionPoint  *cp,
+                                                             HandleMoveReason  reason,
+                                                             ModifierKeys      modifiers);
+typedef GtkWidget             *(*GetPropertiesFunc)         (DiaObject        *obj,
+                                                             gboolean          is_default);
+typedef DiaObjectChange       *(*ApplyPropertiesDialogFunc) (DiaObject        *obj,
+                                                             GtkWidget        *widget);
+typedef DiaObjectChange       *(*ApplyPropertiesListFunc)   (DiaObject        *obj,
+                                                             GPtrArray        *props);
+typedef const PropDescription *(*DescribePropsFunc)         (DiaObject        *obj);
 typedef void (* GetPropsFunc) (DiaObject *obj, GPtrArray *props);
 typedef void (* SetPropsFunc) (DiaObject *obj, GPtrArray *props);
 typedef DiaMenu *(*ObjectMenuFunc) (DiaObject* obj, Point *position);
@@ -214,9 +227,13 @@ void object_save(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 void object_load(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
 
 GList *object_copy_list (GList *list_orig );
-ObjectChange* object_list_move_delta_r(GList *objects, Point *delta, gboolean affected);
-ObjectChange* object_list_move_delta(GList *objects, Point *delta);
-ObjectChange *object_substitute (DiaObject *obj, DiaObject *subst);
+DiaObjectChange *object_list_move_delta_r (GList     *objects,
+                                           Point     *delta,
+                                           gboolean   affected);
+DiaObjectChange *object_list_move_delta   (GList     *objects,
+                                           Point     *delta);
+DiaObjectChange *object_substitute        (DiaObject *obj,
+                                           DiaObject *subst);
 
 void destroy_object_list (GList *list_to_be_destroyed);
 void object_add_handle(DiaObject *obj, Handle *handle);
@@ -263,15 +280,15 @@ struct _ObjectOps {
 
   void                   (*draw)                         (DiaObject        *obj,
                                                           DiaRenderer      *ddisp);
-  real                   (*distance_from)                (DiaObject        *obj,
+  double                 (*distance_from)                (DiaObject        *obj,
                                                           Point            *point);
   void                   (*selectf)                      (DiaObject        *obj,
                                                           Point            *clicked_point,
                                                           DiaRenderer      *interactive_renderer);
   DiaObject             *(*copy)                         (DiaObject        *obj);
-  ObjectChange          *(*move)                         (DiaObject        *obj,
+  DiaObjectChange       *(*move)                         (DiaObject        *obj,
                                                           Point            *pos);
-  ObjectChange          *(*move_handle)                  (DiaObject        *obj,
+  DiaObjectChange       *(*move_handle)                  (DiaObject        *obj,
                                                           Handle           *handle,
                                                           Point            *pos,
                                                           ConnectionPoint  *cp,
@@ -279,7 +296,7 @@ struct _ObjectOps {
                                                           ModifierKeys      modifiers);
   GtkWidget             *(*get_properties)               (DiaObject        *obj,
                                                           gboolean          is_default);
-  ObjectChange          *(*apply_properties_from_dialog) (DiaObject        *obj,
+  DiaObjectChange       *(*apply_properties_from_dialog) (DiaObject        *obj,
                                                           GtkWidget        *widget);
   DiaMenu               *(*get_object_menu)              (DiaObject        *obj,
                                                           Point            *position);
@@ -292,7 +309,7 @@ struct _ObjectOps {
                                                           Text             *text,
                                                           TextEditState     state,
                                                           gchar            *textchange);
-  ObjectChange          *(*apply_properties_list)        (DiaObject        *obj,
+  DiaObjectChange       *(*apply_properties_list)        (DiaObject        *obj,
                                                           GPtrArray        *props);
   gboolean               (*transform)                    (DiaObject        *obj,
                                                           const DiaMatrix  *m);
@@ -358,15 +375,15 @@ struct _DiaObject {
   DiaObject *parent; /*!< Back-pointer to DiaObject which is parenting this object. Can be NULL */
   GList *children; /*!< In case this object is a parent of other object the children are listed here */
 
-  /** The area that contains all parts rendered interactively, so includes
-   *  handles, bezier controllers etc.  Despite historical difference, this
-   *  should not be accessed directly, but through dia_object_get_bounding_box().
-   *  Note that handles and connection points are not included by this, but
-   *  added by that which needs it.
-   *  Internal:  If this is set to a NULL, returns bounding_box.  That is for
-   *  those objects that don't actually calculate it, but can just use the BB.
-   *  Since handles and CPs are not in the BB, that will be the case for most
-   *  objects.
+  /* The area that contains all parts rendered interactively, so includes
+   * handles, bezier controllers etc.  Despite historical difference, this
+   * should not be accessed directly, but through dia_object_get_bounding_box().
+   * Note that handles and connection points are not included by this, but
+   * added by that which needs it.
+   * Internal:  If this is set to a NULL, returns bounding_box.  That is for
+   * those objects that don't actually calculate it, but can just use the BB.
+   * Since handles and CPs are not in the BB, that will be the case for most
+   * objects.
    */
   DiaRectangle     *enclosing_box;
   /*! Metainfo of the object, should not be manipulated directly. Use dia_object_set_meta() */
@@ -470,9 +487,9 @@ void                   dia_object_select              (DiaObject              *s
                                                        DiaRenderer            *renderer);
 // Note: wraps copy
 DiaObject             *dia_object_clone               (DiaObject              *self);
-ObjectChange          *dia_object_move                (DiaObject              *self,
+DiaObjectChange       *dia_object_move                (DiaObject              *self,
                                                        Point                  *to);
-ObjectChange          *dia_object_move_handle         (DiaObject              *self,
+DiaObjectChange       *dia_object_move_handle         (DiaObject              *self,
                                                        Handle                 *handle,
                                                        Point                  *to,
                                                        ConnectionPoint        *cp,
@@ -481,7 +498,7 @@ ObjectChange          *dia_object_move_handle         (DiaObject              *s
 // Note: Wraps get_properties
 GtkWidget             *dia_object_get_editor          (DiaObject              *self,
                                                        gboolean                is_default);
-ObjectChange          *dia_object_apply_editor        (DiaObject              *self,
+DiaObjectChange       *dia_object_apply_editor        (DiaObject              *self,
                                                        GtkWidget              *editor);
 DiaMenu               *dia_object_get_menu            (DiaObject              *self,
                                                        Point                  *at);
@@ -490,7 +507,7 @@ void                   dia_object_get_properties      (DiaObject              *s
                                                        GPtrArray              *list);
 void                   dia_object_set_properties      (DiaObject              *self,
                                                        GPtrArray              *list);
-ObjectChange          *dia_object_apply_properties    (DiaObject              *self,
+DiaObjectChange       *dia_object_apply_properties    (DiaObject              *self,
                                                        GPtrArray              *list);
 gboolean               dia_object_edit_text           (DiaObject              *self,
                                                        Text                   *text,

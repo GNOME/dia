@@ -30,21 +30,26 @@
 #include "handle.h"
 #include "diarenderer.h"
 #include "autoroute.h"
+#include "dia-object-change-legacy.h"
+
 
 static void place_handle_by_swapping(OrthConn *orth,
                                      int index, Handle *handle);
-static ObjectChange *orthconn_set_autorouting(OrthConn *orth, gboolean on);
+static DiaObjectChange *orthconn_set_autorouting (OrthConn *orth, gboolean on);
 
 enum change_type {
   TYPE_ADD_SEGMENT,
   TYPE_REMOVE_SEGMENT
 };
 
-static ObjectChange *
-midsegment_create_change(OrthConn *orth, enum change_type type,
-			 int segment,
-			 Point *point1, Point *point2,
-			 Handle *handle1, Handle *handle2);
+static DiaObjectChange *
+midsegment_create_change (OrthConn         *orth,
+                          enum change_type  type,
+                          int               segment,
+                          Point            *point1,
+                          Point            *point2,
+                          Handle           *handle1,
+                          Handle           *handle2);
 
 struct MidSegmentChange {
   ObjectChange obj_change;
@@ -64,13 +69,17 @@ struct MidSegmentChange {
   Handle *handles[2]; /* These handles cannot be connected */
   /* NewOrthConn additions */
   ConnectionPoint *conn; /* ? */
-  ObjectChange *cplchange[2];
+  DiaObjectChange *cplchange[2];
 };
 
-static ObjectChange *
-endsegment_create_change(OrthConn *orth, enum change_type type,
-			 int segment, Point *point,
-			 Handle *handle);
+
+static DiaObjectChange *
+endsegment_create_change (OrthConn         *orth,
+                          enum change_type  type,
+                          int               segment,
+                          Point            *point,
+                          Handle           *handle);
+
 static void
 place_handle_by_swapping(OrthConn *orth, int index, Handle *handle);
 
@@ -97,11 +106,10 @@ struct EndSegmentChange {
   ConnectionPoint *cp; /* NULL in add segment and if not connected in
 			  remove segment */
   /* NewOrthConn additions */
-  ObjectChange *cplchange;
+  DiaObjectChange *cplchange;
 };
 
-static ObjectChange*
-autoroute_create_change(OrthConn *orth, gboolean on);
+static DiaObjectChange *autoroute_create_change (OrthConn *orth, gboolean on);
 
 struct AutorouteChange {
   ObjectChange obj_change;
@@ -167,7 +175,7 @@ static int get_segment_nr(OrthConn *orth, Point *point, real max_dist)
 }
 
 
-ObjectChange *
+DiaObjectChange *
 orthconn_move_handle (OrthConn         *orth,
                       Handle           *handle,
                       Point            *to,
@@ -178,7 +186,7 @@ orthconn_move_handle (OrthConn         *orth,
   int n;
   int handle_nr;
   DiaObject *obj = (DiaObject *) orth;
-  ObjectChange *change = NULL;
+  DiaObjectChange *change = NULL;
 
   switch (handle->id) {
     case HANDLE_MOVE_STARTPOINT:
@@ -261,7 +269,7 @@ orthconn_move_handle (OrthConn         *orth,
 }
 
 
-ObjectChange *
+DiaObjectChange *
 orthconn_move (OrthConn *orth, Point *to)
 {
   Point p;
@@ -279,11 +287,11 @@ orthconn_move (OrthConn *orth, Point *to)
 }
 
 
-real
-orthconn_distance_from (OrthConn *orth, Point *point, real line_width)
+double
+orthconn_distance_from (OrthConn *orth, Point *point, double line_width)
 {
   int i;
-  real dist;
+  double dist;
 
   dist = distance_line_point (&orth->points[0], &orth->points[1],
                               line_width, point);
@@ -760,92 +768,110 @@ orthconn_get_middle_handle( OrthConn *orth )
   return orth->handles[ n/2 ] ;
 }
 
-ObjectChange *
+
+DiaObjectChange *
 orthconn_delete_segment(OrthConn *orth, Point *clickedpoint)
 {
   int segment;
-  ObjectChange *change = NULL;
+  DiaObjectChange *change = NULL;
 
-  if (!orthconn_can_delete_segment(orth, clickedpoint))
+  if (!orthconn_can_delete_segment (orth, clickedpoint)) {
     return NULL;
+  }
 
   segment = get_segment_nr(orth, clickedpoint, 1.0);
   if (segment < 0)
     return NULL;
 
   if (segment==0) {
-    change = endsegment_create_change(orth, TYPE_REMOVE_SEGMENT, segment,
-				      &orth->points[segment],
-				      orth->handles[segment]);
+    change = endsegment_create_change (orth,
+                                       TYPE_REMOVE_SEGMENT,
+                                       segment,
+                                       &orth->points[segment],
+                                       orth->handles[segment]);
   } else if (segment == orth->numpoints-2) {
-    change = endsegment_create_change(orth, TYPE_REMOVE_SEGMENT, segment,
-				      &orth->points[segment+1],
-				      orth->handles[segment]);
+    change = endsegment_create_change (orth,
+                                       TYPE_REMOVE_SEGMENT,
+                                       segment,
+                                       &orth->points[segment + 1],
+                                       orth->handles[segment]);
   } else if (segment > 0) {
     /* Don't delete the last midpoint segment.
      * That would delete also the endpoint segment after it.
      */
-    if (segment == orth->numpoints-3)
+    if (segment == orth->numpoints-3) {
       segment--;
+    }
 
-    change = midsegment_create_change(orth, TYPE_REMOVE_SEGMENT, segment,
-				      &orth->points[segment],
-				      &orth->points[segment+1],
-				      orth->handles[segment],
-				      orth->handles[segment+1]);
+    change = midsegment_create_change (orth,
+                                       TYPE_REMOVE_SEGMENT,
+                                       segment,
+                                       &orth->points[segment],
+                                       &orth->points[segment + 1],
+                                       orth->handles[segment],
+                                       orth->handles[segment + 1]);
   }
 
-  change->apply(change, (DiaObject *)orth);
+  dia_object_change_apply (change, DIA_OBJECT (orth));
 
   return change;
 }
 
-ObjectChange *
-orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
+
+DiaObjectChange *
+orthconn_add_segment (OrthConn *orth, Point *clickedpoint)
 {
   Handle *handle1, *handle2;
-  ObjectChange *change = NULL;
+  DiaObjectChange *change = NULL;
   int segment;
   Point newpoint;
 
-  if (!orthconn_can_add_segment(orth, clickedpoint))
+  if (!orthconn_can_add_segment (orth, clickedpoint)) {
     return NULL;
+  }
 
-  segment = get_segment_nr(orth, clickedpoint, 1.0);
-  if (segment < 0)
+  segment = get_segment_nr (orth, clickedpoint, 1.0);
+  if (segment < 0) {
     return NULL;
+  }
 
   if (segment==0) { /* First segment */
-    handle1 = g_new(Handle, 1);
-    setup_endpoint_handle(handle1, HANDLE_MOVE_STARTPOINT);
-    change = endsegment_create_change(orth, TYPE_ADD_SEGMENT,
-				      0, &orth->points[0],
-				      handle1);
+    handle1 = g_new0 (Handle, 1);
+    setup_endpoint_handle (handle1, HANDLE_MOVE_STARTPOINT);
+    change = endsegment_create_change (orth,
+                                       TYPE_ADD_SEGMENT,
+                                       0,
+                                       &orth->points[0],
+                                       handle1);
   } else if (segment == orth->numpoints-2) { /* Last segment */
-    handle1 = g_new(Handle, 1);
-    setup_endpoint_handle(handle1, HANDLE_MOVE_ENDPOINT);
-    change = endsegment_create_change(orth, TYPE_ADD_SEGMENT,
-				      segment+1, &orth->points[segment+1],
-				      handle1);
+    handle1 = g_new0 (Handle, 1);
+    setup_endpoint_handle (handle1, HANDLE_MOVE_ENDPOINT);
+    change = endsegment_create_change (orth,
+                                       TYPE_ADD_SEGMENT,
+                                       segment + 1,
+                                       &orth->points[segment + 1],
+                                       handle1);
   } else if (segment > 0) {
-    handle1 = g_new(Handle, 1);
-    setup_midpoint_handle(handle1);
-    handle2 = g_new(Handle, 1);
-    setup_midpoint_handle(handle2);
+    handle1 = g_new (Handle, 1);
+    setup_midpoint_handle (handle1);
+    handle2 = g_new (Handle, 1);
+    setup_midpoint_handle (handle2);
     newpoint = *clickedpoint;
     if (orth->orientation[segment]==HORIZONTAL)
       newpoint.y = orth->points[segment].y;
     else
       newpoint.x = orth->points[segment].x;
 
-    change = midsegment_create_change(orth, TYPE_ADD_SEGMENT, segment,
-				      &newpoint,
-				      &newpoint,
-				      handle1,
-				      handle2);
+    change = midsegment_create_change (orth,
+                                       TYPE_ADD_SEGMENT,
+                                       segment,
+                                       &newpoint,
+                                       &newpoint,
+                                       handle1,
+                                       handle2);
   }
 
-  change->apply(change, (DiaObject *)orth);
+  dia_object_change_apply (change, DIA_OBJECT (orth));
 
   return change;
 }
@@ -854,16 +880,18 @@ orthconn_add_segment(OrthConn *orth, Point *clickedpoint)
 /* Set autorouting on or off.  If setting on, try to autoroute and
  * return the changes from that.
  */
-static ObjectChange *
-orthconn_set_autorouting(OrthConn *conn, gboolean on)
+static DiaObjectChange *
+orthconn_set_autorouting (OrthConn *conn, gboolean on)
 {
-  DiaObject *obj = (DiaObject *)conn;
-  ObjectChange *change;
+  DiaObject *obj = DIA_OBJECT (conn);
+  DiaObjectChange *change;
 
-  change = autoroute_create_change(conn, on);
-  change->apply(change, obj);
+  change = autoroute_create_change (conn, on);
+  dia_object_change_apply (change, obj);
+
   return change;
 }
+
 
 static void
 delete_point(OrthConn *orth, int pos)
@@ -953,12 +981,8 @@ endsegment_change_free (struct EndSegmentChange *change)
        (change->type==TYPE_REMOVE_SEGMENT && change->applied) ){
     g_clear_pointer (&change->handle, g_free);
   }
-  if (change->cplchange) {
-    if (change->cplchange->free) {
-      change->cplchange->free (change->cplchange);
-    }
-    g_clear_pointer (&change->cplchange, g_free);
-  }
+
+  g_clear_pointer (&change->cplchange, dia_object_change_unref);
 }
 
 
@@ -1021,7 +1045,7 @@ endsegment_change_revert (struct EndSegmentChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn *) obj;
 
-  change->cplchange->revert (change->cplchange, obj);
+  dia_object_change_revert (change->cplchange, obj);
 
   switch (change->type) {
     case TYPE_ADD_SEGMENT:
@@ -1068,14 +1092,16 @@ endsegment_change_revert (struct EndSegmentChange *change, DiaObject *obj)
 }
 
 
-static ObjectChange *
-endsegment_create_change(OrthConn *orth, enum change_type type,
-			 int segment, Point *point,
-			 Handle *handle)
+static DiaObjectChange *
+endsegment_create_change (OrthConn         *orth,
+                          enum change_type  type,
+                          int               segment,
+                          Point            *point,
+                          Handle           *handle)
 {
   struct EndSegmentChange *change;
 
-  change = g_new(struct EndSegmentChange, 1);
+  change = g_new0 (struct EndSegmentChange, 1);
 
   change->obj_change.apply = (ObjectChangeApplyFunc) endsegment_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) endsegment_change_revert;
@@ -1092,7 +1118,7 @@ endsegment_create_change(OrthConn *orth, enum change_type type,
     change->old_end_handle = orth->handles[orth->numpoints-2];
   change->cp = change->old_end_handle->connected_to;
 
-  return (ObjectChange *)change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
 
@@ -1105,17 +1131,8 @@ midsegment_change_free(struct MidSegmentChange *change)
     g_clear_pointer (&change->handles[1], g_free);
   }
 
-  if (change->cplchange[0]) {
-    if (change->cplchange[0]->free)
-      change->cplchange[0]->free(change->cplchange[0]);
-    g_clear_pointer (&change->cplchange[0], g_free);
-  }
-
-  if (change->cplchange[1]) {
-    if (change->cplchange[1]->free)
-      change->cplchange[1]->free(change->cplchange[1]);
-    g_clear_pointer (&change->cplchange[1], g_free);
-  }
+  g_clear_pointer (&change->cplchange[0], dia_object_change_unref);
+  g_clear_pointer (&change->cplchange[1], dia_object_change_unref);
 }
 
 
@@ -1170,8 +1187,8 @@ midsegment_change_revert (struct MidSegmentChange *change, DiaObject *obj)
 {
   OrthConn *orth = (OrthConn *)obj;
 
-  change->cplchange[0]->revert (change->cplchange[0], obj);
-  change->cplchange[1]->revert (change->cplchange[1], obj);
+  dia_object_change_revert (change->cplchange[0], obj);
+  dia_object_change_revert (change->cplchange[1], obj);
 
   switch (change->type) {
     case TYPE_ADD_SEGMENT:
@@ -1200,15 +1217,18 @@ midsegment_change_revert (struct MidSegmentChange *change, DiaObject *obj)
 }
 
 
-static ObjectChange *
-midsegment_create_change(OrthConn *orth, enum change_type type,
-			 int segment,
-			 Point *point1, Point *point2,
-			 Handle *handle1, Handle *handle2)
+static DiaObjectChange *
+midsegment_create_change (OrthConn         *orth,
+                          enum change_type  type,
+                          int               segment,
+                          Point            *point1,
+                          Point            *point2,
+                          Handle           *handle1,
+                          Handle           *handle2)
 {
   struct MidSegmentChange *change;
 
-  change = g_new(struct MidSegmentChange, 1);
+  change = g_new0 (struct MidSegmentChange, 1);
 
   change->obj_change.apply = (ObjectChangeApplyFunc) midsegment_change_apply;
   change->obj_change.revert = (ObjectChangeRevertFunc) midsegment_change_revert;
@@ -1222,7 +1242,7 @@ midsegment_create_change(OrthConn *orth, enum change_type type,
   change->handles[0] = handle1;
   change->handles[1] = handle2;
 
-  return (ObjectChange *)change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
 static void
@@ -1262,8 +1282,9 @@ autoroute_change_revert(struct AutorouteChange *change, DiaObject *obj)
   }
 }
 
-static ObjectChange *
-autoroute_create_change(OrthConn *orth, gboolean on)
+
+static DiaObjectChange *
+autoroute_create_change (OrthConn *orth, gboolean on)
 {
   struct AutorouteChange *change;
   int i;
@@ -1280,21 +1301,26 @@ autoroute_create_change(OrthConn *orth, gboolean on)
   for (i = 0; i < orth->numpoints; i++)
     change->points[i] = orth->points[i];
 
-  return (ObjectChange *)change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
-ObjectChange *
-orthconn_toggle_autorouting_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+DiaObjectChange *
+orthconn_toggle_autorouting_callback (DiaObject *obj,
+                                      Point     *clicked,
+                                      gpointer   data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   /* This is kinda hackish.  Since we can't see the menu item, we have to
    * assume that we're right about toggling and just send !orth->autorouting.
    */
-  change = orthconn_set_autorouting((OrthConn*)obj,
-				    !((OrthConn*)obj)->autorouting);
-  orthconn_update_data((OrthConn *)obj);
+  change = orthconn_set_autorouting ((OrthConn*) obj,
+                                     !((OrthConn*) obj)->autorouting);
+  orthconn_update_data ((OrthConn *) obj);
+
   return change;
 }
+
 
 void
 orthconn_update_object_menu(OrthConn *orth, Point *clicked,

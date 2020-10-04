@@ -72,10 +72,10 @@ struct _Relationship {
 static double relationship_distance_from(Relationship *relationship, Point *point);
 static void relationship_select(Relationship *relationship, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static ObjectChange* relationship_move_handle(Relationship *relationship, Handle *handle,
+static DiaObjectChange* relationship_move_handle(Relationship *relationship, Handle *handle,
 					      Point *to, ConnectionPoint *cp,
 					      HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* relationship_move(Relationship *relationship, Point *to);
+static DiaObjectChange* relationship_move(Relationship *relationship, Point *to);
 static void relationship_draw(Relationship *relationship, DiaRenderer *renderer);
 static void relationship_update_data(Relationship *relationship);
 static DiaObject *relationship_create(Point *startpoint,
@@ -218,7 +218,7 @@ relationship_select (Relationship *relationship,
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 relationship_move_handle (Relationship     *relationship,
                           Handle           *handle,
                           Point            *to,
@@ -237,7 +237,7 @@ relationship_move_handle (Relationship     *relationship,
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 relationship_move (Relationship *relationship, Point *to)
 {
   relationship->element.corner = *to;

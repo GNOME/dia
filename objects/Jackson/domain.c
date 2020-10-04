@@ -112,10 +112,14 @@ typedef struct _Box {
 static real jackson_box_distance_from(Box *box, Point *point);
 static void jackson_box_select(Box *box, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static ObjectChange* jackson_box_move_handle(Box *box, Handle *handle,
-			    Point *to, ConnectionPoint *cp,
-			    HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* jackson_box_move(Box *box, Point *to);
+static DiaObjectChange *jackson_box_move_handle  (Box             *box,
+                                                  Handle          *handle,
+                                                  Point           *to,
+                                                  ConnectionPoint *cp,
+                                                  HandleMoveReason reason,
+                                                  ModifierKeys     modifiers);
+static DiaObjectChange *jackson_box_move         (Box             *box,
+                                                  Point           *to);
 static void jackson_box_draw(Box *box, DiaRenderer *renderer);
 static void jackson_box_update_data(Box *box, AnchorShape horix, AnchorShape vert);
 static DiaObject *jackson_box_create(Point *startpoint,
@@ -276,7 +280,7 @@ jackson_box_select (Box         *box,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 jackson_box_move_handle (Box              *box,
                          Handle           *handle,
                          Point            *to,
@@ -342,7 +346,7 @@ jackson_box_move_handle (Box              *box,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 jackson_box_move (Box *box, Point *to)
 {
   box->element.corner = *to;
@@ -567,19 +571,21 @@ jackson_box_get_clicked_border (Box *box, Point *clicked)
 }
 
 
-inline static ObjectChange *
-jackson_box_create_change (Box *box, ObjectChange *inner, ConnPointLine *cpl)
+inline static DiaObjectChange *
+jackson_box_create_change (Box             *box,
+                           DiaObjectChange *inner,
+                           ConnPointLine   *cpl)
 {
-  return (ObjectChange *) inner;
+  return (DiaObjectChange *) inner;
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 jackson_box_add_connpoint_callback (DiaObject *obj,
                                     Point     *clicked,
                                     gpointer   data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   ConnPointLine *cpl;
   Box *box = (Box *)obj;
 
@@ -591,12 +597,12 @@ jackson_box_add_connpoint_callback (DiaObject *obj,
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 jackson_box_remove_connpoint_callback (DiaObject *obj,
                                        Point     *clicked,
                                        gpointer   data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   ConnPointLine *cpl;
   Box *box = (Box *)obj;
 

@@ -28,6 +28,8 @@
 
 #include "beziershape.h"
 #include "diarenderer.h"
+#include "dia-object-change-legacy.h"
+
 
 #define HANDLE_BEZMAJOR  (HANDLE_CUSTOM1)
 #define HANDLE_LEFTCTRL  (HANDLE_CUSTOM2)
@@ -71,24 +73,24 @@ struct CornerChange {
 };
 
 
-static ObjectChange *beziershape_create_point_change (BezierShape      *bezier,
-                                                      enum change_type  type,
-                                                      BezPoint         *point,
-                                                      BezCornerType     corner_type,
-                                                      int               segment,
-                                                      Handle           *handle1,
-                                                      Handle           *handle2,
-                                                      Handle           *handle3,
-                                                      ConnectionPoint  *cp1,
-                                                      ConnectionPoint  *cp2);
-static ObjectChange *beziershape_create_corner_change (BezierShape     *bezier,
-                                                       Handle          *handle,
-                                                       Point           *point_left,
-                                                       Point           *point_right,
-                                                       BezCornerType    old_corner_type,
-                                                       BezCornerType    new_corner_type);
-static void new_handles_and_connections               (BezierShape     *bezier,
-                                                       int              num_points);
+static DiaObjectChange *beziershape_create_point_change  (BezierShape      *bezier,
+                                                          enum change_type  type,
+                                                          BezPoint         *point,
+                                                          BezCornerType     corner_type,
+                                                          int               segment,
+                                                          Handle           *handle1,
+                                                          Handle           *handle2,
+                                                          Handle           *handle3,
+                                                          ConnectionPoint  *cp1,
+                                                          ConnectionPoint  *cp2);
+static DiaObjectChange *beziershape_create_corner_change (BezierShape     *bezier,
+                                                          Handle          *handle,
+                                                          Point           *point_left,
+                                                          Point           *point_right,
+                                                          BezCornerType    old_corner_type,
+                                                          BezCornerType    new_corner_type);
+static void new_handles_and_connections                  (BezierShape     *bezier,
+                                                          int              num_points);
 
 
 /**
@@ -153,7 +155,7 @@ get_handle_nr (BezierShape *bezier, Handle *handle)
  *
  * Returns: %NULL
  */
-ObjectChange *
+DiaObjectChange *
 beziershape_move_handle (BezierShape      *bezier,
                          Handle           *handle,
                          Point            *to,
@@ -292,7 +294,7 @@ beziershape_move_handle (BezierShape      *bezier,
  * @return NULL
  * \memberof _BezierConn
  */
-ObjectChange*
+DiaObjectChange *
 beziershape_move (BezierShape *bezier, Point *to)
 {
   Point p;
@@ -483,9 +485,10 @@ remove_handles (BezierShape *bezier, int pos)
 
 /* Add a point by splitting segment into two, putting the new point at
  'point' or, if NULL, in the middle */
-ObjectChange *
+DiaObjectChange *
 beziershape_add_segment (BezierShape *bezier,
-			 int segment, Point *point)
+                         int          segment,
+                         Point       *point)
 {
   BezPoint realpoint;
   BezCornerType corner_type = BEZ_CORNER_SYMMETRIC;
@@ -537,6 +540,7 @@ beziershape_add_segment (BezierShape *bezier,
 					 new_cp1, new_cp2);
 }
 
+
 /*!
  * \brief Remove a segment from a bezier.
  * @param bezier The bezier to remove a segment from.
@@ -544,7 +548,7 @@ beziershape_add_segment (BezierShape *bezier,
  * @returns Undo information for the segment removal.
  * \memberof _BezierShape
  */
-ObjectChange *
+DiaObjectChange *
 beziershape_remove_segment (BezierShape *bezier, int pos)
 {
   Handle *old_handle1, *old_handle2, *old_handle3;
@@ -668,7 +672,7 @@ beziershape_straighten_corner (BezierShape *bezier, int comp_nr)
 }
 
 
-ObjectChange *
+DiaObjectChange *
 beziershape_set_corner_type (BezierShape   *bezier,
                              Handle        *handle,
                              BezCornerType  corner_type)
@@ -1233,7 +1237,7 @@ beziershape_point_change_revert (struct BezPointChange *change,
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 beziershape_create_point_change (BezierShape      *bezier,
                                  enum change_type  type,
                                  BezPoint         *point,
@@ -1267,7 +1271,7 @@ beziershape_create_point_change (BezierShape      *bezier,
   change->cp1 = cp1;
   change->cp2 = cp2;
 
-  return (ObjectChange *) change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
 
@@ -1349,14 +1353,14 @@ beziershape_corner_change_revert (struct CornerChange *change,
  * @new_corner_type: The corner type being changed to.
  *
  * Create new undo information about a changing the type of a corner.
- * Note that the created #ObjectChange object has nothing in it that needs
+ * Note that the created #DiaObjectChange object has nothing in it that needs
  * freeing.
  *
  * Returns: Newly allocated undo information.
  *
  * Since: dawn-of-time
  */
-static ObjectChange *
+static DiaObjectChange *
 beziershape_create_corner_change (BezierShape   *bezier,
                                   Handle        *handle,
                                   Point         *point_left,
@@ -1383,5 +1387,5 @@ beziershape_create_corner_change (BezierShape   *bezier,
   change->point_left = *point_left;
   change->point_right = *point_right;
 
-  return (ObjectChange *) change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }

@@ -40,7 +40,7 @@ bezier_calc_corner_types (BezierCommon *bezier)
 {
   int i;
   int num = bezier->num_points;
-  const real tolerance = 0.00001; /* EPSILON */
+  const double tolerance = 0.00001; /* EPSILON */
 
   g_return_if_fail (bezier->num_points > 1);
 
@@ -93,8 +93,8 @@ beziercommon_set_points (BezierCommon   *bezier,
     /* to make editing in Dia more convenient we turn line-to to curve-to with cusp controls */
     if (points[i].type == BEZ_LINE_TO) {
       Point start = (points[i-1].type == BEZ_CURVE_TO) ? points[i-1].p3 : points[i-1].p1;
-      real dx = points[i].p1.x - start.x;
-      real dy = points[i].p1.y - start.y;
+      double dx = points[i].p1.x - start.x;
+      double dy = points[i].p1.y - start.y;
       bezier->points[i].p3 = points[i].p1;
       bezier->points[i].p1.x = start.x + dx / 3;
       bezier->points[i].p1.y = start.y + dy / 3;
@@ -135,19 +135,19 @@ beziercommon_copy (BezierCommon *from, BezierCommon *to)
  */
 int
 beziercommon_closest_segment (BezierCommon *bezier,
-			      const Point  *point,
-			      real          line_width)
+                              const Point  *point,
+                              double        line_width)
 {
   Point last;
   int i;
-  real dist = G_MAXDOUBLE;
+  double dist = G_MAXDOUBLE;
   int closest;
 
   closest = 0;
   last = bezier->points[0].p1;
   /* the first point is just move-to so there is no need to consider p2,p3 of it */
   for (i = 1; i < bezier->num_points; i++) {
-    real new_dist = distance_bez_seg_point(&last, &bezier->points[i], line_width, point);
+    double new_dist = distance_bez_seg_point(&last, &bezier->points[i], line_width, point);
     if (new_dist < dist) {
       dist = new_dist;
       closest = i - 1;

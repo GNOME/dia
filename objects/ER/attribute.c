@@ -31,6 +31,7 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "properties.h"
+#include "dia-object-change-legacy.h"
 
 #include "pixmaps/attribute.xpm"
 
@@ -85,11 +86,11 @@ struct _Attribute {
 static real attribute_distance_from(Attribute *attribute, Point *point);
 static void attribute_select(Attribute *attribute, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
-static ObjectChange* attribute_move_handle(Attribute *attribute, Handle *handle,
+static DiaObjectChange* attribute_move_handle(Attribute *attribute, Handle *handle,
 					   Point *to, ConnectionPoint *cp,
 					   HandleMoveReason reason,
 					   ModifierKeys modifiers);
-static ObjectChange* attribute_move(Attribute *attribute, Point *to);
+static DiaObjectChange* attribute_move(Attribute *attribute, Point *to);
 static void attribute_draw(Attribute *attribute, DiaRenderer *renderer);
 static void attribute_update_data(Attribute *attribute);
 static DiaObject *attribute_create(Point *startpoint,
@@ -223,7 +224,7 @@ attribute_select(Attribute *attribute, Point *clicked_point,
   element_update_handles(&attribute->element);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 attribute_move_handle(Attribute *attribute, Handle *handle,
 		      Point *to, ConnectionPoint *cp,
 		      HandleMoveReason reason, ModifierKeys modifiers)
@@ -240,7 +241,7 @@ attribute_move_handle(Attribute *attribute, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 attribute_move(Attribute *attribute, Point *to)
 {
   attribute->element.corner = *to;

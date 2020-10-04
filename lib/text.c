@@ -30,15 +30,20 @@
 #include "diarenderer.h"
 #include "diainteractiverenderer.h"
 #include "diagramdata.h"
-#include "objchange.h"
 #include "textline.h"
 #include "attributes.h"
 #include "object.h"
+#include "dia-object-change-legacy.h"
+#include "dia-object-change-list.h"
 
-static int text_key_event(Focus *focus,
-			  guint keystate, guint keysym,
-			  const gchar *str, int strlen,
-			  ObjectChange **change);
+
+static int text_key_event (Focus            *focus,
+                           guint             keystate,
+                           guint             keysym,
+                           const char       *str,
+                           int               strlen,
+                           DiaObjectChange **change);
+
 
 typedef enum {
   TYPE_DELETE_BACKWARD,
@@ -69,8 +74,11 @@ struct TextObjectChange {
 
 #define CURSOR_HEIGHT_RATIO 20
 
+
 /**
  * text_get_line:
+ * @text: the #Text
+ * @line: the line number in @text to fetch
  *
  * Encapsulation functions for transferring to text_line
  *
@@ -217,7 +225,7 @@ text_get_ascent (Text *text)
 
 /**
  * text_get_descent:
- * @a: #Text object
+ * @text: a #Text object
  *
  * Get the *average* descent of this Text object.
  *
@@ -232,12 +240,12 @@ text_get_descent (Text *text)
 }
 
 
-static ObjectChange *text_create_change (Text           *text,
-                                         TextChangeType  type,
-                                         gunichar        ch,
-                                         int             pos,
-                                         int             row,
-                                         DiaObject      *obj);
+static DiaObjectChange *text_create_change (Text           *text,
+                                            TextChangeType  type,
+                                            gunichar        ch,
+                                            int             pos,
+                                            int             row,
+                                            DiaObject      *obj);
 
 
 static void
@@ -391,6 +399,9 @@ new_text (const char *string,
 
 /**
  * new_text_default:
+ * @pos: the #Point the text is located
+ * @color: the #Color of the text
+ * @align: the #Alignment of the text
  *
  * Fallback function returning a default initialized text object.
  */
@@ -998,7 +1009,7 @@ text_insert_char (Text *text, gunichar c)
 
 
 gboolean
-text_delete_key_handler (Focus *focus, ObjectChange ** change)
+text_delete_key_handler (Focus *focus, DiaObjectChange **change)
 {
   Text *text;
   int row, i;
@@ -1029,12 +1040,12 @@ text_delete_key_handler (Focus *focus, ObjectChange ** change)
 
 
 static int
-text_key_event (Focus         *focus,
-                guint          keystate,
-                guint          keyval,
-                const char    *str,
-                int            strlen,
-                ObjectChange **change)
+text_key_event (Focus            *focus,
+                guint             keystate,
+                guint             keyval,
+                const char       *str,
+                int               strlen,
+                DiaObjectChange **change)
 {
   Text *text;
   int return_val = FALSE;
@@ -1154,16 +1165,17 @@ text_key_event (Focus         *focus,
             break; /* avoid putting junk into our string */
           }
           return_val = TRUE;
-          *change = change_list_create();
+          *change = dia_object_change_list_new ();
           for (utf = str; utf && *utf && strlen > 0 ;
                utf = g_utf8_next_char (utf), strlen--) {
-            ObjectChange *step;
+            DiaObjectChange *step;
             c = g_utf8_get_char (utf);
 
             step = text_create_change (text, TYPE_INSERT_CHAR, c,
                                        text->cursor_pos, text->cursor_row,
                                        focus->obj);
-            change_list_add (*change, step);
+            dia_object_change_list_add (DIA_OBJECT_CHANGE_LIST (*change),
+                                        step);
             text_insert_char (text, c);
           }
         }
@@ -1188,7 +1200,7 @@ text_is_empty (const Text *text)
 
 
 int
-text_delete_all (Text *text, ObjectChange **change, DiaObject *obj)
+text_delete_all (Text *text, DiaObjectChange **change, DiaObject *obj)
 {
   if (!text_is_empty (text)) {
     *change = text_create_change (text, TYPE_DELETE_ALL,
@@ -1427,7 +1439,7 @@ make_posision_and_size_prop_list (void)
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 text_create_change (Text           *text,
                     TextChangeType  type,
                     gunichar        ch,
@@ -1460,7 +1472,7 @@ text_create_change (Text           *text,
     change->str = NULL;
   }
 
-  return (ObjectChange *) change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
 

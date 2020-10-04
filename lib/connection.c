@@ -87,11 +87,11 @@ connection_adjust_for_autogap (Connection *connection)
  *
  * Function called to move one of the handles associated with the object.
  *
- * Returns: An #ObjectChange with additional undo information, or
+ * Returns: An #DiaObjectChange with additional undo information, or
  *          (in most cases) %NULL. Undo for moving the handle itself is
  *          handled elsewhere.
  */
-ObjectChange*
+DiaObjectChange *
 connection_move_handle (Connection       *conn,
                         HandleId          id,
                         Point            *to,
@@ -247,6 +247,7 @@ connection_destroy (Connection *conn)
  * connection_save:
  * @conn: The connection to save.
  * @obj_node: The XML node to save it to.
+ * @ctx: the current #DiaContext
  *
  * Save a connections data to XML.
  */

@@ -145,7 +145,7 @@ struct _UMLClass {
 
 void umlclass_dialog_free (UMLClassDialog *dialog);
 GtkWidget *umlclass_get_properties(UMLClass *umlclass, gboolean is_default);
-ObjectChange *umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget);
+DiaObjectChange *umlclass_apply_props_from_dialog(UMLClass *umlclass, GtkWidget *widget);
 void umlclass_calculate_data(UMLClass *umlclass);
 void umlclass_update_data(UMLClass *umlclass);
 

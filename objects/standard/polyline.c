@@ -45,18 +45,22 @@ typedef struct _Polyline {
   LineStyle line_style;
   LineJoin line_join;
   LineCaps line_caps;
-  real dashlength;
-  real line_width;
-  real corner_radius;
+  double dashlength;
+  double line_width;
+  double corner_radius;
   Arrow start_arrow, end_arrow;
-  real absolute_start_gap, absolute_end_gap;
+  double absolute_start_gap, absolute_end_gap;
 } Polyline;
 
 
-static ObjectChange* polyline_move_handle(Polyline *polyline, Handle *handle,
-					  Point *to, ConnectionPoint *cp,
-					  HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* polyline_move(Polyline *polyline, Point *to);
+static DiaObjectChange *polyline_move_handle     (Polyline         *polyline,
+                                                  Handle           *handle,
+                                                  Point            *to,
+                                                  ConnectionPoint  *cp,
+                                                  HandleMoveReason  reason,
+                                                  ModifierKeys      modifiers);
+static DiaObjectChange *polyline_move            (Polyline         *polyline,
+                                                  Point            *to);
 static void polyline_select(Polyline *polyline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void polyline_draw(Polyline *polyline, DiaRenderer *renderer);
@@ -200,10 +204,14 @@ polyline_select(Polyline *polyline, Point *clicked_point,
   polyconn_update_data(&polyline->poly);
 }
 
-static ObjectChange*
-polyline_move_handle(Polyline *polyline, Handle *handle,
-		     Point *to, ConnectionPoint *cp,
-		     HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+polyline_move_handle (Polyline         *polyline,
+                      Handle           *handle,
+                      Point            *to,
+                      ConnectionPoint  *cp,
+                      HandleMoveReason  reason,
+                      ModifierKeys      modifiers)
 {
   assert(polyline!=NULL);
   assert(handle!=NULL);
@@ -216,11 +224,11 @@ polyline_move_handle(Polyline *polyline, Handle *handle,
 }
 
 
-static ObjectChange*
-polyline_move(Polyline *polyline, Point *to)
+static DiaObjectChange *
+polyline_move (Polyline *polyline, Point *to)
 {
-  polyconn_move(&polyline->poly, to);
-  polyline_update_data(polyline);
+  polyconn_move (&polyline->poly, to);
+  polyline_update_data (polyline);
 
   return NULL;
 }
@@ -582,26 +590,29 @@ polyline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   return &polyline->poly.object;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 polyline_add_corner_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Polyline *poly = (Polyline*) obj;
   int segment;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  segment = polyline_closest_segment(poly, clicked);
-  change = polyconn_add_point(&poly->poly, segment, clicked);
-  polyline_update_data(poly);
+  segment = polyline_closest_segment (poly, clicked);
+  change = polyconn_add_point (&poly->poly, segment, clicked);
+  polyline_update_data (poly);
+
   return change;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 polyline_delete_corner_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Handle *handle;
   int handle_nr, i;
   Polyline *poly = (Polyline*) obj;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   handle = polyline_closest_handle(poly, clicked);
 

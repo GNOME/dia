@@ -26,7 +26,7 @@
 
 /*!
  * \brief helper for implementing polyline connections
- * 
+ *
  * This is a subclass of DiaObject used to help implementing objects
  * that connect points with polygonal line-segments.
  *
@@ -51,13 +51,19 @@ void polyconn_destroy(PolyConn *poly);
 void polyconn_copy(PolyConn *from, PolyConn *to);
 void polyconn_save(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx);
 void polyconn_load(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx);  /* NOTE: Does object_init() */
-ObjectChange *polyconn_add_point(PolyConn *poly, int segment, Point *point);
-ObjectChange *polyconn_remove_point(PolyConn *poly, int point);
-ObjectChange *polyconn_move_handle(PolyConn *poly, Handle *id,
-				   Point *to, ConnectionPoint *cp,
-				   HandleMoveReason reason,
-				   ModifierKeys modifiers);
-ObjectChange *polyconn_move(PolyConn *poly, Point *to);
+DiaObjectChange *polyconn_add_point       (PolyConn         *poly,
+                                           int               segment,
+                                           Point            *point);
+DiaObjectChange *polyconn_remove_point    (PolyConn         *poly,
+                                           int               point);
+DiaObjectChange *polyconn_move_handle     (PolyConn         *poly,
+                                           Handle           *id,
+                                           Point            *to,
+                                           ConnectionPoint  *cp,
+                                           HandleMoveReason  reason,
+                                           ModifierKeys      modifiers);
+DiaObjectChange *polyconn_move            (PolyConn         *poly,
+                                           Point            *to);
 real polyconn_distance_from(PolyConn *poly, Point *point,
 			    real line_width);
 Handle *polyconn_closest_handle(PolyConn *poly, Point *point);

@@ -19,6 +19,7 @@
 #define DIAMENU_H
 
 #include "diatypes.h"
+#include "dia-object-change.h"
 
 /* Flags for DiaMenuItem->active */
 #define DIAMENU_ACTIVE (1<<0)
@@ -26,7 +27,9 @@
 #define DIAMENU_TOGGLE_ON (1<<2)
 
 /* Note: The returned change is already applied. */
-typedef ObjectChange *(*DiaMenuCallback)(DiaObject *obj, Point *pos, gpointer data);
+typedef DiaObjectChange *(*DiaMenuCallback) (DiaObject *obj,
+                                             Point     *pos,
+                                             gpointer   data);
 
 struct _DiaMenuItem {
   char *text;

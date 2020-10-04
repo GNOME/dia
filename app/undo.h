@@ -23,8 +23,9 @@ typedef struct _UndoStack UndoStack;
 
 #include "diagram.h"
 #include "dia-guide.h"
-
 #include "dia-change.h"
+#include "dia-object-change.h"
+
 
 struct _UndoStack {
   Diagram *dia;
@@ -116,9 +117,9 @@ DiaChange *dia_reorder_objects_change_new              (Diagram   *dia,
 #define DIA_TYPE_OBJECT_CHANGE_CHANGE dia_object_change_change_get_type ()
 G_DECLARE_FINAL_TYPE (DiaObjectChangeChange, dia_object_change_change, DIA, OBJECT_CHANGE_CHANGE, DiaChange)
 
-DiaChange *dia_object_change_change_new                (Diagram      *dia,
-                                                        DiaObject    *obj,
-                                                        ObjectChange *obj_change);
+DiaChange *dia_object_change_change_new                (Diagram         *dia,
+                                                        DiaObject       *obj,
+                                                        DiaObjectChange *change);
 
 
 #define DIA_TYPE_GROUP_OBJECTS_CHANGE dia_group_objects_change_get_type ()

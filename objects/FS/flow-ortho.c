@@ -29,7 +29,6 @@
 
 #include "intl.h"
 #include "object.h"
-#include "objchange.h"
 #include "connection.h"
 #include "diarenderer.h"
 #include "handle.h"
@@ -39,6 +38,7 @@
 #include "orth_conn.h"
 #include "element.h"
 #include "properties.h"
+#include "dia-object-change-legacy.h"
 
 #include "pixmaps/orthflow.xpm"
 
@@ -88,11 +88,14 @@ Color orthflow_color_signal   = { 0.0f, 0.0f, 1.0f, 1.0f };
 #define ORTHFLOW_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
 
-static ObjectChange* orthflow_move_handle(Orthflow *orthflow, Handle *handle,
-					  Point *to, ConnectionPoint *cp,
-					  HandleMoveReason reason,
-					  ModifierKeys modifiers);
-static ObjectChange* orthflow_move(Orthflow *orthflow, Point *to);
+static DiaObjectChange *orthflow_move_handle   (Orthflow         *orthflow,
+                                                Handle           *handle,
+                                                Point            *to,
+                                                ConnectionPoint  *cp,
+                                                HandleMoveReason  reason,
+                                                ModifierKeys      modifiers);
+static DiaObjectChange *orthflow_move          (Orthflow         *orthflow,
+                                                Point            *to);
 static void orthflow_select(Orthflow *orthflow, Point *clicked_point,
 			    DiaRenderer *interactive_renderer);
 static void orthflow_draw(Orthflow *orthflow, DiaRenderer *renderer);
@@ -210,7 +213,7 @@ orthflow_set_props(Orthflow *orthflow, GPtrArray *props)
 
 
 static void
-orthflow_change_apply_revert(ObjectChange* objchg, DiaObject* obj)
+orthflow_change_apply_revert (ObjectChange* objchg, DiaObject* obj)
 {
   struct _OrthflowChange* change = (struct _OrthflowChange*) objchg ;
   Orthflow* oflow = (Orthflow*) obj ;
@@ -240,39 +243,43 @@ orthflow_change_free(ObjectChange* objchg)
   }
 }
 
-static ObjectChange*
-orthflow_create_change( enum OrthflowChangeType change_type,
-			OrthflowType type, Text* text )
-{
-  struct _OrthflowChange* change ;
-  change = g_new0( struct _OrthflowChange, 1 ) ;
-  change->obj_change.apply = (ObjectChangeApplyFunc) orthflow_change_apply_revert ;
-  change->obj_change.revert =  (ObjectChangeRevertFunc) orthflow_change_apply_revert ;
-  change->obj_change.free =  (ObjectChangeFreeFunc) orthflow_change_free ;
-  change->change_type = change_type ;
 
-  change->type = type ;
-  if ( text ) {
-    change->text = text_get_string_copy( text ) ;
+static DiaObjectChange*
+orthflow_create_change (enum OrthflowChangeType  change_type,
+                        OrthflowType             type,
+                        Text                    *text )
+{
+  struct _OrthflowChange *change;
+  change = g_new0 (struct _OrthflowChange, 1);
+  change->obj_change.apply = (ObjectChangeApplyFunc) orthflow_change_apply_revert;
+  change->obj_change.revert =  (ObjectChangeRevertFunc) orthflow_change_apply_revert;
+  change->obj_change.free =  (ObjectChangeFreeFunc) orthflow_change_free;
+  change->change_type = change_type;
+
+  change->type = type;
+  if (text) {
+    change->text = text_get_string_copy (text);
   }
 
-  return (ObjectChange*) change ;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
-static real
+
+static double
 orthflow_distance_from(Orthflow *orthflow, Point *point)
 {
-  real linedist;
-  real textdist;
+  double linedist;
+  double textdist;
 
-  linedist = orthconn_distance_from( &orthflow->orth, point,
-				     orthflow->type == ORTHFLOW_MATERIAL ?
-				     ORTHFLOW_MATERIAL_WIDTH :
-				     ORTHFLOW_WIDTH ) ;
-  textdist = text_distance_from( orthflow->text, point ) ;
+  linedist = orthconn_distance_from (&orthflow->orth, point,
+                                     orthflow->type == ORTHFLOW_MATERIAL ?
+                                        ORTHFLOW_MATERIAL_WIDTH :
+                                        ORTHFLOW_WIDTH);
+  textdist = text_distance_from (orthflow->text, point);
 
-  return linedist > textdist ? textdist : linedist ;
+  return linedist > textdist ? textdist : linedist;
 }
+
 
 static void
 orthflow_select(Orthflow *orthflow, Point *clicked_point,
@@ -284,12 +291,17 @@ orthflow_select(Orthflow *orthflow, Point *clicked_point,
   orthconn_update_data(&orthflow->orth);
 }
 
-static ObjectChange*
-orthflow_move_handle(Orthflow *orthflow, Handle *handle,
-		     Point *to, ConnectionPoint *cp,
-		     HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+orthflow_move_handle (Orthflow         *orthflow,
+                      Handle           *handle,
+                      Point            *to,
+                      ConnectionPoint  *cp,
+                      HandleMoveReason  reason,
+                      ModifierKeys      modifiers)
 {
-  ObjectChange *change = NULL;
+  DiaObjectChange *change = NULL;
+
   assert(orthflow!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -315,24 +327,26 @@ orthflow_move_handle(Orthflow *orthflow, Handle *handle,
   return change;
 }
 
-static ObjectChange*
-orthflow_move(Orthflow *orthflow, Point *to)
+
+static DiaObjectChange *
+orthflow_move (Orthflow *orthflow, Point *to)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   Point *points = &orthflow->orth.points[0];
   Point delta;
 
   delta = *to;
-  point_sub(&delta, &points[0]);
-  point_add(&orthflow->textpos, &delta);
+  point_sub (&delta, &points[0]);
+  point_add (&orthflow->textpos, &delta);
 
-  change = orthconn_move( &orthflow->orth, to ) ;
+  change = orthconn_move (&orthflow->orth, to);
 
-  orthflow_update_data(orthflow);
+  orthflow_update_data (orthflow);
 
   return change;
 }
+
 
 static void
 orthflow_draw (Orthflow *orthflow, DiaRenderer *renderer)
@@ -600,11 +614,13 @@ orthflow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   return &orthflow->orth.object;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 orthflow_set_type_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
-  ObjectChange* change ;
-  change = orthflow_create_change( FLOW_TYPE, ((Orthflow*)obj)->type, 0 ) ;
+  DiaObjectChange *change;
+
+  change = orthflow_create_change (FLOW_TYPE, ((Orthflow*)obj)->type, 0);
 
   ((Orthflow*)obj)->type = GPOINTER_TO_INT (data);
   orthflow_update_data((Orthflow*)obj);
@@ -612,14 +628,17 @@ orthflow_set_type_callback (DiaObject* obj, Point* clicked, gpointer data)
   return change;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 orthflow_segment_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
-  if ( GPOINTER_TO_INT (data) )
-     return orthconn_add_segment( (OrthConn*)obj, clicked ) ;
+  if (GPOINTER_TO_INT (data)) {
+    return orthconn_add_segment ((OrthConn*) obj, clicked);
+  }
 
-  return orthconn_delete_segment( (OrthConn*)obj, clicked ) ;
+  return orthconn_delete_segment ((OrthConn*) obj, clicked);
 }
+
 
 static DiaMenuItem orthflow_menu_items[] = {
   { N_("Energy"), orthflow_set_type_callback, (void*)ORTHFLOW_ENERGY, 1 },

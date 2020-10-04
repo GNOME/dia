@@ -58,12 +58,12 @@ struct _RadioCell {
 static real radiocell_distance_from(RadioCell *radiocell, Point *point);
 static void radiocell_select(RadioCell *radiocell, Point *clicked_point,
 			     DiaRenderer *interactive_renderer);
-static ObjectChange* radiocell_move_handle(RadioCell *radiocell,
+static DiaObjectChange* radiocell_move_handle(RadioCell *radiocell,
 					   Handle *handle,
 					   Point *to, ConnectionPoint *cp,
 					   HandleMoveReason reason,
 					   ModifierKeys modifiers);
-static ObjectChange* radiocell_move(RadioCell *radiocell, Point *to);
+static DiaObjectChange* radiocell_move(RadioCell *radiocell, Point *to);
 static void radiocell_draw(RadioCell *radiocell, DiaRenderer *renderer);
 static DiaObject *radiocell_create(Point *startpoint,
 				void *user_data,
@@ -193,7 +193,7 @@ radiocell_select(RadioCell *radiocell, Point *clicked_point,
   radiocell_update_data(radiocell);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 radiocell_move_handle(RadioCell *radiocell, Handle *handle,
 		      Point *to, ConnectionPoint *cp,
 		      HandleMoveReason reason, ModifierKeys modifiers)
@@ -230,7 +230,7 @@ radiocell_move_handle(RadioCell *radiocell, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 radiocell_move(RadioCell *radiocell, Point *to)
 {
   polyshape_move(&radiocell->poly, to);

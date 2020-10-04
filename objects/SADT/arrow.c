@@ -66,10 +66,15 @@ typedef struct _Sadtarrow {
   Color line_color;
 } Sadtarrow;
 
-static ObjectChange* sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
-					   Point *to, ConnectionPoint *cp,
-					   HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* sadtarrow_move(Sadtarrow *sadtarrow, Point *to);
+
+static DiaObjectChange *sadtarrow_move_handle        (Sadtarrow        *sadtarrow,
+                                                      Handle           *handle,
+                                                      Point            *to,
+                                                      ConnectionPoint  *cp,
+                                                      HandleMoveReason  reason,
+                                                      ModifierKeys      modifiers);
+static DiaObjectChange *sadtarrow_move               (Sadtarrow        *sadtarrow,
+                                                      Point            *to);
 static void sadtarrow_select(Sadtarrow *sadtarrow, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void sadtarrow_draw(Sadtarrow *sadtarrow, DiaRenderer *renderer);
@@ -197,12 +202,17 @@ sadtarrow_select(Sadtarrow *sadtarrow, Point *clicked_point,
   orthconn_update_data(&sadtarrow->orth);
 }
 
-static ObjectChange*
-sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
-		      Point *to, ConnectionPoint *cp,
-		      HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+sadtarrow_move_handle (Sadtarrow        *sadtarrow,
+                       Handle           *handle,
+                       Point            *to,
+                       ConnectionPoint  *cp,
+                       HandleMoveReason  reason,
+                       ModifierKeys      modifiers)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
+
   assert(sadtarrow!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -215,16 +225,17 @@ sadtarrow_move_handle(Sadtarrow *sadtarrow, Handle *handle,
 }
 
 
-static ObjectChange*
-sadtarrow_move(Sadtarrow *sadtarrow, Point *to)
+static DiaObjectChange *
+sadtarrow_move (Sadtarrow *sadtarrow, Point *to)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  change = orthconn_move(&sadtarrow->orth, to);
-  sadtarrow_update_data(sadtarrow);
+  change = orthconn_move (&sadtarrow->orth, to);
+  sadtarrow_update_data (sadtarrow);
 
   return change;
 }
+
 
 static void draw_dot(DiaRenderer *renderer,
 		     Point *end, Point *vect, Color *col);
@@ -452,23 +463,30 @@ sadtarrow_update_data(Sadtarrow *sadtarrow)
   orthconn_update_boundingbox (orth);
 }
 
-static ObjectChange *
-sadtarrow_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+sadtarrow_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
-  change = orthconn_add_segment((OrthConn *)obj, clicked);
-  sadtarrow_update_data((Sadtarrow *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_add_segment ((OrthConn *) obj, clicked);
+  sadtarrow_update_data ((Sadtarrow *) obj);
+
   return change;
 }
 
-static ObjectChange *
-sadtarrow_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+sadtarrow_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
-  change = orthconn_delete_segment((OrthConn *)obj, clicked);
-  sadtarrow_update_data((Sadtarrow *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_delete_segment ((OrthConn *) obj, clicked);
+  sadtarrow_update_data ((Sadtarrow *) obj);
+
   return change;
 }
+
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add segment"), sadtarrow_add_segment_callback, NULL, 1 },

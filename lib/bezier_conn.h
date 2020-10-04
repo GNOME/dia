@@ -17,14 +17,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
-#ifndef BEZIER_CONN_H
-#define BEZIER_CONN_H
+
+#pragma once
 
 #include "diatypes.h"
 #include "object.h"
 #include "boundingbox.h"
 #include "bezier-common.h"
+
+G_BEGIN_DECLS
 
 /*!
  * \brief Helper class to implement bezier connections
@@ -43,27 +44,45 @@ struct _BezierConn {
   PolyBBExtras extra_spacing;
 };
 
-void bezierconn_update_data(BezierConn *bez);
-void bezierconn_update_boundingbox(BezierConn *bez);
-void bezierconn_init(BezierConn *bez, int num_points);
-void bezierconn_destroy(BezierConn *bez);
-void bezierconn_copy(BezierConn *from, BezierConn *to);
-void bezierconn_save(BezierConn *bez, ObjectNode obj_node, DiaContext *ctx);
-void bezierconn_load(BezierConn *bez, ObjectNode obj_node, DiaContext *ctx);  /* NOTE: Does object_init() */
-ObjectChange *bezierconn_add_segment(BezierConn *bez, int segment, Point *point);
-ObjectChange *bezierconn_remove_segment(BezierConn *bez, int point);
-ObjectChange *bezierconn_set_corner_type(BezierConn *bez,
-					 Handle *handle,
-					 BezCornerType style);
-ObjectChange *bezierconn_move_handle(BezierConn *bez, Handle *id,
-				     Point *to, ConnectionPoint *cp,
-				     HandleMoveReason reason,
-				     ModifierKeys modifiers);
-ObjectChange *bezierconn_move(BezierConn *bez, Point *to);
-real bezierconn_distance_from(BezierConn *bez, Point *point,
-			      real line_width);
-Handle *bezierconn_closest_handle(BezierConn *bez, Point *point);
-Handle *bezierconn_closest_major_handle(BezierConn *bez, Point *point);
+
+void             bezierconn_update_data          (BezierConn       *bezier);
+void             bezierconn_update_boundingbox   (BezierConn       *bezier);
+void             bezierconn_init                 (BezierConn       *bezier,
+                                                  int               num_points);
+void             bezierconn_destroy              (BezierConn       *bezier);
+void             bezierconn_copy                 (BezierConn       *from,
+                                                  BezierConn       *to);
+void             bezierconn_save                 (BezierConn       *bezier,
+                                                  ObjectNode        obj_node,
+                                                  DiaContext       *ctx);
+/* NOTE: Does object_init() */
+void             bezierconn_load                 (BezierConn       *bezier,
+                                                  ObjectNode        obj_node,
+                                                  DiaContext       *ctx);
+DiaObjectChange *bezierconn_add_segment          (BezierConn       *bezier,
+                                                  int               segment,
+                                                  Point            *point);
+DiaObjectChange *bezierconn_remove_segment       (BezierConn       *bezier,
+                                                  int               point);
+DiaObjectChange *bezierconn_set_corner_type      (BezierConn       *bezier,
+                                                  Handle           *handle,
+                                                  BezCornerType     style);
+DiaObjectChange *bezierconn_move_handle          (BezierConn       *bezier,
+                                                  Handle           *handle,
+                                                  Point            *to,
+                                                  ConnectionPoint  *cp,
+                                                  HandleMoveReason  reason,
+                                                  ModifierKeys      modifiers);
+DiaObjectChange *bezierconn_move                 (BezierConn       *bezier,
+                                                  Point            *to);
+double           bezierconn_distance_from        (BezierConn       *bezier,
+                                                  Point            *point,
+                                                  double            line_width);
+Handle          *bezierconn_closest_handle       (BezierConn       *bezier,
+                                                  Point            *point);
+Handle          *bezierconn_closest_major_handle (BezierConn       *bezier,
+                                                  Point            *point);
+
 
 #define BEZCONN_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \
@@ -74,4 +93,4 @@ Handle *bezierconn_closest_major_handle(BezierConn *bez, Point *point);
   { "bez_points", PROP_TYPE_BEZPOINTARRAY, \
      offsetof(BezierConn,bezier.points), offsetof(BezierConn,bezier.num_points)} \
 
-#endif /* BEZIER_CONN_H */
+G_END_DECLS

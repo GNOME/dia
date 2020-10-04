@@ -81,10 +81,10 @@ struct _Actor {
 static real actor_distance_from(Actor *actor, Point *point);
 static void actor_select(Actor *actor, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static ObjectChange* actor_move_handle(Actor *actor, Handle *handle,
+static DiaObjectChange* actor_move_handle(Actor *actor, Handle *handle,
 			    Point *to, ConnectionPoint *cp,
 			    HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* actor_move(Actor *actor, Point *to);
+static DiaObjectChange* actor_move(Actor *actor, Point *to);
 static void actor_draw(Actor *actor, DiaRenderer *renderer);
 static void actor_update_data(Actor *actor, AnchorShape h,AnchorShape v);
 static DiaObject *actor_create(Point *startpoint,
@@ -206,7 +206,7 @@ actor_select (Actor       *actor,
 }
 
 
-static ObjectChange*
+static DiaObjectChange*
 actor_move_handle (Actor            *actor,
                    Handle           *handle,
                    Point            *to,
@@ -273,7 +273,7 @@ actor_move_handle (Actor            *actor,
 }
 
 
-static ObjectChange*
+static DiaObjectChange*
 actor_move (Actor *actor, Point *to)
 {
   actor->element.corner = *to;

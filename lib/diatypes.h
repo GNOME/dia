@@ -120,7 +120,6 @@ typedef struct _NewOrthConn NewOrthConn;
 
 /* In objchange.h: */
 typedef struct _ObjectState ObjectState;
-typedef struct _ObjectChange ObjectChange;
 
 /* In object.h: */
 typedef struct _DiaObject DiaObject;

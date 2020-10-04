@@ -18,16 +18,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
+
 /** \file beziershape.h Allows to construct closed objects consisting of bezier lines */
 
-#ifndef BEZIERSHAPE_H
-#define BEZIERSHAPE_H
+#pragma once
 
 #include "diatypes.h"
 #include "object.h"
 #include "boundingbox.h"
 #include "bezier-common.h"
+
+
+G_BEGIN_DECLS
 
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 
@@ -48,28 +50,45 @@ struct _BezierShape {
   ElementBBExtras extra_spacing;
 };
 
-void beziershape_update_data(BezierShape *bezier);
-void beziershape_update_boundingbox(BezierShape *bezier);
-void beziershape_init(BezierShape *bezier, int num_points);
-void beziershape_destroy(BezierShape *bezier);
-void beziershape_copy(BezierShape *from, BezierShape *to);
-void beziershape_save(BezierShape *bezier, ObjectNode obj_node, DiaContext *ctx);
+
+void             beziershape_update_data           (BezierShape      *bezier);
+void             beziershape_update_boundingbox    (BezierShape      *bezier);
+void             beziershape_init                  (BezierShape      *bezier,
+                                                    int               num_points);
+void             beziershape_destroy               (BezierShape      *bezier);
+void             beziershape_copy                  (BezierShape      *from,
+                                                    BezierShape      *to);
+void             beziershape_save                  (BezierShape      *bezier,
+                                                    ObjectNode        obj_node,
+                                                    DiaContext       *ctx);
 /* NOTE: Does object_init() */
-void beziershape_load(BezierShape *bezier, ObjectNode obj_node, DiaContext *ctx);
-ObjectChange *beziershape_add_segment(BezierShape *bezier, int segment,
-				      Point *point);
-ObjectChange *beziershape_remove_segment(BezierShape *bezier, int point);
-ObjectChange *beziershape_set_corner_type(BezierShape *bez, Handle *handle,
-					  BezCornerType corner_type);
-ObjectChange *beziershape_move_handle(BezierShape *bezier, Handle *id,
-				      Point *to, ConnectionPoint *cp,
-				      HandleMoveReason reason,
-				      ModifierKeys modifiers);
-ObjectChange *beziershape_move(BezierShape *bezier, Point *to);
-real beziershape_distance_from(BezierShape *bezier, Point *point,
-			       real line_width);
-Handle *beziershape_closest_handle(BezierShape *bezier, Point *point);
-Handle *beziershape_closest_major_handle(BezierShape *bezier, Point *point);
+void             beziershape_load                  (BezierShape      *bezier,
+                                                    ObjectNode        obj_node,
+                                                    DiaContext       *ctx);
+DiaObjectChange *beziershape_add_segment           (BezierShape      *bezier,
+                                                    int               segment,
+                                                    Point            *point);
+DiaObjectChange *beziershape_remove_segment        (BezierShape      *bezier,
+                                                    int               point);
+DiaObjectChange *beziershape_set_corner_type       (BezierShape      *bez,
+                                                    Handle           *handle,
+                                                    BezCornerType     corner_type);
+DiaObjectChange *beziershape_move_handle           (BezierShape      *bezier,
+                                                    Handle           *handle,
+                                                    Point            *to,
+                                                    ConnectionPoint  *cp,
+                                                    HandleMoveReason  reason,
+                                                    ModifierKeys      modifiers);
+DiaObjectChange *beziershape_move                  (BezierShape      *bezier,
+                                                    Point            *to);
+double           beziershape_distance_from         (BezierShape      *bezier,
+                                                    Point            *point,
+                                                    double            line_width);
+Handle          *beziershape_closest_handle        (BezierShape      *bezier,
+                                                    Point            *point);
+Handle          *beziershape_closest_major_handle  (BezierShape      *bezier,
+                                                    Point            *point);
+
 
 #define BEZSHAPE_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \
@@ -80,4 +99,4 @@ Handle *beziershape_closest_major_handle(BezierShape *bezier, Point *point);
   { "bez_points", PROP_TYPE_BEZPOINTARRAY, \
      offsetof(BezierShape,bezier.points), offsetof(BezierShape,bezier.num_points)} \
 
-#endif /* BEZIER_SHAPE_H */
+G_END_DECLS

@@ -22,6 +22,8 @@
 #include "element.h"
 #include "connectionpoint.h"
 #include "orth_conn.h"
+#include "dia-object-change-legacy.h"
+
 
 #define IS_NOT_EMPTY(str) (((str) != NULL) && ((str)[0] != '\0'))
 

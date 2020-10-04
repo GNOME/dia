@@ -468,7 +468,7 @@ modify_motion (ModifyTool     *tool,
   Point now, delta, full_delta;
   gboolean auto_scroll, vertical = FALSE;
   ConnectionPoint *connectionpoint = NULL;
-  ObjectChange *objchange = NULL;
+  DiaObjectChange *objchange = NULL;
 
   ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
 
@@ -652,10 +652,15 @@ modify_motion (ModifyTool     *tool,
     object_add_updates (tool->object, ddisp->diagram);
 
     /* Handle undo */
-    if (tool->object)
-      objchange = tool->object->ops->move_handle(tool->object, tool->handle,
-					         &to, connectionpoint,
-					         HANDLE_MOVE_USER, gdk_event_to_dia_ModifierKeys(event->state));
+    if (tool->object) {
+      objchange = dia_object_move_handle (tool->object,
+                                          tool->handle,
+                                          &to,
+                                          connectionpoint,
+                                          HANDLE_MOVE_USER,
+                                          gdk_event_to_dia_ModifierKeys (event->state));
+    }
+
     if (objchange != NULL) {
       dia_object_change_change_new (ddisp->diagram, tool->object, objchange);
     }
@@ -716,14 +721,16 @@ find_selected_objects(DDisplay *ddisp, ModifyTool *tool)
   }
 }
 
+
 static void
-modify_button_release(ModifyTool *tool, GdkEventButton *event,
-		      DDisplay *ddisp)
+modify_button_release (ModifyTool     *tool,
+                       GdkEventButton *event,
+                       DDisplay       *ddisp)
 {
   Point *dest_pos, to;
   GList *list;
   int i;
-  ObjectChange *objchange;
+  DiaObjectChange *objchange;
 
   tool->break_connections = FALSE;
   ddisplay_set_all_cursor(default_cursor);
@@ -778,16 +785,22 @@ modify_button_release(ModifyTool *tool, GdkEventButton *event,
     tool->state = STATE_NONE;
 
     if (tool->orig_pos != NULL) {
-      dia_move_handle_change_new (ddisp->diagram, tool->handle, tool->object,
-                                  *tool->orig_pos, tool->last_to,
+      dia_move_handle_change_new (ddisp->diagram,
+                                  tool->handle,
+                                  tool->object,
+                                  *tool->orig_pos,
+                                  tool->last_to,
                                   gdk_event_to_dia_ModifierKeys (event->state));
     }
 
     /* Final move: */
     object_add_updates(tool->object, ddisp->diagram);
-    objchange = tool->object->ops->move_handle(tool->object, tool->handle,
-					       &tool->last_to, NULL,
-					       HANDLE_MOVE_USER_FINAL,gdk_event_to_dia_ModifierKeys(event->state));
+    objchange = dia_object_move_handle (tool->object,
+                                        tool->handle,
+                                        &tool->last_to,
+                                        NULL,
+                                        HANDLE_MOVE_USER_FINAL,
+                                        gdk_event_to_dia_ModifierKeys (event->state));
     if (objchange != NULL) {
       dia_object_change_change_new (ddisp->diagram, tool->object, objchange);
     }

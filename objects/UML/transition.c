@@ -74,23 +74,24 @@ static DiaMenu* transition_get_object_menu(Transition* transition,
 static void transition_select(Transition* obj,
                               Point* clicked_point,
                               DiaRenderer* interactive_renderer);
-static ObjectChange* transition_move(Transition* transition, Point* pos);
-static ObjectChange* transition_move_handle(Transition*      transition,
-                                            Handle*          handle,
-                                            Point*           pos,
-                                            ConnectionPoint* cp,
-                                            HandleMoveReason reason,
-                                            ModifierKeys     modifiers);
+static DiaObjectChange *transition_move           (Transition       *transition,
+                                                   Point            *pos);
+static DiaObjectChange *transition_move_handle    (Transition       *transition,
+                                                   Handle           *handle,
+                                                   Point            *pos,
+                                                   ConnectionPoint  *cp,
+                                                   HandleMoveReason  reason,
+                                                   ModifierKeys      modifiers);
 static void transition_set_props(Transition *transition, GPtrArray *props);
 static void transition_get_props(Transition *transition, GPtrArray *props);
 static PropDescription *transition_describe_props(Transition *transition);
 static void uml_transition_update_data(Transition *transition);
-static ObjectChange* transition_add_segment_cb(DiaObject *obj,
-                                               Point *clicked_point,
-                                               gpointer data);
-static ObjectChange* transition_del_segment_cb(DiaObject *obj,
-                                               Point *clicked_point,
-                                               gpointer data);
+static DiaObjectChange* transition_add_segment_cb (DiaObject        *obj,
+                                                   Point            *clicked_point,
+                                                   gpointer          data);
+static DiaObjectChange* transition_del_segment_cb (DiaObject        *obj,
+                                                   Point            *clicked_point,
+                                                   gpointer          data);
 
 static ObjectTypeOps uml_transition_type_ops = {
   (CreateFunc)transition_create,
@@ -430,11 +431,11 @@ transition_select (Transition *transition,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 transition_move (Transition* transition, Point* newpos)
 {
   Point delta;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   /* Find a delta in order to move the text handles along with the transition */
   delta = *newpos;
@@ -452,7 +453,7 @@ transition_move (Transition* transition, Point* newpos)
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 transition_move_handle (Transition       *transition,
                         Handle           *handle,
                         Point            *newpos,
@@ -460,7 +461,7 @@ transition_move_handle (Transition       *transition,
                         HandleMoveReason  reason,
                         ModifierKeys      modifiers)
 {
-  ObjectChange *change = NULL;
+  DiaObjectChange *change = NULL;
 
   g_return_val_if_fail (transition != NULL, NULL);
   g_return_val_if_fail (handle != NULL, NULL);
@@ -528,12 +529,12 @@ transition_move_handle (Transition       *transition,
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 transition_add_segment_cb (DiaObject *obj,
                            Point     *clickedpoint,
                            gpointer   data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   change = orthconn_add_segment ((OrthConn *) obj, clickedpoint);
   uml_transition_update_data ((Transition *) obj);
@@ -542,12 +543,12 @@ transition_add_segment_cb (DiaObject *obj,
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 transition_del_segment_cb (DiaObject *obj,
                            Point     *clickedpoint,
                            gpointer   data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   change = orthconn_delete_segment ((OrthConn *) obj, clickedpoint);
   uml_transition_update_data ((Transition *) obj);

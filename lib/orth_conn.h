@@ -1,4 +1,4 @@
-/* Dia -- an diagram creation/manipulation program -*- c -*- 
+/* Dia -- an diagram creation/manipulation program -*- c -*-
  * Copyright (C) 1998 Alexander Larsson
  *
  * This program is free software; you can redistribute it and/or modify
@@ -15,13 +15,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef ORTH_CONN_H
-#define ORTH_CONN_H
+
+#pragma once
 
 #include "diatypes.h"
 #include "object.h"
 #include "connpoint_line.h"
 #include "boundingbox.h"
+
+G_BEGIN_DECLS
 
 typedef enum {
   HORIZONTAL,
@@ -32,17 +34,16 @@ typedef enum {
 
 #define HANDLE_MIDPOINT (HANDLE_CUSTOM1)
 
-/*!
- * \brief Helper for orthogonal connection implementations
+/**
+ * OrthConn:
+ *
+ * Helper for orthogonal connection implementations
  *
  * This is a subclass of DiaObject used to help implementing objects
  * that connect points with orthogonal line-segments.
- *
- * \extends _DiaObject
  */
 struct _OrthConn {
-  /* DiaObject must be first because this is a 'subclass' of it. */
-  DiaObject object; /*!< inheritance */
+  DiaObject object;
 
   int numpoints; /* >= 3 */
   Point *points; /* [numpoints] */
@@ -63,32 +64,51 @@ struct _OrthConn {
   gboolean autorouting; /* True if this line is autorouted. */
 };
 
-void orthconn_update_data(OrthConn *orth);
-void orthconn_update_boundingbox(OrthConn *orth);
-void orthconn_init(OrthConn *orth, Point *startpoint);
-void orthconn_destroy(OrthConn *orth);
-void orthconn_set_points(OrthConn *orth, int num_points, Point *points);
-void orthconn_copy(OrthConn *from, OrthConn *to);
-void orthconn_save(OrthConn *orth, ObjectNode obj_node, DiaContext *ctx);
-void orthconn_load(OrthConn *orth, ObjectNode obj_node, DiaContext *ctx);  /* NOTE: Does object_init() */
-ObjectChange* orthconn_move_handle(OrthConn *orth, Handle *id,
-				   Point *to, ConnectionPoint *cp,
-				   HandleMoveReason reason,
-				   ModifierKeys modifiers);
-ObjectChange* orthconn_move(OrthConn *orth, Point *to);
-real orthconn_distance_from(OrthConn *orth, Point *point,
-			    real line_width);
-Handle* orthconn_get_middle_handle(OrthConn *orth);
 
-int orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint);
-int orthconn_can_add_segment(OrthConn *orth, Point *clickedpoint);
-ObjectChange *orthconn_delete_segment(OrthConn *orth, Point *clickedpoint);
-ObjectChange *orthconn_add_segment(OrthConn *orth, Point *clickedpoint);
-ObjectChange *orthconn_toggle_autorouting_callback(DiaObject *orth,
-						   Point *clicked,
-						   gpointer data);
-void orthconn_update_object_menu(OrthConn *orth, Point *clicked,
-				 DiaMenuItem *object_menu_items);
+void             orthconn_update_data                 (OrthConn         *orth);
+void             orthconn_update_boundingbox          (OrthConn         *orth);
+void             orthconn_init                        (OrthConn         *orth,
+                                                       Point            *startpoint);
+void             orthconn_destroy                     (OrthConn         *orth);
+void             orthconn_set_points                  (OrthConn         *orth,
+                                                       int               num_points,
+                                                       Point            *points);
+void             orthconn_copy                        (OrthConn         *from,
+                                                       OrthConn         *to);
+void             orthconn_save                        (OrthConn         *orth,
+                                                       ObjectNode        obj_node,
+                                                       DiaContext       *ctx);
+/* NOTE: Does object_init() */
+void             orthconn_load                        (OrthConn         *orth,
+                                                       ObjectNode        obj_node,
+                                                       DiaContext       *ctx);
+DiaObjectChange *orthconn_move_handle                 (OrthConn         *orth,
+                                                       Handle           *id,
+                                                       Point            *to,
+                                                       ConnectionPoint  *cp,
+                                                       HandleMoveReason  reason,
+                                                       ModifierKeys      modifiers);
+DiaObjectChange *orthconn_move                        (OrthConn         *orth,
+                                                       Point            *to);
+double           orthconn_distance_from               (OrthConn         *orth,
+                                                       Point            *point,
+                                                       double            line_width);
+Handle          *orthconn_get_middle_handle           (OrthConn         *orth);
+int              orthconn_can_delete_segment          (OrthConn         *orth,
+                                                       Point            *clickedpoint);
+int              orthconn_can_add_segment             (OrthConn         *orth,
+                                                       Point            *clickedpoint);
+DiaObjectChange *orthconn_delete_segment              (OrthConn         *orth,
+                                                       Point            *clickedpoint);
+DiaObjectChange *orthconn_add_segment                 (OrthConn         *orth,
+                                                       Point            *clickedpoint);
+DiaObjectChange *orthconn_toggle_autorouting_callback (DiaObject        *orth,
+                                                       Point            *clicked,
+                                                       gpointer          data);
+void             orthconn_update_object_menu          (OrthConn         *orth,
+                                                       Point            *clicked,
+                                                       DiaMenuItem      *object_menu_items);
+
 /* base property stuff... */
 #define ORTHCONN_COMMON_PROPERTIES \
   OBJECT_COMMON_PROPERTIES, \
@@ -108,6 +128,4 @@ void orthconn_update_object_menu(OrthConn *orth, Point *clicked,
   { N_("Autorouting"), orthconn_toggle_autorouting_callback, NULL, \
     DIAMENU_ACTIVE|DIAMENU_TOGGLE}
 
-#endif /* ORTH_CONN_H */
-
-
+G_END_DECLS

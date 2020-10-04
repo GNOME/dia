@@ -79,11 +79,14 @@ static EllipseProperties default_properties;
 static real ellipse_distance_from(Ellipse *ellipse, Point *point);
 static void ellipse_select(Ellipse *ellipse, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static ObjectChange* ellipse_move_handle(Ellipse *ellipse, Handle *handle,
-					 Point *to, ConnectionPoint *cp,
-					 HandleMoveReason reason,
-			    ModifierKeys modifiers);
-static ObjectChange* ellipse_move(Ellipse *ellipse, Point *to);
+static DiaObjectChange* ellipse_move_handle    (Ellipse          *ellipse,
+                                                Handle           *handle,
+                                                Point            *to,
+                                                ConnectionPoint  *cp,
+                                                HandleMoveReason  reason,
+                                                ModifierKeys      modifiers);
+static DiaObjectChange* ellipse_move           (Ellipse          *ellipse,
+                                                Point            *to);
 static void ellipse_draw(Ellipse *ellipse, DiaRenderer *renderer);
 static void ellipse_update_data(Ellipse *ellipse, AnchorShape h,AnchorShape v);
 static DiaObject *ellipse_create(Point *startpoint,
@@ -271,7 +274,7 @@ ellipse_select (Ellipse     *ellipse,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 ellipse_move_handle (Ellipse          *ellipse,
                      Handle           *handle,
                      Point            *to,
@@ -347,15 +350,17 @@ ellipse_move_handle (Ellipse          *ellipse,
   return NULL;
 }
 
-static ObjectChange*
-ellipse_move(Ellipse *ellipse, Point *to)
+
+static DiaObjectChange *
+ellipse_move (Ellipse *ellipse, Point *to)
 {
   ellipse->element.corner = *to;
 
-  ellipse_update_data(ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  ellipse_update_data (ellipse, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return NULL;
 }
+
 
 static void
 ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)

@@ -96,13 +96,19 @@ typedef struct _Goal {
 } Goal;
 
 
-static real goal_distance_from(Goal *goal, Point *point);
-static void goal_select(Goal *goal, Point *clicked_point,
-		       DiaRenderer *interactive_renderer);
-static ObjectChange* goal_move_handle(Goal *goal, Handle *handle,
-			    Point *to, ConnectionPoint *cp,
-			    HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* goal_move(Goal *goal, Point *to);
+static double           goal_distance_from             (Goal             *goal,
+                                                        Point            *point);
+static void             goal_select                    (Goal             *goal,
+                                                        Point            *clicked_point,
+                                                        DiaRenderer      *interactive_renderer);
+static DiaObjectChange *goal_move_handle               (Goal             *goal,
+                                                        Handle           *handle,
+                                                        Point            *to,
+                                                        ConnectionPoint  *cp,
+                                                        HandleMoveReason  reason,
+                                                        ModifierKeys      modifiers);
+static DiaObjectChange *goal_move                      (Goal             *goal,
+                                                        Point            *to);
 static void goal_draw(Goal *goal, DiaRenderer *renderer);
 static void goal_update_data(Goal *goal, AnchorShape horix, AnchorShape vert);
 static DiaObject *goal_create(Point *startpoint,
@@ -244,7 +250,7 @@ goal_select (Goal        *goal,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 goal_move_handle (Goal             *goal,
                   Handle           *handle,
                   Point            *to,
@@ -259,7 +265,11 @@ goal_move_handle (Goal             *goal,
   g_return_val_if_fail (to != NULL, NULL);
 
   element_move_handle (&goal->element,
-                       handle->id, to, cp, reason, modifiers);
+                       handle->id,
+                       to,
+                       cp,
+                       reason,
+                       modifiers);
 
   switch (handle->id) {
     case HANDLE_RESIZE_NW:
@@ -311,7 +321,7 @@ goal_move_handle (Goal             *goal,
 }
 
 
-static ObjectChange*
+static DiaObjectChange*
 goal_move (Goal *goal, Point *to)
 {
   goal->element.corner = *to;
@@ -616,17 +626,17 @@ goal_get_clicked_border (Goal *goal, Point *clicked)
 }
 
 
-inline static ObjectChange *
-goal_create_change (Goal *goal, ObjectChange *inner, ConnPointLine *cpl)
+inline static DiaObjectChange *
+goal_create_change (Goal *goal, DiaObjectChange *inner, ConnPointLine *cpl)
 {
-  return (ObjectChange *) inner;
+  return (DiaObjectChange *) inner;
 }
 
 
-static ObjectChange *
-goal_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
+static DiaObjectChange *
+goal_add_connpoint_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   ConnPointLine *cpl;
   Goal *goal = (Goal *)obj;
 
@@ -636,10 +646,11 @@ goal_add_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
   return goal_create_change(goal,change,cpl);
 }
 
-static ObjectChange *
-goal_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+goal_remove_connpoint_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   ConnPointLine *cpl;
   Goal *goal = (Goal *)obj;
 

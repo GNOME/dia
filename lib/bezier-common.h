@@ -25,7 +25,6 @@
 #define BEZIER_COMMON_H
 
 #include "diatypes.h"
-#include "geometry.h" /* for real */
 #include "diarenderer.h"
 
 typedef enum {
@@ -35,21 +34,30 @@ typedef enum {
 } BezCornerType;
 
 
+/**
+ * BezierCommon:
+ * @num_points: The number of point in points
+ * @points: Array of #BezPoint to operate on
+ * @corner_types: The corner types for manual adjustment
+ */
 typedef struct _BezierCommon BezierCommon;
-
 struct _BezierCommon {
-  /*! The number of point in points */
   int            num_points;
-  /*! Array of _BezPoint to operate on */
   BezPoint      *points;
-  /*! The corner types for manual adjustment */
   BezCornerType *corner_types;
 };
 
-void beziercommon_set_points (BezierCommon *bezier, int num, const BezPoint *pts);
-void beziercommon_copy (BezierCommon *from, BezierCommon *to);
-int  beziercommon_closest_segment (BezierCommon *bezier, const Point *point, real line_width);
 
-void bezier_draw_control_lines (int num_points, BezPoint *pts, DiaRenderer *renderer);
+void beziercommon_set_points      (BezierCommon   *bezier,
+                                   int             num_points,
+                                   const BezPoint *points);
+void beziercommon_copy            (BezierCommon   *from,
+                                   BezierCommon   *to);
+int  beziercommon_closest_segment (BezierCommon   *bezier,
+                                   const Point    *point,
+                                   double          line_width);
+void bezier_draw_control_lines    (int             num_points,
+                                   BezPoint       *pts,
+                                   DiaRenderer    *renderer);
 
 #endif

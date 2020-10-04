@@ -91,30 +91,31 @@ PyDiaMenuitem_GetAttr(PyDiaMenuitem *self, gchar *attr)
 
 
 static PyObject *
-PyDiaMenuitem_Call(PyDiaMenuitem *self, PyObject *args)
+PyDiaMenuitem_Call (PyDiaMenuitem *self, PyObject *args)
 {
   const DiaMenuItem *mi;
-  ObjectChange *oc;
+  DiaObjectChange *oc;
   DiaObject *obj;
   Point clicked;
 
-  if (!PyArg_ParseTuple(args, "O!(dd)|ii:Menuitem.callback",
-                        &PyDiaObject_Type, &obj, &clicked.x, &clicked.y))
+  if (!PyArg_ParseTuple (args, "O!(dd)|ii:Menuitem.callback",
+                         &PyDiaObject_Type, &obj, &clicked.x, &clicked.y)) {
     return NULL;
+  }
 
   mi = self->menuitem;
 
   oc = mi->callback (obj, &clicked, mi->callback_data);
-  /* Throw away the undo information */
-  if (oc) {
-    if (oc->free)
-      oc->free(oc);
-    g_clear_pointer (&oc, g_free);
-  }
 
-  Py_INCREF(Py_None);
+  /* Throw away the undo information */
+  g_clear_pointer (&oc, dia_object_change_unref);
+
+  Py_INCREF (Py_None);
+
   return Py_None;
 }
+
+
 /*
  * Repr / _Str
  */

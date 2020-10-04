@@ -33,6 +33,7 @@
 #include "diamenu.h"
 #include "create.h"
 #include "message.h" /* just dia_log_message */
+#include "dia-object-change-list.h"
 
 #define HANDLE_TEXT HANDLE_CUSTOM1
 
@@ -76,10 +77,14 @@ static struct _TextobjProperties {
 static real textobj_distance_from(Textobj *textobj, Point *point);
 static void textobj_select(Textobj *textobj, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
-static ObjectChange* textobj_move_handle(Textobj *textobj, Handle *handle,
-					 Point *to, ConnectionPoint *cp,
-					 HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* textobj_move(Textobj *textobj, Point *to);
+static DiaObjectChange *textobj_move_handle (Textobj          *textobj,
+                                             Handle           *handle,
+                                             Point            *to,
+                                             ConnectionPoint  *cp,
+                                             HandleMoveReason  reason,
+                                             ModifierKeys      modifiers);
+static DiaObjectChange *textobj_move        (Textobj          *textobj,
+                                             Point            *to);
 static void textobj_draw(Textobj *textobj, DiaRenderer *renderer);
 static void textobj_update_data(Textobj *textobj);
 static DiaObject *textobj_create(Point *startpoint,
@@ -255,10 +260,14 @@ textobj_select(Textobj *textobj, Point *clicked_point,
   text_grab_focus(textobj->text, &textobj->object);
 }
 
-static ObjectChange*
-textobj_move_handle(Textobj *textobj, Handle *handle,
-		    Point *to, ConnectionPoint *cp,
-		    HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+textobj_move_handle (Textobj          *textobj,
+                     Handle           *handle,
+                     Point            *to,
+                     ConnectionPoint  *cp,
+                     HandleMoveReason  reason,
+                     ModifierKeys      modifiers)
 {
   assert(textobj!=NULL);
   assert(handle!=NULL);
@@ -271,15 +280,17 @@ textobj_move_handle(Textobj *textobj, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
-textobj_move(Textobj *textobj, Point *to)
+
+static DiaObjectChange *
+textobj_move (Textobj *textobj, Point *to)
 {
   textobj->object.position = *to;
 
-  textobj_update_data(textobj);
+  textobj_update_data (textobj);
 
   return NULL;
 }
+
 
 static void
 textobj_draw(Textobj *textobj, DiaRenderer *renderer)
@@ -557,7 +568,8 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
   return &textobj->object;
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 _textobj_convert_to_path_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Textobj *textobj = (Textobj *)obj;
@@ -568,7 +580,7 @@ _textobj_convert_to_path_callback (DiaObject *obj, Point *clicked, gpointer data
     path = create_standard_path_from_text (text);
 
   if (path) {
-    ObjectChange *change;
+    DiaObjectChange *change;
     Color bg = textobj->fill_color;
 
     /* FIXME: otherwise object_substitue() will tint the text with bg */
@@ -579,12 +591,16 @@ _textobj_convert_to_path_callback (DiaObject *obj, Point *clicked, gpointer data
 
     return change;
   }
+
   /* silently fail */
-  return change_list_create ();
+  return dia_object_change_list_new ();
 }
+
+
 static DiaMenuItem textobj_menu_items[] = {
   { N_("Convert to Path"), _textobj_convert_to_path_callback, NULL, DIAMENU_ACTIVE }
 };
+
 
 static DiaMenu textobj_menu = {
   "Text",

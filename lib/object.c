@@ -27,6 +27,7 @@
 #include "message.h"
 #include "parent.h"
 #include "dia-layer.h"
+#include "dia-object-change-legacy.h"
 
 #include "dummy_dep.h"
 
@@ -270,44 +271,47 @@ object_copy_list (GList *list_orig)
  *
  * bug The return Change object only contains info for a single object.
  */
-ObjectChange*
+DiaObjectChange *
 object_list_move_delta_r (GList *objects, Point *delta, gboolean affected)
 {
   GList *list;
   DiaObject *obj;
   Point pos;
-  ObjectChange *objchange = NULL;
+  DiaObjectChange *objchange = NULL;
 
   if (delta->x == 0 && delta->y == 0)
        return NULL;
 
   list = objects;
   while (list != NULL) {
-    obj = (DiaObject *) list->data;
+    obj = DIA_OBJECT (list->data);
 
     pos = obj->position;
-    point_add(&pos, delta);
+    point_add (&pos, delta);
 
     if (obj->parent && affected) {
       DiaRectangle p_ext;
       DiaRectangle c_ext;
       Point new_delta;
 
-      parent_handle_extents(obj->parent, &p_ext);
-      parent_handle_extents(obj, &c_ext);
-      new_delta = parent_move_child_delta(&p_ext, &c_ext, delta);
-      point_add(&pos, &new_delta);
-      point_add(delta, &new_delta);
+      parent_handle_extents (obj->parent, &p_ext);
+      parent_handle_extents (obj, &c_ext);
+      new_delta = parent_move_child_delta (&p_ext, &c_ext, delta);
+      point_add (&pos, &new_delta);
+      point_add (delta, &new_delta);
     }
-    objchange = obj->ops->move(obj, &pos);
+    objchange = dia_object_move (obj, &pos);
 
-    if (object_flags_set(obj, DIA_OBJECT_CAN_PARENT) && obj->children)
-      objchange = object_list_move_delta_r(obj->children, delta, FALSE);
+    if (object_flags_set (obj, DIA_OBJECT_CAN_PARENT) && obj->children) {
+      objchange = object_list_move_delta_r (obj->children, delta, FALSE);
+    }
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
+
   return objchange;
 }
+
 
 /**
  * object_list_move_delta:
@@ -316,34 +320,34 @@ object_list_move_delta_r (GList *objects, Point *delta, gboolean affected)
  *
  * Move a set of objects a given amount.
  */
-ObjectChange*
+DiaObjectChange *
 object_list_move_delta (GList *objects, Point *delta)
 {
   GList *list;
   DiaObject *obj;
   GList *process;
-  ObjectChange *objchange = NULL;
+  DiaObjectChange *objchange = NULL;
 
-  objects = parent_list_affected_hierarchy(objects);
+  objects = parent_list_affected_hierarchy (objects);
   list = objects;
   /* The recursive function object_list_move_delta cannot process the toplevel
      (in selection) objects so we have to have this extra loop */
-  while (list != NULL)
-  {
-    obj = (DiaObject *) list->data;
+  while (list != NULL) {
+    obj = DIA_OBJECT (list->data);
 
     process = NULL;
-    process = g_list_append(process, obj);
-    objchange = object_list_move_delta_r(process, delta, (obj->parent != NULL) );
-    g_list_free(process);
+    process = g_list_append (process, obj);
+    objchange = object_list_move_delta_r (process, delta, (obj->parent != NULL));
+    g_list_free (process);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
+
   return objchange;
 }
 
-typedef struct _ObjectChangeExchange
-{
+
+typedef struct _ObjectChangeExchange {
   ObjectChange change;
   DiaObject    *orig;
   DiaObject    *subst;
@@ -532,12 +536,12 @@ _object_exchange_free (ObjectChange *change)
  * all the existing object relations, e.g. connections, parent_layer
  * and parenting information.
  *
- * Returns: #ObjectChange containing undo/redo information
+ * Returns: #DiaObjectChange containing undo/redo information
  */
-ObjectChange *
+DiaObjectChange *
 object_substitute (DiaObject *obj, DiaObject *subst)
 {
-  ObjectChangeExchange *change = g_new0(ObjectChangeExchange, 1);
+  ObjectChangeExchange *change = g_new0 (ObjectChangeExchange, 1);
 
   change->change.apply  = _object_exchange_apply;
   change->change.revert = _object_exchange_revert;
@@ -545,9 +549,9 @@ object_substitute (DiaObject *obj, DiaObject *subst)
   change->orig  = obj;
   change->subst = subst;
 
-  _object_exchange_apply ((ObjectChange*)change, obj);
+  _object_exchange_apply ((ObjectChange *) change, obj);
 
-  return (ObjectChange*)change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
 
@@ -1467,6 +1471,7 @@ dia_object_clone (DiaObject *self)
   return self->ops->copy (self);
 }
 
+
 /**
  * dia_object_move:
  * @self: The object being moved.
@@ -1477,15 +1482,15 @@ dia_object_clone (DiaObject *self)
  *
  * Function called to move the entire object.
  *
- * Returns: An #ObjectChange with additional undo information, or
- *          (in most cases) %NULL.  Undo for moving the object itself is
+ * Returns: A #DiaObjectChange with additional undo information, or
+ *          (in most cases) %NULL. Undo for moving the object itself is
  *          handled elsewhere.
  *
  * Stability: Stable
  *
  * Since: 0.98
  */
-ObjectChange *
+DiaObjectChange *
 dia_object_move (DiaObject *self,
                  Point     *to)
 {
@@ -1494,6 +1499,7 @@ dia_object_move (DiaObject *self,
 
   return self->ops->move (self, to);
 }
+
 
 /**
  * dia_object_move_handle:
@@ -1519,15 +1525,15 @@ dia_object_move (DiaObject *self,
  *
  * Function called to move one of the handles associated with the object.
  *
- * Returns: An #ObjectChange with additional undo information, or
- *          (in most cases) %NULL.  Undo for moving the handle itself is handled
+ * Returns: A #DiaObjectChange with additional undo information, or
+ *          (in most cases) %NULL. Undo for moving the handle itself is handled
  *          elsewhere.
  *
  * Stability: Stable
  *
  * Since: 0.98
  */
-ObjectChange *
+DiaObjectChange *
 dia_object_move_handle (DiaObject              *self,
                         Handle                 *handle,
                         Point                  *to,
@@ -1540,6 +1546,7 @@ dia_object_move_handle (DiaObject              *self,
 
   return self->ops->move_handle (self, handle, to, cp, reason, modifiers);
 }
+
 
 /**
  * dia_object_get_editor:
@@ -1577,6 +1584,7 @@ dia_object_get_editor (DiaObject *self,
   return self->ops->get_properties (self, is_default);
 }
 
+
 /**
  * dia_object_apply_editor:
  * @self: The object whose dialog has had its Apply button clicked.
@@ -1587,14 +1595,14 @@ dia_object_get_editor (DiaObject *self,
  * The widget parameter is the one created by
  * the get_properties function.
  *
- * Returns: a #ObjectChange that can be used for undo/redo, The returned change is
- *          already applied.
+ * Returns: a #DiaObjectChange that can be used for undo/redo, The returned
+ *          change is already applied.
  *
  * Stability: Stable
  *
  * Since: 0.98
  */
-ObjectChange *
+DiaObjectChange *
 dia_object_apply_editor (DiaObject *self,
                          GtkWidget *editor)
 {
@@ -1603,6 +1611,7 @@ dia_object_apply_editor (DiaObject *self,
 
   return self->ops->apply_properties_from_dialog (self, editor);
 }
+
 
 /**
  * dia_object_get_menu:
@@ -1719,13 +1728,13 @@ dia_object_set_properties (DiaObject *self,
  * is different from SetPropsFunc since this is used to implement
  * undo/redo.
  *
- * Returns: a #ObjectChange for undo/redo
+ * Returns: a #DiaObjectChange for undo/redo
  *
  * Stability: Stable
  *
  * Since: 0.98
  */
-ObjectChange *
+DiaObjectChange *
 dia_object_apply_properties (DiaObject *self,
                              GPtrArray *list)
 {

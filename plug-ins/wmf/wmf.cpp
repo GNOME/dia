@@ -1532,11 +1532,12 @@ static DiaExportFilter emf_export_filter = {
     "emf"
 };
 
-static ObjectChange *
+
+static DiaObjectChange *
 print_callback (DiagramData *data,
-                const gchar *filename,
-		guint        flags,
-		void        *user_data)
+                const char  *filename,
+                guint        flags,
+                void        *user_data)
 {
   /* Todo: get the context from caller */
   DiaContext *ctx = dia_context_new ("PrintGDI");

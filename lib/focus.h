@@ -19,6 +19,7 @@
 #pragma once
 
 #include "diatypes.h"
+#include "dia-object-change.h"
 
 struct _Focus {
   DiaObject *obj;
@@ -27,8 +28,12 @@ struct _Focus {
 
   /* return TRUE if modified object.
      Set change if object is changed. */
-  int (*key_event)(Focus *focus, guint keystate, guint keysym, const gchar *str, int strlen,
-                   ObjectChange **change);
+  int (*key_event) (Focus            *focus,
+                    guint             keystate,
+                    guint             keysym,
+                    const char       *str,
+                    int               strlen,
+                    DiaObjectChange **change);
 };
 
 void request_focus(Focus *focus);

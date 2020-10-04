@@ -195,56 +195,76 @@ PyDiaObject_GetMenu(PyDiaObject *self, PyObject *args)
     PyTuple_SetItem(ret, 1, items);
     return ret;
 }
-static PyObject *
-PyDiaObject_Move(PyDiaObject *self, PyObject *args)
-{
-    Point point;
-    ObjectChange *change;
 
-    if (!PyArg_ParseTuple(args, "dd:Object.move", &point.x, &point.y))
-	return NULL;
-
-    if (!self->object->ops->move) {
-	PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
-	return NULL;
-    }
-
-    change = self->object->ops->move(self->object, &point);
-    if (G_UNLIKELY(change)) /* TODO: return the change? */
-        change->free(change);
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
 
 static PyObject *
-PyDiaObject_MoveHandle(PyDiaObject *self, PyObject *args)
+PyDiaObject_Move (PyDiaObject *self, PyObject *args)
 {
-    PyDiaHandle *handle;
-    Point point;
-    HandleMoveReason reason = 0;
-    ModifierKeys modifiers = 0;
-    ObjectChange *change;
+  Point point;
+  DiaObjectChange *change;
 
-    if (!PyArg_ParseTuple(args, "O!(dd)|ii:Object.move_handle",
-			  &PyDiaHandle_Type, &handle, &point.x, &point.y,
-			  &reason, &modifiers))
-	return NULL;
+  if (!PyArg_ParseTuple (args, "dd:Object.move", &point.x, &point.y)) {
+    return NULL;
+  }
 
-    if (!self->object->ops->move_handle) {
-	PyErr_SetString(PyExc_RuntimeError,"object does not implement method");
-	return NULL;
-    }
+  if (!self->object->ops->move) {
+    PyErr_SetString (PyExc_RuntimeError,
+                     "object does not implement method");
+    return NULL;
+  }
 
-    change = self->object->ops->move_handle(self->object, handle->handle, &point,
-				            NULL, reason, modifiers);
+  change = dia_object_move (self->object, &point);
 
-    if (G_UNLIKELY(change)) /* TODO: return the change? */
-        change->free(change);
+  if (G_UNLIKELY (change)) {
+    /* TODO: return the change? */
+    dia_object_change_unref (change);
+  }
 
-    Py_INCREF(Py_None);
-    return Py_None;
+  Py_INCREF (Py_None);
+
+  return Py_None;
 }
+
+
+static PyObject *
+PyDiaObject_MoveHandle (PyDiaObject *self, PyObject *args)
+{
+  PyDiaHandle *handle;
+  Point point;
+  HandleMoveReason reason = 0;
+  ModifierKeys modifiers = 0;
+  DiaObjectChange *change;
+
+  if (!PyArg_ParseTuple (args, "O!(dd)|ii:Object.move_handle",
+                         &PyDiaHandle_Type, &handle, &point.x, &point.y,
+                         &reason, &modifiers)) {
+    return NULL;
+  }
+
+  if (!self->object->ops->move_handle) {
+    PyErr_SetString (PyExc_RuntimeError,
+                     "object does not implement method");
+
+    return NULL;
+  }
+
+  change = dia_object_move_handle (self->object,
+                                   handle->handle,
+                                   &point,
+                                   NULL,
+                                   reason,
+                                   modifiers);
+
+  if (G_UNLIKELY (change)) {
+    /* TODO: return the change? */
+    dia_object_change_unref (change);
+  }
+
+  Py_INCREF (Py_None);
+
+  return Py_None;
+}
+
 
 static PyMethodDef PyDiaObject_Methods[] = {
     { "destroy", (PyCFunction)PyDiaObject_Destroy, METH_VARARGS,

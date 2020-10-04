@@ -71,10 +71,10 @@ struct _UsecasePropertiesDialog {
 static real usecase_distance_from(Usecase *usecase, Point *point);
 static void usecase_select(Usecase *usecase, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
-static ObjectChange* usecase_move_handle(Usecase *usecase, Handle *handle,
+static DiaObjectChange* usecase_move_handle(Usecase *usecase, Handle *handle,
 					 Point *to, ConnectionPoint *cp,
 					 HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* usecase_move(Usecase *usecase, Point *to);
+static DiaObjectChange* usecase_move(Usecase *usecase, Point *to);
 static void usecase_draw(Usecase *usecase, DiaRenderer *renderer);
 static DiaObject *usecase_create(Point *startpoint,
 			      void *user_data,
@@ -193,7 +193,7 @@ usecase_select(Usecase *usecase, Point *clicked_point,
   element_update_handles(&usecase->element);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 usecase_move_handle(Usecase *usecase, Handle *handle,
 		    Point *to, ConnectionPoint *cp,
 		    HandleMoveReason reason, ModifierKeys modifiers)
@@ -207,7 +207,7 @@ usecase_move_handle(Usecase *usecase, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 usecase_move(Usecase *usecase, Point *to)
 {
   real h;

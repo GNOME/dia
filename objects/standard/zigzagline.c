@@ -47,17 +47,21 @@ typedef struct _Zigzagline {
   LineStyle line_style;
   LineJoin line_join;
   LineCaps line_caps;
-  real dashlength;
-  real line_width;
-  real corner_radius;
+  double dashlength;
+  double line_width;
+  double corner_radius;
   Arrow start_arrow, end_arrow;
 } Zigzagline;
 
 
-static ObjectChange* zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
-					    Point *to, ConnectionPoint *cp,
-					    HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* zigzagline_move(Zigzagline *zigzagline, Point *to);
+static DiaObjectChange *zigzagline_move_handle   (Zigzagline       *zigzagline,
+                                                  Handle           *handle,
+                                                  Point            *to,
+                                                  ConnectionPoint  *cp,
+                                                  HandleMoveReason  reason,
+                                                  ModifierKeys      modifiers);
+static DiaObjectChange *zigzagline_move          (Zigzagline       *zigzagline,
+                                                  Point            *to);
 static void zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void zigzagline_draw(Zigzagline *zigzagline, DiaRenderer *renderer);
@@ -173,12 +177,17 @@ zigzagline_select(Zigzagline *zigzagline, Point *clicked_point,
   orthconn_update_data(&zigzagline->orth);
 }
 
-static ObjectChange*
-zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
-		       Point *to, ConnectionPoint *cp,
-		       HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+zigzagline_move_handle (Zigzagline       *zigzagline,
+                        Handle           *handle,
+                        Point            *to,
+                        ConnectionPoint  *cp,
+                        HandleMoveReason  reason,
+                        ModifierKeys      modifiers)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
+
   assert(zigzagline!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -192,14 +201,15 @@ zigzagline_move_handle(Zigzagline *zigzagline, Handle *handle,
 }
 
 
-static ObjectChange*
-zigzagline_move(Zigzagline *zigzagline, Point *to)
+static DiaObjectChange *
+zigzagline_move (Zigzagline *zigzagline, Point *to)
 {
-  orthconn_move(&zigzagline->orth, to);
-  zigzagline_update_data(zigzagline);
+  orthconn_move (&zigzagline->orth, to);
+  zigzagline_update_data (zigzagline);
 
   return NULL;
 }
+
 
 static void
 zigzagline_draw (Zigzagline *zigzagline, DiaRenderer *renderer)
@@ -355,23 +365,30 @@ zigzagline_update_data(Zigzagline *zigzagline)
   }
 }
 
-static ObjectChange *
-zigzagline_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+zigzagline_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
-  change = orthconn_add_segment((OrthConn *)obj, clicked);
-  zigzagline_update_data((Zigzagline *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_add_segment ((OrthConn *) obj, clicked);
+  zigzagline_update_data ((Zigzagline *) obj);
+
   return change;
 }
 
-static ObjectChange *
-zigzagline_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+zigzagline_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
-  change = orthconn_delete_segment((OrthConn *)obj, clicked);
-  zigzagline_update_data((Zigzagline *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_delete_segment ((OrthConn *) obj, clicked);
+  zigzagline_update_data ((Zigzagline *) obj);
+
   return change;
 }
+
 
 /*!
  * \brief Upgrade the _Zigzagline to a _Bezierline
@@ -387,7 +404,7 @@ zigzagline_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data
  *
  * \memberof _Zigzagline
  */
-static ObjectChange *
+static DiaObjectChange *
 _convert_to_bezierline_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Zigzagline *zigzagline = (Zigzagline *)obj;

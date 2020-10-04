@@ -62,10 +62,14 @@ struct _Generalization {
 static real generalization_distance_from(Generalization *genlz, Point *point);
 static void generalization_select(Generalization *genlz, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
-static ObjectChange* generalization_move_handle(Generalization *genlz, Handle *handle,
-						Point *to, ConnectionPoint *cp,
-						HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* generalization_move(Generalization *genlz, Point *to);
+static DiaObjectChange* generalization_move_handle   (Generalization   *genlz,
+                                                      Handle           *handle,
+                                                      Point            *to,
+                                                      ConnectionPoint  *cp,
+                                                      HandleMoveReason  reason,
+                                                      ModifierKeys      modifiers);
+static DiaObjectChange* generalization_move          (Generalization   *genlz,
+                                                      Point            *to);
 static void generalization_draw(Generalization *genlz, DiaRenderer *renderer);
 static DiaObject *generalization_create(Point *startpoint,
 				 void *user_data,
@@ -191,12 +195,17 @@ generalization_select(Generalization *genlz, Point *clicked_point,
   orthconn_update_data(&genlz->orth);
 }
 
-static ObjectChange*
-generalization_move_handle(Generalization *genlz, Handle *handle,
-			   Point *to, ConnectionPoint *cp,
-			   HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+generalization_move_handle (Generalization   *genlz,
+                            Handle           *handle,
+                            Point            *to,
+                            ConnectionPoint  *cp,
+                            HandleMoveReason  reason,
+                            ModifierKeys      modifiers)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
+
   assert(genlz!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -207,16 +216,18 @@ generalization_move_handle(Generalization *genlz, Handle *handle,
   return change;
 }
 
-static ObjectChange*
-generalization_move(Generalization *genlz, Point *to)
+
+static DiaObjectChange *
+generalization_move (Generalization *genlz, Point *to)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   change = orthconn_move(&genlz->orth, to);
   generalization_update_data(genlz);
 
   return change;
 }
+
 
 static void
 generalization_draw (Generalization *genlz, DiaRenderer *renderer)
@@ -358,21 +369,27 @@ generalization_update_data(Generalization *genlz)
   rectangle_union(&obj->bounding_box, &rect);
 }
 
-static ObjectChange *
-generalization_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+generalization_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
-  change = orthconn_add_segment((OrthConn *)obj, clicked);
-  generalization_update_data((Generalization *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_add_segment ((OrthConn *) obj, clicked);
+  generalization_update_data ((Generalization *) obj);
+
   return change;
 }
 
-static ObjectChange *
-generalization_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+generalization_delete_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
-  change = orthconn_delete_segment((OrthConn *)obj, clicked);
-  generalization_update_data((Generalization *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_delete_segment ((OrthConn *) obj, clicked);
+  generalization_update_data ((Generalization *) obj);
+
   return change;
 }
 

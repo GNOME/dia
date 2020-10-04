@@ -136,11 +136,11 @@ static DiaObjectType outline_type =
 DiaObjectType *_outline_type = (DiaObjectType *) &outline_type;
 
 /* Class definition */
-static ObjectChange* outline_move_handle (Outline *outline,
+static DiaObjectChange* outline_move_handle (Outline *outline,
                                           Handle *handle,
 					  Point *to, ConnectionPoint *cp,
 					  HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* outline_move (Outline *outline, Point *to);
+static DiaObjectChange* outline_move (Outline *outline, Point *to);
 static void outline_select(Outline *outline, Point *clicked_point,
 			   DiaRenderer *interactive_renderer);
 static void outline_draw(Outline *outline, DiaRenderer *renderer);
@@ -453,7 +453,7 @@ outline_distance_from (Outline *outline, Point *point)
  *
  * Move one of the objects handles
  */
-static ObjectChange*
+static DiaObjectChange*
 outline_move_handle (Outline          *outline,
                      Handle           *handle,
                      Point            *to,
@@ -520,7 +520,7 @@ outline_move_handle (Outline          *outline,
  *
  * \memberof Outline
  */
-static ObjectChange*
+static DiaObjectChange*
 outline_move (Outline *outline, Point *to)
 {
   DiaObject *obj = &outline->object;

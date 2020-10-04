@@ -27,6 +27,8 @@
 #include "polyshape.h"
 #include "message.h"
 #include "diarenderer.h"
+#include "dia-object-change-legacy.h"
+
 
 #define NUM_CONNECTIONS(poly) ((poly)->numpoints * 2 + 1)
 
@@ -49,12 +51,18 @@ struct PointChange {
   ConnectionPoint *cp1, *cp2;
 };
 
-static ObjectChange *
-polyshape_create_change(PolyShape *poly, enum change_type type,
-		       Point *point, int segment, Handle *handle,
-		       ConnectionPoint *cp1, ConnectionPoint *cp2);
 
-static void setup_handle(Handle *handle)
+static DiaObjectChange *polyshape_create_change (PolyShape        *poly,
+                                                 enum change_type  type,
+                                                 Point            *point,
+                                                 int               segment,
+                                                 Handle           *handle,
+                                                 ConnectionPoint  *cp1,
+                                                 ConnectionPoint  *cp2);
+
+
+static void
+setup_handle (Handle *handle)
 {
   handle->id = HANDLE_CORNER;
   handle->type = HANDLE_MAJOR_CONTROL;
@@ -73,10 +81,14 @@ static int get_handle_nr(PolyShape *poly, Handle *handle)
   return -1;
 }
 
-ObjectChange*
-polyshape_move_handle(PolyShape *poly, Handle *handle,
-		      Point *to, ConnectionPoint *cp,
-		      HandleMoveReason reason, ModifierKeys modifiers)
+
+DiaObjectChange *
+polyshape_move_handle (PolyShape        *poly,
+                       Handle           *handle,
+                       Point            *to,
+                       ConnectionPoint  *cp,
+                       HandleMoveReason  reason,
+                       ModifierKeys      modifiers)
 {
   int handle_nr;
 
@@ -86,8 +98,9 @@ polyshape_move_handle(PolyShape *poly, Handle *handle,
   return NULL;
 }
 
-ObjectChange*
-polyshape_move(PolyShape *poly, Point *to)
+
+DiaObjectChange *
+polyshape_move (PolyShape *poly, Point *to)
 {
   Point p;
   int i;
@@ -199,8 +212,8 @@ remove_handle(PolyShape *poly, int pos)
 
 /* Add a point by splitting segment into two, putting the new point at
  'point' or, if NULL, in the middle */
-ObjectChange *
-polyshape_add_point(PolyShape *poly, int segment, Point *point)
+DiaObjectChange *
+polyshape_add_point (PolyShape *poly, int segment, Point *point)
 {
   Point realpoint;
   Handle *new_handle;
@@ -225,8 +238,9 @@ polyshape_add_point(PolyShape *poly, int segment, Point *point)
 				new_cp1, new_cp2);
 }
 
-ObjectChange *
-polyshape_remove_point(PolyShape *poly, int pos)
+
+DiaObjectChange *
+polyshape_remove_point (PolyShape *poly, int pos)
 {
   Handle *old_handle;
   ConnectionPoint *old_cp1, *old_cp2;
@@ -599,7 +613,7 @@ polyshape_change_revert (struct PointChange *change, DiaObject *obj)
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 polyshape_create_change (PolyShape        *poly,
                          enum change_type  type,
                          Point            *point,
@@ -624,5 +638,5 @@ polyshape_create_change (PolyShape        *poly,
   change->cp1 = cp1;
   change->cp2 = cp2;
 
-  return (ObjectChange *) change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }

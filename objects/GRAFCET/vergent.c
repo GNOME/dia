@@ -34,6 +34,7 @@
 #include "properties.h"
 #include "geometry.h"
 #include "connpoint_line.h"
+#include "dia-object-change-legacy.h"
 
 #include "grafcet.h"
 
@@ -54,13 +55,13 @@ typedef struct _Vergent {
 } Vergent;
 
 
-static ObjectChange    *vergent_move_handle     (Vergent          *vergent,
+static DiaObjectChange *vergent_move_handle     (Vergent          *vergent,
                                                  Handle           *handle,
                                                  Point            *to,
                                                  ConnectionPoint  *cp,
                                                  HandleMoveReason  reason,
                                                  ModifierKeys      modifiers);
-static ObjectChange    *vergent_move            (Vergent          *vergent,
+static DiaObjectChange *vergent_move            (Vergent          *vergent,
                                                  Point            *to);
 static void             vergent_select          (Vergent          *vergent,
                                                  Point            *clicked_point,
@@ -215,7 +216,7 @@ vergent_select (Vergent     *vergent,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 vergent_move_handle (Vergent          *vergent,
                      Handle           *handle,
                      Point            *to,
@@ -251,7 +252,7 @@ vergent_move_handle (Vergent          *vergent,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 vergent_move (Vergent *vergent, Point *to)
 {
   Point start_to_end;
@@ -381,42 +382,35 @@ vergent_update_data (Vergent *vergent)
 typedef struct {
   ObjectChange obj_change;
 
-  ObjectChange *north,*south;
+  DiaObjectChange *north, *south;
 } VergentChange;
 
 
 static void
 vergent_change_apply (VergentChange *change, DiaObject *obj)
 {
-  change->north->apply (change->north, obj);
-  change->south->apply (change->south, obj);
+  dia_object_change_apply (change->north, obj);
+  dia_object_change_apply (change->south, obj);
 }
 
 
 static void
 vergent_change_revert (VergentChange *change, DiaObject *obj)
 {
-  change->north->revert (change->north,obj);
-  change->south->revert (change->south,obj);
+  dia_object_change_revert (change->north,obj);
+  dia_object_change_revert (change->south,obj);
 }
 
 
 static void
 vergent_change_free (VergentChange *change)
 {
-  if (change->north->free) {
-    change->north->free (change->north);
-  }
-  g_clear_pointer (&change->north, g_free);
-
-  if (change->south->free) {
-    change->south->free (change->south);
-  }
-  g_clear_pointer (&change->south, g_free);
+  g_clear_pointer (&change->north, dia_object_change_unref);
+  g_clear_pointer (&change->south, dia_object_change_unref);
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 vergent_create_change (Vergent *vergent, int add, Point *clicked)
 {
   VergentChange *vc;
@@ -436,18 +430,18 @@ vergent_create_change (Vergent *vergent, int add, Point *clicked)
 
   vergent_update_data (vergent);
 
-  return (ObjectChange *) vc;
+  return dia_object_change_legacy_new ((ObjectChange *) vc);
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 vergent_add_cp_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   return vergent_create_change ((Vergent *) obj, 1, clicked);
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 vergent_delete_cp_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   return vergent_create_change ((Vergent *) obj, 0, clicked);

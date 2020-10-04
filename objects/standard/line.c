@@ -68,11 +68,11 @@ struct _LineProperties {
 
 static LineProperties default_properties;
 
-static ObjectChange* line_move_handle(Line *line, Handle *handle,
+static DiaObjectChange* line_move_handle(Line *line, Handle *handle,
 				      Point *to, ConnectionPoint *cp,
 				      HandleMoveReason reason,
 			     ModifierKeys modifiers);
-static ObjectChange* line_move(Line *line, Point *to);
+static DiaObjectChange* line_move(Line *line, Point *to);
 static void line_select(Line *line, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
 static void line_draw(Line *line, DiaRenderer *renderer);
@@ -209,12 +209,14 @@ line_init_defaults (void)
  *
  * Add a connection point to the line
  */
-static ObjectChange *
+static DiaObjectChange *
 line_add_connpoint_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *oc;
-  oc = connpointline_add_point (((Line *) obj)->cpl,clicked);
+  DiaObjectChange *oc;
+
+  oc = connpointline_add_point (((Line *) obj)->cpl, clicked);
   line_update_data ((Line *) obj);
+
   return oc;
 }
 
@@ -224,29 +226,33 @@ line_add_connpoint_callback (DiaObject *obj, Point *clicked, gpointer data)
  *
  * \memberof Line
  */
-static ObjectChange *
+static DiaObjectChange *
 line_remove_connpoint_callback(DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *oc;
-  oc = connpointline_remove_point(((Line *)obj)->cpl,clicked);
-  line_update_data((Line *)obj);
+  DiaObjectChange *oc;
+
+  oc = connpointline_remove_point (((Line *)obj)->cpl, clicked);
+  line_update_data ((Line *) obj);
+
   return oc;
 }
 
-/*!
- * \brief Upgrade the Line to a Polyline
+
+/**
+ * _convert_to_polyline_callback:
+ * @obj: self pointer
+ * @clicked: last clicked point on canvas or %NULL
+ * @data: here unuesed user_data pointer
  *
- * Convert the _Line to a _Polyline with the position clicked as third point.
+ *
+ * Upgrade the #Line to a #Polyline
+ *
+ * Convert the #Line to a Polyline with the position clicked as third point.
  * Further object properties are preserved by the use of object_substitute()
  *
- * @param obj  self pointer
- * @param clicked  last clicked point on canvas or NULL
- * @param data  here unuesed user_data pointer
- * @return an _ObjectChange to support undo/redo
- *
- * \memberof Line
+ * Returns: an #DiaObjectChange to support undo/redo
  */
-static ObjectChange *
+static DiaObjectChange *
 _convert_to_polyline_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   DiaObject *poly;
@@ -267,27 +273,28 @@ _convert_to_polyline_callback (DiaObject *obj, Point *clicked, gpointer data)
   return object_substitute (obj, poly);
 }
 
-/*!
- * \brief Upgrade the Line to a Zigzagline
+
+/**
+ * _convert_to_zigzagline_callback:
+ * @obj: self pointer
+ * @clicked: last clicked point on canvas or %NULL
+ * @data: here unuesed user_data pointer
  *
- * Convert the _Line to a _Zigzagline with the position clicked (if near enough)
+ * Upgrade the #Line to a #Zigzagline
+ *
+ * Convert the #Line to a #Zigzagline with the position clicked (if near enough)
  * for the new segment. The result of this function is more favorable for connected
  * lines by autorouting.
  *
  * Further object properties are preserved by the use of object_substitute()
  *
- * @param obj  self pointer
- * @param clicked  last clicked point on canvas or NULL
- * @param data  here unuesed user_data pointer
- * @return an _ObjectChange to support undo/redo
- *
- * \memberof Line
+ * Returns: an #DiaObjectChange to support undo/redo
  */
-static ObjectChange *
+static DiaObjectChange *
 _convert_to_zigzagline_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   DiaObject *zigzag;
-  Line *line = (Line *)obj;
+  Line *line = (Line *) obj;
   Point points[4];
 
   if (clicked) {
@@ -316,6 +323,7 @@ _convert_to_zigzagline_callback (DiaObject *obj, Point *clicked, gpointer data)
   g_return_val_if_fail (zigzag != NULL, NULL);
   return object_substitute (obj, zigzag);
 }
+
 
 static DiaMenuItem object_menu_items[] = {
   { N_("Add connection point"), line_add_connpoint_callback, NULL, 1 },
@@ -414,7 +422,7 @@ line_select(Line *line, Point *clicked_point,
   connection_update_handles(&line->connection);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 line_move_handle(Line *line, Handle *handle,
 		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -431,7 +439,7 @@ line_move_handle(Line *line, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 line_move(Line *line, Point *to)
 {
   Point start_to_end;

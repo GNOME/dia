@@ -61,10 +61,10 @@ struct _State {
 static real state_distance_from(State *state, Point *point);
 static void state_select(State *state, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
-static ObjectChange* state_move_handle(State *state, Handle *handle,
+static DiaObjectChange* state_move_handle(State *state, Handle *handle,
 				       Point *to, ConnectionPoint *cp,
 				       HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* state_move(State *state, Point *to);
+static DiaObjectChange* state_move(State *state, Point *to);
 static void state_draw(State *state, DiaRenderer *renderer);
 static DiaObject *state_create(Point *startpoint,
 			   void *user_data,
@@ -168,7 +168,7 @@ state_select(State *state, Point *clicked_point,
   element_update_handles(&state->element);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 state_move_handle(State *state, Handle *handle,
 		  Point *to, ConnectionPoint *cp,
 		  HandleMoveReason reason, ModifierKeys modifiers)
@@ -182,7 +182,7 @@ state_move_handle(State *state, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 state_move(State *state, Point *to)
 {
   state->element.corner = *to;

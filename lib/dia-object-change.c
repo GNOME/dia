@@ -316,7 +316,6 @@ dia_object_change_apply (DiaObjectChange *self,
                          DiaObject       *object)
 {
   g_return_if_fail (self && DIA_IS_OBJECT_CHANGE (self));
-  g_return_if_fail (object && DIA_IS_DIAGRAM_DATA (object));
 
   DIA_OBJECT_CHANGE_GET_CLASS (self)->apply (self, object);
 }
@@ -338,7 +337,6 @@ dia_object_change_revert (DiaObjectChange *self,
                           DiaObject       *object)
 {
   g_return_if_fail (self && DIA_IS_OBJECT_CHANGE (self));
-  g_return_if_fail (object && DIA_IS_DIAGRAM_DATA (object));
 
   DIA_OBJECT_CHANGE_GET_CLASS (self)->revert (self, object);
 }

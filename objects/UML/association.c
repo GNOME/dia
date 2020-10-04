@@ -61,7 +61,7 @@
 #include "attributes.h"
 #include "arrows.h"
 #include "uml.h"
-
+#include "dia-object-change-legacy.h"
 #include "properties.h"
 
 #include "pixmaps/association.xpm"
@@ -149,12 +149,17 @@ struct _Association {
 #define ASSOCIATION_END_SPACE (assoc->font_height/4)
 
 static real association_distance_from(Association *assoc, Point *point);
-static void association_select(Association *assoc, Point *clicked_point,
-			       DiaRenderer *interactive_renderer);
-static ObjectChange* association_move_handle(Association *assoc, Handle *handle,
-					     Point *to, ConnectionPoint *cp,
-					     HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* association_move(Association *assoc, Point *to);
+static void             association_select      (Association      *assoc,
+                                                 Point            *clicked_point,
+                                                 DiaRenderer      *interactive_renderer);
+static DiaObjectChange *association_move_handle (Association      *assoc,
+                                                 Handle           *handle,
+                                                 Point            *to,
+                                                 ConnectionPoint  *cp,
+                                                 HandleMoveReason  reason,
+                                                 ModifierKeys      modifiers);
+static DiaObjectChange* association_move        (Association      *assoc,
+                                                 Point            *to);
 static void association_draw(Association *assoc, DiaRenderer *renderer);
 static DiaObject *association_create(Point *startpoint,
 				  void *user_data,
@@ -346,29 +351,35 @@ association_select(Association *assoc, Point *clicked_point,
   orthconn_update_data(&assoc->orth);
 }
 
-static ObjectChange*
-association_move_handle(Association *assoc, Handle *handle,
-			Point *to, ConnectionPoint *cp,
-			HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange*
+association_move_handle (Association      *assoc,
+                         Handle           *handle,
+                         Point            *to,
+                         ConnectionPoint  *cp,
+                         HandleMoveReason  reason,
+                         ModifierKeys      modifiers)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
+
   assert(assoc!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  change = orthconn_move_handle(&assoc->orth, handle, to, cp, reason, modifiers);
-  association_update_data(assoc);
+  change = orthconn_move_handle (&assoc->orth, handle, to, cp, reason, modifiers);
+  association_update_data (assoc);
 
   return change;
 }
 
-static ObjectChange*
-association_move(Association *assoc, Point *to)
-{
-  ObjectChange *change;
 
-  change = orthconn_move(&assoc->orth, to);
-  association_update_data(assoc);
+static DiaObjectChange *
+association_move (Association *assoc, Point *to)
+{
+  DiaObjectChange *change;
+
+  change = orthconn_move (&assoc->orth, to);
+  association_update_data (assoc);
 
   return change;
 }
@@ -865,12 +876,12 @@ association_create (Point   *startpoint,
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 association_add_segment_callback (DiaObject *obj,
                                   Point     *clicked,
                                   gpointer   data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   change = orthconn_add_segment ((OrthConn *) obj, clicked);
   association_update_data ((Association *) obj);
@@ -879,12 +890,12 @@ association_add_segment_callback (DiaObject *obj,
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 association_delete_segment_callback (DiaObject *obj,
                                      Point     *clicked,
                                      gpointer   data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
   change = orthconn_delete_segment ((OrthConn *) obj, clicked);
   association_update_data ((Association *) obj);

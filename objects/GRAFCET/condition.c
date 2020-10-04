@@ -64,13 +64,13 @@ typedef struct _Condition {
 } Condition;
 
 
-static ObjectChange    *condition_move_handle    (Condition         *condition,
+static DiaObjectChange *condition_move_handle    (Condition         *condition,
                                                   Handle            *handle,
                                                   Point             *to,
                                                   ConnectionPoint   *cp,
                                                   HandleMoveReason   reason,
                                                   ModifierKeys       modifiers);
-static ObjectChange    *condition_move           (Condition         *condition,
+static DiaObjectChange *condition_move           (Condition         *condition,
                                                   Point             *to);
 static void             condition_select         (Condition         *condition,
                                                   Point             *clicked_point,
@@ -213,7 +213,7 @@ condition_select (Condition   *condition,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 condition_move_handle (Condition        *condition,
                        Handle           *handle,
                        Point            *to,
@@ -302,8 +302,8 @@ condition_move_handle (Condition        *condition,
 }
 
 
-static ObjectChange*
-condition_move(Condition *condition, Point *to)
+static DiaObjectChange *
+condition_move (Condition *condition, Point *to)
 {
   Point start_to_end;
   Point *endpoints = &condition->connection.endpoints[0];

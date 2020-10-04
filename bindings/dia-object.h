@@ -85,14 +85,14 @@ public :
     //! create a deep copy
     Object* copy () const;
     //! change position of the whole object
-    ObjectChange* move (double x, double y);
+    DiaObjectChange* move (double x, double y);
     //! change position of an object handle - this is usually  a resize (Attention: does *not* match the C prototype)
-    ObjectChange* move_handle (Handle* h, double x, double y, HandleMoveReason reason, ModifierKeys modifiers);
+    DiaObjectChange* move_handle (Handle* h, double x, double y, HandleMoveReason reason, ModifierKeys modifiers);
 
     //! OPTIONAL: provide a property dialog to change the object proeprties
     GtkWidget* get_properties (bool is_default) const;
     //! OPTIONAL: apply the properties changed in the dialog
-    ObjectChange* apply_properties (GtkWidget*);
+    DiaObjectChange* apply_properties (GtkWidget*);
     //! OPTIONAL: provide a context menu to change the object states
     DiaMenu* get_object_menu (Point* pos) const;
 

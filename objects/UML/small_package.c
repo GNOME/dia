@@ -64,10 +64,10 @@ struct _SmallPackage {
 static real smallpackage_distance_from(SmallPackage *pkg, Point *point);
 static void smallpackage_select(SmallPackage *pkg, Point *clicked_point,
 				DiaRenderer *interactive_renderer);
-static ObjectChange* smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
+static DiaObjectChange* smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
 					      Point *to, ConnectionPoint *cp,
 					      HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* smallpackage_move(SmallPackage *pkg, Point *to);
+static DiaObjectChange* smallpackage_move(SmallPackage *pkg, Point *to);
 static void smallpackage_draw(SmallPackage *pkg, DiaRenderer *renderer);
 static DiaObject *smallpackage_create(Point *startpoint,
 				   void *user_data,
@@ -201,7 +201,7 @@ smallpackage_select(SmallPackage *pkg, Point *clicked_point,
   element_update_handles(&pkg->element);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
 			 Point *to, ConnectionPoint *cp,
 			 HandleMoveReason reason, ModifierKeys modifiers)
@@ -215,7 +215,7 @@ smallpackage_move_handle(SmallPackage *pkg, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 smallpackage_move(SmallPackage *pkg, Point *to)
 {
   Point p;

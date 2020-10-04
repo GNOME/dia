@@ -35,12 +35,16 @@
 #include "properties.h"
 #include "propinternals.h"
 #include "object.h"
+#include "dia-object-change-legacy.h"
+#include "dia-object-change-list.h"
+
 
 const PropDescription *
-object_get_prop_descriptions (const DiaObject *obj) {
+object_get_prop_descriptions (const DiaObject *obj)
+{
   const PropDescription *pdesc;
 
-  pdesc = dia_object_describe_properties ((DiaObject *) obj); /* Yes... */
+  pdesc = dia_object_describe_properties (DIA_OBJECT (obj)); /* Yes... */
   if (!pdesc) return NULL;
 
   if (pdesc[0].quark != 0) return pdesc;
@@ -133,7 +137,8 @@ object_prop_change_free(ObjectPropChange *change)
   prop_list_free(change->saved_props);
 }
 
-ObjectChange *
+
+DiaObjectChange *
 object_apply_props (DiaObject *obj, GPtrArray *props)
 {
   ObjectPropChange *change;
@@ -160,19 +165,26 @@ object_apply_props (DiaObject *obj, GPtrArray *props)
 
   change->saved_props = old_props;
 
-  return (ObjectChange *) change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
-/*!
+
+/**
+ * object_toggle_prop:
+ * @obj: the #DiaObject
+ * @pname: the property name
+ * @val: the new value
+ *
  * Toggle a boolean property including change management
  */
-ObjectChange *
+DiaObjectChange *
 object_toggle_prop (DiaObject *obj, const char *pname, gboolean val)
 {
   Property *prop = make_new_prop (pname, PROP_TYPE_BOOL, 0);
   GPtrArray *plist = prop_list_from_single (prop);
 
   ((BoolProperty *)prop)->bool_data = val;
+
   return object_apply_props (obj, plist);
 }
 
@@ -214,27 +226,30 @@ object_list_create_props_dialog(GList *objects, gboolean is_default)
 }
 
 
-ObjectChange *
-object_apply_props_from_dialog(DiaObject *obj, WIDGET *dialog_widget)
+DiaObjectChange *
+object_apply_props_from_dialog (DiaObject *obj, WIDGET *dialog_widget)
 {
-  ObjectChange *change;
-  PropDialog *dialog = prop_dialog_from_widget(dialog_widget);
+  DiaObjectChange *change;
+  PropDialog *dialog = prop_dialog_from_widget (dialog_widget);
   GPtrArray *props = g_ptr_array_new ();
   guint i;
 
-  prop_get_data_from_widgets(dialog);
+  prop_get_data_from_widgets (dialog);
   /* only stuff which is actually changed */
   for (i = 0; i < dialog->props->len; ++i) {
     Property *p = g_ptr_array_index (dialog->props, i);
-    if (p->descr->flags & PROP_FLAG_WIDGET_ONLY)
+    if (p->descr->flags & PROP_FLAG_WIDGET_ONLY) {
       continue;
-    if ((p->experience & PXP_NOTSET) == 0)
-      g_ptr_array_add(props, p);
+    }
+    if ((p->experience & PXP_NOTSET) == 0) {
+      g_ptr_array_add (props, p);
+    }
   }
   change = dia_object_apply_properties (obj, props);
   g_ptr_array_free (props, TRUE);
   return change;
 }
+
 
 gboolean
 objects_comply_with_stdprop(GList *objects)
@@ -365,106 +380,120 @@ object_prop_by_name_type(DiaObject *obj, const char *name, const char *type)
   return NULL;
 }
 
+
 Property *
-object_prop_by_name(DiaObject *obj, const char *name)
+object_prop_by_name (DiaObject *obj, const char *name)
 {
-  return object_prop_by_name_type(obj,name,NULL);
+  return object_prop_by_name_type (obj, name,NULL);
 }
 
-/*!
- * \brief Modification of the objects 'pixbuf' property
+
+/**
+ * dia_object_set_pixbuf:
+ * @object: object to modify
+ * @pixbuf: the pixbuf to set
  *
- * @param object object to modify
- * @param pixbuf the pixbuf to set
- * @return an object change or NULL
+ * Modification of the objects 'pixbuf' property
  *
  * If the object does not have a pixbuf property nothing
  * happens. If there is a pixbuf property and the passed
  * in pixbuf is identical an empty change is returned.
  *
- * \memberof _DiaObject
- * \ingroup StdProps
+ * Returns: #DiaObjectChange or %NULL
  */
-ObjectChange *
+DiaObjectChange *
 dia_object_set_pixbuf (DiaObject *object,
-		       GdkPixbuf *pixbuf)
+                       GdkPixbuf *pixbuf)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   GPtrArray *props;
   PixbufProperty *pp;
   Property *prop = object_prop_by_name_type (object, "pixbuf", PROP_TYPE_PIXBUF);
 
-  if (!prop)
+  if (!prop) {
     return NULL;
-  pp = (PixbufProperty *)prop;
-  if (pp->pixbuf == pixbuf)
-    return change_list_create ();
+  }
+
+  pp = (PixbufProperty *) prop;
+  if (pp->pixbuf == pixbuf) {
+    return dia_object_change_list_new ();
+  }
+
   g_set_object (&pp->pixbuf, pixbuf);
+
   props = prop_list_from_single (prop);
   change = object_apply_props (object, props);
   prop_list_free (props);
   return change;
 }
 
-/*!
- * \brief Modification of the objects 'pattern' property
+
+/**
+ * dia_object_set_pattern:
+ * @object: object to modify
+ * @pattern: the pattern to set
  *
- * @param object object to modify
- * @param pattern the pattern to set
- * @return an object change or NULL
+ * Modification of the objects 'pattern' property
  *
  * If the object does not have a pattern property nothing
  * happens. If there is a pattern property and the passed
  * in pattern is identical an empty change is returned.
  *
- * \memberof _DiaObject
- * \ingroup StdProps
+ * Returns: #DiaObjectChange or %NULL
  */
-ObjectChange *
+DiaObjectChange *
 dia_object_set_pattern (DiaObject  *object,
-			DiaPattern *pattern)
+                        DiaPattern *pattern)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   GPtrArray *props;
   PatternProperty *pp;
   Property *prop = object_prop_by_name_type (object, "pattern", PROP_TYPE_PATTERN);
 
-  if (!prop)
+  if (!prop) {
     return NULL;
-  pp = (PatternProperty *)prop;
-  if (pp->pattern == pattern)
-    return change_list_create ();
+  }
+
+  pp = (PatternProperty *) prop;
+  if (pp->pattern == pattern) {
+    return dia_object_change_list_new ();
+  }
+
   g_set_object (&pp->pattern, pattern);
+
   props = prop_list_from_single (prop);
   change = object_apply_props (object, props);
   prop_list_free (props);
   return change;
 }
 
-/*!
- * \brief Modify the objects string property
- * @param object the object to modify
- * @param name the name of the string property (NULL for any)
- * @param value the value to set, NULL to delete
- * @return object change on sucess, NULL if not found
+
+/**
+ * dia_object_set_string:
+ * @object: the object to modify
+ * @name: the name of the string property (%NULL for any)
+ * @value: the value to set, %NULL to delete
  *
- * Usually you should not pass NULL for the name, the facility
+ * Modify the objects string property
+ *
+ * Usually you should not pass %NULL for the name, the facility
  * was added for convenience of the unit test.
  *
- * \memberof _DiaObject
- * \ingroup StdProps
+ * Returns: #DiaObjectChange on success, %NULL if @name not found
  */
-ObjectChange *
-dia_object_set_string (DiaObject *object,
-		       const char *name,
-		       const char *value)
+DiaObjectChange *
+dia_object_set_string (DiaObject  *object,
+                       const char *name,
+                       const char *value)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
   GPtrArray *props = NULL;
   Property *prop = object_prop_by_name_type (object, name, PROP_TYPE_STRING);
 
-  if (!prop)
+  if (!prop) {
     prop = object_prop_by_name_type (object, name, PROP_TYPE_FILE);
+  }
+
   if (prop) {
     StringProperty *pp = (StringProperty *)prop;
     g_clear_pointer (&pp->string_data, g_free);
@@ -476,8 +505,10 @@ dia_object_set_string (DiaObject *object,
     pp->text_data = g_strdup (value);
     props = prop_list_from_single (prop);
   }
-  if (!props)
+
+  if (!props) {
     return NULL;
+  }
 
   change = object_apply_props (object, props);
   prop_list_free (props);

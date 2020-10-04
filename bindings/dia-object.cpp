@@ -139,22 +139,28 @@ dia::Object* dia::Object::copy () const
     assert (self);
     return new dia::Object (self->ops->copy (self));
 }
+
+
 //! change position of the whole object
-ObjectChange*
+DiaObjectChange *
 dia::Object::move (double x, double y)
 {
-    assert (self);
-    Point p = {x, y};
-    return self->ops->move (self, &p);
+  assert (self);
+  Point p = {x, y};
+  return dia_object_move (self, &p);
 }
+
+
 //! change position of an object handle - this is usually  a resize (Attention: does *not* match the C prototype)
-ObjectChange*
+DiaObjectChange *
 dia::Object::move_handle (dia::Handle* h, double x, double y, HandleMoveReason reason, ModifierKeys modifiers)
 {
-    assert (self);
-    Point p = {x, y};
-    return self->ops->move_handle (self, h->Self(), &p, NULL, reason, modifiers);
+  assert (self);
+  Point p = {x, y};
+  return dia_object_move_handle (self, h->Self(), &p, NULL, reason, modifiers);
 }
+
+
 //! OPTIONAL: provide a property dialog to change the object proeprties
 GtkWidget*
 dia::Object::get_properties (bool is_default) const
@@ -164,15 +170,22 @@ dia::Object::get_properties (bool is_default) const
 	return 0;
     return self->ops->get_properties (self, is_default);
 }
+
+
 //! OPTIONAL: apply the properties changed in the dialog
-ObjectChange*
+DiaObjectChange *
 dia::Object::apply_properties (GtkWidget* w)
 {
-    assert (self);
-    if (!self->ops->apply_properties_from_dialog)
-	return NULL;
-    return self->ops->apply_properties_from_dialog (self, w);
+  assert (self);
+
+  if (!self->ops->apply_properties_from_dialog) {
+    return NULL;
+  }
+
+  return self->ops->apply_properties_from_dialog (self, w);
 }
+
+
 //! OPTIONAL: provide a context menu to change the object states
 DiaMenu*
 dia::Object::get_object_menu (Point* pos) const

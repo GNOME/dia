@@ -352,11 +352,12 @@ find_func (gpointer data, gpointer user_data)
   }
 }
 
+
 /* Match and replace property values. */
 static gboolean
 _replace (DiaObject *obj, const SearchData *sd, const char *replacement)
 {
-  ObjectChange *obj_change;
+  DiaObjectChange *obj_change;
   GPtrArray *plist = NULL;
 
   plist = _match_props (obj, sd, replacement);

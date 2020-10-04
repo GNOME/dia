@@ -71,10 +71,10 @@ struct _Arc {
 };
 
 /* updates both endpoints and arc->curve_distance */
-static ObjectChange* arc_move_handle(Arc *arc, Handle *handle,
+static DiaObjectChange* arc_move_handle(Arc *arc, Handle *handle,
 				     Point *to, ConnectionPoint *cp,
 				     HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* arc_move(Arc *arc, Point *to);
+static DiaObjectChange* arc_move(Arc *arc, Point *to);
 static void arc_select(Arc *arc, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
 static void arc_draw(Arc *arc, DiaRenderer *renderer);
@@ -334,7 +334,7 @@ point_projection_is_between (const Point *c,
   return (c->x == a->x && c->y == a->y);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 arc_move_handle(Arc *arc, Handle *handle,
 		Point *to, ConnectionPoint *cp,
 		HandleMoveReason reason, ModifierKeys modifiers)
@@ -428,7 +428,7 @@ arc_move_handle(Arc *arc, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 arc_move(Arc *arc, Point *to)
 {
   Point start_to_end;

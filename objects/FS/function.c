@@ -33,6 +33,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
+#include "dia-object-change-legacy.h"
 
 #include "pixmaps/function.xpm"
 
@@ -74,14 +75,19 @@ struct _FunctionChange {
 #define FUNCTION_MARGIN_Y 2.4
 #define FUNCTION_DASHLENGTH_SCALE 2.0
 
-static real function_distance_from(Function *pkg, Point *point);
-static void function_select(Function *pkg, Point *clicked_point,
-			    DiaRenderer *interactive_renderer);
-static ObjectChange* function_move_handle(Function *pkg, Handle *handle,
-					  Point *to, ConnectionPoint *cp,
-					  HandleMoveReason reason,
-					  ModifierKeys modifiers);
-static ObjectChange* function_move(Function *pkg, Point *to);
+static double           function_distance_from   (Function         *pkg,
+                                                  Point            *point);
+static void             function_select          (Function         *pkg,
+                                                  Point            *clicked_point,
+                                                  DiaRenderer      *interactive_renderer);
+static DiaObjectChange* function_move_handle     (Function         *pkg,
+                                                  Handle           *handle,
+                                                  Point            *to,
+                                                  ConnectionPoint  *cp,
+                                                  HandleMoveReason  reason,
+                                                  ModifierKeys      modifiers);
+static DiaObjectChange* function_move            (Function         *pkg,
+                                                  Point            *to);
 static void function_draw(Function *pkg, DiaRenderer *renderer);
 static DiaObject *function_create(Point *startpoint,
 			       void *user_data,
@@ -217,8 +223,9 @@ function_change_free( ObjectChange* objchg )
   }
 }
 
-static ObjectChange*
-function_create_change( Function* fcn, enum FuncChangeType change_type )
+
+static DiaObjectChange *
+function_create_change (Function *fcn, enum FuncChangeType change_type)
 {
   FunctionChange* change = g_new0(FunctionChange,1) ;
   change->obj_change.apply = (ObjectChangeApplyFunc) function_change_apply_revert ;
@@ -226,23 +233,30 @@ function_create_change( Function* fcn, enum FuncChangeType change_type )
   change->obj_change.free = (ObjectChangeFreeFunc) function_change_free ;
   change->change_type = change_type ;
 
-  if ( change_type == WISH_FUNC || change_type == ALL )
-     change->is_wish = fcn->is_wish ;
+  if (change_type == WISH_FUNC || change_type == ALL) {
+    change->is_wish = fcn->is_wish;
+  }
 
-  if ( change_type == USER_FUNC || change_type == ALL )
-     change->is_user = fcn->is_user ;
+  if (change_type == USER_FUNC || change_type == ALL) {
+    change->is_user = fcn->is_user;
+  }
 
-  if ( change_type == TEXT_EDIT || change_type == ALL )
-     change->text = text_get_string_copy( fcn->text ) ;
-  return (ObjectChange*) change ;
+  if (change_type == TEXT_EDIT || change_type == ALL) {
+    change->text = text_get_string_copy (fcn->text);
+  }
+
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
-static real
+
+static double
 function_distance_from(Function *pkg, Point *point)
 {
   DiaObject *obj = &pkg->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+
+  return distance_rectangle_point (&obj->bounding_box, point);
 }
+
 
 static void
 function_select(Function *pkg, Point *clicked_point,
@@ -253,10 +267,14 @@ function_select(Function *pkg, Point *clicked_point,
   element_update_handles(&pkg->element);
 }
 
-static ObjectChange*
-function_move_handle(Function *pkg, Handle *handle,
-		     Point *to, ConnectionPoint *cp,
-		     HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+function_move_handle (Function         *pkg,
+                      Handle           *handle,
+                      Point            *to,
+                      ConnectionPoint  *cp,
+                      HandleMoveReason  reason,
+                      ModifierKeys      modifiers)
 {
   assert(pkg!=NULL);
   assert(handle!=NULL);
@@ -267,14 +285,16 @@ function_move_handle(Function *pkg, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
-function_move(Function *pkg, Point *to)
+
+static DiaObjectChange*
+function_move (Function *pkg, Point *to)
 {
   pkg->element.corner = *to;
-  function_update_data(pkg);
+  function_update_data (pkg);
 
   return NULL;
 }
+
 
 static void
 function_draw (Function *pkg, DiaRenderer *renderer)
@@ -587,56 +607,62 @@ function_load(ObjectNode obj_node, int version, DiaContext *ctx)
   return &pkg->element.object;
 }
 
-static ObjectChange *
-function_insert_word( Function* func, const char* word, gboolean newline )
+
+static DiaObjectChange *
+function_insert_word (Function *func, const char *word, gboolean newline)
 {
-  ObjectChange* change = function_create_change( func, TEXT_EDIT ) ;
-  char* old_chars = text_get_string_copy( func->text ) ;
-  char* new_chars = g_malloc( strlen( old_chars) + strlen( word )
-		  	+ ( newline ? 2 : 1) ) ;
-  sprintf( new_chars, newline ? "%s\n%s" : "%s%s", old_chars, word ) ;
-  text_set_string( func->text, new_chars ) ;
-  g_clear_pointer (&new_chars, g_free) ;
-  g_clear_pointer (&old_chars, g_free) ;
-  function_update_data( func ) ;
-  text_set_cursor_at_end( func->text ) ;
+  DiaObjectChange* change = function_create_change (func, TEXT_EDIT);
+  char *old_chars = text_get_string_copy (func->text);
+  char *new_chars = g_malloc (strlen (old_chars) + strlen (word)
+                                      + (newline ? 2 : 1));
+  sprintf (new_chars, newline ? "%s\n%s" : "%s%s", old_chars, word);
+  text_set_string (func->text, new_chars);
+  g_clear_pointer (&new_chars, g_free);
+  g_clear_pointer (&old_chars, g_free);
+  function_update_data (func);
+  text_set_cursor_at_end (func->text);
 
   return change;
 }
 
-static ObjectChange *
-function_insert_verb( DiaObject* obj, Point* clicked, gpointer data)
+
+static DiaObjectChange *
+function_insert_verb (DiaObject *obj, Point *clicked, gpointer data)
 {
-  return function_insert_word( (Function*)obj, (const char*) data, FALSE ) ;
+  return function_insert_word ((Function*) obj, (const char*) data, FALSE);
 }
 
-static ObjectChange *
-function_insert_noun( DiaObject* obj, Point* clicked, gpointer data)
+
+static DiaObjectChange *
+function_insert_noun (DiaObject *obj, Point *clicked, gpointer data)
 {
-  return function_insert_word( (Function*)obj, (const char*) data, TRUE ) ;
+  return function_insert_word ((Function*)obj, (const char*) data, TRUE);
 }
 
-static ObjectChange *
-function_toggle_user_function( DiaObject* obj, Point* clicked, gpointer data)
+
+static DiaObjectChange *
+function_toggle_user_function (DiaObject *obj, Point *clicked, gpointer data)
 {
-  Function* func = (Function*)obj ;
-  ObjectChange* change = function_create_change( func, USER_FUNC ) ;
-  func->is_user = !func->is_user ;
-  function_update_data( func ) ;
+  Function *func = (Function *) obj;
+  DiaObjectChange *change = function_create_change (func, USER_FUNC);
+  func->is_user = !func->is_user;
+  function_update_data (func);
 
   return change;
 }
 
-static ObjectChange *
-function_toggle_wish_function( DiaObject* obj, Point* clicked, gpointer data)
+
+static DiaObjectChange *
+function_toggle_wish_function (DiaObject *obj, Point *clicked, gpointer data)
 {
-  Function* func = (Function*)obj ;
-  ObjectChange* change = function_create_change( func, WISH_FUNC ) ;
-  func->is_wish = !func->is_wish ;
-  function_update_data( func ) ;
+  Function* func = (Function*) obj;
+  DiaObjectChange* change = function_create_change (func, WISH_FUNC);
+  func->is_wish = !func->is_wish;
+  function_update_data (func);
 
   return change;
 }
+
 
 struct _IndentedMenus {
   char*			name ;

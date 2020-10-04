@@ -35,6 +35,8 @@
 
 #include "aadl.h"
 #include "edit_port_declaration.h"
+#include "dia-object-change-legacy.h"
+
 
 #define PORT_HANDLE_AADLBOX (HANDLE_CUSTOM9)
 
@@ -84,20 +86,24 @@ struct PointChange {
 static void aadlbox_update_data(Aadlbox *aadlbox);
 static void aadlbox_add_port(Aadlbox *aadlbox, const Point *p, Aadlport *port);
 static void aadlbox_remove_port(Aadlbox *aadlbox, Aadlport *port);
-static ObjectChange *aadlbox_add_port_callback (DiaObject *obj,
-						Point *clicked, gpointer data);
-static ObjectChange *aadlbox_delete_port_callback (DiaObject *obj,
-                                                Point *clicked, gpointer data);
+static DiaObjectChange *aadlbox_add_port_callback          (DiaObject *obj,
+                                                            Point     *clicked,
+                                                            gpointer   data);
+static DiaObjectChange *aadlbox_delete_port_callback       (DiaObject *obj,
+                                                            Point     *clicked,
+                                                            gpointer   data);
 int aadlbox_point_near_port(Aadlbox *aadlbox, Point *p);
 
 static void aadlbox_add_connection(Aadlbox *aadlbox, const Point *p,
 				   ConnectionPoint *connection);
 static void aadlbox_remove_connection(Aadlbox *aadlbox,
 				      ConnectionPoint *connection);
-static ObjectChange *aadlbox_add_connection_callback (DiaObject *obj,
-						Point *clicked, gpointer data);
-static ObjectChange *aadlbox_delete_connection_callback (DiaObject *obj,
-                                                Point *clicked, gpointer data);
+static DiaObjectChange *aadlbox_add_connection_callback    (DiaObject *obj,
+                                                            Point     *clicked,
+                                                            gpointer   data);
+static DiaObjectChange *aadlbox_delete_connection_callback (DiaObject *obj,
+                                                            Point     *clicked,
+                                                            gpointer   data);
 static int aadlbox_point_near_connection(Aadlbox *aadlbox, Point *p);
 
 /* == TEMPLATES ==
@@ -304,7 +310,7 @@ aadlbox_change_revert (struct PointChange *change, DiaObject *obj)
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 aadlbox_create_change (Aadlbox          *aadlbox,
                        enum change_type  type,
                        Point            *point,
@@ -337,7 +343,7 @@ aadlbox_create_change (Aadlbox          *aadlbox,
       g_return_val_if_reached (NULL);
   }
 
-  return (ObjectChange *) change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
 
@@ -537,21 +543,22 @@ aadlbox_remove_port(Aadlbox *aadlbox, Aadlport *port)
 }
 
 
-ObjectChange *
+DiaObjectChange *
 aadlbox_add_port_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Aadlbox *aadlbox = (Aadlbox *) obj;
   Aadl_type type = *((Aadl_type *) data);
   Aadlport *port;
 
-  port = new_port(type, "");
-  aadlbox_add_port(aadlbox, clicked, port);
-  aadlbox_update_data(aadlbox);
+  port = new_port (type, "");
+  aadlbox_add_port (aadlbox, clicked, port);
+  aadlbox_update_data (aadlbox);
 
-  return aadlbox_create_change(aadlbox, TYPE_ADD_POINT, clicked, port);
+  return aadlbox_create_change (aadlbox, TYPE_ADD_POINT, clicked, port);
 }
 
-ObjectChange *
+
+DiaObjectChange *
 aadlbox_delete_port_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Aadlbox *aadlbox = (Aadlbox *) obj;
@@ -559,15 +566,15 @@ aadlbox_delete_port_callback (DiaObject *obj, Point *clicked, gpointer data)
   int port_num;
   Point p;
 
-  port_num = aadlbox_point_near_port(aadlbox, clicked);
+  port_num = aadlbox_point_near_port (aadlbox, clicked);
 
   port = aadlbox->ports[port_num];
   p = port->handle->pos;
 
-  aadlbox_remove_port(aadlbox, port );
-  aadlbox_update_data(aadlbox);
+  aadlbox_remove_port (aadlbox, port);
+  aadlbox_update_data (aadlbox);
 
-  return aadlbox_create_change(aadlbox, TYPE_REMOVE_POINT, &p, port);
+  return aadlbox_create_change (aadlbox, TYPE_REMOVE_POINT, &p, port);
 }
 
 
@@ -649,7 +656,7 @@ aadlbox_remove_connection(Aadlbox *aadlbox, ConnectionPoint *connection)
 }
 
 
-ObjectChange *
+DiaObjectChange *
 aadlbox_add_connection_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Aadlbox *aadlbox = (Aadlbox *) obj;
@@ -657,31 +664,35 @@ aadlbox_add_connection_callback (DiaObject *obj, Point *clicked, gpointer data)
 
   connection = g_new0(ConnectionPoint,1);
 
-  aadlbox_add_connection(aadlbox, clicked, connection);
-  aadlbox_update_data(aadlbox);
+  aadlbox_add_connection (aadlbox, clicked, connection);
+  aadlbox_update_data (aadlbox);
 
-  return aadlbox_create_change(aadlbox, TYPE_ADD_CONNECTION, clicked,connection);
+  return aadlbox_create_change (aadlbox, TYPE_ADD_CONNECTION, clicked, connection);
 }
 
 
-ObjectChange *
-aadlbox_delete_connection_callback (DiaObject *obj, Point *clicked,
-				    gpointer data)
+DiaObjectChange *
+aadlbox_delete_connection_callback (DiaObject *obj,
+                                    Point     *clicked,
+                                    gpointer   data)
 {
   Aadlbox *aadlbox = (Aadlbox *) obj;
   ConnectionPoint *connection;
   int connection_num;
   Point p;
 
-  connection_num = aadlbox_point_near_connection(aadlbox, clicked);
+  connection_num = aadlbox_point_near_connection (aadlbox, clicked);
 
   connection = aadlbox->connections[connection_num];
   p = connection->pos;
 
-  aadlbox_remove_connection(aadlbox, connection );
-  aadlbox_update_data(aadlbox);
+  aadlbox_remove_connection (aadlbox, connection);
+  aadlbox_update_data (aadlbox);
 
-  return aadlbox_create_change(aadlbox, TYPE_REMOVE_CONNECTION, &p, connection);
+  return aadlbox_create_change (aadlbox,
+                                TYPE_REMOVE_CONNECTION,
+                                &p,
+                                connection);
 }
 
 /***********************************************
@@ -705,17 +716,20 @@ aadlbox_select(Aadlbox *aadlbox, Point *clicked_point,
 }
 
 
-ObjectChange*
-aadlbox_move_handle(Aadlbox *aadlbox, Handle *handle,
-		 Point *to, ConnectionPoint *cp,
-		 HandleMoveReason reason, ModifierKeys modifiers)
+DiaObjectChange *
+aadlbox_move_handle (Aadlbox          *aadlbox,
+                     Handle           *handle,
+                     Point            *to,
+                     ConnectionPoint  *cp,
+                     HandleMoveReason  reason,
+                     ModifierKeys      modifiers)
 {
   assert(aadlbox!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
 
-  if (handle->id < 8) {   /* box resizing */
-
+  if (handle->id < 8) {
+    /* box resizing */
     Element *element = &aadlbox->element;
     Point oldcorner, newcorner;
     real oldw, neww, oldh, newh;
@@ -758,39 +772,37 @@ aadlbox_move_handle(Aadlbox *aadlbox, Handle *handle,
       c->pos.x = newcorner.x + w_factor * neww;
       c->pos.y = newcorner.y + h_factor * newh;
     }
-
-  }
-
-  else {    /* port handles */
-
+  } else {
+    /* port handles */
     handle->pos.x = to->x;
     handle->pos.y = to->y;
   }
 
-  aadlbox_update_data(aadlbox);
+  aadlbox_update_data (aadlbox);
 
   /* FIXME !!  Should I free the given structures (to, ...) ? */
   return NULL;
 }
 
-ObjectChange*
-aadlbox_move(Aadlbox *aadlbox, Point *to)
+
+DiaObjectChange *
+aadlbox_move (Aadlbox *aadlbox, Point *to)
 {
   Point p, delta;
   DiaObject *obj = &aadlbox->element.object;
   int i;
 
   delta = *to;
-  point_sub(&delta, &obj->position);
+  point_sub (&delta, &obj->position);
 
   /* update ports position */
-  for (i=0;i<aadlbox->num_ports;i++) {
-    point_add(&aadlbox->ports[i]->handle->pos, &delta);
+  for (i = 0; i < aadlbox->num_ports; i++) {
+    point_add (&aadlbox->ports[i]->handle->pos, &delta);
   }
 
   /* update connection points position */
-  for (i=0;i<aadlbox->num_connections;i++) {
-    point_add(&aadlbox->connections[i]->pos, &delta);
+  for (i = 0; i < aadlbox->num_connections; i++) {
+    point_add (&aadlbox->connections[i]->pos, &delta);
   }
 
 
@@ -800,10 +812,11 @@ aadlbox_move(Aadlbox *aadlbox, Point *to)
   p.x += AADLBOX_TEXT_MARGIN;
   p.y += aadlbox->name->ascent + AADLBOX_TEXT_MARGIN;
 
-  aadlbox_update_data(aadlbox);
+  aadlbox_update_data (aadlbox);
 
   return NULL;
 }
+
 
 void aadlbox_draw(Aadlbox *aadlbox, DiaRenderer *renderer)
 {

@@ -45,6 +45,7 @@
 #include "object.h"
 #include "disp_callbacks.h"
 #include "create.h"
+#include "dia-object-change-list.h"
 
 typedef struct {
 	GdkEvent *event; /* Button down event which may be holding */
@@ -57,10 +58,10 @@ static HoldTimeoutData hold_data = {NULL, NULL, 0};
 
 
 static void
-object_menu_item_proxy(GtkWidget *widget, gpointer data)
+object_menu_item_proxy (GtkWidget *widget, gpointer data)
 {
   DiaMenuItem *dia_menu_item;
-  ObjectChange *obj_change;
+  DiaObjectChange *obj_change;
   DiaObject *obj;
   DDisplay *ddisp = ddisplay_active();
   Point last_clicked_pos;
@@ -176,35 +177,41 @@ add_follow_link_menu_item (GtkMenu *menu)
   gtk_widget_show(menu_item);
 }
 
+
 static void
 _convert_to_path_callback (GtkAction *action, gpointer data)
 {
-  DDisplay *ddisp = ddisplay_active();
+  DDisplay *ddisp = ddisplay_active ();
   GList *selected, *list;
-  ObjectChange *change_list = NULL;
+  DiaObjectChange *change_list = NULL;
 
   if (!ddisp) return;
 
   /* copy the list before modifying it */
   list = selected = diagram_get_sorted_selected (ddisp->diagram);
   while (list) {
-    DiaObject *obj = (DiaObject *)list->data;
+    DiaObject *obj = DIA_OBJECT (list->data);
 
     if (obj) { /* paranoid */
       DiaObject *path = create_standard_path_from_object (obj);
 
       if (path) { /* not so paranoid */
-	ObjectChange *change = object_substitute (obj, path);
+        DiaObjectChange *change = object_substitute (obj, path);
 
-	if (!change_list)
-	  change_list = change_list_create ();
-	if (change)
-	  change_list_add (change_list, change);
+        if (!change_list) {
+          change_list = dia_object_change_list_new ();
+        }
+
+        if (change) {
+          dia_object_change_list_add (DIA_OBJECT_CHANGE_LIST (change_list),
+                                      change);
+        }
       }
     }
     list = g_list_next(list);
   }
   g_list_free (selected);
+
   if (change_list) {
     dia_object_change_change_new (ddisp->diagram, NULL, change_list);
 
@@ -538,20 +545,29 @@ ddisplay_popup_menu(DDisplay *ddisp, GdkEventButton *event)
   gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
 		 event->button, event->time);
 }
+
+
 static void
-handle_key_event(DDisplay *ddisp, Focus *focus,
-		 guint keystate, guint keysym,
-                 const gchar *str, int strlen)
+handle_key_event (DDisplay   *ddisp,
+                  Focus      *focus,
+                  guint       keystate,
+                  guint       keysym,
+                  const char *str,
+                  int         strlen)
 {
-  DiaObject *obj = focus_get_object(focus);
+  DiaObject *obj = focus_get_object (focus);
   Point p = obj->position;
-  ObjectChange *obj_change = NULL;
+  DiaObjectChange *obj_change = NULL;
   gboolean modified;
 
-  object_add_updates(obj, ddisp->diagram);
+  object_add_updates (obj, ddisp->diagram);
 
-  modified = (focus->key_event)(focus, keystate, keysym, str, strlen,
-				&obj_change);
+  modified = (focus->key_event) (focus,
+                                 keystate,
+                                 keysym,
+                                 str,
+                                 strlen,
+                                 &obj_change);
 
   /* Make sure object updates its data and its connected: */
   p = obj->position;
@@ -1174,7 +1190,7 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
   Handle *handle1, *handle2;
   DiaObject *obj, *p_obj;
   GList *list;
-  real click_distance;
+  double click_distance;
   gboolean avoid_reset;
 
   ddisplay_untransform_coords(ddisp, x, y, &droppoint.x, &droppoint.y);
@@ -1204,8 +1220,8 @@ ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
     /* the tool was dropped inside an object that takes children*/
   {
     DiaRectangle p_ext, c_ext;
-    real parent_height, child_height, parent_width, child_width;
-    real vadjust = 0.0, hadjust = 0.0;
+    double parent_height, child_height, parent_width, child_width;
+    double vadjust = 0.0, hadjust = 0.0;
     Point new_pos;
 
     obj->parent = p_obj;

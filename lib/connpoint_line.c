@@ -23,6 +23,8 @@
 #include "connpoint_line.h"
 #include "connectionpoint.h"
 #include "dia_xml.h"
+#include "dia-object-change-legacy.h"
+
 
 #define DEBUG_PARENT 0
 #define DEBUG_ORDER 0
@@ -485,7 +487,7 @@ cpl_change_free (CPLChange *change)
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 cpl_create_change(ConnPointLine *cpl, int pos, int add)
 {
   CPLChange *change;
@@ -506,35 +508,40 @@ cpl_create_change(ConnPointLine *cpl, int pos, int add)
     change->cp[add] = new_connpoint(cpl->parent);
   }
 
-  return (ObjectChange *)change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
-ObjectChange *
-connpointline_add_points(ConnPointLine *cpl,
-			  Point *clickedpoint, int count)
+
+DiaObjectChange *
+connpointline_add_points (ConnPointLine *cpl,
+                          Point         *clickedpoint,
+                          int            count)
 {
   int pos;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  pos = cpl_get_pointbefore(cpl,clickedpoint);
-  change = cpl_create_change(cpl,pos,count);
+  pos = cpl_get_pointbefore (cpl, clickedpoint);
+  change = cpl_create_change (cpl, pos, count);
 
-  change->apply(change, (DiaObject *)cpl);
+  dia_object_change_apply (change, DIA_OBJECT (cpl));
+
   return change;
 }
 
 
-ObjectChange *
-connpointline_remove_points(ConnPointLine *cpl,
-			     Point *clickedpoint, int count)
+DiaObjectChange *
+connpointline_remove_points (ConnPointLine *cpl,
+                             Point         *clickedpoint,
+                             int            count)
 {
   int pos;
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  pos = cpl_get_pointbefore(cpl,clickedpoint);
-  change = cpl_create_change(cpl,pos,-count);
+  pos = cpl_get_pointbefore (cpl, clickedpoint);
+  change = cpl_create_change (cpl, pos, -count);
 
-  change->apply(change, (DiaObject *)cpl);
+  dia_object_change_apply (change, DIA_OBJECT (cpl));
+
   return change;
 }
 
@@ -552,7 +559,7 @@ connpointline_adjust_count (ConnPointLine *cpl,
 
   delta = newcount - oldcount;
   if (delta != 0) {
-    ObjectChange *change;
+    DiaObjectChange *change;
     /*g_message("going to adjust %d (to be %d)",delta,shouldbe);*/
 
     if (delta > 0) {
@@ -561,8 +568,7 @@ connpointline_adjust_count (ConnPointLine *cpl,
       change = connpointline_remove_points (cpl, where, -delta);
     }
 
-    if (change->free) change->free (change);
-    g_clear_pointer (&change, g_free);
+    g_clear_pointer (&change, dia_object_change_unref);
     /* we don't really need this change object. */
   }
 

@@ -62,10 +62,14 @@ struct _Realizes {
 static real realizes_distance_from(Realizes *realize, Point *point);
 static void realizes_select(Realizes *realize, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
-static ObjectChange* realizes_move_handle(Realizes *realize, Handle *handle,
-					  Point *to, ConnectionPoint *cp,
-					  HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* realizes_move(Realizes *realize, Point *to);
+static DiaObjectChange *realizes_move_handle   (Realizes         *realize,
+                                                Handle           *handle,
+                                                Point            *to,
+                                                ConnectionPoint  *cp,
+                                                HandleMoveReason  reason,
+                                                ModifierKeys      modifiers);
+static DiaObjectChange *realizes_move          (Realizes         *realize,
+                                                Point            *to);
 static void realizes_draw(Realizes *realize, DiaRenderer *renderer);
 static DiaObject *realizes_create(Point *startpoint,
 				 void *user_data,
@@ -192,12 +196,17 @@ realizes_select(Realizes *realize, Point *clicked_point,
   orthconn_update_data(&realize->orth);
 }
 
-static ObjectChange*
-realizes_move_handle(Realizes *realize, Handle *handle,
-		     Point *to, ConnectionPoint *cp,
-		     HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+realizes_move_handle (Realizes         *realize,
+                      Handle           *handle,
+                      Point            *to,
+                      ConnectionPoint  *cp,
+                      HandleMoveReason  reason,
+                      ModifierKeys      modifiers)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
+
   assert(realize!=NULL);
   assert(handle!=NULL);
   assert(to!=NULL);
@@ -208,14 +217,16 @@ realizes_move_handle(Realizes *realize, Handle *handle,
   return change;
 }
 
-static ObjectChange*
-realizes_move(Realizes *realize, Point *to)
+
+static DiaObjectChange *
+realizes_move (Realizes *realize, Point *to)
 {
-  orthconn_move(&realize->orth, to);
-  realizes_update_data(realize);
+  orthconn_move (&realize->orth, to);
+  realizes_update_data (realize);
 
   return NULL;
 }
+
 
 static void
 realizes_draw (Realizes *realize, DiaRenderer *renderer)
@@ -349,21 +360,29 @@ realizes_update_data(Realizes *realize)
   rectangle_union(&obj->bounding_box, &rect);
 }
 
-static ObjectChange *
-realizes_add_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+realizes_add_segment_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  ObjectChange *change;
-  change = orthconn_add_segment((OrthConn *)obj, clicked);
-  realizes_update_data((Realizes *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_add_segment ((OrthConn *) obj, clicked);
+  realizes_update_data ((Realizes *) obj);
+
   return change;
 }
 
-static ObjectChange *
-realizes_delete_segment_callback(DiaObject *obj, Point *clicked, gpointer data)
+
+static DiaObjectChange *
+realizes_delete_segment_callback (DiaObject *obj,
+                                  Point     *clicked,
+                                  gpointer   data)
 {
-  ObjectChange *change;
-  change = orthconn_delete_segment((OrthConn *)obj, clicked);
-  realizes_update_data((Realizes *)obj);
+  DiaObjectChange *change;
+
+  change = orthconn_delete_segment ((OrthConn *) obj, clicked);
+  realizes_update_data ((Realizes *) obj);
+
   return change;
 }
 

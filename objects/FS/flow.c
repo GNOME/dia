@@ -35,6 +35,7 @@
 #include "text.h"
 #include "connection.h"
 #include "properties.h"
+#include "dia-object-change-legacy.h"
 
 #include "pixmaps/flow.xpm"
 
@@ -67,11 +68,14 @@ struct _Flow {
 #define FLOW_ARROWWIDTH 0.5
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM1)
 
-static ObjectChange* flow_move_handle(Flow *flow, Handle *handle,
-				      Point *to, ConnectionPoint *cp,
-				      HandleMoveReason reason,
-				      ModifierKeys modifiers);
-static ObjectChange* flow_move(Flow *flow, Point *to);
+static DiaObjectChange *flow_move_handle       (Flow             *flow,
+                                                Handle           *handle,
+                                                Point            *to,
+                                                ConnectionPoint  *cp,
+                                                HandleMoveReason  reason,
+                                                ModifierKeys      modifiers);
+static DiaObjectChange *flow_move              (Flow             *flow,
+                                                Point            *to);
 static void flow_select(Flow *flow, Point *clicked_point,
 			DiaRenderer *interactive_renderer);
 static void flow_draw(Flow *flow, DiaRenderer *renderer);
@@ -212,10 +216,14 @@ flow_select(Flow *flow, Point *clicked_point,
   connection_update_handles(&flow->connection);
 }
 
-static ObjectChange*
-flow_move_handle(Flow *flow, Handle *handle,
-		 Point *to, ConnectionPoint *cp,
-		 HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+flow_move_handle (Flow             *flow,
+                  Handle           *handle,
+                  Point            *to,
+                  ConnectionPoint  *cp,
+                  HandleMoveReason  reason,
+                  ModifierKeys      modifiers)
 {
   Point p1, p2;
   Point *endpoints;
@@ -280,8 +288,9 @@ flow_move_handle(Flow *flow, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
-flow_move(Flow *flow, Point *to)
+
+static DiaObjectChange *
+flow_move (Flow *flow, Point *to)
 {
   Point start_to_end;
   Point *endpoints = &flow->connection.endpoints[0];
@@ -596,8 +605,9 @@ type_change_revert(struct TypeChange *change, DiaObject *obj)
   flow_update_data(flow);
 }
 
-static ObjectChange *
-type_create_change(Flow *flow, int type)
+
+static DiaObjectChange *
+type_create_change (Flow *flow, int type)
 {
   struct TypeChange *change;
 
@@ -610,20 +620,21 @@ type_create_change(Flow *flow, int type)
   change->old_type = flow->type;
   change->new_type = type;
 
-  return (ObjectChange *)change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 flow_set_type_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  change = type_create_change((Flow *)obj, GPOINTER_TO_INT(data));
-  change->apply(change, obj);
+  change = type_create_change ((Flow *) obj, GPOINTER_TO_INT (data));
+  dia_object_change_apply (change, obj);
 
   return change;
 }
+
 
 static DiaMenuItem flow_menu_items[] = {
   { N_("Energy"), flow_set_type_callback, (void*)FLOW_ENERGY, 1 },

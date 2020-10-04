@@ -62,10 +62,10 @@ struct _Implements {
 #define HANDLE_CIRCLE_SIZE (HANDLE_CUSTOM1)
 #define HANDLE_MOVE_TEXT (HANDLE_CUSTOM2)
 
-static ObjectChange* implements_move_handle(Implements *implements, Handle *handle,
+static DiaObjectChange* implements_move_handle(Implements *implements, Handle *handle,
 					    Point *to, ConnectionPoint *cp,
 					    HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* implements_move(Implements *implements, Point *to);
+static DiaObjectChange* implements_move(Implements *implements, Point *to);
 static void implements_select(Implements *implements, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void implements_draw(Implements *implements, DiaRenderer *renderer);
@@ -197,7 +197,7 @@ implements_select(Implements *implements, Point *clicked_point,
   connection_update_handles(&implements->connection);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 implements_move_handle(Implements *implements, Handle *handle,
 		       Point *to, ConnectionPoint *cp,
 		       HandleMoveReason reason, ModifierKeys modifiers)
@@ -233,7 +233,7 @@ implements_move_handle(Implements *implements, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 implements_move(Implements *implements, Point *to)
 {
   Point start_to_end;

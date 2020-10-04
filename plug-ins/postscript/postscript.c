@@ -29,26 +29,32 @@
 #include "render_eps.h"
 #include "paginate_psprint.h"
 
-static ObjectChange *
+
+static DiaObjectChange *
 print_callback (DiagramData *data,
-                const gchar *filename,
-                guint flags, /* further additions */
-                void *user_data)
+                const char  *filename,
+                /* further additions */
+                guint        flags,
+                void        *user_data)
 {
-  if (!data)
+  if (!data) {
     message_error (_("Nothing to print"));
-  else
+  } else {
     diagram_print_ps (data, filename ? filename : "output.ps");
+  }
+
   return NULL;
 }
 
+
 static DiaCallbackFilter cb_ps_print = {
-    "FilePrintPS",
-    N_("Print (PS)"),
-    "/InvisibleMenu/File/FilePrint",
-    print_callback,
-    NULL
+  "FilePrintPS",
+  N_("Print (PS)"),
+  "/InvisibleMenu/File/FilePrint",
+  print_callback,
+  NULL
 };
+
 
 /* --- dia plug-in interface --- */
 static gboolean

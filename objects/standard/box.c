@@ -31,6 +31,8 @@
 #include "create.h"
 #include "message.h"
 #include "pattern.h"
+#include "dia-object-change-legacy.h"
+
 
 #define DEFAULT_WIDTH 2.0
 #define DEFAULT_HEIGHT 1.0
@@ -75,32 +77,44 @@ static struct _BoxProperties {
   AspectType aspect;
 } default_properties = { TRUE, 0.0 };
 
-static real box_distance_from(Box *box, Point *point);
-static void box_select(Box *box, Point *clicked_point,
-		       DiaRenderer *interactive_renderer);
-static ObjectChange* box_move_handle(Box *box, Handle *handle,
-			    Point *to, ConnectionPoint *cp,
-				     HandleMoveReason reason,
-			    ModifierKeys modifiers);
-static ObjectChange* box_move(Box *box, Point *to);
-static void box_draw(Box *box, DiaRenderer *renderer);
-static void box_update_data(Box *box);
-static DiaObject *box_create(Point *startpoint,
-			  void *user_data,
-			  Handle **handle1,
-			  Handle **handle2);
-static void box_destroy(Box *box);
-static DiaObject *box_copy(Box *box);
 
-static void box_set_props(Box *box, GPtrArray *props);
+static double           box_distance_from    (Box              *box,
+                                              Point            *point);
+static void             box_select           (Box              *box,
+                                              Point            *clicked_point,
+                                              DiaRenderer      *interactive_renderer);
+static DiaObjectChange *box_move_handle      (Box              *box,
+                                              Handle           *handle,
+                                              Point            *to,
+                                              ConnectionPoint  *cp,
+                                              HandleMoveReason  reason,
+                                              ModifierKeys      modifiers);
+static DiaObjectChange *box_move             (Box              *box,
+                                              Point            *to);
+static void             box_draw             (Box              *box,
+                                              DiaRenderer      *renderer);
+static void             box_update_data      (Box              *box);
+static DiaObject       *box_create           (Point            *startpoint,
+                                              void             *user_data,
+                                              Handle          **handle1,
+                                              Handle          **handle2);
+static void             box_destroy          (Box              *box);
+static DiaObject       *box_copy             (Box              *box);
+static void             box_set_props        (Box              *box,
+                                              GPtrArray        *props);
+static void             box_save             (Box              *box,
+                                              ObjectNode        obj_node,
+                                              DiaContext       *ctx);
+static DiaObject       *box_load             (ObjectNode        obj_node,
+                                              int               version,
+                                              DiaContext       *ctx);
+static DiaMenu         *box_get_object_menu  (Box              *box,
+                                              Point            *clickedpoint);
+static gboolean         box_transform        (Box              *box,
+                                              const DiaMatrix  *m);
 
-static void box_save(Box *box, ObjectNode obj_node, DiaContext *ctx);
-static DiaObject *box_load(ObjectNode obj_node, int version, DiaContext *ctx);
-static DiaMenu *box_get_object_menu(Box *box, Point *clickedpoint);
-static gboolean box_transform(Box *box, const DiaMatrix *m);
 
-static ObjectTypeOps box_type_ops =
-{
+static ObjectTypeOps box_type_ops = {
   (CreateFunc) box_create,
   (LoadFunc)   box_load,
   (SaveFunc)   box_save,
@@ -265,7 +279,7 @@ box_select(Box *box, Point *clicked_point,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 box_move_handle (Box              *box,
                  Handle           *handle,
                  Point            *to,
@@ -336,15 +350,17 @@ box_move_handle (Box              *box,
   return NULL;
 }
 
-static ObjectChange*
-box_move(Box *box, Point *to)
+
+static DiaObjectChange *
+box_move (Box *box, Point *to)
 {
   box->element.corner = *to;
 
-  box_update_data(box);
+  box_update_data (box);
 
   return NULL;
 }
+
 
 static void
 box_draw (Box *box, DiaRenderer *renderer)
@@ -740,7 +756,8 @@ aspect_change_revert(struct AspectChange *change, DiaObject *obj)
   box_update_data(box);
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 aspect_create_change(Box *box, AspectType aspect)
 {
   struct AspectChange *change;
@@ -757,20 +774,21 @@ aspect_create_change(Box *box, AspectType aspect)
   change->width = box->element.width;
   change->height = box->element.height;
 
-  return (ObjectChange *)change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 box_set_aspect_callback (DiaObject* obj, Point* clicked, gpointer data)
 {
-  ObjectChange *change;
+  DiaObjectChange *change;
 
-  change = aspect_create_change((Box*)obj, (AspectType)data);
-  change->apply(change, obj);
+  change = aspect_create_change ((Box*) obj, (AspectType) data);
+  dia_object_change_apply (change, obj);
 
   return change;
 }
+
 
 static DiaMenuItem box_menu_items[] = {
   { N_("Free aspect"), box_set_aspect_callback, (void*)FREE_ASPECT,

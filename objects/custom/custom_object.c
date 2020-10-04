@@ -46,6 +46,7 @@
 #include "dia_image.h"
 #include "custom_object.h"
 #include "prefs.h"
+#include "dia-object-change-legacy.h"
 
 #include "pixmaps/custom.xpm"
 
@@ -74,8 +75,8 @@ struct _Custom {
   /*! ShapeInfo giving the object it's drawing info */
   ShapeInfo *info;
   /*! transformation coords */
-  real xscale, yscale;
-  real xoffs,  yoffs;
+  double xscale, yscale;
+  double xoffs,  yoffs;
 
   /*!
    * The sub-scale variables
@@ -83,8 +84,8 @@ struct _Custom {
    * (shift-pressed) scaling
    * @{
    */
-  real subscale;
-  real old_subscale;
+  double subscale;
+  double old_subscale;
   /*! @} */
   /*!
    * \brief Pointer changing during the drawing of the display list
@@ -96,29 +97,35 @@ struct _Custom {
   /*! Connection points need to be dynamically allocated */
   ConnectionPoint *connections;
   /*! width calculate from line_width */
-  real border_width;
+  double border_width;
   Color border_color;
   Color inner_color;
   gboolean show_background;
   LineStyle line_style;
-  real dashlength;
+  double dashlength;
 
   gboolean flip_h, flip_v;
 
   Text *text;
-  real padding;
+  double padding;
 
   TextFitting text_fitting;
 };
 
-static real custom_distance_from(Custom *custom, Point *point);
-static void custom_select(Custom *custom, Point *clicked_point,
-			  DiaRenderer *interactive_renderer);
-static ObjectChange* custom_move_handle(Custom *custom, Handle *handle,
-					Point *to, ConnectionPoint *cp,
-					HandleMoveReason reason,
-					ModifierKeys modifiers);
-static ObjectChange* custom_move(Custom *custom, Point *to);
+
+static double           custom_distance_from (Custom           *custom,
+                                              Point            *point);
+static void             custom_select        (Custom           *custom,
+                                              Point            *clicked_point,
+                                              DiaRenderer      *interactive_renderer);
+static DiaObjectChange *custom_move_handle   (Custom           *custom,
+                                              Handle           *handle,
+                                              Point            *to,
+                                              ConnectionPoint  *cp,
+                                              HandleMoveReason  reason,
+                                              ModifierKeys      modifiers);
+static DiaObjectChange *custom_move          (Custom           *custom,
+                                              Point            *to);
 static void custom_draw(Custom *custom, DiaRenderer *renderer);
 static void custom_draw_displaylist(GList *display_list, Custom *custom,
 				DiaRenderer *renderer, GArray *arr, GArray *barr, real* cur_line,
@@ -788,7 +795,7 @@ custom_adjust_scale (Custom           *custom,
 }
 
 
-static ObjectChange*
+static DiaObjectChange *
 custom_move_handle (Custom           *custom,
                     Handle           *handle,
                     Point            *to,
@@ -862,39 +869,42 @@ custom_move_handle (Custom           *custom,
   return NULL;
 }
 
-static ObjectChange*
-custom_move(Custom *custom, Point *to)
+
+static DiaObjectChange *
+custom_move (Custom *custom, Point *to)
 {
   custom->element.corner = *to;
 
-  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  custom_update_data (custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
   return NULL;
 }
 
+
 static void
-get_colour(Custom *custom, Color *colour, gint32 c, real opacity)
+get_colour (Custom *custom, Color *colour, gint32 c, double opacity)
 {
   switch (c) {
-  case DIA_SVG_COLOUR_NONE:
-    break;
-  case DIA_SVG_COLOUR_FOREGROUND:
-    *colour = custom->border_color;
-    break;
-  case DIA_SVG_COLOUR_BACKGROUND:
-    *colour = custom->inner_color;
-    break;
-  case DIA_SVG_COLOUR_TEXT:
-    *colour = custom->text->color;
-    break;
-  default:
-    colour->alpha = opacity;
-    colour->red   = ((c & 0x00ff0000) >> 16) / 255.0;
-    colour->green = ((c & 0x0000ff00) >> 8) / 255.0;
-    colour->blue  =  (c & 0x000000ff) / 255.0;
-    break;
+    case DIA_SVG_COLOUR_NONE:
+      break;
+    case DIA_SVG_COLOUR_FOREGROUND:
+      *colour = custom->border_color;
+      break;
+    case DIA_SVG_COLOUR_BACKGROUND:
+      *colour = custom->inner_color;
+      break;
+    case DIA_SVG_COLOUR_TEXT:
+      *colour = custom->text->color;
+      break;
+    default:
+      colour->alpha = opacity;
+      colour->red   = ((c & 0x00ff0000) >> 16) / 255.0;
+      colour->green = ((c & 0x0000ff00) >> 8) / 255.0;
+      colour->blue  =  (c & 0x000000ff) / 255.0;
+      break;
   }
 }
+
 
 static void
 custom_draw (Custom *custom, DiaRenderer *renderer)
@@ -1870,11 +1880,11 @@ custom_change_revert (struct CustomObjectChange *change,
 }
 
 
-static ObjectChange *
+static DiaObjectChange *
 custom_flip_h_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Custom *custom = (Custom *)obj;
-  struct CustomObjectChange *change = g_new0(struct CustomObjectChange, 1);
+  struct CustomObjectChange *change = g_new0 (struct CustomObjectChange, 1);
 
   change->objchange.apply = (ObjectChangeApplyFunc)custom_change_apply;
   change->objchange.revert = (ObjectChangeRevertFunc)custom_change_revert;
@@ -1885,14 +1895,15 @@ custom_flip_h_callback (DiaObject *obj, Point *clicked, gpointer data)
   custom->flip_h = !custom->flip_h;
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-  return &change->objchange;
+  return dia_object_change_legacy_new (&change->objchange);
 }
 
-static ObjectChange *
+
+static DiaObjectChange *
 custom_flip_v_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   Custom *custom = (Custom *)obj;
-  struct CustomObjectChange *change = g_new0(struct CustomObjectChange, 1);
+  struct CustomObjectChange *change = g_new0 (struct CustomObjectChange, 1);
 
   change->objchange.apply = (ObjectChangeApplyFunc)custom_change_apply;
   change->objchange.revert = (ObjectChangeRevertFunc)custom_change_revert;
@@ -1903,8 +1914,9 @@ custom_flip_v_callback (DiaObject *obj, Point *clicked, gpointer data)
   custom->flip_v = !custom->flip_v;
   custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-  return &change->objchange;
+  return dia_object_change_legacy_new (&change->objchange);
 }
+
 
 static DiaMenuItem custom_menu_items[] = {
   { N_("Flip Horizontal"), custom_flip_h_callback, NULL, 1 },

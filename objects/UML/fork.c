@@ -56,10 +56,10 @@ static const double FORK_MARGIN = 0.125;
 
 static real fork_distance_from(Fork *branch, Point *point);
 static void fork_select(Fork *branch, Point *clicked_point, DiaRenderer *interactive_renderer);
-static ObjectChange* fork_move_handle(Fork *branch, Handle *handle,
+static DiaObjectChange* fork_move_handle(Fork *branch, Handle *handle,
 				      Point *to, ConnectionPoint *cp,
 				      HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* fork_move(Fork *branch, Point *to);
+static DiaObjectChange* fork_move(Fork *branch, Point *to);
 static void fork_draw(Fork *branch, DiaRenderer *renderer);
 static DiaObject *fork_create(Point *startpoint,
 			     void *user_data,
@@ -160,7 +160,7 @@ fork_select(Fork *branch, Point *clicked_point, DiaRenderer *interactive_rendere
 }
 
 
-static ObjectChange*
+static DiaObjectChange*
 fork_move_handle (Fork             *branch,
                   Handle           *handle,
                   Point            *to,
@@ -192,7 +192,7 @@ fork_move_handle (Fork             *branch,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 fork_move(Fork *branch, Point *to)
 {
   branch->element.corner = *to;

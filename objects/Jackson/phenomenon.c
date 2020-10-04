@@ -74,10 +74,10 @@ struct _Message {
 
 static DiaFont *message_font = NULL;
 
-static ObjectChange* message_move_handle(Message *message, Handle *handle,
+static DiaObjectChange* message_move_handle(Message *message, Handle *handle,
 				   Point *to, ConnectionPoint *cp,
 				   HandleMoveReason reason, ModifierKeys modifiers);
-static ObjectChange* message_move(Message *message, Point *to);
+static DiaObjectChange* message_move(Message *message, Point *to);
 static void message_select(Message *message, Point *clicked_point,
 			      DiaRenderer *interactive_renderer);
 static void message_draw(Message *message, DiaRenderer *renderer);
@@ -200,7 +200,7 @@ message_select(Message *message, Point *clicked_point,
   connection_update_handles(&message->connection);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 message_move_handle(Message *message, Handle *handle,
 		 Point *to, ConnectionPoint *cp,
 		 HandleMoveReason reason, ModifierKeys modifiers)
@@ -230,7 +230,7 @@ message_move_handle(Message *message, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 message_move(Message *message, Point *to)
 {
   Point start_to_end;

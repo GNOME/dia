@@ -25,6 +25,7 @@
 #include <glib.h>
 #include "diagramdata.h"
 #include "diacontext.h"
+#include "dia-object-change.h"
 
 G_BEGIN_DECLS
 
@@ -56,7 +57,7 @@ struct _DiaExportFilter {
 };
 
 /* returns FALSE on error loading diagram */
-typedef gboolean (* DiaImportFunc) (const gchar* filename, DiagramData *dia, 
+typedef gboolean (* DiaImportFunc) (const gchar* filename, DiagramData *dia,
                                     DiaContext *ctx, void* user_data);
 /* load from given memory block instead of from file */
 typedef gboolean (* DiaImportMemFunc) (const guchar *p, guint size, DiagramData *dia,
@@ -82,10 +83,12 @@ struct _DiaImportFilter {
 };
 
 /* gets called as menu callback */
-typedef ObjectChange * (* DiaCallbackFunc) (DiagramData *dia,
-					    const gchar *filename, /* the original filename */
-					    guint flags, /* further additions */
-					    void* user_data);
+typedef DiaObjectChange * (* DiaCallbackFunc) (DiagramData *dia,
+                                               /* the original filename */
+                                               const char  *filename,
+                                               /* further additions */
+                                               guint        flags,
+                                               void        *user_data);
 
 struct _DiaCallbackFilter {
   const gchar *action;

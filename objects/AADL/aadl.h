@@ -175,11 +175,14 @@ void aadlbox_update_ports(Aadlbox *aadlbox);
 real aadlbox_distance_from(Aadlbox *aadlbox, Point *point);
 void aadlbox_select(Aadlbox *aadlbox, Point *clicked_point,
 		    DiaRenderer *interactive_renderer);
-ObjectChange* aadlbox_move_handle(Aadlbox *aadlbox, Handle *handle,
-				  Point *to, ConnectionPoint *cp,
-				  HandleMoveReason reason,
-				  ModifierKeys modifiers);
-ObjectChange* aadlbox_move(Aadlbox *aadlbox, Point *to);
+DiaObjectChange *aadlbox_move_handle (Aadlbox          *aadlbox,
+                                      Handle           *handle,
+                                      Point            *to,
+                                      ConnectionPoint  *cp,
+                                      HandleMoveReason  reason,
+                                      ModifierKeys      modifiers);
+DiaObjectChange *aadlbox_move        (Aadlbox          *aadlbox,
+                                      Point            *to);
 void aadlbox_draw(Aadlbox *aadlbox, DiaRenderer *renderer);
 DiaObject *aadlbox_create(Point *startpoint, void *user_data,
 			  Handle **handle1, Handle **handle2);

@@ -61,12 +61,14 @@ static real basestation_distance_from(Basestation *basestation,
 static void basestation_select(Basestation *basestation,
                                Point *clicked_point,
                                DiaRenderer *interactive_renderer);
-static ObjectChange
-    *basestation_move_handle(Basestation *basestation, Handle *handle,
-                             Point *to, ConnectionPoint *cp,
-                             HandleMoveReason reason,
-                             ModifierKeys modifiers);
-static ObjectChange *basestation_move(Basestation *basestation, Point *to);
+static DiaObjectChange *basestation_move_handle    (Basestation      *basestation,
+                                                    Handle           *handle,
+                                                    Point            *to,
+                                                    ConnectionPoint  *cp,
+                                                    HandleMoveReason  reason,
+                                                    ModifierKeys      modifiers);
+static DiaObjectChange *basestation_move           (Basestation      *basestation,
+                                                    Point            *to);
 static void basestation_draw(Basestation *basestation,
                              DiaRenderer *renderer);
 static DiaObject *basestation_create(Point *startpoint,
@@ -187,12 +189,16 @@ basestation_select(Basestation *basestation, Point *clicked_point,
   element_update_handles(&basestation->element);
 }
 
-static ObjectChange*
-basestation_move_handle(Basestation *basestation, Handle *handle,
-                        Point *to, ConnectionPoint *cp,
-                        HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+basestation_move_handle (Basestation      *basestation,
+                         Handle           *handle,
+                         Point            *to,
+                         ConnectionPoint  *cp,
+                         HandleMoveReason  reason,
+                         ModifierKeys      modifiers)
 {
-  ObjectChange* oc;
+  DiaObjectChange *oc;
 
   assert(basestation!=NULL);
   assert(handle!=NULL);
@@ -207,8 +213,9 @@ basestation_move_handle(Basestation *basestation, Handle *handle,
   return oc;
 }
 
-static ObjectChange*
-basestation_move(Basestation *basestation, Point *to)
+
+static DiaObjectChange*
+basestation_move (Basestation *basestation, Point *to)
 {
   Element *elem = &basestation->element;
 

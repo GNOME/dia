@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-/*! 
- * \file objchange.h -- Forming the basic of undo support to be implemented in objects 
+/*!
+ * \file objchange.h -- Forming the basic of undo support to be implemented in objects
  */
 /*!
  * \defgroup ObjChange Support for undo/redo
@@ -28,6 +28,7 @@
 #define OBJCHANGE_H
 
 #include "diatypes.h"
+#include "dia-object-change.h"
 
 G_BEGIN_DECLS
 
@@ -67,7 +68,7 @@ struct _ObjectState {
 
   Need not save state that only depens on
   the object and it's handles positions.
-  
+
   The calling function owns the returned reference.
 
   \ingroup ObjChange
@@ -86,22 +87,13 @@ typedef ObjectState * (*GetStateFunc) (DiaObject* obj);
 */
 typedef void (*SetStateFunc) (DiaObject* obj, ObjectState *state);
 
-/*! Create a single change from the ObjectState 
+/*! Create a single change from the ObjectState
  * \ingroup ObjChange
  */
-ObjectChange *new_object_state_change(DiaObject *obj,
-				      ObjectState *old_state,
-				      GetStateFunc get_state,
-				      SetStateFunc set_state );
-
-/*! Create a list of ObjectChange for single step undo/redo 
- * \ingroup ObjChange
- */
-ObjectChange *change_list_create (void);
-/*! Add another ObjectChange to the list of changes
- * \ingroup ObjChange
- */
-void change_list_add (ObjectChange *change_list, ObjectChange *change);
+DiaObjectChange *new_object_state_change (DiaObject    *obj,
+                                          ObjectState  *old_state,
+                                          GetStateFunc  get_state,
+                                          SetStateFunc  set_state);
 
 G_END_DECLS
 

@@ -67,11 +67,11 @@ static real analog_clock_distance_from(Analog_Clock *analog_clock,
 static void analog_clock_select(Analog_Clock *analog_clock,
                                 Point *clicked_point,
                                 DiaRenderer *interactive_renderer);
-static ObjectChange* analog_clock_move_handle(Analog_Clock *analog_clock,
+static DiaObjectChange* analog_clock_move_handle(Analog_Clock *analog_clock,
 					      Handle *handle, Point *to,
 					      ConnectionPoint *cp, HandleMoveReason reason,
                                      ModifierKeys modifiers);
-static ObjectChange* analog_clock_move(Analog_Clock *analog_clock, Point *to);
+static DiaObjectChange* analog_clock_move(Analog_Clock *analog_clock, Point *to);
 static void analog_clock_draw(Analog_Clock *analog_clock, DiaRenderer *renderer);
 static void analog_clock_update_data(Analog_Clock *analog_clock);
 static DiaObject *analog_clock_create(Point *startpoint,
@@ -201,7 +201,7 @@ analog_clock_select(Analog_Clock *analog_clock, Point *clicked_point,
   element_update_handles(&analog_clock->element);
 }
 
-static ObjectChange*
+static DiaObjectChange*
 analog_clock_move_handle(Analog_Clock *analog_clock, Handle *handle,
 			 Point *to, ConnectionPoint *cp,
 			 HandleMoveReason reason, ModifierKeys modifiers)
@@ -217,7 +217,7 @@ analog_clock_move_handle(Analog_Clock *analog_clock, Handle *handle,
   return NULL;
 }
 
-static ObjectChange*
+static DiaObjectChange*
 analog_clock_move(Analog_Clock *analog_clock, Point *to)
 {
   analog_clock->element.corner = *to;

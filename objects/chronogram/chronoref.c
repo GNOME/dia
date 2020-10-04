@@ -72,11 +72,14 @@ typedef struct _Chronoref {
 static real chronoref_distance_from(Chronoref *chronoref, Point *point);
 static void chronoref_select(Chronoref *chronoref, Point *clicked_point,
 		       DiaRenderer *interactive_renderer);
-static ObjectChange* chronoref_move_handle(Chronoref *chronoref, Handle *handle,
-					   Point *to, ConnectionPoint *cp,
-					   HandleMoveReason reason,
-			    ModifierKeys modifiers);
-static ObjectChange* chronoref_move(Chronoref *chronoref, Point *to);
+static DiaObjectChange *chronoref_move_handle  (Chronoref        *chronoref,
+                                                Handle           *handle,
+                                                Point            *to,
+                                                ConnectionPoint  *cp,
+                                                HandleMoveReason  reason,
+                                                ModifierKeys      modifiers);
+static DiaObjectChange *chronoref_move         (Chronoref        *chronoref,
+                                                Point            *to);
 static void chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer);
 static void chronoref_update_data(Chronoref *chronoref);
 static DiaObject *chronoref_create(Point *startpoint,
@@ -233,30 +236,40 @@ chronoref_select(Chronoref *chronoref, Point *clicked_point,
   element_update_handles(&chronoref->element);
 }
 
-static ObjectChange*
-chronoref_move_handle(Chronoref *chronoref, Handle *handle,
-		      Point *to, ConnectionPoint *cp,
-		      HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+chronoref_move_handle (Chronoref        *chronoref,
+                       Handle           *handle,
+                       Point            *to,
+                       ConnectionPoint  *cp,
+                       HandleMoveReason  reason,
+                       ModifierKeys      modifiers)
 {
   g_assert(chronoref!=NULL);
   g_assert(handle!=NULL);
   g_assert(to!=NULL);
 
-  element_move_handle(&chronoref->element, handle->id, to, cp,
-		      reason, modifiers);
-  chronoref_update_data(chronoref);
+  element_move_handle (&chronoref->element,
+                       handle->id,
+                       to,
+                       cp,
+                       reason,
+                       modifiers);
+  chronoref_update_data (chronoref);
 
   return NULL;
 }
 
-static ObjectChange*
-chronoref_move(Chronoref *chronoref, Point *to)
+
+static DiaObjectChange *
+chronoref_move (Chronoref *chronoref, Point *to)
 {
   chronoref->element.corner = *to;
-  chronoref_update_data(chronoref);
+  chronoref_update_data (chronoref);
 
   return NULL;
 }
+
 
 static void
 chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer)

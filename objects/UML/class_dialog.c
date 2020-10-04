@@ -37,11 +37,11 @@
 #include <string.h>
 
 #include "object.h"
-#include "objchange.h"
 #include "intl.h"
 #include "class.h"
 #include "diaoptionmenu.h"
 #include "diafontselector.h"
+#include "dia-object-change-legacy.h"
 
 #include "class_dialog.h"
 
@@ -126,10 +126,12 @@ struct _UMLClassChange {
   UMLClassState *saved_state;
 };
 
-static UMLClassState *umlclass_get_state(UMLClass *umlclass);
-static ObjectChange *new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
-					 GList *added, GList *deleted,
-					 GList *disconnected);
+static UMLClassState   *umlclass_get_state  (UMLClass      *umlclass);
+static DiaObjectChange *new_umlclass_change (UMLClass      *obj,
+                                             UMLClassState *saved_state,
+                                             GList         *added,
+                                             GList         *deleted,
+                                             GList         *disconnected);
 
 /**** Utility functions ******/
 void
@@ -587,7 +589,7 @@ fill_in_dialog (UMLClass *umlclass)
 }
 
 
-ObjectChange *
+DiaObjectChange *
 umlclass_apply_props_from_dialog (UMLClass *umlclass, GtkWidget *widget)
 {
   UMLClassDialog *prop_dialog;
@@ -1043,9 +1045,13 @@ umlclass_change_free(UMLClassChange *change)
 
 }
 
-static ObjectChange *
-new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
-		    GList *added, GList *deleted, GList *disconnected)
+
+static DiaObjectChange *
+new_umlclass_change (UMLClass      *obj,
+                     UMLClassState *saved_state,
+                     GList         *added,
+                     GList         *deleted,
+                     GList         *disconnected)
 {
   UMLClassChange *change;
 
@@ -1066,7 +1072,7 @@ new_umlclass_change(UMLClass *obj, UMLClassState *saved_state,
   change->deleted_cp = deleted;
   change->disconnected = disconnected;
 
-  return (ObjectChange *)change;
+  return dia_object_change_legacy_new ((ObjectChange *) change);
 }
 
 
