@@ -361,6 +361,19 @@ EXPORTS
  dia_object_edit_text
  dia_object_transform
 
+ dia_change_get_type
+ dia_change_new
+ dia_change_ref
+ dia_change_unref
+ dia_change_apply
+ dia_change_revert
+
+ dia_object_change_get_type
+ dia_object_change_new
+ dia_object_change_ref
+ dia_object_change_unref
+ dia_object_change_apply
+ dia_object_change_revert
 
  dia_plugin_can_unload
  dia_plugin_check_version
