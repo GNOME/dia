@@ -15,13 +15,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef GROUP_H
-#define GROUP_H
+
+#pragma once
 
 #include "diavar.h"
 #include "object.h"
 
 G_BEGIN_DECLS
+
+#define DIA_TYPE_GROUP_OBJECT_CHANGE dia_group_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaGroupObjectChange, dia_group_object_change, DIA, GROUP_OBJECT_CHANGE, DiaObjectChange)
+
 
 #define DIA_GROUP(object) ((Group *) object)
 
@@ -40,5 +44,3 @@ const DiaMatrix *group_get_transform (Group *group);
 #define IS_GROUP(obj) ((obj)->type == &group_type)
 
 G_END_DECLS
-
-#endif /* GROUP_H */

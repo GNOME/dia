@@ -44,21 +44,9 @@ struct _Group {
   DiaMatrix *matrix;
 };
 
-typedef struct _GroupPropChange GroupPropChange;
-struct _GroupPropChange {
-  ObjectChange obj_change;
-  Group *group;
-  GList *changes_per_object;
-};
-
 
 static DiaObjectChange       *group_apply_properties_list    (Group            *group,
                                                               GPtrArray        *props);
-static void                   group_prop_change_apply        (GroupPropChange  *change,
-                                                              DiaObject        *obj);
-static void                   group_prop_change_revert       (GroupPropChange  *change,
-                                                              DiaObject        *obj);
-static void                   group_prop_change_free         (GroupPropChange  *change);
 static double                 group_distance_from            (Group            *group,
                                                               Point            *point);
 static void                   group_select                   (Group            *group);
@@ -803,69 +791,29 @@ group_set_props(Group *group, GPtrArray *props)
 }
 
 
-DiaObjectChange *
-group_apply_properties_list (Group *group, GPtrArray *props)
+struct _DiaGroupObjectChange {
+  DiaObjectChange obj_change;
+  Group *group;
+  GList *changes_per_object;
+};
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaGroupObjectChange, dia_group_object_change)
+
+
+static void
+dia_group_object_change_free (DiaObjectChange *self)
 {
-  GList *tmp = NULL;
-  GList *clist = NULL;
-  DiaObjectChange *objchange;
-  GroupPropChange *change = NULL;
-  GPtrArray *props_list, *props_self;
-  guint i;
+  DiaGroupObjectChange *change = DIA_GROUP_OBJECT_CHANGE (self);
 
-  change = g_new0(GroupPropChange, 1);
-
-
-  change->obj_change.apply =
-    (ObjectChangeApplyFunc) group_prop_change_apply;
-  change->obj_change.revert =
-    (ObjectChangeRevertFunc) group_prop_change_revert;
-  change->obj_change.free =
-    (ObjectChangeFreeFunc) group_prop_change_free;
-
-  change->group = group;
-
-  /* Need to split the passed in properties to self props
-   * and the ones really passed to the list of owned objects.
-   */
-  props_self = g_ptr_array_new();
-  props_list = g_ptr_array_new();
-  for (i=0; i < props->len; ++i) {
-    Property *p = g_ptr_array_index(props,i);
-
-    if (p->experience & PXP_NOTSET)
-      continue;
-    else if ((p->descr->flags & PROP_FLAG_SELF_ONLY) != 0)
-      g_ptr_array_add(props_self, p);
-    else
-      g_ptr_array_add(props_list, p);
-  }
-
-  for (tmp = group->objects; tmp != NULL; tmp = g_list_next (tmp)) {
-    DiaObject *obj = (DiaObject*) tmp->data;
-    objchange = NULL;
-
-    objchange = dia_object_apply_properties (obj, props_list);
-    clist = g_list_append (clist, objchange);
-  }
-  /* finally ourself */
-  objchange = object_apply_props (&group->object, props_self);
-  clist = g_list_append (clist, objchange);
-
-  g_ptr_array_free(props_list, TRUE);
-  g_ptr_array_free(props_self, TRUE);
-
-  group_update_data (group);
-
-  change->changes_per_object = clist;
-
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  g_list_free_full (change->changes_per_object, dia_object_change_unref);
 }
 
 
 static void
-group_prop_change_apply (GroupPropChange *change, DiaObject *obj)
+dia_group_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaGroupObjectChange *change = DIA_GROUP_OBJECT_CHANGE (self);
   GList *tmp;
 
   for (tmp = change->changes_per_object; tmp != NULL;
@@ -886,12 +834,13 @@ group_prop_change_apply (GroupPropChange *change, DiaObject *obj)
 
 
 static void
-group_prop_change_revert (GroupPropChange *change, DiaObject *obj)
+dia_group_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaGroupObjectChange *change = DIA_GROUP_OBJECT_CHANGE (self);
   GList *tmp;
 
   for (tmp = change->changes_per_object; tmp != NULL;
-       tmp = g_list_next(tmp)) {
+       tmp = g_list_next (tmp)) {
     DiaObjectChange *obj_change = DIA_OBJECT_CHANGE (tmp->data);
 
     /*
@@ -907,10 +856,62 @@ group_prop_change_revert (GroupPropChange *change, DiaObject *obj)
 }
 
 
-static void
-group_prop_change_free (GroupPropChange *change)
+static DiaObjectChange *
+dia_group_object_change_new (Group *group, GList *changes_per_object)
 {
-  g_list_free_full (change->changes_per_object, dia_object_change_unref);
+  DiaGroupObjectChange *self = dia_object_change_new (DIA_TYPE_GROUP_OBJECT_CHANGE);
+
+  self->group = group;
+  self->changes_per_object = changes_per_object;
+
+  return DIA_OBJECT_CHANGE (self);
+}
+
+
+DiaObjectChange *
+group_apply_properties_list (Group *group, GPtrArray *props)
+{
+  GList *tmp = NULL;
+  GList *clist = NULL;
+  DiaObjectChange *objchange;
+  GPtrArray *props_list, *props_self;
+  guint i;
+
+  /* Need to split the passed in properties to self props
+   * and the ones really passed to the list of owned objects.
+   */
+  props_self = g_ptr_array_new ();
+  props_list = g_ptr_array_new ();
+  for (i=0; i < props->len; ++i) {
+    Property *p = g_ptr_array_index (props,i);
+
+    if (p->experience & PXP_NOTSET) {
+      continue;
+    } else if ((p->descr->flags & PROP_FLAG_SELF_ONLY) != 0) {
+      g_ptr_array_add (props_self, p);
+    } else {
+      g_ptr_array_add (props_list, p);
+    }
+  }
+
+  for (tmp = group->objects; tmp != NULL; tmp = g_list_next (tmp)) {
+    DiaObject *obj = (DiaObject*) tmp->data;
+    objchange = NULL;
+
+    objchange = dia_object_apply_properties (obj, props_list);
+    clist = g_list_append (clist, objchange);
+  }
+
+  /* finally ourself */
+  objchange = object_apply_props (&group->object, props_self);
+  clist = g_list_append (clist, objchange);
+
+  g_ptr_array_free (props_list, TRUE);
+  g_ptr_array_free (props_self, TRUE);
+
+  group_update_data (group);
+
+  return dia_group_object_change_new (group, clist);
 }
 
 

@@ -17,8 +17,7 @@
  */
 
 /* ** \file element.h -- Definition of a diagram - usual rectangular - object with eight handles  */
-#ifndef ELEMENT_H
-#define ELEMENT_H
+#pragma once
 
 #include "diatypes.h"
 #include "object.h"
@@ -27,25 +26,39 @@
 #include "boundingbox.h"
 #include "properties.h" /* win32: PropNumData */
 
-/*!
- * \brief Beside OrthCon one of the most use object classes
+G_BEGIN_DECLS
+
+#define DIA_TYPE_ELEMENT_OBJECT_CHANGE dia_element_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaElementObjectChange, dia_element_object_change, DIA, ELEMENT_OBJECT_CHANGE, DiaObjectChange)
+
+
+/**
+ * Element:
+ * @resize_handles: not only for resizing but may also be used for connections
+ * @corner: upper-left corner of the #Element
+ * @width: width of the object (with 0 line width)
+ * @height: height of the object (with 0 line width)
+ * @extra_spacing: extra data used for bounding box calculation, filled from
+ *                 line width
  *
- * This is a subclass of DiaObject used to help implementing objects
+ * Beside #OrthConn one of the most use object classes
+ *
+ * This is a subclass of #DiaObject used to help implementing objects
  * of a type with 8 handles.
- *
- * \extends _DiaObject
  */
 struct _Element {
-  DiaObject object; /* inheritance */
+  /* < private > */
+  DiaObject object;
 
-  Handle resize_handles[8]; /*!< not only for resizing but may also be used for connections */
+  /* < public > */
+  Handle resize_handles[8];
 
-  Point corner; /*!< upper-left corner of the Element */
-  real width;   /*!< width of the object (with 0 line width) */
-  real height;  /*!< height of the object (with 0 line width) */
-  /*! extra data used for bounding box calculation */
-  ElementBBExtras extra_spacing; /*!< filled from line width */
+  Point corner;
+  double width;
+  double height;
+  ElementBBExtras extra_spacing;
 };
+
 
 /*! \protected Update internal state after property change */
 void element_update_handles(Element *elem);
@@ -118,4 +131,4 @@ extern PropNumData width_range;
   { "elem_width", PROP_TYPE_REAL, offsetof(Element, width) }, \
   { "elem_height", PROP_TYPE_REAL, offsetof(Element, height) }
 
-#endif /* ELEMENT_H */
+G_END_DECLS

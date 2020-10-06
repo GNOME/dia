@@ -569,21 +569,29 @@ element_load (Element *elem, ObjectNode obj_node, DiaContext *ctx)
 }
 
 
-typedef struct _ElementChange {
-  ObjectChange object_change;
+struct _DiaElementObjectChange {
+  DiaObjectChange object_change;
 
   Element *element;
   Point    corner;
-  real     width;
-  real     height;
-} ElementChange;
+  double   width;
+  double   height;
+};
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaElementObjectChange, dia_element_object_change)
 
 
 static void
-_element_change_swap (ObjectChange *self,
-                      DiaObject    *obj)
+dia_element_object_change_free (DiaObjectChange *self)
 {
-  ElementChange *ec = (ElementChange *) self;
+
+}
+
+
+static void
+_element_change_swap (DiaElementObjectChange *ec, DiaObject *obj)
+{
   Element *elem = ec->element;
   Point tmppt;
   real  tmp;
@@ -596,24 +604,34 @@ _element_change_swap (ObjectChange *self,
 }
 
 
+static void
+dia_element_object_change_revert (DiaObjectChange *self, DiaObject *obj)
+{
+  _element_change_swap (DIA_ELEMENT_OBJECT_CHANGE (self), obj);
+}
+
+
+static void
+dia_element_object_change_apply (DiaObjectChange *self, DiaObject *obj)
+{
+  _element_change_swap (DIA_ELEMENT_OBJECT_CHANGE (self), obj);
+}
+
+
 DiaObjectChange *
 element_change_new (const Point *corner,
                     double       width,
                     double       height,
                     Element     *elem)
 {
-  ElementChange *ec = g_new0 (ElementChange, 1);
-
-  ec->object_change.apply  = _element_change_swap;
-  ec->object_change.revert = _element_change_swap;
-  ec->object_change.free = NULL;
+  DiaElementObjectChange *ec = dia_object_change_new (DIA_TYPE_ELEMENT_OBJECT_CHANGE);
 
   ec->element = elem;
   ec->corner = elem->corner;
   ec->width = elem->width;
   ec->height = elem->height;
 
-  return dia_object_change_legacy_new ((ObjectChange *) ec);
+  return DIA_OBJECT_CHANGE (ec);
 }
 
 
