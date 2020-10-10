@@ -31,7 +31,6 @@
 #include "pattern.h"
 #include "diapathrenderer.h"
 #include "message.h"
-#include "dia-object-change-legacy.h"
 
 
 #define DEFAULT_WIDTH 2.0
@@ -721,53 +720,65 @@ static DiaObject *ellipse_load(ObjectNode obj_node, int version, DiaContext *ctx
   return &ellipse->element.object;
 }
 
-struct AspectChange {
-  ObjectChange obj_change;
+
+#define DIA_TYPE_ELLIPES_ASPECT_OBJECT_CHANGE dia_ellipse_aspect_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaEllipseAspectObjectChange,
+                      dia_ellipse_aspect_object_change,
+                      DIA, ELLIPES_ASPECT_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
+struct _DiaEllipseAspectObjectChange {
+  DiaObjectChange obj_change;
   AspectType old_type, new_type;
   /* The points before this got applied.  Afterwards, all points can be
    * calculated.
    */
   Point topleft;
-  real width, height;
+  double width, height;
 };
 
+
+DIA_DEFINE_OBJECT_CHANGE (DiaEllipseAspectObjectChange, dia_ellipse_aspect_object_change)
+
+
 static void
-aspect_change_free(struct AspectChange *change)
+dia_ellipse_aspect_object_change_free (DiaObjectChange *self)
 {
 }
 
+
 static void
-aspect_change_apply(struct AspectChange *change, DiaObject *obj)
+dia_ellipse_aspect_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
-  Ellipse *ellipse = (Ellipse*)obj;
+  DiaEllipseAspectObjectChange *change = DIA_ELLIPES_ASPECT_OBJECT_CHANGE (self);
+  Ellipse *ellipse = (Ellipse*) obj;
 
   ellipse->aspect = change->new_type;
-  ellipse_update_data(ellipse);
+  ellipse_update_data (ellipse);
 }
 
+
 static void
-aspect_change_revert(struct AspectChange *change, DiaObject *obj)
+dia_ellipse_aspect_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
-  Ellipse *ellipse = (Ellipse*)obj;
+  DiaEllipseAspectObjectChange *change = DIA_ELLIPES_ASPECT_OBJECT_CHANGE (self);
+  Ellipse *ellipse = (Ellipse*) obj;
 
   ellipse->aspect = change->old_type;
   ellipse->element.corner = change->topleft;
   ellipse->element.width = change->width;
   ellipse->element.height = change->height;
-  ellipse_update_data(ellipse);
+  ellipse_update_data (ellipse);
 }
 
 
 static DiaObjectChange *
-aspect_create_change(Ellipse *ellipse, AspectType aspect)
+aspect_create_change (Ellipse *ellipse, AspectType aspect)
 {
-  struct AspectChange *change;
+  DiaEllipseAspectObjectChange *change;
 
-  change = g_new0(struct AspectChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) aspect_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) aspect_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) aspect_change_free;
+  change = dia_object_change_new (DIA_TYPE_ELLIPES_ASPECT_OBJECT_CHANGE);
 
   change->old_type = ellipse->aspect;
   change->new_type = aspect;
@@ -775,7 +786,7 @@ aspect_create_change(Ellipse *ellipse, AspectType aspect)
   change->width = ellipse->element.width;
   change->height = ellipse->element.height;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 
