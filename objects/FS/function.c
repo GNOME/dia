@@ -33,7 +33,6 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
-#include "dia-object-change-legacy.h"
 
 #include "pixmaps/function.xpm"
 
@@ -60,13 +59,25 @@ enum FuncChangeType {
   ALL
 };
 
-struct _FunctionChange {
-  ObjectChange		obj_change ;
-  enum FuncChangeType	change_type ;
-  int			is_wish ;
-  int			is_user ;
-  char*			text ;
+
+#define DIA_FS_TYPE_FUNCTION_OBJECT_CHANGE dia_fs_function_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaFSFunctionObjectChange,
+                      dia_fs_function_object_change,
+                      DIA_FS, FUNCTION_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
+struct _DiaFSFunctionObjectChange {
+  DiaObjectChange      obj_change;
+  enum FuncChangeType  change_type;
+  int                  is_wish;
+  int                  is_user;
+  char                *text;
 };
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaFSFunctionObjectChange, dia_fs_function_object_change)
+
 
 #define FUNCTION_FONTHEIGHT 0.8
 #define FUNCTION_BORDERWIDTH_SCALE 6.0
@@ -187,13 +198,13 @@ function_set_props(Function *function, GPtrArray *props)
   function_update_data(function);
 }
 
+
 static void
-function_change_apply_revert( ObjectChange* objchg, DiaObject* obj)
+function_change_apply_revert (DiaFSFunctionObjectChange *change, DiaObject* obj)
 {
-  int tmp ;
-  char* ttxt ;
-  FunctionChange* change = (FunctionChange*) objchg ;
-  Function* fcn = (Function*) obj ;
+  int tmp;
+  char *ttxt;
+  Function *fcn = (Function *) obj;
 
   if ( change->change_type == WISH_FUNC || change->change_type == ALL ) {
      tmp = fcn->is_wish ;
@@ -213,12 +224,27 @@ function_change_apply_revert( ObjectChange* objchg, DiaObject* obj)
   }
 }
 
-static void
-function_change_free( ObjectChange* objchg )
-{
-  FunctionChange* change = (FunctionChange*) objchg ;
 
-  if ( change->change_type == TEXT_EDIT ) {
+static void
+dia_fs_function_object_change_apply (DiaObjectChange *self, DiaObject *obj)
+{
+  function_change_apply_revert (DIA_FS_FUNCTION_OBJECT_CHANGE (self), obj);
+}
+
+
+static void
+dia_fs_function_object_change_revert (DiaObjectChange *self, DiaObject *obj)
+{
+  function_change_apply_revert (DIA_FS_FUNCTION_OBJECT_CHANGE (self), obj);
+}
+
+
+static void
+dia_fs_function_object_change_free (DiaObjectChange *self)
+{
+  DiaFSFunctionObjectChange *change = DIA_FS_FUNCTION_OBJECT_CHANGE (self);
+
+  if (change->change_type == TEXT_EDIT) {
     g_clear_pointer (&change->text, g_free);
   }
 }
@@ -227,10 +253,10 @@ function_change_free( ObjectChange* objchg )
 static DiaObjectChange *
 function_create_change (Function *fcn, enum FuncChangeType change_type)
 {
-  FunctionChange* change = g_new0(FunctionChange,1) ;
-  change->obj_change.apply = (ObjectChangeApplyFunc) function_change_apply_revert ;
-  change->obj_change.revert = (ObjectChangeRevertFunc) function_change_apply_revert ;
-  change->obj_change.free = (ObjectChangeFreeFunc) function_change_free ;
+  DiaFSFunctionObjectChange *change;
+
+  change = dia_object_change_new (DIA_FS_TYPE_FUNCTION_OBJECT_CHANGE);
+
   change->change_type = change_type ;
 
   if (change_type == WISH_FUNC || change_type == ALL) {
@@ -245,7 +271,7 @@ function_create_change (Function *fcn, enum FuncChangeType change_type)
     change->text = text_get_string_copy (fcn->text);
   }
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 

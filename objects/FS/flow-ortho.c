@@ -38,13 +38,11 @@
 #include "orth_conn.h"
 #include "element.h"
 #include "properties.h"
-#include "dia-object-change-legacy.h"
 
 #include "pixmaps/orthflow.xpm"
 
 
 typedef struct _Orthflow Orthflow;
-typedef struct _OrthflowChange OrthflowChange;
 
 typedef enum {
   ORTHFLOW_ENERGY,
@@ -62,18 +60,31 @@ struct _Orthflow {
   Point textpos; /* This is the master position, only overridden in load */
 };
 
+
+#define DIA_FS_TYPE_ORTHFLOW_OBJECT_CHANGE dia_fs_orthflow_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaFSOrthflowObjectChange,
+                      dia_fs_orthflow_object_change,
+                      DIA_FS, ORTHFLOW_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
 enum OrthflowChangeType {
   TEXT_EDIT=1,
   FLOW_TYPE=2,
   BOTH=3
 };
 
-struct _OrthflowChange {
-  ObjectChange			obj_change ;
-  enum OrthflowChangeType	change_type ;
-  OrthflowType			type ;
-  char*				text ;
+
+struct _DiaFSOrthflowObjectChange {
+  DiaObjectChange          obj_change;
+  enum OrthflowChangeType  change_type;
+  OrthflowType             type;
+  char                    *text;
 };
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaFSOrthflowObjectChange, dia_fs_orthflow_object_change)
+
 
 Color orthflow_color_energy   = { 1.0f, 0.0f, 0.0f, 1.0f };
 Color orthflow_color_material = { 0.8f, 0.0f, 0.8f, 1.0f };
@@ -211,35 +222,51 @@ orthflow_set_props(Orthflow *orthflow, GPtrArray *props)
 }
 
 
-
 static void
-orthflow_change_apply_revert (ObjectChange* objchg, DiaObject* obj)
+dia_fs_orthflow_object_change_apply_revert (DiaFSOrthflowObjectChange *change,
+                                            DiaObject                 *obj)
 {
-  struct _OrthflowChange* change = (struct _OrthflowChange*) objchg ;
-  Orthflow* oflow = (Orthflow*) obj ;
+  Orthflow *oflow = (Orthflow *) obj;
 
-  if ( change->change_type == FLOW_TYPE || change->change_type == BOTH ) {
-    OrthflowType type = oflow->type ;
-    oflow->type = change->type ;
-    change->type = type ;
-    orthflow_update_data(oflow) ;
+  if (change->change_type == FLOW_TYPE || change->change_type == BOTH) {
+    OrthflowType type = oflow->type;
+    oflow->type = change->type;
+    change->type = type;
+    orthflow_update_data (oflow);
   }
 
-  if ( change->change_type & TEXT_EDIT  || change->change_type == BOTH ) {
-    char* tmp = text_get_string_copy( oflow->text ) ;
-    text_set_string( oflow->text, change->text ) ;
+  if (change->change_type & TEXT_EDIT || change->change_type == BOTH) {
+    char *tmp = text_get_string_copy (oflow->text);
+    text_set_string (oflow->text, change->text);
     g_clear_pointer (&change->text, g_free);
-    change->text = tmp ;
+    change->text = tmp;
   }
 }
 
-static void
-orthflow_change_free(ObjectChange* objchg)
-{
-  struct _OrthflowChange* change = (struct _OrthflowChange*) objchg ;
 
-  if (change->change_type & TEXT_EDIT  || change->change_type == BOTH ) {
-    g_clear_pointer (&change->text, g_free) ;
+static void
+dia_fs_orthflow_object_change_apply (DiaObjectChange *self, DiaObject *obj)
+{
+  dia_fs_orthflow_object_change_apply_revert (DIA_FS_ORTHFLOW_OBJECT_CHANGE (self),
+                                              obj);
+}
+
+
+static void
+dia_fs_orthflow_object_change_revert (DiaObjectChange *self, DiaObject *obj)
+{
+  dia_fs_orthflow_object_change_apply_revert (DIA_FS_ORTHFLOW_OBJECT_CHANGE (self),
+                                              obj);
+}
+
+
+static void
+dia_fs_orthflow_object_change_free (DiaObjectChange *objchg)
+{
+  DiaFSOrthflowObjectChange* change = DIA_FS_ORTHFLOW_OBJECT_CHANGE (objchg);
+
+  if (change->change_type & TEXT_EDIT || change->change_type == BOTH) {
+    g_clear_pointer (&change->text, g_free);
   }
 }
 
@@ -249,11 +276,10 @@ orthflow_create_change (enum OrthflowChangeType  change_type,
                         OrthflowType             type,
                         Text                    *text )
 {
-  struct _OrthflowChange *change;
-  change = g_new0 (struct _OrthflowChange, 1);
-  change->obj_change.apply = (ObjectChangeApplyFunc) orthflow_change_apply_revert;
-  change->obj_change.revert =  (ObjectChangeRevertFunc) orthflow_change_apply_revert;
-  change->obj_change.free =  (ObjectChangeFreeFunc) orthflow_change_free;
+  DiaFSOrthflowObjectChange *change;
+
+  change = dia_object_change_new (DIA_FS_TYPE_ORTHFLOW_OBJECT_CHANGE);
+
   change->change_type = change_type;
 
   change->type = type;
@@ -261,7 +287,7 @@ orthflow_create_change (enum OrthflowChangeType  change_type,
     change->text = text_get_string_copy (text);
   }
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 

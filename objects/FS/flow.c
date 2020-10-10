@@ -35,7 +35,6 @@
 #include "text.h"
 #include "connection.h"
 #include "properties.h"
-#include "dia-object-change-legacy.h"
 
 #include "pixmaps/flow.xpm"
 
@@ -346,6 +345,7 @@ flow_draw (Flow *flow, DiaRenderer *renderer)
     case FLOW_ENERGY:
       render_color = &flow_color_energy;
       dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+      break;
     default:
       g_return_if_reached ();
   }
@@ -577,50 +577,63 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   return &flow->connection.object;
 }
 
-struct TypeChange {
-  ObjectChange obj_change;
-  int old_type, new_type;
+
+#define DIA_FS_TYPE_FLOW_OBJECT_CHANGE dia_fs_flow_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaFSFlowObjectChange,
+                      dia_fs_flow_object_change,
+                      DIA_FS, FLOW_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
+struct _DiaFSFlowObjectChange {
+  DiaObjectChange obj_change;
+  int old_type;
+  int new_type;
 };
 
+
+DIA_DEFINE_OBJECT_CHANGE (DiaFSFlowObjectChange, dia_fs_flow_object_change)
+
+
 static void
-type_change_free(struct TypeChange *change)
+dia_fs_flow_object_change_free (DiaObjectChange *change)
 {
 }
 
+
 static void
-type_change_apply(struct TypeChange *change, DiaObject *obj)
+dia_fs_flow_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
-  Flow *flow = (Flow*)obj;
+  DiaFSFlowObjectChange *change = DIA_FS_FLOW_OBJECT_CHANGE (self);
+  Flow *flow = (Flow *) obj;
 
   flow->type = change->new_type;
-  flow_update_data(flow);
+  flow_update_data (flow);
 }
 
+
 static void
-type_change_revert(struct TypeChange *change, DiaObject *obj)
+dia_fs_flow_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
-  Flow *flow = (Flow*)obj;
+  DiaFSFlowObjectChange *change = DIA_FS_FLOW_OBJECT_CHANGE (self);
+  Flow *flow = (Flow*) obj;
 
   flow->type = change->old_type;
-  flow_update_data(flow);
+  flow_update_data (flow);
 }
 
 
 static DiaObjectChange *
 type_create_change (Flow *flow, int type)
 {
-  struct TypeChange *change;
+  DiaFSFlowObjectChange *change;
 
-  change = g_new0(struct TypeChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) type_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) type_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) type_change_free;
+  change = dia_object_change_new (DIA_FS_TYPE_FLOW_OBJECT_CHANGE);
 
   change->old_type = flow->type;
   change->new_type = type;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 
