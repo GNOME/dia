@@ -35,7 +35,7 @@
 #include "properties.h"
 #include "diamenu.h"
 #include "class.h"
-#include "objchange.h"
+#include "dia-state-object-change.h"
 
 #include "pixmaps/umlclass.xpm"
 

@@ -62,7 +62,7 @@
 #include "arrows.h"
 #include "uml.h"
 #include "properties.h"
-#include "objchange.h"
+#include "dia-state-object-change.h"
 
 #include "pixmaps/association.xpm"
 

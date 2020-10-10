@@ -27,6 +27,24 @@
 #include "object.h"
 
 
+/**
+ * SECTION:dia-object-change
+ *
+ * Forming the basic of undo support to be implemented in objects
+ *
+ * Object implementations need some effort to support undo/redo
+ *
+ * Return value of object changing functions and methods of DiaObject
+ *
+ * FIXME: #DiaObjectChange functions should not require the changed object
+ * as an argument. Every change object should keep track of the
+ * relevant object instead. The second argument in the above typedefs
+ * is deprecated and should not be relied on.
+ *
+ * Replaces ObjectChange
+ */
+
+
 static void
 dia_object_change_real_apply (DiaObjectChange *self,
                               DiaObject       *object)

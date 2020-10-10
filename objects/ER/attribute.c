@@ -31,7 +31,7 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "properties.h"
-#include "objchange.h"
+#include "dia-state-object-change.h"
 
 #include "pixmaps/attribute.xpm"
 

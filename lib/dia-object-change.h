@@ -117,6 +117,16 @@ struct _DiaObjectChange {
 };
 
 
+/**
+ * DiaObjectChangeClass:
+ * @apply: do the change
+ * @revert: undo the effects of @apply
+ * @free: clear fields (called during destruction)
+ *
+ * Since: 0.98
+ *
+ * Stability: Stable
+ */
 struct _DiaObjectChangeClass {
   GTypeClass parent;
 

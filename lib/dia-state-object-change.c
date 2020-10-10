@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include "objchange.h"
+#include "dia-state-object-change.h"
 
 
 /**
@@ -82,6 +82,19 @@ dia_state_object_change_free (DiaObjectChange *self)
 }
 
 
+/**
+ * dia_state_object_change_new:
+ * @obj: the #DiaObject whos state changed
+ * @old_state: the previous #ObjectState
+ * @get_state: a #GetStateFunc used to generate the #ObjectState of @obj
+ * @set_state: a #SetStateFunc used to apply a #ObjectState to @obj
+ *
+ * Create a single change from the ObjectState
+ *
+ * Since: 0.98
+ *
+ * Stability: Stable
+ */
 DiaObjectChange *
 dia_state_object_change_new (DiaObject    *obj,
                              ObjectState  *old_state,

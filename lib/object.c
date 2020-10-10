@@ -27,7 +27,6 @@
 #include "message.h"
 #include "parent.h"
 #include "dia-layer.h"
-#include "dia-object-change-legacy.h"
 
 #include "dummy_dep.h"
 
@@ -347,12 +346,17 @@ object_list_move_delta (GList *objects, Point *delta)
 }
 
 
-typedef struct _ObjectChangeExchange {
-  ObjectChange change;
-  DiaObject    *orig;
-  DiaObject    *subst;
-  gboolean      applied;
-} ObjectChangeExchange;
+struct _DiaExchangeObjectChange {
+  DiaObjectChange  change;
+  DiaObject       *orig;
+  DiaObject       *subst;
+  gboolean         applied;
+};
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaExchangeObjectChange,
+                          dia_exchange_object_change)
+
 
 static Handle *
 _find_connectable (DiaObject *obj, int *num)
@@ -424,10 +428,11 @@ object_copy_style (DiaObject *dest, const DiaObject *src)
   prop_list_free (props);
 }
 
+
 static void
-_object_exchange (ObjectChange *change, DiaObject *obj)
+_object_exchange (DiaObjectChange *self, DiaObject *obj)
 {
-  ObjectChangeExchange *c = (ObjectChangeExchange *)change;
+  DiaExchangeObjectChange *c = DIA_EXCHANGE_OBJECT_CHANGE (self);
   DiaLayer *layer = dia_object_get_parent_layer (obj);
   DiagramData *dia = layer ? dia_layer_get_parent_diagram (layer) : NULL;
   DiaObject *subst = (obj == c->orig) ? c->subst : c->orig;

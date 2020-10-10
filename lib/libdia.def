@@ -75,8 +75,9 @@ EXPORTS
 
  calculate_arrow_point
 
- change_list_add
- change_list_create
+ dia_object_change_list_get_type
+ dia_object_change_list_new
+ dia_object_change_list_add
 
  color_convert
  color_equals
@@ -613,7 +614,7 @@ EXPORTS
  message_warning
  set_message_func
 
- new_object_state_change
+ dia_state_object_change_new
 
  object_add_connectionpoint
  object_add_handle

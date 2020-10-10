@@ -69,10 +69,10 @@
     <xi:include href="xml/connection.xml"/>
     <xi:include href="xml/connpoint_line.xml"/>
     <xi:include href="xml/dia_svg.xml"/>
-    <xi:include href="xml/objchange.xml"/>
     <xi:include href="xml/dia-change.xml" />
     <xi:include href="xml/dia-object-change.xml" />
-    <xi:include href="xml/dia-object-change-legacy.xml" />
+    <xi:include href="xml/obj-state-object-change.xml"/>
+    <xi:include href="xml/dia-object-change-list.xml" />
     <xi:include href="xml/object-alias.xml"/>
     <xi:include href="xml/create.xml"/>
     <xi:include href="xml/diatransform.xml"/>
