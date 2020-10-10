@@ -606,176 +606,206 @@ object_add_handle(DiaObject *obj, Handle *handle)
   object_add_handle_at(obj, handle, obj->num_handles);
 }
 
-/*!
- * \brief Add a new handle to an object at a given position.
+
+/**
+ * object_add_handle_at:
+ * @obj; The object to add a handle to. This object must have been
+ *       object_init()ed.
+ * @handle: The new handle to add.
+ * @pos: Where in the list of handles (0 <= pos <= obj->num_handles) to
+ *       add the handle.
  *
- * @param obj The object to add a handle to.  This object must have been
- *            object_init()ed.
- * @param handle The new handle to add.
- * @param pos Where in the list of handles (0 <= pos <= obj->num_handles) to
- *            add the handle.
+ * Add a new handle to an object at a given position.
  */
 void
-object_add_handle_at(DiaObject *obj, Handle *handle, int pos)
+object_add_handle_at (DiaObject *obj, Handle *handle, int pos)
 {
   int i;
 
-  g_assert(0 <= pos && pos <= obj->num_handles);
+  g_return_if_fail (0 <= pos && pos <= obj->num_handles);
 
   obj->num_handles++;
 
   obj->handles =
-    g_realloc(obj->handles, obj->num_handles*sizeof(Handle *));
+    g_realloc (obj->handles, obj->num_handles * sizeof (Handle *));
 
-  for (i=obj->num_handles-1; i > pos; i--) {
-    obj->handles[i] = obj->handles[i-1];
+  for (i = obj->num_handles - 1; i > pos; i--) {
+    obj->handles[i] = obj->handles[i - 1];
   }
   obj->handles[pos] = handle;
 }
 
-/** Remove a handle from an object.
- * @param obj The object to remove a handle from.
- * @param handle The handle to remove.  If the handle does not exist on this
- *               object, an error message is displayed.  The handle is not
- *               freed by this call.
+
+/**
+ * object_remove_handle:
+ * @obj: The object to remove a handle from.
+ * @handle: The handle to remove.  If the handle does not exist on this
+ *          object, an error message is displayed.  The handle is not
+ *          freed by this call.
+ *
+ * Remove a handle from an object.
  */
 void
-object_remove_handle(DiaObject *obj, Handle *handle)
+object_remove_handle (DiaObject *obj, Handle *handle)
 {
   int i, handle_nr;
 
   handle_nr = -1;
-  for (i=0;i<obj->num_handles;i++) {
-    if (obj->handles[i] == handle)
+  for (i = 0; i < obj->num_handles; i++) {
+    if (obj->handles[i] == handle) {
       handle_nr = i;
+    }
   }
 
   if (handle_nr < 0) {
-    message_error("Internal error, object_remove_handle: Handle doesn't exist");
+    message_error ("Internal error, object_remove_handle: Handle doesn't exist");
     return;
   }
 
-  for (i=handle_nr;i<(obj->num_handles-1);i++) {
-    obj->handles[i] = obj->handles[i+1];
+  for (i = handle_nr; i < (obj->num_handles - 1); i++) {
+    obj->handles[i] = obj->handles[i + 1];
   }
-  obj->handles[obj->num_handles-1] = NULL;
+  obj->handles[obj->num_handles - 1] = NULL;
 
   obj->num_handles--;
 
   obj->handles =
-    g_realloc(obj->handles, obj->num_handles*sizeof(Handle *));
+    g_realloc (obj->handles, obj->num_handles * sizeof (Handle *));
 }
 
-/*!
- * \brief Add a new connection point to an object.
+
+/**
+ * object_add_connectionpoint:
+ *
+ * Add a new connection point to an object.
+ *
  * This is merely a convenience handler to add a connection point at the
  * end of an objects connection point list.
- * @see object_add_connectionpoint_at.
+ *
+ * See object_add_connectionpoint_at().
  */
 void
-object_add_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint)
+object_add_connectionpoint (DiaObject *obj, ConnectionPoint *conpoint)
 {
-  object_add_connectionpoint_at(obj, conpoint, obj->num_connections);
+  object_add_connectionpoint_at (obj, conpoint, obj->num_connections);
 }
 
-/*!
- * \brief Add a new connectionpoint to an object.
- * @param obj The object to add the connectionpoint to.
- * @param conpoint The connectionpoiint to add.
- * @param pos Where in the list to add the connectionpoint
- * (0 <= pos <= obj->num_connections).
+
+/**
+ * object_add_connectionpoint_at:
+ * @obj: The object to add the connectionpoint to.
+ * @conpoint: The connectionpoiint to add.
+ * @pos: Where in the list to add the connectionpoint
+ *       (0 <= pos <= obj->num_connections).
+ *
+ * Add a new connectionpoint to an object.
  */
 void
-object_add_connectionpoint_at(DiaObject *obj,
-			      ConnectionPoint *conpoint, int pos)
+object_add_connectionpoint_at (DiaObject       *obj,
+                               ConnectionPoint *conpoint,
+                               int              pos)
 {
   int i;
 
   obj->num_connections++;
 
   obj->connections =
-    g_realloc(obj->connections,
-	      obj->num_connections*sizeof(ConnectionPoint *));
+    g_realloc (obj->connections,
+               obj->num_connections * sizeof (ConnectionPoint *));
 
-  for (i=obj->num_connections-1; i > pos; i--) {
-    obj->connections[i] = obj->connections[i-1];
+  for (i = obj->num_connections - 1; i > pos; i--) {
+    obj->connections[i] = obj->connections[i - 1];
   }
   obj->connections[pos] = conpoint;
 }
 
-/** Remove an existing connectionpoint from and object.
- * @param obj The object to remove the connectionpoint from.
- * @param conpoint The connectionpoint to remove.  The connectionpoint
- *                 will not be freed by this function, but any handles
- *                 connected to the connectionpoint will be
- *                 disconnected.
- *                 If the connectionpoint does not exist on the object,
- *                 an error message is displayed.
+
+/**
+ * object_remove_connectionpoint:
+ * @obj: The object to remove the connectionpoint from.
+ * @conpoint: The connectionpoint to remove.  The connectionpoint
+ *            will not be freed by this function, but any handles
+ *            connected to the connectionpoint will be disconnected.
+ *            If the connectionpoint does not exist on the object,
+ *            an error message is displayed.
+ *
+ * Remove an existing connectionpoint from and object.
  */
 void
-object_remove_connectionpoint(DiaObject *obj, ConnectionPoint *conpoint)
+object_remove_connectionpoint (DiaObject *obj, ConnectionPoint *conpoint)
 {
   int i, nr;
 
   nr = -1;
-  for (i=0;i<obj->num_connections;i++) {
-    if (obj->connections[i] == conpoint)
+  for (i = 0; i < obj->num_connections; i++) {
+    if (obj->connections[i] == conpoint) {
       nr = i;
+    }
   }
 
   if (nr < 0) {
-    message_error("Internal error, object_remove_connectionpoint: "
-                  "ConnectionPoint doesn't exist");
+    message_error ("Internal error, object_remove_connectionpoint: "
+                   "ConnectionPoint doesn't exist");
     return;
   }
 
-  object_remove_connections_to(conpoint);
+  object_remove_connections_to (conpoint);
 
-  for (i=nr;i<(obj->num_connections-1);i++) {
-    obj->connections[i] = obj->connections[i+1];
+  for (i = nr; i < (obj->num_connections - 1); i++) {
+    obj->connections[i] = obj->connections[i + 1];
   }
-  obj->connections[obj->num_connections-1] = NULL;
+  obj->connections[obj->num_connections - 1] = NULL;
 
   obj->num_connections--;
 
   obj->connections =
-    g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
+    g_realloc (obj->connections,
+               obj->num_connections * sizeof (ConnectionPoint *));
 }
 
 
-/** Make a connection between the handle and the connectionpoint.
- * @param obj The object having the handle.
- * @param handle The handle being connected.  This handle must not have
- *               connect_type HANDLE_NONCONNECTABLE, or an incomprehensible
- *               error message is displayed to the user.
- * @param connectionpoint The connection point to connect to.
+/**
+ * object_connect:
+ * @obj: The object having the handle.
+ * @handle: The handle being connected.  This handle must not have
+ *          connect_type %HANDLE_NONCONNECTABLE, or an incomprehensible
+ *          error message is displayed to the user.
+ * @connectionpoint: The connection point to connect to.
+ *
+ * Make a connection between the handle and the connectionpoint.
  */
 void
-object_connect(DiaObject *obj, Handle *handle,
-	       ConnectionPoint *connectionpoint)
+object_connect (DiaObject       *obj,
+                Handle          *handle,
+                ConnectionPoint *connectionpoint)
 {
   g_return_if_fail (obj && obj->type && obj->type->name);
   g_return_if_fail (connectionpoint && connectionpoint->object &&
                     connectionpoint->object->type && connectionpoint->object->type->name);
+
   if (handle->connect_type==HANDLE_NONCONNECTABLE) {
-    message_error("Error? trying to connect a non connectable handle.\n"
-                  "'%s' -> '%s'\n"
-		  "Check this out...\n",
-		  obj->type->name,
-		  connectionpoint->object->type->name);
+    message_error ("Error? trying to connect a non connectable handle.\n"
+                   "'%s' -> '%s'\n"
+                   "Check this out...\n",
+                   obj->type->name,
+                   connectionpoint->object->type->name);
     return;
   }
   handle->connected_to = connectionpoint;
   connectionpoint->connected =
-    g_list_prepend(connectionpoint->connected, obj);
+    g_list_prepend (connectionpoint->connected, obj);
 }
 
-/** Disconnect handle from whatever it may be connected to.
- * @param connected_obj The object having the handle.
- * @param handle The handle to disconnect
+
+/**
+ * object_unconnect:
+ * @connected_obj: The object having the handle.
+ * @handle: The handle to disconnect
+ *
+ * Disconnect handle from whatever it may be connected to.
  */
 void
-object_unconnect(DiaObject *connected_obj, Handle *handle)
+object_unconnect (DiaObject *connected_obj, Handle *handle)
 {
   ConnectionPoint *connectionpoint;
 
@@ -783,19 +813,23 @@ object_unconnect(DiaObject *connected_obj, Handle *handle)
 
   if (connectionpoint!=NULL) {
     connectionpoint->connected =
-      g_list_remove(connectionpoint->connected, connected_obj);
+      g_list_remove (connectionpoint->connected, connected_obj);
     handle->connected_to = NULL;
   }
 }
 
-/** Remove all connections to the given connectionpoint.
+
+/**
+ * object_remove_connections_to:
+ * @conpoint: A #ConnectionPoint
+ *
+ * Remove all connections to the given connectionpoint.
  * After this call, the connectionpoints connected field will be NULL,
  * the list will have been freed, and no handles will be connected to the
  * connectionpoint.
- * @param conpoint A connectionpoint.
  */
 void
-object_remove_connections_to(ConnectionPoint *conpoint)
+object_remove_connections_to (ConnectionPoint *conpoint)
 {
   GList *list;
   DiaObject *connected_obj;
@@ -805,97 +839,129 @@ object_remove_connections_to(ConnectionPoint *conpoint)
   while (list != NULL) {
     connected_obj = (DiaObject *)list->data;
 
-    for (i=0;i<connected_obj->num_handles;i++) {
+    for (i = 0; i < connected_obj->num_handles; i++) {
       if (connected_obj->handles[i]->connected_to == conpoint) {
-	connected_obj->handles[i]->connected_to = NULL;
+        connected_obj->handles[i]->connected_to = NULL;
       }
     }
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
-  g_list_free(conpoint->connected);
+  g_list_free (conpoint->connected);
   conpoint->connected = NULL;
 }
 
-/** Remove all connections to and from an object.
- * @param obj An object to disconnect from all connectionpoints and handles.
+
+/**
+ * object_unconnect_all:
+ * @obj: An object to disconnect from all connectionpoints and handles.
+ *
+ * Remove all connections to and from an object.
  */
 void
-object_unconnect_all(DiaObject *obj)
+object_unconnect_all (DiaObject *obj)
 {
   int i;
 
-  for (i=0;i<obj->num_handles;i++) {
-    object_unconnect(obj, obj->handles[i]);
+  for (i = 0; i < obj->num_handles; i++) {
+    object_unconnect (obj, obj->handles[i]);
   }
-  for (i=0;i<obj->num_connections;i++) {
-    object_remove_connections_to(obj->connections[i]);
+
+  for (i = 0; i < obj->num_connections; i++) {
+    object_remove_connections_to (obj->connections[i]);
   }
 }
 
-/** Save the object-specific parts of an object.
- *  Note that this does not save the attributes of an object, merely the
- *  basic data (currently position and bounding box).
- * @param obj An object to save.
- * @param obj_node An XML node to save the data to.
- * @param ctx The context to transport error information.
+
+/**
+ * object_save:
+ * @obj: An object to save.
+ * @obj_node: An XML node to save the data to.
+ * @ctx: The context to transport error information.
+ *
+ * Save the object-specific parts of an object.
+ * Note that this does not save the attributes of an object, merely the
+ * basic data (currently position and bounding box).
  */
 void
-object_save(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
+object_save (DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
 {
-  data_add_point(new_attribute(obj_node, "obj_pos"),
-		 &obj->position, ctx);
-  data_add_rectangle(new_attribute(obj_node, "obj_bb"),
-		     &obj->bounding_box, ctx);
-  if (obj->meta && g_hash_table_size (obj->meta) > 0)
-    data_add_dict (new_attribute(obj_node, "meta"), obj->meta, ctx);
+  data_add_point (new_attribute (obj_node, "obj_pos"),
+                  &obj->position,
+                  ctx);
+  data_add_rectangle (new_attribute (obj_node, "obj_bb"),
+                      &obj->bounding_box,
+                      ctx);
+  if (obj->meta && g_hash_table_size (obj->meta) > 0) {
+    data_add_dict (new_attribute (obj_node, "meta"), obj->meta, ctx);
+  }
 }
 
-/** Load the object-specific parts of an object.
- *  Note that this does not load the attributes of an object, merely the
- *  basic data (currently position and bounding box).
- * @param obj An object to load into.
- * @param obj_node An XML node to load the data from.
- * @param ctx The context in which this function is called
+
+/**
+ * object_load:
+ * @obj: An object to load into.
+ * @obj_node: An XML node to load the data from.
+ * @ctx: The context in which this function is called
+ *
+ * Load the object-specific parts of an object.
+ * Note that this does not load the attributes of an object, merely the
+ * basic data (currently position and bounding box).
  */
 void
-object_load(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
+object_load (DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
 {
   AttributeNode attr;
 
   obj->position.x = 0.0;
   obj->position.y = 0.0;
-  attr = object_find_attribute(obj_node, "obj_pos");
-  if (attr != NULL)
-    data_point(attribute_first_data(attr), &obj->position, ctx);
+  attr = object_find_attribute (obj_node, "obj_pos");
+  if (attr != NULL) {
+    data_point (attribute_first_data (attr), &obj->position, ctx);
+  }
 
   obj->bounding_box.left = obj->bounding_box.right = 0.0;
   obj->bounding_box.top = obj->bounding_box.bottom = 0.0;
-  attr = object_find_attribute(obj_node, "obj_bb");
-  if (attr != NULL)
-    data_rectangle(attribute_first_data(attr), &obj->bounding_box, ctx);
+  attr = object_find_attribute (obj_node, "obj_bb");
+  if (attr != NULL) {
+    data_rectangle (attribute_first_data (attr), &obj->bounding_box, ctx);
+  }
 
-  attr = object_find_attribute(obj_node, "meta");
-  if (attr != NULL)
-    obj->meta = data_dict (attribute_first_data(attr), ctx);
+  attr = object_find_attribute (obj_node, "meta");
+  if (attr != NULL) {
+    obj->meta = data_dict (attribute_first_data (attr), ctx);
+  }
 }
 
-/** Returns the layer that the given object belongs to.
- * @param obj An object.
- * @return The layer that contains the object, or NULL if the object is
+
+/**
+ * dia_object_get_parent_layer:
+ * @obj: An object.
+ *
+ * Returns the layer that the given object belongs to.
+ *
+ * Returns: The layer that contains the object, or %NULL if the object is
  * not in any layer.
  */
 DiaLayer *
-dia_object_get_parent_layer(DiaObject *obj) {
+dia_object_get_parent_layer (DiaObject *obj)
+{
   return obj->parent_layer;
 }
 
-/** Returns true if `obj' is currently selected.
+
+/**
+ * dia_object_is_selected:
+ * @obj: An object to test for selectedness.
+ *
+ * Returns true if `obj' is currently selected.
+ *
  * Note that this takes time proportional to the number of selected
  * objects, so don't use it frivolously.
+ *
  * Note that if the objects is not in a layer (e.g. grouped), it is never
  * considered selected.
- * @param obj An object to test for selectedness.
- * @return TRUE if the object is selected.
+ *
+ * Returns: %TRUE if the object is selected, else %FALSE
  */
 gboolean
 dia_object_is_selected (const DiaObject *obj)
@@ -914,46 +980,59 @@ dia_object_is_selected (const DiaObject *obj)
     return FALSE;
 
   selected = diagram->selected;
-  for (; selected != NULL; selected = g_list_next(selected)) {
-    if (selected->data == obj) return TRUE;
+  for (; selected != NULL; selected = g_list_next (selected)) {
+    if (selected->data == obj) {
+      return TRUE;
+    }
   }
+
   return FALSE;
 }
 
-/** Return the top-most object in the parent chain that has the given
- * flags set.
- * @param obj An object to start at.  If this is NULL, NULL is returned.
- * @param flags The flags to check.  If 0, the top-most parent is returned.
+
+/**
+ * dia_object_get_parent_with_flags:
+ * @obj: An object to start at. If this is %NULL, %NULL is returned.
+ * @flags: The flags to check. If 0, the top-most parent is returned.
  * If more than one flag is given, the top-most parent that has all the given
  * flags set is returned.
- * @returns An object that either has all the flags set or
- * is obj itself.  It is guaranteed that no parent of this object has all the
- * given flags set.
+ *
+ * Return the top-most object in the parent chain that has the given
+ * flags set.
+ *
+ * Returns: An object that either has all the flags set or is obj itself. It
+ * is guaranteed that no parent of this object has all the given flags set.
  */
 DiaObject *
-dia_object_get_parent_with_flags(DiaObject *obj, guint flags)
+dia_object_get_parent_with_flags (DiaObject *obj, guint flags)
 {
   DiaObject *top = obj;
+
   if (obj == NULL) {
     return NULL;
   }
+
   while (obj->parent != NULL) {
     obj = obj->parent;
     if ((obj->type->flags & flags) == flags) {
       top = obj;
     }
   }
+
   return top;
 }
 
 
-/** Utility function: Checks if an objects can be selected.
+/**
+ * dia_object_is_selectable:
+ * @obj: An object to test
+ *
+ * Utility function: Checks if an objects can be selected.
  * Reasons for not being selectable include:
  * Being inside a closed group.
  * Being in a non-active layer.
  *
- * @param obj An object to test.
- * @returns TRUE if the object is not currently selected.
+ * Returns: %TRUE if the object is not currently selected, else %FALSE
  */
 gboolean
 dia_object_is_selectable (DiaObject *obj)
@@ -961,6 +1040,7 @@ dia_object_is_selectable (DiaObject *obj)
   if (obj->parent_layer == NULL) {
     return FALSE;
   }
+
   return obj->parent_layer == dia_diagram_data_get_active_layer (dia_layer_get_parent_diagram (obj->parent_layer));
 }
 
@@ -979,8 +1059,10 @@ object_registry_init (void)
 
 
 /**
- * Register the type of an object.
+ * object_register_type:
  * @type: The type information.
+ *
+ * Register the type of an object.
  *
  * This should be called as part of dia_plugin_init calls in modules that
  * define objects for sheets. If an object type with the given name is
