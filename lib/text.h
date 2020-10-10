@@ -15,8 +15,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef TEXT_H
-#define TEXT_H
+
+#pragma once
 
 typedef enum {
   TEXT_EDIT_START,
@@ -31,6 +31,15 @@ typedef enum {
 #include "dia_xml.h" /* for AttributeNode */
 #include "diarenderer.h"
 #include "dia-object-change.h"
+
+G_BEGIN_DECLS
+
+#define DIA_TYPE_TEXT_OBJECT_CHANGE dia_text_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaTextObjectChange,
+                      dia_text_object_change,
+                      DIA, TEXT_OBJECT_CHANGE,
+                      DiaObjectChange)
+
 
 /*!
  * \brief Multiline text representation
@@ -124,6 +133,5 @@ gboolean apply_textattr_properties(GPtrArray *props,
 gboolean apply_textstr_properties(GPtrArray *props,
                                   Text *text, const gchar *textname,
                                   const gchar *str);
-#endif /* TEXT_H */
 
-
+G_END_DECLS

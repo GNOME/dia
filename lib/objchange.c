@@ -18,14 +18,18 @@
 
 #include <config.h>
 
-#include "object.h"
-#include "dia-object-change-legacy.h"
+#include "objchange.h"
 
-/******** ObjectChange for object that just need to get/set state: *****/
 
-typedef struct _ObjectStateChange ObjectStateChange;
-struct _ObjectStateChange {
-  ObjectChange obj_change;
+/**
+ * SECTION:dia-state-object-change
+ *
+ * #DiaObjectChange for object that just need to get/set state
+ */
+
+
+struct _DiaStateObjectChange {
+  DiaObjectChange obj_change;
 
   GetStateFunc get_state;
   SetStateFunc set_state;
@@ -35,8 +39,11 @@ struct _ObjectStateChange {
 };
 
 
+DIA_DEFINE_OBJECT_CHANGE (DiaStateObjectChange, dia_state_object_change)
+
+
 static void
-object_state_change_apply_revert (ObjectStateChange *change, DiaObject *obj)
+object_state_change_apply_revert (DiaStateObjectChange *change, DiaObject *obj)
 {
   ObjectState *old_state;
 
@@ -49,34 +56,43 @@ object_state_change_apply_revert (ObjectStateChange *change, DiaObject *obj)
 
 
 static void
-object_state_change_free (ObjectStateChange *change)
+dia_state_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  object_state_change_apply_revert (DIA_STATE_OBJECT_CHANGE (self), obj);
+}
+
+
+static void
+dia_state_object_change_revert (DiaObjectChange *self, DiaObject *obj)
+{
+  object_state_change_apply_revert (DIA_STATE_OBJECT_CHANGE (self), obj);
+}
+
+
+static void
+dia_state_object_change_free (DiaObjectChange *self)
+{
+  DiaStateObjectChange *change = DIA_STATE_OBJECT_CHANGE (self);
+
   if ((change) && (change->saved_state)) {
     if (change->saved_state->free)
-      (*change->saved_state->free)(change->saved_state);
+      (*change->saved_state->free) (change->saved_state);
     g_clear_pointer (&change->saved_state, g_free);
   }
 }
 
 
 DiaObjectChange *
-new_object_state_change (DiaObject    *obj,
-                         ObjectState  *old_state,
-                         GetStateFunc  get_state,
-                         SetStateFunc  set_state)
+dia_state_object_change_new (DiaObject    *obj,
+                             ObjectState  *old_state,
+                             GetStateFunc  get_state,
+                             SetStateFunc  set_state)
 {
-  ObjectStateChange *change;
+  DiaStateObjectChange *change;
 
   g_return_val_if_fail (get_state != NULL && set_state != NULL, NULL);
 
-  change = g_new(ObjectStateChange, 1);
-
-  change->obj_change.apply =
-    (ObjectChangeApplyFunc) object_state_change_apply_revert;
-  change->obj_change.revert =
-    (ObjectChangeRevertFunc) object_state_change_apply_revert;
-  change->obj_change.free =
-    (ObjectChangeFreeFunc) object_state_change_free;
+  change = dia_object_change_new (DIA_TYPE_STATE_OBJECT_CHANGE);
 
   change->get_state = get_state;
   change->set_state = set_state;
@@ -84,5 +100,5 @@ new_object_state_change (DiaObject    *obj,
   change->obj = obj;
   change->saved_state = old_state;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }

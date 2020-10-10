@@ -26,7 +26,6 @@
 
 #include "poly_conn.h"
 #include "diarenderer.h"
-#include "dia-object-change-legacy.h"
 
 
 enum change_type {
@@ -35,8 +34,8 @@ enum change_type {
 };
 
 
-struct PointChange {
-  ObjectChange obj_change;
+struct _DiaPolyConnObjectChange {
+  DiaObjectChange obj_change;
 
   enum change_type type;
   int applied;
@@ -48,6 +47,9 @@ struct PointChange {
                      owning ref when applied for REMOVE_POINT */
   ConnectionPoint *connected_to; /* NULL if not connected */
 };
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaPolyConnObjectChange, dia_poly_conn_object_change)
 
 
 static DiaObjectChange *polyconn_create_change (PolyConn         *poly,
@@ -509,23 +511,31 @@ polyconn_load(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx) /* NOTE: Doe
   polyconn_update_data(poly);
 }
 
+
 static void
-polyconn_change_free(struct PointChange *change)
+dia_poly_conn_object_change_free (DiaObjectChange *self)
 {
-  if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
-       (change->type==TYPE_REMOVE_POINT && change->applied) ){
+  DiaPolyConnObjectChange *change = DIA_POLY_CONN_OBJECT_CHANGE (self);
+
+  if ((change->type == TYPE_ADD_POINT && !change->applied) ||
+      (change->type == TYPE_REMOVE_POINT && change->applied) ){
     g_clear_pointer (&change->handle, g_free);
   }
 }
 
 
 static void
-polyconn_change_apply (struct PointChange *change, DiaObject *obj)
+dia_poly_conn_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaPolyConnObjectChange *change = DIA_POLY_CONN_OBJECT_CHANGE (self);
+
   change->applied = 1;
+
   switch (change->type) {
     case TYPE_ADD_POINT:
-      add_handle ((PolyConn *) obj, change->pos, &change->point,
+      add_handle ((PolyConn *) obj,
+                  change->pos,
+                  &change->point,
                   change->handle);
       break;
     case TYPE_REMOVE_POINT:
@@ -539,14 +549,18 @@ polyconn_change_apply (struct PointChange *change, DiaObject *obj)
 
 
 static void
-polyconn_change_revert (struct PointChange *change, DiaObject *obj)
+dia_poly_conn_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaPolyConnObjectChange *change = DIA_POLY_CONN_OBJECT_CHANGE (self);
+
   switch (change->type) {
     case TYPE_ADD_POINT:
       remove_handle ((PolyConn *) obj, change->pos);
       break;
     case TYPE_REMOVE_POINT:
-      add_handle ((PolyConn *) obj, change->pos, &change->point,
+      add_handle ((PolyConn *) obj,
+                  change->pos,
+                  &change->point,
                   change->handle);
 
       if (change->connected_to) {
@@ -557,6 +571,7 @@ polyconn_change_revert (struct PointChange *change, DiaObject *obj)
     default:
       g_return_if_reached ();
   }
+
   change->applied = 0;
 }
 
@@ -569,13 +584,9 @@ polyconn_create_change (PolyConn         *poly,
                         Handle           *handle,
                         ConnectionPoint  *connected_to)
 {
-  struct PointChange *change;
+  DiaPolyConnObjectChange *change;
 
-  change = g_new0 (struct PointChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) polyconn_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) polyconn_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) polyconn_change_free;
+  change = dia_object_change_new (DIA_TYPE_POLY_CONN_OBJECT_CHANGE);
 
   change->type = type;
   change->applied = 1;
@@ -584,5 +595,5 @@ polyconn_create_change (PolyConn         *poly,
   change->handle = handle;
   change->connected_to = connected_to;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }

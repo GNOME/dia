@@ -35,7 +35,6 @@
 
 #include "element.h"
 #include "properties.h"
-#include "dia-object-change-legacy.h"
 
 
 #ifdef G_OS_WIN32

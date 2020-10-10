@@ -30,7 +30,6 @@
 #include "handle.h"
 #include "diarenderer.h"
 #include "autoroute.h"
-#include "dia-object-change-legacy.h"
 
 
 static void place_handle_by_swapping(OrthConn *orth,
@@ -51,8 +50,9 @@ midsegment_create_change (OrthConn         *orth,
                           Handle           *handle1,
                           Handle           *handle2);
 
-struct MidSegmentChange {
-  ObjectChange obj_change;
+
+struct _DiaOrthConnMidSegmentObjectChange {
+  DiaObjectChange obj_change;
 
   /* All additions and deletions of segments in the middle
    * of the orthconn must delete/add two segments to keep
@@ -73,6 +73,10 @@ struct MidSegmentChange {
 };
 
 
+DIA_DEFINE_OBJECT_CHANGE (DiaOrthConnMidSegmentObjectChange,
+                          dia_orth_conn_mid_segment_object_change)
+
+
 static DiaObjectChange *
 endsegment_create_change (OrthConn         *orth,
                           enum change_type  type,
@@ -83,8 +87,8 @@ endsegment_create_change (OrthConn         *orth,
 static void
 place_handle_by_swapping(OrthConn *orth, int index, Handle *handle);
 
-struct EndSegmentChange {
-  ObjectChange obj_change;
+struct _DiaOrthConnEndSegmentObjectChange {
+  DiaObjectChange obj_change;
 
   /* Additions and deletions of segments of at the endpoints
    * of the orthconn.
@@ -109,14 +113,25 @@ struct EndSegmentChange {
   DiaObjectChange *cplchange;
 };
 
+
+DIA_DEFINE_OBJECT_CHANGE (DiaOrthConnEndSegmentObjectChange,
+                          dia_orth_conn_end_segment_object_change)
+
+
 static DiaObjectChange *autoroute_create_change (OrthConn *orth, gboolean on);
 
-struct AutorouteChange {
-  ObjectChange obj_change;
+
+struct _DiaOrthConnAutorouteObjectChange {
+  DiaObjectChange obj_change;
   gboolean on;
   int num_points;
   Point *points;
 };
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaOrthConnAutorouteObjectChange,
+                          dia_orth_conn_autoroute_object_change)
+
 
 static void set_midpoint(Point *point, OrthConn *orth, int segment)
 {
@@ -975,8 +990,10 @@ insert_handle(OrthConn *orth, int segment,
 
 
 static void
-endsegment_change_free (struct EndSegmentChange *change)
+dia_orth_conn_end_segment_object_change_free (DiaObjectChange *self)
 {
+  DiaOrthConnEndSegmentObjectChange *change = DIA_ORTH_CONN_END_SEGMENT_OBJECT_CHANGE (self);
+
   if ( (change->type==TYPE_ADD_SEGMENT && !change->applied) ||
        (change->type==TYPE_REMOVE_SEGMENT && change->applied) ){
     g_clear_pointer (&change->handle, g_free);
@@ -987,8 +1004,9 @@ endsegment_change_free (struct EndSegmentChange *change)
 
 
 static void
-endsegment_change_apply (struct EndSegmentChange *change, DiaObject *obj)
+dia_orth_conn_end_segment_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaOrthConnEndSegmentObjectChange *change = DIA_ORTH_CONN_END_SEGMENT_OBJECT_CHANGE (self);
   OrthConn *orth = (OrthConn *)obj;
 
   change->applied = 1;
@@ -1041,8 +1059,9 @@ endsegment_change_apply (struct EndSegmentChange *change, DiaObject *obj)
 
 
 static void
-endsegment_change_revert (struct EndSegmentChange *change, DiaObject *obj)
+dia_orth_conn_end_segment_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaOrthConnEndSegmentObjectChange *change = DIA_ORTH_CONN_END_SEGMENT_OBJECT_CHANGE (self);
   OrthConn *orth = (OrthConn *) obj;
 
   dia_object_change_revert (change->cplchange, obj);
@@ -1099,32 +1118,31 @@ endsegment_create_change (OrthConn         *orth,
                           Point            *point,
                           Handle           *handle)
 {
-  struct EndSegmentChange *change;
+  DiaOrthConnEndSegmentObjectChange *change;
 
-  change = g_new0 (struct EndSegmentChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) endsegment_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) endsegment_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) endsegment_change_free;
+  change = dia_object_change_new (DIA_TYPE_ORTH_CONN_END_SEGMENT_OBJECT_CHANGE);
 
   change->type = type;
   change->applied = 0;
   change->segment = segment;
   change->point = *point;
   change->handle = handle;
-  if (segment == 0)
+  if (segment == 0) {
     change->old_end_handle = orth->handles[0];
-  else
-    change->old_end_handle = orth->handles[orth->numpoints-2];
+  } else {
+    change->old_end_handle = orth->handles[orth->numpoints - 2];
+  }
   change->cp = change->old_end_handle->connected_to;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 
 static void
-midsegment_change_free(struct MidSegmentChange *change)
+dia_orth_conn_mid_segment_object_change_free (DiaObjectChange *self)
 {
+  DiaOrthConnMidSegmentObjectChange *change = DIA_ORTH_CONN_MID_SEGMENT_OBJECT_CHANGE (self);
+
   if ( (change->type==TYPE_ADD_SEGMENT && !change->applied) ||
        (change->type==TYPE_REMOVE_SEGMENT && change->applied) ){
     g_clear_pointer (&change->handles[0], g_free);
@@ -1137,8 +1155,9 @@ midsegment_change_free(struct MidSegmentChange *change)
 
 
 static void
-midsegment_change_apply (struct MidSegmentChange *change, DiaObject *obj)
+dia_orth_conn_mid_segment_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaOrthConnMidSegmentObjectChange *change = DIA_ORTH_CONN_MID_SEGMENT_OBJECT_CHANGE (self);
   OrthConn *orth = (OrthConn *)obj;
   int seg;
 
@@ -1183,8 +1202,9 @@ midsegment_change_apply (struct MidSegmentChange *change, DiaObject *obj)
 
 
 static void
-midsegment_change_revert (struct MidSegmentChange *change, DiaObject *obj)
+dia_orth_conn_mid_segment_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaOrthConnMidSegmentObjectChange *change = DIA_ORTH_CONN_MID_SEGMENT_OBJECT_CHANGE (self);
   OrthConn *orth = (OrthConn *)obj;
 
   dia_object_change_revert (change->cplchange[0], obj);
@@ -1226,13 +1246,9 @@ midsegment_create_change (OrthConn         *orth,
                           Handle           *handle1,
                           Handle           *handle2)
 {
-  struct MidSegmentChange *change;
+  DiaOrthConnMidSegmentObjectChange *change;
 
-  change = g_new0 (struct MidSegmentChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) midsegment_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) midsegment_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) midsegment_change_free;
+  change = dia_object_change_new (DIA_TYPE_ORTH_CONN_MID_SEGMENT_OBJECT_CHANGE);
 
   change->type = type;
   change->applied = 0;
@@ -1242,18 +1258,23 @@ midsegment_create_change (OrthConn         *orth,
   change->handles[0] = handle1;
   change->handles[1] = handle2;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
+
 static void
-autoroute_change_free(struct AutorouteChange *change)
+dia_orth_conn_autoroute_object_change_free (DiaObjectChange *self)
 {
+  DiaOrthConnAutorouteObjectChange *change = DIA_ORTH_CONN_AUTOROUTE_OBJECT_CHANGE (self);
+
   g_clear_pointer (&change->points, g_free);
 }
 
+
 static void
-autoroute_change_apply(struct AutorouteChange *change, DiaObject *obj)
+dia_orth_conn_autoroute_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaOrthConnAutorouteObjectChange *change = DIA_ORTH_CONN_AUTOROUTE_OBJECT_CHANGE (self);
   OrthConn *orth = (OrthConn*)obj;
 
   if (change->on) {
@@ -1267,9 +1288,11 @@ autoroute_change_apply(struct AutorouteChange *change, DiaObject *obj)
   }
 }
 
+
 static void
-autoroute_change_revert(struct AutorouteChange *change, DiaObject *obj)
+dia_orth_conn_autoroute_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaOrthConnAutorouteObjectChange *change = DIA_ORTH_CONN_AUTOROUTE_OBJECT_CHANGE (self);
   OrthConn *orth = (OrthConn*)obj;
 
   if (change->on) {
@@ -1286,22 +1309,19 @@ autoroute_change_revert(struct AutorouteChange *change, DiaObject *obj)
 static DiaObjectChange *
 autoroute_create_change (OrthConn *orth, gboolean on)
 {
-  struct AutorouteChange *change;
-  int i;
+  DiaOrthConnAutorouteObjectChange *change;
 
-  change = g_new(struct AutorouteChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) autoroute_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) autoroute_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) autoroute_change_free;
+  change = dia_object_change_new (DIA_TYPE_ORTH_CONN_AUTOROUTE_OBJECT_CHANGE);
 
   change->on = on;
   change->num_points = orth->numpoints;
-  change->points = g_new(Point, orth->numpoints);
-  for (i = 0; i < orth->numpoints; i++)
-    change->points[i] = orth->points[i];
+  change->points = g_new0 (Point, orth->numpoints);
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  for (int i = 0; i < orth->numpoints; i++) {
+    change->points[i] = orth->points[i];
+  }
+
+  return DIA_OBJECT_CHANGE (change);
 }
 
 

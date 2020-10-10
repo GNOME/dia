@@ -20,8 +20,8 @@
  * Definitions for Dia objects, in particular the 'virtual'
  * functions and the object and type structures.
  */
-#ifndef DIA_OBJECT_H
-#define DIA_OBJECT_H
+
+#pragma once
 
 #include "diatypes.h"
 #include <gtk/gtk.h>
@@ -37,6 +37,13 @@
 #include "dia-object-change.h"
 
 G_BEGIN_DECLS
+
+#define DIA_TYPE_EXCHANGE_OBJECT_CHANGE dia_exchange_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaExchangeObjectChange,
+                      dia_exchange_object_change,
+                      DIA, EXCHANGE_OBJECT_CHANGE,
+                      DiaObjectChange)
+
 
 /**
  * DiaObjectFlags:
@@ -565,5 +572,3 @@ void          object_copy_style(DiaObject *dest, const DiaObject *src);
 GdkPixbuf    *dia_object_type_get_icon (const DiaObjectType *type);
 
 G_END_DECLS
-
-#endif /* DIA_OBJECT_H */

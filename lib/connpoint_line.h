@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-
-#ifndef __CONNPOINT_LINE_H
-#define __CONNPOINT_LINE_H
+#pragma once
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,6 +27,14 @@
 #include "connectionpoint.h"
 #include "object.h"
 #include "dia_xml.h"
+
+G_BEGIN_DECLS
+
+#define DIA_TYPE_CONN_POINT_LINE_OBJECT_CHANGE dia_conn_point_line_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaConnPointLineObjectChange,
+                      dia_conn_point_line_object_change,
+                      DIA, CONN_POINT_LINE_OBJECT_CHANGE,
+                      DiaObjectChange)
 
 
 typedef struct _ConnPointLine {
@@ -59,14 +65,19 @@ DiaObjectChange *connpointline_add_points    (ConnPointLine *cpl,
 DiaObjectChange *connpointline_remove_points (ConnPointLine *cpl,
                                               Point         *clickedpoint,
                                               int            count);
-ConnPointLine *connpointline_load(DiaObject *obj,ObjectNode obj_node,
-				  const gchar *name, int default_nc,
-				  int *realconncount,
-				  DiaContext *ctx);
-void connpointline_save(ConnPointLine *cpl,ObjectNode obj_node,
-			const gchar *name, DiaContext *ctx);
-ConnPointLine *connpointline_copy(DiaObject *newobj,ConnPointLine *cpl,
-				  int *realconncount);
+ConnPointLine   *connpointline_load          (DiaObject     *obj,
+                                              ObjectNode     obj_node,
+                                              const char    *name,
+                                              int            default_nc,
+                                              int           *realconncount,
+                                              DiaContext    *ctx);
+void             connpointline_save          (ConnPointLine *cpl,
+                                              ObjectNode     obj_node,
+                                              const char    *name,
+                                              DiaContext    *ctx);
+ConnPointLine   *connpointline_copy          (DiaObject     *newobj,
+                                              ConnPointLine *cpl,
+                                              int           *realconncount);
 
 #define connpointline_add_point(cpl, clickedpoint) \
     connpointline_add_points(cpl, clickedpoint, 1)
@@ -76,4 +87,4 @@ ConnPointLine *connpointline_copy(DiaObject *newobj,ConnPointLine *cpl,
 int connpointline_adjust_count(ConnPointLine *cpl,
 			       int newcount, Point *where);
 
-#endif /* __CONNPOINT_LINE_H */
+G_END_DECLS

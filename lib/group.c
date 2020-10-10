@@ -25,7 +25,6 @@
 #include "group.h"
 #include "properties.h"
 #include "diarenderer.h"
-#include "dia-object-change-legacy.h"
 
 
 /*!

@@ -54,6 +54,13 @@
 
 G_BEGIN_DECLS
 
+#define DIA_TYPE_PROP_OBJECT_CHANGE dia_prop_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaPropObjectChange,
+                      dia_prop_object_change,
+                      DIA, PROP_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
 typedef gboolean (*PropDescToPropPredicate)(const PropDescription *pdesc);
 
 struct _PropWidgetAssoc {

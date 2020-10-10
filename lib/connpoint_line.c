@@ -23,7 +23,6 @@
 #include "connpoint_line.h"
 #include "connectionpoint.h"
 #include "dia_xml.h"
-#include "dia-object-change-legacy.h"
 
 
 #define DEBUG_PARENT 0
@@ -425,8 +424,9 @@ cpl_get_pointbefore(ConnPointLine *cpl, Point *clickedpoint)
   return pos;
 }
 
-typedef struct {
-  ObjectChange obj_change;
+
+struct _DiaConnPointLineObjectChange {
+  DiaObjectChange obj_change;
 
   int add; /* How much to add or remove */
   int applied; /* 1 if the event has been applied. */
@@ -434,51 +434,65 @@ typedef struct {
   ConnPointLine *cpl;
   int pos; /* Position where the change happened. */
   ConnectionPoint **cp; /* The removed connection point. */
-} CPLChange;
+};
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaConnPointLineObjectChange,
+                          dia_conn_point_line_object_change)
+
 
 static void
-cpl_change_addremove(CPLChange *change, ConnPointLine *cpl,
-		     int action, int resultingapplied)
+dia_conn_point_line_object_change_addremove (DiaConnPointLineObjectChange *change,
+                                             ConnPointLine                *cpl,
+                                             int                           action,
+                                             int                           resultingapplied)
 {
   if (action != 0) {
     if (action > 0) { /* We should add */
       while (action--) {
-	cpl_add_connectionpoint_at(cpl,change->pos,change->cp[action]);
-	change->cp[action] = NULL;
+        cpl_add_connectionpoint_at (cpl, change->pos, change->cp[action]);
+        change->cp[action] = NULL;
       }
       cpl_reorder_connections(cpl);
     } else { /* We should remove. Warning, action is negative. */
       while (action++) {
-	change->cp[-action] = cpl_remove_connpoint(cpl,change->pos);
+        change->cp[-action] = cpl_remove_connpoint (cpl, change->pos);
       }
     }
   } else {
-    g_warning("cpl_change_addremove(): null action !");
+    g_warning ("cpl_change_addremove(): null action !");
   }
   change->applied = resultingapplied;
 }
 
-static void
-cpl_change_apply(CPLChange *change, ConnPointLine *probablynotcpl)
-{
-  cpl_change_addremove(change,change->cpl,change->add,1);
-}
 
 static void
-cpl_change_revert(CPLChange *change, ConnPointLine *probablynotcpl)
+dia_conn_point_line_object_change_apply (DiaObjectChange *self, DiaObject *probablynotcpl)
 {
-  cpl_change_addremove(change,change->cpl,-(change->add),0);
+  DiaConnPointLineObjectChange *change = DIA_CONN_POINT_LINE_OBJECT_CHANGE (self);
+
+  dia_conn_point_line_object_change_addremove (change, change->cpl, change->add, 1);
 }
 
 
 static void
-cpl_change_free (CPLChange *change)
+dia_conn_point_line_object_change_revert (DiaObjectChange *self, DiaObject *probablynotcpl)
 {
-  int i = ABS(change->add);
+  DiaConnPointLineObjectChange *change = DIA_CONN_POINT_LINE_OBJECT_CHANGE (self);
+
+  dia_conn_point_line_object_change_addremove (change, change->cpl, -(change->add), 0);
+}
+
+
+static void
+dia_conn_point_line_object_change_free (DiaObjectChange *self)
+{
+  DiaConnPointLineObjectChange *change = DIA_CONN_POINT_LINE_OBJECT_CHANGE (self);
+  int i = ABS (change->add);
 
   while (i--) {
     if (change->cp[i]) {
-      del_connpoint(change->cp[i]);
+      del_connpoint (change->cp[i]);
     }
   }
   g_clear_pointer (&change->cp, g_free);
@@ -488,27 +502,23 @@ cpl_change_free (CPLChange *change)
 
 
 static DiaObjectChange *
-cpl_create_change(ConnPointLine *cpl, int pos, int add)
+dia_conn_point_line_object_change_new (ConnPointLine *cpl, int pos, int add)
 {
-  CPLChange *change;
+  DiaConnPointLineObjectChange *change;
 
-  change = g_new0(CPLChange,1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) cpl_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) cpl_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) cpl_change_free;
+  change = dia_object_change_new (DIA_TYPE_CONN_POINT_LINE_OBJECT_CHANGE);
 
   change->cpl = cpl;
   change->applied = 0;
   change->add = add;
   change->pos = pos;
 
-  change->cp = g_malloc0(sizeof(ConnectionPoint *) * ABS(add));
+  change->cp = g_new0 (ConnectionPoint *, ABS (add));
   while (add-- > 0) {
-    change->cp[add] = new_connpoint(cpl->parent);
+    change->cp[add] = new_connpoint (cpl->parent);
   }
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 
@@ -521,7 +531,7 @@ connpointline_add_points (ConnPointLine *cpl,
   DiaObjectChange *change;
 
   pos = cpl_get_pointbefore (cpl, clickedpoint);
-  change = cpl_create_change (cpl, pos, count);
+  change = dia_conn_point_line_object_change_new (cpl, pos, count);
 
   dia_object_change_apply (change, DIA_OBJECT (cpl));
 
@@ -538,7 +548,7 @@ connpointline_remove_points (ConnPointLine *cpl,
   DiaObjectChange *change;
 
   pos = cpl_get_pointbefore (cpl, clickedpoint);
-  change = cpl_create_change (cpl, pos, -count);
+  change = dia_conn_point_line_object_change_new (cpl, pos, -count);
 
   dia_object_change_apply (change, DIA_OBJECT (cpl));
 

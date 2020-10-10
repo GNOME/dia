@@ -27,8 +27,6 @@
 #include "polyshape.h"
 #include "message.h"
 #include "diarenderer.h"
-#include "dia-object-change-legacy.h"
-
 
 #define NUM_CONNECTIONS(poly) ((poly)->numpoints * 2 + 1)
 
@@ -37,8 +35,9 @@ enum change_type {
   TYPE_REMOVE_POINT
 };
 
-struct PointChange {
-  ObjectChange obj_change;
+
+struct _DiaPolyShapeObjectChange {
+  DiaObjectChange obj_change;
 
   enum change_type type;
   int applied;
@@ -50,6 +49,9 @@ struct PointChange {
 		     owning ref when applied for REMOVE_POINT */
   ConnectionPoint *cp1, *cp2;
 };
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaPolyShapeObjectChange, dia_poly_shape_object_change)
 
 
 static DiaObjectChange *polyshape_create_change (PolyShape        *poly,
@@ -220,22 +222,28 @@ polyshape_add_point (PolyShape *poly, int segment, Point *point)
   ConnectionPoint *new_cp1, *new_cp2;
 
   if (point == NULL) {
-    realpoint.x = (poly->points[segment].x+poly->points[segment+1].x)/2;
-    realpoint.y = (poly->points[segment].y+poly->points[segment+1].y)/2;
+    realpoint.x = (poly->points[segment].x + poly->points[segment + 1].x) / 2;
+    realpoint.y = (poly->points[segment].y + poly->points[segment + 1].y) / 2;
   } else {
     realpoint = *point;
   }
 
-  new_handle = g_new(Handle, 1);
-  new_cp1 = g_new0(ConnectionPoint, 1);
+  new_handle = g_new (Handle, 1);
+  new_cp1 = g_new0 (ConnectionPoint, 1);
   new_cp1->object = &poly->object;
-  new_cp2 = g_new0(ConnectionPoint, 1);
+  new_cp2 = g_new0 (ConnectionPoint, 1);
   new_cp2->object = &poly->object;
-  setup_handle(new_handle);
-  add_handle(poly, segment+1, &realpoint, new_handle, new_cp1, new_cp2);
-  return polyshape_create_change(poly, TYPE_ADD_POINT,
-				&realpoint, segment+1, new_handle,
-				new_cp1, new_cp2);
+
+  setup_handle (new_handle);
+  add_handle (poly, segment + 1, &realpoint, new_handle, new_cp1, new_cp2);
+
+  return polyshape_create_change (poly,
+                                  TYPE_ADD_POINT,
+                                  &realpoint,
+                                  segment + 1,
+                                  new_handle,
+                                  new_cp1,
+                                  new_cp2);
 }
 
 
@@ -248,19 +256,24 @@ polyshape_remove_point (PolyShape *poly, int pos)
 
   old_handle = poly->object.handles[pos];
   old_point = poly->points[pos];
-  old_cp1 = poly->object.connections[2*pos];
-  old_cp2 = poly->object.connections[2*pos+1];
+  old_cp1 = poly->object.connections[2 * pos];
+  old_cp2 = poly->object.connections[2 * pos + 1];
 
-  object_unconnect((DiaObject *)poly, old_handle);
+  object_unconnect (DIA_OBJECT (poly), old_handle);
 
-  remove_handle(poly, pos);
+  remove_handle (poly, pos);
 
-  polyshape_update_data(poly);
+  polyshape_update_data (poly);
 
-  return polyshape_create_change(poly, TYPE_REMOVE_POINT,
-				&old_point, pos, old_handle,
-				old_cp1, old_cp2);
+  return polyshape_create_change (poly,
+                                  TYPE_REMOVE_POINT,
+                                  &old_point,
+                                  pos,
+                                  old_handle,
+                                  old_cp1,
+                                  old_cp2);
 }
+
 
 /** Returns the first clockwise direction in dirs
  * (as returned from find_slope_directions) */
@@ -564,11 +577,14 @@ polyshape_load(PolyShape *poly, ObjectNode obj_node, DiaContext *ctx) /* NOTE: D
   polyshape_update_data(poly);
 }
 
+
 static void
-polyshape_change_free(struct PointChange *change)
+dia_poly_shape_object_change_free (DiaObjectChange *self)
 {
-  if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
-       (change->type==TYPE_REMOVE_POINT && change->applied) ){
+  DiaPolyShapeObjectChange *change = DIA_POLY_SHAPE_OBJECT_CHANGE (self);
+
+  if ((change->type == TYPE_ADD_POINT && !change->applied) ||
+      (change->type == TYPE_REMOVE_POINT && change->applied) ){
     g_clear_pointer (&change->handle, g_free);
     g_clear_pointer (&change->cp1, g_free);
     g_clear_pointer (&change->cp2, g_free);
@@ -577,9 +593,12 @@ polyshape_change_free(struct PointChange *change)
 
 
 static void
-polyshape_change_apply (struct PointChange *change, DiaObject *obj)
+dia_poly_shape_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaPolyShapeObjectChange *change = DIA_POLY_SHAPE_OBJECT_CHANGE (self);
+
   change->applied = 1;
+
   switch (change->type) {
     case TYPE_ADD_POINT:
       add_handle ((PolyShape *) obj, change->pos, &change->point,
@@ -596,8 +615,10 @@ polyshape_change_apply (struct PointChange *change, DiaObject *obj)
 
 
 static void
-polyshape_change_revert (struct PointChange *change, DiaObject *obj)
+dia_poly_shape_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaPolyShapeObjectChange *change = DIA_POLY_SHAPE_OBJECT_CHANGE (self);
+
   switch (change->type) {
     case TYPE_ADD_POINT:
       remove_handle ((PolyShape *)obj, change->pos);
@@ -609,6 +630,7 @@ polyshape_change_revert (struct PointChange *change, DiaObject *obj)
     default:
       g_return_if_reached ();
   }
+
   change->applied = 0;
 }
 
@@ -622,13 +644,9 @@ polyshape_create_change (PolyShape        *poly,
                          ConnectionPoint  *cp1,
                          ConnectionPoint  *cp2)
 {
-  struct PointChange *change;
+  DiaPolyShapeObjectChange *change;
 
-  change = g_new0 (struct PointChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) polyshape_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) polyshape_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) polyshape_change_free;
+  change = dia_object_change_new (DIA_TYPE_POLY_SHAPE_OBJECT_CHANGE);
 
   change->type = type;
   change->applied = 1;
@@ -638,5 +656,5 @@ polyshape_create_change (PolyShape        *poly,
   change->cp1 = cp1;
   change->cp2 = cp2;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }

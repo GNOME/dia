@@ -43,7 +43,6 @@
 #include "create.h"
 #include "bezier-common.h"
 #include "pattern.h"
-#include "dia-object-change-legacy.h"
 #include "dia-object-change-list.h"
 
 
@@ -496,9 +495,30 @@ _invert_path_callback (DiaObject *obj, Point *clicked, gpointer data)
 }
 
 
-/* a very simple undo function, complete reversible function */
+struct _DiaPathObjectChange {
+  DiaObjectChange parent;
+};
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaPathObjectChange, dia_path_object_change)
+
+
 static void
-_apply_invert (ObjectChange *change, DiaObject *obj)
+dia_path_object_change_free (DiaObjectChange *self)
+{
+
+}
+
+
+static void
+dia_path_object_change_apply (DiaObjectChange *self, DiaObject *obj)
+{
+  _stdpath_invert ((StdPath *) obj);
+}
+
+
+static void
+dia_path_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
   _stdpath_invert ((StdPath *) obj);
 }
@@ -507,11 +527,7 @@ _apply_invert (ObjectChange *change, DiaObject *obj)
 static DiaObjectChange *
 _path_object_invert_change_create (DiaObject *obj)
 {
-  ObjectChange *change = g_new0 (ObjectChange, 1);
-  change->apply = _apply_invert;
-  change->revert = _apply_invert;
-  change->free = NULL;
-  return dia_object_change_legacy_new (change);
+  return dia_object_change_new (DIA_TYPE_PATH_OBJECT_CHANGE);
 }
 
 
@@ -529,16 +545,27 @@ _path_transform (StdPath *sp, const DiaMatrix *m)
 }
 
 
-typedef struct _PathTransformChange {
-  ObjectChange change;
-  DiaMatrix    matrix;
-} PathTransformChange;
+struct _DiaPathTransformObjectChange {
+  DiaObjectChange change;
+  DiaMatrix       matrix;
+};
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaPathTransformObjectChange,
+                          dia_path_transform_object_change)
 
 
 static void
-_ptc_apply (ObjectChange *change, DiaObject *obj)
+dia_path_transform_object_change_free (DiaObjectChange *self)
 {
-  PathTransformChange *ptc = (PathTransformChange *)change;
+
+}
+
+
+static void
+dia_path_transform_object_change_apply (DiaObjectChange *self, DiaObject *obj)
+{
+  DiaPathTransformObjectChange *ptc = DIA_PATH_TRANSFORM_OBJECT_CHANGE (self);
   StdPath *sp = (StdPath *) obj;
 
   _path_transform (sp, &ptc->matrix);
@@ -546,10 +573,10 @@ _ptc_apply (ObjectChange *change, DiaObject *obj)
 
 
 static void
-_ptc_revert (ObjectChange *change, DiaObject *obj)
+dia_path_transform_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
   StdPath *sp = (StdPath *) obj;
-  PathTransformChange *ptc = (PathTransformChange *) change;
+  DiaPathTransformObjectChange *ptc = DIA_PATH_TRANSFORM_OBJECT_CHANGE (self);
   DiaMatrix mi = ptc->matrix;
 
   if (cairo_matrix_invert ((cairo_matrix_t *) &mi) != CAIRO_STATUS_SUCCESS) {
@@ -562,13 +589,13 @@ _ptc_revert (ObjectChange *change, DiaObject *obj)
 static DiaObjectChange *
 _path_object_transform_change_create (DiaObject *obj, DiaMatrix *matrix)
 {
-  PathTransformChange *ptc = g_new0 (PathTransformChange, 1);
+  DiaPathTransformObjectChange *ptc;
 
-  ptc->change.apply = _ptc_apply;
-  ptc->change.revert = _ptc_revert;
-  ptc->change.free = NULL;
+  ptc = dia_object_change_new (DIA_TYPE_PATH_TRANSFORM_OBJECT_CHANGE);
+
   ptc->matrix = *matrix;
-  return dia_object_change_legacy_new (&ptc->change);
+
+  return DIA_OBJECT_CHANGE (ptc);
 }
 
 

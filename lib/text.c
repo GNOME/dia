@@ -33,7 +33,6 @@
 #include "textline.h"
 #include "attributes.h"
 #include "object.h"
-#include "dia-object-change-legacy.h"
 #include "dia-object-change-list.h"
 
 
@@ -54,8 +53,9 @@ typedef enum {
   TYPE_DELETE_ALL
 } TextChangeType;
 
-struct TextObjectChange {
-  ObjectChange obj_change;
+
+struct _DiaTextObjectChange {
+  DiaObjectChange obj_change;
 
   Text *text;
   TextChangeType type;
@@ -71,6 +71,10 @@ struct TextObjectChange {
    */
   GPtrArray *props;
 };
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaTextObjectChange, dia_text_object_change)
+
 
 #define CURSOR_HEIGHT_RATIO 20
 
@@ -1322,8 +1326,9 @@ text_set_attributes (Text *text, TextAttributes *attr)
 
 
 static void
-text_change_apply (struct TextObjectChange *change, DiaObject *obj)
+dia_text_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaTextObjectChange *change = DIA_TEXT_OBJECT_CHANGE (self);
   Text *text = change->text;
 
   dia_object_get_properties (change->obj, change->props);
@@ -1364,9 +1369,11 @@ text_change_apply (struct TextObjectChange *change, DiaObject *obj)
 
 
 static void
-text_change_revert (struct TextObjectChange *change, DiaObject *obj)
+dia_text_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaTextObjectChange *change = DIA_TEXT_OBJECT_CHANGE (self);
   Text *text = change->text;
+
   switch (change->type) {
     case TYPE_INSERT_CHAR:
       text->cursor_pos = change->pos;
@@ -1407,8 +1414,10 @@ text_change_revert (struct TextObjectChange *change, DiaObject *obj)
 
 
 static void
-text_change_free (struct TextObjectChange *change)
+dia_text_object_change_free (DiaObjectChange *self)
 {
+  DiaTextObjectChange *change = DIA_TEXT_OBJECT_CHANGE (self);
+
   g_clear_pointer (&change->str, g_free);
   prop_list_free (change->props);
 }
@@ -1447,18 +1456,14 @@ text_create_change (Text           *text,
                     int             row,
                     DiaObject      *obj)
 {
-  struct TextObjectChange *change;
+  DiaTextObjectChange *change;
 
-  change = g_new0 (struct TextObjectChange, 1);
+  change = dia_object_change_new (DIA_TYPE_TEXT_OBJECT_CHANGE);
 
   change->obj = obj;
   change->props = make_posision_and_size_prop_list ();
   /* remember previous position/size */
   dia_object_get_properties (change->obj, change->props);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) text_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) text_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) text_change_free;
 
   change->text = text;
   change->type = type;
@@ -1472,7 +1477,7 @@ text_create_change (Text           *text,
     change->str = NULL;
   }
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 

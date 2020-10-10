@@ -15,12 +15,21 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef POLYSHAPE_H
-#define POLYSHAPE_H
+
+#pragma once
 
 #include "diatypes.h"
 #include "object.h"
 #include "boundingbox.h"
+
+G_BEGIN_DECLS
+
+#define DIA_TYPE_POLY_SHAPE_OBJECT_CHANGE dia_poly_shape_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaPolyShapeObjectChange,
+                      dia_poly_shape_object_change,
+                      DIA, POLY_SHAPE_OBJECT_CHANGE,
+                      DiaObjectChange)
+
 
 #define HANDLE_CORNER (HANDLE_CUSTOM1)
 
@@ -78,4 +87,4 @@ int polyshape_closest_segment(PolyShape *poly, Point *point,
   { "poly_points", PROP_TYPE_POINTARRAY, \
      offsetof(PolyShape,points), offsetof(PolyShape,numpoints)} \
 
-#endif /* POLY_CONN_H */
+G_END_DECLS

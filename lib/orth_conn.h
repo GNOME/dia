@@ -25,6 +25,28 @@
 
 G_BEGIN_DECLS
 
+
+#define DIA_TYPE_ORTH_CONN_MID_SEGMENT_OBJECT_CHANGE dia_orth_conn_mid_segment_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaOrthConnMidSegmentObjectChange,
+                      dia_orth_conn_mid_segment_object_change,
+                      DIA, ORTH_CONN_MID_SEGMENT_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
+#define DIA_TYPE_ORTH_CONN_END_SEGMENT_OBJECT_CHANGE dia_orth_conn_end_segment_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaOrthConnEndSegmentObjectChange,
+                      dia_orth_conn_end_segment_object_change,
+                      DIA, ORTH_CONN_END_SEGMENT_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
+#define DIA_TYPE_ORTH_CONN_AUTOROUTE_OBJECT_CHANGE dia_orth_conn_autoroute_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaOrthConnAutorouteObjectChange,
+                      dia_orth_conn_autoroute_object_change,
+                      DIA, ORTH_CONN_AUTOROUTE_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
 typedef enum {
   HORIZONTAL,
   VERTICAL

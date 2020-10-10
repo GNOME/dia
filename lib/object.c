@@ -490,32 +490,35 @@ _object_exchange (ObjectChange *change, DiaObject *obj)
   }
 }
 
+
 /* It is adviced to not use the passed in object at all */
 static void
-_object_exchange_apply (ObjectChange *change, DiaObject *obj)
+dia_exchange_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
-  ObjectChangeExchange *c = (ObjectChangeExchange *)change;
+  DiaExchangeObjectChange *c = DIA_EXCHANGE_OBJECT_CHANGE (self);
 
   g_return_if_fail (c->applied == 0);
-  _object_exchange (change, c->orig);
+  _object_exchange (self, c->orig);
   c->applied = 1;
 }
 
+
 /* It is adviced to not use the passed in object at all */
 static void
-_object_exchange_revert (ObjectChange *change, DiaObject *obj)
+dia_exchange_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
-  ObjectChangeExchange *c = (ObjectChangeExchange *)change;
+  DiaExchangeObjectChange *c = DIA_EXCHANGE_OBJECT_CHANGE (self);
 
   g_return_if_fail (c->applied != 0);
-  _object_exchange (change, c->subst);
+  _object_exchange (self, c->subst);
   c->applied = 0;
 }
 
+
 static void
-_object_exchange_free (ObjectChange *change)
+dia_exchange_object_change_free (DiaObjectChange *self)
 {
-  ObjectChangeExchange *c = (ObjectChangeExchange *)change;
+  DiaExchangeObjectChange *c = DIA_EXCHANGE_OBJECT_CHANGE (self);
   DiaObject *obj = c->applied ? c->orig : c->subst;
 
   if (obj) {
@@ -523,6 +526,7 @@ _object_exchange_free (ObjectChange *change)
     g_clear_pointer (&obj, g_free);
   }
 }
+
 
 /**
  * object_substitute:
@@ -541,17 +545,16 @@ _object_exchange_free (ObjectChange *change)
 DiaObjectChange *
 object_substitute (DiaObject *obj, DiaObject *subst)
 {
-  ObjectChangeExchange *change = g_new0 (ObjectChangeExchange, 1);
+  DiaExchangeObjectChange *change;
 
-  change->change.apply  = _object_exchange_apply;
-  change->change.revert = _object_exchange_revert;
-  change->change.free   = _object_exchange_free;
+  change = dia_object_change_new (DIA_TYPE_EXCHANGE_OBJECT_CHANGE);
+
   change->orig  = obj;
   change->subst = subst;
 
-  _object_exchange_apply ((ObjectChange *) change, obj);
+  dia_object_change_apply (DIA_OBJECT_CHANGE (change), obj);
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 

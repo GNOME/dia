@@ -24,17 +24,26 @@
  * \brief Object implementations need some effort to support undo/redo
  * \ingroup ObjectParts
  */
-#ifndef OBJCHANGE_H
-#define OBJCHANGE_H
+
+#pragma once
 
 #include "diatypes.h"
 #include "dia-object-change.h"
 
 G_BEGIN_DECLS
 
+#define DIA_TYPE_STATE_OBJECT_CHANGE dia_state_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaStateObjectChange,
+                      dia_state_object_change,
+                      DIA, STATE_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
+typedef struct _ObjectChange ObjectChange;
 typedef void (*ObjectChangeApplyFunc)(ObjectChange *change, DiaObject *obj);
 typedef void (*ObjectChangeRevertFunc)(ObjectChange *change, DiaObject *obj);
 typedef void (*ObjectChangeFreeFunc)(ObjectChange *change);
+
 
 /*!
    \brief Return value of object changing functions and methods of DiaObject
@@ -53,6 +62,8 @@ struct _ObjectChange {
   ObjectChangeRevertFunc revert; /*!< revert back to the state before the changed was applied */
   ObjectChangeFreeFunc   free; /*!< Remove extra data. Then this object is freed */
 };
+
+
 
 /******** Helper functions of objects: *************/
 
@@ -90,11 +101,9 @@ typedef void (*SetStateFunc) (DiaObject* obj, ObjectState *state);
 /*! Create a single change from the ObjectState
  * \ingroup ObjChange
  */
-DiaObjectChange *new_object_state_change (DiaObject    *obj,
-                                          ObjectState  *old_state,
-                                          GetStateFunc  get_state,
-                                          SetStateFunc  set_state);
+DiaObjectChange *dia_state_object_change_new (DiaObject    *obj,
+                                              ObjectState  *old_state,
+                                              GetStateFunc  get_state,
+                                              SetStateFunc  set_state);
 
 G_END_DECLS
-
-#endif /* OBJCHANGE_H */

@@ -19,14 +19,29 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef STANDARD_PATH_H
-#define STANDARD_PATH_H
+#pragma once
 
 #include "diarenderer.h"
+
+G_BEGIN_DECLS
+
+#define DIA_TYPE_PATH_OBJECT_CHANGE dia_path_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaPathObjectChange,
+                      dia_path_object_change,
+                      DIA, PATH_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
+#define DIA_TYPE_PATH_TRANSFORM_OBJECT_CHANGE dia_path_transform_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaPathTransformObjectChange,
+                      dia_path_transform_object_change,
+                      DIA, PATH_TRANSFORM_OBJECT_CHANGE,
+                      DiaObjectChange)
+
 
 /* there should be no need to use DIAVAR */
 extern DiaObjectType stdpath_type;
 
 gboolean text_to_path (const Text *text, GArray *points);
 
-#endif /* STANDARD_PATH_H */
+G_END_DECLS

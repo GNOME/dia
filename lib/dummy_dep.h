@@ -34,13 +34,14 @@
 #include "dynamic_obj.h"
 #include "connectionpoint.h"
 #include "diafontselector.h"
+#include "objchange.h"
 
 /* This is a file with dummy dependencies so that all
    object files will be linked into the app.
 */
 
 #ifndef __sgi
-static 
+static
 #endif
 void *dummy_dep[] G_GNUC_UNUSED = {
   connection_move_handle,
@@ -55,7 +56,7 @@ void *dummy_dep[] G_GNUC_UNUSED = {
   nearest_pow,
   arrow_draw,
   dia_font_selector_new, /* widgets.o */
-  new_object_state_change, /* objchange.o */
+  dia_state_object_change_new, /* objchange.o */
   intl_score_locale, /* intl.o */
   connpointline_create, /* connpoint_line.o */
   object_create_props_dialog, /* properties.o */

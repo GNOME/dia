@@ -35,7 +35,6 @@
 #include "properties.h"
 #include "propinternals.h"
 #include "object.h"
-#include "dia-object-change-legacy.h"
 #include "dia-object-change-list.h"
 
 
@@ -105,17 +104,20 @@ object_get_props(DiaObject *obj, GPtrArray *props)
 /* ------------------------------------------------------ */
 /* Change management                                      */
 
-/* an ObjectChange structure for setting of properties */
-typedef struct _ObjectPropChange ObjectPropChange;
-struct _ObjectPropChange {
-  ObjectChange obj_change;
+/* an DiaObjectChange structure for setting of properties */
+struct _DiaPropObjectChange {
+  DiaObjectChange obj_change;
 
   DiaObject *obj;
   GPtrArray *saved_props;
 };
 
+
+DIA_DEFINE_OBJECT_CHANGE (DiaPropObjectChange, dia_prop_object_change)
+
+
 static void
-object_prop_change_apply_revert (ObjectPropChange *change, DiaObject *obj)
+dia_prop_object_change_apply_revert (DiaPropObjectChange *change, DiaObject *obj)
 {
   GPtrArray *old_props;
 
@@ -131,27 +133,37 @@ object_prop_change_apply_revert (ObjectPropChange *change, DiaObject *obj)
   change->saved_props = old_props;
 }
 
+
 static void
-object_prop_change_free(ObjectPropChange *change)
+dia_prop_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
-  prop_list_free(change->saved_props);
+  dia_prop_object_change_apply_revert (DIA_PROP_OBJECT_CHANGE (self), obj);
+}
+
+
+static void
+dia_prop_object_change_revert (DiaObjectChange *self, DiaObject *obj)
+{
+  dia_prop_object_change_apply_revert (DIA_PROP_OBJECT_CHANGE (self), obj);
+}
+
+
+static void
+dia_prop_object_change_free (DiaObjectChange *self)
+{
+  DiaPropObjectChange *change = DIA_PROP_OBJECT_CHANGE (self);
+
+  prop_list_free (change->saved_props);
 }
 
 
 DiaObjectChange *
 object_apply_props (DiaObject *obj, GPtrArray *props)
 {
-  ObjectPropChange *change;
+  DiaPropObjectChange *change;
   GPtrArray *old_props;
 
-  change = g_new0 (ObjectPropChange, 1);
-
-  change->obj_change.apply =
-    (ObjectChangeApplyFunc) object_prop_change_apply_revert;
-  change->obj_change.revert =
-    (ObjectChangeRevertFunc) object_prop_change_apply_revert;
-  change->obj_change.free =
-    (ObjectChangeFreeFunc) object_prop_change_free;
+  change = dia_object_change_new (DIA_TYPE_PROP_OBJECT_CHANGE);
 
   change->obj = obj;
 
@@ -165,7 +177,7 @@ object_apply_props (DiaObject *obj, GPtrArray *props)
 
   change->saved_props = old_props;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 
