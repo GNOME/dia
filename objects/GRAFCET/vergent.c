@@ -34,7 +34,6 @@
 #include "properties.h"
 #include "geometry.h"
 #include "connpoint_line.h"
-#include "dia-object-change-legacy.h"
 
 #include "grafcet.h"
 
@@ -379,32 +378,50 @@ vergent_update_data (Vergent *vergent)
 
 /* DiaObject menu handling */
 
-typedef struct {
-  ObjectChange obj_change;
+
+#define DIA_GRAFCET_TYPE_VERGENT_OBJECT_CHANGE dia_grafcet_vergent_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaGRAFCETVergentObjectChange,
+                      dia_grafcet_vergent_object_change,
+                      DIA_GRAFCET, VERGENT_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
+struct _DiaGRAFCETVergentObjectChange {
+  DiaObjectChange obj_change;
 
   DiaObjectChange *north, *south;
-} VergentChange;
+};
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaGRAFCETVergentObjectChange,
+                          dia_grafcet_vergent_object_change)
 
 
 static void
-vergent_change_apply (VergentChange *change, DiaObject *obj)
+dia_grafcet_vergent_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaGRAFCETVergentObjectChange *change = DIA_GRAFCET_VERGENT_OBJECT_CHANGE (self);
+
   dia_object_change_apply (change->north, obj);
   dia_object_change_apply (change->south, obj);
 }
 
 
 static void
-vergent_change_revert (VergentChange *change, DiaObject *obj)
+dia_grafcet_vergent_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaGRAFCETVergentObjectChange *change = DIA_GRAFCET_VERGENT_OBJECT_CHANGE (self);
+
   dia_object_change_revert (change->north,obj);
   dia_object_change_revert (change->south,obj);
 }
 
 
 static void
-vergent_change_free (VergentChange *change)
+dia_grafcet_vergent_object_change_free (DiaObjectChange *self)
 {
+  DiaGRAFCETVergentObjectChange *change = DIA_GRAFCET_VERGENT_OBJECT_CHANGE (self);
+
   g_clear_pointer (&change->north, dia_object_change_unref);
   g_clear_pointer (&change->south, dia_object_change_unref);
 }
@@ -413,12 +430,9 @@ vergent_change_free (VergentChange *change)
 static DiaObjectChange *
 vergent_create_change (Vergent *vergent, int add, Point *clicked)
 {
-  VergentChange *vc;
+  DiaGRAFCETVergentObjectChange *vc;
 
-  vc = g_new0 (VergentChange,1);
-  vc->obj_change.apply = (ObjectChangeApplyFunc) vergent_change_apply;
-  vc->obj_change.revert = (ObjectChangeRevertFunc) vergent_change_revert;
-  vc->obj_change.free = (ObjectChangeFreeFunc) vergent_change_free;
+  vc = dia_object_change_new (DIA_GRAFCET_TYPE_VERGENT_OBJECT_CHANGE);
 
   if (add) {
     vc->north = connpointline_add_point (vergent->north,clicked);
@@ -430,7 +444,7 @@ vergent_create_change (Vergent *vergent, int add, Point *clicked)
 
   vergent_update_data (vergent);
 
-  return dia_object_change_legacy_new ((ObjectChange *) vc);
+  return DIA_OBJECT_CHANGE (vc);
 }
 
 

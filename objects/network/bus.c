@@ -29,7 +29,6 @@
 #include "attributes.h"
 #include "diamenu.h"
 #include "properties.h"
-#include "dia-object-change-legacy.h"
 
 #include "pixmaps/bus.xpm"
 
@@ -49,13 +48,22 @@ typedef struct _Bus {
   Color line_color;
 } Bus;
 
+
+#define DIA_NET_TYPE_BUS_OBJECT_CHANGE dia_net_bus_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaNetBusObjectChange,
+                      dia_net_bus_object_change,
+                      DIA_NET, BUS_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
 enum change_type {
   TYPE_ADD_POINT,
   TYPE_REMOVE_POINT
 };
 
-struct PointChange {
-  ObjectChange obj_change;
+
+struct _DiaNetBusObjectChange {
+  DiaObjectChange obj_change;
 
   enum change_type type;
   int applied;
@@ -65,6 +73,9 @@ struct PointChange {
 		     owning ref when applied for REMOVE_POINT */
   ConnectionPoint *connected_to; /* NULL if not connected */
 };
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaNetBusObjectChange, dia_net_bus_object_change)
 
 
 static DiaObjectChange* bus_move_handle        (Bus              *bus,
@@ -705,19 +716,24 @@ bus_load(ObjectNode obj_node, int version,DiaContext *ctx)
   return &bus->connection.object;
 }
 
+
 static void
-bus_change_free(struct PointChange *change)
+dia_net_bus_object_change_free (DiaObjectChange *self)
 {
-  if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
-       (change->type==TYPE_REMOVE_POINT && change->applied) ){
+  DiaNetBusObjectChange *change = DIA_NET_BUS_OBJECT_CHANGE (self);
+
+  if ((change->type == TYPE_ADD_POINT && !change->applied) ||
+      (change->type == TYPE_REMOVE_POINT && change->applied) ){
     g_clear_pointer (&change->handle, g_free);
   }
 }
 
 
 static void
-bus_change_apply (struct PointChange *change, DiaObject *obj)
+dia_net_bus_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaNetBusObjectChange *change = DIA_NET_BUS_OBJECT_CHANGE (self);
+
   change->applied = 1;
 
   switch (change->type) {
@@ -737,14 +753,16 @@ bus_change_apply (struct PointChange *change, DiaObject *obj)
 
 
 static void
-bus_change_revert (struct PointChange *change, DiaObject *obj)
+dia_net_bus_object_change_revert  (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaNetBusObjectChange *change = DIA_NET_BUS_OBJECT_CHANGE (self);
+
   switch (change->type) {
     case TYPE_ADD_POINT:
-      bus_remove_handle ((Bus *)obj, change->handle);
+      bus_remove_handle ((Bus *) obj, change->handle);
       break;
     case TYPE_REMOVE_POINT:
-      bus_add_handle ((Bus *)obj, &change->point, change->handle);
+      bus_add_handle ((Bus *) obj, &change->point, change->handle);
       if (change->connected_to) {
         object_connect (obj, change->handle, change->connected_to);
       }
@@ -754,6 +772,7 @@ bus_change_revert (struct PointChange *change, DiaObject *obj)
   }
 
   bus_update_data ((Bus *) obj);
+
   change->applied = 0;
 }
 
@@ -765,13 +784,9 @@ bus_create_change (Bus              *bus,
                    Handle           *handle,
                    ConnectionPoint  *connected_to)
 {
-  struct PointChange *change;
+  DiaNetBusObjectChange *change;
 
-  change = g_new0(struct PointChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) bus_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) bus_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) bus_change_free;
+  change = dia_object_change_new (DIA_NET_TYPE_BUS_OBJECT_CHANGE);
 
   change->type = type;
   change->applied = 1;
@@ -779,5 +794,5 @@ bus_create_change (Bus              *bus,
   change->handle = handle;
   change->connected_to = connected_to;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }

@@ -29,7 +29,6 @@
 #include "attributes.h"
 #include "properties.h"
 #include "diamenu.h"
-#include "dia-object-change-legacy.h"
 
 #include "pixmaps/tree.xpm"
 
@@ -49,13 +48,22 @@ typedef struct _Tree {
   Color line_color;
 } Tree;
 
+
+#define DIA_MISC_TYPE_TREE_OBJECT_CHANGE dia_misc_tree_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaMiscTreeObjectChange,
+                      dia_misc_tree_object_change,
+                      DIA_MISC, TREE_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
 enum change_type {
   TYPE_ADD_POINT,
   TYPE_REMOVE_POINT
 };
 
-struct PointChange {
-  ObjectChange obj_change;
+
+struct _DiaMiscTreeObjectChange {
+  DiaObjectChange obj_change;
 
   enum change_type type;
   int applied;
@@ -65,6 +73,10 @@ struct PointChange {
 		     owning ref when applied for REMOVE_POINT */
   ConnectionPoint *connected_to; /* NULL if not connected */
 };
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaMiscTreeObjectChange, dia_misc_tree_object_change)
+
 
 static DiaObjectChange *tree_move_handle         (Tree             *tree,
                                                   Handle           *handle,
@@ -705,19 +717,24 @@ tree_load(ObjectNode obj_node, int version,DiaContext *ctx)
   return &tree->connection.object;
 }
 
+
 static void
-tree_change_free(struct PointChange *change)
+dia_misc_tree_object_change_free (DiaObjectChange *self)
 {
-  if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
-       (change->type==TYPE_REMOVE_POINT && change->applied) ){
+  DiaMiscTreeObjectChange *change = DIA_MISC_TREE_OBJECT_CHANGE (self);
+
+  if ((change->type == TYPE_ADD_POINT && !change->applied) ||
+      (change->type == TYPE_REMOVE_POINT && change->applied) ){
     g_clear_pointer (&change->handle, g_free);
   }
 }
 
 
 static void
-tree_change_apply (struct PointChange *change, DiaObject *obj)
+dia_misc_tree_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaMiscTreeObjectChange *change = DIA_MISC_TREE_OBJECT_CHANGE (self);
+
   change->applied = 1;
 
   switch (change->type) {
@@ -736,8 +753,10 @@ tree_change_apply (struct PointChange *change, DiaObject *obj)
 
 
 static void
-tree_change_revert (struct PointChange *change, DiaObject *obj)
+dia_misc_tree_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaMiscTreeObjectChange *change = DIA_MISC_TREE_OBJECT_CHANGE (self);
+
   switch (change->type) {
     case TYPE_ADD_POINT:
       tree_remove_handle ((Tree *) obj, change->handle);
@@ -751,7 +770,9 @@ tree_change_revert (struct PointChange *change, DiaObject *obj)
     default:
       g_return_if_reached ();
   }
+
   tree_update_data ((Tree *) obj);
+
   change->applied = 0;
 }
 
@@ -763,13 +784,9 @@ tree_create_change (Tree             *tree,
                     Handle           *handle,
                     ConnectionPoint  *connected_to)
 {
-  struct PointChange *change;
+  DiaMiscTreeObjectChange *change;
 
-  change = g_new0(struct PointChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) tree_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) tree_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) tree_change_free;
+  change = dia_object_change_new (DIA_MISC_TYPE_TREE_OBJECT_CHANGE);
 
   change->type = type;
   change->applied = 1;
@@ -777,5 +794,5 @@ tree_create_change (Tree             *tree,
   change->handle = handle;
   change->connected_to = connected_to;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
