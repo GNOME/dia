@@ -1511,35 +1511,57 @@ table_state_free (TableState * state)
   g_free (state);
 }
 
+
+struct _DiaDBTableObjectChange {
+  DiaObjectChange obj_change;
+
+  Table *obj;
+
+  GList *added_cp;
+  GList *deleted_cp;
+  GList *disconnected;
+
+  int applied;
+
+  TableState *saved_state;
+};
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaDBTableObjectChange, dia_db_table_object_change)
+
+
 /**
  * Called to UNDO a change on the table object.
  */
 static void
-table_change_revert (TableChange *change, DiaObject *obj)
+dia_db_table_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaDBTableObjectChange *change = DIA_DB_TABLE_OBJECT_CHANGE (self);
   TableState *old_state;
   GList *list;
 
-  old_state = table_state_new(change->obj);
+  old_state = table_state_new (change->obj);
 
-  table_state_set(change->saved_state, change->obj);
+  table_state_set (change->saved_state, change->obj);
 
   list = change->disconnected;
   while (list) {
     Disconnect *dis = (Disconnect *)list->data;
 
-    object_connect(dis->other_object, dis->other_handle, dis->cp);
+    object_connect (dis->other_object, dis->other_handle, dis->cp);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 
   change->saved_state = old_state;
   change->applied = FALSE;
 }
 
+
 static void
-table_change_free (TableChange *change)
+dia_db_table_object_change_free (DiaObjectChange *self)
 {
+  DiaDBTableObjectChange *change = DIA_DB_TABLE_OBJECT_CHANGE (self);
   GList * free_list, * lst;
 
   table_state_free (change->saved_state);
@@ -1549,28 +1571,31 @@ table_change_free (TableChange *change)
     : change->added_cp;
 
   lst = free_list;
-  while (lst)
-    {
-      ConnectionPoint * cp = (ConnectionPoint *) lst->data;
-      g_assert (cp->connected == NULL);
-      object_remove_connections_to (cp);
-      g_clear_pointer (&cp, g_free);
+  while (lst) {
+    ConnectionPoint * cp = (ConnectionPoint *) lst->data;
+    g_assert (cp->connected == NULL);
+    object_remove_connections_to (cp);
+    g_clear_pointer (&cp, g_free);
 
-      lst = g_list_next (lst);
-    }
+    lst = g_list_next (lst);
+  }
   g_list_free (free_list);
 }
+
 
 /**
  * Called to REDO a change on the table object.
  */
 static void
-table_change_apply (TableChange * change, DiaObject * obj)
+dia_db_table_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
-  TableState * old_state;
-  GList * lst;
+  DiaDBTableObjectChange *change = DIA_DB_TABLE_OBJECT_CHANGE (self);
+  TableState *old_state;
+  GList *lst;
 
-  g_print ("apply (o: 0x%08x) (c: 0x%08x)\n", GPOINTER_TO_UINT(obj), GPOINTER_TO_UINT(change));
+  g_print ("apply (o: 0x%08x) (c: 0x%08x)\n",
+           GPOINTER_TO_UINT (obj),
+           GPOINTER_TO_UINT (change));
 
   /* first the get the current state for later use */
   old_state = table_state_new (change->obj);
@@ -1578,29 +1603,27 @@ table_change_apply (TableChange * change, DiaObject * obj)
   table_state_set (change->saved_state, change->obj);
 
   lst = change->disconnected;
-  while (lst)
-    {
-      Disconnect * dis = (Disconnect *) lst->data;
-      object_unconnect (dis->other_object, dis->other_handle);
-      lst = g_list_next (lst);
-    }
+  while (lst) {
+    Disconnect * dis = (Disconnect *) lst->data;
+    object_unconnect (dis->other_object, dis->other_handle);
+    lst = g_list_next (lst);
+  }
+
   change->saved_state = old_state;
   change->applied = TRUE;
 }
 
 
 static DiaObjectChange *
-table_change_new (Table * table, TableState * saved_state,
-                  GList * added, GList * deleted,
-                  GList * disconnects)
+table_change_new (Table       *table,
+                  TableState *saved_state,
+                  GList      *added,
+                  GList      *deleted,
+                  GList      *disconnects)
 {
-  TableChange * change;
+  DiaDBTableObjectChange * change;
 
-  change = g_new (TableChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) table_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) table_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) table_change_free;
+  change = dia_object_change_new (DIA_DB_TYPE_TABLE_OBJECT_CHANGE);
 
   change->obj = table;
   change->added_cp = added;
@@ -1609,5 +1632,5 @@ table_change_new (Table * table, TableState * saved_state,
   change->applied = TRUE;
   change->saved_state = saved_state;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }

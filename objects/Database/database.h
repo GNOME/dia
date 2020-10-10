@@ -16,13 +16,33 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef DATABASE_H
-#define DATABASE_H
+#pragma once
 
 #include "element.h"
 #include "connectionpoint.h"
 #include "orth_conn.h"
-#include "dia-object-change-legacy.h"
+
+G_BEGIN_DECLS
+
+#define DIA_DB_TYPE_TABLE_OBJECT_CHANGE dia_db_table_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaDBTableObjectChange,
+                      dia_db_table_object_change,
+                      DIA_DB, TABLE_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
+#define DIA_DB_TYPE_COMPOUND_OBJECT_CHANGE dia_db_compound_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaDBCompoundObjectChange,
+                      dia_db_compound_object_change,
+                      DIA_DB, COMPOUND_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
+#define DIA_DB_TYPE_COMPOUND_MOUNT_OBJECT_CHANGE dia_db_compound_mount_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaDBCompoundMountObjectChange,
+                      dia_db_compound_mount_object_change,
+                      DIA_DB, COMPOUND_MOUNT_OBJECT_CHANGE,
+                      DiaObjectChange)
 
 
 #define IS_NOT_EMPTY(str) (((str) != NULL) && ((str)[0] != '\0'))
@@ -33,7 +53,6 @@ typedef struct _Table Table;
 typedef struct _TableAttribute TableAttribute;
 typedef struct _TableReference TableReference;
 typedef struct _TableState TableState;
-typedef struct _TableChange TableChange;
 typedef struct _Disconnect Disconnect;
 
 struct _Table {
@@ -111,19 +130,6 @@ struct _TableState {
   GList * attributes;
 };
 
-struct _TableChange {
-  ObjectChange obj_change;
-
-  Table * obj;
-
-  GList * added_cp;
-  GList * deleted_cp;
-  GList * disconnected;
-
-  gint applied;
-
-  TableState * saved_state;
-};
 
 struct _TableReference {
   OrthConn orth; /* inheritance */
@@ -152,4 +158,4 @@ struct _TableReference {
   Alignment ep_desc_text_align; /* end-point */
 };
 
-#endif /* DATABASE_H */
+G_END_DECLS

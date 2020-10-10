@@ -32,9 +32,9 @@
 #include "attributes.h"
 #include "geometry.h"
 #include "propinternals.h"
-#include "dia-object-change-legacy.h"
 
 #include "debug.h"
+#include "database.h"
 
 /* ------------------------------------------------------------------------ */
 
@@ -82,33 +82,39 @@ struct _ArmHandleState {
   ConnectionPoint * connected_to;
 };
 
-struct _CompoundChange {
-  ObjectChange obj_change;
-  Compound * obj;
-  CompoundState * saved_state;
+
+struct _DiaDBCompoundObjectChange {
+  DiaObjectChange  obj_change;
+  Compound        *obj;
+  CompoundState   *saved_state;
 };
 
-struct _MountPointMoveChange {
-  ObjectChange obj_change;
 
-  Compound * obj;
-  Point saved_pos;
+DIA_DEFINE_OBJECT_CHANGE (DiaDBCompoundObjectChange,
+                          dia_db_compound_object_change)
+
+
+struct _DiaDBCompoundMountObjectChange {
+  DiaObjectChange  obj_change;
+  Compound        *obj;
+  Point            saved_pos;
 };
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaDBCompoundMountObjectChange,
+                          dia_db_compound_mount_object_change)
+
 
 /* ------------------------------------------------------------------------ */
 
 static CompoundState * compound_state_new (Compound *);
 static void compound_state_free (CompoundState *);
 static void compound_state_set (CompoundState *, Compound *);
-static DiaObjectChange *compound_change_new (Compound *, CompoundState *);
-static void compound_change_apply (CompoundChange *, DiaObject *);
-static void compound_change_free (CompoundChange *);
 
+static DiaObjectChange *compound_change_new           (Compound             *,
+                                                       CompoundState        *);
 static DiaObjectChange *mount_point_move_change_new   (Compound             *,
                                                        Point                *);
-static void             mount_point_move_change_apply (MountPointMoveChange *,
-                                                       DiaObject            *);
-static void             mount_point_move_change_free  (MountPointMoveChange *);
 
 static DiaObject * compound_create (Point *, void *, Handle **, Handle **);
 static DiaObject * compound_load (ObjectNode obj_node, int version,DiaContext *ctx);
@@ -309,27 +315,10 @@ compound_state_free (CompoundState * state)
 }
 
 
-static DiaObjectChange *
-compound_change_new (Compound *comp, CompoundState *state)
-{
-  CompoundChange *change;
-
-  change = g_new (CompoundChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) compound_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) compound_change_apply;
-  change->obj_change.free = (ObjectChangeFreeFunc) compound_change_free;
-
-  change->obj = comp;
-  change->saved_state = state;
-
-  return dia_object_change_legacy_new ((ObjectChange *) change);
-}
-
 static void
-compound_change_apply (CompoundChange * change, DiaObject * obj)
+compound_change_apply (DiaDBCompoundObjectChange *change, DiaObject *obj)
 {
-  CompoundState * old_state;
+  CompoundState *old_state;
 
   old_state = compound_state_new (change->obj);
 
@@ -339,37 +328,48 @@ compound_change_apply (CompoundChange * change, DiaObject * obj)
   change->saved_state = old_state;
 }
 
+
 static void
-compound_change_free (CompoundChange * change)
+dia_db_compound_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  compound_change_apply (DIA_DB_COMPOUND_OBJECT_CHANGE (self), obj);
+}
+
+
+static void
+dia_db_compound_object_change_revert (DiaObjectChange *self, DiaObject *obj)
+{
+  compound_change_apply (DIA_DB_COMPOUND_OBJECT_CHANGE (self), obj);
+}
+
+
+static void
+dia_db_compound_object_change_free (DiaObjectChange *self)
+{
+  DiaDBCompoundObjectChange *change = DIA_DB_COMPOUND_OBJECT_CHANGE (self);
+
   compound_state_free (change->saved_state);
 }
 
 
 static DiaObjectChange *
-mount_point_move_change_new (Compound * comp, Point * pos)
+compound_change_new (Compound *comp, CompoundState *state)
 {
-  MountPointMoveChange * change;
+  DiaDBCompoundObjectChange *change;
 
-  change = g_new (MountPointMoveChange, 1);
-  change->obj_change.apply =
-    (ObjectChangeApplyFunc) mount_point_move_change_apply;
-  change->obj_change.revert =
-    (ObjectChangeRevertFunc) mount_point_move_change_apply;
-  change->obj_change.free =
-    (ObjectChangeFreeFunc) mount_point_move_change_free;
+  change = dia_object_change_new (DIA_DB_TYPE_COMPOUND_OBJECT_CHANGE);
 
   change->obj = comp;
-  change->saved_pos = *pos;
+  change->saved_state = state;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 
 static void
-mount_point_move_change_apply (MountPointMoveChange * change, DiaObject * obj)
+mount_point_move_change_apply (DiaDBCompoundMountObjectChange *change, DiaObject *obj)
 {
-  Compound * comp = change->obj;
+  Compound *comp = change->obj;
   Point old_pos = comp->handles[0].pos;
 
   comp->handles[0].pos = change->saved_pos;
@@ -381,11 +381,43 @@ mount_point_move_change_apply (MountPointMoveChange * change, DiaObject * obj)
   compound_sanity_check (comp, "After applying mount point move change");
 }
 
+
 static void
-mount_point_move_change_free (MountPointMoveChange * change)
+dia_db_compound_mount_object_change_apply (DiaObjectChange *self, DiaObject *obj)
+{
+  mount_point_move_change_apply (DIA_DB_COMPOUND_MOUNT_OBJECT_CHANGE (self),
+                                 obj);
+}
+
+
+static void
+dia_db_compound_mount_object_change_revert (DiaObjectChange *self, DiaObject *obj)
+{
+  mount_point_move_change_apply (DIA_DB_COMPOUND_MOUNT_OBJECT_CHANGE (self),
+                                 obj);
+}
+
+
+static void
+dia_db_compound_mount_object_change_free (DiaObjectChange *change)
 {
   /* currently there is nothing to be done here */
 }
+
+
+static DiaObjectChange *
+mount_point_move_change_new (Compound *comp, Point *pos)
+{
+  DiaDBCompoundMountObjectChange *change;
+
+  change = dia_object_change_new (DIA_DB_TYPE_COMPOUND_MOUNT_OBJECT_CHANGE);
+
+  change->obj = comp;
+  change->saved_pos = *pos;
+
+  return DIA_OBJECT_CHANGE (change);
+}
+
 
 /* ------------------------------------------------------------------------ */
 
