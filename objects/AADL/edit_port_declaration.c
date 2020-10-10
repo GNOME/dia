@@ -24,7 +24,6 @@
 #include <string.h>
 #include "aadl.h"
 #include "edit_port_declaration.h"
-#include "dia-object-change-legacy.h"
 
 
 int aadlbox_point_near_port(Aadlbox *aadlbox, Point *p);
@@ -35,21 +34,27 @@ int aadlbox_point_near_port(Aadlbox *aadlbox, Point *p);
  **           U N D O  /  R E D O             **
  ***********************************************/
 
-struct EditPortDeclarationChange
-{
-  ObjectChange obj_change;
+struct _DiaAADLEditPortDeclarationObjectChange {
+  DiaObjectChange obj_change;
 
   int applied;
 
   int port_num;
 
-  gchar *oldvalue;
-  gchar *newvalue;
+  char *oldvalue;
+  char *newvalue;
 };
 
-static void edit_port_declaration_apply
-                     (struct EditPortDeclarationChange *change, DiaObject *obj)
+
+DIA_DEFINE_OBJECT_CHANGE (DiaAADLEditPortDeclarationObjectChange,
+                          dia_aadl_edit_port_declaration_object_change)
+
+
+static void
+dia_aadl_edit_port_declaration_object_change_apply (DiaObjectChange *self,
+                                                    DiaObject       *obj)
 {
+  DiaAADLEditPortDeclarationObjectChange *change = DIA_AADL_EDIT_PORT_DECLARATION_OBJECT_CHANGE (self);
   Aadlbox *aadlbox = (Aadlbox *) obj;
   int port_num = change->port_num;
 
@@ -58,23 +63,30 @@ static void edit_port_declaration_apply
 
 }
 
-static void edit_port_declaration_revert
-                     (struct EditPortDeclarationChange *change, DiaObject *obj)
+
+static void
+dia_aadl_edit_port_declaration_object_change_revert (DiaObjectChange *self,
+                                                     DiaObject       *obj)
 {
+  DiaAADLEditPortDeclarationObjectChange *change = DIA_AADL_EDIT_PORT_DECLARATION_OBJECT_CHANGE (self);
   Aadlbox *aadlbox = (Aadlbox *) obj;
   int port_num = change->port_num;
 
   change->applied = 0;
   aadlbox->ports[port_num]->declaration = change->oldvalue;
-
 }
 
-static void edit_port_declaration_free (struct EditPortDeclarationChange *change)
+
+static void
+dia_aadl_edit_port_declaration_object_change_free (DiaObjectChange *self)
 {
-  if (change->applied)
+  DiaAADLEditPortDeclarationObjectChange *change = DIA_AADL_EDIT_PORT_DECLARATION_OBJECT_CHANGE (self);
+
+  if (change->applied) {
     g_clear_pointer (&change->oldvalue, g_free);
-  else
+  } else {
     g_clear_pointer (&change->newvalue, g_free);
+  }
 }
 
 
@@ -130,7 +142,7 @@ edit_port_declaration_callback (DiaObject *obj,
   GtkWidget *window;
   GtkWidget *vbox;
   GtkWidget *button;
-  struct EditPortDeclarationChange *change;
+  DiaAADLEditPortDeclarationObjectChange *change;
   Aadlport *port;
   Aadlbox *aadlbox = (Aadlbox *) obj;
   int port_num;
@@ -191,24 +203,14 @@ edit_port_declaration_callback (DiaObject *obj,
 
   /* Text has been edited - widgets destroyed  */
 
-  change = (struct EditPortDeclarationChange *)
-                           g_malloc (sizeof(struct EditPortDeclarationChange));
-
-  change->obj_change.apply =
-    (ObjectChangeApplyFunc) edit_port_declaration_apply;
-
-  change->obj_change.revert =
-    (ObjectChangeRevertFunc) edit_port_declaration_revert;
-
-  change->obj_change.free =
-    (ObjectChangeFreeFunc) edit_port_declaration_free;
+  change = dia_object_change_new (DIA_AADL_TYPE_EDIT_PORT_DECLARATION_OBJECT_CHANGE);
 
   change->port_num = port_num;
 
   change->newvalue = text;
   change->oldvalue = aadlbox->ports[port_num]->declaration;
 
-  change->obj_change.apply((ObjectChange *)change, obj);
+  dia_object_change_apply (DIA_OBJECT_CHANGE (change), obj);
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }

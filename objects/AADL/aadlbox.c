@@ -35,8 +35,6 @@
 
 #include "aadl.h"
 #include "edit_port_declaration.h"
-#include "dia-object-change-legacy.h"
-
 
 #define PORT_HANDLE_AADLBOX (HANDLE_CUSTOM9)
 
@@ -69,8 +67,9 @@ enum change_type {
   TYPE_REMOVE_CONNECTION
 };
 
-struct PointChange {
-  ObjectChange obj_change;
+
+struct _DiaAADLPointObjectChange {
+  DiaObjectChange obj_change;
 
   enum change_type type;
   int applied;
@@ -80,8 +79,11 @@ struct PointChange {
 		     owning ref when applied for REMOVE_POINT */
 
   ConnectionPoint *connection;
-
 };
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaAADLPointObjectChange, dia_aadl_point_object_change)
+
 
 static void aadlbox_update_data(Aadlbox *aadlbox);
 static void aadlbox_add_port(Aadlbox *aadlbox, const Point *p, Aadlport *port);
@@ -241,8 +243,10 @@ DiaObject *aadlbox_copy(DiaObject *obj)
 
 
 static void
-aadlbox_change_free(struct PointChange *change)
+dia_aadl_point_object_change_free (DiaObjectChange *self)
 {
+  DiaAADLPointObjectChange *change = DIA_AADL_POINT_OBJECT_CHANGE (self);
+
   if ( (change->type==TYPE_ADD_POINT && !change->applied) ||
        (change->type==TYPE_REMOVE_POINT && change->applied) ) {
 
@@ -257,8 +261,10 @@ aadlbox_change_free(struct PointChange *change)
 
 
 static void
-aadlbox_change_apply (struct PointChange *change, DiaObject *obj)
+dia_aadl_point_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaAADLPointObjectChange *change = DIA_AADL_POINT_OBJECT_CHANGE (self);
+
   change->applied = 1;
   switch (change->type) {
     case TYPE_ADD_POINT:
@@ -282,8 +288,10 @@ aadlbox_change_apply (struct PointChange *change, DiaObject *obj)
 
 
 static void
-aadlbox_change_revert (struct PointChange *change, DiaObject *obj)
+dia_aadl_point_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaAADLPointObjectChange *change = DIA_AADL_POINT_OBJECT_CHANGE (self);
+
   switch (change->type) {
     case TYPE_ADD_POINT:
       aadlbox_remove_port((Aadlbox *)obj, change->port);
@@ -316,13 +324,9 @@ aadlbox_create_change (Aadlbox          *aadlbox,
                        Point            *point,
                        void             *data)
 {
-  struct PointChange *change;
+  DiaAADLPointObjectChange *change;
 
-  change = g_new0 (struct PointChange, 1);
-
-  change->obj_change.apply = (ObjectChangeApplyFunc) aadlbox_change_apply;
-  change->obj_change.revert = (ObjectChangeRevertFunc) aadlbox_change_revert;
-  change->obj_change.free = (ObjectChangeFreeFunc) aadlbox_change_free;
+  change = dia_object_change_new (DIA_AADL_TYPE_POINT_OBJECT_CHANGE);
 
   change->type = type;
   change->applied = 1;
@@ -343,7 +347,7 @@ aadlbox_create_change (Aadlbox          *aadlbox,
       g_return_val_if_reached (NULL);
   }
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 

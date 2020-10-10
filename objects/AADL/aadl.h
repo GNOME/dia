@@ -33,6 +33,13 @@
 #include "text.h"
 #include "properties.h"
 
+#define DIA_AADL_TYPE_POINT_OBJECT_CHANGE dia_aadl_point_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaAADLPointObjectChange,
+                      dia_aadl_point_object_change,
+                      DIA_AADL, POINT_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
 #undef min
 #define min(a,b) (a<b?a:b)
 #undef max

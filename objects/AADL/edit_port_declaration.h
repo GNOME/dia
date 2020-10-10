@@ -18,7 +18,19 @@
 * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
+#pragma once
+
+G_BEGIN_DECLS
+
+#define DIA_AADL_TYPE_EDIT_PORT_DECLARATION_OBJECT_CHANGE dia_aadl_edit_port_declaration_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaAADLEditPortDeclarationObjectChange,
+                      dia_aadl_edit_port_declaration_object_change,
+                      DIA_AADL, EDIT_PORT_DECLARATION_OBJECT_CHANGE,
+                      DiaObjectChange)
+
 
 DiaObjectChange *edit_port_declaration_callback (DiaObject *obj,
                                                  Point     *clicked,
                                                  gpointer   data);
+
+G_END_DECLS
