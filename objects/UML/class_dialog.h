@@ -1,4 +1,16 @@
+#pragma once
+
 #include "widgets.h"
+
+G_BEGIN_DECLS
+
+#define DIA_UML_TYPE_CLASS_OBJECT_CHANGE dia_uml_class_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaUMLClassObjectChange,
+                      dia_uml_class_object_change,
+                      DIA_UML, CLASS_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
 /**
  * \brief Very special user interface for UMLClass parametrization
  *
@@ -105,3 +117,5 @@ void _templates_read_from_dialog(UMLClass *umlclass, UMLClassDialog *prop_dialog
 void _attributes_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
 void _operations_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
 void _templates_create_page(GtkNotebook *notebook,  UMLClass *umlclass);
+
+G_END_DECLS

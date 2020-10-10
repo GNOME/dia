@@ -31,7 +31,6 @@
 #include "properties.h"
 #include "connpoint_line.h"
 #include "attributes.h"
-#include "dia-object-change-legacy.h"
 
 #include "pixmaps/lifeline.xpm"
 
@@ -437,19 +436,32 @@ lifeline_draw (Lifeline *lifeline, DiaRenderer *renderer)
 }
 
 
+#define DIA_UML_TYPE_LIFELINE_OBJECT_CHANGE dia_uml_lifeline_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaUMLLifelineObjectChange,
+                      dia_uml_lifeline_object_change,
+                      DIA_UML, LIFELINE_OBJECT_CHANGE,
+                      DiaObjectChange)
+
+
 /* DiaObject menu handling */
-typedef struct {
-  ObjectChange obj_change;
+struct _DiaUMLLifelineObjectChange {
+  DiaObjectChange obj_change;
 
   DiaObjectChange *east, *west;
   double cp_distance_change;
   LifelineChangeType type;
-} LifelineChange;
+};
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaUMLLifelineObjectChange,
+                          dia_uml_lifeline_object_change)
 
 
 static void
-lifeline_change_apply (LifelineChange *change, DiaObject *obj)
+dia_uml_lifeline_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaUMLLifelineObjectChange *change = DIA_UML_LIFELINE_OBJECT_CHANGE (self);
+
   if (change->type == LIFELINE_CHANGE_ADD || change->type == LIFELINE_CHANGE_DEL) {
     dia_object_change_apply (change->west,obj);
     dia_object_change_apply (change->east,obj);
@@ -460,20 +472,24 @@ lifeline_change_apply (LifelineChange *change, DiaObject *obj)
 
 
 static void
-lifeline_change_revert (LifelineChange *change, DiaObject *obj)
+dia_uml_lifeline_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaUMLLifelineObjectChange *change = DIA_UML_LIFELINE_OBJECT_CHANGE (self);
+
   if (change->type == LIFELINE_CHANGE_ADD || change->type == LIFELINE_CHANGE_DEL) {
     dia_object_change_revert (change->west,obj);
     dia_object_change_revert (change->east,obj);
   } else {
-    ((Lifeline*)obj)->cp_distance -= change->cp_distance_change;
+    ((Lifeline*) obj)->cp_distance -= change->cp_distance_change;
   }
 }
 
 
 static void
-lifeline_change_free (LifelineChange *change)
+dia_uml_lifeline_object_change_free (DiaObjectChange *self)
 {
+  DiaUMLLifelineObjectChange *change = DIA_UML_LIFELINE_OBJECT_CHANGE (self);
+
   if (change->type == LIFELINE_CHANGE_ADD ||
       change->type == LIFELINE_CHANGE_DEL) {
     g_clear_pointer (&change->east, dia_object_change_unref);
@@ -487,12 +503,10 @@ lifeline_create_change (Lifeline           *lifeline,
                         LifelineChangeType  changetype,
                         Point              *clicked)
 {
-  LifelineChange *vc;
+  DiaUMLLifelineObjectChange *vc;
 
-  vc = g_new0 (LifelineChange, 1);
-  vc->obj_change.apply = (ObjectChangeApplyFunc)lifeline_change_apply;
-  vc->obj_change.revert = (ObjectChangeRevertFunc)lifeline_change_revert;
-  vc->obj_change.free = (ObjectChangeFreeFunc)lifeline_change_free;
+  vc = dia_object_change_new (DIA_UML_TYPE_LIFELINE_OBJECT_CHANGE);
+
   vc->type = changetype;
 
   switch (vc->type) {
@@ -532,7 +546,7 @@ lifeline_create_change (Lifeline           *lifeline,
 
   lifeline_update_data (lifeline);
 
-  return dia_object_change_legacy_new ((ObjectChange *) vc);
+  return DIA_OBJECT_CHANGE (vc);
 }
 
 

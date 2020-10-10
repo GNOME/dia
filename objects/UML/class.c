@@ -34,8 +34,8 @@
 #include "attributes.h"
 #include "properties.h"
 #include "diamenu.h"
-#include "dia-object-change-legacy.h"
 #include "class.h"
+#include "objchange.h"
 
 #include "pixmaps/umlclass.xpm"
 
@@ -378,10 +378,13 @@ umlclass_object_menu(DiaObject *obj, Point *p)
         return &umlclass_menu;
 }
 
+
 typedef struct _CommentState {
   ObjectState state;
   gboolean    visible_comments;
 } CommentState;
+
+
 static ObjectState*
 _comment_get_state (DiaObject *obj)
 {
@@ -405,15 +408,16 @@ _comment_set_state (DiaObject *obj, ObjectState *state)
 static DiaObjectChange *
 umlclass_show_comments_callback (DiaObject *obj, Point *pos, gpointer data)
 {
-  ObjectState *old_state = _comment_get_state(obj);
-  DiaObjectChange *change = new_object_state_change (obj,
-                                                     old_state,
-                                                     _comment_get_state,
-                                                     _comment_set_state );
+  ObjectState *old_state = _comment_get_state (obj);
+  DiaObjectChange *change = dia_state_object_change_new (obj,
+                                                         old_state,
+                                                         _comment_get_state,
+                                                         _comment_set_state);
 
   ((UMLClass *) obj)->visible_comments = !((UMLClass *) obj)->visible_comments;
   umlclass_calculate_data ((UMLClass *) obj);
   umlclass_update_data ((UMLClass *) obj);
+
   return change;
 }
 

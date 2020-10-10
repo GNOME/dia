@@ -61,8 +61,8 @@
 #include "attributes.h"
 #include "arrows.h"
 #include "uml.h"
-#include "dia-object-change-legacy.h"
 #include "properties.h"
+#include "objchange.h"
 
 #include "pixmaps/association.xpm"
 
@@ -100,6 +100,7 @@ typedef struct _AssociationEnd {
   int arrow;
   AggregateType aggregate; /* Note: Can only be != NONE on ONE side! */
 } AssociationEnd;
+
 
 struct _AssociationState {
   ObjectState obj_state;
@@ -190,8 +191,8 @@ static ObjectTypeOps association_type_ops =
   (SaveFunc)   object_save_using_properties
 };
 
-DiaObjectType association_type =
-{
+
+DiaObjectType association_type = {
   "UML - Association",   /* name */
   /* Version 0 had no autorouting and so shouldn't have it set by default. */
   /* Version 1 was saving both ends separately without using StdProps */
@@ -201,6 +202,7 @@ DiaObjectType association_type =
   NULL,                 /* pixmap_file */
   0                     /* default_user_data */
 };
+
 
 static ObjectOps association_ops = {
   (DestroyFunc)         association_destroy,

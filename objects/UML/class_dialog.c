@@ -41,7 +41,6 @@
 #include "class.h"
 #include "diaoptionmenu.h"
 #include "diafontselector.h"
-#include "dia-object-change-legacy.h"
 
 #include "class_dialog.h"
 
@@ -110,10 +109,8 @@ struct _UMLClassState {
 };
 
 
-typedef struct _UMLClassChange UMLClassChange;
-
-struct _UMLClassChange {
-  ObjectChange obj_change;
+struct _DiaUMLClassObjectChange {
+  DiaObjectChange obj_change;
 
   UMLClass *obj;
 
@@ -125,6 +122,11 @@ struct _UMLClassChange {
 
   UMLClassState *saved_state;
 };
+
+
+DIA_DEFINE_OBJECT_CHANGE (DiaUMLClassObjectChange,
+                          dia_uml_class_object_change)
+
 
 static UMLClassState   *umlclass_get_state  (UMLClass      *umlclass);
 static DiaObjectChange *new_umlclass_change (UMLClass      *obj,
@@ -970,79 +972,85 @@ umlclass_set_state(UMLClass *umlclass, UMLClassState *state)
   umlclass_update_data(umlclass);
 }
 
+
 static void
-umlclass_change_apply(UMLClassChange *change, DiaObject *obj)
+dia_uml_class_object_change_apply (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaUMLClassObjectChange *change = DIA_UML_CLASS_OBJECT_CHANGE (self);
   UMLClassState *old_state;
   GList *list;
 
-  old_state = umlclass_get_state(change->obj);
+  old_state = umlclass_get_state (change->obj);
 
-  umlclass_set_state(change->obj, change->saved_state);
+  umlclass_set_state (change->obj, change->saved_state);
 
   list = change->disconnected;
   while (list) {
-    Disconnect *dis = (Disconnect *)list->data;
+    Disconnect *dis = (Disconnect *) list->data;
 
-    object_unconnect(dis->other_object, dis->other_handle);
+    object_unconnect (dis->other_object, dis->other_handle);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 
   change->saved_state = old_state;
   change->applied = 1;
 }
 
+
 static void
-umlclass_change_revert(UMLClassChange *change, DiaObject *obj)
+dia_uml_class_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaUMLClassObjectChange *change = DIA_UML_CLASS_OBJECT_CHANGE (self);
   UMLClassState *old_state;
   GList *list;
 
-  old_state = umlclass_get_state(change->obj);
+  old_state = umlclass_get_state (change->obj);
 
-  umlclass_set_state(change->obj, change->saved_state);
+  umlclass_set_state (change->obj, change->saved_state);
 
   list = change->disconnected;
   while (list) {
-    Disconnect *dis = (Disconnect *)list->data;
+    Disconnect *dis = (Disconnect *) list->data;
 
-    object_connect(dis->other_object, dis->other_handle, dis->cp);
+    object_connect (dis->other_object, dis->other_handle, dis->cp);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 
   change->saved_state = old_state;
   change->applied = 0;
 }
 
+
 static void
-umlclass_change_free(UMLClassChange *change)
+dia_uml_class_object_change_free (DiaObjectChange *self)
 {
+  DiaUMLClassObjectChange *change = DIA_UML_CLASS_OBJECT_CHANGE (self);
   GList *list, *free_list;
 
-  umlclass_free_state(change->saved_state);
+  umlclass_free_state (change->saved_state);
   g_clear_pointer (&change->saved_state, g_free);
 
   /* Doesn't this mean only one of add, delete can be done in each apply? */
-  if (change->applied)
+  if (change->applied) {
     free_list = change->deleted_cp;
-  else
+  } else {
     free_list = change->added_cp;
+  }
 
   list = free_list;
   while (list != NULL) {
     ConnectionPoint *connection = (ConnectionPoint *) list->data;
 
-    g_assert(connection->connected == NULL); /* Paranoid */
-    object_remove_connections_to(connection); /* Shouldn't be needed */
+    g_return_if_fail (connection->connected == NULL); /* Paranoid */
+    object_remove_connections_to (connection); /* Shouldn't be needed */
     g_clear_pointer (&connection, g_free);
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 
-  g_list_free(free_list);
-
+  g_list_free (free_list);
 }
 
 
@@ -1053,16 +1061,9 @@ new_umlclass_change (UMLClass      *obj,
                      GList         *deleted,
                      GList         *disconnected)
 {
-  UMLClassChange *change;
+  DiaUMLClassObjectChange *change;
 
-  change = g_new0(UMLClassChange, 1);
-
-  change->obj_change.apply =
-    (ObjectChangeApplyFunc) umlclass_change_apply;
-  change->obj_change.revert =
-    (ObjectChangeRevertFunc) umlclass_change_revert;
-  change->obj_change.free =
-    (ObjectChangeFreeFunc) umlclass_change_free;
+  change = dia_object_change_new (DIA_UML_TYPE_CLASS_OBJECT_CHANGE);
 
   change->obj = obj;
   change->saved_state = saved_state;
@@ -1072,7 +1073,7 @@ new_umlclass_change (UMLClass      *obj,
   change->deleted_cp = deleted;
   change->disconnected = disconnected;
 
-  return dia_object_change_legacy_new ((ObjectChange *) change);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 
