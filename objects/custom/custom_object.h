@@ -19,8 +19,17 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef CUSTOM_OBJECT_H
-#define CUSTOM_OBJECT_H
+#pragma once
+
+G_BEGIN_DECLS
+
+#define DIA_TYPE_CUSTOM_OBJECT_CHANGE dia_custom_object_change_get_type ()
+G_DECLARE_FINAL_TYPE (DiaCustomObjectChange,
+                      dia_custom_object_change,
+                      DIA, CUSTOM_OBJECT_CHANGE,
+                      DiaObjectChange)
+
 void custom_setup_properties (ShapeInfo *info, xmlNodePtr node);
 void custom_object_new(ShapeInfo *info, DiaObjectType **otype);
-#endif /* CUSTOM_OBJECT_H */
+
+G_END_DECLS

@@ -46,7 +46,6 @@
 #include "dia_image.h"
 #include "custom_object.h"
 #include "prefs.h"
-#include "dia-object-change-legacy.h"
 
 #include "pixmaps/custom.xpm"
 
@@ -1839,17 +1838,30 @@ custom_load_using_properties(ObjectNode obj_node, int version,DiaContext *ctx)
 }
 
 
-struct CustomObjectChange {
-  ObjectChange objchange;
+struct _DiaCustomObjectChange {
+  DiaObjectChange objchange;
 
   enum { CHANGE_FLIPH, CHANGE_FLIPV} type;
   gboolean old_val;
 };
 
 
+DIA_DEFINE_OBJECT_CHANGE (DiaCustomObjectChange, dia_custom_object_change)
+
+
 static void
-custom_change_apply (struct CustomObjectChange *change, Custom *custom)
+dia_custom_object_change_free (DiaObjectChange *self)
 {
+
+}
+
+
+static void
+dia_custom_object_change_apply (DiaObjectChange *self, DiaObject *obj)
+{
+  DiaCustomObjectChange *change = DIA_CUSTOM_OBJECT_CHANGE (self);
+  Custom *custom = (Custom *) obj;
+
   switch (change->type) {
     case CHANGE_FLIPH:
       custom->flip_h = !change->old_val;
@@ -1864,9 +1876,11 @@ custom_change_apply (struct CustomObjectChange *change, Custom *custom)
 
 
 static void
-custom_change_revert (struct CustomObjectChange *change,
-                      Custom                    *custom)
+dia_custom_object_change_revert (DiaObjectChange *self, DiaObject *obj)
 {
+  DiaCustomObjectChange *change = DIA_CUSTOM_OBJECT_CHANGE (self);
+  Custom *custom = (Custom *) obj;
+
   switch (change->type) {
     case CHANGE_FLIPH:
       custom->flip_h = change->old_val;
@@ -1883,38 +1897,36 @@ custom_change_revert (struct CustomObjectChange *change,
 static DiaObjectChange *
 custom_flip_h_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  Custom *custom = (Custom *)obj;
-  struct CustomObjectChange *change = g_new0 (struct CustomObjectChange, 1);
+  Custom *custom = (Custom *) obj;
+  DiaCustomObjectChange *change;
 
-  change->objchange.apply = (ObjectChangeApplyFunc)custom_change_apply;
-  change->objchange.revert = (ObjectChangeRevertFunc)custom_change_revert;
-  change->objchange.free = NULL;
+  change = dia_object_change_new (DIA_TYPE_CUSTOM_OBJECT_CHANGE);
+
   change->type = CHANGE_FLIPH;
   change->old_val = custom->flip_h;
 
   custom->flip_h = !custom->flip_h;
-  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  custom_update_data (custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-  return dia_object_change_legacy_new (&change->objchange);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 
 static DiaObjectChange *
 custom_flip_v_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
-  Custom *custom = (Custom *)obj;
-  struct CustomObjectChange *change = g_new0 (struct CustomObjectChange, 1);
+  Custom *custom = (Custom *) obj;
+  DiaCustomObjectChange *change;
 
-  change->objchange.apply = (ObjectChangeApplyFunc)custom_change_apply;
-  change->objchange.revert = (ObjectChangeRevertFunc)custom_change_revert;
-  change->objchange.free = NULL;
+  change = dia_object_change_new (DIA_TYPE_CUSTOM_OBJECT_CHANGE);
+
   change->type = CHANGE_FLIPV;
   change->old_val = custom->flip_v;
 
   custom->flip_v = !custom->flip_v;
-  custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
+  custom_update_data (custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 
-  return dia_object_change_legacy_new (&change->objchange);
+  return DIA_OBJECT_CHANGE (change);
 }
 
 
