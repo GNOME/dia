@@ -1,11 +1,11 @@
 '''
-Parses class definitions out of GObject based headers 
+Parses class definitions out of GObject based headers
 
-ToDo: 
+ToDo:
 	- better parser aproach ;)
 	- respect /*< public,protected,private >*/
 	- parse *.c
-	
+
 '''
 #    Copyright (c) 2006, Hans Breuer <hans@breuer.org>
 
@@ -23,40 +23,40 @@ ToDo:
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import glob, os, string, re
+import glob, os, re
 
 verbose = 0
 
 def strip_whitespace (s) :
-	s = string.replace (s, " ", "")
-	return string.replace (s, "\t", "")
+	s = s.replace (" ", "")
+	return s.replace ("\t", "")
 
 class CMethod :
 	def __init__ (self, name, type) :
-		self.name = string.strip(name)
+		self.name = name.strip()
 		self.pars = []
-		self.retval = string.replace(type, ' ', '')
+		self.retval = type.replace(' ', '')
 	def AddPar (self, name, type) :
-		self.pars.append ((string.strip(name), 
+		self.pars.append ((name.strip(),
 					 strip_whitespace(type)))
 
 class CClass :
 	def __init__ (self, name) :
-		self.name = string.strip(name)
+		self.name = name.strip()
 		self.defs = {'TYPE' : None, 'OBJECT' : None, 'CLASS' : None}
 		self.parent = None
 		self.attrs = []
 		self.methods = {}
 		self.signals = []
 	def AddAttr (self, name, type) :
-		if verbose : print "\t", type, name
-		self.attrs.append ((string.strip(name), 
+		if verbose : print("\t", type, name)
+		self.attrs.append ((name.strip(),
 					  strip_whitespace(type)))
 	def AddMethod (self, name, method) :
-		if verbose : print "\t", name, "()"
-		self.methods[string.strip(name)] = method
+		if verbose : print("\t", name, "()")
+		self.methods[name.strip()] = method
 	def AddSignal (self, name, type) :
-		self.signals.append ((string.strip(name), 
+		self.signals.append ((name.strip(),
 					    strip_whitespace(type)))
 
 class CStripCommentsAndBlankLines :
@@ -70,12 +70,12 @@ class CStripCommentsAndBlankLines :
 		incom = 0
 		r = re.compile("^\s*$") # to remove empty lines
 		for s in lines :
-			x1 = string.find (s, '/*')
-			x2 = string.find (s, '*/')
+			x1 = '/*'.find (s)
+			x2 = '*/'.find (s)
 			while x2 > x1 and incom != 1 :
 				s = s[:x1] + s[x2+2:]
-				x1 = string.find (s, '/*')
-				x2 = string.find (s, '*/')
+				x1 = '/*'.find (s)
+				x2 = '*/'.find (s)
 			else :
 				if x1 > -1 :
 					incom = 1
@@ -102,7 +102,7 @@ def TestStripFile (name) :
 	f = CStripCommentsAndBlankLines(name)
 	s = f.readline()
 	while s :
-		print s[:-1]
+		print(s[:-1])
 		s = f.readline()
 
 import sys
@@ -110,7 +110,7 @@ import sys
 sPkg = ''
 sDir = '.'
 if len (sys.argv) < 2 :
-	print sys.argv[0], '<package>', '[directory]'
+	print(sys.argv[0], '<package>', '[directory]')
 	sys.exit(0)
 else :
 	sPkg = sys.argv[1]
@@ -128,7 +128,7 @@ no_klass_headers = []
 #
 # #define GDK_DRAWABLE(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), GDK_TYPE_DRAWABLE, GdkDrawable))
 #
-rClassCast = re.compile ("^#define " + string.upper (sPkg) + "_(?P<n1>\w+)" \
+rClassCast = re.compile ("^#define " + sPkg.upper () + "_(?P<n1>\w+)" \
 				 "\((?P<par>\w+)\)\s+\(" \
 				 "((G_TYPE_CHECK_INSTANCE_CAST)|(GTK_CHECK_CAST))\s+" \
 				 "\(\((?P=par)\),\s*(?P<type>\w+),\s+" \
@@ -165,18 +165,18 @@ for sF in lst :
 			sName = m.group('name')
 			unresolved[sName] = CClass (sName)
 		s = fin.readline ()
-	if len(unresolved.keys()) == 0 :
+	if len(list(unresolved.keys())) == 0 :
 		no_klass_headers.append (sF)
 	else :
 		iFound = 0
-		unresolved_keys = unresolved.keys()
+		unresolved_keys = list(unresolved.keys())
 		for sK in unresolved_keys :
 			klass = unresolved[sK]
 			sK = klass.name
 			# start from the beginning
 			fin.seek (0)
 			rObject = re.compile ("struct\s+_" + sK + "\s*(?P<p>\{*)\s*$")
-			rKlass  = re.compile ("struct\s+_" + sK + "Class\s*(?P<p>\{*)\s*$") 
+			rKlass  = re.compile ("struct\s+_" + sK + "Class\s*(?P<p>\{*)\s*$")
 			s = fin.readline ()
 			meth = None
 			while s :
@@ -187,14 +187,13 @@ for sF in lst :
 					s = fin.readline() # read parent line
 					mV = rVarDecl.match(s)
 					try :
-						klass.parent = (mV.group('name'), 
-								    string.strip(mV.group('type')))
-						if verbose : print "class", sK, ":", mV.group('type')
+						klass.parent = (mV.group('name'), mV.group('type').strip())
+						if verbose : print("class", sK, ":", mV.group('type'))
 					except :
-						print 'klass.parent error (', sF, ') :', s
+						print('klass.parent error (', sF, ') :', s)
 					s = fin.readline ()
 					mV = rVarDecl.match(s)
-					if not mV and verbose : print s 
+					if not mV and verbose : print(s)
 					while mV :
 						klass.AddAttr (mV.group('name'), mV.group('type'))
 						s = fin.readline ()
@@ -219,13 +218,13 @@ for sF in lst :
 							elif mM :
 								meth = CMethod (mM.group('name'), mM.group('type'))
 								klass.AddMethod (mM.group('name'), meth)
-								meth.AddPar (mM.group('pname'), mM.group('ptype')) 
+								meth.AddPar (mM.group('pname'), mM.group('ptype'))
 								if mM.group('done') == ');' :
-									meth = None # reset 
+									meth = None # reset
 							elif meth :
 								mP = rPar.match (s)
 								if mP :
-									meth.AddPar (mP.group('pname'), mP.group('ptype')) 
+									meth.AddPar (mP.group('pname'), mP.group('ptype'))
 									if mP.group('done') == ');' :
 										meth = None # reset
 								else :
@@ -241,11 +240,11 @@ for sF in lst :
 		if iFound == 0 :
 			no_klass_headers.append (sF)
 		else :
-			print sF + " (" + str(iFound) + ")"
+			print(sF + " (" + str(iFound) + ")")
 
 for sF in no_klass_headers :
 	fout.write ("<No Klass>: " + sF + "\n")
-print 'Klasses found:', len(klasses), '\nHeaders w/o classes:', len(no_klass_headers)
+print('Klasses found:', len(klasses), '\nHeaders w/o classes:', len(no_klass_headers))
 
 def CmpParent (a,b) :
 	'gets CClass, sort by parent type'
@@ -265,9 +264,9 @@ def CmpParent (a,b) :
 		elif cmp(b.name, a.parent[1]) == 0 :
 			#print b.name, ">", a.name
 			return -1
-		return i 
+		return i
 	except :
-		print "Sort Error:", str(a.parent), str(b.parent)
+		print("Sort Error:", str(a.parent), str(b.parent))
 		return 0
 
 klasses.sort(CmpParent)
@@ -280,9 +279,9 @@ for k in klasses :
 	if k.parent :
 		parents[k.parent[1]] = 1
 for k in klasses :
-	if parents.has_key(k.name) :
+	if k.name in parents :
 		del parents[k.name]
-sorted.extend(parents.keys())
+sorted.extend(list(parents.keys()))
 # sort the rest
 while len(sorted_klasses) < len(klasses) :
 	before = len(sorted_klasses)
@@ -305,7 +304,7 @@ while len(sorted_klasses) < len(klasses) :
 			for k in klasses :
 				if not k.name in sorted :
 					unsorted.append(k.name)
-			print string.join(unsorted, ", "), "not sorted?"
+			print(", ".join(unsorted), "not sorted?")
 		break # avoid endless loop
 
 klasses = sorted_klasses
@@ -326,7 +325,7 @@ def WritePython (fname) :
 			fpy.write ('\t\t # Signals\n')
 			for attr in klass.signals :
 				fpy.write ('\t\tself.' + attr[0] + " = None # " + attr[1] + "\n")
-		for s in klass.methods.keys() :
+		for s in list(klass.methods.keys()) :
 			meth = klass.methods[s]
 			fpy.write ('\t#returns: ' + meth.retval + '\n\tdef ' + meth.name + ' (')
 			s1 = ''
@@ -440,23 +439,23 @@ def WriteDia (fname) :
 	for klass in klasses :
 		if klass.parent : # add every parent ...
 			parentName = klass.parent[1]
-			if externals.has_key (parentName) :
+			if parentName in externals :
 				externals[parentName] += 1
 			else :
 				externals[parentName] = 1
 	for klass in klasses :
-		if externals.has_key (klass.name) : # ... but remove  the internals
+		if klass.name in externals : # ... but remove  the internals
 			del externals[klass.name]
-	
+
 	# write all 'external' parents
-	for s in externals.keys() :
+	for s in list(externals.keys()) :
 		externals[s] = (nObject, -1)
 		fdia.write(sStartClass % (nObject, x, y, s))
 		positions[s] = (x,y)
 		x += dx
 		fdia.write(sFillColorAttribute % ("#ffff00",))
 		# fixme: any more attributes?
-		fdia.write (sEndObject)		
+		fdia.write (sEndObject)
 		nObject += 1
 
 	for klass in klasses :
@@ -464,7 +463,7 @@ def WriteDia (fname) :
 		if klass.parent :
 			parentName = klass.parent[1]
 			connectFrom[klass.name] = (nObject, parentName)
-		if positions.has_key (parentName) :
+		if parentName in positions :
 			x = positions[parentName][0] # same x
 			y = positions[parentName][1] + dy # y below
 		else :
@@ -474,48 +473,48 @@ def WriteDia (fname) :
 		fdia.write(sStartClass % (nObject, x, y, klass.name))
 		positions[klass.name] = (x, y)
 		if len (klass.attrs) > 0 :
-			fdia.write (sStartAttributes)			
+			fdia.write (sStartAttributes)
 			for attr in klass.attrs :
-				fdia.write (sDataAttribute % (attr[0], attr[1]))				
+				fdia.write (sDataAttribute % (attr[0], attr[1]))
 			fdia.write (sEndAttributes)
 #		if len (klass.signals) > 0 :
 #			fpy.write ('\t\t # Signals\n')
 #			for attr in klass.signals :
 #				fpy.write ('\t\tself.' + attr[0] + " = None # " + attr[1] + "\n")
 		# the differnence between signals and methods is in the attributes
-		if len (klass.signals) > 0 or len(klass.methods.keys()) > 0  :
+		if len (klass.signals) > 0 or len(list(klass.methods.keys())) > 0  :
 			fdia.write (sStartOperations)
-		for s in klass.methods.keys() :
+		for s in list(klass.methods.keys()) :
 			meth = klass.methods[s]
 			fdia.write(sStartOperation % (meth.name, meth.retval))
 			# first parameter is supposed to be 'this' pointer: leave out
 			for par in meth.pars[1:] :
 				fdia.write (sDataParameter % (par[0], par[1]))
 			fdia.write (sEndOperation)
-		if len (klass.signals) > 0 or len(klass.methods.keys()) > 0  :
+		if len (klass.signals) > 0 or len(list(klass.methods.keys())) > 0  :
 			fdia.write (sEndOperations)
 		fdia.write (sEndObject)
 		nObject += 1
 
 	# write all connections
-	for sFrom in connectFrom.keys() :
+	for sFrom in list(connectFrom.keys()) :
 		iFrom = connectFrom[sFrom][0]
 		sTo = connectFrom[sFrom][1]
-		if connectFrom.has_key (sTo) :
+		if sTo in connectFrom :
 			iTo = connectFrom[sTo][0]
-		elif externals.has_key(sTo) :
+		elif sTo in externals :
 			iTo = externals[sTo][0]
 		else :
-			print "sFrom -> sTo?", sFrom, sTo
+			print("sFrom -> sTo?", sFrom, sTo)
 			continue # something wrong?
 		nObject += 1
 		#fdia.write ('\n\t<!-- %s : %s -->' % (sFrom, sTo))
 		# just to give it some position (and stop Dia complaining)
-		if positions.has_key (sTo) :
+		if sTo in positions :
 			x1, y1 = positions[sTo]
 		else :
 			x1, y1 = (dx, dy)
-		if positions.has_key (sFrom) :
+		if sFrom in positions :
 			x2, y2 = positions[sFrom]
 		else :
 			x2, y2 = (dx, dy)
@@ -523,14 +522,14 @@ def WriteDia (fname) :
 		fdia.write (sOrthPoints % (x1,y1, x1,(y1+y2)/2, x2,(y1+y2)/2, x2,y2 ))
 		# and connect
 		fdia.write ('''
-      <dia:connections>        
+      <dia:connections>
         <dia:connection handle="0" to="O%d" connection="6"/>
         <dia:connection handle="1" to="O%d" connection="1"/>
       </dia:connections>''' % (iTo, iFrom) )
 		fdia.write (sEndObject)
 
 	fdia.write (sEndDiagram)
-	print len(connectFrom.keys()), " connections"
+	print(len(list(connectFrom.keys())), " connections")
 
 WritePython (sPkg + "-generated.py")
 WriteDia (sPkg + "-generated.dia")

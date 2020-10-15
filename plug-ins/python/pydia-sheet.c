@@ -36,30 +36,34 @@ PyDiaSheet_New(Sheet *sheet)
     return (PyObject *)self;
 }
 
+
 static void
-PyDiaSheet_Dealloc(PyDiaSheet *self)
+PyDiaSheet_Dealloc (PyObject *self)
 {
-     PyObject_DEL(self);
+  PyObject_DEL (self);
 }
 
-static int
-PyDiaSheet_Compare(PyDiaSheet *self, PyDiaSheet *other)
-{
-    if (self->sheet == other->sheet) return 0;
-    if (self->sheet > other->sheet) return -1;
-    return 1;
-}
-
-static long
-PyDiaSheet_Hash(PyDiaSheet *self)
-{
-    return (long)self->sheet;
-}
 
 static PyObject *
-PyDiaSheet_Str(PyDiaSheet *self)
+PyDiaSheet_RichCompare (PyObject *self, PyObject *other, int op)
 {
-    return PyString_FromString(self->sheet->description);
+  Py_RETURN_RICHCOMPARE (((PyDiaSheet *) self)->sheet,
+                         ((PyDiaSheet *) other)->sheet,
+                         op);
+}
+
+
+static long
+PyDiaSheet_Hash (PyObject *self)
+{
+  return (long) ((PyDiaSheet *) self)->sheet;
+}
+
+
+static PyObject *
+PyDiaSheet_Str (PyObject *self)
+{
+  return PyUnicode_FromString (((PyDiaSheet *) self)->sheet->description);
 }
 
 /*
@@ -86,75 +90,76 @@ static PyMemberDef PyDiaSheet_Members[] = {
 };
 
 static PyObject *
-PyDiaSheet_GetAttr(PyDiaSheet *self, gchar *attr)
+PyDiaSheet_GetAttr (PyObject *obj, PyObject *arg)
 {
-    if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[ssss]", "name", "description", "filename", "objects");
-    else if (!strcmp(attr, "name"))
-	return PyString_FromString(self->sheet->name);
-    else if (!strcmp(attr, "description"))
-	return PyString_FromString(self->sheet->description);
-    else if (!strcmp(attr, "filename"))
-	return PyString_FromString(self->sheet->filename);
-    else if (!strcmp(attr, "user"))
-	return PyInt_FromLong(self->sheet->scope == SHEET_SCOPE_USER ? 1 : 0);
-    else if (!strcmp(attr, "objects")) {
-	/* Just returning tuples with information for now. Wrapping SheetObject
-	 * looks like overkill for the time being.
-	 *  - DiaObjectType or None
-	 *  - description of the SheetObject
-	 *  - filename of the icon file
-	 */
-	PyObject *ret = PyList_New(0);
-	GSList *list;
+  PyDiaSheet *self;
+  const char *attr;
 
-	for (list = self->sheet->objects; list != NULL; list = list->next) {
-	    SheetObject *so = list->data;
-	    DiaObjectType *ot = object_get_type (so->object_type);
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
 
-	    if (!ot)
-		Py_INCREF(Py_None);
-	    PyList_Append(ret, Py_BuildValue ("(Oss)",
-						ot ? PyDiaObjectType_New (ot) : Py_None,
-						PyString_FromString (so->description ? so->description : ""),
-						PyString_FromString (so->pixmap_file ? so->pixmap_file : "")));
-	}
-	return ret;
+  self = (PyDiaSheet *) obj;
+
+  if (!g_strcmp0 (attr, "__members__")) {
+    return Py_BuildValue ("[ssss]",
+                          "name", "description", "filename", "objects");
+  } else if (!g_strcmp0 (attr, "name")) {
+    return PyUnicode_FromString (self->sheet->name);
+  } else if (!g_strcmp0 (attr, "description")) {
+    return PyUnicode_FromString (self->sheet->description);
+  } else if (!g_strcmp0 (attr, "filename")) {
+    return PyUnicode_FromString (self->sheet->filename);
+  } else if (!g_strcmp0 (attr, "user")) {
+    return PyLong_FromLong (self->sheet->scope == SHEET_SCOPE_USER ? 1 : 0);
+  } else if (!g_strcmp0 (attr, "objects")) {
+    /* Just returning tuples with information for now. Wrapping SheetObject
+    * looks like overkill for the time being.
+    *  - DiaObjectType or None
+    *  - description of the SheetObject
+    *  - filename of the icon file
+    */
+    PyObject *ret = PyList_New (0);
+    GSList *list;
+
+    for (list = self->sheet->objects; list != NULL; list = list->next) {
+      SheetObject *so = list->data;
+      DiaObjectType *ot = object_get_type (so->object_type);
+      PyObject *py_ot;
+      PyObject *val;
+
+      if (ot) {
+        py_ot = PyDiaObjectType_New (ot);
+      } else {
+        py_ot = Py_None;
+        Py_INCREF (Py_None);
+      }
+
+      val = Py_BuildValue ("(Oss)", py_ot, so->description, so->pixmap_file);
+
+      PyList_Append (ret, val);
     }
 
-    return Py_FindMethod(PyDiaSheet_Methods, (PyObject *)self, attr);
+    return ret;
+  }
+
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 }
 
+
 PyTypeObject PyDiaSheet_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Sheet",
-    sizeof(PyDiaSheet),
-    0,
-    (destructor)PyDiaSheet_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaSheet_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaSheet_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaSheet_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaSheet_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "returned by dia.register_export() but not used otherwise yet.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    PyDiaSheet_Methods, /* tp_methods */
-    PyDiaSheet_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Sheet",
+  .tp_basicsize = sizeof (PyDiaSheet),
+  .tp_dealloc = PyDiaSheet_Dealloc,
+  .tp_getattro = PyDiaSheet_GetAttr,
+  .tp_richcompare = PyDiaSheet_RichCompare,
+  .tp_hash = PyDiaSheet_Hash,
+  .tp_str = PyDiaSheet_Str,
+  .tp_doc = "returned by dia.register_export() but not used otherwise yet.",
+  .tp_methods = PyDiaSheet_Methods,
+  .tp_members = PyDiaSheet_Members,
 };

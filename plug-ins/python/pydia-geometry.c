@@ -24,7 +24,7 @@
 
 #include <structmember.h> /* PyMemberDef */
 
-/* Implements wrappers for Point, DiaRectangle, IntRectangle, BezPoint */
+/* Implements wrappers for Point, DiaRectangle, BezPoint */
 
 /*
  * New
@@ -56,38 +56,42 @@ PyDiaPointTuple_New (Point* pts, int num)
   return ret;
 }
 
+
 /* one of the parameters needs to be NULL, the other is created */
-PyObject*
-PyDiaRectangle_New (DiaRectangle* r, IntRectangle* ri)
+PyObject *
+PyDiaRectangle_New (DiaRectangle *r)
 {
   PyDiaRectangle *self;
 
-  self = PyObject_NEW(PyDiaRectangle, &PyDiaRectangle_Type);
-  if (!self) return NULL;
+  self = PyObject_NEW (PyDiaRectangle, &PyDiaRectangle_Type);
 
-  self->is_int = (ri != NULL);
-  if (self->is_int)
-    self->r.ri = *ri;
-  else
-    self->r.rf = *r;
+  if (!self) {
+    return NULL;
+  }
 
-  return (PyObject *)self;
+  self->r = *r;
+
+  return (PyObject *) self;
 }
 
-PyObject* PyDiaRectangle_New_FromPoints (Point* ul, Point* lr)
+
+PyObject *
+PyDiaRectangle_New_FromPoints (Point *ul, Point *lr)
 {
   PyDiaRectangle *self;
 
-  self = PyObject_NEW(PyDiaRectangle, &PyDiaRectangle_Type);
-  if (!self) return NULL;
+  self = PyObject_NEW (PyDiaRectangle, &PyDiaRectangle_Type);
 
-  self->is_int = FALSE;
-  self->r.rf.left = ul->x;
-  self->r.rf.top = ul->y;
-  self->r.rf.right = lr->x;
-  self->r.rf.bottom = lr->y;
+  if (!self) {
+    return NULL;
+  }
 
-  return (PyObject *)self;
+  self->r.left = ul->x;
+  self->r.top = ul->y;
+  self->r.right = lr->x;
+  self->r.bottom = lr->y;
+
+  return (PyObject *) self;
 }
 
 
@@ -148,113 +152,288 @@ PyDiaMatrix_New (DiaMatrix *matrix)
 
   return (PyObject *)self;
 }
+
+
 /*
  * Dealloc
  */
 static void
-PyDiaGeometry_Dealloc(void *self)
+PyDiaGeometry_Dealloc (PyObject *self)
 {
-     PyObject_DEL(self);
+  PyObject_DEL (self);
 }
+
 
 /*
  * Compare ?
  */
-static int
-PyDiaPoint_Compare(PyDiaPoint *self,
-			     PyDiaPoint *other)
+static PyObject *
+PyDiaPoint_RichCompare (PyObject *self,
+                        PyObject *other,
+                        int       op)
 {
-#if 1
-  return memcmp (&self->pt, &other->pt, sizeof(Point));
-#else /* ? */
-  if (self->pt.x == other->pt.x && self->pt.x == other->pt.x) return 0;
-#define SQR(pt) (pt.x*pt.y)
-  if (SQR(self->pt) > SQR(other->pt)) return -1;
-#undef  SQR
-  return 1;
-#endif
+  Point *point_a = &((PyDiaPoint *) self)->pt;
+  Point *point_b = &((PyDiaPoint *) other)->pt;
+
+  switch (op) {
+    case Py_EQ:
+      if (fabs (point_a->x - point_b->x) < 0.0001 &&
+          fabs (point_a->y - point_b->y) < 0.0001) {
+        Py_RETURN_TRUE;
+      } else {
+        Py_RETURN_FALSE;
+      }
+      break;
+    case Py_NE:
+      if (fabs (point_a->x - point_b->x) >= 0.0001 &&
+          fabs (point_a->y - point_b->y) >= 0.0001) {
+        Py_RETURN_TRUE;
+      } else {
+        Py_RETURN_FALSE;
+      }
+      break;
+    case Py_LT:
+    case Py_GT:
+    case Py_LE:
+    case Py_GE:
+    default:
+      Py_RETURN_NOTIMPLEMENTED;
+  }
 }
 
-static int
-PyDiaRectangle_Compare(PyDiaRectangle *self,
-			     PyDiaRectangle *other)
+
+static PyObject *
+PyDiaRectangle_RichCompare (PyObject *self,
+                            PyObject *other,
+                            int       op)
 {
-  /* this is not correct */
-  return memcmp (&self->r, &other->r, sizeof(DiaRectangle));
+  DiaRectangle *rect_a = &((PyDiaRectangle *) self)->r;
+  DiaRectangle *rect_b = &((PyDiaRectangle *) other)->r;
+
+  switch (op) {
+    case Py_EQ:
+      if (fabs (rect_a->top - rect_b->top) < 0.0001 &&
+          fabs (rect_a->left - rect_b->left) < 0.0001 &&
+          fabs (rect_a->bottom - rect_b->bottom) < 0.0001 &&
+          fabs (rect_a->right - rect_b->right) < 0.0001) {
+        Py_RETURN_TRUE;
+      } else {
+        Py_RETURN_FALSE;
+      }
+      break;
+    case Py_NE:
+      if (fabs (rect_a->top - rect_b->top) >= 0.0001 &&
+          fabs (rect_a->left - rect_b->left) >= 0.0001 &&
+          fabs (rect_a->bottom - rect_b->bottom) >= 0.0001 &&
+          fabs (rect_a->right - rect_b->right) >= 0.0001) {
+        Py_RETURN_TRUE;
+      } else {
+        Py_RETURN_FALSE;
+      }
+      break;
+    case Py_LT:
+    case Py_GT:
+    case Py_LE:
+    case Py_GE:
+    default:
+      Py_RETURN_NOTIMPLEMENTED;
+  }
 }
 
-static int
-PyDiaBezPoint_Compare(PyDiaBezPoint *self,
-			     PyDiaBezPoint *other)
+
+static PyObject *
+PyDiaBezPoint_RichCompare (PyObject *a,
+                           PyObject *b,
+                           int       op)
 {
-  return memcmp (&self->bpn, &other->bpn, sizeof(BezPoint));
+  PyDiaBezPoint *self = (PyDiaBezPoint *) a;
+  PyDiaBezPoint *other = (PyDiaBezPoint *) b;
+  int cmp = memcmp (&self->bpn, &other->bpn, sizeof (BezPoint));
+  PyObject *ret;
+
+  switch (op) {
+    case Py_EQ:
+      ret = cmp == 0 ? Py_True : Py_False;
+      break;
+    case Py_NE:
+      ret = cmp != 0 ? Py_True : Py_False;
+      break;
+    case Py_LE:
+      ret = cmp <= 0 ? Py_True : Py_False;
+      break;
+    case Py_GE:
+      ret = cmp >= 0 ? Py_True : Py_False;
+      break;
+    case Py_LT:
+      ret = cmp < 0 ? Py_True : Py_False;
+      break;
+    case Py_GT:
+      ret = cmp > 0 ? Py_True : Py_False;
+      break;
+    default:
+      ret = Py_NotImplemented;
+      break;
+  }
+
+  Py_INCREF (ret);
+
+  return ret;
 }
 
-static int
-PyDiaArrow_Compare(PyDiaArrow *self,
-			 PyDiaArrow *other)
+
+static PyObject *
+PyDiaArrow_RichCompare (PyObject *a,
+                        PyObject *b,
+                        int       op)
 {
-  return memcmp (&self->arrow, &other->arrow, sizeof(Arrow));
+  PyDiaArrow *self = (PyDiaArrow *) a;
+  PyDiaArrow *other = (PyDiaArrow *) b;
+  int cmp = memcmp (&self->arrow, &other->arrow, sizeof (Arrow));
+  PyObject *ret;
+
+  switch (op) {
+    case Py_EQ:
+      ret = cmp == 0 ? Py_True : Py_False;
+      break;
+    case Py_NE:
+      ret = cmp != 0 ? Py_True : Py_False;
+      break;
+    case Py_LE:
+      ret = cmp <= 0 ? Py_True : Py_False;
+      break;
+    case Py_GE:
+      ret = cmp >= 0 ? Py_True : Py_False;
+      break;
+    case Py_LT:
+      ret = cmp < 0 ? Py_True : Py_False;
+      break;
+    case Py_GT:
+      ret = cmp > 0 ? Py_True : Py_False;
+      break;
+    default:
+      ret = Py_NotImplemented;
+      break;
+  }
+
+  Py_INCREF (ret);
+
+  return ret;
 }
 
-static int
-PyDiaMatrix_Compare(PyDiaMatrix *self,
-		    PyDiaMatrix *other)
+
+static PyObject *
+PyDiaMatrix_RichCompare (PyObject *a,
+                         PyObject *b,
+                         int       op)
 {
-  return memcmp (&self->matrix, &other->matrix, sizeof(DiaMatrix));
+  PyDiaMatrix *self = (PyDiaMatrix *) a;
+  PyDiaMatrix *other = (PyDiaMatrix *) b;
+  int cmp = memcmp (&self->matrix, &other->matrix, sizeof (DiaMatrix));
+  PyObject *ret;
+
+  switch (op) {
+    case Py_EQ:
+      ret = cmp == 0 ? Py_True : Py_False;
+      break;
+    case Py_NE:
+      ret = cmp != 0 ? Py_True : Py_False;
+      break;
+    case Py_LE:
+      ret = cmp <= 0 ? Py_True : Py_False;
+      break;
+    case Py_GE:
+      ret = cmp >= 0 ? Py_True : Py_False;
+      break;
+    case Py_LT:
+      ret = cmp < 0 ? Py_True : Py_False;
+      break;
+    case Py_GT:
+      ret = cmp > 0 ? Py_True : Py_False;
+      break;
+    default:
+      ret = Py_NotImplemented;
+      break;
+  }
+
+  Py_INCREF (ret);
+
+  return ret;
 }
+
 
 /*
  * Hash
  */
 static long
-PyDiaGeometry_Hash(PyObject *self)
+PyDiaGeometry_Hash (PyObject *self)
 {
-    return (long)self;
+  return (long) self;
 }
 
 
 static PyObject *
-PyDiaRectangle_GetAttr(PyDiaRectangle *self, char *attr)
+PyDiaRectangle_GetAttr (PyObject *obj, PyObject *arg)
 {
-#define I_OR_F(v) \
-  (self->is_int ? \
-   PyInt_FromLong(self->r.ri. v) : PyFloat_FromDouble(self->r.rf. v))
+  PyDiaRectangle *self;
+  const char *attr;
 
-  if (!strcmp(attr, "__members__"))
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
+
+  self = (PyDiaRectangle *) obj;
+
+#define I_OR_F(v) PyFloat_FromDouble (self->r.v)
+
+  if (!g_strcmp0 (attr, "__members__")) {
     return Py_BuildValue("[ssss]", "top", "left", "right", "bottom" );
-  else if (!strcmp(attr, "top"))
-    return I_OR_F(top);
-  else if (!strcmp(attr, "left"))
-    return I_OR_F(left);
-  else if (!strcmp(attr, "right"))
-    return I_OR_F(right);
-  else if (!strcmp(attr, "bottom"))
-    return I_OR_F(bottom);
+  } else if (!g_strcmp0 (attr, "top")) {
+    return I_OR_F (top);
+  } else if (!g_strcmp0 (attr, "left")) {
+    return I_OR_F (left);
+  } else if (!g_strcmp0 (attr, "right")) {
+    return I_OR_F (right);
+  } else if (!g_strcmp0 (attr, "bottom")) {
+    return I_OR_F (bottom);
+  }
 
-  PyErr_SetString(PyExc_AttributeError, attr);
-  return NULL;
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 
 #undef I_O_F
 }
 
 
 static PyObject *
-PyDiaBezPoint_GetAttr(PyDiaBezPoint *self, char *attr)
+PyDiaBezPoint_GetAttr (PyObject *obj, PyObject *arg)
 {
-  if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[ssss]", "type", "p1", "p2", "p3");
-  else if (!strcmp(attr, "type"))
-    return PyInt_FromLong(self->bpn.type);
-  else if (!strcmp(attr, "p1"))
-    return PyDiaPoint_New(&(self->bpn.p1));
-  else if (!strcmp(attr, "p2"))
-    return PyDiaPoint_New(&(self->bpn.p2));
-  else if (!strcmp(attr, "p3"))
-    return PyDiaPoint_New(&(self->bpn.p3));
+  PyDiaBezPoint *self;
+  const char *attr;
 
-  PyErr_SetString(PyExc_AttributeError, attr);
-  return NULL;
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
+
+  self = (PyDiaBezPoint *) obj;
+
+  if (!g_strcmp0 (attr, "__members__")) {
+    return Py_BuildValue ("[ssss]", "type", "p1", "p2", "p3");
+  } else if (!g_strcmp0 (attr, "type")) {
+    return PyLong_FromLong (self->bpn.type);
+  } else if (!g_strcmp0 (attr, "p1")) {
+    return PyDiaPoint_New (&(self->bpn.p1));
+  } else if (!g_strcmp0 (attr, "p2")) {
+    return PyDiaPoint_New (&(self->bpn.p2));
+  } else if (!g_strcmp0 (attr, "p3")) {
+    return PyDiaPoint_New (&(self->bpn.p3));
+  }
+
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 }
 
 /*
@@ -267,61 +446,58 @@ PyDiaBezPoint_GetAttr(PyDiaBezPoint *self, char *attr)
  * Repr / _Str
  */
 static PyObject *
-PyDiaPoint_Str (PyDiaPoint *self)
+PyDiaPoint_Str (PyObject *self)
 {
   PyObject *py_s;
 
 #ifndef _DEBUG /* gives crashes with nan */
   char *s = g_strdup_printf ("(%f,%f)",
-                             (float) (self->pt.x),
-                             (float) (self->pt.y));
+                             (float) ((PyDiaPoint *) self)->pt.x,
+                             (float) ((PyDiaPoint *) self)->pt.y);
 #else
   char *s = g_strdup_printf ("(%e,%e)",
-                             (float) (self->pt.x),
-                             (float) (self->pt.y));
+                             (float) ((PyDiaPoint *) self)->pt.x),
+                             (float) ((PyDiaPoint *) self)->pt.y));
 #endif
 
-  py_s = PyString_FromString (s);
+  py_s = PyUnicode_FromString (s);
   g_clear_pointer (&s, g_free);
+
   return py_s;
 }
 
 
 static PyObject *
-PyDiaRectangle_Str (PyDiaRectangle *self)
+PyDiaRectangle_Str (PyObject *self)
 {
   PyObject *py_s;
   char *s;
 
-  if (self->is_int) {
-    s = g_strdup_printf ("((%d,%d),(%d,%d))",
-                         (self->r.ri.left),
-                         (self->r.ri.top),
-                         (self->r.ri.right),
-                         (self->r.ri.bottom));
-  } else {
+  {
 #ifndef _DEBUG /* gives crashes with nan */
     s = g_strdup_printf ("((%f,%f),(%f,%f))",
-                         (float) (self->r.rf.left),
-                         (float) (self->r.rf.top),
-                         (float) (self->r.rf.right),
-                         (float) (self->r.rf.bottom));
+                         (float) (((PyDiaRectangle *) self)->r.left),
+                         (float) (((PyDiaRectangle *) self)->r.top),
+                         (float) (((PyDiaRectangle *) self)->r.right),
+                         (float) (((PyDiaRectangle *) self)->r.bottom));
 #else
     s = g_strdup_printf ("((%e,%e),(%e,%e))",
-                         (float) (self->r.rf.left),
-                         (float) (self->r.rf.top),
-                         (float) (self->r.rf.right),
-                         (float) (self->r.rf.bottom));
+                         (float) (((PyDiaRectangle *) self)->r.left),
+                         (float) (((PyDiaRectangle *) self)->r.top),
+                         (float) (((PyDiaRectangle *) self)->r.right),
+                         (float) (((PyDiaRectangle *) self)->r.bottom));
 #endif
   }
-  py_s = PyString_FromString (s);
+
+  py_s = PyUnicode_FromString (s);
   g_clear_pointer (&s, g_free);
+
   return py_s;
 }
 
 
 static PyObject *
-PyDiaBezPoint_Str(PyDiaBezPoint *self)
+PyDiaBezPoint_Str (PyObject *self)
 {
   PyObject *py_s;
 #if 0 /* FIXME: this is causing bad crashes with unintialized points.
@@ -334,42 +510,48 @@ PyDiaBezPoint_Str(PyDiaBezPoint *self)
                              (self->bpn.type == BEZ_LINE_TO ? "LINE_TO" : "CURVE_TO")));
 #else
   char* s = g_strdup_printf ("%s",
-                             (self->bpn.type == BEZ_MOVE_TO ? "MOVE_TO" :
-                             (self->bpn.type == BEZ_LINE_TO ? "LINE_TO" : "CURVE_TO")));
+                             (((PyDiaBezPoint *) self)->bpn.type == BEZ_MOVE_TO ? "MOVE_TO" :
+                             (((PyDiaBezPoint *) self)->bpn.type == BEZ_LINE_TO ? "LINE_TO" : "CURVE_TO")));
 #endif
-  py_s = PyString_FromString (s);
+
+  py_s = PyUnicode_FromString (s);
   g_clear_pointer (&s, g_free);
+
   return py_s;
 }
 
 
 static PyObject *
-PyDiaArrow_Str(PyDiaArrow *self)
+PyDiaArrow_Str (PyObject *self)
 {
-  PyObject* py_s;
-  char* s = g_strdup_printf ("(%f,%f, %d)",
-                             (float) (self->arrow.width),
-                             (float) (self->arrow.length),
-                             (int) (self->arrow.type));
-  py_s = PyString_FromString (s);
+  PyObject *py_s;
+  char *s = g_strdup_printf ("(%f,%f, %d)",
+                             (float) (((PyDiaArrow *) self)->arrow.width),
+                             (float) (((PyDiaArrow *) self)->arrow.length),
+                             (int) (((PyDiaArrow *) self)->arrow.type));
+
+  py_s = PyUnicode_FromString (s);
   g_clear_pointer (&s, g_free);
+
   return py_s;
 }
 
 
 static PyObject *
-PyDiaMatrix_Str(PyDiaMatrix *self)
+PyDiaMatrix_Str (PyObject *self)
 {
   PyObject *py_s;
   char *s = g_strdup_printf ("(%f, %f, %f, %f, %f, %f)",
-                             (float) (self->matrix.xx),
-                             (float) (self->matrix.yx),
-                             (float) (self->matrix.xy),
-                             (float) (self->matrix.yy),
-                             (float) (self->matrix.x0),
-                             (float) (self->matrix.y0));
-  py_s = PyString_FromString (s);
+                             (float) (((PyDiaMatrix *) self)->matrix.xx),
+                             (float) (((PyDiaMatrix *) self)->matrix.yx),
+                             (float) (((PyDiaMatrix *) self)->matrix.xy),
+                             (float) (((PyDiaMatrix *) self)->matrix.yy),
+                             (float) (((PyDiaMatrix *) self)->matrix.x0),
+                             (float) (((PyDiaMatrix *) self)->matrix.y0));
+
+  py_s = PyUnicode_FromString (s);
   g_clear_pointer (&s, g_free);
+
   return py_s;
 }
 
@@ -452,13 +634,13 @@ rect_item (PyObject *o, gssize i)
 
   switch (i) {
     case 0:
-      return PyDiaRectangle_GetAttr (self, "left");
+      return PyFloat_FromDouble (self->r.left);
     case 1:
-      return PyDiaRectangle_GetAttr (self, "top");
+      return PyFloat_FromDouble (self->r.top);
     case 2:
-      return PyDiaRectangle_GetAttr (self, "right");
+      return PyFloat_FromDouble (self->r.right);
     case 3:
-      return PyDiaRectangle_GetAttr (self, "bottom");
+      return PyFloat_FromDouble (self->r.bottom);
     default :
       PyErr_SetString (PyExc_IndexError, "PyDiaRectangle index out of range");
       return NULL;
@@ -466,37 +648,9 @@ rect_item (PyObject *o, gssize i)
 }
 
 
-static PyObject *
-rect_slice (PyObject* o, gssize i, gssize j)
-{
-  PyObject *ret;
-
-  /* j maybe negative */
-  if (j <= 0) {
-    j = 3 + j;
-  }
-  /* j may be rather huge [:] ^= 0:0x7FFFFFFF */
-  if (j > 3) {
-    j = 3;
-  }
-  ret = PyTuple_New (j - i + 1);
-  if (ret) {
-    for (int k = i; k <= j && k < 4; k++) {
-      PyTuple_SetItem (ret, k - i, rect_item (o, k));
-    }
-  }
-  return ret;
-}
-
 static PySequenceMethods rect_as_sequence = {
-  rect_length,    /*sq_length*/
-  (binaryfunc) 0, /*sq_concat*/
-  0,              /*sq_repeat*/
-  rect_item,      /*sq_item*/
-  rect_slice,     /*sq_slice*/
-  0,              /*sq_ass_item*/
-  0,              /*sq_ass_slice*/
-  (objobjproc) 0  /*sq_contains*/
+  .sq_length = rect_length,
+  .sq_item = rect_item,
 };
 
 
@@ -513,38 +667,21 @@ static PyMemberDef PyDiaPoint_Members[] = {
  * Python objetcs
  */
 PyTypeObject PyDiaPoint_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Point",
-    sizeof(PyDiaPoint),
-    0,
-    (destructor)PyDiaGeometry_Dealloc,
-    (printfunc)0,
-    (getattrfunc)0,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaPoint_Compare,
-    (reprfunc)0,
-    0, /* as_number */
-    &point_as_sequence,
-    0,
-    (hashfunc)PyDiaGeometry_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaPoint_Str,
-    PyObject_GenericGetAttr, /* tp_getattro */
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "The dia.Point does not only provide access trough it's members but also via a sequence interface.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    0, /* tp_methods */
-    PyDiaPoint_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Point",
+  .tp_basicsize = sizeof (PyDiaPoint),
+  .tp_dealloc = PyDiaGeometry_Dealloc,
+  .tp_richcompare = PyDiaPoint_RichCompare,
+  .tp_as_sequence = &point_as_sequence,
+  .tp_hash = PyDiaGeometry_Hash,
+  .tp_str = PyDiaPoint_Str,
+  .tp_getattro = PyObject_GenericGetAttr,
+  .tp_doc = "The dia.Point does not only provide access trough it's members "
+            "but also via a sequence interface.",
+  .tp_members = PyDiaPoint_Members,
 };
+
+
 #define T_INVALID -1 /* can't allow direct access due to pyobject->is_int */
 static PyMemberDef PyDiaRect_Members[] = {
     { "top", T_INVALID, 0, RESTRICTED|READONLY,
@@ -557,39 +694,23 @@ static PyMemberDef PyDiaRect_Members[] = {
       "int or double: right edge x coordinate" },
     { NULL }
 };
+
+
 PyTypeObject PyDiaRectangle_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Rectangle",
-    sizeof(PyDiaRectangle),
-    0,
-    (destructor)PyDiaGeometry_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaRectangle_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaRectangle_Compare,
-    (reprfunc)0,
-    0, /* as_number */
-    &rect_as_sequence,
-    0, /* as_mapping */
-    (hashfunc)PyDiaGeometry_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaRectangle_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "The dia.Rectangle does not only provide access trough it's members but also via a sequence interface.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    0, /* tp_methods */
-    PyDiaRect_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Rectangle",
+  .tp_basicsize = sizeof (PyDiaRectangle),
+  .tp_dealloc = PyDiaGeometry_Dealloc,
+  .tp_getattro = PyDiaRectangle_GetAttr,
+  .tp_richcompare = PyDiaRectangle_RichCompare,
+  .tp_as_sequence = &rect_as_sequence,
+  .tp_hash = PyDiaGeometry_Hash,
+  .tp_str = PyDiaRectangle_Str,
+  .tp_doc = "The dia.Rectangle does not only provide access trough it's "
+            "members but also via a sequence interface.",
+  .tp_members = PyDiaRect_Members,
 };
+
 
 static PyMemberDef PyDiaBezPoint_Members[] = {
     { "type", T_INT, offsetof(PyDiaBezPoint, bpn.type), 0,
@@ -602,39 +723,22 @@ static PyMemberDef PyDiaBezPoint_Members[] = {
       "Point: target point for CURVETO" },
     { NULL }
 };
+
+
 PyTypeObject PyDiaBezPoint_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.BezPoint",
-    sizeof(PyDiaBezPoint),
-    0,
-    (destructor)PyDiaGeometry_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaBezPoint_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaBezPoint_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaGeometry_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaBezPoint_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "A dia.Point, a bezier type and two control points (dia.Point) make a bezier point.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    0, /* tp_methods */
-    PyDiaBezPoint_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.BezPoint",
+  .tp_basicsize = sizeof (PyDiaBezPoint),
+  .tp_dealloc = PyDiaGeometry_Dealloc,
+  .tp_getattro = PyDiaBezPoint_GetAttr,
+  .tp_richcompare = PyDiaBezPoint_RichCompare,
+  .tp_hash = PyDiaGeometry_Hash,
+  .tp_str = PyDiaBezPoint_Str,
+  .tp_doc = "A dia.Point, a bezier type and two control points (dia.Point) "
+            "make a bezier point.",
+  .tp_members = PyDiaBezPoint_Members,
 };
+
 
 static PyMemberDef PyDiaArrow_Members[] = {
     { "type", T_INT, offsetof(PyDiaArrow, arrow.type), 0,
@@ -645,39 +749,21 @@ static PyMemberDef PyDiaArrow_Members[] = {
       "double: length along the line" },
     { NULL }
 };
+
+
 PyTypeObject PyDiaArrow_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Arrow",
-    sizeof(PyDiaArrow),
-    0,
-    (destructor)PyDiaGeometry_Dealloc,
-    (printfunc)0,
-    (getattrfunc)0,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaArrow_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaGeometry_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaArrow_Str,
-    PyObject_GenericGetAttr, /* tp_getattro */
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "Dia's line objects usually ends with an dia.Arrow",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    0, /* tp_methods */
-    PyDiaArrow_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Arrow",
+  .tp_basicsize = sizeof (PyDiaArrow),
+  .tp_dealloc = PyDiaGeometry_Dealloc,
+  .tp_richcompare = PyDiaArrow_RichCompare,
+  .tp_hash = PyDiaGeometry_Hash,
+  .tp_str = PyDiaArrow_Str,
+  .tp_getattro = PyObject_GenericGetAttr,
+  .tp_doc = "Dia's line objects usually ends with an dia.Arrow",
+  .tp_members = PyDiaArrow_Members,
 };
+
 
 static PyMemberDef PyDiaMatrix_Members[] = {
     { "xx", T_DOUBLE, offsetof(PyDiaMatrix, matrix.xx), 0, "double" },
@@ -688,36 +774,17 @@ static PyMemberDef PyDiaMatrix_Members[] = {
     { "y0", T_DOUBLE, offsetof(PyDiaMatrix, matrix.y0), 0, "double" },
     { NULL }
 };
+
+
 PyTypeObject PyDiaMatrix_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Matrix",
-    sizeof(PyDiaMatrix),
-    0,
-    (destructor)PyDiaGeometry_Dealloc,
-    (printfunc)0,
-    (getattrfunc)0,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaMatrix_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaGeometry_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaMatrix_Str,
-    PyObject_GenericGetAttr, /* tp_getattro */
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "Dia's matrix to do affine transformation",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    0, /* tp_methods */
-    PyDiaMatrix_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Matrix",
+  .tp_basicsize = sizeof (PyDiaMatrix),
+  .tp_dealloc = PyDiaGeometry_Dealloc,
+  .tp_richcompare = PyDiaMatrix_RichCompare,
+  .tp_hash = PyDiaGeometry_Hash,
+  .tp_str = PyDiaMatrix_Str,
+  .tp_getattro = PyObject_GenericGetAttr,
+  .tp_doc = "Dia's matrix to do affine transformation",
+  .tp_members = PyDiaMatrix_Members,
 };

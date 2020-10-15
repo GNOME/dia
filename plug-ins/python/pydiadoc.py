@@ -20,7 +20,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, math, dia, types, string
+import sys, math, dia, types
 
 import gettext
 _ = gettext.gettext
@@ -103,10 +103,10 @@ def autodoc_cb (data, flags, update) :
 	for s in ["Standard - Image", "Standard - BezierLine", "Standard - Text",
 		"UML - Class", "UML - Dependency"] :
 		o, h1, h2 = dia.get_object_type(s).create(0,0)
-		for p in o.properties.keys() :
+		for p in list(o.properties.keys()) :
 			v = o.properties[p].value
 			theObjects.append(v)
-			if type(v) is types.TupleType and len(v) > 0 :
+			if type(v) is tuple and len(v) > 0 :
 				theObjects.append(v[0])
 		if once :
 			theObjects.append(o)
@@ -123,7 +123,7 @@ def autodoc_cb (data, flags, update) :
 	for s in theDir :
 		if s == "_dia" :
 			continue # avoid all the messy details ;)
-		if theTypes.has_key(s) :
+		if s in theTypes :
 			continue
 		for o in theObjects :
 			is_a = eval("type(o) is dia." + s)
@@ -131,7 +131,7 @@ def autodoc_cb (data, flags, update) :
 			if is_a :
 				theTypes[s] = o
 				break
-		if not theTypes.has_key (s) :
+		if s not in theTypes :
 			theTypes[s] = eval ("dia." + s)
 	# add UML classes for every object in dir
 	#print theTypes
@@ -165,7 +165,7 @@ def autodoc_cb (data, flags, update) :
 		# set the objects name
 		o.properties["name"] = s
 		# now populate the object with ...
-		if theTypes.has_key(s) :
+		if s in theTypes :
 			t = theTypes[s]
 			# ... methods and ...
 			methods = []
@@ -185,7 +185,7 @@ def autodoc_cb (data, flags, update) :
 				try :
 					is_m = eval("callable(t." + m + ")")
 				except :
-					print "type(t." + m + ")?"
+					print("type(t." + m + ")?")
 					is_m = 0
 				doc = ""
 				tt = ""
@@ -196,10 +196,10 @@ def autodoc_cb (data, flags, update) :
 							tt = eval("oo." + m + "().__class__.__name__")
 						else :
 							tt = eval("t." + m + ".__class__.__name__")
-					except TypeError, msg :
-						print m, msg
-					except AttributeError, msg :
-						print m, msg # No constructor defined
+					except TypeError as msg :
+						print(m, msg)
+					except AttributeError as msg :
+						print(m, msg) # No constructor defined
 				try :
 					# try to get the member's docstring from the type
 					doc = eval("dia." + s + "." + m + ".__doc__")
@@ -234,7 +234,7 @@ def autodoc_cb (data, flags, update) :
 	o.properties["visible_comments"] = show_comments
 	methods = []
 	for s in theGlobals :
-		if string.find(s[0], "swigregister") >= 0 :
+		if s[0].find("swigregister") >= 0 :
 			continue # just noise
 		methods.append((s[0],'',s[1],'',0,0,0,1,()))
 	o.properties["operations"] = methods

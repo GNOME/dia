@@ -75,23 +75,23 @@ class Element :
 			self.props[key] = value
 	def SetAttrs (self, name, attrs) :
 		# just a copy of the tags attributes
-		if self.__class__.__name__ == string.capitalize(name) :
+		if self.__class__.__name__ == name.capitalize():
 			self.attrs = attrs
-		elif len(attrs.keys()) > 0 :
+		elif len(list(attrs.keys())) > 0 :
 			if g_verbose :
-				print "Ignoring", name, "attrs on", self.kind
+				print("Ignoring", name, "attrs on", self.kind)
 	def Dump (self) :
-		print self.kind, self.name, self.props
+		print(self.kind, self.name, self.props)
 # still no tag, fallback
 class Unknown(Element) :
 	def __init__ (self, name, n) :
 		self.name = name
 		self.kind = name
-		print "Unknown", " " * n, name
+		print("Unknown", " " * n, name)
 	def Dump (self) :
 		pass
 	def Set (self, key, value) :
-		print "???", key, value
+		print("???", key, value)
 	def SetAttrs (self, name, attrs) :
 		pass
 
@@ -109,14 +109,14 @@ class Compounddef(Element) :
 		if name == "compounddef" :
 			self.id = attrs["id"]
 		elif name == "basecompoundref" :
-			if g_verbose : print "Base", attrs["refid"]
+			if g_verbose : print("Base", attrs["refid"])
 			self.bases.append (attrs["refid"])
 		elif name == "derivedcompoundref" :
 			pass
 		else :
 			Element.SetAttrs (self, name, attrs)
 	def Dump (self) :
-		print self.kind, self.name
+		print(self.kind, self.name)
 		for v in self.visibilities :
 			v.Dump ()
 	# these functions are dia specific (layout in the lists) alsthough not using dia facilities
@@ -125,7 +125,7 @@ class Compounddef(Element) :
 		for v in self.visibilities :
 			if v.__class__.__name__ != "Sectiondef" :
 				if not v.__class__.__name__ in ["Briefdescription", "Detaileddescription", "Listofallmembers"] :
-					print "***", v.__class__.__name__
+					print("***", v.__class__.__name__)
 				continue
 			visibility = v.GetVisibility()
 			value = ""
@@ -143,7 +143,7 @@ class Compounddef(Element) :
 		for v in self.visibilities :
 			if v.__class__.__name__ != "Sectiondef" :
 				if not v.__class__.__name__ in ["Briefdescription", "Detaileddescription", "Listofallmembers"] :
-					print "***", v.__class__.__name__
+					print("***", v.__class__.__name__)
 				continue
 			visibility = v.GetVisibility()
 			if visibility is None :
@@ -180,7 +180,7 @@ class Sectiondef(Element) :
 	def Add (self, o) :
 		self.members.append (o)
 	def Dump (self) :
-		print " ", self.kind, ":"
+		print(" ", self.kind, ":")
 		for m in self.members :
 			m.Dump ()
 	# Dia specifics, map tags/attribs to Dia enums
@@ -191,7 +191,7 @@ class Sectiondef(Element) :
 		elif "private" in self.kind : return 2
 		elif "user-defined" in self.kind : return 0 # FIXME: sectiondef not really defines visibility
 		else :
-			print self.kind, "visibility?"
+			print(self.kind, "visibility?")
 			return None
 # e.g. function, enum
 class Memberdef(Element) :
@@ -204,13 +204,13 @@ class Memberdef(Element) :
 	def Add (self, o) :
 		self.parameters.append (o)
 	def Dump (self) :
-		print "\t", self.type, self.name
+		print("\t", self.type, self.name)
 		for p in self.parameters :
 			p.Dump ()
 	# again Dia dependent, although not using it
 	def GetInheritanceType (self) :
 		# inheritance_type (0: abstract, 1 : virtual, 2:leaf)
-		if self.attrs and self.attrs.has_key ("virt") :
+		if self.attrs and "virt" in self.attrs :
 			if self.attrs["virt"] == "pure-virtual" :
 				return 0
 			elif self.attrs["virt"] == "non-virtual" :
@@ -218,24 +218,24 @@ class Memberdef(Element) :
 			elif self.attrs["virt"] == "virtual" :
 				return 1
 			else :
-				print 'virt="' + self.attrs["virt"] + '" ???'
+				print('virt="' + self.attrs["virt"] + '" ???')
 				return None
 		return 0
 	def GetVisibility (self) :
-		if self.attrs and self.attrs.has_key ("prot") :
+		if self.attrs and "prot" in self.attrs :
 			if self.attrs["prot"] == "public" : return 0
 			elif self.attrs["prot"] == "protected" : return 1
 			elif self.attrs["prot"] == "private" : return 2
 		return None
 	def IsStatic (self) :
 		# class_scope
-		if self.attrs and self.attrs.has_key ("static") :
+		if self.attrs and "static" in self.attrs :
 			if self.attrs["static"] != "no" :
 				return 1
 		return 0
 	def IsQuery (self) :
 		# const members
-		if self.attrs and self.attrs.has_key ("const") :
+		if self.attrs and "const" in self.attrs :
 			if self.attrs["const"] != "no" :
 				return 1
 		return 0
@@ -245,7 +245,7 @@ class Enumvalue(Element) :
 		Element.__init__(self)
 		self.kind = ""
 	def Dump (self) :
-		print "\t" * 2, self.name
+		print("\t" * 2, self.name)
 	def Add (self, o) :
 		pass # throwing away a comment
 class Param(Element) :
@@ -264,7 +264,7 @@ class Param(Element) :
 		for o in self.comments :
 			s += o.text
 	def Dump (self) :
-		print "\t" * 2, self.type, self.name
+		print("\t" * 2, self.type, self.name)
 class Parameterlist(Element) :
 	def __init__ (self, kind) :
 		Element.__init__(self)
@@ -289,7 +289,7 @@ class Comment :
 	def SetAttrs (self, name, attrs) :
 		pass
 	def Dump (self) :
-		print "\t#", self.text
+		print("\t#", self.text)
 class Briefdescription(Comment) :
 	def __init__ (self) :
 		Comment.__init__(self)
@@ -336,11 +336,11 @@ def Parse (sData) :
 	# 3 handler functions
 	def start_element(name, attrs) :
 		parent = find_object (ctx)
-		s = string.capitalize(name)
+		s = name.capitalize()
 		try :
 			o = eval (s + '("' + attrs["kind"] + '")')
 		except NameError :
-			print "Handle?", s
+			print("Handle?", s)
 			o = Unknown(name, len(ctx))
 		except KeyError :
 			try :
@@ -359,11 +359,11 @@ def Parse (sData) :
 			try :
 				parent.Add (o)
 			except AttributeError :
-				print "Handle(?)", parent, "Add(", o, ")"
+				print("Handle(?)", parent, "Add(", o, ")")
 				pass
 	def char_data(data) :
 		# we are not interested in pure whitespace
-		data = string.strip (data)
+		data = data.strip ()
 		if len(data) == 0 :
 			return
 		try :
@@ -373,8 +373,8 @@ def Parse (sData) :
 				#print "\t" * 4, o, "<", name, data, ">"
 				o.Set (name, data)
 			else :
-				if not unhandled.has_key (ctx[-1][0]) :
-					print "ToDo?", ctx[-1][0]
+				if ctx[-1][0] not in unhandled :
+					print("ToDo?", ctx[-1][0])
 					unhandled[ctx[-1][0]] = 1
 				#ctx[-1][1].Set (data)
 		except KeyError :
@@ -402,7 +402,7 @@ def GetClasses (files) :
 		try :
 			classes.extend (Parse (f.read()))
 		except xml.parsers.expat.ExpatError :
-			print "XML Error:", s
+			print("XML Error:", s)
 	# before adding them to the diagram sort by inheritance (less first)
 	return classes
 
@@ -424,7 +424,7 @@ XML_PROGRAMLISTING = NO
 	p = os.popen ("doxygen doxyfile.rev")
 	s = p.readline()
 	while s :
-		print s[:-1]
+		print(s[:-1])
 		s = p.readline()
 	p.close ()
 
@@ -434,8 +434,8 @@ if __name__ == '__main__':
 	classes = GetClasses (files)
 	for o in classes :
 		o.Dump()
-		print o.GetMethods()
-		print o.GetAttributes()
+		print(o.GetMethods())
+		print(o.GetAttributes())
 else :
 	import dia
 
@@ -452,19 +452,19 @@ else :
 			o.properties["abstract"] = c.IsAbstract ()
 			try :
 				o.properties["operations"] = c.GetMethods()
-			except TypeError, msg :
-				print "Failed assigning 'operations':", msg, c.GetMethods()
+			except TypeError as msg :
+				print("Failed assigning 'operations':", msg, c.GetMethods())
 			o.properties["attributes"] = c.GetAttributes()
 
 			layer.add_object(o)
 		# create the links (inhertiance, maybe containement, refernces, factory, ...)
-		for s in class_map.keys () :
+		for s in list(class_map.keys ()) :
 			c, o = class_map[s]
-			print s, c, c.bases
+			print(s, c, c.bases)
 			for b in c.bases :
-				if class_map.has_key (b) :
+				if b in class_map :
 					k, p = class_map[b]
-					print c.id, "->", k.id
+					print(c.id, "->", k.id)
 					con, h1, h2 = dia.get_object_type("UML - Generalization").create(0,0)
 					layer.add_object (con)
 					h1.connect (p.connections[6])

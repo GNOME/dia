@@ -55,37 +55,39 @@ PyDiaDiagramData_New (DiagramData *dd)
 
 
 static void
-PyDiaDiagramData_Dealloc (PyDiaDiagramData *self)
+PyDiaDiagramData_Dealloc (PyObject *self)
 {
-  g_clear_object (&self->data);
+  g_clear_object (&((PyDiaDiagramData *) self)->data);
 
   PyObject_DEL (self);
 }
 
 
-static int
-PyDiaDiagramData_Compare (PyDiaDiagramData *self, PyDiaDiagramData *other)
+static PyObject *
+PyDiaDiagramData_RichCompare (PyObject *self,
+                              PyObject *other,
+                              int       op)
 {
-  if (self->data == other->data) return 0;
-  if (self->data > other->data) return -1;
-  return 1;
+  Py_RETURN_RICHCOMPARE (((PyDiaDiagramData *) self)->data,
+                         ((PyDiaDiagramData *) other)->data,
+                         op);
 }
 
 
 static long
-PyDiaDiagramData_Hash (PyDiaDiagramData *self)
+PyDiaDiagramData_Hash (PyObject *self)
 {
-  return (long) self->data;
+  return (long) ((PyDiaDiagramData *) self)->data;
 }
 
 
 static PyObject *
-PyDiaDiagramData_Str (PyDiaDiagramData *self)
+PyDiaDiagramData_Str (PyObject *self)
 {
   PyObject *py_s;
   char *s = g_strdup_printf ("<PyDiaDiagramData %p>", self);
 
-  py_s = PyString_FromString (s);
+  py_s = PyUnicode_FromString (s);
 
   g_clear_pointer (&s, g_free);
 
@@ -347,7 +349,7 @@ static PyMethodDef PyDiaDiagramData_Methods[] = {
 static PyObject *
 PyDiaDiagramData_GetExtents (PyDiaDiagramData *self, void *closure)
 {
-  return PyDiaRectangle_New (&self->data->extents, NULL);
+  return PyDiaRectangle_New (&self->data->extents);
 }
 
 
@@ -461,14 +463,14 @@ static PyGetSetDef PyDiaDiagramData_GetSetters[] = {
 
 
 PyTypeObject PyDiaDiagramData_Type = {
-  PyObject_HEAD_INIT (NULL)
+  PyVarObject_HEAD_INIT (NULL, 0)
   .tp_name = "dia.DiagramData",
   .tp_basicsize = sizeof (PyDiaDiagramData),
   .tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
-  .tp_dealloc = (destructor) PyDiaDiagramData_Dealloc,
-  .tp_compare = (cmpfunc) PyDiaDiagramData_Compare,
-  .tp_hash = (hashfunc) PyDiaDiagramData_Hash,
-  .tp_str = (reprfunc) PyDiaDiagramData_Str,
+  .tp_dealloc = PyDiaDiagramData_Dealloc,
+  .tp_richcompare = PyDiaDiagramData_RichCompare,
+  .tp_hash = PyDiaDiagramData_Hash,
+  .tp_str = PyDiaDiagramData_Str,
   .tp_doc = "The 'low level' diagram object. It contains everything to "
             "manipulate diagrams from im- and export filters as well as"
             " from the UI. It does not provide any access to GUI elements "

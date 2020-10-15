@@ -15,7 +15,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import dia, sys, os.path, string
+import dia, sys, os.path
 
 import gettext
 _ = gettext.gettext
@@ -38,7 +38,7 @@ class ObjRenderer :
 		width = int((r.right - r.left) * scale)
 		height = int((r.bottom - r.top) * scale)
 		name = os.path.split (filename)[1]
-		fname = name[:string.find(name, ".")] + ".png" # guessing
+		fname = name[:name.find(".")] + ".png" # guessing
 		self.f.write ('<image src="%s" width="%d", height="%d" usemap="#%s">\n' % (fname, width, height, name))
 		self.f.write ('<map name="%s">\n' % (name,))
 
@@ -54,17 +54,17 @@ class ObjRenderer :
 	def WriteAreas (self, layer, scale) :
 		for o in layer.objects :
 			r = o.bounding_box
-			if o.properties.has_key ("name") :
+			if "name" in o.properties :
 				url = o.properties["name"].value
-			elif o.properties.has_key ("text") :
+			elif "text" in o.properties :
 				url = o.properties["text"].value.text
 			else :
 				continue
-			if len(url) == 0 or string.find (url, " ") >= 0 :
+			if len(url) == 0 or url.find (" ") >= 0 :
 				continue
 
 			alt = url
-			if o.properties.has_key ("comment") :
+			if "comment" in o.properties :
 				alt = o.properties["comment"].value
 			# need to sale the original coords to the bitmap size
 			x1 = int(r.left * scale) + self.xofs

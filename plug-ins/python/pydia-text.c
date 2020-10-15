@@ -52,75 +52,123 @@ PyDiaText_New (char *text_data, TextAttributes *attr)
  * Dealloc
  */
 static void
-PyDiaText_Dealloc(PyDiaText *self)
+PyDiaText_Dealloc (PyObject *self)
 {
-  g_clear_pointer (&self->text_data, g_free);
-  PyObject_DEL(self);
+  g_clear_pointer (&((PyDiaText *) self)->text_data, g_free);
+  PyObject_DEL (self);
 }
+
 
 /*
  * Compare
  */
-static int
-PyDiaText_Compare(PyDiaText *self,
-                  PyDiaText *other)
+static PyObject *
+PyDiaText_RichCompare (PyObject *a,
+                       PyObject *b,
+                       int       op)
 {
-  int i;
-  i = strcmp (self->text_data, other->text_data);
-  if (i != 0)
-    return i;
-  return memcmp(&(self->attr), &(other->attr), sizeof(TextAttributes));
+  PyDiaText *self = (PyDiaText *) a;
+  PyDiaText *other = (PyDiaText *) b;
+  int text_cmp = strcmp (self->text_data, other->text_data);
+  int attr_cmp = memcmp (&(self->attr), &(other->attr), sizeof (TextAttributes));
+  PyObject *ret;
+
+  switch (op) {
+    case Py_EQ:
+      ret = (text_cmp == 0 && attr_cmp == 0) ? Py_True : Py_False;
+      break;
+    case Py_NE:
+      ret = (text_cmp != 0 || attr_cmp != 0) ? Py_True : Py_False;
+      break;
+    case Py_LE:
+      ret = (text_cmp <= 0 && attr_cmp <= 0) ? Py_True : Py_False;
+      break;
+    case Py_GE:
+      ret = (text_cmp >= 0 && attr_cmp >= 0) ? Py_True : Py_False;
+      break;
+    case Py_LT:
+      ret = (text_cmp < 0 && attr_cmp < 0) ? Py_True : Py_False;
+      break;
+    case Py_GT:
+      ret = (text_cmp > 0 && attr_cmp > 0) ? Py_True : Py_False;
+      break;
+    default:
+      ret = Py_NotImplemented;
+      break;
+  }
+
+  Py_INCREF (ret);
+
+  return ret;
 }
+
 
 /*
  * Hash
  */
 static long
-PyDiaText_Hash(PyObject *self)
+PyDiaText_Hash (PyObject *self)
 {
-  return (long)self;
+  return (long) self;
 }
 
 /*
  * GetAttr
  */
 static PyObject *
-PyDiaText_GetAttr(PyDiaText *self, char *attr)
+PyDiaText_GetAttr (PyObject *obj, PyObject *arg)
 {
-  if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[sssss]", "text", "font", "height",
-                         "position", "color", "alignment");
-  else if (!strcmp(attr, "text"))
-    return PyString_FromString(self->text_data);
-  else if (!strcmp(attr, "font"))
-    return PyDiaFont_New(self->attr.font);
-  else if (!strcmp(attr, "height"))
-    return PyFloat_FromDouble(self->attr.height);
-  else if (!strcmp(attr, "position"))
-    return PyDiaPoint_New(&self->attr.position);
-  else if (!strcmp(attr, "color"))
-    return PyDiaColor_New(&self->attr.color);
-  else if (!strcmp(attr, "alignment"))
-    return PyInt_FromLong(self->attr.alignment);
+  PyDiaText *self;
+  const char *attr;
 
-  PyErr_SetString(PyExc_AttributeError, attr);
-  return NULL;
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
+
+  self = (PyDiaText *) obj;
+
+  if (!g_strcmp0 (attr, "__members__")) {
+    return Py_BuildValue ("[sssss]",
+                          "text", "font", "height", "position", "color",
+                          "alignment");
+  } else if (!g_strcmp0 (attr, "text")) {
+    return PyUnicode_FromString (self->text_data);
+  } else if (!g_strcmp0 (attr, "font")) {
+    return PyDiaFont_New (self->attr.font);
+  } else if (!g_strcmp0 (attr, "height")) {
+    return PyFloat_FromDouble (self->attr.height);
+  } else if (!g_strcmp0 (attr, "position")) {
+    return PyDiaPoint_New (&self->attr.position);
+  } else if (!g_strcmp0 (attr, "color")) {
+    return PyDiaColor_New (&self->attr.color);
+  } else if (!g_strcmp0 (attr, "alignment")) {
+    return PyLong_FromLong (self->attr.alignment);
+  }
+
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 }
+
 
 /*
  * Repr / _Str
  */
 static PyObject *
-PyDiaText_Str(PyDiaText *self)
+PyDiaText_Str (PyObject *self)
 {
   char *strname = g_strdup_printf ("<DiaText \"%s\" at %lx>",
-                                   self->attr.font ? dia_font_get_family (self->attr.font) : "none",
-                                   (long)self);
-  PyObject *ret = PyString_FromString(strname);
+                                   ((PyDiaText *) self)->attr.font ?
+                                      dia_font_get_family (((PyDiaText *) self)->attr.font) : "none",
+                                   (long) self);
+  PyObject *ret = PyUnicode_FromString (strname);
 
   g_clear_pointer (&strname, g_free);
+
   return ret;
 }
+
 
 #define T_INVALID -1 /* can't allow direct access due to pyobject->text indirection */
 static PyMemberDef PyDiaText_Members[] = {
@@ -138,39 +186,21 @@ static PyMemberDef PyDiaText_Members[] = {
       "int: alignment out of LEFT=0, CENTER=1, RIGHT=2" },
     { NULL }
 };
+
+
 /*
  * Python objetcs
  */
 PyTypeObject PyDiaText_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Text",
-    sizeof(PyDiaText),
-    0,
-    (destructor)PyDiaText_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaText_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaText_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaText_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaText_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "Many objects (dia.Object) having text to display provide this property.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    0, /* tp_methods */
-    PyDiaText_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Text",
+  .tp_basicsize = sizeof (PyDiaText),
+  .tp_dealloc = PyDiaText_Dealloc,
+  .tp_getattro = PyDiaText_GetAttr,
+  .tp_richcompare = PyDiaText_RichCompare,
+  .tp_hash = PyDiaText_Hash,
+  .tp_str = PyDiaText_Str,
+  .tp_doc = "Many objects (dia.Object) having text to display provide this "
+            "property.",
+  .tp_members = PyDiaText_Members,
 };

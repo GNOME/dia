@@ -4,7 +4,7 @@ import os, sys
 format_extensions = ["drs", "svg", "png"]
 
 if sys.platform == "win32" :
-	print "Adjusting PATH ..."
+	print("Adjusting PATH ...")
 	sys.path.insert(0, r'd:\graph\dia2\python')
 	sys.path.insert(0, r'd:\graph\dia2\bin')
 	sys.path.insert(0, r'..\plug-ins\python')
@@ -17,19 +17,19 @@ import dia
 
 
 def Dump () :
-	print dir(dia)
+	print(dir(dia))
 
 	r = dia.Rectangle
-	print r, dir(r)
+	print(r, dir(r))
 	o = dia.Object
-	print o, dir(o)
+	print(o, dir(o))
 	rd = dia.Renderer
-	print rd, dir(rd)
+	print(rd, dir(rd))
 
 if sys.platform == "win32" :
 	os.environ["DIA_LIB_PATH"] = r"d:\graph\dia2\dia"
 else :
-	print "FIXME: trouble with dynamic loading on '%s'?" % (sys.platform,)
+	print("FIXME: trouble with dynamic loading on '%s'?" % (sys.platform,))
 	base_path = os.getcwd() + "/.."
 	os.environ["DIA_LIB_PATH"] = base_path + "/objects//:" + base_path + "/plug-ins//"
 	os.environ["DIA_SHAPE_PATH"] = base_path + "/shapes//"
@@ -38,7 +38,7 @@ else :
 try :
 	dia.register_plugins()
 except AttributeError :
-	print "Wrong '%s' picked up?" % (dia.__file__, )
+	print("Wrong '%s' picked up?" % (dia.__file__, ))
 
 def Export (name, data) :
 	# write data to file, the format is choosen here
@@ -56,11 +56,11 @@ def Import () :
 	filename = "render-test-swig.svg"
 	ef = dia.filter_export_get_by_name ("svg")
 	if not ef :
-		print "Guessing ..."
+		print("Guessing ...")
 		ef = dia.filter_guess_export_filter ("dummy.png")
 		filename = "render-test-swig.png"
 
-	print ef, "\n", ef.description, "\n", dir(ef)
+	print(ef, "\n", ef.description, "\n", dir(ef))
 
 	ef.do_export (data, filename)
 
@@ -135,8 +135,8 @@ def Self () :
 	r = data.extents
 	try :
 		data.extents = r
-	except AttributeError, s :
-		print "Expected except", s, r.top, r.left
+	except AttributeError as s :
+		print("Expected except", s, r.top, r.left)
 
 for arg in sys.argv[1:] :
 	if '--dump' == arg : Dump ()

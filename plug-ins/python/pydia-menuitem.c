@@ -47,46 +47,64 @@ PyDiaMenuitem_New (const DiaMenuItem *menuitem)
  * Dealloc
  */
 static void
-PyDiaMenuitem_Dealloc(PyDiaMenuitem *self)
+PyDiaMenuitem_Dealloc (PyObject *self)
 {
   /* we dont own the object */
-  PyObject_DEL(self);
+  PyObject_DEL (self);
 }
+
 
 /*
  * Compare
  */
-static int
-PyDiaMenuitem_Compare(PyDiaMenuitem *self,
-                      PyDiaMenuitem *other)
+static PyObject *
+PyDiaMenuitem_RichCompare (PyObject *self,
+                           PyObject *other,
+                           int       op)
 {
-  return (self->menuitem == other->menuitem);
+  Py_RETURN_RICHCOMPARE (((PyDiaMenuitem *) self)->menuitem,
+                         ((PyDiaMenuitem *) other)->menuitem,
+                         op);
 }
+
 
 /*
  * Hash
  */
 static long
-PyDiaMenuitem_Hash(PyObject *self)
+PyDiaMenuitem_Hash (PyObject *self)
 {
-  return (long)self;
+  return (long) self;
 }
+
 
 /*
  * GetAttr
  */
 static PyObject *
-PyDiaMenuitem_GetAttr(PyDiaMenuitem *self, gchar *attr)
+PyDiaMenuitem_GetAttr (PyObject *obj, PyObject *arg)
 {
-  if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[ss]", "text", "active");
-  else if (!strcmp(attr, "text"))
-    return PyString_FromString(self->menuitem->text);
-  else if (!strcmp(attr, "active"))
-    return PyInt_FromLong(self->menuitem->active);
+  PyDiaMenuitem *self;
+  const char *attr;
 
-  PyErr_SetString(PyExc_AttributeError, attr);
-  return NULL;
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
+
+  self = (PyDiaMenuitem *) obj;
+
+  if (!g_strcmp0 (attr, "__members__")) {
+    return Py_BuildValue ("[ss]", "text", "active");
+  } else if (!g_strcmp0 (attr, "text")) {
+    return PyUnicode_FromString (self->menuitem->text);
+  } else if (!g_strcmp0 (attr, "active")) {
+    return PyLong_FromLong (self->menuitem->active);
+  }
+
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 }
 
 
@@ -120,18 +138,22 @@ PyDiaMenuitem_Call (PyDiaMenuitem *self, PyObject *args)
  * Repr / _Str
  */
 static PyObject *
-PyDiaMenuitem_Str(PyDiaMenuitem *self)
+PyDiaMenuitem_Str (PyObject *obj)
 {
-  PyObject* py_s;
-  gchar* s = g_strdup_printf ("%s - %s,%s,%s",
-                              self->menuitem->text,
-                              self->menuitem->active & DIAMENU_ACTIVE ? "active" : "inactive",
-                              self->menuitem->active & DIAMENU_TOGGLE ? "toggle" : "",
-                              self->menuitem->active & DIAMENU_TOGGLE_ON ? "on" : "");
-  py_s = PyString_FromString (s);
+  PyDiaMenuitem *self = (PyDiaMenuitem *) obj;
+  PyObject *py_s;
+  char *s = g_strdup_printf ("%s - %s,%s,%s",
+                             self->menuitem->text,
+                             self->menuitem->active & DIAMENU_ACTIVE ? "active" : "inactive",
+                             self->menuitem->active & DIAMENU_TOGGLE ? "toggle" : "",
+                             self->menuitem->active & DIAMENU_TOGGLE_ON ? "on" : "");
+
+  py_s = PyUnicode_FromString (s);
   g_clear_pointer (&s, g_free);
+
   return py_s;
 }
+
 
 static PyMethodDef PyDiaMenuitem_Methods[] = {
     { "call", (PyCFunction)PyDiaMenuitem_Call, METH_VARARGS,
@@ -148,39 +170,21 @@ static PyMemberDef PyDiaMenuitem_Members[] = {
       "boolean: if it is callable" },
     { NULL }
 };
+
+
 /*
  * Python objetcs
  */
 PyTypeObject PyDiaMenuitem_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Menuitem",
-    sizeof(PyDiaMenuitem),
-    0,
-    (destructor)PyDiaMenuitem_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaMenuitem_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaMenuitem_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaMenuitem_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaMenuitem_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "dia.Menuitem is holding menu functions for dia.Object",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    PyDiaMenuitem_Methods, /* tp_methods */
-    PyDiaMenuitem_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Menuitem",
+  .tp_basicsize = sizeof (PyDiaMenuitem),
+  .tp_dealloc = PyDiaMenuitem_Dealloc,
+  .tp_getattro = PyDiaMenuitem_GetAttr,
+  .tp_richcompare = PyDiaMenuitem_RichCompare,
+  .tp_hash = PyDiaMenuitem_Hash,
+  .tp_str = PyDiaMenuitem_Str,
+  .tp_doc = "dia.Menuitem is holding menu functions for dia.Object",
+  .tp_methods = PyDiaMenuitem_Methods,
+  .tp_members = PyDiaMenuitem_Members,
 };

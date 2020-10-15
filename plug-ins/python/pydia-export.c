@@ -36,30 +36,34 @@ PyDiaExportFilter_New(DiaExportFilter *filter)
     return (PyObject *)self;
 }
 
+
 static void
-PyDiaExportFilter_Dealloc(PyDiaExportFilter *self)
+PyDiaExportFilter_Dealloc (PyObject *self)
 {
-     PyObject_DEL(self);
+  PyObject_DEL (self);
 }
 
-static int
-PyDiaExportFilter_Compare(PyDiaExportFilter *self, PyDiaExportFilter *other)
-{
-    if (self->filter == other->filter) return 0;
-    if (self->filter > other->filter) return -1;
-    return 1;
-}
-
-static long
-PyDiaExportFilter_Hash(PyDiaExportFilter *self)
-{
-    return (long)self->filter;
-}
 
 static PyObject *
-PyDiaExportFilter_Str(PyDiaExportFilter *self)
+PyDiaExportFilter_RichCompare (PyObject *self, PyObject *other, int op)
 {
-    return PyString_FromString(self->filter->description);
+  Py_RETURN_RICHCOMPARE (((PyDiaExportFilter *) self)->filter,
+                         ((PyDiaExportFilter *) other)->filter,
+                         op);
+}
+
+
+static long
+PyDiaExportFilter_Hash (PyObject *self)
+{
+  return (long) ((PyDiaExportFilter *) self)->filter;
+}
+
+
+static PyObject *
+PyDiaExportFilter_Str (PyObject *self)
+{
+  return PyUnicode_FromString (((PyDiaExportFilter *) self)->filter->description);
 }
 
 /*
@@ -79,49 +83,44 @@ static PyMemberDef PyDiaExportFilter_Members[] = {
     { NULL }
 };
 
-static PyObject *
-PyDiaExportFilter_GetAttr(PyDiaExportFilter *self, gchar *attr)
-{
-    if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[ss]", "name");
-    else if (!strcmp(attr, "name"))
-	return PyString_FromString(self->filter->description);
-    else if (!strcmp(attr, "unique_name"))
-	return PyString_FromString(self->filter->unique_name);
 
-    return Py_FindMethod(PyDiaExportFilter_Methods, (PyObject *)self, attr);
+static PyObject *
+PyDiaExportFilter_GetAttr (PyObject *obj, PyObject *arg)
+{
+  PyDiaExportFilter *self;
+  const char *attr;
+
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
+
+  self = (PyDiaExportFilter *) obj;
+
+  if (!g_strcmp0 (attr, "__members__")) {
+    return Py_BuildValue ("[ss]", "name", "unique_name");
+  } else if (!g_strcmp0 (attr, "name")) {
+    return PyUnicode_FromString (self->filter->description);
+  } else if (!g_strcmp0 (attr, "unique_name")) {
+    return PyUnicode_FromString (self->filter->unique_name);
+  }
+
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 }
 
+
 PyTypeObject PyDiaExportFilter_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.ExportFilter",
-    sizeof(PyDiaExportFilter),
-    0,
-    (destructor)PyDiaExportFilter_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaExportFilter_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaExportFilter_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaExportFilter_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaExportFilter_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "returned by dia.register_export() but not used otherwise yet.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    PyDiaExportFilter_Methods, /* tp_methods */
-    PyDiaExportFilter_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.ExportFilter",
+  .tp_basicsize = sizeof (PyDiaExportFilter),
+  .tp_dealloc = PyDiaExportFilter_Dealloc,
+  .tp_getattro = PyDiaExportFilter_GetAttr,
+  .tp_richcompare = PyDiaExportFilter_RichCompare,
+  .tp_hash = PyDiaExportFilter_Hash,
+  .tp_str = PyDiaExportFilter_Str,
+  .tp_doc = "returned by dia.register_export() but not used otherwise yet.",
+  .tp_methods = PyDiaExportFilter_Methods,
+  .tp_members = PyDiaExportFilter_Members,
 };

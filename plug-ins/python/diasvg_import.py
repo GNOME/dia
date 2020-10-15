@@ -73,7 +73,7 @@ def Color(s) :
 	if m :
 		return (int(m.group(1)) / 255.0, int(m.group(2)) / 255.0, int(m.group(3)) / 255.0, 1.0)
 	# any more ugly color definitions not compatible with pango_color_parse() ?
-	return string.strip(s)
+	return s.strip()
 def _eval (s, _locals) :
 	# eval() can be used to execute aribitray code, see e.g. http://bugzilla.gnome.org/show_bug.cgi?id=317637
 	# here using *any* builtins is an abuse
@@ -84,7 +84,7 @@ def _eval (s, _locals) :
 			import dia
 			dia.message(2, "***Possible exploit attempt***:\n" + s)
 		except ImportError :
-			print "***Possible exploit***:", s
+			print("***Possible exploit***:", s)
 	return None
 class Object :
 	def __init__(self) :
@@ -92,14 +92,14 @@ class Object :
 		self.translation = None
 		# "line_width", "line_colour", "line_style"
 	def style(self, s) :
-		sp1 = string.split(s, ";")
+		sp1 = ";".split(s)
 		for s1 in sp1 :
-			sp2 = string.split(string.strip(s1), ":")
+			sp2 = s1.strip().split(":")
 			if len(sp2) == 2 :
 				try :
-					_eval("self." + string.replace(sp2[0], "-", "_") + "(\"" + string.strip(sp2[1]) + "\")", locals())
+					_eval("self." + sp2[0].replace("-", "_") + "(\"" + sp2[1].strip() + "\")", locals())
 				except AttributeError :
-					self.props[sp2[0]] = string.strip(sp2[1])
+					self.props[sp2[0]] = sp2[1].strip()
 	def x(self, s) :
 		self.props["x"] = Scaled(s)
 	def y(self, s) :
@@ -118,7 +118,7 @@ class Object :
 		self.props["fill-rule"] = s
 	def stroke_dasharray(self,s) :
 		# just an approximation
-		sp = string.split(s,",")
+		sp = s.split(",")
 		n = len(sp)
 		if n > 0 :
 			# sp[0] == "none" : # ? stupid generator ?
@@ -148,7 +148,7 @@ class Object :
 	def __repr__(self) :
 		return self.dt + " : " + str(self.props)
 	def Dump(self, indent) :
-		print " " * indent, self
+		print(" " * indent, self)
 	def Set(self, d) :
 		pass
 	def ApplyProps(self, o) :
@@ -156,15 +156,15 @@ class Object :
 	def CopyProps(self, dest) :
 		# to be used to inherit group props to childs _before_ they get their own
 		# doesn't use the member functions to avoid scaling once more
-		for p in self.props.keys() :
+		for p in list(self.props.keys()) :
 			dest.props[p] = self.props[p]
 	def Create(self) :
 		ot = dia.get_object_type (self.dt)
 		o, h1, h2 = ot.create(self.props["x"], self.props["y"])
 		# apply common props
-		if self.props.has_key("stroke-width") and o.properties.has_key("line_width") :
+		if "stroke-width" in self.props and "line_width" in o.properties :
 			o.properties["line_width"] = self.props["stroke-width"]
-		if self.props.has_key("stroke") and o.properties.has_key("line_colour") :
+		if "stroke" in self.props and "line_colour" in o.properties :
 			if self.props["stroke"] != "none" :
 				try :
 					o.properties["line_colour"] = Color(self.props["stroke"])
@@ -174,14 +174,14 @@ class Object :
 					pass
 			else :
 				# Dia can't really display stroke none, some workaround :
-				if self.props.has_key("fill") and self.props["fill"] != "none" :
+				if "fill" in self.props and self.props["fill"] != "none" :
 					#does it really matter ?
 					try :
 						o.properties["line_colour"] = Color(self.props["fill"])
 					except :
 						pass
 				o.properties["line_width"] = 0.0
-		if self.props.has_key("fill") and o.properties.has_key("fill_colour") :
+		if "fill" in self.props and "fill_colour" in o.properties :
 			if self.props["fill"] == "none" :
 				o.properties["show_background"] = 0
 			else :
@@ -197,9 +197,9 @@ class Object :
 					# rgb(192,27,38) handled by Color() but ...
 					# o.properties["fill_colour"] =self.props["fill"]
 					pass
-		if self.props.has_key("line-style") and o.properties.has_key("line_style") :
+		if "line-style" in self.props and "line_style" in o.properties :
 			o.properties["line_style"] = self.props["line-style"]
-		if self.props.has_key("meta") and o.properties.has_key("meta") :
+		if "meta" in self.props and "meta" in o.properties :
 			o.properties["meta"] = self.props["meta"]
 		self.ApplyProps(o)
 		return o
@@ -230,7 +230,7 @@ class Svg(Object) :
 		global dfUserScale
 		global dfViewLength
 		self.props["viewBox"] = s
-		sp = string.split(s, " ")
+		sp = s.split(" ")
 		w = float(sp[2]) - float(sp[0])
 		h = float(sp[3]) - float(sp[1])
 		# FIXME: the following relies on the call order of width,height,viewBox
@@ -274,15 +274,15 @@ class Style(Object) :
 			p3 = 0 # ... closing
 			s = self.cdata
 			n = len(s) - 1
-			while 1 :
-				p1 = string.find(s, ".", p3, n)
-				p2 = string.find(s, "{", p1+1, n)
-				p3 = string.find(s, "}", p2+1, n)
+			while True:
+				p1 = s.find(".", p3, n)
+				p2 = s.find("{", p1+1, n)
+				p3 = s.find("}", p2+1, n)
 				if p1 < 0 or p2 < 0 or p3 < 0 :
 					break
-				print s[p1+1:p2-1], s[p2+1:p3]
+				print(s[p1+1:p2-1], s[p2+1:p3])
 				self.styles[s[p1+1:p2-1]] = s[p2+1:p3]
-		if self.styles.has_key(st) :
+		if st in self.styles :
 			return self.styles[st]
 		return ""
 	def __repr__(self) :
@@ -324,7 +324,7 @@ class Group(Object) :
 		else :
 			return None
 	def Dump(self, indent) :
-		print " " * indent, self
+		print(" " * indent, self)
 		for o in self.childs :
 			o.Dump(indent + 1)
 
@@ -344,7 +344,7 @@ class Image(Object) :
 		if s[:8] == "file:///" :
 			self.props["uri"] = s.encode("UTF-8")
 		elif s[:22] == "data:image/png;base64," :
-			if _imageData.has_key(s[22:]) :
+			if s[22:] in _imageData :
 				self.props["uri"] = _imageData[s[22:]] # use file reference
 			else :
 				# an ugly temporary file name, on windoze in %TEMP%
@@ -358,15 +358,15 @@ class Image(Object) :
 		else :
 			pass #FIXME how to import data into dia ??
 	def Create(self) :
-		if not (self.props.has_key("uri") or self.props.has_key("data")) :
+		if not ("uri" in self.props or "data" in self.props) :
 			return None
 		return Object.Create(self)
 	def ApplyProps(self,o) :
-		if self.props.has_key("width") :
+		if "width" in self.props :
 			o.properties["elem_width"] = self.props["width"]
-		if self.props.has_key("width") :
+		if "width" in self.props :
 			o.properties["elem_height"] = self.props["height"]
-		if self.props.has_key("uri") :
+		if "uri" in self.props :
 			o.properties["image_file"] = self.props["uri"][8:]
 class Line(Object) :
 	def __init__(self) :
@@ -438,15 +438,15 @@ class Path(Object) :
 			elif s1 == "" : # too much whitespaces ;-)
 				pass
 			else :
-				print "Huh?", s1
+				print("Huh?", s1)
 				break
 			i += 1
 	def ApplyProps(self,o) :
 		o.properties["bez_points"] = self.pts
 	def Dump(self, indent) :
-		print " " * indent, self
+		print(" " * indent, self)
 		for t in self.pts :
-			print " " * indent, t
+			print(" " * indent, t)
 	#def Create(self) :
 	#	return None # not yet
 class Rect(Object) :
@@ -491,10 +491,10 @@ class Poly(Object) :
 		Object.__init__(self)
 		self.dt = None # abstract class !
 	def points(self,s) :
-		sp1 = string.split(s)
+		sp1 = s.split()
 		pts = []
 		for s1 in sp1 :
-			sp2 = string.split(s1, ",")
+			sp2 = s1.split(",")
 			if len(sp2) == 2 :
 				pts.append((Scaled(sp2[0]), Scaled(sp2[1])))
 		self.props["points"] = pts
@@ -515,7 +515,7 @@ class Text(Object) :
 		self.props["font-size"] = 1.0
 		# text_font, text_height, text_color, text_alignment
 	def Set(self, d) :
-		if self.props.has_key("text") :
+		if "text" in self.props :
 			self.props["text"] += d
 		else :
 			self.props["text"] = d
@@ -537,13 +537,13 @@ class Text(Object) :
 		self.props["font-family"] = s
 	def ApplyProps(self, o) :
 		o.properties["text"] = self.props["text"].encode("UTF-8")
-		if self.props.has_key("text-anchor") :
+		if "text-anchor" in self.props :
 			if self.props["text-anchor"] == "middle" : o.properties["text_alignment"] = 1
 			elif self.props["text-anchor"] == "end" : o.properties["text_alignment"] = 2
 			else : o.properties["text_alignment"] = 0
-		if self.props.has_key("fill") :
+		if "fill" in self.props :
 			o.properties["text_colour"] = Color(self.props["fill"])
-		if self.props.has_key("font-size") :
+		if "font-size" in self.props :
 			o.properties["text_height"] = self.props["font-size"]
 class Desc(Object) :
 	#FIXME is this useful ?
@@ -551,12 +551,12 @@ class Desc(Object) :
 		Object.__init__(self)
 		self.dt = "UML - Note"
 	def Set(self, d) :
-		if self.props.has_key("text") :
+		if "text" in self.props :
 			self.props["text"] += d
 		else :
 			self.props["text"] = d
 	def Create(self) :
-		if self.props.has_key("text") :
+		if "text" in self.props :
 			pass
 			#dia.message(0, self.props["text"].encode("UTF-8"))
 		return None
@@ -566,12 +566,12 @@ class Title(Object) :
 		Object.__init__(self)
 		self.dt = "UML - LargePackage"
 	def Set(self, d) :
-		if self.props.has_key("text") :
+		if "text" in self.props :
 			self.props["text"] += d
 		else :
 			self.props["text"] = d
 	def Create(self) :
-		if self.props.has_key("text") :
+		if "text" in self.props :
 			pass
 		return None
 class Unknown(Object) :
@@ -592,7 +592,7 @@ class Importer :
 		# 3 handler functions
 		def start_element(name, attrs) :
 			#print "<" + name + ">"
-			if 0 == string.find(name, "svg:") :
+			if 0 == name.find("svg:") :
 				name = name[4:]
 			if len(stack) > 0 :
 				grp = stack[-1]
@@ -605,14 +605,14 @@ class Importer :
 				#FIXME: to take all the style coming with it into account
 				# Dia would need to support layouted text ...
 				txn, txo = ctx[-1]
-				if attrs.has_key("dy") :
+				if "dy" in attrs :
 					txo.Set("" + "\n") # just a new line (best we can do?)
-				elif attrs.has_key("dx") :
+				elif "dx" in attrs :
 					txo.Set(" ")
 				ctx.append((txn, txo)) #push the same object
 				return
 			else :
-				s = string.capitalize(name) + "()"
+				s = name.capitalize() + "()"
 				try :
 					# should be safe to use eval() here, by XML rules it can just be a name or would give
 					# xml.parsers.expat.ExpatError: not well-formed (invalid token)
@@ -627,18 +627,18 @@ class Importer :
 					o.style(st)
 					o.props[a] = attrs[a]
 					continue
-				ma = string.replace(a, "-", "_")
+				ma = a.replace("-", "_")
 				# e.g. xlink:href -> xlink__href
-				ma = string.replace(ma, ":", "__")
+				ma = ma.replace(":", "__")
 				s = "o." +  ma + "(\"" + attrs[a] + "\")"
 				try :
 					_eval(s, locals())
-				except AttributeError, msg :
+				except AttributeError as msg :
 					o.props["meta"] = { a : attrs[a] }
-					if not self.errors.has_key(msg) :
+					if msg not in self.errors :
 						self.errors[msg] = s
-				except SyntaxError, msg :
-					if not self.errors.has_key(msg) :
+				except SyntaxError as msg :
+					if msg not in self.errors :
 						self.errors[msg] = s
 			if grp is None :
 				self.objects.append(o)
@@ -665,7 +665,7 @@ class Importer :
 		for o in self.objects :
 			try :
 				od = o.Create()
-			except TypeError, e :
+			except TypeError as e :
 				od = None
 				dia.message(1, "SVG import limited, consider another importer.\n(Error: " + str(e) + ")")
 			if od :
@@ -678,10 +678,10 @@ class Importer :
 				layer.add_object(od)
 		# create an 'Unhandled' layer and dump our Unknown
 		# create an 'Errors' layer and dump our errors
-		if len(self.errors.keys()) > 0 :
+		if len(list(self.errors.keys())) > 0 :
 			layer = data.add_layer("Errors")
 			s = "To hide the error messages delete or disable the 'Errors' layer\n"
-			for e in self.errors.keys() :
+			for e in list(self.errors.keys()) :
 				s = s + str(e) + " -> " + str(self.errors[e]) + "\n"
 
 			o = Text()
@@ -694,8 +694,8 @@ class Importer :
 	def Dump(self) :
 		for o in self.objects :
 			o.Dump(0)
-		for e in self.errors.keys() :
-			print e, "->", self.errors[e]
+		for e in list(self.errors.keys()) :
+			print(e, "->", self.errors[e])
 
 def Test() :
 	import sys

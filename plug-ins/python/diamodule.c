@@ -22,6 +22,7 @@
 #include <Python.h>
 #include <locale.h>
 
+#include "pydia.h"
 #include "pydia-diagram.h"
 #include "pydia-display.h"
 #include "pydia-layer.h"
@@ -158,6 +159,7 @@ PyDia_GetObjectType(PyObject *self, PyObject *args)
     return NULL;
 }
 
+
 /*
  * A dictionary interface to all registered object(-types)
  */
@@ -166,18 +168,22 @@ _ot_item (gpointer key,
           gpointer value,
           gpointer user_data)
 {
-    gchar *name = (gchar *)key;
-    DiaObjectType *type = (DiaObjectType *)value;
-    PyObject *dict = (PyObject *)user_data;
-    PyObject *k, *v;
+  char *name = (char *)key;
+  DiaObjectType *type = (DiaObjectType *) value;
+  PyObject *dict = (PyObject *) user_data;
+  PyObject *k, *v;
 
-    k = PyString_FromString(name);
-    v = PyDiaObjectType_New(type);
-    if (k && v)
-        PyDict_SetItem(dict, k, v);
-    Py_XDECREF(k);
-    Py_XDECREF(v);
+  k = PyUnicode_FromString (name);
+  v = PyDiaObjectType_New (type);
+
+  if (k && v) {
+    PyDict_SetItem (dict, k, v);
+  }
+
+  Py_XDECREF (k);
+  Py_XDECREF (v);
 }
+
 
 static PyObject *
 PyDia_RegisterPlugin(PyObject *self, PyObject *args)
@@ -581,49 +587,51 @@ static PyMethodDef dia_methods[] = {
 };
 
 
-PyDoc_STRVAR (dia_module_doc,
-              "The dia module allows to write Python plug-ins for Dia "
-              "[https://wiki.gnome.org/Apps/Dia/Python]\n"
-              "\n"
-              "This modules is designed to run Python scripts embedded in Dia."
-              " To make your script accessible\n"
-              "to Dia you have to put it into $HOME/.dia/python and let it "
-              "call one of the register_*() functions.\n"
-              "It is possible to write import filters [register_import()] and"
-              " export filters [register_export()], as well as scripts to "
-              "manipulate existing diagrams or create new ones"
-              " [register_action()].\n");
+static struct PyModuleDef dia_module_def = {
+  PyModuleDef_HEAD_INIT,
+  "dia",
+  "The dia module allows to write Python plug-ins for Dia "
+  "[https://wiki.gnome.org/Apps/Dia/Python]\n"
+  "\n"
+  "This modules is designed to run Python scripts embedded in Dia."
+  " To make your script accessible\n"
+  "to Dia you have to put it into $HOME/.dia/python and let it "
+  "call one of the register_*() functions.\n"
+  "It is possible to write import filters [register_import()] and"
+  " export filters [register_export()], as well as scripts to "
+  "manipulate existing diagrams or create new ones"
+  " [register_action()].\n",
+  -1,
+  dia_methods,
+};
 
 
-DL_EXPORT (void) initdia (void);
-
-
-#define ADD_TYPE(Name)                                                  \
-  {                                                                     \
-    if (PyType_Ready (&PyDia##Name##_Type) != 0) {                      \
-      g_critical ("Failed to register PyDia##Name##_Type");             \
-    }                                                                   \
-                                                                        \
-    Py_INCREF (&PyDia##Name##_Type);                                    \
-    if (PyModule_AddObject (module,                                     \
-                            #Name,                                      \
-                            (PyObject *) &PyDia##Name##_Type) < 0) {    \
-      Py_DECREF (&PyDia##Name##_Type);                                  \
-      Py_DECREF (module);                                               \
-                                                                        \
-      g_critical ("Failed to add PyDia##Name##_Type");                  \
-    }                                                                   \
+#define ADD_TYPE(Name)                                                       \
+  {                                                                          \
+    if (PyType_Ready (&PyDia##Name##_Type) < 0) {                            \
+      g_critical ("Failed to register PyDia" #Name "_Type (PyType_Ready)");  \
+    }                                                                        \
+                                                                             \
+    Py_INCREF (&PyDia##Name##_Type);                                         \
+    if (PyModule_AddObject (module,                                          \
+                            #Name,                                           \
+                            (PyObject *) &PyDia##Name##_Type) < 0) {         \
+      Py_DECREF (&PyDia##Name##_Type);                                       \
+      Py_DECREF (module);                                                    \
+                                                                             \
+      g_critical ("Failed to add PyDia" #Name "_Type (PyModule_AddObject)"); \
+    }                                                                        \
   }
 
 
 PyMODINIT_FUNC
-initdia (void)
+PyInit_dia (void)
 {
   PyObject *module;
 
   PyDiaDiagram_Type.tp_base = &PyDiaDiagramData_Type,
 
-  module = Py_InitModule3 ("dia", dia_methods, dia_module_doc);
+  module = PyModule_Create (&dia_module_def);
 
   ADD_TYPE (Display);
   ADD_TYPE (Layer);
@@ -650,10 +658,16 @@ initdia (void)
   ADD_TYPE (Menuitem);
   ADD_TYPE (Sheet);
 
+
   if (PyErr_Occurred ()) {
+    PyErr_Print ();
     Py_FatalError ("can't initialize module dia");
+
+    return NULL;
   } else {
     /* should all be no-ops when used embedded */
     libdia_init (DIA_MESSAGE_STDERR);
   }
+
+  return module;
 }

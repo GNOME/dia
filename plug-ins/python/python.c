@@ -27,6 +27,7 @@
 #include "plug-ins.h"
 #include "dia_dirs.h"
 
+#include "pydia.h"
 #include "pydia-error.h"
 
 DIA_PLUGIN_CHECK_INIT
@@ -81,7 +82,7 @@ dia_py_plugin_unload (PluginInfo *info)
 PluginInitResult
 dia_plugin_init (PluginInfo *info)
 {
-  char *python_argv[] = { "dia-python", NULL };
+  wchar_t *python_argv[] = { L"dia-python", NULL };
   char *startup_file;
   FILE *fp;
   PyObject *__main__, *__file__;
@@ -99,18 +100,16 @@ dia_plugin_init (PluginInfo *info)
     return DIA_PLUGIN_INIT_ERROR;
   }
 
-  Py_SetProgramName ("dia");
+  Py_SetProgramName (L"dia");
+
+  PyImport_AppendInittab ("dia", &PyInit_dia);
+
   Py_Initialize ();
 
   PySys_SetArgv (1, python_argv);
+
   /* Sanitize sys.path */
-  PyRun_SimpleString ("import sys; sys.path = filter(None, sys.path)");
-
-  if (on_error_report()) {
-    return DIA_PLUGIN_INIT_ERROR;
-  }
-
-  initdia();
+  PyRun_SimpleString ("import sys; sys.path = list(filter(None, sys.path))");
 
   if (on_error_report()) {
     return DIA_PLUGIN_INIT_ERROR;
@@ -132,7 +131,7 @@ dia_plugin_init (PluginInfo *info)
 
   /* set __file__ in __main__ so that python-startup.py knows where it is */
   __main__ = PyImport_AddModule ("__main__");
-  __file__ = PyString_FromString (startup_file);
+  __file__ = PyUnicode_FromString (startup_file);
   PyObject_SetAttrString (__main__, "__file__", __file__);
   Py_DECREF (__file__);
 #if defined(G_OS_WIN32) && (PY_VERSION_HEX >= 0x02040000)

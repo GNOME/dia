@@ -116,25 +116,6 @@ struct _DiaRectangle {
 
 
 /**
- * IntRectangle:
- * @left: top left x co-ord
- * @top: top left y co-ord
- * @right: bottom right x co-ord
- * @button: bottom right y co-ord
- *
- * A rectangle for fixed point e.g. pixel doubleinates
- *
- * Since: dawn-of-time
- */
-struct _IntRectangle {
-  int left;
-  int top;
-  int right;
-  int bottom;
-};
-
-
-/**
  * BezPoint:
  * @BEZ_MOVE_TO: move to point @p1
  * @BEZ_LINE_TO: line to point @p1
@@ -312,7 +293,6 @@ point_copy_add_scaled(Point *dst, const Point *src,
 void point_convex(Point *dst, const Point *src1, const Point *src2, real alpha);
 
 void rectangle_union(DiaRectangle *r1, const DiaRectangle *r2);
-void int_rectangle_union(IntRectangle *r1, const IntRectangle *r2);
 void rectangle_intersection(DiaRectangle *r1, const DiaRectangle *r2);
 int rectangle_intersects(const DiaRectangle *r1, const DiaRectangle *r2);
 int point_in_rectangle(const DiaRectangle* r, const Point *p);

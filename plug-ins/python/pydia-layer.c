@@ -44,34 +44,34 @@ PyDiaLayer_New (DiaLayer *layer)
 
 
 static void
-PyDiaLayer_Dealloc (PyDiaLayer *self)
+PyDiaLayer_Dealloc (PyObject *self)
 {
-  g_clear_object (&self->layer);
+  g_clear_object (&((PyDiaLayer *) self)->layer);
 
   PyObject_DEL (self);
 }
 
 
-static int
-PyDiaLayer_Compare (PyDiaLayer *self, PyDiaLayer *other)
+static PyObject *
+PyDiaLayer_RichCompare (PyObject *self, PyObject *other, int op)
 {
-  if (self->layer == other->layer) return 0;
-  if (self->layer > other->layer) return -1;
-  return 1;
+  Py_RETURN_RICHCOMPARE (((PyDiaLayer *) self)->layer,
+                         ((PyDiaLayer *) other)->layer,
+                         op);
 }
 
 
 static long
-PyDiaLayer_Hash (PyDiaLayer *self)
+PyDiaLayer_Hash (PyObject *self)
 {
-  return (long) self->layer;
+  return (long) ((PyDiaLayer *) self)->layer;
 }
 
 
 static PyObject *
-PyDiaLayer_Str (PyDiaLayer *self)
+PyDiaLayer_Str (PyObject *self)
 {
-  return PyString_FromString (dia_layer_get_name (self->layer));
+  return PyUnicode_FromString (dia_layer_get_name (((PyDiaLayer *) self)->layer));
 }
 
 /* methods here */
@@ -99,8 +99,8 @@ PyDiaLayer_ObjectGetIndex (PyDiaLayer *self, PyObject *args)
     return NULL;
   }
 
-  return PyInt_FromLong (dia_layer_object_get_index (self->layer,
-                                                     obj->object));
+  return PyLong_FromLong (dia_layer_object_get_index (self->layer,
+                                                      obj->object));
 }
 
 
@@ -224,7 +224,7 @@ PyDiaLayer_UpdateExtents (PyDiaLayer *self, PyObject *args)
     return NULL;
   }
 
-  return PyInt_FromLong (dia_layer_update_extents (self->layer));
+  return PyLong_FromLong (dia_layer_update_extents (self->layer));
 }
 
 
@@ -313,7 +313,7 @@ PyDiaLayer_GetExtents (PyDiaLayer *self, void *closure)
 static PyObject *
 PyDiaLayer_GetName (PyDiaLayer *self, void *closure)
 {
-  return PyString_FromString (dia_layer_get_name (self->layer));
+  return PyUnicode_FromString (dia_layer_get_name (self->layer));
 }
 
 
@@ -357,14 +357,14 @@ static PyGetSetDef PyDiaLayer_GetSetters[] = {
 
 
 PyTypeObject PyDiaLayer_Type = {
-  PyObject_HEAD_INIT(NULL)
+  PyVarObject_HEAD_INIT (NULL, 0)
   .tp_name = "dia.Layer",
   .tp_basicsize = sizeof (PyDiaLayer),
   .tp_flags = Py_TPFLAGS_DEFAULT,
-  .tp_dealloc = (destructor) PyDiaLayer_Dealloc,
-  .tp_compare = (cmpfunc) PyDiaLayer_Compare,
-  .tp_hash = (hashfunc) PyDiaLayer_Hash,
-  .tp_str = (reprfunc) PyDiaLayer_Str,
+  .tp_dealloc = PyDiaLayer_Dealloc,
+  .tp_richcompare = PyDiaLayer_RichCompare,
+  .tp_hash = PyDiaLayer_Hash,
+  .tp_str = PyDiaLayer_Str,
   .tp_doc = "A Layer is part of a Diagram and can contain objects.",
   .tp_methods = PyDiaLayer_Methods,
   .tp_getset = PyDiaLayer_GetSetters,

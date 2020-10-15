@@ -47,9 +47,9 @@ PyObject* PyDiaFont_New (DiaFont* font)
  * Dealloc
  */
 static void
-PyDiaFont_Dealloc (PyDiaFont *self)
+PyDiaFont_Dealloc (PyObject *self)
 {
-  g_clear_object (&self->font);
+  g_clear_object (&((PyDiaFont *) self)->font);
 
   PyObject_DEL (self);
 }
@@ -57,54 +57,104 @@ PyDiaFont_Dealloc (PyDiaFont *self)
 /*
  * Compare
  */
-static int
-PyDiaFont_Compare(PyDiaFont *self,
-                  PyDiaFont *other)
+static PyObject *
+PyDiaFont_RichCompare (PyObject *a,
+                       PyObject *b,
+                       int       op)
 {
-  int ret;
+  PyDiaFont *self = (PyDiaFont *) a;
+  PyDiaFont *other = (PyDiaFont *) b;
 
-  if (self->font == other->font)
-    return 0;
-  else if (!self->font)
-    return 1;
-  else if (!other->font)
-    return -1;
+  /* Hmm, not sure about this at all */
 
-  ret = strcmp (dia_font_get_family (self->font),
-                dia_font_get_family (other->font));
-  if (ret != 0)
-    return ret;
+  switch (op) {
+    case Py_EQ:
+      if ((self->font && other->font) &&
+          (g_strcmp0 (dia_font_get_family (self->font),
+                      dia_font_get_family (other->font)) == 0
+          && dia_font_get_style (self->font) == dia_font_get_style (other->font))) {
+        Py_RETURN_TRUE;
+      }
+      break;
+    case Py_NE:
+      if ((self->font && other->font) &&
+          (g_strcmp0 (dia_font_get_family (self->font),
+                      dia_font_get_family (other->font)) != 0
+          || dia_font_get_style (self->font) != dia_font_get_style (other->font))) {
+        Py_RETURN_TRUE;
+      }
+      break;
+    case Py_LT:
+      if ((self->font && other->font) && g_strcmp0 (dia_font_get_family (self->font),
+                                                    dia_font_get_family (other->font)) < 0) {
+        Py_RETURN_TRUE;
+      }
+      break;
+    case Py_GT:
+      if ((self->font && other->font) && g_strcmp0 (dia_font_get_family (self->font),
+                                                    dia_font_get_family (other->font)) > 0) {
+        Py_RETURN_TRUE;
+      }
+      break;
+    case Py_LE:
+      if ((self->font && other->font) && g_strcmp0 (dia_font_get_family (self->font),
+                                                    dia_font_get_family (other->font)) <= 0) {
+        Py_RETURN_TRUE;
+      }
+      break;
+    case Py_GE:
+      if ((self->font && other->font) && g_strcmp0 (dia_font_get_family (self->font),
+                                                    dia_font_get_family (other->font)) >= 0) {
+        Py_RETURN_TRUE;
+      }
+      break;
+    default:
+      Py_RETURN_NOTIMPLEMENTED;
+  }
 
-  ret = dia_font_get_style (self->font) - dia_font_get_style (other->font);
-  return ret > 0 ? 1 : (ret < 0 ? -1 : 0);
+  Py_RETURN_FALSE;
 }
+
 
 /*
  * Hash
  */
 static long
-PyDiaFont_Hash(PyObject *self)
+PyDiaFont_Hash (PyObject *self)
 {
-  return (long)self;
+  return (long) self;
 }
+
 
 /*
  * GetAttr
  */
 static PyObject *
-PyDiaFont_GetAttr(PyDiaFont *self, gchar *attr)
+PyDiaFont_GetAttr (PyObject *obj, PyObject *arg)
 {
-  if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[sss]", "family", "name", "style");
-  else if (!strcmp(attr, "name"))
-    return PyString_FromString(dia_font_get_legacy_name (self->font));
-  else if (!strcmp(attr, "family"))
-    return PyString_FromString(dia_font_get_family (self->font));
-  else if (!strcmp(attr, "style"))
-    return PyInt_FromLong (dia_font_get_style (self->font));
+  PyDiaFont *self;
+  const char *attr;
 
-  PyErr_SetString(PyExc_AttributeError, attr);
-  return NULL;
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
+
+  self = (PyDiaFont *) obj;
+
+  if (!strcmp (attr, "__members__")) {
+    return Py_BuildValue ("[sss]", "family", "name", "style");
+  } else if (!strcmp (attr, "name")) {
+    return PyUnicode_FromString (dia_font_get_legacy_name (self->font));
+  } else if (!strcmp (attr, "family")) {
+    return PyUnicode_FromString (dia_font_get_family (self->font));
+  } else if (!strcmp (attr, "style")) {
+    return PyLong_FromLong (dia_font_get_style (self->font));
+  }
+
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 }
 
 
@@ -112,16 +162,24 @@ PyDiaFont_GetAttr(PyDiaFont *self, gchar *attr)
  * Repr / _Str
  */
 static PyObject *
-PyDiaFont_Str (PyDiaFont *self)
+PyDiaFont_Str (PyObject *obj)
 {
+  PyDiaFont *self = (PyDiaFont *) obj;
   PyObject *ret;
-  char *s = self->font ? g_strdup_printf ("%s %s %s",
-                                          dia_font_get_family (self->font),
-                                          dia_font_get_weight_string (self->font),
-                                          dia_font_get_slant_string (self->font)) : g_strdup ("<DiaFont NULL>");
+  char *s;
 
-  ret = PyString_FromString (s);
+  if (self->font) {
+    s = g_strdup_printf ("%s %s %s",
+                         dia_font_get_family (self->font),
+                         dia_font_get_weight_string (self->font),
+                         dia_font_get_slant_string (self->font));
+  } else {
+    s = g_strdup ("<DiaFont NULL>");
+  }
+
+  ret = PyUnicode_FromString (s);
   g_clear_pointer (&s, g_free);
+
   return ret;
 }
 
@@ -136,39 +194,20 @@ static PyMemberDef PyDiaFont_Members[] = {
       "int: style flags" },
     { NULL }
 };
+
+
 /*
- * Python objetc
+ * Python object
  */
 PyTypeObject PyDiaFont_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Font",
-    sizeof(PyDiaFont),
-    0,
-    (destructor)PyDiaFont_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaFont_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaFont_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaFont_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaFont_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "Provides access to some objects font property.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    0, /* tp_methods */
-    PyDiaFont_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Font",
+  .tp_basicsize = sizeof (PyDiaFont),
+  .tp_dealloc = PyDiaFont_Dealloc,
+  .tp_getattro = PyDiaFont_GetAttr,
+  .tp_richcompare = PyDiaFont_RichCompare,
+  .tp_hash = PyDiaFont_Hash,
+  .tp_str = PyDiaFont_Str,
+  .tp_doc = "Provides access to some objects font property.",
+  .tp_members = PyDiaFont_Members,
 };

@@ -105,7 +105,6 @@ typedef struct _DiaFontClass DiaFontClass;
 /* In geometry.h: */
 typedef struct _Point Point;
 typedef struct _DiaRectangle DiaRectangle;
-typedef struct _IntRectangle IntRectangle;
 typedef struct _BezPoint BezPoint;
 typedef struct _DiaMatrix DiaMatrix;
 

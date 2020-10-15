@@ -74,20 +74,20 @@ class SvgRenderer :
 	def draw_object (self, object, matrix) :
 		self.f.write("<!-- " + object.type.name + " -->\n")
 		odict = object.properties["meta"].value
-		if odict.has_key("url") :
+		if "url" in odict :
 			self.f.write('<a xlink:href="' + self._escape(odict["url"]) + '">\n')
-		if odict.has_key("id") or matrix :
+		if "id" in odict or matrix :
 			attrs = ''
 			if matrix :
 				attrs += 'transform="matrix' + str(matrix) + '" '
-			if odict.has_key("id") :
+			if "id" in odict :
 				attrs += 'id="' + self._escape(odict['id']) + '"'
 			self.f.write('<g ' + attrs + '>\n')
 		# don't forget to render the object
 		object.draw (self)
-		if odict.has_key("id") or matrix :
+		if "id" in odict or matrix :
 			self.f.write('</g>\n')
-		if odict.has_key("url") :
+		if "url" in odict :
 			self.f.write('</a>\n')
 	def set_linewidth (self, width) :
 		if width < 0.001 : # zero line width is invisible ?
@@ -207,7 +207,7 @@ class SvgRenderer :
 	def _escape (self, text) :
 		# avoid writing XML special characters (ampersand must be first to not break the rest)
 		for rep in [('&', '&amp;'), ('<', '&lt;'), ('>', '&gt;'), ('"', '&quot;'), ("'", '&apos;')] :
-			text = string.replace (text, rep[0], rep[1])
+			text = text.replace (rep[0], rep[1])
 		return text
 	def _rgb(self, color) :
 		# given a dia color convert to svg color string

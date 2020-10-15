@@ -29,7 +29,7 @@ class ObjRenderer :
 				self.f.write ("\t"*2 + "</connections>\n")
 
 				self.f.write ("\t"*2 + str(o.properties) + "\n")
-				keys = o.properties.keys()
+				keys = list(o.properties.keys())
 				for s in keys :
 					self.f.write ("\t"*3 + str(o.properties[s]) + "\n")
 					if o.properties[s].type == "string" :

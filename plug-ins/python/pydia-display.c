@@ -37,31 +37,34 @@ PyDiaDisplay_New(DDisplay *disp)
     return (PyObject *)self;
 }
 
+
 static void
-PyDiaDisplay_Dealloc(PyDiaDisplay *self)
+PyDiaDisplay_Dealloc (PyObject *self)
 {
-     PyObject_DEL(self);
+  PyObject_DEL (self);
 }
 
-static int
-PyDiaDisplay_Compare(PyDiaDisplay *self, PyDiaDisplay *other)
-{
-    if (self->disp == other->disp) return 0;
-    if (self->disp > other->disp) return -1;
-    return 1;
-}
-
-static long
-PyDiaDisplay_Hash(PyDiaDisplay *self)
-{
-    return (long)self->disp;
-}
 
 static PyObject *
-PyDiaDisplay_Str(PyDiaDisplay *self)
+PyDiaDisplay_RichCompare (PyObject *self, PyObject *other, int op)
 {
-    return PyString_FromString(self->disp->diagram->filename);
+  Py_RETURN_RICHCOMPARE (self, other, op);
 }
+
+
+static long
+PyDiaDisplay_Hash (PyObject *self)
+{
+  return (long) ((PyDiaDisplay *) self)->disp;
+}
+
+
+static PyObject *
+PyDiaDisplay_Str (PyObject *self)
+{
+  return PyUnicode_FromString (((PyDiaDisplay *) self)->disp->diagram->filename);
+}
+
 
 /* methods here */
 
@@ -239,58 +242,59 @@ static PyMemberDef PyDiaDisplay_Members[] = {
     { NULL }
 };
 
-static PyObject *
-PyDiaDisplay_GetAttr(PyDiaDisplay *self, gchar *attr)
-{
-    if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[ssss]", "diagram", "origin", "visible",
-			     "zoom_factor");
-    else if (!strcmp(attr, "diagram"))
-	return PyDiaDiagram_New(self->disp->diagram);
-    /* FIXME: shouldn't it have only one name */
-    else if (!strcmp(attr, "origo") || !strcmp(attr, "origion") || !strcmp(attr, "origin"))
-	return Py_BuildValue("(dd)", self->disp->origo.x, self->disp->origo.y);
-    else if (!strcmp(attr, "zoom_factor"))
-	return PyFloat_FromDouble(self->disp->zoom_factor);
-    else if (!strcmp(attr, "visible"))
-	return Py_BuildValue("(dddd)", self->disp->visible.top,
-			     self->disp->visible.left,
-			     self->disp->visible.bottom,
-			     self->disp->visible.right);
 
-    return Py_FindMethod(PyDiaDisplay_Methods, (PyObject *)self, attr);
+static PyObject *
+PyDiaDisplay_GetAttr (PyObject *obj, PyObject *arg)
+{
+  PyDiaDisplay *self;
+  const char *attr;
+
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
+
+  self = (PyDiaDisplay *) obj;
+
+  if (!g_strcmp0 (attr, "__members__")) {
+    return Py_BuildValue ("[ssss]",
+                          "diagram", "origin", "visible", "zoom_factor");
+  } else if (!g_strcmp0 (attr, "diagram")) {
+    return PyDiaDiagram_New (self->disp->diagram);
+    /* FIXME: shouldn't it have only one name */
+  } else if (!g_strcmp0 (attr, "origo") ||
+             !g_strcmp0 (attr, "origion") ||
+             !g_strcmp0 (attr, "origin")) {
+    return Py_BuildValue ("(dd)",
+                          self->disp->origo.x,
+                          self->disp->origo.y);
+  } else if (!g_strcmp0 (attr, "zoom_factor")) {
+    return PyFloat_FromDouble (self->disp->zoom_factor);
+  } else if (!g_strcmp0 (attr, "visible")) {
+    return Py_BuildValue ("(dddd)",
+                          self->disp->visible.top,
+                          self->disp->visible.left,
+                          self->disp->visible.bottom,
+                          self->disp->visible.right);
+  }
+
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 }
 
+
 PyTypeObject PyDiaDisplay_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Display",
-    sizeof(PyDiaDisplay),
-    0,
-    (destructor)PyDiaDisplay_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaDisplay_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaDisplay_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaDisplay_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaDisplay_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "A Diagram can have multiple displays but every Display has just one Diagram.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    PyDiaDisplay_Methods, /* tp_methods */
-    PyDiaDisplay_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Display",
+  .tp_basicsize = sizeof (PyDiaDisplay),
+  .tp_dealloc = PyDiaDisplay_Dealloc,
+  .tp_getattro = PyDiaDisplay_GetAttr,
+  .tp_richcompare = PyDiaDisplay_RichCompare,
+  .tp_hash = PyDiaDisplay_Hash,
+  .tp_str = PyDiaDisplay_Str,
+  .tp_doc = "A Diagram can have multiple displays but every Display has just "
+            "one Diagram.",
+  .tp_methods = PyDiaDisplay_Methods,
+  .tp_members = PyDiaDisplay_Members,
 };

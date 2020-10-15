@@ -1,6 +1,4 @@
 
-import string
-
 MOVE_TO = 0
 LINE_TO = 1
 CURVE_TO = 2
@@ -18,13 +16,13 @@ class Component:
 		self.point3 = point3
 	def dump(self):
 		if self.type == MOVE_TO:
-			print "Move To", self.point1
+			print("Move To", self.point1)
 		elif self.type == LINE_TO:
-			print "Line To", self.point1
+			print("Line To", self.point1)
 		elif self.type == CURVE_TO:
-			print "Curve To", self.point1, self.point2, self.point3
+			print("Curve To", self.point1, self.point2, self.point3)
 		elif self.type == CLOSE:
-			print "Close"
+			print("Close")
 
 def chomp(bpath):
 	while bpath and bpath[0] in ' \t\n\r,':
@@ -36,7 +34,7 @@ def read_num(str):
 	while str and str[0] in '0123456789.+-':
 		num = num + str[0]
 		str = str[1:]
-	return string.atof(num), chomp(str)
+	return float(num), chomp(str)
 
 def parse_bpath(bpath):
 	p = []
@@ -46,11 +44,11 @@ def parse_bpath(bpath):
 	last_control = (0,0)
 	last_type = MOVE_TO
 	last_relative = 0
-	
+
 	bpath = chomp(bpath)
 	while bpath:
 		# grok new commands
-		print bpath
+		print(bpath)
 		if bpath[0] == 'M':
 			bpath = chomp(bpath[1:])
 			last_type = MOVE_TO
@@ -106,7 +104,7 @@ def parse_bpath(bpath):
 			last_type = CLOSE
 			last_relative = 0
 		elif bpath[0] not in '0123456789.+-':
-			raise TypeError, "unexpected input"
+			raise TypeError("unexpected input")
 
 		if last_type == MOVE_TO:
 			x, bpath = read_num(bpath)
@@ -184,7 +182,7 @@ def parse_bpath(bpath):
 
 def print_bpath(bpath):
 	p = parse_bpath(bpath)
-	map(Component.dump, p)
+	list(map(Component.dump, p))
 
 if __name__ == '__main__':
 	import sys

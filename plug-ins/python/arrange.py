@@ -25,11 +25,11 @@ def DeepCalc (dict, key, seen = None) :
 	if not seen :
 		seen = {}
 	for k in dict[key][2] :
-		if seen and seen.has_key (k) :
+		if seen and k in seen:
 			continue
 		seen[k] = 1
 		DeepCalc (dict, k, seen)
-	return len(seen.keys())
+	return len(list(seen.keys()))
 
 ##
 # \brief Callback function to be invoked by Dia's menu
@@ -42,7 +42,7 @@ def arrange_connected (data, flags) :
 		objs = data.active_layer.objects
 	# all objects having at least one connection
 	bs = {}
-	print "objs", len(objs)
+	print("objs", len(objs))
 	edges = {}
 	for o in objs :
 		for c in o.connections: # ConnectionPoint
@@ -55,17 +55,17 @@ def arrange_connected (data, flags) :
 				bk = b.properties["name"].value
 				# create an edge key
 				ek = ak + "->" + bk
-				if edges.has_key (ek) :
+				if ek in edges:
 					continue # already seen
-				print ek
+				print(ek)
 				edges[ek] = 1
-				if bs.has_key (ak) :
+				if ak in bs:
 					use = bs[ak]
 					use[2].append (bk)
 					bs[ak] = use
 				else :
 					bs[ak] = [a, 0, [bk]]
-				if bs.has_key (bk) :
+				if bk in bs:
 					use = bs[bk]
 					use[1] += 1
 					bs[bk] = use
@@ -75,16 +75,16 @@ def arrange_connected (data, flags) :
 	bst = []
 	dx = 0
 	dy = 0
-	for key in bs.keys() :
+	for key in list(bs.keys()) :
 		o = bs[key][0]
 		if not o.properties["elem_width"] :
-			print o
+			print(o)
 			continue
 		if o.properties["elem_width"].value > dx : dx = o.properties["elem_width"].value
 		if o.properties["elem_height"].value > dy : dy = o.properties["elem_height"].value
 		n = bs[key][1] # (use count, dependencies)
 		bst.append ((o, n, DeepCalc (bs, key)))
-	bst.sort (lambda a, b : cmp(a[1], b[1]))
+	bst.sort(key=lambda a: a[1])
 	if len(bs) < 2 :
 		return
 	# average weight gives the number of rows
@@ -109,7 +109,7 @@ def arrange_connected (data, flags) :
 			elif t[1] >= rows :
 				# compensate for some of the weight, FIXME: better guess needed
 				y = int(rows - 2 * aw / (t[2] + t[1]))
-		print t[0].properties["name"].value, t[1], t[2], y, c
+		print(t[0].properties["name"].value, t[1], t[2], y, c)
 		# move the object to it's new place
 		x = offsets[y]
 		t[0].move (x * dx, y * dy)

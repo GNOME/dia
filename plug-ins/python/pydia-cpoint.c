@@ -25,66 +25,88 @@
 
 #include <structmember.h> /* PyMemberDef */
 
+
 PyObject *
-PyDiaConnectionPoint_New(ConnectionPoint *cpoint)
+PyDiaConnectionPoint_New (ConnectionPoint *cpoint)
 {
-    PyDiaConnectionPoint *self;
+  PyDiaConnectionPoint *self;
 
-    self = PyObject_NEW(PyDiaConnectionPoint, &PyDiaConnectionPoint_Type);
+  self = PyObject_NEW (PyDiaConnectionPoint, &PyDiaConnectionPoint_Type);
 
-    if (!self) return NULL;
-    self->cpoint = cpoint;
-    return (PyObject *)self;
+  if (!self) {
+    return NULL;
+  }
+
+  self->cpoint = cpoint;
+
+  return (PyObject *) self;
 }
+
 
 static void
-PyDiaConnectionPoint_Dealloc(PyDiaConnectionPoint *self)
+PyDiaConnectionPoint_Dealloc (PyObject *self)
 {
-     PyObject_DEL(self);
+  PyObject_DEL (self);
 }
 
-static int
-PyDiaConnectionPoint_Compare(PyDiaConnectionPoint *self,
-			     PyDiaConnectionPoint *other)
-{
-    if (self->cpoint == other->cpoint) return 0;
-    if (self->cpoint > other->cpoint) return -1;
-    return 1;
-}
-
-static long
-PyDiaConnectionPoint_Hash(PyDiaConnectionPoint *self)
-{
-    return (long)self->cpoint;
-}
 
 static PyObject *
-PyDiaConnectionPoint_GetAttr(PyDiaConnectionPoint *self, gchar *attr)
+PyDiaConnectionPoint_RichCompare (PyObject *self,
+                                  PyObject *other,
+                                  int       op)
 {
-    if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[sssss]", "connected", "object", "pos", "flags", "directions");
-    else if (!strcmp(attr, "pos"))
-	return PyDiaPoint_New(&(self->cpoint->pos));
-    else if (!strcmp(attr, "object"))
-	return PyDiaObject_New(self->cpoint->object);
-    else if (!strcmp(attr, "flags"))
-	return PyInt_FromLong(self->cpoint->flags);
-    else if (!strcmp(attr, "directions"))
-	return PyInt_FromLong(self->cpoint->directions);
-    else if (!strcmp(attr, "connected")) {
-	PyObject *ret;
-	GList *tmp;
-	gint i;
-
-	ret = PyTuple_New(g_list_length(self->cpoint->connected));
-	for (i = 0, tmp = self->cpoint->connected; tmp; i++, tmp = tmp->next)
-	    PyTuple_SetItem(ret, i, PyDiaObject_New((DiaObject *)tmp->data));
-	return ret;
-    }
-
-    PyErr_SetString(PyExc_AttributeError, attr);
-    return NULL;
+  Py_RETURN_RICHCOMPARE (((PyDiaConnectionPoint *) self)->cpoint,
+                         ((PyDiaConnectionPoint *) other)->cpoint,
+                         op);
 }
+
+
+static long
+PyDiaConnectionPoint_Hash (PyObject *self)
+{
+  return (long) ((PyDiaConnectionPoint *) self)->cpoint;
+}
+
+
+static PyObject *
+PyDiaConnectionPoint_GetAttr (PyObject *obj, PyObject *arg)
+{
+  PyDiaConnectionPoint *self = (PyDiaConnectionPoint *) obj;
+
+  const char *attr;
+
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
+
+  if (!g_strcmp0 (attr, "__members__")) {
+    return Py_BuildValue("[sssss]", "connected", "object", "pos", "flags", "directions");
+  } else if (!g_strcmp0 (attr, "pos")) {
+    return PyDiaPoint_New (&(self->cpoint->pos));
+  } else if (!g_strcmp0 (attr, "object")) {
+    return PyDiaObject_New (self->cpoint->object);
+  } else if (!g_strcmp0 (attr, "flags")) {
+    return PyLong_FromLong (self->cpoint->flags);
+  } else if (!g_strcmp0 (attr, "directions")) {
+    return PyLong_FromLong (self->cpoint->directions);
+  } else if (!g_strcmp0 (attr, "connected")) {
+    PyObject *ret;
+    GList *tmp;
+    int i;
+
+    ret = PyTuple_New (g_list_length (self->cpoint->connected));
+    for (i = 0, tmp = self->cpoint->connected; tmp; i++, tmp = tmp->next) {
+      PyTuple_SetItem (ret, i, PyDiaObject_New (DIA_OBJECT (tmp->data)));
+    }
+    return ret;
+  }
+
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
+}
+
 
 #define T_INVALID -1 /* can't allow direct access due to pyobject->cpoint indirection */
 static PyMemberDef PyDiaConnectionPoint_Members[] = {
@@ -101,37 +123,16 @@ static PyMemberDef PyDiaConnectionPoint_Members[] = {
     { NULL }
 };
 
+
 PyTypeObject PyDiaConnectionPoint_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.ConnectionPoint",
-    sizeof(PyDiaConnectionPoint),
-    0,
-    (destructor)PyDiaConnectionPoint_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaConnectionPoint_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaConnectionPoint_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaConnectionPoint_Hash,
-    (ternaryfunc)0,
-    (reprfunc)0,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "One of the major features of Dia are connectable objects. They work by this type accesible "
-    "through dia.Object.connections[].",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    0, /* tp_methods */
-    PyDiaConnectionPoint_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.ConnectionPoint",
+  .tp_basicsize = sizeof (PyDiaConnectionPoint),
+  .tp_dealloc = PyDiaConnectionPoint_Dealloc,
+  .tp_getattro = PyDiaConnectionPoint_GetAttr,
+  .tp_richcompare = PyDiaConnectionPoint_RichCompare,
+  .tp_hash = PyDiaConnectionPoint_Hash,
+  .tp_doc = "One of the major features of Dia are connectable objects. They "
+            "work by this type accesible through dia.Object.connections[].",
+  .tp_members = PyDiaConnectionPoint_Members,
 };

@@ -108,7 +108,12 @@ static void load_register_sheet  (const char *directory,
                                   SheetScope  scope);
 
 
-/** Sort the list of sheets by *locale*.
+/**
+ * dia_sheet_sort_callback:
+ * @a: #Sheet A
+ * @b: #Sheet B
+ *
+ * Sort the list of sheets by *locale*.
  */
 static int
 dia_sheet_sort_callback (gconstpointer a, gconstpointer b)
@@ -117,6 +122,7 @@ dia_sheet_sort_callback (gconstpointer a, gconstpointer b)
   return g_utf8_collate (gettext (((Sheet *) (a))->name),
                          gettext (((Sheet *) (b))->name));
 }
+
 
 void
 dia_sort_sheets (void)

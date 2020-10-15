@@ -13,7 +13,7 @@ def read_cgm(file):
 			head = file.read(2)
 			if len(head) != 2: break
 			el_len = (ord(head[0]) << 8) | ord(head[1])
-		print (el_class, el_id, el_len)
+		print((el_class, el_id, el_len))
 
 		el_body = file.read(el_len)
 		if el_len & 1 == 1:  # odd element length

@@ -47,29 +47,63 @@ PyDiaPaperinfo_New (const PaperInfo *paper)
  * Dealloc
  */
 static void
-PyDiaPaperinfo_Dealloc(PyDiaPaperinfo *self)
+PyDiaPaperinfo_Dealloc (PyObject *self)
 {
   /* we dont own the object */
-  PyObject_DEL(self);
+  PyObject_DEL (self);
 }
+
 
 /*
  * Compare
  */
-static int
-PyDiaPaperinfo_Compare(PyDiaPaperinfo *self,
-                   PyDiaPaperinfo *other)
+static PyObject *
+PyDiaPaperinfo_Compare (PyObject *a,
+                        PyObject *b,
+                        int       op)
 {
-  return memcmp(&(self->paper), &(other->paper), sizeof(PaperInfo));
+  PyDiaPaperinfo *self = (PyDiaPaperinfo *) a;
+  PyDiaPaperinfo *other = (PyDiaPaperinfo *) b;
+  int cmp = memcmp (&self->paper, &other->paper, sizeof (DiaMatrix));
+  PyObject *ret;
+
+  switch (op) {
+    case Py_EQ:
+      ret = cmp == 0 ? Py_True : Py_False;
+      break;
+    case Py_NE:
+      ret = cmp != 0 ? Py_True : Py_False;
+      break;
+    case Py_LE:
+      ret = cmp <= 0 ? Py_True : Py_False;
+      break;
+    case Py_GE:
+      ret = cmp >= 0 ? Py_True : Py_False;
+      break;
+    case Py_LT:
+      ret = cmp < 0 ? Py_True : Py_False;
+      break;
+    case Py_GT:
+      ret = cmp > 0 ? Py_True : Py_False;
+      break;
+    default:
+      ret = Py_NotImplemented;
+      break;
+  }
+
+  Py_INCREF (ret);
+
+  return ret;
 }
+
 
 /*
  * Hash
  */
 static long
-PyDiaPaperinfo_Hash(PyObject *self)
+PyDiaPaperinfo_Hash (PyObject *self)
 {
-  return (long)self;
+  return (long) self;
 }
 
 
@@ -77,25 +111,36 @@ PyDiaPaperinfo_Hash(PyObject *self)
  * GetAttr
  */
 static PyObject *
-PyDiaPaperinfo_GetAttr(PyDiaPaperinfo *self, char *attr)
+PyDiaPaperinfo_GetAttr (PyObject *obj, PyObject *arg)
 {
-  if (!strcmp(attr, "__members__"))
-    return Py_BuildValue("[sssss]", "name", "is_portrait",
-                                    "scaling",
-                                    "width", "height");
-  else if (!strcmp(attr, "name"))
-    return PyString_FromString(self->paper->name);
-  else if (!strcmp(attr, "is_portrait"))
-    return PyInt_FromLong(self->paper->is_portrait);
-  else if (!strcmp(attr, "scaling"))
-    return PyFloat_FromDouble(self->paper->scaling);
-  else if (!strcmp(attr, "width"))
-    return PyFloat_FromDouble(self->paper->width);
-  else if (!strcmp(attr, "height"))
-    return PyFloat_FromDouble(self->paper->height);
+  PyDiaPaperinfo *self;
+  const char *attr;
 
-  PyErr_SetString(PyExc_AttributeError, attr);
-  return NULL;
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
+
+  self = (PyDiaPaperinfo *) obj;
+
+  if (!g_strcmp0 (attr, "__members__")) {
+    return Py_BuildValue ("[sssss]",
+                          "name", "is_portrait", "scaling", "width", "height");
+  } else if (!g_strcmp0 (attr, "name")) {
+    return PyUnicode_FromString (self->paper->name);
+  } else if (!g_strcmp0 (attr, "is_portrait")) {
+    return PyLong_FromLong (self->paper->is_portrait);
+  } else if (!g_strcmp0 (attr, "scaling")) {
+    return PyFloat_FromDouble (self->paper->scaling);
+  } else if (!g_strcmp0 (attr, "width")) {
+    return PyFloat_FromDouble (self->paper->width);
+  } else if (!g_strcmp0 (attr, "height")) {
+    return PyFloat_FromDouble (self->paper->height);
+  }
+
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 }
 
 
@@ -103,16 +148,19 @@ PyDiaPaperinfo_GetAttr(PyDiaPaperinfo *self, char *attr)
  * Repr / _Str
  */
 static PyObject *
-PyDiaPaperinfo_Str(PyDiaPaperinfo *self)
+PyDiaPaperinfo_Str (PyObject *obj)
 {
-  PyObject* py_s;
-  char* s = g_strdup_printf ("%s - %fx%f %f%%",
+  PyDiaPaperinfo *self = (PyDiaPaperinfo *) obj;
+  PyObject *py_s;
+  char *s = g_strdup_printf ("%s - %fx%f %f%%",
                              self->paper->name ? self->paper->name : "(null)",
                              self->paper->width,
                              self->paper->height,
                              self->paper->scaling);
-  py_s = PyString_FromString (s);
+
+  py_s = PyUnicode_FromString (s);
   g_clear_pointer (&s, g_free);
+
   return py_s;
 }
 
@@ -131,39 +179,20 @@ static PyMemberDef PyDiaPaperinfo_Members[] = {
       "real: height of the drawable area (sans margins)" },
     { NULL }
 };
+
+
 /*
  * Python objetcs
  */
 PyTypeObject PyDiaPaperinfo_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Paperinfo",
-    sizeof(PyDiaPaperinfo),
-    0,
-    (destructor)PyDiaPaperinfo_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaPaperinfo_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaPaperinfo_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaPaperinfo_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaPaperinfo_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "dia.Paperinfo is part of dia.DiagramData describing the paper",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    0, /* tp_methods */
-    PyDiaPaperinfo_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Paperinfo",
+  .tp_basicsize = sizeof (PyDiaPaperinfo),
+  .tp_dealloc = PyDiaPaperinfo_Dealloc,
+  .tp_getattro = PyDiaPaperinfo_GetAttr,
+  .tp_richcompare = PyDiaPaperinfo_Compare,
+  .tp_hash = PyDiaPaperinfo_Hash,
+  .tp_str = PyDiaPaperinfo_Str,
+  .tp_doc = "dia.Paperinfo is part of dia.DiagramData describing the paper",
+  .tp_members = PyDiaPaperinfo_Members,
 };

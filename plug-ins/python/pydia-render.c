@@ -365,13 +365,13 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
 
   func = PyObject_GetAttrString (self, "is_capable_to");
   if (func && PyCallable_Check(func)) {
-    Py_INCREF(self);
-    Py_INCREF(func);
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(i)", cap);
     if (arg) {
       res = PyEval_CallObject (func, arg);
-      if (res && PyInt_Check(res)) {
-        bRet = (PyInt_AsLong(res) != 0);
+      if (res && PyLong_Check (res)) {
+        bRet = (PyLong_AsLong (res) != 0);
         Py_DECREF (res);
       } else {
         ON_RES(res, FALSE);
@@ -412,7 +412,7 @@ draw_layer (DiaRenderer  *renderer,
     Py_INCREF (self);
     Py_INCREF (func);
     if (update) {
-      orect = PyDiaRectangle_New (update, NULL);
+      orect = PyDiaRectangle_New (update);
     } else {
       Py_INCREF(Py_None);
       orect = Py_None;

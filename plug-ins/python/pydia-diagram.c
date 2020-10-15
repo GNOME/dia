@@ -62,7 +62,7 @@ PyDiaDiagram_Dealloc (PyDiaDiagram *self)
 static PyObject *
 PyDiaDiagram_Str (PyDiaDiagram *self)
 {
-  return PyString_FromString (PYDIA_DIAGRAM (self)->filename);
+  return PyUnicode_FromString (PYDIA_DIAGRAM (self)->filename);
 }
 
 
@@ -381,7 +381,7 @@ PyDiaDiagram_Save (PyDiaDiagram *self, PyObject *args)
   dia_context_reset (ctx);
   dia_context_release (ctx);
 
-  return PyInt_FromLong (ret);
+  return PyLong_FromLong (ret);
 }
 
 
@@ -624,7 +624,7 @@ PyDiaDiagram_GetDisplays (PyDiaDiagram *self, void *closure)
 static PyObject *
 PyDiaDiagram_GetFilename (PyDiaDiagram *self, void *closure)
 {
-  return PyString_FromString (PYDIA_DIAGRAM (self)->filename);
+  return PyUnicode_FromString (PYDIA_DIAGRAM (self)->filename);
 }
 
 
@@ -675,7 +675,7 @@ static PyGetSetDef PyDiaDiagram_GetSetters[] = {
 
 
 PyTypeObject PyDiaDiagram_Type = {
-  PyObject_HEAD_INIT (NULL)
+  PyVarObject_HEAD_INIT (NULL, 0)
   .tp_name = "dia.Diagram",
   .tp_basicsize = sizeof (PyDiaDiagram),
   .tp_flags = Py_TPFLAGS_DEFAULT,

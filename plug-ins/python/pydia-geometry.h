@@ -6,18 +6,15 @@
 #include "arrows.h"
 
 typedef struct {
-    PyObject_HEAD
-    union {
-      IntRectangle ri;
-      DiaRectangle rf;
-    } r;
-    gboolean is_int;
+  PyObject_HEAD
+
+  DiaRectangle r;
 } PyDiaRectangle;
 
 extern PyTypeObject PyDiaRectangle_Type;
 
-PyObject* PyDiaRectangle_New (DiaRectangle* r, IntRectangle* ri);
-PyObject* PyDiaRectangle_New_FromPoints (Point* ul, Point* lr);
+PyObject *PyDiaRectangle_New (DiaRectangle* r);
+PyObject *PyDiaRectangle_New_FromPoints (Point* ul, Point* lr);
 
 typedef struct {
     PyObject_HEAD

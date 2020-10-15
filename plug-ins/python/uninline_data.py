@@ -28,10 +28,10 @@ class UninlineRenderer :
 		imgmap = {}
 		dirname = os.path.dirname (filename)
 		basename = os.path.basename(filename)
-		ext = filename[string.rfind(filename, ".")+1:]
+		ext = filename[filename.rfind(".")+1:]
 		for layer in data.layers :
 			for o in layer.objects :
-				if "inline_data" in o.properties.keys() :
+				if "inline_data" in list(o.properties.keys()) :
 					if o.properties["inline_data"].value :
 						# remember by position
 						pos = o.properties["obj_pos"].value
@@ -39,9 +39,9 @@ class UninlineRenderer :
 						yk = "%03g" % pos.y
 						key = basename + "-" + layer.name + "x" + xk + "y" + yk
 						imgmap[key] = o
-			for k, o in imgmap.iteritems() :
+			for k, o in imgmap.items() :
 				fname = dirname + "/" + k + "." + ext
-				print fname
+				print(fname)
 				o.properties["image_file"] = fname
 				o.properties["inline_data"] = 0
 

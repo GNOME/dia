@@ -1,7 +1,4 @@
-pymod = import('python')
-
-py_inst = pymod.find_installation('python2', required: false)
-py_dep = py_inst.dependency(version: '>= 2.3')
+py3_dep = dependency('python3-embed', version: '>= 3.7')
 
 sources = files(
     'pydia-color.c',
@@ -36,7 +33,7 @@ python_scripts = [
     'diasvg_import.py',
     'dot.py',
     'doxrev.py',
-    'gtkcons.py',  # Will only run if pygtk is present.
+    'gtkcons.py',
     'imgmap.py',
     'otypes.py',
     'pydiadoc.py',
@@ -45,12 +42,12 @@ python_scripts = [
     'select_empty.py',
 ]
 
-if py_dep.found()
+if py3_dep.found()
     # Same as layout plugin.
     shared_module(
         'python_plugin',
         sources + [config_h],
-        dependencies: [libc_dep, libxml_dep, libgtk_dep, py_dep, libdia_dep],
+        dependencies: [libc_dep, libxml_dep, libgtk_dep, py3_dep, libdia_dep],
         include_directories: [configuration_inc, diaapp_inc],
         link_with: [diaapp], # Naughty
         install: true,

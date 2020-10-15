@@ -7,7 +7,7 @@
 
 typedef struct {
     PyObject_HEAD
-    Property* property; 
+    Property* property;
 } PyDiaProperty;
 
 extern PyTypeObject PyDiaProperty_Type;
@@ -22,7 +22,7 @@ typedef struct {
 extern PyTypeObject PyDiaProperties_Type;
 PyObject* PyDiaProperties_New (DiaObject* obj);
 
-int PyDiaProperty_ApplyToObject (DiaObject *object, gchar *key, Property *prop, PyObject *val);
+int PyDiaProperty_ApplyToObject (DiaObject *object, const char *key, Property *prop, PyObject *val);
 
 #define PyDiaProperty_Check(o) ((o)->ob_type == &PyDiaProperty_Type)
 

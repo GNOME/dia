@@ -29,44 +29,46 @@ _ = gettext.gettext
 
 class CFindDialog :
 	def __init__(self, data) :
-		import pygtk
-		pygtk.require("2.0")
-		import gtk
+		import gi
 
-		win = gtk.Window()
+		gi.require_version('Gtk', '2.0')
+
+		from gi.repository import Gtk
+
+		win = Gtk.Window()
 		win.connect("delete_event", self.on_delete)
 		win.set_title(_("Select by name"))
 
 		self.diagram = data
 		self.win = win
 
-		box1 = gtk.VBox()
+		box1 = Gtk.VBox()
 		win.add(box1)
 		box1.show()
 
-		box2 = gtk.VBox(spacing=10)
+		box2 = Gtk.VBox(spacing=10)
 		box2.set_border_width(10)
-		box1.pack_start(box2)
+		box1.pack_start(box2, True, True, 0)
 		box2.show()
 
-		self.entry = gtk.Entry()
+		self.entry = Gtk.Entry()
 		self.entry.set_text(_("Enter name"))
-		box2.pack_start(self.entry)
+		box2.pack_start(self.entry, True, True, 0)
 		self.entry.show()
 
-		separator = gtk.HSeparator()
-		box1.pack_start(separator, expand=0)
+		separator = Gtk.HSeparator()
+		box1.pack_start(separator, 0, True, 0)
 		separator.show()
 
-		box2 = gtk.VBox(spacing=10)
+		box2 = Gtk.VBox(spacing=10)
 		box2.set_border_width(10)
-		box1.pack_start(box2, expand=0)
+		box1.pack_start(box2, 0, True, 0)
 		box2.show()
 
-		button = gtk.Button(_("Find"))
+		button = Gtk.Button(_("Find"))
 		button.connect("clicked", self.on_find)
-		box2.pack_start(button)
-		button.set_flags(gtk.CAN_DEFAULT)
+		box2.pack_start(button, True, True, 0)
+		button.set_can_default(True)
 		button.grab_default()
 		button.show()
 		win.show()
@@ -87,8 +89,8 @@ def do_dialog(data):
 def select_by (diagram, name, value) :
 	objs = diagram.active_layer.objects
 	for o in objs :
-		if o.properties.has_key (name) :
-			print "<==", o.properties[name].value
+		if name in o.properties :
+			print("<==", o.properties[name].value)
 			if value == None or o.properties[name].value == value :
 				diagram.select (o)
 
@@ -99,7 +101,7 @@ def select_by_selected (data, name) :
 	grp = data.get_sorted_selected()
 	bFoundAny = 0
 	for o in grp :
-		if o.properties.has_key(name) :
+		if name in o.properties :
 			select_by (data, name, o.properties[name].value)
 			bFoundAny = 1
 	if not bFoundAny :

@@ -41,34 +41,37 @@ PyDiaObject_New(DiaObject *object)
     return (PyObject *)self;
 }
 
+
 static void
-PyDiaObject_Dealloc(PyDiaObject *self)
+PyDiaObject_Dealloc (PyObject *self)
 {
-     PyObject_DEL(self);
-}
-
-static int
-PyDiaObject_Compare(PyDiaObject *self, PyDiaObject *other)
-{
-    if (self->object == other->object) return 0;
-    if (self->object > other->object) return -1;
-    return 1;
-}
-
-static long
-PyDiaObject_Hash(PyDiaObject *self)
-{
-    return (long)self->object;
+  PyObject_DEL (self);
 }
 
 
 static PyObject *
-PyDiaObject_Str (PyDiaObject *self)
+PyDiaObject_RichCompare (PyObject *self, PyObject *other, int op)
+{
+  Py_RETURN_RICHCOMPARE (((PyDiaObject *) self)->object,
+                         ((PyDiaObject *) other)->object,
+                         op);
+}
+
+
+static long
+PyDiaObject_Hash (PyObject *self)
+{
+  return (long) ((PyDiaObject *) self)->object;
+}
+
+
+static PyObject *
+PyDiaObject_Str (PyObject *self)
 {
   char *strname = g_strdup_printf ("<DiaObject of type \"%s\" at %lx>",
-                                  self->object->type->name,
-                                  (long) self->object);
-  PyObject *ret = PyString_FromString (strname);
+                                  ((PyDiaObject *) self)->object->type->name,
+                                  (long) ((PyDiaObject *) self)->object);
+  PyObject *ret = PyUnicode_FromString (strname);
 
   g_clear_pointer (&strname, g_free);
   return ret;
@@ -185,7 +188,7 @@ PyDiaObject_GetMenu(PyDiaObject *self, PyObject *args)
     }    ;
 
     ret = PyTuple_New (2);
-    PyTuple_SetItem(ret, 0, PyString_FromString (m->title ? m->title : ""));
+    PyTuple_SetItem(ret, 0, PyUnicode_FromString (m->title ? m->title : ""));
     items = PyList_New(0);
     for (i = 0; i < m->num_items; ++i) {
         DiaMenuItem *mi = &m->items[i];
@@ -308,127 +311,134 @@ static PyMemberDef PyDiaObject_Members[] = {
 
 
 static PyObject *
-PyDiaObject_GetAttr (PyDiaObject *self, char *attr)
+PyDiaObject_GetAttr (PyObject *obj, PyObject *arg)
 {
-    if (!strcmp(attr, "__members__"))
-	return Py_BuildValue("[sssss]", "bounding_box", "connections",
-			     "handles", "parent", "properties", "type");
-    else if (!strcmp(attr, "type"))
-	return PyDiaObjectType_New(self->object->type);
-    else if (!strcmp(attr, "bounding_box"))
-	return PyDiaRectangle_New(&(self->object->bounding_box), NULL);
-    else if (!strcmp(attr, "handles")) {
-	int i;
-	PyObject *ret = PyTuple_New(self->object->num_handles);
+  PyDiaObject *self;
+  const char *attr;
 
-	for (i = 0; i < self->object->num_handles; i++)
-	    PyTuple_SetItem(ret, i, PyDiaHandle_New(self->object->handles[i], self->object));
-	return ret;
-    } else if (!strcmp(attr, "connections")) {
-	int i;
-	PyObject *ret = PyTuple_New(self->object->num_connections);
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
 
-	for (i = 0; i < self->object->num_connections; i++)
-	    PyTuple_SetItem(ret, i, PyDiaConnectionPoint_New(
-				self->object->connections[i]));
-	return ret;
-    } else if (!strcmp(attr, "properties")) {
-	return PyDiaProperties_New(self->object);
-    } else if (!strcmp(attr, "parent")) {
-	if (!self->object->parent) {
-	    Py_INCREF(Py_None);
-	    return Py_None;
-	} else {
-	    return PyDiaObject_New(self->object->parent);
-	}
+  self = (PyDiaObject *) obj;
+
+  if (!g_strcmp0 (attr, "__members__")) {
+    return Py_BuildValue ("[sssss]",
+                          "bounding_box", "connections", "handles", "parent",
+                          "properties", "type");
+  } else if (!g_strcmp0 (attr, "type")) {
+    return PyDiaObjectType_New (self->object->type);
+  } else if (!g_strcmp0 (attr, "bounding_box")) {
+    return PyDiaRectangle_New (&(self->object->bounding_box));
+  } else if (!g_strcmp0 (attr, "handles")) {
+    int i;
+    PyObject *ret = PyTuple_New (self->object->num_handles);
+
+    for (i = 0; i < self->object->num_handles; i++) {
+      PyTuple_SetItem(ret, i, PyDiaHandle_New(self->object->handles[i], self->object));
     }
 
-    return Py_FindMethod(PyDiaObject_Methods, (PyObject *)self, attr);
+    return ret;
+  } else if (!g_strcmp0 (attr, "connections")) {
+    int i;
+    PyObject *ret = PyTuple_New(self->object->num_connections);
+
+    for (i = 0; i < self->object->num_connections; i++) {
+      PyTuple_SetItem (ret, i,
+                       PyDiaConnectionPoint_New (self->object->connections[i]));
+    }
+    return ret;
+  } else if (!g_strcmp0 (attr, "properties")) {
+    return PyDiaProperties_New(self->object);
+  } else if (!g_strcmp0 (attr, "parent")) {
+    if (!self->object->parent) {
+      Py_INCREF (Py_None);
+      return Py_None;
+    } else {
+      return PyDiaObject_New (self->object->parent);
+    }
+  }
+
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 }
+
 
 PyTypeObject PyDiaObject_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Object",
-    sizeof(PyDiaObject),
-    0,
-    (destructor)PyDiaObject_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaObject_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaObject_Compare,
-    (reprfunc)PyDiaObject_Str,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaObject_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaObject_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "The main building block of diagrams.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    PyDiaObject_Methods, /* tp_methods */
-    PyDiaObject_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Object",
+  .tp_basicsize = sizeof (PyDiaObject),
+  .tp_dealloc = PyDiaObject_Dealloc,
+  .tp_getattro = PyDiaObject_GetAttr,
+  .tp_richcompare = PyDiaObject_RichCompare,
+  .tp_repr = PyDiaObject_Str,
+  .tp_hash = PyDiaObject_Hash,
+  .tp_str = PyDiaObject_Str,
+  .tp_doc = "The main building block of diagrams.",
+  .tp_methods = PyDiaObject_Methods,
+  .tp_members = PyDiaObject_Members,
 };
 
+
 PyObject *
-PyDiaObjectType_New(DiaObjectType *otype)
+PyDiaObjectType_New (DiaObjectType *otype)
 {
-    PyDiaObjectType *self;
+  PyDiaObjectType *self;
 
-    self = PyObject_NEW(PyDiaObjectType, &PyDiaObjectType_Type);
+  self = PyObject_NEW (PyDiaObjectType, &PyDiaObjectType_Type);
 
-    if (!self) return NULL;
-    self->otype = otype;
-    return (PyObject *)self;
+  if (!self) {
+    return NULL;
+  }
+
+  self->otype = otype;
+
+  return (PyObject *) self;
 }
+
 
 static void
-PyDiaObjectType_Dealloc(PyDiaObjectType *self)
+PyDiaObjectType_Dealloc (PyObject *self)
 {
-     PyObject_DEL(self);
-}
-
-static int
-PyDiaObjectType_Compare(PyDiaObjectType *self, PyDiaObjectType *other)
-{
-    if (self->otype == other->otype) return 0;
-    if (self->otype > other->otype) return -1;
-    return 1;
-}
-
-static long
-PyDiaObjectType_Hash(PyDiaObjectType *self)
-{
-    return (long)self->otype;
+  PyObject_DEL (self);
 }
 
 
 static PyObject *
-PyDiaObjectType_Repr(PyDiaObjectType *self)
+PyDiaObjectType_RichCompare (PyObject *self, PyObject *other, int op)
+{
+  Py_RETURN_RICHCOMPARE (((PyDiaObjectType *) self)->otype,
+                         ((PyDiaObjectType *) other)->otype,
+                         op);
+}
+
+
+static long
+PyDiaObjectType_Hash (PyObject *self)
+{
+  return (long) ((PyDiaObjectType *) self)->otype;
+}
+
+
+static PyObject *
+PyDiaObjectType_Repr (PyObject *self)
 {
   char *strname = g_strdup_printf ("<DiaObjectType \"%s\">",
-                                   self->otype->name);
-  PyObject *ret = PyString_FromString (strname);
+                                   ((PyDiaObjectType *) self)->otype->name);
+  PyObject *ret = PyUnicode_FromString (strname);
 
   g_clear_pointer (&strname, g_free);
+
   return ret;
 }
 
 
 static PyObject *
-PyDiaObjectType_Str(PyDiaObjectType *self)
+PyDiaObjectType_Str (PyObject *self)
 {
-    return PyString_FromString(self->otype->name);
+  return PyUnicode_FromString (((PyDiaObjectType *) self)->otype->name);
 }
 
 
@@ -497,52 +507,45 @@ static PyMemberDef PyDiaObjectType_Members[] = {
 
 
 static PyObject *
-PyDiaObjectType_GetAttr (PyDiaObjectType *self, char *attr)
+PyDiaObjectType_GetAttr (PyObject *obj, PyObject *arg)
 {
-  if (!strcmp (attr, "__members__")) {
-    return Py_BuildValue ("[ss]", "name", "version");
-  } else if (!strcmp (attr, "name")) {
-    return PyString_FromString (self->otype->name);
-  } else if (!strcmp (attr, "version")) {
-    return PyInt_FromLong (self->otype->version);
+  PyDiaObjectType *self;
+  const char *attr;
+
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
   }
 
-  return Py_FindMethod (PyDiaObjectType_Methods, (PyObject *) self, attr);
+  self = (PyDiaObjectType *) obj;
+
+  if (!g_strcmp0 (attr, "__members__")) {
+    return Py_BuildValue ("[ss]", "name", "version");
+  } else if (!g_strcmp0 (attr, "name")) {
+    return PyUnicode_FromString (self->otype->name);
+  } else if (!g_strcmp0 (attr, "version")) {
+    return PyLong_FromLong (self->otype->version);
+  }
+
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 }
 
 
 PyTypeObject PyDiaObjectType_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.ObjectType",
-    sizeof(PyDiaObjectType),
-    0,
-    (destructor)PyDiaObjectType_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaObjectType_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaObjectType_Compare,
-    (reprfunc)PyDiaObjectType_Repr,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaObjectType_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaObjectType_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "The dia.Object factory. Allows to create objects of the specific type. "
-    "Use: factory = get_object_type(<type name>) to get a grip on it.",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    PyDiaObjectType_Methods, /* tp_methods */
-    PyDiaObjectType_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.ObjectType",
+  .tp_basicsize = sizeof(PyDiaObjectType),
+  .tp_dealloc = PyDiaObjectType_Dealloc,
+  .tp_getattro = PyDiaObjectType_GetAttr,
+  .tp_richcompare = PyDiaObjectType_RichCompare,
+  .tp_repr = PyDiaObjectType_Repr,
+  .tp_hash = PyDiaObjectType_Hash,
+  .tp_str = PyDiaObjectType_Str,
+  .tp_doc = "The dia.Object factory. Allows to create objects of the "
+            "specific type. Use: factory = get_object_type(<type name>) to "
+            "get a grip on it.",
+  .tp_methods = PyDiaObjectType_Methods,
+  .tp_members = PyDiaObjectType_Members,
 };
-

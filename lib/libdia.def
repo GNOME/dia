@@ -569,8 +569,6 @@ EXPORTS
  get_active_focus
  give_focus
 
- int_rectangle_union
-
  intl_score_locale
 
  dia_layer_add_object

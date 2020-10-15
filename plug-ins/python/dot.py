@@ -31,15 +31,15 @@ class DotRenderer :
 	def GetName (self, o) :
 		"A small helper to turn a dia object into a name"
 		s = ""
-		if o.properties.has_key("name") :
+		if "name" in o.properties :
 			s = o.properties["name"].value
-		elif o.properties.has_key("text") :
+		elif "text" in o.properties :
 			s = o.properties["text"].value.text
 		if s is None or s == "" :
 			s = str(o)
 		return s
 	def GetColor (self, o) :
-		if o.properties.has_key("fill_colour") :
+		if "fill_colour" in o.properties :
 			rgb = o.properties["fill_colour"].value
 			return "#%02x%02x%02x" % (rgb.red * 255, rgb.green * 255, rgb.blue * 255)
 		return None
@@ -69,7 +69,7 @@ class DotRenderer :
 					# these are the connection points of the objects. We will have e.g. "UML - Dependency"
 					for n in c.connected :
 						# we see the connecting lines multiple times, just process once
-						if self.edges.has_key(str(n)) :
+						if str(n) in self.edges :
 							continue
 						self.edges[str(n)] = 1
 						if not (n.handles[0].connected_to and n.handles[1].connected_to) :
@@ -81,7 +81,7 @@ class DotRenderer :
 							self.f.write('"%s" -> "%s"\n' % (self.GetName(a), self.GetName(b)))
 							#self.f.write('"%s" -> "%s"\n' % (str(a.properties["text"].value.text), str(b.properties["text"].value.text)))
 						except :
-							print a, b, " writing connection failed."
+							print(a, b, " writing connection failed.")
 				else :
 					pass
 		self.f.write('}\n')

@@ -18,7 +18,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import string, sys
+import sys
 
 import gettext
 _ = gettext.gettext
@@ -58,7 +58,7 @@ class Union(Node) :
 		return self.name
 		for s in self.names :
 			ms.append (g_nodes[s].Name())
-		return string.join(ms, "; ")
+		return "; ".join(ms)
 
 class Fassade(Node) :
 	def __init__ (self, type, pre, post) :
@@ -78,7 +78,7 @@ class Argument(Node) :
 		self.access = "public"
 		self.static = 0
 	def Type (self) :
-		if g_nodes.has_key (self.type) :
+		if self.type in g_nodes :
 			return g_nodes[self.type].Name()
 		return "?"
 	def Visibility (self) :
@@ -95,7 +95,7 @@ class Function(Node) :
 	def AddArg (self, arg) :
 		self.params.append (arg)
 	def Type (self) :
-		if g_nodes.has_key (self.returns) :
+		if self.returns in g_nodes :
 			return g_nodes[self.returns].Name()
 		return ""
 	def Signature (self) :
@@ -107,10 +107,10 @@ class Function(Node) :
 			except AttributeError :
 				args.append (":" + p.Name())
 			except :
-				print "E:", p, p.name, p.type
+				print("E:", p, p.name, p.type)
 		if self.returns :
 			ret = g_nodes[self.returns].Name() + " "
-		return ret + self.name + " (" + string.join(args, ", ") + ")"
+		return ret + self.name + " (" + ", ".join(args) + ")"
 
 class Method(Function) :
 	def __init__ (self, name, type) :
@@ -144,7 +144,7 @@ class Klass(Node) :
 	def IsClass (self) :
 		return 1
 	def Name (self) :
-		if g_nodes.has_key (self.context) and g_nodes[self.context].Name() != "" :
+		if self.context in g_nodes and g_nodes[self.context].Name() != "" :
 			return g_nodes[self.context].Name() + "::" + self.name
 		else :
 			return self.name
@@ -152,26 +152,26 @@ class Klass(Node) :
 		# full qualified names
 		names = []
 		for p in self.parents :
-			if g_nodes.has_key(p) :
+			if p in g_nodes :
 				names.append (g_nodes[p].Name())
 		return names
 	def Dump (self) :
 		ps = ""
 		for id in self.parents :
-			if g_nodes.has_key (id) :
+			if id in g_nodes :
 				ps = ps + " " + g_nodes[id].Name()
-		print self.Name() + "(" + ps + " )"
+		print(self.Name() + "(" + ps + " )")
 		for id in self.members :
-			print "\t", g_nodes[id], id
+			print("\t", g_nodes[id], id)
 			if g_nodes[id].IsMethod() :
-				print "\t" + g_nodes[id].Signature()
+				print("\t" + g_nodes[id].Signature())
 			elif g_nodes[id].IsUnion() :
-				print "\t" + g_nodes[id].Name()
+				print("\t" + g_nodes[id].Name())
 			else :
 				try :
-					print "\t" + g_nodes[id].Name() + ":" + g_nodes[g_nodes[id].type].Name()
+					print("\t" + g_nodes[id].Name() + ":" + g_nodes[g_nodes[id].type].Name())
 				except AttributeError :
-					print "AttributeError:", g_nodes[id]
+					print("AttributeError:", g_nodes[id])
 
 class Namespace(Node) :
 	def __init__ (self, name) :
@@ -179,7 +179,7 @@ class Namespace(Node) :
 		self.name = name
 	def Name (self) :
 		id = self.context
-		if  g_nodes.has_key (id) and g_nodes[id].Name() != "" :
+		if  id in g_nodes and g_nodes[id].Name() != "" :
 			return g_nodes[id].Name() + "::" + self.name
 		else :
 			return self.name
@@ -198,22 +198,22 @@ def Parse (sFile, nodes) :
 		if name in ["Class", "Struct"] :
 			#print attrs["name"], attrs["id"]
 			o = Klass(attrs["name"])
-			if attrs.has_key("bases") :
-				bs = string.split (attrs["bases"], " ")
+			if "bases" in attrs :
+				bs = " ".split (attrs["bases"])
 				for s in bs :
 					o.AddParent (s)
-			if attrs.has_key("members") :
-				ms = string.split (attrs["members"], " ")
+			if "members" in attrs :
+				ms = " ".split (attrs["members"])
 				for s in ms :
 					if s != "" :
 						o.AddMember (s)
-			if attrs.has_key("abstract") :
-				o.abstract = string.atoi(attrs["abstract"])
+			if "abstract" in attrs :
+				o.abstract = int(attrs["abstract"])
 			g_classes.append (o)
 		elif "Union" == name :
 			o = Union(attrs["name"])
-			if attrs.has_key("members") :
-				ms = string.split (attrs["members"], " ")
+			if "members" in attrs :
+				ms = attrs["members"].split (" ")
 				for s in ms :
 					if s != "" :
 						o.AddMember (s)
@@ -229,13 +229,13 @@ def Parse (sFile, nodes) :
 			elif "Destructor" == name : o = Method ("~" + attrs["name"], None)
 			else : o = Method (attrs["name"], attrs["returns"])
 
-			if attrs.has_key("virtual") : o.virtual += string.atoi(attrs["virtual"])
-			if attrs.has_key("pure_virtual") : o.virtual += string.atoi(attrs["pure_virtual"])
-			if attrs.has_key("access") : o.access = attrs["access"]
+			if "virtual" in attrs : o.virtual += int(attrs["virtual"])
+			if "pure_virtual" in attrs : o.virtual += int(attrs["pure_virtual"])
+			if "access" in attrs : o.access = attrs["access"]
 		elif name in ["Field", "Typedef"] :
 			o = Argument (attrs["name"], attrs["type"])
-			if attrs.has_key("access") : o.access = attrs["access"]
-			if attrs.has_key("static") : o.static = attrs["static"]
+			if "access" in attrs : o.access = attrs["access"]
+			if "static" in attrs : o.static = attrs["static"]
 		elif name in ["FundamentalType", "Enumeration"] :
 			o = Type (attrs["name"])
 		elif "ReferenceType" == name :
@@ -247,7 +247,7 @@ def Parse (sFile, nodes) :
 		elif "CvQualifiedType" == name :
 			o = Fassade (attrs["type"], "const", "")
 		elif "Argument" == name :
-			if attrs.has_key("name") :
+			if "name" in attrs :
 				o = Argument (attrs["name"], attrs["type"])
 			else :
 				o = Fassade (attrs["type"], "", "")
@@ -263,7 +263,7 @@ def Parse (sFile, nodes) :
 			if ctx[-1][1] :
 				ctx[-1][1].AddName (attrs["name"])
 		elif name in ["Function", "OperatorFunction", "FunctionType"] :
-			if attrs.has_key("name") :
+			if "name" in attrs :
 				o = Function (attrs["returns"], attrs["name"])
 			else : # function & type
 				o = Function (attrs["returns"], attrs["id"])
@@ -272,9 +272,9 @@ def Parse (sFile, nodes) :
 		elif "File" == name :
 			pass # FIXME: thrown away
 		else :
-			print "Unhandled:", name
+			print("Unhandled:", name)
 		if o :
-			if attrs.has_key("context") :
+			if "context" in attrs :
 				#print attrs["context"]
 				o.context = attrs["context"]
 			nodes[attrs["id"]] = o
@@ -319,7 +319,7 @@ def ImportXml (sFile, diagramData) :
 		bUsed = 0
 		for p in c.Parents() :
 			if c.Name()[:5] == "std::" : continue # is this too drastic ?
-			if theLinks.has_key(p) :
+			if p in theLinks :
 				theLinks[p] += 1
 				bUsed = 1
 		if bUsed :
@@ -328,17 +328,17 @@ def ImportXml (sFile, diagramData) :
 			nTotal += 1
 	if nTotal < 2 : # arbitrary limit to generate simple diagrams not using inheritance at all
 		for c in g_classes :
-			if theLinks.has_key(c.Name) :
+			if c.Name in theLinks :
 				theLinks[c.Name()] += 1
 	# now everything interesting should be in theLinks with a 'ref count' above zero
 	for c in g_classes :
-		if not theLinks.has_key(c.Name()) : continue
+		if c.Name() not in theLinks : continue
 		if theLinks[c.Name()] :
 			theLinks[c.Name()] = c
 		else :
 			del theLinks[c.Name()]
 	theObjects = {}
-	for s in theLinks.keys() :
+	for s in list(theLinks.keys()) :
 		o, h1, h2 = dia.get_object_type("UML - Class").create(0,0)
 		layer.add_object(o)
 		o.properties["name"] = s.encode("UTF-8")
@@ -348,7 +348,7 @@ def ImportXml (sFile, diagramData) :
 		attributes = []
 		c = theLinks[s]
 		for mid in c.members :
-			if not g_nodes.has_key(mid) :
+			if mid not in g_nodes :
 				continue #HACK
 			m = g_nodes[mid]
 			#print m
@@ -357,7 +357,7 @@ def ImportXml (sFile, diagramData) :
 				for a in m.params :
 					# (name, type, value, comment, kind)
 					try  :
-						print a.name, a.Type()
+						print(a.name, a.Type())
 						params.append ((a.name.encode("UTF-8"), a.Type().encode("UTF-8"), None, "", 0))
 					except :
 						pass
@@ -368,14 +368,14 @@ def ImportXml (sFile, diagramData) :
 				try  :
 					attributes.append ((m.Name().encode("UTF-8"), m.Type().encode("UTF-8"), "", "", m.Visibility(),0,m.static))
 				except  :
-					print "Error", m.name
+					print("Error", m.name)
 		# set some properties
 		o.properties["operations"] = methods
 		o.properties["attributes"] = attributes
 
 		theObjects[s] = o
 	# class connections
-	for s in theLinks.keys() :
+	for s in list(theLinks.keys()) :
 		o1 = theObjects[s]
 		c = theLinks[s]
 		for p in c.Parents() :

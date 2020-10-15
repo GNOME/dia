@@ -20,7 +20,7 @@ def load(plugindir):
 					sys.stderr.write('could not import %s [%s]\n' % (file, e))
 
 # import any python plugins from the user ...
-if not os.environ.has_key('HOME'):
+if 'HOME' not in os.environ:
 	os.environ['HOME'] = os.pathsep + 'tmp'
 # import all plugins found in user plugin dir
 load(os.path.join(os.environ['HOME'], '.dia', 'python'))

@@ -48,30 +48,36 @@ PyDiaImage_New (DiaImage *image)
  * Dealloc
  */
 static void
-PyDiaImage_Dealloc (PyDiaImage *self)
+PyDiaImage_Dealloc (PyObject *self)
 {
-  g_clear_object (&self->image);
+  g_clear_object (&((PyDiaImage *) self)->image);
 
   PyObject_DEL (self);
 }
 
+
 /*
  * Compare
  */
-static int
-PyDiaImage_Compare(PyDiaImage *self,
-                   PyDiaImage *other)
+static PyObject *
+PyDiaImage_RichCompare (PyObject *a,
+                        PyObject *b,
+                        int       op)
 {
-  return memcmp(&(self->image), &(other->image), sizeof(DiaImage *));
+  PyDiaImage *self = (PyDiaImage *) a;
+  PyDiaImage *other = (PyDiaImage *) b;
+
+  Py_RETURN_RICHCOMPARE (self->image, other->image, op);
 }
+
 
 /*
  * Hash
  */
 static long
-PyDiaImage_Hash(PyObject *self)
+PyDiaImage_Hash (PyObject *self)
 {
-  return (long)self;
+  return (long) self;
 }
 
 
@@ -79,22 +85,33 @@ PyDiaImage_Hash(PyObject *self)
  * GetAttr
  */
 static PyObject *
-PyDiaImage_GetAttr(PyDiaImage *self, char *attr)
+PyDiaImage_GetAttr (PyObject *obj, PyObject *arg)
 {
-  if (!strcmp(attr, "__members__")) {
-    return Py_BuildValue("[ssssss]", "width", "height",
-                                    "rgb_data", "mask_data",
-                                    "filename", "uri");
-  } else if (!strcmp(attr, "width"))
-    return PyInt_FromLong(dia_image_width(self->image));
-  else if (!strcmp(attr, "height"))
-    return PyInt_FromLong(dia_image_height(self->image));
-  else if (!strcmp(attr, "filename")) {
-    return PyString_FromString(dia_image_filename(self->image));
-  } else if (!strcmp (attr, "uri")) {
+  PyDiaImage *self;
+  const char *attr;
+
+  if (PyUnicode_Check (arg)) {
+    attr = PyUnicode_AsUTF8 (arg);
+  } else {
+    goto generic;
+  }
+
+  self = (PyDiaImage *) obj;
+
+  if (!g_strcmp0 (attr, "__members__")) {
+    return Py_BuildValue ("[ssssss]",
+                          "width", "height", "rgb_data", "mask_data",
+                          "filename", "uri");
+  } else if (!g_strcmp0 (attr, "width"))
+    return PyLong_FromLong (dia_image_width(self->image));
+  else if (!g_strcmp0 (attr, "height"))
+    return PyLong_FromLong (dia_image_height(self->image));
+  else if (!g_strcmp0 (attr, "filename")) {
+    return PyUnicode_FromString (dia_image_filename (self->image));
+  } else if (!g_strcmp0 (attr, "uri")) {
     GError *error = NULL;
-    const char *fname = dia_image_filename(self->image);
-    char* s;
+    const char *fname = dia_image_filename (self->image);
+    char *s;
 
     if (g_path_is_absolute (fname)) {
       s = g_filename_to_uri (fname, NULL, &error);
@@ -108,7 +125,7 @@ PyDiaImage_GetAttr(PyDiaImage *self, char *attr)
     }
 
     if (s) {
-      PyObject* py_s = PyString_FromString (s);
+      PyObject *py_s = PyUnicode_FromString (s);
       g_clear_pointer (&s, g_free);
       return py_s;
     } else {
@@ -120,33 +137,33 @@ PyDiaImage_GetAttr(PyDiaImage *self, char *attr)
       }
       return NULL;
     }
-  } else if (!strcmp (attr, "rgb_data")) {
+  } else if (!g_strcmp0 (attr, "rgb_data")) {
     unsigned char *s = dia_image_rgb_data (self->image);
     int len = dia_image_width (self->image) * dia_image_height (self->image) * 3;
     PyObject *py_s;
 
     if (!s) {
-      return PyErr_NoMemory();
+      return PyErr_NoMemory ();
     }
 
-    py_s = PyString_FromStringAndSize ((const char *) s, len);
+    py_s = PyBytes_FromStringAndSize ((const char *) s, len);
     g_clear_pointer (&s, g_free);
     return py_s;
-  } else if (!strcmp (attr, "mask_data")) {
+  } else if (!g_strcmp0 (attr, "mask_data")) {
     unsigned char *s = dia_image_mask_data (self->image);
     int len = dia_image_width (self->image) * dia_image_height (self->image);
     PyObject *py_s;
 
     if (!s) {
-      return PyErr_NoMemory();
+      return PyErr_NoMemory ();
     }
-    py_s = PyString_FromStringAndSize ((const char *) s, len);
+    py_s = PyBytes_FromStringAndSize ((const char *) s, len);
     g_clear_pointer (&s, g_free);
     return py_s;
   }
 
-  PyErr_SetString (PyExc_AttributeError, attr);
-  return NULL;
+generic:
+  return PyObject_GenericGetAttr (obj, arg);
 }
 
 
@@ -154,16 +171,18 @@ PyDiaImage_GetAttr(PyDiaImage *self, char *attr)
  * Repr / _Str
  */
 static PyObject *
-PyDiaImage_Str (PyDiaImage *self)
+PyDiaImage_Str (PyObject *self)
 {
-  PyObject* py_s;
-  const char* name = dia_image_filename (self->image);
-  char* s = g_strdup_printf ("%ix%i,%s",
-                             dia_image_width (self->image),
-                             dia_image_height (self->image),
+  PyObject *py_s;
+  const char *name = dia_image_filename (((PyDiaImage *) self)->image);
+  char *s = g_strdup_printf ("%ix%i,%s",
+                             dia_image_width (((PyDiaImage *) self)->image),
+                             dia_image_height (((PyDiaImage *) self)->image),
                              name ? name : "(null)");
-  py_s = PyString_FromString (s);
+
+  py_s = PyUnicode_FromString (s);
   g_clear_pointer (&s, g_free);
+
   return py_s;
 }
 
@@ -184,39 +203,20 @@ static PyMemberDef PyDiaImage_Members[] = {
       "string: Uniform Resource Identifier of the image" },
     { NULL }
 };
+
+
 /*
  * Python objetcs
  */
 PyTypeObject PyDiaImage_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
-    "dia.Image",
-    sizeof(PyDiaImage),
-    0,
-    (destructor)PyDiaImage_Dealloc,
-    (printfunc)0,
-    (getattrfunc)PyDiaImage_GetAttr,
-    (setattrfunc)0,
-    (cmpfunc)PyDiaImage_Compare,
-    (reprfunc)0,
-    0,
-    0,
-    0,
-    (hashfunc)PyDiaImage_Hash,
-    (ternaryfunc)0,
-    (reprfunc)PyDiaImage_Str,
-    (getattrofunc)0,
-    (setattrofunc)0,
-    (PyBufferProcs *)0,
-    0L, /* Flags */
-    "dia.Image gets passed into DiaRenderer.draw_image",
-    (traverseproc)0,
-    (inquiry)0,
-    (richcmpfunc)0,
-    0, /* tp_weakliszoffset */
-    (getiterfunc)0,
-    (iternextfunc)0,
-    0, /* tp_methods */
-    PyDiaImage_Members, /* tp_members */
-    0
+  PyVarObject_HEAD_INIT (NULL, 0)
+  .tp_name = "dia.Image",
+  .tp_basicsize = sizeof (PyDiaImage),
+  .tp_dealloc = PyDiaImage_Dealloc,
+  .tp_getattro = PyDiaImage_GetAttr,
+  .tp_richcompare = PyDiaImage_RichCompare,
+  .tp_hash = PyDiaImage_Hash,
+  .tp_str = PyDiaImage_Str,
+  .tp_doc = "dia.Image gets passed into DiaRenderer.draw_image",
+  .tp_members = PyDiaImage_Members,
 };

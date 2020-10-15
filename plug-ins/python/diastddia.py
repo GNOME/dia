@@ -313,7 +313,7 @@ class StandardDiaRenderer :
 		fname = image.filename
 		# do something better than absolute pathes
 		common = os.path.commonprefix ([fname, self.filename])
-		if len(common) > 0 and string.find(self.filename[len(common):], os.path.pathsep) == -1 :
+		if len(common) > 0 and self.filename[len(common):].find(os.path.pathsep) == -1 :
 			fname = fname[len(common):]
 		# ensure <broken> does not get through
 		fname = fname.replace("&", "&amp;").replace(">", "&gt;").replace("<", "&lt;")

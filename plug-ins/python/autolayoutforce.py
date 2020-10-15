@@ -55,7 +55,7 @@ def repulsion (rconst, node, other) :
 		fx = (numer * dx) / denom
 		fy = (numer * dy) / denom
 	except ZeroDivisionError :
-		print "ZeroDivisionError"
+		print("ZeroDivisionError")
 		return (0,0)
 
 	return (fx,fy)
@@ -120,7 +120,7 @@ def layout_force_cb(data, flags):
 	data.active_layer.update_extents() # data/diagram _update_extents don't recalculate?
 	data.update_extents ()
 	data.flush()
-	print n, "iterations"
+	print(n, "iterations")
 
 dia.register_action ("LayoutForcePy", _("_Layout (force)"),
                      "/DisplayMenu/Test/TestExtensionStart",

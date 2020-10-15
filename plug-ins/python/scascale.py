@@ -30,43 +30,45 @@ _ = gettext.gettext
 
 class CScaleDialog :
 	def __init__(self, data) :
-		import pygtk
-		pygtk.require("2.0")
-		import gtk
-		win = gtk.Window()
+		import gi
+
+		gi.require_version('Gtk', '2.0')
+
+		from gi.repository import Gtk
+		win = Gtk.Window()
 		win.connect("delete_event", self.on_delete)
 		win.set_title(_("Simple Scaling"))
 
 		self.diagram = data
 		self.win = win
 
-		box1 = gtk.VBox()
+		box1 = Gtk.VBox()
 		win.add(box1)
 		box1.show()
 
-		box2 = gtk.VBox(spacing=10)
+		box2 = Gtk.VBox(spacing=10)
 		box2.set_border_width(10)
-		box1.pack_start(box2)
+		box1.pack_start(box2, True, True, 0)
 		box2.show()
 
-		self.entry = gtk.Entry()
+		self.entry = Gtk.Entry()
 		self.entry.set_text("0.1")
-		box2.pack_start(self.entry)
+		box2.pack_start(self.entry, True, True, 0)
 		self.entry.show()
 
-		separator = gtk.HSeparator()
-		box1.pack_start(separator, expand=0)
+		separator = Gtk.HSeparator()
+		box1.pack_start(separator, 0, True, 0)
 		separator.show()
 
-		box2 = gtk.VBox(spacing=10)
+		box2 = Gtk.VBox(spacing=10)
 		box2.set_border_width(10)
-		box1.pack_start(box2, expand=0)
+		box1.pack_start(box2, 0, True, 0)
 		box2.show()
 
-		button = gtk.Button(_("Scale"))
+		button = Gtk.Button(_("Scale"))
 		button.connect("clicked", self.on_scale)
-		box2.pack_start(button)
-		button.set_flags(gtk.CAN_DEFAULT)
+		box2.pack_start(button, True, True, 0)
+		button.set_can_default(True)
 		button.grab_default()
 		button.show()
 		win.show()
@@ -86,9 +88,9 @@ class CScaleDialog :
 		self.win.destroy ()
 
 def ScaleLens(o, factor) :
-	if o.properties.has_key("line_width") :
+	if "line_width" in o.properties :
 		o.properties["line_width"] = o.properties["line_width"].value * factor
-	if o.properties.has_key("text_height") :
+	if "text_height" in o.properties :
 		o.properties["text_height"] = o.properties["text_height"].value * factor
 
 def SimpleScale(data, factor) :
@@ -99,7 +101,7 @@ def SimpleScale(data, factor) :
 	for o in objs :
 		pos = o.properties["obj_pos"].value
 		hSE = None # the 'south east' handle to size the object
-		if o.properties.has_key("elem_width") :
+		if "elem_width" in o.properties :
 			hLR = o.handles[7] # HANDLE_RESIZE_SE
 			try :
 				#if 0 == hLR.type : # HANDLE_NON_MOVABLE
@@ -112,8 +114,8 @@ def SimpleScale(data, factor) :
 				o.move(x, y)
 				o.move_handle(hLR, (x2, y2), 0, 0)
 				ScaleLens(o, factor)
-			except RuntimeError, msg :
-				if scaleFailed.has_key(o.type.name) :
+			except RuntimeError as msg :
+				if o.type.name in scaleFailed :
 					scaleFailed[o.type.name] += 1
 				else :
 					scaleFailed[o.type.name] = 1
@@ -132,14 +134,14 @@ def SimpleScale(data, factor) :
 				for h in handles :
 					o.move_handle(h[0], h[1],  0, 0)
 				ScaleLens(o, factor)
-			except RuntimeError, msg :
-				if scaleFailed.has_key(o.type.name) :
+			except RuntimeError as msg :
+				if o.type.name in scaleFailed :
 					scaleFailed[o.type.name] += 1
 				else :
 					scaleFailed[o.type.name] = 1
-	if len(scaleFailed.keys()) > 0 :
+	if len(list(scaleFailed.keys())) > 0 :
 		sMsg = "Scaling failed for : "
-		for s in scaleFailed.keys() :
+		for s in list(scaleFailed.keys()) :
 			sMsg = sMsg + "\n%s (%d)" % (s, scaleFailed[s])
 		dia.message(1, sMsg)
 	data.update_extents ()
