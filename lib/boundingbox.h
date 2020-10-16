@@ -34,9 +34,9 @@
  * \ingroup ObjectBBox
  */
 struct _PolyBBExtras {
-  real start_long, start_trans;
-  real middle_trans;
-  real end_long, end_trans;
+  double start_long, start_trans;
+  double middle_trans;
+  double end_long, end_trans;
 };
 
 /*!
@@ -44,8 +44,8 @@ struct _PolyBBExtras {
  * \ingroup ObjectBBox
  */
 struct _LineBBExtras {
-  real start_long, start_trans;
-  real end_long, end_trans;
+  double start_long, start_trans;
+  double end_long, end_trans;
 };
 
 /*!
@@ -53,7 +53,7 @@ struct _LineBBExtras {
  * \ingroup ObjectBBox
  */
 struct _ElementBBExtras {
-  real border_trans;
+  double border_trans;
 };
 
 void bicubicbezier2D_bbox(const Point *p0,const Point *p1,
@@ -84,9 +84,11 @@ void rectangle_bbox(const DiaRectangle    *rin,
  * The calcualtion includes line width with the right extra
  * \ingroup ObjectBBox
  */
-void ellipse_bbox(const Point *centre, real width, real height,
-                  const ElementBBExtras *extra,
-                  DiaRectangle          *rect);
+void ellipse_bbox (const Point           *centre,
+                   double                 width,
+                   double                 height,
+                   const ElementBBExtras *extra,
+                   DiaRectangle          *rect);
 /*!
  * \brief Bounding box calculation for a polyline
  * The calcualtion includes line width and arrwos with the right extra
@@ -105,8 +107,14 @@ void polybezier_bbox(const BezPoint *pts, int numpoints,
                      DiaRectangle       *rect);
 
 /* helpers for bezier curve calculation */
-void bernstein_develop(const real p[4],real *A,real *B,real *C,real *D);
-real bezier_eval(const real p[4],real u);
-real bezier_eval_tangent(const real p[4],real u);
+void   bernstein_develop   (const double  p[4],
+                            double       *A,
+                            double       *B,
+                            double       *C,
+                            double       *D);
+double bezier_eval         (const double  p[4],
+                            double        u);
+double bezier_eval_tangent (const double  p[4],
+                            double        u);
 
 #endif /* BOUNDINGBOX_H */
