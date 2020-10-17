@@ -249,7 +249,6 @@ plug-ins/python/dot2dia.py
 plug-ins/python/doxrev.py
 plug-ins/python/export-object.py
 plug-ins/python/export-render.py
-plug-ins/python/group_props.py
 plug-ins/python/gtkcons.py
 plug-ins/python/imgmap.py
 plug-ins/python/mark-cps.py
