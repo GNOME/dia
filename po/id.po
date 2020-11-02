@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2020-10-17 09:14+0000\n"
-"PO-Revision-Date: 2020-10-17 17:43+0700\n"
+"POT-Creation-Date: 2020-10-17 10:44+0000\n"
+"PO-Revision-Date: 2020-11-02 14:43+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesia <gnome@i15n.org>\n"
 "Language: id\n"
@@ -21,28 +21,24 @@ msgstr ""
 
 #. This is not an errror
 #: app/app_procs.c:164
-#, fuzzy, c-format
-#| msgid "Warning: invalid layer range %lu - %lu\n"
+#, c-format
 msgid "invalid layer range %lu - %lu"
-msgstr "Peringatan: kisaran lapis tak valid %lu - %lu\n"
+msgstr "kisaran lapis tak valid %lu - %lu"
 
 #: app/app_procs.c:177
-#, fuzzy, c-format
-#| msgid "Warning: Layer %lu (%s) selected more than once.\n"
+#, c-format
 msgid "Layer %lu (%s) selected more than once."
-msgstr "Peringatan: Lapis %lu (%s) dipilih lebih dari sekali.\n"
+msgstr "Lapis %lu (%s) dipilih lebih dari sekali."
 
 #: app/app_procs.c:209
-#, fuzzy, c-format
-#| msgid "Warning: Layer %d (%s) selected more than once.\n"
+#, c-format
 msgid "Layer %d (%s) selected more than once."
-msgstr "Peringatan: Lapis %d (%s) dipilih lebih dari sekali.\n"
+msgstr "Lapis %d (%s) dipilih lebih dari sekali."
 
 #: app/app_procs.c:218
-#, fuzzy, c-format
-#| msgid "Warning: There is no layer named %s.\n"
+#, c-format
 msgid "There is no layer named %s."
-msgstr "Peringatan: Tidak ada lapis bernama %s.\n"
+msgstr "Tidak ada lapis bernama %s."
 
 #: app/app_procs.c:315
 #, c-format
@@ -72,10 +68,9 @@ msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
 #: app/app_procs.c:460
-#, fuzzy, c-format
-#| msgid "Can't find output format/filter %s\n"
+#, c-format
 msgid "Can't find output format/filter %s"
-msgstr "Tidak bisa menemukan format/filter keluaran %s\n"
+msgstr "Tidak bisa menemukan format/filter keluaran %s"
 
 #: app/app_procs.c:531
 #, c-format
@@ -207,38 +202,25 @@ msgid "Object Defaults"
 msgstr "Baku Objek"
 
 #: app/app_procs.c:795
-#, fuzzy
-#| msgid ""
-#| "Couldn't find standard objects when looking for object-libs; exiting...\n"
 msgid "Couldn't find standard objects when looking for object-libs; exiting..."
-msgstr ""
-"Tidak bisa menemukan objek standar saat mencari object-libs, keluar...\n"
+msgstr "Tidak bisa menemukan objek standar saat mencari object-libs, keluar..."
 
 #: app/app_procs.c:797
-#, fuzzy, c-format
-#| msgid ""
-#| "Couldn't find standard objects when looking for object-libs in '%s'; "
-#| "exiting...\n"
+#, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in “%s”; "
 "exiting..."
 msgstr ""
-"Tidak bisa menemukan objek standar saat mencari object-libs dalam '%s', "
-"keluar...\n"
+"Tidak bisa menemukan objek standar saat mencari object-libs dalam \"%s\", "
+"keluar..."
 
 #: app/app_procs.c:896
-#, fuzzy
-#| msgid ""
-#| "This shouldn't happen.  Please file a bug report at https://gitlab.gnome."
-#| "org/GNOME/dia\n"
-#| "describing how you caused this message to appear.\n"
 msgid ""
 "This shouldn't happen.  Please file a bug report at https://gitlab.gnome.org/"
 "GNOME/dia describing how you caused this message to appear."
 msgstr ""
 "Ini mestinya tak terjadi.   Harap laporkan ke https://gitlab.gnome.org/GNOME/"
-"dia\n"
-"jelaskan bagaimana Anda bisa menyebabkan pesan ini muncul.\n"
+"dia menjelaskan bagaimana Anda bisa menyebabkan pesan ini muncul."
 
 #: app/app_procs.c:932 app/display.c:1254 app/exit_dialog.c:264
 #: app/filedlg.c:604
@@ -268,14 +250,10 @@ msgstr "Keluar Dia"
 #: data/ui/sheets-new-dialog.ui:32 data/ui/sheets-remove-dialog.ui:32
 #: lib/diaarrowchooser.c:402 lib/dialinechooser.c:306 lib/widgets.c:394
 #: plug-ins/xslt/xsltdialog.c:83
-#, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "_Batal"
 
 #: app/app_procs.c:990 app/menus.c:86
-#, fuzzy
-#| msgid "Quit Dia"
 msgid "_Quit"
 msgstr "_Keluar"
 
@@ -503,14 +481,11 @@ msgstr "Baku objek"
 #: app/find-and-replace.c:586 app/menus.c:117 app/pagesetup.c:79
 #: app/plugin-manager.c:207 app/properties-dialog.c:60
 #: data/ui/sheets-main-dialog.ui:314
-#, fuzzy
 msgid "_Close"
 msgstr "_Tutup"
 
 #: app/defaults.c:48 app/dia-props.c:271 app/pagesetup.c:80
 #: app/properties-dialog.c:61 data/ui/sheets-main-dialog.ui:282
-#, fuzzy
-#| msgid "Supply"
 msgid "_Apply"
 msgstr "Ter_apkan"
 
@@ -520,8 +495,6 @@ msgstr "Ter_apkan"
 #: data/ui/sheets-new-dialog.ui:43 data/ui/sheets-remove-dialog.ui:43
 #: lib/diaarrowchooser.c:403 lib/dialinechooser.c:307
 #: objects/AADL/edit_port_declaration.c:172 plug-ins/xslt/xsltdialog.c:84
-#, fuzzy
-#| msgid "OK"
 msgid "_OK"
 msgstr "_OK"
 
@@ -697,9 +670,8 @@ msgid "Diagram Properties"
 msgstr "Properti Diagram"
 
 #: app/dia-guide-dialog.c:151
-#, fuzzy
 msgid "Add New Guide"
-msgstr "Tambahkan panduan baru"
+msgstr "Tambahkan Panduan Baru"
 
 #: app/dia-guide-dialog.c:177 lib/diapatternselector.c:114
 msgid "Horizontal"
@@ -784,10 +756,8 @@ msgid "Selected '%s'"
 msgstr "Dipilih '%s'"
 
 #: app/display.c:1229
-#, fuzzy
-#| msgid "Save Diagram"
 msgid "Unsaved Diagram"
-msgstr "Simpan Diagram"
+msgstr "Diagram Belum Tersimpan"
 
 #: app/exit_dialog.c:202
 msgid "If you don’t save, all your changes will be permanently lost."
@@ -795,22 +765,16 @@ msgstr ""
 "Jika tidak disimpan, seluruh perubahan yang Anda buat akan hilang selamanya."
 
 #: app/exit_dialog.c:205
-#, fuzzy
-#| msgid "Closing diagram without saving"
 msgid "Close _without Saving"
-msgstr "Menutup diagram tanpa menyimpan"
+msgstr "_Tutup tanpa Menyimpan"
 
 #: app/exit_dialog.c:221 app/filedlg.c:501 app/filedlg.c:823 app/menus.c:111
-#, fuzzy
-#| msgid "Save"
 msgid "_Save"
-msgstr "Simpan sebagai"
+msgstr "_Simpan"
 
 #: app/exit_dialog.c:284
-#, fuzzy
-#| msgid "Save the diagram with a new name"
 msgid "S_elect the diagrams you want to save:"
-msgstr "Simpan diagram dengan nama baru"
+msgstr "P_ilih diagram yang ingin Anda simpan:"
 
 #: app/exit_dialog.c:361
 #, c-format
@@ -838,8 +802,6 @@ msgid "Open Diagram"
 msgstr "Buka Diagram"
 
 #: app/filedlg.c:315 lib/widgets.c:395
-#, fuzzy
-#| msgid "_Open…"
 msgid "_Open"
 msgstr "Buk_a"
 
@@ -856,10 +818,8 @@ msgid "All Files"
 msgstr "Semua Berkas"
 
 #: app/filedlg.c:417
-#, fuzzy
-#| msgid "Save as"
 msgid "Save As"
-msgstr "Simpan sebagai"
+msgstr "Simpan Sebagai"
 
 #: app/filedlg.c:497
 msgid "Save Diagram"
@@ -928,8 +888,6 @@ msgid "Find"
 msgstr "Cari"
 
 #: app/find-and-replace.c:552 app/find-and-replace.c:591
-#, fuzzy
-#| msgid "Find"
 msgid "_Find"
 msgstr "C_ari"
 
@@ -947,16 +905,15 @@ msgstr "_Ganti"
 
 #. Translators: Current zoom level
 #: app/interface.c:259
-#, fuzzy, c-format
+#, c-format
 msgid "%f%%"
-msgstr "F#"
+msgstr "%f%%"
 
 #: app/interface.c:640
 msgid "Pops up the Navigation window."
 msgstr "Munculkan jendela Navigasi."
 
 #: app/interface.c:689
-#, fuzzy
 msgid "Close"
 msgstr "Tutup"
 
@@ -977,10 +934,8 @@ msgid "Toggles object snapping for this window."
 msgstr "Jungkitkan pelengketan objek untuk jendela ini."
 
 #: app/interface.c:930
-#, fuzzy
-#| msgid "Toggles snap-to-grid for this window."
 msgid "Toggles snap-to-guides for this window."
-msgstr "Jungkitkan lengket-ke-kisi untuk jendela ini."
+msgstr "Jungkitkan lengket-ke-pemandu untuk jendela ini."
 
 #: app/layer-editor/dia-layer-editor.c:171
 #: app/layer-editor/dia-layer-properties.c:313
@@ -1027,10 +982,8 @@ msgid "Add Layer"
 msgstr "Tambah Lapisan"
 
 #: app/layer-editor/layer_dialog.c:72
-#, fuzzy
-#| msgid "Close Diagram"
 msgid "Close Layer pane"
-msgstr "Tutup Diagram"
+msgstr "Tutup panel Lapisan"
 
 #: app/load_save.c:275
 msgid ""
@@ -1167,7 +1120,6 @@ msgid "_File"
 msgstr "_Berkas"
 
 #: app/menus.c:84 data/ui/sheets-main-dialog.ui:265
-#, fuzzy
 msgid "_New"
 msgstr "_Baru"
 
@@ -1192,27 +1144,22 @@ msgid "Dia help"
 msgstr "Bantuan Dia"
 
 #: app/menus.c:89
-#, fuzzy
 msgid "_About"
-msgstr "_Tentang"
+msgstr "Tent_ang"
 
 #: app/menus.c:89
 msgid "Dia version, authors, license"
 msgstr "Versi, penulis, lisensi Dia"
 
 #: app/menus.c:95
-#, fuzzy
-#| msgid "Sheets and Objects…"
 msgid "S_heets and Objects"
-msgstr "Lembar dan Objek…"
+msgstr "_Lembar dan Objek"
 
 #: app/menus.c:95
 msgid "Manage sheets and their objects"
 msgstr "Kelola lembar dan objek-objek mereka"
 
 #: app/menus.c:96
-#, fuzzy
-#| msgid "Preferences"
 msgid "P_references"
 msgstr "P_referensi"
 
@@ -1221,18 +1168,15 @@ msgid "Dia preferences"
 msgstr "Preferensi Dia"
 
 #: app/menus.c:97
-#, fuzzy
 #| msgid "Plugins…"
 msgid "P_lugins…"
-msgstr "P_lugin"
+msgstr "_Pengaya…"
 
 #: app/menus.c:97
 msgid "Manage plug-ins"
 msgstr "Kelola plug-in"
 
 #: app/menus.c:98
-#, fuzzy
-#| msgid "Diagram Tree"
 msgid "Diagram _Tree"
 msgstr "Pohon _Diagram"
 
@@ -1241,30 +1185,24 @@ msgid "Tree representation of diagrams"
 msgstr "Representasi pohon dari diagram"
 
 #: app/menus.c:103
-#, fuzzy
-#| msgid "Show Toolbar"
 msgid "Show _Toolbar"
-msgstr "Tampilkan bilah alat"
+msgstr "_Tampilkan Bilah Alat"
 
 #: app/menus.c:103 app/menus.c:263
 msgid "Show or hide the toolbar"
 msgstr "Tampilkan atau sembunyikan bilah alat"
 
 #: app/menus.c:104
-#, fuzzy
-#| msgid "Show Statusbar"
 msgid "Show _Statusbar"
-msgstr "Tampilkan bilah status"
+msgstr "Tampilkan Bilah _Status"
 
 #: app/menus.c:104
 msgid "Show or hide the statusbar"
 msgstr "Tampilkan atau sembunyikan bilah status"
 
 #: app/menus.c:105
-#, fuzzy
-#| msgid "Show Layers"
 msgid "Show _Layers"
-msgstr "Tampilkan Lapisan"
+msgstr "Tampilkan _Lapisan"
 
 #: app/menus.c:105
 msgid "Show or hide the layers toolwindow"
@@ -1323,8 +1261,6 @@ msgid "_Edit"
 msgstr "_Sunting"
 
 #: app/menus.c:120
-#, fuzzy
-#| msgid "Undo"
 msgid "_Undo"
 msgstr "Tak _Jadi"
 
@@ -1333,18 +1269,14 @@ msgid "Undo"
 msgstr "Tak jadi"
 
 #: app/menus.c:121
-#, fuzzy
-#| msgid "Redo"
 msgid "_Redo"
-msgstr "_Ulangi"
+msgstr "Jadi _Lagi"
 
 #: app/menus.c:121
 msgid "Redo"
 msgstr "Jadi lagi"
 
 #: app/menus.c:123
-#, fuzzy
-#| msgid "Copy ->"
 msgid "_Copy"
 msgstr "Sa_lin"
 
@@ -1353,7 +1285,6 @@ msgid "Copy selection"
 msgstr "Salin pilihan"
 
 #: app/menus.c:124
-#, fuzzy
 msgid "Cu_t"
 msgstr "Po_tong"
 
@@ -1362,8 +1293,6 @@ msgid "Cut selection"
 msgstr "Potong pilihan"
 
 #: app/menus.c:125
-#, fuzzy
-#| msgid "Fasten"
 msgid "_Paste"
 msgstr "Tem_pel"
 
@@ -1380,10 +1309,8 @@ msgid "Duplicate selection"
 msgstr "Duplikatkan pilihan"
 
 #: app/menus.c:127
-#, fuzzy
-#| msgid "Delete Port"
 msgid "D_elete"
-msgstr "Hapus Port"
+msgstr "_Hapus"
 
 #: app/menus.c:127
 msgid "Delete selection"
@@ -1408,28 +1335,22 @@ msgstr "Cari dan ganti teks"
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control><alt> doesn't work either
 #: app/menus.c:134
-#, fuzzy
-#| msgid "Copy Text"
 msgid "C_opy Text"
-msgstr "Salin Teks"
+msgstr "_Salin Teks"
 
 #: app/menus.c:134
 msgid "Copy object's text to clipboard"
 msgstr "Salin teks milik objek ke papan klip"
 
 #: app/menus.c:135
-#, fuzzy
-#| msgid "Cut Text"
 msgid "C_ut Text"
-msgstr "Potong Teks"
+msgstr "P_otong Teks"
 
 #: app/menus.c:135
 msgid "Cut object's text to clipboard"
 msgstr "Potong teks milik objek ke papan klip"
 
 #: app/menus.c:136
-#, fuzzy
-#| msgid "Paste _Text"
 msgid "P_aste Text"
 msgstr "Tempel _Teks"
 
@@ -1450,28 +1371,20 @@ msgid "_Layers"
 msgstr "_Lapisan"
 
 #: app/menus.c:141
-#, fuzzy
-#| msgid "Add Layer…"
 msgid "_Add Layer…"
-msgstr "Tambah Lapisan..."
+msgstr "Tambah L_apisan…"
 
 #: app/menus.c:142
-#, fuzzy
-#| msgid "Rename Layer…"
 msgid "_Rename Layer…"
-msgstr "Ubah Nama Lapisan..."
+msgstr "Ubah _Nama Lapisan…"
 
 #: app/menus.c:143
-#, fuzzy
-#| msgid "Move Selection to Layer above"
 msgid "_Move Selection to Layer above"
-msgstr "Pindahkan Pilihan ke Lapisan di atas"
+msgstr "Pi_ndahkan Pilihan ke Lapisan di atas"
 
 #: app/menus.c:144
-#, fuzzy
-#| msgid "Move Selection to Layer below"
 msgid "Move _Selection to Layer below"
-msgstr "Pindahkan Pilihan ke Lapisan di bawah"
+msgstr "Pindahkan Pilihan ke Lapi_san di bawah"
 
 #: app/menus.c:145
 msgid "_Layers…"
@@ -1482,8 +1395,6 @@ msgid "_View"
 msgstr "_Lihat"
 
 #: app/menus.c:148
-#, fuzzy
-#| msgid "Zoom in"
 msgid "Zoom _In"
 msgstr "Per_besar"
 
@@ -1492,8 +1403,6 @@ msgid "Zoom in"
 msgstr "Perbesar"
 
 #: app/menus.c:149
-#, fuzzy
-#| msgid "Zoom out"
 msgid "Zoom _Out"
 msgstr "Per_kecil"
 
@@ -1530,8 +1439,6 @@ msgid "141"
 msgstr "141"
 
 #: app/menus.c:157
-#, fuzzy
-#| msgid "Normalize"
 msgid "_Normal Size"
 msgstr "Ukuran _Normal"
 
@@ -1557,7 +1464,6 @@ msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
 #: app/menus.c:164
-#, fuzzy
 msgid "Best _Fit"
 msgstr "Pas _Ukuran"
 
@@ -1575,20 +1481,16 @@ msgid "C_lone View"
 msgstr "Tilikan K_lon"
 
 #: app/menus.c:170
-#, fuzzy
 msgid "_Refresh"
 msgstr "Sega_rkan"
 
 #: app/menus.c:172
-#, fuzzy
-#| msgid "Guide"
 msgid "_Guides"
 msgstr "_Panduan"
 
 #: app/menus.c:173
-#, fuzzy
 msgid "_New Guide..."
-msgstr "Panduan _New..."
+msgstr "Pa_nduan Baru..."
 
 #: app/menus.c:175
 msgid "_Objects"
@@ -1611,16 +1513,12 @@ msgid "Move selection to the top"
 msgstr "Pindahkan pilihan ke puncak"
 
 #: app/menus.c:178
-#, fuzzy
-#| msgid "Send Backwards"
 msgid "Send Ba_ckwards"
-msgstr "Kirim Mundur"
+msgstr "Kirim _Mundur"
 
 #: app/menus.c:179
-#, fuzzy
-#| msgid "Bring Forwards"
 msgid "Bring F_orwards"
-msgstr "Bawa Maju"
+msgstr "Bawa M_aju"
 
 #: app/menus.c:181
 msgid "_Group"
@@ -1652,18 +1550,14 @@ msgid "_Unparent Children"
 msgstr "Anak _Tak-berinduk"
 
 #: app/menus.c:189
-#, fuzzy
-#| msgid "Align"
 msgid "_Align"
-msgstr "R_ataan"
+msgstr "R_atakan"
 
 #: app/menus.c:190
 msgid "_Left"
 msgstr "K_iri"
 
 #: app/menus.c:191
-#, fuzzy
-#| msgid "Center"
 msgid "_Center"
 msgstr "_Tengah"
 
@@ -1672,51 +1566,36 @@ msgid "_Right"
 msgstr "K_anan"
 
 #: app/menus.c:194
-#, fuzzy
 msgid "_Top"
 msgstr "_Puncak"
 
 #: app/menus.c:195
-#, fuzzy
-#| msgid "Middle"
 msgid "_Middle"
-msgstr "_Tengah:"
+msgstr "_Tengah"
 
 #: app/menus.c:196
-#, fuzzy
-#| msgid "Bottom"
 msgid "_Bottom"
 msgstr "_Bawah"
 
 #: app/menus.c:198
-#, fuzzy
-#| msgid "Spread Out Horizontally"
 msgid "Spread Out _Horizontally"
-msgstr "Sebar Mendatar"
+msgstr "Sebar _Mendatar"
 
 #: app/menus.c:199
-#, fuzzy
-#| msgid "Spread Out Vertically"
 msgid "Spread Out _Vertically"
-msgstr "Sebar Tegak"
+msgstr "Sebar _Tegak"
 
 #: app/menus.c:200
-#, fuzzy
-#| msgid "Adjacent"
 msgid "_Adjacent"
-msgstr "Bersebelahan"
+msgstr "Bersebel_ahan"
 
 #: app/menus.c:201
-#, fuzzy
-#| msgid "Stacked"
 msgid "_Stacked"
-msgstr "Ditumpuk"
+msgstr "_Ditumpuk"
 
 #: app/menus.c:202 app/menus.c:212
-#, fuzzy
-#| msgid "Connected"
 msgid "_Connected"
-msgstr "terhubung"
+msgstr "Ter_hubung"
 
 #: app/menus.c:204
 msgid "_Properties"
@@ -1735,29 +1614,21 @@ msgid "_None"
 msgstr "_Nihil"
 
 #: app/menus.c:209
-#, fuzzy
-#| msgid "Invert"
 msgid "_Invert"
 msgstr "Bal_ikkan"
 
 #: app/menus.c:211
-#, fuzzy
-#| msgid "Transitive"
 msgid "_Transitive"
-msgstr "Transitif"
+msgstr "_Transitif"
 
 #: app/menus.c:213
-#, fuzzy
-#| msgid "Same Type"
 msgid "Same _Type"
-msgstr "Sama Tipe"
+msgstr "_Tipe yang Sama"
 
 #. display_select_radio_entries go here
 #: app/menus.c:217
-#, fuzzy
-#| msgid "Select By"
 msgid "_Select By"
-msgstr "_Pilih..."
+msgstr "_Pilih Menurut"
 
 #. For placment of the toplevel Layout menu and it's accelerator
 #: app/menus.c:220
@@ -1781,89 +1652,66 @@ msgid "_Modify"
 msgstr "_Ubah"
 
 #: app/menus.c:232
-#, fuzzy
-#| msgid "Magnify"
 msgid "_Magnify"
-msgstr "Pembesaran:"
+msgstr "_Perbesar"
 
 #: app/menus.c:233
-#, fuzzy
-#| msgid "Edit Text"
 msgid "_Edit Text"
-msgstr "Sunting Teks"
+msgstr "Sunting T_eks"
 
 #: app/menus.c:234
-#, fuzzy
-#| msgid "Scroll"
 msgid "_Scroll"
-msgstr "Gulung"
+msgstr "_Gulung"
 
 #: app/menus.c:235
 msgid "_Text"
 msgstr "_Text"
 
 #: app/menus.c:236
-#, fuzzy
 msgid "_Box"
-msgstr "Kotak:"
+msgstr "_Kotak"
 
 #: app/menus.c:237
 msgid "_Ellipse"
 msgstr "_Elips"
 
 #: app/menus.c:238
-#, fuzzy
-#| msgid "Polygon"
 msgid "_Polygon"
-msgstr "Poligon"
+msgstr "_Poligon"
 
 #: app/menus.c:239
-#, fuzzy
-#| msgid "Beziergon"
 msgid "_Beziergon"
-msgstr "Beziergon"
+msgstr "_Beziergon"
 
 #: app/menus.c:241
-#, fuzzy
-#| msgid "Line"
 msgid "_Line"
-msgstr "Garis"
+msgstr "_Garis"
 
 #: app/menus.c:242
-#, fuzzy
 msgid "_Arc"
-msgstr "Arc"
+msgstr "_Lengkung"
 
 #: app/menus.c:243
-#, fuzzy
-#| msgid "Zigzagline"
 msgid "_Zigzagline"
-msgstr "Garis zigzag"
+msgstr "Garis _Zigzag"
 
 #: app/menus.c:244
-#, fuzzy
-#| msgid "Polyline"
 msgid "_Polyline"
-msgstr "Polyline"
+msgstr "_Polyline"
 
 #: app/menus.c:245
-#, fuzzy
-#| msgid "Bezierline"
 msgid "_Bezierline"
-msgstr "Garis bezier"
+msgstr "Garis _Bezier"
 
 #: app/menus.c:246
-#, fuzzy
-#| msgid "Outline"
 msgid "_Outline"
-msgstr "Garis Besar"
+msgstr "_Kerangka"
 
 #: app/menus.c:248
 msgid "_Image"
 msgstr "C_itra"
 
 #: app/menus.c:254
-#, fuzzy
 msgid "_Fullscreen"
 msgstr "Layar _Penuh"
 
@@ -1880,21 +1728,16 @@ msgid "_Snap to Grid"
 msgstr "Lengket ke Ki_si"
 
 #: app/menus.c:258
-#, fuzzy
-#| msgid "Show _Grid"
 msgid "_Show Guides"
-msgstr "Tampilkan _Grid"
+msgstr "Tampilkan _Pemandu"
 
 #: app/menus.c:259
-#, fuzzy
-#| msgid "_Snap to Grid"
 msgid "Snap to _Guides"
-msgstr "Lengket ke Ki_si"
+msgstr "Lengket ke P_emandu"
 
 #: app/menus.c:260
-#, fuzzy
 msgid "_Remove all Guides"
-msgstr "_Remove Semua Guides"
+msgstr "_Hapus semua Pemandu"
 
 #: app/menus.c:261
 msgid "Snap to _Objects"
@@ -1905,39 +1748,29 @@ msgid "Show _Rulers"
 msgstr "Tampilkan _Penggaris"
 
 #: app/menus.c:263
-#, fuzzy
-#| msgid "Show Scrollbars"
 msgid "Show Scroll_bars"
-msgstr "Tampilkan Bilah Gulir"
+msgstr "Tampilkan _Bilah Gulir"
 
 #: app/menus.c:264
 msgid "Show _Connection Points"
 msgstr "Tampilkan _Titik Koneksi"
 
 #: app/menus.c:271
-#, fuzzy
-#| msgid "Union"
 msgid "_Union"
-msgstr "Union"
+msgstr "_Union"
 
 #: app/menus.c:272
-#, fuzzy
-#| msgid "Intersection"
 msgid "I_ntersection"
-msgstr "Perpotongan"
+msgstr "Perpoto_ngan"
 
 #: app/menus.c:273
-#, fuzzy
-#| msgid "Remove"
 msgid "R_emove"
-msgstr "Hapus"
+msgstr "_Hapus"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: app/menus.c:275
-#, fuzzy
-#| msgid "Inverse"
 msgid "In_verse"
-msgstr "Kebalikan"
+msgstr "Kebal_ikan"
 
 #: app/menus.c:333
 msgid "NULL tooldata in tool_menu_select"
@@ -1988,10 +1821,8 @@ msgid "Toggles object snapping."
 msgstr "Jungkitkan pelengketan objek."
 
 #: app/menus.c:767
-#, fuzzy
-#| msgid "Toggles object snapping."
 msgid "Toggles guide snapping."
-msgstr "Jungkitkan pelengketan objek."
+msgstr "Jungkitkan pelengketan pemandu."
 
 #: app/menus.c:1352
 msgid "The function is not available anymore."
@@ -2055,7 +1886,6 @@ msgid "System"
 msgstr "Sistem"
 
 #: app/sheet-editor/sheets.c:191
-#, fuzzy
 msgid "User"
 msgstr "Pengguna"
 
@@ -2323,16 +2153,12 @@ msgid "UML"
 msgstr "UML"
 
 #: app/toolbox.c:660
-#, fuzzy
-#| msgid "All Files"
 msgid "All Sheets"
-msgstr "Semua lembar"
+msgstr "Semua Lembar"
 
 #: app/toolbox.c:675 lib/diacolorselector.c:390 lib/diafontselector.c:483
-#, fuzzy
-#| msgid "Reset menu"
 msgid "Reset Menu"
-msgstr "Kembalikan menu"
+msgstr "Reset Menu"
 
 #: app/toolbox.c:798
 msgid ""
@@ -2381,22 +2207,18 @@ msgid "Dia"
 msgstr "Dia"
 
 #: data/org.gnome.Dia.appdata.xml.in:8
-#, fuzzy
-#| msgid "A program for drawing structured diagrams."
 msgid "Dia is a program for drawing diagrams"
-msgstr "Suatu program untuk menggambar diagram yang terstruktur."
+msgstr "Dia adalah program untuk menggambar diagram"
 
 #: data/org.gnome.Dia.appdata.xml.in:10
-#, fuzzy
 msgid ""
 "Dia is a GTK+ based diagram creation program for GNU/Linux, MacOS X, Unix, "
 "and Windows, and is released under the GPL license."
 msgstr ""
-"Dia adalah program pembuatan diagram GTK + berbasis untuk GNU/Linux, MacOS "
-"X, Unix, dan Windows, dan dirilis di bawah lisensi GPL."
+"Dia adalah program pembuatan diagram berbasis GTK+ untuk GNU/Linux, MacOS X, "
+"Unix, dan Windows, dan dirilis di bawah lisensi GPL."
 
 #: data/org.gnome.Dia.appdata.xml.in:12
-#, fuzzy
 msgid ""
 "Dia is roughly inspired by the commercial Windows program 'Visio,' though "
 "more geared towards informal diagrams for casual use. It can be used to draw "
@@ -2406,35 +2228,31 @@ msgid ""
 "new shapes by writing simple XML files, using a subset of SVG to draw the "
 "shape."
 msgstr ""
-"Dia adalah kasar terinspirasi oleh program Windows komersial ' Visio, ' "
+"Dia secara kasar terinspirasi oleh program Windows komersial 'Visio', "
 "meskipun lebih diarahkan diagram informal untuk penggunaan kasual. Hal ini "
-"dapat digunakan untuk menarik berbagai jenis diagram. Saat ini memiliki "
-"benda khusus untuk membantu menggambar diagram hubungan entitas, diagram "
-"UML, Bagan alur, diagram jaringan, dan banyak diagram lainnya. Hal ini juga "
+"dapat digunakan untuk menggambar berbagai jenis diagram. Saat ini memiliki "
+"objek khusus untuk membantu menggambar diagram hubungan entitas, diagram "
+"UML, bagan alur, diagram jaringan, dan banyak diagram lainnya. Hal ini juga "
 "memungkinkan untuk menambahkan dukungan untuk bentuk baru dengan menulis "
-"file XML sederhana, menggunakan subset dari SVG untuk menggambar bentuk."
+"berkas XML sederhana, menggunakan subset dari SVG untuk menggambar bentuk."
 
 #: data/org.gnome.Dia.appdata.xml.in:14
-#, fuzzy
 msgid ""
 "It can load and save diagrams to a custom XML format (gzipped by default, to "
 "save space), can export diagrams to a number of formats, including EPS, SVG, "
 "XFIG, WMF and PNG, and can print diagrams (including ones that span multiple "
 "pages)."
 msgstr ""
-"Hal ini dapat memuat dan menyimpan diagram ke format XML kustom (gzip secara "
+"Ini dapat memuat dan menyimpan diagram ke format XML ubahan (gzip secara "
 "default, untuk menghemat ruang), dapat mengekspor diagram ke sejumlah "
-"format, termasuk EPS, SVG, XFIG, WMF dan PNG, dan dapat mencetak diagram "
-"(termasuk yang span beberapa halaman)."
+"format, termasuk EPS, SVG, XFIG, WMF, dan PNG, dan dapat mencetak diagram "
+"(termasuk yang meliputi beberapa halaman)."
 
 #: data/org.gnome.Dia.appdata.xml.in:19
-#, fuzzy
-#| msgid "Domain Kind"
 msgid "Main Window"
-msgstr "Jendela utama"
+msgstr "Jendela Utama"
 
 #: data/org.gnome.Dia.appdata.xml.in:44
-#, fuzzy
 msgid "The GNOME Project"
 msgstr "Projek GNOME"
 
@@ -2447,10 +2265,8 @@ msgid "Edit your Diagrams"
 msgstr "Edit Diagram Anda"
 
 #: data/ui/preferences-dialog.ui:153
-#, fuzzy
-#| msgid "Reset tools after create"
 msgid "_Reset tools after create"
-msgstr "Reset perkakas setelah membuat"
+msgstr "_Reset perkakas setelah membuat"
 
 #: data/ui/preferences-dialog.ui:168
 #, fuzzy
@@ -2474,10 +2290,8 @@ msgid "U_ndo Levels"
 msgstr "Ti_ngkat Tak Jadi"
 
 #: data/ui/preferences-dialog.ui:262
-#, fuzzy
-#| msgid "Length unit:"
 msgid "_Length Unit"
-msgstr "Unit panjang:"
+msgstr "Unit _Panjang"
 
 #: data/ui/preferences-dialog.ui:277
 #, fuzzy
@@ -2491,16 +2305,12 @@ msgid "Grid _snapping distance"
 msgstr "Panduan gertakan jarak:"
 
 #: data/ui/preferences-dialog.ui:330
-#, fuzzy
-#| msgid "Class scope"
 msgid "Classic Mode"
-msgstr "Lingkup kelas"
+msgstr "Mode Klasik"
 
 #: data/ui/preferences-dialog.ui:344
-#, fuzzy
-#| msgid "Use menu bar"
 msgid "Use _Menu Bar"
-msgstr "Gunakan bar menu"
+msgstr "Gunakan Bilah _Menu"
 
 #: data/ui/preferences-dialog.ui:361
 #, fuzzy
@@ -2509,28 +2319,20 @@ msgid "Keep _toolbox above diagram"
 msgstr "Pasang kotak perkakas tetap diatas jendela diagram"
 
 #: data/ui/preferences-dialog.ui:434
-#, fuzzy
-#| msgid "User Interface"
 msgid "_User Interface"
-msgstr "Antarmuka Pengguna"
+msgstr "Antarm_uka Pengguna"
 
 #: data/ui/preferences-dialog.ui:456
-#, fuzzy
-#| msgid "Portrait"
 msgid "_Portrait"
-msgstr "Potret"
+msgstr "_Potret"
 
 #: data/ui/preferences-dialog.ui:474
-#, fuzzy
-#| msgid "Paper type:"
 msgid "Paper _Type"
-msgstr "Tipe kertas:"
+msgstr "_Tipe Kertas"
 
 #: data/ui/preferences-dialog.ui:489
-#, fuzzy
-#| msgid "Background Color"
 msgid "_Background Color"
-msgstr "Warna Latar"
+msgstr "Warna _Latar"
 
 #: data/ui/preferences-dialog.ui:501
 #, fuzzy
@@ -2539,148 +2341,109 @@ msgid "_Compress saved files"
 msgstr "Padatkan berkas yang disimpan"
 
 #: data/ui/preferences-dialog.ui:522
-#, fuzzy
-#| msgid "Connection Points:"
 msgid "Connection Points"
-msgstr "Titik Sambungan:"
+msgstr "Titik Sambungan"
 
 #: data/ui/preferences-dialog.ui:536 data/ui/preferences-dialog.ui:792
 #: data/ui/preferences-dialog.ui:1457
-#, fuzzy
-#| msgid "Visible"
 msgid "V_isible"
-msgstr "Terlihat"
+msgstr "Terl_ihat"
 
 #: data/ui/preferences-dialog.ui:553
-#, fuzzy
-#| msgid "Snap to _Objects"
 msgid "_Snap to Object"
 msgstr "Lengket ke _Objek"
 
 #: data/ui/preferences-dialog.ui:622
-#, fuzzy
-#| msgid "Diagram Defaults"
 msgid "_Diagram Defaults"
-msgstr "Diagram Default"
+msgstr "Baku _Diagram"
 
 #: data/ui/preferences-dialog.ui:648
-#, fuzzy
-#| msgid "Width"
 msgid "_Width"
-msgstr "Lebar"
+msgstr "_Lebar"
 
 #: data/ui/preferences-dialog.ui:658
-#, fuzzy
-#| msgid "Height:"
 msgid "_Height"
-msgstr "Tinggi:"
+msgstr "_Tinggi"
 
 #: data/ui/preferences-dialog.ui:687 data/ui/properties-dialog.ui:359
 msgid "Page Breaks"
 msgstr "Putus Halaman"
 
 #: data/ui/preferences-dialog.ui:703
-#, fuzzy
-#| msgid "Color"
 msgid "C_olor"
-msgstr "Warna"
+msgstr "W_arna"
 
 #: data/ui/preferences-dialog.ui:717 data/ui/properties-dialog.ui:372
-#, fuzzy
-#| msgid "Guide"
 msgid "Guides"
-msgstr "Panduan"
+msgstr "Pemandu"
 
 #: data/ui/preferences-dialog.ui:733
 msgid "Co_lor"
 msgstr "_Warna"
 
 #: data/ui/preferences-dialog.ui:744
-#, fuzzy
-#| msgid "_Snap to Grid"
 msgid "Snap to Guid_es"
-msgstr "Lengket ke Ki_si"
+msgstr "Lengket ke P_emandu"
 
 #: data/ui/preferences-dialog.ui:760
-#, fuzzy
-#| msgid "Visible"
 msgid "Visi_ble"
-msgstr "Terlihat"
+msgstr "_Terlihat"
 
 #: data/ui/preferences-dialog.ui:776
-#, fuzzy
-#| msgid "Solid lines"
 msgid "_Solid Lines"
-msgstr "Garis solid"
+msgstr "Gari_s Penuh"
 
 #: data/ui/preferences-dialog.ui:933
-#, fuzzy
-#| msgid "View Defaults"
 msgid "_View Defaults"
-msgstr "Lihat Default"
+msgstr "Baku _Tilikan"
 
 #: data/ui/preferences-dialog.ui:960
-#, fuzzy
-#| msgid "Provide"
 msgid "Export Providers"
-msgstr "Menyediakan"
+msgstr "Penyedia Ekspor"
 
 #: data/ui/preferences-dialog.ui:974
-#, fuzzy
 #| msgid "Portable Network Graphics"
 msgid "Portable _Network Graphics"
-msgstr "Portable Network Graphics"
+msgstr "Portable _Network Graphics"
 
 #: data/ui/preferences-dialog.ui:988
-#, fuzzy
 #| msgid "Scalable Vector Graphics"
 msgid "_Scalable Vector Graphics"
-msgstr "Scalable Vector Graphics"
+msgstr "_Scalable Vector Graphics"
 
 #: data/ui/preferences-dialog.ui:1002
-#| msgid "PostScript"
 msgid "_PostScript"
 msgstr "_PostScript"
 
 #: data/ui/preferences-dialog.ui:1016
-#, fuzzy
 #| msgid "Windows Metafile"
 msgid "_Windows Metafile"
-msgstr "Windows Metafile"
+msgstr "_Windows Metafile"
 
 #: data/ui/preferences-dialog.ui:1031
-#, fuzzy
 #| msgid "Enhanced Metafile"
 msgid "_Enhanced Metafile"
-msgstr "Enhanced Metafile"
+msgstr "_Enhanced Metafile"
 
 #: data/ui/preferences-dialog.ui:1166
-#, fuzzy
-#| msgid "Favorites"
 msgid "_Favorites"
-msgstr "Favorit"
+msgstr "_Favorit"
 
 #: data/ui/preferences-dialog.ui:1189
-#, fuzzy
-#| msgid "Dynamic grid"
 msgid "D_ynamic Grid"
-msgstr "Kisi dinamik"
+msgstr "Kisi D_inamik"
 
 #: data/ui/preferences-dialog.ui:1208 data/ui/properties-dialog.ui:68
-#, fuzzy
-#| msgid "Manual input"
 msgid "_Manual Grid"
-msgstr "Input manual"
+msgstr "Kisi _Manual"
 
 #: data/ui/preferences-dialog.ui:1245 data/ui/properties-dialog.ui:105
 msgid "Spacing"
 msgstr "Spasi"
 
 #: data/ui/preferences-dialog.ui:1258 data/ui/properties-dialog.ui:118
-#, fuzzy
-#| msgid "Visible spacing"
 msgid "Visible Spacing"
-msgstr "Spasi tampak"
+msgstr "Spasi Tampak"
 
 #: data/ui/preferences-dialog.ui:1286 data/ui/properties-dialog.ui:146
 msgid "Column"
@@ -2691,16 +2454,12 @@ msgid "Row"
 msgstr "Baris"
 
 #: data/ui/preferences-dialog.ui:1398 data/ui/properties-dialog.ui:254
-#, fuzzy
-#| msgid "Hex grid"
 msgid "_Hex Grid"
-msgstr "Kisi heksa"
+msgstr "Kisi _Heksa"
 
 #: data/ui/preferences-dialog.ui:1444
-#, fuzzy
-#| msgid "Hex grid size"
 msgid "H_ex Grid Size"
-msgstr "Ukuran kisi heksa"
+msgstr "Ukuran Kisi H_eksa"
 
 #: data/ui/preferences-dialog.ui:1490
 msgid "_Color"
@@ -2713,22 +2472,16 @@ msgid "_Lines per Major Line"
 msgstr "Garis per garis utama"
 
 #: data/ui/preferences-dialog.ui:1581
-#, fuzzy
-#| msgid "Grid Lines"
 msgid "_Grid Lines"
-msgstr "Garis Kisi"
+msgstr "_Garis Kisi"
 
 #: data/ui/properties-dialog.ui:50
-#, fuzzy
-#| msgid "Dynamic grid"
 msgid "_Dynamic Grid"
-msgstr "Kisi dinamik"
+msgstr "Kisi &Dinamik"
 
 #: data/ui/properties-dialog.ui:300
-#, fuzzy
-#| msgid "Hex grid size"
 msgid "Hex Grid Size"
-msgstr "Ukuran kisi heksa"
+msgstr "Ukuran Kisi Heksa"
 
 #: data/ui/properties-dialog.ui:315
 msgid "Grid"
@@ -2747,15 +2500,11 @@ msgid "Colors"
 msgstr "Warna"
 
 #: data/ui/sheets-edit-dialog.ui:6
-#, fuzzy
-#| msgid "Attributes"
 msgid "Edit Attributes"
 msgstr "Sunting Atribut"
 
 #: data/ui/sheets-edit-dialog.ui:97 data/ui/sheets-edit-dialog.ui:285
 #: data/ui/sheets-new-dialog.ui:125 data/ui/sheets-new-dialog.ui:260
-#, fuzzy
-#| msgid "Description"
 msgid "Description:"
 msgstr "Deskripsi:"
 
@@ -2770,8 +2519,6 @@ msgid "Type:"
 msgstr "Tipe:"
 
 #: data/ui/sheets-edit-dialog.ui:208 data/ui/sheets-remove-dialog.ui:91
-#, fuzzy
-#| msgid "Data Object"
 msgid "DiaObject"
 msgstr "DiaObject"
 
@@ -2786,55 +2533,40 @@ msgid "Name:"
 msgstr "Nama:"
 
 #: data/ui/sheets-edit-dialog.ui:355 data/ui/sheets-remove-dialog.ui:113
-#, fuzzy
 msgid "Sheet"
 msgstr "Lembaran"
 
 #: data/ui/sheets-main-dialog.ui:4
-#, fuzzy
-#| msgid "Sheets and Objects…"
 msgid "Sheets and Objects"
-msgstr "Lembar dan Objek..."
+msgstr "Lembar dan Objek"
 
 #: data/ui/sheets-main-dialog.ui:44
-#, fuzzy
 msgid "_Up"
 msgstr "_Naik"
 
 #: data/ui/sheets-main-dialog.ui:61
-#, fuzzy
 msgid "_Down"
 msgstr "_Turun"
 
 #: data/ui/sheets-main-dialog.ui:78
-#, fuzzy
-#| msgid "Remove"
 msgid "_Remove"
 msgstr "_Hapus"
 
 #: data/ui/sheets-main-dialog.ui:94
-#, fuzzy
-#| msgid "<- Copy"
 msgid "<- C_opy"
-msgstr "S_alin"
+msgstr "<- S_alin"
 
 #: data/ui/sheets-main-dialog.ui:110
-#, fuzzy
-#| msgid "<- Copy All"
 msgid "<- Copy _All"
-msgstr "Salin Semua ->"
+msgstr "<- S_alin Semua"
 
 #: data/ui/sheets-main-dialog.ui:125
-#, fuzzy
-#| msgid "<- Move"
 msgid "<- _Move"
-msgstr "Pindah ke…"
+msgstr "<- Pi_ndah"
 
 #: data/ui/sheets-main-dialog.ui:141
-#, fuzzy
-#| msgid "<- Move All"
 msgid "<- Move A_ll"
-msgstr "<- Pindah Semua"
+msgstr "<- Pindah Se_mua"
 
 #: data/ui/sheets-main-dialog.ui:298
 #, fuzzy
@@ -2847,16 +2579,12 @@ msgid "New"
 msgstr "Baru"
 
 #: data/ui/sheets-new-dialog.ui:91
-#, fuzzy
-#| msgid "SVG Shape"
 msgid "SVG Shape:"
-msgstr "Bentuk SVG"
+msgstr "Bentuk SVG:"
 
 #: data/ui/sheets-new-dialog.ui:150
-#, fuzzy
-#| msgid "Step name"
 msgid "Sheet name:"
-msgstr "Tampilkan Nama Lembaran dalam Daftar Undo"
+msgstr "Nama lembaran:"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
@@ -3069,10 +2797,8 @@ msgid "Select color"
 msgstr "Pilih warna"
 
 #: lib/diacolorselector.c:382
-#, fuzzy
-#| msgid "More colors…"
 msgid "More Colors…"
-msgstr "Lebih banya warna…"
+msgstr "Lebih banyak warna…"
 
 #: lib/diafontselector.c:180
 #, c-format
@@ -3080,10 +2806,8 @@ msgid "Couldn't find font family for %s\n"
 msgstr "Tidak bisa menemukan keluarga fonta untuk %s\n"
 
 #: lib/diafontselector.c:477
-#, fuzzy
-#| msgid "Other fonts"
 msgid "Other Fonts"
-msgstr "Font lainnya"
+msgstr "Font Lainnya"
 
 #. pathologic case - pixbuf not even supporting PNG?
 #: lib/dia_image.c:315
@@ -3589,10 +3313,8 @@ msgid "Show Control Lines"
 msgstr "Tampilkan Garis Kendali"
 
 #: lib/units.c:42
-#, fuzzy
-#| msgid "Center"
 msgid "Centimeter"
-msgstr "Tengah"
+msgstr "Sentimeter"
 
 #: lib/units.c:44
 msgid "Decimeter"
@@ -3615,10 +3337,8 @@ msgid "Millimeter"
 msgstr "Milimeter"
 
 #: lib/units.c:54
-#, fuzzy
-#| msgid "AccessPoint"
 msgid "Point"
-msgstr "AccessPoint"
+msgstr "Titik"
 
 #: lib/units.c:56
 msgid "Pica"
@@ -6092,28 +5812,20 @@ msgid "_Attributes"
 msgstr "_Atribut"
 
 #: objects/UML/class_attributes_dialog.c:605
-#, fuzzy
-#| msgid "Attribute"
 msgid "Add Attribute"
-msgstr "Tambah atribut"
+msgstr "Tambah Atribut"
 
 #: objects/UML/class_attributes_dialog.c:618
-#, fuzzy
-#| msgid "Attribute"
 msgid "Remove Attribute"
-msgstr "Hapus atribut"
+msgstr "Hapus Atribut"
 
 #: objects/UML/class_attributes_dialog.c:631
-#, fuzzy
-#| msgid "Attribute"
 msgid "Move Attribute Up"
-msgstr "Atribut"
+msgstr "Pindahkan Atribut ke Atas"
 
 #: objects/UML/class_attributes_dialog.c:644
-#, fuzzy
-#| msgid "Attribute compound"
 msgid "Move Attribute Down"
-msgstr "Kompon atribut"
+msgstr "Pindahkan Atribut ke Bawah"
 
 #: objects/UML/class_attributes_dialog.c:656
 msgid "Attribute data"
@@ -6351,28 +6063,20 @@ msgid "Parameters:"
 msgstr "Parameter:"
 
 #: objects/UML/class_operations_dialog.c:1089
-#, fuzzy
-#| msgid "Parameters"
 msgid "Add Parameter"
-msgstr "Parameter"
+msgstr "Tambah Parameter"
 
 #: objects/UML/class_operations_dialog.c:1104
-#, fuzzy
-#| msgid "Template Parameters"
 msgid "Remove Parameter"
-msgstr "Parameter Templat"
+msgstr "Hapus Parameter"
 
 #: objects/UML/class_operations_dialog.c:1119
-#, fuzzy
-#| msgid "Parameters"
 msgid "Move Parameter Up"
-msgstr "Parameter"
+msgstr "Pindahkan Parameter ke Atas"
 
 #: objects/UML/class_operations_dialog.c:1134
-#, fuzzy
-#| msgid "Parameters"
 msgid "Move Parameter Down"
-msgstr "Parameter"
+msgstr "Pindahkan Parameter ke Bawah"
 
 #: objects/UML/class_operations_dialog.c:1264
 msgid "Parameter data"
@@ -6408,28 +6112,20 @@ msgid "_Operations"
 msgstr "_Operasi"
 
 #: objects/UML/class_operations_dialog.c:1455
-#, fuzzy
-#| msgid "Operations"
 msgid "Add Operation"
-msgstr "Operasi"
+msgstr "Tambah Operasi"
 
 #: objects/UML/class_operations_dialog.c:1468
-#, fuzzy
-#| msgid "Operations"
 msgid "Remove Operation"
-msgstr "Operasi"
+msgstr "Hapus Operasi"
 
 #: objects/UML/class_operations_dialog.c:1481
-#, fuzzy
-#| msgid "Operations"
 msgid "Move Operation Up"
-msgstr "Operasi"
+msgstr "Pindahkan Operasi ke Atas"
 
 #: objects/UML/class_operations_dialog.c:1494
-#, fuzzy
-#| msgid "Operations"
 msgid "Move Operation Down"
-msgstr "Operasi"
+msgstr "Pindahkan Operasi ke Bawah"
 
 #: objects/UML/class_operations_dialog.c:1506
 msgid "Operation data"
@@ -6445,28 +6141,20 @@ msgid "Template class"
 msgstr "Kelas templat"
 
 #: objects/UML/class_templates_dialog.c:450
-#, fuzzy
-#| msgid "Formal parameter data"
 msgid "Add Formal Parameter"
-msgstr "Data parameter formal"
+msgstr "Tambah Parameter Formal"
 
 #: objects/UML/class_templates_dialog.c:463
-#, fuzzy
-#| msgid "Formal parameter data"
 msgid "Remove Formal Parameter"
-msgstr "Data parameter formal"
+msgstr "Hapus Parameter Formal"
 
 #: objects/UML/class_templates_dialog.c:476
-#, fuzzy
-#| msgid "Formal parameter data"
 msgid "Move Formal Parameter Up"
-msgstr "Data parameter formal"
+msgstr "Pindahkan Parameter Formal ke Atas"
 
 #: objects/UML/class_templates_dialog.c:489
-#, fuzzy
-#| msgid "Formal parameter data"
 msgid "Move Formal Parameter Down"
-msgstr "Data parameter formal"
+msgstr "Pindahkan Parameter Formal ke Bawah"
 
 #: objects/UML/class_templates_dialog.c:502
 msgid "Formal parameter data"
@@ -6819,25 +6507,20 @@ msgstr ""
 
 #. Quick 'n Nasty hack to mark strings as translatable
 #: plug-ins/layout/layout.cpp:433
-#, fuzzy
 msgid "Grow"
 msgstr "Perbesar"
 
 #: plug-ins/layout/layout.cpp:434
-#, fuzzy
 msgid "Shrink"
-msgstr "Dapat dikecilkan"
+msgstr "Perkecil"
 
 #: plug-ins/layout/layout.cpp:435
-#, fuzzy
-#| msgid "Height"
 msgid "Heighten"
-msgstr "Tinggi"
+msgstr "Tinggikan"
 
 #: plug-ins/layout/layout.cpp:436
-#, fuzzy
 msgid "Widen"
-msgstr "Memperluas"
+msgstr "Lebarkan"
 
 #: plug-ins/layout/layout.cpp:463
 msgid "OGDF Layout Algorithms"
@@ -7012,16 +6695,12 @@ msgid "Python scripting support"
 msgstr "Dukungan scripting Python"
 
 #: plug-ins/python/allprops.py:133
-#, fuzzy
-#| msgid "Object properties"
 msgid "All Object _Properties"
-msgstr "Properti objek"
+msgstr "_Properti Semua Objek"
 
 #: plug-ins/python/allsheets.py:85
-#, fuzzy
-#| msgid "Delete selection"
 msgid "Dia _Sheets Inspection"
-msgstr "Hapus yang dipilih"
+msgstr "Pemerik_saan Lembar Dia"
 
 #: plug-ins/python/aobjects.py:102
 msgid "All _Objects"
@@ -7036,10 +6715,8 @@ msgstr "Semua _Objek"
 #.
 #. \ingroup PyDia
 #: plug-ins/python/arrange.py:127
-#, fuzzy
-#| msgid "_Objects"
 msgid "Arrange _Objects"
-msgstr "Susun Objek"
+msgstr "Susun _Objek"
 
 #: plug-ins/python/autolayoutforce.py:125
 #, fuzzy
@@ -7048,34 +6725,28 @@ msgstr "_Layout (Angkatan)"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/codegen.py:711
-#, fuzzy
 msgid "PyDia Code Generation (Python)"
-msgstr "Generasi kode PyDia (Python)"
+msgstr "Pembuatan Kode PyDia (Python)"
 
 #: plug-ins/python/codegen.py:712
-#, fuzzy
 msgid "PyDia Code Generation (C++)"
-msgstr "Pembuatan kode PyDia (C++)"
+msgstr "Pembuatan Kode PyDia (C++)"
 
 #: plug-ins/python/codegen.py:713
-#, fuzzy
 msgid "PyDia Code Generation (Pascal)"
-msgstr "Generasi kode PyDia (Pascal)"
+msgstr "Pembuatan Kode PyDia (Pascal)"
 
 #: plug-ins/python/codegen.py:714
-#, fuzzy
 msgid "PyDia Code Generation (Java)"
-msgstr "Generasi kode PyDia (Jawa)"
+msgstr "Pembuatan Kode PyDia (Java)"
 
 #: plug-ins/python/codegen.py:715
-#, fuzzy
 msgid "PyDia Code Generation (JavaScript)"
-msgstr "Generasi kode PyDia (JavaScript)"
+msgstr "Pembuatan Kode PyDia (JavaScript)"
 
 #: plug-ins/python/codegen.py:716
-#, fuzzy
 msgid "PyDia Code Generation (PHP)"
-msgstr "Generasi kode PyDia (PHP)"
+msgstr "Pembuatan Kode PyDia (PHP)"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/debug_objects.py:30
@@ -7089,20 +6760,16 @@ msgid "Dia _Property API Debugger"
 msgstr "Dia _Property API debugger"
 
 #: plug-ins/python/dia_rotate.py:33
-#, fuzzy
 msgid "Rotate counter-clockwise"
 msgstr "Putar berlawanan jarum jam"
 
 #: plug-ins/python/dia_rotate.py:48
-#, fuzzy
 msgid "Rotation around (0,0). Rotation angle in degrees:"
-msgstr "Rotasi sekitar (0,0). Sudut rotasi dalam derajat:"
+msgstr "Rotasi berpusat (0,0). Sudut rotasi dalam derajat:"
 
 #: plug-ins/python/dia_rotate.py:127
-#, fuzzy
-#| msgid "Rotation"
 msgid "Simple _Rotation"
-msgstr "Putaran"
+msgstr "_Rotasi Sederhana"
 
 #. XXX: check image, e.g. existing file name
 #. dia-python keeps a reference to the renderer class and uses it on demand
@@ -7114,36 +6781,29 @@ msgstr "Menghamburkan"
 
 #. dia.register_import("Cpp via GCC_XML", "cpp", ImportCpp)
 #: plug-ins/python/diagx.py:405
-#, fuzzy
 msgid "XML from GCC_XML"
 msgstr "XML dari GCC_XML"
 
 #. register the renderer
 #: plug-ins/python/diastddia.py:361
-#, fuzzy
 msgid "Dia plain"
 msgstr "Dia polos"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/diasvg_import.py:731 plug-ins/python/diasvg.py:267
-#, fuzzy
 msgid "SVG plain"
 msgstr "SVG polos"
 
 #: plug-ins/python/diasvg_import.py:732 plug-ins/python/diasvg.py:268
-#, fuzzy
-#| msgid "Compress"
 msgid "SVG compressed"
-msgstr "Memadatkan"
+msgstr "SVG terkompresi"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/dot.py:92
-#, fuzzy
 msgid "PyDia DOT Export"
-msgstr "Ekspor PyDia DOT"
+msgstr "Ekspor DOT PyDia"
 
 #: plug-ins/python/dot2dia.py:282
-#, fuzzy
 msgid "Graphviz Dot"
 msgstr "Graphviz Dot"
 
@@ -7152,41 +6812,33 @@ msgid "Dox2UML"
 msgstr "Dox2UML"
 
 #: plug-ins/python/doxrev.py:489
-#, fuzzy
 msgid "Dox2UML (multiple)"
 msgstr "Dox2UML (beberapa)"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/export-object.py:45
-#, fuzzy
-#| msgid "Object properties"
 msgid "PyDia Object Export"
-msgstr "Properti objek"
+msgstr "Ekspor Objek PyDia"
 
 #. # \brief Register the renderer with Dia's export system
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/export-render.py:119
-#, fuzzy
-#| msgid "DiaRenderScript"
 msgid "PyDia Render Export"
-msgstr "DiaRenderScript"
+msgstr "Ekspor Render PyDia"
 
 #: plug-ins/python/gtkcons.py:385
-#, fuzzy
 msgid "Python Dia Console"
-msgstr "Konsol Python dia"
+msgstr "Konsol Python Dia"
 
 #: plug-ins/python/gtkcons.py:390
-#, fuzzy
 msgid "_Python Console"
 msgstr "Konsol _Python"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/imgmap.py:80
-#, fuzzy
 #| msgid "Image"
 msgid "Imagemap"
-msgstr "Citra"
+msgstr "Imagemap"
 
 #: plug-ins/python/mark-cps.py:72
 #, fuzzy
@@ -7195,81 +6847,58 @@ msgid "_Mark Connection Points"
 msgstr "Titik Sambungan Utama"
 
 #: plug-ins/python/otypes.py:185
-#, fuzzy
-#| msgid "Data Object"
 msgid "Dia Object _Types"
-msgstr "Objek Data"
+msgstr "_Tipe Objek Dia"
 
 #: plug-ins/python/pydiadoc.py:264
-#, fuzzy
 msgid "PyDia _HTML Docs"
-msgstr "PyDia _HTML docs"
+msgstr "Dok _HTML PyDia"
 
 #: plug-ins/python/pydiadoc.py:267
-#, fuzzy
 msgid "PyDia _Docs"
-msgstr "_Docs PyDia"
+msgstr "_Dok PyDia"
 
 #: plug-ins/python/pydiadoc.py:270
-#, fuzzy
 msgid "PyDia Docs _Update"
-msgstr "_Update dokumen PyDia"
+msgstr "Pem_utakhiran Dok PyDia"
 
 #: plug-ins/python/scascale.py:40
-#, fuzzy
-#| msgid "Scaling"
 msgid "Simple Scaling"
-msgstr "Menskalakan"
+msgstr "Penskalaan Sederhana"
 
 #: plug-ins/python/scascale.py:153
-#, fuzzy
-#| msgid "Scaling"
 msgid "Simple _Scaling"
-msgstr "Menskalakan"
+msgstr "Pen_skalakan Sederhana"
 
 #: plug-ins/python/select_by.py:40
-#, fuzzy
-#| msgid "Select None"
 msgid "Select by name"
-msgstr "Pilih nama templat"
+msgstr "Pilih menurut nama"
 
 #: plug-ins/python/select_by.py:55
-#, fuzzy
-#| msgid "Step name"
 msgid "Enter name"
-msgstr "Nama langkah"
+msgstr "Masukkan nama"
 
 #: plug-ins/python/select_by.py:144
 msgid "_Name"
 msgstr "_Nama"
 
 #: plug-ins/python/select_by.py:147
-#, fuzzy
-#| msgid "Fill color"
 msgid "_Fill Color"
-msgstr "Warna isi:"
+msgstr "Warna _Isian"
 
 #: plug-ins/python/select_by.py:150
-#, fuzzy
-#| msgid "Line color"
 msgid "_Line Color"
-msgstr "Warna garis"
+msgstr "Warna _Garis"
 
 #: plug-ins/python/select_by.py:153
-#, fuzzy
-#| msgid "Text Color"
 msgid "_Text Color"
-msgstr "Warna teks:"
+msgstr "Warna _Teks"
 
 #: plug-ins/python/select_by.py:156
-#, fuzzy
-#| msgid "Size"
 msgid "_Size"
 msgstr "_Ukuran"
 
 #: plug-ins/python/select_empty.py:30
-#, fuzzy
-#| msgid "Empty"
 msgid "_Empty"
 msgstr "_Kosongkan"
 
@@ -8566,11 +8195,11 @@ msgstr "Terminal"
 
 #: sheets/ciscocomputer.sheet:11
 msgid "SUN workstation"
-msgstr "workstation SUN"
+msgstr "Workstation SUN"
 
 #: sheets/ciscocomputer.sheet:12
 msgid "CiscoWorks workstation"
-msgstr "workstation CiscoWorks"
+msgstr "Workstation CiscoWorks"
 
 #: sheets/ciscocomputer.sheet:13
 msgid "PC Router Card"
@@ -8598,7 +8227,7 @@ msgstr "Cisco CA"
 
 #: sheets/ciscocomputer.sheet:19
 msgid "WWW server"
-msgstr "server WWW"
+msgstr "Server WWW"
 
 #: sheets/ciscocomputer.sheet:20
 msgid "Web browser"
@@ -8766,7 +8395,7 @@ msgstr "Router dengan Switch Silikon"
 
 #: sheets/ciscohub.sheet:9
 msgid "NetFlow router"
-msgstr "router NetFlow"
+msgstr "Router NetFlow"
 
 #: sheets/ciscohub.sheet:10
 msgid "Broadband router"
@@ -8774,7 +8403,7 @@ msgstr "Router pita-lebar"
 
 #: sheets/ciscohub.sheet:11
 msgid "Wavelength router"
-msgstr "router panjang-gelombang"
+msgstr "Router Wavelength"
 
 #: sheets/ciscohub.sheet:12
 msgid "Wireless router"
@@ -8930,7 +8559,7 @@ msgstr "Cisco 1000"
 
 #: sheets/ciscohub.sheet:50
 msgid "ISDN switch"
-msgstr "switch ISDN"
+msgstr "Switch ISDN"
 
 #: sheets/ciscohub.sheet:51
 msgid "Label Switch Router"
@@ -9358,7 +8987,7 @@ msgstr "Jembatan Nirkabel"
 
 #: sheets/cisconetwork.sheet:40
 msgid "Dual Mode AccessPoint"
-msgstr "AccessPoint Dua Moda "
+msgstr "AccessPoint Dua Moda"
 
 #: sheets/cisconetwork.sheet:41
 msgid "Wi-Fi Tag"
@@ -9852,7 +9481,7 @@ msgstr "MCU"
 
 #: sheets/ciscotelephony.sheet:59
 msgid "uMG series"
-msgstr "Seri uMG"
+msgstr "seri uMG"
 
 #: sheets/civil.sheet:3
 msgid "Civil"
@@ -10178,69 +9807,52 @@ msgid "Objects to draw event-driven process chains"
 msgstr "Objek untuk menggambar bagan-alir"
 
 #: sheets/EDPC.sheet:7
-#, fuzzy
-#| msgid "Business Process Modeling Notation"
 msgid "Business Process"
-msgstr "Notasi Business Process Modeling"
+msgstr "Proses Bisnis"
 
 #: sheets/EDPC.sheet:8
-#, fuzzy
-#| msgid "Processor"
 msgid "Process Group"
-msgstr "Prosesor"
+msgstr "Grup Proses"
 
 #: sheets/EDPC.sheet:9 sheets/FS.sheet:13
 msgid "Function"
 msgstr "Fungsi"
 
 #: sheets/EDPC.sheet:10
-#, fuzzy
-#| msgid "Events"
 msgid "Event"
-msgstr "Kegiatan"
+msgstr "Kejadian"
 
 #: sheets/EDPC.sheet:13
-#, fuzzy
-#| msgid "Transaction file"
 msgid "Organisation Unit"
-msgstr "Berkas transaksi"
+msgstr "Unit Organisasi"
 
 #: sheets/EDPC.sheet:14 sheets/Flowchart.sheet:29
 msgid "Document"
 msgstr "Dokumen"
 
 #: sheets/EDPC.sheet:15
-#, fuzzy
 msgid "Operator AND (Input)"
-msgstr "Operator dan (masukan)"
+msgstr "Operator AND (Masukan)"
 
 #: sheets/EDPC.sheet:16
-#, fuzzy
 msgid "Operator AND (Output)"
-msgstr "Operator dan (output)"
+msgstr "Operator AND (Keluaran)"
 
 #: sheets/EDPC.sheet:17
-#, fuzzy
-#| msgid "Inclusive (OR)"
 msgid "Operator Inclusive (OR) (Input)"
-msgstr "Inklusif (OR)"
+msgstr "Operator Inklusif (OR) (Masukan)"
 
 #: sheets/EDPC.sheet:18
-#, fuzzy
-#| msgid "Inclusive (OR)"
 msgid "Operator Inclusive (OR) (Output)"
-msgstr "Inklusif (OR)"
+msgstr "Operator Inklusif (OR) (Keluaran)"
 
 #: sheets/EDPC.sheet:19
-#, fuzzy
-#| msgid "Exclusive (XOR) Event Based"
 msgid "Operator Exclusive (XOR) (Input)"
-msgstr "Eksklusif (XOR) Berbasis Kejadian"
+msgstr "Operator Eksklusif (XOR) (Masukan)"
 
 #: sheets/EDPC.sheet:20
-#, fuzzy
 msgid "Operator Exclusive (XOR) (Output)"
-msgstr "Operator eksklusif (XOR) (output)"
+msgstr "Operator Eksklusif (XOR) (Keluaran)"
 
 #: sheets/Electric.sheet:3
 msgid "Electric"
@@ -10546,9 +10158,8 @@ msgid "Alan Horkan"
 msgstr "Alan Horkan"
 
 #: sheets/IsometricMap.sheet:6
-#, fuzzy
 msgid "Copyright Alan Horkan 2003"
-msgstr "Copyright Alan Horkan 2003"
+msgstr "Hak Cipta Alan Horkan 2003"
 
 #. use dc:title instead?
 #: sheets/IsometricMap.sheet:9
@@ -11158,16 +10769,12 @@ msgid "Folder"
 msgstr "Folder"
 
 #: sheets/Misc.sheet:16
-#, fuzzy
-#| msgid "expansible node"
 msgid "Expansible node"
-msgstr "simpul yang dapat dikembangkan"
+msgstr "Simpul yang dapat dikembangkan"
 
 #: sheets/Misc.sheet:19
-#, fuzzy
-#| msgid "expanded node"
 msgid "Expanded node"
-msgstr "simpul yang diperluas"
+msgstr "Simpul yang diperluas"
 
 #: sheets/Misc.sheet:22
 msgid "Traditional clock"
@@ -11331,7 +10938,7 @@ msgstr "PC menara-besar"
 
 #: sheets/network.sheet:87
 msgid "Miditower PC"
-msgstr "PC Miditower "
+msgstr "PC Miditower"
 
 #: sheets/network.sheet:90
 msgid "Minitower PC"
@@ -11563,7 +11170,7 @@ msgstr "Objek untuk merancang diagram domain replikasi Sybase"
 
 #: sheets/sybase.sheet:7
 msgid "Sybase dataserver"
-msgstr "dataserver Sybase"
+msgstr "Dataserver Sybase"
 
 #: sheets/sybase.sheet:10
 msgid "Sybase replication server"
@@ -11684,146 +11291,3 @@ msgstr "Aktivitas"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "Mencabang/menyatu"
-
-#~ msgid "Exiting Dia"
-#~ msgstr "Keluar Dia"
-
-#~ msgid "<unnamed>"
-#~ msgstr "<tak bernama>"
-
-#~ msgid ""
-#~ "The diagram '%s'\n"
-#~ "has not been saved. Save changes now?"
-#~ msgstr ""
-#~ "Diagram '%s'\n"
-#~ "belum disimpan. Simpan perubahannya sekarang?"
-
-#~ msgid "Close Diagram"
-#~ msgstr "Tutup Diagram"
-
-#~ msgid "_Discard Changes"
-#~ msgstr "_Buang Perubahan"
-
-#, fuzzy
-#~| msgid "Do Not Exit"
-#~ msgid "_Do Not Exit"
-#~ msgstr "Jangan Keluar"
-
-#, fuzzy
-#~| msgid "Exit Without Save"
-#~ msgid "_Exit Without Save"
-#~ msgstr "Keluar Tanpa Menyimpan"
-
-#, fuzzy
-#~| msgid "Save Selected"
-#~ msgid "_Save Selected"
-#~ msgstr "Simpan Pilihan"
-
-#~ msgid "The following are not saved:"
-#~ msgstr "Yang berikut tak disimpan:"
-
-#~ msgid "Path"
-#~ msgstr "Path"
-
-#~ msgid "Select All"
-#~ msgstr "Pilih Semua"
-
-#~ msgid "Select None"
-#~ msgstr "Pilih Tak Satupun"
-
-#~ msgid "Nothing selected for saving.  Would you like to try again?"
-#~ msgstr "Tak ada yang dipilih untuk disimpan. Apakah Anda ingin coba lagi?"
-
-#~ msgid "any"
-#~ msgstr "sebarang"
-
-#~ msgid "Number of undo levels:"
-#~ msgstr "Jumlah tingkat pembatalan:"
-
-#~ msgid "New diagram:"
-#~ msgstr "Diagram baru:"
-
-#~ msgid "Background Color:"
-#~ msgstr "Warna Latar:"
-
-#~ msgid "Snap to object"
-#~ msgstr "Lengket ke objek"
-
-#~ msgid "New window:"
-#~ msgstr "Jendela baru:"
-
-#~ msgid "Width:"
-#~ msgstr "Lebar:"
-
-#~ msgid "Magnify:"
-#~ msgstr "Pembesaran:"
-
-#~ msgid "Page breaks:"
-#~ msgstr "Pemutus halaman:"
-
-#~ msgid "Color:"
-#~ msgstr "Warna:"
-
-#~ msgid "Antialias:"
-#~ msgstr "Antialias:"
-
-#~ msgid "view antialiased"
-#~ msgstr "tilik dalam anti alias"
-
-#, fuzzy
-#~| msgid "Guide"
-#~ msgid "Guides:"
-#~ msgstr "_Panduan"
-
-#, fuzzy
-#~| msgid "_Snap to Grid"
-#~ msgid "Snap to guides"
-#~ msgstr "Lengket ke Ki_si"
-
-#~ msgid "Snap to"
-#~ msgstr "Lengket ke"
-
-#~ msgid "Dynamic grid resizing"
-#~ msgstr "Ubah-ukuran grid dinamis"
-
-#~ msgid "X Size:"
-#~ msgstr "Ukuran X:"
-
-#~ msgid "Y Size:"
-#~ msgstr "Ukuran Y:"
-
-#~ msgid "Visual Spacing X:"
-#~ msgstr "Sela Visual X:"
-
-#~ msgid "Visual Spacing Y:"
-#~ msgstr "Sela Visual Y:"
-
-#~ msgid "Hex grid"
-#~ msgstr "Kisi heksa"
-
-#~ msgid "Hex Size:"
-#~ msgstr "Ukuran Heksa:"
-
-#~ msgid "Select SVG Shape File"
-#~ msgstr "Pilih Berkas Bentuk SVG"
-
-#~ msgid "Too many \"..\"s in filename %s\n"
-#~ msgstr "Terlalu banyak \"..\" dalam nama berkas %s\n"
-
-#, fuzzy
-#~| msgid "Arrow Properties"
-#~ msgid "Group Properties"
-#~ msgstr "Properti Panah"
-
-#, fuzzy
-#~ msgid ""
-#~ "The selected objects don't share any\n"
-#~ " properties to change at once."
-#~ msgstr ""
-#~ "Objek yang dipilih tidak berbagi\n"
-#~ " properti untuk berubah sekaligus."
-
-#, fuzzy
-#~| msgid "Diagram Properties"
-#~ msgid "Dia _Group Properties"
-#~ msgstr "Properti Diagram"
