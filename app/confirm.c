@@ -82,8 +82,8 @@ confirm_export_size (Diagram *dia, GtkWindow *parent, guint flags)
 		"You are about to export a diagram with %d pages.", pages), pages);
   else
     msg = g_strdup_printf (g_dngettext (GETTEXT_PACKAGE,
-		"You are about to export a diagram which may require %s of memory.(%d page).",
-		"You are about to export a diagram which may require %s of memory.(%d pages).", pages),
+		"You are about to export a diagram which may require %s of memory (%d page).",
+		"You are about to export a diagram which may require %s of memory (%d pages).", pages),
 		size, pages);
   dialog = gtk_message_dialog_new (parent, /* diagrams display 'shell' */
 				   GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
