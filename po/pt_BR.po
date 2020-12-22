@@ -9,19 +9,19 @@
 # Og Maciel <ogmaciel@gnome.org>, 2009.
 # Isis Binder <isis.binder@gmail.com>, 2009.
 # Rodolfo RG <rodolforg@gmail.com>, 2011.
-# Enrico Nicoletto <liverig@gmail.com>, 2013, 2014.
 # Juan Diego Martins da Costa Cruz <garotomartins10@gmail.com>, 2013.
 # Antonio Fernandes C. Neto <fernandesn@gnome.org>, 2013.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2016-2019.
 # Henrique Machado Campos <henriquecamposrj@gmail.com>, 2020.
+# Enrico Nicoletto <liverig@gmail.com>, 2013, 2014, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Dia\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2020-12-18 14:36+0000\n"
-"PO-Revision-Date: 2020-12-22 16:51-0300\n"
-"Last-Translator: Henrique Machado Campos <henriquecamposrj@gmail.com>\n"
+"POT-Creation-Date: 2020-12-22 19:55+0000\n"
+"PO-Revision-Date: 2020-12-22 16:57-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -462,23 +462,17 @@ msgstr[0] "Você está prestes a exportar um diagrama com %d página."
 msgstr[1] "Você está prestes a exportar um diagrama com %d páginas."
 
 #: app/confirm.c:85
-#, fuzzy, c-format
-#| msgid ""
-#| "You are about to export a diagram which may require %s of memory.(%d "
-#| "page)."
-#| msgid_plural ""
-#| "You are about to export a diagram which may require %s of memory.(%d "
-#| "pages)."
+#, c-format
 msgid ""
 "You are about to export a diagram which may require %s of memory (%d page)."
 msgid_plural ""
 "You are about to export a diagram which may require %s of memory (%d pages)."
 msgstr[0] ""
-"Você está prestes a exportar um diagrama que pode necessitar de %s de "
-"memória (%d página)."
+"Você está prestes a exportar um diagrama que pode precisar de %s de memória "
+"(%d página)."
 msgstr[1] ""
-"Você está prestes a exportar um diagrama que pode necessitar de %s de "
-"memória (%d páginas)."
+"Você está prestes a exportar um diagrama que pode precisar de %s de memória "
+"(%d páginas)."
 
 #: app/confirm.c:94
 msgid ""
