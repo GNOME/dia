@@ -1165,9 +1165,16 @@ fig_read_line_choice(FILE *file, char *choice1, char *choice2, DiaContext *ctx)
     g_strstrip(buf); /* And any other whitespace */
     if (!g_ascii_strcasecmp(buf, choice1)) return 0;
     if (!g_ascii_strcasecmp(buf, choice2)) return 1;
-    dia_context_add_message(ctx, _("`%s' is not one of `%s' or `%s'\n"), buf, choice1, choice2);
-    return 0;
+
+  dia_context_add_message (ctx,
+                           _("“%s” is not one of “%s” or “%s”\n"),
+                           buf,
+                           choice1,
+                           choice2);
+
+  return 0;
 }
+
 
 static int
 fig_read_paper_size(FILE *file, DiagramData *dia, DiaContext *ctx) {
@@ -1186,9 +1193,13 @@ fig_read_paper_size(FILE *file, DiagramData *dia, DiaContext *ctx) {
 	return TRUE;
     }
 
-    dia_context_add_message(ctx, _("Unknown paper size `%s', using default\n"), buf);
-    return TRUE;
+  dia_context_add_message (ctx,
+                           _("Unknown paper size “%s”, using default\n"),
+                           buf);
+
+  return TRUE;
 }
+
 
 int figversion;
 
