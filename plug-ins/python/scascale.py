@@ -23,7 +23,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import dia, string
+import warnings
+import dia
 
 import gettext
 _ = gettext.gettext
@@ -34,7 +35,10 @@ class CScaleDialog :
 
 		gi.require_version('Gtk', '2.0')
 
-		from gi.repository import Gtk
+		with warnings.catch_warnings():
+			warnings.filterwarnings("ignore", category=RuntimeWarning)
+			from gi.repository import Gtk
+
 		win = Gtk.Window()
 		win.connect("delete_event", self.on_delete)
 		win.set_title(_("Simple Scaling"))

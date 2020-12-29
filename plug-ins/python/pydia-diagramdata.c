@@ -215,72 +215,78 @@ PyDiaDiagramData_DeleteLayer(PyDiaDiagramData *self, PyObject *args)
   return Py_None;
 }
 
-/*!
- *  Callback for "object_add" and "object_remove "signal, used by the connect_after method,
- *  it's a proxy for the python function, creating the values it needs.
- *  Params are those of the signals on the Diagram object.
- *  @param dia The DiagramData that emitted the signal
- *  @param layer The Layer that the object is removed or added to.
- *  @param obj The DiaObject that the signal is about.
- *  @param user_data The python function to be called by the callback.
+
+/**
+ * PyDiaDiagramData_CallbackObject:
+ * @dia: The #DiagramData that emitted the signal
+ * @layer: The Layer that the object is removed or added to.
+ * @obj: The DiaObject that the signal is about.
+ * @user_data: The python function to be called by the callback.
+ *
+ * Callback for "object_add" and "object_remove "signal, used by the
+ * connect_after method, it's a proxy for the python function, creating the
+ * values it needs. Params are those of the signals on the Diagram object.
  */
 static void
-PyDiaDiagramData_CallbackObject(DiagramData *dia, DiaLayer *layer, DiaObject *obj, void *user_data)
+PyDiaDiagramData_CallbackObject (DiagramData *dia,
+                                 DiaLayer    *layer,
+                                 DiaObject   *obj,
+                                 void        *user_data)
 {
-    PyObject *pydata,*pylayer,*pyobj,*res,*arg;
-    PyObject *func = user_data;
+  PyObject *pydata,*pylayer,*pyobj,*res,*arg;
+  PyObject *func = user_data;
 
-    /* Check that we got a function */
-    if (!func || !PyCallable_Check (func)) {
-        g_warning ("Callback called without valid callback function.");
-        return;
-    }
+  /* Check that we got a function */
+  if (!func || !PyCallable_Check (func)) {
+    g_warning ("Callback called without valid callback function.");
+    return;
+  }
 
-    /* Create a new PyDiaDiagramData object.
-     */
-    if (dia)
-        pydata = PyDiaDiagramData_New (dia);
-    else {
-        pydata = Py_None;
-        Py_INCREF (pydata);
-    }
+  /* Create a new PyDiaDiagramData object.
+    */
+  if (dia) {
+    pydata = PyDiaDiagramData_New (dia);
+  } else {
+    pydata = Py_None;
+    Py_INCREF (pydata);
+  }
 
-    /*
-     * Create PyDiaLayer
-     */
-    if (layer)
-        pylayer = PyDiaLayer_New (layer);
-    else {
-        pylayer = Py_None;
-        Py_INCREF (pylayer);
-    }
+  /*
+    * Create PyDiaLayer
+    */
+  if (layer) {
+    pylayer = PyDiaLayer_New (layer);
+  } else {
+    pylayer = Py_None;
+    Py_INCREF (pylayer);
+  }
 
-    /*
-     * Create PyDiaObject
-     */
-    if (layer)
-        pyobj = PyDiaObject_New (obj);
-    else {
-        pyobj = Py_None;
-        Py_INCREF (pyobj);
-    }
+  /*
+    * Create PyDiaObject
+    */
+  if (layer) {
+    pyobj = PyDiaObject_New (obj);
+  } else {
+    pyobj = Py_None;
+    Py_INCREF (pyobj);
+  }
 
 
-    Py_INCREF(func);
+  Py_INCREF (func);
 
-    /* Call the callback. */
-    arg = Py_BuildValue ("(OOO)", pydata,pylayer,pyobj);
-    if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
-    }
+  /* Call the callback. */
+  arg = Py_BuildValue ("(OOO)", pydata, pylayer, pyobj);
+  if (arg) {
+    res = PyObject_CallObject (func, arg);
+    ON_RES (res, FALSE);
+  }
 
-    /* Cleanup */
-    Py_XDECREF (arg);
-    Py_DECREF(func);
-    Py_XDECREF(pydata);
-    Py_XDECREF(pylayer);
-    Py_XDECREF(pyobj);
+  /* Cleanup */
+  Py_XDECREF (arg);
+  Py_DECREF (func);
+  Py_XDECREF (pydata);
+  Py_XDECREF (pylayer);
+  Py_XDECREF (pyobj);
 }
 
 

@@ -322,7 +322,7 @@ PyDia_import_data (const gchar* filename, DiagramData *dia, DiaContext *ctx, voi
 
     arg = Py_BuildValue ("(sO)", filename, diaobj);
     if (arg) {
-      PyObject *res = PyEval_CallObject (func, arg);
+      PyObject *res = PyObject_CallObject (func, arg);
       ON_RES(res, TRUE);
       bRet = !!res;
     }
@@ -397,7 +397,7 @@ PyDia_callback_func (DiagramData *dia,
 
   arg = Py_BuildValue ("(Oi)", diaobj, flags);
   if (arg) {
-    res = PyEval_CallObject (func, arg);
+    res = PyObject_CallObject (func, arg);
     ON_RES(res, TRUE);
   }
   Py_XDECREF (arg);

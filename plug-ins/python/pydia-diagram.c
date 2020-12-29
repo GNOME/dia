@@ -435,7 +435,7 @@ PyDiaDiagram_CallbackRemoved (Diagram *dia, void *user_data)
   /* Call the callback. */
   arg = Py_BuildValue ("(O)", diaobj);
   if (arg) {
-    res = PyEval_CallObject (func, arg);
+    res = PyObject_CallObject (func, arg);
     ON_RES (res, FALSE);
   }
   Py_XDECREF (arg);
@@ -481,7 +481,7 @@ PyDiaDiagram_CallbackSelectionChanged (Diagram *dia, int sel, void *user_data)
   /* Call the callback. */
   arg = Py_BuildValue ("(Oi)", dgm, sel);
   if (arg) {
-    res = PyEval_CallObject (func, arg);
+    res = PyObject_CallObject (func, arg);
     ON_RES (res, FALSE);
   }
   Py_XDECREF (arg);

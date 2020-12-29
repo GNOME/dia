@@ -27,6 +27,7 @@
 # As well as the starting attributes in namespace, the session will also
 # have access to the list __history__, which is the command history.
 
+import warnings
 import sys, traceback
 
 import gi
@@ -34,7 +35,9 @@ import gi
 gi.require_version('Pango', '1.0')
 gi.require_version('Gtk', '2.0')
 
-from gi.repository import GObject, Pango, Gtk, Gdk
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore", category=RuntimeWarning)
+    from gi.repository import GObject, Pango, Gtk, Gdk
 
 import gettext
 

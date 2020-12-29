@@ -95,35 +95,35 @@ struct _DiaPyRendererClass
 /* Moved here to avoid Doxygen picking up the wrong definitions */
 GType dia_py_renderer_get_type (void) G_GNUC_CONST;
 
-/*!
- * \brief Begin rendering with Python
+
+/**
+ * begin_render:
+ * @renderer: Explicit this pointer
+ * @update: The rectangle to update or %NULL for everything
  *
- * @param renderer Explicit this pointer
- * @param update The rectangle to update or NULL for everything
+ * Begin rendering with Python
  *
  * The Python side of the begin_render() method has a different signature.
- * It gets passed in a PyDia wrapped _DiagramData object and a filename
+ * It gets passed in a PyDia wrapped #DiagramData object and a filename
  * to store to.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-begin_render(DiaRenderer *renderer, const DiaRectangle *update)
+begin_render (DiaRenderer *renderer, const DiaRectangle *update)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
-  DIA_PY_RENDERER(renderer)->old_locale = setlocale(LC_NUMERIC, "C");
+  DIA_PY_RENDERER (renderer)->old_locale = setlocale (LC_NUMERIC, "C");
 
   func = PyObject_GetAttrString (self, "begin_render");
-  if (func && PyCallable_Check(func)) {
-    Py_INCREF(self);
-    Py_INCREF(func);
+  if (func && PyCallable_Check (func)) {
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(Os)",
-                         DIA_PY_RENDERER(renderer)->diagram_data,
-                         DIA_PY_RENDERER(renderer)->filename);
+                         DIA_PY_RENDERER (renderer)->diagram_data,
+                         DIA_PY_RENDERER (renderer)->filename);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_DECREF (func);
@@ -131,24 +131,26 @@ begin_render(DiaRenderer *renderer, const DiaRectangle *update)
   }
 }
 
-/*!
- * \brief Finalize drawing/exporting
+
+/**
+ * end_render:
+ * @renderer: the #DiaRenderer
  *
- * \memberof _DiaPyRenderer
+ * Finalize drawing/exporting
  */
 static void
-end_render(DiaRenderer *renderer)
+end_render (DiaRenderer *renderer)
 {
   PyObject *func, *res, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "end_render");
-  if (func && PyCallable_Check(func)) {
-    Py_INCREF(self);
-    Py_INCREF(func);
-    res = PyEval_CallObject (func, (PyObject *)NULL);
-    ON_RES(res, FALSE);
-    Py_DECREF(func);
-    Py_DECREF(self);
+  if (func && PyCallable_Check (func)) {
+    Py_INCREF (self);
+    Py_INCREF (func);
+    res = PyObject_CallObject (func, (PyObject *) NULL);
+    ON_RES (res, FALSE);
+    Py_DECREF (func);
+    Py_DECREF (self);
   }
 
   Py_DECREF (DIA_PY_RENDERER (renderer)->diagram_data);
@@ -158,198 +160,223 @@ end_render(DiaRenderer *renderer)
 }
 
 
-/*!
- * \brief Set linewidth for later use
+/**
+ * set_linewidth:
+ * @renderer: the #DiaRenderer
+ * @linewidth: the linewidth
+ *
+ * Set linewidth for later use
  *
  * Optional on the PyDia side.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-set_linewidth(DiaRenderer *renderer, real linewidth)
+set_linewidth (DiaRenderer *renderer, double linewidth)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "set_linewidth");
-  if (func && PyCallable_Check(func)) {
-    Py_INCREF(self);
-    Py_INCREF(func);
+  if (func && PyCallable_Check (func)) {
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(d)", linewidth);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* member optional */
+    PyErr_Clear ();
   }
-  else /* member optional */
-    PyErr_Clear();
 }
 
-/*!
- * \brief Set linecaps for later use
+
+/**
+ * set_linecaps:
+ * @renderer: the #DiaRenderer
+ * @mode: #LineCaps
+ *
+ * Set linecaps for later use
  *
  * Optional on the PyDia side.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-set_linecaps(DiaRenderer *renderer, LineCaps mode)
+set_linecaps (DiaRenderer *renderer, LineCaps mode)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   switch(mode) {
-  case LINECAPS_BUTT:
-    break;
-  case LINECAPS_ROUND:
-    break;
-  case LINECAPS_PROJECTING:
-    break;
-  case LINECAPS_DEFAULT:
-  default:
-    PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : Unsupported fill mode specified!\n");
+    case LINECAPS_BUTT:
+      break;
+    case LINECAPS_ROUND:
+      break;
+    case LINECAPS_PROJECTING:
+      break;
+    case LINECAPS_DEFAULT:
+    default:
+      PyErr_Warn (PyExc_RuntimeWarning,
+                  "DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_linecaps");
-  if (func && PyCallable_Check(func)) {
-    Py_INCREF(self);
-    Py_INCREF(func);
+  if (func && PyCallable_Check (func)) {
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(i)", mode);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* member optional */
+    PyErr_Clear ();
   }
-  else /* member optional */
-    PyErr_Clear();
 }
 
-/*!
- * \brief Set linejoin for later use
+
+/**
+ * set_linejoin:
+ * @renderer: the #DiaRenderer
+ * @mode: the #LineJoin type
+ *
+ * Set linejoin for later use
  *
  * Optional on the PyDia side.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-set_linejoin(DiaRenderer *renderer, LineJoin mode)
+set_linejoin (DiaRenderer *renderer, LineJoin mode)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
-  switch(mode) {
+  switch (mode) {
     case LINEJOIN_MITER:
-    break;
-  case LINEJOIN_ROUND:
-    break;
-  case LINEJOIN_BEVEL:
-    break;
-  case LINEJOIN_DEFAULT:
-  default:
-    PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : Unsupported fill mode specified!\n");
+      break;
+    case LINEJOIN_ROUND:
+      break;
+    case LINEJOIN_BEVEL:
+      break;
+    case LINEJOIN_DEFAULT:
+    default:
+      PyErr_Warn (PyExc_RuntimeWarning,
+                  "DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_linejoin");
-  if (func && PyCallable_Check(func)) {
-    Py_INCREF(self);
-    Py_INCREF(func);
+  if (func && PyCallable_Check (func)) {
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(i)", mode);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* member optional */
+    PyErr_Clear ();
   }
-  else /* member optional */
-    PyErr_Clear();
 }
 
-/*!
- * \brief Set linestyle for later use
+
+/**
+ * set_linestyle:
+ * @renderer: the #DiaRenderer
+ * @mode: the new #LineStyle
+ * @dash_length: how often to dash
+ *
+ * Set linestyle for later use
  *
  * Optional on the PyDia side.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-set_linestyle(DiaRenderer *renderer, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *renderer, LineStyle mode, double dash_length)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   /* line type */
   switch (mode) {
-  case LINESTYLE_SOLID:
-    break;
-  case LINESTYLE_DASHED:
-    break;
-  case LINESTYLE_DASH_DOT:
-    break;
-  case LINESTYLE_DASH_DOT_DOT:
-    break;
-  case LINESTYLE_DOTTED:
-    break;
-  case LINESTYLE_DEFAULT:
-  default:
-    PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : Unsupported fill mode specified!\n");
+    case LINESTYLE_SOLID:
+      break;
+    case LINESTYLE_DASHED:
+      break;
+    case LINESTYLE_DASH_DOT:
+      break;
+    case LINESTYLE_DASH_DOT_DOT:
+      break;
+    case LINESTYLE_DOTTED:
+      break;
+    case LINESTYLE_DEFAULT:
+    default:
+      PyErr_Warn (PyExc_RuntimeWarning,
+                  "DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_linestyle");
-  if (func && PyCallable_Check(func)) {
-    Py_INCREF(self);
-    Py_INCREF(func);
+  if (func && PyCallable_Check (func)) {
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(id)", mode, dash_length);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* member optional */
+    PyErr_Clear ();
   }
-  else /* member optional */
-    PyErr_Clear();
 }
 
-/*!
- * \brief Set fillstyle for later use
+
+/**
+ * set_fillstyle:
+ * @renderer: the #DiaRenderer
+ * @mode: the #FillStyle to fill with
+ *
+ * Set fillstyle for later use
  *
  * Optional on the PyDia side.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-set_fillstyle(DiaRenderer *renderer, FillStyle mode)
+set_fillstyle (DiaRenderer *renderer, FillStyle mode)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   switch(mode) {
-  case FILLSTYLE_SOLID:
-    break;
-  default:
-    PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : Unsupported fill mode specified!\n");
+    case FILLSTYLE_SOLID:
+      break;
+    default:
+      PyErr_Warn (PyExc_RuntimeWarning,
+                  "DiaPyRenderer : Unsupported fill mode specified!\n");
   }
 
   func = PyObject_GetAttrString (self, "set_fillstyle");
-  if (func && PyCallable_Check(func)) {
-    Py_INCREF(self);
-    Py_INCREF(func);
+  if (func && PyCallable_Check (func)) {
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(i)", mode);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* member optional */
+    PyErr_Clear ();
   }
-  else /* member optional */
-    PyErr_Clear();
 }
+
 
 static gpointer parent_class = NULL;
 
@@ -364,37 +391,38 @@ is_capable_to (DiaRenderer *renderer, RenderCapability cap)
   gboolean bRet = FALSE;
 
   func = PyObject_GetAttrString (self, "is_capable_to");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     Py_INCREF (self);
     Py_INCREF (func);
     arg = Py_BuildValue ("(i)", cap);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
+      res = PyObject_CallObject (func, arg);
       if (res && PyLong_Check (res)) {
         bRet = (PyLong_AsLong (res) != 0);
         Py_DECREF (res);
       } else {
-        ON_RES(res, FALSE);
+        ON_RES (res, FALSE);
       }
     }
-    Py_XDECREF(arg);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_XDECREF (arg);
+    Py_DECREF (func);
+    Py_DECREF (self);
   } else {
-    PyErr_Clear(); /* member optional */
+    PyErr_Clear (); /* member optional */
     return DIA_RENDERER_CLASS (parent_class)->is_capable_to (renderer, cap);
   }
   return bRet;
 }
 
-/*!
- * \brief Render all the visible object in the layer
- * @param renderer explicit this pointer
- * @param layer    layer to draw
- * @param active   TRUE if it is the currently active layer
- * @param update   the update rectangle, NULL for unlimited
+
+/**
+ * draw_layer:
+ * @renderer: explicit this pointer
+ * @layer: layer to draw
+ * @active: %TRUE if it is the currently active layer
+ * @update: the update rectangle, NULL for unlimited
  *
- * \memberof _DiaPyRenderer
+ * Render all the visible object in the layer
  */
 static void
 draw_layer (DiaRenderer  *renderer,
@@ -405,7 +433,7 @@ draw_layer (DiaRenderer  *renderer,
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_layer");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *olayer = PyDiaLayer_New (layer);
     PyObject *orect;
 
@@ -414,27 +442,34 @@ draw_layer (DiaRenderer  *renderer,
     if (update) {
       orect = PyDiaRectangle_New (update);
     } else {
-      Py_INCREF(Py_None);
+      Py_INCREF (Py_None);
       orect = Py_None;
     }
     arg = Py_BuildValue ("(OiO)", olayer, active, orect);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (olayer);
     Py_XDECREF (orect);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  } else { /* member optional */
-    PyErr_Clear();
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* member optional */
+    PyErr_Clear ();
     /* have to call the base class */
     DIA_RENDERER_CLASS (parent_class)->draw_layer (renderer, layer, active, update);
   }
 }
 
-/*!
- * \brief Draw object
+
+/**
+ * draw_object:
+ * @renderer: Self
+ * @object: The object to draw
+ * @matrix: The transformation matrix to use or NULL for no transformation
+ *
+ * Draw object
  *
  * Optional on the PyDia side. If not implemented the base class method
  * will be called.
@@ -447,19 +482,13 @@ draw_layer (DiaRenderer  *renderer,
  * the following code shall be used. Otherwise no draw/fill method will
  * be called at all.
  *
- * \code
-	# don't forget to render the object
-	object.draw (self)
- * \endcode
+ * |[<!-- language="Python" -->
+ * # don't forget to render the object
+ * object.draw (self)
+ * ]|
  *
  * Not calling the object draw method is only useful when a non-drawing
  * export - e.g. code generation \sa codegen.py - is implemented.
- *
- * @param renderer Self
- * @param object The object to draw
- * @param matrix The transformation matrix to use or NULL for no transformation
- *
- * \memberof _DiaPyRenderer
  */
 static void
 draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
@@ -467,28 +496,28 @@ draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_object");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *oobj = PyDiaObject_New (object);
     PyObject *mat = NULL;
 
-    Py_INCREF(self);
-    Py_INCREF(func);
+    Py_INCREF (self);
+    Py_INCREF (func);
     if (matrix)
       mat = PyDiaMatrix_New (matrix);
     else {
-      Py_INCREF(Py_None);
+      Py_INCREF (Py_None);
       mat = Py_None;
     }
     arg = Py_BuildValue ("(OO)", oobj, mat);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (oobj);
     Py_XDECREF (mat);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
   } else { /* member optional */
     PyErr_Clear();
     /* but should still call the base class */
@@ -497,13 +526,17 @@ draw_object (DiaRenderer *renderer, DiaObject *object, DiaMatrix *matrix)
 }
 
 
-/*!
- * \brief Draw line
+/**
+ * draw_line:
+ * @renderer: the #DiaRenderer
+ * @start: the #Point the line starts
+ * @end: the end #Point
+ * @line_colour: what #Color to use
+ *
+ * Draw line
  *
  * Not optional on the PyDia side. If not implemented a runtime warning
  * will be generated when called.
- *
- * \memberof _DiaPyRenderer
  */
 static void
 draw_line (DiaRenderer *renderer,
@@ -523,7 +556,7 @@ draw_line (DiaRenderer *renderer,
     Py_INCREF (func);
     arg = Py_BuildValue ("(OOO)", ostart, oend, ocolor);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
+      res = PyObject_CallObject (func, arg);
       ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
@@ -542,204 +575,246 @@ draw_line (DiaRenderer *renderer,
 }
 
 
-/*!
- * \brief Draw polyline
+/**
+ * draw_polyline:
+ * @renderer: the #DiaRenderer
+ * @points: the #Points of the line
+ * @num_points: the length of @points
+ * @line_colour: the #Color of the line
+ *
+ * Draw polyline
  *
  * Optional on the PyDia side. If not implemented fallback to base class member.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-draw_polyline(DiaRenderer *renderer,
-	      Point *points, int num_points,
-	      Color *line_colour)
+draw_polyline (DiaRenderer *renderer,
+               Point       *points,
+               int          num_points,
+               Color       *line_colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_polyline");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *optt = PyDiaPointTuple_New (points, num_points);
     PyObject *ocolor = PyDiaColor_New (line_colour);
 
-    Py_INCREF(self);
-    Py_INCREF(func);
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(OO)", optt, ocolor);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (optt);
     Py_XDECREF (ocolor);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  }
-  else { /* member optional */
-    PyErr_Clear();
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* member optional */
+    PyErr_Clear ();
     /* XXX: implementing the same fallback as DiaRenderer */
     DIA_RENDERER_CLASS (parent_class)->draw_polyline (renderer, points, num_points, line_colour);
   }
 }
 
-/*!
- * \brief Draw polygon
+
+/**
+ * draw_polygon:
+ * @renderer: the #DiaRenderer
+ * @points: the polygon #Points
+ * @num_points: the length of @points
+ * @fill: the polygon file #Color
+ * @stroke: outline the polyon in #Color
+ *
+ * Draw polygon
  *
  * Optional on the PyDia side. If not implemented fallback to base class member.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-draw_polygon(DiaRenderer *renderer,
-	     Point *points, int num_points,
-	     Color *fill, Color *stroke)
+draw_polygon (DiaRenderer *renderer,
+              Point       *points,
+              int          num_points,
+              Color       *fill,
+              Color       *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_polygon");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *optt = PyDiaPointTuple_New (points, num_points);
     PyObject *fill_po, *stroke_po;
 
-    if (fill)
+    if (fill) {
       fill_po = PyDiaColor_New (fill);
-    else
-      Py_INCREF(Py_None), fill_po = Py_None;
-    if (stroke)
-      stroke_po = PyDiaColor_New (stroke);
-    else
-      Py_INCREF(Py_None), stroke_po = Py_None;
+    } else {
+      Py_INCREF (Py_None), fill_po = Py_None;
+    }
 
-    Py_INCREF(self);
-    Py_INCREF(func);
+    if (stroke) {
+      stroke_po = PyDiaColor_New (stroke);
+    } else {
+      Py_INCREF (Py_None), stroke_po = Py_None;
+    }
+
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(OOO)", optt, fill_po, stroke_po);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (optt);
     Py_XDECREF (fill_po);
     Py_XDECREF (stroke_po);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  } else { /* fill_polygon was not an optional member */
-    PyErr_Warn (PyExc_RuntimeWarning, "DiaPyRenderer : draw_polygon() method missing!\n");
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* fill_polygon was not an optional member */
+    PyErr_Warn (PyExc_RuntimeWarning,
+                "DiaPyRenderer : draw_polygon() method missing!\n");
   }
 }
 
+
 static void
-draw_rect(DiaRenderer *renderer,
-	  Point *ul_corner, Point *lr_corner,
-	  Color *fill, Color *stroke)
+draw_rect (DiaRenderer *renderer,
+           Point       *ul_corner,
+           Point       *lr_corner,
+           Color       *fill,
+           Color       *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_rect");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *orect = PyDiaRectangle_New_FromPoints (ul_corner, lr_corner);
     PyObject *fill_po, *stroke_po;
-    Py_INCREF(self);
-    Py_INCREF(func);
+    Py_INCREF (self);
+    Py_INCREF (func);
 
-    if (fill)
+    if (fill) {
       fill_po = PyDiaColor_New (fill);
-    else
-      Py_INCREF(Py_None), fill_po = Py_None;
-    if (stroke)
+    } else {
+      Py_INCREF (Py_None), fill_po = Py_None;
+    }
+
+    if (stroke) {
       stroke_po = PyDiaColor_New (stroke);
-    else
-      Py_INCREF(Py_None), stroke_po = Py_None;
+    } else {
+      Py_INCREF (Py_None), stroke_po = Py_None;
+    }
 
     arg = Py_BuildValue ("(OOO)", orect, fill_po, stroke_po);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (orect);
     Py_XDECREF (fill_po);
     Py_XDECREF (stroke_po);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  }
-  else { /* member optional */
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* member optional */
     PyErr_Clear();
     /* XXX: implementing the same fallback as DiaRenderer would do */
     DIA_RENDERER_CLASS (parent_class)->draw_rect(renderer, ul_corner, lr_corner, fill, stroke);
   }
 }
 
+
 static void
-draw_rounded_rect(DiaRenderer *renderer,
-	  Point *ul_corner, Point *lr_corner,
-	  Color *fill, Color *stroke, real rounding)
+draw_rounded_rect (DiaRenderer *renderer,
+                   Point       *ul_corner,
+                   Point       *lr_corner,
+                   Color       *fill,
+                   Color       *stroke,
+                   double       rounding)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_rounded_rect");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *orect = PyDiaRectangle_New_FromPoints (ul_corner, lr_corner);
     PyObject *fill_po, *stroke_po;
 
-    Py_INCREF(self);
-    Py_INCREF(func);
-    if (fill)
+    Py_INCREF (self);
+    Py_INCREF (func);
+    if (fill) {
       fill_po = PyDiaColor_New (fill);
-    else
-      Py_INCREF(Py_None), fill_po = Py_None;
-    if (stroke)
+    } else {
+      Py_INCREF (Py_None), fill_po = Py_None;
+    }
+
+    if (stroke) {
       stroke_po = PyDiaColor_New (stroke);
-    else
-      Py_INCREF(Py_None), stroke_po = Py_None;
+    } else {
+      Py_INCREF (Py_None), stroke_po = Py_None;
+    }
 
     arg = Py_BuildValue ("(OOOd)", orect, fill_po, stroke_po, rounding);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (fill_po);
     Py_XDECREF (stroke_po);
     Py_XDECREF (orect);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  }
-  else { /* member optional */
-    PyErr_Clear();
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* member optional */
+    PyErr_Clear ();
     /* implementing the same fallback as DiaRenderer would do */
-    DIA_RENDERER_CLASS (parent_class)->draw_rounded_rect (renderer, ul_corner, lr_corner,
-							  fill, stroke, rounding);
+    DIA_RENDERER_CLASS (parent_class)->draw_rounded_rect (renderer,
+                                                          ul_corner,
+                                                          lr_corner,
+                                                          fill,
+                                                          stroke,
+                                                          rounding);
   }
 }
 
+
 static void
-draw_arc(DiaRenderer *renderer,
-	 Point *center,
-	 real width, real height,
-	 real angle1, real angle2,
-	 Color *colour)
+draw_arc (DiaRenderer *renderer,
+          Point       *center,
+          double       width,
+          double       height,
+          double       angle1,
+          double       angle2,
+          Color       *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_arc");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *opoint = PyDiaPoint_New (center);
     PyObject *ocolor = PyDiaColor_New (colour);
 
-    Py_INCREF(self);
-    Py_INCREF(func);
-    arg = Py_BuildValue ("(OddddO)", opoint,
-                                     width, height, angle1, angle2,
-                                     ocolor);
+    Py_INCREF (self);
+    Py_INCREF (func);
+    arg = Py_BuildValue ("(OddddO)",
+                         opoint,
+                         width,
+                         height,
+                         angle1,
+                         angle2,
+                         ocolor);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (opoint);
     Py_XDECREF (ocolor);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
   } else { /* member not optional */
     char *msg = g_strdup_printf ("%s.draw_arc() implementation missing.",
                                  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
@@ -749,42 +824,51 @@ draw_arc(DiaRenderer *renderer,
   }
 }
 
-/*!
- * \brief Fill arc
+
+/**
+ * fill_arc:
+ * @renderer: the #DiaRenderer
+ *
+ *
+ * Fill arc
  *
  * Not optional on the PyDia side. If not implemented a runtime warning
  * will be generated when called.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-fill_arc(DiaRenderer *renderer,
-	 Point *center,
-	 real width, real height,
-	 real angle1, real angle2,
-	 Color *colour)
+fill_arc (DiaRenderer *renderer,
+          Point       *center,
+          double       width,
+          double       height,
+          double       angle1,
+          double       angle2,
+          Color       *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "fill_arc");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *opoint = PyDiaPoint_New (center);
     PyObject *ocolor = PyDiaColor_New (colour);
 
-    Py_INCREF(self);
-    Py_INCREF(func);
-    arg = Py_BuildValue ("(OddddO)", opoint,
-                                     width, height, angle1, angle2,
-                                     ocolor);
+    Py_INCREF (self);
+    Py_INCREF (func);
+    arg = Py_BuildValue ("(OddddO)",
+                         opoint,
+                         width,
+                         height,
+                         angle1,
+                         angle2,
+                         ocolor);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (opoint);
     Py_XDECREF (ocolor);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
   } else { /* member not optional */
     char *msg = g_strdup_printf ("%s.fill_arc() implementation missing.",
                                  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
@@ -794,50 +878,58 @@ fill_arc(DiaRenderer *renderer,
   }
 }
 
-/*!
- * \brief Draw ellipse
+
+/**
+ * draw_ellipse:
+ *
+ * Draw ellipse
  *
  * Not optional on the PyDia side. If not implemented a runtime warning
  * will be generated when called.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-draw_ellipse(DiaRenderer *renderer,
-	     Point *center,
-	     real width, real height,
-	     Color *fill, Color *stroke)
+draw_ellipse (DiaRenderer *renderer,
+              Point       *center,
+              double       width,
+              double       height,
+              Color       *fill,
+              Color       *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_ellipse");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *opoint = PyDiaPoint_New (center);
     PyObject *fill_po;
     PyObject *stroke_po;
-    Py_INCREF(self);
-    Py_INCREF(func);
+
+    Py_INCREF (self);
+    Py_INCREF (func);
+
     /* we have to provide a Python object even if there is no color */
-    if (fill)
+    if (fill) {
       fill_po = PyDiaColor_New (fill);
-    else
-      Py_INCREF(Py_None), fill_po = Py_None;
-    if (stroke)
+    } else {
+      Py_INCREF (Py_None), fill_po = Py_None;
+    }
+
+    if (stroke) {
       stroke_po = PyDiaColor_New (stroke);
-    else
-      Py_INCREF(Py_None), stroke_po = Py_None;
+    } else {
+      Py_INCREF (Py_None), stroke_po = Py_None;
+    }
 
     arg = Py_BuildValue ("(OddOO)", opoint, width, height, fill_po, stroke_po);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (opoint);
     Py_XDECREF (fill_po);
     Py_XDECREF (stroke_po);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
   } else { /* member not optional */
     char *msg = g_strdup_printf ("%s.draw_ellipse() implementation missing.",
                                  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
@@ -847,135 +939,153 @@ draw_ellipse(DiaRenderer *renderer,
   }
 }
 
+
 static void
-draw_bezier(DiaRenderer *renderer,
-	    BezPoint *points,
-	    int num_points,
-	    Color *colour)
+draw_bezier (DiaRenderer *renderer,
+             BezPoint    *points,
+             int          num_points,
+             Color       *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_bezier");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *obt = PyDiaBezPointTuple_New (points, num_points);
     PyObject *ocolor = PyDiaColor_New (colour);
-    Py_INCREF(self);
-    Py_INCREF(func);
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(OO)", obt, ocolor);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
+      res = PyObject_CallObject (func, arg);
       ON_RES(res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (obt);
     Py_XDECREF (ocolor);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  }
-  else { /* member optional */
-    PyErr_Clear();
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* member optional */
+    PyErr_Clear ();
     /* XXX: implementing the same fallback as DiaRenderer would do */
     DIA_RENDERER_CLASS (parent_class)->draw_bezier (renderer, points, num_points, colour);
   }
 }
 
+
 /* kept for backward compatibility, not any longer in the renderer interface */
 static void
-fill_bezier(DiaRenderer *renderer,
-	    BezPoint *points, /* Last point must be same as first point */
-	    int num_points,
-	    Color *colour)
+fill_bezier (DiaRenderer *renderer,
+             BezPoint    *points, /* Last point must be same as first point */
+             int          num_points,
+             Color       *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "fill_bezier");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *obt = PyDiaBezPointTuple_New (points, num_points);
     PyObject *ocolor = PyDiaColor_New (colour);
-    Py_INCREF(self);
-    Py_INCREF(func);
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(OO)", obt, ocolor);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (obt);
     Py_XDECREF (ocolor);
-    Py_DECREF(func);
-    Py_DECREF(self);
-  }
-  else { /* member optional */
-    PyErr_Clear();
+    Py_DECREF (func);
+    Py_DECREF (self);
+  } else {
+    /* member optional */
+    PyErr_Clear ();
     /* XXX: implementing the same fallback as DiaRenderer would do */
     DIA_RENDERER_CLASS (parent_class)->draw_beziergon (renderer, points, num_points, colour, NULL);
   }
 }
 
-/*!
- * \brief Fill and/or stroke a closed path
- * \memberof _DiaPyRenderer
+
+/**
+ * draw_beziergon:
+ *
+ * Fill and/or stroke a closed path
  */
 static void
 draw_beziergon (DiaRenderer *renderer,
-		BezPoint *points,
-		int num_points,
-		Color *fill,
-		Color *stroke)
+                BezPoint    *points,
+                int          num_points,
+                Color       *fill,
+                Color       *stroke)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_beziergon");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *obt = PyDiaBezPointTuple_New (points, num_points);
     PyObject *fill_po;
     PyObject *stroke_po;
-    Py_INCREF(self);
-    Py_INCREF(func);
+    Py_INCREF (self);
+    Py_INCREF (func);
+
     /* we have to provide a Python object even if there is no color */
-    if (fill)
+    if (fill) {
       fill_po = PyDiaColor_New (fill);
-    else
-      Py_INCREF(Py_None), fill_po = Py_None;
-    if (stroke)
+    } else {
+      Py_INCREF (Py_None), fill_po = Py_None;
+    }
+
+    if (stroke) {
       stroke_po = PyDiaColor_New (stroke);
-    else
+    } else {
       Py_INCREF(Py_None), stroke_po = Py_None;
+    }
 
     arg = Py_BuildValue ("(OOO)", obt, fill_po, stroke_po);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (obt);
     Py_XDECREF (fill_po);
     Py_XDECREF (stroke_po);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
   } else { /* member optional */
-    PyErr_Clear();
+    PyErr_Clear ();
     /* PyDia only backward compatibility */
-    if (fill)
+    if (fill) {
       fill_bezier (renderer, points, num_points, fill);
-    if (stroke) /* XXX: still not closing */
+    }
+    if (stroke) {
+      /* XXX: still not closing */
       draw_bezier (renderer, points, num_points, stroke);
+    }
   }
 }
 
-/*!
- * \brief Draw string
+
+/**
+ * draw_string:
+ * @renderer: the #DiaRenderer
+ * @text: the string to draw
+ * @pos: #Point where to draw @text
+ * @alignment: the @text #Alignment
+ * @colour: the #Color of @text
+ *
+ * Draw string
  *
  * Not optional on the PyDia side. If not implemented a runtime warning
  * will be generated when called.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-draw_string(DiaRenderer *renderer,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *colour)
+draw_string (DiaRenderer *renderer,
+             const char  *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
@@ -991,22 +1101,22 @@ draw_string(DiaRenderer *renderer,
   }
 
   func = PyObject_GetAttrString (self, "draw_string");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *opoint = PyDiaPoint_New (pos);
     PyObject *ocolor = PyDiaColor_New (colour);
 
-    Py_INCREF(self);
-    Py_INCREF(func);
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(sOiO)", text, opoint, alignment, ocolor);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (opoint);
     Py_XDECREF (ocolor);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
   } else { /* member not optional */
     char *msg = g_strdup_printf ("%s.draw_string() implementation missing.",
                                  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
@@ -1016,39 +1126,46 @@ draw_string(DiaRenderer *renderer,
   }
 }
 
-/*!
- * \brief Draw image
+
+/**
+ * draw_image:
+ * @renderer: the #DiaRenderer
+ * @point: the #Point to draw @image
+ * @width: @image width
+ * @height: height of @image
+ * @image: the #DiaImage to draw
+ *
+ * Draw image
  *
  * Not optional on the PyDia side. If not implemented a runtime warning
  * will be generated when called.
- *
- * \memberof _DiaPyRenderer
  */
 static void
-draw_image(DiaRenderer *renderer,
-	   Point *point,
-	   real width, real height,
-	   DiaImage *image)
+draw_image (DiaRenderer *renderer,
+            Point       *point,
+            double       width,
+            double       height,
+            DiaImage    *image)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   func = PyObject_GetAttrString (self, "draw_image");
-  if (func && PyCallable_Check(func)) {
+  if (func && PyCallable_Check (func)) {
     PyObject *opoint = PyDiaPoint_New (point);
     PyObject *oimage = PyDiaImage_New (image);
 
-    Py_INCREF(self);
-    Py_INCREF(func);
+    Py_INCREF (self);
+    Py_INCREF (func);
     arg = Py_BuildValue ("(OddO)", opoint, width, height, oimage);
     if (arg) {
-      res = PyEval_CallObject (func, arg);
-      ON_RES(res, FALSE);
+      res = PyObject_CallObject (func, arg);
+      ON_RES (res, FALSE);
     }
     Py_XDECREF (arg);
     Py_XDECREF (opoint);
     Py_XDECREF (oimage);
-    Py_DECREF(func);
-    Py_DECREF(self);
+    Py_DECREF (func);
+    Py_DECREF (self);
   } else { /* member not optional */
     char *msg = g_strdup_printf ("%s.draw_image() implementation missing.",
                                  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
