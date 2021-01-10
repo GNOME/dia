@@ -2282,7 +2282,7 @@ msgid ""
 "multiple pages)."
 msgstr ""
 "Pot carregar i desar diagrames en un format XML personalitzat (comprimit per"
-" defecte per estalviar espai), pot exportar diagrames a diversos formats, "
+" defecte per a estalviar espai), pot exportar diagrames a diversos formats, "
 "com ara EPS, SVG, XFIG, WMF i PNG, i pot imprimir diagrames (inclús els que "
 "abasten diverses pàgines)."
 
@@ -2832,7 +2832,7 @@ msgid ""
 "Unsupported file format for saving:\n"
 "%s\n"
 msgstr ""
-"No s'admet el format de fitxer per desar:\n"
+"No s'admet el format de fitxer per a desar:\n"
 "%s\n"
 
 #: lib/dia_image.c:318
@@ -5578,7 +5578,7 @@ msgid ""
 "To improve the ease of reading, flows which begin and end vertically can be "
 "rendered gray"
 msgstr ""
-"Per millorar la facilitat de lectura, els fluxos que comencen i acaben "
+"Per a millorar la facilitat de lectura, els fluxos que comencen i acaben "
 "verticalment es poden renderitzar en gris"
 
 #: objects/SADT/arrow.c:480
@@ -6350,7 +6350,7 @@ msgstr "Guarda"
 
 #: objects/UML/transition.c:144
 msgid "Condition for taking this transition when the event is fired"
-msgstr "Condició per activar aquesta transició quan es llança l'esdeveniment"
+msgstr "Condició per a activar aquesta transició quan es llança l'esdeveniment"
 
 #: objects/UML/umlattribute.c:48 objects/UML/umloperation.c:75
 msgid "Scope"
@@ -6565,7 +6565,7 @@ msgstr "Filtre d'exportació de TeX de Metapost"
 #: plug-ins/postscript/diapsrenderer.c:698
 #: plug-ins/pstricks/render_pstricks.c:869 plug-ins/wpg/wpg.c:905
 msgid "Not enough memory for image drawing."
-msgstr "No hi ha prou memòria per dibuixar la imatge."
+msgstr "No hi ha prou memòria per a dibuixar la imatge."
 
 #: plug-ins/metapost/render_metapost.c:1188
 msgid "TeX Metapost macros"
