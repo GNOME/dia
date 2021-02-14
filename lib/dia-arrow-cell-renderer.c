@@ -160,52 +160,68 @@ dia_arrow_cell_renderer_render (GtkCellRenderer      *cell,
                                 GdkRectangle         *expose_area,
                                 GtkCellRendererState  flags)
 {
-  DiaArrowCellRenderer *self = DIA_ARROW_CELL_RENDERER (cell);
-  DiaArrowCellRendererPrivate *priv = dia_arrow_cell_renderer_get_instance_private (self);
+  DiaArrowCellRenderer *self;
+  DiaArrowCellRendererPrivate *priv;
   Point from, to;
   Point move_arrow, move_line, arrow_head;
-  gint width, height;
-  gint x, y;
-  cairo_t *ctx;
-  int xpad, ypad;
   Arrow tmp_arrow;
-  Color colour_fg;
-  Color colour_bg = { 0.0, 0.0, 0.0, 0.0 };
+  Color colour_fg, colour_bg;
   GtkStyle *style = gtk_widget_get_style (widget);
+  GdkColor bg = style->base[gtk_widget_get_state(widget)];
   GdkColor fg = style->text[gtk_widget_get_state(widget)];
+  GdkRectangle rect;
+  int xpad, ypad;
+  DiaCairoRenderer *renderer;
+  cairo_surface_t *surface;
+  cairo_t *ctx;
 
-  GDK_COLOR_TO_DIA (fg, colour_fg);
+  g_return_if_fail (DIA_IS_ARROW_CELL_RENDERER (cell));
 
-  gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
-
-  ctx = gdk_cairo_create (GDK_DRAWABLE (window));
+  self = DIA_ARROW_CELL_RENDERER (cell);
+  priv = dia_arrow_cell_renderer_get_instance_private (self);
 
   g_return_if_fail (DIA_CAIRO_IS_RENDERER (priv->renderer));
 
-  width = cell_area->width - xpad * 2;
-  height = cell_area->height - ypad * 2;
-  x = (cell_area->x + xpad);
-  y = (cell_area->y + ypad);
+  GDK_COLOR_TO_DIA (bg, colour_bg);
+  GDK_COLOR_TO_DIA (fg, colour_fg);
 
-  to.y = from.y = height/2;
+  gtk_cell_renderer_get_size (cell,
+                              widget,
+                              cell_area,
+                              &rect.x,
+                              &rect.y,
+                              NULL,
+                              NULL);
+
+  gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
+
+  rect.x += cell_area->x + xpad;
+  rect.y += cell_area->y + ypad;
+  rect.width = cell_area->width - (xpad * 2);
+  rect.height = cell_area->height - (ypad * 2);
+
+  ctx = gdk_cairo_create (GDK_DRAWABLE (window));
+
+  to.y = from.y = rect.height / 2;
   if (priv->point_left) {
-    from.x = width - ARROW_LINEWIDTH;
+    from.x = rect.width - ARROW_LINEWIDTH;
     to.x = 0;
   } else {
     from.x = 0;
-    to.x = width - ARROW_LINEWIDTH;
+    to.x = rect.width - ARROW_LINEWIDTH;
   }
 
   /* here we must do some acrobaticts and construct Arrow type
     * variable
     */
   tmp_arrow.type = priv->arrow->type;
-  tmp_arrow.length = .75 * ((double) height - ARROW_LINEWIDTH);
-  tmp_arrow.width = .75 * ((double) height - ARROW_LINEWIDTH);
+  tmp_arrow.length = .75 * ((double) rect.height - ARROW_LINEWIDTH);
+  tmp_arrow.width = .75 * ((double) rect.height - ARROW_LINEWIDTH);
 
   /* and here we calculate new arrow start and end of line points */
   calculate_arrow_point (&tmp_arrow,
-                         &from, &to,
+                         &from,
+                         &to,
                          &move_arrow,
                          &move_line,
                          ARROW_LINEWIDTH);
@@ -213,26 +229,37 @@ dia_arrow_cell_renderer_render (GtkCellRenderer      *cell,
   point_add (&arrow_head, &move_arrow);
   point_add (&to, &move_line);
 
-  dia_renderer_begin_render (DIA_RENDERER (priv->renderer), NULL);
-  dia_renderer_set_linewidth (DIA_RENDERER (priv->renderer),
+  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                                        rect.width,
+                                        rect.height);
+
+  renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
+  renderer->with_alpha = TRUE;
+  renderer->surface = cairo_surface_reference (surface);
+
+  dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
+  dia_renderer_set_linewidth (DIA_RENDERER (renderer),
                               ARROW_LINEWIDTH);
 
-  dia_renderer_draw_line (DIA_RENDERER (priv->renderer),
+  dia_renderer_draw_line (DIA_RENDERER (renderer),
                           &from,
                           &to,
                           &colour_fg);
   dia_arrow_draw (&tmp_arrow,
-                  DIA_RENDERER (priv->renderer),
+                  DIA_RENDERER (renderer),
                   &arrow_head,
                   &from,
                   ARROW_LINEWIDTH,
                   &colour_fg,
                   &colour_bg);
 
-  dia_renderer_end_render (DIA_RENDERER (priv->renderer));
+  dia_renderer_end_render (DIA_RENDERER (renderer));
 
-  cairo_set_source_surface (ctx, DIA_CAIRO_RENDERER (priv->renderer)->surface, x, y);
+  cairo_set_source_surface (ctx, surface, rect.x, rect.y);
+  gdk_cairo_rectangle (ctx, &rect);
   cairo_paint (ctx);
+
+  cairo_destroy (ctx);
 }
 
 

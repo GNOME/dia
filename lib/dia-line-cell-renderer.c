@@ -148,33 +148,49 @@ dia_line_cell_renderer_render (GtkCellRenderer      *cell,
                                GdkRectangle         *expose_area,
                                GtkCellRendererState  flags)
 {
-  DiaLineCellRenderer *self = DIA_LINE_CELL_RENDERER (cell);
-  DiaLineCellRendererPrivate *priv = dia_line_cell_renderer_get_instance_private (self);
+  DiaLineCellRenderer *self;
+  DiaLineCellRendererPrivate *priv;
   Point from, to;
-  gint width, height;
-  gint x, y;
-  cairo_t *ctx;
-  int xpad, ypad;
   Color colour_fg;
   GtkStyle *style = gtk_widget_get_style (widget);
   GdkColor fg = style->text[gtk_widget_get_state(widget)];
+  GdkRectangle rect;
+  int xpad, ypad;
+  cairo_t *ctx;
+
+  g_return_if_fail (DIA_IS_LINE_CELL_RENDERER (cell));
+
+  self = DIA_LINE_CELL_RENDERER (cell);
+  priv = dia_line_cell_renderer_get_instance_private (self);
+
+  g_return_if_fail (DIA_CAIRO_IS_RENDERER (priv->renderer));
+
+  gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
 
   GDK_COLOR_TO_DIA (fg, colour_fg);
+
+  gtk_cell_renderer_get_size (cell,
+                              widget,
+                              cell_area,
+                              &rect.x,
+                              &rect.y,
+                              NULL,
+                              NULL);
 
   gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
 
   ctx = gdk_cairo_create (GDK_DRAWABLE (window));
 
-  g_return_if_fail (DIA_CAIRO_IS_RENDERER (priv->renderer));
+  rect.x += cell_area->x + xpad;
+  rect.y += cell_area->y + ypad;
+  rect.width = cell_area->width - (xpad * 2);
+  rect.height = cell_area->height - (ypad * 2);
 
-  width = cell_area->width - xpad * 2;
-  height = cell_area->height - ypad * 2;
-  x = (cell_area->x + xpad);
-  y = (cell_area->y + ypad);
+  ctx = gdk_cairo_create (GDK_DRAWABLE (window));
 
-  to.y = from.y = height / 2;
+  to.y = from.y = rect.height / 2;
   from.x = 0;
-  to.x = width - LINEWIDTH;
+  to.x = rect.width - LINEWIDTH;
 
   dia_renderer_begin_render (DIA_RENDERER (priv->renderer), NULL);
   dia_renderer_set_linewidth (DIA_RENDERER (priv->renderer),
@@ -190,8 +206,11 @@ dia_line_cell_renderer_render (GtkCellRenderer      *cell,
 
   dia_renderer_end_render (DIA_RENDERER (priv->renderer));
 
-  cairo_set_source_surface (ctx, DIA_CAIRO_RENDERER (priv->renderer)->surface, x, y);
+  cairo_set_source_surface (ctx, DIA_CAIRO_RENDERER (priv->renderer)->surface, rect.x, rect.y);
+  gdk_cairo_rectangle (ctx, &rect);
   cairo_paint (ctx);
+
+  cairo_destroy (ctx);
 }
 
 
