@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dia.master.el.po\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
 "POT-Creation-Date: 2020-12-18 14:36+0000\n"
-"PO-Revision-Date: 2021-03-03 19:40+0200\n"
+"PO-Revision-Date: 2021-03-07 12:54+0200\n"
 "Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
 "Language-Team: team@lists.gnome.gr\n"
 "Language: el\n"
@@ -417,12 +417,14 @@ msgstr ""
 #: app/commands.c:1122
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
-"Σπίγγος Δημήτρης\n"
-"Παπαδήμας Κώστας\n"
-"Μενέλαος Μαγκλής \n"
-"Δημήτρης Αγγελάκος\n"
-"Μαρία Μαυρίδου\\n\n"
-"Ευστάθιος Ιωσηφίδης <iosifidis@opensuse.org>"
+"Ελληνική Κοινότητα GNOME\n"
+"http://gnome.gr\n"
+"  Σπίγγος Δημήτρης\n"
+"  Παπαδήμας Κώστας\n"
+"  Μενέλαος Μαγκλής \n"
+"  Δημήτρης Αγγελάκος\n"
+"  Μαρία Μαυρίδου\n"
+"  Ευστάθιος Ιωσηφίδης <iosifidis@opensuse.org>"
 
 #: app/commands.c:1125
 msgid ""
@@ -712,7 +714,7 @@ msgstr "Ιδιότητες Διαγράμματος"
 
 #: app/dia-guide-dialog.c:151
 msgid "Add New Guide"
-msgstr ""
+msgstr "Προσθήκη νέου οδηγού"
 
 #: app/dia-guide-dialog.c:177 lib/diapatternselector.c:114
 msgid "Horizontal"
@@ -798,20 +800,16 @@ msgid "Selected '%s'"
 msgstr "Επιλεγμένο '%s'"
 
 #: app/display.c:1229
-#, fuzzy
-#| msgid "Save Diagram"
 msgid "Unsaved Diagram"
-msgstr "Αποθήκευση διαγράμματος"
+msgstr "Μη αποθηκευμένο διάγραμμα"
 
 #: app/exit_dialog.c:202
 msgid "If you don’t save, all your changes will be permanently lost."
-msgstr ""
+msgstr "Αν δεν αποθηκεύσετε, όλες οι αλλαγές θα χαθούν οριστικά."
 
 #: app/exit_dialog.c:205
-#, fuzzy
-#| msgid "Closing diagram without saving"
 msgid "Close _without Saving"
-msgstr "Κλείσιμο διαγράμματος χωρίς αποθήκευση"
+msgstr "Κλείσιμο _χωρίς αποθήκευση"
 
 #: app/exit_dialog.c:221 app/filedlg.c:501 app/filedlg.c:823 app/menus.c:111
 msgid "_Save"
@@ -829,7 +827,11 @@ msgid "There is %d diagram with unsaved changes. Save changes before closing?"
 msgid_plural ""
 "There are %d diagrams with unsaved changes. Save changes before closing?"
 msgstr[0] ""
+"Υπάρχει %d διάγραμμα με μη αποθηκευμένες αλλαγές. Να αποθηκευτούν οι αλλαγές "
+"πριν το κλείσιμο;"
 msgstr[1] ""
+"Υπάρχουν %d διαγράμματα με μη αποθηκευμένες αλλαγές. Να αποθηκευτούν οι "
+"αλλαγές πριν το κλείσιμο;"
 
 #: app/filedlg.c:155 app/filedlg.c:163 app/filedlg.c:179 app/filedlg.c:869
 #: lib/widgets.c:404
@@ -1201,10 +1203,8 @@ msgid "Dia version, authors, license"
 msgstr "Dia έκδοση , συγγραφείς, άδεια"
 
 #: app/menus.c:95
-#, fuzzy
-#| msgid "Sheets and Objects…"
 msgid "S_heets and Objects"
-msgstr "Φύλλα εργασίας και αντικείμενα…"
+msgstr "_Φύλλα εργασίας και αντικείμενα"
 
 #: app/menus.c:95
 msgid "Manage sheets and their objects"
@@ -1219,20 +1219,16 @@ msgid "Dia preferences"
 msgstr "Προτιμήσεις Dia"
 
 #: app/menus.c:97
-#, fuzzy
-#| msgid "Plugins…"
 msgid "P_lugins…"
-msgstr "Πρόσθετα…"
+msgstr "_Πρόσθετα…"
 
 #: app/menus.c:97
 msgid "Manage plug-ins"
 msgstr "Πρόσθετα διαχείρισης"
 
 #: app/menus.c:98
-#, fuzzy
-#| msgid "Diagram Tree"
 msgid "Diagram _Tree"
-msgstr "Δέντρο διαγράμματος"
+msgstr "_Δέντρο διαγράμματος"
 
 #: app/menus.c:98
 msgid "Tree representation of diagrams"
@@ -1561,10 +1557,8 @@ msgid "_Refresh"
 msgstr "_Ανανέωση"
 
 #: app/menus.c:172
-#, fuzzy
-#| msgid "Guide"
 msgid "_Guides"
-msgstr "Οδηγός"
+msgstr "_Οδηγοί"
 
 #: app/menus.c:173
 msgid "_New Guide..."
@@ -1701,10 +1695,8 @@ msgid "_Connected"
 msgstr "Συνδέθηκε"
 
 #: app/menus.c:204
-#, fuzzy
-#| msgid "Properties"
 msgid "_Properties"
-msgstr "Ιδιότητες"
+msgstr "_Ιδιότητες"
 
 #
 #: app/menus.c:206
@@ -1713,19 +1705,15 @@ msgstr "_Επιλογή"
 
 #: app/menus.c:207
 msgid "_All"
-msgstr ""
+msgstr "Ό_λα"
 
 #: app/menus.c:208
-#, fuzzy
-#| msgid "None"
 msgid "_None"
-msgstr "Κανένα"
+msgstr "_Κανένα"
 
 #: app/menus.c:209
-#, fuzzy
-#| msgid "Invert"
 msgid "_Invert"
-msgstr "Αναστροφή"
+msgstr "_Αντιστροφή"
 
 #: app/menus.c:211
 #, fuzzy
@@ -1735,10 +1723,8 @@ msgstr "Μεταβατικό"
 
 #
 #: app/menus.c:213
-#, fuzzy
-#| msgid "Same Type"
 msgid "Same _Type"
-msgstr "Ίδιος τύπος"
+msgstr "Ίδιος _τύπος"
 
 #
 #. display_select_radio_entries go here
@@ -1771,20 +1757,16 @@ msgid "_Modify"
 msgstr "_Τροποποίηση"
 
 #: app/menus.c:232
-#, fuzzy
-#| msgid "Magnify"
 msgid "_Magnify"
-msgstr "Μεγέθυνση"
+msgstr "_Μεγέθυνση"
 
 #: app/menus.c:233
 msgid "_Edit Text"
 msgstr "_Επεξεργασία κειμένου"
 
 #: app/menus.c:234
-#, fuzzy
-#| msgid "Scroll"
 msgid "_Scroll"
-msgstr "Κύλιση"
+msgstr "_Κύλιση"
 
 #: app/menus.c:235
 msgid "_Text"
@@ -1795,10 +1777,8 @@ msgid "_Box"
 msgstr ""
 
 #: app/menus.c:237
-#, fuzzy
-#| msgid "Ellipse"
 msgid "_Ellipse"
-msgstr "Έλλειψη"
+msgstr "Έ_λλειψη"
 
 #: app/menus.c:238
 msgid "_Polygon"
@@ -1825,10 +1805,8 @@ msgid "_Zigzagline"
 msgstr "Γραμμή ζικ ζακ"
 
 #: app/menus.c:244
-#, fuzzy
-#| msgid "Polyline"
 msgid "_Polyline"
-msgstr "Πολυγωνική Γραμμή"
+msgstr "_Πολυγωνική Γραμμή"
 
 #: app/menus.c:245
 #, fuzzy
@@ -1843,16 +1821,12 @@ msgid "_Outline"
 msgstr "Περίγραμμα"
 
 #: app/menus.c:248
-#, fuzzy
-#| msgid "Image"
 msgid "_Image"
-msgstr "Εικόνα"
+msgstr "_Εικόνα"
 
 #: app/menus.c:254
-#, fuzzy
-#| msgid "Fullscr_een"
 msgid "_Fullscreen"
-msgstr "Πλήρης _Οθόνη"
+msgstr "Πλήρης _οθόνη"
 
 #
 #: app/menus.c:255 data/ui/preferences-dialog.ui:808
@@ -1885,7 +1859,7 @@ msgstr "Π_ροσκόλληση στο πλέγμα"
 
 #: app/menus.c:260
 msgid "_Remove all Guides"
-msgstr ""
+msgstr "_Αφαίρεση όλων των οδηγών"
 
 #
 #: app/menus.c:261
@@ -1921,10 +1895,8 @@ msgid "I_ntersection"
 msgstr "Τομή"
 
 #: app/menus.c:273
-#, fuzzy
-#| msgid "Remove"
 msgid "R_emove"
-msgstr "Αφαίρεση"
+msgstr "Α_φαίρεση"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
 #: app/menus.c:275
@@ -2015,11 +1987,11 @@ msgstr "Όνομα αρχείου"
 #. TRANSLATORS: The user hasn't set a prefered filter
 #: app/preferences.c:692
 msgid "Unset"
-msgstr ""
+msgstr "Αναίρεση"
 
 #: app/preferences.c:765
 msgid "_Done"
-msgstr ""
+msgstr "_Ολοκληρώθηκε"
 
 #: app/preferences.c:770
 msgid "Preferences"
@@ -2075,7 +2047,7 @@ msgstr "Προγραμματισμένο DiaObject"
 #: app/sheet-editor/sheet-editor-button.c:128
 #, c-format
 msgid "No icon for “%s”"
-msgstr ""
+msgstr "Κανένα εικονίδιο για “%s”"
 
 #: app/sheet-editor/sheet-editor-button.c:199
 #: app/sheet-editor/sheets_dialog_callbacks.c:971
@@ -2316,14 +2288,10 @@ msgid "UML"
 msgstr "UML"
 
 #: app/toolbox.c:660
-#, fuzzy
-#| msgid "Sheet"
 msgid "All Sheets"
-msgstr "Φύλλο εργασίας"
+msgstr "Όλα τα φύλλα εργασίας"
 
 #: app/toolbox.c:675 lib/diacolorselector.c:390 lib/diafontselector.c:483
-#, fuzzy
-#| msgid "Reset menu"
 msgid "Reset Menu"
 msgstr "Επαναφορά μενού"
 
@@ -2375,16 +2343,16 @@ msgid "Dia"
 msgstr "Dia"
 
 #: data/org.gnome.Dia.appdata.xml.in:8
-#, fuzzy
-#| msgid "A program for drawing structured diagrams."
 msgid "Dia is a program for drawing diagrams"
-msgstr "Ένα πρόγραμμα για την δημιουργία δομημένων διαγραμμάτων."
+msgstr "Το Dia είναι ένα πρόγραμμα σχεδίασης διαγραμμάτων"
 
 #: data/org.gnome.Dia.appdata.xml.in:10
 msgid ""
 "Dia is a GTK+ based diagram creation program for GNU/Linux, MacOS X, Unix, "
 "and Windows, and is released under the GPL license."
 msgstr ""
+"Το Dia είναι ένα πρόγραμμα δημιουργίας διαγραμμάτων με βάση το GTK + για GNU/"
+"Linux, MacOS X, Unix και Windows και κυκλοφορεί με άδεια GPL."
 
 #: data/org.gnome.Dia.appdata.xml.in:12
 msgid ""
@@ -2396,6 +2364,14 @@ msgid ""
 "new shapes by writing simple XML files, using a subset of SVG to draw the "
 "shape."
 msgstr ""
+"Η Dia εμπνέεται περίπου από το εμπορικό πρόγραμμα Windows «Visio», αν και "
+"προσανατολίζεται περισσότερο σε ανεπίσημα διαγράμματα για περιστασιακή "
+"χρήση. Μπορεί να χρησιμοποιηθεί για τη σχεδίαση διαφόρων ειδών διαγραμμάτων. "
+"Προς το παρόν διαθέτει ειδικά αντικείμενα για τη σχεδίαση διαγραμμάτων "
+"συσχετίσεων οντοτήτων, διαγράμματα UML, διαγράμματα ροής, διαγράμματα "
+"δικτύου και πολλά άλλα διαγράμματα. Είναι επίσης δυνατό να προσθέσετε "
+"υποστήριξη για νέα σχήματα γράφοντας απλά αρχεία XML, χρησιμοποιώντας ένα "
+"υποσύνολο SVG για να σχεδιάσετε το σχήμα."
 
 #: data/org.gnome.Dia.appdata.xml.in:14
 msgid ""
@@ -2404,6 +2380,11 @@ msgid ""
 "XFIG, WMF and PNG, and can print diagrams (including ones that span multiple "
 "pages)."
 msgstr ""
+"Μπορεί να φορτώσει και να αποθηκεύσει διαγράμματα σε προσαρμοσμένη μορφή XML "
+"(από προεπιλογή gzipped, για εξοικονόμηση χώρου), μπορεί να εξαγάγει "
+"διαγράμματα σε διάφορες μορφές, συμπεριλαμβανομένων των EPS, SVG, XFIG, WMF "
+"και PNG και μπορεί να εκτυπώσει διαγράμματα (συμπεριλαμβανομένων εκείνων που "
+"εκτείνονται πολλαπλές σελίδες)."
 
 #: data/org.gnome.Dia.appdata.xml.in:19
 msgid "Main Window"
@@ -2411,7 +2392,7 @@ msgstr "Κυρίως παράθυρο"
 
 #: data/org.gnome.Dia.appdata.xml.in:44
 msgid "The GNOME Project"
-msgstr ""
+msgstr "Το έργο GNOME"
 
 #: data/org.gnome.Dia.desktop.in:4
 msgid "Diagram Editor"
@@ -2448,10 +2429,8 @@ msgid "U_ndo Levels"
 msgstr ""
 
 #: data/ui/preferences-dialog.ui:262
-#, fuzzy
-#| msgid "Length unit:"
 msgid "_Length Unit"
-msgstr "Μήκος μονάδος:"
+msgstr "Μονάδα _μήκους"
 
 #: data/ui/preferences-dialog.ui:277
 #, fuzzy
@@ -2468,10 +2447,8 @@ msgid "Classic Mode"
 msgstr "Κλασσική προβολή"
 
 #: data/ui/preferences-dialog.ui:344
-#, fuzzy
-#| msgid "Use menu bar"
 msgid "Use _Menu Bar"
-msgstr "Χρήση γραμμής μενού"
+msgstr "Χρήση γραμμής _μενού"
 
 #: data/ui/preferences-dialog.ui:361
 #, fuzzy
@@ -2490,16 +2467,12 @@ msgid "_Portrait"
 msgstr "Πορτρέτο"
 
 #: data/ui/preferences-dialog.ui:474
-#, fuzzy
-#| msgid "Paper type:"
 msgid "Paper _Type"
-msgstr "Τύπος χαρτιού:"
+msgstr "_Τύπος χαρτιού"
 
 #: data/ui/preferences-dialog.ui:489
-#, fuzzy
-#| msgid "Background Color"
 msgid "_Background Color"
-msgstr "Χρώμα παρασκηνίου"
+msgstr "Χρώμα _παρασκηνίου"
 
 #: data/ui/preferences-dialog.ui:501
 #, fuzzy
@@ -2515,10 +2488,8 @@ msgstr "Σημεία Σύνδεσης:"
 
 #: data/ui/preferences-dialog.ui:536 data/ui/preferences-dialog.ui:792
 #: data/ui/preferences-dialog.ui:1457
-#, fuzzy
-#| msgid "Visible"
 msgid "V_isible"
-msgstr "Ορατό"
+msgstr "_Ορατό"
 
 #
 #: data/ui/preferences-dialog.ui:553
@@ -2534,16 +2505,12 @@ msgid "_Diagram Defaults"
 msgstr "Προεπιλογές διαγράμματος"
 
 #: data/ui/preferences-dialog.ui:648
-#, fuzzy
-#| msgid "Width"
 msgid "_Width"
-msgstr "Πλάτος"
+msgstr "_Πλάτος"
 
 #: data/ui/preferences-dialog.ui:658
-#, fuzzy
-#| msgid "Height"
 msgid "_Height"
-msgstr "Ύψος"
+msgstr "Ύ_ψος"
 
 #: data/ui/preferences-dialog.ui:687 data/ui/properties-dialog.ui:359
 msgid "Page Breaks"
@@ -2605,10 +2572,8 @@ msgid "_Scalable Vector Graphics"
 msgstr "Κλιμακώσιμα διανυσματικά γραφικά"
 
 #: data/ui/preferences-dialog.ui:1002
-#, fuzzy
-#| msgid "PostScript"
 msgid "_PostScript"
-msgstr "PostScript"
+msgstr "_PostScript"
 
 #: data/ui/preferences-dialog.ui:1016
 #, fuzzy
@@ -2623,10 +2588,8 @@ msgid "_Enhanced Metafile"
 msgstr "Προχωρημένο μετα-αρχείο (emf)"
 
 #: data/ui/preferences-dialog.ui:1166
-#, fuzzy
-#| msgid "Favorites"
 msgid "_Favorites"
-msgstr "Αγαπημένα"
+msgstr "_Αγαπημένα"
 
 #: data/ui/preferences-dialog.ui:1189
 #, fuzzy
@@ -2655,10 +2618,8 @@ msgid "Column"
 msgstr "Στήλη"
 
 #: data/ui/preferences-dialog.ui:1293 data/ui/properties-dialog.ui:153
-#, fuzzy
-#| msgid "Rows"
 msgid "Row"
-msgstr "Γραμμές"
+msgstr "Γραμμή"
 
 #: data/ui/preferences-dialog.ui:1398 data/ui/properties-dialog.ui:254
 #, fuzzy
@@ -2675,10 +2636,8 @@ msgid "H_ex Grid Size"
 msgstr "Δεκαεξαδικό μέγεθος πλέγματος"
 
 #: data/ui/preferences-dialog.ui:1490
-#, fuzzy
-#| msgid "Color"
 msgid "_Color"
-msgstr "Χρώμα"
+msgstr "_Χρώμα"
 
 #: data/ui/preferences-dialog.ui:1504
 #, fuzzy
@@ -2767,11 +2726,11 @@ msgstr "Φύλλα εργασίας και αντικείμενα…"
 
 #: data/ui/sheets-main-dialog.ui:44
 msgid "_Up"
-msgstr ""
+msgstr "_Πάνω"
 
 #: data/ui/sheets-main-dialog.ui:61
 msgid "_Down"
-msgstr ""
+msgstr "_Κάτω"
 
 #: data/ui/sheets-main-dialog.ui:78
 msgid "_Remove"
@@ -3553,19 +3512,19 @@ msgstr "Δέκατο μέτρου"
 
 #: lib/units.c:46
 msgid "Feet"
-msgstr ""
+msgstr "Πόδι"
 
 #: lib/units.c:48
 msgid "Inch"
-msgstr ""
+msgstr "Ίντσα"
 
 #: lib/units.c:50
 msgid "Meter"
-msgstr ""
+msgstr "Μέτρο"
 
 #: lib/units.c:52
 msgid "Millimeter"
-msgstr ""
+msgstr "Χιλιοστό"
 
 #: lib/units.c:54
 #, fuzzy
@@ -3862,7 +3821,7 @@ msgstr "Σύνθετο"
 
 #: objects/Database/database.c:37
 msgid "Entity/Relationship table diagram objects"
-msgstr "Αντικείμενα διαγράμματος πίνακα οντότητας/σχέσης"
+msgstr "Αντικείμενα διαγράμματος πίνακα οντότητας/συσχέτισης"
 
 #: objects/Database/reference.c:114 objects/flowchart/box.c:151
 #: objects/standard/box.c:158 objects/standard/polyline.c:108
@@ -4000,7 +3959,7 @@ msgstr "Κλειδί:"
 
 #: objects/ER/attribute.c:155
 msgid "Weak key:"
-msgstr "Ασθενές κλειδί:"
+msgstr "Αδύναμο κλειδί:"
 
 #: objects/ER/attribute.c:157
 msgid "Derived:"
@@ -4016,7 +3975,7 @@ msgstr "Γνώρισμα"
 
 #: objects/ER/entity.c:134
 msgid "Weak:"
-msgstr "Ασθενής:"
+msgstr "Αδύναμη:"
 
 #: objects/ER/entity.c:136
 msgid "Associative:"
@@ -4030,7 +3989,7 @@ msgstr "Οντότητα"
 
 #: objects/ER/er.c:42
 msgid "Entity/Relationship diagram objects"
-msgstr "Αντικείμενα διαγράμματος οντότητας/σχέσης"
+msgstr "Αντικείμενα διαγράμματος οντότητας/συσχέτισης"
 
 #: objects/ER/participation.c:118
 msgid "Total:"
@@ -4054,7 +4013,7 @@ msgstr "Προσδιορίζουσα συσχέτιση:"
 
 #: objects/ER/relationship.c:488 sheets/ER.sheet:14
 msgid "Relationship"
-msgstr "Σχέση"
+msgstr "Συσχέτιση"
 
 #: objects/flowchart/flowchart.c:35
 msgid "Flowchart objects"
@@ -6004,7 +5963,7 @@ msgstr "Από το B στο A"
 
 #: objects/UML/association.c:233
 msgid "Aggregation"
-msgstr "Σύνολο"
+msgstr "Συνυπολογισμός"
 
 #: objects/UML/association.c:234
 msgid "Composition"
@@ -6057,16 +6016,12 @@ msgid "Remove Attribute"
 msgstr "Αφαίρεση χαρακτηριστικού"
 
 #: objects/UML/class_attributes_dialog.c:631
-#, fuzzy
-#| msgid "Attribute"
 msgid "Move Attribute Up"
-msgstr "Γνώρισμα"
+msgstr "Μετακίνηση γνωρίσματος προς τα πάνω"
 
 #: objects/UML/class_attributes_dialog.c:644
-#, fuzzy
-#| msgid "Attribute compound"
 msgid "Move Attribute Down"
-msgstr "Σύνθεση γνωρίσματος"
+msgstr "Μετακίνηση γνωρίσματος προς τα κάτω"
 
 #: objects/UML/class_attributes_dialog.c:656
 msgid "Attribute data"
@@ -6996,27 +6951,27 @@ msgstr ""
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/codegen.py:711
 msgid "PyDia Code Generation (Python)"
-msgstr ""
+msgstr "Δημιουργία κώδικα PyDia (Python)"
 
 #: plug-ins/python/codegen.py:712
 msgid "PyDia Code Generation (C++)"
-msgstr ""
+msgstr "Δημιουργία κώδικα PyDia (C++)"
 
 #: plug-ins/python/codegen.py:713
 msgid "PyDia Code Generation (Pascal)"
-msgstr ""
+msgstr "Δημιουργία κώδικα PyDia (Pascal)"
 
 #: plug-ins/python/codegen.py:714
 msgid "PyDia Code Generation (Java)"
-msgstr ""
+msgstr "Δημιουργία κώδικα PyDia (Java)"
 
 #: plug-ins/python/codegen.py:715
 msgid "PyDia Code Generation (JavaScript)"
-msgstr ""
+msgstr "Δημιουργία κώδικα PyDia (JavaScript)"
 
 #: plug-ins/python/codegen.py:716
 msgid "PyDia Code Generation (PHP)"
-msgstr ""
+msgstr "Δημιουργία κώδικα PyDia (PHP)"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/debug_objects.py:30
@@ -7052,7 +7007,7 @@ msgstr "Διάχυση"
 #. dia.register_import("Cpp via GCC_XML", "cpp", ImportCpp)
 #: plug-ins/python/diagx.py:405
 msgid "XML from GCC_XML"
-msgstr ""
+msgstr "XML από GCC_XML"
 
 #. register the renderer
 #: plug-ins/python/diastddia.py:361
@@ -7079,18 +7034,16 @@ msgstr ""
 
 #: plug-ins/python/doxrev.py:488
 msgid "Dox2UML"
-msgstr ""
+msgstr "Dox2UML"
 
 #: plug-ins/python/doxrev.py:489
 msgid "Dox2UML (multiple)"
-msgstr ""
+msgstr "Dox2UML (πολλαπλά)"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/export-object.py:45
-#, fuzzy
-#| msgid "DiaObject"
 msgid "PyDia Object Export"
-msgstr "DiaObject"
+msgstr "Εξαγωγή αντικειμένου PyDia"
 
 #. # \brief Register the renderer with Dia's export system
 #. dia-python keeps a reference to the renderer class and uses it on demand
@@ -7102,11 +7055,11 @@ msgstr "DiaRenderScript"
 
 #: plug-ins/python/gtkcons.py:385
 msgid "Python Dia Console"
-msgstr ""
+msgstr "Κονσόλα Python Dia"
 
 #: plug-ins/python/gtkcons.py:390
 msgid "_Python Console"
-msgstr ""
+msgstr "Κονσόλα _Python"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/imgmap.py:80
@@ -7129,7 +7082,7 @@ msgstr "DiaObject"
 
 #: plug-ins/python/pydiadoc.py:264
 msgid "PyDia _HTML Docs"
-msgstr ""
+msgstr "PyDia _HTML Έγγραφα"
 
 #: plug-ins/python/pydiadoc.py:267
 msgid "PyDia _Docs"
@@ -7137,7 +7090,7 @@ msgstr ""
 
 #: plug-ins/python/pydiadoc.py:270
 msgid "PyDia Docs _Update"
-msgstr ""
+msgstr "_Ενημέρωση εγγράφων PyDia"
 
 #: plug-ins/python/scascale.py:40
 #, fuzzy
@@ -7180,10 +7133,8 @@ msgid "_Size"
 msgstr "_Μέγεθος"
 
 #: plug-ins/python/select_empty.py:30
-#, fuzzy
-#| msgid "Empty"
 msgid "_Empty"
-msgstr "Άδειο"
+msgstr "Ά_δειο"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/uninline_data.py:52
@@ -10099,10 +10050,8 @@ msgid "Objects to draw event-driven process chains"
 msgstr "Αντικείμενα για σχεδίαση διαγραμμάτων ροής"
 
 #: sheets/EDPC.sheet:7
-#, fuzzy
-#| msgid "Business Process Modeling Notation"
 msgid "Business Process"
-msgstr "Σημειογραφία προτυποποίησης εργασιακής επεξεργασίας"
+msgstr "Επιχειρηματική διαδικασία"
 
 #: sheets/EDPC.sheet:8
 #, fuzzy
@@ -10128,11 +10077,11 @@ msgstr "Έγγραφο"
 
 #: sheets/EDPC.sheet:15
 msgid "Operator AND (Input)"
-msgstr ""
+msgstr "Τελεστής ΚΑΙ (Είσοδος)"
 
 #: sheets/EDPC.sheet:16
 msgid "Operator AND (Output)"
-msgstr ""
+msgstr "Τελεστής ΚΑΙ (Έξοδος)"
 
 #: sheets/EDPC.sheet:17
 #, fuzzy
@@ -10147,14 +10096,12 @@ msgid "Operator Inclusive (OR) (Output)"
 msgstr "Εγκλειστκό (OR)"
 
 #: sheets/EDPC.sheet:19
-#, fuzzy
-#| msgid "Exclusive (XOR) Event Based"
 msgid "Operator Exclusive (XOR) (Input)"
-msgstr "Αποκλειστικό (XOR) με βάση συμβάν"
+msgstr "Αποκλειστικός τελεστής (XOR) (Είσοδος)"
 
 #: sheets/EDPC.sheet:20
 msgid "Operator Exclusive (XOR) (Output)"
-msgstr ""
+msgstr "Αποκλειστικός τελεστής (XOR) (Έξοδος)"
 
 #: sheets/Electric.sheet:3
 msgid "Electric"
@@ -10236,7 +10183,7 @@ msgstr "Επεξεργαστής για σχεσιακά διαγράμματα 
 # #       term for "class", but actually the notions are very much alike,
 #: sheets/ER.sheet:10
 msgid "Weak entity"
-msgstr "Ασθενής οντότητα"
+msgstr "Αδύναμη οντότητα"
 
 #: sheets/ER.sheet:11
 msgid "res:/org/gnome/Dia/ER/weakentity.png"
@@ -10465,7 +10412,7 @@ msgstr "Alan Horkan"
 
 #: sheets/IsometricMap.sheet:6
 msgid "Copyright Alan Horkan 2003"
-msgstr ""
+msgstr "Πνευματικά δικαιώματα Alan Horkan 2003"
 
 #. use dc:title instead?
 #: sheets/IsometricMap.sheet:9
@@ -11075,16 +11022,12 @@ msgid "Folder"
 msgstr "Φάκελος"
 
 #: sheets/Misc.sheet:16
-#, fuzzy
-#| msgid "expansible node"
 msgid "Expansible node"
-msgstr "επεκτάσιμος κόμβος"
+msgstr "Επεκτάσιμος κόμβος"
 
 #: sheets/Misc.sheet:19
-#, fuzzy
-#| msgid "expanded node"
 msgid "Expanded node"
-msgstr "επεκταμένος κόμβος"
+msgstr "Διευρυμένος κόμβος"
 
 #: sheets/Misc.sheet:22
 msgid "Traditional clock"
@@ -11528,7 +11471,7 @@ msgstr "Ένωση, δύο τάξεις συνδέονται"
 
 #: sheets/UML.sheet:29
 msgid "Aggregation, one class is part of another"
-msgstr "Συσσωμάτωση, μια τάξη είναι μέρος μιας άλλης"
+msgstr "Συνυπολογισμός, μια τάξη είναι μέρος μιας άλλης"
 
 #: sheets/UML.sheet:30
 msgid "res:/org/gnome/Dia/UML/aggregation.png"
