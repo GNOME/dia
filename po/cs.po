@@ -8,14 +8,14 @@
 # Jakub Friedl <jfriedl@suse.cz>, 2006, 2007.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008.
 # Petr Kovar <pknbe@volny.cz>, 2008, 2010.
-# Marek Černocký <marek@manet.cz>, 2010, 2012, 2013, 2014, 2015, 2019, 20202.
+# Marek Černocký <marek@manet.cz>, 2010, 2012, 2013, 2014, 2015, 2019, 2020, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2020-10-17 09:14+0000\n"
-"PO-Revision-Date: 2020-11-19 09:30+0100\n"
+"POT-Creation-Date: 2020-12-18 14:36+0000\n"
+"PO-Revision-Date: 2021-03-21 23:55+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -450,9 +450,9 @@ msgstr[2] "Chystáte se exportovat diagram s %d stránkami."
 #: app/confirm.c:85
 #, c-format
 msgid ""
-"You are about to export a diagram which may require %s of memory.(%d page)."
+"You are about to export a diagram which may require %s of memory (%d page)."
 msgid_plural ""
-"You are about to export a diagram which may require %s of memory.(%d pages)."
+"You are about to export a diagram which may require %s of memory (%d pages)."
 msgstr[0] ""
 "Chystáte se exportovat diagram, který může vyžadovat %s paměti (%d stránka)."
 msgstr[1] ""
@@ -2223,8 +2223,8 @@ msgid ""
 "Dia is a GTK+ based diagram creation program for GNU/Linux, MacOS X, Unix, "
 "and Windows, and is released under the GPL license."
 msgstr ""
-"Dia je aplikace na vytváření diagramů pro GNU/Linux, MacOS X, Unix a Windows. "
-"Je založená na GTK a vydávaná pod licencí GPL."
+"Dia je aplikace na vytváření diagramů pro GNU/Linux, MacOS X, Unix a "
+"Windows. Je založená na GTK a vydávaná pod licencí GPL."
 
 #: data/org.gnome.Dia.appdata.xml.in:12
 msgid ""
@@ -2236,13 +2236,13 @@ msgid ""
 "new shapes by writing simple XML files, using a subset of SVG to draw the "
 "shape."
 msgstr ""
-"Dia v základech vychází z komerčního programu Visio pro Windows, je však více "
-"zaměřena na neformální diagramy pro běžné použití. Můžete ji využívat ke "
-"kreslení mnoha různých typů diagramů. Má k dispozici speciální objekty, které "
-"vám pomohou s kreslením diagramů vyjadřujících vztahy entit, diagramů UML, "
-"vývojových diagramů, síťových diagramů a mnoha dalších. Zápisem souboru s "
-"jednoduchým XML, tvořeným podmnožinou SVG pro kreslení tvarů, je také možné "
-"přidat podporu pro nové tvary."
+"Dia v základech vychází z komerčního programu Visio pro Windows, je však "
+"více zaměřena na neformální diagramy pro běžné použití. Můžete ji využívat "
+"ke kreslení mnoha různých typů diagramů. Má k dispozici speciální objekty, "
+"které vám pomohou s kreslením diagramů vyjadřujících vztahy entit, diagramů "
+"UML, vývojových diagramů, síťových diagramů a mnoha dalších. Zápisem souboru "
+"s jednoduchým XML, tvořeným podmnožinou SVG pro kreslení tvarů, je také "
+"možné přidat podporu pro nové tvary."
 
 #: data/org.gnome.Dia.appdata.xml.in:14
 msgid ""
@@ -11277,3 +11277,4 @@ msgstr "Činnost"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "Větvení/sjednocení"
+
