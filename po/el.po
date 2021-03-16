@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dia.master.el.po\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
 "POT-Creation-Date: 2020-12-18 14:36+0000\n"
-"PO-Revision-Date: 2021-03-07 12:54+0200\n"
+"PO-Revision-Date: 2021-03-16 23:35+0200\n"
 "Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
 "Language-Team: team@lists.gnome.gr\n"
 "Language: el\n"
@@ -2499,10 +2499,8 @@ msgid "_Snap to Object"
 msgstr "Προσκόλληση σε _αντικείμενα"
 
 #: data/ui/preferences-dialog.ui:622
-#, fuzzy
-#| msgid "Diagram Defaults"
 msgid "_Diagram Defaults"
-msgstr "Προεπιλογές διαγράμματος"
+msgstr "Προεπιλογές _διαγράμματος"
 
 #: data/ui/preferences-dialog.ui:648
 msgid "_Width"
@@ -2548,10 +2546,8 @@ msgid "_Solid Lines"
 msgstr "Συμπαγείς γραμμές"
 
 #: data/ui/preferences-dialog.ui:933
-#, fuzzy
-#| msgid "View Defaults"
 msgid "_View Defaults"
-msgstr "Εμφάνιση προεπιλογών"
+msgstr "_Εμφάνιση προεπιλογών"
 
 #: data/ui/preferences-dialog.ui:960
 #, fuzzy
@@ -2576,10 +2572,8 @@ msgid "_PostScript"
 msgstr "_PostScript"
 
 #: data/ui/preferences-dialog.ui:1016
-#, fuzzy
-#| msgid "Windows Metafile"
 msgid "_Windows Metafile"
-msgstr "Μετα-αρχείο Windows"
+msgstr "Μετα-αρχείο _Windows"
 
 #: data/ui/preferences-dialog.ui:1031
 #, fuzzy
@@ -3993,7 +3987,7 @@ msgstr "Αντικείμενα διαγράμματος οντότητας/συ�
 
 #: objects/ER/participation.c:118
 msgid "Total:"
-msgstr "Σύνολο:"
+msgstr "Υποχρεωτική συμμετοχή:"
 
 #: objects/ER/relationship.c:138
 msgid "Left Cardinality:"
