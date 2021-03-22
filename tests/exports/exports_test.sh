@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-EXPORT_PLUGINS="cgm dxf eps eps-builtin eps-pango fig mp plt hpgl png png-libart pixbuf-png jpg shape svg tex wpg"
+EXPORT_PLUGINS="cgm dxf eps eps-builtin fig mp plt hpgl png jpg shape svg tex wpg"
 
 RUN_DIA=$1
 
