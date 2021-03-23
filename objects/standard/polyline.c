@@ -29,6 +29,7 @@
 #include "attributes.h"
 #include "diamenu.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "create.h"
 
@@ -409,15 +410,17 @@ polyline_copy(Polyline *polyline)
   return &newpolyline->poly.object;
 }
 
+
 static void
-polyline_update_data(Polyline *polyline)
+polyline_update_data (Polyline *polyline)
 {
   PolyConn *poly = &polyline->poly;
   DiaObject *obj = &poly->object;
   PolyBBExtras *extra = &poly->extra_spacing;
   Point gap_endpoints[2];
+  graphene_rect_t bbox;
 
-  polyconn_update_data(&polyline->poly);
+  polyconn_update_data (&polyline->poly);
 
   extra->start_trans =  (polyline->line_width / 2.0);
   extra->end_trans =     (polyline->line_width / 2.0);
@@ -425,45 +428,61 @@ polyline_update_data(Polyline *polyline)
   extra->start_long = (polyline->line_width / 2.0);
   extra->end_long   = (polyline->line_width / 2.0);
 
-  polyline_calculate_gap_endpoints(polyline, gap_endpoints);
-  polyline_exchange_gap_points(polyline, gap_endpoints);
+  polyline_calculate_gap_endpoints (polyline, gap_endpoints);
+  polyline_exchange_gap_points (polyline, gap_endpoints);
 
-  polyconn_update_boundingbox(poly);
+  polyconn_update_boundingbox (poly);
+
+  dia_object_get_bounding_box (DIA_OBJECT (polyline), &bbox);
 
   if (polyline->start_arrow.type != ARROW_NONE) {
-    DiaRectangle bbox;
     Point move_arrow, move_line;
     Point to = gap_endpoints[0];
     Point from = poly->points[1];
-    calculate_arrow_point(&polyline->start_arrow, &to, &from,
-                          &move_arrow, &move_line, polyline->line_width);
-    /* move them */
-    point_sub(&to, &move_arrow);
-    point_sub(&from, &move_line);
+    graphene_rect_t bbox_arrow;
 
-    arrow_bbox (&polyline->start_arrow, polyline->line_width, &to, &from, &bbox);
-    rectangle_union (&obj->bounding_box, &bbox);
+    calculate_arrow_point (&polyline->start_arrow, &to, &from,
+                           &move_arrow, &move_line, polyline->line_width);
+
+    /* move them */
+    point_sub (&to, &move_arrow);
+    point_sub (&from, &move_line);
+
+    arrow_bbox (&polyline->start_arrow,
+                polyline->line_width,
+                &to,
+                &from,
+                &bbox_arrow);
+
+    graphene_rect_union (&bbox, &bbox_arrow, &bbox);
   }
+
   if (polyline->end_arrow.type != ARROW_NONE) {
-    DiaRectangle bbox;
     int n = polyline->poly.numpoints;
     Point move_arrow, move_line;
     Point to = gap_endpoints[1];
     Point from = poly->points[n-2];
-    calculate_arrow_point(&polyline->end_arrow, &to, &from,
-                          &move_arrow, &move_line, polyline->line_width);
-    /* move them */
-    point_sub(&to, &move_arrow);
-    point_sub(&from, &move_line);
+    graphene_rect_t bbox_arrow;
 
-    arrow_bbox (&polyline->end_arrow, polyline->line_width, &to, &from, &bbox);
-    rectangle_union (&obj->bounding_box, &bbox);
+    calculate_arrow_point (&polyline->end_arrow, &to, &from,
+                           &move_arrow, &move_line, polyline->line_width);
+
+    /* move them */
+    point_sub (&to, &move_arrow);
+    point_sub (&from, &move_line);
+
+    arrow_bbox (&polyline->end_arrow, polyline->line_width, &to, &from, &bbox_arrow);
+
+    graphene_rect_union (&bbox, &bbox_arrow, &bbox);
   }
 
-  polyline_exchange_gap_points(polyline, gap_endpoints);
+  dia_object_set_bounding_box (DIA_OBJECT (polyline), &bbox);
+
+  polyline_exchange_gap_points (polyline, gap_endpoints);
 
   obj->position = poly->points[0];
 }
+
 
 static void
 polyline_save(Polyline *polyline, ObjectNode obj_node,

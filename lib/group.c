@@ -25,6 +25,7 @@
 #include "group.h"
 #include "properties.h"
 #include "diarenderer.h"
+#include "dia-graphene.h"
 
 
 /*!
@@ -135,42 +136,60 @@ group_select(Group *group)
   group_update_handles(group);
 }
 
+
 static void
-group_update_handles(Group *group)
+group_update_handles (Group *group)
 {
-  DiaRectangle *bb = &group->object.bounding_box;
+  graphene_rect_t bb;
+  graphene_point_t point_a, point_b;
+
+  dia_object_get_bounding_box (DIA_OBJECT (group), &bb);
 
   group->handles[0].id = HANDLE_RESIZE_NW;
-  group->handles[0].pos.x = bb->left;
-  group->handles[0].pos.y = bb->top;
+
+  graphene_rect_get_top_left (&bb, &point_a);
+  dia_graphene_to_point (&point_a, &group->handles[0].pos);
 
   group->handles[1].id = HANDLE_RESIZE_N;
-  group->handles[1].pos.x = (bb->left + bb->right) / 2.0;
-  group->handles[1].pos.y = bb->top;
+
+  graphene_rect_get_top_right (&bb, &point_b);
+  graphene_point_interpolate (&point_a, &point_b, 0.5, &point_b);
+  dia_graphene_to_point (&point_b, &group->handles[1].pos);
 
   group->handles[2].id = HANDLE_RESIZE_NE;
-  group->handles[2].pos.x = bb->right;
-  group->handles[2].pos.y = bb->top;
+
+  graphene_rect_get_top_right (&bb, &point_a);
+  dia_graphene_to_point (&point_a, &group->handles[2].pos);
 
   group->handles[3].id = HANDLE_RESIZE_W;
-  group->handles[3].pos.x = bb->left;
-  group->handles[3].pos.y = (bb->top + bb->bottom) / 2.0;
+
+  graphene_rect_get_top_left (&bb, &point_a);
+  graphene_rect_get_bottom_left (&bb, &point_b);
+  graphene_point_interpolate (&point_a, &point_b, 0.5, &point_b);
+  dia_graphene_to_point (&point_b, &group->handles[3].pos);
 
   group->handles[4].id = HANDLE_RESIZE_E;
-  group->handles[4].pos.x = bb->right;
-  group->handles[4].pos.y = (bb->top + bb->bottom) / 2.0;
+
+  graphene_rect_get_top_right (&bb, &point_a);
+  graphene_rect_get_bottom_right (&bb, &point_b);
+  graphene_point_interpolate (&point_a, &point_b, 0.5, &point_b);
+  dia_graphene_to_point (&point_b, &group->handles[4].pos);
 
   group->handles[5].id = HANDLE_RESIZE_SW;
-  group->handles[5].pos.x = bb->left;
-  group->handles[5].pos.y = bb->bottom;
+
+  graphene_rect_get_bottom_left (&bb, &point_a);
+  dia_graphene_to_point (&point_a, &group->handles[5].pos);
 
   group->handles[6].id = HANDLE_RESIZE_S;
-  group->handles[6].pos.x = (bb->left + bb->right) / 2.0;
-  group->handles[6].pos.y = bb->bottom;
+
+  graphene_rect_get_bottom_right (&bb, &point_b);
+  graphene_point_interpolate (&point_a, &point_b, 0.5, &point_b);
+  dia_graphene_to_point (&point_b, &group->handles[6].pos);
 
   group->handles[7].id = HANDLE_RESIZE_SE;
-  group->handles[7].pos.x = bb->right;
-  group->handles[7].pos.y = bb->bottom;
+
+  graphene_rect_get_bottom_right (&bb, &point_a);
+  dia_graphene_to_point (&point_a, &group->handles[7].pos);
 }
 
 /*! \brief Update connection points positions of contained objects
@@ -224,19 +243,24 @@ group_move_handle (Group            *group,
                    HandleMoveReason  reason,
                    ModifierKeys      modifiers)
 {
-  DiaObject *obj = &group->object;
-  DiaRectangle *bb = &obj->bounding_box;
+  graphene_rect_t bb;
   /* top and left handles are also changing the objects position */
-  Point top_left = { bb->left, bb->top };
+  graphene_point_t tl;
+  Point top_left;
   /* before and after width and height */
-  real w0, h0, w1, h1;
+  double w0, h0, w1, h1;
   Point fixed;
 
   assert(handle->id>=HANDLE_RESIZE_NW);
   assert(handle->id<=HANDLE_RESIZE_SE);
 
-  w0 = w1 = bb->right - bb->left;
-  h0 = h1 = bb->bottom - bb->top;
+  dia_object_get_bounding_box (DIA_OBJECT (group), &bb);
+
+  graphene_rect_get_top_left (&bb, &tl);
+  dia_graphene_to_point (&tl, &top_left);
+
+  w0 = w1 = graphene_rect_get_width (&bb);
+  h0 = h1 = graphene_rect_get_height (&bb);
 
   /* Movement and scaling only work as intended with no active rotation.
    * For rotated group we should either translate the handle positions
@@ -463,23 +487,30 @@ group_copy(Group *group)
 
 
 static void
-group_update_data(Group *group)
+group_update_data (Group *group)
 {
   GList *list;
   DiaObject *obj;
+  graphene_rect_t new_bbox;
 
   if (group->objects != NULL) {
     list = group->objects;
-    obj = (DiaObject *) list->data;
-    group->object.bounding_box = obj->bounding_box;
 
-    list = g_list_next(list);
+    obj = DIA_OBJECT (list->data);
+
+    dia_object_get_bounding_box (obj, &new_bbox);
+
+    list = g_list_next (list);
     while (list != NULL) {
-      obj = (DiaObject *) list->data;
+      graphene_rect_t bbox;
 
-      rectangle_union(&group->object.bounding_box, &obj->bounding_box);
+      obj = DIA_OBJECT (list->data);
 
-      list = g_list_next(list);
+      dia_object_get_bounding_box (obj, &bbox);
+
+      graphene_rect_union (&new_bbox, &bbox, &new_bbox);
+
+      list = g_list_next (list);
     }
 
     obj = (DiaObject *) group->objects->data;
@@ -491,36 +522,42 @@ group_update_data(Group *group)
     if (group->matrix) {
       Point p;
       DiaRectangle box;
-      DiaRectangle *bb = &group->object.bounding_box;
+      DiaRectangle bb;
       DiaMatrix *m = group->matrix;
+
+      dia_graphene_to_rectangle (&new_bbox, &bb);
 
       /* maintain obj->position */
       transform_point (&group->object.position, m);
 
       /* recalculate bounding box */
       /* need to consider all corners */
-      p.x = m->xx * bb->left + m->xy * bb->top + m->x0;
-      p.y = m->yx * bb->left + m->yy * bb->top + m->y0;
+      p.x = m->xx * bb.left + m->xy * bb.top + m->x0;
+      p.y = m->yx * bb.left + m->yy * bb.top + m->y0;
       box.left = box.right = p.x;
       box.top = box.bottom = p.y;
 
-      p.x = m->xx * bb->right + m->xy * bb->top + m->x0;
-      p.y = m->yx * bb->right + m->yy * bb->top + m->y0;
+      p.x = m->xx * bb.right + m->xy * bb.top + m->x0;
+      p.y = m->yx * bb.right + m->yy * bb.top + m->y0;
       rectangle_add_point (&box, &p);
 
-      p.x = m->xx * bb->right + m->xy * bb->bottom + m->x0;
-      p.y = m->yx * bb->right + m->yy * bb->bottom + m->y0;
+      p.x = m->xx * bb.right + m->xy * bb.bottom + m->x0;
+      p.y = m->yx * bb.right + m->yy * bb.bottom + m->y0;
       rectangle_add_point (&box, &p);
 
-      p.x  = m->xx * bb->left + m->xy * bb->bottom + m->x0;
-      p.y = m->yx * bb->left + m->yy * bb->bottom + m->y0;
+      p.x = m->xx * bb.left + m->xy * bb.bottom + m->x0;
+      p.y = m->yx * bb.left + m->yy * bb.bottom + m->y0;
       rectangle_add_point (&box, &p);
+
       /* the new one does not necessarily include the old one */
-      group->object.bounding_box = box;
+
+      dia_rectangle_to_graphene (&box, &new_bbox);
     }
 
-    group_update_connectionpoints(group);
-    group_update_handles(group);
+    dia_object_set_bounding_box (DIA_OBJECT (group), &new_bbox);
+
+    group_update_connectionpoints (group);
+    group_update_handles (group);
   }
 }
 

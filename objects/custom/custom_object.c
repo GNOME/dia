@@ -46,6 +46,7 @@
 #include "dia_image.h"
 #include "custom_object.h"
 #include "prefs.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/custom.xpm"
 
@@ -529,16 +530,21 @@ transform_size(Custom *custom, real w1, real h1, real *w2, real *h2)
   }
 }
 
+
 static void
-transform_coord(Custom *custom, const Point *p1, Point *out)
+transform_coord (Custom *custom, const Point *p1, Point *out)
 {
   if (custom->current_subshape != NULL) {
-    transform_subshape_coord(custom, custom->current_subshape, p1, out);
+    transform_subshape_coord (custom, custom->current_subshape, p1, out);
   } else {
     out->x = p1->x * custom->xscale + custom->xoffs;
     out->y = p1->y * custom->yscale + custom->yoffs;
+    if (isnan (out->x) || isnan (out->y)) {
+      G_BREAKPOINT ();
+    }
   }
 }
+
 
 static void
 transform_rect(Custom *custom, const DiaRectangle *r1, DiaRectangle *out)
@@ -1284,8 +1290,9 @@ assert_boundaries(Custom *custom)
   if (custom->flip_v) custom->yscale = -custom->yscale;
 }
 
+
 static void
-custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
+custom_update_data (Custom *custom, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &custom->element;
   ShapeInfo *info = custom->info;
@@ -1481,6 +1488,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
      */
     real lwfactor = el->any.s.line_width == custom->border_width
                   ? 1.0 : custom->border_width;
+    graphene_rect_t tmp_rect, bbox;
 
     switch(el->type) {
     case GE_SUBSHAPE :
@@ -1489,14 +1497,20 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       break;
     case GE_LINE: {
       LineBBExtras extra;
-      Point p1,p2;
+      Point p1, p2;
+      graphene_vec2_t v1, v2;
+
       extra.start_trans = extra.end_trans = el->line.s.line_width * lwfactor;
       extra.start_long = extra.end_long = 0;
 
       transform_coord(custom, &el->line.p1, &p1);
       transform_coord(custom, &el->line.p2, &p2);
 
-      line_bbox(&p1,&p2,&extra,&rect);
+      dia_point_to_vec2 (&p1, &v1);
+      dia_point_to_vec2 (&p2, &v2);
+
+      line_bbox (&v1, &v2, &extra, &tmp_rect);
+      dia_graphene_to_rectangle (&tmp_rect, &rect);
       break;
     }
     case GE_POLYGON:
@@ -1512,8 +1526,12 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
         transform_coord(custom, &el->polyline.points[i],
                         &g_array_index(arr, Point, i));
 
-      polyline_bbox(&g_array_index(arr,Point,0),el->polyline.npoints,
-                    &extra,el->type==GE_POLYGON,&rect);
+      polyline_bbox (&g_array_index (arr, Point, 0),
+                     el->polyline.npoints,
+                     &extra,
+                     el->type == GE_POLYGON,
+                     &tmp_rect);
+      dia_graphene_to_rectangle (&tmp_rect, &rect);
       break;
     }
     case GE_SHAPE:
@@ -1541,8 +1559,12 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
         }
       }
 
-      polybezier_bbox(&g_array_index(barr,BezPoint,0),el->path.npoints,
-                      &extra,el->type==GE_SHAPE,&rect);
+      polybezier_bbox (&g_array_index (barr, BezPoint, 0),
+                       el->path.npoints,
+                       &extra,
+                       el->type==GE_SHAPE,
+                       &tmp_rect);
+      dia_graphene_to_rectangle (&tmp_rect, &rect);
       break;
     }
     case GE_ELLIPSE: {
@@ -1551,10 +1573,12 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       extra.border_trans = el->ellipse.s.line_width * lwfactor;
       transform_coord(custom, &el->ellipse.center, &centre);
 
-      ellipse_bbox(&centre,
-                   el->ellipse.width * fabs(custom->xscale),
-                   el->ellipse.height * fabs(custom->yscale),
-                   &extra,&rect);
+      ellipse_bbox (&centre,
+                    el->ellipse.width * fabs (custom->xscale),
+                    el->ellipse.height * fabs (custom->yscale),
+                    &extra,
+                    &tmp_rect);
+      dia_graphene_to_rectangle (&tmp_rect, &rect);
       break;
     }
     case GE_RECT: {
@@ -1567,7 +1591,13 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       transform_rect(custom, &rin, &trin);
 
       extra.border_trans = el->rect.s.line_width * lwfactor;
-      rectangle_bbox(&trin,&extra,&rect);
+      {
+        graphene_rect_t tmp_in, tmp_out;
+
+        dia_rectangle_to_graphene (&trin, &tmp_in);
+        rectangle_bbox (&tmp_in, &extra, &tmp_out);
+        dia_graphene_to_rectangle (&tmp_out, &rect);
+      }
       break;
     }
     case GE_IMAGE: {
@@ -1584,7 +1614,8 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     case GE_TEXT:
       text_set_height (el->text.object, custom_transform_length (custom, el->text.s.font_height));
       custom_reposition_text(custom, &el->text);
-      text_calc_boundingbox(el->text.object,&rect);
+      text_calc_boundingbox (el->text.object, &tmp_rect);
+      dia_graphene_to_rectangle (&tmp_rect, &rect);
       /* padding only to be applied on the users text box */
       /* but we need to restore the original position of the 'constant' object */
       text_set_position(el->text.object, &el->text.anchor);
@@ -1593,18 +1624,23 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
       g_assert_not_reached();
       continue;
     }
-    rectangle_union(&obj->bounding_box,&rect);
+
+    dia_object_get_bounding_box (obj, &bbox);
+    dia_rectangle_to_graphene (&rect, &tmp_rect);
+    graphene_rect_union (&bbox, &tmp_rect, &bbox);
+    dia_object_set_bounding_box (obj, &bbox);
   }
 
   /* extend bounding box to include text bounds ... */
   if (info->has_text) {
-    DiaRectangle tb;
-    text_calc_boundingbox(custom->text, &tb);
-    tb.left -= custom->padding;
-    tb.top -= custom->padding;
-    tb.right += custom->padding;
-    tb.bottom += custom->padding;
-    rectangle_union(&obj->bounding_box, &tb);
+    graphene_rect_t tb, bbox;
+
+    text_calc_boundingbox (custom->text, &tb);
+    graphene_rect_inset (&tb, -custom->padding, -custom->padding);
+
+    dia_object_get_bounding_box (obj, &bbox);
+    graphene_rect_union (&bbox, &tb, &bbox);
+    dia_object_set_bounding_box (obj, &bbox);
   }
 
   obj->position = elem->corner;

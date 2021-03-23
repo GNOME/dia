@@ -54,6 +54,7 @@
 #include "intl.h"
 #include "diagramdata.h"
 #include "object.h"
+#include "dia-graphene.h"
 
 G_BEGIN_DECLS
 
@@ -273,24 +274,31 @@ shape_renderer_class_init (ShapeRendererClass *klass)
  * \memberof _ShapeRenderer
  */
 static void
-draw_object(DiaRenderer *self,
-            DiaObject   *object,
-	    DiaMatrix   *matrix)
+draw_object (DiaRenderer *self,
+             DiaObject   *object,
+             DiaMatrix   *matrix)
 {
   Point center;
   ShapeRenderer *renderer = SHAPE_RENDERER(self);
   gboolean main_point = (0 == strncmp(MAIN_CONNECTION_POINT_SHAPE,
   	               object->type->name, strlen(MAIN_CONNECTION_POINT_SHAPE)));
 
-  if ((0 == strncmp(CONNECTION_POINT_SHAPE, object->type->name,
-  	 strlen(CONNECTION_POINT_SHAPE))) || main_point) {
-	  /* add user defined connection point */
-	  center.x = (object->bounding_box.left + object->bounding_box.right)/2;
-	  center.y = (object->bounding_box.top + object->bounding_box.bottom)/2;
-	  add_connection_point(renderer, &center, TRUE, main_point);
+  if ((0 == strncmp (CONNECTION_POINT_SHAPE,
+                     object->type->name,
+                     strlen (CONNECTION_POINT_SHAPE))) || main_point) {
+    graphene_rect_t bbox;
+    graphene_point_t p;
+
+    dia_object_get_bounding_box (object, &bbox);
+    graphene_rect_get_center (&bbox, &p);
+    dia_graphene_to_point (&p, &center);
+
+    /* add user defined connection point */
+
+    add_connection_point (renderer, &center, TRUE, main_point);
   } else {
   	/* use base class implementation */
-    DIA_RENDERER_CLASS(parent_class)->draw_object (self, object, matrix);
+    DIA_RENDERER_CLASS (parent_class)->draw_object (self, object, matrix);
   }
 }
 

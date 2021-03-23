@@ -588,23 +588,34 @@ diagram_selected_can_parent(Diagram *dia) {
   return FALSE;
 }
 
-/** Returns TRUE if an object is fully enclosed by a another object, which
- * can be a parent */
+
+/**
+ * object_within_parent:
+ * @obj: the #DiaObject
+ * @p: the (potential) parent #DiaObject
+ *
+ * Returns: %TRUE if an object is fully enclosed by a another object, which
+ *          can be a parent
+ */
 gboolean
-object_within_parent(DiaObject *obj, DiaObject *p)
+object_within_parent (DiaObject *obj, DiaObject *p)
 {
-  DiaRectangle obj_bb = obj->bounding_box;
-  if (!object_flags_set(p, DIA_OBJECT_CAN_PARENT))
+  graphene_rect_t obj_bbox, parent_bbox;
+
+  if (!object_flags_set (p, DIA_OBJECT_CAN_PARENT)) {
     return FALSE;
-  if (p == obj)
+  }
+
+  if (p == obj) {
     return FALSE;
-  if (obj_bb.left > p->bounding_box.left &&
-      obj_bb.right < p->bounding_box.right &&
-      obj_bb.top > p->bounding_box.top &&
-      obj_bb.bottom < p->bounding_box.bottom)
-    return TRUE;
-  return FALSE;
+  }
+
+  dia_object_get_bounding_box (obj, &obj_bbox);
+  dia_object_get_bounding_box (obj, &parent_bbox);
+
+  return graphene_rect_contains_rect (&parent_bbox, &obj_bbox);
 }
+
 
 /*
   This is the real implementation of the sensitivity update.
@@ -1041,19 +1052,21 @@ diagram_flush(Diagram *dia)
   dynobj_refresh_kick();
 }
 
+
 DiaObject *
 diagram_find_clicked_object (Diagram *dia,
                              Point   *pos,
-                             real     maxdist)
+                             double   maxdist)
 {
   return dia_layer_find_closest_object_except (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)),
                                                pos, maxdist, NULL);
 }
 
+
 DiaObject *
 diagram_find_clicked_object_except (Diagram *dia,
                                     Point   *pos,
-                                    real     maxdist,
+                                    double   maxdist,
                                     GList   *avoid)
 {
   return dia_layer_find_closest_object_except (dia_diagram_data_get_active_layer (DIA_DIAGRAM_DATA (dia)),
@@ -1062,18 +1075,21 @@ diagram_find_clicked_object_except (Diagram *dia,
                                                avoid);
 }
 
+
 /*
  * Always returns the last handle in an object that has
  * the closest distance
  */
-real
-diagram_find_closest_handle(Diagram *dia, Handle **closest,
-			    DiaObject **object, Point *pos)
+double
+diagram_find_closest_handle (Diagram    *dia,
+                             Handle    **closest,
+                             DiaObject **object,
+                             Point      *pos)
 {
   GList *l;
   DiaObject *obj;
   Handle *handle;
-  real mindist, dist;
+  double mindist, dist;
   int i;
 
   mindist = 1000000.0; /* Realy big value... */
@@ -1101,17 +1117,18 @@ diagram_find_closest_handle(Diagram *dia, Handle **closest,
   return mindist;
 }
 
-real
+
+double
 diagram_find_closest_connectionpoint (Diagram          *dia,
                                       ConnectionPoint **closest,
                                       Point            *pos,
                                       DiaObject        *notthis)
 {
-  real dist = 100000000.0;
+  double dist = 100000000.0;
 
   DIA_FOR_LAYER_IN_DIAGRAM (DIA_DIAGRAM_DATA (dia), layer, i, {
     ConnectionPoint *this_cp;
-    real this_dist;
+    double this_dist;
     if (dia_layer_is_connectable (layer)) {
       this_dist = dia_layer_find_closest_connectionpoint (layer,
                                                           &this_cp,
@@ -1698,7 +1715,7 @@ dia_diagram_get_file (Diagram *self)
  */
 DiaGuide *
 dia_diagram_add_guide (Diagram        *dia,
-                       real            position,
+                       double          position,
                        GtkOrientation  orientation,
                        gboolean        push_undo)
 {
@@ -1750,7 +1767,7 @@ dia_diagram_pick_guide (Diagram *dia,
        list;
        list = g_list_next (list)) {
     DiaGuide *guide = list->data;
-    real position = guide->position;
+    double position = guide->position;
     gdouble dist;
 
     switch (guide->orientation) {
@@ -1811,7 +1828,7 @@ dia_diagram_pick_guide_h (Diagram *dia,
        list;
        list = g_list_next (list)) {
     DiaGuide *guide = list->data;
-    real position = guide->position;
+    double position = guide->position;
     gdouble dist;
 
     switch (guide->orientation) {
@@ -1865,7 +1882,7 @@ dia_diagram_pick_guide_v (Diagram *dia,
        list;
        list = g_list_next (list)) {
     DiaGuide *guide = list->data;
-    real position = guide->position;
+    double position = guide->position;
     gdouble dist;
 
     switch (guide->orientation) {

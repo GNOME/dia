@@ -36,6 +36,7 @@
 #include "attributes.h"
 #include "color.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/grid_object.xpm"
 
@@ -186,12 +187,19 @@ grid_object_set_props(Grid_Object *grid_object, GPtrArray *props)
   grid_object_update_data(grid_object);
 }
 
-static real
-grid_object_distance_from(Grid_Object *grid_object, Point *point)
+
+static double
+grid_object_distance_from (Grid_Object *grid_object, Point *point)
 {
-  DiaObject *obj = &grid_object->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (grid_object), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 grid_object_select(Grid_Object *grid_object, Point *clicked_point,
@@ -231,37 +239,40 @@ inline static int grid_cell (int i, int j, int rows, int cols)
   return j * cols + i;
 }
 
+
 static void
-grid_object_update_data(Grid_Object *grid_object)
+grid_object_update_data (Grid_Object *grid_object)
 {
   Element *elem = &grid_object->element;
   DiaObject *obj = &elem->object;
   ElementBBExtras *extra = &elem->extra_spacing;
 
-  real inset = (grid_object->border_line_width - grid_object->gridline_width)/2.0;
-  real cell_width = (elem->width - 2.0 * inset) / grid_object->grid_cols;
-  real cell_height = (elem->height - 2.0 * inset) / grid_object->grid_rows;
+  double inset = (grid_object->border_line_width - grid_object->gridline_width) / 2.0;
+  double cell_width = (elem->width - 2.0 * inset) / grid_object->grid_cols;
+  double cell_height = (elem->height - 2.0 * inset) / grid_object->grid_rows;
   int i, j;
   double left, top;
 
   extra->border_trans = grid_object->border_line_width / 2.0;
-  element_update_boundingbox(elem);
-  element_update_handles(elem);
-  element_update_connections_rectangle(elem, grid_object->base_cps);
+  element_update_boundingbox (elem);
+  element_update_handles (elem);
+  element_update_connections_rectangle (elem, grid_object->base_cps);
 
   obj->position = elem->corner;
   left = obj->position.x;
   top = obj->position.y;
-  for (i = 0; i < grid_object->grid_cols; ++i)
-    for (j = 0; j < grid_object->grid_rows; ++j)
-    {
-      int cell = grid_cell(i, j, grid_object->grid_rows, grid_object->grid_cols);
+
+  for (i = 0; i < grid_object->grid_cols; ++i) {
+    for (j = 0; j < grid_object->grid_rows; ++j) {
+      int cell = grid_cell (i, j, grid_object->grid_rows, grid_object->grid_cols);
       grid_object->cells[cell].pos.x =
-			left + inset + i*cell_width + cell_width/2.0;
+                left + inset + (i * cell_width) + (cell_width / 2.0);
       grid_object->cells[cell].pos.y =
-			top + inset + j*cell_height + cell_height/2.0;
+                top + inset + (j * cell_height) + (cell_height / 2.0);
     }
+  }
 }
+
 
 static void
 grid_object_draw_gridlines (Grid_Object *grid_object,

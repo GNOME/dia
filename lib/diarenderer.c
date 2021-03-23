@@ -29,6 +29,9 @@
 #include "standard-path.h" /* text_to_path */
 #include "boundingbox.h" /* PolyBBextra */
 #include "dia-layer.h"
+#include "dia-graphene.h"
+
+
 /*
  * redefinition of isnan, for portability, as explained in :
  * http://www.gnu.org/software/autoconf/manual/html_node/Function-Portability.html
@@ -256,21 +259,29 @@ draw_layer (DiaRenderer  *renderer,
             DiaRectangle *update)
 {
   GList *list = dia_layer_get_object_list (layer);
-  void (*func) (DiaRenderer*, DiaObject *, DiaMatrix *);
+  graphene_rect_t rect;
 
-  g_return_if_fail (layer != NULL);
+  g_return_if_fail (DIA_IS_LAYER (layer));
 
-  func = DIA_RENDERER_GET_CLASS(renderer)->draw_object;
+  if (update) {
+    dia_rectangle_to_graphene (update, &rect);
+  }
+
   /* Draw all objects  */
-  while (list!=NULL) {
-    DiaObject *obj = (DiaObject *) list->data;
+  while (list != NULL) {
+    DiaObject *obj = DIA_OBJECT (list->data);
+    graphene_rect_t ebox;
 
-    if (update==NULL || rectangle_intersects(update, dia_object_get_enclosing_box(obj))) {
-      (*func)(renderer, obj, NULL);
+    dia_object_get_enclosing_box (obj, &ebox);
+
+    if (update == NULL || graphene_rect_intersection (&rect, &ebox, NULL)) {
+      dia_renderer_draw_object (renderer, obj, NULL);
     }
-    list = g_list_next(list);
+
+    list = g_list_next (list);
   }
 }
+
 
 /*!
  * \brief Render the given object with optional transformation matrix
@@ -644,15 +655,13 @@ draw_image (DiaRenderer *renderer,
  * \memberof _DiaRenderer
  */
 static void
-draw_text (DiaRenderer *renderer,
-	   Text *text)
+draw_text (DiaRenderer *renderer, Text *text)
 {
   Point pos;
-  int i;
 
-  pos = text->position;
+  dia_text_get_position (text, &pos);
 
-  for (i=0;i<text->numlines;i++) {
+  for (int i = 0; i < text->numlines; i++) {
     TextLine *text_line = text->lines[i];
 
     dia_renderer_draw_text_line (renderer,
@@ -663,6 +672,7 @@ draw_text (DiaRenderer *renderer,
     pos.y += text->height;
   }
 }
+
 
 /**
  * draw_rotated_text:
@@ -691,44 +701,68 @@ draw_rotated_text (DiaRenderer *renderer,
     draw_text (renderer, text);
   } else {
     GArray *path = g_array_new (FALSE, FALSE, sizeof (BezPoint));
+
     if (!text_is_empty (text) && text_to_path (text, path)) {
       /* Scaling and transformation here */
-      DiaRectangle bz_bb, tx_bb;
       PolyBBExtras extra = { 0, };
-      real sx, sy;
+      double sx, sy;
       guint i;
-      real dx = center ? (text->position.x - center->x) : 0;
-      real dy = center ? (text->position.y - center->y) : 0;
+      double dx;
+      double dy;
       DiaMatrix m = { 1, 0, 0, 1, 0, 0 };
       DiaMatrix t = { 1, 0, 0, 1, 0, 0 };
+      graphene_rect_t bz_bb, tx_bb;
+      graphene_point_t bz_tl, bz_br, tx_tl, tx_br;
+      Point text_pos;
 
-      polybezier_bbox (&g_array_index (path, BezPoint, 0), path->len, &extra, TRUE, &bz_bb);
+      dia_text_get_position (text, &text_pos);
+
+      dx = center ? (text_pos.x - center->x) : 0;
+      dy = center ? (text_pos.y - center->y) : 0;
+
+      polybezier_bbox (&g_array_index (path, BezPoint, 0),
+                       path->len,
+                       &extra,
+                       TRUE,
+                       &bz_bb);
+
       text_calc_boundingbox (text, &tx_bb);
-      sx = (tx_bb.right - tx_bb.left) / (bz_bb.right - bz_bb.left);
-      sy = (tx_bb.bottom - tx_bb.top) / (bz_bb.bottom - bz_bb.top);
+      sx = graphene_rect_get_width (&tx_bb) / graphene_rect_get_width (&bz_bb);
+      sy = graphene_rect_get_height (&tx_bb) / graphene_rect_get_height (&bz_bb);
+
+      graphene_rect_get_top_left (&bz_bb, &bz_tl);
+      graphene_rect_get_bottom_right (&bz_bb, &bz_br);
 
       /* move center to origin */
       if (ALIGN_LEFT == text->alignment) {
-        t.x0 = -bz_bb.left;
+        t.x0 = -bz_tl.x;
       } else if (ALIGN_RIGHT == text->alignment) {
-        t.x0 = - bz_bb.right;
+        t.x0 = -bz_br.x;
       } else {
-        t.x0 = -(bz_bb.left + bz_bb.right) / 2.0;
+        t.x0 = -(bz_tl.x + bz_br.x) / 2.0;
       }
+
       t.x0 -= dx / sx;
-      t.y0 = - bz_bb.top - (text_get_ascent (text) - dy) / sy;
+      t.y0 = - bz_tl.y - (text_get_ascent (text) - dy) / sy;
+
       dia_matrix_set_angle_and_scales (&m, G_PI * angle / 180.0, sx, sx);
       dia_matrix_multiply (&m, &t, &m);
+
+      graphene_rect_get_top_left (&tx_bb, &tx_tl);
+      graphene_rect_get_bottom_right (&tx_bb, &tx_br);
+
       /* move back center from origin */
       if (ALIGN_LEFT == text->alignment) {
-        t.x0 = tx_bb.left;
+        t.x0 = tx_tl.x;
       } else if (ALIGN_RIGHT == text->alignment) {
-        t.x0 = tx_bb.right;
+        t.x0 = tx_br.x;
       } else {
-        t.x0 = (tx_bb.left + tx_bb.right) / 2.0;
+        t.x0 = (tx_tl.x + tx_br.x) / 2.0;
       }
+
       t.x0 += dx;
-      t.y0 = tx_bb.top + (text_get_ascent (text) - dy);
+      t.y0 = tx_tl.y + (text_get_ascent (text) - dy);
+
       dia_matrix_multiply (&m, &m, &t);
 
       for (i = 0; i < path->len; ++i) {
@@ -738,10 +772,10 @@ draw_rotated_text (DiaRenderer *renderer,
 
       if (dia_renderer_is_capable_of (renderer, RENDER_HOLES)) {
         dia_renderer_draw_beziergon (renderer,
-                                      &g_array_index (path, BezPoint, 0),
-                                      path->len,
-                                      &text->color,
-                                      NULL);
+                                     &g_array_index (path, BezPoint, 0),
+                                     path->len,
+                                     &text->color,
+                                     NULL);
       } else {
         dia_renderer_bezier_fill (renderer,
                                   &g_array_index (path, BezPoint, 0),
@@ -750,23 +784,39 @@ draw_rotated_text (DiaRenderer *renderer,
       }
     } else {
       Color magenta = { 1.0, 0.0, 1.0, 1.0 };
-      Point pt = center ? *center : text->position;
-      DiaMatrix m = { 1, 0, 0, 1, pt.x, pt.y };
-      DiaMatrix t = { 1, 0, 0, 1, -pt.x, -pt.y };
-      DiaRectangle tb;
+      Point pt;
+      DiaMatrix m, t;
+      graphene_rect_t tb;
+      graphene_point_t corner;
       Point poly[4];
-      int i;
+
+      if (center) {
+        pt = *center;
+      } else {
+        dia_text_get_position (text, &pt);
+      }
+
+      m = (DiaMatrix) { 1, 0, 0, 1, pt.x, pt.y };
+      t = (DiaMatrix) { 1, 0, 0, 1, -pt.x, -pt.y };
 
       text_calc_boundingbox (text, &tb);
-      poly[0].x = tb.left;  poly[0].y = tb.top;
-      poly[1].x = tb.right; poly[1].y = tb.top;
-      poly[2].x = tb.right; poly[2].y = tb.bottom;
-      poly[3].x = tb.left;  poly[3].y = tb.bottom;
+
+      graphene_rect_get_top_left (&tb, &corner);
+      dia_graphene_to_point (&corner, &poly[0]);
+
+      graphene_rect_get_top_right (&tb, &corner);
+      dia_graphene_to_point (&corner, &poly[1]);
+
+      graphene_rect_get_bottom_right (&tb, &corner);
+      dia_graphene_to_point (&corner, &poly[2]);
+
+      graphene_rect_get_bottom_left (&tb, &corner);
+      dia_graphene_to_point (&corner, &poly[3]);
 
       dia_matrix_set_angle_and_scales (&m, G_PI * angle / 180.0, 1.0, 1.0);
       dia_matrix_multiply (&m, &t, &m);
 
-      for (i = 0; i < 4; ++i) {
+      for (int i = 0; i < 4; ++i) {
         transform_point (&poly[i], &m);
       }
 
@@ -777,6 +827,7 @@ draw_rotated_text (DiaRenderer *renderer,
                                  NULL,
                                  &magenta);
     }
+
     g_array_free (path, TRUE);
   }
 }

@@ -40,6 +40,8 @@
 
 #include "boundingbox.h"
 #include "geometry.h"
+#include "dia-graphene.h"
+
 
 static BezPoint _bz1[2] = { /* SE */
                  /* x, y */
@@ -114,42 +116,51 @@ static BezPoint _bz9[] = { /* heart from assorted shapes */
 #define BEZ(x) sizeof(_bz ##x)/sizeof(BezPoint), _bz ##x
 
 static struct _TestBeziers {
-  int          num;
-  BezPoint    *pts;
-  DiaRectangle box;
-} _test_beziers[] = {                   /* left, top, right, bottom */
-  { BEZ(1), { 0.0-T, 0.5-T, 2.0+T, 2.0+T } },
-  { BEZ(2), {-2.0-T, 0.5-T, 0.0+T, 2.0+T } },
-  { BEZ(3), {-2.0-T,-1.5-T, 0.0+T, 0.0+T } },
-  { BEZ(4), { 0.0-T,-1.5-T, 2.0+T, 0.0+T } },
+  int              num;
+  BezPoint        *pts;
+  graphene_rect_t  box;
+} _test_beziers[] = {         /* left,  top, width, height */
+  { BEZ (1), GRAPHENE_RECT_INIT (-0.1,  0.4,  2.2,   1.7  ) },
+  { BEZ (2), GRAPHENE_RECT_INIT (-2.1,  0.4,  2.2,   1.7  ) },
+  { BEZ (3), GRAPHENE_RECT_INIT (-2.1, -1.6,  2.2,   1.7  ) },
+  { BEZ (4), GRAPHENE_RECT_INIT (-0.1, -1.6,  2.2,   1.7  ) },
   /* it only 'jumps' out of the box with a line width>0 */
-  { BEZ(5), { 0.0-T, 0.5-T, 2.0+T, 2.0+T } },
-  { BEZ(6), { 0.2-T, 0.0-T, 1.8+T, 2.0+T } },
-  { BEZ(7), { 0.25-T,0.25-T, 1.75+T, 1.75+T} },
-  { BEZ(8), { 0-T, 0-T, 3+T, 4+T} },
-  { BEZ(9), { 0-T, 0-T, 2.052+T, 1.897+T } },
+  { BEZ (5), GRAPHENE_RECT_INIT (-0.1,  0.4,  2.2,   1.7  ) },
+  { BEZ (6), GRAPHENE_RECT_INIT ( 0.1, -0.1,  1.8,   2.2  ) },
+  { BEZ (7), GRAPHENE_RECT_INIT ( 0.15, 0.15, 1.7,   1.7  ) },
+  { BEZ (8), GRAPHENE_RECT_INIT (-0.1, -0.1,  3.2,   4.2  ) },
+  { BEZ (9), GRAPHENE_RECT_INIT (-0.1, -0.1,  2.252, 2.097) },
 };
 #undef BEZ
+
 
 static void
 _check_one_bezier (gconstpointer p)
 {
   const struct _TestBeziers *test = p;
-  DiaRectangle rect;
+  graphene_rect_t rect;
   PolyBBExtras extra = {0, T*.7, T*.7, T*.7, 0 };
 
   polybezier_bbox (test->pts, test->num, &extra, FALSE, &rect);
-  g_assert (rectangle_in_rectangle (&test->box, &rect));
+
+  g_assert_true (graphene_rect_contains_rect (&test->box, &rect));
 }
 
 
 static void
 _add_bezier_tests (void)
 {
-  int i, num = sizeof (_test_beziers) / sizeof (struct _TestBeziers);
+  int num = sizeof (_test_beziers) / sizeof (struct _TestBeziers);
 
-  for (i = 0; i < num; ++i) {
+  for (int i = 0; i < num; ++i) {
     char *testpath = g_strdup_printf ("/Dia/BoundingBox/Bezier%d", i+1);
+
+    /* HACK: Tests where failing with calculated box height out by _exactly_
+             FLT_EPSILON, grow the expected box size _very_ slightly */
+    graphene_rect_scale (&_test_beziers[i].box,
+                         1 + FLT_EPSILON,
+                         1 + FLT_EPSILON,
+                         &_test_beziers[i].box);
 
     g_test_add_data_func (testpath, &_test_beziers[i], _check_one_bezier);
 

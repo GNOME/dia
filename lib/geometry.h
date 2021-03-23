@@ -17,28 +17,15 @@
  */
 
 /** \file geometry.h -- basic geometry classes and functions operationg on them */
-#ifndef GEOMETRY_H
-#define GEOMETRY_H
 
-#include <config.h>
+#pragma once
 
-#include "diatypes.h"
+#include "config.h"
 
 #include <glib.h>
 #include <math.h>
 
-/* Solaris 2.4, 2.6, probably 2.5.x, and possibly others prototype
-   finite() in ieeefp.h instead of math.h.  finite() might not be
-   available at all on some HP-UX configurations (in which case,
-   you're on your own). */
-#ifdef HAVE_IEEEFP_H
-#include <ieeefp.h>
-#endif
-#ifndef HAVE_ISINF
-#  ifndef isinf
-#    define isinf(a) (!finite(a))
-#  endif
-#endif
+#include "diatypes.h"
 
 #ifdef _MSC_VER
 /* #ifdef G_OS_WIN32  apparently _MSC_VER and mingw */
@@ -51,16 +38,12 @@
 #endif
 #ifdef G_OS_WIN32
 #  define M_PI      3.14159265358979323846
-#  define M_SQRT2	1.41421356237309504880	/* sqrt(2) */
 #  define M_SQRT1_2 0.70710678118654752440	/* 1/sqrt(2) */
 #endif
 
 /* gcc -std=c89 doesn't have it either */
 #ifndef M_PI
 #define M_PI G_PI
-#endif
-#ifndef M_SQRT2
-#define M_SQRT2 G_SQRT2
 #endif
 #ifndef M_SQRT1_2
 #define M_SQRT1_2 (1.0/G_SQRT2)
@@ -252,14 +235,16 @@ point_get_normed(Point *dst, const Point *src)
   dst->y = src->y / len;
 }
 
+
 static inline void
-point_get_perp(Point *dst, const Point *src)
+point_get_perp (Point *dst, const Point *src)
 {
   /* dst = the src vector, rotated 90deg counter clowkwise. src *must* be
      normalized before. */
   dst->y = src->x;
   dst->x = -src->y;
 }
+
 
 static inline void
 point_copy(Point *dst, const Point *src)
@@ -364,5 +349,3 @@ real dia_asin (real x);
 real dia_acos (real x);
 
 G_END_DECLS
-
-#endif /* GEOMETRY_H */

@@ -33,6 +33,8 @@
 #include "attributes.h"
 #include "arrows.h"
 #include "properties.h"
+#include "dia-graphene.h"
+
 
 #define DEFAULT_WIDTH 0.25
 
@@ -688,21 +690,21 @@ _arc_setup_handles(Arc *arc)
   arc->center_handle.connected_to = NULL;
 }
 
+
 static DiaObject *
-arc_create(Point *startpoint,
-	   void *user_data,
-	   Handle **handle1,
-	   Handle **handle2)
+arc_create (Point   *startpoint,
+            void    *user_data,
+            Handle **handle1,
+            Handle **handle2)
 {
   Arc *arc;
   Connection *conn;
   DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  arc = g_malloc0(sizeof(Arc));
-  arc->connection.object.enclosing_box = g_new0 (DiaRectangle, 1);
+  arc = g_new0 (Arc, 1);
 
-  arc->line_width =  attributes_get_default_linewidth();
+  arc->line_width = attributes_get_default_linewidth();
   arc->curve_distance = 1.0;
   arc->arc_color = attributes_get_foreground();
   attributes_get_default_line_style(&arc->line_style, &arc->dashlength);
@@ -731,15 +733,16 @@ arc_create(Point *startpoint,
   return &arc->connection.object;
 }
 
+
 static void
-arc_destroy(Arc *arc)
+arc_destroy (Arc *arc)
 {
-  g_clear_pointer (&arc->connection.object.enclosing_box, g_free);
-  connection_destroy(&arc->connection);
+  connection_destroy (&arc->connection);
 }
 
+
 static DiaObject *
-arc_copy(Arc *arc)
+arc_copy (Arc *arc)
 {
   Arc *newarc;
   Connection *conn, *newconn;
@@ -747,8 +750,8 @@ arc_copy(Arc *arc)
 
   conn = &arc->connection;
 
-  newarc = g_malloc0(sizeof(Arc));
-  newarc->connection.object.enclosing_box = g_new0 (DiaRectangle, 1);
+  newarc = g_new0 (Arc, 1);
+
   newconn = &newarc->connection;
   newobj = &newconn->object;
 
@@ -793,17 +796,19 @@ is_right_hand (const Point *a, const Point *b, const Point *c)
   return point_cross(&dot1, &dot2) > 0;
 }
 
+
 static void
-arc_update_data(Arc *arc)
+arc_update_data (Arc *arc)
 {
   Connection *conn = &arc->connection;
-  LineBBExtras *extra =&conn->extra_spacing;
+  LineBBExtras *extra = &conn->extra_spacing;
   DiaObject *obj = &conn->object;
   Point *endpoints;
-  real x1,y1,x2,y2,xc,yc;
-  real lensq, alpha, radius;
-  real angle1, angle2;
+  double x1, y1, x2, y2, xc, yc;
+  double lensq, alpha, radius;
+  double angle1, angle2;
   gboolean righthand;
+  graphene_rect_t bbox;
 
   endpoints = &arc->connection.endpoints[0];
   x1 = endpoints[0].x;
@@ -811,19 +816,21 @@ arc_update_data(Arc *arc)
   x2 = endpoints[1].x;
   y2 = endpoints[1].y;
 
-  lensq = (x2-x1)*(x2-x1) + (y2-y1)*(y2-y1);
-  if (fabs(arc->curve_distance) > 0.01)
-    radius = lensq/(8*arc->curve_distance) + arc->curve_distance/2.0;
-  else
+  lensq = ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1));
+  if (fabs (arc->curve_distance) > 0.01) {
+    radius = (lensq / (8 * arc->curve_distance)) + (arc->curve_distance / 2.0);
+  } else {
     radius = 0.0; /* not really but used for bbox calculation below */
+  }
 
-  if (lensq == 0.0 || arc_is_line (arc))
+  if (lensq == 0.0 || arc_is_line (arc)) {
     alpha = 1.0; /* arbitrary, but /not/ 1/0  */
-  else
-    alpha = (radius - arc->curve_distance) / sqrt(lensq);
+  } else {
+    alpha = (radius - arc->curve_distance) / sqrt (lensq);
+  }
 
-  xc = (x1 + x2) / 2.0 + (y2 - y1)*alpha;
-  yc = (y1 + y2) / 2.0 + (x1 - x2)*alpha;
+  xc = (x1 + x2) / 2.0 + ((y2 - y1) * alpha);
+  yc = (y1 + y2) / 2.0 + ((x1 - x2) * alpha);
 
   angle1 = -atan2(y1-yc, x1-xc)*180.0/M_PI;
   if (angle1<0)
@@ -835,8 +842,8 @@ arc_update_data(Arc *arc)
   /* swap: draw_arc is not always counter-clockwise, but our member variables
    * stay counter-clockwise to keep all the internal calculations simple
    */
-  if (radius<0.0) {
-    real tmp;
+  if (radius < 0.0) {
+    double tmp;
     tmp = angle1;
     angle1 = angle2;
     angle2 = tmp;
@@ -855,90 +862,127 @@ arc_update_data(Arc *arc)
   extra->end_long    = (arc->line_width / 2.0);
 
   /* updates midpoint */
-  arc_update_handles(arc);
+  arc_update_handles (arc);
   /* startpoint, midpoint, endpoint */
   righthand = is_right_hand (&endpoints[0], &arc->middle_handle.pos, &endpoints[1]);
   /* there should be no need to calculate the direction once more */
   if (!(   (righthand && arc->curve_distance <= 0.0)
-        || (!righthand && arc->curve_distance >= 0.0)))
+        || (!righthand && arc->curve_distance >= 0.0))) {
     g_warning ("Standard - Arc: check invariant!");
-  connection_update_boundingbox(conn);
+  }
+  connection_update_boundingbox (conn);
+
+  dia_object_get_bounding_box (obj, &bbox);
 
   /* fix boundingbox for arc's special shape XXX find a more elegant way: */
-  if (in_angle(0, arc->angle1, arc->angle2)) {
+  if (in_angle (0, arc->angle1, arc->angle2)) {
     /* rigth side, y does not matter if included */
-    Point pt = { arc->center.x + arc->radius + (arc->line_width / 2.0), y1 };
-    rectangle_add_point (&obj->bounding_box, &pt);
+    graphene_point_t pt =
+      GRAPHENE_POINT_INIT (arc->center.x + arc->radius + (arc->line_width / 2.0), y1);
+
+    graphene_rect_expand (&bbox, &pt, &bbox);
   }
-  if (in_angle(90, arc->angle1, arc->angle2)) {
+
+  if (in_angle (90, arc->angle1, arc->angle2)) {
     /* top side, x does not matter if included */
-    Point pt = {x1, arc->center.y - arc->radius - (arc->line_width / 2.0) };
-    rectangle_add_point (&obj->bounding_box, &pt);
+    graphene_point_t pt =
+      GRAPHENE_POINT_INIT (x1, arc->center.y - arc->radius - (arc->line_width / 2.0));
+
+    graphene_rect_expand (&bbox, &pt, &bbox);
   }
-  if (in_angle(180, arc->angle1, arc->angle2)) {
+
+  if (in_angle (180, arc->angle1, arc->angle2)) {
     /* left side, y does not matter if included */
-    Point pt = { arc->center.x - arc->radius - (arc->line_width / 2.0), y1 };
-    rectangle_add_point (&obj->bounding_box, &pt);
+    graphene_point_t pt =
+      GRAPHENE_POINT_INIT (arc->center.x - arc->radius - (arc->line_width / 2.0), y1);
+
+    graphene_rect_expand (&bbox, &pt, &bbox);
   }
-  if (in_angle(270, arc->angle1, arc->angle2)) {
+
+  if (in_angle (270, arc->angle1, arc->angle2)) {
     /* bootom side, x does not matter if included */
-    Point pt = { x1, arc->center.y + arc->radius + (arc->line_width / 2.0) };
-    rectangle_add_point (&obj->bounding_box, &pt);
+    graphene_point_t pt =
+      GRAPHENE_POINT_INIT (x1, arc->center.y + arc->radius + (arc->line_width / 2.0));
+
+    graphene_rect_expand (&bbox, &pt, &bbox);
   }
+
   if (arc->start_arrow.type != ARROW_NONE) {
     /* a good from-point would be the chord of arrow length, but draw_arc_with_arrows
      * currently uses the tangent For big arcs the difference is not huge and the
      * minimum size of small arcs should be limited by the arror length.
      */
-    DiaRectangle bbox = {0,};
-    real tmp;
+    double tmp;
     Point move_arrow, move_line;
     Point to = arc->connection.endpoints[0];
     Point from = to;
+    graphene_rect_t rect;
+
     point_sub (&from, &arc->center);
+
     tmp = from.x;
-    if (righthand)
+    if (righthand) {
       from.x = -from.y, from.y = tmp;
-    else
+    } else {
       from.x = from.y, from.y = -tmp;
+    }
+
     point_add (&from, &to);
 
-    calculate_arrow_point(&arc->start_arrow, &to, &from,
-                          &move_arrow, &move_line, arc->line_width);
+    calculate_arrow_point (&arc->start_arrow, &to, &from,
+                           &move_arrow, &move_line, arc->line_width);
+
     /* move them */
-    point_sub(&to, &move_arrow);
-    point_sub(&from, &move_line);
-    arrow_bbox(&arc->start_arrow, arc->line_width, &to, &from, &bbox);
-    rectangle_union(&obj->bounding_box, &bbox);
+    point_sub (&to, &move_arrow);
+    point_sub (&from, &move_line);
+    arrow_bbox (&arc->start_arrow, arc->line_width, &to, &from, &rect);
+
+    graphene_rect_union (&bbox, &rect, &bbox);
   }
+
   if (arc->end_arrow.type != ARROW_NONE) {
-    DiaRectangle bbox = {0,};
-    real tmp;
+    double tmp;
     Point move_arrow, move_line;
     Point to = arc->connection.endpoints[1];
     Point from = to;
+    graphene_rect_t rect;
+
     point_sub (&from, &arc->center);
+
     tmp = from.x;
-    if (righthand)
+    if (righthand) {
       from.x = from.y, from.y = -tmp;
-    else
+    } else {
       from.x = -from.y, from.y = tmp;
+    }
+
     point_add (&from, &to);
-    calculate_arrow_point(&arc->end_arrow, &to, &from,
-                          &move_arrow, &move_line, arc->line_width);
+
+    calculate_arrow_point (&arc->end_arrow, &to, &from,
+                           &move_arrow, &move_line, arc->line_width);
+
     /* move them */
-    point_sub(&to, &move_arrow);
-    point_sub(&from, &move_line);
-    arrow_bbox(&arc->end_arrow, arc->line_width, &to, &from, &bbox);
-    rectangle_union(&obj->bounding_box, &bbox);
+    point_sub (&to, &move_arrow);
+    point_sub (&from, &move_line);
+    arrow_bbox (&arc->end_arrow, arc->line_width, &to, &from, &rect);
+
+    graphene_rect_union (&bbox, &rect, &bbox);
   }
+
+  dia_object_set_bounding_box (obj, &bbox);
+
   /* if selected put the centerpoint in the box, too. */
-  g_assert (obj->enclosing_box != NULL);
-  *obj->enclosing_box = obj->bounding_box;
-  rectangle_add_point(obj->enclosing_box, &arc->center);
+  {
+    graphene_point_t c;
+
+    dia_point_to_graphene (&arc->center, &c);
+    graphene_rect_expand (&bbox, &c, &bbox);
+    dia_object_set_enclosing_box (obj, &bbox);
+  }
 
   obj->position = conn->endpoints[0];
 }
+
 
 static void
 arc_save(Arc *arc, ObjectNode obj_node, DiaContext *ctx)
@@ -981,16 +1025,16 @@ arc_save(Arc *arc, ObjectNode obj_node, DiaContext *ctx)
   }
 }
 
+
 static DiaObject *
-arc_load(ObjectNode obj_node, int version,DiaContext *ctx)
+arc_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
   Arc *arc;
   Connection *conn;
   DiaObject *obj;
   AttributeNode attr;
 
-  arc = g_malloc0(sizeof(Arc));
-  arc->connection.object.enclosing_box = g_new0 (DiaRectangle, 1);
+  arc = g_new0 (Arc, 1);
 
   conn = &arc->connection;
   obj = &conn->object;

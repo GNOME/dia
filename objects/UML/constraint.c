@@ -31,6 +31,7 @@
 #include "properties.h"
 #include "stereotype.h"
 #include "attributes.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/constraint.xpm"
 
@@ -342,36 +343,38 @@ constraint_destroy (Constraint *constraint)
   g_clear_pointer (&constraint->text, g_free);
 }
 
+
 static void
-constraint_update_data(Constraint *constraint)
+constraint_update_data (Constraint *constraint)
 {
   Connection *conn = &constraint->connection;
   DiaObject *obj = &conn->object;
   DiaRectangle rect;
   LineBBExtras *extra;
+  graphene_rect_t bbox, tmp;
 
   if ((constraint->text) && (constraint->text[0] == '{')) {
     /* we might have a string loaded from an older dia. Clean it up. */
     g_clear_pointer (&constraint->brtext, g_free);
     constraint->brtext = constraint->text;
-    constraint->text = bracketted_to_string(constraint->text,"{","}");
+    constraint->text = bracketted_to_string (constraint->text, "{", "}");
   } else if (!constraint->brtext) {
-    constraint->brtext = string_to_bracketted(constraint->text, "{", "}");
+    constraint->brtext = string_to_bracketted (constraint->text, "{", "}");
   }
 
-  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
-      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
-    connection_adjust_for_autogap(conn);
+  if (connpoint_is_autogap (conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap (conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap (conn);
   }
   obj->position = conn->endpoints[0];
 
-  constraint->text_width = dia_font_string_width(constraint->brtext,
-                                                 constraint->font,
-                                                 constraint->font_height);
+  constraint->text_width = dia_font_string_width (constraint->brtext,
+                                                  constraint->font,
+                                                  constraint->font_height);
 
   constraint->text_handle.pos = constraint->text_pos;
 
-  connection_update_handles(conn);
+  connection_update_handles (conn);
 
   /* Boundingbox: */
   extra = &conn->extra_spacing;
@@ -379,18 +382,25 @@ constraint_update_data(Constraint *constraint)
   extra->start_long =
     extra->start_trans =
     extra->end_long = constraint->line_width/2.0;
-  extra->end_trans = MAX(constraint->line_width,CONSTRAINT_ARROWLEN)/2.0;
+  extra->end_trans = MAX (constraint->line_width, CONSTRAINT_ARROWLEN)/2.0;
 
-  connection_update_boundingbox(conn);
+  connection_update_boundingbox (conn);
 
   /* Add boundingbox for text: */
   rect.left = constraint->text_pos.x;
   rect.right = rect.left + constraint->text_width;
   rect.top = constraint->text_pos.y -
-      dia_font_ascent(constraint->brtext,
-                      constraint->font, constraint->font_height);
+      dia_font_ascent (constraint->brtext,
+                       constraint->font,
+                       constraint->font_height);
   rect.bottom = rect.top + constraint->font_height;
-  rectangle_union(&obj->bounding_box, &rect);
+
+  dia_object_get_bounding_box (obj, &bbox);
+  dia_rectangle_to_graphene (&rect, &tmp);
+
+  graphene_rect_union (&bbox, &tmp, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
 }
 
 

@@ -27,6 +27,7 @@
 #include "message.h"
 #include "parent.h"
 #include "dia-layer.h"
+#include "dia-graphene.h"
 
 #include "dummy_dep.h"
 
@@ -109,7 +110,8 @@ object_copy (DiaObject *from, DiaObject *to)
 {
   to->type = from->type;
   to->position = from->position;
-  to->bounding_box = from->bounding_box;
+  to->legacy_bbox = from->legacy_bbox;
+  graphene_rect_init_from_rect (&to->bounds, &from->bounds);
 
   to->num_handles = from->num_handles;
   g_clear_pointer (&to->handles, g_free);
@@ -889,7 +891,7 @@ object_save (DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
                   &obj->position,
                   ctx);
   data_add_rectangle (new_attribute (obj_node, "obj_bb"),
-                      &obj->bounding_box,
+                      &obj->legacy_bbox,
                       ctx);
   if (obj->meta && g_hash_table_size (obj->meta) > 0) {
     data_add_dict (new_attribute (obj_node, "meta"), obj->meta, ctx);
@@ -919,12 +921,16 @@ object_load (DiaObject *obj, ObjectNode obj_node, DiaContext *ctx)
     data_point (attribute_first_data (attr), &obj->position, ctx);
   }
 
-  obj->bounding_box.left = obj->bounding_box.right = 0.0;
-  obj->bounding_box.top = obj->bounding_box.bottom = 0.0;
+  obj->legacy_bbox.left = obj->legacy_bbox.right = 0.0;
+  obj->legacy_bbox.top = obj->legacy_bbox.bottom = 0.0;
+  graphene_rect_init (&obj->bounds, 0, 0, 0, 0);
+
   attr = object_find_attribute (obj_node, "obj_bb");
   if (attr != NULL) {
-    data_rectangle (attribute_first_data (attr), &obj->bounding_box, ctx);
+    data_rectangle (attribute_first_data (attr), &obj->legacy_bbox, ctx);
   }
+
+  dia_rectangle_to_graphene (&obj->legacy_bbox, &obj->bounds);
 
   attr = object_find_attribute (obj_node, "meta");
   if (attr != NULL) {
@@ -1215,40 +1221,78 @@ object_copy_using_properties (DiaObject *obj)
   return newobj;
 }
 
+
 /**
  * dia_object_get_bounding_box:
  * @obj: The object to get the bounding box for.
+ * @bbox: (out caller-allocates): the bounding box
  *
  * Return a box that all 'real' parts of the object is bounded by.
  *  In most cases, this is the same as the enclosing box, but things like
  *  bezier controls would lie outside of this.
- *
- * Returns: A pointer to a #DiaRectangle object.  This object should *not*
- *  be freed after use, as it belongs to the object.
  */
-const DiaRectangle *
-dia_object_get_bounding_box (const DiaObject *obj)
+void
+dia_object_get_bounding_box (DiaObject *obj, graphene_rect_t *bbox)
 {
-  return &obj->bounding_box;
+  graphene_rect_init_from_rect (bbox, &obj->bounds);
 }
+
+
+/**
+ * dia_object_set_bounding_box:
+ * @obj: the #DiaObject
+ * @bbox: the new bounding box
+ */
+void
+dia_object_set_bounding_box (DiaObject *obj, graphene_rect_t *bbox)
+{
+  graphene_rect_init_from_rect (&obj->bounds, bbox);
+  dia_graphene_to_rectangle (&obj->bounds, &obj->legacy_bbox);
+}
+
 
 /**
  * dia_object_get_enclosing_box:
  * @obj: The object to get the enclosing box for.
+ * @ebox: (out caller-allocates): the enclosing box (may or may not be equal to the bounding box)
  *
  * Return a box that encloses all interactively rendered parts of the object.
  *
- * Returns: A pointer to a #DiaRectangle object.  This object should *not*
- *  be freed after use, as it belongs to the object.
+ * Stability: Stable
+ *
+ * Since: 0.98
  */
-const DiaRectangle *
-dia_object_get_enclosing_box (const DiaObject *obj)
+void
+dia_object_get_enclosing_box (DiaObject *obj, graphene_rect_t *ebox)
 {
-  if (!obj->enclosing_box)
-    return &obj->bounding_box;
-  else
-    return obj->enclosing_box;
+  if (obj->explicit_enclosing) {
+    graphene_rect_init_from_rect (ebox, &obj->enclosing);
+  } else {
+    graphene_rect_init_from_rect (ebox, &obj->bounds);
+  }
 }
+
+
+/**
+ * dia_object_set_enclosing_box:
+ * @obj: the #DiaObject
+ * @ebox: (nullable): the enclosing box, or %NULL to clear
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+void
+dia_object_set_enclosing_box (DiaObject *obj, graphene_rect_t *ebox)
+{
+  if (ebox) {
+    obj->explicit_enclosing = TRUE;
+    graphene_rect_init_from_rect (&obj->enclosing, ebox);
+  } else {
+    obj->explicit_enclosing = FALSE;
+  }
+}
+
 
 void
 dia_object_set_meta (DiaObject *obj, const gchar *key, const gchar *value)

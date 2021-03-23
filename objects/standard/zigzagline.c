@@ -317,14 +317,15 @@ zigzagline_copy(Zigzagline *zigzagline)
   return &newzigzagline->orth.object;
 }
 
+
 static void
-zigzagline_update_data(Zigzagline *zigzagline)
+zigzagline_update_data (Zigzagline *zigzagline)
 {
   OrthConn *orth = &zigzagline->orth;
-  DiaObject *obj = &orth->object;
   PolyBBExtras *extra = &orth->extra_spacing;
+  graphene_rect_t bbox, rect;
 
-  orthconn_update_data(&zigzagline->orth);
+  orthconn_update_data (&zigzagline->orth);
 
   extra->start_long =
     extra->end_long =
@@ -332,37 +333,60 @@ zigzagline_update_data(Zigzagline *zigzagline)
     extra->start_trans =
     extra->end_trans = (zigzagline->line_width / 2.0);
 
-  orthconn_update_boundingbox(orth);
+  orthconn_update_boundingbox (orth);
+
+  dia_object_get_bounding_box (DIA_OBJECT (zigzagline), &bbox);
 
   if (zigzagline->start_arrow.type != ARROW_NONE) {
-    DiaRectangle bbox;
     Point move_arrow, move_line;
     Point to = orth->points[0];
     Point from = orth->points[1];
-    calculate_arrow_point(&zigzagline->start_arrow, &to, &from,
-                          &move_arrow, &move_line, zigzagline->line_width);
-    /* move them */
-    point_sub(&to, &move_arrow);
-    point_sub(&from, &move_line);
 
-    arrow_bbox (&zigzagline->start_arrow, zigzagline->line_width, &to, &from, &bbox);
-    rectangle_union (&obj->bounding_box, &bbox);
+    calculate_arrow_point (&zigzagline->start_arrow,
+                           &to,
+                           &from,
+                           &move_arrow,
+                           &move_line,
+                           zigzagline->line_width);
+
+    /* move them */
+    point_sub (&to, &move_arrow);
+    point_sub (&from, &move_line);
+
+    arrow_bbox (&zigzagline->start_arrow,
+                zigzagline->line_width,
+                &to,
+                &from,
+                &rect);
+    graphene_rect_union (&bbox, &rect, &bbox);
   }
+
   if (zigzagline->end_arrow.type != ARROW_NONE) {
-    DiaRectangle bbox;
     Point move_arrow, move_line;
     int n = orth->numpoints;
-    Point to = orth->points[n-1];
-    Point from = orth->points[n-2];
-    calculate_arrow_point(&zigzagline->end_arrow, &to, &from,
-                          &move_arrow, &move_line, zigzagline->line_width);
-    /* move them */
-    point_sub(&to, &move_arrow);
-    point_sub(&from, &move_line);
+    Point to = orth->points[n - 1];
+    Point from = orth->points[n - 2];
 
-    arrow_bbox (&zigzagline->end_arrow, zigzagline->line_width, &to, &from, &bbox);
-    rectangle_union (&obj->bounding_box, &bbox);
+    calculate_arrow_point (&zigzagline->end_arrow,
+                           &to,
+                           &from,
+                           &move_arrow,
+                           &move_line,
+                           zigzagline->line_width);
+
+    /* move them */
+    point_sub (&to, &move_arrow);
+    point_sub (&from, &move_line);
+
+    arrow_bbox (&zigzagline->end_arrow,
+                zigzagline->line_width,
+                &to,
+                &from,
+                &rect);
+    graphene_rect_union (&bbox, &rect, &bbox);
   }
+
+  dia_object_set_bounding_box (DIA_OBJECT (zigzagline), &bbox);
 }
 
 

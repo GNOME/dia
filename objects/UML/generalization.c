@@ -30,6 +30,7 @@
 #include "arrows.h"
 #include "properties.h"
 #include "stereotype.h"
+#include "dia-graphene.h"
 
 #include "uml.h"
 
@@ -42,13 +43,13 @@ struct _Generalization {
 
   Point text_pos;
   Alignment text_align;
-  real text_width;
+  double    text_width;
 
   DiaFont *font;
-  real     font_height;
+  double   font_height;
   Color    text_color;
 
-  real     line_width;
+  double   line_width;
   Color    line_color;
 
   char *name;
@@ -279,23 +280,24 @@ generalization_draw (Generalization *genlz, DiaRenderer *renderer)
   }
 }
 
+
 static void
-generalization_update_data(Generalization *genlz)
+generalization_update_data (Generalization *genlz)
 {
   OrthConn *orth = &genlz->orth;
   DiaObject *obj = &orth->object;
   int num_segm, i;
   Point *points;
-  DiaRectangle rect;
   PolyBBExtras *extra;
-  real descent;
-  real ascent;
+  double descent;
+  double ascent;
+  graphene_rect_t bbox, rect;
 
-  orthconn_update_data(orth);
+  orthconn_update_data (orth);
 
-  genlz->stereotype = remove_stereotype_from_string(genlz->stereotype);
+  genlz->stereotype = remove_stereotype_from_string (genlz->stereotype);
   if (!genlz->st_stereotype) {
-    genlz->st_stereotype =  string_to_stereotype(genlz->stereotype);
+    genlz->st_stereotype = string_to_stereotype (genlz->stereotype);
   }
 
   genlz->text_width = 0.0;
@@ -303,24 +305,30 @@ generalization_update_data(Generalization *genlz)
   ascent = 0.0;
 
   if (genlz->name) {
-    genlz->text_width = dia_font_string_width(genlz->name, genlz->font,
-                                              genlz->font_height);
-    descent = dia_font_descent(genlz->name,
-                               genlz->font,genlz->font_height);
-    ascent = dia_font_ascent(genlz->name,
-                             genlz->font,genlz->font_height);
+    genlz->text_width = dia_font_string_width (genlz->name,
+                                               genlz->font,
+                                               genlz->font_height);
+    descent = dia_font_descent (genlz->name,
+                                genlz->font,
+                                genlz->font_height);
+    ascent = dia_font_ascent (genlz->name,
+                              genlz->font,
+                              genlz->font_height);
   }
+
   if (genlz->stereotype) {
-    genlz->text_width = MAX(genlz->text_width,
-                            dia_font_string_width(genlz->stereotype,
-                                                  genlz->font,
-                                                  genlz->font_height));
+    genlz->text_width = MAX (genlz->text_width,
+                             dia_font_string_width (genlz->stereotype,
+                                                    genlz->font,
+                                                    genlz->font_height));
     if (!genlz->name) {
-      descent = dia_font_descent(genlz->stereotype,
-                                genlz->font,genlz->font_height);
+      descent = dia_font_descent (genlz->stereotype,
+                                  genlz->font,
+                                  genlz->font_height);
     }
-    ascent = dia_font_ascent(genlz->stereotype,
-                             genlz->font,genlz->font_height);
+    ascent = dia_font_ascent (genlz->stereotype,
+                              genlz->font,
+                              genlz->font_height);
   }
 
   extra = &orth->extra_spacing;
@@ -331,7 +339,7 @@ generalization_update_data(Generalization *genlz)
     extra->end_trans =
     extra->end_long = genlz->line_width/2.0;
 
-  orthconn_update_boundingbox(orth);
+  orthconn_update_boundingbox (orth);
 
   /* Calc text pos: */
   num_segm = genlz->orth.numpoints - 1;
@@ -339,8 +347,9 @@ generalization_update_data(Generalization *genlz)
   i = num_segm / 2;
 
   if ((num_segm % 2) == 0) { /* If no middle segment, use horizontal */
-    if (genlz->orth.orientation[i]==VERTICAL)
+    if (genlz->orth.orientation[i] == VERTICAL) {
       i--;
+    }
   }
 
   switch (genlz->orth.orientation[i]) {
@@ -359,14 +368,19 @@ generalization_update_data(Generalization *genlz)
   }
 
   /* Add the text recangle to the bounding box: */
-  rect.left = genlz->text_pos.x;
-  if (genlz->text_align == ALIGN_CENTER)
-    rect.left -= genlz->text_width/2.0;
-  rect.right = rect.left + genlz->text_width;
-  rect.top = genlz->text_pos.y - ascent;
-  rect.bottom = rect.top + 2*genlz->font_height;
+  graphene_rect_init (&rect,
+                      genlz->text_pos.x,
+                      genlz->text_pos.y - ascent,
+                      genlz->text_width,
+                      2 * genlz->font_height);
 
-  rectangle_union(&obj->bounding_box, &rect);
+  if (genlz->text_align == ALIGN_CENTER) {
+    graphene_rect_offset (&rect, -(genlz->text_width / 2.0), 0);
+  }
+
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_union (&bbox, &rect, &bbox);
+  dia_object_set_bounding_box (obj, &bbox);
 }
 
 

@@ -36,6 +36,7 @@
 #include "arrows.h"
 #include "properties.h"
 #include "text.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/annotation.xpm"
 
@@ -186,18 +187,26 @@ annotation_set_props(Annotation *annotation, GPtrArray *props)
   annotation_update_data(annotation);
 }
 
-static real
-annotation_distance_from(Annotation *annotation, Point *point)
+
+static double
+annotation_distance_from (Annotation *annotation, Point *point)
 {
   Point *endpoints;
-  DiaRectangle bbox;
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
   endpoints = &annotation->connection.endpoints[0];
 
-  text_calc_boundingbox(annotation->text,&bbox);
-  return MIN(distance_line_point(&endpoints[0], &endpoints[1],
-				 ANNOTATION_LINE_WIDTH, point),
-	     distance_rectangle_point(&bbox,point));
+  text_calc_boundingbox (annotation->text, &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return MIN (distance_line_point (&endpoints[0],
+                                   &endpoints[1],
+                                   ANNOTATION_LINE_WIDTH,
+                                   point),
+              distance_rectangle_point (&tmp, point));
 }
+
 
 static void
 annotation_select(Annotation *annotation, Point *clicked_point,
@@ -209,10 +218,14 @@ annotation_select(Annotation *annotation, Point *clicked_point,
   connection_update_handles(&annotation->connection);
 }
 
-static DiaObjectChange*
-annotation_move_handle(Annotation *annotation, Handle *handle,
-		       Point *to, ConnectionPoint *cp,
-		       HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+annotation_move_handle (Annotation       *annotation,
+                        Handle           *handle,
+                        Point            *to,
+                        ConnectionPoint  *cp,
+                        HandleMoveReason  reason,
+                        ModifierKeys      modifiers)
 {
   Point p1, p2;
   Point *endpoints;
@@ -223,38 +236,48 @@ annotation_move_handle(Annotation *annotation, Handle *handle,
   g_assert(to!=NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
-    annotation->text->position = *to;
-  } else  {
+    text_set_position (annotation->text, to);
+  } else {
     endpoints = &(conn->endpoints[0]);
+
     if (handle->id == HANDLE_MOVE_STARTPOINT) {
+      Point text_pos;
+
       p1 = endpoints[0];
-      connection_move_handle(conn, handle->id, to, cp, reason, modifiers);
-      connection_adjust_for_autogap(conn);
+      connection_move_handle (conn, handle->id, to, cp, reason, modifiers);
+      connection_adjust_for_autogap (conn);
+
       p2 = endpoints[0];
-      point_sub(&p2, &p1);
-      point_add(&annotation->text->position, &p2);
-      point_add(&p2,&(endpoints[1]));
-      connection_move_handle(conn, HANDLE_MOVE_ENDPOINT, &p2, NULL, reason, 0);
+      point_sub (&p2, &p1);
+      dia_text_get_position (annotation->text, &text_pos);
+      point_add (&text_pos, &p2);
+      point_add (&p2, &(endpoints[1]));
+      connection_move_handle (conn, HANDLE_MOVE_ENDPOINT, &p2, NULL, reason, 0);
     } else {
+      Point text_pos;
+
       p1 = endpoints[1];
-      connection_move_handle(conn, handle->id, to, cp, reason, modifiers);
-      connection_adjust_for_autogap(conn);
+      connection_move_handle (conn, handle->id, to, cp, reason, modifiers);
+      connection_adjust_for_autogap (conn);
+
       p2 = endpoints[1];
-      point_sub(&p2, &p1);
-      point_add(&annotation->text->position, &p2);
+      point_sub (&p2, &p1);
+      dia_text_get_position (annotation->text, &text_pos);
+      point_add (&text_pos, &p2);
     }
   }
-  annotation_update_data(annotation);
+  annotation_update_data (annotation);
 
   return NULL;
 }
 
+
 static DiaObjectChange*
-annotation_move(Annotation *annotation, Point *to)
+annotation_move (Annotation *annotation, Point *to)
 {
   Point start_to_end;
   Point *endpoints = &annotation->connection.endpoints[0];
-  Point delta;
+  Point delta, text_pos;
 
   delta = *to;
   point_sub(&delta, &endpoints[0]);
@@ -265,12 +288,15 @@ annotation_move(Annotation *annotation, Point *to)
   endpoints[1] = endpoints[0] = *to;
   point_add(&endpoints[1], &start_to_end);
 
-  point_add(&annotation->text->position, &delta);
+  dia_text_get_position (annotation->text, &text_pos);
+  point_add (&text_pos, &delta);
+  text_set_position (annotation->text, &text_pos);
 
-  annotation_update_data(annotation);
+  annotation_update_data (annotation);
 
   return NULL;
 }
+
 
 static void
 annotation_draw (Annotation *annotation, DiaRenderer *renderer)
@@ -319,11 +345,12 @@ annotation_draw (Annotation *annotation, DiaRenderer *renderer)
   text_draw (annotation->text,renderer);
 }
 
+
 static DiaObject *
-annotation_create(Point *startpoint,
-		  void *user_data,
-		  Handle **handle1,
-		  Handle **handle2)
+annotation_create (Point   *startpoint,
+                   void    *user_data,
+                   Handle **handle1,
+                   Handle **handle2)
 {
   Annotation *annotation;
   Connection *conn;
@@ -331,9 +358,10 @@ annotation_create(Point *startpoint,
   DiaObject *obj;
   Point offs;
   Point defaultlen = { 1.0, 1.0 };
-  DiaFont* font;
+  DiaFont *font;
+  Point text_pos;
 
-  annotation = g_malloc0(sizeof(Annotation));
+  annotation = g_new0 (Annotation, 1);
 
   conn = &annotation->connection;
   conn->endpoints[0] = *startpoint;
@@ -359,11 +387,15 @@ annotation_create(Point *startpoint,
   g_clear_object (&font);
 
   offs.x = .3 * ANNOTATION_FONTHEIGHT;
-  if (conn->endpoints[1].y < conn->endpoints[0].y)
+  if (conn->endpoints[1].y < conn->endpoints[0].y) {
     offs.y = 1.3 * ANNOTATION_FONTHEIGHT;
-  else
+  } else {
     offs.y = -.3 * ANNOTATION_FONTHEIGHT;
-  point_add(&annotation->text->position,&offs);
+  }
+
+  dia_text_get_position (annotation->text, &text_pos);
+  point_add (&text_pos, &offs);
+  text_set_position (annotation->text, &text_pos);
 
   annotation->text_handle.id = HANDLE_MOVE_TEXT;
   annotation->text_handle.type = HANDLE_MINOR_CONTROL;
@@ -391,27 +423,32 @@ annotation_destroy(Annotation *annotation)
   text_destroy(annotation->text);
 }
 
+
 static void
-annotation_update_data(Annotation *annotation)
+annotation_update_data (Annotation *annotation)
 {
   Connection *conn = &annotation->connection;
   DiaObject *obj = &conn->object;
-  DiaRectangle textrect;
+  graphene_rect_t bbox, textrect;
 
-  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
-      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
-    connection_adjust_for_autogap(conn);
+  if (connpoint_is_autogap (conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap (conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap (conn);
   }
   obj->position = conn->endpoints[0];
 
-  annotation->text_handle.pos = annotation->text->position;
+  dia_text_get_position (annotation->text, &annotation->text_handle.pos);
 
-  connection_update_handles(conn);
+  connection_update_handles (conn);
 
-  connection_update_boundingbox(conn);
-  text_calc_boundingbox(annotation->text,&textrect);
-  rectangle_union(&obj->bounding_box, &textrect);
+  connection_update_boundingbox (conn);
+  text_calc_boundingbox (annotation->text, &textrect);
+
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_union (&bbox, &textrect, &bbox);
+  dia_object_set_bounding_box (obj, &bbox);
 }
+
 
 static DiaObject *
 annotation_load(ObjectNode obj_node, int version,DiaContext *ctx)

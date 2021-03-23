@@ -25,6 +25,8 @@ typedef enum {
 } TextEditState;
 
 #include <glib.h>
+#include <graphene.h>
+
 #include "diatypes.h"
 #include "textattr.h"
 #include "focus.h"
@@ -61,7 +63,7 @@ struct _Text {
   /* Attributes: */
   DiaFont *font;
   double height;
-  Point position;
+  graphene_point_t position;
   Color color;
   Alignment alignment;
 
@@ -81,30 +83,33 @@ struct _Text {
 /*! \brief Text object creation \memberof _Text */
 Text *new_text(const char *string, DiaFont *font, double height,
 	       Point *pos, Color *color, Alignment align);
-Text   *new_text_default      (Point      *pos,
-                               Color      *color,
-                               Alignment   align);
-void    text_destroy          (Text       *text);
-Text   *text_copy             (Text       *text);
-char   *text_get_line         (const Text *text,
-                               int         line);
-char   *text_get_string_copy  (const Text *text);
-void    text_set_string       (Text       *text,
-                               const char *string);
-void    text_set_height       (Text       *text,
-                               double      height);
-double  text_get_height       (const Text *text);
-void    text_set_font         (Text       *text,
-                               DiaFont    *font);
-void    text_set_position     (Text       *text,
-                               Point      *pos);
-void    text_set_color        (Text       *text,
-                               Color      *col);
-void    text_set_alignment    (Text       *text,
-                               Alignment   align);
-double  text_distance_from    (Text       *text,
-                               Point      *point);
-void text_calc_boundingbox(Text *text, DiaRectangle *box);
+Text   *new_text_default      (Point           *pos,
+                               Color           *color,
+                               Alignment        align);
+void    text_destroy          (Text            *text);
+Text   *text_copy             (Text            *text);
+char   *text_get_line         (const Text      *text,
+                               int              line);
+char   *text_get_string_copy  (const Text      *text);
+void    text_set_string       (Text            *text,
+                               const char      *string);
+void    text_set_height       (Text            *text,
+                               double           height);
+double  text_get_height       (const Text      *text);
+void    text_set_font         (Text            *text,
+                               DiaFont         *font);
+void    dia_text_get_position (Text            *text,
+                               Point           *pos);
+void    text_set_position     (Text            *text,
+                               Point           *pos);
+void    text_set_color        (Text            *text,
+                               Color           *col);
+void    text_set_alignment    (Text            *text,
+                               Alignment        align);
+double  text_distance_from    (Text            *text,
+                               Point           *point);
+void    text_calc_boundingbox (Text            *text,
+                               graphene_rect_t *box);
 void text_draw(Text *text, DiaRenderer *renderer);
 void text_set_cursor(Text *text, Point *clicked_point,
 		     DiaRenderer *interactive_renderer);

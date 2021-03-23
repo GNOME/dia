@@ -304,47 +304,65 @@ largepackage_draw (LargePackage *pkg, DiaRenderer *renderer)
   }
 }
 
+
 static void
-largepackage_update_data(LargePackage *pkg)
+largepackage_update_data (LargePackage *pkg)
 {
   Element *elem = &pkg->element;
   DiaObject *obj = &elem->object;
+  graphene_rect_t bbox;
+  graphene_point_t pt;
 
-  pkg->stereotype = remove_stereotype_from_string(pkg->stereotype);
+  pkg->stereotype = remove_stereotype_from_string (pkg->stereotype);
   if (!pkg->st_stereotype) {
-    pkg->st_stereotype = string_to_stereotype(pkg->stereotype);
+    pkg->st_stereotype = string_to_stereotype (pkg->stereotype);
   }
 
   pkg->topheight = pkg->font_height + 0.1*2;
 
   pkg->topwidth = 2.0;
-  if (pkg->name != NULL)
-    pkg->topwidth = MAX(pkg->topwidth,
-                        dia_font_string_width(pkg->name, pkg->font,
-                                          pkg->font_height)+2*0.1);
+  if (pkg->name != NULL) {
+    pkg->topwidth = MAX (pkg->topwidth,
+                         dia_font_string_width (pkg->name,
+                                                pkg->font,
+                                                pkg->font_height) + 2 * 0.1);
+  }
+
   if (pkg->st_stereotype != NULL && pkg->st_stereotype[0] != '\0') {
-    pkg->topwidth = MAX(pkg->topwidth,
-                        dia_font_string_width(pkg->st_stereotype, pkg->font,
-                                              pkg->font_height)+2*0.1);
+    pkg->topwidth = MAX (pkg->topwidth,
+                         dia_font_string_width (pkg->st_stereotype,
+                                                pkg->font,
+                                                pkg->font_height) + 2 * 0.1);
     pkg->topheight += pkg->font_height;
   }
 
-  if (elem->width < (pkg->topwidth + 0.2))
+  if (elem->width < (pkg->topwidth + 0.2)) {
     elem->width = pkg->topwidth + 0.2;
-  if (elem->height < 1.0)
+  }
+
+  if (elem->height < 1.0) {
     elem->height = 1.0;
+  }
 
   /* Update connections: */
-  element_update_connections_rectangle(elem, pkg->connections);
+  element_update_connections_rectangle (elem, pkg->connections);
 
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
+
   /* fix boundingbox for top rectangle: */
-  obj->bounding_box.top -= pkg->topheight;
+  dia_object_get_bounding_box (DIA_OBJECT (elem), &bbox);
+
+  graphene_rect_get_top_left (&bbox, &pt);
+  pt.y -= pkg->topheight;
+  graphene_rect_expand (&bbox, &pt, &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (elem), &bbox);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 }
+
 
 static DiaObject *
 largepackage_create(Point *startpoint,

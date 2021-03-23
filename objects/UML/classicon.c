@@ -30,6 +30,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "uml.h"
 
@@ -189,12 +190,19 @@ classicon_set_props(Classicon *classicon, GPtrArray *props)
   classicon_update_data(classicon);
 }
 
-static real
-classicon_distance_from(Classicon *cicon, Point *point)
+
+static double
+classicon_distance_from (Classicon *cicon, Point *point)
 {
-  DiaObject *obj = &cicon->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (cicon), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 classicon_select(Classicon *cicon, Point *clicked_point,
@@ -236,13 +244,13 @@ classicon_move(Classicon *cicon, Point *to)
   return NULL;
 }
 
+
 static void
 classicon_draw (Classicon *icon, DiaRenderer *renderer)
 {
   Element *elem;
-  real r, x, y, w;
+  double r, x, y, w;
   Point center, p1, p2;
-  int i;
 
   assert(icon != NULL);
   assert(renderer != NULL);
@@ -254,11 +262,11 @@ classicon_draw (Classicon *icon, DiaRenderer *renderer)
   w = elem->width;
 
   r = CLASSICON_RADIOUS;
-  center.x = x + elem->width/2;
+  center.x = x + elem->width / 2;
   center.y = y + r + CLASSICON_ARROW;
 
   if (icon->stereotype==CLASSICON_BOUNDARY) {
-    center.x += r/2.0;
+    center.x += r / 2.0;
   }
 
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
@@ -317,13 +325,16 @@ classicon_draw (Classicon *icon, DiaRenderer *renderer)
   text_draw (icon->text, renderer);
 
   if (icon->is_object) {
+    Point text_pos;
+
     dia_renderer_set_linewidth (renderer, 0.01);
-    if (icon->stereotype==CLASSICON_BOUNDARY) {
+    if (icon->stereotype == CLASSICON_BOUNDARY) {
       x += r/2.0;
     }
-    p1.y = p2.y = icon->text->position.y + text_get_descent (icon->text);
-    for (i=0; i<icon->text->numlines; i++) {
-      p1.x = x + (w - text_get_line_width (icon->text, i))/2;
+    dia_text_get_position (icon->text, &text_pos);
+    p1.y = p2.y = text_pos.y + text_get_descent (icon->text);
+    for (int i = 0; i < icon->text->numlines; i++) {
+      p1.x = x + (w - text_get_line_width (icon->text, i)) / 2;
       p2.x = p1.x + text_get_line_width (icon->text, i);
       dia_renderer_draw_line (renderer,
                               &p1, &p2,
@@ -332,6 +343,7 @@ classicon_draw (Classicon *icon, DiaRenderer *renderer)
     }
   }
 }
+
 
 static void
 classicon_update_data(Classicon *cicon)

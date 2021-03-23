@@ -29,6 +29,7 @@
 #include "handle.h"
 #include "properties.h"
 #include "attributes.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/implements.xpm"
 
@@ -359,26 +360,29 @@ implements_destroy (Implements *implements)
   g_clear_pointer (&implements->text, g_free);
 }
 
+
 static void
-implements_update_data(Implements *implements)
+implements_update_data (Implements *implements)
 {
   Connection *conn = &implements->connection;
   DiaObject *obj = &conn->object;
   LineBBExtras *extra = &conn->extra_spacing;
   Point delta;
   Point point;
-  real len;
+  double len;
   DiaRectangle rect;
+  graphene_rect_t bbox, tmp;
 
   implements->text_width = 0.0;
-  if (implements->text)
-    implements->text_width = dia_font_string_width(implements->text,
-                                                   implements->font,
-                                                   implements->font_height);
+  if (implements->text) {
+    implements->text_width = dia_font_string_width (implements->text,
+                                                    implements->font,
+                                                    implements->font_height);
+  }
 
-  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
-      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
-    connection_adjust_for_autogap(conn);
+  if (connpoint_is_autogap (conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap (conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap (conn);
   }
   obj->position = conn->endpoints[0];
 
@@ -386,21 +390,21 @@ implements_update_data(Implements *implements)
 
   /* circle handle/center pos: */
   delta = conn->endpoints[0];
-  point_sub(&delta, &conn->endpoints[1]);
-  len = sqrt(point_dot(&delta, &delta));
+  point_sub (&delta, &conn->endpoints[1]);
+  len = sqrt (point_dot (&delta, &delta));
   delta.x /= len; delta.y /= len;
 
   point = delta;
-  point_scale(&point, implements->circle_diameter);
-  point_add(&point, &conn->endpoints[1]);
+  point_scale (&point, implements->circle_diameter);
+  point_add (&point, &conn->endpoints[1]);
   implements->circle_handle.pos = point;
 
   point = delta;
-  point_scale(&point, implements->circle_diameter/2.0);
-  point_add(&point, &conn->endpoints[1]);
+  point_scale (&point, implements->circle_diameter/2.0);
+  point_add (&point, &conn->endpoints[1]);
   implements->circle_center = point;
 
-  connection_update_handles(conn);
+  connection_update_handles (conn);
 
   /* Boundingbox: */
   extra->start_long =
@@ -408,18 +412,25 @@ implements_update_data(Implements *implements)
     extra->end_long = implements->line_width/2.0;
   extra->end_trans = (implements->line_width + implements->circle_diameter)/2.0;
 
-  connection_update_boundingbox(conn);
+  connection_update_boundingbox (conn);
 
   /* Add boundingbox for text: */
   rect.left = implements->text_pos.x;
   rect.right = rect.left + implements->text_width;
   rect.top = implements->text_pos.y;
-  if (implements->text)
-    rect.top -= dia_font_ascent(implements->text,
-				implements->font,
-				implements->font_height);
+  if (implements->text) {
+    rect.top -= dia_font_ascent (implements->text,
+                                 implements->font,
+                                 implements->font_height);
+  }
   rect.bottom = rect.top + implements->font_height;
-  rectangle_union(&obj->bounding_box, &rect);
+
+  dia_object_get_bounding_box (obj, &bbox);
+  dia_rectangle_to_graphene (&rect, &tmp);
+
+  graphene_rect_union (&bbox, &tmp, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
 }
 
 static DiaObject *

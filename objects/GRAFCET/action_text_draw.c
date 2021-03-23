@@ -40,17 +40,16 @@ void
 action_text_draw (Text *text, DiaRenderer *renderer)
 {
   Point pos;
-  int i;
-  real space_width;
+  double space_width;
 
   dia_renderer_set_font (renderer, text->font, text->height);
 
-  pos = text->position;
+  dia_text_get_position (text, &pos);
 
   space_width = action_text_spacewidth (text);
 
   /* TODO: Use the TextLine object when available for faster rendering. */
-  for (i=0;i<text->numlines;i++) {
+  for (int i = 0; i < text->numlines; i++) {
     dia_renderer_draw_string (renderer,
                               text_get_line (text, i),
                               &pos,
@@ -61,9 +60,9 @@ action_text_draw (Text *text, DiaRenderer *renderer)
   }
 
   if (DIA_IS_INTERACTIVE_RENDERER (renderer) && (text->focus.has_focus)) {
-    real curs_x, curs_y;
-    real str_width_first;
-    real str_width_whole;
+    double curs_x, curs_y;
+    double str_width_first;
+    double str_width_whole;
     Point p1, p2;
 
 
@@ -74,11 +73,11 @@ action_text_draw (Text *text, DiaRenderer *renderer)
                                                    text_get_line (text, text->cursor_row),
                                                    text_get_line_strlen (text, text->cursor_row));
 
-    curs_x = text->position.x + str_width_first;
-    for (i = 0; i < text->cursor_row; i++) {
+    curs_x = pos.x + str_width_first;
+    for (int i = 0; i < text->cursor_row; i++) {
       curs_x += text_get_line_width (text, i) + 2 * space_width;
     }
-    curs_y = text->position.y - text->ascent;
+    curs_y = pos.y - text->ascent;
 
     switch (text->alignment) {
       case ALIGN_LEFT:
@@ -108,10 +107,12 @@ action_text_draw (Text *text, DiaRenderer *renderer)
 void
 action_text_calc_boundingbox (Text *text, DiaRectangle *box)
 {
-  real width;
-  int i;
+  double width;
+  Point pos;
 
-  box->left = text->position.x;
+  dia_text_get_position (text, &pos);
+
+  box->left = pos.x;
   switch (text->alignment) {
     case ALIGN_LEFT:
       break;
@@ -126,7 +127,7 @@ action_text_calc_boundingbox (Text *text, DiaRectangle *box)
   }
 
   width = 0;
-  for (i = 0; i < text->numlines; i++) {
+  for (int i = 0; i < text->numlines; i++) {
     width += text_get_line_width (text, i);
   }
 
@@ -134,7 +135,7 @@ action_text_calc_boundingbox (Text *text, DiaRectangle *box)
 
   box->right = box->left + width;
 
-  box->top = text->position.y - text->ascent;
+  box->top = pos.y - text->ascent;
 
   box->bottom = box->top + text->height;
 }

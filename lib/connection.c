@@ -23,6 +23,7 @@
 #include <assert.h>
 
 #include "connection.h"
+#include "dia-graphene.h"
 
 
 /**
@@ -158,12 +159,17 @@ connection_update_handles (Connection *conn)
 void
 connection_update_boundingbox (Connection *conn)
 {
+  graphene_rect_t bbox;
+  graphene_vec2_t p1, p2;
+
   g_return_if_fail (conn != NULL);
 
-  line_bbox (&conn->endpoints[0],
-             &conn->endpoints[1],
-             &conn->extra_spacing,
-             &conn->object.bounding_box);
+  graphene_vec2_init (&p1, conn->endpoints[0].x, conn->endpoints[0].y);
+  graphene_vec2_init (&p2, conn->endpoints[1].x, conn->endpoints[1].y);
+
+  line_bbox (&p1, &p2, &conn->extra_spacing, &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (conn), &bbox);
 }
 
 

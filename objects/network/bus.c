@@ -29,6 +29,7 @@
 #include "attributes.h"
 #include "diamenu.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/bus.xpm"
 
@@ -446,15 +447,18 @@ bus_copy(Bus *bus)
 
 
 static void
-bus_update_data(Bus *bus)
+bus_update_data (Bus *bus)
 {
   Connection *conn = &bus->connection;
   DiaObject *obj = &conn->object;
   int i;
   Point u, v, vhat;
   Point *endpoints;
-  real ulen;
-  real min_par, max_par;
+  double ulen;
+  double min_par, max_par;
+  graphene_rect_t bbox;
+  graphene_point_t pt;
+
 
 /*
  * This seems to break stuff wildly.
@@ -498,15 +502,25 @@ bus_update_data(Bus *bus)
   point_scale(&bus->real_ends[1], max_par);
   point_add(&bus->real_ends[1], &endpoints[0]);
 
-  connection_update_boundingbox(conn);
-  rectangle_add_point(&obj->bounding_box, &bus->real_ends[0]);
-  rectangle_add_point(&obj->bounding_box, &bus->real_ends[1]);
-  for (i=0;i<bus->num_handles;i++) {
-    rectangle_add_point(&obj->bounding_box, &bus->handles[i]->pos);
+  connection_update_boundingbox (conn);
+
+  dia_object_get_bounding_box (obj, &bbox);
+
+  dia_point_to_graphene (&bus->real_ends[0], &pt);
+  graphene_rect_expand (&bbox, &pt, &bbox);
+  dia_point_to_graphene (&bus->real_ends[1], &pt);
+  graphene_rect_expand (&bbox, &pt, &bbox);
+
+  for (i = 0; i < bus->num_handles; i++) {
+    dia_point_to_graphene (&bus->handles[i]->pos, &pt);
+    graphene_rect_expand (&bbox, &pt, &bbox);
   }
 
-  connection_update_handles(conn);
+  dia_object_set_bounding_box (obj, &bbox);
+
+  connection_update_handles (conn);
 }
+
 
 static void
 bus_add_handle(Bus *bus, Point *p, Handle *handle)

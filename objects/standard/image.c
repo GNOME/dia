@@ -560,23 +560,27 @@ image_update_data (Image *image)
   element_update_connections_rectangle (elem, image->connections);
 
   if (image->angle != 0) {
-    real cx = elem->corner.x + elem->width / 2.0;
-    real cy = elem->corner.y + elem->height / 2.0;
+    double cx = elem->corner.x + elem->width / 2.0;
+    double cy = elem->corner.y + elem->height / 2.0;
     DiaMatrix m = { 1.0, 0.0, 0.0, 1.0, cx, cy };
     DiaMatrix t = { 1.0, 0.0, 0.0, 1.0, -cx, -cy };
-    int i;
     PolyBBExtras extraa = { 0, };
     Point poly[4];
-
+    graphene_rect_t bbox;
 
     dia_matrix_set_angle_and_scales (&m, G_PI*image->angle/180, 1.0, 1.0);
     dia_matrix_multiply (&m, &t, &m);
-    for (i = 0; i < 8; ++i)
+
+    for (int i = 0; i < 8; ++i) {
       transform_point (&image->connections[i].pos, &m);
+    }
 
     element_get_poly (elem, image->angle, poly);
     extraa.middle_trans = (image->draw_border ? image->border_width : 0.0);
-    polyline_bbox (poly, 4, &extraa, TRUE, &elem->object.bounding_box);
+
+    polyline_bbox (poly, 4, &extraa, TRUE, &bbox);
+
+    dia_object_set_bounding_box (DIA_OBJECT (image), &bbox);
   } else {
     /* the image border is drawn completely outside of the image, so no /2.0 on border width */
     extra->border_trans = (image->draw_border ? image->border_width : 0.0);

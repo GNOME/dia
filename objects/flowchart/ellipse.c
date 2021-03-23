@@ -395,17 +395,16 @@ ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)
 
 
 static void
-ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
+ellipse_update_data (Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
 {
   Element *elem = &ellipse->element;
   ElementBBExtras *extra = &elem->extra_spacing;
   DiaObject *obj = &elem->object;
   Point center, bottom_right;
   Point p, c;
-  real dw, dh;
-  real width, height;
-  real radius1, radius2;
-  int i;
+  double dw, dh;
+  double width, height;
+  double radius1, radius2;
 
   /* save starting points */
   center = bottom_right = elem->corner;
@@ -414,27 +413,28 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   center.y += elem->height/2;
   bottom_right.y += elem->height;
 
-  text_calc_boundingbox(ellipse->text, NULL);
+  text_calc_boundingbox (ellipse->text, NULL);
   width = ellipse->text->max_width + 2 * ellipse->padding;
-  height = ellipse->text->height * ellipse->text->numlines +
-    2 * ellipse->padding;
+  height = (ellipse->text->height * ellipse->text->numlines) +
+                (2 * ellipse->padding);
 
   /* stop ellipse from getting infinite width/height */
-  if (elem->width / elem->height > 4)
+  if (elem->width / elem->height > 4) {
     elem->width = elem->height * 4;
-  else if (elem->height / elem->width > 4)
+  } else if (elem->height / elem->width > 4) {
     elem->height = elem->width * 4;
+  }
 
   c.x = elem->corner.x + elem->width / 2;
   c.y = elem->corner.y + elem->height / 2;
   p.x = c.x - width  / 2;
   p.y = c.y - height / 2;
-  radius1 = ellipse_radius(ellipse, p.x, p.y) - ellipse->border_width/2;
-  radius2 = distance_point_point(&c, &p);
+  radius1 = ellipse_radius (ellipse, p.x, p.y) - (ellipse->border_width / 2);
+  radius2 = distance_point_point (&c, &p);
 
   if (   (radius1 < radius2 && ellipse->text_fitting == TEXTFIT_WHEN_NEEDED)
       /* stop infinite resizing with 5% tolerance obsvered with _test_movement */
-      || (fabs(1.0 - radius2 / radius1) > 0.05 && ellipse->text_fitting == TEXTFIT_ALWAYS)) {
+      || (fabs (1.0 - radius2 / radius1) > 0.05 && ellipse->text_fitting == TEXTFIT_ALWAYS)) {
     /* increase size of the ellipse while keeping its aspect ratio */
     elem->width  *= radius2 / radius1;
     elem->height *= radius2 / radius1;
@@ -469,6 +469,7 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - ellipse->text->height*ellipse->text->numlines/2 +
     ellipse->text->ascent;
+
   switch (ellipse->text->alignment) {
     case ALIGN_LEFT:
       p.x -= (elem->width - 2*(ellipse->padding + ellipse->border_width))/2;
@@ -488,26 +489,29 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   c.y = elem->corner.y + elem->height / 2;
   dw = elem->width  / 2.0;
   dh = elem->height / 2.0;
-  for (i = 0; i < NUM_CONNECTIONS-1; i++) {
-    real theta = M_PI / 8.0 * i;
-    real costheta = cos(theta);
-    real sintheta = sin(theta);
-    connpoint_update(&ellipse->connections[i],
-		      c.x + dw * costheta,
-		      c.y - dh * sintheta,
-		      (costheta > .5?DIR_EAST:(costheta < -.5?DIR_WEST:0))|
-		      (sintheta > .5?DIR_NORTH:(sintheta < -.5?DIR_SOUTH:0)));
+
+  for (int i = 0; i < NUM_CONNECTIONS - 1; i++) {
+    double theta = G_PI / 8.0 * i;
+    double costheta = cos (theta);
+    double sintheta = sin (theta);
+
+    connpoint_update (&ellipse->connections[i],
+                      c.x + dw * costheta,
+                      c.y - dh * sintheta,
+                      (costheta > .5 ? DIR_EAST : (costheta < -.5 ? DIR_WEST : 0)) |
+                      (sintheta > .5 ? DIR_NORTH : (sintheta < -.5 ? DIR_SOUTH : 0)));
   }
-  connpoint_update(&ellipse->connections[16],
-		   c.x, c.y, DIR_ALL);
+
+  connpoint_update (&ellipse->connections[16], c.x, c.y, DIR_ALL);
 
   extra->border_trans = ellipse->border_width / 2.0;
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 }
+
 
 static DiaObject *
 ellipse_create(Point *startpoint,

@@ -32,6 +32,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "uml.h"
 
@@ -149,12 +150,19 @@ branch_set_props(Branch *branch, GPtrArray *props)
   branch_update_data(branch);
 }
 
-static real
-branch_distance_from(Branch *branch, Point *point)
+
+static double
+branch_distance_from (Branch *branch, Point *point)
 {
-  DiaObject *obj = &branch->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (branch), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 branch_select(Branch *branch, Point *clicked_point, DiaRenderer *interactive_renderer)

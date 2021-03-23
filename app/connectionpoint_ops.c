@@ -71,22 +71,29 @@ object_draw_connectionpoints (DiaObject *obj, DDisplay *ddisp)
    * connection points - or some variation thereof ;)
    */
   if (dia_object_get_num_connections (obj) > 1) {
-    const DiaRectangle *bbox = dia_object_get_bounding_box (obj);
-    real w = ddisplay_transform_length (ddisp, bbox->right - bbox->left);
-    real h = ddisplay_transform_length (ddisp, bbox->bottom - bbox->top);
+    graphene_rect_t bbox;
+    double w;
+    double h;
     int n = dia_object_get_num_connections (obj);
+
+    dia_object_get_bounding_box (obj, &bbox);
+
+    w = ddisplay_transform_length (ddisp, graphene_rect_get_width (&bbox));
+    h = ddisplay_transform_length (ddisp, graphene_rect_get_height (&bbox));
 
     /* just comparing the sizes is still drawing more CPs than useful - try 50% */
     if (w * h < n * CONNECTIONPOINT_SIZE * CONNECTIONPOINT_SIZE * 2) {
       if (ddisp->mainpoint_magnetism) {
         return;
       }
+
       /* just draw the main point */
       for (i = 0; i < n; ++i) {
         if (obj->connections[i]->flags & CP_FLAG_ANYPLACE) {
           connectionpoint_draw (obj->connections[i], ddisp, renderer, &midpoint_color);
         }
       }
+
       return;
     }
   }

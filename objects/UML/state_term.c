@@ -32,6 +32,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/state_term.xpm"
 
@@ -154,12 +155,19 @@ state_set_props(State *state, GPtrArray *props)
   state_update_data(state);
 }
 
-static real
-state_distance_from(State *state, Point *point)
+
+static double
+state_distance_from (State *state, Point *point)
 {
-  DiaObject *obj = &state->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (state), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 state_select(State *state, Point *clicked_point,

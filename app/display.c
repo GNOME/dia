@@ -48,6 +48,7 @@
 #include "filedlg.h"
 #include "dia-layer.h"
 #include "exit_dialog.h"
+#include "dia-graphene.h"
 
 
 static GdkCursor *current_cursor = NULL;
@@ -1009,11 +1010,15 @@ ddisplay_scroll_center_point (DDisplay *ddisp, Point *p)
 gboolean
 ddisplay_scroll_to_object (DDisplay *ddisp, DiaObject *obj)
 {
-  DiaRectangle r = obj->bounding_box;
-
+  graphene_rect_t bbox;
+  graphene_point_t center;
   Point p;
-  p.x = (r.left+r.right)/2;
-  p.y = (r.top+r.bottom)/2;
+
+  dia_object_get_bounding_box (obj, &bbox);
+
+  graphene_rect_get_center (&bbox, &center);
+
+  dia_graphene_to_point (&center, &p);
 
   display_set_active (ddisp);
 
@@ -1031,26 +1036,39 @@ ddisplay_scroll_to_object (DDisplay *ddisp, DiaObject *obj)
 gboolean
 ddisplay_present_object (DDisplay *ddisp, DiaObject *obj)
 {
-  const DiaRectangle *r = dia_object_get_enclosing_box (obj);
-  const DiaRectangle *v = &ddisp->visible;
+  graphene_rect_t ebox, v;
+  graphene_point_t ebox_tl, ebox_br, v_tl, v_br;
+
+  dia_object_get_enclosing_box (obj, &ebox);
+  dia_rectangle_to_graphene (&ddisp->visible, &v);
 
   display_set_active (ddisp);
-  if (!rectangle_in_rectangle (v, r)) {
+  if (!graphene_rect_contains_rect (&v, &ebox)) {
     Point delta = { 0, 0 };
 
-    if ((r->right - r->left) > (v->right - v->left)) /* object bigger than visible area */
-      delta.x = (r->left - v->left + r->right - v->right) / 2;
-    else if (r->left < v->left)
-      delta.x = r->left - v->left;
-    else if  (r->right > v->right)
-      delta.x = r->right - v->right;
+    graphene_rect_get_top_left (&ebox, &ebox_tl);
+    graphene_rect_get_bottom_right (&ebox, &ebox_br);
 
-    if ((r->bottom - r->top) > (v->bottom - v->top)) /* object bigger than visible area */
-      delta.y = (r->top - v->top + r->bottom - v->bottom) / 2;
-    else if (r->top < v->top)
-      delta.y = r->top - v->top;
-    else if  (r->bottom > v->bottom)
-      delta.y = r->bottom - v->bottom;
+    graphene_rect_get_top_left (&v, &v_tl);
+    graphene_rect_get_bottom_right (&v, &v_br);
+
+    if (graphene_rect_get_width (&ebox) > graphene_rect_get_width (&v)) {
+      /* object wider than visible area */
+      delta.x = (ebox_tl.x - v_tl.x + ebox_br.x - v_br.x) / 2;
+    } else if (ebox_tl.x < v_tl.x) {
+      delta.x = ebox_tl.x - v_tl.x;
+    } else if (ebox_br.x > v_br.x) {
+      delta.x = ebox_br.x - v_br.x;
+    }
+
+    if (graphene_rect_get_height (&ebox) > graphene_rect_get_height (&v)) {
+      /* object bigger than visible area */
+      delta.y = (ebox_tl.y - v_tl.y + ebox_br.y - v_br.y) / 2;
+    } else if (ebox_tl.y < v_tl.y) {
+      delta.y = ebox_tl.y - v_tl.y;
+    } else if (ebox_br.y > v_br.y) {
+      delta.y = ebox_br.y - v_br.y;
+    }
 
     ddisplay_scroll (ddisp, &delta);
 
@@ -1677,17 +1695,27 @@ ddisplay_show_all (DDisplay *ddisp)
   /* if there is something selected show that instead of all exisiting objects */
   if (dia->data->selected) {
     GList *list = dia->data->selected;
-    DiaRectangle extents = *dia_object_get_enclosing_box ((DiaObject*)list->data);
-    list = g_list_next(list);
+    graphene_rect_t extents;
+    graphene_point_t centre;
+
+    dia_object_get_enclosing_box (DIA_OBJECT (list->data), &extents);
+
+    list = g_list_next (list);
     while (list) {
-      DiaObject *obj = (DiaObject *)list->data;
-      rectangle_union(&extents, dia_object_get_enclosing_box (obj));
-      list = g_list_next(list);
+      graphene_rect_t ebox;
+
+      dia_object_get_enclosing_box (DIA_OBJECT (list->data), &ebox);
+      graphene_rect_union (&extents, &ebox, &extents);
+
+      list = g_list_next (list);
     }
-    magnify_x = (double)width / (extents.right - extents.left) / ddisp->zoom_factor;
-    magnify_y = (double)height / (extents.bottom - extents.top) / ddisp->zoom_factor;
-    middle.x = extents.left + (extents.right - extents.left) / 2.0;
-    middle.y = extents.top + (extents.bottom - extents.top) / 2.0;
+
+    magnify_x = (double) width / graphene_rect_get_width (&extents) / ddisp->zoom_factor;
+    magnify_y = (double) height / graphene_rect_get_height (&extents) / ddisp->zoom_factor;
+
+    graphene_rect_get_center (&extents, &centre);
+
+    dia_graphene_to_point (&centre, &middle);
   } else {
     magnify_x = (double)width /
       (dia->data->extents.right - dia->data->extents.left) / ddisp->zoom_factor;

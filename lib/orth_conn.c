@@ -30,6 +30,7 @@
 #include "handle.h"
 #include "diarenderer.h"
 #include "autoroute.h"
+#include "dia-graphene.h"
 
 
 static void place_handle_by_swapping(OrthConn *orth,
@@ -452,15 +453,23 @@ orthconn_update_data(OrthConn *orth)
   neworthconn_update_midpoints(orth);
 }
 
+
 void
-orthconn_update_boundingbox(OrthConn *orth)
+orthconn_update_boundingbox (OrthConn *orth)
 {
-  assert(orth != NULL);
-  polyline_bbox(&orth->points[0],
-                orth->numpoints,
-                &orth->extra_spacing, FALSE,
-                &orth->object.bounding_box);
+  graphene_rect_t bbox;
+
+  g_return_if_fail (orth != NULL);
+
+  polyline_bbox (&orth->points[0],
+                 orth->numpoints,
+                 &orth->extra_spacing,
+                 FALSE,
+                 &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (orth), &bbox);
 }
+
 
 int
 orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint)

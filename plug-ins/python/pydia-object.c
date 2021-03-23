@@ -26,6 +26,7 @@
 #include "pydia-properties.h"
 #include "pydia-render.h"
 #include "pydia-menuitem.h"
+#include "dia-graphene.h"
 
 #include <structmember.h> /* PyMemberDef */
 
@@ -296,6 +297,8 @@ static PyMethodDef PyDiaObject_Methods[] = {
 static PyMemberDef PyDiaObject_Members[] = {
     { "bounding_box", T_INVALID, 0, RESTRICTED|READONLY,
       "Box covering all the object." },
+    { "enclosing_box", T_INVALID, 0, RESTRICTED|READONLY,
+      "Box covering all the object and editing points." },
     { "connections", T_INVALID, 0, RESTRICTED|READONLY,
       "Vector of connection points." },
     { "handles", T_INVALID, 0, RESTRICTED|READONLY,
@@ -331,7 +334,21 @@ PyDiaObject_GetAttr (PyObject *obj, PyObject *arg)
   } else if (!g_strcmp0 (attr, "type")) {
     return PyDiaObjectType_New (self->object->type);
   } else if (!g_strcmp0 (attr, "bounding_box")) {
-    return PyDiaRectangle_New (&(self->object->bounding_box));
+    graphene_rect_t bbox;
+    DiaRectangle r;
+
+    dia_object_get_bounding_box (self->object, &bbox);
+    dia_graphene_to_rectangle (&bbox, &r);
+
+    return PyDiaRectangle_New (&r);
+  } else if (!g_strcmp0 (attr, "enclosing_box")) {
+    graphene_rect_t ebox;
+    DiaRectangle r;
+
+    dia_object_get_enclosing_box (self->object, &ebox);
+    dia_graphene_to_rectangle (&ebox, &r);
+
+    return PyDiaRectangle_New (&r);
   } else if (!g_strcmp0 (attr, "handles")) {
     int i;
     PyObject *ret = PyTuple_New (self->object->num_handles);

@@ -28,6 +28,7 @@
 
 #include "beziershape.h"
 #include "diarenderer.h"
+#include "dia-graphene.h"
 
 
 #define HANDLE_BEZMAJOR  (HANDLE_CUSTOM1)
@@ -838,23 +839,28 @@ beziershape_update_data (BezierShape *bezier)
   obj->connections[obj->num_connections-1]->directions = DIR_ALL;
 }
 
+
 void
 beziershape_update_boundingbox (BezierShape *bezier)
 {
   ElementBBExtras *extra;
   PolyBBExtras pextra;
+  graphene_rect_t bbox;
 
-  g_assert(bezier != NULL);
+  g_return_if_fail (bezier != NULL);
 
   extra = &bezier->extra_spacing;
   pextra.start_trans = pextra.end_trans =
     pextra.start_long = pextra.end_long = 0;
   pextra.middle_trans = extra->border_trans;
 
-  polybezier_bbox(&bezier->bezier.points[0],
-                  bezier->bezier.num_points,
-                  &pextra, TRUE,
-                  &bezier->object.bounding_box);
+  polybezier_bbox (&bezier->bezier.points[0],
+                   bezier->bezier.num_points,
+                   &pextra,
+                   TRUE,
+                   &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (bezier), &bbox);
 }
 
 

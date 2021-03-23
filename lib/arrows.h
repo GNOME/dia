@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include <graphene.h>
+
 #include "diatypes.h"
 #include "geometry.h"
 #include "color.h"
@@ -138,50 +140,50 @@ typedef enum {
  */
 struct _Arrow {
   ArrowType type;
-  real      length;
-  real      width;
+  double    length;
+  double    width;
 };
 
 #define DIA_TYPE_ARROW (dia_arrow_get_type ())
 
 
-Arrow        *dia_arrow_copy           (Arrow       *self);
-void          dia_arrow_free           (Arrow       *self);
+Arrow        *dia_arrow_copy           (Arrow           *self);
+void          dia_arrow_free           (Arrow           *self);
 GType         dia_arrow_get_type       (void);
-void          arrow_draw               (DiaRenderer *renderer,
-                                        ArrowType    type,
-                                        Point       *to,
-                                        Point       *from,
-                                        real         length,
-                                        real         width,
-                                        real         linewidth,
-                                        Color       *fg_color,
-                                        Color       *bg_color);
-void          arrow_bbox               (const Arrow *self,
-                                        real         line_width,
-                                        const Point *to,
-                                        const Point *from,
-                                        DiaRectangle *rect);
-void          calculate_arrow_point    (const Arrow *arrow,
-                                        const Point *to,
-                                        const Point *from,
-                                        Point       *move_arrow,
-                                        Point       *move_line,
-                                        real         linewidth);
-void          save_arrow               (ObjectNode   obj_node,
-                                        Arrow       *arrow,
-                                        gchar       *type_attribute,
-                                        gchar       *length_attribute,
-                                        gchar       *width_attribute,
-                                        DiaContext  *ctx);
-void          load_arrow               (ObjectNode   obj_node,
-                                        Arrow       *arrow,
-                                        gchar       *type_attribute,
-                                        gchar       *length_attribute,
-                                        gchar       *width_attribute,
-                                        DiaContext  *ctx);
-ArrowType     arrow_type_from_name     (const gchar *name);
-gint          arrow_index_from_type    (ArrowType    atype);
-ArrowType     arrow_type_from_index    (gint         index);
-const gchar  *arrow_get_name_from_type (ArrowType    type);
+void          arrow_draw               (DiaRenderer     *renderer,
+                                        ArrowType        type,
+                                        Point           *to,
+                                        Point           *from,
+                                        double           length,
+                                        double           width,
+                                        double           linewidth,
+                                        Color           *fg_color,
+                                        Color           *bg_color);
+void          arrow_bbox               (const Arrow     *self,
+                                        double           line_width,
+                                        const Point     *to,
+                                        const Point     *from,
+                                        graphene_rect_t *rect);
+void          calculate_arrow_point    (const Arrow     *arrow,
+                                        const Point     *to,
+                                        const Point     *from,
+                                        Point           *move_arrow,
+                                        Point           *move_line,
+                                        double           linewidth);
+void          save_arrow               (ObjectNode       obj_node,
+                                        Arrow           *arrow,
+                                        char            *type_attribute,
+                                        char            *length_attribute,
+                                        char            *width_attribute,
+                                        DiaContext      *ctx);
+void          load_arrow               (ObjectNode       obj_node,
+                                        Arrow           *arrow,
+                                        char            *type_attribute,
+                                        char            *length_attribute,
+                                        char            *width_attribute,
+                                        DiaContext      *ctx);
+ArrowType     arrow_type_from_name     (const char      *name);
+gint          arrow_index_from_type    (ArrowType        atype);
+ArrowType     arrow_type_from_index    (int              index);
+const char   *arrow_get_name_from_type (ArrowType        type);
 GList        *get_arrow_names          (void);

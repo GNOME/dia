@@ -37,6 +37,7 @@
 #include "diarenderer.h"
 #include "element.h"
 #include "attributes.h"
+#include "dia-graphene.h"
 #include "pixmaps/table.xpm"
 
 #define TABLE_UNDERLINE_WIDTH 0.05
@@ -812,16 +813,19 @@ table_draw_attributesbox (Table         *table,
   return Yoffset;
 }
 
-static real
-table_distance_from (Table * table, Point *point)
-{
-  const DiaRectangle * rect;
-  DiaObject * obj;
 
-  obj = &table->element.object;
-  rect = dia_object_get_bounding_box (obj);
-  return distance_rectangle_point (rect, point);
+static double
+table_distance_from (Table *table, Point *point)
+{
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (table), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 table_select (Table * table, Point * clicked_point,

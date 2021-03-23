@@ -476,17 +476,23 @@ _ngon_update_data (Ngon *ng)
       }
     }
   }
+
   /* update bounding box */
   {
     PolyBBExtras extra;
+    graphene_rect_t bbox;
+
     extra.start_trans = extra.end_trans = 0;
     extra.middle_trans = ng->line_width / 2.0;
     extra.start_long = extra.end_long = 0;
+
     polyline_bbox (&g_array_index (ng->points, Point, 0),
-		   ng->points->len,
-		   &extra, TRUE,
-		   &elem->object.bounding_box);
+                   ng->points->len,
+                   &extra, TRUE,
+                   &bbox);
+    dia_object_set_bounding_box (DIA_OBJECT (elem), &bbox);
   }
+
   elem->object.position = ng->center;
   ng->center_handle.pos = ng->center;
   ng->connections[NUM_CONNECTIONS-1].pos = ng->center;

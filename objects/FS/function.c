@@ -20,7 +20,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -33,11 +32,10 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
-
+#include "dia-graphene.h"
 #include "pixmaps/function.xpm"
 
 typedef struct _Function Function;
-typedef struct _FunctionChange FunctionChange;
 
 #define NUM_CONNECTIONS 9
 
@@ -117,20 +115,21 @@ function_get_props(Function * function, GPtrArray *props);
 static void
 function_set_props(Function * function, GPtrArray *props);
 
-static ObjectTypeOps function_type_ops =
-{
+
+static ObjectTypeOps function_type_ops = {
   (CreateFunc) function_create,
   (LoadFunc)   function_load,
   (SaveFunc)   function_save
 };
 
-DiaObjectType function_type =
-{
+
+DiaObjectType function_type = {
   "FS - Function",  /* name */
   0,             /* version */
   function_xpm,   /* pixmap */
   &function_type_ops /* ops */
 };
+
 
 static ObjectOps function_ops = {
   (DestroyFunc)         function_destroy,
@@ -149,6 +148,7 @@ static ObjectOps function_ops = {
   (TextEditFunc) 0,
   (ApplyPropertiesListFunc) object_apply_props,
 };
+
 
 static PropDescription function_props[] = {
   ELEMENT_COMMON_PROPERTIES,
@@ -276,11 +276,15 @@ function_create_change (Function *fcn, enum FuncChangeType change_type)
 
 
 static double
-function_distance_from(Function *pkg, Point *point)
+function_distance_from (Function *pkg, Point *point)
 {
-  DiaObject *obj = &pkg->element.object;
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
 
-  return distance_rectangle_point (&obj->bounding_box, point);
+  dia_object_get_bounding_box (DIA_OBJECT (pkg), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
 
 
@@ -302,11 +306,11 @@ function_move_handle (Function         *pkg,
                       HandleMoveReason  reason,
                       ModifierKeys      modifiers)
 {
-  assert(pkg!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (pkg != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  assert(handle->id < 8);
+  g_return_val_if_fail (handle->id < 8, NULL);
 
   return NULL;
 }
@@ -326,13 +330,13 @@ static void
 function_draw (Function *pkg, DiaRenderer *renderer)
 {
   Element *elem;
-  real x, y, w, h;
+  double x, y, w, h;
   Point p1, p2;
-  real font_height ;
+  double font_height ;
 
-  assert(pkg != NULL);
-  assert(pkg->text != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (pkg != NULL);
+  g_return_if_fail (pkg->text != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &pkg->element;
 
@@ -378,21 +382,22 @@ function_draw (Function *pkg, DiaRenderer *renderer)
   text_draw (pkg->text, renderer);
 }
 
+
 static void
-function_update_data(Function *pkg)
+function_update_data (Function *pkg)
 {
   Element *elem = &pkg->element;
   DiaObject *obj = &elem->object;
   Point p1;
-  real h, w = 0, font_height;
+  double h, w = 0, font_height;
 
-  text_calc_boundingbox(pkg->text, NULL) ;
+  text_calc_boundingbox (pkg->text, NULL) ;
   font_height = pkg->text->height ;
   pkg->element.extra_spacing.border_trans = (font_height / FUNCTION_BORDERWIDTH_SCALE) / 2.0;
-  h = elem->corner.y + font_height/FUNCTION_MARGIN_Y;
+  h = elem->corner.y + (font_height / FUNCTION_MARGIN_Y);
 
   if (pkg->is_user) {
-    h += 2*font_height/FUNCTION_MARGIN_SCALE;
+    h += (2 * font_height) / FUNCTION_MARGIN_SCALE;
   }
 
   w = MAX(w, pkg->text->max_width);
@@ -415,42 +420,42 @@ function_update_data(Function *pkg)
   elem->height = h - elem->corner.y;
 
   /* Update connections: */
-  connpoint_update(&pkg->connections[0],
-		   elem->corner.x,
-		   elem->corner.y,
-		   DIR_NORTHWEST);
-  connpoint_update(&pkg->connections[1],
-		   elem->corner.x + elem->width / 2.0,
-		   elem->corner.y,
-		   DIR_NORTH);
-  connpoint_update(&pkg->connections[2],
-		   elem->corner.x + elem->width,
-		   elem->corner.y,
-		   DIR_NORTHEAST);
-  connpoint_update(&pkg->connections[3],
-		   elem->corner.x,
-		   elem->corner.y + elem->height / 2.0,
-		   DIR_WEST);
-  connpoint_update(&pkg->connections[4],
-		   elem->corner.x + elem->width,
-		   elem->corner.y + elem->height / 2.0,
-		   DIR_EAST);
-  connpoint_update(&pkg->connections[5],
-		   elem->corner.x,
-		   elem->corner.y + elem->height,
-		   DIR_SOUTHWEST);
-  connpoint_update(&pkg->connections[6],
-		   elem->corner.x + elem->width / 2.0,
-		   elem->corner.y + elem->height,
-		   DIR_SOUTH);
-  connpoint_update(&pkg->connections[7],
-		   elem->corner.x + elem->width,
-		   elem->corner.y + elem->height,
-		   DIR_SOUTHEAST);
-  connpoint_update(&pkg->connections[8],
-		   elem->corner.x + elem->width / 2.0,
-		   elem->corner.y + elem->height / 2.0,
-		   DIR_SOUTHEAST);
+  connpoint_update (&pkg->connections[0],
+                    elem->corner.x,
+                    elem->corner.y,
+                    DIR_NORTHWEST);
+  connpoint_update (&pkg->connections[1],
+                    elem->corner.x + elem->width / 2.0,
+                    elem->corner.y,
+                    DIR_NORTH);
+  connpoint_update (&pkg->connections[2],
+                    elem->corner.x + elem->width,
+                    elem->corner.y,
+                    DIR_NORTHEAST);
+  connpoint_update (&pkg->connections[3],
+                    elem->corner.x,
+                    elem->corner.y + elem->height / 2.0,
+                    DIR_WEST);
+  connpoint_update (&pkg->connections[4],
+                    elem->corner.x + elem->width,
+                    elem->corner.y + elem->height / 2.0,
+                    DIR_EAST);
+  connpoint_update (&pkg->connections[5],
+                    elem->corner.x,
+                    elem->corner.y + elem->height,
+                    DIR_SOUTHWEST);
+  connpoint_update (&pkg->connections[6],
+                    elem->corner.x + elem->width / 2.0,
+                    elem->corner.y + elem->height,
+                    DIR_SOUTH);
+  connpoint_update (&pkg->connections[7],
+                    elem->corner.x + elem->width,
+                    elem->corner.y + elem->height,
+                    DIR_SOUTHEAST);
+  connpoint_update (&pkg->connections[8],
+                    elem->corner.x + elem->width / 2.0,
+                    elem->corner.y + elem->height / 2.0,
+                    CP_FLAGS_MAIN);
 
   element_update_boundingbox(elem);
 

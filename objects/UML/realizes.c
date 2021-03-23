@@ -31,6 +31,7 @@
 #include "properties.h"
 #include "stereotype.h"
 #include "uml.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/realizes.xpm"
 
@@ -278,8 +279,9 @@ realizes_draw (Realizes *realize, DiaRenderer *renderer)
   }
 }
 
+
 static void
-realizes_update_data(Realizes *realize)
+realizes_update_data (Realizes *realize)
 {
   OrthConn *orth = &realize->orth;
   DiaObject *obj = &orth->object;
@@ -287,8 +289,10 @@ realizes_update_data(Realizes *realize)
   Point *points;
   DiaRectangle rect;
   PolyBBExtras *extra;
+  graphene_rect_t bbox;
+  graphene_rect_t tmp;
 
-  orthconn_update_data(orth);
+  orthconn_update_data (orth);
 
   realize->text_width = 0.0;
 
@@ -353,11 +357,19 @@ realizes_update_data(Realizes *realize)
     rect.left -= realize->text_width/2.0;
   rect.right = rect.left + realize->text_width;
   rect.top = realize->text_pos.y;
-  if (realize->name)
-    rect.top -= dia_font_ascent(realize->name,realize->font, realize->font_height);
+  if (realize->name) {
+    rect.top -= dia_font_ascent (realize->name,
+                                 realize->font,
+                                 realize->font_height);
+  }
   rect.bottom = rect.top + 2*realize->font_height;
 
-  rectangle_union(&obj->bounding_box, &rect);
+  dia_object_get_bounding_box (obj, &bbox);
+  dia_rectangle_to_graphene (&rect, &tmp);
+
+  graphene_rect_union (&bbox, &tmp, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
 }
 
 

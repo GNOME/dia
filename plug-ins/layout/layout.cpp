@@ -241,17 +241,25 @@ layout_callback (DiagramData     *data,
   } else {
     IGraph *g = func ? func () : NULL;
 
-    if (!g)
+    if (!g) {
       message_error (_("Graph creation failed"));
-    else {
+    } else {
       std::vector<double> coords;
 
       /* transfer nodes and edges */
-      for (list = nodes; list != NULL; list = g_list_next(list)) {
-        DiaObject *o = (DiaObject *)list->data;
-        const DiaRectangle *bbox = dia_object_get_bounding_box (o);
-        g->AddNode (bbox->left, bbox->top, bbox->right, bbox->bottom);
+      for (list = nodes; list != NULL; list = g_list_next (list)) {
+        DiaObject *o = DIA_OBJECT (list->data);
+        graphene_rect_t bbox;
+        graphene_point_t tl, br;
+
+        dia_object_get_bounding_box (o, &bbox);
+
+        graphene_rect_get_top_left (&bbox, &tl);
+        graphene_rect_get_bottom_right (&bbox, &br);
+
+        g->AddNode (tl.x, tl.y, br.x, br.y);
       }
+
       for (list = edges; list != NULL; list = g_list_next(list)) {
         DiaObject *o = (DiaObject *)list->data;
         DiaObject *src = o->handles[0]->connected_to->object;

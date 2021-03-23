@@ -1,5 +1,12 @@
-import sys, os
+import gi
+
+gi.require_version('Graphene', '1.0')
+
+import os
+import sys
+
 import dia
+from gi.repository import Graphene
 
 # Please don't include pygtk or gtk here. There
 # are quite some PyDia plug-ins which don't require

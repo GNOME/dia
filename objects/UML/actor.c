@@ -28,6 +28,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/actor.xpm"
 
@@ -162,12 +163,19 @@ actor_set_props(Actor *actor, GPtrArray *props)
   actor_update_data(actor);
 }
 
-static real
-actor_distance_from(Actor *actor, Point *point)
+
+static double
+actor_distance_from (Actor *actor, Point *point)
 {
-  DiaObject *obj = &actor->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (actor), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 actor_select(Actor *actor, Point *clicked_point,
@@ -286,45 +294,53 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   text_draw (actor->text, renderer);
 }
 
+
 static void
-actor_update_data(Actor *actor)
+actor_update_data (Actor *actor)
 {
   Element *elem = &actor->element;
   DiaObject *obj = &elem->object;
-  DiaRectangle text_box;
   Point p;
-  real actor_height;
+  double actor_height;
+  graphene_rect_t bbox, text_box;
 
-  text_calc_boundingbox(actor->text, &text_box);
+  text_calc_boundingbox (actor->text, &text_box);
 
   /* minimum size */
-  if (elem->width < ACTOR_WIDTH + ACTOR_MARGIN_X)
+  if (elem->width < ACTOR_WIDTH + ACTOR_MARGIN_X) {
     elem->width = ACTOR_WIDTH + ACTOR_MARGIN_X;
-  if (elem->height < ACTOR_HEIGHT + actor->text->height)
+  }
+
+  if (elem->height < ACTOR_HEIGHT + actor->text->height) {
     elem->height = ACTOR_HEIGHT + actor->text->height;
+  }
+
   actor_height = elem->height - actor->text->height;
 
   /* Update connections: */
-  element_update_connections_rectangle(elem, actor->connections);
+  element_update_connections_rectangle (elem, actor->connections);
 
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
   p = elem->corner;
   p.x += elem->width/2;
-  p.y +=  actor_height + actor->text->ascent;
-  text_set_position(actor->text, &p);
+  p.y += actor_height + actor->text->ascent;
+  text_set_position (actor->text, &p);
   /* may have moved */
-  text_calc_boundingbox(actor->text, &text_box);
+  text_calc_boundingbox (actor->text, &text_box);
 
   /* Add bounding box for text: */
-  rectangle_union(&obj->bounding_box, &text_box);
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_union (&bbox, &text_box, &bbox);
+  dia_object_set_bounding_box (obj, &bbox);
 
   obj->position = elem->corner;
   obj->position.x += elem->width/2.0;
   obj->position.y += elem->height / 2.0;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 }
+
 
 static DiaObject *
 actor_create(Point *startpoint,

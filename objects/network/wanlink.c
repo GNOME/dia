@@ -31,10 +31,7 @@
 #include "attributes.h"
 #include "properties.h"
 #include "network.h"
-
-#ifndef M_PI_2
-#define M_PI_2 1.57079632679489661923
-#endif
+#include "dia-graphene.h"
 
 #include "pixmaps/wanlink.xpm"
 
@@ -47,7 +44,7 @@ typedef struct _WanLink {
     Color line_color;
     Color fill_color;
 
-    real width;
+    float width;
     Point poly[WANLINK_POLY_LEN];
 } WanLink;
 
@@ -57,7 +54,7 @@ static DiaObject *wanlink_create(Point *startpoint,
 			      Handle **handle2);
 static void wanlink_destroy(WanLink *wanlink);
 static void wanlink_draw (WanLink *wanlink, DiaRenderer *renderer);
-static real wanlink_distance_from(WanLink *wanlink, Point *point);
+static float wanlink_distance_from(WanLink *wanlink, Point *point);
 static void wanlink_select(WanLink *wanlink, Point *clicked_point,
 			 DiaRenderer *interactive_renderer);
 static DiaObject *wanlink_copy(WanLink *wanlink);
@@ -104,14 +101,14 @@ static ObjectOps wanlink_ops =
 
 };
 
-DiaObjectType wanlink_type =
-{
-  "Network - WAN Link",   /* name */
-  1,                     /* version */
-  (const char **) wanlink_xpm, /* pixmap */
 
-  &wanlink_type_ops      /* ops */
+DiaObjectType wanlink_type = {
+  "Network - WAN Link",        /* name */
+  1,                           /* version */
+  (const char **) wanlink_xpm, /* pixmap */
+  &wanlink_type_ops            /* ops */
 };
+
 
 static PropDescription wanlink_props[] = {
   CONNECTION_COMMON_PROPERTIES,
@@ -232,7 +229,7 @@ wanlink_draw (WanLink *wanlink, DiaRenderer *renderer)
                              &wanlink->line_color);
 }
 
-static real
+static float
 wanlink_distance_from(WanLink *wanlink, Point *point)
 {
   return distance_polygon_point (wanlink->poly, WANLINK_POLY_LEN, wanlink->width, point);
@@ -355,109 +352,59 @@ wanlink_load(ObjectNode obj_node, int version,DiaContext *ctx)
     return obj;
 }
 
-typedef real  Vector[3];
-typedef Vector  Matrix[3];
 
 static void
-_transform_point (Matrix m, Point *src, Point *dest)
-{
-  real xx, yy, ww;
-
-  xx = m[0][0] * src->x + m[0][1] * src->y + m[0][2];
-  yy = m[1][0] * src->x + m[1][1] * src->y + m[1][2];
-  ww = m[2][0] * src->x + m[2][1] * src->y + m[2][2];
-
-  if (!ww)
-    ww = 1.0;
-
-  dest->x = xx / ww;
-  dest->y = yy / ww;
-}
-static void
-_identity_matrix (Matrix m)
-{
-  int i, j;
-
-  for (i = 0; i < 3; i++)
-    for (j = 0; j < 3; j++)
-      m[i][j] = (i == j) ? 1 : 0;
-
-}
-static void
-_mult_matrix (Matrix m1, Matrix m2)
-{
-  Matrix result;
-  int i, j, k;
-
-  for (i = 0; i < 3; i++)
-    for (j = 0; j < 3; j++)
-      {
-	result [i][j] = 0.0;
-	for (k = 0; k < 3; k++)
-	  result [i][j] += m1 [i][k] * m2[k][j];
-      }
-
-  /*  copy the result into matrix 2  */
-  for (i = 0; i < 3; i++)
-    for (j = 0; j < 3; j++)
-      m2 [i][j] = result [i][j];
-}
-static void
-_rotate_matrix (Matrix m, real theta)
-{
-  Matrix rotate;
-  real cos_theta, sin_theta;
-
-  cos_theta = cos (theta);
-  sin_theta = sin (theta);
-
-  _identity_matrix (rotate);
-  rotate[0][0] = cos_theta;
-  rotate[0][1] = -sin_theta;
-  rotate[1][0] = sin_theta;
-  rotate[1][1] = cos_theta;
-  _mult_matrix (rotate, m);
-}
-
-static void
-wanlink_update_data(WanLink *wanlink)
+wanlink_update_data (WanLink *wanlink)
 {
   Connection *conn = &wanlink->connection;
   DiaObject *obj = (DiaObject *) wanlink;
-  Point v, vhat;
-  Point *endpoints;
-  real width, width_2;
-  real len, angle;
+  //Point v, vhat;
+  graphene_vec2_t v, vhat;
+  graphene_vec2_t endpoints[2];
+  float width, width_2;
+  float len, angle;
   Point origin;
   int i;
-  Matrix m;
-
+  graphene_matrix_t m;
+  graphene_rect_t bbox;
+  graphene_point_t pt;
+  float tmp[GRAPHENE_VEC2_LEN];
 
   width = wanlink->width;
   width_2 = width / 2.0;
 
-  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
-      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
-    connection_adjust_for_autogap(conn);
+  if (connpoint_is_autogap (conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap (conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap (conn);
   }
-  endpoints = &conn->endpoints[0];
-  obj->position = endpoints[0];
 
-  v = endpoints[1];
-  point_sub(&v, &endpoints[0]);
-  if ((fabs(v.x) == 0.0) && (fabs(v.y)==0.0)) {
-    v.x += 0.01;
+  for (int j = 0; j < 2; j++) {
+    dia_point_to_vec2 (&conn->endpoints[j], &endpoints[j]);
   }
-  vhat = v;
-  point_normalize(&vhat);
 
-  connection_update_boundingbox(conn);
+  dia_vec2_to_point (&endpoints[0], &obj->position);
+
+  graphene_vec2_init_from_vec2 (&v, &endpoints[1]);
+  graphene_vec2_subtract (&v, &endpoints[0], &v);
+
+  graphene_vec2_to_float (&v, tmp);
+
+  if ((tmp[0] == 0.0) && (tmp[1] == 0.0)) {
+    graphene_vec2_init (&v, tmp[0] + 0.01, tmp[1]);
+  }
+
+  graphene_vec2_init_from_vec2 (&vhat, &v);
+  graphene_vec2_normalize (&vhat, &vhat);
+
+  connection_update_boundingbox (conn);
 
   /** compute the polygon **/
   origin = wanlink->connection.endpoints [0];
-  len = point_len (&v);
+  len = graphene_vec2_length (&v);
 
-  angle = atan2 (vhat.y, vhat.x) - M_PI_2;
+  graphene_vec2_to_float (&vhat, tmp);
+
+  angle = atan2 (tmp[1], tmp[0]) - G_PI_2;
 
     /* The case of the wanlink */
   wanlink->poly[0].x = (width * 0.50) - width_2;
@@ -474,28 +421,33 @@ wanlink_update_data(WanLink *wanlink)
   wanlink->poly[5].y = (len * 0.55);
 
   /* rotate */
-  _identity_matrix (m);
-  _rotate_matrix (m, angle);
+  graphene_matrix_init_identity (&m);
+  graphene_matrix_rotate_z (&m, DIA_DEGREES (angle));
 
-  obj->bounding_box.top = origin.y;
-  obj->bounding_box.left = origin.x;
-  obj->bounding_box.bottom = conn->endpoints[1].y;
-  obj->bounding_box.right = conn->endpoints[1].x;
-  for (i = 0; i <  WANLINK_POLY_LEN; i++)
-  {
-      Point new_pt;
+  graphene_rect_init (&bbox, origin.x, origin.y, 0, 0);
+  dia_point_to_graphene (&conn->endpoints[1], &pt);
+  graphene_rect_expand (&bbox, &pt, &bbox);
 
-      _transform_point (m, &wanlink->poly[i],
-		        &new_pt);
-      point_add (&new_pt, &origin);
-      wanlink->poly[i] = new_pt;
+  for (i = 0; i < WANLINK_POLY_LEN; i++) {
+    graphene_point_t tpt;
+    Point dpt;
+    graphene_point_t new_pt;
+
+    dia_point_to_graphene (&wanlink->poly[i], &tpt);
+    graphene_matrix_transform_point (&m, &tpt, &new_pt);
+    dia_graphene_to_point (&new_pt, &dpt);
+    point_add (&dpt, &origin);
+    wanlink->poly[i] = dpt;
   }
+
   /* calculate bounding box */
   {
-    PolyBBExtras bbex = {0, 0, wanlink->width/2, 0, 0 };
-    polyline_bbox (&wanlink->poly[0], WANLINK_POLY_LEN, &bbex, TRUE, &obj->bounding_box);
+    PolyBBExtras bbex = { 0, 0, wanlink->width / 2, 0, 0 };
+
+    polyline_bbox (&wanlink->poly[0], WANLINK_POLY_LEN, &bbex, TRUE, &bbox);
   }
 
+  dia_object_set_bounding_box (obj, &bbox);
 
-  connection_update_handles(conn);
+  connection_update_handles (conn);
 }

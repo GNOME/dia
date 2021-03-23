@@ -541,8 +541,8 @@ orthflow_update_data (Orthflow *orthflow)
 {
   OrthConn *orth = &orthflow->orth ;
   DiaObject *obj = &orth->object;
-  DiaRectangle rect;
-  Color* color = &orthflow_color_signal;
+  Color *color = &orthflow_color_signal;
+  graphene_rect_t bbox, rect;
 
   switch (orthflow->type) {
     case ORTHFLOW_ENERGY:
@@ -569,8 +569,11 @@ orthflow_update_data (Orthflow *orthflow)
   orthconn_update_boundingbox (orth);
 
   /* Add boundingbox for text: */
-  text_calc_boundingbox (orthflow->text, &rect) ;
-  rectangle_union (&obj->bounding_box, &rect);
+  text_calc_boundingbox (orthflow->text, &rect);
+
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_union (&bbox, &rect, &bbox);
+  dia_object_set_bounding_box (obj, &bbox);
 }
 
 
@@ -633,7 +636,7 @@ orthflow_load(ObjectNode obj_node, int version, DiaContext *ctx)
     extra->middle_trans = ORTHFLOW_WIDTH/2.0;
   extra->end_long =
     extra->end_trans = ORTHFLOW_WIDTH/2 + ORTHFLOW_ARROWLEN;
-  orthflow->textpos = orthflow->text->position;
+  dia_text_get_position (orthflow->text, &orthflow->textpos);
 
   orthflow_update_data(orthflow);
 

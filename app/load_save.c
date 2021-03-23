@@ -216,9 +216,11 @@ read_objects (xmlNodePtr objects,
   return list;
 }
 
+
 static void
-read_connections(GList *objects, xmlNodePtr layer_node,
-		 GHashTable *objects_hash)
+read_connections (GList      *objects,
+                  xmlNodePtr  layer_node,
+                  GHashTable *objects_hash)
 {
   ObjectNode obj_node;
   GList *list;
@@ -233,114 +235,142 @@ read_connections(GList *objects, xmlNodePtr layer_node,
   list = objects;
   obj_node = layer_node->xmlChildrenNode;
   while ((list != NULL) && (obj_node != NULL)) {
-    DiaObject *obj = (DiaObject *) list->data;
+    DiaObject *obj = DIA_OBJECT (list->data);
 
     /* the obj and there node must stay in sync to properly setup connections */
-    while (obj_node && (xmlIsBlankNode(obj_node) || XML_COMMENT_NODE == obj_node->type))
+    while (obj_node && (xmlIsBlankNode (obj_node) || XML_COMMENT_NODE == obj_node->type)) {
       obj_node = obj_node->next;
+    }
+
     if (!obj_node) break;
 
-    if IS_GROUP(obj) {
-      read_connections(group_objects(obj), obj_node, objects_hash);
+    if (IS_GROUP (obj)) {
+      read_connections (group_objects (obj), obj_node, objects_hash);
     } else {
       gboolean broken = FALSE;
-      /* an invalid bounding box is a good sign for some need of corrections */
-      gboolean wants_update = obj->bounding_box.right >= obj->bounding_box.left
-                           || obj->bounding_box.top >= obj->bounding_box.bottom;
+      gboolean wants_update;
+      graphene_rect_t bbox;
+      graphene_point_t tl, br;
+
       connections = obj_node->xmlChildrenNode;
-      while ((connections!=NULL) &&
-	     (xmlStrcmp(connections->name, (const xmlChar *)"connections")!=0))
-	connections = connections->next;
+
+      dia_object_get_bounding_box (obj, &bbox);
+      graphene_rect_get_top_left (&bbox, &tl);
+      graphene_rect_get_bottom_right (&bbox, &br);
+
+      /* an invalid bounding box is a good sign for some need of corrections */
+      /* TODO: What is this actually doing */
+      wants_update = (br.x >= tl.x) || (tl.y >= br.y);
+
+      while ((connections != NULL) &&
+             (xmlStrcmp (connections->name,
+                         (const xmlChar *) "connections") != 0)) {
+        connections = connections->next;
+      }
+
       if (connections != NULL) {
-	connection = connections->xmlChildrenNode;
-	while (connection != NULL) {
-	  char *donestr;
-          if (xmlIsBlankNode(connection)) {
+        connection = connections->xmlChildrenNode;
+
+        while (connection != NULL) {
+          char *donestr;
+
+          if (xmlIsBlankNode (connection)) {
             connection = connection->next;
             continue;
           }
-	  handlestr = (char * )xmlGetProp(connection, (const xmlChar *)"handle");
-	  tostr = (char *) xmlGetProp(connection, (const xmlChar *)"to");
- 	  connstr = (char *) xmlGetProp(connection, (const xmlChar *)"connection");
 
-	  handle = atoi(handlestr);
-	  conn = strtol(connstr, &donestr, 10);
-	  if (*donestr != '\0') { /* Didn't convert it all -- use string */
-	    conn = -1;
-	  }
+          handlestr = (char *) xmlGetProp (connection, (const xmlChar *) "handle");
+          tostr = (char *) xmlGetProp (connection, (const xmlChar *) "to");
+          connstr = (char *) xmlGetProp (connection, (const xmlChar *) "connection");
 
-	  to = g_hash_table_lookup(objects_hash, tostr);
+          handle = atoi (handlestr);
+          conn = strtol (connstr, &donestr, 10);
+          if (*donestr != '\0') { /* Didn't convert it all -- use string */
+            conn = -1;
+          }
 
-	  if (to == NULL) {
-	    message_error(_("Error loading diagram.\n"
-			    "Linked object not found in document."));
-	    broken = TRUE;
-	  } else if (handle < 0 || handle >= obj->num_handles) {
-	    message_error(_("Error loading diagram.\n"
-			    "Connection handle %d does not exist on '%s'."),
-			    handle, to->type->name);
-	    broken = TRUE;
-	  } else {
-	    if (conn >= 0 && conn < to->num_connections) {
-	      object_connect(obj, obj->handles[handle],
-			     to->connections[conn]);
-	      /* force an update on the connection, helpful with (incomplete) generated files */
-	      if (wants_update) {
-#if 0
-	        obj->ops->move_handle(obj, obj->handles[handle], &to->connections[conn]->pos,
-				      to->connections[conn], HANDLE_MOVE_CONNECTED,0);
-#endif
-	      }
-	    } else {
-	      message_error(_("Error loading diagram.\n"
-			      "Connection point %d does not exist on '%s'."),
-			    conn, to->type->name);
-	      broken = TRUE;
-	    }
-	  }
+          to = g_hash_table_lookup (objects_hash, tostr);
 
-	  if (handlestr) xmlFree(handlestr);
-	  if (tostr) xmlFree(tostr);
-	  if (connstr) xmlFree(connstr);
+          if (to == NULL) {
+            message_error (_("Error loading diagram.\n"
+                             "Linked object not found in document."));
+            broken = TRUE;
+          } else if (handle < 0 || handle >= obj->num_handles) {
+            message_error (_("Error loading diagram.\n"
+                             "Connection handle %d does not exist on '%s'."),
+                           handle,
+                           to->type->name);
+            broken = TRUE;
+          } else {
+            if (conn >= 0 && conn < to->num_connections) {
+              object_connect (obj, obj->handles[handle], to->connections[conn]);
 
-	  connection = connection->next;
-	}
+              /* force an update on the connection, helpful with (incomplete) generated files */
+              if (wants_update) {
+      #if 0
+                obj->ops->move_handle(obj, obj->handles[handle], &to->connections[conn]->pos,
+                    to->connections[conn], HANDLE_MOVE_CONNECTED,0);
+      #endif
+              }
+            } else {
+              message_error (_("Error loading diagram.\n"
+                             "Connection point %d does not exist on '%s'."),
+                             conn,
+                             to->type->name);
+              broken = TRUE;
+            }
+          }
+
+          dia_clear_xml_string (&handlestr);
+          dia_clear_xml_string (&tostr);
+          dia_clear_xml_string (&connstr);
+
+          connection = connection->next;
+        }
         /* Fix positions of the connection object for (de)generated files.
          * Only done for the last point connected otherwise the intermediate posisitions
          * may screw the auto-routing algorithm.
          */
         if (!broken && obj && obj->ops->set_props && wants_update) {
-	  /* called for it's side-effect of update_data */
-	  obj->ops->move(obj,&obj->position);
+          /* called for it's side-effect of update_data */
+          dia_object_move (obj, &obj->position);
 
-	  for (handle = 0; handle < obj->num_handles; ++handle) {
-	    if (obj->handles[handle]->connected_to)
-	      obj->ops->move_handle(obj, obj->handles[handle], &obj->handles[handle]->pos,
-				    obj->handles[handle]->connected_to, HANDLE_MOVE_CONNECTED,0);
-	  }
-	}
+          for (handle = 0; handle < obj->num_handles; ++handle) {
+            if (obj->handles[handle]->connected_to) {
+              dia_object_move_handle (obj,
+                                      obj->handles[handle],
+                                      &obj->handles[handle]->pos,
+                                      obj->handles[handle]->connected_to,
+                                      HANDLE_MOVE_CONNECTED,
+                                      0);
+            }
+          }
+        }
       }
     }
 
     /* Now set up parent relationships. */
     connections = obj_node->xmlChildrenNode;
-    while ((connections!=NULL) &&
-	   (xmlStrcmp(connections->name, (const xmlChar *)"childnode")!=0))
+    while ((connections != NULL) &&
+           (xmlStrcmp (connections->name, (const xmlChar *) "childnode") != 0)) {
       connections = connections->next;
+    }
+
     if (connections != NULL) {
-      tostr = (char *)xmlGetProp(connections, (const xmlChar *)"parent");
+      tostr = (char *) xmlGetProp (connections, (const xmlChar *) "parent");
       if (tostr) {
-	obj->parent = g_hash_table_lookup(objects_hash, tostr);
-	if (obj->parent == NULL) {
-	  message_error(_("Can't find parent %s of %s object\n"),
-			tostr, obj->type->name);
-	} else {
-	  obj->parent->children = g_list_prepend(obj->parent->children, obj);
-	}
+        obj->parent = g_hash_table_lookup (objects_hash, tostr);
+        if (obj->parent == NULL) {
+          message_error (_("Can't find parent %s of %s object\n"),
+                         tostr,
+                         obj->type->name);
+        } else {
+          obj->parent->children = g_list_prepend (obj->parent->children, obj);
+        }
       }
     }
 
-    list = g_list_next(list);
+    list = g_list_next (list);
     obj_node = obj_node->next;
   }
 }

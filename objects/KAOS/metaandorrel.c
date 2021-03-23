@@ -43,7 +43,7 @@
 #include "arrows.h"
 #include "properties.h"
 #include "dia_image.h"
-
+#include "dia-graphene.h"
 #include "pixmaps/contributes.xpm"
 
 typedef struct _Maor Maor;
@@ -577,27 +577,29 @@ maor_destroy(Maor *maor)
   g_clear_pointer (&maor->text, g_free);
 }
 
+
 static void
-maor_update_data(Maor *maor)
+maor_update_data (Maor *maor)
 {
   Connection *conn = &maor->connection;
   DiaObject *obj = &conn->object;
-  DiaRectangle rect;
-  Point p1,p2,p3,p4;
+  graphene_rect_t bbox, rect;
+  graphene_point_t pt;
+  Point p1, p2, p3, p4;
 
-  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
-      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
-    connection_adjust_for_autogap(conn);
+  if (connpoint_is_autogap (conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap (conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap (conn);
   }
   obj->position = conn->endpoints[0];
 
   maor->text_handle.pos = maor->text_pos;
 
-  connection_update_handles(conn);
-  connection_update_boundingbox(conn);
+  connection_update_handles (conn);
+  connection_update_boundingbox (conn);
 
   maor->text_width =
-    dia_font_string_width(maor->text, maor_font, MAOR_FONTHEIGHT);
+    dia_font_string_width (maor->text, maor_font, MAOR_FONTHEIGHT);
 
   /* endpoint */
   p1 = conn->endpoints[0];
@@ -607,39 +609,49 @@ maor_update_data(Maor *maor)
   maor->connector.pos.x=p1.x;
   maor->connector.pos.y=p1.y+MAOR_ICON_HEIGHT/2;
 
+  dia_object_get_bounding_box (obj, &bbox);
+
   /* Add boundingbox for mid image: */
-  p3.x=(p1.x+p2.x)/2.0-MAOR_ICON_WIDTH/2;
-  p3.y=(p1.y+p2.y)/2.0-MAOR_ICON_HEIGHT/2;
-  p4.x=p3.x+MAOR_ICON_WIDTH;
-  p4.y=p3.y+MAOR_ICON_HEIGHT;
-  rect.left=p3.x;
-  rect.right=p4.x;
-  rect.top=p3.y;
-  rect.bottom=p4.y;
-  rectangle_union(&obj->bounding_box, &rect);
+  p3.x = (p1.x + p2.x) / 2.0 - MAOR_ICON_WIDTH / 2;
+  p3.y = (p1.y + p2.y) / 2.0 - MAOR_ICON_HEIGHT / 2;
+  p4.x = p3.x + MAOR_ICON_WIDTH;
+  p4.y = p3.y + MAOR_ICON_HEIGHT;
+
+  graphene_rect_init (&rect, p3.x, p3.y, 0, 0);
+  dia_point_to_graphene (&p4, &pt);
+  graphene_rect_expand (&bbox, &pt, &bbox);
+  graphene_rect_union (&bbox, &rect, &bbox);
 
   /* Add boundingbox for end image: */
-  p3.x=p1.x-MAOR_REF_WIDTH*1.1/2;    /* 1.1 factor to be safe (fix for or) */
-  p3.y=p1.y-MAOR_REF_HEIGHT*1.1/2;
-  p4.x=p3.x+MAOR_REF_WIDTH*1.1;
-  p4.y=p3.y+MAOR_REF_HEIGHT*1.1;
-  rect.left=p3.x;
-  rect.right=p4.x;
-  rect.top=p3.y;
-  rect.bottom=p4.y;
-  rectangle_union(&obj->bounding_box, &rect);
+  p3.x = p1.x - MAOR_REF_WIDTH * 1.1 / 2; /* 1.1 factor to be safe (fix for or) */
+  p3.y = p1.y - MAOR_REF_HEIGHT * 1.1 / 2;
+  p4.x = p3.x + MAOR_REF_WIDTH * 1.1;
+  p4.y = p3.y + MAOR_REF_HEIGHT * 1.1;
+
+  graphene_rect_init (&rect, p3.x, p3.y, 0, 0);
+  dia_point_to_graphene (&p4, &pt);
+  graphene_rect_expand (&bbox, &pt, &bbox);
+  graphene_rect_union (&bbox, &rect, &bbox);
 
   /* Add boundingbox for text: */
-  rect.left = maor->text_pos.x-maor->text_width/2;
-  rect.right = rect.left + maor->text_width;
-  rect.top = maor->text_pos.y - dia_font_ascent(maor->text, maor_font, MAOR_FONTHEIGHT);
-  rect.bottom = rect.top + MAOR_FONTHEIGHT;
-  rectangle_union(&obj->bounding_box, &rect);
+  graphene_rect_init (&rect,
+                      maor->text_pos.x - maor->text_width / 2,
+                      maor->text_pos.y - dia_font_ascent (maor->text,
+                                                          maor_font,
+                                                          MAOR_FONTHEIGHT),
+                      maor->text_width,
+                      MAOR_FONTHEIGHT);
+  graphene_rect_union (&bbox, &rect, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
 }
 
+
 static DiaObject *
-maor_load(ObjectNode obj_node, int version,DiaContext *ctx)
+maor_load (ObjectNode obj_node, int version, DiaContext *ctx)
 {
-  return object_load_using_properties(&kaos_maor_type,
-                                      obj_node,version,ctx);
+  return object_load_using_properties (&kaos_maor_type,
+                                       obj_node,
+                                       version,
+                                       ctx);
 }

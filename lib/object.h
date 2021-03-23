@@ -191,12 +191,14 @@ typedef void (*DestroyFunc) (DiaObject* obj);
 // TODO: Actually check the cast with GType
 #define DIA_OBJECT(object) ((DiaObject *) object)
 
-typedef void (*DrawFunc) (DiaObject* obj, DiaRenderer* ddisp);
-typedef double (*DistanceFunc) (DiaObject* obj, Point* point);
-typedef void (*SelectFunc) (DiaObject*   obj,
-			    Point*    clicked_point,
-			    DiaRenderer* interactive_renderer);
-typedef DiaObject* (*CopyFunc) (DiaObject* obj);
+typedef void                   (*DrawFunc)                  (DiaObject        *obj,
+                                                             DiaRenderer      *ddisp);
+typedef double                 (*DistanceFunc)              (DiaObject        *obj,
+                                                             Point            *point);
+typedef void                   (*SelectFunc)                (DiaObject        *obj,
+			                                     Point            *clicked_point,
+			                                     DiaRenderer      *interactive_renderer);
+typedef DiaObject             *(*CopyFunc)                  (DiaObject        *obj);
 typedef DiaObjectChange       *(*MoveFunc)                  (DiaObject        *obj,
                                                              Point            *pos);
 typedef DiaObjectChange       *(*MoveHandleFunc)            (DiaObject        *obj,
@@ -330,70 +332,80 @@ struct _ObjectOps {
   void      (*unused[3])(DiaObject *obj,...);
 };
 
-// #ifdef _DIA_OBJECT_BUILD
+#ifdef _DIA_OBJECT_BUILD
 # define _DIA_OBJECT_FIELD(type,name)      type name
-// #else
-// # define _DIA_OBJECT_FIELD(type,name)      type __graphene_private_##name
-// #endif
+#else
+# define _DIA_OBJECT_FIELD(type,name)      type __graphene_private_##name
+#endif
 
-/*!
-  \brief Base class for all of Dia's objects, i.e. diagram building blocks
-
-  The base class in the DiaObject hierarchy.
-  All information in this structure read-only
-  from the application point of view except
-  when connection objects. (Then handles and
-  connections are changed).
-
-  position is not necessarily the corner of the object, but rather
-  some 'good' spot on it which will be natural to snap to.
-*/
+/**
+ * DiaObject:
+ * @type: pointer to the registered type
+ * @position: often but not necessarily the upper left corner of the object
+ * @bounds: #graphene_rect_t containing the whole object
+ *
+ *          The area that contains all parts of the 'real' object, i.e. the
+ *          parts that would be printed, exported to pixmaps etc. This is also
+ *          used to determine the size of autofit scaling, so it should be as
+ *          large as the objects without interactive bits and preferably no
+ *          larger. Do not access this field directly, but use
+ *          dia_object_get_bounding_box() / dia_object_set_bounding_box()
+ * @legacy_bbox: replaced by @bounds but still needed for load/store :-(
+ * @num_handles: Number of #Handle(s) of this object
+ * @handles: Array of handles of this object with fixed index
+ * @num_connections: Number of #ConnectionPoint this object has
+ * @connections: Array of #ConnectionPoint - indexing fixed by meaning
+ * @ops: pointer to the vtable
+ * @parent_layer: Back-pointer to the owning layer. This may only be set by
+ *                functions internal to the layer, and accessed via
+ *                dia_object_get_parent_layer()
+ * @parent: Back-pointer to #DiaObject which is parenting this object. Can be
+ *          %NULL
+ * @children: In case this object is a parent of other object the children are
+ *            listed here
+ * @explicit_enclosing: %TRUE when @enclosing has been populated, otherwise
+ *                      proxy to @bounds
+ * @enclosing: The area that contains all parts rendered interactively, so
+ *             includes handles, bezier controllers etc. Despite historical
+ *             difference, this should not be accessed directly, but through
+ *             dia_object_get_enclosing_box().
+ *             Note that handles and connection points are not included by
+ *             this, but added by that which needs it.
+ * @meta: Metainfo of the object, should not be manipulated directly. Use
+ *        dia_object_set_meta()
+ *
+ * Base class for all of Dia's objects, i.e. diagram building blocks
+ *
+ * The base class in the #DiaObject hierarchy.
+ *
+ * All information in this structure read-only from the application point of
+ * view except when connection objects. (Then handles and connections are
+ * changed).
+ *
+ * @position is not necessarily the corner of the object, but rather
+ * some 'good' spot on it which will be natural to snap to.
+ */
 struct _DiaObject {
-  DiaObjectType    *type; /*!< pointer to the registered type */
-  Point             position; /*!<  often but not necessarily the upper left corner of the object */
-  /*!
-   * \brief DiaRectangle containing the whole object
-   *
-   * The area that contains all parts of the 'real' object, i.e. the parts
-   *  that would be printed, exported to pixmaps etc.  This is also used to
-   *  determine the size of autofit scaling, so it should be as large as
-   *  the objects without interactive bits and preferably no larger.
-   *  The bounding_box will always contain this box.
-   *  Do not access this field directly, but use dia_object_get_enclosing_box().
-   *
-   * \protected Use dia_object_get_bounding_box()
-   */
-  DiaRectangle      bounding_box;
-  /*! Number of Handle(s) of this object */
+  DiaObjectType    *type;
+  Point             position;
+
+  _DIA_OBJECT_FIELD (graphene_rect_t, bounds);
+  DiaRectangle      legacy_bbox;
+
   int               num_handles;
-  /*! Array of handles of this object with fixed index */
   Handle          **handles;
-  /*! Number of ConnectionPoint this object has */
   int               num_connections;
-  /*! Array of ConnectionPoint* - indexing fixed by meaning */
   ConnectionPoint **connections;
 
-  _DIA_OBJECT_FIELD (ObjectOps *, ops); /* pointer to the vtable */
+  /*_DIA_OBJECT_FIELD (ObjectOps *, ops);*/
+  ObjectOps        *ops;
 
-  DiaLayer *parent_layer; /*!< Back-pointer to the owning layer.
-			   This may only be set by functions internal to
-			   the layer, and accessed via
-			   dia_object_get_parent_layer() */
-  DiaObject *parent; /*!< Back-pointer to DiaObject which is parenting this object. Can be NULL */
-  GList *children; /*!< In case this object is a parent of other object the children are listed here */
+  DiaLayer         *parent_layer;
+  DiaObject        *parent;
+  GList            *children;
 
-  /* The area that contains all parts rendered interactively, so includes
-   * handles, bezier controllers etc.  Despite historical difference, this
-   * should not be accessed directly, but through dia_object_get_bounding_box().
-   * Note that handles and connection points are not included by this, but
-   * added by that which needs it.
-   * Internal:  If this is set to a NULL, returns bounding_box.  That is for
-   * those objects that don't actually calculate it, but can just use the BB.
-   * Since handles and CPs are not in the BB, that will be the case for most
-   * objects.
-   */
-  DiaRectangle     *enclosing_box;
-  /*! Metainfo of the object, should not be manipulated directly. Use dia_object_set_meta() */
+  _DIA_OBJECT_FIELD (gboolean, explicit_enclosing);
+  _DIA_OBJECT_FIELD (graphene_rect_t, enclosing);
   GHashTable       *meta;
 };
 
@@ -480,7 +492,7 @@ struct _DiaObjectType {
 
 #define OBJECT_COMMON_PROPERTIES_OFFSETS \
   { "obj_pos", PROP_TYPE_POINT, offsetof(DiaObject, position) }, \
-  { "obj_bb", PROP_TYPE_RECT, offsetof(DiaObject, bounding_box) }, \
+  { "obj_bb", PROP_TYPE_RECT, offsetof(DiaObject, legacy_bbox) }, \
   { "meta", PROP_TYPE_DICT, offsetof(DiaObject, meta) }
 
 
@@ -546,8 +558,14 @@ DiaObject  *dia_object_default_create (const DiaObjectType *type,
 gboolean         dia_object_defaults_save (const gchar *filename, DiaContext *ctx);
 DiaLayer        *dia_object_get_parent_layer(DiaObject *obj);
 gboolean         dia_object_is_selected (const DiaObject *obj);
-const DiaRectangle *dia_object_get_bounding_box(const DiaObject *obj);
-const DiaRectangle *dia_object_get_enclosing_box(const DiaObject *obj);
+void                   dia_object_get_bounding_box     (DiaObject               *obj,
+                                                        graphene_rect_t         *bbox);
+void                   dia_object_set_bounding_box     (DiaObject               *obj,
+                                                        graphene_rect_t         *bbox);
+void                   dia_object_get_enclosing_box    (DiaObject               *obj,
+                                                        graphene_rect_t         *ebox);
+void                   dia_object_set_enclosing_box    (DiaObject               *obj,
+                                                        graphene_rect_t         *ebox);
 DiaObject       *dia_object_get_parent_with_flags(DiaObject *obj, guint flags);
 gboolean         dia_object_is_selectable(DiaObject *obj);
 /* The below is for debugging purposes only. */

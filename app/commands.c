@@ -1167,7 +1167,7 @@ view_zoom_in_callback (GtkAction *action)
     return;
   }
 
-  ddisplay_zoom_middle (ddisp, M_SQRT2);
+  ddisplay_zoom_middle (ddisp, G_SQRT2);
 }
 
 void

@@ -30,6 +30,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "uml.h"
 #include "stereotype.h"
@@ -230,12 +231,19 @@ objet_set_props(Objet *objet, GPtrArray *props)
   objet_update_data(objet);
 }
 
-static real
-objet_distance_from(Objet *ob, Point *point)
+
+static double
+objet_distance_from (Objet *ob, Point *point)
 {
-  DiaObject *obj = &ob->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (ob), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 objet_select(Objet *ob, Point *clicked_point,
@@ -275,9 +283,8 @@ static void
 objet_draw (Objet *ob, DiaRenderer *renderer)
 {
   Element *elem;
-  real bw, x, y, w, h;
-  Point p1, p2;
-  int i;
+  double bw, x, y, w, h;
+  Point p1, p2, text_pos;
 
   assert(ob != NULL);
   assert(renderer != NULL);
@@ -341,14 +348,15 @@ objet_draw (Objet *ob, DiaRenderer *renderer)
   }
 
   /* Is there a better way to underline? */
-  p1.x = x + (w - text_get_max_width (ob->text))/2;
-  p1.y = ob->text->position.y + text_get_descent (ob->text);
+  p1.x = x + (w - text_get_max_width (ob->text)) / 2;
+  dia_text_get_position (ob->text, &text_pos);
+  p1.y = text_pos.y + text_get_descent (ob->text);
   p2.x = p1.x + text_get_max_width (ob->text);
   p2.y = p1.y;
 
   dia_renderer_set_linewidth (renderer, ob->line_width/2);
 
-  for (i=0; i<ob->text->numlines; i++) {
+  for (int i = 0; i < ob->text->numlines; i++) {
     p1.x = x + (w - text_get_line_width (ob->text, i))/2;
     p2.x = p1.x + text_get_line_width (ob->text, i);
     dia_renderer_draw_line (renderer,
@@ -359,8 +367,12 @@ objet_draw (Objet *ob, DiaRenderer *renderer)
   }
 
   if (ob->show_attributes) {
+    Point attr_pos;
+
+    dia_text_get_position (ob->attributes, &attr_pos);
+
     p1.x = x; p2.x = x + w;
-    p1.y = p2.y = ob->attributes->position.y - ob->attributes->ascent - OBJET_MARGIN_Y (ob);
+    p1.y = p2.y = attr_pos.y - ob->attributes->ascent - OBJET_MARGIN_Y (ob);
 
     dia_renderer_set_linewidth (renderer, bw);
     dia_renderer_draw_line (renderer,

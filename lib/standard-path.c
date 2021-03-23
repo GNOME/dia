@@ -44,6 +44,7 @@
 #include "bezier-common.h"
 #include "pattern.h"
 #include "dia-object-change-list.h"
+#include "dia-graphene.h"
 
 
 #define NUM_HANDLES 8
@@ -324,53 +325,71 @@ stdpath_load(ObjectNode obj_node, int version,DiaContext *ctx)
  * \protected \memberof _StdPath
  */
 static void
-stdpath_update_handles(StdPath *stdpath)
+stdpath_update_handles (StdPath *stdpath)
 {
   DiaObject *obj = &stdpath->object;
   PolyBBExtras extra = { 0, };
-  DiaRectangle rect, *bb;
+  graphene_rect_t bbox;
+  graphene_point_t tl, br, pt;
 
   g_return_if_fail (obj->handles != NULL);
 
   /* Using the zero-line-width boundingbox for handles */
-  bb = &rect;
-  polybezier_bbox (stdpath->points, stdpath->num_points, &extra,
-		   FALSE /*(stdpath->stroke_or_fill & PDO_FILL)*/, bb);
+  polybezier_bbox (stdpath->points,
+                   stdpath->num_points,
+                   &extra,
+                   FALSE /*(stdpath->stroke_or_fill & PDO_FILL)*/,
+                   &bbox);
+
+  graphene_rect_get_top_left (&bbox, &tl);
+  graphene_rect_get_bottom_right (&bbox, &br);
 
   /* from left to right, from top to bottom */
-  obj->handles[0]->pos.x = bb->left;
-  obj->handles[0]->pos.y = bb->top;
-  obj->handles[1]->pos.x = (bb->left + bb->right) / 2.0;
-  obj->handles[1]->pos.y = bb->top;
+
+  dia_graphene_to_point (&tl, &obj->handles[0]->pos);
+
+  obj->handles[1]->pos.x = (tl.x + br.x) / 2.0;
+  obj->handles[1]->pos.y = tl.y;
+
   /* adjust handle pos for runtime shear? */
-  obj->handles[2]->pos.x = bb->right;
-  obj->handles[2]->pos.y = bb->top;
-  obj->handles[3]->pos.x = bb->left;
-  obj->handles[3]->pos.y = (bb->top + bb->bottom) / 2.0;
-  obj->handles[4]->pos.x = bb->right;
-  obj->handles[4]->pos.y = (bb->top + bb->bottom) / 2.0;
+
+  graphene_rect_get_top_right (&bbox, &pt);
+  dia_graphene_to_point (&pt, &obj->handles[2]->pos);
+
+  obj->handles[3]->pos.x = tl.x;
+  obj->handles[3]->pos.y = (tl.y + br.y) / 2.0;
+
+  obj->handles[4]->pos.x = br.x;
+  obj->handles[4]->pos.y = (tl.y + br.y) / 2.0;
+
   /* adjust handle pos for runtime perspective? */
-  obj->handles[5]->pos.x = bb->left;
-  obj->handles[5]->pos.y = bb->bottom;
-  obj->handles[6]->pos.x = (bb->left + bb->right) / 2.0;
-  obj->handles[6]->pos.y = bb->bottom;
-  obj->handles[7]->pos.x = bb->right;
-  obj->handles[7]->pos.y = bb->bottom;
+
+  graphene_rect_get_bottom_left (&bbox, &pt);
+  dia_graphene_to_point (&pt, &obj->handles[5]->pos);
+
+  obj->handles[6]->pos.x = (tl.x + br.x) / 2.0;
+  obj->handles[6]->pos.y = br.y;
+
+  dia_graphene_to_point (&br, &obj->handles[7]->pos);
 }
-/*!
- * \brief Object update function called after property change
+
+
+/**
+ * stdpath_update_data:
+ * @stdpath: the #StdPath
+ *
+ * Object update function called after property change
  *
  * Not in the object interface but very important anyway.
  * Used to recalculate the object data after a change
- * \protected \memberof _StdPath
  */
 static void
 stdpath_update_data (StdPath *stdpath)
 {
   DiaObject *obj = &stdpath->object;
-  DiaRectangle *bb = &obj->bounding_box;
   PolyBBExtras extra = { 0 };
-  real lw = stdpath->stroke_or_fill & PDO_STROKE ? stdpath->line_width : 0.0;
+  double lw = stdpath->stroke_or_fill & PDO_STROKE ? stdpath->line_width : 0.0;
+  graphene_rect_t bbox;
 
   extra.start_trans =
   extra.end_trans =
@@ -379,14 +398,22 @@ stdpath_update_data (StdPath *stdpath)
   extra.middle_trans = lw/2.0;
 
   /* recalculate the bounding box */
-  polybezier_bbox (stdpath->points, stdpath->num_points, &extra,
-		   FALSE /*(stdpath->stroke_or_fill & PDO_FILL)*/, bb);
+  polybezier_bbox (stdpath->points,
+                   stdpath->num_points,
+                   &extra,
+                   FALSE /*(stdpath->stroke_or_fill & PDO_FILL)*/,
+                   &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (stdpath), &bbox);
+
   /* adjust position from it */
   obj->position.x = stdpath->points[0].p1.x;
   obj->position.y = stdpath->points[0].p1.y;
+
   /* adjust handles */
   stdpath_update_handles (stdpath);
 }
+
 
 /*!
  * \brief Object drawing to the given renderer
@@ -599,15 +626,18 @@ _path_object_transform_change_create (DiaObject *obj, DiaMatrix *matrix)
 }
 
 
-/*!
- * \brief Flip the path over the vertical or horizontal axis
+/**
+ * _path_flip_callback:
+ * @obj: the #DiaObject
+ * @clicked: the #Point clicked
+ *
+ * Flip the path over the vertical or horizontal axis
  *
  * Flip horizontal/vertical like custom objects do, except that this
  * function is modifying the underlying point data. This function is
  * available with the context menu of the 'Standard - Path' object.
- * @return Undo information
  *
- * \relates _StdPath
+ * Returns: Undo information
  */
 static DiaObjectChange *
 _path_flip_callback (DiaObject *obj, Point *clicked, gpointer data)
@@ -616,20 +646,25 @@ _path_flip_callback (DiaObject *obj, Point *clicked, gpointer data)
   StdPath *sp = (StdPath *)obj;
   DiaMatrix m = {horz ? -1 : 1, 0, 0, horz ? 1 : -1, 0, 0 };
   DiaMatrix translate = {1, 0, 0, 1, 0, 0 };
-  real cx = (sp->object.bounding_box.left + sp->object.bounding_box.right) / 2;
-  real cy = (sp->object.bounding_box.top + sp->object.bounding_box.bottom) / 2;
+  graphene_rect_t bbox;
+  graphene_point_t center;
+
+  dia_object_get_bounding_box (obj, &bbox);
+
+  graphene_rect_get_center (&bbox, &center);
 
   /* flip around center */
-  translate.x0 = cx;
-  translate.y0 = cy;
+  translate.x0 = center.x;
+  translate.y0 = center.y;
   dia_matrix_multiply (&m, &m, &translate);
-  translate.x0 = -cx;
-  translate.y0 = -cy;
+  translate.x0 = -center.x;
+  translate.y0 = -center.y;
   dia_matrix_multiply (&m, &translate, &m);
 
   _path_transform (sp, &m);
   return _path_object_transform_change_create (obj, &m);
 }
+
 
 /*!
  * \brief Rotate path towards clicked point
@@ -645,24 +680,28 @@ static DiaObjectChange *
 _path_rotate_callback (DiaObject *obj, Point *clicked, gpointer data)
 {
   StdPath *sp = (StdPath *)obj;
-  real cx = (sp->object.bounding_box.left + sp->object.bounding_box.right) / 2;
-  real cy = (sp->object.bounding_box.top + sp->object.bounding_box.bottom) / 2;
   DiaMatrix m = {1, 0, 0, 1, 0, 0 };
   DiaMatrix translate = {1, 0, 0, 1, 0, 0 };
   Point d;
+  graphene_rect_t bbox;
+  graphene_point_t center;
 
-  d.x = clicked->x - cx;
-  d.y = clicked->y - cy;
+  dia_object_get_bounding_box (obj, &bbox);
+
+  graphene_rect_get_center (&bbox, &center);
+
+  d.x = clicked->x - center.x;
+  d.y = clicked->y - center.y;
   point_normalize (&d);
   /* to make the top, center handle clicked no rotation we subtract -PI/2 */
   dia_matrix_set_angle_and_scales (&m, atan2 (d.y, d.x) + M_PI/2.0, 1.0, 1.0);
 
   /* rotate around center */
-  translate.x0 = cx;
-  translate.y0 = cy;
+  translate.x0 = center.x;
+  translate.y0 = center.y;
   dia_matrix_multiply (&m, &m, &translate);
-  translate.x0 = -cx;
-  translate.y0 = -cy;
+  translate.x0 = -center.x;
+  translate.y0 = -center.y;
   dia_matrix_multiply (&m, &translate, &m);
 
   _path_transform (sp, &m);
@@ -709,27 +748,31 @@ _path_shear_callback (DiaObject *obj, Point *clicked, gpointer data)
   StdPath *sp = (StdPath *)obj;
   DiaMatrix m = {1, 0, 0, 1, 0, 0 };
   DiaMatrix translate = {1, 0, 0, 1, 0, 0 };
-  real cx = (sp->object.bounding_box.left + sp->object.bounding_box.right) / 2;
-  real cy = (sp->object.bounding_box.top + sp->object.bounding_box.bottom) / 2;
   const Handle *handle = _path_closest_corner_handle (sp, clicked);
-  real dx, dy;
+  double dx, dy;
+  graphene_rect_t bbox;
+  graphene_point_t center;
 
   g_return_val_if_fail (handle != NULL, NULL);
 
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_get_center (&bbox, &center);
+
   /* goal is to shear the point at corner handle close to the clicked point */
-  dx = (clicked->x - handle->pos.x) * (handle->pos.y > cy ? 1 : -1);
+  dx = (clicked->x - handle->pos.x) * (handle->pos.y > center.y ? 1 : -1);
   dy = clicked->y - handle->pos.y;
   /* normalize shear with handle distance from center, only shear one axis */
-  if (fabs(dx) > fabs(dy))
-    m.xy = dx / fabs(handle->pos.x - cx);
-  else
-    m.yx = dy / fabs(handle->pos.y - cy);
+  if (fabs (dx) > fabs (dy)) {
+    m.xy = dx / fabs (handle->pos.x - center.x);
+  } else {
+    m.yx = dy / fabs (handle->pos.y - center.y);
+  }
   /* XXX: shear around center */
-  translate.x0 = cx;
-  translate.y0 = cy;
+  translate.x0 = center.x;
+  translate.y0 = center.y;
   dia_matrix_multiply (&m, &m, &translate);
-  translate.x0 = -cx;
-  translate.y0 = -cy;
+  translate.x0 = -center.x;
+  translate.y0 = -center.y;
   dia_matrix_multiply (&m, &translate, &m);
 
   _path_transform (sp, &m);
@@ -1143,13 +1186,16 @@ text_to_path (const Text *text, GArray *points)
   if (!PANGO_IS_CAIRO_FONT_MAP (pango_context_get_font_map (dia_font_get_context())))
     return FALSE;
 
-  layout = pango_layout_new(dia_font_get_context());
+  layout = pango_layout_new (dia_font_get_context());
   pango_layout_set_font_description (layout, dia_font_get_description (text->font));
   pango_layout_set_indent (layout, 0);
   pango_layout_set_justify (layout, FALSE);
   pango_layout_set_alignment (layout,
-			      text->alignment == ALIGN_LEFT ? PANGO_ALIGN_LEFT :
-			      text->alignment == ALIGN_RIGHT ? PANGO_ALIGN_RIGHT : PANGO_ALIGN_CENTER);
+                              text->alignment == ALIGN_LEFT ?
+                                PANGO_ALIGN_LEFT :
+                                  text->alignment == ALIGN_RIGHT ?
+                                    PANGO_ALIGN_RIGHT :
+                                    PANGO_ALIGN_CENTER);
 
   str = text_get_string_copy (text);
   pango_layout_set_text (layout, str, -1);
@@ -1158,43 +1204,43 @@ text_to_path (const Text *text, GArray *points)
   pango_layout_get_extents (layout, &ink_rect, NULL);
   /* any surface should do - this one is always available */
   surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
-					ink_rect.width / PANGO_SCALE, ink_rect.height / PANGO_SCALE);
+                                        ink_rect.width / PANGO_SCALE,
+                                        ink_rect.height / PANGO_SCALE);
   cr = cairo_create (surface);
   cairo_surface_destroy (surface);
 
   pango_cairo_layout_path (cr, layout);
 
   /* convert the path */
-  if (cairo_status (cr) == CAIRO_STATUS_SUCCESS)
-  {
+  if (cairo_status (cr) == CAIRO_STATUS_SUCCESS) {
     cairo_path_t *path;
-    int i;
 
     path = cairo_copy_path (cr);
 
-    for (i=0; i < path->num_data; i += path->data[i].header.length) {
+    for (int i = 0; i < path->num_data; i += path->data[i].header.length) {
       cairo_path_data_t *data = &path->data[i];
       BezPoint bp;
 
       switch (data->header.type) {
-      case CAIRO_PATH_MOVE_TO :
-	bp.type = BEZ_MOVE_TO;
-	bp.p1.x = data[1].point.x; bp.p1.y = data[1].point.y;
-	break;
-      case CAIRO_PATH_LINE_TO :
-        bp.type = BEZ_LINE_TO;
-	bp.p1.x = data[1].point.x; bp.p1.y = data[1].point.y;
-	break;
-      case CAIRO_PATH_CURVE_TO :
-        bp.type = BEZ_CURVE_TO;
-	bp.p1.x = data[1].point.x; bp.p1.y = data[1].point.y;
-	bp.p2.x = data[2].point.x; bp.p2.y = data[2].point.y;
-	bp.p3.x = data[3].point.x; bp.p3.y = data[3].point.y;
-	break;
-      case CAIRO_PATH_CLOSE_PATH :
-        /* can't do anything */
-      default :
-        continue;
+        case CAIRO_PATH_MOVE_TO:
+          bp.type = BEZ_MOVE_TO;
+          bp.p1.x = data[1].point.x; bp.p1.y = data[1].point.y;
+          break;
+        case CAIRO_PATH_LINE_TO:
+          bp.type = BEZ_LINE_TO;
+          bp.p1.x = data[1].point.x; bp.p1.y = data[1].point.y;
+          break;
+        case CAIRO_PATH_CURVE_TO:
+          bp.type = BEZ_CURVE_TO;
+          bp.p1.x = data[1].point.x; bp.p1.y = data[1].point.y;
+          bp.p2.x = data[2].point.x; bp.p2.y = data[2].point.y;
+          bp.p3.x = data[3].point.x; bp.p3.y = data[3].point.y;
+          break;
+        case CAIRO_PATH_CLOSE_PATH:
+          /* can't do anything */
+        default:
+          /* TODO: Warn unhandled? */
+          continue;
       }
       g_array_append_val (points, bp);
     }
@@ -1210,35 +1256,41 @@ text_to_path (const Text *text, GArray *points)
   return ret;
 }
 
+
 DiaObject *
 create_standard_path_from_text (const Text *text)
 {
   DiaObject *obj = NULL;
   GArray *points = g_array_new (FALSE, FALSE, sizeof(BezPoint));
 
-  if (text_to_path (text, points))
+  if (text_to_path (text, points)) {
     obj = create_standard_path (points->len, &g_array_index (points, BezPoint, 0));
+  }
 
   g_array_free (points, TRUE);
 
   if (obj) {
-    StdPath *path = (StdPath *)obj;
-    DiaRectangle text_box;
-    const DiaRectangle *pbb = &path->object.bounding_box;
-    real sx, sy;
+    StdPath *path = (StdPath *) obj;
+    double sx, sy;
     Point pos;
+    graphene_rect_t text_box, bbox;
+    graphene_point_t pt;
+
+    dia_object_get_bounding_box (DIA_OBJECT (path), &bbox);
 
     path->stroke_or_fill = PDO_FILL;
     path->fill_color = text->color;
 
     /* scale to fit the original size */
-    text_calc_boundingbox ((Text *)text, &text_box);
-    pos.x = text_box.left; pos.y = text_box.top;
-    sx = (text_box.right - text_box.left) / (pbb->right - pbb->left);
-    sy = (text_box.bottom - text_box.top) / (pbb->bottom - pbb->top);
+    text_calc_boundingbox ((Text *) text, &text_box);
+
+    graphene_rect_get_top_left (&text_box, &pt);
+    sx = graphene_rect_get_width (&text_box) / graphene_rect_get_width (&bbox);
+    sy = graphene_rect_get_height (&text_box) / graphene_rect_get_height (&bbox);
     _stdpath_scale (path, sx, sy, NULL);
 
     /* also adjust top left corner - calling update, too */
+    dia_graphene_to_point (&pt, &pos);
     stdpath_move (path, &pos);
   }
 

@@ -37,6 +37,7 @@
 #include "arrows.h"
 #include "properties.h"
 #include "dia_image.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/link.xpm"  /* generic "unspecified" link */
 
@@ -195,11 +196,12 @@ link_set_props(Link *link, GPtrArray *props)
 }
 
 
-static real
-link_distance_from(Link *link, Point *point)
+static double
+link_distance_from (Link *link, Point *point)
 {
-  return distance_bez_line_point(link->line, 3, LINK_WIDTH, point);
+  return distance_bez_line_point (link->line, 3, LINK_WIDTH, point);
 }
+
 
 static void
 link_select(Link *link, Point *clicked_point,
@@ -259,24 +261,25 @@ link_move(Link *link, Point *to)
   return NULL;
 }
 
+
 static Point
-bezier_line_eval(BezPoint *line,int p,real u)
+bezier_line_eval (BezPoint *line, int p, float u)
 {
-  real bx[4],by[4];
+  double bx[4], by[4];
   Point res;
 
-  bx[0]=line[p-1].p3.x;
-  bx[1]=line[p].p1.x;
-  bx[2]=line[p].p2.x;
-  bx[3]=line[p].p3.x;
+  bx[0] = line[p-1].p3.x;
+  bx[1] = line[p].p1.x;
+  bx[2] = line[p].p2.x;
+  bx[3] = line[p].p3.x;
 
-  by[0]=line[p-1].p3.y;
-  by[1]=line[p].p1.y;
-  by[2]=line[p].p2.y;
-  by[3]=line[p].p3.y;
+  by[0] = line[p-1].p3.y;
+  by[1] = line[p].p1.y;
+  by[2] = line[p].p2.y;
+  by[3] = line[p].p3.y;
 
-  res.x=bezier_eval(bx,u);
-  res.y=bezier_eval(by,u);
+  res.x = bezier_eval (bx, u);
+  res.y = bezier_eval (by, u);
 
   return res;
 }
@@ -321,28 +324,31 @@ compute_annot(Point* p1, Point* p2, Point* pm, double f, double d)
   return res;
 }
 
+
 /* compute bezier for Dependency */
-static void compute_dependency(BezPoint *line, BezPoint *bpl) {
+static void
+compute_dependency (BezPoint *line, BezPoint *bpl)
+{
   Point ref;
-  double dx,dy,dxp,dyp,k;
-  real bx[4],by[4];
+  double dx, dy, dxp, dyp, k;
+  double bx[4], by[4];
 
   /* computing anchor point and tangent */
-  bx[0]=line[1].p3.x;
-  bx[1]=line[2].p1.x;
-  bx[2]=line[2].p2.x;
-  bx[3]=line[2].p3.x;
+  bx[0] = line[1].p3.x;
+  bx[1] = line[2].p1.x;
+  bx[2] = line[2].p2.x;
+  bx[3] = line[2].p3.x;
 
-  by[0]=line[1].p3.y;
-  by[1]=line[2].p1.y;
-  by[2]=line[2].p2.y;
-  by[3]=line[2].p3.y;
+  by[0] = line[1].p3.y;
+  by[1] = line[2].p1.y;
+  by[2] = line[2].p2.y;
+  by[3] = line[2].p3.y;
 
-  ref.x=bezier_eval(bx,0.25);
-  ref.y=bezier_eval(by,0.25);
-  dx=bezier_eval_tangent(bx,0.25);
-  dy=bezier_eval_tangent(by,0.25);
-  k=sqrt(dx*dx+dy*dy);
+  ref.x = bezier_eval (bx, 0.25);
+  ref.y = bezier_eval (by, 0.25);
+  dx = bezier_eval_tangent (bx, 0.25);
+  dy = bezier_eval_tangent (by, 0.25);
+  k = sqrt (dx * dx + dy * dy);
 
   /* normalizing */
   if (k!=0) {
@@ -603,13 +609,15 @@ link_destroy(Link *link)
   connection_destroy(&link->connection);
 }
 
+
 static void
-link_update_data(Link *link)
+link_update_data (Link *link)
 {
   Connection *conn = &link->connection;
   DiaObject *obj = &conn->object;
-  DiaRectangle rect;
-  Point p1,p2,p3,p4,pa;
+  Point p1, p2, p3, p4, pa;
+  graphene_rect_t bbox, rect;
+  graphene_point_t pt;
 
 /* Too complex to easily decide */
 /*
@@ -622,43 +630,51 @@ link_update_data(Link *link)
 
   link->pm_handle.pos = link->pm;
 
-  connection_update_handles(conn);
-  connection_update_boundingbox(conn);
+  connection_update_handles (conn);
+  connection_update_boundingbox (conn);
 
   /* endpoint */
   p1 = conn->endpoints[0];
   p2 = conn->endpoints[1];
 
   /* bezier */
-  compute_line(&p1,&p2,&link->pm,link->line);
+  compute_line (&p1, &p2, &link->pm, link->line);
 
   /* connection point */
-  link->connector.pos.x=p1.x;
-  link->connector.pos.y=p1.y;
+  link->connector.pos.x = p1.x;
+  link->connector.pos.y = p1.y;
+
+  dia_object_get_bounding_box (obj, &bbox);
 
   /* Update boundingbox for mid-point (TBD is this necessary ?) */
-  rectangle_add_point(&obj->bounding_box, &link->pm);
+  dia_point_to_graphene (&link->pm, &pt);
+  graphene_rect_expand (&bbox, &pt, &bbox);
 
   /* Add boundingbox for annotation text (over-estimated) : */
-  pa=compute_annot(&p1,&p2,&link->pm,0.75,0.75);
-  rect.left = pa.x-0.3;
-  rect.right = rect.left+0.6;
-  rect.top = pa.y - LINK_FONTHEIGHT;
-  rect.bottom = rect.top + 2*LINK_FONTHEIGHT;
-  rectangle_union(&obj->bounding_box, &rect);
+  pa = compute_annot (&p1, &p2, &link->pm, 0.75, 0.75);
+
+  graphene_rect_init (&rect,
+                      pa.x - 0.3,
+                      pa.y - LINK_FONTHEIGHT,
+                      0.6,
+                      2 * LINK_FONTHEIGHT);
+  graphene_rect_union (&bbox, &rect, &bbox);
 
   /* Add boundingbox for dependency decoration (with some overestimation toi be safe) */
-  pa=bezier_line_eval(link->line,2,0.25);
-  p3.x=pa.x-LINK_DEP_WIDTH*1.5;
-  p3.y=pa.y-LINK_DEP_HEIGHT*1.5;
-  p4.x=p3.x+LINK_DEP_WIDTH*3;
-  p4.y=p3.y+LINK_DEP_HEIGHT*3;
-  rect.left=p3.x;
-  rect.right=p4.x;
-  rect.top=p3.y;
-  rect.bottom=p4.y;
-  rectangle_union(&obj->bounding_box, &rect);
+  pa = bezier_line_eval (link->line, 2, 0.25);
+  p3.x = pa.x - LINK_DEP_WIDTH * 1.5;
+  p3.y = pa.y - LINK_DEP_HEIGHT * 1.5;
+  p4.x = p3.x + LINK_DEP_WIDTH * 3;
+  p4.y = p3.y + LINK_DEP_HEIGHT * 3;
+
+  graphene_rect_init (&rect, p3.x, p3.y, 0, 0);
+  dia_point_to_graphene (&p4, &pt);
+  graphene_rect_expand (&rect, &pt, &rect);
+  graphene_rect_union (&bbox, &rect, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
 }
+
 
 static DiaObject *
 link_load(ObjectNode obj_node, int version,DiaContext *ctx)

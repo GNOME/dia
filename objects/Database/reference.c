@@ -28,6 +28,7 @@
 #include "attributes.h"
 #include "properties.h"
 #include "diarenderer.h"
+#include "dia-graphene.h"
 #include "pixmaps/reference.xpm"
 
 /* ------------------------------------------------------------------------ */
@@ -52,20 +53,26 @@ static void reference_update_data (TableReference *);
 static DiaObject * reference_load (ObjectNode obj_node, int version,DiaContext *ctx);
 static void update_desc_data (Point *, Alignment *,
                               Point *, Point *, Orientation, real, real);
-static void get_desc_bbox (DiaRectangle *, gchar *, real, Point *, Alignment,
-                           DiaFont *, real);
+static void             get_desc_bbox            (graphene_rect_t  *,
+                                                  char             *,
+                                                  double            ,
+                                                  Point            *,
+                                                  Alignment         ,
+                                                  DiaFont          *,
+                                                  double);
 static DiaObjectChange *reference_add_segment_cb (DiaObject        *,
                                                   Point            *,
                                                   gpointer);
 static DiaObjectChange *reference_del_segment_cb (DiaObject        *,
                                                   Point            *,
                                                   gpointer);
-static DiaMenu * reference_object_menu(TableReference *, Point *);
+static DiaMenu         *reference_object_menu    (TableReference   *,
+                                                  Point            *);
+
 
 /* ------------------------------------------------------------------------ */
 
-static ObjectTypeOps reference_type_ops =
-{
+static ObjectTypeOps reference_type_ops = {
   (CreateFunc) reference_create,
   (LoadFunc)   reference_load,
   (SaveFunc)   object_save_using_properties,
@@ -73,8 +80,8 @@ static ObjectTypeOps reference_type_ops =
   (ApplyDefaultsFunc) NULL
 };
 
-DiaObjectType reference_type =
-{
+
+DiaObjectType reference_type = {
   "Database - Reference", /* name */
   0,                   /* version */
   reference_xpm,        /* pixmap */
@@ -82,6 +89,7 @@ DiaObjectType reference_type =
   NULL,            /* pixmap_file */
   NULL       /* default_user_data */
 };
+
 
 static ObjectOps reference_ops = {
   (DestroyFunc)         reference_destroy,
@@ -274,19 +282,20 @@ reference_distance_from (TableReference *ref, Point *point)
   DiaRectangle rect;
   OrthConn *orth;
   double dist;
+  graphene_rect_t bbox;
 
   orth = &ref->orth;
   dist = orthconn_distance_from (orth, point, ref->line_width);
 
   if (IS_NOT_EMPTY (ref->start_point_desc)) {
-    get_desc_bbox (&rect,
+    get_desc_bbox (&bbox,
                    ref->start_point_desc,
                    ref->sp_desc_width,
                    &ref->sp_desc_pos,
                    ref->sp_desc_text_align,
                    ref->normal_font,
                    ref->normal_font_height);
-
+    dia_graphene_to_rectangle (&bbox, &rect);
     dist = MIN (distance_rectangle_point (&rect, point), dist);
 
     if (dist < 0.000001) {
@@ -295,13 +304,14 @@ reference_distance_from (TableReference *ref, Point *point)
   }
 
   if (IS_NOT_EMPTY (ref->start_point_desc)) {
-    get_desc_bbox (&rect,
+    get_desc_bbox (&bbox,
                    ref->end_point_desc,
                    ref->ep_desc_width,
                    &ref->ep_desc_pos,
                    ref->ep_desc_text_align,
                    ref->normal_font,
                    ref->normal_font_height);
+    dia_graphene_to_rectangle (&bbox, &rect);
     dist = MIN (distance_rectangle_point (&rect, point), dist);
   }
 
@@ -377,12 +387,13 @@ reference_set_props (TableReference *ref, GPtrArray *props)
   reference_update_data (ref);
 }
 
+
 static void
 reference_update_data (TableReference * ref)
 {
-  OrthConn * orth = &ref->orth;
-  DiaRectangle rect;
+  OrthConn *orth = &ref->orth;
   PolyBBExtras *extra = &orth->extra_spacing;
+  graphene_rect_t bbox, rect;
 
   orthconn_update_data (orth);
 
@@ -392,80 +403,87 @@ reference_update_data (TableReference * ref)
     extra->middle_trans =
     extra->end_trans =
     extra->end_long = ref->line_width/2.0;
+
   orthconn_update_boundingbox (orth);
 
-  /* compute the position of the start point description */
-  if (IS_NOT_EMPTY(ref->start_point_desc))
-    {
-      gint p_index = 0;
-      Point * pos = &orth->points[p_index];
-      Point * next_pos = &orth->points[p_index+1];
-      Orientation orient = orth->orientation[p_index];
-
-      /* if pos and next_pos are the same take the next point following
-         next_pos */
-      if (pos->x == next_pos->x && pos->y == next_pos->y)
-        {
-          next_pos = &orth->points[p_index+2];
-          orient = (pos->y == next_pos->y) ? HORIZONTAL : VERTICAL;
-        }
-
-      ref->sp_desc_width = dia_font_string_width (ref->start_point_desc,
-                                                  ref->normal_font,
-                                                  ref->normal_font_height);
-
-      update_desc_data (&ref->sp_desc_pos, &ref->sp_desc_text_align,
-                        pos, next_pos, orient, ref->line_width,
-                        ref->normal_font_height);
-
-      get_desc_bbox (&rect, ref->start_point_desc, ref->sp_desc_width,
-                     &ref->sp_desc_pos, ref->sp_desc_text_align,
-                     ref->normal_font, ref->normal_font_height);
-      rectangle_union (&orth->object.bounding_box, &rect);
-    }
-  else
-    {
-      ref->sp_desc_width = 0.0;
-    }
+  dia_object_get_bounding_box (DIA_OBJECT (ref), &bbox);
 
   /* compute the position of the start point description */
-  if (IS_NOT_EMPTY(ref->end_point_desc))
-    {
-      gint p_index = orth->numpoints - 1;
-      Point * pos = &orth->points[p_index];
-      Point * next_pos = &orth->points[p_index-1];
-      Orientation orient = orth->orientation[orth->numorient-1];
+  if (IS_NOT_EMPTY (ref->start_point_desc)) {
+    int p_index = 0;
+    Point *pos = &orth->points[p_index];
+    Point *next_pos = &orth->points[p_index+1];
+    Orientation orient = orth->orientation[p_index];
 
-      /* if pos and next_pos are the same take the next point before
-         next_pos */
-      if (pos->x == next_pos->x && pos->y == next_pos->y)
-        {
-          next_pos = &orth->points[p_index-2];
-          orient = (pos->y == next_pos->y) ? HORIZONTAL : VERTICAL;
-        }
-
-      ref->ep_desc_width = dia_font_string_width (ref->end_point_desc,
-                                                  ref->normal_font,
-                                                  ref->normal_font_height);
-
-      update_desc_data (&ref->ep_desc_pos, &ref->ep_desc_text_align,
-                        pos, next_pos, orient, ref->line_width,
-                        ref->normal_font_height);
-
-      get_desc_bbox (&rect, ref->end_point_desc, ref->ep_desc_width,
-                     &ref->ep_desc_pos, ref->ep_desc_text_align,
-                     ref->normal_font, ref->normal_font_height);
-      rectangle_union (&orth->object.bounding_box, &rect);
+    /* if pos and next_pos are the same take the next point following
+        next_pos */
+    if (pos->x == next_pos->x && pos->y == next_pos->y) {
+      next_pos = &orth->points[p_index+2];
+      orient = (pos->y == next_pos->y) ? HORIZONTAL : VERTICAL;
     }
-  else
-    {
-      ref->ep_desc_width = 0.0;
+
+    ref->sp_desc_width = dia_font_string_width (ref->start_point_desc,
+                                                ref->normal_font,
+                                                ref->normal_font_height);
+
+    update_desc_data (&ref->sp_desc_pos, &ref->sp_desc_text_align,
+                      pos, next_pos, orient, ref->line_width,
+                      ref->normal_font_height);
+
+    get_desc_bbox (&rect,
+                   ref->start_point_desc,
+                   ref->sp_desc_width,
+                   &ref->sp_desc_pos,
+                   ref->sp_desc_text_align,
+                   ref->normal_font,
+                   ref->normal_font_height);
+    graphene_rect_union (&bbox, &rect, &bbox);
+  } else {
+    ref->sp_desc_width = 0.0;
+  }
+
+  /* compute the position of the start point description */
+  if (IS_NOT_EMPTY (ref->end_point_desc)) {
+    int p_index = orth->numpoints - 1;
+    Point * pos = &orth->points[p_index];
+    Point * next_pos = &orth->points[p_index-1];
+    Orientation orient = orth->orientation[orth->numorient-1];
+
+    /* if pos and next_pos are the same take the next point before
+        next_pos */
+    if (pos->x == next_pos->x && pos->y == next_pos->y) {
+      next_pos = &orth->points[p_index-2];
+      orient = (pos->y == next_pos->y) ? HORIZONTAL : VERTICAL;
     }
+
+    ref->ep_desc_width = dia_font_string_width (ref->end_point_desc,
+                                                ref->normal_font,
+                                                ref->normal_font_height);
+
+    update_desc_data (&ref->ep_desc_pos, &ref->ep_desc_text_align,
+                      pos, next_pos, orient, ref->line_width,
+                      ref->normal_font_height);
+
+    get_desc_bbox (&rect,
+                   ref->end_point_desc,
+                   ref->ep_desc_width,
+                   &ref->ep_desc_pos,
+                   ref->ep_desc_text_align,
+                   ref->normal_font,
+                   ref->normal_font_height);
+    graphene_rect_union (&bbox, &rect, &bbox);
+  } else {
+    ref->ep_desc_width = 0.0;
+  }
+
   /* finally the end arrow */
   arrow_bbox (&ref->end_arrow, ref->line_width,
               &orth->points[orth->numpoints - 1], &orth->points[orth->numpoints - 2], &rect);
-  rectangle_union (&orth->object.bounding_box, &rect);
+  graphene_rect_union (&bbox, &rect, &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (ref), &bbox);
 }
+
 
 static void
 update_desc_data (Point * desc_pos, Alignment * desc_align,
@@ -505,34 +523,37 @@ update_desc_data (Point * desc_pos, Alignment * desc_align,
   }
 }
 
+
 static void
-get_desc_bbox (DiaRectangle * r, gchar * string, real string_width,
-               Point * pos, Alignment align,
-               DiaFont * font, real font_height)
+get_desc_bbox (graphene_rect_t *r,
+               char            *string,
+               double           string_width,
+               Point           *pos,
+               Alignment        align,
+               DiaFont         *font,
+               double           font_height)
 {
-  real width;
+  double width;
+  double x;
+  double y;
 
-  g_assert (r != NULL);
-  g_assert (string != NULL);
-  g_assert (pos != NULL);
+  g_return_if_fail (r != NULL);
+  g_return_if_fail (string != NULL);
+  g_return_if_fail (pos != NULL);
+  g_return_if_fail (align == ALIGN_LEFT || align == ALIGN_RIGHT);
 
-  width = string_width;
+  if (align == ALIGN_LEFT) {
+    x = pos->x;
+    width = string_width;
+  } else {
+    x = -pos->x;
+    width = -string_width;
+  }
 
-  g_assert (align == ALIGN_LEFT || align == ALIGN_RIGHT);
-  if (align == ALIGN_LEFT)
-    {
-      r->left = pos->x;
-      r->right = r->left + width;
-    }
-  else
-    {
-      r->right = pos->x;
-      r->left = r->right - width;
-    }
+  y = pos->y - dia_font_ascent (string, font, font_height);
 
-  r->top = pos->y;
-  r->top -= dia_font_ascent (string, font, font_height);
-  r->bottom = r->top + font_height;
+  graphene_rect_init (r, x, y, width, font_height);
+  graphene_rect_normalize (r);
 }
 
 

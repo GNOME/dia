@@ -38,6 +38,7 @@
 #include "properties.h"
 #include "text.h"
 #include "arrows.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/facet.xpm"
 
@@ -311,13 +312,15 @@ compfeat_move (Compfeat *compfeat, Point *to)
 {
   DiaObjectChange *change;
   Point delta = *to;
+  Point text_pos;
 
   delta = *to;
-  point_sub(&delta, &compfeat->orth.points[0]);
+  point_sub (&delta, &compfeat->orth.points[0]);
 
   /* I don't understand this, but the text position is wrong directly
      after compfeat_create()! */
-  point_add(&delta, &compfeat->text->position);
+  dia_text_get_position (compfeat->text, &text_pos);
+  point_add (&delta, &text_pos);
   text_set_position(compfeat->text, &delta);
   change = orthconn_move(&compfeat->orth, to);
   compfeat_update_data(compfeat);
@@ -444,15 +447,16 @@ compfeat_destroy(Compfeat *compfeat)
   orthconn_destroy(&compfeat->orth);
 }
 
+
 static void
-compfeat_update_data(Compfeat *compfeat)
+compfeat_update_data (Compfeat *compfeat)
 {
   OrthConn *orth = &compfeat->orth;
   PolyBBExtras *extra = &orth->extra_spacing;
   int n;
   DiaObject *obj = &orth->object;
-  DiaRectangle rect;
   Point *points;
+  graphene_rect_t bbox, rect;
 
   points = &orth->points[0];
   n = orth->numpoints;
@@ -463,9 +467,10 @@ compfeat_update_data(Compfeat *compfeat)
       || compfeat->role == COMPPROP_EVENTSOURCE)
     compfeat->cp.pos = points[n - 1];
 
-  compfeat->text_pos = compfeat->text_handle.pos = compfeat->text->position;
+  dia_text_get_position (compfeat->text, &compfeat->text_pos);
+  dia_text_get_position (compfeat->text, &compfeat->text_handle.pos);
 
-  orthconn_update_data(orth);
+  orthconn_update_data (orth);
 
   /* Boundingbox: */
   extra->start_long =
@@ -473,10 +478,14 @@ compfeat_update_data(Compfeat *compfeat)
     extra->end_long = compfeat->line_width + COMPPROP_DIAMETER;
   extra->end_trans = compfeat->line_width + COMPPROP_DIAMETER;
 
-  orthconn_update_boundingbox(orth);
-  text_calc_boundingbox(compfeat->text, &rect);
-  rectangle_union(&obj->bounding_box, &rect);
+  orthconn_update_boundingbox (orth);
+  text_calc_boundingbox (compfeat->text, &rect);
+
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_union (&bbox, &rect, &bbox);
+  dia_object_set_bounding_box (obj, &bbox);
 }
+
 
 static DiaObject *
 compfeat_load(ObjectNode obj_node, int version,DiaContext *ctx)

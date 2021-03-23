@@ -27,6 +27,22 @@
 
 #include "geometry.h"
 #include "boundingbox.h"
+#include "dia-graphene.h"
+
+
+static inline void _rectangle_bbox  (const DiaRectangle    *rin,
+                                     const ElementBBExtras *extra,
+                                     DiaRectangle          *rout);
+static inline void _line_bbox       (const Point           *p1,
+                                     const Point           *p2,
+                                     const LineBBExtras    *extra,
+                                     DiaRectangle          *rect);
+static inline void _polybezier_bbox (const BezPoint        *pts,
+                                     int                    numpoints,
+                                     const PolyBBExtras    *extra,
+                                     gboolean               closed,
+                                     DiaRectangle          *rect);
+
 
 /**
  * bernstein_develop:
@@ -177,13 +193,13 @@ add_arrow_rectangle (DiaRectangle *rect,
  *
  * Calculate the boundingbox for a 2D bezier curve segment.
  */
-void
-bicubicbezier2D_bbox (const Point        *p0,
-                      const Point        *p1,
-                      const Point        *p2,
-                      const Point        *p3,
-                      const PolyBBExtras *extra,
-                      DiaRectangle       *rect)
+static inline void
+_bicubicbezier2D_bbox (const Point        *p0,
+                       const Point        *p1,
+                       const Point        *p2,
+                       const Point        *p3,
+                       const PolyBBExtras *extra,
+                       DiaRectangle       *rect)
 {
   double x[4], y[4];
   Point vl, vt, p,tt;
@@ -245,6 +261,25 @@ bicubicbezier2D_bbox (const Point        *p0,
 }
 
 
+void
+bicubicbezier2D_bbox (const graphene_vec2_t *p0,
+                      const Point           *p1,
+                      const Point           *p2,
+                      const Point           *p3,
+                      const PolyBBExtras    *extra,
+                      graphene_rect_t       *rect)
+{
+  DiaRectangle out;
+  Point t0;
+
+  dia_vec2_to_point (p0, &t0);
+
+  _bicubicbezier2D_bbox (&t0, p1, p2, p3, extra, &out);
+
+  dia_rectangle_to_graphene (&out, rect);
+}
+
+
 /**
  * line_bbox:
  * @p1: One end of the line.
@@ -254,11 +289,11 @@ bicubicbezier2D_bbox (const Point        *p0,
  *
  * Calculate the bounding box for a simple line.
  */
-void
-line_bbox (const Point        *p1,
-           const Point        *p2,
-           const LineBBExtras *extra,
-           DiaRectangle       *rect)
+static inline void
+_line_bbox (const Point        *p1,
+            const Point        *p2,
+            const LineBBExtras *extra,
+            DiaRectangle       *rect)
 {
   Point vl;
 
@@ -275,6 +310,24 @@ line_bbox (const Point        *p1,
 }
 
 
+void
+line_bbox (const graphene_vec2_t *p1,
+           const graphene_vec2_t *p2,
+           const LineBBExtras    *extra,
+           graphene_rect_t       *rect)
+{
+  DiaRectangle out;
+  Point t1, t2;
+
+  dia_vec2_to_point (p1, &t1);
+  dia_vec2_to_point (p2, &t2);
+
+  _line_bbox (&t1, &t2, extra, &out);
+
+  dia_rectangle_to_graphene (&out, rect);
+}
+
+
 /**
  * ellipse_bbox:
  * @centre: The center point of the ellipse.
@@ -285,12 +338,12 @@ line_bbox (const Point        *p1,
  *
  * Calculate the bounding box of an ellipse.
  */
-void
-ellipse_bbox (const Point           *centre,
-              double                 width,
-              double                 height,
-              const ElementBBExtras *extra,
-              DiaRectangle          *rect)
+static inline void
+_ellipse_bbox (const Point          *centre,
+               double                width,
+               double                height,
+               const ElementBBExtras *extra,
+               DiaRectangle          *rect)
 {
   DiaRectangle rin;
   rin.left = centre->x - width / 2;
@@ -298,7 +351,22 @@ ellipse_bbox (const Point           *centre,
   rin.top = centre->y - height / 2;
   rin.bottom = centre->y + height / 2;
 
-  rectangle_bbox (&rin, extra, rect);
+  _rectangle_bbox (&rin, extra, rect);
+}
+
+
+void
+ellipse_bbox (const Point           *centre,
+              float                  width,
+              float                  height,
+              const ElementBBExtras *extra,
+              graphene_rect_t       *rect)
+{
+  DiaRectangle out;
+
+  _ellipse_bbox (centre, width, height, extra, &out);
+
+  dia_rectangle_to_graphene (&out, rect);
 }
 
 
@@ -354,12 +422,12 @@ free_polybezier_space (BezPoint *points)
  *
  * Calculate the boundingbox for a polyline.
  */
-void
-polyline_bbox (const Point        *pts,
-               int                 numpoints,
-               const PolyBBExtras *extra,
-               gboolean            closed,
-               DiaRectangle       *rect)
+static inline void
+_polyline_bbox (const Point        *pts,
+                int                 numpoints,
+                const PolyBBExtras *extra,
+                gboolean            closed,
+                DiaRectangle       *rect)
 {
   /* It's much easier to re-use the Bezier code... */
   int i;
@@ -376,8 +444,23 @@ polyline_bbox (const Point        *pts,
   bpts[numpoints].type = BEZ_LINE_TO;
   bpts[numpoints].p1 = pts[0];
 
-  polybezier_bbox (bpts, numpoints + (closed ? 1 : 0), extra, closed, rect);
+  _polybezier_bbox (bpts,numpoints + (closed ? 1 : 0), extra, closed, rect);
   free_polybezier_space (bpts);
+}
+
+
+void
+polyline_bbox (const Point        *pts,
+               int                 numpoints,
+               const PolyBBExtras *extra,
+               gboolean            closed,
+               graphene_rect_t    *rect)
+{
+  DiaRectangle out;
+
+  _polyline_bbox (pts, numpoints, extra, closed, &out);
+
+  dia_rectangle_to_graphene (&out, rect);
 }
 
 
@@ -391,12 +474,12 @@ polyline_bbox (const Point        *pts,
  *
  * Calculate a bounding box for a set of bezier points.
  */
-void
-polybezier_bbox (const BezPoint     *pts,
-                 int                 numpoints,
-                 const PolyBBExtras *extra,
-                 gboolean            closed,
-                 DiaRectangle       *rect)
+static inline void
+_polybezier_bbox (const BezPoint     *pts,
+                  int                 numpoints,
+                  const PolyBBExtras *extra,
+                  gboolean            closed,
+                  DiaRectangle       *rect)
 {
   Point vx, vn, vsc, vp;
   int i, prev, next;
@@ -538,60 +621,60 @@ polybezier_bbox (const BezPoint     *pts,
        it's a middle or end segment, we'll be doing different stuff. */
     if (closed) {
       if (pts[i].type == BEZ_LINE_TO) {
-        line_bbox (&vsc, &vx, &full_lextra, &rt);
+        _line_bbox (&vsc, &vx, &full_lextra, &rt);
       } else {
-        bicubicbezier2D_bbox (&vsc,
-                              &pts[i].p1,
-                              &pts[i].p2,
-                              &pts[i].p3,
-                              &bextra,
-                              &rt);
+        _bicubicbezier2D_bbox (&vsc,
+                               &pts[i].p1,
+                               &pts[i].p2,
+                               &pts[i].p3,
+                               &bextra,
+                               &rt);
       }
     } else if (start) {
       if (pts[i].type == BEZ_LINE_TO) {
         if (end) {
-          line_bbox (&vsc, &vx, &full_lextra, &rt);
+          _line_bbox (&vsc, &vx, &full_lextra, &rt);
         } else {
-          line_bbox (&vsc, &vx, &start_lextra, &rt);
+          _line_bbox (&vsc, &vx, &start_lextra, &rt);
         }
       } else { /* BEZ_MOVE_TO */
         if (end) {
-          bicubicbezier2D_bbox (&vsc,
-                                &pts[i].p1,
-                                &pts[i].p2,
-                                &pts[i].p3,
-                                &full_bextra,
-                                &rt);
+          _bicubicbezier2D_bbox (&vsc,
+                                 &pts[i].p1,
+                                 &pts[i].p2,
+                                 &pts[i].p3,
+                                 &full_bextra,
+                                 &rt);
         } else {
-          bicubicbezier2D_bbox (&vsc,
-                                &pts[i].p1,
-                                &pts[i].p2,
-                                &pts[i].p3,
-                                &start_bextra,
-                                &rt);
+          _bicubicbezier2D_bbox (&vsc,
+                                 &pts[i].p1,
+                                 &pts[i].p2,
+                                 &pts[i].p3,
+                                 &start_bextra,
+                                 &rt);
         }
       }
     } else if (end) { /* end but not start. Not closed anyway. */
       if (pts[i].type == BEZ_LINE_TO) {
-        line_bbox (&vsc, &vx, &end_lextra, &rt);
+        _line_bbox (&vsc, &vx, &end_lextra, &rt);
       } else {
-        bicubicbezier2D_bbox (&vsc,
-                              &pts[i].p1,
-                              &pts[i].p2,
-                              &pts[i].p3,
-                              &end_bextra,
-                              &rt);
+        _bicubicbezier2D_bbox (&vsc,
+                               &pts[i].p1,
+                               &pts[i].p2,
+                               &pts[i].p3,
+                               &end_bextra,
+                               &rt);
       }
     } else { /* normal case : middle segment (not closed shape). */
       if (pts[i].type == BEZ_LINE_TO) {
-        line_bbox (&vsc, &vx, &lextra, &rt);
+        _line_bbox (&vsc, &vx, &lextra, &rt);
       } else {
-        bicubicbezier2D_bbox (&vsc,
-                              &pts[i].p1,
-                              &pts[i].p2,
-                              &pts[i].p3,
-                              &bextra,
-                              &rt);
+        _bicubicbezier2D_bbox (&vsc,
+                               &pts[i].p1,
+                               &pts[i].p2,
+                               &pts[i].p3,
+                               &bextra,
+                               &rt);
       }
     }
     rectangle_union (rect, &rt);
@@ -652,6 +735,21 @@ polybezier_bbox (const BezPoint     *pts,
 }
 
 
+void
+polybezier_bbox (const BezPoint     *pts,
+                 int                 numpoints,
+                 const PolyBBExtras *extra,
+                 gboolean            closed,
+                 graphene_rect_t    *rect)
+{
+  DiaRectangle out;
+
+  _polybezier_bbox (pts, numpoints, extra, closed, &out);
+
+  dia_rectangle_to_graphene (&out, rect);
+}
+
+
 /**
  * rectangle_bbox:
  * @rin: A rectangle to find bbox for.
@@ -660,10 +758,10 @@ polybezier_bbox (const BezPoint     *pts,
  *
  * Figure out a bounding box for a rectangle (fairly simple:)
  */
-void
-rectangle_bbox (const DiaRectangle    *rin,
-                const ElementBBExtras *extra,
-                DiaRectangle          *rout)
+static inline void
+_rectangle_bbox (const DiaRectangle    *rin,
+                 const ElementBBExtras *extra,
+                 DiaRectangle          *rout)
 {
   rout->left = rin->left - extra->border_trans;
   rout->top = rin->top - extra->border_trans;
@@ -671,3 +769,17 @@ rectangle_bbox (const DiaRectangle    *rin,
   rout->bottom = rin->bottom + extra->border_trans;
 }
 
+
+void
+rectangle_bbox (const graphene_rect_t *rin,
+                const ElementBBExtras *extra,
+                graphene_rect_t       *rout)
+{
+  DiaRectangle in, out;
+
+  dia_graphene_to_rectangle (rin, &in);
+
+  _rectangle_bbox (&in, extra, &out);
+
+  dia_rectangle_to_graphene (&out, rout);
+}

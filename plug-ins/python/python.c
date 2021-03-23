@@ -22,6 +22,7 @@
 #include <Python.h>
 #include <stdio.h>
 #include <glib.h>
+#include <pygobject.h>
 
 #include "intl.h"
 #include "plug-ins.h"
@@ -107,6 +108,8 @@ dia_plugin_init (PluginInfo *info)
   Py_Initialize ();
 
   PySys_SetArgv (1, python_argv);
+
+  pygobject_init (3, 38, 0);
 
   /* Sanitize sys.path */
   PyRun_SimpleString ("import sys; sys.path = list(filter(None, sys.path))");

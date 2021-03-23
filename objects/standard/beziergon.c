@@ -35,6 +35,8 @@
 #include "properties.h"
 #include "create.h"
 #include "pattern.h"
+#include "dia-graphene.h"
+
 
 #define DEFAULT_WIDTH 0.15
 
@@ -270,8 +272,8 @@ beziergon_create(Point *startpoint,
   Point defaultx = { 1.0, 0.0 };
   Point defaulty = { 0.0, 1.0 };
 
-  beziergon = g_new0(Beziergon, 1);
-  beziergon->bezier.object.enclosing_box = g_new0 (DiaRectangle, 1);
+  beziergon = g_new0 (Beziergon, 1);
+
   bez = &beziergon->bezier;
   obj = &bez->object;
 
@@ -319,10 +321,9 @@ beziergon_create(Point *startpoint,
 
 
 static void
-beziergon_destroy(Beziergon *beziergon)
+beziergon_destroy (Beziergon *beziergon)
 {
   g_clear_object (&beziergon->pattern);
-  g_clear_pointer (&beziergon->bezier.object.enclosing_box, g_free);
   beziershape_destroy (&beziergon->bezier);
 }
 
@@ -335,8 +336,8 @@ beziergon_copy(Beziergon *beziergon)
 
   bezier = &beziergon->bezier;
 
-  newbeziergon = g_malloc0(sizeof(Beziergon));
-  newbeziergon->bezier.object.enclosing_box = g_new0 (DiaRectangle, 1);
+  newbeziergon = g_new0 (Beziergon, 1);
+
   newbezier = &newbeziergon->bezier;
 
   beziershape_copy(bezier, newbezier);
@@ -355,31 +356,43 @@ beziergon_copy(Beziergon *beziergon)
 }
 
 static void
-beziergon_update_data(Beziergon *beziergon)
+beziergon_update_data (Beziergon *beziergon)
 {
   BezierShape *bez = &beziergon->bezier;
   DiaObject *obj = &bez->object;
   ElementBBExtras *extra = &bez->extra_spacing;
+  graphene_rect_t enclose;
 
-  beziershape_update_data(bez);
+  beziershape_update_data (bez);
 
   extra->border_trans = beziergon->line_width / 2.0;
-  beziershape_update_boundingbox(bez);
+  beziershape_update_boundingbox (bez);
+
+  dia_object_get_bounding_box (obj, &enclose);
 
   /* update the enclosing box using the control points */
   {
-    int i, num_points = bez->bezier.num_points;
-    g_assert (obj->enclosing_box != NULL);
-    *obj->enclosing_box = obj->bounding_box;
-    for (i = 0; i < num_points; ++i) {
-      if (bez->bezier.points[i].type != BEZ_CURVE_TO)
+    int num_points = bez->bezier.num_points;
+
+    for (int i = 0; i < num_points; ++i) {
+      graphene_point_t pt;
+
+      if (bez->bezier.points[i].type != BEZ_CURVE_TO) {
         continue;
-      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p1);
-      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p2);
+      }
+
+      dia_point_to_graphene (&bez->bezier.points[i].p1, &pt);
+      graphene_rect_expand (&enclose, &pt, &enclose);
+      dia_point_to_graphene (&bez->bezier.points[i].p2, &pt);
+      graphene_rect_expand (&enclose, &pt, &enclose);
     }
   }
+
+  dia_object_set_enclosing_box (obj, &enclose);
+
   obj->position = bez->bezier.points[0].p1;
 }
+
 
 static void
 beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
@@ -428,8 +441,7 @@ beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   AttributeNode attr;
 
-  beziergon = g_malloc0(sizeof(Beziergon));
-  beziergon->bezier.object.enclosing_box = g_new0 (DiaRectangle, 1);
+  beziergon = g_new0 (Beziergon, 1);
 
   bez = &beziergon->bezier;
   obj = &bez->object;

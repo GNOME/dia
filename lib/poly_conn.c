@@ -26,6 +26,7 @@
 
 #include "poly_conn.h"
 #include "diarenderer.h"
+#include "dia-graphene.h"
 
 
 enum change_type {
@@ -342,16 +343,23 @@ polyconn_update_data(PolyConn *poly)
   }
 }
 
-void
-polyconn_update_boundingbox(PolyConn *poly)
-{
-  assert(poly != NULL);
 
-  polyline_bbox(&poly->points[0],
-                poly->numpoints,
-                &poly->extra_spacing, FALSE,
-                &poly->object.bounding_box);
+void
+polyconn_update_boundingbox (PolyConn *poly)
+{
+  graphene_rect_t bbox;
+
+  g_return_if_fail (poly != NULL);
+
+  polyline_bbox (&poly->points[0],
+                 poly->numpoints,
+                 &poly->extra_spacing,
+                 FALSE,
+                 &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (poly), &bbox);
 }
+
 
 void
 polyconn_init(PolyConn *poly, int num_points)

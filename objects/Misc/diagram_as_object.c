@@ -42,6 +42,7 @@
 
 #include "filter.h"
 #include "dia_image.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/diagram_as_element.xpm"
 
@@ -139,12 +140,21 @@ _dae_set_props(DiagramAsElement *dae, GPtrArray *props)
   object_set_props_from_offsets(&dae->element.object, _dae_offsets, props);
   _dae_update_data(dae);
 }
-static real
-_dae_distance_from(DiagramAsElement *dae, Point *point)
+
+
+static double
+_dae_distance_from (DiagramAsElement *dae, Point *point)
 {
-  DiaObject *obj = &dae->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (dae), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
+
 static void
 _dae_select(DiagramAsElement *dae, Point *clicked_point, DiaRenderer *interactive_renderer)
 {

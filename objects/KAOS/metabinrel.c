@@ -43,7 +43,7 @@
 #include "arrows.h"
 #include "properties.h"
 #include "dia_image.h"
-
+#include "dia-graphene.h"
 #include "pixmaps/contributes.xpm"
 
 typedef struct _Mbr Mbr;
@@ -545,12 +545,14 @@ mbr_destroy(Mbr *mbr)
   connection_destroy(&mbr->connection);
 }
 
+
 static void
-mbr_update_data(Mbr *mbr)
+mbr_update_data (Mbr *mbr)
 {
   Connection *conn = &mbr->connection;
   DiaObject *obj = &conn->object;
-  DiaRectangle rect;
+  graphene_rect_t bbox, rect;
+  graphene_point_t pt;
   Point p1,p2;
   Point p3,p4;
   char *text;
@@ -566,41 +568,48 @@ mbr_update_data(Mbr *mbr)
 
   mbr->pm_handle.pos = mbr->pm;
 
-  connection_update_handles(conn);
-  connection_update_boundingbox(conn);
+  connection_update_handles (conn);
+  connection_update_boundingbox (conn);
 
   /* text width */
-  text=compute_text(mbr);
-  mbr->text_width = dia_font_string_width(text, mbr_font, MBR_DECFONTHEIGHT);
-  mbr->text_ascent = dia_font_ascent(text, mbr_font, MBR_DECFONTHEIGHT);
+  text = compute_text (mbr);
+  mbr->text_width = dia_font_string_width (text, mbr_font, MBR_DECFONTHEIGHT);
+  mbr->text_ascent = dia_font_ascent (text, mbr_font, MBR_DECFONTHEIGHT);
 
   /* endpoint */
   p1 = conn->endpoints[0];
   p2 = conn->endpoints[1];
 
- /* bezier */
-  compute_line(&p1,&p2,&mbr->pm,mbr->line);
+  /* bezier */
+  compute_line (&p1, &p2, &mbr->pm, mbr->line);
+
+  dia_object_get_bounding_box (obj, &bbox);
 
   /* Add boundingbox for mid decoration (slightly overestimated) : */
-  p3.x=mbr->pm.x-MBR_DEC_SIZE;
-  p3.y=mbr->pm.y-MBR_DEC_SIZE;
-  p4.x=p3.x+MBR_DEC_SIZE*2;
-  p4.y=p3.y+MBR_DEC_SIZE*2;
-  rect.left=p3.x;
-  rect.right=p4.x;
-  rect.top=p3.y;
-  rect.bottom=p4.y;
-  rectangle_union(&obj->bounding_box, &rect);
+  p3.x = mbr->pm.x - MBR_DEC_SIZE;
+  p3.y = mbr->pm.y - MBR_DEC_SIZE;
+  p4.x = p3.x + MBR_DEC_SIZE * 2;
+  p4.y = p3.y + MBR_DEC_SIZE * 2;
+
+  graphene_rect_init (&rect, p3.x, p3.y, 0, 0);
+  dia_point_to_graphene (&p4, &pt);
+  graphene_rect_expand (&bbox, &pt, &bbox);
+
+  graphene_rect_union (&bbox, &rect, &bbox);
 
   /* Add boundingbox for text: */
-  rect.left = mbr->pm.x-mbr->text_width/2;
-  rect.right = rect.left + mbr->text_width;
-  rect.top = mbr->pm.y - mbr->text_ascent;
-  rect.bottom = rect.top + MBR_DECFONTHEIGHT;
-  rectangle_union(&obj->bounding_box, &rect);
+  graphene_rect_init (&rect,
+                      mbr->pm.x - mbr->text_width / 2,
+                      mbr->pm.y - mbr->text_ascent,
+                      mbr->text_width,
+                      MBR_DECFONTHEIGHT);
+  graphene_rect_union (&bbox, &rect, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
 
   g_clear_pointer (&text, g_free);   /* free auxilliary text */
 }
+
 
 static DiaObject *
 mbr_load(ObjectNode obj_node, int version,DiaContext *ctx)

@@ -17,27 +17,32 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#pragma once
+
 /*!
  * \defgroup ObjectBBox Bounding box
  * \brief Calculations considering line width, caps and joins
  * \ingroup ObjectParts
  */
 
-#ifndef BOUNDINGBOX_H
-#define BOUNDINGBOX_H
+#include <graphene.h>
 
 #include "diatypes.h"
 #include "geometry.h"
 
-/*!
- * \brief Polygon/Polyline bounding box extras
- * \ingroup ObjectBBox
+G_BEGIN_DECLS
+
+/**
+ * PolyBBExtras:
+ *
+ * Polygon/Polyline bounding box extras
  */
 struct _PolyBBExtras {
-  double start_long, start_trans;
-  double middle_trans;
-  double end_long, end_trans;
+  float start_long, start_trans;
+  float middle_trans;
+  float end_long, end_trans;
 };
+
 
 /*!
  * \brief Line bounding box extras
@@ -56,65 +61,44 @@ struct _ElementBBExtras {
   double border_trans;
 };
 
-void bicubicbezier2D_bbox(const Point *p0,const Point *p1,
-                          const Point *p2,const Point *p3,
-                          const PolyBBExtras *extra,
-                          DiaRectangle       *rect);
 
-/*!
- * \brief Bounding box calculation for a straight line
- * The calcualtion includes line width and arrwos with the right extra
- * \ingroup ObjectBBox
- */
-void line_bbox(const Point *p1, const Point *p2,
-               const LineBBExtras *extra,
-               DiaRectangle       *rect);
-
-/*!
- * \brief Bounding box calculation for a rectangle
- * The calcualtion includes line width with the right extra
- * \ingroup ObjectBBox
- */
-void rectangle_bbox(const DiaRectangle    *rin,
-                    const ElementBBExtras *extra,
-                    DiaRectangle          *rout);
-
-/*!
- * \brief Bounding box calculation for an ellipse
- * The calcualtion includes line width with the right extra
- * \ingroup ObjectBBox
- */
-void ellipse_bbox (const Point           *centre,
-                   double                 width,
-                   double                 height,
-                   const ElementBBExtras *extra,
-                   DiaRectangle          *rect);
-/*!
- * \brief Bounding box calculation for a polyline
- * The calcualtion includes line width and arrwos with the right extra
- * \ingroup ObjectBBox
- */
-void polyline_bbox(const Point *pts, int numpoints,
-                   const PolyBBExtras *extra, gboolean closed,
-                   DiaRectangle       *rect);
-/*!
- * \brief Bounding box calculation for a bezier
- * The calcualtion includes line width and arrwos with the right extra
- * \ingroup ObjectBBox
- */
-void polybezier_bbox(const BezPoint *pts, int numpoints,
-                     const PolyBBExtras *extra, gboolean closed,
-                     DiaRectangle       *rect);
-
+void   bicubicbezier2D_bbox   (const graphene_vec2_t *p0,
+                               const Point           *p1,
+                               const Point           *p2,
+                               const Point           *p3,
+                               const PolyBBExtras    *extra,
+                               graphene_rect_t       *rect);
+void   line_bbox              (const graphene_vec2_t *p1,
+                               const graphene_vec2_t *p2,
+                               const LineBBExtras    *extra,
+                               graphene_rect_t       *rect);
+void   rectangle_bbox         (const graphene_rect_t *rin,
+                               const ElementBBExtras *extra,
+                               graphene_rect_t       *rout);
+void   ellipse_bbox           (const Point           *centre,
+                               float                  width,
+                               float                  height,
+                               const ElementBBExtras *extra,
+                               graphene_rect_t       *rect);
+void   polyline_bbox          (const Point           *pts,
+                               int                    numpoints,
+                               const PolyBBExtras    *extra,
+                               gboolean               closed,
+                               graphene_rect_t       *rect);
+void   polybezier_bbox        (const BezPoint        *pts,
+                               int                    numpoints,
+                               const PolyBBExtras    *extra,
+                               gboolean               closed,
+                               graphene_rect_t       *rect);
 /* helpers for bezier curve calculation */
-void   bernstein_develop   (const double  p[4],
-                            double       *A,
-                            double       *B,
-                            double       *C,
-                            double       *D);
-double bezier_eval         (const double  p[4],
-                            double        u);
-double bezier_eval_tangent (const double  p[4],
-                            double        u);
+void   bernstein_develop      (const double           p[4],
+                               double                *A,
+                               double                *B,
+                               double                *C,
+                               double                *D);
+double bezier_eval            (const double           p[4],
+                               double                 u);
+double bezier_eval_tangent    (const double           p[4],
+                               double                 u);
 
-#endif /* BOUNDINGBOX_H */
+G_END_DECLS

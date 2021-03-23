@@ -38,7 +38,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
-
+#include "dia-graphene.h"
 #include "pixmaps/requirement.xpm"
 
 typedef struct _Requirement Requirement;
@@ -248,15 +248,15 @@ req_draw (Requirement *req, DiaRenderer *renderer)
 
 
 static void
-req_update_data(Requirement *req)
+req_update_data (Requirement *req)
 {
-  real w, h, ratio;
+  double w, h, ratio;
   Point c, half, r,p;
-
   Element *elem = &req->element;
   DiaObject *obj = &elem->object;
+  graphene_rect_t bbox, rect;
 
-  text_calc_boundingbox(req->text, NULL);
+  text_calc_boundingbox (req->text, NULL);
   w = req->text->max_width;
   h = req->text->height*req->text->numlines;
 
@@ -314,22 +314,22 @@ req_update_data(Requirement *req)
   p = req->element.corner;
   p.x += req->element.width/2.0;
   p.y += (req->element.height - h)/2.0 + req->text->ascent;
-  text_set_position(req->text, &p);
+  text_set_position (req->text, &p);
 
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 
   /* Boundingbox calculation including the line width */
-  {
-    DiaRectangle bbox;
+  ellipse_bbox (&c, elem->width, elem->height, &elem->extra_spacing, &rect);
 
-    ellipse_bbox (&c, elem->width, elem->height, &elem->extra_spacing, &bbox);
-    rectangle_union(&obj->bounding_box, &bbox);
-  }
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_union (&bbox, &rect, &bbox);
+  dia_object_set_bounding_box (obj, &bbox);
 }
+
 
 /** creation here */
 static DiaObject *

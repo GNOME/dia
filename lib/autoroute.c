@@ -58,23 +58,35 @@ static Point *autolayout_unnormalize_points(guint dir,
 					    Point *points,
 					    guint num_points);
 
+
 static int
-autolayout_calc_intersects (const DiaRectangle *r1, const DiaRectangle *r2,
-			    const Point *points, guint num_points)
+autolayout_calc_intersects (const graphene_rect_t *r1,
+                            const graphene_rect_t *r2,
+                            const Point           *points,
+                            guint                  num_points)
 {
   guint i, n = 0;
 
   /* ignoring the first and last line assuming a proper 'outer' algorithm */
   for (i = 1; i < num_points - 2; ++i) {
-    DiaRectangle rt = { points[i].x, points[i].y, points[i+1].x, points[i+1].y };
-    if (r1)
-      n += (rectangle_intersects (r1, &rt) ? 1 : 0);
-    if (r2)
-      n += (rectangle_intersects (r2, &rt) ? 1 : 0);
+    graphene_rect_t rt = GRAPHENE_RECT_INIT (points[i].x, points[i].y, 0, 0);
+    graphene_point_t br = GRAPHENE_POINT_INIT (points[i + 1].x, points[i + 1].y);
+
+    graphene_rect_expand (&rt, &br, &rt);
+
+    if (r1) {
+      n += (graphene_rect_intersection (r1, &rt, NULL) ? 1 : 0);
+    }
+
+    if (r2) {
+      n += (graphene_rect_intersection (r2, &rt, NULL) ? 1 : 0);
+    }
   }
 
   return n;
 }
+
+
 /*!
  * \brief Apply a good route (or none) to the given _OrthConn
  *
@@ -124,72 +136,84 @@ autoroute_layout_orthconn(OrthConn *conn,
   for (startdir = DIR_NORTH; startdir <= DIR_WEST; startdir *= 2) {
     for (enddir = DIR_NORTH; enddir <= DIR_WEST; enddir *= 2) {
       if ((fromdir & startdir) &&
-	  (todir & enddir)) {
-	real this_badness;
-	Point *this_layout = NULL;
-	guint this_num_points;
-	guint normal_enddir;
-	Point startpoint, endpoint;
-	Point otherpoint;
-	startpoint = autolayout_adjust_for_gap(&frompos, startdir, startconn);
-	autolayout_adjust_for_arrow(&startpoint, startdir, conn->extra_spacing.start_trans);
-	endpoint = autolayout_adjust_for_gap(&topos, enddir, endconn);
-	autolayout_adjust_for_arrow(&endpoint, enddir, conn->extra_spacing.end_trans);
-	/*
-	printf("Startdir %d enddir %d orgstart %.2f, %.2f orgend %.2f, %.2f start %.2f, %.2f end %.2f, %.2f\n",
-	       startdir, enddir,
-	       frompos.x, frompos.y,
-	       topos.x, topos.y,
-	       startpoint.x, startpoint.y,
-	       endpoint.x, endpoint.y);
-	*/
-	normal_enddir = autolayout_normalize_points(startdir, enddir,
-						    startpoint, endpoint,
-						    &otherpoint);
-	if (normal_enddir == DIR_NORTH ) {
-	  this_badness = autoroute_layout_parallel(&otherpoint,
-						   &this_num_points,
-						   &this_layout);
-	} else if (normal_enddir == DIR_SOUTH) {
-	  this_badness = autoroute_layout_opposite(&otherpoint,
-						   &this_num_points,
-						   &this_layout);
-	} else {
-	  this_badness = autoroute_layout_orthogonal(&otherpoint,
-						     normal_enddir,
-						     &this_num_points,
-						     &this_layout);
-	}
-	if (this_layout != NULL) {
-	  /* this_layout is eaten by unnormalize */
-	  Point *unnormalized = autolayout_unnormalize_points(startdir, startpoint,
-							       this_layout, this_num_points);
+          (todir & enddir)) {
+        double this_badness;
+        Point *this_layout = NULL;
+        guint this_num_points;
+        guint normal_enddir;
+        Point startpoint, endpoint;
+        Point otherpoint;
+        startpoint = autolayout_adjust_for_gap(&frompos, startdir, startconn);
+        autolayout_adjust_for_arrow(&startpoint, startdir, conn->extra_spacing.start_trans);
+        endpoint = autolayout_adjust_for_gap(&topos, enddir, endconn);
+        autolayout_adjust_for_arrow(&endpoint, enddir, conn->extra_spacing.end_trans);
+        /*
+        printf("Startdir %d enddir %d orgstart %.2f, %.2f orgend %.2f, %.2f start %.2f, %.2f end %.2f, %.2f\n",
+              startdir, enddir,
+              frompos.x, frompos.y,
+              topos.x, topos.y,
+              startpoint.x, startpoint.y,
+              endpoint.x, endpoint.y);
+        */
+        normal_enddir = autolayout_normalize_points(startdir, enddir,
+                      startpoint, endpoint,
+                      &otherpoint);
+        if (normal_enddir == DIR_NORTH ) {
+          this_badness = autoroute_layout_parallel(&otherpoint,
+                    &this_num_points,
+                    &this_layout);
+        } else if (normal_enddir == DIR_SOUTH) {
+          this_badness = autoroute_layout_opposite(&otherpoint,
+                    &this_num_points,
+                    &this_layout);
+        } else {
+          this_badness = autoroute_layout_orthogonal(&otherpoint,
+                      normal_enddir,
+                      &this_num_points,
+                      &this_layout);
+        }
 
-	  intersects = autolayout_calc_intersects (
-	    startconn ? dia_object_get_bounding_box (startconn->object) : NULL,
-	    endconn ? dia_object_get_bounding_box (endconn->object) : NULL,
-	    unnormalized, this_num_points);
+        if (this_layout != NULL) {
+          /* this_layout is eaten by unnormalize */
+          Point *unnormalized = autolayout_unnormalize_points (startdir,
+                                                               startpoint,
+                                                               this_layout,
+                                                               this_num_points);
+          graphene_rect_t startconn_bbox, endconn_bbox;
 
-	  if (   intersects <= best_intersects
-	      && this_badness-min_badness < -0.00001) {
-	    /*
-	    printf("Dir %d to %d badness %f < %f\n", startdir, enddir,
-		   this_badness, min_badness);
-	    */
-	    min_badness = this_badness;
-	    g_clear_pointer (&best_layout, g_free);
-	    best_layout = unnormalized;
-	    best_num_points = this_num_points;
-            /* revert adjusting start and end point */
-	    autolayout_adjust_for_arrow(&best_layout[0], startdir,
-	                                -conn->extra_spacing.start_trans);
-	    autolayout_adjust_for_arrow(&best_layout[best_num_points-1], enddir,
-	                                -conn->extra_spacing.end_trans);
-	    best_intersects = intersects;
-	  } else {
-	    g_clear_pointer (&unnormalized, g_free);
-	  }
-	}
+          if (startconn) {
+            dia_object_get_bounding_box (startconn->object, &startconn_bbox);
+          }
+
+          if (endconn) {
+            dia_object_get_bounding_box (endconn->object, &endconn_bbox);
+          }
+
+          intersects = autolayout_calc_intersects (startconn ? &startconn_bbox : NULL,
+                                                   endconn ? &endconn_bbox : NULL,
+                                                   unnormalized,
+                                                   this_num_points);
+
+          if (   intersects <= best_intersects
+              && this_badness-min_badness < -0.00001) {
+            /*
+            printf("Dir %d to %d badness %f < %f\n", startdir, enddir,
+            this_badness, min_badness);
+            */
+            min_badness = this_badness;
+            g_clear_pointer (&best_layout, g_free);
+            best_layout = unnormalized;
+            best_num_points = this_num_points;
+                  /* revert adjusting start and end point */
+            autolayout_adjust_for_arrow(&best_layout[0], startdir,
+                                        -conn->extra_spacing.start_trans);
+            autolayout_adjust_for_arrow(&best_layout[best_num_points-1], enddir,
+                                        -conn->extra_spacing.end_trans);
+            best_intersects = intersects;
+          } else {
+            g_clear_pointer (&unnormalized, g_free);
+          }
+        }
       }
     }
   }
@@ -250,50 +274,60 @@ calculate_badness(Point *ps, guint num_points)
   return badness;
 }
 
-/*!
- * \brief Gap adjustement for points and a connection point
+
+/**
+ * autolayout_adjust_for_gap:
+ * @pos: #Point of the end of the line.
+ * @dir: Which of the four cardinal directions the line goes from pos.
+ * @cp: The connectionpoint the line is connected to.
+ *
+ * Gap adjustement for points and a connection point
  *
  * Adjust one end of an orthconn for gaps, if autogap is on for the connpoint.
- * @param pos Point of the end of the line.
- * @param dir Which of the four cardinal directions the line goes from pos.
- * @param cp The connectionpoint the line is connected to.
- * @return Where the line should end to be on the correct edge of the
- *          object, if cp has autogap on.
  *
- * \ingroup Autorouting
+ * Returns: Where the line should end to be on the correct edge of the
+ *          object, if @cp has autogap on.
  */
 static Point
-autolayout_adjust_for_gap(Point *pos, int dir, ConnectionPoint *cp)
+autolayout_adjust_for_gap (Point *pos, int dir, ConnectionPoint *cp)
 {
   DiaObject *object;
   Point dir_other;
+  graphene_rect_t bbox;
+  graphene_point_t tl, br;
   /* Do absolute gaps here, once it's defined */
 
-  if (!cp || !connpoint_is_autogap(cp)) {
+  if (!cp || !connpoint_is_autogap (cp)) {
     return *pos;
   }
 
-  object  = cp->object;
+  object = cp->object;
 
   dir_other.x = pos->x;
   dir_other.y = pos->y;
+
+  dia_object_get_bounding_box (DIA_OBJECT (object), &bbox);
+  graphene_rect_get_top_left (&bbox, &tl);
+  graphene_rect_get_bottom_right (&bbox, &br);
+
   switch (dir) {
-  case DIR_NORTH:
-    dir_other.y += 2 * (object->bounding_box.top - pos->y);
-    break;
-  case DIR_SOUTH:
-    dir_other.y += 2 * (object->bounding_box.bottom - pos->y);
-    break;
-  case DIR_EAST:
-    dir_other.x += 2 * (object->bounding_box.right - pos->x);
-    break;
-  case DIR_WEST:
-    dir_other.x += 2 * (object->bounding_box.left - pos->x);
-    break;
-  default:
-    g_warning("Impossible direction %d\n", dir);
+    case DIR_NORTH:
+      dir_other.y += 2 * (tl.y - pos->y);
+      break;
+    case DIR_SOUTH:
+      dir_other.y += 2 * (br.y - pos->y);
+      break;
+    case DIR_EAST:
+      dir_other.x += 2 * (br.x - pos->x);
+      break;
+    case DIR_WEST:
+      dir_other.x += 2 * (tl.x - pos->x);
+      break;
+    default:
+      g_warning ("Impossible direction %d\n", dir);
   }
-  return calculate_object_edge(pos, &dir_other, object);
+
+  return calculate_object_edge (pos, &dir_other, object);
 }
 
 

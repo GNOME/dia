@@ -34,6 +34,8 @@
 #include "diamenu.h"
 #include "properties.h"
 #include "create.h"
+#include "dia-graphene.h"
+
 
 #define DEFAULT_WIDTH 0.15
 
@@ -450,8 +452,8 @@ bezierline_create(Point *startpoint,
   DiaObject *obj;
   Point defaultlen = { .3, .3 };
 
-  bezierline = g_new0(Bezierline, 1);
-  bezierline->bez.object.enclosing_box = g_new0 (DiaRectangle, 1);
+  bezierline = g_new0 (Bezierline, 1);
+
   bez = &bezierline->bez;
   obj = &bez->object;
 
@@ -492,12 +494,13 @@ bezierline_create(Point *startpoint,
   return &bezierline->bez.object;
 }
 
+
 static void
-bezierline_destroy(Bezierline *bezierline)
+bezierline_destroy (Bezierline *bezierline)
 {
-  g_clear_pointer (&bezierline->bez.object.enclosing_box, g_free);
-  bezierconn_destroy(&bezierline->bez);
+  bezierconn_destroy (&bezierline->bez);
 }
+
 
 static DiaObject *
 bezierline_copy(Bezierline *bezierline)
@@ -507,8 +510,8 @@ bezierline_copy(Bezierline *bezierline)
 
   bez = &bezierline->bez;
 
-  newbezierline = g_new0(Bezierline, 1);
-  newbezierline->bez.object.enclosing_box = g_new0 (DiaRectangle, 1);
+  newbezierline = g_new0 (Bezierline, 1);
+
   newbez = &newbezierline->bez;
 
   bezierconn_copy(bez, newbez);
@@ -529,13 +532,13 @@ bezierline_copy(Bezierline *bezierline)
 
 
 static void
-bezierline_update_data(Bezierline *bezierline)
+bezierline_update_data (Bezierline *bezierline)
 {
   BezierConn *bez = &bezierline->bez;
   DiaObject *obj = &bez->object;
   PolyBBExtras *extra = &bez->extra_spacing;
 
-  bezierconn_update_data(bez);
+  bezierconn_update_data (bez);
 
   extra->start_trans = extra->start_long =
   extra->middle_trans =
@@ -543,60 +546,108 @@ bezierline_update_data(Bezierline *bezierline)
 
   obj->position = bez->bezier.points[0].p1;
 
-  if (connpoint_is_autogap(bez->object.handles[0]->connected_to) ||
-      connpoint_is_autogap(bez->object.handles[3*(bez->bezier.num_points-1)]->connected_to) ||
+  if (connpoint_is_autogap (bez->object.handles[0]->connected_to) ||
+      connpoint_is_autogap (bez->object.handles[3*(bez->bezier.num_points-1)]->connected_to) ||
       bezierline->absolute_start_gap || bezierline->absolute_end_gap ||
       bezierline->start_arrow.type != ARROW_NONE || bezierline->end_arrow.type != ARROW_NONE) {
     Point gap_points[4];
-    DiaRectangle bbox_union = {bez->bezier.points[0].p1.x, bez->bezier.points[0].p1.y,
-			    bez->bezier.points[0].p1.x, bez->bezier.points[0].p1.y};
-    compute_gap_points(bezierline, gap_points);
-    exchange_bez_gap_points(bez,gap_points);
+    graphene_rect_t arrows_bbox, bbox;
+
+    compute_gap_points (bezierline, gap_points);
+    exchange_bez_gap_points (bez, gap_points);
+
+    graphene_rect_init (&arrows_bbox,
+                        bez->bezier.points[0].p1.x,
+                        bez->bezier.points[0].p1.y,
+                        0,
+                        0);
+
     /* further modifying the points data, accounts for corrcet arrow and bezier bounding box */
     if (bezierline->start_arrow.type != ARROW_NONE) {
-      DiaRectangle bbox;
+      graphene_rect_t bbox_arrow;
       Point move_arrow, move_line;
       Point to = bez->bezier.points[0].p1, from = bez->bezier.points[1].p1;
 
-      calculate_arrow_point(&bezierline->start_arrow, &to, &from, &move_arrow, &move_line, bezierline->line_width);
-      point_sub(&to, &move_arrow);
-      point_sub(&bez->bezier.points[0].p1, &move_line);
-      arrow_bbox (&bezierline->start_arrow, bezierline->line_width, &to, &from, &bbox);
-      rectangle_union (&bbox_union, &bbox);
+      calculate_arrow_point (&bezierline->start_arrow,
+                             &to,
+                             &from,
+                             &move_arrow,
+                             &move_line,
+                             bezierline->line_width);
+
+      point_sub (&to, &move_arrow);
+      point_sub (&bez->bezier.points[0].p1, &move_line);
+
+      arrow_bbox (&bezierline->start_arrow,
+                  bezierline->line_width,
+                  &to,
+                  &from,
+                  &bbox_arrow);
+
+      graphene_rect_union (&arrows_bbox, &bbox_arrow, &arrows_bbox);
     }
+
     if (bezierline->end_arrow.type != ARROW_NONE) {
-      DiaRectangle bbox;
+      graphene_rect_t bbox_arrow;
       Point move_arrow, move_line;
       int num_points = bez->bezier.num_points;
       Point to = bez->bezier.points[num_points-1].p3, from = bez->bezier.points[num_points-1].p2;
 
-      calculate_arrow_point(&bezierline->end_arrow, &to, &from, &move_arrow, &move_line, bezierline->line_width);
-      point_sub(&to, &move_arrow);
-      point_sub(&bez->bezier.points[num_points-1].p3, &move_line);
-      arrow_bbox (&bezierline->end_arrow, bezierline->line_width, &to, &from, &bbox);
-      rectangle_union (&bbox_union, &bbox);
+      calculate_arrow_point (&bezierline->end_arrow,
+                             &to,
+                             &from,
+                             &move_arrow,
+                             &move_line,
+                             bezierline->line_width);
+
+      point_sub (&to, &move_arrow);
+      point_sub (&bez->bezier.points[num_points-1].p3, &move_line);
+
+      arrow_bbox (&bezierline->end_arrow,
+                  bezierline->line_width,
+                  &to,
+                  &from,
+                  &bbox_arrow);
+
+      graphene_rect_union (&arrows_bbox, &bbox_arrow, &arrows_bbox);
     }
-    bezierconn_update_boundingbox(bez);
-    rectangle_union (&obj->bounding_box, &bbox_union);
-    exchange_bez_gap_points(bez,gap_points);
+
+    bezierconn_update_boundingbox (bez);
+    dia_object_get_bounding_box (DIA_OBJECT (bez), &bbox);
+    graphene_rect_union (&bbox, &arrows_bbox, &bbox);
+    dia_object_set_bounding_box (obj, &bbox);
+
+    exchange_bez_gap_points (bez, gap_points);
   } else {
-    bezierconn_update_boundingbox(bez);
+    bezierconn_update_boundingbox (bez);
   }
-    /* add control points to the bounding box, needed to make them visible when showing all
-      * and to remove traces from them */
+
+  /* add control points to the bounding box, needed to make them visible when
+   * showing all and to remove traces from them
+   */
   {
-    int i, num_points = bez->bezier.num_points;
-    g_assert (obj->enclosing_box != NULL);
-    *obj->enclosing_box = obj->bounding_box;
+    int num_points = bez->bezier.num_points;
+    graphene_rect_t ebox;
+    graphene_point_t pt;
+
+    dia_object_get_bounding_box (obj, &ebox);
+
     /* starting with the second point, the first one is MOVE_TO */
-    for (i = 1; i < num_points; ++i) {
-      if (bez->bezier.points[i].type != BEZ_CURVE_TO)
+    for (int i = 1; i < num_points; ++i) {
+      if (bez->bezier.points[i].type != BEZ_CURVE_TO) {
         continue;
-      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p1);
-      rectangle_add_point(obj->enclosing_box, &bez->bezier.points[i].p2);
+      }
+
+      dia_point_to_graphene (&bez->bezier.points[i].p1, &pt);
+      graphene_rect_expand (&ebox, &pt, &ebox);
+      dia_point_to_graphene (&bez->bezier.points[i].p2, &pt);
+      graphene_rect_expand (&ebox, &pt, &ebox);
     }
+
+    dia_object_set_enclosing_box (obj, &ebox);
   }
 }
+
 
 static void
 bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
@@ -663,8 +714,7 @@ bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   AttributeNode attr;
 
-  bezierline = g_new0(Bezierline, 1);
-  bezierline->bez.object.enclosing_box = g_new0 (DiaRectangle, 1);
+  bezierline = g_new0 (Bezierline, 1);
 
   bez = &bezierline->bez;
   obj = &bez->object;

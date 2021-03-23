@@ -270,7 +270,7 @@ component_draw (Component *cmp, DiaRenderer *renderer)
 
   if (cmp->st_stereotype != NULL &&
       cmp->st_stereotype[0] != '\0') {
-    p1 = cmp->text->position;
+    dia_text_get_position (cmp->text, &p1);
     p1.y -= cmp->text->height;
     dia_renderer_set_font (renderer, cmp->text->font, cmp->text->height);
     dia_renderer_draw_string (renderer,

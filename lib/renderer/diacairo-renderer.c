@@ -1073,8 +1073,8 @@ dia_cairo_renderer_draw_rotated_image (DiaRenderer *self,
   int w = dia_image_width (image);
   int h = dia_image_height (image);
 
-  DIAG_NOTE (g_message ("draw_image %fx%f [%d(%d),%d] @%f,%f",
-                        width, height, w, rs, h, point->x, point->y));
+  DIAG_NOTE (g_message ("draw_image %fx%f [%d,%d] @%f,%f",
+                        width, height, w, h, point->x, point->y));
 
   cairo_save (renderer->cr);
   cairo_translate (renderer->cr, point->x, point->y);

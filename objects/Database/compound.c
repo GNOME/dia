@@ -32,7 +32,7 @@
 #include "attributes.h"
 #include "geometry.h"
 #include "propinternals.h"
-
+#include "dia-graphene.h"
 #include "debug.h"
 #include "database.h"
 
@@ -835,31 +835,41 @@ compound_apply_props (Compound * comp, GPtrArray * props, gboolean is_default)
 
 
 /**
+ * compound_update_object:
+ * @comp: the #Compound
+ *
  * Determine the bounding box of the compound object and store it in the
  * object. Also update the object's position to the upper left corner of
  * the bounding box.
  */
-static void compound_update_object (Compound * comp)
+static void
+compound_update_object (Compound *comp)
 {
-  DiaRectangle * bb;
-  Handle * h;
-  gint i;
-  gint num_handles = comp->object.num_handles;
+  graphene_rect_t bb;
+  Handle *h;
+  int i;
+  int num_handles = comp->object.num_handles;
+  graphene_point_t tl;
 
   h = &comp->handles[0];
-  bb = &comp->object.bounding_box;
-  bb->right = bb->left = h->pos.x;
-  bb->top = bb->bottom = h->pos.y;
-  for (i = 1; i < num_handles; i++)
-    {
-      h = &comp->handles[i];
-      bb->left = MIN (h->pos.x, bb->left);
-      bb->right = MAX(h->pos.x, bb->right);
-      bb->top = MIN(h->pos.y, bb->top);
-      bb->bottom = MAX(h->pos.y, bb->bottom);
-    }
-  comp->object.position.x = bb->left;
-  comp->object.position.y = bb->top;
+
+  graphene_rect_init (&bb, h->pos.x, h->pos.y, 0, 0);
+
+  for (i = 1; i < num_handles; i++) {
+    graphene_point_t pt;
+
+    h = &comp->handles[i];
+
+    dia_point_to_graphene (&h->pos, &pt);
+    graphene_rect_expand (&bb, &pt, &bb);
+  }
+
+  graphene_rect_get_top_left (&bb, &tl);
+
+  comp->object.position.x = tl.x;
+  comp->object.position.y = tl.y;
+
+  dia_object_set_bounding_box (DIA_OBJECT (comp), &bb);
 
 #if DEBUG_DRAW_MP_DIRECTION
   /* make the bounding box a bit larger because drawing the direction of

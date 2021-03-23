@@ -30,6 +30,7 @@
 #include "arrows.h"
 
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "stereotype.h"
 #include "uml.h"
@@ -283,8 +284,9 @@ dependency_draw (Dependency *dep, DiaRenderer *renderer)
   }
 }
 
+
 static void
-dependency_update_data(Dependency *dep)
+dependency_update_data (Dependency *dep)
 {
   OrthConn *orth = &dep->orth;
   DiaObject *obj = &orth->object;
@@ -292,22 +294,27 @@ dependency_update_data(Dependency *dep)
   int num_segm, i;
   Point *points;
   DiaRectangle rect;
+  graphene_rect_t bbox, tmp;
 
-  orthconn_update_data(orth);
+  orthconn_update_data (orth);
 
-  dep->stereotype = remove_stereotype_from_string(dep->stereotype);
+  dep->stereotype = remove_stereotype_from_string (dep->stereotype);
   if (!dep->st_stereotype) {
-    dep->st_stereotype =  string_to_stereotype(dep->stereotype);
+    dep->st_stereotype = string_to_stereotype (dep->stereotype);
   }
 
   dep->text_width = 0.0;
-  if (dep->name)
-    dep->text_width = dia_font_string_width(dep->name, dep->font,
-					dep->font_height);
-  if (dep->stereotype)
-    dep->text_width = MAX(dep->text_width,
-			  dia_font_string_width(dep->stereotype, dep->font,
-					    dep->font_height));
+  if (dep->name) {
+    dep->text_width = dia_font_string_width (dep->name,
+                                             dep->font,
+                                             dep->font_height);
+  }
+  if (dep->stereotype) {
+    dep->text_width = MAX (dep->text_width,
+                           dia_font_string_width (dep->stereotype,
+                                                  dep->font,
+                                                  dep->font_height));
+  }
 
   extra->start_trans =
     extra->start_long =
@@ -318,7 +325,7 @@ dependency_update_data(Dependency *dep)
                        (dep->line_width + DEPENDENCY_ARROWLEN)/2.0:
                        dep->line_width/2.0);
 
-  orthconn_update_boundingbox(orth);
+  orthconn_update_boundingbox (orth);
 
   /* Calc text pos: */
   num_segm = dep->orth.numpoints - 1;
@@ -356,17 +363,24 @@ dependency_update_data(Dependency *dep)
 
   /* Add the text recangle to the bounding box: */
   rect.left = dep->text_pos.x;
-  if (dep->text_align == ALIGN_CENTER)
-    rect.left -= dep->text_width/2.0;
+  if (dep->text_align == ALIGN_CENTER) {
+    rect.left -= dep->text_width / 2.0;
+  }
   rect.right = rect.left + dep->text_width;
   rect.top = dep->text_pos.y;
-  if (dep->name)
-    rect.top -= dia_font_ascent(dep->name,
-				dep->font,
-				dep->font_height);
+  if (dep->name) {
+    rect.top -= dia_font_ascent (dep->name,
+                                 dep->font,
+                                 dep->font_height);
+  }
   rect.bottom = rect.top + 2*dep->font_height;
 
-  rectangle_union(&obj->bounding_box, &rect);
+  dia_object_get_bounding_box (obj, &bbox);
+  dia_rectangle_to_graphene (&rect, &tmp);
+
+  graphene_rect_union (&bbox, &tmp, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
 }
 
 

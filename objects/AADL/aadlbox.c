@@ -35,6 +35,8 @@
 
 #include "aadl.h"
 #include "edit_port_declaration.h"
+#include "dia-graphene.h"
+
 
 #define PORT_HANDLE_AADLBOX (HANDLE_CUSTOM9)
 
@@ -703,12 +705,19 @@ aadlbox_delete_connection_callback (DiaObject *obj,
  **          "CLASSIC FUNCTIONS"              **
  ***********************************************/
 
-real
-aadlbox_distance_from(Aadlbox *aadlbox, Point *point)
+
+double
+aadlbox_distance_from (Aadlbox *aadlbox, Point *point)
 {
-  DiaObject *obj = &aadlbox->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (aadlbox), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 void
 aadlbox_select(Aadlbox *aadlbox, Point *clicked_point,
@@ -843,41 +852,45 @@ aadlbox_update_text_position(Aadlbox *aadlbox)
   text_set_position(aadlbox->name, &p);
 }
 
+
 static void
-aadlbox_update_data(Aadlbox *aadlbox)
+aadlbox_update_data (Aadlbox *aadlbox)
 {
   Element *elem = &aadlbox->element;
   DiaObject *obj = &aadlbox->element.object;
   Point min_size;
   int i;
-  real tmp;
+  double tmp;
+  graphene_rect_t bbox;
 
-  aadlbox->specific->min_size(aadlbox, &min_size);
+  aadlbox->specific->min_size (aadlbox, &min_size);
 
-  elem->width = MAX(elem->width, min_size.x);
-  elem->height = MAX(elem->height, min_size.y);
+  elem->width = MAX (elem->width, min_size.x);
+  elem->height = MAX (elem->height, min_size.y);
 
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
   /* extend bounding box because of ports */
   /* FIXME: This cause the box to be selectionned when clicking out of it !! */
-  obj->bounding_box.top -= AADL_PORT_MAX_OUT + 0.1;
-  obj->bounding_box.right += AADL_PORT_MAX_OUT + 0.1;
-  obj->bounding_box.bottom += AADL_PORT_MAX_OUT + 0.1;
-  obj->bounding_box.left -= AADL_PORT_MAX_OUT + 0.1;
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_inset (&bbox,
+                       -(AADL_PORT_MAX_OUT + 0.1),
+                       -(AADL_PORT_MAX_OUT + 0.1));
+  dia_object_set_bounding_box (obj, &bbox);
 
   obj->position = elem->corner;
 
-  aadlbox_update_text_position(aadlbox);
+  aadlbox_update_text_position (aadlbox);
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 
-  aadlbox_update_ports(aadlbox);
+  aadlbox_update_ports (aadlbox);
 
-  for (i=0;i<aadlbox->num_connections;i++)
-      aadlbox->specific->project_point_on_nearest_border(aadlbox,
-					       &aadlbox->connections[i]->pos,
-					       &tmp);
+  for (i = 0; i < aadlbox->num_connections; i++) {
+    aadlbox->specific->project_point_on_nearest_border (aadlbox,
+                                                        &aadlbox->connections[i]->pos,
+                                                        &tmp);
+  }
 }
 
 

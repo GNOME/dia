@@ -164,8 +164,11 @@ _segment_is_lineto (const BezierSegment *bs)
 /* search precision */
 static const real EPSILON = 0.0001;
 
-/*!
- * \brief Calculate crossing points of two bezier segments
+
+/**
+ * bezier_bezier_intersection:
+ *
+ * Calculate crossing points of two bezier segments
  *
  * Beware two bezier segments can intersect more than once, but this
  * function only returns the first or no intersection. It is the
@@ -180,7 +183,8 @@ bezier_bezier_intersection (GArray              *crossing,
                             real                 asplit,
                             real                 bsplit)
 {
-  DiaRectangle abox, bbox;
+  graphene_rect_t abox, bbox;
+  graphene_vec2_t p0;
   PolyBBExtras extra = { 0, };
   gboolean small_a, small_b;
 
@@ -188,8 +192,9 @@ bezier_bezier_intersection (GArray              *crossing,
    * assume full overlap and no crossing.
    */
   if (   (_segment_has_point (a, &b->p0) && _segment_has_point (a, &b->p3))
-      || (_segment_has_point (b, &a->p0) && _segment_has_point (b, &a->p3)))
+      || (_segment_has_point (b, &a->p0) && _segment_has_point (b, &a->p3))) {
     return FALSE; /* XXX: more variants pending, partial overlap */
+  }
 
   /* With very similar segments we would create a lot of points with not
    * a very deep recursion (test with ying-yang symbol).
@@ -201,26 +206,41 @@ bezier_bezier_intersection (GArray              *crossing,
     return FALSE;
   }
 
-  bicubicbezier2D_bbox (&a->p0, &a->p1, &a->p2, &a->p3, &extra, &abox);
-  bicubicbezier2D_bbox (&b->p0, &b->p1, &b->p2, &b->p3, &extra, &bbox);
+  graphene_vec2_init (&p0, a->p0.x, a->p0.y);
+  bicubicbezier2D_bbox (&p0, &a->p1, &a->p2, &a->p3, &extra, &abox);
+  graphene_vec2_init (&p0, b->p0.x, b->p0.y);
+  bicubicbezier2D_bbox (&p0, &b->p1, &b->p2, &b->p3, &extra, &bbox);
 
-  if (!rectangle_intersects (&abox, &bbox))
+  if (!graphene_rect_intersection (&abox, &bbox, NULL)) {
     return FALSE;
-  small_a = (abox.right - abox.left) < EPSILON && (abox.bottom - abox.top) < EPSILON;
-  small_b = (bbox.right - bbox.left) < EPSILON && (bbox.bottom - bbox.top) < EPSILON;
+  }
+
+  small_a = (graphene_rect_get_width (&abox) < EPSILON) && (graphene_rect_get_height (&abox) < EPSILON);
+  small_b = (graphene_rect_get_width (&bbox) < EPSILON) && (graphene_rect_get_height (&bbox) < EPSILON);
+
   /* if the boxes are small enough we can calculate the point */
   if (small_a && small_b) {
+    graphene_point_t atl, abr, btl, bbr;
     /* intersecting and both small, should not matter which one is used */
-    Point pt = { (abox.right + abox.left + bbox.right + bbox.left) / 4,
-		 (abox.bottom + abox.top + bbox.bottom + bbox.top) / 4 };
+    Point pt;
     Intersection is;
-    int i;
 
-    for (i = 0; i < crossing->len; ++i) {
+    graphene_rect_get_top_left (&abox, &atl);
+    graphene_rect_get_bottom_right (&abox, &abr);
+
+    graphene_rect_get_top_left (&bbox, &btl);
+    graphene_rect_get_bottom_right (&bbox, &bbr);
+
+    pt.x = (abr.x + atl.x + bbr.x + btl.x) / 4;
+    pt.y = (abr.y + atl.y + bbr.y + btl.y) / 4;
+
+    for (int i = 0; i < crossing->len; ++i) {
       /* if it's already included we are done */
-      if (distance_point_point (&g_array_index (crossing, Intersection, i).pt, &pt) < 1.4142*EPSILON)
+      if (distance_point_point (&g_array_index (crossing, Intersection, i).pt, &pt) < 1.4142*EPSILON) {
         return TRUE; /* although we did not add it */
+      }
     }
+
     is.split_one = asplit;
     is.split_two = bsplit;
     is.pt = pt;

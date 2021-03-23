@@ -32,6 +32,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "uml.h"
 
@@ -173,12 +174,18 @@ node_set_props(Node *node, GPtrArray *props)
 }
 
 
-static real
-node_distance_from(Node *node, Point *point)
+static double
+node_distance_from (Node *node, Point *point)
 {
-  DiaObject *obj = &node->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (node), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 node_select(Node *node, Point *clicked_point,
@@ -223,13 +230,14 @@ node_move(Node *node, Point *to)
   return NULL;
 }
 
+
 static void
 node_draw (Node *node, DiaRenderer *renderer)
 {
   Element *elem;
-  real x, y, w, h;
+  double x, y, w, h;
   Point points[7];
-  int i;
+  Point text_pos;
 
   assert(node != NULL);
   assert(renderer != NULL);
@@ -274,48 +282,68 @@ node_draw (Node *node, DiaRenderer *renderer)
 
   /* Draw underlines (!) */
   dia_renderer_set_linewidth (renderer, NODE_LINEWIDTH);
-  points[0].x = node->name->position.x;
-  points[0].y = points[1].y = node->name->position.y + node->name->descent;
-  for (i = 0; i < node->name->numlines; i++) {
+
+  dia_text_get_position (node->name, &text_pos);
+  points[0].x = text_pos.x;
+  points[0].y = points[1].y = text_pos.y + node->name->descent;
+
+  for (int i = 0; i < node->name->numlines; i++) {
     points[1].x = points[0].x + text_get_line_width (node->name, i);
     dia_renderer_draw_line (renderer, points, points + 1, &node->name->color);
     points[0].y = points[1].y += node->name->height;
   }
 }
 
+
 static void
-node_update_data(Node *node)
+node_update_data (Node *node)
 {
   Element *elem = &node->element;
   DiaObject *obj = &node->element.object;
   Point p1;
-  real h;
+  double h;
+  graphene_rect_t bbox;
+  graphene_point_t pt;
 
-  text_calc_boundingbox(node->name, NULL);
+  text_calc_boundingbox (node->name, NULL);
 
   h = elem->corner.y + NODE_TEXT_MARGIN;
 
   p1.x = elem->corner.x + NODE_TEXT_MARGIN;
   p1.y = h + node->name->ascent;  /* position of text */
-  text_set_position(node->name, &p1);
+  text_set_position (node->name, &p1);
 
-  elem->width = MAX(elem->width, node->name->max_width + 2*NODE_TEXT_MARGIN);
-  elem->height = MAX(elem->height, node->name->height * node->name->numlines + 2*NODE_TEXT_MARGIN);
+  elem->width = MAX (elem->width,
+                     node->name->max_width + (2 * NODE_TEXT_MARGIN));
+  elem->height = MAX (elem->height,
+                      node->name->height * node->name->numlines + (2 * NODE_TEXT_MARGIN));
 
   /* Update connections: */
-  element_update_connections_rectangle(elem, node->connections);
+  element_update_connections_rectangle (elem, node->connections);
 
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
+
   /* fix boundingbox for depth: */
-  obj->bounding_box.top -= NODE_DEPTH;
-  obj->bounding_box.right += NODE_DEPTH;
+  dia_object_get_bounding_box (DIA_OBJECT (node), &bbox);
+
+  graphene_rect_get_top_right (&bbox, &pt);
+  pt.y -= NODE_DEPTH;
+  pt.x += NODE_DEPTH;
+  graphene_rect_expand (&bbox, &pt, &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (node), &bbox);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 }
 
-static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle2)
+
+static DiaObject *
+node_create (Point   *startpoint,
+             void    *user_data,
+             Handle **handle1,
+             Handle **handle2)
 {
   Node *node;
   Element *elem;

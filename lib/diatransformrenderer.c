@@ -402,16 +402,15 @@ draw_beziergon (DiaRenderer *self,
  * \memberof _DiaTransformRenderer
  */
 static void
-draw_text (DiaRenderer *self,
-	   Text        *text)
+draw_text (DiaRenderer *self, Text *text)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
-  Point pos = text->position;
-  real angle, sx, sy;
-  int i;
+  Point pos;
+  double angle, sx, sy;
 
-  pos = text->position;
+  dia_text_get_position (text, &pos);
+
   if (m && dia_matrix_get_angle_and_scales (m, &angle, &sx, &sy)) {
     Text *tc = text_copy (text);
     transform_point (&pos, m);
@@ -423,7 +422,7 @@ draw_text (DiaRenderer *self,
                                     180.0 * angle / G_PI);
     text_destroy (tc);
   } else {
-    for (i=0;i<text->numlines;i++) {
+    for (int i = 0; i < text->numlines; i++) {
       TextLine *text_line = text->lines[i];
       Point pt;
 
@@ -442,6 +441,7 @@ draw_text (DiaRenderer *self,
   }
 }
 
+
 /*!
  * \brief Transform the text object while drawing
  *
@@ -454,10 +454,12 @@ draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
-  Point pos = text->position;
+  Point pos;
+
+  dia_text_get_position (text, &pos);
 
   if (m) {
-    real angle2, sx, sy;
+    double angle2, sx, sy;
     DiaMatrix m2 = { 1, 0, 0, 1, -pos.x, -pos.y };
     DiaMatrix t = { 1, 0, 0, 1, pos.x, pos.y };
 

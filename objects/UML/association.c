@@ -63,6 +63,7 @@
 #include "uml.h"
 #include "properties.h"
 #include "dia-state-object-change.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/association.xpm"
 
@@ -611,40 +612,46 @@ association_set_state(Association *assoc, AssociationState *state)
   association_update_data(assoc);
 }
 
+
 static void
-association_update_data_end(Association *assoc, int endnum)
+association_update_data_end (Association *assoc, int endnum)
 {
   OrthConn *orth = &assoc->orth;
   DiaObject *obj = &orth->object;
   Point *points  = orth->points;
-  DiaRectangle rect;
   AssociationEnd *end;
   Orientation dir;
   int n = orth->numpoints - 1, fp, sp;
   Point dir_poly[3];
+  graphene_rect_t bbox, rect;
 
   /* Find the first and second points depending on which end: */
   if (endnum) {
-      fp = n;
-      sp = n-1;
-      dir = assoc->orth.orientation[n-1];
+    fp = n;
+    sp = n - 1;
+    dir = assoc->orth.orientation[n - 1];
   } else {
-      fp = 0;
-      sp = 1;
-      dir = assoc->orth.orientation[0];
+    fp = 0;
+    sp = 1;
+    dir = assoc->orth.orientation[0];
   }
 
   /* If the points are the same, find a better candidate: */
   if (points[fp].x == points[sp].x && points[fp].y == points[sp].y) {
-      sp += (endnum ? -1 : 1);
-      if (sp < 0)
-	  sp = 0;
-      if (sp > n)
-	  sp = n;
-      if (points[fp].y != points[sp].y)
-	  dir = VERTICAL;
-      else
-	  dir = HORIZONTAL;
+    sp += (endnum ? -1 : 1);
+    if (sp < 0) {
+      sp = 0;
+    }
+
+    if (sp > n) {
+      sp = n;
+    }
+
+    if (points[fp].y != points[sp].y) {
+      dir = VERTICAL;
+    } else {
+      dir = HORIZONTAL;
+    }
   }
 
   /* Update the text-points of the ends: */
@@ -682,24 +689,33 @@ association_update_data_end(Association *assoc, int endnum)
     default:
       g_return_if_reached ();
   }
-  /* Add the text recangle to the bounding box: */
-  rect.left = end->text_pos.x
-      - (end->text_align == ALIGN_LEFT ? 0 : end->text_width);
-  rect.right = rect.left + end->text_width;
-  rect.top = end->text_pos.y - end->role_ascent;
-  rect.bottom = rect.top + 2*assoc->font_height;
 
-  rectangle_union(&obj->bounding_box, &rect);
+  dia_object_get_bounding_box (obj, &bbox);
+
+  /* Add the text recangle to the bounding box: */
+  graphene_rect_init (&rect,
+                      end->text_pos.x - (end->text_align == ALIGN_LEFT ? 0 : end->text_width),
+                      end->text_pos.y - end->role_ascent,
+                      end->text_width,
+                      2 * assoc->font_height);
+
+  graphene_rect_union (&bbox, &rect, &bbox);
 
   if (assoc_get_direction_poly (assoc, dir_poly)) {
-    int i;
-    for (i = 0; i < 3; ++i)
-      rectangle_add_point (&obj->bounding_box, &dir_poly[i]);
+    for (int i = 0; i < 3; ++i) {
+      graphene_point_t poly_pt;
+
+      dia_point_to_graphene (&dir_poly[i], &poly_pt);
+      graphene_rect_expand (&bbox, &poly_pt, &bbox);
+    }
   }
+
+  dia_object_set_bounding_box (obj, &bbox);
 }
 
+
 static void
-association_update_data(Association *assoc)
+association_update_data (Association *assoc)
 {
         /* FIXME: The ascent and descent computation logic here is
            fundamentally slow. */
@@ -709,7 +725,7 @@ association_update_data(Association *assoc)
   PolyBBExtras *extra = &orth->extra_spacing;
   int num_segm, i;
   Point *points;
-  DiaRectangle rect;
+  graphene_rect_t bbox, rect;
   Orientation dir;
 
   orthconn_update_data(orth);
@@ -776,17 +792,22 @@ association_update_data(Association *assoc)
   }
 
   /* Add the text recangle to the bounding box: */
-  rect.left = assoc->text_pos.x;
-  if (assoc->text_align == ALIGN_CENTER)
-    rect.left -= assoc->text_width/2.0;
-  rect.right = rect.left + assoc->text_width;
-  rect.top = assoc->text_pos.y - assoc->ascent;
-  rect.bottom = rect.top + assoc->font_height;
+  graphene_rect_init (&rect,
+                      assoc->text_pos.x,
+                      assoc->text_pos.y - assoc->ascent,
+                      assoc->text_width,
+                      assoc->font_height);
 
-  rectangle_union(&obj->bounding_box, &rect);
+  if (assoc->text_align == ALIGN_CENTER) {
+    graphene_rect_offset (&rect, -(assoc->text_width / 2.0), 0);
+  }
 
-  association_update_data_end(assoc, 0);
-  association_update_data_end(assoc, 1);
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_union (&bbox, &rect, &bbox);
+  dia_object_set_bounding_box (obj, &bbox);
+
+  association_update_data_end (assoc, 0);
+  association_update_data_end (assoc, 1);
 }
 
 

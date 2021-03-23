@@ -34,7 +34,7 @@
 #include "diarenderer.h"
 #include "attributes.h"
 #include "properties.h"
-
+#include "dia-graphene.h"
 #include "grafcet.h"
 
 #include "pixmaps/etape.xpm"
@@ -454,7 +454,9 @@ step_update_data (Step *step)
   Element *elem = &step->element;
   DiaObject *obj = &elem->object;
   ElementBBExtras *extra = &elem->extra_spacing;
-  Point *p,ulc;
+  Point *p, ulc;
+  graphene_rect_t bbox;
+  graphene_point_t pt;
 
   ulc = elem->corner;
   ulc.x += ((STEP_DECLAREDWIDTH - STEP_WIDTH) / 2.0); /* we cheat a little */
@@ -545,8 +547,13 @@ step_update_data (Step *step)
   }
 
   element_update_boundingbox (elem);
-  rectangle_add_point (&obj->bounding_box, &step->north.pos);
-  rectangle_add_point (&obj->bounding_box, &step->south.pos);
+
+  dia_object_get_bounding_box (obj, &bbox);
+  dia_point_to_graphene (&step->north.pos, &pt);
+  graphene_rect_expand (&bbox, &pt, &bbox);
+  dia_point_to_graphene (&step->south.pos, &pt);
+  graphene_rect_expand (&bbox, &pt, &bbox);
+  dia_object_set_bounding_box (obj, &bbox);
 
   obj->position = elem->corner;
 

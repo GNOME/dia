@@ -825,7 +825,7 @@ file_export_callback (GtkAction *action)
     /* export via vfs gives: Permission denied - but only if you do not
      * have write permissions ;) */
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (exportdlg), FALSE);
-    gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (savedlg), TRUE);
+    gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (exportdlg), TRUE);
     gtk_window_set_role (GTK_WINDOW (exportdlg), "export_diagram");
 
     g_signal_connect (G_OBJECT (exportdlg),

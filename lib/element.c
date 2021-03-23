@@ -35,6 +35,7 @@
 
 #include "element.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 
 #ifdef G_OS_WIN32
@@ -55,19 +56,19 @@ PropNumData width_range = { -G_MAXFLOAT, G_MAXFLOAT, 0.1};
 void
 element_update_boundingbox (Element *elem)
 {
-  DiaRectangle bb;
   Point *corner;
   ElementBBExtras *extra = &elem->extra_spacing;
+  graphene_rect_t src, bbox;
 
-  assert(elem != NULL);
+  assert (elem != NULL);
 
   corner = &elem->corner;
-  bb.left = corner->x;
-  bb.right = corner->x + elem->width;
-  bb.top = corner->y;
-  bb.bottom = corner->y + elem->height;
 
-  rectangle_bbox(&bb,extra,&elem->object.bounding_box);
+  graphene_rect_init (&src, corner->x, corner->y, elem->width, elem->height);
+
+  rectangle_bbox (&src, extra, &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (elem), &bbox);
 }
 
 

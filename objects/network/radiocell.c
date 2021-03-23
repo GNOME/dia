@@ -32,6 +32,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "network.h"
 
@@ -269,48 +270,54 @@ radiocell_draw (RadioCell *radiocell, DiaRenderer *renderer)
   text_draw (radiocell->text, renderer);
 }
 
+
 static void
-radiocell_update_data(RadioCell *radiocell)
+radiocell_update_data (RadioCell *radiocell)
 {
   PolyShape *poly = &radiocell->poly;
   DiaObject *obj = &poly->object;
   ElementBBExtras *extra = &poly->extra_spacing;
-  DiaRectangle text_box;
   Point textpos;
-  int i;
   /* not exactly a regular hexagon, but this fits better in the grid */
   Point points[] = { {  1., 0. }, {  .5,  .75 }, { -.5,  .75 },
-		     { -1., 0. }, { -.5, -.75 }, {  .5, -.75 } };
+                     { -1., 0. }, { -.5, -.75 }, {  .5, -.75 } };
+  graphene_rect_t bbox, text_box;
 
   radiocell->center.x = (poly->points[0].x + poly->points[3].x) / 2.;
   radiocell->center.y = poly->points[0].y;
 
-  for (i = 0; i < 6; i++) {
+  for (int i = 0; i < 6; i++) {
     poly->points[i] = radiocell->center;
     poly->points[i].x += radiocell->radius * points[i].x;
     poly->points[i].y += radiocell->radius * points[i].y;
   }
 
   /* Add bounding box for text: */
-  text_calc_boundingbox(radiocell->text, NULL);
+  text_calc_boundingbox (radiocell->text, NULL);
   textpos.x = (poly->points[0].x + poly->points[3].x) / 2.;
   textpos.y = poly->points[0].y -
     (radiocell->text->height * (radiocell->text->numlines - 1) +
      radiocell->text->descent) / 2.;
-  text_set_position(radiocell->text, &textpos);
-  text_calc_boundingbox(radiocell->text, &text_box);
-  polyshape_update_data(poly);
+
+  text_set_position (radiocell->text, &textpos);
+  text_calc_boundingbox (radiocell->text, &text_box);
+  polyshape_update_data (poly);
   extra->border_trans = radiocell->line_width / 2.0;
-  polyshape_update_boundingbox(poly);
-  rectangle_union(&obj->bounding_box, &text_box);
+  polyshape_update_boundingbox (poly);
+
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_union (&bbox, &text_box, &bbox);
+  dia_object_set_bounding_box (obj, &bbox);
+
   obj->position = poly->points[0];
 }
 
+
 static DiaObject *
-radiocell_create(Point *startpoint,
-		 void *user_data,
-		 Handle **handle1,
-		 Handle **handle2)
+radiocell_create (Point   *startpoint,
+                  void    *user_data,
+                  Handle **handle1,
+                  Handle **handle2)
 {
   RadioCell *radiocell;
   PolyShape *poly;

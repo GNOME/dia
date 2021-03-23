@@ -41,7 +41,7 @@
 #include "handle.h"
 #include "arrows.h"
 #include "properties.h"
-
+#include "dia-graphene.h"
 #include "pixmaps/shared_phen.xpm"
 
 typedef struct _Message Message;
@@ -375,34 +375,42 @@ message_destroy(Message *message)
   g_clear_pointer (&message->text, g_free);
 }
 
+
 static void
-message_update_data(Message *message)
+message_update_data (Message *message)
 {
   Connection *conn = &message->connection;
   DiaObject *obj = &conn->object;
   DiaRectangle rect;
+  graphene_rect_t bbox, tmp;
 
-  if (connpoint_is_autogap(conn->endpoint_handles[0].connected_to) ||
-      connpoint_is_autogap(conn->endpoint_handles[1].connected_to)) {
-    connection_adjust_for_autogap(conn);
+  if (connpoint_is_autogap (conn->endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap (conn->endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap (conn);
   }
   obj->position = conn->endpoints[0];
 
   message->text_handle.pos = message->text_pos;
 
-  connection_update_handles(conn);
-  connection_update_boundingbox(conn);
+  connection_update_handles (conn);
+  connection_update_boundingbox (conn);
 
   message->text_width =
-    dia_font_string_width(message->text, message_font, MESSAGE_FONTHEIGHT);
+    dia_font_string_width (message->text, message_font, MESSAGE_FONTHEIGHT);
 
   /* Add boundingbox for text: */
   rect.left = message->text_pos.x-message->text_width/2;
   rect.right = rect.left + message->text_width;
   rect.top = message->text_pos.y -
-      dia_font_ascent(message->text, message_font, MESSAGE_FONTHEIGHT);
+      dia_font_ascent (message->text, message_font, MESSAGE_FONTHEIGHT);
   rect.bottom = rect.top + MESSAGE_FONTHEIGHT;
-  rectangle_union(&obj->bounding_box, &rect);
+
+  dia_object_get_bounding_box (obj, &bbox);
+  dia_rectangle_to_graphene (&rect, &tmp);
+
+  graphene_rect_union (&bbox, &tmp, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
 }
 
 

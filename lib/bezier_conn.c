@@ -29,6 +29,7 @@
 
 #include "bezier_conn.h"
 #include "diarenderer.h"
+#include "dia-graphene.h"
 
 
 #define HANDLE_BEZMAJOR  (HANDLE_CUSTOM1)
@@ -843,12 +844,16 @@ bezierconn_update_data (BezierConn *bezier)
 void
 bezierconn_update_boundingbox (BezierConn *bezier)
 {
+  graphene_rect_t bbox;
+
   g_return_if_fail (bezier != NULL);
 
   polybezier_bbox (&bezier->bezier.points[0],
                    bezier->bezier.num_points,
                    &bezier->extra_spacing, FALSE,
-                   &bezier->object.bounding_box);
+                   &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (bezier), &bbox);
 }
 
 

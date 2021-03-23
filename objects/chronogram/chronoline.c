@@ -42,6 +42,7 @@
 
 #include "chronogram.h"
 #include "chronoline_event.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/chronoline.xpm"
 
@@ -243,12 +244,19 @@ chronoline_set_props(Chronoline *chronoline, GPtrArray *props)
   chronoline_update_data(chronoline);
 }
 
-static real
-chronoline_distance_from(Chronoline *chronoline, Point *point)
+
+static double
+chronoline_distance_from (Chronoline *chronoline, Point *point)
 {
-  DiaObject *obj = &chronoline->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (chronoline), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 chronoline_select(Chronoline *chronoline, Point *clicked_point,
@@ -515,26 +523,29 @@ inline static void grayify(Color *col,Color *src)
   col->alpha = .5 * (src->alpha + color_white.alpha);
 }
 
+
 static void
-chronoline_update_data(Chronoline *chronoline)
+chronoline_update_data (Chronoline *chronoline)
 {
   Element *elem = &chronoline->element;
   DiaObject *obj = &elem->object;
-  real time_span;
+  double time_span;
   Point ur_corner;
   int shouldbe,i;
-  real realheight;
+  double realheight;
   CLEventList *lst;
   CLEvent *evt;
   GSList *conn_elem;
   ElementBBExtras *extra = &elem->extra_spacing;
+  graphene_rect_t bbox;
+  graphene_point_t pt1, pt2;
 
-  grayify(&chronoline->datagray,&chronoline->data_color);
-  grayify(&chronoline->gray,&chronoline->color);
+  grayify (&chronoline->datagray, &chronoline->data_color);
+  grayify (&chronoline->gray, &chronoline->color);
 
-  chronoline->labelwidth = dia_font_string_width(chronoline->name,
-                                                 chronoline->font,
-                                                 chronoline->font_size);
+  chronoline->labelwidth = dia_font_string_width (chronoline->name,
+                                                  chronoline->font,
+                                                  chronoline->font_size);
 
   chronoline->y_up = elem->corner.y;
   chronoline->y_down = elem->corner.y + elem->height;
@@ -551,19 +562,26 @@ chronoline_update_data(Chronoline *chronoline)
   }
 
   extra->border_trans = chronoline->main_lwidth / 2;
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
+
+  dia_object_get_bounding_box (obj, &bbox);
 
   /* fix boundingbox for special extras: */
-  realheight = obj->bounding_box.bottom - obj->bounding_box.top;
-  realheight = MAX(realheight,chronoline->font_size);
+  realheight = graphene_rect_get_height (&bbox);
+  realheight = MAX (realheight, chronoline->font_size);
 
-  obj->bounding_box.left -= chronoline->labelwidth;
-  obj->bounding_box.bottom = obj->bounding_box.top + realheight +
-    chronoline->main_lwidth;
+  graphene_rect_get_bottom_left (&bbox, &pt1);
+  graphene_rect_get_top_left (&bbox, &pt2);
+
+  pt1.x -= chronoline->labelwidth;
+  pt1.y = pt2.y + realheight + chronoline->main_lwidth;
+  graphene_rect_expand (&bbox, &pt1, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 
   /* Update connections: */
   ur_corner.x = elem->corner.x + elem->width;

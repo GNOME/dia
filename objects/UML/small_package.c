@@ -276,8 +276,10 @@ smallpackage_draw (SmallPackage *pkg, DiaRenderer *renderer)
   if ((pkg->st_stereotype != NULL) && (pkg->st_stereotype[0] != '\0')) {
     dia_renderer_set_font (renderer, pkg->text->font, pkg->text->height);
 
-    p1 = pkg->text->position;
+    dia_text_get_position (pkg->text, &p1);
+
     p1.y -= pkg->text->height;
+
     dia_renderer_draw_string (renderer,
                               pkg->st_stereotype,
                               &p1,
@@ -286,13 +288,16 @@ smallpackage_draw (SmallPackage *pkg, DiaRenderer *renderer)
   }
 }
 
+
 static void
-smallpackage_update_data(SmallPackage *pkg)
+smallpackage_update_data (SmallPackage *pkg)
 {
   Element *elem = &pkg->element;
   DiaObject *obj = &elem->object;
   Point p;
   DiaFont *font;
+  graphene_rect_t bbox;
+  graphene_point_t pt;
 
   pkg->stereotype = remove_stereotype_from_string(pkg->stereotype);
   if (!pkg->st_stereotype) {
@@ -319,19 +324,27 @@ smallpackage_update_data(SmallPackage *pkg)
     p.y += pkg->text->height;
   }
 
-  pkg->text->position = p;
+  text_set_position (pkg->text, &p);
 
   /* Update connections: */
-  element_update_connections_rectangle(elem, pkg->connections);
+  element_update_connections_rectangle (elem, pkg->connections);
 
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
+
   /* fix boundingbox for top rectangle: */
-  obj->bounding_box.top -= SMALLPACKAGE_TOPHEIGHT;
+  dia_object_get_bounding_box (DIA_OBJECT (elem), &bbox);
+
+  graphene_rect_get_top_left (&bbox, &pt);
+  pt.y -= SMALLPACKAGE_TOPHEIGHT;
+  graphene_rect_expand (&bbox, &pt, &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (elem), &bbox);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 }
+
 
 static DiaObject *
 smallpackage_create(Point *startpoint,

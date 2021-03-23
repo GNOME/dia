@@ -32,6 +32,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/basestation.xpm"
 
@@ -173,12 +174,19 @@ basestation_set_props(Basestation *basestation, GPtrArray *props)
   basestation_update_data(basestation);
 }
 
-static real
-basestation_distance_from(Basestation *basestation, Point *point)
+
+static double
+basestation_distance_from (Basestation *basestation, Point *point)
 {
-  DiaObject *obj = &basestation->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (basestation), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 basestation_select(Basestation *basestation, Point *clicked_point,
@@ -332,44 +340,48 @@ basestation_draw (Basestation *basestation, DiaRenderer *renderer)
   text_draw (basestation->text, renderer);
 }
 
+
 static void
-basestation_update_data(Basestation *basestation)
+basestation_update_data (Basestation *basestation)
 {
   Element *elem = &basestation->element;
   DiaObject *obj = &elem->object;
-  DiaRectangle text_box;
   Point p;
+  graphene_rect_t bbox, text_box;
 
   elem->width = BASESTATION_WIDTH;
   elem->height = BASESTATION_HEIGHT+basestation->text->height;
 
   p = elem->corner;
-  p.x += elem->width/2;
+  p.x += elem->width / 2;
   p.y += elem->height + basestation->text->ascent;
-  text_set_position(basestation->text, &p);
+  text_set_position (basestation->text, &p);
 
-  text_calc_boundingbox(basestation->text, &text_box);
+  text_calc_boundingbox (basestation->text, &text_box);
 
   /* Update connections: */
   element_update_connections_rectangle (elem, basestation->connections);
 
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
   /* Add bounding box for text: */
-  rectangle_union(&obj->bounding_box, &text_box);
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_union (&bbox, &text_box, &bbox);
+  dia_object_set_bounding_box (obj, &bbox);
 
   obj->position = elem->corner;
-  obj->position.x += elem->width/2.0;
-  obj->position.y += elem->height/2.0;
+  obj->position.x += elem->width / 2.0;
+  obj->position.y += elem->height / 2.0;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 }
 
+
 static DiaObject *
-basestation_create(Point *startpoint,
-                   void *user_data,
-                   Handle **handle1,
-                   Handle **handle2)
+basestation_create (Point   *startpoint,
+                    void    *user_data,
+                    Handle **handle1,
+                    Handle **handle2)
 {
   Basestation *basestation;
   Element *elem;

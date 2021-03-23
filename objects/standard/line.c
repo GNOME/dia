@@ -33,6 +33,8 @@
 #include "connpoint_line.h"
 #include "properties.h"
 #include "create.h"
+#include "dia-graphene.h"
+
 
 #define DEFAULT_WIDTH 0.25
 
@@ -574,8 +576,9 @@ line_copy(Line *line)
   return &newline->connection.object;
 }
 
+
 static void
-line_update_data(Line *line)
+line_update_data (Line *line)
 {
   Connection *conn = &line->connection;
   DiaObject *obj = &conn->object;
@@ -587,58 +590,78 @@ line_update_data(Line *line)
   extra->start_long  =
   extra->end_long    = (line->line_width / 2.0);
 
-  if (connpoint_is_autogap(line->connection.endpoint_handles[0].connected_to) ||
-      connpoint_is_autogap(line->connection.endpoint_handles[1].connected_to)) {
-    connection_adjust_for_autogap(conn);
+  if (connpoint_is_autogap (line->connection.endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap (line->connection.endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap (conn);
   }
+
   if (line->absolute_start_gap || line->absolute_end_gap ) {
     Point gap_endpoints[2];
+    graphene_rect_t bbox;
+    graphene_vec2_t p1, p2;
 
-    line_adjust_for_absolute_gap(line, gap_endpoints);
-    line_bbox(&gap_endpoints[0],&gap_endpoints[1],
-	      &conn->extra_spacing,&conn->object.bounding_box);
+    line_adjust_for_absolute_gap (line, gap_endpoints);
+
+    graphene_vec2_init (&p1, gap_endpoints[0].x, gap_endpoints[0].y);
+    graphene_vec2_init (&p2, gap_endpoints[1].x, gap_endpoints[1].y);
+
+    line_bbox (&p1, &p2, &conn->extra_spacing, &bbox);
+
+    dia_object_set_bounding_box (DIA_OBJECT (line), &bbox);
+
     start = gap_endpoints[0];
     end = gap_endpoints[1];
   } else {
-    connection_update_boundingbox(conn);
+    connection_update_boundingbox (conn);
     start = conn->endpoints[0];
     end = conn->endpoints[1];
   }
+
   if (line->start_arrow.type != ARROW_NONE) {
-    DiaRectangle bbox;
     Point move_arrow, move_line;
     Point to = start;
     Point from = end;
-    calculate_arrow_point(&line->start_arrow, &to, &from,
-                          &move_arrow, &move_line, line->line_width);
-    /* move them */
-    point_sub(&to, &move_arrow);
-    point_sub(&from, &move_line);
+    graphene_rect_t bbox, rect;
 
-    arrow_bbox (&line->start_arrow, line->line_width, &to, &from, &bbox);
-    rectangle_union (&obj->bounding_box, &bbox);
+    calculate_arrow_point (&line->start_arrow, &to, &from,
+                           &move_arrow, &move_line, line->line_width);
+    /* move them */
+    point_sub (&to, &move_arrow);
+    point_sub (&from, &move_line);
+
+    arrow_bbox (&line->start_arrow, line->line_width, &to, &from, &rect);
+
+    dia_object_get_bounding_box (obj, &bbox);
+    graphene_rect_union (&bbox, &rect, &bbox);
+    dia_object_set_bounding_box (obj, &bbox);
   }
+
   if (line->end_arrow.type != ARROW_NONE) {
-    DiaRectangle bbox;
     Point move_arrow, move_line;
     Point to = end;
     Point from = start;
-    calculate_arrow_point(&line->end_arrow, &to, &from,
-                          &move_arrow, &move_line, line->line_width);
+    graphene_rect_t bbox, rect;
+
+    calculate_arrow_point (&line->end_arrow, &to, &from,
+                           &move_arrow, &move_line, line->line_width);
+
     /* move them */
     point_sub(&to, &move_arrow);
     point_sub(&from, &move_line);
 
-    arrow_bbox (&line->end_arrow, line->line_width, &to, &from, &bbox);
-    rectangle_union (&obj->bounding_box, &bbox);
+    arrow_bbox (&line->end_arrow, line->line_width, &to, &from, &rect);
+
+    dia_object_get_bounding_box (obj, &bbox);
+    graphene_rect_union (&bbox, &rect, &bbox);
+    dia_object_set_bounding_box (obj, &bbox);
   }
 
   obj->position = conn->endpoints[0];
 
-  connpointline_update(line->cpl);
-  connpointline_putonaline(line->cpl, &start, &end, DIR_ALL);
+  connpointline_update (line->cpl);
+  connpointline_putonaline (line->cpl, &start, &end, DIR_ALL);
 
-  connection_update_handles(conn);
+  connection_update_handles (conn);
 }
 
 

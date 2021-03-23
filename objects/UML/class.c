@@ -36,6 +36,7 @@
 #include "diamenu.h"
 #include "class.h"
 #include "dia-state-object-change.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/umlclass.xpm"
 
@@ -522,12 +523,19 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
 #endif
 }
 
-static real
-umlclass_distance_from(UMLClass *umlclass, Point *point)
+
+static double
+umlclass_distance_from (UMLClass *umlclass, Point *point)
 {
-  DiaObject *obj = &umlclass->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (umlclass), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 umlclass_select(UMLClass *umlclass, Point *clicked_point,
@@ -1259,17 +1267,18 @@ umlclass_draw (UMLClass *umlclass, DiaRenderer *renderer)
   }
 }
 
+
 void
-umlclass_update_data(UMLClass *umlclass)
+umlclass_update_data (UMLClass *umlclass)
 {
   Element *elem = &umlclass->element;
   DiaObject *obj = &elem->object;
-  real x,y;
+  double x,y;
   GList *list;
   int i;
   int pointswide;
   int lowerleftcorner;
-  real pointspacing;
+  double pointspacing;
 
   x = elem->corner.x;
   y = elem->corner.y;
@@ -1378,41 +1387,58 @@ umlclass_update_data(UMLClass *umlclass)
     op->right_connection->directions = DIR_EAST;
 
     if (op->needs_wrapping) { /* Wrapped */
-      int lines = g_list_length(op->wrappos);
+      int lines = g_list_length (op->wrappos);
       y += umlclass->font_height * lines;
     } else {
       y += umlclass->font_height;
     }
+
     if (umlclass->visible_comments && op->comment != NULL && op->comment[0] != '\0') {
       int NumberOfLines = 0;
       char *CommentString = 0;
 
-      CommentString =
-        uml_create_documentation_tag(op->comment, umlclass->comment_tagging, umlclass->comment_line_length, &NumberOfLines);
+      CommentString = uml_create_documentation_tag (op->comment,
+                                                    umlclass->comment_tagging,
+                                                    umlclass->comment_line_length,
+                                                    &NumberOfLines);
       g_clear_pointer (&CommentString, g_free);
-      y += umlclass->comment_font_height*NumberOfLines + umlclass->comment_font_height/2;
+      y += (umlclass->comment_font_height * NumberOfLines) + (umlclass->comment_font_height / 2);
     }
-    list = g_list_next(list);
+
+    list = g_list_next (list);
   }
 
-  element_update_boundingbox(elem);
+  element_update_boundingbox (elem);
 
   if (umlclass->template) {
+    graphene_rect_t bbox;
+    graphene_point_t pt;
+
     /* fix boundingumlclass for templates: */
-    obj->bounding_box.top -= (umlclass->templates_height  - UMLCLASS_TEMPLATE_OVERLAY_Y) ;
-    obj->bounding_box.right += (umlclass->templates_width - UMLCLASS_TEMPLATE_OVERLAY_X);
-    obj->bounding_box.left  -= (elem->width < UMLCLASS_TEMPLATE_OVERLAY_X) ?
-				(UMLCLASS_TEMPLATE_OVERLAY_X - elem->width) : 0;
+    dia_object_get_bounding_box (DIA_OBJECT (umlclass), &bbox);
+
+    graphene_rect_get_top_right (&bbox, &pt);
+    pt.y -= (umlclass->templates_height - UMLCLASS_TEMPLATE_OVERLAY_Y);
+    pt.x += (umlclass->templates_width - UMLCLASS_TEMPLATE_OVERLAY_X);
+    graphene_rect_expand (&bbox, &pt, &bbox);
+
+    graphene_rect_get_top_left (&bbox, &pt);
+    pt.x -= (elem->width < UMLCLASS_TEMPLATE_OVERLAY_X) ?
+                (UMLCLASS_TEMPLATE_OVERLAY_X - elem->width) : 0;
+    graphene_rect_expand (&bbox, &pt, &bbox);
+
+    dia_object_set_bounding_box (DIA_OBJECT (umlclass), &bbox);
   }
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 
 #ifdef DEBUG
   umlclass_sanity_check(umlclass, "After updating data");
 #endif
 }
+
 
 /**
  * Calculate the dimensions of the class icons namebox for a given object of UMLClass.

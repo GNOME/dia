@@ -1,4 +1,5 @@
 py3_dep = dependency('python3-embed', version: '>= 3.7')
+pygobj_dep = dependency('pygobject-3.0')
 
 sources = files(
     'pydia-color.c',
@@ -42,12 +43,21 @@ python_scripts = [
     'select_empty.py',
 ]
 
+python_deps = [
+    libc_dep,
+    libxml_dep,
+    libgtk_dep,
+    py3_dep,
+    pygobj_dep,
+    libdia_dep,
+]
+
 if py3_dep.found()
     # Same as layout plugin.
     shared_module(
         'python_plugin',
         sources + [config_h],
-        dependencies: [libc_dep, libxml_dep, libgtk_dep, py3_dep, libdia_dep],
+        dependencies: python_deps,
         include_directories: [configuration_inc, diaapp_inc],
         link_with: [diaapp], # Naughty
         install: true,

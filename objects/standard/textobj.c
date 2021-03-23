@@ -34,6 +34,8 @@
 #include "create.h"
 #include "message.h" /* just dia_log_message */
 #include "dia-object-change-list.h"
+#include "dia-graphene.h"
+
 
 #define HANDLE_TEXT HANDLE_CUSTOM1
 
@@ -206,24 +208,24 @@ textobj_set_props(Textobj *textobj, GPtrArray *props)
   textobj_update_data(textobj);
 }
 
+
 static void
 _textobj_get_poly (const Textobj *textobj, Point poly[4])
 {
-  Point ul, lr;
+  graphene_point_t ul, lr;
   Point pt = textobj->text_handle.pos;
-  DiaRectangle box;
+  graphene_rect_t box;
   DiaMatrix m = { 1, 0, 0, 1, pt.x, pt.y };
   DiaMatrix t = { 1, 0, 0, 1, -pt.x, -pt.y };
-  int i;
 
   dia_matrix_set_angle_and_scales (&m, G_PI * textobj->text_angle / 180.0, 1.0, 1.0);
   dia_matrix_multiply (&m, &t, &m);
 
   text_calc_boundingbox (textobj->text, &box);
-  ul.x = box.left - textobj->margin;
-  ul.y = box.top - textobj->margin;
-  lr.x = box.right + textobj->margin;
-  lr.y = box.bottom + textobj->margin;
+  graphene_rect_inset (&box, -textobj->margin, -textobj->margin);
+
+  graphene_rect_get_top_left (&box, &ul);
+  graphene_rect_get_bottom_right (&box, &lr);
 
   poly[0].x = ul.x;
   poly[0].y = ul.y;
@@ -234,23 +236,35 @@ _textobj_get_poly (const Textobj *textobj, Point poly[4])
   poly[3].x = ul.x;
   poly[3].y = lr.y;
 
-  for (i = 0; i < 4; ++i)
+  for (int i = 0; i < 4; ++i) {
     transform_point (&poly[i], &m);
+  }
 }
 
-static real
-textobj_distance_from(Textobj *textobj, Point *point)
+
+static double
+textobj_distance_from (Textobj *textobj, Point *point)
 {
   if (textobj->text_angle != 0) {
     Point poly[4];
 
     _textobj_get_poly (textobj, poly);
-    return distance_polygon_point(poly, 4, 0.0, point);
+    return distance_polygon_point (poly, 4, 0.0, point);
   }
-  if (textobj->show_background)
-    return distance_rectangle_point(&textobj->object.bounding_box, point);
-  return text_distance_from(textobj->text, point);
+
+  if (textobj->show_background) {
+    graphene_rect_t bbox;
+    DiaRectangle tmp;
+
+    dia_object_get_bounding_box (DIA_OBJECT (textobj), &bbox);
+    dia_graphene_to_rectangle (&bbox, &tmp);
+
+    return distance_rectangle_point (&tmp, point);
+  }
+
+  return text_distance_from (textobj->text, point);
 }
+
 
 static void
 textobj_select(Textobj *textobj, Point *clicked_point,
@@ -293,19 +307,26 @@ textobj_move (Textobj *textobj, Point *to)
 
 
 static void
-textobj_draw(Textobj *textobj, DiaRenderer *renderer)
+textobj_draw (Textobj *textobj, DiaRenderer *renderer)
 {
-  assert(textobj != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (textobj != NULL);
+  g_return_if_fail (renderer != NULL);
 
   if (textobj->show_background) {
-    DiaRectangle box;
+    graphene_rect_t box;
     Point ul, lr;
+    graphene_point_t tl, br;
+
     text_calc_boundingbox (textobj->text, &box);
-    ul.x = box.left - textobj->margin;
-    ul.y = box.top - textobj->margin;
-    lr.x = box.right + textobj->margin;
-    lr.y = box.bottom + textobj->margin;
+
+    graphene_rect_inset (&box, -textobj->margin, -textobj->margin);
+
+    graphene_rect_get_top_left (&box, &tl);
+    dia_graphene_to_point (&tl, &ul);
+
+    graphene_rect_get_bottom_right (&box, &br);
+    dia_graphene_to_point (&br, &lr);
+
     if (textobj->text_angle == 0) {
       dia_renderer_draw_rect (renderer, &ul, &lr, &textobj->fill_color, NULL);
     } else {
@@ -315,6 +336,7 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
       dia_renderer_draw_polygon (renderer, poly, 4, &textobj->fill_color, NULL);
     }
   }
+
   if (textobj->text_angle == 0) {
     text_draw (textobj->text, renderer);
   } else {
@@ -322,6 +344,7 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
                                     textobj->text,
                                     &textobj->text_handle.pos,
                                     textobj->text_angle);
+
     /* XXX: interactive case not working correctly */
     if (DIA_IS_INTERACTIVE_RENDERER (renderer) &&
         dia_object_is_selected (&textobj->object) &&
@@ -334,22 +357,26 @@ textobj_draw(Textobj *textobj, DiaRenderer *renderer)
 
 
 static void
-textobj_valign_point (Textobj *textobj, Point* p)
+textobj_valign_point (Textobj *textobj, Point *p)
 {
-  DiaRectangle *bb  = &(textobj->object.bounding_box);
-  real offset;
+  graphene_rect_t bbox;
+  DiaRectangle bb;
+  double offset;
+
+  dia_object_get_bounding_box (DIA_OBJECT (textobj), &bbox);
+  dia_graphene_to_rectangle (&bbox, &bb);
 
   switch (textobj->vert_align){
     case VALIGN_BOTTOM:
-      offset = bb->bottom - textobj->object.position.y;
+      offset = bb.bottom - textobj->object.position.y;
       p->y -= offset;
       break;
     case VALIGN_TOP:
-      offset = bb->top - textobj->object.position.y;
+      offset = bb.top - textobj->object.position.y;
       p->y -= offset;
       break;
     case VALIGN_CENTER:
-      offset = (bb->bottom + bb->top)/2 - textobj->object.position.y;
+      offset = ((bb.bottom + bb.top) / 2) - textobj->object.position.y;
       p->y -= offset;
       break;
     case VALIGN_FIRST_LINE:
@@ -365,62 +392,70 @@ textobj_update_data (Textobj *textobj)
 {
   Point to2;
   DiaObject *obj = &textobj->object;
-  DiaRectangle tx_bb;
+  graphene_rect_t bbox, tx_bb;
 
-  text_set_position(textobj->text, &obj->position);
-  text_calc_boundingbox(textobj->text, &obj->bounding_box);
+  text_set_position (textobj->text, &obj->position);
+  text_calc_boundingbox (textobj->text, &bbox);
 
   to2 = obj->position;
-  textobj_valign_point(textobj, &to2);
+  textobj_valign_point (textobj, &to2);
+
   /* shift text position depending on text alignment */
-  if (VALIGN_TOP == textobj->vert_align)
+  if (VALIGN_TOP == textobj->vert_align) {
     to2.y += textobj->margin; /* down */
-  else if (VALIGN_BOTTOM == textobj->vert_align)
+  } else if (VALIGN_BOTTOM == textobj->vert_align) {
     to2.y -= textobj->margin; /* up */
-  if (ALIGN_LEFT == textobj->text->alignment)
+  }
+
+  if (ALIGN_LEFT == textobj->text->alignment) {
     to2.x += textobj->margin; /* right */
-  else if (ALIGN_RIGHT == textobj->text->alignment)
+  } else if (ALIGN_RIGHT == textobj->text->alignment) {
     to2.x -= textobj->margin; /* left */
-  text_set_position(textobj->text, &to2);
+  }
+
+  text_set_position (textobj->text, &to2);
 
   /* always use the unrotated box ... */
-  text_calc_boundingbox(textobj->text, &tx_bb);
+  text_calc_boundingbox (textobj->text, &tx_bb);
+
   /* grow the bounding box by 2x margin */
-  obj->bounding_box.top    -= textobj->margin;
-  obj->bounding_box.left   -= textobj->margin;
-  obj->bounding_box.bottom += textobj->margin;
-  obj->bounding_box.right  += textobj->margin;
+  graphene_rect_inset (&bbox, -textobj->margin, -textobj->margin);
 
   textobj->text_handle.pos = obj->position;
   if (textobj->text_angle == 0) {
-    obj->bounding_box = tx_bb;
-    g_return_if_fail (obj->enclosing_box != NULL);
-    *obj->enclosing_box = tx_bb;
+    dia_object_set_bounding_box (obj, &tx_bb);
+    dia_object_set_enclosing_box (obj, &tx_bb);
   } else {
     /* ... and grow it when necessary */
     Point poly[4];
-    int i;
 
     _textobj_get_poly (textobj, poly);
     /* we don't want the joined box for boundingbox because
      * selection would become too greedy than.
      */
-    obj->bounding_box.left = obj->bounding_box.right = poly[0].x;
-    obj->bounding_box.top = obj->bounding_box.bottom = poly[0].y;
-    for (i = 1; i < 4; ++i)
-      rectangle_add_point (&obj->bounding_box, &poly[i]);
-    g_return_if_fail (obj->enclosing_box != NULL);
-    *obj->enclosing_box = obj->bounding_box;
+
+    graphene_rect_init (&bbox, poly[0].x, poly[0].y, 0, 0);
+
+    for (int i = 1; i < 4; ++i) {
+      graphene_point_t pt;
+      dia_point_to_graphene (&poly[i], &pt);
+      graphene_rect_expand (&bbox, &pt, &bbox);
+    }
+
+    dia_object_set_bounding_box (obj, &bbox);
+
     /* join for editing/selection bbox */
-    rectangle_union (obj->enclosing_box, &tx_bb);
+    graphene_rect_union (&bbox, &tx_bb, &bbox);
+    dia_object_set_enclosing_box (obj, &bbox);
   }
 }
 
+
 static DiaObject *
-textobj_create(Point *startpoint,
-	       void *user_data,
-	       Handle **handle1,
-	       Handle **handle2)
+textobj_create (Point   *startpoint,
+                void    *user_data,
+                Handle **handle1,
+                Handle **handle2)
 {
   Textobj *textobj;
   DiaObject *obj;
@@ -428,9 +463,8 @@ textobj_create(Point *startpoint,
   DiaFont *font = NULL;
   real font_height;
 
-  textobj = g_malloc0(sizeof(Textobj));
+  textobj = g_new0 (Textobj, 1);
   obj = &textobj->object;
-  obj->enclosing_box = g_new0 (DiaRectangle, 1);
 
   obj->type = &textobj_type;
 
@@ -467,22 +501,27 @@ textobj_create(Point *startpoint,
   return &textobj->object;
 }
 
+
 static DiaObject *
-textobj_copy(Textobj *textobj)
+textobj_copy (Textobj *textobj)
 {
-  Textobj *copied = (Textobj *)object_copy_using_properties(&textobj->object);
-  copied->object.enclosing_box = g_new (DiaRectangle, 1);
-  *copied->object.enclosing_box = *textobj->object.enclosing_box;
+  graphene_rect_t ebox;
+  Textobj *copied = (Textobj *) object_copy_using_properties (&textobj->object);
+
+  dia_object_get_enclosing_box (DIA_OBJECT (textobj), &ebox);
+  dia_object_set_enclosing_box (DIA_OBJECT (copied), &ebox);
+
   return &copied->object;
 }
 
+
 static void
-textobj_destroy(Textobj *textobj)
+textobj_destroy (Textobj *textobj)
 {
-  text_destroy(textobj->text);
-  g_clear_pointer (&textobj->object.enclosing_box, g_free);
-  object_destroy(&textobj->object);
+  text_destroy (textobj->text);
+  object_destroy (&textobj->object);
 }
+
 
 static void
 textobj_save(Textobj *textobj, ObjectNode obj_node, DiaContext *ctx)
@@ -512,9 +551,8 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
   AttributeNode attr;
   Point startpoint = {0.0, 0.0};
 
-  textobj = g_malloc0(sizeof(Textobj));
+  textobj = g_new0 (Textobj, 1);
   obj = &textobj->object;
-  obj->enclosing_box = g_new0 (DiaRectangle,1);
 
   obj->type = &textobj_type;
   obj->ops = &textobj_ops;

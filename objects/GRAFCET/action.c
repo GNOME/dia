@@ -35,7 +35,7 @@
 #include "geometry.h"
 #include "text.h"
 #include "connpoint_line.h"
-
+#include "dia-graphene.h"
 #include "grafcet.h"
 #include "action_text_draw.h"
 
@@ -236,8 +236,9 @@ action_move(Action *action, Point *to)
   return NULL;
 }
 
+
 static void
-action_update_data(Action *action)
+action_update_data (Action *action)
 {
   Point p1,p2;
   real x,x1;
@@ -246,6 +247,7 @@ action_update_data(Action *action)
   real chunksize;
   Connection *conn = &action->connection;
   DiaObject *obj = &conn->object;
+  graphene_rect_t bbox, tmp;
 
   obj->position = conn->endpoints[0];
   connection_update_boundingbox(conn);
@@ -260,9 +262,9 @@ action_update_data(Action *action)
   if (action->macro_call) {
     action->labelstart.x += 2.0 * action->space_width;
   }
-  text_set_position(action->text,&action->labelstart);
+  text_set_position (action->text,&action->labelstart);
 
-  action_text_calc_boundingbox(action->text,&action->labelbb);
+  action_text_calc_boundingbox (action->text,&action->labelbb);
 
   if (action->macro_call) {
     action->labelbb.right += 2.0 * action->space_width;
@@ -282,10 +284,10 @@ action_update_data(Action *action)
   p1.x = conn->endpoints[1].x;
   p1.y = conn->endpoints[1].y - .5 * ACTION_HEIGHT;
   p2.y = p1.y + ACTION_HEIGHT;
-  connpointline_adjust_count(action->cps,2+(2 * action->text->numlines), &p1);
+  connpointline_adjust_count (action->cps,2+(2 * action->text->numlines), &p1);
 
   for (i=0; i<action->text->numlines; i++) {
-    chunksize = text_get_line_width(action->text, i);
+    chunksize = text_get_line_width (action->text, i);
     x1 = x + 1.0;
     if (x1 >= right) {
       x1 = right - ACTION_LINE_WIDTH;
@@ -312,7 +314,13 @@ action_update_data(Action *action)
   action->labelbb.bottom += ACTION_LINE_WIDTH/2;
   action->labelbb.right += ACTION_LINE_WIDTH/2;
 
-  rectangle_union(&obj->bounding_box,&action->labelbb);
+  dia_object_get_bounding_box (obj, &bbox);
+  dia_rectangle_to_graphene (&action->labelbb, &tmp);
+
+  graphene_rect_union (&bbox, &tmp, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
+
   connection_update_handles(conn);
 }
 

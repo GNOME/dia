@@ -36,7 +36,7 @@
  */
 #define DIAG_STATE(cr) { \
   if (cairo_status (cr) != CAIRO_STATUS_SUCCESS) \
-    g_warning ("%s:%d, %s\n", __FILE__, __LINE__, cairo_status_to_string (cairo_status(cr))); \
+    g_warning ("%s[%s:%d] %s", __func__, __FILE__, __LINE__, cairo_status_to_string (cairo_status(cr))); \
 }
 
 /* --- the renderer base class --- */

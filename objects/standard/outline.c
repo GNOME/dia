@@ -300,11 +300,17 @@ outline_update_data (Outline *outline)
   outline->ink_rect[2].y = y + extents.width * outline->mat.yx + extents.height * outline->mat.yy;
   outline->ink_rect[3].x = x + extents.height * outline->mat.xy;
   outline->ink_rect[3].y = y + extents.height * outline->mat.yy;
+
+  
   /* x_advance? */
   /* calculate bounding box */
   {
     PolyBBExtras bbex = {0, 0, outline->line_width/2, 0, 0 };
-    polyline_bbox (&outline->ink_rect[0], 4, &bbex, TRUE, &obj->bounding_box);
+    graphene_rect_t bbox;
+
+    polyline_bbox (&outline->ink_rect[0], 4, &bbex, TRUE, &bbox);
+
+    dia_object_set_bounding_box (DIA_OBJECT (outline), &bbox);
   }
 
   outline_update_handles (outline),

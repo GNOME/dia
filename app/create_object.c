@@ -125,13 +125,16 @@ create_object_double_click(CreateObjectTool *tool, GdkEventMotion *event,
 {
 }
 
+
 static void
-create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
-			     DDisplay *ddisp)
+create_object_button_release (CreateObjectTool *tool,
+                              GdkEventButton   *event,
+                              DDisplay         *ddisp)
 {
   GList *list = NULL;
   DiaObject *obj = tool->obj;
   gboolean reset;
+  graphene_rect_t bbox;
 
   GList *parent_candidates;
 
@@ -149,9 +152,9 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
 
   }
 
+  dia_object_get_bounding_box (obj, &bbox);
   parent_candidates =
-    dia_layer_find_objects_containing_rectangle (obj->parent_layer,
-                                                 &obj->bounding_box);
+    dia_layer_find_objects_containing_rectangle (obj->parent_layer, &bbox);
 
   /* whole object must be within another object to parent it */
   for (; parent_candidates != NULL; parent_candidates = g_list_next(parent_candidates)) {
@@ -209,33 +212,40 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
   ddisplay_do_update_menu_sensitivity(ddisp);
 }
 
+
 static void
-create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
-		   DDisplay *ddisp)
+create_object_motion (CreateObjectTool *tool,
+                      GdkEventMotion   *event,
+                      DDisplay         *ddisp)
 {
   Point to;
   ConnectionPoint *connectionpoint = NULL;
-  gchar *postext;
+  char *postext;
   GtkStatusbar *statusbar;
   guint context_id;
+  graphene_rect_t bbox;
+  graphene_point_t tl, br;
 
-  if (!tool->moving)
+  if (!tool->moving) {
     return;
+  }
 
-  ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
+  ddisplay_untransform_coords (ddisp, event->x, event->y, &to.x, &to.y);
 
   /* make sure the new object is restricted to its parent */
-  parent_handle_move_out_check(tool->obj, &to);
+  parent_handle_move_out_check (tool->obj, &to);
 
   /* Move to ConnectionPoint if near: */
   if (tool->handle != NULL &&
       tool->handle->connect_type != HANDLE_NONCONNECTABLE) {
     connectionpoint =
-      object_find_connectpoint_display(ddisp, &to, tool->obj, TRUE);
+      object_find_connectpoint_display (ddisp, &to, tool->obj, TRUE);
 
     if (connectionpoint != NULL) {
       to = connectionpoint->pos;
-      highlight_object(connectionpoint->object, DIA_HIGHLIGHT_CONNECTIONPOINT, ddisp->diagram);
+      highlight_object (connectionpoint->object,
+                        DIA_HIGHLIGHT_CONNECTIONPOINT,
+                        ddisp->diagram);
       ddisplay_set_all_cursor_name (NULL, "crosshair");
     }
   }
@@ -256,11 +266,11 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
   statusbar = GTK_STATUSBAR (ddisp->modified_status);
   context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
 
-  postext = g_strdup_printf("%.3f, %.3f - %.3f, %.3f",
-			    tool->obj->bounding_box.left,
-			    tool->obj->bounding_box.top,
-			    tool->obj->bounding_box.right,
-			    tool->obj->bounding_box.bottom);
+  dia_object_get_bounding_box (tool->obj, &bbox);
+  graphene_rect_get_top_left (&bbox, &tl);
+  graphene_rect_get_bottom_right (&bbox, &br);
+
+  postext = g_strdup_printf ("%.3f, %.3f - %.3f, %.3f", tl.x, tl.y, br.x, br.y);
 
   gtk_statusbar_pop (statusbar, context_id);
   gtk_statusbar_push (statusbar, context_id, postext);
@@ -273,7 +283,6 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
 
   return;
 }
-
 
 
 Tool *

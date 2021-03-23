@@ -840,12 +840,12 @@ draw_text (DiaRenderer *self,
            Text        *text)
 {
   Point pos;
-  int i;
-  pos = text->position;
+
+  dia_text_get_position (text, &pos);
 
   set_font (self, text->font, text->height);
 
-  for (i = 0; i < text->numlines; i++) {
+  for (int i = 0; i < text->numlines; i++) {
     TextLine *text_line = text->lines[i];
 
     draw_string (self,

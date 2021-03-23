@@ -336,17 +336,18 @@ flow_draw (Flow *flow, DiaRenderer *renderer)
     case FLOW_SIGNAL:
       dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, FLOW_DASHLEN);
       render_color = &flow_color_signal ;
-      break ;
+      break;
     case FLOW_MATERIAL:
       dia_renderer_set_linewidth (renderer, FLOW_MATERIAL_WIDTH);
       dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
       render_color = &flow_color_material;
-      break ;
+      break;
     case FLOW_ENERGY:
       render_color = &flow_color_energy;
       dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
       break;
     default:
+      g_critical ("Flow type: %i", flow->type);
       g_return_if_reached ();
   }
 
@@ -469,16 +470,16 @@ flow_copy(Flow *flow)
 
 
 static void
-flow_update_data(Flow *flow)
+flow_update_data (Flow *flow)
 {
   Connection *conn = &flow->connection;
   DiaObject *obj = &conn->object;
-  DiaRectangle rect;
-  Color* color = NULL;
+  Color *color = NULL;
+  graphene_rect_t bbox, rect;
 
-  if (connpoint_is_autogap(flow->connection.endpoint_handles[0].connected_to) ||
-      connpoint_is_autogap(flow->connection.endpoint_handles[1].connected_to)) {
-    connection_adjust_for_autogap(conn);
+  if (connpoint_is_autogap (flow->connection.endpoint_handles[0].connected_to) ||
+      connpoint_is_autogap (flow->connection.endpoint_handles[1].connected_to)) {
+    connection_adjust_for_autogap (conn);
   }
   obj->position = conn->endpoints[0];
 
@@ -497,17 +498,20 @@ flow_update_data(Flow *flow)
   }
   text_set_color (flow->text, color);
 
-  flow->text->position = flow->textpos;
+  text_set_position (flow->text, &flow->textpos);
   flow->text_handle.pos = flow->textpos;
 
-  connection_update_handles(conn);
+  connection_update_handles (conn);
 
   /* Boundingbox: */
-  connection_update_boundingbox(conn);
+  connection_update_boundingbox (conn);
 
   /* Add boundingbox for text: */
-  text_calc_boundingbox(flow->text, &rect) ;
-  rectangle_union(&obj->bounding_box, &rect);
+  text_calc_boundingbox (flow->text, &rect);
+
+  dia_object_get_bounding_box (obj, &bbox);
+  graphene_rect_union (&bbox, &rect, &bbox);
+  dia_object_set_bounding_box (obj, &bbox);
 }
 
 
@@ -563,7 +567,7 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   flow->text_handle.type = HANDLE_MINOR_CONTROL;
   flow->text_handle.connect_type = HANDLE_NONCONNECTABLE;
   flow->text_handle.connected_to = NULL;
-  flow->text_handle.pos = flow->text->position;
+  dia_text_get_position (flow->text, &flow->text_handle.pos);
   obj->handles[2] = &flow->text_handle;
 
   extra->start_long =
@@ -571,8 +575,8 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
     extra->start_trans = FLOW_WIDTH/2.0;
   extra->end_trans = MAX(FLOW_WIDTH, FLOW_ARROWLEN) / 2.0;
 
-  flow->textpos = flow->text->position;
-  flow_update_data(flow);
+  dia_text_get_position (flow->text, &flow->textpos);
+  flow_update_data (flow);
 
   return &flow->connection.object;
 }

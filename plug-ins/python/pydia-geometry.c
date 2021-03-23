@@ -19,10 +19,16 @@
 
 #include <config.h>
 
+#include "dia-graphene.h"
+
 #include "pydia-object.h"
 #include "pydia-geometry.h"
 
 #include <structmember.h> /* PyMemberDef */
+#define NO_IMPORT_PYGOBJECT
+#include <pygobject.h>
+#include <graphene-gobject.h>
+
 
 /* Implements wrappers for Point, DiaRectangle, BezPoint */
 
@@ -397,6 +403,10 @@ PyDiaRectangle_GetAttr (PyObject *obj, PyObject *arg)
     return I_OR_F (right);
   } else if (!g_strcmp0 (attr, "bottom")) {
     return I_OR_F (bottom);
+  } else if (!g_strcmp0 (attr, "graphene")) {
+    graphene_rect_t rect;
+    dia_rectangle_to_graphene (&self->r, &rect);
+    return pyg_boxed_new (GRAPHENE_TYPE_RECT, &rect, TRUE, TRUE);
   }
 
 generic:
@@ -692,6 +702,8 @@ static PyMemberDef PyDiaRect_Members[] = {
       "int or double: lower edge y coordinate" },
     { "right", T_INVALID, 0, RESTRICTED|READONLY,
       "int or double: right edge x coordinate" },
+    { "graphene", T_INVALID, 0, RESTRICTED|READONLY,
+      "Graphene.Rectangle: underlying graphene_rect_t" },
     { NULL }
 };
 

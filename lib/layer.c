@@ -24,6 +24,8 @@
 #include "diainteractiverenderer.h"
 #include "dynamic_obj.h"
 #include "dia-layer.h"
+#include "dia-graphene.h"
+
 
 static const DiaRectangle invalid_extents = { -1.0,-1.0,-1.0,-1.0 };
 
@@ -294,7 +296,16 @@ dia_layer_render (DiaLayer       *layer,
 {
   GList *list;
   DiaObject *obj;
-  DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+  DiaLayerPrivate *priv;
+  graphene_rect_t update_rect;
+
+  g_return_if_fail (DIA_IS_LAYER (layer));
+
+  priv = dia_layer_get_instance_private (layer);
+
+  if (update) {
+    dia_rectangle_to_graphene (update, &update_rect);
+  }
 
   if (obj_renderer == NULL)
     obj_renderer = normal_render;
@@ -302,16 +313,24 @@ dia_layer_render (DiaLayer       *layer,
   /* Draw all objects: */
   list = priv->objects;
   while (list != NULL) {
-    obj = (DiaObject *) list->data;
+    graphene_rect_t bbox;
 
-    if (update==NULL || rectangle_intersects (update, &obj->bounding_box)) {
+    obj = DIA_OBJECT (list->data);
+
+    dia_object_get_bounding_box (obj, &bbox);
+
+    if (update == NULL || graphene_rect_intersection (&update_rect, &bbox, NULL)) {
       if ((render_bounding_boxes ()) && DIA_IS_INTERACTIVE_RENDERER (renderer)) {
+        graphene_point_t tl, br;
         Point p1, p2;
         Color col;
-        p1.x = obj->bounding_box.left;
-        p1.y = obj->bounding_box.top;
-        p2.x = obj->bounding_box.right;
-        p2.y = obj->bounding_box.bottom;
+
+        graphene_rect_get_top_left (&bbox, &tl);
+        graphene_rect_get_bottom_right (&bbox, &br);
+
+        dia_graphene_to_point (&tl, &p1);
+        dia_graphene_to_point (&br, &p2);
+
         col.red = 1.0;
         col.green = 0.0;
         col.blue = 1.0;
@@ -326,6 +345,7 @@ dia_layer_render (DiaLayer       *layer,
     list = g_list_next (list);
   }
 }
+
 
 /**
  * dia_layer_new:
@@ -614,6 +634,7 @@ dia_layer_remove_objects (DiaLayer *layer, GList *obj_list)
   }
 }
 
+
 /**
  * dia_layer_find_objects_intersecting_rectangle:
  * @layer: The layer to search in.
@@ -634,13 +655,20 @@ dia_layer_find_objects_intersecting_rectangle (DiaLayer     *layer,
   GList *selected_list;
   DiaObject *obj;
   DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+  graphene_rect_t test_rect;
+
+  dia_rectangle_to_graphene (rect, &test_rect);
 
   selected_list = NULL;
   list = priv->objects;
   while (list != NULL) {
-    obj = (DiaObject *)list->data;
+    graphene_rect_t bbox;
 
-    if (rectangle_intersects (rect, &obj->bounding_box)) {
+    obj = DIA_OBJECT (list->data);
+
+    dia_object_get_bounding_box (obj, &bbox);
+
+    if (graphene_rect_intersection (&test_rect, &bbox, NULL)) {
       if (dia_object_is_selectable (obj)) {
         selected_list = g_list_prepend (selected_list, obj);
       }
@@ -654,6 +682,7 @@ dia_layer_find_objects_intersecting_rectangle (DiaLayer     *layer,
 
   return selected_list;
 }
+
 
 /**
  * dia_layer_find_objects_in_rectangle:
@@ -674,13 +703,20 @@ dia_layer_find_objects_in_rectangle (DiaLayer *layer, DiaRectangle *rect)
   GList *selected_list;
   DiaObject *obj;
   DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
+  graphene_rect_t test_rect;
+
+  dia_rectangle_to_graphene (rect, &test_rect);
 
   selected_list = NULL;
   list = priv->objects;
   while (list != NULL) {
-    obj = (DiaObject *)list->data;
+    graphene_rect_t bbox;
 
-    if (rectangle_in_rectangle (rect, &obj->bounding_box)) {
+    obj = DIA_OBJECT (list->data);
+
+    dia_object_get_bounding_box (obj, &bbox);
+
+    if (graphene_rect_contains_rect (&test_rect, &bbox)) {
       if (dia_object_is_selectable (obj)) {
         selected_list = g_list_prepend (selected_list, obj);
       }
@@ -691,6 +727,7 @@ dia_layer_find_objects_in_rectangle (DiaLayer *layer, DiaRectangle *rect)
 
   return selected_list;
 }
+
 
 /**
  * dia_layer_find_objects_containing_rectangle:
@@ -705,21 +742,26 @@ dia_layer_find_objects_in_rectangle (DiaLayer *layer, DiaRectangle *rect)
  * Since: 0.98
  */
 GList *
-dia_layer_find_objects_containing_rectangle (DiaLayer *layer, DiaRectangle *rect)
+dia_layer_find_objects_containing_rectangle (DiaLayer        *layer,
+                                             graphene_rect_t *rect)
 {
   GList *list;
   GList *selected_list;
   DiaObject *obj;
   DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
-  g_return_val_if_fail  (layer != NULL, NULL);
+  g_return_val_if_fail (DIA_IS_LAYER (layer), NULL);
 
   selected_list = NULL;
   list = priv->objects;
   while (list != NULL) {
-    obj = (DiaObject *) list->data;
+    graphene_rect_t bbox;
 
-    if (rectangle_in_rectangle (&obj->bounding_box, rect)) {
+    obj = DIA_OBJECT (list->data);
+
+    dia_object_get_bounding_box (obj, &bbox);
+
+    if (graphene_rect_intersection (rect, &bbox, NULL)) {
       if (dia_object_is_selectable (obj)) {
         selected_list = g_list_prepend (selected_list, obj);
       }
@@ -868,33 +910,43 @@ dia_layer_update_extents (DiaLayer *layer)
 {
   GList *l;
   DiaObject *obj;
-  DiaRectangle new_extents;
+  graphene_rect_t new_extents, old_extents;
   DiaLayerPrivate *priv = dia_layer_get_instance_private (layer);
 
   l = priv->objects;
-  if (l!=NULL) {
-    obj = (DiaObject *) l->data;
-    new_extents = obj->bounding_box;
+  if (l != NULL) {
+    obj = DIA_OBJECT (l->data);
+
+    dia_object_get_bounding_box (obj, &new_extents);
+
     l = g_list_next (l);
 
-    while (l!=NULL) {
-      const DiaRectangle *bbox;
-      obj = (DiaObject *) l->data;
-      /* don't consider empty (or broken) objects in the overall extents */
-      bbox = &obj->bounding_box;
-      if (bbox->right > bbox->left && bbox->bottom > bbox->top)
-        rectangle_union (&new_extents, &obj->bounding_box);
+    while (l != NULL) {
+      graphene_rect_t bbox;
+
+      obj = DIA_OBJECT (l->data);
+
+      dia_object_get_bounding_box (obj, &bbox);
+
+      graphene_rect_union (&new_extents, &bbox, &new_extents);
+
       l = g_list_next (l);
     }
   } else {
-    new_extents = invalid_extents;
+    dia_rectangle_to_graphene (&invalid_extents, &new_extents);
   }
 
-  if (rectangle_equals (&new_extents, &priv->extents)) return FALSE;
+  dia_rectangle_to_graphene (&priv->extents, &old_extents);
 
-  priv->extents = new_extents;
+  if (graphene_rect_equal (&new_extents, &old_extents)) {
+    return FALSE;
+  }
+
+  dia_graphene_to_rectangle (&new_extents, &priv->extents);
+
   return TRUE;
 }
+
 
 /**
  * dia_layer_replace_object_with_list:

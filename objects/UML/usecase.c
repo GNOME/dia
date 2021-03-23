@@ -29,6 +29,7 @@
 #include "attributes.h"
 #include "text.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "pixmaps/case.xpm"
 
@@ -177,12 +178,19 @@ usecase_set_props(Usecase *usecase, GPtrArray *props)
   usecase_update_data(usecase);
 }
 
-static real
-usecase_distance_from(Usecase *usecase, Point *point)
+
+static double
+usecase_distance_from (Usecase *usecase, Point *point)
 {
-  DiaObject *obj = &usecase->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (usecase), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 usecase_select(Usecase *usecase, Point *clicked_point,

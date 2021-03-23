@@ -21,6 +21,7 @@
  */
 
 #include <glib.h>
+#include <graphene.h>
 
 #include "diatypes.h"
 #include "diarenderer.h"
@@ -70,7 +71,7 @@ GList       *dia_layer_find_objects_intersecting_rectangle (DiaLayer         *la
 GList       *dia_layer_find_objects_in_rectangle           (DiaLayer         *layer,
                                                             DiaRectangle     *rect);
 GList       *dia_layer_find_objects_containing_rectangle   (DiaLayer         *layer,
-                                                            DiaRectangle     *rect);
+                                                            graphene_rect_t  *rect);
 DiaObject   *dia_layer_find_closest_object                 (DiaLayer         *layer,
                                                             Point            *pos,
                                                             real              maxdist);

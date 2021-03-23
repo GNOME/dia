@@ -303,19 +303,21 @@ struct _MyRootInfo
   DiaContext *ctx;
 };
 
+
 static void
 _obj_store (gpointer key,
             gpointer value,
             gpointer user_data)
 {
-  gchar *name = (gchar *)key;
-  DiaObject *obj = (DiaObject *)value;
-  MyRootInfo *ri = (MyRootInfo *)user_data;
+  char *name = (char *) key;
+  DiaObject *obj = (DiaObject *) value;
+  MyRootInfo *ri = (MyRootInfo *) user_data;
   ObjectNode obj_node;
-  gchar *layer_name;
-  gchar buffer[31];
-  gchar *p;
+  char *layer_name;
+  char buffer[31];
+  char *p;
   MyLayerInfo *li;
+  graphene_rect_t bbox;
 
   /* fires if you have messed up the hash keys,
    * e.g. by using non permanent memory */
@@ -323,20 +325,21 @@ _obj_store (gpointer key,
 
   p = strstr (name, " - ");
   if (p) {
-    if (p > name)
+    if (p > name) {
       layer_name = g_strndup (name, p - name);
-    else
-      layer_name = g_strdup("NULL");
-  }
-  else
+    } else {
+      layer_name = g_strdup ("NULL");
+    }
+  } else {
     layer_name = g_strdup ("default");
+  }
 
   li = g_hash_table_lookup (ri->layer_hash, layer_name);
   if (!li) {
     li = g_new0 (MyLayerInfo, 1);
-    li->node = xmlNewChild(ri->node, ri->name_space, (const xmlChar *)"layer", NULL);
-    xmlSetProp(li->node, (const xmlChar *)"name", (xmlChar *)layer_name);
-    xmlSetProp(li->node, (const xmlChar *)"visible", (const xmlChar *)"false");
+    li->node = xmlNewChild (ri->node, ri->name_space, (const xmlChar *) "layer", NULL);
+    xmlSetProp (li->node, (const xmlChar *) "name", (xmlChar *) layer_name);
+    xmlSetProp (li->node, (const xmlChar *) "visible", (const xmlChar *) "false");
     li->pos.x = li->pos.y = 0.0;
     g_hash_table_insert (ri->layer_hash, layer_name, li);
   } else {
@@ -346,26 +349,29 @@ _obj_store (gpointer key,
   obj_node = xmlNewChild(li->node, NULL, (const xmlChar *)"object", NULL);
   xmlSetProp(obj_node, (const xmlChar *)"type", (xmlChar *) obj->type->name);
 
-  g_snprintf(buffer, 30, "%d", obj->type->version);
-  xmlSetProp(obj_node, (const xmlChar *)"version", (xmlChar *)buffer);
+  g_snprintf (buffer, 30, "%d", obj->type->version);
+  xmlSetProp (obj_node, (const xmlChar *) "version", (xmlChar *) buffer);
 
-  g_snprintf(buffer, 30, "O%d", ri->obj_nr++);
-  xmlSetProp(obj_node, (const xmlChar *)"id", (xmlChar *)buffer);
+  g_snprintf (buffer, 30, "O%d", ri->obj_nr++);
+  xmlSetProp (obj_node, (const xmlChar *) "id", (xmlChar *) buffer);
 
   /* if it looks like intdata store it as well */
-  if (   GPOINTER_TO_INT(obj->type->default_user_data) > 0
-      && GPOINTER_TO_INT(obj->type->default_user_data) < 0xFF) {
-    g_snprintf(buffer, 30, "%d", GPOINTER_TO_INT(obj->type->default_user_data));
-    xmlSetProp(obj_node, (const xmlChar *)"intdata", (xmlChar *)buffer);
+  if (   GPOINTER_TO_INT (obj->type->default_user_data) > 0
+      && GPOINTER_TO_INT (obj->type->default_user_data) < 0xFF) {
+    g_snprintf (buffer, 30, "%d", GPOINTER_TO_INT (obj->type->default_user_data));
+    xmlSetProp (obj_node, (const xmlChar *) "intdata", (xmlChar *) buffer);
   }
 
   dia_object_move (obj, &(li->pos));
   /* saving every property of the object */
   obj->type->ops->save (obj, obj_node, ri->ctx);
 
+  dia_object_get_bounding_box (obj, &bbox);
+
   /* arrange following objects below */
-  li->pos.y += (obj->bounding_box.bottom - obj->bounding_box.top + 1.0);
+  li->pos.y += (graphene_rect_get_height (&bbox) + 1.0);
 }
+
 
 /**
  * dia_object_defaults_save:

@@ -34,15 +34,17 @@
 #include "create.h"
 #include "properties.h"
 #include "diapathrenderer.h"
+#include "dia-graphene.h"
 
-const real EPSILON = 1e-6;
+
+const double EPSILON = 1e-6;
 int num_objects = 0;
+
 
 static void
 _test_creation (gconstpointer user_data)
 {
-  const DiaObjectType *type = (const DiaObjectType *)user_data;
-  int i;
+  const DiaObjectType *type = (const DiaObjectType *) user_data;
   Handle *h1 = NULL, *h2 = NULL;
   Point point = {0, 0};
   DiaObject *o = type->ops->create (&point, type->default_user_data, &h1, &h2);
@@ -59,13 +61,13 @@ _test_creation (gconstpointer user_data)
             && o->ops->copy != NULL
             && o->ops->move != NULL
             && o->ops->move_handle != NULL
-	    && o->ops->apply_properties_from_dialog != NULL
-	    );
+            && o->ops->apply_properties_from_dialog != NULL);
 
   /* can we really assume everything complies with standard props nowadays? */
   g_assert (   o->ops->describe_props
             && o->ops->get_props
-	    && o->ops->set_props);
+            && o->ops->set_props);
+
   {
     const PropDescription *pdesc = o->ops->describe_props (o);
     /* get all properties */
@@ -78,66 +80,81 @@ _test_creation (gconstpointer user_data)
      * But the latter is only visible as parameter to object_get_props_from_offsets(),
      * at least for objects not intialzing DiaObjectType::prop_offsets
      */
-    o->ops->get_props (o, props);
-    for (i = 0; i < num_described; ++i) {
-      Property *prop = (Property*)g_ptr_array_index(props,i);
-      if ((prop->experience & PXP_NOTSET) == 0)
+    dia_object_get_properties (o, props);
+
+    for (int i = 0; i < num_described; ++i) {
+      Property *prop = (Property *) g_ptr_array_index (props,i);
+
+      if ((prop->experience & PXP_NOTSET) == 0) {
         ++num_used;
-      else if ((prop->descr->flags & PROP_FLAG_WIDGET_ONLY) != 0)
-	++num_used; /* ... but not expected to be set */
-      else if (strcmp (prop->descr->type, PROP_TYPE_STATIC) == 0)
-	++num_used; /* also not to be set */
-      else {
+      } else if ((prop->descr->flags & PROP_FLAG_WIDGET_ONLY) != 0) {
+        ++num_used; /* ... but not expected to be set */
+      } else if (strcmp (prop->descr->type, PROP_TYPE_STATIC) == 0) {
+        ++num_used; /* also not to be set */
+      } else {
         g_printerr ("Not set '%s'\n", prop->descr->name);
       }
     }
+
     g_assert_cmpint (num_used, ==, num_described);
 
     g_assert (props != NULL);
-    prop_list_free(props);
+    prop_list_free (props);
   }
+
   /* not implemented anywhere */
   g_assert (o->ops->edit_text == NULL);
   /* I think this is mandatory */
   g_assert (o->ops->apply_properties_list != NULL);
 
-  /* bounding box must be initialized */
-  g_assert (o->bounding_box.left <= o->bounding_box.right);
-  g_assert (o->bounding_box.top <= o->bounding_box.bottom);
-  /* object position must (should?) be in bounding box */
-  g_assert (o->bounding_box.left <= o->position.x && o->position.x <= o->bounding_box.right);
-  g_assert (o->bounding_box.top <= o->position.y && o->position.y <= o->bounding_box.bottom);
+  {
+    graphene_rect_t bbox;
+    graphene_point_t pt;
+
+    dia_object_get_bounding_box (o, &bbox);
+
+    /* object position must (should?) be in bounding box */
+
+    dia_point_to_graphene (&o->position, &pt);
+
+    g_assert_true (graphene_rect_contains_point (&bbox, &pt));
+  }
 
   g_assert (o->num_handles > 0);
+
   /* both handles can be NULL, but if not they must belong to the object  */
-  for (i = 0; i < o->num_handles; ++i)
-    {
-      if (h1 != NULL && h1 == o->handles[i])
-        h1 = NULL;
-      if (h2 != NULL && h2 == o->handles[i])
-        h2 = NULL;
-      /* handles properly set up? */
-      g_assert (o->handles[i] != NULL);
-      g_assert (o->handles[i]->connected_to == NULL); /* starts not connected */
-      g_assert (   o->handles[i]->type != HANDLE_NON_MOVABLE
-	        || (   o->handles[i]->type == HANDLE_NON_MOVABLE /* always together? */
-		    && o->handles[i]->connect_type == HANDLE_NONCONNECTABLE));
+  for (int i = 0; i < o->num_handles; ++i) {
+    if (h1 != NULL && h1 == o->handles[i]) {
+      h1 = NULL;
     }
+
+    if (h2 != NULL && h2 == o->handles[i]) {
+      h2 = NULL;
+    }
+
+    /* handles properly set up? */
+    g_assert (o->handles[i] != NULL);
+    g_assert (o->handles[i]->connected_to == NULL); /* starts not connected */
+    g_assert (   o->handles[i]->type != HANDLE_NON_MOVABLE
+              || (   o->handles[i]->type == HANDLE_NON_MOVABLE /* always together? */
+                  && o->handles[i]->connect_type == HANDLE_NONCONNECTABLE));
+  }
+
   /* handles now found */
   g_assert (NULL == h1 && NULL == h2);
 
-  for (i = 0; i < o->num_connections; ++i)
-    {
-      g_assert (o->connections[i] != NULL);
-      g_assert (o->connections[i]->object == o); /* owner set? */
-      g_assert ((o->connections[i]->directions & ~DIR_ALL) == 0); /* known directions */
-      g_assert ((o->connections[i]->flags & ~CP_FLAGS_MAIN) == 0); /* known flags */
-    }
+  for (int i = 0; i < o->num_connections; ++i) {
+    g_assert (o->connections[i] != NULL);
+    g_assert (o->connections[i]->object == o); /* owner set? */
+    g_assert ((o->connections[i]->directions & ~DIR_ALL) == 0); /* known directions */
+    g_assert ((o->connections[i]->flags & ~CP_FLAGS_MAIN) == 0); /* known flags */
+  }
 
   /* finally */
   o->ops->destroy (o);
   g_clear_pointer (&o, g_free);
 }
+
 
 static void
 _test_copy (gconstpointer user_data)
@@ -146,7 +163,7 @@ _test_copy (gconstpointer user_data)
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {0, 0};
   DiaObject *oc, *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
-  DiaRectangle bbox1, bbox2;
+  graphene_rect_t bbox1, bbox2;
   Point to;
   int i;
 
@@ -154,18 +171,17 @@ _test_copy (gconstpointer user_data)
 
   /* does the object move ... ? */
   from = o->position;
-  bbox1 = o->bounding_box;
+  dia_object_get_bounding_box (o, &bbox1);
   oc = o->ops->copy (o);
 
   g_assert (oc != NULL && oc->type == o->type && oc->ops == o->ops);
 
   to = o->position;
-  bbox2 = o->bounding_box;
+  dia_object_get_bounding_box (o, &bbox2);
 
   /* ... it should not */
   g_assert (fabs(from.x - to.x) < EPSILON && fabs(from.y - to.y) < EPSILON);
-  g_assert (   fabs((bbox2.right - bbox2.left) - (bbox1.right - bbox1.left)) < EPSILON
-            && fabs((bbox2.bottom - bbox2.top) - (bbox1.bottom - bbox1.top)) < EPSILON);
+  g_assert_true (graphene_rect_equal (&bbox1, &bbox2));
 
   /* is copying producing dangling pointers ? */
   g_assert (o->num_handles == oc->num_handles);
@@ -198,11 +214,10 @@ _test_movement (gconstpointer user_data)
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {5, 5};
   DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
-  DiaRectangle bbox1, bbox2;
+  graphene_rect_t bbox1, bbox2;
   Point to = {10, 10};
   DiaObjectChange *change;
   Point pos;
-  real epsilon;
   Point *handle_positions;
   Point *cp_positions;
   guint i;
@@ -216,69 +231,77 @@ _test_movement (gconstpointer user_data)
 
   /* does the object move ... ? */
   from = o->position;
-  bbox1 = o->bounding_box;
+  dia_object_get_bounding_box (o, &bbox1);
+
   /* ... not (= hack used to force an update call) */
   change = dia_object_move (o, &o->position);
   g_clear_pointer (&change, dia_object_change_unref);
-  g_assert (num_connections == o->num_connections);
-  bbox2 = o->bounding_box;
-  if (   strcmp (type->name, "Cybernetics - b-sens") == 0
-      || strcmp (type->name, "Cybernetics - l-sens") == 0
-      || strcmp (type->name, "Cybernetics - r-sens") == 0
-      || strcmp (type->name, "Cybernetics - t-sens") == 0
-      ) /* not nice, but also not a reason to fail */
-    epsilon = 0.5 + EPSILON;
-  else
-    epsilon = EPSILON;
 
-  g_assert_cmpfloat (fabs(fabs(bbox2.right - bbox2.left) - fabs(bbox1.right - bbox1.left)), <, epsilon);
-  g_assert_cmpfloat (fabs(fabs(bbox2.bottom - bbox2.top) - fabs(bbox1.bottom - bbox1.top)), <, epsilon);
+  g_assert (num_connections == o->num_connections);
+  dia_object_get_bounding_box (o, &bbox2);
+
+  g_assert_true (graphene_rect_equal (&bbox1, &bbox2));
+
   /* .... really: without changing size ? */
   pos = o->position;
-  bbox1 = o->bounding_box;
+  dia_object_get_bounding_box (o, &bbox1);
+
   /* remember handle and connection point positions ... */
   handle_positions = g_alloca (sizeof(Point) * num_handles);
   /* at least one handle is mandatory */
   g_assert (num_handles > 0);
-  for (i = 0; i < num_handles; ++i)
+
+  for (i = 0; i < num_handles; ++i) {
     handle_positions[i] = o->handles[i]->pos;
-  cp_positions = g_alloca (sizeof(Point) * o->num_connections);
-  for (i = 0; i < num_connections; ++i)
+  }
+
+  cp_positions = g_alloca (sizeof (Point) * o->num_connections);
+
+  for (i = 0; i < num_connections; ++i) {
     cp_positions[i] = o->connections[i]->pos;
+  }
 
   change = dia_object_move (o, &to);
   g_clear_pointer (&change, dia_object_change_unref);
-  g_assert (num_connections == o->num_connections);
-  /* does the position reflect the move? */
-  g_assert_cmpfloat (fabs(fabs(pos.x - o->position.x) - fabs(from.x - to.x)), <, EPSILON);
-  g_assert_cmpfloat (fabs(fabs(pos.y - o->position.y) - fabs(from.y - to.y)), <, EPSILON);
-  /* ... also for handles and connection points? */
-  for (i = 0; i < num_handles; ++i)
-    {
-      g_assert_cmpfloat (fabs(fabs(handle_positions[i].x - o->handles[i]->pos.x) - fabs(from.x - to.x)), <, EPSILON);
-      g_assert_cmpfloat (fabs(fabs(handle_positions[i].y - o->handles[i]->pos.y) - fabs(from.y - to.y)), <, EPSILON);
-    }
-  for (i = 0; i < num_connections; ++i)
-    {
-      g_assert_cmpfloat (fabs(fabs(cp_positions[i].x - o->connections[i]->pos.x) - fabs(from.x - to.x)), <, EPSILON);
-      g_assert_cmpfloat (fabs(fabs(cp_positions[i].y - o->connections[i]->pos.y) - fabs(from.y - to.y)), <, EPSILON);
-    }
 
-  bbox2 = o->bounding_box;
+  g_assert (num_connections == o->num_connections);
+
+  /* does the position reflect the move? */
+  g_assert_cmpfloat (fabs (fabs (pos.x - o->position.x) - fabs (from.x - to.x)), <, EPSILON);
+  g_assert_cmpfloat (fabs (fabs (pos.y - o->position.y) - fabs (from.y - to.y)), <, EPSILON);
+
+  /* ... also for handles and connection points? */
+  for (i = 0; i < num_handles; ++i) {
+    g_assert_cmpfloat (fabs (fabs (handle_positions[i].x - o->handles[i]->pos.x) - fabs (from.x - to.x)), <, EPSILON);
+    g_assert_cmpfloat (fabs (fabs (handle_positions[i].y - o->handles[i]->pos.y) - fabs (from.y - to.y)), <, EPSILON);
+  }
+
+  for (i = 0; i < num_connections; ++i) {
+    g_assert_cmpfloat (fabs (fabs (cp_positions[i].x - o->connections[i]->pos.x) - fabs (from.x - to.x)), <, EPSILON);
+    g_assert_cmpfloat (fabs (fabs (cp_positions[i].y - o->connections[i]->pos.y) - fabs (from.y - to.y)), <, EPSILON);
+  }
+
+  dia_object_get_bounding_box (o, &bbox2);
+
   /* test fails e.g. for 'Cisco - Web cluster' probably due to bezier-bbox-issues: bug 568115 */
   if (/* FIXME: this shape should be simple enough to actually fix the bug */
          strcmp (type->name, "Assorted - Heart") == 0 /* height off 0.05 */
-      || strstr (type->name, "Bugs -") == type->name)
+      || strstr (type->name, "Bugs -") == type->name) {
     g_test_message ("SKIPPED %s! ", type->name);
-  else
-    {
-      g_assert_cmpfloat (fabs((bbox2.right - bbox2.left) - fabs(bbox1.right - bbox1.left)), <, EPSILON);
-      g_assert_cmpfloat (fabs((bbox2.bottom - bbox2.top) - fabs(bbox1.bottom - bbox1.top)), <, EPSILON);
-    }
+  } else {
+    g_assert_cmpfloat_with_epsilon (bbox1.size.width,
+                                    bbox2.size.width,
+                                    EPSILON);
+    g_assert_cmpfloat_with_epsilon (bbox1.size.height,
+                                    bbox2.size.height,
+                                    EPSILON);
+  }
+
   /* finally */
   o->ops->destroy (o);
   g_clear_pointer (&o, g_free);
 }
+
 
 static void
 _test_change (gconstpointer user_data)
@@ -310,6 +333,8 @@ _test_change (gconstpointer user_data)
   o->ops->destroy (o);
   g_clear_pointer (&o, g_free);
 }
+
+
 static void
 _test_move_handle (gconstpointer user_data)
 {
@@ -376,7 +401,10 @@ _test_move_handle (gconstpointer user_data)
   /* second move */
   if (h2) {
     Point to = h2->pos;
-    DiaRectangle bb_org = o->bounding_box;
+    graphene_rect_t bb_org;
+
+    dia_object_get_bounding_box (o, &bb_org);
+
     from = to;
     to.x += 1.0; to.y += 1.0;
     if (cp) {
@@ -406,10 +434,20 @@ _test_move_handle (gconstpointer user_data)
         || strcmp (type->name, "Standard - Outline") == 0) {
       g_test_message ("No restore by '%s'::move_handle", type->name);
     } else {
-      g_assert_cmpfloat (fabs(o->bounding_box.top - bb_org.top), <, EPSILON);
-      g_assert_cmpfloat (fabs(o->bounding_box.left - bb_org.left), <, EPSILON);
-      g_assert_cmpfloat (fabs(o->bounding_box.right - bb_org.right), <, EPSILON);
-      g_assert_cmpfloat (fabs(o->bounding_box.bottom - bb_org.bottom), <, EPSILON);
+      graphene_rect_t bbox;
+
+      dia_object_get_bounding_box (o, &bbox);
+
+      /* Hmm, shouldn't these be more exact? */
+      g_assert_true (graphene_point_near (&bb_org.origin,
+                                          &bbox.origin,
+                                          EPSILON));
+      g_assert_cmpfloat_with_epsilon (bb_org.size.width,
+                                      bbox.size.width,
+                                      EPSILON);
+      g_assert_cmpfloat_with_epsilon (bb_org.size.height,
+                                      bbox.size.height,
+                                      EPSILON);
     }
     h2 = NULL;
   }
@@ -435,32 +473,44 @@ _test_connectionpoint_consistency (gconstpointer user_data)
   int i;
   gboolean any_dir_set = FALSE;
   ConnectionPoint *cp_prev = NULL;
+  graphene_rect_t bbox;
+  graphene_point_t point;
 
   change = dia_object_set_string (o, NULL, "Test me!");
   g_clear_pointer (&change, dia_object_change_unref);
 
   for (i = 0; i < o->num_connections; ++i) {
     ConnectionPoint *cp = o->connections[i];
-    if (cp->directions != DIR_NONE)
+
+    if (cp->directions != DIR_NONE) {
       any_dir_set = TRUE;
+    }
   }
+
   if (!any_dir_set) {
     /* should be connection */
     int start_end = 0; /* counter */
+
     for (i = 0; i < o->num_handles; ++i) {
       Handle *h = o->handles[i];
-      if (h->id == HANDLE_MOVE_STARTPOINT || h->id == HANDLE_MOVE_ENDPOINT)
+
+      if (h->id == HANDLE_MOVE_STARTPOINT || h->id == HANDLE_MOVE_ENDPOINT) {
         ++start_end;
+      }
     }
+
     if (start_end < 2 && o->num_connections > 0) {
       g_printerr ("'%s' with no directions\n", type->name);
     }
+
     return;
   }
 
   pos = o->position;
-  center.x = (o->bounding_box.right + o->bounding_box.left) / 2;
-  center.y = (o->bounding_box.bottom + o->bounding_box.top) / 2;
+
+  dia_object_get_bounding_box (o, &bbox);
+  graphene_rect_get_center (&bbox, &point);
+  dia_graphene_to_point (&point, &center);
 
   for (i = 0; i < o->num_connections; ++i) {
     ConnectionPoint *cp = o->connections[i];
@@ -499,72 +549,78 @@ _test_connectionpoint_consistency (gconstpointer user_data)
         g_assert (o->ops->distance_from (o, &cp->pos) == 0 && "within");
       continue;
     }
+
     if (   strcmp (type->name, "chronogram - reference") == 0
         || strcmp (type->name, "BPMN - Data-Object") == 0
         || strcmp (type->name, "Optics - Scope") == 0
         || strcmp (type->name, "Optics - Spectrum") == 0
         || strcmp (type->name, "GRAFCET - Transition") == 0
         || strcmp (type->name, "Standard - Polygon") == 0
-        || strcmp (type->name, "GRAFCET - Action") == 0)
+        || strcmp (type->name, "GRAFCET - Action") == 0) {
       continue; /* undecided */
+    }
+
     /* Some things which should not be set */
-    if (cp->pos.x > center.x)
-      g_assert ((cp->directions & DIR_WEST) == 0);
-    else if (cp->pos.x < center.x)
-      g_assert ((cp->directions & DIR_EAST) == 0);
-    if (cp->pos.y > center.y)
-      g_assert ((cp->directions & DIR_NORTH) == 0);
-    else if (cp->pos.y < center.y)
-      g_assert ((cp->directions & DIR_SOUTH) == 0);
+    if (cp->pos.x > center.x) {
+      g_assert_cmpint (cp->directions & DIR_WEST, ==, 0);
+    } else if (cp->pos.x < center.x) {
+      g_assert_cmpint (cp->directions & DIR_EAST, ==, 0);
+    }
+
+    if (cp->pos.y > center.y) {
+      g_assert_cmpint (cp->directions & DIR_NORTH, ==, 0);
+    } else if (cp->pos.y < center.y) {
+      g_assert_cmpint (cp->directions & DIR_SOUTH, ==, 0);
+    }
   }
 
-  if (o->num_connections > 1)
+  if (o->num_connections > 1) {
     cp_prev = o->connections[o->num_connections-1];
+  }
+
   for (i = 0; i < o->num_connections; ++i) {
     ConnectionPoint *cp = o->connections[i];
+
     if (cp_prev) {
       /* if the previous cp had the same coordinate x or y it should have the same direction */
-      if (   strcmp (type->name, "GRAFCET - Vergent") == 0
-	  || strcmp (type->name, "Standard - Polygon") == 0)
-	continue; /* not a hard requirement */
+      if (   g_strcmp0 (type->name, "GRAFCET - Vergent") == 0
+          || g_strcmp0 (type->name, "Standard - Polygon") == 0) {
+        continue; /* not a hard requirement */
+      }
+
       /* not with main point which usually has DIR_ALL */
       if (cp_prev->directions != DIR_ALL && cp->directions != DIR_ALL) {
-	if (cp_prev->pos.x == cp->pos.x)
-	  g_assert_cmpint ((cp_prev->directions & (DIR_WEST|DIR_EAST)), ==, (cp->directions & (DIR_WEST|DIR_EAST)));
-	if (cp_prev->pos.y == cp->pos.y)
-	  g_assert_cmpint ((cp_prev->directions & (DIR_NORTH|DIR_SOUTH)), ==, (cp->directions & (DIR_NORTH|DIR_SOUTH)));
+        if (cp_prev->pos.x == cp->pos.x) {
+          g_assert_cmpint ((cp_prev->directions & (DIR_WEST | DIR_EAST)),
+                           ==,
+                           (cp->directions & (DIR_WEST | DIR_EAST)));
+        }
+
+        if (cp_prev->pos.y == cp->pos.y) {
+          g_assert_cmpint ((cp_prev->directions & (DIR_NORTH | DIR_SOUTH)),
+                           ==,
+                           (cp->directions & (DIR_NORTH | DIR_SOUTH)));
+        }
       }
       cp_prev = cp;
     }
   }
+
   /* every connection point should be in bounds of the object */
   for (i = 0; i < o->num_connections; ++i) {
     ConnectionPoint *cp = o->connections[i];
+    DiaRectangle rect;
+
+    dia_object_get_bounding_box (o, &bbox);
+    dia_graphene_to_rectangle (&bbox, &rect);
+
 #if 1
-    if (   strcmp (type->name, "Racks - Label Anchors 42U") == 0
-        || strcmp (type->name, "Civil - Horizontal Rest") == 0
-        || strcmp (type->name, "Cisco - Data Center Switch") == 0
-        || strcmp (type->name, "Civil - Bivalent Vertical Rest") == 0
-        || strcmp (type->name, "Cisco - VIP") == 0
-        || strcmp (type->name, "Building Site - Proportioning Batcher") == 0
-        || strcmp (type->name, "Civil - Gas Bottle") == 0
-        || strcmp (type->name, "Civil - Water Level") == 0
-        || strcmp (type->name, "UML - Classicon") == 0
-        || strcmp (type->name, "scene graph - field") == 0
-        || strcmp (type->name, "Cisco - Telecommuter") == 0
-        || strcmp (type->name, "Civil - Vertical Rest") == 0
-        || strcmp (type->name, "Cisco - PC Adapter Card") == 0
-        || strcmp (type->name, "Civil - Reference Line") == 0
-        || strcmp (type->name, "Cisco - Dot-Dot") == 0
-        || strcmp (type->name, "Cisco - WLAN controller") == 0
-        || strstr (type->name, "Bugs -") == type->name)
-      break; /* kind of wasteful to check for every connection */
-    g_assert (   o->ops->distance_from (o, &cp->pos) < 0.01
-              || distance_rectangle_point (&o->bounding_box, &cp->pos) < 0.01);
+    g_assert_true (   o->ops->distance_from (o, &cp->pos) < 0.01
+                   || distance_rectangle_point (&rect, &cp->pos) < 0.01);
 #else
     /* generate exception list - after all it is legal to have CPs out of bounds */
     if (   o->ops->distance_from (o, &cp->pos) >= 0.01
-        && distance_rectangle_point (&o->bounding_box, &cp->pos) >= 0.01) {
+        && distance_rectangle_point (&rect, &cp->pos) >= 0.01) {
       g_print ("        || strcmp (type->name, \"%s\") == 0\n", type->name);
       break;
     }
@@ -574,6 +630,8 @@ _test_connectionpoint_consistency (gconstpointer user_data)
   o->ops->destroy (o);
   g_clear_pointer (&o, g_free);
 }
+
+
 static void
 _test_object_menu (gconstpointer user_data)
 {
@@ -610,7 +668,7 @@ _test_object_menu (gconstpointer user_data)
         DiaObjectChange *change;
 
         /* g_test_message() does not show normally */
-        g_test_message ("\n\tCalling '%s'...", item->text);
+        g_test_message ("Calling '%s'...", item->text);
         change = (item->callback) (o, &from, item->callback_data);
         if (!change) {
           g_test_message ("Undo/redo missing: %s\n", item->text);
@@ -654,19 +712,19 @@ _test_draw (gconstpointer user_data)
   DiaObject *p;
 
   p = create_standard_path_from_object (o);
-  if (p) /* play safe, maybe it can not be converted? */
-    {
-      const DiaRectangle *obb = dia_object_get_bounding_box (o);
-      const DiaRectangle *pbb = dia_object_get_bounding_box (p);
-      real epsilon = 0.2; /* XXX: smaller value needs longer exception list */
+  if (p) {
+    /* play safe, maybe it can not be converted? */
+    graphene_rect_t obb, pbb;
 
-      /* Bounding boxes of these objects should be close, if not
-       * this could be either some miscalculation within the object
-       * implementation (update_data?) or some more generic problem
-       * with DiaPathRenderer
-       */
-      if (!rectangle_in_rectangle (obb, pbb))
-	{
+    dia_object_get_bounding_box (o, &obb);
+    dia_object_get_bounding_box (p, &pbb);
+
+    /* Bounding boxes of these objects should be close, if not
+     * this could be either some miscalculation within the object
+     * implementation (update_data?) or some more generic problem
+     * with DiaPathRenderer
+     */
+    if (!graphene_rect_contains_rect (&obb, &pbb)) {
 #if 0
 	  /* Generate exceptions list below with ./test-objects -q */
 	  real ov = MAX(fabs (obb->top - pbb->top), fabs (obb->left - pbb->left));
@@ -676,141 +734,53 @@ _test_draw (gconstpointer user_data)
 	    g_print ("\t  else if (strcmp (type->name, \"%s\") == 0)\n"
 		     "\t    epsilon = %.2g;\n", type->name, ov + 0.01);
 #else
-	  /* drawing _outside_ of objects's bounding box */
-	  if (strcmp (type->name, "T-Junction") == 0)
-	    epsilon = 0.2;
-	  else if (strcmp (type->name, "Cisco - Edge Label Switch Router with NetFlow") == 0)
-	    epsilon = 0.22;
-	  else if (strcmp (type->name, "Cisco - SSL Terminator") == 0)
-	    epsilon = 0.23;
-	  else if (strcmp (type->name, "Cisco - VPN concentrator") == 0)
-	    epsilon = 0.24;
-	  else if (strcmp (type->name, "Cisco - End Office") == 0)
-	    epsilon = 0.24;
-	  else if (strcmp (type->name, "Cisco - Printer") == 0)
-	    epsilon = 0.26;
-	  else if (strcmp (type->name, "Circuit - Vertical Resistor") == 0)
-	    epsilon = 0.26; /* win32: pass */
-	  else if (strcmp (type->name, "Circuit - Horizontal Resistor") == 0)
-	    epsilon = 0.26; /* win32: pass */
-	  else if (strcmp (type->name, "Cisco - Location server") == 0)
-	    epsilon = 0.27; /* win32: pass */
-	  else if (strcmp (type->name, "Cisco - System controller") == 0)
-	    epsilon = 0.27; /* win32: pass */
-	  else if (strcmp (type->name, "Cisco - Pager") == 0)
-	    epsilon = 0.28;
-	  else if (strcmp (type->name, "Cisco - IAD router") == 0)
-	    epsilon = 0.28;
-	  else if (strcmp (type->name, "Cisco - Newton") == 0)
-	    epsilon = 0.28;
-	  else if (strcmp (type->name, "Cisco - Truck") == 0)
-	    epsilon = 0.29;
-	  else if (strcmp (type->name, "ER - Relationship") == 0)
-	    epsilon = 0.29;
-	  else if (strcmp (type->name, "Network - Base Station") == 0)
-	    epsilon = 0.31; /* win32: pass */
-	  else if (strcmp (type->name, "Cisco - Protocol Translator") == 0)
-	    epsilon = 0.66; /* win32: 0.30 */
-	  else if (strcmp (type->name, "Cisco - Cellular phone") == 0)
-	    epsilon = 0.32; /* win32: pass */
-	  else if (strcmp (type->name, "UML - Constraint") == 0)
-	    epsilon = 0.33; /* win32: pass */
-	  else if (strcmp (type->name, "UML - Message") == 0)
-	    epsilon = 0.50; /* win32: 0.39 */
-	  else if (strcmp (type->name, "Cisco - ICM") == 0)
-	    epsilon = 0.34;
-	  else if (strcmp (type->name, "Cisco - Access Gateway") == 0)
-	    epsilon = 0.39; /* win32: pass */
-	  else if (strcmp (type->name, "chemeng - SaT-floatinghead") == 0)
-	    epsilon = 0.40;
-	  else if (strcmp (type->name, "chemeng - kettle") == 0)
-	    epsilon = 0.42;
-	  else if (strcmp (type->name, "Cisco - NetRanger") == 0)
-	    epsilon = 0.42; /* win32: pass */
-	  else if (strcmp (type->name, "Cisco - Mac Woman") == 0)
-	    epsilon = 0.47; /* win32: 0.43 */
-	  else if (strcmp (type->name, "Pneum - press") == 0)
-	    epsilon = 0.45; /* win32: 0.44 */
-	  else if (strcmp (type->name, "Pneum - presspn") == 0)
-	    epsilon = 0.44;
-	  else if (strcmp (type->name, "Pneum - presshy") == 0)
-	    epsilon = 0.44;
-	  else if (strcmp (type->name, "Cisco - Optical Transport") == 0)
-	    epsilon = 0.48; /* win32: 0.47 */
-	  else if (strcmp (type->name, "Jackson - phenomenon") == 0)
-	    epsilon = 0.51; /* osx: 0.39 */
-	  else if (strcmp (type->name, "Cisco - Speaker") == 0)
-	    epsilon = 0.58; /* win32: 0.57 */
-	  else if (strcmp (type->name, "Cisco - 6705") == 0)
-	    epsilon = 0.64;
-	  else if (strcmp (type->name, "KAOS - mbr") == 0)
-	    epsilon = 0.70; /* win32: 0.69 */
-	  else if (strcmp (type->name, "FS - Flow") == 0)
-	    epsilon = 0.73; /* osx: 0.58 */
-	  else if (strcmp (type->name, "SADT - arrow") == 0)
-	    epsilon = 0.75; /* win32: 0.74 */
-	  else if (strcmp (type->name, "Network - WAN Connection") == 0)
-	    epsilon = 0.86;
-	  else if (strcmp (type->name, "Network - General Printer") == 0)
-	    epsilon = 0.92;
-	  else if (strcmp (type->name, "UML - Constraint") == 0)
-	    epsilon = 1.1;
-	  else if (strcmp (type->name, "Pneum - SEIJack") == 0)
-	    epsilon = 1.1;
-	  else if (strcmp (type->name, "Pneum - SEOJack") == 0)
-	    epsilon = 1.1;
-	  else if (strcmp (type->name, "Pneum - DEJack") == 0)
-	    epsilon = 1.1; /* osx: 0.9 */
-	  else if (strcmp (type->name, "SDL - Comment") == 0)
-	    epsilon = 3.5; /* osx: 3.1 */
-
-	  g_assert_cmpfloat (fabs (obb->top - pbb->top), <, epsilon);
-	  g_assert_cmpfloat (fabs (obb->left - pbb->left), <, epsilon);
-	  g_assert_cmpfloat (fabs (obb->right - pbb->right), <, epsilon);
-	  g_assert_cmpfloat (fabs (obb->bottom - pbb->bottom), <, epsilon);
+      graphene_rect_equal (&obb, &pbb);
 #endif
-	}
-      /* destroy path object */
-      p->ops->destroy (p);
-      g_clear_pointer (&p, g_free);
     }
-  else
-    {
-      g_test_message ("SKIPPED (no path from %s)! ", type->name);
-    }
+    /* destroy path object */
+    p->ops->destroy (p);
+    g_clear_pointer (&p, g_free);
+  } else {
+    g_test_message ("SKIPPED (no path from %s)! ", type->name);
+  }
+
   /* finally */
   o->ops->destroy (o);
   g_clear_pointer (&o, g_free);
 }
 
+
 static void
 _test_distance_from (gconstpointer user_data)
 {
-  const DiaObjectType *type = (const DiaObjectType *)user_data;
+  const DiaObjectType *type = (const DiaObjectType *) user_data;
   Handle *h1 = NULL, *h2 = NULL;
   Point from = {0, 0};
   DiaObject *o = type->ops->create (&from, type->default_user_data, &h1, &h2);
-  const DiaRectangle *ebox;
-  Point center;
-  real width, height;
+  graphene_rect_t ebox;
+  graphene_point_t center;
+  double width, height;
   Point test;
-  real outside = 0.01; /* tolerance value for being outside */
+  double outside = 0.01; /* tolerance value for being outside */
 
   /* This shall work for all objects so it does not check for full correctness,
    * but is currently tolerant enough for element and connection objects.
    * If it fails either the bounding calculation is bogus or distance_from method.
    */
+
   /* Outside of the enclosing (bounding) box can not be inside the object */
-  ebox = dia_object_get_enclosing_box (o);
-  center.x = (ebox->left + ebox->right) / 2;
-  center.y = (ebox->top + ebox->bottom) / 2;
-  width = ebox->right - ebox->left;
-  height = ebox->bottom - ebox->top;
+  dia_object_get_enclosing_box (o, &ebox);
+
+  graphene_rect_get_center (&ebox, &center);
+
+  width = graphene_rect_get_width (&ebox);
+  height = graphene_rect_get_height (&ebox);
 
   /* Some custom objects still fail this check otherwise */
   if (   strcmp (type->name, "Civil - Gas Bottle") == 0
-      || strcmp (type->name, "Cybernetics - l-sens") == 0)
+      || strcmp (type->name, "Cybernetics - l-sens") == 0) {
     outside += 0.1;
+  }
 
   test.y = center.y;
   test.x = center.x - width/2 - outside;

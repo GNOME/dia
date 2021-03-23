@@ -42,6 +42,8 @@
 #include "attributes.h"
 #include "widgets.h"
 #include "intl.h"
+#include "dia-graphene.h"
+
 
 /**
  * SECTION:arrows
@@ -135,13 +137,14 @@ calculate_arrow_point (const Arrow *arrow,
                        const Point *from,
                        Point       *move_arrow,
                        Point       *move_line,
-                       real         linewidth)
+                       double       linewidth)
 {
-  real add_len;
-  real angle;
+  double add_len;
+  double angle;
   Point tmp;
-  real dist;
+  double dist;
   ArrowType arrow_type = arrow->type;
+
   /* Otherwise line is drawn through arrow
    * head for some hollow arrow heads
    * */
@@ -162,6 +165,7 @@ calculate_arrow_point (const Arrow *arrow,
   /* default to non-moving arrow */
   move_arrow->x = 0.0;
   move_arrow->y = 0.0;
+
   /* First, we move the arrow head backwards.
    * This in most cases just accounts for the linewidth of the arrow.
    * In pointy arrows, this means we must look at the angle of the
@@ -197,7 +201,7 @@ calculate_arrow_point (const Arrow *arrow,
       if (arrow->width < 0.0000001) return;
       angle = atan (arrow->length/(arrow->width/2));
       if (angle < 60*2*G_PI/360.0) {
-        add_len = linewidth/cos (angle);
+        add_len = linewidth / cos (angle);
       } else {
         add_len = 0;
       }
@@ -216,7 +220,7 @@ calculate_arrow_point (const Arrow *arrow,
     case ARROW_DIMENSION_ORIGIN:
     case ARROW_BLANKED_DOT:
     case ARROW_BLANKED_BOX:
-      add_len = .5*linewidth;
+      add_len = .5 * linewidth;
 
       /* don't move arrow if it would change direction */
       if (fabs (add_len) < dist) {
@@ -341,10 +345,11 @@ calculate_arrow_point (const Arrow *arrow,
       point_sub (move_line, from);
       add_len = point_len (move_line);
       point_normalize (move_line);
-      if (add_len > 4*arrow->length)
-        point_scale (move_line, 2*arrow->length);
-      else
+      if (add_len > (4 * arrow->length)) {
+        point_scale (move_line, 2 * arrow->length);
+      } else {
         point_scale (move_line, arrow->length);
+      }
       return;
     case ARROW_SLASH_ARROW:
     case ARROW_INTEGRAL_SYMBOL:
@@ -371,6 +376,7 @@ calculate_arrow_point (const Arrow *arrow,
       return;
   }
 }
+
 
 /**
  * calculate_arrow:
@@ -2316,6 +2322,7 @@ struct ArrowDesc {
   {NULL,0}
 };
 
+
 /**
  * arrow_bbox:
  * @self: the arrow
@@ -2328,11 +2335,11 @@ struct ArrowDesc {
  * the arrow bounding box is added to the given rect
  */
 void
-arrow_bbox (const Arrow  *self,
-            real          line_width,
-            const Point  *to,
-            const Point  *from,
-            DiaRectangle *rect)
+arrow_bbox (const Arrow     *self,
+            double           line_width,
+            const Point     *to,
+            const Point     *from,
+            graphene_rect_t *rect)
 {
   Point poly[6]; /* Attention: nust be the maximum used! */
   PolyBBExtras pextra;
@@ -2357,6 +2364,7 @@ arrow_bbox (const Arrow  *self,
 
   polyline_bbox (poly, n_points, &pextra, TRUE, rect);
 }
+
 
 /**
  * arrow_draw:
@@ -2457,16 +2465,17 @@ arrow_draw (DiaRenderer *renderer,
   }
   if ((type != ARROW_NONE) && (render_bounding_boxes ()) && DIA_IS_INTERACTIVE_RENDERER (renderer)) {
     Arrow arrow = {type, length, width};
-    DiaRectangle bbox = {0, };
     Point p1, p2;
     Color col = { 1.0, 0.0, 1.0, 1.0 };
+    graphene_rect_t bbox;
+    graphene_point_t tl, br;
 
     arrow_bbox (&arrow, linewidth, to, from, &bbox);
 
-    p1.x = bbox.left;
-    p1.y = bbox.top;
-    p2.x = bbox.right;
-    p2.y = bbox.bottom;
+    graphene_rect_get_top_left (&bbox, &tl);
+    dia_graphene_to_point (&tl, &p1);
+    graphene_rect_get_bottom_right (&bbox, &br);
+    dia_graphene_to_point (&br, &p2);
 
     dia_renderer_set_linewidth (renderer,0.01);
     dia_renderer_draw_rect (renderer, &p1, &p2, NULL, &col);

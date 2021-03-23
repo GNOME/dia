@@ -34,7 +34,7 @@
 #include "properties.h"
 #include "geometry.h"
 #include "text.h"
-
+#include "dia-graphene.h"
 #include "grafcet.h"
 #include "boolequation.h"
 
@@ -264,13 +264,25 @@ transition_update_data (Transition *transition)
 
   element_update_boundingbox (elem);
 
-  rectangle_add_point (&obj->bounding_box,&transition->north.pos);
-  rectangle_add_point (&obj->bounding_box,&transition->south.pos);
+  {
+    graphene_rect_t bbox, rect;
+    graphene_point_t pt;
 
-  /* compute the rcept's width and bounding box, then merge. */
-  boolequation_calc_boundingbox (transition->receptivity,
-                                 &transition->rceptbb);
-  rectangle_union (&obj->bounding_box, &transition->rceptbb);
+    dia_object_get_bounding_box (obj, &bbox);
+
+    dia_point_to_graphene (&transition->north.pos, &pt);
+    graphene_rect_expand (&bbox, &pt, &bbox);
+    dia_point_to_graphene (&transition->south.pos, &pt);
+    graphene_rect_expand (&bbox, &pt, &bbox);
+
+    /* compute the rcept's width and bounding box, then merge. */
+    boolequation_calc_boundingbox (transition->receptivity,
+                                   &transition->rceptbb);
+    dia_rectangle_to_graphene (&transition->rceptbb, &rect);
+    graphene_rect_union (&bbox, &rect, &bbox);
+
+    dia_object_set_bounding_box (obj, &bbox);
+  }
 
   element_update_handles (elem);
 }

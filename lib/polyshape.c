@@ -27,6 +27,8 @@
 #include "polyshape.h"
 #include "message.h"
 #include "diarenderer.h"
+#include "dia-graphene.h"
+
 
 #define NUM_CONNECTIONS(poly) ((poly)->numpoints * 2 + 1)
 
@@ -389,11 +391,13 @@ polyshape_update_data(PolyShape *poly)
   obj->connections[obj->num_connections-1]->directions = DIR_ALL;
 }
 
+
 void
-polyshape_update_boundingbox(PolyShape *poly)
+polyshape_update_boundingbox (PolyShape *poly)
 {
   ElementBBExtras *extra;
   PolyBBExtras pextra;
+  graphene_rect_t bbox;
 
   assert(poly != NULL);
 
@@ -402,11 +406,15 @@ polyshape_update_boundingbox(PolyShape *poly)
     pextra.start_long = pextra.end_long = 0;
   pextra.middle_trans = extra->border_trans;
 
-  polyline_bbox(&poly->points[0],
-                poly->numpoints,
-                &pextra, TRUE,
-                &poly->object.bounding_box);
+  polyline_bbox (&poly->points[0],
+                 poly->numpoints,
+                 &pextra,
+                 TRUE,
+                 &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (poly), &bbox);
 }
+
 
 void
 polyshape_init(PolyShape *poly, int num_points)

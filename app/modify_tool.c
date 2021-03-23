@@ -163,11 +163,12 @@ free_modify_tool (Tool *tool)
 
 
 static DiaObject *
-click_select_object(DDisplay *ddisp, Point *clickedpoint,
-		    GdkEventButton *event)
+click_select_object (DDisplay       *ddisp,
+                     Point          *clickedpoint,
+                     GdkEventButton *event)
 {
   Diagram *diagram;
-  real click_distance;
+  double click_distance;
   DiaObject *obj;
 
   diagram = ddisp->diagram;
@@ -425,7 +426,7 @@ modify_move_already(ModifyTool *tool, DDisplay *ddisp, Point *to)
 {
   static gboolean settings_taken = FALSE;
   static int double_click_time = 250;
-  real dist;
+  double dist;
 
   if (!settings_taken) {
     /* One could argue that if the settings were updated while running,
@@ -441,17 +442,22 @@ modify_move_already(ModifyTool *tool, DDisplay *ddisp, Point *to)
     }
     settings_taken = TRUE;
   }
+
   if (tool->start_time < time_micro()-double_click_time*1000) {
     return TRUE;
   }
+
   dist = distance_point_point_manhattan(&tool->start_at, to);
+
   if (ddisp->grid.snap) {
-    real grid_x = ddisp->diagram->grid.width_x;
-    real grid_y = ddisp->diagram->grid.width_y;
+    double grid_x = ddisp->diagram->grid.width_x;
+    double grid_y = ddisp->diagram->grid.width_y;
+
     if (dist > grid_x || dist > grid_y) {
       return TRUE;
     }
   }
+
   if (ddisplay_transform_length(ddisp, dist) > MIN_PIXELS) {
     return (ddisplay_transform_length(ddisp, dist) > MIN_PIXELS);
   } else {
@@ -547,15 +553,19 @@ modify_motion (ModifyTool     *tool,
 
     /* Put current mouse position in status bar */
     {
-      gchar *postext;
+      char *postext;
       GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->modified_status);
       guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
+      graphene_rect_t bbox;
+      graphene_point_t tl, br;
+
       gtk_statusbar_pop (statusbar, context_id);
-      postext = g_strdup_printf("%.3f, %.3f - %.3f, %.3f",
-			        tool->object->bounding_box.left,
-			        tool->object->bounding_box.top,
-			        tool->object->bounding_box.right,
-			        tool->object->bounding_box.bottom);
+
+      dia_object_get_bounding_box (tool->object, &bbox);
+      graphene_rect_get_top_left (&bbox, &tl);
+      graphene_rect_get_bottom_right (&bbox, &br);
+
+      postext = g_strdup_printf ("%.3f, %.3f - %.3f, %.3f", tl.x, tl.y, br.x, br.y);
 
       gtk_statusbar_pop (statusbar, context_id);
       gtk_statusbar_push (statusbar, context_id, postext);
@@ -631,14 +641,20 @@ modify_motion (ModifyTool     *tool,
 
     /* Put current mouse position in status bar */
     {
-      gchar *postext;
+      char *postext;
       GtkStatusbar *statusbar = GTK_STATUSBAR (ddisp->modified_status);
       guint context_id = gtk_statusbar_get_context_id (statusbar, "ObjectPos");
 
       if (tool->object) { /* play safe */
-        real w = tool->object->bounding_box.right - tool->object->bounding_box.left;
-        real h = tool->object->bounding_box.bottom - tool->object->bounding_box.top;
-        postext = g_strdup_printf("%.3f, %.3f (%.3fx%.3f)", to.x, to.y, w, h);
+        graphene_rect_t bbox;
+
+        dia_object_get_bounding_box (tool->object, &bbox);
+
+        postext = g_strdup_printf ("%.3f, %.3f (%.3fx%.3f)",
+                                   to.x,
+                                   to.y,
+                                   graphene_rect_get_width (&bbox),
+                                   graphene_rect_get_height (&bbox));
       } else {
         postext = g_strdup_printf("%.3f, %.3f", to.x, to.y);
       }

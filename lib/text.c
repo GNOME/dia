@@ -34,6 +34,7 @@
 #include "attributes.h"
 #include "object.h"
 #include "dia-object-change-list.h"
+#include "dia-graphene.h"
 
 
 static int text_key_event (Focus            *focus,
@@ -267,9 +268,9 @@ calc_width (Text *text)
 
 
 static void
-calc_ascent_descent(Text *text)
+calc_ascent_descent (Text *text)
 {
-  double sig_a = 0.0,sig_d = 0.0;
+  double sig_a = 0.0, sig_d = 0.0;
 
   for (int i = 0; i < text->numlines; i++) {
     sig_a += text_line_get_ascent (text->lines[i]);
@@ -376,12 +377,12 @@ new_text (const char *string,
 {
   Text *text;
 
-  text = g_new(Text, 1);
+  text = g_new0 (Text, 1);
 
-  text->font = g_object_ref (font);
+  g_set_object (&text->font, font);
   text->height = height;
 
-  text->position = *pos;
+  dia_point_to_graphene (pos, &text->position);
   text->color = *color;
   text->alignment = align;
 
@@ -430,13 +431,13 @@ text_copy (Text *text)
   Text *copy;
   int i;
 
-  copy = g_new(Text, 1);
+  copy = g_new0 (Text, 1);
   copy->numlines = text->numlines;
-  copy->lines = g_new(TextLine *, text->numlines);
+  copy->lines = g_new0 (TextLine *, text->numlines);
 
-  copy->font = dia_font_copy(text->font);
+  copy->font = dia_font_copy (text->font);
   copy->height = text->height;
-  copy->position = text->position;
+  graphene_point_init_from_point (&copy->position, &text->position);
   copy->color = text->color;
   copy->alignment = text->alignment;
 
@@ -507,10 +508,32 @@ text_set_font (Text *text, DiaFont *font)
 }
 
 
+/**
+ * dia_text_get_position:
+ * @text: the #Text
+ * @pos: (out caller-allocates): the position of @text
+ *
+ * Stability: Stable
+ *
+ * Since: 0.98
+ */
+void
+dia_text_get_position (Text *text, Point *pos)
+{
+  g_return_if_fail (text != NULL);
+  g_return_if_fail (pos != NULL);
+
+  dia_graphene_to_point (&text->position, pos);
+}
+
+
 void
 text_set_position (Text *text, Point *pos)
 {
-  text->position = *pos;
+  g_return_if_fail (text != NULL);
+  g_return_if_fail (pos != NULL);
+
+  dia_point_to_graphene (pos, &text->position);
 }
 
 
@@ -529,8 +552,10 @@ text_set_alignment (Text *text, Alignment align)
 
 
 void
-text_calc_boundingbox (Text *text, DiaRectangle *box)
+text_calc_boundingbox (Text *text, graphene_rect_t *box)
 {
+  double x = 0, y = 0, box_width = 0, box_height = 0;
+
   calc_width (text);
   calc_ascent_descent (text);
 
@@ -539,46 +564,50 @@ text_calc_boundingbox (Text *text, DiaRectangle *box)
                updated */
   }
 
-  box->left = text->position.x;
+  x = text->position.x;
 
   switch (text->alignment) {
     case ALIGN_LEFT:
       break;
     case ALIGN_CENTER:
-      box->left -= text->max_width / 2.0;
+      x -= text->max_width / 2.0;
       break;
     case ALIGN_RIGHT:
-      box->left -= text->max_width;
+      x -= text->max_width;
       break;
     default:
       g_return_if_reached ();
   }
 
-  box->right = box->left + text->max_width;
+  box_width = text->max_width;
 
-  box->top = text->position.y - text->ascent;
+  y = text->position.y - text->ascent;
 #if 0
   box->bottom = box->top + text->height*text->numlines + text->descent;
 #else
   /* why should we add one descent? isn't ascent+descent~=height? */
-  box->bottom = box->top + (text->ascent+text->descent+text->height*(text->numlines-1));
+  box_height = (text->ascent + text->descent + text->height * (text->numlines - 1));
 #endif
+
   if (text->focus.has_focus) {
     double height = text->ascent + text->descent;
+
     if (text->cursor_pos == 0) {
       /* Half the cursor width */
-      box->left -= height/(CURSOR_HEIGHT_RATIO*2);
+      x -= height / (CURSOR_HEIGHT_RATIO * 2);
     } else {
       /* Half the cursor width. Assume that
          if it isn't at position zero, it might be
          at the last position possible. */
-      box->right += height/(CURSOR_HEIGHT_RATIO*2);
+      box_width += height / (CURSOR_HEIGHT_RATIO * 2);
     }
 
     /* Account for the size of the cursor top and bottom */
-    box->top -= height/(CURSOR_HEIGHT_RATIO*2);
-    box->bottom += height/CURSOR_HEIGHT_RATIO;
+    y -= height / (CURSOR_HEIGHT_RATIO * 2);
+    box_height += height / CURSOR_HEIGHT_RATIO;
   }
+
+  graphene_rect_init (box, x, y, box_width, box_height);
 }
 
 
@@ -1225,22 +1254,33 @@ data_add_text (AttributeNode attr, Text *text, DiaContext *ctx)
   DataNode composite;
   char *str;
 
-  composite = data_add_composite(attr, "text", ctx);
+  composite = data_add_composite (attr, "text", ctx);
 
-  str = text_get_string_copy(text);
-  data_add_string(composite_add_attribute(composite, "string"),
-		  str, ctx);
+  str = text_get_string_copy (text);
+  data_add_string (composite_add_attribute (composite, "string"),
+                   str, ctx);
   g_clear_pointer (&str, g_free);
-  data_add_font(composite_add_attribute(composite, "font"),
-		text->font, ctx);
-  data_add_real(composite_add_attribute(composite, "height"),
-		text->height, ctx);
-  data_add_point(composite_add_attribute(composite, "pos"),
-		 &text->position, ctx);
-  data_add_color(composite_add_attribute(composite, "color"),
-		 &text->color, ctx);
-  data_add_enum(composite_add_attribute(composite, "alignment"),
-		text->alignment, ctx);
+
+  data_add_font (composite_add_attribute (composite, "font"),
+                 text->font,
+                 ctx);
+  data_add_real (composite_add_attribute (composite, "height"),
+                 text->height,
+                 ctx);
+
+  {
+    Point pos;
+
+    dia_text_get_position (text, &pos);
+    data_add_point (composite_add_attribute (composite, "pos"), &pos, ctx);
+  }
+
+  data_add_color (composite_add_attribute (composite, "color"),
+                  &text->color,
+                  ctx);
+  data_add_enum (composite_add_attribute (composite, "alignment"),
+                 text->alignment,
+                 ctx);
 }
 
 
@@ -1306,7 +1346,7 @@ text_get_attributes (Text *text, TextAttributes *attr)
   attr->font = g_object_ref (text->font);
   g_clear_object (&old_font);
   attr->height = text->height;
-  attr->position = text->position;
+  dia_graphene_to_point (&text->position, &attr->position);
   attr->color = text->color;
   attr->alignment = text->alignment;
 }
@@ -1319,7 +1359,7 @@ text_set_attributes (Text *text, TextAttributes *attr)
     text_set_font (text, attr->font);
   }
   text_set_height (text, attr->height);
-  text->position = attr->position;
+  dia_point_to_graphene (&attr->position, &text->position);
   text->color = attr->color;
   text->alignment = attr->alignment;
 }

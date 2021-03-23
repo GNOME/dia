@@ -25,32 +25,38 @@
 #include "handle_ops.h"
 #include "message.h"
 #include "object.h"
+#include "dia-graphene.h"
+
 
 #define OBJECT_CONNECT_DISTANCE 4.5
 
 void
-object_add_updates(DiaObject *obj, Diagram *dia)
+object_add_updates (DiaObject *obj, Diagram *dia)
 {
-  int i;
+  graphene_rect_t ebox;
+  DiaRectangle rect;
+
+  dia_object_get_enclosing_box (obj, &ebox);
+  dia_graphene_to_rectangle (&ebox, &rect);
 
   /* Bounding box */
-  if (data_object_get_highlight(dia->data,obj) != DIA_HIGHLIGHT_NONE) {
-    diagram_add_update_with_border(dia, dia_object_get_enclosing_box (obj), 5);
+  if (data_object_get_highlight (dia->data,obj) != DIA_HIGHLIGHT_NONE) {
+    diagram_add_update_with_border (dia, &rect, 5);
   } else {
-    diagram_add_update(dia, dia_object_get_enclosing_box (obj));
+    diagram_add_update (dia, &rect);
   }
 
   /* Handles */
-  for (i=0;i<obj->num_handles;i++) {
-    handle_add_update(obj->handles[i], dia);
+  for (int i = 0; i < obj->num_handles; i++) {
+    handle_add_update (obj->handles[i], dia);
   }
 
   /* Connection points */
-  for (i=0;i<dia_object_get_num_connections(obj);++i) {
-    connectionpoint_add_update(obj->connections[i], dia);
+  for (int i = 0; i < dia_object_get_num_connections (obj); ++i) {
+    connectionpoint_add_update (obj->connections[i], dia);
   }
-
 }
+
 
 void
 object_add_updates_list(GList *list, Diagram *dia)
@@ -146,44 +152,69 @@ object_connect_display(DDisplay *ddisp, DiaObject *obj, Handle *handle,
   }
 }
 
+
 Point
-object_list_corner(GList *list)
+object_list_corner (GList *list)
 {
   Point p = {0.0,0.0};
   DiaObject *obj;
+  graphene_rect_t bbox;
+  graphene_point_t tl;
 
-  if (list == NULL)
+  if (list == NULL) {
     return p;
+  }
 
-  obj = (DiaObject *)list->data;
-  p.x = obj->bounding_box.left;
-  p.y = obj->bounding_box.top;
+  obj = DIA_OBJECT (list->data);
 
-  list = g_list_next(list);
+  dia_object_get_bounding_box (obj, &bbox);
+
+  graphene_rect_get_top_left (&bbox, &tl);
+
+  dia_graphene_to_point (&tl, &p);
+
+  list = g_list_next (list);
 
   while (list != NULL) {
-    obj = (DiaObject *)list->data;
+    obj = DIA_OBJECT (list->data);
 
-    if (p.x > obj->bounding_box.left)
-      p.x = obj->bounding_box.left;
-    if (p.y > obj->bounding_box.top)
-      p.y = obj->bounding_box.top;
+    graphene_rect_get_top_left (&bbox, &tl);
 
-    list = g_list_next(list);
+    if (p.x > tl.x) {
+      p.x = tl.x;
+    }
+
+    if (p.y > tl.y) {
+      p.y = tl.y;
+    }
+
+    list = g_list_next (list);
   }
 
   return p;
 }
 
-static int
-object_list_sort_vertical(const void *o1, const void *o2)
-{
-    DiaObject *obj1 = *(DiaObject **)o1;
-    DiaObject *obj2 = *(DiaObject **)o2;
 
-    return (obj1->bounding_box.bottom+obj1->bounding_box.top)/2 -
-	(obj2->bounding_box.bottom+obj2->bounding_box.top)/2;
+static int
+object_list_sort_vertical (const void *o1, const void *o2)
+{
+  DiaObject *obj1 = *(DiaObject **) o1;
+  DiaObject *obj2 = *(DiaObject **) o2;
+  graphene_rect_t bbox1, bbox2;
+  graphene_point_t tl1, tl2, br1, br2;
+
+  dia_object_get_bounding_box (obj1, &bbox1);
+  dia_object_get_bounding_box (obj2, &bbox2);
+
+  graphene_rect_get_top_left (&bbox1, &tl1);
+  graphene_rect_get_bottom_right (&bbox1, &br1);
+
+  graphene_rect_get_top_left (&bbox2, &tl2);
+  graphene_rect_get_bottom_right (&bbox2, &br2);
+
+  return ((br1.y + tl1.y) / 2) - ((br2.y + tl2.y) / 2);
 }
+
 
 /*!
  * \brief Separate list of objects into connected and not connected ones
@@ -227,54 +258,70 @@ filter_connected (const GList *objects,
   }
 }
 
-/*!
- * \brief Align objects by moving them vertically
+
+/**
+ * object_list_align_v:
+ * @objects: selection of objects to be considered
+ * @dia: the #Diagram owning the objects (and holding undo information)
+ * @align: the alignment algorithm
  *
- * For each node in objects align them vertically. The connections (edges) will follow.
+ * Align objects by moving them vertically
  *
- * @param objects  selection of objects to be considered
- * @param dia      the diagram owning the objects (and holding undo information)
- * @param align    the alignment algorithm
+ * For each node in objects align them vertically. The connections (edges)
+ * will follow.
  */
 void
-object_list_align_v(GList *objects, Diagram *dia, int align)
+object_list_align_v (GList *objects, Diagram *dia, int align)
 {
   GList *list;
   Point *orig_pos;
   Point *dest_pos;
-  real y_pos = 0;
+  double y_pos = 0;
   DiaObject *obj;
   Point pos;
-  real top, bottom, freespc;
+  double top, bottom, freespc;
   int nobjs;
   int i;
   GList *unconnected = NULL;
+  graphene_rect_t bbox;
+  graphene_point_t tl, br;
 
   filter_connected (objects, 1, NULL, &unconnected);
   objects = unconnected;
   if (objects==NULL)
     return;
 
-  obj = (DiaObject *) objects->data; /*  First object */
+  obj = DIA_OBJECT (objects->data); /*  First object */
 
-  top = obj->bounding_box.top;
-  bottom = obj->bounding_box.bottom;
+  dia_object_get_bounding_box (obj, &bbox);
+
+  graphene_rect_get_top_left (&bbox, &tl);
+  graphene_rect_get_bottom_right (&bbox, &br);
+
+  top = tl.y;
+  bottom = br.y;
   freespc = bottom - top;
 
   nobjs = 1;
   list = objects->next;
   while (list != NULL) {
-    obj = (DiaObject *) list->data;
+    obj = DIA_OBJECT (list->data);
 
-    if (obj->bounding_box.top < top)
-      top = obj->bounding_box.top;
-    if (obj->bounding_box.bottom > bottom)
-      bottom = obj->bounding_box.bottom;
+    graphene_rect_get_top_left (&bbox, &tl);
+    graphene_rect_get_bottom_right (&bbox, &br);
 
-    freespc += obj->bounding_box.bottom - obj->bounding_box.top;
+    if (tl.y < top) {
+      top = tl.y;
+    }
+
+    if (br.y > bottom) {
+      bottom = br.y;
+    }
+
+    freespc += br.y - tl.y;
     nobjs++;
 
-    list = g_list_next(list);
+    list = g_list_next (list);
   }
 
   /*
@@ -335,30 +382,33 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
   i = 0;
   list = objects;
   while (list != NULL) {
-    obj = (DiaObject *) list->data;
+    obj = DIA_OBJECT (list->data);
+
+    graphene_rect_get_top_left (&bbox, &tl);
+    graphene_rect_get_bottom_right (&bbox, &br);
 
     pos.x = obj->position.x;
 
     switch (align) {
       case DIA_ALIGN_TOP: /* TOP */
-        pos.y = y_pos + obj->position.y - obj->bounding_box.top;
+        pos.y = y_pos + obj->position.y - tl.y;
         break;
       case DIA_ALIGN_CENTER: /* CENTER */
-        pos.y = y_pos + obj->position.y - (obj->bounding_box.top + obj->bounding_box.bottom)/2.0;
+        pos.y = y_pos + obj->position.y - (tl.y + br.y) / 2.0;
         break;
       case DIA_ALIGN_BOTTOM: /* BOTTOM */
-        pos.y = y_pos - (obj->bounding_box.bottom - obj->position.y);
+        pos.y = y_pos - (br.y - obj->position.y);
         break;
       case DIA_ALIGN_POSITION: /* OBJECT POSITION */
         pos.y = y_pos;
         break;
       case DIA_ALIGN_EQUAL: /* EQUAL DISTANCE */
-        pos.y = y_pos + obj->position.y - obj->bounding_box.top;
-        y_pos += obj->bounding_box.bottom - obj->bounding_box.top + freespc;
+        pos.y = y_pos + obj->position.y - tl.y;
+        y_pos += br.y - tl.y + freespc;
         break;
       case DIA_ALIGN_ADJACENT: /* ADJACENT */
-        pos.y = y_pos + obj->position.y - obj->bounding_box.top;
-        y_pos += obj->bounding_box.bottom - obj->bounding_box.top;
+        pos.y = y_pos + obj->position.y - tl.y;
+        y_pos += br.y - tl.y;
         break;
       default:
         g_return_if_reached ();
@@ -381,14 +431,25 @@ object_list_align_v(GList *objects, Diagram *dia, int align)
 
 
 static int
-object_list_sort_horizontal(const void *o1, const void *o2)
+object_list_sort_horizontal (const void *o1, const void *o2)
 {
-  DiaObject *obj1 = *(DiaObject **)o1;
-  DiaObject *obj2 = *(DiaObject **)o2;
+  DiaObject *obj1 = *(DiaObject **) o1;
+  DiaObject *obj2 = *(DiaObject **) o2;
+  graphene_rect_t bbox1, bbox2;
+  graphene_point_t tl1, tl2, br1, br2;
 
-  return (obj1->bounding_box.right+obj1->bounding_box.left)/2 -
-    (obj2->bounding_box.right+obj2->bounding_box.left)/2;
+  dia_object_get_bounding_box (obj1, &bbox1);
+  dia_object_get_bounding_box (obj2, &bbox2);
+
+  graphene_rect_get_top_left (&bbox1, &tl1);
+  graphene_rect_get_bottom_right (&bbox1, &br1);
+
+  graphene_rect_get_top_left (&bbox2, &tl2);
+  graphene_rect_get_bottom_right (&bbox2, &br2);
+
+  return ((br1.x + tl1.x) / 2) - ((br2.x + tl2.x) / 2);
 }
+
 
 /*!
  * \brief Align objects by moving then horizontally
@@ -405,13 +466,15 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   GList *list;
   Point *orig_pos;
   Point *dest_pos;
-  real x_pos = 0;
+  double x_pos = 0;
   DiaObject *obj;
   Point pos;
-  real left, right, freespc = 0;
+  double left, right, freespc = 0;
   int nobjs;
   int i;
   GList *unconnected = NULL;
+  graphene_rect_t bbox;
+  graphene_point_t tl, br;
 
   filter_connected (objects, 1, NULL, &unconnected);
   objects = unconnected;
@@ -420,21 +483,35 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
 
   obj = (DiaObject *) objects->data; /*  First object */
 
-  left = obj->bounding_box.left;
-  right = obj->bounding_box.right;
+  dia_object_get_bounding_box (obj, &bbox);
+
+  graphene_rect_get_top_left (&bbox, &tl);
+  graphene_rect_get_bottom_right (&bbox, &br);
+
+  left = tl.x;
+  right = br.x;
+
   freespc = right - left;
 
   nobjs = 1;
   list = objects->next;
   while (list != NULL) {
-    obj = (DiaObject *) list->data;
+    obj = DIA_OBJECT (list->data);
 
-    if (obj->bounding_box.left < left)
-      left = obj->bounding_box.left;
-    if (obj->bounding_box.right > right)
-      right = obj->bounding_box.right;
+    dia_object_get_bounding_box (obj, &bbox);
 
-    freespc += obj->bounding_box.right - obj->bounding_box.left;
+    graphene_rect_get_top_left (&bbox, &tl);
+    graphene_rect_get_bottom_right (&bbox, &br);
+
+    if (tl.x < left) {
+      left = tl.x;
+    }
+
+    if (br.x > right) {
+      right = br.x;
+    }
+
+    freespc += br.x - tl.x;
     nobjs++;
 
     list = g_list_next(list);
@@ -496,28 +573,33 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   i = 0;
   list = objects;
   while (list != NULL) {
-    obj = (DiaObject *) list->data;
+    obj = DIA_OBJECT (list->data);
+
+    dia_object_get_bounding_box (obj, &bbox);
+
+    graphene_rect_get_top_left (&bbox, &tl);
+    graphene_rect_get_bottom_right (&bbox, &br);
 
     switch (align) {
       case DIA_ALIGN_LEFT:
-        pos.x = x_pos + obj->position.x - obj->bounding_box.left;
+        pos.x = x_pos + obj->position.x - tl.x;
         break;
       case DIA_ALIGN_CENTER:
-        pos.x = x_pos + obj->position.x - (obj->bounding_box.left + obj->bounding_box.right)/2.0;
+        pos.x = x_pos + obj->position.x - ((tl.x + br.x) / 2.0);
         break;
       case DIA_ALIGN_RIGHT:
-        pos.x = x_pos - (obj->bounding_box.right - obj->position.x);
+        pos.x = x_pos - (br.x - obj->position.x);
         break;
       case DIA_ALIGN_POSITION:
         pos.x = x_pos;
         break;
       case DIA_ALIGN_EQUAL:
-        pos.x = x_pos + obj->position.x - obj->bounding_box.left;
-        x_pos += obj->bounding_box.right - obj->bounding_box.left + freespc;
+        pos.x = x_pos + obj->position.x - tl.x;
+        x_pos += br.x - tl.x + freespc;
         break;
       case DIA_ALIGN_ADJACENT:
-        pos.x = x_pos + obj->position.x - obj->bounding_box.left;
-        x_pos += obj->bounding_box.right - obj->bounding_box.left;
+        pos.x = x_pos + obj->position.x - tl.x;
+        x_pos += br.x - tl.x;
         break;
       default:
         break;
@@ -537,6 +619,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
   dia_move_objects_change_new (dia, orig_pos, dest_pos, g_list_copy (objects));
   g_list_free (unconnected);
 }
+
 
 /*!
  * \brief Align objects at their connected points
@@ -687,12 +770,12 @@ object_list_align_connected (GList *objects, Diagram *dia, int align)
  * @param step The step-width to move
  */
 void
-object_list_nudge(GList *objects, Diagram *dia, Direction dir, real step)
+object_list_nudge (GList *objects, Diagram *dia, Direction dir, double step)
 {
   Point *orig_pos;
   Point *dest_pos;
   guint nobjs, i;
-  real inc_x, inc_y;
+  double inc_x, inc_y;
   GList *list;
   DiaObject *obj;
 

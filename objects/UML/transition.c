@@ -558,21 +558,25 @@ transition_del_segment_cb (DiaObject *obj,
 
 
 static void
-expand_bbox_for_text (DiaRectangle *bbox,
-                      Point        *text_pos,
-                      char         *text)
+expand_bbox_for_text (graphene_rect_t *bbox,
+                      Point           *text_pos,
+                      char            *text)
 {
-  DiaRectangle text_box;
+  graphene_rect_t text_box;
   double text_width;
 
-  text_width = dia_font_string_width (text, transition_font,
+  text_width = dia_font_string_width (text,
+                                      transition_font,
                                       TRANSITION_FONTHEIGHT);
-  text_box.left = text_pos->x - text_width/2;
-  text_box.right = text_box.left + text_width;
-  text_box.top = text_pos->y - dia_font_ascent (text, transition_font,
-                                                TRANSITION_FONTHEIGHT);
-  text_box.bottom = text_box.top + TRANSITION_FONTHEIGHT;
-  rectangle_union (bbox, &text_box);
+
+  graphene_rect_init (&text_box,
+                      text_pos->x - (text_width / 2),
+                      text_pos->y - dia_font_ascent (text,
+                                                     transition_font,
+                                                     TRANSITION_FONTHEIGHT),
+                      text_width,
+                      TRANSITION_FONTHEIGHT);
+  graphene_rect_union (bbox, &text_box, bbox);
 }
 
 
@@ -581,6 +585,7 @@ uml_transition_update_data (Transition *transition)
 {
   char *temp_text;
   Point *points;
+  graphene_rect_t bbox;
 
   /* Setup helpful pointers as shortcuts */
   OrthConn *orth = &transition->orth;
@@ -604,14 +609,22 @@ uml_transition_update_data (Transition *transition)
 
   /* Update the bounding box to match the new connection data */
   orthconn_update_boundingbox (orth);
+
+  dia_object_get_bounding_box (obj, &bbox);
+
   /* Update the bounding box to match the new trigger text size and position */
   temp_text = create_event_action_text (transition);
-  expand_bbox_for_text (&obj->bounding_box, &transition->trigger_text_pos,
+  expand_bbox_for_text (&bbox,
+                        &transition->trigger_text_pos,
                         temp_text);
   g_clear_pointer (&temp_text, g_free);
+
   /* Update the bounding box to match the new guard text size and position */
   temp_text = g_strdup_printf ("[%s]", transition->guard_text ? transition->guard_text : "");
-  expand_bbox_for_text (&obj->bounding_box, &transition->guard_text_pos,
+  expand_bbox_for_text (&bbox,
+                        &transition->guard_text_pos,
                         temp_text);
   g_clear_pointer (&temp_text, g_free);
+
+  dia_object_set_bounding_box (obj, &bbox);
 }

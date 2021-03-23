@@ -36,8 +36,9 @@
 #include "color.h"
 #include "properties.h"
 #include "dynamic_obj.h"
-
+#include "dia-graphene.h"
 #include "pixmaps/analog_clock.xpm"
+
 
 typedef struct _Chronoline {
   Element element;
@@ -187,12 +188,19 @@ analog_clock_set_props(Analog_Clock *analog_clock, GPtrArray *props)
   analog_clock_update_data(analog_clock);
 }
 
-static real
-analog_clock_distance_from(Analog_Clock *analog_clock, Point *point)
+
+static double
+analog_clock_distance_from (Analog_Clock *analog_clock, Point *point)
 {
-  DiaObject *obj = &analog_clock->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (analog_clock), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 analog_clock_select(Analog_Clock *analog_clock, Point *clicked_point,

@@ -34,7 +34,7 @@
 #include "properties.h"
 #include "geometry.h"
 #include "text.h"
-
+#include "dia-graphene.h"
 #include "grafcet.h"
 #include "boolequation.h"
 
@@ -319,25 +319,34 @@ condition_move (Condition *condition, Point *to)
   return NULL;
 }
 
+
 static void
-condition_update_data(Condition *condition)
+condition_update_data (Condition *condition)
 {
   Connection *conn = &condition->connection;
   DiaObject *obj = &conn->object;
+  graphene_rect_t bbox, tmp;
 
   obj->position = conn->endpoints[0];
-  connection_update_boundingbox(conn);
+  connection_update_boundingbox (conn);
 
   /* compute the label's width and bounding box */
   condition->cond->pos.x = conn->endpoints[0].x +
-    (.5 * dia_font_string_width("a", condition->cond->font,
-			    condition->cond->fontheight));
+    (.5 * dia_font_string_width ("a",
+                                 condition->cond->font,
+                                 condition->cond->fontheight));
   condition->cond->pos.y = conn->endpoints[0].y + condition->cond->fontheight;
 
-  boolequation_calc_boundingbox(condition->cond, &condition->labelbb);
-  rectangle_union(&obj->bounding_box,&condition->labelbb);
+  boolequation_calc_boundingbox (condition->cond, &condition->labelbb);
 
-  connection_update_handles(conn);
+  dia_object_get_bounding_box (obj, &bbox);
+  dia_rectangle_to_graphene (&condition->labelbb, &tmp);
+
+  graphene_rect_union (&bbox, &tmp, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
+
+  connection_update_handles (conn);
 }
 
 

@@ -39,6 +39,7 @@
 #include "connpoint_line.h"
 #include "color.h"
 #include "properties.h"
+#include "dia-graphene.h"
 
 #include "chronogram.h"
 #include "pixmaps/chronoref.xpm"
@@ -222,12 +223,19 @@ chronoref_set_props(Chronoref *chronoref, GPtrArray *props)
   chronoref_update_data(chronoref);
 }
 
-static real
-chronoref_distance_from(Chronoref *chronoref, Point *point)
+
+static double
+chronoref_distance_from (Chronoref *chronoref, Point *point)
 {
-  DiaObject *obj = &chronoref->element.object;
-  return distance_rectangle_point(&obj->bounding_box, point);
+  graphene_rect_t bbox;
+  DiaRectangle tmp;
+
+  dia_object_get_bounding_box (DIA_OBJECT (chronoref), &bbox);
+  dia_graphene_to_rectangle (&bbox, &tmp);
+
+  return distance_rectangle_point (&tmp, point);
 }
+
 
 static void
 chronoref_select(Chronoref *chronoref, Point *clicked_point,
@@ -334,18 +342,21 @@ chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer)
   dia_renderer_draw_line (renderer,&p1,&p2,&chronoref->color);
 }
 
+
 static void
-chronoref_update_data(Chronoref *chronoref)
+chronoref_update_data (Chronoref *chronoref)
 {
   Element *elem = &chronoref->element;
   DiaObject *obj = &elem->object;
-  real time_span,t;
+  double time_span,t;
   Point p1,p2;
   Point ur_corner;
   int shouldbe,i;
-  real labelwidth;
+  double labelwidth;
   char biglabel[10];
   ElementBBExtras *extra = &elem->extra_spacing;
+  graphene_rect_t bbox;
+  graphene_point_t pt;
 
   chronoref->majgrad_height = elem->height;
   chronoref->mingrad_height = elem->height / 3.0;
@@ -392,17 +403,20 @@ chronoref_update_data(Chronoref *chronoref)
   chronoref->majgrad = (chronoref->time_step * elem->width) / time_span;
   chronoref->mingrad = (chronoref->time_lstep * elem->width) / time_span;
 
-  extra->border_trans = chronoref->main_lwidth/2;
-  element_update_boundingbox(elem);
+  extra->border_trans = chronoref->main_lwidth / 2;
+  element_update_boundingbox (elem);
 
   /* fix boundingbox for special extras: */
-  obj->bounding_box.left -= (chronoref->font_size + labelwidth)/2;
-  obj->bounding_box.bottom += chronoref->font_size;
-  obj->bounding_box.right += (chronoref->font_size + labelwidth)/2;
+  dia_object_get_bounding_box (DIA_OBJECT (chronoref), &bbox);
+  graphene_rect_inset (&bbox, -((chronoref->font_size + labelwidth) / 2), 0);
+  graphene_rect_get_bottom_left (&bbox, &pt);
+  pt.y += chronoref->font_size;
+  graphene_rect_expand (&bbox, &pt, &bbox);
+  dia_object_set_bounding_box (DIA_OBJECT (chronoref), &bbox);
 
   obj->position = elem->corner;
 
-  element_update_handles(elem);
+  element_update_handles (elem);
 
   /* Update connections: */
   ur_corner.x = elem->corner.x + elem->width;
@@ -422,6 +436,7 @@ chronoref_update_data(Chronoref *chronoref)
   p2.x += chronoref->mingrad;
   connpointline_putonaline(chronoref->scale,&p1,&p2, DIR_SOUTH);
 }
+
 
 static DiaObject *
 chronoref_create(Point *startpoint,

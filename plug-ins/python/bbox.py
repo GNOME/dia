@@ -17,44 +17,59 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, dia, string
+import sys, dia
 
 import gettext
+
 _ = gettext.gettext
 
-def bbox_cb (data, flags) :
 
-	layer = data.active_layer
-	dest = data.add_layer ("BBox of '%s' (%s)" % (layer.name, sys.platform), -1)
-	box_type = dia.get_object_type ("Standard - Box")
+def bbox_cb(data, flags):
+    layer = data.active_layer
+    dest = data.add_layer("BBox of '%s' (%s)" % (layer.name, sys.platform), -1)
+    box_type = dia.get_object_type("Standard - Box")
 
-	for o in layer.objects :
-		bb = o.bounding_box
-		b, h1, h2 = box_type.create (bb.left, bb.top)
-		b.move_handle (b.handles[7], (bb.right, bb.bottom), 0, 0)
-		b.properties["show_background"] = 0
-		b.properties["line_width"] = 0
-		b.properties["line_colour"] = 'red'
-		dest.add_object (b)
+    for o in layer.objects:
+        bb = o.enclosing_box
+        b, h1, h2 = box_type.create(bb.left, bb.top)
+        b.move_handle(b.handles[7], (bb.right, bb.bottom), 0, 0)
+        b.properties["show_background"] = 0
+        b.properties["line_width"] = 0
+        b.properties["line_colour"] = "green"
+        dest.add_object(b)
+        bb = o.bounding_box
+        b, h1, h2 = box_type.create(bb.left, bb.top)
+        b.move_handle(b.handles[7], (bb.right, bb.bottom), 0, 0)
+        b.properties["show_background"] = 0
+        b.properties["line_width"] = 0
+        b.properties["line_colour"] = "red"
+        dest.add_object(b)
 
-def annotate_cb (data, flags) :
 
-	layer = data.active_layer
-	dest = data.add_layer ("Annotated '%s' (%s)" % (layer.name, sys.platform), -1)
-	ann_type = dia.get_object_type ("Standard - Text")
+def annotate_cb(data, flags):
+    layer = data.active_layer
+    dest = data.add_layer("Annotated '%s' (%s)" % (layer.name, sys.platform), -1)
+    ann_type = dia.get_object_type("Standard - Text")
 
-	for o in layer.objects :
-		bb = o.bounding_box
-		a, h1, h2 = ann_type.create (bb.right, bb.top)
+    for o in layer.objects:
+        bb = o.bounding_box
+        a, h1, h2 = ann_type.create(bb.right, bb.top)
 
-		a.properties["text"] = "h: %g w: %g" % (bb.bottom - bb.top, bb.right - bb.left)
+        a.properties["text"] = "h: %g w: %g" % (bb.bottom - bb.top, bb.right - bb.left)
 
-		dest.add_object (a)
+        dest.add_object(a)
 
-dia.register_action ("DrawBoundingbox", "_Draw BoundingBox",
-                     "/DisplayMenu/Debug/DebugExtensionStart",
-                     bbox_cb)
 
-dia.register_action ("AnnotateMeasurements", "_Annotate",
-                     "/DisplayMenu/Debug/DebugExtensionStart",
-                     annotate_cb)
+dia.register_action(
+    "DrawBoundingbox",
+    "_Draw BoundingBox",
+    "/DisplayMenu/Debug/DebugExtensionStart",
+    bbox_cb,
+)
+
+dia.register_action(
+    "AnnotateMeasurements",
+    "_Annotate",
+    "/DisplayMenu/Debug/DebugExtensionStart",
+    annotate_cb,
+)

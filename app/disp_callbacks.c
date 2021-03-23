@@ -1045,7 +1045,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
           case GDK_KP_Add:
           case GDK_plus:
           case GDK_equal:
-            ddisplay_zoom_middle (ddisp, M_SQRT2);
+            ddisplay_zoom_middle (ddisp, G_SQRT2);
             break;
           case GDK_KP_Subtract:
           case GDK_minus:

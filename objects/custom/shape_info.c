@@ -42,7 +42,7 @@
 #include "intl.h"
 #include "prefs.h"
 #include "boundingbox.h"
-
+#include "dia-graphene.h"
 #include "units.h"
 
 #define FONT_HEIGHT_DEFAULT 1
@@ -131,7 +131,12 @@ shape_info_realise(ShapeInfo* info)
                                    &color_black,
                                    el->text.s.alignment);
       }
-      text_calc_boundingbox(el->text.object, &el->text.text_bounds);
+
+      {
+        graphene_rect_t bounds;
+        text_calc_boundingbox (el->text.object, &bounds);
+        dia_graphene_to_rectangle (&bounds, &el->text.text_bounds);
+      }
     }
   }
 }
@@ -605,6 +610,7 @@ update_bounds (ShapeInfo *info)
 {
   GList *tmp;
   Point pt;
+
   for (tmp = info->display_list; tmp; tmp = tmp->next) {
     GraphicElement *el = tmp->data;
     int i;
@@ -649,10 +655,15 @@ update_bounds (ShapeInfo *info)
 #if 1
         {
           DiaRectangle bbox;
+          graphene_rect_t poly_bbox;
           PolyBBExtras extra = { 0, };
 
-          polybezier_bbox (&el->path.points[0],el->path.npoints,
-                           &extra,el->type == GE_SHAPE,&bbox);
+          polybezier_bbox (&el->path.points[0],
+                           el->path.npoints,
+                           &extra,
+                           el->type == GE_SHAPE,
+                           &poly_bbox);
+          dia_graphene_to_rectangle (&poly_bbox, &bbox);
           rectangle_union (&info->shape_bounds, &bbox);
         }
 #else
@@ -744,6 +755,7 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
   else
     info = g_new0(ShapeInfo, 1);
   info->loaded = TRUE;
+
   info->shape_bounds.top = DBL_MAX;
   info->shape_bounds.left = DBL_MAX;
   info->shape_bounds.bottom = -DBL_MAX;
@@ -829,23 +841,23 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
 
       str = xmlGetProp(node, (const xmlChar *)"x1");
       if (str) {
-	info->text_bounds.left = g_ascii_strtod((gchar *) str, NULL);
-	xmlFree(str);
+        info->text_bounds.left = g_ascii_strtod((gchar *) str, NULL);
+        xmlFree(str);
       }
       str = xmlGetProp(node, (const xmlChar *)"y1");
       if (str) {
-	info->text_bounds.top = g_ascii_strtod((gchar *) str, NULL);
-	xmlFree(str);
+        info->text_bounds.top = g_ascii_strtod((gchar *) str, NULL);
+        xmlFree(str);
       }
       str = xmlGetProp(node, (const xmlChar *)"x2");
       if (str) {
-	info->text_bounds.right = g_ascii_strtod((gchar *) str, NULL);
-	xmlFree(str);
+        info->text_bounds.right = g_ascii_strtod((gchar *) str, NULL);
+        xmlFree(str);
       }
       str = xmlGetProp(node, (const xmlChar *)"y2");
       if (str) {
-	info->text_bounds.bottom = g_ascii_strtod((gchar *) str, NULL);
-	xmlFree(str);
+        info->text_bounds.bottom = g_ascii_strtod((gchar *) str, NULL);
+        xmlFree(str);
       }
       info->resize_with_text = TRUE;
       str = xmlGetProp(node, (const xmlChar *)"resize");

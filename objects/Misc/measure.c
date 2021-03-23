@@ -204,22 +204,31 @@ static PropOffset measure_offsets[] = {
   { "line_colour", PROP_TYPE_COLOUR, offsetof(Measure, line_color) },
   { NULL, 0, 0 }
 };
+
 #define MEASURE_ARROW(measure) { ARROW_FILLED_TRIANGLE, measure->font_height, measure->font_height/2 }
-/*! Not in the object interface but very important anyway. Used to recalculate the object data after a change  */
+
+
+/**
+ * measure_update_data:
+ *
+ * Not in the object interface but very important anyway. Used to recalculate
+ * the object data after a change
+ */
 static void
 measure_update_data (Measure *measure)
 {
   Connection *conn = &measure->connection;
   DiaObject *obj = &measure->connection.object;
-  real value;
+  double value;
   Point *ends = measure->connection.endpoints;
   LineBBExtras *extra = &conn->extra_spacing;
-  DiaRectangle bbox;
-  Arrow arrow = MEASURE_ARROW(measure);
-  real ascent, width, theta;
+  Arrow arrow = MEASURE_ARROW (measure);
+  double ascent, width, theta;
+  graphene_rect_t bbox, rect;
+  graphene_vec2_t v1, v2;
 
   g_return_if_fail (obj->handles != NULL);
-  connection_update_handles(conn);
+  connection_update_handles (conn);
 
   extra->start_trans =
   extra->end_trans   =
@@ -245,20 +254,30 @@ measure_update_data (Measure *measure)
     measure->text_pos.y = (ends[0].y + ends[1].y) / 2 - cos(theta) * measure->font_height/2;
   }
 
-  line_bbox (&ends[0], &ends[0], &conn->extra_spacing,&conn->object.bounding_box);
-  arrow_bbox (&arrow, measure->line_width, &ends[0], &ends[1], &bbox);
-  rectangle_union(&obj->bounding_box, &bbox);
-  arrow_bbox (&arrow, measure->line_width, &ends[1], &ends[0], &bbox);
-  rectangle_union(&obj->bounding_box, &bbox);
+  graphene_vec2_init (&v1, ends[0].x, ends[0].y);
+  graphene_vec2_init (&v2, ends[0].x, ends[0].y);
 
-  bbox.left = measure->text_pos.x;
-  bbox.top = measure->text_pos.y - ascent;
-  bbox.bottom = bbox.top + measure->font_height;
-  bbox.right = bbox.left + width;
-  rectangle_union(&obj->bounding_box, &bbox);
+  line_bbox (&v1, &v2, &conn->extra_spacing, &bbox);
+
+  arrow_bbox (&arrow, measure->line_width, &ends[0], &ends[1], &rect);
+  graphene_rect_union (&bbox, &rect, &bbox);
+
+  arrow_bbox (&arrow, measure->line_width, &ends[1], &ends[0], &rect);
+  graphene_rect_union (&bbox, &rect, &bbox);
+
+  graphene_rect_init (&rect,
+                      measure->text_pos.x,
+                      measure->text_pos.y - ascent,
+                      width,
+                      measure->font_height);
+
+  graphene_rect_union (&bbox, &rect, &bbox);
+
+  dia_object_set_bounding_box (obj, &bbox);
 
   obj->position = conn->endpoints[0];
 }
+
 
 static void
 measure_draw (Measure *measure, DiaRenderer *renderer)

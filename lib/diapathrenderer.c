@@ -24,7 +24,7 @@
 #include "text.h" /* just for text->color */
 #include "standard-path.h" /* for text_to_path() */
 #include "boundingbox.h"
-
+#include "dia-graphene.h"
 #include "attributes.h" /* attributes_get_foreground() */
 
 typedef enum {
@@ -599,38 +599,53 @@ draw_beziergon (DiaRenderer *self,
 {
   _bezier(self, points, numpoints, fill, stroke);
 }
-/*!
- * \brief Convert the text object to a scaled path
- * \memberof _DiaPathRenderer
+
+
+/**
+ * draw_text:
+ * @self: the #DiaRenderer to draw with
+ * @text: the #Text to draw
+ *
+ * Convert the text object to a scaled path
  */
 static void
 draw_text (DiaRenderer *self,
-	   Text        *text)
+           Text        *text)
 {
   DiaPathRenderer *renderer = DIA_PATH_RENDERER (self);
   GArray *path = _get_current_path (renderer, NULL, &text->color);
   int n0 = path->len;
 
   if (!text_is_empty (text) && text_to_path (text, path)) {
-    DiaRectangle bz_bb, tx_bb;
+    graphene_rect_t bz_bb, tx_bb;
     PolyBBExtras extra = { 0, };
-    real dx, dy, sx, sy;
-    guint i;
+    double dx, dy, sx, sy;
+    graphene_point_t bz_tl, tx_tl;
 
-    polybezier_bbox (&g_array_index (path, BezPoint, n0), path->len - n0, &extra, TRUE, &bz_bb);
+    polybezier_bbox (&g_array_index (path, BezPoint, n0),
+                     path->len - n0,
+                     &extra,
+                     TRUE,
+                     &bz_bb);
+
     text_calc_boundingbox (text, &tx_bb);
-    sx = (tx_bb.right - tx_bb.left) / (bz_bb.right - bz_bb.left);
-    sy = (tx_bb.bottom - tx_bb.top) / (bz_bb.bottom - bz_bb.top);
-    dx = tx_bb.left - bz_bb.left * sx;
-    dy = tx_bb.top - bz_bb.top * sy;
+    sx = graphene_rect_get_width (&tx_bb) / graphene_rect_get_width (&bz_bb);
+    sy = graphene_rect_get_height (&tx_bb) / graphene_rect_get_height (&bz_bb);
 
-    for (i = n0; i < path->len; ++i) {
+    graphene_rect_get_top_left (&tx_bb, &tx_tl);
+    graphene_rect_get_top_left (&bz_bb, &bz_tl);
+
+    dx = tx_tl.x - bz_tl.x * sx;
+    dy = tx_tl.y - bz_tl.y * sy;
+
+    for (int i = n0; i < path->len; ++i) {
       BezPoint *bp = &g_array_index (path, BezPoint, i);
 
       bp->p1.x = bp->p1.x * sx + dx;
       bp->p1.y = bp->p1.y * sy + dy;
-      if (bp->type != BEZ_CURVE_TO)
+      if (bp->type != BEZ_CURVE_TO) {
         continue;
+      }
       bp->p2.x = bp->p2.x * sx + dx;
       bp->p2.y = bp->p2.y * sy + dy;
       bp->p3.x = bp->p3.x * sx + dx;
@@ -638,6 +653,7 @@ draw_text (DiaRenderer *self,
     }
   }
 }
+
 
 /*!
  * \brief Convert the string back to a _Text object and render that

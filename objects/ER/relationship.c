@@ -341,12 +341,13 @@ relationship_draw (Relationship *relationship, DiaRenderer *renderer)
 
 
 static void
-relationship_update_data(Relationship *relationship)
+relationship_update_data (Relationship *relationship)
 {
   Element *elem = &relationship->element;
   DiaObject *obj = &elem->object;
   ElementBBExtras *extra = &elem->extra_spacing;
-  DiaRectangle *bbox = &obj->bounding_box;
+  graphene_rect_t bbox;
+  graphene_point_t tl, br;
 
   relationship->name_width = dia_font_string_width (relationship->name,
                                                     relationship->font,
@@ -430,17 +431,28 @@ relationship_update_data(Relationship *relationship)
                                     relationship->font,
                                     relationship->font_height);
 
+  dia_object_get_bounding_box (DIA_OBJECT (relationship), &bbox);
+
+  graphene_rect_get_top_left (&bbox, &tl);
+  graphene_rect_get_bottom_right (&bbox, &br);
+
   /* fix boundingrelationship for line_width: */
   if (relationship->rotate) {
-    bbox->top -= relationship->font_height + 0.2 + CARDINALITY_DISTANCE;
-    bbox->bottom += relationship->font_height + 0.2 + CARDINALITY_DISTANCE;
-    bbox->right += (bbox->left + bbox->right) / 2.0 + CARDINALITY_DISTANCE
+    tl.y -= relationship->font_height + 0.2 + CARDINALITY_DISTANCE;
+    br.y += relationship->font_height + 0.2 + CARDINALITY_DISTANCE;
+    br.x += (tl.x + br.x) / 2.0 + CARDINALITY_DISTANCE
                    + MAX (relationship->right_card_width,
                           relationship->left_card_width);
   } else {
-    bbox->left -= CARDINALITY_DISTANCE + relationship->left_card_width;
-    bbox->right += CARDINALITY_DISTANCE + relationship->right_card_width;
+    tl.x -= CARDINALITY_DISTANCE + relationship->left_card_width;
+    br.x += CARDINALITY_DISTANCE + relationship->right_card_width;
   }
+
+  graphene_rect_expand (&bbox, &tl, &bbox);
+  graphene_rect_expand (&bbox, &br, &bbox);
+
+  dia_object_set_bounding_box (DIA_OBJECT (relationship), &bbox);
+
   obj->position = elem->corner;
 
   element_update_handles (elem);
