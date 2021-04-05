@@ -4,5 +4,6 @@
     <file>icons/dia-chain-unbroken.png</file>
     <file>icons/dia-chain-broken.png</file>
     <file>icons/standard-path.png</file>
+    <file>broken-image.png</file>
   </gresource>
 </gresources>

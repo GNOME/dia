@@ -23,6 +23,7 @@
 #include "geometry.h"
 #include "dia_image.h"
 #include "message.h"
+#include "widgets.h"
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 
@@ -103,10 +104,7 @@ dia_image_get_broken (void)
 
   image = DIA_IMAGE (g_object_new (DIA_TYPE_IMAGE, NULL));
   if (broken == NULL) {
-    broken = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-                                       "image-missing",
-                                       64,
-                                       0, NULL);
+    broken = pixbuf_from_resource ("/org/gnome/Dia/broken-image.png");
   }
   image->image = g_object_ref (broken);
   /* Kinda hard to export :) */
