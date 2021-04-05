@@ -19,6 +19,7 @@ pacman --noconfirm -S --needed \
     mingw-w64-$MSYS2_ARCH-ccache \
     mingw-w64-$MSYS2_ARCH-pkg-config \
     mingw-w64-$MSYS2_ARCH-gobject-introspection \
+    mingw-w64-$MSYS2_ARCH-pygobject \
     mingw-w64-$MSYS2_ARCH-meson \
     mingw-w64-$MSYS2_ARCH-adwaita-icon-theme \
     mingw-w64-$MSYS2_ARCH-atk \
