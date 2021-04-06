@@ -326,78 +326,89 @@ static const PropertyOps noopprop_ops = {
 /* Each time its code is executed, a g_assert_not_reached() will be run... */
 /***************************************************************************/
 
-InvalidProperty *
-invalidprop_new(const PropDescription *pdesc,
-                PropDescToPropPredicate reason)
+G_GNUC_NORETURN InvalidProperty *
+invalidprop_new (const PropDescription   *pdesc,
+                 PropDescToPropPredicate  reason)
 {
-  g_assert_not_reached();
-  return NULL;
+  g_assert_not_reached ();
 }
 
-void
-invalidprop_free(InvalidProperty *prop)
+
+G_GNUC_NORETURN void
+invalidprop_free (InvalidProperty *prop)
 {
-  g_assert_not_reached();
+  g_assert_not_reached ();
 }
 
-InvalidProperty *
-invalidprop_copy(InvalidProperty *src)
+
+G_GNUC_NORETURN InvalidProperty *
+invalidprop_copy (InvalidProperty *src)
 {
-  g_assert_not_reached();
-  return NULL;
+  g_assert_not_reached ();
 }
 
-WIDGET *
-invalidprop_get_widget(InvalidProperty *prop, PropDialog *dialog)
+
+G_GNUC_NORETURN GtkWidget *
+invalidprop_get_widget (InvalidProperty *prop, PropDialog *dialog)
 {
-  g_assert_not_reached();
-  return NULL;
+  g_assert_not_reached ();
 }
 
-void
-invalidprop_reset_widget(InvalidProperty *prop, WIDGET *widget)
+
+G_GNUC_NORETURN void
+invalidprop_reset_widget (InvalidProperty *prop, GtkWidget *widget)
 {
-  g_assert_not_reached();
+  g_assert_not_reached ();
 }
 
-void
-invalidprop_set_from_widget(InvalidProperty *prop, WIDGET *widget)
+
+G_GNUC_NORETURN void
+invalidprop_set_from_widget (InvalidProperty *prop, GtkWidget *widget)
 {
-  g_assert_not_reached();
+  g_assert_not_reached ();
 }
 
-void
-invalidprop_load(InvalidProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
+
+G_GNUC_NORETURN void
+invalidprop_load (InvalidProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
 {
-  g_assert_not_reached();
+  g_assert_not_reached ();
 }
 
-void
-invalidprop_save(InvalidProperty *prop, AttributeNode attr, DiaContext *ctx)
+
+G_GNUC_NORETURN void
+invalidprop_save (InvalidProperty *prop, AttributeNode attr, DiaContext *ctx)
 {
-  g_assert_not_reached();
+  g_assert_not_reached ();
 }
 
-gboolean
-invalidprop_can_merge(const PropDescription *pd1, const PropDescription *pd2)
+
+G_GNUC_NORETURN gboolean
+invalidprop_can_merge (const PropDescription *pd1, const PropDescription *pd2)
 {
-  g_assert_not_reached();
-  return TRUE;
+  g_assert_not_reached ();
 }
 
-void
-invalidprop_get_from_offset(const InvalidProperty *prop,
-                            void *base, guint offset, guint offset2)
+
+G_GNUC_NORETURN void
+invalidprop_get_from_offset (const InvalidProperty *prop,
+                             void                  *base,
+                             guint                  offset,
+                             guint                  offset2)
 {
-  g_assert_not_reached();
+  g_assert_not_reached ();
 }
 
-void
-invalidprop_set_from_offset(InvalidProperty *prop,
-                            void *base, guint offset, guint offset2)
+
+G_GNUC_NORETURN void
+invalidprop_set_from_offset (InvalidProperty *prop,
+                             void            *base,
+                             guint            offset,
+                             guint            offset2)
 {
-  g_assert_not_reached();
+  g_assert_not_reached ();
 }
+
 
 static const PropertyOps invalidprop_ops = {
   (PropertyType_New) invalidprop_new,

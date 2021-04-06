@@ -549,7 +549,8 @@ fig_read_polyline(FILE *file, DiaContext *ctx)
 	}
 	g_ptr_array_add(props,rprop);
     }
-	/* Notice fallthrough */
+      /* Notice fallthrough */
+      G_GNUC_FALLTHROUGH;
     case 2: /* box */
 	if (points[0].x > points[2].x) {
 	    real tmp = points[0].x;

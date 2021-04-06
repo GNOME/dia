@@ -558,6 +558,7 @@ figArrow(XfigRenderer *renderer, Arrow *arrow, real line_width)
       message_warning(_("Fig format has no equivalent of arrow style %s; using simple arrow.\n"),
           arrow_get_name_from_type(arrow->type));
       /* Notice fallthrough */
+      G_GNUC_FALLTHROUGH;
     case ARROW_FILLED_CONCAVE:
       type = 2; style = 1; break;
     case ARROW_BLANKED_CONCAVE:

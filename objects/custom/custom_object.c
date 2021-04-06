@@ -676,6 +676,7 @@ custom_distance_from (Custom *custom, Point *point)
               transform_coord (custom,
                                &el->path.points[i].p2,
                                &g_array_index (barr, BezPoint, i).p2);
+              G_GNUC_FALLTHROUGH;
             case BEZ_MOVE_TO:
             case BEZ_LINE_TO:
               transform_coord (custom,
@@ -702,6 +703,7 @@ custom_distance_from (Custom *custom, Point *point)
               transform_coord (custom,
                                &el->path.points[i].p2,
                                &g_array_index (barr, BezPoint, i).p2);
+              G_GNUC_FALLTHROUGH;
             case BEZ_MOVE_TO:
             case BEZ_LINE_TO:
               transform_coord (custom,
@@ -1142,6 +1144,7 @@ custom_draw_element (GraphicElement *el,
                              &g_array_index (barr, BezPoint, i).p3);
             transform_coord (custom, &el->path.points[i].p2,
                              &g_array_index (barr, BezPoint, i).p2);
+            G_GNUC_FALLTHROUGH;
           case BEZ_MOVE_TO:
           case BEZ_LINE_TO:
             transform_coord (custom, &el->path.points[i].p1,
@@ -1168,6 +1171,7 @@ custom_draw_element (GraphicElement *el,
             transform_coord (custom,
                              &el->path.points[i].p2,
                              &g_array_index (barr, BezPoint, i).p2);
+            G_GNUC_FALLTHROUGH;
           case BEZ_MOVE_TO:
           case BEZ_LINE_TO:
             transform_coord (custom,
@@ -1556,6 +1560,7 @@ custom_update_data (Custom *custom, AnchorShape horiz, AnchorShape vert)
                              &g_array_index (barr, BezPoint, i).p3);
             transform_coord (custom, &el->path.points[i].p2,
                              &g_array_index (barr, BezPoint, i).p2);
+            G_GNUC_FALLTHROUGH;
           case BEZ_MOVE_TO:
           case BEZ_LINE_TO:
             transform_coord (custom, &el->path.points[i].p1,

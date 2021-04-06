@@ -1280,7 +1280,7 @@ ddisplay_close (DDisplay *ddisp)
         /* saving succeeded */
         recent_file_history_add(ddisp->diagram->filename);
       }
-
+      G_GNUC_FALLTHROUGH;
     case DIA_EXIT_DIALOG_QUIT:
       if (close_ddisp) {
         ddisp_destroy (ddisp);
