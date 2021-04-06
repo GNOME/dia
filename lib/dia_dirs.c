@@ -178,38 +178,6 @@ dia_config_ensure_dir (const char *filename)
 
 
 /**
- * dia_message_filename:
- * @filename: A filename string as gotten from the filesystem.
- *
- * Returns an filename in UTF-8 encoding from filename in filesystem encoding.
- *
- * The value returned is a pointer to static array.
- *
- * Note: The string can be used AFTER the next call to this function
- *       Written like g_strerror()
- *
- * Returns: UTF-8 encoded copy of the filename.
- *
- * Since: dawn-of-time
- */
-const char *
-dia_message_filename(const gchar *filename)
-{
-  char *tmp;
-  GQuark msg_quark;
-
-  tmp = g_filename_display_name (filename);
-
-  /* Stick in the quark table so that we can return a static result */
-  msg_quark = g_quark_from_string (tmp);
-
-  g_clear_pointer (&tmp, g_free);
-
-  return g_quark_to_string (msg_quark);
-}
-
-
-/**
  * dia_relativize_filename:
  * @master: The main filename
  * @slave: A filename to become relative to the master
