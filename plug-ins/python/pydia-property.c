@@ -764,41 +764,43 @@ PyDia_set_Rect (Property *prop, PyObject *val)
 
 static int PyDia_set_Array (Property *, PyObject *);
 
+typedef PyObject *(*GetProp) (Property *prop);
+typedef int      *(*SetProp) (Property *prop, PyObject *val);
+
 struct {
   char *type;
-  PyObject *(*propget)();
-  int (*propset)(Property*, PyObject*);
+  GetProp propget;
+  SetProp propset;
   GQuark quark;
-} prop_type_map [] =
-{
-  { PROP_TYPE_CHAR, PyDia_get_Char },
-  { PROP_TYPE_BOOL, PyDia_get_Bool, PyDia_set_Bool },
-  { PROP_TYPE_INT,  PyDia_get_Int, PyDia_set_Int },
-  { PROP_TYPE_INTARRAY, PyDia_get_IntArray, PyDia_set_IntArray },
-  { PROP_TYPE_ENUM, PyDia_get_Enum, PyDia_set_Enum },
-  { PROP_TYPE_ENUMARRAY, PyDia_get_IntArray, PyDia_set_IntArray }, /* Enum == Int */
-  { PROP_TYPE_LINESTYLE, PyDia_get_LineStyle, PyDia_set_LineStyle },
-  { PROP_TYPE_REAL, PyDia_get_Real, PyDia_set_Real },
-  { PROP_TYPE_LENGTH, PyDia_get_Length, PyDia_set_Length },
-  { PROP_TYPE_FONTSIZE, PyDia_get_Fontsize, PyDia_set_Fontsize },
-  { PROP_TYPE_STRING, PyDia_get_String, PyDia_set_String },
-  { PROP_TYPE_STRINGLIST, PyDia_get_StringList },
-  { PROP_TYPE_FILE, PyDia_get_String, PyDia_set_String },
-  { PROP_TYPE_MULTISTRING, PyDia_get_String, PyDia_set_String },
-  { PROP_TYPE_TEXT, PyDia_get_Text, PyDia_set_Text },
-  { PROP_TYPE_POINT, PyDia_get_Point, PyDia_set_Point },
-  { PROP_TYPE_POINTARRAY, PyDia_get_PointArray, PyDia_set_PointArray },
-  { PROP_TYPE_BEZPOINT, PyDia_get_BezPoint },
-  { PROP_TYPE_BEZPOINTARRAY, PyDia_get_BezPointArray, PyDia_set_BezPointArray },
-  { PROP_TYPE_RECT, PyDia_get_Rect, PyDia_set_Rect },
-  { PROP_TYPE_ARROW, PyDia_get_Arrow, PyDia_set_Arrow },
-  { PROP_TYPE_MATRIX, PyDia_get_Matrix, PyDia_set_Matrix },
-  { PROP_TYPE_COLOUR, PyDia_get_Color, PyDia_set_Color },
-  { PROP_TYPE_FONT, PyDia_get_Font },
-  { PROP_TYPE_SARRAY, PyDia_get_Array, PyDia_set_Array },
-  { PROP_TYPE_DARRAY, PyDia_get_Array, PyDia_set_Array },
-  { PROP_TYPE_DICT, PyDia_get_Dict, PyDia_set_Dict },
-  { PROP_TYPE_PIXBUF, PyDia_get_Pixbuf, PyDia_set_Pixbuf }
+} prop_type_map [] = {
+  { PROP_TYPE_CHAR, (GetProp) PyDia_get_Char },
+  { PROP_TYPE_BOOL, (GetProp) PyDia_get_Bool, (SetProp) PyDia_set_Bool },
+  { PROP_TYPE_INT, (GetProp) PyDia_get_Int, (SetProp) PyDia_set_Int },
+  { PROP_TYPE_INTARRAY, (GetProp) PyDia_get_IntArray, (SetProp) PyDia_set_IntArray },
+  { PROP_TYPE_ENUM, (GetProp) PyDia_get_Enum, (SetProp) PyDia_set_Enum },
+  { PROP_TYPE_ENUMARRAY, (GetProp) PyDia_get_IntArray, (SetProp) PyDia_set_IntArray }, /* Enum == Int */
+  { PROP_TYPE_LINESTYLE, (GetProp) PyDia_get_LineStyle, (SetProp) PyDia_set_LineStyle },
+  { PROP_TYPE_REAL, (GetProp) PyDia_get_Real, (SetProp) PyDia_set_Real },
+  { PROP_TYPE_LENGTH, (GetProp) PyDia_get_Length, (SetProp) PyDia_set_Length },
+  { PROP_TYPE_FONTSIZE, (GetProp) PyDia_get_Fontsize, (SetProp) PyDia_set_Fontsize },
+  { PROP_TYPE_STRING, (GetProp) PyDia_get_String, (SetProp) PyDia_set_String },
+  { PROP_TYPE_STRINGLIST, (GetProp) PyDia_get_StringList },
+  { PROP_TYPE_FILE, (GetProp) PyDia_get_String, (SetProp) PyDia_set_String },
+  { PROP_TYPE_MULTISTRING, (GetProp) PyDia_get_String, (SetProp) PyDia_set_String },
+  { PROP_TYPE_TEXT, (GetProp) PyDia_get_Text, (SetProp) PyDia_set_Text },
+  { PROP_TYPE_POINT, (GetProp) PyDia_get_Point, (SetProp) PyDia_set_Point },
+  { PROP_TYPE_POINTARRAY, (GetProp) PyDia_get_PointArray, (SetProp) PyDia_set_PointArray },
+  { PROP_TYPE_BEZPOINT, (GetProp) PyDia_get_BezPoint },
+  { PROP_TYPE_BEZPOINTARRAY, (GetProp) PyDia_get_BezPointArray, (SetProp) PyDia_set_BezPointArray },
+  { PROP_TYPE_RECT, (GetProp) PyDia_get_Rect, (SetProp) PyDia_set_Rect },
+  { PROP_TYPE_ARROW, (GetProp) PyDia_get_Arrow, (SetProp) PyDia_set_Arrow },
+  { PROP_TYPE_MATRIX, (GetProp) PyDia_get_Matrix, (SetProp) PyDia_set_Matrix },
+  { PROP_TYPE_COLOUR, (GetProp) PyDia_get_Color, (SetProp) PyDia_set_Color },
+  { PROP_TYPE_FONT, (GetProp) PyDia_get_Font },
+  { PROP_TYPE_SARRAY, (GetProp) PyDia_get_Array, (SetProp) PyDia_set_Array },
+  { PROP_TYPE_DARRAY, (GetProp) PyDia_get_Array, (SetProp) PyDia_set_Array },
+  { PROP_TYPE_DICT, (GetProp) PyDia_get_Dict, (SetProp) PyDia_set_Dict },
+  { PROP_TYPE_PIXBUF, (GetProp) PyDia_get_Pixbuf, (SetProp) PyDia_set_Pixbuf }
 };
 
 

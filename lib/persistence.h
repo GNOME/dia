@@ -24,7 +24,7 @@
 
 G_BEGIN_DECLS
 
-typedef void (NullaryFunc) ();
+typedef void (NullaryFunc) (void);
 
 void     persistence_load                   (void);
 void     persistence_save                   (void);

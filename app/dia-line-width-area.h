@@ -37,6 +37,6 @@ struct _DiaLineWidthArea
   GtkWidget *button;
 };
 
-GtkWidget *dia_line_width_area_new ();
+GtkWidget *dia_line_width_area_new (void);
 
 G_END_DECLS
