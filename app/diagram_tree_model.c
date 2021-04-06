@@ -56,13 +56,6 @@ typedef struct _DiagramTreeModel
 static GType _dtm_get_type (void);
 static void _dtm_finalize (GObject *object);
 
-static void
-_dtm_class_init (DiagramTreeModelClass *klass)
-{
-  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
-  gobject_class->finalize = _dtm_finalize;
-}
 
 #define DIA_TYPE_DIAGRAM_TREE_MODEL (_dtm_get_type ())
 #define DIAGRAM_TREE_MODEL(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_DIAGRAM_TREE_MODEL, DiagramTreeModel))
@@ -71,6 +64,16 @@ static void _dtm_iface_init (GtkTreeModelIface *iface);
 G_DEFINE_TYPE_WITH_CODE (DiagramTreeModel, _dtm, G_TYPE_OBJECT,
 			 G_IMPLEMENT_INTERFACE (GTK_TYPE_TREE_MODEL,
 						_dtm_iface_init))
+
+
+static void
+_dtm_class_init (DiagramTreeModelClass *klass)
+{
+  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+  gobject_class->finalize = _dtm_finalize;
+}
+
 
 static GtkTreeModelFlags
 _dtm_get_flags (GtkTreeModel *tree_model)

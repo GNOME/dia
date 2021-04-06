@@ -85,8 +85,6 @@ endsegment_create_change (OrthConn         *orth,
                           Point            *point,
                           Handle           *handle);
 
-static void
-place_handle_by_swapping(OrthConn *orth, int index, Handle *handle);
 
 struct _DiaOrthConnEndSegmentObjectChange {
   DiaObjectChange obj_change;

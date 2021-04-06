@@ -134,7 +134,7 @@ recent_file_history_add (const char *fname)
 void
 recent_file_history_init (void)
 {
-  prefs.recent_documents_list_size = CLAMP(prefs.recent_documents_list_size, 0, 16);
+  prefs.recent_documents_list_size = prefs.recent_documents_list_size > 16 ? 16 : prefs.recent_documents_list_size;
 
   persistence_register_list("recent-files");
 

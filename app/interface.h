@@ -48,8 +48,6 @@ void toolbox_hide(void);
 
 GtkWidget *interface_get_toolbox_shell(void);
 
-void create_integrated_ui (void);
-
 void create_sheets(GtkWidget *parent);
 extern GtkWidget *modify_tool_button;
 

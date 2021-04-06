@@ -373,7 +373,11 @@ custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
        * Maybe it even works cause the sizeof() in *_get_data_size can be
        * calculated at compile time. Anyway, a mess ;) --hb
        */
+      #pragma GCC diagnostic push
+      #pragma GCC diagnostic ignored "-Wincompatible-pointer-types"
+      #warning TODO: I mean this is clearly wrong
       size = info->props[i].ops->get_data_size (&info->props[i]);
+      #pragma GCC diagnostic pop
       info->ext_attr_size += size;
       offs += size;
     }

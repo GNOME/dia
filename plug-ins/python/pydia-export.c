@@ -53,10 +53,10 @@ PyDiaExportFilter_RichCompare (PyObject *self, PyObject *other, int op)
 }
 
 
-static long
+static Py_hash_t
 PyDiaExportFilter_Hash (PyObject *self)
 {
-  return (long) ((PyDiaExportFilter *) self)->filter;
+  return (Py_hash_t) ((PyDiaExportFilter *) self)->filter;
 }
 
 

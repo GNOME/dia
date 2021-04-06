@@ -100,10 +100,10 @@ PyDiaPaperinfo_Compare (PyObject *a,
 /*
  * Hash
  */
-static long
+static Py_hash_t
 PyDiaPaperinfo_Hash (PyObject *self)
 {
-  return (long) self;
+  return (Py_hash_t) self;
 }
 
 

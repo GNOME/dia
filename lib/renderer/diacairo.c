@@ -82,7 +82,7 @@ cairo_export_data (DiagramData *data,
    * filename encdong is always utf-8, so another conversion is needed.
    */
   gchar *filename_crt = (gchar *) filename;
-#if DIA_CAIRO_CAN_EMF
+#ifdef DIA_CAIRO_CAN_EMF
   HDC hFileDC = NULL;
 #endif
 
@@ -187,7 +187,7 @@ cairo_export_data (DiagramData *data,
     break;
 #endif
   /* finally cairo can render to MetaFiles */
-#if DIA_CAIRO_CAN_EMF
+#ifdef DIA_CAIRO_CAN_EMF
   case OUTPUT_EMF :
   case OUTPUT_WMF : /* different only on close/'play' */
   case OUTPUT_CLIPBOARD :
@@ -262,7 +262,7 @@ cairo_export_data (DiagramData *data,
       cairo_surface_destroy(renderer->surface);
     }
 #endif
-#if DIA_CAIRO_CAN_EMF
+#ifdef DIA_CAIRO_CAN_EMF
   if (OUTPUT_EMF == kind) {
     FILE* f = g_fopen(filename, "wb");
     HENHMETAFILE hEmf = CloseEnhMetaFile(hFileDC);

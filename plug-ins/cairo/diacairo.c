@@ -121,7 +121,7 @@ static DiaExportFilter pnga_export_filter = {
     "cairo-alpha-png"
 };
 
-#if DIA_CAIRO_CAN_EMF
+#ifdef DIA_CAIRO_CAN_EMF
 static const gchar *emf_extensions[] = { "emf", NULL };
 static DiaExportFilter emf_export_filter = {
     N_("Cairo EMF"),
@@ -204,7 +204,7 @@ _plugin_unload (PluginInfo *info)
 #endif
   filter_unregister_export(&png_export_filter);
   filter_unregister_export(&pnga_export_filter);
-#if DIA_CAIRO_CAN_EMF
+#ifdef DIA_CAIRO_CAN_EMF
   filter_unregister_export(&emf_export_filter);
   filter_unregister_export(&wmf_export_filter);
   filter_unregister_callback (&cb_clipboard);
@@ -240,7 +240,7 @@ dia_plugin_init(PluginInfo *info)
 #endif
   filter_register_export(&png_export_filter);
   filter_register_export(&pnga_export_filter);
-#if DIA_CAIRO_CAN_EMF
+#ifdef DIA_CAIRO_CAN_EMF
   filter_register_export(&emf_export_filter);
   filter_register_export(&wmf_export_filter);
   filter_register_callback (&cb_clipboard);

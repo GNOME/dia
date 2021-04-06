@@ -56,10 +56,10 @@ PyDiaHandle_RichCompare (PyObject *self, PyObject *other, int op)
 }
 
 
-static long
+static Py_hash_t
 PyDiaHandle_Hash (PyObject *self)
 {
-  return (long) ((PyDiaHandle *) self)->handle;
+  return (Py_hash_t) ((PyDiaHandle *) self)->handle;
 }
 
 

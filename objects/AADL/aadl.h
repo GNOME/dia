@@ -19,6 +19,9 @@
 */
 
 
+#pragma once
+
+
 #include <config.h>
 
 #include <assert.h>
@@ -214,7 +217,6 @@ void aadlbox_project_point_on_rectangle(DiaRectangle *rectangle,
 void
 aadlbox_inclined_project_point_on_nearest_border(Aadlbox *aadlbox,Point *p,
 						 real *angle);
-void aadlprocess_text_position(Aadlbox *aadlbox, Point *p);
 
 /* aadlthread.c */
 void aadlbox_draw_inclined_box(Aadlbox *aadlbox, DiaRenderer *renderer,

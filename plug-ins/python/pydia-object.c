@@ -59,10 +59,10 @@ PyDiaObject_RichCompare (PyObject *self, PyObject *other, int op)
 }
 
 
-static long
+static Py_hash_t
 PyDiaObject_Hash (PyObject *self)
 {
-  return (long) ((PyDiaObject *) self)->object;
+  return (Py_hash_t) ((PyDiaObject *) self)->object;
 }
 
 
@@ -432,10 +432,10 @@ PyDiaObjectType_RichCompare (PyObject *self, PyObject *other, int op)
 }
 
 
-static long
+static Py_hash_t
 PyDiaObjectType_Hash (PyObject *self)
 {
-  return (long) ((PyDiaObjectType *) self)->otype;
+  return (Py_hash_t) ((PyDiaObjectType *) self)->otype;
 }
 
 

@@ -119,10 +119,10 @@ PyDiaProperty_RichCompare (PyObject *a,
 /*
  * Hash
  */
-static long
+static Py_hash_t
 PyDiaProperty_Hash (PyObject *self)
 {
-  return (long) self;
+  return (Py_hash_t) self;
 }
 
 

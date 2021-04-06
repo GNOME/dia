@@ -74,10 +74,10 @@ PyDiaDiagramData_RichCompare (PyObject *self,
 }
 
 
-static long
+static Py_hash_t
 PyDiaDiagramData_Hash (PyObject *self)
 {
-  return (long) ((PyDiaDiagramData *) self)->data;
+  return (Py_hash_t) ((PyDiaDiagramData *) self)->data;
 }
 
 

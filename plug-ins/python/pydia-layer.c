@@ -61,10 +61,10 @@ PyDiaLayer_RichCompare (PyObject *self, PyObject *other, int op)
 }
 
 
-static long
+static Py_hash_t
 PyDiaLayer_Hash (PyObject *self)
 {
-  return (long) ((PyDiaLayer *) self)->layer;
+  return (Py_hash_t) ((PyDiaLayer *) self)->layer;
 }
 
 

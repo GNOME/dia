@@ -61,10 +61,10 @@ PyDiaConnectionPoint_RichCompare (PyObject *self,
 }
 
 
-static long
+static Py_hash_t
 PyDiaConnectionPoint_Hash (PyObject *self)
 {
-  return (long) ((PyDiaConnectionPoint *) self)->cpoint;
+  return (Py_hash_t) ((PyDiaConnectionPoint *) self)->cpoint;
 }
 
 

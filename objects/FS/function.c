@@ -706,7 +706,7 @@ struct _IndentedMenus {
  */
 #define FS_SUBMENU_MAXINDENT 5
 
-#if THIS_C_COMPILER_ALSO_UNDERSTANDS_EMACS_LISP
+#ifdef THIS_C_COMPILER_ALSO_UNDERSTANDS_EMACS_LISP
    ; Elisp functions to generate comments:)
    (setq q nil)
    (defun q-pop () (setq q (cdr q)))

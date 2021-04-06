@@ -17,8 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *
  */
+
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -29,13 +30,7 @@ void        on_sheets_dialog_combo_changed                         (GtkComboBox 
                                                                     gpointer         user_data);
 void        on_sheets_dialog_button_move_up_clicked                (GtkButton       *button,
                                                                     gpointer         user_data);
-void        on_sheets_dialog_button_move_up_clicked                (GtkButton       *button,
-                                                                    gpointer         user_data);
 void        on_sheets_dialog_button_new_clicked                    (GtkButton       *button,
-                                                                    gpointer         user_data);
-void        on_sheets_dialog_button_new_clicked                    (GtkButton       *button,
-                                                                    gpointer         user_data);
-void        on_sheets_dialog_button_close_clicked                  (GtkButton       *button,
                                                                     gpointer         user_data);
 void        on_sheets_dialog_button_close_clicked                  (GtkButton       *button,
                                                                     gpointer         user_data);
@@ -44,8 +39,6 @@ void        on_sheets_new_dialog_button_cancel_clicked             (GtkButton   
 void        on_sheets_dialog_button_edit_clicked                   (GtkButton       *button,
                                                                     gpointer         user_data);
 void        on_sheets_edit_dialog_button_cancel_clicked            (GtkButton       *button,
-                                                                    gpointer         user_data);
-void        on_sheets_dialog_button_remove_clicked                 (GtkButton       *button,
                                                                     gpointer         user_data);
 void        on_sheets_dialog_button_remove_clicked                 (GtkButton       *button,
                                                                     gpointer         user_data);
@@ -64,8 +57,6 @@ void        on_sheets_remove_dialog_radiobutton_sheet_toggled      (GtkToggleBut
 void        on_sheets_dialog_button_move_down_clicked              (GtkButton       *button,
                                                                     gpointer         user_data);
 void        on_sheets_new_dialog_button_ok_clicked                 (GtkButton       *button,
-                                                                    gpointer         user_data);
-void        on_sheets_new_dialog_radiobutton_line_break_toggled    (GtkToggleButton *togglebutton,
                                                                     gpointer         user_data);
 void        on_sheets_remove_dialog_button_ok_clicked              (GtkButton       *button,
                                                                     gpointer         user_data);

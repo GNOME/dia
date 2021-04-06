@@ -344,7 +344,11 @@ _parse_color(gint32 *color, const char *str)
     int r = 0, g = 0, b = 0;
     if (3 == sscanf (str+4, "%d,%d,%d", &r, &g, &b)) {
       /* Set alpha to 1.0 */
+      #pragma GCC diagnostic push
+      #pragma GCC diagnostic ignored "-Wshift-overflow"
+      #warning TODO: Is there a proper solution here?
       *color = ((0xFF<<24) & 0xFF000000) | ((r<<16) & 0xFF0000) | ((g<<8) & 0xFF00) | (b & 0xFF);
+      #pragma GCC diagnostic pop
     } else if (strchr (str+4, '%')) {
       /* e.g. cairo uses percent values */
       char **vals = g_strsplit (str+4, "%,", -1);
