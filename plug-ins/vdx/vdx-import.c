@@ -2197,123 +2197,125 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 }
 
 
-/** Draws some text
- * @param Text the text
- * @param XForm any transformations
- * @param Char font info
- * @param Para alignment info
- * @param theDoc the document
- * @returns the new object
+/**
+ * plot_text:
+ * @TextArg: the text
+ * @XForm: any transformations
+ * @Char: font info
+ * @Para: alignment info
+ * @theDoc: the document
+ *
+ * Draws some text
+ *
+ * Returns: the new object
  */
 static DiaObject *
-plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
-          const struct vdx_Char *Char, const struct vdx_Para *Para,
-          const struct vdx_TextBlock *TextBlock,
-          const struct vdx_TextXForm *TextXForm,
-          VDXDocument* theDoc)
+plot_text (const struct vdx_Text      *TextArg,
+           const struct vdx_XForm     *XForm,
+           const struct vdx_Char      *Char,
+           const struct vdx_Para      *Para,
+           const struct vdx_TextBlock *TextBlock,
+           const struct vdx_TextXForm *TextXForm,
+           VDXDocument                *theDoc)
 {
-    DiaObject *newobj;
-    GPtrArray *props;
-    TextProperty *tprop;
-    Valign vert_align;
-    Alignment alignment;
-    EnumProperty *eprop = 0;
-    struct vdx_FontEntry FontEntry;
-    struct vdx_FaceName FaceName;
-    struct vdx_text * text = find_child(vdx_types_text, Text);
-    Point p;
-    int i;
-    double height;
-    char *font_name = 0;
-    DiaFontStyle style = 0;
-    DiaFont *font = 0;
+  DiaObject *newobj;
+  GPtrArray *props;
+  TextProperty *tprop;
+  Valign vert_align;
+  Alignment alignment;
+  EnumProperty *eprop = 0;
+  struct vdx_FontEntry FontEntry;
+  struct vdx_FaceName FaceName;
+  struct vdx_text *text = find_child (vdx_types_text, TextArg);
+  Point p;
+  int i;
+  double height;
+  char *font_name = 0;
+  DiaFontStyle style = 0;
+  DiaFont *font = 0;
 
-    if (!Text || !Char || !text || !XForm)
-    {
-        g_debug("Not enough info for text");
-        return 0;
-    }
-    p.x = 0; p.y = 0;
+  if (!TextArg || !Char || !text || !XForm) {
+    g_debug ("Not enough info for text");
+    return 0;
+  }
+  p.x = 0; p.y = 0;
 
-    /* Setup position for horizontal alignment */
-    alignment = ALIGN_LEFT;
-    if (Para && Para->HorzAlign == 1)
-    {
-        alignment = ALIGN_CENTER;
-        p.x += XForm->Width/2.0;
-    }
-    if (Para && Para->HorzAlign == 2)
-    {
-        alignment = ALIGN_RIGHT;
-        p.x += XForm->Width;
-    }
-    /* And for vertical */
+  /* Setup position for horizontal alignment */
+  alignment = ALIGN_LEFT;
+  if (Para && Para->HorzAlign == 1) {
+    alignment = ALIGN_CENTER;
+    p.x += XForm->Width/2.0;
+  }
+  if (Para && Para->HorzAlign == 2) {
+    alignment = ALIGN_RIGHT;
+    p.x += XForm->Width;
+  }
+  /* And for vertical */
+  vert_align = VALIGN_TOP;
+  if (TextBlock && TextBlock->VerticalAlign == 0) {
+    p.y += XForm->Height;
     vert_align = VALIGN_TOP;
-    if (TextBlock && TextBlock->VerticalAlign == 0)
-    {
-        p.y += XForm->Height;
-        vert_align = VALIGN_TOP;
+  }
+  if (TextBlock && TextBlock->VerticalAlign == 1) {
+    p.y += XForm->Height/2.0;
+    vert_align = VALIGN_CENTER;
+  }
+  if (TextBlock && TextBlock->VerticalAlign == 2) {
+    vert_align = VALIGN_BOTTOM;
+    /*
+     * Not shifting by height makes text position right for text_tests.vdx
+     * Doing no shift for the other VerticalAlign screws them ...
+    p.y -= XForm->Height;
+     */
+  }
+
+  height = Char->Size*vdx_Font_Size_Conversion;
+
+  /* Text formatting */
+  if (Char->Style & 1) {
+    style |= DIA_FONT_BOLD;
+  }
+  if (Char->Style & 2) {
+    style |= DIA_FONT_ITALIC;
+  }
+  /* Can't do underline or small caps */
+
+  /* Create the object at position p */
+  if (TextXForm) {
+    p.x -= TextXForm->TxtPinX - TextXForm->TxtLocPinX;
+    p.y -= TextXForm->TxtPinY - TextXForm->TxtLocPinY;
+    /* height = TextXForm->TxtHeight*vdx_Line_Scale; */
+  }
+
+  p = dia_point (apply_XForm (p, XForm), theDoc);
+  newobj = create_standard_text (p.x, p.y);
+
+  /* Get the property list */
+  props = prop_list_from_descs (vdx_text_descs, pdtpp_true);
+  tprop = g_ptr_array_index (props, 0);
+  /* Vertical alignment gets a separate property */
+  eprop = g_ptr_array_index (props, 1);
+  eprop->enum_data = vert_align;
+
+  /* set up the text property by including all children */
+  tprop->text_data = g_strdup (text->text);
+  while ((text = find_child_next (vdx_types_text, TextArg, text))) {
+    char *s = tprop->text_data;
+    tprop->text_data = g_strconcat (tprop->text_data, text->text, NULL);
+    g_clear_pointer (&s, g_free);
+  }
+
+  /* Fix Unicode line breaks */
+  for (i = 0; tprop->text_data[i]; i++) {
+    if ((unsigned char) tprop->text_data[i] == 226 &&
+        (unsigned char) tprop->text_data[i + 1] == 128 &&
+        (unsigned char) tprop->text_data[i + 2] == 168) {
+      tprop->text_data[i] = 10;
+      memmove (&tprop->text_data[i + 1],
+               &tprop->text_data[i + 3],
+               strlen (&tprop->text_data[i + 3]) + 1);
     }
-    if (TextBlock && TextBlock->VerticalAlign == 1)
-    {
-        p.y += XForm->Height/2.0;
-        vert_align = VALIGN_CENTER;
-    }
-    if (TextBlock && TextBlock->VerticalAlign == 2)
-    {
-        vert_align = VALIGN_BOTTOM;
-	/*
-	 * Not shifting by height makes text position right for text_tests.vdx
-	 * Doing no shift for the other VerticalAlign screws them ...
-        p.y -= XForm->Height;
-	 */
-    }
-
-    height = Char->Size*vdx_Font_Size_Conversion;
-
-    /* Text formatting */
-    if (Char->Style & 1) { style |= DIA_FONT_BOLD; }
-    if (Char->Style & 2) { style |= DIA_FONT_ITALIC; }
-    /* Can't do underline or small caps */
-
-    /* Create the object at position p */
-    if (TextXForm)
-    {
-        p.x -= TextXForm->TxtPinX - TextXForm->TxtLocPinX;
-        p.y -= TextXForm->TxtPinY - TextXForm->TxtLocPinY;
-        /* height = TextXForm->TxtHeight*vdx_Line_Scale; */
-    }
-
-    p = dia_point(apply_XForm(p, XForm), theDoc);
-    newobj = create_standard_text(p.x, p.y);
-
-    /* Get the property list */
-    props = prop_list_from_descs(vdx_text_descs,pdtpp_true);
-    tprop = g_ptr_array_index(props,0);
-    /* Vertical alignment gets a separate property */
-    eprop = g_ptr_array_index(props,1);
-    eprop->enum_data = vert_align;
-
-    /* set up the text property by including all children */
-    tprop->text_data = g_strdup(text->text);
-    while ((text = find_child_next (vdx_types_text, Text, text))) {
-      char *s = tprop->text_data;
-      tprop->text_data = g_strconcat (tprop->text_data, text->text, NULL);
-      g_clear_pointer (&s, g_free);
-    }
-
-    /* Fix Unicode line breaks */
-    for (i=0; tprop->text_data[i]; i++)
-    {
-        if ((unsigned char)tprop->text_data[i] == 226 &&
-            (unsigned char)tprop->text_data[i+1] == 128 &&
-            (unsigned char)tprop->text_data[i+2] == 168)
-        {
-            tprop->text_data[i] = 10;
-            memmove(&tprop->text_data[i+1], &tprop->text_data[i+3],
-                    strlen(&tprop->text_data[i+3])+1);
-        }
-    }
+  }
 
 #if 0 /* this is not utf-8 safe - see bug 683700 */
     /* Remove trailing line breaks */
@@ -2323,70 +2325,74 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
         tprop->text_data[strlen(tprop->text_data)-1] = 0;
     }
 #else
-    {
-        char *s = tprop->text_data;
-        char *srep = NULL;
-        while ( (s = g_utf8_strchr(s, -1, '\n')) != NULL ) {
-            srep = s;
-            s = g_utf8_next_char(s);
-            if (*s)
-                srep = NULL;
-            else
-                break;
-        }
-        if (srep)
-            *srep = '\0';
+  {
+    char *s = tprop->text_data;
+    char *srep = NULL;
+
+    while ((s = g_utf8_strchr (s, -1, '\n')) != NULL) {
+      srep = s;
+      s = g_utf8_next_char (s);
+      if (*s) {
+        srep = NULL;
+      } else {
+        break;
+      }
     }
+
+    if (srep) {
+      *srep = '\0';
+    }
+  }
 #endif
 
-    /* Other standard text properties */
-    tprop->attr.alignment = alignment;
-    tprop->attr.position.x = p.x;
-    tprop->attr.position.y = p.y;
+  /* Other standard text properties */
+  tprop->attr.alignment = alignment;
+  tprop->attr.position.x = p.x;
+  tprop->attr.position.y = p.y;
 
-    font_name = "sans";
-    if (theDoc->Fonts)
-    {
-        if (Char->Font < theDoc->Fonts->len)
-        {
-            FontEntry =
-                g_array_index(theDoc->Fonts, struct vdx_FontEntry, Char->Font);
-            font_name = FontEntry.Name;
-        }
+  font_name = "sans";
+  if (theDoc->Fonts) {
+    if (Char->Font < theDoc->Fonts->len) {
+      FontEntry =
+          g_array_index (theDoc->Fonts, struct vdx_FontEntry, Char->Font);
+      font_name = FontEntry.Name;
     }
-    else if (theDoc->FaceNames)
-    {
-        if (Char->Font < theDoc->FaceNames->len)
-        {
-            FaceName =
-                g_array_index(theDoc->FaceNames,
-                              struct vdx_FaceName, Char->Font);
-            font_name = FaceName.Name;
-        }
+  } else if (theDoc->FaceNames) {
+    if (Char->Font < theDoc->FaceNames->len) {
+      FaceName =
+          g_array_index (theDoc->FaceNames, struct vdx_FaceName, Char->Font);
+      font_name = FaceName.Name;
     }
+  }
 
-    font = dia_font_new_from_legacy_name(font_name);
-    if (!font)
-    {
-        g_debug("Unable to find font '%s'; using Arial", font_name);
-        font = dia_font_new_from_legacy_name("Arial");
-    }
-    dia_font_set_weight(font, DIA_FONT_STYLE_GET_WEIGHT(style));
-    dia_font_set_slant(font, DIA_FONT_STYLE_GET_SLANT(style));
-    dia_font_set_height(font, height);
-    tprop->attr.font = font;
+  font = dia_font_new_from_legacy_name (font_name);
+  if (!font) {
+    g_debug ("Unable to find font '%s'; using Arial", font_name);
+    font = dia_font_new_from_legacy_name ("Arial");
+  }
+  dia_font_set_weight (font, DIA_FONT_STYLE_GET_WEIGHT (style));
+  dia_font_set_slant (font, DIA_FONT_STYLE_GET_SLANT (style));
+  dia_font_set_height (font, height);
+  tprop->attr.font = font;
 
-    if (theDoc->debug_comments)
-        g_debug("Text: %s at %f,%f v=%d h=%d s=%.2x f=%s",
-                tprop->text_data, p.x, p.y,
-                eprop->enum_data, tprop->attr.alignment, style, font_name);
+  if (theDoc->debug_comments) {
+    g_debug ("Text: %s at %f,%f v=%d h=%d s=%.2x f=%s",
+             tprop->text_data,
+             p.x,
+             p.y,
+             eprop->enum_data,
+             tprop->attr.alignment,
+             style,
+             font_name);
+  }
 
-    tprop->attr.height = height;
-    tprop->attr.color = Char->Color;
-    newobj->ops->set_props(newobj, props);
-    prop_list_free(props);
-    return newobj;
+  tprop->attr.height = height;
+  tprop->attr.color = Char->Color;
+  dia_object_set_properties (newobj, props);
+  prop_list_free (props);
+  return newobj;
 }
+
 
 /** Plots a shape
  * @param Shape the Shape
@@ -2410,7 +2416,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
     struct vdx_XForm *XForm = 0;
     struct vdx_XForm1D *XForm1D = 0;
     struct vdx_TextXForm *TextXForm = 0;
-    struct vdx_Text *Text = 0;
+    struct vdx_Text *ShapeText = 0;
     struct vdx_TextBlock *TextBlock = 0;
     struct vdx_Para *Para = 0;
     struct vdx_Foreign * Foreign = 0;
@@ -2447,7 +2453,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
     XForm1D = (struct vdx_XForm1D *)find_child(vdx_types_XForm1D, Shape);
     TextXForm = (struct vdx_TextXForm *)find_child(vdx_types_TextXForm, Shape);
     Geom = (struct vdx_Geom *)find_child(vdx_types_Geom, Shape);
-    Text = (struct vdx_Text *)find_child(vdx_types_Text, Shape);
+    ShapeText = (struct vdx_Text *) find_child (vdx_types_Text, Shape);
     TextBlock = (struct vdx_TextBlock *)find_child(vdx_types_TextBlock, Shape);
     Para = (struct vdx_Para *)find_child(vdx_types_Para, Shape);
     Foreign = (struct vdx_Foreign *)find_child(vdx_types_Foreign, Shape);
@@ -2641,8 +2647,8 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
 
     /* Text always after the object it's attached to,
        so it appears on top */
-    if (Text && find_child (vdx_types_text, Text)) {
-      DiaObject *object = plot_text (Text, XForm, Char, Para,
+    if (ShapeText && find_child (vdx_types_text, ShapeText)) {
+      DiaObject *object = plot_text (ShapeText, XForm, Char, Para,
                                      TextBlock, TextXForm, theDoc);
       if (object) {
         char *id = g_strdup_printf ("%d", Shape->ID);
