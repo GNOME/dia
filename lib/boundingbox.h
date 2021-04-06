@@ -38,9 +38,9 @@ G_BEGIN_DECLS
  * Polygon/Polyline bounding box extras
  */
 struct _PolyBBExtras {
-  float start_long, start_trans;
-  float middle_trans;
-  float end_long, end_trans;
+  double start_long, start_trans;
+  double middle_trans;
+  double end_long, end_trans;
 };
 
 
@@ -76,8 +76,8 @@ void   rectangle_bbox         (const graphene_rect_t *rin,
                                const ElementBBExtras *extra,
                                graphene_rect_t       *rout);
 void   ellipse_bbox           (const Point           *centre,
-                               float                  width,
-                               float                  height,
+                               double                 width,
+                               double                 height,
                                const ElementBBExtras *extra,
                                graphene_rect_t       *rect);
 void   polyline_bbox          (const Point           *pts,

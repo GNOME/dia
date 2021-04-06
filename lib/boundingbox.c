@@ -17,12 +17,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
-#define _DEFAULT_SOURCE 1
 #include <math.h>
-#include <string.h> /* memcmp() */
-
 #include <glib.h>
 
 #include "geometry.h"
@@ -46,12 +43,11 @@ static inline void _polybezier_bbox (const BezPoint        *pts,
 
 /**
  * bernstein_develop:
- *
- * @p: x- or y-part of the four points
- * @A:
- * @B:
- * @C:
- * @D:
+ * @p: (array fixed-size=4): x- or y-part of the four points
+ * @A: (out caller-allocates): point 0
+ * @B: (out caller-allocates): point 1
+ * @C: (out caller-allocates): point 2
+ * @D: (out caller-allocates): point 3
  *
  * Translates x- or y- part of bezier points to Bernstein polynom coefficients
  *
@@ -76,7 +72,8 @@ bernstein_develop (const double  p[4],
 
 /**
  * bezier_eval:
- * @p: x- or y-values of four points describing the bezier
+ * @p: (array fixed-size=4): x- or y-values of four points describing
+ *     the bezier
  * @u: position on the curve [0 .. 1]
  *
  * Evaluates the Bernstein polynoms for a given position
@@ -94,7 +91,8 @@ bezier_eval (const double p[4], double u)
 
 /**
  * bezier_eval_tangent:
- * @p: x- or y-values of four points describing the bezier
+ * @p: (array fixed-size=4): x- or y-values of four points describing
+ *     the bezier
  * @u: position on the curve between[0 .. 1]
  *
  * Calculates the tangent for a given point on a bezier curve
@@ -112,8 +110,10 @@ bezier_eval_tangent (const double p[4], double u)
 
 /**
  * bicubicbezier_extrema:
- * @p: x- or y-values of four points describing the bezier
- * @u: The position of the extrema [0 .. 1]
+ * @p: (array fixed-size=4): x- or y-values of four points describing
+ *                           the bezier
+ * @u: (out caller-allocates) (array fixed-size=2): The position of the
+ *                                                  extrema [0 .. 1]
  *
  * Calculates the extrma of the given curve in x- or y-direction.
  *
@@ -285,9 +285,11 @@ bicubicbezier2D_bbox (const graphene_vec2_t *p0,
  * @p1: One end of the line.
  * @p2: The other end of the line.
  * @extra: Extra information
- * @rect: The box that the line and extra stuff fits inside.
+ * @rect: (out caller-allocates): The box that the line and extra stuff fits inside.
  *
  * Calculate the bounding box for a simple line.
+ *
+ * The calculation includes line width and arrwos with the right @extra
  */
 static inline void
 _line_bbox (const Point        *p1,
@@ -334,9 +336,13 @@ line_bbox (const graphene_vec2_t *p1,
  * @width: The width of the ellipse.
  * @height: The height of the ellipse.
  * @extra: Extra information required.
- * @rect: The bounding box that the ellipse fits inside.
+ * @rect: (out caller-allocates): The bounding box that the ellipse fits inside.
  *
  * Calculate the bounding box of an ellipse.
+ *
+ * The calculation includes line width with the right @extra
+ *
+ * Since: 0.98
  */
 static inline void
 _ellipse_bbox (const Point          *centre,
@@ -357,8 +363,8 @@ _ellipse_bbox (const Point          *centre,
 
 void
 ellipse_bbox (const Point           *centre,
-              float                  width,
-              float                  height,
+              double                 width,
+              double                 height,
               const ElementBBExtras *extra,
               graphene_rect_t       *rect)
 {
@@ -418,9 +424,11 @@ free_polybezier_space (BezPoint *points)
  * @extra: Extra space information
  * @closed: Whether the polyline is closed or not.
  * @rect: (out caller-allocates): The bounding box that includes the points
- * and extra spacing.
+ *                                and extra spacing.
  *
  * Calculate the boundingbox for a polyline.
+ *
+ * The calcualtion includes line width and arrwos with the right @extra
  */
 static inline void
 _polyline_bbox (const Point        *pts,
@@ -470,9 +478,12 @@ polyline_bbox (const Point        *pts,
  * @numpoints: The number of elements in `pts'
  * @extra: Extra spacing information.
  * @closed: True if the bezier points form a closed line.
- * @rect: Return value: The enclosing rectangle will be stored here.
+ * @rect: (out caller-allocates): Return value: The enclosing rectangle will
+ *                                be stored here.
  *
  * Calculate a bounding box for a set of bezier points.
+ *
+ * The calculation includes line width and arrwos with the right @extra
  */
 static inline void
 _polybezier_bbox (const BezPoint     *pts,
@@ -482,7 +493,7 @@ _polybezier_bbox (const BezPoint     *pts,
                   DiaRectangle       *rect)
 {
   Point vx, vn, vsc, vp;
-  int i, prev, next;
+  int prev, next;
   DiaRectangle rt;
   PolyBBExtras bextra, start_bextra, end_bextra, full_bextra;
   LineBBExtras lextra, start_lextra, end_lextra, full_lextra;
@@ -546,12 +557,14 @@ _polybezier_bbox (const BezPoint     *pts,
   bextra.end_trans = extra->middle_trans;
 
 
-  for (i = 1; i < numpoints; i++) {
+  for (int i = 1; i < numpoints; i++) {
     next = (i + 1) % numpoints;
     prev = (i - 1) % numpoints;
+
     if (closed && (next == 0)) {
       next = 1;
     }
+
     if (closed && (prev == 0)) {
       prev = numpoints - 1;
     }
@@ -754,9 +767,11 @@ polybezier_bbox (const BezPoint     *pts,
  * rectangle_bbox:
  * @rin: A rectangle to find bbox for.
  * @extra: Extra information required to find bbox.
- * @rout: Return value: The enclosing bounding box.
+ * @rout: (out caller-allocates): Return value: The enclosing bounding box.
  *
  * Figure out a bounding box for a rectangle (fairly simple:)
+ *
+ * The calcualtion includes line width with the right @extra
  */
 static inline void
 _rectangle_bbox (const DiaRectangle    *rin,

@@ -359,20 +359,20 @@ custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
   prop_desc_list_calculate_quarks (info->props);
 
   /* 2nd pass after quarks & ops have been filled in */
-  for (i = n_props-1; i < n_props-1+info->n_ext_attr; i++)
-    if ((info->props[i].ops) && (info->props[i].ops->get_data_size))
-    { /* if prop valid & supported */
+  for (i = n_props-1; i < n_props-1+info->n_ext_attr; i++) {
+    if ((info->props[i].ops) && (info->props[i].ops->get_data_size)) {
+      /* if prop valid & supported */
       int size;
       info->prop_offsets[i].name = info->props[i].name;
       info->prop_offsets[i].type = info->props[i].type;
       info->prop_offsets[i].offset = offs;
       /* FIXME:
-	 custom_object.c:328: warning: passing arg 1 of pointer to function
-	 from incompatible pointer type
-	 We don't have a Property* here so there is not much we can do about.
-	 Maybe it even works cause the sizeof() in *_get_data_size can be
-	 calculated at compile time. Anyway, a mess ;) --hb
-      */
+       * custom_object.c:328: warning: passing arg 1 of pointer to function
+       * from incompatible pointer type
+       * We don't have a Property* here so there is not much we can do about.
+       * Maybe it even works cause the sizeof() in *_get_data_size can be
+       * calculated at compile time. Anyway, a mess ;) --hb
+       */
       size = info->props[i].ops->get_data_size (&info->props[i]);
       info->ext_attr_size += size;
       offs += size;
@@ -382,10 +382,12 @@ custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
       /* hope this is enough to have this prop ignored */
       info->props[i].flags = PROP_FLAG_DONT_SAVE | PROP_FLAG_OPTIONAL;
     }
+  }
 }
 
+
 static PropDescription *
-custom_describe_props(Custom *custom)
+custom_describe_props (Custom *custom)
 {
   return custom->info->props;
 }
@@ -423,10 +425,10 @@ transform_subshape_coord (Custom                 *custom,
 
   if (subshape->default_scale == 0.0) {
     ShapeInfo *info = custom->info;
-    real svg_width = info->shape_bounds.right - info->shape_bounds.left;
-    real svg_height = info->shape_bounds.bottom - info->shape_bounds.top;
-    real h_scale = info->default_height / svg_height;
-    real v_scale = info->default_width / svg_width;
+    double svg_width = info->shape_bounds.right - info->shape_bounds.left;
+    double svg_height = info->shape_bounds.bottom - info->shape_bounds.top;
+    double h_scale = info->default_height / svg_height;
+    double v_scale = info->default_width / svg_width;
 
     subshape->default_scale = (v_scale > h_scale ? h_scale : v_scale);
   }
@@ -499,8 +501,9 @@ transform_subshape_coord (Custom                 *custom,
   out->y += yoffs;
 }
 
-static real
-custom_transform_length(Custom *custom, real length)
+
+static double
+custom_transform_length (Custom *custom, double length)
 {
   if (custom->current_subshape != NULL) {
     GraphicElementSubShape* subshape = custom->current_subshape;
@@ -508,12 +511,13 @@ custom_transform_length(Custom *custom, real length)
     return custom->subscale * subshape->default_scale * length;
   } else {
     /* maybe we should consider the direction? */
-    return sqrt (fabs(custom->xscale * custom->yscale)) * length;
+    return sqrt (fabs (custom->xscale * custom->yscale)) * length;
   }
 }
 
+
 static void
-transform_size(Custom *custom, real w1, real h1, real *w2, real *h2)
+transform_size (Custom *custom, double w1, double h1, double *w2, double *h2)
 {
   if (custom->current_subshape != NULL) {
     GraphicElementSubShape* subshape = custom->current_subshape;
@@ -574,13 +578,14 @@ custom_distance_from (Custom *custom, Point *point)
   static GArray *arr = NULL, *barr = NULL;
   Point p1, p2;
   DiaRectangle rect;
-  gint i;
+  int i;
   GList *tmp;
-  real min_dist = G_MAXFLOAT, dist = G_MAXFLOAT;
+  double min_dist = G_MAXFLOAT, dist = G_MAXFLOAT;
 
   if (!arr) {
     arr = g_array_new (FALSE, FALSE, sizeof(Point));
   }
+
   if (!barr) {
     barr = g_array_new (FALSE, FALSE, sizeof(BezPoint));
   }
@@ -722,10 +727,12 @@ custom_distance_from (Custom *custom, Point *point)
     if (min_dist == 0.0)
       break;
   }
+
   if (custom->info->has_text && min_dist != 0.0) {
-    dist = text_distance_from(custom->text, point);
-    min_dist = MIN(min_dist, dist);
+    dist = text_distance_from (custom->text, point);
+    min_dist = MIN (min_dist, dist);
   }
+
   return min_dist;
 }
 
@@ -1742,6 +1749,7 @@ custom_create(Point *startpoint,
     p = *startpoint;
     p.x += elem->width / 2.0;
     p.y += elem->height / 2.0 + font_height / 2;
+
     custom->text = new_text("", font, font_height, &p, &custom->border_color,
                             info->text_align);
     g_clear_object (&font);

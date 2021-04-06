@@ -414,36 +414,39 @@ dia_font_get_style(const DiaFont* font)
 }
 
 
-const char*
-dia_font_get_family(const DiaFont* font)
+const char *
+dia_font_get_family(const DiaFont *font)
 {
-  return pango_font_description_get_family(font->pfd);
+  return pango_font_description_get_family (font->pfd);
 }
 
 
 const PangoFontDescription *
-dia_font_get_description (const DiaFont* font)
+dia_font_get_description (const DiaFont *font)
 {
   return font->pfd;
 }
 
 
-real
-dia_font_get_height(const DiaFont* font)
+double
+dia_font_get_height (const DiaFont *font)
 {
   return font->height;
 }
 
-real
-dia_font_get_size(const DiaFont* font)
+
+double
+dia_font_get_size (const DiaFont *font)
 {
-  if (!pango_font_description_get_size_is_absolute (font->pfd))
+  if (!pango_font_description_get_size_is_absolute (font->pfd)) {
     g_warning ("dia_font_get_size() : no absolute size");
-  return pdu_to_dcm(pango_font_description_get_size(font->pfd));
+  }
+  return pdu_to_dcm (pango_font_description_get_size (font->pfd));
 }
 
+
 void
-dia_font_set_height(DiaFont* font, real height)
+dia_font_set_height (DiaFont *font, double height)
 {
   _dia_font_adjust_size (font, height, FALSE);
 }

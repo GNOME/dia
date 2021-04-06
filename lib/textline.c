@@ -160,30 +160,34 @@ text_line_get_font(const TextLine *text_line)
   return text_line->font;
 }
 
-real
-text_line_get_height(const TextLine *text_line)
+
+double
+text_line_get_height (const TextLine *text_line)
 {
   return text_line->height;
 }
 
-real
-text_line_get_width(const TextLine *text_line)
+
+double
+text_line_get_width (const TextLine *text_line)
 {
-  text_line_cache_values((TextLine *)text_line);
+  text_line_cache_values ((TextLine *) text_line);
   return text_line->width;
 }
 
-real
-text_line_get_ascent(const TextLine *text_line)
+
+double
+text_line_get_ascent (const TextLine *text_line)
 {
-  text_line_cache_values((TextLine *)text_line);
+  text_line_cache_values ((TextLine *) text_line);
   return text_line->ascent;
 }
 
-real
-text_line_get_descent(const TextLine *text_line)
+
+double
+text_line_get_descent (const TextLine *text_line)
 {
-  text_line_cache_values((TextLine *)text_line);
+  text_line_cache_values ((TextLine *) text_line);
   return text_line->descent;
 }
 
@@ -253,8 +257,9 @@ clear_layout_offset (TextLine *text_line)
   }
 }
 
+
 static void
-text_line_cache_values(TextLine *text_line)
+text_line_cache_values (TextLine *text_line)
 {
   if (!text_line->clean ||
       text_line->chars != text_line->chars_cache ||
@@ -266,23 +271,30 @@ text_line_cache_values(TextLine *text_line)
     clear_layout_offset (text_line);
 
     if (text_line->chars == NULL ||
-	text_line->chars[0] == '\0') {
+        text_line->chars[0] == '\0') {
       /* caclculate reasonable ascent/decent even for empty string */
-      text_line->offsets =
-        dia_font_get_sizes("XjgM149", text_line->font, text_line->height,
-			   &text_line->width, &text_line->ascent,
-			   &text_line->descent, &n_offsets,
-			   &text_line->layout_offsets);
+      text_line->offsets = dia_font_get_sizes ("XjgM149",
+                                               text_line->font,
+                                               text_line->height,
+                                               &text_line->width,
+                                               &text_line->ascent,
+                                               &text_line->descent,
+                                               &n_offsets,
+                                               &text_line->layout_offsets);
       clear_layout_offset (text_line);
       g_clear_pointer (&text_line->offsets, g_free);
-      text_line->offsets = g_new (real,0); /* another way to assign NULL;) */
+
+      text_line->offsets = g_new (double, 0); /* another way to assign NULL;) */
       text_line->width = 0;
     } else {
-      text_line->offsets =
-	dia_font_get_sizes(text_line->chars, text_line->font, text_line->height,
-			   &text_line->width, &text_line->ascent,
-			   &text_line->descent, &n_offsets,
-			   &text_line->layout_offsets);
+      text_line->offsets = dia_font_get_sizes (text_line->chars,
+                                               text_line->font,
+                                               text_line->height,
+                                               &text_line->width,
+                                               &text_line->ascent,
+                                               &text_line->descent,
+                                               &n_offsets,
+                                               &text_line->layout_offsets);
     }
     text_line->clean = TRUE;
     text_line->chars_cache = text_line->chars;
@@ -290,6 +302,7 @@ text_line_cache_values(TextLine *text_line)
     text_line->height_cache = text_line->height;
   }
 }
+
 
 /*!
  * \brief Move glyphs to approximate a desired total width

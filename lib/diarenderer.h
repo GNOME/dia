@@ -119,7 +119,7 @@ struct _DiaRendererClass
   void     (*draw_object)                       (DiaRenderer      *renderer,
                                                  DiaObject        *object,
                                                  DiaMatrix        *matrix);
-  real     (*get_text_width)                    (DiaRenderer      *renderer,
+  double   (*get_text_width)                    (DiaRenderer      *renderer,
                                                  const gchar      *text,
                                                  int               length);
 
@@ -131,14 +131,14 @@ struct _DiaRendererClass
   void     (*end_render)                        (DiaRenderer      *renderer);
 
   void     (*set_linewidth)                     (DiaRenderer      *renderer,
-                                                 real              linewidth);
+                                                 double            linewidth);
   void     (*set_linecaps)                      (DiaRenderer      *renderer,
                                                  LineCaps          mode);
   void     (*set_linejoin)                      (DiaRenderer      *renderer,
                                                  LineJoin          mode);
   void     (*set_linestyle)                     (DiaRenderer      *renderer,
                                                  LineStyle         mode,
-                                                 real              length);
+                                                 double            length);
   void     (*set_fillstyle)                     (DiaRenderer      *renderer,
                                                  FillStyle         mode);
 
@@ -153,22 +153,22 @@ struct _DiaRendererClass
                                                  Color            *stroke);
   void     (*draw_arc)                          (DiaRenderer      *renderer,
                                                  Point            *center,
-                                                 real              width,
-                                                 real              height,
-                                                 real              angle1,
-                                                 real              angle2,
+                                                 double            width,
+                                                 double            height,
+                                                 double            angle1,
+                                                 double            angle2,
                                                  Color            *color);
   void     (*fill_arc)                          (DiaRenderer      *renderer,
                                                  Point            *center,
-                                                 real              width,
-                                                 real              height,
-                                                 real              angle1,
-                                                 real              angle2,
+                                                 double            width,
+                                                 double            height,
+                                                 double            angle1,
+                                                 double            angle2,
                                                  Color            *color);
   void     (*draw_ellipse)                      (DiaRenderer      *renderer,
                                                  Point            *center,
-                                                 real              width,
-                                                 real              height,
+                                                 double            width,
+                                                 double            height,
                                                  Color            *fill,
                                                  Color            *stroke);
   void     (*draw_string)                       (DiaRenderer      *renderer,
@@ -178,8 +178,8 @@ struct _DiaRendererClass
                                                  Color            *color);
   void     (*draw_image)                        (DiaRenderer      *renderer,
                                                  Point            *point,
-                                                 real              width,
-                                                 real              height,
+                                                 double            width,
+                                                 double            height,
                                                  DiaImage         *image);
 
   /*
@@ -221,16 +221,16 @@ struct _DiaRendererClass
                                                  Point            *lr_corner,
                                                  Color            *fill,
                                                  Color            *stroke,
-                                                 real              radius);
+                                                 double            radius);
   void     (*draw_rounded_polyline)             (DiaRenderer      *renderer,
                                                  Point            *points,
                                                  int               num_points,
                                                  Color            *color,
-                                                 real              radius );
+                                                 double            radius );
   void     (*draw_line_with_arrows)             (DiaRenderer      *renderer,
                                                  Point            *start,
                                                  Point            *end,
-                                                 real              line_width,
+                                                 double            line_width,
                                                  Color            *line_color,
                                                  Arrow            *start_arrow,
                                                  Arrow            *end_arrow);
@@ -238,29 +238,29 @@ struct _DiaRendererClass
                                                  Point            *start,
                                                  Point            *end,
                                                  Point            *midpoint,
-                                                 real              line_width,
+                                                 double            line_width,
                                                  Color            *color,
                                                  Arrow            *start_arrow,
                                                  Arrow            *end_arrow);
   void     (*draw_polyline_with_arrows)         (DiaRenderer      *renderer,
                                                  Point            *points,
                                                  int               num_points,
-                                                 real              line_width,
+                                                 double            line_width,
                                                  Color            *color,
                                                  Arrow            *start_arrow,
                                                  Arrow            *end_arrow);
   void     (*draw_rounded_polyline_with_arrows) (DiaRenderer      *renderer,
                                                  Point            *points,
                                                  int               num_points,
-                                                 real              line_width,
+                                                 double            line_width,
                                                  Color            *color,
                                                  Arrow            *start_arrow,
                                                  Arrow            *end_arrow,
-                                                 real              radius);
+                                                 double            radius);
   void     (*draw_bezier_with_arrows)           (DiaRenderer      *renderer,
                                                  BezPoint         *points,
                                                  int               num_points,
-                                                 real              line_width,
+                                                 double            line_width,
                                                  Color            *color,
                                                  Arrow            *start_arrow,
                                                  Arrow            *end_arrow);
@@ -271,12 +271,12 @@ struct _DiaRendererClass
   void     (*draw_rotated_text)                 (DiaRenderer      *renderer,
                                                  Text             *text,
                                                  Point            *center,
-                                                 real              angle);
+                                                 double            angle);
   void     (*draw_rotated_image)                (DiaRenderer      *renderer,
                                                  Point            *point,
-                                                 real              width,
-                                                 real              height,
-                                                 real              angle,
+                                                 double            width,
+                                                 double            height,
+                                                 double            angle,
                                                  DiaImage         *image);
 };
 
@@ -287,21 +287,21 @@ void     dia_renderer_draw_layer                        (DiaRenderer      *self,
 void     dia_renderer_draw_object                       (DiaRenderer      *self,
                                                          DiaObject        *object,
                                                          DiaMatrix        *matrix);
-real     dia_renderer_get_text_width                    (DiaRenderer      *self,
+double   dia_renderer_get_text_width                    (DiaRenderer      *self,
                                                          const gchar      *text,
                                                          int               length);
 void     dia_renderer_begin_render                      (DiaRenderer      *self,
                                                          const DiaRectangle *update);
 void     dia_renderer_end_render                        (DiaRenderer      *self);
 void     dia_renderer_set_linewidth                     (DiaRenderer      *self,
-                                                         real              linewidth);
+                                                         double            linewidth);
 void     dia_renderer_set_linecaps                      (DiaRenderer      *self,
                                                          LineCaps          mode);
 void     dia_renderer_set_linejoin                      (DiaRenderer      *self,
                                                          LineJoin          mode);
 void     dia_renderer_set_linestyle                     (DiaRenderer      *self,
                                                          LineStyle         mode,
-                                                         real              length);
+                                                         double            length);
 void     dia_renderer_set_fillstyle                     (DiaRenderer      *self,
                                                          FillStyle         mode);
 void     dia_renderer_set_font                          (DiaRenderer      *self,
@@ -320,22 +320,22 @@ void     dia_renderer_draw_polygon                      (DiaRenderer      *self,
                                                          Color            *stroke);
 void     dia_renderer_draw_arc                          (DiaRenderer      *self,
                                                          Point            *center,
-                                                         real              width,
-                                                         real              height,
-                                                         real              angle1,
-                                                         real              angle2,
+                                                         double            width,
+                                                         double            height,
+                                                         double            angle1,
+                                                         double            angle2,
                                                          Color            *color);
 void     dia_renderer_fill_arc                          (DiaRenderer      *self,
                                                          Point            *center,
-                                                         real              width,
-                                                         real              height,
-                                                         real              angle1,
-                                                         real              angle2,
+                                                         double            width,
+                                                         double            height,
+                                                         double            angle1,
+                                                         double            angle2,
                                                          Color            *color);
 void     dia_renderer_draw_ellipse                      (DiaRenderer      *self,
                                                          Point            *center,
-                                                         real              width,
-                                                         real              height,
+                                                         double            width,
+                                                         double            height,
                                                          Color            *fill,
                                                          Color            *stroke);
 void     dia_renderer_draw_string                       (DiaRenderer      *self,
@@ -345,8 +345,8 @@ void     dia_renderer_draw_string                       (DiaRenderer      *self,
                                                          Color            *color);
 void     dia_renderer_draw_image                        (DiaRenderer      *self,
                                                          Point            *point,
-                                                         real              width,
-                                                         real              height,
+                                                         double            width,
+                                                         double            height,
                                                          DiaImage         *image);
 void     dia_renderer_draw_bezier                       (DiaRenderer      *self,
                                                          BezPoint         *points,
@@ -378,16 +378,16 @@ void     dia_renderer_draw_rounded_rect                 (DiaRenderer      *self,
                                                          Point            *lr_corner,
                                                          Color            *fill,
                                                          Color            *stroke,
-                                                         real              radius);
+                                                         double            radius);
 void     dia_renderer_draw_rounded_polyline             (DiaRenderer      *self,
                                                          Point            *points,
                                                          int               num_points,
                                                          Color            *color,
-                                                         real              radius);
+                                                         double            radius);
 void     dia_renderer_draw_line_with_arrows             (DiaRenderer      *self,
                                                          Point            *start,
                                                          Point            *end,
-                                                         real              line_width,
+                                                         double            line_width,
                                                          Color            *line_color,
                                                          Arrow            *start_arrow,
                                                          Arrow            *end_arrow);
@@ -395,29 +395,29 @@ void     dia_renderer_draw_arc_with_arrows              (DiaRenderer      *self,
                                                          Point            *start,
                                                          Point            *end,
                                                          Point            *midpoint,
-                                                         real              line_width,
+                                                         double            line_width,
                                                          Color            *color,
                                                          Arrow            *start_arrow,
                                                          Arrow            *end_arrow);
 void     dia_renderer_draw_polyline_with_arrows         (DiaRenderer      *self,
                                                          Point            *points,
                                                          int               num_points,
-                                                         real              line_width,
+                                                         double            line_width,
                                                          Color            *color,
                                                          Arrow            *start_arrow,
                                                          Arrow            *end_arrow);
 void     dia_renderer_draw_rounded_polyline_with_arrows (DiaRenderer      *self,
                                                          Point            *points,
                                                          int               num_points,
-                                                         real              line_width,
+                                                         double            line_width,
                                                          Color            *color,
                                                          Arrow            *start_arrow,
                                                          Arrow            *end_arrow,
-                                                         real              radius);
+                                                         double            radius);
 void     dia_renderer_draw_bezier_with_arrows           (DiaRenderer      *self,
                                                          BezPoint         *points,
                                                          int               num_points,
-                                                         real              line_width,
+                                                         double            line_width,
                                                          Color            *color,
                                                          Arrow            *start_arrow,
                                                          Arrow            *end_arrow);
@@ -428,12 +428,12 @@ void     dia_renderer_set_pattern                       (DiaRenderer      *self,
 void     dia_renderer_draw_rotated_text                 (DiaRenderer      *self,
                                                          Text             *text,
                                                          Point            *center,
-                                                         real              angle);
+                                                         double            angle);
 void     dia_renderer_draw_rotated_image                (DiaRenderer      *self,
                                                          Point            *point,
-                                                         real              width,
-                                                         real              height,
-                                                         real              angle,
+                                                         double            width,
+                                                         double            height,
+                                                         double            angle,
                                                          DiaImage         *image);
 
 void     dia_renderer_bezier_fill                       (DiaRenderer      *self,

@@ -729,6 +729,7 @@ wininfo_in_range (const PersistentWindow *wininfo)
 
 /**
  * persistence_register_window:
+ * @window: the #GtkWindow to track
  *
  * Register a window with a role for persitence
  *

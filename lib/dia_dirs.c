@@ -116,7 +116,7 @@ dia_get_locale_directory (void)
 
 /**
  * dia_config_filename:
- * @subfile: Name of the subfile.
+ * @file: Name of the file.
  *
  * Get the name of a file under the Dia config directory. If no home
  * directory can be found, uses a temporary directory.
@@ -127,7 +127,7 @@ dia_get_locale_directory (void)
  * Since: dawn-of-time
  */
 char *
-dia_config_filename (const char *subfile)
+dia_config_filename (const char *file)
 {
   const char *homedir;
 
@@ -136,7 +136,7 @@ dia_config_filename (const char *subfile)
     homedir = g_get_tmp_dir (); /* put config stuff in /tmp -- not ideal, but
                                  * we should not reach this state */
   }
-  return g_build_filename (homedir, ".dia", subfile, NULL);
+  return g_build_filename (homedir, ".dia", file, NULL);
 }
 
 

@@ -614,14 +614,15 @@ static void
 uml_underline_text (DiaRenderer  *renderer,
                     Point         StartPoint,
                     DiaFont      *font,
-                    real          font_height,
-                    gchar        *string,
+                    double        font_height,
+                    const char   *string,
                     Color        *color,
-                    real          line_width,
-                    real          underline_width)
+                    double        line_width,
+                    double        underline_width)
 {
   Point UnderlineStartPoint;
   Point UnderlineEndPoint;
+  const char *tmp = string;
   char *whitespaces;
   int first_non_whitespace = 0;
 
@@ -629,21 +630,25 @@ uml_underline_text (DiaRenderer  *renderer,
   UnderlineStartPoint.y += font_height * 0.1;
   UnderlineEndPoint = UnderlineStartPoint;
 
-  whitespaces = string;
-  while (whitespaces &&
-         g_unichar_isspace (g_utf8_get_char (whitespaces))) {
-    whitespaces = g_utf8_next_char (whitespaces);
+  while (tmp && g_unichar_isspace (g_utf8_get_char (tmp))) {
+    tmp = g_utf8_next_char (tmp);
   }
-  first_non_whitespace = whitespaces - string;
+
+  first_non_whitespace = tmp - string;
+
   whitespaces = g_strdup (string);
   whitespaces[first_non_whitespace] = '\0';
+
   UnderlineStartPoint.x += dia_font_string_width (whitespaces, font, font_height);
-  g_clear_pointer (&whitespaces, g_free);
   UnderlineEndPoint.x += dia_font_string_width (string, font, font_height);
+
   dia_renderer_set_linewidth (renderer, underline_width);
   dia_renderer_draw_line (renderer, &UnderlineStartPoint, &UnderlineEndPoint, color);
   dia_renderer_set_linewidth (renderer, line_width);
+
+  g_clear_pointer (&whitespaces, g_free);
 }
+
 
 /**
  * Create a documentation tag from a comment.

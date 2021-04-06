@@ -196,8 +196,8 @@ typedef void                   (*DrawFunc)                  (DiaObject        *o
 typedef double                 (*DistanceFunc)              (DiaObject        *obj,
                                                              Point            *point);
 typedef void                   (*SelectFunc)                (DiaObject        *obj,
-			                                     Point            *clicked_point,
-			                                     DiaRenderer      *interactive_renderer);
+                                                             Point            *clicked_point,
+                                                             DiaRenderer      *interactive_renderer);
 typedef DiaObject             *(*CopyFunc)                  (DiaObject        *obj);
 typedef DiaObjectChange       *(*MoveFunc)                  (DiaObject        *obj,
                                                              Point            *pos);
@@ -214,11 +214,18 @@ typedef DiaObjectChange       *(*ApplyPropertiesDialogFunc) (DiaObject        *o
 typedef DiaObjectChange       *(*ApplyPropertiesListFunc)   (DiaObject        *obj,
                                                              GPtrArray        *props);
 typedef const PropDescription *(*DescribePropsFunc)         (DiaObject        *obj);
-typedef void (* GetPropsFunc) (DiaObject *obj, GPtrArray *props);
-typedef void (* SetPropsFunc) (DiaObject *obj, GPtrArray *props);
-typedef DiaMenu *(*ObjectMenuFunc) (DiaObject* obj, Point *position);
-typedef gboolean (*TextEditFunc) (DiaObject *obj, Text *text, TextEditState state, gchar *textchange);
-typedef gboolean (*TransformFunc) (DiaObject *obj, const DiaMatrix *m);
+typedef void                   (*GetPropsFunc)              (DiaObject        *obj,
+                                                             GPtrArray        *props);
+typedef void                   (*SetPropsFunc)              (DiaObject        *obj,
+                                                             GPtrArray        *props);
+typedef DiaMenu               *(*ObjectMenuFunc)            (DiaObject        *obj,
+                                                             Point            *position);
+typedef gboolean               (*TextEditFunc)              (DiaObject        *obj,
+                                                             Text             *text,
+                                                             TextEditState     state,
+                                                             char             *textchange);
+typedef gboolean               (*TransformFunc)             (DiaObject        *obj,
+                                                             const DiaMatrix  *m);
 
 
 
@@ -496,86 +503,89 @@ struct _DiaObjectType {
   { "meta", PROP_TYPE_DICT, offsetof(DiaObject, meta) }
 
 
-void                   dia_object_draw                (DiaObject              *self,
-                                                       DiaRenderer            *renderer);
-double                 dia_object_distance_from       (DiaObject              *self,
-                                                       Point                  *point);
+void                   dia_object_draw                      (DiaObject              *self,
+                                                             DiaRenderer            *renderer);
+double                 dia_object_distance_from             (DiaObject              *self,
+                                                             Point                  *point);
 // TODO: Probably shouldn't pass renderer here
-void                   dia_object_select              (DiaObject              *self,
-                                                       Point                  *point,
-                                                       DiaRenderer            *renderer);
+void                   dia_object_select                    (DiaObject              *self,
+                                                             Point                  *point,
+                                                             DiaRenderer            *renderer);
 // Note: wraps copy
-DiaObject             *dia_object_clone               (DiaObject              *self);
-DiaObjectChange       *dia_object_move                (DiaObject              *self,
-                                                       Point                  *to);
-DiaObjectChange       *dia_object_move_handle         (DiaObject              *self,
-                                                       Handle                 *handle,
-                                                       Point                  *to,
-                                                       ConnectionPoint        *cp,
-                                                       HandleMoveReason        reason,
-                                                       ModifierKeys            modifiers);
+DiaObject             *dia_object_clone                      (DiaObject              *self);
+DiaObjectChange       *dia_object_move                       (DiaObject              *self,
+                                                              Point                  *to);
+DiaObjectChange       *dia_object_move_handle                (DiaObject              *self,
+                                                              Handle                 *handle,
+                                                              Point                  *to,
+                                                              ConnectionPoint        *cp,
+                                                              HandleMoveReason        reason,
+                                                              ModifierKeys            modifiers);
 // Note: Wraps get_properties
-GtkWidget             *dia_object_get_editor          (DiaObject              *self,
-                                                       gboolean                is_default);
-DiaObjectChange       *dia_object_apply_editor        (DiaObject              *self,
-                                                       GtkWidget              *editor);
-DiaMenu               *dia_object_get_menu            (DiaObject              *self,
-                                                       Point                  *at);
-const PropDescription *dia_object_describe_properties (DiaObject              *self);
-void                   dia_object_get_properties      (DiaObject              *self,
-                                                       GPtrArray              *list);
-void                   dia_object_set_properties      (DiaObject              *self,
-                                                       GPtrArray              *list);
-DiaObjectChange       *dia_object_apply_properties    (DiaObject              *self,
-                                                       GPtrArray              *list);
-gboolean               dia_object_edit_text           (DiaObject              *self,
-                                                       Text                   *text,
-                                                       TextEditState           state,
-                                                       gchar                  *textchange);
-gboolean               dia_object_transform           (DiaObject              *self,
-                                                       const DiaMatrix        *m);
-void                   dia_object_add_handle           (DiaObject               *self,
-                                                        Handle                  *handle,
-                                                        int                      index,
-                                                        HandleId                 id,
-                                                        HandleType               type,
-                                                        HandleConnectType        connect_type);
-void                   dia_object_add_connection_point (DiaObject               *self,
-                                                        ConnectionPoint         *cp,
-                                                        int                      index,
-                                                        ConnectionPointFlags     flags);
-
-
-gboolean       dia_object_defaults_load (const gchar *filename,
-                                         gboolean create_lazy,
-					 DiaContext *ctx);
-DiaObject  *dia_object_default_get  (const DiaObjectType *type, gpointer user_data);
-DiaObject  *dia_object_default_create (const DiaObjectType *type,
-                                    Point *startpoint,
-                                    void *user_data,
-                                    Handle **handle1,
-                                    Handle **handle2);
-gboolean         dia_object_defaults_save (const gchar *filename, DiaContext *ctx);
-DiaLayer        *dia_object_get_parent_layer(DiaObject *obj);
-gboolean         dia_object_is_selected (const DiaObject *obj);
-void                   dia_object_get_bounding_box     (DiaObject               *obj,
-                                                        graphene_rect_t         *bbox);
-void                   dia_object_set_bounding_box     (DiaObject               *obj,
-                                                        graphene_rect_t         *bbox);
-void                   dia_object_get_enclosing_box    (DiaObject               *obj,
-                                                        graphene_rect_t         *ebox);
-void                   dia_object_set_enclosing_box    (DiaObject               *obj,
-                                                        graphene_rect_t         *ebox);
-DiaObject       *dia_object_get_parent_with_flags(DiaObject *obj, guint flags);
-gboolean         dia_object_is_selectable(DiaObject *obj);
-/* The below is for debugging purposes only. */
-gboolean   dia_object_sanity_check(const DiaObject *obj, const gchar *msg);
-
+GtkWidget             *dia_object_get_editor                 (DiaObject              *self,
+                                                              gboolean                is_default);
+DiaObjectChange       *dia_object_apply_editor               (DiaObject              *self,
+                                                              GtkWidget              *editor);
+DiaMenu               *dia_object_get_menu                   (DiaObject              *self,
+                                                              Point                  *at);
+const PropDescription *dia_object_describe_properties        (DiaObject              *self);
+void                   dia_object_get_properties             (DiaObject              *self,
+                                                              GPtrArray              *list);
+void                   dia_object_set_properties             (DiaObject              *self,
+                                                              GPtrArray              *list);
+DiaObjectChange       *dia_object_apply_properties           (DiaObject              *self,
+                                                              GPtrArray              *list);
+gboolean               dia_object_edit_text                  (DiaObject              *self,
+                                                              Text                   *text,
+                                                              TextEditState           state,
+                                                              char                   *textchange);
+gboolean               dia_object_transform                  (DiaObject              *self,
+                                                             const DiaMatrix        *m);
+void                   dia_object_add_handle                 (DiaObject               *self,
+                                                              Handle                  *handle,
+                                                              int                      index,
+                                                              HandleId                 id,
+                                                              HandleType               type,
+                                                              HandleConnectType        connect_type);
+void                   dia_object_add_connection_point       (DiaObject               *self,
+                                                              ConnectionPoint         *cp,
+                                                              int                      index,
+                                                              ConnectionPointFlags     flags);
+gboolean               dia_object_defaults_load              (const char              *filename,
+                                                              gboolean                 create_lazy,
+                                                              DiaContext              *ctx);
+DiaObject             *dia_object_default_get                (const DiaObjectType     *type,
+                                                              gpointer                 user_data);
+DiaObject             *dia_object_default_create             (const DiaObjectType     *type,
+                                                              Point                   *startpoint,
+                                                              void                    *user_data,
+                                                              Handle                 **handle1,
+                                                              Handle                 **handle2);
+gboolean               dia_object_defaults_save              (const char              *filename,
+                                                              DiaContext              *ctx);
+DiaLayer              *dia_object_get_parent_layer           (DiaObject               *obj);
+gboolean               dia_object_is_selected                (const DiaObject         *obj);
+void                   dia_object_get_bounding_box           (DiaObject               *obj,
+                                                              graphene_rect_t         *bbox);
+void                   dia_object_set_bounding_box           (DiaObject               *obj,
+                                                              graphene_rect_t         *bbox);
+void                   dia_object_get_enclosing_box          (DiaObject               *obj,
+                                                              graphene_rect_t         *ebox);
+void                   dia_object_set_enclosing_box          (DiaObject               *obj,
+                                                              graphene_rect_t         *ebox);
+DiaObject             *dia_object_get_parent_with_flags      (DiaObject               *obj,
+                                                              guint                    flags);
+gboolean               dia_object_is_selectable              (DiaObject               *obj);
+/* For debugging purposes only. */
+gboolean               dia_object_sanity_check               (const DiaObject         *obj,
+                                                              const char              *msg);
 /** convenience functions for meta info */
-void   dia_object_set_meta (DiaObject *obj, const gchar *key, const gchar *value);
-gchar *dia_object_get_meta (DiaObject *obj, const gchar *key);
-
-int dia_object_get_num_connections (DiaObject *obj);
+void                   dia_object_set_meta                   (DiaObject               *obj,
+                                                              const char              *key,
+                                                              const char              *value);
+char                  *dia_object_get_meta                   (DiaObject               *obj,
+                                                              const char              *key);
+int                    dia_object_get_num_connections        (DiaObject               *obj);
 
 /* standard way to load/save properties of an object */
 void          object_load_props(DiaObject *obj, ObjectNode obj_node, DiaContext *ctx);
