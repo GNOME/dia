@@ -831,6 +831,7 @@ EXPORTS
  text_set_font
  text_set_height
  text_set_position
+ dia_text_get_position
  text_set_string
 
  text_line_new
@@ -893,3 +894,7 @@ EXPORTS
  cairo_export_data
  cairo_print_callback
  dia_cairo_renderer_get_type
+
+
+ color_black
+ color_white

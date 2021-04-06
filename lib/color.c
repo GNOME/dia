@@ -26,10 +26,8 @@
 
 static GdkColormap *colormap = NULL;
 
-#ifndef G_OS_WIN32
 Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
 Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
-#endif
 
 gboolean _color_initialized = FALSE;
 

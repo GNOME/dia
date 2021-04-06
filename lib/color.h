@@ -56,13 +56,8 @@ void          color_convert        (const Color *color,
 gboolean      color_equals         (const Color *color1,
                                     const Color *color2);
 
-#ifdef G_OS_WIN32
-static Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
-static Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
-#else
-extern DIAVAR Color color_black;
-extern DIAVAR Color color_white;
-#endif
+extern Color color_black;
+extern Color color_white;
 
 #define DIA_COLOR_TO_GDK(from, to)      \
   (to).pixel = 0;                       \
