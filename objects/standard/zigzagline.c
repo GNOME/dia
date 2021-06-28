@@ -512,13 +512,21 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
                   zigzagline->line_caps, ctx);
 
   if (zigzagline->start_arrow.type != ARROW_NONE) {
-    save_arrow(obj_node, &zigzagline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width", ctx);
+    dia_arrow_save (&zigzagline->start_arrow,
+                    obj_node,
+                    "start_arrow",
+                    "start_arrow_length",
+                    "start_arrow_width",
+                    ctx);
   }
 
   if (zigzagline->end_arrow.type != ARROW_NONE) {
-    save_arrow(obj_node, &zigzagline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width", ctx);
+    dia_arrow_save (&zigzagline->end_arrow,
+                    obj_node,
+                    "end_arrow",
+                    "end_arrow_length",
+                    "end_arrow_width",
+                    ctx);
   }
 
   if (zigzagline->line_style != LINESTYLE_SOLID &&
@@ -574,11 +582,19 @@ zigzagline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     zigzagline->line_caps = data_enum(attribute_first_data(attr), ctx);
 
-  load_arrow(obj_node, &zigzagline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width", ctx);
+  dia_arrow_load (&zigzagline->start_arrow,
+                  obj_node,
+                  "start_arrow",
+                  "start_arrow_length",
+                  "start_arrow_width",
+                  ctx);
 
-  load_arrow(obj_node, &zigzagline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width", ctx);
+  dia_arrow_load (&zigzagline->end_arrow,
+                  obj_node,
+                  "end_arrow",
+                  "end_arrow_length",
+                  "end_arrow_width",
+                  ctx);
 
   zigzagline->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");

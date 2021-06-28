@@ -496,13 +496,21 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
                   polyline->line_caps, ctx);
 
   if (polyline->start_arrow.type != ARROW_NONE) {
-    save_arrow(obj_node, &polyline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width", ctx);
+    dia_arrow_save (&polyline->start_arrow,
+                    obj_node,
+                    "start_arrow",
+                    "start_arrow_length",
+                    "start_arrow_width",
+                    ctx);
   }
 
   if (polyline->end_arrow.type != ARROW_NONE) {
-    save_arrow(obj_node, &polyline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width", ctx);
+    dia_arrow_save (&polyline->end_arrow,
+                    obj_node,
+                    "end_arrow",
+                    "end_arrow_length",
+                    "end_arrow_width",
+                    ctx);
   }
 
   if (polyline->absolute_start_gap)
@@ -565,11 +573,19 @@ polyline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     polyline->dashlength = data_real(attribute_first_data(attr), ctx);
 
-  load_arrow(obj_node, &polyline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width", ctx);
+  dia_arrow_load (&polyline->start_arrow,
+                  obj_node,
+                  "start_arrow",
+                  "start_arrow_length",
+                  "start_arrow_width",
+                  ctx);
 
-  load_arrow(obj_node, &polyline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width", ctx);
+  dia_arrow_load (&polyline->end_arrow,
+                  obj_node,
+                  "end_arrow",
+                  "end_arrow_length",
+                  "end_arrow_width",
+                  ctx);
 
   polyline->absolute_start_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_start_gap");

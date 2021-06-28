@@ -4,12 +4,12 @@ EXPORTS
  apply_textattr_properties
  apply_textstr_properties
  arrow_bbox
- arrow_draw
+ dia_arrow_draw
  arrow_type_from_name
  arrow_get_name_from_type
  get_arrow_names
- load_arrow
- save_arrow
+ dia_arrow_load
+ dia_arrow_save
 
  attribute_first_data
  attribute_num_data

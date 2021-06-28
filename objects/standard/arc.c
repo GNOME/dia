@@ -971,15 +971,24 @@ arc_save(Arc *arc, ObjectNode obj_node, DiaContext *ctx)
                   arc->line_caps, ctx);
 
   if (arc->start_arrow.type != ARROW_NONE) {
-    save_arrow(obj_node, &arc->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width", ctx);
+    dia_arrow_save (&arc->start_arrow,
+                    obj_node,
+                    "start_arrow",
+                    "start_arrow_length",
+                    "start_arrow_width",
+                    ctx);
   }
 
   if (arc->end_arrow.type != ARROW_NONE) {
-    save_arrow(obj_node, &arc->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width", ctx);
+    dia_arrow_save (&arc->end_arrow,
+                    obj_node,
+                    "end_arrow",
+                    "end_arrow_length",
+                    "end_arrow_width",
+                    ctx);
   }
 }
+
 
 static DiaObject *
 arc_load(ObjectNode obj_node, int version,DiaContext *ctx)
@@ -1030,11 +1039,19 @@ arc_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     arc->line_caps = data_enum(attribute_first_data(attr), ctx);
 
-  load_arrow(obj_node, &arc->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width", ctx);
+  dia_arrow_load (&arc->start_arrow,
+                  obj_node,
+                  "start_arrow",
+                  "start_arrow_length",
+                  "start_arrow_width",
+                  ctx);
 
-  load_arrow(obj_node, &arc->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width", ctx);
+  dia_arrow_load (&arc->end_arrow,
+                  obj_node,
+                  "end_arrow",
+                  "end_arrow_length",
+                  "end_arrow_width",
+                  ctx);
 
   connection_init(conn, 4, 0);
 

@@ -54,7 +54,7 @@ void *dummy_dep[] G_GNUC_UNUSED = {
   new_text,
   dia_font_new_from_style, /* font.o */
   nearest_pow,
-  arrow_draw,
+  dia_arrow_draw,
   dia_font_selector_new, /* widgets.o */
   dia_state_object_change_new, /* objchange.o */
   intl_score_locale, /* intl.o */

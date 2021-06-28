@@ -638,13 +638,21 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
                   bezierline->line_caps, ctx);
 
   if (bezierline->start_arrow.type != ARROW_NONE) {
-    save_arrow(obj_node, &bezierline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width", ctx);
+    dia_arrow_save (&bezierline->start_arrow,
+                    obj_node,
+                    "start_arrow",
+                    "start_arrow_length",
+                    "start_arrow_width",
+                    ctx);
   }
 
   if (bezierline->end_arrow.type != ARROW_NONE) {
-    save_arrow(obj_node, &bezierline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width", ctx);
+    dia_arrow_save (&bezierline->end_arrow,
+                    obj_node,
+                    "end_arrow",
+                    "end_arrow_length",
+                    "end_arrow_width",
+                    ctx);
   }
 
   if (bezierline->absolute_start_gap)
@@ -704,11 +712,19 @@ bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     bezierline->dashlength = data_real(attribute_first_data(attr), ctx);
 
-  load_arrow(obj_node, &bezierline->start_arrow, "start_arrow",
-	     "start_arrow_length", "start_arrow_width", ctx);
+  dia_arrow_load (&bezierline->start_arrow,
+                  obj_node,
+                  "start_arrow",
+                  "start_arrow_length",
+                  "start_arrow_width",
+                  ctx);
 
-  load_arrow(obj_node, &bezierline->end_arrow, "end_arrow",
-	     "end_arrow_length", "end_arrow_width", ctx);
+  dia_arrow_load (&bezierline->end_arrow,
+                  obj_node,
+                  "end_arrow",
+                  "end_arrow_length",
+                  "end_arrow_width",
+                  ctx);
 
   bezierline->absolute_start_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_start_gap");

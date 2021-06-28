@@ -210,6 +210,7 @@ arc_draw (Arc *arc, DiaRenderer *renderer)
   OrthConn *orth = &arc->orth;
   Point *points;
   int n,i;
+  Arrow arrow = { ARC_ARROW_TYPE, ARC_ARROW_LENGTH, ARC_ARROW_WIDTH };
 
   points = &orth->points[0];
   n = orth->numpoints;
@@ -229,15 +230,13 @@ arc_draw (Arc *arc, DiaRenderer *renderer)
         Point m;
         m.x = points[i].x; /* == points[i+1].x */
         m.y = .5 * (points[i].y + points[i+1].y) - (.5 * ARC_ARROW_LENGTH);
-        arrow_draw (renderer,
-                    ARC_ARROW_TYPE,
-                    &m,
-                    &points[i],
-                    ARC_ARROW_LENGTH,
-                    ARC_ARROW_WIDTH,
-                    ARC_LINE_WIDTH,
-                    &color_black,
-                    &color_white);
+        dia_arrow_draw (&arrow,
+                        renderer,
+                        &m,
+                        &points[i],
+                        ARC_LINE_WIDTH,
+                        &color_black,
+                        &color_white);
       }
     }
   }

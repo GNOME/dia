@@ -2358,65 +2358,130 @@ arrow_bbox (const Arrow  *self,
   polyline_bbox (poly, n_points, &pextra, TRUE, rect);
 }
 
+
 /**
- * arrow_draw:
+ * dia_arrow_draw:
+ * @self: the #Arrow to draw.
  * @renderer: A renderer instance to draw into
- * @type: Which kind of arrowhead to draw.
  * @to: The point that the arrow points to.
  * @from: Where the arrow points from (e.g. end of stem)
- * @length: The length of the arrow
- * @width: The width of the arrow
- * @linewidth: The thickness of the lines used to draw the arrow.
+ * @line_width: The thickness of the lines used to draw the arrow.
  * @fg_color: The color used for drawing the arrowhead lines
  * @bg_color: The color used for drawing the arrowhead interior.
  *
  * Draw any arrowhead.
+ *
+ * Since: 0.98
  */
 void
-arrow_draw (DiaRenderer *renderer,
-            ArrowType    type,
-            Point       *to,
-            Point       *from,
-            real         length,
-            real         width,
-            real         linewidth,
-            Color       *fg_color,
-            Color       *bg_color)
+dia_arrow_draw (Arrow       *self,
+                DiaRenderer *renderer,
+                Point       *to,
+                Point       *from,
+                double       line_width,
+                Color       *fg_color,
+                Color       *bg_color)
 {
-  switch (type) {
+  switch (self->type) {
     case ARROW_NONE:
       break;
     case ARROW_DIMENSION_ORIGIN:
-      draw_fill_dot (renderer,to,from,length,width,linewidth,fg_color,NULL);
+      draw_fill_dot (renderer,
+                     to,
+                     from,
+                     self->length,
+                     self->width,
+                     line_width,
+                     fg_color,
+                     NULL);
       break;
     case ARROW_INTEGRAL_SYMBOL:
-      draw_integral (renderer,to,from,length,width,linewidth,fg_color);
+      draw_integral (renderer,
+                     to,
+                     from,
+                     self->length,
+                     self->width,
+                     line_width,
+                     fg_color);
       break;
     case ARROW_ONE_OR_MANY:
-      draw_one_or_many (renderer,to,from,length,width,linewidth,fg_color,bg_color);
+      draw_one_or_many (renderer,
+                        to,
+                        from,
+                        self->length,
+                        self->width,
+                        line_width,
+                        fg_color,
+                        bg_color);
       break;
     case ARROW_NONE_OR_MANY:
-      draw_none_or_many (renderer,to,from,length,width,linewidth,fg_color,bg_color);
+      draw_none_or_many (renderer,
+                         to,
+                         from,
+                         self->length,
+                         self->width,
+                         line_width,
+                         fg_color,
+                         bg_color);
       break;
     case ARROW_ONE_EXACTLY:
-      draw_one_exactly (renderer,to,from,length,width,linewidth,fg_color,bg_color);
+      draw_one_exactly (renderer,
+                        to,
+                        from,
+                        self->length,
+                        self->width,
+                        line_width,
+                        fg_color,
+                        bg_color);
       break;
     case ARROW_ONE_OR_NONE:
-      draw_one_or_none (renderer,to,from,length,width,linewidth,fg_color,bg_color);
+      draw_one_or_none (renderer,
+                        to,
+                        from,
+                        self->length,
+                        self->width,
+                        line_width,
+                        fg_color,
+                        bg_color);
       break;
     case ARROW_ROUNDED:
-      draw_rounded (renderer, to, from, length, width, linewidth, fg_color, bg_color);
+      draw_rounded (renderer,
+                    to,
+                    from,
+                    self->length,
+                    self->width,
+                    line_width,
+                    fg_color,
+                    bg_color);
       break;
     case ARROW_OPEN_ROUNDED:
-      draw_open_rounded (renderer, to, from, length, width, linewidth,
-                         fg_color, bg_color);
+      draw_open_rounded (renderer,
+                         to,
+                         from,
+                         self->length,
+                         self->width,
+                         line_width,
+                         fg_color,
+                         bg_color);
       break;
     case ARROW_FILLED_DOT_N_TRIANGLE:
-      draw_filled_dot_n_triangle (renderer, to, from, length, width, linewidth,
-                                  fg_color, bg_color);
+      draw_filled_dot_n_triangle (renderer,
+                                  to,
+                                  from,
+                                  self->length,
+                                  self->width,
+                                  line_width,
+                                  fg_color,
+                                  bg_color);
       break;
     case ARROW_THREE_DOTS:
-      draw_three_dots (renderer,to,from,length,width,linewidth,fg_color);
+      draw_three_dots (renderer,
+                       to,
+                       from,
+                       self->length,
+                       self->width,
+                       line_width,
+                       fg_color);
       break;
     case MAX_ARROW_TYPE:
       break;
@@ -2445,30 +2510,33 @@ arrow_draw (DiaRenderer *renderer,
     case ARROW_BACKSLASH:
     default:
       {
-        int idx = arrow_index_from_type (type);
+        int idx = arrow_index_from_type (self->type);
         g_return_if_fail (arrow_types[idx].draw != NULL);
         arrow_types[idx].draw (renderer,
-                               to, from,
-                               length, width,
-                               linewidth,
-                               fg_color, bg_color);
+                               to,
+                               from,
+                               self->length,
+                               self->width,
+                               line_width,
+                               fg_color,
+                               bg_color);
         break;
       }
   }
-  if ((type != ARROW_NONE) && (render_bounding_boxes ()) && DIA_IS_INTERACTIVE_RENDERER (renderer)) {
-    Arrow arrow = {type, length, width};
+
+  if ((self->type != ARROW_NONE) && (render_bounding_boxes ()) && DIA_IS_INTERACTIVE_RENDERER (renderer)) {
     DiaRectangle bbox = {0, };
     Point p1, p2;
     Color col = { 1.0, 0.0, 1.0, 1.0 };
 
-    arrow_bbox (&arrow, linewidth, to, from, &bbox);
+    arrow_bbox (self, line_width, to, from, &bbox);
 
     p1.x = bbox.left;
     p1.y = bbox.top;
     p2.x = bbox.right;
     p2.y = bbox.bottom;
 
-    dia_renderer_set_linewidth (renderer,0.01);
+    dia_renderer_set_linewidth (renderer, 0.01);
     dia_renderer_draw_rect (renderer, &p1, &p2, NULL, &col);
   }
 }
@@ -2504,24 +2572,27 @@ sanitize_arrow (Arrow *self, DiaContext *ctx)
   }
 }
 
+
 /**
- * save_arrow:
- * @obj_node: The XML node to save to.
+ * dia_arrow_save:
  * @arrow: the arrow to save.
+ * @obj_node: The XML node to save to.
  * @type_attribute: the name of the attribute of the arrow type.
  * @length_attribute: the name of the attribute of the arrow length.
  * @width_attribute: the name of the attribte of the arrow width.
  * @ctx: a #DiaContext
  *
  * Save the arrow information into three attributes.
+ *
+ * Since: 0.98
  */
 void
-save_arrow (ObjectNode  obj_node,
-            Arrow      *arrow,
-            gchar      *type_attribute,
-            gchar      *length_attribute,
-            gchar      *width_attribute,
-            DiaContext *ctx)
+dia_arrow_save (Arrow      *arrow,
+                ObjectNode  obj_node,
+                char       *type_attribute,
+                char       *length_attribute,
+                char       *width_attribute,
+                DiaContext *ctx)
 {
   data_add_enum (new_attribute (obj_node, type_attribute),
                  arrow->type, ctx);
@@ -2533,37 +2604,42 @@ save_arrow (ObjectNode  obj_node,
 
 
 /**
- * load_arrow:
- * @obj_node: The XML node to load from.
+ * dia_arrow_load:
  * @arrow: the arrow to store the data info.
+ * @obj_node: The XML node to load from.
  * @type_attribute: the name of the attribute of the arrow type.
  * @length_attribute: the name of the attribute of the arrow length.
  * @width_attribute: the name of the attribte of the arrow width.
  * @ctx: the current #DiaContext
  *
  * Load arrow information from three attributes.
+ *
+ * Since: 0.98
  */
 void
-load_arrow (ObjectNode  obj_node,
-            Arrow      *arrow,
-            gchar      *type_attribute,
-            gchar      *length_attribute,
-            gchar      *width_attribute,
-            DiaContext *ctx)
+dia_arrow_load (Arrow      *arrow,
+                ObjectNode  obj_node,
+                char       *type_attribute,
+                char       *length_attribute,
+                char       *width_attribute,
+                DiaContext *ctx)
 {
   AttributeNode attr;
 
   arrow->type = ARROW_NONE;
   arrow->length = DEFAULT_ARROW_LENGTH;
   arrow->width = DEFAULT_ARROW_WIDTH;
+
   attr = object_find_attribute (obj_node, type_attribute);
   if (attr != NULL) {
     arrow->type = data_enum (attribute_first_data (attr), ctx);
   }
+
   attr = object_find_attribute (obj_node, length_attribute);
   if (attr != NULL) {
     arrow->length = data_real (attribute_first_data (attr),ctx);
   }
+
   attr = object_find_attribute (obj_node, width_attribute);
   if (attr != NULL) {
     arrow->width = data_real (attribute_first_data (attr),ctx);
@@ -2571,6 +2647,7 @@ load_arrow (ObjectNode  obj_node,
 
   sanitize_arrow (arrow, ctx);
 }
+
 
 /**
  * arrow_type_from_name:

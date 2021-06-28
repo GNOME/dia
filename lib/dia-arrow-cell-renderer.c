@@ -221,15 +221,13 @@ dia_arrow_cell_renderer_render (GtkCellRenderer      *cell,
                           &from,
                           &to,
                           &colour_fg);
-  arrow_draw (DIA_RENDERER (priv->renderer),
-              tmp_arrow.type,
-              &arrow_head,
-              &from,
-              tmp_arrow.length,
-              tmp_arrow.width,
-              ARROW_LINEWIDTH,
-              &colour_fg,
-              &colour_bg);
+  dia_arrow_draw (&tmp_arrow,
+                  DIA_RENDERER (priv->renderer),
+                  &arrow_head,
+                  &from,
+                  ARROW_LINEWIDTH,
+                  &colour_fg,
+                  &colour_bg);
 
   dia_renderer_end_render (DIA_RENDERER (priv->renderer));
 

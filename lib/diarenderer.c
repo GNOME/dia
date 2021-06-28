@@ -1352,18 +1352,25 @@ draw_line_with_arrows(DiaRenderer *renderer,
   dia_renderer_draw_line (renderer, startpoint, endpoint, color);
 
   /* Actual arrow drawing down here so line styles aren't disturbed */
-  if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
-    arrow_draw(renderer, start_arrow->type,
-	       &start_arrow_head, endpoint,
-	       start_arrow->length, start_arrow->width,
-	       line_width,
-	       color, &color_white);
-  if (end_arrow != NULL && end_arrow->type != ARROW_NONE)
-    arrow_draw(renderer, end_arrow->type,
-	       &end_arrow_head, startpoint,
-	       end_arrow->length, end_arrow->width,
-	       line_width,
-	       color, &color_white);
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
+    dia_arrow_draw (start_arrow,
+                    renderer,
+                    &start_arrow_head,
+                    endpoint,
+                    line_width,
+                    color,
+                    &color_white);
+  }
+
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
+    dia_arrow_draw (end_arrow,
+                    renderer,
+                    &end_arrow_head,
+                    startpoint,
+                    line_width,
+                    color,
+                    &color_white);
+  }
 
   *startpoint = oldstart;
   *endpoint = oldend;
@@ -1433,18 +1440,26 @@ draw_polyline_with_arrows(DiaRenderer *renderer,
                                 lastline-firstline,
                                 color);
   }
-  if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
-    arrow_draw(renderer, start_arrow->type,
-	       &start_arrow_head, &points[firstline+1],
-	       start_arrow->length, start_arrow->width,
-	       line_width,
-	       color, &color_white);
-  if (end_arrow != NULL && end_arrow->type != ARROW_NONE)
-    arrow_draw(renderer, end_arrow->type,
-	       &end_arrow_head, &points[lastline-2],
-	       end_arrow->length, end_arrow->width,
-	       line_width,
-	       color, &color_white);
+
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
+    dia_arrow_draw (start_arrow,
+                    renderer,
+                    &start_arrow_head,
+                    &points[firstline+1],
+                    line_width,
+                    color,
+                    &color_white);
+  }
+
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
+    dia_arrow_draw (end_arrow,
+                    renderer,
+                    &end_arrow_head,
+                    &points[lastline-2],
+                    line_width,
+                    color,
+                    &color_white);
+  }
 
   points[firstline] = oldstart;
   points[lastline-1] = oldend;
@@ -1513,18 +1528,24 @@ draw_rounded_polyline_with_arrows(DiaRenderer *renderer,
                                         lastline-firstline,
                                         color, radius);
   }
-  if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
-    arrow_draw(renderer, start_arrow->type,
-	       &start_arrow_head, &points[firstline+1],
-	       start_arrow->length, start_arrow->width,
-	       line_width,
-	       color, &color_white);
-  if (end_arrow != NULL && end_arrow->type != ARROW_NONE)
-    arrow_draw(renderer, end_arrow->type,
-	       &end_arrow_head, &points[lastline-2],
-	       end_arrow->length, end_arrow->width,
-	       line_width,
-	       color, &color_white);
+
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
+    dia_arrow_draw (start_arrow,
+                    renderer,
+                    &start_arrow_head, &points[firstline+1],
+                    line_width,
+                    color,
+                    &color_white);
+  }
+
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
+    dia_arrow_draw (end_arrow,
+                    renderer,
+                    &end_arrow_head, &points[lastline-2],
+                    line_width,
+                    color,
+                    &color_white);
+  }
 
   points[firstline] = oldstart;
   points[lastline-1] = oldend;
@@ -1802,19 +1823,28 @@ draw_arc_with_arrows (DiaRenderer *renderer,
                            angle2,
                            color);
   }
-  if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
-    arrow_draw(renderer, start_arrow->type,
-	       &start_arrow_head, &start_arrow_end,
-	       start_arrow->length, start_arrow->width,
-	       line_width,
-	       color, &color_white);
-  if (end_arrow != NULL && end_arrow->type != ARROW_NONE)
-    arrow_draw(renderer, end_arrow->type,
-	       &end_arrow_head, &end_arrow_end,
-	       end_arrow->length, end_arrow->width,
-	       line_width,
-	       color, &color_white);
+
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
+    dia_arrow_draw (start_arrow,
+                    renderer,
+                    &start_arrow_head,
+                    &start_arrow_end,
+                    line_width,
+                    color,
+                    &color_white);
+  }
+
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
+    dia_arrow_draw (end_arrow,
+                    renderer,
+                    &end_arrow_head,
+                    &end_arrow_end,
+                    line_width,
+                    color,
+                    &color_white);
+  }
 }
+
 
 /*!
  * \brief Draw a bezier line fitting to the given arrows
@@ -1859,18 +1889,26 @@ draw_bezier_with_arrows(DiaRenderer *renderer,
     point_sub(&points[num_points-1].p3, &move_line);
   }
   dia_renderer_draw_bezier (renderer, points, num_points, color);
-  if (start_arrow != NULL && start_arrow->type != ARROW_NONE)
-    arrow_draw(renderer, start_arrow->type,
-	       &start_arrow_head, &points[1].p1,
-	       start_arrow->length, start_arrow->width,
-	       line_width,
-	       color, &color_white);
-  if (end_arrow != NULL && end_arrow->type != ARROW_NONE)
-    arrow_draw(renderer, end_arrow->type,
-	       &end_arrow_head, &points[num_points-1].p2,
-	       end_arrow->length, end_arrow->width,
-	       line_width,
-	       color, &color_white);
+
+  if (start_arrow != NULL && start_arrow->type != ARROW_NONE) {
+    dia_arrow_draw (start_arrow,
+                    renderer,
+                    &start_arrow_head,
+                    &points[1].p1,
+                    line_width,
+                    color,
+                    &color_white);
+  }
+
+  if (end_arrow != NULL && end_arrow->type != ARROW_NONE) {
+    dia_arrow_draw (end_arrow,
+                    renderer,
+                    &end_arrow_head,
+                    &points[num_points-1].p2,
+                    line_width,
+                    color,
+                    &color_white);
+  }
 
   points[0].p1 = startpoint;
   points[num_points-1].p3 = endpoint;

@@ -148,13 +148,11 @@ struct _Arrow {
 Arrow        *dia_arrow_copy           (Arrow       *self);
 void          dia_arrow_free           (Arrow       *self);
 GType         dia_arrow_get_type       (void);
-void          arrow_draw               (DiaRenderer *renderer,
-                                        ArrowType    type,
+void          dia_arrow_draw           (Arrow       *self,
+                                        DiaRenderer *renderer,
                                         Point       *to,
                                         Point       *from,
-                                        real         length,
-                                        real         width,
-                                        real         linewidth,
+                                        double       line_width,
                                         Color       *fg_color,
                                         Color       *bg_color);
 void          arrow_bbox               (const Arrow *self,
@@ -168,17 +166,17 @@ void          calculate_arrow_point    (const Arrow *arrow,
                                         Point       *move_arrow,
                                         Point       *move_line,
                                         real         linewidth);
-void          save_arrow               (ObjectNode   obj_node,
-                                        Arrow       *arrow,
-                                        gchar       *type_attribute,
-                                        gchar       *length_attribute,
-                                        gchar       *width_attribute,
+void          dia_arrow_save           (Arrow       *arrow,
+                                        ObjectNode   obj_node,
+                                        char        *type_attribute,
+                                        char        *length_attribute,
+                                        char        *width_attribute,
                                         DiaContext  *ctx);
-void          load_arrow               (ObjectNode   obj_node,
-                                        Arrow       *arrow,
-                                        gchar       *type_attribute,
-                                        gchar       *length_attribute,
-                                        gchar       *width_attribute,
+void          dia_arrow_load           (Arrow       *arrow,
+                                        ObjectNode   obj_node,
+                                        char        *type_attribute,
+                                        char        *length_attribute,
+                                        char        *width_attribute,
                                         DiaContext  *ctx);
 ArrowType     arrow_type_from_name     (const gchar *name);
 gint          arrow_index_from_type    (ArrowType    atype);

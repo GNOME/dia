@@ -670,13 +670,21 @@ line_save(Line *line, ObjectNode obj_node, DiaContext *ctx)
                   line->line_caps, ctx);
 
   if (line->start_arrow.type != ARROW_NONE) {
-    save_arrow(obj_node, &line->start_arrow,
-	       "start_arrow", "start_arrow_length", "start_arrow_width", ctx);
+    dia_arrow_save (&line->start_arrow,
+                    obj_node,
+                    "start_arrow",
+                    "start_arrow_length",
+                    "start_arrow_width",
+                    ctx);
   }
 
   if (line->end_arrow.type != ARROW_NONE) {
-    save_arrow(obj_node, &line->end_arrow,
-	       "end_arrow", "end_arrow_length", "end_arrow_width", ctx);
+    dia_arrow_save (&line->end_arrow,
+                    obj_node,
+                    "end_arrow",
+                    "end_arrow_length",
+                    "end_arrow_width",
+                    ctx);
   }
 
   if (line->absolute_start_gap)
@@ -729,11 +737,19 @@ line_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     line->line_caps = data_enum(attribute_first_data(attr), ctx);
 
-  load_arrow(obj_node, &line->start_arrow,
-	     "start_arrow", "start_arrow_length", "start_arrow_width", ctx);
+  dia_arrow_load (&line->start_arrow,
+                  obj_node,
+                  "start_arrow",
+                  "start_arrow_length",
+                  "start_arrow_width",
+                  ctx);
 
-  load_arrow(obj_node, &line->end_arrow,
-	     "end_arrow", "end_arrow_length", "end_arrow_width", ctx);
+  dia_arrow_load (&line->end_arrow,
+                  obj_node,
+                  "end_arrow",
+                  "end_arrow_length",
+                  "end_arrow_width",
+                  ctx);
 
   line->absolute_start_gap = 0.0;
   attr = object_find_attribute(obj_node, "absolute_start_gap");

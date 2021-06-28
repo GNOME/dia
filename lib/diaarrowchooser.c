@@ -245,11 +245,13 @@ dia_arrow_preview_expose (GtkWidget *widget, GdkEventExpose *event)
       GDK_COLOR_TO_DIA(bg, color_bg);
       GDK_COLOR_TO_DIA(fg, color_fg);
       dia_renderer_draw_line (DIA_RENDERER (renderer), &from, &to, &color_fg);
-      arrow_draw (DIA_RENDERER (renderer), arrow_type.type,
-                  &arrow_head, &from,
-                  arrow_type.length,
-                  arrow_type.width,
-                  linewidth, &color_fg, &color_bg);
+      dia_arrow_draw (DIA_RENDERER (renderer),
+                      arrow_type.type,
+                      &arrow_head,
+                      &from,
+                      linewidth,
+                      &color_fg,
+                      &color_bg);
     }
     dia_renderer_end_render (DIA_RENDERER (renderer));
     g_clear_object (&renderer);
