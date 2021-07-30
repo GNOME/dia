@@ -481,7 +481,7 @@ mbr_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle
     mbr_font = dia_font_new_from_style(DIA_FONT_SANS, MBR_DECFONTHEIGHT);
   }
 
-  mbr = g_malloc0(sizeof(Mbr));
+  mbr = g_new0 (Mbr, 1);
 
   conn = &mbr->connection;
   conn->endpoints[0] = *startpoint;

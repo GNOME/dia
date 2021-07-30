@@ -96,14 +96,16 @@ dia_aadl_edit_port_declaration_object_change_free (DiaObjectChange *self)
  ***********************************************/
 
 static GtkWidget *entry;
-static gchar *text;
+static char *text = NULL;
+
 
 static void
 save_text (void)
 {
-  text = (gchar *) g_malloc (strlen(gtk_entry_get_text (GTK_ENTRY (entry)))+1);
-  strcpy(text, gtk_entry_get_text (GTK_ENTRY (entry)));
+  g_clear_pointer (&text, g_free);
+  text = g_strdup (gtk_entry_get_text (GTK_ENTRY (entry)));
 }
+
 
 static gboolean delete_event ( GtkWidget *widget,
 			       GdkEvent  *event,

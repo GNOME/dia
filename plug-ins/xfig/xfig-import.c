@@ -350,26 +350,32 @@ fig_fix_text(gchar *text) {
     }
 }
 
+
 static char *
-fig_read_text_line(FILE *file) {
-    char *text_buf;
-    guint text_alloc, text_len;
+fig_read_text_line (FILE *file)
+{
+  char *text_buf;
+  guint text_alloc, text_len;
 
-    getc(file);
-    text_alloc = 80;
-    text_buf = (char *)g_malloc(text_alloc*sizeof(char));
-    text_len = 0;
-    while (fgets(text_buf+text_len, text_alloc-text_len, file) != NULL) {
-	if (strlen(text_buf) < text_alloc-1) break;
-	text_len = text_alloc;
-	text_alloc *= 2;
-	text_buf = (char *)g_realloc(text_buf, text_alloc*sizeof(char));
+  getc (file);
+  text_alloc = 80;
+  text_buf = g_new0 (char, text_alloc);
+  text_len = 0;
+
+  while (fgets (text_buf + text_len, text_alloc - text_len, file) != NULL) {
+    if (strlen (text_buf) < text_alloc-1) {
+      break;
     }
+    text_len = text_alloc;
+    text_alloc *= 2;
+    text_buf = g_renew (char, text_buf, text_alloc);
+  }
 
-    text_buf = fig_fix_text(text_buf);
+  text_buf = fig_fix_text (text_buf);
 
-    return text_buf;
+  return text_buf;
 }
+
 
 static GList *depths[FIG_MAX_DEPTHS];
 

@@ -345,7 +345,7 @@ req_create(Point *startpoint,
   DiaFont *font;
   int i;
 
-  req = g_malloc0(sizeof(Requirement));
+  req = g_new0 (Requirement, 1);
   elem = &req->element;
   obj = &elem->object;
 

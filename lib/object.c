@@ -49,17 +49,12 @@ object_init (DiaObject *obj,
              int        num_connections)
 {
   obj->num_handles = num_handles;
-  if (num_handles > 0)
-    obj->handles = g_malloc0 (sizeof (Handle *) * num_handles);
-  else
-    obj->handles = NULL;
+  obj->handles = g_new0 (Handle *, num_handles);
 
   obj->num_connections = num_connections;
-  if (num_connections > 0)
-    obj->connections = g_malloc0 (sizeof (ConnectionPoint *) * num_connections);
-  else
-    obj->connections = NULL;
+  obj->connections = g_new0 (ConnectionPoint *, num_connections);
 }
+
 
 /**
  * object_destroy:
@@ -626,8 +621,7 @@ object_add_handle_at (DiaObject *obj, Handle *handle, int pos)
 
   obj->num_handles++;
 
-  obj->handles =
-    g_realloc (obj->handles, obj->num_handles * sizeof (Handle *));
+  obj->handles = g_renew (Handle *, obj->handles, obj->num_handles);
 
   for (i = obj->num_handles - 1; i > pos; i--) {
     obj->handles[i] = obj->handles[i - 1];
@@ -669,8 +663,7 @@ object_remove_handle (DiaObject *obj, Handle *handle)
 
   obj->num_handles--;
 
-  obj->handles =
-    g_realloc (obj->handles, obj->num_handles * sizeof (Handle *));
+  obj->handles = g_renew (Handle *, obj->handles, obj->num_handles);
 }
 
 
@@ -709,9 +702,9 @@ object_add_connectionpoint_at (DiaObject       *obj,
 
   obj->num_connections++;
 
-  obj->connections =
-    g_realloc (obj->connections,
-               obj->num_connections * sizeof (ConnectionPoint *));
+  obj->connections = g_renew (ConnectionPoint *,
+                              obj->connections,
+                              obj->num_connections);
 
   for (i = obj->num_connections - 1; i > pos; i--) {
     obj->connections[i] = obj->connections[i - 1];
@@ -758,9 +751,9 @@ object_remove_connectionpoint (DiaObject *obj, ConnectionPoint *conpoint)
 
   obj->num_connections--;
 
-  obj->connections =
-    g_realloc (obj->connections,
-               obj->num_connections * sizeof (ConnectionPoint *));
+  obj->connections = g_renew (ConnectionPoint *,
+                              obj->connections,
+                              obj->num_connections);
 }
 
 

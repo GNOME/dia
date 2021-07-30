@@ -546,7 +546,7 @@ diamond_create(Point *startpoint,
 
   init_default_values();
 
-  diamond = g_malloc0(sizeof(Diamond));
+  diamond = g_new0 (Diamond, 1);
   elem = &diamond->element;
   obj = &elem->object;
 
@@ -650,7 +650,7 @@ diamond_load(ObjectNode obj_node, int version,DiaContext *ctx)
   int i;
   AttributeNode attr;
 
-  diamond = g_malloc0(sizeof(Diamond));
+  diamond = g_new0 (Diamond, 1);
   elem = &diamond->element;
   obj = &elem->object;
 

@@ -324,7 +324,7 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
   DiaFont *font;
   int i;
 
-  node = g_malloc0(sizeof(Node));
+  node = g_new0 (Node, 1);
 
   /* old defaults */
   node->line_width = NODE_BORDERWIDTH;

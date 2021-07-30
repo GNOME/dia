@@ -44,7 +44,9 @@ bezier_calc_corner_types (BezierCommon *bezier)
 
   g_return_if_fail (bezier->num_points > 1);
 
-  bezier->corner_types = g_realloc (bezier->corner_types, bezier->num_points * sizeof(BezCornerType));
+  bezier->corner_types = g_renew (BezCornerType,
+                                  bezier->corner_types,
+                                  bezier->num_points);
   bezier->corner_types[0] = BEZ_CORNER_CUSP;
   bezier->corner_types[num-1] = BEZ_CORNER_CUSP;
 
@@ -87,7 +89,7 @@ beziercommon_set_points (BezierCommon   *bezier,
 
   bezier->num_points = num_points;
 
-  bezier->points = g_realloc(bezier->points, (bezier->num_points)*sizeof(BezPoint));
+  bezier->points = g_renew (BezPoint, bezier->points, bezier->num_points);
 
   for (i=0;i<bezier->num_points;i++) {
     /* to make editing in Dia more convenient we turn line-to to curve-to with cusp controls */

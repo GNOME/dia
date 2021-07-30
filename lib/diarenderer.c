@@ -849,8 +849,7 @@ bezier_add_point(BezierApprox *bezier,
   /* Grow if needed: */
   if (bezier->currpoint == bezier->numpoints) {
     bezier->numpoints += 40;
-    bezier->points = g_realloc(bezier->points,
-                               bezier->numpoints*sizeof(Point));
+    bezier->points = g_renew (Point, bezier->points, bezier->numpoints);
   }
 
   bezier->points[bezier->currpoint] = *point;
@@ -1026,7 +1025,7 @@ draw_bezier (DiaRenderer *renderer,
 
   if (bezier->points == NULL) {
     bezier->numpoints = 30;
-    bezier->points = g_malloc(bezier->numpoints*sizeof(Point));
+    bezier->points = g_new0 (Point, bezier->numpoints);
   }
 
   bezier->currpoint = 0;
@@ -1066,7 +1065,7 @@ draw_beziergon (DiaRenderer *renderer,
 
   if (bezier->points == NULL) {
     bezier->numpoints = 30;
-    bezier->points = g_malloc(bezier->numpoints*sizeof(Point));
+    bezier->points = g_new0 (Point, bezier->numpoints);
   }
 
   bezier->currpoint = 0;

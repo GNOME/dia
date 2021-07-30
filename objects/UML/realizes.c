@@ -424,7 +424,7 @@ realizes_create(Point *startpoint,
   DiaObject *obj;
   PolyBBExtras *extra;
 
-  realize = g_malloc0(sizeof(Realizes));
+  realize = g_new0 (Realizes, 1);
   /* old defaults */
   realize->font_height = 0.8;
   realize->font =

@@ -490,7 +490,7 @@ figText(XfigRenderer *renderer, const guchar *text)
       newlen += 1;
     }
   }
-  returntext = g_malloc(sizeof(char)*(newlen+1));
+  returntext = g_new0 (char, newlen + 1);
   j = 0;
   for (i = 0; i < len; i++, j++) {
     if (text[i] > 127) {

@@ -1671,7 +1671,7 @@ custom_create(Point *startpoint,
   if (!info->loaded) /* called for it's side effect */
     shape_info_getbyname (info->name);
 
-  custom = g_new0_ext (Custom, info->ext_attr_size);
+  custom = dia_new_with_extra (sizeof (Custom), 1, info->ext_attr_size);
   elem = &custom->element;
   obj = &elem->object;
 
@@ -1781,7 +1781,7 @@ custom_copy(Custom *custom)
   elem = &custom->element;
   /* can't use object_copy_using_properties() becauses there is no way
    * to pass in our creation data (info) ... */
-  newcustom = g_new0_ext (Custom, custom->info->ext_attr_size);
+  newcustom = dia_new_with_extra (sizeof (Custom), 1, custom->info->ext_attr_size);
   newelem = &newcustom->element;
   newobj = &newcustom->element.object;
 

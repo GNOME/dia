@@ -391,7 +391,7 @@ component_create(Point *startpoint,
   DiaFont *font;
   int i;
 
-  cmp = g_malloc0(sizeof(Component));
+  cmp = g_new0 (Component, 1);
   elem = &cmp->element;
   obj = &elem->object;
 

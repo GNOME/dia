@@ -525,7 +525,7 @@ ellipse_create(Point *startpoint,
 
   init_default_values();
 
-  ellipse = g_malloc0(sizeof(Ellipse));
+  ellipse = g_new0 (Ellipse, 1);
   elem = &ellipse->element;
   obj = &elem->object;
 
@@ -628,7 +628,7 @@ ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx)
   int i;
   AttributeNode attr;
 
-  ellipse = g_malloc0(sizeof(Ellipse));
+  ellipse = g_new0 (Ellipse, 1);
   elem = &ellipse->element;
   obj = &elem->object;
 

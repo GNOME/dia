@@ -603,7 +603,7 @@ lifeline_create(Point *startpoint,
   DiaObject *obj;
   int i;
 
-  lifeline = g_malloc0(sizeof(Lifeline));
+  lifeline = g_new0 (Lifeline, 1);
   lifeline->cp_distance = LIFELINE_CP_DEFAULT_DISTANCE;
 
   conn = &lifeline->connection;

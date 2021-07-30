@@ -219,7 +219,7 @@ uml_attribute_get_string (UMLAttribute *attribute)
     len += 3 + strlen (attribute->value);
   }
 
-  str = g_malloc (sizeof (char) * (len + 1));
+  str = g_new0 (char, len + 1);
 
   str[0] = visible_char[(int) attribute->visibility];
   str[1] = 0;

@@ -270,7 +270,7 @@ state_create(Point *startpoint,
   Point p;
   int i;
 
-  state = g_malloc0(sizeof(State));
+  state = g_new0 (State, 1);
   elem = &state->element;
   obj = &elem->object;
 

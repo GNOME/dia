@@ -143,7 +143,7 @@ text_delete_line (Text *text, int line_no)
   }
 
   text->numlines -= 1;
-  text->lines = g_realloc (text->lines, sizeof (TextLine *) * text->numlines);
+  text->lines = g_renew (TextLine *, text->lines, text->numlines);
 }
 
 
@@ -160,7 +160,7 @@ static void
 text_insert_line (Text *text, int line_no)
 {
   text->numlines += 1;
-  text->lines = g_realloc (text->lines, sizeof (char *) * text->numlines);
+  text->lines = g_renew (TextLine *, text->lines, text->numlines);
 
   for (int i = text->numlines - 1; i > line_no; i--) {
     text->lines[i] = text->lines[i - 1];
@@ -594,7 +594,7 @@ text_get_string_copy (const Text *text)
     num += strlen (text_get_line (text, i)) + 1;
   }
 
-  str = g_malloc0 (num);
+  str = g_new0 (char, num);
 
   for (int i = 0; i < text->numlines; i++) {
     strcat (str, text_get_line (text, i));

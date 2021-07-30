@@ -680,16 +680,20 @@ find_object_highlight(GList *list, DiaObject *obj)
   return NULL;
 }
 
+
 void
-data_highlight_add(DiagramData *data, DiaObject *obj, DiaHighlightType type)
+data_highlight_add (DiagramData *data, DiaObject *obj, DiaHighlightType type)
 {
   ObjectHighlight *oh;
-  if (find_object_highlight (data->highlighted, obj))
+
+  if (find_object_highlight (data->highlighted, obj)) {
     return; /* should this be an error?`*/
-  oh = g_malloc(sizeof(ObjectHighlight));
+  }
+
+  oh = g_new0 (ObjectHighlight, 1);
   oh->obj = obj;
   oh->type = type;
-  data->highlighted = g_list_prepend(data->highlighted, oh);
+  data->highlighted = g_list_prepend (data->highlighted, oh);
 }
 
 

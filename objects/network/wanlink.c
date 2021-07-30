@@ -174,7 +174,7 @@ wanlink_create(Point *startpoint,
   Point defaultpoly = {0.0, 0.0};
   Point defaultlen = { 5.0, 0.0 };
 
-  wanlink = g_malloc0(sizeof(WanLink));
+  wanlink = g_new0 (WanLink, 1);
 
   conn = &wanlink->connection;
   conn->endpoints[0] = *startpoint;
@@ -253,7 +253,7 @@ wanlink_copy(WanLink *wanlink)
 
   conn = &wanlink->connection;
 
-  newwanlink = g_malloc0(sizeof(WanLink));
+  newwanlink = g_new0 (WanLink, 1);
   newconn = &newwanlink->connection;
 
   connection_copy(conn, newconn);
@@ -323,7 +323,7 @@ wanlink_load(ObjectNode obj_node, int version,DiaContext *ctx)
     AttributeNode attr;
     DataNode data;
 
-    wanlink = g_malloc0(sizeof(WanLink));
+    wanlink = g_new0 (WanLink, 1);
 
     conn = &wanlink->connection;
     obj = (DiaObject *) wanlink;

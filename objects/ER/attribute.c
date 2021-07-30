@@ -408,7 +408,7 @@ attribute_create(Point *startpoint,
   DiaObject *obj;
   int i;
 
-  attribute = g_malloc0(sizeof(Attribute));
+  attribute = g_new0 (Attribute, 1);
   elem = &attribute->element;
   obj = &elem->object;
 
@@ -472,7 +472,7 @@ attribute_copy(Attribute *attribute)
 
   elem = &attribute->element;
 
-  newattribute = g_malloc0(sizeof(Attribute));
+  newattribute = g_new0 (Attribute, 1);
   newelem = &newattribute->element;
   newobj = &newelem->object;
 
@@ -541,7 +541,7 @@ attribute_load(ObjectNode obj_node, int version,DiaContext *ctx)
   int i;
   AttributeNode attr;
 
-  attribute = g_malloc0(sizeof(Attribute));
+  attribute = g_new0 (Attribute, 1);
   elem = &attribute->element;
   obj = &elem->object;
 

@@ -658,7 +658,7 @@ jackson_box_create (Point   *startpoint,
   Point p;
   DiaFont* font;
 
-  box = g_malloc0 (sizeof (Box));
+  box = g_new0 (Box, 1);
   elem = &box->element;
   obj = &elem->object;
 

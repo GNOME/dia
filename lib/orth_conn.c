@@ -340,44 +340,45 @@ neworthconn_update_midpoints(OrthConn *orth)
 }
 
 
-
-
 static void
-adjust_handle_count_to(OrthConn *orth, gint count) {
+adjust_handle_count_to (OrthConn *orth, int count)
+{
   /* This will shrink or expand orth->handles as necessary (so that
      orth->numhandles matches orth->numpoints-1, most probably), by adding or
      removing minor handles and keeping the endpoint handles at the
      extremities of the array. */
 
-  if (orth->numhandles == count) return;
-  if (orth->numhandles < count) { /* adding */
-    int i;
-    orth->handles = g_realloc(orth->handles,
-                              (count)*sizeof(Handle *));
+  if (orth->numhandles == count) {
+    return;
+  }
+
+  if (orth->numhandles < count) {
+    /* adding */
+    orth->handles = g_renew (Handle *, orth->handles, count);
     orth->handles[count-1] = orth->handles[orth->numhandles-1];
     orth->handles[orth->numhandles-1] = NULL;
-    for (i=orth->numhandles-1; i<count-1; i++) {
-      Handle *handle = g_new0(Handle,1);
-      setup_midpoint_handle(handle);
-      object_add_handle(&orth->object,handle);
+    for (int i = orth->numhandles - 1; i < count - 1; i++) {
+      Handle *handle = g_new0 (Handle, 1);
+      setup_midpoint_handle (handle);
+      object_add_handle (&orth->object,handle);
       orth->handles[i] = handle;
     }
-  } else {  /* removing */
-    int i;
-    for (i=count-1; i<orth->numhandles-1; i++) {
+  } else {
+    /* removing */
+    for (int i = count - 1; i < orth->numhandles - 1; i++) {
       Handle *handle = orth->handles[i];
-      object_remove_handle(&orth->object,handle);
+      object_remove_handle (&orth->object,handle);
       g_clear_pointer (&handle, g_free);
       orth->handles[i] = NULL;
     }
     orth->handles[count-1] = orth->handles[orth->numhandles-1];
     orth->handles[orth->numhandles-1] = NULL;
-    orth->handles = g_realloc(orth->handles,
-			  (count)*sizeof(Handle *));
+    orth->handles = g_renew (Handle *, orth->handles, count);
   }
   orth->numhandles = count;
   /* handles' positions will be set now */
 }
+
 
 void
 orthconn_update_data(OrthConn *orth)
@@ -518,12 +519,12 @@ orthconn_init(OrthConn *orth, Point *startpoint)
   orth->numpoints = 4;
   orth->numorient = orth->numpoints - 1;
 
-  orth->points = g_malloc0(4*sizeof(Point));
+  orth->points = g_new0 (Point, 4);
 
-  orth->orientation = g_malloc0(3*sizeof(Orientation));
+  orth->orientation = g_new0 (Orientation, 3);
 
   orth->numhandles = 3;
-  orth->handles = g_malloc0(3*sizeof(Handle *));
+  orth->handles = g_new0(Handle *, 3);
 
   orth->handles[0] = g_new(Handle, 1);
   setup_endpoint_handle(orth->handles[0], HANDLE_MOVE_STARTPOINT);
@@ -609,16 +610,16 @@ orthconn_copy(OrthConn *from, OrthConn *to)
   to->numpoints = from->numpoints;
   to->numorient = from->numorient;
 
-  to->points = g_malloc0((to->numpoints)*sizeof(Point));
+  to->points = g_new0 (Point, to->numpoints);
 
   for (i=0;i<to->numpoints;i++) {
     to->points[i] = from->points[i];
   }
 
   to->autorouting = from->autorouting;
-  to->orientation = g_malloc0((to->numpoints-1)*sizeof(Orientation));
+  to->orientation = g_new0 (Orientation, to->numpoints - 1);
   to->numhandles = from->numhandles;
-  to->handles = g_malloc0((to->numpoints-1)*sizeof(Handle *));
+  to->handles = g_new0 (Handle *, to->numpoints - 1);
 
   for (i=0;i<to->numpoints-1;i++) {
     to->orientation[i] = from->orientation[i];
@@ -728,7 +729,7 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node,
   object_init(obj, orth->numpoints-1, 0);
 
   data = attribute_first_data(attr);
-  orth->points = g_malloc0((orth->numpoints)*sizeof(Point));
+  orth->points = g_new0 (Point, orth->numpoints);
   for (i=0;i<orth->numpoints;i++) {
     data_point(data, &orth->points[i], ctx);
     data = data_next(data);
@@ -737,7 +738,7 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node,
   attr = object_find_attribute(obj_node, "orth_orient");
 
   data = attribute_first_data(attr);
-  orth->orientation = g_malloc0((orth->numpoints-1)*sizeof(Orientation));
+  orth->orientation = g_new0 (Orientation, orth->numpoints - 1);
   for (i=0;i<orth->numpoints-1;i++) {
     orth->orientation[i] = data_enum(data, ctx);
     data = data_next(data);
@@ -752,21 +753,21 @@ orthconn_load(OrthConn *orth, ObjectNode obj_node,
     orth->autorouting = FALSE;
   }
 
-  orth->handles = g_malloc0((orth->numpoints-1)*sizeof(Handle *));
+  orth->handles = g_new0 (Handle *, orth->numpoints - 1);
 
-  orth->handles[0] = g_new(Handle, 1);
+  orth->handles[0] = g_new (Handle, 1);
   setup_endpoint_handle(orth->handles[0], HANDLE_MOVE_STARTPOINT);
   orth->handles[0]->pos = orth->points[0];
   obj->handles[0] = orth->handles[0];
 
   n = orth->numpoints-2;
-  orth->handles[n] = g_new(Handle, 1);
+  orth->handles[n] = g_new (Handle, 1);
   setup_endpoint_handle(orth->handles[n], HANDLE_MOVE_ENDPOINT);
   orth->handles[n]->pos = orth->points[orth->numpoints-1];
   obj->handles[1] = orth->handles[n];
 
   for (i=1; i<orth->numpoints-2; i++) {
-    orth->handles[i] = g_new(Handle, 1);
+    orth->handles[i] = g_new (Handle, 1);
     setup_midpoint_handle(orth->handles[i]);
     obj->handles[i+1] = orth->handles[i];
   }
@@ -911,17 +912,16 @@ orthconn_set_autorouting (OrthConn *conn, gboolean on)
 static void
 delete_point(OrthConn *orth, int pos)
 {
-  int i;
-
   orth->numpoints--;
   orth->numorient = orth->numpoints - 1;
 
-  for (i=pos;i<orth->numpoints;i++) {
+  for (int i = pos; i < orth->numpoints; i++) {
     orth->points[i] = orth->points[i+1];
   }
 
-  orth->points = g_realloc(orth->points, orth->numpoints*sizeof(Point));
+  orth->points = g_renew (Point, orth->points, orth->numpoints);
 }
+
 
 /* Make sure numpoints have been decreased before calling this function.
  * ie. call delete_point first.
@@ -939,10 +939,10 @@ remove_handle(OrthConn *orth, int segment)
     orth->orientation[i] = orth->orientation[i+1];
   }
 
-  orth->orientation = g_realloc(orth->orientation,
-			      (orth->numpoints-1)*sizeof(Orientation));
-  orth->handles = g_realloc(orth->handles,
-			  (orth->numpoints-1)*sizeof(Handle *));
+  orth->orientation = g_renew (Orientation,
+                               orth->orientation,
+                               orth->numpoints - 1);
+  orth->handles = g_renew (Handle *, orth->handles, orth->numpoints - 1);
 
   object_remove_handle(&orth->object, handle);
   orth->numhandles = orth->numpoints-1;
@@ -950,37 +950,38 @@ remove_handle(OrthConn *orth, int segment)
 
 
 static void
-add_point(OrthConn *orth, int pos, Point *point)
+add_point (OrthConn *orth, int pos, Point *point)
 {
-  int i;
-
   orth->numpoints++;
   orth->numorient = orth->numpoints-1;
 
-  orth->points = g_realloc(orth->points, orth->numpoints*sizeof(Point));
-  for (i=orth->numpoints-1;i>pos;i--) {
+  orth->points = g_renew (Point, orth->points, orth->numpoints);
+  for (int i = orth->numpoints - 1; i > pos; i--) {
     orth->points[i] = orth->points[i-1];
   }
   orth->points[pos] = *point;
 }
 
+
 /* Make sure numpoints have been increased before calling this function.
  * ie. call add_point first.
  */
 static void
-insert_handle(OrthConn *orth, int segment,
-	      Handle *handle, Orientation orient)
+insert_handle (OrthConn    *orth,
+               int          segment,
+               Handle      *handle,
+               Orientation  orient)
 {
-  int i;
+  orth->orientation = g_renew (Orientation,
+                               orth->orientation,
+                               orth->numpoints - 1);
+  orth->handles = g_renew (Handle *, orth->handles, orth->numpoints - 1);
 
-  orth->orientation = g_realloc(orth->orientation,
-			      (orth->numpoints-1)*sizeof(Orientation));
-  orth->handles = g_realloc(orth->handles,
-			  (orth->numpoints-1)*sizeof(Handle *));
-  for (i=orth->numpoints-2;i>segment;i--) {
+  for (int i = orth->numpoints - 2; i > segment; i--) {
     orth->handles[i] = orth->handles[i-1];
     orth->orientation[i] = orth->orientation[i-1];
   }
+
   orth->handles[segment] = handle;
   orth->orientation[segment] = orient;
 

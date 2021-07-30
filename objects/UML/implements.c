@@ -303,7 +303,7 @@ implements_create(Point *startpoint,
   DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  implements = g_malloc0(sizeof(Implements));
+  implements = g_new0 (Implements, 1);
 
   /* old defaults */
   implements->font_height = 0.8;

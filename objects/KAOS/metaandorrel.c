@@ -514,7 +514,7 @@ maor_create (Point   *startpoint,
       dia_font_new_from_style (DIA_FONT_SANS, MAOR_FONTHEIGHT);
   }
 
-  maor = g_malloc0 (sizeof (Maor));
+  maor = g_new0 (Maor, 1);
 
   conn = &maor->connection;
   conn->endpoints[0] = *startpoint;

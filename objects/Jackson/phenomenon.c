@@ -322,7 +322,7 @@ message_create(Point *startpoint,
       dia_font_new_from_style (DIA_FONT_SANS, MESSAGE_FONTHEIGHT);
   }
 
-  message = g_malloc0(sizeof(Message));
+  message = g_new0 (Message, 1);
 
   conn = &message->connection;
   conn->endpoints[0] = *startpoint;

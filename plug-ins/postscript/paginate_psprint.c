@@ -349,7 +349,7 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
   /* Work out diagram filename and use this as default .ps file */
   filename = g_path_get_basename (original_filename);
 
-  printer_filename = g_malloc (strlen (filename) + 4);
+  printer_filename = g_new0 (char, strlen (filename) + 4);
   printer_filename = strcpy (printer_filename, filename);
   dot = strrchr (printer_filename, '.');
   if ((dot != NULL) && (strcmp (dot, ".dia") == 0)) {

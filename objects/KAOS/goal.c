@@ -698,7 +698,7 @@ goal_create(Point *startpoint,
   Point p;
   DiaFont* font;
 
-  goal = g_malloc0(sizeof(Goal));
+  goal = g_new0 (Goal, 1);
   elem = &goal->element;
   obj = &elem->object;
 

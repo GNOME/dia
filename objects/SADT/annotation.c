@@ -333,7 +333,7 @@ annotation_create(Point *startpoint,
   Point defaultlen = { 1.0, 1.0 };
   DiaFont* font;
 
-  annotation = g_malloc0(sizeof(Annotation));
+  annotation = g_new0 (Annotation, 1);
 
   conn = &annotation->connection;
   conn->endpoints[0] = *startpoint;

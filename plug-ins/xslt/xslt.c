@@ -191,7 +191,7 @@ read_implementations (xmlNodePtr cur, gchar *path)
       cur = cur->next;
       continue;
     }
-    to = g_malloc (sizeof (toxsl_t));
+    to = g_new0 (toxsl_t, 1);
     to->next = NULL;
     to->name = (gchar *) xmlGetProp (cur, (const xmlChar *) "name");
     to->xsl = (gchar *) xmlGetProp (cur, (const xmlChar *) "stylesheet");

@@ -217,7 +217,7 @@ add_handle(PolyConn *poly, int pos, Point *point, Handle *handle)
   DiaObject *obj;
 
   poly->numpoints++;
-  poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
+  poly->points = g_renew (Point, poly->points, poly->numpoints);
 
   for (i=poly->numpoints-1; i > pos; i--) {
     poly->points[i] = poly->points[i-1];
@@ -259,7 +259,7 @@ remove_handle(PolyConn *poly, int pos)
   for (i=pos; i < poly->numpoints; i++) {
     poly->points[i] = poly->points[i+1];
   }
-  poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
+  poly->points = g_renew (Point, poly->points, poly->numpoints);
 
   old_handle = obj->handles[pos];
   object_remove_handle(&poly->object, old_handle);
@@ -281,7 +281,7 @@ polyconn_add_point (PolyConn *poly, int segment, Point *point)
     realpoint = *point;
   }
 
-  new_handle = g_malloc(sizeof(Handle));
+  new_handle = g_new0 (Handle, 1);
   setup_handle(new_handle, PC_HANDLE_CORNER);
   add_handle(poly, segment+1, &realpoint, new_handle);
   return polyconn_create_change(poly, TYPE_ADD_POINT,
@@ -322,11 +322,10 @@ polyconn_update_data(PolyConn *poly)
   if (poly->numpoints != obj->num_handles) {
     g_assert(0 == obj->num_connections);
 
-    obj->handles = g_realloc(obj->handles,
-                             poly->numpoints*sizeof(Handle *));
+    obj->handles = g_renew (Handle *, obj->handles, poly->numpoints);
     obj->num_handles = poly->numpoints;
     for (i=0;i<poly->numpoints;i++) {
-      obj->handles[i] = g_malloc(sizeof(Handle));
+      obj->handles[i] = g_new0 (Handle, 1);
       if (0 == i)
         setup_handle(obj->handles[i], PC_HANDLE_START);
       else if (i == poly->numpoints-1)
@@ -365,10 +364,10 @@ polyconn_init(PolyConn *poly, int num_points)
 
   poly->numpoints = num_points;
 
-  poly->points = g_malloc(num_points*sizeof(Point));
+  poly->points = g_new0 (Point, num_points);
 
   for (i=0;i<num_points;i++) {
-    obj->handles[i] = g_malloc(sizeof(Handle));
+    obj->handles[i] = g_new0 (Handle, 1);
     if (0 == i)
       setup_handle(obj->handles[i], PC_HANDLE_START);
     else if (i == num_points-1)
@@ -390,40 +389,43 @@ polyconn_set_points(PolyConn *poly, int num_points, Point *points)
 
   g_clear_pointer (&poly->points, g_free);
 
-  poly->points = g_malloc((poly->numpoints)*sizeof(Point));
+  poly->points = g_new0 (Point, poly->numpoints);
 
   for (i=0;i<poly->numpoints;i++) {
     poly->points[i] = points[i];
   }
 }
 
+
 void
-polyconn_copy(PolyConn *from, PolyConn *to)
+polyconn_copy (PolyConn *from, PolyConn *to)
 {
-  int i;
   DiaObject *toobj, *fromobj;
 
   toobj = &to->object;
   fromobj = &from->object;
 
-  object_copy(fromobj, toobj);
+  object_copy (fromobj, toobj);
 
-  to->object.handles[0] = g_new(Handle,1);
+  to->object.handles[0] = g_new0 (Handle,1);
   *to->object.handles[0] = *from->object.handles[0];
 
-  for (i=1;i<toobj->num_handles-1;i++) {
-    to->object.handles[i] = g_malloc(sizeof(Handle));
-    setup_handle(to->object.handles[i], PC_HANDLE_CORNER);
+  for (int i = 1; i < toobj->num_handles - 1; i++) {
+    to->object.handles[i] = g_new0 (Handle, 1);
+    setup_handle (to->object.handles[i], PC_HANDLE_CORNER);
   }
 
-  to->object.handles[toobj->num_handles-1] = g_new(Handle,1);
+  to->object.handles[toobj->num_handles-1] = g_new0 (Handle,1);
   *to->object.handles[toobj->num_handles-1] =
       *from->object.handles[toobj->num_handles-1];
-  polyconn_set_points(to, from->numpoints, from->points);
+  polyconn_set_points (to, from->numpoints, from->points);
 
-  memcpy(&to->extra_spacing,&from->extra_spacing,sizeof(to->extra_spacing));
-  polyconn_update_data(to);
+  memcpy (&to->extra_spacing,
+          &from->extra_spacing,
+          sizeof(to->extra_spacing));
+  polyconn_update_data (to);
 }
+
 
 void
 polyconn_destroy (PolyConn *poly)
@@ -464,51 +466,52 @@ polyconn_save(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx)
   }
 }
 
+
 void
-polyconn_load(PolyConn *poly, ObjectNode obj_node, DiaContext *ctx) /* NOTE: Does object_init() */
+polyconn_load (PolyConn *poly, ObjectNode obj_node, DiaContext *ctx) /* NOTE: Does object_init() */
 {
-  int i;
   AttributeNode attr;
   DataNode data;
 
   DiaObject *obj = &poly->object;
 
-  object_load(obj, obj_node, ctx);
+  object_load (obj, obj_node, ctx);
 
-  attr = object_find_attribute(obj_node, "poly_points");
+  attr = object_find_attribute (obj_node, "poly_points");
 
-  if (attr != NULL)
-    poly->numpoints = attribute_num_data(attr);
-  else
+  if (attr != NULL) {
+    poly->numpoints = attribute_num_data (attr);
+  } else {
     poly->numpoints = 0;
-
-  object_init(obj, poly->numpoints, 0);
-
-  data = attribute_first_data(attr);
-  poly->points = g_malloc(poly->numpoints*sizeof(Point));
-  for (i=0;i<poly->numpoints;i++) {
-    data_point(data, &poly->points[i], ctx);
-    data = data_next(data);
   }
 
-  obj->handles[0] = g_malloc(sizeof(Handle));
+  object_init (obj, poly->numpoints, 0);
+
+  data = attribute_first_data (attr);
+  poly->points = g_new0 (Point, poly->numpoints);
+  for (int i = 0; i < poly->numpoints; i++) {
+    data_point (data, &poly->points[i], ctx);
+    data = data_next (data);
+  }
+
+  obj->handles[0] = g_new0 (Handle, 1);
   obj->handles[0]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[0]->connected_to = NULL;
   obj->handles[0]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[0]->id = HANDLE_MOVE_STARTPOINT;
 
-  obj->handles[poly->numpoints-1] = g_malloc(sizeof(Handle));
+  obj->handles[poly->numpoints-1] = g_new0 (Handle, 1);
   obj->handles[poly->numpoints-1]->connect_type = HANDLE_CONNECTABLE;
   obj->handles[poly->numpoints-1]->connected_to = NULL;
   obj->handles[poly->numpoints-1]->type = HANDLE_MAJOR_CONTROL;
   obj->handles[poly->numpoints-1]->id = HANDLE_MOVE_ENDPOINT;
 
-  for (i=1;i<poly->numpoints-1;i++) {
-    obj->handles[i] = g_malloc(sizeof(Handle));
-    setup_handle(obj->handles[i], PC_HANDLE_CORNER);
+  for (int i = 1; i < poly->numpoints - 1; i++) {
+    obj->handles[i] = g_new0 (Handle, 1);
+    setup_handle (obj->handles[i], PC_HANDLE_CORNER);
   }
 
-  polyconn_update_data(poly);
+  polyconn_update_data (poly);
 }
 
 

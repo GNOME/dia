@@ -335,7 +335,7 @@ beziergon_copy(Beziergon *beziergon)
 
   bezier = &beziergon->bezier;
 
-  newbeziergon = g_malloc0(sizeof(Beziergon));
+  newbeziergon = g_new0 (Beziergon, 1);
   newbeziergon->bezier.object.enclosing_box = g_new0 (DiaRectangle, 1);
   newbezier = &newbeziergon->bezier;
 
@@ -428,7 +428,7 @@ beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   AttributeNode attr;
 
-  beziergon = g_malloc0(sizeof(Beziergon));
+  beziergon = g_new0 (Beziergon, 1);
   beziergon->bezier.object.enclosing_box = g_new0 (DiaRectangle, 1);
 
   bez = &beziergon->bezier;

@@ -1720,14 +1720,14 @@ DiaChange *
 dia_mem_swap_change_new (Diagram *dia, gpointer dest, gsize size)
 {
   DiaMemSwapChange *change = dia_change_new (DIA_TYPE_MEM_SWAP_CHANGE);
-  gsize i;
 
   change->dest = dest;
   change->size = size;
-  change->mem = g_malloc (size);
+  change->mem = g_new0 (guint8, size);
   /* initialize for swap */
-  for (i = 0; i < size; ++i)
+  for (gsize i = 0; i < size; ++i) {
     change->mem[i] = change->dest[i];
+  }
 
   undo_push_change (dia->undo, DIA_CHANGE (change));
 

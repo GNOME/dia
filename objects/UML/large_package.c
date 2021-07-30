@@ -357,7 +357,7 @@ largepackage_create(Point *startpoint,
   DiaObject *obj;
   int i;
 
-  pkg = g_malloc0(sizeof(LargePackage));
+  pkg = g_new0 (LargePackage, 1);
   elem = &pkg->element;
   obj = &elem->object;
 

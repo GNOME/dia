@@ -545,7 +545,7 @@ link_create(Point *startpoint,
     link_font = dia_font_new_from_style(DIA_FONT_SANS, LINK_FONTHEIGHT);
   }
 
-  link = g_malloc0(sizeof(Link));
+  link = g_new0 (Link, 1);
 
   conn = &link->connection;
   conn->endpoints[0] = *startpoint;

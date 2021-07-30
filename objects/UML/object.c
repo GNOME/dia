@@ -462,7 +462,7 @@ objet_create(Point *startpoint,
   DiaFont *font;
   int i;
 
-  ob = g_malloc0(sizeof(Objet));
+  ob = g_new0 (Objet, 1);
   elem = &ob->element;
   obj = &elem->object;
 

@@ -600,7 +600,7 @@ ps_convert_string (const char *text, DiaContext *ctx)
   }
 
   /* Escape all '(' and ')':  */
-  buffer = g_malloc (2 * strlen (localestr) + 1);
+  buffer = g_new0 (char, 2 * strlen (localestr) + 1);
   *buffer = 0;
   str = localestr;
   while (*str != 0) {

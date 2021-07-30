@@ -428,7 +428,7 @@ textobj_create(Point *startpoint,
   DiaFont *font = NULL;
   real font_height;
 
-  textobj = g_malloc0(sizeof(Textobj));
+  textobj = g_new0 (Textobj, 1);
   obj = &textobj->object;
   obj->enclosing_box = g_new0 (DiaRectangle, 1);
 
@@ -512,9 +512,9 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
   AttributeNode attr;
   Point startpoint = {0.0, 0.0};
 
-  textobj = g_malloc0(sizeof(Textobj));
+  textobj = g_new0 (Textobj, 1);
   obj = &textobj->object;
-  obj->enclosing_box = g_new0 (DiaRectangle,1);
+  obj->enclosing_box = g_new0 (DiaRectangle, 1);
 
   obj->type = &textobj_type;
   obj->ops = &textobj_ops;

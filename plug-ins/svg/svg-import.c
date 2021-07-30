@@ -985,11 +985,11 @@ tmp++;
   xmlFree(str);
 
   /* If an odd number of coordinates is provided, then the element is in error, cut off below */
-  points = g_malloc0(arr->len/2*sizeof(Point));
+  points = g_new0 (Point, arr->len / 2);
 
-  pcd = g_new(MultipointCreateData, 1);
-  pcd->num_points = arr->len/2;
-  rarr = (real *)arr->data;
+  pcd = g_new0 (MultipointCreateData, 1);
+  pcd->num_points = arr->len / 2;
+  rarr = (double *) arr->data;
   for (i = 0; i < pcd->num_points; i++) {
     points[i].x = rarr[2*i];
     points[i].y = rarr[2*i+1];

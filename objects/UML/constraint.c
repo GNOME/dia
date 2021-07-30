@@ -292,7 +292,7 @@ constraint_create(Point *startpoint,
   DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  constraint = g_malloc0(sizeof(Constraint));
+  constraint = g_new0 (Constraint, 1);
 
   /* old defaults */
   constraint->font_height = 0.8;

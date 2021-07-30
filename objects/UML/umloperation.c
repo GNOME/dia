@@ -338,7 +338,7 @@ uml_get_operation_string (UMLOperation *operation)
   }
 
   /* generate string: */
-  str = g_malloc (sizeof (char) * (len + 1));
+  str = g_new0 (char, len + 1);
 
   str[0] = visible_char[(int) operation->visibility];
   str[1] = 0;

@@ -699,7 +699,7 @@ arc_create(Point *startpoint,
   DiaObject *obj;
   Point defaultlen = { 1.0, 1.0 };
 
-  arc = g_malloc0(sizeof(Arc));
+  arc = g_new0 (Arc, 1);
   arc->connection.object.enclosing_box = g_new0 (DiaRectangle, 1);
 
   arc->line_width =  attributes_get_default_linewidth();
@@ -747,7 +747,7 @@ arc_copy(Arc *arc)
 
   conn = &arc->connection;
 
-  newarc = g_malloc0(sizeof(Arc));
+  newarc = g_new0 (Arc, 1);
   newarc->connection.object.enclosing_box = g_new0 (DiaRectangle, 1);
   newconn = &newarc->connection;
   newobj = &newconn->object;
@@ -989,7 +989,7 @@ arc_load(ObjectNode obj_node, int version,DiaContext *ctx)
   DiaObject *obj;
   AttributeNode attr;
 
-  arc = g_malloc0(sizeof(Arc));
+  arc = g_new0 (Arc, 1);
   arc->connection.object.enclosing_box = g_new0 (DiaRectangle, 1);
 
   conn = &arc->connection;

@@ -822,7 +822,7 @@ association_create (Point   *startpoint,
   int i;
   int user_d;
 
-  assoc = g_malloc0 (sizeof (Association));
+  assoc = g_new0 (Association, 1);
   orth = &assoc->orth;
   obj = &orth->object;
 
@@ -960,7 +960,7 @@ association_copy (Association *assoc)
 
   orth = &assoc->orth;
 
-  newassoc = g_malloc0 (sizeof (Association));
+  newassoc = g_new0 (Association, 1);
   neworth = &newassoc->orth;
 
   orthconn_copy (orth, neworth);

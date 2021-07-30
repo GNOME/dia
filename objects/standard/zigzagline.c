@@ -248,7 +248,7 @@ zigzagline_create(Point *startpoint,
   Point dummy = {0, 0};
 
   /*zigzagline_init_defaults();*/
-  zigzagline = g_malloc0(sizeof(Zigzagline));
+  zigzagline = g_new0 (Zigzagline, 1);
   orth = &zigzagline->orth;
   obj = &orth->object;
 
@@ -297,7 +297,7 @@ zigzagline_copy(Zigzagline *zigzagline)
 
   orth = &zigzagline->orth;
 
-  newzigzagline = g_malloc0(sizeof(Zigzagline));
+  newzigzagline = g_new0 (Zigzagline, 1);
   neworth = &newzigzagline->orth;
 
   orthconn_copy(orth, neworth);
@@ -539,7 +539,7 @@ zigzagline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   AttributeNode attr;
 
-  zigzagline = g_malloc0(sizeof(Zigzagline));
+  zigzagline = g_new0 (Zigzagline, 1);
 
   orth = &zigzagline->orth;
   obj = &orth->object;

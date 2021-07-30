@@ -375,7 +375,7 @@ entity_create(Point *startpoint,
   DiaObject *obj;
   int i;
 
-  entity = g_malloc0(sizeof(Entity));
+  entity = g_new0 (Entity, 1);
   elem = &entity->element;
   obj = &elem->object;
 
@@ -439,7 +439,7 @@ entity_copy(Entity *entity)
 
   elem = &entity->element;
 
-  newentity = g_malloc0(sizeof(Entity));
+  newentity = g_new0 (Entity, 1);
   newelem = &newentity->element;
   newobj = &newelem->object;
 
@@ -499,7 +499,7 @@ entity_load(ObjectNode obj_node, int version,DiaContext *ctx)
   int i;
   AttributeNode attr;
 
-  entity = g_malloc0(sizeof(Entity));
+  entity = g_new0 (Entity, 1);
   elem = &entity->element;
   obj = &elem->object;
 

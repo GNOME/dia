@@ -431,7 +431,7 @@ read_entity_polyline_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
         if (!strcmp (data->value, "VERTEX")) {
           points++;
 
-          p = g_realloc (p, sizeof (Point) * points);
+          p = g_renew (Point, p, points);
 
           /*printf( "Vertex %d\n", points );*/
 
@@ -489,7 +489,7 @@ read_entity_polyline_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
     if (points == bulge_end && bulge_x_avail && bulge_y_avail) {
       /* turn the last segment into a bulge */
 
-      p = g_realloc (p, sizeof (Point) * (points + 10));
+      p = g_renew (Point, p, points + 10);
 
       if (points < 2)
           continue;

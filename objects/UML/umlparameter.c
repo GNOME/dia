@@ -170,7 +170,7 @@ uml_parameter_get_string (UMLParameter *param)
   }
 
   /* Generate string: */
-  str = g_malloc (sizeof (char) * (len + 1));
+  str = g_new0 (char, len + 1);
 
   strcpy (str, "");
 

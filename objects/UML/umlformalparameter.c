@@ -133,7 +133,7 @@ uml_formal_parameter_get_string (UMLFormalParameter *parameter)
   }
 
   /* Generate string: */
-  str = g_malloc (sizeof (char) * (len + 1));
+  str = g_new0 (char, len + 1);
   strcpy (str, parameter->name ? parameter->name : "");
   if (parameter->type != NULL) {
     strcat (str, ":");

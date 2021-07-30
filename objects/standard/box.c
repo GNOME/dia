@@ -493,7 +493,7 @@ box_create(Point *startpoint,
   DiaObject *obj;
   int i;
 
-  box = g_malloc0(sizeof(Box));
+  box = g_new0 (Box, 1);
   elem = &box->element;
   obj = &elem->object;
 
@@ -551,7 +551,7 @@ box_copy(Box *box)
 
   elem = &box->element;
 
-  newbox = g_malloc0(sizeof(Box));
+  newbox = g_new0 (Box, 1);
   newelem = &newbox->element;
   newobj = &newelem->object;
 
@@ -641,7 +641,7 @@ box_load(ObjectNode obj_node, int version, DiaContext *ctx)
   int i;
   AttributeNode attr;
 
-  box = g_malloc0(sizeof(Box));
+  box = g_new0 (Box, 1);
   elem = &box->element;
   obj = &elem->object;
 

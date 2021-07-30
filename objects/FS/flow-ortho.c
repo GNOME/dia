@@ -518,7 +518,7 @@ orthflow_copy(Orthflow *orthflow)
 
   orth = &orthflow->orth;
 
-  neworthflow = g_malloc0(sizeof(Orthflow));
+  neworthflow = g_new0 (Orthflow, 1);
   neworth = &neworthflow->orth;
   newobj = &neworth->object;
 
@@ -594,7 +594,7 @@ orthflow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   PolyBBExtras *extra;
 
-  orthflow = g_malloc0(sizeof(Orthflow));
+  orthflow = g_new0 (Orthflow, 1);
 
   orth = &orthflow->orth;
   obj = &orth->object;

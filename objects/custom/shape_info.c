@@ -175,22 +175,24 @@ parse_path(ShapeInfo *info, const char *path_str, DiaSvgStyle *s, const char* fi
 			   dia_message_filename(filename));
       } else if (closed) {
         /* if there is some unclosed commands, add them as a GE_SHAPE */
-	GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
-					    points->len * sizeof(BezPoint));
-	el->type = GE_SHAPE;
-	dia_svg_style_init (&el->s, s);
-	el->npoints = points->len;
-	memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
-	info->display_list = g_list_append(info->display_list, el);
+        GraphicElementPath *el = dia_new_with_extra (sizeof (GraphicElementPath),
+                                                     points->len,
+                                                     sizeof (BezPoint));
+        el->type = GE_SHAPE;
+        dia_svg_style_init (&el->s, s);
+        el->npoints = points->len;
+        memcpy ((char *) el->points, points->data, points->len * sizeof(BezPoint));
+        info->display_list = g_list_append (info->display_list, el);
       } else {
         /* if there is some unclosed commands, add them as a GE_PATH */
-	GraphicElementPath *el = g_malloc(sizeof(GraphicElementPath) +
-				          points->len * sizeof(BezPoint));
-	el->type = GE_PATH;
-	dia_svg_style_init (&el->s, s);
-	el->npoints = points->len;
-	memcpy((char *)el->points, points->data, points->len*sizeof(BezPoint));
-	info->display_list = g_list_append(info->display_list, el);
+        GraphicElementPath *el = dia_new_with_extra (sizeof (GraphicElementPath),
+                                                     points->len,
+                                                     sizeof (BezPoint));
+        el->type = GE_PATH;
+        dia_svg_style_init (&el->s, s);
+        el->npoints = points->len;
+        memcpy ((char *) el->points, points->data, points->len * sizeof (BezPoint));
+        info->display_list = g_list_append(info->display_list, el);
       }
       g_array_set_size (points, 0);
     }
@@ -288,7 +290,9 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       val = 0;
       if (arr->len % 2 == 1)
         g_array_append_val(arr, val);
-      poly = g_malloc0(sizeof(GraphicElementPoly) + arr->len/2*sizeof(Point));
+      poly = dia_new_with_extra (sizeof (GraphicElementPoly),
+                                 arr->len / 2,
+                                 sizeof (Point));
       el = (GraphicElement *)poly;
       poly->type = GE_POLYLINE;
       poly->npoints = arr->len / 2;
@@ -319,7 +323,9 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
       val = 0;
       if (arr->len % 2 == 1)
         g_array_append_val(arr, val);
-      poly = g_malloc0(sizeof(GraphicElementPoly) + arr->len/2*sizeof(Point));
+      poly = dia_new_with_extra (sizeof (GraphicElementPoly),
+                                 arr->len / 2,
+                                 sizeof (Point));
       el = (GraphicElement *)poly;
       poly->type = GE_POLYGON;
       poly->npoints = arr->len / 2;

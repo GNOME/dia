@@ -312,7 +312,7 @@ participation_create(Point *startpoint,
   OrthConn *orth;
   DiaObject *obj;
 
-  participation = g_malloc0(sizeof(Participation));
+  participation = g_new0 (Participation, 1);
   orth = &participation->orth;
   obj = &orth->object;
 
@@ -340,7 +340,7 @@ participation_copy(Participation *participation)
 
   orth = &participation->orth;
 
-  newparticipation = g_malloc0(sizeof(Participation));
+  newparticipation = g_new0 (Participation, 1);
   neworth = &newparticipation->orth;
 
   orthconn_copy(orth, neworth);

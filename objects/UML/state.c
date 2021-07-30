@@ -425,7 +425,7 @@ state_create(Point *startpoint,
   DiaFont *font;
   int i;
 
-  state = g_malloc0(sizeof(State));
+  state = g_new0 (State, 1);
 
   /* old default */
   state->line_width = 0.1;

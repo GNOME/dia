@@ -400,7 +400,7 @@ usecase_create(Point *startpoint,
   DiaFont *font;
   int i;
 
-  usecase = g_malloc0(sizeof(Usecase));
+  usecase = g_new0 (Usecase, 1);
   elem = &usecase->element;
   obj = &elem->object;
 

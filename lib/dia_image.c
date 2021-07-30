@@ -426,7 +426,7 @@ dia_image_rgb_data (const DiaImage *image)
   int height = dia_image_height (image);
   int rowstride = dia_image_rowstride (image);
   int size = height * rowstride;
-  guint8 *rgb_pixels = g_try_malloc (size);
+  guint8 *rgb_pixels = g_try_new (guint8, size);
 
   if (!rgb_pixels) {
     return NULL;
@@ -476,7 +476,7 @@ dia_image_mask_data (const DiaImage *image)
   size = gdk_pixbuf_get_width (image->image) *
                                        gdk_pixbuf_get_height(image->image);
 
-  mask = g_try_malloc (size);
+  mask = g_try_new (guint8, size);
   if (!mask) {
     return NULL;
   }

@@ -408,10 +408,12 @@ add_handles (BezierConn    *bezier,
 
   bezier->bezier.num_points++;
   next = pos + 1;
-  bezier->bezier.points = g_realloc (bezier->bezier.points,
-                                     bezier->bezier.num_points * sizeof (BezPoint));
-  bezier->bezier.corner_types = g_realloc (bezier->bezier.corner_types,
-                                           bezier->bezier.num_points * sizeof (BezCornerType));
+  bezier->bezier.points = g_renew (BezPoint,
+                                   bezier->bezier.points,
+                                   bezier->bezier.num_points);
+  bezier->bezier.corner_types = g_renew (BezCornerType,
+                                         bezier->bezier.corner_types,
+                                         bezier->bezier.num_points);
 
   for (i = bezier->bezier.num_points - 1; i > pos; i--) {
     bezier->bezier.points[i] = bezier->bezier.points[i - 1];
@@ -467,10 +469,12 @@ remove_handles (BezierConn *bezier, int pos)
     bezier->bezier.corner_types[i] = bezier->bezier.corner_types[i + 1];
   }
   bezier->bezier.points[pos].p1 = tmppoint;
-  bezier->bezier.points = g_realloc (bezier->bezier.points,
-                                     bezier->bezier.num_points * sizeof (BezPoint));
-  bezier->bezier.corner_types = g_realloc (bezier->bezier.corner_types,
-                                           bezier->bezier.num_points * sizeof (BezCornerType));
+  bezier->bezier.points = g_renew (BezPoint,
+                                   bezier->bezier.points,
+                                   bezier->bezier.num_points);
+  bezier->bezier.corner_types = g_renew (BezCornerType,
+                                         bezier->bezier.corner_types,
+                                         bezier->bezier.num_points);
 
   old_handle1 = obj->handles[3 * pos - 2];
   old_handle2 = obj->handles[3 * pos - 1];

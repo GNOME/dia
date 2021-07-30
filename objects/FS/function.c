@@ -472,7 +472,7 @@ function_create(Point *startpoint,
   DiaFont *font;
   int i;
 
-  pkg = g_malloc0(sizeof(Function));
+  pkg = g_new0 (Function, 1);
   elem = &pkg->element;
   obj = &elem->object;
 
@@ -534,7 +534,7 @@ function_copy(Function *pkg)
 
   elem = &pkg->element;
 
-  newpkg = g_malloc0(sizeof(Function));
+  newpkg = g_new0 (Function, 1);
   newelem = &newpkg->element;
   newobj = &newelem->object;
 
@@ -584,7 +584,7 @@ function_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   int i;
 
-  pkg = g_malloc0(sizeof(Function));
+  pkg = g_new0 (Function, 1);
   elem = &pkg->element;
   obj = &elem->object;
 
@@ -639,8 +639,8 @@ function_insert_word (Function *func, const char *word, gboolean newline)
 {
   DiaObjectChange* change = function_create_change (func, TEXT_EDIT);
   char *old_chars = text_get_string_copy (func->text);
-  char *new_chars = g_malloc (strlen (old_chars) + strlen (word)
-                                      + (newline ? 2 : 1));
+  char *new_chars = g_new0 (char,
+                            strlen (old_chars) + strlen (word) + (newline ? 2 : 1));
   sprintf (new_chars, newline ? "%s\n%s" : "%s%s", old_chars, word);
   text_set_string (func->text, new_chars);
   g_clear_pointer (&new_chars, g_free);
@@ -1243,46 +1243,47 @@ function_count_submenu_items( struct _IndentedMenus* itemPtr )
   return cnt ;
 }
 
-static DiaMenu*
-function_get_object_menu( Function* func, Point* clickedpoint )
-{
-  if ( ! function_menu ) {
-  int i ;
-    int curDepth = 0 ;
-    DiaMenu* curMenu[ FS_SUBMENU_MAXINDENT ] ;
-    int curitem[ FS_SUBMENU_MAXINDENT ] ;
 
-    curitem[0] = 0 ;
-    curMenu[0] = g_malloc( sizeof( DiaMenu ) ) ;
-    curMenu[0]->title = "Function" ;
-    curMenu[0]->num_items = function_count_submenu_items( &(fmenu[0]) ) ;
-    curMenu[0]->items = g_malloc( curMenu[0]->num_items * sizeof(DiaMenuItem) );
-    curMenu[0]->app_data = NULL ;
-    for (i = 0 ; fmenu[i].depth >= 0; i++) {
-      if ( fmenu[i].depth > curDepth ) {
-	curDepth++ ;
-	curMenu[curDepth] = g_malloc( sizeof( DiaMenu ) ) ;
-	curMenu[curDepth]->title = NULL ;
-	curMenu[curDepth]->app_data = NULL ;
-	curMenu[curDepth]->num_items = function_count_submenu_items(&fmenu[i]);
-	curMenu[curDepth]->items = g_malloc( curMenu[curDepth]->num_items *
-				  sizeof(DiaMenuItem) ) ;
-	/* Point this menu's parent to this new structure */
-	curMenu[curDepth-1]->items[curitem[curDepth-1]-1].callback = NULL ;
-	curMenu[curDepth-1]->items[curitem[curDepth-1]-1].callback_data =
-		curMenu[curDepth] ;
-	curitem[ curDepth ] = 0 ;
-      } else if ( fmenu[i].depth < curDepth ) {
-	curDepth=fmenu[i].depth ;
+static DiaMenu *
+function_get_object_menu (Function *func, Point *clickedpoint)
+{
+  if (!function_menu) {
+    int curDepth = 0;
+    DiaMenu *curMenu[FS_SUBMENU_MAXINDENT];
+    int curitem[FS_SUBMENU_MAXINDENT];
+
+    curitem[0] = 0;
+    curMenu[0] = g_new0 (DiaMenu, 1);
+    curMenu[0]->title = "Function";
+    curMenu[0]->num_items = function_count_submenu_items (&(fmenu[0]));
+    curMenu[0]->items = g_new0 (DiaMenuItem, curMenu[0]->num_items);
+    curMenu[0]->app_data = NULL;
+
+    for (int i = 0; fmenu[i].depth >= 0; i++) {
+      if (fmenu[i].depth > curDepth) {
+        curDepth++;
+        curMenu[curDepth] = g_new0 (DiaMenu, 1);
+        curMenu[curDepth]->title = NULL;
+        curMenu[curDepth]->app_data = NULL;
+        curMenu[curDepth]->num_items = function_count_submenu_items (&fmenu[i]);
+        curMenu[curDepth]->items = g_new0 (DiaMenuItem, curMenu[curDepth]->num_items);
+        /* Point this menu's parent to this new structure */
+        curMenu[curDepth-1]->items[curitem[curDepth-1]-1].callback = NULL ;
+        curMenu[curDepth-1]->items[curitem[curDepth-1]-1].callback_data =
+          curMenu[curDepth];
+        curitem[curDepth] = 0 ;
+      } else if (fmenu[i].depth < curDepth) {
+        curDepth = fmenu[i].depth;
+      }
+
+      curMenu[curDepth]->items[curitem[curDepth]].text = fmenu[i].name;
+      curMenu[curDepth]->items[curitem[curDepth]].callback = fmenu[i].func;
+      curMenu[curDepth]->items[curitem[curDepth]].callback_data = fmenu[i].name;
+      curMenu[curDepth]->items[curitem[curDepth]].active = 1;
+      curitem[curDepth]++;
     }
 
-      curMenu[curDepth]->items[curitem[curDepth]].text = fmenu[i].name ;
-      curMenu[curDepth]->items[curitem[curDepth]].callback = fmenu[i].func ;
-      curMenu[curDepth]->items[curitem[curDepth]].callback_data = fmenu[i].name;
-      curMenu[curDepth]->items[curitem[curDepth]].active = 1 ;
-      curitem[curDepth]++ ;
+    function_menu = curMenu[0];
   }
-    function_menu = curMenu[0] ;
-  }
-  return function_menu ;
+  return function_menu;
 }

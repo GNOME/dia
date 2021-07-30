@@ -148,7 +148,7 @@ xml_file_check_encoding (const char *filename,
     return res;
   }
 
-  p = buf = g_malloc0 (BUFLEN);
+  p = buf = g_new0 (char, BUFLEN);
   len = gzread (zf, buf, BUFLEN);
   pmax = p + len;
 
@@ -922,9 +922,11 @@ data_string(DataNode data, DiaContext *ctx)
   }
 
   val = xmlGetProp(data, (const xmlChar *)"val");
-  if (val != NULL) { /* Old kind of string. Left for backwards compatibility */
-    str  = g_malloc(4 * (sizeof(char)*(xmlStrlen(val)+1))); /* extra room
-                                                            for UTF8 */
+  if (val != NULL) {
+    /* Old kind of string. Left for backwards compatibility */
+    /* TODO: This "extra room" feels like nonsense, especially when introduced
+     * when this was already legacy */
+    str  = g_new0 (char, 4 * (xmlStrlen (val) + 1)); /* extra room for UTF8 */
     p = str;
     while (*val) {
       if (*val == '\\') {
@@ -965,7 +967,7 @@ data_string(DataNode data, DiaContext *ctx)
 
     len = strlen(p)-1; /* Ignore first '#' */
 
-    str = g_malloc(len+1);
+    str = g_new0 (char, len + 1);
 
     strncpy(str, p+1, len);
     str[len]=0; /* For safety */

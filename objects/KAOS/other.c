@@ -637,7 +637,7 @@ other_create(Point *startpoint,
   Point p;
   DiaFont* font;
 
-  other = g_malloc0(sizeof(Other));
+  other = g_new0 (Other, 1);
   elem = &other->element;
   obj = &elem->object;
 

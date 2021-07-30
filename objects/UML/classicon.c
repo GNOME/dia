@@ -427,7 +427,7 @@ classicon_create(Point *startpoint,
   DiaFont *font;
   int i;
 
-  cicon = g_malloc0(sizeof(Classicon));
+  cicon = g_new0 (Classicon, 1);
 
   /* old default */
   cicon->line_width = 0.1;

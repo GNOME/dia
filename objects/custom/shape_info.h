@@ -21,8 +21,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef _SHAPE_INFO_H_
-#define _SHAPE_INFO_H_
+
+#pragma once
 
 #include <glib.h>
 
@@ -33,6 +33,8 @@
 #include "properties.h"
 #include "intl.h"
 #include "dia_svg.h"
+
+G_BEGIN_DECLS
 
 typedef enum {
   GE_LINE,
@@ -227,9 +229,20 @@ void shape_info_print(ShapeInfo *info);
 void shape_info_register (ShapeInfo *);
 gboolean shape_typeinfo_load (ShapeInfo* info);
 
-/*MC 11/03 handy g_new0 variant for struct with variable size */
-#define g_new0_ext(struct_type, ext_size)		\
-    ((struct_type *) g_malloc0 ((gsize) (sizeof (struct_type) + ext_size)))
+static inline gpointer G_GNUC_MALLOC
+dia_new_with_extra (size_t n_main_bytes, size_t n_extra, size_t n_extra_bytes)
+{
+  if (G_LIKELY (n_extra_bytes == 0 || n_extra <= G_MAXSIZE / n_extra_bytes)) {
+    size_t points_size = n_extra * n_extra_bytes;
+    if (G_LIKELY (G_MAXSIZE - points_size >= n_main_bytes)) {
+      return g_malloc0 (points_size + n_main_bytes);
+    }
+  }
 
-#endif
+  g_error ("%s: overflow allocating %"G_GSIZE_FORMAT"+(%"G_GSIZE_FORMAT"*%"G_GSIZE_FORMAT") bytes",
+           G_STRLOC, n_main_bytes, n_extra, n_extra_bytes);
 
+  return NULL;
+}
+
+G_END_DECLS

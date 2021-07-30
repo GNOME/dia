@@ -872,21 +872,21 @@ static void compound_update_object (Compound * comp)
 #endif
 }
 
+
 /**
  * Add or remove handles, so that comp->object.num_handles will equal to
  * the specified value. When there have been no changes done 0 is
  * returned, otherwise the number of handles removed (negative value) or
  * the number of added handles (positive value) will be returned.
  */
-static gint
+static int
 adjust_handle_count_to (Compound * comp, gint to)
 {
   DiaObject * obj = &comp->object;
-  gint old_count = obj->num_handles;
-  gint new_count = to;
+  int old_count = obj->num_handles;
+  int new_count = to;
   Handle * h;
-  gint i;
-  gint diff = 0;
+  int diff = 0;
 
   /* we require to have always at least two arms! */
   g_assert (new_count >= 3);
@@ -894,30 +894,33 @@ adjust_handle_count_to (Compound * comp, gint to)
   if (new_count == old_count)
     return diff; /* every thing is ok */
 
-  obj->handles = g_realloc (obj->handles, new_count * sizeof(Handle *));
+  obj->handles = g_renew (Handle *, obj->handles, new_count);
   obj->num_handles = new_count;
   comp->num_arms = new_count-1;
 
-  if (new_count < old_count) /* removing */
-    {
-      for (i = new_count; i < old_count; i++)
-        object_unconnect (obj, &comp->handles[i]);
-      comp->handles = g_realloc (comp->handles, sizeof(Handle) * new_count);
+  if (new_count < old_count) {
+    /* removing */
+    for (int i = new_count; i < old_count; i++) {
+      object_unconnect (obj, &comp->handles[i]);
     }
-  else /* adding */
-    {
-      comp->handles = g_realloc (comp->handles, sizeof(Handle) * new_count);
-      for (i = old_count; i < new_count; i++)
-        {
-          h = &comp->handles[i];
-          setup_handle (h, HANDLE_ARM,
-                        HANDLE_MINOR_CONTROL, HANDLE_CONNECTABLE_NOBREAK);
-        }
+    comp->handles = g_renew (Handle, comp->handles, new_count);
+  } else {
+    /* adding */
+    comp->handles = g_renew (Handle, comp->handles, new_count);
+    for (int i = old_count; i < new_count; i++) {
+      h = &comp->handles[i];
+      setup_handle (h, HANDLE_ARM,
+                    HANDLE_MINOR_CONTROL, HANDLE_CONNECTABLE_NOBREAK);
     }
-  for (i = 0; i < new_count; i++)
+  }
+
+  for (int i = 0; i < new_count; i++) {
     obj->handles[i] = &comp->handles[i];
+  }
+
   return new_count - old_count;
 }
+
 
 static void
 setup_mount_point (ConnectionPoint * mp, DiaObject * obj, Point * pos)

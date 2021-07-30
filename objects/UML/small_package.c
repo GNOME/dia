@@ -346,7 +346,7 @@ smallpackage_create(Point *startpoint,
   DiaFont *font;
   int i;
 
-  pkg = g_malloc0(sizeof(SmallPackage));
+  pkg = g_new0 (SmallPackage, 1);
   elem = &pkg->element;
   obj = &elem->object;
 

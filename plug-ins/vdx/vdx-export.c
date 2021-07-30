@@ -1509,7 +1509,7 @@ vdx_convert_xml_string(const char *s)
     if (strcspn(s, "&<>\"'") == strlen(s)) return s;
 
     /* Ensure we have enough space, even if all the string is quotes */
-    out = realloc(out, 6*strlen(s)+1);
+    out = g_renew (char, out, 6 * strlen (s) + 1);
     c = out;
 
     while(*s)

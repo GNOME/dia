@@ -98,7 +98,7 @@ build_output_file_name(const char *infname, const char *format, const char *outd
   if (!pe)
     return g_strconcat(outdir ? outdir : "", pp,".",format,NULL);
 
-  tmp = g_malloc0(strlen(pp)+1+strlen(format)+1);
+  tmp = g_new0 (char, strlen (pp) + 1 + strlen (format) + 1);
   memcpy(tmp,pp,pe-pp);
   strcat(tmp,".");
   strcat(tmp,format);

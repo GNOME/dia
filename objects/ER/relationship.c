@@ -525,7 +525,7 @@ relationship_copy (Relationship *relationship)
 
   elem = &relationship->element;
 
-  newrelationship = g_malloc0 (sizeof (Relationship));
+  newrelationship = g_new0 (Relationship, 1);
   newelem = &newrelationship->element;
   newobj = &newelem->object;
 
@@ -599,7 +599,7 @@ relationship_load (ObjectNode obj_node, int version, DiaContext *ctx)
   int i;
   AttributeNode attr;
 
-  relationship = g_malloc0 (sizeof (Relationship));
+  relationship = g_new0 (Relationship, 1);
   elem = &relationship->element;
   obj = &elem->object;
 

@@ -265,7 +265,7 @@ fork_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handl
   DiaObject *obj;
   int i;
 
-  branch = g_malloc0(sizeof(Fork));
+  branch = g_new0 (Fork, 1);
   elem = &branch->element;
   obj = &elem->object;
 

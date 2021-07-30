@@ -396,7 +396,7 @@ sadtarrow_create(Point *startpoint,
   OrthConn *orth;
   DiaObject *obj;
 
-  sadtarrow = g_malloc0(sizeof(Sadtarrow));
+  sadtarrow = g_new0 (Sadtarrow, 1);
   orth = &sadtarrow->orth;
   obj = &orth->object;
 

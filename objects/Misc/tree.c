@@ -351,9 +351,8 @@ tree_create(Point *startpoint,
   LineBBExtras *extra;
   DiaObject *obj;
   Point defaultlen = { 0.0, 20.0 };
-  int i;
 
-  tree = g_malloc0(sizeof(Tree));
+  tree = g_new0 (Tree, 1);
 
   conn = &tree->connection;
   conn->endpoints[0] = *startpoint;
@@ -370,10 +369,10 @@ tree_create(Point *startpoint,
 
   connection_init(conn, 2+tree->num_handles, 0);
   tree->line_color = attributes_get_foreground();
-  tree->handles = g_malloc(sizeof(Handle *)*tree->num_handles);
-  tree->parallel_points = g_malloc(sizeof(Point)*tree->num_handles);
-  for (i=0;i<tree->num_handles;i++) {
-    tree->handles[i] = g_new0(Handle,1);
+  tree->handles = g_new0 (Handle *, tree->num_handles);
+  tree->parallel_points = g_new0 (Point, tree->num_handles);
+  for (int i = 0; i < tree->num_handles; i++) {
+    tree->handles[i] = g_new0 (Handle,1);
     tree->handles[i]->id = HANDLE_BUS;
     tree->handles[i]->type = HANDLE_MINOR_CONTROL;
     tree->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;
@@ -414,11 +413,10 @@ tree_copy(Tree *tree)
   Tree *newtree;
   Connection *conn, *newconn;
   DiaObject *newobj;
-  int i;
 
   conn = &tree->connection;
 
-  newtree = g_malloc0(sizeof(Tree));
+  newtree = g_new0 (Tree, 1);
   newconn = &newtree->connection;
   newobj = &newconn->object;
 
@@ -427,11 +425,11 @@ tree_copy(Tree *tree)
   newtree->num_handles = tree->num_handles;
   newtree->line_color = tree->line_color;
 
-  newtree->handles = g_malloc(sizeof(Handle *)*newtree->num_handles);
-  newtree->parallel_points = g_malloc(sizeof(Point)*newtree->num_handles);
+  newtree->handles = g_new0 (Handle *, newtree->num_handles);
+  newtree->parallel_points = g_new0 (Point, newtree->num_handles);
 
-  for (i=0;i<newtree->num_handles;i++) {
-    newtree->handles[i] = g_new0(Handle,1);
+  for (int i = 0; i < newtree->num_handles; i++) {
+    newtree->handles[i] = g_new0 (Handle, 1);
     *newtree->handles[i] = *tree->handles[i];
     newtree->handles[i]->connected_to = NULL;
     newobj->handles[2+i] = newtree->handles[i];
@@ -516,10 +514,8 @@ tree_add_handle(Tree *tree, Point *p, Handle *handle)
   tree->num_handles++;
 
   /* Allocate more handles */
-  tree->handles = g_realloc(tree->handles,
-			   sizeof(Handle *)*tree->num_handles);
-  tree->parallel_points = g_realloc(tree->parallel_points,
-				   sizeof(Point)*tree->num_handles);
+  tree->handles = g_renew (Handle *, tree->handles, tree->num_handles);
+  tree->parallel_points = g_renew (Point, tree->parallel_points, tree->num_handles);
 
   i = tree->num_handles - 1;
 
@@ -532,25 +528,24 @@ tree_add_handle(Tree *tree, Point *p, Handle *handle)
   object_add_handle(&tree->connection.object, tree->handles[i]);
 }
 
+
 static void
-tree_remove_handle(Tree *tree, Handle *handle)
+tree_remove_handle (Tree *tree, Handle *handle)
 {
-  int i, j;
-
-  for (i=0;i<tree->num_handles;i++) {
+  for (int i = 0; i < tree->num_handles; i++) {
     if (tree->handles[i] == handle) {
-      object_remove_handle(&tree->connection.object, handle);
+      object_remove_handle (&tree->connection.object, handle);
 
-      for (j=i;j<tree->num_handles-1;j++) {
-	tree->handles[j] = tree->handles[j+1];
-	tree->parallel_points[j] = tree->parallel_points[j+1];
+      for (int j = i; j < tree->num_handles - 1; j++) {
+        tree->handles[j] = tree->handles[j+1];
+        tree->parallel_points[j] = tree->parallel_points[j+1];
       }
 
       tree->num_handles--;
-      tree->handles = g_realloc(tree->handles,
-			       sizeof(Handle *)*tree->num_handles);
-      tree->parallel_points = g_realloc(tree->parallel_points,
-				       sizeof(Point)*tree->num_handles);
+      tree->handles = g_renew (Handle *, tree->handles, tree->num_handles);
+      tree->parallel_points = g_renew (Point,
+                                       tree->parallel_points,
+                                       tree->num_handles);
 
       break;
     }
@@ -667,9 +662,8 @@ tree_load(ObjectNode obj_node, int version,DiaContext *ctx)
   DiaObject *obj;
   AttributeNode attr;
   DataNode data;
-  int i;
 
-  tree = g_malloc0(sizeof(Tree));
+  tree = g_new0 (Tree, 1);
 
   conn = &tree->connection;
   obj = &conn->object;
@@ -689,10 +683,10 @@ tree_load(ObjectNode obj_node, int version,DiaContext *ctx)
   connection_init(conn, 2 + tree->num_handles, 0);
 
   data = attribute_first_data(attr);
-  tree->handles = g_malloc(sizeof(Handle *)*tree->num_handles);
-  tree->parallel_points = g_malloc(sizeof(Point)*tree->num_handles);
-  for (i=0;i<tree->num_handles;i++) {
-    tree->handles[i] = g_new0(Handle,1);
+  tree->handles = g_new0 (Handle *, tree->num_handles);
+  tree->parallel_points = g_new0 (Point, tree->num_handles);
+  for (int i = 0; i < tree->num_handles; i++) {
+    tree->handles[i] = g_new0 (Handle, 1);
     tree->handles[i]->id = HANDLE_BUS;
     tree->handles[i]->type = HANDLE_MINOR_CONTROL;
     tree->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;

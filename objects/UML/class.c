@@ -470,7 +470,9 @@ umlclass_set_props(UMLClass *umlclass, GPtrArray *props)
   obj->num_connections = num;
 #endif
 
-  obj->connections =  g_realloc(obj->connections, obj->num_connections*sizeof(ConnectionPoint *));
+  obj->connections = g_renew (ConnectionPoint *,
+                              obj->connections,
+                              obj->num_connections);
 
   /* Update data: */
   if (num > UMLCLASS_CONNECTIONPOINTS) {
@@ -683,7 +685,7 @@ uml_create_documentation_tag (gchar * comment,
   gint     WorkingWrapPoint = (TagLength<WrapPoint) ? WrapPoint : ((TagLength<=0)?1:TagLength);
   gint     RawLength        = TagLength + strlen(comment) + (tagging?1:0);
   gint     MaxCookedLength  = RawLength + RawLength/WorkingWrapPoint;
-  gchar    *WrappedComment  = g_malloc0(MaxCookedLength+1);
+  gchar    *WrappedComment  = g_new0 (char, MaxCookedLength + 1);
   gint     AvailSpace       = WorkingWrapPoint - TagLength;
   gchar    *Scan;
   gchar    *BreakCandidate;
@@ -1080,10 +1082,12 @@ umlclass_draw_operationbox (UMLClass    *umlclass,
             part_opstr_need = wrap_pos + 1;
             if (part_opstr_len < part_opstr_need) {
               part_opstr_len = part_opstr_need;
-              part_opstr = g_realloc (part_opstr, part_opstr_need);
+              part_opstr = g_renew (char, part_opstr, part_opstr_need);
             } else {
               /* ensure to never strncpy to NULL and not shrink */
-              part_opstr = g_realloc (part_opstr, MAX (part_opstr_need, part_opstr_len));
+              part_opstr = g_renew (char,
+                                    part_opstr,
+                                    MAX (part_opstr_need, part_opstr_len));
             }
             strncpy (part_opstr, opstr, wrap_pos);
             memset (part_opstr+wrap_pos, '\0', 1);
@@ -1091,7 +1095,7 @@ umlclass_draw_operationbox (UMLClass    *umlclass,
             part_opstr_need = ident + wrap_pos - last_wrap_pos + 1;
             if (part_opstr_len < part_opstr_need) {
               part_opstr_len = part_opstr_need;
-              part_opstr = g_realloc (part_opstr, part_opstr_need);
+              part_opstr = g_renew (char, part_opstr, part_opstr_need);
             }
             memset (part_opstr, ' ', ident);
             memset (part_opstr+ident, '\0', 1);
@@ -1874,7 +1878,7 @@ umlclass_create(Point *startpoint,
   DiaObject *obj;
   int i;
 
-  umlclass = g_malloc0(sizeof(UMLClass));
+  umlclass = g_new0 (UMLClass, 1);
   elem = &umlclass->element;
   obj = &elem->object;
 
@@ -2030,7 +2034,7 @@ umlclass_copy(UMLClass *umlclass)
 
   elem = &umlclass->element;
 
-  newumlclass = g_malloc0(sizeof(UMLClass));
+  newumlclass = g_new0 (UMLClass, 1);
   newelem = &newumlclass->element;
   newobj = &newelem->object;
 
@@ -2307,7 +2311,7 @@ umlclass_load (ObjectNode obj_node, int version, DiaContext *ctx)
   GList *list;
 
 
-  umlclass = g_malloc0 (sizeof (UMLClass));
+  umlclass = g_new0 (UMLClass, 1);
   elem = &umlclass->element;
   obj = &elem->object;
 

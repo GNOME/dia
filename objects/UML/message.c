@@ -375,7 +375,7 @@ message_create(Point *startpoint,
   LineBBExtras *extra;
   DiaObject *obj;
 
-  message = g_malloc0(sizeof(Message));
+  message = g_new0 (Message, 1);
 
   /* old defaults */
   message->font_height = 0.8;

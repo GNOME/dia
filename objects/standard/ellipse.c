@@ -504,7 +504,7 @@ ellipse_create(Point *startpoint,
   DiaObject *obj;
   int i;
 
-  ellipse = g_malloc0(sizeof(Ellipse));
+  ellipse = g_new0 (Ellipse, 1);
   elem = &ellipse->element;
   obj = &elem->object;
 
@@ -564,7 +564,7 @@ ellipse_copy(Ellipse *ellipse)
 
   elem = &ellipse->element;
 
-  newellipse = g_malloc0(sizeof(Ellipse));
+  newellipse = g_new0 (Ellipse, 1);
   newelem = &newellipse->element;
   newobj = &newelem->object;
 
@@ -647,7 +647,7 @@ static DiaObject *ellipse_load(ObjectNode obj_node, int version, DiaContext *ctx
   int i;
   AttributeNode attr;
 
-  ellipse = g_malloc0(sizeof(Ellipse));
+  ellipse = g_new0 (Ellipse, 1);
   elem = &ellipse->element;
   obj = &elem->object;
 

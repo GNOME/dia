@@ -388,7 +388,7 @@ condition_create(Point *startpoint,
   real default_fontheight;
   Color fg_color;
 
-  condition = g_malloc0(sizeof(Condition));
+  condition = g_new0 (Condition, 1);
   conn = &condition->connection;
   obj = &conn->object;
   extra = &conn->extra_spacing;

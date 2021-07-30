@@ -378,7 +378,7 @@ flow_create(Point *startpoint,
   Point n ;
   DiaFont *font;
 
-  flow = g_malloc0(sizeof(Flow));
+  flow = g_new0 (Flow, 1);
 
   conn = &flow->connection;
   conn->endpoints[0] = *startpoint;
@@ -450,7 +450,7 @@ flow_copy(Flow *flow)
 
   conn = &flow->connection;
 
-  newflow = g_malloc0(sizeof(Flow));
+  newflow = g_new0 (Flow, 1);
   newconn = &newflow->connection;
   newobj = &newconn->object;
 
@@ -531,7 +531,7 @@ flow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   LineBBExtras *extra;
 
-  flow = g_malloc0(sizeof(Flow));
+  flow = g_new0 (Flow, 1);
 
   conn = &flow->connection;
   obj = &conn->object;

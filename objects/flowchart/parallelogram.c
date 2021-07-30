@@ -598,7 +598,7 @@ pgram_create(Point *startpoint,
 
   init_default_values();
 
-  pgram = g_malloc0(sizeof(Pgram));
+  pgram = g_new0 (Pgram, 1);
   elem = &pgram->element;
   obj = &elem->object;
 
@@ -705,7 +705,7 @@ pgram_load(ObjectNode obj_node, int version,DiaContext *ctx)
   int i;
   AttributeNode attr;
 
-  pgram = g_malloc0(sizeof(Pgram));
+  pgram = g_new0 (Pgram, 1);
   elem = &pgram->element;
   obj = &elem->object;
 

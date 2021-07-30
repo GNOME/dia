@@ -496,13 +496,12 @@ aadlbox_add_port(Aadlbox *aadlbox, const Point *p, Aadlport *port)
 
   aadlbox->num_ports++;
 
-  if (aadlbox->ports == NULL)
-    aadlbox->ports = g_malloc(sizeof(Aadlport*)*aadlbox->num_ports);
-
-  else
+  if (aadlbox->ports == NULL) {
+    aadlbox->ports = g_new0 (Aadlport *, aadlbox->num_ports);
+  } else {
     /* Allocate more ports */
-    aadlbox->ports = g_realloc(aadlbox->ports,
-         			       sizeof(Aadlport*)*aadlbox->num_ports);
+    aadlbox->ports = g_renew (Aadlport *, aadlbox->ports, aadlbox->num_ports);
+  }
 
   i = aadlbox->num_ports - 1;
 
@@ -539,8 +538,7 @@ aadlbox_remove_port(Aadlbox *aadlbox, Aadlport *port)
       object_remove_connectionpoint(&aadlbox->element.object, &port->out);
 
       aadlbox->num_ports--;
-      aadlbox->ports = g_realloc(aadlbox->ports,
-			       sizeof(Aadlport *)*aadlbox->num_ports);
+      aadlbox->ports = g_renew (Aadlport *, aadlbox->ports, aadlbox->num_ports);
       break;
     }
   }
@@ -619,14 +617,14 @@ aadlbox_add_connection(Aadlbox *aadlbox, const Point *p, ConnectionPoint *connec
 
   aadlbox->num_connections++;
 
-  if (aadlbox->connections == NULL)
-    aadlbox->connections =
-      g_malloc(sizeof(ConnectionPoint*)*aadlbox->num_connections);
-
-  else
+  if (aadlbox->connections == NULL) {
+    aadlbox->connections = g_new0 (ConnectionPoint *, aadlbox->num_connections);
+  } else {
     /* Allocate more connections */
-    aadlbox->connections = g_realloc(aadlbox->connections,
-			    sizeof(ConnectionPoint*)*aadlbox->num_connections);
+    aadlbox->connections = g_renew (ConnectionPoint *,
+                                    aadlbox->connections,
+                                    aadlbox->num_connections);
+  }
 
   i = aadlbox->num_connections - 1;
 
@@ -652,8 +650,9 @@ aadlbox_remove_connection(Aadlbox *aadlbox, ConnectionPoint *connection)
       object_remove_connectionpoint(&aadlbox->element.object, connection);
 
       aadlbox->num_connections--;
-      aadlbox->connections = g_realloc(aadlbox->connections,
-		           sizeof(ConnectionPoint *)*aadlbox->num_connections);
+      aadlbox->connections = g_renew (ConnectionPoint *,
+                                      aadlbox->connections,
+                                      aadlbox->num_connections);
       break;
     }
   }
@@ -897,7 +896,7 @@ DiaObject *aadlbox_create(Point *startpoint, void *user_data,
   Point p;
   DiaFont *font;
 
-  aadlbox = g_malloc0(sizeof(Aadlbox));
+  aadlbox = g_new0 (Aadlbox, 1);
   elem = &aadlbox->element;
   obj = &elem->object;
 

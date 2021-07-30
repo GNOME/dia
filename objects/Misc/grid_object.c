@@ -477,13 +477,14 @@ grid_object_reallocate_cells (Grid_Object* grid_object)
   /* obj->connections doesn't own the pointers, so just realloc; values
    * will be updated later */
   obj->num_connections = GRID_OBJECT_BASE_CONNECTION_POINTS + new_rows*new_cols;
-  obj->connections = (ConnectionPoint **) g_realloc(obj->connections,
-      		obj->num_connections * sizeof(ConnectionPoint *));
+  obj->connections = g_renew (ConnectionPoint *,
+                              obj->connections,
+                              obj->num_connections);
 
   /* Can't use realloc; if grid has different dims, memory lays out
    * differently.  Must copy by hand. */
 
-  new_cells = g_malloc(new_rows * new_cols * sizeof(ConnectionPoint));
+  new_cells = g_new0 (ConnectionPoint, new_rows * new_cols);
   for (i = 0; i < new_cols; ++i)
     for (j = 0; j < new_rows; ++j)
     {

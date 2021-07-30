@@ -167,29 +167,35 @@ polyshape_distance_from(PolyShape *poly, Point *point, real line_width)
 				line_width, point);
 }
 
+
 static void
-add_handle(PolyShape *poly, int pos, Point *point, Handle *handle,
-	   ConnectionPoint *cp1, ConnectionPoint *cp2)
+add_handle (PolyShape       *poly,
+            int              pos,
+            Point           *point,
+            Handle          *handle,
+            ConnectionPoint *cp1,
+            ConnectionPoint *cp2)
 {
-  int i;
   DiaObject *obj = &poly->object;
 
   poly->numpoints++;
-  poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
+  poly->points = g_renew (Point, poly->points, poly->numpoints);
 
-  for (i=poly->numpoints-1; i > pos; i--) {
+  for (int i = poly->numpoints - 1; i > pos; i--) {
     poly->points[i] = poly->points[i-1];
   }
+
   poly->points[pos] = *point;
-  object_add_handle_at(obj, handle, pos);
-  object_add_connectionpoint_at(obj, cp1, 2*pos);
-  object_add_connectionpoint_at(obj, cp2, 2*pos+1);
+
+  object_add_handle_at (obj, handle, pos);
+  object_add_connectionpoint_at (obj, cp1, 2 * pos);
+  object_add_connectionpoint_at (obj, cp2, 2 * pos + 1);
 }
 
+
 static void
-remove_handle(PolyShape *poly, int pos)
+remove_handle (PolyShape *poly, int pos)
 {
-  int i;
   DiaObject *obj;
   Handle *old_handle;
   ConnectionPoint *old_cp1, *old_cp2;
@@ -198,17 +204,19 @@ remove_handle(PolyShape *poly, int pos)
 
   /* delete the points */
   poly->numpoints--;
-  for (i=pos; i < poly->numpoints; i++) {
+  for (int i = pos; i < poly->numpoints; i++) {
     poly->points[i] = poly->points[i+1];
   }
-  poly->points = g_realloc(poly->points, poly->numpoints*sizeof(Point));
+
+  poly->points = g_renew (Point, poly->points, poly->numpoints);
 
   old_handle = obj->handles[pos];
   old_cp1 = obj->connections[2*pos];
   old_cp2 = obj->connections[2*pos+1];
-  object_remove_handle(&poly->object, old_handle);
-  object_remove_connectionpoint(obj, old_cp1);
-  object_remove_connectionpoint(obj, old_cp2);
+
+  object_remove_handle (&poly->object, old_handle);
+  object_remove_connectionpoint (obj, old_cp1);
+  object_remove_connectionpoint (obj, old_cp2);
 }
 
 
@@ -322,8 +330,9 @@ find_tip_directions(Point prev, Point this, Point next)
   return dirs;
 }
 
+
 void
-polyshape_update_data(PolyShape *poly)
+polyshape_update_data (PolyShape *poly)
 {
   Point next;
   int i;
@@ -335,16 +344,17 @@ polyshape_update_data(PolyShape *poly)
       NUM_CONNECTIONS(poly) != obj->num_connections) {
     object_unconnect_all(obj); /* too drastic ? */
 
-    obj->handles = g_realloc(obj->handles,
-                             poly->numpoints*sizeof(Handle *));
+    obj->handles = g_renew (Handle *, obj->handles, poly->numpoints);
     obj->num_handles = poly->numpoints;
-    for (i=0;i<poly->numpoints;i++) {
-      obj->handles[i] = g_new(Handle, 1);
-      setup_handle(obj->handles[i]);
+    for (i = 0; i < poly->numpoints; i++) {
+      obj->handles[i] = g_new0 (Handle, 1);
+      setup_handle (obj->handles[i]);
     }
 
-    obj->connections = g_realloc(obj->connections,
-                                 NUM_CONNECTIONS(poly) * sizeof(ConnectionPoint *));
+    obj->connections = g_renew (ConnectionPoint *,
+                                obj->connections,
+                                NUM_CONNECTIONS (poly));
+
     for (i = 0; i < NUM_CONNECTIONS(poly); i++) {
       obj->connections[i] = g_new0(ConnectionPoint, 1);
       obj->connections[i]->object = obj;
@@ -420,7 +430,7 @@ polyshape_init(PolyShape *poly, int num_points)
 
   poly->numpoints = num_points;
 
-  poly->points = g_malloc(num_points*sizeof(Point));
+  poly->points = g_new0 (Point, num_points);
 
   for (i = 0; i < num_points; i++) {
     obj->handles[i] = g_new(Handle, 1);

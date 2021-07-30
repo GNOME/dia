@@ -205,7 +205,7 @@ g_value_change_transform_value (const GValue *src_value,
 GType
 dia_object_change_get_type (void)
 {
-  static volatile GType type_id = 0;
+  static GType type_id = 0;
 
   if (g_once_init_enter (&type_id)) {
     static const GTypeFundamentalInfo finfo = {

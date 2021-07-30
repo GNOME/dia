@@ -411,7 +411,7 @@ table_create (Point * startpoint,
   DiaObject *obj;
   gint i;
 
-  table = g_malloc0 (sizeof (Table));
+  table = g_new0 (Table, 1);
   elem = &table->element;
   obj = &elem->object;
 
@@ -1140,7 +1140,7 @@ create_documentation_tag (char     *comment,
   int   WorkingWrapPoint = (TagLength<WrapPoint) ? WrapPoint : ((TagLength<=0)?1:TagLength);
   int   RawLength        = TagLength + strlen(comment) + (tagging?1:0);
   int   MaxCookedLength  = RawLength + RawLength/WorkingWrapPoint;
-  char *WrappedComment   = g_malloc0(MaxCookedLength+1);
+  char *WrappedComment   = g_new0 (char, MaxCookedLength + 1);
   int   AvailSpace       = WorkingWrapPoint - TagLength;
   char *Scan;
   char *BreakCandidate;
@@ -1344,13 +1344,14 @@ table_update_connectionpoints (Table * table)
   obj = &table->element.object;
   num_attrs = g_list_length (table->attributes);
   num_connections = TABLE_CONNECTIONPOINTS + 2*num_attrs;
-  if (num_connections != obj->num_connections)
-    {
-      obj->num_connections = num_connections;
-      obj->connections =
-        g_realloc (obj->connections,
-                   num_connections * sizeof (ConnectionPoint *));
-    }
+
+  if (num_connections != obj->num_connections) {
+    obj->num_connections = num_connections;
+    obj->connections = g_renew (ConnectionPoint *,
+                                obj->connections,
+                                num_connections);
+  }
+
   list = table->attributes;
   index = TABLE_CONNECTIONPOINTS;
   while (list != NULL)

@@ -598,7 +598,7 @@ image_create(Point *startpoint,
   DiaObject *obj;
   int i;
 
-  image = g_malloc0(sizeof(Image));
+  image = g_new0 (Image, 1);
   elem = &image->element;
   obj = &elem->object;
 
@@ -669,7 +669,7 @@ image_copy(Image *image)
 
   elem = &image->element;
 
-  newimage = g_malloc0(sizeof(Image));
+  newimage = g_new0 (Image, 1);
   newelem = &newimage->element;
   newobj = &newelem->object;
 

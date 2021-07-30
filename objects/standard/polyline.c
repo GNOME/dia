@@ -328,7 +328,7 @@ polyline_create(Point *startpoint,
   Point defaultlen = { 1.0, 1.0 };
 
   /*polyline_init_defaults();*/
-  polyline = g_malloc0(sizeof(Polyline));
+  polyline = g_new0 (Polyline, 1);
   poly = &polyline->poly;
   obj = &poly->object;
 
@@ -387,7 +387,7 @@ polyline_copy(Polyline *polyline)
 
   poly = &polyline->poly;
 
-  newpolyline = g_malloc0(sizeof(Polyline));
+  newpolyline = g_new0 (Polyline, 1);
   newpoly = &newpolyline->poly;
 
   polyconn_copy(poly, newpoly);
@@ -525,7 +525,7 @@ polyline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   AttributeNode attr;
 
-  polyline = g_malloc0(sizeof(Polyline));
+  polyline = g_new0 (Polyline, 1);
 
   poly = &polyline->poly;
   obj = &poly->object;

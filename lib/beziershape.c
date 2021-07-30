@@ -378,11 +378,14 @@ add_handles (BezierShape *bezier,
 
   bezier->bezier.num_points++;
   next = pos + 1;
-  bezier->bezier.points = g_realloc(bezier->bezier.points, bezier->bezier.num_points*sizeof(BezPoint));
+  bezier->bezier.points = g_renew (BezPoint,
+                                   bezier->bezier.points,
+                                   bezier->bezier.num_points);
   if (pos == bezier->bezier.num_points - 1)
     next = 1;
-  bezier->bezier.corner_types = g_realloc(bezier->bezier.corner_types,
-				   bezier->bezier.num_points * sizeof(BezCornerType));
+  bezier->bezier.corner_types = g_renew (BezCornerType,
+                                         bezier->bezier.corner_types,
+                                         bezier->bezier.num_points);
 
   for (i = bezier->bezier.num_points - 1; i > pos; i--) {
     bezier->bezier.points[i] = bezier->bezier.points[i-1];
@@ -437,10 +440,13 @@ remove_handles (BezierShape *bezier, int pos)
     bezier->bezier.points[1].p1 = bezier->bezier.points[0].p1;
     point_sub(&bezier->bezier.points[1].p1, &controlvector);
   }
-  bezier->bezier.points = g_realloc(bezier->bezier.points,
-			     bezier->bezier.num_points * sizeof(BezPoint));
-  bezier->bezier.corner_types = g_realloc(bezier->bezier.corner_types,
-				bezier->bezier.num_points * sizeof(BezCornerType));
+
+  bezier->bezier.points = g_renew (BezPoint,
+                                   bezier->bezier.points,
+                                   bezier->bezier.num_points);
+  bezier->bezier.corner_types = g_renew (BezCornerType,
+                                         bezier->bezier.corner_types,
+                                         bezier->bezier.num_points);
 
   old_handle1 = obj->handles[3*pos-3];
   old_handle2 = obj->handles[3*pos-2];
@@ -776,7 +782,9 @@ beziershape_update_data (BezierShape *bezier)
 
     new_handles_and_connections(bezier, bezier->bezier.num_points);
 
-    bezier->bezier.corner_types = g_realloc(bezier->bezier.corner_types, bezier->bezier.num_points*sizeof(BezCornerType));
+    bezier->bezier.corner_types = g_renew (BezCornerType,
+                                           bezier->bezier.corner_types,
+                                           bezier->bezier.num_points);
     for (i = 0; i < bezier->bezier.num_points; i++)
       bezier->bezier.corner_types[i] = BEZ_CORNER_SYMMETRIC;
   }

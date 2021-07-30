@@ -395,7 +395,7 @@ action_create(Point *startpoint,
 
   DiaFont* action_font;
 
-  action = g_malloc0(sizeof(Action));
+  action = g_new0 (Action, 1);
   conn = &action->connection;
   obj = &conn->object;
   extra = &conn->extra_spacing;

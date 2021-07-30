@@ -320,7 +320,7 @@ polygon_copy(Polygon *polygon)
 
   poly = &polygon->poly;
 
-  newpolygon = g_malloc0(sizeof(Polygon));
+  newpolygon = g_new0 (Polygon, 1);
   newpoly = &newpolygon->poly;
 
   polyshape_copy(poly, newpoly);
@@ -400,7 +400,7 @@ polygon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   AttributeNode attr;
 
-  polygon = g_malloc0(sizeof(Polygon));
+  polygon = g_new0 (Polygon, 1);
 
   poly = &polygon->poly;
   obj = &poly->object;

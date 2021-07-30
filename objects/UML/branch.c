@@ -257,7 +257,7 @@ branch_create(Point *startpoint, void *user_data, Handle **handle1, Handle **han
   DiaObject *obj;
   int i;
 
-  branch = g_malloc0(sizeof(Branch));
+  branch = g_new0 (Branch, 1);
   elem = &branch->element;
   obj = &elem->object;
 

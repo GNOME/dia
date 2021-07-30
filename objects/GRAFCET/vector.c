@@ -253,7 +253,7 @@ arc_create(Point *startpoint,
   OrthConn *orth;
   DiaObject *obj;
 
-  arc = g_malloc0(sizeof(Arc));
+  arc = g_new0 (Arc, 1);
   orth = &arc->orth;
   obj = &orth->object;
 

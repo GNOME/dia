@@ -352,9 +352,8 @@ bus_create(Point *startpoint,
   LineBBExtras *extra;
   DiaObject *obj;
   Point defaultlen = { 5.0, 0.0 };
-  int i;
 
-  bus = g_malloc0(sizeof(Bus));
+  bus = g_new0 (Bus, 1);
 
   conn = &bus->connection;
   conn->endpoints[0] = *startpoint;
@@ -371,10 +370,10 @@ bus_create(Point *startpoint,
 
   connection_init(conn, 2+bus->num_handles, 0);
   bus->line_color = attributes_get_foreground();
-  bus->handles = g_malloc(sizeof(Handle *)*bus->num_handles);
-  bus->parallel_points = g_malloc(sizeof(Point)*bus->num_handles);
-  for (i=0;i<bus->num_handles;i++) {
-    bus->handles[i] = g_new0(Handle,1);
+  bus->handles = g_new0 (Handle *, bus->num_handles);
+  bus->parallel_points = g_new0 (Point, bus->num_handles);
+  for (int i = 0; i < bus->num_handles; i++) {
+    bus->handles[i] = g_new0 (Handle, 1);
     bus->handles[i]->id = HANDLE_BUS;
     bus->handles[i]->type = HANDLE_MINOR_CONTROL;
     bus->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;
@@ -414,11 +413,10 @@ bus_copy(Bus *bus)
   Bus *newbus;
   Connection *conn, *newconn;
   DiaObject *newobj;
-  int i;
 
   conn = &bus->connection;
 
-  newbus = g_malloc0(sizeof(Bus));
+  newbus = g_new0 (Bus, 1);
   newconn = &newbus->connection;
   newobj = &newconn->object;
 
@@ -427,11 +425,11 @@ bus_copy(Bus *bus)
   newbus->num_handles = bus->num_handles;
   newbus->line_color = bus->line_color;
 
-  newbus->handles = g_malloc(sizeof(Handle *)*newbus->num_handles);
-  newbus->parallel_points = g_malloc(sizeof(Point)*newbus->num_handles);
+  newbus->handles = g_new0 (Handle *, newbus->num_handles);
+  newbus->parallel_points = g_new0 (Point, newbus->num_handles);
 
-  for (i=0;i<newbus->num_handles;i++) {
-    newbus->handles[i] = g_new0(Handle,1);
+  for (int i = 0; i < newbus->num_handles; i++) {
+    newbus->handles[i] = g_new0 (Handle, 1);
     *newbus->handles[i] = *bus->handles[i];
     newbus->handles[i]->connected_to = NULL;
     newobj->handles[2+i] = newbus->handles[i];
@@ -508,18 +506,17 @@ bus_update_data(Bus *bus)
   connection_update_handles(conn);
 }
 
+
 static void
-bus_add_handle(Bus *bus, Point *p, Handle *handle)
+bus_add_handle (Bus *bus, Point *p, Handle *handle)
 {
   int i;
 
   bus->num_handles++;
 
   /* Allocate more handles */
-  bus->handles = g_realloc(bus->handles,
-			   sizeof(Handle *)*bus->num_handles);
-  bus->parallel_points = g_realloc(bus->parallel_points,
-				   sizeof(Point)*bus->num_handles);
+  bus->handles = g_renew (Handle *, bus->handles, bus->num_handles);
+  bus->parallel_points = g_renew (Point, bus->parallel_points, bus->num_handles);
 
   i = bus->num_handles - 1;
 
@@ -547,10 +544,10 @@ bus_remove_handle(Bus *bus, Handle *handle)
       }
 
       bus->num_handles--;
-      bus->handles = g_realloc(bus->handles,
-			       sizeof(Handle *)*bus->num_handles);
-      bus->parallel_points = g_realloc(bus->parallel_points,
-				       sizeof(Point)*bus->num_handles);
+      bus->handles = g_renew (Handle *, bus->handles, bus->num_handles);
+      bus->parallel_points = g_renew (Point,
+                                      bus->parallel_points,
+                                      bus->num_handles);
 
       break;
     }
@@ -666,9 +663,8 @@ bus_load(ObjectNode obj_node, int version,DiaContext *ctx)
   DiaObject *obj;
   AttributeNode attr;
   DataNode data;
-  int i;
 
-  bus = g_malloc0(sizeof(Bus));
+  bus = g_new0 (Bus, 1);
 
   conn = &bus->connection;
   obj = &conn->object;
@@ -688,10 +684,10 @@ bus_load(ObjectNode obj_node, int version,DiaContext *ctx)
   connection_init(conn, 2 + bus->num_handles, 0);
 
   data = attribute_first_data(attr);
-  bus->handles = g_malloc(sizeof(Handle *)*bus->num_handles);
-  bus->parallel_points = g_malloc(sizeof(Point)*bus->num_handles);
-  for (i=0;i<bus->num_handles;i++) {
-    bus->handles[i] = g_new0(Handle,1);
+  bus->handles = g_new0 (Handle *, bus->num_handles);
+  bus->parallel_points = g_new0 (Point, bus->num_handles);
+  for (int i = 0; i < bus->num_handles; i++) {
+    bus->handles[i] = g_new0 (Handle, 1);
     bus->handles[i]->id = HANDLE_BUS;
     bus->handles[i]->type = HANDLE_MINOR_CONTROL;
     bus->handles[i]->connect_type = HANDLE_CONNECTABLE_NOBREAK;
