@@ -41,5 +41,7 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkDialog, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkEventBox, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkTable, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkRadioButton, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkMisc, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkButton, g_object_unref)
 
 G_END_DECLS
