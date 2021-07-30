@@ -33,60 +33,16 @@
  * A widget to choose arrowhead. This only select arrowhead, not width and height.
  */
 
-static const char *button_menu_key = "dia-button-menu";
 static const char *menuitem_enum_key = "dia-menuitem-value";
 
-static const char *
-_dia_translate (const char *term, gpointer data)
-{
-  const char *trans = term;
-
-  if (term && *term) {
-    /* first try our own ... */
-    trans = dgettext (GETTEXT_PACKAGE, term);
-    /* ... than gtk */
-    if (term == trans) {
-      trans = dgettext ("gtk20", term);
-    }
-  }
-
-  return trans;
-}
 
 /* --------------- DiaArrowPreview -------------------------------- */
 
-static void dia_arrow_preview_set        (DiaArrowPreview       *arrow,
-                                          ArrowType              atype,
-                                          gboolean               left);
-static void dia_arrow_preview_class_init (DiaArrowPreviewClass  *klass);
-static void dia_arrow_preview_init       (DiaArrowPreview       *arrow);
 static int  dia_arrow_preview_expose     (GtkWidget             *widget,
                                           GdkEventExpose        *event);
 
 
-GType
-dia_arrow_preview_get_type (void)
-{
-  static GType type = 0;
-
-  if (!type) {
-    static const GTypeInfo info = {
-      sizeof (DiaArrowPreviewClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) dia_arrow_preview_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL,
-      sizeof (DiaArrowPreview),
-      0,
-      (GInstanceInitFunc) dia_arrow_preview_init
-    };
-
-    type = g_type_register_static (GTK_TYPE_MISC, "DiaArrowPreview", &info, 0);
-  }
-
-  return type;
-}
+G_DEFINE_TYPE (DiaArrowPreview, dia_arrow_preview, GTK_TYPE_MISC)
 
 
 static void
@@ -229,29 +185,30 @@ dia_arrow_preview_expose (GtkWidget *widget, GdkEventExpose *event)
 
     surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
 
-    renderer = g_object_new (dia_cairo_renderer_get_type (), NULL);
+    renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
     renderer->with_alpha = TRUE;
     renderer->surface = cairo_surface_reference (surface);
 
     dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
     dia_renderer_set_linewidth (DIA_RENDERER (renderer), linewidth);
     {
-      Color color_bg, color_fg;
+      Color colour_bg, colour_fg;
       GtkStyle *style = gtk_widget_get_style (widget);
       /* the text colors are the best approximation to what we had */
-      GdkColor bg = style->base[gtk_widget_get_state(widget)];
-      GdkColor fg = style->text[gtk_widget_get_state(widget)];
+      GdkColor bg = style->base[gtk_widget_get_state (widget)];
+      GdkColor fg = style->text[gtk_widget_get_state (widget)];
 
-      GDK_COLOR_TO_DIA(bg, color_bg);
-      GDK_COLOR_TO_DIA(fg, color_fg);
-      dia_renderer_draw_line (DIA_RENDERER (renderer), &from, &to, &color_fg);
-      dia_arrow_draw (DIA_RENDERER (renderer),
-                      arrow_type.type,
+      GDK_COLOR_TO_DIA (bg, colour_bg);
+      GDK_COLOR_TO_DIA (fg, colour_fg);
+
+      dia_renderer_draw_line (DIA_RENDERER (renderer), &from, &to, &colour_fg);
+      dia_arrow_draw (&arrow_type,
+                      DIA_RENDERER (renderer),
                       &arrow_head,
                       &from,
                       linewidth,
-                      &color_fg,
-                      &color_bg);
+                      &colour_fg,
+                      &colour_bg);
     }
     dia_renderer_end_render (DIA_RENDERER (renderer));
     g_clear_object (&renderer);
@@ -267,32 +224,17 @@ dia_arrow_preview_expose (GtkWidget *widget, GdkEventExpose *event)
 
 /* ------- Code for DiaArrowChooser ----------------------- */
 
-static void dia_arrow_chooser_class_init (DiaArrowChooserClass  *klass);
-static void dia_arrow_chooser_init       (DiaArrowChooser       *arrow);
+G_DEFINE_TYPE (DiaArrowChooser, dia_arrow_chooser, GTK_TYPE_BUTTON)
 
 
-GType
-dia_arrow_chooser_get_type(void)
+static void
+dia_arrow_chooser_dispose (GObject *object)
 {
-  static GType type = 0;
+  DiaArrowChooser *chooser = DIA_ARROW_CHOOSER (object);
 
-  if (!type) {
-    static const GTypeInfo info = {
-      sizeof (DiaArrowChooserClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) dia_arrow_chooser_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL,
-      sizeof (DiaArrowChooser),
-      0,
-      (GInstanceInitFunc) dia_arrow_chooser_init
-    };
+  g_clear_object (&chooser->menu);
 
-    type = g_type_register_static (GTK_TYPE_BUTTON, "DiaArrowChooser", &info, 0);
-  }
-
-  return type;
+  G_OBJECT_CLASS (dia_arrow_chooser_parent_class)->dispose (object);
 }
 
 
@@ -310,12 +252,17 @@ dia_arrow_chooser_get_type(void)
  * Since: 0.98
  */
 static int
-dia_arrow_chooser_event (GtkWidget *widget, GdkEvent *event)
+dia_arrow_chooser_button_press_event (GtkWidget *widget, GdkEventButton *event)
 {
-  if (event->type == GDK_BUTTON_PRESS && event->button.button == 1) {
-    GtkMenu *menu = g_object_get_data (G_OBJECT (widget), button_menu_key);
-    gtk_menu_popup (menu, NULL, NULL, NULL, NULL,
-                    event->button.button, event->button.time);
+  if (event->button == 1) {
+    gtk_menu_popup (GTK_MENU (DIA_ARROW_CHOOSER (widget)->menu),
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL,
+                    event->button,
+                    event->time);
+
     return TRUE;
   }
 
@@ -324,12 +271,14 @@ dia_arrow_chooser_event (GtkWidget *widget, GdkEvent *event)
 
 
 static void
-dia_arrow_chooser_class_init(DiaArrowChooserClass *class)
+dia_arrow_chooser_class_init (DiaArrowChooserClass *class)
 {
-  GtkWidgetClass *widget_class;
+  GObjectClass *object_class = G_OBJECT_CLASS (class);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
-  widget_class = GTK_WIDGET_CLASS (class);
-  widget_class->event = dia_arrow_chooser_event;
+  object_class->dispose = dia_arrow_chooser_dispose;
+
+  widget_class->button_press_event = dia_arrow_chooser_button_press_event;
 }
 
 
@@ -488,8 +437,8 @@ dia_arrow_chooser_new (gboolean               left,
                        DiaChangeArrowCallback callback,
                        gpointer               user_data)
 {
-  DiaArrowChooser *chooser = g_object_new(DIA_TYPE_ARROW_CHOOSER, NULL);
-  GtkWidget *menu, *mi, *ar;
+  DiaArrowChooser *chooser = g_object_new (DIA_TYPE_ARROW_CHOOSER, NULL);
+  GtkWidget *mi, *ar;
   int i;
 
   chooser->left = left;
@@ -497,12 +446,7 @@ dia_arrow_chooser_new (gboolean               left,
   chooser->callback = callback;
   chooser->user_data = user_data;
 
-  menu = gtk_menu_new ();
-  g_object_ref_sink (menu);
-  g_object_set_data_full (G_OBJECT (chooser),
-                          button_menu_key,
-                          menu,
-                          (GDestroyNotify) g_object_unref);
+  chooser->menu = g_object_ref_sink (gtk_menu_new ());
 
   /* although from ARROW_NONE to MAX_ARROW_TYPE-1 this is sorted by *index* to keep the order consistent with earlier releases */
   for (i = ARROW_NONE; i < MAX_ARROW_TYPE; ++i) {
@@ -512,8 +456,7 @@ dia_arrow_chooser_new (gboolean               left,
                        menuitem_enum_key,
                        GINT_TO_POINTER (arrow_type));
     gtk_widget_set_tooltip_text (mi,
-                                 _dia_translate (arrow_get_name_from_type (arrow_type),
-                                 NULL));
+                                 gettext (arrow_get_name_from_type (arrow_type)));
     ar = dia_arrow_preview_new (arrow_type, left);
 
     gtk_container_add (GTK_CONTAINER (mi), ar);
@@ -522,16 +465,16 @@ dia_arrow_chooser_new (gboolean               left,
                       "activate",
                       G_CALLBACK (dia_arrow_chooser_change_arrow_type),
                       chooser);
-    gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+    gtk_menu_shell_append (GTK_MENU_SHELL (chooser->menu), mi);
     gtk_widget_show (mi);
   }
 
-  mi = gtk_menu_item_new_with_label (_dia_translate ("Details…", NULL));
+  mi = gtk_menu_item_new_with_label (_("Details…"));
   g_signal_connect (G_OBJECT (mi),
                     "activate",
                     G_CALLBACK (dia_arrow_chooser_dialog_show),
                     chooser);
-  gtk_menu_shell_append (GTK_MENU_SHELL (menu), mi);
+  gtk_menu_shell_append (GTK_MENU_SHELL (chooser->menu), mi);
   gtk_widget_show (mi);
 
   return GTK_WIDGET (chooser);

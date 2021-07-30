@@ -19,60 +19,42 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef _DIAARROWCHOOSER_H_
-#define _DIAARROWCHOOSER_H_
+#pragma once
 
 #include <gtk/gtk.h>
 
 #include "arrows.h"
 #include "diatypes.h"
+#include "dia-autoptr.h"
 
+G_BEGIN_DECLS
 
 /* --------------- DiaArrowPreview -------------------------------- */
-GType dia_arrow_preview_get_type (void);
 
-#define DIA_TYPE_ARROW_PREVIEW            (dia_arrow_preview_get_type ())
-#define DIA_ARROW_PREVIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_ARROW_PREVIEW, DiaArrowPreview))
-#define DIA_ARROW_PREVIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_ARROW_PREVIEW, DiaArrowPreviewClass))
-#define DIA_IS_ARROW_PREVIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_ARROW_PREVIEW))
-#define DIA_IS_ARROW_PREVIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), DIA_TYPE_ARROW_PREVIEW))
-#define DIA_ARROW_PREVIEW_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_ARROW_PREVIEW, DiaArrowPreviewClass))
+#define DIA_TYPE_ARROW_PREVIEW dia_arrow_preview_get_type ()
+G_DECLARE_FINAL_TYPE (DiaArrowPreview, dia_arrow_preview, DIA, ARROW_PREVIEW, GtkMisc)
 
-typedef struct _DiaArrowPreview DiaArrowPreview;
-typedef struct _DiaArrowPreviewClass DiaArrowPreviewClass;
 
-struct _DiaArrowPreview
-{
+struct _DiaArrowPreview {
   GtkMisc misc;
   ArrowType atype;
   gboolean left;
 };
 
-struct _DiaArrowPreviewClass
-{
-  GtkMiscClass parent_class;
-};
 
-GtkWidget *dia_arrow_preview_new (ArrowType atype, gboolean left);
+GtkWidget *dia_arrow_preview_new            (ArrowType               atype,
+                                             gboolean                left);
 
 
 /* ------- Code for DiaArrowChooser ----------------------- */
-GType dia_arrow_chooser_get_type (void);
 
-#define DIA_TYPE_ARROW_CHOOSER            (dia_arrow_chooser_get_type ())
-#define DIA_ARROW_CHOOSER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_ARROW_CHOOSER, DiaArrowChooser))
-#define DIA_ARROW_CHOOSER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), DIA_TYPE_ARROW_CHOOSER, DiaArrowChooserClass))
-#define DIA_IS_ARROW_CHOOSER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), DIA_TYPE_ARROW_CHOOSER))
-#define DIA_IS_ARROW_CHOOSER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), DIA_TYPE_ARROW_CHOOSER))
-#define DIA_ARROW_CHOOSER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), DIA_TYPE_ARROW_CHOOSER, DiaArrowChooserClass))
+#define DIA_TYPE_ARROW_CHOOSER dia_arrow_chooser_get_type ()
+G_DECLARE_FINAL_TYPE (DiaArrowChooser, dia_arrow_chooser, DIA, ARROW_CHOOSER, GtkButton)
 
-typedef struct _DiaArrowChooser DiaArrowChooser;
-typedef struct _DiaArrowChooserClass DiaArrowChooserClass;
 
 typedef void (*DiaChangeArrowCallback) (Arrow atype, gpointer user_data);
 
-struct _DiaArrowChooser
-{
+struct _DiaArrowChooser {
   GtkButton button;
   DiaArrowPreview *preview;
   Arrow arrow;
@@ -81,19 +63,17 @@ struct _DiaArrowChooser
   DiaChangeArrowCallback callback;
   gpointer user_data;
 
+  GtkWidget *menu;
   GtkWidget *dialog;
   DiaArrowSelector *selector;
 };
 
-struct _DiaArrowChooserClass
-{
-  GtkButtonClass parent_class;
-};
 
-GtkWidget *dia_arrow_chooser_new (gboolean left,
-				  DiaChangeArrowCallback callback,
-				  gpointer user_data);
-void dia_arrow_chooser_set_arrow(DiaArrowChooser *chooser, Arrow *arrow);
-ArrowType dia_arrow_chooser_get_arrow_type(DiaArrowChooser *chooser);
+GtkWidget *dia_arrow_chooser_new            (gboolean                left,
+                                             DiaChangeArrowCallback  callback,
+                                             gpointer                user_data);
+void       dia_arrow_chooser_set_arrow      (DiaArrowChooser        *chooser,
+                                             Arrow                  *arrow);
+ArrowType  dia_arrow_chooser_get_arrow_type (DiaArrowChooser        *chooser);
 
-#endif /* _DIAARROWCHOOSER_H_ */
+G_END_DECLS
