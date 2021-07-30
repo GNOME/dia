@@ -20,10 +20,12 @@
 
 #include "display.h"
 
-gint ddisplay_focus_in_event (GtkWidget *widget, GdkEventFocus *event,
-			      gpointer data);
-gint ddisplay_focus_out_event (GtkWidget *widget, GdkEventFocus *event,
-			       gpointer data);
+int ddisplay_focus_in_event     (GtkWidget     *widget,
+                                 GdkEventFocus *event,
+                                 gpointer       data);
+int ddisplay_focus_out_event    (GtkWidget      *widget,
+                                 GdkEventFocus *event,
+                                 gpointer       data);
 void ddisplay_realize (GtkWidget *widget, gpointer data);
 void ddisplay_unrealize (GtkWidget *widget, gpointer data);
 
@@ -37,8 +39,11 @@ int ddisplay_vsb_update (GtkAdjustment *adjustment, DDisplay *ddisp);
 int ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data);
 void ddisplay_destroy (GtkWidget *widget, gpointer data);
 
-DiaObject *ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
-			  gpointer user_data);
+DiaObject *ddisplay_drop_object (DDisplay      *ddisp,
+                                 int            x,
+                                 int            y,
+                                 DiaObjectType *otype,
+                                 gpointer        user_data);
 void ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
                                 DDisplay     *ddisp);
 void ddisplay_im_context_preedit_changed(GtkIMContext *context,

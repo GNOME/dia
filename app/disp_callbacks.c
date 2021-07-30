@@ -467,8 +467,9 @@ popup_object_menu(DDisplay *ddisp, GdkEvent *event)
     g_warning ("Unhandled GdkEvent type=%d", event->type);
 }
 
-gint
-ddisplay_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data)
+
+int
+ddisplay_focus_in_event (GtkWidget *widget, GdkEventFocus *event, gpointer data)
 {
   DDisplay *ddisp;
 
@@ -485,8 +486,9 @@ ddisplay_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data)
   return FALSE;
 }
 
-gint
-ddisplay_focus_out_event(GtkWidget *widget, GdkEventFocus *event,gpointer data)
+
+int
+ddisplay_focus_out_event (GtkWidget *widget, GdkEventFocus *event, gpointer data)
 {
   DDisplay *ddisp;
   int return_val;
@@ -608,11 +610,12 @@ ddisplay_im_context_commit(GtkIMContext *context, const gchar  *str,
     handle_key_event(ddisp, focus, 0, 0, str, g_utf8_strlen(str,-1));
 }
 
+
 void
-ddisplay_im_context_preedit_changed(GtkIMContext *context,
-                                    DDisplay *ddisp)
+ddisplay_im_context_preedit_changed (GtkIMContext *context,
+                                     DDisplay     *ddisp)
 {
-  gint cursor_pos;
+  int cursor_pos;
   Focus *focus = get_active_focus((DiagramData *) ddisp->diagram);
 
   ddisplay_im_context_preedit_reset(ddisp, focus);
@@ -732,7 +735,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
   GdkEventButton *bevent;
   GdkEventKey *kevent;
   GdkEventScroll *sevent;
-  gint tx, ty;
+  int tx, ty;
   GdkModifierType tmask;
   guint state = 0;
   Focus *focus;
@@ -1139,34 +1142,37 @@ ddisplay_canvas_events (GtkWidget *canvas,
   return return_val;
 }
 
-gint
+
+int
 ddisplay_hsb_update (GtkAdjustment *adjustment,
-		     DDisplay *ddisp)
+                     DDisplay      *ddisp)
 {
-  ddisplay_set_origo(ddisp, gtk_adjustment_get_value (adjustment), ddisp->origo.y);
-  ddisplay_add_update_all(ddisp);
-  ddisplay_flush(ddisp);
+  ddisplay_set_origo (ddisp, gtk_adjustment_get_value (adjustment), ddisp->origo.y);
+  ddisplay_add_update_all (ddisp);
+  ddisplay_flush (ddisp);
   return FALSE;
 }
 
-gint
+
+int
 ddisplay_vsb_update (GtkAdjustment *adjustment,
-		     DDisplay *ddisp)
+                     DDisplay      *ddisp)
 {
-  ddisplay_set_origo(ddisp, ddisp->origo.x, gtk_adjustment_get_value (adjustment));
-  ddisplay_add_update_all(ddisp);
-  ddisplay_flush(ddisp);
+  ddisplay_set_origo (ddisp, ddisp->origo.x, gtk_adjustment_get_value (adjustment));
+  ddisplay_add_update_all (ddisp);
+  ddisplay_flush (ddisp);
   return FALSE;
 }
 
-gint
+
+int
 ddisplay_delete (GtkWidget *widget, GdkEvent  *event, gpointer data)
 {
   DDisplay *ddisp;
 
   ddisp = (DDisplay *)data;
 
-  ddisplay_close(ddisp);
+  ddisplay_close (ddisp);
   return TRUE;
 }
 
@@ -1180,10 +1186,14 @@ ddisplay_destroy (GtkWidget *widget, gpointer data)
   ddisplay_really_destroy(ddisp);
 }
 
+
 /* returns NULL if object cannot be created */
 DiaObject *
-ddisplay_drop_object(DDisplay *ddisp, gint x, gint y, DiaObjectType *otype,
-		     gpointer user_data)
+ddisplay_drop_object (DDisplay      *ddisp,
+                      int            x,
+                      int            y,
+                      DiaObjectType *otype,
+                      gpointer       user_data)
 {
   Point droppoint;
   Point droppoint_orig;

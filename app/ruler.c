@@ -165,11 +165,11 @@ dia_ruler_motion_notify (GtkWidget      *widget,
                          GdkEventMotion *event)
 {
   DiaRuler *ruler = DIA_RULER (widget);
-  gint x;
-  gint y;
+  int x;
+  int y;
   real tmp;
-  gint width, height;
-  gint x0, y0;
+  int width, height;
+  int x0, y0;
   GtkAllocation alloc;
 
   gdk_event_request_motions (event);

@@ -124,7 +124,7 @@ build_output_file_name(const char *infname, const char *format, const char *outd
 static void
 show_layers_parse_numbers (DiagramData *diagdata,
                            gboolean    *visible_layers,
-                           gint         n_layers,
+                           int          n_layers,
                            const char  *str)
 {
   char *p;
@@ -186,7 +186,7 @@ show_layers_parse_numbers (DiagramData *diagdata,
 static void
 show_layers_parse_word (DiagramData *diagdata,
                         gboolean    *visible_layers,
-                        gint         n_layers,
+                        int          n_layers,
                         const char  *str)
 {
   gboolean found = FALSE;
@@ -222,7 +222,7 @@ show_layers_parse_word (DiagramData *diagdata,
 static void
 show_layers_parse_string (DiagramData *diagdata,
                           gboolean    *visible_layers,
-                          gint         n_layers,
+                          int          n_layers,
                           const char  *str)
 {
   gchar **pp;
@@ -1146,8 +1146,8 @@ static void
 print_credits (void)
 {
   int i;
-  const gint nauthors = (sizeof (authors) / sizeof (authors[0])) - 1;
-  const gint ndocumentors = (sizeof (documentors) / sizeof (documentors[0])) - 1;
+  const int nauthors = (sizeof (authors) / sizeof (authors[0])) - 1;
+  const int ndocumentors = (sizeof (documentors) / sizeof (documentors[0])) - 1;
 
   g_print (_("The original author of Dia was:\n\n"));
   for (i = 0; i < NUMBER_OF_ORIG_AUTHORS; i++) {

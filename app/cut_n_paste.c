@@ -52,7 +52,7 @@ cnp_get_stored_objects(int* generation)
   return copied_list;
 }
 
-gint
+gboolean
 cnp_exist_stored_objects(void)
 {
   return (stored_list != NULL);

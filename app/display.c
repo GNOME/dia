@@ -1557,8 +1557,8 @@ display_set_active(DDisplay *ddisp)
         GtkNotebook *notebook = g_object_get_data (G_OBJECT (ddisp->shell),
                                                    DIA_MAIN_NOTEBOOK);
         /* Find the page with ddisp then set the label on the tab */
-        gint num_pages = gtk_notebook_get_n_pages (notebook);
-        gint num;
+        int num_pages = gtk_notebook_get_n_pages (notebook);
+        int num;
         GtkWidget *page;
         for (num = 0 ; num < num_pages ; num++)
         {

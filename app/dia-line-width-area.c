@@ -64,9 +64,10 @@ linewidth_number_from_width (real width)
   }
 }
 
+
 static void
 dia_line_width_area_dialog_respond (GtkWidget        *widget,
-                                    gint              response_id,
+                                    int               response_id,
                                     DiaLineWidthArea *self)
 {
   if (response_id == GTK_RESPONSE_OK) {

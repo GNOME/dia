@@ -32,11 +32,12 @@
 #include "plug-ins.h"
 #include "message.h"
 
-static gint
-pm_respond(GtkWidget *widget, gint response_id, gpointer data)
+
+static int
+pm_respond (GtkWidget *widget, int response_id, gpointer data)
 {
   if (response_id != GTK_RESPONSE_APPLY)
-    gtk_widget_hide(widget);
+    gtk_widget_hide (widget);
   return 0;
 }
 

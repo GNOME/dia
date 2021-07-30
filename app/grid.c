@@ -477,7 +477,7 @@ snap_to_grid (DDisplay *ddisp, double *x, double *y)
   if (ddisp->guides_snap && ddisp->guides_visible) {
     DiaGuide *guide_h;
     DiaGuide *guide_v;
-    const gint snap_distance = prefs.snap_distance;
+    const int snap_distance = prefs.snap_distance;
 
     guide_h = dia_diagram_pick_guide_h (ddisp->diagram, *x, *y,
                                         FUNSCALEX (ddisp, snap_distance),

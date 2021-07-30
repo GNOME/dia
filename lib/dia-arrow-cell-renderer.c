@@ -128,20 +128,18 @@ static void
 dia_arrow_cell_renderer_get_size (GtkCellRenderer *cell,
                                   GtkWidget       *widget,
                                   GdkRectangle    *cell_area,
-                                  gint            *x_offset,
-                                  gint            *y_offset,
-                                  gint            *width,
-                                  gint            *height)
+                                  int             *x_offset,
+                                  int             *y_offset,
+                                  int             *width,
+                                  int             *height)
 {
-  gint calc_width;
-  gint calc_height;
-  int  xpad;
-  int  ypad;
+  int calc_width, calc_height;
+  int xpad, ypad;
 
   gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
 
-  calc_width  = (gint) xpad * 2 + 40;
-  calc_height = (gint) ypad * 2 + 20;
+  calc_width  = (int) xpad * 2 + 40;
+  calc_height = (int) ypad * 2 + 20;
 
   if (x_offset) *x_offset = 0;
   if (y_offset) *y_offset = 0;

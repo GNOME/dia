@@ -42,7 +42,7 @@ dia_colour_area_target (DiaColourArea *self,
                         int            x,
                         int            y)
 {
-  gint rect_w, rect_h;
+  int rect_w, rect_h;
   GtkAllocation alloc;
 
   gtk_widget_get_allocation (GTK_WIDGET (self), &alloc);
@@ -72,8 +72,8 @@ dia_colour_area_draw (GtkWidget      *self, /*cairo_t *ctx*/
                       GdkEventExpose *event)
 {
   GdkColor fg, bg;
-  gint rect_w, rect_h;
-  gint img_width, img_height;
+  int rect_w, rect_h;
+  int img_width, img_height;
   DiaColourArea *priv = DIA_COLOUR_AREA (self);
   cairo_t *ctx = gdk_cairo_create (gtk_widget_get_window (self));
   GtkAllocation alloc;
@@ -115,9 +115,10 @@ dia_colour_area_draw (GtkWidget      *self, /*cairo_t *ctx*/
   return FALSE;
 }
 
+
 static void
 dia_colour_area_response (GtkDialog     *chooser,
-                          gint           response,
+                          int            response,
                           DiaColourArea *self)
 {
   if (response == GTK_RESPONSE_OK) {

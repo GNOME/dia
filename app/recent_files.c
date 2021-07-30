@@ -64,7 +64,7 @@ recent_file_history_make_menu (void)
   GList *items;
   GtkActionGroup *group;
   GtkAction *action;
-  gint i = 0;
+  int i = 0;
 
   items = persistent_list_get_glist ("recent-files");
   if (!items)

@@ -146,7 +146,7 @@ dia_diagram_properties_dialog_delete_event (GtkWidget *widget, GdkEventAny *even
 
 static void
 dia_diagram_properties_dialog_response (GtkDialog *dialog,
-                                        gint       response_id)
+                                        int        response_id)
 {
   DiaDiagramPropertiesDialog *self = DIA_DIAGRAM_PROPERTIES_DIALOG (dialog);
   DiaDiagramPropertiesDialogPrivate *priv = dia_diagram_properties_dialog_get_instance_private (self);

@@ -36,7 +36,7 @@ static DiaObject *current_object = NULL;
 
 static GtkWidget *no_defaults_dialog = NULL;
 
-static gint defaults_respond (GtkWidget *widget, gint response_id, gpointer data);
+static int defaults_respond (GtkWidget *widget, int response_id, gpointer data);
 
 
 static void
@@ -67,8 +67,8 @@ create_dialog (void)
 }
 
 
-static gint
-defaults_dialog_destroyed(GtkWidget *widget, gpointer data)
+static int
+defaults_dialog_destroyed (GtkWidget *widget, gpointer data)
 {
   if (widget == object_part) {
     object_part = NULL;
@@ -79,8 +79,9 @@ defaults_dialog_destroyed(GtkWidget *widget, gpointer data)
   return 0;
 }
 
-static gint
-defaults_respond(GtkWidget *widget, gint response_id, gpointer data)
+
+static int
+defaults_respond (GtkWidget *widget, int response_id, gpointer data)
 {
   if (response_id == GTK_RESPONSE_OK ||
       response_id == GTK_RESPONSE_APPLY) {

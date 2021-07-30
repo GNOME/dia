@@ -96,7 +96,7 @@ dia_guide_dialog_finalize (GObject *object)
 
 static void
 dia_guide_dialog_response (GtkDialog *dialog,
-                           gint       response_id)
+                           int        response_id)
 {
   DiaGuideDialog *self = DIA_GUIDE_DIALOG (dialog);
   DiaGuideDialogPrivate *priv = dia_guide_dialog_get_instance_private (self);

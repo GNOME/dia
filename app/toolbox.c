@@ -220,7 +220,7 @@ get_sheet_by_name(const gchar *name)
   return NULL;
 }
 
-static gint
+static int
 tool_button_press (GtkWidget      *w,
 		    GdkEventButton *event,
 		    gpointer        data)
@@ -889,7 +889,7 @@ tool_select_update (GtkWidget *w,
   }
 
   if (tooldata->type != -1) {
-    gint x, y;
+    int x, y;
     GdkModifierType mask;
     /*  get the modifiers  */
     gdk_window_get_pointer (gtk_widget_get_parent_window(w), &x, &y, &mask);

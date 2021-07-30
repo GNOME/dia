@@ -133,7 +133,7 @@ dia_layer_editor_class_init (DiaLayerEditorClass *klass)
 static void rename_layer (GtkWidget *widget, DiaLayerEditor *self);
 
 
-static gint
+static int
 list_button_press (GtkWidget      *widget,
                    GdkEvent       *event,
                    DiaLayerEditor *self)

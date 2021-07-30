@@ -236,7 +236,7 @@ dia_layer_list_realize (GtkWidget *widget)
 {
   GtkAllocation alloc;
   GdkWindowAttr attributes;
-  gint attributes_mask;
+  int attributes_mask;
   GdkWindow *window;
   GtkStyle *style;
 
@@ -445,7 +445,7 @@ static gboolean
 dia_layer_list_focus (GtkWidget        *widget,
                       GtkDirectionType  direction)
 {
-  gint return_val = FALSE;
+  int return_val = FALSE;
   GtkContainer *container;
   GtkWidget *focus_child;
   DiaLayerListPrivate *priv;
@@ -720,7 +720,7 @@ scroll_vertical (DiaLayerWidget *list_item,
   GtkAdjustment *adj;
   GtkWidget *focus_child;
   GtkAllocation alloc;
-  gint new_value;
+  int new_value;
 
   g_return_if_fail (DIA_IS_LAYER_LIST (list));
 

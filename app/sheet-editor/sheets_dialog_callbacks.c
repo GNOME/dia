@@ -531,7 +531,7 @@ sheets_dialog_move_up_or_down (SheetsDialogMoveDir dir)
   GtkWidget *wrapbox;
   GList *button_list;
   GtkWidget *active_button;
-  gint button_pos;
+  int button_pos;
   SheetObjectMod *som;
   SheetObjectMod *som_next;
   GList *next_button_list;
@@ -576,7 +576,7 @@ sheets_dialog_move_up_or_down (SheetsDialogMoveDir dir)
   {
     SheetMod *sm;
     GSList *object_list;
-    gint object_pos;
+    int object_pos;
 
     som->mod = SHEET_OBJECT_MOD_CHANGED;
 
@@ -1007,8 +1007,9 @@ on_sheets_remove_dialog_button_cancel_clicked (GtkButton *button,
 
 static void
 sheets_dialog_togglebutton_set_sensitive (GtkToggleButton *togglebutton,
-                                          GtkWidget *dialog,
-                                          gchar *widget_names[], gint type)
+                                          GtkWidget       *dialog,
+                                          char            *widget_names[],
+                                          int              type)
 {
   gboolean is_sensitive;
   guint i;

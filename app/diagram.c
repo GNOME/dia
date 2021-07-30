@@ -72,7 +72,7 @@ struct _ObjectExtent
 
 typedef struct _ObjectExtent ObjectExtent;
 
-static gint diagram_parent_sort_cb(gconstpointer a, gconstpointer b);
+static int diagram_parent_sort_cb(gconstpointer a, gconstpointer b);
 
 
 enum {
@@ -613,7 +613,7 @@ object_within_parent(DiaObject *obj, DiaObject *p)
 void
 diagram_update_menu_sensitivity (Diagram *dia)
 {
-  gint selected_count = dia ? g_list_length (dia->data->selected) : 0;
+  int selected_count = dia ? g_list_length (dia->data->selected) : 0;
   DDisplay *ddisp = ddisplay_active();
   gboolean focus_active = dia ? (get_active_focus(dia->data) != NULL) : FALSE;
   gboolean textedit_active = ddisp ? textedit_mode(ddisp) : FALSE;
@@ -1173,8 +1173,8 @@ strip_connections(DiaObject *obj, GList *not_strip_list, Diagram *dia)
 
 
 /* GCompareFunc */
-static gint
-diagram_parent_sort_cb(gconstpointer _a, gconstpointer _b)
+static int
+diagram_parent_sort_cb (gconstpointer _a, gconstpointer _b)
 {
   ObjectExtent **a = (ObjectExtent **)_a;
   ObjectExtent **b = (ObjectExtent **)_b;

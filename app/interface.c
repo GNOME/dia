@@ -83,8 +83,8 @@ static gboolean _ddisplay_vruler_motion_notify (GtkWidget *widget,
 static void
 dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                  GdkDragContext   *context,
-                                 gint              x,
-                                 gint              y,
+                                 int               x,
+                                 int               y,
                                  GtkSelectionData *data,
                                  guint             info,
                                  guint             time,
@@ -202,8 +202,8 @@ interface_toggle_snap_to_guides (GtkWidget *widget, gpointer data)
 }
 
 
-static gint
-origin_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
+static int
+origin_button_press (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   DDisplay *ddisp = (DDisplay *)data;
 
@@ -334,9 +334,13 @@ create_zoom_widget(DDisplay *ddisp) {
   return combo;
 }
 
+
 static gboolean
-display_drop_callback(GtkWidget *widget, GdkDragContext *context,
-		      gint x, gint y, guint time)
+display_drop_callback (GtkWidget      *widget,
+                       GdkDragContext *context,
+                       int             x,
+                       int             y,
+                       guint           time)
 {
   if (gtk_drag_get_source_widget(context) != NULL) {
     /* we only accept drops from the same instance of the application,
@@ -347,15 +351,16 @@ display_drop_callback(GtkWidget *widget, GdkDragContext *context,
   return FALSE;
 }
 
+
 static void
-display_data_received_callback (GtkWidget *widget,
-				GdkDragContext *context,
-				gint x,
-				gint y,
-				GtkSelectionData *data,
-				guint info,
-				guint time,
-				DDisplay *ddisp)
+display_data_received_callback (GtkWidget        *widget,
+                                GdkDragContext   *context,
+                                int               x,
+                                int               y,
+                                GtkSelectionData *data,
+                                guint             info,
+                                guint             time,
+                                DDisplay         *ddisp)
 {
   if (gtk_selection_data_get_format(data) == 8 &&
       gtk_selection_data_get_length(data) == sizeof(ToolButtonData *) &&
@@ -669,7 +674,7 @@ use_integrated_ui_for_display_shell (DDisplay *ddisp, char *title)
   GtkWidget *image;
   GtkWidget *close_button;         /* Close button for the notebook page */
   GtkRcStyle *rcstyle;
-  gint       notebook_page_index;
+  int notebook_page_index;
 
   ddisp->is_standalone_window = FALSE;
 

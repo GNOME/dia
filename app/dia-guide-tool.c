@@ -128,13 +128,14 @@ guide_button_release(GuideTool *tool, GdkEventButton *event,
   tool_reset();
 }
 
+
 static void
-guide_motion(GuideTool *tool, GdkEventMotion *event, DDisplay *ddisp)
+guide_motion (GuideTool *tool, GdkEventMotion *event, DDisplay *ddisp)
 {
-  gint tx, ty;
+  int tx, ty;
   Point to;
-  gint disp_width;
-  gint disp_height;
+  int disp_width;
+  int disp_height;
 
   disp_width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
   disp_height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));

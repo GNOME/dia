@@ -473,7 +473,7 @@ gboolean
 file_save_as(Diagram *dia, DDisplay *ddisp)
 {
   GtkWidget *dlg;
-  gint response;
+  int response;
 
   dlg = file_save_as_dialog_prepare(dia, ddisp);
 

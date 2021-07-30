@@ -202,7 +202,7 @@ insert_text (DDisplay *ddisp, Focus *focus, const gchar *text)
     gchar *next_line = g_utf8_strchr (text, -1, '\n');
 
     if (next_line != text) {
-      gint len = g_utf8_strlen (text, (next_line-text));
+      int len = g_utf8_strlen (text, (next_line-text));
       modified = (*focus->key_event) (focus, 0, GDK_A, text, len, &change);
     }
 
@@ -348,7 +348,7 @@ received_clipboard_content_handler (GtkClipboard     *clipboard,
   DDisplay *ddisp = (DDisplay *) user_data;
   GdkAtom type_atom;
   gchar *type_name;
-  gint len;
+  int len;
 
   if ((len = gtk_selection_data_get_length (selection_data)) > 0) {
     const guchar *data = gtk_selection_data_get_data (selection_data);
@@ -401,7 +401,7 @@ edit_paste_image_callback (GtkAction *action)
   GtkClipboard *clipboard = gtk_clipboard_get (GDK_NONE);
   DDisplay *ddisp;
   GdkAtom *targets;
-  gint n_targets;
+  int n_targets;
   gboolean done = FALSE;
 
   ddisp = ddisplay_active ();

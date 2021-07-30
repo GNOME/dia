@@ -381,8 +381,9 @@ _replace (DiaObject *obj, const SearchData *sd, const char *replacement)
   return TRUE;
 }
 
-static gint
-fnr_respond (GtkWidget *widget, gint response_id, gpointer data)
+
+static int
+fnr_respond (GtkWidget *widget, int response_id, gpointer data)
 {
   const gchar *search = gtk_entry_get_text (g_object_get_data (G_OBJECT (widget), "search-entry"));
   const gchar *replace;

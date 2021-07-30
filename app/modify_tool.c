@@ -269,14 +269,15 @@ static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
 
 
 static void
-modify_button_press(ModifyTool *tool, GdkEventButton *event,
-		     DDisplay *ddisp)
+modify_button_press (ModifyTool     *tool,
+                     GdkEventButton *event,
+                     DDisplay       *ddisp)
 {
   Point clickedpoint;
   DiaObject *clicked_obj;
   gboolean some_selected;
   DiaGuide *guide;
-  const gint pick_guide_snap_distance = 20;	/* Margin of error for selecting a guide. */
+  const int pick_guide_snap_distance = 20;	/* Margin of error for selecting a guide. */
 
   ddisplay_untransform_coords(ddisp,
 			      (int)event->x, (int)event->y,

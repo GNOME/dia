@@ -40,12 +40,12 @@ static Diagram *current_dia = NULL;
 
 static GtkWidget *no_properties_dialog = NULL;
 
-static gint properties_respond(GtkWidget *widget,
-                               gint       response_id,
-                               gpointer   data);
-static gboolean properties_key_event(GtkWidget *widget,
-				     GdkEventKey *event,
-				     gpointer data);
+static int      properties_respond   (GtkWidget   *widget,
+                                      int          response_id,
+                                      gpointer     data);
+static gboolean properties_key_event (GtkWidget   *widget,
+                                      GdkEventKey *event,
+                                      gpointer     data);
 static void properties_dialog_hide(void);
 
 static void
@@ -85,7 +85,7 @@ create_dialog(GtkWidget *parent)
 }
 
 /* when the dialog gets destroyed we need to drop our references */
-static gint
+static int
 properties_part_destroyed(GtkWidget *widget, gpointer data)
 {
   if (widget == object_part) {

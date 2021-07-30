@@ -129,8 +129,8 @@ _dtv_button_press (GtkWidget      *widget,
 
 static gboolean
 _dtv_query_tooltip (GtkWidget  *widget,
-                    gint        x,
-                    gint        y,
+                    int         x,
+                    int         y,
                     gboolean    keyboard_mode,
                     GtkTooltip *tooltip)
 {
@@ -507,7 +507,7 @@ _dtv_init (DiagramTreeView *dtv)
 {
   GtkTreeViewColumn *column;
   GtkCellRenderer   *cell;
-  gint               font_size;
+  int                font_size;
   GtkStyle          *style;
 
   /* connect the model with the view */

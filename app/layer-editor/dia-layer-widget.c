@@ -143,7 +143,7 @@ static void
 dia_layer_widget_realize (GtkWidget *widget)
 {
   GdkWindowAttr attributes;
-  gint attributes_mask;
+  int attributes_mask;
   GtkAllocation alloc;
   GdkWindow *window;
   GtkStyle *style;
@@ -191,8 +191,8 @@ dia_layer_widget_size_request (GtkWidget      *widget,
   GtkWidget *child;
   GtkRequisition child_requisition;
   GtkStyle *style;
-  gint focus_width;
-  gint focus_pad;
+  int focus_width;
+  int focus_pad;
   int border_width;
 
   g_return_if_fail (DIA_IS_LAYER_WIDGET (widget));

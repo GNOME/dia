@@ -1417,7 +1417,7 @@ DIA_DEFINE_CHANGE (DiaMoveObjectToLayerChange, dia_move_object_to_layer_change)
  * better make it listen to object-add signal?
  */
 static void
-move_object_layer_relative (DiagramData *dia, GList *objects, gint dist)
+move_object_layer_relative (DiagramData *dia, GList *objects, int dist)
 {
   /* from the active layer to above or below */
   DiaLayer *active, *target;
