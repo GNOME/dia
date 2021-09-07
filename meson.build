@@ -14,7 +14,7 @@ cc = meson.get_compiler('c')
 conf = configuration_data()
 
 libglib_dep = dependency('glib-2.0',   version: '>= 2.70')
-libgtk_dep  = dependency('gtk+-2.0',   version: '>= 2.24.31')
+libgtk_dep  = dependency('gtk+-3.0',   version: '>= 3.24')
 libxml_dep  = dependency('libxml-2.0', version: '>= 2.9.4')
 #TODO: what are the minimum versions?
 gmodule_dep = dependency('gmodule-2.0')
@@ -79,15 +79,15 @@ config_dep = declare_dependency(
     include_directories: config_inc,
 )
 
-gtk_ver = 'GDK_VERSION_2_24'
+gtk_ver = 'GDK_VERSION_3_12'
 glib_ver = 'GLIB_VERSION_2_70'
 add_project_arguments([
   '-DGDK_VERSION_MIN_REQUIRED=@0@'.format(gtk_ver),
-  '-DGDK_VERSION_MAX_ALLOWED=@0@'.format(gtk_ver),
+#  '-DGDK_VERSION_MAX_ALLOWED=@0@'.format(gtk_ver),
   '-DGLIB_VERSION_MIN_REQUIRED=@0@'.format(glib_ver),
   '-DGLIB_VERSION_MAX_ALLOWED=@0@'.format(glib_ver),
   '-DGSEAL_ENABLE',
-  '-DGTK_DISABLE_DEPRECATED',
+#  '-DGTK_DISABLE_DEPRECATED',
 ], language: ['c', 'cpp'])
 
 
@@ -136,7 +136,7 @@ subdir('lib')
 subdir('objects')
 subdir('app')
 subdir('data')
-subdir('plug-ins')
+#subdir('plug-ins')
 subdir('sheets')
 subdir('shapes')
 if get_option('tests')

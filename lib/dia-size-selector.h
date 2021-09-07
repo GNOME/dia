@@ -27,7 +27,7 @@
 G_BEGIN_DECLS
 
 #define DIA_TYPE_SIZE_SELECTOR dia_size_selector_get_type ()
-G_DECLARE_FINAL_TYPE (DiaSizeSelector, dia_size_selector, DIA, SIZE_SELECTOR, GtkHBox)
+G_DECLARE_FINAL_TYPE (DiaSizeSelector, dia_size_selector, DIA, SIZE_SELECTOR, GtkBox)
 
 GtkWidget *dia_size_selector_new                 (double                width,
                                                   double                height);

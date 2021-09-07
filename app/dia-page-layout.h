@@ -30,7 +30,7 @@ G_BEGIN_DECLS
 
 
 #define DIA_TYPE_PAGE_LAYOUT dia_page_layout_get_type ()
-G_DECLARE_FINAL_TYPE (DiaPageLayout, dia_page_layout, DIA, PAGE_LAYOUT, GtkTable)
+G_DECLARE_FINAL_TYPE (DiaPageLayout, dia_page_layout, DIA, PAGE_LAYOUT, GtkGrid)
 
 
 /**

@@ -1129,7 +1129,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
     case GDK_DROP_FINISHED:
     case GDK_CLIENT_EVENT:
     case GDK_VISIBILITY_NOTIFY:
-    case GDK_NO_EXPOSE:
     case GDK_WINDOW_STATE:
     case GDK_SETTING:
     case GDK_OWNER_CHANGE:

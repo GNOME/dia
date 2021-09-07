@@ -182,6 +182,32 @@ dia_layer_list_size_request (GtkWidget      *widget,
 
 
 static void
+dia_layer_list_get_preferred_width (GtkWidget      *widget,
+                                    gint           *minimal_width,
+                                    gint           *natural_width)
+{
+  GtkRequisition requisition;
+
+  dia_layer_list_size_request (widget, &requisition);
+
+  *minimal_width = *natural_width = requisition.width;
+}
+
+
+static void
+dia_layer_list_get_preferred_height (GtkWidget      *widget,
+                                     gint           *minimal_height,
+                                     gint           *natural_height)
+{
+  GtkRequisition requisition;
+
+  dia_layer_list_size_request (widget, &requisition);
+
+  *minimal_height = *natural_height = requisition.height;
+}
+
+
+static void
 dia_layer_list_size_allocate (GtkWidget     *widget,
                               GtkAllocation *allocation)
 {
@@ -494,7 +520,8 @@ dia_layer_list_class_init (DiaLayerListClass *klass)
   widget_class->style_set = dia_layer_list_style_set;
   widget_class->realize = dia_layer_list_realize;
   widget_class->button_press_event = dia_layer_list_button_press;
-  widget_class->size_request = dia_layer_list_size_request;
+  widget_class->get_preferred_width = dia_layer_list_get_preferred_width;
+  widget_class->get_preferred_height = dia_layer_list_get_preferred_height;
   widget_class->size_allocate = dia_layer_list_size_allocate;
   widget_class->focus = dia_layer_list_focus;
 

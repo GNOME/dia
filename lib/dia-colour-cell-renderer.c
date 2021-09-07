@@ -155,36 +155,31 @@ get_checkered_pattern (void)
 
 static void
 dia_colour_cell_renderer_render (GtkCellRenderer      *cell,
-                                 GdkWindow            *window,
+                                 cairo_t              *ctx,
                                  GtkWidget            *widget,
-                                 GdkRectangle         *background_area,
-                                 GdkRectangle         *cell_area,
-                                 GdkRectangle         *expose_area,
+                                 const GdkRectangle   *background_area,
+                                 const GdkRectangle   *cell_area,
                                  GtkCellRendererState  flags)
 {
   DiaColourCellRenderer *self = DIA_COLOUR_CELL_RENDERER (cell);
   DiaColourCellRendererPrivate *priv = dia_colour_cell_renderer_get_instance_private (self);
   int width, height;
   int x, y;
-  cairo_t *ctx;
   int xpad, ypad;
 
   // Ugly hack for the "More" and "Reset" rows
   if (!priv->colour) {
     GTK_CELL_RENDERER_CLASS (dia_colour_cell_renderer_parent_class)->render (cell,
-                                                                             window,
+                                                                             ctx,
                                                                              widget,
                                                                              background_area,
                                                                              cell_area,
-                                                                             expose_area,
                                                                              flags);
 
     return;
   }
 
   gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
-
-  ctx = gdk_cairo_create (GDK_DRAWABLE (window));
 
   width = cell_area->width - xpad * 2;
   height = cell_area->height - ypad * 2;
@@ -224,11 +219,10 @@ dia_colour_cell_renderer_render (GtkCellRenderer      *cell,
   cairo_fill (ctx);
 
   GTK_CELL_RENDERER_CLASS (dia_colour_cell_renderer_parent_class)->render (cell,
-                                                                           window,
+                                                                           ctx,
                                                                            widget,
                                                                            background_area,
                                                                            cell_area,
-                                                                           expose_area,
                                                                            flags);
 }
 

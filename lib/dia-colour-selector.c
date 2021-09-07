@@ -42,7 +42,7 @@ enum {
 };
 
 struct _DiaColourSelector {
-  GtkHBox         hbox;
+  GtkBox          hbox;
 
   gboolean        use_alpha;
 
@@ -61,7 +61,7 @@ struct _DiaColourSelector {
   GtkWidget      *dialog;
 };
 
-G_DEFINE_TYPE (DiaColourSelector, dia_colour_selector, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (DiaColourSelector, dia_colour_selector, GTK_TYPE_BOX)
 
 enum {
   DIA_COLORSEL_VALUE_CHANGED,
@@ -120,17 +120,15 @@ static void
 colour_selected (GtkWidget *ok, gpointer userdata)
 {
   DiaColourSelector *cs = DIA_COLOUR_SELECTOR (userdata);
-  GdkColor gcol;
+  GdkRGBA gcol;
   Color colour;
   GtkWidget *cs2 = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (cs->dialog));
 
-  gtk_color_selection_get_current_color (GTK_COLOR_SELECTION (cs2), &gcol);
+  gtk_color_selection_get_current_rgba (GTK_COLOR_SELECTION (cs2), &gcol);
 
   GDK_COLOR_TO_DIA (gcol, colour);
 
-  colour.alpha = gtk_color_selection_get_current_alpha (GTK_COLOR_SELECTION (cs2)) / 65535.0;
-
-  dia_colour_selector_set_colour (cs, &colour);
+  dia_colour_selector_set_colour (GTK_WIDGET (cs), &colour);
 
   gtk_widget_destroy (cs->dialog);
   cs->dialog = NULL;
@@ -156,7 +154,7 @@ more_colours (DiaColourSelector *cs)
   GtkWidget *button;
   GtkWidget *parent;
   GList *tmplist;
-  GdkColor gdk_color;
+  GdkRGBA gdk_color;
 
   cs->dialog = gtk_color_selection_dialog_new (_("Select color"));
   colorsel = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (cs->dialog));
@@ -164,16 +162,10 @@ more_colours (DiaColourSelector *cs)
   gtk_color_selection_set_has_opacity_control (GTK_COLOR_SELECTION (colorsel),
                                                cs->use_alpha);
 
-  if (cs->use_alpha) {
-    gtk_color_selection_set_previous_alpha (GTK_COLOR_SELECTION (colorsel),
-                                            cs->current->alpha * 65535);
-    gtk_color_selection_set_current_alpha (GTK_COLOR_SELECTION (colorsel),
-                                           cs->current->alpha * 65535);
-  }
   color_convert (cs->current, &gdk_color);
-  gtk_color_selection_set_previous_color (GTK_COLOR_SELECTION (colorsel),
+  gtk_color_selection_set_previous_rgba (GTK_COLOR_SELECTION (colorsel),
                                           &gdk_color);
-  gtk_color_selection_set_current_color (GTK_COLOR_SELECTION (colorsel),
+  gtk_color_selection_set_current_rgba (GTK_COLOR_SELECTION (colorsel),
                                           &gdk_color);
 
   /* avoid crashing if the property dialog is closed before the color dialog */
@@ -205,7 +197,7 @@ more_colours (DiaColourSelector *cs)
 
     DIA_COLOR_TO_GDK (colour, gdk_color);
 
-    spec = gdk_color_to_string (&gdk_color);
+    spec = gdk_rgba_to_string (&gdk_color);
 
     g_string_append (palette, spec);
     g_string_append (palette, ":");

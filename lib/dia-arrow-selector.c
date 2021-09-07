@@ -33,9 +33,9 @@ enum {
 
 
 struct _DiaArrowSelector {
-  GtkVBox vbox;
+  GtkBox vbox;
 
-  GtkHBox *sizebox;
+  GtkBox *sizebox;
   GtkLabel *sizelabel;
   DiaSizeSelector *size;
 
@@ -45,8 +45,7 @@ struct _DiaArrowSelector {
   ArrowType     looking_for;
 };
 
-
-G_DEFINE_TYPE (DiaArrowSelector, dia_arrow_selector, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (DiaArrowSelector, dia_arrow_selector, GTK_TYPE_BOX)
 
 enum {
     DAS_VALUE_CHANGED,
@@ -166,8 +165,8 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   gtk_box_pack_start (GTK_BOX (as), as->combo, FALSE, TRUE, 0);
   gtk_widget_show (as->combo);
 
-  box = gtk_hbox_new (FALSE,0);
-  as->sizebox = GTK_HBOX (box);
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  as->sizebox = GTK_BOX(box);
 
   label = gtk_label_new (_("Size: "));
   as->sizelabel = GTK_LABEL (label);

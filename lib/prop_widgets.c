@@ -104,7 +104,7 @@ static GtkWidget *
 frame_beginprop_get_widget (FrameProperty *prop, PropDialog *dialog)
 {
   GtkWidget *frame = gtk_expander_new (_(prop->common.descr->description));
-  GtkWidget *vbox = gtk_vbox_new (FALSE, 2);
+  GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
 
   gtk_expander_set_expanded (GTK_EXPANDER (frame), TRUE);
   gtk_widget_show (frame);
@@ -165,7 +165,7 @@ static const PropertyOps frame_endprop_ops = {
 static WIDGET *
 multicol_beginprop_get_widget(MulticolProperty *prop, PropDialog *dialog)
 {
-  GtkWidget *multicol = gtk_hbox_new(FALSE,1);
+  GtkWidget *multicol = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
 
   gtk_container_set_border_width (GTK_CONTAINER(multicol), 2);
   gtk_widget_show(multicol);
@@ -181,7 +181,7 @@ multicol_beginprop_get_widget(MulticolProperty *prop, PropDialog *dialog)
 static WIDGET *
 multicol_columnprop_get_widget(MulticolProperty *prop, PropDialog *dialog)
 {
-  GtkWidget *col = gtk_vbox_new(FALSE,1);
+  GtkWidget *col = gtk_box_new(GTK_ORIENTATION_VERTICAL, 1);
 
   gtk_container_set_border_width (GTK_CONTAINER(col), 2);
   gtk_widget_show(col);
@@ -273,7 +273,7 @@ notebook_beginprop_get_widget(NotebookProperty *prop, PropDialog *dialog)
 static WIDGET *
 notebook_pageprop_get_widget(NotebookProperty *prop, PropDialog *dialog)
 {
-  GtkWidget *page = gtk_vbox_new(FALSE,1);
+  GtkWidget *page = gtk_box_new(GTK_ORIENTATION_VERTICAL, 1);
   GtkWidget *label = gtk_label_new(_(prop->common.descr->description));
 
   gtk_container_set_border_width (GTK_CONTAINER(page), 2);

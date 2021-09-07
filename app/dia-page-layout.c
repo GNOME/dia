@@ -111,7 +111,7 @@ dia_page_layout_init (DiaPageLayout *self)
                     GTK_FILL, GTK_FILL, 0, 0);
   gtk_widget_show (frame);
 
-  box = gtk_vbox_new (FALSE, 5);
+  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
   gtk_container_set_border_width (GTK_CONTAINER (box), 5);
   gtk_container_add (GTK_CONTAINER (frame), box);
   gtk_widget_show (box);
@@ -144,7 +144,7 @@ dia_page_layout_init (DiaPageLayout *self)
                     GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
   gtk_widget_show (frame);
 
-  box = gtk_hbox_new (FALSE, 5);
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
   gtk_container_set_border_width (GTK_CONTAINER (box), 5);
   gtk_container_add (GTK_CONTAINER (frame), box);
   gtk_widget_show (box);

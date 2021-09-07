@@ -113,7 +113,7 @@ dia_line_width_area_create_dialog (DiaLineWidthArea *self,
   gtk_window_set_resizable (GTK_WINDOW (self->dialog), TRUE);
   gtk_container_set_border_width (GTK_CONTAINER (self->dialog), 2);
 
-  hbox = gtk_hbox_new (FALSE, 5);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
   label = gtk_label_new(_("Line width:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
   gtk_widget_show (label);
@@ -145,10 +145,10 @@ dia_line_width_area_create_dialog (DiaLineWidthArea *self,
 static gboolean
 dia_line_width_area_draw (GtkWidget *self, cairo_t *ctx)
 {
-  GdkColor fg;
+  GdkRGBA fg;
   int i;
   int x_offs;
-  GtkStyle *style;
+  GtkStyleContext *style;
   double dashes[] = { 3 };
   DiaLineWidthArea *priv = DIA_LINE_WIDTH_AREA (self);
   GtkAllocation alloc;
@@ -160,14 +160,12 @@ dia_line_width_area_draw (GtkWidget *self, cairo_t *ctx)
   cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
   cairo_set_dash (ctx, dashes, 1, 0);
 
-  style = gtk_widget_get_style (self);
-  fg = style->fg[gtk_widget_get_state (self)];
-
-  /*gtk_style_context_get_color (gtk_widget_get_style_context (self),
+  style = gtk_widget_get_style_context (self);
+  gtk_style_context_get_color (style,
                                gtk_widget_get_state_flags (self),
-                               &fg);*/
+                               &fg);
 
-  gdk_cairo_set_source_color (ctx, &fg);
+  gdk_cairo_set_source_rgba (ctx, &fg);
 
   for (i = 0; i <= NUMLINES; i++) {
     x_offs = X_OFFSET(i);

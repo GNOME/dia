@@ -28,7 +28,7 @@
 G_BEGIN_DECLS
 
 #define DIA_TYPE_COLOUR_SELECTOR dia_colour_selector_get_type ()
-G_DECLARE_FINAL_TYPE (DiaColourSelector, dia_colour_selector, DIA, COLOUR_SELECTOR, GtkHBox)
+G_DECLARE_FINAL_TYPE (DiaColourSelector, dia_colour_selector, DIA, COLOUR_SELECTOR, GtkBox)
 
 GtkWidget *dia_colour_selector_new                (void);
 void       dia_colour_selector_set_use_alpha      (DiaColourSelector    *cs,

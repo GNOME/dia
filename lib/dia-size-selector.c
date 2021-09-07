@@ -31,14 +31,14 @@
  * current users do not store aspect ratio, so we have to give a good default.
  */
 struct _DiaSizeSelector {
-  GtkHBox hbox;
+  GtkBox hbox;
   GtkSpinButton *width, *height;
   GtkToggleButton *aspect_locked;
   double ratio;
   GtkAdjustment *last_adjusted;
 };
 
-G_DEFINE_TYPE (DiaSizeSelector, dia_size_selector, GTK_TYPE_HBOX)
+G_DEFINE_TYPE (DiaSizeSelector, dia_size_selector, GTK_TYPE_BOX)
 
 enum {
   DSS_VALUE_CHANGED,

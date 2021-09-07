@@ -51,7 +51,7 @@ Color        *color_new_rgba       (float        r,
                                     float        b,
                                     float        alpha);
 void          color_convert        (const Color *color,
-                                    GdkColor    *gdkcolor);
+                                    GdkRGBA     *gdkcolor);
 gboolean      color_equals         (const Color *color1,
                                     const Color *color2);
 
@@ -59,13 +59,13 @@ static G_GNUC_UNUSED Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
 static G_GNUC_UNUSED Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 #define DIA_COLOR_TO_GDK(from, to)      \
-  (to).pixel = 0;                       \
-  (to).red = (from).red * 65535;        \
-  (to).green = (from).green * 65535;    \
-  (to).blue = (from).blue * 65535;
+  (to).red = (from).red;        \
+  (to).green = (from).green;    \
+  (to).blue = (from).blue;      \
+  (to).alpha = (from).alpha;
 
 #define GDK_COLOR_TO_DIA(from, to)      \
-  (to).red = (from).red / 65535.0;      \
-  (to).green = (from).green / 65535.0;  \
-  (to).blue = (from).blue / 65535.0;    \
-  (to).alpha = 1.0;
+  (to).red = (from).red;      \
+  (to).green = (from).green;            \
+  (to).blue = (from).blue;    \
+  (to).alpha = (from).alpha;

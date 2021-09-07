@@ -78,7 +78,7 @@ static GtkWidget *
 dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
 {
   GtkWidget *button = gtk_toggle_button_new();
-  GtkRcStyle *rcstyle;
+//  GtkRcStyle *rcstyle;
   struct image_pair *images;
 
   images = g_new(struct image_pair, 1);
@@ -98,10 +98,12 @@ dia_toggle_button_new(GtkWidget *on_widget, GtkWidget *off_widget)
   gtk_widget_set_can_focus (GTK_WIDGET (button), FALSE);
   gtk_widget_set_can_default (GTK_WIDGET (button), FALSE);
 
+/* disabled Gtk3 -- Hub
   rcstyle = gtk_rc_style_new ();
   rcstyle->xthickness = rcstyle->ythickness = 0;
   gtk_widget_modify_style (button, rcstyle);
   g_clear_object (&rcstyle);
+*/
 
   gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
   /*  gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);*/

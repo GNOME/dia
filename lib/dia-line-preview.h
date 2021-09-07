@@ -28,7 +28,7 @@
 G_BEGIN_DECLS
 
 #define DIA_TYPE_LINE_PREVIEW dia_line_preview_get_type ()
-G_DECLARE_FINAL_TYPE (DiaLinePreview, dia_line_preview, DIA, LINE_PREVIEW, GtkMisc)
+G_DECLARE_FINAL_TYPE (DiaLinePreview, dia_line_preview, DIA, LINE_PREVIEW, GtkWidget)
 
 GtkWidget *dia_line_preview_new                  (DiaLineStyle          lstyle);
 void       dia_line_preview_set_style            (DiaLinePreview       *line,

@@ -32,7 +32,7 @@ typedef struct _DiaPatternSelector DiaPatternSelector;
 typedef struct _DiaPatternSelectorClass DiaPatternSelectorClass;
 struct _DiaPatternSelector
 {
-  GtkHBox           hbox; /*!< just containing the other two widgets */
+  GtkBox            hbox; /*!< just containing the other two widgets */
   GtkWidget       *state; /*!< button reflecting the state */
   GtkWidget *menu_button; /*!< pop-up menu button to select presets */
 
@@ -40,7 +40,7 @@ struct _DiaPatternSelector
 };
 struct _DiaPatternSelectorClass
 {
-  GtkHBoxClass parent_class;
+  GtkBoxClass parent_class;
 };
 
 enum {
@@ -78,7 +78,7 @@ dia_pattern_selector_class_init (DiaPatternSelectorClass *klass)
 
 static GType dia_pattern_selector_get_type (void);
 
-G_DEFINE_TYPE (DiaPatternSelector, dia_pattern_selector, GTK_TYPE_HBOX);
+G_DEFINE_TYPE (DiaPatternSelector, dia_pattern_selector, GTK_TYPE_BOX);
 
 
 /* GUI stuff - not completely done yet

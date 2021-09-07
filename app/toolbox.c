@@ -736,7 +736,7 @@ create_sheets(GtkWidget *parent)
 
   separator = gtk_hseparator_new ();
   /* add a bit of padding around the separator */
-  label = gtk_vbox_new(FALSE, 0);
+  label = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
   gtk_box_pack_start(GTK_BOX(label), separator, TRUE, TRUE, 3);
   gtk_widget_show(label);
 
@@ -781,7 +781,7 @@ create_color_area (GtkWidget *parent)
   gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), frame, TRUE, TRUE, FALSE, FALSE, TRUE);
 
-  hbox = gtk_hbox_new (FALSE, 1);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
   gtk_container_set_border_width (GTK_CONTAINER (hbox), 0);
   gtk_container_add (GTK_CONTAINER (frame), hbox);
 

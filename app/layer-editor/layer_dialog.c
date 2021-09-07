@@ -58,9 +58,9 @@ GtkWidget * create_layer_view_widget (void)
    */
   layer_dialog = g_new0 (struct LayerDialog, 1);
 
-  layer_dialog->dialog = vbox = gtk_vbox_new (FALSE, 1);
+  layer_dialog->dialog = vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
 
-  hbox = gtk_hbox_new (FALSE, 1);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
 
   label = gtk_label_new (_ ("Layers"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 2);

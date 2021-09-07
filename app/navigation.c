@@ -74,7 +74,6 @@ enum {
 };
 static GParamSpec *pspecs[LAST_PROP] = { NULL, };
 
-
 static void
 dia_navigation_window_set_property (GObject      *object,
                                     guint         property_id,
@@ -111,7 +110,6 @@ dia_navigation_window_get_property (GObject    *object,
       break;
   }
 }
-
 
 /* resets adjustement to diagram size */
 static void
@@ -236,6 +234,7 @@ dia_navigation_window_draw (GtkWidget *widget, cairo_t *ctx)
 {
   DiaNavigationWindow *self = DIA_NAVIGATION_WINDOW (widget);
   GtkAdjustment * adj;
+  GdkRectangle area;
   int x, y;
 
   cairo_set_line_width (ctx, FRAME_THICKNESS);

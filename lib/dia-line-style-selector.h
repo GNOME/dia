@@ -28,7 +28,7 @@
 G_BEGIN_DECLS
 
 #define DIA_TYPE_LINE_STYLE_SELECTOR dia_line_style_selector_get_type ()
-G_DECLARE_FINAL_TYPE (DiaLineStyleSelector, dia_line_style_selector, DIA, LINE_STYLE_SELECTOR, GtkVBox)
+G_DECLARE_FINAL_TYPE (DiaLineStyleSelector, dia_line_style_selector, DIA, LINE_STYLE_SELECTOR, GtkBox)
 
 GtkWidget *dia_line_style_selector_new           (void);
 void       dia_line_style_selector_get_linestyle (DiaLineStyleSelector *as,

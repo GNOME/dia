@@ -225,7 +225,7 @@ dia_exit_dialog_init (DiaExitDialog *self)
                                    DIA_EXIT_DIALOG_SAVE);
 
 
-  priv->file_box = gtk_vbox_new (FALSE, 6);
+  priv->file_box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
   gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (priv->dialog))),
                       priv->file_box,
                       FALSE,

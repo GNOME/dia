@@ -76,7 +76,7 @@ dia_colour_area_target (DiaColourArea *self,
 static gboolean
 dia_colour_area_draw (GtkWidget *self, cairo_t *ctx)
 {
-  GdkColor fg, bg;
+  GdkRGBA fg, bg;
   int rect_w, rect_h;
   int img_width, img_height;
   DiaColourArea *priv = DIA_COLOUR_AREA (self);
@@ -90,7 +90,7 @@ dia_colour_area_draw (GtkWidget *self, cairo_t *ctx)
   rect_w = alloc.width * 0.65;
   rect_h = alloc.height * 0.65;
 
-  gdk_cairo_set_source_color (ctx, &bg);
+  gdk_cairo_set_source_rgba (ctx, &bg);
 
   cairo_rectangle (ctx,
                    (alloc.width - rect_w),
@@ -98,7 +98,7 @@ dia_colour_area_draw (GtkWidget *self, cairo_t *ctx)
                    rect_w, rect_h);
   cairo_fill (ctx);
 
-  gdk_cairo_set_source_color (ctx, &fg);
+  gdk_cairo_set_source_rgba (ctx, &fg);
   cairo_rectangle (ctx, 0, 0, rect_w, rect_h);
   cairo_fill (ctx);
 
@@ -144,7 +144,7 @@ dia_colour_area_response (GtkDialog     *chooser,
                           DiaColourArea *self)
 {
   if (response == GTK_RESPONSE_OK) {
-    GdkColor gdk_color;
+    GdkRGBA gdk_color;
     Color color;
     GtkWidget *selection;
     guint alpha;
@@ -178,7 +178,7 @@ static void
 dia_colour_area_edit (DiaColourArea *self)
 {
   GtkWidget *window;
-  GdkColor gdk_color;
+  GdkRGBA gdk_color;
   Color color;
   GtkWidget *selection;
 
@@ -231,11 +231,8 @@ dia_colour_area_edit (DiaColourArea *self)
   selection =
     gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (self->color_select));
 
-  gtk_color_selection_set_current_color (GTK_COLOR_SELECTION (selection),
+  gtk_color_selection_set_current_rgba (GTK_COLOR_SELECTION (selection),
                                          &gdk_color);
-  gtk_color_selection_set_current_alpha (GTK_COLOR_SELECTION (selection),
-                                         (guint) (color.alpha * 65535.0));
-  //gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (self->color_select), &color);
 }
 
 

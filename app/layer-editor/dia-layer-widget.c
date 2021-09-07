@@ -223,6 +223,32 @@ dia_layer_widget_size_request (GtkWidget      *widget,
 
 
 static void
+dia_layer_widget_get_preferred_width (GtkWidget *widget,
+                                      gint      *minimal_width,
+                                      gint      *natural_width)
+{
+  GtkRequisition requisition;
+
+  dia_layer_widget_size_request (widget, &requisition);
+
+  *minimal_width = *natural_width = requisition.width;
+}
+
+
+static void
+dia_layer_widget_get_preferred_height (GtkWidget *widget,
+                                       gint      *minimal_height,
+                                       gint      *natural_height)
+{
+  GtkRequisition requisition;
+
+  dia_layer_widget_size_request (widget, &requisition);
+
+  *minimal_height = *natural_height = requisition.height;
+}
+
+
+static void
 dia_layer_widget_size_allocate (GtkWidget     *widget,
                                 GtkAllocation *allocation)
 {
@@ -276,38 +302,40 @@ dia_layer_widget_style_set (GtkWidget *widget,
 
 
 static int
-dia_layer_widget_expose (GtkWidget      *widget,
-                         GdkEventExpose *event)
+dia_layer_widget_draw (GtkWidget      *widget,
+                         cairo_t        *ctx)
 {
   GtkAllocation alloc;
   GdkWindow *window;
-  GtkStyle *style;
+  GtkStyleContext *style;
 
   g_return_val_if_fail (widget != NULL, FALSE);
 
   if (gtk_widget_is_drawable (widget)) {
     window = gtk_widget_get_window (widget);
-    style = gtk_widget_get_style (widget);
+    style = gtk_widget_get_style_context (widget);
+
+    gtk_widget_get_allocation (widget, &alloc);
 
     if (gtk_widget_get_state (GTK_WIDGET (widget)) == GTK_STATE_NORMAL) {
-      gdk_window_set_back_pixmap (window, NULL, TRUE);
-      gdk_window_clear_area (window, event->area.x, event->area.y,
-                             event->area.width, event->area.height);
+      gtk_render_background (style, ctx, 0, 0, alloc.width, alloc.height);
     } else {
+      gtk_render_background (style, ctx, 0, 0, alloc.width, alloc.height);
+      gtk_render_frame (style, ctx, 0, 0, alloc.width, alloc.height);
+      /*
       gtk_paint_flat_box (style, window,
                           gtk_widget_get_state (GTK_WIDGET (widget)), GTK_SHADOW_ETCHED_OUT,
                           &event->area, widget, "listitem",
                           0, 0, -1, -1);
+      */
     }
 
-    GTK_WIDGET_CLASS (dia_layer_widget_parent_class)->expose_event (widget, event);
+    GTK_WIDGET_CLASS (dia_layer_widget_parent_class)->draw (widget, ctx);
 
-    gtk_widget_get_allocation (widget, &alloc);
 
     if (gtk_widget_has_focus (widget)) {
-      gtk_paint_focus (style, window, gtk_widget_get_state (widget),
-                       NULL, widget, NULL,
-                       0, 0, alloc.width, alloc.height);
+      gtk_render_focus (style, ctx,
+                        0, 0, alloc.width, alloc.height);
     }
   }
 
@@ -327,10 +355,11 @@ dia_layer_widget_class_init (DiaLayerWidgetClass *klass)
   object_class->finalize = dia_layer_widget_finalize;
 
   widget_class->realize = dia_layer_widget_realize;
-  widget_class->size_request = dia_layer_widget_size_request;
+  widget_class->get_preferred_width = dia_layer_widget_get_preferred_width;
+  widget_class->get_preferred_height = dia_layer_widget_get_preferred_height;
   widget_class->size_allocate = dia_layer_widget_size_allocate;
   widget_class->style_set = dia_layer_widget_style_set;
-  widget_class->expose_event = dia_layer_widget_expose;
+  widget_class->draw = dia_layer_widget_draw;
 
   signals[EXCLUSIVE] =
     g_signal_new ("exclusive",
@@ -381,51 +410,51 @@ dia_layer_widget_class_init (DiaLayerWidgetClass *klass)
   g_object_class_install_properties (object_class, LAST_LW_PROP, lw_pspecs);
 
   binding_set = gtk_binding_set_by_class (klass);
-  gtk_binding_entry_add_signal (binding_set, GDK_Up, 0,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_Up, 0,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_STEP_BACKWARD,
                                 G_TYPE_DOUBLE, 0.0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KP_Up, 0,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_KP_Up, 0,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_STEP_BACKWARD,
                                 G_TYPE_DOUBLE, 0.0);
-  gtk_binding_entry_add_signal (binding_set, GDK_Down, 0,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_Down, 0,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_STEP_FORWARD,
                                 G_TYPE_DOUBLE, 0.0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KP_Down, 0,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_KP_Down, 0,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_STEP_FORWARD,
                                 G_TYPE_DOUBLE, 0.0);
-  gtk_binding_entry_add_signal (binding_set, GDK_Page_Up, 0,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_Page_Up, 0,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_PAGE_BACKWARD,
                                 G_TYPE_DOUBLE, 0.0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KP_Page_Up, 0,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_KP_Page_Up, 0,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_PAGE_BACKWARD,
                                 G_TYPE_DOUBLE, 0.0);
-  gtk_binding_entry_add_signal (binding_set, GDK_Page_Down, 0,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_Page_Down, 0,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_PAGE_FORWARD,
                                 G_TYPE_DOUBLE, 0.0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KP_Page_Down, 0,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_KP_Page_Down, 0,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_PAGE_FORWARD,
                                 G_TYPE_DOUBLE, 0.0);
-  gtk_binding_entry_add_signal (binding_set, GDK_Home, GDK_CONTROL_MASK,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_Home, GDK_CONTROL_MASK,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_JUMP,
                                 G_TYPE_DOUBLE, 0.0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KP_Home, GDK_CONTROL_MASK,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_KP_Home, GDK_CONTROL_MASK,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_JUMP,
                                 G_TYPE_DOUBLE, 0.0);
-  gtk_binding_entry_add_signal (binding_set, GDK_End, GDK_CONTROL_MASK,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_End, GDK_CONTROL_MASK,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_JUMP,
                                 G_TYPE_DOUBLE, 1.0);
-  gtk_binding_entry_add_signal (binding_set, GDK_KP_End, GDK_CONTROL_MASK,
+  gtk_binding_entry_add_signal (binding_set, GDK_KEY_KP_End, GDK_CONTROL_MASK,
                                 "scroll-vertical", 2,
                                 G_TYPE_ENUM, GTK_SCROLL_JUMP,
                                 G_TYPE_DOUBLE, 1.0);
@@ -523,7 +552,7 @@ dia_layer_widget_init (DiaLayerWidget *self)
   gtk_widget_set_has_window (GTK_WIDGET (self), TRUE);
   gtk_widget_set_can_focus (GTK_WIDGET (self), TRUE);
 
-  hbox = gtk_hbox_new (FALSE, 0);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 
   priv->internal_call = FALSE;
   priv->shifted = FALSE;

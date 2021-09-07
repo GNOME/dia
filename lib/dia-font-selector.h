@@ -28,7 +28,7 @@
 G_BEGIN_DECLS
 
 #define DIA_TYPE_FONT_SELECTOR dia_font_selector_get_type ()
-G_DECLARE_FINAL_TYPE (DiaFontSelector, dia_font_selector, DIA, FONT_SELECTOR, GtkHBox)
+G_DECLARE_FINAL_TYPE (DiaFontSelector, dia_font_selector, DIA, FONT_SELECTOR, GtkBox)
 
 GtkWidget *dia_font_selector_new      (void);
 void       dia_font_selector_set_font (DiaFontSelector *self,

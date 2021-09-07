@@ -24,6 +24,8 @@
 
 #include <gtk/gtk.h>
 
+#if !GTK_CHECK_VERSION(3,0,0)
+
 G_BEGIN_DECLS
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkHBox, g_object_unref)
@@ -50,3 +52,5 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkWindow, g_object_unref)
 #endif
 
 G_END_DECLS
+
+#endif

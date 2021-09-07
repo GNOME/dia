@@ -21,44 +21,41 @@
 #include "dia-line-preview.h"
 
 struct _DiaLinePreview {
-  GtkMisc misc;
+  GtkWidget widget;
   DiaLineStyle lstyle;
 };
 
-G_DEFINE_TYPE (DiaLinePreview, dia_line_preview, GTK_TYPE_MISC)
+G_DEFINE_TYPE (DiaLinePreview, dia_line_preview, GTK_TYPE_WIDGET)
 
 
 static int
-dia_line_preview_expose (GtkWidget *widget, GdkEventExpose *event)
+dia_line_preview_draw (GtkWidget *widget, cairo_t *ctx)
 {
   DiaLinePreview *line = DIA_LINE_PREVIEW (widget);
-  GtkMisc *misc = GTK_MISC(widget);
   int width, height;
   int x, y;
-  GdkWindow *win;
   double dash_list[6];
-  GtkStyle *style;
-  GdkColor fg;
-  cairo_t *ctx;
+  GtkStyleContext *style;
+  GdkRGBA fg;
+
 
   if (gtk_widget_is_drawable (widget)) {
     GtkAllocation alloc;
     int xpad, ypad;
 
     gtk_widget_get_allocation (widget, &alloc);
-    gtk_misc_get_padding (misc, &xpad, &ypad);
+    xpad = gtk_widget_get_margin_start (widget) + gtk_widget_get_margin_end (widget);
+    ypad = gtk_widget_get_margin_top (widget) + gtk_widget_get_margin_bottom (widget);
 
-    width = alloc.width - xpad * 2;
-    height = alloc.height - ypad * 2;
-    x = (alloc.x + xpad);
-    y = (alloc.y + ypad);
+    width = alloc.width - xpad;
+    height = alloc.height - ypad;
+    x = gtk_widget_get_margin_start (widget);
+    y = gtk_widget_get_margin_top (widget);
 
-    win = gtk_widget_get_window (widget);
-    style = gtk_widget_get_style (widget);
-    fg = style->text[gtk_widget_get_state(widget)];
+    style = gtk_widget_get_style_context (widget);
+    gtk_style_context_get_color(style, gtk_widget_get_state_flags(widget), &fg);
 
-    ctx = gdk_cairo_create (win);
-    gdk_cairo_set_source_color (ctx, &fg);
+    gdk_cairo_set_source_rgba (ctx, &fg);
     cairo_set_line_width (ctx, 2);
     cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
     cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
@@ -110,7 +107,7 @@ dia_line_preview_class_init (DiaLinePreviewClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-  widget_class->expose_event = dia_line_preview_expose;
+  widget_class->draw = dia_line_preview_draw;
 }
 
 
@@ -121,11 +118,14 @@ dia_line_preview_init (DiaLinePreview *line)
 
   gtk_widget_set_has_window (GTK_WIDGET (line), FALSE);
 
-  gtk_misc_get_padding (GTK_MISC (line), &xpad, &ypad);
+  xpad = gtk_widget_get_margin_start (GTK_WIDGET (line)) +
+    gtk_widget_get_margin_end (GTK_WIDGET (line));
+  ypad = gtk_widget_get_margin_top (GTK_WIDGET (line)) +
+    gtk_widget_get_margin_bottom (GTK_WIDGET (line));
 
   gtk_widget_set_size_request (GTK_WIDGET (line),
-                               30 + xpad * 2,
-                               15 + ypad * 2);
+                               30 + xpad,
+                               15 + ypad);
 
   line->lstyle = DIA_LINE_STYLE_SOLID;
 }

@@ -229,7 +229,7 @@ dia_layer_properties_init (DiaLayerProperties *self)
                       0);
 
   /*  the name entry hbox, label and entry  */
-  hbox = gtk_hbox_new (FALSE, 1);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
   label = gtk_label_new (_("Layer name:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);

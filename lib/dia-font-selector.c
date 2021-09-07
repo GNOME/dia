@@ -53,7 +53,7 @@ struct _DiaFontSelectorPrivate {
   int           current_style;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (DiaFontSelector, dia_font_selector, GTK_TYPE_HBOX)
+G_DEFINE_TYPE_WITH_PRIVATE (DiaFontSelector, dia_font_selector, GTK_TYPE_BOX)
 
 enum {
   VALUE_CHANGED,

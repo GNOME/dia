@@ -483,7 +483,7 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
 
   vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
-  hbox = gtk_hbox_new (FALSE, 12);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
   label = gtk_label_new_with_mnemonic (_("_Search for:"));
   gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
   search_entry = gtk_entry_new ();
@@ -496,7 +496,7 @@ fnr_dialog_setup_common (GtkWidget *dialog, gboolean is_replace, DDisplay *ddisp
   if (is_replace) {
     GtkWidget *replace_entry;
 
-    hbox = gtk_hbox_new (FALSE, 12);
+    hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12);
     label = gtk_label_new_with_mnemonic (_("Replace _with:"));
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
     replace_entry = gtk_entry_new ();

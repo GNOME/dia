@@ -171,7 +171,7 @@ matrixprop_get_widget (MatrixProperty *prop, PropDialog *dialog)
   GtkWidget *ret, *sb;
   int i;
 
-  ret = gtk_hbox_new (FALSE,0);
+  ret = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
   /* angle */
   adj = GTK_ADJUSTMENT (gtk_adjustment_new(0.0, -180.0, 180.0, 1.0, 15.0, 0));
   sb = gtk_spin_button_new(adj, 1.0, 2);

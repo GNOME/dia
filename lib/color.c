@@ -178,16 +178,17 @@ color_new_rgba (float r, float g, float b, float alpha)
 /**
  * color_convert:
  * @color: A #Color object. This will not be kept by this function.
- * @gdkcolor: (out): GDK color object to fill in.
+ * @gdkcolor: (out): GDK RGBA object to fill in.
  *
- * Convert a Dia color object to GDK style, including handling allocation.
+ * Convert a Dia color object to GDK style.
  */
 void
-color_convert (const Color *color, GdkColor *gdkcolor)
+color_convert (const Color *color, GdkRGBA *gdkcolor)
 {
-  gdkcolor->red = (guint16)(color->red*65535);
-  gdkcolor->green = (guint16)(color->green*65535);
-  gdkcolor->blue = (guint16)(color->blue*65535);
+  gdkcolor->red = color->red;
+  gdkcolor->green = color->green;
+  gdkcolor->blue = color->blue;
+  gdkcolor->alpha = color->alpha;
 }
 
 /**

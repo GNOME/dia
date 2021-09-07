@@ -255,7 +255,7 @@ dia_layer_editor_dialog_init (DiaLayerEditorDialog *self)
 
   vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
 
-  hbox = gtk_hbox_new (FALSE, 1);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 1);
 
   priv->store = gtk_list_store_new (2,
                                     G_TYPE_STRING,

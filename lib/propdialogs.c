@@ -45,7 +45,7 @@ prop_dialog_new(GList *objects, gboolean is_default)
 {
   PropDialog *dialog = g_new0(PropDialog,1);
   dialog->props = NULL;
-  dialog->widget = gtk_vbox_new(FALSE,1);
+  dialog->widget = gtk_box_new(GTK_ORIENTATION_VERTICAL, 1);
   dialog->prop_widgets = g_array_new(FALSE,TRUE,sizeof(PropWidgetAssoc));
   dialog->copies = NULL;
   dialog->curtable = NULL;
@@ -283,7 +283,7 @@ prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props)
 
   if (scrollable) {
     GtkWidget *swin = gtk_scrolled_window_new (NULL, NULL);
-    GtkWidget *vbox = gtk_vbox_new(FALSE,2);
+    GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
     gtk_box_pack_start(GTK_BOX (dialog->widget), swin, TRUE, TRUE, 0);
     gtk_widget_show (swin);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (swin), vbox);
@@ -307,7 +307,7 @@ prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props)
     GdkScreen *screen = gtk_widget_get_screen(swin);
     gint sheight = screen ? (2 * gdk_screen_get_height(screen)) / 3 : 400;
 
-    gtk_widget_size_request (vbox, &requisition);
+    gtk_widget_get_preferred_size (vbox, NULL, &requisition);
     /* I'd say default size calculation for scrollable is quite broken */
     gtk_widget_set_size_request (swin, -1, requisition.height > sheight ? sheight : requisition.height);
   }

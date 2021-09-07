@@ -31,7 +31,7 @@ enum {
 
 
 struct _DiaLineStyleSelector {
-  GtkVBox vbox;
+  GtkBox vbox;
 
   GtkLabel *lengthlabel;
   GtkSpinButton *dashlength;
@@ -41,7 +41,7 @@ struct _DiaLineStyleSelector {
   DiaLineStyle  looking_for;
 };
 
-G_DEFINE_TYPE (DiaLineStyleSelector, dia_line_style_selector, GTK_TYPE_VBOX)
+G_DEFINE_TYPE (DiaLineStyleSelector, dia_line_style_selector, GTK_TYPE_BOX)
 
 enum {
   DLS_VALUE_CHANGED,
@@ -49,7 +49,6 @@ enum {
 };
 
 static guint dls_signals[DLS_LAST_SIGNAL] = { 0 };
-
 
 static void
 dia_line_style_selector_class_init (DiaLineStyleSelectorClass *klass)
@@ -142,7 +141,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_box_pack_start (GTK_BOX (fs), fs->combo, FALSE, TRUE, 0);
   gtk_widget_show (fs->combo);
 
-  box = gtk_hbox_new (FALSE, 0);
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
   /*  fs->sizebox = GTK_HBOX(box); */
 
   label = gtk_label_new(_("Dash length: "));

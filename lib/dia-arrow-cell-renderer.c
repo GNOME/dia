@@ -118,7 +118,7 @@ dia_arrow_cell_renderer_finalize (GObject *object)
 static void
 dia_arrow_cell_renderer_get_size (GtkCellRenderer *cell,
                                   GtkWidget       *widget,
-                                  GdkRectangle    *cell_area,
+                                  const GdkRectangle *cell_area,
                                   int             *x_offset,
                                   int             *y_offset,
                                   int             *width,
@@ -142,11 +142,10 @@ dia_arrow_cell_renderer_get_size (GtkCellRenderer *cell,
 
 static void
 dia_arrow_cell_renderer_render (GtkCellRenderer      *cell,
-                                GdkWindow            *window,
+                                cairo_t              *ctx,
                                 GtkWidget            *widget,
-                                GdkRectangle         *background_area,
-                                GdkRectangle         *cell_area,
-                                GdkRectangle         *expose_area,
+                                const GdkRectangle   *background_area,
+                                const GdkRectangle   *cell_area,
                                 GtkCellRendererState  flags)
 {
   DiaArrowCellRenderer *self;
@@ -155,14 +154,17 @@ dia_arrow_cell_renderer_render (GtkCellRenderer      *cell,
   Point move_arrow, move_line, arrow_head;
   Arrow tmp_arrow;
   Color colour_fg, colour_bg;
-  GtkStyle *style = gtk_widget_get_style (widget);
-  GdkColor bg = style->base[gtk_widget_get_state(widget)];
-  GdkColor fg = style->text[gtk_widget_get_state(widget)];
+  GtkStyleContext *style = gtk_widget_get_style_context (widget);
+  GtkStateFlags state = gtk_widget_get_state_flags (widget);
+  GdkRGBA bg;
+  GdkRGBA fg;
   GdkRectangle rect;
   int xpad, ypad;
   DiaCairoRenderer *renderer;
   cairo_surface_t *surface;
-  cairo_t *ctx;
+
+  gtk_style_context_get_background_color(style, state, &bg);
+  gtk_style_context_get_color(style, state, &fg);
 
   g_return_if_fail (DIA_IS_ARROW_CELL_RENDERER (cell));
 
@@ -172,22 +174,12 @@ dia_arrow_cell_renderer_render (GtkCellRenderer      *cell,
   GDK_COLOR_TO_DIA (bg, colour_bg);
   GDK_COLOR_TO_DIA (fg, colour_fg);
 
-  gtk_cell_renderer_get_size (cell,
-                              widget,
-                              cell_area,
-                              &rect.x,
-                              &rect.y,
-                              NULL,
-                              NULL);
-
   gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
 
-  rect.x += cell_area->x + xpad;
-  rect.y += cell_area->y + ypad;
+  rect.x = cell_area->x + xpad;
+  rect.y = cell_area->y + ypad;
   rect.width = cell_area->width - (xpad * 2);
   rect.height = cell_area->height - (ypad * 2);
-
-  ctx = gdk_cairo_create (GDK_DRAWABLE (window));
 
   to.y = from.y = rect.height / 2;
   if (priv->point_left) {
@@ -245,8 +237,6 @@ dia_arrow_cell_renderer_render (GtkCellRenderer      *cell,
   cairo_set_source_surface (ctx, surface, rect.x, rect.y);
   gdk_cairo_rectangle (ctx, &rect);
   cairo_paint (ctx);
-
-  cairo_destroy (ctx);
 }
 
 

@@ -28,7 +28,7 @@
 G_BEGIN_DECLS
 
 #define DIA_TYPE_ARROW_SELECTOR dia_arrow_selector_get_type ()
-G_DECLARE_FINAL_TYPE (DiaArrowSelector, dia_arrow_selector, DIA, ARROW_SELECTOR, GtkVBox)
+G_DECLARE_FINAL_TYPE (DiaArrowSelector, dia_arrow_selector, DIA, ARROW_SELECTOR, GtkBox)
 
 GtkWidget *dia_arrow_selector_new                (void);
 Arrow      dia_arrow_selector_get_arrow          (DiaArrowSelector     *as);

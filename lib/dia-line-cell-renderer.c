@@ -95,7 +95,7 @@ dia_line_cell_renderer_set_property (GObject      *object,
 static void
 dia_line_cell_renderer_get_size (GtkCellRenderer *cell,
                                  GtkWidget       *widget,
-                                 GdkRectangle    *cell_area,
+                                 const GdkRectangle *cell_area,
                                  gint            *x_offset,
                                  gint            *y_offset,
                                  gint            *width,
@@ -121,11 +121,10 @@ dia_line_cell_renderer_get_size (GtkCellRenderer *cell,
 
 static void
 dia_line_cell_renderer_render (GtkCellRenderer      *cell,
-                               GdkWindow            *window,
+                               cairo_t              *ctx,
                                GtkWidget            *widget,
-                               GdkRectangle         *background_area,
-                               GdkRectangle         *cell_area,
-                               GdkRectangle         *expose_area,
+                               const GdkRectangle   *background_area,
+                               const GdkRectangle   *cell_area,
                                GtkCellRendererState  flags)
 {
   DiaLineCellRenderer *self;
@@ -133,11 +132,13 @@ dia_line_cell_renderer_render (GtkCellRenderer      *cell,
   DiaRenderer *renderer;
   Point from, to;
   Color colour_fg;
-  GtkStyle *style = gtk_widget_get_style (widget);
-  GdkColor fg = style->text[gtk_widget_get_state(widget)];
-  GdkRectangle rect;
-  int xpad, ypad;
-  cairo_t *ctx;
+  GtkStyleContext *style = gtk_widget_get_style_context (widget);
+  GdkRGBA fg;
+  int x, y, width, height, xpad, ypad;
+
+  gtk_style_context_get_color (style,
+                               gtk_widget_get_state_flags (widget),
+                               &fg);
 
   g_return_if_fail (DIA_IS_LINE_CELL_RENDERER (cell));
 
@@ -148,28 +149,17 @@ dia_line_cell_renderer_render (GtkCellRenderer      *cell,
 
   GDK_COLOR_TO_DIA (fg, colour_fg);
 
-  gtk_cell_renderer_get_size (cell,
-                              widget,
-                              cell_area,
-                              &rect.x,
-                              &rect.y,
-                              NULL,
-                              NULL);
+  x = cell_area->x + xpad;
+  y = cell_area->y + ypad;
+  width = cell_area->width - (xpad * 2);
+  height = cell_area->height - (ypad * 2);
 
-  gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
-
-  rect.x += cell_area->x + xpad;
-  rect.y += cell_area->y + ypad;
-  rect.width = cell_area->width - (xpad * 2);
-  rect.height = cell_area->height - (ypad * 2);
-
-  to.y = from.y = rect.y + rect.height / 2;
-  from.x = rect.x;
-  to.x = rect.x + rect.width - LINEWIDTH;
+  to.y = from.y = y + (height / 2);
+  from.x = x;
+  to.x = x + width - LINEWIDTH;
 
   renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
 
-  ctx = gdk_cairo_create (GDK_DRAWABLE (window));
   DIA_CAIRO_RENDERER (renderer)->cr = cairo_reference (ctx);
   DIA_CAIRO_RENDERER (renderer)->with_alpha = TRUE;
 
@@ -187,7 +177,6 @@ dia_line_cell_renderer_render (GtkCellRenderer      *cell,
 
   dia_renderer_end_render (DIA_RENDERER (renderer));
 
-  cairo_destroy (ctx);
   g_clear_object (&renderer);
 }
 

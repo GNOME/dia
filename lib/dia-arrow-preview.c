@@ -22,12 +22,12 @@
 #include "renderer/diacairo.h"
 
 struct _DiaArrowPreview {
-  GtkMisc misc;
+  GtkWidget widget;
   ArrowType atype;
   gboolean left;
 };
 
-G_DEFINE_TYPE (DiaArrowPreview, dia_arrow_preview, GTK_TYPE_MISC)
+G_DEFINE_TYPE (DiaArrowPreview, dia_arrow_preview, GTK_TYPE_WIDGET)
 
 
 /**
@@ -44,7 +44,7 @@ G_DEFINE_TYPE (DiaArrowPreview, dia_arrow_preview, GTK_TYPE_MISC)
  * Since: dawn-of-time
  */
 static int
-dia_arrow_preview_expose (GtkWidget *widget, GdkEventExpose *event)
+dia_arrow_preview_draw (GtkWidget *widget, cairo_t *ctx)
 {
   if (gtk_widget_is_drawable (widget)) {
     Point from, to;
@@ -52,25 +52,22 @@ dia_arrow_preview_expose (GtkWidget *widget, GdkEventExpose *event)
     DiaCairoRenderer *renderer;
     DiaArrowPreview *arrow = DIA_ARROW_PREVIEW (widget);
     Arrow arrow_type;
-    GtkMisc *misc = GTK_MISC (widget);
     int width, height;
     int x, y;
-    GdkWindow *win;
     int linewidth = 2;
     cairo_surface_t *surface;
-    cairo_t *ctx;
     GtkAllocation alloc;
     int xpad, ypad;
 
     gtk_widget_get_allocation (widget, &alloc);
-    gtk_misc_get_padding (misc, &xpad, &ypad);
 
-    width = alloc.width - xpad * 2;
-    height = alloc.height - ypad * 2;
-    x = (alloc.x + xpad);
-    y = (alloc.y + ypad);
+    xpad = gtk_widget_get_margin_start(widget) + gtk_widget_get_margin_end(widget);
+    ypad = gtk_widget_get_margin_top(widget) + gtk_widget_get_margin_bottom(widget);
 
-    win = gtk_widget_get_window (widget);
+    width = alloc.width - xpad;
+    height = alloc.height - ypad;
+    x = xpad;
+    y = ypad;
 
     to.y = from.y = height / 2;
     if (arrow->left) {
@@ -109,10 +106,13 @@ dia_arrow_preview_expose (GtkWidget *widget, GdkEventExpose *event)
     dia_renderer_set_linewidth (DIA_RENDERER (renderer), linewidth);
     {
       Color colour_bg, colour_fg;
-      GtkStyle *style = gtk_widget_get_style (widget);
+      GtkStyleContext *style = gtk_widget_get_style_context (widget);
       /* the text colors are the best approximation to what we had */
-      GdkColor bg = style->base[gtk_widget_get_state (widget)];
-      GdkColor fg = style->text[gtk_widget_get_state (widget)];
+      GtkStateFlags state = gtk_widget_get_state_flags (widget);
+      GdkRGBA bg;
+      GdkRGBA fg;
+      gtk_style_context_get_background_color(style, state, &bg);
+      gtk_style_context_get_color(style, state, &fg);
 
       GDK_COLOR_TO_DIA (bg, colour_bg);
       GDK_COLOR_TO_DIA (fg, colour_fg);
@@ -129,7 +129,6 @@ dia_arrow_preview_expose (GtkWidget *widget, GdkEventExpose *event)
     dia_renderer_end_render (DIA_RENDERER (renderer));
     g_clear_object (&renderer);
 
-    ctx = gdk_cairo_create (win);
     cairo_set_source_surface (ctx, surface, x, y);
     cairo_paint (ctx);
   }
@@ -143,7 +142,7 @@ dia_arrow_preview_class_init (DiaArrowPreviewClass *class)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
-  widget_class->expose_event = dia_arrow_preview_expose;
+  widget_class->draw = dia_arrow_preview_draw;
 }
 
 
@@ -154,11 +153,14 @@ dia_arrow_preview_init (DiaArrowPreview *arrow)
 
   gtk_widget_set_has_window (GTK_WIDGET (arrow), FALSE);
 
-  gtk_misc_get_padding (GTK_MISC (arrow), &xpad, &ypad);
+  xpad = gtk_widget_get_margin_start (GTK_WIDGET (arrow)) +
+    gtk_widget_get_margin_end (GTK_WIDGET (arrow));
+  ypad = gtk_widget_get_margin_top (GTK_WIDGET (arrow)) +
+    gtk_widget_get_margin_bottom (GTK_WIDGET (arrow));
 
   gtk_widget_set_size_request (GTK_WIDGET (arrow),
-                               40 + xpad * 2,
-                               20 + ypad * 2);
+                               40 + xpad,
+                               20 + ypad);
 
   arrow->atype = ARROW_NONE;
   arrow->left = TRUE;

@@ -27,11 +27,11 @@ G_BEGIN_DECLS
 
 
 #define DIA_TYPE_LAYER_EDITOR dia_layer_editor_get_type ()
-G_DECLARE_DERIVABLE_TYPE (DiaLayerEditor, dia_layer_editor, DIA, LAYER_EDITOR, GtkVBox)
+G_DECLARE_DERIVABLE_TYPE (DiaLayerEditor, dia_layer_editor, DIA, LAYER_EDITOR, GtkBox)
 
 struct _DiaLayerEditorClass {
   /*< private >*/
-  GtkVBoxClass parent;
+  GtkBoxClass parent;
 };
 
 GtkWidget *dia_layer_editor_new         (void);

@@ -44,7 +44,7 @@ struct _DiaLayerEditorPrivate {
   Diagram   *diagram;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (DiaLayerEditor, dia_layer_editor, GTK_TYPE_VBOX)
+G_DEFINE_TYPE_WITH_PRIVATE (DiaLayerEditor, dia_layer_editor, GTK_TYPE_BOX)
 
 enum {
   PROP_0,
@@ -334,7 +334,7 @@ dia_layer_editor_init (DiaLayerEditor *self)
                     self);
 
   // inline-toolbar
-  button_box = gtk_hbox_new (FALSE, 0);
+  button_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 
   for (int i = 0; i < G_N_ELEMENTS (editor_buttons); i++) {
     GtkWidget * image;

@@ -28,7 +28,7 @@
 G_BEGIN_DECLS
 
 #define DIA_TYPE_ARROW_PREVIEW dia_arrow_preview_get_type ()
-G_DECLARE_FINAL_TYPE (DiaArrowPreview, dia_arrow_preview, DIA, ARROW_PREVIEW, GtkMisc)
+G_DECLARE_FINAL_TYPE (DiaArrowPreview, dia_arrow_preview, DIA, ARROW_PREVIEW, GtkWidget)
 
 GtkWidget *dia_arrow_preview_new            (ArrowType               atype,
                                              gboolean                left);
