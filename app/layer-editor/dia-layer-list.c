@@ -244,7 +244,7 @@ dia_layer_list_size_allocate (GtkWidget     *widget,
       if (gtk_widget_get_visible (child)) {
           GtkRequisition child_requisition;
 
-          gtk_widget_get_child_requisition (child, &child_requisition);
+          gtk_widget_get_preferred_size (child, NULL, &child_requisition);
 
           child_allocation.height = child_requisition.height;
 

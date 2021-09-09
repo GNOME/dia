@@ -125,7 +125,7 @@ get_child_requisition (GtkWrapBox     *wbox,
       child_requisition->height = hwbox->max_child_height;
     }
   else
-    gtk_widget_get_child_requisition (child, child_requisition);
+    gtk_widget_get_preferred_size (child, NULL, child_requisition);
 }
 
 static gfloat
