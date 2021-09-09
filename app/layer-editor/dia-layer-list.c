@@ -343,12 +343,13 @@ static void
 dia_layer_list_style_set (GtkWidget *widget,
                           GtkStyle  *previous_style)
 {
-  GtkStyle *style;
+  GtkStyleContext *style;
 
   if (previous_style && gtk_widget_get_realized (widget)) {
-    style = gtk_widget_get_style (widget);
-    gdk_window_set_background (gtk_widget_get_window (widget),
-                               &style->base[gtk_widget_get_state (widget)]);
+    GdkRGBA bg;
+    style = gtk_widget_get_style_context (widget);
+    gtk_style_context_get_background_color (style, gtk_widget_get_state_flags (widget), &bg);
+    gdk_window_set_background_rgba (gtk_widget_get_window (widget), &bg);
   }
 }
 
@@ -1032,7 +1033,7 @@ dia_layer_list_remove_items (DiaLayerList *list,
     widget = tmp_list->data;
     tmp_list = tmp_list->next;
 
-    if (gtk_widget_get_state (widget) == GTK_STATE_SELECTED) {
+    if (gtk_widget_get_state_flags (widget) & GTK_STATE_FLAG_SELECTED) {
       dia_layer_list_unselect_child (list, DIA_LAYER_WIDGET (widget));
     }
   }
@@ -1135,10 +1136,10 @@ dia_layer_list_select_child (DiaLayerList   *self,
 
   if (g_set_object (&priv->selected, item)) {
     if (old) {
-      gtk_widget_set_state (GTK_WIDGET (old), GTK_STATE_NORMAL);
+      gtk_widget_set_state_flags (GTK_WIDGET (old), GTK_STATE_FLAG_NORMAL, TRUE);
     }
 
-    gtk_widget_set_state (GTK_WIDGET (item), GTK_STATE_SELECTED);
+    gtk_widget_set_state_flags (GTK_WIDGET (item), GTK_STATE_FLAG_SELECTED, TRUE);
 
     dia_layer_widget_select (item);
   }
@@ -1160,7 +1161,7 @@ dia_layer_list_unselect_child (DiaLayerList   *self,
 
   g_return_if_fail (priv->selected == item);
 
-  gtk_widget_set_state (GTK_WIDGET (priv->selected), GTK_STATE_NORMAL);
+  gtk_widget_set_state_flags (GTK_WIDGET (priv->selected), GTK_STATE_FLAG_NORMAL, TRUE);
 
   dia_layer_widget_deselect (priv->selected);
 

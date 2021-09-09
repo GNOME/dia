@@ -191,7 +191,8 @@ dia_layer_widget_size_request (GtkWidget      *widget,
   GtkBin *bin;
   GtkWidget *child;
   GtkRequisition child_requisition;
-  GtkStyle *style;
+  GtkStyleContext *style;
+  GtkBorder padding;
   int focus_width;
   int focus_pad;
   int border_width;
@@ -205,10 +206,11 @@ dia_layer_widget_size_request (GtkWidget      *widget,
                         "focus-padding", &focus_pad,
                         NULL);
 
-  style = gtk_widget_get_style (widget);
+  style = gtk_widget_get_style_context (widget);
+  gtk_style_context_get_padding (style, GTK_STATE_FLAG_NORMAL, &padding);
   border_width = gtk_container_get_border_width (GTK_CONTAINER (widget));
 
-  requisition->width = 2 * (border_width + style->xthickness + focus_width + focus_pad - 1);
+  requisition->width = 2 * (border_width + padding.left + focus_width + focus_pad - 1);
   requisition->height = 2 * (border_width + focus_width + focus_pad - 1);
 
   child = gtk_bin_get_child (bin);
@@ -253,7 +255,7 @@ dia_layer_widget_size_allocate (GtkWidget     *widget,
                                 GtkAllocation *allocation)
 {
   GtkBin *bin;
-  GtkStyle *style;
+  GtkStyleContext *style;
   int border_width;
   GtkAllocation child_allocation;
 
@@ -263,7 +265,7 @@ dia_layer_widget_size_allocate (GtkWidget     *widget,
 
   gtk_widget_set_allocation (widget, allocation);
 
-  style = gtk_widget_get_style (widget);
+  style = gtk_widget_get_style_context (widget);
   border_width = gtk_container_get_border_width (GTK_CONTAINER (widget));
 
   if (gtk_widget_get_realized (widget)) {
@@ -275,7 +277,9 @@ dia_layer_widget_size_allocate (GtkWidget     *widget,
   bin = GTK_BIN (widget);
 
   if (gtk_bin_get_child (bin)) {
-    child_allocation.x = (border_width + style->xthickness);
+    GtkBorder padding;
+    gtk_style_context_get_padding (style, GTK_STATE_FLAG_NORMAL, &padding);
+    child_allocation.x = (border_width + padding.left);
     child_allocation.y = border_width;
     child_allocation.width = allocation->width - child_allocation.x * 2;
     child_allocation.height = allocation->height - child_allocation.y * 2;
@@ -289,14 +293,15 @@ static void
 dia_layer_widget_style_set (GtkWidget *widget,
                             GtkStyle  *previous_style)
 {
-  GtkStyle *style;
+  GtkStyleContext *style;
 
   g_return_if_fail (widget != NULL);
 
   if (previous_style && gtk_widget_get_realized (widget)) {
-    style = gtk_widget_get_style (widget);
-    gdk_window_set_background (gtk_widget_get_window (widget),
-                               &style->base[gtk_widget_get_state (widget)]);
+    GdkRGBA bg;
+    style = gtk_widget_get_style_context (widget);
+    gtk_style_context_get_background_color (style, gtk_widget_get_state_flags (widget), &bg);
+    gdk_window_set_background_rgba (gtk_widget_get_window (widget), &bg);
   }
 }
 
@@ -315,7 +320,7 @@ dia_layer_widget_draw (GtkWidget      *widget,
 
     gtk_widget_get_allocation (widget, &alloc);
 
-    if (gtk_widget_get_state (GTK_WIDGET (widget)) == GTK_STATE_NORMAL) {
+    if (gtk_widget_get_state_flags (GTK_WIDGET (widget)) & GTK_STATE_FLAG_NORMAL) {
       gtk_render_background (style, ctx, 0, 0, alloc.width, alloc.height);
     } else {
       gtk_render_background (style, ctx, 0, 0, alloc.width, alloc.height);

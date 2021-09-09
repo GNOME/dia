@@ -508,7 +508,8 @@ _dtv_init (DiagramTreeView *dtv)
   GtkTreeViewColumn *column;
   GtkCellRenderer   *cell;
   int                font_size;
-  GtkStyle          *style;
+  GtkStyleContext   *style;
+  PangoFontDescription *font_style;
 
   /* connect the model with the view */
   gtk_tree_view_set_model (GTK_TREE_VIEW (dtv), diagram_tree_model_new ());
@@ -519,8 +520,10 @@ _dtv_init (DiagramTreeView *dtv)
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (dtv), TRUE);
 #endif
 
-  style = gtk_widget_get_style (GTK_WIDGET (dtv));
-  font_size = pango_font_description_get_size (style->font_desc);
+  style = gtk_widget_get_style_context (GTK_WIDGET (dtv));
+  gtk_style_context_get(style, GTK_STATE_FLAG_NORMAL,
+                        GTK_STYLE_PROPERTY_FONT, &font_style, NULL);
+  font_size = pango_font_description_get_size (font_style);
   font_size = PANGO_PIXELS (font_size);
 
   /* first colum: name of diagram/layer/object - here is the tree */
