@@ -203,7 +203,7 @@ gtk_hwrap_box_size_request (GtkWidget      *widget,
       {
         GtkRequisition child_requisition;
 
-        gtk_widget_size_request (child->widget, &child_requisition);
+        gtk_widget_get_preferred_size (child->widget, NULL, &child_requisition);
 
         this->max_child_width = MAX (this->max_child_width, child_requisition.width);
         this->max_child_height = MAX (this->max_child_height, child_requisition.height);

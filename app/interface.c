@@ -1262,7 +1262,7 @@ _ddisplay_hruler_motion_notify (GtkWidget *widget,
 
       /* Minus ruler height. */
       GtkRequisition ruler_requisition;
-      gtk_widget_size_request (widget, &ruler_requisition);
+      gtk_widget_get_preferred_size (widget, NULL, &ruler_requisition);
       guide_tool_set_ruler_height(active_tool, ruler_requisition.height);
 
       /* Do the move. */
@@ -1285,7 +1285,7 @@ _ddisplay_vruler_motion_notify (GtkWidget *widget,
 
       /* Minus ruler width. */
       GtkRequisition ruler_requisition;
-      gtk_widget_size_request (widget, &ruler_requisition);
+      gtk_widget_get_preferred_size (widget, NULL, &ruler_requisition);
       guide_tool_set_ruler_height(active_tool, ruler_requisition.width);
 
       /* Do the move. */

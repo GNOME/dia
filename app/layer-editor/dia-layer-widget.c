@@ -214,7 +214,7 @@ dia_layer_widget_size_request (GtkWidget      *widget,
   child = gtk_bin_get_child (bin);
 
   if (child && gtk_widget_get_visible (child)) {
-    gtk_widget_size_request (child, &child_requisition);
+    gtk_widget_get_preferred_size (child, NULL, &child_requisition);
 
     requisition->width += child_requisition.width;
     requisition->height += child_requisition.height;

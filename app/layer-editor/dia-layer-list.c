@@ -163,7 +163,7 @@ dia_layer_list_size_request (GtkWidget      *widget,
     if (gtk_widget_get_visible (child)) {
       GtkRequisition child_requisition;
 
-      gtk_widget_size_request (child, &child_requisition);
+      gtk_widget_get_preferred_size (child, NULL, &child_requisition);
 
       requisition->width = MAX (requisition->width,
                                 child_requisition.width);
