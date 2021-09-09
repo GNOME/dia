@@ -41,7 +41,7 @@ conf.set('HAVE_XSLT', libxslt_dep.found())
 # TODO: Why does Win32 break without this
 conf.set('ENABLE_NLS', true)
 
-libgdk_dep  = dependency('gdk-2.0')
+libgdk_dep  = dependency('gdk-3.0')
 gdk_target = libgdk_dep.get_variable('target')
 
 if gdk_target == 'quartz'

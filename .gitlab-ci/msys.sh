@@ -29,7 +29,7 @@ pacman --noconfirm -S --needed \
     mingw-w64-$MSYS2_ARCH-graphene \
     mingw-w64-$MSYS2_ARCH-pango \
     mingw-w64-$MSYS2_ARCH-shared-mime-info \
-    mingw-w64-$MSYS2_ARCH-gtk2
+    mingw-w64-$MSYS2_ARCH-gtk3
 
 mkdir -p _ccache
 export CCACHE_BASEDIR="$(pwd)"
