@@ -264,7 +264,8 @@ dia_layer_list_realize (GtkWidget *widget)
   GdkWindowAttr attributes;
   int attributes_mask;
   GdkWindow *window;
-  GtkStyle *style;
+  GtkStyleContext *style;
+  GdkRGBA fg;
 
   gtk_widget_set_realized (widget, TRUE);
   gtk_widget_get_allocation (widget, &alloc);
@@ -286,12 +287,10 @@ dia_layer_list_realize (GtkWidget *widget)
   gtk_widget_set_window (widget, window);
   gdk_window_set_user_data (window, widget);
 
-  gtk_widget_style_attach (widget);
+  style = gtk_widget_get_style_context (widget);
 
-  style = gtk_widget_get_style (widget);
-
-  gdk_window_set_background (window,
-                             &style->base[GTK_STATE_NORMAL]);
+  gtk_style_context_get_color (style, GTK_STATE_FLAG_NORMAL, &fg);
+  gdk_window_set_background_rgba (window, &fg);
 }
 
 

@@ -148,7 +148,8 @@ dia_layer_widget_realize (GtkWidget *widget)
   int attributes_mask;
   GtkAllocation alloc;
   GdkWindow *window;
-  GtkStyle *style;
+  GtkStyleContext *style;
+  GdkRGBA fg;
 
   /*GTK_WIDGET_CLASS (parent_class)->realize (widget);*/
 
@@ -177,10 +178,9 @@ dia_layer_widget_realize (GtkWidget *widget)
   gtk_widget_set_window (widget, window);
   gdk_window_set_user_data (window, widget);
 
-  gtk_widget_style_attach (widget);
-
-  style = gtk_widget_get_style (widget);
-  gdk_window_set_background (window, &style->base[GTK_STATE_NORMAL]);
+  style = gtk_widget_get_style_context (widget);
+  gtk_style_context_get_color (style, GTK_STATE_FLAG_NORMAL, &fg);
+  gdk_window_set_background_rgba (window, &fg);
 }
 
 
@@ -306,13 +306,11 @@ dia_layer_widget_draw (GtkWidget      *widget,
                          cairo_t        *ctx)
 {
   GtkAllocation alloc;
-  GdkWindow *window;
   GtkStyleContext *style;
 
   g_return_val_if_fail (widget != NULL, FALSE);
 
   if (gtk_widget_is_drawable (widget)) {
-    window = gtk_widget_get_window (widget);
     style = gtk_widget_get_style_context (widget);
 
     gtk_widget_get_allocation (widget, &alloc);
