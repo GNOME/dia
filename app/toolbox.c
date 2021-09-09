@@ -734,7 +734,7 @@ create_sheets(GtkWidget *parent)
   gchar *sheetname;
   Sheet *sheet;
 
-  separator = gtk_hseparator_new ();
+  separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
   /* add a bit of padding around the separator */
   label = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
   gtk_box_pack_start(GTK_BOX(label), separator, TRUE, TRUE, 3);
