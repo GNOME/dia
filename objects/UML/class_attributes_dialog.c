@@ -549,11 +549,11 @@ _attributes_create_page (GtkNotebook *notebook, UMLClass *umlclass)
   /* Attributes page: */
   page_label = gtk_label_new_with_mnemonic (_("_Attributes"));
 
-  vbox = gtk_vbox_new (FALSE, 6);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
   gtk_widget_show (vbox);
 
-  hbox = gtk_hbox_new (FALSE, 6);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   gtk_widget_show (hbox);
 
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
@@ -596,7 +596,7 @@ _attributes_create_page (GtkNotebook *notebook, UMLClass *umlclass)
   gtk_widget_show (prop_dialog->attributes);
 
 
-  vbox2 = gtk_vbox_new (FALSE, 6);
+  vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
   gtk_widget_show (vbox2);
 
   button = gtk_button_new ();
@@ -656,7 +656,7 @@ _attributes_create_page (GtkNotebook *notebook, UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
   frame = gtk_frame_new (_("Attribute data"));
-  vbox2 = gtk_vbox_new (FALSE, 6);
+  vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
   gtk_container_set_border_width (GTK_CONTAINER (vbox2), 6);
   gtk_container_add (GTK_CONTAINER (frame), vbox2);
   gtk_widget_show (frame);
@@ -750,12 +750,12 @@ _attributes_create_page (GtkNotebook *notebook, UMLClass *umlclass)
   gtk_widget_show (label);
   gtk_widget_show (omenu);
 
-  hbox2 = gtk_hbox_new (FALSE, 0);
+  hbox2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
   gtk_box_pack_start (GTK_BOX (hbox2), omenu, FALSE, TRUE, 0);
   gtk_table_attach (GTK_TABLE (table), hbox2, 1,2,4,5, GTK_FILL,0, 0,3);
   gtk_widget_show (hbox2);
 
-  hbox2 = gtk_hbox_new (FALSE, 6);
+  hbox2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   checkbox = gtk_check_button_new_with_label (_("Class scope"));
   prop_dialog->attr_class_scope = GTK_TOGGLE_BUTTON (checkbox);
   g_signal_connect (checkbox,

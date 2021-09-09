@@ -347,7 +347,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   /* Class page: */
   page_label = gtk_label_new_with_mnemonic (_("_Class"));
 
-  vbox = gtk_vbox_new(FALSE, 5);
+  vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   table = gtk_table_new (3, 2, FALSE);
@@ -383,13 +383,13 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
   gtk_container_add (GTK_CONTAINER (scrolledwindow), entry);
 
-  hbox = gtk_hbox_new(FALSE, 5);
+  hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
   checkbox = gtk_check_button_new_with_label(_("Abstract"));
   prop_dialog->abstract_class = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
-  hbox = gtk_hbox_new(FALSE, 5);
+  hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
   checkbox = gtk_check_button_new_with_label(_("Attributes visible"));
   prop_dialog->attr_vis = GTK_TOGGLE_BUTTON( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
@@ -398,7 +398,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
-  hbox = gtk_hbox_new (FALSE, 5);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
   checkbox = gtk_check_button_new_with_label (_("Operations visible"));
   prop_dialog->op_vis = GTK_TOGGLE_BUTTON (checkbox);
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
@@ -407,8 +407,9 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
-  hbox  = gtk_hbox_new (TRUE, 5);
-  hbox2 = gtk_hbox_new (FALSE, 5);
+  hbox  = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
+  gtk_box_set_homogeneous (GTK_BOX(hbox), TRUE);
+  hbox2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
   checkbox = gtk_check_button_new_with_label (_("Wrap Operations"));
   prop_dialog->op_wrap = GTK_TOGGLE_BUTTON (checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
@@ -422,8 +423,9 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET (hbox2), TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
 
-  hbox = gtk_hbox_new (TRUE, 5);
-  hbox2 = gtk_hbox_new (FALSE, 5);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
+  gtk_box_set_homogeneous (GTK_BOX(hbox), TRUE);
+  hbox2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
   checkbox = gtk_check_button_new_with_label (_("Comments visible"));
   prop_dialog->comments_vis = GTK_TOGGLE_BUTTON ( checkbox );
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
@@ -437,7 +439,7 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (hbox),  GTK_WIDGET (hbox2), TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox),  hbox, FALSE, TRUE, 0);
 
-  hbox = gtk_hbox_new (FALSE, 5);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
   checkbox = gtk_check_button_new_with_label (_("Show documentation tag"));
   prop_dialog->comment_tagging = GTK_TOGGLE_BUTTON (checkbox);
   gtk_box_pack_start (GTK_BOX (hbox), checkbox, TRUE, TRUE, 0);
@@ -469,7 +471,7 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   /** Fonts and Colors selection **/
   page_label = gtk_label_new_with_mnemonic (_("_Style"));
 
-  vbox = gtk_vbox_new(FALSE, 5);
+  vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   table = gtk_table_new (5, 6, TRUE);
@@ -708,7 +710,7 @@ umlclass_get_properties(UMLClass *umlclass, gboolean is_default)
     prop_dialog = g_new0 (UMLClassDialog, 1);
     umlclass->properties_dialog = prop_dialog;
 
-    vbox = gtk_vbox_new(FALSE, 0);
+    vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     g_object_ref_sink(vbox);
     prop_dialog->dialog = vbox;
 

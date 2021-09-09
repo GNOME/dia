@@ -163,7 +163,7 @@ edit_port_declaration_callback (DiaObject *obj,
   gtk_window_set_title(GTK_WINDOW(window) , "Port Declaration");
   gtk_container_set_border_width(GTK_CONTAINER(window),5);
 
-  vbox = gtk_vbox_new (FALSE, 0);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
   gtk_container_add (GTK_CONTAINER (window), vbox);
   gtk_widget_show (vbox);
 

@@ -393,16 +393,16 @@ _templates_create_page (GtkNotebook *notebook, UMLClass *umlclass)
   /* Templates page: */
   page_label = gtk_label_new_with_mnemonic (_("_Templates"));
 
-  vbox = gtk_vbox_new (FALSE, 6);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 
-  hbox2 = gtk_hbox_new (FALSE, 6);
+  hbox2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   checkbox = gtk_check_button_new_with_label (_("Template class"));
   prop_dialog->templ_template = GTK_TOGGLE_BUTTON (checkbox);
   gtk_box_pack_start (GTK_BOX (hbox2), checkbox, TRUE, TRUE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), hbox2, FALSE, TRUE, 0);
 
-  hbox = gtk_hbox_new (FALSE, 6);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
 
 
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
@@ -442,7 +442,7 @@ _templates_create_page (GtkNotebook *notebook, UMLClass *umlclass)
   gtk_widget_show (prop_dialog->templates);
 
 
-  vbox2 = gtk_vbox_new (FALSE, 6);
+  vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
 
   button = gtk_button_new ();
   image = gtk_image_new_from_icon_name ("list-add",
@@ -502,7 +502,7 @@ _templates_create_page (GtkNotebook *notebook, UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
   frame = gtk_frame_new (_("Formal parameter data"));
-  vbox2 = gtk_vbox_new (FALSE, 5);
+  vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox2), 6);
   gtk_container_add (GTK_CONTAINER (frame), vbox2);
   gtk_widget_show (frame);

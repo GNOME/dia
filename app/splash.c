@@ -43,7 +43,7 @@ app_splash_init (const char *fname)
   gtk_window_set_resizable (GTK_WINDOW (splash), FALSE);
   gtk_window_set_position (GTK_WINDOW (splash), GTK_WIN_POS_CENTER);
 
-  vbox = gtk_vbox_new (FALSE, 2);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 2);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
   gtk_container_add (GTK_CONTAINER(splash), vbox);
 

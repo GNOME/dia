@@ -863,10 +863,10 @@ operations_data_create_hbox (UMLClass *umlclass)
 
   prop_dialog = umlclass->properties_dialog;
 
-  hbox = gtk_hbox_new (FALSE, 6);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
 
-  vbox2 = gtk_vbox_new (FALSE, 0);
+  vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 
   /* table containing operation 'name' up to 'query' and also the comment */
   table = gtk_table_new (5, 3, FALSE);
@@ -1031,9 +1031,9 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
 
   prop_dialog = umlclass->properties_dialog;
 
-  vbox2 = gtk_vbox_new (FALSE, 6);
+  vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
   /* Parameters list label */
-  hbox2 = gtk_hbox_new (FALSE, 6);
+  hbox2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
 
   label = gtk_label_new (_("Parameters:"));
   gtk_box_pack_start (GTK_BOX (hbox2), label, FALSE, TRUE, 0);
@@ -1041,7 +1041,7 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 0);
 
   /* Parameters list editor - with of list at least width of buttons*/
-  hbox2 = gtk_hbox_new (FALSE, 6);
+  hbox2 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
 
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled_win),
@@ -1080,7 +1080,8 @@ operations_parameters_editor_create_vbox (UMLClass *umlclass)
   gtk_widget_show (prop_dialog->parameters);
 
 
-  vbox3 = gtk_vbox_new (TRUE, 6);
+  vbox3 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
+  gtk_box_set_homogeneous (GTK_BOX(vbox3), TRUE);
 
 
   button = gtk_button_new ();
@@ -1262,9 +1263,9 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
 
   prop_dialog = umlclass->properties_dialog;
 
-  vbox2 = gtk_vbox_new(FALSE, 5);
+  vbox2 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
   frame = gtk_frame_new(_("Parameter data"));
-  vbox3 = gtk_vbox_new(FALSE, 5);
+  vbox3 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox3), 5);
   gtk_container_add (GTK_CONTAINER (frame), vbox3);
   gtk_widget_show(frame);
@@ -1396,10 +1397,10 @@ _operations_create_page (GtkNotebook *notebook,  UMLClass *umlclass)
   /* Operations page: */
   page_label = gtk_label_new_with_mnemonic (_("_Operations"));
 
-  vbox = gtk_vbox_new (FALSE, 6);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 
-  hbox = gtk_hbox_new (FALSE, 6);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
 
   scrolled_win = gtk_scrolled_window_new (NULL, NULL);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_win),
@@ -1447,7 +1448,7 @@ _operations_create_page (GtkNotebook *notebook,  UMLClass *umlclass)
                                        gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
   gtk_widget_show (prop_dialog->operations);
 
-  vbox2 = gtk_vbox_new (FALSE, 6);
+  vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
 
   button = gtk_button_new ();
   image = gtk_image_new_from_icon_name ("list-add",
@@ -1506,7 +1507,7 @@ _operations_create_page (GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 
   frame = gtk_frame_new (_("Operation data"));
-  vbox2 = gtk_vbox_new (FALSE, 0);
+  vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
   hbox = operations_data_create_hbox (umlclass);
   gtk_box_pack_start (GTK_BOX (vbox2), hbox, TRUE, TRUE, 0);
   gtk_container_add (GTK_CONTAINER (frame), vbox2);
@@ -1514,7 +1515,7 @@ _operations_create_page (GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
 
   /* parameter stuff below operation stuff */
-  hbox = gtk_hbox_new (FALSE, 6);
+  hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   vbox3 = operations_parameters_editor_create_vbox (umlclass);
   gtk_box_pack_start (GTK_BOX (hbox), vbox3, TRUE, TRUE, 6);
 

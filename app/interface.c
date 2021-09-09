@@ -341,7 +341,7 @@ create_zoom_widget(DDisplay *ddisp) {
 /**
  * close_notebook_page_callback:
  * @button: The notebook close button.
- * @user_data: Container widget (e.g. VBox).
+ * @user_data: Container widget (e.g. Box).
  *
  * Since: dawn-of-time
  */
@@ -518,7 +518,7 @@ use_integrated_ui_for_display_shell (DDisplay *ddisp, char *title)
   gtk_box_pack_start( GTK_BOX(tab_label_container), label, FALSE, FALSE, 0 );
   gtk_widget_show (label);
   /* Create a new tab page */
-  ddisp->container = gtk_vbox_new(FALSE, 0);
+  ddisp->container = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 
   /* <from GEdit> */
   /* don't allow focus on the close button */
@@ -673,7 +673,7 @@ create_display_shell (DDisplay *ddisp,
   gtk_container_set_border_width (GTK_CONTAINER (table), 2);
   if (use_mbar)
   {
-      root_vbox = gtk_vbox_new (FALSE, 1);
+      root_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
       gtk_container_add (GTK_CONTAINER (ddisp->shell), root_vbox);
       gtk_box_pack_end (GTK_BOX (root_vbox), table, TRUE, TRUE, 0);
   }
@@ -972,7 +972,7 @@ create_integrated_ui (void)
 		    G_CALLBACK (toolbox_destroy),
 		      window);
 
-  main_vbox = gtk_vbox_new (FALSE, 1);
+  main_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
   gtk_container_set_border_width (GTK_CONTAINER (main_vbox), 1);
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
   gtk_widget_show (main_vbox);

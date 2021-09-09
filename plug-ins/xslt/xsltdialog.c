@@ -92,7 +92,7 @@ xslt_dialog_create (void)
 
   box = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
-  vbox = gtk_vbox_new (FALSE, 5);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
   gtk_container_set_border_width (GTK_CONTAINER (box), 10);
 
@@ -122,7 +122,7 @@ xslt_dialog_create (void)
 
   gtk_box_pack_start (GTK_BOX (box), vbox, FALSE, TRUE, 0);
 
-  vbox = gtk_vbox_new (FALSE, 5);
+  vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 5);
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
   gtk_container_set_border_width (GTK_CONTAINER (box), 10);
 
