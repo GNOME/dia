@@ -22,8 +22,6 @@
 
 #include <gtk/gtk.h>
 
-#include "dia-autoptr.h"
-
 #pragma once
 
 G_BEGIN_DECLS

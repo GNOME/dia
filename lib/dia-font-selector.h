@@ -22,7 +22,6 @@
 
 #include <gtk/gtk.h>
 
-#include "dia-autoptr.h"
 #include "font.h"
 
 G_BEGIN_DECLS

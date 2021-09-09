@@ -26,7 +26,6 @@
 #include <gtk/gtk.h>
 
 #include "arrows.h"
-#include "dia-autoptr.h"
 #include "dia-arrow-selector.h"
 
 G_BEGIN_DECLS

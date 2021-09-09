@@ -20,7 +20,6 @@
 
 #include <gtk/gtk.h>
 
-#include "dia-autoptr.h"
 #include "dia-layer.h"
 #include "dia-layer-editor.h"
 

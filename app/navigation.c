@@ -24,7 +24,6 @@
 
 #include <gtk/gtk.h>
 
-#include "dia-autoptr.h"
 #include "diagram.h"
 #include "display.h"
 #include "renderer/diacairo.h"

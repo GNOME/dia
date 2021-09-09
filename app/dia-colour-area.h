@@ -21,7 +21,6 @@
 #include <gtk/gtk.h>
 
 #include "color.h"
-#include "dia-autoptr.h"
 
 G_BEGIN_DECLS
 

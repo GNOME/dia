@@ -22,8 +22,6 @@
 
 #include <gtk/gtk.h>
 
-#include "dia-autoptr.h"
-
 G_BEGIN_DECLS
 
 #define DIA_TYPE_SIZE_SELECTOR dia_size_selector_get_type ()

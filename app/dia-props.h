@@ -21,7 +21,6 @@
 
 #pragma once
 
-#include "dia-autoptr.h"
 #include "diagram.h"
 
 #include <gtk/gtk.h>

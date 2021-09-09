@@ -25,7 +25,6 @@
 #include <gtk/gtk.h>
 
 #include "diagramdata.h"
-#include "dia-autoptr.h"
 #include "dia-layer-widget.h"
 
 G_BEGIN_DECLS

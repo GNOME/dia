@@ -23,7 +23,6 @@
 
 #include <gtk/gtk.h>
 
-#include "dia-autoptr.h"
 #include "dia-app-enums.h"
 
 G_BEGIN_DECLS
