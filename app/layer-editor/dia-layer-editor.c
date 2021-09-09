@@ -308,6 +308,7 @@ dia_layer_editor_init (DiaLayerEditor *self)
 
   gtk_container_set_border_width (GTK_CONTAINER (self), 6);
   g_object_set (self, "width-request", 250, NULL);
+  gtk_orientable_set_orientation (GTK_ORIENTABLE(self), GTK_ORIENTATION_VERTICAL);
 
   priv->diagram = NULL;
 

@@ -115,6 +115,7 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   GtkTreeIter iter;
   GtkCellRenderer *renderer;
 
+  gtk_orientable_set_orientation (GTK_ORIENTABLE(fs), GTK_ORIENTATION_VERTICAL);
   fs->line_store = gtk_list_store_new (N_COL, DIA_TYPE_LINE_STYLE);
 
   for (int i = 0; i <= DIA_LINE_STYLE_DOTTED; i++) {

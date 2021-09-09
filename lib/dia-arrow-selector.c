@@ -136,6 +136,7 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   GtkTreeIter iter;
   GtkCellRenderer *renderer;
 
+  gtk_orientable_set_orientation (GTK_ORIENTABLE(as), GTK_ORIENTATION_VERTICAL);
   as->arrow_store = gtk_list_store_new (N_COL, DIA_TYPE_ARROW);
 
   for (int i = ARROW_NONE; i < MAX_ARROW_TYPE; ++i) {
