@@ -64,7 +64,8 @@ dia_ruler_draw (GtkWidget *widget,
   DiaRuler *ruler = DIA_RULER (widget);
 
   if (gtk_widget_is_drawable (widget)) {
-    GtkStyle *style = gtk_widget_get_style (widget);
+    GtkStyleContext *style = gtk_widget_get_style_context (widget);
+    GdkRGBA fg;
     PangoLayout *layout;
     int x, y, dx, dy, width, height;
     real pos;
@@ -79,7 +80,10 @@ dia_ruler_draw (GtkWidget *widget,
     dx = (ruler->orientation == GTK_ORIENTATION_VERTICAL) ? width/3 : 0;
     dy = (ruler->orientation == GTK_ORIENTATION_HORIZONTAL) ? height/3 : 0;
 
-    gdk_cairo_set_source_color (cr, &style->text[gtk_widget_get_state(widget)]);
+    gtk_style_context_get_color (style,
+                                 gtk_widget_get_state_flags (widget),
+                                 &fg);
+    gdk_cairo_set_source_rgba (cr, &fg);
     cairo_set_line_width (cr, 1);
 
     pos = ruler->lower;
