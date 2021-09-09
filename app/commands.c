@@ -948,7 +948,11 @@ edit_delete_callback (GtkAction *action)
   DDisplay *ddisp;
 
   /* Avoid crashing while moving or resizing and deleting ... */
-  if (gdk_pointer_is_grabbed ()) {
+  GdkDisplay *display = gdk_display_get_default ();
+  GdkSeat *seat = gdk_display_get_default_seat (display);
+  GdkDevice *device = gdk_seat_get_pointer (seat);
+
+  if (gdk_display_device_is_grabbed (display, device)) {
     gdk_beep ();    /* ... no matter how much sense it makes. */
     return;
   }

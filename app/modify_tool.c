@@ -251,9 +251,12 @@ static int do_if_clicked_handle(DDisplay *ddisp, ModifyTool *tool,
     tool->last_to = handle->pos;
     tool->handle = handle;
     tool->object = obj;
-    gdk_pointer_grab (gtk_widget_get_window(ddisp->canvas), FALSE,
-                      GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
-                      NULL, NULL, event->time);
+    gdk_device_grab (gdk_event_get_device ((GdkEvent*)event),
+                     gtk_widget_get_window(ddisp->canvas),
+                     GDK_OWNERSHIP_APPLICATION,
+                     FALSE,
+                     GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
+                     NULL, event->time);
     tool->start_at = handle->pos;
     tool->start_time = time_micro();
     ddisplay_set_all_cursor_name (NULL, "move");
@@ -300,9 +303,12 @@ modify_button_press (ModifyTool     *tool,
     point_sub(&tool->move_compensate, &clickedpoint);
     tool->break_connections = TRUE; /* unconnect when not grabbing handles, just setting to
 				      * FALSE is not enough. Need to refine the move op, too. */
-    gdk_pointer_grab (gtk_widget_get_window(ddisp->canvas), FALSE,
-                      GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
-                      NULL, NULL, event->time);
+    gdk_device_grab (gdk_event_get_device ((GdkEvent*)event),
+                     gtk_widget_get_window(ddisp->canvas),
+                     GDK_OWNERSHIP_APPLICATION,
+                     FALSE,
+                     GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
+                     NULL, event->time);
     tool->start_at = clickedpoint;
     tool->start_time = time_micro();
     ddisplay_set_all_cursor_name (NULL, "move");
@@ -336,9 +342,12 @@ modify_button_press (ModifyTool     *tool,
                                             tool->y2 - tool->y1);
     ddisplay_flush (ddisp);
 
-    gdk_pointer_grab (gtk_widget_get_window (ddisp->canvas), FALSE,
-                      GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
-                      NULL, NULL, event->time);
+    gdk_device_grab (gdk_event_get_device ((GdkEvent*)event),
+                     gtk_widget_get_window(ddisp->canvas),
+                     GDK_OWNERSHIP_APPLICATION,
+                     FALSE,
+                     GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
+                     NULL, event->time);
   }
 }
 
@@ -361,7 +370,7 @@ modify_button_hold(ModifyTool *tool, GdkEventButton *event,
 	diagram_is_selected(ddisp->diagram, tool->object)) {
       if (textedit_activate_object(ddisp, tool->object, &clickedpoint)) {
 	/* Return tool to normal state - object is text and is in edit */
-	gdk_pointer_ungrab (event->time);
+	gdk_device_ungrab (gdk_event_get_device((GdkEvent*)event), event->time);
 	tool->orig_pos = NULL;
 	tool->state = STATE_NONE;
 	/* Activate Text Edit */
@@ -744,7 +753,7 @@ modify_button_release (ModifyTool     *tool,
   switch (tool->state) {
   case STATE_MOVE_OBJECT:
     /* Return to normal state */
-    gdk_pointer_ungrab (event->time);
+    gdk_device_ungrab (gdk_event_get_device((GdkEvent*)event), event->time);
 
     ddisplay_untransform_coords(ddisp, event->x, event->y, &to.x, &to.y);
     if (!modify_move_already(tool, ddisp, &to)) {
@@ -781,7 +790,7 @@ modify_button_release (ModifyTool     *tool,
     tool->state = STATE_NONE;
     break;
   case STATE_MOVE_HANDLE:
-    gdk_pointer_ungrab (event->time);
+    gdk_device_ungrab (gdk_event_get_device((GdkEvent*)event), event->time);
     tool->state = STATE_NONE;
 
     if (tool->orig_pos != NULL) {
@@ -826,7 +835,7 @@ modify_button_release (ModifyTool     *tool,
     break;
   case STATE_BOX_SELECT:
 
-    gdk_pointer_ungrab (event->time);
+    gdk_device_ungrab (gdk_event_get_device((GdkEvent*)event), event->time);
     /* Remove last box: */
     dia_interactive_renderer_set_selection (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
                                             FALSE, 0, 0, 0, 0);

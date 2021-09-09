@@ -897,8 +897,12 @@ tool_select_update (GtkWidget *w,
   if (tooldata->type != -1) {
     int x, y;
     GdkModifierType mask;
+    GdkWindow *window = gtk_widget_get_parent_window(w);
+    GdkDisplay *display = gdk_window_get_display(window);
+    GdkSeat *seat = gdk_display_get_default_seat (display);
+    GdkDevice *device = gdk_seat_get_pointer (seat);
     /*  get the modifiers  */
-    gdk_window_get_pointer (gtk_widget_get_parent_window(w), &x, &y, &mask);
+    gdk_window_get_device_position (window, device, &x, &y, &mask);
     tool_select (tooldata->type, tooldata->extra_data, tooldata->user_data,
                  w, mask&1);
   }

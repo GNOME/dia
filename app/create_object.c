@@ -110,9 +110,12 @@ create_object_button_press(CreateObjectTool *tool, GdkEventButton *event,
     tool->moving = TRUE;
     tool->last_to = handle2->pos;
 
-    gdk_pointer_grab (gtk_widget_get_window(ddisp->canvas), FALSE,
-		      GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
-		      NULL, NULL, event->time);
+    gdk_device_grab (gdk_event_get_device ((GdkEvent*)event),
+                     gtk_widget_get_window(ddisp->canvas),
+                     GDK_OWNERSHIP_APPLICATION,
+                     FALSE,
+                     GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
+                     NULL, event->time);
     ddisplay_set_all_cursor_name (NULL, "move");
   } else {
     diagram_update_extents(ddisp->diagram);
@@ -142,7 +145,7 @@ create_object_button_release(CreateObjectTool *tool, GdkEventButton *event,
     return; /* could be a legal invariant */
 
   if (tool->moving) {
-    gdk_pointer_ungrab (event->time);
+    gdk_device_ungrab (gdk_event_get_device ((GdkEvent*)event), event->time);
 
     object_add_updates(tool->obj, ddisp->diagram);
     tool->obj->ops->move_handle(tool->obj, tool->handle, &tool->last_to,
@@ -317,7 +320,7 @@ free_create_object_tool(Tool *tool)
   CreateObjectTool *real_tool = (CreateObjectTool *)tool;
 
   if (real_tool->moving) { /* should not get here, but see bug #619246 */
-    gdk_pointer_ungrab (GDK_CURRENT_TIME);
+    // deprecated gdk_pointer_ungrab (GDK_CURRENT_TIME);
     ddisplay_set_all_cursor (default_cursor);
   }
 

@@ -411,14 +411,6 @@ dia_navigation_window_popup (DiaNavigationWindow *self)
     self->cursor = gdk_cursor_new_from_name (gtk_widget_get_display (GTK_WIDGET (self)),
                                              "none");
   }
-
-  /*grab the pointer*/
-  gdk_pointer_grab (gtk_widget_get_window (GTK_WIDGET (self)),
-                    TRUE,
-                    GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK,
-                    gtk_widget_get_window (GTK_WIDGET (self)),
-                    self->cursor,
-                    GDK_CURRENT_TIME);
 }
 
 
@@ -458,6 +450,21 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
   g_object_add_weak_pointer (G_OBJECT (current_popup), (gpointer *) &current_popup);
 
   dia_navigation_window_popup (current_popup);
+
+  /*grab the pointer*/
+  {
+    GdkWindow *window = gtk_widget_get_window (GTK_WIDGET (button));
+    GdkDisplay *display = window ? gdk_window_get_display (window) : gdk_display_get_default ();
+    GdkSeat *seat = gdk_display_get_default_seat (display);
+    GdkDevice *device = gdk_seat_get_pointer (seat);
+    gdk_device_grab (device,
+                     gtk_widget_get_window (GTK_WIDGET (button)),
+                     GDK_OWNERSHIP_APPLICATION,
+                     TRUE,
+                     GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK,
+                     current_popup->cursor,
+                     GDK_CURRENT_TIME);
+  }
 }
 
 

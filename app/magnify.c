@@ -41,9 +41,13 @@ magnify_button_press(MagnifyTool *tool, GdkEventButton *event,
   tool->y = tool->oldy = event->y;
   tool->box_active = TRUE;
   tool->moved = FALSE;
-  gdk_pointer_grab (gtk_widget_get_window(ddisp->canvas), FALSE,
-		    GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
-		    NULL, NULL, event->time);
+
+  gdk_device_grab (gdk_event_get_device ((GdkEvent*)event),
+                   gtk_widget_get_window(ddisp->canvas),
+                   GDK_OWNERSHIP_APPLICATION,
+                   FALSE,
+                   GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
+                   NULL, event->time);
 }
 
 static void
@@ -100,7 +104,7 @@ magnify_button_release (MagnifyTool    *tool,
       ddisplay_zoom(ddisp, &tl, 2.0);
   }
 
-  gdk_pointer_ungrab (event->time);
+  gdk_device_ungrab (gdk_event_get_device((GdkEvent*)event), event->time);
 }
 
 typedef struct intPoint { int x,y; } intPoint;

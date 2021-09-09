@@ -919,7 +919,14 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
     case GDK_MOTION_NOTIFY:
       /*  get the pointer position  */
-      gdk_window_get_pointer (gtk_widget_get_window(canvas), &tx, &ty, &tmask);
+      {
+        GdkWindow *window = gtk_widget_get_window(canvas);
+        GdkDisplay *display = gdk_window_get_display(window);
+        GdkSeat *seat = gdk_display_get_default_seat (display);
+        GdkDevice *device = gdk_seat_get_pointer (seat);
+
+        gdk_window_get_device_position (window, device, &tx, &ty, &tmask);
+      }
       hold_remove_handler();
 
       mevent = (GdkEventMotion *) event;
