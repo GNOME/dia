@@ -286,7 +286,7 @@ prop_dialog_add_properties(PropDialog *dialog, GPtrArray *props)
     GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
     gtk_box_pack_start(GTK_BOX (dialog->widget), swin, TRUE, TRUE, 0);
     gtk_widget_show (swin);
-    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (swin), vbox);
+    gtk_container_add (GTK_CONTAINER (swin), vbox);
     gtk_viewport_set_shadow_type(GTK_VIEWPORT(gtk_bin_get_child(GTK_BIN(swin))), GTK_SHADOW_NONE);
     gtk_widget_show (vbox);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (swin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);

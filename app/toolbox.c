@@ -754,7 +754,7 @@ create_sheets(GtkWidget *parent)
   sheet_wbox = gtk_hwrap_box_new(FALSE);
   gtk_wrap_box_set_justify(GTK_WRAP_BOX(sheet_wbox), GTK_JUSTIFY_TOP);
   gtk_wrap_box_set_line_justify(GTK_WRAP_BOX(sheet_wbox), GTK_JUSTIFY_LEFT);
-  gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(swin), sheet_wbox);
+  gtk_container_add(GTK_CONTAINER(swin), sheet_wbox);
   gtk_widget_show(sheet_wbox);
 
   sheetname = persistence_register_string("last-sheet-selected", _("Flowchart"));

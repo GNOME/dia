@@ -277,8 +277,7 @@ dia_exit_dialog_init (DiaExitDialog *self)
   gtk_tree_view_append_column (GTK_TREE_VIEW (priv->file_list), column);
 
 
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled),
-                                         priv->file_list);
+  gtk_container_add (GTK_CONTAINER (scrolled), priv->file_list);
 
   label = g_object_new (GTK_TYPE_LABEL,
                         "label", _("S_elect the diagrams you want to save:"),

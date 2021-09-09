@@ -323,8 +323,7 @@ dia_layer_editor_init (DiaLayerEditor *self)
   priv->list = dia_layer_list_new ();
 
   gtk_widget_show (priv->list);
-  gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_win),
-                                         priv->list);
+  gtk_container_add (GTK_CONTAINER (scrolled_win), priv->list);
   gtk_container_set_focus_vadjustment (GTK_CONTAINER (priv->list),
                                        gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (scrolled_win)));
 
