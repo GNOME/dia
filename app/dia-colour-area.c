@@ -147,15 +147,12 @@ dia_colour_area_response (GtkDialog     *chooser,
     GdkRGBA gdk_color;
     Color color;
     GtkWidget *selection;
-    guint alpha;
 
     // gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (chooser), &color);
     selection = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (chooser));
-    gtk_color_selection_get_current_color (GTK_COLOR_SELECTION (selection), &gdk_color);
-    alpha = gtk_color_selection_get_current_alpha (GTK_COLOR_SELECTION (selection));
+    gtk_color_selection_get_current_rgba (GTK_COLOR_SELECTION (selection), &gdk_color);
 
     GDK_COLOR_TO_DIA (gdk_color, color);
-    color.alpha = alpha / 65535.0;
 
     if (self->edit_color == FOREGROUND) {
       attributes_set_foreground (&color);
