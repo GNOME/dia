@@ -505,7 +505,6 @@ use_integrated_ui_for_display_shell (DDisplay *ddisp, char *title)
   int width, height;               /* Width/Heigth of the diagram */
   GtkWidget *image;
   GtkWidget *close_button;         /* Close button for the notebook page */
-  GtkRcStyle *rcstyle;
   int notebook_page_index;
 
   ddisp->is_standalone_window = FALSE;
@@ -528,10 +527,11 @@ use_integrated_ui_for_display_shell (DDisplay *ddisp, char *title)
   gtk_button_set_focus_on_click (GTK_BUTTON (close_button), FALSE);
 
   /* make it as small as possible */
-  rcstyle = gtk_rc_style_new ();
-  rcstyle->xthickness = rcstyle->ythickness = 0;
-  gtk_widget_modify_style (close_button, rcstyle);
-  g_clear_object (&rcstyle);
+  // Gtk3 disabled -- Hub
+  // rcstyle = gtk_rc_style_new ();
+  // rcstyle->xthickness = rcstyle->ythickness = 0;
+  // gtk_widget_modify_style (close_button, rcstyle);
+  // g_clear_object (&rcstyle);
 
   image = gtk_image_new_from_icon_name ("window-close-symbolic", GTK_ICON_SIZE_MENU);
 

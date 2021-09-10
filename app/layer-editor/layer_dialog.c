@@ -50,7 +50,6 @@ GtkWidget * create_layer_view_widget (void)
   GtkWidget  *hbox;
   GtkWidget  *label;
   GtkWidget  *hide_button;
-  GtkRcStyle *rcstyle;    /* For hide_button */
   GtkWidget  *image;      /* For hide_button */
 
   /* if layer_dialog were renamed to layer_view_data this would make
@@ -73,10 +72,11 @@ GtkWidget * create_layer_view_widget (void)
   gtk_widget_set_tooltip_text (hide_button, _("Close Layer pane"));
 
   /* make it as small as possible */
-  rcstyle = gtk_rc_style_new ();
-  rcstyle->xthickness = rcstyle->ythickness = 0;
-  gtk_widget_modify_style (hide_button, rcstyle);
-  g_clear_object (&rcstyle);
+  // Gtk3 disabled -- Hub
+  // rcstyle = gtk_rc_style_new ();
+  // rcstyle->xthickness = rcstyle->ythickness = 0;
+  // gtk_widget_modify_style (hide_button, rcstyle);
+  // g_clear_object (&rcstyle);
 
   image = gtk_image_new_from_icon_name ("window-close-symbolic",
                                         GTK_ICON_SIZE_MENU);
