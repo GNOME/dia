@@ -446,9 +446,9 @@ _ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int he
   ddisp->hsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, width, 1, (width-1)/4, width-1));
   ddisp->vsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, height, 1, (height-1)/4, height-1));
 
-  ddisp->hsb = gtk_hscrollbar_new (ddisp->hsbdata);
+  ddisp->hsb = gtk_scrollbar_new (GTK_ORIENTATION_HORIZONTAL, ddisp->hsbdata);
   gtk_widget_set_can_focus (ddisp->hsb, FALSE);
-  ddisp->vsb = gtk_vscrollbar_new (ddisp->vsbdata);
+  ddisp->vsb = gtk_scrollbar_new (GTK_ORIENTATION_VERTICAL, ddisp->vsbdata);
   gtk_widget_set_can_focus (ddisp->vsb, FALSE);
 
   /*  set up the scrollbar observers  */
