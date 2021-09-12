@@ -234,7 +234,7 @@ void
 diagram_print_ps (DiagramData *dia, const gchar* original_filename)
 {
   GtkWidget *dialog;
-  GtkWidget *vbox, *frame, *table, *button;
+  GtkWidget *vbox, *frame, *grid, *button;
   GtkWidget *iscmd, *isofile;
   GtkWidget *cmd, *ofile;
   gboolean cont = FALSE;
@@ -274,21 +274,22 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
   gtk_box_pack_start (GTK_BOX (vbox), frame, TRUE, TRUE, 0);
   gtk_widget_show (frame);
 
-  table = gtk_table_new (2, 2, FALSE);
-  gtk_container_set_border_width (GTK_CONTAINER (table), 5);
-  gtk_table_set_row_spacings (GTK_TABLE (table), 5);
-  gtk_table_set_col_spacings (GTK_TABLE (table), 5);
-  gtk_container_add (GTK_CONTAINER (frame), table);
-  gtk_widget_show (table);
+  grid = gtk_grid_new ();
+  gtk_container_set_border_width (GTK_CONTAINER (grid), 5);
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 5);
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 5);
+  gtk_container_add (GTK_CONTAINER (frame), grid);
+  gtk_widget_show (grid);
 
   iscmd = gtk_radio_button_new_with_label (NULL, _("Printer"));
-  gtk_table_attach (GTK_TABLE (table), iscmd, 0,1, 0,1,
-                    GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), iscmd, 0, 0, 1, 1);
+  gtk_widget_set_vexpand (iscmd, TRUE);
   gtk_widget_show (iscmd);
 
   cmd = gtk_entry_new ();
-  gtk_table_attach (GTK_TABLE (table), cmd, 1,2, 0,1,
-                    GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), cmd, 1, 0, 1, 1);
+  gtk_widget_set_vexpand (cmd, TRUE);
+  gtk_widget_set_hexpand (cmd, TRUE);
   gtk_widget_show (cmd);
 
   g_signal_connect (G_OBJECT (iscmd), "toggled",
@@ -296,14 +297,15 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
 
   isofile = gtk_radio_button_new_with_label (gtk_radio_button_get_group (GTK_RADIO_BUTTON (iscmd)),
                                              _("File"));
-  gtk_table_attach (GTK_TABLE (table), isofile, 0,1, 1,2,
-                    GTK_FILL, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), isofile, 0, 1, 1, 1);
+  gtk_widget_set_vexpand (isofile, TRUE);
   gtk_widget_show (isofile);
 
   ofile = gtk_entry_new ();
   gtk_widget_set_sensitive (ofile, FALSE);
-  gtk_table_attach (GTK_TABLE (table), ofile, 1,2, 1,2,
-                    GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), ofile, 1, 1, 1, 1);
+  gtk_widget_set_vexpand (ofile, TRUE);
+  gtk_widget_set_hexpand (ofile, TRUE);
   gtk_widget_show (ofile);
   g_signal_connect (G_OBJECT (isofile), "toggled",
                     G_CALLBACK (change_entry_state), ofile);

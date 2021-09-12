@@ -854,7 +854,7 @@ operations_data_create_hbox (UMLClass *umlclass)
   UMLClassDialog *prop_dialog;
   GtkWidget *hbox;
   GtkWidget *vbox2;
-  GtkWidget *table;
+  GtkWidget *grid;
   GtkWidget *label;
   GtkWidget *entry;
   GtkWidget *omenu;
@@ -868,10 +868,10 @@ operations_data_create_hbox (UMLClass *umlclass)
 
   vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 
-  /* table containing operation 'name' up to 'query' and also the comment */
-  table = gtk_table_new (5, 3, FALSE);
-  gtk_table_set_col_spacings (GTK_TABLE (table), 5);
-  gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
+  /* grid containing operation 'name' up to 'query' and also the comment */
+  grid = gtk_grid_new ();
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 5);
+  gtk_box_pack_start (GTK_BOX (vbox2), grid, FALSE, FALSE, 0);
 
   label = gtk_label_new (_("Name:"));
   entry = gtk_entry_new ();
@@ -881,8 +881,9 @@ operations_data_create_hbox (UMLClass *umlclass)
                     G_CALLBACK (oper_name_changed),
                     umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), entry, 1, 0, 1, 1);
+  gtk_widget_set_hexpand (entry, TRUE);
 
   label = gtk_label_new (_("Type:"));
   entry = gtk_entry_new ();
@@ -892,8 +893,9 @@ operations_data_create_hbox (UMLClass *umlclass)
                     G_CALLBACK (oper_type_changed),
                     umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
+  gtk_widget_set_hexpand (entry, TRUE);
 
   label = gtk_label_new (_("Stereotype:"));
   entry = gtk_entry_new ();
@@ -903,8 +905,9 @@ operations_data_create_hbox (UMLClass *umlclass)
                     G_CALLBACK (oper_stereotype_changed),
                     umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
+  gtk_widget_set_hexpand (entry, TRUE);
 
 
   label = gtk_label_new(_("Visibility:"));
@@ -921,8 +924,9 @@ operations_data_create_hbox (UMLClass *umlclass)
 
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 					/* left, right, top, bottom */
-  gtk_table_attach (GTK_TABLE (table), label, 2,3,0,1, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), omenu, 3,4,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), label, 2, 0, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), omenu, 3, 0, 1, 1);
+  gtk_widget_set_hexpand (omenu, TRUE);
   /* end: Visibility */
 
   label = gtk_label_new(_("Inheritance type:"));
@@ -936,8 +940,9 @@ operations_data_create_hbox (UMLClass *umlclass)
   dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Polymorphic (virtual)"), DIA_UML_POLYMORPHIC);
   dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Leaf (final)"), DIA_UML_LEAF);
 
-  gtk_table_attach (GTK_TABLE (table), label, 2,3,1,2, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), omenu, 3,4,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), label, 2, 1, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), omenu, 3, 1, 1, 1);
+  gtk_widget_set_hexpand (omenu, TRUE);
   /* end: Inheritance type */
 
   checkbox = gtk_check_button_new_with_label (_("Class scope"));
@@ -947,7 +952,7 @@ operations_data_create_hbox (UMLClass *umlclass)
                     umlclass);
   prop_dialog->op_class_scope = GTK_TOGGLE_BUTTON (checkbox);
 
-  gtk_table_attach (GTK_TABLE (table), checkbox, 2,3,2,3, GTK_FILL,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), checkbox, 2, 2, 1, 1);
 
   checkbox = gtk_check_button_new_with_label (_("Query"));
   g_signal_connect (checkbox,
@@ -955,7 +960,7 @@ operations_data_create_hbox (UMLClass *umlclass)
                     G_CALLBACK (oper_query_changed),
                     umlclass);
   prop_dialog->op_query = GTK_TOGGLE_BUTTON (checkbox);
-  gtk_table_attach (GTK_TABLE (table), checkbox, 3,4,2,3, GTK_FILL,0, 2,0);
+  gtk_grid_attach (GTK_GRID (grid), checkbox, 3, 2, 1, 1);
 
   label = gtk_label_new (_("Comment:"));
   scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
@@ -975,8 +980,9 @@ operations_data_create_hbox (UMLClass *umlclass)
   gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (entry),TRUE);
 
 
-  gtk_table_attach (GTK_TABLE (table), label, 4,5,0,1, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), scrolledwindow, 4,5,1,3, GTK_FILL | GTK_EXPAND,0, 0,0);
+  gtk_grid_attach (GTK_GRID (grid), label, 4, 0, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), scrolledwindow, 4, 1, 1, 2);
+  gtk_widget_set_hexpand (scrolledwindow, TRUE);
   gtk_box_pack_start (GTK_BOX (hbox), vbox2, TRUE, TRUE, 0);
 
   return hbox;
@@ -1255,7 +1261,7 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   GtkWidget *vbox2;
   GtkWidget *frame;
   GtkWidget *vbox3;
-  GtkWidget *table;
+  GtkWidget *grid;
   GtkWidget *label;
   GtkWidget *entry;
   GtkWidget *scrolledwindow;
@@ -1271,9 +1277,9 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   gtk_widget_show(frame);
   gtk_box_pack_start (GTK_BOX (vbox2), frame, FALSE, TRUE, 0);
 
-  table = gtk_table_new (3, 4, FALSE);
-  gtk_table_set_col_spacings (GTK_TABLE (table), 5);
-  gtk_box_pack_start (GTK_BOX (vbox3), table, FALSE, FALSE, 0);
+  grid = gtk_grid_new ();
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 5);
+  gtk_box_pack_start (GTK_BOX (vbox3), grid, FALSE, FALSE, 0);
 
   label = gtk_label_new (_("Name:"));
   entry = gtk_entry_new ();
@@ -1283,8 +1289,9 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
                     G_CALLBACK (param_name_changed),
                     umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), entry, 1, 0, 1, 1);
+  gtk_widget_set_hexpand(entry, TRUE);
 
   label = gtk_label_new (_("Type:"));
   entry = gtk_entry_new ();
@@ -1294,8 +1301,9 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
                     G_CALLBACK (param_type_changed),
                     umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
+  gtk_widget_set_hexpand(entry, TRUE);
 
   label = gtk_label_new (_("Def. value:"));
   gtk_widget_set_tooltip_text (label, _("Default value"));
@@ -1306,8 +1314,9 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
                     G_CALLBACK (param_value_changed),
                     umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,2,3, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,2,3, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
+  gtk_widget_set_hexpand(entry, TRUE);
 
   label = gtk_label_new (_("Comment:"));
   scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
@@ -1328,12 +1337,13 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (entry),TRUE);
 
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 2,3,1,2, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), scrolledwindow, 3,4,1,3, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), label, 2, 1, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), scrolledwindow, 3, 1, 1, 1);
+  gtk_widget_set_hexpand(scrolledwindow, TRUE);
 
   label = gtk_label_new (_("Direction:"));
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 2,3,0,1, GTK_FILL,0, 0,3);
+  gtk_grid_attach (GTK_GRID (grid), label,  2, 0, 1, 1);
 
   prop_dialog->param_kind = omenu = dia_option_menu_new ();
   g_signal_connect (G_OBJECT (omenu),
@@ -1345,7 +1355,7 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
   dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Out"), DIA_UML_OUT);
   dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("In & Out"), DIA_UML_INOUT);
   dia_option_menu_set_active (DIA_OPTION_MENU (omenu), DIA_UML_UNDEF_KIND);
-  gtk_table_attach (GTK_TABLE (table), omenu, 3,4,0,1, GTK_FILL, 0, 0,3);
+  gtk_grid_attach (GTK_GRID (grid), omenu, 3, 0, 1, 1);
 
   return vbox2;
 }

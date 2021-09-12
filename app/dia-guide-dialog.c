@@ -148,7 +148,7 @@ dia_guide_dialog_init (DiaGuideDialog *self)
   GtkWidget *dialog_vbox;
   GtkWidget *label;
   GtkAdjustment *adj;
-  GtkWidget *table;
+  GtkWidget *grid;
   const gdouble UPPER_LIMIT = G_MAXDOUBLE;
 
   gtk_window_set_title (GTK_WINDOW (self), _("Add New Guide"));
@@ -163,20 +163,18 @@ dia_guide_dialog_init (DiaGuideDialog *self)
 
   dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
 
-  table = gtk_table_new (3, 3, FALSE);
-  gtk_container_set_border_width (GTK_CONTAINER (table), 6);
-  gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-  gtk_table_set_col_spacings (GTK_TABLE (table), 6);
+  grid = gtk_grid_new ();
+  gtk_container_set_border_width (GTK_CONTAINER (grid), 6);
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
 
   label = gtk_label_new (_("Orientation"));
   g_object_set (label, "xalign", 1.0, NULL);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1, 0,1,
-                    GTK_FILL, GTK_FILL, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
   gtk_widget_show (label);
 
   priv->orientation_menu = dia_option_menu_new ();
-  gtk_table_attach (GTK_TABLE (table), priv->orientation_menu, 1,2, 0,1,
-                    GTK_FILL, GTK_FILL, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), priv->orientation_menu, 1, 0, 1, 1);
   dia_option_menu_add_item (DIA_OPTION_MENU (priv->orientation_menu), _("Horizontal"), GTK_ORIENTATION_HORIZONTAL);
   dia_option_menu_add_item (DIA_OPTION_MENU (priv->orientation_menu), _("Vertical"), GTK_ORIENTATION_VERTICAL);
   dia_option_menu_set_active (DIA_OPTION_MENU (priv->orientation_menu), GTK_ORIENTATION_HORIZONTAL);
@@ -184,20 +182,19 @@ dia_guide_dialog_init (DiaGuideDialog *self)
 
   label = gtk_label_new (_("Position"));
   g_object_set (label, "xalign", 1.0, NULL);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1, 1,2,
-                    GTK_FILL, GTK_FILL, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
   gtk_widget_show (label);
 
   adj = GTK_ADJUSTMENT (gtk_adjustment_new (1.0, 0.0, UPPER_LIMIT, 0.1, 10.0, 0));
   priv->position_entry = gtk_spin_button_new (adj, 1.0, 3);
   gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (priv->position_entry), TRUE);
-  gtk_table_attach (GTK_TABLE (table), priv->position_entry, 1,2, 1,2,
-                    GTK_FILL|GTK_EXPAND, GTK_FILL, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), priv->position_entry, 1, 1, 1, 1);
+  gtk_widget_set_hexpand (priv->position_entry, TRUE);
   gtk_widget_show (priv->position_entry);
 
-  gtk_widget_show (table);
+  gtk_widget_show (grid);
 
-  gtk_box_pack_start (GTK_BOX (dialog_vbox), table, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox), grid, TRUE, TRUE, 0);
   gtk_widget_show (dialog_vbox);
 }
 

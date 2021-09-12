@@ -377,7 +377,7 @@ _templates_create_page (GtkNotebook *notebook, UMLClass *umlclass)
   GtkWidget *vbox;
   GtkWidget *vbox2;
   GtkWidget *hbox2;
-  GtkWidget *table;
+  GtkWidget *grid;
   GtkWidget *entry;
   GtkWidget *checkbox;
   GtkWidget *scrolled_win;
@@ -508,9 +508,9 @@ _templates_create_page (GtkNotebook *notebook, UMLClass *umlclass)
   gtk_widget_show (frame);
   gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, TRUE, 0);
 
-  table = gtk_table_new (2, 2, FALSE);
-  gtk_table_set_col_spacings (GTK_TABLE (table), 6);
-  gtk_box_pack_start (GTK_BOX (vbox2), table, FALSE, FALSE, 0);
+  grid = gtk_grid_new ();
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
+  gtk_box_pack_start (GTK_BOX (vbox2), grid, FALSE, FALSE, 0);
 
   label = gtk_label_new (_("Name:"));
   entry = gtk_entry_new ();
@@ -520,8 +520,9 @@ _templates_create_page (GtkNotebook *notebook, UMLClass *umlclass)
                     G_CALLBACK (name_changed),
                     umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,0,1, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,0,1, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), entry, 1, 0, 1, 1);
+  gtk_widget_set_hexpand (entry, TRUE);
 
   label = gtk_label_new (_("Type:"));
   entry = gtk_entry_new ();
@@ -531,8 +532,9 @@ _templates_create_page (GtkNotebook *notebook, UMLClass *umlclass)
                     G_CALLBACK (type_changed),
                     umlclass);
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-  gtk_table_attach (GTK_TABLE (table), label, 0,1,1,2, GTK_FILL,0, 0,0);
-  gtk_table_attach (GTK_TABLE (table), entry, 1,2,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
+  gtk_widget_set_hexpand (entry, TRUE);
 
   gtk_widget_show (vbox2);
 

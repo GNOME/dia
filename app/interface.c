@@ -375,7 +375,7 @@ notebook_switch_page (GtkNotebook *notebook,
 /* Shared helper functions for both UI cases
  */
 static void
-_ddisplay_setup_rulers (DDisplay *ddisp, GtkWidget *shell, GtkWidget *table)
+_ddisplay_setup_rulers (DDisplay *ddisp, GtkWidget *shell, GtkWidget *grid)
 {
   ddisp->hrule = dia_ruler_new (GTK_ORIENTATION_HORIZONTAL, shell, ddisp);
   ddisp->vrule = dia_ruler_new (GTK_ORIENTATION_VERTICAL, shell, ddisp);
@@ -406,11 +406,11 @@ _ddisplay_setup_rulers (DDisplay *ddisp, GtkWidget *shell, GtkWidget *table)
                     G_CALLBACK (_ddisplay_vruler_motion_notify),
                     ddisp);
 
-  /* harder to change position in the table, but we did not do it for years ;) */
-  gtk_table_attach (GTK_TABLE (table), ddisp->hrule, 1, 2, 0, 1,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->vrule, 0, 1, 1, 2,
-                    GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
+  /* harder to change position in the grid, but we did not do it for years ;) */
+  gtk_grid_attach (GTK_GRID (grid), ddisp->hrule, 1, 0, 1, 1);
+  gtk_widget_set_hexpand (ddisp->hrule, TRUE);
+  gtk_grid_attach (GTK_GRID (grid), ddisp->vrule, 0, 1, 1, 1);
+  gtk_widget_set_vexpand (ddisp->vrule, TRUE);
 }
 
 static void
@@ -440,7 +440,7 @@ _ddisplay_setup_events (DDisplay *ddisp, GtkWidget *shell)
 }
 
 static void
-_ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int height)
+_ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *grid, int width, int height)
 {
   /*  The adjustment datums  */
   ddisp->hsbdata = GTK_ADJUSTMENT (gtk_adjustment_new (0, 0, width, 1, (width-1)/4, width-1));
@@ -457,17 +457,17 @@ _ddisplay_setup_scrollbars (DDisplay *ddisp, GtkWidget *table, int width, int he
   g_signal_connect (G_OBJECT (ddisp->vsbdata), "value_changed",
                     G_CALLBACK (ddisplay_vsb_update), ddisp);
 
-  /* harder to change position in the table, but we did not do it for years ;) */
-  gtk_table_attach (GTK_TABLE (table), ddisp->hsb, 0, 2, 2, 3,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->vsb, 2, 3, 0, 2,
-                    GTK_FILL, GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
+  /* harder to change position in the grid, but we did not do it for years ;) */
+  gtk_grid_attach (GTK_GRID (grid), ddisp->hsb, 0, 2, 2, 1);
+  gtk_widget_set_hexpand(ddisp->hsb, TRUE);
+  gtk_grid_attach (GTK_GRID (grid), ddisp->vsb, 2, 0, 1, 2);
+  gtk_widget_set_vexpand(ddisp->vsb, TRUE);
 
   gtk_widget_show (ddisp->hsb);
   gtk_widget_show (ddisp->vsb);
 }
 static void
-_ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *table, gboolean top_left)
+_ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *grid, gboolean top_left)
 {
   GtkWidget *navigation_button;
 
@@ -477,13 +477,11 @@ _ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *table, gboolean top_left
                        _("Pops up the Navigation window."));
   gtk_widget_show(navigation_button);
 
-  /* harder to change position in the table, but we did not do it for years ;) */
+  /* harder to change position in the grid, but we did not do it for years ;) */
   if (top_left)
-    gtk_table_attach (GTK_TABLE (table), navigation_button, 0, 1, 0, 1,
-                      GTK_FILL, GTK_FILL, 0, 0);
+    gtk_grid_attach (GTK_GRID (grid), navigation_button, 0, 0, 1, 1);
   else
-    gtk_table_attach (GTK_TABLE (table), navigation_button, 2, 3, 2, 3,
-                      GTK_FILL, GTK_FILL, 0, 0);
+    gtk_grid_attach (GTK_GRID (grid), navigation_button, 2, 2, 1, 1);
   if (!ddisp->origin)
     ddisp->origin = g_object_ref (navigation_button);
 }
@@ -499,7 +497,7 @@ _ddisplay_setup_navigation (DDisplay *ddisp, GtkWidget *table, gboolean top_left
 static void
 use_integrated_ui_for_display_shell (DDisplay *ddisp, char *title)
 {
-  GtkWidget *table;
+  GtkWidget *grid;
   GtkWidget *label;                /* Text label for the notebook page */
   GtkWidget *tab_label_container;  /* Container to hold text label & close button */
   int width, height;               /* Width/Heigth of the diagram */
@@ -551,33 +549,31 @@ use_integrated_ui_for_display_shell (DDisplay *ddisp, char *title)
   g_object_set_data (G_OBJECT (ddisp->container), "tab-label", label);
   g_object_set_data (G_OBJECT (ddisp->container), "window",    ui.main_window);
 
-  /*  the table containing all widgets  */
-  table = gtk_table_new (3, 3, FALSE);
-  gtk_table_set_col_spacing (GTK_TABLE (table), 0, 1);
-  gtk_table_set_col_spacing (GTK_TABLE (table), 1, 2);
-  gtk_table_set_row_spacing (GTK_TABLE (table), 0, 1);
-  gtk_table_set_row_spacing (GTK_TABLE (table), 1, 2);
-  gtk_container_set_border_width (GTK_CONTAINER (table), 2);
+  /*  the grid containing all widgets  */
+  grid = gtk_grid_new ();
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 2);
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 2);
+  gtk_container_set_border_width (GTK_CONTAINER (grid), 2);
 
-  gtk_box_pack_start( GTK_BOX(ddisp->container), table, TRUE, TRUE, 0 );
+  gtk_box_pack_start( GTK_BOX(ddisp->container), grid, TRUE, TRUE, 0 );
 
   /*  scrollbars, rulers, canvas, menu popup button  */
   ddisp->origin = NULL;
-  _ddisplay_setup_rulers (ddisp, ddisp->container, table);
+  _ddisplay_setup_rulers (ddisp, ddisp->container, grid);
 
   /* Get the width/height of the Notebook child area */
   /* TODO: Fix width/height hardcoded values */
   width = 100;
   height = 100;
-  _ddisplay_setup_scrollbars (ddisp, table, width, height);
-  _ddisplay_setup_navigation (ddisp, table, TRUE);
+  _ddisplay_setup_scrollbars (ddisp, grid, width, height);
+  _ddisplay_setup_navigation (ddisp, grid, TRUE);
 
   ddisp->canvas = dia_canvas_new (ddisp);
 
   /*  place all remaining widgets (no 'origin' anymore, since navigation is top-left */
-  gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), ddisp->canvas, 1, 1, 1, 1);
+  gtk_widget_set_hexpand (ddisp->canvas, TRUE);
+  gtk_widget_set_vexpand (ddisp->canvas, TRUE);
 
   ddisp->common_toolbar = ui.toolbar;
   /* Stand-alone window menubar */
@@ -590,7 +586,7 @@ use_integrated_ui_for_display_shell (DDisplay *ddisp, char *title)
   ddisp->mainpoint_status = NULL;
 
   gtk_widget_show (ddisp->container);
-  gtk_widget_show (table);
+  gtk_widget_show (grid);
   display_rulers_show (ddisp);
   gtk_widget_show (ddisp->canvas);
 
@@ -626,7 +622,7 @@ create_display_shell (DDisplay *ddisp,
                       char     *title,
                       int       use_mbar)
 {
-  GtkWidget *table, *widget;
+  GtkWidget *grid, *widget;
   GtkWidget *status_hbox;
   GtkWidget *root_vbox = NULL;
   GtkWidget *zoom_hbox, *zoom_label;
@@ -664,22 +660,20 @@ create_display_shell (DDisplay *ddisp,
   g_signal_connect (G_OBJECT (ddisp->shell), "destroy",
 		    G_CALLBACK (ddisplay_destroy), ddisp);
 
-  /*  the table containing all widgets  */
-  table = gtk_table_new (4, 3, FALSE);
-  gtk_table_set_col_spacing (GTK_TABLE (table), 0, 1);
-  gtk_table_set_col_spacing (GTK_TABLE (table), 1, 2);
-  gtk_table_set_row_spacing (GTK_TABLE (table), 0, 1);
-  gtk_table_set_row_spacing (GTK_TABLE (table), 1, 2);
-  gtk_container_set_border_width (GTK_CONTAINER (table), 2);
+  /*  the grid containing all widgets  */
+  grid = gtk_grid_new ();
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 2);
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 2);
+  gtk_container_set_border_width (GTK_CONTAINER (grid), 2);
   if (use_mbar)
   {
       root_vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 1);
       gtk_container_add (GTK_CONTAINER (ddisp->shell), root_vbox);
-      gtk_box_pack_end (GTK_BOX (root_vbox), table, TRUE, TRUE, 0);
+      gtk_box_pack_end (GTK_BOX (root_vbox), grid, TRUE, TRUE, 0);
   }
   else
   {
-      gtk_container_add (GTK_CONTAINER (ddisp->shell), table);
+      gtk_container_add (GTK_CONTAINER (ddisp->shell), grid);
   }
 
 
@@ -699,18 +693,17 @@ create_display_shell (DDisplay *ddisp,
       gtk_frame_set_shadow_type (GTK_FRAME (ddisp->origin), GTK_SHADOW_OUT);
   }
 
-  _ddisplay_setup_rulers (ddisp, ddisp->shell, table);
-  _ddisplay_setup_scrollbars (ddisp, table, width, height);
-  _ddisplay_setup_navigation (ddisp, table, FALSE);
+  _ddisplay_setup_rulers (ddisp, ddisp->shell, grid);
+  _ddisplay_setup_scrollbars (ddisp, grid, width, height);
+  _ddisplay_setup_navigation (ddisp, grid, FALSE);
 
   ddisp->canvas = dia_canvas_new (ddisp);
 
   /*  pack all remaining widgets  */
-  gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,
-                    GTK_FILL, GTK_FILL, 0, 0);
-  gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL,
-                    GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), ddisp->origin, 0, 0, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), ddisp->canvas, 1, 1, 1, 1);
+  gtk_widget_set_vexpand(ddisp->canvas, TRUE);
+  gtk_widget_set_hexpand(ddisp->canvas, TRUE);
 
   /* TODO rob use per window accel */
   ddisp->accel_group = menus_get_display_accels ();
@@ -775,8 +768,7 @@ create_display_shell (DDisplay *ddisp,
   gtk_box_pack_start (GTK_BOX (status_hbox), ddisp->modified_status,
 		      TRUE, TRUE, 0);
 
-  gtk_table_attach (GTK_TABLE (table), status_hbox, 0, 3, 3, 4,
-                    GTK_FILL, GTK_FILL, 0, 0);
+  gtk_grid_attach (GTK_GRID (grid), status_hbox, 0, 3, 3, 1);
 
   display_rulers_show (ddisp);
   gtk_widget_show (ddisp->zoom_status);
@@ -787,7 +779,7 @@ create_display_shell (DDisplay *ddisp,
   gtk_widget_show (ddisp->guide_snap_status);
   gtk_widget_show (ddisp->modified_status);
   gtk_widget_show (status_hbox);
-  gtk_widget_show (table);
+  gtk_widget_show (grid);
   if (use_mbar)
   {
       gtk_widget_show (ddisp->menu_bar);

@@ -112,9 +112,9 @@ prop_dialog_add_raw_with_flags(PropDialog *dialog, GtkWidget *widget,
 static void
 prop_dialog_make_curtable(PropDialog *dialog)
 {
-  GtkWidget *table = gtk_table_new(1,2,FALSE);
-  gtk_table_set_row_spacings(GTK_TABLE(table), 2);
-  gtk_table_set_col_spacings(GTK_TABLE(table), 5);
+  GtkWidget *table = gtk_grid_new();
+  gtk_grid_set_row_spacing(GTK_GRID(table), 2);
+  gtk_grid_set_column_spacing(GTK_GRID(table), 5);
   gtk_widget_show(table);
   prop_dialog_add_raw(dialog,table);
 
@@ -127,17 +127,15 @@ prop_dialog_add_widget(PropDialog *dialog, GtkWidget *label, GtkWidget *widget)
 {
   gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5);
 
-  if (!dialog->curtable) prop_dialog_make_curtable(dialog);
-  gtk_table_attach(GTK_TABLE(dialog->curtable),label,
-                   0,1,
-                   dialog->currow, dialog->currow+1,
-                   GTK_FILL, GTK_FILL|GTK_EXPAND,
-                   0,0);
-  gtk_table_attach(GTK_TABLE(dialog->curtable),widget,
-                   1,2,
-                   dialog->currow, dialog->currow+1,
-                   GTK_FILL|GTK_EXPAND, GTK_FILL|GTK_EXPAND,
-                   0,0);
+  if (!dialog->curtable)
+    prop_dialog_make_curtable(dialog);
+  gtk_grid_attach(GTK_GRID(dialog->curtable), label,
+                  0, dialog->currow, 1, 1);
+  gtk_widget_set_vexpand(label, TRUE);
+  gtk_grid_attach(GTK_GRID(dialog->curtable), widget,
+                  1, dialog->currow, 1, 1);
+  gtk_widget_set_hexpand(widget, TRUE);
+  gtk_widget_set_vexpand(widget, TRUE);
   gtk_widget_show(label);
   gtk_widget_show(widget);
   dialog->currow++;
