@@ -234,7 +234,7 @@ void
 diagram_print_ps (DiagramData *dia, const gchar* original_filename)
 {
   GtkWidget *dialog;
-  GtkWidget *vbox, *frame, *table, *box, *button;
+  GtkWidget *vbox, *frame, *table, *button;
   GtkWidget *iscmd, *isofile;
   GtkWidget *cmd, *ofile;
   gboolean cont = FALSE;
@@ -308,22 +308,20 @@ diagram_print_ps (DiagramData *dia, const gchar* original_filename)
   g_signal_connect (G_OBJECT (isofile), "toggled",
                     G_CALLBACK (change_entry_state), ofile);
 
-  box = gtk_dialog_get_action_area(GTK_DIALOG(dialog));
-
-  button = gtk_button_new_with_label (_("OK"));
+  button = gtk_dialog_add_button (GTK_DIALOG (dialog),
+                                  _("OK"),
+                                  GTK_RESPONSE_OK);
   g_signal_connect (G_OBJECT (button), "clicked",
                     G_CALLBACK (ok_pressed), &cont);
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
-  gtk_box_pack_start (GTK_BOX (box), button, TRUE, TRUE, 0);
   gtk_widget_grab_default (button);
-  gtk_widget_show (button);
 
-  button = gtk_button_new_with_label (_("Cancel"));
+  button = gtk_dialog_add_button (GTK_DIALOG (dialog),
+                                  _("Cancel"),
+                                  GTK_RESPONSE_CANCEL);
   g_signal_connect (G_OBJECT (button), "clicked",
                     G_CALLBACK (gtk_main_quit), NULL);
   gtk_widget_set_can_default (GTK_WIDGET (button), TRUE);
-  gtk_box_pack_start (GTK_BOX(box), button, TRUE, TRUE, 0);
-  gtk_widget_show (button);
 
   /* Set default or old dialog values: */
 #ifdef G_OS_WIN32
