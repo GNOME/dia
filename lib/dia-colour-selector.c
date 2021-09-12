@@ -117,59 +117,44 @@ add_colour (DiaColourSelector *cs, char *hex)
 
 
 static void
-colour_selected (GtkWidget *ok, gpointer userdata)
+colour_response (GtkDialog *dialog, int response, gpointer user_data)
 {
-  DiaColourSelector *cs = DIA_COLOUR_SELECTOR (userdata);
-  GdkRGBA gcol;
-  Color colour;
-  GtkWidget *cs2 = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (cs->dialog));
+  DiaColourSelector *cs = DIA_COLOUR_SELECTOR (user_data);
 
-  gtk_color_selection_get_current_rgba (GTK_COLOR_SELECTION (cs2), &gcol);
+  if (response == GTK_RESPONSE_OK) {
+    GdkRGBA gcol;
+    Color colour;
 
-  GDK_COLOR_TO_DIA (gcol, colour);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (cs->dialog), &gcol);
 
-  dia_colour_selector_set_colour (GTK_WIDGET (cs), &colour);
+    GDK_COLOR_TO_DIA (gcol, colour);
+
+    dia_colour_selector_set_colour (cs, &colour);
+  } else {
+    dia_colour_selector_set_colour (cs, cs->current);
+  }
 
   gtk_widget_destroy (cs->dialog);
   cs->dialog = NULL;
 }
 
-
-static void
-colour_select_cancelled (GtkWidget *ok, gpointer userdata)
-{
-  DiaColourSelector *cs = DIA_COLOUR_SELECTOR (userdata);
-
-  dia_colour_selector_set_colour (cs, cs->current);
-
-  gtk_widget_destroy (cs->dialog);
-  cs->dialog = NULL;
-}
 
 static void
 more_colours (DiaColourSelector *cs)
 {
-  GtkWidget *colorsel;
   GString *palette = g_string_new ("");
-  GtkWidget *button;
   GtkWidget *parent;
   GList *tmplist;
   GdkRGBA gdk_color;
 
-  cs->dialog = gtk_color_selection_dialog_new (_("Select color"));
-  colorsel = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (cs->dialog));
+  parent = gtk_widget_get_toplevel (GTK_WIDGET (cs));
 
-  gtk_color_selection_set_has_opacity_control (GTK_COLOR_SELECTION (colorsel),
-                                               cs->use_alpha);
+  cs->dialog = gtk_color_chooser_dialog_new (_("Select color"), GTK_WINDOW(parent));
 
   color_convert (cs->current, &gdk_color);
-  gtk_color_selection_set_previous_rgba (GTK_COLOR_SELECTION (colorsel),
-                                          &gdk_color);
-  gtk_color_selection_set_current_rgba (GTK_COLOR_SELECTION (colorsel),
-                                          &gdk_color);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (cs->dialog), &gdk_color);
 
   /* avoid crashing if the property dialog is closed before the color dialog */
-  parent = gtk_widget_get_toplevel (GTK_WIDGET (cs));
   if (parent) {
     gtk_window_set_transient_for (GTK_WINDOW (cs->dialog), GTK_WINDOW (parent));
     gtk_window_set_destroy_with_parent (GTK_WINDOW (cs->dialog), TRUE);
@@ -205,26 +190,17 @@ more_colours (DiaColourSelector *cs)
     g_clear_pointer (&spec, g_free);
   }
 
-  g_object_set (gtk_widget_get_settings (GTK_WIDGET (colorsel)),
-                "gtk-color-palette",
-                palette->str,
-                NULL);
-  gtk_color_selection_set_has_palette (GTK_COLOR_SELECTION (colorsel), TRUE);
-  g_string_free (palette, TRUE);
+// Gtk3 disabled -- Hub
+//  g_object_set (gtk_widget_get_settings (GTK_WIDGET (colorsel)),
+//                "gtk-color-palette",
+//                palette->str,
+//                NULL);
+//  gtk_color_selection_set_has_palette (GTK_COLOR_SELECTION (colorsel), TRUE);
+//  g_string_free (palette, TRUE);
 
-  g_object_get (G_OBJECT (cs->dialog), "help-button", &button, NULL);
-  gtk_widget_hide (button);
-
-  g_object_get (G_OBJECT (cs->dialog), "ok-button", &button, NULL);
-  g_signal_connect (G_OBJECT (button),
-                    "clicked",
-                    G_CALLBACK (colour_selected),
-                    cs);
-
-  g_object_get (G_OBJECT (cs->dialog), "cancel-button", &button, NULL);
-  g_signal_connect (G_OBJECT (button),
-                    "clicked",
-                    G_CALLBACK (colour_select_cancelled),
+  g_signal_connect (G_OBJECT (cs->dialog),
+                    "response",
+                    G_CALLBACK (colour_response),
                     cs);
 
   gtk_widget_show (GTK_WIDGET (cs->dialog));

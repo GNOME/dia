@@ -146,11 +146,8 @@ dia_colour_area_response (GtkDialog     *chooser,
   if (response == GTK_RESPONSE_OK) {
     GdkRGBA gdk_color;
     Color color;
-    GtkWidget *selection;
 
-    // gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (chooser), &color);
-    selection = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (chooser));
-    gtk_color_selection_get_current_rgba (GTK_COLOR_SELECTION (selection), &gdk_color);
+    gtk_color_chooser_get_rgba (GTK_COLOR_CHOOSER (chooser), &gdk_color);
 
     GDK_COLOR_TO_DIA (gdk_color, color);
 
@@ -177,7 +174,6 @@ dia_colour_area_edit (DiaColourArea *self)
   GtkWidget *window;
   GdkRGBA gdk_color;
   Color color;
-  GtkWidget *selection;
 
   if (!self->color_select_active) {
     self->stored_foreground = attributes_get_foreground ();
@@ -206,17 +202,12 @@ dia_colour_area_edit (DiaColourArea *self)
     }
   } else {
     window = self->color_select =
-      /*gtk_color_chooser_dialog_new (self->edit_color == FOREGROUND ?
-                                      _("Select foreground color") : _("Select background color"),
-                                      GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (self))));*/
-      gtk_color_selection_dialog_new (self->edit_color == FOREGROUND ?
-                                      _("Select foreground color") : _("Select background color"));
-
-    selection = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (self->color_select));
+      gtk_color_chooser_dialog_new (self->edit_color == FOREGROUND ?
+                                    _("Select foreground color") : _("Select background color"),
+                                    GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (self))));
 
     self->color_select_active = 1;
-    //gtk_color_chooser_set_use_alpha (GTK_COLOR_CHOOSER (window), TRUE);
-    gtk_color_selection_set_has_opacity_control (GTK_COLOR_SELECTION (selection), TRUE);
+    gtk_color_chooser_set_use_alpha (GTK_COLOR_CHOOSER (window), TRUE);
 
     g_signal_connect (G_OBJECT (window), "response",
                       G_CALLBACK (dia_colour_area_response), self);
@@ -225,11 +216,7 @@ dia_colour_area_edit (DiaColourArea *self)
     gtk_widget_show (self->color_select);
   }
 
-  selection =
-    gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (self->color_select));
-
-  gtk_color_selection_set_current_rgba (GTK_COLOR_SELECTION (selection),
-                                         &gdk_color);
+  gtk_color_chooser_set_rgba (GTK_COLOR_CHOOSER (self->color_select), &gdk_color);
 }
 
 
