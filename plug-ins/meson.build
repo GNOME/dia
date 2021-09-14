@@ -21,7 +21,7 @@ subdir('pdf')
 subdir('pgf')
 subdir('postscript')
 subdir('pstricks')
-#subdir('python')  # Non-standard: shared_module
+subdir('python')  # Non-standard: shared_module
 subdir('stress')
 subdir('svg')
 subdir('vdx')

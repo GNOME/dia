@@ -32,7 +32,7 @@ class CFindDialog :
 	def __init__(self, data) :
 		import gi
 
-		gi.require_version('Gtk', '2.0')
+		gi.require_version('Gtk', '3.0')
 
 		with warnings.catch_warnings():
 			warnings.filterwarnings("ignore", category=RuntimeWarning)
