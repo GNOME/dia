@@ -678,33 +678,36 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
 #endif
 }
 
+
 static void
-set_font (DiaRenderer *self, DiaFont *font, real height)
+wpg_renderer_set_font (DiaRenderer *self, DiaFont *font, double height)
 {
   CgmRenderer *renderer = CGM_RENDERER(self);
-  DiaFont *oldfont = renderer->font;
 
-  renderer->font = g_object_ref (font);
-  g_clear_object (&oldfont);
+  g_set_object (&renderer->font, font);
+
   renderer->tcurrent.font_num = FONT_NUM (font);
   renderer->tcurrent.font_height = height;
 }
 
+
 static void
-draw_line(DiaRenderer *self,
-	  Point *start, Point *end,
-	  Color *line_colour)
+draw_line (DiaRenderer *self,
+           Point       *start,
+           Point       *end,
+           Color       *line_colour)
 {
-    CgmRenderer *renderer = CGM_RENDERER(self);
+  CgmRenderer *renderer = CGM_RENDERER (self);
 
-    write_line_attributes(renderer, line_colour);
+  write_line_attributes (renderer, line_colour);
+  write_elhead (renderer->file, CGM_ELEMENT, CGM_POLYLINE, 2 * 2 * REALSIZE);
 
-    write_elhead(renderer->file, CGM_ELEMENT, CGM_POLYLINE, 2 * 2 * REALSIZE);
-    write_real(renderer->file, start->x);
-    write_real(renderer->file, swap_y(renderer, start->y));
-    write_real(renderer->file, end->x);
-    write_real(renderer->file, swap_y(renderer, end->y));
+  write_real (renderer->file, start->x);
+  write_real (renderer->file, swap_y (renderer, start->y));
+  write_real (renderer->file, end->x);
+  write_real (renderer->file, swap_y (renderer, end->y));
 }
+
 
 static void
 draw_polyline(DiaRenderer *self,
@@ -1212,7 +1215,6 @@ export_cgm(DiagramData *data, DiaContext *ctx,
 
   data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
 
-  g_clear_object (&renderer->font);
   g_clear_object (&renderer);
 
   return TRUE;
@@ -1261,14 +1263,14 @@ cgm_renderer_set_property (GObject      *object,
 
   switch (property_id) {
     case PROP_FONT:
-      set_font (DIA_RENDERER (self),
-                g_value_get_object (value),
-                self->tcurrent.font_height);
+      wpg_renderer_set_font (DIA_RENDERER (self),
+                             g_value_get_object (value),
+                             self->tcurrent.font_height);
       break;
     case PROP_FONT_HEIGHT:
-      set_font (DIA_RENDERER (self),
-                self->font,
-                g_value_get_double (value));
+      wpg_renderer_set_font (DIA_RENDERER (self),
+                             self->font,
+                             g_value_get_double (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);

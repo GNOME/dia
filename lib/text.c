@@ -376,7 +376,7 @@ new_text (const char *string,
 {
   Text *text;
 
-  text = g_new(Text, 1);
+  text = g_new0 (Text, 1);
 
   text->font = g_object_ref (font);
   text->height = height;
@@ -430,11 +430,11 @@ text_copy (Text *text)
   Text *copy;
   int i;
 
-  copy = g_new(Text, 1);
+  copy = g_new0 (Text, 1);
   copy->numlines = text->numlines;
-  copy->lines = g_new(TextLine *, text->numlines);
+  copy->lines = g_new0 (TextLine *, text->numlines);
 
-  copy->font = dia_font_copy(text->font);
+  copy->font = dia_font_copy (text->font);
   copy->height = text->height;
   copy->position = text->position;
   copy->color = text->color;
@@ -493,10 +493,7 @@ text_get_height (const Text *text)
 void
 text_set_font (Text *text, DiaFont *font)
 {
-  DiaFont *old_font = text->font;
-
-  text->font = g_object_ref (font);
-  g_clear_object (&old_font);
+  g_set_object (&text->font, font);
 
   for (int i = 0; i < text->numlines; i++) {
     text_line_set_font (text->lines[i], font);
@@ -1292,8 +1289,10 @@ data_text (AttributeNode text_attr, DiaContext *ctx)
   }
 
   text = new_text (string ? string : "", font, height, &pos, &col, align);
+
   g_clear_object (&font);
   g_clear_pointer (&string, g_free);
+
   return text;
 }
 

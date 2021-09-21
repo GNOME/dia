@@ -1010,44 +1010,49 @@ data_filename(DataNode data, DiaContext *ctx)
 }
 
 
-/*!
- * \brief Return the value of a font-type data node.
+/**
+ * data_font:
+ * @data: The data node to read from.
+ * @ctx: The context in which this function is called
  *
- * This handles both the current format (family and style) and the old format (name).
- * @param data The data node to read from.
- * @param ctx The context in which this function is called
- * @return The font value found in the node.  If the node is not a
- *  font node, an error message is registered and NULL is returned.  The
- *  resulting value should be freed after use.
- * \ingroup DiagramXmlIn
+ * This handles both the current format (family and style) and the old
+ * format (name).
+ *
+ * Returns: The font value found in the node. If the node is not a font node,
+ *          an error message is registered and %NULL is returned. The resulting
+ *          value should be freed after use.
  */
 DiaFont *
-data_font(DataNode data, DiaContext *ctx)
+data_font (DataNode data, DiaContext *ctx)
 {
   xmlChar *family;
   DiaFont *font;
 
-  if (data_type(data, ctx)!=DATATYPE_FONT) {
+  if (data_type (data, ctx) != DATATYPE_FONT) {
     dia_context_add_message (ctx, _("Taking font value of non-font node."));
     return NULL;
   }
 
-  family = xmlGetProp(data, (const xmlChar *)"family");
+  family = xmlGetProp (data, (const xmlChar *) "family");
   /* always prefer the new format */
   if (family) {
     DiaFontStyle style;
-    char* style_name = (char *) xmlGetProp(data, (const xmlChar *)"style");
-    style = style_name ? atoi(style_name) : 0;
+    char *style_name = (char *) xmlGetProp (data, (const xmlChar *) "style");
+    style = style_name ? atoi (style_name) : 0;
 
-    font = dia_font_new ((char *)family, style, 1.0);
-    if (family) free(family);
-    if (style_name) xmlFree(style_name);
+    font = dia_font_new ((char *) family, style, 1.0);
+
+    dia_clear_xml_string (&family);
+    dia_clear_xml_string (&style_name);
   } else {
     /* Legacy format support */
-    char *name = (char *)xmlGetProp(data, (const xmlChar *)"name");
-    font = dia_font_new_from_legacy_name(name);
-    free(name);
+    char *name = (char *) xmlGetProp (data, (const xmlChar *) "name");
+
+    font = dia_font_new_from_legacy_name (name);
+
+    dia_clear_xml_string (&name);
   }
+
   return font;
 }
 

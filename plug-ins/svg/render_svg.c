@@ -410,25 +410,26 @@ draw_object(DiaRenderer *self,
 #define dia_svg_dtostr(buf,d) \
   g_ascii_formatd(buf,sizeof(buf),"%g",(d)*renderer->scale)
 
+
 static void
 node_set_text_style (xmlNodePtr      node,
-		     DiaSvgRenderer *renderer,
-		     const DiaFont  *font,
-		     real            font_height,
-		     Alignment       alignment,
-		     Color          *colour)
+                     DiaSvgRenderer *renderer,
+                     const DiaFont  *font,
+                     double          font_height,
+                     Alignment       alignment,
+                     Color          *colour)
 {
-  real saved_width;
-  gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  double saved_width;
+  char d_buf[G_ASCII_DTOSTR_BUF_SIZE];
   DiaSvgRendererClass *svg_renderer_class = DIA_SVG_RENDERER_GET_CLASS (renderer);
   GString *style;
   /* SVG font-size is the (line-) height, from SVG Spec:
    * ... property refers to the size of the font from baseline to baseline when multiple lines of text are set ...
   so we should be able to use font_height directly instead of:
    */
-  real font_size = dia_font_get_size (font) * (font_height / dia_font_get_height (font));
+  double font_size = dia_font_get_size (font) * (font_height / dia_font_get_height (font));
   /* ... but at least Inkscape and Firefox would produce the wrong font-size */
-  const gchar *family = dia_font_get_family(font);
+  const char *family = dia_font_get_family (font);
 
   saved_width = renderer->linewidth;
   renderer->linewidth = 0.001;
@@ -489,6 +490,8 @@ _adjust_space_preserve (xmlNodePtr node,
   if (g_unichar_isspace (uc))
     xmlSetProp (node, (const xmlChar *)"xml:space", (const xmlChar *)"preserve");
 }
+
+
 /*!
  * \brief Support rendering of raw text
  *
@@ -498,14 +501,15 @@ _adjust_space_preserve (xmlNodePtr node,
  * \memberof _SvgRenderer
  */
 static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *colour)
+draw_string (DiaRenderer *self,
+             const char  *text,
+             Point       *pos,
+             Alignment    alignment,
+             Color       *colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
-  gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  char d_buf[G_ASCII_DTOSTR_BUF_SIZE];
   DiaFont *font;
   double font_height;
 
@@ -524,6 +528,7 @@ draw_string(DiaRenderer *self,
   dia_svg_dtostr (d_buf, pos->y);
   xmlSetProp (node, (xmlChar *) "y", (xmlChar *)d_buf);
 }
+
 
 /*!
  * \brief Support rendering of the _TextLine object

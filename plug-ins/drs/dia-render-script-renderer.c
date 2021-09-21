@@ -59,16 +59,16 @@ _node_set_real (xmlNodePtr node, const char *name, real v)
   xmlSetProp (node, (const xmlChar *) name, (xmlChar *) value);
 }
 
+
 static void
-set_font (DiaRenderer *self, DiaFont *font, real height)
+drs_renderer_set_font (DiaRenderer *self, DiaFont *font, double height)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
   const PangoFontDescription *pfd = dia_font_get_description (font);
   char *desc = pango_font_description_to_string (pfd);
 
-  g_clear_object (&renderer->font);
-  renderer->font = font;
+  g_set_object (&renderer->font, font);
   renderer->font_height = height;
 
   node =  xmlNewChild (renderer->root, NULL, (const xmlChar *) "set-font", NULL);
@@ -83,6 +83,7 @@ set_font (DiaRenderer *self, DiaFont *font, real height)
   g_clear_pointer (&desc, g_free);
 }
 
+
 static void
 drs_renderer_set_property (GObject      *object,
                            guint         property_id,
@@ -93,14 +94,14 @@ drs_renderer_set_property (GObject      *object,
 
   switch (property_id) {
     case PROP_FONT:
-      set_font (DIA_RENDERER (self),
-                DIA_FONT (g_value_get_object (value)),
-                self->font_height);
+      drs_renderer_set_font (DIA_RENDERER (self),
+                             DIA_FONT (g_value_get_object (value)),
+                             self->font_height);
       break;
     case PROP_FONT_HEIGHT:
-      set_font (DIA_RENDERER (self),
-                self->font,
-                g_value_get_double (value));
+      drs_renderer_set_font (DIA_RENDERER (self),
+                             self->font,
+                             g_value_get_double (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -129,6 +130,7 @@ drs_renderer_get_property (GObject    *object,
   }
 }
 
+
 /* destructor */
 static void
 drs_renderer_finalize (GObject *object)
@@ -139,8 +141,7 @@ drs_renderer_finalize (GObject *object)
 
   g_queue_free (renderer->parents);
   g_queue_free (renderer->matrices);
-  if (renderer->ctx)
-    dia_context_release (renderer->ctx);
+  g_clear_object (&renderer->ctx);
 
   G_OBJECT_CLASS (drs_renderer_parent_class)->finalize (object);
 }

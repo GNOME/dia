@@ -432,8 +432,9 @@ set_fillstyle(DiaRenderer *self, FillStyle mode)
   }
 }
 
+
 static void
-set_font(DiaRenderer *self, DiaFont *font, real height)
+wpg_renderer_set_font (DiaRenderer *self, DiaFont *font, double height)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
 
@@ -441,18 +442,23 @@ set_font(DiaRenderer *self, DiaFont *font, real height)
 
   const char *family_name;
   DIAG_NOTE(g_message("set_font %f %s", height, font->name));
-  renderer->TextStyle.Height = SC(height);
+  renderer->TextStyle.Height = SC (height);
 
-  family_name = dia_font_get_family(font);
+  g_print ("f: %p h: %f\n", font, height);
 
-  if ((strstr(family_name, "courier")) || (strstr(family_name, "monospace")))
+  g_set_object (&renderer->font, font);
+
+  family_name = dia_font_get_family (font);
+
+  if ((strstr (family_name, "courier")) || (strstr (family_name, "monospace"))) {
     renderer->TextStyle.Font = 0x0DF0;
-  else if ((strstr(family_name, "times")) || (strstr(family_name, "serif")))
+  } else if ((strstr (family_name, "times")) || (strstr (family_name, "serif"))) {
     renderer->TextStyle.Font = 0x1950;
-  else
+  } else {
     renderer->TextStyle.Font = 0x1150; /* Helv */
-
+  }
 }
+
 
 /* Need to translate coord system:
  *
@@ -1011,6 +1017,7 @@ wpg_renderer_get_type (void)
   return object_type;
 }
 
+
 static void
 wpg_renderer_set_property (GObject      *object,
                            guint         property_id,
@@ -1021,20 +1028,21 @@ wpg_renderer_set_property (GObject      *object,
 
   switch (property_id) {
     case PROP_FONT:
-      set_font (DIA_RENDERER (self),
-                DIA_FONT (g_value_get_object (value)),
-                self->font_height);
+      wpg_renderer_set_font (DIA_RENDERER (self),
+                             DIA_FONT (g_value_get_object (value)),
+                             self->font_height);
       break;
     case PROP_FONT_HEIGHT:
-      set_font (DIA_RENDERER (self),
-                self->font,
-                g_value_get_double (value));
+      wpg_renderer_set_font (DIA_RENDERER (self),
+                             self->font,
+                             g_value_get_double (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
       break;
   }
 }
+
 
 static void
 wpg_renderer_get_property (GObject    *object,

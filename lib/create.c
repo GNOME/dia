@@ -40,26 +40,28 @@
 #include "group.h"
 #include "create.h"
 
+
 DiaObject *
-create_standard_text(real xpos, real ypos) {
-    DiaObjectType *otype = object_get_type("Standard - Text");
-    DiaObject *new_obj;
-    Handle *h1, *h2;
-    Point point;
+create_standard_text (double xpos, double ypos)
+{
+  DiaObjectType *otype = object_get_type ("Standard - Text");
+  DiaObject *new_obj;
+  Handle *h1, *h2;
+  Point point;
 
-    if (otype == NULL){
-	message_error(_("Can't find standard object"));
-	return NULL;
-    }
+  if (otype == NULL) {
+    message_error (_("Can't find standard object"));
+    return NULL;
+  }
 
-    point.x = xpos;
-    point.y = ypos;
+  point.x = xpos;
+  point.y = ypos;
 
-    new_obj = otype->ops->create(&point, otype->default_user_data,
-				 &h1, &h2);
+  new_obj = otype->ops->create (&point, otype->default_user_data, &h1, &h2);
 
-    return new_obj;
+  return new_obj;
 }
+
 
 static PropDescription create_element_prop_descs[] = {
     { "elem_corner", PROP_TYPE_POINT },

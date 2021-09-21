@@ -143,8 +143,8 @@ read_objects (xmlNodePtr objects,
 
   obj_node = objects->xmlChildrenNode;
 
-  while ( obj_node != NULL) {
-    if (xmlIsBlankNode(obj_node)) {
+  while (obj_node != NULL) {
+    if (xmlIsBlankNode (obj_node)) {
       obj_node = obj_node->next;
       continue;
     }
@@ -158,54 +158,59 @@ read_objects (xmlNodePtr objects,
 
       version = 0;
       if (versionstr != NULL) {
-	version = atoi(versionstr);
-	xmlFree(versionstr);
+        version = atoi (versionstr);
+        dia_clear_xml_string (&versionstr);
       }
 
-      type = object_get_type((char *)typestr);
+      type = object_get_type ((char *) typestr);
 
       if (!type) {
-	if (g_utf8_validate (typestr, -1, NULL) &&
-	    NULL == g_hash_table_lookup(unknown_objects_hash, typestr))
-	    g_hash_table_insert(unknown_objects_hash, g_strdup(typestr), 0);
-      }
-      else
-      {
-        obj = type->ops->load(obj_node, version, ctx);
-        list = g_list_append(list, obj);
+        if (g_utf8_validate (typestr, -1, NULL) &&
+            g_hash_table_lookup (unknown_objects_hash, typestr) == NULL) {
+          g_hash_table_insert (unknown_objects_hash, g_strdup (typestr), 0);
+        }
+      } else {
+        obj = type->ops->load (obj_node, version, ctx);
+        list = g_list_append (list, obj);
 
-        if (parent)
-        {
+        if (parent) {
           obj->parent = parent;
-          parent->children = g_list_append(parent->children, obj);
+          parent->children = g_list_append (parent->children, obj);
         }
 
-        g_hash_table_insert(objects_hash, g_strdup((char *)id), obj);
+        g_hash_table_insert (objects_hash, g_strdup ((char *) id), obj);
 
         child_node = obj_node->children;
 
-        while(child_node)
-        {
-          if (xmlStrcmp(child_node->name, (const xmlChar *)"children") == 0)
-          {
-	    GList *children_read = read_objects(child_node, objects_hash, ctx, obj, unknown_objects_hash);
-            list = g_list_concat(list, children_read);
+        while (child_node) {
+          if (xmlStrcmp (child_node->name, (const xmlChar *) "children") == 0) {
+            GList *children_read = read_objects (child_node,
+                                                 objects_hash,
+                                                 ctx,
+                                                 obj,
+                                                 unknown_objects_hash);
+            list = g_list_concat (list, children_read);
             break;
           }
           child_node = child_node->next;
         }
       }
-      if (typestr) xmlFree(typestr);
-      if (id) xmlFree (id);
-    } else if (xmlStrcmp(obj_node->name, (const xmlChar *)"group")==0
-               && obj_node->children) {
+
+      dia_clear_xml_string (&typestr);
+      dia_clear_xml_string (&id);
+    } else if (xmlStrcmp (obj_node->name, (const xmlChar *) "group") == 0 &&
+               obj_node->children) {
       /* don't create empty groups */
-      GList *inner_objects = read_objects(obj_node, objects_hash, ctx, NULL, unknown_objects_hash);
+      GList *inner_objects = read_objects (obj_node,
+                                           objects_hash,
+                                           ctx,
+                                           NULL,
+                                           unknown_objects_hash);
 
       if (inner_objects) {
-        obj = group_create(inner_objects);
-	object_load_props(obj, obj_node, ctx);
-	list = g_list_append(list, obj);
+        obj = group_create (inner_objects);
+        object_load_props (obj, obj_node, ctx);
+        list = g_list_append (list, obj);
       }
     } else {
       /* silently ignore other nodes */
@@ -213,8 +218,10 @@ read_objects (xmlNodePtr objects,
 
     obj_node = obj_node->next;
   }
+
   return list;
 }
+
 
 static void
 read_connections(GList *objects, xmlNodePtr layer_node,

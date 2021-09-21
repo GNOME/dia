@@ -414,33 +414,45 @@ dia_font_get_style(const DiaFont* font)
 }
 
 
-const char*
-dia_font_get_family(const DiaFont* font)
+const char *
+dia_font_get_family (const DiaFont *font)
 {
+  g_return_val_if_fail (font != NULL, NULL);
+
   return pango_font_description_get_family(font->pfd);
 }
 
 
 const PangoFontDescription *
-dia_font_get_description (const DiaFont* font)
+dia_font_get_description (const DiaFont *font)
 {
+  g_return_val_if_fail (font != NULL, NULL);
+
   return font->pfd;
 }
 
 
-real
-dia_font_get_height(const DiaFont* font)
+double
+dia_font_get_height (const DiaFont *font)
 {
+  g_return_val_if_fail (font != NULL, 0.0);
+
   return font->height;
 }
 
-real
-dia_font_get_size(const DiaFont* font)
+
+double
+dia_font_get_size (const DiaFont *font)
 {
-  if (!pango_font_description_get_size_is_absolute (font->pfd))
+  g_return_val_if_fail (font != NULL, 0.0);
+
+  if (!pango_font_description_get_size_is_absolute (font->pfd)) {
     g_warning ("dia_font_get_size() : no absolute size");
-  return pdu_to_dcm(pango_font_description_get_size(font->pfd));
+  }
+
+  return pdu_to_dcm (pango_font_description_get_size (font->pfd));
 }
+
 
 void
 dia_font_set_height(DiaFont* font, real height)
@@ -956,13 +968,13 @@ DiaFont*
 dia_font_new_from_legacy_name (const char* name)
 {
   /* do NOT translate anything here !!! */
-  DiaFont* retval;
+  DiaFont *retval = NULL;
   struct _legacy_font* found = NULL;
   real height = 1.0;
   int i;
 
-  for (i = 0; i < G_N_ELEMENTS(legacy_fonts); i++) {
-    if (!strcmp(name, legacy_fonts[i].oldname)) {
+  for (i = 0; i < G_N_ELEMENTS (legacy_fonts); i++) {
+    if (!g_strcmp0 (name, legacy_fonts[i].oldname)) {
       found = &legacy_fonts[i];
       break;
     }

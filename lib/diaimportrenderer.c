@@ -417,22 +417,30 @@ fill_arc (DiaRenderer *renderer, Point *center,
 #endif
 }
 
+
 /*!
  * \brief Draw an ellipse
  * Creates a hollow _Ellipse object.
  * \memberof _DiaImportRenderer
  */
 static void
-draw_ellipse (DiaRenderer *renderer, Point *center,
-              real width, real height,
-              Color *fill, Color *stroke)
+draw_ellipse (DiaRenderer *renderer,
+              Point       *center,
+              double       width,
+              double       height,
+              Color       *fill,
+              Color       *stroke)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
-  DiaObject *object = create_standard_ellipse (center->x - width / 2, center->y - height / 2, width, height);
+  DiaObject *object = create_standard_ellipse (center->x - width / 2,
+                                               center->y - height / 2,
+                                               width,
+                                               height);
 
   _apply_style (self, object, fill, stroke, 0.0);
   _push_object (self, object);
 }
+
 
 /*!
  * \brief Draw a string
@@ -441,7 +449,7 @@ draw_ellipse (DiaRenderer *renderer, Point *center,
  */
 static void
 draw_string (DiaRenderer *renderer,
-             const gchar *text,
+             const char  *text,
              Point       *pos,
              Alignment    alignment,
              Color       *color)
