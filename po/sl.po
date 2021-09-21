@@ -3,30 +3,30 @@
 #
 # Andraz Tori <andraz.tori1@guest.arnes.si>, 2000.
 # Matej Urbančič <mateju@svn.gnome.org>, 2007.
-# Martin Srebotnjak <miles@filmsi.net>, 2007, 2012-2019.
+# Martin Srebotnjak <miles@filmsi.net>, 2007, 2012–2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2020-12-18 14:36+0000\n"
-"PO-Revision-Date: 2021-08-31 23:59+0200\n"
+"POT-Creation-Date: 2021-09-01 16:23+0000\n"
+"PO-Revision-Date: 2021-09-14 21:11+0200\n"
 "Last-Translator: miles\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
-"Language: sl\n"
+"Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. This is not an errror
 #: app/app_procs.c:164
 #, c-format
 msgid "invalid layer range %lu - %lu"
-msgstr "neveljaven obseg plasti %lu - %lu"
+msgstr "neveljaven obseg plasti %lu – %lu"
 
 #: app/app_procs.c:177
 #, c-format
@@ -254,7 +254,7 @@ msgstr "Izhod"
 #: app/filedlg.c:314 app/filedlg.c:500 app/filedlg.c:822
 #: app/layer-editor/dia-layer-properties.c:245 data/ui/sheets-edit-dialog.ui:33
 #: data/ui/sheets-new-dialog.ui:32 data/ui/sheets-remove-dialog.ui:32
-#: lib/diaarrowchooser.c:402 lib/dialinechooser.c:306 lib/widgets.c:394
+#: lib/diaarrowchooser.c:353 lib/dialinechooser.c:306 lib/widgets.c:394
 #: plug-ins/xslt/xsltdialog.c:83
 msgid "_Cancel"
 msgstr "Pre_kliči"
@@ -334,13 +334,13 @@ msgstr "Končnica"
 msgid "Identifier"
 msgstr "Označevalec"
 
-#: app/app_procs.c:1212 app/plugin-manager.c:273
+#: app/app_procs.c:1212 app/plugin-manager.c:274
 msgid "Description"
 msgstr "Opis"
 
 #: app/commands.c:148
 msgid "No print plugin found!"
-msgstr "Vtičnika za tiskanje ni mogoče najti!"
+msgstr "Vstavka za tiskanje ni mogoče najti!"
 
 #: app/commands.c:169
 #, c-format
@@ -480,13 +480,13 @@ msgstr "Potrditev mere diagrama"
 msgid "'%s' creation failed"
 msgstr "Ustvarjanje »%s« ni uspelo"
 
-#: app/defaults.c:45 app/defaults.c:147
+#: app/defaults.c:45 app/defaults.c:148
 msgid "Object defaults"
 msgstr "Privzete vrednosti predmeta"
 
-#: app/defaults.c:47 app/dia-props.c:270 app/find-and-replace.c:551
-#: app/find-and-replace.c:586 app/menus.c:117 app/pagesetup.c:79
-#: app/plugin-manager.c:207 app/properties-dialog.c:60
+#: app/defaults.c:47 app/dia-props.c:270 app/find-and-replace.c:552
+#: app/find-and-replace.c:587 app/menus.c:117 app/pagesetup.c:79
+#: app/plugin-manager.c:208 app/properties-dialog.c:60
 #: data/ui/sheets-main-dialog.ui:314
 msgid "_Close"
 msgstr "_Zapri"
@@ -500,8 +500,8 @@ msgstr "_Uveljavi"
 #: app/layer-editor/dia-layer-properties.c:244 app/pagesetup.c:81
 #: app/properties-dialog.c:62 data/ui/sheets-edit-dialog.ui:44
 #: data/ui/sheets-new-dialog.ui:43 data/ui/sheets-remove-dialog.ui:43
-#: lib/diaarrowchooser.c:403 lib/dialinechooser.c:307
-#: objects/AADL/edit_port_declaration.c:172 plug-ins/xslt/xsltdialog.c:84
+#: lib/diaarrowchooser.c:354 lib/dialinechooser.c:307
+#: objects/AADL/edit_port_declaration.c:174 plug-ins/xslt/xsltdialog.c:84
 msgid "_OK"
 msgstr "V _redu"
 
@@ -509,7 +509,7 @@ msgstr "V _redu"
 msgid "This object has no defaults."
 msgstr "Ta predmet nima privzetih vrednosti."
 
-#: app/defaults.c:113
+#: app/defaults.c:114
 msgid "Defaults: "
 msgstr "Privzeto: "
 
@@ -578,7 +578,7 @@ msgstr "Lociraj"
 msgid "Properties"
 msgstr "Lastnosti"
 
-#: app/diagram_tree_view.c:532 app/exit_dialog.c:274 app/plugin-manager.c:267
+#: app/diagram_tree_view.c:532 app/exit_dialog.c:274 app/plugin-manager.c:268
 #: objects/Database/table.c:177 objects/Database/table.c:220
 #: objects/Misc/n_gon.c:135 objects/UML/association.c:242
 #: objects/UML/class.c:153 objects/UML/large_package.c:134
@@ -591,30 +591,30 @@ msgstr "Ime"
 msgid "Diagram Tree"
 msgstr "Drevo diagrama"
 
-#: app/dia-colour-area.c:182 app/dia-colour-area.c:193
+#: app/dia-colour-area.c:183 app/dia-colour-area.c:194
 msgid "Select foreground color"
 msgstr "Izberite barvo ospredja"
 
-#: app/dia-colour-area.c:182 app/dia-colour-area.c:193
+#: app/dia-colour-area.c:183 app/dia-colour-area.c:194
 msgid "Select background color"
 msgstr "Izberite barvo ozadja"
 
-#: app/dia-line-width-area.c:104 lib/properties.h:643 lib/properties.h:646
+#: app/dia-line-width-area.c:105 lib/properties.h:643 lib/properties.h:646
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Debelina črte"
 
-#: app/dia-line-width-area.c:105 lib/dialogs.c:66
+#: app/dia-line-width-area.c:106 lib/dialogs.c:66
 #: plug-ins/postscript/paginate_psprint.c:320
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: app/dia-line-width-area.c:106 lib/dialogs.c:65
+#: app/dia-line-width-area.c:107 lib/dialogs.c:65
 #: plug-ins/postscript/paginate_psprint.c:312
 msgid "OK"
 msgstr "V redu"
 
-#: app/dia-line-width-area.c:115
+#: app/dia-line-width-area.c:116
 msgid "Line width:"
 msgstr "Debelina črte:"
 
@@ -743,7 +743,7 @@ msgstr "Izbor"
 msgid "Input _Methods"
 msgstr "_Metode vnosa"
 
-#: app/disp_callbacks.c:1264
+#: app/disp_callbacks.c:1274
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -881,43 +881,43 @@ msgstr "Izvozi diagram"
 msgid "Export Options"
 msgstr "Možnosti izvoza"
 
-#: app/find-and-replace.c:486
+#: app/find-and-replace.c:487
 msgid "_Search for:"
 msgstr "_Iskalni niz:"
 
-#: app/find-and-replace.c:499
+#: app/find-and-replace.c:500
 msgid "Replace _with:"
 msgstr "Zame_njaj z:"
 
-#: app/find-and-replace.c:509
+#: app/find-and-replace.c:510
 msgid "_Match case"
 msgstr "_Razlikovanje malih/velikih črk"
 
-#: app/find-and-replace.c:513
+#: app/find-and-replace.c:514
 msgid "Match _entire word only"
 msgstr "Samo _cele besede"
 
-#: app/find-and-replace.c:517
+#: app/find-and-replace.c:518
 msgid "Match _all properties (not just object name)"
 msgstr "Ujemanje _vseh lastnosti (ne le imena predmeta)"
 
-#: app/find-and-replace.c:548 plug-ins/python/select_by.py:68
+#: app/find-and-replace.c:549 plug-ins/python/select_by.py:71
 msgid "Find"
 msgstr "Najdi"
 
-#: app/find-and-replace.c:552 app/find-and-replace.c:591
+#: app/find-and-replace.c:553 app/find-and-replace.c:592
 msgid "_Find"
 msgstr "_Najdi"
 
-#: app/find-and-replace.c:583
+#: app/find-and-replace.c:584
 msgid "Replace"
 msgstr "Zamenjaj"
 
-#: app/find-and-replace.c:587
+#: app/find-and-replace.c:588
 msgid "Replace _All"
 msgstr "Zamenjaj _vse"
 
-#: app/find-and-replace.c:588 app/menus.c:270
+#: app/find-and-replace.c:589 app/menus.c:270
 msgid "_Replace"
 msgstr "_Zamenjaj"
 
@@ -927,31 +927,31 @@ msgstr "_Zamenjaj"
 msgid "%f%%"
 msgstr "%f%%"
 
-#: app/interface.c:640
+#: app/interface.c:645
 msgid "Pops up the Navigation window."
 msgstr "Odpre okno Krmarja."
 
-#: app/interface.c:689
+#: app/interface.c:694
 msgid "Close"
 msgstr "Zapri"
 
-#: app/interface.c:855
+#: app/interface.c:860
 msgid "Diagram menu."
 msgstr "Meni Diagram."
 
-#: app/interface.c:894
+#: app/interface.c:899
 msgid "Zoom"
 msgstr "Povečava"
 
-#: app/interface.c:909
+#: app/interface.c:914
 msgid "Toggles snap-to-grid for this window."
 msgstr "Vključi/izključi pripenjanje na mrežo v tem oknu."
 
-#: app/interface.c:920
+#: app/interface.c:925
 msgid "Toggles object snapping for this window."
 msgstr "Vključi/izključi pripenjanje predmetov v tem oknu."
 
-#: app/interface.c:930
+#: app/interface.c:935
 msgid "Toggles snap-to-guides for this window."
 msgstr "Vključi/izključi pripenjanje na vodila v tem oknu."
 
@@ -1039,7 +1039,7 @@ msgid "You must specify a file, not a directory."
 msgstr "Navesti morate datoteko, ne mape."
 
 #: app/load_save.c:417 plug-ins/dxf/dxf-import.c:1322
-#: plug-ins/wpg/wpg-import.c:504 plug-ins/xfig/xfig-import.c:1300
+#: plug-ins/wpg/wpg-import.c:504 plug-ins/xfig/xfig-import.c:1306
 #: plug-ins/xslt/xslt.c:99
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -1148,7 +1148,7 @@ msgstr "Ustvari nov diagram"
 
 #: app/menus.c:85
 msgid "_Open…"
-msgstr "_Odpri ..."
+msgstr "_Odpri …"
 
 #: app/menus.c:85
 msgid "Open a diagram file"
@@ -1196,7 +1196,6 @@ msgid "Manage plug-ins"
 msgstr "Upravljaj vstavke"
 
 #: app/menus.c:98
-#, fuzzy
 msgid "Diagram _Tree"
 msgstr "Dre_vo diagrama"
 
@@ -1234,7 +1233,7 @@ msgstr "Shrani diagram"
 
 #: app/menus.c:112
 msgid "Save _As…"
-msgstr "Shrani _kot ..."
+msgstr "Shrani _kot …"
 
 #: app/menus.c:112
 msgid "Save the diagram with a new name"
@@ -1339,7 +1338,7 @@ msgstr "Izbriši izbor"
 
 #: app/menus.c:129
 msgid "_Find…"
-msgstr "_Najdi ..."
+msgstr "_Najdi …"
 
 #: app/menus.c:129
 msgid "Search for text"
@@ -1347,7 +1346,7 @@ msgstr "Poišči besedilo"
 
 #: app/menus.c:130
 msgid "_Replace…"
-msgstr "_Zamenjaj ..."
+msgstr "_Zamenjaj …"
 
 #: app/menus.c:130
 msgid "Search and replace text"
@@ -1486,7 +1485,6 @@ msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
 #: app/menus.c:164
-#, fuzzy
 msgid "Best _Fit"
 msgstr "Najboljše _ujemanje"
 
@@ -1594,7 +1592,6 @@ msgid "_Top"
 msgstr "Na v_rh"
 
 #: app/menus.c:195
-#, fuzzy
 msgid "_Middle"
 msgstr "_Na sredini"
 
@@ -1857,30 +1854,29 @@ msgstr "Vključi/izključi pripenjanje na vodnike."
 msgid "The function is not available anymore."
 msgstr "Funkcija ni več na voljo."
 
-#: app/modify_tool.c:437
+#: app/modify_tool.c:438
 msgid "Couldn't get GTK+ settings"
 msgstr "Nastavitev GTK+ ni mogoče pridobiti"
 
 #. build up the user interface
-#: app/plugin-manager.c:205
+#: app/plugin-manager.c:206
 msgid "Plugins"
 msgstr "Vtičniki"
 
-#: app/plugin-manager.c:260
+#: app/plugin-manager.c:261
 msgid "Loaded"
 msgstr "Naloženo"
 
-#: app/plugin-manager.c:282
+#: app/plugin-manager.c:283
 msgid "Load at Startup"
 msgstr "Naloži ob zagonu"
 
-#: app/plugin-manager.c:289
+#: app/plugin-manager.c:290
 msgid "Filename"
 msgstr "Ime datoteke"
 
 #. TRANSLATORS: The user hasn't set a prefered filter
 #: app/preferences.c:692
-#, fuzzy
 msgid "Unset"
 msgstr "Odnastavi"
 
@@ -1915,7 +1911,6 @@ msgid "System"
 msgstr "Sistem"
 
 #: app/sheet-editor/sheets.c:191
-#, fuzzy
 msgid "User"
 msgstr "Uporabnik"
 
@@ -2037,37 +2032,37 @@ msgstr "Ni mogoče interpretirati datoteke lika: »%s«"
 msgid "Sheet must have a Name"
 msgstr "List mora imeti ime"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1426
-#: app/sheet-editor/sheets_dialog_callbacks.c:1432
+#: app/sheet-editor/sheets_dialog_callbacks.c:1427
+#: app/sheet-editor/sheets_dialog_callbacks.c:1433
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "Ni mogoče odpreti »%s«: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1488
+#: app/sheet-editor/sheets_dialog_callbacks.c:1489
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "Ni mogoče odpreti: »%s« za pisanje"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1498
+#: app/sheet-editor/sheets_dialog_callbacks.c:1499
 msgid "a user"
 msgstr "uporabnik"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1512
+#: app/sheet-editor/sheets_dialog_callbacks.c:1513
 #, c-format
 msgid "File: %s"
 msgstr "Datoteka: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1515
+#: app/sheet-editor/sheets_dialog_callbacks.c:1516
 #, c-format
 msgid "Date: %s"
 msgstr "Datum: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1519
+#: app/sheet-editor/sheets_dialog_callbacks.c:1520
 #, c-format
 msgid "For: %s"
 msgstr "Za: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1536
+#: app/sheet-editor/sheets_dialog_callbacks.c:1537
 msgid "add shapes here"
 msgstr "tu dodajte like"
 
@@ -2183,7 +2178,6 @@ msgid "UML"
 msgstr "UML"
 
 #: app/toolbox.c:660
-#, fuzzy
 msgid "All Sheets"
 msgstr "Vsi listi"
 
@@ -2413,7 +2407,6 @@ msgid "_View Defaults"
 msgstr "Po_kaži privzete nastavitve"
 
 #: data/ui/preferences-dialog.ui:960
-#, fuzzy
 msgid "Export Providers"
 msgstr "Izvozni ponudniki"
 
@@ -2529,7 +2522,6 @@ msgid "Type:"
 msgstr "Vrsta:"
 
 #: data/ui/sheets-edit-dialog.ui:208 data/ui/sheets-remove-dialog.ui:91
-#, fuzzy
 msgid "DiaObject"
 msgstr "DiaObject"
 
@@ -2544,12 +2536,10 @@ msgid "Name:"
 msgstr "Ime:"
 
 #: data/ui/sheets-edit-dialog.ui:355 data/ui/sheets-remove-dialog.ui:113
-#, fuzzy
 msgid "Sheet"
 msgstr "List"
 
 #: data/ui/sheets-main-dialog.ui:4
-#, fuzzy
 msgid "Sheets and Objects"
 msgstr "Listi in predmeti"
 
@@ -2775,16 +2765,16 @@ msgctxt "Arrow"
 msgid "Infinite Line"
 msgstr "neskončna črta"
 
-#: lib/arrows.c:2490
+#: lib/arrows.c:2558
 msgid "Arrow head of unknown type"
 msgstr "Glava puščice neznane vrste"
 
-#: lib/arrows.c:2499
+#: lib/arrows.c:2567
 #, c-format
 msgid "Arrow head of type %s has too small dimensions; removing.\n"
 msgstr "Glava puščice vrste %s ima premajhne mere, odstranjena bo.\n"
 
-#: lib/arrows.c:2671
+#: lib/arrows.c:2748
 msgid "unknown arrow"
 msgstr "neznana puščica"
 
@@ -2795,9 +2785,13 @@ msgstr "neznana puščica"
 msgid "Can't find standard object"
 msgstr "Navadnega predmeta ni mogoče najti"
 
-#: lib/diaarrowchooser.c:399
+#: lib/diaarrowchooser.c:350
 msgid "Arrow Properties"
 msgstr "Lastnosti puščice"
+
+#: lib/diaarrowchooser.c:472 lib/dialinechooser.c:336
+msgid "Details…"
+msgstr "Podrobnosti …"
 
 #: lib/diaarrowselector.c:178
 msgid "Size: "
@@ -2821,7 +2815,7 @@ msgid "Other Fonts"
 msgstr "Druge pisave"
 
 #. pathologic case - pixbuf not even supporting PNG?
-#: lib/dia_image.c:315
+#: lib/dia_image.c:313
 #, c-format
 msgid ""
 "Unsupported file format for saving:\n"
@@ -2830,7 +2824,7 @@ msgstr ""
 "Nepodprta vrsta datotek za shranjevanje:\n"
 "%s\n"
 
-#: lib/dia_image.c:318
+#: lib/dia_image.c:316
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -2844,10 +2838,6 @@ msgstr ""
 #: lib/dialinechooser.c:303
 msgid "Line Style Properties"
 msgstr "Lastnosti sloga črte"
-
-#: lib/dialinechooser.c:336
-msgid "Details…"
-msgstr "Podrobnosti …"
 
 #. fs->sizebox = GTK_HBOX(box);
 #: lib/dialinestyleselector.c:153
@@ -2937,15 +2927,15 @@ msgstr "Napaka ob razčlenjevanju pravokotnika."
 msgid "Taking string value of non-string node."
 msgstr "Jemanje vrednosti niza z neniznega vozlišča."
 
-#: lib/dia_xml.c:946
+#: lib/dia_xml.c:948
 msgid "Error in string tag."
 msgstr "Napaka v oznaki niza."
 
-#: lib/dia_xml.c:964
+#: lib/dia_xml.c:966
 msgid "Error in file, string not starting with #"
 msgstr "Napaka v datoteki, niz se ne začenja z #"
 
-#: lib/dia_xml.c:1029
+#: lib/dia_xml.c:1031
 msgid "Taking font value of non-font node."
 msgstr "Jemanje vrednosti pisave nepisavnega vozlišča."
 
@@ -3352,14 +3342,12 @@ msgid "Millimeter"
 msgstr "Milimeter"
 
 #: lib/units.c:54
-#, fuzzy
-#| msgid "AccessPoint"
 msgid "Point"
-msgstr "Dostopna točka"
+msgstr "Točka"
 
 #: lib/units.c:56
 msgid "Pica"
-msgstr ""
+msgstr "Cicero"
 
 #: lib/widgets.c:391
 msgid "Select image file"
@@ -3672,7 +3660,7 @@ msgid " "
 msgstr " "
 
 #: objects/Database/reference.c:150 objects/ER/participation.c:423
-#: objects/FS/flow-ortho.c:673 objects/GRAFCET/vector.c:327
+#: objects/FS/flow-ortho.c:673 objects/GRAFCET/vector.c:326
 #: objects/SADT/arrow.c:492 objects/standard/zigzagline.c:460
 #: objects/UML/association.c:910 objects/UML/component_feature.c:196
 #: objects/UML/dependency.c:400 objects/UML/generalization.c:398
@@ -3681,7 +3669,7 @@ msgid "Add segment"
 msgstr "Dodaj odsek"
 
 #: objects/Database/reference.c:151 objects/ER/participation.c:424
-#: objects/FS/flow-ortho.c:674 objects/GRAFCET/vector.c:328
+#: objects/FS/flow-ortho.c:674 objects/GRAFCET/vector.c:327
 #: objects/SADT/arrow.c:493 objects/standard/zigzagline.c:461
 #: objects/UML/association.c:911 objects/UML/component_feature.c:197
 #: objects/UML/dependency.c:401 objects/UML/generalization.c:399
@@ -4473,7 +4461,7 @@ msgstr "Pomnoži"
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #. FIXME: mark read-only
 #: objects/FS/function.c:1038 objects/Misc/measure.c:185
-#: plug-ins/python/scascale.py:68
+#: plug-ins/python/scascale.py:72
 msgid "Scale"
 msgstr "Povečaj/pomanjšaj"
 
@@ -5512,11 +5500,11 @@ msgstr "N-gram"
 msgid "Star"
 msgstr "Zvezda"
 
-#: objects/Misc/tree.c:624 objects/network/bus.c:623
+#: objects/Misc/tree.c:619 objects/network/bus.c:620
 msgid "Add Handle"
 msgstr "Dodaj ročico"
 
-#: objects/Misc/tree.c:625 objects/network/bus.c:624
+#: objects/Misc/tree.c:620 objects/network/bus.c:621
 msgid "Delete Handle"
 msgstr "Izbriši ročico"
 
@@ -5611,23 +5599,23 @@ msgstr "Absolutni začetni razmik"
 msgid "Absolute end gap"
 msgstr "Absolutni končni razmik"
 
-#: objects/standard/bezier.c:784 objects/standard/beziergon.c:533
+#: objects/standard/bezier.c:800 objects/standard/beziergon.c:533
 msgid "Add Segment"
 msgstr "Dodaj odsek"
 
-#: objects/standard/bezier.c:785 objects/standard/beziergon.c:534
+#: objects/standard/bezier.c:801 objects/standard/beziergon.c:534
 msgid "Delete Segment"
 msgstr "Izbriši odsek"
 
-#: objects/standard/bezier.c:787 objects/standard/beziergon.c:536
+#: objects/standard/bezier.c:803 objects/standard/beziergon.c:536
 msgid "Symmetric control"
 msgstr "Simetrični nadzor"
 
-#: objects/standard/bezier.c:789 objects/standard/beziergon.c:538
+#: objects/standard/bezier.c:805 objects/standard/beziergon.c:538
 msgid "Smooth control"
 msgstr "Mehki nadzor"
 
-#: objects/standard/bezier.c:791 objects/standard/beziergon.c:540
+#: objects/standard/bezier.c:807 objects/standard/beziergon.c:540
 msgid "Cusp control"
 msgstr "Nadzor stika"
 
@@ -5732,11 +5720,11 @@ msgstr "Vsebina besedila"
 msgid "Angle to rotate the outline"
 msgstr "Kot za sukanje orisa"
 
-#: objects/standard/polygon.c:496 objects/standard/polyline.c:630
+#: objects/standard/polygon.c:496 objects/standard/polyline.c:646
 msgid "Add Corner"
 msgstr "Dodaj kot"
 
-#: objects/standard/polygon.c:497 objects/standard/polyline.c:631
+#: objects/standard/polygon.c:497 objects/standard/polyline.c:647
 msgid "Delete Corner"
 msgstr "Izbriši kot"
 
@@ -5891,7 +5879,7 @@ msgstr "Izvedba"
 msgid "Class scope"
 msgstr "Področje razreda"
 
-#: objects/UML/class.c:151 objects/UML/class.c:364 objects/UML/class.c:1904
+#: objects/UML/class.c:151 objects/UML/class.c:364 objects/UML/class.c:1908
 #: sheets/UML.sheet:7
 msgid "Class"
 msgstr "Razred"
@@ -5932,7 +5920,7 @@ msgstr "Vidne opombe"
 msgid "Allow resizing"
 msgstr "Dovoli spreminjanje velikosti"
 
-#: objects/UML/class.c:178 objects/UML/class.c:1901
+#: objects/UML/class.c:178 objects/UML/class.c:1905
 msgid "Template"
 msgstr "Predloga"
 
@@ -6526,7 +6514,6 @@ msgstr ""
 
 #. Quick 'n Nasty hack to mark strings as translatable
 #: plug-ins/layout/layout.cpp:433
-#, fuzzy
 msgid "Grow"
 msgstr "Pusti rasti"
 
@@ -6535,7 +6522,6 @@ msgid "Shrink"
 msgstr "Skrči"
 
 #: plug-ins/layout/layout.cpp:435
-#, fuzzy
 msgid "Heighten"
 msgstr "Zvišaj"
 
@@ -6706,7 +6692,7 @@ msgstr "Izvozni filter za TeX PSTricks"
 msgid "TeX PSTricks macros"
 msgstr "Makri TeX PSTricks"
 
-#: plug-ins/python/pydia-render.c:1076
+#: plug-ins/python/pydia-render.c:1193
 #, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "Ni mogoče odpreti »%s« za pisanje.\n"
@@ -6720,7 +6706,6 @@ msgid "All Object _Properties"
 msgstr "Vse _lastnosti predmeta"
 
 #: plug-ins/python/allsheets.py:85
-#, fuzzy
 msgid "Dia _Sheets Inspection"
 msgstr "Pregled _listov Dia"
 
@@ -6741,7 +6726,6 @@ msgid "Arrange _Objects"
 msgstr "Razporedi pred_mete"
 
 #: plug-ins/python/autolayoutforce.py:125
-#, fuzzy
 msgid "_Layout (force)"
 msgstr "_Postavitev (vsiljeno)"
 
@@ -6772,7 +6756,6 @@ msgstr "Tvorba kode PyDia (PHP)"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/debug_objects.py:30
-#, fuzzy
 msgid "Dia _BoundingBox Debugger"
 msgstr "Razhroščevalnik _okvira Dia"
 
@@ -6780,25 +6763,21 @@ msgstr "Razhroščevalnik _okvira Dia"
 msgid "Dia _Property API Debugger"
 msgstr "Razhroščevalnik API-ja _lastnosti Dia"
 
-#: plug-ins/python/dia_rotate.py:33
-#, fuzzy
+#: plug-ins/python/dia_rotate.py:37
 msgid "Rotate counter-clockwise"
 msgstr "Zavrti nasprotno smeri urnega kazalca"
 
-#: plug-ins/python/dia_rotate.py:48
-#, fuzzy
+#: plug-ins/python/dia_rotate.py:52
 msgid "Rotation around (0,0). Rotation angle in degrees:"
 msgstr "Vrtenje okoli (0,0). Kot vrtenja v stopinjah:"
 
-#: plug-ins/python/dia_rotate.py:127
-#, fuzzy
+#: plug-ins/python/dia_rotate.py:131
 msgid "Simple _Rotation"
 msgstr "Enostavno _vrtenje"
 
 #. XXX: check image, e.g. existing file name
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/diadissect.py:166
-#, fuzzy
 msgid "Dissect"
 msgstr "Seciraj"
 
@@ -6849,11 +6828,11 @@ msgstr "Izvoz predmeta PyDia"
 msgid "PyDia Render Export"
 msgstr "Izvoz upodobitve PyDia"
 
-#: plug-ins/python/gtkcons.py:385
+#: plug-ins/python/gtkcons.py:388
 msgid "Python Dia Console"
 msgstr "Konzola Python Dia"
 
-#: plug-ins/python/gtkcons.py:390
+#: plug-ins/python/gtkcons.py:393
 msgid "_Python Console"
 msgstr "_Konzola Python"
 
@@ -6879,54 +6858,51 @@ msgid "PyDia _Docs"
 msgstr "_Dokumenti PyDia"
 
 #: plug-ins/python/pydiadoc.py:270
-#, fuzzy
 msgid "PyDia Docs _Update"
 msgstr "_Posodobitev dokumentov PyDia"
 
-#: plug-ins/python/scascale.py:40
+#: plug-ins/python/scascale.py:44
 msgid "Simple Scaling"
 msgstr "Enostavno prilagajanje velikosti"
 
-#: plug-ins/python/scascale.py:153
+#: plug-ins/python/scascale.py:157
 msgid "Simple _Scaling"
 msgstr "Enostavno prila_gajanje velikosti"
 
-#: plug-ins/python/select_by.py:40
+#: plug-ins/python/select_by.py:43
 msgid "Select by name"
 msgstr "Izberite po imenu"
 
-#: plug-ins/python/select_by.py:55
+#: plug-ins/python/select_by.py:58
 msgid "Enter name"
 msgstr "Vnesite ime"
 
-#: plug-ins/python/select_by.py:144
+#: plug-ins/python/select_by.py:147
 msgid "_Name"
 msgstr "_Ime"
 
-#: plug-ins/python/select_by.py:147
+#: plug-ins/python/select_by.py:150
 msgid "_Fill Color"
 msgstr "Barva _polnila"
 
-#: plug-ins/python/select_by.py:150
+#: plug-ins/python/select_by.py:153
 msgid "_Line Color"
 msgstr "Barva _črte"
 
-#: plug-ins/python/select_by.py:153
+#: plug-ins/python/select_by.py:156
 msgid "_Text Color"
 msgstr "Barva _besedila"
 
-#: plug-ins/python/select_by.py:156
+#: plug-ins/python/select_by.py:159
 msgid "_Size"
 msgstr "_Velikost"
 
 #: plug-ins/python/select_empty.py:30
-#, fuzzy
 msgid "_Empty"
 msgstr "_Sprazni"
 
 #. dia-python keeps a reference to the renderer class and uses it on demand
 #: plug-ins/python/uninline_data.py:52
-#, fuzzy
 msgid "Uninline Images"
 msgstr "Ne vdelane slike"
 
@@ -7209,157 +7185,157 @@ msgstr "Napaka ob branju zaključne puščice"
 msgid "Unknown arrow type %d\n"
 msgstr "Neznana vrsta puščice: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:395
+#: plug-ins/xfig/xfig-import.c:401
 #, c-format
 msgid "Depth %d out of range, only 0-%d allowed.\n"
 msgstr "Globina %d je zunaj obsega, dovoljeno je le 0-%d.\n"
 
-#: plug-ins/xfig/xfig-import.c:443
+#: plug-ins/xfig/xfig-import.c:449
 msgid "Couldn't read ellipse info."
 msgstr "Ni mogoče prebrati podatkov o elipsi."
 
-#: plug-ins/xfig/xfig-import.c:512
+#: plug-ins/xfig/xfig-import.c:518
 msgid "Couldn't read polyline info.\n"
 msgstr "Ni mogoče prebrati podatkov o mnogokotni črti.\n"
 
-#: plug-ins/xfig/xfig-import.c:527
+#: plug-ins/xfig/xfig-import.c:533
 msgid "Couldn't read flipped bit."
 msgstr "Ni mogoče prebrati obrnjenega bita"
 
-#: plug-ins/xfig/xfig-import.c:545
+#: plug-ins/xfig/xfig-import.c:551
 msgid "Negative corner radius; negating"
 msgstr "Negativna velikost kota, negirano"
 
-#: plug-ins/xfig/xfig-import.c:588
+#: plug-ins/xfig/xfig-import.c:594
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Neznana podvrsta mnogokotne črte: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:740 plug-ins/xfig/xfig-import.c:772
+#: plug-ins/xfig/xfig-import.c:746 plug-ins/xfig/xfig-import.c:778
 msgid "Couldn't read spline info."
 msgstr "Podatkov o zlepku ni mogoče prebrati."
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:759 plug-ins/xfig/xfig-import.c:776
+#: plug-ins/xfig/xfig-import.c:765 plug-ins/xfig/xfig-import.c:782
 msgid "Cannot convert approximated spline yet."
 msgstr "Zaenkrat še ni mogoče pretvoriti približka zlepka."
 
-#: plug-ins/xfig/xfig-import.c:814
+#: plug-ins/xfig/xfig-import.c:820
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Neznana podvrsta zlepka: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:879
+#: plug-ins/xfig/xfig-import.c:885
 msgid "Couldn't read arc info."
 msgstr "Ni mogoče prebrati podatkov o loku."
 
 #. set new fill property on arc?
-#: plug-ins/xfig/xfig-import.c:907
+#: plug-ins/xfig/xfig-import.c:913
 msgid "Filled arc treated as unfilled"
 msgstr "Zapolnjen lok, obravnavan kot nezapolnjen"
 
-#: plug-ins/xfig/xfig-import.c:911
+#: plug-ins/xfig/xfig-import.c:917
 #, c-format
 msgid "Unknown polyline arc: %d\n"
 msgstr "Neznan lok mnogokotne črte: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:976
+#: plug-ins/xfig/xfig-import.c:982
 msgid "Couldn't read text info."
 msgstr "Ni mogoče prebrati podatkov o besedilu."
 
-#: plug-ins/xfig/xfig-import.c:1004
+#: plug-ins/xfig/xfig-import.c:1010
 #, c-format
 msgid "Can't find LaTeX font nr. %d, using sans"
 msgstr "Pisave LaTeX št. %d ni mogoče najti, uporabljanje pisave sans"
 
-#: plug-ins/xfig/xfig-import.c:1012
+#: plug-ins/xfig/xfig-import.c:1018
 #, c-format
 msgid "Can't find PostScript font nr. %d, using sans"
 msgstr "Pisave PostScript št. %d ni mogoče najti, uporabljanje pisave sans"
 
-#: plug-ins/xfig/xfig-import.c:1041
+#: plug-ins/xfig/xfig-import.c:1047
 msgid "Couldn't identify Fig object."
 msgstr "Predmeta Fig ni mogoče prepoznati."
 
-#: plug-ins/xfig/xfig-import.c:1049
+#: plug-ins/xfig/xfig-import.c:1055
 msgid "Compound end outside compound\n"
 msgstr "Konec komponente zunaj komponente\n"
 
-#: plug-ins/xfig/xfig-import.c:1071
+#: plug-ins/xfig/xfig-import.c:1077
 msgid "Couldn't read color\n"
 msgstr "Ni mogoče prebrati barve\n"
 
-#: plug-ins/xfig/xfig-import.c:1076
+#: plug-ins/xfig/xfig-import.c:1082
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "Številka barve %d je zunaj obsega 0..%d.  Barva ne bo upoštevana.\n"
 
-#: plug-ins/xfig/xfig-import.c:1123
+#: plug-ins/xfig/xfig-import.c:1129
 msgid "Couldn't read group extent."
 msgstr "Ni mogoče odpreti podaljška skupine."
 
-#: plug-ins/xfig/xfig-import.c:1134
+#: plug-ins/xfig/xfig-import.c:1140
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Neznana vrsta predmeta: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:1159
+#: plug-ins/xfig/xfig-import.c:1165
 #, c-format
 msgid "`%s' is not one of `%s' or `%s'\n"
 msgstr "»%s« ni eden od »%s« ali »%s«\n"
 
-#: plug-ins/xfig/xfig-import.c:1169
+#: plug-ins/xfig/xfig-import.c:1175
 msgid "Error reading paper size."
 msgstr "Napaka pri branju velikosti papirja."
 
-#: plug-ins/xfig/xfig-import.c:1180
+#: plug-ins/xfig/xfig-import.c:1186
 #, c-format
 msgid "Unknown paper size `%s', using default\n"
 msgstr "Neznana velikost papirja »%s«, uporabljena bo privzeta\n"
 
-#: plug-ins/xfig/xfig-import.c:1193
+#: plug-ins/xfig/xfig-import.c:1199
 msgid "Error reading paper orientation."
 msgstr "Napaka pri branju postavitve papirja."
 
-#: plug-ins/xfig/xfig-import.c:1203
+#: plug-ins/xfig/xfig-import.c:1209
 msgid "Error reading justification."
 msgstr "Napaka pri branju poravnave."
 
-#: plug-ins/xfig/xfig-import.c:1213
+#: plug-ins/xfig/xfig-import.c:1219
 msgid "Error reading units."
 msgstr "Napaka pri branju enot."
 
-#: plug-ins/xfig/xfig-import.c:1229
+#: plug-ins/xfig/xfig-import.c:1235
 msgid "Error reading magnification."
 msgstr "Napaka pri branju povečave."
 
-#: plug-ins/xfig/xfig-import.c:1242
+#: plug-ins/xfig/xfig-import.c:1248
 msgid "Error reading multipage indicator."
 msgstr "Napaka pri branju indikatorja več strani."
 
-#: plug-ins/xfig/xfig-import.c:1253
+#: plug-ins/xfig/xfig-import.c:1259
 msgid "Error reading transparent color."
 msgstr "Napaka pri branju prosojne barve."
 
-#: plug-ins/xfig/xfig-import.c:1262 plug-ins/xfig/xfig-import.c:1323
-#: plug-ins/xfig/xfig-import.c:1343
+#: plug-ins/xfig/xfig-import.c:1268 plug-ins/xfig/xfig-import.c:1329
+#: plug-ins/xfig/xfig-import.c:1349
 msgid "Error reading Fig file."
 msgstr "Napaka pri branju datoteke Fig."
 
-#: plug-ins/xfig/xfig-import.c:1264
+#: plug-ins/xfig/xfig-import.c:1270
 msgid "Premature end of Fig file\n"
 msgstr "Predčasen konec datoteke Fig\n"
 
-#: plug-ins/xfig/xfig-import.c:1273
+#: plug-ins/xfig/xfig-import.c:1279
 msgid "Error reading resolution."
 msgstr "Napaka pri branju ločljivosti."
 
-#: plug-ins/xfig/xfig-import.c:1309
+#: plug-ins/xfig/xfig-import.c:1315
 msgid "Doesn't look like a Fig file"
 msgstr "Ni videti kot datoteka Fig"
 
-#: plug-ins/xfig/xfig-import.c:1315
+#: plug-ins/xfig/xfig-import.c:1321
 #, c-format
 msgid ""
 "This is a Fig version %d.%d file.\n"
@@ -7368,11 +7344,11 @@ msgstr ""
 "To je datoteka Fig različice %d.%d.\n"
 " Morda je ne bo mogoče uvoziti."
 
-#: plug-ins/xfig/xfig-import.c:1325
+#: plug-ins/xfig/xfig-import.c:1331
 msgid "Premature end of Fig file"
 msgstr "Predčasen konec datoteke Fig"
 
-#: plug-ins/xfig/xfig-import.c:1370
+#: plug-ins/xfig/xfig-import.c:1376
 msgid "Xfig File Format"
 msgstr "Vrsta datotek Xfig"
 
@@ -9826,16 +9802,14 @@ msgid "EDPC"
 msgstr "EDPC"
 
 #: sheets/EDPC.sheet:5
-#, fuzzy
 msgid "Objects to draw event-driven process chains"
-msgstr "Predmeti za risanje z dogodki vodene verige postopka"
+msgstr "Predmeti za risanje z dogodki vodenih verig postopkov"
 
 #: sheets/EDPC.sheet:7
 msgid "Business Process"
 msgstr "Poslovni proces"
 
 #: sheets/EDPC.sheet:8
-#, fuzzy
 msgid "Process Group"
 msgstr "Procesna skupina"
 
@@ -9848,7 +9822,6 @@ msgid "Event"
 msgstr "Dogodek"
 
 #: sheets/EDPC.sheet:13
-#, fuzzy
 msgid "Organisation Unit"
 msgstr "Organizacijska enota"
 
@@ -9865,22 +9838,18 @@ msgid "Operator AND (Output)"
 msgstr "Operator AND (izhod)"
 
 #: sheets/EDPC.sheet:17
-#, fuzzy
 msgid "Operator Inclusive (OR) (Input)"
 msgstr "Operator Vključno (OR, ALI) (vhod)"
 
 #: sheets/EDPC.sheet:18
-#, fuzzy
 msgid "Operator Inclusive (OR) (Output)"
 msgstr "Operator Vključno (OR, ALI) (izhod)"
 
 #: sheets/EDPC.sheet:19
-#, fuzzy
 msgid "Operator Exclusive (XOR) (Input)"
 msgstr "Operator Izključno (XOR) (vhod)"
 
 #: sheets/EDPC.sheet:20
-#, fuzzy
 msgid "Operator Exclusive (XOR) (Output)"
 msgstr "Operator Izključno (XOR) (izhod)"
 
@@ -9965,7 +9934,6 @@ msgid "Weak entity"
 msgstr "Šibka entiteta"
 
 #: sheets/ER.sheet:11
-#, fuzzy
 msgid "res:/org/gnome/Dia/ER/weakentity.png"
 msgstr "res:/org/gnome/Dia/ER/weakentity.png"
 
@@ -10132,22 +10100,18 @@ msgid "Objects to design GRAFCET charts"
 msgstr "Predmeti za oblikovanje grafov GRAFCET"
 
 #: sheets/GRAFCET.sheet:11
-#, fuzzy
 msgid "res:/org/gnome/Dia/GRAFCET/etapei.png"
 msgstr "res:/org/gnome/Dia/GRAFCET/etapei.png"
 
 #: sheets/GRAFCET.sheet:15
-#, fuzzy
 msgid "res:/org/gnome/Dia/GRAFCET/etapeme.png"
 msgstr "res:/org/gnome/Dia/GRAFCET/etapeme.png"
 
 #: sheets/GRAFCET.sheet:19
-#, fuzzy
 msgid "res:/org/gnome/Dia/GRAFCET/etapems.png"
 msgstr "res:/org/gnome/Dia/GRAFCET/etapems.png"
 
 #: sheets/GRAFCET.sheet:23
-#, fuzzy
 msgid "res:/org/gnome/Dia/GRAFCET/etapemc.png"
 msgstr "res:/org/gnome/Dia/GRAFCET/etapemc.png"
 
@@ -10156,7 +10120,6 @@ msgid "Macro sub-program call step"
 msgstr "Korak makra - sklic na podprogram"
 
 #: sheets/GRAFCET.sheet:27
-#, fuzzy
 msgid "res:/org/gnome/Dia/GRAFCET/etapesp.png"
 msgstr "res:/org/gnome/Dia/GRAFCET/etapesp.png"
 
@@ -10181,7 +10144,6 @@ msgid "AND vergent"
 msgstr "Vergent IN"
 
 #: sheets/GRAFCET.sheet:45
-#, fuzzy
 msgid "res:/org/gnome/Dia/GRAFCET/vergent_and.png"
 msgstr "res:/org/gnome/Dia/GRAFCET/vergent_and.png"
 
@@ -10322,7 +10284,6 @@ msgid "An i* goal"
 msgstr "i* - cilj"
 
 #: sheets/Istar.sheet:11
-#, fuzzy
 msgid "res:/org/gnome/Dia/Istar/goal.png"
 msgstr "res:/org/gnome/Dia/Istar/goal.png"
 
@@ -10335,7 +10296,6 @@ msgid "An i* task"
 msgstr "i* - opravek"
 
 #: sheets/Istar.sheet:18
-#, fuzzy
 msgid "res:/org/gnome/Dia/Istar/task.png"
 msgstr "res:/org/gnome/Dia/Istar/task.png"
 
@@ -10348,7 +10308,6 @@ msgid "An i* agent"
 msgstr "i* - agent"
 
 #: sheets/Istar.sheet:25
-#, fuzzy
 msgid "res:/org/gnome/Dia/Istar/agent.png"
 msgstr "res:/org/gnome/Dia/Istar/agent.png"
 
@@ -10357,7 +10316,6 @@ msgid "An i* position"
 msgstr "i* - položaj"
 
 #: sheets/Istar.sheet:29
-#, fuzzy
 msgid "res:/org/gnome/Dia/Istar/position.png"
 msgstr "res:/org/gnome/Dia/Istar/position.png"
 
@@ -10366,7 +10324,6 @@ msgid "An i* role"
 msgstr "i* - vloga"
 
 #: sheets/Istar.sheet:33
-#, fuzzy
 msgid "res:/org/gnome/Dia/Istar/role.png"
 msgstr "res:/org/gnome/Dia/Istar/role.png"
 
@@ -10379,7 +10336,6 @@ msgid "An i* positive contribution"
 msgstr "i* - pozitiven prispevek"
 
 #: sheets/Istar.sheet:40
-#, fuzzy
 msgid "res:/org/gnome/Dia/Istar/pos_contrib.png"
 msgstr "res:/org/gnome/Dia/Istar/pos_contrib.png"
 
@@ -10388,7 +10344,6 @@ msgid "An i* negative contribution"
 msgstr "i* - negativni prispevek"
 
 #: sheets/Istar.sheet:44
-#, fuzzy
 msgid "res:/org/gnome/Dia/Istar/neg_contrib.png"
 msgstr "res:/org/gnome/Dia/Istar/neg_contrib.png"
 
@@ -10397,7 +10352,6 @@ msgid "An i* dependency link"
 msgstr "i* - povezava odvisnosti"
 
 #: sheets/Istar.sheet:48
-#, fuzzy
 msgid "res:/org/gnome/Dia/Istar/dependency.png"
 msgstr "res:/org/gnome/Dia/Istar/dependency.png"
 
@@ -10406,7 +10360,6 @@ msgid "An i* decomposition link"
 msgstr "i* - povezava dekompozicije"
 
 #: sheets/Istar.sheet:52
-#, fuzzy
 msgid "res:/org/gnome/Dia/Istar/decomposition.png"
 msgstr "res:/org/gnome/Dia/Istar/decomposition.png"
 
@@ -10415,7 +10368,6 @@ msgid "An i* means-ends link"
 msgstr "i* - povezava sredstvo-cilj"
 
 #: sheets/Istar.sheet:56
-#, fuzzy
 msgid "res:/org/gnome/Dia/Istar/means_ends.png"
 msgstr "res:/org/gnome/Dia/Istar/means_ends.png"
 
@@ -10436,7 +10388,6 @@ msgid "A Jackson designed domain"
 msgstr "Jackson - oblikovana domena"
 
 #: sheets/Jackson.sheet:11
-#, fuzzy
 msgid "res:/org/gnome/Dia/Jackson/designed_domain.png"
 msgstr "res:/org/gnome/Dia/Jackson/designed_domain.png"
 
@@ -10445,7 +10396,6 @@ msgid "A Jackson machine domain"
 msgstr "Jackson - strojna domena"
 
 #: sheets/Jackson.sheet:15
-#, fuzzy
 msgid "res:/org/gnome/Dia/Jackson/machine_domain.png"
 msgstr "res:/org/gnome/Dia/Jackson/machine_domain.png"
 
@@ -10462,7 +10412,6 @@ msgid "A Jackson requirement phenomenon"
 msgstr "Jackson - fenomen zahtev"
 
 #: sheets/Jackson.sheet:25
-#, fuzzy
 msgid "res:/org/gnome/Dia/Jackson/req_phen.png"
 msgstr "res:/org/gnome/Dia/Jackson/req_phen.png"
 
@@ -10551,7 +10500,6 @@ msgid "A KAOS softgoal"
 msgstr "Mehki cilj KAOS"
 
 #: sheets/KAOS.sheet:8
-#, fuzzy
 msgid "res:/org/gnome/Dia/KAOS/softgoal.png"
 msgstr "res:/org/gnome/Dia/KAOS/softgoal.png"
 
@@ -10564,7 +10512,6 @@ msgid "A KAOS requirement"
 msgstr "Zahteva KAOS"
 
 #: sheets/KAOS.sheet:15
-#, fuzzy
 msgid "res:/org/gnome/Dia/KAOS/requirement.png"
 msgstr "res:/org/gnome/Dia/KAOS/requirement.png"
 
@@ -10573,7 +10520,6 @@ msgid "A KAOS assumption"
 msgstr "Domneva KAOS"
 
 #: sheets/KAOS.sheet:19
-#, fuzzy
 msgid "res:/org/gnome/Dia/KAOS/assumption.png"
 msgstr "res:/org/gnome/Dia/KAOS/assumption.png"
 
@@ -10582,7 +10528,6 @@ msgid "A KAOS obstacle"
 msgstr "Ovira KAOS"
 
 #: sheets/KAOS.sheet:23
-#, fuzzy
 msgid "res:/org/gnome/Dia/KAOS/obstacle.png"
 msgstr "res:/org/gnome/Dia/KAOS/obstacle.png"
 
@@ -10591,7 +10536,6 @@ msgid "A KAOS AND refinement"
 msgstr "KAOS - izboljšava IN (AND)"
 
 #: sheets/KAOS.sheet:27
-#, fuzzy
 msgid "res:/org/gnome/Dia/KAOS/and-ref.png"
 msgstr "res:/org/gnome/Dia/KAOS/and-ref.png"
 
@@ -10600,7 +10544,6 @@ msgid "A KAOS complete AND refinement"
 msgstr "KAOS - popolna izboljšava IN (AND)"
 
 #: sheets/KAOS.sheet:31
-#, fuzzy
 msgid "res:/org/gnome/Dia/KAOS/and-complete-ref.png"
 msgstr "res:/org/gnome/Dia/KAOS/and-complete-ref.png"
 
@@ -10609,7 +10552,6 @@ msgid "A KAOS OR refinement"
 msgstr "KAOS - izboljšava ALI (OR)"
 
 #: sheets/KAOS.sheet:35
-#, fuzzy
 msgid "res:/org/gnome/Dia/KAOS/or-ref.png"
 msgstr "res:/org/gnome/Dia/KAOS/or-ref.png"
 
@@ -10618,7 +10560,6 @@ msgid "A KAOS complete OR refinement"
 msgstr "KAOS - popolna izboljšava ALI (OR)"
 
 #: sheets/KAOS.sheet:39
-#, fuzzy
 msgid "res:/org/gnome/Dia/KAOS/or-complete-ref.png"
 msgstr "res:/org/gnome/Dia/KAOS/or-complete-ref.png"
 
@@ -10627,7 +10568,6 @@ msgid "A KAOS operationalization"
 msgstr "KAOS - operacionalizacija"
 
 #: sheets/KAOS.sheet:43
-#, fuzzy
 msgid "res:/org/gnome/Dia/KAOS/op-ref.png"
 msgstr "res:/org/gnome/Dia/KAOS/op-ref.png"
 
@@ -10640,7 +10580,6 @@ msgid "A KAOS obstruction"
 msgstr "Obstrukcija KAOS"
 
 #: sheets/KAOS.sheet:50
-#, fuzzy
 msgid "res:/org/gnome/Dia/KAOS/obstructs.png"
 msgstr "res:/org/gnome/Dia/KAOS/obstructs.png"
 
@@ -10649,7 +10588,6 @@ msgid "A KAOS binary conflict"
 msgstr "Dvojiški spor KAOS"
 
 #: sheets/KAOS.sheet:54
-#, fuzzy
 msgid "res:/org/gnome/Dia/KAOS/conflicts.png"
 msgstr "res:/org/gnome/Dia/KAOS/conflicts.png"
 
@@ -11265,7 +11203,6 @@ msgid "Editor for UML Static Structure Diagrams"
 msgstr "Urejevalnik diagramov statičnih struktur UML"
 
 #: sheets/UML.sheet:11
-#, fuzzy
 msgid "res:/org/gnome/Dia/UML/umlclass_template.png"
 msgstr "res:/org/gnome/Dia/UML/umlclass_template.png"
 
@@ -11290,7 +11227,6 @@ msgid "Aggregation, one class is part of another"
 msgstr "Agregacija, en razred je del drugega"
 
 #: sheets/UML.sheet:30
-#, fuzzy
 msgid "res:/org/gnome/Dia/UML/aggregation.png"
 msgstr "res:/org/gnome/Dia/UML/aggregation.png"
 
@@ -11331,17 +11267,14 @@ msgid "Component"
 msgstr "Komponenta"
 
 #: sheets/UML.sheet:67
-#, fuzzy
 msgid "res:/org/gnome/Dia/UML/receptacle.png"
 msgstr "res:/org/gnome/Dia/UML/receptacle.png"
 
 #: sheets/UML.sheet:71
-#, fuzzy
 msgid "res:/org/gnome/Dia/UML/eventsource.png"
 msgstr "res:/org/gnome/Dia/UML/eventsource.png"
 
 #: sheets/UML.sheet:75
-#, fuzzy
 msgid "res:/org/gnome/Dia/UML/eventsink.png"
 msgstr "res:/org/gnome/Dia/UML/eventsink.png"
 
