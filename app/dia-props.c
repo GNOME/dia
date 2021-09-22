@@ -27,10 +27,9 @@
 
 #include "intl.h"
 #include "display.h"
-#include "widgets.h"
-#include "display.h"
 #include "undo.h"
 #include "dia-builder.h"
+#include "dia-colour-selector.h"
 
 
 typedef struct _DiaDiagramPropertiesDialogPrivate DiaDiagramPropertiesDialogPrivate;
@@ -179,14 +178,14 @@ dia_diagram_properties_dialog_response (GtkDialog *dialog,
       priv->diagram->grid.hex =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->hex));
       priv->diagram->grid.hex_size = gtk_adjustment_get_value (priv->hex_size);
-      dia_color_selector_get_color (priv->background,
-                                    &priv->diagram->data->bg_color);
-      dia_color_selector_get_color (priv->grid_lines,
-                                    &priv->diagram->grid.colour);
-      dia_color_selector_get_color (priv->page_lines,
-                                    &priv->diagram->pagebreak_color);
-      dia_color_selector_get_color (priv->guide_lines,
-                                    &priv->diagram->guide_color);
+      dia_colour_selector_get_colour (DIA_COLOUR_SELECTOR (priv->background),
+                                      &priv->diagram->data->bg_color);
+      dia_colour_selector_get_colour (DIA_COLOUR_SELECTOR (priv->grid_lines),
+                                      &priv->diagram->grid.colour);
+      dia_colour_selector_get_colour (DIA_COLOUR_SELECTOR (priv->page_lines),
+                                      &priv->diagram->pagebreak_color);
+      dia_colour_selector_get_colour (DIA_COLOUR_SELECTOR (priv->guide_lines),
+                                      &priv->diagram->guide_color);
       diagram_add_update_all (priv->diagram);
       diagram_flush (priv->diagram);
       diagram_set_modified (priv->diagram, TRUE);
@@ -370,14 +369,14 @@ dia_diagram_properties_dialog_set_diagram (DiaDiagramPropertiesDialog *self,
 
   gtk_adjustment_set_value (priv->hex_size, diagram->grid.hex_size);
 
-  dia_color_selector_set_color (priv->background,
-                                &diagram->data->bg_color);
-  dia_color_selector_set_color (priv->grid_lines,
-                                &diagram->grid.colour);
-  dia_color_selector_set_color (priv->page_lines,
-                                &diagram->pagebreak_color);
-  dia_color_selector_set_color (priv->guide_lines,
-                                &diagram->guide_color);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (priv->background),
+                                  &diagram->data->bg_color);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (priv->grid_lines),
+                                  &diagram->grid.colour);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (priv->page_lines),
+                                  &diagram->pagebreak_color);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (priv->guide_lines),
+                                  &diagram->guide_color);
 
   update_sensitivity (GTK_TOGGLE_BUTTON (priv->dynamic), self);
 

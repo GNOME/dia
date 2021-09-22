@@ -33,7 +33,7 @@
 #include "properties.h"
 #include "dynamic_obj.h"
 #include "connectionpoint.h"
-#include "diafontselector.h"
+#include "dia-font-selector.h"
 #include "dia-state-object-change.h"
 
 /* This is a file with dummy dependencies so that all

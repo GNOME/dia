@@ -28,13 +28,13 @@
 
 #include <gtk/gtk.h>
 #define WIDGET GtkWidget
-#include "widgets.h"
 #include "properties.h"
 #include "propinternals.h"
 #include "geometry.h"
 #include "connpoint_line.h"
 #include "prop_geomtypes.h"
 #include "prefs.h"
+#include "dia-unit-spinner.h"
 
 static void fontsizeprop_reset_widget(FontsizeProperty *prop, WIDGET *widget);
 

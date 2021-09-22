@@ -1,6 +1,7 @@
 #pragma once
 
-#include "widgets.h"
+#include "dia-colour-selector.h"
+#include "dia-font-selector.h"
 
 G_BEGIN_DECLS
 
@@ -47,9 +48,9 @@ struct _UMLClassDialog {
   GtkSpinButton *comment_line_length;
   GtkToggleButton *comment_tagging;
   GtkSpinButton *line_width;
-  DiaColorSelector *text_color;
-  DiaColorSelector *line_color;
-  DiaColorSelector *fill_color;
+  DiaColourSelector *text_color;
+  DiaColourSelector *line_color;
+  DiaColourSelector *fill_color;
   GtkLabel *max_length_label;
   GtkLabel *Comment_length_label;
 

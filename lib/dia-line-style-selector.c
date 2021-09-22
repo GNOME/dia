@@ -16,16 +16,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
+#include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
 
-#include "intl.h"
-#include "dialinechooser.h"
-#include "widgets.h"
 #include "dia-line-cell-renderer.h"
-
-/************* DiaLineStyleSelector: ***************/
+#include "dia-line-style-selector.h"
 
 enum {
   COL_LINE,
@@ -33,8 +30,7 @@ enum {
 };
 
 
-struct _DiaLineStyleSelector
-{
+struct _DiaLineStyleSelector {
   GtkVBox vbox;
 
   GtkLabel *lengthlabel;
@@ -45,31 +41,25 @@ struct _DiaLineStyleSelector
   LineStyle     looking_for;
 };
 
-struct _DiaLineStyleSelectorClass
-{
-  GtkVBoxClass parent_class;
-};
+G_DEFINE_TYPE (DiaLineStyleSelector, dia_line_style_selector, GTK_TYPE_VBOX)
 
 enum {
-    DLS_VALUE_CHANGED,
-    DLS_LAST_SIGNAL
+  DLS_VALUE_CHANGED,
+  DLS_LAST_SIGNAL
 };
 
 static guint dls_signals[DLS_LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (DiaLineStyleSelector, dia_line_style_selector, GTK_TYPE_VBOX)
-
 
 static void
-dia_line_style_selector_class_init (DiaLineStyleSelectorClass *class)
+dia_line_style_selector_class_init (DiaLineStyleSelectorClass *klass)
 {
-  dls_signals[DLS_VALUE_CHANGED]
-      = g_signal_new("value-changed",
-		     G_TYPE_FROM_CLASS(class),
-		     G_SIGNAL_RUN_FIRST,
-		     0, NULL, NULL,
-		     g_cclosure_marshal_VOID__VOID,
-		     G_TYPE_NONE, 0);
+  dls_signals[DLS_VALUE_CHANGED] = g_signal_new ("value-changed",
+                                                 G_TYPE_FROM_CLASS (klass),
+                                                 G_SIGNAL_RUN_FIRST,
+                                                 0, NULL, NULL,
+                                                 g_cclosure_marshal_VOID__VOID,
+                                                 G_TYPE_NONE, 0);
 }
 
 
@@ -86,8 +76,10 @@ set_linestyle_sensitivity (DiaLineStyleSelector *fs)
                         COL_LINE, &line,
                         -1);
 
-    gtk_widget_set_sensitive (GTK_WIDGET (fs->lengthlabel), line != LINESTYLE_SOLID);
-    gtk_widget_set_sensitive (GTK_WIDGET (fs->dashlength), line != LINESTYLE_SOLID);
+    gtk_widget_set_sensitive (GTK_WIDGET (fs->lengthlabel),
+                              line != LINESTYLE_SOLID);
+    gtk_widget_set_sensitive (GTK_WIDGET (fs->dashlength),
+                              line != LINESTYLE_SOLID);
   } else {
     gtk_widget_set_sensitive (GTK_WIDGET (fs->lengthlabel), FALSE);
     gtk_widget_set_sensitive (GTK_WIDGET (fs->dashlength), FALSE);
@@ -96,18 +88,21 @@ set_linestyle_sensitivity (DiaLineStyleSelector *fs)
 
 
 static void
-linestyle_type_change_callback(GtkComboBox *menu, gpointer data)
+linestyle_type_change_callback (GtkComboBox *menu, gpointer data)
 {
-  set_linestyle_sensitivity(DIALINESTYLESELECTOR(data));
-  g_signal_emit(DIALINESTYLESELECTOR(data),
-		dls_signals[DLS_VALUE_CHANGED], 0);
+  set_linestyle_sensitivity (DIA_LINE_STYLE_SELECTOR (data));
+  g_signal_emit (DIA_LINE_STYLE_SELECTOR (data),
+                 dls_signals[DLS_VALUE_CHANGED],
+                 0);
 }
 
+
 static void
-linestyle_dashlength_change_callback(GtkSpinButton *sb, gpointer data)
+linestyle_dashlength_change_callback (GtkSpinButton *sb, gpointer data)
 {
-  g_signal_emit(DIALINESTYLESELECTOR(data),
-		dls_signals[DLS_VALUE_CHANGED], 0);
+  g_signal_emit (DIA_LINE_STYLE_SELECTOR (data),
+                 dls_signals[DLS_VALUE_CHANGED],
+                 0);
 }
 
 
@@ -147,43 +142,43 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   gtk_box_pack_start (GTK_BOX (fs), fs->combo, FALSE, TRUE, 0);
   gtk_widget_show (fs->combo);
 
-  box = gtk_hbox_new(FALSE,0);
+  box = gtk_hbox_new (FALSE, 0);
   /*  fs->sizebox = GTK_HBOX(box); */
 
   label = gtk_label_new(_("Dash length: "));
-  fs->lengthlabel = GTK_LABEL(label);
-  gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
-  gtk_widget_show(label);
+  fs->lengthlabel = GTK_LABEL (label);
+  gtk_box_pack_start (GTK_BOX (box), label, TRUE, TRUE, 0);
+  gtk_widget_show (label);
 
-  adj = (GtkAdjustment *)gtk_adjustment_new(0.1, 0.00, 10.0, 0.1, 1.0, 0);
-  length = gtk_spin_button_new(adj, DEFAULT_LINESTYLE_DASHLEN, 2);
-  gtk_spin_button_set_wrap(GTK_SPIN_BUTTON(length), TRUE);
-  gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(length), TRUE);
-  fs->dashlength = GTK_SPIN_BUTTON(length);
-  gtk_box_pack_start(GTK_BOX (box), length, TRUE, TRUE, 0);
+  adj = GTK_ADJUSTMENT (gtk_adjustment_new (0.1, 0.00, 10.0, 0.1, 1.0, 0));
+  length = gtk_spin_button_new (adj, DEFAULT_LINESTYLE_DASHLEN, 2);
+  gtk_spin_button_set_wrap (GTK_SPIN_BUTTON(length), TRUE);
+  gtk_spin_button_set_numeric (GTK_SPIN_BUTTON(length), TRUE);
+  fs->dashlength = GTK_SPIN_BUTTON (length);
+  gtk_box_pack_start (GTK_BOX (box), length, TRUE, TRUE, 0);
   gtk_widget_show (length);
 
-  g_signal_connect(G_OBJECT(length), "changed",
-		   G_CALLBACK(linestyle_dashlength_change_callback), fs);
+  g_signal_connect (G_OBJECT (length),
+                    "changed", G_CALLBACK (linestyle_dashlength_change_callback),
+                    fs);
 
-  set_linestyle_sensitivity(fs);
-  gtk_box_pack_start(GTK_BOX(fs), box, TRUE, TRUE, 0);
-  gtk_widget_show(box);
-
+  set_linestyle_sensitivity (fs);
+  gtk_box_pack_start (GTK_BOX (fs), box, TRUE, TRUE, 0);
+  gtk_widget_show (box);
 }
 
 
 GtkWidget *
 dia_line_style_selector_new (void)
 {
-  return g_object_new (dia_line_style_selector_get_type (), NULL);
+  return g_object_new (DIA_TYPE_LINE_STYLE_SELECTOR, NULL);
 }
 
 
 void
 dia_line_style_selector_get_linestyle (DiaLineStyleSelector *fs,
                                        LineStyle            *ls,
-                                       real                 *dl)
+                                       double               *dl)
 {
   GtkTreeIter iter;
 
@@ -208,7 +203,7 @@ set_style (GtkTreeModel *model,
            GtkTreeIter  *iter,
            gpointer      data)
 {
-  DiaLineStyleSelector *self = DIALINESTYLESELECTOR (data);
+  DiaLineStyleSelector *self = DIA_LINE_STYLE_SELECTOR (data);
   LineStyle line;
   gboolean res = FALSE;
 
@@ -229,7 +224,7 @@ set_style (GtkTreeModel *model,
 void
 dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
                                        LineStyle             linestyle,
-                                       real                  dashlength)
+                                       double                dashlength)
 {
   as->looking_for = linestyle;
   gtk_tree_model_foreach (GTK_TREE_MODEL (as->line_store), set_style, as);

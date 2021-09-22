@@ -16,17 +16,14 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
+#include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
 
-#include "intl.h"
-#include "widgets.h"
-#include "arrows.h"
-#include "diaarrowchooser.h"
 #include "dia-arrow-cell-renderer.h"
-
-/************* DiaArrowSelector: ***************/
+#include "dia-arrow-selector.h"
+#include "dia-size-selector.h"
 
 
 enum {
@@ -35,9 +32,7 @@ enum {
 };
 
 
-/* FIXME: Should these structs be in widgets.h instead? */
-struct _DiaArrowSelector
-{
+struct _DiaArrowSelector {
   GtkVBox vbox;
 
   GtkHBox *sizebox;
@@ -50,10 +45,6 @@ struct _DiaArrowSelector
   ArrowType     looking_for;
 };
 
-struct _DiaArrowSelectorClass
-{
-  GtkVBoxClass parent_class;
-};
 
 G_DEFINE_TYPE (DiaArrowSelector, dia_arrow_selector, GTK_TYPE_VBOX)
 
@@ -83,13 +74,12 @@ dia_arrow_selector_class_init (DiaArrowSelectorClass *klass)
 
   object_class->finalize = dia_arrow_selector_finalize;
 
-  das_signals[DAS_VALUE_CHANGED]
-      = g_signal_new("value_changed",
-		     G_TYPE_FROM_CLASS(klass),
-		     G_SIGNAL_RUN_FIRST,
-		     0, NULL, NULL,
-		     g_cclosure_marshal_VOID__VOID,
-		     G_TYPE_NONE, 0);
+  das_signals[DAS_VALUE_CHANGED] = g_signal_new ("value_changed",
+                                                 G_TYPE_FROM_CLASS (klass),
+                                                 G_SIGNAL_RUN_FIRST,
+                                                 0, NULL, NULL,
+                                                 g_cclosure_marshal_VOID__VOID,
+                                                 G_TYPE_NONE, 0);
 }
 
 
@@ -106,8 +96,10 @@ set_size_sensitivity (DiaArrowSelector *as)
                         COL_ARROW, &active,
                         -1);
 
-    gtk_widget_set_sensitive (GTK_WIDGET (as->sizelabel), active->type != ARROW_NONE);
-    gtk_widget_set_sensitive (GTK_WIDGET (as->size), active->type != ARROW_NONE);
+    gtk_widget_set_sensitive (GTK_WIDGET (as->sizelabel),
+                              active->type != ARROW_NONE);
+    gtk_widget_set_sensitive (GTK_WIDGET (as->size),
+                              active->type != ARROW_NONE);
 
     dia_arrow_free (active);
   } else {
@@ -122,15 +114,17 @@ arrow_type_change_callback (GtkComboBox *widget, gpointer userdata)
 {
   set_size_sensitivity (DIA_ARROW_SELECTOR (userdata));
   g_signal_emit (DIA_ARROW_SELECTOR (userdata),
-                 das_signals[DAS_VALUE_CHANGED], 0);
+                 das_signals[DAS_VALUE_CHANGED],
+                 0);
 }
 
 
 static void
 arrow_size_change_callback(DiaSizeSelector *size, gpointer userdata)
 {
-  g_signal_emit(DIA_ARROW_SELECTOR(userdata),
-		das_signals[DAS_VALUE_CHANGED], 0);
+  g_signal_emit (DIA_ARROW_SELECTOR (userdata),
+                 das_signals[DAS_VALUE_CHANGED],
+                 0);
 }
 
 
@@ -172,25 +166,26 @@ dia_arrow_selector_init (DiaArrowSelector *as)
   gtk_box_pack_start (GTK_BOX (as), as->combo, FALSE, TRUE, 0);
   gtk_widget_show (as->combo);
 
-  box = gtk_hbox_new(FALSE,0);
-  as->sizebox = GTK_HBOX(box);
+  box = gtk_hbox_new (FALSE,0);
+  as->sizebox = GTK_HBOX (box);
 
-  label = gtk_label_new(_("Size: "));
-  as->sizelabel = GTK_LABEL(label);
-  gtk_box_pack_start(GTK_BOX(box), label, TRUE, TRUE, 0);
-  gtk_widget_show(label);
+  label = gtk_label_new (_("Size: "));
+  as->sizelabel = GTK_LABEL (label);
+  gtk_box_pack_start (GTK_BOX (box), label, TRUE, TRUE, 0);
+  gtk_widget_show (label);
 
-  size = dia_size_selector_new(0.0, 0.0);
-  as->size = DIA_SIZE_SELECTOR(size);
-  gtk_box_pack_start(GTK_BOX(box), size, TRUE, TRUE, 0);
-  gtk_widget_show(size);
-  g_signal_connect(size, "value-changed",
-		   G_CALLBACK(arrow_size_change_callback), as);
+  size = dia_size_selector_new (0.0, 0.0);
+  as->size = DIA_SIZE_SELECTOR (size);
+  gtk_box_pack_start (GTK_BOX (box), size, TRUE, TRUE, 0);
+  gtk_widget_show (size);
+  g_signal_connect (size,
+                    "value-changed", G_CALLBACK (arrow_size_change_callback),
+                    as);
 
-  set_size_sensitivity(as);
-  gtk_box_pack_start(GTK_BOX(as), box, TRUE, TRUE, 0);
+  set_size_sensitivity (as);
+  gtk_box_pack_start (GTK_BOX (as), box, TRUE, TRUE, 0);
 
-  gtk_widget_show(box);
+  gtk_widget_show (box);
 }
 
 

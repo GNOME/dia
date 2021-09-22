@@ -120,6 +120,13 @@ typedef enum {
  */
 #define DEFAULT_ARROW_SIZE 0.5
 
+
+/* Originally in widgets.h ­- Do we need these? */
+#define DEFAULT_ARROW ARROW_NONE
+#define DEFAULT_ARROW_LENGTH DEFAULT_ARROW_SIZE
+#define DEFAULT_ARROW_WIDTH DEFAULT_ARROW_SIZE
+
+
 /**
  * MIN_ARROW_DIMENSION:
  *

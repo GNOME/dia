@@ -40,7 +40,6 @@
 #include "arrows.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "widgets.h"
 #include "intl.h"
 
 /**

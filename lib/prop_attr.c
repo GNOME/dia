@@ -26,11 +26,13 @@
 
 #include <gtk/gtk.h>
 #include "dia_xml.h"
-#include "widgets.h"
 #include "properties.h"
 #include "propinternals.h"
 #include "diaarrowchooser.h"
-#include "diafontselector.h"
+#include "dia-arrow-selector.h"
+#include "dia-colour-selector.h"
+#include "dia-font-selector.h"
+#include "dia-line-style-selector.h"
 
 /***************************/
 /* The LINESTYLE property type.  */
@@ -67,21 +69,24 @@ linestyleprop_get_widget(LinestyleProperty *prop, PropDialog *dialog)
   return ret;
 }
 
-static void
-linestyleprop_reset_widget(LinestyleProperty *prop, WIDGET *widget)
-{
-  dia_line_style_selector_set_linestyle(DIALINESTYLESELECTOR(widget),
-                                        prop->style,
-                                        prop->dash);
-}
 
 static void
-linestyleprop_set_from_widget(LinestyleProperty *prop, WIDGET *widget)
+linestyleprop_reset_widget (LinestyleProperty *prop, GtkWidget *widget)
 {
-  dia_line_style_selector_get_linestyle(DIALINESTYLESELECTOR(widget),
-                                        &prop->style,
-                                        &prop->dash);
+  dia_line_style_selector_set_linestyle (DIA_LINE_STYLE_SELECTOR (widget),
+                                         prop->style,
+                                         prop->dash);
 }
+
+
+static void
+linestyleprop_set_from_widget (LinestyleProperty *prop, GtkWidget *widget)
+{
+  dia_line_style_selector_get_linestyle (DIA_LINE_STYLE_SELECTOR (widget),
+                                         &prop->style,
+                                         &prop->dash);
+}
+
 
 static void
 linestyleprop_load(LinestyleProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)
@@ -285,28 +290,32 @@ colorprop_copy(ColorProperty *src)
   return prop;
 }
 
-static WIDGET *
-colorprop_get_widget(ColorProperty *prop, PropDialog *dialog)
+
+static GtkWidget *
+colorprop_get_widget (ColorProperty *prop, PropDialog *dialog)
 {
-  GtkWidget *ret = dia_color_selector_new();
-  dia_color_selector_set_use_alpha (ret, TRUE);
-  prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
+  GtkWidget *ret = dia_colour_selector_new ();
+  dia_colour_selector_set_use_alpha (DIA_COLOUR_SELECTOR (ret), TRUE);
+  prophandler_connect (&prop->common, G_OBJECT (ret), "value-changed");
   return ret;
 }
 
-static void
-colorprop_reset_widget(ColorProperty *prop, WIDGET *widget)
-{
-  dia_color_selector_set_color(widget,
-                               &prop->color_data);
-}
 
 static void
-colorprop_set_from_widget(ColorProperty *prop, WIDGET *widget)
+colorprop_reset_widget (ColorProperty *prop, GtkWidget *widget)
 {
-  dia_color_selector_get_color(widget,
-                               &prop->color_data);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (widget),
+                                  &prop->color_data);
 }
+
+
+static void
+colorprop_set_from_widget (ColorProperty *prop, GtkWidget *widget)
+{
+  dia_colour_selector_get_colour (DIA_COLOUR_SELECTOR (widget),
+                                  &prop->color_data);
+}
+
 
 static void
 colorprop_load(ColorProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)

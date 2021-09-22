@@ -25,7 +25,6 @@
 #include <gtk/gtk.h>
 
 #include "intl.h"
-#include "widgets.h"
 #include "diagram.h"
 #include "message.h"
 #include "preferences.h"
@@ -37,6 +36,7 @@
 #include "persistence.h"
 #include "filter.h"
 #include "dia-builder.h"
+#include "dia-colour-selector.h"
 #include "units.h"
 
 
@@ -281,11 +281,10 @@ dd_type_changed (GtkComboBox *combo,
 
 
 static void
-dd_background_changed (DiaColorSelector *selector,
-                       gpointer          data)
+dd_background_changed (DiaColourSelector *selector,
+                       gpointer           data)
 {
-  dia_color_selector_get_color (GTK_WIDGET (selector),
-                                &prefs.new_diagram.bg_color);
+  dia_colour_selector_get_colour (selector, &prefs.new_diagram.bg_color);
   persistence_set_color ("new_diagram_bgcolour", &prefs.new_diagram.bg_color);
 }
 
@@ -394,11 +393,10 @@ vd_pb_visible_toggled (GtkCheckButton *check,
 
 
 static void
-vd_pb_colour_changed (DiaColorSelector *selector,
-                      gpointer          data)
+vd_pb_colour_changed (DiaColourSelector *selector,
+                      gpointer           data)
 {
-  dia_color_selector_get_color (GTK_WIDGET (selector),
-                                &prefs.new_diagram.pagebreak_color);
+  dia_colour_selector_get_colour (selector, &prefs.new_diagram.pagebreak_color);
   persistence_set_color ("pagebreak_colour", &prefs.new_diagram.pagebreak_color);
 }
 
@@ -431,11 +429,10 @@ vd_guide_snap_toggled (GtkCheckButton *check,
 
 
 static void
-vd_guide_colour_changed (GtkCheckButton *selector,
-                         gpointer        data)
+vd_guide_colour_changed (DiaColourSelector *selector,
+                         gpointer           data)
 {
-  dia_color_selector_get_color (GTK_WIDGET (selector),
-                                &prefs.new_diagram.guide_color);
+  dia_colour_selector_get_colour (selector, &prefs.new_diagram.guide_color);
   persistence_set_color ("guide_colour", &prefs.new_diagram.guide_color);
 }
 
@@ -595,11 +592,10 @@ gl_snap_toggled (GtkCheckButton *check,
 
 
 static void
-gl_color_changed (DiaColorSelector *selector,
-                  gpointer          data)
+gl_color_changed (DiaColourSelector *selector,
+                  gpointer           data)
 {
-  dia_color_selector_get_color (GTK_WIDGET (selector),
-                                &prefs.new_diagram.grid_color);
+  dia_colour_selector_get_colour (selector, &prefs.new_diagram.grid_color);
   persistence_set_color ("grid_colour", &prefs.new_diagram.grid_color);
 }
 
@@ -888,7 +884,8 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
   gtk_tree_model_foreach (GTK_TREE_MODEL (paper),
                           set_current_paper,
                           &find_paper);
-  dia_color_selector_set_color (dd_background, &prefs.new_diagram.bg_color);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (dd_background),
+                                  &prefs.new_diagram.bg_color);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dd_compress),
                                 prefs.new_diagram.compress_save);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dd_cp_visible),
@@ -904,16 +901,16 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
                                 prefs.view_antialiased);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (vd_pb_visible),
                                 prefs.pagebreak.visible);
-  dia_color_selector_set_color (vd_pb_colour,
-                                &prefs.new_diagram.pagebreak_color);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (vd_pb_colour),
+                                  &prefs.new_diagram.pagebreak_color);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (vd_pb_solid),
                                 prefs.pagebreak.visible);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (vd_guide_visible),
                                 prefs.guides_visible);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (vd_guide_snap),
                                 prefs.guides_snap);
-  dia_color_selector_set_color (vd_guide_colour,
-                                &prefs.new_diagram.guide_color);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (vd_guide_colour),
+                                  &prefs.new_diagram.guide_color);
 
 
   find_filter.combo = fv_png;
@@ -947,8 +944,8 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
                                 prefs.grid.visible);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (gl_snap),
                                 prefs.grid.snap);
-  dia_color_selector_set_color (gl_color,
-                                &prefs.new_diagram.grid_color);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (gl_color),
+                                  &prefs.new_diagram.grid_color);
   gtk_adjustment_set_value (gl_lines_adj,
                              prefs.grid.major_lines);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self->gl_dynamic),

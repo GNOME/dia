@@ -28,12 +28,12 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
-#include "widgets.h"
 #include "properties.h"
 #include "propinternals.h"
 #include "text.h"
 #include "group.h"
 #include "attributes.h"
+#include "dia-file-selector.h"
 
 /*****************************************************/
 /* The STRING, FILE and MULTISTRING property types.  */
@@ -154,30 +154,37 @@ multistringprop_set_from_widget(StringProperty *prop, GtkWidget *widget) {
     g_strdup (gtk_text_buffer_get_text (buffer, &start, &end, TRUE));
 }
 
+
 static GtkWidget *
-fileprop_get_widget(StringProperty *prop, PropDialog *dialog)
+fileprop_get_widget (StringProperty *prop, PropDialog *dialog)
 {
-  GtkWidget *ret = dia_file_selector_new();
-  if (prop->common.descr->extra_data)
-    dia_file_selector_set_extensions (DIAFILESELECTOR(ret), prop->common.descr->extra_data);
-  prophandler_connect(&prop->common, G_OBJECT(ret), "value-changed");
+  GtkWidget *ret = dia_file_selector_new ();
+  if (prop->common.descr->extra_data) {
+    dia_file_selector_set_extensions (DIA_FILE_SELECTOR (ret),
+                                      prop->common.descr->extra_data);
+  }
+  prophandler_connect (&prop->common, G_OBJECT (ret), "value-changed");
   return ret;
 }
 
-static void
-fileprop_reset_widget(StringProperty *prop, GtkWidget *widget)
-{
-  if (prop->string_data)
-    dia_file_selector_set_file(DIAFILESELECTOR(widget),prop->string_data);
-}
 
 static void
-fileprop_set_from_widget(StringProperty *prop, GtkWidget *widget)
+fileprop_reset_widget (StringProperty *prop, GtkWidget *widget)
+{
+  if (prop->string_data) {
+    dia_file_selector_set_file (DIA_FILE_SELECTOR (widget), prop->string_data);
+  }
+}
+
+
+static void
+fileprop_set_from_widget (StringProperty *prop, GtkWidget *widget)
 {
   g_clear_pointer (&prop->string_data, g_free);
   prop->string_data =
-    g_strdup(dia_file_selector_get_file(DIAFILESELECTOR(widget)));
+    g_strdup (dia_file_selector_get_file (DIA_FILE_SELECTOR (widget)));
 }
+
 
 static void
 stringprop_load(StringProperty *prop, AttributeNode attr, DataNode data, DiaContext *ctx)

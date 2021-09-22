@@ -14,34 +14,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
 #pragma once
 
-#include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
+#include "dia-autoptr.h"
 #include "dia-enums.h"
 
 G_BEGIN_DECLS
 
-/* DiaAlignmentSelector: */
-GtkWidget *dia_alignment_selector_new            (void);
-Alignment  dia_alignment_selector_get_alignment  (GtkWidget            *as);
-void       dia_alignment_selector_set_alignment  (GtkWidget            *as,
-                                                  Alignment             align);
+#define DIA_TYPE_LINE_STYLE_SELECTOR dia_line_style_selector_get_type ()
+G_DECLARE_FINAL_TYPE (DiaLineStyleSelector, dia_line_style_selector, DIA, LINE_STYLE_SELECTOR, GtkVBox)
 
-/* **** Util functions for Gtk stuff **** */
-
-GtkWidget *dia_toggle_button_new_with_icon_names (const char *on,
-                                                  const char *off);
-
-GdkPixbuf *pixbuf_from_resource (const char *path);
-
-/* Other common defaults */
-
-#define DEFAULT_ALIGNMENT ALIGN_LEFT
-/* This is defined in app/linewidth_area.c.  Aw, bummer */
-#define DEFAULT_LINE_WIDTH 2*0.05
+GtkWidget *dia_line_style_selector_new           (void);
+void       dia_line_style_selector_get_linestyle (DiaLineStyleSelector *as,
+                                                  LineStyle            *linestyle,
+                                                  double               *dashlength);
+void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
+                                                  LineStyle             linestyle,
+                                                  double                dashlength);
 
 G_END_DECLS

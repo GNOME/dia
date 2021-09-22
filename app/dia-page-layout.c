@@ -24,7 +24,6 @@
 #include <config.h>
 
 #include "dia-page-layout.h"
-#include "widgets.h"
 
 #include "intl.h"
 
@@ -37,6 +36,7 @@
 
 #include "diamarshal.h"
 #include "diaoptionmenu.h"
+#include "dia-unit-spinner.h"
 
 
 struct _DiaPageLayout {

@@ -16,20 +16,23 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdlib.h>
 #include <string.h>
-#include "intl.h"
 
 #include <gtk/gtk.h>
-#include "diafontselector.h"
+#include <glib/gi18n-lib.h>
+
+#include "dia-font-selector.h"
 #include "font.h"
 #include "persistence.h"
 
 #define PERSIST_NAME "font-menu"
 
-/************* DiaFontSelector: ***************/
+struct _DiaFontSelector {
+  GtkHBox hbox;
+};
 
 
 typedef struct _DiaFontSelectorPrivate DiaFontSelectorPrivate;
@@ -50,6 +53,7 @@ struct _DiaFontSelectorPrivate {
   int           current_style;
 };
 
+G_DEFINE_TYPE_WITH_PRIVATE (DiaFontSelector, dia_font_selector, GTK_TYPE_HBOX)
 
 enum {
   VALUE_CHANGED,
@@ -75,10 +79,6 @@ static guint signals[LAST_SIGNAL] = { 0 };
  * | Other fonts... |
  * +----------------+
  */
-
-
-G_DEFINE_TYPE_WITH_PRIVATE (DiaFontSelector, dia_font_selector, GTK_TYPE_HBOX)
-
 
 enum {
   STYLE_COL_LABEL,

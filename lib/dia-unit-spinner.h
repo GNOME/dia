@@ -14,34 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
 #pragma once
 
-#include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
-#include "dia-enums.h"
+#include "dia-autoptr.h"
+#include "units.h"
 
 G_BEGIN_DECLS
 
-/* DiaAlignmentSelector: */
-GtkWidget *dia_alignment_selector_new            (void);
-Alignment  dia_alignment_selector_get_alignment  (GtkWidget            *as);
-void       dia_alignment_selector_set_alignment  (GtkWidget            *as,
-                                                  Alignment             align);
+#define DIA_TYPE_UNIT_SPINNER dia_unit_spinner_get_type ()
+G_DECLARE_FINAL_TYPE (DiaUnitSpinner, dia_unit_spinner, DIA, UNIT_SPINNER, GtkSpinButton)
 
-/* **** Util functions for Gtk stuff **** */
 
-GtkWidget *dia_toggle_button_new_with_icon_names (const char *on,
-                                                  const char *off);
-
-GdkPixbuf *pixbuf_from_resource (const char *path);
-
-/* Other common defaults */
-
-#define DEFAULT_ALIGNMENT ALIGN_LEFT
-/* This is defined in app/linewidth_area.c.  Aw, bummer */
-#define DEFAULT_LINE_WIDTH 2*0.05
+GtkWidget *dia_unit_spinner_new                (GtkAdjustment  *adjustment,
+                                                DiaUnit         adj_unit);
+void       dia_unit_spinner_set_value          (DiaUnitSpinner *self,
+                                                double          val);
+double     dia_unit_spinner_get_value          (DiaUnitSpinner *self);
+void       dia_unit_spinner_set_upper          (DiaUnitSpinner *self,
+                                                double          val);
 
 G_END_DECLS

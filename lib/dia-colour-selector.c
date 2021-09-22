@@ -15,16 +15,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#include <config.h>
 
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
 
-#include "intl.h"
-#include "persistence.h"
-#include "widgets.h"
+#include "dia-colour-selector.h"
 #include "dia-colour-cell-renderer.h"
-
-/************* DiaColorSelector: ***************/
+#include "persistence.h"
 
 #define PERSIST_NAME "color-menu"
 
@@ -42,7 +41,7 @@ enum {
   N_COL
 };
 
-struct _DiaColorSelector {
+struct _DiaColourSelector {
   GtkHBox         hbox;
 
   gboolean        use_alpha;
@@ -62,15 +61,7 @@ struct _DiaColorSelector {
   GtkWidget      *dialog;
 };
 
-
-struct _DiaColorSelectorClass
-{
-  GtkHBoxClass parent_class;
-};
-
-
-G_DEFINE_TYPE (DiaColorSelector, dia_color_selector, GTK_TYPE_VBOX)
-
+G_DEFINE_TYPE (DiaColourSelector, dia_colour_selector, GTK_TYPE_VBOX)
 
 enum {
   DIA_COLORSEL_VALUE_CHANGED,
@@ -80,23 +71,23 @@ static guint dia_colorsel_signals[DIA_COLORSEL_LAST_SIGNAL] = { 0 };
 
 
 static void
-dia_color_selector_finalize (GObject *object)
+dia_colour_selector_finalize (GObject *object)
 {
-  DiaColorSelector *self = DIACOLORSELECTOR (object);
+  DiaColourSelector *self = DIA_COLOUR_SELECTOR (object);
 
   g_clear_object (&self->colour_store);
   g_clear_pointer (&self->current, dia_colour_free);
 
-  G_OBJECT_CLASS (dia_color_selector_parent_class)->finalize (object);
+  G_OBJECT_CLASS (dia_colour_selector_parent_class)->finalize (object);
 }
 
 
 static void
-dia_color_selector_class_init (DiaColorSelectorClass *klass)
+dia_colour_selector_class_init (DiaColourSelectorClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  object_class->finalize = dia_color_selector_finalize;
+  object_class->finalize = dia_colour_selector_finalize;
 
   dia_colorsel_signals[DIA_COLORSEL_VALUE_CHANGED]
       = g_signal_new ("value_changed",
@@ -109,7 +100,7 @@ dia_color_selector_class_init (DiaColorSelectorClass *klass)
 
 
 static void
-add_colour (DiaColorSelector *cs, char *hex)
+add_colour (DiaColourSelector *cs, char *hex)
 {
   GtkTreeIter iter;
   Color colour;
@@ -128,7 +119,7 @@ add_colour (DiaColorSelector *cs, char *hex)
 static void
 colour_selected (GtkWidget *ok, gpointer userdata)
 {
-  DiaColorSelector *cs = DIACOLORSELECTOR (userdata);
+  DiaColourSelector *cs = DIA_COLOUR_SELECTOR (userdata);
   GdkColor gcol;
   Color colour;
   GtkWidget *cs2 = gtk_color_selection_dialog_get_color_selection (GTK_COLOR_SELECTION_DIALOG (cs->dialog));
@@ -139,7 +130,7 @@ colour_selected (GtkWidget *ok, gpointer userdata)
 
   colour.alpha = gtk_color_selection_get_current_alpha (GTK_COLOR_SELECTION (cs2)) / 65535.0;
 
-  dia_color_selector_set_color (GTK_WIDGET (cs), &colour);
+  dia_colour_selector_set_colour (cs, &colour);
 
   gtk_widget_destroy (cs->dialog);
   cs->dialog = NULL;
@@ -149,16 +140,16 @@ colour_selected (GtkWidget *ok, gpointer userdata)
 static void
 colour_select_cancelled (GtkWidget *ok, gpointer userdata)
 {
-  DiaColorSelector *cs = DIACOLORSELECTOR (userdata);
+  DiaColourSelector *cs = DIA_COLOUR_SELECTOR (userdata);
 
-  dia_color_selector_set_color (GTK_WIDGET (cs), cs->current);
+  dia_colour_selector_set_colour (cs, cs->current);
 
   gtk_widget_destroy (cs->dialog);
   cs->dialog = NULL;
 }
 
 static void
-more_colours (DiaColorSelector *cs)
+more_colours (DiaColourSelector *cs)
 {
   GtkWidget *colorsel;
   GString *palette = g_string_new ("");
@@ -251,7 +242,7 @@ more_colours (DiaColorSelector *cs)
 static void
 changed (GtkComboBox *widget, gpointer user_data)
 {
-  DiaColorSelector *cs = DIACOLORSELECTOR (user_data);
+  DiaColourSelector *cs = DIA_COLOUR_SELECTOR (user_data);
   GtkTreeIter active;
   GtkTreeIter iter;
   GtkTreePath *path;
@@ -307,7 +298,7 @@ changed (GtkComboBox *widget, gpointer user_data)
       gtk_tree_path_free (end_path);
 
       if (cs->current) {
-        dia_color_selector_set_color (GTK_WIDGET (cs), cs->current);
+        dia_colour_selector_set_colour (cs, cs->current);
       } else {
         gtk_tree_model_get_iter_first (GTK_TREE_MODEL (cs->colour_store), &iter);
         gtk_combo_box_set_active_iter (GTK_COMBO_BOX (cs->combo), &iter);
@@ -335,7 +326,7 @@ is_separator (GtkTreeModel *model,
 
 
 static void
-dia_color_selector_init (DiaColorSelector *cs)
+dia_colour_selector_init (DiaColourSelector *cs)
 {
   GtkCellRenderer *renderer;
   GList *tmplist;
@@ -415,25 +406,22 @@ dia_color_selector_init (DiaColorSelector *cs)
 
 
 void
-dia_color_selector_set_use_alpha (GtkWidget *widget, gboolean use_alpha)
+dia_colour_selector_set_use_alpha (DiaColourSelector *cs, gboolean use_alpha)
 {
-  DiaColorSelector *cs = DIACOLORSELECTOR(widget);
-
   cs->use_alpha = use_alpha;
 }
 
 
 GtkWidget *
-dia_color_selector_new (void)
+dia_colour_selector_new (void)
 {
-  return g_object_new (dia_color_selector_get_type (), NULL);
+  return g_object_new (DIA_TYPE_COLOUR_SELECTOR, NULL);
 }
 
 
 void
-dia_color_selector_get_color (GtkWidget *widget, Color *color)
+dia_colour_selector_get_colour (DiaColourSelector *cs, Color *color)
 {
-  DiaColorSelector *cs = DIACOLORSELECTOR(widget);
   GtkTreeIter iter;
   Color *colour;
 
@@ -463,7 +451,7 @@ set_colour (GtkTreeModel *model,
             GtkTreeIter  *iter,
             gpointer      data)
 {
-  DiaColorSelector *self = DIACOLORSELECTOR (data);
+  DiaColourSelector *self = DIA_COLOUR_SELECTOR (data);
   Color *colour;
   gboolean res = FALSE;
 
@@ -490,11 +478,9 @@ set_colour (GtkTreeModel *model,
 
 
 void
-dia_color_selector_set_color (GtkWidget   *widget,
-                              const Color *color)
+dia_colour_selector_set_colour (DiaColourSelector *cs,
+                                const Color       *color)
 {
-  DiaColorSelector *cs = DIACOLORSELECTOR(widget);
-
   cs->looking_for = color;
   cs->found = FALSE;
   gtk_tree_model_foreach (GTK_TREE_MODEL (cs->colour_store), set_colour, cs);

@@ -22,7 +22,7 @@
 #include <config.h>
 
 #include "intl.h"
-#include "widgets.h"
+#include "dia-line-style-selector.h"
 #include "dialinechooser.h"
 
 static const char *button_menu_key = "dia-button-menu";
@@ -316,7 +316,7 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area (GTK_DIALOG(lchooser->dialog))), wid,
 		     TRUE, TRUE, 0);
   gtk_widget_show(wid);
-  lchooser->selector = DIALINESTYLESELECTOR(wid);
+  lchooser->selector = DIA_LINE_STYLE_SELECTOR(wid);
 
   menu = gtk_menu_new();
   g_object_ref_sink(G_OBJECT(menu));

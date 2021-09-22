@@ -168,19 +168,6 @@ typedef struct _TextLine TextLine;
 /* In textattr.h: */
 typedef struct _TextAttributes TextAttributes;
 
-/* In widgets.h: */
-typedef struct _DiaSizeSelector       DiaSizeSelector;
-typedef struct _DiaSizeSelectorClass  DiaSizeSelectorClass;
-typedef struct _DiaFontSelector       DiaFontSelector;
-typedef struct _DiaLineStyleSelector       DiaLineStyleSelector;
-typedef struct _DiaLineStyleSelectorClass  DiaLineStyleSelectorClass;
-typedef struct _DiaColorSelector       DiaColorSelector;
-typedef struct _DiaColorSelectorClass  DiaColorSelectorClass;
-typedef struct _DiaArrowSelector       DiaArrowSelector;
-typedef struct _DiaArrowSelectorClass  DiaArrowSelectorClass;
-typedef struct _DiaFileSelector       DiaFileSelector;
-typedef struct _DiaFileSelectorClass  DiaFileSelectorClass;
-
 /** A standard definition of a function that takes a DiaObject */
 typedef void (*DiaObjectFunc) (const DiaObject *obj);
 

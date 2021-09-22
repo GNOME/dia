@@ -26,6 +26,8 @@
 
 #include <gtk/gtk.h>
 
+#include "dia-line-style-selector.h"
+
 /* --------------- DiaLinePreview -------------------------------- */
 GType dia_line_preview_get_type (void);
 
@@ -88,7 +90,7 @@ struct _DiaLineChooserClass
   GtkButtonClass parent_class;
 };
 
-void dia_line_chooser_set_line_style(DiaLineChooser *lchooser, 
+void dia_line_chooser_set_line_style(DiaLineChooser *lchooser,
 				     LineStyle style,
 				     real dashlength);
 GtkWidget *dia_line_chooser_new  (DiaChangeLineCallback callback,

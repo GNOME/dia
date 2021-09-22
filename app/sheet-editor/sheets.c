@@ -40,7 +40,6 @@
 #include "preferences.h"
 #include "toolbox.h"  /* just for interface_current_sheet_name */
 #include "commands.h" /* sheets_dialog_show_callback */
-#include "widgets.h"
 
 GtkWidget *sheets_dialog = NULL;
 GSList *sheets_mods_list = NULL;

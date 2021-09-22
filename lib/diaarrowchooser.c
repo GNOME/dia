@@ -23,7 +23,7 @@
 
 #include <gtk/gtk.h>
 #include "intl.h"
-#include "widgets.h"
+#include "dia-arrow-selector.h"
 #include "diaarrowchooser.h"
 #include "renderer/diacairo.h"
 

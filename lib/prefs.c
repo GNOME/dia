@@ -20,7 +20,6 @@
 #include <string.h>
 
 #include "prefs.h"
-#include "widgets.h"
 
 DiaUnit length_unit = DIA_UNIT_CENTIMETER;
 DiaUnit fontsize_unit = DIA_UNIT_POINT;
