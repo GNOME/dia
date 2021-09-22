@@ -1375,7 +1375,7 @@ data_add_filename(DataNode data, const char *str, DiaContext *ctx)
  * \ingroup DiagramXmlOut
  */
 void
-data_add_font(AttributeNode attr, const DiaFont *font, DiaContext *ctx)
+data_add_font(AttributeNode attr, DiaFont *font, DiaContext *ctx)
 {
   DataNode data_node;
   char buffer[20+1]; /* Enought for 64bit int + zero */

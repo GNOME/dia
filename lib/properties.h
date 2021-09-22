@@ -40,6 +40,7 @@
 #include <glib.h>
 #include "diatypes.h"
 
+#include "font.h"
 #include "diarenderer.h"
 #include "geometry.h"
 #include "arrows.h"

@@ -26,6 +26,7 @@
 #include "color.h"
 #include "geometry.h"
 #include "paper.h"
+#include "font.h"
 #include "diarenderer.h"
 
 G_BEGIN_DECLS

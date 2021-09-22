@@ -241,7 +241,6 @@ EXPORTS
  dia_font_get_slant_string
  dia_font_get_style
  dia_font_get_weight_string
- dia_font_init
  dia_font_new
  dia_font_new_from_legacy_name
  dia_font_new_from_style
@@ -861,8 +860,6 @@ EXPORTS
  calculate_object_edge
 
 ; exported for libart renderer only
- dia_font_pop_context
- dia_font_push_context
  dia_transform_coords_double
  text_line_adjust_layout_line
 

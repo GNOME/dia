@@ -98,10 +98,6 @@ typedef struct _DiaCallbackFilter DiaCallbackFilter;
 /* In focus.h: */
 typedef struct _Focus Focus;
 
-/* In font.h: */
-typedef struct _DiaFont DiaFont;
-typedef struct _DiaFontClass DiaFontClass;
-
 /* In geometry.h: */
 typedef struct _Point Point;
 typedef struct _DiaRectangle DiaRectangle;

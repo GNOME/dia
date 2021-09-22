@@ -20,6 +20,7 @@
 
 #include "diatypes.h"
 #include "dia-autoptr.h"
+#include "font.h"
 
 #pragma once
 

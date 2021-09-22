@@ -96,7 +96,7 @@ void data_add_bezpoint(AttributeNode attr, const BezPoint *point, DiaContext *ct
 void data_add_rectangle(AttributeNode attr, const DiaRectangle *rect, DiaContext *ctx);
 void data_add_string(AttributeNode attr, const char *str, DiaContext *ctx);
 void data_add_filename(AttributeNode attr, const char *str, DiaContext *ctx);
-void data_add_font(AttributeNode attr, const DiaFont *font, DiaContext *ctx);
+void data_add_font(AttributeNode attr, DiaFont *font, DiaContext *ctx);
 DataNode data_add_composite(AttributeNode attr,
 			    const char *type, /* can be NULL */
 			    DiaContext *ctx);

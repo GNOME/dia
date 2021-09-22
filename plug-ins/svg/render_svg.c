@@ -414,7 +414,7 @@ draw_object(DiaRenderer *self,
 static void
 node_set_text_style (xmlNodePtr      node,
                      DiaSvgRenderer *renderer,
-                     const DiaFont  *font,
+                     DiaFont        *font,
                      double          font_height,
                      Alignment       alignment,
                      Color          *colour)

@@ -173,7 +173,12 @@ libdia_sources = stdprop_sources + [
 
 gnome = import('gnome')
 
-libdia_sources += gnome.mkenums_simple('dia-lib-enums', sources: 'units.h')
+libdia_sources += gnome.mkenums_simple('dia-lib-enums',
+                                   sources: [
+                                                 'font.h',
+                                                 'units.h',
+                                            ]
+)
 
 diamarshal = gnome.genmarshal(
     'diamarshal',
