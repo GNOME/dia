@@ -190,17 +190,26 @@ EXPORTS
  dia_asin
  dia_acos
 
+ dia_menuitem_key_quark
+
  dia_alignment_selector_get_alignment
  dia_alignment_selector_new
  dia_alignment_selector_set_alignment
+
  dia_arrow_chooser_new
  dia_arrow_chooser_set_arrow
  dia_arrow_chooser_get_arrow_type
  dia_arrow_chooser_get_type
+
  dia_arrow_selector_get_arrow
  dia_arrow_selector_get_type
  dia_arrow_selector_new
  dia_arrow_selector_set_arrow
+
+ dia_arrow_preview_new
+ dia_arrow_preview_get_type
+ dia_arrow_preview_set_arrow
+ dia_arrow_preview_get_arrow
 
  dia_arrow_cell_renderer_new
 
@@ -312,15 +321,19 @@ EXPORTS
  dialog_make
  dialog_add_spinbutton
 
- dia_line_chooser_new
 
  dia_line_style_selector_get_linestyle
  dia_line_style_selector_get_type
  dia_line_style_selector_new
  dia_line_style_selector_set_linestyle
 
+ dia_line_chooser_new
  dia_line_chooser_get_type
  dia_line_chooser_set_line_style
+
+ dia_line_preview_new
+ dia_line_preview_get_type
+ dia_line_preview_set_style
 
  dia_line_cell_renderer_new
 

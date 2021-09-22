@@ -18,21 +18,14 @@
 
 /* This file contains some code from glib.
   Here is the copyright notice:
-  
+
  * GLIB - Library of useful routines for C programming
  * Copyright (C) 1995-1997  Peter Mattis, Spencer Kimball and Josh MacDonald
  */
 
-
-#include <config.h>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-#include <glib.h>
-
 #include "utils.h"
+
+G_DEFINE_QUARK (dia-menuitem-key, dia_menuitem_key)
 
 int
 nearest_pow (int num)

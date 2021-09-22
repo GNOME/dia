@@ -28,7 +28,6 @@
 #include "dia_xml.h"
 #include "properties.h"
 #include "propinternals.h"
-#include "diaarrowchooser.h"
 #include "dia-arrow-selector.h"
 #include "dia-colour-selector.h"
 #include "dia-font-selector.h"

@@ -14,16 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
 #pragma once
 
-#include <glib-object.h>
+#include <gtk/gtk.h>
+
+#include "dia-autoptr.h"
+#include "arrows.h"
 
 G_BEGIN_DECLS
 
-GQuark dia_menuitem_key_quark (void);
+#define DIA_TYPE_ARROW_PREVIEW dia_arrow_preview_get_type ()
+G_DECLARE_FINAL_TYPE (DiaArrowPreview, dia_arrow_preview, DIA, ARROW_PREVIEW, GtkMisc)
 
-int nearest_pow (int num);
+GtkWidget *dia_arrow_preview_new            (ArrowType               atype,
+                                             gboolean                left);
+void       dia_arrow_preview_set_arrow      (DiaArrowPreview        *arrow,
+                                             ArrowType               atype,
+                                             gboolean                left);
+ArrowType  dia_arrow_preview_get_arrow      (DiaArrowPreview        *self);
 
 G_END_DECLS
