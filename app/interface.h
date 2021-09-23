@@ -15,12 +15,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef INTERFACE_H
-#define INTERFACE_H
+
+#pragma once
 
 #include "display.h"
 
 #include "app_procs.h"
+
+G_BEGIN_DECLS
 
 /* Integrated UI Constants */
 #define  DIA_MAIN_WINDOW   "dia-main-window"
@@ -59,4 +61,13 @@ void close_notebook_page_callback (GtkButton *button, gpointer user_data);
 
 double parse_zoom (const char *zoom);
 
-#endif /* INTERFACE_H */
+void   dia_dnd_file_drag_data_received (GtkWidget        *widget,
+                                        GdkDragContext   *context,
+                                        int               x,
+                                        int               y,
+                                        GtkSelectionData *data,
+                                        guint             info,
+                                        guint             time,
+                                        DDisplay         *ddisp);
+
+G_END_DECLS

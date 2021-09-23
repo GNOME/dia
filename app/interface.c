@@ -30,6 +30,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "dia-canvas.h"
 #include "diagram.h"
 #include "object.h"
 #include "layer-editor/layer_dialog.h"
@@ -80,7 +81,7 @@ static gboolean _ddisplay_vruler_motion_notify (GtkWidget *widget,
         DDisplay *ddisp);
 
 
-static void
+void
 dia_dnd_file_drag_data_received (GtkWidget        *widget,
                                  GdkDragContext   *context,
                                  int               x,
@@ -335,51 +336,6 @@ create_zoom_widget(DDisplay *ddisp) {
 }
 
 
-static gboolean
-display_drop_callback (GtkWidget      *widget,
-                       GdkDragContext *context,
-                       int             x,
-                       int             y,
-                       guint           time)
-{
-  if (gtk_drag_get_source_widget(context) != NULL) {
-    /* we only accept drops from the same instance of the application,
-     * as the drag data is a pointer in our address space */
-    return TRUE;
-  }
-  gtk_drag_finish (context, FALSE, FALSE, time);
-  return FALSE;
-}
-
-
-static void
-display_data_received_callback (GtkWidget        *widget,
-                                GdkDragContext   *context,
-                                int               x,
-                                int               y,
-                                GtkSelectionData *data,
-                                guint             info,
-                                guint             time,
-                                DDisplay         *ddisp)
-{
-  if (gtk_selection_data_get_format(data) == 8 &&
-      gtk_selection_data_get_length(data) == sizeof(ToolButtonData *) &&
-      gtk_drag_get_source_widget(context) != NULL) {
-    ToolButtonData *tooldata = *(ToolButtonData **)gtk_selection_data_get_data(data);
-    /* g_message("Tool drop %s at (%d, %d)", (gchar *)tooldata->extra_data, x, y);*/
-    ddisplay_drop_object(ddisp, x, y,
-			 object_get_type((gchar *)tooldata->extra_data),
-			 tooldata->user_data);
-
-    gtk_drag_finish (context, TRUE, FALSE, time);
-  } else {
-    dia_dnd_file_drag_data_received (widget, context, x, y, data, info, time, ddisp);
-  }
-  /* ensure the right window has the focus for text editing */
-  gtk_window_present(GTK_WINDOW(ddisp->shell));
-}
-
-
 /**
  * close_notebook_page_callback:
  * @button: The notebook close button.
@@ -414,131 +370,6 @@ notebook_switch_page (GtkNotebook *notebook,
   gtk_widget_grab_focus (ddisp->canvas);
 }
 
-/*!
- * Called when the widget's window "size, position or stacking"
- * changes. Needs GDK_STRUCTURE_MASK set.
- */
-static gboolean
-canvas_configure_event (GtkWidget         *widget,
-                        GdkEventConfigure *cevent,
-                        DDisplay          *ddisp)
-{
-  gboolean new_size = FALSE;
-  int width, height;
-
-  g_return_val_if_fail (widget == ddisp->canvas, FALSE);
-
-  if (ddisp->renderer) {
-    width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
-    height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
-  } else {
-    /* We can continue even without a renderer here because
-     * ddisplay_resize_canvas () does the setup for us.
-     */
-    width = height = 0;
-  }
-
-  /* Only do this when size is really changing */
-  if (width != cevent->width || height != cevent->height) {
-    g_debug ("%s: Canvas size change...", G_STRLOC);
-    ddisplay_resize_canvas (ddisp, cevent->width, cevent->height);
-    ddisplay_update_scrollbars (ddisp);
-    /* on resize stop further propagation - does not help */
-    new_size = TRUE;
-  }
-
-  /* If the UI is not integrated, resizing should set the resized
-   * window as active.  With integrated UI, there is only one window.
-   */
-  if (is_integrated_ui () == 0) {
-    display_set_active (ddisp);
-  }
-
-  /* continue propagation with FALSE */
-  return new_size;
-}
-
-static gboolean
-canvas_expose_event (GtkWidget      *widget,
-                     GdkEventExpose *event,
-                     DDisplay       *ddisp)
-{
-  GSList *l;
-  DiaRectangle *r, totrect;
-  GtkAllocation alloc;
-  cairo_t *ctx;
-
-  ctx = gdk_cairo_create (gtk_widget_get_window (widget));
-
-  g_return_val_if_fail (ddisp->renderer != NULL, FALSE);
-
-  /* Only update if update_areas exist */
-  l = ddisp->update_areas;
-  if (l != NULL) {
-    totrect = *(DiaRectangle *) l->data;
-
-    dia_interactive_renderer_clip_region_clear (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
-
-    while ( l!= NULL) {
-      r = (DiaRectangle *) l->data;
-
-      rectangle_union (&totrect, r);
-      dia_interactive_renderer_clip_region_add_rect (DIA_INTERACTIVE_RENDERER (ddisp->renderer), r);
-
-      l = g_slist_next (l);
-    }
-    /* Free update_areas list: */
-    g_slist_free_full (ddisp->update_areas, g_free);
-    ddisp->update_areas = NULL;
-
-    totrect.left -= 0.1;
-    totrect.right += 0.1;
-    totrect.top -= 0.1;
-    totrect.bottom += 0.1;
-
-    ddisplay_render_pixmap (ddisp, &totrect);
-  }
-
-  gtk_widget_get_allocation (widget, &alloc);
-
-  dia_interactive_renderer_paint (DIA_INTERACTIVE_RENDERER (ddisp->renderer),
-                                  ctx,
-                                  alloc.width,
-                                  alloc.height);
-
-  return FALSE;
-}
-
-static GtkWidget *
-create_canvas (DDisplay *ddisp)
-{
-  GtkWidget *canvas = gtk_drawing_area_new();
-
-  gtk_widget_set_can_focus (canvas, TRUE);
-
-  gtk_widget_set_events (canvas,
-                         GDK_EXPOSURE_MASK |
-                         GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK |
-                         GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
-                         GDK_STRUCTURE_MASK | GDK_ENTER_NOTIFY_MASK |
-                         GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
-  g_signal_connect (G_OBJECT (canvas), "configure-event",
-                    G_CALLBACK (canvas_configure_event), ddisp);
-  g_signal_connect (G_OBJECT (canvas), "expose-event",
-                    G_CALLBACK (canvas_expose_event), ddisp);
-  gtk_widget_set_can_focus (canvas, TRUE);
-  g_signal_connect (G_OBJECT (canvas), "event",
-                    G_CALLBACK (ddisplay_canvas_events), ddisp);
-
-  canvas_setup_drag_dest (canvas);
-  g_signal_connect (G_OBJECT (canvas), "drag_drop",
-                    G_CALLBACK (display_drop_callback), NULL);
-  g_signal_connect (G_OBJECT (canvas), "drag_data_received",
-                    G_CALLBACK (display_data_received_callback), ddisp);
-  g_object_set_data (G_OBJECT (canvas), "user_data", (gpointer) ddisp);
-
-  return canvas;
-}
 
 /* Shared helper functions for both UI cases
  */
@@ -740,7 +571,7 @@ use_integrated_ui_for_display_shell (DDisplay *ddisp, char *title)
   _ddisplay_setup_scrollbars (ddisp, table, width, height);
   _ddisplay_setup_navigation (ddisp, table, TRUE);
 
-  ddisp->canvas = create_canvas (ddisp);
+  ddisp->canvas = dia_canvas_new (ddisp);
 
   /*  place all remaining widgets (no 'origin' anymore, since navigation is top-left */
   gtk_table_attach (GTK_TABLE (table), ddisp->canvas, 1, 2, 1, 2,
@@ -871,7 +702,7 @@ create_display_shell (DDisplay *ddisp,
   _ddisplay_setup_scrollbars (ddisp, table, width, height);
   _ddisplay_setup_navigation (ddisp, table, FALSE);
 
-  ddisp->canvas = create_canvas (ddisp);
+  ddisp->canvas = dia_canvas_new (ddisp);
 
   /*  pack all remaining widgets  */
   gtk_table_attach (GTK_TABLE (table), ddisp->origin, 0, 1, 0, 1,

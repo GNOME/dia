@@ -11,6 +11,8 @@ dia_sources = [
 
     'dia-builder.c',
     'dia-builder.h',
+    'dia-canvas.c',
+    'dia-canvas.h',
 
     'layer-editor/dia-layer-list.c',
     'layer-editor/dia-layer-list.h',
