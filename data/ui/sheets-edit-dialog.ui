@@ -15,7 +15,6 @@
     <property name="skip_pager_hint">False</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
     <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-    <property name="has_separator">True</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog_vbox3">
         <property name="visible">True</property>

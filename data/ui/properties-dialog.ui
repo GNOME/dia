@@ -378,7 +378,7 @@
           </packing>
         </child>
         <child>
-          <object class="DiaColorSelector" id="background">
+          <object class="DiaColourSelector" id="background">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -390,7 +390,7 @@
           </packing>
         </child>
         <child>
-          <object class="DiaColorSelector" id="grid_lines">
+          <object class="DiaColourSelector" id="grid_lines">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -404,7 +404,7 @@
           </packing>
         </child>
         <child>
-          <object class="DiaColorSelector" id="page_lines">
+          <object class="DiaColourSelector" id="page_lines">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -418,7 +418,7 @@
           </packing>
         </child>
         <child>
-          <object class="DiaColorSelector" id="guide_lines">
+          <object class="DiaColourSelector" id="guide_lines">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>

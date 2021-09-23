@@ -588,7 +588,7 @@
               </packing>
             </child>
             <child>
-              <object class="DiaColorSelector" id="dd_background">
+              <object class="DiaColourSelector" id="dd_background">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <signal name="value-changed" handler="dd_background_changed" swapped="no"/>
@@ -885,7 +885,7 @@
               </packing>
             </child>
             <child>
-              <object class="DiaColorSelector" id="vd_guide_colour">
+              <object class="DiaColourSelector" id="vd_guide_colour">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <signal name="value-changed" handler="vd_guide_colour_changed" swapped="no"/>
@@ -900,7 +900,7 @@
               </packing>
             </child>
             <child>
-              <object class="DiaColorSelector" id="vd_pb_colour">
+              <object class="DiaColourSelector" id="vd_pb_colour">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <signal name="value-changed" handler="vd_pb_colour_changed" swapped="no"/>
@@ -1532,7 +1532,7 @@
               </packing>
             </child>
             <child>
-              <object class="DiaColorSelector" id="gl_color">
+              <object class="DiaColourSelector" id="gl_color">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <signal name="value-changed" handler="gl_color_changed" swapped="no"/>
