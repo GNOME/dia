@@ -97,74 +97,33 @@ static const PropertyOps buttonprop_ops = {
 /* The FRAME_BEGIN and FRAME_END property types.  */
 /**************************************************/
 
-struct FoldButtonInfo {
-  GtkWidget *unfoldbutton;
-  GtkWidget *frame;
-};
-
-static void
-frame_fold_unfold(GtkWidget *button1, gpointer userdata)
+static GtkWidget *
+frame_beginprop_get_widget (FrameProperty *prop, PropDialog *dialog)
 {
-  struct FoldButtonInfo *info = (struct FoldButtonInfo *)userdata;
+  GtkWidget *frame = gtk_expander_new (_(prop->common.descr->description));
+  GtkWidget *vbox = gtk_vbox_new (FALSE, 2);
 
-  if (button1 == info->unfoldbutton) {
-    gtk_widget_set_sensitive (info->unfoldbutton, FALSE);
-    gtk_widget_hide(info->unfoldbutton);
-    gtk_widget_show(info->frame);
-  } else {
-    gtk_widget_hide(info->frame);
-    gtk_widget_show(info->unfoldbutton);
-    gtk_widget_set_sensitive (info->unfoldbutton, TRUE);
-  }
-}
+  gtk_expander_set_expanded (GTK_EXPANDER (frame), TRUE);
+  gtk_widget_show (frame);
 
-static WIDGET *
-frame_beginprop_get_widget(FrameProperty *prop, PropDialog *dialog)
-{
-  gchar *foldstring = g_strdup_printf("%s <<<", _(prop->common.descr->description));
-  gchar *unfoldstring = g_strdup_printf("%s >>>", _(prop->common.descr->description));
-  GtkWidget *frame = gtk_frame_new(NULL);
-  GtkWidget *vbox = gtk_vbox_new(FALSE,2);
-  GtkWidget *foldbutton = gtk_button_new_with_label(foldstring);
-  GtkWidget *unfoldbutton = gtk_button_new_with_label(unfoldstring);
+  gtk_container_add (GTK_CONTAINER (frame), vbox);
+  gtk_widget_show (vbox);
 
-  struct FoldButtonInfo *info = g_new(struct FoldButtonInfo, 1);
+  prop_dialog_add_raw (dialog, frame);
 
-  g_clear_pointer (&foldstring, g_free);
-  g_clear_pointer (&unfoldstring, g_free);
-
-  info->frame = frame;
-  info->unfoldbutton = unfoldbutton;
-
-  gtk_frame_set_label_widget(GTK_FRAME(frame), foldbutton);
-
-  gtk_container_set_border_width (GTK_CONTAINER(frame), 2);
-  gtk_container_add(GTK_CONTAINER(frame),vbox);
-  gtk_widget_set_sensitive (unfoldbutton, FALSE);
-  gtk_widget_show(foldbutton);
-  gtk_widget_show(frame);
-  gtk_widget_show(vbox);
-
-  prop_dialog_add_raw(dialog, frame);
-
-  prop_dialog_add_raw_with_flags(dialog, unfoldbutton, FALSE, FALSE);
-
-  g_signal_connect(G_OBJECT (foldbutton), "clicked",
-		   G_CALLBACK (frame_fold_unfold), info);
-  g_signal_connect(G_OBJECT (unfoldbutton), "clicked",
-		   G_CALLBACK (frame_fold_unfold), info);
-
-  prop_dialog_container_push(dialog,vbox);
+  prop_dialog_container_push (dialog, vbox);
 
   return NULL; /* there is no single widget to add with a label next to it. */
 }
 
-static WIDGET *
-frame_endprop_get_widget(FrameProperty *prop, PropDialog *dialog)
+
+static GtkWidget *
+frame_endprop_get_widget (FrameProperty *prop, PropDialog *dialog)
 {
-  prop_dialog_container_pop(dialog);
+  prop_dialog_container_pop (dialog);
   return NULL;
 }
+
 
 static const PropertyOps frame_beginprop_ops = {
   (PropertyType_New) noopprop_new,
