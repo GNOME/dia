@@ -24,36 +24,23 @@
 
 #include <gtk/gtk.h>
 
+#include "dia-autoptr.h"
 #include "diagram.h"
 #include "display.h"
 #include "renderer/diacairo.h"
-
 #include "navigation.h"
 
-
-/**
- * navigation_popup_new:
- * @ddisp: the #DDisplay to navigate through.
- *
- * A button which triggers a popup navigation window.
- *
- * The popup window is created when the button is "pressed",
- * and destroyed when the button is "released". In the meantime, the
- * popup window grabs the pointer/focus. Moving the mouse adjust the
- * scrollbars of the given #DDisplay accordingly.
- *
- * Returns: a new #GtkButton.
- *
- * Since: dawn-of-time
- */
-
-
 #define THUMBNAIL_MAX_SIZE 150 /*(pixels) this may be a preference*/
+#define DIAGRAM_OFFSET 1 /*(diagram's unit) so we can see the little green boxes :)*/
+#define FRAME_THICKNESS 2 /*(pixels)*/
+#define STD_CURSOR_MIN 16 /*(pixels)*/
+
+#define DIA_TYPE_NAVIGATION_WINDOW dia_navigation_window_get_type ()
+G_DECLARE_FINAL_TYPE (DiaNavigationWindow, dia_navigation_window, DIA, NAVIGATION_WINDOW, GtkWindow)
 
 
-struct _NavigationWindow
-{
-  GtkWidget * popup_window;
+struct _DiaNavigationWindow {
+  GtkWindow parent;
 
   /*popup size (drawing_area)*/
   int width;
@@ -68,8 +55,8 @@ struct _NavigationWindow
   GdkCursor * cursor;
 
   /*factors to translate thumbnail coordinates to adjustement values*/
-  gdouble hadj_coef;
-  gdouble vadj_coef;
+  double hadj_coef;
+  double vadj_coef;
 
   /*diagram thumbnail's buffer*/
   cairo_surface_t *surface;
@@ -78,221 +65,57 @@ struct _NavigationWindow
   DDisplay * ddisp;
 };
 
-typedef struct _NavigationWindow NavigationWindow;
+G_DEFINE_TYPE (DiaNavigationWindow, dia_navigation_window, GTK_TYPE_WINDOW)
 
-static NavigationWindow _nav;
-static NavigationWindow * nav = &_nav;
-
-
-#define DIAGRAM_OFFSET 1 /*(diagram's unit) so we can see the little green boxes :)*/
-#define FRAME_THICKNESS 2 /*(pixels)*/
-#define STD_CURSOR_MIN 16 /*(pixels)*/
-
-
-static void on_button_navigation_popup_pressed  (GtkButton * button, gpointer _ddisp);
-static void on_button_navigation_popup_released (GtkButton * button, gpointer unused);
-
-static void reset_sc_adj (GtkAdjustment * adj, gdouble lower, gdouble upper, gdouble page);
-
-static gboolean on_da_expose_event         (GtkWidget * widget, GdkEventExpose * event, gpointer unused);
-static gboolean on_da_motion_notify_event  (GtkWidget * widget, GdkEventMotion * event, gpointer unused);
-static gboolean on_da_button_release_event (GtkWidget * widget, GdkEventButton * event, gpointer popup_window);
-
-
-static char * nav_xpm[] = {
-  "10 10 2 1",
-  "  c None",
-  ". c #000000",
-  "    ..    ",
-  "   ....   ",
-  "    ..    ",
-  " .  ..  . ",
-  "..........",
-  "..........",
-  " .  ..  . ",
-  "    ..    ",
-  "   ....   ",
-  "    ..    "
+enum {
+  PROP_0,
+  PROP_DISPLAY,
+  LAST_PROP
 };
+static GParamSpec *pspecs[LAST_PROP] = { NULL, };
 
-GtkWidget *
-navigation_popup_new (DDisplay *ddisp)
+
+static void
+dia_navigation_window_set_property (GObject      *object,
+                                    guint         property_id,
+                                    const GValue *value,
+                                    GParamSpec   *pspec)
 {
-  GtkWidget * button;
+  DiaNavigationWindow *self = DIA_NAVIGATION_WINDOW (object);
 
-  GtkWidget * image;
-  GdkPixmap * pixmap;
-  GdkBitmap * mask = NULL;
-  GtkStyle  * style;
-
-  button = gtk_button_new ();
-  gtk_container_set_border_width (GTK_CONTAINER (button), 0);
-  gtk_button_set_relief (GTK_BUTTON(button), GTK_RELIEF_NONE);
-  g_signal_connect (G_OBJECT (button), "pressed",
-                    G_CALLBACK (on_button_navigation_popup_pressed), ddisp);
-  /*if you are fast, the button catches it before the drawing_area:*/
-  g_signal_connect (G_OBJECT (button), "released",
-                    G_CALLBACK (on_button_navigation_popup_released), NULL);
-
-  style = gtk_widget_get_style (button);
-  pixmap = gdk_pixmap_colormap_create_from_xpm_d(NULL,
-                                                 gtk_widget_get_colormap(button),
-                                                 &mask,
-                                                 &(style->bg[GTK_STATE_NORMAL]),
-                                                 nav_xpm);
-
-  image = gtk_image_new_from_pixmap (pixmap, mask);
-  g_clear_object (&pixmap);
-  g_clear_object (&mask);
-
-  gtk_container_add (GTK_CONTAINER (button), image);
-  gtk_widget_show (image);
-
-  return button;
+  switch (property_id) {
+    case PROP_DISPLAY:
+      self->ddisp = g_value_get_pointer (value);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
+  }
 }
 
 
 static void
-on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
+dia_navigation_window_get_property (GObject    *object,
+                                    guint       property_id,
+                                    GValue     *value,
+                                    GParamSpec *pspec)
 {
-  GtkWidget * popup_window;
-  GtkWidget * frame;
+  DiaNavigationWindow *self = DIA_NAVIGATION_WINDOW (object);
 
-  GtkWidget * drawing_area;
-
-  DiagramData * data;
-
-  DiaRectangle rect;/*diagram's extents*/
-  real zoom;/*zoom factor for thumbnail rendering*/
-
-  DiaCairoRenderer *renderer;
-
-  memset (nav, 0, sizeof(NavigationWindow));
-  /*--Retrieve the diagram's data*/
-  nav->ddisp  = (DDisplay *) _ddisp;
-  data = nav->ddisp->diagram->data;
-
-  /*--Calculate sizes*/
-  {
-    int canvas_width, canvas_height;/*pixels*/
-    int diagram_width, diagram_height;/*pixels*/
-    GtkAdjustment * adj;
-    GtkAllocation alloc;
-
-    nav->max_size = THUMBNAIL_MAX_SIZE;
-
-    /*size: Diagram <--> thumbnail*/
-    rect.top    = data->extents.top    - DIAGRAM_OFFSET;
-    rect.left   = data->extents.left   - DIAGRAM_OFFSET;
-    rect.bottom = data->extents.bottom + DIAGRAM_OFFSET + 1;
-    rect.right  = data->extents.right  + DIAGRAM_OFFSET + 1;
-
-    zoom = nav->max_size / MAX( (rect.right - rect.left) , (rect.bottom - rect.top) );
-
-    nav->width  = MIN( nav->max_size, (rect.right  - rect.left) * zoom);
-    nav->height = MIN( nav->max_size, (rect.bottom - rect.top)  * zoom);
-
-    /*size: display canvas <--> frame cursor*/
-    diagram_width  = (int) ddisplay_transform_length (nav->ddisp, (rect.right - rect.left));
-    diagram_height = (int) ddisplay_transform_length (nav->ddisp, (rect.bottom - rect.top));
-
-    if (diagram_width * diagram_height == 0)
-      return; /* don't crash with no size, i.e. empty diagram */
-
-    gtk_widget_get_allocation (nav->ddisp->canvas, &alloc);
-
-    canvas_width   = alloc.width;
-    canvas_height  = alloc.height;
-
-    nav->frame_w = nav->width  * canvas_width  / diagram_width;
-    nav->frame_h = nav->height * canvas_height / diagram_height;
-
-    /*reset adjustements to diagram size,*/
-    /*(dia allows to grow the canvas bigger than the diagram's actual size)    */
-    /*and store the ratio thumbnail/adjustement(speedup on motion)*/
-    adj = nav->ddisp->hsbdata;
-    reset_sc_adj (adj, rect.left, rect.right, canvas_width / nav->ddisp->zoom_factor);
-    nav->hadj_coef = (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj) - gtk_adjustment_get_lower (adj)) / (nav->width - nav->frame_w);
-
-    adj = nav->ddisp->vsbdata;
-    reset_sc_adj (adj, rect.top, rect.bottom, canvas_height / nav->ddisp->zoom_factor);
-    nav->vadj_coef = (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj) - gtk_adjustment_get_lower (adj)) / (nav->height - nav->frame_h);
+  switch (property_id) {
+    case PROP_DISPLAY:
+      g_value_set_pointer (value, self->ddisp);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+      break;
   }
-
-  /*--GUI*/
-  /*popup window, and cute frame*/
-  popup_window = gtk_window_new (GTK_WINDOW_POPUP);
-  nav->popup_window = popup_window;
-  gtk_window_set_position (GTK_WINDOW (popup_window), GTK_WIN_POS_MOUSE);
-
-  frame = gtk_frame_new (NULL);
-  gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_ETCHED_OUT);
-
-  /*drawing area*/
-  drawing_area = gtk_drawing_area_new ();
-  gtk_widget_set_size_request (drawing_area, nav->width, nav->height);
-
-  gtk_widget_set_events (drawing_area, 0
-                         | GDK_EXPOSURE_MASK
-                         | GDK_POINTER_MOTION_MASK
-                         | GDK_BUTTON_RELEASE_MASK
-                         );
-
-  g_signal_connect (G_OBJECT (drawing_area), "expose_event",
-                    G_CALLBACK (on_da_expose_event), NULL);
-  g_signal_connect (G_OBJECT (drawing_area), "motion_notify_event",
-                    G_CALLBACK (on_da_motion_notify_event), NULL);
-  g_signal_connect (G_OBJECT (drawing_area), "button_release_event",
-                    G_CALLBACK (on_da_button_release_event), NULL);
-
-  /*packing*/
-  gtk_container_add (GTK_CONTAINER (frame), drawing_area);
-  gtk_container_add (GTK_CONTAINER (popup_window), frame);
-  gtk_widget_show (drawing_area);
-  gtk_widget_show (frame);
-  gtk_widget_show (popup_window);
-
-  /*cursor*/
-  if (MIN(nav->frame_h, nav->frame_w) > STD_CURSOR_MIN) {
-    nav->cursor = gdk_cursor_new (GDK_FLEUR);
-  } else { /*the miniframe is very small, so we use a minimalist cursor*/
-    gchar cursor_none_data[] = { 0x00 };
-    GdkBitmap * bitmap;
-    GdkColor fg = { 0, 65535, 65535, 65535};
-    GdkColor bg = { 0, 0, 0, 0 };
-
-    bitmap = gdk_bitmap_create_from_data(NULL, cursor_none_data, 1, 1);
-    nav->cursor = gdk_cursor_new_from_pixmap(bitmap, bitmap, &fg, &bg, 1, 1);
-    g_clear_object (&bitmap);
-  }
-
-  /*grab the pointer*/
-  gdk_pointer_grab (gtk_widget_get_window (drawing_area), TRUE,
-                    GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK,
-                    gtk_widget_get_window (drawing_area),
-                    nav->cursor,
-                    GDK_CURRENT_TIME);
-
-  /* surface to draw the thumbnail on */
-  nav->surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
-                                            nav->width, nav->height);
-
-  renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
-  renderer->scale = zoom;
-  renderer->surface = cairo_surface_reference (nav->surface);
-
-  /*render the data*/
-  data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
-
-  g_clear_object (&renderer);
-
-  nav->is_first_expose = TRUE;/*set to request to draw the miniframe*/
 }
 
 
 /* resets adjustement to diagram size */
 static void
-reset_sc_adj (GtkAdjustment * adj, gdouble lower, gdouble upper, gdouble page)
+reset_sc_adj (GtkAdjustment *adj, double lower, double upper, double page)
 {
   gtk_adjustment_set_page_size (adj, page);
 
@@ -311,121 +134,387 @@ reset_sc_adj (GtkAdjustment * adj, gdouble lower, gdouble upper, gdouble page)
 }
 
 
-static gboolean
-on_da_expose_event (GtkWidget * widget, GdkEventExpose * event, gpointer unused)
+static void
+dia_navigation_window_constructed (GObject *object)
 {
+  DiaNavigationWindow *self = DIA_NAVIGATION_WINDOW (object);
+  DiagramData * data;
+
+  DiaRectangle rect;/*diagram's extents*/
+  double zoom;/*zoom factor for thumbnail rendering*/
+
+  DiaCairoRenderer *renderer;
+
+  G_OBJECT_CLASS (dia_navigation_window_parent_class)->constructed (object);
+
+  /*--Retrieve the diagram's data*/
+  data = self->ddisp->diagram->data;
+
+  /*--Calculate sizes*/
+  {
+    int canvas_width, canvas_height;/*pixels*/
+    int diagram_width, diagram_height;/*pixels*/
+    GtkAdjustment * adj;
+    GtkAllocation alloc;
+
+    self->max_size = THUMBNAIL_MAX_SIZE;
+
+    /*size: Diagram <--> thumbnail*/
+    rect.top    = data->extents.top    - DIAGRAM_OFFSET;
+    rect.left   = data->extents.left   - DIAGRAM_OFFSET;
+    rect.bottom = data->extents.bottom + DIAGRAM_OFFSET + 1;
+    rect.right  = data->extents.right  + DIAGRAM_OFFSET + 1;
+
+    zoom = self->max_size / MAX( (rect.right - rect.left) , (rect.bottom - rect.top) );
+
+    self->width  = MIN (self->max_size, (rect.right  - rect.left) * zoom);
+    self->height = MIN (self->max_size, (rect.bottom - rect.top)  * zoom);
+
+    /*size: display canvas <--> frame cursor*/
+    diagram_width  = (int) ddisplay_transform_length (self->ddisp, (rect.right - rect.left));
+    diagram_height = (int) ddisplay_transform_length (self->ddisp, (rect.bottom - rect.top));
+
+    if (diagram_width * diagram_height == 0)
+      return; /* don't crash with no size, i.e. empty diagram */
+
+    gtk_widget_get_allocation (self->ddisp->canvas, &alloc);
+
+    canvas_width   = alloc.width;
+    canvas_height  = alloc.height;
+
+    self->frame_w = self->width  * canvas_width  / diagram_width;
+    self->frame_h = self->height * canvas_height / diagram_height;
+
+    /*reset adjustements to diagram size,*/
+    /*(dia allows to grow the canvas bigger than the diagram's actual size)    */
+    /*and store the ratio thumbnail/adjustement(speedup on motion)*/
+    adj = self->ddisp->hsbdata;
+    reset_sc_adj (adj, rect.left, rect.right, canvas_width / self->ddisp->zoom_factor);
+    self->hadj_coef = (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj) - gtk_adjustment_get_lower (adj)) /
+                        (self->width - self->frame_w);
+
+    adj = self->ddisp->vsbdata;
+    reset_sc_adj (adj, rect.top, rect.bottom, canvas_height / self->ddisp->zoom_factor);
+    self->vadj_coef = (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj) - gtk_adjustment_get_lower (adj)) /
+                        (self->height - self->frame_h);
+  }
+
+  gtk_widget_set_size_request (GTK_WIDGET (self), self->width, self->height);
+
+  /* surface to draw the thumbnail on */
+  self->surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                                             self->width,
+                                             self->height);
+
+  renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
+  renderer->scale = zoom;
+  renderer->surface = cairo_surface_reference (self->surface);
+
+  /*render the data*/
+  data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
+
+  g_clear_object (&renderer);
+
+  self->is_first_expose = TRUE;/*set to request to draw the miniframe*/
+}
+
+
+static void
+dia_navigation_window_dispose (GObject *object)
+{
+  DiaNavigationWindow *self = DIA_NAVIGATION_WINDOW (object);
+
+  g_clear_pointer (&self->cursor, gdk_cursor_unref);
+  g_clear_pointer (&self->surface, cairo_surface_destroy);
+
+  G_OBJECT_CLASS (dia_navigation_window_parent_class)->dispose (object);
+}
+
+
+static gboolean
+dia_navigation_window_draw (GtkWidget *widget, cairo_t *ctx)
+{
+  DiaNavigationWindow *self = DIA_NAVIGATION_WINDOW (widget);
   GtkAdjustment * adj;
   int x, y;
-  cairo_t *ctx;
 
-  ctx = gdk_cairo_create (gtk_widget_get_window (widget));
   cairo_set_line_width (ctx, FRAME_THICKNESS);
   cairo_set_line_cap (ctx, CAIRO_LINE_CAP_BUTT);
   cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
 
   /*refresh the part outdated by the event*/
-  cairo_set_source_surface (ctx, nav->surface,
-                            event->area.x, event->area.y);
-  cairo_rectangle (ctx, event->area.x, event->area.y,
-                        event->area.width, event->area.height);
-  cairo_fill (ctx);
+  cairo_set_source_surface (ctx, self->surface, 0, 0);
+  cairo_paint (ctx);
 
-  adj = nav->ddisp->hsbdata;
-  x = (gtk_adjustment_get_value (adj) - gtk_adjustment_get_lower (adj)) / (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_lower (adj)) * (nav->width) +1;
+  adj = self->ddisp->hsbdata;
+  x = (gtk_adjustment_get_value (adj) - gtk_adjustment_get_lower (adj)) /
+          (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_lower (adj)) *
+              (self->width) +1;
 
-  adj = nav->ddisp->vsbdata;
-  y = (gtk_adjustment_get_value (adj) - gtk_adjustment_get_lower (adj)) / (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_lower (adj)) * (nav->height) +1;
+  adj = self->ddisp->vsbdata;
+  y = (gtk_adjustment_get_value (adj) - gtk_adjustment_get_lower (adj)) /
+          (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_lower (adj)) *
+              (self->height) +1;
 
   /*draw directly on the window, do not buffer the miniframe*/
   cairo_set_source_rgb (ctx, 0, 0, 0);
-  cairo_rectangle (ctx, x, y, nav->frame_w, nav->frame_h);
+  cairo_rectangle (ctx, x, y, self->frame_w, self->frame_h);
   cairo_stroke (ctx);
 
-  nav->is_first_expose = FALSE;
+  self->is_first_expose = FALSE;
 
   return FALSE;
 }
 
 
+#if !GTK_CHECK_VERSION (3, 0, 0)
 static gboolean
-on_da_motion_notify_event (GtkWidget * drawing_area, GdkEventMotion * event, gpointer unused)
+dia_navigation_window_expose_event (GtkWidget *widget, GdkEventExpose *event)
 {
+  cairo_t *ctx;
+  gboolean res;
+
+  ctx = gdk_cairo_create (GDK_DRAWABLE (gtk_widget_get_window (widget)));
+
+  res = dia_navigation_window_draw (widget, ctx);
+
+  cairo_destroy (ctx);
+
+  return res;
+}
+#endif
+
+
+static gboolean
+dia_navigation_window_motion_notify_event (GtkWidget      *widget,
+                                           GdkEventMotion *event)
+{
+  DiaNavigationWindow *self = DIA_NAVIGATION_WINDOW (widget);
   GtkAdjustment * adj;
   gboolean value_changed;
 
-  int w = nav->frame_w;
-  int h = nav->frame_h;
+  int w = self->frame_w;
+  int h = self->frame_h;
 
   int x, y;/*top left of the miniframe*/
 
   /* Don't try to move if there's no room for it.*/
-  if (w >= nav->width-1 && h >= nav->height-1) return FALSE;
+  if (w >= self->width-1 && h >= self->height-1) return FALSE;
 
-  x = CLAMP (event->x - w/2 , 0, nav->width  - w);
-  y = CLAMP (event->y - h/2 , 0, nav->height - h);
+  x = CLAMP (event->x - w/2 , 0, self->width  - w);
+  y = CLAMP (event->y - h/2 , 0, self->height - h);
 
-  adj = nav->ddisp->hsbdata;
+  adj = self->ddisp->hsbdata;
   value_changed = FALSE;
-  if (w/2 <= event->x && event->x <= (nav->width - w/2)){
-    gtk_adjustment_set_value (adj, gtk_adjustment_get_lower (adj) + x * nav->hadj_coef);
+  if (w/2 <= event->x && event->x <= (self->width - w/2)){
+    gtk_adjustment_set_value (adj, gtk_adjustment_get_lower (adj) + x * self->hadj_coef);
     value_changed = TRUE;
   }
   else if (x == 0 && gtk_adjustment_get_value (adj) != gtk_adjustment_get_lower (adj)){/*you've been too fast! :)*/
     gtk_adjustment_set_value (adj, gtk_adjustment_get_lower (adj));
     value_changed = TRUE;
   }
-  else if (x == (nav->width - w) && gtk_adjustment_get_value (adj) != (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj))){/*idem*/
+  else if (x == (self->width - w) && gtk_adjustment_get_value (adj) != (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj))){/*idem*/
     gtk_adjustment_set_value (adj, gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj));
     value_changed = TRUE;
   }
   if (value_changed) gtk_adjustment_value_changed(adj);
 
-  adj = nav->ddisp->vsbdata;
+  adj = self->ddisp->vsbdata;
   value_changed = FALSE;
-  if (h/2 <= event->y && event->y <= (nav->height - h/2)){
-    gtk_adjustment_set_value (adj, gtk_adjustment_get_lower (adj) + y * nav->vadj_coef);
+  if (h/2 <= event->y && event->y <= (self->height - h/2)){
+    gtk_adjustment_set_value (adj, gtk_adjustment_get_lower (adj) + y * self->vadj_coef);
     value_changed = TRUE;
   }
   else if (y == 0 && gtk_adjustment_get_value (adj) != gtk_adjustment_get_lower (adj)){/*you've been too fast! :)*/
     gtk_adjustment_set_value (adj, gtk_adjustment_get_lower (adj));
     value_changed = TRUE;
   }
-  else if (y == (nav->height - h) && gtk_adjustment_get_value (adj) != (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj))){/*idem*/
+  else if (y == (self->height - h) && gtk_adjustment_get_value (adj) != (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj))){/*idem*/
     gtk_adjustment_set_value (adj, gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj));
     value_changed = TRUE;
   }
-  if (value_changed) gtk_adjustment_value_changed(adj);
+  if (value_changed) {
+    gtk_adjustment_value_changed (adj);
+  }
 
   /* Trigger redraw */
-  gdk_window_invalidate_rect (gtk_widget_get_window (drawing_area), NULL, TRUE);
+  gtk_widget_queue_draw (widget);
 
   return FALSE;
 }
 
 
 static gboolean
-on_da_button_release_event (GtkWidget * widget, GdkEventButton * event, gpointer unused)
+dia_navigation_window_button_release_event (GtkWidget      *widget,
+                                            GdkEventButton *event)
 {
-  /* Apparently there are circumstances where this is run twice for one popup
-   * Protected calls to avoid crashing on second pass.
-   */
-  if (nav->cursor)
-    gdk_cursor_unref (nav->cursor);
-  nav->cursor = NULL;
+  DiaNavigationWindow *self = DIA_NAVIGATION_WINDOW (widget);
 
-  if (nav->popup_window)
-    gtk_widget_destroy (nav->popup_window);
-  nav->popup_window = NULL;
+  g_object_ref (self);
 
-/*returns the focus on the canvas*/
-  gtk_widget_grab_focus(nav->ddisp->canvas);
+  gtk_widget_destroy (widget);
+
+  /* returns the focus on the canvas */
+  gtk_widget_grab_focus (self->ddisp->canvas);
+
+  g_object_unref (self);
+
   return FALSE;
 }
+
+
+static void
+dia_navigation_window_class_init (DiaNavigationWindowClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+  object_class->set_property = dia_navigation_window_set_property;
+  object_class->get_property = dia_navigation_window_get_property;
+  object_class->constructed = dia_navigation_window_constructed;
+  object_class->dispose = dia_navigation_window_dispose;
+
+#if GTK_CHECK_VERSION (3, 0, 0)
+  widget_class->draw = dia_navigation_window_draw;
+#else
+  widget_class->expose_event = dia_navigation_window_expose_event;
+#endif
+  widget_class->motion_notify_event = dia_navigation_window_motion_notify_event;
+  widget_class->button_release_event = dia_navigation_window_button_release_event;
+
+  pspecs[PROP_DISPLAY] =
+    g_param_spec_pointer ("display",
+                          "Display",
+                          "The DDisplay",
+                          G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+
+  g_object_class_install_properties (object_class, LAST_PROP, pspecs);
+}
+
+
+static void
+dia_navigation_window_init (DiaNavigationWindow *self)
+{
+  gtk_widget_add_events (GTK_WIDGET (self),
+                         GDK_EXPOSURE_MASK | GDK_POINTER_MOTION_MASK | GDK_BUTTON_RELEASE_MASK);
+}
+
+
+static void
+dia_navigation_window_popup (DiaNavigationWindow *self)
+{
+  gtk_widget_show (GTK_WIDGET (self));
+
+  /*cursor*/
+  if (MIN (self->frame_h, self->frame_w) > STD_CURSOR_MIN) {
+    self->cursor = gdk_cursor_new (GDK_FLEUR);
+  } else { /*the miniframe is very small, so we use a minimalist cursor*/
+    self->cursor = gdk_cursor_new_from_name (gtk_widget_get_display (GTK_WIDGET (self)),
+                                             "none");
+  }
+
+  /*grab the pointer*/
+  gdk_pointer_grab (gtk_widget_get_window (GTK_WIDGET (self)),
+                    TRUE,
+                    GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK,
+                    gtk_widget_get_window (GTK_WIDGET (self)),
+                    self->cursor,
+                    GDK_CURRENT_TIME);
+}
+
+
+static const char *nav_xpm[] = {
+  "10 10 2 1",
+  "  c None",
+  ". c #000000",
+  "    ..    ",
+  "   ....   ",
+  "    ..    ",
+  " .  ..  . ",
+  "..........",
+  "..........",
+  " .  ..  . ",
+  "    ..    ",
+  "   ....   ",
+  "    ..    "
+};
+
+
+static DiaNavigationWindow *current_popup;
+
+static void
+on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
+{
+  /*--GUI*/
+  /*popup window, and cute frame*/
+  current_popup = g_object_new (DIA_TYPE_NAVIGATION_WINDOW,
+                               "type", GTK_WINDOW_POPUP,
+                               "window-position", GTK_WIN_POS_MOUSE,
+                               "transient-for", gtk_widget_get_toplevel (GTK_WIDGET (button)),
+#if GTK_CHECK_VERSION (3, 0, 0)
+                               "attached-to", button,
+#endif
+                               "display", _ddisp,
+                               NULL);
+  g_object_add_weak_pointer (G_OBJECT (current_popup), (gpointer *) &current_popup);
+
+  dia_navigation_window_popup (current_popup);
+}
+
 
 static void
 on_button_navigation_popup_released (GtkButton * button, gpointer z)
 {
   /* don't popdown before having drawn once */
-  if (!nav->is_first_expose) /* needed for gtk+-2.6.x, but work for 2.6 too. */
-    on_da_button_release_event (NULL, NULL, NULL);
+  if (current_popup && !current_popup->is_first_expose) {
+    /* needed for gtk+-2.6.x, but work for 2.6 too. */
+    gtk_widget_destroy (GTK_WIDGET (current_popup));
+  }
+}
+
+
+/**
+ * navigation_popup_new:
+ * @ddisp: the #DDisplay to navigate through.
+ *
+ * A button which triggers a popup navigation window.
+ *
+ * The popup window is created when the button is "pressed",
+ * and destroyed when the button is "released". In the meantime, the
+ * popup window grabs the pointer/focus. Moving the mouse adjust the
+ * scrollbars of the given #DDisplay accordingly.
+ *
+ * Returns: a new #GtkButton.
+ *
+ * Since: dawn-of-time
+ */
+GtkWidget *
+navigation_popup_new (DDisplay *ddisp)
+{
+  GtkWidget *button;
+  GtkWidget *image;
+  GdkPixbuf *pixbuf;
+
+  button = gtk_button_new ();
+  gtk_container_set_border_width (GTK_CONTAINER (button), 0);
+  gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
+  g_signal_connect (G_OBJECT (button),
+                    "pressed", G_CALLBACK (on_button_navigation_popup_pressed),
+                    ddisp);
+  /*if you are fast, the button catches it before the drawing_area:*/
+  g_signal_connect (G_OBJECT (button),
+                    "released", G_CALLBACK (on_button_navigation_popup_released),
+                    NULL);
+
+  pixbuf = gdk_pixbuf_new_from_xpm_data (nav_xpm);
+
+  image = gtk_image_new_from_pixbuf (pixbuf);
+
+  gtk_container_add (GTK_CONTAINER (button), image);
+  gtk_widget_show (image);
+
+  g_clear_object (&pixbuf);
+
+  return button;
 }
