@@ -23,7 +23,7 @@
 #include "config.h"
 
 #include "gtkwrapbox.h"
-#include <gtk/gtkversion.h>
+#include <gtk/gtk.h>
 
 
 /* --- properties --- */
@@ -73,8 +73,6 @@ static void gtk_wrap_box_get_child_property (GtkContainer    *container,
                                              GParamSpec      *pspec);
 static void gtk_wrap_box_map           (GtkWidget          *widget);
 static void gtk_wrap_box_unmap         (GtkWidget          *widget);
-static gint gtk_wrap_box_expose        (GtkWidget          *widget,
-                                        GdkEventExpose     *event);
 static void gtk_wrap_box_add           (GtkContainer       *container,
                                         GtkWidget          *widget);
 static void gtk_wrap_box_remove        (GtkContainer       *container,
@@ -136,7 +134,6 @@ gtk_wrap_box_class_init (GtkWrapBoxClass *class)
 
   widget_class->map = gtk_wrap_box_map;
   widget_class->unmap = gtk_wrap_box_unmap;
-  widget_class->expose_event = gtk_wrap_box_expose;
 
   container_class->add = gtk_wrap_box_add;
   container_class->remove = gtk_wrap_box_remove;
@@ -831,13 +828,6 @@ gtk_wrap_box_unmap (GtkWidget *widget)
     if (gtk_widget_get_visible (child->widget) &&
         gtk_widget_get_mapped (child->widget))
       gtk_widget_unmap (child->widget);
-}
-
-static gint
-gtk_wrap_box_expose (GtkWidget      *widget,
-                     GdkEventExpose *event)
-{
-  return GTK_WIDGET_CLASS (parent_class)->expose_event (widget, event);
 }
 
 static void

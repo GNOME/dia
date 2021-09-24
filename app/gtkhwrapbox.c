@@ -22,9 +22,8 @@
 
 #include "config.h"
 
+#include <gtk/gtk.h>
 #include "gtkhwrapbox.h"
-#include <gtk/gtkversion.h>
-
 
 /* --- prototypes --- */
 static void    gtk_hwrap_box_class_init    (GtkHWrapBoxClass   *klass);

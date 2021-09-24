@@ -143,6 +143,8 @@ dia_ruler_draw (GtkWidget *widget,
   return FALSE;
 }
 
+
+#if !GTK_CHECK_VERSION (3, 0, 0)
 /* Wrapper can go with Gtk+-3.0 */
 static gboolean
 dia_ruler_expose_event (GtkWidget      *widget,
@@ -159,6 +161,8 @@ dia_ruler_expose_event (GtkWidget      *widget,
     }
   return FALSE;
 }
+#endif
+
 
 static gboolean
 dia_ruler_motion_notify (GtkWidget      *widget,
@@ -179,8 +183,6 @@ dia_ruler_motion_notify (GtkWidget      *widget,
   gtk_widget_get_allocation (widget, &alloc);
   width = alloc.width;
   height = alloc.height;
-
-  gdk_drawable_get_size (gtk_widget_get_window (widget), &width, &height);
 
   if (ruler->orientation == GTK_ORIENTATION_HORIZONTAL)
     {
@@ -218,15 +220,19 @@ dia_ruler_motion_notify (GtkWidget      *widget,
   return FALSE;
 }
 
+
 static void
 dia_ruler_class_init (DiaRulerClass *klass)
 {
-  GtkWidgetClass *widget_class  = GTK_WIDGET_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-#if !GTK_CHECK_VERSION(3,0,0)
+#if GTK_CHECK_VERSION (3, 0, 0)
+  widget_class->draw = dia_ruler_draw;
+#else
   widget_class->expose_event = dia_ruler_expose_event;
 #endif
 }
+
 
 static void
 dia_ruler_init (DiaRuler *rule)

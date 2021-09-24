@@ -83,7 +83,10 @@ dia_page_layout_class_init (DiaPageLayoutClass *klass)
 
 
 static void darea_size_allocate(DiaPageLayout *self, GtkAllocation *alloc);
-static int darea_expose_event(DiaPageLayout *self, GdkEventExpose *ev);
+static gboolean darea_draw (GtkWidget *self, cairo_t *ctx);
+#if !GTK_CHECK_VERSION (3, 0, 0)
+static gboolean darea_expose_event (GtkWidget *self, GdkEventExpose *ev);
+#endif
 static void paper_size_change(GtkWidget *widget, DiaPageLayout *self);
 static void orient_changed(DiaPageLayout *self);
 static void margin_changed(DiaPageLayout *self);
@@ -330,8 +333,11 @@ dia_page_layout_init (DiaPageLayout *self)
                             G_CALLBACK (darea_size_allocate),
                             G_OBJECT (self));
   g_signal_connect_swapped (G_OBJECT (self->darea),
-                            "expose_event",
-                            G_CALLBACK (darea_expose_event),
+#if GTK_CHECK_VERSION (3, 0, 0)
+                            "draw", G_CALLBACK (darea_draw),
+#else
+                            "expose-event", G_CALLBACK (darea_expose_event),
+#endif
                             G_OBJECT (self));
 
   self->block_changed = FALSE;
@@ -633,19 +639,18 @@ darea_size_allocate (DiaPageLayout *self, GtkAllocation *allocation)
 }
 
 
-static int
-darea_expose_event (DiaPageLayout *self, GdkEventExpose *event)
+static gboolean
+darea_draw (GtkWidget *widget, cairo_t *ctx)
 {
+  DiaPageLayout *self = DIA_PAGE_LAYOUT (widget);
   GdkWindow *window = gtk_widget_get_window (self->darea);
   double val;
   int num;
-  cairo_t *ctx;
   GtkAllocation alloc;
 
   if (!window)
     return FALSE;
 
-  ctx = gdk_cairo_create (window);
   cairo_set_line_cap (ctx, CAIRO_LINE_CAP_SQUARE);
   cairo_set_line_width (ctx, 1);
   cairo_set_antialias (ctx, CAIRO_ANTIALIAS_NONE);
@@ -736,6 +741,24 @@ darea_expose_event (DiaPageLayout *self, GdkEventExpose *event)
 
   return FALSE;
 }
+
+
+#if !GTK_CHECK_VERSION (3, 0, 0)
+static gboolean
+darea_expose_event (GtkWidget *widget, GdkEventExpose *event)
+{
+  cairo_t *ctx;
+  gboolean res;
+
+  ctx = gdk_cairo_create (GDK_DRAWABLE (gtk_widget_get_window (widget)));
+
+  res = darea_draw (widget, ctx);
+
+  cairo_destroy (ctx);
+
+  return res;
+}
+#endif
 
 
 /**

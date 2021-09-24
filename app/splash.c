@@ -1,30 +1,39 @@
-#include <config.h>
+#include "config.h"
 
+#include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include "intl.h"
-#include "dia_dirs.h"
 #include "app_procs.h"
 #include "widgets.h"
 
-static GtkWidget* splash = NULL;
+static GtkWidget *splash = NULL;
 
-static void
-splash_expose (GtkWidget *widget, GdkEventExpose *event)
+
+static gboolean
+splash_quit (gpointer data)
 {
-  /* this gets called after the splash screen gets exposed ... */
-  gtk_main_quit();
+  gtk_main_quit ();
+
+  return G_SOURCE_REMOVE;
 }
 
+
+static void
+splash_realize (GtkWidget *widget, GdkEventExpose *event)
+{
+  /* this gets called after the splash screen gets realized ... */
+  g_idle_add (splash_quit, NULL);
+}
+
+
 void
-app_splash_init (const gchar* fname)
+app_splash_init (const char *fname)
 {
   GtkWidget *vbox;
-  GtkWidget* gpixmap;
+  GtkWidget *gpixmap;
   GtkWidget *label;
   GtkWidget *frame;
-  gchar str[256];
+  char str[256];
   gulong signal_id;
 
   splash = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -50,21 +59,23 @@ app_splash_init (const gchar* fname)
   label = gtk_label_new (str);
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, TRUE, 1);
 
+  signal_id = g_signal_connect_after (G_OBJECT (splash),
+                                      "realize", G_CALLBACK (splash_realize),
+                                      NULL);
+
   gtk_widget_show_all (splash);
 
-  signal_id = g_signal_connect_after (G_OBJECT (splash), "expose-event",
-                                      G_CALLBACK (splash_expose), NULL);
-
-  /* splash_expose gets us out of this */
+  /* splash_realize gets us out of this */
   gtk_main();
-  g_signal_handler_disconnect(G_OBJECT(splash), signal_id);
+
+  g_signal_handler_disconnect (G_OBJECT (splash), signal_id);
 }
+
 
 void
 app_splash_done (void)
 {
-  if (splash)
-  {
+  if (splash) {
     gtk_widget_destroy (splash);
     splash = NULL;
   }
