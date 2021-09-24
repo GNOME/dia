@@ -140,9 +140,9 @@ dia_line_width_area_create_dialog (DiaLineWidthArea *self,
   persistence_register_window (GTK_WINDOW (self->dialog));
 }
 
+
 static gboolean
-dia_line_width_area_draw (GtkWidget      *self, /*cairo_t *ctx*/
-                          GdkEventExpose *event)
+dia_line_width_area_draw (GtkWidget *self, cairo_t *ctx)
 {
   GdkColor fg;
   int i;
@@ -151,7 +151,6 @@ dia_line_width_area_draw (GtkWidget      *self, /*cairo_t *ctx*/
   double dashes[] = { 3 };
   DiaLineWidthArea *priv = DIA_LINE_WIDTH_AREA (self);
   GtkAllocation alloc;
-  cairo_t *ctx = gdk_cairo_create (gtk_widget_get_window (self));
 
   gtk_widget_get_allocation (self, &alloc);
 
@@ -184,6 +183,24 @@ dia_line_width_area_draw (GtkWidget      *self, /*cairo_t *ctx*/
 
   return FALSE;
 }
+
+
+#if !GTK_CHECK_VERSION (3, 0, 0)
+static gboolean
+dia_line_width_area_expose_event (GtkWidget *widget, GdkEventExpose *event)
+{
+  cairo_t *ctx;
+  gboolean res;
+
+  ctx = gdk_cairo_create (GDK_DRAWABLE (gtk_widget_get_window (widget)));
+
+  res = dia_line_width_area_draw (widget, ctx);
+
+  cairo_destroy (ctx);
+
+  return res;
+}
+#endif
 
 
 static gboolean
@@ -221,10 +238,13 @@ dia_line_width_area_button_press_event (GtkWidget      *self,
 static void
 dia_line_width_area_class_init (DiaLineWidthAreaClass *class)
 {
-  GtkWidgetClass *widget_class;
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
-  widget_class = GTK_WIDGET_CLASS (class);
-  widget_class->expose_event = dia_line_width_area_draw;
+#if GTK_CHECK_VERSION (3, 0, 0)
+  widget_class->draw = dia_line_width_area_draw;
+#else
+  widget_class->expose_event = dia_line_width_area_expose_event;
+#endif
   widget_class->button_press_event = dia_line_width_area_button_press_event;
 
   attributes_set_default_linewidth (persistence_register_real ("linewidth", 0.1));

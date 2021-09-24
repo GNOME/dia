@@ -67,15 +67,14 @@ dia_colour_area_target (DiaColourArea *self,
     return -1;
 }
 
+
 static gboolean
-dia_colour_area_draw (GtkWidget      *self, /*cairo_t *ctx*/
-                      GdkEventExpose *event)
+dia_colour_area_draw (GtkWidget *self, cairo_t *ctx)
 {
   GdkColor fg, bg;
   int rect_w, rect_h;
   int img_width, img_height;
   DiaColourArea *priv = DIA_COLOUR_AREA (self);
-  cairo_t *ctx = gdk_cairo_create (gtk_widget_get_window (self));
   GtkAllocation alloc;
 
   gtk_widget_get_allocation (GTK_WIDGET (self), &alloc);
@@ -114,6 +113,24 @@ dia_colour_area_draw (GtkWidget      *self, /*cairo_t *ctx*/
 
   return FALSE;
 }
+
+
+#if !GTK_CHECK_VERSION (3, 0, 0)
+static gboolean
+dia_colour_area_expose_event (GtkWidget *widget, GdkEventExpose *event)
+{
+  cairo_t *ctx;
+  gboolean res;
+
+  ctx = gdk_cairo_create (GDK_DRAWABLE (gtk_widget_get_window (widget)));
+
+  res = dia_colour_area_draw (widget, ctx);
+
+  cairo_destroy (ctx);
+
+  return res;
+}
+#endif
 
 
 static void
@@ -266,10 +283,13 @@ dia_colour_area_button_press_event (GtkWidget      *widget,
 static void
 dia_colour_area_class_init (DiaColourAreaClass *class)
 {
-  GtkWidgetClass *widget_class;
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
-  widget_class = GTK_WIDGET_CLASS (class);
-  widget_class->expose_event = dia_colour_area_draw;
+#if GTK_CHECK_VERSION (3, 0, 0)
+  widget_class->draw = dia_colour_area_draw;
+#else
+  widget_class->expose_event = dia_colour_area_expose_event;
+#endif
   widget_class->button_press_event = dia_colour_area_button_press_event;
 
   attributes_set_foreground (persistence_register_color ("fg_color",
