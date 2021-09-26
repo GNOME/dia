@@ -299,7 +299,7 @@ message_draw (Message *message, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, message->line_width);
 
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   if (message->type==MESSAGE_RECURSIVE) {
     n1 = 0;

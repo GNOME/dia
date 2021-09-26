@@ -330,7 +330,7 @@ flow_draw (Flow *flow, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, FLOW_WIDTH);
 
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   switch (flow->type) {
     case FLOW_SIGNAL:

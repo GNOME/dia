@@ -369,7 +369,7 @@ transition_draw (Transition *transition, DiaRenderer *renderer)
      got a linewidth parameter... */
   dia_renderer_set_linewidth (renderer, TRANSITION_WIDTH);
   /* TODO, find out about the meaning of this... */
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
   if (transition->direction_inverted) {

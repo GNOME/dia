@@ -516,7 +516,7 @@ draw_none_or_many (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   draw_empty_ellipse (renderer,
                       &second_to,
@@ -620,7 +620,7 @@ draw_one_or_many (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   dia_renderer_draw_line (renderer, &poly[0], &poly[2], fg_color);
 }
@@ -738,7 +738,7 @@ draw_lines (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   dia_renderer_draw_polyline (renderer, poly, 3, fg_color);
 }
@@ -784,7 +784,7 @@ draw_fill_ellipse (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   if (!bg_color) {
     /* no bg_color means filled ellipse ; we then compensate for the line width
@@ -865,7 +865,7 @@ draw_empty_ellipse (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   point_copy (&vl,from);
   point_sub (&vl,to);
@@ -975,7 +975,7 @@ draw_fill_box (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   if (fg_color == bg_color) {
     /* Filled dot */
@@ -1040,7 +1040,7 @@ draw_fill_dot (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   if (fg_color == bg_color) {
     /* Filled dot */
@@ -1134,7 +1134,7 @@ draw_integral (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   point_copy (&vl,from); point_sub (&vl,to);
   if (point_len (&vl) > 0)
@@ -1237,7 +1237,7 @@ draw_slashed (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   dia_renderer_draw_line (renderer, &poly[0], &poly[1], fg_color);
   dia_renderer_draw_line (renderer, &poly[2], &poly[3], fg_color);
@@ -1326,7 +1326,7 @@ draw_halfhead (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   dia_renderer_draw_polyline (renderer, poly, 3, fg_color);
 }
@@ -1449,7 +1449,7 @@ draw_diamond (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   dia_renderer_draw_polygon (renderer, poly, 4, fill, stroke);
 }
@@ -1483,7 +1483,7 @@ draw_half_diamond (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   dia_renderer_draw_polyline (renderer, poly+1, 3, fg_color);
 }
@@ -1574,7 +1574,7 @@ draw_slashed_cross (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   dia_renderer_draw_line (renderer, &poly[0],&poly[1], fg_color);
   dia_renderer_draw_line (renderer, &poly[2],&poly[3], fg_color);
@@ -1651,7 +1651,7 @@ draw_backslash (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   dia_renderer_draw_line (renderer, &poly[0], &poly[1], fg_color);
 }
@@ -1685,7 +1685,7 @@ draw_cross (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   dia_renderer_draw_line (renderer, &poly[0],&poly[2], fg_color);
   /*dia_renderer_draw_line (renderer, &poly[4],&poly[5], color); */
@@ -1855,7 +1855,7 @@ draw_concave_triangle (DiaRenderer *renderer,
 
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   if (fg_color == bg_color) {
     dia_renderer_draw_polygon (renderer, poly, 4, bg_color, bg_color);
@@ -1896,7 +1896,7 @@ draw_rounded (DiaRenderer *renderer,
   dia_renderer_set_linewidth (renderer, linewidth);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   delta = *from;
 
@@ -1956,7 +1956,7 @@ draw_open_rounded (DiaRenderer *renderer,
 
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   delta = *from;
 
@@ -2011,7 +2011,7 @@ draw_filled_dot_n_triangle (DiaRenderer *renderer,
   real rapport;
   Point poly[3];
 
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linewidth (renderer, linewidth);

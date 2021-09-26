@@ -150,12 +150,12 @@ set_linewidth (DiaRenderer *self, real linewidth)
   dia_renderer_set_linewidth (renderer->worker, lw);
 }
 
-/*!
- * \brief Pass through line caps
- * \memberof _DiaTransformRenderer
+
+/*
+ * Pass through line caps
  */
 static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
 

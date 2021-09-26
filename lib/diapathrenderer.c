@@ -208,8 +208,10 @@ static void
 set_linewidth(DiaRenderer *self, real linewidth)
 {  /* 0 == hairline **/
 }
+
+
 static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
 }
 

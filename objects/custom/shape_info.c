@@ -936,7 +936,7 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
         1.0,
         DIA_SVG_COLOUR_NONE,
         1.0,
-        LINECAPS_DEFAULT,
+        DIA_LINE_CAPS_DEFAULT,
         DIA_LINE_JOIN_DEFAULT,
         DIA_LINE_STYLE_DEFAULT,
         1.0

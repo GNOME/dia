@@ -178,7 +178,7 @@ bezier_draw_control_lines (int          num_points,
   dia_renderer_set_linewidth (renderer, 0);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DOTTED, 1);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   startpoint = points[0].p1;
   for (i = 1; i < num_points; i++) {

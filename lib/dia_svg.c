@@ -68,7 +68,7 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
    */
   gs->fill = parent_style ? parent_style->fill : DIA_SVG_COLOUR_DEFAULT;
   gs->fill_opacity = parent_style ? parent_style->fill_opacity : 1.0;
-  gs->linecap = parent_style ? parent_style->linecap : LINECAPS_DEFAULT;
+  gs->linecap = parent_style ? parent_style->linecap : DIA_LINE_CAPS_DEFAULT;
   gs->linejoin = parent_style ? parent_style->linejoin : DIA_LINE_JOIN_DEFAULT;
   gs->linestyle = parent_style ? parent_style->linestyle : DIA_LINE_STYLE_DEFAULT;
   gs->font = (parent_style && parent_style->font) ? g_object_ref (parent_style->font) : NULL;
@@ -503,13 +503,13 @@ static void
 _parse_linecap (DiaSvgStyle *s, const char *val)
 {
   if (!strncmp(val, "butt", 4))
-    s->linecap = LINECAPS_BUTT;
+    s->linecap = DIA_LINE_CAPS_BUTT;
   else if (!strncmp(val, "round", 5))
-    s->linecap = LINECAPS_ROUND;
+    s->linecap = DIA_LINE_CAPS_ROUND;
   else if (!strncmp(val, "square", 6) || !strncmp(val, "projecting", 10))
-    s->linecap = LINECAPS_PROJECTING;
+    s->linecap = DIA_LINE_CAPS_PROJECTING;
   else if (!strncmp(val, "default", 7))
-    s->linecap = LINECAPS_DEFAULT;
+    s->linecap = DIA_LINE_CAPS_DEFAULT;
 }
 
 /*!

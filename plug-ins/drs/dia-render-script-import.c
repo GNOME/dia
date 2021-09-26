@@ -178,20 +178,24 @@ _parse_linestyle (xmlNodePtr node, const char *attrib)
 }
 
 
-static LineCaps
+static DiaLineCaps
 _parse_linecaps (xmlNodePtr node, const char *attrib)
 {
-  xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
-  LineCaps val = LINECAPS_BUTT;
+  xmlChar *str = xmlGetProp (node, (const xmlChar *) attrib);
+  DiaLineCaps val = DIA_LINE_CAPS_BUTT;
+
   if (str) {
-    if (strcmp ((const char *)str, "round") == 0)
-      val = LINECAPS_ROUND;
-    else if (strcmp ((const char *)str, "projecting") == 0)
-      val = LINECAPS_PROJECTING;
-    else if (strcmp ((const char *)str, "butt") != 0)
+    if (g_strcmp0 ((const char *) str, "round") == 0) {
+      val = DIA_LINE_CAPS_ROUND;
+    } else if (g_strcmp0 ((const char *) str, "projecting") == 0) {
+      val = DIA_LINE_CAPS_PROJECTING;
+    } else if (g_strcmp0 ((const char *) str, "butt") != 0) {
       g_warning ("unknown linecaps: %s", str);
-    xmlFree(str);
+    }
   }
+
+  dia_clear_xml_string (&str);
+
   return val;
 }
 

@@ -408,22 +408,23 @@ dia_cairo_renderer_set_linewidth (DiaRenderer *self, real linewidth)
   DIAG_STATE (renderer->cr)
 }
 
+
 static void
-dia_cairo_renderer_set_linecaps (DiaRenderer *self, LineCaps mode)
+dia_cairo_renderer_set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
 
   DIAG_NOTE (g_message ("set_linecaps %d", mode));
 
-  switch(mode) {
-    case LINECAPS_DEFAULT:
-    case LINECAPS_BUTT:
+  switch (mode) {
+    case DIA_LINE_CAPS_DEFAULT:
+    case DIA_LINE_CAPS_BUTT:
       cairo_set_line_cap (renderer->cr, CAIRO_LINE_CAP_BUTT);
       break;
-    case LINECAPS_ROUND:
+    case DIA_LINE_CAPS_ROUND:
       cairo_set_line_cap (renderer->cr, CAIRO_LINE_CAP_ROUND);
       break;
-    case LINECAPS_PROJECTING:
+    case DIA_LINE_CAPS_PROJECTING:
       cairo_set_line_cap (renderer->cr, CAIRO_LINE_CAP_SQUARE); /* ?? */
       break;
     default:

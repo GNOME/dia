@@ -346,7 +346,7 @@ outline_draw (Outline *outline, DiaRenderer *renderer)
   dia_renderer_set_linewidth (renderer, outline->line_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_ROUND);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_ROUND);
 
   /* the cairo text path is position independent, Dia's bezier are not */
   x = obj->position.x;

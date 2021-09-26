@@ -49,7 +49,7 @@ struct _MetapostRenderer {
   FILE *file;
 
   DiaLineStyle saved_line_style;
-  LineCaps  saved_line_cap;
+  DiaLineCaps  saved_line_cap;
   DiaLineJoin  saved_line_join;
 
   Color color;

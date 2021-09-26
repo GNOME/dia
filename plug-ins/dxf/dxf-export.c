@@ -253,8 +253,9 @@ set_linewidth(DiaRenderer *self, real linewidth)
     renderer->lcurrent.width = renderer->fcurrent.width = linewidth;
 }
 
+
 static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
 }
 

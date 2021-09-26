@@ -387,21 +387,21 @@ set_linewidth (DiaRenderer *self, real width)
 
 
 static void
-set_linecaps (DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
-  gchar *value = NULL;
+  char *value = NULL;
 
-  switch(mode) {
-    case LINECAPS_DEFAULT:
-    case LINECAPS_BUTT:
+  switch (mode) {
+    case DIA_LINE_CAPS_DEFAULT:
+    case DIA_LINE_CAPS_BUTT:
       value = "butt";
       break;
-    case LINECAPS_ROUND:
+    case DIA_LINE_CAPS_ROUND:
       value = "round";
       break;
-    case LINECAPS_PROJECTING:
+    case DIA_LINE_CAPS_PROJECTING:
       value = "projecting";
       break;
     default:

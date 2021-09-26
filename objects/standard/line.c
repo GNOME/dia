@@ -56,7 +56,7 @@ typedef struct _Line {
   Color line_color;
   double line_width;
   DiaLineStyle line_style;
-  LineCaps line_caps;
+  DiaLineCaps line_caps;
   Arrow start_arrow, end_arrow;
   double dashlength;
   double absolute_start_gap, absolute_end_gap;
@@ -524,7 +524,7 @@ line_create(Point *startpoint,
   line->cpl = connpointline_create(obj,1);
 
   attributes_get_default_line_style(&line->line_style, &line->dashlength);
-  line->line_caps = LINECAPS_BUTT;
+  line->line_caps = DIA_LINE_CAPS_BUTT;
   line->start_arrow = attributes_get_default_start_arrow();
   line->end_arrow = attributes_get_default_end_arrow();
   line_update_data(line);
@@ -665,9 +665,11 @@ line_save(Line *line, ObjectNode obj_node, DiaContext *ctx)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  line->line_style, ctx);
 
-  if (line->line_caps != LINECAPS_BUTT)
-    data_add_enum(new_attribute(obj_node, "line_caps"),
-                  line->line_caps, ctx);
+  if (line->line_caps != DIA_LINE_CAPS_BUTT) {
+    data_add_enum (new_attribute (obj_node, "line_caps"),
+                   line->line_caps,
+                   ctx);
+  }
 
   if (line->start_arrow.type != ARROW_NONE) {
     dia_arrow_save (&line->start_arrow,
@@ -732,10 +734,11 @@ line_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     line->line_style = data_enum(attribute_first_data(attr), ctx);
 
-  line->line_caps = LINECAPS_BUTT;
-  attr = object_find_attribute(obj_node, "line_caps");
-  if (attr != NULL)
-    line->line_caps = data_enum(attribute_first_data(attr), ctx);
+  line->line_caps = DIA_LINE_CAPS_BUTT;
+  attr = object_find_attribute (obj_node, "line_caps");
+  if (attr != NULL) {
+    line->line_caps = data_enum (attribute_first_data (attr), ctx);
+  }
 
   dia_arrow_load (&line->start_arrow,
                   obj_node,

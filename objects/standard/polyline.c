@@ -44,7 +44,7 @@ typedef struct _Polyline {
   Color line_color;
   DiaLineStyle line_style;
   DiaLineJoin line_join;
-  LineCaps line_caps;
+  DiaLineCaps line_caps;
   double dashlength;
   double line_width;
   double corner_radius;
@@ -363,7 +363,7 @@ polyline_create(Point *startpoint,
   attributes_get_default_line_style (&polyline->line_style,
                                      &polyline->dashlength);
   polyline->line_join = DIA_LINE_JOIN_MITER;
-  polyline->line_caps = LINECAPS_BUTT;
+  polyline->line_caps = DIA_LINE_CAPS_BUTT;
   polyline->start_arrow = attributes_get_default_start_arrow();
   polyline->end_arrow = attributes_get_default_end_arrow();
   polyline->corner_radius = 0.0;
@@ -494,7 +494,7 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
                    ctx);
   }
 
-  if (polyline->line_caps != LINECAPS_BUTT)
+  if (polyline->line_caps != DIA_LINE_CAPS_BUTT)
     data_add_enum(new_attribute(obj_node, "line_caps"),
                   polyline->line_caps, ctx);
 
@@ -567,7 +567,7 @@ polyline_load(ObjectNode obj_node, int version, DiaContext *ctx)
     polyline->line_join = data_enum (attribute_first_data (attr), ctx);
   }
 
-  polyline->line_caps = LINECAPS_BUTT;
+  polyline->line_caps = DIA_LINE_CAPS_BUTT;
   attr = object_find_attribute(obj_node, "line_caps");
   if (attr != NULL)
     polyline->line_caps = data_enum(attribute_first_data(attr), ctx);

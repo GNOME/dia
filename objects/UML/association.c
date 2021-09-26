@@ -432,7 +432,7 @@ association_draw (Association *assoc, DiaRenderer *renderer)
   dia_renderer_set_linewidth (renderer, assoc->line_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   startarrow.length = ASSOCIATION_TRIANGLESIZE;
   startarrow.width = ASSOCIATION_TRIANGLESIZE;

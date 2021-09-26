@@ -82,7 +82,7 @@ struct _StdPath {
   DiaLineStyle line_style;
   double dashlength;
   DiaLineJoin line_join;
-  LineCaps line_caps;
+  DiaLineCaps line_caps;
   Color fill_color;
 
   /*! mirroring (stdpath->stroke_or_fill & PDO_FILL) */

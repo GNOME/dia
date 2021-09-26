@@ -22,7 +22,7 @@
 /* Dia Render File - Serialization of Dia  Renderers.
  * May also provide some DiaObject implementation which could offer parameters like
  * - scale: overall scaling of the 'object diagram' done on the renderer level
- * - tweaking renderer parameters otherwise not in the UI, e.g. LineCaps
+ * - tweaking renderer parameters otherwise not in the UI, e.g. DiaLineCaps
  *
  * The format is similar to Windows MetaFile.i.e a serialization of function calls together
  * with their parameters.

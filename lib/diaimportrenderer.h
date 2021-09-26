@@ -35,7 +35,7 @@ struct _DiaImportRenderer {
   double       dash_length;
 
   double       line_width;
-  LineCaps    line_caps;
+  DiaLineCaps  line_caps;
   DiaLineJoin  line_join;
 
   /*! \private */

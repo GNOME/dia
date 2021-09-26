@@ -232,7 +232,7 @@ polygon_draw (Polygon *polygon, DiaRenderer *renderer)
   dia_renderer_set_linewidth (renderer, polygon->line_width);
   dia_renderer_set_linestyle (renderer, polygon->line_style, polygon->dashlength);
   dia_renderer_set_linejoin (renderer, polygon->line_join);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   if (polygon->show_background) {
     fill = polygon->inner_color;

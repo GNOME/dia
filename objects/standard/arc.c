@@ -59,7 +59,7 @@ struct _Arc {
   double curve_distance; /*!< distance between middle_handle and chord */
   double line_width; /*!< line width for the Arc */
   DiaLineStyle line_style; /*!< line style for the Arc */
-  LineCaps line_caps; /*!< line ends of the Arc */
+  DiaLineCaps line_caps; /*!< line ends of the Arc */
   double dashlength; /*!< part of the linestyle if not DIA_LINE_STYLE_SOLID */
   Arrow start_arrow, end_arrow; /*!< arrows */
 
@@ -661,7 +661,7 @@ arc_draw (Arc *arc, DiaRenderer *renderer)
     dia_renderer_set_linewidth (renderer, 0);
     dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DOTTED, 1);
     dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-    dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+    dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
     dia_renderer_draw_line (renderer, &endpoints[0], &arc->center, &line_color);
     dia_renderer_draw_line (renderer, &endpoints[1], &arc->center, &line_color);
@@ -705,7 +705,7 @@ arc_create(Point *startpoint,
   arc->curve_distance = 1.0;
   arc->arc_color = attributes_get_foreground();
   attributes_get_default_line_style(&arc->line_style, &arc->dashlength);
-  arc->line_caps = LINECAPS_BUTT;
+  arc->line_caps = DIA_LINE_CAPS_BUTT;
   arc->start_arrow = attributes_get_default_start_arrow();
   arc->end_arrow = attributes_get_default_end_arrow();
 
@@ -965,9 +965,11 @@ arc_save(Arc *arc, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  arc->dashlength, ctx);
 
-  if (arc->line_caps != LINECAPS_BUTT)
-    data_add_enum(new_attribute(obj_node, "line_caps"),
-                  arc->line_caps, ctx);
+  if (arc->line_caps != DIA_LINE_CAPS_BUTT) {
+    data_add_enum (new_attribute (obj_node, "line_caps"),
+                   arc->line_caps,
+                   ctx);
+  }
 
   if (arc->start_arrow.type != ARROW_NONE) {
     dia_arrow_save (&arc->start_arrow,
@@ -1033,10 +1035,11 @@ arc_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     arc->dashlength = data_real(attribute_first_data(attr), ctx);
 
-  arc->line_caps = LINECAPS_BUTT;
-  attr = object_find_attribute(obj_node, "line_caps");
-  if (attr != NULL)
-    arc->line_caps = data_enum(attribute_first_data(attr), ctx);
+  arc->line_caps = DIA_LINE_CAPS_BUTT;
+  attr = object_find_attribute (obj_node, "line_caps");
+  if (attr != NULL) {
+    arc->line_caps = data_enum (attribute_first_data (attr), ctx);
+  }
 
   dia_arrow_load (&arc->start_arrow,
                   obj_node,

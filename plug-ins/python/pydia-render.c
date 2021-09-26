@@ -196,25 +196,25 @@ set_linewidth (DiaRenderer *renderer, double linewidth)
 /**
  * set_linecaps:
  * @renderer: the #DiaRenderer
- * @mode: #LineCaps
+ * @mode: #DiaLineCaps
  *
  * Set linecaps for later use
  *
  * Optional on the PyDia side.
  */
 static void
-set_linecaps (DiaRenderer *renderer, LineCaps mode)
+set_linecaps (DiaRenderer *renderer, DiaLineCaps mode)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
-  switch(mode) {
-    case LINECAPS_BUTT:
+  switch (mode) {
+    case DIA_LINE_CAPS_BUTT:
       break;
-    case LINECAPS_ROUND:
+    case DIA_LINE_CAPS_ROUND:
       break;
-    case LINECAPS_PROJECTING:
+    case DIA_LINE_CAPS_PROJECTING:
       break;
-    case LINECAPS_DEFAULT:
+    case DIA_LINE_CAPS_DEFAULT:
     default:
       PyErr_Warn (PyExc_RuntimeWarning,
                   "DiaPyRenderer : Unsupported fill mode specified!\n");

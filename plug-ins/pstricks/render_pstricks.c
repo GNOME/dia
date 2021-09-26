@@ -76,7 +76,7 @@ enum {
 static void begin_render(DiaRenderer *self, const DiaRectangle *update);
 static void end_render(DiaRenderer *self);
 static void set_linewidth(DiaRenderer *self, real linewidth);
-static void set_linecaps(DiaRenderer *self, LineCaps mode);
+static void set_linecaps (DiaRenderer *self, DiaLineCaps  mode);
 static void set_linejoin (DiaRenderer *self, DiaLineJoin  mode);
 static void set_linestyle(DiaRenderer *self, DiaLineStyle mode, double dash_length);
 static void set_fillstyle(DiaRenderer *self, FillStyle mode);
@@ -331,28 +331,29 @@ set_linewidth(DiaRenderer *self, real linewidth)
 	    pstricks_dtostr(d_buf, (gdouble) linewidth) );
 }
 
+
 static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
-    PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-    int ps_mode;
+  PstricksRenderer *renderer = PSTRICKS_RENDERER (self);
+  int ps_mode;
 
-    switch(mode) {
-    case LINECAPS_DEFAULT:
-    case LINECAPS_BUTT:
-	ps_mode = 0;
-	break;
-    case LINECAPS_ROUND:
-	ps_mode = 1;
-	break;
-    case LINECAPS_PROJECTING:
-	ps_mode = 2;
-	break;
+  switch (mode) {
+    case DIA_LINE_CAPS_DEFAULT:
+    case DIA_LINE_CAPS_BUTT:
+      ps_mode = 0;
+      break;
+    case DIA_LINE_CAPS_ROUND:
+      ps_mode = 1;
+      break;
+    case DIA_LINE_CAPS_PROJECTING:
+      ps_mode = 2;
+      break;
     default:
-	ps_mode = 0;
-    }
+      ps_mode = 0;
+  }
 
-    fprintf(renderer->file, "\\setlinecaps{%d}\n", ps_mode);
+  fprintf (renderer->file, "\\setlinecaps{%d}\n", ps_mode);
 }
 
 

@@ -328,7 +328,7 @@ action_draw (Action *action, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, ACTION_LINE_WIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   /* first, draw the line or polyline from the step to the action label */
   if (conn->endpoints[0].y == conn->endpoints[1].y) {

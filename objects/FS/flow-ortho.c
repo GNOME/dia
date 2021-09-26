@@ -392,7 +392,7 @@ orthflow_draw (Orthflow *orthflow, DiaRenderer *renderer)
 
   points = &orthflow->orth.points[0];
 
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   switch (orthflow->type) {
     case ORTHFLOW_SIGNAL:

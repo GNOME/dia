@@ -347,21 +347,22 @@ set_linewidth(DiaRenderer *self, real linewidth)
   renderer->LineAttr.Width = SC(linewidth);
 }
 
-static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
-{
-  DIAG_NOTE(g_message("set_linecaps %d", mode));
 
-  switch(mode) {
-  case LINECAPS_DEFAULT:
-  case LINECAPS_BUTT:
-    break;
-  case LINECAPS_ROUND:
-    break;
-  case LINECAPS_PROJECTING:
-    break;
-  default:
-    g_warning("WpgRenderer : Unsupported line-caps mode specified!\n");
+static void
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
+{
+  DIAG_NOTE (g_message("set_linecaps %d", mode));
+
+  switch (mode) {
+    case DIA_LINE_CAPS_DEFAULT:
+    case DIA_LINE_CAPS_BUTT:
+      break;
+    case DIA_LINE_CAPS_ROUND:
+      break;
+    case DIA_LINE_CAPS_PROJECTING:
+      break;
+    default:
+      g_warning("WpgRenderer : Unsupported line-caps mode specified!\n");
   }
 }
 

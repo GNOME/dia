@@ -81,7 +81,7 @@ TODO:
 static void begin_render(DiaRenderer *self, const DiaRectangle *update);
 static void end_render(DiaRenderer *self);
 static void set_linewidth(DiaRenderer *self, real linewidth);
-static void set_linecaps(DiaRenderer *self, LineCaps mode);
+static void set_linecaps (DiaRenderer *self, DiaLineCaps  mode);
 static void set_linejoin (DiaRenderer *self, DiaLineJoin  mode);
 static void set_linestyle(DiaRenderer *self, DiaLineStyle mode, double dash_length);
 static void set_fillstyle(DiaRenderer *self, FillStyle mode);
@@ -415,21 +415,21 @@ set_linewidth (DiaRenderer *self, real linewidth)
 
 
 static void
-set_linecaps (DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
-  PgfRenderer *renderer = PGF_RENDERER(self);
+  PgfRenderer *renderer = PGF_RENDERER (self);
 
   switch (mode) {
-    case LINECAPS_BUTT:
+    case DIA_LINE_CAPS_BUTT:
       fprintf (renderer->file, "\\pgfsetbuttcap\n");
       break;
-    case LINECAPS_ROUND:
+    case DIA_LINE_CAPS_ROUND:
       fprintf (renderer->file, "\\pgfsetroundcap\n");
       break;
-    case LINECAPS_PROJECTING:
+    case DIA_LINE_CAPS_PROJECTING:
       fprintf (renderer->file, "\\pgfsetrectcap\n");
       break;
-    case LINECAPS_DEFAULT:
+    case DIA_LINE_CAPS_DEFAULT:
     default:
       fprintf (renderer->file, "\\pgfsetbuttcap\n");
   }

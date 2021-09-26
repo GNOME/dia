@@ -46,7 +46,7 @@ typedef struct _Zigzagline {
   Color line_color;
   DiaLineStyle line_style;
   DiaLineJoin line_join;
-  LineCaps line_caps;
+  DiaLineCaps line_caps;
   double dashlength;
   double line_width;
   double corner_radius;
@@ -270,7 +270,7 @@ zigzagline_create(Point *startpoint,
   attributes_get_default_line_style (&zigzagline->line_style,
                                      &zigzagline->dashlength);
   zigzagline->line_join = DIA_LINE_JOIN_MITER;
-  zigzagline->line_caps = LINECAPS_BUTT;
+  zigzagline->line_caps = DIA_LINE_CAPS_BUTT;
   zigzagline->start_arrow = attributes_get_default_start_arrow();
   zigzagline->end_arrow = attributes_get_default_end_arrow();
   zigzagline->corner_radius = 0.0;
@@ -510,9 +510,11 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
                    ctx);
   }
 
-  if (zigzagline->line_caps != LINECAPS_BUTT)
-    data_add_enum(new_attribute(obj_node, "line_caps"),
-                  zigzagline->line_caps, ctx);
+  if (zigzagline->line_caps != DIA_LINE_CAPS_BUTT) {
+    data_add_enum (new_attribute (obj_node, "line_caps"),
+                   zigzagline->line_caps,
+                   ctx);
+  }
 
   if (zigzagline->start_arrow.type != ARROW_NONE) {
     dia_arrow_save (&zigzagline->start_arrow,
@@ -581,10 +583,11 @@ zigzagline_load(ObjectNode obj_node, int version, DiaContext *ctx)
     zigzagline->line_join = data_enum (attribute_first_data (attr), ctx);
   }
 
-  zigzagline->line_caps = LINECAPS_BUTT;
-  attr = object_find_attribute(obj_node, "line_caps");
-  if (attr != NULL)
-    zigzagline->line_caps = data_enum(attribute_first_data(attr), ctx);
+  zigzagline->line_caps = DIA_LINE_CAPS_BUTT;
+  attr = object_find_attribute (obj_node, "line_caps");
+  if (attr != NULL) {
+    zigzagline->line_caps = data_enum (attribute_first_data (attr), ctx);
+  }
 
   dia_arrow_load (&zigzagline->start_arrow,
                   obj_node,

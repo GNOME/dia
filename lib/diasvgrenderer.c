@@ -228,26 +228,26 @@ set_linewidth(DiaRenderer *self, real linewidth)
     renderer->linewidth = linewidth;
 }
 
-/*!
- * \brief Set line caps
- * \memberof _DiaSvgRenderer
+
+/*
+ * Set line caps
  */
 static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
 
-  switch(mode) {
-    case LINECAPS_BUTT:
+  switch (mode) {
+    case DIA_LINE_CAPS_BUTT:
       renderer->linecap = "butt";
       break;
-    case LINECAPS_ROUND:
+    case DIA_LINE_CAPS_ROUND:
       renderer->linecap = "round";
       break;
-    case LINECAPS_PROJECTING:
+    case DIA_LINE_CAPS_PROJECTING:
       renderer->linecap = "square";
       break;
-    case LINECAPS_DEFAULT:
+    case DIA_LINE_CAPS_DEFAULT:
     default:
       renderer->linecap = "butt";
   }
@@ -272,7 +272,7 @@ set_linejoin (DiaRenderer *self, DiaLineJoin mode)
     case DIA_LINE_JOIN_BEVEL:
       renderer->linejoin = "bevel";
       break;
-    case LINECAPS_DEFAULT:
+    case DIA_LINE_CAPS_DEFAULT:
     default:
       renderer->linejoin = "miter";
   }

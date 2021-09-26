@@ -258,7 +258,7 @@ radiocell_draw (RadioCell *radiocell, DiaRenderer *renderer)
   if (radiocell->show_background) {
     dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   }
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
   dia_renderer_set_linestyle (renderer, radiocell->line_style, radiocell->dashlength);
   dia_renderer_set_linewidth (renderer, radiocell->line_width);

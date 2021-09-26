@@ -76,9 +76,9 @@ PropEnumData prop_std_line_join_data[] = {
   { NULL, 0 }
 };
 PropEnumData prop_std_line_caps_data[] = {
-  { NC_("LineCap", "Butt"), LINECAPS_BUTT },
-  { NC_("LineCap", "Round"), LINECAPS_ROUND },
-  { NC_("LineCap", "Projecting"), LINECAPS_PROJECTING },
+  { NC_("LineCap", "Butt"), DIA_LINE_CAPS_BUTT },
+  { NC_("LineCap", "Round"), DIA_LINE_CAPS_ROUND },
+  { NC_("LineCap", "Projecting"), DIA_LINE_CAPS_PROJECTING },
   { NULL, 0 }
 };
 #endif

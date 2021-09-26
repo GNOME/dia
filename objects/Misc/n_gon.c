@@ -243,7 +243,7 @@ _ngon_draw (Ngon *ng, DiaRenderer *renderer)
   dia_renderer_set_linewidth (renderer, ng->line_width);
   dia_renderer_set_linestyle (renderer, ng->line_style, ng->dashlength);
   dia_renderer_set_linejoin (renderer, ng->line_join);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
   if (ng->pattern) {
     dia_pattern_get_fallback_color (ng->pattern, &fill);
   } else {

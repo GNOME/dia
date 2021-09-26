@@ -164,7 +164,7 @@ end_draw_op(MetapostRenderer *renderer)
     gchar d3_buf[DTOSTR_BUF_SIZE];
 
     /* the following pencircle seems not to work well with line caps, but using
-     *	renderer->saved_line_cap == LINECAPS_ROUND ? "pencircle" : "pensquare",
+     *	renderer->saved_line_cap == DIA_LINE_CAPS_ROUND ? "pencircle" : "pensquare",
      * doesn't make it anz better
      */
     fprintf(renderer->file, "\n    withpen pencircle scaled %sx",
@@ -247,31 +247,33 @@ set_linewidth(DiaRenderer *self, real linewidth)
     renderer->line_width = linewidth;
 }
 
+
 static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
+  MetapostRenderer *renderer = METAPOST_RENDERER (self);
 
-    if(mode == renderer->saved_line_cap)
-	return;
+  if (mode == renderer->saved_line_cap) {
+    return;
+  }
 
-    switch(mode) {
-    case LINECAPS_DEFAULT:
-    case LINECAPS_BUTT:
-	fprintf(renderer->file, "linecap:=butt;\n");
-	break;
-    case LINECAPS_ROUND:
-	fprintf(renderer->file, "linecap:=rounded;\n");
-	break;
-    case LINECAPS_PROJECTING:
-	/* is this right? */
-	fprintf(renderer->file, "linecap:=squared;\n");
-	break;
+  switch (mode) {
+    case DIA_LINE_CAPS_DEFAULT:
+    case DIA_LINE_CAPS_BUTT:
+      fprintf (renderer->file, "linecap:=butt;\n");
+      break;
+    case DIA_LINE_CAPS_ROUND:
+      fprintf (renderer->file, "linecap:=rounded;\n");
+      break;
+    case DIA_LINE_CAPS_PROJECTING:
+      /* is this right? */
+      fprintf(renderer->file, "linecap:=squared;\n");
+      break;
     default:
-	fprintf(renderer->file, "linecap:=squared;\n");
-    }
+      fprintf (renderer->file, "linecap:=squared;\n");
+  }
 
-    renderer->saved_line_cap = mode;
+  renderer->saved_line_cap = mode;
 }
 
 

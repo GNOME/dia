@@ -268,7 +268,7 @@ measure_draw (Measure *measure, DiaRenderer *renderer)
   dia_renderer_set_linewidth (renderer, measure->line_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
-  dia_renderer_set_linecaps (renderer, LINECAPS_ROUND);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_ROUND);
 
   dia_renderer_draw_line_with_arrows (renderer,
                                       &measure->connection.endpoints[0],

@@ -185,15 +185,18 @@ public :
     }
   }
 
-  void updateLineCap(GfxState *state)
+  void
+  updateLineCap (GfxState *state)
   {
-    if (state->getLineCap() == 0)
-      this->line_caps = LINECAPS_BUTT;
-    else if (state->getLineCap() == 1)
-      this->line_caps = LINECAPS_ROUND;
-    else
-      this->line_caps = LINECAPS_PROJECTING;
+    if (state->getLineCap() == 0) {
+      this->line_caps = DIA_LINE_CAPS_BUTT;
+    } else if (state->getLineCap() == 1) {
+      this->line_caps = DIA_LINE_CAPS_ROUND;
+    } else {
+      this->line_caps = DIA_LINE_CAPS_PROJECTING;
+    }
   }
+
   void updateStrokeColor(GfxState *state)
   {
     GfxRGB color;
@@ -446,7 +449,7 @@ private :
   DiaLineStyle line_style;
   double dash_length;
   DiaLineJoin line_join;
-  LineCaps line_caps;
+  DiaLineCaps line_caps;
   Color fill_color;
 
   Alignment alignment;
@@ -486,7 +489,7 @@ DiaOutputDev::DiaOutputDev (DiagramData *_dia, int _n) :
   line_style(DIA_LINE_STYLE_SOLID),
   dash_length(1.0),
   line_join(DIA_LINE_JOIN_MITER),
-  line_caps(LINECAPS_PROJECTING),
+  line_caps(DIA_LINE_CAPS_PROJECTING),
   fill_color(attributes_get_background ()),
   alignment(ALIGN_LEFT),
   scale(2.54/72.0),

@@ -50,7 +50,7 @@ struct _Bezierline {
   Color line_color;
   DiaLineStyle line_style;
   DiaLineJoin line_join;
-  LineCaps line_caps;
+  DiaLineCaps line_caps;
   double dashlength;
   double line_width;
   Arrow start_arrow, end_arrow;
@@ -477,10 +477,10 @@ bezierline_create(Point *startpoint,
 
   bezierline->line_width =  attributes_get_default_linewidth();
   bezierline->line_color = attributes_get_foreground();
-  attributes_get_default_line_style(&bezierline->line_style,
-				    &bezierline->dashlength);
+  attributes_get_default_line_style (&bezierline->line_style,
+                                     &bezierline->dashlength);
   bezierline->line_join = DIA_LINE_JOIN_MITER;
-  bezierline->line_caps = LINECAPS_BUTT;
+  bezierline->line_caps = DIA_LINE_CAPS_BUTT;
   bezierline->start_arrow = attributes_get_default_start_arrow();
   bezierline->end_arrow = attributes_get_default_end_arrow();
 
@@ -640,7 +640,7 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
                    ctx);
   }
 
-  if (bezierline->line_caps != LINECAPS_BUTT) {
+  if (bezierline->line_caps != DIA_LINE_CAPS_BUTT) {
     data_add_enum (new_attribute (obj_node, "line_caps"),
                    bezierline->line_caps,
                    ctx);
@@ -712,10 +712,11 @@ bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
     bezierline->line_join = data_enum (attribute_first_data (attr), ctx);
   }
 
-  bezierline->line_caps = LINECAPS_BUTT;
-  attr = object_find_attribute(obj_node, "line_caps");
-  if (attr != NULL)
-    bezierline->line_caps = data_enum(attribute_first_data(attr), ctx);
+  bezierline->line_caps = DIA_LINE_CAPS_BUTT;
+  attr = object_find_attribute (obj_node, "line_caps");
+  if (attr != NULL) {
+    bezierline->line_caps = data_enum (attribute_first_data (attr), ctx);
+  }
 
   bezierline->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");

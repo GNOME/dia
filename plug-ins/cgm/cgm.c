@@ -581,29 +581,30 @@ set_linewidth(DiaRenderer *self, real linewidth)
     renderer->lcurrent.width = renderer->fcurrent.width = linewidth;
 }
 
-static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
-{
-    CgmRenderer *renderer = CGM_RENDERER(self);
-    int  cap;
 
-    switch(mode)
-    {
-    case LINECAPS_DEFAULT:
-    case LINECAPS_BUTT:
-	cap = 2;
-	break;
-    case LINECAPS_ROUND:
-	cap = 3;
-	break;
-    case LINECAPS_PROJECTING:
-	cap = 4;
-	break;
+static void
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
+{
+  CgmRenderer *renderer = CGM_RENDERER (self);
+  int cap;
+
+  switch (mode) {
+    case DIA_LINE_CAPS_DEFAULT:
+    case DIA_LINE_CAPS_BUTT:
+      cap = 2;
+      break;
+    case DIA_LINE_CAPS_ROUND:
+      cap = 3;
+      break;
+    case DIA_LINE_CAPS_PROJECTING:
+      cap = 4;
+      break;
     default:
-	cap = 2;
-        break;
-    }
-    renderer->lcurrent.cap = renderer->fcurrent.cap = cap;
+      cap = 2;
+      break;
+  }
+
+  renderer->lcurrent.cap = renderer->fcurrent.cap = cap;
 }
 
 

@@ -206,22 +206,23 @@ set_linewidth(DiaRenderer *object, real linewidth)
     hpgl_select_pen(renderer, NULL, linewidth);
 }
 
-static void
-set_linecaps(DiaRenderer *object, LineCaps mode)
-{
-    DIAG_NOTE(g_message("set_linecaps %d", mode));
 
-    switch(mode) {
-    case LINECAPS_DEFAULT:
-    case LINECAPS_BUTT:
-	break;
-    case LINECAPS_ROUND:
-	break;
-    case LINECAPS_PROJECTING:
-	break;
+static void
+set_linecaps (DiaRenderer *object, DiaLineCaps mode)
+{
+  DIAG_NOTE (g_message ("set_linecaps %d", mode));
+
+  switch (mode) {
+    case DIA_LINE_CAPS_DEFAULT:
+    case DIA_LINE_CAPS_BUTT:
+      break;
+    case DIA_LINE_CAPS_ROUND:
+      break;
+    case DIA_LINE_CAPS_PROJECTING:
+      break;
     default:
-	g_warning("HpglRenderer: Unsupported fill mode specified!");
-    }
+      g_warning ("HpglRenderer: Unsupported fill mode specified!");
+  }
 }
 
 

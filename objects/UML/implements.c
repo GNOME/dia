@@ -268,7 +268,7 @@ implements_draw (Implements *implements, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, implements->line_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   dia_renderer_draw_line (renderer,
                           &endpoints[0],

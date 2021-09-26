@@ -343,7 +343,7 @@ compfeat_draw (Compfeat *compfeat, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, compfeat->line_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   if (compfeat->orth.orientation[orth->numorient - 1] == HORIZONTAL) {
     directions = (points[n - 1].x > points[n - 2].x)? DIR_EAST: DIR_WEST;

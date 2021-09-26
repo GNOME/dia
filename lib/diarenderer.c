@@ -77,7 +77,8 @@ static void begin_render (DiaRenderer *, const DiaRectangle *update);
 static void end_render (DiaRenderer *);
 
 static void set_linewidth (DiaRenderer *renderer, real linewidth);
-static void set_linecaps (DiaRenderer *renderer, LineCaps mode);
+static void set_linecaps      (DiaRenderer  *renderer,
+                               DiaLineCaps   mode);
 static void set_linejoin      (DiaRenderer  *renderer,
                                DiaLineJoin   mode);
 static void set_linestyle     (DiaRenderer  *renderer,
@@ -467,12 +468,12 @@ set_linewidth (DiaRenderer *object, real linewidth)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
 }
 
-/*!
- * \brief Change the line caps for the strokes to come
- * \memberof _DiaRenderer \pure
+
+/*
+ * Change the line caps for the strokes to come
  */
 static void
-set_linecaps (DiaRenderer *object, LineCaps mode)
+set_linecaps (DiaRenderer *object, DiaLineCaps mode)
 {
   g_warning ("%s::set_line_caps not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
@@ -2226,7 +2227,7 @@ dia_renderer_set_linewidth (DiaRenderer      *self,
 
 void
 dia_renderer_set_linecaps (DiaRenderer      *self,
-                           LineCaps          mode)
+                           DiaLineCaps       mode)
 {
   g_return_if_fail (DIA_IS_RENDERER (self));
 

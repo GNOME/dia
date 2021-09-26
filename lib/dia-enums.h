@@ -24,12 +24,12 @@
 
 G_BEGIN_DECLS
 
-typedef enum {
-  LINECAPS_DEFAULT = -1, /* default usually butt, this is unset */
-  LINECAPS_BUTT = 0,
-  LINECAPS_ROUND,
-  LINECAPS_PROJECTING
-} LineCaps;
+typedef enum /*< enum >*/ {
+  DIA_LINE_CAPS_DEFAULT = -1, /* default usually butt, this is unset */
+  DIA_LINE_CAPS_BUTT = 0,
+  DIA_LINE_CAPS_ROUND,
+  DIA_LINE_CAPS_PROJECTING,
+} DiaLineCaps;
 
 typedef enum /*< enum >*/ {
   DIA_LINE_JOIN_DEFAULT = -1, /* default usually miter, this is unset */

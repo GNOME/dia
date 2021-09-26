@@ -269,7 +269,7 @@ message_draw (Message *message, DiaRenderer *renderer)
   endpoints = &message->connection.endpoints[0];
 
   dia_renderer_set_linewidth (renderer, MESSAGE_WIDTH);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   if (message->type==MSG_REQ) {
     dia_renderer_set_linestyle (renderer,

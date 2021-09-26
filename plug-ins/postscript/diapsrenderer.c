@@ -159,28 +159,29 @@ set_linewidth(DiaRenderer *self, real linewidth)
 	  psrenderer_dtostr(lw_buf, (gdouble) linewidth) );
 }
 
+
 static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
+  DiaPsRenderer *renderer = DIA_PS_RENDERER (self);
   int ps_mode;
 
-  switch(mode) {
-  case LINECAPS_DEFAULT:
-  case LINECAPS_BUTT:
-    ps_mode = 0;
-    break;
-  case LINECAPS_ROUND:
-    ps_mode = 1;
-    break;
-  case LINECAPS_PROJECTING:
-    ps_mode = 2;
-    break;
-  default:
-    ps_mode = 0;
+  switch (mode) {
+    case DIA_LINE_CAPS_DEFAULT:
+    case DIA_LINE_CAPS_BUTT:
+      ps_mode = 0;
+      break;
+    case DIA_LINE_CAPS_ROUND:
+      ps_mode = 1;
+      break;
+    case DIA_LINE_CAPS_PROJECTING:
+      ps_mode = 2;
+      break;
+    default:
+      ps_mode = 0;
   }
 
-  fprintf(renderer->file, "%d slc\n", ps_mode);
+  fprintf (renderer->file, "%d slc\n", ps_mode);
 }
 
 

@@ -232,7 +232,7 @@ beziergon_draw (Beziergon *beziergon, DiaRenderer *renderer)
   dia_renderer_set_linewidth (renderer, beziergon->line_width);
   dia_renderer_set_linestyle (renderer, beziergon->line_style, beziergon->dashlength);
   dia_renderer_set_linejoin (renderer, beziergon->line_join);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   if (beziergon->show_background) {
     Color fill = beziergon->inner_color;

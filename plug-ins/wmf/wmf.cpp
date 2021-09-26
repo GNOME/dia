@@ -408,31 +408,33 @@ set_linewidth(DiaRenderer *self, real linewidth)
     renderer->nLineWidth = SC(linewidth);
 }
 
+
 static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
-    WmfRenderer *renderer = WMF_RENDERER (self);
+  WmfRenderer *renderer = WMF_RENDERER (self);
 
-    DIAG_NOTE(renderer, "set_linecaps %d\n", mode);
+  DIAG_NOTE (renderer, "set_linecaps %d\n", mode);
 
-    // all the advanced line rendering is unsupported on win9x
-    if (!renderer->platform_is_nt)
-      return;
+  // all the advanced line rendering is unsupported on win9x
+  if (!renderer->platform_is_nt) {
+    return;
+  }
 
-    renderer->fnPenStyle &= ~(PS_ENDCAP_MASK);
-    switch(mode) {
-    case LINECAPS_BUTT:
+  renderer->fnPenStyle &= ~(PS_ENDCAP_MASK);
+  switch (mode) {
+    case DIA_LINE_CAPS_BUTT:
       renderer->fnPenStyle |= PS_ENDCAP_FLAT;
       break;
-    case LINECAPS_ROUND:
+    case DIA_LINE_CAPS_ROUND:
       renderer->fnPenStyle |= PS_ENDCAP_ROUND;
       break;
-    case LINECAPS_PROJECTING:
+    case DIA_LINE_CAPS_PROJECTING:
       renderer->fnPenStyle |= PS_ENDCAP_SQUARE;
       break;
     default:
-	g_warning("WmfRenderer : Unsupported fill mode specified!\n");
-    }
+      g_warning ("WmfRenderer : Unsupported fill mode specified!\n");
+  }
 }
 
 

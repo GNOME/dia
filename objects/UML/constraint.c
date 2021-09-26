@@ -257,7 +257,7 @@ constraint_draw (Constraint *constraint, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, constraint->line_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DASHED, CONSTRAINT_DASHLEN);
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   arrow.type = ARROW_LINES;
   arrow.length = CONSTRAINT_ARROWLEN;

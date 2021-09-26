@@ -581,7 +581,7 @@ apply_style (DiaObject   *obj,
     eprop->common.experience |= PXP_NOTSET;
 
   eprop = g_ptr_array_index(props,6);
-  if (gs->linecap != LINECAPS_DEFAULT)
+  if (gs->linecap != DIA_LINE_CAPS_DEFAULT)
     eprop->enum_data = gs->linecap;
   else
     eprop->common.experience |= PXP_NOTSET;

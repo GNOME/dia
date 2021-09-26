@@ -86,7 +86,7 @@ struct _VDXRenderer
     int depth;
 
     double linewidth;
-    LineCaps capsmode;
+    DiaLineCaps capsmode;
     DiaLineJoin joinmode;
     DiaLineStyle stylemode;
     double dashlength;
@@ -315,13 +315,12 @@ set_linewidth(DiaRenderer *self, real linewidth)
   renderer->linewidth = linewidth;
 }
 
-/** Set line caps
- * @param self a renderer
- * @param mode new line caps
- */
 
+/*
+ * Set line caps
+ */
 static void
-set_linecaps(DiaRenderer *self, LineCaps mode)
+set_linecaps (DiaRenderer *self, DiaLineCaps mode)
 {
   VDXRenderer *renderer = VDX_RENDERER(self);
 
@@ -458,7 +457,7 @@ create_Line (VDXRenderer     *renderer,
   Line->LineColorTrans = 1.0 - color->alpha;
   Line->LineWeight = renderer->linewidth / vdx_Line_Scale;
   /* VDX only has Rounded (0) or Square (1) ends */
-  if (renderer->capsmode != LINECAPS_ROUND) {
+  if (renderer->capsmode != DIA_LINE_CAPS_ROUND) {
     Line->LineCap = 1; /* Square */
   }
 

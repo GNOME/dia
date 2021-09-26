@@ -382,7 +382,7 @@ box_draw (Box *box, DiaRenderer *renderer)
   } else {
     dia_renderer_set_linejoin (renderer, box->line_join);
   }
-  dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
+  dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
 
   if (box->show_background) {
     Color fill = box->inner_color;
