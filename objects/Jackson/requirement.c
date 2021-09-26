@@ -236,7 +236,7 @@ req_draw (Requirement *req, DiaRenderer *renderer)
   c.x = x + w/2.0;
   c.y = y + h/2.0;
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, REQ_LINEWIDTH);
 
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DASHED, REQ_DASHLEN);

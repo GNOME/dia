@@ -222,12 +222,14 @@ _parse_linejoin (xmlNodePtr node, const char *attrib)
 }
 
 
-static FillStyle
+static DiaFillStyle
 _parse_fillstyle (xmlNodePtr node, const char *attrib)
 {
   /* ToDo: complain about everything but */
-  return FILLSTYLE_SOLID;
+  return DIA_FILL_STYLE_SOLID;
 }
+
+
 static Alignment
 _parse_alignment (xmlNodePtr node, const char *attrib)
 {

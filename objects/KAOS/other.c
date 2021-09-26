@@ -394,7 +394,7 @@ other_draw (Other *other, DiaRenderer *renderer)
 
   if (other->type==AGENT) {
     compute_agent (other,pl);
-    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
     dia_renderer_set_linewidth (renderer, OTHER_LINE_SIMPLE_WIDTH);
     dia_renderer_draw_polygon (renderer,
                                pl,

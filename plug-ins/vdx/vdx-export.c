@@ -90,7 +90,7 @@ struct _VDXRenderer
     DiaLineJoin joinmode;
     DiaLineStyle stylemode;
     double dashlength;
-    FillStyle fillmode;
+    DiaFillStyle fillmode;
     DiaFont *font;
     double fontheight;
 
@@ -357,7 +357,7 @@ set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
  * Set fill style
  */
 static void
-set_fillstyle (DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 {
   VDXRenderer *renderer = VDX_RENDERER (self);
 

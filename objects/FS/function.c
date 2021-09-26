@@ -343,7 +343,7 @@ function_draw (Function *pkg, DiaRenderer *renderer)
 
   font_height = pkg->text->height ;
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer,
                               font_height / FUNCTION_BORDERWIDTH_SCALE);
   if (pkg->is_wish) {

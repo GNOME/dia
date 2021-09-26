@@ -257,7 +257,7 @@ usecase_draw (Usecase *usecase, DiaRenderer *renderer)
   }
 
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, usecase->line_width);
 
   if (usecase->collaboration)

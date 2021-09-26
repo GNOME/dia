@@ -282,17 +282,18 @@ set_linestyle (DiaRenderer *object, DiaLineStyle mode, double dash_length)
 
 
 static void
-set_fillstyle(DiaRenderer *object, FillStyle mode)
+set_fillstyle (DiaRenderer *object, DiaFillStyle mode)
 {
-    DIAG_NOTE(g_message("set_fillstyle %d", mode));
+  DIAG_NOTE (g_message ("set_fillstyle %d", mode));
 
-    switch(mode) {
-    case FILLSTYLE_SOLID:
-	break;
+  switch (mode) {
+    case DIA_FILL_STYLE_SOLID:
+      break;
     default:
-	g_warning("HpglRenderer : Unsupported fill mode specified!");
+      g_warning ("HpglRenderer : Unsupported fill mode specified!");
     }
 }
+
 
 static void
 set_font (DiaRenderer *object, DiaFont *font, real height)

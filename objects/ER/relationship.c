@@ -272,7 +272,7 @@ relationship_draw (Relationship *relationship, DiaRenderer *renderer)
   corners[3].x = elem->corner.x + elem->width / 2;
   corners[3].y = elem->corner.y + elem->height;
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
 
   dia_renderer_set_linewidth (renderer, relationship->border_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);

@@ -46,7 +46,7 @@ aadlsubprogram_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
   center.x = x + 0.5*w;
   center.y = y + 0.5*h;
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 

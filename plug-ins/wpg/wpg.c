@@ -421,18 +421,18 @@ set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 
 
 static void
-set_fillstyle(DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
 
-  DIAG_NOTE(g_message("set_fillstyle %d", mode));
+  DIAG_NOTE (g_message ("set_fillstyle %d", mode));
 
   switch(mode) {
-  case FILLSTYLE_SOLID:
-    renderer->FillAttr.Type = WPG_FA_SOLID;
-    break;
-  default:
-    g_warning("WpgRenderer : Unsupported fill mode specified!\n");
+    case DIA_FILL_STYLE_SOLID:
+      renderer->FillAttr.Type = WPG_FA_SOLID;
+      break;
+    default:
+      g_warning ("WpgRenderer : Unsupported fill mode specified!\n");
   }
 }
 

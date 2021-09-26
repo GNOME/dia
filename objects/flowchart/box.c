@@ -366,7 +366,7 @@ box_draw (Box *box, DiaRenderer *renderer)
   lr_corner.y = elem->corner.y + elem->height;
 
   if (box->show_background) {
-    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   }
 
   dia_renderer_set_linewidth (renderer, box->border_width);

@@ -47,9 +47,9 @@ typedef enum /*< enum >*/ {
   DIA_LINE_STYLE_DOTTED
 } DiaLineStyle;
 
-typedef enum {
-  FILLSTYLE_SOLID
-} FillStyle;
+typedef enum /*< enum >*/ {
+  DIA_FILL_STYLE_SOLID
+} DiaFillStyle;
 
 typedef enum {
   ALIGN_LEFT,

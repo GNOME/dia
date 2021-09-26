@@ -79,7 +79,7 @@ static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps (DiaRenderer *self, DiaLineCaps  mode);
 static void set_linejoin (DiaRenderer *self, DiaLineJoin  mode);
 static void set_linestyle(DiaRenderer *self, DiaLineStyle mode, double dash_length);
-static void set_fillstyle(DiaRenderer *self, FillStyle mode);
+static void set_fillstyle(DiaRenderer *self, DiaFillStyle mode);
 static void set_font(DiaRenderer *self, DiaFont *font, real height);
 static void draw_line(DiaRenderer *self,
 		      Point *start, Point *end,
@@ -438,15 +438,16 @@ set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 
 
 static void
-set_fillstyle(DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 {
-    switch(mode) {
-    case FILLSTYLE_SOLID:
-	break;
+  switch (mode) {
+    case DIA_FILL_STYLE_SOLID:
+      break;
     default:
-	g_warning("pstricks_renderer: Unsupported fill mode specified!\n");
-    }
+      g_warning("pstricks_renderer: Unsupported fill mode specified!\n");
+  }
 }
+
 
 static void
 set_font (DiaRenderer *self, DiaFont *font, real height)

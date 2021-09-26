@@ -84,7 +84,8 @@ static void set_linejoin      (DiaRenderer  *renderer,
 static void set_linestyle     (DiaRenderer  *renderer,
                                DiaLineStyle  mode,
                                double        length);
-static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
+static void set_fillstyle     (DiaRenderer  *renderer,
+                               DiaFillStyle  mode);
 
 static void draw_line (DiaRenderer *renderer,
                        Point *start, Point *end,
@@ -511,7 +512,7 @@ set_linestyle (DiaRenderer *renderer, DiaLineStyle mode, double dash_length)
  * \memberof _DiaRenderer \pure
  */
 static void
-set_fillstyle (DiaRenderer *renderer, FillStyle mode)
+set_fillstyle (DiaRenderer *renderer, DiaFillStyle mode)
 {
   g_warning ("%s::set_fill_style not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
@@ -2258,7 +2259,7 @@ dia_renderer_set_linestyle (DiaRenderer      *self,
 
 void
 dia_renderer_set_fillstyle (DiaRenderer      *self,
-                            FillStyle         mode)
+                            DiaFillStyle         mode)
 {
   g_return_if_fail (DIA_IS_RENDERER (self));
 

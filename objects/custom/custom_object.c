@@ -939,7 +939,7 @@ custom_draw (Custom *custom, DiaRenderer *renderer)
     barr = g_array_new (FALSE, FALSE, sizeof(BezPoint));
   }
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, custom->border_width);
   cur_line = custom->border_width;
   dia_renderer_set_linestyle (renderer, cur_style, custom->dashlength);

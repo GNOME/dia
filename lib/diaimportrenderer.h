@@ -31,7 +31,7 @@ struct _DiaImportRenderer {
 
   /*! \protected state variables should not be set directly but with the rendering interface */
   DiaLineStyle line_style;
-  FillStyle   fill_style;
+  DiaFillStyle fill_style;
   double       dash_length;
 
   double       line_width;

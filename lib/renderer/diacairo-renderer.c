@@ -522,18 +522,18 @@ dia_cairo_renderer_set_linestyle (DiaRenderer  *self,
  * \memberof _DiaCairoRenderer
  */
 static void
-dia_cairo_renderer_set_fillstyle (DiaRenderer *self, FillStyle mode)
+dia_cairo_renderer_set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 {
   DIAG_NOTE (g_message ("set_fillstyle %d", mode));
 
-  switch(mode) {
-    case FILLSTYLE_SOLID:
+  switch (mode) {
+    case DIA_FILL_STYLE_SOLID:
       /* FIXME: how to set _no_ pattern ?
         * cairo_set_pattern (renderer->cr, NULL);
         */
       break;
     default:
-      g_warning("DiaCairoRenderer : Unsupported fill mode specified!\n");
+      g_warning ("DiaCairoRenderer : Unsupported fill mode specified!\n");
   }
 
   DIAG_STATE (DIA_CAIRO_RENDERER (self)->cr)

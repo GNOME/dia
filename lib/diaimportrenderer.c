@@ -37,7 +37,7 @@ static void set_linewidth (DiaRenderer *renderer, real linewidth);
 static void set_linecaps  (DiaRenderer *renderer, DiaLineCaps  mode);
 static void set_linejoin  (DiaRenderer *renderer, DiaLineJoin  mode);
 static void set_linestyle (DiaRenderer *renderer, DiaLineStyle mode, double dash_length);
-static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
+static void set_fillstyle (DiaRenderer *renderer, DiaFillStyle mode);
 
 static void draw_line (DiaRenderer *renderer,
 		       Point *start, Point *end,
@@ -261,7 +261,7 @@ set_linestyle (DiaRenderer *renderer, DiaLineStyle mode, double dash_length)
 
 
 static void
-set_fillstyle (DiaRenderer *renderer, FillStyle mode)
+set_fillstyle (DiaRenderer *renderer, DiaFillStyle mode)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   self->fill_style = mode;

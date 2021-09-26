@@ -558,7 +558,7 @@ table_draw (Table *table, DiaRenderer *renderer)
   Element * elem;
 
   dia_renderer_set_linewidth (renderer, table->border_width);
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
   elem = &table->element;
@@ -690,7 +690,7 @@ fill_diamond (DiaRenderer *renderer,
   poly[3].x = poly[1].x;
   poly[3].y = lower_midpoint->y - half_height;
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
   dia_renderer_draw_polygon (renderer, poly, 4, color, NULL);

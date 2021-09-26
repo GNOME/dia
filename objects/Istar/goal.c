@@ -370,7 +370,7 @@ goal_draw (Goal *goal, DiaRenderer *renderer)
                                     elem->height/2.0);
   } else {                 /* softgoal */
     compute_cloud (goal,bpl);
-    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
     dia_renderer_draw_beziergon (renderer, bpl, 5, &GOAL_BG_COLOR, &GOAL_FG_COLOR);
   }
 

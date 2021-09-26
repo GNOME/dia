@@ -73,8 +73,7 @@ aadlbus_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
   points[9].x = x + w*AADL_BUS_ARROW_SIZE_FACTOR;
   points[9].y = y + h;
 
-
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 

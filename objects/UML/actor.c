@@ -234,7 +234,7 @@ actor_draw(Actor *actor, DiaRenderer *renderer)
   w = elem->width;
   actor_height = elem->height - actor->text->height;
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, actor->line_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 

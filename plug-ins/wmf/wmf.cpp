@@ -522,19 +522,20 @@ set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 
 
 static void
-set_fillstyle(DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 {
-    WmfRenderer *renderer = WMF_RENDERER (self);
+  WmfRenderer *renderer = WMF_RENDERER (self);
 
-    DIAG_NOTE(renderer, "set_fillstyle %d\n", mode);
+  DIAG_NOTE (renderer, "set_fillstyle %d\n", mode);
 
-    switch(mode) {
-    case FILLSTYLE_SOLID:
-	break;
+  switch (mode) {
+    case DIA_FILL_STYLE_SOLID:
+      break;
     default:
-	g_warning("WmfRenderer : Unsupported fill mode specified!\n");
-    }
+      g_warning ("WmfRenderer : Unsupported fill mode specified!\n");
+  }
 }
+
 
 static void
 set_font (DiaRenderer *self, DiaFont *font, real height)

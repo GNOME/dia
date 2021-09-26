@@ -389,7 +389,7 @@ jackson_box_draw (Box *box, DiaRenderer *renderer)
   p2b.y= p1b.y;
 
   /* drawing main box */
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
 
   dia_renderer_set_linewidth (renderer, JACKSON_BOX_LINE_WIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);

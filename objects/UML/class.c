@@ -1245,7 +1245,7 @@ umlclass_draw (UMLClass *umlclass, DiaRenderer *renderer)
   g_return_if_fail (umlclass != NULL);
   g_return_if_fail (renderer != NULL);
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, umlclass->line_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 

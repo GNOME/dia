@@ -377,17 +377,17 @@ draw_with_linestyle (MetapostRenderer *renderer)
 
 
 static void
-set_fillstyle (DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 {
   /*MetapostRenderer *renderer = METAPOST_RENDERER (self);*/
 
-  switch(mode) {
-    case FILLSTYLE_SOLID:
+  switch (mode) {
+    case DIA_FILL_STYLE_SOLID:
       break;
     default:
       g_warning ("%s: Unsupported fill mode specified!",
                  G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (self)));
-    }
+  }
 }
 
 

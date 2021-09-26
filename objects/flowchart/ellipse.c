@@ -377,7 +377,7 @@ ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)
   center.y = elem->corner.y + elem->height/2;
 
   if (ellipse->show_background) {
-    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   }
   dia_renderer_set_linewidth (renderer, ellipse->border_width);
   dia_renderer_set_linestyle (renderer, ellipse->line_style, ellipse->dashlength);

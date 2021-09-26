@@ -462,7 +462,7 @@ goal_draw (Goal *goal, DiaRenderer *renderer)
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
   if (goal->type != SOFTGOAL) {
-    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
 
     if ((goal->type == REQUIREMENT) || (goal->type == ASSUMPTION)) {
       dia_renderer_set_linewidth (renderer, GOAL_LINE_DOUBLE_WIDTH);
@@ -487,7 +487,7 @@ goal_draw (Goal *goal, DiaRenderer *renderer)
     }
   } else { /* SOFTGOAL IS HERE */
     compute_cloud (goal,bpl);
-    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
     dia_renderer_draw_beziergon (renderer, bpl, 9, &GOAL_BG_COLOR, &GOAL_FG_COLOR);
   }
 

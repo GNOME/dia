@@ -386,7 +386,7 @@ box_draw (Box *box, DiaRenderer *renderer)
 
   if (box->show_background) {
     Color fill = box->inner_color;
-    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
     if (box->pattern) {
       dia_pattern_get_fallback_color (box->pattern, &fill);
       if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {

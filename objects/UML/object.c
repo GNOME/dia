@@ -291,7 +291,7 @@ objet_draw (Objet *ob, DiaRenderer *renderer)
 
   bw = (ob->is_active) ? OBJET_ACTIVEBORDERWIDTH: ob->line_width;
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, bw);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 

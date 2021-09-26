@@ -198,12 +198,11 @@ set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 }
 
 
-/*!
- * \brief Pass through fill style
- * \memberof _DiaTransformRenderer
+/*
+ * Pass through fill style
  */
 static void
-set_fillstyle(DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
 

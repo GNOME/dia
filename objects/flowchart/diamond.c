@@ -383,7 +383,7 @@ diamond_draw(Diamond *diamond, DiaRenderer *renderer)
   pts[3].y += elem->height / 2.0;
 
   if (diamond->show_background) {
-    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   }
 
   dia_renderer_set_linewidth (renderer, diamond->border_width);

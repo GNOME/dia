@@ -237,7 +237,7 @@ component_draw (Component *cmp, DiaRenderer *renderer)
   w = elem->width;
   h = elem->height;
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, COMPONENT_BORDERWIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 

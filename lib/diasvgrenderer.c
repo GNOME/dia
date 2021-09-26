@@ -346,20 +346,20 @@ set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 }
 
 
-/*!
- * \brief Set fill style
- * \memberof _DiaSvgRenderer
+/*
+ * Set fill style
  */
 static void
-set_fillstyle(DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 {
-  switch(mode) {
-  case FILLSTYLE_SOLID:
-    break;
-  default:
-    g_warning("svg_renderer: Unsupported fill mode specified!\n");
+  switch (mode) {
+    case DIA_FILL_STYLE_SOLID:
+      break;
+    default:
+      g_warning ("svg_renderer: Unsupported fill mode specified!\n");
   }
 }
+
 
 /*!
  * \brief Remember the pattern for later use

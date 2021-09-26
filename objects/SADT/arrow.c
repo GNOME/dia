@@ -329,7 +329,7 @@ draw_dot (DiaRenderer *renderer,
   point_scale (&vt,-ARROW_DOT_LOFFSET);
   point_add (&pt,&vt);
 
-  dia_renderer_set_fillstyle (renderer,FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_draw_ellipse (renderer,
                              &pt,
                              ARROW_DOT_RADIUS,

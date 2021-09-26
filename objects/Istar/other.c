@@ -353,7 +353,7 @@ other_draw (Other *other, DiaRenderer *renderer)
       break;
     case TASK:
       compute_task (other, pl);
-      dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+      dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
       dia_renderer_set_linewidth (renderer, OTHER_LINE_WIDTH);
       dia_renderer_draw_polygon (renderer, pl, 6,
                                  &OTHER_BG_COLOR, &OTHER_FG_COLOR);

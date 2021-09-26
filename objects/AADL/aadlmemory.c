@@ -70,7 +70,7 @@ aadlmemory_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
 
   point_copy(&bez[4].p1, &bez[0].p1);
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 

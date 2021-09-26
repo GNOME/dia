@@ -479,7 +479,7 @@ association_draw (Association *assoc, DiaRenderer *renderer)
   }
 
   /* Direction: */
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
 
   if (assoc_get_direction_poly (assoc, poly)) {
     dia_renderer_draw_polygon (renderer, poly, 3, &assoc->line_color, NULL);

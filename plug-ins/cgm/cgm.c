@@ -667,11 +667,11 @@ set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 
 
 static void
-set_fillstyle(DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, DiaFillStyle mode)
 {
 #if 0
     switch(mode) {
-    case FILLSTYLE_SOLID:
+    case DIA_FILL_STYLE_SOLID:
 	write_elhead(renderer->file, CGM_ATTRIB, CGM_INTERIOR_STYLE, 2);
 	write_int16(renderer->file, 1);
 	break;

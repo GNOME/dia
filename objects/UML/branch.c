@@ -212,7 +212,7 @@ branch_draw (Branch *branch, DiaRenderer *renderer)
   points[2].x = elem->corner.x + 2*w, points[2].y = elem->corner.y + h;
   points[3].x = elem->corner.x + w,   points[3].y = elem->corner.y + 2*h;
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, BRANCH_BORDERWIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 

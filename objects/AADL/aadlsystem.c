@@ -86,7 +86,7 @@ aadlbox_draw_rounded_box (Aadlbox      *aadlbox,
   bez[8].p1.y = bez[8].p2.y = bez[8].p3.y = y;
   bez[8].p3.x = x + w * AADL_ROUNDEDBOX_CORNER_SIZE_FACTOR;
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
   dia_renderer_set_linestyle (renderer, linestyle, AADLBOX_DASH_LENGTH);
 

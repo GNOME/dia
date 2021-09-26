@@ -261,7 +261,7 @@ classicon_draw (Classicon *icon, DiaRenderer *renderer)
     center.x += r/2.0;
   }
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, icon->line_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 

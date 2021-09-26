@@ -140,7 +140,7 @@ struct _DiaRendererClass
                                                  DiaLineStyle      mode,
                                                  double            length);
   void     (*set_fillstyle)                     (DiaRenderer      *renderer,
-                                                 FillStyle         mode);
+                                                 DiaFillStyle      mode);
 
   void     (*draw_line)                         (DiaRenderer      *renderer,
                                                  Point            *start,
@@ -303,7 +303,7 @@ void     dia_renderer_set_linestyle                     (DiaRenderer      *self,
                                                          DiaLineStyle      mode,
                                                          double            length);
 void     dia_renderer_set_fillstyle                     (DiaRenderer      *self,
-                                                         FillStyle         mode);
+                                                         DiaFillStyle      mode);
 void     dia_renderer_set_font                          (DiaRenderer      *self,
                                                          DiaFont          *font,
                                                          double            height);

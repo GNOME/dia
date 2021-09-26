@@ -340,19 +340,19 @@ set_linestyle (DiaRenderer *renderer, DiaLineStyle mode, double dash_length)
 /**
  * set_fillstyle:
  * @renderer: the #DiaRenderer
- * @mode: the #FillStyle to fill with
+ * @mode: the #DiaFillStyle to fill with
  *
  * Set fillstyle for later use
  *
  * Optional on the PyDia side.
  */
 static void
-set_fillstyle (DiaRenderer *renderer, FillStyle mode)
+set_fillstyle (DiaRenderer *renderer, DiaFillStyle mode)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
-  switch(mode) {
-    case FILLSTYLE_SOLID:
+  switch (mode) {
+    case DIA_FILL_STYLE_SOLID:
       break;
     default:
       PyErr_Warn (PyExc_RuntimeWarning,

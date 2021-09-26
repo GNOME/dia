@@ -373,15 +373,20 @@ ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, ellipse->border_width);
   dia_renderer_set_linestyle (renderer, ellipse->line_style, ellipse->dashlength);
+
   if (ellipse->show_background) {
     Color fill = ellipse->inner_color;
-    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+
+    dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
+
     if (ellipse->pattern) {
       dia_pattern_get_fallback_color (ellipse->pattern, &fill);
+
       if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
         dia_renderer_set_pattern (renderer, ellipse->pattern);
       }
     }
+
     if (!path) {
       dia_renderer_draw_ellipse (renderer,
                                  &center,
@@ -395,6 +400,7 @@ ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)
                                    path->len,
                                    &fill, &ellipse->border_color);
     }
+
     if (dia_renderer_is_capable_of (renderer, RENDER_PATTERN)) {
       dia_renderer_set_pattern (renderer, NULL);
     }

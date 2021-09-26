@@ -54,7 +54,7 @@ aadlbox_draw_inclined_box (Aadlbox      *aadlbox,
   points[2].x = x + w - w * AADLBOX_INCLINE_FACTOR;
   points[3].y = points[2].y = y + h;
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
   dia_renderer_set_linestyle (renderer, linestyle, AADLBOX_DASH_LENGTH);
 

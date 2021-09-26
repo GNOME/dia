@@ -388,7 +388,7 @@ pgram_draw (Pgram *pgram, DiaRenderer *renderer)
   }
 
   if (pgram->show_background) {
-    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   }
 
   dia_renderer_set_linewidth (renderer, pgram->border_width);

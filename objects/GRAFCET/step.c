@@ -393,7 +393,7 @@ step_draw (Step *step, DiaRenderer *renderer)
   g_return_if_fail (step != NULL);
   g_return_if_fail (renderer != NULL);
 
-  dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+  dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   dia_renderer_set_linewidth (renderer, STEP_LINE_WIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);

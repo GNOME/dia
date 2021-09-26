@@ -256,7 +256,7 @@ radiocell_draw (RadioCell *radiocell, DiaRenderer *renderer)
   n = poly->numpoints;
 
   if (radiocell->show_background) {
-    dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
+    dia_renderer_set_fillstyle (renderer, DIA_FILL_STYLE_SOLID);
   }
   dia_renderer_set_linecaps (renderer, DIA_LINE_CAPS_BUTT);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
