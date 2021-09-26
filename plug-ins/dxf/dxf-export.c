@@ -265,26 +265,26 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 
 
 static void
-set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 {
-  DxfRenderer *renderer = DXF_RENDERER(self);
-  char   *style;
+  DxfRenderer *renderer = DXF_RENDERER (self);
+  char *style;
 
   switch (mode) {
-    case LINESTYLE_DASHED:
+    case DIA_LINE_STYLE_DASHED:
       style = "DASH";
       break;
-    case LINESTYLE_DASH_DOT:
+    case DIA_LINE_STYLE_DASH_DOT:
       style = "DASHDOT";
       break;
-    case LINESTYLE_DASH_DOT_DOT:
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
       style = "DASHDOT";
       break;
-    case LINESTYLE_DOTTED:
+    case DIA_LINE_STYLE_DOTTED:
       style = "DOT";
       break;
-    case LINESTYLE_SOLID:
-    case LINESTYLE_DEFAULT:
+    case DIA_LINE_STYLE_SOLID:
+    case DIA_LINE_STYLE_DEFAULT:
     default:
       style = "CONTINUOUS";
       break;

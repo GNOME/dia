@@ -32,8 +32,8 @@
 
 typedef struct _DiaLineCellRendererPrivate DiaLineCellRendererPrivate;
 struct _DiaLineCellRendererPrivate {
-  DiaRenderer *renderer;
-  LineStyle    line;
+  DiaRenderer  *renderer;
+  DiaLineStyle  line;
 };
 
 
@@ -244,14 +244,12 @@ dia_line_cell_renderer_class_init (DiaLineCellRendererClass *klass)
    *
    * Since: 0.98
    */
-  // TODO: Make LineStyle a GEnum
   pspecs[PROP_LINE] =
-    g_param_spec_int ("line",
-                      "Line",
-                      "Line style",
-                       LINESTYLE_DEFAULT,
-                       LINESTYLE_DOTTED, // KEEP IN SYNC
-                       LINESTYLE_SOLID,
+    g_param_spec_enum ("line",
+                       "Line",
+                       "Line style",
+                       DIA_TYPE_LINE_STYLE,
+                       DIA_LINE_STYLE_DEFAULT,
                        G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
 
   g_object_class_install_properties (object_class, LAST_PROP, pspecs);

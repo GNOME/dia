@@ -216,7 +216,7 @@ participation_draw (Participation *participation, DiaRenderer *renderer)
   last_right = 0.0;
 
   dia_renderer_set_linewidth (renderer, PARTICIPATION_WIDTH);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
   dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 

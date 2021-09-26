@@ -176,7 +176,7 @@ bezier_draw_control_lines (int          num_points,
 
   /* setup renderer ... */
   dia_renderer_set_linewidth (renderer, 0);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_DOTTED, 1);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DOTTED, 1);
   dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
   dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 

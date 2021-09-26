@@ -83,7 +83,7 @@ static void end_render(DiaRenderer *self);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
 static void set_linejoin(DiaRenderer *self, LineJoin mode);
-static void set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length);
+static void set_linestyle(DiaRenderer *self, DiaLineStyle mode, double dash_length);
 static void set_fillstyle(DiaRenderer *self, FillStyle mode);
 static void set_font(DiaRenderer *self, DiaFont *font, real height);
 static void draw_line(DiaRenderer *self,
@@ -460,14 +460,14 @@ set_linejoin (DiaRenderer *self, LineJoin mode)
 
 
 static void
-set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 {
   PgfRenderer *renderer = PGF_RENDERER(self);
-  real hole_width;
-  gchar dash_length_buf[DTOSTR_BUF_SIZE];
-  gchar dot_length_buf[DTOSTR_BUF_SIZE];
-  gchar hole_width_buf[DTOSTR_BUF_SIZE];
-  real dot_length;
+  double hole_width;
+  char dash_length_buf[DTOSTR_BUF_SIZE];
+  char dot_length_buf[DTOSTR_BUF_SIZE];
+  char hole_width_buf[DTOSTR_BUF_SIZE];
+  double dot_length;
 
   if (dash_length < 0.001) {
     dash_length = 0.001;
@@ -477,18 +477,18 @@ set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
   dot_length = dash_length * 0.2;
 
   switch(mode) {
-    case LINESTYLE_DEFAULT:
-    case LINESTYLE_SOLID:
+    case DIA_LINE_STYLE_DEFAULT:
+    case DIA_LINE_STYLE_SOLID:
     default:
       fprintf (renderer->file, "\\pgfsetdash{}{0pt}\n");
       break;
-    case LINESTYLE_DASHED:
+    case DIA_LINE_STYLE_DASHED:
       pgf_dtostr (dash_length_buf, dash_length);
       fprintf (renderer->file, "\\pgfsetdash{{%s\\du}{%s\\du}}{0\\du}\n",
                dash_length_buf,
                dash_length_buf);
       break;
-    case LINESTYLE_DASH_DOT:
+    case DIA_LINE_STYLE_DASH_DOT:
       hole_width = ( dash_length -  dot_length) / 2.0;
       pgf_dtostr (hole_width_buf, hole_width);
       pgf_dtostr (dot_length_buf, dot_length);
@@ -499,7 +499,7 @@ set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
                dot_length_buf,
                hole_width_buf );
       break;
-    case LINESTYLE_DASH_DOT_DOT:
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
       hole_width = ( dash_length - 2.0* dot_length) / 3.0;
       pgf_dtostr (hole_width_buf, hole_width);
       pgf_dtostr (dot_length_buf, dot_length);
@@ -512,12 +512,13 @@ set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
                dot_length_buf,
                hole_width_buf );
       break;
-    case LINESTYLE_DOTTED:
-      pgf_dtostr(dot_length_buf, dot_length);
-      fprintf(renderer->file, "\\pgfsetdash{{\\pgflinewidth}{%s\\du}}{0cm}\n", dot_length_buf);
+    case DIA_LINE_STYLE_DOTTED:
+      pgf_dtostr (dot_length_buf, dot_length);
+      fprintf (renderer->file, "\\pgfsetdash{{\\pgflinewidth}{%s\\du}}{0cm}\n", dot_length_buf);
       break;
-    }
+  }
 }
+
 
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)

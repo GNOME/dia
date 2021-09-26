@@ -178,12 +178,12 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   dia_renderer_set_linejoin (renderer->worker, mode);
 }
 
-/*!
- * \brief Pass through line style, transform dash length and pass through
- * \memberof _DiaTransformRenderer
+
+/*
+ * Pass through line style, transform dash length and pass through
  */
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
   DiaMatrix *m = g_queue_peek_tail (renderer->matrices);
@@ -196,6 +196,7 @@ set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
 
   dia_renderer_set_linestyle (renderer->worker, mode, dash_length);
 }
+
 
 /*!
  * \brief Pass through fill style

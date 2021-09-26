@@ -127,16 +127,16 @@ class Object :
 			except :
 				n = 0
 		if n == 0 : # should not really happen
-			self.props["line-style"] = (0, 1.0) # LINESTYLE_SOLID,
+			self.props["line-style"] = (0, 1.0) # DIA_LINE_STYLE_SOLID,
 		elif n == 2 :
 			if dlen > 0.1 : # FIXME:
-				self.props["line-style"] = (1, dlen) # LINESTYLE_DASHED,
+				self.props["line-style"] = (1, dlen) # DIA_LINE_STYLE_DASHED,
 			else :
-				self.props["line-style"] = (4, dlen) # LINESTYLE_DOTTED
+				self.props["line-style"] = (4, dlen) # DIA_LINE_STYLE_DOTTED
 		elif n == 4 :
-			self.props["line-style"] = (2, dlen) # LINESTYLE_DASH_DOT,
+			self.props["line-style"] = (2, dlen) # DIA_LINE_STYLE_DASH_DOT,
 		elif n == 6 :
-			self.props["line-style"] = (3, dlen) # LINESTYLE_DASH_DOT_DOT,
+			self.props["line-style"] = (3, dlen) # DIA_LINE_STYLE_DASH_DOT_DOT,
 	def id(self, s) :
 		# just to handle/ignore it
 		self.props["meta"] = { "id" : s }

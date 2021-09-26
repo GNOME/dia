@@ -191,6 +191,7 @@ gnome = import('gnome')
 
 libdia_sources += gnome.mkenums_simple('dia-lib-enums',
                                    sources: [
+                                                 'dia-enums.h',
                                                  'font.h',
                                                  'units.h',
                                             ]

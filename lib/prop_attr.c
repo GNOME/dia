@@ -43,7 +43,7 @@ linestyleprop_new(const PropDescription *pdesc,
 {
   LinestyleProperty *prop = g_new0(LinestyleProperty,1);
   initialize_property(&prop->common,pdesc,reason);
-  prop->style = LINESTYLE_SOLID;
+  prop->style = DIA_LINE_STYLE_SOLID;
   prop->dash = 0.0;
   return prop;
 }
@@ -93,7 +93,7 @@ linestyleprop_load(LinestyleProperty *prop, AttributeNode attr, DataNode data, D
   prop->style = data_enum(data, ctx);
   prop->dash = 1.0;
   /* don't bother checking dash length if we have a solid line. */
-  if (prop->style != LINESTYLE_SOLID) {
+  if (prop->style != DIA_LINE_STYLE_SOLID) {
     data = data_next(data);
     if (data)
       prop->dash = data_real(data, ctx);
@@ -114,21 +114,28 @@ linestyleprop_save(LinestyleProperty *prop, AttributeNode attr, DiaContext *ctx)
   data_add_real(attr, prop->dash, ctx);
 }
 
-static void
-linestyleprop_get_from_offset(LinestyleProperty *prop,
-                              void *base, guint offset, guint offset2)
-{
-  prop->style = struct_member(base, offset, LineStyle);
-  prop->dash = struct_member(base, offset2, real);
-}
 
 static void
-linestyleprop_set_from_offset(LinestyleProperty *prop,
-                              void *base, guint offset, guint offset2)
+linestyleprop_get_from_offset (LinestyleProperty *prop,
+                               void              *base,
+                               guint              offset,
+                               guint              offset2)
 {
-  struct_member(base, offset, LineStyle) = prop->style;
-  struct_member(base, offset2, real) = prop->dash;
+  prop->style = struct_member (base, offset, DiaLineStyle);
+  prop->dash = struct_member (base, offset2, double);
 }
+
+
+static void
+linestyleprop_set_from_offset (LinestyleProperty *prop,
+                               void              *base,
+                               guint              offset,
+                               guint              offset2)
+{
+  struct_member (base, offset, DiaLineStyle) = prop->style;
+  struct_member (base, offset2, double) = prop->dash;
+}
+
 
 static const PropertyOps linestyleprop_ops = {
   (PropertyType_New) linestyleprop_new,

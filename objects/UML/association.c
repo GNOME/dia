@@ -430,7 +430,7 @@ association_draw (Association *assoc, DiaRenderer *renderer)
   n = orth->numpoints;
 
   dia_renderer_set_linewidth (renderer, assoc->line_width);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
   dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 

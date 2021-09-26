@@ -383,38 +383,40 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   }
 }
 
+
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
 
-  DIAG_NOTE(g_message("set_linestyle %d, %g", mode, dash_length));
+  DIAG_NOTE (g_message ("set_linestyle %d, %g", mode, dash_length));
 
   /* line type */
   switch (mode) {
-  case LINESTYLE_DEFAULT:
-  case LINESTYLE_SOLID:
-    renderer->LineAttr.Type = WPG_LA_SOLID;
-    break;
-  case LINESTYLE_DASHED:
-    if (dash_length < 0.5)
-      renderer->LineAttr.Type = WPG_LA_SHORTDASH;
-    else
-      renderer->LineAttr.Type = WPG_LA_MEDIUMDASH;
-    break;
-  case LINESTYLE_DASH_DOT:
-    renderer->LineAttr.Type = WPG_LA_DASHDOT;
-    break;
-  case LINESTYLE_DASH_DOT_DOT:
-    renderer->LineAttr.Type = WPG_LA_DASHDOTDOT;
-    break;
-  case LINESTYLE_DOTTED:
-    renderer->LineAttr.Type = WPG_LA_DOTS;
-    break;
-  default:
-    g_warning("WpgRenderer : Unsupported fill mode specified!\n");
+    case DIA_LINE_STYLE_DEFAULT:
+    case DIA_LINE_STYLE_SOLID:
+      renderer->LineAttr.Type = WPG_LA_SOLID;
+      break;
+    case DIA_LINE_STYLE_DASHED:
+      if (dash_length < 0.5)
+        renderer->LineAttr.Type = WPG_LA_SHORTDASH;
+      else
+        renderer->LineAttr.Type = WPG_LA_MEDIUMDASH;
+      break;
+    case DIA_LINE_STYLE_DASH_DOT:
+      renderer->LineAttr.Type = WPG_LA_DASHDOT;
+      break;
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
+      renderer->LineAttr.Type = WPG_LA_DASHDOTDOT;
+      break;
+    case DIA_LINE_STYLE_DOTTED:
+      renderer->LineAttr.Type = WPG_LA_DOTS;
+      break;
+    default:
+      g_warning ("WpgRenderer : Unsupported fill mode specified!\n");
   }
 }
+
 
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)

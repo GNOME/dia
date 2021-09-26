@@ -272,10 +272,12 @@ message_draw (Message *message, DiaRenderer *renderer)
   dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   if (message->type==MSG_REQ) {
-    dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, MESSAGE_DASHLEN);
+    dia_renderer_set_linestyle (renderer,
+                                DIA_LINE_STYLE_DASHED,
+                                MESSAGE_DASHLEN);
     arrow.type = ARROW_FILLED_TRIANGLE;
   } else {
-    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+    dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
     arrow.type = ARROW_NONE;
   }
 

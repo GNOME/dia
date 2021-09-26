@@ -631,37 +631,38 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
     renderer->lcurrent.join = renderer->fcurrent.join = join;
 }
 
-static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
-{
-    CgmRenderer *renderer = CGM_RENDERER(self);
-    gint16   style;
 
-    /* XXX: According to specs (mil-std-2301) and tests with OpenOffice only
-     *      solid=1 and dashed=2 are supported.
-     */
-    switch(mode)
-    {
-    case LINESTYLE_DASHED:
-       style = 2;
-       break;
-    case LINESTYLE_DASH_DOT:
-       style = 4;
-       break;
-    case LINESTYLE_DASH_DOT_DOT:
-       style = 5;
-       break;
-    case LINESTYLE_DOTTED:
-       style = 3;
-       break;
-    case LINESTYLE_DEFAULT:
-    case LINESTYLE_SOLID:
+static void
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
+{
+  CgmRenderer *renderer = CGM_RENDERER (self);
+  gint16   style;
+
+  /* XXX: According to specs (mil-std-2301) and tests with OpenOffice only
+    *      solid=1 and dashed=2 are supported.
+    */
+  switch (mode) {
+    case DIA_LINE_STYLE_DASHED:
+      style = 2;
+      break;
+    case DIA_LINE_STYLE_DASH_DOT:
+      style = 4;
+      break;
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
+      style = 5;
+      break;
+    case DIA_LINE_STYLE_DOTTED:
+      style = 3;
+      break;
+    case DIA_LINE_STYLE_DEFAULT:
+    case DIA_LINE_STYLE_SOLID:
     default:
-       style = 1;
-       break;
-    }
-    renderer->lcurrent.style = renderer->fcurrent.style = style;
+      style = 1;
+      break;
+  }
+  renderer->lcurrent.style = renderer->fcurrent.style = style;
 }
+
 
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)

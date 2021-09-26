@@ -47,12 +47,12 @@ typedef struct _Beziergon {
   BezierShape bezier;
 
   Color line_color;
-  LineStyle line_style;
+  DiaLineStyle line_style;
   LineJoin line_join;
   Color inner_color;
   gboolean show_background;
-  real dashlength;
-  real line_width;
+  double dashlength;
+  double line_width;
   DiaPattern *pattern;
 } Beziergon;
 
@@ -402,11 +402,11 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   beziergon->show_background, ctx);
 
-  if (beziergon->line_style != LINESTYLE_SOLID)
+  if (beziergon->line_style != DIA_LINE_STYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  beziergon->line_style, ctx);
 
-  if (beziergon->line_style != LINESTYLE_SOLID &&
+  if (beziergon->line_style != DIA_LINE_STYLE_SOLID &&
       beziergon->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  beziergon->dashlength, ctx);
@@ -459,7 +459,7 @@ beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     beziergon->show_background = data_boolean(attribute_first_data(attr), ctx);
 
-  beziergon->line_style = LINESTYLE_SOLID;
+  beziergon->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     beziergon->line_style = data_enum(attribute_first_data(attr), ctx);

@@ -27,23 +27,23 @@ G_BEGIN_DECLS
 
 Color  attributes_get_foreground          (void);
 Color  attributes_get_background          (void);
-void   attributes_set_foreground          (Color      *color);
-void   attributes_set_background          (Color      *color);
+void   attributes_set_foreground          (Color         *color);
+void   attributes_set_background          (Color         *color);
 void   attributes_swap_fgbg               (void);
 void   attributes_default_fgbg            (void);
 double attributes_get_default_linewidth   (void);
-void   attributes_set_default_linewidth   (double      width);
+void   attributes_set_default_linewidth   (double         width);
 Arrow  attributes_get_default_start_arrow (void);
-void   attributes_set_default_start_arrow (Arrow       arrow);
+void   attributes_set_default_start_arrow (Arrow          arrow);
 Arrow  attributes_get_default_end_arrow   (void);
-void   attributes_set_default_end_arrow   (Arrow       arrow);
-void   attributes_get_default_line_style  (LineStyle  *style,
-                                           double     *dash_length);
-void   attributes_set_default_line_style  (LineStyle   style,
-                                           double      dash_length);
-void   attributes_get_default_font        (DiaFont   **font,
-                                           double     *font_height);
-void   attributes_set_default_font        (DiaFont    *font,
-                                           double      font_height);
+void   attributes_set_default_end_arrow   (Arrow          arrow);
+void   attributes_get_default_line_style  (DiaLineStyle  *style,
+                                           double        *dash_length);
+void   attributes_set_default_line_style  (DiaLineStyle   style,
+                                           double         dash_length);
+void   attributes_get_default_font        (DiaFont      **font,
+                                           double        *font_height);
+void   attributes_set_default_font        (DiaFont       *font,
+                                           double         font_height);
 
 G_END_DECLS

@@ -217,7 +217,7 @@ fork_draw (Fork *branch, DiaRenderer *renderer)
 
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   dia_renderer_set_linewidth (renderer, FORK_BORDERWIDTH);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
   p1.x = elem->corner.x;
   p1.y = elem->corner.y;

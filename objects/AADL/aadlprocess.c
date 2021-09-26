@@ -28,12 +28,12 @@
 
 
 void
-aadlbox_draw_inclined_box (Aadlbox     *aadlbox,
-                           DiaRenderer *renderer,
-                           LineStyle    linestyle)
+aadlbox_draw_inclined_box (Aadlbox      *aadlbox,
+                           DiaRenderer  *renderer,
+                           DiaLineStyle  linestyle)
 {
   Element *elem;
-  real x, y, w, h;
+  double x, y, w, h;
   Point points[4];
 
   assert(aadlbox != NULL);
@@ -68,7 +68,7 @@ aadlbox_draw_inclined_box (Aadlbox     *aadlbox,
 
 static void aadlprocess_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  aadlbox_draw_inclined_box(aadlbox, renderer, LINESTYLE_SOLID);
+  aadlbox_draw_inclined_box(aadlbox, renderer, DIA_LINE_STYLE_SOLID);
 }
 
 

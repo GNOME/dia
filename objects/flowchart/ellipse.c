@@ -56,15 +56,15 @@ struct _Ellipse {
   Element element;
 
   ConnectionPoint connections[NUM_CONNECTIONS];
-  real border_width;
+  double border_width;
   Color border_color;
   Color inner_color;
   gboolean show_background;
-  LineStyle line_style;
-  real dashlength;
+  DiaLineStyle line_style;
+  double dashlength;
 
   Text *text;
-  real padding;
+  double padding;
 
   TextFitting text_fitting;
 };
@@ -601,14 +601,18 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   ellipse->show_background, ctx);
 
-  if (ellipse->line_style != LINESTYLE_SOLID)
-    data_add_enum(new_attribute(obj_node, "line_style"),
-		  ellipse->line_style, ctx);
+  if (ellipse->line_style != DIA_LINE_STYLE_SOLID) {
+    data_add_enum (new_attribute (obj_node, "line_style"),
+                   ellipse->line_style,
+                   ctx);
+  }
 
-  if (ellipse->line_style != LINESTYLE_SOLID &&
-      ellipse->dashlength != DEFAULT_LINESTYLE_DASHLEN)
-    data_add_real(new_attribute(obj_node, "dashlength"),
-                  ellipse->dashlength, ctx);
+  if (ellipse->line_style != DIA_LINE_STYLE_SOLID &&
+      ellipse->dashlength != DEFAULT_LINESTYLE_DASHLEN) {
+    data_add_real (new_attribute (obj_node, "dashlength"),
+                   ellipse->dashlength,
+                   ctx);
+  }
 
   data_add_real(new_attribute(obj_node, "padding"), ellipse->padding, ctx);
 
@@ -657,7 +661,7 @@ ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     ellipse->show_background = data_boolean( attribute_first_data(attr), ctx);
 
-  ellipse->line_style = LINESTYLE_SOLID;
+  ellipse->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     ellipse->line_style =  data_enum(attribute_first_data(attr), ctx);

@@ -38,7 +38,7 @@ struct _DiaLineStyleSelector {
 
   GtkWidget    *combo;
   GtkListStore *line_store;
-  LineStyle     looking_for;
+  DiaLineStyle  looking_for;
 };
 
 G_DEFINE_TYPE (DiaLineStyleSelector, dia_line_style_selector, GTK_TYPE_VBOX)
@@ -69,7 +69,7 @@ set_linestyle_sensitivity (DiaLineStyleSelector *fs)
   GtkTreeIter iter;
 
   if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (fs->combo), &iter)) {
-    LineStyle line;
+    DiaLineStyle line;
 
     gtk_tree_model_get (GTK_TREE_MODEL (fs->line_store),
                         &iter,
@@ -77,9 +77,9 @@ set_linestyle_sensitivity (DiaLineStyleSelector *fs)
                         -1);
 
     gtk_widget_set_sensitive (GTK_WIDGET (fs->lengthlabel),
-                              line != LINESTYLE_SOLID);
+                              line != DIA_LINE_STYLE_SOLID);
     gtk_widget_set_sensitive (GTK_WIDGET (fs->dashlength),
-                              line != LINESTYLE_SOLID);
+                              line != DIA_LINE_STYLE_SOLID);
   } else {
     gtk_widget_set_sensitive (GTK_WIDGET (fs->lengthlabel), FALSE);
     gtk_widget_set_sensitive (GTK_WIDGET (fs->dashlength), FALSE);
@@ -116,9 +116,9 @@ dia_line_style_selector_init (DiaLineStyleSelector *fs)
   GtkTreeIter iter;
   GtkCellRenderer *renderer;
 
-  fs->line_store = gtk_list_store_new (N_COL, G_TYPE_INT);
+  fs->line_store = gtk_list_store_new (N_COL, DIA_TYPE_LINE_STYLE);
 
-  for (int i = 0; i <= LINESTYLE_DOTTED; i++) {
+  for (int i = 0; i <= DIA_LINE_STYLE_DOTTED; i++) {
     gtk_list_store_append (fs->line_store, &iter);
     gtk_list_store_set (fs->line_store,
                         &iter,
@@ -177,7 +177,7 @@ dia_line_style_selector_new (void)
 
 void
 dia_line_style_selector_get_linestyle (DiaLineStyleSelector *fs,
-                                       LineStyle            *ls,
+                                       DiaLineStyle         *ls,
                                        double               *dl)
 {
   GtkTreeIter iter;
@@ -188,7 +188,7 @@ dia_line_style_selector_get_linestyle (DiaLineStyleSelector *fs,
                         COL_LINE, ls,
                         -1);
   } else {
-    *ls = LINESTYLE_DEFAULT;
+    *ls = DIA_LINE_STYLE_DEFAULT;
   }
 
   if (dl != NULL) {
@@ -204,7 +204,7 @@ set_style (GtkTreeModel *model,
            gpointer      data)
 {
   DiaLineStyleSelector *self = DIA_LINE_STYLE_SELECTOR (data);
-  LineStyle line;
+  DiaLineStyle line;
   gboolean res = FALSE;
 
   gtk_tree_model_get (model,
@@ -223,12 +223,12 @@ set_style (GtkTreeModel *model,
 
 void
 dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
-                                       LineStyle             linestyle,
+                                       DiaLineStyle          linestyle,
                                        double                dashlength)
 {
   as->looking_for = linestyle;
   gtk_tree_model_foreach (GTK_TREE_MODEL (as->line_store), set_style, as);
-  as->looking_for = LINESTYLE_DEFAULT;
+  as->looking_for = DIA_LINE_STYLE_DEFAULT;
 
   gtk_spin_button_set_value (GTK_SPIN_BUTTON (as->dashlength), dashlength);
 }

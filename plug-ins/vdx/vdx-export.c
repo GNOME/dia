@@ -85,14 +85,14 @@ struct _VDXRenderer
 
     int depth;
 
-    real linewidth;
+    double linewidth;
     LineCaps capsmode;
     LineJoin joinmode;
-    LineStyle stylemode;
-    real dashlength;
+    DiaLineStyle stylemode;
+    double dashlength;
     FillStyle fillmode;
     DiaFont *font;
-    real fontheight;
+    double fontheight;
 
     /* Additions for VDX */
 
@@ -341,29 +341,27 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   renderer->joinmode = mode;
 }
 
-/** Set line style
- * @param self a renderer
- * @param mode new line style
- */
 
+/*
+ * Set line style
+ */
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 {
-  VDXRenderer *renderer = VDX_RENDERER(self);
+  VDXRenderer *renderer = VDX_RENDERER (self);
 
   renderer->stylemode = mode;
   renderer->dashlength = dash_length;
 }
 
-/** Set fill style
- * @param self a renderer
- * @param mode new file style
- */
 
+/*
+ * Set fill style
+ */
 static void
-set_fillstyle(DiaRenderer *self, FillStyle mode)
+set_fillstyle (DiaRenderer *self, FillStyle mode)
 {
-  VDXRenderer *renderer = VDX_RENDERER(self);
+  VDXRenderer *renderer = VDX_RENDERER (self);
 
   renderer->fillmode = mode;
 }
@@ -439,20 +437,20 @@ create_Line (VDXRenderer     *renderer,
   Line->any.type = vdx_types_Line;
 
   switch (renderer->stylemode) {
-    case LINESTYLE_DASHED:
+    case DIA_LINE_STYLE_DASHED:
       Line->LinePattern = 2;
       break;
-    case LINESTYLE_DOTTED:
+    case DIA_LINE_STYLE_DOTTED:
       Line->LinePattern = 3;
       break;
-    case LINESTYLE_DASH_DOT:
+    case DIA_LINE_STYLE_DASH_DOT:
       Line->LinePattern = 4;
       break;
-    case LINESTYLE_DASH_DOT_DOT:
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
       Line->LinePattern = 5;
       break;
-    case LINESTYLE_DEFAULT:
-    case LINESTYLE_SOLID:
+    case DIA_LINE_STYLE_DEFAULT:
+    case DIA_LINE_STYLE_SOLID:
     default:
       Line->LinePattern = 1;
       break;

@@ -79,7 +79,9 @@ static void end_render (DiaRenderer *);
 static void set_linewidth (DiaRenderer *renderer, real linewidth);
 static void set_linecaps (DiaRenderer *renderer, LineCaps mode);
 static void set_linejoin (DiaRenderer *renderer, LineJoin mode);
-static void set_linestyle (DiaRenderer *renderer, LineStyle mode, real length);
+static void set_linestyle     (DiaRenderer  *renderer,
+                               DiaLineStyle  mode,
+                               double        length);
 static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
 
 static void draw_line (DiaRenderer *renderer,
@@ -311,7 +313,7 @@ draw_object (DiaRenderer *renderer,
     pt[3].y = matrix->yx * bb->left + matrix->yy * bb->bottom + matrix->y0;
 
     dia_renderer_set_linewidth(renderer, 0.0);
-    dia_renderer_set_linestyle(renderer, LINESTYLE_DOTTED, 1.0);
+    dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_DOTTED, 1.0);
     dia_renderer_draw_polygon(renderer, pt, 4, NULL, &red);
     dia_renderer_draw_line(renderer, &pt[0], &pt[2], &red);
     dia_renderer_draw_line(renderer, &pt[1], &pt[3], &red);
@@ -486,16 +488,17 @@ set_linejoin (DiaRenderer *renderer, LineJoin mode)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
 
-/*!
- * \brief Change line style and dash length for the strokes to come
- * \memberof _DiaRenderer \pure
+
+/*
+ * Change line style and dash length for the strokes to come
  */
 static void
-set_linestyle (DiaRenderer *renderer, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *renderer, DiaLineStyle mode, double dash_length)
 {
   g_warning ("%s::set_line_style not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
+
 
 /*!
  * \brief Set the fill mode for following fills
@@ -2242,8 +2245,8 @@ dia_renderer_set_linejoin (DiaRenderer      *self,
 
 void
 dia_renderer_set_linestyle (DiaRenderer      *self,
-                            LineStyle         mode,
-                            real              length)
+                            DiaLineStyle      mode,
+                            double            length)
 {
   g_return_if_fail (DIA_IS_RENDERER (self));
 

@@ -209,14 +209,14 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
 
 
 static void
-set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 {
   DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
-  real hole_width;
-  gchar dashl_buf[DTOSTR_BUF_SIZE];
-  gchar dotl_buf[DTOSTR_BUF_SIZE];
-  gchar holew_buf[DTOSTR_BUF_SIZE];
-  real dot_length;
+  double hole_width;
+  char dashl_buf[DTOSTR_BUF_SIZE];
+  char dotl_buf[DTOSTR_BUF_SIZE];
+  char holew_buf[DTOSTR_BUF_SIZE];
+  double dot_length;
 
   if (dash_length < 0.001) {
     dash_length = 0.001;
@@ -225,15 +225,15 @@ set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
   dot_length = dash_length*0.2; /* dot = 20% of len */
 
   switch (mode) {
-    case LINESTYLE_DEFAULT:
-    case LINESTYLE_SOLID:
+    case DIA_LINE_STYLE_DEFAULT:
+    case DIA_LINE_STYLE_SOLID:
       fprintf (renderer->file, "[] 0 sd\n");
       break;
-    case LINESTYLE_DASHED:
+    case DIA_LINE_STYLE_DASHED:
       fprintf (renderer->file, "[%s] 0 sd\n",
                psrenderer_dtostr (dashl_buf, dash_length) );
       break;
-    case LINESTYLE_DASH_DOT:
+    case DIA_LINE_STYLE_DASH_DOT:
       hole_width = (dash_length - dot_length) / 2.0;
       psrenderer_dtostr (holew_buf, hole_width);
       psrenderer_dtostr (dashl_buf, dash_length);
@@ -244,7 +244,7 @@ set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
                dotl_buf,
                holew_buf );
       break;
-    case LINESTYLE_DASH_DOT_DOT:
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
       hole_width = (dash_length - 2.0*dot_length) / 3.0;
       psrenderer_dtostr (holew_buf, hole_width);
       psrenderer_dtostr (dashl_buf, dash_length);
@@ -257,7 +257,7 @@ set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
                dotl_buf,
                holew_buf );
       break;
-    case LINESTYLE_DOTTED:
+    case DIA_LINE_STYLE_DOTTED:
       fprintf (renderer->file, "[%s] 0 sd\n",
                psrenderer_dtostr (dotl_buf, dot_length) );
       break;

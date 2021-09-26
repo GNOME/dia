@@ -461,56 +461,60 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
     }
 }
 
+
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 {
-    WmfRenderer *renderer = WMF_RENDERER (self);
+  WmfRenderer *renderer = WMF_RENDERER (self);
 
-    DIAG_NOTE(renderer, "set_linestyle %d\n", mode);
+  DIAG_NOTE (renderer, "set_linestyle %d\n", mode);
 
-    /* dot = 10% of len */
-    renderer->nDashLen = SC(dash_length);
-    /* line type */
-    renderer->fnPenStyle &= ~(PS_STYLE_MASK);
-    switch (mode) {
-    case LINESTYLE_DEFAULT:
-    case LINESTYLE_SOLID:
+  /* dot = 10% of len */
+  renderer->nDashLen = SC (dash_length);
+  /* line type */
+  renderer->fnPenStyle &= ~(PS_STYLE_MASK);
+
+  switch (mode) {
+    case DIA_LINE_STYLE_DEFAULT:
+    case DIA_LINE_STYLE_SOLID:
       renderer->fnPenStyle |= PS_SOLID;
       break;
-    case LINESTYLE_DASHED:
+    case DIA_LINE_STYLE_DASHED:
       renderer->fnPenStyle |= PS_DASH;
       break;
-    case LINESTYLE_DASH_DOT:
+    case DIA_LINE_STYLE_DASH_DOT:
       renderer->fnPenStyle |= PS_DASHDOT;
       break;
-    case LINESTYLE_DASH_DOT_DOT:
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
       renderer->fnPenStyle |= PS_DASHDOTDOT;
       break;
-    case LINESTYLE_DOTTED:
+    case DIA_LINE_STYLE_DOTTED:
       renderer->fnPenStyle |= PS_DOT;
       break;
     default:
-	g_warning("WmfRenderer : Unsupported fill mode specified!\n");
-    }
+      g_warning ("WmfRenderer : Unsupported fill mode specified!\n");
+  }
 
-    if (renderer->platform_is_nt)
-      return;
+  if (renderer->platform_is_nt) {
+    return;
+  }
 
-    /* Non-solid linestyles are only displayed if width <= 1.
-     * Better implementation will require custom linestyles
-     * not available on win9x ...
-     */
-    switch (mode) {
-    case LINESTYLE_DASHED:
-    case LINESTYLE_DASH_DOT:
-    case LINESTYLE_DASH_DOT_DOT:
-    case LINESTYLE_DOTTED:
-      renderer->nLineWidth = MIN(renderer->nLineWidth, 1);
-    case LINESTYLE_SOLID:
-    case LINESTYLE_DEFAULT:
+  /* Non-solid linestyles are only displayed if width <= 1.
+    * Better implementation will require custom linestyles
+    * not available on win9x ...
+    */
+  switch (mode) {
+    case DIA_LINE_STYLE_DASHED:
+    case DIA_LINE_STYLE_DASH_DOT:
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
+    case DIA_LINE_STYLE_DOTTED:
+      renderer->nLineWidth = MIN (renderer->nLineWidth, 1);
+    case DIA_LINE_STYLE_SOLID:
+    case DIA_LINE_STYLE_DEFAULT:
       break;
-    }
+  }
 }
+
 
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)

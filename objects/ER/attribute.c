@@ -277,9 +277,9 @@ attribute_draw (Attribute *attribute, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, attribute->border_width);
   if (attribute->derived) {
-    dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, 0.3);
+    dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DASHED, 0.3);
   } else {
-    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+    dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   }
 
   dia_renderer_draw_ellipse (renderer,
@@ -313,9 +313,9 @@ attribute_draw (Attribute *attribute, DiaRenderer *renderer)
 
   if (attribute->key || attribute->weakkey) {
     if (attribute->weakkey) {
-      dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, 0.3);
+      dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DASHED, 0.3);
     } else {
-      dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+      dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
     }
     width = dia_font_string_width (attribute->name,
                                    attribute->font,

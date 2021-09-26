@@ -86,28 +86,30 @@ line_info_get_line_type( const gchar* filename, xmlNodePtr node )
 
 
 static guint
-line_info_get_line_style( const gchar* filename, xmlNodePtr node )
+line_info_get_line_style (const char* filename, xmlNodePtr node)
 {
-  guint res = LINESTYLE_SOLID;
+  guint res = DIA_LINE_STYLE_SOLID;
   xmlChar* tmp = xmlNodeGetContent(node);
 
-  if( !strcmp((char*)tmp, "Solid") )
-  	res = LINESTYLE_SOLID;
-  else if( !strcmp((char*)tmp, "Dashed") )
-  	res = LINESTYLE_DASHED;
-  else if( !strcmp((char*)tmp, "Dash-Dot") )
-  	res = LINESTYLE_DASH_DOT;
-  else if( !strcmp((char*)tmp, "Dash-Dot-Dot") )
-  	res = LINESTYLE_DASH_DOT_DOT;
-  else if( !strcmp((char*)tmp, "Dotted") )
-  	res = LINESTYLE_DOTTED;
-  else
-  	g_warning("%s: `%s' is not a valid line style", filename, tmp);
+  if (!g_strcmp0((char*) tmp, "Solid")) {
+    res = DIA_LINE_STYLE_SOLID;
+  } else if (!g_strcmp0((char*) tmp, "Dashed")) {
+    res = DIA_LINE_STYLE_DASHED;
+  } else if (!g_strcmp0((char*) tmp, "Dash-Dot")) {
+    res = DIA_LINE_STYLE_DASH_DOT;
+  } else if (!g_strcmp0((char*) tmp, "Dash-Dot-Dot")) {
+    res = DIA_LINE_STYLE_DASH_DOT_DOT;
+  } else if (!g_strcmp0((char*) tmp, "Dotted")) {
+    res = DIA_LINE_STYLE_DOTTED;
+  } else {
+    g_warning ("%s: `%s' is not a valid line style", filename, tmp);
+  }
 
-  xmlFree(tmp);
+  dia_clear_xml_string (&tmp);
 
-  return( res );
+  return res ;
 }
+
 
 static gfloat
 line_info_get_as_float( const gchar* filename, xmlNodePtr node )
@@ -275,7 +277,7 @@ LineInfo* line_info_load(const gchar *filename)
   res->line_color.green = 0.0f;
   res->line_color.blue  = 0.0f;
   res->line_color.alpha = 1.0f;
-  res->line_style = LINESTYLE_SOLID;
+  res->line_style = DIA_LINE_STYLE_SOLID;
   res->dashlength = 1.0f;
   res->line_width = 0.1f;
   res->corner_radius = 0.0f;

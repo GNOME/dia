@@ -242,38 +242,42 @@ set_linejoin(DiaRenderer *object, LineJoin mode)
     }
 }
 
+
 static void
-set_linestyle(DiaRenderer *object, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *object, DiaLineStyle mode, double dash_length)
 {
-    HpglRenderer *renderer = HPGL_RENDERER (object);
+  HpglRenderer *renderer = HPGL_RENDERER (object);
 
-    DIAG_NOTE(g_message("set_linestyle %d", mode));
+  DIAG_NOTE (g_message ("set_linestyle %d", mode));
 
-    /* line type */
-    switch (mode) {
-    case LINESTYLE_DEFAULT:
-    case LINESTYLE_SOLID:
-      fprintf(renderer->file, "LT;\n");
+  /* line type */
+  switch (mode) {
+    case DIA_LINE_STYLE_DEFAULT:
+    case DIA_LINE_STYLE_SOLID:
+      fprintf (renderer->file, "LT;\n");
       break;
-    case LINESTYLE_DASHED:
-      if (dash_length > 0.5) /* ??? unit of dash_lenght ? */
-          fprintf(renderer->file, "LT2;\n"); /* short */
-      else
-          fprintf(renderer->file, "LT3;\n"); /* long */
+    case DIA_LINE_STYLE_DASHED:
+      if (dash_length > 0.5) {
+        /* ??? unit of dash_lenght ? */
+        fprintf (renderer->file, "LT2;\n"); /* short */
+      } else {
+        fprintf (renderer->file, "LT3;\n"); /* long */
+      }
       break;
-    case LINESTYLE_DASH_DOT:
-      fprintf(renderer->file, "LT4;\n");
+    case DIA_LINE_STYLE_DASH_DOT:
+      fprintf (renderer->file, "LT4;\n");
       break;
-    case LINESTYLE_DASH_DOT_DOT:
-      fprintf(renderer->file, "LT5;\n"); /* ??? Mittellinie? */
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
+      fprintf (renderer->file, "LT5;\n"); /* ??? Mittellinie? */
       break;
-    case LINESTYLE_DOTTED:
-      fprintf(renderer->file, "LT1;\n");
+    case DIA_LINE_STYLE_DOTTED:
+      fprintf (renderer->file, "LT1;\n");
       break;
     default:
-	g_warning("HpglRenderer : Unsupported fill mode specified!");
-    }
+      g_warning ("HpglRenderer : Unsupported fill mode specified!");
+  }
 }
+
 
 static void
 set_fillstyle(DiaRenderer *object, FillStyle mode)

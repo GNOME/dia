@@ -56,15 +56,15 @@ struct _Diamond {
   Element element;
 
   ConnectionPoint connections[NUM_CONNECTIONS];
-  real border_width;
+  double border_width;
   Color border_color;
   Color inner_color;
   gboolean show_background;
-  LineStyle line_style;
-  real dashlength;
+  DiaLineStyle line_style;
+  double dashlength;
 
   Text *text;
-  real padding;
+  double padding;
 
   TextFitting text_fitting;
 };
@@ -623,14 +623,18 @@ diamond_save(Diamond *diamond, ObjectNode obj_node, DiaContext *ctx)
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   diamond->show_background, ctx);
 
-  if (diamond->line_style != LINESTYLE_SOLID)
-    data_add_enum(new_attribute(obj_node, "line_style"),
-		  diamond->line_style, ctx);
+  if (diamond->line_style != DIA_LINE_STYLE_SOLID) {
+    data_add_enum (new_attribute (obj_node, "line_style"),
+                   diamond->line_style,
+                   ctx);
+  }
 
-  if (diamond->line_style != LINESTYLE_SOLID &&
-      diamond->dashlength != DEFAULT_LINESTYLE_DASHLEN)
-    data_add_real(new_attribute(obj_node, "dashlength"),
-                  diamond->dashlength, ctx);
+  if (diamond->line_style != DIA_LINE_STYLE_SOLID &&
+      diamond->dashlength != DEFAULT_LINESTYLE_DASHLEN) {
+    data_add_real (new_attribute (obj_node, "dashlength"),
+                   diamond->dashlength,
+                   ctx);
+  }
 
   data_add_real(new_attribute(obj_node, "padding"), diamond->padding, ctx);
 
@@ -679,7 +683,7 @@ diamond_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     diamond->show_background = data_boolean(attribute_first_data(attr), ctx);
 
-  diamond->line_style = LINESTYLE_SOLID;
+  diamond->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     diamond->line_style =  data_enum(attribute_first_data(attr), ctx);

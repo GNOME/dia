@@ -259,7 +259,7 @@ sadtarrow_draw (Sadtarrow *sadtarrow, DiaRenderer *renderer)
   n = orth->numpoints;
 
   dia_renderer_set_linewidth (renderer, ARROW_LINE_WIDTH);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0);
   dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   col = sadtarrow->line_color;

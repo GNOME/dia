@@ -1,5 +1,28 @@
-#ifndef DIA_ENUMS_H
-#define DIA_ENUMS_H
+/* Dia -- an diagram creation/manipulation program
+ * Copyright (C) 1998 Alexander Larsson
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
+#pragma once
+
+#include "dia-lib-enums.h"
+
+G_BEGIN_DECLS
 
 typedef enum {
   LINECAPS_DEFAULT = -1, /* default usually butt, this is unset */
@@ -15,14 +38,14 @@ typedef enum {
   LINEJOIN_BEVEL
 } LineJoin;
 
-typedef enum {
-  LINESTYLE_DEFAULT = -1, /* default usually solid, this is unset */
-  LINESTYLE_SOLID = 0,
-  LINESTYLE_DASHED,
-  LINESTYLE_DASH_DOT,
-  LINESTYLE_DASH_DOT_DOT,
-  LINESTYLE_DOTTED
-} LineStyle;
+typedef enum /*< enum >*/ {
+  DIA_LINE_STYLE_DEFAULT = -1, /* default usually solid, this is unset */
+  DIA_LINE_STYLE_SOLID = 0,
+  DIA_LINE_STYLE_DASHED,
+  DIA_LINE_STYLE_DASH_DOT,
+  DIA_LINE_STYLE_DASH_DOT_DOT,
+  DIA_LINE_STYLE_DOTTED
+} DiaLineStyle;
 
 typedef enum {
   FILLSTYLE_SOLID
@@ -44,4 +67,4 @@ typedef enum {
 #define DEFAULT_LINESTYLE LINESTYLE_SOLID
 #define DEFAULT_LINESTYLE_DASHLEN 1.0
 
-#endif
+G_END_DECLS

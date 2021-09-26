@@ -150,26 +150,34 @@ _parse_color (xmlNodePtr node, const char *attrib)
   }
   return val;
 }
-static LineStyle
+
+
+static DiaLineStyle
 _parse_linestyle (xmlNodePtr node, const char *attrib)
 {
-  xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
-  LineStyle val = LINESTYLE_SOLID;
+  xmlChar *str = xmlGetProp (node, (const xmlChar *) attrib);
+  DiaLineStyle val = DIA_LINE_STYLE_SOLID;
+
   if (str) {
-    if (strcmp ((const char *)str, "dashed") == 0)
-      val = LINESTYLE_DASHED;
-    else if  (strcmp ((const char *)str, "dash-dot") == 0)
-      val = LINESTYLE_DASH_DOT;
-    else if  (strcmp ((const char *)str, "dash-dot-dot") == 0)
-      val = LINESTYLE_DASH_DOT_DOT;
-    else if (strcmp ((const char *)str, "dotted") == 0)
-      val = LINESTYLE_DOTTED;
-    else if (strcmp ((const char *)str, "solid") != 0)
+    if (g_strcmp0 ((const char *) str, "dashed") == 0) {
+      val = DIA_LINE_STYLE_DASHED;
+    } else if  (g_strcmp0 ((const char *) str, "dash-dot") == 0) {
+      val = DIA_LINE_STYLE_DASH_DOT;
+    } else if  (g_strcmp0 ((const char *) str, "dash-dot-dot") == 0) {
+      val = DIA_LINE_STYLE_DASH_DOT_DOT;
+    } else if (g_strcmp0 ((const char *) str, "dotted") == 0) {
+      val = DIA_LINE_STYLE_DOTTED;
+    } else if (g_strcmp0 ((const char *) str, "solid") != 0) {
       g_warning ("DRS: unknown linestyle: %s", str);
-    xmlFree(str);
+    }
   }
+
+  dia_clear_xml_string (&str);
+
   return val;
 }
+
+
 static LineCaps
 _parse_linecaps (xmlNodePtr node, const char *attrib)
 {

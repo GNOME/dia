@@ -300,17 +300,20 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
     renderer->saved_line_join = mode;
 }
 
-static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
-{
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
-    renderer->saved_line_style = mode;
-    /* dot = 10% of len */
-    if (dash_length < 0.001)
-	dash_length = 0.001;
 
-    renderer->dash_length = dash_length;
-    renderer->dot_length = dash_length * 0.1;
+static void
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
+{
+  MetapostRenderer *renderer = METAPOST_RENDERER (self);
+
+  renderer->saved_line_style = mode;
+  /* dot = 10% of len */
+  if (dash_length < 0.001) {
+    dash_length = 0.001;
+  }
+
+  renderer->dash_length = dash_length;
+  renderer->dot_length = dash_length * 0.1;
 }
 
 
@@ -323,12 +326,12 @@ draw_with_linestyle (MetapostRenderer *renderer)
   gchar hole_width_buf[DTOSTR_BUF_SIZE];
 
   switch (renderer->saved_line_style) {
-    case LINESTYLE_DASHED:
+    case DIA_LINE_STYLE_DASHED:
       mp_dtostr (dash_length_buf, renderer->dash_length);
       fprintf (renderer->file, "\n    dashed dashpattern (on %sx off %sx)",
                dash_length_buf, dash_length_buf);
       break;
-    case LINESTYLE_DASH_DOT:
+    case DIA_LINE_STYLE_DASH_DOT:
       hole_width = (renderer->dash_length - renderer->dot_length) / 2.0;
 
       mp_dtostr (dash_length_buf, renderer->dash_length);
@@ -340,7 +343,7 @@ draw_with_linestyle (MetapostRenderer *renderer)
                dash_length_buf, hole_width_buf,
                dot_lenght_buf, hole_width_buf);
       break;
-    case LINESTYLE_DASH_DOT_DOT:
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
       hole_width = (renderer->dash_length - 2.0*renderer->dot_length) / 3.0;
 
       mp_dtostr (dash_length_buf, renderer->dash_length);
@@ -353,7 +356,7 @@ draw_with_linestyle (MetapostRenderer *renderer)
                dot_lenght_buf, hole_width_buf,
                dot_lenght_buf, hole_width_buf );
       break;
-    case LINESTYLE_DOTTED:
+    case DIA_LINE_STYLE_DOTTED:
       hole_width = renderer->dot_length * 5.0;
       mp_dtostr (dot_lenght_buf, renderer->dot_length);
       mp_dtostr (hole_width_buf, hole_width);
@@ -361,8 +364,8 @@ draw_with_linestyle (MetapostRenderer *renderer)
       fprintf (renderer->file, "\n    dashed dashpattern (on %sx off %sx)",
                dot_lenght_buf, hole_width_buf);
       break;
-    case LINESTYLE_DEFAULT:
-    case LINESTYLE_SOLID:
+    case DIA_LINE_STYLE_DEFAULT:
+    case DIA_LINE_STYLE_SOLID:
     default:
       break;
   }
@@ -1114,7 +1117,7 @@ export_metapost(DiagramData *data, DiaContext *ctx,
 
     renderer->dash_length = 1.0;
     renderer->dot_length = 0.2;
-    renderer->saved_line_style = LINESTYLE_SOLID;
+    renderer->saved_line_style = DIA_LINE_STYLE_SOLID;
 
     time_now  = time(NULL);
     extent = &data->extents;

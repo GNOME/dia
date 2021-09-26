@@ -33,7 +33,7 @@
 struct _DiaLineChooser {
   GtkButton button;
   DiaLinePreview *preview;
-  LineStyle lstyle;
+  DiaLineStyle lstyle;
   double dash_length;
 
   GtkMenu *menu;
@@ -97,7 +97,7 @@ dia_line_chooser_dialog_response (GtkWidget      *dialog,
                                   int             response_id,
                                   DiaLineChooser *lchooser)
 {
-  LineStyle new_style;
+  DiaLineStyle new_style;
   double new_dash;
 
   if (response_id == GTK_RESPONSE_OK) {
@@ -126,8 +126,8 @@ dia_line_chooser_dialog_response (GtkWidget      *dialog,
 static void
 dia_line_chooser_change_line_style (GtkMenuItem *mi, DiaLineChooser *lchooser)
 {
-  LineStyle lstyle = GPOINTER_TO_INT (g_object_get_qdata (G_OBJECT (mi),
-                                                          dia_menuitem_key_quark ()));
+  DiaLineStyle lstyle = GPOINTER_TO_INT (g_object_get_qdata (G_OBJECT (mi),
+                                                             dia_menuitem_key_quark ()));
 
   dia_line_chooser_set_line_style (lchooser, lstyle, lchooser->dash_length);
 }
@@ -135,7 +135,7 @@ dia_line_chooser_change_line_style (GtkMenuItem *mi, DiaLineChooser *lchooser)
 
 void
 dia_line_chooser_set_line_style (DiaLineChooser *lchooser,
-                                 LineStyle       lstyle,
+                                 DiaLineStyle    lstyle,
                                  double          dashlength)
 {
   if (lstyle != lchooser->lstyle) {
@@ -162,10 +162,10 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   GtkWidget *mi, *ln;
   int i;
 
-  lchooser->lstyle = LINESTYLE_SOLID;
+  lchooser->lstyle = DIA_LINE_STYLE_SOLID;
   lchooser->dash_length = DEFAULT_LINESTYLE_DASHLEN;
 
-  wid = dia_line_preview_new (LINESTYLE_SOLID);
+  wid = dia_line_preview_new (DIA_LINE_STYLE_SOLID);
   gtk_container_add (GTK_CONTAINER (lchooser), wid);
   gtk_widget_show (wid);
   lchooser->preview = DIA_LINE_PREVIEW (wid);
@@ -193,7 +193,7 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   lchooser->selector = DIA_LINE_STYLE_SELECTOR (wid);
 
   lchooser->menu = GTK_MENU (g_object_ref_sink (gtk_menu_new ()));
-  for (i = 0; i <= LINESTYLE_DOTTED; i++) {
+  for (i = 0; i <= DIA_LINE_STYLE_DOTTED; i++) {
     mi = gtk_menu_item_new ();
     g_object_set_qdata (G_OBJECT (mi),
                         dia_menuitem_key_quark (),

@@ -514,12 +514,13 @@ apply_style (DiaObject   *obj,
   rprop->real_data = gs->line_width * scale;
 
   lsprop = g_ptr_array_index(props,2);
-  if (gs->linestyle != LINESTYLE_DEFAULT)
+  if (gs->linestyle != DIA_LINE_STYLE_DEFAULT) {
     lsprop->style = gs->linestyle;
-  else if (init)
-    lsprop->style = LINESTYLE_SOLID;
-  else
+  } else if (init) {
+    lsprop->style = DIA_LINE_STYLE_SOLID;
+  } else {
     lsprop->common.experience |= PXP_NOTSET; /* no overwrite */
+  }
   lsprop->dash = gs->dashlength * scale;
 
   cprop = g_ptr_array_index(props,3);

@@ -71,7 +71,7 @@ struct _DiaXfigRenderer {
   double linewidth;
   LineCaps capsmode;
   LineJoin joinmode;
-  LineStyle stylemode;
+  DiaLineStyle stylemode;
   double dashlength;
   FillStyle fillmode;
   DiaFont *font;
@@ -186,19 +186,19 @@ static int
 figLineStyle (DiaXfigRenderer *renderer)
 {
   switch (renderer->stylemode) {
-  case LINESTYLE_SOLID:
-    return 0;
-  case LINESTYLE_DASHED:
-    return 1;
-  case LINESTYLE_DASH_DOT:
-    return 3;
-  case LINESTYLE_DASH_DOT_DOT:
-    return 4;
-  case LINESTYLE_DOTTED:
-    return 2;
-  case LINESTYLE_DEFAULT:
-  default:
-    return 0;
+    case DIA_LINE_STYLE_SOLID:
+      return 0;
+    case DIA_LINE_STYLE_DASHED:
+      return 1;
+    case DIA_LINE_STYLE_DASH_DOT:
+      return 3;
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
+      return 4;
+    case DIA_LINE_STYLE_DOTTED:
+      return 2;
+    case DIA_LINE_STYLE_DEFAULT:
+    default:
+      return 0;
   }
 }
 
@@ -508,7 +508,7 @@ set_linejoin (DiaRenderer *self, LineJoin mode)
 
 
 static void
-set_linestyle (DiaRenderer *self, LineStyle mode, double dash_length)
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 {
   DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
 

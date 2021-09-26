@@ -308,7 +308,7 @@ overlineblock_draw (Block *block, Boolequation *booleq, DiaRenderer *renderer)
   Point ul,ur;
   g_assert(block); g_assert(block->type == BLOCK_OVERLINE);
   block->d.inside->ops->draw (block->d.inside,booleq,renderer);
-  dia_renderer_set_linestyle (renderer,LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linewidth (renderer,booleq->fontheight * OVERLINE_RATIO);
   ul.x = block->bl.x;
   ur.y = ul.y = block->ur.y;

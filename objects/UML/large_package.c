@@ -257,7 +257,7 @@ largepackage_draw (LargePackage *pkg, DiaRenderer *renderer)
 
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   dia_renderer_set_linewidth (renderer, pkg->line_width);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
 
   p1.x = x; p1.y = y;

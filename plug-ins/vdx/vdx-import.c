@@ -594,7 +594,9 @@ dia_length(double length, const VDXDocument* theDoc)
     return vdx_Point_Scale*length;
 }
 
-/** Sets simple props
+
+/*
+ * Sets simple props
  * @param obj the object
  * @param Fill any fill
  * @param Line any line
@@ -603,52 +605,57 @@ dia_length(double length, const VDXDocument* theDoc)
  * @todo dash length not yet done - much other work needed
  */
 static void
-vdx_simple_properties(DiaObject *obj,
-                      const struct vdx_Fill *Fill, const struct vdx_Line *Line,
-                      const VDXDocument* theDoc, DiaContext *ctx)
+vdx_simple_properties (DiaObject             *obj,
+                       const struct vdx_Fill *Fill,
+                       const struct vdx_Line *Line,
+                       const VDXDocument     *theDoc,
+                       DiaContext            *ctx)
 {
-    GPtrArray *props = g_ptr_array_new ();
+  GPtrArray *props = g_ptr_array_new ();
 
-    if (Line)
-    {
-        Color color;
+  if (Line) {
+    Color color;
 
-        prop_list_add_line_width (props,Line->LineWeight * vdx_Line_Scale);
+    prop_list_add_line_width (props,Line->LineWeight * vdx_Line_Scale);
 
-        color = Line->LineColor;
-	color.alpha = 1.0 - Line->LineColorTrans;
+    color = Line->LineColor;
+    color.alpha = 1.0 - Line->LineColorTrans;
 
-        if (!Line->LinePattern)
-	    color = vdx_parse_color("#FFFFFF", theDoc, ctx);
-
-        prop_list_add_line_colour (props, &color);
-
-        if (Line->LinePattern)
-        {
-            LinestyleProperty *lsprop =
-                (LinestyleProperty *)make_new_prop("line_style",
-                                                   PROP_TYPE_LINESTYLE,
-                                                   PROP_FLAG_DONT_SAVE);
-	    if (Line->LinePattern == 2)
-		lsprop->style = LINESTYLE_DASHED;
-	    else if (Line->LinePattern == 4)
-		lsprop->style = LINESTYLE_DASH_DOT;
-	    else if (Line->LinePattern == 3)
-		lsprop->style = LINESTYLE_DOTTED;
-	    else if (Line->LinePattern == 5)
-		lsprop->style = LINESTYLE_DASH_DOT_DOT;
-	    else
-		lsprop->style = LINESTYLE_SOLID;
-
-            lsprop->dash = vdx_Dash_Length;
-
-            g_ptr_array_add(props,lsprop);
-        }
-	if (Line->Rounding > 0.0)
-	{
-	    prop_list_add_real(props, "corner_radius", Line->Rounding * vdx_Line_Scale);
-	}
+    if (!Line->LinePattern) {
+      color = vdx_parse_color("#FFFFFF", theDoc, ctx);
     }
+
+    prop_list_add_line_colour (props, &color);
+
+    if (Line->LinePattern) {
+      LinestyleProperty *lsprop =
+          (LinestyleProperty *) make_new_prop ("line_style",
+                                               PROP_TYPE_LINESTYLE,
+                                               PROP_FLAG_DONT_SAVE);
+
+      if (Line->LinePattern == 2) {
+        lsprop->style = DIA_LINE_STYLE_DASHED;
+      } else if (Line->LinePattern == 4) {
+        lsprop->style = DIA_LINE_STYLE_DASH_DOT;
+      } else if (Line->LinePattern == 3) {
+        lsprop->style = DIA_LINE_STYLE_DOTTED;
+      } else if (Line->LinePattern == 5) {
+        lsprop->style = DIA_LINE_STYLE_DASH_DOT_DOT;
+      } else {
+        lsprop->style = DIA_LINE_STYLE_SOLID;
+      }
+
+      lsprop->dash = vdx_Dash_Length;
+
+      g_ptr_array_add (props,lsprop);
+    }
+
+    if (Line->Rounding > 0.0) {
+      prop_list_add_real (props,
+                          "corner_radius",
+                          Line->Rounding * vdx_Line_Scale);
+    }
+  }
 
     if (Fill && Fill->FillPattern)
     {

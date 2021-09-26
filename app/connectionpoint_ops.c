@@ -64,7 +64,7 @@ object_draw_connectionpoints (DiaObject *obj, DDisplay *ddisp)
 
   /* this does not change for any of the points */
   dia_renderer_set_linewidth (renderer, 0.0);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
   /* optimization to only draw the connection points at all if the size
    * of the object (bounding box) is bigger than the summed size of the

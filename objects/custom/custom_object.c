@@ -100,7 +100,7 @@ struct _Custom {
   Color border_color;
   Color inner_color;
   gboolean show_background;
-  LineStyle line_style;
+  DiaLineStyle line_style;
   double dashlength;
 
   gboolean flip_h, flip_v;
@@ -125,15 +125,30 @@ static DiaObjectChange *custom_move_handle   (Custom           *custom,
                                               ModifierKeys      modifiers);
 static DiaObjectChange *custom_move          (Custom           *custom,
                                               Point            *to);
-static void custom_draw(Custom *custom, DiaRenderer *renderer);
-static void custom_draw_displaylist(GList *display_list, Custom *custom,
-				DiaRenderer *renderer, GArray *arr, GArray *barr, real* cur_line,
-				real* cur_dash, LineCaps* cur_caps, LineJoin* cur_join,
-				LineStyle* cur_style);
-static void custom_draw_element(GraphicElement* el, Custom *custom,
-				DiaRenderer *renderer, GArray *arr, GArray *barr, real* cur_line,
-				real* cur_dash, LineCaps* cur_caps, LineJoin* cur_join,
-				LineStyle* cur_style, Color* fg, Color* bg);
+static void             custom_draw                (Custom           *custom,
+                                                    DiaRenderer      *renderer);
+static void             custom_draw_displaylist    (GList            *display_list,
+                                                    Custom           *custom,
+                                                    DiaRenderer      *renderer,
+                                                    GArray           *arr,
+                                                    GArray           *barr,
+                                                    double           *cur_line,
+                                                    double           *cur_dash,
+                                                    LineCaps         *cur_caps,
+                                                    LineJoin         *cur_join,
+                                                    DiaLineStyle     *cur_style);
+static void             custom_draw_element        (GraphicElement   *el,
+                                                    Custom           *custom,
+                                                    DiaRenderer      *renderer,
+                                                    GArray           *arr,
+                                                    GArray           *barr,
+                                                    double           *cur_line,
+                                                    double           *cur_dash,
+                                                    LineCaps         *cur_caps,
+                                                    LineJoin         *cur_join,
+                                                    DiaLineStyle     *cur_style,
+                                                    Color            *fg,
+                                                    Color            *bg);
 static void custom_update_data(Custom *custom, AnchorShape h, AnchorShape v);
 static void custom_reposition_text(Custom *custom, GraphicElementText *text);
 static DiaObject *custom_create(Point *startpoint,
@@ -909,10 +924,10 @@ static void
 custom_draw (Custom *custom, DiaRenderer *renderer)
 {
   static GArray *arr = NULL, *barr = NULL;
-  real cur_line = 1.0, cur_dash = 1.0;
+  double cur_line = 1.0, cur_dash = 1.0;
   LineCaps cur_caps = LINECAPS_BUTT;
   LineJoin cur_join = LINEJOIN_MITER;
-  LineStyle cur_style = custom->line_style;
+  DiaLineStyle cur_style = custom->line_style;
 
   assert(custom != NULL);
   assert(renderer != NULL);
@@ -950,12 +965,21 @@ custom_draw (Custom *custom, DiaRenderer *renderer)
   }
 }
 
+
 static void
-custom_draw_displaylist(GList *display_list, Custom *custom, DiaRenderer *renderer,
-                        GArray *arr, GArray *barr, real* cur_line, real* cur_dash,
-                        LineCaps* cur_caps, LineJoin* cur_join, LineStyle* cur_style)
+custom_draw_displaylist (GList        *display_list,
+                         Custom       *custom,
+                         DiaRenderer  *renderer,
+                         GArray       *arr,
+                         GArray       *barr,
+                         double       *cur_line,
+                         double       *cur_dash,
+                         LineCaps     *cur_caps,
+                         LineJoin     *cur_join,
+                         DiaLineStyle *cur_style)
 {
   GList *tmp;
+
   for (tmp = display_list; tmp; tmp = tmp->next) {
     GraphicElement *el = tmp->data;
     Color fg, bg;
@@ -976,11 +1000,11 @@ custom_draw_element (GraphicElement *el,
                      DiaRenderer    *renderer,
                      GArray         *arr,
                      GArray         *barr,
-                     real           *cur_line,
-                     real           *cur_dash,
+                     double         *cur_line,
+                     double         *cur_dash,
                      LineCaps       *cur_caps,
                      LineJoin       *cur_join,
-                     LineStyle      *cur_style,
+                     DiaLineStyle   *cur_style,
                      Color          *fg,
                      Color          *bg)
 {
@@ -1011,13 +1035,15 @@ custom_draw_element (GraphicElement *el,
                       el->any.s.linejoin : LINEJOIN_MITER;
     dia_renderer_set_linejoin (renderer, (*cur_join));
   }
-  if ((el->any.s.linestyle == LINESTYLE_DEFAULT &&
+
+  if ((el->any.s.linestyle == DIA_LINE_STYLE_DEFAULT &&
       (*cur_style) != custom->line_style) || el->any.s.linestyle != (*cur_style)) {
-    (*cur_style) = (el->any.s.linestyle!=LINESTYLE_DEFAULT) ?
+    (*cur_style) = (el->any.s.linestyle != DIA_LINE_STYLE_DEFAULT) ?
                       el->any.s.linestyle : custom->line_style;
     dia_renderer_set_linestyle (renderer, (*cur_style),
                                 custom->dashlength*(*cur_dash));
   }
+
   if (el->any.s.dashlength != (*cur_dash)) {
     (*cur_dash) = el->any.s.dashlength;
     dia_renderer_set_linestyle (renderer,

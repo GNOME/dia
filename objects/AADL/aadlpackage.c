@@ -50,7 +50,7 @@ aadlpackage_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
 
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   dia_renderer_set_linewidth (renderer, AADLBOX_BORDERWIDTH);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
   points[0].x = x;                 points[0].y = y;
   points[1].x = x + 0.03 * w ;     points[1].y = y;

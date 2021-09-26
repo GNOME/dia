@@ -444,7 +444,7 @@ set_linejoin (DiaRenderer *self, LineJoin mode)
 
 
 static void
-set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -452,20 +452,20 @@ set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
 
   /* line type */
   switch (mode) {
-    case LINESTYLE_DEFAULT:
-    case LINESTYLE_SOLID:
+    case DIA_LINE_STYLE_DEFAULT:
+    case DIA_LINE_STYLE_SOLID:
       value = "solid";
       break;
-    case LINESTYLE_DASHED:
+    case DIA_LINE_STYLE_DASHED:
       value = "dashed";
       break;
-    case LINESTYLE_DASH_DOT:
+    case DIA_LINE_STYLE_DASH_DOT:
       value = "dash-dot";
       break;
-    case LINESTYLE_DASH_DOT_DOT:
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
       value = "dash-dot-dot";
       break;
-    case LINESTYLE_DOTTED:
+    case DIA_LINE_STYLE_DOTTED:
       value = "dotted";
       break;
     default:
@@ -475,7 +475,7 @@ set_linestyle (DiaRenderer *self, LineStyle mode, real dash_length)
                       (const xmlChar *) "set-linestyle", NULL);
   xmlSetProp (node, (const xmlChar *) "mode",
               value ? (xmlChar *) value : (xmlChar *) "?");
-  if (mode != LINESTYLE_SOLID) {
+  if (mode != DIA_LINE_STYLE_SOLID) {
     _node_set_real (node, "dash-length", dash_length);
   }
 }

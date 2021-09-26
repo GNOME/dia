@@ -334,17 +334,17 @@ flow_draw (Flow *flow, DiaRenderer *renderer)
 
   switch (flow->type) {
     case FLOW_SIGNAL:
-      dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, FLOW_DASHLEN);
+      dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DASHED, FLOW_DASHLEN);
       render_color = &flow_color_signal ;
       break ;
     case FLOW_MATERIAL:
       dia_renderer_set_linewidth (renderer, FLOW_MATERIAL_WIDTH);
-      dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+      dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
       render_color = &flow_color_material;
       break ;
     case FLOW_ENERGY:
       render_color = &flow_color_energy;
-      dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+      dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
       break;
     default:
       g_return_if_reached ();

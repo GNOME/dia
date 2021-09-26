@@ -43,13 +43,12 @@ GType metapost_renderer_get_type (void) G_GNUC_CONST;
 typedef struct _MetapostRenderer MetapostRenderer;
 typedef struct _MetapostRendererClass MetapostRendererClass;
 
-struct _MetapostRenderer
-{
+struct _MetapostRenderer {
   DiaRenderer parent_instance;
 
   FILE *file;
 
-  LineStyle saved_line_style;
+  DiaLineStyle saved_line_style;
   LineCaps  saved_line_cap;
   LineJoin  saved_line_join;
 

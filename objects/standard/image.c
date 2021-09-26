@@ -51,13 +51,13 @@ struct _Image {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
 
-  real border_width;
+  double border_width;
   Color border_color;
-  LineStyle line_style;
-  real dashlength;
+  DiaLineStyle line_style;
+  double dashlength;
 
   DiaImage *image;
-  gchar *file;
+  char *file;
 
   gboolean inline_data;
   /* may contain the images pixbuf pointer - if so: reference counted! */
@@ -66,13 +66,13 @@ struct _Image {
   gboolean draw_border;
   gboolean keep_aspect;
 
-  real angle;
+  double angle;
 
   time_t mtime;
 };
 
 static struct _ImageProperties {
-  gchar *file;
+  char *file;
   gboolean draw_border;
   gboolean keep_aspect;
 } default_properties = { "", FALSE, TRUE };
@@ -722,11 +722,11 @@ image_save(Image *image, ObjectNode obj_node, DiaContext *ctx)
     data_add_color(new_attribute(obj_node, "border_color"),
 		   &image->border_color, ctx);
 
-  if (image->line_style != LINESTYLE_SOLID)
+  if (image->line_style != DIA_LINE_STYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  image->line_style, ctx);
 
-  if (image->line_style != LINESTYLE_SOLID &&
+  if (image->line_style != DIA_LINE_STYLE_SOLID &&
       image->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  image->dashlength, ctx);
@@ -796,7 +796,7 @@ image_load (ObjectNode obj_node, int version, DiaContext *ctx)
     data_color (attribute_first_data (attr), &image->border_color, ctx);
   }
 
-  image->line_style = LINESTYLE_SOLID;
+  image->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute (obj_node, "line_style");
   if (attr != NULL) {
     image->line_style = data_enum (attribute_first_data (attr), ctx);

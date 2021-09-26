@@ -48,7 +48,7 @@ struct _Bezierline {
   BezierConn bez;
 
   Color line_color;
-  LineStyle line_style;
+  DiaLineStyle line_style;
   LineJoin line_join;
   LineCaps line_caps;
   double dashlength;
@@ -621,14 +621,18 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  bezierline->line_width, ctx);
 
-  if (bezierline->line_style != LINESTYLE_SOLID)
-    data_add_enum(new_attribute(obj_node, "line_style"),
-		  bezierline->line_style, ctx);
+  if (bezierline->line_style != DIA_LINE_STYLE_SOLID) {
+    data_add_enum (new_attribute (obj_node, "line_style"),
+                   bezierline->line_style,
+                   ctx);
+  }
 
-  if (bezierline->line_style != LINESTYLE_SOLID &&
-      bezierline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
-    data_add_real(new_attribute(obj_node, "dashlength"),
-		  bezierline->dashlength, ctx);
+  if (bezierline->line_style != DIA_LINE_STYLE_SOLID &&
+      bezierline->dashlength != DEFAULT_LINESTYLE_DASHLEN) {
+    data_add_real (new_attribute (obj_node, "dashlength"),
+                   bezierline->dashlength,
+                   ctx);
+  }
 
   if (bezierline->line_join != LINEJOIN_MITER)
     data_add_enum(new_attribute(obj_node, "line_join"),
@@ -692,7 +696,7 @@ bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     bezierline->line_width = data_real(attribute_first_data(attr), ctx);
 
-  bezierline->line_style = LINESTYLE_SOLID;
+  bezierline->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     bezierline->line_style = data_enum(attribute_first_data(attr), ctx);

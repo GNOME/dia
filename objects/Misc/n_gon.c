@@ -59,10 +59,10 @@ struct _Ngon {
   int        density;
   int        last_density; /*!< last value to decide direction */
 
-  LineStyle  line_style;
+  DiaLineStyle line_style;
   LineJoin   line_join;
-  real       dashlength;
-  real       line_width;
+  double     dashlength;
+  double     line_width;
   Color      stroke;
   Color      fill;
   gboolean   show_background;

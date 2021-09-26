@@ -446,8 +446,11 @@ GPtrArray *prop_list_from_descs(const PropDescription *plist,
 GPtrArray *prop_list_from_single(Property *prop);
 
 /* Convenience functions to construct a prop list from standard properties */
-void prop_list_add_line_width  (GPtrArray *plist, real line_width);
-void prop_list_add_line_style  (GPtrArray *plist, LineStyle line_style, real dash);
+void       prop_list_add_line_width              (GPtrArray       *plist,
+                                                  double           line_width);
+void       prop_list_add_line_style              (GPtrArray       *plist,
+                                                  DiaLineStyle     line_style,
+                                                  double           dash);
 void prop_list_add_line_colour (GPtrArray *plist, const Color *color);
 void prop_list_add_fill_colour (GPtrArray *plist, const Color *color);
 void prop_list_add_show_background (GPtrArray *plist, gboolean fill);

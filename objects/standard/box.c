@@ -57,22 +57,22 @@ struct _Box {
 
   ConnectionPoint connections[NUM_CONNECTIONS];
 
-  real border_width;
+  double border_width;
   Color border_color;
   Color inner_color;
   gboolean show_background;
-  LineStyle line_style;
+  DiaLineStyle line_style;
   LineJoin line_join;
-  real dashlength;
-  real corner_radius;
+  double dashlength;
+  double corner_radius;
   AspectType aspect;
   DiaPattern *pattern;
-  real angle; /*!< between [-45°-45°] to simplify connection point handling */
+  double angle; /*!< between [-45°-45°] to simplify connection point handling */
 };
 
 static struct _BoxProperties {
   gboolean show_background;
-  real corner_radius;
+  double corner_radius;
   AspectType aspect;
 } default_properties = { TRUE, 0.0 };
 
@@ -601,11 +601,11 @@ box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   box->show_background, ctx);
 
-  if (box->line_style != LINESTYLE_SOLID)
+  if (box->line_style != DIA_LINE_STYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  box->line_style, ctx);
 
-  if (box->line_style != LINESTYLE_SOLID &&
+  if (box->line_style != DIA_LINE_STYLE_SOLID &&
       box->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
                   box->dashlength, ctx);
@@ -670,7 +670,7 @@ box_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     box->show_background = data_boolean(attribute_first_data(attr), ctx);
 
-  box->line_style = LINESTYLE_SOLID;
+  box->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     box->line_style =  data_enum(attribute_first_data(attr), ctx);

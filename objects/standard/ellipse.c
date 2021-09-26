@@ -56,15 +56,15 @@ struct _Ellipse {
   ConnectionPoint connections[9];
   Handle center_handle;
 
-  real border_width;
+  double border_width;
   Color border_color;
   Color inner_color;
   gboolean show_background;
   AspectType aspect;
-  LineStyle line_style;
-  real dashlength;
+  DiaLineStyle line_style;
+  double dashlength;
   DiaPattern *pattern;
-  real angle; /*!< between [-45-45] to simplify connection point handling */
+  double angle; /*!< between [-45-45] to simplify connection point handling */
 };
 
 static struct _EllipseProperties {
@@ -625,7 +625,7 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, "angle"),
 		  ellipse->angle, ctx);
 
-  if (ellipse->line_style != LINESTYLE_SOLID) {
+  if (ellipse->line_style != DIA_LINE_STYLE_SOLID) {
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  ellipse->line_style, ctx);
 
@@ -686,7 +686,7 @@ static DiaObject *ellipse_load(ObjectNode obj_node, int version, DiaContext *ctx
   if (attr != NULL)
     ellipse->angle =  data_real(attribute_first_data(attr), ctx);
 
-  ellipse->line_style = LINESTYLE_SOLID;
+  ellipse->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     ellipse->line_style =  data_enum(attribute_first_data(attr), ctx);

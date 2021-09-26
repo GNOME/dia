@@ -22,7 +22,7 @@
 
 struct _DiaLinePreview {
   GtkMisc misc;
-  LineStyle lstyle;
+  DiaLineStyle lstyle;
 };
 
 G_DEFINE_TYPE (DiaLinePreview, dia_line_preview, GTK_TYPE_MISC)
@@ -64,23 +64,23 @@ dia_line_preview_expose (GtkWidget *widget, GdkEventExpose *event)
     cairo_set_line_join (ctx, CAIRO_LINE_JOIN_MITER);
 
     switch (line->lstyle) {
-      case LINESTYLE_DEFAULT:
-      case LINESTYLE_SOLID:
+      case DIA_LINE_STYLE_DEFAULT:
+      case DIA_LINE_STYLE_SOLID:
         cairo_set_dash (ctx, dash_list, 0, 0);
         break;
-      case LINESTYLE_DASHED:
+      case DIA_LINE_STYLE_DASHED:
         dash_list[0] = 10;
         dash_list[1] = 10;
         cairo_set_dash (ctx, dash_list, 2, 0);
         break;
-      case LINESTYLE_DASH_DOT:
+      case DIA_LINE_STYLE_DASH_DOT:
         dash_list[0] = 10;
         dash_list[1] = 4;
         dash_list[2] = 2;
         dash_list[3] = 4;
         cairo_set_dash (ctx, dash_list, 4, 0);
         break;
-      case LINESTYLE_DASH_DOT_DOT:
+      case DIA_LINE_STYLE_DASH_DOT_DOT:
         dash_list[0] = 10;
         dash_list[1] = 2;
         dash_list[2] = 2;
@@ -89,7 +89,7 @@ dia_line_preview_expose (GtkWidget *widget, GdkEventExpose *event)
         dash_list[5] = 2;
         cairo_set_dash (ctx, dash_list, 6, 0);
         break;
-      case LINESTYLE_DOTTED:
+      case DIA_LINE_STYLE_DOTTED:
         dash_list[0] = 2;
         dash_list[1] = 2;
         cairo_set_dash (ctx, dash_list, 2, 0);
@@ -127,12 +127,12 @@ dia_line_preview_init (DiaLinePreview *line)
                                30 + xpad * 2,
                                15 + ypad * 2);
 
-  line->lstyle = LINESTYLE_SOLID;
+  line->lstyle = DIA_LINE_STYLE_SOLID;
 }
 
 
 GtkWidget *
-dia_line_preview_new (LineStyle lstyle)
+dia_line_preview_new (DiaLineStyle lstyle)
 {
   DiaLinePreview *line = g_object_new (DIA_TYPE_LINE_PREVIEW, NULL);
 
@@ -143,7 +143,7 @@ dia_line_preview_new (LineStyle lstyle)
 
 
 void
-dia_line_preview_set_style (DiaLinePreview *line, LineStyle lstyle)
+dia_line_preview_set_style (DiaLinePreview *line, DiaLineStyle lstyle)
 {
   if (line->lstyle == lstyle) {
     return;
@@ -155,4 +155,3 @@ dia_line_preview_set_style (DiaLinePreview *line, LineStyle lstyle)
     gtk_widget_queue_draw (GTK_WIDGET (line));
   }
 }
-

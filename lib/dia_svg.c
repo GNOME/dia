@@ -61,7 +61,7 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
   gs->stroke = parent_style ? parent_style->stroke : DIA_SVG_COLOUR_DEFAULT;
   gs->stroke_opacity = parent_style ? parent_style->stroke_opacity : 1.0;
   gs->line_width = parent_style ? parent_style->line_width : 0.0;
-  gs->linestyle = parent_style ? parent_style->linestyle : LINESTYLE_SOLID;
+  gs->linestyle = parent_style ? parent_style->linestyle : DIA_LINE_STYLE_SOLID;
   gs->dashlength = parent_style ? parent_style->dashlength : 1;
   /* http://www.w3.org/TR/SVG/painting.html#FillProperty - default black
    * but we still have to see the difference
@@ -70,7 +70,7 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
   gs->fill_opacity = parent_style ? parent_style->fill_opacity : 1.0;
   gs->linecap = parent_style ? parent_style->linecap : LINECAPS_DEFAULT;
   gs->linejoin = parent_style ? parent_style->linejoin : LINEJOIN_DEFAULT;
-  gs->linestyle = parent_style ? parent_style->linestyle : LINESTYLE_DEFAULT;
+  gs->linestyle = parent_style ? parent_style->linestyle : DIA_LINE_STYLE_DEFAULT;
   gs->font = (parent_style && parent_style->font) ? g_object_ref (parent_style->font) : NULL;
   gs->font_height = parent_style ? parent_style->font_height : 0.8;
   gs->alignment = parent_style ? parent_style->alignment : ALIGN_LEFT;
@@ -411,57 +411,70 @@ enum
   FONT_NAME_LENGTH_MAX = 40
 };
 
+
 static void
 _parse_dasharray (DiaSvgStyle *s, double user_scale, char *str, char **end)
 {
   char *ptr;
   /* by also splitting on ';' we can also parse the continued style string */
-  char **dashes = g_regex_split_simple ("[\\s,;]+", (char *)str, 0, 0);
+  char **dashes = g_regex_split_simple ("[\\s,;]+", (char *) str, 0, 0);
   int n = 0;
   double dl;
 
   s->dashlength = g_ascii_strtod(str, &ptr);
-  if (s->dashlength <= 0.0) /* e.g. "none" */
-    s->linestyle = LINESTYLE_SOLID;
-  else if (user_scale > 0)
+  if (s->dashlength <= 0.0) {
+    /* e.g. "none" */
+    s->linestyle = DIA_LINE_STYLE_SOLID;
+  } else if (user_scale > 0) {
     s->dashlength /= user_scale;
+  }
 
   if (s->dashlength) { /* at least one value */
-    while (dashes[n] && g_ascii_strtod (dashes[n], NULL) > 0)
+    while (dashes[n] && g_ascii_strtod (dashes[n], NULL) > 0) {
       ++n; /* Dia can not do arbitrary length, the number of dashes gives the style */
+    }
   }
-  if (n > 0)
+
+  if (n > 0) {
     s->dashlength = g_ascii_strtod (dashes[0], NULL);
-  if (user_scale > 0)
+  }
+
+  if (user_scale > 0) {
       s->dashlength /= user_scale;
+  }
+
   switch (n) {
-    case 0 :
-      s->linestyle = LINESTYLE_SOLID;
+    case 0:
+      s->linestyle = DIA_LINE_STYLE_SOLID;
       break;
-    case 1 :
-      s->linestyle = LINESTYLE_DASHED;
+    case 1:
+      s->linestyle = DIA_LINE_STYLE_DASHED;
       break;
-    case 2 :
+    case 2:
       dl = g_ascii_strtod (dashes[1], NULL);
-      if (user_scale > 0)
+
+      if (user_scale > 0) {
         dl /= user_scale;
-      if (dl < s->line_width || dl > s->dashlength) { /* the difference is arbitrary */
-	s->linestyle = LINESTYLE_DOTTED;
-	s->dashlength *= 10.0; /* dot = 10% of len */
+      }
+
+      if (dl < s->line_width || dl > s->dashlength) {
+        /* the difference is arbitrary */
+        s->linestyle = DIA_LINE_STYLE_DOTTED;
+        s->dashlength *= 10.0; /* dot = 10% of len */
       } else {
-	s->linestyle = LINESTYLE_DASHED;
+        s->linestyle = DIA_LINE_STYLE_DASHED;
       }
       break;
-    case 4 :
-      s->linestyle = LINESTYLE_DASH_DOT;
+    case 4:
+      s->linestyle = DIA_LINE_STYLE_DASH_DOT;
       break;
     default :
       /* If an odd number of values is provided, then the list of values is repeated to
        * yield an even number of values. Thus, stroke-dasharray: 5,3,2 is equivalent to
        * stroke-dasharray: 5,3,2,5,3,2.
        */
-    case 6 :
-      s->linestyle = LINESTYLE_DASH_DOT_DOT;
+    case 6:
+      s->linestyle = DIA_LINE_STYLE_DASH_DOT_DOT;
       break;
   }
   g_strfreev (dashes);
@@ -685,20 +698,21 @@ dia_svg_parse_style_string (DiaSvgStyle *s, double user_scale, const char *str)
       while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
 
-      if (!strncmp(ptr, "solid", 5))
-	s->linestyle = LINESTYLE_SOLID;
-      else if (!strncmp(ptr, "dashed", 6))
-	s->linestyle = LINESTYLE_DASHED;
-      else if (!strncmp(ptr, "dash-dot", 8))
-	s->linestyle = LINESTYLE_DASH_DOT;
-      else if (!strncmp(ptr, "dash-dot-dot", 12))
-	s->linestyle = LINESTYLE_DASH_DOT_DOT;
-      else if (!strncmp(ptr, "dotted", 6))
-	s->linestyle = LINESTYLE_DOTTED;
-      else if (!strncmp(ptr, "default", 7))
-	s->linestyle = LINESTYLE_DEFAULT;
+      if (!strncmp (ptr, "solid", 5)) {
+        s->linestyle = DIA_LINE_STYLE_SOLID;
+      } else if (!strncmp (ptr, "dashed", 6)) {
+        s->linestyle = DIA_LINE_STYLE_DASHED;
+      } else if (!strncmp (ptr, "dash-dot", 8)) {
+        s->linestyle = DIA_LINE_STYLE_DASH_DOT;
+      } else if (!strncmp (ptr, "dash-dot-dot", 12)) {
+        s->linestyle = DIA_LINE_STYLE_DASH_DOT_DOT;
+      } else if (!strncmp (ptr, "dotted", 6)) {
+        s->linestyle = DIA_LINE_STYLE_DOTTED;
+      } else if (!strncmp (ptr, "default", 7)) {
+        s->linestyle = DIA_LINE_STYLE_DEFAULT;
+      }
       /* XXX: deal with a real pattern */
-    } else if (!strncmp("stroke-dashlength:", ptr, 18)) {
+    } else if (!strncmp ("stroke-dashlength:", ptr, 18)) {
       ptr += 18;
       while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;
@@ -710,8 +724,8 @@ dia_svg_parse_style_string (DiaSvgStyle *s, double user_scale, const char *str)
 	if (user_scale > 0)
 	  s->dashlength /= user_scale;
       }
-    } else if (!strncmp("stroke-dasharray:", ptr, 17)) {
-      s->linestyle = LINESTYLE_DASHED;
+    } else if (!strncmp ("stroke-dasharray:", ptr, 17)) {
+      s->linestyle = DIA_LINE_STYLE_DASHED;
       ptr += 17;
       while (ptr[0] != '\0' && g_ascii_isspace(ptr[0])) ptr++;
       if (ptr[0] == '\0') break;

@@ -307,11 +307,13 @@ message_draw (Message *message, DiaRenderer *renderer)
   }
 
   if (message->type==MESSAGE_RETURN) {
-    dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, MESSAGE_DASHLEN);
+    dia_renderer_set_linestyle (renderer,
+                                DIA_LINE_STYLE_DASHED,
+                                MESSAGE_DASHLEN);
     n1 = 0;
     n2 = 1;
   } else {
-    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+    dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   }
   p1 = endpoints[n1];
   p2 = endpoints[n2];

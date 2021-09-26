@@ -51,12 +51,12 @@ typedef struct _Polygon {
   PolyShape poly;
 
   Color line_color;
-  LineStyle line_style;
+  DiaLineStyle line_style;
   LineJoin line_join;
   Color inner_color;
   gboolean show_background;
-  real dashlength;
-  real line_width;
+  double dashlength;
+  double line_width;
   DiaPattern *pattern;
 } Polygon;
 
@@ -374,11 +374,11 @@ polygon_save(Polygon *polygon, ObjectNode obj_node,
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   polygon->show_background, ctx);
 
-  if (polygon->line_style != LINESTYLE_SOLID)
+  if (polygon->line_style != DIA_LINE_STYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  polygon->line_style, ctx);
 
-  if (polygon->line_style != LINESTYLE_SOLID &&
+  if (polygon->line_style != DIA_LINE_STYLE_SOLID &&
       polygon->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  polygon->dashlength, ctx);
@@ -430,7 +430,7 @@ polygon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     polygon->show_background = data_boolean(attribute_first_data(attr), ctx);
 
-  polygon->line_style = LINESTYLE_SOLID;
+  polygon->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     polygon->line_style = data_enum(attribute_first_data(attr), ctx);

@@ -44,18 +44,18 @@ typedef enum {
 extern char* custom_linetype_strings[];
 
 typedef struct _LineInfo {
-  gchar *line_info_filename;
+  char *line_info_filename;
 
-  gchar *name;
-  gchar *icon_filename;
+  char *name;
+  char *icon_filename;
   CustomLineType type;
   Color line_color;
-  LineStyle line_style;
-  real dashlength;
-  real line_width;
-  real corner_radius;
+  DiaLineStyle line_style;
+  double dashlength;
+  double line_width;
+  double corner_radius;
   Arrow start_arrow, end_arrow;
-  
+
   DiaObjectType* object_type;
 } LineInfo;
 

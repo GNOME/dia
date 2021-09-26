@@ -27,15 +27,18 @@
  ***********************************************/
 /* same as process */
 
-static void aadlthread_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadlthread_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  aadlbox_draw_inclined_box(aadlbox, renderer, LINESTYLE_DASHED);
+  aadlbox_draw_inclined_box (aadlbox, renderer, DIA_LINE_STYLE_DASHED);
 }
 
-static void aadlthread_draw(Aadlbox *aadlbox, DiaRenderer *renderer)
+
+static void
+aadlthread_draw (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  aadlthread_draw_borders(aadlbox, renderer);
-  aadlbox_draw(aadlbox, renderer);
+  aadlthread_draw_borders (aadlbox, renderer);
+  aadlbox_draw (aadlbox, renderer);
 }
 
 static Aadlbox_specific aadlthread_specific =
@@ -90,7 +93,7 @@ static DiaObject *aadlthread_create(Point *startpoint, void *user_data, Handle *
 
   obj->type = &aadlthread_type;
   obj->ops  = &aadlthread_ops;
-      
+
   return obj;
 }
 
@@ -100,7 +103,7 @@ aadlthread_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
-  
+
   obj = aadlthread_create(&startpoint,&aadlthread_specific, &handle1,&handle2);
   aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
   return obj;

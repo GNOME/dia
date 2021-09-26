@@ -40,13 +40,13 @@
 typedef struct _RadioCell RadioCell;
 
 struct _RadioCell {
-  PolyShape poly;		/* always 1st! */
-  real radius;			/* pseudo-radius */
-  Point center;			/* point in the center */
+  PolyShape poly;  /* always 1st! */
+  double radius;   /* pseudo-radius */
+  Point center;    /* point in the center */
   Color line_colour;
-  LineStyle line_style;
-  real dashlength;
-  real line_width;
+  DiaLineStyle line_style;
+  double dashlength;
+  double line_width;
   gboolean show_background;
   Color fill_colour;
   Text *text;

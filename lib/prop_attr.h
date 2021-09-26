@@ -22,20 +22,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#ifndef PROP_ATTR_H
-#define PROP_ATTR_H
+
+#pragma once
 
 #include "properties.h"
 #include "dia_xml.h"
 
-/*!
- * \brief Property for LineStyle
- * \extends _Property
+G_BEGIN_DECLS
+
+/**
+ * LinestyleProperty:
+ *
+ * #Property for #DiaLineStyle
  */
 typedef struct {
   Property common;
-  LineStyle style;
-  real dash;
+  DiaLineStyle style;
+  double dash;
 } LinestyleProperty;
 
 /*!
@@ -67,4 +70,4 @@ typedef struct {
 
 void prop_attr_register(void);
 
-#endif
+G_END_DECLS

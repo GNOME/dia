@@ -223,7 +223,7 @@ wanlink_draw (WanLink *wanlink, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, FLASH_LINE);
   dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
   dia_renderer_draw_polygon (renderer,
                              wanlink->poly,

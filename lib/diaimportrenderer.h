@@ -26,16 +26,15 @@ typedef struct _DiaImportRendererClass DiaImportRendererClass;
  *
  * \extends _DiaRenderer
  */
-struct _DiaImportRenderer
-{
+struct _DiaImportRenderer {
   DiaRenderer parent_instance;
 
   /*! \protected state variables should not be set directly but with the rendering interface */
-  LineStyle   line_style;
+  DiaLineStyle line_style;
   FillStyle   fill_style;
-  real        dash_length;
+  double       dash_length;
 
-  real        line_width;
+  double       line_width;
   LineCaps    line_caps;
   LineJoin    line_join;
 

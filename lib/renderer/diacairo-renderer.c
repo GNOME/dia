@@ -458,10 +458,11 @@ dia_cairo_renderer_set_linejoin (DiaRenderer *self, LineJoin mode)
   DIAG_STATE (renderer->cr)
 }
 
+
 static void
-dia_cairo_renderer_set_linestyle (DiaRenderer *self,
-                                  LineStyle    mode,
-                                  real         dash_length)
+dia_cairo_renderer_set_linestyle (DiaRenderer  *self,
+                                  DiaLineStyle  mode,
+                                  double        dash_length)
 {
   /* dot = 10% of len */
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
@@ -473,23 +474,23 @@ dia_cairo_renderer_set_linestyle (DiaRenderer *self,
 
   /* line type */
   switch (mode) {
-    case LINESTYLE_DEFAULT:
-    case LINESTYLE_SOLID:
+    case DIA_LINE_STYLE_DEFAULT:
+    case DIA_LINE_STYLE_SOLID:
       cairo_set_dash (renderer->cr, NULL, 0, 0);
       break;
-    case LINESTYLE_DASHED:
+    case DIA_LINE_STYLE_DASHED:
       dash[0] = dash_length;
       dash[1] = dash_length;
       cairo_set_dash (renderer->cr, dash, 2, 0);
       break;
-    case LINESTYLE_DASH_DOT:
+    case DIA_LINE_STYLE_DASH_DOT:
       dash[0] = dash_length;
       dash[1] = dash_length * 0.45;
       dash[2] = dash_length * 0.1;
       dash[3] = dash_length * 0.45;
       cairo_set_dash (renderer->cr, dash, 4, 0);
       break;
-    case LINESTYLE_DASH_DOT_DOT:
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
       dash[0] = dash_length;
       dash[1] = dash_length * (0.8/3);
       dash[2] = dash_length * 0.1;
@@ -498,13 +499,13 @@ dia_cairo_renderer_set_linestyle (DiaRenderer *self,
       dash[5] = dash_length * (0.8/3);
       cairo_set_dash (renderer->cr, dash, 6, 0);
       break;
-    case LINESTYLE_DOTTED:
+    case DIA_LINE_STYLE_DOTTED:
       dash[0] = dash_length * 0.1;
       dash[1] = dash_length * 0.1;
       cairo_set_dash (renderer->cr, dash, 2, 0);
       break;
     default:
-      g_warning("DiaCairoRenderer : Unsupported line style specified!\n");
+      g_warning ("DiaCairoRenderer : Unsupported line style specified!\n");
   }
 
   DIAG_STATE (renderer->cr)

@@ -137,8 +137,8 @@ struct _DiaRendererClass
   void     (*set_linejoin)                      (DiaRenderer      *renderer,
                                                  LineJoin          mode);
   void     (*set_linestyle)                     (DiaRenderer      *renderer,
-                                                 LineStyle         mode,
-                                                 real              length);
+                                                 DiaLineStyle      mode,
+                                                 double            length);
   void     (*set_fillstyle)                     (DiaRenderer      *renderer,
                                                  FillStyle         mode);
 
@@ -300,8 +300,8 @@ void     dia_renderer_set_linecaps                      (DiaRenderer      *self,
 void     dia_renderer_set_linejoin                      (DiaRenderer      *self,
                                                          LineJoin          mode);
 void     dia_renderer_set_linestyle                     (DiaRenderer      *self,
-                                                         LineStyle         mode,
-                                                         real              length);
+                                                         DiaLineStyle      mode,
+                                                         double            length);
 void     dia_renderer_set_fillstyle                     (DiaRenderer      *self,
                                                          FillStyle         mode);
 void     dia_renderer_set_font                          (DiaRenderer      *self,

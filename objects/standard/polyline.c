@@ -42,7 +42,7 @@ typedef struct _Polyline {
   PolyConn poly;
 
   Color line_color;
-  LineStyle line_style;
+  DiaLineStyle line_style;
   LineJoin line_join;
   LineCaps line_caps;
   double dashlength;
@@ -479,11 +479,11 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  polyline->line_width, ctx);
 
-  if (polyline->line_style != LINESTYLE_SOLID)
+  if (polyline->line_style != DIA_LINE_STYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  polyline->line_style, ctx);
 
-  if (polyline->line_style != LINESTYLE_SOLID &&
+  if (polyline->line_style != DIA_LINE_STYLE_SOLID &&
       polyline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  polyline->dashlength, ctx);
@@ -553,7 +553,7 @@ polyline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     polyline->line_width = data_real(attribute_first_data(attr), ctx);
 
-  polyline->line_style = LINESTYLE_SOLID;
+  polyline->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     polyline->line_style = data_enum(attribute_first_data(attr), ctx);

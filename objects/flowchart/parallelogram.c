@@ -56,16 +56,16 @@ struct _Pgram {
   Element element;
 
   ConnectionPoint connections[NUM_CONNECTIONS];
-  real border_width;
+  double border_width;
   Color border_color;
   Color inner_color;
   gboolean show_background;
-  LineStyle line_style;
-  real dashlength;
-  real shear_angle, shear_grad;
+  DiaLineStyle line_style;
+  double dashlength;
+  double shear_angle, shear_grad;
 
   Text *text;
-  real padding;
+  double padding;
 
   TextFitting text_fitting;
 };
@@ -676,14 +676,18 @@ pgram_save(Pgram *pgram, ObjectNode obj_node, DiaContext *ctx)
   data_add_boolean(new_attribute(obj_node, "show_background"),
 		   pgram->show_background, ctx);
 
-  if (pgram->line_style != LINESTYLE_SOLID)
-    data_add_enum(new_attribute(obj_node, "line_style"),
-		  pgram->line_style, ctx);
+  if (pgram->line_style != DIA_LINE_STYLE_SOLID) {
+    data_add_enum (new_attribute (obj_node, "line_style"),
+                   pgram->line_style,
+                   ctx);
+  }
 
-  if (pgram->line_style != LINESTYLE_SOLID &&
-      pgram->dashlength != DEFAULT_LINESTYLE_DASHLEN)
-    data_add_real(new_attribute(obj_node, "dashlength"),
-                  pgram->dashlength, ctx);
+  if (pgram->line_style != DIA_LINE_STYLE_SOLID &&
+      pgram->dashlength != DEFAULT_LINESTYLE_DASHLEN) {
+    data_add_real (new_attribute (obj_node, "dashlength"),
+                   pgram->dashlength,
+                   ctx);
+  }
 
   data_add_real(new_attribute(obj_node, "shear_angle"),
 		pgram->shear_angle, ctx);
@@ -734,7 +738,7 @@ pgram_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     pgram->show_background = data_boolean(attribute_first_data(attr), ctx);
 
-  pgram->line_style = LINESTYLE_SOLID;
+  pgram->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     pgram->line_style =  data_enum(attribute_first_data(attr), ctx);

@@ -149,29 +149,31 @@ static PropDescription xfig_simple_prop_descs_line[] = {
     { "line_colour", PROP_TYPE_COLOUR },
     PROP_DESC_END};
 
-static LineStyle
-fig_line_style_to_dia(int line_style, DiaContext *ctx)
+
+static DiaLineStyle
+fig_line_style_to_dia (int line_style, DiaContext *ctx)
 {
-    switch (line_style) {
+  switch (line_style) {
     case 0:
-        return LINESTYLE_SOLID;
+      return DIA_LINE_STYLE_SOLID;
     case 1:
-        return LINESTYLE_DASHED;
+      return DIA_LINE_STYLE_DASHED;
     case 2:
-	return LINESTYLE_DOTTED;
+      return DIA_LINE_STYLE_DOTTED;
     case 3:
-        return LINESTYLE_DASH_DOT;
+      return DIA_LINE_STYLE_DASH_DOT;
     case 4:
-        return LINESTYLE_DASH_DOT_DOT;
+      return DIA_LINE_STYLE_DASH_DOT_DOT;
     case 5:
-	dia_context_add_message(ctx, _("Triple-dotted lines are not supported by Dia; "
-			               "using double-dotted"));
-        return LINESTYLE_DASH_DOT_DOT;
+      dia_context_add_message (ctx, _("Triple-dotted lines are not supported by Dia; "
+                                      "using double-dotted"));
+      return DIA_LINE_STYLE_DASH_DOT_DOT;
     default:
-        dia_context_add_message(ctx, _("Line style %d should not appear"), line_style);
-        return LINESTYLE_SOLID;
+      dia_context_add_message (ctx, _("Line style %d should not appear"), line_style);
+      return DIA_LINE_STYLE_SOLID;
     }
 }
+
 
 static void
 fig_simple_properties (DiaObject  *obj,

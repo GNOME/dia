@@ -239,7 +239,7 @@ req_draw (Requirement *req, DiaRenderer *renderer)
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   dia_renderer_set_linewidth (renderer, REQ_LINEWIDTH);
 
-  dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, REQ_DASHLEN);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DASHED, REQ_DASHLEN);
 
   dia_renderer_draw_ellipse (renderer, &c, w, h, &color_white, &color_black);
 

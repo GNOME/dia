@@ -148,27 +148,31 @@ public :
   {
     this->line_width = state->getLineWidth() * scale;
   }
-  void updateLineDash(GfxState * state)
+
+  void
+  updateLineDash (GfxState *state)
   {
     double *dashPattern;
     int dashLength;
     double dashStart;
 
-    state->getLineDash(&dashPattern, &dashLength, &dashStart);
+    state->getLineDash (&dashPattern, &dashLength, &dashStart);
     this->dash_length = dashLength ? dashPattern[0] * scale : 1.0;
+
     if (dashLength == 0)
-      this->line_style = LINESTYLE_SOLID;
+      this->line_style = DIA_LINE_STYLE_SOLID;
     else if (dashLength > 5)
-      this->line_style = LINESTYLE_DASH_DOT_DOT;
+      this->line_style = DIA_LINE_STYLE_DASH_DOT_DOT;
     else if (dashLength > 3)
-      this->line_style = LINESTYLE_DASH_DOT;
+      this->line_style = DIA_LINE_STYLE_DASH_DOT;
     else if (dashLength > 1) {
       if (dashPattern[0] != dashPattern[1])
-        this->line_style = LINESTYLE_DOTTED;
+        this->line_style = DIA_LINE_STYLE_DOTTED;
       else
-        this->line_style = LINESTYLE_DASHED;
+        this->line_style = DIA_LINE_STYLE_DASHED;
     }
   }
+
   void updateLineJoin(GfxState * state)
   {
     if (state->getLineJoin() == 0)
@@ -435,9 +439,9 @@ private :
   DiagramData *dia;
 
   Color stroke_color;
-  real line_width;
-  LineStyle line_style;
-  real dash_length;
+  double line_width;
+  DiaLineStyle line_style;
+  double dash_length;
   LineJoin line_join;
   LineCaps line_caps;
   Color fill_color;
@@ -445,7 +449,7 @@ private :
   Alignment alignment;
 
   // multiply with to get from PDF to Dia
-  real scale;
+  double scale;
   //! list of DiaObject not yet added
   GList *objects;
   //! just the number got from poppler
@@ -476,7 +480,7 @@ DiaOutputDev::DiaOutputDev (DiagramData *_dia, int _n) :
   stroke_color(attributes_get_foreground ()),
   line_width(attributes_get_default_linewidth()),
   // favoring member intitialization list over attributes_get_default_line_style()
-  line_style(LINESTYLE_SOLID),
+  line_style(DIA_LINE_STYLE_SOLID),
   dash_length(1.0),
   line_join(LINEJOIN_MITER),
   line_caps(LINECAPS_PROJECTING),

@@ -44,7 +44,7 @@ typedef struct _Zigzagline {
   OrthConn orth;
 
   Color line_color;
-  LineStyle line_style;
+  DiaLineStyle line_style;
   LineJoin line_join;
   LineCaps line_caps;
   double dashlength;
@@ -500,7 +500,7 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  zigzagline->line_width, ctx);
 
-  if (zigzagline->line_style != LINESTYLE_SOLID)
+  if (zigzagline->line_style != DIA_LINE_STYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  zigzagline->line_style, ctx);
 
@@ -529,7 +529,7 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
                     ctx);
   }
 
-  if (zigzagline->line_style != LINESTYLE_SOLID &&
+  if (zigzagline->line_style != DIA_LINE_STYLE_SOLID &&
       zigzagline->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
                   zigzagline->dashlength, ctx);
@@ -567,7 +567,7 @@ zigzagline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     zigzagline->line_width = data_real(attribute_first_data(attr), ctx);
 
-  zigzagline->line_style = LINESTYLE_SOLID;
+  zigzagline->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     zigzagline->line_style = data_enum(attribute_first_data(attr), ctx);

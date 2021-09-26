@@ -216,10 +216,14 @@ static void
 set_linejoin(DiaRenderer *self, LineJoin mode)
 {
 }
+
+
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 {
 }
+
+
 static void
 set_fillstyle(DiaRenderer *self, FillStyle mode)
 {

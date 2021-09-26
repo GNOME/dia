@@ -54,16 +54,16 @@ typedef struct _Line {
   ConnPointLine *cpl;
 
   Color line_color;
-  real line_width;
-  LineStyle line_style;
+  double line_width;
+  DiaLineStyle line_style;
   LineCaps line_caps;
   Arrow start_arrow, end_arrow;
-  real dashlength;
-  real absolute_start_gap, absolute_end_gap;
+  double dashlength;
+  double absolute_start_gap, absolute_end_gap;
 } Line;
 
 struct _LineProperties {
-  real absolute_start_gap, absolute_end_gap;
+  double absolute_start_gap, absolute_end_gap;
 };
 
 static LineProperties default_properties;
@@ -661,7 +661,7 @@ line_save(Line *line, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  line->line_width, ctx);
 
-  if (line->line_style != LINESTYLE_SOLID)
+  if (line->line_style != DIA_LINE_STYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  line->line_style, ctx);
 
@@ -694,7 +694,7 @@ line_save(Line *line, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, "absolute_end_gap"),
                  line->absolute_end_gap, ctx);
 
-  if (line->line_style != LINESTYLE_SOLID && line->dashlength != DEFAULT_LINESTYLE_DASHLEN)
+  if (line->line_style != DIA_LINE_STYLE_SOLID && line->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  line->dashlength, ctx);
 }
@@ -727,7 +727,7 @@ line_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     line->line_width = data_real(attribute_first_data(attr), ctx);
 
-  line->line_style = LINESTYLE_SOLID;
+  line->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     line->line_style = data_enum(attribute_first_data(attr), ctx);

@@ -32,14 +32,14 @@ G_BEGIN_DECLS
 #define DIA_TYPE_LINE_CHOOSER dia_line_chooser_get_type ()
 G_DECLARE_FINAL_TYPE (DiaLineChooser, dia_line_chooser, DIA, LINE_CHOOSER, GtkButton)
 
-typedef void (*DiaChangeLineCallback) (LineStyle lstyle,
-                                       double    dash_length,
-                                       gpointer  user_data);
+typedef void (*DiaChangeLineCallback) (DiaLineStyle lstyle,
+                                       double       dash_length,
+                                       gpointer     user_data);
 
 GtkWidget *dia_line_chooser_new                  (DiaChangeLineCallback  callback,
                                                   gpointer               user_data);
 void       dia_line_chooser_set_line_style       (DiaLineChooser        *lchooser,
-                                                  LineStyle              style,
+                                                  DiaLineStyle           style,
                                                   double                 dashlength);
 
 G_END_DECLS

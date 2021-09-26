@@ -283,7 +283,7 @@ annotation_draw (Annotation *annotation, DiaRenderer *renderer)
   assert(renderer != NULL);
 
   dia_renderer_set_linewidth (renderer, ANNOTATION_LINE_WIDTH);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   vect = annotation->connection.endpoints[1];

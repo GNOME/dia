@@ -403,7 +403,7 @@ mbr_draw (Mbr *mbr, DiaRenderer *renderer)
   /** drawing directed line **/
   dia_renderer_set_linewidth (renderer, MBR_WIDTH);
   dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
   dx=p1.x-p2.x;
   dy=p1.y-p2.y;

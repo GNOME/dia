@@ -88,7 +88,7 @@ static void read_section_tables_dxf(FILE *filedxf, DxfData *data, DiagramData *d
 static void read_section_entities_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static void read_section_blocks_dxf(FILE *filedxf, DxfData *data, DiagramData *dia);
 static DiaLayer *layer_find_by_name(char *layername, DiagramData *dia);
-static LineStyle get_dia_linestyle_dxf(char *dxflinestyle);
+static DiaLineStyle get_dia_linestyle_dxf(char *dxflinestyle);
 
 GHashTable *_color_by_layer_ht = NULL;
 
@@ -152,20 +152,25 @@ layer_find_by_name (char *layername, DiagramData *dia)
 
 /* returns the matching dia linestyle for a given dxf linestyle */
 /* if no matching style is found, LINESTYLE solid is returned as a default */
-static LineStyle
-get_dia_linestyle_dxf(char *dxflinestyle)
+static DiaLineStyle
+get_dia_linestyle_dxf (char *dxflinestyle)
 {
-    if (strcmp(dxflinestyle, "DASHED") == 0)
-        return LINESTYLE_DASHED;
-    if (strcmp(dxflinestyle, "DASHDOT") == 0)
-        return LINESTYLE_DASH_DOT;
-    if (strcmp(dxflinestyle, "DOT") == 0)
-        return LINESTYLE_DOTTED;
-    if (strcmp(dxflinestyle, "DIVIDE") == 0)
-        return LINESTYLE_DASH_DOT_DOT;
+  if (g_strcmp0 (dxflinestyle, "DASHED") == 0) {
+    return DIA_LINE_STYLE_DASHED;
+  }
+  if (g_strcmp0 (dxflinestyle, "DASHDOT") == 0) {
+    return DIA_LINE_STYLE_DASH_DOT;
+  }
+  if (g_strcmp0 (dxflinestyle, "DOT") == 0) {
+    return DIA_LINE_STYLE_DOTTED;
+  }
+  if (g_strcmp0 (dxflinestyle, "DIVIDE") == 0) {
+    return DIA_LINE_STYLE_DASH_DOT_DOT;
+  }
 
-    return LINESTYLE_SOLID;
+  return DIA_LINE_STYLE_SOLID;
 }
+
 
 /* reads a line entity from the dxf file and creates a line object in dia*/
 static DiaObject *
@@ -182,8 +187,8 @@ read_entity_line_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
     RGB_t color = { 0, };
     GPtrArray *props;
 
-    real line_width = DEFAULT_LINE_WIDTH;
-    LineStyle style = LINESTYLE_SOLID;
+    double line_width = DEFAULT_LINE_WIDTH;
+    DiaLineStyle style = DIA_LINE_STYLE_SOLID;
     DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
 
     end.x=0;
@@ -252,31 +257,30 @@ read_entity_line_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
     return NULL;
 }
 
+
 /* reads a solid entity from the dxf file and creates a polygon object in dia*/
 static DiaObject *
-read_entity_solid_dxf(FILE *filedxf, DxfData *data, DiagramData *dia)
+read_entity_solid_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
 {
-   /* polygon data */
-   Point p[4];
+  /* polygon data */
+  Point p[4];
 
-   DiaObjectType *otype = object_get_type("Standard - Polygon");
-   Handle *h1, *h2;
+  DiaObjectType *otype = object_get_type ("Standard - Polygon");
+  Handle *h1, *h2;
 
-   DiaObject *polygon_obj;
-   MultipointCreateData *pcd;
+  DiaObject *polygon_obj;
+  MultipointCreateData *pcd;
 
-   Color fill_colour;
+  Color fill_colour;
 
-   GPtrArray *props;
+  GPtrArray *props;
 
-   real line_width = 0.001;
-   LineStyle style = LINESTYLE_SOLID;
-   DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
-   RGB_t color  = { 127, 127, 127 };
+  double line_width = 0.001;
+  DiaLineStyle style = DIA_LINE_STYLE_SOLID;
+  DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
+  RGB_t color  = { 127, 127, 127 };
 
-/*   printf( "Solid " ); */
-
-   memset(p, 0, sizeof(p));
+  memset (p, 0, sizeof (p));
 
   do {
     if (read_dxf_codes (filedxf, data) == FALSE) {
@@ -410,9 +414,9 @@ read_entity_polyline_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
 
   GPtrArray *props;
 
-  real line_width = DEFAULT_LINE_WIDTH;
-  real radius, start_angle = 0;
-  LineStyle style = LINESTYLE_SOLID;
+  double line_width = DEFAULT_LINE_WIDTH;
+  double radius, start_angle = 0;
+  DiaLineStyle style = DIA_LINE_STYLE_SOLID;
   DiaLayer *layer = dia_diagram_data_get_active_layer (dia);
   RGB_t color = { 0, };
   unsigned char closed = 0;

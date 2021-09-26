@@ -828,20 +828,25 @@ change_end_arrow_style(Arrow arrow, gpointer user_data)
 {
   attributes_set_default_end_arrow(arrow);
 }
-static void
-change_line_style(LineStyle lstyle, real dash_length, gpointer user_data)
-{
-  attributes_set_default_line_style(lstyle, dash_length);
-}
+
 
 static void
-create_lineprops_area(GtkWidget *parent)
+change_line_style (DiaLineStyle lstyle,
+                   double       dash_length,
+                   gpointer     user_data)
+{
+  attributes_set_default_line_style (lstyle, dash_length);
+}
+
+
+static void
+create_lineprops_area (GtkWidget *parent)
 {
   GtkWidget *chooser;
   Arrow arrow;
-  real dash_length;
-  LineStyle style;
-  gchar *arrow_name;
+  double dash_length;
+  DiaLineStyle style;
+  char *arrow_name;
 
   chooser = dia_arrow_chooser_new(TRUE, change_start_arrow_style, NULL);
   gtk_wrap_box_pack_wrapped(GTK_WRAP_BOX(parent), chooser, FALSE, TRUE, FALSE, TRUE, TRUE);
@@ -855,13 +860,13 @@ create_lineprops_area(GtkWidget *parent)
   gtk_widget_set_tooltip_text(chooser, _("Arrow style at the beginning of new lines.  Click to pick an arrow, or set arrow parameters with Details…"));
   gtk_widget_show(chooser);
 
-  chooser = dia_line_chooser_new(change_line_style, NULL);
-  gtk_wrap_box_pack(GTK_WRAP_BOX(parent), chooser, TRUE, TRUE, FALSE, TRUE);
+  chooser = dia_line_chooser_new (change_line_style, NULL);
+  gtk_wrap_box_pack (GTK_WRAP_BOX (parent), chooser, TRUE, TRUE, FALSE, TRUE);
   gtk_widget_set_tooltip_text (chooser, _("Line style for new lines.  Click to pick a line style, or set line style parameters with Details…"));
-  style = persistence_register_integer("line-style", LINESTYLE_SOLID);
-  dash_length = persistence_register_real("dash-length", DEFAULT_LINESTYLE_DASHLEN);
-  dia_line_chooser_set_line_style(DIA_LINE_CHOOSER(chooser), style, dash_length);
-  gtk_widget_show(chooser);
+  style = persistence_register_integer ("line-style", DIA_LINE_STYLE_SOLID);
+  dash_length = persistence_register_real ("dash-length", DEFAULT_LINESTYLE_DASHLEN);
+  dia_line_chooser_set_line_style (DIA_LINE_CHOOSER (chooser), style, dash_length);
+  gtk_widget_show (chooser);
 
   chooser = dia_arrow_chooser_new(FALSE, change_end_arrow_style, NULL);
   arrow.width = persistence_register_real("end-arrow-width", DEFAULT_ARROW_WIDTH);

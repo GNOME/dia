@@ -224,7 +224,7 @@ class SvgRenderer :
 		join = self.line_join
 		style = self.line_style
 		st = ""
-		if style == 0 : # LINESTYLE_SOLID
+		if style == 0 : # DIA_LINE_STYLE_SOLID
 			pass
 		elif style == 1 : # DASHED
 			st = 'stroke-dasharray="%.2f,%.2f"' % (dashlen, dashlen)

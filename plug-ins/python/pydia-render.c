@@ -288,7 +288,7 @@ set_linejoin (DiaRenderer *renderer, LineJoin mode)
 /**
  * set_linestyle:
  * @renderer: the #DiaRenderer
- * @mode: the new #LineStyle
+ * @mode: the new #DiaLineStyle
  * @dash_length: how often to dash
  *
  * Set linestyle for later use
@@ -296,23 +296,23 @@ set_linejoin (DiaRenderer *renderer, LineJoin mode)
  * Optional on the PyDia side.
  */
 static void
-set_linestyle (DiaRenderer *renderer, LineStyle mode, double dash_length)
+set_linestyle (DiaRenderer *renderer, DiaLineStyle mode, double dash_length)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   /* line type */
   switch (mode) {
-    case LINESTYLE_SOLID:
+    case DIA_LINE_STYLE_SOLID:
       break;
-    case LINESTYLE_DASHED:
+    case DIA_LINE_STYLE_DASHED:
       break;
-    case LINESTYLE_DASH_DOT:
+    case DIA_LINE_STYLE_DASH_DOT:
       break;
-    case LINESTYLE_DASH_DOT_DOT:
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
       break;
-    case LINESTYLE_DOTTED:
+    case DIA_LINE_STYLE_DOTTED:
       break;
-    case LINESTYLE_DEFAULT:
+    case DIA_LINE_STYLE_DEFAULT:
     default:
       PyErr_Warn (PyExc_RuntimeWarning,
                   "DiaPyRenderer : Unsupported fill mode specified!\n");

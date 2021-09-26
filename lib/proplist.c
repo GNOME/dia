@@ -239,15 +239,21 @@ prop_list_add_line_width  (GPtrArray *plist, real line_width)
   ((RealProperty *)prop)->real_data = line_width;
   g_ptr_array_add (plist, prop);
 }
+
+
 void
-prop_list_add_line_style  (GPtrArray *plist, LineStyle line_style, real dash)
+prop_list_add_line_style (GPtrArray    *plist,
+                          DiaLineStyle  line_style,
+                          double        dash)
 {
   Property *prop = make_new_prop ("line_style", PROP_TYPE_LINESTYLE, 0);
 
-  ((LinestyleProperty *)prop)->style = line_style;
-  ((LinestyleProperty *)prop)->dash = dash;
+  ((LinestyleProperty *) prop)->style = line_style;
+  ((LinestyleProperty *) prop)->dash = dash;
   g_ptr_array_add (plist, prop);
 }
+
+
 static void
 _prop_list_add_colour (GPtrArray *plist, const char *name, const Color *color)
 {

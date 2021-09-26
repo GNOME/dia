@@ -217,14 +217,16 @@ aadlbox_inclined_project_point_on_nearest_border(Aadlbox *aadlbox,Point *p,
 void aadlprocess_text_position(Aadlbox *aadlbox, Point *p);
 
 /* aadlthread.c */
-void aadlbox_draw_inclined_box(Aadlbox *aadlbox, DiaRenderer *renderer,
-				      LineStyle linestyle);
+void aadlbox_draw_inclined_box (Aadlbox      *aadlbox,
+                                DiaRenderer  *renderer,
+                                DiaLineStyle  linestyle);
 /* aadlsubprogram.c */
 void
 aadlsubprogram_project_point_on_nearest_border(Aadlbox *aadlbox,Point *p,
 					       real *angle);
 /* aadlsystem.c */
-void aadlbox_draw_rounded_box (Aadlbox *aadlbox, DiaRenderer *renderer,
-			       LineStyle linestyle);
+void aadlbox_draw_rounded_box  (Aadlbox      *aadlbox,
+                                DiaRenderer  *renderer,
+                                DiaLineStyle  linestyle);
 
 

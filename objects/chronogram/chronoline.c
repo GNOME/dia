@@ -413,7 +413,7 @@ chronoline_draw_really (Chronoline  *chronoline,
 
   lst = chronoline->evtlist;
   dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   dia_renderer_set_linewidth (renderer, chronoline->data_lwidth);
 
   while (lst) {
@@ -467,7 +467,7 @@ chronoline_draw (Chronoline *chronoline, DiaRenderer *renderer)
   elem = &chronoline->element;
 
   dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_DOTTED, 1.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DOTTED, 1.0);
   dia_renderer_set_linewidth (renderer, chronoline->main_lwidth);
   p1.x = elem->corner.x + elem->width;
   p1.y = elem->corner.y;
@@ -476,7 +476,7 @@ chronoline_draw (Chronoline *chronoline, DiaRenderer *renderer)
   chronoline_draw_really (chronoline,renderer,TRUE);
   chronoline_draw_really (chronoline,renderer,FALSE);
 
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
   lr_corner.x = elem->corner.x + elem->width;
   lr_corner.y = elem->corner.y + elem->height;

@@ -328,22 +328,34 @@ _make_stroke (WpgImportRenderer *ren)
   ren->stroke.alpha = 1.0;
   switch (ren->LineAttr.Type) {
     case WPG_LA_SOLID:
-      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_SOLID, 0.0);
+      dia_renderer_set_linestyle (DIA_RENDERER (ren),
+                                  DIA_LINE_STYLE_SOLID,
+                                  0.0);
       break;
     case WPG_LA_MEDIUMDASH:
-      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASHED, 0.66);
+      dia_renderer_set_linestyle (DIA_RENDERER (ren),
+                                  DIA_LINE_STYLE_DASHED,
+                                  0.66);
       break;
     case WPG_LA_SHORTDASH:
-      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASHED, 0.33);
+      dia_renderer_set_linestyle (DIA_RENDERER (ren),
+                                  DIA_LINE_STYLE_DASHED,
+                                  0.33);
       break;
     case WPG_LA_DASHDOT:
-      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASH_DOT, 1.0);
+      dia_renderer_set_linestyle (DIA_RENDERER (ren),
+                                  DIA_LINE_STYLE_DASH_DOT,
+                                  1.0);
       break;
     case WPG_LA_DASHDOTDOT:
-      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DASH_DOT_DOT, 1.0);
+      dia_renderer_set_linestyle (DIA_RENDERER (ren),
+                                  DIA_LINE_STYLE_DASH_DOT_DOT,
+                                  1.0);
       break;
     case WPG_LA_DOTS:
-      dia_renderer_set_linestyle (DIA_RENDERER (ren), LINESTYLE_DOTTED, 1.0);
+      dia_renderer_set_linestyle (DIA_RENDERER (ren),
+                                  DIA_LINE_STYLE_DOTTED,
+                                  1.0);
       break;
     default:
       g_warning ("Unknown type %i", ren->LineAttr.Type);

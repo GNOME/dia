@@ -397,17 +397,17 @@ orthflow_draw (Orthflow *orthflow, DiaRenderer *renderer)
   switch (orthflow->type) {
     case ORTHFLOW_SIGNAL:
       linewidth = ORTHFLOW_WIDTH;
-      dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED, ORTHFLOW_DASHLEN);
+      dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DASHED, ORTHFLOW_DASHLEN);
       render_color = &orthflow_color_signal;
       break ;
     case ORTHFLOW_MATERIAL:
       linewidth = ORTHFLOW_MATERIAL_WIDTH;
-      dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+      dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
       render_color = &orthflow_color_material;
       break ;
     case ORTHFLOW_ENERGY:
       linewidth = ORTHFLOW_WIDTH;
-      dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+      dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
       render_color = &orthflow_color_energy;
       break ;
     default:

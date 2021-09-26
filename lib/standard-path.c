@@ -78,9 +78,9 @@ struct _StdPath {
   int stroke_or_fill;
 
   Color line_color;
-  real line_width;
-  LineStyle line_style;
-  real dashlength;
+  double line_width;
+  DiaLineStyle line_style;
+  double dashlength;
   LineJoin line_join;
   LineCaps line_caps;
   Color fill_color;

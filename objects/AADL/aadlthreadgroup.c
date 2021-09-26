@@ -31,13 +31,14 @@
 #define AADL_THREADGROUP_CORNER_SIZE_FACTOR 0.25
 
 
-static void aadlthreadgroup_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadlthreadgroup_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  aadlbox_draw_rounded_box(aadlbox, renderer, LINESTYLE_DASHED);
+  aadlbox_draw_rounded_box (aadlbox, renderer, DIA_LINE_STYLE_DASHED);
 }
 
-static Aadlbox_specific aadlthreadgroup_specific =
-{
+
+static Aadlbox_specific aadlthreadgroup_specific = {
   (AadlProjectionFunc) aadldata_project_point_on_nearest_border,
   (AadlTextPosFunc)    aadldata_text_position,
   (AadlSizeFunc) aadldata_minsize
@@ -93,7 +94,7 @@ static DiaObject *aadlthreadgroup_create(Point *startpoint, void *user_data, Han
 
   obj->type = &aadlthreadgroup_type;
   obj->ops  = &aadlthreadgroup_ops;
-      
+
   return obj;
 }
 
@@ -103,8 +104,8 @@ aadlthreadgroup_load(ObjectNode obj_node, int version, DiaContext *ctx)
   DiaObject *obj;
   Point startpoint = {0.0,0.0};
   Handle *handle1,*handle2;
-  
-  obj = aadlthreadgroup_create(&startpoint, &aadlthreadgroup_specific, 
+
+  obj = aadlthreadgroup_create(&startpoint, &aadlthreadgroup_specific,
 			       &handle1,&handle2);
   aadlbox_load(obj_node, version, ctx, (Aadlbox *) obj);
   return obj;

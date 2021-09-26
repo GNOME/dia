@@ -39,7 +39,7 @@ static Arrow attributes_end_arrow = {
   DEFAULT_ARROW_SIZE
 };
 
-static LineStyle attributes_linestyle = LINESTYLE_SOLID;
+static DiaLineStyle attributes_linestyle = DIA_LINE_STYLE_SOLID;
 static double attributes_dash_length = 1.0;
 
 static DiaFont *attributes_font = NULL;
@@ -258,7 +258,7 @@ attributes_set_default_end_arrow (Arrow arrow)
  * Since: dawn-of-time
  */
 void
-attributes_get_default_line_style (LineStyle *style, double *dash_length)
+attributes_get_default_line_style (DiaLineStyle *style, double *dash_length)
 {
   if (style) {
     *style = attributes_linestyle;
@@ -279,7 +279,7 @@ attributes_get_default_line_style (LineStyle *style, double *dash_length)
  * Since: dawn-of-time
  */
 void
-attributes_set_default_line_style (LineStyle style, double dash_length)
+attributes_set_default_line_style (DiaLineStyle style, double dash_length)
 {
   attributes_linestyle = style;
   attributes_dash_length = dash_length;

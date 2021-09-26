@@ -56,18 +56,17 @@ struct _Arc {
   Handle center_handle; /*!< Handle on he center of the full circle */
 
   Color arc_color; /*!< Color of the Arc */
-  real curve_distance; /*!< distance between middle_handle and chord */
-  real line_width; /*!< line width for the Arc */
-  LineStyle line_style; /*!< line style for the Arc */
+  double curve_distance; /*!< distance between middle_handle and chord */
+  double line_width; /*!< line width for the Arc */
+  DiaLineStyle line_style; /*!< line style for the Arc */
   LineCaps line_caps; /*!< line ends of the Arc */
-  real dashlength; /*!< part of the linestyle if not LINESTYLE_SOLID */
+  double dashlength; /*!< part of the linestyle if not DIA_LINE_STYLE_SOLID */
   Arrow start_arrow, end_arrow; /*!< arrows */
 
   /* Calculated parameters: */
-  real radius;
+  double radius;
   Point center;
-  real angle1, angle2;
-
+  double angle1, angle2;
 };
 
 /* updates both endpoints and arc->curve_distance */
@@ -660,7 +659,7 @@ arc_draw (Arc *arc, DiaRenderer *renderer)
     Color line_color = { 0.0, 0.0, 0.6, 1.0 };
 
     dia_renderer_set_linewidth (renderer, 0);
-    dia_renderer_set_linestyle (renderer, LINESTYLE_DOTTED, 1);
+    dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DOTTED, 1);
     dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
     dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
@@ -957,11 +956,11 @@ arc_save(Arc *arc, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, PROP_STDNAME_LINE_WIDTH),
 		  arc->line_width, ctx);
 
-  if (arc->line_style != LINESTYLE_SOLID)
+  if (arc->line_style != DIA_LINE_STYLE_SOLID)
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  arc->line_style, ctx);
 
-  if (arc->line_style != LINESTYLE_SOLID &&
+  if (arc->line_style != DIA_LINE_STYLE_SOLID &&
       arc->dashlength != DEFAULT_LINESTYLE_DASHLEN)
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  arc->dashlength, ctx);
@@ -1024,7 +1023,7 @@ arc_load(ObjectNode obj_node, int version,DiaContext *ctx)
   if (attr != NULL)
     arc->line_width = data_real(attribute_first_data(attr), ctx);
 
-  arc->line_style = LINESTYLE_SOLID;
+  arc->line_style = DIA_LINE_STYLE_SOLID;
   attr = object_find_attribute(obj_node, "line_style");
   if (attr != NULL)
     arc->line_style = data_enum(attribute_first_data(attr), ctx);

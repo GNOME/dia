@@ -697,7 +697,7 @@ text_draw (Text *text, DiaRenderer *renderer)
     p2.x = curs_x;
     p2.y = curs_y + height;
 
-    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+    dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
     dia_renderer_set_linewidth (renderer, height / CURSOR_HEIGHT_RATIO);
     dia_renderer_draw_line (renderer, &p1, &p2, &color_black);
   }

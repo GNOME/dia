@@ -347,10 +347,10 @@ function_draw (Function *pkg, DiaRenderer *renderer)
   dia_renderer_set_linewidth (renderer,
                               font_height / FUNCTION_BORDERWIDTH_SCALE);
   if (pkg->is_wish) {
-    dia_renderer_set_linestyle (renderer, LINESTYLE_DASHED,
+    dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DASHED,
                                 font_height / FUNCTION_DASHLENGTH_SCALE);
   } else {
-    dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+    dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
   }
 
   p1.x = x; p1.y = y;

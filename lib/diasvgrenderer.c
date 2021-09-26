@@ -278,72 +278,73 @@ set_linejoin(DiaRenderer *self, LineJoin mode)
   }
 }
 
-/*!
- * \brief Set line style
- * \memberof _DiaSvgRenderer
+
+/*
+ * Set line style
  */
 static void
-set_linestyle(DiaRenderer *self, LineStyle mode, real dash_length)
+set_linestyle (DiaRenderer *self, DiaLineStyle mode, double dash_length)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-  real hole_width;
-  gchar dash_length_buf[DTOSTR_BUF_SIZE];
-  gchar dot_length_buf[DTOSTR_BUF_SIZE];
-  gchar hole_width_buf[DTOSTR_BUF_SIZE];
-  real dot_length; /* dot = 20% of len */
+  double hole_width;
+  char dash_length_buf[DTOSTR_BUF_SIZE];
+  char dot_length_buf[DTOSTR_BUF_SIZE];
+  char hole_width_buf[DTOSTR_BUF_SIZE];
+  double dot_length; /* dot = 20% of len */
 
-  if (dash_length<0.001)
+  if (dash_length < 0.001) {
     dash_length = 0.001;
-  dot_length = dash_length*0.2;
+  }
+  dot_length = dash_length * 0.2;
 
   g_clear_pointer (&renderer->linestyle, g_free);
   switch (mode) {
-    case LINESTYLE_SOLID:
+    case DIA_LINE_STYLE_SOLID:
       renderer->linestyle = NULL;
       break;
-    case LINESTYLE_DASHED:
-      dia_svg_dtostr(dash_length_buf, dash_length);
-      renderer->linestyle = g_strdup_printf("%s", dash_length_buf);
+    case DIA_LINE_STYLE_DASHED:
+      dia_svg_dtostr (dash_length_buf, dash_length);
+      renderer->linestyle = g_strdup_printf ("%s", dash_length_buf);
       break;
-    case LINESTYLE_DASH_DOT:
+    case DIA_LINE_STYLE_DASH_DOT:
       hole_width = (dash_length - dot_length) / 2.0;
 
-      dia_svg_dtostr(dash_length_buf, dash_length);
-      dia_svg_dtostr(dot_length_buf, dot_length);
-      dia_svg_dtostr(hole_width_buf, hole_width);
+      dia_svg_dtostr (dash_length_buf, dash_length);
+      dia_svg_dtostr (dot_length_buf, dot_length);
+      dia_svg_dtostr (hole_width_buf, hole_width);
 
-      renderer->linestyle = g_strdup_printf("%s %s %s %s",
-              dash_length_buf,
-              hole_width_buf,
-              dot_length_buf,
-              hole_width_buf );
+      renderer->linestyle = g_strdup_printf ("%s %s %s %s",
+                                             dash_length_buf,
+                                             hole_width_buf,
+                                             dot_length_buf,
+                                             hole_width_buf);
       break;
-    case LINESTYLE_DASH_DOT_DOT:
-      hole_width = (dash_length - 2.0*dot_length) / 3.0;
+    case DIA_LINE_STYLE_DASH_DOT_DOT:
+      hole_width = (dash_length - (2.0 * dot_length)) / 3.0;
 
-      dia_svg_dtostr(dash_length_buf, dash_length);
-      dia_svg_dtostr(dot_length_buf, dot_length);
-      dia_svg_dtostr(hole_width_buf, hole_width);
+      dia_svg_dtostr (dash_length_buf, dash_length);
+      dia_svg_dtostr (dot_length_buf, dot_length);
+      dia_svg_dtostr (hole_width_buf, hole_width);
 
-      renderer->linestyle = g_strdup_printf("%s %s %s %s %s %s",
-              dash_length_buf,
-              hole_width_buf,
-              dot_length_buf,
-              hole_width_buf,
-              dot_length_buf,
-              hole_width_buf );
+      renderer->linestyle = g_strdup_printf ("%s %s %s %s %s %s",
+                                             dash_length_buf,
+                                             hole_width_buf,
+                                             dot_length_buf,
+                                             hole_width_buf,
+                                             dot_length_buf,
+                                             hole_width_buf);
       break;
-    case LINESTYLE_DOTTED:
+    case DIA_LINE_STYLE_DOTTED:
+      dia_svg_dtostr (dot_length_buf, dot_length);
 
-      dia_svg_dtostr(dot_length_buf, dot_length);
-
-      renderer->linestyle = g_strdup_printf("%s", dot_length_buf);
+      renderer->linestyle = g_strdup_printf ("%s", dot_length_buf);
       break;
-    case LINESTYLE_DEFAULT:
+    case DIA_LINE_STYLE_DEFAULT:
     default:
       renderer->linestyle = NULL;
   }
 }
+
 
 /*!
  * \brief Set fill style

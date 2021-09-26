@@ -210,7 +210,7 @@ state_draw (State *state, DiaRenderer *renderer)
 
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   dia_renderer_set_linewidth (renderer, STATE_LINEWIDTH);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0);
 
   p1.x = x + w/2;
   p1.y = y + h/2;

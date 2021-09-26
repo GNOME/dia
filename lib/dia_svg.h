@@ -43,7 +43,7 @@ struct _DiaSvgStyle {
 
   LineCaps linecap;
   LineJoin linejoin;
-  LineStyle linestyle;
+  DiaLineStyle linestyle;
   double dashlength;
 
   DiaFont *font;

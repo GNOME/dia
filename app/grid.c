@@ -120,9 +120,9 @@ grid_draw_horizontal_lines(DDisplay *ddisp, DiaRectangle *update, real length)
   while (y < height) {
     if (major_lines) {
       if (major_count == 0) {
-        dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+        dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
       } else {
-        dia_renderer_set_linestyle (renderer, LINESTYLE_DOTTED,
+        dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DOTTED,
                                     ddisplay_untransform_length (ddisp, 31));
       }
       major_count = (major_count + 1) % major_lines;
@@ -162,11 +162,11 @@ grid_draw_vertical_lines (DDisplay *ddisp, DiaRectangle *update, real length)
     if (major_lines) {
       if (major_count == 0) {
         dia_renderer_set_linestyle (renderer,
-                                    LINESTYLE_SOLID,
+                                    DIA_LINE_STYLE_SOLID,
                                     0.0);
       } else {
         dia_renderer_set_linestyle (renderer,
-                                    LINESTYLE_DOTTED,
+                                    DIA_LINE_STYLE_DOTTED,
                                     ddisplay_untransform_length (ddisp, 31));
       }
       major_count = (major_count + 1) % major_lines;
@@ -352,9 +352,9 @@ pagebreak_draw (DDisplay *ddisp, DiaRectangle *update)
 
     dia_renderer_set_linewidth (renderer, 0.0);
     if (prefs.pagebreak.solid) {
-      dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+      dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
     } else {
-      dia_renderer_set_linestyle (renderer, LINESTYLE_DOTTED,
+      dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DOTTED,
                                   ddisplay_untransform_length (ddisp, 31));
     }
 
@@ -406,7 +406,7 @@ guidelines_draw (DDisplay *ddisp, DiaRectangle *update)
   line_width = ddisplay_untransform_length (ddisp, 2);
 
   dia_renderer_set_linewidth (renderer, line_width);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
   if (ddisp->guides_visible) {
     list = dia->guides;

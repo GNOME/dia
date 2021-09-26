@@ -32,10 +32,10 @@ G_DECLARE_FINAL_TYPE (DiaLineStyleSelector, dia_line_style_selector, DIA, LINE_S
 
 GtkWidget *dia_line_style_selector_new           (void);
 void       dia_line_style_selector_get_linestyle (DiaLineStyleSelector *as,
-                                                  LineStyle            *linestyle,
+                                                  DiaLineStyle         *linestyle,
                                                   double               *dashlength);
 void       dia_line_style_selector_set_linestyle (DiaLineStyleSelector *as,
-                                                  LineStyle             linestyle,
+                                                  DiaLineStyle          linestyle,
                                                   double                dashlength);
 
 G_END_DECLS

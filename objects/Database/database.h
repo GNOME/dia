@@ -134,26 +134,26 @@ struct _TableState {
 struct _TableReference {
   OrthConn orth; /* inheritance */
 
-  real line_width;
-  real dashlength;
-  LineStyle line_style;
+  double line_width;
+  double dashlength;
+  DiaLineStyle line_style;
   Color line_color;
   Color text_color;
 
-  gchar * start_point_desc;
-  gchar * end_point_desc;
+  char *start_point_desc;
+  char *end_point_desc;
   Arrow end_arrow;
-  real corner_radius;
+  double corner_radius;
 
-  DiaFont * normal_font;
-  real normal_font_height;
+  DiaFont *normal_font;
+  double normal_font_height;
 
   /* computed data */
 
-  real sp_desc_width;           /* start-point */
+  double sp_desc_width;         /* start-point */
   Point sp_desc_pos;            /* start-point */
   Alignment sp_desc_text_align; /* start-point */
-  real ep_desc_width;           /* end-point */
+  double ep_desc_width;         /* end-point */
   Point ep_desc_pos;            /* end-point */
   Alignment ep_desc_text_align; /* end-point */
 };

@@ -370,7 +370,7 @@ transition_draw (Transition *transition, DiaRenderer *renderer)
   dia_renderer_set_linewidth (renderer, TRANSITION_WIDTH);
   /* TODO, find out about the meaning of this... */
   dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
-  dia_renderer_set_linestyle (renderer, LINESTYLE_SOLID, 0.0);
+  dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
   if (transition->direction_inverted) {
     start_arrow = &arrow;
