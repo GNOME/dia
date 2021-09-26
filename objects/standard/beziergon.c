@@ -48,7 +48,7 @@ typedef struct _Beziergon {
 
   Color line_color;
   DiaLineStyle line_style;
-  LineJoin line_join;
+  DiaLineJoin line_join;
   Color inner_color;
   gboolean show_background;
   double dashlength;
@@ -305,9 +305,9 @@ beziergon_create(Point *startpoint,
   beziergon->line_width =  attributes_get_default_linewidth();
   beziergon->line_color = attributes_get_foreground();
   beziergon->inner_color = attributes_get_background();
-  attributes_get_default_line_style(&beziergon->line_style,
-				    &beziergon->dashlength);
-  beziergon->line_join = LINEJOIN_MITER;
+  attributes_get_default_line_style (&beziergon->line_style,
+                                     &beziergon->dashlength);
+  beziergon->line_join = DIA_LINE_JOIN_MITER;
   beziergon->show_background = default_properties.show_background;
 
   beziergon_update_data(beziergon);
@@ -411,9 +411,11 @@ beziergon_save(Beziergon *beziergon, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  beziergon->dashlength, ctx);
 
-  if (beziergon->line_join != LINEJOIN_MITER)
-    data_add_enum(new_attribute(obj_node, "line_join"),
-                  beziergon->line_join, ctx);
+  if (beziergon->line_join != DIA_LINE_JOIN_MITER) {
+    data_add_enum (new_attribute (obj_node, "line_join"),
+                   beziergon->line_join,
+                   ctx);
+  }
 
   if (beziergon->pattern)
     data_add_pattern(new_attribute(obj_node, "pattern"),
@@ -464,10 +466,11 @@ beziergon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     beziergon->line_style = data_enum(attribute_first_data(attr), ctx);
 
-  beziergon->line_join = LINEJOIN_MITER;
-  attr = object_find_attribute(obj_node, "line_join");
-  if (attr != NULL)
-    beziergon->line_join = data_enum(attribute_first_data(attr), ctx);
+  beziergon->line_join = DIA_LINE_JOIN_MITER;
+  attr = object_find_attribute (obj_node, "line_join");
+  if (attr != NULL) {
+    beziergon->line_join = data_enum (attribute_first_data (attr), ctx);
+  }
 
   beziergon->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");

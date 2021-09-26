@@ -78,7 +78,8 @@ static void end_render (DiaRenderer *);
 
 static void set_linewidth (DiaRenderer *renderer, real linewidth);
 static void set_linecaps (DiaRenderer *renderer, LineCaps mode);
-static void set_linejoin (DiaRenderer *renderer, LineJoin mode);
+static void set_linejoin      (DiaRenderer  *renderer,
+                               DiaLineJoin   mode);
 static void set_linestyle     (DiaRenderer  *renderer,
                                DiaLineStyle  mode,
                                double        length);
@@ -477,12 +478,12 @@ set_linecaps (DiaRenderer *object, LineCaps mode)
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (object)));
 }
 
-/*!
- * \brief Change the line join mode for the strokes to come
- * \memberof _DiaRenderer \pure
+
+/*
+ * Change the line join mode for the strokes to come
  */
 static void
-set_linejoin (DiaRenderer *renderer, LineJoin mode)
+set_linejoin (DiaRenderer *renderer, DiaLineJoin mode)
 {
   g_warning ("%s::set_line_join not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
@@ -2235,7 +2236,7 @@ dia_renderer_set_linecaps (DiaRenderer      *self,
 
 void
 dia_renderer_set_linejoin (DiaRenderer      *self,
-                           LineJoin          mode)
+                           DiaLineJoin       mode)
 {
   g_return_if_fail (DIA_IS_RENDERER (self));
 

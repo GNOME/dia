@@ -242,7 +242,7 @@ realizes_draw (Realizes *realize, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, realize->line_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_DASHED, REALIZES_DASHLEN);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
   dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   arrow.type = ARROW_HOLLOW_TRIANGLE;

@@ -371,7 +371,7 @@ box_draw (Box *box, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, box->border_width);
   dia_renderer_set_linestyle (renderer, box->line_style, box->dashlength);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
   /* Problem:  How do we make the fill with rounded corners?
    * It's solved in the base class ...
    */

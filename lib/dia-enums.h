@@ -31,12 +31,12 @@ typedef enum {
   LINECAPS_PROJECTING
 } LineCaps;
 
-typedef enum {
-  LINEJOIN_DEFAULT = -1, /* default usually miter, this is unset */
-  LINEJOIN_MITER = 0,
-  LINEJOIN_ROUND,
-  LINEJOIN_BEVEL
-} LineJoin;
+typedef enum /*< enum >*/ {
+  DIA_LINE_JOIN_DEFAULT = -1, /* default usually miter, this is unset */
+  DIA_LINE_JOIN_MITER = 0,
+  DIA_LINE_JOIN_ROUND,
+  DIA_LINE_JOIN_BEVEL
+} DiaLineJoin;
 
 typedef enum /*< enum >*/ {
   DIA_LINE_STYLE_DEFAULT = -1, /* default usually solid, this is unset */

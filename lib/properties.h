@@ -621,9 +621,9 @@ static PropEnumData prop_std_text_fitting_data[] = {
   { NULL, 0 }
 };
 static PropEnumData prop_std_line_join_data[] = {
-  { NC_("LineJoin", "Miter"), LINEJOIN_MITER },
-  { NC_("LineJoin", "Round"), LINEJOIN_ROUND },
-  { NC_("LineJoin", "Bevel"), LINEJOIN_BEVEL },
+  { NC_("LineJoin", "Miter"), DIA_LINE_JOIN_MITER },
+  { NC_("LineJoin", "Round"), DIA_LINE_JOIN_ROUND },
+  { NC_("LineJoin", "Bevel"), DIA_LINE_JOIN_BEVEL },
   { NULL, 0 }
 };
 static PropEnumData prop_std_line_caps_data[] = {

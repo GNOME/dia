@@ -164,12 +164,12 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   dia_renderer_set_linecaps (renderer->worker, mode);
 }
 
-/*!
- * \brief Pass through line join
- * \memberof _DiaTransformRenderer
+
+/*
+ * Pass through line join
  */
 static void
-set_linejoin(DiaRenderer *self, LineJoin mode)
+set_linejoin (DiaRenderer *self, DiaLineJoin mode)
 {
   DiaTransformRenderer *renderer = DIA_TRANSFORM_RENDERER (self);
 

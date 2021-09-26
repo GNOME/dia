@@ -45,7 +45,7 @@ typedef struct _Zigzagline {
 
   Color line_color;
   DiaLineStyle line_style;
-  LineJoin line_join;
+  DiaLineJoin line_join;
   LineCaps line_caps;
   double dashlength;
   double line_width;
@@ -267,9 +267,9 @@ zigzagline_create(Point *startpoint,
 
   zigzagline->line_width =  attributes_get_default_linewidth();
   zigzagline->line_color = attributes_get_foreground();
-  attributes_get_default_line_style(&zigzagline->line_style,
-				    &zigzagline->dashlength);
-  zigzagline->line_join = LINEJOIN_MITER;
+  attributes_get_default_line_style (&zigzagline->line_style,
+                                     &zigzagline->dashlength);
+  zigzagline->line_join = DIA_LINE_JOIN_MITER;
   zigzagline->line_caps = LINECAPS_BUTT;
   zigzagline->start_arrow = attributes_get_default_start_arrow();
   zigzagline->end_arrow = attributes_get_default_end_arrow();
@@ -504,9 +504,12 @@ zigzagline_save(Zigzagline *zigzagline, ObjectNode obj_node,
     data_add_enum(new_attribute(obj_node, "line_style"),
 		  zigzagline->line_style, ctx);
 
-  if (zigzagline->line_join != LINEJOIN_MITER)
-    data_add_enum(new_attribute(obj_node, "line_join"),
-                  zigzagline->line_join, ctx);
+  if (zigzagline->line_join != DIA_LINE_JOIN_MITER) {
+    data_add_enum (new_attribute (obj_node, "line_join"),
+                   zigzagline->line_join,
+                   ctx);
+  }
+
   if (zigzagline->line_caps != LINECAPS_BUTT)
     data_add_enum(new_attribute(obj_node, "line_caps"),
                   zigzagline->line_caps, ctx);
@@ -572,10 +575,11 @@ zigzagline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     zigzagline->line_style = data_enum(attribute_first_data(attr), ctx);
 
-  zigzagline->line_join = LINEJOIN_MITER;
-  attr = object_find_attribute(obj_node, "line_join");
-  if (attr != NULL)
-    zigzagline->line_join = data_enum(attribute_first_data(attr), ctx);
+  zigzagline->line_join = DIA_LINE_JOIN_MITER;
+  attr = object_find_attribute (obj_node, "line_join");
+  if (attr != NULL) {
+    zigzagline->line_join = data_enum (attribute_first_data (attr), ctx);
+  }
 
   zigzagline->line_caps = LINECAPS_BUTT;
   attr = object_find_attribute(obj_node, "line_caps");

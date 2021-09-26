@@ -81,7 +81,7 @@ struct _StdPath {
   double line_width;
   DiaLineStyle line_style;
   double dashlength;
-  LineJoin line_join;
+  DiaLineJoin line_join;
   LineCaps line_caps;
   Color fill_color;
 

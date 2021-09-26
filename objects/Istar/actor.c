@@ -305,7 +305,7 @@ actor_draw (Actor *actor, DiaRenderer *renderer)
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   /* foreground */
   dia_renderer_set_linewidth (renderer, ACTOR_BORDER_WIDTH);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
   dia_renderer_draw_ellipse (renderer,
                              &center,
                              elem->width,

@@ -393,7 +393,7 @@ pgram_draw (Pgram *pgram, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, pgram->border_width);
   dia_renderer_set_linestyle (renderer, pgram->line_style, pgram->dashlength);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
   dia_renderer_draw_polygon (renderer,
                              pts,

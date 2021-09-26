@@ -274,30 +274,32 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
     renderer->saved_line_cap = mode;
 }
 
+
 static void
-set_linejoin(DiaRenderer *self, LineJoin mode)
+set_linejoin (DiaRenderer *self, DiaLineJoin mode)
 {
-    MetapostRenderer *renderer = METAPOST_RENDERER (self);
+  MetapostRenderer *renderer = METAPOST_RENDERER (self);
 
-    if(mode == renderer->saved_line_join)
-	return;
+  if (mode == renderer->saved_line_join) {
+    return;
+  }
 
-    switch(mode) {
-    case LINEJOIN_DEFAULT:
-    case LINEJOIN_MITER:
-	fprintf(renderer->file, "linejoin:=mitered;\n");
-	break;
-    case LINEJOIN_ROUND:
-	fprintf(renderer->file, "linejoin:=rounded;\n");
-	break;
-    case LINEJOIN_BEVEL:
-	fprintf(renderer->file, "linejoin:=beveled;\n");
-	break;
+  switch (mode) {
+    case DIA_LINE_JOIN_DEFAULT:
+    case DIA_LINE_JOIN_MITER:
+      fprintf (renderer->file, "linejoin:=mitered;\n");
+      break;
+    case DIA_LINE_JOIN_ROUND:
+      fprintf (renderer->file, "linejoin:=rounded;\n");
+      break;
+    case DIA_LINE_JOIN_BEVEL:
+      fprintf (renderer->file, "linejoin:=beveled;\n");
+      break;
     default:
-	/* noop; required at least for msvc */;
-    }
+      /* noop; required at least for msvc */;
+  }
 
-    renderer->saved_line_join = mode;
+  renderer->saved_line_join = mode;
 }
 
 

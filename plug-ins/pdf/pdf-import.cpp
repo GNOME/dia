@@ -173,15 +173,18 @@ public :
     }
   }
 
-  void updateLineJoin(GfxState * state)
+  void
+  updateLineJoin (GfxState * state)
   {
-    if (state->getLineJoin() == 0)
-      this->line_join = LINEJOIN_MITER;
-    else if (state->getLineJoin() == 1)
-      this->line_join = LINEJOIN_ROUND;
-    else
-      this->line_join = LINEJOIN_BEVEL;
+    if (state->getLineJoin() == 0) {
+      this->line_join = DIA_LINE_JOIN_MITER;
+    } else if (state->getLineJoin() == 1) {
+      this->line_join = DIA_LINE_JOIN_ROUND;
+    } else {
+      this->line_join = DIA_LINE_JOIN_BEVEL;
+    }
   }
+
   void updateLineCap(GfxState *state)
   {
     if (state->getLineCap() == 0)
@@ -442,7 +445,7 @@ private :
   double line_width;
   DiaLineStyle line_style;
   double dash_length;
-  LineJoin line_join;
+  DiaLineJoin line_join;
   LineCaps line_caps;
   Color fill_color;
 
@@ -482,7 +485,7 @@ DiaOutputDev::DiaOutputDev (DiagramData *_dia, int _n) :
   // favoring member intitialization list over attributes_get_default_line_style()
   line_style(DIA_LINE_STYLE_SOLID),
   dash_length(1.0),
-  line_join(LINEJOIN_MITER),
+  line_join(DIA_LINE_JOIN_MITER),
   line_caps(LINECAPS_PROJECTING),
   fill_color(attributes_get_background ()),
   alignment(ALIGN_LEFT),

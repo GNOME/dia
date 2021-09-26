@@ -433,26 +433,27 @@ dia_cairo_renderer_set_linecaps (DiaRenderer *self, LineCaps mode)
   DIAG_STATE (renderer->cr)
 }
 
+
 static void
-dia_cairo_renderer_set_linejoin (DiaRenderer *self, LineJoin mode)
+dia_cairo_renderer_set_linejoin (DiaRenderer *self, DiaLineJoin mode)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
 
   DIAG_NOTE (g_message ("set_join %d", mode));
 
-  switch(mode) {
-    case LINEJOIN_DEFAULT:
-    case LINEJOIN_MITER:
+  switch (mode) {
+    case DIA_LINE_JOIN_DEFAULT:
+    case DIA_LINE_JOIN_MITER:
       cairo_set_line_join (renderer->cr, CAIRO_LINE_JOIN_MITER);
       break;
-    case LINEJOIN_ROUND:
+    case DIA_LINE_JOIN_ROUND:
       cairo_set_line_join (renderer->cr, CAIRO_LINE_JOIN_ROUND);
       break;
-    case LINEJOIN_BEVEL:
+    case DIA_LINE_JOIN_BEVEL:
       cairo_set_line_join (renderer->cr, CAIRO_LINE_JOIN_BEVEL);
       break;
     default:
-      g_warning("DiaCairoRenderer : Unsupported join mode specified!\n");
+      g_warning ("DiaCairoRenderer : Unsupported join mode specified!\n");
   }
 
   DIAG_STATE (renderer->cr)

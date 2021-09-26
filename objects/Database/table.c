@@ -691,7 +691,7 @@ fill_diamond (DiaRenderer *renderer,
   poly[3].y = lower_midpoint->y - half_height;
 
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
   dia_renderer_draw_polygon (renderer, poly, 4, color, NULL);
 }

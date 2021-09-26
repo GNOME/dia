@@ -396,7 +396,7 @@ step_draw (Step *step, DiaRenderer *renderer)
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   dia_renderer_set_linewidth (renderer, STEP_LINE_WIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
   pts[0] = step->north.pos;
   pts[1] = step->NU1;

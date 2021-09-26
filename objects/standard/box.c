@@ -62,7 +62,7 @@ struct _Box {
   Color inner_color;
   gboolean show_background;
   DiaLineStyle line_style;
-  LineJoin line_join;
+  DiaLineJoin line_join;
   double dashlength;
   double corner_radius;
   AspectType aspect;
@@ -378,7 +378,7 @@ box_draw (Box *box, DiaRenderer *renderer)
   dia_renderer_set_linewidth (renderer, box->border_width);
   dia_renderer_set_linestyle (renderer, box->line_style, box->dashlength);
   if (box->corner_radius > 0) {
-    dia_renderer_set_linejoin (renderer, LINEJOIN_ROUND);
+    dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_ROUND);
   } else {
     dia_renderer_set_linejoin (renderer, box->line_join);
   }
@@ -508,8 +508,8 @@ box_create(Point *startpoint,
   box->border_width =  attributes_get_default_linewidth();
   box->border_color = attributes_get_foreground();
   box->inner_color = attributes_get_background();
-  attributes_get_default_line_style(&box->line_style, &box->dashlength);
-  box->line_join = LINEJOIN_MITER;
+  attributes_get_default_line_style (&box->line_style, &box->dashlength);
+  box->line_join = DIA_LINE_JOIN_MITER;
   /* For non-default objects, this is overridden by the default */
   box->show_background = default_properties.show_background;
   box->corner_radius = default_properties.corner_radius;
@@ -610,9 +610,11 @@ box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
     data_add_real(new_attribute(obj_node, "dashlength"),
                   box->dashlength, ctx);
 
-  if (box->line_join != LINEJOIN_MITER)
-    data_add_enum(new_attribute(obj_node, "line_join"),
-		  box->line_join, ctx);
+  if (box->line_join != DIA_LINE_JOIN_MITER) {
+    data_add_enum (new_attribute (obj_node, "line_join"),
+                   box->line_join,
+                   ctx);
+  }
 
   if (box->corner_radius > 0.0)
     data_add_real(new_attribute(obj_node, "corner_radius"),
@@ -680,10 +682,11 @@ box_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     box->dashlength = data_real(attribute_first_data(attr), ctx);
 
-  box->line_join = LINEJOIN_MITER;
-  attr = object_find_attribute(obj_node, "line_join");
-  if (attr != NULL)
-    box->line_join =  data_enum(attribute_first_data(attr), ctx);
+  box->line_join = DIA_LINE_JOIN_MITER;
+  attr = object_find_attribute (obj_node, "line_join");
+  if (attr != NULL) {
+    box->line_join = data_enum (attribute_first_data (attr), ctx);
+  }
 
   box->corner_radius = 0.0;
   attr = object_find_attribute(obj_node, "corner_radius");

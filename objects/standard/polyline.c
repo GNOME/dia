@@ -43,7 +43,7 @@ typedef struct _Polyline {
 
   Color line_color;
   DiaLineStyle line_style;
-  LineJoin line_join;
+  DiaLineJoin line_join;
   LineCaps line_caps;
   double dashlength;
   double line_width;
@@ -360,9 +360,9 @@ polyline_create(Point *startpoint,
 
   polyline->line_width =  attributes_get_default_linewidth();
   polyline->line_color = attributes_get_foreground();
-  attributes_get_default_line_style(&polyline->line_style,
-				    &polyline->dashlength);
-  polyline->line_join = LINEJOIN_MITER;
+  attributes_get_default_line_style (&polyline->line_style,
+                                     &polyline->dashlength);
+  polyline->line_join = DIA_LINE_JOIN_MITER;
   polyline->line_caps = LINECAPS_BUTT;
   polyline->start_arrow = attributes_get_default_start_arrow();
   polyline->end_arrow = attributes_get_default_end_arrow();
@@ -488,9 +488,12 @@ polyline_save(Polyline *polyline, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  polyline->dashlength, ctx);
 
-  if (polyline->line_join != LINEJOIN_MITER)
-    data_add_enum(new_attribute(obj_node, "line_join"),
-                  polyline->line_join, ctx);
+  if (polyline->line_join != DIA_LINE_JOIN_MITER) {
+    data_add_enum (new_attribute (obj_node, "line_join"),
+                   polyline->line_join,
+                   ctx);
+  }
+
   if (polyline->line_caps != LINECAPS_BUTT)
     data_add_enum(new_attribute(obj_node, "line_caps"),
                   polyline->line_caps, ctx);
@@ -558,10 +561,11 @@ polyline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     polyline->line_style = data_enum(attribute_first_data(attr), ctx);
 
-  polyline->line_join = LINEJOIN_MITER;
-  attr = object_find_attribute(obj_node, "line_join");
-  if (attr != NULL)
-    polyline->line_join = data_enum(attribute_first_data(attr), ctx);
+  polyline->line_join = DIA_LINE_JOIN_MITER;
+  attr = object_find_attribute (obj_node, "line_join");
+  if (attr != NULL) {
+    polyline->line_join = data_enum (attribute_first_data (attr), ctx);
+  }
 
   polyline->line_caps = LINECAPS_BUTT;
   attr = object_find_attribute(obj_node, "line_caps");

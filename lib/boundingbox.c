@@ -597,7 +597,7 @@ polybezier_bbox (const BezPoint     *pts,
     rectangle_union (rect, &rt);
 
     /* The following code enlarges a little the bounding box (if necessary) to
-       account with the "pointy corners" X (and PS) add when LINEJOIN_MITER mode is
+       account with the "pointy corners" X (and PS) add when DIA_LINE_JOIN_MITER mode is
        in force. */
 
     if (!end) { /* only the last segment might not produce overshoot. */

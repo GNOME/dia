@@ -42,7 +42,7 @@ struct _DiaSvgStyle {
   double fill_opacity;
 
   LineCaps linecap;
-  LineJoin linejoin;
+  DiaLineJoin linejoin;
   DiaLineStyle linestyle;
   double dashlength;
 

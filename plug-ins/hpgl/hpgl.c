@@ -224,22 +224,23 @@ set_linecaps(DiaRenderer *object, LineCaps mode)
     }
 }
 
-static void
-set_linejoin(DiaRenderer *object, LineJoin mode)
-{
-    DIAG_NOTE(g_message("set_join %d", mode));
 
-    switch(mode) {
-    case LINEJOIN_DEFAULT:
-    case LINEJOIN_MITER:
-	break;
-    case LINEJOIN_ROUND:
-	break;
-    case LINEJOIN_BEVEL:
-	break;
+static void
+set_linejoin (DiaRenderer *object, DiaLineJoin mode)
+{
+  DIAG_NOTE (g_message ( "set_join %d", mode));
+
+  switch (mode) {
+    case DIA_LINE_JOIN_DEFAULT:
+    case DIA_LINE_JOIN_MITER:
+      break;
+    case DIA_LINE_JOIN_ROUND:
+      break;
+    case DIA_LINE_JOIN_BEVEL:
+      break;
     default:
-	g_warning("HpglRenderer : Unsupported fill mode specified!");
-    }
+      g_warning ("HpglRenderer : Unsupported fill mode specified!");
+  }
 }
 
 

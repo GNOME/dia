@@ -82,7 +82,7 @@ static void begin_render(DiaRenderer *self, const DiaRectangle *update);
 static void end_render(DiaRenderer *self);
 static void set_linewidth(DiaRenderer *self, real linewidth);
 static void set_linecaps(DiaRenderer *self, LineCaps mode);
-static void set_linejoin(DiaRenderer *self, LineJoin mode);
+static void set_linejoin (DiaRenderer *self, DiaLineJoin  mode);
 static void set_linestyle(DiaRenderer *self, DiaLineStyle mode, double dash_length);
 static void set_fillstyle(DiaRenderer *self, FillStyle mode);
 static void set_font(DiaRenderer *self, DiaFont *font, real height);
@@ -437,24 +437,24 @@ set_linecaps (DiaRenderer *self, LineCaps mode)
 
 
 static void
-set_linejoin (DiaRenderer *self, LineJoin mode)
+set_linejoin (DiaRenderer *self, DiaLineJoin mode)
 {
-  PgfRenderer *renderer = PGF_RENDERER(self);
+  PgfRenderer *renderer = PGF_RENDERER (self);
   /* int ps_mode; */
 
-  switch(mode) {
-    case LINEJOIN_DEFAULT:
-    case LINEJOIN_MITER:
-      fprintf(renderer->file, "\\pgfsetmiterjoin\n");
+  switch (mode) {
+    case DIA_LINE_JOIN_DEFAULT:
+    case DIA_LINE_JOIN_MITER:
+      fprintf (renderer->file, "\\pgfsetmiterjoin\n");
       break;
-    case LINEJOIN_ROUND:
-      fprintf(renderer->file, "\\pgfsetroundjoin\n");
+    case DIA_LINE_JOIN_ROUND:
+      fprintf (renderer->file, "\\pgfsetroundjoin\n");
       break;
-    case LINEJOIN_BEVEL:
-      fprintf(renderer->file, "\\pgfsetbeveljoin\n");
+    case DIA_LINE_JOIN_BEVEL:
+      fprintf (renderer->file, "\\pgfsetbeveljoin\n");
       break;
     default:
-      fprintf(renderer->file, "\\pgfsetmiterjoin\n");
+      fprintf (renderer->file, "\\pgfsetmiterjoin\n");
   }
 }
 

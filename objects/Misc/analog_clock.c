@@ -314,7 +314,7 @@ analog_clock_draw (Analog_Clock *analog_clock, DiaRenderer *renderer)
   g_assert(analog_clock != NULL);
   g_assert(renderer != NULL);
 
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0);
   dia_renderer_set_linewidth (renderer, analog_clock->border_line_width);
 

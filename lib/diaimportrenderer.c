@@ -35,7 +35,7 @@ static void end_render (DiaRenderer *);
 
 static void set_linewidth (DiaRenderer *renderer, real linewidth);
 static void set_linecaps (DiaRenderer *renderer, LineCaps mode);
-static void set_linejoin (DiaRenderer *renderer, LineJoin mode);
+static void set_linejoin  (DiaRenderer *renderer, DiaLineJoin  mode);
 static void set_linestyle (DiaRenderer *renderer, DiaLineStyle mode, double dash_length);
 static void set_fillstyle (DiaRenderer *renderer, FillStyle mode);
 
@@ -199,6 +199,7 @@ dia_import_renderer_class_init (DiaImportRendererClass *klass)
   renderer_class->set_pattern = set_pattern;
 }
 
+
 static void
 dia_import_renderer_init (DiaImportRenderer *self)
 {
@@ -206,10 +207,11 @@ dia_import_renderer_init (DiaImportRenderer *self)
   self->line_style = DIA_LINE_STYLE_SOLID;
   self->dash_length = 1.0;
   self->line_caps = LINECAPS_BUTT;
-  self->line_join = LINEJOIN_MITER;
+  self->line_join = DIA_LINE_JOIN_MITER;
 
   self->objects = NULL;
 }
+
 
 static void
 begin_render (DiaRenderer *renderer, const DiaRectangle *update)
@@ -239,8 +241,9 @@ set_linecaps (DiaRenderer *renderer, LineCaps mode)
   self->line_caps = mode;
 }
 
+
 static void
-set_linejoin (DiaRenderer *renderer, LineJoin mode)
+set_linejoin (DiaRenderer *renderer, DiaLineJoin mode)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   self->line_join = mode;

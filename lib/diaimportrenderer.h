@@ -36,7 +36,7 @@ struct _DiaImportRenderer {
 
   double       line_width;
   LineCaps    line_caps;
-  LineJoin    line_join;
+  DiaLineJoin  line_join;
 
   /*! \private */
   /*! \private pattern set by set_pattern */

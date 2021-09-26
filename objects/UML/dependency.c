@@ -250,7 +250,7 @@ dependency_draw (Dependency *dep, DiaRenderer *renderer)
   dia_renderer_set_linestyle (renderer,
                               DIA_LINE_STYLE_DASHED,
                               DEPENDENCY_DASHLEN);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
   dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   arrow.type = ARROW_LINES;

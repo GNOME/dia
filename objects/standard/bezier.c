@@ -49,7 +49,7 @@ struct _Bezierline {
 
   Color line_color;
   DiaLineStyle line_style;
-  LineJoin line_join;
+  DiaLineJoin line_join;
   LineCaps line_caps;
   double dashlength;
   double line_width;
@@ -479,7 +479,7 @@ bezierline_create(Point *startpoint,
   bezierline->line_color = attributes_get_foreground();
   attributes_get_default_line_style(&bezierline->line_style,
 				    &bezierline->dashlength);
-  bezierline->line_join = LINEJOIN_MITER;
+  bezierline->line_join = DIA_LINE_JOIN_MITER;
   bezierline->line_caps = LINECAPS_BUTT;
   bezierline->start_arrow = attributes_get_default_start_arrow();
   bezierline->end_arrow = attributes_get_default_end_arrow();
@@ -634,12 +634,17 @@ bezierline_save(Bezierline *bezierline, ObjectNode obj_node,
                    ctx);
   }
 
-  if (bezierline->line_join != LINEJOIN_MITER)
-    data_add_enum(new_attribute(obj_node, "line_join"),
-                  bezierline->line_join, ctx);
-  if (bezierline->line_caps != LINECAPS_BUTT)
-    data_add_enum(new_attribute(obj_node, "line_caps"),
-                  bezierline->line_caps, ctx);
+  if (bezierline->line_join != DIA_LINE_JOIN_MITER) {
+    data_add_enum (new_attribute (obj_node, "line_join"),
+                   bezierline->line_join,
+                   ctx);
+  }
+
+  if (bezierline->line_caps != LINECAPS_BUTT) {
+    data_add_enum (new_attribute (obj_node, "line_caps"),
+                   bezierline->line_caps,
+                   ctx);
+  }
 
   if (bezierline->start_arrow.type != ARROW_NONE) {
     dia_arrow_save (&bezierline->start_arrow,
@@ -701,10 +706,11 @@ bezierline_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     bezierline->line_style = data_enum(attribute_first_data(attr), ctx);
 
-  bezierline->line_join = LINEJOIN_MITER;
-  attr = object_find_attribute(obj_node, "line_join");
-  if (attr != NULL)
-    bezierline->line_join = data_enum(attribute_first_data(attr), ctx);
+  bezierline->line_join = DIA_LINE_JOIN_MITER;
+  attr = object_find_attribute (obj_node, "line_join");
+  if (attr != NULL) {
+    bezierline->line_join = data_enum (attribute_first_data (attr), ctx);
+  }
 
   bezierline->line_caps = LINECAPS_BUTT;
   attr = object_find_attribute(obj_node, "line_caps");

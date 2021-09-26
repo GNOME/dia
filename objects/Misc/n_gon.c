@@ -60,7 +60,7 @@ struct _Ngon {
   int        last_density; /*!< last value to decide direction */
 
   DiaLineStyle line_style;
-  LineJoin   line_join;
+  DiaLineJoin  line_join;
   double     dashlength;
   double     line_width;
   Color      stroke;

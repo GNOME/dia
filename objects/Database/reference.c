@@ -236,7 +236,7 @@ reference_draw (TableReference *ref, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, ref->line_width);
   dia_renderer_set_linestyle (renderer, ref->line_style, ref->dashlength);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
   dia_renderer_set_linecaps (renderer, LINECAPS_BUTT);
 
   dia_renderer_draw_rounded_polyline_with_arrows (renderer,

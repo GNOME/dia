@@ -50,7 +50,7 @@ struct _MetapostRenderer {
 
   DiaLineStyle saved_line_style;
   LineCaps  saved_line_cap;
-  LineJoin  saved_line_join;
+  DiaLineJoin  saved_line_join;
 
   Color color;
 

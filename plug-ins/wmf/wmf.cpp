@@ -435,30 +435,33 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
     }
 }
 
+
 static void
-set_linejoin(DiaRenderer *self, LineJoin mode)
+set_linejoin (DiaRenderer *self, DiaLineJoin mode)
 {
-    WmfRenderer *renderer = WMF_RENDERER (self);
+  WmfRenderer *renderer = WMF_RENDERER (self);
 
-    DIAG_NOTE(renderer, "set_join %d\n", mode);
+  DIAG_NOTE (renderer, "set_join %d\n", mode);
 
-    if (!renderer->platform_is_nt)
-      return;
+  if (!renderer->platform_is_nt) {
+    return;
+  }
 
-    renderer->fnPenStyle &= ~(PS_JOIN_MASK);
-    switch(mode) {
-    case LINEJOIN_MITER:
+  renderer->fnPenStyle &= ~(PS_JOIN_MASK);
+
+  switch (mode) {
+    case DIA_LINE_JOIN_MITER:
       renderer->fnPenStyle |= PS_JOIN_MITER;
       break;
-    case LINEJOIN_ROUND:
+    case DIA_LINE_JOIN_ROUND:
       renderer->fnPenStyle |= PS_JOIN_ROUND;
       break;
-    case LINEJOIN_BEVEL:
+    case DIA_LINE_JOIN_BEVEL:
       renderer->fnPenStyle |= PS_JOIN_BEVEL;
       break;
     default:
-      g_warning("WmfRenderer : Unsupported fill mode specified!\n");
-    }
+      g_warning ("WmfRenderer : Unsupported fill mode specified!\n");
+  }
 }
 
 

@@ -390,7 +390,7 @@ other_draw (Other *other, DiaRenderer *renderer)
   assert(renderer != NULL);
 
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
   if (other->type==AGENT) {
     compute_agent (other,pl);

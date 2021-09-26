@@ -66,9 +66,10 @@ aadlbox_draw_inclined_box (Aadlbox      *aadlbox,
 }
 
 
-static void aadlprocess_draw_borders(Aadlbox *aadlbox, DiaRenderer *renderer)
+static void
+aadlprocess_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
 {
-  aadlbox_draw_inclined_box(aadlbox, renderer, DIA_LINE_STYLE_SOLID);
+  aadlbox_draw_inclined_box (aadlbox, renderer, DIA_LINE_STYLE_SOLID);
 }
 
 

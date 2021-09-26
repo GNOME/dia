@@ -52,7 +52,7 @@ typedef struct _Polygon {
 
   Color line_color;
   DiaLineStyle line_style;
-  LineJoin line_join;
+  DiaLineJoin line_join;
   Color inner_color;
   gboolean show_background;
   double dashlength;
@@ -291,9 +291,9 @@ polygon_create(Point *startpoint,
   polygon->line_width =  attributes_get_default_linewidth();
   polygon->line_color = attributes_get_foreground();
   polygon->inner_color = attributes_get_background();
-  attributes_get_default_line_style(&polygon->line_style,
-				    &polygon->dashlength);
-  polygon->line_join = LINEJOIN_MITER;
+  attributes_get_default_line_style (&polygon->line_style,
+                                     &polygon->dashlength);
+  polygon->line_join = DIA_LINE_JOIN_MITER;
   polygon->show_background = default_properties.show_background;
 
   polygon_update_data(polygon);
@@ -383,9 +383,11 @@ polygon_save(Polygon *polygon, ObjectNode obj_node,
     data_add_real(new_attribute(obj_node, "dashlength"),
 		  polygon->dashlength, ctx);
 
-  if (polygon->line_join != LINEJOIN_MITER)
-    data_add_enum(new_attribute(obj_node, "line_join"),
-                  polygon->line_join, ctx);
+  if (polygon->line_join != DIA_LINE_JOIN_MITER) {
+    data_add_enum (new_attribute (obj_node, "line_join"),
+                   polygon->line_join,
+                   ctx);
+  }
 
   if (polygon->pattern)
     data_add_pattern(new_attribute(obj_node, "pattern"),
@@ -435,10 +437,11 @@ polygon_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     polygon->line_style = data_enum(attribute_first_data(attr), ctx);
 
-  polygon->line_join = LINEJOIN_MITER;
-  attr = object_find_attribute(obj_node, "line_join");
-  if (attr != NULL)
-    polygon->line_join = data_enum(attribute_first_data(attr), ctx);
+  polygon->line_join = DIA_LINE_JOIN_MITER;
+  attr = object_find_attribute (obj_node, "line_join");
+  if (attr != NULL) {
+    polygon->line_join = data_enum (attribute_first_data (attr), ctx);
+  }
 
   polygon->dashlength = DEFAULT_LINESTYLE_DASHLEN;
   attr = object_find_attribute(obj_node, "dashlength");

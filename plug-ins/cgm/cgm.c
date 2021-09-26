@@ -606,29 +606,30 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
     renderer->lcurrent.cap = renderer->fcurrent.cap = cap;
 }
 
-static void
-set_linejoin(DiaRenderer *self, LineJoin mode)
-{
-    CgmRenderer *renderer = CGM_RENDERER(self);
-    int    join;
 
-    switch(mode)
-    {
-    case LINEJOIN_DEFAULT:
-    case LINEJOIN_MITER:
-	join = 2;
-	break;
-    case LINEJOIN_ROUND:
-	join = 3;
-	break;
-    case LINEJOIN_BEVEL:
-        join = 4;
-	break;
+static void
+set_linejoin (DiaRenderer *self, DiaLineJoin mode)
+{
+  CgmRenderer *renderer = CGM_RENDERER (self);
+  int join;
+
+  switch (mode) {
+    case DIA_LINE_JOIN_DEFAULT:
+    case DIA_LINE_JOIN_MITER:
+      join = 2;
+      break;
+    case DIA_LINE_JOIN_ROUND:
+      join = 3;
+      break;
+    case DIA_LINE_JOIN_BEVEL:
+      join = 4;
+      break;
     default:
-	join = 2;
-        break;
-    }
-    renderer->lcurrent.join = renderer->fcurrent.join = join;
+      join = 2;
+      break;
+  }
+
+  renderer->lcurrent.join = renderer->fcurrent.join = join;
 }
 
 

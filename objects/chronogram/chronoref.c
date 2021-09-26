@@ -284,7 +284,7 @@ chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer)
   elem = &chronoref->element;
 
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
 
   lr_corner.x = elem->corner.x + elem->width;

@@ -308,7 +308,7 @@ sadtbox_draw (Box *box, DiaRenderer *renderer)
   dia_renderer_set_fillstyle (renderer, FILLSTYLE_SOLID);
   dia_renderer_set_linewidth (renderer, SADTBOX_LINE_WIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
   dia_renderer_draw_rect (renderer,
                           &elem->corner,

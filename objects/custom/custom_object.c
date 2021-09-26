@@ -135,7 +135,7 @@ static void             custom_draw_displaylist    (GList            *display_li
                                                     double           *cur_line,
                                                     double           *cur_dash,
                                                     LineCaps         *cur_caps,
-                                                    LineJoin         *cur_join,
+                                                    DiaLineJoin      *cur_join,
                                                     DiaLineStyle     *cur_style);
 static void             custom_draw_element        (GraphicElement   *el,
                                                     Custom           *custom,
@@ -145,7 +145,7 @@ static void             custom_draw_element        (GraphicElement   *el,
                                                     double           *cur_line,
                                                     double           *cur_dash,
                                                     LineCaps         *cur_caps,
-                                                    LineJoin         *cur_join,
+                                                    DiaLineJoin      *cur_join,
                                                     DiaLineStyle     *cur_style,
                                                     Color            *fg,
                                                     Color            *bg);
@@ -926,7 +926,7 @@ custom_draw (Custom *custom, DiaRenderer *renderer)
   static GArray *arr = NULL, *barr = NULL;
   double cur_line = 1.0, cur_dash = 1.0;
   LineCaps cur_caps = LINECAPS_BUTT;
-  LineJoin cur_join = LINEJOIN_MITER;
+  DiaLineJoin cur_join = DIA_LINE_JOIN_MITER;
   DiaLineStyle cur_style = custom->line_style;
 
   assert(custom != NULL);
@@ -975,7 +975,7 @@ custom_draw_displaylist (GList        *display_list,
                          double       *cur_line,
                          double       *cur_dash,
                          LineCaps     *cur_caps,
-                         LineJoin     *cur_join,
+                         DiaLineJoin  *cur_join,
                          DiaLineStyle *cur_style)
 {
   GList *tmp;
@@ -994,6 +994,7 @@ custom_draw_displaylist (GList        *display_list,
   }
 }
 
+
 static void
 custom_draw_element (GraphicElement *el,
                      Custom         *custom,
@@ -1003,16 +1004,16 @@ custom_draw_element (GraphicElement *el,
                      double         *cur_line,
                      double         *cur_dash,
                      LineCaps       *cur_caps,
-                     LineJoin       *cur_join,
+                     DiaLineJoin    *cur_join,
                      DiaLineStyle   *cur_style,
                      Color          *fg,
                      Color          *bg)
 {
   Point p1, p2;
-  real width, height;
-  real coord;
+  double width, height;
+  double coord;
   int i;
-  real radius;
+  double radius;
 
   /* Somehow - maybe due to scaling - the exact match does not always work. Instead of:
    *   (el->any.s.line_width != (*cur_line))
@@ -1029,10 +1030,10 @@ custom_draw_element (GraphicElement *el,
                       el->any.s.linecap : LINECAPS_BUTT;
     dia_renderer_set_linecaps (renderer, (*cur_caps));
   }
-  if ((el->any.s.linejoin==LINEJOIN_DEFAULT && (*cur_join)!=LINEJOIN_MITER) ||
+  if ((el->any.s.linejoin == DIA_LINE_JOIN_DEFAULT && (*cur_join) != DIA_LINE_JOIN_MITER) ||
       el->any.s.linejoin != (*cur_join)) {
-    (*cur_join) = (el->any.s.linejoin!=LINEJOIN_DEFAULT) ?
-                      el->any.s.linejoin : LINEJOIN_MITER;
+    (*cur_join) = (el->any.s.linejoin != DIA_LINE_JOIN_DEFAULT) ?
+                      el->any.s.linejoin : DIA_LINE_JOIN_MITER;
     dia_renderer_set_linejoin (renderer, (*cur_join));
   }
 

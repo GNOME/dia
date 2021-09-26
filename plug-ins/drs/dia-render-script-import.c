@@ -194,22 +194,30 @@ _parse_linecaps (xmlNodePtr node, const char *attrib)
   }
   return val;
 }
-static LineJoin
+
+
+static DiaLineJoin
 _parse_linejoin (xmlNodePtr node, const char *attrib)
 {
-  xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
-  LineJoin val = LINEJOIN_MITER;
+  xmlChar *str = xmlGetProp (node, (const xmlChar *) attrib);
+  DiaLineJoin val =DIA_LINE_JOIN_MITER;
+
   if (str) {
-    if (strcmp ((const char *)str, "round") == 0)
-      val = LINEJOIN_ROUND;
-    else if (strcmp ((const char *)str, "bevel") == 0)
-      val = LINEJOIN_BEVEL;
-    else if (strcmp ((const char *)str, "miter") != 0)
+    if (g_strcmp0 ((const char *) str, "round") == 0) {
+      val = DIA_LINE_JOIN_ROUND;
+    } else if (g_strcmp0 ((const char *) str, "bevel") == 0) {
+      val = DIA_LINE_JOIN_BEVEL;
+    } else if (g_strcmp0 ((const char *) str, "miter") != 0) {
       g_warning ("unknown linejoin: %s", str);
-    xmlFree(str);
+    }
   }
+
+  dia_clear_xml_string (&str);
+
   return val;
 }
+
+
 static FillStyle
 _parse_fillstyle (xmlNodePtr node, const char *attrib)
 {

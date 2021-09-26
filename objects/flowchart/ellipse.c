@@ -381,7 +381,7 @@ ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)
   }
   dia_renderer_set_linewidth (renderer, ellipse->border_width);
   dia_renderer_set_linestyle (renderer, ellipse->line_style, ellipse->dashlength);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
   dia_renderer_draw_ellipse (renderer,
                              &center,

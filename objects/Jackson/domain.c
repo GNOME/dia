@@ -393,7 +393,7 @@ jackson_box_draw (Box *box, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, JACKSON_BOX_LINE_WIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
   dia_renderer_draw_rect (renderer, &b0, &b1,
                           &JACKSON_BOX_BG_COLOR, &JACKSON_BOX_FG_COLOR);

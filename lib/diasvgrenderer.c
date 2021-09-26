@@ -253,23 +253,23 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   }
 }
 
-/*!
- * \brief Set line join
- * \memberof _DiaSvgRenderer
+
+/*
+ * Set line join
  */
 static void
-set_linejoin(DiaRenderer *self, LineJoin mode)
+set_linejoin (DiaRenderer *self, DiaLineJoin mode)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
 
-  switch(mode) {
-    case LINEJOIN_MITER:
+  switch (mode) {
+    case DIA_LINE_JOIN_MITER:
       renderer->linejoin = "miter";
       break;
-    case LINEJOIN_ROUND:
+    case DIA_LINE_JOIN_ROUND:
       renderer->linejoin = "round";
       break;
-    case LINEJOIN_BEVEL:
+    case DIA_LINE_JOIN_BEVEL:
       renderer->linejoin = "bevel";
       break;
     case LINECAPS_DEFAULT:

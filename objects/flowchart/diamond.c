@@ -388,7 +388,7 @@ diamond_draw(Diamond *diamond, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, diamond->border_width);
   dia_renderer_set_linestyle (renderer, diamond->line_style, diamond->dashlength);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
   dia_renderer_draw_polygon (renderer,
                              pts,

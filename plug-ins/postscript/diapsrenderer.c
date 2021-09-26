@@ -183,28 +183,29 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   fprintf(renderer->file, "%d slc\n", ps_mode);
 }
 
+
 static void
-set_linejoin(DiaRenderer *self, LineJoin mode)
+set_linejoin (DiaRenderer *self, DiaLineJoin mode)
 {
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
+  DiaPsRenderer *renderer = DIA_PS_RENDERER (self);
   int ps_mode;
 
-  switch(mode) {
-  case LINEJOIN_DEFAULT:
-  case LINEJOIN_MITER:
-    ps_mode = 0;
-    break;
-  case LINEJOIN_ROUND:
-    ps_mode = 1;
-    break;
-  case LINEJOIN_BEVEL:
-    ps_mode = 2;
-    break;
-  default:
-    ps_mode = 0;
+  switch (mode) {
+    case DIA_LINE_JOIN_DEFAULT:
+    case DIA_LINE_JOIN_MITER:
+      ps_mode = 0;
+      break;
+    case DIA_LINE_JOIN_ROUND:
+      ps_mode = 1;
+      break;
+    case DIA_LINE_JOIN_BEVEL:
+      ps_mode = 2;
+      break;
+    default:
+      ps_mode = 0;
   }
 
-  fprintf(renderer->file, "%d slj\n", ps_mode);
+  fprintf (renderer->file, "%d slj\n", ps_mode);
 }
 
 

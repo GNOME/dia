@@ -70,7 +70,7 @@ struct _DiaXfigRenderer {
 
   double linewidth;
   LineCaps capsmode;
-  LineJoin joinmode;
+  DiaLineJoin joinmode;
   DiaLineStyle stylemode;
   double dashlength;
   FillStyle fillmode;
@@ -499,7 +499,7 @@ set_linecaps (DiaRenderer *self, LineCaps mode)
 
 
 static void
-set_linejoin (DiaRenderer *self, LineJoin mode)
+set_linejoin (DiaRenderer *self, DiaLineJoin mode)
 {
   DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
 

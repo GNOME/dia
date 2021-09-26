@@ -64,7 +64,7 @@ dia_line_cell_renderer_get_property (GObject    *object,
       break;
 
     case PROP_LINE:
-      g_value_set_int (value, priv->line);
+      g_value_set_enum (value, priv->line);
       break;
 
     default:
@@ -90,7 +90,7 @@ dia_line_cell_renderer_set_property (GObject      *object,
       break;
 
     case PROP_LINE:
-      priv->line = g_value_get_int (value);
+      priv->line = g_value_get_enum (value);
       break;
 
     default:

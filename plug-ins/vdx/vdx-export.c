@@ -87,7 +87,7 @@ struct _VDXRenderer
 
     double linewidth;
     LineCaps capsmode;
-    LineJoin joinmode;
+    DiaLineJoin joinmode;
     DiaLineStyle stylemode;
     double dashlength;
     FillStyle fillmode;
@@ -328,15 +328,14 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
   renderer->capsmode = mode;
 }
 
-/** Set line join
- * @param self a renderer
- * @param mode new line join
- */
 
+/**
+ * Set line join
+ */
 static void
-set_linejoin(DiaRenderer *self, LineJoin mode)
+set_linejoin(DiaRenderer *self, DiaLineJoin mode)
 {
-  VDXRenderer *renderer = VDX_RENDERER(self);
+  VDXRenderer *renderer = VDX_RENDERER (self);
 
   renderer->joinmode = mode;
 }

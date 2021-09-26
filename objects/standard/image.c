@@ -465,7 +465,7 @@ image_draw (Image *image, DiaRenderer *renderer)
   if (image->draw_border) {
     dia_renderer_set_linewidth (renderer, image->border_width);
     dia_renderer_set_linestyle (renderer, image->line_style, image->dashlength);
-    dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+    dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
     if (image->angle != 0.0) {
       Point poly[4];

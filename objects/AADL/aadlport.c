@@ -91,7 +91,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     point_add(p+2, &port->handle->pos);                           \
                                                                   \
     dia_renderer_set_linewidth(renderer, AADL_PORT_LINEWIDTH);    \
-    dia_renderer_set_linejoin(renderer, LINEJOIN_MITER);          \
+    dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
     dia_renderer_draw_polygon(renderer, p,  3, &color_black, &color_black);
@@ -115,7 +115,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     point_add(p+2, &port->handle->pos);                           \
                                                                   \
     dia_renderer_set_linewidth(renderer, AADL_PORT_LINEWIDTH);    \
-    dia_renderer_set_linejoin(renderer, LINEJOIN_MITER);          \
+    dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
     dia_renderer_draw_polyline(renderer, p,  3, &color_black);
@@ -139,7 +139,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     point_add(p+2, &port->handle->pos);                           \
                                                                   \
     dia_renderer_set_linewidth(renderer, AADL_PORT_LINEWIDTH);    \
-    dia_renderer_set_linejoin(renderer, LINEJOIN_MITER);          \
+    dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
     dia_renderer_draw_polygon(renderer, p,  3, &color_black, &color_black);
@@ -163,7 +163,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     point_add(p+2, &port->handle->pos);                           \
                                                                   \
     dia_renderer_set_linewidth(renderer, AADL_PORT_LINEWIDTH);    \
-    dia_renderer_set_linejoin(renderer, LINEJOIN_MITER);          \
+    dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
     dia_renderer_draw_polyline(renderer, p,  3, &color_black);
@@ -192,7 +192,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     point_add(p+3, &port->handle->pos);                           \
                                                                   \
     dia_renderer_set_linewidth(renderer, AADL_PORT_LINEWIDTH);    \
-    dia_renderer_set_linejoin(renderer, LINEJOIN_MITER);          \
+    dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
     dia_renderer_draw_polygon(renderer, p,  4, &color_black, &color_black);
@@ -221,7 +221,7 @@ rotate_around_origin (Point *p, real angle)   /* FIXME: no namespace */
     point_add(p+3, &port->handle->pos);                           \
                                                                   \
     dia_renderer_set_linewidth(renderer, AADL_PORT_LINEWIDTH);    \
-    dia_renderer_set_linejoin(renderer, LINEJOIN_MITER);          \
+    dia_renderer_set_linejoin(renderer, DIA_LINE_JOIN_MITER);     \
     dia_renderer_set_linestyle(renderer, DIA_LINE_STYLE_SOLID, 0.0);   \
                                                                   \
     dia_renderer_draw_polygon(renderer, p,  4, NULL, &color_black);
@@ -268,7 +268,7 @@ aadlbox_draw_port (Aadlport *port, DiaRenderer *renderer)
       point_add (p+4, &port->handle->pos);
 
       dia_renderer_set_linewidth (renderer, AADL_PORT_LINEWIDTH);
-      dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+      dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
       dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
       dia_renderer_draw_polygon (renderer, p,  5, &color_white, &color_black);
@@ -304,7 +304,7 @@ aadlbox_draw_port (Aadlport *port, DiaRenderer *renderer)
       point_add (p+4, &port->handle->pos);
 
       dia_renderer_set_linewidth (renderer, AADL_PORT_LINEWIDTH);
-      dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+      dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
       dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
       dia_renderer_draw_polygon (renderer, p,  5, &color_white, &color_black);
@@ -363,7 +363,7 @@ aadlbox_draw_port (Aadlport *port, DiaRenderer *renderer)
         point_add (p, &port->handle->pos);
 
         dia_renderer_set_linewidth (renderer, AADL_PORT_LINEWIDTH);
-        dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+        dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
         dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
 
         dia_renderer_draw_ellipse (renderer,

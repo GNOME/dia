@@ -575,7 +575,7 @@ apply_style (DiaObject   *obj,
   }
 
   eprop = g_ptr_array_index(props,5);
-  if (gs->linejoin != LINEJOIN_DEFAULT)
+  if (gs->linejoin != DIA_LINE_JOIN_DEFAULT)
     eprop->enum_data = gs->linejoin;
   else
     eprop->common.experience |= PXP_NOTSET;

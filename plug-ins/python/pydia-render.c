@@ -242,25 +242,25 @@ set_linecaps (DiaRenderer *renderer, LineCaps mode)
 /**
  * set_linejoin:
  * @renderer: the #DiaRenderer
- * @mode: the #LineJoin type
+ * @mode: the #DiaLineJoin type
  *
  * Set linejoin for later use
  *
  * Optional on the PyDia side.
  */
 static void
-set_linejoin (DiaRenderer *renderer, LineJoin mode)
+set_linejoin (DiaRenderer *renderer, DiaLineJoin mode)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   switch (mode) {
-    case LINEJOIN_MITER:
+    case DIA_LINE_JOIN_MITER:
       break;
-    case LINEJOIN_ROUND:
+    case DIA_LINE_JOIN_ROUND:
       break;
-    case LINEJOIN_BEVEL:
+    case DIA_LINE_JOIN_BEVEL:
       break;
-    case LINEJOIN_DEFAULT:
+    case DIA_LINE_JOIN_DEFAULT:
     default:
       PyErr_Warn (PyExc_RuntimeWarning,
                   "DiaPyRenderer : Unsupported fill mode specified!\n");

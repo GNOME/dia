@@ -416,21 +416,21 @@ set_linecaps (DiaRenderer *self, LineCaps mode)
 
 
 static void
-set_linejoin (DiaRenderer *self, LineJoin mode)
+set_linejoin (DiaRenderer *self, DiaLineJoin mode)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
-  gchar *value = NULL;
+  char *value = NULL;
 
   switch (mode) {
-    case LINEJOIN_DEFAULT:
-    case LINEJOIN_MITER:
+    case DIA_LINE_JOIN_DEFAULT:
+    case DIA_LINE_JOIN_MITER:
       value = "miter";
       break;
-    case LINEJOIN_ROUND:
+    case DIA_LINE_JOIN_ROUND:
       value = "round";
       break;
-    case LINEJOIN_BEVEL:
+    case DIA_LINE_JOIN_BEVEL:
       value = "bevel";
       break;
     default:

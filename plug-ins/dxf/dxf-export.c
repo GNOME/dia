@@ -258,8 +258,9 @@ set_linecaps(DiaRenderer *self, LineCaps mode)
 {
 }
 
+
 static void
-set_linejoin(DiaRenderer *self, LineJoin mode)
+set_linejoin (DiaRenderer *self, DiaLineJoin mode)
 {
 }
 

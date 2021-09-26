@@ -276,7 +276,7 @@ relationship_draw (Relationship *relationship, DiaRenderer *renderer)
 
   dia_renderer_set_linewidth (renderer, relationship->border_width);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);
-  dia_renderer_set_linejoin (renderer, LINEJOIN_MITER);
+  dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
 
   dia_renderer_draw_polygon (renderer,
                              corners,
