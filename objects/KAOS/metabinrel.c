@@ -456,13 +456,17 @@ mbr_draw (Mbr *mbr, DiaRenderer *renderer)
   annot = compute_text (mbr);
   dia_renderer_set_font (renderer, mbr_font, MBR_DECFONTHEIGHT);
 
-  if (annot && strlen(annot) != 0) {
-    pa1.x=mbr->pm.x-mbr->text_width/2;
-    pa1.y=mbr->pm.y-mbr->text_ascent +0.1;  /* with some fix... */
-    pa2.x=pa1.x+mbr->text_width;
-    pa2.y=pa1.y+MBR_DECFONTHEIGHT    +0.1;  /* with some fix... */
-    dia_renderer_draw_rect (renderer,&pa1,&pa2,&color_white, NULL);
-    dia_renderer_draw_string (renderer,annot,&mbr->pm,ALIGN_CENTER,&MBR_FG_COLOR);
+  if (annot && strlen (annot) != 0) {
+    pa1.x = mbr->pm.x - mbr->text_width / 2;
+    pa1.y = mbr->pm.y - mbr->text_ascent + 0.1;  /* with some fix... */
+    pa2.x = pa1.x + mbr->text_width;
+    pa2.y = pa1.y + MBR_DECFONTHEIGHT + 0.1;  /* with some fix... */
+    dia_renderer_draw_rect (renderer, &pa1, &pa2, &color_white, NULL);
+    dia_renderer_draw_string (renderer,
+                              annot,
+                              &mbr->pm,
+                              DIA_ALIGN_CENTRE,
+                              &MBR_FG_COLOR);
   }
 
   g_clear_pointer (&annot, g_free);

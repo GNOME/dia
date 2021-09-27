@@ -323,7 +323,7 @@ chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer)
       dia_renderer_draw_string (renderer,
                                 time,
                                 &p3,
-                                ALIGN_CENTER,
+                                DIA_ALIGN_CENTRE,
                                 &chronoref->font_color);
     }
   }

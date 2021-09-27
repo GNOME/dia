@@ -63,7 +63,7 @@ struct _Text {
   double height;
   Point position;
   Color color;
-  Alignment alignment;
+  DiaAlignment alignment;
 
   /* Cursor pos: */
   int cursor_pos;
@@ -79,11 +79,15 @@ struct _Text {
 
 /* makes an internal copy of the string */
 /*! \brief Text object creation \memberof _Text */
-Text *new_text(const char *string, DiaFont *font, double height,
-	       Point *pos, Color *color, Alignment align);
-Text   *new_text_default      (Point      *pos,
-                               Color      *color,
-                               Alignment   align);
+Text   *new_text              (const char    *string,
+                               DiaFont       *font,
+                               double         height,
+                               Point         *pos,
+                               Color         *color,
+                               DiaAlignment   align);
+Text   *new_text_default      (Point         *pos,
+                               Color         *color,
+                               DiaAlignment   align);
 void    text_destroy          (Text       *text);
 Text   *text_copy             (Text       *text);
 char   *text_get_line         (const Text *text,
@@ -100,8 +104,8 @@ void    text_set_position     (Text       *text,
                                Point      *pos);
 void    text_set_color        (Text       *text,
                                Color      *col);
-void    text_set_alignment    (Text       *text,
-                               Alignment   align);
+void    text_set_alignment    (Text          *text,
+                               DiaAlignment   align);
 double  text_distance_from    (Text       *text,
                                Point      *point);
 void text_calc_boundingbox(Text *text, DiaRectangle *box);

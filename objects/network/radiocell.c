@@ -331,12 +331,16 @@ radiocell_create(Point *startpoint,
   radiocell->fill_colour = color_white;
   radiocell->line_colour = color_black;
   radiocell->line_width = RADIOCELL_LINEWIDTH;
-  attributes_get_default_line_style(&radiocell->line_style,
-				    &radiocell->dashlength);
+  attributes_get_default_line_style (&radiocell->line_style,
+                                     &radiocell->dashlength);
 
-  font = dia_font_new_from_style(DIA_FONT_MONOSPACE, RADIOCELL_FONTHEIGHT);
-  radiocell->text = new_text ("", font, RADIOCELL_FONTHEIGHT, startpoint,
-                              &color_black, ALIGN_CENTER);
+  font = dia_font_new_from_style (DIA_FONT_MONOSPACE, RADIOCELL_FONTHEIGHT);
+  radiocell->text = new_text ("",
+                              font,
+                              RADIOCELL_FONTHEIGHT,
+                              startpoint,
+                              &color_black,
+                              DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   polyshape_init(poly, 6);

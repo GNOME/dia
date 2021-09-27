@@ -363,9 +363,9 @@ public :
     // state->getFont()->getWMode()
 #if 0
     if (shift == 0) //FIXME:
-      this->alignment = ALIGN_LEFT;
+      this->alignment = DIA_ALIGN_LEFT;
     else
-      this->alignment = ALIGN_CENTER;
+      this->alignment = DIA_ALIGN_CENTRE;
 #endif
   }
   void saveState(GfxState *state)
@@ -452,7 +452,7 @@ private :
   DiaLineCaps line_caps;
   Color fill_color;
 
-  Alignment alignment;
+  DiaAlignment alignment;
 
   // multiply with to get from PDF to Dia
   double scale;
@@ -491,7 +491,7 @@ DiaOutputDev::DiaOutputDev (DiagramData *_dia, int _n) :
   line_join(DIA_LINE_JOIN_MITER),
   line_caps(DIA_LINE_CAPS_PROJECTING),
   fill_color(attributes_get_background ()),
-  alignment(ALIGN_LEFT),
+  alignment(DIA_ALIGN_LEFT),
   scale(2.54/72.0),
   objects(NULL),
   pageNum(0),

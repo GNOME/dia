@@ -528,11 +528,11 @@ draw_ellipse(DiaRenderer *object,
 
 
 static void
-draw_string (DiaRenderer *object,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *colour)
+draw_string (DiaRenderer  *object,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *colour)
 {
   HpglRenderer *renderer = HPGL_RENDERER (object);
   real width, height;
@@ -545,13 +545,13 @@ draw_string (DiaRenderer *object,
            hpgl_scale (renderer, pos->x), hpgl_scale (renderer, -pos->y));
 
   switch (alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       fprintf (renderer->file, "LO1;\n");
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       fprintf (renderer->file, "LO4;\n");
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       fprintf (renderer->file, "LO7;\n");
       break;
     default:

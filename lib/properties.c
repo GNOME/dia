@@ -57,9 +57,9 @@ stdprops_init(void)
 PropNumData prop_std_line_width_data = { 0.0, 10.0, 0.01 };
 PropNumData prop_std_text_height_data = { 0.1, 10.0, 0.1 };
 PropEnumData prop_std_text_align_data[] = {
-  { N_("Left"), ALIGN_LEFT },
-  { N_("Center"), ALIGN_CENTER },
-  { N_("Right"), ALIGN_RIGHT },
+  { N_("Left"), DIA_ALIGN_LEFT },
+  { N_("Center"), DIA_ALIGN_CENTRE },
+  { N_("Right"), DIA_ALIGN_RIGHT },
   { NULL, 0 }
 };
 /* how the text box interacts with it's containing shape */

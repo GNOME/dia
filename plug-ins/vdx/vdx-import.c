@@ -2223,7 +2223,7 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
     GPtrArray *props;
     TextProperty *tprop;
     Valign vert_align;
-    Alignment alignment;
+    DiaAlignment alignment;
     EnumProperty *eprop = 0;
     struct vdx_FontEntry FontEntry;
     struct vdx_FaceName FaceName;
@@ -2243,17 +2243,17 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
     p.x = 0; p.y = 0;
 
     /* Setup position for horizontal alignment */
-    alignment = ALIGN_LEFT;
-    if (Para && Para->HorzAlign == 1)
-    {
-        alignment = ALIGN_CENTER;
-        p.x += XForm->Width/2.0;
+    alignment = DIA_ALIGN_LEFT;
+    if (Para && Para->HorzAlign == 1) {
+      alignment = DIA_ALIGN_CENTRE;
+      p.x += XForm->Width / 2.0;
     }
-    if (Para && Para->HorzAlign == 2)
-    {
-        alignment = ALIGN_RIGHT;
-        p.x += XForm->Width;
+
+    if (Para && Para->HorzAlign == 2) {
+      alignment = DIA_ALIGN_RIGHT;
+      p.x += XForm->Width;
     }
+
     /* And for vertical */
     vert_align = VALIGN_TOP;
     if (TextBlock && TextBlock->VerticalAlign == 0)

@@ -456,7 +456,12 @@ orthflow_create(Point *startpoint,
   orthflow->textpos = p;
   font = dia_font_new_from_style(DIA_FONT_SANS, ORTHFLOW_FONTHEIGHT);
 
-  orthflow->text = new_text ("", font, ORTHFLOW_FONTHEIGHT, &p, &color_black, ALIGN_CENTER);
+  orthflow->text = new_text ("",
+                             font,
+                             ORTHFLOW_FONTHEIGHT,
+                             &p,
+                             &color_black,
+                             DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
 #if 0
@@ -610,9 +615,15 @@ orthflow_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     orthflow->text = data_text(attribute_first_data(attr), ctx);
   else { /* paranoid */
-    DiaFont *font = dia_font_new_from_style(DIA_FONT_SANS, ORTHFLOW_FONTHEIGHT);
+    DiaFont *font = dia_font_new_from_style (DIA_FONT_SANS,
+                                             ORTHFLOW_FONTHEIGHT);
 
-    orthflow->text = new_text ("", font, ORTHFLOW_FONTHEIGHT, &obj->position, &color_black, ALIGN_CENTER);
+    orthflow->text = new_text ("",
+                               font,
+                               ORTHFLOW_FONTHEIGHT,
+                               &obj->position,
+                               &color_black,
+                               DIA_ALIGN_CENTRE);
     g_clear_object (&font);
   }
 

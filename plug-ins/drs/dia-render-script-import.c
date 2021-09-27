@@ -230,22 +230,28 @@ _parse_fillstyle (xmlNodePtr node, const char *attrib)
 }
 
 
-static Alignment
+static DiaAlignment
 _parse_alignment (xmlNodePtr node, const char *attrib)
 {
-  xmlChar *str = xmlGetProp(node, (const xmlChar *)attrib);
-  Alignment val = ALIGN_LEFT;
+  xmlChar *str = xmlGetProp (node, (const xmlChar *) attrib);
+  DiaAlignment val = DIA_ALIGN_LEFT;
+
   if (str) {
-    if (strcmp ((const char *)str, "center") == 0)
-      val = ALIGN_CENTER;
-    else if (strcmp ((const char *)str, "right") == 0)
-      val = ALIGN_RIGHT;
-    else if (strcmp ((const char *)str, "left") != 0)
+    if (g_strcmp0 ((const char *) str, "center") == 0) {
+      val = DIA_ALIGN_CENTRE;
+    } else if (g_strcmp0 ((const char *) str, "right") == 0) {
+      val = DIA_ALIGN_RIGHT;
+    } else if (g_strcmp0 ((const char *) str, "left") != 0) {
       g_warning ("unknown alignment: %s", str);
-    xmlFree(str);
+    }
   }
+
+  dia_clear_xml_string (&str);
+
   return val;
 }
+
+
 static DiaFont *
 _parse_font (xmlNodePtr node)
 {
@@ -381,9 +387,9 @@ _render_object (xmlNodePtr render, DiaContext *ctx)
         if (fill || stroke) {
           dia_renderer_draw_rounded_rect (ir, &ul, &lr, fill, stroke, r);
         }
-      } else if (   xmlStrcmp (node->name, (const xmlChar *) "string") == 0) {
+      } else if (xmlStrcmp (node->name, (const xmlChar *) "string") == 0) {
         Point pos = _parse_point (node, "pos");
-        Alignment align = _parse_alignment (node, "alignment");
+        DiaAlignment align = _parse_alignment (node, "alignment");
         xmlChar *text = xmlNodeGetContent (node);
         if (text) {
           dia_renderer_draw_string (ir, (const char*) text, &pos, align, fill);

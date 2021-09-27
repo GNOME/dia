@@ -397,7 +397,7 @@ transition_draw (Transition *transition, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer,
                               text,
                               &transition->guard_text_pos,
-                              ALIGN_CENTER,
+                              DIA_ALIGN_CENTRE,
                               &transition->text_color);
     g_clear_pointer (&text, g_free);
   }
@@ -408,7 +408,7 @@ transition_draw (Transition *transition, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer,
                               text,
                               &transition->trigger_text_pos,
-                              ALIGN_CENTER,
+                              DIA_ALIGN_CENTRE,
                               &transition->text_color);
     g_clear_pointer (&text, g_free);
   }

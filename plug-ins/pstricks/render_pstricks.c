@@ -113,10 +113,11 @@ static void draw_beziergon(DiaRenderer *self,
 			   int numpoints,
 			   Color *fill,
 			   Color *stroke);
-static void draw_string(DiaRenderer *self,
-			const char *text,
-			Point *pos, Alignment alignment,
-			Color *color);
+static void draw_string                  (DiaRenderer  *self,
+                                          const char   *text,
+                                          Point        *pos,
+                                          DiaAlignment  alignment,
+                                          Color        *color);
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
@@ -806,16 +807,16 @@ tex_escape_string(const gchar *src, DiaContext *ctx)
 
 
 static void
-draw_string (DiaRenderer *self,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *color)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *color)
 {
-  PstricksRenderer *renderer = PSTRICKS_RENDERER(self);
-  gchar *escaped = NULL;
-  gchar px_buf[DTOSTR_BUF_SIZE];
-  gchar py_buf[DTOSTR_BUF_SIZE];
+  PstricksRenderer *renderer = PSTRICKS_RENDERER (self);
+  char *escaped = NULL;
+  char px_buf[DTOSTR_BUF_SIZE];
+  char py_buf[DTOSTR_BUF_SIZE];
 
   /* only escape the string if it is not starting with \tex */
   if (strncmp (text, "\\tex", 4) != 0)
@@ -825,12 +826,12 @@ draw_string (DiaRenderer *self,
 
   fprintf (renderer->file,"\\rput");
   switch (alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       fprintf(renderer->file,"[l]");
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       fprintf(renderer->file,"[r]");
       break;
     default:

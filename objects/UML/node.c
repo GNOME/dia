@@ -345,7 +345,12 @@ static DiaObject *node_create(Point *startpoint, void *user_data, Handle **handl
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  node->name = new_text ("", font, NODE_FONTHEIGHT, &p, &color_black, ALIGN_LEFT);
+  node->name = new_text ("",
+                         font,
+                         NODE_FONTHEIGHT,
+                         &p,
+                         &color_black,
+                         DIA_ALIGN_LEFT);
   g_clear_object (&font);
 
   element_init(elem, 8, NUM_CONNECTIONS);

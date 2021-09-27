@@ -287,7 +287,7 @@ implements_draw (Implements *implements, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer,
                               implements->text,
                               &implements->text_pos,
-                              ALIGN_LEFT,
+                              DIA_ALIGN_LEFT,
                               &implements->text_color);
   }
 }

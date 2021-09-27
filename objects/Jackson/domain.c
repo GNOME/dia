@@ -434,8 +434,11 @@ jackson_box_draw (Box *box, DiaRenderer *renderer)
   if (s != NULL) {
     dia_renderer_draw_rect (renderer, &b3, &b1,
                             NULL, &JACKSON_BOX_FG_COLOR);
-    dia_renderer_draw_string (renderer, s, &b2,
-                              ALIGN_RIGHT, &box->text->color);
+    dia_renderer_draw_string (renderer,
+                              s,
+                              &b2,
+                              DIA_ALIGN_RIGHT,
+                              &box->text->color);
   }
 
   text_draw (box->text, renderer);
@@ -681,7 +684,7 @@ jackson_box_create (Point   *startpoint,
   box->text = new_text ("", font,
                         DEFAULT_FONT, &p,
                         &color_black,
-                        ALIGN_CENTER);
+                        DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init (elem, 8, 0);

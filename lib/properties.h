@@ -609,9 +609,9 @@ void stdprops_init(void);
 static PropNumData prop_std_line_width_data = { 0.0f, 10.0f, 0.01f };
 static PropNumData prop_std_text_height_data = { 0.1f, 10.0f, 0.1f };
 static PropEnumData prop_std_text_align_data[] = {
-  { N_("Left"), ALIGN_LEFT },
-  { N_("Center"), ALIGN_CENTER },
-  { N_("Right"), ALIGN_RIGHT },
+  { N_("Left"), DIA_ALIGN_LEFT },
+  { N_("Center"), DIA_ALIGN_CENTRE },
+  { N_("Right"), DIA_ALIGN_RIGHT },
   { NULL, 0 }
 };
 static PropEnumData prop_std_text_fitting_data[] = {

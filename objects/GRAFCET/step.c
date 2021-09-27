@@ -436,7 +436,7 @@ step_draw (Step *step, DiaRenderer *renderer)
   dia_renderer_draw_string (renderer,
                             step->id,
                             &step->G,
-                            ALIGN_CENTER,
+                            DIA_ALIGN_CENTRE,
                             &step->font_color);
   if (step->active) {
     dia_renderer_draw_ellipse (renderer,

@@ -308,7 +308,7 @@ attribute_draw (Attribute *attribute, DiaRenderer *renderer)
   dia_renderer_draw_string (renderer,
                             attribute->name,
                             &p,
-                            ALIGN_CENTER,
+                            DIA_ALIGN_CENTRE,
                             &color_black);
 
   if (attribute->key || attribute->weakkey) {

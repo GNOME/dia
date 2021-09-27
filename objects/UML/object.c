@@ -203,7 +203,7 @@ objet_get_props (Objet * objet, GPtrArray *props)
 {
   text_get_attributes (objet->text, &objet->text_attrs);
   /* the aligement is _not_ part of the deal */
-  objet->text_attrs.alignment = ALIGN_CENTER;
+  objet->text_attrs.alignment = DIA_ALIGN_CENTRE;
   g_clear_pointer (&objet->attrib, g_free);
   objet->attrib = text_get_string_copy (objet->attributes);
 
@@ -221,11 +221,11 @@ objet_set_props(Objet *objet, GPtrArray *props)
   apply_textstr_properties(props,objet->attributes,"attrib",objet->attrib);
   /* also update our text object with the new color (font + height) */
   /* the aligement is _not_ part of the deal */
-  objet->text_attrs.alignment = ALIGN_CENTER;
+  objet->text_attrs.alignment = DIA_ALIGN_CENTRE;
   apply_textattr_properties(props,objet->text,"text",&objet->text_attrs);
-  objet->text_attrs.alignment = ALIGN_LEFT;
+  objet->text_attrs.alignment = DIA_ALIGN_LEFT;
   apply_textattr_properties(props,objet->attributes,"attrib",&objet->text_attrs);
-  objet->text_attrs.alignment = ALIGN_CENTER;
+  objet->text_attrs.alignment = DIA_ALIGN_CENTRE;
   g_clear_pointer (&objet->st_stereotype, g_free);
   objet_update_data(objet);
 }
@@ -328,7 +328,7 @@ objet_draw (Objet *ob, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer,
                               ob->st_stereotype,
                               &ob->st_pos,
-                              ALIGN_CENTER,
+                              DIA_ALIGN_CENTRE,
                               &ob->text_attrs.color);
   }
 
@@ -336,7 +336,7 @@ objet_draw (Objet *ob, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer,
                               ob->exstate,
                               &ob->ex_pos,
-                              ALIGN_CENTER,
+                              DIA_ALIGN_CENTRE,
                               &ob->text_attrs.color);
   }
 
@@ -490,9 +490,9 @@ objet_create(Point *startpoint,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  ob->attributes = new_text("", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  ob->attributes = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_LEFT);
   ob->attrib = NULL;
-  ob->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  ob->text = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_CENTRE);
   text_get_attributes(ob->text,&ob->text_attrs);
 
   g_clear_object (&font);

@@ -50,10 +50,20 @@ static void reference_get_props (TableReference *, GPtrArray *);
 static void reference_set_props (TableReference *, GPtrArray *);
 static void reference_update_data (TableReference *);
 static DiaObject * reference_load (ObjectNode obj_node, int version,DiaContext *ctx);
-static void update_desc_data (Point *, Alignment *,
-                              Point *, Point *, Orientation, real, real);
-static void get_desc_bbox (DiaRectangle *, gchar *, real, Point *, Alignment,
-                           DiaFont *, real);
+static void             update_desc_data         (Point            *,
+                                                  DiaAlignment     *,
+                                                  Point            *,
+                                                  Point            *,
+                                                  Orientation,
+                                                  double,
+                                                  double);
+static void             get_desc_bbox            (DiaRectangle     *,
+                                                  char             *,
+                                                  double,
+                                                  Point            *,
+                                                  DiaAlignment,
+                                                  DiaFont          *,
+                                                  double);
 static DiaObjectChange *reference_add_segment_cb (DiaObject        *,
                                                   Point            *,
                                                   gpointer);
@@ -467,13 +477,17 @@ reference_update_data (TableReference * ref)
   rectangle_union (&orth->object.bounding_box, &rect);
 }
 
+
 static void
-update_desc_data (Point * desc_pos, Alignment * desc_align,
-                  Point * end_point, Point * nearest_point,
-                  Orientation orientation, real line_width,
-                  real font_height)
+update_desc_data (Point        *desc_pos,
+                  DiaAlignment *desc_align,
+                  Point        *end_point,
+                  Point        *nearest_point,
+                  Orientation   orientation,
+                  double        line_width,
+                  double        font_height)
 {
-  real dist = font_height/4.0 + line_width/2.0;
+  double dist = font_height/4.0 + line_width/2.0;
 
   *desc_pos = *end_point;
 
@@ -483,17 +497,17 @@ update_desc_data (Point * desc_pos, Alignment * desc_align,
       desc_pos->y -= dist;
       if (end_point->x <= nearest_point->x) {
         desc_pos->x += dist;
-        *desc_align = ALIGN_LEFT;
+        *desc_align = DIA_ALIGN_LEFT;
       } else {
         desc_pos->x -= dist;
-        *desc_align = ALIGN_RIGHT;
+        *desc_align = DIA_ALIGN_RIGHT;
       }
       break;
 
     case VERTICAL:
       /* for vertical lines the label is at the right side of it */
       desc_pos->x += dist;
-      *desc_align = ALIGN_LEFT;
+      *desc_align = DIA_ALIGN_LEFT;
       if (end_point->y <= nearest_point->y)
         desc_pos->y += font_height;
       else
@@ -505,12 +519,17 @@ update_desc_data (Point * desc_pos, Alignment * desc_align,
   }
 }
 
+
 static void
-get_desc_bbox (DiaRectangle * r, gchar * string, real string_width,
-               Point * pos, Alignment align,
-               DiaFont * font, real font_height)
+get_desc_bbox (DiaRectangle *r,
+               char         *string,
+               double        string_width,
+               Point        *pos,
+               DiaAlignment  align,
+               DiaFont      *font,
+               double        font_height)
 {
-  real width;
+  double width;
 
   g_assert (r != NULL);
   g_assert (string != NULL);
@@ -518,17 +537,15 @@ get_desc_bbox (DiaRectangle * r, gchar * string, real string_width,
 
   width = string_width;
 
-  g_assert (align == ALIGN_LEFT || align == ALIGN_RIGHT);
-  if (align == ALIGN_LEFT)
-    {
+  g_return_if_fail (align == DIA_ALIGN_LEFT || align == DIA_ALIGN_RIGHT);
+
+  if (align == DIA_ALIGN_LEFT) {
       r->left = pos->x;
       r->right = r->left + width;
-    }
-  else
-    {
-      r->right = pos->x;
-      r->left = r->right - width;
-    }
+  } else {
+    r->right = pos->x;
+    r->left = r->right - width;
+  }
 
   r->top = pos->y;
   r->top -= dia_font_ascent (string, font, font_height);

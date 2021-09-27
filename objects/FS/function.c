@@ -482,7 +482,7 @@ function_create(Point *startpoint,
 
   elem->corner = *startpoint;
 
-  font = dia_font_new_from_style (DIA_FONT_SANS,FUNCTION_FONTHEIGHT);
+  font = dia_font_new_from_style (DIA_FONT_SANS, FUNCTION_FONTHEIGHT);
 
   pkg->is_wish = FALSE;
   pkg->is_user = FALSE;
@@ -490,8 +490,12 @@ function_create(Point *startpoint,
   /* The text position is recalculated later */
   p.x = 0.0;
   p.y = 0.0;
-  pkg->text = new_text ("", font, FUNCTION_FONTHEIGHT, &p, &color_black,
-                        ALIGN_CENTER);
+  pkg->text = new_text ("",
+                        font,
+                        FUNCTION_FONTHEIGHT,
+                        &p,
+                        &color_black,
+                        DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init (elem, 8, NUM_CONNECTIONS);
@@ -598,8 +602,14 @@ function_load(ObjectNode obj_node, int version, DiaContext *ctx)
   if (attr != NULL)
     pkg->text = data_text(attribute_first_data(attr), ctx);
   else { /* paranoid */
-    DiaFont *font = dia_font_new_from_style (DIA_FONT_SANS,FUNCTION_FONTHEIGHT);
-    pkg->text = new_text ("", font, FUNCTION_FONTHEIGHT, &obj->position, &color_black, ALIGN_CENTER);
+    DiaFont *font = dia_font_new_from_style (DIA_FONT_SANS,
+                                             FUNCTION_FONTHEIGHT);
+    pkg->text = new_text ("",
+                          font,
+                          FUNCTION_FONTHEIGHT,
+                          &obj->position,
+                          &color_black,
+                          DIA_ALIGN_CENTRE);
     g_clear_object (&font);
   }
 

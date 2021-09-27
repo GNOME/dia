@@ -42,7 +42,7 @@ struct _Dependency {
   OrthConn orth;
 
   Point text_pos;
-  Alignment text_align;
+  DiaAlignment text_align;
   real text_width;
 
   Color text_color;
@@ -334,7 +334,7 @@ dependency_update_data(Dependency *dep)
 
   switch (dep->orth.orientation[i]) {
     case HORIZONTAL:
-      dep->text_align = ALIGN_CENTER;
+      dep->text_align = DIA_ALIGN_CENTRE;
       dep->text_pos.x = 0.5*(points[i].x+points[i+1].x);
       dep->text_pos.y = points[i].y;
       if (dep->name)
@@ -343,7 +343,7 @@ dependency_update_data(Dependency *dep)
                                              dep->font_height);
       break;
     case VERTICAL:
-      dep->text_align = ALIGN_LEFT;
+      dep->text_align = DIA_ALIGN_LEFT;
       dep->text_pos.x = points[i].x + 0.1;
       dep->text_pos.y =
         0.5*(points[i].y+points[i+1].y);
@@ -358,7 +358,7 @@ dependency_update_data(Dependency *dep)
 
   /* Add the text recangle to the bounding box: */
   rect.left = dep->text_pos.x;
-  if (dep->text_align == ALIGN_CENTER)
+  if (dep->text_align == DIA_ALIGN_CENTRE)
     rect.left -= dep->text_width/2.0;
   rect.right = rect.left + dep->text_width;
   rect.top = dep->text_pos.y;

@@ -1457,13 +1457,13 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     DiaRectangle tb;
     transform_rect (custom, &info->text_bounds, &tb);
     switch (custom->text->alignment) {
-      case ALIGN_LEFT:
+      case DIA_ALIGN_LEFT:
         p.x = tb.left+custom->padding;
         break;
-      case ALIGN_RIGHT:
+      case DIA_ALIGN_RIGHT:
         p.x = tb.right-custom->padding;
         break;
-      case ALIGN_CENTER:
+      case DIA_ALIGN_CENTRE:
         p.x = (tb.left + tb.right) / 2;
         break;
       default:
@@ -1639,9 +1639,10 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
   element_update_handles(elem);
 }
 
+
 /* reposition the text element to the new text bounding box ... */
 static void
-custom_reposition_text(Custom *custom, GraphicElementText *text)
+custom_reposition_text (Custom *custom, GraphicElementText *text)
 {
   Element *elem = &custom->element;
   Point p;
@@ -1649,13 +1650,13 @@ custom_reposition_text(Custom *custom, GraphicElementText *text)
 
   transform_rect (custom, &text->text_bounds, &tb);
   switch (text->object->alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       p.x = tb.left;
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       p.x = tb.right;
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       p.x = (tb.left + tb.right) / 2;
       break;
     default:

@@ -503,7 +503,7 @@ chronoline_draw (Chronoline *chronoline, DiaRenderer *renderer)
   dia_renderer_draw_string (renderer,
                             chronoline->name,
                             &p3,
-                            ALIGN_RIGHT,
+                            DIA_ALIGN_RIGHT,
                             &chronoline->font_color);
 }
 

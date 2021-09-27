@@ -482,13 +482,13 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
   p.y += elem->height / 2.0 - pgram->text->height * pgram->text->numlines / 2 +
       pgram->text->ascent;
   switch (pgram->text->alignment) {
-    case ALIGN_LEFT:
-      p.x -= avail_width/2;
+    case DIA_ALIGN_LEFT:
+      p.x -= avail_width / 2;
       break;
-    case ALIGN_RIGHT:
-      p.x += avail_width/2;
+    case DIA_ALIGN_RIGHT:
+      p.x += avail_width / 2;
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       break;
     default:
       g_return_if_reached ();
@@ -624,8 +624,12 @@ pgram_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
-  pgram->text = new_text ("", font, font_height, &p, &pgram->border_color,
-                          ALIGN_CENTER);
+  pgram->text = new_text ("",
+                          font,
+                          font_height,
+                          &p,
+                          &pgram->border_color,
+                          DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
@@ -760,11 +764,15 @@ pgram_load(ObjectNode obj_node, int version,DiaContext *ctx)
     pgram->padding =  data_real(attribute_first_data(attr), ctx);
 
   pgram->text = NULL;
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-    pgram->text = data_text(attribute_first_data(attr), ctx);
-  else /* paranoid */
-    pgram->text = new_text_default(&obj->position, &pgram->border_color, ALIGN_CENTER);
+  attr = object_find_attribute (obj_node, "text");
+  if (attr != NULL) {
+    pgram->text = data_text (attribute_first_data (attr), ctx);
+  } else {
+    /* paranoid */
+    pgram->text = new_text_default (&obj->position,
+                                    &pgram->border_color,
+                                    DIA_ALIGN_CENTRE);
+  }
 
   /* old default: only growth, manual shrink */
   pgram->text_fitting = TEXTFIT_WHEN_NEEDED;

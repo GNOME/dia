@@ -277,7 +277,7 @@ constraint_draw (Constraint *constraint, DiaRenderer *renderer)
   dia_renderer_draw_string (renderer,
                             constraint->brtext,
                             &constraint->text_pos,
-                            ALIGN_LEFT,
+                            DIA_ALIGN_LEFT,
                             &constraint->text_color);
 }
 

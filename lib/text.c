@@ -367,12 +367,12 @@ text_set_string (Text *text, const char *string)
 
 
 Text *
-new_text (const char *string,
-          DiaFont    *font,
-          double      height,
-          Point      *pos,
-          Color      *color,
-          Alignment   align)
+new_text (const char   *string,
+          DiaFont      *font,
+          double        height,
+          Point        *pos,
+          Color        *color,
+          DiaAlignment  align)
 {
   Text *text;
 
@@ -405,12 +405,12 @@ new_text (const char *string,
  * new_text_default:
  * @pos: the #Point the text is located
  * @color: the #Color of the text
- * @align: the #Alignment of the text
+ * @align: the #DiaAlignment of the text
  *
  * Fallback function returning a default initialized text object.
  */
 Text *
-new_text_default (Point *pos, Color *color, Alignment align)
+new_text_default (Point *pos, Color *color, DiaAlignment align)
 {
   Text *text;
   DiaFont *font;
@@ -519,7 +519,7 @@ text_set_color (Text *text, Color *col)
 
 
 void
-text_set_alignment (Text *text, Alignment align)
+text_set_alignment (Text *text, DiaAlignment align)
 {
   text->alignment = align;
 }
@@ -539,12 +539,12 @@ text_calc_boundingbox (Text *text, DiaRectangle *box)
   box->left = text->position.x;
 
   switch (text->alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       box->left -= text->max_width / 2.0;
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       box->left -= text->max_width;
       break;
     default:
@@ -631,12 +631,12 @@ text_distance_from (Text *text, Point *point)
 
   left = text->position.x;
   switch (text->alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       left -= text_get_line_width (text, line) / 2.0;
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       left -= text_get_line_width (text, line);
       break;
     default:
@@ -680,12 +680,12 @@ text_draw (Text *text, DiaRenderer *renderer)
     curs_x = text->position.x + str_width_first;
 
     switch (text->alignment) {
-      case ALIGN_LEFT:
+      case DIA_ALIGN_LEFT:
         break;
-      case ALIGN_CENTER:
+      case DIA_ALIGN_CENTRE:
         curs_x -= str_width_whole / 2.0;
         break;
-      case ALIGN_RIGHT:
+      case DIA_ALIGN_RIGHT:
         curs_x -= str_width_whole;
         break;
       default:
@@ -810,12 +810,12 @@ text_set_cursor (Text        *text,
                                                    text_get_line_strlen (text, row));
     start_x = text->position.x;
     switch (text->alignment) {
-      case ALIGN_LEFT:
+      case DIA_ALIGN_LEFT:
         break;
-      case ALIGN_CENTER:
+      case DIA_ALIGN_CENTRE:
         start_x -= str_width_whole / 2.0;
         break;
-      case ALIGN_RIGHT:
+      case DIA_ALIGN_RIGHT:
         start_x -= str_width_whole;
         break;
       default:
@@ -1249,7 +1249,7 @@ data_text (AttributeNode text_attr, DiaContext *ctx)
   double height;
   Point pos = { 0.0, 0.0 };
   Color col;
-  Alignment align;
+  DiaAlignment align;
   AttributeNode attr;
   Text *text;
 
@@ -1282,7 +1282,7 @@ data_text (AttributeNode text_attr, DiaContext *ctx)
     data_color (attribute_first_data (attr), &col, ctx);
   }
 
-  align = ALIGN_LEFT;
+  align = DIA_ALIGN_LEFT;
   attr = composite_find_attribute (text_attr, "alignment");
   if (attr != NULL) {
     align = data_enum (attribute_first_data (attr), ctx);

@@ -451,19 +451,20 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 - box->text->height * box->text->numlines / 2 +
     box->text->ascent;
+
   switch (box->text->alignment) {
-    case ALIGN_LEFT:
-      p.x -= (elem->width - box->padding*2 + box->border_width)/2;
+    case DIA_ALIGN_LEFT:
+      p.x -= (elem->width - box->padding * 2 + box->border_width) / 2;
       break;
-    case ALIGN_RIGHT:
-      p.x += (elem->width - box->padding*2 + box->border_width)/2;
+    case DIA_ALIGN_RIGHT:
+      p.x += (elem->width - box->padding * 2 + box->border_width) / 2;
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
     default:
       break;
   }
 
-  text_set_position(box->text, &p);
+  text_set_position (box->text, &p);
 
   radius = box->corner_radius;
   radius = MIN(radius, elem->width/2);
@@ -601,8 +602,12 @@ box_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
-  box->text = new_text ("", font, font_height, &p, &box->border_color,
-                        ALIGN_CENTER);
+  box->text = new_text ("",
+                        font,
+                        font_height,
+                        &p,
+                        &box->border_color,
+                        DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
@@ -732,11 +737,15 @@ box_load(ObjectNode obj_node, int version,DiaContext *ctx)
     box->padding =  data_real(attribute_first_data(attr), ctx);
 
   box->text = NULL;
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-    box->text = data_text(attribute_first_data(attr), ctx);
-  else /* paranoid */
-    box->text = new_text_default(&obj->position, &box->border_color, ALIGN_CENTER);
+  attr = object_find_attribute (obj_node, "text");
+  if (attr != NULL) {
+    box->text = data_text (attribute_first_data (attr), ctx);
+  } else {
+    /* paranoid */
+    box->text = new_text_default (&obj->position,
+                                  &box->border_color,
+                                  DIA_ALIGN_CENTRE);
+  }
 
   /* old default: only growth, manual shrink */
   box->text_fitting = TEXTFIT_WHEN_NEEDED;

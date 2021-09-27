@@ -28,7 +28,7 @@ struct _TextAttributes {
   real height;
   Point position;
   Color color;
-  Alignment alignment;
+  DiaAlignment alignment;
 };
 
 

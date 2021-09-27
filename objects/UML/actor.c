@@ -359,7 +359,11 @@ actor_create(Point *startpoint,
   p.y += ACTOR_HEIGHT - dia_font_descent(_("Actor"),font, 0.8);
 
   actor->text = new_text (_("Actor"),
-                          font, 0.8, &p, &color_black, ALIGN_CENTER);
+                          font,
+                          0.8,
+                          &p,
+                          &color_black,
+                          DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init(elem, 8, NUM_CONNECTIONS);

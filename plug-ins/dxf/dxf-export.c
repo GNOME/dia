@@ -486,47 +486,71 @@ draw_ellipse(DiaRenderer *self,
     fprintf(renderer->file, " 62\n%d\n", dxf_color (color));
 }
 
-static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *colour)
-{
-    DxfRenderer *renderer = DXF_RENDERER(self);
-    gchar buf[G_ASCII_DTOSTR_BUF_SIZE];
 
-    fprintf(renderer->file, "  0\nTEXT\n");
-    fprintf(renderer->file, "  8\n%s\n", renderer->layername);
-    fprintf(renderer->file, "  6\n%s\n", renderer->lcurrent.style);
-    fprintf(renderer->file, " 10\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", pos->x));
-    fprintf(renderer->file, " 20\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", (-1)*pos->y));
-    fprintf(renderer->file, " 40\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", renderer->tcurrent.font_height)); /* Text height */
-    fprintf(renderer->file, " 50\n%s\n", g_ascii_formatd (buf, sizeof(buf), "%g", 0.0)); /* Text rotation */
-    switch(alignment) {
-    case ALIGN_LEFT :
-	fprintf(renderer->file, " 72\n%d\n", 0);
-        break;
-    case ALIGN_RIGHT :
-   	fprintf(renderer->file, " 72\n%d\n", 2);
-        break;
-    case ALIGN_CENTER :
+static void
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *colour)
+{
+  DxfRenderer *renderer = DXF_RENDERER (self);
+  char buf[G_ASCII_DTOSTR_BUF_SIZE];
+
+  fprintf (renderer->file, "  0\nTEXT\n");
+  fprintf (renderer->file, "  8\n%s\n", renderer->layername);
+  fprintf (renderer->file, "  6\n%s\n", renderer->lcurrent.style);
+  fprintf (renderer->file,
+           " 10\n%s\n",
+           g_ascii_formatd (buf, sizeof(buf),
+           "%g",
+           pos->x));
+  fprintf (renderer->file,
+           " 20\n%s\n",
+           g_ascii_formatd (buf, sizeof(buf),
+           "%g",
+           (-1)*pos->y));
+  fprintf (renderer->file,
+           " 40\n%s\n",
+           g_ascii_formatd (buf, sizeof(buf),
+           "%g",
+           renderer->tcurrent.font_height)); /* Text height */
+  fprintf (renderer->file,
+           " 50\n%s\n",
+           g_ascii_formatd (buf, sizeof(buf),
+           "%g",
+           0.0)); /* Text rotation */
+  switch (alignment) {
+    case DIA_ALIGN_LEFT:
+      fprintf (renderer->file, " 72\n%d\n", 0);
+      break;
+    case DIA_ALIGN_RIGHT:
+   	  fprintf (renderer->file, " 72\n%d\n", 2);
+      break;
+    case DIA_ALIGN_CENTRE:
     default:
-   	fprintf(renderer->file, " 72\n%d\n", 1);
-        break;
-    }
-    fprintf(renderer->file, "  7\n%s\n", "0"); /* Text style */
-    fprintf(renderer->file, "  1\n%s\n", text);
-    fprintf(renderer->file, " 39\n%d\n", (int)(MAGIC_THICKNESS_FACTOR*renderer->lcurrent.width)); /* Thickness */
-    fprintf(renderer->file, " 62\n%d\n", dxf_color(colour));
+      fprintf (renderer->file, " 72\n%d\n", 1);
+      break;
+  }
+
+  fprintf (renderer->file, "  7\n%s\n", "0"); /* Text style */
+  fprintf (renderer->file, "  1\n%s\n", text);
+  fprintf (renderer->file,
+           " 39\n%d\n",
+           (int) (MAGIC_THICKNESS_FACTOR * renderer->lcurrent.width)); /* Thickness */
+  fprintf (renderer->file, " 62\n%d\n", dxf_color(colour));
 }
 
+
 static void
-draw_image(DiaRenderer *self,
-	   Point *point,
-	   real width, real height,
-	   DiaImage *image)
+draw_image (DiaRenderer *self,
+            Point       *point,
+            double       width,
+            double       height,
+            DiaImage    *image)
 {
 }
+
 
 static void
 dxf_renderer_class_init (DxfRendererClass *klass)

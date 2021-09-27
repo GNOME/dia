@@ -281,7 +281,7 @@ smallpackage_draw (SmallPackage *pkg, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer,
                               pkg->st_stereotype,
                               &p1,
-                              ALIGN_LEFT,
+                              DIA_ALIGN_LEFT,
                               &pkg->text->color);
   }
 }
@@ -361,7 +361,7 @@ smallpackage_create(Point *startpoint,
   p.x += SMALLPACKAGE_MARGIN_X;
   p.y += SMALLPACKAGE_MARGIN_Y+ dia_font_ascent("A",font, 0.8);
 
-  pkg->text = new_text ("", font, 0.8, &p, &color_black, ALIGN_LEFT);
+  pkg->text = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_LEFT);
   g_clear_object (&font);
 
   element_init (elem, 8, NUM_CONNECTIONS);

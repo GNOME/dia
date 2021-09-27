@@ -469,13 +469,13 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
   p.y += elem->height / 2.0 - diamond->text->height*diamond->text->numlines/2 +
       diamond->text->ascent;
   switch (diamond->text->alignment) {
-    case ALIGN_LEFT:
-      p.x -= width/2;
+    case DIA_ALIGN_LEFT:
+      p.x -= width / 2;
       break;
-    case ALIGN_RIGHT:
-      p.x += width/2;
+    case DIA_ALIGN_RIGHT:
+      p.x += width / 2;
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
     default:
       break;
   }
@@ -570,8 +570,12 @@ diamond_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
-  diamond->text = new_text ("", font, font_height, &p, &diamond->border_color,
-                            ALIGN_CENTER);
+  diamond->text = new_text ("",
+                            font,
+                            font_height,
+                            &p,
+                            &diamond->border_color,
+                            DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
@@ -699,11 +703,15 @@ diamond_load(ObjectNode obj_node, int version,DiaContext *ctx)
     diamond->padding =  data_real(attribute_first_data(attr), ctx);
 
   diamond->text = NULL;
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-    diamond->text = data_text(attribute_first_data(attr), ctx);
-  else /* paranoid */
-    diamond->text = new_text_default(&obj->position, &diamond->border_color, ALIGN_CENTER);
+  attr = object_find_attribute (obj_node, "text");
+  if (attr != NULL) {
+    diamond->text = data_text (attribute_first_data (attr), ctx);
+  } else {
+    /* paranoid */
+    diamond->text = new_text_default (&obj->position,
+                                      &diamond->border_color,
+                                      DIA_ALIGN_CENTRE);
+  }
 
   /* old default: only growth, manual shrink */
   diamond->text_fitting = TEXTFIT_WHEN_NEEDED;

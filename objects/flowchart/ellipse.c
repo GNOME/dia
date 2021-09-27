@@ -470,13 +470,13 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   p.y += elem->height / 2.0 - ellipse->text->height*ellipse->text->numlines/2 +
     ellipse->text->ascent;
   switch (ellipse->text->alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       p.x -= (elem->width - 2*(ellipse->padding + ellipse->border_width))/2;
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       p.x += (elem->width - 2*(ellipse->padding + ellipse->border_width))/2;
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       break;
     default:
       g_return_if_reached ();
@@ -549,8 +549,12 @@ ellipse_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + font_height / 2;
-  ellipse->text = new_text ("", font, font_height, &p, &ellipse->border_color,
-                            ALIGN_CENTER);
+  ellipse->text = new_text ("",
+                            font,
+                            font_height,
+                            &p,
+                            &ellipse->border_color,
+                            DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
@@ -677,11 +681,14 @@ ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx)
     ellipse->padding =  data_real(attribute_first_data(attr), ctx);
 
   ellipse->text = NULL;
-  attr = object_find_attribute(obj_node, "text");
-  if (attr != NULL)
-    ellipse->text = data_text(attribute_first_data(attr), ctx);
-  else
-    ellipse->text = new_text_default(&obj->position, &ellipse->border_color, ALIGN_CENTER);
+  attr = object_find_attribute (obj_node, "text");
+  if (attr != NULL) {
+    ellipse->text = data_text (attribute_first_data (attr), ctx);
+  } else {
+    ellipse->text = new_text_default (&obj->position,
+                                      &ellipse->border_color,
+                                      DIA_ALIGN_CENTRE);
+  }
 
   /* old default: only growth, manual shrink */
   ellipse->text_fitting = TEXTFIT_WHEN_NEEDED;

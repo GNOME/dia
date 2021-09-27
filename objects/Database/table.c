@@ -592,7 +592,7 @@ table_draw_namebox (Table *table, DiaRenderer *renderer, Element *elem)
     dia_renderer_draw_string (renderer,
                               table->name,
                               &startP,
-                              ALIGN_CENTER,
+                              DIA_ALIGN_CENTRE,
                               &table->text_color);
   }
 
@@ -605,7 +605,7 @@ table_draw_namebox (Table *table, DiaRenderer *renderer, Element *elem)
                    table->tagging_comment,
                    TABLE_COMMENT_MAXWIDTH,
                    &startP,
-                   ALIGN_CENTER);
+                   DIA_ALIGN_CENTRE);
   }
 
   return endP.y;
@@ -775,16 +775,17 @@ table_draw_attributesbox (Table         *table,
       dia_renderer_draw_string (renderer,
                                 attr->name,
                                 &startP,
-                                ALIGN_LEFT,
+                                DIA_ALIGN_LEFT,
                                 text_color);
     }
+
     if (IS_NOT_EMPTY (attr->type)) {
       startTypeP = startP;
       startTypeP.x += table->maxwidth_attr_name + TABLE_ATTR_NAME_TYPE_GAP;
       dia_renderer_draw_string (renderer,
                                 attr->type,
                                 &startTypeP,
-                                ALIGN_LEFT,
+                                DIA_ALIGN_LEFT,
                                 text_color);
     }
 
@@ -801,7 +802,7 @@ table_draw_attributesbox (Table         *table,
                      table->tagging_comment,
                      TABLE_COMMENT_MAXWIDTH,
                      &startP,
-                     ALIGN_LEFT);
+                     DIA_ALIGN_LEFT);
       startP.x -= TABLE_ATTR_COMMENT_OFFSET;
       startP.y += table->comment_font_height/2;
     }

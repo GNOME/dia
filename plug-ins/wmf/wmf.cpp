@@ -1015,39 +1015,42 @@ draw_beziergon (DiaRenderer *self,
 }
 #endif
 
+
 static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *colour)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *colour)
 {
-    WmfRenderer *renderer = WMF_RENDERER (self);
-    int len;
-    W32::HGDIOBJ hOld;
-    W32::COLORREF rgb = W32COLOR(colour);
+  WmfRenderer *renderer = WMF_RENDERER (self);
+  int len;
+  W32::HGDIOBJ hOld;
+  W32::COLORREF rgb = W32COLOR (colour);
 
-    DIAG_NOTE(renderer, "draw_string %f,%f %s\n",
-              pos->x, pos->y, text);
+  DIAG_NOTE (renderer, "draw_string %f,%f %s\n", pos->x, pos->y, text);
 
-    W32::SetTextColor(renderer->hFileDC, rgb);
+  W32::SetTextColor (renderer->hFileDC, rgb);
 
-    switch (alignment) {
-    case ALIGN_LEFT:
-        W32::SetTextAlign(renderer->hFileDC, TA_LEFT+TA_BASELINE);
-    break;
-    case ALIGN_CENTER:
-        W32::SetTextAlign(renderer->hFileDC, TA_CENTER+TA_BASELINE);
-    break;
-    case ALIGN_RIGHT:
-        W32::SetTextAlign(renderer->hFileDC, TA_RIGHT+TA_BASELINE);
-    break;
+  switch (alignment) {
+    case DIA_ALIGN_LEFT:
+      W32::SetTextAlign (renderer->hFileDC, TA_LEFT+TA_BASELINE);
+      break;
+    case DIA_ALIGN_CENTRE:
+      W32::SetTextAlign (renderer->hFileDC, TA_CENTER+TA_BASELINE);
+      break;
+    case DIA_ALIGN_RIGHT:
+      W32::SetTextAlign (renderer->hFileDC, TA_RIGHT+TA_BASELINE);
+      break;
     }
-    /* work out size of first chunk of text */
-    len = strlen(text);
-    if (!len)
-	return; /* nothing to do */
 
-    hOld = W32::SelectObject(renderer->hFileDC, renderer->hFont);
+    /* work out size of first chunk of text */
+    len = strlen (text);
+    if (!len) {
+      return; /* nothing to do */
+    }
+
+    hOld = W32::SelectObject (renderer->hFileDC, renderer->hFont);
     {
         // one way to go, but see below ...
         char* scp = NULL;

@@ -301,7 +301,11 @@ message_draw (Message *message, DiaRenderer *renderer)
   dia_renderer_set_font (renderer, message_font, MESSAGE_FONTHEIGHT);
 
   if (mname && strlen (mname) != 0) {
-    dia_renderer_draw_string (renderer, mname, &message->text_pos, ALIGN_CENTER, &color_black);
+    dia_renderer_draw_string (renderer,
+                              mname,
+                              &message->text_pos,
+                              DIA_ALIGN_CENTRE,
+                              &color_black);
   }
 
   g_clear_pointer (&mname, g_free);

@@ -419,7 +419,7 @@ usecase_create(Point *startpoint,
   p.x += USECASE_WIDTH/2.0;
   p.y += USECASE_HEIGHT/2.0;
 
-  usecase->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  usecase->text = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   usecase->text_outside = 0;

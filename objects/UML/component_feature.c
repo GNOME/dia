@@ -403,7 +403,7 @@ compfeat_create(Point *startpoint,
                              COMPPROP_FONTHEIGHT,
                              &p,
                              &compfeat->line_color,
-                             ALIGN_CENTER);
+                             DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   compfeat->text_handle.id = HANDLE_MOVE_TEXT;

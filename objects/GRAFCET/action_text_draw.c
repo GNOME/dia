@@ -81,12 +81,12 @@ action_text_draw (Text *text, DiaRenderer *renderer)
     curs_y = text->position.y - text->ascent;
 
     switch (text->alignment) {
-      case ALIGN_LEFT:
+      case DIA_ALIGN_LEFT:
         break;
-      case ALIGN_CENTER:
+      case DIA_ALIGN_CENTRE:
         curs_x -= str_width_whole / 2.0; /* undefined behaviour ! */
         break;
-      case ALIGN_RIGHT:
+      case DIA_ALIGN_RIGHT:
         curs_x -= str_width_whole; /* undefined behaviour ! */
         break;
       default:
@@ -108,17 +108,17 @@ action_text_draw (Text *text, DiaRenderer *renderer)
 void
 action_text_calc_boundingbox (Text *text, DiaRectangle *box)
 {
-  real width;
+  double width;
   int i;
 
   box->left = text->position.x;
   switch (text->alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       box->left -= text->max_width / 2.0;
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       box->left -= text->max_width;
       break;
     default:

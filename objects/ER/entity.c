@@ -295,7 +295,7 @@ entity_draw (Entity *entity, DiaRenderer *renderer)
   dia_renderer_draw_string (renderer,
                             entity->name,
                             &p,
-                            ALIGN_CENTER,
+                            DIA_ALIGN_CENTRE,
                             &color_black);
 }
 

@@ -1103,14 +1103,14 @@ draw_beziergon (DiaRenderer *self,
 
 
 static void
-draw_string (DiaRenderer *self,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *color)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *color)
 {
   guchar *figtext = NULL;
-  DiaXfigRenderer *renderer = DIA_XFIG_RENDERER(self);
+  DiaXfigRenderer *renderer = DIA_XFIG_RENDERER (self);
   char d_buf[DTOSTR_BUF_SIZE];
 
   if (renderer->color_pass) {

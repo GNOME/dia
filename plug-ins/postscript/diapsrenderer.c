@@ -622,24 +622,24 @@ ps_convert_string (const char *text, DiaContext *ctx)
 
 static void
 put_text_alignment (DiaPsRenderer *renderer,
-                    Alignment      alignment,
+                    DiaAlignment   alignment,
                     Point         *pos)
 {
-  gchar px_buf[DTOSTR_BUF_SIZE];
-  gchar py_buf[DTOSTR_BUF_SIZE];
+  char px_buf[DTOSTR_BUF_SIZE];
+  char py_buf[DTOSTR_BUF_SIZE];
 
   switch (alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       fprintf (renderer->file, "%s %s m\n",
                psrenderer_dtostr (px_buf, pos->x),
                psrenderer_dtostr (py_buf, pos->y) );
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       fprintf (renderer->file, "dup sw 2 div %s ex sub %s m\n",
                psrenderer_dtostr (px_buf, pos->x),
                psrenderer_dtostr (py_buf, pos->y) );
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       fprintf (renderer->file, "dup sw %s ex sub %s m\n",
                psrenderer_dtostr (px_buf, pos->x),
                psrenderer_dtostr (py_buf, pos->y) );
@@ -651,17 +651,19 @@ put_text_alignment (DiaPsRenderer *renderer,
 
 
 static void
-draw_string(DiaRenderer *self,
-	    const char *text,
-	    Point *pos, Alignment alignment,
-	    Color *color)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *color)
 {
-  DiaPsRenderer *renderer = DIA_PS_RENDERER(self);
+  DiaPsRenderer *renderer = DIA_PS_RENDERER (self);
   Point pos_adj;
-  gchar *buffer;
+  char *buffer;
 
-  if (1 > strlen(text))
+  if (1 > strlen (text)) {
     return;
+  }
 
   lazy_setcolor(renderer,color);
 

@@ -785,19 +785,19 @@ draw_beziergon (DiaRenderer *self,
 
 
 static void
-draw_string (DiaRenderer *self,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *color)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *color)
 {
   MetapostRenderer *renderer = METAPOST_RENDERER (self);
-  gchar height_buf[DTOSTR_BUF_SIZE];
-  gchar px_buf[DTOSTR_BUF_SIZE];
-  gchar py_buf[DTOSTR_BUF_SIZE];
-  gchar red_buf[DTOSTR_BUF_SIZE];
-  gchar green_buf[DTOSTR_BUF_SIZE];
-  gchar blue_buf[DTOSTR_BUF_SIZE];
+  char height_buf[DTOSTR_BUF_SIZE];
+  char px_buf[DTOSTR_BUF_SIZE];
+  char py_buf[DTOSTR_BUF_SIZE];
+  char red_buf[DTOSTR_BUF_SIZE];
+  char green_buf[DTOSTR_BUF_SIZE];
+  char blue_buf[DTOSTR_BUF_SIZE];
 
   set_line_color (renderer, color);
 
@@ -805,13 +805,13 @@ draw_string (DiaRenderer *self,
     * at top of MetaPost file (see export_metapost) to correctly
     * align text. See bug # 332554 */
   switch (alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       fprintf (renderer->file,"  draw");
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       fprintf (renderer->file,"  draw hcentered");
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       fprintf (renderer->file,"  draw rjust");
       break;
     default:

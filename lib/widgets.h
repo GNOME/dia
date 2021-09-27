@@ -26,10 +26,10 @@
 G_BEGIN_DECLS
 
 /* DiaAlignmentSelector: */
-GtkWidget *dia_alignment_selector_new            (void);
-Alignment  dia_alignment_selector_get_alignment  (GtkWidget            *as);
-void       dia_alignment_selector_set_alignment  (GtkWidget            *as,
-                                                  Alignment             align);
+GtkWidget    *dia_alignment_selector_new            (void);
+DiaAlignment  dia_alignment_selector_get_alignment  (GtkWidget            *as);
+void          dia_alignment_selector_set_alignment  (GtkWidget            *as,
+                                                     DiaAlignment          align);
 
 /* **** Util functions for Gtk stuff **** */
 

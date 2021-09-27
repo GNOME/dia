@@ -857,9 +857,9 @@ read_entity_text_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
 
   /* text data */
   Point location = {0, 0};
-  real height = text_scale * coord_scale * measure_scale;
-  real y_offset = 0;
-  Alignment textalignment = ALIGN_LEFT;
+  double height = text_scale * coord_scale * measure_scale;
+  double y_offset = 0;
+  DiaAlignment textalignment = DIA_ALIGN_LEFT;
   char *textvalue = NULL, *textp;
 
   DiaObjectType *otype = object_get_type("Standard - Text");
@@ -924,13 +924,13 @@ read_entity_text_dxf (FILE *filedxf, DxfData *data, DiagramData *dia)
       case 72:
         switch (atoi (data->value)) {
           case 0:
-            textalignment = ALIGN_LEFT;
+            textalignment = DIA_ALIGN_LEFT;
             break;
           case 1:
-            textalignment = ALIGN_CENTER;
+            textalignment = DIA_ALIGN_CENTRE;
             break;
           case 2:
-            textalignment = ALIGN_RIGHT;
+            textalignment = DIA_ALIGN_RIGHT;
             break;
           case 3:
             /* FIXME - it's not clear what these are */

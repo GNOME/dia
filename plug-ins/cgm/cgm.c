@@ -948,17 +948,17 @@ draw_beziergon (DiaRenderer *self,
 
 
 static void
-draw_string (DiaRenderer *self,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *colour)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *colour)
 {
   CgmRenderer *renderer = CGM_RENDERER (self);
   double x = pos->x, y = swap_y (renderer, pos->y);
-  gint len, chunk;
-  const gint maxfirstchunk = 255 - 2 * REALSIZE - 2 - 1;
-  const gint maxappendchunk = 255 - 2 - 1;
+  int len, chunk;
+  const int maxfirstchunk = 255 - 2 * REALSIZE - 2 - 1;
+  const int maxappendchunk = 255 - 2 - 1;
 
   /* check for empty strings */
   len = strlen (text);
@@ -969,13 +969,13 @@ draw_string (DiaRenderer *self,
   write_text_attributes (renderer, colour);
 
   switch (alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       x -= dia_font_string_width (text, renderer->font,
                                   renderer->tcurrent.font_height) / 2;
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       x -= dia_font_string_width (text, renderer->font,
                                   renderer->tcurrent.font_height);
       break;

@@ -361,7 +361,7 @@ req_create(Point *startpoint,
   p.x += REQ_WIDTH/2.0;
   p.y += REQ_HEIGHT/2.0;
 
-  req->text = new_text ("", font, REQ_FONT, &p, &color_black, ALIGN_CENTER);
+  req->text = new_text ("", font, REQ_FONT, &p, &color_black, DIA_ALIGN_CENTRE);
   g_clear_object (&font);
   element_init (elem, 8, NUM_CONNECTIONS);
 

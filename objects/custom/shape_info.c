@@ -46,7 +46,7 @@
 #include "units.h"
 
 #define FONT_HEIGHT_DEFAULT 1
-#define TEXT_ALIGNMENT_DEFAULT ALIGN_CENTER
+#define TEXT_ALIGNMENT_DEFAULT DIA_ALIGN_CENTRE
 
 static ShapeInfo *load_shape_info(const gchar *filename, ShapeInfo *preload);
 static void update_bounds(ShapeInfo *info);
@@ -857,19 +857,21 @@ load_shape_info (const gchar *filename, ShapeInfo *preload)
       str = xmlGetProp(node, (const xmlChar *)"resize");
       if (str) {
         info->resize_with_text = TRUE;
-        if (!xmlStrcmp(str,(const xmlChar *)"no"))
+        if (!xmlStrcmp (str, (const xmlChar *) "no")) {
           info->resize_with_text = FALSE;
-	xmlFree(str);
+        }
       }
-      info->text_align = ALIGN_CENTER;
-      str = xmlGetProp(node, (const xmlChar *)"align");
+      dia_clear_xml_string (&str);
+      info->text_align = DIA_ALIGN_CENTRE;
+      str = xmlGetProp (node, (const xmlChar *) "align");
       if (str) {
-	if (!xmlStrcmp(str, (const xmlChar *)"left"))
-	  info->text_align = ALIGN_LEFT;
-	else if (!xmlStrcmp(str, (const xmlChar *)"right"))
-	  info->text_align = ALIGN_RIGHT;
-	xmlFree(str);
+        if (!xmlStrcmp (str, (const xmlChar *) "left")) {
+          info->text_align = DIA_ALIGN_LEFT;
+        } else if (!xmlStrcmp (str, (const xmlChar *) "right")) {
+          info->text_align = DIA_ALIGN_RIGHT;
+        }
       }
+      dia_clear_xml_string (&str);
       info->has_text = TRUE;
     } else if (node->ns == shape_ns && !xmlStrcmp(node->name, (const xmlChar *)"aspectratio")) {
       tmp = (gchar *) xmlGetProp(node, (const xmlChar *)"type");

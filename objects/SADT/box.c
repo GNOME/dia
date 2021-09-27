@@ -326,7 +326,8 @@ sadtbox_draw (Box *box, DiaRenderer *renderer)
   pos.y -= .3 * idfontheight;
   dia_renderer_draw_string (renderer,
                             box->id,
-                            &pos, ALIGN_RIGHT,
+                            &pos,
+                            DIA_ALIGN_RIGHT,
                             &box->text->color);
 }
 
@@ -553,12 +554,14 @@ sadtbox_create(Point *startpoint,
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + /*default_properties.font_size*/ 0.8 / 2;
 
-  font = dia_font_new_from_style( DIA_FONT_SANS|DIA_FONT_BOLD ,0.8);
+  font = dia_font_new_from_style (DIA_FONT_SANS|DIA_FONT_BOLD, 0.8);
 
-  box->text = new_text("", font,
-                       0.8, &p,
-                       &color_black,
-                       ALIGN_CENTER);
+  box->text = new_text ("",
+                        font,
+                        0.8,
+                        &p,
+                        &color_black,
+                        DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   box->id = g_strdup("A0"); /* should be made better.

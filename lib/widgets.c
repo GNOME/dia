@@ -43,24 +43,30 @@ dia_alignment_selector_new (void)
 {
   GtkWidget *omenu = dia_option_menu_new ();
 
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Left"), ALIGN_LEFT);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Center"), ALIGN_CENTER);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Right"), ALIGN_RIGHT);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu),
+                            _("Left"),
+                            DIA_ALIGN_LEFT);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu),
+                            _("Center"),
+                            DIA_ALIGN_CENTRE);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu),
+                            _("Right"),
+                            DIA_ALIGN_RIGHT);
 
   return omenu;
 }
 
 
-Alignment
-dia_alignment_selector_get_alignment(GtkWidget *as)
+DiaAlignment
+dia_alignment_selector_get_alignment (GtkWidget *as)
 {
-  return (Alignment) dia_option_menu_get_active (DIA_OPTION_MENU (as));
+  return (DiaAlignment) dia_option_menu_get_active (DIA_OPTION_MENU (as));
 }
 
 
 void
-dia_alignment_selector_set_alignment (GtkWidget *as,
-                                      Alignment  align)
+dia_alignment_selector_set_alignment (GtkWidget    *as,
+                                      DiaAlignment  align)
 {
   dia_option_menu_set_active (DIA_OPTION_MENU (as), align);
 }

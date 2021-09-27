@@ -272,11 +272,11 @@ calculate_relative_luminance (const Color *c)
 }
 
 static void
-dia_cairo_interactive_renderer_draw_text_line (DiaRenderer *self,
-                                               TextLine    *text_line,
-                                               Point       *pos,
-                                               Alignment    alignment,
-                                               Color       *color)
+dia_cairo_interactive_renderer_draw_text_line (DiaRenderer  *self,
+                                               TextLine     *text_line,
+                                               Point        *pos,
+                                               DiaAlignment  alignment,
+                                               Color        *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   DiaCairoInteractiveRenderer *interactive = DIA_CAIRO_INTERACTIVE_RENDERER (self);

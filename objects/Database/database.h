@@ -152,10 +152,10 @@ struct _TableReference {
 
   double sp_desc_width;         /* start-point */
   Point sp_desc_pos;            /* start-point */
-  Alignment sp_desc_text_align; /* start-point */
+  DiaAlignment sp_desc_text_align; /* start-point */
   double ep_desc_width;         /* end-point */
   Point ep_desc_pos;            /* end-point */
-  Alignment ep_desc_text_align; /* end-point */
+  DiaAlignment ep_desc_text_align; /* end-point */
 };
 
 G_END_DECLS

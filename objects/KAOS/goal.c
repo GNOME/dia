@@ -721,7 +721,7 @@ goal_create(Point *startpoint,
   goal->text = new_text ("", font,
                          DEFAULT_FONT, &p,
                          &color_black,
-                         ALIGN_CENTER);
+                         DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init(elem, 8, 0);

@@ -484,7 +484,12 @@ actor_create(Point *startpoint,
   p = *startpoint;
   p.x += elem->width / 2.0;
   p.y += elem->height / 2.0 + ACTOR_FONT / 2;
-  actor->text = new_text ("", font, ACTOR_FONT, &p, &ACTOR_FG_COLOR, ALIGN_CENTER);
+  actor->text = new_text ("",
+                          font,
+                          ACTOR_FONT,
+                          &p,
+                          &ACTOR_FG_COLOR,
+                          DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init (elem, 8, NUM_CONNECTIONS);

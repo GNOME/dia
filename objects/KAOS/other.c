@@ -657,10 +657,12 @@ other_create(Point *startpoint,
 
   font = dia_font_new_from_style( DIA_FONT_SANS , DEFAULT_FONT);
 
-  other->text = new_text("", font,
-                       DEFAULT_FONT, &p,
-                       &color_black,
-                       ALIGN_CENTER);
+  other->text = new_text ("",
+                          font,
+                          DEFAULT_FONT,
+                          &p,
+                          &color_black,
+                          DIA_ALIGN_CENTRE);
   g_clear_object (&font);
 
   element_init(elem, 8, 1);

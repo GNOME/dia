@@ -81,7 +81,7 @@ void text_line_adjust_glyphs(TextLine *line,
 			     real scale);
 void text_line_adjust_layout_line(TextLine *line, PangoLayoutLine *layoutline,
 				  real scale);
-real text_line_get_alignment_adjustment(TextLine *text_line,
-					Alignment alignment);
+double    text_line_get_alignment_adjustment  (TextLine     *text_line,
+                                               DiaAlignment  alignment);
 
 #endif

@@ -68,11 +68,11 @@ static void draw_beziergon (DiaRenderer *renderer,
 			    int numpoints,
 			    Color *fill,
 			    Color *stroke);
-static void draw_string (DiaRenderer *renderer,
-			 const gchar *text,
-			 Point *pos,
-			 Alignment alignment,
-			 Color *color);
+static void draw_string            (DiaRenderer  *renderer,
+                                    const char   *text,
+                                    Point        *pos,
+                                    DiaAlignment  alignment,
+                                    Color        *color);
 static void draw_image (DiaRenderer *renderer,
 			Point *point,
 			real width, real height,
@@ -448,17 +448,16 @@ draw_ellipse (DiaRenderer *renderer,
 }
 
 
-/*!
- * \brief Draw a string
- * Creates a _Text object with the properties given by _DiaImportRenderer::set_font().
- * \memberof _DiaImportRenderer
+/*
+ * Creates a #Text object with the properties given by #DiaImportRenderer
+ * dia_renderer_set_font().
  */
 static void
-draw_string (DiaRenderer *renderer,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *color)
+draw_string (DiaRenderer  *renderer,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *color)
 {
   DiaImportRenderer *self = DIA_IMPORT_RENDERER (renderer);
   DiaObject *object = create_standard_text (pos->x, pos->y);

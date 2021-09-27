@@ -817,11 +817,14 @@ draw_beziergon (DiaRenderer *self,
   if (stroke) /* XXX: still not closing the path */
     draw_bezier (self, points, numpoints, stroke);
 }
+
+
 static void
-draw_string(DiaRenderer *self,
-            const char *text,
-            Point *pos, Alignment alignment,
-            Color *colour)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *colour)
 {
   WpgRenderer *renderer = WPG_RENDERER (self);
   gint16 len;
@@ -837,13 +840,13 @@ draw_string(DiaRenderer *self,
   renderer->TextStyle.YAlign = 3; /* bottom ??? */
 
   switch (alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       renderer->TextStyle.XAlign = 0;
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       renderer->TextStyle.XAlign = 1;
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       renderer->TextStyle.XAlign = 2;
       break;
     default:

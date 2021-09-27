@@ -390,11 +390,14 @@ basestation_create(Point *startpoint,
 
   font = dia_font_new_from_style (DIA_FONT_MONOSPACE, 0.8);
   p = *startpoint;
-  p.y += BASESTATION_HEIGHT -
-    dia_font_descent(_("Base Station"), font, 0.8);
+  p.y += BASESTATION_HEIGHT - dia_font_descent (_("Base Station"), font, 0.8);
 
-  basestation->text = new_text(_("Base Station"),
-                               font, 0.8, &p, &color_black, ALIGN_CENTER);
+  basestation->text = new_text (_("Base Station"),
+                                font,
+                                0.8,
+                                &p,
+                                &color_black,
+                                DIA_ALIGN_CENTRE);
   g_clear_object (&font);
   basestation->line_colour = color_black;
   basestation->fill_colour = color_white;

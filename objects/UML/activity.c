@@ -303,9 +303,9 @@ state_create_activity(Point *startpoint,
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;
 
-  state->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  state->text = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_CENTRE);
   g_clear_object (&font);
-  element_init(elem, 8, NUM_CONNECTIONS);
+  element_init (elem, 8, NUM_CONNECTIONS);
 
   for (i=0;i<NUM_CONNECTIONS;i++) {
     obj->connections[i] = &state->connections[i];

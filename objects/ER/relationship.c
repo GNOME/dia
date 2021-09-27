@@ -256,7 +256,7 @@ relationship_draw (Relationship *relationship, DiaRenderer *renderer)
   Point p;
   Element *elem;
   double diff;
-  Alignment left_align;
+  DiaAlignment left_align;
 
   assert(relationship != NULL);
   assert(renderer != NULL);
@@ -289,13 +289,13 @@ relationship_draw (Relationship *relationship, DiaRenderer *renderer)
     lc.y = corners[1].y - 0.3;
     rc.x = corners[3].x + 0.2;
     rc.y = corners[3].y + 0.3 + relationship->font_height;
-    left_align = ALIGN_LEFT;
+    left_align = DIA_ALIGN_LEFT;
   } else {
     lc.x = corners[0].x - CARDINALITY_DISTANCE;
     lc.y = corners[0].y - 0.3;
     rc.x = corners[2].x + CARDINALITY_DISTANCE;
     rc.y = corners[2].y - 0.3;
-    left_align = ALIGN_RIGHT;
+    left_align = DIA_ALIGN_RIGHT;
   }
 
   if (relationship->identifying) {
@@ -323,7 +323,7 @@ relationship_draw (Relationship *relationship, DiaRenderer *renderer)
   dia_renderer_draw_string (renderer,
                             relationship->right_cardinality,
                             &rc,
-                            ALIGN_LEFT,
+                            DIA_ALIGN_LEFT,
                             &color_black);
 
   p.x = elem->corner.x + elem->width / 2.0;
@@ -335,7 +335,7 @@ relationship_draw (Relationship *relationship, DiaRenderer *renderer)
   dia_renderer_draw_string (renderer,
                             relationship->name,
                             &p,
-                            ALIGN_CENTER,
+                            DIA_ALIGN_CENTRE,
                             &color_black);
 }
 

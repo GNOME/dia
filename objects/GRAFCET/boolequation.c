@@ -113,7 +113,7 @@ textblock_draw (Block *block, Boolequation *booleq, DiaRenderer *renderer)
   dia_renderer_draw_string (renderer,
                             block->d.text,
                             &block->pos,
-                            ALIGN_LEFT,
+                            DIA_ALIGN_LEFT,
                             &booleq->color);
 }
 
@@ -216,7 +216,7 @@ opblock_draw (Block *block, Boolequation *booleq, DiaRenderer *renderer)
   dia_renderer_draw_string (renderer,
                             opstring (block->d.operator),
                             &block->pos,
-                            ALIGN_LEFT,
+                            DIA_ALIGN_LEFT,
                             &booleq->color);
 }
 
@@ -393,8 +393,16 @@ parensblock_draw (Block *block, Boolequation *booleq, DiaRenderer *renderer)
   pt.y = block->pos.y;
   pt.x = block->d.inside->ur.x;
 
-  dia_renderer_draw_string (renderer,"(",&block->pos,ALIGN_LEFT,&booleq->color);
-  dia_renderer_draw_string (renderer,")",&pt,ALIGN_LEFT,&booleq->color);
+  dia_renderer_draw_string (renderer,
+                            "(",
+                            &block->pos,
+                            DIA_ALIGN_LEFT,
+                            &booleq->color);
+  dia_renderer_draw_string (renderer,
+                            ")",
+                            &pt,
+                            DIA_ALIGN_LEFT,
+                            &booleq->color);
 }
 
 

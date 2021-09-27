@@ -647,18 +647,18 @@ draw_text (DiaRenderer *self,
   }
 }
 
-/*!
- * \brief Convert the string back to a _Text object and render that
- * \memberof _DiaPathRenderer
+
+/*
+ * Convert the string back to a #Text object and render that
  */
 static void
-draw_string (DiaRenderer *self,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *color)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *color)
 {
-  if (text && strlen(text)) {
+  if (text && strlen (text)) {
     Text *text_obj;
     DiaFont *font;
     double font_height;

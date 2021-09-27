@@ -290,7 +290,7 @@ largepackage_draw (LargePackage *pkg, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer,
                               pkg->st_stereotype,
                               &p1,
-                              ALIGN_LEFT,
+                              DIA_ALIGN_LEFT,
                               &pkg->text_color);
   }
   p1.y += pkg->font_height;
@@ -299,7 +299,7 @@ largepackage_draw (LargePackage *pkg, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer,
                               pkg->name,
                               &p1,
-                              ALIGN_LEFT,
+                              DIA_ALIGN_LEFT,
                               &pkg->text_color);
   }
 }

@@ -1148,8 +1148,9 @@ text_to_path (const Text *text, GArray *points)
   pango_layout_set_indent (layout, 0);
   pango_layout_set_justify (layout, FALSE);
   pango_layout_set_alignment (layout,
-			      text->alignment == ALIGN_LEFT ? PANGO_ALIGN_LEFT :
-			      text->alignment == ALIGN_RIGHT ? PANGO_ALIGN_RIGHT : PANGO_ALIGN_CENTER);
+                              text->alignment == DIA_ALIGN_LEFT ?
+                                PANGO_ALIGN_LEFT : text->alignment == DIA_ALIGN_RIGHT ?
+                                  PANGO_ALIGN_RIGHT : PANGO_ALIGN_CENTER);
 
   str = text_get_string_copy (text);
   pango_layout_set_text (layout, str, -1);

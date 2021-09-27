@@ -193,7 +193,7 @@ text_line_get_descent(const TextLine *text_line)
  * @text_line: a line of text
  * @alignment: how to align it.
  *
- * Calculate #TextLine adjustment for #Alignment
+ * Calculate #TextLine adjustment for #DiaAlignment
  *
  * Return the amount this text line would need to be shifted in order to
  * implement the given alignment.
@@ -205,15 +205,16 @@ text_line_get_descent(const TextLine *text_line)
  * Since: dawn-of-time
  */
 double
-text_line_get_alignment_adjustment (TextLine *text_line, Alignment alignment)
+text_line_get_alignment_adjustment (TextLine *text_line, DiaAlignment alignment)
 {
   text_line_cache_values (text_line);
+
   switch (alignment) {
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
      return text_line->width / 2;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
        return text_line->width;
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
     default:
      return 0.0;
   }

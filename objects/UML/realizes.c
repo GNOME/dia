@@ -40,7 +40,7 @@ struct _Realizes {
   OrthConn orth;
 
   Point text_pos;
-  Alignment text_align;
+  DiaAlignment text_align;
   real text_width;
 
   Color text_color;
@@ -328,7 +328,7 @@ realizes_update_data(Realizes *realize)
 
   switch (realize->orth.orientation[i]) {
     case HORIZONTAL:
-      realize->text_align = ALIGN_CENTER;
+      realize->text_align = DIA_ALIGN_CENTRE;
       realize->text_pos.x = 0.5*(points[i].x+points[i+1].x);
       realize->text_pos.y = points[i].y;
       if (realize->name)
@@ -336,7 +336,7 @@ realizes_update_data(Realizes *realize)
           dia_font_descent (realize->name,realize->font, realize->font_height);
       break;
     case VERTICAL:
-      realize->text_align = ALIGN_LEFT;
+      realize->text_align = DIA_ALIGN_LEFT;
       realize->text_pos.x = points[i].x + 0.1;
       realize->text_pos.y = 0.5*(points[i].y+points[i+1].y);
       if (realize->name)
@@ -349,8 +349,9 @@ realizes_update_data(Realizes *realize)
 
   /* Add the text recangle to the bounding box: */
   rect.left = realize->text_pos.x;
-  if (realize->text_align == ALIGN_CENTER)
-    rect.left -= realize->text_width/2.0;
+  if (realize->text_align == DIA_ALIGN_CENTRE) {
+    rect.left -= realize->text_width / 2.0;
+  }
   rect.right = rect.left + realize->text_width;
   rect.top = realize->text_pos.y;
   if (realize->name)

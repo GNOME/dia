@@ -518,7 +518,11 @@ link_draw (Link *link, DiaRenderer *renderer)
   /** drawing decoration **/
   dia_renderer_set_font (renderer, link_font, LINK_FONTHEIGHT);
   if ((annot != NULL) && strlen (annot) != 0) {
-    dia_renderer_draw_string (renderer, annot, &pa, ALIGN_CENTER, &color_black);
+    dia_renderer_draw_string (renderer,
+                              annot,
+                              &pa,
+                              DIA_ALIGN_CENTRE,
+                              &color_black);
   }
   g_clear_pointer (&annot, g_free);
 

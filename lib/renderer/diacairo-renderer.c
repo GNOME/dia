@@ -1009,12 +1009,13 @@ dia_cairo_renderer_draw_beziergon (DiaRenderer *self,
   }
 }
 
+
 static void
-dia_cairo_renderer_draw_string (DiaRenderer *self,
-                                const char  *text,
-                                Point       *pos,
-                                Alignment    alignment,
-                                Color       *color)
+dia_cairo_renderer_draw_string (DiaRenderer  *self,
+                                const char   *text,
+                                Point        *pos,
+                                DiaAlignment  alignment,
+                                Color        *color)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (self);
   int len = strlen (text);
@@ -1034,8 +1035,9 @@ dia_cairo_renderer_draw_string (DiaRenderer *self,
                          color->alpha);
   cairo_save (renderer->cr);
   /* alignment calculation done by pangocairo? */
-  pango_layout_set_alignment (renderer->layout, alignment == ALIGN_CENTER ? PANGO_ALIGN_CENTER :
-                                                alignment == ALIGN_RIGHT ? PANGO_ALIGN_RIGHT : PANGO_ALIGN_LEFT);
+  pango_layout_set_alignment (renderer->layout, alignment == DIA_ALIGN_CENTRE ?
+                                                  PANGO_ALIGN_CENTER : alignment == DIA_ALIGN_RIGHT ?
+                                                    PANGO_ALIGN_RIGHT : PANGO_ALIGN_LEFT);
   pango_layout_set_text (renderer->layout, text, len);
   {
     PangoLayoutIter *iter = pango_layout_get_iter (renderer->layout);
@@ -1044,8 +1046,9 @@ dia_cairo_renderer_draw_string (DiaRenderer *self,
     PangoRectangle extents;
     int shift;
     pango_layout_iter_get_line_extents (iter, NULL, &extents);
-    shift = alignment == ALIGN_CENTER ? PANGO_RBEARING (extents)/2 :
-            alignment == ALIGN_RIGHT ? PANGO_RBEARING (extents) : 0;
+    shift = alignment == DIA_ALIGN_CENTRE ?
+                            PANGO_RBEARING (extents) / 2: alignment == DIA_ALIGN_RIGHT ?
+                              PANGO_RBEARING (extents) : 0;
     shift /= FONT_SIZE_TWEAK;
     bline /= FONT_SIZE_TWEAK;
     cairo_move_to (renderer->cr,

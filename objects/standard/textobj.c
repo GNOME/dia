@@ -70,9 +70,9 @@ struct _Textobj {
 };
 
 static struct _TextobjProperties {
-  Alignment alignment;
+  DiaAlignment alignment;
   Valign vert_align;
-} default_properties = { ALIGN_LEFT, VALIGN_FIRST_LINE } ;
+} default_properties = { DIA_ALIGN_LEFT, VALIGN_FIRST_LINE };
 
 static real textobj_distance_from(Textobj *textobj, Point *point);
 static void textobj_select(Textobj *textobj, Point *clicked_point,
@@ -377,11 +377,13 @@ textobj_update_data (Textobj *textobj)
     to2.y += textobj->margin; /* down */
   else if (VALIGN_BOTTOM == textobj->vert_align)
     to2.y -= textobj->margin; /* up */
-  if (ALIGN_LEFT == textobj->text->alignment)
+
+  if (DIA_ALIGN_LEFT == textobj->text->alignment) {
     to2.x += textobj->margin; /* right */
-  else if (ALIGN_RIGHT == textobj->text->alignment)
+  } else if (DIA_ALIGN_RIGHT == textobj->text->alignment) {
     to2.x -= textobj->margin; /* left */
-  text_set_position(textobj->text, &to2);
+  }
+  text_set_position (textobj->text, &to2);
 
   /* always use the unrotated box ... */
   text_calc_boundingbox(textobj->text, &tx_bb);
@@ -521,13 +523,17 @@ textobj_load(ObjectNode obj_node, int version, DiaContext *ctx)
 
   object_load(obj, obj_node, ctx);
 
-  attr = object_find_attribute(obj_node, "text");
+  attr = object_find_attribute (obj_node, "text");
   if (attr != NULL) {
-    textobj->text = data_text(attribute_first_data(attr), ctx);
+    textobj->text = data_text (attribute_first_data (attr), ctx);
   } else {
-    DiaFont* font = dia_font_new_from_style(DIA_FONT_MONOSPACE,1.0);
-    textobj->text = new_text ("", font, 1.0,
-                              &startpoint, &color_black, ALIGN_CENTER);
+    DiaFont *font = dia_font_new_from_style (DIA_FONT_MONOSPACE, 1.0);
+    textobj->text = new_text ("",
+                              font,
+                              1.0,
+                              &startpoint,
+                              &color_black,
+                              DIA_ALIGN_CENTRE);
     g_clear_object (&font);
   }
 

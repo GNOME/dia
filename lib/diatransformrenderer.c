@@ -493,16 +493,16 @@ draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle)
   }
 }
 
-/*!
- * \brief Convert the string back to a _Text object and render that
- * \memberof _DiaTransformRenderer
+
+/*
+ * Convert the string back to a _Text object and render that
  */
 static void
-draw_string (DiaRenderer *self,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *color)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *color)
 {
   if (text && strlen (text)) {
     Text *text_obj;

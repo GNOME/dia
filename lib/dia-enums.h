@@ -51,11 +51,11 @@ typedef enum /*< enum >*/ {
   DIA_FILL_STYLE_SOLID
 } DiaFillStyle;
 
-typedef enum {
-  ALIGN_LEFT,
-  ALIGN_CENTER,
-  ALIGN_RIGHT
-} Alignment;
+typedef enum /*< enum >*/ {
+  DIA_ALIGN_LEFT,
+  DIA_ALIGN_CENTRE,
+  DIA_ALIGN_RIGHT
+} DiaAlignment;
 
 typedef enum {
   TEXTFIT_NEVER,

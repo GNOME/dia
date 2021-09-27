@@ -1240,22 +1240,24 @@ draw_ellipse (DiaRenderer *self,
     g_slist_free(Shape.any.children);
 }
 
+
 /** Render a Dia string
  * @param self a renderer
  * @param text the string
  * @param pos start (or centre etc.)
  * @param alignment alignment
  * @param color line colour
- * @todo Alignment, colour
+ * @todo DiaAlignment, colour
  * @bug Bounding box incorrect
  */
-
-static void draw_string(DiaRenderer *self,
-			const char *text,
-			Point *pos, Alignment alignment,
-			Color *color)
+static void
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *color)
 {
-    VDXRenderer *renderer = VDX_RENDERER(self);
+    VDXRenderer *renderer = VDX_RENDERER (self);
     Point a;
     struct vdx_Shape Shape;
     struct vdx_XForm XForm;
@@ -1303,13 +1305,13 @@ static void draw_string(DiaRenderer *self,
     text_width *= 1.2;
     a.y += dia_font_descent(text, renderer->font, renderer->fontheight);
     switch (alignment) {
-      case ALIGN_LEFT:
+      case DIA_ALIGN_LEFT:
         /* nothing to do this appears to be default */
         break;
-      case ALIGN_CENTER:
+      case DIA_ALIGN_CENTRE:
         a.x -= text_width / 2.0;
         break;
-      case ALIGN_RIGHT:
+      case DIA_ALIGN_RIGHT:
         a.x -= text_width;
         break;
       default:

@@ -53,9 +53,13 @@
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
 #define dia_svg_dtostr(buf,d)                                  \
   g_ascii_formatd(buf,sizeof(buf),"%g",(d)*renderer->scale)
-static void
-draw_text_line(DiaRenderer *self, TextLine *text_line,
-	       Point *pos, Alignment alignment, Color *colour);
+
+
+static void  draw_text_line      (DiaRenderer  *self,
+                                  TextLine     *text_line,
+                                  Point        *pos,
+                                  DiaAlignment  alignment,
+                                  Color        *colour);
 
 /*!
  * \brief Initialize to SVG rendering defaults
@@ -778,16 +782,16 @@ draw_beziergon (DiaRenderer *self,
   _bezier(self, points, numpoints, fill, stroke, TRUE);
 }
 
-/*!
- * \brief Draw a text element by delegating to draw_text_line()
- * \memberof _DiaSvgRenderer
+
+/*
+ * Draw a text element by delegating to draw_text_line()
  */
 static void
-draw_string (DiaRenderer *self,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *colour)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *colour)
 {
   TextLine *text_line;
   DiaFont *font;
@@ -800,18 +804,21 @@ draw_string (DiaRenderer *self,
   text_line_destroy (text_line);
 }
 
-/*!
- * \brief Draw a text element (single line)
- * \memberof _DiaSvgRenderer
+
+/*
+ * Draw a text element (single line)
  */
 static void
-draw_text_line(DiaRenderer *self, TextLine *text_line,
-	       Point *pos, Alignment alignment, Color *colour)
+draw_text_line (DiaRenderer  *self,
+                TextLine     *text_line,
+                Point        *pos,
+                DiaAlignment  alignment,
+                Color        *colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
-  real saved_width;
-  gchar d_buf[DTOSTR_BUF_SIZE];
+  double saved_width;
+  char d_buf[DTOSTR_BUF_SIZE];
   DiaFont *font;
   GString *style;
 
@@ -833,17 +840,17 @@ draw_text_line(DiaRenderer *self, TextLine *text_line,
   /* This is going to break for non-LTR texts, as SVG thinks 'start' is
    * 'right' for those. */
   switch (alignment) {
-  case ALIGN_LEFT:
-    g_string_append (style, "; text-anchor:start");
-    break;
-  case ALIGN_CENTER:
-    g_string_append (style, "; text-anchor:middle");
-    break;
-  case ALIGN_RIGHT:
-    g_string_append (style, "; text-anchor:end");
-    break;
-  default:
-    break;
+    case DIA_ALIGN_LEFT:
+      g_string_append (style, "; text-anchor:start");
+      break;
+    case DIA_ALIGN_CENTRE:
+      g_string_append (style, "; text-anchor:middle");
+      break;
+    case DIA_ALIGN_RIGHT:
+      g_string_append (style, "; text-anchor:end");
+      break;
+    default:
+      break;
   }
 
   font = text_line_get_font(text_line);

@@ -124,10 +124,11 @@ static void draw_beziergon(DiaRenderer *self,
 			   int numpoints,
 			   Color *fill,
 			   Color *stroke);
-static void draw_string(DiaRenderer *self,
-			const char *text,
-			Point *pos, Alignment alignment,
-			Color *color);
+static void draw_string                (DiaRenderer  *self,
+                                        const char   *text,
+                                        Point        *pos,
+                                        DiaAlignment  alignment,
+                                        Color        *color);
 static void draw_image(DiaRenderer *self,
 		       Point *point,
 		       real width, real height,
@@ -1289,31 +1290,31 @@ tex_escape_string(const gchar *src, DiaContext *ctx)
 
 
 static void
-draw_string (DiaRenderer *self,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *color)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment alignment,
+             Color        *color)
 {
-  PgfRenderer *renderer = PGF_RENDERER(self);
-  gchar *escaped = tex_escape_string (text, renderer->ctx);
-  gchar px_buf[DTOSTR_BUF_SIZE];
-  gchar py_buf[DTOSTR_BUF_SIZE];
+  PgfRenderer *renderer = PGF_RENDERER (self);
+  char *escaped = tex_escape_string (text, renderer->ctx);
+  char px_buf[DTOSTR_BUF_SIZE];
+  char py_buf[DTOSTR_BUF_SIZE];
 
   set_line_color (renderer,color);
   set_fill_color (renderer,color);
 
   fprintf (renderer->file,"\\node");
   switch (alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       fprintf (renderer->file,
         "[anchor=base west,inner sep=0pt,outer sep=0pt,color=dialinecolor]");
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       fprintf (renderer->file,
         "[anchor=base,inner sep=0pt, outer sep=0pt,color=dialinecolor]");
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       fprintf (renderer->file,
         "[anchor=base east,inner sep=0pt, outer sep=0pt,color=dialinecolor]");
       break;

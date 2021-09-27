@@ -172,9 +172,9 @@ struct _DiaRendererClass
                                                  Color            *fill,
                                                  Color            *stroke);
   void     (*draw_string)                       (DiaRenderer      *renderer,
-                                                 const gchar      *text,
+                                                 const char       *text,
                                                  Point            *pos,
-                                                 Alignment         alignment,
+                                                 DiaAlignment      alignment,
                                                  Color            *color);
   void     (*draw_image)                        (DiaRenderer      *renderer,
                                                  Point            *point,
@@ -204,7 +204,7 @@ struct _DiaRendererClass
   void     (*draw_text_line)                    (DiaRenderer      *renderer,
                                                  TextLine         *text_line,
                                                  Point            *pos,
-                                                 Alignment         alignment,
+                                                 DiaAlignment      alignment,
                                                  Color            *color);
   void     (*draw_rect)                         (DiaRenderer      *renderer,
                                                  Point            *ul_corner,
@@ -339,9 +339,9 @@ void     dia_renderer_draw_ellipse                      (DiaRenderer      *self,
                                                          Color            *fill,
                                                          Color            *stroke);
 void     dia_renderer_draw_string                       (DiaRenderer      *self,
-                                                         const gchar      *text,
+                                                         const char       *text,
                                                          Point            *pos,
-                                                         Alignment         alignment,
+                                                         DiaAlignment      alignment,
                                                          Color            *color);
 void     dia_renderer_draw_image                        (DiaRenderer      *self,
                                                          Point            *point,
@@ -366,7 +366,7 @@ void     dia_renderer_draw_text                         (DiaRenderer      *self,
 void     dia_renderer_draw_text_line                    (DiaRenderer      *self,
                                                          TextLine         *text_line,
                                                          Point            *pos,
-                                                         Alignment         alignment,
+                                                         DiaAlignment      alignment,
                                                          Color            *color);
 void     dia_renderer_draw_rect                         (DiaRenderer      *self,
                                                          Point            *ul_corner,

@@ -282,7 +282,7 @@ measure_draw (Measure *measure, DiaRenderer *renderer)
   dia_renderer_draw_string (renderer,
                             measure->name,
                             &measure->text_pos,
-                            ALIGN_LEFT,
+                            DIA_ALIGN_LEFT,
                             &measure->line_color);
 }
 

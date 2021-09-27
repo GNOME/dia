@@ -1072,7 +1072,7 @@ draw_beziergon (DiaRenderer *renderer,
  * @renderer: the #DiaRenderer
  * @text: the string to draw
  * @pos: #Point where to draw @text
- * @alignment: the @text #Alignment
+ * @alignment: the @text #DiaAlignment
  * @colour: the #Color of @text
  *
  * Draw string
@@ -1081,20 +1081,20 @@ draw_beziergon (DiaRenderer *renderer,
  * will be generated when called.
  */
 static void
-draw_string (DiaRenderer *renderer,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *colour)
+draw_string (DiaRenderer  *renderer,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *colour)
 {
   PyObject *func, *res, *arg, *self = PYDIA_RENDERER (renderer);
 
   switch (alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       break;
     default:
       break;

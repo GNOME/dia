@@ -116,19 +116,23 @@ static void draw_beziergon (DiaRenderer *renderer,
                             int numpoints,
                             Color *fill,
                             Color *stroke);
-static void draw_string (DiaRenderer *renderer,
-                         const gchar *text,
-                         Point *pos,
-                         Alignment alignment,
-                         Color *color);
-static void draw_image (DiaRenderer *renderer,
-                        Point *point,
-                        real width, real height,
-                        DiaImage *image);
-static void draw_text  (DiaRenderer *renderer,
-                        Text *text);
-static void draw_text_line  (DiaRenderer *renderer,
-			     TextLine *text_line, Point *pos, Alignment alignment, Color *color);
+static void draw_string          (DiaRenderer  *renderer,
+                                  const char   *text,
+                                  Point        *pos,
+                                  DiaAlignment  alignment,
+                                  Color        *color);
+static void draw_image           (DiaRenderer  *renderer,
+                                  Point        *point,
+                                  double        width,
+                                  double        height,
+                                  DiaImage     *image);
+static void draw_text            (DiaRenderer  *renderer,
+                                  Text         *text);
+static void draw_text_line       (DiaRenderer  *renderer,
+                                  TextLine     *text_line,
+                                  Point        *pos,
+                                  DiaAlignment  alignment,
+                                  Color        *color);
 static void draw_rotated_text (DiaRenderer *renderer, Text *text,
 			       Point *center, real angle);
 static void draw_rotated_image (DiaRenderer *renderer,
@@ -612,18 +616,20 @@ draw_ellipse (DiaRenderer *renderer, Point *center,
  */
 
 
-/*!
- * \brief Draw a string
- * \memberof _DiaRenderer \pure
+/*
+ * Draw a string
  */
 static void
-draw_string (DiaRenderer *renderer,
-             const gchar *text, Point *pos, Alignment alignment,
-             Color *color)
+draw_string (DiaRenderer  *renderer,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *color)
 {
   g_warning ("%s::draw_string not implemented!",
              G_OBJECT_CLASS_NAME (G_OBJECT_GET_CLASS (renderer)));
 }
+
 
 /*!
  * \brief Draw an image (pixbuf)
@@ -714,9 +720,9 @@ draw_rotated_text (DiaRenderer *renderer,
       sy = (tx_bb.bottom - tx_bb.top) / (bz_bb.bottom - bz_bb.top);
 
       /* move center to origin */
-      if (ALIGN_LEFT == text->alignment) {
+      if (DIA_ALIGN_LEFT == text->alignment) {
         t.x0 = -bz_bb.left;
-      } else if (ALIGN_RIGHT == text->alignment) {
+      } else if (DIA_ALIGN_RIGHT == text->alignment) {
         t.x0 = - bz_bb.right;
       } else {
         t.x0 = -(bz_bb.left + bz_bb.right) / 2.0;
@@ -726,9 +732,9 @@ draw_rotated_text (DiaRenderer *renderer,
       dia_matrix_set_angle_and_scales (&m, G_PI * angle / 180.0, sx, sx);
       dia_matrix_multiply (&m, &t, &m);
       /* move back center from origin */
-      if (ALIGN_LEFT == text->alignment) {
+      if (DIA_ALIGN_LEFT == text->alignment) {
         t.x0 = tx_bb.left;
-      } else if (ALIGN_RIGHT == text->alignment) {
+      } else if (DIA_ALIGN_RIGHT == text->alignment) {
         t.x0 = tx_bb.right;
       } else {
         t.x0 = (tx_bb.left + tx_bb.right) / 2.0;
@@ -803,12 +809,13 @@ draw_rotated_image (DiaRenderer *renderer,
   }
 }
 
+
 /**
  * draw_text_line:
  * @renderer: the #DiaRenderer
  * @text_line: the #TextLine to draw
  * @pos: where to draw @text_line
- * @alignment: text #Alignment
+ * @alignment: text #DiaAlignment
  * @color: text #Color
  *
  * Default implementation of draw_text_line
@@ -817,11 +824,11 @@ draw_rotated_image (DiaRenderer *renderer,
  * dia_renderer_set_font() and dia_renderer_draw_string().
  */
 static void
-draw_text_line (DiaRenderer *renderer,
-                TextLine    *text_line,
-                Point       *pos,
-                Alignment    alignment,
-                Color       *color)
+draw_text_line (DiaRenderer  *renderer,
+                TextLine     *text_line,
+                Point        *pos,
+                DiaAlignment  alignment,
+                Color        *color)
 {
   dia_renderer_set_font (renderer,
                          text_line_get_font (text_line),
@@ -2391,9 +2398,9 @@ dia_renderer_draw_ellipse (DiaRenderer      *self,
 
 void
 dia_renderer_draw_string (DiaRenderer      *self,
-                          const gchar      *text,
+                          const char       *text,
                           Point            *pos,
-                          Alignment         alignment,
+                          DiaAlignment      alignment,
                           Color            *color)
 {
   g_return_if_fail (DIA_IS_RENDERER (self));
@@ -2473,7 +2480,7 @@ void
 dia_renderer_draw_text_line (DiaRenderer      *self,
                              TextLine         *text_line,
                              Point            *pos,
-                             Alignment         alignment,
+                             DiaAlignment      alignment,
                              Color            *color)
 {
   g_return_if_fail (DIA_IS_RENDERER (self));

@@ -94,7 +94,7 @@ typedef struct _AssociationEnd {
   double role_descent;
   double multi_ascent;
   double multi_descent;
-  Alignment text_align;
+  DiaAlignment text_align;
   UMLVisibility visibility;	/* This value is only relevant if role is not null */
 
   int arrow;
@@ -123,7 +123,7 @@ struct _Association {
   OrthConn orth;
 
   Point text_pos;
-  Alignment text_align;
+  DiaAlignment text_align;
   double text_width;
   double ascent;
   double descent;
@@ -393,8 +393,9 @@ assoc_get_direction_poly (Association *assoc, Point* poly)
   if (assoc->show_direction) {
     if (assoc->direction == ASSOC_RIGHT) {
       poly[0].x = assoc->text_pos.x + assoc->text_width + 0.1;
-      if (assoc->text_align == ALIGN_CENTER)
-        poly[0].x -= assoc->text_width/2.0;
+      if (assoc->text_align == DIA_ALIGN_CENTRE) {
+        poly[0].x -= assoc->text_width / 2.0;
+      }
       poly[0].y = assoc->text_pos.y;
       poly[1].x = poly[0].x;
       poly[1].y = poly[0].y - assoc->font_height*0.5;
@@ -403,8 +404,9 @@ assoc_get_direction_poly (Association *assoc, Point* poly)
       return TRUE;
     } else if (assoc->direction == ASSOC_LEFT) {
       poly[0].x = assoc->text_pos.x - 0.2;
-      if (assoc->text_align == ALIGN_CENTER)
-        poly[0].x -= assoc->text_width/2.0;
+      if (assoc->text_align == DIA_ALIGN_CENTRE) {
+        poly[0].x -= assoc->text_width / 2.0;
+      }
       poly[0].y = assoc->text_pos.y;
       poly[1].x = poly[0].x;
       poly[1].y = poly[0].y - assoc->font_height*0.5;
@@ -654,10 +656,10 @@ association_update_data_end(Association *assoc, int endnum)
     case HORIZONTAL:
       end->text_pos.y -= end->role_descent;
       if (points[fp].x < points[sp].x) {
-        end->text_align = ALIGN_LEFT;
+        end->text_align = DIA_ALIGN_LEFT;
         end->text_pos.x += (get_aggregate_pos_diff (end, assoc) + ASSOCIATION_END_SPACE);
       } else {
-        end->text_align = ALIGN_RIGHT;
+        end->text_align = DIA_ALIGN_RIGHT;
         end->text_pos.x -= (get_aggregate_pos_diff (end, assoc) + ASSOCIATION_END_SPACE);
       }
       break;
@@ -677,14 +679,14 @@ association_update_data_end(Association *assoc, int endnum)
         }
       }
 
-      end->text_align = ALIGN_LEFT;
+      end->text_align = DIA_ALIGN_LEFT;
       break;
     default:
       g_return_if_reached ();
   }
   /* Add the text recangle to the bounding box: */
   rect.left = end->text_pos.x
-      - (end->text_align == ALIGN_LEFT ? 0 : end->text_width);
+      - (end->text_align == DIA_ALIGN_LEFT ? 0 : end->text_width);
   rect.right = rect.left + end->text_width;
   rect.top = end->text_pos.y - end->role_ascent;
   rect.bottom = rect.top + 2*assoc->font_height;
@@ -762,12 +764,12 @@ association_update_data(Association *assoc)
 
   switch (dir) {
     case HORIZONTAL:
-      assoc->text_align = ALIGN_CENTER;
+      assoc->text_align = DIA_ALIGN_CENTRE;
       assoc->text_pos.x = 0.5*(points[i].x+points[i+1].x);
       assoc->text_pos.y = points[i].y - assoc->descent;
       break;
     case VERTICAL:
-      assoc->text_align = ALIGN_LEFT;
+      assoc->text_align = DIA_ALIGN_LEFT;
       assoc->text_pos.x = points[i].x + 0.1;
       assoc->text_pos.y = 0.5*(points[i].y+points[i+1].y) - assoc->descent;
       break;
@@ -777,8 +779,9 @@ association_update_data(Association *assoc)
 
   /* Add the text recangle to the bounding box: */
   rect.left = assoc->text_pos.x;
-  if (assoc->text_align == ALIGN_CENTER)
-    rect.left -= assoc->text_width/2.0;
+  if (assoc->text_align == DIA_ALIGN_CENTRE) {
+    rect.left -= assoc->text_width / 2.0;
+  }
   rect.right = rect.left + assoc->text_width;
   rect.top = assoc->text_pos.y - assoc->ascent;
   rect.bottom = rect.top + assoc->font_height;

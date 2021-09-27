@@ -108,12 +108,16 @@ static void draw_layer (DiaRenderer  *self,
 static void draw_object       (DiaRenderer *renderer,
                                DiaObject   *object,
 			       DiaMatrix   *matrix);
-static void draw_string       (DiaRenderer *self,
-	                       const char *text,
-			       Point *pos, Alignment alignment,
-			       Color *colour);
-static void draw_text_line    (DiaRenderer *self, TextLine *text_line,
-	                       Point *pos, Alignment alignment, Color *colour);
+static void draw_string        (DiaRenderer  *self,
+                                const char   *text,
+                                Point        *pos,
+                                DiaAlignment  alignment,
+                                Color        *colour);
+static void draw_text_line     (DiaRenderer  *self,
+                                TextLine     *text_line,
+                                Point        *pos,
+                                DiaAlignment  alignment,
+                                Color        *colour);
 static void draw_text         (DiaRenderer *self, Text *text);
 static void draw_rotated_text (DiaRenderer *self, Text *text, Point *center, real angle);
 static void draw_rotated_image (DiaRenderer *self, Point *point,
@@ -416,7 +420,7 @@ node_set_text_style (xmlNodePtr      node,
                      DiaSvgRenderer *renderer,
                      DiaFont        *font,
                      double          font_height,
-                     Alignment       alignment,
+                     DiaAlignment    alignment,
                      Color          *colour)
 {
   double saved_width;
@@ -440,13 +444,13 @@ node_set_text_style (xmlNodePtr      node,
    * 'right' for those.
    */
   switch (alignment) {
-    case ALIGN_LEFT:
+    case DIA_ALIGN_LEFT:
       g_string_append (style, ";text-anchor:start");
       break;
-    case ALIGN_CENTER:
+    case DIA_ALIGN_CENTRE:
       g_string_append (style, ";text-anchor:middle");
       break;
-    case ALIGN_RIGHT:
+    case DIA_ALIGN_RIGHT:
       g_string_append (style, ";text-anchor:end");
       break;
     default:
@@ -501,11 +505,11 @@ _adjust_space_preserve (xmlNodePtr node,
  * \memberof _SvgRenderer
  */
 static void
-draw_string (DiaRenderer *self,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *colour)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
@@ -530,19 +534,21 @@ draw_string (DiaRenderer *self,
 }
 
 
-/*!
- * \brief Support rendering of the _TextLine object
- * \memberof _SvgRenderer
+/*
+ * Support rendering of the #TextLine object
  */
 static void
-draw_text_line(DiaRenderer *self, TextLine *text_line,
-	       Point *pos, Alignment alignment, Color *colour)
+draw_text_line (DiaRenderer  *self,
+                TextLine     *text_line,
+                Point        *pos,
+                DiaAlignment  alignment,
+                Color        *colour)
 {
   DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
   xmlNodePtr node;
-  DiaFont *font = text_line_get_font(text_line); /* no reference? */
-  real font_height = text_line_get_height(text_line);
-  gchar d_buf[G_ASCII_DTOSTR_BUF_SIZE];
+  DiaFont *font = text_line_get_font (text_line); /* no reference? */
+  double font_height = text_line_get_height (text_line);
+  char d_buf[G_ASCII_DTOSTR_BUF_SIZE];
 
   node = xmlNewChild(renderer->root, renderer->svg_name_space, (const xmlChar *)"text",
 		     (xmlChar *) text_line_get_string(text_line));

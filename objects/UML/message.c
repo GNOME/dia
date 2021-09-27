@@ -356,7 +356,7 @@ message_draw (Message *message, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer,
                               mname, /*message->text,*/
                               &message->text_pos,
-                              ALIGN_CENTER,
+                              DIA_ALIGN_CENTRE,
                               &message->text_color);
   }
 

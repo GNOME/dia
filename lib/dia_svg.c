@@ -73,7 +73,7 @@ dia_svg_style_init(DiaSvgStyle *gs, DiaSvgStyle *parent_style)
   gs->linestyle = parent_style ? parent_style->linestyle : DIA_LINE_STYLE_DEFAULT;
   gs->font = (parent_style && parent_style->font) ? g_object_ref (parent_style->font) : NULL;
   gs->font_height = parent_style ? parent_style->font_height : 0.8;
-  gs->alignment = parent_style ? parent_style->alignment : ALIGN_LEFT;
+  gs->alignment = parent_style ? parent_style->alignment : DIA_ALIGN_LEFT;
 
   gs->stop_color = parent_style ? parent_style->stop_color : 0x000000; /* default black */
   gs->stop_opacity = parent_style ? parent_style->stop_opacity : 1.0;
@@ -569,13 +569,15 @@ _style_adjust_font (DiaSvgStyle *s, const char *family, const char *style, const
 static void
 _parse_text_align (DiaSvgStyle *s, const char *ptr)
 {
-  if (!strncmp(ptr, "start", 5))
-    s->alignment = ALIGN_LEFT;
-  else if (!strncmp(ptr, "end", 3))
-    s->alignment = ALIGN_RIGHT;
-  else if (!strncmp(ptr, "middle", 6))
-    s->alignment = ALIGN_CENTER;
+  if (!strncmp (ptr, "start", 5)) {
+    s->alignment = DIA_ALIGN_LEFT;
+  } else if (!strncmp (ptr, "end", 3)) {
+    s->alignment = DIA_ALIGN_RIGHT;
+  } else if (!strncmp (ptr, "middle", 6)) {
+    s->alignment = DIA_ALIGN_CENTRE;
+  }
 }
+
 
 /*!
  * \brief Parse SVG/CSS style string

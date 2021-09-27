@@ -59,7 +59,7 @@ struct _WpgImportRenderer {
   Color stroke;
   Color fill;
   Color text_color;
-  Alignment text_align;
+  DiaAlignment text_align;
 };
 
 typedef struct _WpgImportRendererClass WpgImportRendererClass;
@@ -471,8 +471,9 @@ _do_textstyle (WpgImportRenderer *ren, WPGTextStyle *ts)
   ren->text_color.blue = c.b / 255.0;
   ren->text_color.alpha = 1.0;
 
-  ren->text_align = ts->XAlign == 0 ? ALIGN_LEFT :
-		    ts->XAlign == 1 ? ALIGN_CENTER : ALIGN_RIGHT;
+  ren->text_align = ts->XAlign == 0 ?
+                      DIA_ALIGN_LEFT : ts->XAlign == 1 ?
+                        DIA_ALIGN_CENTRE : DIA_ALIGN_RIGHT;
   /* select font */
   height = ts->Height / WPU_PER_DCM;
   if (ts->Font == 0x0DF0)

@@ -258,7 +258,7 @@ state_draw_action_string (State       *state,
   dia_renderer_draw_string (renderer,
                             action_text,
                             &pos,
-                            ALIGN_LEFT,
+                            DIA_ALIGN_LEFT,
                             &state->text->color);
   g_clear_pointer (&action_text, g_free);
 }
@@ -447,7 +447,7 @@ state_create(Point *startpoint,
   p.x += STATE_WIDTH/2.0;
   p.y += STATE_HEIGHT/2.0;
 
-  state->text = new_text("", font, 0.8, &p, &color_black, ALIGN_CENTER);
+  state->text = new_text ("", font, 0.8, &p, &color_black, DIA_ALIGN_CENTRE);
 
   g_clear_object (&font);
 

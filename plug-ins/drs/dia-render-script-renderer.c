@@ -708,11 +708,11 @@ draw_rounded_polyline (DiaRenderer *self,
 
 
 static void
-draw_string (DiaRenderer *self,
-             const char  *text,
-             Point       *pos,
-             Alignment    alignment,
-             Color       *color)
+draw_string (DiaRenderer  *self,
+             const char   *text,
+             Point        *pos,
+             DiaAlignment  alignment,
+             Color        *color)
 {
   DrsRenderer *renderer = DRS_RENDERER (self);
   xmlNodePtr node;
@@ -722,13 +722,13 @@ draw_string (DiaRenderer *self,
   _node_set_point (node, "pos", pos);
   _node_set_color (node, "fill", color);
   switch (alignment) {
-    case ALIGN_LEFT :
+    case DIA_ALIGN_LEFT:
       align = "left";
       break;
-    case ALIGN_RIGHT :
+    case DIA_ALIGN_RIGHT:
       align = "right";
       break;
-    case ALIGN_CENTER :
+    case DIA_ALIGN_CENTRE:
       align = "center";
       break;
     default:

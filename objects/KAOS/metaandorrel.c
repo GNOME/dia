@@ -495,7 +495,7 @@ maor_draw (Maor *maor, DiaRenderer *renderer)
     dia_renderer_draw_string (renderer,
                               mname,
                               &maor->text_pos,
-                              ALIGN_CENTER,
+                              DIA_ALIGN_CENTRE,
                               &color_black);
   }
 
