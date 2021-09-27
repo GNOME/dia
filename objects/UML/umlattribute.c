@@ -83,7 +83,7 @@ uml_attribute_new (void)
   attr->type = NULL;
   attr->value = NULL;
   attr->comment = NULL;
-  attr->visibility = UML_PUBLIC;
+  attr->visibility = DIA_UML_PUBLIC;
   attr->abstract = FALSE;
   attr->class_scope = FALSE;
 #if 0 /* setup elsewhere */

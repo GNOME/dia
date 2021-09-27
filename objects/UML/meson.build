@@ -40,7 +40,10 @@ sources += gnome.compile_resources('dia-uml-resources', 'dia-uml.gresource.xml',
                                    source_dir : '.',
                                    c_name : 'dia_uml')
 
+sources += gnome.mkenums_simple('dia-uml-enums', sources: ['uml.h'])
+
 dia_object_desc += {
     'name': 'uml_objects',
     'sources': sources,
+    'inc': include_directories('.'),
 }

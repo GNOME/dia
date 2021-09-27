@@ -29,10 +29,10 @@
 #include "properties.h"
 
 static PropEnumData _uml_parameter_kinds[] = {
-  { N_("Undefined"), UML_UNDEF_KIND} ,
-  { N_("In"), UML_IN },
-  { N_("Out"), UML_OUT },
-  { N_("In & Out"), UML_INOUT },
+  { N_("Undefined"), DIA_UML_UNDEF_KIND} ,
+  { N_("In"), DIA_UML_IN },
+  { N_("Out"), DIA_UML_OUT },
+  { N_("In & Out"), DIA_UML_INOUT },
   { NULL, 0 }
 };
 
@@ -79,7 +79,7 @@ uml_parameter_new (void)
   param->type = g_strdup ("");
   param->value = g_strdup ("");
   param->comment = g_strdup ("");
-  param->kind = UML_UNDEF_KIND;
+  param->kind = DIA_UML_UNDEF_KIND;
 
   return param;
 }
@@ -154,15 +154,15 @@ uml_parameter_get_string (UMLParameter *param)
   }
 
   switch (param->kind) {
-    case UML_UNDEF_KIND:
+    case DIA_UML_UNDEF_KIND:
       break;
-    case UML_IN:
+    case DIA_UML_IN:
       len += 3;
       break;
-    case UML_OUT:
+    case DIA_UML_OUT:
       len += 4;
       break;
-    case UML_INOUT:
+    case DIA_UML_INOUT:
       len += 6;
       break;
     default:
@@ -175,15 +175,15 @@ uml_parameter_get_string (UMLParameter *param)
   strcpy (str, "");
 
   switch (param->kind) {
-    case UML_UNDEF_KIND:
+    case DIA_UML_UNDEF_KIND:
       break;
-    case UML_IN:
+    case DIA_UML_IN:
       strcat (str, "in ");
       break;
-    case UML_OUT:
+    case DIA_UML_OUT:
       strcat (str, "out ");
       break;
-    case UML_INOUT:
+    case DIA_UML_INOUT:
       strcat (str, "inout ");
       break;
     default:

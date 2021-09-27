@@ -98,17 +98,17 @@ dia_plugin_init(PluginInfo *info)
 
 
 PropEnumData _uml_visibilities[] = {
-  { N_("Public"), UML_PUBLIC },
-  { N_("Private"), UML_PRIVATE },
-  { N_("Protected"), UML_PROTECTED },
-  { N_("Implementation"), UML_IMPLEMENTATION },
+  { N_("Public"), DIA_UML_PUBLIC },
+  { N_("Private"), DIA_UML_PRIVATE },
+  { N_("Protected"), DIA_UML_PROTECTED },
+  { N_("Implementation"), DIA_UML_IMPLEMENTATION },
   { NULL, 0 }
 };
 
 PropEnumData _uml_inheritances[] = {
-  { N_("Abstract"), UML_ABSTRACT },
-  { N_("Polymorphic (virtual)"), UML_POLYMORPHIC },
-  { N_("Leaf (final)"), UML_LEAF },
+  { N_("Abstract"), DIA_UML_ABSTRACT },
+  { N_("Polymorphic (virtual)"), DIA_UML_POLYMORPHIC },
+  { N_("Leaf (final)"), DIA_UML_LEAF },
   { NULL, 0 }
 };
 

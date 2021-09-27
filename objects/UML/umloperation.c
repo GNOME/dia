@@ -112,8 +112,8 @@ uml_operation_new (void)
   op->name = g_strdup ("");
   op->type = g_strdup ("");
   op->comment = g_strdup ("");
-  op->visibility = UML_PUBLIC;
-  op->inheritance_type = UML_LEAF;
+  op->visibility = DIA_UML_PUBLIC;
+  op->inheritance_type = DIA_UML_LEAF;
 
 #if 0 /* setup elsewhere */
   op->left_connection = g_new0(ConnectionPoint, 1);
@@ -248,7 +248,7 @@ uml_operation_write(AttributeNode attr_node, UMLOperation *op, DiaContext *ctx)
 		  op->comment, ctx);
   /* Backward compatibility */
   data_add_boolean(composite_add_attribute(composite, "abstract"),
-		   op->inheritance_type == UML_ABSTRACT, ctx);
+		   op->inheritance_type == DIA_UML_ABSTRACT, ctx);
   data_add_enum(composite_add_attribute(composite, "inheritance_type"),
 		op->inheritance_type, ctx);
   data_add_boolean(composite_add_attribute(composite, "query"),
@@ -300,16 +300,16 @@ uml_get_operation_string (UMLOperation *operation)
     list = g_list_next (list);
 
     switch (param->kind) {
-      case UML_IN:
+      case DIA_UML_IN:
         len += 3;
         break;
-      case UML_OUT:
+      case DIA_UML_OUT:
         len += 4;
         break;
-      case UML_INOUT:
+      case DIA_UML_INOUT:
         len += 6;
         break;
-      case UML_UNDEF_KIND:
+      case DIA_UML_UNDEF_KIND:
       default:
         break;
       }
@@ -359,16 +359,16 @@ uml_get_operation_string (UMLOperation *operation)
     list = g_list_next (list);
 
     switch (param->kind) {
-      case UML_IN:
+      case DIA_UML_IN:
         strcat (str, "in ");
         break;
-      case UML_OUT:
+      case DIA_UML_OUT:
         strcat (str, "out ");
         break;
-      case UML_INOUT:
+      case DIA_UML_INOUT:
         strcat (str, "inout ");
         break;
-      case UML_UNDEF_KIND:
+      case DIA_UML_UNDEF_KIND:
       default:
         break;
     }

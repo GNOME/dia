@@ -83,9 +83,9 @@ update_operation (UMLClassDialog *dialog,
   char *title;
 
   underline = op->class_scope ? PANGO_UNDERLINE_SINGLE : PANGO_UNDERLINE_NONE;
-  if (op->inheritance_type != UML_LEAF) {
+  if (op->inheritance_type != DIA_UML_LEAF) {
     italic = PANGO_STYLE_ITALIC;
-    if (op->inheritance_type == UML_ABSTRACT) {
+    if (op->inheritance_type == DIA_UML_ABSTRACT) {
       weight = 800;
     }
   }
@@ -194,7 +194,7 @@ parameters_clear_values (UMLClassDialog *prop_dialog)
   gtk_entry_set_text (prop_dialog->param_value, "");
   gtk_text_buffer_set_text (prop_dialog->param_comment_buffer, "", -1);
   dia_option_menu_set_active (DIA_OPTION_MENU (prop_dialog->param_kind),
-                              UML_UNDEF_KIND);
+                              DIA_UML_UNDEF_KIND);
 }
 
 
@@ -763,7 +763,7 @@ oper_visible_changed (DiaOptionMenu *selector, UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   if (get_current_operation (prop_dialog, &op, &iter)) {
-    op->visibility = (UMLVisibility) dia_option_menu_get_active (selector);
+    op->visibility = (DiaUmlVisibility) dia_option_menu_get_active (selector);
 
     update_operation (prop_dialog, op, &iter);
 
@@ -782,7 +782,7 @@ oper_inheritance_changed (DiaOptionMenu *selector, UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   if (get_current_operation (prop_dialog, &op, &iter)) {
-    op->inheritance_type = (UMLInheritanceType) dia_option_menu_get_active (selector);
+    op->inheritance_type = (DiaUmlInheritanceType) dia_option_menu_get_active (selector);
 
     update_operation (prop_dialog, op, &iter);
 
@@ -912,10 +912,10 @@ operations_data_create_hbox (UMLClass *umlclass)
                     "changed",
                     G_CALLBACK (oper_visible_changed),
                     umlclass);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Public"), UML_PUBLIC);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Private"), UML_PRIVATE);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Protected"), UML_PROTECTED);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Implementation"), UML_IMPLEMENTATION);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Public"), DIA_UML_PUBLIC);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Private"), DIA_UML_PRIVATE);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Protected"), DIA_UML_PROTECTED);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Implementation"), DIA_UML_IMPLEMENTATION);
 
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 					/* left, right, top, bottom */
@@ -930,9 +930,9 @@ operations_data_create_hbox (UMLClass *umlclass)
                     "changed",
                     G_CALLBACK (oper_inheritance_changed),
                     umlclass);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Abstract"), UML_ABSTRACT);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Polymorphic (virtual)"), UML_POLYMORPHIC);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Leaf (final)"), UML_LEAF);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Abstract"), DIA_UML_ABSTRACT);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Polymorphic (virtual)"), DIA_UML_POLYMORPHIC);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Leaf (final)"), DIA_UML_LEAF);
 
   gtk_table_attach (GTK_TABLE (table), label, 2,3,1,2, GTK_FILL,0, 0,0);
   gtk_table_attach (GTK_TABLE (table), omenu, 3,4,1,2, GTK_FILL | GTK_EXPAND,0, 0,2);
@@ -1236,7 +1236,7 @@ param_kind_changed (DiaOptionMenu *selector, UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   if (get_current_parameter (prop_dialog, &param, &iter)) {
-    param->kind = (UMLParameterKind) dia_option_menu_get_active (selector);
+    param->kind = (DiaUmlParameterKind) dia_option_menu_get_active (selector);
 
     update_parameter (prop_dialog, param, &iter);
 
@@ -1337,11 +1337,11 @@ operations_parameters_data_create_vbox (UMLClass *umlclass)
                     "changed",
                     G_CALLBACK (param_kind_changed),
                     umlclass);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Undefined"), UML_UNDEF_KIND);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("In"), UML_IN);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Out"), UML_OUT);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("In & Out"), UML_INOUT);
-  dia_option_menu_set_active (DIA_OPTION_MENU (omenu), UML_UNDEF_KIND);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Undefined"), DIA_UML_UNDEF_KIND);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("In"), DIA_UML_IN);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Out"), DIA_UML_OUT);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("In & Out"), DIA_UML_INOUT);
+  dia_option_menu_set_active (DIA_OPTION_MENU (omenu), DIA_UML_UNDEF_KIND);
   gtk_table_attach (GTK_TABLE (table), omenu, 3,4,0,1, GTK_FILL, 0, 0,3);
 
   return vbox2;

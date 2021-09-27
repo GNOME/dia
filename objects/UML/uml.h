@@ -18,13 +18,14 @@
 
 /** \file objects/UML/uml.h  Objects contained  in 'UML - Class' type also and helper functions */
 
-#ifndef UML_H
-#define UML_H
+#pragma once
 
 #include <glib.h>
 #include "intl.h"
 #include "connectionpoint.h"
 #include "dia_xml.h"
+
+G_BEGIN_DECLS
 
 typedef struct _UMLAttribute UMLAttribute;
 typedef struct _UMLOperation UMLOperation;
@@ -32,60 +33,67 @@ typedef struct _UMLParameter UMLParameter;
 typedef struct _UMLFormalParameter UMLFormalParameter;
 
 /** the visibility (allowed acces) of (to) various UML sub elements */
-typedef enum _UMLVisibility {
-  UML_PUBLIC, /**< everyone can use it */
-  UML_PRIVATE, /**< only accessible inside the class itself */
-  UML_PROTECTED, /**< the class and its inheritants ca use this */
-  UML_IMPLEMENTATION /**< ?What's this? Means implementation decision */
-} UMLVisibility;
+typedef enum /*< enum >*/ {
+  DIA_UML_PUBLIC, /**< everyone can use it */
+  DIA_UML_PRIVATE, /**< only accessible inside the class itself */
+  DIA_UML_PROTECTED, /**< the class and its inheritants ca use this */
+  DIA_UML_IMPLEMENTATION /**< ?What's this? Means implementation decision */
+} DiaUmlVisibility;
 
 /** In some languages there are different kinds of class inheritances */
-typedef enum _UMLInheritanceType {
-  UML_ABSTRACT, /**< Pure virtual method: an object of this class cannot be instanciated */
-  UML_POLYMORPHIC, /**< Virtual method : could be reimplemented in derivated classes */
-  UML_LEAF /**< Final method: can't be redefined in subclasses */
-} UMLInheritanceType;
+typedef enum /*< enum >*/ {
+  DIA_UML_ABSTRACT, /**< Pure virtual method: an object of this class cannot be instanciated */
+  DIA_UML_POLYMORPHIC, /**< Virtual method : could be reimplemented in derivated classes */
+  DIA_UML_LEAF /**< Final method: can't be redefined in subclasses */
+} DiaUmlInheritanceType;
 
 /** describes the data flow between caller and callee */
-typedef enum _UMLParameterKind {
-  UML_UNDEF_KIND, /**< not defined */
-  UML_IN, /**< by value */
-  UML_OUT, /**< by ref, can be passed in uninitialized */
-  UML_INOUT /**< by ref */
-} UMLParameterKind;
+typedef enum /*< enum >*/ {
+  DIA_UML_UNDEF_KIND, /**< not defined */
+  DIA_UML_IN, /**< by value */
+  DIA_UML_OUT, /**< by ref, can be passed in uninitialized */
+  DIA_UML_INOUT /**< by ref */
+} DiaUmlParameterKind;
 
-typedef gchar * UMLStereotype;
+typedef char * UMLStereotype;
 
-/** \brief A list of UMLAttribute is contained in UMLClass
+/**
+ * UMLAttribute:
+ *
+ * A list of #UMLAttribute is contained in #UMLClass
  * Some would call them member variables ;)
  */
 struct _UMLAttribute {
-  gint internal_id; /**< Arbitrary integer to recognize attributes after
-		     * the user has shuffled them in the dialog. */
-  gchar *name; /**< the member variables name */
-  gchar *type; /**< the return value */
-  gchar *value; /**< default parameter : Can be NULL => No default value */
-  gchar *comment; /**< comment */
-  UMLVisibility visibility; /**< attributes visibility */
+  int internal_id; /**< Arbitrary integer to recognize attributes after
+                    * the user has shuffled them in the dialog. */
+  char *name; /**< the member variables name */
+  char *type; /**< the return value */
+  char *value; /**< default parameter : Can be NULL => No default value */
+  char *comment; /**< comment */
+  DiaUmlVisibility visibility; /**< attributes visibility */
   int abstract; /**< not sure if this applicable */
   int class_scope; /**< in C++ : static member */
 
-  ConnectionPoint* left_connection; /**< left */
-  ConnectionPoint* right_connection; /**< right */
+  ConnectionPoint *left_connection; /**< left */
+  ConnectionPoint *right_connection; /**< right */
 };
 
-/** \brief A list of UMLOperation is contained in UMLClass
+
+/**
+ * UMLOperation:
+ *
+ * A list of #UMLOperation is contained in #UMLClass
  * Some would call them member functions ;)
  */
 struct _UMLOperation {
-  gint internal_id; /**< Arbitrary integer to recognize operations after
-		     * the user has shuffled them in the dialog. */
-  gchar *name; /**< the function name */
-  gchar *type; /**< Return type, NULL => No return type */
-  gchar *comment; /**< comment */
+  int internal_id; /**< Arbitrary integer to recognize operations after
+                     * the user has shuffled them in the dialog. */
+  char *name; /**< the function name */
+  char *type; /**< Return type, NULL => No return type */
+  char *comment; /**< comment */
   UMLStereotype stereotype; /**< just some string */
-  UMLVisibility visibility; /**< allowed access */
-  UMLInheritanceType inheritance_type;
+  DiaUmlVisibility visibility; /**< allowed access */
+  DiaUmlInheritanceType inheritance_type;
   int query; /**< Do not modify the object, in C++ this is a const function */
   int class_scope;
   GList *parameters; /**< List of UMLParameter */
@@ -94,29 +102,36 @@ struct _UMLOperation {
   ConnectionPoint* right_connection; /**< right */
 
   gboolean needs_wrapping; /** Whether this operation needs wrapping */
-  gint wrap_indent; /** The amount of indentation in chars */
+  int wrap_indent; /** The amount of indentation in chars */
   GList *wrappos; /** Absolute wrapping positions */
-  real ascent; /** The ascent amount used for line distance in wrapping */
+  double ascent; /** The ascent amount used for line distance in wrapping */
 };
 
 
-/** \brief A list of UMLParameter is contained in UMLOperation
+/**
+ * UMLParameter:
+ *
+ * A list of #UMLParameter is contained in #UMLOperation
  * Some would call them functions parameters ;)
  */
 struct _UMLParameter {
-  gchar *name; /**<  name*/
-  gchar *type; /**< return value */
-  gchar *value; /**< Initialization,  can be NULL => No default value */
-  gchar *comment; /**< comment */
-  UMLParameterKind kind; /**< Not currently used */
+  char *name; /**<  name*/
+  char *type; /**< return value */
+  char *value; /**< Initialization,  can be NULL => No default value */
+  char *comment; /**< comment */
+  DiaUmlParameterKind kind; /**< Not currently used */
 };
 
-/** \brief A list of UMLFormalParameter is contained in UMLOperation
+
+/**
+ * UMLFormalParameter:
+ *
+ * A list of #UMLFormalParameter is contained in #UMLOperation
  * Some would call them template parameters ;)
  */
 struct _UMLFormalParameter {
-  gchar *name; /**< name */
-  gchar *type; /**< Can be NULL => Type parameter */
+  char *name; /**< name */
+  char *type; /**< Can be NULL => Type parameter */
 };
 
 /* Characters used to start/end stereotypes: */
@@ -188,9 +203,6 @@ void                uml_formal_parameter_write             (AttributeNode       
                                                             UMLFormalParameter *param,
                                                             DiaContext         *ctx);
 /** calculated the 'formated' representation */
-gchar              *uml_formal_parameter_get_string        (UMLFormalParameter *parameter);
+char               *uml_formal_parameter_get_string        (UMLFormalParameter *parameter);
 
-
-
-#endif /* UML_H */
-
+G_END_DECLS

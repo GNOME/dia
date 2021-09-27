@@ -345,7 +345,7 @@ visibility_changed (DiaOptionMenu *selector, UMLClass *umlclass)
   prop_dialog = umlclass->properties_dialog;
 
   if (get_current_attribute (prop_dialog, &attr, &iter)) {
-    attr->visibility = (UMLVisibility) dia_option_menu_get_active (selector);
+    attr->visibility = (DiaUmlVisibility) dia_option_menu_get_active (selector);
 
     update_attribute (prop_dialog, attr, &iter);
 
@@ -740,10 +740,10 @@ _attributes_create_page (GtkNotebook *notebook, UMLClass *umlclass)
                     "changed",
                     G_CALLBACK (visibility_changed),
                     umlclass);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Public"), UML_PUBLIC);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Private"), UML_PRIVATE);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Protected"), UML_PROTECTED);
-  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Implementation"), UML_IMPLEMENTATION);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Public"), DIA_UML_PUBLIC);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Private"), DIA_UML_PRIVATE);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Protected"), DIA_UML_PROTECTED);
+  dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Implementation"), DIA_UML_IMPLEMENTATION);
   gtk_table_attach (GTK_TABLE (table), label, 0,1,4,5, GTK_FILL,0, 0,3);
   gtk_widget_show (label);
   gtk_widget_show (omenu);

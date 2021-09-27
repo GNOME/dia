@@ -95,7 +95,7 @@ typedef struct _AssociationEnd {
   double multi_ascent;
   double multi_descent;
   DiaAlignment text_align;
-  UMLVisibility visibility;	/* This value is only relevant if role is not null */
+  DiaUmlVisibility visibility;	/* This value is only relevant if role is not null */
 
   int arrow;
   AggregateType aggregate; /* Note: Can only be != NONE on ONE side! */
@@ -111,7 +111,7 @@ struct _AssociationState {
   struct {
     char *role;
     char *multiplicity;
-    UMLVisibility visibility;	/* This value is only relevant if role is not null */
+    DiaUmlVisibility visibility;	/* This value is only relevant if role is not null */
 
     int arrow;
     AggregateType aggregate;
@@ -853,7 +853,7 @@ association_create (Point   *startpoint,
     assoc->end[i].arrow = FALSE;
     assoc->end[i].aggregate = AGGREGATE_NONE;
     assoc->end[i].text_width = 0.0;
-    assoc->end[i].visibility = UML_IMPLEMENTATION;
+    assoc->end[i].visibility = DIA_UML_IMPLEMENTATION;
   }
 
   assoc->text_width = 0.0;

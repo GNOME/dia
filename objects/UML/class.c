@@ -1068,15 +1068,15 @@ umlclass_draw_operationbox (UMLClass    *umlclass,
       real ascent;
 
       switch (op->inheritance_type) {
-        case UML_ABSTRACT:
+        case DIA_UML_ABSTRACT:
           font = umlclass->abstract_font;
           font_height = umlclass->abstract_font_height;
           break;
-        case UML_POLYMORPHIC:
+        case DIA_UML_POLYMORPHIC:
           font = umlclass->polymorphic_font;
           font_height = umlclass->polymorphic_font_height;
           break;
-        case UML_LEAF:
+        case DIA_UML_LEAF:
         default:
           font = umlclass->normal_font;
           font_height = umlclass->font_height;
@@ -1629,15 +1629,15 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
 
       switch(op->inheritance_type)
       {
-	  case UML_ABSTRACT:
+	  case DIA_UML_ABSTRACT:
 	    Font       =  umlclass->abstract_font;
 	    FontHeight =  umlclass->abstract_font_height;
 	    break;
-	  case UML_POLYMORPHIC:
+	  case DIA_UML_POLYMORPHIC:
 	    Font       =  umlclass->polymorphic_font;
 	    FontHeight =  umlclass->polymorphic_font_height;
 	    break;
-	  case UML_LEAF:
+	  case DIA_UML_LEAF:
 	  default:
 	    Font       = umlclass->normal_font;
 	    FontHeight = umlclass->font_height;
@@ -1715,15 +1715,15 @@ umlclass_calculate_operation_data(UMLClass *umlclass)
       if (!(umlclass->wrap_operations && length > umlclass->wrap_after_char)) {
         switch(op->inheritance_type)
         {
-        case UML_ABSTRACT:
+        case DIA_UML_ABSTRACT:
           Font       =  umlclass->abstract_font;
           FontHeight =  umlclass->abstract_font_height;
           break;
-        case UML_POLYMORPHIC:
+        case DIA_UML_POLYMORPHIC:
           Font       =  umlclass->polymorphic_font;
           FontHeight =  umlclass->polymorphic_font_height;
           break;
-        case UML_LEAF:
+        case DIA_UML_LEAF:
         default:
           Font       = umlclass->normal_font;
           FontHeight = umlclass->font_height;
