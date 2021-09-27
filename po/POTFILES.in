@@ -61,7 +61,6 @@ lib/dia-line-style-selector.c
 lib/dia_dirs.c
 lib/diagramdata.c
 lib/dia_image.c
-lib/dialogs.c
 lib/diaoptionmenu.c
 lib/diapatternselector.c
 lib/dia_xml.c

@@ -317,11 +317,6 @@ EXPORTS
  data_pattern
  dia_object_set_pattern
 
-
- dialog_make
- dialog_add_spinbutton
-
-
  dia_line_style_selector_get_linestyle
  dia_line_style_selector_get_type
  dia_line_style_selector_new

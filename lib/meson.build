@@ -95,8 +95,6 @@ libdia_sources = stdprop_sources + [
     'dia-state-object-change.h',
     'dia-object-change-list.c',
     'dia-object-change-list.h',
-    'dialogs.c',
-    'dialogs.h',
     'widgets.c',
     'widgets.h',
     'diaoptionmenu.c',
