@@ -108,7 +108,7 @@ struct _Custom {
   Text *text;
   double padding;
 
-  TextFitting text_fitting;
+  DiaTextFitting text_fitting;
 };
 
 
@@ -1342,7 +1342,7 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
 
   /* resize shape if text does not fit inside text_bounds */
   if (   (info->has_text)
-      && (custom->text_fitting != TEXTFIT_NEVER)) {
+      && (custom->text_fitting != DIA_TEXT_FIT_NEVER)) {
     real text_width, text_height;
     real xscale = 0.0, yscale = 0.0;
     DiaRectangle tb;
@@ -1356,8 +1356,8 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     transform_rect(custom, &info->text_bounds, &tb);
     xscale = text_width / (tb.right - tb.left);
 
-    if (   custom->text_fitting == TEXTFIT_ALWAYS
-        || (   custom->text_fitting == TEXTFIT_WHEN_NEEDED
+    if (   custom->text_fitting == DIA_TEXT_FIT_ALWAYS
+        || (   custom->text_fitting == DIA_TEXT_FIT_WHEN_NEEDED
 	    && xscale > 1.00000001)) {
       elem->width  *= xscale;
       custom->xscale *= xscale;
@@ -1367,8 +1367,8 @@ custom_update_data(Custom *custom, AnchorShape horiz, AnchorShape vert)
     }
 
     yscale = text_height / (tb.bottom - tb.top);
-    if (   custom->text_fitting == TEXTFIT_ALWAYS
-        || (   custom->text_fitting == TEXTFIT_WHEN_NEEDED
+    if (   custom->text_fitting == DIA_TEXT_FIT_ALWAYS
+        || (   custom->text_fitting == DIA_TEXT_FIT_WHEN_NEEDED
 	    && yscale > 1.00000001)) {
       elem->height *= yscale;
       custom->yscale *= yscale;
@@ -1739,7 +1739,7 @@ custom_create(Point *startpoint,
     g_clear_object (&font);
 
     /* _no_ new default: does not shrink with textbox automatically. */
-    custom->text_fitting = (info->resize_with_text ? TEXTFIT_WHEN_NEEDED : TEXTFIT_NEVER);
+    custom->text_fitting = (info->resize_with_text ? DIA_TEXT_FIT_WHEN_NEEDED : DIA_TEXT_FIT_NEVER);
   }
   shape_info_realise(custom->info);
   element_init(elem, 8, info->nconnections);
@@ -1856,7 +1856,7 @@ custom_load_using_properties(ObjectNode obj_node, int version,DiaContext *ctx)
     if (version < 1)
       custom->padding = 0.5 * M_SQRT1_2; /* old padding */
     /* old default: only grow from text box, no auto-shrink. */
-    custom->text_fitting = (custom->info->resize_with_text ? TEXTFIT_WHEN_NEEDED : TEXTFIT_NEVER);
+    custom->text_fitting = (custom->info->resize_with_text ? DIA_TEXT_FIT_WHEN_NEEDED : DIA_TEXT_FIT_NEVER);
     object_load_props(obj,obj_node,ctx);
 
     custom_update_data(custom, ANCHOR_MIDDLE, ANCHOR_MIDDLE);

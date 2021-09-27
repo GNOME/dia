@@ -615,9 +615,9 @@ static PropEnumData prop_std_text_align_data[] = {
   { NULL, 0 }
 };
 static PropEnumData prop_std_text_fitting_data[] = {
-  { N_("Never"), TEXTFIT_NEVER },
-  { N_("When Needed"), TEXTFIT_WHEN_NEEDED },
-  { N_("Always"), TEXTFIT_ALWAYS },
+  { N_("Never"), DIA_TEXT_FIT_NEVER },
+  { N_("When Needed"), DIA_TEXT_FIT_WHEN_NEEDED },
+  { N_("Always"), DIA_TEXT_FIT_ALWAYS },
   { NULL, 0 }
 };
 static PropEnumData prop_std_line_join_data[] = {

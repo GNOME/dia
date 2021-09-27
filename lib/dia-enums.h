@@ -57,11 +57,11 @@ typedef enum /*< enum >*/ {
   DIA_ALIGN_RIGHT
 } DiaAlignment;
 
-typedef enum {
-  TEXTFIT_NEVER,
-  TEXTFIT_WHEN_NEEDED,
-  TEXTFIT_ALWAYS
-} TextFitting;
+typedef enum /*< enum >*/ {
+  DIA_TEXT_FIT_NEVER,
+  DIA_TEXT_FIT_WHEN_NEEDED,
+  DIA_TEXT_FIT_ALWAYS
+} DiaTextFitting;
 
 /* Used to be in widgets.h polluting a lot of object implementations */
 #define DEFAULT_LINESTYLE LINESTYLE_SOLID

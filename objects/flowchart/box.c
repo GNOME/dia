@@ -66,7 +66,7 @@ struct _Box {
   Text *text;
   double padding;
 
-  TextFitting text_fitting;
+  DiaTextFitting text_fitting;
 };
 
 typedef struct _BoxProperties {
@@ -413,13 +413,14 @@ box_update_data(Box *box, AnchorShape horiz, AnchorShape vert)
    *  width calculated from text-width, padding and border), then
    *  set the width to the minimum.  Or else;)
    */
-  if (box->text_fitting != TEXTFIT_NEVER) {
-    if (   box->text_fitting == TEXTFIT_ALWAYS
-        || width > elem->width)
+  if (box->text_fitting != DIA_TEXT_FIT_NEVER) {
+    if (box->text_fitting == DIA_TEXT_FIT_ALWAYS || width > elem->width) {
       elem->width = width;
-    if (   box->text_fitting == TEXTFIT_ALWAYS
-        || height > elem->height)
+    }
+
+    if (box->text_fitting == DIA_TEXT_FIT_ALWAYS || height > elem->height) {
       elem->height = height;
+    }
   }
 
   /* move shape if necessary ... */
@@ -611,7 +612,7 @@ box_create(Point *startpoint,
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
-  box->text_fitting = TEXTFIT_WHEN_NEEDED;
+  box->text_fitting = DIA_TEXT_FIT_WHEN_NEEDED;
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
@@ -674,10 +675,13 @@ box_save(Box *box, ObjectNode obj_node, DiaContext *ctx)
 
   data_add_text(new_attribute(obj_node, "text"), box->text, ctx);
 
-  if (box->text_fitting != TEXTFIT_WHEN_NEEDED)
-    data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
-		  box->text_fitting, ctx);
+  if (box->text_fitting != DIA_TEXT_FIT_WHEN_NEEDED) {
+    data_add_enum (new_attribute (obj_node, PROP_STDNAME_TEXT_FITTING),
+                   box->text_fitting,
+                   ctx);
+  }
 }
+
 
 static DiaObject *
 box_load(ObjectNode obj_node, int version,DiaContext *ctx)
@@ -748,10 +752,11 @@ box_load(ObjectNode obj_node, int version,DiaContext *ctx)
   }
 
   /* old default: only growth, manual shrink */
-  box->text_fitting = TEXTFIT_WHEN_NEEDED;
-  attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
-  if (attr != NULL)
-    box->text_fitting = data_enum(attribute_first_data(attr), ctx);
+  box->text_fitting = DIA_TEXT_FIT_WHEN_NEEDED;
+  attr = object_find_attribute (obj_node, PROP_STDNAME_TEXT_FITTING);
+  if (attr != NULL) {
+    box->text_fitting = data_enum (attribute_first_data (attr), ctx);
+  }
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

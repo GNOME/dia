@@ -66,7 +66,7 @@ struct _Diamond {
   Text *text;
   double padding;
 
-  TextFitting text_fitting;
+  DiaTextFitting text_fitting;
 };
 
 typedef struct _DiamondProperties {
@@ -422,8 +422,8 @@ diamond_update_data(Diamond *diamond, AnchorShape horiz, AnchorShape vert)
   height = diamond->text->height * diamond->text->numlines +
     2 * diamond->padding + diamond->border_width;
 
-  if (diamond->text_fitting == TEXTFIT_ALWAYS
-      || (   diamond->text_fitting == TEXTFIT_WHEN_NEEDED
+  if (diamond->text_fitting == DIA_TEXT_FIT_ALWAYS
+      || (   diamond->text_fitting == DIA_TEXT_FIT_WHEN_NEEDED
           && height > (elem->width - width) * elem->height / elem->width)) {
     /* increase size of the diamond while keeping its aspect ratio */
     real grad = elem->width/elem->height;
@@ -579,7 +579,7 @@ diamond_create(Point *startpoint,
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
-  diamond->text_fitting = TEXTFIT_WHEN_NEEDED;
+  diamond->text_fitting = DIA_TEXT_FIT_WHEN_NEEDED;
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
@@ -644,9 +644,11 @@ diamond_save(Diamond *diamond, ObjectNode obj_node, DiaContext *ctx)
 
   data_add_text(new_attribute(obj_node, "text"), diamond->text, ctx);
 
-  if (diamond->text_fitting != TEXTFIT_WHEN_NEEDED)
-    data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
-		  diamond->text_fitting, ctx);
+  if (diamond->text_fitting != DIA_TEXT_FIT_WHEN_NEEDED) {
+    data_add_enum (new_attribute (obj_node, PROP_STDNAME_TEXT_FITTING),
+                   diamond->text_fitting,
+                   ctx);
+  }
 }
 
 static DiaObject *
@@ -714,10 +716,11 @@ diamond_load(ObjectNode obj_node, int version,DiaContext *ctx)
   }
 
   /* old default: only growth, manual shrink */
-  diamond->text_fitting = TEXTFIT_WHEN_NEEDED;
-  attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
-  if (attr != NULL)
-    diamond->text_fitting = data_enum(attribute_first_data(attr), ctx);
+  diamond->text_fitting = DIA_TEXT_FIT_WHEN_NEEDED;
+  attr = object_find_attribute (obj_node, PROP_STDNAME_TEXT_FITTING);
+  if (attr != NULL) {
+    diamond->text_fitting = data_enum (attribute_first_data (attr), ctx);
+  }
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

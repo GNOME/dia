@@ -66,7 +66,7 @@ struct _Ellipse {
   Text *text;
   double padding;
 
-  TextFitting text_fitting;
+  DiaTextFitting text_fitting;
 };
 
 typedef struct _EllipseProperties {
@@ -432,9 +432,9 @@ ellipse_update_data(Ellipse *ellipse, AnchorShape horiz, AnchorShape vert)
   radius1 = ellipse_radius(ellipse, p.x, p.y) - ellipse->border_width/2;
   radius2 = distance_point_point(&c, &p);
 
-  if (   (radius1 < radius2 && ellipse->text_fitting == TEXTFIT_WHEN_NEEDED)
+  if (   (radius1 < radius2 && ellipse->text_fitting == DIA_TEXT_FIT_WHEN_NEEDED)
       /* stop infinite resizing with 5% tolerance obsvered with _test_movement */
-      || (fabs(1.0 - radius2 / radius1) > 0.05 && ellipse->text_fitting == TEXTFIT_ALWAYS)) {
+      || (fabs(1.0 - radius2 / radius1) > 0.05 && ellipse->text_fitting == DIA_TEXT_FIT_ALWAYS)) {
     /* increase size of the ellipse while keeping its aspect ratio */
     elem->width  *= radius2 / radius1;
     elem->height *= radius2 / radius1;
@@ -558,7 +558,7 @@ ellipse_create(Point *startpoint,
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
-  ellipse->text_fitting = TEXTFIT_WHEN_NEEDED;
+  ellipse->text_fitting = DIA_TEXT_FIT_WHEN_NEEDED;
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
@@ -622,9 +622,11 @@ ellipse_save(Ellipse *ellipse, ObjectNode obj_node, DiaContext *ctx)
 
   data_add_text(new_attribute(obj_node, "text"), ellipse->text, ctx);
 
-  if (ellipse->text_fitting != TEXTFIT_WHEN_NEEDED)
-    data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
-		  ellipse->text_fitting, ctx);
+  if (ellipse->text_fitting != DIA_TEXT_FIT_WHEN_NEEDED) {
+    data_add_enum (new_attribute (obj_node, PROP_STDNAME_TEXT_FITTING),
+                   ellipse->text_fitting,
+                   ctx);
+  }
 }
 
 static DiaObject *
@@ -691,10 +693,11 @@ ellipse_load(ObjectNode obj_node, int version,DiaContext *ctx)
   }
 
   /* old default: only growth, manual shrink */
-  ellipse->text_fitting = TEXTFIT_WHEN_NEEDED;
-  attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
-  if (attr != NULL)
-    ellipse->text_fitting = data_enum(attribute_first_data(attr), ctx);
+  ellipse->text_fitting = DIA_TEXT_FIT_WHEN_NEEDED;
+  attr = object_find_attribute (obj_node, PROP_STDNAME_TEXT_FITTING);
+  if (attr != NULL) {
+    ellipse->text_fitting = data_enum (attribute_first_data (attr), ctx);
+  }
 
   element_init(elem, 8, NUM_CONNECTIONS);
 

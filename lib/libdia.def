@@ -565,6 +565,13 @@ EXPORTS
  get_paper_rmargin
  get_paper_tmargin
 
+ dia_line_caps_get_type
+ dia_line_join_get_type
+ dia_line_style_get_type
+ dia_fill_style_get_type
+ dia_alignment_get_type
+ dia_text_fitting_get_type
+
  dia_unit_get_type
  dia_unit_get_name
  dia_unit_get_symbol

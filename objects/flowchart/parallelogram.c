@@ -67,7 +67,7 @@ struct _Pgram {
   Text *text;
   double padding;
 
-  TextFitting text_fitting;
+  DiaTextFitting text_fitting;
 };
 
 typedef struct _PgramProperties {
@@ -430,16 +430,16 @@ pgram_update_data(Pgram *pgram, AnchorShape horiz, AnchorShape vert)
   text_calc_boundingbox(pgram->text, NULL);
   height = pgram->text->height * pgram->text->numlines + pgram->padding*2 +
     pgram->border_width;
-  if (   pgram->text_fitting == TEXTFIT_ALWAYS
-      || (pgram->text_fitting == TEXTFIT_WHEN_NEEDED
+  if (   pgram->text_fitting == DIA_TEXT_FIT_ALWAYS
+      || (pgram->text_fitting == DIA_TEXT_FIT_WHEN_NEEDED
           && height > elem->height))
     elem->height = height;
 
   avail_width = elem->width - (pgram->padding*2 + pgram->border_width +
     fabs(pgram->shear_grad) * (elem->height + pgram->text->height
 			       * pgram->text->numlines));
-  if (   pgram->text_fitting == TEXTFIT_ALWAYS
-      || (pgram->text_fitting == TEXTFIT_WHEN_NEEDED
+  if (   pgram->text_fitting == DIA_TEXT_FIT_ALWAYS
+      || (pgram->text_fitting == DIA_TEXT_FIT_WHEN_NEEDED
           && avail_width < pgram->text->max_width)) {
     elem->width = (elem->width-avail_width) + pgram->text->max_width;
     avail_width = pgram->text->max_width;
@@ -633,7 +633,7 @@ pgram_create(Point *startpoint,
   g_clear_object (&font);
 
   /* new default: let the user decide the size */
-  pgram->text_fitting = TEXTFIT_WHEN_NEEDED;
+  pgram->text_fitting = DIA_TEXT_FIT_WHEN_NEEDED;
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
@@ -698,10 +698,12 @@ pgram_save(Pgram *pgram, ObjectNode obj_node, DiaContext *ctx)
 
   data_add_real(new_attribute(obj_node, "padding"), pgram->padding, ctx);
 
-  data_add_text(new_attribute(obj_node, "text"), pgram->text, ctx);
-  if (pgram->text_fitting != TEXTFIT_WHEN_NEEDED)
-    data_add_enum(new_attribute(obj_node, PROP_STDNAME_TEXT_FITTING),
-		  pgram->text_fitting, ctx);
+  data_add_text (new_attribute (obj_node, "text"), pgram->text, ctx);
+  if (pgram->text_fitting != DIA_TEXT_FIT_WHEN_NEEDED) {
+    data_add_enum (new_attribute (obj_node, PROP_STDNAME_TEXT_FITTING),
+                   pgram->text_fitting,
+                   ctx);
+  }
 }
 
 static DiaObject *
@@ -775,10 +777,11 @@ pgram_load(ObjectNode obj_node, int version,DiaContext *ctx)
   }
 
   /* old default: only growth, manual shrink */
-  pgram->text_fitting = TEXTFIT_WHEN_NEEDED;
-  attr = object_find_attribute(obj_node, PROP_STDNAME_TEXT_FITTING);
-  if (attr != NULL)
-    pgram->text_fitting = data_enum(attribute_first_data(attr), ctx);
+  pgram->text_fitting = DIA_TEXT_FIT_WHEN_NEEDED;
+  attr = object_find_attribute (obj_node, PROP_STDNAME_TEXT_FITTING);
+  if (attr != NULL) {
+    pgram->text_fitting = data_enum (attribute_first_data (attr), ctx);
+  }
 
   element_init(elem, 8, NUM_CONNECTIONS);
 
