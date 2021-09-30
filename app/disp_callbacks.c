@@ -735,7 +735,6 @@ ddisplay_canvas_events (GtkWidget *canvas,
   GdkEventMotion *mevent;
   GdkEventButton *bevent;
   GdkEventKey *kevent;
-  GdkEventScroll *sevent;
   int tx, ty;
   GdkModifierType tmask;
   guint state = 0;
@@ -746,6 +745,9 @@ ddisplay_canvas_events (GtkWidget *canvas,
   int return_val;
   int key_handled;
   int im_context_used;
+  gdouble x, y;
+  gdouble delta_x, delta_y;
+  GdkScrollDirection direction;
   static gboolean moving = FALSE;
 
   return_val = FALSE;
@@ -756,14 +758,18 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
   switch (event->type) {
     case GDK_SCROLL:
-      sevent = (GdkEventScroll *) event;
 
-      switch (sevent->direction) {
+      tmask = 0;
+      gdk_event_get_state(event, &tmask);
+      gdk_event_get_coords(event, &x, &y);
+
+      if (gdk_event_get_scroll_direction (event, &direction)) {
+        switch (direction) {
         case GDK_SCROLL_UP:
-          if (sevent->state & GDK_SHIFT_MASK) {
+          if (tmask & GDK_SHIFT_MASK) {
             ddisplay_scroll_left(ddisp);
-          } else if (sevent->state & GDK_CONTROL_MASK) {
-            ddisplay_untransform_coords(ddisp, (int)sevent->x, (int)sevent->y, &middle.x, &middle.y);
+          } else if (tmask & GDK_CONTROL_MASK) {
+            ddisplay_untransform_coords(ddisp, (int)x, (int)y, &middle.x, &middle.y);
             /* zooming with the wheel in small steps 1^(1/8) */
             ddisplay_zoom_centered(ddisp, &middle, 1.090508);
           } else {
@@ -771,12 +777,12 @@ ddisplay_canvas_events (GtkWidget *canvas,
           }
           break;
         case GDK_SCROLL_DOWN:
-          if (sevent->state & GDK_SHIFT_MASK) {
+          if (tmask & GDK_SHIFT_MASK) {
             ddisplay_scroll_right (ddisp);
-          } else if (sevent->state & GDK_CONTROL_MASK) {
+          } else if (tmask & GDK_CONTROL_MASK) {
             ddisplay_untransform_coords (ddisp,
-                                         (int) sevent->x,
-                                         (int) sevent->y,
+                                         (int) x,
+                                         (int) y,
                                          &middle.x,
                                          &middle.y);
             /* zooming with the wheel in small steps 1/(1^(1/8)) */
@@ -793,7 +799,31 @@ ddisplay_canvas_events (GtkWidget *canvas,
           break;
         default:
           break;
+        }
+      } else if (gdk_event_get_scroll_deltas (event, &delta_x, &delta_y)) {
+        if (tmask & GDK_CONTROL_MASK) {
+          ddisplay_untransform_coords (ddisp, (int)x, (int)y, &middle.x, &middle.y);
+          /* zooming with the wheel in small steps 1^(1/8) */
+          if (delta_y > 0) {
+            ddisplay_zoom_centered (ddisp, &middle, 0.917004);
+          } else {
+            ddisplay_zoom_centered (ddisp, &middle, 1.090508);
+          }
+        } else {
+          if (delta_y > 0.05) {
+            ddisplay_scroll_down (ddisp);
+          } else if (delta_y < -0.05) {
+            ddisplay_scroll_up (ddisp);
+          }
+
+          if (delta_x > 0.05) {
+            ddisplay_scroll_right (ddisp);
+          } else if (delta_x < -0.05) {
+            ddisplay_scroll_left (ddisp);
+          }
+        }
       }
+
       ddisplay_flush (ddisp);
       break;
 
