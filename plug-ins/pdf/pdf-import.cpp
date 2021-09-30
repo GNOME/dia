@@ -896,7 +896,6 @@ extern "C"
 gboolean
 import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
-  std::unique_ptr<PDFDoc> doc;
   GooString *fileName = new GooString(filename);
   // no passwords yet
 #if POPPLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
@@ -911,7 +910,7 @@ import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
   // without this we will get strange crashes (at least with /O2 build)
   globalParams = std::make_unique<GlobalParams>();
 
-  doc = PDFDocFactory().createPDFDoc(*fileName, ownerPW, userPW);
+  auto doc = PDFDocFactory().createPDFDoc(*fileName, ownerPW, userPW);
   if (!doc->isOk()) {
     dia_context_add_message (ctx, _("PDF document not OK.\n%s"),
 			     dia_context_get_filename (ctx));
