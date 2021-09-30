@@ -79,7 +79,7 @@ config_dep = declare_dependency(
     include_directories: config_inc,
 )
 
-gtk_ver = 'GDK_VERSION_3_12'
+gtk_ver = 'GDK_VERSION_3_8'
 glib_ver = 'GLIB_VERSION_2_70'
 add_project_arguments([
   '-DGDK_VERSION_MIN_REQUIRED=@0@'.format(gtk_ver),
