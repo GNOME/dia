@@ -797,6 +797,9 @@ ddisplay_canvas_events (GtkWidget *canvas,
         case GDK_SCROLL_RIGHT:
           ddisplay_scroll_right (ddisp);
           break;
+        case GDK_SCROLL_SMOOTH:
+          /* shouldn't happen with gdk_event_get_scroll_direction() */
+          break;
         default:
           break;
         }

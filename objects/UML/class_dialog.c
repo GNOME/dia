@@ -542,8 +542,8 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
   gtk_widget_set_hexpand (label, TRUE);
   text_color = dia_colour_selector_new ();
-  dia_colour_selector_set_use_alpha (text_color, TRUE);
-  dia_colour_selector_set_colour (text_color, &umlclass->text_color);
+  dia_colour_selector_set_use_alpha (DIA_COLOUR_SELECTOR (text_color), TRUE);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (text_color), &umlclass->text_color);
   prop_dialog->text_color = DIA_COLOUR_SELECTOR (text_color);
   gtk_grid_attach (GTK_GRID (grid), text_color, 1, 1, 1, 1);
   gtk_widget_set_hexpand (text_color, TRUE);
@@ -553,8 +553,8 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
   gtk_widget_set_hexpand (label, TRUE);
   line_color = dia_colour_selector_new();
-  dia_colour_selector_set_use_alpha (line_color, TRUE);
-  dia_colour_selector_set_colour (line_color, &umlclass->line_color);
+  dia_colour_selector_set_use_alpha (DIA_COLOUR_SELECTOR (line_color), TRUE);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (line_color), &umlclass->line_color);
   prop_dialog->line_color = DIA_COLOUR_SELECTOR (line_color);
   gtk_grid_attach (GTK_GRID (grid), line_color, 1, 2, 1, 1);
   gtk_widget_set_hexpand (line_color, TRUE);
@@ -564,7 +564,7 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_grid_attach (GTK_GRID (grid), label, 0, 3, 1, 1);
   gtk_widget_set_hexpand (label, TRUE);
   fill_color = dia_colour_selector_new();
-  dia_colour_selector_set_colour (fill_color, &umlclass->fill_color);
+  dia_colour_selector_set_colour (DIA_COLOUR_SELECTOR (fill_color), &umlclass->fill_color);
   prop_dialog->fill_color = DIA_COLOUR_SELECTOR (fill_color);
   gtk_grid_attach (GTK_GRID (grid), fill_color, 1, 3, 1, 1);
   gtk_widget_set_hexpand (fill_color, TRUE);

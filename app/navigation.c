@@ -221,7 +221,7 @@ dia_navigation_window_dispose (GObject *object)
 {
   DiaNavigationWindow *self = DIA_NAVIGATION_WINDOW (object);
 
-  g_clear_pointer (&self->cursor, gdk_cursor_unref);
+  g_clear_object (&self->cursor);
   g_clear_pointer (&self->surface, cairo_surface_destroy);
 
   G_OBJECT_CLASS (dia_navigation_window_parent_class)->dispose (object);
@@ -233,7 +233,6 @@ dia_navigation_window_draw (GtkWidget *widget, cairo_t *ctx)
 {
   DiaNavigationWindow *self = DIA_NAVIGATION_WINDOW (widget);
   GtkAdjustment * adj;
-  GdkRectangle area;
   int x, y;
 
   cairo_set_line_width (ctx, FRAME_THICKNESS);
