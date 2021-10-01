@@ -74,7 +74,6 @@ struct _ModifyTool {
   Point last_to;
   Point start_at;
   time_t start_time;
-  cairo_t *gc;
   int x1, y1, x2, y2;
   Point start_box;
   Point end_box;
@@ -159,7 +158,6 @@ void
 free_modify_tool (Tool *tool)
 {
   ModifyTool *mtool = (ModifyTool *)tool;
-  mtool->gc = NULL; // XXX not sure what to do with the cairo_t. Assume we don't own it.
   g_clear_pointer (&mtool, g_free);
 }
 
