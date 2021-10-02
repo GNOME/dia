@@ -9,4 +9,5 @@ sources = files(
 dia_object_desc += {
     'name': 'custom_objects',
     'sources': sources,
+    'dependencies': libdia_lib
 }
