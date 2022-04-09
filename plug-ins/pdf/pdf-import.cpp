@@ -867,7 +867,7 @@ extern "C"
 gboolean
 import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
-  PDFDoc *doc;
+  std::unique_ptr<PDFDoc> doc;
   GooString *fileName = new GooString(filename);
   // no passwords yet
   GooString *ownerPW = NULL;
@@ -899,7 +899,6 @@ import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
     delete diaOut;
     ret = TRUE;
   }
-  delete doc;
   delete fileName;
 
   return ret;
