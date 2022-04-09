@@ -45,7 +45,6 @@ sheet_files_targets = []
 
 foreach sheet : sheet_files
     sheet_files_targets += i18n.merge_file(
-        sheet,
         input: sheet,
         output: sheet,
         po_dir: po_dir,
