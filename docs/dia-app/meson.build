@@ -11,7 +11,7 @@ images = [
 content_files = [
 ]
 
-glib_prefix = dependency('glib-2.0').get_pkgconfig_variable('prefix')
+glib_prefix = dependency('glib-2.0').get_variable('prefix')
 glib_docpath = glib_prefix / 'share' / 'gtk-doc' / 'html'
 docpath = datadir / 'gtk-doc' / 'html'
 

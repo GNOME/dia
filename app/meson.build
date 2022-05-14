@@ -94,7 +94,12 @@ dia_sources += gnome.mkenums_simple('dia-app-enums',
 # Potential parent issues: https://github.com/mesonbuild/meson/issues/3570
 # https://github.com/mesonbuild/meson/issues/4468
 pkg_config = find_program('pkg-config')
-pkg_config_libdir = run_command(pkg_config, '--libs-only-L', 'libxml-2.0').stdout().strip()
+pkg_config_libdir = run_command(
+    pkg_config,
+    '--libs-only-L',
+    'libxml-2.0',
+    check: false
+).stdout().strip()
 
 dia_link_args = []
 if pkg_config_libdir != ''
@@ -125,7 +130,7 @@ diaapp_dep_for_docs = declare_dependency (include_directories: [diaapp_inc, conf
 diaapp = executable('dia',
                     ['main.c', resources],
                     dependencies: [diaapp_dep],
-                    gui_app: true,
+                    win_subsystem: 'windows',
                     export_dynamic: true,  # some plugins require this.
                     install: true)
 
@@ -135,7 +140,7 @@ if build_machine.system() == 'windows'
         ['dia-win-remote.c'],
         dependencies: [libgtk_dep],
         link_args: ['-lshlwapi'],
-        gui_app: true,
+        win_subsystem: 'windows',
         install: true,
     )
 endif

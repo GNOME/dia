@@ -1,12 +1,12 @@
 # Setup local environment to run dia.
 run_env_dict = {
-    'DIA_BASE_PATH'  : [meson.source_root()],
-    'DIA_LIB_PATH'   : [meson.build_root() / 'objects',
-                        meson.build_root() / 'plug-ins'],
-    'DIA_SHAPE_PATH' : [meson.source_root() / 'shapes'],
-    'DIA_XSLT_PATH'  : [meson.source_root() / 'plug-ins' / 'xslt'],
-    'DIA_PYTHON_PATH': [meson.source_root() / 'plug-ins' / 'python'],
-    'DIA_SHEET_PATH' : [meson.build_root() / 'sheets'],
+    'DIA_BASE_PATH'  : [meson.global_source_root()],
+    'DIA_LIB_PATH'   : [meson.global_build_root() / 'objects',
+                        meson.global_build_root() / 'plug-ins'],
+    'DIA_SHAPE_PATH' : [meson.global_source_root() / 'shapes'],
+    'DIA_XSLT_PATH'  : [meson.global_source_root() / 'plug-ins' / 'xslt'],
+    'DIA_PYTHON_PATH': [meson.global_source_root() / 'plug-ins' / 'python'],
+    'DIA_SHEET_PATH' : [meson.global_build_root() / 'sheets'],
 }
 
 run_env = environment()
@@ -16,7 +16,7 @@ endforeach
 
 # Otherwise Windows won't be able to find libdia.dll in build directory.
 if host_machine.system() == 'windows'
-    run_env.append('PATH', meson.build_root() / 'lib')
+    run_env.append('PATH', meson.global_build_root() / 'lib')
 endif
 
 test_exes = []
@@ -35,7 +35,7 @@ endforeach
 # Unfortunately dictionaries can only contain literal strings.
 # As such we have to use indeces instead.
 test('boundinbox', test_exes[0])
-test('objects', test_exes[1], args: [meson.build_root() / 'objects'])
+test('objects', test_exes[1], args: [meson.global_build_root() / 'objects'])
 test('testsvg', test_exes[2])
 
 # Not really a test, but just a helper program.

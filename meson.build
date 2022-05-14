@@ -1,7 +1,7 @@
 project('dia',
         ['c', 'cpp'],
         version: '0.97.3',  # This is the base version, git suffix gets added using vcs_tag().
-        meson_version: '>= 0.49',
+        meson_version: '>= 0.58',
         default_options: ['warning_level=1']
 )
 
@@ -36,7 +36,7 @@ conf.set('HAVE_XSLT', libxslt_dep.found())
 conf.set('ENABLE_NLS', true)
 
 libgdk_dep  = dependency('gdk-2.0')
-gdk_target = libgdk_dep.get_pkgconfig_variable('target')
+gdk_target = libgdk_dep.get_variable('target')
 
 if gdk_target == 'quartz'
     gtk_mac_dep = dependency('gtk-mac-integration')
@@ -150,8 +150,8 @@ subdir('docs')
 custom_target('run_with_dia_env',
     command: [find_program('generate_run_with_dia_env.sh'),
               '@OUTPUT@',
-              meson.source_root(),
-              meson.build_root()
+              meson.global_source_root(),
+              meson.global_build_root()
           ],
     output: 'run_with_dia_env',
     # Ensure we always generate this in the build directory.
