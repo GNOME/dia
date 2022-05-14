@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -201,7 +200,7 @@ dependency_select(Dependency *dep, Point *clicked_point,
 }
 
 
-static DiaObjectChange*
+static DiaObjectChange *
 dependency_move_handle (Dependency       *dep,
                         Handle           *handle,
                         Point            *to,
@@ -211,9 +210,9 @@ dependency_move_handle (Dependency       *dep,
 {
   DiaObjectChange *change;
 
-  assert(dep!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (dep != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   change = orthconn_move_handle (&dep->orth, handle, to, cp, reason, modifiers);
   dependency_update_data (dep);

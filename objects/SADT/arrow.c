@@ -21,7 +21,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -213,13 +212,17 @@ sadtarrow_move_handle (Sadtarrow        *sadtarrow,
 {
   DiaObjectChange *change;
 
-  assert(sadtarrow!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (sadtarrow != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  change = orthconn_move_handle(&sadtarrow->orth, handle, to, cp,
-				   reason, modifiers);
-  sadtarrow_update_data(sadtarrow);
+  change = orthconn_move_handle (&sadtarrow->orth,
+                                 handle,
+                                 to,
+                                 cp,
+                                 reason,
+                                 modifiers);
+  sadtarrow_update_data (sadtarrow);
 
   return change;
 }

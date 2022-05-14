@@ -24,7 +24,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
@@ -549,10 +548,10 @@ umlclass_move_handle (UMLClass         *umlclass,
 {
   Element *elem = &umlclass->element;
 
-  assert(umlclass!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
-  assert(handle->id < UMLCLASS_CONNECTIONPOINTS);
+  g_return_val_if_fail (umlclass != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+  g_return_val_if_fail (handle->id < UMLCLASS_CONNECTIONPOINTS, NULL);
 
   if (handle->type != HANDLE_NON_MOVABLE) {
     if (handle->id == HANDLE_RESIZE_E || handle->id == HANDLE_RESIZE_W) {
@@ -730,7 +729,9 @@ uml_create_documentation_tag (gchar * comment,
   }
   if (tagging)
     strcat(WrappedComment, "}");
-  assert(strlen(WrappedComment)<=MaxCookedLength);
+
+  g_return_val_if_fail (strlen (WrappedComment) <= MaxCookedLength, NULL);
+
   return WrappedComment;
 }
 

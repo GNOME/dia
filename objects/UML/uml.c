@@ -20,7 +20,6 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <assert.h>
 
 #include "intl.h"
 #include "object.h"

@@ -28,7 +28,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <glib.h>
@@ -348,8 +347,8 @@ goal_draw (Goal *goal, DiaRenderer *renderer)
   Element *elem;
 
   /* some asserts */
-  assert(goal != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (goal != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &goal->element;
 

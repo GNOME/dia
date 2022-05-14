@@ -24,7 +24,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -289,9 +288,9 @@ compfeat_move_handle (Compfeat         *compfeat,
 {
   DiaObjectChange *change;
 
-  assert(compfeat!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (compfeat != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
     text_set_position(compfeat->text, to);
@@ -332,11 +331,11 @@ compfeat_draw (Compfeat *compfeat, DiaRenderer *renderer)
   Point *points;
   OrthConn *orth = &compfeat->orth;
   int n;
-  gchar directions;
+  char directions;
   Arrow startarrow, endarrow;
 
-  assert(compfeat != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (compfeat != NULL);
+  g_return_if_fail (renderer != NULL);
 
   points = &orth->points[0];
   n = orth->numpoints;

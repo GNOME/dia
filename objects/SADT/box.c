@@ -24,7 +24,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <glib.h>
@@ -297,8 +296,8 @@ sadtbox_draw (Box *box, DiaRenderer *renderer)
   Element *elem;
   real idfontheight;
 
-  assert(box != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (box != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &box->element;
 

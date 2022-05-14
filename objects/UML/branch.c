@@ -21,7 +21,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -162,16 +161,20 @@ branch_select(Branch *branch, Point *clicked_point, DiaRenderer *interactive_ren
   element_update_handles(&branch->element);
 }
 
-static DiaObjectChange*
-branch_move_handle(Branch *branch, Handle *handle,
-		   Point *to, ConnectionPoint *cp,
-		   HandleMoveReason reason, ModifierKeys modifiers)
-{
-  assert(branch!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
 
-  assert(handle->id < 8);
+static DiaObjectChange *
+branch_move_handle (Branch           *branch,
+                    Handle           *handle,
+                    Point            *to,
+                    ConnectionPoint  *cp,
+                    HandleMoveReason  reason,
+                    ModifierKeys      modifiers)
+{
+  g_return_val_if_fail (branch != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+
+  g_return_val_if_fail (handle->id < 8, NULL);
 
   /* It smashes size info in update_data anyway.  And none of its siblings
    * resizable, so until that changes, this should be properly unresizable
@@ -194,15 +197,16 @@ branch_move(Branch *branch, Point *to)
   return NULL;
 }
 
+
 static void
 branch_draw (Branch *branch, DiaRenderer *renderer)
 {
   Element *elem;
-  real w, h;
+  double w, h;
   Point points[4];
 
-  assert(branch != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (branch != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &branch->element;
   w = elem->width/2;

@@ -23,7 +23,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -368,8 +367,8 @@ ellipse_draw (Ellipse *ellipse, DiaRenderer *renderer)
   Element *elem;
   Point center;
 
-  assert(ellipse != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (ellipse != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &ellipse->element;
 

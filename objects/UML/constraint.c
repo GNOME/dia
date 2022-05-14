@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -189,17 +188,21 @@ constraint_select(Constraint *constraint, Point *clicked_point,
   connection_update_handles(&constraint->connection);
 }
 
-static DiaObjectChange*
-constraint_move_handle(Constraint *constraint, Handle *handle,
-		       Point *to, ConnectionPoint *cp,
-		       HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+constraint_move_handle (Constraint       *constraint,
+                        Handle           *handle,
+                        Point            *to,
+                        ConnectionPoint  *cp,
+                        HandleMoveReason  reason,
+                        ModifierKeys      modifiers)
 {
   Point p1, p2;
   Point *endpoints;
 
-  assert(constraint!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (constraint != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
     constraint->text_pos = *to;
@@ -207,19 +210,24 @@ constraint_move_handle(Constraint *constraint, Handle *handle,
     endpoints = &constraint->connection.endpoints[0];
     p1.x = 0.5*(endpoints[0].x + endpoints[1].x);
     p1.y = 0.5*(endpoints[0].y + endpoints[1].y);
-    connection_move_handle(&constraint->connection, handle->id, to, cp,
-			   reason, modifiers);
-    connection_adjust_for_autogap(&constraint->connection);
-    p2.x = 0.5*(endpoints[0].x + endpoints[1].x);
-    p2.y = 0.5*(endpoints[0].y + endpoints[1].y);
-    point_sub(&p2, &p1);
-    point_add(&constraint->text_pos, &p2);
+    connection_move_handle (&constraint->connection,
+                            handle->id,
+                            to,
+                            cp,
+                            reason,
+                            modifiers);
+    connection_adjust_for_autogap (&constraint->connection);
+    p2.x = 0.5 * (endpoints[0].x + endpoints[1].x);
+    p2.y = 0.5 * (endpoints[0].y + endpoints[1].y);
+    point_sub (&p2, &p1);
+    point_add (&constraint->text_pos, &p2);
   }
 
-  constraint_update_data(constraint);
+  constraint_update_data (constraint);
 
   return NULL;
 }
+
 
 static DiaObjectChange*
 constraint_move(Constraint *constraint, Point *to)
@@ -250,8 +258,8 @@ constraint_draw (Constraint *constraint, DiaRenderer *renderer)
   Point *endpoints;
   Arrow arrow;
 
-  assert(constraint != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (constraint != NULL);
+  g_return_if_fail (renderer != NULL);
 
   endpoints = &constraint->connection.endpoints[0];
 

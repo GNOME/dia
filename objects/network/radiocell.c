@@ -21,7 +21,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -241,6 +240,7 @@ radiocell_move(RadioCell *radiocell, Point *to)
   return NULL;
 }
 
+
 static void
 radiocell_draw (RadioCell *radiocell, DiaRenderer *renderer)
 {
@@ -248,8 +248,8 @@ radiocell_draw (RadioCell *radiocell, DiaRenderer *renderer)
   Point *points;
   int n;
 
-  assert(radiocell != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (radiocell != NULL);
+  g_return_if_fail (renderer != NULL);
 
   poly = &radiocell->poly;
   points = &poly->points[0];

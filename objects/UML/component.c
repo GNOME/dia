@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -196,16 +195,20 @@ component_select(Component *cmp, Point *clicked_point,
   element_update_handles(&cmp->element);
 }
 
-static DiaObjectChange*
-component_move_handle(Component *cmp, Handle *handle,
-		      Point *to, ConnectionPoint *cp,
-		      HandleMoveReason reason, ModifierKeys modifiers)
-{
-  assert(cmp!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
 
-  assert(handle->id < 8);
+static DiaObjectChange *
+component_move_handle (Component        *cmp,
+                       Handle           *handle,
+                       Point            *to,
+                       ConnectionPoint  *cp,
+                       HandleMoveReason  reason,
+                       ModifierKeys      modifiers)
+{
+  g_return_val_if_fail (cmp != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+
+  g_return_val_if_fail (handle->id < 8, NULL);
 
   return NULL;
 }
@@ -220,15 +223,16 @@ component_move(Component *cmp, Point *to)
   return NULL;
 }
 
+
 static void
 component_draw (Component *cmp, DiaRenderer *renderer)
 {
   Element *elem;
-  real x, y, w, h;
+  double x, y, w, h;
   Point p1, p2;
 
-  assert(cmp != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (cmp != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &cmp->element;
 

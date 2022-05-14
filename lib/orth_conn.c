@@ -19,7 +19,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <math.h>
 #include <string.h> /* memcpy() */
 #include <glib.h>
@@ -453,15 +452,19 @@ orthconn_update_data(OrthConn *orth)
   neworthconn_update_midpoints(orth);
 }
 
+
 void
-orthconn_update_boundingbox(OrthConn *orth)
+orthconn_update_boundingbox (OrthConn *orth)
 {
-  assert(orth != NULL);
-  polyline_bbox(&orth->points[0],
-                orth->numpoints,
-                &orth->extra_spacing, FALSE,
-                &orth->object.bounding_box);
+  g_return_if_fail (orth != NULL);
+
+  polyline_bbox (&orth->points[0],
+                 orth->numpoints,
+                 &orth->extra_spacing,
+                 FALSE,
+                 &orth->object.bounding_box);
 }
+
 
 int
 orthconn_can_delete_segment(OrthConn *orth, Point *clickedpoint)

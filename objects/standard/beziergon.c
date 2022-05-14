@@ -21,7 +21,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -190,7 +189,7 @@ beziergon_select(Beziergon *beziergon, Point *clicked_point,
 }
 
 
-static DiaObjectChange*
+static DiaObjectChange *
 beziergon_move_handle (Beziergon        *beziergon,
                        Handle           *handle,
                        Point            *to,
@@ -198,9 +197,9 @@ beziergon_move_handle (Beziergon        *beziergon,
                        HandleMoveReason  reason,
                        ModifierKeys      modifiers)
 {
-  assert(beziergon!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (beziergon != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   beziershape_move_handle (&beziergon->bezier, handle, to, cp, reason, modifiers);
   beziergon_update_data (beziergon);

@@ -28,7 +28,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <glib.h>
@@ -386,8 +385,8 @@ other_draw (Other *other, DiaRenderer *renderer)
   Point pl[6];
 
   /* some asserts */
-  assert(other != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (other != NULL);
+  g_return_if_fail (renderer != NULL);
 
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);

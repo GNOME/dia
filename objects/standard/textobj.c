@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <assert.h>
+
 #include <math.h>
 
 #include "intl.h"
@@ -269,9 +269,9 @@ textobj_move_handle (Textobj          *textobj,
                      HandleMoveReason  reason,
                      ModifierKeys      modifiers)
 {
-  assert(textobj!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (textobj != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id == HANDLE_TEXT) {
     textobj_move(textobj, to);
@@ -293,10 +293,10 @@ textobj_move (Textobj *textobj, Point *to)
 
 
 static void
-textobj_draw(Textobj *textobj, DiaRenderer *renderer)
+textobj_draw (Textobj *textobj, DiaRenderer *renderer)
 {
-  assert(textobj != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (textobj != NULL);
+  g_return_if_fail (renderer != NULL);
 
   if (textobj->show_background) {
     DiaRectangle box;

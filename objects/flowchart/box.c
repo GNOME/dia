@@ -23,7 +23,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -358,8 +357,8 @@ box_draw (Box *box, DiaRenderer *renderer)
   Point lr_corner;
   Element *elem;
 
-  assert(box != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (box != NULL);
+  g_return_if_fail (renderer != NULL);
   elem = &box->element;
 
   lr_corner.x = elem->corner.x + elem->width;

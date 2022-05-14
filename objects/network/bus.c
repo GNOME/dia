@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -319,8 +318,8 @@ bus_draw (Bus *bus, DiaRenderer *renderer)
   Point *endpoints;
   int i;
 
-  assert(bus != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (bus != NULL);
+  g_return_if_fail (renderer != NULL);
 
   endpoints = &bus->real_ends[0];
 

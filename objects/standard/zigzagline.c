@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -188,14 +187,18 @@ zigzagline_move_handle (Zigzagline       *zigzagline,
 {
   DiaObjectChange *change;
 
-  assert(zigzagline!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (zigzagline != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  change = orthconn_move_handle((OrthConn*)zigzagline, handle, to, cp,
-				reason, modifiers);
+  change = orthconn_move_handle ((OrthConn*) zigzagline,
+                                 handle,
+                                 to,
+                                 cp,
+                                 reason,
+                                 modifiers);
 
-  zigzagline_update_data(zigzagline);
+  zigzagline_update_data (zigzagline);
 
   return change;
 }

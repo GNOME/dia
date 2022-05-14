@@ -22,7 +22,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -208,17 +207,21 @@ link_select(Link *link, Point *clicked_point,
   connection_update_handles(&link->connection);
 }
 
-static DiaObjectChange*
-link_move_handle(Link *link, Handle *handle,
-		 Point *to, ConnectionPoint *cp,
-		 HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+link_move_handle (Link             *link,
+                  Handle           *handle,
+                  Point            *to,
+                  ConnectionPoint  *cp,
+                  HandleMoveReason  reason,
+                  ModifierKeys      modifiers)
 {
   Point p1, p2;
   Point *endpoints;
 
-  assert(link!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (link != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id == HANDLE_MOVE_MID_POINT) {
     link->pm = *to;
@@ -460,8 +463,8 @@ link_draw (Link *link, DiaRenderer *renderer)
   BezPoint bpl[4];
 
   /* some asserts */
-  assert(link != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (link != NULL);
+  g_return_if_fail (renderer != NULL);
 
   /* some point computations */
   endpoints = &link->connection.endpoints[0];

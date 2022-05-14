@@ -21,7 +21,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -200,10 +199,10 @@ basestation_move_handle (Basestation      *basestation,
 {
   DiaObjectChange *oc;
 
-  assert(basestation!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
-  assert(handle->id < 8);
+  g_return_val_if_fail (basestation != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+  g_return_val_if_fail (handle->id < 8, NULL);
 
   if (handle->type == HANDLE_NON_MOVABLE)
     return NULL;
@@ -232,13 +231,13 @@ static void
 basestation_draw (Basestation *basestation, DiaRenderer *renderer)
 {
   Element *elem;
-  real x, y, w, h;
-  real r = BASESTATION_WIDTH/2.0;
+  double x, y, w, h;
+  double r = BASESTATION_WIDTH / 2.0;
   Point ct, cb, p1, p2;
   Point points[6];
 
-  assert(basestation != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (basestation != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &basestation->element;
 

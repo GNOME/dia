@@ -20,7 +20,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -227,9 +226,9 @@ flow_move_handle (Flow             *flow,
   Point p1, p2;
   Point *endpoints;
 
-  assert(flow!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (flow != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
     flow->textpos = *to;
@@ -311,6 +310,7 @@ flow_move (Flow *flow, Point *to)
   return NULL;
 }
 
+
 static void
 flow_draw (Flow *flow, DiaRenderer *renderer)
 {
@@ -319,8 +319,8 @@ flow_draw (Flow *flow, DiaRenderer *renderer)
   int n1 = 1, n2 = 0;
   Color* render_color = NULL;
 
-  assert(flow != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (flow != NULL);
+  g_return_if_fail (renderer != NULL);
 
   arrow.type = ARROW_FILLED_TRIANGLE;
   arrow.width = FLOW_ARROWWIDTH;

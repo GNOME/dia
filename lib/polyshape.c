@@ -20,7 +20,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <math.h>
 #include <string.h> /* memcpy() */
 
@@ -399,24 +398,27 @@ polyshape_update_data (PolyShape *poly)
   obj->connections[obj->num_connections-1]->directions = DIR_ALL;
 }
 
+
 void
-polyshape_update_boundingbox(PolyShape *poly)
+polyshape_update_boundingbox (PolyShape *poly)
 {
   ElementBBExtras *extra;
   PolyBBExtras pextra;
 
-  assert(poly != NULL);
+  g_return_if_fail (poly != NULL);
 
   extra = &poly->extra_spacing;
   pextra.start_trans = pextra.end_trans =
     pextra.start_long = pextra.end_long = 0;
   pextra.middle_trans = extra->border_trans;
 
-  polyline_bbox(&poly->points[0],
-                poly->numpoints,
-                &pextra, TRUE,
-                &poly->object.bounding_box);
+  polyline_bbox (&poly->points[0],
+                 poly->numpoints,
+                 &pextra,
+                 TRUE,
+                 &poly->object.bounding_box);
 }
+
 
 void
 polyshape_init(PolyShape *poly, int num_points)

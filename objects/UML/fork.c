@@ -21,7 +21,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -160,7 +159,7 @@ fork_select(Fork *branch, Point *clicked_point, DiaRenderer *interactive_rendere
 }
 
 
-static DiaObjectChange*
+static DiaObjectChange *
 fork_move_handle (Fork             *branch,
                   Handle           *handle,
                   Point            *to,
@@ -171,11 +170,11 @@ fork_move_handle (Fork             *branch,
   double dx;
   Point c;
 
-  assert(branch!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (branch != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  assert(handle->id < 8);
+  g_return_val_if_fail (handle->id < 8, NULL);
 
   /* Only orizontal E/W movement are allowed */
   if (handle->id==3 || handle->id==4) {
@@ -201,15 +200,16 @@ fork_move(Fork *branch, Point *to)
   return NULL;
 }
 
+
 static void
 fork_draw (Fork *branch, DiaRenderer *renderer)
 {
   Element *elem;
-  real w, h;
+  double w, h;
   Point p1, p2;
 
-  assert(branch != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (branch != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &branch->element;
   w = elem->width;

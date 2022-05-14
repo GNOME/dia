@@ -31,7 +31,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>

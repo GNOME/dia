@@ -17,7 +17,6 @@
  */
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "object.h"
@@ -232,8 +231,8 @@ group_move_handle (Group            *group,
   real w0, h0, w1, h1;
   Point fixed;
 
-  assert(handle->id>=HANDLE_RESIZE_NW);
-  assert(handle->id<=HANDLE_RESIZE_SE);
+  g_return_val_if_fail (handle->id >= HANDLE_RESIZE_NW, NULL);
+  g_return_val_if_fail (handle->id <= HANDLE_RESIZE_SE, NULL);
 
   w0 = w1 = bb->right - bb->left;
   h0 = h1 = bb->bottom - bb->top;

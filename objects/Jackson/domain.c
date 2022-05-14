@@ -28,7 +28,6 @@
 #include <config.h>
 
 #include <stdio.h>
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <glib.h>
@@ -367,8 +366,8 @@ jackson_box_draw (Box *box, DiaRenderer *renderer)
   const char* s;
 
   /* some asserts */
-  assert(box != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (box != NULL);
+  g_return_if_fail (renderer != NULL);
 
   /* computing positions */
   elem = &box->element;

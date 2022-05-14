@@ -20,7 +20,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -225,9 +224,9 @@ relationship_move_handle (Relationship     *relationship,
                           ConnectionPoint  *cp,
                           HandleMoveReason  reason,
                           ModifierKeys      modifiers) {
-  assert(relationship != NULL);
-  assert(handle != NULL);
-  assert(to != NULL);
+  g_return_val_if_fail (relationship != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   element_move_handle (&relationship->element, handle->id, to, cp, reason, modifiers);
 
@@ -258,8 +257,8 @@ relationship_draw (Relationship *relationship, DiaRenderer *renderer)
   double diff;
   DiaAlignment left_align;
 
-  assert(relationship != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (relationship != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &relationship->element;
 

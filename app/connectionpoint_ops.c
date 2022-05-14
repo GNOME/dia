@@ -17,8 +17,6 @@
  */
 #include <config.h>
 
-#include <assert.h>
-
 #include "connectionpoint_ops.h"
 #include "object_ops.h"
 #include "color.h"

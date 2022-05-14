@@ -20,7 +20,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -199,21 +198,31 @@ entity_select(Entity *entity, Point *clicked_point,
   element_update_handles(&entity->element);
 }
 
-static DiaObjectChange*
-entity_move_handle(Entity *entity, Handle *handle,
-		   Point *to, ConnectionPoint *cp,
-		   HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+entity_move_handle (Entity           *entity,
+                    Handle           *handle,
+                    Point            *to,
+                    ConnectionPoint  *cp,
+                    HandleMoveReason  reason,
+                    ModifierKeys      modifiers)
 {
-  assert(entity!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (entity != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  element_move_handle(&entity->element, handle->id, to, cp, reason, modifiers);
+  element_move_handle (&entity->element,
+                       handle->id,
+                       to,
+                       cp,
+                       reason,
+                       modifiers);
 
-  entity_update_data(entity);
+  entity_update_data (entity);
 
   return NULL;
 }
+
 
 static DiaObjectChange*
 entity_move(Entity *entity, Point *to)
@@ -233,8 +242,8 @@ entity_draw (Entity *entity, DiaRenderer *renderer)
   Element *elem;
   double diff;
 
-  assert(entity != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (entity != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &entity->element;
 

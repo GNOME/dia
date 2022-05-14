@@ -28,7 +28,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -220,17 +219,21 @@ maor_select(Maor *maor, Point *clicked_point,
   connection_update_handles(&maor->connection);
 }
 
-static DiaObjectChange*
-maor_move_handle(Maor *maor, Handle *handle,
-		 Point *to, ConnectionPoint *cp,
-		 HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+maor_move_handle (Maor             *maor,
+                  Handle           *handle,
+                  Point            *to,
+                  ConnectionPoint  *cp,
+                  HandleMoveReason  reason,
+                  ModifierKeys      modifiers)
 {
   Point p1, p2;
   Point *endpoints;
 
-  assert(maor!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (maor != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
     maor->text_pos = *to;
@@ -429,8 +432,8 @@ maor_draw (Maor *maor, DiaRenderer *renderer)
   char *mname = g_strdup (maor->text);
 
   /* some asserts */
-  assert(maor != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (maor != NULL);
+  g_return_if_fail (renderer != NULL);
 
   /* arrow type */
   arrow.type = ARROW_FILLED_TRIANGLE;

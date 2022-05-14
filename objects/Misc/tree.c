@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -312,14 +311,15 @@ tree_move (Tree *tree, Point *to)
   return NULL;
 }
 
+
 static void
 tree_draw (Tree *tree, DiaRenderer *renderer)
 {
   Point *endpoints;
   int i;
 
-  assert(tree != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (tree != NULL);
+  g_return_if_fail (renderer != NULL);
 
   endpoints = &tree->real_ends[0];
 

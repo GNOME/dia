@@ -22,7 +22,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -328,9 +327,9 @@ orthflow_move_handle (Orthflow         *orthflow,
 {
   DiaObjectChange *change = NULL;
 
-  assert(orthflow!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (orthflow != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
     orthflow->textpos = *to;
@@ -383,8 +382,8 @@ orthflow_draw (Orthflow *orthflow, DiaRenderer *renderer)
   real linewidth;
   Arrow arrow;
 
-  assert(orthflow != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (orthflow != NULL);
+  g_return_if_fail (renderer != NULL);
 
   arrow.type = ARROW_FILLED_TRIANGLE;
   arrow.width = ORTHFLOW_ARROWWIDTH;

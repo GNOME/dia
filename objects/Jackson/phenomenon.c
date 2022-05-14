@@ -27,7 +27,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -200,17 +199,21 @@ message_select(Message *message, Point *clicked_point,
   connection_update_handles(&message->connection);
 }
 
-static DiaObjectChange*
-message_move_handle(Message *message, Handle *handle,
-		 Point *to, ConnectionPoint *cp,
-		 HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+message_move_handle (Message          *message,
+                     Handle           *handle,
+                     Point            *to,
+                     ConnectionPoint  *cp,
+                     HandleMoveReason  reason,
+                     ModifierKeys      modifiers)
 {
   Point p1, p2;
   Point *endpoints;
 
-  assert(message!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (message != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
     message->text_pos = *to;
@@ -262,8 +265,8 @@ message_draw (Message *message, DiaRenderer *renderer)
   char *mname = g_strdup (message->text);
 
   /* some asserts */
-  assert(message != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (message != NULL);
+  g_return_if_fail (renderer != NULL);
 
   /* arrow type */
   endpoints = &message->connection.endpoints[0];

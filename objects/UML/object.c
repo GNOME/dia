@@ -18,7 +18,7 @@
 
 #include <config.h>
 
-#include <assert.h>
+
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -248,19 +248,24 @@ objet_select(Objet *ob, Point *clicked_point,
   element_update_handles(&ob->element);
 }
 
-static DiaObjectChange*
-objet_move_handle(Objet *ob, Handle *handle,
-		  Point *to, ConnectionPoint *cp,
-		  HandleMoveReason reason, ModifierKeys modifiers)
-{
-  assert(ob!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
 
-  assert(handle->id < 8);
+static DiaObjectChange *
+objet_move_handle (Objet            *ob,
+                   Handle           *handle,
+                   Point            *to,
+                   ConnectionPoint  *cp,
+                   HandleMoveReason  reason,
+                   ModifierKeys      modifiers)
+{
+  g_return_val_if_fail (ob != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+
+  g_return_val_if_fail (handle->id < 8, NULL);
 
   return NULL;
 }
+
 
 static DiaObjectChange*
 objet_move(Objet *ob, Point *to)
@@ -271,16 +276,17 @@ objet_move(Objet *ob, Point *to)
   return NULL;
 }
 
+
 static void
 objet_draw (Objet *ob, DiaRenderer *renderer)
 {
   Element *elem;
-  real bw, x, y, w, h;
+  double bw, x, y, w, h;
   Point p1, p2;
   int i;
 
-  assert(ob != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (ob != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &ob->element;
 

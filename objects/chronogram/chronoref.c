@@ -24,7 +24,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <glib.h>
@@ -272,14 +271,14 @@ chronoref_move (Chronoref *chronoref, Point *to)
 
 
 static void
-chronoref_draw(Chronoref *chronoref, DiaRenderer *renderer)
+chronoref_draw (Chronoref *chronoref, DiaRenderer *renderer)
 {
   Element *elem;
   Point lr_corner;
   real t;
   Point p1,p2,p3;
 
-  assert(renderer != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &chronoref->element;
 

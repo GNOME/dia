@@ -20,7 +20,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -175,13 +174,17 @@ participation_move_handle (Participation    *participation,
 {
   DiaObjectChange *change;
 
-  assert(participation!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (participation != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  change = orthconn_move_handle(&participation->orth, handle, to, cp,
-				reason, modifiers);
-  participation_update_data(participation);
+  change = orthconn_move_handle (&participation->orth,
+                                 handle,
+                                 to,
+                                 cp,
+                                 reason,
+                                 modifiers);
+  participation_update_data (participation);
 
   return change;
 }

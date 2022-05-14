@@ -19,7 +19,6 @@
 /* select.c -- callbacks to implement the Select menu */
 #include <config.h>
 
-#include <assert.h>
 
 #include "select.h"
 #include "menus.h"

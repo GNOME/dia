@@ -28,7 +28,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -1186,7 +1185,9 @@ create_documentation_tag (char     *comment,
   }
   if (tagging)
     strcat(WrappedComment, "}");
-  assert(strlen(WrappedComment)<=MaxCookedLength);
+
+  g_return_val_if_fail (strlen (WrappedComment) <= MaxCookedLength, NULL);
+
   return WrappedComment;
 }
 

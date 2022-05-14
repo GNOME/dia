@@ -20,7 +20,6 @@
 /*! \file line.c -- Implements the "Standard - Line" object */
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -422,22 +421,32 @@ line_select(Line *line, Point *clicked_point,
   connection_update_handles(&line->connection);
 }
 
-static DiaObjectChange*
-line_move_handle(Line *line, Handle *handle,
-		 Point *to, ConnectionPoint *cp,
-		 HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+line_move_handle (Line             *line,
+                  Handle           *handle,
+                  Point            *to,
+                  ConnectionPoint  *cp,
+                  HandleMoveReason  reason,
+                  ModifierKeys      modifiers)
 {
-  assert(line!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (line != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  connection_move_handle(&line->connection, handle->id, to, cp, reason, modifiers);
-  connection_adjust_for_autogap(&line->connection);
+  connection_move_handle (&line->connection,
+                          handle->id,
+                          to,
+                          cp,
+                          reason,
+                          modifiers);
+  connection_adjust_for_autogap (&line->connection);
 
-  line_update_data(line);
+  line_update_data (line);
 
   return NULL;
 }
+
 
 static DiaObjectChange*
 line_move(Line *line, Point *to)
@@ -456,13 +465,14 @@ line_move(Line *line, Point *to)
   return NULL;
 }
 
+
 static void
 line_draw (Line *line, DiaRenderer *renderer)
 {
   Point gap_endpoints[2];
 
-  assert(line != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (line != NULL);
+  g_return_if_fail (renderer != NULL);
 
   dia_renderer_set_linewidth (renderer, line->line_width);
   dia_renderer_set_linestyle (renderer, line->line_style, line->dashlength);

@@ -18,9 +18,7 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <string.h>
-
 
 #include "orth_conn.h"
 #include "diarenderer.h"
@@ -352,8 +350,8 @@ transition_draw (Transition *transition, DiaRenderer *renderer)
   OrthConn *orth = &transition->orth;
   int num_points;
 
-  assert(transition != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (transition != NULL);
+  g_return_if_fail (renderer != NULL);
 
 
   /* Draw the arrow / line */

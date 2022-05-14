@@ -34,8 +34,8 @@ aadlprocessor_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
   real x, y, w, h;
   Point points[4];
 
-  assert(aadlbox != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (aadlbox != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &aadlbox->element;
 

@@ -21,7 +21,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <assert.h>
 #include <math.h>
 
 #include "config.h"
@@ -218,8 +217,8 @@ wanlink_destroy(WanLink *wanlink)
 static void
 wanlink_draw (WanLink *wanlink, DiaRenderer *renderer)
 {
-  assert (wanlink != NULL);
-  assert (renderer != NULL);
+  g_return_if_fail (wanlink != NULL);
+  g_return_if_fail (renderer != NULL);
 
   dia_renderer_set_linewidth (renderer, FLASH_LINE);
   dia_renderer_set_linejoin (renderer, DIA_LINE_JOIN_MITER);
@@ -231,6 +230,7 @@ wanlink_draw (WanLink *wanlink, DiaRenderer *renderer)
                              &wanlink->fill_color,
                              &wanlink->line_color);
 }
+
 
 static real
 wanlink_distance_from(WanLink *wanlink, Point *point)

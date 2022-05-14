@@ -20,7 +20,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <math.h>
 #include <string.h> /* memcpy() */
 
@@ -341,16 +340,18 @@ polyconn_update_data(PolyConn *poly)
   }
 }
 
-void
-polyconn_update_boundingbox(PolyConn *poly)
-{
-  assert(poly != NULL);
 
-  polyline_bbox(&poly->points[0],
-                poly->numpoints,
-                &poly->extra_spacing, FALSE,
-                &poly->object.bounding_box);
+void
+polyconn_update_boundingbox (PolyConn *poly)
+{
+  g_return_if_fail (poly != NULL);
+
+  polyline_bbox (&poly->points[0],
+                 poly->numpoints,
+                 &poly->extra_spacing, FALSE,
+                 &poly->object.bounding_box);
 }
+
 
 void
 polyconn_init(PolyConn *poly, int num_points)

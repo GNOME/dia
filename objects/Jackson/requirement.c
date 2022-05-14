@@ -27,7 +27,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -184,18 +183,24 @@ req_select(Requirement *req, Point *clicked_point,
   element_update_handles(&req->element);
 }
 
-static DiaObjectChange*
-req_move_handle(Requirement *req, Handle *handle,
-                Point *to, ConnectionPoint *cp,
-		HandleMoveReason reason, ModifierKeys modifiers)
-{
-  assert(req!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
 
-  assert(handle->id < 8);
+static DiaObjectChange *
+req_move_handle (Requirement      *req,
+                 Handle           *handle,
+                 Point            *to,
+                 ConnectionPoint  *cp,
+                 HandleMoveReason  reason,
+                 ModifierKeys      modifiers)
+{
+  g_return_val_if_fail (req != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+
+  g_return_val_if_fail (handle->id < 8, NULL);
+
   return NULL;
 }
+
 
 static DiaObjectChange*
 req_move(Requirement *req, Point *to)
@@ -223,8 +228,8 @@ req_draw (Requirement *req, DiaRenderer *renderer)
   real x, y, w, h;
   Point c;
 
-  assert(req != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (req != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &req->element;
 

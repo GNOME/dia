@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -206,12 +205,12 @@ generalization_move_handle (Generalization   *genlz,
 {
   DiaObjectChange *change;
 
-  assert(genlz!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (genlz != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  change = orthconn_move_handle(&genlz->orth, handle, to, cp, reason, modifiers);
-  generalization_update_data(genlz);
+  change = orthconn_move_handle (&genlz->orth, handle, to, cp, reason, modifiers);
+  generalization_update_data (genlz);
 
   return change;
 }

@@ -24,7 +24,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <gmodule.h>
 #include <math.h>
 #include <stdlib.h>
@@ -821,9 +820,9 @@ custom_move_handle (Custom           *custom,
   Point corner;
   real width, height;
 
-  assert(custom!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (custom != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   /* remember ... */
   corner = custom->element.corner;
@@ -929,8 +928,8 @@ custom_draw (Custom *custom, DiaRenderer *renderer)
   DiaLineJoin cur_join = DIA_LINE_JOIN_MITER;
   DiaLineStyle cur_style = custom->line_style;
 
-  assert(custom != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (custom != NULL);
+  g_return_if_fail (renderer != NULL);
 
   if (!arr) {
     arr = g_array_new (FALSE, FALSE, sizeof(Point));

@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -211,22 +210,27 @@ largepackage_select(LargePackage *pkg, Point *clicked_point,
   element_update_handles(&pkg->element);
 }
 
-static DiaObjectChange*
-largepackage_move_handle(LargePackage *pkg, Handle *handle,
-			 Point *to, ConnectionPoint *cp,
-			 HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+largepackage_move_handle (LargePackage     *pkg,
+                          Handle           *handle,
+                          Point            *to,
+                          ConnectionPoint  *cp,
+                          HandleMoveReason  reason,
+                          ModifierKeys      modifiers)
 {
-  assert(pkg!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (pkg != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  assert(handle->id < 8);
+  g_return_val_if_fail (handle->id < 8, NULL);
 
-  element_move_handle(&pkg->element, handle->id, to, cp, reason, modifiers);
-  largepackage_update_data(pkg);
+  element_move_handle (&pkg->element, handle->id, to, cp, reason, modifiers);
+  largepackage_update_data (pkg);
 
   return NULL;
 }
+
 
 static DiaObjectChange*
 largepackage_move(LargePackage *pkg, Point *to)
@@ -238,15 +242,16 @@ largepackage_move(LargePackage *pkg, Point *to)
   return NULL;
 }
 
+
 static void
 largepackage_draw (LargePackage *pkg, DiaRenderer *renderer)
 {
   Element *elem;
-  real x, y, w, h;
+  double x, y, w, h;
   Point p1, p2;
 
-  assert(pkg != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (pkg != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &pkg->element;
 

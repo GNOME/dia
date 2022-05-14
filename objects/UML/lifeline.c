@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -270,7 +269,7 @@ lifeline_point_above_mid (Lifeline *lifeline,
  *   by connected points)
  * - the bottom handle just move itself, not beyond the lower box handle
  */
-static DiaObjectChange*
+static DiaObjectChange *
 lifeline_move_handle (Lifeline         *lifeline,
                       Handle           *handle,
                       Point            *to,
@@ -281,9 +280,9 @@ lifeline_move_handle (Lifeline         *lifeline,
   double s, dy;
   Connection *conn;
 
-  assert(lifeline!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (lifeline != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   conn = &lifeline->connection;
   if (handle->id == HANDLE_BOXBOT) {
@@ -374,8 +373,8 @@ lifeline_draw (Lifeline *lifeline, DiaRenderer *renderer)
 {
   Point *endpoints, p1, p2;
 
-  assert(lifeline != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (lifeline != NULL);
+  g_return_if_fail (renderer != NULL);
 
   endpoints = &lifeline->connection.endpoints[0];
 

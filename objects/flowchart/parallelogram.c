@@ -23,7 +23,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -367,8 +366,8 @@ pgram_draw (Pgram *pgram, DiaRenderer *renderer)
   Element *elem;
   real offs;
 
-  assert(pgram != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (pgram != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &pgram->element;
 

@@ -727,9 +727,9 @@ aadlbox_move_handle (Aadlbox          *aadlbox,
                      HandleMoveReason  reason,
                      ModifierKeys      modifiers)
 {
-  assert(aadlbox!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (aadlbox != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id < 8) {
     /* box resizing */

@@ -28,7 +28,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -219,17 +218,21 @@ mbr_select(Mbr *mbr, Point *clicked_point,
   connection_update_handles(&mbr->connection);
 }
 
-static DiaObjectChange*
-mbr_move_handle(Mbr *mbr, Handle *handle,
-		 Point *to, ConnectionPoint *cp,
-		 HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+mbr_move_handle (Mbr              *mbr,
+                 Handle           *handle,
+                 Point            *to,
+                 ConnectionPoint  *cp,
+                 HandleMoveReason  reason,
+                 ModifierKeys      modifiers)
 {
   Point p1, p2;
   Point *endpoints;
 
-  assert(mbr!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (mbr != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id == HANDLE_MOVE_MID_POINT) {
     mbr->pm = *to;
@@ -382,8 +385,8 @@ mbr_draw (Mbr *mbr, DiaRenderer *renderer)
   double k,dx,dy,dxn,dyn,dxp,dyp;
 
   /* some asserts */
-  assert(mbr != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (mbr != NULL);
+  g_return_if_fail (renderer != NULL);
 
   /* arrow type */
   if (mbr->type!=MBR_CONFLICTS) {

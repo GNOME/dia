@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -213,9 +212,9 @@ polyline_move_handle (Polyline         *polyline,
                       HandleMoveReason  reason,
                       ModifierKeys      modifiers)
 {
-  assert(polyline!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (polyline != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   polyconn_move_handle(&polyline->poly, handle, to, cp, reason, modifiers);
   polyline_update_data(polyline);

@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <string.h>
 
 #include "intl.h"
@@ -125,7 +124,7 @@ dia_diagram_dispose (GObject *object)
 {
   Diagram *dia = DIA_DIAGRAM (object);
 
-  assert (dia->displays==NULL);
+  g_return_if_fail (dia->displays == NULL);
 
   if (g_list_index (open_diagrams, dia) >= 0) {
     open_diagrams = g_list_remove (open_diagrams, dia);
@@ -147,7 +146,7 @@ dia_diagram_finalize (GObject *object)
   Diagram *dia = DIA_DIAGRAM (object);
   DiagramPrivate *priv = dia_diagram_get_instance_private (dia);
 
-  assert (dia->displays==NULL);
+  g_return_if_fail (dia->displays == NULL);
 
   g_clear_object (&priv->file);
   g_clear_pointer (&dia->filename, g_free);

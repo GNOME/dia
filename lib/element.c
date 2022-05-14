@@ -29,7 +29,6 @@
 #include <config.h>
 
 #include <stdio.h>
-#include <assert.h>
 #include <math.h>
 #include <string.h> /* memcpy() */
 
@@ -59,7 +58,7 @@ element_update_boundingbox (Element *elem)
   Point *corner;
   ElementBBExtras *extra = &elem->extra_spacing;
 
-  assert(elem != NULL);
+  g_return_if_fail (elem != NULL);
 
   corner = &elem->corner;
   bb.left = corner->x;
@@ -67,7 +66,7 @@ element_update_boundingbox (Element *elem)
   bb.top = corner->y;
   bb.bottom = corner->y + elem->height;
 
-  rectangle_bbox(&bb,extra,&elem->object.bounding_box);
+  rectangle_bbox (&bb, extra, &elem->object.bounding_box);
 }
 
 

@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -221,19 +220,24 @@ state_select(State *state, Point *clicked_point,
   element_update_handles(&state->element);
 }
 
-static DiaObjectChange*
-state_move_handle(State *state, Handle *handle,
-		  Point *to, ConnectionPoint *cp,
-		  HandleMoveReason reason, ModifierKeys modifiers)
-{
-  assert(state!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
 
-  assert(handle->id < 8);
+static DiaObjectChange *
+state_move_handle (State            *state,
+                   Handle           *handle,
+                   Point            *to,
+                   ConnectionPoint  *cp,
+                   HandleMoveReason  reason,
+                   ModifierKeys      modifiers)
+{
+  g_return_val_if_fail (state != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+
+  g_return_val_if_fail (handle->id < 8, NULL);
 
   return NULL;
 }
+
 
 static DiaObjectChange*
 state_move(State *state, Point *to)
@@ -268,12 +272,12 @@ static void
 state_draw (State *state, DiaRenderer *renderer)
 {
   Element *elem;
-  real x, y, w, h, r;
+  double x, y, w, h, r;
   Point p1, p2, split_line_left, split_line_right;
   gboolean has_actions;
 
-  assert(state != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (state != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &state->element;
 

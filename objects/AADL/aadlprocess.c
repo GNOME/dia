@@ -36,8 +36,8 @@ aadlbox_draw_inclined_box (Aadlbox      *aadlbox,
   double x, y, w, h;
   Point points[4];
 
-  assert(aadlbox != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (aadlbox != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &aadlbox->element;
 

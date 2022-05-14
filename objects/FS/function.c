@@ -20,7 +20,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -302,11 +301,11 @@ function_move_handle (Function         *pkg,
                       HandleMoveReason  reason,
                       ModifierKeys      modifiers)
 {
-  assert(pkg!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (pkg != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  assert(handle->id < 8);
+  g_return_val_if_fail (handle->id < 8, NULL);
 
   return NULL;
 }
@@ -330,9 +329,9 @@ function_draw (Function *pkg, DiaRenderer *renderer)
   Point p1, p2;
   real font_height ;
 
-  assert(pkg != NULL);
-  assert(pkg->text != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (pkg != NULL);
+  g_return_if_fail (pkg->text != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &pkg->element;
 

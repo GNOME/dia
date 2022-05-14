@@ -33,8 +33,8 @@ aadlbus_draw_borders (Aadlbox *aadlbox, DiaRenderer *renderer)
   real x, y, w, h;
   Point points[10];
 
-  assert(aadlbox != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (aadlbox != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &aadlbox->element;
 

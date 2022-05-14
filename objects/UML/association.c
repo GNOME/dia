@@ -50,7 +50,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -354,7 +353,7 @@ association_select(Association *assoc, Point *clicked_point,
 }
 
 
-static DiaObjectChange*
+static DiaObjectChange *
 association_move_handle (Association      *assoc,
                          Handle           *handle,
                          Point            *to,
@@ -364,11 +363,16 @@ association_move_handle (Association      *assoc,
 {
   DiaObjectChange *change;
 
-  assert(assoc!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (assoc != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  change = orthconn_move_handle (&assoc->orth, handle, to, cp, reason, modifiers);
+  change = orthconn_move_handle (&assoc->orth,
+                                 handle,
+                                 to,
+                                 cp,
+                                 reason,
+                                 modifiers);
   association_update_data (assoc);
 
   return change;

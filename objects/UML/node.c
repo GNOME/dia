@@ -21,7 +21,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -189,22 +188,27 @@ node_select(Node *node, Point *clicked_point,
   element_update_handles(&node->element);
 }
 
-static DiaObjectChange*
-node_move_handle(Node *node, Handle *handle,
-		 Point *to, ConnectionPoint *cp,
-		 HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+node_move_handle (Node             *node,
+                  Handle           *handle,
+                  Point            *to,
+                  ConnectionPoint  *cp,
+                  HandleMoveReason  reason,
+                  ModifierKeys      modifiers)
 {
-  assert(node!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (node != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  assert(handle->id < 8);
+  g_return_val_if_fail (handle->id < 8, NULL);
 
-  element_move_handle(&node->element, handle->id, to, cp, reason, modifiers);
-  node_update_data(node);
+  element_move_handle (&node->element, handle->id, to, cp, reason, modifiers);
+  node_update_data (node);
 
   return NULL;
 }
+
 
 static DiaObjectChange*
 node_move(Node *node, Point *to)
@@ -223,16 +227,17 @@ node_move(Node *node, Point *to)
   return NULL;
 }
 
+
 static void
 node_draw (Node *node, DiaRenderer *renderer)
 {
   Element *elem;
-  real x, y, w, h;
+  double x, y, w, h;
   Point points[7];
   int i;
 
-  assert(node != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (node != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &node->element;
 

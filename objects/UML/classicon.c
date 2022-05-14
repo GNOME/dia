@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -205,19 +204,24 @@ classicon_select(Classicon *cicon, Point *clicked_point,
   element_update_handles(&cicon->element);
 }
 
-static DiaObjectChange*
-classicon_move_handle(Classicon *cicon, Handle *handle,
-		      Point *to, ConnectionPoint *cp,
-		      HandleMoveReason reason, ModifierKeys modifiers)
-{
-  assert(cicon!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
 
-  assert(handle->id < 8);
+static DiaObjectChange *
+classicon_move_handle (Classicon        *cicon,
+                       Handle           *handle,
+                       Point            *to,
+                       ConnectionPoint  *cp,
+                       HandleMoveReason  reason,
+                       ModifierKeys      modifiers)
+{
+  g_return_val_if_fail (cicon != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+
+  g_return_val_if_fail (handle->id < 8, NULL);
 
   return NULL;
 }
+
 
 static DiaObjectChange*
 classicon_move(Classicon *cicon, Point *to)
@@ -240,12 +244,12 @@ static void
 classicon_draw (Classicon *icon, DiaRenderer *renderer)
 {
   Element *elem;
-  real r, x, y, w;
+  double r, x, y, w;
   Point center, p1, p2;
   int i;
 
-  assert(icon != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (icon != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &icon->element;
 

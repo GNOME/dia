@@ -35,8 +35,8 @@ aadlbox_draw_rounded_box (Aadlbox      *aadlbox,
   double x, y, w, h;
   BezPoint bez[9];
 
-  assert(aadlbox != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (aadlbox != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &aadlbox->element;
 

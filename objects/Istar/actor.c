@@ -24,7 +24,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -293,8 +292,8 @@ actor_draw (Actor *actor, DiaRenderer *renderer)
   double dx,dy,r,th;
   Point ps1,ps2,pi1,pi2;
 
-  assert(actor != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (actor != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &actor->element;
 

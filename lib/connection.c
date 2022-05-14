@@ -20,7 +20,6 @@
 
 #include <stdio.h>
 #include <string.h> /* memcpy() */
-#include <assert.h>
 
 #include "connection.h"
 

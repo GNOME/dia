@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -198,12 +197,12 @@ polygon_move_handle (Polygon          *polygon,
                      HandleMoveReason  reason,
                      ModifierKeys      modifiers)
 {
-  assert(polygon!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (polygon != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  polyshape_move_handle(&polygon->poly, handle, to, cp, reason, modifiers);
-  polygon_update_data(polygon);
+  polyshape_move_handle (&polygon->poly, handle, to, cp, reason, modifiers);
+  polygon_update_data (polygon);
 
   return NULL;
 }

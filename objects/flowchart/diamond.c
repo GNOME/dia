@@ -23,7 +23,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -364,13 +363,13 @@ diamond_move (Diamond *diamond, Point *to)
 
 
 static void
-diamond_draw(Diamond *diamond, DiaRenderer *renderer)
+diamond_draw (Diamond *diamond, DiaRenderer *renderer)
 {
   Point pts[4];
   Element *elem;
 
-  assert(diamond != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (diamond != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &diamond->element;
 

@@ -22,7 +22,6 @@
 
 #define _DEFAULT_SOURCE 1 /* to get finite */
 #include <math.h>
-#include <assert.h>
 
 #include "intl.h"
 #include "object.h"
@@ -333,19 +332,24 @@ point_projection_is_between (const Point *c,
   return (c->x == a->x && c->y == a->y);
 }
 
+
 static DiaObjectChange*
-arc_move_handle(Arc *arc, Handle *handle,
-		Point *to, ConnectionPoint *cp,
-		HandleMoveReason reason, ModifierKeys modifiers)
+arc_move_handle (Arc              *arc,
+                 Handle           *handle,
+                 Point            *to,
+                 ConnectionPoint  *cp,
+                 HandleMoveReason  reason,
+                 ModifierKeys      modifiers)
 {
-  assert(arc!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
-  /* A minimum distance between our three points needs to be maintained
-   * Otherwise our math will get unstable with unpredictable results. */
+  g_return_val_if_fail (arc != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+
   {
     const Point *p1, *p2;
 
+    /* A minimum distance between our three points needs to be maintained
+     * Otherwise our math will get unstable with unpredictable results. */
     if (handle->id == HANDLE_MIDDLE) {
       p1 = &arc->connection.endpoints[0];
       p2 = &arc->connection.endpoints[1];
@@ -357,75 +361,107 @@ arc_move_handle(Arc *arc, Handle *handle,
       p1 = &arc->middle_handle.pos;
       p2 = &arc->connection.endpoints[(handle == (&arc->connection.endpoint_handles[0])) ? 1 : 0];
     }
+
+
     if (   (distance_point_point (to, p1) < 0.01)
-        || (distance_point_point (to, p2) < 0.01))
+        || (distance_point_point (to, p2) < 0.01)) {
       return NULL;
+    }
   }
 
   if (handle->id == HANDLE_MIDDLE) {
-          TRACE(g_printerr ("curve_dist: %.2f \n",arc->curve_distance));
-          arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], to);
-          TRACE(g_printerr ("curve_dist: %.2f \n",arc->curve_distance));
+    TRACE (g_printerr ("curve_dist: %.2f \n", arc->curve_distance));
+    arc->curve_distance = arc_compute_curve_distance (arc,
+                                                      &arc->connection.endpoints[0],
+                                                      &arc->connection.endpoints[1],
+                                                      to);
+    TRACE (g_printerr ("curve_dist: %.2f \n", arc->curve_distance));
   } else if (handle->id == HANDLE_CENTER) {
-          /* We can move the handle only on the line through center and middle
-	   * Intersecting chord theorem says a*a=b*c
-	   *   with a = dist(p1,p2)/2
-	   *        b = curve_distance
-	   *        c = 2*radius-b or c = r + d
-	   *   with Pythagoras r^2 = d^2 + a^2
-	   *        d = sqrt(r^2-a^2)
-	   */
-	  Point p0 = arc->connection.endpoints[0];
-	  Point p1 = arc->connection.endpoints[1];
-	  Point p2 = { (p0.x + p1.x) / 2.0, (p0.y + p1.y) / 2.0 };
-	  real a = distance_point_point (&p0, &p1)/2.0;
-	  real r = (  distance_point_point (&p0, to) + distance_point_point (&p1, to)) / 2.0;
-	  real d = sqrt(r*r-a*a);
-	  real cd;
-	  /* If the new point lies between midpoint and the chords center the angles is >180,
-	   * so c is smaller than r */
-	  if (point_projection_is_between (to, &arc->middle_handle.pos, &p2))
-	    d = -d;
-	  cd  = a*a / (r+d);
-	  /* the sign of curve_distance, i.e. if the arc angle is clockwise, does not change */
-	  arc->curve_distance = (arc->curve_distance > 0) ? cd : -cd;
+    /* We can move the handle only on the line through center and middle
+     * Intersecting chord theorem says a*a=b*c
+     *   with a = dist(p1,p2)/2
+     *        b = curve_distance
+     *        c = 2*radius-b or c = r + d
+     *   with Pythagoras r^2 = d^2 + a^2
+     *        d = sqrt(r^2-a^2)
+     */
+    Point p0 = arc->connection.endpoints[0];
+    Point p1 = arc->connection.endpoints[1];
+    Point p2 = { (p0.x + p1.x) / 2.0, (p0.y + p1.y) / 2.0 };
+    double a = distance_point_point (&p0, &p1) / 2.0;
+    double r = (distance_point_point (&p0, to) + distance_point_point (&p1, to)) / 2.0;
+    double d = sqrt (r * r - a * a);
+    double cd;
+    /* If the new point lies between midpoint and the chords center the angles is >180,
+    * so c is smaller than r */
+    if (point_projection_is_between (to, &arc->middle_handle.pos, &p2)) {
+      d = -d;
+    }
+    cd  = (a * a) / (r + d);
+    /* the sign of curve_distance, i.e. if the arc angle is clockwise, does not change */
+    arc->curve_distance = (arc->curve_distance > 0) ? cd : -cd;
   } else {
-        Point best;
-        TRACE(g_printerr ("Modifiers: %d \n",modifiers));
-        if (modifiers & MODIFIER_SHIFT)
-        /* if(arc->end_arrow.type == ARROW_NONE)*/
-        {
-          TRACE(g_printerr ("SHIFT USED, to at %.2f %.2f  ",to->x,to->y));
-          if (arc_find_radial(arc, to, &best)){
-            /* needs to move two handles at the same time
-             * compute pos of middle handle */
-            Point midpoint;
-            int ok;
-            if (handle == (&arc->connection.endpoint_handles[0]))
-              ok = arc_compute_midpoint(arc, &best , &arc->connection.endpoints[1], &midpoint);
-            else
-              ok = arc_compute_midpoint(arc,  &arc->connection.endpoints[0], &best , &midpoint);
-            if (!ok)
-              return NULL;
-            connection_move_handle(&arc->connection, handle->id, &best, cp, reason, modifiers);
-            connection_adjust_for_autogap(&arc->connection);
-            /* recompute curve distance equiv. move middle handle */
-            arc->curve_distance = arc_compute_curve_distance(arc, &arc->connection.endpoints[0], &arc->connection.endpoints[1], &midpoint);
-            TRACE(g_printerr ("curve_dist: %.2f \n",arc->curve_distance));
-          }
-          else {
-            TRACE(g_printerr ("NO best\n"));
-          }
-       } else {
-          connection_move_handle(&arc->connection, handle->id, to, cp, reason, modifiers);
-          connection_adjust_for_autogap(&arc->connection);
-       }
+    Point best;
+    TRACE (g_printerr ("Modifiers: %d \n", modifiers));
+    if (modifiers & MODIFIER_SHIFT)
+    /* if(arc->end_arrow.type == ARROW_NONE)*/
+    {
+      TRACE(g_printerr ("SHIFT USED, to at %.2f %.2f  ",to->x,to->y));
+      if (arc_find_radial (arc, to, &best)){
+        /* needs to move two handles at the same time
+          * compute pos of middle handle */
+        Point midpoint;
+        int ok;
+
+        if (handle == (&arc->connection.endpoint_handles[0])) {
+          ok = arc_compute_midpoint (arc,
+                                     &best,
+                                     &arc->connection.endpoints[1],
+                                     &midpoint);
+        } else {
+          ok = arc_compute_midpoint (arc,
+                                     &arc->connection.endpoints[0],
+                                     &best,
+                                     &midpoint);
+        }
+
+        if (!ok) {
+          return NULL;
+        }
+
+        connection_move_handle (&arc->connection,
+                                handle->id,
+                                &best,
+                                cp,
+                                reason,
+                                modifiers);
+        connection_adjust_for_autogap (&arc->connection);
+        /* recompute curve distance equiv. move middle handle */
+        arc->curve_distance = arc_compute_curve_distance (arc,
+                                                          &arc->connection.endpoints[0],
+                                                          &arc->connection.endpoints[1],
+                                                          &midpoint);
+        TRACE (g_printerr ("curve_dist: %.2f \n", arc->curve_distance));
+      }
+      else {
+        TRACE (g_printerr ("NO best\n"));
+      }
+    } else {
+      connection_move_handle (&arc->connection,
+                              handle->id,
+                              to,
+                              cp,
+                              reason,
+                              modifiers);
+      connection_adjust_for_autogap (&arc->connection);
+    }
   }
 
-  arc_update_data(arc);
+  arc_update_data (arc);
 
   return NULL;
 }
+
 
 static DiaObjectChange*
 arc_move(Arc *arc, Point *to)
@@ -576,8 +612,8 @@ arc_draw (Arc *arc, DiaRenderer *renderer)
   Point gaptmp[3];
   ConnectionPoint *start_cp, *end_cp;
 
-  assert(arc != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (arc != NULL);
+  g_return_if_fail (renderer != NULL);
 
   endpoints = &arc->connection.endpoints[0];
 

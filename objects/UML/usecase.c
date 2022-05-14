@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -193,19 +192,24 @@ usecase_select(Usecase *usecase, Point *clicked_point,
   element_update_handles(&usecase->element);
 }
 
-static DiaObjectChange*
-usecase_move_handle(Usecase *usecase, Handle *handle,
-		    Point *to, ConnectionPoint *cp,
-		    HandleMoveReason reason, ModifierKeys modifiers)
-{
-  assert(usecase!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
 
-  assert(handle->id < 8);
+static DiaObjectChange *
+usecase_move_handle (Usecase          *usecase,
+                     Handle           *handle,
+                     Point            *to,
+                     ConnectionPoint  *cp,
+                     HandleMoveReason  reason,
+                     ModifierKeys      modifiers)
+{
+  g_return_val_if_fail (usecase != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+
+  g_return_val_if_fail (handle->id < 8, NULL);
 
   return NULL;
 }
+
 
 static DiaObjectChange*
 usecase_move(Usecase *usecase, Point *to)
@@ -229,15 +233,16 @@ usecase_move(Usecase *usecase, Point *to)
   return NULL;
 }
 
+
 static void
 usecase_draw (Usecase *usecase, DiaRenderer *renderer)
 {
   Element *elem;
-  real x, y, w, h;
+  double x, y, w, h;
   Point c;
 
-  assert(usecase != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (usecase != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &usecase->element;
 

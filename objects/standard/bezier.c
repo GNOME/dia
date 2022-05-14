@@ -21,7 +21,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 
 #include "intl.h"
@@ -235,9 +234,9 @@ bezierline_move_handle (Bezierline       *bezierline,
                         HandleMoveReason  reason,
                         ModifierKeys      modifiers)
 {
-  assert(bezierline!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (bezierline != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (reason == HANDLE_MOVE_CREATE || reason == HANDLE_MOVE_CREATE_FINAL) {
     /* During creation, change the control points */

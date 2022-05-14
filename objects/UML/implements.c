@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -197,16 +196,20 @@ implements_select(Implements *implements, Point *clicked_point,
   connection_update_handles(&implements->connection);
 }
 
-static DiaObjectChange*
-implements_move_handle(Implements *implements, Handle *handle,
-		       Point *to, ConnectionPoint *cp,
-		       HandleMoveReason reason, ModifierKeys modifiers)
+
+static DiaObjectChange *
+implements_move_handle (Implements       *implements,
+                        Handle           *handle,
+                        Point            *to,
+                        ConnectionPoint  *cp,
+                        HandleMoveReason  reason,
+                        ModifierKeys      modifiers)
 {
   Point v1, v2;
 
-  assert(implements!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (implements != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
   if (handle->id == HANDLE_MOVE_TEXT) {
     implements->text_pos = *to;
@@ -261,8 +264,8 @@ implements_draw (Implements *implements, DiaRenderer *renderer)
 {
   Point *endpoints;
 
-  assert(implements != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (implements != NULL);
+  g_return_if_fail (renderer != NULL);
 
   endpoints = &implements->connection.endpoints[0];
 

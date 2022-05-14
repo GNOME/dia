@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -207,12 +206,17 @@ realizes_move_handle (Realizes         *realize,
 {
   DiaObjectChange *change;
 
-  assert(realize!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (realize != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  change = orthconn_move_handle(&realize->orth, handle, to, cp, reason, modifiers);
-  realizes_update_data(realize);
+  change = orthconn_move_handle (&realize->orth,
+                                 handle,
+                                 to,
+                                 cp,
+                                 reason,
+                                 modifiers);
+  realizes_update_data (realize);
 
   return change;
 }

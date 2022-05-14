@@ -23,7 +23,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
@@ -279,8 +278,8 @@ annotation_draw (Annotation *annotation, DiaRenderer *renderer)
   Point pts[4];
   real vlen;
 
-  assert(annotation != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (annotation != NULL);
+  g_return_if_fail (renderer != NULL);
 
   dia_renderer_set_linewidth (renderer, ANNOTATION_LINE_WIDTH);
   dia_renderer_set_linestyle (renderer, DIA_LINE_STYLE_SOLID, 0.0);

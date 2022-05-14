@@ -20,7 +20,6 @@
 
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -224,22 +223,32 @@ attribute_select(Attribute *attribute, Point *clicked_point,
   element_update_handles(&attribute->element);
 }
 
-static DiaObjectChange*
-attribute_move_handle(Attribute *attribute, Handle *handle,
-		      Point *to, ConnectionPoint *cp,
-		      HandleMoveReason reason, ModifierKeys modifiers)
-{
-  assert(attribute!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
 
-  assert(handle->id < 8);
-  element_move_handle(&attribute->element, handle->id, to, cp,
-		      reason, modifiers);
-  attribute_update_data(attribute);
+static DiaObjectChange *
+attribute_move_handle (Attribute        *attribute,
+                       Handle           *handle,
+                       Point            *to,
+                       ConnectionPoint  *cp,
+                       HandleMoveReason  reason,
+                       ModifierKeys      modifiers)
+{
+  g_return_val_if_fail (attribute != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
+
+  g_return_val_if_fail (handle->id < 8, NULL);
+
+  element_move_handle (&attribute->element,
+                       handle->id,
+                       to,
+                       cp,
+                       reason,
+                       modifiers);
+  attribute_update_data (attribute);
 
   return NULL;
 }
+
 
 static DiaObjectChange*
 attribute_move(Attribute *attribute, Point *to)
@@ -250,6 +259,7 @@ attribute_move(Attribute *attribute, Point *to)
   return NULL;
 }
 
+
 static void
 attribute_draw (Attribute *attribute, DiaRenderer *renderer)
 {
@@ -259,8 +269,8 @@ attribute_draw (Attribute *attribute, DiaRenderer *renderer)
   Element *elem;
   real width;
 
-  assert(attribute != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (attribute != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &attribute->element;
 

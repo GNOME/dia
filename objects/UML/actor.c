@@ -17,7 +17,6 @@
  */
 #include <config.h>
 
-#include <assert.h>
 #include <math.h>
 #include <string.h>
 
@@ -189,14 +188,20 @@ actor_move_handle (Actor            *actor,
 {
   DiaObjectChange *oc;
 
-  assert(actor!=NULL);
-  assert(handle!=NULL);
-  assert(to!=NULL);
+  g_return_val_if_fail (actor != NULL, NULL);
+  g_return_val_if_fail (handle != NULL, NULL);
+  g_return_val_if_fail (to != NULL, NULL);
 
-  assert(handle->id < 8);
+  g_return_val_if_fail (handle->id < 8, NULL);
 
-  oc = element_move_handle (&(actor->element), handle->id, to, cp, reason, modifiers);
+  oc = element_move_handle (&actor->element,
+                            handle->id,
+                            to,
+                            cp,
+                            reason,
+                            modifiers);
   actor_update_data (actor);
+
   return oc;
 }
 
@@ -215,17 +220,18 @@ actor_move (Actor *actor, Point *to)
   return NULL;
 }
 
+
 static void
-actor_draw(Actor *actor, DiaRenderer *renderer)
+actor_draw (Actor *actor, DiaRenderer *renderer)
 {
   Element *elem;
-  real x, y, w;
-  real r, r1;
+  double x, y, w;
+  double r, r1;
   Point ch, cb, p1, p2;
-  real actor_height;
+  double actor_height;
 
-  assert(actor != NULL);
-  assert(renderer != NULL);
+  g_return_if_fail (actor != NULL);
+  g_return_if_fail (renderer != NULL);
 
   elem = &actor->element;
 
