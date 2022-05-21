@@ -295,7 +295,8 @@ stdpath_create (Point *startpoint,
       return NULL;
     }
     stdpath->num_points = bcd->num_points;
-    stdpath->points = g_memdup(bcd->points, bcd->num_points * sizeof(BezPoint));
+    stdpath->points = g_memdup2 (bcd->points,
+                                 bcd->num_points * sizeof(BezPoint));
   }
 
   stdpath->stroke_or_fill = PDO_STROKE; /* default: stroke only */

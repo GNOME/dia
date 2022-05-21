@@ -57,7 +57,7 @@ matrixprop_copy(MatrixProperty *src)
     (MatrixProperty *)src->common.ops->new_prop(src->common.descr,
                                               src->common.reason);
 
-  prop->matrix = g_memdup (src->matrix, sizeof(DiaMatrix));
+  prop->matrix = g_memdup2 (src->matrix, sizeof(DiaMatrix));
 
   return prop;
 }
@@ -145,7 +145,7 @@ matrixprop_get_from_offset(MatrixProperty *prop,
 {
   DiaMatrix *matrix = struct_member(base,offset,DiaMatrix *);
 
-  prop->matrix = g_memdup (matrix, sizeof (DiaMatrix));
+  prop->matrix = g_memdup2 (matrix, sizeof (DiaMatrix));
 }
 
 static void
@@ -156,7 +156,7 @@ matrixprop_set_from_offset(MatrixProperty *prop,
 
   g_clear_pointer (&dest, g_free);
 
-  struct_member(base,offset, DiaMatrix *) = g_memdup (prop->matrix, sizeof (DiaMatrix));
+  struct_member (base, offset, DiaMatrix *) = g_memdup2 (prop->matrix, sizeof (DiaMatrix));
 }
 
 /* GUI stuff - just the angle for now

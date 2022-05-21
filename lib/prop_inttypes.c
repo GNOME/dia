@@ -442,8 +442,8 @@ intarrayprop_set_from_offset (IntarrayProperty *prop,
                               guint             offset2)
 {
   guint nvals = prop->intarray_data->len;
-  int *vals = g_memdup (&g_array_index (prop->intarray_data, int, 0),
-                        sizeof (int) * nvals);
+  int *vals = g_memdup2 (&g_array_index (prop->intarray_data, int, 0),
+                         sizeof (int) * nvals);
   g_clear_pointer (&struct_member (base, offset, int *), g_free);
   struct_member (base, offset, int *) = vals;
   struct_member (base, offset2, guint) = nvals;
@@ -702,8 +702,8 @@ enumarrayprop_set_from_offset (EnumarrayProperty *prop,
                                guint              offset2)
 {
   guint nvals = prop->enumarray_data->len;
-  int *vals = g_memdup (&g_array_index (prop->enumarray_data, int, 0),
-                        sizeof (int) * nvals);
+  int *vals = g_memdup2 (&g_array_index (prop->enumarray_data, int, 0),
+                         sizeof (int) * nvals);
   g_clear_pointer (&struct_member (base, offset, int *), g_free);
   struct_member (base, offset, int *) = vals;
   struct_member (base, offset2, guint) = nvals;

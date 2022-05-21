@@ -516,8 +516,8 @@ pointarrayprop_set_from_offset (PointarrayProperty *prop,
                                 guint               offset2)
 {
   guint nvals = prop->pointarray_data->len;
-  Point *vals = g_memdup (&g_array_index (prop->pointarray_data, Point, 0),
-                          sizeof(Point) * nvals);
+  Point *vals = g_memdup2 (&g_array_index (prop->pointarray_data, Point, 0),
+                           sizeof(Point) * nvals);
   g_clear_pointer (&struct_member (base, offset, Point *), g_free);
   struct_member (base, offset, Point *) = vals;
   struct_member (base, offset2, guint) = nvals;
@@ -693,9 +693,9 @@ bezpointarrayprop_set_from_offset(BezPointarrayProperty *prop,
                                   guint                  offset2)
 {
   guint nvals = prop->bezpointarray_data->len;
-  BezPoint *vals = g_memdup (&g_array_index (prop->bezpointarray_data,
-                                             BezPoint, 0),
-                             sizeof (BezPoint) * nvals);
+  BezPoint *vals = g_memdup2 (&g_array_index (prop->bezpointarray_data,
+                                              BezPoint, 0),
+                              sizeof (BezPoint) * nvals);
   g_clear_pointer (&struct_member (base, offset, int *), g_free);
   struct_member (base, offset, BezPoint *) = vals;
   struct_member (base, offset2, guint) = nvals;

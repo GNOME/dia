@@ -374,6 +374,6 @@ prop_list_add_matrix (GPtrArray *plist, const DiaMatrix *m)
   Property *prop = make_new_prop ("matrix", PROP_TYPE_MATRIX, 0);
 
   g_clear_pointer (&((MatrixProperty *) prop)->matrix, g_free);
-  (( MatrixProperty *)prop)->matrix = g_memdup (m, sizeof(DiaMatrix));
+  (( MatrixProperty *) prop)->matrix = g_memdup2 (m, sizeof (DiaMatrix));
   g_ptr_array_add (plist, prop);
 }

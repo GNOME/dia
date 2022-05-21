@@ -8,7 +8,7 @@ project('dia',
 cc = meson.get_compiler('c')
 conf = configuration_data()
 
-libglib_dep = dependency('glib-2.0',   version: '>= 2.58')
+libglib_dep = dependency('glib-2.0',   version: '>= 2.70')
 libgtk_dep  = dependency('gtk+-2.0',   version: '>= 2.24.31')
 libxml_dep  = dependency('libxml-2.0', version: '>= 2.9.4')
 #TODO: what are the minimum versions?
@@ -75,7 +75,7 @@ config_h_in = configure_file(output: 'config.h.in', configuration: conf)
 config_h = vcs_tag(input: config_h_in, output: 'config.h')
 
 gtk_ver = 'GDK_VERSION_2_24'
-glib_ver = 'GLIB_VERSION_2_58'
+glib_ver = 'GLIB_VERSION_2_70'
 add_project_arguments([
   '-DGDK_VERSION_MIN_REQUIRED=@0@'.format(gtk_ver),
   '-DGDK_VERSION_MAX_ALLOWED=@0@'.format(gtk_ver),

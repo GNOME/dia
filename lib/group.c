@@ -436,7 +436,7 @@ group_copy(Group *group)
     newgroup->handles[i] = group->handles[i];
   }
 
-  newgroup->matrix = g_memdup(group->matrix, sizeof(DiaMatrix));
+  newgroup->matrix = g_memdup2 (group->matrix, sizeof (DiaMatrix));
 
   newgroup->objects = object_copy_list(group->objects);
 
@@ -921,10 +921,11 @@ group_transform (Group *group, const DiaMatrix *m)
   if (group->matrix) {
     dia_matrix_multiply (group->matrix, group->matrix, m);
   } else {
-    group->matrix = g_memdup (m, sizeof(*m));
+    group->matrix = g_memdup2 (m, sizeof(*m));
   }
   group_update_data (group);
 }
+
 
 const DiaMatrix *
 group_get_transform (Group *group)
