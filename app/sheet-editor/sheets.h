@@ -49,10 +49,6 @@ struct _SheetObjectMod
 {
   SheetObject sheet_object;
 
-  enum { OBJECT_TYPE_SVG,
-         OBJECT_TYPE_PROGRAMMED,
-         OBJECT_TYPE_UNASSIGNED } type;
-
   enum { SHEET_OBJECT_MOD_NONE,
          SHEET_OBJECT_MOD_NEW,
          SHEET_OBJECT_MOD_CHANGED,
@@ -80,7 +76,6 @@ extern GtkWidget *sheets_dialog_optionmenu_menu;
 SheetObjectMod *sheets_append_sheet_object_mod   (SheetObject     *so,
                                                   SheetMod        *sm);
 SheetMod       *sheets_append_sheet_mods         (Sheet           *sheet);
-char           *sheet_object_mod_get_type_string (SheetObjectMod  *som);
 gboolean        sheets_dialog_create             (void);
 GtkWidget      *lookup_widget                    (GtkWidget       *widget,
                                                   const char      *widget_name);

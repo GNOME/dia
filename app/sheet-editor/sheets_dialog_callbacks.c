@@ -263,29 +263,6 @@ sheets_dialog_wrapbox_add_line_break (GtkWidget *wrapbox)
 }
 
 
-static void
-sheets_dialog_object_set_tooltip (SheetObjectMod *som, GtkWidget *button)
-{
-  gchar *tip;
-
-  switch (som->type){
-    case OBJECT_TYPE_SVG:
-      tip = g_strdup_printf (_("%s\nShape"), som->sheet_object.description);
-      break;
-    case OBJECT_TYPE_PROGRAMMED:
-      tip = g_strdup_printf (_("%s\nObject"), som->sheet_object.description);
-      break;
-    case OBJECT_TYPE_UNASSIGNED:
-    default:
-      tip = g_strdup_printf (_("%s\nUnassigned type"), som->sheet_object.description);
-      break;
-  }
-
-  gtk_widget_set_tooltip_text (button, tip);
-  g_clear_pointer (&tip, g_free);
-}
-
-
 static GtkWidget *
 sheets_dialog_create_object_button (SheetObjectMod *som,
                                     SheetMod       *sm,
@@ -296,7 +273,7 @@ sheets_dialog_create_object_button (SheetObjectMod *som,
   button = dia_sheet_editor_button_new_object (radio_group, sm, som);
   radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (button));
 
-  sheets_dialog_object_set_tooltip (som, button);
+  gtk_widget_set_tooltip_text (button, som->sheet_object.description);
 
   g_signal_connect (G_OBJECT (button), "toggled",
                     G_CALLBACK (on_sheets_dialog_object_button_toggled),
@@ -879,7 +856,6 @@ on_sheets_dialog_button_edit_clicked (GtkButton       *button,
   GtkWidget *active_button;
   SheetObjectMod *som;
   gchar *descrip = "";
-  gchar *type = "";
   GtkWidget *entry;
   SheetMod *sm;
   gchar *name = "";
@@ -890,21 +866,10 @@ on_sheets_dialog_button_edit_clicked (GtkButton       *button,
 
   active_button = sheets_dialog_get_active_button (&wrapbox, &button_list);
   som = dia_sheet_editor_button_get_object (DIA_SHEET_EDITOR_BUTTON (active_button));
-  if (som) {
-    descrip = som->sheet_object.description;
-    type = sheet_object_mod_get_type_string (som);
-  }
 
   entry = lookup_widget (sheets_edit_dialog, "entry_object_description");
   if (som) {
-    gtk_entry_set_text (GTK_ENTRY (entry), descrip);
-  } else {
-    gtk_widget_set_sensitive (entry, FALSE);
-  }
-
-  entry = lookup_widget (sheets_edit_dialog, "entry_object_type");
-  if (som) {
-    gtk_entry_set_text (GTK_ENTRY (entry), type);
+    gtk_entry_set_text (GTK_ENTRY (entry), som->sheet_object.description);
   } else {
     gtk_widget_set_sensitive (entry, FALSE);
   }
@@ -1205,7 +1170,7 @@ on_sheets_edit_dialog_button_ok_clicked (GtkButton *button,
     som = dia_sheet_editor_button_get_object (DIA_SHEET_EDITOR_BUTTON (active_button));
     som->sheet_object.description =
       gtk_editable_get_chars (GTK_EDITABLE (entry), 0, -1);
-    sheets_dialog_object_set_tooltip (som, active_button);
+    gtk_widget_set_tooltip_text (active_button, som->sheet_object.description);
 
     som->mod = SHEET_OBJECT_MOD_CHANGED;
 
@@ -1302,7 +1267,6 @@ sheets_dialog_copy_object (GtkWidget *active_button,
     so->has_icon_on_sheet = som->sheet_object.has_icon_on_sheet;
   }
 
-  som_new->type = som->type;
   som_new->mod = SHEET_OBJECT_MOD_NONE;
 
   sm->sheet.objects = g_slist_append (sm->sheet.objects, som_new);

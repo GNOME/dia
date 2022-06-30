@@ -45,7 +45,6 @@
 
 GtkWidget *sheets_dialog = NULL;
 GSList *sheets_mods_list = NULL;
-static gpointer custom_type_symbol = NULL;
 
 /* Given a SheetObject and a SheetMod, create a new SheetObjectMod
    and hook it into the 'objects' list in the SheetMod->sheet
@@ -58,23 +57,12 @@ sheets_append_sheet_object_mod (SheetObject *so,
                                 SheetMod    *sm)
 {
   SheetObjectMod *sheet_object_mod;
-  DiaObjectType *ot;
 
   g_return_val_if_fail (so != NULL && sm != NULL, NULL);
-  g_return_val_if_fail (custom_type_symbol != NULL, NULL);
 
   sheet_object_mod = g_new0 (SheetObjectMod, 1);
   sheet_object_mod->sheet_object = *so;
   sheet_object_mod->mod = SHEET_OBJECT_MOD_NONE;
-
-  ot = object_get_type (so->object_type);
-  g_assert (ot);
-
-  if (ot->ops == ((DiaObjectType *) (custom_type_symbol))->ops) {
-    sheet_object_mod->type = OBJECT_TYPE_SVG;
-  } else {
-    sheet_object_mod->type = OBJECT_TYPE_PROGRAMMED;
-  }
 
   sm->sheet.objects = g_slist_append (sm->sheet.objects, sheet_object_mod);
 
@@ -205,7 +193,6 @@ populate_store (GtkListStore *store)
 gboolean
 sheets_dialog_create (void)
 {
-  GList *plugin_list;
   GSList *sheets_list;
   GtkWidget *option_menu;
   GtkWidget *sw;
@@ -221,29 +208,6 @@ sheets_dialog_create (void)
     g_slist_free (sheets_mods_list);
   }
   sheets_mods_list = NULL;
-
-  if (custom_type_symbol == NULL) {
-    /* This little bit identifies a custom object symbol so we can tell the
-       difference later between a SVG shape and a Programmed shape */
-
-    custom_type_symbol = NULL;
-    for (plugin_list = dia_list_plugins (); plugin_list != NULL;
-         plugin_list = g_list_next (plugin_list)) {
-      PluginInfo *info = plugin_list->data;
-
-      custom_type_symbol = (gpointer) dia_plugin_get_symbol (info,
-                                                              "custom_type");
-      if (custom_type_symbol) {
-        break;
-      }
-    }
-  }
-
-  if (!custom_type_symbol) {
-    message_warning (_("Can't get symbol 'custom_type' from any module.\n"
-                       "Editing shapes is disabled."));
-    return FALSE;
-  }
 
   for (sheets_list = get_sheets_list (); sheets_list;
        sheets_list = g_slist_next (sheets_list)) {
@@ -379,19 +343,3 @@ sheets_dialog_show_callback (GtkAction *action)
   g_assert (GTK_IS_WIDGET (sheets_dialog));
   gtk_widget_show (sheets_dialog);
 }
-
-gchar *
-sheet_object_mod_get_type_string (SheetObjectMod *som)
-{
-  switch (som->type) {
-    case OBJECT_TYPE_SVG:
-      return _("SVG Shape");
-    case OBJECT_TYPE_PROGRAMMED:
-      return _("Programmed DiaObject");
-    case OBJECT_TYPE_UNASSIGNED:
-    default:
-      g_assert_not_reached();
-      return "";
-  }
-}
-
