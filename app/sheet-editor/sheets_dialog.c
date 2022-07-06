@@ -34,6 +34,8 @@
 #include "persistence.h"
 #include "dia-builder.h"
 
+/* TODO avoid putting this into a global variable */
+static GtkListStore *store;
 
 static void
 sheets_dialog_destroyed (GtkWidget *widget, gpointer user_data)
@@ -51,7 +53,6 @@ create_sheets_main_dialog (void)
 {
   GtkWidget *sheets_main_dialog;
   GtkWidget *combo_left, *combo_right;
-  GtkListStore *store;
   DiaBuilder *builder;
 
   builder = dia_builder_new ("ui/sheets-main-dialog.ui");
@@ -75,7 +76,7 @@ create_sheets_main_dialog (void)
   gtk_combo_box_set_model (GTK_COMBO_BOX (combo_right), GTK_TREE_MODEL (store));
 
   dia_builder_connect (builder,
-                       NULL,
+                       GTK_TREE_MODEL (store),
                        "sheets_dialog_destroyed", G_CALLBACK (sheets_dialog_destroyed),
                        "on_sheets_dialog_combo_changed", G_CALLBACK (on_sheets_dialog_combo_changed),
                        "on_sheets_main_dialog_delete_event", G_CALLBACK (on_sheets_main_dialog_delete_event),
@@ -219,7 +220,7 @@ create_sheets_remove_dialog (void)
                                             "button_ok"),
                     "clicked",
                     G_CALLBACK (on_sheets_remove_dialog_button_ok_clicked),
-                    NULL);
+                    store);
   g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
                                             "button_cancel"),
                     "clicked",

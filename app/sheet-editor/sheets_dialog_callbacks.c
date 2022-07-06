@@ -65,6 +65,26 @@
 
 static GSList *radio_group = NULL;
 
+static gboolean
+remove_target_treeiter (GtkTreeModel *model,
+                        GtkTreePath  *path,
+                        GtkTreeIter  *iter,
+                        gpointer      udata)
+{
+  char *item;
+  gtk_tree_model_get (model,
+                      iter,
+                      SO_COL_NAME, &item,
+                      -1);
+
+  if (strcmp (item, (char *)udata) == 0) {
+    gtk_list_store_remove (GTK_LIST_STORE (model), iter);
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
 static void
 sheets_dialog_hide (void)
 {
@@ -1136,6 +1156,12 @@ on_sheets_remove_dialog_button_ok_clicked (GtkButton *button,
                                       "active_optionmenu");
       g_assert (optionmenu);
       select_sheet (optionmenu, NULL);
+
+      /* remove from the combo after, so we don't get an invalid GtkTreeIter
+       * in on_sheets_dialog_combo_changed
+       */
+      gtk_tree_model_foreach (GTK_TREE_MODEL(user_data), remove_target_treeiter, sm->sheet.name);
+
       break;
 
     default:
@@ -1720,12 +1746,6 @@ on_sheets_dialog_button_apply_clicked (GtkButton       *button,
       default:
         g_assert_not_reached ();
     }
-  }
-  {
-    optionmenu_activate_first_pass = TRUE;
-
-    sheets_dialog_apply_revert_set_sensitive (FALSE);
-    sheets_dialog_create ();
   }
 }
 
