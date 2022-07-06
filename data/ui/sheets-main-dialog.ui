@@ -82,6 +82,7 @@
                     <property name="receives_default">True</property>
                     <property name="use-underline">True</property>
                     <accelerator key="r" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                    <signal name="clicked" handler="on_sheets_dialog_button_remove_clicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
