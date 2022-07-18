@@ -200,14 +200,7 @@ sheets_dialog_create (void)
   gchar *sheet_left;
   gchar *sheet_right;
 
-  if (sheets_mods_list) {
-    /* not sure if I understood the data structure
-      * but simply leaking isn't acceptable ... --hb
-      */
-    g_slist_foreach (sheets_mods_list, (GFunc) g_free, NULL);
-    g_slist_free (sheets_mods_list);
-  }
-  sheets_mods_list = NULL;
+  g_clear_slist (&sheets_mods_list, g_free);
 
   for (sheets_list = get_sheets_list (); sheets_list;
        sheets_list = g_slist_next (sheets_list)) {
