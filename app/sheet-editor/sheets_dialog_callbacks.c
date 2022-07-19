@@ -817,6 +817,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
       {
         gchar *sheet_name;
         gchar *sheet_descrip;
+        GtkTreeIter iter;
 
         entry = lookup_widget (sheets_new_dialog, "entry_sheet_name");
         sheet_name = gtk_editable_get_chars (GTK_EDITABLE (entry), 0, -1);
@@ -840,6 +841,14 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
 
         sm = sheets_append_sheet_mods (sheet);
         sm->mod = SHEETMOD_MOD_NEW;
+
+        gtk_list_store_append (user_data, &iter);
+        gtk_list_store_set (user_data,
+                            &iter,
+                            SO_COL_NAME, gettext (sm->sheet.name),
+                            SO_COL_LOCATION, _("User"),
+                            SO_COL_MOD, sm,
+                            -1);
 
         table_sheets = lookup_widget (sheets_dialog, "table_sheets");
         optionmenu = g_object_get_data (G_OBJECT (table_sheets),

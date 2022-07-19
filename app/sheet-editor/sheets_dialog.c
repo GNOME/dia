@@ -133,7 +133,7 @@ create_sheets_new_dialog (void)
                                             "button_ok"),
                     "clicked",
                     G_CALLBACK (on_sheets_new_dialog_button_ok_clicked),
-                    NULL);
+                    store);
   g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
                                             "button_cancel"),
                     "clicked",
