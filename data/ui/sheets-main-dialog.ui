@@ -286,6 +286,7 @@
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
                 <property name="use-underline">True</property>
+                <property name="sensitive">False</property>
                 <signal name="clicked" handler="on_sheets_dialog_button_apply_clicked" swapped="no"/>
               </object>
               <packing>
@@ -302,6 +303,7 @@
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_underline">True</property>
+                <property name="sensitive">False</property>
                 <signal name="clicked" handler="on_sheets_dialog_button_revert_clicked" swapped="no"/>
               </object>
               <packing>

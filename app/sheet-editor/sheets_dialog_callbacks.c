@@ -1747,6 +1747,8 @@ on_sheets_dialog_button_apply_clicked (GtkButton       *button,
         g_assert_not_reached ();
     }
   }
+
+  sheets_dialog_apply_revert_set_sensitive (FALSE);
 }
 
 
