@@ -1754,8 +1754,34 @@ void
 on_sheets_dialog_button_revert_clicked (GtkButton *button,
                                         gpointer   user_data)
 {
+  GSList *sheets_list;
+  GtkWidget *widget;
+
   optionmenu_activate_first_pass = TRUE;
 
+  for (sheets_list = sheets_mods_list; sheets_list != NULL; sheets_list = sheets_list->next) {
+    SheetMod *sheet_mod;
+    GSList *sheet_objects_list;
+
+    sheet_mod = sheets_list->data;
+    sheet_mod->mod = SHEETMOD_MOD_NONE;
+    sheet_mod->sheet = *sheet_mod->original;
+
+    /* no need to free, the references aren't ours anyways */
+    sheet_mod->sheet.objects = NULL;
+
+    for (sheet_objects_list = sheet_mod->original->objects;
+         sheet_objects_list;
+         sheet_objects_list = g_slist_next (sheet_objects_list)) {
+      sheets_append_sheet_object_mod (sheet_objects_list->data, sheet_mod);
+    }
+  }
+
+  widget = lookup_widget (sheets_dialog, "combo_left");
+  on_sheets_dialog_combo_changed (GTK_COMBO_BOX (widget), NULL);
+
+  widget = lookup_widget (sheets_dialog, "combo_right");
+  on_sheets_dialog_combo_changed (GTK_COMBO_BOX (widget), NULL);
+
   sheets_dialog_apply_revert_set_sensitive (FALSE);
-  sheets_dialog_create ();
 }

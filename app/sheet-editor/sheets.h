@@ -60,6 +60,7 @@ struct _SheetObjectMod
 struct _SheetMod
 {
   Sheet sheet;
+  Sheet *original;
 
   enum { SHEETMOD_TYPE_NORMAL,
          SHEETMOD_TYPE_UNASSIGNED } type; /* reserved for future use */
