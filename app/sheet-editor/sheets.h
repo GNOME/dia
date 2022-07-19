@@ -62,9 +62,6 @@ struct _SheetMod
   Sheet sheet;
   Sheet *original;
 
-  enum { SHEETMOD_TYPE_NORMAL,
-         SHEETMOD_TYPE_UNASSIGNED } type; /* reserved for future use */
-
   enum { SHEETMOD_MOD_NONE,
          SHEETMOD_MOD_NEW,
          SHEETMOD_MOD_CHANGED,

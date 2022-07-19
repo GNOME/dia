@@ -82,7 +82,6 @@ sheets_append_sheet_mods (Sheet *sheet)
   sheet_mod = g_new0 (SheetMod, 1);
   sheet_mod->sheet = *sheet;
   sheet_mod->original = sheet;
-  sheet_mod->type = SHEETMOD_TYPE_NORMAL;
   sheet_mod->mod = SHEETMOD_MOD_NONE;
   sheet_mod->sheet.objects = NULL;
 
