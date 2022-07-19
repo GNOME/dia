@@ -70,6 +70,10 @@ create_sheets_main_dialog (void)
                               G_TYPE_STRING,
                               G_TYPE_POINTER);
 
+  gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
+                                        SO_COL_NAME,
+                                        GTK_SORT_ASCENDING);
+
   populate_store (store);
 
   gtk_combo_box_set_model (GTK_COMBO_BOX (combo_left), GTK_TREE_MODEL (store));
