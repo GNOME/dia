@@ -258,10 +258,10 @@
 		      </child>
 
 		      <child>
-			<object class="GtkEntry" id="entry_sheet_description">
+			<object class="GtkEntry" id="entry_sheet_name">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
-			  <property name="editable">True</property>
+			  <property name="editable">False</property>
 			  <property name="visibility">True</property>
 			  <property name="max_length">0</property>
 			  <property name="text" translatable="yes"/>
@@ -279,7 +279,7 @@
 		      </child>
 
 		      <child>
-			<object class="GtkEntry" id="entry_sheet_name">
+			<object class="GtkEntry" id="entry_sheet_description">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="editable">True</property>
