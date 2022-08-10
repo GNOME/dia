@@ -38,7 +38,6 @@
 #include <zlib.h>
 
 #include "intl.h"
-#include "utils.h"
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
 #include "geometry.h"		/* For isinf() on Solaris */

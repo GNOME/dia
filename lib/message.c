@@ -26,7 +26,6 @@
 #include <glib.h>
 
 #include "intl.h"
-#include "utils.h"
 #include "message.h"
 #include "persistence.h"
 

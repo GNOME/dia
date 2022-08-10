@@ -190,8 +190,6 @@ EXPORTS
  dia_asin
  dia_acos
 
- dia_menuitem_key_quark
-
  dia_alignment_selector_get_alignment
  dia_alignment_selector_new
  dia_alignment_selector_set_alignment
@@ -814,8 +812,6 @@ EXPORTS
  remove_focus_object
 
  reset_foci_on_diagram
-
- nearest_pow
 
  new_text
  new_text_default

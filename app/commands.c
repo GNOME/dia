@@ -75,7 +75,6 @@ ShellExecuteA (long        hwnd,
 #include "cut_n_paste.h"
 #include "interface.h"
 #include "load_save.h"
-#include "utils.h"
 #include "message.h"
 #include "grid.h"
 #include "properties-dialog.h"

@@ -54,8 +54,6 @@ libdia_sources = stdprop_sources + [
     'font.h',
     'group.c',
     'group.h',
-    'utils.c',
-    'utils.h',
     'arrows.c',
     'arrows.h',
     'message.c',
