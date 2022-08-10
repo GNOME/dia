@@ -35,6 +35,8 @@
 #include "diacontext.h"
 #include "diarenderer.h"
 #include "dia-object-change.h"
+#include "properties.h"
+#include "widgets.h"
 
 G_BEGIN_DECLS
 

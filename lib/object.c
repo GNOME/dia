@@ -28,8 +28,6 @@
 #include "parent.h"
 #include "dia-layer.h"
 
-#include "dummy_dep.h"
-
 #include "debug.h"
 
 /**
