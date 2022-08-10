@@ -31,8 +31,7 @@ enum ShowAgainStyle {
 typedef void (*MessageInternal) (const char          *title,
                                  enum ShowAgainStyle  showAgain,
                                  char const          *fmt,
-                                 va_list              args,
-                                 va_list              args2);
+                                 va_list              args);
 
 void        set_message_func       (MessageInternal  func);
 void        message                (const char      *title,

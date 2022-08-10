@@ -28,7 +28,6 @@
 
 #include "dialib.h"
 #include "message.h"
-#include "utils.h"
 #include "color.h"
 #include "object.h"
 #include "dia_dirs.h"
@@ -41,26 +40,11 @@ static void
 stderr_message_internal (const char          *title,
                          enum ShowAgainStyle  showAgain,
                          const char          *fmt,
-                         va_list              args,
-                         va_list              args2)
+                         va_list              args)
 {
-  static char *buf = NULL;
-  static int   alloc = 0;
-  int len;
-
-  len = g_printf_string_upper_bound (fmt, args);
-
-  if (len >= alloc) {
-    g_clear_pointer (&buf, g_free);
-
-    alloc = nearest_pow (MAX (len + 1, 1024));
-
-    buf = g_new0 (char, alloc);
-  }
-
-  vsprintf (buf, fmt, args2);
-
-  g_printerr ("%s: %s\n", title, buf);
+  char *msg = g_strdup_vprintf (fmt, args);
+  g_printerr ("%s: %s\n", title, msg);
+  g_clear_pointer (&msg, g_free);
 }
 
 

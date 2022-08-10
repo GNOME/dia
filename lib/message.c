@@ -156,19 +156,12 @@ message_create_dialog(const gchar *title, DiaMessageInfo *msginfo, gchar *buf)
 		   G_CALLBACK(gtk_message_toggle_show_again), msginfo);
 }
 
-static void
+static void G_GNUC_PRINTF(3, 0)
 gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
 		     char const *fmt,
-                     va_list args, va_list args2) G_GNUC_PRINTF(3, 0);
-
-static void
-gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
-		     char const *fmt,
-                     va_list args, va_list args2)
+                     va_list args)
 {
-  static gchar *buf = NULL;
-  static gint   alloc = 0;
-  gint len;
+  char *msg;
   DiaMessageInfo *msginfo;
   GtkTextBuffer *textbuffer;
   gboolean askForShowAgain = FALSE;
@@ -188,16 +181,7 @@ gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
     message_hash_table = g_hash_table_new(g_str_hash, g_str_equal);
   }
 
-  len = g_printf_string_upper_bound (fmt, args);
-  if (len >= alloc) {
-    g_clear_pointer (&buf, g_free);
-
-    alloc = nearest_pow (MAX (len + 1, 1024));
-
-    buf = g_new0 (char, alloc);
-  }
-
-  vsprintf (buf, fmt, args2);
+  msg = g_strdup_vprintf (fmt, args);
 
   msginfo = (DiaMessageInfo*)g_hash_table_lookup(message_hash_table, fmt);
   if (msginfo == NULL) {
@@ -205,7 +189,7 @@ gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
     g_hash_table_insert(message_hash_table, (char *)fmt, msginfo);
   }
   if (msginfo->dialog == NULL)
-    message_create_dialog(title, msginfo, buf);
+    message_create_dialog(title, msginfo, msg);
 
   if (msginfo->repeats != NULL) {
     if (g_list_length(msginfo->repeats) > 1) {
@@ -218,7 +202,7 @@ gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
       gtk_label_set_text(GTK_LABEL(msginfo->repeat_label), newlabel);
     }
     /* for repeated messages, show the last one */
-    g_object_set (msginfo->dialog, "text", buf, NULL);
+    g_object_set (msginfo->dialog, "text", msg, NULL);
 
     gtk_widget_show(msginfo->repeat_label);
     gtk_widget_show(msginfo->show_repeats);
@@ -227,10 +211,10 @@ gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
   /* Insert in scrollable view, but only the repeated ones */
   if (msginfo->repeats != NULL) {
     textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(msginfo->repeat_view));
-    gtk_text_buffer_insert_at_cursor(textbuffer, buf, -1);
+    gtk_text_buffer_insert_at_cursor(textbuffer, msg, -1);
   }
 
-  msginfo->repeats = g_list_prepend(msginfo->repeats, g_strdup(buf));
+  msginfo->repeats = g_list_prepend(msginfo->repeats, g_strdup(msg));
 
   if (askForShowAgain) {
     gtk_widget_show(msginfo->no_show_again);
@@ -241,6 +225,7 @@ gtk_message_internal(const char* title, enum ShowAgainStyle showAgain,
   }
 
   gtk_widget_show (msginfo->dialog);
+  g_clear_pointer (&msg, g_free);
 }
 
 static MessageInternal message_internal = gtk_message_internal;
@@ -259,7 +244,7 @@ message(const char *title, const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal(title, ALWAYS_SHOW, format, args, args2);
+  message_internal(title, ALWAYS_SHOW, format, args);
   va_end (args);
   va_end (args2);
 }
@@ -283,7 +268,7 @@ message_notice (const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal (_("Notice"), SUGGEST_NO_SHOW_AGAIN, format, args, args2);
+  message_internal (_("Notice"), SUGGEST_NO_SHOW_AGAIN, format, args);
   va_end (args);
   va_end (args2);
 }
@@ -307,7 +292,7 @@ message_warning (const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal (_("Warning"), SUGGEST_SHOW_AGAIN, format, args, args2);
+  message_internal (_("Warning"), SUGGEST_SHOW_AGAIN, format, args);
   va_end (args);
   va_end (args2);
 }
@@ -330,7 +315,7 @@ message_error (const char *format, ...)
 
   va_start (args, format);
   va_start (args2, format);
-  message_internal (_("Error"), ALWAYS_SHOW, format, args, args2);
+  message_internal (_("Error"), ALWAYS_SHOW, format, args);
   va_end (args);
   va_end (args2);
 }
