@@ -694,7 +694,6 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
   switch (active_type) {
     GtkWidget *entry;
     char *file_name;
-    char *p;
     GList *plugin_list;
     DiaObjectType *ot;
     typedef gboolean (*CustomObjectLoadFunc) (gchar*, DiaObjectType **);
@@ -709,15 +708,14 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
     case SHEETS_NEW_DIALOG_TYPE_SVG_SHAPE:
       entry = lookup_widget (sheets_new_dialog, "file_chooser_button");
       /* Since this is a file name, no utf8 translation is needed */
-      file_name = gtk_file_chooser_get_preview_filename (GTK_FILE_CHOOSER (entry));
+      file_name = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (entry));
 
       if (!file_name) {
         message_error (_("Please select a .shape file"));
         return;
       }
 
-      p = file_name + strlen (file_name) - 6;
-      if (strcmp (p, ".shape")) {
+      if (!g_str_has_suffix (file_name, ".shape")) {
         message_error (_("Filename must end with '%s': '%s'"),
                        ".shape", dia_message_filename (file_name));
         g_clear_pointer (&file_name, g_free);
@@ -768,9 +766,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
       entry = lookup_widget (sheets_new_dialog, "entry_svg_description");
       sheet_obj = g_new0 (SheetObject, 1);
       sheet_obj->object_type = g_strdup (ot->name);
-      {
-        sheet_obj->description = gtk_editable_get_chars (GTK_EDITABLE (entry), 0, -1);
-      }
+      sheet_obj->description = gtk_editable_get_chars (GTK_EDITABLE (entry), 0, -1);
       sheet_obj->pixmap = ot->pixmap;
       sheet_obj->user_data = ot->default_user_data;
       sheet_obj->user_data_type = USER_DATA_IS_OTHER;
