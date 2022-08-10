@@ -25,23 +25,11 @@
 
 G_BEGIN_DECLS
 
-/* DiaAlignmentSelector: */
-GtkWidget    *dia_alignment_selector_new            (void);
-DiaAlignment  dia_alignment_selector_get_alignment  (GtkWidget            *as);
-void          dia_alignment_selector_set_alignment  (GtkWidget            *as,
-                                                     DiaAlignment          align);
-
 /* **** Util functions for Gtk stuff **** */
 
 GtkWidget *dia_toggle_button_new_with_icon_names (const char *on,
                                                   const char *off);
 
 GdkPixbuf *pixbuf_from_resource (const char *path);
-
-/* Other common defaults */
-
-#define DEFAULT_ALIGNMENT ALIGN_LEFT
-/* This is defined in app/linewidth_area.c.  Aw, bummer */
-#define DEFAULT_LINE_WIDTH 2*0.05
 
 G_END_DECLS
