@@ -28,7 +28,6 @@
 #include "dia-line-style-selector.h"
 #include "dia-line-chooser.h"
 #include "dia-line-preview.h"
-#include "utils.h"
 
 struct _DiaLineChooser {
   GtkButton button;
@@ -126,8 +125,7 @@ dia_line_chooser_dialog_response (GtkWidget      *dialog,
 static void
 dia_line_chooser_change_line_style (GtkMenuItem *mi, DiaLineChooser *lchooser)
 {
-  DiaLineStyle lstyle = GPOINTER_TO_INT (g_object_get_qdata (G_OBJECT (mi),
-                                                             dia_menuitem_key_quark ()));
+  DiaLineStyle lstyle = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (mi), "line-style"));
 
   dia_line_chooser_set_line_style (lchooser, lstyle, lchooser->dash_length);
 }
@@ -195,9 +193,9 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
   lchooser->menu = GTK_MENU (g_object_ref_sink (gtk_menu_new ()));
   for (i = 0; i <= DIA_LINE_STYLE_DOTTED; i++) {
     mi = gtk_menu_item_new ();
-    g_object_set_qdata (G_OBJECT (mi),
-                        dia_menuitem_key_quark (),
-                        GINT_TO_POINTER (i));
+    g_object_set_data (G_OBJECT (mi),
+                      "line-style",
+                      GINT_TO_POINTER (i));
     ln = dia_line_preview_new (i);
     gtk_container_add (GTK_CONTAINER (mi), ln);
     gtk_widget_show (ln);

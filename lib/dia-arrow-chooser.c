@@ -29,7 +29,6 @@
 #include "dia-arrow-selector.h"
 #include "dia-arrow-chooser.h"
 #include "dia-arrow-preview.h"
-#include "utils.h"
 
 /**
  * DiaArrowChooser:
@@ -236,8 +235,7 @@ static void
 dia_arrow_chooser_change_arrow_type (GtkMenuItem     *mi,
                                      DiaArrowChooser *chooser)
 {
-  ArrowType atype = GPOINTER_TO_INT (g_object_get_qdata (G_OBJECT (mi),
-                                                         dia_menuitem_key_quark ()));
+  ArrowType atype = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (mi), "arrow-type"));
   Arrow arrow;
   arrow.width = chooser->arrow.width;
   arrow.length = chooser->arrow.length;
@@ -281,9 +279,9 @@ dia_arrow_chooser_new (gboolean               left,
   for (i = ARROW_NONE; i < MAX_ARROW_TYPE; ++i) {
     ArrowType arrow_type = arrow_type_from_index (i);
     mi = gtk_menu_item_new ();
-    g_object_set_qdata (G_OBJECT (mi),
-                        dia_menuitem_key_quark (),
-                        GINT_TO_POINTER (arrow_type));
+    g_object_set_data (G_OBJECT (mi),
+                       "arrow-type",
+                       GINT_TO_POINTER (arrow_type));
     gtk_widget_set_tooltip_text (mi,
                                  gettext (arrow_get_name_from_type (arrow_type)));
     ar = dia_arrow_preview_new (arrow_type, left);
