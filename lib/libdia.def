@@ -612,8 +612,6 @@ EXPORTS
  line_bbox
  line_line_intersection
 
- dia_error_quark
-
  message_error
  message_notice
  message_warning

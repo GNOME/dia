@@ -108,7 +108,6 @@
     <xi:include href="xml/dia-enums.xml"/>
     <xi:include href="xml/focus.xml"/>
     <xi:include href="xml/widgets.xml"/>
-    <xi:include href="xml/diaerror.xml"/>
     <xi:include href="xml/font.xml"/>
     <xi:include href="xml/prefs.xml"/>
     <xi:include href="xml/diafontselector.xml"/>

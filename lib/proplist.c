@@ -28,7 +28,6 @@
 #include "properties.h"
 #include "propinternals.h"
 #include "dia_xml.h"
-#include "diaerror.h"
 
 /* ------------------------------------------------------------------------- */
 /* Construction of a list of properties from a filtered list of descriptors. */

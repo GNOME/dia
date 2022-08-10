@@ -61,7 +61,6 @@
 #include "sheet-editor/sheets.h"
 #include "exit_dialog.h"
 #include "dialib.h"
-#include "diaerror.h"
 #include "widgets.h"
 #include "dia-layer.h"
 
@@ -527,7 +526,7 @@ _check_option_input_directory (const gchar    *option_name,
     input_directory = directory;
     return TRUE;
   }
-  g_set_error (error, DIA_ERROR, DIA_ERROR_DIRECTORY,
+  g_set_error (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
                _("Input directory '%s' must exist!\n"), directory);
   g_clear_pointer (&directory, g_free);
   return FALSE;
@@ -546,7 +545,7 @@ _check_option_output_directory (const gchar    *option_name,
     output_directory = directory;
     return TRUE;
   }
-  g_set_error (error, DIA_ERROR, DIA_ERROR_DIRECTORY,
+  g_set_error (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND,
                _("Output directory '%s' must exist!\n"), directory);
   g_clear_pointer (&directory, g_free);
   return FALSE;

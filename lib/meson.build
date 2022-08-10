@@ -174,7 +174,6 @@ libdia_sources = stdprop_sources + [
     'dia-unit-spinner.c',
     'dia-unit-spinner.h',
     'persistence.c',
-    'diaerror.c',
     'debug.c',
     'prefs.c',
     'dialib.c',
