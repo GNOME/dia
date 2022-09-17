@@ -842,7 +842,7 @@ dia_matrix_is_invertible (const DiaMatrix *matrix)
   c = matrix->xy; d = matrix->yy;
   det = a*d - b*c;
 
-  return finite(det) && det != 0.0;
+  return isfinite(det) && det != 0.0;
 }
 
 void

@@ -18,7 +18,6 @@
 
 #include <config.h>
 
-#define _DEFAULT_SOURCE 1 /* to get finite */
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
@@ -27,15 +26,6 @@
 #include "diacontext.h"
 #include "diainteractiverenderer.h"
 #include "boundingbox.h"
-
-#ifdef G_OS_WIN32
-#include <float.h>
-#define finite(d) _finite(d)
-#endif
-
-#ifdef __EMX__
-#define finite(d) isfinite(d)
-#endif
 
 #include "arrows.h"
 #include "diarenderer.h"
@@ -561,7 +551,7 @@ draw_one_exactly (DiaRenderer *renderer,
   } else {
     vl.x = 1.0; vl.y = 0.0;
   }
-  if (!finite (vl.x)) {
+  if (!isfinite (vl.x)) {
     vl.x = 1.0; vl.y = 0.0;
   }
   point_get_perp (&vt,&vl);
@@ -660,7 +650,7 @@ draw_one_or_none (DiaRenderer *renderer,
   } else {
     vl.x = 1.0; vl.y = 0.0;
   }
-  if (!finite (vl.x)) {
+  if (!isfinite (vl.x)) {
     vl.x = 1.0; vl.y = 0.0;
   }
   point_get_perp (&vt,&vl);
@@ -798,7 +788,7 @@ draw_fill_ellipse (DiaRenderer *renderer,
   } else {
     vl.x = 1.0; vl.y = 0.0;
   }
-  if (!finite (vl.x)) {
+  if (!isfinite (vl.x)) {
     vl.x = 1.0; vl.y = 0.0;
   }
   point_get_perp (&vt, &vl);
@@ -874,7 +864,7 @@ draw_empty_ellipse (DiaRenderer *renderer,
   } else {
     vl.x = 1.0; vl.y = 0.0;
   }
-  if (!finite (vl.x)) {
+  if (!isfinite (vl.x)) {
     vl.x = 1.0; vl.y = 0.0;
   }
 
@@ -923,7 +913,7 @@ calculate_box (Point       *poly,
   } else {
     vl.x = 1.0; vl.y = 0.0;
   }
-  if (!finite (vl.x)) {
+  if (!isfinite (vl.x)) {
     vl.x = 1.0; vl.y = 0.0;
   }
   point_get_perp (&vt,&vl);
@@ -1058,7 +1048,7 @@ draw_fill_dot (DiaRenderer *renderer,
   } else {
     vl.x = 1.0; vl.y = 0.0;
   }
-  if (!finite (vl.x)) {
+  if (!isfinite (vl.x)) {
     vl.x = 1.0; vl.y = 0.0;
   }
   point_get_perp (&vt,&vl);
@@ -1184,7 +1174,7 @@ calculate_slashed (Point       *poly,
   } else {
     vl.x = 1.0; vl.y = 0.0;
   }
-  if (!finite (vl.x)) {
+  if (!isfinite (vl.x)) {
     vl.x = 1.0; vl.y = 0.0;
   }
   point_get_perp (&vt,&vl);

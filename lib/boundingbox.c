@@ -19,7 +19,6 @@
 
 #include <config.h>
 
-#define _DEFAULT_SOURCE 1
 #include <math.h>
 #include <string.h> /* memcmp() */
 

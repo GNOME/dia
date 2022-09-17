@@ -27,45 +27,6 @@
 #include <glib.h>
 #include <math.h>
 
-/* Solaris 2.4, 2.6, probably 2.5.x, and possibly others prototype
-   finite() in ieeefp.h instead of math.h.  finite() might not be
-   available at all on some HP-UX configurations (in which case,
-   you're on your own). */
-#ifdef HAVE_IEEEFP_H
-#include <ieeefp.h>
-#endif
-#ifndef HAVE_ISINF
-#  ifndef isinf
-#    define isinf(a) (!finite(a))
-#  endif
-#endif
-
-#ifdef _MSC_VER
-/* #ifdef G_OS_WIN32  apparently _MSC_VER and mingw */
-   /* there are some things more in the gcc headers */
-#  include <float.h>
-#  define finite(a) _finite(a)
-#  ifndef isnan
-#    define isnan(a) _isnan(a)
-#  endif
-#endif
-#ifdef G_OS_WIN32
-#  define M_PI      3.14159265358979323846
-#  define M_SQRT2	1.41421356237309504880	/* sqrt(2) */
-#  define M_SQRT1_2 0.70710678118654752440	/* 1/sqrt(2) */
-#endif
-
-/* gcc -std=c89 doesn't have it either */
-#ifndef M_PI
-#define M_PI G_PI
-#endif
-#ifndef M_SQRT2
-#define M_SQRT2 G_SQRT2
-#endif
-#ifndef M_SQRT1_2
-#define M_SQRT1_2 (1.0/G_SQRT2)
-#endif
-
 G_BEGIN_DECLS
 
 #define DIA_RADIANS(degrees) ((degrees) * G_PI / 180.0)

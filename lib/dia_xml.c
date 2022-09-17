@@ -40,46 +40,13 @@
 #include "intl.h"
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
-#include "geometry.h"		/* For isinf() on Solaris */
 #include "message.h"
 
 #ifdef G_OS_WIN32
 #include <io.h> /* write, close */
 #endif
 
-#ifdef G_OS_WIN32 /* apparently _MSC_VER and mingw */
-#include <float.h>
-# ifndef isinf
-# define isinf(a) (!_finite(a))
-# endif
-#endif
-
 #define BUFLEN 1024
-
-/*
- * redefinition of isnan and isinf, for portability, as explained in :
- * http://www.gnu.org/software/autoconf/manual/html_node/Function-Portability.html
- */
-
-#ifndef isnan
-# define isnan(x) \
-     (sizeof (x) == sizeof (long double) ? isnan_ld (x) \
-     : sizeof (x) == sizeof (double) ? isnan_d (x) \
-     : isnan_f (x))
-static inline int isnan_f  (float       x) { return x != x; }
-static inline int isnan_d  (double      x) { return x != x; }
-static inline int isnan_ld (long double x) { return x != x; }
-#endif
-
-#ifndef isinf
-# define isinf(x) \
-    (sizeof (x) == sizeof (long double) ? isinf_ld (x) \
-     : sizeof (x) == sizeof (double) ? isinf_d (x) \
-     : isinf_f (x))
-static inline int isinf_f  (float       x) { return isnan (x - x); }
-static inline int isinf_d  (double      x) { return isnan (x - x); }
-static inline int isinf_ld (long double x) { return isnan (x - x); }
-#endif
 
 /*!
  * \defgroup DiagramXmlOut Converting data to XML
