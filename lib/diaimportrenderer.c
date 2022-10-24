@@ -768,7 +768,9 @@ dia_import_renderer_get_objects (DiaRenderer *renderer)
     return group;
   } else {
     DiaObject *object = self->objects->data;
-    g_list_free (self->objects);
+
+    g_clear_list (&self->objects, NULL);
+
     return object;
   }
 }
