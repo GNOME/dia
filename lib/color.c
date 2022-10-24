@@ -24,11 +24,6 @@
 
 #include "color.h"
 
-#ifndef G_OS_WIN32
-Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
-Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
-#endif
-
 
 G_DEFINE_BOXED_TYPE (Color, dia_colour, dia_colour_copy, dia_colour_free)
 
