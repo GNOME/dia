@@ -1264,7 +1264,7 @@ draw_string (DiaRenderer  *self,
     struct vdx_XForm XForm;
     struct vdx_Para Para;
     struct vdx_Char Char;
-    struct vdx_Text Text;
+    struct vdx_Text vdxtext;
     struct vdx_pp pp;
     struct vdx_cp cp;
     struct vdx_text my_text;
@@ -1343,8 +1343,8 @@ draw_string (DiaRenderer  *self,
     cp.any.type = vdx_types_cp;
 
     /* Text object - no attributes */
-    memset(&Text, 0, sizeof(Text));
-    Text.any.type = vdx_types_Text;
+    memset(&vdxtext, 0, sizeof(vdxtext));
+    vdxtext.any.type = vdx_types_Text;
 
     memset(&Para, 0, sizeof(Para));
     Para.any.type = vdx_types_Para;
@@ -1359,18 +1359,18 @@ draw_string (DiaRenderer  *self,
     my_text.text = (char *)text;
 
     /* Construct the children */
-    Text.any.children = g_slist_append(Text.any.children, &pp);
-    Text.any.children = g_slist_append(Text.any.children, &cp);
-    Text.any.children = g_slist_append(Text.any.children, &my_text);
+    vdxtext.any.children = g_slist_append(vdxtext.any.children, &pp);
+    vdxtext.any.children = g_slist_append(vdxtext.any.children, &cp);
+    vdxtext.any.children = g_slist_append(vdxtext.any.children, &my_text);
 
     Shape.any.children = g_slist_append(Shape.any.children, &XForm);
     Shape.any.children = g_slist_append(Shape.any.children, &Char);
     Shape.any.children = g_slist_append(Shape.any.children, &Para);
-    Shape.any.children = g_slist_append(Shape.any.children, &Text);
+    Shape.any.children = g_slist_append(Shape.any.children, &vdxtext);
 
     vdx_write_object(renderer->file, renderer->xml_depth, &Shape);
 
-    g_slist_free(Text.any.children);
+    g_slist_free(vdxtext.any.children);
     g_slist_free(Shape.any.children);
 }
 

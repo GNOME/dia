@@ -2213,7 +2213,7 @@ plot_geom(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
  * @returns the new object
  */
 static DiaObject *
-plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
+plot_text(const struct vdx_Text *vdxText, const struct vdx_XForm *XForm,
           const struct vdx_Char *Char, const struct vdx_Para *Para,
           const struct vdx_TextBlock *TextBlock,
           const struct vdx_TextXForm *TextXForm,
@@ -2227,7 +2227,7 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
     EnumProperty *eprop = 0;
     struct vdx_FontEntry FontEntry;
     struct vdx_FaceName FaceName;
-    struct vdx_text * text = find_child(vdx_types_text, Text);
+    struct vdx_text * text = find_child(vdx_types_text, vdxText);
     Point p;
     int i;
     double height;
@@ -2235,7 +2235,7 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
     DiaFontStyle style = 0;
     DiaFont *font = 0;
 
-    if (!Text || !Char || !text || !XForm)
+    if (!vdxText || !Char || !text || !XForm)
     {
         g_debug("Not enough info for text");
         return 0;
@@ -2303,7 +2303,7 @@ plot_text(const struct vdx_Text *Text, const struct vdx_XForm *XForm,
 
     /* set up the text property by including all children */
     tprop->text_data = g_strdup(text->text);
-    while ((text = find_child_next (vdx_types_text, Text, text))) {
+    while ((text = find_child_next (vdx_types_text, vdxText, text))) {
       char *s = tprop->text_data;
       tprop->text_data = g_strconcat (tprop->text_data, text->text, NULL);
       g_clear_pointer (&s, g_free);
@@ -2417,7 +2417,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
     struct vdx_XForm *XForm = 0;
     struct vdx_XForm1D *XForm1D = 0;
     struct vdx_TextXForm *TextXForm = 0;
-    struct vdx_Text *Text = 0;
+    struct vdx_Text *vdxText = 0;
     struct vdx_TextBlock *TextBlock = 0;
     struct vdx_Para *Para = 0;
     struct vdx_Foreign * Foreign = 0;
@@ -2454,7 +2454,7 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
     XForm1D = (struct vdx_XForm1D *)find_child(vdx_types_XForm1D, Shape);
     TextXForm = (struct vdx_TextXForm *)find_child(vdx_types_TextXForm, Shape);
     Geom = (struct vdx_Geom *)find_child(vdx_types_Geom, Shape);
-    Text = (struct vdx_Text *)find_child(vdx_types_Text, Shape);
+    vdxText = (struct vdx_Text *)find_child(vdx_types_Text, Shape);
     TextBlock = (struct vdx_TextBlock *)find_child(vdx_types_TextBlock, Shape);
     Para = (struct vdx_Para *)find_child(vdx_types_Para, Shape);
     Foreign = (struct vdx_Foreign *)find_child(vdx_types_Foreign, Shape);
@@ -2648,8 +2648,8 @@ vdx_plot_shape(struct vdx_Shape *Shape, GSList *objects,
 
     /* Text always after the object it's attached to,
        so it appears on top */
-    if (Text && find_child (vdx_types_text, Text)) {
-      DiaObject *object = plot_text (Text, XForm, Char, Para,
+    if (vdxText && find_child (vdx_types_text, vdxText)) {
+      DiaObject *object = plot_text (vdxText, XForm, Char, Para,
                                      TextBlock, TextXForm, theDoc);
       if (object) {
         char *id = g_strdup_printf ("%d", Shape->ID);
