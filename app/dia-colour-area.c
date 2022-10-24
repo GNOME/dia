@@ -16,28 +16,33 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdio.h>
-
-#include "intl.h"
 
 #include "dia-colour-area.h"
 #include "attributes.h"
 #include "persistence.h"
 
-#define FORE_AREA 0
-#define BACK_AREA 1
-#define SWAP_AREA 2
-#define DEF_AREA  3
+
+enum area {
+  FORE_AREA,
+  BACK_AREA,
+  SWAP_AREA,
+  DEF_AREA,
+};
 
 #define FOREGROUND 0
 #define BACKGROUND 1
 
+
 G_DEFINE_TYPE (DiaColourArea, dia_colour_area, GTK_TYPE_EVENT_BOX)
 
+
 /*  Local functions  */
-static int
+static enum area
 dia_colour_area_target (DiaColourArea *self,
                         int            x,
                         int            y)
@@ -51,20 +56,20 @@ dia_colour_area_target (DiaColourArea *self,
   rect_h = alloc.height * 0.65;
 
   /*  foreground active  */
-  if (x > 0 && x < rect_w &&
-      y > 0 && y < rect_h)
+  if (x >= 0 && x < rect_w && y >= 0 && y < rect_h) {
     return FORE_AREA;
-  else if (x > (alloc.width - rect_w) && x < alloc.width &&
-           y > (alloc.height - rect_h) && y < alloc.height)
+  } else if (x >= (alloc.width - rect_w) && x < alloc.width &&
+             y >= (alloc.height - rect_h) && y < alloc.height) {
     return BACK_AREA;
-  else if (x > 0 && x < (alloc.width - rect_w) &&
-           y > rect_h && y < alloc.height)
+  } else if (x >= 0 && x < (alloc.width - rect_w) &&
+             y >= rect_h && y < alloc.height) {
     return DEF_AREA;
-  else if (x > rect_w && x < alloc.width &&
-           y > 0 && y < (alloc.height - rect_h))
+  } else if (x >= rect_w && x < alloc.width &&
+             y >= 0 && y < (alloc.height - rect_h)) {
     return SWAP_AREA;
-  else
+  } else {
     return -1;
+  }
 }
 
 
@@ -239,7 +244,7 @@ dia_colour_area_button_press_event (GtkWidget      *widget,
                                     GdkEventButton *event)
 {
   DiaColourArea *self = DIA_COLOUR_AREA (widget);
-  int target;
+  enum area target;
 
   if (event->type != GDK_BUTTON_PRESS) {
     return FALSE;
