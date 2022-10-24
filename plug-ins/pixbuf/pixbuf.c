@@ -219,11 +219,6 @@ dia_plugin_init(PluginInfo *info)
       GSList* formats = gdk_pixbuf_get_formats ();
       GSList* sl;
 
-      /* if we get this far we still may be running non-interactive. To avoid complains
-       * from color_convert() we are initializing ourselves ;)
-       */
-     color_init ();
-
      /*
       * Instead of hard-coding capabilities, ask GdkPixbuf what's installed
       */

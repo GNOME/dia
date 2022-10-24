@@ -24,35 +24,10 @@
 
 #include "color.h"
 
-static GdkColormap *colormap = NULL;
-
 #ifndef G_OS_WIN32
 Color color_black = { 0.0f, 0.0f, 0.0f, 1.0f };
 Color color_white = { 1.0f, 1.0f, 1.0f, 1.0f };
 #endif
-
-gboolean _color_initialized = FALSE;
-
-/**
- * color_init:
- *
- * Initialize color access (gdk) and set up default colors.
- */
-void
-color_init (void)
-{
-  if (!_color_initialized) {
-#if !defined(GDK_WINDOWING_QUARTZ)
-    GdkVisual *visual = gtk_widget_get_default_visual();
-    colormap = gdk_colormap_new (visual, FALSE);
-#else
-    /* gdk/quartz does not implement gdk_colormap_new () */
-    colormap = gdk_screen_get_system_colormap (gdk_screen_get_default ());
-#endif
-
-    _color_initialized = TRUE;
-  }
-}
 
 
 G_DEFINE_BOXED_TYPE (Color, dia_colour, dia_colour_copy, dia_colour_free)
@@ -218,14 +193,6 @@ color_convert (const Color *color, GdkColor *gdkcolor)
   gdkcolor->red = (guint16)(color->red*65535);
   gdkcolor->green = (guint16)(color->green*65535);
   gdkcolor->blue = (guint16)(color->blue*65535);
-
-  if (_color_initialized) {
-    if (!gdk_colormap_alloc_color (colormap, gdkcolor, TRUE, TRUE)) {
-      g_warning ("color_convert failed.");
-    }
-  } else {
-    g_warning("Can't color_convert in non-interactive app (w/o color_init())");
-  }
 }
 
 /**

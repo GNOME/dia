@@ -43,7 +43,6 @@ GType         dia_colour_get_type  (void);
 void          dia_colour_parse     (Color       *self,
                                     const char  *str);
 char         *dia_colour_to_string (Color       *self);
-void          color_init           (void);
 Color        *color_new_rgb        (float        r,
                                     float        g,
                                     float        b);

@@ -81,7 +81,6 @@ EXPORTS
 
  color_convert
  color_equals
- color_init
  color_new_rgb
  color_new_rgba
 

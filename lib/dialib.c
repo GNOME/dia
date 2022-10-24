@@ -100,15 +100,11 @@ libdia_init (guint flags)
 #if !GTK_CHECK_VERSION (3, 0, 0)
     char *diagtkrc;
 
-    gtk_widget_set_default_colormap(gdk_rgb_get_cmap());
-
     diagtkrc = dia_config_filename("diagtkrc");
     dia_log_message ("Config from %s", diagtkrc);
     gtk_rc_parse(diagtkrc);
     g_clear_pointer (&diagtkrc, g_free);
 #endif
-
-    color_init();
   }
   initialized = TRUE;
 
