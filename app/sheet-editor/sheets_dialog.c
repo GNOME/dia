@@ -208,22 +208,16 @@ create_sheets_remove_dialog (void)
                                             "radiobutton_object"),
                     "toggled",
                     G_CALLBACK (on_sheets_remove_dialog_radiobutton_object_toggled),
-                    NULL);
+                    sheets_remove_dialog);
   g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
                                             "radiobutton_sheet"),
                     "toggled",
                     G_CALLBACK (on_sheets_remove_dialog_radiobutton_sheet_toggled),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_ok"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_remove_dialog_button_ok_clicked),
+                    sheets_remove_dialog);
+  g_signal_connect (sheets_remove_dialog,
+                    "response",
+                    G_CALLBACK (on_sheets_remove_dialog_response),
                     store);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_cancel"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_remove_dialog_button_cancel_clicked),
-                    NULL);
   /* FIXME:
   gtk_widget_grab_default (button_ok);
   */

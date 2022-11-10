@@ -912,8 +912,6 @@ on_sheets_dialog_button_edit_clicked (GtkButton       *button,
   gtk_widget_show (sheets_edit_dialog);
 }
 
-static GtkWidget *sheets_remove_dialog;
-
 typedef enum {
   SHEETS_REMOVE_DIALOG_TYPE_OBJECT = 1,
   SHEETS_REMOVE_DIALOG_TYPE_SHEET
@@ -923,6 +921,7 @@ void
 on_sheets_dialog_button_remove_clicked (GtkButton       *button,
                                         gpointer         user_data)
 {
+  GtkWidget *sheets_remove_dialog;
   GtkWidget *wrapbox;
   GList *button_list;
   GtkWidget *active_button;
@@ -979,14 +978,6 @@ on_sheets_dialog_button_remove_clicked (GtkButton       *button,
   gtk_widget_show (sheets_remove_dialog);
 }
 
-void
-on_sheets_remove_dialog_button_cancel_clicked (GtkButton *button,
-                                               gpointer   user_data)
-{
-  gtk_widget_destroy (sheets_remove_dialog);
-  sheets_remove_dialog = NULL;
-}
-
 static void
 sheets_dialog_togglebutton_set_sensitive (GtkToggleButton *togglebutton,
                                           GtkWidget       *dialog,
@@ -999,6 +990,8 @@ sheets_dialog_togglebutton_set_sensitive (GtkToggleButton *togglebutton,
 
   is_sensitive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (togglebutton));
   if (is_sensitive) {
+    g_object_set_data (G_OBJECT (dialog), "active_type", GINT_TO_POINTER (type));
+
     tmp = lookup_widget (dialog, "button_ok");
     g_object_set_data (G_OBJECT (tmp), "active_type", GINT_TO_POINTER (type));
   }
@@ -1057,7 +1050,7 @@ on_sheets_remove_dialog_radiobutton_object_toggled (GtkToggleButton *togglebutto
 {
   gchar *widget_names[] = { "pixmap_object", "entry_object", NULL };
 
-  sheets_dialog_togglebutton_set_sensitive (togglebutton, sheets_remove_dialog,
+  sheets_dialog_togglebutton_set_sensitive (togglebutton, GTK_WIDGET (user_data),
                                             widget_names,
                                             SHEETS_REMOVE_DIALOG_TYPE_OBJECT);
 }
@@ -1068,7 +1061,7 @@ on_sheets_remove_dialog_radiobutton_sheet_toggled (GtkToggleButton *togglebutton
 {
   gchar *widget_names[] = { "entry_sheet", NULL };
 
-  sheets_dialog_togglebutton_set_sensitive (togglebutton, sheets_remove_dialog,
+  sheets_dialog_togglebutton_set_sensitive (togglebutton, GTK_WIDGET (user_data),
                                             widget_names,
                                             SHEETS_REMOVE_DIALOG_TYPE_SHEET);
 }
@@ -1102,15 +1095,21 @@ sheets_dialog_set_new_active_button (void)
 }
 
 void
-on_sheets_remove_dialog_button_ok_clicked (GtkButton *button,
-                                           gpointer   user_data)
+on_sheets_remove_dialog_response (GtkWidget *sheets_remove_dialog,
+                                  int        response,
+                                  gpointer   user_data)
 {
   SheetsRemoveDialogType type;
   GtkWidget *wrapbox;
   GList *button_list;
   GtkWidget *active_button;
 
-  type = (SheetsRemoveDialogType) g_object_get_data (G_OBJECT (button),
+  if (response != GTK_RESPONSE_OK) {
+    g_clear_pointer (&sheets_remove_dialog, gtk_widget_destroy);
+    return;
+  }
+
+  type = (SheetsRemoveDialogType) g_object_get_data (G_OBJECT (sheets_remove_dialog),
                                                      "active_type");
 
   active_button = sheets_dialog_get_active_button (&wrapbox, &button_list);
@@ -1165,8 +1164,7 @@ on_sheets_remove_dialog_button_ok_clicked (GtkButton *button,
   g_list_free (button_list);
 
   sheets_dialog_apply_revert_set_sensitive (TRUE);
-  gtk_widget_destroy (sheets_remove_dialog);
-  sheets_remove_dialog = NULL;
+  g_clear_pointer (&sheets_remove_dialog, gtk_widget_destroy);
 }
 
 void
