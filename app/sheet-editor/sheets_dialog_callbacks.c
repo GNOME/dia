@@ -984,9 +984,6 @@ sheets_dialog_togglebutton_set_sensitive (GtkToggleButton *togglebutton,
   is_sensitive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (togglebutton));
   if (is_sensitive) {
     g_object_set_data (G_OBJECT (dialog), "active_type", GINT_TO_POINTER (type));
-
-    tmp = lookup_widget (dialog, "button_ok");
-    g_object_set_data (G_OBJECT (tmp), "active_type", GINT_TO_POINTER (type));
   }
 
   for (i = 0; widget_names[i]; i++) {
