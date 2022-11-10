@@ -620,8 +620,6 @@ on_sheets_dialog_button_close_clicked  (GtkButton       *button,
   sheets_dialog_hide ();
 }
 
-static GtkWidget *sheets_new_dialog;
-
 typedef enum {
   SHEETS_NEW_DIALOG_TYPE_SVG_SHAPE = 1,   /* allows g_assert() */
   SHEETS_NEW_DIALOG_TYPE_LINE_BREAK,
@@ -632,6 +630,7 @@ void
 on_sheets_dialog_button_new_clicked    (GtkButton       *button,
                                         gpointer         user_data)
 {
+  GtkWidget *sheets_new_dialog;
   GtkWidget *wrapbox;
   GList *button_list;
   GtkWidget *active_button;
@@ -657,26 +656,16 @@ on_sheets_dialog_button_new_clicked    (GtkButton       *button,
   active_button = lookup_widget (sheets_new_dialog, "radiobutton_line_break");
   gtk_widget_set_sensitive (active_button, is_line_break_sensitive);
 
-  /* Use the 'ok' button to hold the current 'type' selection */
-
-  active_button = lookup_widget (sheets_new_dialog, "button_ok");
-  g_object_set_data (G_OBJECT (active_button), "active_type",
+  g_object_set_data (G_OBJECT (sheets_new_dialog), "active_type",
                      (gpointer) SHEETS_NEW_DIALOG_TYPE_SVG_SHAPE);
 
   gtk_widget_show (sheets_new_dialog);
 }
 
 void
-on_sheets_new_dialog_button_cancel_clicked (GtkButton       *button,
-                                            gpointer         user_data)
-{
-  gtk_widget_destroy (sheets_new_dialog);
-  sheets_new_dialog = NULL;
-}
-
-void
-on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
-                                        gpointer         user_data)
+on_sheets_new_dialog_response (GtkWidget       *sheets_new_dialog,
+                               int              response,
+                               gpointer         user_data)
 {
   SheetsNewDialogType active_type;
   GtkWidget *table_sheets;
@@ -684,10 +673,15 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
   GList *button_list;
   GtkWidget *active_button;
 
+  if (response != GTK_RESPONSE_OK) {
+    g_clear_pointer (&sheets_new_dialog, gtk_widget_destroy);
+    return;
+  }
+
   table_sheets = lookup_widget (sheets_dialog, "table_sheets");
   wrapbox = g_object_get_data (G_OBJECT (table_sheets), "active_wrapbox");
 
-  active_type = (SheetsNewDialogType) g_object_get_data (G_OBJECT (button),
+  active_type = (SheetsNewDialogType) g_object_get_data (G_OBJECT (sheets_new_dialog),
                                                          "active_type");
   g_assert (active_type);
 
@@ -866,8 +860,7 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
                                        GTK_TOGGLE_BUTTON (active_button));
   g_list_free (button_list);
 
-  gtk_widget_destroy (sheets_new_dialog);
-  sheets_new_dialog = NULL;
+  g_clear_pointer (&sheets_new_dialog, gtk_widget_destroy);
 }
 
 void
@@ -1012,7 +1005,7 @@ on_sheets_new_dialog_radiobutton_svg_shape_toggled (GtkToggleButton *togglebutto
     NULL
   };
 
-  sheets_dialog_togglebutton_set_sensitive (togglebutton, sheets_new_dialog,
+  sheets_dialog_togglebutton_set_sensitive (togglebutton, GTK_WIDGET (user_data),
                                             widget_names,
                                             SHEETS_NEW_DIALOG_TYPE_SVG_SHAPE);
 }
@@ -1028,7 +1021,7 @@ on_sheets_new_dialog_radiobutton_sheet_toggled (GtkToggleButton *togglebutton,
     NULL
   };
 
-  sheets_dialog_togglebutton_set_sensitive (togglebutton, sheets_new_dialog,
+  sheets_dialog_togglebutton_set_sensitive (togglebutton, GTK_WIDGET (user_data),
                                             widget_names,
                                             SHEETS_NEW_DIALOG_TYPE_SHEET);
 }
@@ -1039,7 +1032,7 @@ on_sheets_new_dialog_radiobutton_line_break_toggled (GtkToggleButton *togglebutt
 {
   static gchar *widget_names[] = { NULL };
 
-  sheets_dialog_togglebutton_set_sensitive (togglebutton, sheets_new_dialog,
+  sheets_dialog_togglebutton_set_sensitive (togglebutton, GTK_WIDGET (user_data),
                                             widget_names,
                                             SHEETS_NEW_DIALOG_TYPE_LINE_BREAK);
 }

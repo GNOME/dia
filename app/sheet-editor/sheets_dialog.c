@@ -122,27 +122,21 @@ create_sheets_new_dialog (void)
                                             "radiobutton_svg_shape"),
                     "toggled",
                     G_CALLBACK (on_sheets_new_dialog_radiobutton_svg_shape_toggled),
-                    NULL);
+                    sheets_new_dialog);
   g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
                                             "radiobutton_sheet"),
                     "toggled",
                     G_CALLBACK (on_sheets_new_dialog_radiobutton_sheet_toggled),
-                    NULL);
+                    sheets_new_dialog);
   g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
                                             "radiobutton_line_break"),
                     "toggled",
                     G_CALLBACK (on_sheets_new_dialog_radiobutton_line_break_toggled),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_ok"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_new_dialog_button_ok_clicked),
+                    sheets_new_dialog);
+  g_signal_connect (sheets_new_dialog,
+                    "response",
+                    G_CALLBACK (on_sheets_new_dialog_response),
                     store);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_cancel"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_new_dialog_button_cancel_clicked),
-                    NULL);
 
   return sheets_new_dialog;
 }
