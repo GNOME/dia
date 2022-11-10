@@ -43,8 +43,6 @@ void        on_sheets_new_dialog_button_cancel_clicked             (GtkButton   
                                                                     gpointer         user_data);
 void        on_sheets_dialog_button_edit_clicked                   (GtkButton       *button,
                                                                     gpointer         user_data);
-void        on_sheets_edit_dialog_button_cancel_clicked            (GtkButton       *button,
-                                                                    gpointer         user_data);
 void        on_sheets_dialog_button_remove_clicked                 (GtkButton       *button,
                                                                     gpointer         user_data);
 void        on_sheets_dialog_button_remove_clicked                 (GtkButton       *button,
@@ -69,7 +67,8 @@ void        on_sheets_new_dialog_radiobutton_line_break_toggled    (GtkToggleBut
                                                                     gpointer         user_data);
 void        on_sheets_remove_dialog_button_ok_clicked              (GtkButton       *button,
                                                                     gpointer         user_data);
-void        on_sheets_edit_dialog_button_ok_clicked                (GtkButton       *button,
+void        on_sheets_edit_dialog_response                         (GtkWidget       *sheets_edit_dialog,
+                                                                    int              response,
                                                                     gpointer         user_data);
 void        on_sheets_edit_dialog_entry_object_description_changed (GtkEditable     *editable,
                                                                     gpointer         user_data);

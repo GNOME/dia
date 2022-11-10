@@ -870,12 +870,11 @@ on_sheets_new_dialog_button_ok_clicked (GtkButton       *button,
   sheets_new_dialog = NULL;
 }
 
-static GtkWidget *sheets_edit_dialog;
-
 void
 on_sheets_dialog_button_edit_clicked (GtkButton       *button,
                                       gpointer         user_data)
 {
+  GtkWidget *sheets_edit_dialog;
   GtkWidget *wrapbox;
   GList *button_list;
   GtkWidget *active_button;
@@ -885,9 +884,7 @@ on_sheets_dialog_button_edit_clicked (GtkButton       *button,
   SheetMod *sm;
   gchar *name = "";
 
-  if (sheets_edit_dialog == NULL) {
-    sheets_edit_dialog = create_sheets_edit_dialog ();
-  }
+  sheets_edit_dialog = create_sheets_edit_dialog ();
 
   active_button = sheets_dialog_get_active_button (&wrapbox, &button_list);
   som = dia_sheet_editor_button_get_object (DIA_SHEET_EDITOR_BUTTON (active_button));
@@ -913,14 +910,6 @@ on_sheets_dialog_button_edit_clicked (GtkButton       *button,
   gtk_entry_set_text (GTK_ENTRY (entry), descrip);
 
   gtk_widget_show (sheets_edit_dialog);
-}
-
-void
-on_sheets_edit_dialog_button_cancel_clicked (GtkButton       *button,
-                                             gpointer         user_data)
-{
-  gtk_widget_destroy (sheets_edit_dialog);
-  sheets_edit_dialog = NULL;
 }
 
 static GtkWidget *sheets_remove_dialog;
@@ -1181,14 +1170,20 @@ on_sheets_remove_dialog_button_ok_clicked (GtkButton *button,
 }
 
 void
-on_sheets_edit_dialog_button_ok_clicked (GtkButton *button,
-                                         gpointer   user_data)
+on_sheets_edit_dialog_response (GtkWidget *sheets_edit_dialog,
+                                int        response,
+                                gpointer   user_data)
 {
   GtkWidget *active_button;
   GtkWidget *wrapbox;
   GList *button_list;
   GtkWidget *entry;
   gboolean something_changed = FALSE;
+
+  if (response != GTK_RESPONSE_OK) {
+    g_clear_pointer (&sheets_edit_dialog, gtk_widget_destroy);
+    return;
+  }
 
   active_button = sheets_dialog_get_active_button (&wrapbox, &button_list);
   g_assert (active_button);
@@ -1231,8 +1226,7 @@ on_sheets_edit_dialog_button_ok_clicked (GtkButton *button,
     sheets_dialog_apply_revert_set_sensitive (TRUE);
   }
 
-  gtk_widget_destroy (sheets_edit_dialog);
-  sheets_edit_dialog = NULL;
+  g_clear_pointer (&sheets_edit_dialog, gtk_widget_destroy);
 }
 
 void

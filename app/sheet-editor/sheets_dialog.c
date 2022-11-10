@@ -179,15 +179,9 @@ create_sheets_edit_dialog (void)
                     "changed",
                     G_CALLBACK (on_sheets_edit_dialog_entry_sheet_name_changed),
                     NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_ok"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_edit_dialog_button_ok_clicked),
-                    NULL);
-  g_signal_connect (gtk_builder_get_object (GTK_BUILDER (builder),
-                                            "button_cancel"),
-                    "clicked",
-                    G_CALLBACK (on_sheets_edit_dialog_button_cancel_clicked),
+  g_signal_connect (sheets_edit_dialog,
+                    "response",
+                    G_CALLBACK (on_sheets_edit_dialog_response),
                     NULL);
 
   return sheets_edit_dialog;
