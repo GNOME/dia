@@ -29,13 +29,7 @@ void        on_sheets_dialog_combo_changed                         (GtkComboBox 
                                                                     gpointer         user_data);
 void        on_sheets_dialog_button_move_up_clicked                (GtkButton       *button,
                                                                     gpointer         user_data);
-void        on_sheets_dialog_button_move_up_clicked                (GtkButton       *button,
-                                                                    gpointer         user_data);
 void        on_sheets_dialog_button_new_clicked                    (GtkButton       *button,
-                                                                    gpointer         user_data);
-void        on_sheets_dialog_button_new_clicked                    (GtkButton       *button,
-                                                                    gpointer         user_data);
-void        on_sheets_dialog_button_close_clicked                  (GtkButton       *button,
                                                                     gpointer         user_data);
 void        on_sheets_dialog_button_close_clicked                  (GtkButton       *button,
                                                                     gpointer         user_data);
