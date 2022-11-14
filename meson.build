@@ -62,12 +62,8 @@ conf.set_quoted('PKGDATADIR', pkgdatadir)
 conf.set_quoted('DIALIBDIR',  dialibdir)
 conf.set_quoted('LOCALEDIR', dialocaledir)
 
-foreach h : ['stddef.h', 'fcntl.h', 'unistd.h', 'utime.h']
+foreach h : ['unistd.h', 'utime.h']
     conf.set10('HAVE_' + h.underscorify().to_upper(), cc.has_header(h))
-endforeach
-
-foreach f : ['select', 'strcspn', 'strdup', 'strtol']
-    conf.set10('HAVE_' + f.underscorify().to_upper(), cc.has_function(f))
 endforeach
 
 configuration_inc = include_directories('.')
