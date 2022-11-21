@@ -71,6 +71,15 @@ static DiaExportFilter ps_export_filter = {
     (void*)OUTPUT_PS,
     "cairo-ps" /* unique name */
 };
+
+static const gchar *eps_extensions[] = { "eps", NULL };
+static DiaExportFilter eps_export_filter = {
+    N_("Encapsulated PostScript"),
+    eps_extensions,
+    cairo_export_data,
+    (void*)OUTPUT_EPS,
+    "cairo-eps"
+};
 #endif
 
 #ifdef CAIRO_HAS_PDF_SURFACE
@@ -196,6 +205,7 @@ static void
 _plugin_unload (PluginInfo *info)
 {
 #ifdef CAIRO_HAS_PS_SURFACE
+  filter_unregister_export(&eps_export_filter);
   filter_unregister_export(&ps_export_filter);
 #endif
 #ifdef CAIRO_HAS_PDF_SURFACE
@@ -232,6 +242,7 @@ dia_plugin_init(PluginInfo *info)
   png_export_filter.renderer_type = g_type_from_name ("DiaCairoInteractiveRenderer");
 
 #ifdef CAIRO_HAS_PS_SURFACE
+  filter_register_export(&eps_export_filter);
   filter_register_export(&ps_export_filter);
 #endif
 #ifdef CAIRO_HAS_PDF_SURFACE

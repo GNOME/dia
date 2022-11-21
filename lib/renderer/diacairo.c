@@ -123,6 +123,14 @@ cairo_export_data (DiagramData *data,
                                                  width, height); /*  in points? */
     /* maybe we should increase the resolution here as well */
     break;
+  case OUTPUT_EPS :
+    /* for EPS, create the whole diagram as one page */
+    width = (data->extents.right - data->extents.left) * (72.0 / 2.54);
+    height = (data->extents.bottom - data->extents.top) * (72.0 / 2.54);
+    renderer->scale = data->paper.scaling * (72.0 / 2.54);
+    renderer->surface = cairo_ps_surface_create (filename_crt, width, height);
+    cairo_ps_surface_set_eps (renderer->surface, TRUE);
+    break;
 #endif
 #if defined CAIRO_HAS_PNG_SURFACE || defined CAIRO_HAS_PNG_FUNCTIONS
   case OUTPUT_PNGA :

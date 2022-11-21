@@ -85,6 +85,7 @@ struct _DiaCairoRenderer
 typedef enum OutputKind
 {
   OUTPUT_PS = 1,
+  OUTPUT_EPS,
   OUTPUT_PNG,
   OUTPUT_PNGA,
   OUTPUT_PDF,
