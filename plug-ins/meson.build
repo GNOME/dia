@@ -19,7 +19,6 @@ subdir('layout')  # Non-standard: shared_module
 subdir('metapost')
 subdir('pdf')
 subdir('pgf')
-subdir('postscript')
 subdir('pstricks')
 subdir('python')  # Non-standard: shared_module
 subdir('stress')
