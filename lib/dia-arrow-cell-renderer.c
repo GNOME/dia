@@ -35,7 +35,6 @@
 
 typedef struct _DiaArrowCellRendererPrivate DiaArrowCellRendererPrivate;
 struct _DiaArrowCellRendererPrivate {
-  DiaRenderer *renderer;
   Arrow       *arrow;
   gboolean     point_left;
 };
@@ -47,7 +46,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (DiaArrowCellRenderer, dia_arrow_cell_renderer, GTK_T
 enum {
   PROP_0,
   PROP_ARROW,
-  PROP_RENDERER,
   PROP_POINT_LEFT,
   LAST_PROP
 };
@@ -64,10 +62,6 @@ dia_arrow_cell_renderer_get_property (GObject    *object,
   DiaArrowCellRendererPrivate *priv = dia_arrow_cell_renderer_get_instance_private (self);
 
   switch (param_id) {
-    case PROP_RENDERER:
-      g_value_set_object (value, priv->renderer);
-      break;
-
     case PROP_ARROW:
       g_value_set_boxed (value, priv->arrow);
       break;
@@ -93,11 +87,6 @@ dia_arrow_cell_renderer_set_property (GObject      *object,
   DiaArrowCellRendererPrivate *priv = dia_arrow_cell_renderer_get_instance_private (self);
 
   switch (param_id) {
-    case PROP_RENDERER:
-      g_clear_object (&priv->renderer);
-      priv->renderer = g_value_dup_object (value);
-      break;
-
     case PROP_ARROW:
       g_clear_pointer (&priv->arrow, dia_arrow_free);
       priv->arrow = g_value_dup_boxed (value);
@@ -120,7 +109,6 @@ dia_arrow_cell_renderer_finalize (GObject *object)
   DiaArrowCellRenderer *self = DIA_ARROW_CELL_RENDERER (object);
   DiaArrowCellRendererPrivate *priv = dia_arrow_cell_renderer_get_instance_private (self);
 
-  g_clear_object (&priv->renderer);
   g_clear_pointer (&priv->arrow, dia_arrow_free);
 
   G_OBJECT_CLASS (dia_arrow_cell_renderer_parent_class)->finalize (object);
@@ -180,8 +168,6 @@ dia_arrow_cell_renderer_render (GtkCellRenderer      *cell,
 
   self = DIA_ARROW_CELL_RENDERER (cell);
   priv = dia_arrow_cell_renderer_get_instance_private (self);
-
-  g_return_if_fail (DIA_CAIRO_IS_RENDERER (priv->renderer));
 
   GDK_COLOR_TO_DIA (bg, colour_bg);
   GDK_COLOR_TO_DIA (fg, colour_fg);
@@ -278,18 +264,6 @@ dia_arrow_cell_renderer_class_init (DiaArrowCellRendererClass *klass)
   cell_class->render = dia_arrow_cell_renderer_render;
 
   /**
-   * DiaArrowCellRenderer:renderer:
-   *
-   * Since: 0.98
-   */
-  pspecs[PROP_RENDERER] =
-    g_param_spec_object ("renderer",
-                         "Renderer",
-                         "Renderer to draw arrows",
-                         DIA_TYPE_RENDERER,
-                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
-
-  /**
    * DiaArrowCellRenderer:arrow:
    *
    * Since: 0.98
@@ -323,11 +297,6 @@ dia_arrow_cell_renderer_init (DiaArrowCellRenderer *self)
   DiaArrowCellRendererPrivate *priv = dia_arrow_cell_renderer_get_instance_private (self);
 
   priv->point_left = FALSE;
-
-  priv->renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
-
-  DIA_CAIRO_RENDERER (priv->renderer)->surface = cairo_recording_surface_create (CAIRO_CONTENT_COLOR_ALPHA, NULL);
-  DIA_CAIRO_RENDERER (priv->renderer)->with_alpha = TRUE;
 }
 
 
