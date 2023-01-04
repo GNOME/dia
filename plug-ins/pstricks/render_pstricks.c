@@ -60,6 +60,7 @@ NOT WORKING (exporting macros):
 #include "dia_image.h"
 #include "filter.h"
 #include "font.h"
+#include "dia-version-info.h"
 
 #define POINTS_in_INCH 28.346
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
@@ -1010,7 +1011,7 @@ export_pstricks (DiagramData *data,
 	"  \\newcommand{\\setfont}[2]{}\n"
         "\\fi\n",
 	diafilename,
-	VERSION,
+	dia_version_string(),
 	ctime(&time_now),
 	name);
 

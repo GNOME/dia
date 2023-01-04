@@ -1,3 +1,18 @@
+dia_version_info_h = configure_file(
+    configuration: {
+        'VERSION_MAJOR': meson.project_version().split('.')[0],
+        'VERSION_MINOR': meson.project_version().split('.')[1],
+        'VERSION_MICRO': meson.project_version().split('.')[2],
+    },
+    input: 'dia-version-info.h.in',
+    output: 'dia-version-info.h',
+)
+
+dia_version_info_c = vcs_tag(
+    input: 'dia-version-info.c.in',
+    output: 'dia-version-info.c',
+)
+
 stdprop_sources = [
     'properties.c',
     'properties.h',
@@ -34,6 +49,8 @@ stdprop_sources = [
 ]
 
 libdia_sources = stdprop_sources + [
+    dia_version_info_c,
+    dia_version_info_h,
     'diagramdata.c',
     'diagramdata.h',
     'layer.c',

@@ -1,0 +1,62 @@
+/* Dia -- an diagram creation/manipulation program
+ * Copyright (C) 2022 Duncan McIntosh
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
+#pragma once
+
+#include <glib.h>
+
+#include "diavar.h"
+
+G_BEGIN_DECLS
+
+extern DIAVAR const guint dia_version_major;
+extern DIAVAR const guint dia_version_minor;
+extern DIAVAR const guint dia_version_micro;
+
+/*
+ * These are filled in by Meson during the build process.
+ */
+#define DIA_VERSION_MAJOR @VERSION_MAJOR@
+#define DIA_VERSION_MINOR @VERSION_MINOR@
+#define DIA_VERSION_MICRO @VERSION_MICRO@
+
+
+/**
+ * DIA_CHECK_VERSION:
+ *
+ *
+ * Checks at compile-time whether the provided version is compatible.
+ *
+ * See [id@dia_version_check] for more information.
+ *
+ * Note that @min is evaluated twice. If that's a problem, you probably want
+ * to use [id@dia_version_check] instead.
+ */
+#define DIA_CHECK_VERSION(maj, min, mic) \
+    ((maj) > DIA_VERSION_MAJOR ? 0 \
+        : (((min) < DIA_VERSION_MINOR) ? 0 \
+            : (((min) == DIA_VERSION_MINOR && (mic) <= DIA_VERSION_MICRO) ? 0 : 1)))
+
+gboolean dia_check_version (guint major, guint minor, guint micro);
+
+/* Updates frequently enough that we only provide it at runtime. */
+const char *dia_version_string (void);
+
+G_END_DECLS

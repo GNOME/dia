@@ -1,0 +1,82 @@
+/* Dia -- an diagram creation/manipulation program
+ * Copyright (C) 2022 Duncan McIntosh
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
+#include <glib.h>
+
+#include "dia-version-info.h"
+
+/**
+ * dia_version_major:
+ *
+ * The current major version of Dia being used at runtime. For example, 0.97.3
+ * has a major version of 0.
+ */
+DIAVAR const guint dia_version_major = DIA_VERSION_MAJOR;
+
+/**
+ * dia_version_minor:
+ *
+ * The current minor version of Dia being used at runtime. For example, 0.97.3
+ * has a minor version of 97.
+ */
+DIAVAR const guint dia_version_minor = DIA_VERSION_MINOR;
+
+/**
+ * dia_version_micro:
+ *
+ * The current micro version of Dia being used at runtime. For example, 0.97.3
+ * has a micro version of 3.
+ */
+DIAVAR const guint dia_version_micro = DIA_VERSION_MICRO;
+
+/**
+ * dia_check_version:
+ * @major: The wanted major version.
+ * @minor: The wanted minor version.
+ * @micro: The wanted micro version.
+ *
+ * Checks if the provided version would be compatible with the runtime version.
+ *
+ * Returns: Whether the versions are compatible; i.e. majors are the same and
+ * otherwise the provided version is at least the current one.
+ */
+gboolean
+dia_check_version (guint major, guint minor, guint micro)
+{
+    return DIA_CHECK_VERSION (major, minor, micro);
+}
+
+
+/**
+ * dia_version_string:
+ *
+ * Gets the current Dia version, including commit and other fast-changing
+ * information.
+ *
+ * This is generally useful to give the user for bug reporting. Please never
+ * use this for determining features.
+ *
+ * Returns: (transfer none): A human-readable string about the Dia version.
+ */
+const char *
+dia_version_string (void)
+{
+    return "@VCS_TAG@";
+}

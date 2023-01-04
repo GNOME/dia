@@ -41,6 +41,7 @@
 #include "diarenderer.h"
 #include "dia_image.h"
 #include "font.h"
+#include "dia-version-info.h"
 
 #include <gdk/gdk.h>
 
@@ -77,7 +78,6 @@ struct _CgmRendererClass
   DiaRendererClass parent_class;
 };
 
-static const gchar *dia_version_string = "Dia-" VERSION;
 #define IS_ODD(n) (n & 0x01)
 
 /* --- routines to write various quantities to the CGM stream. --- */
@@ -1112,10 +1112,10 @@ export_cgm(DiagramData *data, DiaContext *ctx,
     renderer->ctx = ctx;
 
     /* write BEGMF */
-    len = strlen(dia_version_string);
+    len = strlen(dia_version_string());
     write_elhead(file, CGM_DELIM, CGM_BEGIN_METAFILE, len + 1);
     putc(len, file);
-    fwrite(dia_version_string, sizeof(char), len, file);
+    fwrite(dia_version_string(), sizeof(char), len, file);
     if (!IS_ODD(len))
 	putc(0, file);
 

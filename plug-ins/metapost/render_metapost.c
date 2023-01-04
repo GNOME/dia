@@ -51,6 +51,7 @@
 #include "font.h"
 #include "text.h"
 #include "textline.h"
+#include "dia-version-info.h"
 
 #define POINTS_in_INCH 28.346
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
@@ -1137,7 +1138,7 @@ export_metapost(DiagramData *data, DiaContext *ctx,
 	    "\n\n"
 	    "beginfig(1);\n",
 	    diafilename,
-	    VERSION,
+	    dia_version_string(),
 	    ctime(&time_now),
 	    name);
 

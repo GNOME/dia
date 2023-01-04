@@ -49,6 +49,7 @@
 #include "message.h"
 #include "ruler.h"
 #include "diainteractiverenderer.h"
+#include "dia-version-info.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
@@ -947,12 +948,16 @@ create_integrated_ui (void)
   GtkWidget *notebook;
   GtkWidget *statusbar;
   GtkAccelGroup *accel_group;
+  gchar *version;
 
   GtkWidget *layer_view;
 
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   g_object_ref (window);
-  gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
+
+  version = g_strdup_printf ("Dia v%s", dia_version_string ());
+  gtk_window_set_title (GTK_WINDOW (window), version);
+  g_clear_pointer (&version, g_free);
 
   /* hint to window manager on X so the wm can put the window in the same
      as it was when the application shut down                             */
@@ -1066,7 +1071,7 @@ create_toolbox (void)
 
   window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   g_object_ref(window);
-  gtk_window_set_title (GTK_WINDOW (window), "Dia v" VERSION);
+  gtk_window_set_title (GTK_WINDOW (window), "Dia");
   gtk_window_set_role (GTK_WINDOW (window), "toolbox_window");
   gtk_window_set_default_size(GTK_WINDOW(window), 146, 349);
   g_signal_connect (G_OBJECT (window), "delete_event",

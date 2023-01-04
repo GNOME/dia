@@ -55,7 +55,6 @@ dialibdir = prefix / get_option('libdir') / meson.project_name()
 dialocaledir = prefix / get_option('localedir')
 
 # Specify a header configuration file
-conf.set_quoted('VERSION', '@VCS_TAG@')
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('PREFIX', get_option('prefix'))
 conf.set_quoted('PKGDATADIR', pkgdatadir)
@@ -67,8 +66,7 @@ foreach h : ['unistd.h', 'utime.h']
 endforeach
 
 config_inc = include_directories('.')
-config_h_in = configure_file(output: 'config.h.in', configuration: conf)
-config_h = vcs_tag(input: config_h_in, output: 'config.h')
+config_h = configure_file(output: 'config.h', configuration: conf)
 config_inc = include_directories('.')
 config_dep = declare_dependency(
     sources: [config_h],

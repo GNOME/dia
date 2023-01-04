@@ -851,6 +851,9 @@ EXPORTS
  text_line_get_descent
  text_line_get_alignment_adjustment
 
+ dia_check_version
+ dia_version_string
+
  diaXmlParseFile
  xmlDiaSaveFile
  xmlDoParseFile

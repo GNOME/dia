@@ -45,8 +45,8 @@
 #include "properties.h"
 #include "propinternals.h"
 
-#include "diagram.h"
-#include "connectionpoint_ops.h"
+#include "../app/diagram.h"
+#include "../app/connectionpoint_ops.h"
 
 #include "ogdf-simple.h"
 #include "dia-graph.h"

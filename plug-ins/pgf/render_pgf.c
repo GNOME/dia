@@ -71,6 +71,7 @@ TODO:
 #include "dia_image.h"
 #include "filter.h"
 #include "arrows.h"
+#include "dia-version-info.h"
 
 #define POINTS_in_INCH 28.346
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
@@ -1389,7 +1390,7 @@ export_pgf(DiagramData *data, DiaContext *ctx,
 	"\\setlength{\\du}{15\\unitlength}\n"
 	"\\begin{tikzpicture}[even odd rule]\n",
 	diafilename,
-	VERSION,
+	dia_version_string(),
 	ctime(&time_now),
 	name);
 

@@ -97,6 +97,7 @@ ShellExecuteA (long        hwnd,
 #include "authors.h"                /* master contributors data */
 #include "object.h"
 #include "dia-guide-dialog.h"
+#include "dia-version-info.h"
 
 
 void
@@ -1142,7 +1143,7 @@ help_about_callback (GtkAction *action)
   gtk_show_about_dialog (NULL,
                          "logo", logo,
                          "program-name", _("Dia Diagram Editor"),
-                         "version", VERSION,
+                         "version", dia_version_string (),
                          "comments", _("A program for drawing structured diagrams."),
                          "copyright", "(C) 1998-2011 The Free Software Foundation and the authors\n"
                                       "© 2018-2021 Zander Brown et al\n",

@@ -60,6 +60,7 @@
 #include "sheets_dialog_callbacks.h"
 #include "sheets_dialog.h"
 #include "sheet-editor-button.h"
+#include "dia-version-info.h"
 
 
 static GSList *radio_group = NULL;
@@ -1510,7 +1511,8 @@ write_user_sheet (Sheet *sheet)
 
   /* comments */
   xmlAddChild (root, xmlNewText ((const xmlChar *) "\n"));
-  xmlAddChild (root, xmlNewComment ((const xmlChar *) "Dia-Version: "VERSION));
+  g_snprintf (buf, sizeof (buf), "Dia-Version: %s", dia_version_string ());
+  xmlAddChild (root, xmlNewComment ((const xmlChar *) buf));
   xmlAddChild (root, xmlNewText ((const xmlChar *) "\n"));
   g_snprintf (buf, sizeof (buf), _("File: %s"), filename);
   xmlAddChild (root, xmlNewComment ((xmlChar *) buf));

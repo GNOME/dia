@@ -5,6 +5,7 @@
 
 #include "app_procs.h"
 #include "widgets.h"
+#include "dia-version-info.h"
 
 static GtkWidget *splash = NULL;
 
@@ -33,7 +34,7 @@ app_splash_init (const char *fname)
   GtkWidget *gpixmap;
   GtkWidget *label;
   GtkWidget *frame;
-  char str[256];
+  gchar *str;
   gulong signal_id;
 
   splash = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -55,8 +56,10 @@ app_splash_init (const char *fname)
 
   gtk_container_add (GTK_CONTAINER(frame), gpixmap);
 
-  g_snprintf(str, sizeof(str), _("Dia v %s"), VERSION);
+  str = g_strdup_printf (_("Dia v%s"), dia_version_string ());
   label = gtk_label_new (str);
+  g_clear_pointer (&str, g_free);
+
   gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, TRUE, 1);
 
   signal_id = g_signal_connect_after (G_OBJECT (splash),

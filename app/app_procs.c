@@ -64,6 +64,7 @@
 #include "dialib.h"
 #include "widgets.h"
 #include "dia-layer.h"
+#include "dia-version-info.h"
 
 static gboolean         handle_initial_diagram (const char *input_file_name,
                                                 const char *export_file_name,
@@ -732,9 +733,9 @@ app_init (int argc, char **argv)
 
 #if (defined __TIME__) && (defined __DATE__)
     /* TRANSLATOR: 2nd and 3rd %s are time and date respectively. */
-    ver_str = g_strdup_printf (_("Dia version %s, compiled %s %s\n"), VERSION, __TIME__, __DATE__);
+    ver_str = g_strdup_printf (_("Dia version %s, compiled %s %s\n"), dia_version_string (), __TIME__, __DATE__);
 #else
-    ver_str = g_strdup_printf (_("Dia version %s\n"), VERSION);
+    ver_str = g_strdup_printf (_("Dia version %s\n"), dia_version_string ());
 #endif
 
     g_print ("%s\n", ver_str);

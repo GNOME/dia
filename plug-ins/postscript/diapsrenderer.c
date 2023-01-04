@@ -33,6 +33,7 @@
 #include "dia_image.h"
 #include "font.h"
 #include "textline.h"
+#include "dia-version-info.h"
 
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
 #define psrenderer_dtostr(buf,d) \
@@ -92,17 +93,17 @@ begin_render(DiaRenderer *self, const DiaRectangle *update)
   else
     fprintf(renderer->file,
             "%%!PS-Adobe-2.0\n");
-  fprintf(renderer->file,
-          "%%%%Title: %s\n"
-          "%%%%Creator: Dia v%s\n"
-          "%%%%CreationDate: %s"
-          "%%%%For: %s\n"
-          "%%%%Orientation: %s\n",
-          renderer->title ? renderer->title : "(NULL)" ,
-          VERSION,
-          ctime(&time_now),
-          g_get_user_name(),
-          renderer->is_portrait ? "Portrait" : "Landscape");
+  fprintf (renderer->file,
+           "%%%%Title: %s\n"
+           "%%%%Creator: Dia v%s\n"
+           "%%%%CreationDate: %s"
+           "%%%%For: %s\n"
+           "%%%%Orientation: %s\n",
+           renderer->title ? renderer->title : "(NULL)" ,
+           dia_version_string (),
+           ctime (&time_now),
+           g_get_user_name (),
+           renderer->is_portrait ? "Portrait" : "Landscape");
 
   if (renderer_is_epsi(renderer)) {
     g_assert(!"Preview image not implemented");

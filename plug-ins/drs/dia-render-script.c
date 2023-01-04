@@ -64,6 +64,7 @@
 #include "diagramdata.h"
 #include "dia_xml_libxml.h"
 #include "dia-layer.h"
+#include "dia-version-info.h"
 
 #include "dia-render-script.h"
 #include "dia-render-script-renderer.h"
@@ -123,6 +124,7 @@ export_data(DiagramData *data, DiaContext *ctx,
 	    void* user_data)
 {
   DrsRenderer *renderer;
+  gchar *dtd_name;
   xmlDtdPtr dtd;
   xmlDocPtr doc;
 
@@ -143,12 +145,14 @@ export_data(DiagramData *data, DiaContext *ctx,
   /* remember context for object_save_props */
   renderer->ctx = g_object_ref (ctx);
 
+  dtd_name = g_strdup_printf ("-//DIA//DTD DRS %s//EN", dia_version_string ());
+
   /* set up the root node */
   doc = xmlNewDoc((const xmlChar *)"1.0");
   doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
   doc->standalone = FALSE;
   dtd = xmlCreateIntSubset(doc, (const xmlChar *)"drs",
-		     (const xmlChar *)"-//DIA//DTD DRS " VERSION "//EN",
+		     (const xmlChar *) dtd_name,
 		     (const xmlChar *)"http://projects.gnome.org/dia/dia-render-script.dtd");
   xmlAddChild((xmlNodePtr) doc, (xmlNodePtr) dtd);
   renderer->root = xmlNewDocNode(doc, NULL, (const xmlChar *)"drs", NULL);
@@ -160,6 +164,7 @@ export_data(DiagramData *data, DiaContext *ctx,
   xmlDiaSaveFile (filename, doc);
   xmlFreeDoc (doc);
 
+  g_clear_pointer (&dtd_name, g_free);
   g_clear_object (&renderer);
 
   return TRUE;
