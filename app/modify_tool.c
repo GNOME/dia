@@ -74,7 +74,6 @@ struct _ModifyTool {
   Point last_to;
   Point start_at;
   time_t start_time;
-  GdkGC *gc;
   int x1, y1, x2, y2;
   Point start_box;
   Point end_box;
@@ -101,7 +100,6 @@ create_modify_tool(void)
   tool->tool.button_release_func = (ButtonReleaseFunc) &modify_button_release;
   tool->tool.motion_func = (MotionFunc) &modify_motion;
   tool->tool.double_click_func = (DoubleClickFunc) &modify_double_click;
-  tool->gc = NULL;
   tool->state = STATE_NONE;
   tool->break_connections = FALSE;
   tool->auto_scrolled = FALSE;
@@ -160,7 +158,6 @@ void
 free_modify_tool (Tool *tool)
 {
   ModifyTool *mtool = (ModifyTool *)tool;
-  g_clear_object (&mtool->gc);
   g_clear_pointer (&mtool, g_free);
 }
 
