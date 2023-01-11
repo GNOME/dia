@@ -557,9 +557,11 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
           subshape->v_anchor_method = -OFFSET_METHOD_FIXED;
         else if (v_anchor_attr && !strcmp((const char*)v_anchor_attr,"proportional"))
           subshape->v_anchor_method = OFFSET_METHOD_PROPORTIONAL;
-        else
-          fprintf( stderr, "illegal v_anchor `%s', defaulting to fixed.top\n",
-                   v_anchor_attr );
+        else {
+          fprintf (stderr,
+                   "illegal v_anchor “%s”, defaulting to fixed.top\n",
+                   v_anchor_attr);
+        }
 
         if (!h_anchor_attr || !strcmp((const char*)h_anchor_attr,"fixed.left"))
           subshape->h_anchor_method = OFFSET_METHOD_FIXED;
@@ -567,9 +569,11 @@ parse_svg_node(ShapeInfo *info, xmlNodePtr node, xmlNsPtr svg_ns,
           subshape->h_anchor_method = -OFFSET_METHOD_FIXED;
         else if (h_anchor_attr && !strcmp((const char*)h_anchor_attr,"proportional"))
           subshape->h_anchor_method = OFFSET_METHOD_PROPORTIONAL;
-        else
-          fprintf( stderr, "illegal h_anchor `%s', defaulting to fixed.left\n",
-                   h_anchor_attr );
+        else {
+          fprintf (stderr,
+                   "illegal h_anchor “%s”, defaulting to fixed.left\n",
+                   h_anchor_attr);
+        }
 
         info->subshapes = g_list_append(info->subshapes, subshape);
 

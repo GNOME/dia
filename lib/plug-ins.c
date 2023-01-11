@@ -301,7 +301,7 @@ for_each_in_dir (const char             *directory,
 
   dp = g_dir_open (directory, 0, &error);
   if (dp == NULL) {
-    g_warning ("Could not open `%s'\n`%s'", directory, error->message);
+    g_warning ("Could not open “%s”\n“%s”", directory, error->message);
     g_clear_error (&error);
     return;
   }

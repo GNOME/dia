@@ -80,8 +80,9 @@ line_info_get_line_type( const gchar* filename, xmlNodePtr node )
   	res = CUSTOM_LINETYPE_BEZIERLINE;
   else if( !strcmp((char*)tmp, "All") )
   	res = CUSTOM_LINETYPE_ALL;
-  else
-  	g_warning("%s: `%s' is not a valid line type",filename,tmp);
+  else {
+    g_warning ("%s: “%s” is not a valid line type", filename, tmp);
+  }
 
   xmlFree(tmp);
 
@@ -106,7 +107,7 @@ line_info_get_line_style (const char* filename, xmlNodePtr node)
   } else if (!g_strcmp0((char*) tmp, "Dotted")) {
     res = DIA_LINE_STYLE_DOTTED;
   } else {
-    g_warning ("%s: `%s' is not a valid line style", filename, tmp);
+    g_warning ("%s: “%s” is not a valid line style", filename, tmp);
   }
 
   dia_clear_xml_string (&tmp);
@@ -201,8 +202,9 @@ line_info_get_arrow_type( const gchar* filename, xmlNodePtr node )
   	res = ARROW_BACKSLASH;
   else if( !strcmp((char*)tmp, "Three-Dots") )
   	res = ARROW_THREE_DOTS;
-  else
-  	g_warning("%s: `%s' is not a valid arrow style", filename, tmp);
+  else {
+    g_warning ("%s: “%s” is not a valid arrow style", filename, tmp);
+  }
 
   xmlFree(tmp);
 
