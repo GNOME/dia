@@ -18,7 +18,9 @@
 
 #define G_LOG_DOMAIN "Dia"
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <gtk/gtk.h>
 
@@ -41,7 +43,6 @@
 #include "toolbox.h"
 #include "commands.h"
 #include "dia_dirs.h"
-#include "intl.h"
 #include "navigation.h"
 #include "persistence.h"
 #include "widgets.h"

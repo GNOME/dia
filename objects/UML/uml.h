@@ -21,7 +21,7 @@
 #pragma once
 
 #include <glib.h>
-#include "intl.h"
+
 #include "connectionpoint.h"
 #include "dia_xml.h"
 

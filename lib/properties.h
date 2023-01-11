@@ -47,7 +47,6 @@
 #include "color.h"
 #include "font.h"
 #include "dia_xml.h"
-#include "intl.h"
 #include "textattr.h"
 #include "diacontext.h"
 #include "dia-object-change.h"

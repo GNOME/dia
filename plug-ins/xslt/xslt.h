@@ -28,7 +28,6 @@
 #include <dlfcn.h>
 #endif
 #include "plug-ins.h"
-#include "intl.h"
 
 /*
   The transformation is 2-pass. First, it transforms the document using

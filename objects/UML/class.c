@@ -22,13 +22,14 @@
 
 /** \file objects/UML/class.c  Implementation of the 'UML - Class' type */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
-#include "intl.h"
 #include "diarenderer.h"
 #include "attributes.h"
 #include "properties.h"

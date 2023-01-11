@@ -26,6 +26,10 @@
  * Opens a dialog for export options
  */
 
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include "xslt.h"
 #include <stdio.h>
 

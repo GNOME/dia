@@ -1,7 +1,10 @@
 /* -*- Mode: C; c-basic-offset: 4 -*- */
-#include <config.h>
+
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include "render_pstricks.h"
-#include "intl.h"
 #include "filter.h"
 #include "plug-ins.h"
 

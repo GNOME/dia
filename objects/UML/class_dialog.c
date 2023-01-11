@@ -29,14 +29,15 @@
 **                                                                          **
 **--------------------------------------------------------------------------*/
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <gtk/gtk.h>
 #include <math.h>
 #include <string.h>
 
 #include "object.h"
-#include "intl.h"
 #include "class.h"
 #include "diaoptionmenu.h"
 

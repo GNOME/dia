@@ -16,7 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -33,7 +35,6 @@
 #include "connectionpoint_ops.h"
 #include "menus.h"
 #include "message.h"
-#include "intl.h"
 #include "magnify.h"
 #include "diamenu.h"
 #include "preferences.h"

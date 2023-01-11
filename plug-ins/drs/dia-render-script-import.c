@@ -23,13 +23,14 @@
 
 /*!  \file dia-render-script-import.c import of dia-render-script either to
  * diagram with objects or maybe as one object */
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "geometry.h"
 #include "color.h"
 #include "diagramdata.h"
 #include "group.h"
-#include "intl.h"
 #include "diaimportrenderer.h"
 #include "dia-layer.h"
 

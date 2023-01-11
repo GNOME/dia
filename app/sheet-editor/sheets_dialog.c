@@ -20,7 +20,9 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -29,7 +31,6 @@
 #include "sheets_dialog_callbacks.h"
 #include "sheets_dialog.h"
 
-#include "intl.h"
 #include "persistence.h"
 #include "dia-builder.h"
 

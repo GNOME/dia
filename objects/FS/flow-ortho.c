@@ -20,13 +20,14 @@
  * please send e-mail to David Thompson <dcthomp@mail.utexas.edu>
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
 
-#include "intl.h"
 #include "object.h"
 #include "connection.h"
 #include "diarenderer.h"

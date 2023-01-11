@@ -27,7 +27,9 @@
  *   interested renderers ?
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -37,7 +39,6 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#include "intl.h"
 #include "geometry.h"
 #include "diarenderer.h"
 #include "filter.h"

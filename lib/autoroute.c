@@ -24,7 +24,10 @@
  * \brief Simple autorouting for \ref _OrthConn "orthogonal lines"
  * \ingroup ObjectParts
  */
+
 #include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "object.h"
 #include "connectionpoint.h"

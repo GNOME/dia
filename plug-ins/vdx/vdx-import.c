@@ -19,7 +19,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdio.h>
 #include <errno.h>
@@ -35,14 +37,12 @@
 #include <float.h>
 #include <locale.h>
 
-#include "intl.h"
 #include "geometry.h"
 #include "filter.h"
 #include "object.h"
 #include "properties.h"
 #include "propinternals.h"
 #include "dia_xml_libxml.h"
-#include "intl.h"
 #include "create.h"
 #include "group.h"
 #include "font.h"

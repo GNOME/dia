@@ -21,7 +21,9 @@
 
 #define G_LOG_DOMAIN "Dia"
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -38,7 +40,6 @@
 #include <libxml/tree.h>
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
-#include "intl.h"
 #include "message.h" /* only for dia_log_message() */
 
 #include "plug-ins.h"

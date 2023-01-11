@@ -21,6 +21,9 @@
  */
 
 #include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -28,7 +31,6 @@
 #include <errno.h>
 #include <glib/gstdio.h>
 
-#include "intl.h"
 #include "geometry.h"
 #include "diarenderer.h"
 #include "filter.h"

@@ -23,9 +23,10 @@
  * data global to a diagram.
  */
 
-#include <config.h>
+#include "config.h"
 
-#include "intl.h"
+#include <glib/gi18n-lib.h>
+
 #define __in_diagram_data
 #include "diagramdata.h"
 #undef __in_diagram_data

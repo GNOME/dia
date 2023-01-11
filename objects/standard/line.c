@@ -18,11 +18,13 @@
  */
 
 /*! \file line.c -- Implements the "Standard - Line" object */
-#include <config.h>
+
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <math.h>
 
-#include "intl.h"
 #include "object.h"
 #include "connection.h"
 #include "connectionpoint.h"

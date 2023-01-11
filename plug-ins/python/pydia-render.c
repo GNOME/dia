@@ -27,7 +27,10 @@
  * To do that probably some code from pygtk.gobject needs to
  * be borrowed/shared
  */
-#include <config.h>
+
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <Python.h>
 #include <glib.h>
@@ -35,7 +38,6 @@
 
 #include <locale.h>
 
-#include "intl.h"
 #include "geometry.h"
 
 #include "pydia-object.h" /* for PyObject_HEAD_INIT */

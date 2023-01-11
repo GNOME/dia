@@ -16,7 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,7 +39,6 @@
 
 #include <glib/gstdio.h>
 
-#include "intl.h"
 #include "app_procs.h"
 #include "object.h"
 #include "commands.h"

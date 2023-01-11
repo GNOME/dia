@@ -20,6 +20,8 @@
  */
 #include "config.h"
 
+#include <glib/gi18n-lib.h>
+
 // Dia includes before poppler to avoid getting the wrong 'object.h'
 #include "create.h"
 #include "properties.h"

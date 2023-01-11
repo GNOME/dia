@@ -17,12 +17,13 @@
  */
 
 /* select.c -- callbacks to implement the Select menu */
-#include <config.h>
 
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "select.h"
 #include "menus.h"
-#include "intl.h"
 #include "object_ops.h"
 #include "textedit.h"
 #include "object.h"

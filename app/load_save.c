@@ -15,7 +15,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#include <config.h>
+
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 /* so we get fdopen declared even when compiling with -ansi */
 #define _POSIX_C_SOURCE 200809L
@@ -32,8 +35,6 @@
 #ifndef W_OK
 #define W_OK 2
 #endif
-
-#include "intl.h"
 
 #include <libxml/tree.h>
 #include <libxml/parser.h>

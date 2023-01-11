@@ -21,14 +21,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <string.h>
 
 #include <gtk/gtk.h>
 
 #include "plugin-manager.h"
-#include "intl.h"
 #include "plug-ins.h"
 #include "message.h"
 

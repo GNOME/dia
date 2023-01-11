@@ -51,7 +51,9 @@ TODO:
 */
 
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <string.h>
 #include <time.h>
@@ -64,7 +66,6 @@ TODO:
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#include "intl.h"
 #include "render_pgf.h"
 #include "diagramdata.h"
 #include "dia_image.h"

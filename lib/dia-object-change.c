@@ -20,6 +20,10 @@
  * Copyright © 2020 Zander Brown <zbrown@gnome.org>
  */
 
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include <glib-object.h>
 #include <gobject/gvaluecollector.h>
 

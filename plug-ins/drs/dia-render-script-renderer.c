@@ -21,12 +21,14 @@
 
 /*! A DiaRenderer mapping every renderer method to some metafile representation */
 
-#include <config.h>
-
 #define G_LOG_DOMAIN "DiaRenderScript"
+
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include <glib.h>
 
-#include "intl.h"
 #include "diarenderer.h"
 
 #include "object.h" /* object->type->name */

@@ -20,13 +20,17 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#define G_LOG_DOMAIN "DiaCairo"
+
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 
 #include <errno.h>
-#define G_LOG_DOMAIN "DiaCairo"
 #include <glib.h>
 #include <glib/gstdio.h>
 
@@ -49,7 +53,6 @@
 
 #include <pango/pangocairo.h>
 
-#include "intl.h"
 #include "geometry.h"
 #include "dia_image.h"
 #include "diarenderer.h"

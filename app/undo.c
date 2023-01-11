@@ -18,7 +18,9 @@
 
 #define G_LOG_DOMAIN "DiaUndo"
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "undo.h"
 #include "object_ops.h"

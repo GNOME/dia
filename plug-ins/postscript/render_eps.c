@@ -44,7 +44,9 @@
  * info (and conceivably more, like color defs), and one to actually render.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <string.h>
 #include <time.h>
@@ -57,7 +59,6 @@
 
 #include <glib/gstdio.h>
 
-#include "intl.h"
 #include "render_eps.h"
 #include "diagramdata.h"
 #include "font.h"

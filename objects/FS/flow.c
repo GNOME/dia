@@ -18,13 +18,14 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
 
-#include "intl.h"
 #include "object.h"
 #include "connection.h"
 #include "diarenderer.h"
@@ -32,7 +33,6 @@
 #include "arrows.h"
 #include "diamenu.h"
 #include "text.h"
-#include "connection.h"
 #include "properties.h"
 
 #include "pixmaps/flow.xpm"

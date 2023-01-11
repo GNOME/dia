@@ -16,15 +16,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
 
 #include <gdk/gdkkeysyms.h>
-
-#include "intl.h"
 
 #include "display.h"
 #include "disp_callbacks.h"

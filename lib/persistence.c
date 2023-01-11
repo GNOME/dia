@@ -23,6 +23,8 @@
 
 #include "config.h"
 
+#include <glib/gi18n-lib.h>
+
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <libxml/tree.h>
@@ -33,7 +35,6 @@
 #include "dia_xml.h"
 #include "message.h" /* only for dia_log_message() */
 #include "diacontext.h"
-#include "intl.h"
 
 
 /**

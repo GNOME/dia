@@ -46,17 +46,19 @@
  * </diagram>
  */
 
-#include <config.h>
+#define G_LOG_DOMAIN "DiaRenderScript"
+
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 
-#define G_LOG_DOMAIN "DiaRenderScript"
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#include "intl.h"
 #include "filter.h"
 #include "plug-ins.h"
 #include "diagramdata.h"

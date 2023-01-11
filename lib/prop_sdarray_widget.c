@@ -53,7 +53,10 @@
  what's been implemented below is something a lot simpler, just enough to
  support exisiting ArrayProp usage ;)
  */
-#include <config.h>
+
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "properties.h"
 #include "propinternals.h"

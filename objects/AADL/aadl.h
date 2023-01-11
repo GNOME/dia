@@ -24,7 +24,6 @@
 #include <math.h>
 #include <string.h>
 
-#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "diarenderer.h"

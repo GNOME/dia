@@ -22,7 +22,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdio.h>
 /* Information used here is taken from the FIG Format 3.2 specification
@@ -40,7 +42,6 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#include "intl.h"
 #include "geometry.h"
 #include "filter.h"
 #include "object.h"

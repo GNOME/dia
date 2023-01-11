@@ -24,6 +24,8 @@
 
 #include "config.h"
 
+#include <glib/gi18n-lib.h>
+
 #include <gtk/gtk.h>
 #include "diagram.h"
 #include "object.h"

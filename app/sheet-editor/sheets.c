@@ -19,7 +19,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  *
  */
+
 #include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <string.h>
 
@@ -35,7 +38,6 @@
 #include "interface.h"
 #include "sheets.h"
 #include "sheets_dialog.h"
-#include "intl.h"
 #include "gtkhwrapbox.h"
 #include "preferences.h"
 #include "toolbox.h"  /* just for interface_current_sheet_name */

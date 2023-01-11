@@ -19,7 +19,9 @@
 
 #define G_LOG_DOMAIN "DiaPython"
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <Python.h>
 #include <glib.h>

@@ -16,13 +16,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
-#include "intl.h"
+#include <glib/gi18n-lib.h>
+
 #include "object.h"
 #include "sheet.h"
 #include "plug-ins.h"
-#include "intl.h"
 
 extern DiaObjectType table_type;
 extern DiaObjectType reference_type;

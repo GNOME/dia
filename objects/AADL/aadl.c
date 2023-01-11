@@ -19,11 +19,11 @@
 */
 
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "object.h"
-
-#include "intl.h"
 #include "plug-ins.h"
 
 #include "aadl.h"

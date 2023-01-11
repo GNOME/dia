@@ -33,9 +33,11 @@
  * simplified to nodes and edges. Changes done by the layout algorithm
  * are connected with Dia's undo/redo system.
  */
-#include <config.h>
 
-#include "intl.h"
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include "message.h"
 #include "filter.h"
 #include "plug-ins.h"

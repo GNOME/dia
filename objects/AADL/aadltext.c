@@ -18,6 +18,10 @@
 * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 */
 
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include "aadl.h"
 
 /* functions useful for text positionning */
@@ -26,7 +30,7 @@
 void aadldata_text_position(Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
-  
+
   text_calc_boundingbox(aadlbox->name, NULL);
   p->x = elem->corner.x + AADLBOX_TEXT_MARGIN;
   p->y = elem->corner.y + AADLBOX_TEXT_MARGIN + aadlbox->name->ascent;
@@ -36,7 +40,7 @@ void aadldata_minsize(Aadlbox *aadlbox, Point *size)
 {
   text_calc_boundingbox(aadlbox->name, NULL);
   size->x = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
-  size->y = aadlbox->name->height * aadlbox->name->numlines 
+  size->y = aadlbox->name->height * aadlbox->name->numlines
                                    + 2*AADLBOX_TEXT_MARGIN;
 }
 
@@ -45,9 +49,9 @@ void aadldata_minsize(Aadlbox *aadlbox, Point *size)
 void aadlprocess_text_position(Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
-  
+
   text_calc_boundingbox(aadlbox->name, NULL);
-  p->x = elem->corner.x + elem->width * AADLBOX_INCLINE_FACTOR 
+  p->x = elem->corner.x + elem->width * AADLBOX_INCLINE_FACTOR
                         + AADLBOX_TEXT_MARGIN;
   p->y = elem->corner.y + AADLBOX_TEXT_MARGIN + aadlbox->name->ascent;
 }
@@ -66,16 +70,16 @@ void aadlprocess_minsize(Aadlbox *aadlbox, Point *size)
 
 
      L == 2d + w   and   d == L*Factor   <===>  L == w / (1 - 2*Factor)
-  
+
   */
   real w, L;
-  
+
   text_calc_boundingbox(aadlbox->name, NULL);
   w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
   L = w / (1 - 2 * AADLBOX_INCLINE_FACTOR);
-  
+
   size->x = L;
-  size->y = aadlbox->name->height * aadlbox->name->numlines 
+  size->y = aadlbox->name->height * aadlbox->name->numlines
               + 2*AADLBOX_TEXT_MARGIN;
 }
 
@@ -83,9 +87,9 @@ void aadlprocess_minsize(Aadlbox *aadlbox, Point *size)
 void aadlbus_text_position(Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
-  
+
   text_calc_boundingbox(aadlbox->name, NULL);
-  p->x = elem->corner.x + elem->width * AADL_BUS_ARROW_SIZE_FACTOR 
+  p->x = elem->corner.x + elem->width * AADL_BUS_ARROW_SIZE_FACTOR
                         + AADLBOX_TEXT_MARGIN;
   p->y = elem->corner.y + elem->height * AADL_BUS_HEIGHT_FACTOR
                         + AADLBOX_TEXT_MARGIN + aadlbox->name->ascent;
@@ -94,15 +98,15 @@ void aadlbus_text_position(Aadlbox *aadlbox, Point *p)
 void aadlbus_minsize(Aadlbox *aadlbox, Point *size)
 {
   real w, L, h, H;
-  
+
   text_calc_boundingbox(aadlbox->name, NULL);
   w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
   L = w / (1 - 2 * AADL_BUS_ARROW_SIZE_FACTOR);
-  
-  h = aadlbox->name->height * aadlbox->name->numlines 
+
+  h = aadlbox->name->height * aadlbox->name->numlines
                     + 2*AADLBOX_TEXT_MARGIN;
   H = h / (1 - 2 * AADL_BUS_HEIGHT_FACTOR);
-  
+
   size->x = L;
   size->y = H;
 }
@@ -114,7 +118,7 @@ void aadlbus_minsize(Aadlbox *aadlbox, Point *size)
 void aadlsystem_text_position(Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
-  
+
   text_calc_boundingbox(aadlbox->name, NULL);
   p->x = elem->corner.x + elem->width * SYSTEM_FACTOR
                         + AADLBOX_TEXT_MARGIN;
@@ -125,15 +129,15 @@ void aadlsystem_text_position(Aadlbox *aadlbox, Point *p)
 void aadlsystem_minsize(Aadlbox *aadlbox, Point *size)
 {
   real w, L, h, H;
-  
+
   text_calc_boundingbox(aadlbox->name, NULL);
   w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
   L = w / (1 - 2 * SYSTEM_FACTOR);
-  
-  h = aadlbox->name->height * aadlbox->name->numlines 
+
+  h = aadlbox->name->height * aadlbox->name->numlines
                     + 2*AADLBOX_TEXT_MARGIN;
   H = h / (1 - 2 * SYSTEM_FACTOR);
-  
+
   size->x = L;
   size->y = H;
 }
@@ -144,7 +148,7 @@ void aadlsystem_minsize(Aadlbox *aadlbox, Point *size)
 void aadlmemory_text_position(Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
-  
+
   text_calc_boundingbox(aadlbox->name, NULL);
   p->x = elem->corner.x + AADLBOX_TEXT_MARGIN;
   p->y = elem->corner.y + 2 * elem->height * MEMORY_FACTOR
@@ -154,14 +158,14 @@ void aadlmemory_text_position(Aadlbox *aadlbox, Point *p)
 void aadlmemory_minsize(Aadlbox *aadlbox, Point *size)
 {
   real w, h, H;
-  
+
   text_calc_boundingbox(aadlbox->name, NULL);
   w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
-  
-  h = aadlbox->name->height * aadlbox->name->numlines 
+
+  h = aadlbox->name->height * aadlbox->name->numlines
                     + 2*AADLBOX_TEXT_MARGIN;
   H = h / (1 - 3 * MEMORY_FACTOR);
-  
+
   size->x = w;
   size->y = H;
 }
@@ -170,7 +174,7 @@ void aadlmemory_minsize(Aadlbox *aadlbox, Point *size)
 void aadlsubprogram_text_position(Aadlbox *aadlbox, Point *p)
 {
   Element *elem = &aadlbox->element;
-  
+
   text_calc_boundingbox(aadlbox->name, NULL);
   p->x = elem->corner.x+ (2-sqrt(2))/4 * elem->width + AADLBOX_TEXT_MARGIN;
   p->y = elem->corner.y+ (2-sqrt(2))/4 * elem->height + AADLBOX_TEXT_MARGIN
@@ -180,11 +184,11 @@ void aadlsubprogram_text_position(Aadlbox *aadlbox, Point *p)
 void aadlsubprogram_minsize(Aadlbox *aadlbox, Point *size)
 {
   real w, h;
-  
+
   text_calc_boundingbox(aadlbox->name, NULL);
 
   w = aadlbox->name->max_width + 2*AADLBOX_TEXT_MARGIN;
-  h = aadlbox->name->height * aadlbox->name->numlines 
+  h = aadlbox->name->height * aadlbox->name->numlines
                   + 2*AADLBOX_TEXT_MARGIN;
 
   size->x = w * sqrt(2);

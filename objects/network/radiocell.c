@@ -19,12 +19,13 @@
 /* Copyright 2003, W. Borgert <debacle@debian.org>
    copied a lot from UML/large_package.c and standard/polygon.c */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <math.h>
 #include <string.h>
 
-#include "intl.h"
 #include "object.h"
 #include "polyshape.h"
 #include "diarenderer.h"

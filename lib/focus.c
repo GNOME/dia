@@ -27,7 +27,10 @@
  * in app/disp_callbacks.c
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include "text.h"
 #include "focus.h"
 #include "diagramdata.h"

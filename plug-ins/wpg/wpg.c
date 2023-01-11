@@ -26,7 +26,10 @@
  * - the font setting needs improvement (maybe on Dia's side)
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -35,7 +38,6 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#include "intl.h"
 #include "geometry.h"
 #include "dia_image.h"
 #include "diarenderer.h"

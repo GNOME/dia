@@ -19,7 +19,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <gdk/gdkkeysyms.h>
 
@@ -37,7 +39,6 @@
 #include "layer-editor/layer_dialog.h"
 #include "preferences.h"
 #include "../lib/filter.h"
-#include "../lib/intl.h"
 #include "message.h"
 #include "persistence.h"
 

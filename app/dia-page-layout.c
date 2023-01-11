@@ -21,11 +21,11 @@
 
 /*#define PAGELAYOUT_TEST*/
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "dia-page-layout.h"
-
-#include "intl.h"
 
 #include "pixmaps/portrait.xpm"
 #include "pixmaps/landscape.xpm"

@@ -20,15 +20,17 @@
  * Purpose: This is the interface file for the class icon and dialog.
  */
 
-/** \file objects/UML/class.h  Declaration of the 'UML - Class' type */
-#ifndef CLASS_H
-#define CLASS_H
+#pragma once
+
+#include <glib.h>
 
 #include "object.h"
 #include "element.h"
 #include "connectionpoint.h"
 
 #include "uml.h"
+
+G_BEGIN_DECLS
 
 /** The number of regular connectionpoints on the class (not cps for
  * attributes and operands and not the mainpoint). */
@@ -151,4 +153,4 @@ void umlclass_update_data(UMLClass *umlclass);
 
 void umlclass_sanity_check(UMLClass *c, gchar *msg);
 
-#endif /* CLASS_H */
+G_END_DECLS

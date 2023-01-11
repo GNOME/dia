@@ -21,7 +21,9 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <errno.h>
 #include <time.h>
@@ -58,7 +60,7 @@
 #include "sheets_dialog_callbacks.h"
 #include "sheets_dialog.h"
 #include "sheet-editor-button.h"
-#include "intl.h"
+
 
 static GSList *radio_group = NULL;
 

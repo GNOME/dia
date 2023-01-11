@@ -16,14 +16,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <glib.h>
 
-#include "intl.h"
 #include "grid.h"
 #include "preferences.h"
 #include "diainteractiverenderer.h"

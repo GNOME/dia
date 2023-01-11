@@ -24,10 +24,11 @@
 
 #include "config.h"
 
+#include <glib/gi18n-lib.h>
+
 #include <string.h>
 
 #include <gtk/gtk.h>
-#include <glib/gi18n.h>
 
 #include <lib/object.h>
 
@@ -39,7 +40,6 @@
 #include "properties-dialog.h" /* object_list_properties_show */
 #include "dia-props.h" /* diagram_properties_show */
 #include "persistence.h"
-#include "intl.h"
 #include "widgets.h"
 #include "dia-layer.h"
 

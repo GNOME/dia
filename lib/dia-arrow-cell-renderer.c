@@ -20,9 +20,12 @@
  * Copyright © 2019 Zander Brown <zbrown@gnome.org>
  */
 
-#include <config.h>
-#include "intl.h"
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include <gtk/gtk.h>
+
 #include "dia-arrow-cell-renderer.h"
 #include "renderer/diacairo.h"
 #include "diarenderer.h"

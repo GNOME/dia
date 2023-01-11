@@ -15,7 +15,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#include <config.h>
+
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "create_object.h"
 #include "connectionpoint_ops.h"
@@ -29,7 +32,6 @@
 #include "parent.h"
 #include "message.h"
 #include "object.h"
-#include "intl.h"
 #include "menus.h"
 #include "widgets.h"
 #include "dia-layer.h"

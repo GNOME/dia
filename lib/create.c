@@ -25,12 +25,13 @@
  * standard objects.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <glib.h>
 #include <stdlib.h>
 
-#include "intl.h"
 #include "message.h"
 #include "geometry.h"
 #include "filter.h"

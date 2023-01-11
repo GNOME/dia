@@ -20,7 +20,9 @@
 
  /** \file bezier_conn.c Allows to construct object consisting of bezier lines */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdio.h>
 #include <stdlib.h>

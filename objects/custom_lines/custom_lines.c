@@ -22,14 +22,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <glib.h>
 
 #include "sheet.h"
 #include "line_info.h"
 #include "dia_dirs.h"
-#include "intl.h"
 #include "plug-ins.h"
 #include "custom_linetypes.h"
 

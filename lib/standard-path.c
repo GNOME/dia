@@ -31,7 +31,10 @@
  * based object, which can render holes, even if the _DiaRenderer can not. It is
  * using a newer file format representation through BezPointarrayProperty.
  */
-#include <config.h>
+
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "object.h"
 #include "diarenderer.h"

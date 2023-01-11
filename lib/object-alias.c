@@ -19,7 +19,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-#include <config.h>
+
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 /* To map an old name to a new object type the alias indirection is used.
  * Starting with the old object from file the old name will persist. So there
@@ -28,10 +31,10 @@
  *
  * An extra feature would be the availability of construction only properties.
  * These would be applied to the real object after creation and should not be
- * accessible to any user of the alias name, i.e. neither be listed by 
- * _alias_describe_props and _alias_get_props. But they additionally need to be 
+ * accessible to any user of the alias name, i.e. neither be listed by
+ * _alias_describe_props and _alias_get_props. But they additionally need to be
  * filtered in _alias_set_props, because e.g. for groups some properties might
- * get tried to be applied which do not come from the original set(?). 
+ * get tried to be applied which do not come from the original set(?).
  *
  * The sheet code already relies on the correct order of type registration and
  * access, so we can assume the target type is registered before the alias is
@@ -43,8 +46,6 @@
 
 #include <glib.h>
 
-#include "intl.h"
-
 #include <libxml/tree.h>
 #include "dia_xml_libxml.h"
 #include "dia_xml.h"
@@ -55,7 +56,7 @@
 
 #include "object-alias.h"
 
-/* DiaObjectType _alias_type must be dynamically 
+/* DiaObjectType _alias_type must be dynamically
  *
  * The hash table is mapping the alias name to the real type.
  */
@@ -105,7 +106,7 @@ _alias_create (Point *startpoint,
   DiaObject *obj;
   DiaObjectType *alias_type = (DiaObjectType *)user_data;
   DiaObjectType *real_type;
-  
+
   g_return_val_if_fail (alias_type != NULL && alias_type->name != NULL, NULL);
 
   real_type = _alias_lookup (alias_type->name);

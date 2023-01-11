@@ -34,7 +34,9 @@
  * particular text.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "object.h"
 #include "focus.h"

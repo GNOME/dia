@@ -20,12 +20,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include "diacairo.h"
 
 #include <gdk/gdk.h>
 #include <gtk/gtk.h> /* GTK_CHECK_VERSION */
 
-#include "intl.h"
 #include "color.h"
 #include "diatransform.h"
 #include "object.h"

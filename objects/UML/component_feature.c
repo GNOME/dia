@@ -22,12 +22,13 @@
  * 2003-08-13, 2003-08-15: W. Borgert <debacle@debian.org>
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <math.h>
 #include <string.h>
 
-#include "intl.h"
 #include "object.h"
 #include "orth_conn.h"
 #include "connectionpoint.h"

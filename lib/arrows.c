@@ -16,7 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <math.h>
 #include <stdio.h>
@@ -30,7 +32,6 @@
 #include "arrows.h"
 #include "diarenderer.h"
 #include "attributes.h"
-#include "intl.h"
 
 /**
  * SECTION:arrows

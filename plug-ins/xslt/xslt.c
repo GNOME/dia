@@ -24,7 +24,10 @@
 
 #define G_LOG_DOMAIN "DiaXslt"
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
@@ -32,7 +35,6 @@
 #include <glib/gstdio.h>
 
 #include "filter.h"
-#include "intl.h"
 #include "message.h"
 #include "dia_dirs.h"
 #include <libxslt/xslt.h>

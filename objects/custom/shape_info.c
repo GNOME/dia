@@ -24,7 +24,9 @@
 
 #define G_LOG_DOMAIN "DiaCustom"
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdlib.h>
 #include <libxml/tree.h>
@@ -39,7 +41,6 @@
 #include "dia_image.h"
 #include "prop_pixbuf.h" /* pixbuf_decode_base64() */
 #include "message.h"
-#include "intl.h"
 #include "prefs.h"
 #include "boundingbox.h"
 

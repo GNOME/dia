@@ -21,6 +21,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include <string.h>
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -31,7 +35,6 @@
 #include "plug-ins.h"
 #include "properties.h"
 #include "object.h"
-#include "intl.h"
 #include "dia-layer.h"
 
 static gboolean

@@ -21,7 +21,9 @@
  *          code.
  */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "database.h"
 #include "arrows.h"

@@ -33,6 +33,10 @@
    ports.
 */
 
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
+
 #include "aadl.h"
 #include "edit_port_declaration.h"
 

@@ -30,8 +30,9 @@
  * 2. Linestyles really need tweaking.
  */
 
+#include "config.h"
 
-#include <config.h>
+#include <glib/gi18n-lib.h>
 
 #include <string.h>
 #include <time.h>
@@ -43,7 +44,6 @@
 
 #include <glib/gstdio.h>
 
-#include "intl.h"
 #include "render_metapost.h"
 #include "diagramdata.h"
 #include "filter.h"

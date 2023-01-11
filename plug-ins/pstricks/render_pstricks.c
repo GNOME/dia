@@ -40,7 +40,9 @@ NOT WORKING (exporting macros):
 */
 
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <string.h>
 #include <time.h>
@@ -52,7 +54,6 @@ NOT WORKING (exporting macros):
 
 #include <glib/gstdio.h>
 
-#include "intl.h"
 #include "render_pstricks.h"
 #include "message.h"
 #include "diagramdata.h"

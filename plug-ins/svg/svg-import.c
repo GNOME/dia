@@ -23,7 +23,9 @@
 
 #define G_LOG_DOMAIN "DiaSVG"
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -35,14 +37,12 @@
 #include <libxml/xmlmemory.h>
 #include <float.h>
 
-#include "intl.h"
 #include "geometry.h"
 #include "filter.h"
 #include "object.h"
 #include "properties.h"
 #include "propinternals.h"
 #include "dia_xml_libxml.h"
-#include "intl.h"
 #include "dia_svg.h"
 #include "create.h"
 #include "group.h"

@@ -18,14 +18,15 @@
 
 /* DO NOT USE THIS OBJECT AS A BASIS FOR A NEW OBJECT. */
 
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "intl.h"
 #include "object.h"
 #include "element.h"
 #include "diarenderer.h"

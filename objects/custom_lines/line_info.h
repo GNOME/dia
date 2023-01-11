@@ -31,7 +31,6 @@
 #include "object.h"
 #include "text.h"
 #include "properties.h"
-#include "intl.h"
 #include "dia_svg.h"
 
 typedef enum {
