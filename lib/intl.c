@@ -1,4 +1,6 @@
-#include <config.h>
+#include "config.h"
+
+#include <glib.h>
 
 #include "intl.h"
 
@@ -8,9 +10,9 @@
 
 /* low numbers are better */
 int
-intl_score_locale(const gchar *locale)
+intl_score_locale (const char *locale)
 {
-  const gchar * const *names = g_get_language_names ();
+  const char *const *names = g_get_language_names ();
   int i = 0;
 
   /* NULL is same as C locale */
