@@ -234,10 +234,7 @@ click_select_object(DDisplay *ddisp, Point *clickedpoint,
 static glong
 time_micro (void)
 {
-  GTimeVal tv;
-
-  g_get_current_time (&tv);
-  return tv.tv_sec*G_USEC_PER_SEC+tv.tv_usec;
+  return g_get_real_time ();
 }
 
 
