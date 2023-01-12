@@ -20,5 +20,6 @@ shared_module(
     link_with: [diaapp], # Naughty
     install: true,
     install_dir: dialibdir,
+    include_directories: diaapp_inc,
     name_suffix: g_module_suffix,
 )
