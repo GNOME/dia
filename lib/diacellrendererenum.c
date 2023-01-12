@@ -1,4 +1,6 @@
-#include <config.h>
+#include "config.h"
+
+#include <glib/gi18n-lib.h>
 
 #include "diacellrendererenum.h"
 #include "properties.h"
@@ -95,10 +97,10 @@ dia_cell_renderer_enum_new (const PropEnumData *enum_data, GtkTreeView *tree_vie
   GtkListStore *model;
   GtkTreeIter iter;
   int i;
-  
+
   model = gtk_list_store_new (NUM_ENUM_COLUMNS, G_TYPE_STRING, G_TYPE_INT);
   for (i = 0; enum_data[i].name != NULL; ++i) {
-  
+
     gtk_list_store_append (model, &iter);
 
     gtk_list_store_set (model, &iter,
