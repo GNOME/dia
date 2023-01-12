@@ -66,9 +66,14 @@ foreach h : ['unistd.h', 'utime.h']
     conf.set10('HAVE_' + h.underscorify().to_upper(), cc.has_header(h))
 endforeach
 
-configuration_inc = include_directories('.')
+config_inc = include_directories('.')
 config_h_in = configure_file(output: 'config.h.in', configuration: conf)
 config_h = vcs_tag(input: config_h_in, output: 'config.h')
+config_inc = include_directories('.')
+config_dep = declare_dependency(
+    sources: [config_h],
+    include_directories: config_inc,
+)
 
 gtk_ver = 'GDK_VERSION_2_24'
 glib_ver = 'GLIB_VERSION_2_70'

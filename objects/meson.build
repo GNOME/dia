@@ -20,9 +20,9 @@ subdir('UML')
 
 foreach o : dia_object_desc
     library(o.get('name'),
-        o.get('sources') + [config_h],
-        dependencies: [libc_dep, libgtk_dep, libxml_dep, libm_dep, libdia_dep] + o.get('extra_deps', []),
-        include_directories: [configuration_inc, o.get('inc', [])],
+        o.get('sources'),
+        dependencies: [libc_dep, libgtk_dep, libxml_dep, libm_dep, libdia_dep] + [config_dep] + o.get('extra_deps', []),
+        include_directories: [o.get('inc', [])],
         install: true,
         install_dir: dialibdir,
         name_suffix: g_module_suffix,

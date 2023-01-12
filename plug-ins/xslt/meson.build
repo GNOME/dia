@@ -21,9 +21,8 @@ install_data(xsls, install_dir: pkgdatadir / 'xslt')
 if libxslt_dep.found()
     library(
         'xslt_filter',
-        sources + [config_h],
-        dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep, libdia_dep, libxslt_dep],
-        include_directories: [configuration_inc],
+        sources,
+        dependencies: [libc_dep, libgtk_dep, libm_dep, libxml_dep, libdia_dep, libxslt_dep] + [config_dep],
         install: true,
         install_dir: dialibdir,
         name_suffix: g_module_suffix,

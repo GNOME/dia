@@ -46,9 +46,8 @@ if py3_dep.found()
     # Same as layout plugin.
     shared_module(
         'python_plugin',
-        sources + [config_h],
-        dependencies: [libc_dep, libxml_dep, libgtk_dep, py3_dep, libdia_dep],
-        include_directories: [configuration_inc, diaapp_inc],
+        sources,
+        dependencies: [libc_dep, libxml_dep, libgtk_dep, py3_dep, libdia_dep] + [config_dep],
         link_with: [diaapp], # Naughty
         install: true,
         install_dir: dialibdir,

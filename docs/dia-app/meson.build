@@ -17,9 +17,7 @@ docpath = datadir / 'gtk-doc' / 'html'
 
 gnome.gtkdoc('dia-app',
            main_xml: 'dia-app-docs.xml',
-            src_dir: [
-                       diaapp_inc
-                     ],
+            src_dir: [],
        dependencies: diaapp_dep_for_docs,
   gobject_typesfile: 'dia-app.types',
           scan_args: [

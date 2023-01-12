@@ -15,9 +15,8 @@ endif
 # on symbols found in the dia *app* (which will be linked at run-time).
 shared_module(
     'layout_filter',
-    sources + [config_h],
-    dependencies: [deps, libdia_dep],
-    include_directories: [configuration_inc, diaapp_inc],
+    sources,
+    dependencies: [deps, libdia_dep] + [config_dep],
     link_with: [diaapp], # Naughty
     install: true,
     install_dir: dialibdir,

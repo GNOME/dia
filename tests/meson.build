@@ -24,10 +24,9 @@ foreach t : ['boundingbox', 'objects', 'svg', 'sizeof']
     test_exes += [
         executable(
             'test-' + t,
-            ['test-' + t + '.c', config_h],
-            dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep],
+            ['test-' + t + '.c'],
+            dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep] + [config_dep],
             link_args: dia_link_args,
-            include_directories: [configuration_inc],
         )
     ]
 endforeach

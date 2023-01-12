@@ -106,30 +106,24 @@ if pkg_config_libdir != ''
     dia_link_args += pkg_config_libdir
 endif
 
-diaapp_inc = include_directories('.')
-
 resources = gnome.compile_resources('dia-resources', 'dia.gresource.xml',
                                     source_dir : '.',
                                     c_name : 'dia')
 
 diaapp_lib = both_libraries('diaapp',
-                            dia_sources + [diamarshal_h, config_h],
-                            dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep, gtk_mac_dep],
-                            link_args: dia_link_args,
-                            include_directories: [configuration_inc])
+                            dia_sources + [diamarshal_h],
+                            dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep, gtk_mac_dep] + [config_dep],
+                            link_args: dia_link_args)
 
-diaapp_dep = declare_dependency (sources: [config_h],
-                                 include_directories: diaapp_inc,
-                                 link_with: diaapp_lib.get_static_lib(),
+diaapp_dep = declare_dependency (link_with: diaapp_lib.get_static_lib(),
                                  dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep])
 
-diaapp_dep_for_docs = declare_dependency (include_directories: [diaapp_inc, configuration_inc],
-                                          link_with: diaapp_lib.get_shared_lib(),
+diaapp_dep_for_docs = declare_dependency (link_with: diaapp_lib.get_shared_lib(),
                                           dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep])
 
 diaapp = executable('dia',
                     ['main.c', resources],
-                    dependencies: [diaapp_dep],
+                    dependencies: [diaapp_dep] + [config_dep],
                     win_subsystem: 'windows',
                     export_dynamic: true,  # some plugins require this.
                     install: true)

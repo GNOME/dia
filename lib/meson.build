@@ -219,9 +219,8 @@ libdia_deps = [
 libdia_inc = include_directories('.')
 
 libdia_lib = library('dia',
-    libdia_sources + [diamarshal, resources, config_h],
-    dependencies: libdia_deps,
-    include_directories: configuration_inc,
+    libdia_sources + [diamarshal, resources],
+    dependencies: libdia_deps + [config_dep],
     c_args: ['-Wall', '-DLIBDIA_COMPILATION'],
     vs_module_defs: 'libdia.def',
     install: true,
