@@ -17,6 +17,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#define G_LOG_DOMAIN "PyDia"
+
 #include "config.h"
 
 #include <glib/gi18n-lib.h>
@@ -83,9 +85,12 @@ dia_py_plugin_unload (PluginInfo *info)
 PluginInitResult
 dia_plugin_init (PluginInfo *info)
 {
-  wchar_t *python_argv[] = { L"dia-python", NULL };
+  wchar_t name[] = L"dia\0";
+  char *python_argv[] = { "dia-python", NULL };
   char *startup_file;
   FILE *fp;
+  PyStatus status;
+  PyConfig config;
   PyObject *__main__, *__file__;
 
   if (Py_IsInitialized ()) {
@@ -101,13 +106,23 @@ dia_plugin_init (PluginInfo *info)
     return DIA_PLUGIN_INIT_ERROR;
   }
 
-  Py_SetProgramName (L"dia");
-
   PyImport_AppendInittab ("dia", &PyInit_dia);
 
-  Py_Initialize ();
+  PyConfig_InitPythonConfig (&config);
+  config.program_name = malloc (sizeof (name));
+  memcpy (config.program_name, &name, sizeof (name));
 
-  PySys_SetArgv (1, python_argv);
+  status = PyConfig_SetBytesArgv (&config, 1, python_argv);
+  if (PyStatus_Exception (status)) {
+      goto failed;
+  }
+
+  status = Py_InitializeFromConfig (&config);
+  if (PyStatus_Exception (status)) {
+      goto failed;
+  }
+  PyConfig_Clear (&config);
+
 
   /* Sanitize sys.path */
   PyRun_SimpleString ("import sys; sys.path = list(filter(None, sys.path))");
@@ -182,4 +197,11 @@ dia_plugin_init (PluginInfo *info)
   }
 
   return DIA_PLUGIN_INIT_OK;
+
+failed:
+  PyConfig_Clear (&config);
+
+  g_critical ("Can't start: %s: %s", status.func, status.err_msg);
+
+  return DIA_PLUGIN_INIT_ERROR;
 }

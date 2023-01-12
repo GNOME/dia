@@ -1,4 +1,4 @@
-py3_dep = dependency('python3-embed', version: '>= 3.7')
+py3_dep = dependency('python3-embed', version: '>= 3.8')
 
 sources = files(
     'pydia-color.c',
