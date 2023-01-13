@@ -25,7 +25,8 @@ libc_dep = cc.find_library('c', required: false)
 
 # Optional deps
 libpoppler_dep = dependency('poppler', version: '> 0.62.0', required: false)
-conf.set('HAVE_POPPLER', libpoppler_dep.found())
+libpopplercpp_dep = dependency('poppler-cpp', required: false)
+conf.set('HAVE_POPPLER', libpoppler_dep.found() and libpopplercpp_dep.found())
 libemf_dep = cc.find_library('emf', required: false)
 conf.set('HAVE_LIBEMF', libemf_dep.found())
 libogdf_dep = cc.find_library('ogdf', required: false)
