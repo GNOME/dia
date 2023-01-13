@@ -40,6 +40,8 @@
 #include <poppler/GlobalParams.h>
 #include <poppler/PDFDocFactory.h>
 
+#include <poppler/cpp/poppler-version.h>
+
 #include <vector>
 
 /*!
@@ -154,11 +156,16 @@ public :
   void
   updateLineDash (GfxState *state)
   {
-    double *dashPattern;
     int dashLength;
     double dashStart;
 
+#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 9)
+    std::vector<double> dashPattern = state->getLineDash(&dashStart);
+    dashLength = dashPattern.size();
+#else
+    double *dashPattern;
     state->getLineDash (&dashPattern, &dashLength, &dashStart);
+#endif
     this->dash_length = dashLength ? dashPattern[0] * scale : 1.0;
 
     if (dashLength == 0)
@@ -315,12 +322,20 @@ public :
     DiaFont *font;
 
     // without a font it wont make sense
+#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+    if (!state->getFont().get())
+#else
     if (!state->getFont())
+#endif
       return;
     //FIXME: Dia is really unhappy about zero size fonts
     if (!(state->getFontSize() > 0.0))
       return;
+#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+    GfxFont *f = state->getFont().get();
+#else
     GfxFont *f = state->getFont();
+#endif
 
     // instead of building the same font over and over again
     if (g_hash_table_lookup (this->font_map, f)) {
@@ -719,15 +734,27 @@ DiaOutputDev::drawString(GfxState *state, GooString *s)
   if (len == 0)
     return;
   // get the font
+#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+  if (!state->getFont().get())
+#else
   if (!state->getFont())
+#endif
     return;
   if (!(state->getFontSize() > 0.0))
     return;
+#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+  font = (DiaFont *)g_hash_table_lookup (this->font_map, state->getFont().get());
+#else
   font = (DiaFont *)g_hash_table_lookup (this->font_map, state->getFont());
+#endif
 
   // we have to decode the string data first
   {
+#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+    GfxFont *f = state->getFont().get();
+#else
     GfxFont *f = state->getFont();
+#endif
     const char *p = s->c_str();
     CharCode code;
     int   j = 0, m, n;
@@ -872,8 +899,13 @@ import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
   std::unique_ptr<PDFDoc> doc;
   GooString *fileName = new GooString(filename);
   // no passwords yet
+#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+  std::optional<GooString> ownerPW;
+  std::optional<GooString> userPW;
+#else
   GooString *ownerPW = NULL;
   GooString *userPW = NULL;
+#endif
   gboolean ret = FALSE;
 
   // without this we will get strange crashes (at least with /O2 build)
