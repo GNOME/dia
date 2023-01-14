@@ -135,13 +135,6 @@ file_print_callback (GtkAction *_action)
   }
 
   action = menus_get_action ("FilePrintGTK");
-  if (!action) {
-    action = menus_get_action ("FilePrintGDI");
-  }
-  if (!action) {
-    action = menus_get_action ("FilePrintPS");
-  }
-
   if (action) {
     if (confirm_export_size (dia, GTK_WINDOW(ddisp->shell), CONFIRM_PRINT|CONFIRM_PAGES)) {
       gtk_action_activate (action);
