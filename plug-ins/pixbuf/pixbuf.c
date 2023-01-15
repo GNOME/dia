@@ -43,41 +43,29 @@ export_data(DiagramData *data, DiaContext *ctx,
 	    void* user_data)
 {
   DiaCairoRenderer *renderer;
-  GdkColor color;
   int width, height;
   GdkPixbuf* pixbuf = NULL;
   GError* error = NULL;
-  DiaRectangle rect;
   real zoom = 1.0;
-  cairo_t *cctx;
   const char* format = (const char*)user_data;
-
-  rect.left = data->extents.left;
-  rect.top = data->extents.top;
-  rect.right = data->extents.right;
-  rect.bottom = data->extents.bottom;
 
   /* quite arbitrary */
   zoom = 20.0 * data->paper.scaling;
+
   /* Adding a bit of padding to account for rounding errors.  Better to
    * pad than to clip.  See bug #413275 */
-  width = ceil((rect.right - rect.left) * zoom) + 1;
-  height = ceil((rect.bottom - rect.top) * zoom) + 1;
+  width = ceil((data->extents.right - data->extents.left) * zoom) + 1;
+  height = ceil((data->extents.bottom - data->extents.top) * zoom) + 1;
 
   renderer = g_object_new (dia_cairo_renderer_get_type(), NULL);
   renderer->scale = zoom;
-  renderer->surface = cairo_surface_reference (cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
-                                                  width, height));
-
-  cctx = cairo_create (renderer->surface);
-
-  /* draw background */
-  color_convert (&data->bg_color, &color);
-  gdk_cairo_set_source_color (cctx, &color);
-  cairo_rectangle (cctx, 0, 0, width, height);
-  cairo_fill (cctx);
+  renderer->dia = data;
+  renderer->surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                                                  width, height);
 
   data_render (data, DIA_RENDERER (renderer), NULL, NULL, NULL);
+
+  cairo_surface_flush (renderer->surface);
 
   #if GTK_CHECK_VERSION(3,0,0)
   pixbuf = gdk_pixbuf_get_from_surface (renderer->surface, 0, 0,
@@ -90,7 +78,6 @@ export_data(DiagramData *data, DiaContext *ctx,
     pixmap = gdk_pixmap_new (NULL, width, height, 24);
     cr = gdk_cairo_create (pixmap);
 
-    cairo_set_operator (cr, CAIRO_OPERATOR_SOURCE);
     cairo_set_source_surface (cr, renderer->surface, 0, 0);
     cairo_paint (cr);
     pixbuf = gdk_pixbuf_get_from_drawable (NULL,
