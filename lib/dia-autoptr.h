@@ -26,7 +26,13 @@
 
 G_BEGIN_DECLS
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkHBox, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkTable, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkVBox, g_object_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkMisc, g_object_unref)
 
+/* these are defined for us in GTK+ 3 as of GTK commit 8c361fd7  */
+#if !GTK_CHECK_VERSION(3, 15, 5)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkBin, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkBuilder, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkButton, g_object_unref)
@@ -37,13 +43,10 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkContainer, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkDialog, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkDrawingArea, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkEventBox, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkHBox, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkMisc, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkRadioButton, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkSpinButton, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkTable, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkTreeView, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkVBox, g_object_unref)
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (GtkWindow, g_object_unref)
+#endif
 
 G_END_DECLS
