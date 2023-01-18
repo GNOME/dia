@@ -132,7 +132,6 @@ dia_cairo_renderer_begin_render (DiaRenderer *self, const DiaRectangle *update)
     background = renderer->dia->bg_color;
   }
   if (renderer->with_alpha) {
-    cairo_set_operator (renderer->cr, CAIRO_OPERATOR_SOURCE);
     cairo_set_source_rgba (renderer->cr,
                            background.red,
                            background.green,
