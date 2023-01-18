@@ -35,7 +35,6 @@
 #include "text.h"
 #include "group.h"
 #include "attributes.h"
-#include "dia-file-selector.h"
 
 /*****************************************************/
 /* The STRING, FILE and MULTISTRING property types.  */
@@ -160,12 +159,27 @@ multistringprop_set_from_widget(StringProperty *prop, GtkWidget *widget) {
 static GtkWidget *
 fileprop_get_widget (StringProperty *prop, PropDialog *dialog)
 {
-  GtkWidget *ret = dia_file_selector_new ();
+  GtkFileFilter *filter;
+  GtkWidget *ret = gtk_file_chooser_button_new (_ ("Choose a file..."),
+                                                GTK_FILE_CHOOSER_ACTION_OPEN);
+
+  filter = gtk_file_filter_new ();
   if (prop->common.descr->extra_data) {
-    dia_file_selector_set_extensions (DIA_FILE_SELECTOR (ret),
-                                      prop->common.descr->extra_data);
+    const char **exts = prop->common.descr->extra_data;
+
+    for (int i = 0; exts[i] != NULL; i++) {
+      char *globbed;
+
+      globbed = g_strdup_printf ("*.%s", exts[i]);
+      gtk_file_filter_add_pattern (filter, globbed);
+
+      g_free (globbed);
+    }
   }
-  prophandler_connect (&prop->common, G_OBJECT (ret), "value-changed");
+
+  gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (ret), filter);
+  prophandler_connect (&prop->common, G_OBJECT (ret), "file-set");
+
   return ret;
 }
 
@@ -174,7 +188,7 @@ static void
 fileprop_reset_widget (StringProperty *prop, GtkWidget *widget)
 {
   if (prop->string_data) {
-    dia_file_selector_set_file (DIA_FILE_SELECTOR (widget), prop->string_data);
+    gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (widget), prop->string_data);
   }
 }
 
@@ -183,8 +197,7 @@ static void
 fileprop_set_from_widget (StringProperty *prop, GtkWidget *widget)
 {
   g_clear_pointer (&prop->string_data, g_free);
-  prop->string_data =
-    g_strdup (dia_file_selector_get_file (DIA_FILE_SELECTOR (widget)));
+  prop->string_data = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (widget));
 }
 
 

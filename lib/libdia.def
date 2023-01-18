@@ -225,11 +225,6 @@ EXPORTS
  dia_context_reset
  dia_context_set_filename
 
- dia_file_selector_get_file
- dia_file_selector_get_type
- dia_file_selector_new
- dia_file_selector_set_file
-
  dia_font_ascent
  dia_font_build_layout
  dia_font_descent
