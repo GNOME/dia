@@ -270,8 +270,8 @@ new_svg_renderer(DiagramData *data, const char *filename)
   renderer->doc->encoding = xmlStrdup((const xmlChar *)"UTF-8");
   renderer->doc->standalone = FALSE;
   dtd = xmlCreateIntSubset(renderer->doc, (const xmlChar *)"svg",
-		     (const xmlChar *)"-//W3C//DTD SVG 1.0//EN",
-		     (const xmlChar *)"http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd");
+		     (const xmlChar *)"-//W3C//DTD SVG 1.1//EN",
+		     (const xmlChar *)"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd");
   xmlAddChild((xmlNodePtr) renderer->doc, (xmlNodePtr) dtd);
   renderer->root = xmlNewDocNode(renderer->doc, NULL, (const xmlChar *)"svg", NULL);
   xmlAddSibling(renderer->doc->children, (xmlNodePtr) renderer->root);

@@ -14,13 +14,6 @@ G_BEGIN_DECLS
 
 GType dia_svg_renderer_get_type (void) G_GNUC_CONST;
 
-/*!
- * \brief Base class for SVG generation
- *
- * Used for Shape cration and one of the SVG exporters
- *
- * \extends _DiaRenderer
- */
 struct _DiaSvgRenderer
 {
   DiaRenderer parent_instance;

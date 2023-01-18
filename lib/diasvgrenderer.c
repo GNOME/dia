@@ -52,6 +52,15 @@
 #include "prop_pixbuf.h" /* pixbuf_encode_base64() */
 #include "pattern.h"
 
+/**
+ * DiaSvgRenderer:
+ * Renders to an SVG 1.1 tree.
+ *
+ * Internally, Dia uses this for shape file creation and one of the SVG
+ * exporters.
+ */
+G_DEFINE_TYPE (DiaSvgRenderer, dia_svg_renderer, DIA_TYPE_RENDERER)
+
 #define DTOSTR_BUF_SIZE G_ASCII_DTOSTR_BUF_SIZE
 #define dia_svg_dtostr(buf,d)                                  \
   g_ascii_formatd(buf,sizeof(buf),"%g",(d)*renderer->scale)
@@ -955,12 +964,9 @@ draw_rounded_rect (DiaRenderer *self,
 
 /* constructor */
 static void
-dia_svg_renderer_init (GTypeInstance *self, gpointer g_class)
+dia_svg_renderer_init (DiaSvgRenderer *self)
 {
-  DiaSvgRenderer *renderer = DIA_SVG_RENDERER (self);
-
-  renderer->scale = 1.0;
-
+  self->scale = 1.0;
 }
 
 static gpointer parent_class = NULL;
@@ -972,36 +978,6 @@ dia_svg_renderer_finalize (GObject *object)
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-/* gobject boiler plate, vtable initialization  */
-static void dia_svg_renderer_class_init (DiaSvgRendererClass *klass);
-
-GType
-dia_svg_renderer_get_type (void)
-{
-  static GType object_type = 0;
-
-  if (!object_type)
-    {
-      static const GTypeInfo object_info =
-      {
-        sizeof (DiaSvgRendererClass),
-        (GBaseInitFunc) NULL,
-        (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) dia_svg_renderer_class_init,
-        NULL,           /* class_finalize */
-        NULL,           /* class_data */
-        sizeof (DiaSvgRenderer),
-        0,              /* n_preallocs */
-	dia_svg_renderer_init /* init */
-      };
-
-      object_type = g_type_register_static (DIA_TYPE_RENDERER,
-                                            "DiaSvgRenderer",
-                                            &object_info, 0);
-    }
-
-  return object_type;
-}
 
 static void
 dia_svg_renderer_class_init (DiaSvgRendererClass *klass)
