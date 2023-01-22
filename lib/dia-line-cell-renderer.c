@@ -35,7 +35,6 @@
 
 typedef struct _DiaLineCellRendererPrivate DiaLineCellRendererPrivate;
 struct _DiaLineCellRendererPrivate {
-  DiaRenderer  *renderer;
   DiaLineStyle  line;
 };
 
@@ -46,7 +45,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (DiaLineCellRenderer, dia_line_cell_renderer, GTK_TYP
 enum {
   PROP_0,
   PROP_LINE,
-  PROP_RENDERER,
   LAST_PROP
 };
 static GParamSpec *pspecs[LAST_PROP] = { NULL, };
@@ -62,10 +60,6 @@ dia_line_cell_renderer_get_property (GObject    *object,
   DiaLineCellRendererPrivate *priv = dia_line_cell_renderer_get_instance_private (self);
 
   switch (param_id) {
-    case PROP_RENDERER:
-      g_value_set_object (value, priv->renderer);
-      break;
-
     case PROP_LINE:
       g_value_set_enum (value, priv->line);
       break;
@@ -87,11 +81,6 @@ dia_line_cell_renderer_set_property (GObject      *object,
   DiaLineCellRendererPrivate *priv = dia_line_cell_renderer_get_instance_private (self);
 
   switch (param_id) {
-    case PROP_RENDERER:
-      g_clear_object (&priv->renderer);
-      priv->renderer = g_value_dup_object (value);
-      break;
-
     case PROP_LINE:
       priv->line = g_value_get_enum (value);
       break;
@@ -100,18 +89,6 @@ dia_line_cell_renderer_set_property (GObject      *object,
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
       break;
     }
-}
-
-
-static void
-dia_line_cell_renderer_finalize (GObject *object)
-{
-  DiaLineCellRenderer *self = DIA_LINE_CELL_RENDERER (object);
-  DiaLineCellRendererPrivate *priv = dia_line_cell_renderer_get_instance_private (self);
-
-  g_clear_object (&priv->renderer);
-
-  G_OBJECT_CLASS (dia_line_cell_renderer_parent_class)->finalize (object);
 }
 
 
@@ -153,6 +130,7 @@ dia_line_cell_renderer_render (GtkCellRenderer      *cell,
 {
   DiaLineCellRenderer *self;
   DiaLineCellRendererPrivate *priv;
+  DiaRenderer *renderer;
   Point from, to;
   Color colour_fg;
   GtkStyle *style = gtk_widget_get_style (widget);
@@ -165,8 +143,6 @@ dia_line_cell_renderer_render (GtkCellRenderer      *cell,
 
   self = DIA_LINE_CELL_RENDERER (cell);
   priv = dia_line_cell_renderer_get_instance_private (self);
-
-  g_return_if_fail (DIA_CAIRO_IS_RENDERER (priv->renderer));
 
   gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
 
@@ -182,38 +158,37 @@ dia_line_cell_renderer_render (GtkCellRenderer      *cell,
 
   gtk_cell_renderer_get_padding (cell, &xpad, &ypad);
 
-  ctx = gdk_cairo_create (GDK_DRAWABLE (window));
-
   rect.x += cell_area->x + xpad;
   rect.y += cell_area->y + ypad;
   rect.width = cell_area->width - (xpad * 2);
   rect.height = cell_area->height - (ypad * 2);
 
-  ctx = gdk_cairo_create (GDK_DRAWABLE (window));
-
   to.y = from.y = rect.y + rect.height / 2;
   from.x = rect.x;
   to.x = rect.x + rect.width - LINEWIDTH;
 
-  dia_renderer_begin_render (DIA_RENDERER (priv->renderer), NULL);
-  dia_renderer_set_linewidth (DIA_RENDERER (priv->renderer),
+  renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
+
+  ctx = gdk_cairo_create (GDK_DRAWABLE (window));
+  DIA_CAIRO_RENDERER (renderer)->cr = cairo_reference (ctx);
+  DIA_CAIRO_RENDERER (renderer)->with_alpha = TRUE;
+
+  dia_renderer_begin_render (DIA_RENDERER (renderer), NULL);
+  dia_renderer_set_linewidth (DIA_RENDERER (renderer),
                               LINEWIDTH);
-  dia_renderer_set_linestyle (DIA_RENDERER (priv->renderer),
+  dia_renderer_set_linestyle (DIA_RENDERER (renderer),
                               priv->line,
                               20.0);
 
-  dia_renderer_draw_line (DIA_RENDERER (priv->renderer),
+  dia_renderer_draw_line (DIA_RENDERER (renderer),
                           &from,
                           &to,
                           &colour_fg);
 
-  dia_renderer_end_render (DIA_RENDERER (priv->renderer));
-
-  cairo_set_source_surface (ctx, DIA_CAIRO_RENDERER (priv->renderer)->surface, rect.x, rect.y);
-  gdk_cairo_rectangle (ctx, &rect);
-  cairo_paint (ctx);
+  dia_renderer_end_render (DIA_RENDERER (renderer));
 
   cairo_destroy (ctx);
+  g_clear_object (&renderer);
 }
 
 
@@ -225,22 +200,9 @@ dia_line_cell_renderer_class_init (DiaLineCellRendererClass *klass)
 
   object_class->set_property = dia_line_cell_renderer_set_property;
   object_class->get_property = dia_line_cell_renderer_get_property;
-  object_class->finalize = dia_line_cell_renderer_finalize;
 
   cell_class->get_size = dia_line_cell_renderer_get_size;
   cell_class->render = dia_line_cell_renderer_render;
-
-  /**
-   * DiaLineCellRenderer:renderer:
-   *
-   * Since: 0.98
-   */
-  pspecs[PROP_RENDERER] =
-    g_param_spec_object ("renderer",
-                         "Renderer",
-                         "Renderer to draw lines",
-                         DIA_TYPE_RENDERER,
-                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE);
 
   /**
    * DiaLineCellRenderer:line:
@@ -262,12 +224,6 @@ dia_line_cell_renderer_class_init (DiaLineCellRendererClass *klass)
 static void
 dia_line_cell_renderer_init (DiaLineCellRenderer *self)
 {
-  DiaLineCellRendererPrivate *priv = dia_line_cell_renderer_get_instance_private (self);
-
-  priv->renderer = g_object_new (DIA_CAIRO_TYPE_RENDERER, NULL);
-
-  DIA_CAIRO_RENDERER (priv->renderer)->surface = cairo_recording_surface_create (CAIRO_CONTENT_COLOR_ALPHA, NULL);
-  DIA_CAIRO_RENDERER (priv->renderer)->with_alpha = TRUE;
 }
 
 
