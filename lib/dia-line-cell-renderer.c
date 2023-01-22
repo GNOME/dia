@@ -191,9 +191,9 @@ dia_line_cell_renderer_render (GtkCellRenderer      *cell,
 
   ctx = gdk_cairo_create (GDK_DRAWABLE (window));
 
-  to.y = from.y = rect.height / 2;
-  from.x = 0;
-  to.x = rect.width - LINEWIDTH;
+  to.y = from.y = rect.y + rect.height / 2;
+  from.x = rect.x;
+  to.x = rect.x + rect.width - LINEWIDTH;
 
   dia_renderer_begin_render (DIA_RENDERER (priv->renderer), NULL);
   dia_renderer_set_linewidth (DIA_RENDERER (priv->renderer),
