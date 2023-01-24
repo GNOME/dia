@@ -175,7 +175,7 @@ dia_arrow_chooser_dialog_new (DiaArrowChooser *chooser)
 
   chooser->dialog = gtk_dialog_new_with_buttons (_("Arrow Properties"),
                                                  NULL,
-                                                 GTK_DIALOG_NO_SEPARATOR,
+                                                 0,
                                                  _("_Cancel"), GTK_RESPONSE_CANCEL,
                                                  _("_OK"), GTK_RESPONSE_OK,
                                                  NULL);

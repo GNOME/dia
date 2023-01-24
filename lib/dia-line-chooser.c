@@ -170,7 +170,7 @@ dia_line_chooser_init (DiaLineChooser *lchooser)
 
   lchooser->dialog = gtk_dialog_new_with_buttons (_("Line Style Properties"),
                                                   NULL,
-                                                  GTK_DIALOG_NO_SEPARATOR,
+                                                  0,
                                                   _("_Cancel"), GTK_RESPONSE_CANCEL,
                                                   _("_OK"), GTK_RESPONSE_OK,
                                                   NULL);
