@@ -1606,7 +1606,7 @@ ddisplay_im_context_preedit_reset (DDisplay *ddisp, Focus *focus)
       DiaObjectChange *change;
 
       for (int i = 0; i < g_utf8_strlen (ddisp->preedit_string, -1); i++) {
-        (focus->key_event) (focus, 0, GDK_BackSpace, NULL, 0, &change);
+        (focus->key_event) (focus, 0, GDK_KEY_BackSpace, NULL, 0, &change);
       }
     }
 
