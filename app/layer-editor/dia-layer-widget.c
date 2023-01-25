@@ -165,7 +165,6 @@ dia_layer_widget_realize (GtkWidget *widget)
   attributes.window_type = GDK_WINDOW_CHILD;
   attributes.wclass = GDK_INPUT_OUTPUT;
   attributes.visual = gtk_widget_get_visual (widget);
-  attributes.colormap = gtk_widget_get_colormap (widget);
   attributes.event_mask = (gtk_widget_get_events (widget) |
                            GDK_EXPOSURE_MASK |
                            GDK_BUTTON_PRESS_MASK |
@@ -173,7 +172,7 @@ dia_layer_widget_realize (GtkWidget *widget)
                            GDK_KEY_PRESS_MASK |
                            GDK_KEY_RELEASE_MASK);
 
-  attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
+  attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL;
   window = gdk_window_new (gtk_widget_get_parent_window (widget), &attributes, attributes_mask);
   gtk_widget_set_window (widget, window);
   gdk_window_set_user_data (window, widget);
