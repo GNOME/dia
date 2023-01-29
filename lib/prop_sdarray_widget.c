@@ -73,9 +73,16 @@ _cell_renderer_enum_new (const Property *p, GtkTreeView *tree_view)
 
   return cren;
 }
+
+static GtkCellRenderer *
+_cell_renderer_spin_new (const Property *p, GtkTreeView *tree_view)
+{
+  return gtk_cell_renderer_spin_new ();
+}
+
 /** Wrapper to setup ranges */
 static GtkCellRenderer *
-_cell_renderer_real_new (const Property *p)
+_cell_renderer_real_new (const Property *p, GtkTreeView *tree_view)
 {
   const RealProperty *prop = (RealProperty *)p;
   GtkCellRenderer *cren = gtk_cell_renderer_spin_new ();
@@ -198,13 +205,13 @@ static struct {
   const char *type;  /* the type sting */
   GQuark      type_quark; /* it's calculated quark */
   GType       gtype;
-  GtkCellRenderer *(*create_renderer) ();
+  GtkCellRenderer *(*create_renderer) (const Property *prop, GtkTreeView *tree_view);
   const char *bind;
   DataFunc    data_func;
 } _dia_gtk_type_map[] = {
   { PROP_TYPE_DARRAY, 0, G_TYPE_POINTER, /* child data model */ },
   { PROP_TYPE_BOOL, 0, G_TYPE_BOOLEAN, _cell_renderer_toggle_new, "active" },
-  { PROP_TYPE_INT, 0, G_TYPE_INT, gtk_cell_renderer_spin_new },
+  { PROP_TYPE_INT, 0, G_TYPE_INT, _cell_renderer_spin_new },
   { PROP_TYPE_ENUM, 0, G_TYPE_INT, _cell_renderer_enum_new, "text" },
   { PROP_TYPE_REAL, 0, G_TYPE_DOUBLE, _cell_renderer_real_new },
   { PROP_TYPE_STRING, 0, G_TYPE_STRING, _cell_renderer_text_new, "text" },

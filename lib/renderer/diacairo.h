@@ -99,7 +99,7 @@ typedef enum OutputKind
 
 G_DECLARE_FINAL_TYPE (DiaCairoInteractiveRenderer, dia_cairo_interactive_renderer, DIA_CAIRO, INTERACTIVE_RENDERER, DiaCairoRenderer)
 
-DiaRenderer *dia_cairo_interactive_renderer_new ();
+DiaRenderer *dia_cairo_interactive_renderer_new (void);
 
 gboolean cairo_export_data (DiagramData *data,
                             DiaContext  *ctx,

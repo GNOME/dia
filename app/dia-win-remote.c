@@ -43,7 +43,7 @@
 int LaunchDia(int nArgs, LPWSTR *szArglist, int start_at);
 int DragAndDropDia(HWND hWnd, int nArgs, LPWSTR *szArglist, int start_at);
 BOOL CALLBACK FindDiaWindow(HWND hWnd, LPARAM lParam);
-void LoadRegSettings();
+void LoadRegSettings(void);
 char gszDiaExe[_MAX_PATH] = {0};   /* exe name */
 char gszVersion[] = "dia-win-remote 1.1.0";
 BOOL gUseRegVal = FALSE;
@@ -376,7 +376,7 @@ FindDiaWindow (HWND hWnd, LPARAM lParam)
 
 
 void
-LoadRegSettings()
+LoadRegSettings(void)
 {
   HKEY hRegData;
 

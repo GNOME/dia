@@ -162,7 +162,7 @@ typedef void (*SaveFunc) (DiaObject* obj, ObjectNode obj_node,
  *
  * \public \memberof _DiaObjectType
  */
-typedef GtkWidget *(*GetDefaultsFunc) ();
+typedef GtkWidget *(*GetDefaultsFunc) (void);
 
 /*!
  * \brief Apply the defaults from the default object dialog (deprecated)
@@ -172,7 +172,7 @@ typedef GtkWidget *(*GetDefaultsFunc) ();
  *
  * \public \memberof _DiaObjectType
  */
-typedef void *(*ApplyDefaultsFunc) ();
+typedef void *(*ApplyDefaultsFunc) (void);
 
 /*** Object operations ***/
 

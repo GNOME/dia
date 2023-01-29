@@ -90,7 +90,9 @@ global_c_args = []
 test_c_args = [
   '-Wdeclaration-after-statement',
   ['-Werror=format-security', '-Werror=format=2'],
+  '-Werror=incompatible-pointer-types',
   '-Werror=missing-declarations',
+  '-Werror=strict-prototypes',
   '-Wformat-nonliteral',
   '-Wformat-security',
   '-Winit-self',
@@ -99,8 +101,6 @@ test_c_args = [
   '-Wno-unused-parameter',
   '-Wold-style-definition',
   '-Wshadow',
-  # When gtk3
-  # '-Wstrict-prototypes',
   '-Wswitch-default',
   '-Wswitch-enum',
   '-Wunused-function',

@@ -140,29 +140,30 @@ typedef int (*PyDiaPropSetFunc) (Property*, PyObject *val);
 
 
 static PyObject *
-PyDia_get_Char (CharProperty *prop)
+PyDia_get_Char (Property *prop)
 {
-  return PyLong_FromLong (prop->char_data);
+  return PyLong_FromLong (((CharProperty *) prop)->char_data);
 }
 
 
 static PyObject *
-PyDia_get_Bool (BoolProperty *prop)
+PyDia_get_Bool (Property *prop)
 {
-  return PyLong_FromLong (prop->bool_data);
+  return PyLong_FromLong (((BoolProperty *) prop)->bool_data);
 }
 
 
 static PyObject *
-PyDia_get_Int (IntProperty *prop)
+PyDia_get_Int (Property *prop)
 {
-  return PyLong_FromLong (prop->int_data);
+  return PyLong_FromLong (((IntProperty *) prop)->int_data);
 }
 
 
 static PyObject *
-PyDia_get_IntArray (IntarrayProperty *prop)
+PyDia_get_IntArray (Property *uncasted_prop)
 {
+  IntarrayProperty *prop = (IntarrayProperty *) uncasted_prop;
   PyObject *ret;
   int i, num;
 
@@ -179,15 +180,16 @@ PyDia_get_IntArray (IntarrayProperty *prop)
 
 
 static PyObject *
-PyDia_get_Enum (EnumProperty *prop)
+PyDia_get_Enum (Property *prop)
 {
-  return PyLong_FromLong (prop->enum_data);
+  return PyLong_FromLong (((EnumProperty *) prop)->enum_data);
 }
 
 
 static PyObject *
-PyDia_get_LineStyle (LinestyleProperty *prop)
+PyDia_get_LineStyle (Property *uncasted_prop)
 {
+  LinestyleProperty *prop = (LinestyleProperty *) uncasted_prop;
   PyObject *ret;
 
   ret = PyTuple_New (2);
@@ -198,29 +200,31 @@ PyDia_get_LineStyle (LinestyleProperty *prop)
 
 
 static PyObject *
-PyDia_get_Real (RealProperty *prop)
+PyDia_get_Real (Property *prop)
 {
-  return PyFloat_FromDouble (prop->real_data);
+  return PyFloat_FromDouble (((RealProperty *) prop)->real_data);
 }
 
 
 static PyObject *
-PyDia_get_Length (LengthProperty *prop)
+PyDia_get_Length (Property *prop)
 {
-  return PyFloat_FromDouble (prop->length_data);
+  return PyFloat_FromDouble (((LengthProperty *) prop)->length_data);
 }
 
 
 static PyObject *
-PyDia_get_Fontsize (FontsizeProperty *prop)
+PyDia_get_Fontsize (Property *prop)
 {
-  return PyFloat_FromDouble (prop->fontsize_data);
+  return PyFloat_FromDouble (((FontsizeProperty *) prop)->fontsize_data);
 }
 
 
 static PyObject *
-PyDia_get_String (StringProperty *prop)
+PyDia_get_String (Property *uncasted_prop)
 {
+  StringProperty *prop = (StringProperty *) uncasted_prop;
+
   if (NULL == prop->string_data) {
     return PyUnicode_FromString ("(NULL)");
   } else if (1 == prop->num_lines) {
@@ -233,12 +237,12 @@ PyDia_get_String (StringProperty *prop)
 
 
 static PyObject *
-PyDia_get_StringList (StringListProperty *prop)
+PyDia_get_StringList (Property *prop)
 {
   GList *tmp;
   PyObject *ret = PyList_New (0);
 
-  for (tmp = prop->string_list; tmp; tmp = tmp->next) {
+  for (tmp = ((StringListProperty *) prop)->string_list; tmp; tmp = tmp->next) {
     PyList_Append (ret, PyUnicode_FromString (tmp->data));
   }
   return ret;
@@ -246,22 +250,25 @@ PyDia_get_StringList (StringListProperty *prop)
 
 
 static PyObject *
-PyDia_get_Text (TextProperty *prop)
+PyDia_get_Text (Property *uncasted_prop)
 {
+  TextProperty *prop = (TextProperty *) uncasted_prop;
+
   return PyDiaText_New (prop->text_data, &prop->attr);
 }
 
 
 static PyObject *
-PyDia_get_Point (PointProperty *prop)
+PyDia_get_Point (Property *prop)
 {
-  return PyDiaPoint_New (&prop->point_data);
+  return PyDiaPoint_New (&((PointProperty *) prop)->point_data);
 }
 
 
 static PyObject *
-PyDia_get_PointArray (PointarrayProperty *prop)
+PyDia_get_PointArray (Property *uncasted_prop)
 {
+  PointarrayProperty *prop = (PointarrayProperty *) uncasted_prop;
   PyObject *ret;
   int i, num;
 
@@ -279,15 +286,16 @@ PyDia_get_PointArray (PointarrayProperty *prop)
 
 
 static PyObject *
-PyDia_get_BezPoint (BezPointProperty *prop)
+PyDia_get_BezPoint (Property *prop)
 {
-  return PyDiaBezPoint_New (&prop->bezpoint_data);
+  return PyDiaBezPoint_New (&((BezPointProperty *) prop)->bezpoint_data);
 }
 
 
 static PyObject *
-PyDia_get_BezPointArray (BezPointarrayProperty *prop)
+PyDia_get_BezPointArray (Property *uncasted_prop)
 {
+  BezPointarrayProperty *prop = (BezPointarrayProperty *) uncasted_prop;
   PyObject *ret;
   int num;
 
@@ -306,46 +314,47 @@ PyDia_get_BezPointArray (BezPointarrayProperty *prop)
 
 
 static PyObject *
-PyDia_get_Rect (RectProperty *prop)
+PyDia_get_Rect (Property *prop)
 {
-  return PyDiaRectangle_New (&prop->rect_data);
+  return PyDiaRectangle_New (&((RectProperty *) prop)->rect_data);
 }
 
 
 static PyObject *
-PyDia_get_Arrow (ArrowProperty *prop)
+PyDia_get_Arrow (Property *prop)
 {
-  return PyDiaArrow_New (&prop->arrow_data);
+  return PyDiaArrow_New (&((ArrowProperty *) prop)->arrow_data);
 }
 
 
 static PyObject *
-PyDia_get_Matrix (MatrixProperty *prop)
+PyDia_get_Matrix (Property *prop)
 {
-  return PyDiaMatrix_New (prop->matrix);
+  return PyDiaMatrix_New (((MatrixProperty *) prop)->matrix);
 }
 
 
 static PyObject *
-PyDia_get_Color (ColorProperty *prop)
+PyDia_get_Color (Property *prop)
 {
-  return PyDiaColor_New (&prop->color_data);
+  return PyDiaColor_New (&((ColorProperty *) prop)->color_data);
 }
 
 
 static PyObject *
-PyDia_get_Font (FontProperty *prop)
+PyDia_get_Font (Property *prop)
 {
-  return PyDiaFont_New (prop->font_data);
+  return PyDiaFont_New (((FontProperty *) prop)->font_data);
 }
 
 
-static PyObject * PyDia_get_Array (ArrayProperty *prop);
+static PyObject *PyDia_get_Array (Property *prop);
+static int PyDia_set_Array (Property *, PyObject *);
 
-static PyObject * PyDia_get_Dict (DictProperty *prop);
+static PyObject *PyDia_get_Dict (Property *prop);
 static int PyDia_set_Dict (Property *prop, PyObject *val);
 
-static PyObject * PyDia_get_Pixbuf (PixbufProperty *prop);
+static PyObject *PyDia_get_Pixbuf (Property *prop);
 static int PyDia_set_Pixbuf (Property *prop, PyObject *val);
 
 static int
@@ -764,11 +773,9 @@ PyDia_set_Rect (Property *prop, PyObject *val)
   return -1;
 }
 
-static int PyDia_set_Array (Property *, PyObject *);
-
 struct {
   char *type;
-  PyObject *(*propget)();
+  PyObject *(*propget)(Property*);
   int (*propset)(Property*, PyObject*);
   GQuark quark;
 } prop_type_map [] =
@@ -819,8 +826,9 @@ ensure_quarks (void)
 
 
 static PyObject *
-PyDia_get_Array (ArrayProperty *prop)
+PyDia_get_Array (Property *uncasted_prop)
 {
+  ArrayProperty *prop = (ArrayProperty *) uncasted_prop;
   PyObject *ret;
   int num, num_props;
 
@@ -984,8 +992,9 @@ _keyvalue_get (gpointer key,
 
 
 static PyObject *
-PyDia_get_Dict (DictProperty *prop)
+PyDia_get_Dict (Property *uncasted_prop)
 {
+  DictProperty *prop = (DictProperty *) uncasted_prop;
   PyObject *dict = PyDict_New();
 
   if (prop->dict) {
@@ -1023,8 +1032,9 @@ PyDia_set_Dict (Property *prop, PyObject *val)
 
 
 static PyObject *
-PyDia_get_Pixbuf (PixbufProperty *prop)
+PyDia_get_Pixbuf (Property *uncasted_prop)
 {
+  PixbufProperty *prop = (PixbufProperty *) uncasted_prop;
   PyObject *pb;
 
   if (!prop->pixbuf) {
