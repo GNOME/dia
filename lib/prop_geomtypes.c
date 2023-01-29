@@ -128,9 +128,10 @@ realprop_set_from_offset(RealProperty *prop,
 }
 
 static int
-realprop_get_data_size(RealProperty *prop)
+realprop_get_data_size(void)
 {
-  return sizeof (prop->real_data);
+  RealProperty prop;
+  return sizeof (prop.real_data);
 }
 
 static const PropertyOps realprop_ops = {
@@ -226,9 +227,10 @@ lengthprop_set_from_offset(LengthProperty *prop,
 }
 
 static int
-lengthprop_get_data_size(LengthProperty *prop)
+lengthprop_get_data_size(void)
 {
-  return sizeof (prop->length_data);
+  LengthProperty prop;
+  return sizeof (prop.length_data);
 }
 
 static const PropertyOps lengthprop_ops = {
@@ -352,9 +354,10 @@ fontsizeprop_set_from_offset(FontsizeProperty *prop,
 }
 
 static int
-fontsizeprop_get_data_size(FontsizeProperty *prop)
+fontsizeprop_get_data_size(void)
 {
-  return sizeof (prop->fontsize_data);
+  FontsizeProperty prop;
+  return sizeof (prop.fontsize_data);
 }
 
 static const PropertyOps fontsizeprop_ops = {

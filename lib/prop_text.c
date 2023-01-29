@@ -227,9 +227,10 @@ stringprop_set_from_offset (StringProperty *prop,
 
 
 static int
-stringprop_get_data_size(StringProperty *prop)
+stringprop_get_data_size(void)
 {
-  return sizeof (prop->string_data); /* only the pointer */
+  StringProperty prop;
+  return sizeof (prop.string_data); /* only the pointer */
 }
 
 static StringListProperty *

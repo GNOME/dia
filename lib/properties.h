@@ -134,7 +134,7 @@ typedef void (*PropertyType_GetFromOffset)(const Property *prop,
                                          void *base, guint offset, guint offset2);
 typedef void (*PropertyType_SetFromOffset)(Property *prop,
                                          void *base, guint offset, guint offset2);
-typedef int (*PropertyType_GetDataSize)(Property *prop);
+typedef int (*PropertyType_GetDataSize)(void);
 
 /*
  * \brief Virtual function table for Property objects

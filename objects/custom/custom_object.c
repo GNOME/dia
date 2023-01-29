@@ -380,14 +380,7 @@ custom_setup_properties (ShapeInfo *info, xmlNodePtr node)
       info->prop_offsets[i].name = info->props[i].name;
       info->prop_offsets[i].type = info->props[i].type;
       info->prop_offsets[i].offset = offs;
-      /* FIXME:
-	 custom_object.c:328: warning: passing arg 1 of pointer to function
-	 from incompatible pointer type
-	 We don't have a Property* here so there is not much we can do about.
-	 Maybe it even works cause the sizeof() in *_get_data_size can be
-	 calculated at compile time. Anyway, a mess ;) --hb
-      */
-      size = info->props[i].ops->get_data_size (&info->props[i]);
+      size = info->props[i].ops->get_data_size ();
       info->ext_attr_size += size;
       offs += size;
     }

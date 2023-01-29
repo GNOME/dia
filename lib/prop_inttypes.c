@@ -123,9 +123,10 @@ charprop_set_from_offset(CharProperty *prop,
 }
 
 static int
-charprop_get_data_size(CharProperty *prop)
+charprop_get_data_size(void)
 {
-  return sizeof (prop->char_data);
+  CharProperty prop;
+  return sizeof (prop.char_data);
 }
 
 
@@ -230,9 +231,10 @@ boolprop_set_from_offset(BoolProperty *prop,
 }
 
 static int
-boolprop_get_data_size(BoolProperty *prop)
+boolprop_get_data_size(void)
 {
-  return sizeof (prop->bool_data);
+  BoolProperty prop;
+  return sizeof (prop.bool_data);
 }
 
 
@@ -341,9 +343,10 @@ intprop_set_from_offset(IntProperty *prop,
 }
 
 static int
-intprop_get_data_size(IntProperty *prop)
+intprop_get_data_size(void)
 {
-  return sizeof (prop->int_data);
+  IntProperty prop;
+  return sizeof (prop.int_data);
 }
 
 static const PropertyOps intprop_ops = {
