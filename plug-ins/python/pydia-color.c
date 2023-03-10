@@ -107,7 +107,7 @@ PyDiaColor_RichCompare (PyObject *self, PyObject *other, int op)
 /*
  * Hash
  */
-static long
+static Py_hash_t
 PyDiaColor_Hash (PyObject *self)
 {
   return (long) self;

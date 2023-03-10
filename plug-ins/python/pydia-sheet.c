@@ -55,7 +55,7 @@ PyDiaSheet_RichCompare (PyObject *self, PyObject *other, int op)
 }
 
 
-static long
+static Py_hash_t
 PyDiaSheet_Hash (PyObject *self)
 {
   return (long) ((PyDiaSheet *) self)->sheet;

@@ -133,7 +133,7 @@ PyDiaError_RichCompare (PyObject *a,
 /*
  * Hash
  */
-static long
+static Py_hash_t
 PyDiaError_Hash (PyObject *self)
 {
   return (long) self;

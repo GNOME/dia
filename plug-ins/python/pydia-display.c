@@ -54,7 +54,7 @@ PyDiaDisplay_RichCompare (PyObject *self, PyObject *other, int op)
 }
 
 
-static long
+static Py_hash_t
 PyDiaDisplay_Hash (PyObject *self)
 {
   return (long) ((PyDiaDisplay *) self)->disp;
