@@ -13,112 +13,112 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2022-07-27 15:52+0000\n"
-"PO-Revision-Date: 2022-12-11 14:03+0300\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"POT-Creation-Date: 2023-02-19 11:44+0000\n"
+"PO-Revision-Date: 2023-03-12 08:49+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #. This is not an errror
-#: app/app_procs.c:164
+#: app/app_procs.c:165
 #, c-format
 msgid "invalid layer range %lu - %lu"
 msgstr "geçersiz katman aralığı %lu - %lu"
 
-#: app/app_procs.c:177
+#: app/app_procs.c:178
 #, c-format
 msgid "Layer %lu (%s) selected more than once."
 msgstr "Katman %lu (%s) birden çok defa seçildi."
 
-#: app/app_procs.c:209
+#: app/app_procs.c:210
 #, c-format
 msgid "Layer %d (%s) selected more than once."
 msgstr "Katman %d (%s) birden çok defa seçildi."
 
-#: app/app_procs.c:218
+#: app/app_procs.c:219
 #, c-format
 msgid "There is no layer named %s."
 msgstr "%s adında bir katman yok."
 
-#: app/app_procs.c:315
+#: app/app_procs.c:316
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "%s hatası: %s içine nasıl aktarılacak bilinmiyor\n"
 
-#: app/app_procs.c:324
+#: app/app_procs.c:325
 #, c-format
 msgid "%s error: input and output filenames are identical: %s"
 msgstr "%s hatası: girdi ve çıktı dosyaları birebir aynı: %s"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
-#: app/app_procs.c:330 objects/FS/function.c:738 objects/FS/function.c:740
+#: app/app_procs.c:331 objects/FS/function.c:738 objects/FS/function.c:740
 msgid "Import"
 msgstr "İçe aktar"
 
-#: app/app_procs.c:333
+#: app/app_procs.c:334
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "%s hatası: %s geçerli giriş dosyasına ihtiyaç var\n"
 
 #. if (!quiet)
-#: app/app_procs.c:358
+#: app/app_procs.c:359
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:460
+#: app/app_procs.c:461
 #, c-format
 msgid "Can't find output format/filter %s"
 msgstr "Çıktı biçimi/filtresi %s bulunamıyor"
 
-#: app/app_procs.c:531
+#: app/app_procs.c:532
 #, c-format
 msgid "Input directory '%s' must exist!\n"
 msgstr "Girdi dizini '%s' mutlaka olmalı!\n"
 
-#: app/app_procs.c:550
+#: app/app_procs.c:551
 #, c-format
 msgid "Output directory '%s' must exist!\n"
 msgstr "Çıktı dizini '%s' mutlaka olmalı!\n"
 
 #. &export_file_name
-#: app/app_procs.c:578
+#: app/app_procs.c:579
 msgid "Export loaded file and exit"
 msgstr "Yüklenen dosyayı dışa aktar ve çık"
 
-#: app/app_procs.c:578
+#: app/app_procs.c:579
 msgid "OUTPUT"
 msgstr "ÇIKTI"
 
 #. &export_file_format
-#: app/app_procs.c:580
+#: app/app_procs.c:581
 msgid "Select the export filter/format"
 msgstr "Dışa aktarma filtresini/biçimini seç"
 
-#: app/app_procs.c:580
+#: app/app_procs.c:581
 msgid "TYPE"
 msgstr "TÜR"
 
-#: app/app_procs.c:582
+#: app/app_procs.c:583
 msgid "List export filters/formats and exit"
 msgstr "Dışa aktarma filtrelerini/biçimlerini listele ve çık"
 
-#: app/app_procs.c:584
+#: app/app_procs.c:585
 msgid "Export graphics size"
 msgstr "Grafik boyutunu dışa aktar"
 
 # With x Height kısaltması
-#: app/app_procs.c:584
+#: app/app_procs.c:585
 msgid "WxH"
 msgstr "G x Y"
 
-#: app/app_procs.c:586
+#: app/app_procs.c:587
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -126,92 +126,92 @@ msgstr ""
 "Yalnızca belirtilen katmanları göster (ör. dışa aktarırken). Katman adı veya "
 "katman numaralarının erimi olabilir (X-Y)"
 
-#: app/app_procs.c:587
+#: app/app_procs.c:588
 msgid "LAYER,LAYER,..."
 msgstr "KATMAN,KATMAN,..."
 
-#: app/app_procs.c:589
+#: app/app_procs.c:590
 msgid "Don't show the splash screen"
 msgstr "Açılış ekranını gösterme"
 
-#: app/app_procs.c:591
+#: app/app_procs.c:592
 msgid "Don't create an empty diagram"
 msgstr "Boş diyagram oluşturma"
 
-#: app/app_procs.c:593
+#: app/app_procs.c:594
 msgid "Start classic user interface (no diagrams in tabs)"
 msgstr "Klasik kullanıcı arayüzüyle başla (sekmelerde diyagram olmasın)"
 
-#: app/app_procs.c:595
+#: app/app_procs.c:596
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr "İletişim kutularını göstermek yerine stderr'e hata mesajları gönder."
 
-#: app/app_procs.c:597
+#: app/app_procs.c:598
 msgid "Directory containing input files"
 msgstr "Girdi dosyalarının bulunduğu dizin"
 
-#: app/app_procs.c:597 app/app_procs.c:599
+#: app/app_procs.c:598 app/app_procs.c:600
 msgid "DIRECTORY"
 msgstr "DİZİN"
 
-#: app/app_procs.c:599
+#: app/app_procs.c:600
 msgid "Directory containing output files"
 msgstr "Çıktı dosyalarının bulunduğu dizin"
 
-#: app/app_procs.c:601
+#: app/app_procs.c:602
 msgid "Display credits list and exit"
 msgstr "Emeği geçenler listesini göster ve çık"
 
-#: app/app_procs.c:603
+#: app/app_procs.c:604
 msgid "Generate verbose output"
 msgstr "Ayrıntılı çıktı üret"
 
-#: app/app_procs.c:605
+#: app/app_procs.c:606
 msgid "Display version and exit"
 msgstr "Sürümü göster ve çık"
 
-#: app/app_procs.c:632
+#: app/app_procs.c:633
 msgid "[FILE...]"
 msgstr "[DOSYA...]"
 
-#: app/app_procs.c:644
+#: app/app_procs.c:645
 msgid "Invalid option?"
 msgstr "Geçersiz seçenek?"
 
-#: app/app_procs.c:669
+#: app/app_procs.c:670
 #, c-format
 msgid "Filename conversion failed: %s\n"
 msgstr "Dosya adı dönüşümü başarısız oldu: %s\n"
 
-#: app/app_procs.c:684
+#: app/app_procs.c:685
 #, c-format
 msgid "Missing input: %s\n"
 msgstr "Kayıp girdi: %s\n"
 
-#: app/app_procs.c:704 app/commands.c:1143
+#: app/app_procs.c:705 app/commands.c:1145
 msgid "Dia Diagram Editor"
 msgstr "Dia Diyagram Düzenleyici"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:735
+#: app/app_procs.c:736
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia sürüm %s, derlenme tarihi %s %s\n"
 
-#: app/app_procs.c:737
+#: app/app_procs.c:738
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia sürüm %s\n"
 
-#: app/app_procs.c:788
+#: app/app_procs.c:789
 msgid "Object Defaults"
 msgstr "Nesne Öntanımları"
 
-#: app/app_procs.c:795
+#: app/app_procs.c:796
 msgid "Couldn't find standard objects when looking for object-libs; exiting..."
 msgstr "object-libs kütüphanesinde standart nesneler bulunamadı; çıkılıyor..."
 
-#: app/app_procs.c:797
+#: app/app_procs.c:798
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in “%s”; "
@@ -221,7 +221,7 @@ msgstr ""
 "çıkılıyor..."
 
 # Serbest çeviri yapıldı.
-#: app/app_procs.c:896
+#: app/app_procs.c:897
 msgid ""
 "This shouldn't happen.  Please file a bug report at https://gitlab.gnome.org/"
 "GNOME/dia describing how you caused this message to appear."
@@ -229,17 +229,17 @@ msgstr ""
 "Bu olmamalıydı. Bu hatanın nasıl meydana geldiğini açıklayan bir hata "
 "raporunu https://gitlab.gnome.org/GNOME/dia adresinden lütfen doldurunuz."
 
-#: app/app_procs.c:932 app/display.c:1254 app/exit_dialog.c:264
-#: app/filedlg.c:604
+#: app/app_procs.c:933 app/display.c:1254 app/exit_dialog.c:264
+#: app/filedlg.c:605
 msgid "Save"
 msgstr "Kaydet"
 
 #. no standard buttons
-#: app/app_procs.c:977
+#: app/app_procs.c:978
 msgid "Quitting without saving modified diagrams"
 msgstr "Düzenlenmiş diyagramlar kaydedilmeden çıkılıyor"
 
-#: app/app_procs.c:979
+#: app/app_procs.c:980
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -247,32 +247,32 @@ msgstr ""
 "Değişiklik yapılmış diyagramlar var. Bunları kaydetmeden Dia'dan çıkmak "
 "istediğine emin misin?"
 
-#: app/app_procs.c:983 app/menus.c:86
+#: app/app_procs.c:984 app/menus.c:87
 msgid "Quit Dia"
 msgstr "Dia'dan Çık"
 
-#: app/app_procs.c:985 app/dia-guide-dialog.c:155 app/exit_dialog.c:217
-#: app/filedlg.c:314 app/filedlg.c:500 app/filedlg.c:822
-#: app/layer-editor/dia-layer-properties.c:245 data/ui/sheets-edit-dialog.ui:32
+#: app/app_procs.c:986 app/dia-guide-dialog.c:158 app/exit_dialog.c:217
+#: app/filedlg.c:315 app/filedlg.c:501 app/filedlg.c:823
+#: app/layer-editor/dia-layer-properties.c:246 data/ui/sheets-edit-dialog.ui:32
 #: data/ui/sheets-new-dialog.ui:31 data/ui/sheets-remove-dialog.ui:31
-#: lib/dia-arrow-chooser.c:180 lib/dia-file-selector.c:121
-#: lib/dia-line-chooser.c:176 plug-ins/xslt/xsltdialog.c:83
+#: lib/dia-arrow-chooser.c:179 lib/dia-file-selector.c:121
+#: lib/dia-line-chooser.c:174 plug-ins/xslt/xsltdialog.c:87
 msgid "_Cancel"
 msgstr "_İptal Et"
 
-#: app/app_procs.c:990 app/menus.c:86
+#: app/app_procs.c:991 app/menus.c:87
 msgid "_Quit"
 msgstr "_Çıkış"
 
-#: app/app_procs.c:1008
+#: app/app_procs.c:1009
 msgid "Exit"
 msgstr "Çık"
 
-#: app/app_procs.c:1055 app/app_procs.c:1062
+#: app/app_procs.c:1056 app/app_procs.c:1063
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Kullanıcıya özel Dia ayar dizinini oluşturulamadı"
 
-#: app/app_procs.c:1065
+#: app/app_procs.c:1066
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -280,11 +280,11 @@ msgstr ""
 "Kullanıcıya özel Dia ayar dizinini oluşturulamadı. Lütfen HOME ortam "
 "değişkeninin varolan bir dizini gösterdiğinden emin olun."
 
-#: app/app_procs.c:1089
+#: app/app_procs.c:1090
 msgid "Objects and filters internal to Dia"
 msgstr "Dia'nın iç nesneleri ve filtreleri"
 
-#: app/app_procs.c:1152
+#: app/app_procs.c:1153
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -292,7 +292,7 @@ msgstr ""
 "Dia'nın özgün geliştiricisi:\n"
 "\n"
 
-#: app/app_procs.c:1157
+#: app/app_procs.c:1158
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -302,7 +302,7 @@ msgstr ""
 "Dia'nın şu anki geliştiricileri:\n"
 "\n"
 
-#: app/app_procs.c:1162
+#: app/app_procs.c:1163
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -312,7 +312,7 @@ msgstr ""
 "Diğer geliştiriciler:\n"
 "\n"
 
-#: app/app_procs.c:1167
+#: app/app_procs.c:1168
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -322,67 +322,67 @@ msgstr ""
 "Dia'yı belgeleyenler:\n"
 "\n"
 
-#: app/app_procs.c:1207
+#: app/app_procs.c:1208
 msgid "Available Export Filters (for --filter)"
 msgstr "Kullanılabilir Dışa Aktarma Filtreleri (--filter için)"
 
 #. Translators: be brief or mess up the table for --list-filters
-#: app/app_procs.c:1210
+#: app/app_procs.c:1211
 msgid "Extension"
 msgstr "Uzantı"
 
-#: app/app_procs.c:1211 lib/prop_dict.c:41
+#: app/app_procs.c:1212 lib/prop_dict.c:44
 msgid "Identifier"
 msgstr "Tanımlayıcı"
 
-#: app/app_procs.c:1212 app/plugin-manager.c:274
+#: app/app_procs.c:1213 app/plugin-manager.c:275
 msgid "Description"
 msgstr "Açıklama"
 
-#: app/commands.c:148
+#: app/commands.c:150
 msgid "No print plugin found!"
 msgstr "Yazdırma eklentisi bulunamadı!"
 
-#: app/commands.c:169
+#: app/commands.c:171
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Diyagram%d.dia"
 
-#: app/commands.c:279
+#: app/commands.c:281
 msgid "No image from Clipboard to paste."
 msgstr "Panodan yapıştırılacak resim yok."
 
-#: app/commands.c:332
+#: app/commands.c:334
 msgid "No selected object can take an image."
 msgstr "Seçilen hiçbir nesne resim alamaz."
 
-#: app/commands.c:361
+#: app/commands.c:363
 msgid "Clipboard Paste"
 msgstr "Pano Yapıştır"
 
-#: app/commands.c:373
+#: app/commands.c:375
 #, c-format
 msgid "Failed to import '%s' as SVG."
 msgstr "'%s', SVG olarak içe aktarılamadı."
 
-#: app/commands.c:390
+#: app/commands.c:392
 #, c-format
 msgid "Paste failed: %s"
 msgstr "Yapıştırma başarısız oldu: %s"
 
-#: app/commands.c:483
+#: app/commands.c:485
 msgid "Clipboard Copy"
 msgstr "Pano Kopyala"
 
-#: app/commands.c:703
+#: app/commands.c:705
 msgid "No existing object to paste.\n"
 msgstr "Yapıştırılanacak nesne yok.\n"
 
-#: app/commands.c:1035 app/commands.c:1083
+#: app/commands.c:1037 app/commands.c:1085
 msgid "Could not find help directory"
 msgstr "Yardım dizini bulunamadı"
 
-#: app/commands.c:1042
+#: app/commands.c:1044
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -391,7 +391,7 @@ msgstr ""
 "Yardım dizini açılamadı:\n"
 "%s"
 
-#: app/commands.c:1122
+#: app/commands.c:1124
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Fatih Demir <kabalak@gmx.net>\n"
@@ -402,7 +402,7 @@ msgstr ""
 
 # Özgün metindeki This Program kısımları Dia olarak kullanıldı
 # ve son satırdaki yazışma adresi yerine GPL lisans sayfası önerildi.
-#: app/commands.c:1125
+#: app/commands.c:1127
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -430,23 +430,23 @@ msgstr ""
 "Dia ile beraber GNU Genel Kamu Lisansını da almış olmalısınız; eğer\n"
 "almadıysanız, https://www.gnu.org/licenses/ adresine bakın.\n"
 
-#: app/commands.c:1145
+#: app/commands.c:1147
 msgid "A program for drawing structured diagrams."
 msgstr "Yapısal diyagram çizim programı."
 
-#: app/confirm.c:77
+#: app/confirm.c:79
 #, c-format
 msgid "You are about to print a diagram with %d page."
 msgid_plural "You are about to print a diagram with %d pages."
 msgstr[0] "%d sayfadan oluşan bir diyagramı yazdırmak üzeresin."
 
-#: app/confirm.c:81
+#: app/confirm.c:83
 #, c-format
 msgid "You are about to export a diagram with %d page."
 msgid_plural "You are about to export a diagram with %d pages."
 msgstr[0] "%d sayfadan oluşan bir diyagramı dışa aktarmak üzeresin."
 
-#: app/confirm.c:85
+#: app/confirm.c:87
 #, c-format
 msgid ""
 "You are about to export a diagram which may require %s of memory (%d page)."
@@ -456,7 +456,7 @@ msgstr[0] ""
 "%s belleğe ihtiyaç duyan ve %d sayfadan oluşan bir diyagramı dışa aktarmak "
 "üzeresin."
 
-#: app/confirm.c:94
+#: app/confirm.c:96
 msgid ""
 "You can adjust the size of the diagram by changing the 'Scaling' in the "
 "'Page Setup' dialog.\n"
@@ -468,45 +468,45 @@ msgstr ""
 "Diğer seçenek olarak, nesneleri/tutamaçları istenen sınırlara taşımak için "
 "'En Uygun' seçeneğini kullanabilirsiniz."
 
-#: app/confirm.c:98
+#: app/confirm.c:100
 msgid "Confirm Diagram Size"
 msgstr "Diyagram Boyutunu Doğrula"
 
-#: app/create_object.c:73
+#: app/create_object.c:75
 #, c-format
 msgid "'%s' creation failed"
 msgstr "'%s' oluşturulamadı"
 
-#: app/defaults.c:45 app/defaults.c:148
+#: app/defaults.c:46 app/defaults.c:149
 msgid "Object defaults"
 msgstr "Nesne öntanımları"
 
-#: app/defaults.c:47 app/dia-props.c:269 app/find-and-replace.c:552
-#: app/find-and-replace.c:587 app/menus.c:117 app/pagesetup.c:79
-#: app/plugin-manager.c:208 app/properties-dialog.c:60
-#: data/ui/sheets-main-dialog.ui:314
+#: app/defaults.c:48 app/dia-props.c:270 app/find-and-replace.c:552
+#: app/find-and-replace.c:587 app/menus.c:118 app/pagesetup.c:80
+#: app/plugin-manager.c:209 app/properties-dialog.c:61
+#: data/ui/sheets-main-dialog.ui:317
 msgid "_Close"
 msgstr "_Kapat"
 
-#: app/defaults.c:48 app/dia-props.c:270 app/pagesetup.c:80
-#: app/properties-dialog.c:61 data/ui/sheets-main-dialog.ui:282
+#: app/defaults.c:49 app/dia-props.c:271 app/pagesetup.c:81
+#: app/properties-dialog.c:62 data/ui/sheets-main-dialog.ui:283
 msgid "_Apply"
 msgstr "_Uygula"
 
-#: app/defaults.c:49 app/dia-props.c:271 app/dia-guide-dialog.c:156
-#: app/layer-editor/dia-layer-properties.c:244 app/pagesetup.c:81
-#: app/properties-dialog.c:62 data/ui/sheets-edit-dialog.ui:43
+#: app/defaults.c:50 app/dia-props.c:272 app/dia-guide-dialog.c:159
+#: app/layer-editor/dia-layer-properties.c:245 app/pagesetup.c:82
+#: app/properties-dialog.c:63 data/ui/sheets-edit-dialog.ui:43
 #: data/ui/sheets-new-dialog.ui:42 data/ui/sheets-remove-dialog.ui:42
-#: lib/dia-arrow-chooser.c:181 lib/dia-line-chooser.c:177
-#: objects/AADL/edit_port_declaration.c:174 plug-ins/xslt/xsltdialog.c:84
+#: lib/dia-arrow-chooser.c:180 lib/dia-line-chooser.c:175
+#: objects/AADL/edit_port_declaration.c:176 plug-ins/xslt/xsltdialog.c:88
 msgid "_OK"
 msgstr "_Tamam"
 
-#: app/defaults.c:63
+#: app/defaults.c:64
 msgid "This object has no defaults."
 msgstr "Bu nesnenin hiçbir öntanımı yok."
 
-#: app/defaults.c:114
+#: app/defaults.c:115
 msgid "Defaults: "
 msgstr "Öntanımlar: "
 
@@ -523,7 +523,7 @@ msgstr "Seçili nesneler olmadan gruplanmaya çalışılıyor."
 msgid "Diagram"
 msgstr "Diyagram"
 
-#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:520
+#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:521
 msgid "Layer"
 msgstr "Katman"
 
@@ -535,12 +535,12 @@ msgstr[0] "%d Katman"
 
 #: app/diagram_tree_view.c:198 app/diagram_tree_view.c:549
 #: data/ui/preferences-dialog.ui:1554 data/ui/sheets-new-dialog.ui:287
-#: data/ui/sheets-remove-dialog.ui:197 objects/Database/table.c:179
+#: data/ui/sheets-remove-dialog.ui:197 objects/Database/table.c:180
 #: objects/Istar/actor.c:140 objects/Istar/actor.c:141
 #: objects/Istar/other.c:149 objects/Istar/other.c:150 objects/KAOS/other.c:154
 #: objects/KAOS/other.c:155 objects/UML/association.c:248
-#: objects/UML/umlattribute.c:37 objects/UML/umlformalparameter.c:35
-#: objects/UML/umloperation.c:62 objects/UML/umlparameter.c:43
+#: objects/UML/umlattribute.c:39 objects/UML/umlformalparameter.c:37
+#: objects/UML/umloperation.c:64 objects/UML/umlparameter.c:45
 msgid "Type"
 msgstr "Tür"
 
@@ -571,12 +571,12 @@ msgstr "Yer belirle"
 msgid "Properties"
 msgstr "Özellikler"
 
-#: app/diagram_tree_view.c:532 app/exit_dialog.c:274 app/plugin-manager.c:268
-#: objects/Database/table.c:177 objects/Database/table.c:220
-#: objects/Misc/n_gon.c:135 objects/UML/association.c:242
+#: app/diagram_tree_view.c:532 app/exit_dialog.c:274 app/plugin-manager.c:269
+#: objects/Database/table.c:178 objects/Database/table.c:221
+#: objects/Misc/n_gon.c:137 objects/UML/association.c:242
 #: objects/UML/class.c:153 objects/UML/large_package.c:134
-#: objects/UML/umlattribute.c:35 objects/UML/umlformalparameter.c:33
-#: objects/UML/umloperation.c:60 objects/UML/umlparameter.c:41
+#: objects/UML/umlattribute.c:37 objects/UML/umlformalparameter.c:35
+#: objects/UML/umloperation.c:62 objects/UML/umlparameter.c:43
 msgid "Name"
 msgstr "Ad"
 
@@ -584,30 +584,28 @@ msgstr "Ad"
 msgid "Diagram Tree"
 msgstr "Diyagram Ağacı"
 
-#: app/dia-colour-area.c:200 app/dia-colour-area.c:211
+#: app/dia-colour-area.c:205 app/dia-colour-area.c:216
 msgid "Select foreground color"
 msgstr "Önalan rengini seç"
 
-#: app/dia-colour-area.c:200 app/dia-colour-area.c:211
+#: app/dia-colour-area.c:205 app/dia-colour-area.c:216
 msgid "Select background color"
 msgstr "Artalan rengini seç"
 
-#: app/dia-line-width-area.c:105 lib/properties.h:647 lib/properties.h:650
+#: app/dia-line-width-area.c:106 lib/properties.h:646 lib/properties.h:649
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Çizgi genişliği"
 
-#: app/dia-line-width-area.c:106 lib/dialogs.c:66
-#: plug-ins/postscript/paginate_psprint.c:320
+#: app/dia-line-width-area.c:107 plug-ins/postscript/paginate_psprint.c:321
 msgid "Cancel"
 msgstr "İptal Et"
 
-#: app/dia-line-width-area.c:107 lib/dialogs.c:65
-#: plug-ins/postscript/paginate_psprint.c:312
+#: app/dia-line-width-area.c:108 plug-ins/postscript/paginate_psprint.c:313
 msgid "OK"
 msgstr "Tamam"
 
-#: app/dia-line-width-area.c:116
+#: app/dia-line-width-area.c:117
 msgid "Line width:"
 msgstr "Çizgi genişliği:"
 
@@ -617,7 +615,7 @@ msgid "Paper Size"
 msgstr "Kağıt Boyutu"
 
 #. orientation
-#: app/dia-page-layout.c:142 app/dia-guide-dialog.c:168
+#: app/dia-page-layout.c:142 app/dia-guide-dialog.c:171
 msgid "Orientation"
 msgstr "Yön"
 
@@ -666,35 +664,35 @@ msgstr "Ölçü"
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gcm x %0.3gcm"
 
-#: app/dia-page-layout.c:927 app/pagesetup.c:76
+#: app/dia-page-layout.c:927 app/pagesetup.c:77
 msgid "Page Setup"
 msgstr "Sayfa Ayarları"
 
 #. Can we be sure that the filename is the 'proper title'?
-#: app/dia-props.c:338 app/dia-props.c:353 app/dia-props.c:407
+#: app/dia-props.c:339 app/dia-props.c:354 app/dia-props.c:408
 msgid "Diagram Properties"
 msgstr "Diagram Özellikleri"
 
-#: app/dia-guide-dialog.c:151
+#: app/dia-guide-dialog.c:154
 msgid "Add New Guide"
 msgstr "Yeni Kılavuz Ekle"
 
-#: app/dia-guide-dialog.c:177 lib/diapatternselector.c:114
+#: app/dia-guide-dialog.c:180 lib/diapatternselector.c:117
 msgid "Horizontal"
 msgstr "Yatay"
 
-#: app/dia-guide-dialog.c:178 lib/diapatternselector.c:116
+#: app/dia-guide-dialog.c:181 lib/diapatternselector.c:119
 msgid "Vertical"
 msgstr "Dikey"
 
 #. Translators: Menu item Verb/Support/Position
 #. Translators: Menu item Verb/Support/Position/Position
-#: app/dia-guide-dialog.c:182 objects/FS/function.c:856
+#: app/dia-guide-dialog.c:185 objects/FS/function.c:856
 #: objects/FS/function.c:858 objects/Istar/actor.c:66
 msgid "Position"
 msgstr "Konum"
 
-#: app/disp_callbacks.c:92 app/properties-dialog.c:155
+#: app/disp_callbacks.c:93 app/properties-dialog.c:156
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -702,44 +700,44 @@ msgstr ""
 "Bu nesne Geri Al/Yinele eylemlerini desteklemiyor.\n"
 "Geri alma bilgisi silindi."
 
-#: app/disp_callbacks.c:127
+#: app/disp_callbacks.c:128
 msgid "Properties…"
 msgstr "Özellikler…"
 
 # Komut olması sebebiyle Başlık Düzeni tercih edildi
-#: app/disp_callbacks.c:174
+#: app/disp_callbacks.c:175
 msgid "Follow link…"
 msgstr "Bağlantıyı Takip Et…"
 
-#: app/disp_callbacks.c:228 objects/standard/textobj.c:607
+#: app/disp_callbacks.c:229 objects/standard/textobj.c:607
 msgid "Convert to Path"
 msgstr "Yola Dönüştür"
 
-#: app/disp_callbacks.c:275
+#: app/disp_callbacks.c:276
 msgid "Union"
 msgstr "Birleşim"
 
-#: app/disp_callbacks.c:276
+#: app/disp_callbacks.c:277
 msgid "Difference"
 msgstr "Fark"
 
-#: app/disp_callbacks.c:277
+#: app/disp_callbacks.c:278
 msgid "Intersection"
 msgstr "Kesişim"
 
-#: app/disp_callbacks.c:278
+#: app/disp_callbacks.c:279
 msgid "Exclusion"
 msgstr "Çıkarma"
 
-#: app/disp_callbacks.c:416
+#: app/disp_callbacks.c:417
 msgid "Selection"
 msgstr "Seçim"
 
-#: app/disp_callbacks.c:431
+#: app/disp_callbacks.c:432
 msgid "Input _Methods"
 msgstr "Girdi _Yöntemleri"
 
-#: app/disp_callbacks.c:1274
+#: app/disp_callbacks.c:1275
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -773,7 +771,7 @@ msgstr ""
 msgid "Close _without Saving"
 msgstr "Kaydet_meden Kapat"
 
-#: app/exit_dialog.c:221 app/filedlg.c:501 app/filedlg.c:823 app/menus.c:111
+#: app/exit_dialog.c:221 app/filedlg.c:502 app/filedlg.c:824 app/menus.c:112
 msgid "_Save"
 msgstr "_Kaydet"
 
@@ -788,50 +786,50 @@ msgid_plural ""
 "There are %d diagrams with unsaved changes. Save changes before closing?"
 msgstr[0] ""
 
-#: app/filedlg.c:155 app/filedlg.c:163 app/filedlg.c:179 app/filedlg.c:869
+#: app/filedlg.c:156 app/filedlg.c:164 app/filedlg.c:180 app/filedlg.c:870
 #: lib/dia-file-selector.c:131
 msgid "Supported Formats"
 msgstr "Desteklenen Biçimler"
 
-#: app/filedlg.c:208 app/filedlg.c:708
+#: app/filedlg.c:209 app/filedlg.c:709
 msgid "By extension"
 msgstr "Uzantısına göre"
 
-#: app/filedlg.c:311
+#: app/filedlg.c:312
 msgid "Open Diagram"
 msgstr "Diyagram Aç"
 
-#: app/filedlg.c:315 lib/dia-file-selector.c:122
+#: app/filedlg.c:316 lib/dia-file-selector.c:122
 msgid "_Open"
 msgstr "_Aç"
 
-#: app/filedlg.c:343
+#: app/filedlg.c:344
 msgid "Open Options"
 msgstr "Seçenekleri Aç"
 
-#: app/filedlg.c:351 app/filedlg.c:849
+#: app/filedlg.c:352 app/filedlg.c:850
 msgid "Determine file type:"
 msgstr "Dosya türünü belirle:"
 
-#: app/filedlg.c:371 app/filedlg.c:863 lib/dia-file-selector.c:141
+#: app/filedlg.c:372 app/filedlg.c:864 lib/dia-file-selector.c:141
 msgid "All Files"
 msgstr "Tüm Dosyalar"
 
-#: app/filedlg.c:417
+#: app/filedlg.c:418
 msgid "Save As"
 msgstr "Farklı Kaydet"
 
-#: app/filedlg.c:497
+#: app/filedlg.c:498
 msgid "Save Diagram"
 msgstr "Diyagramı Kaydet"
 
 #. Need better way to make it a reasonable size.  Isn't there some
 #. standard look for them (or is that just Gnome?)
-#: app/filedlg.c:511
+#: app/filedlg.c:512
 msgid "Compress diagram files"
 msgstr "Diyagram dosyalarını sıkıştır"
 
-#: app/filedlg.c:522
+#: app/filedlg.c:523
 msgid ""
 "Compression reduces file size to less than 1/10th size and speeds up loading "
 "and saving.  Some text programs cannot manipulate compressed files."
@@ -842,11 +840,11 @@ msgstr ""
 
 #. Translators: Menu item Verb/Channel/Export
 #. Translators: Menu item Verb/Channel/Export/Export
-#: app/filedlg.c:765 objects/FS/function.c:752 objects/FS/function.c:754
+#: app/filedlg.c:766 objects/FS/function.c:752 objects/FS/function.c:754
 msgid "Export"
 msgstr "Dışa Aktar"
 
-#: app/filedlg.c:777
+#: app/filedlg.c:778
 #, c-format
 msgid ""
 "Could not determine which export filter\n"
@@ -855,11 +853,11 @@ msgstr ""
 " '%s' dosyasını kaydetmek için kullanılanacak\n"
 "dışa aktarma filtresine karar verilemedi"
 
-#: app/filedlg.c:819
+#: app/filedlg.c:820
 msgid "Export Diagram"
 msgstr "Diyagramı Dışa Aktar"
 
-#: app/filedlg.c:841
+#: app/filedlg.c:842
 msgid "Export Options"
 msgstr "Dışa Aktarma Seçenekleri"
 
@@ -899,48 +897,48 @@ msgstr "Değiştir"
 msgid "Replace _All"
 msgstr "_Tümünü Değiştir"
 
-#: app/find-and-replace.c:589 app/menus.c:270
+#: app/find-and-replace.c:589 app/menus.c:271
 msgid "_Replace"
 msgstr "_Değiştir"
 
 #. Translators: Current zoom level
-#: app/interface.c:260
+#: app/interface.c:262
 #, c-format
 msgid "%f%%"
 msgstr "%f%%"
 
-#: app/interface.c:476
+#: app/interface.c:478
 msgid "Pops up the Navigation window."
 msgstr "Gezgin penceresini açar."
 
-#: app/interface.c:525
+#: app/interface.c:527
 msgid "Close"
 msgstr "Kapat"
 
-#: app/interface.c:691
+#: app/interface.c:693
 msgid "Diagram menu."
 msgstr "Diyagram menüsü."
 
-#: app/interface.c:730
+#: app/interface.c:732
 msgid "Zoom"
 msgstr "Yaklaştırma"
 
-#: app/interface.c:745
+#: app/interface.c:747
 msgid "Toggles snap-to-grid for this window."
 msgstr "Bu pencere için ızgaraya uydurmayı açar veya kapatır."
 
-#: app/interface.c:756
+#: app/interface.c:758
 msgid "Toggles object snapping for this window."
 msgstr "Bu pencere için nesne uydurmayı açar veya kapatır."
 
-#: app/interface.c:766
+#: app/interface.c:768
 msgid "Toggles snap-to-guides for this window."
 msgstr "Bu pencere için kılavuza uydurmayı açar veya kapatır."
 
 # Katmanları otomatik adlandırma algoritması
 # Sayının sonda olması tercih edilir
 #: app/layer-editor/dia-layer-editor.c:171
-#: app/layer-editor/dia-layer-properties.c:313
+#: app/layer-editor/dia-layer-properties.c:314
 #, c-format
 msgid "New layer %d"
 msgstr "Yeni katman %d"
@@ -966,28 +964,28 @@ msgid "Lower Layer"
 msgstr "Katmanı Alçalt"
 
 #: app/layer-editor/dia-layer-editor-dialog.c:248
-#: app/layer-editor/layer_dialog.c:64
+#: app/layer-editor/layer_dialog.c:65
 msgid "Layers"
 msgstr "Katmanlar"
 
-#: app/layer-editor/dia-layer-properties.c:218
-#: app/layer-editor/dia-layer-properties.c:265
+#: app/layer-editor/dia-layer-properties.c:219
+#: app/layer-editor/dia-layer-properties.c:266
 msgid "Edit Layer"
 msgstr "Katmanı Düzenle"
 
-#: app/layer-editor/dia-layer-properties.c:233
+#: app/layer-editor/dia-layer-properties.c:234
 msgid "Layer name:"
 msgstr "Katman adı:"
 
-#: app/layer-editor/dia-layer-properties.c:305
+#: app/layer-editor/dia-layer-properties.c:306
 msgid "Add Layer"
 msgstr "Katman Ekle"
 
-#: app/layer-editor/layer_dialog.c:72
+#: app/layer-editor/layer_dialog.c:73
 msgid "Close Layer pane"
 msgstr "Katman panelini kapat"
 
-#: app/load_save.c:282
+#: app/load_save.c:283
 msgid ""
 "Error loading diagram.\n"
 "Linked object not found in document."
@@ -995,7 +993,7 @@ msgstr ""
 "Diyagram yüklenirken hata.\n"
 "Bağlı nesne belge içinde bulunamadı."
 
-#: app/load_save.c:286
+#: app/load_save.c:287
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1004,7 +1002,7 @@ msgstr ""
 "Diyagram yüklenirken hata.\n"
 "Bağlantı tutamacı %d '%s' dosyası içinde yok."
 
-#: app/load_save.c:302
+#: app/load_save.c:303
 #, c-format
 msgid ""
 "Error loading diagram.\n"
@@ -1014,30 +1012,30 @@ msgstr ""
 "Bağlantı noktası %d '%s' dosyası içinde yok."
 
 # s1 ile s2 arasında değişim yapıldı.
-#: app/load_save.c:342
+#: app/load_save.c:343
 #, c-format
 msgid "Can't find parent %s of %s object\n"
 msgstr "%2$s nesnesinin %1$s üstü bulunamıyor\n"
 
 # serbest çeviri yapıldı
-#: app/load_save.c:416
+#: app/load_save.c:417
 msgid "You must specify a file, not a directory."
 msgstr "Lütfen bir dosya adı belirtin, dizin değil."
 
-#: app/load_save.c:424 plug-ins/dxf/dxf-import.c:1326
-#: plug-ins/wpg/wpg-import.c:517 plug-ins/xfig/xfig-import.c:1308
-#: plug-ins/xslt/xslt.c:99
+#: app/load_save.c:425 plug-ins/dxf/dxf-import.c:1327
+#: plug-ins/wpg/wpg-import.c:519 plug-ins/xfig/xfig-import.c:1320
+#: plug-ins/xslt/xslt.c:101
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
 msgstr "`%s' okunmak için açılamadı.\n"
 
 #. this was talking about unknown file type but it could as well be broken XML
-#: app/load_save.c:443
+#: app/load_save.c:444
 #, c-format
 msgid "Error loading diagram %s."
 msgstr "%s diyagramı yüklenirken hata."
 
-#: app/load_save.c:454
+#: app/load_save.c:455
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1046,7 +1044,7 @@ msgstr ""
 "%s diyagramı yüklenirken hata.\n"
 "Bilinmeyen dosya türü."
 
-#: app/load_save.c:462
+#: app/load_save.c:463
 #, c-format
 msgid ""
 "Error loading diagram %s.\n"
@@ -1055,11 +1053,11 @@ msgstr ""
 "%s diyagramı yüklenirken hata.\n"
 "Bir Dia dosyası değil."
 
-#: app/load_save.c:765
+#: app/load_save.c:766
 msgid "Error reading connections"
 msgstr "Bağlantı okunurken hata"
 
-#: app/load_save.c:788
+#: app/load_save.c:789
 #, c-format
 msgid ""
 "Error loading diagram:\n"
@@ -1070,774 +1068,774 @@ msgstr ""
 "%s.\n"
 "Geçerli Dia dosyası en az bir katman içermelidir."
 
-#: app/load_save.c:1115
+#: app/load_save.c:1116
 #, c-format
 msgid "Error saving connections to layer '%s'"
 msgstr "Bağlantı '%s' katmanına kaydedilirken hata"
 
-#: app/load_save.c:1124
+#: app/load_save.c:1125
 #, c-format
 msgid "Connection saving is incomplete for layer '%s'"
 msgstr "Bağlantı '%s' katmanına kaydedilmedi"
 
-#: app/load_save.c:1181
+#: app/load_save.c:1182
 #, c-format
 msgid "Not allowed to write to output file %s\n"
 msgstr "%s çıktı dosyasına yazmaya izin verilmedi\n"
 
-#: app/load_save.c:1213
+#: app/load_save.c:1214
 #, c-format
 msgid "Not allowed to write temporary files in %s\n"
 msgstr "Geçici dosyaların %s içine yazılmasına izin verilmedi\n"
 
-#: app/load_save.c:1236 plug-ins/cgm/cgm.c:1103 plug-ins/dxf/dxf-export.c:609
-#: plug-ins/metapost/render_metapost.c:1112 plug-ins/pgf/render_pgf.c:1360
-#: plug-ins/postscript/render_eps.c:105 plug-ins/pstricks/render_pstricks.c:975
-#: plug-ins/vdx/vdx-export.c:1780 plug-ins/wmf/wmf.cpp:1430
-#: plug-ins/wpg/wpg.c:1145 plug-ins/xfig/xfig-export.c:1270
+#: app/load_save.c:1237 plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
+#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1362
+#: plug-ins/postscript/render_eps.c:106 plug-ins/pstricks/render_pstricks.c:977
+#: plug-ins/vdx/vdx-export.c:1781 plug-ins/wmf/wmf.cpp:1432
+#: plug-ins/wpg/wpg.c:1147 plug-ins/xfig/xfig-export.c:1272
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Çıktı dosyası %s açılamıyor"
 
 #. Save failed; we clean our stuff up, without touching the file named
 #. "filename" if it existed.
-#: app/load_save.c:1247
+#: app/load_save.c:1248
 #, c-format
 msgid "Internal error %d writing file %s\n"
 msgstr "%d iç hatası, %s dosyası yazdırılırken\n"
 
 # Serbest çeviri yapıldı
-#: app/load_save.c:1258
+#: app/load_save.c:1259
 #, c-format
 msgid "Can't rename %s to final output file %s"
 msgstr "%s dosyası %s olarak adlandırılamıyor"
 
-#: app/load_save.c:1383 app/load_save.c:1394
+#: app/load_save.c:1384 app/load_save.c:1395
 msgid "Auto save"
 msgstr "Otomatik kaydet"
 
-#: app/load_save.c:1418 app/load_save.c:1423
+#: app/load_save.c:1419 app/load_save.c:1424
 msgid "Dia Diagram File"
 msgstr "Dia Diyagram Dosyası"
 
-#: app/menus.c:83
+#: app/menus.c:84
 msgid "_File"
 msgstr "_Dosya"
 
-#: app/menus.c:84 data/ui/sheets-main-dialog.ui:265
+#: app/menus.c:85 data/ui/sheets-main-dialog.ui:266
 msgid "_New"
 msgstr "_Yeni"
 
-#: app/menus.c:84
+#: app/menus.c:85
 msgid "Create a new diagram"
 msgstr "Yeni diyagram oluştur"
 
-#: app/menus.c:85
+#: app/menus.c:86
 msgid "_Open…"
 msgstr "_Aç…"
 
-#: app/menus.c:85
+#: app/menus.c:86
 msgid "Open a diagram file"
 msgstr "Diyagram dosyası aç"
 
-#: app/menus.c:87 app/menus.c:88
+#: app/menus.c:88 app/menus.c:89
 msgid "_Help"
 msgstr "_Yardım"
 
-#: app/menus.c:88
+#: app/menus.c:89
 msgid "Dia help"
 msgstr "Dia yardım"
 
-#: app/menus.c:89
+#: app/menus.c:90
 msgid "_About"
 msgstr "_Hakkında"
 
-#: app/menus.c:89
+#: app/menus.c:90
 msgid "Dia version, authors, license"
 msgstr "Dia sürümü, geliştiriciler, lisans"
 
-#: app/menus.c:95
+#: app/menus.c:96
 msgid "S_heets and Objects"
 msgstr "Sayfalar ve _Nesneler"
 
-#: app/menus.c:95
+#: app/menus.c:96
 msgid "Manage sheets and their objects"
 msgstr "Sayfaları ve nesneleri yönet"
 
-#: app/menus.c:96
+#: app/menus.c:97
 msgid "P_references"
 msgstr "_Tercihler"
 
-#: app/menus.c:96
+#: app/menus.c:97
 msgid "Dia preferences"
 msgstr "Dia tercihleri"
 
-#: app/menus.c:97
+#: app/menus.c:98
 msgid "P_lugins…"
 msgstr "_Eklentiler…"
 
-#: app/menus.c:97
+#: app/menus.c:98
 msgid "Manage plug-ins"
 msgstr "Eklentileri yönet"
 
-#: app/menus.c:98
+#: app/menus.c:99
 msgid "Diagram _Tree"
 msgstr "Diyagram _Ağacı"
 
-#: app/menus.c:98
+#: app/menus.c:99
 msgid "Tree representation of diagrams"
 msgstr "Diyagramların ağaç sunumu"
 
-#: app/menus.c:103
+#: app/menus.c:104
 msgid "Show _Toolbar"
 msgstr "_Araç Çubuğunu Göster"
 
-#: app/menus.c:103 app/menus.c:263
+#: app/menus.c:104 app/menus.c:264
 msgid "Show or hide the toolbar"
 msgstr "Araç çubuğunu göster veya gizle"
 
-#: app/menus.c:104
+#: app/menus.c:105
 msgid "Show _Statusbar"
 msgstr "_Durum Çubuğunu Göster"
 
-#: app/menus.c:104
+#: app/menus.c:105
 msgid "Show or hide the statusbar"
 msgstr "Durum çubuğunu göster veya gizle"
 
-#: app/menus.c:105
+#: app/menus.c:106
 msgid "Show _Layers"
 msgstr "_Katmanları Göster"
 
 # Fuzzy: toolwindow vb denetlenecek
-#: app/menus.c:105
+#: app/menus.c:106
 msgid "Show or hide the layers toolwindow"
 msgstr "Katmanları araç penceresinde göster veya gizle"
 
-#: app/menus.c:111
+#: app/menus.c:112
 msgid "Save the diagram"
 msgstr "Diyagramı kaydet"
 
-#: app/menus.c:112
+#: app/menus.c:113
 msgid "Save _As…"
 msgstr "_Farklı Kaydet…"
 
-#: app/menus.c:112
+#: app/menus.c:113
 msgid "Save the diagram with a new name"
 msgstr "Diyagramı yeni adla kaydet"
 
-#: app/menus.c:113
+#: app/menus.c:114
 msgid "_Export…"
 msgstr "_Dışa Aktar…"
 
-#: app/menus.c:113
+#: app/menus.c:114
 msgid "Export the diagram"
 msgstr "Diyagramı dışa aktar"
 
-#: app/menus.c:114
+#: app/menus.c:115
 msgid "_Diagram Properties"
 msgstr "_Diyagram Özellikleri"
 
-#: app/menus.c:114
+#: app/menus.c:115
 msgid "Modify diagram properties (grid, background)"
 msgstr "Diyagram özelliklerini düzenle (ızgara, artalan)"
 
-#: app/menus.c:115
+#: app/menus.c:116
 msgid "Page Set_up…"
 msgstr "_Sayfa Ayarları…"
 
-#: app/menus.c:115
+#: app/menus.c:116
 msgid "Modify the diagram pagination"
 msgstr "Diyagram sayfalamasını düzenle"
 
-#: app/menus.c:116
+#: app/menus.c:117
 msgid "_Print…"
 msgstr "_Yazdır…"
 
-#: app/menus.c:116
+#: app/menus.c:117
 msgid "Print the diagram"
 msgstr "Diyagramı yazdır"
 
-#: app/menus.c:117
+#: app/menus.c:118
 msgid "Close the diagram"
 msgstr "Diyagramı kapat"
 
-#: app/menus.c:119 data/ui/sheets-main-dialog.ui:27
+#: app/menus.c:120 data/ui/sheets-main-dialog.ui:27
 msgid "_Edit"
 msgstr "_Düzenle"
 
-#: app/menus.c:120
+#: app/menus.c:121
 msgid "_Undo"
 msgstr "_Geri Al"
 
-#: app/menus.c:120
+#: app/menus.c:121
 msgid "Undo"
 msgstr "Geri Al"
 
-#: app/menus.c:121
+#: app/menus.c:122
 msgid "_Redo"
 msgstr "_Yinele"
 
-#: app/menus.c:121
+#: app/menus.c:122
 msgid "Redo"
 msgstr "Yinele"
 
-#: app/menus.c:123
+#: app/menus.c:124
 msgid "_Copy"
 msgstr "_Kopyala"
 
-#: app/menus.c:123
+#: app/menus.c:124
 msgid "Copy selection"
 msgstr "Seçimi kopyala"
 
-#: app/menus.c:124
+#: app/menus.c:125
 msgid "Cu_t"
 msgstr "Ke_s"
 
-#: app/menus.c:124
+#: app/menus.c:125
 msgid "Cut selection"
 msgstr "Seçimi kes"
 
-#: app/menus.c:125
+#: app/menus.c:126
 msgid "_Paste"
 msgstr "_Yapıştır"
 
-#: app/menus.c:125
+#: app/menus.c:126
 msgid "Paste selection"
 msgstr "Seçimi yapıştır"
 
-#: app/menus.c:126
+#: app/menus.c:127
 msgid "_Duplicate"
 msgstr "_Çoğalt"
 
-#: app/menus.c:126
+#: app/menus.c:127
 msgid "Duplicate selection"
 msgstr "Seçimi çoğalt"
 
-#: app/menus.c:127
+#: app/menus.c:128
 msgid "D_elete"
 msgstr "S_il"
 
-#: app/menus.c:127
+#: app/menus.c:128
 msgid "Delete selection"
 msgstr "Seçimi sil"
 
-#: app/menus.c:129
+#: app/menus.c:130
 msgid "_Find…"
 msgstr "_Ara…"
 
-#: app/menus.c:129
+#: app/menus.c:130
 msgid "Search for text"
 msgstr "Metin ara"
 
-#: app/menus.c:130
+#: app/menus.c:131
 msgid "_Replace…"
 msgstr "_Değiştir…"
 
-#: app/menus.c:130
+#: app/menus.c:131
 msgid "Search and replace text"
 msgstr "Metin ara ve değiştir"
 
 #. the following used to bind to <control><shift>C which collides with Unicode input.
 #. * <control><alt> doesn't work either
-#: app/menus.c:134
+#: app/menus.c:135
 msgid "C_opy Text"
 msgstr "_Metni Kopyala"
 
-#: app/menus.c:134
+#: app/menus.c:135
 msgid "Copy object's text to clipboard"
 msgstr "Nesnenin metnini panoya kopyala"
 
-#: app/menus.c:135
+#: app/menus.c:136
 msgid "C_ut Text"
 msgstr "_Metni Kes"
 
-#: app/menus.c:135
+#: app/menus.c:136
 msgid "Cut object's text to clipboard"
 msgstr "Nesnenin metnini panoya kes"
 
-#: app/menus.c:136
+#: app/menus.c:137
 msgid "P_aste Text"
 msgstr "_Metni Yapıştır"
 
-#: app/menus.c:136
+#: app/menus.c:137
 msgid "Insert text from clipboard"
 msgstr "Panodan metin yapıştır"
 
-#: app/menus.c:138
+#: app/menus.c:139
 msgid "Paste _Image"
 msgstr "_Resim Yapıştır"
 
-#: app/menus.c:138
+#: app/menus.c:139
 msgid "Insert image from clipboard"
 msgstr "Panodan resim yapıştır"
 
-#: app/menus.c:140
+#: app/menus.c:141
 msgid "_Layers"
 msgstr "_Katmanlar"
 
-#: app/menus.c:141
+#: app/menus.c:142
 msgid "_Add Layer…"
 msgstr "_Katman Ekle…"
 
-#: app/menus.c:142
+#: app/menus.c:143
 msgid "_Rename Layer…"
 msgstr "Katmanı _Adlandır…"
 
-#: app/menus.c:143
+#: app/menus.c:144
 msgid "_Move Selection to Layer above"
 msgstr "Seçimi _üstteki katmana taşı"
 
-#: app/menus.c:144
+#: app/menus.c:145
 msgid "Move _Selection to Layer below"
 msgstr "Seçimi _alttaki Katmana taşı"
 
-#: app/menus.c:145
+#: app/menus.c:146
 msgid "_Layers…"
 msgstr "_Katmanlar…"
 
-#: app/menus.c:147
+#: app/menus.c:148
 msgid "_View"
 msgstr "_Görünüm"
 
-#: app/menus.c:148
+#: app/menus.c:149
 msgid "Zoom _In"
 msgstr "_Yakınlaştır"
 
-#: app/menus.c:148
+#: app/menus.c:149
 msgid "Zoom in"
 msgstr "Yakınlaştır"
 
-#: app/menus.c:149
+#: app/menus.c:150
 msgid "Zoom _Out"
 msgstr "_Uzaklaştır"
 
-#: app/menus.c:149
+#: app/menus.c:150
 msgid "Zoom out"
 msgstr "Uzaklaştır"
 
-#: app/menus.c:150 data/ui/preferences-dialog.ui:672
+#: app/menus.c:151 data/ui/preferences-dialog.ui:672
 msgid "_Zoom"
 msgstr "_Yaklaştırma"
 
-#: app/menus.c:151
+#: app/menus.c:152
 msgid "1600%"
 msgstr "%1600"
 
-#: app/menus.c:152 app/menus.c:660
+#: app/menus.c:153 app/menus.c:661
 msgid "800%"
 msgstr "%800"
 
-#: app/menus.c:153 app/menus.c:666
+#: app/menus.c:154 app/menus.c:667
 msgid "400%"
 msgstr "%400"
 
-#: app/menus.c:154
+#: app/menus.c:155
 msgid "283"
 msgstr "283"
 
-#: app/menus.c:155
+#: app/menus.c:156
 msgid "200"
 msgstr "200"
 
-#: app/menus.c:156
+#: app/menus.c:157
 msgid "141"
 msgstr "141"
 
-#: app/menus.c:157
+#: app/menus.c:158
 msgid "_Normal Size"
 msgstr "_Normal Boyut"
 
-#: app/menus.c:158
+#: app/menus.c:159
 msgid "85"
 msgstr "85"
 
-#: app/menus.c:159
+#: app/menus.c:160
 msgid "70.7"
 msgstr "70.7"
 
-#: app/menus.c:160
+#: app/menus.c:161
 msgid "50"
 msgstr "50"
 
-#: app/menus.c:161
+#: app/menus.c:162
 msgid "35.4"
 msgstr "35.4"
 
-#: app/menus.c:162
+#: app/menus.c:163
 msgid "25"
 msgstr "25"
 
 #. Show All, Best Fit.  Same as the Gimp, Ctrl+E
-#: app/menus.c:164
+#: app/menus.c:165
 msgid "Best _Fit"
 msgstr "En _Uygun"
 
-#: app/menus.c:164
+#: app/menus.c:165
 msgid "Zoom fit"
 msgstr "Sığdır"
 
 #. "display_toggle_entries" items go here
-#: app/menus.c:168
+#: app/menus.c:169
 msgid "New _View"
 msgstr "Yeni _Görünüm"
 
-#: app/menus.c:169
+#: app/menus.c:170
 msgid "C_lone View"
 msgstr "Görünümü _Çoğalt"
 
-#: app/menus.c:170
+#: app/menus.c:171
 msgid "_Refresh"
 msgstr "_Yenile"
 
-#: app/menus.c:172
+#: app/menus.c:173
 msgid "_Guides"
 msgstr "_Kılavuzlar"
 
-#: app/menus.c:173
+#: app/menus.c:174
 msgid "_New Guide..."
 msgstr "_Yeni Kılavuz..."
 
-#: app/menus.c:175
+#: app/menus.c:176
 msgid "_Objects"
 msgstr "_Nesneler"
 
 # Uyumlu olması için serbest çeviri yapıldı.
-#: app/menus.c:176
+#: app/menus.c:177
 msgid "Send to _Back"
 msgstr "En _Alta Taşı"
 
 # Uyumlu olması için serbest çeviri yapıldı.
-#: app/menus.c:176
+#: app/menus.c:177
 msgid "Move selection to the bottom"
 msgstr "Seçimi en alta taşı"
 
 # Uyumlu olması için serbest çeviri yapıldı.
-#: app/menus.c:177
+#: app/menus.c:178
 msgid "Bring to _Front"
 msgstr "En _Üste Taşı"
 
 # Uyumlu olması için serbest çeviri yapıldı.
-#: app/menus.c:177
+#: app/menus.c:178
 msgid "Move selection to the top"
 msgstr "Seçimi en üste taşı"
 
 # Uyumlu olması için serbest çeviri yapıldı.
-#: app/menus.c:178
+#: app/menus.c:179
 msgid "Send Ba_ckwards"
 msgstr "_Alta Taşı"
 
 # Uyumlu olması için serbest çeviri yapıldı.
-#: app/menus.c:179
+#: app/menus.c:180
 msgid "Bring F_orwards"
 msgstr "_Üste Taşı"
 
-#: app/menus.c:181
+#: app/menus.c:182
 msgid "_Group"
 msgstr "_Grupla"
 
-#: app/menus.c:181
+#: app/menus.c:182
 msgid "Group selected objects"
 msgstr "Seçilen nesneleri grupla"
 
 # Uyumlu olması için serbest çeviri yapıldı.
 #. deliberately not using Ctrl+U for Ungroup
-#: app/menus.c:183
+#: app/menus.c:184
 msgid "_Ungroup"
 msgstr "_Ayır"
 
 # Uyumlu olması için serbest çeviri yapıldı.
-#: app/menus.c:183
+#: app/menus.c:184
 msgid "Ungroup selected groups"
 msgstr "Seçilen grupları ayır"
 
-#: app/menus.c:185
+#: app/menus.c:186
 msgid "_Parent"
 msgstr "_Üst"
 
-#: app/menus.c:186
+#: app/menus.c:187
 msgid "_Unparent"
 msgstr "_Üstü Bırak"
 
-#: app/menus.c:187
+#: app/menus.c:188
 msgid "_Unparent Children"
 msgstr "_Altları Bırak"
 
-#: app/menus.c:189
+#: app/menus.c:190
 msgid "_Align"
 msgstr "_Hizala"
 
-#: app/menus.c:190
+#: app/menus.c:191
 msgid "_Left"
 msgstr "_Sol"
 
-#: app/menus.c:191
+#: app/menus.c:192
 msgid "_Center"
 msgstr "_Orta"
 
-#: app/menus.c:192
+#: app/menus.c:193
 msgid "_Right"
 msgstr "_Sağ"
 
-#: app/menus.c:194
+#: app/menus.c:195
 msgid "_Top"
 msgstr "Üs_t"
 
-#: app/menus.c:195
+#: app/menus.c:196
 msgid "_Middle"
 msgstr "O_rta Nokta"
 
-#: app/menus.c:196
+#: app/menus.c:197
 msgid "_Bottom"
 msgstr "_Alt"
 
-#: app/menus.c:198
+#: app/menus.c:199
 msgid "Spread Out _Horizontally"
 msgstr "_Yatay Olarak Yay"
 
-#: app/menus.c:199
+#: app/menus.c:200
 msgid "Spread Out _Vertically"
 msgstr "_Dikey Olarak Yay"
 
-#: app/menus.c:200
+#: app/menus.c:201
 msgid "_Adjacent"
 msgstr "_Bitişik"
 
-#: app/menus.c:201
+#: app/menus.c:202
 msgid "_Stacked"
 msgstr "_Yığılmış"
 
-#: app/menus.c:202 app/menus.c:212
+#: app/menus.c:203 app/menus.c:213
 msgid "_Connected"
 msgstr "_Bağlı"
 
-#: app/menus.c:204
+#: app/menus.c:205
 msgid "_Properties"
 msgstr "_Özellikler"
 
-#: app/menus.c:206
+#: app/menus.c:207
 msgid "_Select"
 msgstr "_Seç"
 
-#: app/menus.c:207
+#: app/menus.c:208
 msgid "_All"
 msgstr "_Tümü"
 
-#: app/menus.c:208
+#: app/menus.c:209
 msgid "_None"
 msgstr "_Hiçbiri"
 
-#: app/menus.c:209
+#: app/menus.c:210
 msgid "_Invert"
 msgstr "_Ters Çevir"
 
-#: app/menus.c:211
+#: app/menus.c:212
 msgid "_Transitive"
 msgstr "_Geçişli"
 
-#: app/menus.c:213
+#: app/menus.c:214
 msgid "Same _Type"
 msgstr "Aynı _Tür"
 
 #. display_select_radio_entries go here
-#: app/menus.c:217
+#: app/menus.c:218
 msgid "_Select By"
 msgstr "_Seçim Ölçütü"
 
 #. For placment of the toplevel Layout menu and it's accelerator
-#: app/menus.c:220
+#: app/menus.c:221
 msgid "L_ayout"
 msgstr "_Yerleşim"
 
-#: app/menus.c:222
+#: app/menus.c:223
 msgid "D_ialogs"
 msgstr "D_iyaloglar"
 
-#: app/menus.c:224
+#: app/menus.c:225
 msgid "D_ebug"
 msgstr "_Hata Ayıkla"
 
-#: app/menus.c:230
+#: app/menus.c:231
 msgid "_Tools"
 msgstr "_Araçlar"
 
-#: app/menus.c:231
+#: app/menus.c:232
 msgid "_Modify"
 msgstr "_Düzenle"
 
-#: app/menus.c:232
+#: app/menus.c:233
 msgid "_Magnify"
 msgstr "_Büyüt"
 
-#: app/menus.c:233
+#: app/menus.c:234
 msgid "_Edit Text"
 msgstr "Metni _Düzenle"
 
-#: app/menus.c:234
+#: app/menus.c:235
 msgid "_Scroll"
 msgstr "_Kaydır"
 
-#: app/menus.c:235
+#: app/menus.c:236
 msgid "_Text"
 msgstr "_Metin"
 
-#: app/menus.c:236
+#: app/menus.c:237
 msgid "_Box"
 msgstr "_Kutu"
 
-#: app/menus.c:237
+#: app/menus.c:238
 msgid "_Ellipse"
 msgstr "_Elips"
 
-#: app/menus.c:238
+#: app/menus.c:239
 msgid "_Polygon"
 msgstr "_Çokgen"
 
-#: app/menus.c:239
+#: app/menus.c:240
 msgid "_Beziergon"
 msgstr "_Bezyergen"
 
-#: app/menus.c:241
+#: app/menus.c:242
 msgid "_Line"
 msgstr "_Çizgi"
 
-#: app/menus.c:242
+#: app/menus.c:243
 msgid "_Arc"
 msgstr "_Yay"
 
-#: app/menus.c:243
+#: app/menus.c:244
 msgid "_Zigzagline"
 msgstr "_Zikzak Çizgisi"
 
-#: app/menus.c:244
+#: app/menus.c:245
 msgid "_Polyline"
 msgstr "_Çoklu Çizgi"
 
-#: app/menus.c:245
+#: app/menus.c:246
 msgid "_Bezierline"
 msgstr "_Bezyer Çizgisi"
 
-#: app/menus.c:246
+#: app/menus.c:247
 msgid "_Outline"
 msgstr "_Anahat"
 
-#: app/menus.c:248
+#: app/menus.c:249
 msgid "_Image"
 msgstr "_Resim"
 
-#: app/menus.c:254
+#: app/menus.c:255
 msgid "_Fullscreen"
 msgstr "_Tam Ekran"
 
-#: app/menus.c:255 data/ui/preferences-dialog.ui:808
+#: app/menus.c:256 data/ui/preferences-dialog.ui:808
 msgid "_Antialiased"
 msgstr "_Kenar Yumuşatma"
 
-#: app/menus.c:256
+#: app/menus.c:257
 msgid "Show _Grid"
 msgstr "_Izgarayı Göster"
 
-#: app/menus.c:257 data/ui/preferences-dialog.ui:1471
+#: app/menus.c:258 data/ui/preferences-dialog.ui:1471
 msgid "_Snap to Grid"
 msgstr "_Izgaraya Uydur"
 
-#: app/menus.c:258
+#: app/menus.c:259
 msgid "_Show Guides"
 msgstr "_Kılavuzları Göster"
 
-#: app/menus.c:259
+#: app/menus.c:260
 msgid "Snap to _Guides"
 msgstr "Kılavuzlara _Uydur"
 
-#: app/menus.c:260
+#: app/menus.c:261
 msgid "_Remove all Guides"
 msgstr "_Tüm Kılavuzları Kaldır"
 
-#: app/menus.c:261
+#: app/menus.c:262
 msgid "Snap to _Objects"
 msgstr "_Nesnelere Uydur"
 
-#: app/menus.c:262
+#: app/menus.c:263
 msgid "Show _Rulers"
 msgstr "Cetvelleri Göste_r"
 
-#: app/menus.c:263
+#: app/menus.c:264
 msgid "Show Scroll_bars"
 msgstr "Kaydırma _Çubuklarını Göster"
 
-#: app/menus.c:264
+#: app/menus.c:265
 msgid "Show _Connection Points"
 msgstr "_Bağlantı Noktalarını Göster"
 
-#: app/menus.c:271
+#: app/menus.c:272
 msgid "_Union"
 msgstr "_Birleşim"
 
-#: app/menus.c:272
+#: app/menus.c:273
 msgid "I_ntersection"
 msgstr "_Kesişim"
 
-#: app/menus.c:273
+#: app/menus.c:274
 msgid "R_emove"
 msgstr "_Kaldır"
 
 #. Cannot also be called Invert, duplicate names caused keybinding problems
-#: app/menus.c:275
+#: app/menus.c:276
 msgid "In_verse"
 msgstr "_Ters Çevir"
 
-#: app/menus.c:333
+#: app/menus.c:334
 msgid "NULL tooldata in tool_menu_select"
 msgstr "tool_menu_select'de tooldata NULL olarak verildi"
 
-#: app/menus.c:654
+#: app/menus.c:655
 msgid "Fit"
 msgstr "Sığdır"
 
-#: app/menus.c:672
+#: app/menus.c:673
 msgid "300%"
 msgstr "300%"
 
-#: app/menus.c:678
+#: app/menus.c:679
 msgid "200%"
 msgstr "200%"
 
-#: app/menus.c:684
+#: app/menus.c:685
 msgid "150%"
 msgstr "150%"
 
-#: app/menus.c:690
+#: app/menus.c:691
 msgid "100%"
 msgstr "100%"
 
-#: app/menus.c:696
+#: app/menus.c:697
 msgid "75%"
 msgstr "75%"
 
-#: app/menus.c:702
+#: app/menus.c:703
 msgid "50%"
 msgstr "50%"
 
-#: app/menus.c:708
+#: app/menus.c:709
 msgid "25%"
 msgstr "25%"
 
-#: app/menus.c:714
+#: app/menus.c:715
 msgid "10%"
 msgstr "10%"
 
-#: app/menus.c:742
+#: app/menus.c:743
 msgid "Toggles snap-to-grid."
 msgstr "Izgaraya uydurmayı açar veya kapatır."
 
-#: app/menus.c:754
+#: app/menus.c:755
 msgid "Toggles object snapping."
 msgstr "Nesneye uydurmayı açar veya kapatır."
 
-#: app/menus.c:767
+#: app/menus.c:768
 msgid "Toggles guide snapping."
 msgstr "Kılavuza uydurmayı açar veya kapatır."
 
-#: app/menus.c:1352
+#: app/menus.c:1353
 msgid "The function is not available anymore."
 msgstr "Bu işlev artık kullanılamıyor."
 
@@ -1846,81 +1844,65 @@ msgid "Couldn't get GTK+ settings"
 msgstr "GTK ayarları alınamadı"
 
 #. build up the user interface
-#: app/plugin-manager.c:206
+#: app/plugin-manager.c:207
 msgid "Plugins"
 msgstr "Eklentiler"
 
-#: app/plugin-manager.c:261
+#: app/plugin-manager.c:262
 msgid "Loaded"
 msgstr "Yüklü"
 
-#: app/plugin-manager.c:283
+#: app/plugin-manager.c:284
 msgid "Load at Startup"
 msgstr "Başlangıçta Yükle"
 
-#: app/plugin-manager.c:290
+#: app/plugin-manager.c:291
 msgid "Filename"
 msgstr "Dosya adı"
 
 #. TRANSLATORS: The user hasn't set a prefered filter
-#: app/preferences.c:688
+#: app/preferences.c:690
 msgid "Unset"
 msgstr ""
 
-#: app/preferences.c:761
+#: app/preferences.c:763
 msgid "_Done"
-msgstr ""
+msgstr "_Bitti"
 
-#: app/preferences.c:766
+#: app/preferences.c:768
 msgid "Preferences"
 msgstr "Tercihler"
 
 #. GtkWidget *actionbox;
 #. GList *buttons;
-#: app/properties-dialog.c:57
+#: app/properties-dialog.c:58
 msgid "Object properties"
 msgstr "Nesne özellikleri"
 
-#: app/properties-dialog.c:82
+#: app/properties-dialog.c:83
 msgid "This object has no properties."
 msgstr "Bu nesnenin özellikleri yok."
 
-#: app/properties-dialog.c:252
+#: app/properties-dialog.c:253
 msgid "Properties: "
 msgstr "Özellikler: "
 
-#: app/properties-dialog.c:256
+#: app/properties-dialog.c:257
 msgid "Object properties:"
 msgstr "Nesne özellikleri:"
 
-#: app/sheet-editor/sheets.c:189 sheets/AADL.sheet:28
+#: app/sheet-editor/sheets.c:179 sheets/AADL.sheet:28
 msgid "System"
 msgstr "Sistem"
 
-#: app/sheet-editor/sheets.c:190
+#: app/sheet-editor/sheets.c:180 app/sheet-editor/sheets_dialog_callbacks.c:839
 msgid "User"
 msgstr "Kullanıcı"
 
-#: app/sheet-editor/sheets.c:241
-msgid ""
-"Can't get symbol 'custom_type' from any module.\n"
-"Editing shapes is disabled."
-msgstr ""
-"'custom_type' sembolü herhangi bir modülden alınamıyor.\n"
-"Şekilleri düzenleme devre dışı bırakıldı."
-
-#: app/sheet-editor/sheets.c:356
+#: app/sheet-editor/sheets.c:315
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Parçacık bulunamadı: %s"
-
-#: app/sheet-editor/sheets.c:386
-msgid "SVG Shape"
-msgstr "SVG Şekli"
-
-#: app/sheet-editor/sheets.c:388
-msgid "Programmed DiaObject"
-msgstr "Programlanmış DiaObjesi"
 
 #: app/sheet-editor/sheet-editor-button.c:128
 #, c-format
@@ -1928,142 +1910,116 @@ msgid "No icon for “%s”"
 msgstr ""
 
 #: app/sheet-editor/sheet-editor-button.c:199
-#: app/sheet-editor/sheets_dialog_callbacks.c:971
+#: app/sheet-editor/sheets_dialog_callbacks.c:945
 #: data/ui/sheets-new-dialog.ui:194
 msgid "Line Break"
 msgstr "Satır Sonu"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:155
+#: app/sheet-editor/sheets_dialog_callbacks.c:178
 msgid "Copy ->"
 msgstr "Kopyala ->"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:157
+#: app/sheet-editor/sheets_dialog_callbacks.c:180
 msgid "Copy All ->"
 msgstr "Tümünü Kopyala ->"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:159
+#: app/sheet-editor/sheets_dialog_callbacks.c:182
 msgid "Move ->"
 msgstr "Taşı ->"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:161
+#: app/sheet-editor/sheets_dialog_callbacks.c:184
 msgid "Move All ->"
 msgstr "Tümünü Taşı ->"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:166
+#: app/sheet-editor/sheets_dialog_callbacks.c:189
 msgid "<- Copy"
 msgstr "<- Kopyala"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:168
+#: app/sheet-editor/sheets_dialog_callbacks.c:191
 msgid "<- Copy All"
 msgstr "<- Tümünü Kopyala"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:170
+#: app/sheet-editor/sheets_dialog_callbacks.c:193
 msgid "<- Move"
 msgstr "<- Taşı"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:172
+#: app/sheet-editor/sheets_dialog_callbacks.c:195
 msgid "<- Move All"
 msgstr "<- Tümünü Taşı"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:270
-#, c-format
-msgid ""
-"%s\n"
-"Shape"
-msgstr ""
-"%s\n"
-"Şekil"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:273
-#, c-format
-msgid ""
-"%s\n"
-"Object"
-msgstr ""
-"%s\n"
-"Nesne"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:277
-#, c-format
-msgid ""
-"%s\n"
-"Unassigned type"
-msgstr ""
-"%s\n"
-"Atanmamış tür"
-
-#: app/sheet-editor/sheets_dialog_callbacks.c:715
+#: app/sheet-editor/sheets_dialog_callbacks.c:708
 msgid "Please select a .shape file"
 msgstr "Lütfen bir .shape dosyası seçin"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:721
+#: app/sheet-editor/sheets_dialog_callbacks.c:713
 #, c-format
 msgid "Filename must end with '%s': '%s'"
 msgstr "Dosya adı '%s' ile bitmeli: '%s'"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:728
+#: app/sheet-editor/sheets_dialog_callbacks.c:720
 #, c-format
 msgid "Error examining %s: %s"
 msgstr "%s incelenirken hata: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:757
+#: app/sheet-editor/sheets_dialog_callbacks.c:749
 msgid "Please export the diagram as a shape."
 msgstr "Lütfen diyagramı şekil olarak dışa aktar."
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:761
+#: app/sheet-editor/sheets_dialog_callbacks.c:753
 #, c-format
 msgid "Could not interpret shape file: '%s'"
 msgstr "Şekil dosyası yorumlanamadı: '%s'"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:826
+#: app/sheet-editor/sheets_dialog_callbacks.c:817
 msgid "Sheet must have a Name"
 msgstr "Sayfa bir ad içermeli."
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1427
-#: app/sheet-editor/sheets_dialog_callbacks.c:1433
+#: app/sheet-editor/sheets_dialog_callbacks.c:1407
+#: app/sheet-editor/sheets_dialog_callbacks.c:1413
 #, c-format
 msgid "Couldn't open '%s': %s"
 msgstr "'%s' açılamadı: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1489
+#: app/sheet-editor/sheets_dialog_callbacks.c:1469
 #, c-format
 msgid "Couldn't open: '%s' for writing"
 msgstr "'%s' yazmak için açılamadı"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1499
+#: app/sheet-editor/sheets_dialog_callbacks.c:1479
 msgid "a user"
 msgstr "kullanıcı"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1513
+#: app/sheet-editor/sheets_dialog_callbacks.c:1494
 #, c-format
 msgid "File: %s"
 msgstr "Dosya: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1516
+#: app/sheet-editor/sheets_dialog_callbacks.c:1497
 #, c-format
 msgid "Date: %s"
 msgstr "Tarih: %s"
 
 # Kaynak koda göre s burada kullanıcı adı oluyor
-#: app/sheet-editor/sheets_dialog_callbacks.c:1520
+#: app/sheet-editor/sheets_dialog_callbacks.c:1501
 #, c-format
 msgid "For: %s"
 msgstr "Kullanıcı: %s"
 
-#: app/sheet-editor/sheets_dialog_callbacks.c:1537
+#: app/sheet-editor/sheets_dialog_callbacks.c:1518
 msgid "add shapes here"
 msgstr "şekilleri buraya ekle"
 
-#: app/splash.c:41
+#: app/splash.c:42
 msgid "Loading …"
 msgstr "Yükleniyor …"
 
-#: app/splash.c:58
-#, c-format
-msgid "Dia v %s"
+#: app/splash.c:59
+#, fuzzy, c-format
+#| msgid "Dia v %s"
+msgid "Dia v%s"
 msgstr "Dia sürüm %s"
 
-#: app/toolbox.c:103
+#: app/toolbox.c:104
 msgid ""
 "Modify object(s)\n"
 "Use <Space> to toggle between this and other tools"
@@ -2072,7 +2028,7 @@ msgstr ""
 "Araçlar arasında geçiş yapmak için <Space> tuşunu kullan"
 
 # fuzzy: edits ingilizce olarak hatalı duruyor. Belki Edit Text(s) demek istemiş olabilir.
-#: app/toolbox.c:109
+#: app/toolbox.c:110
 msgid ""
 "Text edit(s)\n"
 "Use <Esc> to leave this tool"
@@ -2081,22 +2037,22 @@ msgstr ""
 "Aracı serbest bırakmak için <Esc> tuşunu kullan"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Magnify
-#: app/toolbox.c:115 objects/FS/function.c:1042
+#: app/toolbox.c:116 objects/FS/function.c:1042
 msgid "Magnify"
 msgstr "Büyüt"
 
 # Uyum amaçlı Başlık Düzeni kullanıldı
-#: app/toolbox.c:121
+#: app/toolbox.c:122
 msgid "Scroll around the diagram"
 msgstr "Diyagramda Gezin"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: app/toolbox.c:127 lib/properties.c:94 lib/properties.h:698
-#: objects/AADL/aadlbox.c:161 objects/custom/custom_object.c:244
+#: app/toolbox.c:128 lib/properties.c:96 lib/properties.h:697
+#: objects/AADL/aadlbox.c:165 objects/custom/custom_object.c:244
 #: objects/Jackson/requirement.c:128 objects/network/basestation.c:132
 #: objects/network/radiocell.c:129 objects/UML/activity.c:127
-#: objects/UML/actor.c:122 objects/UML/classicon.c:143
+#: objects/UML/actor.c:123 objects/UML/classicon.c:143
 #: objects/UML/component.c:131 objects/UML/component_feature.c:157
 #: objects/UML/node.c:125 objects/UML/node.c:127 objects/UML/note.c:116
 #: objects/UML/object.c:162 objects/UML/small_package.c:127
@@ -2104,51 +2060,51 @@ msgstr "Diyagramda Gezin"
 msgid "Text"
 msgstr "Metin"
 
-#: app/toolbox.c:133
+#: app/toolbox.c:134
 msgid "Box"
 msgstr "Kutu"
 
-#: app/toolbox.c:139
+#: app/toolbox.c:140
 msgid "Ellipse"
 msgstr "Elips"
 
-#: app/toolbox.c:145
+#: app/toolbox.c:146
 msgid "Polygon"
 msgstr "Çokgen"
 
-#: app/toolbox.c:151
+#: app/toolbox.c:152
 msgid "Beziergon"
 msgstr "Bezyergen"
 
-#: app/toolbox.c:157 objects/standard/line.c:336
+#: app/toolbox.c:158 objects/standard/line.c:337
 msgid "Line"
 msgstr "Çizgi"
 
-#: app/toolbox.c:163
+#: app/toolbox.c:164
 msgid "Arc"
 msgstr "Yay"
 
-#: app/toolbox.c:169
+#: app/toolbox.c:170
 msgid "Zigzagline"
 msgstr "Zikzak Çizgisi"
 
-#: app/toolbox.c:175
+#: app/toolbox.c:176
 msgid "Polyline"
 msgstr "Çoklu Çizgi"
 
-#: app/toolbox.c:181
+#: app/toolbox.c:182
 msgid "Bezierline"
 msgstr "Bezyer Çizgisi"
 
-#: app/toolbox.c:187
+#: app/toolbox.c:188
 msgid "Image"
 msgstr "Resim"
 
-#: app/toolbox.c:193
+#: app/toolbox.c:194
 msgid "Outline"
 msgstr "Yerleşim"
 
-#: app/toolbox.c:492
+#: app/toolbox.c:493
 #, c-format
 msgid "No sheet named %s"
 msgstr "%s adında bir sayfa yok"
@@ -2156,27 +2112,27 @@ msgstr "%s adında bir sayfa yok"
 # Normalde Çeşitli olarak çevirmemiz bekleniyordu. Lakin Miscellaneous için de aynı çeviri kullanıldığı için bulunduğu yerde 2 tane Çeşitli değeri oluşmasın diye bu çeviri tercih edildi.
 #. Author: Alan Horkan, 2002, mailto:horkana@tcd.ie
 #. Please talk to me before making any changes to this sheet
-#: app/toolbox.c:616 sheets/Assorted.sheet:5
+#: app/toolbox.c:617 sheets/Assorted.sheet:5
 msgid "Assorted"
 msgstr "Karışık"
 
-#: app/toolbox.c:623 app/toolbox.c:759 sheets/Flowchart.sheet:3
+#: app/toolbox.c:624 app/toolbox.c:760 sheets/Flowchart.sheet:3
 msgid "Flowchart"
 msgstr "Akış Şeması"
 
-#: app/toolbox.c:630 sheets/UML.sheet:3
+#: app/toolbox.c:631 sheets/UML.sheet:3
 msgid "UML"
 msgstr "UML"
 
-#: app/toolbox.c:660
+#: app/toolbox.c:661
 msgid "All Sheets"
 msgstr "Tüm Sayfalar"
 
-#: app/toolbox.c:675 lib/dia-colour-selector.c:381 lib/dia-font-selector.c:483
+#: app/toolbox.c:676 lib/dia-colour-selector.c:381 lib/dia-font-selector.c:483
 msgid "Reset Menu"
 msgstr "Menüyü Sıfırla"
 
-#: app/toolbox.c:798
+#: app/toolbox.c:799
 msgid ""
 "Foreground & background colors for new objects.  The small black and white "
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
@@ -2186,7 +2142,7 @@ msgstr ""
 "renkleri sıfırlar. Küçük oklar renkleri değiştirir. Renkleri değiştirmek "
 "için çift tıklayın."
 
-#: app/toolbox.c:812
+#: app/toolbox.c:813
 msgid ""
 "Line widths.  Click on a line to set the default line width for new "
 "objects.  Double-click to set the line width more precisely."
@@ -2196,7 +2152,7 @@ msgstr ""
 "tıklayın."
 
 # Düğmeyi vurgulamak için çift tırnak kullanıldı
-#: app/toolbox.c:860
+#: app/toolbox.c:861
 msgid ""
 "Arrow style at the beginning of new lines.  Click to pick an arrow, or set "
 "arrow parameters with Details…"
@@ -2204,7 +2160,7 @@ msgstr ""
 "Yeni çizgilerin başlangıç ok biçimi. Ok seçmek için tıklayın ya da "
 "\"Ayrıntılar…\" düğmesi ile ok parametrelerini ayarlayın."
 
-#: app/toolbox.c:865
+#: app/toolbox.c:866
 msgid ""
 "Line style for new lines.  Click to pick a line style, or set line style "
 "parameters with Details…"
@@ -2212,7 +2168,7 @@ msgstr ""
 "Yeni çizgiler için çizgi biçimi. Çizgi biçimi seçmek için tıklayın ya da "
 "\"Ayrıntılar…\" düğmesi ile çizgi biçimi parametrelerini ayarlayın."
 
-#: app/toolbox.c:881
+#: app/toolbox.c:882
 msgid ""
 "Arrow style at the end of new lines.  Click to pick an arrow, or set arrow "
 "parameters with Details…"
@@ -2296,7 +2252,7 @@ msgstr "Son Belgelerin Liste Uzunluğu"
 
 #: data/ui/preferences-dialog.ui:247
 msgid "U_ndo Levels"
-msgstr ""
+msgstr "_Geri Alma Düzeyleri"
 
 #: data/ui/preferences-dialog.ui:262
 msgid "_Length Unit"
@@ -2382,7 +2338,7 @@ msgstr "Kılavuzlar"
 
 #: data/ui/preferences-dialog.ui:733
 msgid "Co_lor"
-msgstr ""
+msgstr "R_enk"
 
 #: data/ui/preferences-dialog.ui:744
 msgid "Snap to Guid_es"
@@ -2484,7 +2440,7 @@ msgstr "Altıgen Izgara Boyutu"
 msgid "Grid"
 msgstr "Izgara"
 
-#: data/ui/properties-dialog.ui:335 lib/diagramdata.c:148
+#: data/ui/properties-dialog.ui:335 lib/diagramdata.c:149
 msgid "Background"
 msgstr "Artalan"
 
@@ -2500,36 +2456,26 @@ msgstr "Renkler"
 msgid "Edit Attributes"
 msgstr "Öznitelikleri Düzenle"
 
-#: data/ui/sheets-edit-dialog.ui:96 data/ui/sheets-edit-dialog.ui:284
+#: data/ui/sheets-edit-dialog.ui:96 data/ui/sheets-edit-dialog.ui:239
 #: data/ui/sheets-new-dialog.ui:124 data/ui/sheets-new-dialog.ui:259
 msgid "Description:"
 msgstr "Açıklama:"
 
-#: data/ui/sheets-edit-dialog.ui:141 objects/FS/flow.c:145
-#: objects/FS/flow-ortho.c:179 objects/Istar/link.c:159
-#: objects/Jackson/phenomenon.c:143 objects/KAOS/metaandorrel.c:163
-#: objects/KAOS/metabinrel.c:170 objects/UML/class_attributes_dialog.c:682
-#: objects/UML/class_operations_dialog.c:885
-#: objects/UML/class_operations_dialog.c:1286
-#: objects/UML/class_templates_dialog.c:524
-msgid "Type:"
-msgstr "Tür:"
-
-#: data/ui/sheets-edit-dialog.ui:207 data/ui/sheets-remove-dialog.ui:90
+#: data/ui/sheets-edit-dialog.ui:162 data/ui/sheets-remove-dialog.ui:90
 msgid "DiaObject"
 msgstr "DiaNesneleri"
 
-#: data/ui/sheets-edit-dialog.ui:260 objects/ER/attribute.c:151
+#: data/ui/sheets-edit-dialog.ui:215 objects/ER/attribute.c:151
 #: objects/ER/entity.c:132 objects/ER/relationship.c:136
-#: objects/UML/class_attributes_dialog.c:669
-#: objects/UML/class_operations_dialog.c:874
-#: objects/UML/class_operations_dialog.c:1275
-#: objects/UML/class_templates_dialog.c:513 objects/UML/dependency.c:134
+#: objects/UML/class_attributes_dialog.c:671
+#: objects/UML/class_operations_dialog.c:876
+#: objects/UML/class_operations_dialog.c:1277
+#: objects/UML/class_templates_dialog.c:515 objects/UML/dependency.c:134
 #: objects/UML/generalization.c:131 objects/UML/realizes.c:131
 msgid "Name:"
 msgstr "Ad:"
 
-#: data/ui/sheets-edit-dialog.ui:354 data/ui/sheets-remove-dialog.ui:112
+#: data/ui/sheets-edit-dialog.ui:309 data/ui/sheets-remove-dialog.ui:112
 msgid "Sheet"
 msgstr "Sayfa"
 
@@ -2549,23 +2495,23 @@ msgstr "_Aşağı"
 msgid "_Remove"
 msgstr "_Kaldır"
 
-#: data/ui/sheets-main-dialog.ui:94
+#: data/ui/sheets-main-dialog.ui:95
 msgid "<- C_opy"
 msgstr "<- _Kopyala"
 
-#: data/ui/sheets-main-dialog.ui:110
+#: data/ui/sheets-main-dialog.ui:111
 msgid "<- Copy _All"
 msgstr "<- Tümünü K_opyala"
 
-#: data/ui/sheets-main-dialog.ui:125
+#: data/ui/sheets-main-dialog.ui:126
 msgid "<- _Move"
 msgstr "<- _Taşı"
 
-#: data/ui/sheets-main-dialog.ui:141
+#: data/ui/sheets-main-dialog.ui:142
 msgid "<- Move A_ll"
 msgstr "<- Tümünü T_aşı"
 
-#: data/ui/sheets-main-dialog.ui:298
+#: data/ui/sheets-main-dialog.ui:300
 msgid "_Revert"
 msgstr "_Geri Al"
 
@@ -2589,201 +2535,201 @@ msgstr "Çalışma kağıdı adı:"
 msgid "Remove"
 msgstr "Kaldır"
 
-#: lib/arrows.c:2281
+#: lib/arrows.c:2272
 msgctxt "Arrow"
 msgid "None"
 msgstr "Hiçbiri"
 
-#: lib/arrows.c:2282
+#: lib/arrows.c:2273
 msgctxt "Arrow"
 msgid "Lines"
 msgstr "Çizgiler"
 
-#: lib/arrows.c:2283
+#: lib/arrows.c:2274
 msgctxt "Arrow"
 msgid "Hollow Triangle"
 msgstr "İçi Boş Üçgen"
 
-#: lib/arrows.c:2284
+#: lib/arrows.c:2275
 msgctxt "Arrow"
 msgid "Filled Triangle"
 msgstr "Dolgulu Üçgen"
 
-#: lib/arrows.c:2285
+#: lib/arrows.c:2276
 msgctxt "Arrow"
 msgid "Unfilled Triangle"
 msgstr "Dolgusuz Üçgen"
 
-#: lib/arrows.c:2286
+#: lib/arrows.c:2277
 msgctxt "Arrow"
 msgid "Hollow Diamond"
 msgstr "Boş Karo"
 
-#: lib/arrows.c:2287
+#: lib/arrows.c:2278
 msgctxt "Arrow"
 msgid "Filled Diamond"
 msgstr "Dolgulu Karo"
 
-#: lib/arrows.c:2288
+#: lib/arrows.c:2279
 msgctxt "Arrow"
 msgid "Half Diamond"
 msgstr "Yarım Karo"
 
-#: lib/arrows.c:2289
+#: lib/arrows.c:2280
 msgctxt "Arrow"
 msgid "Half Head"
 msgstr "Yarım Baş"
 
-#: lib/arrows.c:2290
+#: lib/arrows.c:2281
 msgctxt "Arrow"
 msgid "Slashed Cross"
 msgstr "Eğik Çizgili Çarpı"
 
-#: lib/arrows.c:2291
+#: lib/arrows.c:2282
 msgctxt "Arrow"
 msgid "Filled Ellipse"
 msgstr "Dolgulu Elips"
 
-#: lib/arrows.c:2292
+#: lib/arrows.c:2283
 msgctxt "Arrow"
 msgid "Hollow Ellipse"
 msgstr "Boş Elips"
 
-#: lib/arrows.c:2293
+#: lib/arrows.c:2284
 msgctxt "Arrow"
 msgid "Filled Dot"
 msgstr "Dolgulu Nokta"
 
-#: lib/arrows.c:2294
+#: lib/arrows.c:2285
 msgctxt "Arrow"
 msgid "Dimension Origin"
 msgstr "Boyut Kökü"
 
-#: lib/arrows.c:2295
+#: lib/arrows.c:2286
 msgctxt "Arrow"
 msgid "Blanked Dot"
 msgstr "Boşluklu Nokta"
 
-#: lib/arrows.c:2296
+#: lib/arrows.c:2287
 msgctxt "Arrow"
 msgid "Double Hollow Triangle"
 msgstr "Çift Boş Üçgen"
 
-#: lib/arrows.c:2297
+#: lib/arrows.c:2288
 msgctxt "Arrow"
 msgid "Double Filled Triangle"
 msgstr "Çift Dolgulu Üçgen"
 
-#: lib/arrows.c:2298
+#: lib/arrows.c:2289
 msgctxt "Arrow"
 msgid "Filled Dot and Triangle"
 msgstr "Dolgulu Nokta ve Üçgen"
 
-#: lib/arrows.c:2299
+#: lib/arrows.c:2290
 msgctxt "Arrow"
 msgid "Filled Box"
 msgstr "Dolgulu Kutu"
 
-#: lib/arrows.c:2300
+#: lib/arrows.c:2291
 msgctxt "Arrow"
 msgid "Blanked Box"
 msgstr "Boşluklu Kutu"
 
-#: lib/arrows.c:2301
+#: lib/arrows.c:2292
 msgctxt "Arrow"
 msgid "Slashed"
 msgstr "Eğik Çizgili"
 
-#: lib/arrows.c:2302
+#: lib/arrows.c:2293
 msgctxt "Arrow"
 msgid "Integral Symbol"
 msgstr "İntegral İşareti"
 
-#: lib/arrows.c:2303
+#: lib/arrows.c:2294
 msgctxt "Arrow"
 msgid "Crow Foot"
 msgstr "Karga Ayağı"
 
-#: lib/arrows.c:2304
+#: lib/arrows.c:2295
 msgctxt "Arrow"
 msgid "Cross"
 msgstr "Çarpı"
 
-#: lib/arrows.c:2305
+#: lib/arrows.c:2296
 msgctxt "Arrow"
 msgid "1-or-many"
 msgstr "Bir veya daha fazlası"
 
-#: lib/arrows.c:2306
+#: lib/arrows.c:2297
 msgctxt "Arrow"
 msgid "0-or-many"
 msgstr "Sıfır veya daha fazlası"
 
-#: lib/arrows.c:2307
+#: lib/arrows.c:2298
 msgctxt "Arrow"
 msgid "1-or-0"
 msgstr "Bir veya Sıfır"
 
-#: lib/arrows.c:2308
+#: lib/arrows.c:2299
 msgctxt "Arrow"
 msgid "1 exactly"
 msgstr "Tam olarak bir"
 
-#: lib/arrows.c:2309
+#: lib/arrows.c:2300
 msgctxt "Arrow"
 msgid "Filled Concave"
 msgstr "Dolgulu İç Bükey"
 
-#: lib/arrows.c:2310
+#: lib/arrows.c:2301
 msgctxt "Arrow"
 msgid "Blanked Concave"
 msgstr "Boşluklu İç Bükey"
 
-#: lib/arrows.c:2311
+#: lib/arrows.c:2302
 msgctxt "Arrow"
 msgid "Round"
 msgstr "Daire"
 
-#: lib/arrows.c:2312
+#: lib/arrows.c:2303
 msgctxt "Arrow"
 msgid "Open Round"
 msgstr "Açık Daire"
 
-#: lib/arrows.c:2313
+#: lib/arrows.c:2304
 msgctxt "Arrow"
 msgid "Backslash"
 msgstr "Ters Bölü"
 
-#: lib/arrows.c:2314
+#: lib/arrows.c:2305
 msgctxt "Arrow"
 msgid "Infinite Line"
 msgstr "Sonsuz Çizgi"
 
-#: lib/arrows.c:2557
+#: lib/arrows.c:2548
 msgid "Arrow head of unknown type"
 msgstr "Ok ucu türü bilinmiyor"
 
-#: lib/arrows.c:2566
+#: lib/arrows.c:2557
 #, c-format
 msgid "Arrow head of type %s has too small dimensions; removing.\n"
 msgstr "Ok ucu türü %s boyutları çok küçük; siliniyor.\n"
 
-#: lib/arrows.c:2747
+#: lib/arrows.c:2738
 msgid "unknown arrow"
 msgstr "bilinmeyen ok"
 
-#: lib/create.c:53 lib/create.c:103 lib/create.c:132 lib/create.c:167
-#: lib/create.c:205 lib/create.c:239 lib/create.c:263 lib/create.c:297
-#: lib/create.c:318 lib/create.c:348 lib/create.c:395
+#: lib/create.c:54 lib/create.c:104 lib/create.c:133 lib/create.c:168
+#: lib/create.c:206 lib/create.c:240 lib/create.c:264 lib/create.c:298
+#: lib/create.c:319 lib/create.c:349 lib/create.c:396
 #: plug-ins/svg/svg-import.c:730 plug-ins/vdx/vdx-import.c:142
 msgid "Can't find standard object"
 msgstr "Standart nesne bulunamıyor"
 
-#: lib/dia-arrow-chooser.c:177
+#: lib/dia-arrow-chooser.c:176
 msgid "Arrow Properties"
 msgstr "Ok Özellikleri"
 
-#: lib/dia-arrow-chooser.c:301 lib/dia-line-chooser.c:210
+#: lib/dia-arrow-chooser.c:299 lib/dia-line-chooser.c:208
 msgid "Details…"
 msgstr "Ayrıntılar…"
 
@@ -2818,7 +2764,7 @@ msgstr ""
 msgid "Other Fonts"
 msgstr "Diğer Yazı Tipleri"
 
-#: lib/dia-line-chooser.c:173
+#: lib/dia-line-chooser.c:171
 msgid "Line Style Properties"
 msgstr "Çizgi Stil Özellikleri"
 
@@ -2828,7 +2774,7 @@ msgid "Dash length: "
 msgstr "Tire uzunluğu: "
 
 #. pathologic case - pixbuf not even supporting PNG?
-#: lib/dia_image.c:313
+#: lib/dia_image.c:315
 #, c-format
 msgid ""
 "Unsupported file format for saving:\n"
@@ -2837,7 +2783,7 @@ msgstr ""
 "Desteklenmeyen dosya kaydetme biçimi:\n"
 "%s\n"
 
-#: lib/dia_image.c:316
+#: lib/dia_image.c:318
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -2848,25 +2794,25 @@ msgstr ""
 "%s\n"
 "%s\n"
 
-#: lib/diapatternselector.c:92 lib/prop_inttypes.c:157 lib/prop_pixbuf.c:322
+#: lib/diapatternselector.c:95 lib/prop_inttypes.c:159 lib/prop_pixbuf.c:325
 msgid "Yes"
 msgstr "Evet"
 
-#: lib/diapatternselector.c:96 lib/diapatternselector.c:189
-#: lib/prop_inttypes.c:159 lib/prop_inttypes.c:185 lib/prop_pixbuf.c:324
-#: lib/prop_pixbuf.c:330
+#: lib/diapatternselector.c:99 lib/diapatternselector.c:192
+#: lib/prop_inttypes.c:161 lib/prop_inttypes.c:187 lib/prop_pixbuf.c:327
+#: lib/prop_pixbuf.c:333
 msgid "No"
 msgstr "Hayır"
 
-#: lib/diapatternselector.c:115
+#: lib/diapatternselector.c:118
 msgid "Diagonal"
 msgstr "Çapraz"
 
-#: lib/diapatternselector.c:117
+#: lib/diapatternselector.c:120
 msgid "Radial"
 msgstr "Yarıçap"
 
-#: lib/dia_xml.c:238
+#: lib/dia_xml.c:206
 #, c-format
 msgid ""
 "The file %s has no encoding specification;\n"
@@ -2875,119 +2821,119 @@ msgstr ""
 "%s dosyasının kodlama özelliği yok;\n"
 "%s olarak kodlanmış olduğu varsayılıyor"
 
-#: lib/dia_xml.c:544
+#: lib/dia_xml.c:512
 #, c-format
 msgid "Unknown type of DataNode '%s'"
 msgstr "Bilinmeyen DataNode türü '%s'"
 
-#: lib/dia_xml.c:563
+#: lib/dia_xml.c:531
 msgid "Taking int value of non-int node."
 msgstr "int olmayan düğümün int değeri alınıyor"
 
-#: lib/dia_xml.c:739
+#: lib/dia_xml.c:707
 msgid "Taking point value of non-point node."
 msgstr "Nokta olmayan düğümün nokta değerini alınıyor."
 
-#: lib/dia_xml.c:750
+#: lib/dia_xml.c:718
 #, c-format
 msgid "Incorrect x Point value \"%s\" %f; discarding it."
 msgstr "Hatalı x Nokta değeri \"%s\" %f; dikkate alınmıyor."
 
-#: lib/dia_xml.c:757
+#: lib/dia_xml.c:725
 msgid "Error parsing point."
 msgstr "Nokta ayrıştırılırken hata."
 
 #. don't bother with useless warnings (see above)
-#: lib/dia_xml.c:765
+#: lib/dia_xml.c:733
 #, c-format
 msgid "Incorrect y Point value \"%s\" %f; discarding it."
 msgstr "Hatalı y Nokta değeri \"%s\" %f; dikkate alınmıyor."
 
-#: lib/dia_xml.c:785
+#: lib/dia_xml.c:753
 msgid "Taking bezpoint value of non-point node."
 msgstr "Nokta olmayan düğümün beznokta değeri alınıyor."
 
-#: lib/dia_xml.c:803
+#: lib/dia_xml.c:771
 msgid "Error parsing bezpoint p1."
 msgstr "Beznokta p1. ayrıştırılırken hata."
 
-#: lib/dia_xml.c:817
+#: lib/dia_xml.c:785
 msgid "Error parsing bezpoint p2."
 msgstr "Beznokta p2. ayrıştırılırken hata."
 
-#: lib/dia_xml.c:831
+#: lib/dia_xml.c:799
 msgid "Error parsing bezpoint p3."
 msgstr "Beznokta p3. ayrıştırılırken hata."
 
-#: lib/dia_xml.c:858
+#: lib/dia_xml.c:826
 msgid "Taking rectangle value of non-rectangle node."
 msgstr "Dikdörtgen olmayan düğümün dikdörtgen değeri alınıyor."
 
-#: lib/dia_xml.c:870 lib/dia_xml.c:881 lib/dia_xml.c:892
+#: lib/dia_xml.c:838 lib/dia_xml.c:849 lib/dia_xml.c:860
 msgid "Error parsing rectangle."
 msgstr "Dikdörtgen ayrıştırılırken hata."
 
-#: lib/dia_xml.c:920
+#: lib/dia_xml.c:888
 msgid "Taking string value of non-string node."
 msgstr "Sizgi olmayan düğümün dizgi değeri alınıyor."
 
-#: lib/dia_xml.c:948
+#: lib/dia_xml.c:916
 msgid "Error in string tag."
 msgstr "Dizgi etiketinde hata."
 
-#: lib/dia_xml.c:966
+#: lib/dia_xml.c:934
 msgid "Error in file, string not starting with #"
 msgstr "Dosyada hata: dizgi # ile başlamıyor"
 
-#: lib/dia_xml.c:1032
+#: lib/dia_xml.c:1000
 msgid "Taking font value of non-font node."
 msgstr "Yazı tipi olmayan düğümün yazı tipi değeri alınıyor."
 
-#: lib/filter.c:179
+#: lib/filter.c:181
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "%s benzersiz adında birden çok dışa aktarma filtresi var"
 
-#: lib/filter.c:197
+#: lib/filter.c:199
 #, c-format
 msgid "Multiple import filters with unique name %s"
 msgstr "%s benzersiz adında birden çok içe aktarma filtresi var"
 
-#: lib/group.c:651
+#: lib/group.c:653
 msgid "Transformation"
 msgstr "Dönüşüm"
 
-#: lib/message.c:93 lib/message.c:333
+#: lib/message.c:94 lib/message.c:319
 msgid "Error"
 msgstr "Hata"
 
-#: lib/message.c:95 lib/message.c:310
+#: lib/message.c:96 lib/message.c:296
 msgid "Warning"
 msgstr "Uyarı"
 
-#: lib/message.c:126
+#: lib/message.c:127
 msgid "There is one similar message."
 msgstr "Benzer bir mesaj var."
 
-#: lib/message.c:131
+#: lib/message.c:132
 msgid "Show repeated messages"
 msgstr "Tekrarlanan mesajları göster"
 
-#: lib/message.c:152
+#: lib/message.c:153
 msgid "Don't show this message again"
 msgstr "Bu mesajı bir daha gösterme"
 
-#: lib/message.c:216
+#: lib/message.c:201
 #, c-format
 msgid "There is %d similar message."
 msgid_plural "There are %d similar messages."
 msgstr[0] "Benzer %d mesaj var."
 
-#: lib/message.c:286
+#: lib/message.c:272
 msgid "Notice"
 msgstr "Uyarı"
 
-#: lib/object_defaults.c:137
+#: lib/object_defaults.c:138
 #, c-format
 msgid ""
 "Error loading defaults '%s'.\n"
@@ -3005,195 +2951,195 @@ msgstr "Kendiliğinden yönlendir"
 msgid "Autorouting"
 msgstr "Kendiliğinden yönlendiriliyor"
 
-#: lib/persistence.c:335
+#: lib/persistence.c:336
 msgid "Persistence"
 msgstr "Süreklilik"
 
 # Fuzzy: böyle bir imla yok
-#: lib/plug-ins.c:113
+#: lib/plug-ins.c:114
 msgid "???"
 msgstr "???"
 
-#: lib/plug-ins.c:188
+#: lib/plug-ins.c:189
 #, c-format
 msgid "Missing dependencies for '%s'?"
 msgstr "'%s' için kayıp bağımlılıklar?"
 
-#: lib/plug-ins.c:199
+#: lib/plug-ins.c:200
 msgid "Missing symbol 'dia_plugin_init'"
 msgstr "Kayıp sembol 'dia_plugin_init'"
 
-#: lib/plug-ins.c:207 lib/plug-ins.c:215
+#: lib/plug-ins.c:208 lib/plug-ins.c:216
 msgid "dia_plugin_init() call failed"
 msgstr "dia_plugin_init() çağrısı başarısız oldu"
 
-#: lib/plug-ins.c:419
+#: lib/plug-ins.c:420
 msgid "Plugin Configuration"
 msgstr "Eklenti Yapılandırması"
 
-#: lib/propdialogs.c:336 objects/UML/association.c:240 objects/UML/object.c:142
+#: lib/propdialogs.c:339 objects/UML/association.c:240 objects/UML/object.c:142
 msgid "General"
 msgstr "Genel"
 
-#: lib/propdialogs.c:337
+#: lib/propdialogs.c:340
 msgid "Meta"
 msgstr "Üst Veri"
 
-#: lib/prop_dict.c:40
+#: lib/prop_dict.c:43
 msgid "Author"
 msgstr "Yazar"
 
-#: lib/prop_dict.c:42
+#: lib/prop_dict.c:45
 msgid "Creation date"
 msgstr "Oluşturulma tarihi"
 
-#: lib/prop_dict.c:43
+#: lib/prop_dict.c:46
 msgid "Modification date"
 msgstr "Düzenleme tarihi"
 
-#: lib/prop_dict.c:44
+#: lib/prop_dict.c:47
 msgid "URL"
 msgstr "URL"
 
-#: lib/prop_dict.c:240 sheets/ciscomisc.sheet:50
+#: lib/prop_dict.c:243 sheets/ciscomisc.sheet:50
 msgid "Key"
 msgstr "Anahtar"
 
-#: lib/prop_dict.c:247 objects/UML/umlattribute.c:39
-#: objects/UML/umlparameter.c:45
+#: lib/prop_dict.c:250 objects/UML/umlattribute.c:41
+#: objects/UML/umlparameter.c:47
 msgid "Value"
 msgstr "Değer"
 
-#: lib/properties.c:60 lib/properties.h:612 lib/widgets.c:47
+#: lib/properties.c:62 lib/properties.h:611
 msgid "Left"
 msgstr "Sol"
 
-#: lib/properties.c:61 lib/properties.h:613 lib/widgets.c:50
-#: objects/standard/textobj.c:120
+#: lib/properties.c:63 lib/properties.h:612 objects/standard/textobj.c:120
 msgid "Center"
 msgstr "Orta"
 
-#: lib/properties.c:62 lib/properties.h:614 lib/widgets.c:53
+#: lib/properties.c:64 lib/properties.h:613
 msgid "Right"
 msgstr "Sağ"
 
-#: lib/properties.c:67 lib/properties.h:618
+#: lib/properties.c:69 lib/properties.h:617
 msgid "Never"
 msgstr "Asla"
 
-#: lib/properties.c:68 lib/properties.h:619
+#: lib/properties.c:70 lib/properties.h:618
 msgid "When Needed"
 msgstr "İhtiyaç Olduğunda"
 
-#: lib/properties.c:69 lib/properties.h:620
+#: lib/properties.c:71 lib/properties.h:619
 msgid "Always"
 msgstr "Her Zaman"
 
-#: lib/properties.c:73 lib/properties.h:624
+#: lib/properties.c:75 lib/properties.h:623
 msgctxt "LineJoin"
 msgid "Miter"
 msgstr "Gönye"
 
-#: lib/properties.c:74 lib/properties.h:625
+#: lib/properties.c:76 lib/properties.h:624
 msgctxt "LineJoin"
 msgid "Round"
 msgstr "Daire"
 
-#: lib/properties.c:75 lib/properties.h:626
+#: lib/properties.c:77 lib/properties.h:625
 msgctxt "LineJoin"
 msgid "Bevel"
 msgstr "Eğim"
 
-#: lib/properties.c:79 lib/properties.h:630
+#: lib/properties.c:81 lib/properties.h:629
 msgctxt "LineCap"
 msgid "Butt"
 msgstr "Maskara"
 
-#: lib/properties.c:80 lib/properties.h:631
+#: lib/properties.c:82 lib/properties.h:630
 msgctxt "LineCap"
 msgid "Round"
 msgstr "Daire"
 
-#: lib/properties.c:81 lib/properties.h:632
+#: lib/properties.c:83 lib/properties.h:631
 msgctxt "LineCap"
 msgid "Projecting"
 msgstr "Yansıtma"
 
-#: lib/properties.c:88 lib/properties.h:653 lib/properties.h:656
+#: lib/properties.c:90 lib/properties.h:652 lib/properties.h:655
 #: objects/chronogram/chronoline.c:179 objects/chronogram/chronoref.c:158
 msgid "Line color"
 msgstr "Çizgi rengi"
 
-#: lib/properties.c:89 lib/properties.h:659 lib/properties.h:662
+#: lib/properties.c:91 lib/properties.h:658 lib/properties.h:661
 msgid "Line style"
 msgstr "Çizgi biçemi"
 
-#: lib/properties.c:90 lib/properties.h:678 lib/properties.h:681
+#: lib/properties.c:92 lib/properties.h:677 lib/properties.h:680
 msgid "Fill color"
 msgstr "Dolgu rengi"
 
 #. just to simplify transferring properties between objects
-#: lib/properties.c:91 lib/properties.h:684 lib/properties.h:687
-#: lib/standard-path.c:135
+#: lib/properties.c:93 lib/properties.h:683 lib/properties.h:686
+#: lib/standard-path.c:138
 msgid "Draw background"
 msgstr "Artalanı boya"
 
-#: lib/properties.c:92 lib/properties.h:691
+#: lib/properties.c:94 lib/properties.h:690
 msgid "Start arrow"
 msgstr "Başlangıç oku"
 
-#: lib/properties.c:93 lib/properties.h:694
+#: lib/properties.c:95 lib/properties.h:693
 msgid "End arrow"
 msgstr "Bitiş oku"
 
-#: lib/properties.c:95 lib/properties.h:704
+#: lib/properties.c:97 lib/properties.h:703
 msgid "Text alignment"
 msgstr "Metin hizalama"
 
-#: lib/properties.c:96 lib/properties.h:709 objects/chronogram/chronoline.c:183
-#: objects/chronogram/chronoref.c:164 objects/Database/reference.c:133
+#: lib/properties.c:98 lib/properties.h:708 objects/chronogram/chronoline.c:183
+#: objects/chronogram/chronoref.c:164 objects/Database/reference.c:135
 #: objects/GRAFCET/condition.c:139 objects/GRAFCET/step.c:174
 #: objects/GRAFCET/transition.c:149 objects/UML/class_dialog.c:483
 msgid "Font"
 msgstr "Yazı tipi"
 
-#: lib/properties.c:97 lib/properties.h:717 objects/chronogram/chronoline.c:185
+#: lib/properties.c:99 lib/properties.h:716 objects/chronogram/chronoline.c:185
 #: objects/chronogram/chronoref.c:166 objects/GRAFCET/condition.c:141
 #: objects/GRAFCET/step.c:176 objects/GRAFCET/transition.c:151
 msgid "Font size"
 msgstr "Yazı tipi boyutu"
 
-#: lib/properties.c:98 lib/properties.h:723 objects/chronogram/chronoline.c:187
-#: objects/chronogram/chronoref.c:168 objects/GRAFCET/step.c:178
+#: lib/properties.c:100 lib/properties.h:722
+#: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
+#: objects/GRAFCET/step.c:178
 msgid "Text color"
 msgstr "Metin rengi"
 
-#: lib/properties.h:665 lib/properties.h:668
+#: lib/properties.h:664 lib/properties.h:667
 msgid "Line join"
 msgstr "Satır birleştirme"
 
-#: lib/properties.h:671 lib/properties.h:674
+#: lib/properties.h:670 lib/properties.h:673
 msgid "Line caps"
 msgstr "Satır kapakları"
 
-#: lib/properties.h:732
+#: lib/properties.h:731
 msgid "Text fitting"
 msgstr "Metin sığdırma"
 
-#: lib/properties.h:736 lib/standard-path.c:137
+#: lib/properties.h:735 lib/standard-path.c:140
 msgid "Pattern"
 msgstr "Desen"
 
-#: lib/prop_inttypes.c:568
+#: lib/prop_inttypes.c:570
 msgid "Property cast from int to enum out of range"
 msgstr ""
 
-#: lib/proplist.c:159
+#: lib/proplist.c:160
 #, c-format
 msgid "No attribute '%s' (%p) or no data (%p) in this attribute"
 msgstr ""
 
-#: lib/prop_pixbuf.c:115 lib/prop_pixbuf.c:164
+#: lib/prop_pixbuf.c:118 lib/prop_pixbuf.c:167
 #, c-format
 msgid ""
 "Failed to load image form diagram:\n"
@@ -3202,30 +3148,30 @@ msgstr ""
 "Resim diyagramdan yüklenemedi:\n"
 "%s"
 
-#: lib/prop_pixbuf.c:241
+#: lib/prop_pixbuf.c:244
 #, c-format
 msgid ""
 "Saving inline pixbuf failed:\n"
 "%s"
 msgstr ""
 
-#: lib/prop_pixbuf.c:349
+#: lib/prop_pixbuf.c:352
 msgid "Cant create image data from scratch!"
 msgstr "Sıfırdan resim verisi oluşturulamıyor!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: lib/prop_sdarray_widget.c:563 objects/chronogram/chronoline.c:162
-#: objects/UML/umloperation.c:77
+#: lib/prop_sdarray_widget.c:566 objects/chronogram/chronoline.c:162
+#: objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Parametreler"
 
-#: lib/prop_text.c:494
+#: lib/prop_text.c:496
 #, c-format
 msgid "Group with %d object"
 msgid_plural "Group with %d objects"
 msgstr[0] "%d nesne ile grupla"
 
-#: lib/sheet.c:66 lib/sheet.c:82
+#: lib/sheet.c:68 lib/sheet.c:84
 #, c-format
 msgid ""
 "DiaObject '%s' needed in sheet '%s' was not found.\n"
@@ -3233,7 +3179,7 @@ msgid ""
 msgstr ""
 
 # Hatalı: Yeni satır bölmeleri anlamsız yerde ve ekranda çirkin duruyor
-#: lib/sheet.c:355
+#: lib/sheet.c:357
 #, c-format
 msgid ""
 "The system sheet '%s' appears to be more recent than your custom\n"
@@ -3243,63 +3189,63 @@ msgid ""
 "or remove '%s', using the 'Sheets and Objects' dialog."
 msgstr ""
 
-#: lib/sheet.c:423
+#: lib/sheet.c:425
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: şekil etiketleri yerine nesne etiketleri kullanın"
 
-#: lib/standard-path.c:119
+#: lib/standard-path.c:122
 msgid "Stroke"
 msgstr "Kontur"
 
 #. Translators: Menu item Verb/Provision/Supply/Fill
-#: lib/standard-path.c:120 objects/FS/function.c:990
+#: lib/standard-path.c:123 objects/FS/function.c:990
 msgid "Fill"
 msgstr "Dolgu"
 
-#: lib/standard-path.c:121
+#: lib/standard-path.c:124
 msgid "Fill & Stroke"
 msgstr "Dolgu ve Kontur"
 
-#: lib/standard-path.c:126
+#: lib/standard-path.c:129
 msgid "Bezier points"
 msgstr "Bezyer noktaları"
 
-#: lib/standard-path.c:127
+#: lib/standard-path.c:130
 msgid "Drawing"
 msgstr "Çizim"
 
-#: lib/standard-path.c:136
+#: lib/standard-path.c:139
 msgid "Draw Control Lines"
 msgstr "Denetim Çizgilerini Çiz"
 
-#: lib/standard-path.c:802
+#: lib/standard-path.c:806
 msgid "Convert to Bezier"
 msgstr "Bezyere Dönüştür"
 
-#: lib/standard-path.c:803
+#: lib/standard-path.c:807
 msgid "Invert Path"
 msgstr "Yolu Ters Çevir"
 
-#: lib/standard-path.c:804 objects/custom/custom_object.c:1962
+#: lib/standard-path.c:808 objects/custom/custom_object.c:1962
 msgid "Flip Horizontal"
 msgstr "Yatay Çevir"
 
-#: lib/standard-path.c:805 objects/custom/custom_object.c:1963
+#: lib/standard-path.c:809 objects/custom/custom_object.c:1963
 msgid "Flip Vertical"
 msgstr "Dikey Çevir"
 
 #. Translators: Menu item Verb/Channel/Guide/Rotate
 #. Translators: Menu item Verb/Channel/Guide/Rotate/Rotate
-#: lib/standard-path.c:806 objects/FS/function.c:802 objects/FS/function.c:804
+#: lib/standard-path.c:810 objects/FS/function.c:802 objects/FS/function.c:804
 msgid "Rotate"
 msgstr "Döndür"
 
-#: lib/standard-path.c:807
+#: lib/standard-path.c:811
 msgid "Shear"
 msgstr "Eğ"
 
-#: lib/standard-path.c:808
+#: lib/standard-path.c:812
 msgid "Show Control Lines"
 msgstr "Denetim Çizgilerini Göster"
 
@@ -3309,23 +3255,23 @@ msgstr "Santimetre"
 
 #: lib/units.c:44
 msgid "Decimeter"
-msgstr ""
+msgstr "Desimetre"
 
 #: lib/units.c:46
 msgid "Feet"
-msgstr ""
+msgstr "Feet"
 
 #: lib/units.c:48
 msgid "Inch"
-msgstr ""
+msgstr "İnç"
 
 #: lib/units.c:50
 msgid "Meter"
-msgstr ""
+msgstr "Metre"
 
 #: lib/units.c:52
 msgid "Millimeter"
-msgstr ""
+msgstr "Milimetre"
 
 #: lib/units.c:54
 msgid "Point"
@@ -3333,110 +3279,110 @@ msgstr "Nokta"
 
 #: lib/units.c:56
 msgid "Pica"
-msgstr ""
+msgstr "Pika"
 
-#: lib/renderer/diacairo-interactive.c:344
-#: lib/renderer/diacairo-interactive.c:345
+#: lib/renderer/diacairo-interactive.c:347
+#: lib/renderer/diacairo-interactive.c:348
 msgid "Zoom pointer"
 msgstr "Yaklaştırma imleci"
 
-#: lib/renderer/diacairo-interactive.c:351
-#: lib/renderer/diacairo-interactive.c:352
+#: lib/renderer/diacairo-interactive.c:354
+#: lib/renderer/diacairo-interactive.c:355
 msgid "Visible rect pointer"
 msgstr ""
 
-#: lib/renderer/diacairo.c:93 plug-ins/drs/dia-render-script.c:132
-#: plug-ins/hpgl/hpgl.c:742
+#: lib/renderer/diacairo.c:96 plug-ins/drs/dia-render-script.c:136
+#: plug-ins/hpgl/hpgl.c:743
 #, c-format
 msgid "Can't open output file %s."
 msgstr "Çıktı dosyası %s açılamıyor."
 
-#: lib/renderer/diacairo.c:101
+#: lib/renderer/diacairo.c:104
 #, c-format
 msgid ""
 "Can't convert output filename '%s' to locale encoding.\n"
 "Please choose a different name to save with Cairo.\n"
 msgstr ""
 
-#: lib/renderer/diacairo.c:276 lib/renderer/diacairo.c:292
+#: lib/renderer/diacairo.c:279 lib/renderer/diacairo.c:295
 #, c-format
 msgid "Can't write %d bytes to %s"
 msgstr "%d byte %s dosyası içine yazılamıyor"
 
-#: lib/renderer/diacairo.c:305
+#: lib/renderer/diacairo.c:308
 msgid "Clipboard copy failed"
 msgstr "Pano kopyalama başarısız oldu"
 
-#: lib/renderer/diacairo.c:333 plug-ins/postscript/postscript.c:41
-#: plug-ins/wmf/wmf.cpp:1559
+#: lib/renderer/diacairo.c:336 plug-ins/postscript/postscript.c:42
+#: plug-ins/wmf/wmf.cpp:1561
 msgid "Nothing to print"
 msgstr "Yazdırılacak bir şey yok"
 
-#: objects/AADL/aadlbox.c:155
+#: objects/AADL/aadlbox.c:159
 msgid "Declaration"
 msgstr "Bildirim"
 
-#: objects/AADL/aadlbox.c:375
+#: objects/AADL/aadlbox.c:379
 msgid "Add Access Provider"
 msgstr "Erişim Sağlayıcı Ekle"
 
-#: objects/AADL/aadlbox.c:377
+#: objects/AADL/aadlbox.c:381
 msgid "Add Access Requirer"
 msgstr "Erişim Gerektirici Ekle"
 
-#: objects/AADL/aadlbox.c:379
+#: objects/AADL/aadlbox.c:383
 msgid "Add In Data Port"
 msgstr "Giriş Veri Bağlantı Noktası Ekle"
 
-#: objects/AADL/aadlbox.c:381
+#: objects/AADL/aadlbox.c:385
 msgid "Add In Event Port"
 msgstr "Giriş Olay Bağlantı Noktası Ekle"
 
-#: objects/AADL/aadlbox.c:383
+#: objects/AADL/aadlbox.c:387
 msgid "Add In Event Data Port"
 msgstr "Giriş Olay Veri Bağlantı Noktası Ekle"
 
-#: objects/AADL/aadlbox.c:385
+#: objects/AADL/aadlbox.c:389
 msgid "Add Out Data Port"
 msgstr "Çıkış Veri Bağlantı Noktası Ekle"
 
-#: objects/AADL/aadlbox.c:387
+#: objects/AADL/aadlbox.c:391
 msgid "Add Out Event Port"
 msgstr "Çıkış Olay Bağlantı Noktası Ekle"
 
-#: objects/AADL/aadlbox.c:389
+#: objects/AADL/aadlbox.c:393
 msgid "Add Out Event Data Port"
 msgstr "Çıkış Olay Veri Bağlantı Noktası Ekle"
 
-#: objects/AADL/aadlbox.c:391
+#: objects/AADL/aadlbox.c:395
 msgid "Add In Out Data Port"
 msgstr "Giriş Çıkış Veri Bağlantı Noktası Ekle"
 
-#: objects/AADL/aadlbox.c:393
+#: objects/AADL/aadlbox.c:397
 msgid "Add In Out Event Port"
 msgstr "Giriş Çıkış Olay Bağlantı Noktası Ekle"
 
-#: objects/AADL/aadlbox.c:395
+#: objects/AADL/aadlbox.c:399
 msgid "Add In Out Event Data Port"
 msgstr "Giriş Çıkış Olay Veri Bağlantı Noktası Ekle"
 
-#: objects/AADL/aadlbox.c:397
+#: objects/AADL/aadlbox.c:401
 msgid "Add Port Group"
 msgstr "Bağlantı Noktası Grubu Ekle"
 
-#: objects/AADL/aadlbox.c:399
+#: objects/AADL/aadlbox.c:403
 msgid "Add Connection Point"
 msgstr "Bağlantı Noktası Ekle"
 
-#: objects/AADL/aadlbox.c:403
+#: objects/AADL/aadlbox.c:407
 msgid "Delete Port"
 msgstr "Bağlantı Noktasını Sil"
 
-#: objects/AADL/aadlbox.c:404
+#: objects/AADL/aadlbox.c:408
 msgid "Edit Port Declaration"
 msgstr "Bağlantı Noktası Bildirimini Düzenle"
 
-#: objects/AADL/aadlbox.c:408
+#: objects/AADL/aadlbox.c:412
 msgid "Delete Connection Point"
 msgstr "Bağlantı Noktasını Sil"
 
@@ -3530,11 +3476,11 @@ msgstr "Ufak zaman adımı"
 msgid "Minor step line width"
 msgstr "Ufak adım çizgisi genişliği"
 
-#: objects/custom/custom.c:138
+#: objects/custom/custom.c:139
 msgid "Custom"
 msgstr "Özel"
 
-#: objects/custom/custom.c:139
+#: objects/custom/custom.c:140
 msgid "Custom XML shapes loader"
 msgstr "Özel XML şekil yükleyicisi"
 
@@ -3561,19 +3507,19 @@ msgstr "Metin boşluğu"
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Simge dosyası %s, '%s' nesne türü için açılamadı."
 
-#: objects/custom_lines/custom_lines.c:152
+#: objects/custom_lines/custom_lines.c:153
 msgid "CustomLines"
 msgstr "Özel Çizgiler"
 
-#: objects/custom_lines/custom_lines.c:152
+#: objects/custom_lines/custom_lines.c:153
 msgid "Custom XML lines loader"
 msgstr "Özel XML çizgi yükleyicisi"
 
-#: objects/custom_lines/custom_linetypes.c:256
+#: objects/custom_lines/custom_linetypes.c:260
 msgid "INTERNAL: CustomLines: Illegal line type in LineInfo object."
 msgstr "INTERNAL: CustomLines: LineInfo nesnesinde geçersiz çizgi türü."
 
-#: objects/custom/shape_info.c:173
+#: objects/custom/shape_info.c:174
 #, c-format
 msgid ""
 "The file '%s' has invalid path data.\n"
@@ -3582,31 +3528,31 @@ msgstr ""
 "'%s' dosyası geçersiz yol verisi içeriyor.\n"
 "svg:path verisi moveto ile başlamalıdır."
 
-#: objects/Database/compound.c:209
+#: objects/Database/compound.c:211
 msgid "Number of arms"
 msgstr "Kol sayısı"
 
-#: objects/Database/compound.c:232
+#: objects/Database/compound.c:234
 msgid "Flip arms vertically"
 msgstr "Kolları dikey çevir"
 
-#: objects/Database/compound.c:234
+#: objects/Database/compound.c:236
 msgid "Flip arms horizontally"
 msgstr "Kolları yatay çevir"
 
-#: objects/Database/compound.c:236
+#: objects/Database/compound.c:238
 msgid "Center mount point vertically"
 msgstr "Bağlanma noktasını dikey ortala"
 
-#: objects/Database/compound.c:238
+#: objects/Database/compound.c:240
 msgid "Center mount point horizontally"
 msgstr "Bağlanma noktasını yatay ortala"
 
-#: objects/Database/compound.c:240
+#: objects/Database/compound.c:242
 msgid "Center mount point"
 msgstr "Bağlanma noktasını ortala"
 
-#: objects/Database/compound.c:245
+#: objects/Database/compound.c:247
 msgid "Compound"
 msgstr "Bileşik"
 
@@ -3614,23 +3560,23 @@ msgstr "Bileşik"
 msgid "Entity/Relationship table diagram objects"
 msgstr "Varlık/İlişki tablosu diyagram nesneleri"
 
-#: objects/Database/reference.c:124 objects/flowchart/box.c:151
+#: objects/Database/reference.c:126 objects/flowchart/box.c:151
 #: objects/standard/box.c:158 objects/standard/polyline.c:108
 #: objects/standard/zigzagline.c:106
 msgid "Corner radius"
 msgstr "Köşe yarıçapı"
 
-#: objects/Database/reference.c:127
+#: objects/Database/reference.c:129
 msgid "Start description"
 msgstr "Açıklamayı başlat"
 
-#: objects/Database/reference.c:129
+#: objects/Database/reference.c:131
 msgid "End description"
 msgstr "Açıklamayı sonlandır"
 
 # Hata: Boş çevrilebilir değer!
-#: objects/Database/reference.c:136 objects/Database/table.c:253
-#: objects/Database/table.c:255 objects/Database/table.c:257
+#: objects/Database/reference.c:138 objects/Database/table.c:254
+#: objects/Database/table.c:256 objects/Database/table.c:258
 #: objects/UML/association.c:253 objects/UML/association.c:264
 #: objects/UML/association.c:266 objects/UML/association.c:268
 #: objects/UML/association.c:270 objects/UML/association.c:272
@@ -3639,110 +3585,110 @@ msgstr "Açıklamayı sonlandır"
 msgid " "
 msgstr " "
 
-#: objects/Database/reference.c:160 objects/ER/participation.c:423
+#: objects/Database/reference.c:162 objects/ER/participation.c:427
 #: objects/FS/flow-ortho.c:684 objects/GRAFCET/vector.c:326
-#: objects/SADT/arrow.c:492 objects/standard/zigzagline.c:460
-#: objects/UML/association.c:913 objects/UML/component_feature.c:196
+#: objects/SADT/arrow.c:496 objects/standard/zigzagline.c:464
+#: objects/UML/association.c:918 objects/UML/component_feature.c:196
 #: objects/UML/dependency.c:402 objects/UML/generalization.c:399
-#: objects/UML/realizes.c:392 objects/UML/transition.c:173
+#: objects/UML/realizes.c:397 objects/UML/transition.c:173
 msgid "Add segment"
 msgstr "Bölüm ekle"
 
-#: objects/Database/reference.c:161 objects/ER/participation.c:424
+#: objects/Database/reference.c:163 objects/ER/participation.c:428
 #: objects/FS/flow-ortho.c:685 objects/GRAFCET/vector.c:327
-#: objects/SADT/arrow.c:493 objects/standard/zigzagline.c:461
-#: objects/UML/association.c:914 objects/UML/component_feature.c:197
+#: objects/SADT/arrow.c:497 objects/standard/zigzagline.c:465
+#: objects/UML/association.c:919 objects/UML/component_feature.c:197
 #: objects/UML/dependency.c:403 objects/UML/generalization.c:400
-#: objects/UML/realizes.c:393 objects/UML/transition.c:174
+#: objects/UML/realizes.c:398 objects/UML/transition.c:174
 msgid "Delete segment"
 msgstr "Bölüm sil"
 
-#: objects/Database/reference.c:167 sheets/Database.sheet:10
+#: objects/Database/reference.c:169 sheets/Database.sheet:10
 msgid "Reference"
 msgstr "Referans"
 
-#: objects/Database/table.c:181 objects/Database/table.c:222
-#: objects/Database/table.c:250 objects/UML/class.c:157 objects/UML/class.c:224
-#: objects/UML/class_dialog.c:514 objects/UML/umlattribute.c:41
-#: objects/UML/umloperation.c:64 objects/UML/umlparameter.c:47
+#: objects/Database/table.c:182 objects/Database/table.c:223
+#: objects/Database/table.c:251 objects/UML/class.c:157 objects/UML/class.c:224
+#: objects/UML/class_dialog.c:514 objects/UML/umlattribute.c:43
+#: objects/UML/umloperation.c:66 objects/UML/umlparameter.c:49
 #: sheets/SDL.sheet:52
 msgid "Comment"
 msgstr "Yorum"
 
-#: objects/Database/table.c:183
+#: objects/Database/table.c:184
 msgid "Primary"
 msgstr "Birincil"
 
-#: objects/Database/table.c:183
+#: objects/Database/table.c:184
 msgid "Primary key"
 msgstr "Birincil anahtar"
 
-#: objects/Database/table.c:185
+#: objects/Database/table.c:186
 msgid "Nullable"
 msgstr "Null olabilir"
 
-#: objects/Database/table.c:187
+#: objects/Database/table.c:188
 msgid "Unique"
 msgstr "Benzersiz"
 
-#: objects/Database/table.c:189
+#: objects/Database/table.c:190
 msgid "Default"
 msgstr "Öntanımlı"
 
-#: objects/Database/table.c:189 objects/UML/class_operations_dialog.c:1298
+#: objects/Database/table.c:190 objects/UML/class_operations_dialog.c:1300
 msgid "Default value"
 msgstr "Öntanımlı değer"
 
 #. init data
-#: objects/Database/table.c:218 objects/Database/table.c:308
-#: objects/Database/table.c:419 sheets/Database.sheet:7
+#: objects/Database/table.c:219 objects/Database/table.c:309
+#: objects/Database/table.c:420 sheets/Database.sheet:7
 msgid "Table"
 msgstr "Tablo"
 
-#: objects/Database/table.c:227
+#: objects/Database/table.c:228
 msgid "Visible comments"
 msgstr "Görünür yorumlar"
 
-#: objects/Database/table.c:229
+#: objects/Database/table.c:230
 msgid "Underline primary keys"
 msgstr "Birincil tuşların altını çiz"
 
-#: objects/Database/table.c:232 objects/UML/class.c:172
+#: objects/Database/table.c:233 objects/UML/class.c:172
 msgid "Comment tagging"
 msgstr "Yorum etiketleme"
 
-#: objects/Database/table.c:234
+#: objects/Database/table.c:235
 msgid "Use bold font for primary keys"
 msgstr "Birincil tuşlar için kalın yazı tipi kullan"
 
-#: objects/Database/table.c:237 objects/UML/class.c:194
+#: objects/Database/table.c:238 objects/UML/class.c:194
 #: objects/UML/object.c:148
 msgid "Attributes"
 msgstr "Öznitelikler"
 
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
-#: objects/Database/table.c:241 objects/UML/association.c:275
+#: objects/Database/table.c:242 objects/UML/association.c:275
 #: objects/UML/class.c:209 objects/UML/object.c:157
 msgid "Style"
 msgstr "Tip"
 
-#: objects/Database/table.c:242 objects/UML/class.c:210
+#: objects/Database/table.c:243 objects/UML/class.c:210
 msgid "Fonts"
 msgstr "Yazı Tipleri"
 
 #. property rows
-#: objects/Database/table.c:246 objects/SADT/arrow.c:138
+#: objects/Database/table.c:247 objects/SADT/arrow.c:138
 #: objects/UML/class.c:214 objects/UML/class_dialog.c:489
 msgid "Normal"
 msgstr "Normal"
 
-#: objects/Database/table.c:248
+#: objects/Database/table.c:249
 msgid "Table name"
 msgstr "Tablo ismi"
 
 # Komut olması sebebiyle Başlık Düzeni tercih edildi
-#: objects/Database/table.c:303 objects/UML/class.c:357
+#: objects/Database/table.c:304 objects/UML/class.c:357
 msgid "Show comments"
 msgstr "Yorumları Göster"
 
@@ -3762,7 +3708,7 @@ msgstr "Türetilen:"
 msgid "Multivalue:"
 msgstr "Çoklu değer:"
 
-#: objects/ER/attribute.c:441 sheets/ER.sheet:17
+#: objects/ER/attribute.c:452 sheets/ER.sheet:17
 msgid "Attribute"
 msgstr "Öznitelik"
 
@@ -3774,11 +3720,11 @@ msgstr "Zayıf:"
 msgid "Associative:"
 msgstr "Çağrışımsal:"
 
-#: objects/ER/entity.c:406 objects/UML/classicon.c:127 sheets/ER.sheet:7
+#: objects/ER/entity.c:416 objects/UML/classicon.c:127 sheets/ER.sheet:7
 msgid "Entity"
 msgstr "Varlık"
 
-#: objects/ER/er.c:42
+#: objects/ER/er.c:41
 msgid "Entity/Relationship diagram objects"
 msgstr "Varlık/İlişki diyagram nesneleri"
 
@@ -3806,7 +3752,7 @@ msgstr "Tanımlayıcı:"
 msgid "Relationship"
 msgstr "İlişki"
 
-#: objects/flowchart/flowchart.c:35
+#: objects/flowchart/flowchart.c:36
 msgid "Flowchart objects"
 msgstr "Akış şeması nesneleri"
 
@@ -3815,13 +3761,13 @@ msgid "Shear angle"
 msgstr "Eğme açısı"
 
 #. Translators: Menu item Noun/Energy
-#: objects/FS/flow.c:136 objects/FS/flow.c:663 objects/FS/flow-ortho.c:170
+#: objects/FS/flow.c:135 objects/FS/flow.c:663 objects/FS/flow-ortho.c:170
 #: objects/FS/flow-ortho.c:681 objects/FS/function.c:1152
 msgid "Energy"
 msgstr "Enerji"
 
 #. Translators: Menu item Noun/Material
-#: objects/FS/flow.c:137 objects/FS/flow.c:664 objects/FS/flow-ortho.c:171
+#: objects/FS/flow.c:136 objects/FS/flow.c:664 objects/FS/flow-ortho.c:171
 #: objects/FS/flow-ortho.c:682 objects/FS/function.c:1128
 msgid "Material"
 msgstr "Madde"
@@ -3830,14 +3776,23 @@ msgstr "Madde"
 #. Translators: Menu item Verb/Signal/Signal
 #. Translators: Menu item Noun/Signal
 #. Translators: Menu item Noun/Signal/Signal
-#: objects/FS/flow.c:138 objects/FS/flow.c:665 objects/FS/flow-ortho.c:172
+#: objects/FS/flow.c:137 objects/FS/flow.c:665 objects/FS/flow-ortho.c:172
 #: objects/FS/flow-ortho.c:683 objects/FS/function.c:1090
 #: objects/FS/function.c:1092 objects/FS/function.c:1228
 #: objects/FS/function.c:1230
 msgid "Signal"
 msgstr "Sinyal"
 
-#: objects/FS/fs.c:41
+#: objects/FS/flow.c:144 objects/FS/flow-ortho.c:179 objects/Istar/link.c:159
+#: objects/Jackson/phenomenon.c:143 objects/KAOS/metaandorrel.c:163
+#: objects/KAOS/metabinrel.c:170 objects/UML/class_attributes_dialog.c:684
+#: objects/UML/class_operations_dialog.c:887
+#: objects/UML/class_operations_dialog.c:1288
+#: objects/UML/class_templates_dialog.c:526
+msgid "Type:"
+msgstr "Tür:"
+
+#: objects/FS/fs.c:40
 msgid "Function structure diagram objects"
 msgstr "İşlev yapısı diyagram nesneleri"
 
@@ -4447,7 +4402,7 @@ msgstr "Çoğalt"
 
 #. Translators: Menu item Verb/Control Magnitude/Change/Scale
 #. FIXME: mark read-only
-#: objects/FS/function.c:1048 objects/Misc/measure.c:185
+#: objects/FS/function.c:1048 objects/Misc/measure.c:187
 #: plug-ins/python/scascale.py:72
 msgid "Scale"
 msgstr "Ölçekle"
@@ -4688,7 +4643,7 @@ msgstr "Güç"
 
 #. Translators: Menu item Noun/Energy/Mechanical/Rotation
 #: objects/FS/function.c:1162 objects/standard/box.c:163
-#: objects/standard/ellipse.c:147 objects/standard/outline.c:99
+#: objects/standard/ellipse.c:147 objects/standard/outline.c:102
 msgid "Rotation"
 msgstr "Döndürme"
 
@@ -4889,7 +4844,7 @@ msgstr "Renk"
 msgid "The condition's color"
 msgstr "Koşulun rengi"
 
-#: objects/GRAFCET/grafcet.c:44
+#: objects/GRAFCET/grafcet.c:45
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET Diyagram Nesneleri"
 
@@ -4993,13 +4948,13 @@ msgstr "Kenar türü:"
 
 #: objects/GRAFCET/vergent.c:466 objects/Istar/other.c:532
 #: objects/Jackson/domain.c:621 objects/KAOS/goal.c:664
-#: objects/KAOS/other.c:603 objects/SADT/box.c:499 objects/standard/line.c:329
+#: objects/KAOS/other.c:603 objects/SADT/box.c:499 objects/standard/line.c:330
 msgid "Add connection point"
 msgstr "Bağlantı noktası ekle"
 
 #: objects/GRAFCET/vergent.c:467 objects/Istar/other.c:533
 #: objects/Jackson/domain.c:622 objects/KAOS/goal.c:665
-#: objects/KAOS/other.c:604 objects/SADT/box.c:500 objects/standard/line.c:330
+#: objects/KAOS/other.c:604 objects/SADT/box.c:500 objects/standard/line.c:331
 msgid "Delete connection point"
 msgstr "Bağlantı noktasını sil"
 
@@ -5235,7 +5190,7 @@ msgstr "İkinci ok çizgi genişliği"
 msgid "Show hours"
 msgstr "Saatleri göster"
 
-#: objects/Misc/diagram_as_object.c:112
+#: objects/Misc/diagram_as_object.c:114
 msgid "Diagram file"
 msgstr "Diyagram dosyası"
 
@@ -5255,255 +5210,255 @@ msgstr "Izgara çizgi rengi"
 msgid "Grid line width"
 msgstr "Izgara çizgi genişliği"
 
-#: objects/Misc/libmisc.c:41
+#: objects/Misc/libmisc.c:42
 msgid "Miscellaneous objects"
 msgstr "Çeşitli nesneler"
 
-#: objects/Misc/measure.c:168
+#: objects/Misc/measure.c:170
 msgctxt "length unit"
 msgid "cm"
 msgstr "cm"
 
-#: objects/Misc/measure.c:169
+#: objects/Misc/measure.c:171
 msgctxt "length unit"
 msgid "dm"
 msgstr "dm"
 
-#: objects/Misc/measure.c:170
+#: objects/Misc/measure.c:172
 msgctxt "length unit"
 msgid "ft"
 msgstr "ft"
 
-#: objects/Misc/measure.c:171
+#: objects/Misc/measure.c:173
 msgctxt "length unit"
 msgid "in"
 msgstr "inc"
 
-#: objects/Misc/measure.c:172
+#: objects/Misc/measure.c:174
 msgctxt "length unit"
 msgid "m"
 msgstr "m"
 
-#: objects/Misc/measure.c:173
+#: objects/Misc/measure.c:175
 msgctxt "length unit"
 msgid "mm"
 msgstr "mm"
 
-#: objects/Misc/measure.c:174
+#: objects/Misc/measure.c:176
 msgctxt "length unit"
 msgid "pt"
 msgstr "pt"
 
-#: objects/Misc/measure.c:175
+#: objects/Misc/measure.c:177
 msgctxt "length unit"
 msgid "pi"
 msgstr "pi"
 
 #. PROP_FLAG_VISIBLE|
-#: objects/Misc/measure.c:184 sheets/ChemEng.sheet:17
+#: objects/Misc/measure.c:186 sheets/ChemEng.sheet:17
 msgid "Measurement"
 msgstr "Ölçüm"
 
-#: objects/Misc/measure.c:186
+#: objects/Misc/measure.c:188
 msgid "Unit"
 msgstr "Birim"
 
-#: objects/Misc/measure.c:187
+#: objects/Misc/measure.c:189
 msgid "Precision"
 msgstr "Hassasiyet"
 
-#: objects/Misc/n_gon.c:103
+#: objects/Misc/n_gon.c:105
 msgid "Convex"
 msgstr "Dışbükey"
 
-#: objects/Misc/n_gon.c:104
+#: objects/Misc/n_gon.c:106
 msgid "Concave"
 msgstr "İçbükey"
 
-#: objects/Misc/n_gon.c:105
+#: objects/Misc/n_gon.c:107
 msgid "Crossing"
 msgstr "Geçit"
 
-#: objects/Misc/n_gon.c:117
+#: objects/Misc/n_gon.c:119
 msgid "N-gon kind"
 msgstr "N-gen cinsi"
 
-#: objects/Misc/n_gon.c:119
+#: objects/Misc/n_gon.c:121
 msgid "Number of rays"
 msgstr "Işın sayısı"
 
-#: objects/Misc/n_gon.c:121
+#: objects/Misc/n_gon.c:123
 msgid "Density"
 msgstr "Sıklık"
 
-#: objects/Misc/n_gon.c:121
+#: objects/Misc/n_gon.c:123
 msgid "Winding number for Crossing"
 msgstr "Geçiş İçin Sarım Numarası"
 
 #. no property widget, but still to be serialized
-#: objects/Misc/n_gon.c:124
+#: objects/Misc/n_gon.c:126
 msgid "Center position"
 msgstr "Merkez konumu"
 
 #. no property widget, but still to be serialized
-#: objects/Misc/n_gon.c:126
+#: objects/Misc/n_gon.c:128
 msgid "Ray length"
 msgstr "Işın uzunluğu"
 
-#: objects/Misc/n_gon.c:328
+#: objects/Misc/n_gon.c:330
 msgid "Triangle"
 msgstr "Üçgen"
 
-#: objects/Misc/n_gon.c:329 objects/standard/box.c:146
+#: objects/Misc/n_gon.c:331 objects/standard/box.c:146
 #: objects/standard/box.c:811
 msgid "Square"
 msgstr "Kare"
 
-#: objects/Misc/n_gon.c:330
+#: objects/Misc/n_gon.c:332
 msgid "Pentagon"
 msgstr "Beşgen"
 
-#: objects/Misc/n_gon.c:330
+#: objects/Misc/n_gon.c:332
 msgid "Pentagram"
 msgstr "Beş köşeli yıldız"
 
-#: objects/Misc/n_gon.c:331
+#: objects/Misc/n_gon.c:333
 msgid "Hexagon"
 msgstr "Altıgen"
 
-#: objects/Misc/n_gon.c:331
+#: objects/Misc/n_gon.c:333
 msgid "Hexagram"
 msgstr "Altı köşeli yıldız"
 
-#: objects/Misc/n_gon.c:332
+#: objects/Misc/n_gon.c:334
 msgid "Heptagon"
 msgstr "Yedigen"
 
-#: objects/Misc/n_gon.c:332
+#: objects/Misc/n_gon.c:334
 msgid "Heptagram"
 msgstr "Yedi köşeli yıldız"
 
-#: objects/Misc/n_gon.c:333
+#: objects/Misc/n_gon.c:335
 msgid "Octagon"
 msgstr "Sekizgen"
 
-#: objects/Misc/n_gon.c:333
+#: objects/Misc/n_gon.c:335
 msgid "Octagram"
 msgstr "Sekiz köşeli yıldız"
 
-#: objects/Misc/n_gon.c:334
+#: objects/Misc/n_gon.c:336
 msgid "Enneagon"
 msgstr "Dokuzgen"
 
-#: objects/Misc/n_gon.c:334
+#: objects/Misc/n_gon.c:336
 msgid "Enneagram"
 msgstr "Dokuz köşeli yıldız"
 
-#: objects/Misc/n_gon.c:335
+#: objects/Misc/n_gon.c:337
 msgid "Decagon"
 msgstr "Ongen"
 
-#: objects/Misc/n_gon.c:335
+#: objects/Misc/n_gon.c:337
 msgid "Decagram"
 msgstr "On köşeli yıldız"
 
-#: objects/Misc/n_gon.c:336
+#: objects/Misc/n_gon.c:338
 msgid "Hendecagon"
 msgstr "Onbirgen"
 
-#: objects/Misc/n_gon.c:336
+#: objects/Misc/n_gon.c:338
 msgid "Hendecagram"
 msgstr "Onbir köşeli yıldız"
 
-#: objects/Misc/n_gon.c:337
+#: objects/Misc/n_gon.c:339
 msgid "Dodecagon"
 msgstr "Onikigen"
 
-#: objects/Misc/n_gon.c:337
+#: objects/Misc/n_gon.c:339
 msgid "Dodecagram"
 msgstr "Oniki köşeli yıldız"
 
-#: objects/Misc/n_gon.c:338
+#: objects/Misc/n_gon.c:340
 msgid "Tridecagon"
 msgstr "Onüçgen"
 
-#: objects/Misc/n_gon.c:338
+#: objects/Misc/n_gon.c:340
 msgid "Tridecagram"
 msgstr "Onüç köşeli yıldız"
 
-#: objects/Misc/n_gon.c:339
+#: objects/Misc/n_gon.c:341
 msgid "Tetradecagon"
 msgstr "Ondörtgen"
 
-#: objects/Misc/n_gon.c:339
+#: objects/Misc/n_gon.c:341
 msgid "Tetradecagram"
 msgstr "Ondört köşeli yıldız"
 
-#: objects/Misc/n_gon.c:340
+#: objects/Misc/n_gon.c:342
 msgid "Pentadecagon"
 msgstr "Onbeşgen"
 
-#: objects/Misc/n_gon.c:340
+#: objects/Misc/n_gon.c:342
 msgid "Pentadecagram"
 msgstr "Onbeş köşeli yıldız"
 
-#: objects/Misc/n_gon.c:341
+#: objects/Misc/n_gon.c:343
 msgid "Hexadecagon"
 msgstr "Onaltıgen"
 
-#: objects/Misc/n_gon.c:341
+#: objects/Misc/n_gon.c:343
 msgid "Hexadecagram"
 msgstr "Onaltı köşeli yıldız"
 
-#: objects/Misc/n_gon.c:342
+#: objects/Misc/n_gon.c:344
 msgid "Heptadecagon"
 msgstr "Onyedigen"
 
-#: objects/Misc/n_gon.c:342
+#: objects/Misc/n_gon.c:344
 msgid "Heptadecagram"
 msgstr "Onyedi köşeli yıldız"
 
-#: objects/Misc/n_gon.c:343
+#: objects/Misc/n_gon.c:345
 msgid "Octadecagon"
 msgstr "Onsekizgen"
 
-#: objects/Misc/n_gon.c:343
+#: objects/Misc/n_gon.c:345
 msgid "Octadecagram"
 msgstr "Onsekiz köşeli yıldız"
 
-#: objects/Misc/n_gon.c:344
+#: objects/Misc/n_gon.c:346
 msgid "Enneadecagon"
 msgstr "Ondokuzgen"
 
-#: objects/Misc/n_gon.c:344
+#: objects/Misc/n_gon.c:346
 msgid "Enneadecagram"
 msgstr "Ondokuz köşeli yıldız"
 
-#: objects/Misc/n_gon.c:345
+#: objects/Misc/n_gon.c:347
 msgid "Icosagon"
 msgstr "Yirmigen"
 
-#: objects/Misc/n_gon.c:345
+#: objects/Misc/n_gon.c:347
 msgid "Icosagram"
 msgstr "Yirmi köşeli yıldız"
 
-#: objects/Misc/n_gon.c:361
+#: objects/Misc/n_gon.c:363
 msgid "N-gon"
 msgstr "N-gen"
 
-#: objects/Misc/n_gon.c:363
+#: objects/Misc/n_gon.c:365
 msgid "N-gram"
 msgstr "N köşeli yıldız"
 
-#: objects/Misc/n_gon.c:365
+#: objects/Misc/n_gon.c:367
 msgid "Star"
 msgstr "Yıldız"
 
-#: objects/Misc/tree.c:619 objects/network/bus.c:620
+#: objects/Misc/tree.c:620 objects/network/bus.c:620
 msgid "Add Handle"
 msgstr "Tutamaç Ekle"
 
-#: objects/Misc/tree.c:620 objects/network/bus.c:621
+#: objects/Misc/tree.c:621 objects/network/bus.c:621
 msgid "Delete Handle"
 msgstr "Tutamacı Sil"
 
@@ -5515,7 +5470,7 @@ msgstr "Dilimler"
 msgid "Base Station"
 msgstr "Temel İstasyon"
 
-#: objects/network/network.c:38
+#: objects/network/network.c:39
 msgid "Network diagram objects"
 msgstr "Ağ diyagram nesneleri"
 
@@ -5523,7 +5478,7 @@ msgstr "Ağ diyagram nesneleri"
 msgid "Radius"
 msgstr "Yarıçap"
 
-#: objects/network/wanlink.c:119
+#: objects/network/wanlink.c:120
 msgid "Width"
 msgstr "Genişlik"
 
@@ -5557,7 +5512,7 @@ msgid ""
 "rendered gray"
 msgstr "Okumayı kolaylaştırmak için başlangıç ve bitiş akışgrileştirilebilir"
 
-#: objects/SADT/arrow.c:498
+#: objects/SADT/arrow.c:502
 msgid "SADT Arrow"
 msgstr "SADT Oku"
 
@@ -5573,25 +5528,25 @@ msgstr "Kutunun alt sağ kenarında görünen tanımlayıcı"
 msgid "SADT box"
 msgstr "SADT kutusu"
 
-#: objects/SADT/sadt.c:39
+#: objects/SADT/sadt.c:40
 msgid "SADT diagram objects"
 msgstr "SADT diyagram nesneleri"
 
-#: objects/standard/arc.c:118
+#: objects/standard/arc.c:117
 msgid "Curve distance"
 msgstr "Kavis uzaklığı"
 
-#: objects/standard/bezier.c:147 objects/standard/line.c:123
+#: objects/standard/bezier.c:147 objects/standard/line.c:124
 #: objects/standard/polyline.c:109
 msgid "Line gaps"
 msgstr "Çizgi boşlukları"
 
-#: objects/standard/bezier.c:149 objects/standard/line.c:125
+#: objects/standard/bezier.c:149 objects/standard/line.c:126
 #: objects/standard/polyline.c:111
 msgid "Absolute start gap"
 msgstr "Mutlak başlangıç boşluğu"
 
-#: objects/standard/bezier.c:151 objects/standard/line.c:127
+#: objects/standard/bezier.c:151 objects/standard/line.c:128
 #: objects/standard/polyline.c:113
 msgid "Absolute end gap"
 msgstr "Mutlak bitiş boşluğu"
@@ -5644,76 +5599,76 @@ msgstr "Sabit en-boy oranı"
 msgid "Circle"
 msgstr "Daire"
 
-#: objects/standard/image.c:117
+#: objects/standard/image.c:119
 msgid "Image file"
 msgstr "Resim dosyası"
 
-#: objects/standard/image.c:119
+#: objects/standard/image.c:121
 msgid "Inline data"
 msgstr "Satır içi veri"
 
-#: objects/standard/image.c:119
+#: objects/standard/image.c:121
 msgid "Store image data in diagram"
 msgstr "Resim verisini diyagramda depola"
 
-#: objects/standard/image.c:121
+#: objects/standard/image.c:123
 msgid "Pixbuf"
 msgstr "Pixbuf"
 
-#: objects/standard/image.c:121
+#: objects/standard/image.c:123
 msgid "The Pixbuf reference"
 msgstr "Pixbuf referansı"
 
-#: objects/standard/image.c:123
+#: objects/standard/image.c:125
 msgid "Draw border"
 msgstr "Kenar çiz"
 
-#: objects/standard/image.c:125
+#: objects/standard/image.c:127
 msgid "Keep aspect ratio"
 msgstr "En-boy oranını koru"
 
-#: objects/standard/image.c:127
+#: objects/standard/image.c:129
 msgid "Angle"
 msgstr "Açı"
 
-#: objects/standard/image.c:256
+#: objects/standard/image.c:258
 msgid "Can't save image without filename"
 msgstr "Dosya adı olmadan resim kaydedilemiyor"
 
-#: objects/standard/image.c:761
+#: objects/standard/image.c:763
 msgid "Inconsistent pixbuf during image save."
 msgstr "Resim kaydı sırasında tutarsız pixbuf."
 
-#: objects/standard/image.c:869
+#: objects/standard/image.c:871
 #, c-format
 msgid "The image file '%s' was not found.\n"
 msgstr "Resim dosyası '%s' bulunamadı.\n"
 
-#: objects/standard/line.c:114
+#: objects/standard/line.c:115
 msgid "Arrows"
 msgstr "Oklar"
 
-#: objects/standard/line.c:119
+#: objects/standard/line.c:120
 msgid "Start point"
 msgstr "Başlama noktası"
 
-#: objects/standard/line.c:121
+#: objects/standard/line.c:122
 msgid "End point"
 msgstr "Bitiş noktası"
 
-#: objects/standard/line.c:331
+#: objects/standard/line.c:332
 msgid "Upgrade to Polyline"
 msgstr "Çoklu çizgiye güncelle"
 
-#: objects/standard/line.c:332
+#: objects/standard/line.c:333
 msgid "Upgrade to Zigzagline"
 msgstr "Zikzak çizgisine güncelle"
 
-#: objects/standard/outline.c:97
+#: objects/standard/outline.c:100
 msgid "Text content"
 msgstr "Metin içeriği"
 
-#: objects/standard/outline.c:99
+#: objects/standard/outline.c:102
 msgid "Angle to rotate the outline"
 msgstr "Yerleşimi döndürme açısı"
 
@@ -5725,7 +5680,7 @@ msgstr "Köşe Ekle"
 msgid "Delete Corner"
 msgstr "Köşe Sil"
 
-#: objects/standard/standard.c:56
+#: objects/standard/standard.c:57
 msgid "Standard objects"
 msgstr "Standart nesneler"
 
@@ -5753,11 +5708,11 @@ msgstr "Metin açısı"
 msgid "Text margin"
 msgstr "Metin marjı"
 
-#: objects/standard/zigzagline.c:462
+#: objects/standard/zigzagline.c:466
 msgid "Upgrade to Bezierline"
 msgstr "Bezyer Çizgisine Güncelle"
 
-#: objects/UML/actor.c:359 objects/UML/actor.c:361 sheets/UML.sheet:45
+#: objects/UML/actor.c:367 objects/UML/actor.c:369 sheets/UML.sheet:45
 msgid "Actor"
 msgstr "Eylemci"
 
@@ -5797,8 +5752,8 @@ msgstr "Taraf A"
 msgid "Multiplicity"
 msgstr "Çoklu oluşum"
 
-#: objects/UML/association.c:259 objects/UML/umlattribute.c:43
-#: objects/UML/umloperation.c:69
+#: objects/UML/association.c:259 objects/UML/umlattribute.c:45
+#: objects/UML/umloperation.c:71
 msgid "Visibility"
 msgstr "Görünürlük"
 
@@ -5811,72 +5766,72 @@ msgid "Side B"
 msgstr "Taraf B"
 
 #. Attributes page:
-#: objects/UML/class_attributes_dialog.c:548
+#: objects/UML/class_attributes_dialog.c:550
 msgid "_Attributes"
 msgstr "_Öznitelikler"
 
-#: objects/UML/class_attributes_dialog.c:605
+#: objects/UML/class_attributes_dialog.c:607
 msgid "Add Attribute"
 msgstr "Öznitelik Ekle"
 
-#: objects/UML/class_attributes_dialog.c:618
+#: objects/UML/class_attributes_dialog.c:620
 msgid "Remove Attribute"
 msgstr "Öznitelik Kaldır"
 
-#: objects/UML/class_attributes_dialog.c:631
+#: objects/UML/class_attributes_dialog.c:633
 msgid "Move Attribute Up"
 msgstr "Özniteliği Yukarı Taşı"
 
-#: objects/UML/class_attributes_dialog.c:644
+#: objects/UML/class_attributes_dialog.c:646
 msgid "Move Attribute Down"
 msgstr "Özniteliği Aşağı Taşı"
 
-#: objects/UML/class_attributes_dialog.c:656
+#: objects/UML/class_attributes_dialog.c:658
 msgid "Attribute data"
 msgstr "Öznitelik verisi"
 
-#: objects/UML/class_attributes_dialog.c:695
+#: objects/UML/class_attributes_dialog.c:697
 msgid "Value:"
 msgstr "Değer:"
 
-#: objects/UML/class_attributes_dialog.c:708 objects/UML/class_dialog.c:371
-#: objects/UML/class_operations_dialog.c:958
-#: objects/UML/class_operations_dialog.c:1309
+#: objects/UML/class_attributes_dialog.c:710 objects/UML/class_dialog.c:371
+#: objects/UML/class_operations_dialog.c:960
+#: objects/UML/class_operations_dialog.c:1311
 msgid "Comment:"
 msgstr "Yorum:"
 
-#: objects/UML/class_attributes_dialog.c:737
-#: objects/UML/class_operations_dialog.c:908
+#: objects/UML/class_attributes_dialog.c:739
+#: objects/UML/class_operations_dialog.c:910
 msgid "Visibility:"
 msgstr "Görünürlük:"
 
-#: objects/UML/class_attributes_dialog.c:743
-#: objects/UML/class_operations_dialog.c:915 objects/UML/uml.c:101
+#: objects/UML/class_attributes_dialog.c:745
+#: objects/UML/class_operations_dialog.c:917 objects/UML/uml.c:101
 msgid "Public"
 msgstr "Genel"
 
-#: objects/UML/class_attributes_dialog.c:744
-#: objects/UML/class_operations_dialog.c:916 objects/UML/uml.c:102
+#: objects/UML/class_attributes_dialog.c:746
+#: objects/UML/class_operations_dialog.c:918 objects/UML/uml.c:102
 msgid "Private"
 msgstr "Özel"
 
-#: objects/UML/class_attributes_dialog.c:745
-#: objects/UML/class_operations_dialog.c:917 objects/UML/uml.c:103
+#: objects/UML/class_attributes_dialog.c:747
+#: objects/UML/class_operations_dialog.c:919 objects/UML/uml.c:103
 msgid "Protected"
 msgstr "Korumalı"
 
-#: objects/UML/class_attributes_dialog.c:746
-#: objects/UML/class_operations_dialog.c:918 objects/UML/uml.c:104
+#: objects/UML/class_attributes_dialog.c:748
+#: objects/UML/class_operations_dialog.c:920 objects/UML/uml.c:104
 msgid "Implementation"
 msgstr "Gerçekleme"
 
 #. end: Inheritance type
-#: objects/UML/class_attributes_dialog.c:757
-#: objects/UML/class_operations_dialog.c:941
+#: objects/UML/class_attributes_dialog.c:759
+#: objects/UML/class_operations_dialog.c:943
 msgid "Class scope"
 msgstr "Sınıf kapsamı"
 
-#: objects/UML/class.c:151 objects/UML/class.c:364 objects/UML/class.c:1936
+#: objects/UML/class.c:151 objects/UML/class.c:364 objects/UML/class.c:1938
 #: sheets/UML.sheet:7
 msgid "Class"
 msgstr "Sınıf"
@@ -5886,14 +5841,14 @@ msgstr "Sınıf"
 #: objects/UML/class.c:155 objects/UML/classicon.c:134
 #: objects/UML/classicon.c:136 objects/UML/component.c:127
 #: objects/UML/large_package.c:136 objects/UML/object.c:144
-#: objects/UML/small_package.c:123 objects/UML/umloperation.c:66
+#: objects/UML/small_package.c:123 objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Stereotip:"
 
 # Abstract Class bağlamında
 #: objects/UML/class.c:162 objects/UML/class.c:218
 #: objects/UML/class_dialog.c:387 objects/UML/class_dialog.c:499
-#: objects/UML/class_operations_dialog.c:933 objects/UML/umlattribute.c:46
+#: objects/UML/class_operations_dialog.c:935 objects/UML/umlattribute.c:48
 #: objects/UML/uml.c:109
 msgid "Abstract"
 msgstr "Soyut"
@@ -5919,7 +5874,7 @@ msgstr "Görünür Yorumlar"
 msgid "Allow resizing"
 msgstr "Boyutlandırmaya İzin Ver"
 
-#: objects/UML/class.c:178 objects/UML/class.c:1933
+#: objects/UML/class.c:178 objects/UML/class.c:1935
 msgid "Template"
 msgstr "Şablon"
 
@@ -5970,7 +5925,7 @@ msgstr "_Sınıf"
 msgid "Class name:"
 msgstr "Sınıf adı:"
 
-#: objects/UML/class_dialog.c:364 objects/UML/class_operations_dialog.c:896
+#: objects/UML/class_dialog.c:364 objects/UML/class_operations_dialog.c:898
 #: objects/UML/dependency.c:136 objects/UML/generalization.c:133
 #: objects/UML/realizes.c:133
 msgid "Stereotype:"
@@ -6010,7 +5965,7 @@ msgid "_Style"
 msgstr "_Biçem"
 
 #. head line
-#: objects/UML/class_dialog.c:480 objects/UML/umlparameter.c:49
+#: objects/UML/class_dialog.c:480 objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "Tür"
 
@@ -6048,122 +6003,122 @@ msgid "Is object"
 msgstr "Nesne mi"
 
 #. end: Visibility
-#: objects/UML/class_operations_dialog.c:926
+#: objects/UML/class_operations_dialog.c:928
 msgid "Inheritance type:"
 msgstr "Miras türü:"
 
-#: objects/UML/class_operations_dialog.c:934 objects/UML/uml.c:110
+#: objects/UML/class_operations_dialog.c:936 objects/UML/uml.c:110
 msgid "Polymorphic (virtual)"
 msgstr "Çok biçimli (sanal)"
 
-#: objects/UML/class_operations_dialog.c:935 objects/UML/uml.c:111
+#: objects/UML/class_operations_dialog.c:937 objects/UML/uml.c:111
 msgid "Leaf (final)"
 msgstr "Yaprak (son)"
 
-#: objects/UML/class_operations_dialog.c:950 objects/UML/umloperation.c:73
+#: objects/UML/class_operations_dialog.c:952 objects/UML/umloperation.c:75
 msgid "Query"
 msgstr "Sorgu"
 
-#: objects/UML/class_operations_dialog.c:1036
+#: objects/UML/class_operations_dialog.c:1038
 msgid "Parameters:"
 msgstr "Parametreler:"
 
-#: objects/UML/class_operations_dialog.c:1089
+#: objects/UML/class_operations_dialog.c:1091
 msgid "Add Parameter"
 msgstr "Parametre Ekle"
 
-#: objects/UML/class_operations_dialog.c:1104
+#: objects/UML/class_operations_dialog.c:1106
 msgid "Remove Parameter"
 msgstr "Parametre Kaldır"
 
-#: objects/UML/class_operations_dialog.c:1119
+#: objects/UML/class_operations_dialog.c:1121
 msgid "Move Parameter Up"
 msgstr "Parametreleri Yukarı Taşı"
 
-#: objects/UML/class_operations_dialog.c:1134
+#: objects/UML/class_operations_dialog.c:1136
 msgid "Move Parameter Down"
 msgstr "Parametreleri Aşağı Taşı"
 
-#: objects/UML/class_operations_dialog.c:1264
+#: objects/UML/class_operations_dialog.c:1266
 msgid "Parameter data"
 msgstr "Parametre verisi"
 
 # fuzzy: defined veya default kelimesinin kısaltması olabilir, belirsiz
-#: objects/UML/class_operations_dialog.c:1297
+#: objects/UML/class_operations_dialog.c:1299
 msgid "Def. value:"
 msgstr "Tan. değer:"
 
-#: objects/UML/class_operations_dialog.c:1331
+#: objects/UML/class_operations_dialog.c:1333
 msgid "Direction:"
 msgstr "Yön:"
 
-#: objects/UML/class_operations_dialog.c:1340 objects/UML/umlparameter.c:32
+#: objects/UML/class_operations_dialog.c:1342 objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "Tanımsız"
 
-#: objects/UML/class_operations_dialog.c:1341 objects/UML/umlparameter.c:33
+#: objects/UML/class_operations_dialog.c:1343 objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "Girdi"
 
-#: objects/UML/class_operations_dialog.c:1342 objects/UML/umlparameter.c:34
+#: objects/UML/class_operations_dialog.c:1344 objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "Çıktı"
 
-#: objects/UML/class_operations_dialog.c:1343 objects/UML/umlparameter.c:35
+#: objects/UML/class_operations_dialog.c:1345 objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "Girdi ve Çıktı"
 
 #. Operations page:
-#: objects/UML/class_operations_dialog.c:1395
+#: objects/UML/class_operations_dialog.c:1397
 msgid "_Operations"
 msgstr "_İşlemler"
 
-#: objects/UML/class_operations_dialog.c:1455
+#: objects/UML/class_operations_dialog.c:1457
 msgid "Add Operation"
 msgstr "İşlem Ekle"
 
-#: objects/UML/class_operations_dialog.c:1468
+#: objects/UML/class_operations_dialog.c:1470
 msgid "Remove Operation"
 msgstr "İşlem Kaldır"
 
-#: objects/UML/class_operations_dialog.c:1481
+#: objects/UML/class_operations_dialog.c:1483
 msgid "Move Operation Up"
 msgstr "Işlemi Yukarı Taşı"
 
-#: objects/UML/class_operations_dialog.c:1494
+#: objects/UML/class_operations_dialog.c:1496
 msgid "Move Operation Down"
 msgstr "Işlemi Aşağı Taşı"
 
-#: objects/UML/class_operations_dialog.c:1506
+#: objects/UML/class_operations_dialog.c:1508
 msgid "Operation data"
 msgstr "Işlem verisi"
 
 #. Templates page:
-#: objects/UML/class_templates_dialog.c:392
+#: objects/UML/class_templates_dialog.c:394
 msgid "_Templates"
 msgstr "_Şablonlar"
 
-#: objects/UML/class_templates_dialog.c:398 sheets/UML.sheet:10
+#: objects/UML/class_templates_dialog.c:400 sheets/UML.sheet:10
 msgid "Template class"
 msgstr "Şablon sınıfı"
 
-#: objects/UML/class_templates_dialog.c:450
+#: objects/UML/class_templates_dialog.c:452
 msgid "Add Formal Parameter"
 msgstr "Formal Parametre Ekle"
 
-#: objects/UML/class_templates_dialog.c:463
+#: objects/UML/class_templates_dialog.c:465
 msgid "Remove Formal Parameter"
 msgstr "Formal Parametreyi Kaldır"
 
-#: objects/UML/class_templates_dialog.c:476
+#: objects/UML/class_templates_dialog.c:478
 msgid "Move Formal Parameter Up"
 msgstr "Formal Parametreyi Yukarı Taşı"
 
-#: objects/UML/class_templates_dialog.c:489
+#: objects/UML/class_templates_dialog.c:491
 msgid "Move Formal Parameter Down"
 msgstr "Formal Parametreyi Aşağı Taşı"
 
-#: objects/UML/class_templates_dialog.c:502
+#: objects/UML/class_templates_dialog.c:504
 msgid "Formal parameter data"
 msgstr "Formal parametre verisi"
 
@@ -6292,7 +6247,7 @@ msgstr "Çıkış eylemi"
 
 #. Would like to create a state_term instead, but making the connections
 #. * is a pain
-#: objects/UML/state.c:499
+#: objects/UML/state.c:504
 msgid ""
 "This diagram uses the State object for initial/final states.\n"
 "This option will go away in future versions.\n"
@@ -6327,11 +6282,11 @@ msgstr "Gözetim"
 msgid "Condition for taking this transition when the event is fired"
 msgstr "Olay ateşlendiğinde bu geçişi gerçekleştirme koşulu"
 
-#: objects/UML/umlattribute.c:48 objects/UML/umloperation.c:75
+#: objects/UML/umlattribute.c:50 objects/UML/umloperation.c:77
 msgid "Scope"
 msgstr "Kapsam"
 
-#: objects/UML/umlattribute.c:48
+#: objects/UML/umlattribute.c:50
 msgid "Class scope (C++ static class variable)"
 msgstr "Sınıf kapsamı (C++ statik sınıf değişkeni)"
 
@@ -6339,15 +6294,15 @@ msgstr "Sınıf kapsamı (C++ statik sınıf değişkeni)"
 msgid "Unified Modelling Language diagram objects UML 1.3"
 msgstr "Birleşik Modelleme Dili diyagram nesneleri UML 1.3"
 
-#: objects/UML/umloperation.c:71
+#: objects/UML/umloperation.c:73
 msgid "Inheritance"
 msgstr "Miras"
 
-#: objects/UML/umloperation.c:73
+#: objects/UML/umloperation.c:75
 msgid "C++ const method"
 msgstr "C++ const yöntemi"
 
-#: objects/UML/umloperation.c:75
+#: objects/UML/umloperation.c:77
 msgid "Class scope (C++ static method)"
 msgstr "Sınıf kapsamı (C++ statik yöntem)"
 
@@ -6359,55 +6314,55 @@ msgstr "Işbirliği"
 msgid "Text outside"
 msgstr "Dıştaki metin"
 
-#: plug-ins/cairo/diacairo.c:65
+#: plug-ins/cairo/diacairo.c:68
 msgid "Cairo PostScript"
 msgstr "Cairo PostScript"
 
-#: plug-ins/cairo/diacairo.c:76
+#: plug-ins/cairo/diacairo.c:79
 msgid "Cairo Portable Document Format"
 msgstr "Cairo Taşınabilir Belge Biçimi"
 
-#: plug-ins/cairo/diacairo.c:87
+#: plug-ins/cairo/diacairo.c:90
 msgid "Cairo Scalable Vector Graphics"
 msgstr "Cario Ölçeklenebilir Vektör Grafikleri (SVG)"
 
-#: plug-ins/cairo/diacairo.c:98
+#: plug-ins/cairo/diacairo.c:101
 msgid "CairoScript"
 msgstr "CairoScript"
 
-#: plug-ins/cairo/diacairo.c:109
+#: plug-ins/cairo/diacairo.c:112
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: plug-ins/cairo/diacairo.c:117
+#: plug-ins/cairo/diacairo.c:120
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (alfa ile)"
 
-#: plug-ins/cairo/diacairo.c:127
+#: plug-ins/cairo/diacairo.c:130
 msgid "Cairo EMF"
 msgstr "Cairo EMF"
 
-#: plug-ins/cairo/diacairo.c:137
+#: plug-ins/cairo/diacairo.c:140
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: plug-ins/cairo/diacairo.c:153
+#: plug-ins/cairo/diacairo.c:156
 msgid "Cairo Clipboard Copy"
 msgstr "Cairo Pano Kopyası"
 
-#: plug-ins/cairo/diacairo.c:167
+#: plug-ins/cairo/diacairo.c:170
 msgid "Copy _Diagram"
 msgstr "_Diyagram Kopyala"
 
-#: plug-ins/cairo/diacairo.c:177
+#: plug-ins/cairo/diacairo.c:180
 msgid "Print (GTK) …"
 msgstr "Yazdır (GTK) …"
 
-#: plug-ins/cairo/diacairo.c:223
+#: plug-ins/cairo/diacairo.c:226
 msgid "Cairo-based Rendering"
 msgstr "Cario Temelli İşleme"
 
-#: plug-ins/cgm/cgm.c:1038
+#: plug-ins/cgm/cgm.c:1039
 msgid ""
 "Image row length larger than maximum cell array.\n"
 "Image not exported to CGM."
@@ -6415,93 +6370,93 @@ msgstr ""
 "Resmin sıra uzunluğu maksimum hücre genişliğinden fazla.\n"
 "Resim CGM'e gönderilemedi."
 
-#: plug-ins/cgm/cgm.c:1361
+#: plug-ins/cgm/cgm.c:1362
 msgid "Computer Graphics Metafile"
 msgstr "Computer Graphics Üst Veri Dosyası"
 
-#: plug-ins/cgm/cgm.c:1386
+#: plug-ins/cgm/cgm.c:1387
 msgid "Computer Graphics Metafile export filter"
 msgstr "Computer Graphics Üst Veri Dosyası dışa aktarma filtresi"
 
-#: plug-ins/drs/dia-render-script.c:168 plug-ins/drs/dia-render-script.c:173
+#: plug-ins/drs/dia-render-script.c:175 plug-ins/drs/dia-render-script.c:180
 msgid "DiaRenderScript"
 msgstr "DiaRenderScript"
 
-#: plug-ins/drs/dia-render-script.c:197
+#: plug-ins/drs/dia-render-script.c:204
 msgid "DiaRenderScript filter"
 msgstr "DiaRenderScript filtresi"
 
-#: plug-ins/drs/dia-render-script-import.c:512
+#: plug-ins/drs/dia-render-script-import.c:513
 msgid "Broken file?"
 msgstr "Bozuk dosya?"
 
-#: plug-ins/dxf/dxf.c:50
+#: plug-ins/dxf/dxf.c:52
 msgid "Drawing Interchange File import and export filters"
 msgstr "DXF (Drawing Interchange File) içe ve dışa aktarma filtreleri"
 
-#: plug-ins/dxf/dxf-export.c:665 plug-ins/dxf/dxf-import.c:1428
+#: plug-ins/dxf/dxf-export.c:666 plug-ins/dxf/dxf-import.c:1429
 msgid "Drawing Interchange File"
 msgstr "Çizim Takas Dosyası (Drawing Interchange File)"
 
-#: plug-ins/dxf/dxf-import.c:1337
+#: plug-ins/dxf/dxf-import.c:1338
 #, c-format
 msgid "read_dxf_codes failed on '%s'"
 msgstr "read_dxf_codes '%s' için başarısız oldu"
 
-#: plug-ins/dxf/dxf-import.c:1344
+#: plug-ins/dxf/dxf-import.c:1345
 #, c-format
 msgid "Binary DXF from '%s' not supported"
 msgstr ""
 
-#: plug-ins/hpgl/hpgl.c:785
+#: plug-ins/hpgl/hpgl.c:786
 msgid "HP Graphics Language"
 msgstr "HP Grafik Dili"
 
-#: plug-ins/hpgl/hpgl.c:810
+#: plug-ins/hpgl/hpgl.c:811
 msgid "HP Graphics Language export filter"
 msgstr "HP Grafik Dili dışa aktarma filtresi"
 
-#: plug-ins/layout/layout.cpp:240
+#: plug-ins/layout/layout.cpp:242
 msgid "Please select edges and nodes to layout."
 msgstr "Yerleşim için kenarları ve düğümleri seçin."
 
-#: plug-ins/layout/layout.cpp:245
+#: plug-ins/layout/layout.cpp:247
 msgid "Graph creation failed"
 msgstr "Grafik oluşturulamadı"
 
-#: plug-ins/layout/layout.cpp:273
+#: plug-ins/layout/layout.cpp:275
 msgid "No such module."
 msgstr "Modül yok."
 
-#: plug-ins/layout/layout.cpp:276
+#: plug-ins/layout/layout.cpp:278
 msgid "Out of memory."
 msgstr "Yetersiz bellek."
 
-#: plug-ins/layout/layout.cpp:279
+#: plug-ins/layout/layout.cpp:281
 msgid "Not a tree."
 msgstr "Ağaç değil."
 
-#: plug-ins/layout/layout.cpp:282
+#: plug-ins/layout/layout.cpp:284
 msgid "Not a forest."
 msgstr "Orman değil."
 
-#: plug-ins/layout/layout.cpp:285
+#: plug-ins/layout/layout.cpp:287
 msgid "Failed algorithm."
 msgstr "Algoritma başarısız."
 
-#: plug-ins/layout/layout.cpp:288
+#: plug-ins/layout/layout.cpp:290
 msgid "Failed precondition."
 msgstr "Ön koşul başarısız."
 
-#: plug-ins/layout/layout.cpp:291
+#: plug-ins/layout/layout.cpp:293
 msgid "OGDF crashed."
 msgstr "OGDF  çöktü."
 
-#: plug-ins/layout/layout.cpp:294
+#: plug-ins/layout/layout.cpp:296
 msgid "Unknown reason"
 msgstr "Bilinmeyen neden"
 
-#: plug-ins/layout/layout.cpp:297
+#: plug-ins/layout/layout.cpp:299
 #, c-format
 msgid ""
 "Layout '%s' failed.\n"
@@ -6511,58 +6466,58 @@ msgstr ""
 "%s"
 
 #. Quick 'n Nasty hack to mark strings as translatable
-#: plug-ins/layout/layout.cpp:433
+#: plug-ins/layout/layout.cpp:435
 msgid "Grow"
 msgstr "Büyüt"
 
-#: plug-ins/layout/layout.cpp:434
+#: plug-ins/layout/layout.cpp:436
 msgid "Shrink"
 msgstr "Daralt"
 
-#: plug-ins/layout/layout.cpp:435
+#: plug-ins/layout/layout.cpp:437
 msgid "Heighten"
 msgstr "Yükselt"
 
-#: plug-ins/layout/layout.cpp:436
+#: plug-ins/layout/layout.cpp:438
 msgid "Widen"
 msgstr "Genişlet"
 
-#: plug-ins/layout/layout.cpp:463
+#: plug-ins/layout/layout.cpp:465
 msgid "OGDF Layout Algorithms"
 msgstr "OGDF Yerleşim Algoritmaları"
 
-#: plug-ins/metapost/metapost.c:46
+#: plug-ins/metapost/metapost.c:49
 msgid "TeX Metapost export filter"
 msgstr "TeX Metapost dışa aktarma filtresi"
 
-#: plug-ins/metapost/render_metapost.c:908
-#: plug-ins/postscript/diapsrenderer.c:702
-#: plug-ins/pstricks/render_pstricks.c:877 plug-ins/wpg/wpg.c:918
+#: plug-ins/metapost/render_metapost.c:909
+#: plug-ins/postscript/diapsrenderer.c:705
+#: plug-ins/pstricks/render_pstricks.c:879 plug-ins/wpg/wpg.c:920
 msgid "Not enough memory for image drawing."
 msgstr "Resim çizmek için yeterli bellek yok."
 
-#: plug-ins/metapost/render_metapost.c:1195
+#: plug-ins/metapost/render_metapost.c:1196
 msgid "TeX Metapost macros"
 msgstr "TeX Metapost makroları"
 
-#: plug-ins/pdf/pdf.c:30
+#: plug-ins/pdf/pdf.c:33
 msgid "PDF import not available."
 msgstr "PDF içe aktarma kullanılamıyor."
 
-#: plug-ins/pdf/pdf.c:39
+#: plug-ins/pdf/pdf.c:42
 msgid "Portable Document File"
 msgstr "Taşınabilir Belge Dosyası (PDF)"
 
-#: plug-ins/pdf/pdf.c:57
+#: plug-ins/pdf/pdf.c:60
 msgid "PDF import filter"
 msgstr "PDF içe aktarma filtresi"
 
-#: plug-ins/pdf/pdf-import.cpp:419
+#: plug-ins/pdf/pdf-import.cpp:436
 #, c-format
 msgid "Page %d"
 msgstr "Sayfa %d"
 
-#: plug-ins/pdf/pdf-import.cpp:882
+#: plug-ins/pdf/pdf-import.cpp:916
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6571,23 +6526,23 @@ msgstr ""
 "PDF belgesi sorunlu.\n"
 "%s"
 
-#: plug-ins/pgf/pgf.c:26
+#: plug-ins/pgf/pgf.c:29
 msgid "LaTeX PGF export filter"
 msgstr "LaTeX PGF dışa aktarma filtresi"
 
-#: plug-ins/pgf/render_pgf.c:1251 plug-ins/pstricks/render_pstricks.c:777
+#: plug-ins/pgf/render_pgf.c:1253 plug-ins/pstricks/render_pstricks.c:779
 msgid "Not valid UTF-8"
 msgstr "Geçerli UTF-8 değil"
 
-#: plug-ins/pgf/render_pgf.c:1420
+#: plug-ins/pgf/render_pgf.c:1422
 msgid "LaTeX PGF macros"
 msgstr "LaTeX PGF makrosu"
 
-#: plug-ins/pixbuf/pixbuf.c:103
+#: plug-ins/pixbuf/pixbuf.c:106
 msgid "Failed to create pixbuf from drawable."
 msgstr ""
 
-#: plug-ins/pixbuf/pixbuf.c:107
+#: plug-ins/pixbuf/pixbuf.c:110
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -6598,11 +6553,11 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:132
+#: plug-ins/pixbuf/pixbuf.c:135
 msgid "Calling error, missing user_data."
 msgstr "Hata çağrılıyor, kayıp kullanıcı _verisi."
 
-#: plug-ins/pixbuf/pixbuf.c:158
+#: plug-ins/pixbuf/pixbuf.c:161
 #, c-format
 msgid ""
 "Pixbuf[%s] can't load:\n"
@@ -6611,24 +6566,24 @@ msgstr ""
 "Pixbuf[%s] yüklenemiyor:\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:214
+#: plug-ins/pixbuf/pixbuf.c:217
 msgid "gdk-pixbuf-based bitmap export/import"
 msgstr "gdk-pixbuf temelli biteşlem dışa aktar/içe aktar"
 
-#: plug-ins/postscript/paginate_psprint.c:271
+#: plug-ins/postscript/paginate_psprint.c:272
 msgid "Select Printer"
 msgstr "Yazıcıyı seç"
 
-#: plug-ins/postscript/paginate_psprint.c:283 sheets/ciscocomputer.sheet:43
+#: plug-ins/postscript/paginate_psprint.c:284 sheets/ciscocomputer.sheet:43
 msgid "Printer"
 msgstr "Yazıcı"
 
-#: plug-ins/postscript/paginate_psprint.c:297 sheets/Misc.sheet:13
+#: plug-ins/postscript/paginate_psprint.c:298 sheets/Misc.sheet:13
 msgid "File"
 msgstr "Dosya"
 
 #  Son cümle serbest çeviri yapıldı.
-#: plug-ins/postscript/paginate_psprint.c:409
+#: plug-ins/postscript/paginate_psprint.c:410
 msgid ""
 "Some characters in the filename are neither UTF-8\n"
 "nor your local encoding.\n"
@@ -6638,7 +6593,7 @@ msgstr ""
 "yerel karakter kodlamanız ile uyuşmuyor.\n"
 "Hata oluşma ihtimali var."
 
-#: plug-ins/postscript/paginate_psprint.c:422
+#: plug-ins/postscript/paginate_psprint.c:423
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -6647,57 +6602,57 @@ msgstr ""
 "'%s' dosyası zaten var.\n"
 "Üstüne yazmak ister misin?"
 
-#: plug-ins/postscript/paginate_psprint.c:427
+#: plug-ins/postscript/paginate_psprint.c:428
 msgid "File already exists"
 msgstr "Dosya zaten var"
 
-#: plug-ins/postscript/paginate_psprint.c:463
+#: plug-ins/postscript/paginate_psprint.c:464
 #, c-format
 msgid "Could not run command '%s': %s"
 msgstr "“%s” komutu çalıştırılamadı: %s"
 
-#: plug-ins/postscript/paginate_psprint.c:467
+#: plug-ins/postscript/paginate_psprint.c:468
 #, c-format
 msgid "Could not open '%s' for writing: %s"
 msgstr "'%s' dosyası yazma için açılamadı: %s"
 
-#: plug-ins/postscript/paginate_psprint.c:490
+#: plug-ins/postscript/paginate_psprint.c:491
 #, c-format
 msgid "Printing error: command '%s' returned %d\n"
 msgstr "Yazdırma hatası: '%s' komutu %d döndü\n"
 
-#: plug-ins/postscript/paginate_psprint.c:502
+#: plug-ins/postscript/paginate_psprint.c:503
 #, c-format
 msgid "Printing error: command '%s' caused sigpipe."
 msgstr "Yazdırma hatası: '%s' komutu boruyu kırdı (sigpipe)."
 
-#: plug-ins/postscript/postscript.c:52
+#: plug-ins/postscript/postscript.c:53
 msgid "Print (PS)"
 msgstr "Yazdır (PS)"
 
-#: plug-ins/postscript/postscript.c:84
+#: plug-ins/postscript/postscript.c:85
 msgid "PostScript Rendering"
 msgstr "PostScript İşleme"
 
 # fuzzy: Encapsulated çevirileri kontrol edilecek
-#: plug-ins/postscript/render_eps.c:146
+#: plug-ins/postscript/render_eps.c:147
 msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
 msgstr "Kapsüllenmiş PostScript (PS Latin-1 yazı tipleri kullanılarak)"
 
-#: plug-ins/pstricks/pstricks.c:26
+#: plug-ins/pstricks/pstricks.c:29
 msgid "TeX PSTricks export filter"
 msgstr "TeX PSTricks dışa aktarma filtresi"
 
-#: plug-ins/pstricks/render_pstricks.c:1045
+#: plug-ins/pstricks/render_pstricks.c:1047
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makroları"
 
-#: plug-ins/python/pydia-render.c:1193
+#: plug-ins/python/pydia-render.c:1195
 #, c-format
 msgid "Couldn't open '%s' for writing.\n"
 msgstr "'%s' yazmak için açılamadı.\n"
 
-#: plug-ins/python/python.c:97
+#: plug-ins/python/python.c:103
 msgid "Python scripting support"
 msgstr "Python betik dili desteği"
 
@@ -6906,29 +6861,29 @@ msgstr "_Boş"
 msgid "Uninline Images"
 msgstr "Satıriçi Olmayan Resimler"
 
-#: plug-ins/shape/shape.c:36
+#: plug-ins/shape/shape.c:38
 msgid "Dia shape export filter"
 msgstr "Dia şekil dışa aktarma filtresi"
 
-#: plug-ins/shape/shape-export.c:622
+#: plug-ins/shape/shape-export.c:624
 msgid "Shape files must end in .shape, or they cannot be loaded by Dia"
 msgstr ""
 "Şekil dosyaları mutlaka .shape ile bitmeli, yoksa Dia tarafından "
 "yüklenemezler"
 
-#: plug-ins/shape/shape-export.c:632
+#: plug-ins/shape/shape-export.c:634
 msgid "Can't export PNG icon without export plugin!"
 msgstr "PNG simge dışa aktarma eklentisi olmadan dışa aktarılamıyor."
 
-#: plug-ins/shape/shape-export.c:665
+#: plug-ins/shape/shape-export.c:667
 msgid "Dia Shape File"
 msgstr "Dia Şekil Dosyası"
 
-#: plug-ins/svg/render_svg.c:699 plug-ins/svg/svg-import.c:2277
+#: plug-ins/svg/render_svg.c:701 plug-ins/svg/svg-import.c:2277
 msgid "Scalable Vector Graphics"
 msgstr "Ölçeklenebilir Vektör Grafikleri (SVG)"
 
-#: plug-ins/svg/svg.c:60
+#: plug-ins/svg/svg.c:62
 msgid "Scalable Vector Graphics import and export filters"
 msgstr "Ölçeklenebilir Vektör Grafik (SVG) içe ve dışa aktarma filtreleri"
 
@@ -6989,16 +6944,16 @@ msgstr ""
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr ""
 
-#: plug-ins/vdx/vdx.c:54
+#: plug-ins/vdx/vdx.c:56
 msgid "Visio XML Format import and export filter"
 msgstr "Visio XML Biçimi içe ve dışa aktarma filtresi"
 
-#: plug-ins/vdx/vdx-export.c:1839
+#: plug-ins/vdx/vdx-export.c:1840
 #, c-format
 msgid "Saving file '%s' failed."
 msgstr "'%s' dosyası kaydedilemedi."
 
-#: plug-ins/vdx/vdx-export.c:1851
+#: plug-ins/vdx/vdx-export.c:1852
 msgid "Visio XML format"
 msgstr "Visio XML biçimi"
 
@@ -7056,12 +7011,12 @@ msgstr "Beklenen VisioDocument, alınan %s"
 msgid "Visio XML File Format"
 msgstr "Visio XML Dosya Biçimi"
 
-#: plug-ins/vdx/vdx-xml.c:3344
+#: plug-ins/vdx/vdx-xml.c:3345
 #, c-format
 msgid "Can't decode object %s"
 msgstr "%s nesnesinin kodu çözülemiyor"
 
-#: plug-ins/wmf/wmf.cpp:332
+#: plug-ins/wmf/wmf.cpp:334
 #, c-format
 msgid ""
 "Couldn't write file %s\n"
@@ -7070,7 +7025,7 @@ msgstr ""
 "%s dosyası yazılamadı\n"
 "%s"
 
-#: plug-ins/wmf/wmf.cpp:585
+#: plug-ins/wmf/wmf.cpp:587
 #, c-format
 msgid ""
 "Cannot render unknown font:\n"
@@ -7079,284 +7034,286 @@ msgstr ""
 "Bilinmeyen yazı tipi işlenemiyor:\n"
 "%s"
 
-#: plug-ins/wmf/wmf.cpp:1532
+#: plug-ins/wmf/wmf.cpp:1534
 msgid "Windows Metafile"
 msgstr "Windows Üst Veri Dosyası"
 
-#: plug-ins/wmf/wmf.cpp:1541
+#: plug-ins/wmf/wmf.cpp:1543
 msgid "Enhanced Metafile"
 msgstr "Gelişmiş Üst Veri Dosyası"
 
-#: plug-ins/wmf/wmf.cpp:1570
+#: plug-ins/wmf/wmf.cpp:1572
 msgid "Print (GDI) ..."
 msgstr "Yazdır (GDI) ..."
 
-#: plug-ins/wmf/wmf.cpp:1586
+#: plug-ins/wmf/wmf.cpp:1588
 msgid "WMF export filter"
 msgstr "WMF dışa aktarma filtresi"
 
-#: plug-ins/wpg/wpg.c:1197 plug-ins/wpg/wpg.c:1203
+#: plug-ins/wpg/wpg.c:1199 plug-ins/wpg/wpg.c:1205
 msgid "WordPerfect Graphics"
 msgstr "WordPerfect Graphics"
 
-#: plug-ins/wpg/wpg.c:1228
+#: plug-ins/wpg/wpg.c:1230
 msgid "WordPerfect Graphics export filter"
 msgstr "WordPerfect Graphics dışa aktarma filtresi"
 
-#: plug-ins/wpg/wpg-import.c:529
+#: plug-ins/wpg/wpg-import.c:531
 #, c-format
 msgid "File: %s type/version unsupported.\n"
 msgstr "%s : dosya tipi/sürümü desteklenmiyor .\n"
 
-#: plug-ins/wpg/wpg-import.c:671
+#: plug-ins/wpg/wpg-import.c:673
 #, c-format
 msgid "Unknown WPG type %d size %d."
 msgstr "Bilinmeyen WPG tür %d, boyut %d."
 
-#: plug-ins/wpg/wpg-import.c:676
+#: plug-ins/wpg/wpg-import.c:678
 #, c-format
 msgid "Size 0 on WPG type %d, expecting WPG_END\n"
 msgstr ""
 
-#: plug-ins/wpg/wpg-import.c:686
+#: plug-ins/wpg/wpg-import.c:688
 #, c-format
 msgid "Unexpected end of file. WPG type %d, size %d.\n"
 msgstr "Beklenmedik dosya sonu: WPG tür %d, boyut %d.\n"
 
-#: plug-ins/wpg/wpg-import.c:699
+#: plug-ins/wpg/wpg-import.c:701
 msgid "Empty WPG file?"
 msgstr "Boş WPG dosyası?"
 
-#: plug-ins/xfig/xfig.c:52
+#: plug-ins/xfig/xfig.c:54
 msgid "Fig Format import and export filter"
 msgstr "Fig Biçimi içe ve dışa aktarma filtresi"
 
-#: plug-ins/xfig/xfig-export.c:431
+#: plug-ins/xfig/xfig-export.c:433
 #, c-format
 msgid "Fig format has no equivalent of arrow style %s; using simple arrow.\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-export.c:460
+#: plug-ins/xfig/xfig-export.c:462
 msgid "No more user-definable colors - using black"
 msgstr ""
 
-#: plug-ins/xfig/xfig-export.c:1325
+#: plug-ins/xfig/xfig-export.c:1327
 msgid "Xfig format"
 msgstr "XFig biçimi"
 
-#: plug-ins/xfig/xfig-import.c:108
+#: plug-ins/xfig/xfig-import.c:109
 #, c-format
 msgid "Color index %d too high; only 512 colors allowed. Using black instead."
 msgstr ""
 "Renk indeksi %d çok büyük; sadece 512 renge izin veriliyor. Yerine siyah "
 "kullanılacak."
 
-#: plug-ins/xfig/xfig-import.c:139
+#: plug-ins/xfig/xfig-import.c:140
 msgid "Patterns are not supported by Dia"
 msgstr "Patern'ler henüz Dia tarafından desteklenmiyor"
 
-#: plug-ins/xfig/xfig-import.c:168
+#: plug-ins/xfig/xfig-import.c:169
 msgid "Triple-dotted lines are not supported by Dia; using double-dotted"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:172
+#: plug-ins/xfig/xfig-import.c:173
 #, c-format
 msgid "Line style %d should not appear"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:247
+#: plug-ins/xfig/xfig-import.c:248
 #, c-format
 msgid "Error while reading %dth of %d points"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:256
+#: plug-ins/xfig/xfig-import.c:257
 msgid "Unexpected end of file."
 msgstr "Beklenmedik dosya sonu."
 
-#: plug-ins/xfig/xfig-import.c:276
+#: plug-ins/xfig/xfig-import.c:277
 msgid "Error while reading arrowhead"
 msgstr "Ok ucu okunurken hata"
 
-#: plug-ins/xfig/xfig-import.c:298
+#: plug-ins/xfig/xfig-import.c:299
 #, c-format
 msgid "Unknown arrow type %d\n"
 msgstr "Bilinmeyen ok türü %d\n"
 
-#: plug-ins/xfig/xfig-import.c:403
+#: plug-ins/xfig/xfig-import.c:404
 #, c-format
 msgid "Depth %d out of range, only 0-%d allowed.\n"
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:451
+#: plug-ins/xfig/xfig-import.c:452
 msgid "Couldn't read ellipse info."
 msgstr "Elips bilgisi okunamadı."
 
-#: plug-ins/xfig/xfig-import.c:520
+#: plug-ins/xfig/xfig-import.c:521
 msgid "Couldn't read polyline info.\n"
 msgstr ""
 "Çoklu çizgi bilgisi okunamadı.\n"
 "\n"
 
-#: plug-ins/xfig/xfig-import.c:535
+#: plug-ins/xfig/xfig-import.c:536
 msgid "Couldn't read flipped bit."
 msgstr "Çevrilmiş bit okunamadı."
 
-#: plug-ins/xfig/xfig-import.c:553
+#: plug-ins/xfig/xfig-import.c:554
 msgid "Negative corner radius; negating"
 msgstr "Eksi köşe yarıçapı, eksileştiriliyor"
 
-#: plug-ins/xfig/xfig-import.c:596
+#: plug-ins/xfig/xfig-import.c:597
 #, c-format
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Bilinmeyen çoklu çizgi alt türü: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:748 plug-ins/xfig/xfig-import.c:780
+#: plug-ins/xfig/xfig-import.c:749 plug-ins/xfig/xfig-import.c:781
 msgid "Couldn't read spline info."
 msgstr "Şerit bilgisi okunamadı."
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:767 plug-ins/xfig/xfig-import.c:784
+#: plug-ins/xfig/xfig-import.c:768 plug-ins/xfig/xfig-import.c:785
 #, fuzzy
 msgid "Cannot convert approximated spline yet."
 msgstr "Yaklaşımsal şerit henüz dönüştürülemiyor."
 
-#: plug-ins/xfig/xfig-import.c:822
+#: plug-ins/xfig/xfig-import.c:823
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Bilinmeyen şerit alt türü: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:887
+#: plug-ins/xfig/xfig-import.c:888
 msgid "Couldn't read arc info."
 msgstr "Yay bilgisi okunamadı."
 
 #. set new fill property on arc?
-#: plug-ins/xfig/xfig-import.c:915
+#: plug-ins/xfig/xfig-import.c:916
 msgid "Filled arc treated as unfilled"
 msgstr "Yay doldurulmamış olarak davranıldı"
 
-#: plug-ins/xfig/xfig-import.c:919
+#: plug-ins/xfig/xfig-import.c:920
 #, c-format
 msgid "Unknown polyline arc: %d\n"
 msgstr "Bilinmeyen çoklu çizgi yayı: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:984
+#: plug-ins/xfig/xfig-import.c:985
 msgid "Couldn't read text info."
 msgstr "Metin bilgisi okunamadı."
 
-#: plug-ins/xfig/xfig-import.c:1012
+#: plug-ins/xfig/xfig-import.c:1013
 #, c-format
 msgid "Can't find LaTeX font nr. %d, using sans"
 msgstr "LaTeX yazı tipi no: %d bulunamıyor, sans kullanılacak"
 
-#: plug-ins/xfig/xfig-import.c:1020
+#: plug-ins/xfig/xfig-import.c:1021
 #, c-format
 msgid "Can't find PostScript font nr. %d, using sans"
 msgstr "PostScript yazı tipi no: %d bulunamıyor, sans kullanılacak"
 
-#: plug-ins/xfig/xfig-import.c:1049
+#: plug-ins/xfig/xfig-import.c:1050
 msgid "Couldn't identify Fig object."
 msgstr "Fig nesnesi tanınamadı."
 
-#: plug-ins/xfig/xfig-import.c:1057
+#: plug-ins/xfig/xfig-import.c:1058
 msgid "Compound end outside compound\n"
 msgstr "Bileşik ve dış bileşik\n"
 
-#: plug-ins/xfig/xfig-import.c:1079
+#: plug-ins/xfig/xfig-import.c:1080
 msgid "Couldn't read color\n"
 msgstr "Renk okunamadı\n"
 
-#: plug-ins/xfig/xfig-import.c:1084
+#: plug-ins/xfig/xfig-import.c:1085
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "Renk sayısı %d 0..%d eriminin dışında. Dikkate alınmıyor.\n"
 
-#: plug-ins/xfig/xfig-import.c:1131
+#: plug-ins/xfig/xfig-import.c:1132
 msgid "Couldn't read group extent."
 msgstr "Grup uzatması okunamadı."
 
-#: plug-ins/xfig/xfig-import.c:1142
+#: plug-ins/xfig/xfig-import.c:1143
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Bilinmeyen nesne türü %d\n"
 
 # Fuzzy: Sanki split sentence ve kelime araya sokuluyor.
-#: plug-ins/xfig/xfig-import.c:1167
-#, c-format
-msgid "`%s' is not one of `%s' or `%s'\n"
+#: plug-ins/xfig/xfig-import.c:1170
+#, fuzzy, c-format
+#| msgid "`%s' is not one of `%s' or `%s'\n"
+msgid "“%s” is not one of “%s” or “%s”\n"
 msgstr "'%s' '%s'lerden biri değil veya '%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1177
+#: plug-ins/xfig/xfig-import.c:1185
 msgid "Error reading paper size."
 msgstr "Kağıt boyutu okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1188
-#, c-format
-msgid "Unknown paper size `%s', using default\n"
+#: plug-ins/xfig/xfig-import.c:1197
+#, fuzzy, c-format
+#| msgid "Unknown paper size `%s', using default\n"
+msgid "Unknown paper size “%s”, using default\n"
 msgstr "Bilinmeyen kağıt boyutu '%s', öntanımlı boyut kullanılıyor\n"
 
-#: plug-ins/xfig/xfig-import.c:1201
+#: plug-ins/xfig/xfig-import.c:1213
 msgid "Error reading paper orientation."
 msgstr "Kağıt yönü okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1211
+#: plug-ins/xfig/xfig-import.c:1223
 msgid "Error reading justification."
 msgstr "Hizalama okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1221
+#: plug-ins/xfig/xfig-import.c:1233
 msgid "Error reading units."
 msgstr "Birimler okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1237
+#: plug-ins/xfig/xfig-import.c:1249
 msgid "Error reading magnification."
 msgstr "Büyültme okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1250
+#: plug-ins/xfig/xfig-import.c:1262
 msgid "Error reading multipage indicator."
 msgstr "Çoklu sayfa göstergesi okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1261
+#: plug-ins/xfig/xfig-import.c:1273
 msgid "Error reading transparent color."
 msgstr "Saydam renk okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1270 plug-ins/xfig/xfig-import.c:1331
-#: plug-ins/xfig/xfig-import.c:1351
+#: plug-ins/xfig/xfig-import.c:1282 plug-ins/xfig/xfig-import.c:1343
+#: plug-ins/xfig/xfig-import.c:1363
 msgid "Error reading Fig file."
 msgstr "Fig dosyası okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1272
+#: plug-ins/xfig/xfig-import.c:1284
 msgid "Premature end of Fig file\n"
 msgstr "Fig dosyası erken bitişi\n"
 
-#: plug-ins/xfig/xfig-import.c:1281
+#: plug-ins/xfig/xfig-import.c:1293
 msgid "Error reading resolution."
 msgstr "Çözünürlük okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1317
+#: plug-ins/xfig/xfig-import.c:1329
 msgid "Doesn't look like a Fig file"
 msgstr "Fig dosyası gibi görünmüyor"
 
-#: plug-ins/xfig/xfig-import.c:1323
+#: plug-ins/xfig/xfig-import.c:1335
 #, c-format
 msgid ""
 "This is a Fig version %d.%d file.\n"
 " It may not be importable."
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1333
+#: plug-ins/xfig/xfig-import.c:1345
 msgid "Premature end of Fig file"
 msgstr "Fig dosyası erken bitişi"
 
-#: plug-ins/xfig/xfig-import.c:1378
+#: plug-ins/xfig/xfig-import.c:1390
 msgid "Xfig File Format"
 msgstr "XFig Dosya Biçimi"
 
-#: plug-ins/xslt/xslt.c:107
+#: plug-ins/xslt/xslt.c:109
 #, c-format
 msgid "Can't open output file %s: %s\n"
 msgstr "Çıktı dosyası %s açılamıyor: %s\n"
 
-#: plug-ins/xslt/xslt.c:116
+#: plug-ins/xslt/xslt.c:118
 #, c-format
 msgid ""
 "Error while parsing %s\n"
@@ -7365,48 +7322,48 @@ msgstr ""
 "%s ayrıştırılırken hata\n"
 "%s"
 
-#: plug-ins/xslt/xslt.c:126
+#: plug-ins/xslt/xslt.c:128
 #, c-format
 msgid "Error while parsing stylesheet %s\n"
 msgstr "%s stil sayfası ayrıştırılırken hata\n"
 
-#: plug-ins/xslt/xslt.c:133
+#: plug-ins/xslt/xslt.c:135
 #, c-format
 msgid "Error while applying stylesheet %s\n"
 msgstr "%s stil sayfası uygulanırken hata\n"
 
-#: plug-ins/xslt/xslt.c:142
+#: plug-ins/xslt/xslt.c:144
 #, c-format
 msgid "Error while parsing stylesheet: %s\n"
 msgstr "Stil sayfası ayrıştırılırken hata: %s\n"
 
-#: plug-ins/xslt/xslt.c:151
+#: plug-ins/xslt/xslt.c:153
 #, c-format
 msgid "Error while applying stylesheet: %s\n"
 msgstr "Stil sayfası uygulanırken hata:%s\n"
 
-#: plug-ins/xslt/xslt.c:159
+#: plug-ins/xslt/xslt.c:161
 #, c-format
 msgid "Error while saving result: %s\n"
 msgstr "Sonuç kaydedilirken hata: %s\n"
 
-#: plug-ins/xslt/xslt.c:330
+#: plug-ins/xslt/xslt.c:332
 msgid "XSL Transformation filter"
 msgstr "XSL Dönüşüm filtresi"
 
-#: plug-ins/xslt/xslt.c:355
+#: plug-ins/xslt/xslt.c:357
 msgid "No valid configuration files found for the XSLT plugin; not loading."
 msgstr ""
 
-#: plug-ins/xslt/xsltdialog.c:81
+#: plug-ins/xslt/xsltdialog.c:85
 msgid "Export through XSLT"
 msgstr ""
 
-#: plug-ins/xslt/xsltdialog.c:95
+#: plug-ins/xslt/xsltdialog.c:99
 msgid "From:"
 msgstr ""
 
-#: plug-ins/xslt/xsltdialog.c:125
+#: plug-ins/xslt/xsltdialog.c:129
 msgid "To:"
 msgstr ""
 
@@ -10737,7 +10694,7 @@ msgstr "Dışlayan Özel VEYA (XOR) Geçidi"
 
 #: sheets/Logic.sheet:16
 msgid "Simple buffer"
-msgstr "Basit arabellek"
+msgstr "Basit tampon"
 
 #: sheets/Logic.sheet:19
 msgid "Inverter"
@@ -11303,6 +11260,43 @@ msgstr "Etkinlik"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "Ayrışım/Birleşim"
+
+#~ msgid ""
+#~ "Can't get symbol 'custom_type' from any module.\n"
+#~ "Editing shapes is disabled."
+#~ msgstr ""
+#~ "'custom_type' sembolü herhangi bir modülden alınamıyor.\n"
+#~ "Şekilleri düzenleme devre dışı bırakıldı."
+
+#~ msgid "SVG Shape"
+#~ msgstr "SVG Şekli"
+
+#~ msgid "Programmed DiaObject"
+#~ msgstr "Programlanmış DiaObjesi"
+
+#, c-format
+#~ msgid ""
+#~ "%s\n"
+#~ "Shape"
+#~ msgstr ""
+#~ "%s\n"
+#~ "Şekil"
+
+#, c-format
+#~ msgid ""
+#~ "%s\n"
+#~ "Object"
+#~ msgstr ""
+#~ "%s\n"
+#~ "Nesne"
+
+#, c-format
+#~ msgid ""
+#~ "%s\n"
+#~ "Unassigned type"
+#~ msgstr ""
+#~ "%s\n"
+#~ "Atanmamış tür"
 
 #~ msgid "Exiting Dia"
 #~ msgstr "Dia'dan Çıkılıyor"
