@@ -30,6 +30,5 @@ char        *dia_relativize_filename   (const char *master,
                                         const char *slave);
 char        *dia_absolutize_filename   (const char *master,
                                         const char *slave);
-const gchar *dia_message_filename      (const char *filename);
 
 G_END_DECLS

@@ -46,7 +46,6 @@ void        message_error          (const char      *format,
 void        dia_log_message        (const char      *format,
                                     ...) G_GNUC_PRINTF (1, 2);
 void        dia_log_message_enable (gboolean         yes);
-/* also declared in dia_dirs.h, where I think it does not belong! --hb */
 const char *dia_message_filename   (const char      *filename);
 
 G_END_DECLS
