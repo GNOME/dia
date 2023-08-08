@@ -159,7 +159,7 @@ public :
     int dashLength;
     double dashStart;
 
-#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 9)
+#if POPPLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 9)
     std::vector<double> dashPattern = state->getLineDash(&dashStart);
     dashLength = dashPattern.size();
 #else
@@ -322,7 +322,7 @@ public :
     DiaFont *font;
 
     // without a font it wont make sense
-#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+#if POPPLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
     if (!state->getFont().get())
 #else
     if (!state->getFont())
@@ -331,7 +331,7 @@ public :
     //FIXME: Dia is really unhappy about zero size fonts
     if (!(state->getFontSize() > 0.0))
       return;
-#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+#if POPPLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
     GfxFont *f = state->getFont().get();
 #else
     GfxFont *f = state->getFont();
@@ -734,7 +734,7 @@ DiaOutputDev::drawString(GfxState *state, GooString *s)
   if (len == 0)
     return;
   // get the font
-#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+#if POPPLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
   if (!state->getFont().get())
 #else
   if (!state->getFont())
@@ -742,7 +742,7 @@ DiaOutputDev::drawString(GfxState *state, GooString *s)
     return;
   if (!(state->getFontSize() > 0.0))
     return;
-#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+#if POPPLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
   font = (DiaFont *)g_hash_table_lookup (this->font_map, state->getFont().get());
 #else
   font = (DiaFont *)g_hash_table_lookup (this->font_map, state->getFont());
@@ -750,7 +750,7 @@ DiaOutputDev::drawString(GfxState *state, GooString *s)
 
   // we have to decode the string data first
   {
-#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+#if POPPLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
     GfxFont *f = state->getFont().get();
 #else
     GfxFont *f = state->getFont();
@@ -899,7 +899,7 @@ import_pdf(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_
   std::unique_ptr<PDFDoc> doc;
   GooString *fileName = new GooString(filename);
   // no passwords yet
-#if POPLLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
+#if POPPLER_VERSION_MAJOR > 22 || (POPPLER_VERSION_MAJOR == 22 && POPPLER_VERSION_MINOR >= 6)
   std::optional<GooString> ownerPW;
   std::optional<GooString> userPW;
 #else
