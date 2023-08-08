@@ -2,7 +2,12 @@ project('dia',
         ['c', 'cpp'],
         version: '0.97.3',  # This is the base version, git suffix gets added using vcs_tag().
         meson_version: '>= 0.58',
-        default_options: ['warning_level=1']
+        default_options: [
+                             'warning_level=1',
+                             'buildtype=debugoptimized',
+                             'c_std=gnu17',
+                             'cpp_std=gnu++17',
+                         ],
 )
 
 cc = meson.get_compiler('c')
