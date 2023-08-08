@@ -54,7 +54,6 @@ lib/create.c
 lib/dia-arrow-chooser.c
 lib/dia-arrow-selector.c
 lib/dia-colour-selector.c
-lib/dia-file-selector.c
 lib/dia-font-selector.c
 lib/dia-line-chooser.c
 lib/dia-line-style-selector.c
