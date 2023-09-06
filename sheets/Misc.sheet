@@ -21,7 +21,7 @@
     <object name="Misc - Analog Clock">
       <description>Traditional clock</description>
     </object>
-    <object name="Misc - Measure" intdata="0">
+    <object name="Misc - Measure">
       <description>Measure distance</description>
     </object>
     <object name="Misc - Grid">

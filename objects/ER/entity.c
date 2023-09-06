@@ -103,7 +103,12 @@ DiaObjectType entity_type =
   "ER - Entity",  /* name */
   0,           /* version */
   entity_xpm,   /* pixmap */
-  &entity_type_ops /* ops */
+  &entity_type_ops, /* ops */
+  NULL,        /* pixmap_file */
+  NULL,  /* default_user_data */
+  NULL,     /* prop_descs */
+  NULL,   /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 DiaObjectType *_entity_type = (DiaObjectType *) &entity_type;

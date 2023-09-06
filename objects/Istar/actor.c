@@ -112,7 +112,12 @@ DiaObjectType istar_actor_type =
   "Istar - actor",   /* name */
   0,              /* version */
   istar_actor_xpm, /* pixmap */
-  &actor_type_ops     /* ops */
+  &actor_type_ops,    /* ops */
+  NULL, /* pixmap_file */
+  NULL, /* default_user_data */
+  NULL, /* prop_descs */
+  NULL, /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 static ObjectOps actor_ops = {

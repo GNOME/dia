@@ -127,7 +127,12 @@ DiaObjectType kaos_mbr_type =
   "KAOS - mbr",      /* name */
   0,              /* version */
   contributes_xpm, /* pixmap */
-  &mbr_type_ops       /* ops */
+  &mbr_type_ops,      /* ops */
+  NULL, /* pixmap_file */
+  NULL, /* default_user_data */
+  NULL, /* prop_descs */
+  NULL, /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 static ObjectOps mbr_ops = {

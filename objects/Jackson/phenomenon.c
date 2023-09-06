@@ -107,7 +107,12 @@ DiaObjectType jackson_phenomenon_type =
   "Jackson - phenomenon",    /* name */
   0,                      /* version */
   jackson_shared_phen_xpm, /* pixmap */
-  &message_type_ops           /* ops */
+  &message_type_ops,          /* ops */
+  NULL, /* pixmap_file */
+  NULL, /* default_user_data */
+  NULL, /* prop_descs */
+  NULL, /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 static ObjectOps message_ops = {

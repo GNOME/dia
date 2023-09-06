@@ -127,7 +127,12 @@ DiaObjectType step_type = {
   "GRAFCET - Step", /* name */
   0,             /* version */
   etape_xpm,      /* pixmap */
-  &step_type_ops     /* ops */
+  &step_type_ops,    /* ops */
+  NULL, /* pixmap_file */
+  NULL, /* default_user_data */
+  NULL, /* prop_descs */
+  NULL, /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 

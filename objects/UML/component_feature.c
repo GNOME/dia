@@ -122,7 +122,10 @@ DiaObjectType compfeat_type =
   facet_xpm,		     /* pixmap */
   &compfeat_type_ops,        /* ops */
   NULL,	                     /* pixmap file */
-  0                          /* default user data */
+  0,                         /* default user data */
+  NULL, /* prop_descs */
+  NULL, /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 static ObjectOps compfeat_ops = {

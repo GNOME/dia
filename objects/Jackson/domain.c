@@ -147,7 +147,12 @@ DiaObjectType jackson_domain_type =
   "Jackson - domain",       /* name */
   0,                        /* version */
   jackson_given_domain_xpm, /* this is the default pixmap */
-  &jackson_domain_type_ops  /* ops */
+  &jackson_domain_type_ops, /* ops */
+  NULL, /* pixmap_file */
+  NULL, /* default_user_data */
+  NULL, /* prop_descs */
+  NULL, /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 static ObjectOps jackson_box_ops = {

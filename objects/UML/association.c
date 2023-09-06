@@ -200,7 +200,10 @@ DiaObjectType association_type = {
   association_xpm,  /* pixmap */
   &association_type_ops,      /* ops */
   NULL,                 /* pixmap_file */
-  0                     /* default_user_data */
+  0,                    /* default_user_data */
+  NULL, /* prop_descs */
+  NULL, /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 

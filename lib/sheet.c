@@ -538,11 +538,8 @@ load_register_sheet (const char *dirname,
       sheet_obj->pixmap_file = otype->pixmap_file;
       sheet_obj->has_icon_on_sheet = has_icon_on_sheet;
     }
-    if (sheet_obj->user_data == NULL
-        && sheet_obj->user_data_type != USER_DATA_IS_INTDATA) {
+    if (!(otype->flags & DIA_OBJECT_HAS_VARIANTS)) {
       sheet_obj->user_data = otype->default_user_data;
-    } else {
-      sheet_obj->user_data_type = USER_DATA_IS_INTDATA;
     }
 
     if (ot_name) {

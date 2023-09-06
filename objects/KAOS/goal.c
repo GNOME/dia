@@ -138,7 +138,8 @@ DiaObjectType kaos_goal_type =
   "KAOS - goal",     /* name */
   0,              /* version */
   kaos_goal_xpm,   /* pixmap */
-  &kaos_goal_type_ops /* ops */
+  &kaos_goal_type_ops, /* ops */
+
 };
 
 

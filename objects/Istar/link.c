@@ -119,7 +119,12 @@ DiaObjectType istar_link_type =
   "Istar - link",    /* name */
   0,              /* version */
   istar_link_xpm,  /* pixmap */
-  &link_type_ops      /* ops */
+  &link_type_ops,     /* ops */
+  NULL, /* pixmap_file */
+  NULL, /* default_user_data */
+  NULL, /* prop_descs */
+  NULL, /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 

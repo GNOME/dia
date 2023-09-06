@@ -100,7 +100,12 @@ DiaObjectType vergent_type = {
   "GRAFCET - Vergent", /* name */
   0,                /* version */
   vergent_xpm,       /* pixmap */
-  &vergent_type_ops     /* ops */
+  &vergent_type_ops,    /* ops */
+  NULL, /* pixmap_file */
+  NULL, /* default_user_data */
+  NULL, /* prop_descs */
+  NULL, /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 

@@ -57,7 +57,12 @@ typedef enum {
    * it, a.k.a. be a parent.  A parent moves its children along and
    * constricts its children to live inside its borders.
    */
-  DIA_OBJECT_CAN_PARENT = 1
+  DIA_OBJECT_CAN_PARENT = 1,
+  /* Set this if the DiaObject uses its user_data to store a 'variant', a
+   * unique style represented by an integer (like which logic gate or border
+   * style to use).
+   */
+  DIA_OBJECT_HAS_VARIANTS = 2,
 } DiaObjectFlags;
 
 

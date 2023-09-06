@@ -121,7 +121,12 @@ DiaObjectType istar_other_type =
   "Istar - other",      /* name */
   0,                 /* version */
   istar_resource_xpm, /* pixmap */
-  &istar_other_type_ops  /* ops */
+  &istar_other_type_ops, /* ops */
+  NULL, /* pixmap_file */
+  NULL, /* default_user_data */
+  NULL, /* prop_descs */
+  NULL, /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 static ObjectOps other_ops = {

@@ -110,7 +110,10 @@ DiaObjectType umlclass_type =
 
   &umlclass_type_ops, /* ops */
   NULL,
-  (void*)0
+  (void*)0,
+  NULL, /* prop_descs */
+  NULL, /* prop_offsets */
+  DIA_OBJECT_HAS_VARIANTS /* flags */
 };
 
 /** \brief vtable for UMLClass */
