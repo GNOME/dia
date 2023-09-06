@@ -401,7 +401,6 @@ load_register_sheet (const char *dirname,
     xmlChar *objdesc = NULL;
 
     int intdata = 0;
-    char *chardata = NULL;
 
     gboolean has_intdata = FALSE;
     gboolean has_icon_on_sheet = FALSE;
@@ -440,11 +439,6 @@ load_register_sheet (const char *dirname,
       if (*p != 0) intdata = 0;
       xmlFree (tmp);
       has_intdata = TRUE;
-    }
-    chardata = (char *) xmlGetProp (node, (const xmlChar *) "chardata");
-    /* TODO.... */
-    if (chardata) {
-      xmlFree (chardata);
     }
 
     ot_name = xmlGetProp (node, (xmlChar *) "name");
