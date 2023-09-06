@@ -71,8 +71,6 @@ struct _Mbr {
   Handle pm_handle;
 
   double text_width,text_ascent;
-
-  int init;
 };
 
 #define HANDLE_MOVE_MID_POINT (HANDLE_CUSTOM1)
@@ -198,8 +196,6 @@ mbr_get_props(Mbr * mbr, GPtrArray *props)
 static void
 mbr_set_props(Mbr *mbr, GPtrArray *props)
 {
- if (mbr->init==-1) { mbr->init++; return; }
-
   object_set_props_from_offsets(&mbr->connection.object,
                                 mbr_offsets, props);
   mbr_update_data(mbr);
@@ -540,9 +536,6 @@ mbr_create(Point *startpoint, void *user_data, Handle **handle1, Handle **handle
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-
-  /* bug workaround */
-  if (GPOINTER_TO_INT(user_data)!=0) mbr->init=-1; else mbr->init=0;
 
   return &mbr->connection.object;
 }

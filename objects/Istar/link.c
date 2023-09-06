@@ -60,8 +60,6 @@ struct _Link {
   Point pm;
   BezPoint line[3];
   Handle pm_handle;
-
-  int init;
 };
 
 #define HANDLE_MOVE_MID_POINT (HANDLE_CUSTOM1)
@@ -187,8 +185,6 @@ link_get_props(Link * link, GPtrArray *props)
 static void
 link_set_props(Link *link, GPtrArray *props)
 {
-  if (link->init==-1) { link->init++; return; }
-
   object_set_props_from_offsets(&link->connection.object,
                                 link_offsets, props);
   link_update_data(link);
@@ -598,9 +594,6 @@ link_create(Point *startpoint,
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-
-  /* bug workaround */
-  if (GPOINTER_TO_INT(user_data)!=0) link->init=-1; else link->init=0;
 
   return &link->connection.object;
 }

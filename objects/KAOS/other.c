@@ -80,8 +80,6 @@ typedef struct _Other {
   double padding;
   OtherType type;
 
-  int init;
-
   ConnectionPoint center_cp;
 } Other;
 
@@ -194,8 +192,6 @@ other_get_props(Other *other, GPtrArray *props)
 static void
 other_set_props(Other *other, GPtrArray *props)
 {
-  if (other->init==-1) { other->init++; return; }    /* workaround init bug */
-
   object_set_props_from_offsets(&other->element.object,
                                 other_offsets,props);
   other_update_data(other, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
@@ -688,8 +684,6 @@ other_create(Point *startpoint,
     case 1:  other->type=AGENT; break;
     default: other->type=AGENT; break;
   }
-
-  if (GPOINTER_TO_INT(user_data)!=0) other->init=-1; else other->init=0;
 
   return &other->element.object;
 }

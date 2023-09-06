@@ -67,7 +67,6 @@ struct _Maor {
   real text_width;
 
   MaorType type;
-  int init;
 };
 
 #define MAOR_WIDTH 0.1
@@ -193,7 +192,6 @@ maor_get_props(Maor * maor, GPtrArray *props)
 static void
 maor_set_props(Maor *maor, GPtrArray *props)
 {
-  if (maor->init==-1) { maor->init++; return; }
   object_set_props_from_offsets(&maor->connection.object,maor_offsets, props);
   maor_update_data(maor);
 }
@@ -572,9 +570,6 @@ maor_create (Point   *startpoint,
 
   *handle1 = obj->handles[0];
   *handle2 = obj->handles[1];
-
-  /* bug workaround */
-  if (GPOINTER_TO_INT(user_data)!=0) maor->init=-1; else maor->init=0;
 
   return &maor->connection.object;
 }

@@ -91,8 +91,6 @@ typedef struct _Goal {
   Text *text;
   real padding;
   GoalType type;
-
-  int init;
 } Goal;
 
 
@@ -213,12 +211,6 @@ goal_get_props (Goal *goal, GPtrArray *props)
 static void
 goal_set_props (Goal *goal, GPtrArray *props)
 {
-  if (goal->init==-1) {
-    goal->init++;
-    return;
-  }
-  /* workaround init bug */
-
   object_set_props_from_offsets (DIA_OBJECT (goal),
                                  goal_offsets, props);
   goal_update_data (goal, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
@@ -746,8 +738,6 @@ goal_create(Point *startpoint,
     case 5:  goal->type=OBSTACLE; break;
     default: goal->type=GOAL; break;
   }
-
-  if (GPOINTER_TO_INT(user_data)!=0) goal->init=-1; else goal->init=0;
 
   return &goal->element.object;
 }

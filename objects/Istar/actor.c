@@ -75,7 +75,6 @@ struct _Actor {
   ActorType type;
   ConnectionPoint connections[NUM_CONNECTIONS];
   Text *text;
-  int init;
 };
 
 static real actor_distance_from(Actor *actor, Point *point);
@@ -173,8 +172,6 @@ actor_get_props(Actor *actor, GPtrArray *props)
 static void
 actor_set_props(Actor *actor, GPtrArray *props)
 {
-  if (actor->init==-1) { actor->init++; return; } /* init bug workaround */
-
   object_set_props_from_offsets(&actor->element.object,
                                 actor_offsets,props);
   actor_update_data(actor, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
@@ -509,8 +506,6 @@ actor_create(Point *startpoint,
     case 4:  actor->type=ACTOR_ROLE; break;
     default: actor->type=ACTOR_UNSPECIFIED; break;
   }
-
-  if (GPOINTER_TO_INT(user_data)!=0) actor->init=-1; else actor->init=0;
 
   actor_update_data(actor, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
 

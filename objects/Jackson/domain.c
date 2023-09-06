@@ -105,8 +105,6 @@ typedef struct _Box {
   real padding;
   DomainType domtype;
   DomainKind domkind;
-
-  int init;  /* workaround for property bug */
 } Box;
 
 static real jackson_box_distance_from(Box *box, Point *point);
@@ -240,12 +238,6 @@ jackson_box_get_props (Box *box, GPtrArray *props)
 static void
 jackson_box_set_props (Box *box, GPtrArray *props)
 {
-  if (box->init==-1) {
-    box->init++;
-    return;
-  }
-  /* workaround init bug */
-
   object_set_props_from_offsets (&box->element.object,
                                  box_offsets,props);
 
@@ -710,12 +702,6 @@ jackson_box_create (Point   *startpoint,
   }
 
   box->domkind = DOMAIN_NONE;
-
-  if (GPOINTER_TO_INT (user_data) != 0) {
-    box->init=-1;
-  } else {
-    box->init=0;
-  }
 
   return &box->element.object;
 }

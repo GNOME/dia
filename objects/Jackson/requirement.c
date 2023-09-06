@@ -52,8 +52,6 @@ struct _Requirement {
   ConnectionPoint connections[NUM_CONNECTIONS];
 
   Text *text;
-
-  int init;
 };
 
 
@@ -155,8 +153,6 @@ req_get_props(Requirement * req, GPtrArray *props)
 static void
 req_set_props(Requirement *req, GPtrArray *props)
 {
-  if (req->init==-1) { req->init++; return; }   /* workaround init bug */
-
   object_set_props_from_offsets(&req->element.object,
                                 req_offsets,props);
   req_update_data(req);
@@ -397,8 +393,6 @@ req_create(Point *startpoint,
 
   *handle1 = NULL;
   *handle2 = NULL;
-
-  if (GPOINTER_TO_INT(user_data)!=0) req->init=-1; else req->init=0;
 
   return &req->element.object;
 }

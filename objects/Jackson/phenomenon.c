@@ -61,7 +61,6 @@ struct _Message {
   real text_width;
 
   MessageType type;
-  int init;
 };
 
 #define MESSAGE_WIDTH 0.09
@@ -173,7 +172,6 @@ message_get_props(Message * message, GPtrArray *props)
 static void
 message_set_props(Message *message, GPtrArray *props)
 {
-  if (message->init==-1) { message->init++; return; }
   object_set_props_from_offsets(&message->connection.object,
                                 message_offsets, props);
   message_update_data(message);
@@ -373,7 +371,6 @@ message_create(Point *startpoint,
     default: message->type=MSG_SHARED; break;
   }
 
-  if (GPOINTER_TO_INT(user_data)!=0) message->init=-1; else message->init=0;
   return &message->connection.object;
 }
 

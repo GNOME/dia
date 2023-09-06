@@ -82,7 +82,6 @@ typedef struct _Goal {
   real padding;
   GoalType type;
 
-  int init;
 } Goal;
 
 static real goal_distance_from(Goal *goal, Point *point);
@@ -182,8 +181,6 @@ goal_get_props(Goal *goal, GPtrArray *props)
 static void
 goal_set_props(Goal *goal, GPtrArray *props)
 {
-  if (goal->init==-1) { goal->init++; return; }    /* workaround init bug */
-
   object_set_props_from_offsets(&goal->element.object,
                                 goal_offsets,props);
   goal_update_data(goal, ANCHOR_MIDDLE, ANCHOR_MIDDLE);
@@ -590,8 +587,6 @@ goal_create(Point *startpoint,
     case 2:  goal->type=GOAL; break;
     default: goal->type=SOFTGOAL; break;
   }
-
-  if (GPOINTER_TO_INT(user_data)!=0) goal->init=-1; else goal->init=0;
 
   return &goal->element.object;
 }
