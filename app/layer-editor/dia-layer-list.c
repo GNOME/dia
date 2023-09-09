@@ -504,6 +504,23 @@ dia_layer_list_focus (GtkWidget        *widget,
   return return_val;
 }
 
+static int
+dia_layer_list_draw (GtkWidget      *widget,
+                     cairo_t        *ctx)
+{
+    if (gtk_widget_is_drawable (widget)) {
+      GtkStyleContext *style = gtk_widget_get_style_context (widget);
+
+      int height = gtk_widget_get_allocated_height (widget);
+      int width = gtk_widget_get_allocated_width (widget);
+
+      gtk_render_background (style, ctx, 0, 0, width, height);
+
+      return GTK_WIDGET_CLASS (dia_layer_list_parent_class)->draw (widget, ctx);
+    }
+
+    return FALSE;
+}
 
 static void
 dia_layer_list_class_init (DiaLayerListClass *klass)
@@ -516,6 +533,8 @@ dia_layer_list_class_init (DiaLayerListClass *klass)
   object_class->get_property = dia_layer_list_get_property;
   object_class->set_property = dia_layer_list_set_property;
 
+  gtk_widget_class_set_css_name (widget_class, "treeview");
+
   widget_class->unmap = dia_layer_list_unmap;
   widget_class->style_set = dia_layer_list_style_set;
   widget_class->realize = dia_layer_list_realize;
@@ -524,6 +543,7 @@ dia_layer_list_class_init (DiaLayerListClass *klass)
   widget_class->get_preferred_height = dia_layer_list_get_preferred_height;
   widget_class->size_allocate = dia_layer_list_size_allocate;
   widget_class->focus = dia_layer_list_focus;
+  widget_class->draw = dia_layer_list_draw;
 
   container_class->add = dia_layer_list_add;
   container_class->remove = dia_layer_list_remove;
@@ -550,6 +570,8 @@ dia_layer_list_class_init (DiaLayerListClass *klass)
 static void
 dia_layer_list_init (DiaLayerList *list)
 {
+  GtkStyleContext *style = gtk_widget_get_style_context (GTK_WIDGET (list));
+  gtk_style_context_add_class (style, "view");
 }
 
 
