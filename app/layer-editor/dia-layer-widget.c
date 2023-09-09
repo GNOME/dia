@@ -357,6 +357,8 @@ dia_layer_widget_class_init (DiaLayerWidgetClass *klass)
   object_class->get_property = dia_layer_widget_get_property;
   object_class->finalize = dia_layer_widget_finalize;
 
+  gtk_widget_class_set_css_name (widget_class, "DiaLayerWidget");
+
   widget_class->realize = dia_layer_widget_realize;
   widget_class->get_preferred_width = dia_layer_widget_get_preferred_width;
   widget_class->get_preferred_height = dia_layer_widget_get_preferred_height;

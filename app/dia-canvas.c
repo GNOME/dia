@@ -277,6 +277,8 @@ dia_canvas_class_init (DiaCanvasClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+  gtk_widget_class_set_css_name (widget_class, "diacanvas");
+
   object_class->set_property = dia_canvas_set_property;
   object_class->get_property = dia_canvas_get_property;
 

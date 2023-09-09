@@ -224,11 +224,12 @@ dia_ruler_motion_notify (GtkWidget      *widget,
   return FALSE;
 }
 
-
 static void
 dia_ruler_class_init (DiaRulerClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+  gtk_widget_class_set_css_name (widget_class, "diaruler");
 
 #if GTK_CHECK_VERSION (3, 0, 0)
   widget_class->draw = dia_ruler_draw;
