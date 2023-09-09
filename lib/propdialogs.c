@@ -131,11 +131,13 @@ prop_dialog_add_widget(PropDialog *dialog, GtkWidget *label, GtkWidget *widget)
     prop_dialog_make_curtable(dialog);
   gtk_grid_attach(GTK_GRID(dialog->curtable), label,
                   0, dialog->currow, 1, 1);
-  gtk_widget_set_vexpand(label, TRUE);
+  gtk_widget_set_vexpand(label, FALSE);
   gtk_grid_attach(GTK_GRID(dialog->curtable), widget,
                   1, dialog->currow, 1, 1);
-  gtk_widget_set_hexpand(widget, TRUE);
-  gtk_widget_set_vexpand(widget, TRUE);
+  if (!GTK_IS_SWITCH(widget)) {
+    gtk_widget_set_hexpand(widget, TRUE);
+  }
+  gtk_widget_set_vexpand(widget, FALSE);
   gtk_widget_show(label);
   gtk_widget_show(widget);
   dialog->currow++;
@@ -220,10 +222,19 @@ property_signal_handler(GObject *obj,
   }
 }
 
-void
-prophandler_connect(const Property *prop,
-                    GObject *object,
-                    const gchar *signal)
+static void
+property_notify_forward(GObject *obj,
+               GParamSpec *pspec,
+               gpointer func_data)
+{
+  property_signal_handler(obj, func_data);
+}
+
+static void
+_prophandler_connect(const Property *prop,
+                     GObject *object,
+                     const gchar *signal,
+                     GCallback handler)
 {
   if (0==strcmp(signal,"FIXME")) {
     g_warning("signal type unknown for this kind of property (name is %s), \n"
@@ -233,8 +244,24 @@ prophandler_connect(const Property *prop,
 
   g_signal_connect (G_OBJECT (object),
                     signal,
-                    G_CALLBACK (property_signal_handler),
+                    handler,
                     (gpointer)(&prop->self_event_data));
+}
+
+void
+prophandler_connect_notify(const Property *prop,
+                    GObject *object,
+                    const gchar *signal)
+{
+  _prophandler_connect(prop, object, signal, G_CALLBACK (property_notify_forward));
+}
+
+void
+prophandler_connect(const Property *prop,
+                    GObject *object,
+                    const gchar *signal)
+{
+  _prophandler_connect(prop, object, signal, G_CALLBACK (property_signal_handler));
 }
 
 void

@@ -67,6 +67,10 @@ void prop_dialog_destroy(PropDialog *dialog);
 void prop_get_data_from_widgets(PropDialog *dialog);
 WIDGET *prop_dialog_get_widget(const PropDialog *dialog);
 
+/* properyhandler_connect but for notify:: signals. */
+void prophandler_connect_notify(const Property *prop,
+                                GObject *object,
+                                const gchar *signal);
 void prophandler_connect(const Property *prop, GObject *object, 
                          const gchar *signal);
 

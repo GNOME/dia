@@ -153,15 +153,6 @@ static const PropertyOps charprop_ops = {
 /* The BOOL property type. */
 /***************************/
 
-static void
-bool_toggled(GtkWidget *wid)
-{
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(wid)))
-    gtk_label_set_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(wid))), _("Yes"));
-  else
-    gtk_label_set_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(wid))), _("No"));
-}
-
 static Property *
 boolprop_new(const PropDescription *pdesc, PropDescToPropPredicate reason)
 {
@@ -185,23 +176,21 @@ boolprop_copy(BoolProperty *src)
 static WIDGET *
 boolprop_get_widget(BoolProperty *prop, PropDialog *dialog)
 {
-  GtkWidget *ret = gtk_toggle_button_new_with_label(_("No"));
-  g_signal_connect(G_OBJECT(ret), "toggled",
-                   G_CALLBACK (bool_toggled), NULL);
-  prophandler_connect(&prop->common, G_OBJECT(ret), "toggled");
+  GtkWidget *ret = gtk_switch_new();
+  prophandler_connect_notify(&prop->common, G_OBJECT(ret), "notify::active");
   return ret;
 }
 
 static void
 boolprop_reset_widget(BoolProperty *prop, WIDGET *widget)
 {
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget),prop->bool_data);
+  gtk_switch_set_active(GTK_SWITCH(widget),prop->bool_data);
 }
 
 static void
 boolprop_set_from_widget(BoolProperty *prop, WIDGET *widget)
 {
-  prop->bool_data = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(widget));
+  prop->bool_data = gtk_switch_get_active (GTK_SWITCH(widget));
 }
 
 static void
