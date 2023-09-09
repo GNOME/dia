@@ -80,13 +80,11 @@ static int
 dia_arrow_chooser_button_press_event (GtkWidget *widget, GdkEventButton *event)
 {
   if (event->button == 1) {
-    gtk_menu_popup (GTK_MENU (DIA_ARROW_CHOOSER (widget)->menu),
-                    NULL,
-                    NULL,
-                    NULL,
-                    NULL,
-                    event->button,
-                    event->time);
+    gtk_menu_popup_at_widget (GTK_MENU (DIA_ARROW_CHOOSER (widget)->menu),
+                              widget,
+                              GDK_GRAVITY_EAST,
+                              GDK_GRAVITY_WEST,
+                              (GdkEvent*)event);
 
     return TRUE;
   }

@@ -460,8 +460,7 @@ popup_object_menu(DDisplay *ddisp, GdkEvent *event)
   /* add the properties menu item to raise the properties from the contextual menu */
 
   if (event->type == GDK_BUTTON_PRESS)
-    gtk_menu_popup(menu, NULL, NULL, NULL, NULL,
-		   ((GdkEventButton *)event)->button, ((GdkEventButton *)event)->time);
+    gtk_menu_popup_at_pointer(menu, (GdkEvent*)event);
   else if (event->type == GDK_KEY_PRESS)
     gtk_menu_popup(menu, NULL, NULL, NULL, NULL, 0, ((GdkEventKey *)event)->time);
   else /* warn about unexpected usage of this function */

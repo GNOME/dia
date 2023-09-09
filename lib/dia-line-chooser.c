@@ -64,13 +64,11 @@ dia_line_chooser_button_press_event (GtkWidget *widget, GdkEventButton *event)
   DiaLineChooser *self = DIA_LINE_CHOOSER (widget);
 
   if (event->button == 1) {
-    gtk_menu_popup (self->menu,
-                    NULL,
-                    NULL,
-                    NULL,
-                    NULL,
-                    event->button,
-                    event->time);
+    gtk_menu_popup_at_widget (self->menu,
+                              widget,
+                              GDK_GRAVITY_EAST,
+                              GDK_GRAVITY_WEST,
+                              (GdkEvent*)event);
 
     return TRUE;
   }
