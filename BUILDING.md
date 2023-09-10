@@ -8,7 +8,7 @@ Dia is currently built using [meson](https://github.com/mesonbuild/meson).  Meso
 
 Build requirements are documented in the root [meson.build](/meson.build) file.  Meson is designed to be readable so please have a skim through the file.  Some dependencies are required, while others are optional.
 
-As can be seen from `meson.build`, the main requirements are **GTK2**, **libxml2** and **zlib**.
+As can be seen from `meson.build`, the main requirements are **GTK3** 3.24, **graphene**, **libxml2** and **zlib**.
 
 For reference, a number of other libraries are recommended for extra features.  However, not all these have been moved to meson.  It is recommended you run `meson build` (to configure the build directory) and then check which optional dependencies are not found:
 
@@ -27,7 +27,7 @@ Assuming you are all set and that pacman is up to date, you'll need to install a
 ```
 base-devel
 mingw-w64-x86_64-toolchain
-mingw-w64-x86_64-gtk2
+mingw-w64-x86_64-gtk3
 mingw-w64-x86_64-python2
 mingw-w64-x86_64-python2-pygtk
 ```
