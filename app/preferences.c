@@ -709,6 +709,7 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
   struct SetCurrentFilter find_filter;
   GtkWidget *dialog_vbox;
   DiaBuilder *builder;
+  GtkWidget *action_area;
   GtkWidget *content;
   GtkListStore *units;
   GtkListStore *paper;
@@ -766,6 +767,12 @@ dia_preferences_dialog_init (DiaPreferencesDialog *self)
 
   gtk_window_set_role (GTK_WINDOW (self), "preferences_window");
   gtk_window_set_title (GTK_WINDOW (self), _("Preferences"));
+
+  action_area = gtk_dialog_get_action_area (GTK_DIALOG (self));
+  gtk_widget_set_margin_bottom (action_area, 6);
+  gtk_widget_set_margin_top (action_area, 6);
+  gtk_widget_set_margin_start (action_area, 6);
+  gtk_widget_set_margin_end (action_area, 6);
 
   dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
 

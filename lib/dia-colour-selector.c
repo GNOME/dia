@@ -356,7 +356,7 @@ dia_colour_selector_init (DiaColourSelector *cs)
                     "changed",
                     G_CALLBACK (changed),
                     cs);
-
+  gtk_widget_set_hexpand (GTK_WIDGET (cs->combo), TRUE);
   gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (cs->combo),
                                         is_separator, NULL, NULL);
 

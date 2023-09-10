@@ -158,7 +158,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="use-underline">True</property>
                 <property name="draw-indicator">True</property>
                 <signal name="toggled" handler="ui_reset_tools_toggled" swapped="no"/>
@@ -175,7 +175,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="use-underline">True</property>
                 <property name="draw-indicator">True</property>
                 <signal name="toggled" handler="ui_reverse_drag_toggled" swapped="no"/>
@@ -190,7 +190,7 @@
               <object class="GtkSpinButton" id="ui_undo_spin">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="invisible-char">●</property>
                 <property name="primary-icon-activatable">False</property>
                 <property name="secondary-icon-activatable">False</property>
@@ -207,7 +207,7 @@
               <object class="GtkSpinButton" id="ui_recent_spin">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="invisible-char">●</property>
                 <property name="primary-icon-activatable">False</property>
                 <property name="secondary-icon-activatable">False</property>
@@ -224,7 +224,7 @@
               <object class="GtkLabel" id="ui_recent_lbl">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="label" translatable="yes">R_ecent Document List Length</property>
                 <property name="use-underline">True</property>
                 <property name="mnemonic-widget">ui_recent_spin</property>
@@ -239,7 +239,7 @@
               <object class="GtkLabel" id="ui_undo_lbl">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="label" translatable="yes">U_ndo Levels</property>
                 <property name="use-underline">True</property>
                 <property name="mnemonic-widget">ui_undo_spin</property>
@@ -282,7 +282,7 @@
               <object class="GtkLabel" id="ui_snap_lbl">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="label" translatable="yes">Grid _snapping distance</property>
                 <property name="use-underline">True</property>
                 <property name="mnemonic-widget">ui_snap_distance</property>
@@ -313,7 +313,7 @@
               <object class="GtkLabel" id="label11">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="xpad">1</property>
                 <property name="label" translatable="yes">Classic Mode</property>
                 <property name="xalign">0</property>
@@ -334,7 +334,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="use-underline">True</property>
                 <property name="draw-indicator">True</property>
                 <signal name="toggled" handler="ui_menubar_toggled" swapped="no"/>
@@ -351,7 +351,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="use-underline">True</property>
                 <property name="draw-indicator">True</property>
                 <signal name="toggled" handler="ui_toolbox_above_toggled" swapped="no"/>
@@ -444,7 +444,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="use-underline">True</property>
                 <property name="draw-indicator">True</property>
                 <signal name="toggled" handler="dd_portrait_toggled" swapped="no"/>
@@ -459,7 +459,7 @@
               <object class="GtkLabel" id="dd_type_lbl">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="label" translatable="yes">Paper _Type</property>
                 <property name="use-underline">True</property>
                 <property name="mnemonic-widget">dd_type</property>
@@ -474,7 +474,7 @@
               <object class="GtkLabel" id="dd_background_lbl">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="label" translatable="yes">_Background Color</property>
                 <property name="use-underline">True</property>
                 <property name="mnemonic-widget">dd_background</property>
@@ -491,7 +491,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="use-underline">True</property>
                 <property name="draw-indicator">True</property>
                 <signal name="toggled" handler="dd_compress_toggled" swapped="no"/>
@@ -506,7 +506,7 @@
               <object class="GtkLabel" id="label14">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="label" translatable="yes">Connection Points</property>
                 <property name="xalign">0</property>
                 <property name="yalign">1</property>
@@ -526,7 +526,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="use-underline">True</property>
                 <property name="draw-indicator">True</property>
                 <signal name="toggled" handler="dd_cp_visible_toggled" swapped="no"/>
@@ -543,7 +543,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="use-underline">True</property>
                 <property name="draw-indicator">True</property>
                 <signal name="toggled" handler="dd_cp_snap_toggled" swapped="no"/>
@@ -558,7 +558,6 @@
               <object class="GtkComboBox" id="dd_type">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="vexpand">True</property>
                 <property name="model">paper</property>
                 <signal name="changed" handler="dd_type_changed" swapped="no"/>
                 <child>
@@ -577,7 +576,6 @@
               <object class="DiaColourSelector" id="dd_background">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="vexpand">True</property>
                 <signal name="value-changed" handler="dd_background_changed" swapped="no"/>
               </object>
               <packing>
@@ -689,6 +687,7 @@
               <object class="GtkLabel" id="vd_pb_colour_lbl">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="hexpand">True</property>
                 <property name="label" translatable="yes">C_olor</property>
                 <property name="use-underline">True</property>
                 <property name="mnemonic-widget">vd_pb_colour</property>
@@ -813,7 +812,7 @@
               <object class="GtkSpinButton" id="vd_width">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="invisible-char">●</property>
                 <property name="primary-icon-activatable">False</property>
                 <property name="secondary-icon-activatable">False</property>
@@ -830,7 +829,7 @@
               <object class="GtkSpinButton" id="vd_height">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="invisible-char">●</property>
                 <property name="primary-icon-activatable">False</property>
                 <property name="secondary-icon-activatable">False</property>
@@ -847,7 +846,7 @@
               <object class="GtkSpinButton" id="vd_zoom">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="invisible-char">●</property>
                 <property name="primary-icon-activatable">False</property>
                 <property name="secondary-icon-activatable">False</property>
@@ -865,7 +864,7 @@
               <object class="DiaColourSelector" id="vd_guide_colour">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <signal name="value-changed" handler="vd_guide_colour_changed" swapped="no"/>
               </object>
               <packing>
@@ -877,7 +876,7 @@
               <object class="DiaColourSelector" id="vd_pb_colour">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <signal name="value-changed" handler="vd_pb_colour_changed" swapped="no"/>
               </object>
               <packing>
@@ -946,6 +945,7 @@
               <object class="GtkLabel" id="fv_png_lbl">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="hexpand">True</property>
                 <property name="label" translatable="yes">Portable _Network Graphics</property>
                 <property name="use-underline">True</property>
                 <property name="mnemonic-widget">fv_png</property>
@@ -1017,7 +1017,7 @@
               <object class="GtkComboBox" id="fv_png">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">True</property>
                 <property name="model">pngs</property>
                 <signal name="changed" handler="fv_png_changed" swapped="no"/>
                 <child>
@@ -1417,6 +1417,7 @@
               <object class="GtkLabel" id="gl_color_lbl">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="hexpand">True</property>
                 <property name="label" translatable="yes">_Color</property>
                 <property name="use-underline">True</property>
                 <property name="mnemonic-widget">gl_color</property>
