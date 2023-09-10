@@ -1,6 +1,6 @@
 project('dia',
         ['c', 'cpp'],
-        version: '0.97.3',  # This is the base version, git suffix gets added using vcs_tag().
+        version: '0.98.0',  # This is the base version, git suffix gets added using vcs_tag().
         meson_version: '>= 0.58',
         default_options: [
                              'warning_level=1',
