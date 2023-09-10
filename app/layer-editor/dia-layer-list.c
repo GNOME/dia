@@ -18,6 +18,7 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
  * © 2020 Zander Brown <zbrown@gnome.org>
+ * © 2023 Hubert Figuière <hub@figuiere.net>
  */
 
 /* GTK - The GIMP Toolkit
@@ -533,7 +534,7 @@ dia_layer_list_class_init (DiaLayerListClass *klass)
   object_class->get_property = dia_layer_list_get_property;
   object_class->set_property = dia_layer_list_set_property;
 
-  gtk_widget_class_set_css_name (widget_class, "treeview");
+  gtk_widget_class_set_css_name (widget_class, "list");
 
   widget_class->unmap = dia_layer_list_unmap;
   widget_class->style_set = dia_layer_list_style_set;

@@ -1,5 +1,6 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
+ * © 2023 Hubert Figuière <hub@figuiere.net>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -323,14 +324,11 @@ dia_layer_widget_draw (GtkWidget      *widget,
     if (gtk_widget_get_state_flags (GTK_WIDGET (widget)) & GTK_STATE_FLAG_NORMAL) {
       gtk_render_background (style, ctx, 0, 0, alloc.width, alloc.height);
     } else {
+      gtk_style_context_save (style);
+      gtk_style_context_set_state (style, gtk_widget_get_state_flags (GTK_WIDGET (widget)));
       gtk_render_background (style, ctx, 0, 0, alloc.width, alloc.height);
       gtk_render_frame (style, ctx, 0, 0, alloc.width, alloc.height);
-      /*
-      gtk_paint_flat_box (style, window,
-                          gtk_widget_get_state (GTK_WIDGET (widget)), GTK_SHADOW_ETCHED_OUT,
-                          &event->area, widget, "listitem",
-                          0, 0, -1, -1);
-      */
+      gtk_style_context_restore (style);
     }
 
     GTK_WIDGET_CLASS (dia_layer_widget_parent_class)->draw (widget, ctx);
@@ -357,7 +355,7 @@ dia_layer_widget_class_init (DiaLayerWidgetClass *klass)
   object_class->get_property = dia_layer_widget_get_property;
   object_class->finalize = dia_layer_widget_finalize;
 
-  gtk_widget_class_set_css_name (widget_class, "DiaLayerWidget");
+  gtk_widget_class_set_css_name (widget_class, "row");
 
   widget_class->realize = dia_layer_widget_realize;
   widget_class->get_preferred_width = dia_layer_widget_get_preferred_width;
@@ -558,6 +556,9 @@ dia_layer_widget_init (DiaLayerWidget *self)
   gtk_widget_set_can_focus (GTK_WIDGET (self), TRUE);
 
   hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+
+  gtk_widget_set_margin_top (hbox, 3);
+  gtk_widget_set_margin_bottom (hbox, 3);
 
   priv->internal_call = FALSE;
   priv->shifted = FALSE;
