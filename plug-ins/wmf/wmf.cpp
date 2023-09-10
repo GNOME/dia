@@ -60,7 +60,7 @@ typedef W32::LOGFONTW LOGFONTW;
 
 #include <pango/pangowin32.h>
 
-#elif HAVE_LIBEMF
+#elif defined(HAVE_LIBEMF)
 /* We have to define STRICT to make libemf/64 work. Otherwise there is
 wmf.cpp:1383:40: error: cast from 'void*' to 'W32::HDC' loses precision
  */
@@ -177,7 +177,7 @@ UsePen(WmfRenderer* renderer, Color* colour)
     W32::HPEN hOldPen;
     if (colour) {
 	W32::COLORREF rgb = W32COLOR(colour);
-#if defined(G_OS_WIN32) || HAVE_LIBEMF
+#if defined(G_OS_WIN32) || defined(HAVE_LIBEMF)
 	if ((renderer->platform_is_nt && renderer->hPrintDC) || renderer->target_emf) {
           W32::LOGBRUSH logbrush;
 	  W32::DWORD    dashes[6];
@@ -249,13 +249,12 @@ DonePen(WmfRenderer* renderer, W32::HPEN hPen)
     }
 }
 
-static void _nada(WmfRenderer*, const char*, ...) { }
 #ifndef HAVE_LIBEMF
 #  define DIAG_NOTE _nada
+static void _nada(WmfRenderer*, const char*, ...) { }
 #else
 #  define DIAG_NOTE my_log
-#endif
-#ifdef G_OS_WIN32
+
 static void
 my_log(WmfRenderer* renderer, const char* format, ...)
 {
@@ -688,7 +687,7 @@ draw_polygon(DiaRenderer *self,
     W32::HPEN    hPen;
     W32::POINT*  pts;
     int          i;
-    W32::HBRUSH  hBrush;
+    W32::HBRUSH  hBrush = 0;
     W32::COLORREF rgb = fill ? W32COLOR(fill) : 0;
 
     DIAG_NOTE(renderer, "draw_polygon n:%d %f,%f ...\n",
@@ -796,6 +795,7 @@ draw_arc(DiaRenderer *self,
     DonePen(renderer, hPen);
 }
 
+#ifndef HAVE_LIBEMF
 static void
 fill_arc(DiaRenderer *self,
 	 Point *center,
@@ -841,6 +841,7 @@ fill_arc(DiaRenderer *self,
     W32::DeleteObject(hBrush);
     DonePen(renderer, hPen);
 }
+#endif
 
 static void
 draw_ellipse(DiaRenderer *self,
@@ -888,7 +889,7 @@ _bezier (DiaRenderer *self,
 	 gboolean  closed)
 {
     WmfRenderer *renderer = WMF_RENDERER (self);
-    W32::HGDIOBJ hBrush, hBrOld;
+    W32::HGDIOBJ hBrush /*, hBrOld */;
     W32::HPEN hPen;
     W32::COLORREF rgb = W32COLOR(colour);
 
@@ -897,7 +898,7 @@ _bezier (DiaRenderer *self,
 
     if (fill) {
       hBrush = W32::CreateSolidBrush(rgb);
-      hBrOld = W32::SelectObject(renderer->hFileDC, hBrush);
+      /*hBrOld =*/ W32::SelectObject(renderer->hFileDC, hBrush);
     } else {
       hPen = UsePen(renderer, colour);
     }
@@ -1089,6 +1090,7 @@ draw_string (DiaRenderer  *self,
     W32::SelectObject(renderer->hFileDC, hOld);
 }
 
+#ifndef HAVE_LIBEMF
 static void
 draw_image(DiaRenderer *self,
 	   Point *point,
@@ -1229,6 +1231,7 @@ draw_rounded_rect (DiaRenderer *self,
 	DonePen(renderer, hPen);
     }
 }
+#endif
 
 /* GObject boiler plate */
 static void wmf_renderer_class_init (WmfRendererClass *klass);
@@ -1377,7 +1380,6 @@ wmf_renderer_class_init (WmfRendererClass *klass)
   g_object_class_override_property (object_class, PROP_FONT_HEIGHT, "font-height");
 }
 
-#ifdef G_OS_WIN32
 /* plug-in export api */
 static gboolean
 export_data(DiagramData *data, DiaContext *ctx,
@@ -1412,7 +1414,7 @@ export_data(DiagramData *data, DiaContext *ctx,
     bbox.bottom = (int)((data->extents.bottom - data->extents.top) * scale *
         100 * W32::GetDeviceCaps(refDC, VERTSIZE) / W32::GetDeviceCaps(refDC, VERTRES));
 
-#if HAVE_LIBEMF
+#if defined(HAVE_LIBEMF)
     FILE* ofile = g_fopen (filename, "w");
     if (ofile)
       file = CreateEnhMetaFileWithFILEA (refDC, ofile, &bbox, "Created with Dia/libEMF\0");
@@ -1529,6 +1531,7 @@ export_data(DiagramData *data, DiaContext *ctx,
     return TRUE;
 }
 
+#ifdef G_OS_WIN32
 static const gchar *wmf_extensions[] = { "wmf", NULL };
 static DiaExportFilter wmf_export_filter = {
     N_("Windows Metafile"),
@@ -1537,6 +1540,7 @@ static DiaExportFilter wmf_export_filter = {
     NULL, /* user data */
     "wmf"
 };
+#endif
 
 static const gchar *emf_extensions[] = { "emf", NULL };
 static DiaExportFilter emf_export_filter = {
@@ -1548,6 +1552,7 @@ static DiaExportFilter emf_export_filter = {
 };
 
 
+#ifdef G_OS_WIN32
 static DiaObjectChange *
 print_callback (DiagramData *data,
                 const char  *filename,
@@ -1591,7 +1596,7 @@ dia_plugin_init(PluginInfo *info)
 
 #ifdef G_OS_WIN32
     /*
-     * On non windoze platforms this plug-in currently is only
+     * On non Windows platforms this plug-in currently is only
      * useful at compile/develoment time. The output is broken
      * when processed by wmf_gdi.cpp ...
      */
@@ -1599,7 +1604,7 @@ dia_plugin_init(PluginInfo *info)
     filter_register_export(&emf_export_filter);
 
     filter_register_callback (&cb_gdi_print);
-#elif HAVE_LIBEMF
+#elif defined(HAVE_LIBEMF)
     /* not sure if libEMF really saves EMF ;) */
     filter_register_export(&emf_export_filter);
 #endif
