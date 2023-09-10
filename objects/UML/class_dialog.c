@@ -1,5 +1,8 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
+ * © 2023 Hubert Figuière <hub@figuiere.net>
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -318,6 +321,7 @@ create_font_props_row (GtkGrid    *grid,
   gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_grid_attach (grid, label, 0, row, 1, 1);
   *fontsel = DIA_FONT_SELECTOR (dia_font_selector_new ());
+  gtk_widget_set_hexpand (GTK_WIDGET (*fontsel), TRUE);
   dia_font_selector_set_font (DIA_FONT_SELECTOR (*fontsel), font);
   gtk_grid_attach (GTK_GRID (grid), GTK_WIDGET(*fontsel), 1, row, 1, 1);
 
@@ -351,6 +355,8 @@ class_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   grid = gtk_grid_new ();
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
   gtk_box_pack_start (GTK_BOX (vbox), grid, FALSE, FALSE, 0);
 
   label = gtk_label_new(_("Class name:"));
@@ -475,6 +481,8 @@ style_create_page(GtkNotebook *notebook,  UMLClass *umlclass)
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
 
   grid = gtk_grid_new ();
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
   gtk_box_pack_start (GTK_BOX (vbox), grid, FALSE, TRUE, 0);
   gtk_grid_set_row_homogeneous (GTK_GRID (grid), FALSE);
   gtk_grid_set_column_homogeneous (GTK_GRID (grid), FALSE);

@@ -6,6 +6,10 @@
  * Copyright (C) 2001 Cyrille Chepelov
  * Major restructuration done in August 2001 by C. Chepelov
  *
+ * © 2023 Hubert Figuière <hub@figuiere.net>
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
  * Routines for the construction of a property dialog.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -113,8 +117,8 @@ static void
 prop_dialog_make_curtable(PropDialog *dialog)
 {
   GtkWidget *table = gtk_grid_new();
-  gtk_grid_set_row_spacing(GTK_GRID(table), 2);
-  gtk_grid_set_column_spacing(GTK_GRID(table), 5);
+  gtk_grid_set_row_spacing(GTK_GRID(table), 6);
+  gtk_grid_set_column_spacing(GTK_GRID(table), 6);
   gtk_widget_show(table);
   prop_dialog_add_raw(dialog,table);
 
@@ -132,12 +136,18 @@ prop_dialog_add_widget(PropDialog *dialog, GtkWidget *label, GtkWidget *widget)
   gtk_grid_attach(GTK_GRID(dialog->curtable), label,
                   0, dialog->currow, 1, 1);
   gtk_widget_set_vexpand(label, FALSE);
+
+  if (GTK_IS_SWITCH (widget)) {
+    GtkWidget *box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+    gtk_box_pack_start (GTK_BOX (box), widget, FALSE, TRUE, 0);
+    gtk_widget_show (widget);
+    widget = box;
+  }
+
+  gtk_widget_set_hexpand(widget, TRUE);
+
   gtk_grid_attach(GTK_GRID(dialog->curtable), widget,
                   1, dialog->currow, 1, 1);
-  if (!GTK_IS_SWITCH(widget)) {
-    gtk_widget_set_hexpand(widget, TRUE);
-  }
-  gtk_widget_set_vexpand(widget, FALSE);
   gtk_widget_show(label);
   gtk_widget_show(widget);
   dialog->currow++;

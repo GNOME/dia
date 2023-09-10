@@ -506,6 +506,8 @@ _make_scrollable (GtkWidget *view)
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
   gtk_container_add (GTK_CONTAINER (sw), view);
   gtk_widget_show (sw);
+  gtk_widget_set_vexpand (sw, TRUE);
+  gtk_widget_set_hexpand (sw, TRUE);
 
   return sw;
 }
@@ -524,6 +526,7 @@ _arrayprop_get_widget (ArrayProperty *prop, PropDialog *dialog)
   model = create_sdarray_model (prop);
   /* visualize */
   view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (model));
+  gtk_widget_set_vexpand (view, TRUE);
   /* to adapt the branch_view */
   g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (view)), "changed",
 		    G_CALLBACK (_update_branch), view);
@@ -552,7 +555,7 @@ _arrayprop_get_widget (ArrayProperty *prop, PropDialog *dialog)
    *           \- branch_view
    */
   {
-    GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL /* less size for button column */, 0);
+    GtkWidget *hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL /* less size for button column */, 6);
     GtkWidget *vbox = _make_button_box_for_view (GTK_TREE_VIEW (view), NULL);
 
     gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE /* no expand */, FALSE, 0);
@@ -581,6 +584,7 @@ _arrayprop_get_widget (ArrayProperty *prop, PropDialog *dialog)
       g_object_set_data (G_OBJECT (view), "branch-view", branch_view);
     }
     g_object_set_data (G_OBJECT (hbox), "tree-view", view);
+    gtk_widget_set_vexpand (hbox, TRUE);
     return hbox;
   }
 }

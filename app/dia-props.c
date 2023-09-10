@@ -262,6 +262,7 @@ static void
 dia_diagram_properties_dialog_init (DiaDiagramPropertiesDialog *self)
 {
   DiaDiagramPropertiesDialogPrivate *priv = dia_diagram_properties_dialog_get_instance_private (self);
+  GtkWidget *action_area;
   GtkWidget *dialog_vbox;
   GtkWidget *notebook;
   DiaBuilder *builder;
@@ -272,6 +273,12 @@ dia_diagram_properties_dialog_init (DiaDiagramPropertiesDialog *self)
                           _("_OK"), GTK_RESPONSE_OK,
                           NULL);
   gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_OK);
+
+  action_area = gtk_dialog_get_action_area (GTK_DIALOG (self));
+  gtk_widget_set_margin_bottom (action_area, 6);
+  gtk_widget_set_margin_top (action_area, 6);
+  gtk_widget_set_margin_start (action_area, 6);
+  gtk_widget_set_margin_end (action_area, 6);
 
   dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
 

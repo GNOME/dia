@@ -232,10 +232,12 @@ _create_view (GtkTreeModel *model)
   GtkCellRenderer *renderer;
 
   widget = gtk_scrolled_window_new (NULL, NULL);
+  gtk_widget_set_vexpand (widget, TRUE);
   gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (widget), GTK_SHADOW_ETCHED_IN);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (widget), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
   tree_view = gtk_tree_view_new_with_model (model);
+  gtk_widget_set_vexpand (tree_view, TRUE);
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (tree_view), TRUE);
   gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (tree_view), TRUE);
 

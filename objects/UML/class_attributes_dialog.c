@@ -1,5 +1,8 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
+ * © 2023 Hubert Figuière <hub@figuiere.net>
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -665,6 +668,7 @@ _attributes_create_page (GtkNotebook *notebook, UMLClass *umlclass)
 
   grid = gtk_grid_new ();
   gtk_grid_set_column_spacing (GTK_GRID (grid), 6);
+  gtk_grid_set_row_spacing (GTK_GRID (grid), 6);
   gtk_box_pack_start (GTK_BOX (vbox2), grid, FALSE, FALSE, 0);
   gtk_widget_show (grid);
 
@@ -751,7 +755,7 @@ _attributes_create_page (GtkNotebook *notebook, UMLClass *umlclass)
   dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Protected"), DIA_UML_PROTECTED);
   dia_option_menu_add_item (DIA_OPTION_MENU (omenu), _("Implementation"), DIA_UML_IMPLEMENTATION);
   gtk_grid_attach (GTK_GRID (grid), label, 0, 4, 1, 1);
-  gtk_widget_set_hexpand (label, TRUE);
+  gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
   gtk_widget_show (label);
   gtk_widget_show (omenu);
 

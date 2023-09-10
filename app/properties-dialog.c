@@ -52,6 +52,7 @@ static void properties_dialog_hide(void);
 static void
 create_dialog(GtkWidget *parent)
 {
+  GtkWidget *action_area;
 /*   GtkWidget *actionbox; */
 /*   GList *buttons; */
 
@@ -64,6 +65,12 @@ create_dialog(GtkWidget *parent)
                                         NULL);
 
   gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_OK);
+
+  action_area = gtk_dialog_get_action_area (GTK_DIALOG (dialog));
+  gtk_widget_set_margin_bottom (action_area, 6);
+  gtk_widget_set_margin_top (action_area, 6);
+  gtk_widget_set_margin_start (action_area, 6);
+  gtk_widget_set_margin_end (action_area, 6);
 
   dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG(dialog));
 
