@@ -1,5 +1,8 @@
 /* Dia -- an diagram creation/manipulation program
  * Copyright (C) 1998 Alexander Larsson
+ * © 2023 Hubert Figuière <hub@figuiere.net>
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

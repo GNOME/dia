@@ -4,6 +4,10 @@
  * GtkHWrapBox: Horizontal wrapping box widget
  * Copyright (C) 1999 Tim Janik
  *
+ * © 2023 Hubert Figuière <hub@figuiere.net>
+ *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
