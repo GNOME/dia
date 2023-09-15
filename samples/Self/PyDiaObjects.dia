@@ -7843,7 +7843,7 @@
         <dia:string>##</dia:string>
       </dia:attribute>
       <dia:attribute name="comment">
-        <dia:string>#The dia module allows to write Python plug-ins for Dia [http://live.gnome.org/Dia/Python]
+        <dia:string>#The dia module allows to write Python plug-ins for Dia [https://wiki.gnome.org/Apps/Dia/Python]
 
 This modules is designed to run Python scripts embedded in Dia. To make your script accessible
 to Dia you have to put it into $HOME/.dia/python and let it call one of the register_*() functions.
