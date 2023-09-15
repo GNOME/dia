@@ -11,11 +11,7 @@
    <ulink url="https://gitlab.gnome.org/GNOME/dia/-/issues/" type="http">la base de données GNOME de
    suivi d'anomalies</ulink>.  (les instructions pour soumettre les rapports
    de bogue sont disponibles <ulink url="https://wiki.gnome.org/GettingInTouch/BugReportingGuidelines"
-   type="http">en ligne</ulink>).  Si vous utilisez GNOME 1.1 ou une version
-   supérieure, vous pouvez également utiliser <application>l'outil de rapport
-   d'anomalie</application> (<command>bug-buddy</command>), disponible dans le
-   sous-menu <guisubmenu>Utilitaires</guisubmenu> du <guimenu>Menu
-   principal</guimenu>. Vous pouvez
+   type="http">en ligne</ulink>). Vous pouvez
    également souscrire à la <ulink
    url="http://mail.gnome.org/mailman/listinfo/dia-list">liste de
    diffusion</ulink> de <application>Dia</application>.

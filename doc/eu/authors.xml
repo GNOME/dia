@@ -11,11 +11,7 @@
    <ulink url="https://gitlab.gnome.org/GNOME/dia/-/issues/" type="http">GNOMEren akatsen 
    segimendurako datu-basera</ulink>. (Programa-erroreen berri emateko 
    jarraibideak <ulink url="https://wiki.gnome.org/GettingInTouch/BugReportingGuidelines" 
-   type="http">linean</ulink> aurkituko dituzue.) GNOMEren 1.1 bertsioa 
-   edo berriagoa baduzu, <application>Programa-erroreen berri emateko 
-   tresna</application> (<command>bug-buddy</command>) ere erabil dezakezu 
-   akatsen berri emateko. Tresna hori <guimenu>Menu nagusi</guimenu>ko 
-   <guisubmenu>Utilitateak</guisubmenu> azpimenuan duzu eskuragarri.
+   type="http">linean</ulink> aurkituko dituzue.)
   </para>
  
   <para>
