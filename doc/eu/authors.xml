@@ -8,9 +8,9 @@
    <ulink url="https://wiki.gnome.org/Apps/Dia" 
    type="http">wiki.gnome.org/Apps/Dia</ulink>. 
     Bidali zure iruzkin, iradokizun eta akatsen berri-emateak 
-   <ulink url="http://bugs.gnome.org" type="http">GNOMEren akatsen 
+   <ulink url="https://gitlab.gnome.org/GNOME/dia/-/issues/" type="http">GNOMEren akatsen 
    segimendurako datu-basera</ulink>. (Programa-erroreen berri emateko 
-   jarraibideak <ulink url="http://bugs.gnome.org/Reporting.html" 
+   jarraibideak <ulink url="https://wiki.gnome.org/GettingInTouch/BugReportingGuidelines" 
    type="http">linean</ulink> aurkituko dituzue.) GNOMEren 1.1 bertsioa 
    edo berriagoa baduzu, <application>Programa-erroreen berri emateko 
    tresna</application> (<command>bug-buddy</command>) ere erabil dezakezu 

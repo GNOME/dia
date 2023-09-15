@@ -8,9 +8,9 @@
    url="https://wiki.gnome.org/Apps/Dia"
    type="http">wiki.gnome.org/Apps/Dia</ulink>.
    Merci d'envoyer tous commentaires, suggestions, et rapports de bogues à
-   <ulink url="http://bugs.gnome.org" type="http">la base de données GNOME de
+   <ulink url="https://gitlab.gnome.org/GNOME/dia/-/issues/" type="http">la base de données GNOME de
    suivi d'anomalies</ulink>.  (les instructions pour soumettre les rapports
-   de bogue sont disponibles <ulink url="http://bugs.gnome.org/Reporting.html"
+   de bogue sont disponibles <ulink url="https://wiki.gnome.org/GettingInTouch/BugReportingGuidelines"
    type="http">en ligne</ulink>).  Si vous utilisez GNOME 1.1 ou une version
    supérieure, vous pouvez également utiliser <application>l'outil de rapport
    d'anomalie</application> (<command>bug-buddy</command>), disponible dans le

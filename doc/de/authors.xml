@@ -9,10 +9,10 @@
    type="http">dia-installer.de</ulink> oder <ulink
    url="https://wiki.gnome.org/Apps/Dia" type="http">
    wiki.gnome.org/Apps/Dia</ulink>.  Bitte tragen Sie sämtliche
-   Kommentare, Vorschläge und Fehlerberichtet in der <ulink url="http://bugs.gnome.org"
+   Kommentare, Vorschläge und Fehlerberichte in der <ulink url="https://gitlab.gnome.org/GNOME/dia/-/issues/"
    type="http">GNOME Fehlerdatenbank</ulink> ein. (Eine
    Anleitung dazu finden Sie <ulink
-   url="http://bugs.gnome.org/Reporting.html" type="http">online</ulink>.)
+   url="https://wiki.gnome.org/GettingInTouch/BugReportingGuidelines" type="http">online</ulink>.)
    Alternativ können Sie sich an die  
    <application>Dia</application> 
    <ulink url="http://mail.gnome.org/mailman/listinfo/dia-list">Mailingliste</ulink>
