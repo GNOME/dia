@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dia 0.97\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2023-01-24 18:28+0000\n"
-"PO-Revision-Date: 2023-03-10 22:51+1000\n"
+"POT-Creation-Date: 2023-08-08 13:47+0000\n"
+"PO-Revision-Date: 2023-09-10 20:52+1000\n"
 "Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -256,8 +256,8 @@ msgstr "Завершение работы"
 #: app/filedlg.c:315 app/filedlg.c:501 app/filedlg.c:823
 #: app/layer-editor/dia-layer-properties.c:246 data/ui/sheets-edit-dialog.ui:32
 #: data/ui/sheets-new-dialog.ui:31 data/ui/sheets-remove-dialog.ui:31
-#: lib/dia-arrow-chooser.c:179 lib/dia-file-selector.c:121
-#: lib/dia-line-chooser.c:174 plug-ins/xslt/xsltdialog.c:87
+#: lib/dia-arrow-chooser.c:179 lib/dia-line-chooser.c:174
+#: plug-ins/xslt/xsltdialog.c:87
 msgid "_Cancel"
 msgstr "_Отменить"
 
@@ -815,7 +815,6 @@ msgstr[2] ""
 "закрытием?"
 
 #: app/filedlg.c:156 app/filedlg.c:164 app/filedlg.c:180 app/filedlg.c:870
-#: lib/dia-file-selector.c:131
 msgid "Supported Formats"
 msgstr "Поддерживаемые форматы"
 
@@ -827,7 +826,7 @@ msgstr "По расширению"
 msgid "Open Diagram"
 msgstr "Открыть диаграмму"
 
-#: app/filedlg.c:316 lib/dia-file-selector.c:122
+#: app/filedlg.c:316
 msgid "_Open"
 msgstr "_Открыть"
 
@@ -839,7 +838,7 @@ msgstr "Параметры открытия"
 msgid "Determine file type:"
 msgstr "Определять тип файла:"
 
-#: app/filedlg.c:372 app/filedlg.c:864 lib/dia-file-selector.c:141
+#: app/filedlg.c:372 app/filedlg.c:864
 msgid "All Files"
 msgstr "Все файлы"
 
@@ -1853,7 +1852,7 @@ msgstr "Переключает привязку к ориентирам для �
 msgid "The function is not available anymore."
 msgstr "Эта функция более не доступна."
 
-#: app/modify_tool.c:438
+#: app/modify_tool.c:435
 msgid "Couldn't get GTK+ settings"
 msgstr "Не удалось получить параметры GTK+"
 
@@ -2028,7 +2027,6 @@ msgstr "Загрузка …"
 
 #: app/splash.c:59
 #, c-format
-#| msgid "Dia v %s"
 msgid "Dia v%s"
 msgstr "Dia v%s"
 
@@ -2754,14 +2752,6 @@ msgstr "Выбор цвета"
 msgid "More Colors…"
 msgstr "Другие цвета…"
 
-#: lib/dia-file-selector.c:118
-msgid "Select image file"
-msgstr "Выбрать файл изображения"
-
-#: lib/dia-file-selector.c:173
-msgid "Browse"
-msgstr "Просмотреть"
-
 #: lib/dia-font-selector.c:180
 #, c-format
 msgid "Couldn't find font family for %s\n"
@@ -2801,12 +2791,12 @@ msgstr ""
 "%s\n"
 "%s\n"
 
-#: lib/diapatternselector.c:95 lib/prop_inttypes.c:159 lib/prop_pixbuf.c:325
+#: lib/diapatternselector.c:95 lib/prop_inttypes.c:160 lib/prop_pixbuf.c:325
 msgid "Yes"
 msgstr "Да"
 
 #: lib/diapatternselector.c:99 lib/diapatternselector.c:192
-#: lib/prop_inttypes.c:161 lib/prop_inttypes.c:187 lib/prop_pixbuf.c:327
+#: lib/prop_inttypes.c:162 lib/prop_inttypes.c:188 lib/prop_pixbuf.c:327
 #: lib/prop_pixbuf.c:333
 msgid "No"
 msgstr "Нет"
@@ -3138,7 +3128,7 @@ msgstr "Размер по тексту"
 msgid "Pattern"
 msgstr "Заполнение узором"
 
-#: lib/prop_inttypes.c:570
+#: lib/prop_inttypes.c:573
 msgid "Property cast from int to enum out of range"
 msgstr ""
 "Преобразование типа свойства с «int» на «enum» дало ошибку «вне диапазона»"
@@ -3171,12 +3161,16 @@ msgid "Cant create image data from scratch!"
 msgstr "Не удалось создать данные изображения!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: lib/prop_sdarray_widget.c:566 objects/chronogram/chronoline.c:162
+#: lib/prop_sdarray_widget.c:573 objects/chronogram/chronoline.c:162
 #: objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Параметры"
 
-#: lib/prop_text.c:496
+#: lib/prop_text.c:163
+msgid "Choose a file..."
+msgstr "Выбрать файл..."
+
+#: lib/prop_text.c:510
 #, c-format
 msgid "Group with %d object"
 msgid_plural "Group with %d objects"
@@ -3248,11 +3242,11 @@ msgstr "Преобразовать в Безье"
 msgid "Invert Path"
 msgstr "Инвертировать контур"
 
-#: lib/standard-path.c:808 objects/custom/custom_object.c:1962
+#: lib/standard-path.c:808 objects/custom/custom_object.c:1955
 msgid "Flip Horizontal"
 msgstr "Горизонтальное отражение"
 
-#: lib/standard-path.c:809 objects/custom/custom_object.c:1963
+#: lib/standard-path.c:809 objects/custom/custom_object.c:1956
 msgid "Flip Vertical"
 msgstr "Вертикальное отражение"
 
@@ -3522,7 +3516,7 @@ msgstr "Маштаб подформ"
 msgid "Text padding"
 msgstr "Заполнение текста"
 
-#: objects/custom/custom_object.c:2001
+#: objects/custom/custom_object.c:1994
 #, c-format
 msgid "Cannot open icon file %s for object type '%s'."
 msgstr "Не удалось открыть файл значка %s для объекта типа «%s»."
@@ -6540,11 +6534,11 @@ msgstr "Неправильная кодировка UTF-8"
 msgid "LaTeX PGF macros"
 msgstr "Макрос LaTeX PGF"
 
-#: plug-ins/pixbuf/pixbuf.c:106
+#: plug-ins/pixbuf/pixbuf.c:93
 msgid "Failed to create pixbuf from drawable."
 msgstr "Не удалось создать растровый буфер (pixbuf) из изображения."
 
-#: plug-ins/pixbuf/pixbuf.c:110
+#: plug-ins/pixbuf/pixbuf.c:97
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -6555,11 +6549,11 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:135
+#: plug-ins/pixbuf/pixbuf.c:122
 msgid "Calling error, missing user_data."
 msgstr "Ошибка вызова, отсутствует user_data."
 
-#: plug-ins/pixbuf/pixbuf.c:161
+#: plug-ins/pixbuf/pixbuf.c:148
 #, c-format
 msgid ""
 "Pixbuf[%s] can't load:\n"
@@ -6568,7 +6562,7 @@ msgstr ""
 "Не удалось загрузить Pixbuf[%s]:\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:217
+#: plug-ins/pixbuf/pixbuf.c:204
 msgid "gdk-pixbuf-based bitmap export/import"
 msgstr "экспорт/импорт растровых изображений, основанный на gdk-pixbuf"
 
@@ -11257,6 +11251,12 @@ msgstr "Активность"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "Ответвление/Объединение"
+
+#~ msgid "Select image file"
+#~ msgstr "Выбрать файл изображения"
+
+#~ msgid "Browse"
+#~ msgstr "Просмотреть"
 
 #~ msgid ""
 #~ "Can't get symbol 'custom_type' from any module.\n"
