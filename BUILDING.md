@@ -51,13 +51,14 @@ ninja install
 ./install/bin/dia
 ```
 
-### 2. Using `run_with_dia_env` (recommended only on *nix)
+### 2. Using `meson devenv`
 ```
 cd path/to/dia
 path/to/meson.py build
 cd build
+path/to/meson.py devenv
 ninja
-./run_with_dia_env ./app/dia
+./app/dia
 ```
 
 ### Running tests
@@ -67,7 +68,7 @@ Build dia then simply do `ninja test`.
 ### Windows issues
 The most common issue currently on MSYS2 is that paths are incorrect.  There are two potential types of issues that you need to be aware of:
 
-1. "libdia.dll not found":  This happens because PATH does not contain the directory where libdia.dll is located.  Simply add that directory to PATH, e.g. `PATH=$(pwd)/lib/:$PATH ./run_with_dia_env ./app/dia`
+1. "libdia.dll not found":  This happens because PATH does not contain the directory where libdia.dll is located.  Simply add that directory to PATH, e.g. `PATH=$(pwd)/lib/:$PATH meson devenv ./app/dia`
 2. "Python site module not found":  This is because PYTHONPATH or PYTHONHOME are not set.  Simply set both to /mingw64/lib/python2.7 and that should resolve the issue.
 
 ## Installing

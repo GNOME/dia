@@ -120,6 +120,30 @@ else
   g_module_suffix = 'so'
 endif
 
+dia_source = meson.project_source_root()
+dia_build = meson.project_build_root()
+
+# Setup local environment to run dia.
+run_env_dict = {
+    'DIA_BASE_PATH'  : [dia_source],
+    'DIA_LIB_PATH'   : [dia_build / 'objects', dia_build / 'plug-ins'],
+    'DIA_SHAPE_PATH' : [dia_source / 'shapes'],
+    'DIA_XSLT_PATH'  : [dia_source / 'plug-ins' / 'xslt'],
+    'DIA_PYTHON_PATH': [dia_source / 'plug-ins' / 'python'],
+    'DIA_SHEET_PATH' : [dia_build / 'sheets'],
+}
+
+run_env = environment()
+foreach k, v : run_env_dict
+    run_env.set(k, v)
+endforeach
+
+# Otherwise Windows won't be able to find libdia.dll in build directory.
+if host_machine.system() == 'windows'
+    run_env.append('PATH', dia_build / 'lib')
+endif
+
+meson.add_devenv(run_env)
 
 subdir('po')
 subdir('lib')
@@ -137,23 +161,10 @@ if get_option('doc')
 endif
 subdir('docs')
 
-# TODO: idealy this should use run_env from tests/
-# Unfortunately, neither run_target or custom_target support env
-# https://github.com/mesonbuild/meson/issues/2723
-# Alternatively we could use run configurations:
-# https://github.com/mesonbuild/meson/issues/1314
-custom_target('run_with_dia_env',
-    command: [find_program('generate_run_with_dia_env.sh'),
-              '@OUTPUT@',
-              meson.global_source_root(),
-              meson.global_build_root()
-          ],
-    output: 'run_with_dia_env',
-    # Ensure we always generate this in the build directory.
-    build_by_default: true,
+gnome.post_install(
+    gtk_update_icon_cache: true,
+    update_desktop_database: true
 )
-
-meson.add_install_script('build-aux/post-install.py', datadir)
 
 if build_machine.system() == 'windows' and get_option('buildtype') == 'release'
     meson.add_install_script('build-aux/windows-bundler.sh')
