@@ -41,16 +41,6 @@ conf.set('HAVE_XSLT', libxslt_dep.found())
 # TODO: Why does Win32 break without this
 conf.set('ENABLE_NLS', true)
 
-libgdk_dep  = dependency('gdk-3.0')
-gdk_target = libgdk_dep.get_variable('target')
-
-if gdk_target == 'quartz'
-    gtk_mac_dep = dependency('gtk-mac-integration')
-    conf.set('HAVE_MAC_INTEGRATION', true)
-else
-    # non-dependency
-    gtk_mac_dep = dependency('', required: false)
-endif
 
 prefix = get_option('prefix')
 datadir = prefix / get_option('datadir')
