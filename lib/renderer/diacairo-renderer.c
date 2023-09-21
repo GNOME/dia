@@ -1250,21 +1250,21 @@ dia_cairo_renderer_get_property (GObject    *object,
   }
 }
 
+
 static void
-cairo_renderer_finalize (GObject *object)
+dia_cairo_renderer_finalize (GObject *object)
 {
   DiaCairoRenderer *renderer = DIA_CAIRO_RENDERER (object);
 
-  cairo_destroy (renderer->cr);
-  if (renderer->surface) {
-    cairo_surface_destroy (renderer->surface);
-  }
+  g_clear_pointer (&renderer->cr, cairo_destroy);
+  g_clear_pointer (&renderer->surface, cairo_surface_destroy);
 
   g_clear_object (&renderer->layout);
   g_clear_object (&renderer->font);
 
   G_OBJECT_CLASS (dia_cairo_renderer_parent_class)->finalize (object);
 }
+
 
 static void
 dia_cairo_renderer_class_init (DiaCairoRendererClass *klass)
@@ -1274,7 +1274,7 @@ dia_cairo_renderer_class_init (DiaCairoRendererClass *klass)
 
   object_class->set_property = dia_cairo_renderer_set_property;
   object_class->get_property = dia_cairo_renderer_get_property;
-  object_class->finalize = cairo_renderer_finalize;
+  object_class->finalize = dia_cairo_renderer_finalize;
 
   /* renderer members */
   renderer_class->begin_render = dia_cairo_renderer_begin_render;
