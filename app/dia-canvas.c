@@ -185,25 +185,6 @@ dia_canvas_draw (GtkWidget *widget, cairo_t *ctx)
   return FALSE;
 }
 
-
-#if !GTK_CHECK_VERSION (3, 0, 0)
-static gboolean
-dia_canvas_expose_event (GtkWidget *widget, GdkEventExpose *event)
-{
-  cairo_t *ctx;
-  gboolean res;
-
-  ctx = gdk_cairo_create (GDK_DRAWABLE (gtk_widget_get_window (widget)));
-
-  res = dia_canvas_draw (widget, ctx);
-
-  cairo_destroy (ctx);
-
-  return res;
-}
-#endif
-
-
 static gboolean
 dia_canvas_event (GtkWidget *widget, GdkEvent *event)
 {
@@ -283,11 +264,7 @@ dia_canvas_class_init (DiaCanvasClass *klass)
   object_class->get_property = dia_canvas_get_property;
 
   widget_class->configure_event = dia_canvas_configure_event;
-#if GTK_CHECK_VERSION (3, 0, 0)
   widget_class->draw = dia_canvas_draw;
-#else
-  widget_class->expose_event = dia_canvas_expose_event;
-#endif
   widget_class->event = dia_canvas_event;
   widget_class->drag_drop = dia_canvas_drag_drop;
   widget_class->drag_data_received = dia_canvas_drag_data_received;

@@ -264,24 +264,6 @@ dia_navigation_window_draw (GtkWidget *widget, cairo_t *ctx)
 }
 
 
-#if !GTK_CHECK_VERSION (3, 0, 0)
-static gboolean
-dia_navigation_window_expose_event (GtkWidget *widget, GdkEventExpose *event)
-{
-  cairo_t *ctx;
-  gboolean res;
-
-  ctx = gdk_cairo_create (GDK_DRAWABLE (gtk_widget_get_window (widget)));
-
-  res = dia_navigation_window_draw (widget, ctx);
-
-  cairo_destroy (ctx);
-
-  return res;
-}
-#endif
-
-
 static gboolean
 dia_navigation_window_motion_notify_event (GtkWidget      *widget,
                                            GdkEventMotion *event)
@@ -372,11 +354,7 @@ dia_navigation_window_class_init (DiaNavigationWindowClass *klass)
   object_class->constructed = dia_navigation_window_constructed;
   object_class->dispose = dia_navigation_window_dispose;
 
-#if GTK_CHECK_VERSION (3, 0, 0)
   widget_class->draw = dia_navigation_window_draw;
-#else
-  widget_class->expose_event = dia_navigation_window_expose_event;
-#endif
   widget_class->motion_notify_event = dia_navigation_window_motion_notify_event;
   widget_class->button_release_event = dia_navigation_window_button_release_event;
 
@@ -441,9 +419,7 @@ on_button_navigation_popup_pressed (GtkButton * button, gpointer _ddisp)
                                "type", GTK_WINDOW_POPUP,
                                "window-position", GTK_WIN_POS_MOUSE,
                                "transient-for", gtk_widget_get_toplevel (GTK_WIDGET (button)),
-#if GTK_CHECK_VERSION (3, 0, 0)
                                "attached-to", button,
-#endif
                                "display", _ddisp,
                                NULL);
   g_object_add_weak_pointer (G_OBJECT (current_popup), (gpointer *) &current_popup);

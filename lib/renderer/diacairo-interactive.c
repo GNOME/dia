@@ -27,7 +27,6 @@
 #include "diacairo.h"
 
 #include <gdk/gdk.h>
-#include <gtk/gtk.h> /* GTK_CHECK_VERSION */
 
 #include "color.h"
 #include "diatransform.h"

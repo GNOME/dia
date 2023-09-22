@@ -148,26 +148,6 @@ dia_ruler_draw (GtkWidget *widget,
 }
 
 
-#if !GTK_CHECK_VERSION (3, 0, 0)
-/* Wrapper can go with Gtk+-3.0 */
-static gboolean
-dia_ruler_expose_event (GtkWidget      *widget,
-                        GdkEventExpose *event)
-{
-  if (gtk_widget_is_drawable (widget))
-    {
-      GdkWindow *window = gtk_widget_get_window(widget);
-      cairo_t *cr = gdk_cairo_create (window);
-
-      dia_ruler_draw (widget, cr);
-
-      cairo_destroy (cr);
-    }
-  return FALSE;
-}
-#endif
-
-
 static gboolean
 dia_ruler_motion_notify (GtkWidget      *widget,
                          GdkEventMotion *event)
@@ -231,11 +211,7 @@ dia_ruler_class_init (DiaRulerClass *klass)
 
   gtk_widget_class_set_css_name (widget_class, "diaruler");
 
-#if GTK_CHECK_VERSION (3, 0, 0)
   widget_class->draw = dia_ruler_draw;
-#else
-  widget_class->expose_event = dia_ruler_expose_event;
-#endif
 }
 
 
