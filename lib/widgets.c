@@ -169,8 +169,8 @@ dia_toggle_button_new_with_icon_names (const char *on,
 {
   GtkWidget *on_img, *off_img;
 
-  on_img = gtk_image_new_from_pixbuf (pixbuf_from_resource (g_strdup_printf ("/org/gnome/Dia/icons/%s.png", on)));
-  off_img = gtk_image_new_from_pixbuf (pixbuf_from_resource (g_strdup_printf ("/org/gnome/Dia/icons/%s.png", off)));
+  on_img = gtk_image_new_from_icon_name (on, GTK_ICON_SIZE_BUTTON);
+  off_img = gtk_image_new_from_icon_name (off, GTK_ICON_SIZE_BUTTON);
 
   return dia_toggle_button_new (on_img, off_img);
 }

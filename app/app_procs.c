@@ -62,7 +62,6 @@
 #include "sheet-editor/sheets.h"
 #include "exit_dialog.h"
 #include "dialib.h"
-#include "widgets.h"
 #include "dia-layer.h"
 #include "dia-version-info.h"
 
@@ -700,23 +699,16 @@ app_init (int argc, char **argv)
   }
 
   if (argv && dia_is_interactive) {
-    GdkPixbuf *pixbuf;
-
     g_set_application_name (_("Dia Diagram Editor"));
     gtk_init (&argc, &argv);
 
-    /* GTK: (Defunct with GtkApplication)
-     * gtk_icon_theme_add_resource_path (gtk_icon_theme_get_default (),
-     *                                   "/org/gnome/Dia/icons/");
-     */
+    /* TODO: GTK: (Defunct with GtkApplication) */
+    gtk_icon_theme_add_resource_path (gtk_icon_theme_get_default (),
+                                      "/org/gnome/Dia/icons/");
 
     /* Set the icon for Dia windows & dialogs */
     /* GTK3: Use icon-name with GResource fallback */
-    pixbuf = pixbuf_from_resource ("/org/gnome/Dia/icons/org.gnome.Dia.png");
-    if (pixbuf) {
-      gtk_window_set_default_icon (pixbuf);
-      g_clear_object (&pixbuf);
-    }
+    gtk_window_set_default_icon_name ("org.gnome.Dia");
   } else {
     /*
      * On Windows there is no command line without display so that gtk_init is harmless.

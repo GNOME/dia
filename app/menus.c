@@ -45,13 +45,13 @@
 #include "dia-builder.h"
 
 
-#define DIA_STOCK_GROUP "dia-stock-group"
-#define DIA_STOCK_UNGROUP "dia-stock-ungroup"
-#define DIA_STOCK_LAYER_ADD "dia-stock-layer-add"
-#define DIA_STOCK_LAYER_RENAME "dia-stock-layer-rename"
-#define DIA_STOCK_OBJECTS_LAYER_ABOVE "dia-stock-objects-layer-above"
-#define DIA_STOCK_OBJECTS_LAYER_BELOW "dia-stock-objects-layer-below"
-#define DIA_STOCK_LAYERS "dia-stock-layers"
+#define DIA_STOCK_GROUP "dia-group"
+#define DIA_STOCK_UNGROUP "dia-ungroup"
+#define DIA_STOCK_LAYER_ADD "dia-layer-add"
+#define DIA_STOCK_LAYER_RENAME "dia-layer-rename"
+#define DIA_STOCK_OBJECTS_LAYER_ABOVE "dia-objects-layer-above"
+#define DIA_STOCK_OBJECTS_LAYER_BELOW "dia-objects-layer-below"
+#define DIA_STOCK_LAYERS "dia-layers"
 
 /* Integrated UI Toolbar Constants */
 #define DIA_INTEGRATED_TOOLBAR_ZOOM_COMBO  "dia-integrated-toolbar-zoom-combo_entry"
@@ -905,43 +905,6 @@ add_plugin_actions (GtkUIManager *ui_manager, const gchar *base_path)
 }
 
 
-static void
-_add_stock_icon_name (GtkIconFactory *factory, const char *name, const gchar *icon)
-{
-  GdkPixbuf      *pixbuf;
-  GtkIconSet     *set;
-  char           *path;
-
-  path = g_strdup_printf ("/org/gnome/Dia/icons/%s.png", icon);
-  pixbuf = pixbuf_from_resource (path);
-  set = gtk_icon_set_new_from_pixbuf (pixbuf);
-  gtk_icon_factory_add (factory, name, set);
-  g_clear_object (&pixbuf);
-  g_clear_pointer (&path, g_free);
-  pixbuf = NULL;
-}
-
-static void
-register_stock_icons (void)
-{
-  GtkIconFactory *factory;
-
-  factory = gtk_icon_factory_new ();
-
-  _add_stock_icon_name (factory, DIA_STOCK_GROUP, "dia-group");
-  _add_stock_icon_name (factory, DIA_STOCK_UNGROUP, "dia-ungroup");
-
-  _add_stock_icon_name (factory, DIA_STOCK_LAYER_ADD, "dia-layer-add");
-  _add_stock_icon_name (factory, DIA_STOCK_LAYER_RENAME, "dia-layer-rename");
-  _add_stock_icon_name (factory, DIA_STOCK_OBJECTS_LAYER_ABOVE, "dia-layer-move-above");
-  _add_stock_icon_name (factory, DIA_STOCK_OBJECTS_LAYER_BELOW, "dia-layer-move-below");
-  _add_stock_icon_name (factory, DIA_STOCK_LAYERS, "dia-layers");
-
-  gtk_icon_factory_add_default (factory);
-  g_clear_object (&factory);
-}
-
-
 /*!
  * Not sure why this service is not provided by GTK+.
  * We are passing tooltips into the actions (especially recent file menu).
@@ -1024,8 +987,6 @@ _setup_global_actions (void)
     return;
   g_return_if_fail (_ui_manager == NULL);
   g_return_if_fail (toolbox_actions == NULL);
-
-  register_stock_icons ();
 
   /* for the toolbox menu */
   toolbox_actions = gtk_action_group_new ("toolbox-actions");

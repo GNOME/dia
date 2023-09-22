@@ -4,7 +4,6 @@
 #include <gtk/gtk.h>
 
 #include "app_procs.h"
-#include "widgets.h"
 #include "dia-version-info.h"
 
 static GtkWidget *splash = NULL;
@@ -47,7 +46,7 @@ app_splash_init (const char *fname)
   gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
   gtk_container_add (GTK_CONTAINER(splash), vbox);
 
-  gpixmap = gtk_image_new_from_pixbuf (pixbuf_from_resource ("/org/gnome/Dia/dia-splash.png"));
+  gpixmap = gtk_image_new_from_resource ("/org/gnome/Dia/dia-splash.png");
 
   frame = gtk_frame_new (NULL);
   gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);

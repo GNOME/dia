@@ -53,20 +53,6 @@ static GParamSpec *pspecs[LAST_PROP] = { NULL, };
 
 
 static GdkPixbuf *
-get_newline_pixbuf (void)
-{
-  static GdkPixbuf *instance;
-
-  if (instance == NULL) {
-    instance = pixbuf_from_resource ("/org/gnome/Dia/icons/dia-newline.png");
-    g_object_add_weak_pointer (G_OBJECT (instance), (gpointer *) &instance);
-  }
-
-  return instance;
-}
-
-
-static GdkPixbuf *
 get_fallback_pixbuf (void)
 {
   static GdkPixbuf *instance;
@@ -194,8 +180,9 @@ dia_sheet_editor_button_constructed (GObject *object)
   g_return_if_fail (priv->sheet != NULL);
 
   if (priv->is_newline) {
-    gtk_image_set_from_pixbuf (GTK_IMAGE (priv->image),
-                               get_newline_pixbuf ());
+    gtk_image_set_from_icon_name (GTK_IMAGE (priv->image),
+                                  "dia-newline",
+                                  GTK_ICON_SIZE_BUTTON);
     gtk_widget_set_tooltip_text (GTK_WIDGET (self), _("Line Break"));
     gtk_button_set_relief (GTK_BUTTON (self), GTK_RELIEF_NONE);
   } else {
