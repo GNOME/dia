@@ -9,7 +9,6 @@ ui_files = [
     'toolbar-ui.xml',
     'toolbox-ui.xml',
     'preferences-dialog.ui',
-    'properties-dialog.ui',
 ]
 
 install_data(ui_files, install_dir: pkgdatadir / 'ui')

@@ -57,7 +57,8 @@ dia_sources = [
     'filedlg.c',
     'find-and-replace.c',
     'plugin-manager.c',
-    'dia-props.c',
+    'dia-diagram-properties-dialog.c',
+    'dia-diagram-properties-dialog.h',
     'gtkwrapbox.c',
     'gtkhwrapbox.c',
 

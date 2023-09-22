@@ -93,7 +93,7 @@ ShellExecuteA (long        hwnd,
 #include <gdk/gdkkeysyms.h>
 #include "lib/properties.h"
 #include "lib/parent.h"
-#include "dia-props.h"
+#include "dia-diagram-properties-dialog.h"
 #include "authors.h"                /* master contributors data */
 #include "object.h"
 #include "dia-guide-dialog.h"

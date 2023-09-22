@@ -31,5 +31,6 @@
     <file>icons/dia-newline.png</file>
     <file>icons/dia-object-unknown.png</file>
     <file>dia-splash.png</file>
+    <file>dia-diagram-properties-dialog.ui</file>
   </gresource>
 </gresources>

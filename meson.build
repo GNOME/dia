@@ -12,6 +12,7 @@ project('dia',
 
 cc = meson.get_compiler('c')
 conf = configuration_data()
+conf.set_quoted('DIA_APPLICATION_PATH', '/org/gnome/Dia/')
 
 libglib_dep = dependency('glib-2.0',   version: '>= 2.70')
 libgtk_dep  = dependency('gtk+-3.0',   version: '>= 3.24')

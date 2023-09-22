@@ -20,7 +20,6 @@
 
 #include <gtk/gtk.h>
 #include "diagram.h"
-#include "dia-props.h"
 
 G_BEGIN_DECLS
 

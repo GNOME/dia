@@ -38,7 +38,7 @@
 #include <lib/group.h> /* IS_GROUP */
 #include "display.h"
 #include "properties-dialog.h" /* object_list_properties_show */
-#include "dia-props.h" /* diagram_properties_show */
+#include "dia-diagram-properties-dialog.h" /* diagram_properties_show */
 #include "persistence.h"
 #include "widgets.h"
 #include "dia-layer.h"

@@ -41,7 +41,7 @@
 #include "app_procs.h"
 #include "layer-editor/layer_dialog.h"
 #include "load_save.h"
-#include "dia-props.h"
+#include "dia-diagram-properties-dialog.h"
 #include "renderer/diacairo.h"
 #include "diatransform.h"
 #include "recent_files.h"

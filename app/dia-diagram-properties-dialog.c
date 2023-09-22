@@ -23,13 +23,12 @@
 
 #include <glib/gi18n-lib.h>
 
-#include "dia-props.h"
+#include "dia-diagram-properties-dialog.h"
 
 #include <gtk/gtk.h>
 
 #include "display.h"
 #include "undo.h"
-#include "dia-builder.h"
 #include "dia-colour-selector.h"
 
 
@@ -200,37 +199,6 @@ dia_diagram_properties_dialog_response (GtkDialog *dialog,
 
 
 static void
-dia_diagram_properties_dialog_class_init (DiaDiagramPropertiesDialogClass *klass)
-{
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GtkDialogClass *dialog_class = GTK_DIALOG_CLASS (klass);
-
-  object_class->set_property = dia_diagram_properties_dialog_set_property;
-  object_class->get_property = dia_diagram_properties_dialog_get_property;
-  object_class->finalize = dia_diagram_properties_dialog_finalize;
-
-  widget_class->delete_event = dia_diagram_properties_dialog_delete_event;
-
-  dialog_class->response = dia_diagram_properties_dialog_response;
-
-  /**
-   * DiaDiagramPropertiesDialog:diagram:
-   *
-   * Since: 0.98
-   */
-  pspecs[PROP_DIAGRAM] =
-    g_param_spec_object ("diagram",
-                         "Diagram",
-                         "The current diagram",
-                         DIA_TYPE_DIAGRAM,
-                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  g_object_class_install_properties (object_class, LAST_PROP, pspecs);
-}
-
-
-static void
 update_sensitivity (GtkToggleButton *widget,
                     gpointer         userdata)
 {
@@ -259,13 +227,63 @@ update_sensitivity (GtkToggleButton *widget,
 
 
 static void
+dia_diagram_properties_dialog_class_init (DiaDiagramPropertiesDialogClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+  GtkDialogClass *dialog_class = GTK_DIALOG_CLASS (klass);
+
+  object_class->set_property = dia_diagram_properties_dialog_set_property;
+  object_class->get_property = dia_diagram_properties_dialog_get_property;
+  object_class->finalize = dia_diagram_properties_dialog_finalize;
+
+  widget_class->delete_event = dia_diagram_properties_dialog_delete_event;
+
+  dialog_class->response = dia_diagram_properties_dialog_response;
+
+  /**
+   * DiaDiagramPropertiesDialog:diagram:
+   *
+   * Since: 0.98
+   */
+  pspecs[PROP_DIAGRAM] =
+    g_param_spec_object ("diagram",
+                         "Diagram",
+                         "The current diagram",
+                         DIA_TYPE_DIAGRAM,
+                         G_PARAM_STATIC_STRINGS | G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_PROP, pspecs);
+
+  gtk_widget_class_set_template_from_resource (widget_class,
+                                               DIA_APPLICATION_PATH "dia-diagram-properties-dialog.ui");
+
+  /* Grid Page */
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, dynamic);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, manual);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, manual_props);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, hex);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, hex_props);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, spacing_x);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, spacing_y);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, vis_spacing_x);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, vis_spacing_y);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, hex_size);
+
+  /* The background page */
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, background);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, grid_lines);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, page_lines);
+  gtk_widget_class_bind_template_child_private (widget_class, DiaDiagramPropertiesDialog, guide_lines);
+
+  gtk_widget_class_bind_template_callback (widget_class, update_sensitivity);
+}
+
+
+static void
 dia_diagram_properties_dialog_init (DiaDiagramPropertiesDialog *self)
 {
-  DiaDiagramPropertiesDialogPrivate *priv = dia_diagram_properties_dialog_get_instance_private (self);
-  GtkWidget *action_area;
-  GtkWidget *dialog_vbox;
-  GtkWidget *notebook;
-  DiaBuilder *builder;
+  gtk_widget_init_template (GTK_WIDGET (self));
 
   gtk_dialog_add_buttons (GTK_DIALOG (self),
                           _("_Close"), GTK_RESPONSE_CANCEL,
@@ -274,50 +292,8 @@ dia_diagram_properties_dialog_init (DiaDiagramPropertiesDialog *self)
                           NULL);
   gtk_dialog_set_default_response (GTK_DIALOG (self), GTK_RESPONSE_OK);
 
-  action_area = gtk_dialog_get_action_area (GTK_DIALOG (self));
-  gtk_widget_set_margin_bottom (action_area, 6);
-  gtk_widget_set_margin_top (action_area, 6);
-  gtk_widget_set_margin_start (action_area, 6);
-  gtk_widget_set_margin_end (action_area, 6);
-
-  dialog_vbox = gtk_dialog_get_content_area (GTK_DIALOG (self));
-
-  gtk_window_set_role (GTK_WINDOW (self), "diagram_properties");
-
   g_signal_connect (G_OBJECT (self), "destroy",
                     G_CALLBACK (gtk_widget_destroyed), &self);
-
-  /* Load UI */
-  builder = dia_builder_new ("ui/properties-dialog.ui");
-
-  dia_builder_get (builder,
-                   "notebook", &notebook,
-                   /* Grid Page */
-                   "dynamic", &priv->dynamic,
-                   "manual", &priv->manual,
-                   "manual_props", &priv->manual_props,
-                   "hex", &priv->hex,
-                   "hex_props", &priv->hex_props,
-                   "spacing_x", &priv->spacing_x,
-                   "spacing_y", &priv->spacing_y,
-                   "vis_spacing_x", &priv->vis_spacing_x,
-                   "vis_spacing_y", &priv->vis_spacing_y,
-                   "hex_size", &priv->hex_size,
-                   /* The background page */
-                   "background", &priv->background,
-                   "grid_lines", &priv->grid_lines,
-                   "page_lines", &priv->page_lines,
-                   "guide_lines", &priv->guide_lines,
-                   NULL);
-
-  gtk_box_pack_start (GTK_BOX (dialog_vbox), notebook, TRUE, TRUE, 0);
-
-  dia_builder_connect (builder,
-                       self,
-                       "update_sensitivity", G_CALLBACK (update_sensitivity),
-                       NULL);
-
-  g_clear_object (&builder);
 }
 
 
