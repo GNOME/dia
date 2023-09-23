@@ -118,7 +118,7 @@ get_default_paper(void)
   gint i;
 
   if((env = g_getenv("PAPERCONF")) != NULL) {
-    strncpy(paper, env, sizeof(paper));
+    g_strlcpy(paper, env, sizeof(paper));
   }
   else if((papersize = fopen("/etc/papersize", "r")) != NULL) {
     while(fgets(paper, sizeof(paper), papersize))

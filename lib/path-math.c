@@ -691,7 +691,7 @@ _make_path (GArray *one, /*!< array<BezierSegment> from first path */
 	    PathCombineMode mode)
 {
   GArray *result = g_array_new (FALSE, FALSE, sizeof(BezPoint));
-  Split *sp;
+  Split *sp = NULL;
   int i, n = 0;
   BezPoint bp;
   Point cur_pt;
@@ -700,6 +700,7 @@ _make_path (GArray *one, /*!< array<BezierSegment> from first path */
   gboolean outside = mode == PATH_INTERSECTION ? FALSE : TRUE;
 
   g_return_val_if_fail (mode != PATH_EXCLUSION, NULL);
+  g_return_val_if_fail (one_splits->len != 0, NULL);
 
   bp.type = BEZ_MOVE_TO;
   /* start with the first point of segment one */
