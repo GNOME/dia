@@ -14,8 +14,7 @@ For reference, a number of other libraries are recommended for extra features.  
 
 - Libxslt allows export through XSLT translation schemas:
   - ftp://ftp.gnome.org/pub/GNOME/sources/libxslt/
-- **Python scripting is also possible** by installing Python 2.7 and pygtk.
-    - Note this will be replaced with libpeas based scripting at some point enabling support for python3 and javascript
+- **Python scripting is also possible** by installing Python 3 and PyGObject.
 
 ### Windows
 
@@ -28,8 +27,7 @@ Assuming you are all set and that pacman is up to date, you'll need to install a
 base-devel
 mingw-w64-x86_64-toolchain
 mingw-w64-x86_64-gtk3
-mingw-w64-x86_64-python2
-mingw-w64-x86_64-python2-pygtk
+mingw-w64-x86_64-python
 ```
 
 You might need to install additional packages.  Please file an issue / merge request with the updated packages to ensure others know what to install also.
@@ -69,7 +67,7 @@ Build dia then simply do `ninja test`.
 The most common issue currently on MSYS2 is that paths are incorrect.  There are two potential types of issues that you need to be aware of:
 
 1. "libdia.dll not found":  This happens because PATH does not contain the directory where libdia.dll is located.  Simply add that directory to PATH, e.g. `PATH=$(pwd)/lib/:$PATH meson devenv ./app/dia`
-2. "Python site module not found":  This is because PYTHONPATH or PYTHONHOME are not set.  Simply set both to /mingw64/lib/python2.7 and that should resolve the issue.
+2. "Python site module not found":  This is because PYTHONPATH or PYTHONHOME are not set.  Simply set both to /mingw64/lib/python3.<x> and that should resolve the issue.
 
 ## Installing
 
