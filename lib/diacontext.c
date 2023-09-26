@@ -33,59 +33,47 @@
 
 #include "message.h" /* just for testing */
 
-typedef struct _DiaContextClass DiaContextClass;
-#define DIA_TYPE_CONTEXT (_dia_context_get_type ())
-static GType _dia_context_get_type (void) G_GNUC_CONST;
-
-struct _DiaContext
-{
+struct _DiaContext {
   GObject parent_instance;
   /*< private >*/
-  gchar *desc;
-  gchar *filename;
+  char  *desc;
+  char  *filename;
   GList *messages;
 };
 
-struct _DiaContextClass
-{
-  GObjectClass parent_class;
-};
 
-/* The use of GObject is intentionally hidden from the API */
-static void _dia_context_finalize   (GObject *object);
+G_DEFINE_FINAL_TYPE (DiaContext, dia_context, G_TYPE_OBJECT);
 
-G_DEFINE_TYPE (DiaContext, _dia_context, G_TYPE_OBJECT);
-static gpointer parent_class = NULL;
 
 static void
-_dia_context_finalize(GObject *object)
+dia_context_finalize (GObject *object)
 {
-  DiaContext *context = (DiaContext *)object;
+  DiaContext *context = DIA_CONTEXT (object);
 
   g_list_foreach (context->messages, (GFunc) g_free, NULL);
   g_list_free (context->messages);
   g_clear_pointer (&context->desc, g_free);
   g_clear_pointer (&context->filename, g_free);
 
-  G_OBJECT_CLASS (parent_class)->finalize (object);
+  G_OBJECT_CLASS (dia_context_parent_class)->finalize (object);
 }
 
 
 static void
-_dia_context_class_init(DiaContextClass *klass)
+dia_context_class_init (DiaContextClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  parent_class = g_type_class_peek_parent (klass);
-  object_class->finalize = _dia_context_finalize;
+  object_class->finalize = dia_context_finalize;
 }
 
 
 static void
-_dia_context_init(DiaContext *self)
+dia_context_init (DiaContext *self)
 {
   /* zero initialization should be right */
 }
+
 
 DiaContext *
 dia_context_new (const char *desc)

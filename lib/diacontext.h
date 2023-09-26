@@ -1,10 +1,15 @@
-#ifndef DIA_CONTEXT_H
-#define DIA_CONTEXT_H
+#pragma once
+
+#include <glib-object.h>
 
 #include "diatypes.h"
-#include <glib.h>
 
 G_BEGIN_DECLS
+
+#define DIA_TYPE_CONTEXT (dia_context_get_type ())
+
+G_DECLARE_FINAL_TYPE (DiaContext, dia_context, DIA, CONTEXT, GObject)
+
 
 DiaContext *dia_context_new (const char *desc);
 void dia_context_reset (DiaContext *context);
@@ -17,6 +22,3 @@ void dia_context_add_message_with_errno (DiaContext *context, int nr, const char
 const char *dia_context_get_filename (DiaContext *context);
 
 G_END_DECLS
-
-
-#endif /* DIA_CONTEXT_H */
