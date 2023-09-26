@@ -14,7 +14,7 @@ cc = meson.get_compiler('c')
 conf = configuration_data()
 conf.set_quoted('DIA_APPLICATION_PATH', '/org/gnome/Dia/')
 
-libglib_dep = dependency('glib-2.0',   version: '>= 2.70')
+libglib_dep = dependency('glib-2.0',   version: '>= 2.76')
 libgtk_dep  = dependency('gtk+-3.0',   version: '>= 3.24')
 libxml_dep  = dependency('libxml-2.0', version: '>= 2.9.4')
 #TODO: what are the minimum versions?
@@ -71,7 +71,7 @@ config_dep = declare_dependency(
 )
 
 gtk_ver = 'GDK_VERSION_3_8'
-glib_ver = 'GLIB_VERSION_2_70'
+glib_ver = 'GLIB_VERSION_2_76'
 add_project_arguments([
   '-DGDK_VERSION_MIN_REQUIRED=@0@'.format(gtk_ver),
 #  '-DGDK_VERSION_MAX_ALLOWED=@0@'.format(gtk_ver),

@@ -769,42 +769,64 @@ draw_beziergon (DiaRenderer *self,
  * we need to want this. If there later (much later?) is an export it probably
  * shouldn't produce broken output either ...
  */
-static gchar *
-tex_escape_string(const gchar *src, DiaContext *ctx)
+static char *
+tex_escape_string (const char *src, DiaContext *ctx)
 {
-    GString *dest = g_string_sized_new(g_utf8_strlen(src, -1));
-    gchar *p;
+  GString *dest = g_string_sized_new (g_utf8_strlen (src, -1));
+  char *p;
 
-    if (!g_utf8_validate(src, -1, NULL)) {
-	dia_context_add_message(ctx, _("Not valid UTF-8"));
-	return g_strdup(src);
+  if (!g_utf8_validate (src, -1, NULL)) {
+    dia_context_add_message (ctx, _("Not valid UTF-8"));
+    return g_strdup (src);
+  }
+
+  p = (char *) src;
+  while (*p != '\0') {
+    switch (*p) {
+      case '%':
+        g_string_append (dest, "\\%");
+        break;
+      case '#':
+        g_string_append (dest, "\\#");
+        break;
+      case '$':
+        g_string_append (dest, "\\$");
+        break;
+      case '&':
+        g_string_append (dest, "\\&");
+        break;
+      case '~':
+        g_string_append (dest, "\\~{}");
+        break;
+      case '_':
+        g_string_append (dest, "\\_");
+        break;
+      case '^':
+        g_string_append (dest, "\\^{}");
+        break;
+      case '\\':
+        g_string_append (dest, "\\textbackslash{}");
+        break;
+      case '{':
+        g_string_append (dest, "\\}");
+        break;
+      case '}':
+        g_string_append (dest, "\\}");
+        break;
+      case '[':
+        g_string_append (dest, "\\ensuremath{\\left[\\right.}");
+        break;
+      case ']':
+        g_string_append (dest, "\\ensuremath{\\left.\\right]}");
+        break;
+      default:
+        /* if we really have utf8 append the whole 'glyph' */
+        g_string_append_len (dest, p, g_utf8_skip[(unsigned char) *p]);
     }
+    p = g_utf8_next_char (p);
+  }
 
-    p = (char *) src;
-    while (*p != '\0') {
-	switch (*p) {
-	case '%': g_string_append(dest, "\\%"); break;
-	case '#': g_string_append(dest, "\\#"); break;
-	case '$': g_string_append(dest, "\\$"); break;
-	case '&': g_string_append(dest, "\\&"); break;
-	case '~': g_string_append(dest, "\\~{}"); break;
-	case '_': g_string_append(dest, "\\_"); break;
-	case '^': g_string_append(dest, "\\^{}"); break;
-	case '\\': g_string_append(dest, "\\textbackslash{}"); break;
-	case '{': g_string_append(dest, "\\}"); break;
-	case '}': g_string_append(dest, "\\}"); break;
-	case '[': g_string_append(dest, "\\ensuremath{\\left[\\right.}"); break;
-	case ']': g_string_append(dest, "\\ensuremath{\\left.\\right]}"); break;
-	default:
-            /* if we really have utf8 append the whole 'glyph' */
-            g_string_append_len(dest, p, g_utf8_skip[(unsigned char)*p]);
-	}
-        p = g_utf8_next_char(p);
-    }
-
-    p = dest->str;
-    g_string_free(dest, FALSE);
-    return p;
+  return g_string_free (dest, FALSE);
 }
 
 

@@ -824,8 +824,8 @@ read_text_svg (xmlNodePtr   node,
     */
   str = xmlGetProp(node, (const xmlChar *)"font-size");
   if (str) {
-    font_height = get_value_as_cm((char *) str, NULL);
-    xmlFree(str);
+    font_height = get_value_as_cm ((char *) str, NULL);
+    dia_clear_xml_string (&str);
   }
 
   /* parse from <text/> before looking at the first <tspan/> */
@@ -835,33 +835,37 @@ read_text_svg (xmlNodePtr   node,
     xmlNode *tspan = node->children;
     GString *paragraph = g_string_sized_new(512);
     while (tspan) {
-      if (xmlStrcmp (tspan->name, (const xmlChar*)"tspan") == 0) {
-        xmlChar *line = xmlNodeGetContent(tspan);
-        if (any_tspan) { /* every other line needs separation */
-          g_string_append(paragraph, "\n");
-        } else { /* only first time with user scale - but w/o matrix - that shall be
-            * in effect from the context? */
-          dia_svg_parse_style(tspan, gs, user_scale);
+      if (xmlStrcmp (tspan->name, (const xmlChar*) "tspan") == 0) {
+        xmlChar *line = xmlNodeGetContent (tspan);
+
+        if (any_tspan) {
+          /* every other line needs separation */
+          g_string_append (paragraph, "\n");
+        } else {
+          /* only first time with user scale - but w/o matrix - that shall be
+           * in effect from the context? */
+          dia_svg_parse_style (tspan, gs, user_scale);
           point.x = _node_get_real (tspan, "x", point.x);
           point.y = _node_get_real (tspan, "y", point.y);
         }
-        g_string_append(paragraph, (gchar*)line);
-        xmlFree(line);
+
+        g_string_append (paragraph, (char *) line);
+        dia_clear_xml_string (&line);
         any_tspan = TRUE;
       }
       tspan = tspan->next;
     }
-    multiline = paragraph->str;
-    g_string_free (paragraph, FALSE);
-    str = NULL;
+
+    multiline = g_string_free (paragraph, FALSE);
   }
+
   if (!any_tspan) {
-    str = xmlNodeGetContent(node);
+    str = xmlNodeGetContent (node);
     /* so no valid multiline */
     g_clear_pointer (&multiline, g_free);
-    multiline = NULL;
   }
-  if(str || multiline) {
+
+  if (str || multiline) {
     new_obj = otype->ops->create(&point, otype->default_user_data, &h1, &h2);
     list = g_list_append (list, new_obj);
 

@@ -62,27 +62,30 @@ filter_get_export_filters(void)
   return export_filters;
 }
 
+
 /* creates a nice label for the export filter (must be g_free'd) */
-gchar *
-filter_get_export_filter_label(DiaExportFilter *efilter)
+char *
+filter_get_export_filter_label (DiaExportFilter *efilter)
 {
-  GString *str = g_string_new(_(efilter->description));
-  gint ext = 0;
-  gchar *ret;
+  GString *str = g_string_new (_(efilter->description));
+  int ext = 0;
 
   for (ext = 0; efilter->extensions[ext] != NULL; ext++) {
-    if (ext == 0)
-      g_string_append(str, " (*.");
-    else
-      g_string_append(str, ", *.");
-    g_string_append(str, efilter->extensions[ext]);
+    if (ext == 0) {
+      g_string_append (str, " (*.");
+    } else {
+      g_string_append (str, ", *.");
+    }
+    g_string_append (str, efilter->extensions[ext]);
   }
-  if (ext > 0)
-    g_string_append(str, ")");
-  ret = str->str;
-  g_string_free(str, FALSE);
-  return ret;
+
+  if (ext > 0) {
+    g_string_append (str, ")");
+  }
+
+  return g_string_free (str, FALSE);
 }
+
 
 /* Get the list of unique names for the given extension */
 GList *
@@ -235,27 +238,30 @@ filter_get_import_filters(void)
   return import_filters;
 }
 
+
 /* creates a nice label for the export filter (must be g_free'd) */
-gchar *
-filter_get_import_filter_label(DiaImportFilter *ifilter)
+char *
+filter_get_import_filter_label (DiaImportFilter *ifilter)
 {
-  GString *str = g_string_new(_(ifilter->description));
-  gint ext = 0;
-  gchar *ret;
+  GString *str = g_string_new (_(ifilter->description));
+  int ext = 0;
 
   for (ext = 0; ifilter->extensions[ext] != NULL; ext++) {
-    if (ext == 0)
-      g_string_append(str, " (*.");
-    else
-      g_string_append(str, ", *.");
-    g_string_append(str, ifilter->extensions[ext]);
+    if (ext == 0) {
+      g_string_append (str, " (*.");
+    } else {
+      g_string_append (str, ", *.");
+    }
+    g_string_append (str, ifilter->extensions[ext]);
   }
-  if (ext > 0)
+
+  if (ext > 0) {
     g_string_append(str, ")");
-  ret = str->str;
-  g_string_free(str, FALSE);
-  return ret;
+  }
+
+  return g_string_free (str, FALSE);
 }
+
 
 /* guess the filter for a given filename.
  * If there are multiple filters registered for the same extension some are

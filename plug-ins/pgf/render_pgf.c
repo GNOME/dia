@@ -1242,52 +1242,74 @@ draw_bezier_with_arrows(DiaRenderer *self, BezPoint *points, int num_points,
  * we need to want this. If there later (much later?) is an export option it
  * probably shouldn't produce broken output either ...
  */
-static gchar *
-tex_escape_string(const gchar *src, DiaContext *ctx)
+static char *
+tex_escape_string (const char *src, DiaContext *ctx)
 {
-    int len = g_utf8_strlen(src, -1);
-    GString *dest = g_string_sized_new(len);
-    gchar *p;
+  int len = g_utf8_strlen (src, -1);
+  GString *dest = g_string_sized_new (len);
+  char *p;
 
-    if (!g_utf8_validate(src, -1, NULL)) {
-	dia_context_add_message(ctx, _("Not valid UTF-8"));
-	return g_strdup(src);
+  if (!g_utf8_validate (src, -1, NULL)) {
+    dia_context_add_message (ctx, _("Not valid UTF-8"));
+    return g_strdup (src);
+  }
+
+  /* Do not escape TeX macros if string is marked properly -- "$...$" or "{...}" */
+  if (len > 2) {
+    char b = src[0];
+    char e = src[len - 1];
+    if ((b == '$' && e == '$') || (b == '{' && e == '}')) {
+      return g_strdup (src);
     }
+  }
 
-    /* Do not escape TeX macros if string is marked properly -- "$...$" or "{...}" */
-    if (len > 2) {
-        char b = src[0];
-        char e = src[len - 1];
-        if ((b == '$' && e == '$') || (b == '{' && e == '}')) {
-            return g_strdup(src);
-        }
+  p = (char *) src;
+  while (*p != '\0') {
+    switch (*p) {
+      case '%':
+        g_string_append (dest, "\\%");
+        break;
+      case '#':
+        g_string_append (dest, "\\#");
+        break;
+      case '$':
+        g_string_append (dest, "\\$");
+        break;
+      case '&':
+        g_string_append (dest, "\\&");
+        break;
+      case '~':
+        g_string_append (dest, "\\~{}");
+        break;
+      case '_':
+        g_string_append (dest, "\\_");
+        break;
+      case '^':
+        g_string_append (dest, "\\^{}");
+        break;
+      case '\\':
+        g_string_append (dest, "\\ensuremath{\\backslash}");
+        break;
+      case '{':
+        g_string_append (dest, "\\{");
+        break;
+      case '}':
+        g_string_append (dest, "\\}");
+        break;
+      case '[':
+        g_string_append (dest, "\\ensuremath{[}");
+        break;
+      case ']':
+        g_string_append (dest, "\\ensuremath{]}");
+        break;
+      default:
+        /* if we really have utf8 append the whole 'glyph' */
+        g_string_append_len (dest, p, g_utf8_skip[(unsigned char) *p]);
     }
+    p = g_utf8_next_char (p);
+  }
 
-    p = (char *) src;
-    while (*p != '\0') {
-	switch (*p) {
-	case '%': g_string_append(dest, "\\%"); break;
-	case '#': g_string_append(dest, "\\#"); break;
-	case '$': g_string_append(dest, "\\$"); break;
-	case '&': g_string_append(dest, "\\&"); break;
-	case '~': g_string_append(dest, "\\~{}"); break;
-	case '_': g_string_append(dest, "\\_"); break;
-	case '^': g_string_append(dest, "\\^{}"); break;
-	case '\\': g_string_append(dest, "\\ensuremath{\\backslash}"); break;
-	case '{': g_string_append(dest, "\\{"); break;
-	case '}': g_string_append(dest, "\\}"); break;
-	case '[': g_string_append(dest, "\\ensuremath{[}"); break;
-	case ']': g_string_append(dest, "\\ensuremath{]}"); break;
-	default:
-            /* if we really have utf8 append the whole 'glyph' */
-            g_string_append_len(dest, p, g_utf8_skip[(unsigned char)*p]);
-	}
-        p = g_utf8_next_char(p);
-    }
-
-    p = dest->str;
-    g_string_free(dest, FALSE);
-    return p;
+  return g_string_free (dest, FALSE);
 }
 
 

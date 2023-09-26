@@ -1765,7 +1765,6 @@ dia_svg_from_matrix (const graphene_matrix_t *matrix, double scale)
   /*  transform="matrix(1,0,0,1,0,0)" */
   char buf[G_ASCII_DTOSTR_BUF_SIZE];
   GString *sm = g_string_new ("matrix(");
-  char *s;
 
   g_ascii_formatd (buf,
                    sizeof (buf),
@@ -1804,7 +1803,5 @@ dia_svg_from_matrix (const graphene_matrix_t *matrix, double scale)
   g_string_append (sm, buf);
   g_string_append (sm, ")");
 
-  s = sm->str;
-  g_string_free (sm, FALSE);
-  return s;
+  return g_string_free (sm, FALSE);
 }
