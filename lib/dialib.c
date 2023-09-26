@@ -51,6 +51,7 @@ stderr_message_internal (const char          *title,
 
 
 #ifdef G_OS_WIN32
+G_GNUC_PRINTF(2, 3)
 static void
 myXmlErrorReporting (void *ctx, const char* msg, ...)
 {
