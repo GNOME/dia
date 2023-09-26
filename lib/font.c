@@ -96,28 +96,17 @@ dia_font_get_context (void)
  * but it gives:
      (lt-dia:30476): Pango-CRITICAL **: pango_renderer_draw_layout: assertion `PANGO_IS_RENDERER (renderer)' failed
  */
-#ifdef HAVE_FREETYPE
-    /* This is suggested by new Pango (1.2.4+), but doesn't get us the
-     * right resolution:(
-     dia_font_push_context(pango_ft2_font_map_create_context(pango_ft2_font_map_new()));
-     */
-    /* with 96x96 it gives consistent - too big - sizes with the cairo renderer, it was 75x75 with 0.96.x
-    dia_font_push_context(pango_ft2_get_context(96,96));
-    */
-    dia_font_push_context(pango_ft2_get_context(75,75));
-#else
     if (gdk_display_get_default ())
       dia_font_push_context(gdk_pango_context_get());
     else {
-#  ifdef GDK_WINDOWING_WIN32
+#ifdef GDK_WINDOWING_WIN32
       dia_font_push_context(pango_win32_get_context ());
-#  elif defined(GDK_WINDOWING_QUARTZ) || defined(GDK_WINDOWING_X11)
+#elif defined(GDK_WINDOWING_QUARTZ) || defined(GDK_WINDOWING_X11)
       dia_font_push_context (pango_font_map_create_context (pango_cairo_font_map_get_default ()));
-#  else
+#else
       g_warning ("dia_font_get_context() : not font context w/o display. Crashing soon.");
-#  endif
-    }
 #endif
+    }
   }
   return pango_context;
 }
