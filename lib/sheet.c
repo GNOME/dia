@@ -392,7 +392,7 @@ load_register_sheet (const char *dirname,
   for (node = contents->xmlChildrenNode; node != NULL; node = node->next) {
     SheetObject *sheet_obj;
     DiaObjectType *otype;
-  char *iconname = NULL;
+    char *iconname = NULL;
 
     int subdesc_score = -1;
     xmlChar *objdesc = NULL;
@@ -485,6 +485,7 @@ load_register_sheet (const char *dirname,
         } else {
           iconname = g_build_filename (dirname, (char *) tmp, NULL);
           if (!shadowing_sheet && !g_file_test (iconname, G_FILE_TEST_EXISTS)) {
+            g_free (iconname);
             /* Fall back to system directory if there is no user icon */
             iconname = g_build_filename (sheetdir, (char *) tmp, NULL);
           }

@@ -85,15 +85,8 @@ dia_cairo_interactive_renderer_finalize (GObject *object)
   DiaCairoInteractiveRenderer *renderer = DIA_CAIRO_INTERACTIVE_RENDERER (object);
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (object);
 
-  if (base_renderer->cr) {
-    cairo_destroy (base_renderer->cr);
-  }
-  base_renderer->cr = NULL;
-
-  if (renderer->surface) {
-    cairo_surface_destroy (renderer->surface);
-  }
-  renderer->surface = NULL;
+  g_clear_pointer (&base_renderer->cr, cairo_destroy);
+  g_clear_pointer (&renderer->surface, cairo_surface_destroy);
 
   G_OBJECT_CLASS (dia_cairo_interactive_renderer_parent_class)->finalize (object);
 }
@@ -187,10 +180,8 @@ dia_cairo_interactive_renderer_begin_render (DiaRenderer        *self,
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (self);
 
   g_return_if_fail (base_renderer->cr == NULL);
-  if (base_renderer->surface) {
-    cairo_surface_destroy (base_renderer->surface);
-    base_renderer->surface = NULL;
-  }
+
+  g_clear_pointer (&base_renderer->surface, cairo_surface_destroy);
   base_renderer->cr = cairo_create (renderer->surface);
 
   /* Setup clipping for this sequence of render operations */
@@ -208,6 +199,7 @@ dia_cairo_interactive_renderer_begin_render (DiaRenderer        *self,
     cairo_rectangle (base_renderer->cr, update->left, update->top, width, height);
     cairo_clip (base_renderer->cr);
   }
+  g_clear_object (&base_renderer->layout);
   base_renderer->layout = pango_cairo_create_layout (base_renderer->cr);
 
   cairo_set_fill_rule (base_renderer->cr, CAIRO_FILL_RULE_EVEN_ODD);
@@ -226,8 +218,8 @@ dia_cairo_interactive_renderer_end_render (DiaRenderer *self)
   DiaCairoRenderer *base_renderer = DIA_CAIRO_RENDERER (self);
 
   cairo_show_page (base_renderer->cr);
-  cairo_destroy (base_renderer->cr);
-  base_renderer->cr = NULL;
+
+  g_clear_pointer (&base_renderer->cr, cairo_destroy);
 }
 
 /* Get the width of the given text in cm */
@@ -525,13 +517,12 @@ dia_cairo_interactive_renderer_set_size (DiaInteractiveRenderer *object,
 
   renderer->width = width;
   renderer->height = height;
+  g_clear_pointer (&renderer->surface, cairo_surface_destroy);
   renderer->surface = gdk_window_create_similar_surface (GDK_WINDOW (window),
                                                          CAIRO_CONTENT_COLOR,
                                                          width, height);
 
-  if (base_renderer->surface != NULL) {
-    cairo_surface_destroy (base_renderer->surface);
-  }
+  g_clear_pointer (&base_renderer->surface, cairo_surface_destroy);
 }
 
 /** Used as background? for text editing */

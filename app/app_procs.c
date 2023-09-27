@@ -697,6 +697,7 @@ app_init (int argc, char **argv)
       dia_is_interactive = FALSE;
     }
   }
+  g_clear_pointer (&context, g_option_context_free);
 
   if (argv && dia_is_interactive) {
     g_set_application_name (_("Dia Diagram Editor"));

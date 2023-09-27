@@ -131,6 +131,7 @@ dia_arrow_preview_draw (GtkWidget *widget, cairo_t *ctx)
 
     cairo_set_source_surface (ctx, surface, x, y);
     cairo_paint (ctx);
+    cairo_surface_destroy (surface);
   }
 
   return TRUE;

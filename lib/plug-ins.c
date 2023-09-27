@@ -417,10 +417,11 @@ static void
 ensure_pluginrc(void)
 {
   gchar *filename;
-  DiaContext *ctx = dia_context_new (_("Plugin Configuration"));
+  DiaContext *ctx = NULL;
 
   if (pluginrc)
     return;
+  ctx = dia_context_new (_("Plugin Configuration"));
   filename = dia_config_filename("pluginrc");
   dia_context_set_filename (ctx, filename);
   if (g_file_test (filename,  G_FILE_TEST_IS_REGULAR))

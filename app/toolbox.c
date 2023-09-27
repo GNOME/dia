@@ -951,7 +951,9 @@ create_tools(GtkWidget *parent)
       modify_tool_button = GTK_WIDGET(button);
     }
 
-    image = gtk_image_new_from_pixbuf (tool_get_pixbuf (&tool_data[i]));
+    pixbuf = tool_get_pixbuf (&tool_data[i]);
+    image = gtk_image_new_from_pixbuf (pixbuf);
+    g_clear_object (&pixbuf);
 
     /* GTKBUG:? padding changes */
     gtk_misc_set_padding(GTK_MISC(image), 2, 2);
