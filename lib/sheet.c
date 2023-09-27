@@ -214,6 +214,7 @@ load_register_sheet (const char *dirname,
   xmlNsPtr ns;
   xmlNodePtr node, contents,subnode,root;
   xmlChar *tmp;
+  char *sheetdir = NULL;
   char *name = NULL, *description = NULL;
   int name_score = -1;
   int descr_score = -1;
@@ -389,6 +390,8 @@ load_register_sheet (const char *dirname,
   }
   xmlFree (description);
 
+  sheetdir = dia_get_data_directory ("sheets");
+
   for (node = contents->xmlChildrenNode; node != NULL; node = node->next) {
     SheetObject *sheet_obj;
     DiaObjectType *otype;
@@ -404,8 +407,6 @@ load_register_sheet (const char *dirname,
     gboolean has_icon_on_sheet = FALSE;
 
     xmlChar *ot_name = NULL;
-
-    char *sheetdir = dia_get_data_directory ("sheets");
 
     if (xmlIsBlankNode (node)) {
       continue;
@@ -501,8 +502,6 @@ load_register_sheet (const char *dirname,
       }
     }
 
-    g_clear_pointer (&sheetdir, g_free);
-
     sheet_obj = g_new (SheetObject, 1);
     sheet_obj->object_type = g_strdup ((char *) ot_name);
     sheet_obj->description = g_strdup ((char *) objdesc);
@@ -561,6 +560,8 @@ load_register_sheet (const char *dirname,
        already automatically handled. */
     sheet_append_sheet_obj (sheet, sheet_obj);
   }
+
+  g_clear_pointer (&sheetdir, g_free);
 
   if (!shadowing_sheet) {
     register_sheet (sheet);
