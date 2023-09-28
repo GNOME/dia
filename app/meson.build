@@ -123,8 +123,16 @@ diaapp_dep = declare_dependency (link_with: diaapp_lib.get_static_lib(),
 diaapp_dep_for_docs = declare_dependency (link_with: diaapp_lib.get_shared_lib(),
                                           dependencies: [libgtk_dep, libxml_dep, libm_dep, libdia_dep])
 
+diaapp_sources = ['main.c', resources]
+
+# Append Windows resource file to sources
+if build_machine.system() == 'windows'
+    windows = import('windows')
+    diaapp_sources += windows.compile_resources('dia.rc')
+endif
+
 diaapp = executable('dia',
-                    ['main.c', resources],
+                    diaapp_sources,
                     dependencies: [diaapp_dep] + [config_dep],
                     win_subsystem: 'windows',
                     export_dynamic: true,  # some plugins require this.
