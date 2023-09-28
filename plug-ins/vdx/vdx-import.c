@@ -1021,6 +1021,7 @@ plot_polyline(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
     }
     if (newobj)
         vdx_simple_properties(newobj, Fill, Line, theDoc, ctx);
+    g_clear_pointer (&points, g_free);
     g_clear_pointer (&end_arrow_p, g_free);
     g_clear_pointer (&start_arrow_p, g_free);
     return newobj;
@@ -1976,6 +1977,7 @@ plot_nurbs(const struct vdx_Geom *Geom, const struct vdx_XForm *XForm,
 
     newobj = create_standard_polyline(num_points, points, end_arrow_p, start_arrow_p);
 
+    g_clear_pointer (&points, g_free);
     g_clear_pointer (&end_arrow_p, g_free);
     g_clear_pointer (&start_arrow_p, g_free);
     g_clear_pointer (&control, g_free);
@@ -2934,6 +2936,7 @@ vdx_free(VDXDocument *theDoc)
     if (theDoc->LayerNames) g_array_free(theDoc->LayerNames, TRUE);
     if (theDoc->PageLayers) g_array_free(theDoc->PageLayers, TRUE);
     g_clear_pointer (&theDoc->debug_shape_ids, g_free);
+    g_clear_pointer (&theDoc, g_free);
 }
 
 
