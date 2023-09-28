@@ -494,7 +494,7 @@ fig_read_polyline(FILE *file, DiaContext *ctx)
     int forward_arrow, backward_arrow;
     Arrow *forward_arrow_info = NULL, *backward_arrow_info = NULL;
     int npoints;
-    Point *points;
+    Point *points = NULL;
     GPtrArray *props = g_ptr_array_new();
     DiaObject *newobj = NULL;
     int flipped = 0;
@@ -610,6 +610,7 @@ fig_read_polyline(FILE *file, DiaContext *ctx)
  exit:
     setlocale(LC_NUMERIC, old_locale);
     prop_list_free(props);
+    g_clear_pointer (&points, g_free);
     g_clear_pointer (&forward_arrow_info, g_free);
     g_clear_pointer (&backward_arrow_info, g_free);
     g_clear_pointer (&image_file, g_free);
@@ -816,6 +817,7 @@ fig_read_spline(FILE *file, DiaContext *ctx)
 		newobj = create_standard_beziergon(npoints, bezpoints);
 	    }
 #endif
+            g_clear_pointer(&bezpoints, g_free);
 	}
 	if (newobj == NULL) goto exit;
 	break;
