@@ -10,10 +10,11 @@ app/diagram.c
 app/diagram_tree_model.c
 app/diagram_tree_view.c
 app/dia-colour-area.c
+app/dia-diagram-properties-dialog.c
+app/dia-diagram-properties-dialog.ui
+app/dia-guide-dialog.c
 app/dia-line-width-area.c
 app/dia-page-layout.c
-app/dia-props.c
-app/dia-guide-dialog.c
 app/disp_callbacks.c
 app/display.c
 app/exit_dialog.c
@@ -42,7 +43,6 @@ app/winmain.c
 data/org.gnome.Dia.appdata.xml.in
 data/org.gnome.Dia.desktop.in
 data/ui/preferences-dialog.ui
-data/ui/properties-dialog.ui
 data/ui/sheets-edit-dialog.ui
 data/ui/sheets-main-dialog.ui
 data/ui/sheets-new-dialog.ui
@@ -221,10 +221,6 @@ plug-ins/pdf/pdf-import.cpp
 plug-ins/pgf/pgf.c
 plug-ins/pgf/render_pgf.c
 plug-ins/pixbuf/pixbuf.c
-plug-ins/postscript/diapsrenderer.c
-plug-ins/postscript/paginate_psprint.c
-plug-ins/postscript/postscript.c
-plug-ins/postscript/render_eps.c
 plug-ins/pstricks/pstricks.c
 plug-ins/pstricks/render_pstricks.c
 plug-ins/python/pydia-render.c
