@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uk\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2023-08-08 13:47+0000\n"
-"PO-Revision-Date: 2023-08-08 20:48+0300\n"
+"POT-Creation-Date: 2023-10-01 12:29+0000\n"
+"PO-Revision-Date: 2023-10-02 10:14+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -22,100 +22,100 @@ msgstr ""
 "X-Generator: Lokalize 20.12.0\n"
 
 #. This is not an errror
-#: app/app_procs.c:165
+#: app/app_procs.c:164
 #, c-format
 msgid "invalid layer range %lu - %lu"
 msgstr "некоректний діапазон шарів %lu — %lu"
 
-#: app/app_procs.c:178
+#: app/app_procs.c:177
 #, c-format
 msgid "Layer %lu (%s) selected more than once."
 msgstr "Шар %lu (%s) вибрано більше ніж один раз."
 
-#: app/app_procs.c:210
+#: app/app_procs.c:209
 #, c-format
 msgid "Layer %d (%s) selected more than once."
 msgstr "Шар %d (%s) вибрано більше ніж один раз."
 
-#: app/app_procs.c:219
+#: app/app_procs.c:218
 #, c-format
 msgid "There is no layer named %s."
 msgstr "шару з назвою %s не існує"
 
-#: app/app_procs.c:316
+#: app/app_procs.c:315
 #, c-format
 msgid "%s error: don't know how to export into %s\n"
 msgstr "помилка %s: спосіб експорту у %s невідомий\n"
 
-#: app/app_procs.c:325
+#: app/app_procs.c:324
 #, c-format
 msgid "%s error: input and output filenames are identical: %s"
 msgstr "помилка %s: назви файлів вводу і виводу однакові: %s"
 
 #. Translators: Menu item Verb/Channel/Import
 #. Translators: Menu item Verb/Channel/Import/Import
-#: app/app_procs.c:331 objects/FS/function.c:738 objects/FS/function.c:740
+#: app/app_procs.c:330 objects/FS/function.c:738 objects/FS/function.c:740
 msgid "Import"
 msgstr "Імпортувати"
 
-#: app/app_procs.c:334
+#: app/app_procs.c:333
 #, c-format
 msgid "%s error: need valid input file %s\n"
 msgstr "помилка %s: потрібен правильний файл вводу %s\n"
 
 #. if (!quiet)
-#: app/app_procs.c:359
+#: app/app_procs.c:358
 #, c-format
 msgid "%s --> %s\n"
 msgstr "%s --> %s\n"
 
-#: app/app_procs.c:461
+#: app/app_procs.c:460
 #, c-format
 msgid "Can't find output format/filter %s"
 msgstr "Не вдалося знайти формат або фільтр виведення %s"
 
-#: app/app_procs.c:532
+#: app/app_procs.c:531
 #, c-format
 msgid "Input directory '%s' must exist!\n"
 msgstr "Каталог вхідних даних «%s» має існувати!\n"
 
-#: app/app_procs.c:551
+#: app/app_procs.c:550
 #, c-format
 msgid "Output directory '%s' must exist!\n"
 msgstr "Каталог вихідних даних «%s» має існувати!\n"
 
 #. &export_file_name
-#: app/app_procs.c:579
+#: app/app_procs.c:578
 msgid "Export loaded file and exit"
 msgstr "Експортувати завантажений файл та вийти"
 
-#: app/app_procs.c:579
+#: app/app_procs.c:578
 msgid "OUTPUT"
 msgstr "ВИВЕДЕННЯ"
 
 #. &export_file_format
-#: app/app_procs.c:581
+#: app/app_procs.c:580
 msgid "Select the export filter/format"
 msgstr "Вибрати фільтр/формат експортування"
 
-#: app/app_procs.c:581
+#: app/app_procs.c:580
 msgid "TYPE"
 msgstr "ТИП"
 
-#: app/app_procs.c:583
+#: app/app_procs.c:582
 msgid "List export filters/formats and exit"
 msgstr ""
 "Вивести список усіх фільтрів та форматів експортування і завершити роботу"
 
-#: app/app_procs.c:585
+#: app/app_procs.c:584
 msgid "Export graphics size"
 msgstr "Розміри графіки для експорту"
 
-#: app/app_procs.c:585
+#: app/app_procs.c:584
 msgid "WxH"
 msgstr "ШxВ"
 
-#: app/app_procs.c:587
+#: app/app_procs.c:586
 msgid ""
 "Show only specified layers (e.g. when exporting). Can be either the layer "
 "name or a range of layer numbers (X-Y)"
@@ -123,97 +123,97 @@ msgstr ""
 "Показувати тільки зазначені шари (наприклад, під час експорту). Можна задати "
 "назву шару або діапазон номерів шарів (X-Y)"
 
-#: app/app_procs.c:588
+#: app/app_procs.c:587
 msgid "LAYER,LAYER,..."
 msgstr "ШАР,ШАР,…"
 
-#: app/app_procs.c:590
+#: app/app_procs.c:589
 msgid "Don't show the splash screen"
 msgstr "Не показувати заставки"
 
-#: app/app_procs.c:592
+#: app/app_procs.c:591
 msgid "Don't create an empty diagram"
 msgstr "Не створювати порожньої діаграми"
 
-#: app/app_procs.c:594
+#: app/app_procs.c:593
 msgid "Start classic user interface (no diagrams in tabs)"
 msgstr "Запуск із класичним інтерфейсом (без діаграм у вкладках)"
 
-#: app/app_procs.c:596
+#: app/app_procs.c:595
 msgid "Send error messages to stderr instead of showing dialogs."
 msgstr ""
 "Виводити повідомлення про помилки у stderr, а не показувати у діалогових "
 "вікнах."
 
-#: app/app_procs.c:598
+#: app/app_procs.c:597
 msgid "Directory containing input files"
 msgstr "Каталог, у якому містяться файли вхідних даних"
 
-#: app/app_procs.c:598 app/app_procs.c:600
+#: app/app_procs.c:597 app/app_procs.c:599
 msgid "DIRECTORY"
 msgstr "КАТАЛОГ"
 
-#: app/app_procs.c:600
+#: app/app_procs.c:599
 msgid "Directory containing output files"
 msgstr "Каталог, у якому містяться файли виведених даних"
 
-#: app/app_procs.c:602
+#: app/app_procs.c:601
 msgid "Display credits list and exit"
 msgstr "Показати перелік подяк та завершитись"
 
-#: app/app_procs.c:604
+#: app/app_procs.c:603
 msgid "Generate verbose output"
 msgstr "Дати докладний звіт"
 
-#: app/app_procs.c:606
+#: app/app_procs.c:605
 msgid "Display version and exit"
 msgstr "Показати номер версії і вийти"
 
-#: app/app_procs.c:633
+#: app/app_procs.c:632
 msgid "[FILE...]"
 msgstr "[ФАЙЛ…]"
 
-#: app/app_procs.c:645
+#: app/app_procs.c:644
 msgid "Invalid option?"
 msgstr "Некоректний параметр?"
 
-#: app/app_procs.c:670
+#: app/app_procs.c:669
 #, c-format
 msgid "Filename conversion failed: %s\n"
 msgstr "Спроба перетворення назви файла зазнала невдачі: %s\n"
 
-#: app/app_procs.c:685
+#: app/app_procs.c:684
 #, c-format
 msgid "Missing input: %s\n"
 msgstr "Не вистачає вхідних даних: %s\n"
 
-#: app/app_procs.c:705 app/commands.c:1145
+#: app/app_procs.c:703 app/commands.c:1142
 msgid "Dia Diagram Editor"
 msgstr "Редактор діаграм Діа"
 
 #. TRANSLATOR: 2nd and 3rd %s are time and date respectively.
-#: app/app_procs.c:736
+#: app/app_procs.c:729
 #, c-format
 msgid "Dia version %s, compiled %s %s\n"
 msgstr "Dia версії %s, зібрано %s %s\n"
 
-#: app/app_procs.c:738
+#: app/app_procs.c:731
 #, c-format
 msgid "Dia version %s\n"
 msgstr "Dia версії %s\n"
 
-#: app/app_procs.c:789
+#: app/app_procs.c:782
 msgid "Object Defaults"
 msgstr "Типові властивості об'єкта"
 
-#: app/app_procs.c:796
+#: app/app_procs.c:789
 msgid ""
 "Couldn't find standard objects when looking for object-libs; exiting..."
 msgstr ""
 "Не вдалося знайти стандартні об'єкти під час пошуку object-libs, завершення "
 "роботи…"
 
-#: app/app_procs.c:798
+#: app/app_procs.c:791
 #, c-format
 msgid ""
 "Couldn't find standard objects when looking for object-libs in “%s”; "
@@ -222,7 +222,7 @@ msgstr ""
 "Не вдалося знайти стандартні об'єкти під час пошуку object-libs у «%s», "
 "завершення роботи…"
 
-#: app/app_procs.c:897
+#: app/app_procs.c:890
 msgid ""
 "This shouldn't happen.  Please file a bug report at https://gitlab.gnome.org/"
 "GNOME/dia describing how you caused this message to appear."
@@ -230,17 +230,17 @@ msgstr ""
 "Це не повинно відбуватись. Заповніть звіт про помилку за адресою https://"
 "gitlab.gnome.org/GNOME/dia, та вкажіть спосіб відтворення даної ситуації."
 
-#: app/app_procs.c:933 app/display.c:1254 app/exit_dialog.c:264
+#: app/app_procs.c:926 app/display.c:1254 app/exit_dialog.c:264
 #: app/filedlg.c:605
 msgid "Save"
 msgstr "Зберегти"
 
 #. no standard buttons
-#: app/app_procs.c:978
+#: app/app_procs.c:971
 msgid "Quitting without saving modified diagrams"
 msgstr "Вихід без збереження змінених діаграм"
 
-#: app/app_procs.c:980
+#: app/app_procs.c:973
 msgid ""
 "Modified diagrams exist. Are you sure you want to quit Dia without saving "
 "them?"
@@ -248,32 +248,32 @@ msgstr ""
 "Залишилися змінені діаграми. Ви впевнені, що хочете вийти з Dia без їх "
 "збереження?"
 
-#: app/app_procs.c:984 app/menus.c:87
+#: app/app_procs.c:977 app/menus.c:87
 msgid "Quit Dia"
 msgstr "Вийти з Діа"
 
-#: app/app_procs.c:986 app/dia-guide-dialog.c:158 app/exit_dialog.c:217
+#: app/app_procs.c:979 app/dia-guide-dialog.c:158 app/exit_dialog.c:217
 #: app/filedlg.c:315 app/filedlg.c:501 app/filedlg.c:823
-#: app/layer-editor/dia-layer-properties.c:246 data/ui/sheets-edit-dialog.ui:32
-#: data/ui/sheets-new-dialog.ui:31 data/ui/sheets-remove-dialog.ui:31
-#: lib/dia-arrow-chooser.c:179 lib/dia-line-chooser.c:174
+#: app/layer-editor/dia-layer-properties.c:246 data/ui/sheets-edit-dialog.ui:23
+#: data/ui/sheets-new-dialog.ui:22 data/ui/sheets-remove-dialog.ui:22
+#: lib/dia-arrow-chooser.c:177 lib/dia-line-chooser.c:172
 #: plug-ins/xslt/xsltdialog.c:87
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: app/app_procs.c:991 app/menus.c:87
+#: app/app_procs.c:984 app/menus.c:87
 msgid "_Quit"
 msgstr "Ви_йти"
 
-#: app/app_procs.c:1009
+#: app/app_procs.c:1002
 msgid "Exit"
 msgstr "Вийти"
 
-#: app/app_procs.c:1056 app/app_procs.c:1063
+#: app/app_procs.c:1049 app/app_procs.c:1056
 msgid "Could not create per-user Dia configuration directory"
 msgstr "Не вдалося створити теку налаштувань Dia для користувача"
 
-#: app/app_procs.c:1066
+#: app/app_procs.c:1059
 msgid ""
 "Could not create per-user Dia configuration directory. Please make sure that "
 "the environment variable HOME points to an existing directory."
@@ -281,11 +281,11 @@ msgstr ""
 "Не вдалося створити теку налаштувань Dia для користувача. Переконайтесь, що "
 "змінна оточення HOME вказує на наявну теку."
 
-#: app/app_procs.c:1090
+#: app/app_procs.c:1083
 msgid "Objects and filters internal to Dia"
 msgstr "Внутрішні об'єкти та фільтри Діа"
 
-#: app/app_procs.c:1153
+#: app/app_procs.c:1146
 msgid ""
 "The original author of Dia was:\n"
 "\n"
@@ -293,7 +293,7 @@ msgstr ""
 "Перший автор Dia:\n"
 "\n"
 
-#: app/app_procs.c:1158
+#: app/app_procs.c:1151
 msgid ""
 "\n"
 "The current maintainers of Dia are:\n"
@@ -303,7 +303,7 @@ msgstr ""
 "Поточні розробники Dia:\n"
 "\n"
 
-#: app/app_procs.c:1163
+#: app/app_procs.c:1156
 msgid ""
 "\n"
 "Other authors are:\n"
@@ -313,7 +313,7 @@ msgstr ""
 "Інші автори це\n"
 "\n"
 
-#: app/app_procs.c:1168
+#: app/app_procs.c:1161
 msgid ""
 "\n"
 "Dia is documented by:\n"
@@ -323,67 +323,67 @@ msgstr ""
 "Автори документації:\n"
 "\n"
 
-#: app/app_procs.c:1208
+#: app/app_procs.c:1201
 msgid "Available Export Filters (for --filter)"
 msgstr "Доступні фільтри експортування (для --filter)"
 
 #. Translators: be brief or mess up the table for --list-filters
-#: app/app_procs.c:1211
+#: app/app_procs.c:1204
 msgid "Extension"
 msgstr "Суфікс"
 
-#: app/app_procs.c:1212 lib/prop_dict.c:44
+#: app/app_procs.c:1205 lib/prop_dict.c:44
 msgid "Identifier"
 msgstr "Ідентифікатор"
 
-#: app/app_procs.c:1213 app/plugin-manager.c:275
+#: app/app_procs.c:1206 app/plugin-manager.c:275
 msgid "Description"
 msgstr "Опис"
 
-#: app/commands.c:150
+#: app/commands.c:143
 msgid "No print plugin found!"
 msgstr "Не знайдено додатків друку!"
 
-#: app/commands.c:171
+#: app/commands.c:164
 #, c-format
 msgid "Diagram%d.dia"
 msgstr "Діаграма%d.dia"
 
-#: app/commands.c:281
+#: app/commands.c:274
 msgid "No image from Clipboard to paste."
 msgstr "У буфері немає зображення, яке можна було б вставити."
 
-#: app/commands.c:334
+#: app/commands.c:327
 msgid "No selected object can take an image."
 msgstr "Немає позначеного об’єкта для додавання зображення."
 
-#: app/commands.c:363
+#: app/commands.c:356
 msgid "Clipboard Paste"
 msgstr "Вставити з буфера обміну даними"
 
-#: app/commands.c:375
+#: app/commands.c:368
 #, c-format
 msgid "Failed to import '%s' as SVG."
 msgstr "Не вдалося імпортувати «%s» як SVG."
 
-#: app/commands.c:392
+#: app/commands.c:385
 #, c-format
 msgid "Paste failed: %s"
 msgstr "Спроба вставлення зазнала невдачі: %s"
 
-#: app/commands.c:485
+#: app/commands.c:478
 msgid "Clipboard Copy"
 msgstr "Копіювання до буфера обміну даними"
 
-#: app/commands.c:705
+#: app/commands.c:698
 msgid "No existing object to paste.\n"
 msgstr "Не існує об'єкту для вставлення.\n"
 
-#: app/commands.c:1037 app/commands.c:1085
+#: app/commands.c:1034 app/commands.c:1082
 msgid "Could not find help directory"
 msgstr "Не вдалося знайти теку з довідкою"
 
-#: app/commands.c:1044
+#: app/commands.c:1041
 #, c-format
 msgid ""
 "Could not open help directory:\n"
@@ -392,14 +392,14 @@ msgstr ""
 "Не вдалося відкрити теку з довідкою:\n"
 "%s"
 
-#: app/commands.c:1124
+#: app/commands.c:1121
 msgid "translator_credits-PLEASE_ADD_YOURSELF_HERE"
 msgstr ""
 "Юрій Сирота <ysyrota@softservecom.com>\n"
 "Максим Дзюманенко <dziumanenko@gmail.com>\n"
 "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: app/commands.c:1127
+#: app/commands.c:1124
 msgid ""
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -429,7 +429,7 @@ msgstr ""
 "програмою, якщо це не так, напишіть до Free Software\n"
 "Foundation, Inc., 59 Temple Place — Suite 330, Boston, MA 02111-1307, USA.\n"
 
-#: app/commands.c:1147
+#: app/commands.c:1144
 msgid "A program for drawing structured diagrams."
 msgstr "Програма для малювання структурованих діаграм."
 
@@ -496,24 +496,25 @@ msgstr "Спроба створення «%s» зазнала невдачі"
 msgid "Object defaults"
 msgstr "Типові властивості об'єкту"
 
-#: app/defaults.c:48 app/dia-props.c:270 app/find-and-replace.c:552
-#: app/find-and-replace.c:587 app/menus.c:118 app/pagesetup.c:80
-#: app/plugin-manager.c:209 app/properties-dialog.c:61
-#: data/ui/sheets-main-dialog.ui:317
+#: app/defaults.c:48 app/dia-diagram-properties-dialog.c:289
+#: app/find-and-replace.c:552 app/find-and-replace.c:587 app/menus.c:118
+#: app/pagesetup.c:80 app/plugin-manager.c:209 app/properties-dialog.c:62
+#: data/ui/sheets-main-dialog.ui:75
 msgid "_Close"
 msgstr "_Закрити"
 
-#: app/defaults.c:49 app/dia-props.c:271 app/pagesetup.c:81
-#: app/properties-dialog.c:62 data/ui/sheets-main-dialog.ui:283
+#: app/defaults.c:49 app/dia-diagram-properties-dialog.c:290 app/pagesetup.c:81
+#: app/properties-dialog.c:63 data/ui/sheets-main-dialog.ui:41
 msgid "_Apply"
 msgstr "З_астосувати"
 
-#: app/defaults.c:50 app/dia-props.c:272 app/dia-guide-dialog.c:159
-#: app/layer-editor/dia-layer-properties.c:245 app/pagesetup.c:82
-#: app/properties-dialog.c:63 data/ui/sheets-edit-dialog.ui:43
-#: data/ui/sheets-new-dialog.ui:42 data/ui/sheets-remove-dialog.ui:42
-#: lib/dia-arrow-chooser.c:180 lib/dia-line-chooser.c:175
-#: objects/AADL/edit_port_declaration.c:176 plug-ins/xslt/xsltdialog.c:88
+#: app/defaults.c:50 app/dia-diagram-properties-dialog.c:291
+#: app/dia-guide-dialog.c:159 app/layer-editor/dia-layer-properties.c:245
+#: app/pagesetup.c:82 app/properties-dialog.c:64
+#: data/ui/sheets-edit-dialog.ui:38 data/ui/sheets-new-dialog.ui:37
+#: data/ui/sheets-remove-dialog.ui:37 lib/dia-arrow-chooser.c:178
+#: lib/dia-line-chooser.c:173 objects/AADL/edit_port_declaration.c:176
+#: plug-ins/xslt/xsltdialog.c:88
 msgid "_OK"
 msgstr "_Гаразд"
 
@@ -551,9 +552,9 @@ msgstr[1] "%d шари"
 msgstr[2] "%d шарів"
 msgstr[3] "%d шар"
 
-#: app/diagram_tree_view.c:198 app/diagram_tree_view.c:549
-#: data/ui/preferences-dialog.ui:1554 data/ui/sheets-new-dialog.ui:287
-#: data/ui/sheets-remove-dialog.ui:197 objects/Database/table.c:180
+#: app/diagram_tree_view.c:198 app/diagram_tree_view.c:552
+#: data/ui/preferences-dialog.ui:1476 data/ui/sheets-new-dialog.ui:204
+#: data/ui/sheets-remove-dialog.ui:150 objects/Database/table.c:180
 #: objects/Istar/actor.c:140 objects/Istar/actor.c:141
 #: objects/Istar/other.c:149 objects/Istar/other.c:150 objects/KAOS/other.c:154
 #: objects/KAOS/other.c:155 objects/UML/association.c:248
@@ -590,7 +591,7 @@ msgstr "Розташовувати"
 msgid "Properties"
 msgstr "Властивості"
 
-#: app/diagram_tree_view.c:532 app/exit_dialog.c:274 app/plugin-manager.c:269
+#: app/diagram_tree_view.c:535 app/exit_dialog.c:274 app/plugin-manager.c:269
 #: objects/Database/table.c:178 objects/Database/table.c:221
 #: objects/Misc/n_gon.c:137 objects/UML/association.c:242
 #: objects/UML/class.c:153 objects/UML/large_package.c:134
@@ -599,28 +600,115 @@ msgstr "Властивості"
 msgid "Name"
 msgstr "Назва"
 
-#: app/diagram_tree_view.c:595
+#: app/diagram_tree_view.c:598
 msgid "Diagram Tree"
 msgstr "Дерево діаграми"
 
-#: app/dia-colour-area.c:205 app/dia-colour-area.c:216
+#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
 msgid "Select foreground color"
 msgstr "Вибір кольору переднього плану"
 
-#: app/dia-colour-area.c:205 app/dia-colour-area.c:216
+#: app/dia-colour-area.c:180 app/dia-colour-area.c:188
 msgid "Select background color"
 msgstr "Вибір кольору тла"
+
+#. Can we be sure that the filename is the 'proper title'?
+#: app/dia-diagram-properties-dialog.c:322
+#: app/dia-diagram-properties-dialog.c:337
+#: app/dia-diagram-properties-dialog.c:391
+msgid "Diagram Properties"
+msgstr "Властивості діаграми"
+
+#: app/dia-diagram-properties-dialog.ui:55
+msgid "_Dynamic Grid"
+msgstr "_Динамічна сітка"
+
+#: app/dia-diagram-properties-dialog.ui:73 data/ui/preferences-dialog.ui:1167
+msgid "_Manual Grid"
+msgstr "Сітка в_ручну"
+
+#: app/dia-diagram-properties-dialog.ui:109 data/ui/preferences-dialog.ui:1202
+msgid "Spacing"
+msgstr "Проміжок"
+
+#: app/dia-diagram-properties-dialog.ui:122 data/ui/preferences-dialog.ui:1215
+msgid "Visible Spacing"
+msgstr "Видимий проміжок"
+
+#: app/dia-diagram-properties-dialog.ui:148 data/ui/preferences-dialog.ui:1241
+msgid "Column"
+msgstr "Стовпчик"
+
+#: app/dia-diagram-properties-dialog.ui:159 data/ui/preferences-dialog.ui:1252
+msgid "Row"
+msgstr "Рядок"
+
+#: app/dia-diagram-properties-dialog.ui:240 data/ui/preferences-dialog.ui:1337
+msgid "_Hex Grid"
+msgstr "_Гексагональна сітка"
+
+#: app/dia-diagram-properties-dialog.ui:277
+msgid "Hex Grid Size"
+msgstr "Розміри гексагональної сітки"
+
+#: app/dia-diagram-properties-dialog.ui:291
+msgid "Grid"
+msgstr "Сітка"
+
+#: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:149
+msgid "Background"
+msgstr "Тло"
+
+#: app/dia-diagram-properties-dialog.ui:322
+msgid "Grid Lines"
+msgstr "Лінії сітки"
+
+#: app/dia-diagram-properties-dialog.ui:334 data/ui/preferences-dialog.ui:673
+msgid "Page Breaks"
+msgstr "Межі сторінок"
+
+#: app/dia-diagram-properties-dialog.ui:346 data/ui/preferences-dialog.ui:705
+msgid "Guides"
+msgstr "Напрямні"
+
+#: app/dia-diagram-properties-dialog.ui:408
+msgid "Colors"
+msgstr "Кольори"
+
+#: app/dia-guide-dialog.c:154
+msgid "Add New Guide"
+msgstr "Додати нову напрямну"
+
+#. orientation
+#: app/dia-guide-dialog.c:171 app/dia-page-layout.c:137
+msgid "Orientation"
+msgstr "Орієнтація"
+
+#: app/dia-guide-dialog.c:178 lib/diapatternselector.c:117
+msgid "Horizontal"
+msgstr "Горизонтально"
+
+#: app/dia-guide-dialog.c:179 lib/diapatternselector.c:119
+msgid "Vertical"
+msgstr "Вертикально"
+
+#. Translators: Menu item Verb/Support/Position
+#. Translators: Menu item Verb/Support/Position/Position
+#: app/dia-guide-dialog.c:183 objects/FS/function.c:856
+#: objects/FS/function.c:858 objects/Istar/actor.c:66
+msgid "Position"
+msgstr "Розміщати"
 
 #: app/dia-line-width-area.c:106 lib/properties.h:646 lib/properties.h:649
 #: objects/chronogram/chronoline.c:181 objects/chronogram/chronoref.c:160
 msgid "Line width"
 msgstr "Ширина лінії"
 
-#: app/dia-line-width-area.c:107 plug-ins/postscript/paginate_psprint.c:321
+#: app/dia-line-width-area.c:107
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: app/dia-line-width-area.c:108 plug-ins/postscript/paginate_psprint.c:313
+#: app/dia-line-width-area.c:108
 msgid "OK"
 msgstr "Гаразд"
 
@@ -629,87 +717,58 @@ msgid "Line width:"
 msgstr "Ширина лінії:"
 
 #. paper size
-#: app/dia-page-layout.c:109
+#: app/dia-page-layout.c:105
 msgid "Paper Size"
 msgstr "Розмір аркуша"
 
-#. orientation
-#: app/dia-page-layout.c:142 app/dia-guide-dialog.c:171
-msgid "Orientation"
-msgstr "Орієнтація"
-
 #. margins
-#: app/dia-page-layout.c:171
+#: app/dia-page-layout.c:166
 msgid "Margins"
 msgstr "Відступи"
 
-#: app/dia-page-layout.c:183
+#: app/dia-page-layout.c:177
 msgid "Top:"
 msgstr "Верхній:"
 
-#: app/dia-page-layout.c:196
+#: app/dia-page-layout.c:191
 msgid "Bottom:"
 msgstr "Нижній:"
 
-#: app/dia-page-layout.c:209
+#: app/dia-page-layout.c:205
 msgid "Left:"
 msgstr "Лівий:"
 
-#: app/dia-page-layout.c:222
+#: app/dia-page-layout.c:219
 msgid "Right:"
 msgstr "Правий:"
 
 #. Scaling
-#: app/dia-page-layout.c:236
+#: app/dia-page-layout.c:234
 msgid "Scaling"
 msgstr "Масштабування"
 
-#: app/dia-page-layout.c:247
+#: app/dia-page-layout.c:244
 msgid "Scale:"
 msgstr "Масштаб:"
 
-#: app/dia-page-layout.c:260
+#: app/dia-page-layout.c:258
 msgid "Fit to:"
 msgstr "Заповнити до:"
 
-#: app/dia-page-layout.c:272
+#: app/dia-page-layout.c:271
 msgid "by"
 msgstr " "
 
-#: app/dia-page-layout.c:823
+#: app/dia-page-layout.c:802
 #, c-format
 msgid "%0.3gcm x %0.3gcm"
 msgstr "%0.3gсм x %0.3gсм"
 
-#: app/dia-page-layout.c:927 app/pagesetup.c:77
+#: app/dia-page-layout.c:906 app/pagesetup.c:77
 msgid "Page Setup"
 msgstr "Параметри сторінки"
 
-#. Can we be sure that the filename is the 'proper title'?
-#: app/dia-props.c:339 app/dia-props.c:354 app/dia-props.c:408
-msgid "Diagram Properties"
-msgstr "Властивості діаграми"
-
-#: app/dia-guide-dialog.c:154
-msgid "Add New Guide"
-msgstr "Додати нову напрямну"
-
-#: app/dia-guide-dialog.c:180 lib/diapatternselector.c:117
-msgid "Horizontal"
-msgstr "Горизонтально"
-
-#: app/dia-guide-dialog.c:181 lib/diapatternselector.c:119
-msgid "Vertical"
-msgstr "Вертикально"
-
-#. Translators: Menu item Verb/Support/Position
-#. Translators: Menu item Verb/Support/Position/Position
-#: app/dia-guide-dialog.c:185 objects/FS/function.c:856
-#: objects/FS/function.c:858 objects/Istar/actor.c:66
-msgid "Position"
-msgstr "Розміщати"
-
-#: app/disp_callbacks.c:93 app/properties-dialog.c:156
+#: app/disp_callbacks.c:96 app/properties-dialog.c:163
 msgid ""
 "This object doesn't support Undo/Redo.\n"
 "Undo information erased."
@@ -717,44 +776,44 @@ msgstr ""
 "Цей об'єкт не підтримує скасування чи повернення скасованої дії.\n"
 "Інформацію про скасування дії було вилучено."
 
-#: app/disp_callbacks.c:128
+#: app/disp_callbacks.c:131
 msgid "Properties…"
 msgstr "Властивості…"
 
-#: app/disp_callbacks.c:175
+#: app/disp_callbacks.c:178
 msgid "Follow link…"
 msgstr "Перейти за посиланням…"
 
-#: app/disp_callbacks.c:229 objects/standard/textobj.c:607
+#: app/disp_callbacks.c:232 objects/standard/textobj.c:607
 msgid "Convert to Path"
 msgstr "Перетворення на контур"
 
-#: app/disp_callbacks.c:276
+#: app/disp_callbacks.c:279
 msgid "Union"
 msgstr "Об'єднання"
 
-#: app/disp_callbacks.c:277
+#: app/disp_callbacks.c:280
 msgid "Difference"
 msgstr "Різниця"
 
 #
-#: app/disp_callbacks.c:278
+#: app/disp_callbacks.c:281
 msgid "Intersection"
 msgstr "Перетинання"
 
-#: app/disp_callbacks.c:279
+#: app/disp_callbacks.c:282
 msgid "Exclusion"
 msgstr "Виняток"
 
-#: app/disp_callbacks.c:417
+#: app/disp_callbacks.c:420
 msgid "Selection"
 msgstr "Позначене"
 
-#: app/disp_callbacks.c:432
+#: app/disp_callbacks.c:435
 msgid "Input _Methods"
 msgstr "Способи _введення"
 
-#: app/disp_callbacks.c:1275
+#: app/disp_callbacks.c:1306
 msgid ""
 "The object you dropped cannot fit into its parent. \n"
 "Either expand the parent object, or drop the object elsewhere."
@@ -795,11 +854,11 @@ msgstr "Закрити _без збереження"
 msgid "_Save"
 msgstr "З_берегти"
 
-#: app/exit_dialog.c:284
+#: app/exit_dialog.c:283
 msgid "S_elect the diagrams you want to save:"
 msgstr "В_иберіть діаграми, які ви хочете зберегти:"
 
-#: app/exit_dialog.c:361
+#: app/exit_dialog.c:360
 #, c-format
 msgid "There is %d diagram with unsaved changes. Save changes before closing?"
 msgid_plural ""
@@ -924,36 +983,36 @@ msgid "_Replace"
 msgstr "_Замінити"
 
 #. Translators: Current zoom level
-#: app/interface.c:262
+#: app/interface.c:257
 #, c-format
 msgid "%f%%"
 msgstr "%f%%"
 
-#: app/interface.c:478
+#: app/interface.c:472
 msgid "Pops up the Navigation window."
 msgstr "Відкриває вікно навігації."
 
-#: app/interface.c:527
+#: app/interface.c:518
 msgid "Close"
 msgstr "Закрити"
 
-#: app/interface.c:693
+#: app/interface.c:681
 msgid "Diagram menu."
 msgstr "Меню діаграми."
 
-#: app/interface.c:732
+#: app/interface.c:719
 msgid "Zoom"
 msgstr "Масштаб"
 
-#: app/interface.c:747
+#: app/interface.c:734
 msgid "Toggles snap-to-grid for this window."
 msgstr "Перемикає прив'язку до сітки для цього вікна."
 
-#: app/interface.c:758
+#: app/interface.c:745
 msgid "Toggles object snapping for this window."
 msgstr "Перемикає прив'язку до об'єктів для цього вікна."
 
-#: app/interface.c:768
+#: app/interface.c:755
 msgid "Toggles snap-to-guides for this window."
 msgstr "Перемикає прив'язку до напрямних для цього вікна."
 
@@ -984,7 +1043,7 @@ msgid "Lower Layer"
 msgstr "Опустити шар"
 
 #: app/layer-editor/dia-layer-editor-dialog.c:248
-#: app/layer-editor/layer_dialog.c:65
+#: app/layer-editor/layer_dialog.c:64
 msgid "Layers"
 msgstr "Шари"
 
@@ -1001,7 +1060,7 @@ msgstr "Назва шару:"
 msgid "Add Layer"
 msgstr "Додати шар"
 
-#: app/layer-editor/layer_dialog.c:73
+#: app/layer-editor/layer_dialog.c:72
 msgid "Close Layer pane"
 msgstr "Закрити панель шару"
 
@@ -1108,9 +1167,9 @@ msgstr "Запис тимчасових файлів до %s заборонен�
 
 #: app/load_save.c:1237 plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
 #: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1362
-#: plug-ins/postscript/render_eps.c:106 plug-ins/pstricks/render_pstricks.c:977
-#: plug-ins/vdx/vdx-export.c:1781 plug-ins/wmf/wmf.cpp:1432
-#: plug-ins/wpg/wpg.c:1147 plug-ins/xfig/xfig-export.c:1272
+#: plug-ins/pstricks/render_pstricks.c:977 plug-ins/vdx/vdx-export.c:1781
+#: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
+#: plug-ins/xfig/xfig-export.c:1272
 #, c-format
 msgid "Can't open output file %s"
 msgstr "Не вдалося відкрити файл результатів %s"
@@ -1140,7 +1199,7 @@ msgstr "Файл діаграми Діа"
 msgid "_File"
 msgstr "_Файл"
 
-#: app/menus.c:85 data/ui/sheets-main-dialog.ui:266
+#: app/menus.c:85 data/ui/sheets-main-dialog.ui:24
 msgid "_New"
 msgstr "С_творити"
 
@@ -1277,7 +1336,7 @@ msgstr "Надрукувати діаграму"
 msgid "Close the diagram"
 msgstr "Закрити діаграму"
 
-#: app/menus.c:120 data/ui/sheets-main-dialog.ui:27
+#: app/menus.c:120 data/ui/sheets-main-dialog.ui:115
 msgid "_Edit"
 msgstr "З_міни"
 
@@ -1433,7 +1492,7 @@ msgstr "З_меншити"
 msgid "Zoom out"
 msgstr "Зменшити"
 
-#: app/menus.c:151 data/ui/preferences-dialog.ui:672
+#: app/menus.c:151 data/ui/preferences-dialog.ui:659
 msgid "_Zoom"
 msgstr "_Масштаб"
 
@@ -1747,7 +1806,7 @@ msgstr "_Зображення"
 msgid "_Fullscreen"
 msgstr "_На весь екран"
 
-#: app/menus.c:256 data/ui/preferences-dialog.ui:808
+#: app/menus.c:256 data/ui/preferences-dialog.ui:797
 msgid "_Antialiased"
 msgstr "З_гладжування"
 
@@ -1756,7 +1815,7 @@ msgstr "З_гладжування"
 msgid "Show _Grid"
 msgstr "Показати _сітку"
 
-#: app/menus.c:258 data/ui/preferences-dialog.ui:1471
+#: app/menus.c:258 data/ui/preferences-dialog.ui:1402
 msgid "_Snap to Grid"
 msgstr "Прив'_язувати до сітки"
 
@@ -1859,11 +1918,11 @@ msgstr "Увімкнути або вимкнути прив'язку до об'�
 msgid "Toggles guide snapping."
 msgstr "Увімкнути або вимкнути прилипання до напрямних."
 
-#: app/menus.c:1353
+#: app/menus.c:1314
 msgid "The function is not available anymore."
 msgstr "Скористатися цією функціональною можливістю більше не можна."
 
-#: app/modify_tool.c:435
+#: app/modify_tool.c:444
 msgid "Couldn't get GTK+ settings"
 msgstr "Не вдалося отримати налаштування GTK+"
 
@@ -1889,29 +1948,29 @@ msgstr "Назва файла"
 msgid "Unset"
 msgstr "Не встановлено"
 
-#: app/preferences.c:763
+#: app/preferences.c:764
 msgid "_Done"
 msgstr "З_роблено"
 
-#: app/preferences.c:768
+#: app/preferences.c:769
 msgid "Preferences"
 msgstr "Налаштування"
 
 #. GtkWidget *actionbox;
 #. GList *buttons;
-#: app/properties-dialog.c:58
+#: app/properties-dialog.c:59
 msgid "Object properties"
 msgstr "Властивості об'єкта"
 
-#: app/properties-dialog.c:83
+#: app/properties-dialog.c:90
 msgid "This object has no properties."
 msgstr "В цього об'єкта немає властивостей."
 
-#: app/properties-dialog.c:253
+#: app/properties-dialog.c:260
 msgid "Properties: "
 msgstr "Властивості:"
 
-#: app/properties-dialog.c:257
+#: app/properties-dialog.c:264
 msgid "Object properties:"
 msgstr "Властивості об'єкта:"
 
@@ -1928,14 +1987,14 @@ msgstr "Користувач"
 msgid "Widget not found: %s"
 msgstr "Віджет не знайдено: %s"
 
-#: app/sheet-editor/sheet-editor-button.c:128
+#: app/sheet-editor/sheet-editor-button.c:114
 #, c-format
 msgid "No icon for “%s”"
 msgstr "Немає піктограми для «%s»"
 
-#: app/sheet-editor/sheet-editor-button.c:199
+#: app/sheet-editor/sheet-editor-button.c:186
 #: app/sheet-editor/sheets_dialog_callbacks.c:945
-#: data/ui/sheets-new-dialog.ui:194
+#: data/ui/sheets-new-dialog.ui:142
 msgid "Line Break"
 msgstr "Розрив рядка"
 
@@ -2032,11 +2091,11 @@ msgstr "Для: %s"
 msgid "add shapes here"
 msgstr "додати форми тут"
 
-#: app/splash.c:42
+#: app/splash.c:41
 msgid "Loading …"
 msgstr "Завантаження…"
 
-#: app/splash.c:59
+#: app/splash.c:58
 #, c-format
 msgid "Dia v%s"
 msgstr "Dia версії %s"
@@ -2147,7 +2206,7 @@ msgstr "UML"
 msgid "All Sheets"
 msgstr "Усі аркуші"
 
-#: app/toolbox.c:676 lib/dia-colour-selector.c:381 lib/dia-font-selector.c:483
+#: app/toolbox.c:676 lib/dia-colour-selector.c:349 lib/dia-font-selector.c:483
 msgid "Reset Menu"
 msgstr "Скинути меню"
 
@@ -2258,298 +2317,242 @@ msgstr "Редактор діаграм"
 msgid "Edit your Diagrams"
 msgstr "Редагування Ваших діаграм"
 
-#: data/ui/preferences-dialog.ui:153
+#: data/ui/preferences-dialog.ui:157
 msgid "_Reset tools after create"
 msgstr "_Скидати інструменти після створення"
 
-#: data/ui/preferences-dialog.ui:168
+#: data/ui/preferences-dialog.ui:174
 msgid "Re_verse drag selects intersecting objects"
 msgstr "Зв_оротне перетягування позначає об'єкти, що перетинаються"
 
-#: data/ui/preferences-dialog.ui:232
+#: data/ui/preferences-dialog.ui:228
 msgid "R_ecent Document List Length"
 msgstr "Роз_мір списку останніх документів"
 
-#: data/ui/preferences-dialog.ui:247
+#: data/ui/preferences-dialog.ui:243
 msgid "U_ndo Levels"
 msgstr "С_касувати рівні"
 
-#: data/ui/preferences-dialog.ui:262
+#: data/ui/preferences-dialog.ui:257
 msgid "_Length Unit"
 msgstr "Одиниця дов_жини"
 
-#: data/ui/preferences-dialog.ui:277
+#: data/ui/preferences-dialog.ui:271
 msgid "F_ont Size Unit"
 msgstr "Одиниця розміру _шрифту"
 
-#: data/ui/preferences-dialog.ui:292
+#: data/ui/preferences-dialog.ui:286
 msgid "Grid _snapping distance"
 msgstr "Відстань при_липання до напрямних"
 
-#: data/ui/preferences-dialog.ui:330
+#: data/ui/preferences-dialog.ui:318
 msgid "Classic Mode"
 msgstr "Класичний режим"
 
-#: data/ui/preferences-dialog.ui:344
+#: data/ui/preferences-dialog.ui:333
 msgid "Use _Menu Bar"
 msgstr "С_мужка меню користувача"
 
-#: data/ui/preferences-dialog.ui:361
+#: data/ui/preferences-dialog.ui:350
 msgid "Keep _toolbox above diagram"
 msgstr "Утримувати па_нель інструментів над діаграмою"
 
-#: data/ui/preferences-dialog.ui:434
+#: data/ui/preferences-dialog.ui:418
 msgid "_User Interface"
 msgstr "_Інтерфейс користувача"
 
-#: data/ui/preferences-dialog.ui:456
+#: data/ui/preferences-dialog.ui:443
 msgid "_Portrait"
 msgstr "Кни_жкова"
 
-#: data/ui/preferences-dialog.ui:474
+#: data/ui/preferences-dialog.ui:463
 msgid "Paper _Type"
 msgstr "Тип арк_уша"
 
-#: data/ui/preferences-dialog.ui:489
+#: data/ui/preferences-dialog.ui:478
 msgid "_Background Color"
 msgstr "Ко_лір тла"
 
-#: data/ui/preferences-dialog.ui:501
+#: data/ui/preferences-dialog.ui:490
 msgid "_Compress saved files"
 msgstr "Стиск_ати файли, що зберігаються"
 
-#: data/ui/preferences-dialog.ui:522
+#: data/ui/preferences-dialog.ui:510
 msgid "Connection Points"
 msgstr "Точки з'єднання"
 
-#: data/ui/preferences-dialog.ui:536 data/ui/preferences-dialog.ui:792
-#: data/ui/preferences-dialog.ui:1457
+#: data/ui/preferences-dialog.ui:525 data/ui/preferences-dialog.ui:781
+#: data/ui/preferences-dialog.ui:1386
 msgid "V_isible"
 msgstr "В_идимі"
 
-#: data/ui/preferences-dialog.ui:553
+#: data/ui/preferences-dialog.ui:542
 msgid "_Snap to Object"
 msgstr "П_рилипати до об’єктів"
 
-#: data/ui/preferences-dialog.ui:622
+#: data/ui/preferences-dialog.ui:603
 msgid "_Diagram Defaults"
 msgstr "Початкові властивості діа_грами"
 
-#: data/ui/preferences-dialog.ui:648
+#: data/ui/preferences-dialog.ui:631
 msgid "_Width"
 msgstr "_Ширина"
 
-#: data/ui/preferences-dialog.ui:658
+#: data/ui/preferences-dialog.ui:645
 msgid "_Height"
 msgstr "_Висота"
 
-#: data/ui/preferences-dialog.ui:687 data/ui/properties-dialog.ui:359
-msgid "Page Breaks"
-msgstr "Межі сторінок"
-
-#: data/ui/preferences-dialog.ui:703
+#: data/ui/preferences-dialog.ui:691
 msgid "C_olor"
 msgstr "_Колір"
 
-#: data/ui/preferences-dialog.ui:717 data/ui/properties-dialog.ui:372
-msgid "Guides"
-msgstr "Напрямні"
-
-#: data/ui/preferences-dialog.ui:733
+#: data/ui/preferences-dialog.ui:721
 msgid "Co_lor"
 msgstr "_Колір"
 
-#: data/ui/preferences-dialog.ui:744
+#: data/ui/preferences-dialog.ui:733
 msgid "Snap to Guid_es"
 msgstr "Прилипання до _напрямних"
 
-#: data/ui/preferences-dialog.ui:760
+#: data/ui/preferences-dialog.ui:749
 msgid "Visi_ble"
 msgstr "_Видимі"
 
-#: data/ui/preferences-dialog.ui:776
+#: data/ui/preferences-dialog.ui:765
 msgid "_Solid Lines"
 msgstr "Су_цільні лінії"
 
-#: data/ui/preferences-dialog.ui:933
+#: data/ui/preferences-dialog.ui:903
 msgid "_View Defaults"
 msgstr "_Типовий вигляд"
 
-#: data/ui/preferences-dialog.ui:960
+#: data/ui/preferences-dialog.ui:931
 msgid "Export Providers"
 msgstr "Засоби експортування"
 
-#: data/ui/preferences-dialog.ui:974
+#: data/ui/preferences-dialog.ui:949
 msgid "Portable _Network Graphics"
 msgstr "Портативна мережева графіка (P_NG)"
 
-#: data/ui/preferences-dialog.ui:988
+#: data/ui/preferences-dialog.ui:963
 msgid "_Scalable Vector Graphics"
 msgstr "_Масштабована векторна графіка (SVG)"
 
-#: data/ui/preferences-dialog.ui:1002
+#: data/ui/preferences-dialog.ui:977
 msgid "_PostScript"
 msgstr "_PostScript"
 
-#: data/ui/preferences-dialog.ui:1016
+#: data/ui/preferences-dialog.ui:991
 msgid "_Windows Metafile"
 msgstr "Ме_тафайл Windows (WMF)"
 
-#: data/ui/preferences-dialog.ui:1031
+#: data/ui/preferences-dialog.ui:1006
 msgid "_Enhanced Metafile"
 msgstr "Вдос_коналений метафайл (EMF)"
 
-#: data/ui/preferences-dialog.ui:1166
+#: data/ui/preferences-dialog.ui:1124
 msgid "_Favorites"
 msgstr "_Улюблені"
 
-#: data/ui/preferences-dialog.ui:1189
+#: data/ui/preferences-dialog.ui:1150
 msgid "D_ynamic Grid"
 msgstr "_Динамічна сітка"
 
-#: data/ui/preferences-dialog.ui:1208 data/ui/properties-dialog.ui:68
-msgid "_Manual Grid"
-msgstr "Сітка в_ручну"
-
-#: data/ui/preferences-dialog.ui:1245 data/ui/properties-dialog.ui:105
-msgid "Spacing"
-msgstr "Проміжок"
-
-#: data/ui/preferences-dialog.ui:1258 data/ui/properties-dialog.ui:118
-msgid "Visible Spacing"
-msgstr "Видимий проміжок"
-
-#: data/ui/preferences-dialog.ui:1286 data/ui/properties-dialog.ui:146
-msgid "Column"
-msgstr "Стовпчик"
-
-#: data/ui/preferences-dialog.ui:1293 data/ui/properties-dialog.ui:153
-msgid "Row"
-msgstr "Рядок"
-
-#: data/ui/preferences-dialog.ui:1398 data/ui/properties-dialog.ui:254
-msgid "_Hex Grid"
-msgstr "_Гексагональна сітка"
-
-#: data/ui/preferences-dialog.ui:1444
+#: data/ui/preferences-dialog.ui:1374
 msgid "H_ex Grid Size"
 msgstr "Розміри _гексагональної сітки"
 
-#: data/ui/preferences-dialog.ui:1490
+#: data/ui/preferences-dialog.ui:1421
 msgid "_Color"
 msgstr "_Колір"
 
-#: data/ui/preferences-dialog.ui:1504
+#: data/ui/preferences-dialog.ui:1435
 msgid "_Lines per Major Line"
 msgstr "_Ліній на головну лінію"
 
-#: data/ui/preferences-dialog.ui:1581
+#: data/ui/preferences-dialog.ui:1506
 msgid "_Grid Lines"
 msgstr "Ліні_ї сітки"
 
-#: data/ui/properties-dialog.ui:50
-msgid "_Dynamic Grid"
-msgstr "_Динамічна сітка"
-
-#: data/ui/properties-dialog.ui:300
-msgid "Hex Grid Size"
-msgstr "Розміри гексагональної сітки"
-
-#: data/ui/properties-dialog.ui:315
-msgid "Grid"
-msgstr "Сітка"
-
-#: data/ui/properties-dialog.ui:335 lib/diagramdata.c:149
-msgid "Background"
-msgstr "Тло"
-
-#: data/ui/properties-dialog.ui:346
-msgid "Grid Lines"
-msgstr "Лінії сітки"
-
-#: data/ui/properties-dialog.ui:444
-msgid "Colors"
-msgstr "Кольори"
-
-#: data/ui/sheets-edit-dialog.ui:6
+#: data/ui/sheets-edit-dialog.ui:8
 msgid "Edit Attributes"
 msgstr "Редагувати атрибути"
 
-#: data/ui/sheets-edit-dialog.ui:96 data/ui/sheets-edit-dialog.ui:239
-#: data/ui/sheets-new-dialog.ui:124 data/ui/sheets-new-dialog.ui:259
+#: data/ui/sheets-edit-dialog.ui:86 data/ui/sheets-edit-dialog.ui:181
+#: data/ui/sheets-new-dialog.ui:104 data/ui/sheets-new-dialog.ui:184
 msgid "Description:"
 msgstr "Опис:"
 
-#: data/ui/sheets-edit-dialog.ui:162 data/ui/sheets-remove-dialog.ui:90
+#: data/ui/sheets-edit-dialog.ui:131 data/ui/sheets-remove-dialog.ui:76
 msgid "DiaObject"
 msgstr "DiaObject"
 
-#: data/ui/sheets-edit-dialog.ui:215 objects/ER/attribute.c:151
+#: data/ui/sheets-edit-dialog.ui:166 objects/ER/attribute.c:151
 #: objects/ER/entity.c:132 objects/ER/relationship.c:136
-#: objects/UML/class_attributes_dialog.c:671
-#: objects/UML/class_operations_dialog.c:876
-#: objects/UML/class_operations_dialog.c:1277
-#: objects/UML/class_templates_dialog.c:515 objects/UML/dependency.c:134
+#: objects/UML/class_attributes_dialog.c:675
+#: objects/UML/class_operations_dialog.c:880
+#: objects/UML/class_operations_dialog.c:1289
+#: objects/UML/class_templates_dialog.c:519 objects/UML/dependency.c:134
 #: objects/UML/generalization.c:131 objects/UML/realizes.c:131
 msgid "Name:"
 msgstr "Назва:"
 
-#: data/ui/sheets-edit-dialog.ui:309 data/ui/sheets-remove-dialog.ui:112
+#: data/ui/sheets-edit-dialog.ui:221 data/ui/sheets-remove-dialog.ui:90
 msgid "Sheet"
 msgstr "Аркуш"
 
-#: data/ui/sheets-main-dialog.ui:4
+#: data/ui/sheets-main-dialog.ui:7
 msgid "Sheets and Objects"
 msgstr "Категорії та об'єкти"
 
-#: data/ui/sheets-main-dialog.ui:44
-msgid "_Up"
-msgstr "_Вище"
-
-#: data/ui/sheets-main-dialog.ui:61
-msgid "_Down"
-msgstr "_Нижче"
-
-#: data/ui/sheets-main-dialog.ui:78
-msgid "_Remove"
-msgstr "В_илучити"
-
-#: data/ui/sheets-main-dialog.ui:95
-msgid "<- C_opy"
-msgstr "←  _Копіювати"
-
-#: data/ui/sheets-main-dialog.ui:111
-msgid "<- Copy _All"
-msgstr "← Копіювати _усе"
-
-#: data/ui/sheets-main-dialog.ui:126
-msgid "<- _Move"
-msgstr "← П_ересунути"
-
-#: data/ui/sheets-main-dialog.ui:142
-msgid "<- Move A_ll"
-msgstr "← Пересунути _усе"
-
-#: data/ui/sheets-main-dialog.ui:300
+#: data/ui/sheets-main-dialog.ui:58
 msgid "_Revert"
 msgstr "С_касувати"
 
-#: data/ui/sheets-new-dialog.ui:5
+#: data/ui/sheets-main-dialog.ui:132
+msgid "_Up"
+msgstr "_Вище"
+
+#: data/ui/sheets-main-dialog.ui:149
+msgid "_Down"
+msgstr "_Нижче"
+
+#: data/ui/sheets-main-dialog.ui:166
+msgid "_Remove"
+msgstr "В_илучити"
+
+#: data/ui/sheets-main-dialog.ui:182
+msgid "<- C_opy"
+msgstr "←  _Копіювати"
+
+#: data/ui/sheets-main-dialog.ui:198
+msgid "<- Copy _All"
+msgstr "← Копіювати _усе"
+
+#: data/ui/sheets-main-dialog.ui:213
+msgid "<- _Move"
+msgstr "← П_ересунути"
+
+#: data/ui/sheets-main-dialog.ui:229
+msgid "<- Move A_ll"
+msgstr "← Пересунути _усе"
+
+#: data/ui/sheets-new-dialog.ui:7
 msgid "New"
 msgstr "Створити"
 
-#: data/ui/sheets-new-dialog.ui:90
+#: data/ui/sheets-new-dialog.ui:76
 msgid "SVG Shape:"
 msgstr "Форма SVG:"
 
-#: data/ui/sheets-new-dialog.ui:149
+#: data/ui/sheets-new-dialog.ui:115
 msgid "Sheet name:"
 msgstr "Назва аркуша:"
 
 #. Translators: Menu item Verb/Channel/Export/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove
 #. Translators: Menu item Verb/Branch/Separate/Remove/Remove
-#: data/ui/sheets-remove-dialog.ui:5 objects/FS/function.c:762
+#: data/ui/sheets-remove-dialog.ui:7 objects/FS/function.c:762
 #: objects/FS/function.c:914 objects/FS/function.c:916
 msgid "Remove"
 msgstr "Вилучити"
@@ -2744,11 +2747,11 @@ msgstr "невідома стрілка"
 msgid "Can't find standard object"
 msgstr "Стандартний об'єкт не знайдено"
 
-#: lib/dia-arrow-chooser.c:176
+#: lib/dia-arrow-chooser.c:174
 msgid "Arrow Properties"
 msgstr "Властивості стрілки"
 
-#: lib/dia-arrow-chooser.c:299 lib/dia-line-chooser.c:208
+#: lib/dia-arrow-chooser.c:297 lib/dia-line-chooser.c:206
 msgid "Details…"
 msgstr "Параметри…"
 
@@ -2756,11 +2759,11 @@ msgstr "Параметри…"
 msgid "Size: "
 msgstr "Розмір:"
 
-#: lib/dia-colour-selector.c:161
+#: lib/dia-colour-selector.c:152
 msgid "Select color"
 msgstr "Вибір кольору"
 
-#: lib/dia-colour-selector.c:373
+#: lib/dia-colour-selector.c:341
 msgid "More Colors…"
 msgstr "Інші кольори…"
 
@@ -2773,7 +2776,7 @@ msgstr "Не вдалося знайти гарнітуру шрифту «%s»\
 msgid "Other Fonts"
 msgstr "Інші шрифти"
 
-#: lib/dia-line-chooser.c:171
+#: lib/dia-line-chooser.c:169
 msgid "Line Style Properties"
 msgstr "Властивості стилю лінії"
 
@@ -2803,13 +2806,12 @@ msgstr ""
 "%s\n"
 "%s\n"
 
-#: lib/diapatternselector.c:95 lib/prop_inttypes.c:160 lib/prop_pixbuf.c:325
+#: lib/diapatternselector.c:95 lib/prop_pixbuf.c:325
 msgid "Yes"
 msgstr "Так"
 
 #: lib/diapatternselector.c:99 lib/diapatternselector.c:192
-#: lib/prop_inttypes.c:162 lib/prop_inttypes.c:188 lib/prop_pixbuf.c:327
-#: lib/prop_pixbuf.c:333
+#: lib/prop_pixbuf.c:327 lib/prop_pixbuf.c:333
 msgid "No"
 msgstr "Ні"
 
@@ -2984,15 +2986,15 @@ msgstr "Відсутній символ 'dia_plugin_init'"
 msgid "dia_plugin_init() call failed"
 msgstr "помилка у функції dia_plugin_init()"
 
-#: lib/plug-ins.c:420
+#: lib/plug-ins.c:424
 msgid "Plugin Configuration"
 msgstr "Налаштування додатків"
 
-#: lib/propdialogs.c:339 objects/UML/association.c:240 objects/UML/object.c:142
+#: lib/propdialogs.c:374 objects/UML/association.c:240 objects/UML/object.c:142
 msgid "General"
 msgstr "Загальне"
 
-#: lib/propdialogs.c:340
+#: lib/propdialogs.c:375
 msgid "Meta"
 msgstr "Метадані"
 
@@ -3012,11 +3014,11 @@ msgstr "Дата внесення змін"
 msgid "URL"
 msgstr "URL"
 
-#: lib/prop_dict.c:243 sheets/ciscomisc.sheet:50
+#: lib/prop_dict.c:245 sheets/ciscomisc.sheet:50
 msgid "Key"
 msgstr "Ключ"
 
-#: lib/prop_dict.c:250 objects/UML/umlattribute.c:41
+#: lib/prop_dict.c:252 objects/UML/umlattribute.c:41
 #: objects/UML/umlparameter.c:47
 msgid "Value"
 msgstr "Значення"
@@ -3109,7 +3111,7 @@ msgstr "Вирівнювання тексту"
 #: lib/properties.c:98 lib/properties.h:708 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164 objects/Database/reference.c:135
 #: objects/GRAFCET/condition.c:139 objects/GRAFCET/step.c:174
-#: objects/GRAFCET/transition.c:149 objects/UML/class_dialog.c:483
+#: objects/GRAFCET/transition.c:149 objects/UML/class_dialog.c:494
 msgid "Font"
 msgstr "Шрифт"
 
@@ -3141,7 +3143,7 @@ msgstr "Заповнення текстом"
 msgid "Pattern"
 msgstr "Заповнення візерунком"
 
-#: lib/prop_inttypes.c:573
+#: lib/prop_inttypes.c:562
 msgid "Property cast from int to enum out of range"
 msgstr ""
 "Перетворення типу властивості з int на enum призвело до перевищення "
@@ -3175,7 +3177,7 @@ msgid "Cant create image data from scratch!"
 msgstr "Не вдалося створити дані зображення!"
 
 #. Todo: get label for the branch view from props, e.g. UML Operations Parameters
-#: lib/prop_sdarray_widget.c:573 objects/chronogram/chronoline.c:162
+#: lib/prop_sdarray_widget.c:576 objects/chronogram/chronoline.c:162
 #: objects/UML/umloperation.c:79
 msgid "Parameters"
 msgstr "Параметри"
@@ -3202,7 +3204,7 @@ msgstr ""
 "Об’єкт Dia «%s», потрібний на аркуші «%s», не знайдено.\n"
 "Ви не зможете ним скористатися."
 
-#: lib/sheet.c:357
+#: lib/sheet.c:358
 #, c-format
 msgid ""
 "The system sheet '%s' appears to be more recent than your custom\n"
@@ -3217,7 +3219,7 @@ msgstr ""
 "Пересуньте нові об’єкти (якщо такі є) з «%s» до вашого списку\n"
 "або вилучіть «%s» за допомогою діалогового вікна «Категорії і об’єкти»."
 
-#: lib/sheet.c:425
+#: lib/sheet.c:426
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: тепер вам слід використовувати теґи об’єктів, а не теґи форм"
@@ -3309,13 +3311,13 @@ msgstr "Точка"
 msgid "Pica"
 msgstr "Піка"
 
-#: lib/renderer/diacairo-interactive.c:347
-#: lib/renderer/diacairo-interactive.c:348
+#: lib/renderer/diacairo-interactive.c:338
+#: lib/renderer/diacairo-interactive.c:339
 msgid "Zoom pointer"
 msgstr "Вказівник масштабування"
 
-#: lib/renderer/diacairo-interactive.c:354
-#: lib/renderer/diacairo-interactive.c:355
+#: lib/renderer/diacairo-interactive.c:345
+#: lib/renderer/diacairo-interactive.c:346
 msgid "Visible rect pointer"
 msgstr "Видимий вказівник прямокутника"
 
@@ -3334,17 +3336,16 @@ msgstr ""
 "Перетворення вихідної назви файла «%s»  у локальне кодування неможливе.\n"
 "Будь ласка оберіть іншу назву для збереження з Cairo.\n"
 
-#: lib/renderer/diacairo.c:279 lib/renderer/diacairo.c:295
+#: lib/renderer/diacairo.c:287 lib/renderer/diacairo.c:303
 #, c-format
 msgid "Can't write %d bytes to %s"
 msgstr "Не вдалося записати %d байтів до %s"
 
-#: lib/renderer/diacairo.c:308
+#: lib/renderer/diacairo.c:316
 msgid "Clipboard copy failed"
 msgstr "Помилка копіювання до буфера"
 
-#: lib/renderer/diacairo.c:336 plug-ins/postscript/postscript.c:42
-#: plug-ins/wmf/wmf.cpp:1561
+#: lib/renderer/diacairo.c:344 plug-ins/wmf/wmf.cpp:1566
 msgid "Nothing to print"
 msgstr "Нічого друкувати"
 
@@ -3634,7 +3635,7 @@ msgstr "Посилання"
 
 #: objects/Database/table.c:182 objects/Database/table.c:223
 #: objects/Database/table.c:251 objects/UML/class.c:157 objects/UML/class.c:224
-#: objects/UML/class_dialog.c:514 objects/UML/umlattribute.c:43
+#: objects/UML/class_dialog.c:525 objects/UML/umlattribute.c:43
 #: objects/UML/umloperation.c:66 objects/UML/umlparameter.c:49
 #: sheets/SDL.sheet:52
 msgid "Comment"
@@ -3660,7 +3661,7 @@ msgstr "Унікальність"
 msgid "Default"
 msgstr "Типовий"
 
-#: objects/Database/table.c:190 objects/UML/class_operations_dialog.c:1300
+#: objects/Database/table.c:190 objects/UML/class_operations_dialog.c:1314
 msgid "Default value"
 msgstr "Типове значення"
 
@@ -3704,7 +3705,7 @@ msgstr "Шрифти"
 
 #. property rows
 #: objects/Database/table.c:247 objects/SADT/arrow.c:138
-#: objects/UML/class.c:214 objects/UML/class_dialog.c:489
+#: objects/UML/class.c:214 objects/UML/class_dialog.c:500
 msgid "Normal"
 msgstr "Нормальний"
 
@@ -3809,10 +3810,10 @@ msgstr "Сигнал"
 
 #: objects/FS/flow.c:144 objects/FS/flow-ortho.c:179 objects/Istar/link.c:159
 #: objects/Jackson/phenomenon.c:143 objects/KAOS/metaandorrel.c:163
-#: objects/KAOS/metabinrel.c:170 objects/UML/class_attributes_dialog.c:684
-#: objects/UML/class_operations_dialog.c:887
-#: objects/UML/class_operations_dialog.c:1288
-#: objects/UML/class_templates_dialog.c:526
+#: objects/KAOS/metabinrel.c:170 objects/UML/class_attributes_dialog.c:689
+#: objects/UML/class_operations_dialog.c:892
+#: objects/UML/class_operations_dialog.c:1301
+#: objects/UML/class_templates_dialog.c:531
 msgid "Type:"
 msgstr "Тип:"
 
@@ -5772,68 +5773,68 @@ msgid "Side B"
 msgstr "Сторона Б"
 
 #. Attributes page:
-#: objects/UML/class_attributes_dialog.c:550
+#: objects/UML/class_attributes_dialog.c:553
 msgid "_Attributes"
 msgstr "_Ознаки"
 
-#: objects/UML/class_attributes_dialog.c:607
+#: objects/UML/class_attributes_dialog.c:610
 msgid "Add Attribute"
 msgstr "Додати атрибут"
 
-#: objects/UML/class_attributes_dialog.c:620
+#: objects/UML/class_attributes_dialog.c:623
 msgid "Remove Attribute"
 msgstr "Вилучити атрибут"
 
-#: objects/UML/class_attributes_dialog.c:633
+#: objects/UML/class_attributes_dialog.c:636
 msgid "Move Attribute Up"
 msgstr "Пересунути атрибути вище"
 
-#: objects/UML/class_attributes_dialog.c:646
+#: objects/UML/class_attributes_dialog.c:649
 msgid "Move Attribute Down"
 msgstr "Пересунути атрибути нижче"
 
-#: objects/UML/class_attributes_dialog.c:658
+#: objects/UML/class_attributes_dialog.c:661
 msgid "Attribute data"
 msgstr "Дані ознаки"
 
-#: objects/UML/class_attributes_dialog.c:697
+#: objects/UML/class_attributes_dialog.c:703
 msgid "Value:"
 msgstr "Значення:"
 
-#: objects/UML/class_attributes_dialog.c:710 objects/UML/class_dialog.c:371
-#: objects/UML/class_operations_dialog.c:960
-#: objects/UML/class_operations_dialog.c:1311
+#: objects/UML/class_attributes_dialog.c:717 objects/UML/class_dialog.c:379
+#: objects/UML/class_operations_dialog.c:969
+#: objects/UML/class_operations_dialog.c:1326
 msgid "Comment:"
 msgstr "Коментар:"
 
-#: objects/UML/class_attributes_dialog.c:739
-#: objects/UML/class_operations_dialog.c:910
+#: objects/UML/class_attributes_dialog.c:747
+#: objects/UML/class_operations_dialog.c:917
 msgid "Visibility:"
 msgstr "Видимість:"
 
-#: objects/UML/class_attributes_dialog.c:745
-#: objects/UML/class_operations_dialog.c:917 objects/UML/uml.c:101
+#: objects/UML/class_attributes_dialog.c:753
+#: objects/UML/class_operations_dialog.c:924 objects/UML/uml.c:101
 msgid "Public"
 msgstr "Суспільний"
 
-#: objects/UML/class_attributes_dialog.c:746
-#: objects/UML/class_operations_dialog.c:918 objects/UML/uml.c:102
+#: objects/UML/class_attributes_dialog.c:754
+#: objects/UML/class_operations_dialog.c:925 objects/UML/uml.c:102
 msgid "Private"
 msgstr "Приватний"
 
-#: objects/UML/class_attributes_dialog.c:747
-#: objects/UML/class_operations_dialog.c:919 objects/UML/uml.c:103
+#: objects/UML/class_attributes_dialog.c:755
+#: objects/UML/class_operations_dialog.c:926 objects/UML/uml.c:103
 msgid "Protected"
 msgstr "Захищений"
 
-#: objects/UML/class_attributes_dialog.c:748
-#: objects/UML/class_operations_dialog.c:920 objects/UML/uml.c:104
+#: objects/UML/class_attributes_dialog.c:756
+#: objects/UML/class_operations_dialog.c:927 objects/UML/uml.c:104
 msgid "Implementation"
 msgstr "Реалізація"
 
 #. end: Inheritance type
-#: objects/UML/class_attributes_dialog.c:759
-#: objects/UML/class_operations_dialog.c:943
+#: objects/UML/class_attributes_dialog.c:768
+#: objects/UML/class_operations_dialog.c:952
 msgid "Class scope"
 msgstr "Розмах класу"
 
@@ -5852,8 +5853,8 @@ msgid "Stereotype"
 msgstr "Стереотип"
 
 #: objects/UML/class.c:162 objects/UML/class.c:218
-#: objects/UML/class_dialog.c:387 objects/UML/class_dialog.c:499
-#: objects/UML/class_operations_dialog.c:935 objects/UML/umlattribute.c:48
+#: objects/UML/class_dialog.c:393 objects/UML/class_dialog.c:510
+#: objects/UML/class_operations_dialog.c:943 objects/UML/umlattribute.c:48
 #: objects/UML/uml.c:109
 msgid "Abstract"
 msgstr "Абстракція"
@@ -5866,7 +5867,7 @@ msgstr "Видимі ознаки"
 msgid "Visible Operations"
 msgstr "Видимі операції"
 
-#: objects/UML/class.c:168 objects/UML/class_dialog.c:412
+#: objects/UML/class.c:168 objects/UML/class_dialog.c:419
 msgid "Wrap Operations"
 msgstr "Переносити операції"
 
@@ -5882,7 +5883,7 @@ msgstr "Дозволити зміну розміру"
 msgid "Template"
 msgstr "Шаблон"
 
-#: objects/UML/class.c:180 objects/UML/class_dialog.c:396
+#: objects/UML/class.c:180 objects/UML/class_dialog.c:402
 msgid "Suppress Attributes"
 msgstr "Приховати ознаки"
 
@@ -5908,11 +5909,11 @@ msgstr "Операції"
 msgid "Template Parameters"
 msgstr "Параметри шаблону"
 
-#: objects/UML/class.c:216 objects/UML/class_dialog.c:494
+#: objects/UML/class.c:216 objects/UML/class_dialog.c:505
 msgid "Polymorphic"
 msgstr "Поліморфний"
 
-#: objects/UML/class.c:220 objects/UML/class_dialog.c:504
+#: objects/UML/class.c:220 objects/UML/class_dialog.c:515
 msgid "Class Name"
 msgstr "Назва класу"
 
@@ -5921,80 +5922,80 @@ msgid "Abstract Class Name"
 msgstr "Назва абстрактного класу"
 
 #. Class page:
-#: objects/UML/class_dialog.c:348
+#: objects/UML/class_dialog.c:352
 msgid "_Class"
 msgstr "_Клас"
 
-#: objects/UML/class_dialog.c:356
+#: objects/UML/class_dialog.c:362
 msgid "Class name:"
 msgstr "Назва класу:"
 
-#: objects/UML/class_dialog.c:364 objects/UML/class_operations_dialog.c:898
+#: objects/UML/class_dialog.c:371 objects/UML/class_operations_dialog.c:904
 #: objects/UML/dependency.c:136 objects/UML/generalization.c:133
 #: objects/UML/realizes.c:133
 msgid "Stereotype:"
 msgstr "Стереотип:"
 
-#: objects/UML/class_dialog.c:393
+#: objects/UML/class_dialog.c:399
 msgid "Attributes visible"
 msgstr "Видимі ознаки"
 
-#: objects/UML/class_dialog.c:402
+#: objects/UML/class_dialog.c:408
 msgid "Operations visible"
 msgstr "Видимі дії"
 
-#: objects/UML/class_dialog.c:405
+#: objects/UML/class_dialog.c:411
 msgid "Suppress operations"
 msgstr "Сховати операції"
 
-#: objects/UML/class_dialog.c:419
+#: objects/UML/class_dialog.c:426
 msgid "Wrap after this length: "
 msgstr "Переносити при перевищенні довжини "
 
-#: objects/UML/class_dialog.c:427
+#: objects/UML/class_dialog.c:435
 msgid "Comments visible"
 msgstr "Видимі коментарі"
 
-#: objects/UML/class_dialog.c:434
+#: objects/UML/class_dialog.c:442
 msgid "Wrap comment after this length: "
 msgstr "Переносити коментар при перевищенні довжини "
 
-#: objects/UML/class_dialog.c:441
+#: objects/UML/class_dialog.c:449
 msgid "Show documentation tag"
 msgstr "Показати мітку документації"
 
 #. * Fonts and Colors selection *
-#: objects/UML/class_dialog.c:470
+#: objects/UML/class_dialog.c:478
 msgid "_Style"
 msgstr "С_тиль"
 
 #. head line
-#: objects/UML/class_dialog.c:480 objects/UML/umlparameter.c:51
+#: objects/UML/class_dialog.c:491 objects/UML/umlparameter.c:51
 msgid "Kind"
 msgstr "Сорт"
 
-#: objects/UML/class_dialog.c:485
+#: objects/UML/class_dialog.c:496
 msgid "Size"
 msgstr "Розмір"
 
-#: objects/UML/class_dialog.c:509
+#: objects/UML/class_dialog.c:520
 msgid "Abstract Class"
 msgstr "Абстрактний клас"
 
 #. should probably be refactored too.
-#: objects/UML/class_dialog.c:526
+#: objects/UML/class_dialog.c:537
 msgid "Line Width"
 msgstr "Товщина лінії"
 
-#: objects/UML/class_dialog.c:535
+#: objects/UML/class_dialog.c:548
 msgid "Text Color"
 msgstr "Колір тексту"
 
-#: objects/UML/class_dialog.c:545
+#: objects/UML/class_dialog.c:559
 msgid "Foreground Color"
 msgstr "Колір переднього плану"
 
-#: objects/UML/class_dialog.c:555
+#: objects/UML/class_dialog.c:570
 msgid "Background Color"
 msgstr "Колір тла"
 
@@ -6007,121 +6008,121 @@ msgid "Is object"
 msgstr "Це об'єкт"
 
 #. end: Visibility
-#: objects/UML/class_operations_dialog.c:928
+#: objects/UML/class_operations_dialog.c:936
 msgid "Inheritance type:"
 msgstr "Тип успадкування:"
 
-#: objects/UML/class_operations_dialog.c:936 objects/UML/uml.c:110
+#: objects/UML/class_operations_dialog.c:944 objects/UML/uml.c:110
 msgid "Polymorphic (virtual)"
 msgstr "Віртуальна"
 
-#: objects/UML/class_operations_dialog.c:937 objects/UML/uml.c:111
+#: objects/UML/class_operations_dialog.c:945 objects/UML/uml.c:111
 msgid "Leaf (final)"
 msgstr "Остаточна"
 
-#: objects/UML/class_operations_dialog.c:952 objects/UML/umloperation.c:75
+#: objects/UML/class_operations_dialog.c:961 objects/UML/umloperation.c:75
 msgid "Query"
 msgstr "Черга"
 
-#: objects/UML/class_operations_dialog.c:1038
+#: objects/UML/class_operations_dialog.c:1048
 msgid "Parameters:"
 msgstr "Параметри:"
 
-#: objects/UML/class_operations_dialog.c:1091
+#: objects/UML/class_operations_dialog.c:1102
 msgid "Add Parameter"
 msgstr "Додати параметр"
 
-#: objects/UML/class_operations_dialog.c:1106
+#: objects/UML/class_operations_dialog.c:1117
 msgid "Remove Parameter"
 msgstr "Вилучити параметр"
 
-#: objects/UML/class_operations_dialog.c:1121
+#: objects/UML/class_operations_dialog.c:1132
 msgid "Move Parameter Up"
 msgstr "Пересунути параметр вище"
 
-#: objects/UML/class_operations_dialog.c:1136
+#: objects/UML/class_operations_dialog.c:1147
 msgid "Move Parameter Down"
 msgstr "Пересунути параметр нижче"
 
-#: objects/UML/class_operations_dialog.c:1266
+#: objects/UML/class_operations_dialog.c:1277
 msgid "Parameter data"
 msgstr "Дані параметра"
 
-#: objects/UML/class_operations_dialog.c:1299
+#: objects/UML/class_operations_dialog.c:1313
 msgid "Def. value:"
 msgstr "Типове значення:"
 
-#: objects/UML/class_operations_dialog.c:1333
+#: objects/UML/class_operations_dialog.c:1349
 msgid "Direction:"
 msgstr "Напрямок:"
 
-#: objects/UML/class_operations_dialog.c:1342 objects/UML/umlparameter.c:34
+#: objects/UML/class_operations_dialog.c:1358 objects/UML/umlparameter.c:34
 msgid "Undefined"
 msgstr "Невизначено"
 
-#: objects/UML/class_operations_dialog.c:1343 objects/UML/umlparameter.c:35
+#: objects/UML/class_operations_dialog.c:1359 objects/UML/umlparameter.c:35
 msgid "In"
 msgstr "У"
 
-#: objects/UML/class_operations_dialog.c:1344 objects/UML/umlparameter.c:36
+#: objects/UML/class_operations_dialog.c:1360 objects/UML/umlparameter.c:36
 msgid "Out"
 msgstr "З"
 
-#: objects/UML/class_operations_dialog.c:1345 objects/UML/umlparameter.c:37
+#: objects/UML/class_operations_dialog.c:1361 objects/UML/umlparameter.c:37
 msgid "In & Out"
 msgstr "Ввід та Вивід"
 
 #. Operations page:
-#: objects/UML/class_operations_dialog.c:1397
+#: objects/UML/class_operations_dialog.c:1413
 msgid "_Operations"
 msgstr "_Операції"
 
-#: objects/UML/class_operations_dialog.c:1457
+#: objects/UML/class_operations_dialog.c:1473
 msgid "Add Operation"
 msgstr "Додати операцію"
 
-#: objects/UML/class_operations_dialog.c:1470
+#: objects/UML/class_operations_dialog.c:1486
 msgid "Remove Operation"
 msgstr "Вилучити операцію"
 
-#: objects/UML/class_operations_dialog.c:1483
+#: objects/UML/class_operations_dialog.c:1499
 msgid "Move Operation Up"
 msgstr "Пересунути операцію вище"
 
-#: objects/UML/class_operations_dialog.c:1496
+#: objects/UML/class_operations_dialog.c:1512
 msgid "Move Operation Down"
 msgstr "Пересунути операцію нижче"
 
-#: objects/UML/class_operations_dialog.c:1508
+#: objects/UML/class_operations_dialog.c:1524
 msgid "Operation data"
 msgstr "Дані операції"
 
 #. Templates page:
-#: objects/UML/class_templates_dialog.c:394
+#: objects/UML/class_templates_dialog.c:397
 msgid "_Templates"
 msgstr "_Шаблони"
 
-#: objects/UML/class_templates_dialog.c:400 sheets/UML.sheet:10
+#: objects/UML/class_templates_dialog.c:403 sheets/UML.sheet:10
 msgid "Template class"
 msgstr "Клас-шаблон"
 
-#: objects/UML/class_templates_dialog.c:452
+#: objects/UML/class_templates_dialog.c:455
 msgid "Add Formal Parameter"
 msgstr "Додати формальний параметр"
 
-#: objects/UML/class_templates_dialog.c:465
+#: objects/UML/class_templates_dialog.c:468
 msgid "Remove Formal Parameter"
 msgstr "Вилучити формальний параметр"
 
-#: objects/UML/class_templates_dialog.c:478
+#: objects/UML/class_templates_dialog.c:481
 msgid "Move Formal Parameter Up"
 msgstr "Пересунути формальний параметр вище"
 
-#: objects/UML/class_templates_dialog.c:491
+#: objects/UML/class_templates_dialog.c:494
 msgid "Move Formal Parameter Down"
 msgstr "Пересунути формальний параметр нижче"
 
-#: objects/UML/class_templates_dialog.c:504
+#: objects/UML/class_templates_dialog.c:507
 msgid "Formal parameter data"
 msgstr "Дані формального параметра"
 
@@ -6323,47 +6324,52 @@ msgstr "Текст назовні"
 msgid "Cairo PostScript"
 msgstr "PostScript Cairo"
 
-#: plug-ins/cairo/diacairo.c:79
+#: plug-ins/cairo/diacairo.c:77
+#| msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
+msgid "Encapsulated PostScript"
+msgstr "Інкапсульований PostScript"
+
+#: plug-ins/cairo/diacairo.c:88
 msgid "Cairo Portable Document Format"
 msgstr "Переносний формат документів Cairo"
 
-#: plug-ins/cairo/diacairo.c:90
+#: plug-ins/cairo/diacairo.c:99
 msgid "Cairo Scalable Vector Graphics"
 msgstr "SVG (векторна графіка)"
 
-#: plug-ins/cairo/diacairo.c:101
+#: plug-ins/cairo/diacairo.c:110
 msgid "CairoScript"
 msgstr "CairoScript"
 
-#: plug-ins/cairo/diacairo.c:112
+#: plug-ins/cairo/diacairo.c:121
 msgid "Cairo PNG"
 msgstr "Cairo PNG"
 
-#: plug-ins/cairo/diacairo.c:120
+#: plug-ins/cairo/diacairo.c:129
 msgid "Cairo PNG (with alpha)"
 msgstr "Cairo PNG (з прозорістю)"
 
-#: plug-ins/cairo/diacairo.c:130
+#: plug-ins/cairo/diacairo.c:139
 msgid "Cairo EMF"
 msgstr "Cairo EMF"
 
-#: plug-ins/cairo/diacairo.c:140
+#: plug-ins/cairo/diacairo.c:149
 msgid "Cairo WMF"
 msgstr "Cairo WMF"
 
-#: plug-ins/cairo/diacairo.c:156
+#: plug-ins/cairo/diacairo.c:165
 msgid "Cairo Clipboard Copy"
 msgstr "Копіювання до буфера обміну Cairo"
 
-#: plug-ins/cairo/diacairo.c:170
+#: plug-ins/cairo/diacairo.c:179
 msgid "Copy _Diagram"
 msgstr "Копіювати _діаграму"
 
-#: plug-ins/cairo/diacairo.c:180
+#: plug-ins/cairo/diacairo.c:189
 msgid "Print (GTK) …"
 msgstr "Надрукувати (GTK)…"
 
-#: plug-ins/cairo/diacairo.c:226
+#: plug-ins/cairo/diacairo.c:236
 msgid "Cairo-based Rendering"
 msgstr "Відображення за допомогою Cairo"
 
@@ -6496,7 +6502,6 @@ msgid "TeX Metapost export filter"
 msgstr "Фільтр експорту файлів TeX Metapost"
 
 #: plug-ins/metapost/render_metapost.c:909
-#: plug-ins/postscript/diapsrenderer.c:705
 #: plug-ins/pstricks/render_pstricks.c:879 plug-ins/wpg/wpg.c:920
 msgid "Not enough memory for image drawing."
 msgstr "Недостатньо пам’яті для малювання зображення."
@@ -6522,7 +6527,7 @@ msgstr "фільтр імпортування PDF"
 msgid "Page %d"
 msgstr "Сторінка %d"
 
-#: plug-ins/pdf/pdf-import.cpp:916
+#: plug-ins/pdf/pdf-import.cpp:915
 #, c-format
 msgid ""
 "PDF document not OK.\n"
@@ -6543,11 +6548,11 @@ msgstr "Некоректні дані UTF-8"
 msgid "LaTeX PGF macros"
 msgstr "Макроси LaTeX PGF"
 
-#: plug-ins/pixbuf/pixbuf.c:93
+#: plug-ins/pixbuf/pixbuf.c:76
 msgid "Failed to create pixbuf from drawable."
 msgstr "Не вдалося створити буфер пікселів з придатних до малювання даних."
 
-#: plug-ins/pixbuf/pixbuf.c:97
+#: plug-ins/pixbuf/pixbuf.c:80
 #, c-format
 msgid ""
 "Could not save file:\n"
@@ -6558,11 +6563,11 @@ msgstr ""
 "%s\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:122
+#: plug-ins/pixbuf/pixbuf.c:105
 msgid "Calling error, missing user_data."
 msgstr "Помилка під час спроби виклику, пропущено user_data."
 
-#: plug-ins/pixbuf/pixbuf.c:148
+#: plug-ins/pixbuf/pixbuf.c:131
 #, c-format
 msgid ""
 "Pixbuf[%s] can't load:\n"
@@ -6571,76 +6576,9 @@ msgstr ""
 "Не вдалося завантажити Pixbuf[%s]:\n"
 "%s"
 
-#: plug-ins/pixbuf/pixbuf.c:204
+#: plug-ins/pixbuf/pixbuf.c:187
 msgid "gdk-pixbuf-based bitmap export/import"
 msgstr "растровий імпорт/експорт оснований на gdk-pixbuf"
-
-#: plug-ins/postscript/paginate_psprint.c:272
-msgid "Select Printer"
-msgstr "Вибір принтера"
-
-#: plug-ins/postscript/paginate_psprint.c:284 sheets/ciscocomputer.sheet:43
-msgid "Printer"
-msgstr "Принтер"
-
-#: plug-ins/postscript/paginate_psprint.c:298 sheets/Misc.sheet:13
-msgid "File"
-msgstr "Файл"
-
-#: plug-ins/postscript/paginate_psprint.c:410
-msgid ""
-"Some characters in the filename are neither UTF-8\n"
-"nor your local encoding.\n"
-"Some things will break."
-msgstr ""
-"Деякі символи у назві файла ані у UTF-8,\n"
-"ані у локальному кодуванні.\n"
-"Можуть бути проблеми."
-
-#: plug-ins/postscript/paginate_psprint.c:423
-#, c-format
-msgid ""
-"The file '%s' already exists.\n"
-"Do you want to overwrite it?"
-msgstr ""
-"Файл «%s» вже існує.\n"
-"Бажаєте переписати його?"
-
-#: plug-ins/postscript/paginate_psprint.c:428
-msgid "File already exists"
-msgstr "Файл вже існує"
-
-#: plug-ins/postscript/paginate_psprint.c:464
-#, c-format
-msgid "Could not run command '%s': %s"
-msgstr "Не вдалося виконати команду «%s»: %s"
-
-#: plug-ins/postscript/paginate_psprint.c:468
-#, c-format
-msgid "Could not open '%s' for writing: %s"
-msgstr "Не вдалося відкрити «%s» для запису: %s"
-
-#: plug-ins/postscript/paginate_psprint.c:491
-#, c-format
-msgid "Printing error: command '%s' returned %d\n"
-msgstr "Помилка друку: команда «%s» повернула %d\n"
-
-#: plug-ins/postscript/paginate_psprint.c:503
-#, c-format
-msgid "Printing error: command '%s' caused sigpipe."
-msgstr "Помилка друку: команда «%s» призвела до SIGPIPE."
-
-#: plug-ins/postscript/postscript.c:53
-msgid "Print (PS)"
-msgstr "Друк (PS)"
-
-#: plug-ins/postscript/postscript.c:85
-msgid "PostScript Rendering"
-msgstr "Показ PostScript"
-
-#: plug-ins/postscript/render_eps.c:147
-msgid "Encapsulated PostScript (using PS Latin-1 fonts)"
-msgstr "Encapsulated PostScript (з використанням шрифтів Latin-1)"
 
 #: plug-ins/pstricks/pstricks.c:29
 msgid "TeX PSTricks export filter"
@@ -7021,7 +6959,7 @@ msgstr "Формат файлів Visio XML"
 msgid "Can't decode object %s"
 msgstr "Не вдалося декодувати об'єкт %s"
 
-#: plug-ins/wmf/wmf.cpp:334
+#: plug-ins/wmf/wmf.cpp:333
 #, c-format
 msgid ""
 "Couldn't write file %s\n"
@@ -7030,7 +6968,7 @@ msgstr ""
 "Не вдалося виконати запис до файла %s\n"
 "%s"
 
-#: plug-ins/wmf/wmf.cpp:587
+#: plug-ins/wmf/wmf.cpp:586
 #, c-format
 msgid ""
 "Cannot render unknown font:\n"
@@ -7039,19 +6977,19 @@ msgstr ""
 "Не вдалося показати символи невідомого шрифту:\n"
 "%s"
 
-#: plug-ins/wmf/wmf.cpp:1534
+#: plug-ins/wmf/wmf.cpp:1537
 msgid "Windows Metafile"
 msgstr "Метафайл Windows (WMF)"
 
-#: plug-ins/wmf/wmf.cpp:1543
+#: plug-ins/wmf/wmf.cpp:1547
 msgid "Enhanced Metafile"
 msgstr "Вдосконалений метафайл (EMF)"
 
-#: plug-ins/wmf/wmf.cpp:1572
+#: plug-ins/wmf/wmf.cpp:1577
 msgid "Print (GDI) ..."
 msgstr "Надрукувати (GDI)…"
 
-#: plug-ins/wmf/wmf.cpp:1588
+#: plug-ins/wmf/wmf.cpp:1593
 msgid "WMF export filter"
 msgstr "фільтр експорту у WMF"
 
@@ -8280,6 +8218,10 @@ msgstr "Newton"
 #: sheets/ciscocomputer.sheet:41
 msgid "Laptop"
 msgstr "Ноутбук"
+
+#: sheets/ciscocomputer.sheet:43
+msgid "Printer"
+msgstr "Принтер"
 
 #: sheets/ciscocomputer.sheet:45 sheets/network.sheet:10
 msgid "Monitor"
@@ -10730,6 +10672,10 @@ msgstr "Дерево"
 msgid "Folder"
 msgstr "Тека"
 
+#: sheets/Misc.sheet:13
+msgid "File"
+msgstr "Файл"
+
 #: sheets/Misc.sheet:16
 msgid "Expansible node"
 msgstr "Придатний до розширення вузол"
@@ -11253,6 +11199,51 @@ msgstr "Активність"
 #: sheets/UML.sheet:96
 msgid "Fork/Union"
 msgstr "Розгалуження/Об'єднанняy"
+
+#~ msgid "Select Printer"
+#~ msgstr "Вибір принтера"
+
+#~ msgid ""
+#~ "Some characters in the filename are neither UTF-8\n"
+#~ "nor your local encoding.\n"
+#~ "Some things will break."
+#~ msgstr ""
+#~ "Деякі символи у назві файла ані у UTF-8,\n"
+#~ "ані у локальному кодуванні.\n"
+#~ "Можуть бути проблеми."
+
+#, c-format
+#~ msgid ""
+#~ "The file '%s' already exists.\n"
+#~ "Do you want to overwrite it?"
+#~ msgstr ""
+#~ "Файл «%s» вже існує.\n"
+#~ "Бажаєте переписати його?"
+
+#~ msgid "File already exists"
+#~ msgstr "Файл вже існує"
+
+#, c-format
+#~ msgid "Could not run command '%s': %s"
+#~ msgstr "Не вдалося виконати команду «%s»: %s"
+
+#, c-format
+#~ msgid "Could not open '%s' for writing: %s"
+#~ msgstr "Не вдалося відкрити «%s» для запису: %s"
+
+#, c-format
+#~ msgid "Printing error: command '%s' returned %d\n"
+#~ msgstr "Помилка друку: команда «%s» повернула %d\n"
+
+#, c-format
+#~ msgid "Printing error: command '%s' caused sigpipe."
+#~ msgstr "Помилка друку: команда «%s» призвела до SIGPIPE."
+
+#~ msgid "Print (PS)"
+#~ msgstr "Друк (PS)"
+
+#~ msgid "PostScript Rendering"
+#~ msgstr "Показ PostScript"
 
 #~ msgid "Select image file"
 #~ msgstr "Вибір файл зображення"
