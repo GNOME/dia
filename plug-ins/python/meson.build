@@ -53,6 +53,10 @@ if py3_dep.found()
         install_dir: dialibdir,
         include_directories: diaapp_inc,
         name_suffix: g_module_suffix,
+        # Python headers trigger this warning. Let's not obscure the others.
+        c_args: [
+          '-Wno-declaration-after-statement',
+        ]
     )
 
     install_data(python_scripts, install_dir: pkgdatadir / 'python')
