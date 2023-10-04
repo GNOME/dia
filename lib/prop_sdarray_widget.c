@@ -479,7 +479,7 @@ _make_button_box_for_view (GtkTreeView *view, GtkTreeView *master_view)
   int i;
 
   for (i = 0; _button_data[i].stock != NULL; ++i) {
-    button = gtk_button_new_from_stock (_button_data[i].stock);
+    button = gtk_button_new_from_icon_name (_button_data[i].stock, GTK_ICON_SIZE_LARGE_TOOLBAR);
     /* start with everything disabled ... */
     gtk_widget_set_sensitive (button, FALSE);
     g_signal_connect (G_OBJECT (button), "clicked",
