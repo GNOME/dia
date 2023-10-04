@@ -31,7 +31,7 @@
 #define PERSIST_NAME "font-menu"
 
 struct _DiaFontSelector {
-  GtkHBox hbox;
+  GtkBox hbox;
 };
 
 
