@@ -5,3 +5,4 @@ build-release/
 *.pyc
 build-aux/flatpak/build/
 .flatpak-builder
+*.swp
