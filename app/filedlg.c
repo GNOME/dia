@@ -120,7 +120,7 @@ matching_extensions_filter (const GtkFileFilterInfo* fi,
  *
  * This function isn't used cause it conflicts with the pattern introduced:
  * instead of destroying the dialog with the diagram, the dialog is keeping
- * a refernce to it. As a result we could access the diagram even when the
+ * a reference to it. As a result we could access the diagram even when the
  * display of it is gone ...
  */
 #if 0
@@ -447,9 +447,9 @@ static GtkWidget *file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp);
  *
  * Respond to the File/Save As.. menu
  *
- * We have only one file save dialog at a time. So if the dialog alread exists
- * and the user tries to Save as once more only the diagram refernced will
- * change. Maybe we should also indicate the refernced diagram in the dialog.
+ * We have only one file save dialog at a time. So if the dialog already exists
+ * and the user tries to Save as once more only the diagram referenced will
+ * change. Maybe we should also indicate the referenced diagram in the dialog.
  *
  * Since: dawn-of-time
  */
@@ -539,7 +539,7 @@ file_save_as_dialog_prepare (Diagram *dia, DDisplay *ddisp)
 				 dia->data->is_compressed);
     g_signal_handlers_unblock_by_func(G_OBJECT(compressbutton), toggle_compress_callback, NULL);
     if (gtk_widget_get_visible (savedlg)) {
-      /* keep a refernce to the diagram */
+      /* keep a reference to the diagram */
       g_object_set_data_full (G_OBJECT (savedlg),
                               "user_data",
                               g_object_ref (dia),
@@ -629,7 +629,7 @@ efilter_by_index (int index, const char **ext)
   DiaExportFilter *efilter = NULL;
 
   /* the index in the selection list *is* the index of the filter,
-   * filters supporing multiple formats are multiple times in the list */
+   * filters supporting multiple formats are multiple times in the list */
   if (index >= 0) {
     efilter = g_list_nth_data (filter_get_export_filters(), index);
     if (efilter) {

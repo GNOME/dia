@@ -254,7 +254,7 @@ calculate_badness(Point *ps, guint num_points)
 }
 
 /*!
- * \brief Gap adjustement for points and a connection point
+ * \brief Gap adjustment for points and a connection point
  *
  * Adjust one end of an orthconn for gaps, if autogap is on for the connpoint.
  * @param pos Point of the end of the line.

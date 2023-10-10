@@ -137,7 +137,7 @@ dia_colour_to_string (Color *self)
  * @g: Green component (0 <= g <= 1)
  * @b: Blue component (0 <= b <= 1)
  *
- * Allocate a new color object wtih the given values.
+ * Allocate a new color object with the given values.
  * Initializes alpha component to 1.0
  *
  * Returns: A newly allocated color object.  This should be freed after use.
@@ -160,7 +160,7 @@ color_new_rgb (float r, float g, float b)
  * @b: Blue component (0 <= b <= 1)
  * @alpha: Alpha component (0 <= alpha <= 1)
  *
- * Allocate a new color object wtih the given values.
+ * Allocate a new color object with the given values.
  *
  * Returns: A newly allocated color object.  This should be freed after use.
  */

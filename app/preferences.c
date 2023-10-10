@@ -686,7 +686,7 @@ fill_exporter_list (GtkListStore *store, const char *type)
 
   gtk_list_store_append (store, &iter);
   gtk_list_store_set (store, &iter,
-                      // TRANSLATORS: The user hasn't set a prefered filter
+                      // TRANSLATORS: The user hasn't set a preferred filter
                       COL_NAME, _("Unset"),
                       COL_UNIT, "any",
                       -1);

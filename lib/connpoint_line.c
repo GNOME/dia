@@ -248,7 +248,7 @@ connpointline_putonaline(ConnPointLine *cpl,Point *start,Point *end, gint dirs)
   cpl->end = *end;
 
   if (dirs != DIR_NONE)
-    /* use the oone givne by the caller */;
+    /* use the one given by the caller */;
   else if (fabs(se_vector.x) > fabs(se_vector.y))
     dirs = DIR_NORTH|DIR_SOUTH;
   else
@@ -330,7 +330,7 @@ cpl_reorder_connections(ConnPointLine *cpl)
      connectionpoints in its connectionpoint list should not change, as long
      as we call this function whenever we do something.
 
-     The CPL has two big responsiblities here : first, it messes with
+     The CPL has two big responsibilities here : first, it messes with
      the parent object's structures (ugh), second, it must ensure that its
      first CP is inserted so that it is found first in the parent's CP list,
      and that the order of CP groups in the parent's CP list is respected (so

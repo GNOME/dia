@@ -314,7 +314,7 @@ read_connections(GList *objects, xmlNodePtr layer_node,
 	  connection = connection->next;
 	}
         /* Fix positions of the connection object for (de)generated files.
-         * Only done for the last point connected otherwise the intermediate posisitions
+         * Only done for the last point connected otherwise the intermediate positions
          * may screw the auto-routing algorithm.
          */
         if (!broken && obj && obj->ops->set_props && wants_update) {
@@ -1160,7 +1160,7 @@ diagram_data_raw_save(DiagramData *data, const char *filename, DiaContext *ctx)
 /** This saves the diagram, using a backup in case of failure.
  * @param data
  * @param filename
- * @returns TRUE on successfull save, FALSE otherwise.  If a failure is
+ * @returns TRUE on successful save, FALSE otherwise.  If a failure is
  * indicated, an error message will already have been given to the user.
  */
 static gboolean
@@ -1176,7 +1176,7 @@ diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
   /* Once we depend on GTK 2.8+, we can use these tests. */
 #if !defined G_OS_WIN32
   /* Check that we're allowed to write to the target file at all. */
-  /* not going to work with 'My Docments' - read-only but still useable, see bug #504469 */
+  /* not going to work with 'My Documents' - read-only but still useable, see bug #504469 */
   if (   g_file_test(filename, G_FILE_TEST_EXISTS)
       && g_access(filename, W_OK) != 0) {
     dia_context_add_message (ctx, _("Not allowed to write to output file %s\n"),
@@ -1325,7 +1325,7 @@ typedef struct {
  *    - e.g. all (message_*) to vanish (or make it use thread local storage?)
  *    - no use of static data (no write access)
  *    - ...
- *  - the editing could continue after the synchronuous copying, which should be vastly faster
+ *  - the editing could continue after the synchronous copying, which should be vastly faster
  *    than the in memory XML creation (diagram_data_write_doc) and the writing to a possibly
  *    slow storage (xmlDiaSaveFile)
  */

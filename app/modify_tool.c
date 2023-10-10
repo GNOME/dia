@@ -606,7 +606,7 @@ modify_motion (ModifyTool     *tool,
       }
     }
     if (connectionpoint == NULL) {
-      /* No connectionopoint near, then snap to grid (if enabled) */
+      /* No connectionpoint near, then snap to grid (if enabled) */
       snap_to_grid(ddisp, &to.x, &to.y);
       ddisplay_set_all_cursor_name (NULL, "move");
     }

@@ -78,7 +78,7 @@ dia_arrow_preview_draw (GtkWidget *widget, cairo_t *ctx)
       to.x = width - linewidth;
     }
 
-    /* here we must do some acrobaticts and construct Arrow type
+    /* here we must do some acrobatics and construct Arrow type
      * variable
      */
     arrow_type.type = arrow->atype;

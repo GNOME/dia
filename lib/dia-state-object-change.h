@@ -48,7 +48,7 @@ struct _ObjectState {
  * This is used to snapshot the object state
  * so that it can be stored for undo/redo.
  *
- * Need not save state that only depens on
+ * Need not save state that only depends on
  * the object and it's handles positions.
  *
  * The calling function owns the returned reference.

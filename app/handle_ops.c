@@ -77,7 +77,7 @@ handle_draw (Handle *handle, DDisplay *ddisp)
                                             y - HANDLE_SIZE/2 + 1,
                                             HANDLE_SIZE-2,
                                             HANDLE_SIZE-2,
-                                            /* it does not change the color, but does not reflect taht in the signature */
+                                            /* it does not change the color, but does not reflect that in the signature */
                                             (Color *) color);
 
   dia_interactive_renderer_draw_pixel_rect (DIA_INTERACTIVE_RENDERER (renderer),

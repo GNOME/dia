@@ -6,10 +6,10 @@
  *        Object/  object or group with objects?
  *          (Meta-)Properties/ ?
  *
- * But for a tree the concept of column and hierachy are ortogonal, 
+ * But for a tree the concept of column and hierarchy are orthogonal, 
  * e.g. we can have a name column (something we can provide a value for)
  * for all of the objects. 
- * We may also want to build another heirachy by connected? Or maybe
+ * We may also want to build another hierarchy by connected? Or maybe
  * not because they could be circular.
  *
  * Another idea: split models, e.g. one for the application list of diagrams,

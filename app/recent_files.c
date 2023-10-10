@@ -110,7 +110,7 @@ recent_file_history_make_menu (void)
  * @fname: filename to add
  *
  * Add a new item to the file history list.
- * Can also handle the addition of an already exisiting file. The whole recent menu is rebuild every time but
+ * Can also handle the addition of an already existing file. The whole recent menu is rebuild every time but
  * it should be fast enough to favor simplicity of the code.
  *
  * Since: dawn-of-time

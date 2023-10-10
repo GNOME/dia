@@ -38,7 +38,7 @@
    applicable ?  -- cc */
 
 /* All names below should be UTF-8 encoded. The consensus is that
-   it's the responsbility of the user to ensure their terminal
+   it's the responsibility of the user to ensure their terminal
    can display this if necessary.
 
    The way the following list is done is a bit messy, but it

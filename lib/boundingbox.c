@@ -98,7 +98,7 @@ bezier_eval_tangent (const double p[4], double u)
  * @p: x- or y-values of four points describing the bezier
  * @u: The position of the extrema [0 .. 1]
  *
- * Calculates the extrma of the given curve in x- or y-direction.
+ * Calculates the extrema of the given curve in x- or y-direction.
  *
  * Returns: The number of extrema found.
  */
@@ -617,7 +617,7 @@ polybezier_bbox (const BezPoint     *pts,
 
         if (alpha > 0.0 && alpha < M_PI)
           overshoot = extra->middle_trans / sin (alpha / 2.0);
-        else /* prependicular? */
+        else /* perpendicular? */
           overshoot = extra->middle_trans;
 
         point_copy_add_scaled (&vovs, &vpx, &vxn, -1);

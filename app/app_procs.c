@@ -648,7 +648,7 @@ app_init (int argc, char **argv)
       exit (1);
     }
 
-    /* second level check of command line options, existance of input files etc. */
+    /* second level check of command line options, existence of input files etc. */
     if (filenames) {
       while (filenames[i] != NULL) {
         char *filename;
@@ -1185,7 +1185,7 @@ _cmp_filter (const void *a, const void *b)
  * Almost all of Dia's export formats are realized with plug-ins, either
  * implemented in C or Python. Instead of a static help string which tries
  * to cover these at compile time, this function queries the registered
- * filters to proide the complete list for the current configuration.
+ * filters to provide the complete list for the current configuration.
  *
  * This list still might not cover all available filters for two reasons:
  *  - only configured filters are registered

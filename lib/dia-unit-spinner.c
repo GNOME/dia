@@ -82,7 +82,7 @@ dia_unit_spinner_input (DiaUnitSpinner *self, double *value)
     }
   }
 
-  /* convert to prefered units */
+  /* convert to preferred units */
   val *= factor;
 
   /* Store value in the location provided by the signal emitter. */

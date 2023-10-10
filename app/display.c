@@ -95,7 +95,7 @@ selection_changed (Diagram *dia, int n, DDisplay *ddisp)
 
   if (n > 1) {
     /* http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
-     * Althoug the single objects wont get triggered here some languages have variations on the other numbers
+     * Although the single objects wont get triggered here some languages have variations on the other numbers
      */
     char *msg = g_strdup_printf (ngettext ("Selection of %d object",
                                            "Selection of %d objects",
@@ -1067,7 +1067,7 @@ ddisplay_present_object (DDisplay *ddisp, DiaObject *obj)
  * @x: the x position
  * @y: the y position
  *
- * Remember the last clicked point given in pixel coodinates
+ * Remember the last clicked point given in pixel coordinates
  *
  * Since: dawn-of-time
  */
@@ -1674,7 +1674,7 @@ ddisplay_show_all (DDisplay *ddisp)
   width = dia_interactive_renderer_get_width_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
   height = dia_interactive_renderer_get_height_pixels (DIA_INTERACTIVE_RENDERER (ddisp->renderer));
 
-  /* if there is something selected show that instead of all exisiting objects */
+  /* if there is something selected show that instead of all existing objects */
   if (dia->data->selected) {
     GList *list = dia->data->selected;
     DiaRectangle extents = *dia_object_get_enclosing_box ((DiaObject*)list->data);

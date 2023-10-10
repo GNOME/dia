@@ -48,13 +48,13 @@ screen/postscript is done through the 'DiaRenderer' abstraction that can be foun
 in `lib/diarenderer.h`.
 
 ### XML based objects
-You can (from version 0.80) create new objects using a SVG like XML languange.
+You can (from version 0.80) create new objects using a SVG like XML language.
 The file doc/custom-shapes has more information about this.
 
 ### Handles and connection points
 An object has handles to resize it. A handle can be moved either because
 the user dragged it with the mouse, or the handle is attached to another
-object, which moved itself. The handles are diplayed as little squares
+object, which moved itself. The handles are displayed as little squares
 (red: normal, green: attached to an object, blue: can't be moved).
 
 When the handle of an object is connected to another object, it's always

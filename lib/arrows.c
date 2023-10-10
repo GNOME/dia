@@ -105,7 +105,7 @@ dia_arrow_free (Arrow *self)
 /**
  * calculate_arrow_point:
  * @arrow: An arrow to calculate adjustments for.  The arrow type
- *         determins what adjustments are done..
+ *         determines what adjustments are done..
  * @to: Where the arrow points to (e.g. connection point)
  * @from: Where the arrow points from (e.g. bezier control line end)
  * @move_arrow: (out): A place to return the new end point of the arrow head
@@ -948,7 +948,7 @@ calculate_box (Point       *poly,
  * @bg_color: The color used for the interior of the box.  If
  *                 fg_color == bg_color, the box is rendered slightly smaller.
  *
- * Draw an arrow head that is an (optionall) filled box.
+ * Draw an arrow head that is an (optional) filled box.
  */
 static void
 draw_fill_box (DiaRenderer *renderer,
@@ -1007,7 +1007,7 @@ calculate_dot (Point       *poly,
  * @width: The width of the arrow
  * @linewidth: The thickness of the lines used to draw the arrow.
  * @fg_color: The color used for drawing the arrow lines.
- * @bg_color: The collor used for the interior of the dot.
+ * @bg_color: The color used for the interior of the dot.
  *
  * bug Need to describe the diff between this and ellipse arrow.
  *
@@ -1367,7 +1367,7 @@ draw_triangle (DiaRenderer *renderer,
  * @length: The length of the arrowhead
  * @width: The width of the arrowhead
  *
- * Calculate the points needed to draw a diamon arrowhead.
+ * Calculate the points needed to draw a diamond arrowhead.
  */
 static int
 calculate_diamond (Point       *poly,
@@ -2103,7 +2103,7 @@ draw_hollow_triangle (DiaRenderer *renderer,
   draw_triangle (renderer, to, from, length, width, linewidth, bg_color, fg_color);
 }
 
-/* unfilled is no backround drawn */
+/* unfilled is no background drawn */
 static void
 draw_filled_triangle (DiaRenderer *renderer,
                       Point       *to,
@@ -2266,7 +2266,7 @@ struct ArrowDesc {
                            real         length,
                            real         width,
                            real         linewidth, /* the lines width also used in many arrows */
-                           Color       *fg_color,  /* the main drawin color */
+                           Color       *fg_color,  /* the main drawing color */
                            Color       *bg_color); /* not always used */
 } arrow_types[] = {
   {NC_("Arrow", "None"),ARROW_NONE},
@@ -2312,7 +2312,7 @@ struct ArrowDesc {
  * @line_width: arrows use the same line width
  * @to: The point that the arrow points to.
  * @from: Where the arrow points from (e.g. end of stem)
- * @rect: the preintialized bounding box
+ * @rect: the preintialised bounding box
  *
  * following the signature pattern of lib/boundingbox.h
  * the arrow bounding box is added to the given rect
@@ -2324,7 +2324,7 @@ arrow_bbox (const Arrow  *self,
             const Point  *from,
             DiaRectangle *rect)
 {
-  Point poly[6]; /* Attention: nust be the maximum used! */
+  Point poly[6]; /* Attention: must be the maximum used! */
   PolyBBExtras pextra;
   int n_points = 0;
   int idx = arrow_index_from_type (self->type);

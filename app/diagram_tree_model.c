@@ -33,7 +33,7 @@
 #include "dia-layer.h"
 #include "diagram_tree_model.h"
 
-/* accessing iter fileds by name by */
+/* accessing iter fields by name */
 #if defined(_MSC_VER) && !defined(__clang__)
 /* GCC does not like the pattern */
 /* error: lvalue required as left operand of assignment */
@@ -262,7 +262,7 @@ _dtm_iter_next (GtkTreeModel *tree_model,
     NODE_DIAGRAM(iter) = list ? list->data : NULL;
     return NODE_DIAGRAM(iter) != NULL;
   } else {
-    /* empy iter? */
+    /* empty iter? */
     GList *list = dia_open_diagrams();
     NODE_DIAGRAM(iter) = list ? list->data : NULL;
     return NODE_DIAGRAM(iter) != NULL;
@@ -558,7 +558,7 @@ _diagram_remove (DiaApplication   *app,
 static void
 _dtm_init (DiagramTreeModel *dtm)
 {
-  /* connect to intersting state changes */
+  /* connect to interesting state changes */
   g_signal_connect (G_OBJECT (dia_application_get_default ()),
                     "diagram_add", G_CALLBACK (_diagram_add), dtm);
   g_signal_connect (G_OBJECT (dia_application_get_default ()),

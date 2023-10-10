@@ -190,7 +190,7 @@ object_list_sort_vertical(const void *o1, const void *o2)
 /*!
  * \brief Separate list of objects into connected and not connected ones
  *
- * When moving around objects it is useful to sepearate nodes and edges.
+ * When moving around objects it is useful to separate nodes and edges.
  * The former usually should be aligned somehow, the latter will just follow
  * the nodes through their connection points.
  * More specialized algorithms need real edges, i.e. at least two handles have
@@ -552,7 +552,7 @@ object_list_align_h(GList *objects, Diagram *dia, int align)
  *    but still reversed due data_select() prepending
  *  - Step-wise manual selection would also be in reverse order
  * So it appears to be a good idea to reverse the processing order
- * In this function to minimize surpise.
+ * In this function to minimize surprise.
  *
  * The result also currently depends on the direction of the connections.
  * When aligning two objects the one connected with HANDLE_MOVE_ENDPOINT
@@ -711,7 +711,7 @@ object_list_nudge(GList *objects, Diagram *dia, Direction dir, real step)
   inc_x = DIR_RIGHT == dir ? step : (DIR_LEFT == dir ? -step : 0);
   inc_y = DIR_DOWN == dir ? step : (DIR_UP == dir ? -step : 0);
 
-  /* remeber original positions and calculate destination */
+  /* remember original positions and calculate destination */
   i = 0;
   list = objects;
   while (list != NULL) {

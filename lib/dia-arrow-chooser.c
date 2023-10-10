@@ -130,7 +130,7 @@ dia_arrow_chooser_init (DiaArrowChooser *arrow)
  * @response_id: The ID of the response (e.g. %GTK_RESPONSE_OK)
  * @chooser: The arrowchooser widget (userdata)
  *
- * Handle the "ressponse" event for the arrow chooser dialog.
+ * Handle the "response" event for the arrow chooser dialog.
  */
 static void
 dia_arrow_chooser_dialog_response (GtkWidget       *dialog,
@@ -309,7 +309,7 @@ dia_arrow_chooser_new (gboolean               left,
 /**
  * dia_arrow_chooser_set_arrow:
  * @chooser: The chooser to update.
- * @arrow: The arrow type and dimensions the chooser will dispaly.
+ * @arrow: The arrow type and dimensions the chooser will display.
  * Should it be called as well when the dimensions change?
  *
  * Set the type of arrow shown by the arrow chooser. If the arrow type

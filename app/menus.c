@@ -217,7 +217,7 @@ static const GtkActionEntry display_entries[] =
 
     { "SelectBy", NULL, N_("_Select By"), NULL, NULL, NULL },
 
-  /* For placment of the toplevel Layout menu and it's accelerator */
+  /* For placement of the toplevel Layout menu and it's accelerator */
   { "Layout", NULL, N_("L_ayout"), NULL, NULL, NULL },
 
   { "Dialogs", NULL, N_("D_ialogs"), NULL, NULL, NULL },

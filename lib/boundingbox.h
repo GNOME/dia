@@ -63,7 +63,7 @@ void bicubicbezier2D_bbox(const Point *p0,const Point *p1,
 
 /*!
  * \brief Bounding box calculation for a straight line
- * The calcualtion includes line width and arrwos with the right extra
+ * The calculation includes line width and arrows with the right extra
  * \ingroup ObjectBBox
  */
 void line_bbox(const Point *p1, const Point *p2,
@@ -72,7 +72,7 @@ void line_bbox(const Point *p1, const Point *p2,
 
 /*!
  * \brief Bounding box calculation for a rectangle
- * The calcualtion includes line width with the right extra
+ * The calculation includes line width with the right extra
  * \ingroup ObjectBBox
  */
 void rectangle_bbox(const DiaRectangle    *rin,
@@ -81,7 +81,7 @@ void rectangle_bbox(const DiaRectangle    *rin,
 
 /*!
  * \brief Bounding box calculation for an ellipse
- * The calcualtion includes line width with the right extra
+ * The calculation includes line width with the right extra
  * \ingroup ObjectBBox
  */
 void ellipse_bbox (const Point           *centre,
@@ -91,7 +91,7 @@ void ellipse_bbox (const Point           *centre,
                    DiaRectangle          *rect);
 /*!
  * \brief Bounding box calculation for a polyline
- * The calcualtion includes line width and arrwos with the right extra
+ * The calculation includes line width and arrows with the right extra
  * \ingroup ObjectBBox
  */
 void polyline_bbox(const Point *pts, int numpoints,
@@ -99,7 +99,7 @@ void polyline_bbox(const Point *pts, int numpoints,
                    DiaRectangle       *rect);
 /*!
  * \brief Bounding box calculation for a bezier
- * The calcualtion includes line width and arrwos with the right extra
+ * The calculation includes line width and arrows with the right extra
  * \ingroup ObjectBBox
  */
 void polybezier_bbox(const BezPoint *pts, int numpoints,

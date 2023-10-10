@@ -47,7 +47,7 @@ calculate_dynamic_grid (DDisplay *ddisp, double *width_x, double *width_y)
   /* Twiddle zoom to make change-over appropriate */
   zoom *= 5;
   ret = pow(10, ceil(log10(zoom)));
-  /* dont' make it too small or huge (this is in pixels) */
+  /* don't make it too small or huge (this is in pixels) */
   tmp = ddisplay_transform_length(ddisp, ret);
   if (tmp < 10.0)
     ret *= 2.0;

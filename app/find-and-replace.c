@@ -287,7 +287,7 @@ _match_all_props (DiaObject *obj, const SearchData *sd, const gchar *replacement
       /* First time. */
       matched_plist = prop_list_from_single (prop);
     } else {
-      /* FIXME: do we realy want a replace all here? */
+      /* FIXME: do we really want a replace all here? */
       /* Subsequent finds. */
       GPtrArray *append_plist;
       append_plist = prop_list_from_single (prop);
@@ -543,7 +543,7 @@ edit_find_callback (GtkAction *action)
   ddisp = ddisplay_active();
   if (!ddisp) return;
 
-  /* no static var, instead we are attaching the dialog to the diplay shell */
+  /* no static var, instead we are attaching the dialog to the display shell */
   dialog = g_object_get_data (G_OBJECT (ddisp->shell), "edit-find-dialog");
   if (!dialog) {
     dialog = gtk_dialog_new_with_buttons (_("Find"),
@@ -578,7 +578,7 @@ edit_replace_callback(GtkAction *action)
   ddisp = ddisplay_active();
   if (!ddisp) return;
 
-  /* no static var, instead we are attaching the dialog to the diplay shell */
+  /* no static var, instead we are attaching the dialog to the display shell */
   dialog = g_object_get_data (G_OBJECT (ddisp->shell), "edit-replace-dialog");
   if (!dialog) {
     dialog = gtk_dialog_new_with_buttons (_("Replace"),

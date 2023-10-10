@@ -300,7 +300,7 @@ _calc_step_up (int a, int b)
  *
  * This function gets called between Ngon::set_props() and
  * Ngon::get_props(). It does need to do anything cause Ngon::update_data()
- * already ensured data consistency. The pure existance of this of this
+ * already ensured data consistency. The pure existence of this of this
  * property handler leads to bidirectional communication between property
  * dialog and object's property change.
  */

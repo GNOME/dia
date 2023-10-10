@@ -31,7 +31,7 @@ G_BEGIN_DECLS
 
 /**
  * DiaExitDialogResult:
- * @DIA_EXIT_DIALOG_SAVE: The selectd diagrams should be saved, then quit
+ * @DIA_EXIT_DIALOG_SAVE: The selected diagrams should be saved, then quit
  * @DIA_EXIT_DIALOG_CANCEL: Don't quit, don't save
  * @DIA_EXIT_DIALOG_QUIT: Close anyway, loosing changes
  *
@@ -48,7 +48,7 @@ typedef enum /*< enum,prefix=DIA >*/
 /**
  * DiaExitDialogItem:
  * @name: the name of the item, show in the dialogue
- * @path: the full path of the item, show in the tooltop
+ * @path: the full path of the item, show in the tooltip
  * @data: the #Diagram itself
  */
 typedef struct {

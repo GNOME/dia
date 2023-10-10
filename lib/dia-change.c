@@ -280,9 +280,9 @@ dia_change_unref (gpointer self)
 
 /**
  * dia_change_new:
- * @type: the #DiaChange derrived #GType to instantiate
+ * @type: the #DiaChange derived #GType to instantiate
  *
- * Create an instance of @type, it's epected this will be used inside a
+ * Create an instance of @type, it's expected this will be used inside a
  * constructor for @type rather than in general code
  *
  * Returns: (transfer full): A new #DiaChange instance

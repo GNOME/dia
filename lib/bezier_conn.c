@@ -643,7 +643,7 @@ bezierconn_straighten_corner (BezierConn *bezier, int comp_nr)
 {
   int next_nr = comp_nr+1;
 
-  /* Neat thing would be to have the kind of straigthening depend on
+  /* Neat thing would be to have the kind of straightening depend on
      which handle was chosen:  Mid-handle does average, other leaves that
      handle where it is. */
   switch (bezier->bezier.corner_types[comp_nr]) {

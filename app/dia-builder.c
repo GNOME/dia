@@ -342,7 +342,7 @@ dia_builder_connect_signals (DiaBuilder *self,
  * dia_builder_path:
  * @name: the filename to get a path for
  *
- * Get the fallpath to @name located in the datadir
+ * Get the full path to @name located in the datadir
  *
  * Note: dia_builder_new will call this for you
  *

@@ -190,7 +190,7 @@ dia_arrow_cell_renderer_render (GtkCellRenderer      *cell,
     to.x = rect.width - ARROW_LINEWIDTH;
   }
 
-  /* here we must do some acrobaticts and construct Arrow type
+  /* here we must do some acrobatics and construct Arrow type
     * variable
     */
   tmp_arrow.type = priv->arrow->type;

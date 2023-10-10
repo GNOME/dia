@@ -40,14 +40,14 @@ typedef gboolean (* DiaExportFunc) (DiagramData *dia,  DiaContext *ctx,
 struct _DiaExportFilter {
   const gchar *description;
   /* NULL terminated array of extensions for this file format.  The first
-   * one is the prefered extension for files of this type. */
+   * one is the preferred extension for files of this type. */
   const gchar **extensions;
   DiaExportFunc export_func;
   void* user_data;
   /* A unique name that this filter can always be addressed as from the
    * command line.  If more than one filter can handle an extension, this
    * will allow disambiguation.  Note that import and export filters are
-   * treated seperately for this.
+   * treated separately for this.
    */
   const gchar *unique_name;
   /* additional hints for export */
@@ -66,19 +66,19 @@ typedef gboolean (* DiaImportMemFunc) (const guchar *p, guint size, DiagramData 
 struct _DiaImportFilter {
   const gchar *description;
   /* NULL terminated array of extensions for this file format.  The first
-   * one is the prefered extension for files of this type. */
+   * one is the preferred extension for files of this type. */
   const gchar **extensions;
   DiaImportFunc import_func;
   void* user_data;
   /* A unique name that this filter can always be addressed as from the
    * command line.  If more than one filter can handle an extension, this
    * will allow disambiguation.  Note that import and export filters are
-   * treated seperately for this.
+   * treated separately for this.
    */
   const gchar *unique_name;
   /* additional hints for export */
   guint hints;
-  /* Recent addition comin last for compatibility - check for NULL before calling */
+  /* Recent addition coming last for compatibility - check for NULL before calling */
   DiaImportMemFunc import_mem_func;
 };
 
@@ -116,7 +116,7 @@ DiaExportFilter *filter_guess_export_filter(const gchar *filename);
 DiaExportFilter *filter_export_get_by_name(const gchar *name);
 /* Get the list of unique names for the given extension */
 GList *filter_get_unique_export_names(const char *extension);
-/* Set the favorit 'guess' */
+/* Set the favorite 'guess' */
 void filter_set_favored_export(const char *extension, const char *name);
 
 void filter_register_import(DiaImportFilter *ifilter);

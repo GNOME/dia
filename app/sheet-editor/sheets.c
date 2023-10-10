@@ -159,7 +159,7 @@ populate_store (GtkListStore *store)
   GtkTreeIter iter;
   GSList *sheets_list;
 
-  /* Delete the contents, if any, of this optionemnu first */
+  /* Delete the contents, if any, of this optionmenu first */
 
   gtk_list_store_clear (store);
 

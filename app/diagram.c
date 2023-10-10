@@ -328,7 +328,7 @@ diagram_load_into (Diagram         *diagram,
         diagram_modified (diagram);
       }
     } else {
-      /* Valid existing Dia file opened - file already saved, set filename to diadram */
+      /* Valid existing Dia file opened - file already saved, set filename to diagram */
       diagram->unsaved = FALSE;
 
       file = g_file_new_for_path (filename);
@@ -1076,7 +1076,7 @@ diagram_find_closest_handle(Diagram *dia, Handle **closest,
   real mindist, dist;
   int i;
 
-  mindist = 1000000.0; /* Realy big value... */
+  mindist = 1000000.0; /* Really big value... */
 
   *closest = NULL;
 
@@ -1332,7 +1332,7 @@ diagram_group_selected (Diagram *dia)
 
 #if 0
   /* the following is wrong as it screws up the selected list, see bug #153525
-     * I just don't get what was originally intented so please speak up if you know  --hb
+     * I just don't get what was originally intended so please speak up if you know  --hb
      */
   dia->data->selected = parent_list_affected(dia->data->selected);
 #endif

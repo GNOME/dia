@@ -686,7 +686,7 @@ draw_beziergon (DiaRenderer *self,
 		Color *fill,
 		Color *stroke)
 {
-  if (!fill && stroke) { /* maybe this is too clever: close path by existance of fill attribute */
+  if (!fill && stroke) { /* maybe this is too clever: close path by existence of fill attribute */
     Color transparent = { 0, };
     _bezier (self, points, numpoints, &transparent, stroke);
   } else {

@@ -179,7 +179,7 @@ textedit_end_edit (DDisplay *ddisp, Focus *focus)
  * textedit_move_focus:
  * @ddisp: the #DDisplay
  * @focus: the #Focus
- * @forwards: move fowards?
+ * @forwards: move forwards?
  *
  * Move the text edit focus either backwards or forwards.
  *
@@ -219,7 +219,7 @@ textedit_move_focus (DDisplay *ddisp, Focus *focus, gboolean forwards)
  * @focus: the #Focus to activate
  * @clicked: the #Point to click
  *
- * Call when something recieves an actual focus (not to be confused with
+ * Call when something receives an actual focus (not to be confused with
  * doing request_focus(), which merely puts one in the focus list).
  *
  * Since: dawn-of-time

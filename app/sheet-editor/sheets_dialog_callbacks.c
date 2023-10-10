@@ -638,7 +638,7 @@ on_sheets_dialog_button_new_clicked    (GtkButton       *button,
 
   sheets_new_dialog = create_sheets_new_dialog ();
 
-  /* Deterine if a line break button can be put after the active button */
+  /* Determine if a line break button can be put after the active button */
 
   active_button = sheets_dialog_get_active_button (&wrapbox, &button_list);
   is_line_break_sensitive = TRUE;

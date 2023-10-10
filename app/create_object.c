@@ -246,7 +246,7 @@ create_object_motion(CreateObjectTool *tool, GdkEventMotion *event,
   }
 
   if (connectionpoint == NULL) {
-    /* No connectionopoint near, then snap to grid (if enabled) */
+    /* No connectionpoint near, then snap to grid (if enabled) */
     snap_to_grid(ddisp, &to.x, &to.y);
     highlight_reset_all(ddisp->diagram);
     ddisplay_set_all_cursor_name (NULL, "move");

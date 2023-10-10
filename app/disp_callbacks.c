@@ -114,7 +114,7 @@ dia_menu_free(DiaMenu *dia_menu)
   This add a Properties... menu item to the GtkMenu passed, at the
   end and set the callback to raise de properties dialog
 
-  pass TRUE in separator if you want to insert a separator before the poperty
+  pass TRUE in separator if you want to insert a separator before the property
   menu item.
 */
 static void
@@ -971,7 +971,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
 
     case GDK_KEY_PRESS:
       if (moving) {
-        /*Disable Keyboard accels whilst draggin an object*/
+        /*Disable Keyboard accels whilst dragging an object*/
         break;
       }
       display_set_active (ddisp);
@@ -1016,7 +1016,7 @@ ddisplay_canvas_events (GtkWidget *canvas,
       }
 
       #if 0
-      /* modifier requirment added 2004-07-17, IMO reenabling unmodified keys here
+      /* modifier requirement added 2004-07-17, IMO reenabling unmodified keys here
        * shouldn't break im_context handling. How to test?    --hb
        */
       if (!key_handled && (state & (GDK_CONTROL_MASK | GDK_MOD1_MASK))) {

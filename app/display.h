@@ -112,7 +112,7 @@ struct _DDisplay {
   /* Private field, indicates which text, if any, is being edited */
   Focus *active_focus;
 
-  /* Rember the last clicked point per display, but in diagram coordinates */
+  /* Remember the last clicked point per display, but in diagram coordinates */
   Point clicked_position;
 
   /* For dragging a new guideline. */

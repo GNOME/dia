@@ -603,7 +603,7 @@ use_integrated_ui_for_display_shell (DDisplay *ddisp, char *title)
 /**
  * create_display_shell:
  * @ddisp: The diagram display object that a window is created for
- * @width: Diagram widgth
+ * @width: Diagram width
  * @height: Diagram Height
  * @title: Window title
  * @use_mbar: Flag to indicate whether to add a menubar to the window
@@ -906,7 +906,7 @@ create_integrated_ui (void)
   gtk_container_add (GTK_CONTAINER (window), main_vbox);
   gtk_widget_show (main_vbox);
 
-  /* Applicatioon Statusbar */
+  /* Application Statusbar */
   statusbar = gtk_statusbar_new ();
   gtk_box_pack_end (GTK_BOX (main_vbox), statusbar, FALSE, TRUE, 0);
   /* HBox for everything below the menubar and toolbars */

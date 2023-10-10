@@ -53,7 +53,7 @@ struct _DiaNavigationWindow {
   int frame_h;
   GdkCursor * cursor;
 
-  /*factors to translate thumbnail coordinates to adjustement values*/
+  /*factors to translate thumbnail coordinates to adjustment values*/
   double hadj_coef;
   double vadj_coef;
 
@@ -182,9 +182,9 @@ dia_navigation_window_constructed (GObject *object)
     self->frame_w = self->width  * canvas_width  / diagram_width;
     self->frame_h = self->height * canvas_height / diagram_height;
 
-    /*reset adjustements to diagram size,*/
+    /*reset adjustments to diagram size,*/
     /*(dia allows to grow the canvas bigger than the diagram's actual size)    */
-    /*and store the ratio thumbnail/adjustement(speedup on motion)*/
+    /*and store the ratio thumbnail/adjustment(speedup on motion)*/
     adj = self->ddisp->hsbdata;
     reset_sc_adj (adj, rect.left, rect.right, canvas_width / self->ddisp->zoom_factor);
     self->hadj_coef = (gtk_adjustment_get_upper (adj) - gtk_adjustment_get_page_size (adj) - gtk_adjustment_get_lower (adj)) /
