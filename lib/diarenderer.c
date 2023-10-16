@@ -23,6 +23,7 @@
 #include "config.h"
 
 #include <glib/gi18n-lib.h>
+#include <math.h>
 
 #include "diarenderer.h"
 #include "object.h"
@@ -32,20 +33,6 @@
 #include "standard-path.h" /* text_to_path */
 #include "boundingbox.h" /* PolyBBextra */
 #include "dia-layer.h"
-/*
- * redefinition of isnan, for portability, as explained in :
- * http://www.gnu.org/software/autoconf/manual/html_node/Function-Portability.html
- */
-
-#ifndef isnan
-# define isnan(x) \
-     (sizeof (x) == sizeof (long double) ? isnan_ld (x) \
-     : sizeof (x) == sizeof (double) ? isnan_d (x) \
-     : isnan_f (x))
-static inline int isnan_f  (float       x) { return x != x; }
-static inline int isnan_d  (double      x) { return x != x; }
-static inline int isnan_ld (long double x) { return x != x; }
-#endif
 
 typedef struct _DiaRendererPrivate DiaRendererPrivate;
 struct _DiaRendererPrivate
