@@ -88,7 +88,7 @@ dia_get_lib_directory (void)
 {
 #ifdef G_OS_WIN32
   char *sLoc = g_win32_get_package_installation_directory_of_module (NULL);
-  char *returnPath = g_build_filename (sLoc, "dia", NULL);
+  char *returnPath = g_build_filename (sLoc, "lib", "dia", NULL);
 
   g_clear_pointer (&sLoc, g_free);
 
