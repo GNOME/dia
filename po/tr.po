@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2023-10-01 12:29+0000\n"
-"PO-Revision-Date: 2023-10-16 00:29+0300\n"
+"POT-Creation-Date: 2023-10-16 13:24+0000\n"
+"PO-Revision-Date: 2023-10-24 02:34+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -806,7 +806,7 @@ msgstr ""
 "Üst nesneyi genişletin veya nesneyi başka bir yere bırakın."
 
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
-#. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
+#. * Although the single objects wont get triggered here some languages have variations on the other numbers
 #.
 #: app/display.c:100
 #, c-format
@@ -1700,7 +1700,7 @@ msgstr "Aynı _Tür"
 msgid "_Select By"
 msgstr "_Seçim Ölçütü"
 
-#. For placment of the toplevel Layout menu and it's accelerator
+#. For placement of the toplevel Layout menu and it's accelerator
 #: app/menus.c:221
 msgid "L_ayout"
 msgstr "_Yerleşim"
@@ -1919,7 +1919,7 @@ msgstr "Başlangıçta Yükle"
 msgid "Filename"
 msgstr "Dosya adı"
 
-#. TRANSLATORS: The user hasn't set a prefered filter
+#. TRANSLATORS: The user hasn't set a preferred filter
 #: app/preferences.c:690
 msgid "Unset"
 msgstr ""
@@ -9943,7 +9943,7 @@ msgstr "İletim Bandı"
 
 #: sheets/Flowchart.sheet:91
 msgid "Offline storage"
-msgstr "Çevrimdışı Depolama"
+msgstr "Çevrim Dışı Depolama"
 
 #: sheets/Flowchart.sheet:94
 msgid "Data source"
@@ -11222,7 +11222,6 @@ msgstr "Ayrışım/Birleşim"
 #~ "yerel karakter kodlamanız ile uyuşmuyor.\n"
 #~ "Hata oluşma ihtimali var."
 
-#, c-format
 #~ msgid ""
 #~ "The file '%s' already exists.\n"
 #~ "Do you want to overwrite it?"
@@ -11233,19 +11232,15 @@ msgstr "Ayrışım/Birleşim"
 #~ msgid "File already exists"
 #~ msgstr "Dosya zaten var"
 
-#, c-format
 #~ msgid "Could not run command '%s': %s"
 #~ msgstr "“%s” komutu çalıştırılamadı: %s"
 
-#, c-format
 #~ msgid "Could not open '%s' for writing: %s"
 #~ msgstr "'%s' dosyası yazma için açılamadı: %s"
 
-#, c-format
 #~ msgid "Printing error: command '%s' returned %d\n"
 #~ msgstr "Yazdırma hatası: '%s' komutu %d döndü\n"
 
-#, c-format
 #~ msgid "Printing error: command '%s' caused sigpipe."
 #~ msgstr "Yazdırma hatası: '%s' komutu boruyu kırdı (sigpipe)."
 
