@@ -10,7 +10,7 @@ Homepage: https://wiki.gnome.org/Apps/Dia
 
 Repository: https://gitlab.gnome.org/GNOME/Dia
 
-Dia is a GNU program, and is Free Software. See the COPYING file for the licence.
+Dia is a GNU program, and is Free Software. See the COPYING file for the license.
 
 
 General documentation can be found in the [doc/](doc/) directory.
@@ -22,10 +22,10 @@ For compilation and installation instructions please see [BUILDING.md](BUILDING.
 
 ## Bug reporting
 
-Report bugs in GitLab https://gitlab.gnome.org/GNOME/dia/issues, check existing issues (open and closed) to check your bug isn't already know (or indeed fixed!)
+Report bugs in GitLab https://gitlab.gnome.org/GNOME/dia/issues, check existing issues (open and closed) to check if your bug isn't already known (or indeed fixed!)
 
 If the issue is not there, please report it.  Otherwise, give it a "thumbs-up".
-This will us prioritise them.
+This will us prioritize them.
 
 ## Contacting us
 
@@ -48,7 +48,7 @@ We intend to keep it that way.
 
 ### General contributions
 
-We would love to have more people on-board helping improving Dia.  For that,
+We would love to have more people on-board helping improve Dia.  For that,
 the only requirement is patience :slight_smile:.  Software quality comes not
 from the code itself, but how people develop that code.  As such, we need to
 be very nitpicky with what we accept into master and _when_.
@@ -80,7 +80,7 @@ the documents, check what is good, update them and then maintain them.  If you
 enjoy or want to practice technical writing or would be interested in helping
 with the translation we would love to hear from you!
 
-Ideally the docs would be rewritten in mallard instead of docbook
+Ideally the docs would be rewritten in Mallard instead of Docbook
 
 ### Testers
 
