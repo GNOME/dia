@@ -31,12 +31,11 @@ This will us prioritise them.
 
 If you use Dia, we would love to hear from you!
 
-Please feel free to send us comments/feedback/questions on our mailing list:
-https://mail.gnome.org/mailman/listinfo/dia-list
+Please feel free to share comments/feedback/questions in the forum:
+https://discourse.gnome.org/tags/c/applications/7/dia
 
-If you don't want to send a full email or just want to say "Hi!", we also hang
-out on IRC on GimpNet [irc.gimp.org](irc://irc.gimp.org) on `#dia-editor`
-channel.
+We also hang out on IRC on GimpNet [irc.gimp.org](irc://irc.gimp.org) on
+`#dia-editor` channel.
 
 Dia has been inactive for a few years so it is always nice to hear from people (still) using it.
 
