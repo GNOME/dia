@@ -1260,6 +1260,8 @@ diagram_data_save(DiagramData *data, DiaContext *ctx, const char *user_filename)
 				       dia_message_filename(tmpname),
 				       dia_context_get_filename(ctx));
   }
+  else /* remove backup file if new file is in place */
+    g_unlink(bakname);
 CLEANUP:
   if (filename != user_filename)
     g_clear_pointer (&filename, g_free);
