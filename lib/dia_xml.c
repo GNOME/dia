@@ -258,7 +258,7 @@ static xmlDocPtr
 xmlDiaParseFile (const char *filename, DiaContext *ctx)
 {
   const char *local_charset = NULL;
-  xmlErrorPtr error_xml = NULL;
+  const xmlError *error_xml = NULL;
   xmlDocPtr ret = NULL;
 
   if (   !g_get_charset (&local_charset)
@@ -295,7 +295,7 @@ xmlDiaParseFile (const char *filename, DiaContext *ctx)
  * \ingroup DiagramXmlIo
  */
 xmlDocPtr
-xmlDoParseFile(const char *filename, xmlErrorPtr *error)
+xmlDoParseFile(const char *filename, const xmlError **error)
 {
   xmlDocPtr doc;
 
@@ -320,7 +320,7 @@ xmlDocPtr
 diaXmlParseFile(const char *filename, DiaContext *ctx, gboolean try_harder)
 {
   xmlDocPtr doc;
-  xmlErrorPtr err;
+  const xmlError *err;
 
   doc = xmlParseFile(filename);
   if (!doc) {

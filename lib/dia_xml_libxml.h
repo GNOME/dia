@@ -25,7 +25,7 @@
 #include <libxml/parser.h>
 
 /* use this one instead of xmlParseFile */
-xmlDocPtr xmlDoParseFile(const char *filename, xmlErrorPtr *error); 
+xmlDocPtr xmlDoParseFile(const char *filename, const xmlError **error);
 
 /* use this instead of xmlSaveFile/xmlSaveFileEnc. Set the encoding to
    UTF-8 at the very beginning ! */

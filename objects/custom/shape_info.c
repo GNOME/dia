@@ -714,7 +714,7 @@ update_bounds (ShapeInfo *info)
 static ShapeInfo *
 load_shape_info (const gchar *filename, ShapeInfo *preload)
 {
-  xmlErrorPtr error_xml = NULL;
+  const xmlError *error_xml = NULL;
   xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
   xmlNsPtr shape_ns, svg_ns;
   xmlNodePtr node, root, ext_node = NULL;

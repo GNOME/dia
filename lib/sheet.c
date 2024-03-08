@@ -209,7 +209,7 @@ load_register_sheet (const char *dirname,
                      const char *filename,
                      SheetScope  scope)
 {
-  xmlErrorPtr error_xml = NULL;
+  const xmlError *error_xml = NULL;
   xmlDocPtr doc;
   xmlNsPtr ns;
   xmlNodePtr node, contents,subnode,root;

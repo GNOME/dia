@@ -86,7 +86,7 @@ xslt_ok (void)
   char *params[] = { "directory", NULL, NULL };
   xsltStylesheetPtr style, codestyle;
   xmlDocPtr doc, res;
-  xmlErrorPtr error_xml = NULL;
+  const xmlError *error_xml = NULL;
   gchar *directory = g_path_get_dirname (filename);
   gchar *uri = g_filename_to_uri (directory, NULL, NULL);
   g_clear_pointer (&directory, g_free);
@@ -233,7 +233,7 @@ read_configuration(const char *config)
 {
   xmlDocPtr doc;
   xmlNodePtr cur;
-  xmlErrorPtr error_xml = NULL;
+  const xmlError *error_xml = NULL;
   /* Primary xsl */
   gchar *path = NULL;
 

@@ -330,7 +330,7 @@ LineInfo* line_info_clone(LineInfo* info)
 LineInfo*
 line_info_load_and_apply_from_xmlfile(const gchar *filename, LineInfo* info)
 {
-  xmlErrorPtr error_xml = NULL;
+  const xmlError *error_xml = NULL;
   xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
   xmlNodePtr node, root;
   xmlChar *tmp;

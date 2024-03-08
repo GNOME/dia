@@ -2101,7 +2101,7 @@ import_memory_svg (const guchar *p, guint size, DiagramData *dia,
   xmlDocPtr doc = xmlParseMemory ((const char *)p, size);
 
   if (!doc) {
-    xmlErrorPtr err = xmlGetLastError ();
+    const xmlError *err = xmlGetLastError ();
 
     dia_context_add_message(ctx, _("Parse error for memory block.\n%s"), err->message);
     return FALSE;
@@ -2117,7 +2117,7 @@ import_memory_svg (const guchar *p, guint size, DiagramData *dia,
 static gboolean
 import_file_svg(const gchar *filename, DiagramData *dia, DiaContext *ctx, void* user_data)
 {
-  xmlErrorPtr error_xml = NULL;
+  const xmlError *error_xml = NULL;
   xmlDocPtr doc = xmlDoParseFile(filename, &error_xml);
 
   if (!doc) {
