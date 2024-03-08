@@ -190,7 +190,7 @@
       </varlistentry>
       <varlistentry>
 	    <term><option>-t <replaceable>FORMAT</replaceable></option>
-	    <option>--export-to-format=<replaceable>FORMAT</replaceable></option></term>
+	    <option>--filter=<replaceable>FORMAT</replaceable></option></term>
 	    <listitem>
             <para>Exporte le fichier chargé dans le FORMAT et quitte.  Les
             FORMATS D&apos;EXPORTATION sont décrits ci-dessous.</para>
