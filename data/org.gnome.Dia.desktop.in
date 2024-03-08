@@ -10,3 +10,4 @@ Terminal=false
 Categories=GNOME;Graphics;
 StartupNotify=true
 MimeType=application/x-dia-diagram;
+Keywords=graphic;diagram;vector;layout;
