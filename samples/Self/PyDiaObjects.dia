@@ -314,7 +314,7 @@
         <dia:string>##</dia:string>
       </dia:attribute>
       <dia:attribute name="comment">
-        <dia:string>#One of the major features of Dia are connectable objects. They work by this type accesible through dia.Object.connections[].#</dia:string>
+        <dia:string>#One of the major features of Dia are connectable objects. They work by this type accessible through dia.Object.connections[].#</dia:string>
       </dia:attribute>
       <dia:attribute name="abstract">
         <dia:boolean val="false"/>

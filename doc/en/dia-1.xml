@@ -273,7 +273,7 @@
 
 	<para>There are three different SVG exporters with Dia having different
 	specializations. <literal>cairo-svg</literal> is turning text to shapes
-	to become independent of font availabilty on the target system.
+	to become independent of font availability on the target system.
 	<literal>dia-svg</literal> is based on Dia core code only. It's
 	translating all Dia's rendering capabilities as closely as possible to SVG.
 	<literal>svg-py</literal> - as SVG renderer implemented in Python - is

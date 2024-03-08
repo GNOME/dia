@@ -551,7 +551,7 @@
 	every DiaObject - no UI to modify it yet
 	* lib/plug-ins.h : bump api version because object size has changed
 	* plug-ins/python/pydia-property.c : handle translation between Python
-	and Dia dictionary to make accesible. Also s/g_warning/g_debug/
+	and Dia dictionary to make accessible. Also s/g_warning/g_debug/
 	* plug-ins/python/diasvg_import.c : generate object meta info to test
 	the above. Also fixes regarding text color.
 

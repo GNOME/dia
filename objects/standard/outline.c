@@ -135,7 +135,7 @@ static DiaObjectType outline_type =
   outline_offsets
 };
 
-/* make accesible from the outside for type regristation */
+/* make accessible from the outside for type registration */
 DiaObjectType *_outline_type = (DiaObjectType *) &outline_type;
 
 /* Class definition */

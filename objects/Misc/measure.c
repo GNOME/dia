@@ -78,7 +78,7 @@ DiaObjectType measure_type =
   0    /* default_user_data */
 };
 
-/* make accesible from the outside for type regristation */
+/* make accessible from the outside for type registration */
 DiaObjectType *_measure_type = (DiaObjectType *) &measure_type;
 
 /* Class definition */

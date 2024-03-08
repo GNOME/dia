@@ -135,6 +135,6 @@ PyTypeObject PyDiaConnectionPoint_Type = {
   .tp_richcompare = PyDiaConnectionPoint_RichCompare,
   .tp_hash = PyDiaConnectionPoint_Hash,
   .tp_doc = "One of the major features of Dia are connectable objects. They "
-            "work by this type accesible through dia.Object.connections[].",
+            "work by this type accessible through dia.Object.connections[].",
   .tp_members = PyDiaConnectionPoint_Members,
 };

@@ -308,7 +308,7 @@ import_object(DiaRenderer* self, DiagramData *dia,
       /* these objects actually might get implemented some day, silence GCC */
       break;
     default:
-      g_warning ("Uknown type %i", type);
+      g_warning ("Unknown type %i", type);
       break;
   } /* switch */
 
