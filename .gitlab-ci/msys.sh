@@ -17,7 +17,7 @@ pacman --noconfirm -S --needed \
     git \
     mingw-w64-$MSYS2_ARCH-toolchain \
     mingw-w64-$MSYS2_ARCH-ccache \
-    mingw-w64-$MSYS2_ARCH-pkg-config \
+    mingw-w64-$MSYS2_ARCH-pkgconf \
     mingw-w64-$MSYS2_ARCH-gobject-introspection \
     mingw-w64-$MSYS2_ARCH-python-gobject \
     mingw-w64-$MSYS2_ARCH-meson \
