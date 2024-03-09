@@ -8,9 +8,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2023-10-01 12:29+0000\n"
-"PO-Revision-Date: 2023-10-29 08:30+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
+"POT-Creation-Date: 2024-03-08 02:41+0000\n"
+"PO-Revision-Date: 2024-03-09 13:38+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -527,7 +527,7 @@ msgstr "Poskušate združevati v skupino brez izbranih predmetov."
 msgid "Diagram"
 msgstr "Diagram"
 
-#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:521
+#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:522
 msgid "Layer"
 msgstr "Plast"
 
@@ -543,9 +543,9 @@ msgstr[3] "%d plasti"
 #: app/diagram_tree_view.c:198 app/diagram_tree_view.c:552
 #: data/ui/preferences-dialog.ui:1476 data/ui/sheets-new-dialog.ui:204
 #: data/ui/sheets-remove-dialog.ui:150 objects/Database/table.c:180
-#: objects/Istar/actor.c:140 objects/Istar/actor.c:141
-#: objects/Istar/other.c:149 objects/Istar/other.c:150 objects/KAOS/other.c:154
-#: objects/KAOS/other.c:155 objects/UML/association.c:248
+#: objects/Istar/actor.c:144 objects/Istar/actor.c:145
+#: objects/Istar/other.c:153 objects/Istar/other.c:154 objects/KAOS/other.c:152
+#: objects/KAOS/other.c:153 objects/UML/association.c:251
 #: objects/UML/umlattribute.c:39 objects/UML/umlformalparameter.c:37
 #: objects/UML/umloperation.c:64 objects/UML/umlparameter.c:45
 msgid "Type"
@@ -581,8 +581,8 @@ msgstr "Lastnosti"
 
 #: app/diagram_tree_view.c:535 app/exit_dialog.c:274 app/plugin-manager.c:269
 #: objects/Database/table.c:178 objects/Database/table.c:221
-#: objects/Misc/n_gon.c:137 objects/UML/association.c:242
-#: objects/UML/class.c:153 objects/UML/large_package.c:134
+#: objects/Misc/n_gon.c:137 objects/UML/association.c:245
+#: objects/UML/class.c:156 objects/UML/large_package.c:134
 #: objects/UML/umlattribute.c:37 objects/UML/umlformalparameter.c:35
 #: objects/UML/umloperation.c:62 objects/UML/umlparameter.c:43
 msgid "Name"
@@ -809,7 +809,7 @@ msgstr ""
 "Razširite nadrejeni predmet ali pa spustite predmet drugje."
 
 #. http://www.gnu.org/software/gettext/manual/html_chapter/gettext_10.html#SEC150
-#. * Althoug the single objects wont get triggered here some languages have variations on the other numbers
+#. * Although the single objects wont get triggered here some languages have variations on the other numbers
 #.
 #: app/display.c:100
 #, c-format
@@ -1712,7 +1712,7 @@ msgstr "Iste _vrste"
 msgid "_Select By"
 msgstr "_Izberi po"
 
-#. For placment of the toplevel Layout menu and it's accelerator
+#. For placement of the toplevel Layout menu and it's accelerator
 #: app/menus.c:221
 msgid "L_ayout"
 msgstr "Po_stavitev"
@@ -1931,7 +1931,7 @@ msgstr "Naloži ob zagonu"
 msgid "Filename"
 msgstr "Ime datoteke"
 
-#. TRANSLATORS: The user hasn't set a prefered filter
+#. TRANSLATORS: The user hasn't set a preferred filter
 #: app/preferences.c:690
 msgid "Unset"
 msgstr "Odnastavi"
@@ -2117,10 +2117,10 @@ msgstr "Drsi po diagramu"
 #. new name matching "same name, same type"  rule
 #: app/toolbox.c:128 lib/properties.c:96 lib/properties.h:697
 #: objects/AADL/aadlbox.c:165 objects/custom/custom_object.c:244
-#: objects/Jackson/requirement.c:128 objects/network/basestation.c:132
+#: objects/Jackson/requirement.c:126 objects/network/basestation.c:132
 #: objects/network/radiocell.c:129 objects/UML/activity.c:127
 #: objects/UML/actor.c:123 objects/UML/classicon.c:143
-#: objects/UML/component.c:131 objects/UML/component_feature.c:157
+#: objects/UML/component.c:131 objects/UML/component_feature.c:160
 #: objects/UML/node.c:125 objects/UML/node.c:127 objects/UML/note.c:116
 #: objects/UML/object.c:162 objects/UML/small_package.c:127
 #: objects/UML/state.c:152 objects/UML/usecase.c:134
@@ -2302,6 +2302,10 @@ msgstr "Urejevalnik diagrama"
 msgid "Edit your Diagrams"
 msgstr "Urejajte svoje diagrame"
 
+#: data/org.gnome.Dia.desktop.in:14
+msgid "graphic;diagram;vector;layout;"
+msgstr "grafika;diagram;vektor;postavitev;"
+
 #: data/ui/preferences-dialog.ui:157
 msgid "_Reset tools after create"
 msgstr "Po_nastavi orodja po ustvarjanju"
@@ -2473,7 +2477,7 @@ msgid "DiaObject"
 msgstr "DiaObject"
 
 #: data/ui/sheets-edit-dialog.ui:166 objects/ER/attribute.c:151
-#: objects/ER/entity.c:132 objects/ER/relationship.c:136
+#: objects/ER/entity.c:137 objects/ER/relationship.c:136
 #: objects/UML/class_attributes_dialog.c:675
 #: objects/UML/class_operations_dialog.c:880
 #: objects/UML/class_operations_dialog.c:1289
@@ -2975,7 +2979,7 @@ msgstr "Klic dia_plugin_init() ni uspel"
 msgid "Plugin Configuration"
 msgstr "Prilagoditev vtičnika"
 
-#: lib/propdialogs.c:374 objects/UML/association.c:240 objects/UML/object.c:142
+#: lib/propdialogs.c:374 objects/UML/association.c:243 objects/UML/object.c:142
 msgid "General"
 msgstr "Splošno"
 
@@ -3095,20 +3099,20 @@ msgstr "Poravnava besedila"
 
 #: lib/properties.c:98 lib/properties.h:708 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164 objects/Database/reference.c:135
-#: objects/GRAFCET/condition.c:139 objects/GRAFCET/step.c:174
+#: objects/GRAFCET/condition.c:139 objects/GRAFCET/step.c:179
 #: objects/GRAFCET/transition.c:149 objects/UML/class_dialog.c:494
 msgid "Font"
 msgstr "Pisava"
 
 #: lib/properties.c:99 lib/properties.h:716 objects/chronogram/chronoline.c:185
 #: objects/chronogram/chronoref.c:166 objects/GRAFCET/condition.c:141
-#: objects/GRAFCET/step.c:176 objects/GRAFCET/transition.c:151
+#: objects/GRAFCET/step.c:181 objects/GRAFCET/transition.c:151
 msgid "Font size"
 msgstr "Velikost pisave"
 
 #: lib/properties.c:100 lib/properties.h:722
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
-#: objects/GRAFCET/step.c:178
+#: objects/GRAFCET/step.c:183
 msgid "Text color"
 msgstr "Barva besedila"
 
@@ -3202,7 +3206,7 @@ msgstr ""
 "Premaknite nove predmete (če obstajajo) z »%s« na svoj list po meri\n"
 "ali odstranite »%s« z uporabo pogovornega okna »Listi in predmeti«."
 
-#: lib/sheet.c:426
+#: lib/sheet.c:425
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: zdaj bi morali uporabljati značke predmetov in ne značke likov"
@@ -3587,18 +3591,18 @@ msgstr "Končaj opis"
 
 #: objects/Database/reference.c:138 objects/Database/table.c:254
 #: objects/Database/table.c:256 objects/Database/table.c:258
-#: objects/UML/association.c:253 objects/UML/association.c:264
-#: objects/UML/association.c:266 objects/UML/association.c:268
-#: objects/UML/association.c:270 objects/UML/association.c:272
-#: objects/UML/class.c:228 objects/UML/class.c:230 objects/UML/class.c:232
-#: objects/UML/class.c:234 objects/UML/class.c:236 objects/UML/class.c:238
+#: objects/UML/association.c:256 objects/UML/association.c:267
+#: objects/UML/association.c:269 objects/UML/association.c:271
+#: objects/UML/association.c:273 objects/UML/association.c:275
+#: objects/UML/class.c:231 objects/UML/class.c:233 objects/UML/class.c:235
+#: objects/UML/class.c:237 objects/UML/class.c:239 objects/UML/class.c:241
 msgid " "
 msgstr " "
 
 #: objects/Database/reference.c:162 objects/ER/participation.c:427
 #: objects/FS/flow-ortho.c:684 objects/GRAFCET/vector.c:326
 #: objects/SADT/arrow.c:496 objects/standard/zigzagline.c:464
-#: objects/UML/association.c:918 objects/UML/component_feature.c:196
+#: objects/UML/association.c:921 objects/UML/component_feature.c:199
 #: objects/UML/dependency.c:402 objects/UML/generalization.c:399
 #: objects/UML/realizes.c:397 objects/UML/transition.c:173
 msgid "Add segment"
@@ -3607,7 +3611,7 @@ msgstr "Dodaj odsek"
 #: objects/Database/reference.c:163 objects/ER/participation.c:428
 #: objects/FS/flow-ortho.c:685 objects/GRAFCET/vector.c:327
 #: objects/SADT/arrow.c:497 objects/standard/zigzagline.c:465
-#: objects/UML/association.c:919 objects/UML/component_feature.c:197
+#: objects/UML/association.c:922 objects/UML/component_feature.c:200
 #: objects/UML/dependency.c:403 objects/UML/generalization.c:400
 #: objects/UML/realizes.c:398 objects/UML/transition.c:174
 msgid "Delete segment"
@@ -3618,7 +3622,7 @@ msgid "Reference"
 msgstr "Navezave"
 
 #: objects/Database/table.c:182 objects/Database/table.c:223
-#: objects/Database/table.c:251 objects/UML/class.c:157 objects/UML/class.c:224
+#: objects/Database/table.c:251 objects/UML/class.c:160 objects/UML/class.c:227
 #: objects/UML/class_dialog.c:525 objects/UML/umlattribute.c:43
 #: objects/UML/umloperation.c:66 objects/UML/umlparameter.c:49
 #: sheets/SDL.sheet:52
@@ -3663,7 +3667,7 @@ msgstr "Vidne opombe"
 msgid "Underline primary keys"
 msgstr "Podčrtaj osnovne ključe"
 
-#: objects/Database/table.c:233 objects/UML/class.c:172
+#: objects/Database/table.c:233 objects/UML/class.c:175
 msgid "Comment tagging"
 msgstr "Označevanje opomb"
 
@@ -3671,25 +3675,25 @@ msgstr "Označevanje opomb"
 msgid "Use bold font for primary keys"
 msgstr "Uporabi odobeljeno pisavo za osnovne ključe"
 
-#: objects/Database/table.c:238 objects/UML/class.c:194
+#: objects/Database/table.c:238 objects/UML/class.c:197
 #: objects/UML/object.c:148
 msgid "Attributes"
 msgstr "Atributi"
 
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
-#: objects/Database/table.c:242 objects/UML/association.c:275
-#: objects/UML/class.c:209 objects/UML/object.c:157
+#: objects/Database/table.c:242 objects/UML/association.c:278
+#: objects/UML/class.c:212 objects/UML/object.c:157
 msgid "Style"
 msgstr "Slog"
 
-#: objects/Database/table.c:243 objects/UML/class.c:210
+#: objects/Database/table.c:243 objects/UML/class.c:213
 msgid "Fonts"
 msgstr "Pisave"
 
 #. property rows
 #: objects/Database/table.c:247 objects/SADT/arrow.c:138
-#: objects/UML/class.c:214 objects/UML/class_dialog.c:500
+#: objects/UML/class.c:217 objects/UML/class_dialog.c:500
 msgid "Normal"
 msgstr "Običajna"
 
@@ -3697,7 +3701,7 @@ msgstr "Običajna"
 msgid "Table name"
 msgstr "Ime tabele"
 
-#: objects/Database/table.c:304 objects/UML/class.c:357
+#: objects/Database/table.c:304 objects/UML/class.c:360
 msgid "Show comments"
 msgstr "Pokaži opombe"
 
@@ -3721,15 +3725,15 @@ msgstr "Več vrednosti:"
 msgid "Attribute"
 msgstr "Atribut"
 
-#: objects/ER/entity.c:134
+#: objects/ER/entity.c:139
 msgid "Weak:"
 msgstr "Šibak:"
 
-#: objects/ER/entity.c:136
+#: objects/ER/entity.c:141
 msgid "Associative:"
 msgstr "Združevalen:"
 
-#: objects/ER/entity.c:416 objects/UML/classicon.c:127 sheets/ER.sheet:7
+#: objects/ER/entity.c:421 objects/UML/classicon.c:127 sheets/ER.sheet:7
 msgid "Entity"
 msgstr "Entiteta"
 
@@ -3792,9 +3796,9 @@ msgstr "Material"
 msgid "Signal"
 msgstr "Signal"
 
-#: objects/FS/flow.c:144 objects/FS/flow-ortho.c:179 objects/Istar/link.c:159
-#: objects/Jackson/phenomenon.c:143 objects/KAOS/metaandorrel.c:163
-#: objects/KAOS/metabinrel.c:170 objects/UML/class_attributes_dialog.c:689
+#: objects/FS/flow.c:144 objects/FS/flow-ortho.c:179 objects/Istar/link.c:162
+#: objects/Jackson/phenomenon.c:147 objects/KAOS/metaandorrel.c:167
+#: objects/KAOS/metabinrel.c:173 objects/UML/class_attributes_dialog.c:689
 #: objects/UML/class_operations_dialog.c:892
 #: objects/UML/class_operations_dialog.c:1301
 #: objects/UML/class_templates_dialog.c:531
@@ -3827,7 +3831,7 @@ msgid "Channel"
 msgstr "Kanaliziraj"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: objects/FS/function.c:742 objects/KAOS/metabinrel.c:162
+#: objects/FS/function.c:742 objects/KAOS/metabinrel.c:165
 msgid "Input"
 msgstr "Vnesi"
 
@@ -4852,51 +4856,51 @@ msgstr "Barva pogoja"
 msgid "GRAFCET diagram objects"
 msgstr "Diagramski predmeti GRAFCET"
 
-#: objects/GRAFCET/step.c:153 sheets/GRAFCET.sheet:7
+#: objects/GRAFCET/step.c:158 sheets/GRAFCET.sheet:7
 msgid "Regular step"
 msgstr "Običajen korak"
 
-#: objects/GRAFCET/step.c:154 sheets/GRAFCET.sheet:10
+#: objects/GRAFCET/step.c:159 sheets/GRAFCET.sheet:10
 msgid "Initial step"
 msgstr "Začetni korak"
 
-#: objects/GRAFCET/step.c:155 sheets/GRAFCET.sheet:14
+#: objects/GRAFCET/step.c:160 sheets/GRAFCET.sheet:14
 msgid "Macro entry step"
 msgstr "Korak vstopa v makro"
 
-#: objects/GRAFCET/step.c:156 sheets/GRAFCET.sheet:18
+#: objects/GRAFCET/step.c:161 sheets/GRAFCET.sheet:18
 msgid "Macro exit step"
 msgstr "Korak izstopa iz makra"
 
-#: objects/GRAFCET/step.c:157 sheets/GRAFCET.sheet:22
+#: objects/GRAFCET/step.c:162 sheets/GRAFCET.sheet:22
 msgid "Macro call step"
 msgstr "Korak klica makra"
 
-#: objects/GRAFCET/step.c:158
+#: objects/GRAFCET/step.c:163
 msgid "Subprogram call step"
 msgstr "Korak klica podprograma"
 
-#: objects/GRAFCET/step.c:167
+#: objects/GRAFCET/step.c:172
 msgid "Step name"
 msgstr "Ime koraka"
 
-#: objects/GRAFCET/step.c:167
+#: objects/GRAFCET/step.c:172
 msgid "The name of the step"
 msgstr "Ime koraka"
 
-#: objects/GRAFCET/step.c:170
+#: objects/GRAFCET/step.c:175
 msgid "Step type"
 msgstr "Vrsta koraka"
 
-#: objects/GRAFCET/step.c:170
+#: objects/GRAFCET/step.c:175
 msgid "The kind of step"
 msgstr "Vrsta koraka"
 
-#: objects/GRAFCET/step.c:172
+#: objects/GRAFCET/step.c:177
 msgid "Active"
 msgstr "Aktivno"
 
-#: objects/GRAFCET/step.c:172
+#: objects/GRAFCET/step.c:177
 msgid "Shows a red dot to figure the step's activity"
 msgstr "Kaže rdečo piko za prikaz aktivnosti koraka"
 
@@ -4932,35 +4936,35 @@ msgstr "Južna točka"
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Riši puščice pri lokih navzgor:"
 
-#: objects/GRAFCET/vergent.c:127
+#: objects/GRAFCET/vergent.c:132
 msgid "OR"
 msgstr "ALI"
 
-#: objects/GRAFCET/vergent.c:128
+#: objects/GRAFCET/vergent.c:133
 msgid "AND"
 msgstr "IN"
 
-#: objects/GRAFCET/vergent.c:140
+#: objects/GRAFCET/vergent.c:145
 msgid "Vergent type:"
 msgstr "Vrsta Vergnet:"
 
-#: objects/GRAFCET/vergent.c:466 objects/Istar/other.c:532
-#: objects/Jackson/domain.c:621 objects/KAOS/goal.c:664
-#: objects/KAOS/other.c:603 objects/SADT/box.c:499 objects/standard/line.c:330
+#: objects/GRAFCET/vergent.c:471 objects/Istar/other.c:534
+#: objects/Jackson/domain.c:618 objects/KAOS/goal.c:657
+#: objects/KAOS/other.c:599 objects/SADT/box.c:499 objects/standard/line.c:330
 msgid "Add connection point"
 msgstr "Dodaj točko povezave"
 
-#: objects/GRAFCET/vergent.c:467 objects/Istar/other.c:533
-#: objects/Jackson/domain.c:622 objects/KAOS/goal.c:665
-#: objects/KAOS/other.c:604 objects/SADT/box.c:500 objects/standard/line.c:331
+#: objects/GRAFCET/vergent.c:472 objects/Istar/other.c:535
+#: objects/Jackson/domain.c:619 objects/KAOS/goal.c:658
+#: objects/KAOS/other.c:600 objects/SADT/box.c:500 objects/standard/line.c:331
 msgid "Delete connection point"
 msgstr "Izbriši točko povezave"
 
-#: objects/GRAFCET/vergent.c:472
+#: objects/GRAFCET/vergent.c:477
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET ALI/IN vergent"
 
-#: objects/Istar/actor.c:64 objects/Istar/link.c:147
+#: objects/Istar/actor.c:64 objects/Istar/link.c:150
 msgid "Unspecified"
 msgstr "Nedoločeno"
 
@@ -4968,7 +4972,7 @@ msgstr "Nedoločeno"
 msgid "Agent"
 msgstr "Agent"
 
-#: objects/Istar/actor.c:67 objects/UML/association.c:255
+#: objects/Istar/actor.c:67 objects/UML/association.c:258
 msgid "Role"
 msgstr "Vloga"
 
@@ -4980,8 +4984,8 @@ msgstr "Mehki cilj"
 msgid "Goal"
 msgstr "Cilj"
 
-#: objects/Istar/goal.c:151 objects/Istar/goal.c:152 objects/KAOS/goal.c:169
-#: objects/KAOS/goal.c:170
+#: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:168
+#: objects/KAOS/goal.c:169
 msgid "Goal Type"
 msgstr "Vrsta cilja"
 
@@ -4989,23 +4993,23 @@ msgstr "Vrsta cilja"
 msgid "Istar diagram"
 msgstr "Diagram Istar"
 
-#: objects/Istar/link.c:148
+#: objects/Istar/link.c:151
 msgid "Positive contrib"
 msgstr "Pozitiven prispevek"
 
-#: objects/Istar/link.c:149
+#: objects/Istar/link.c:152
 msgid "Negative contrib"
 msgstr "Negativen prispevek"
 
-#: objects/Istar/link.c:150 sheets/UML.sheet:17
+#: objects/Istar/link.c:153 sheets/UML.sheet:17
 msgid "Dependency"
 msgstr "Odvisnost"
 
-#: objects/Istar/link.c:151
+#: objects/Istar/link.c:154
 msgid "Decomposition"
 msgstr "Dekompozicija"
 
-#: objects/Istar/link.c:152
+#: objects/Istar/link.c:155
 msgid "Means-Ends"
 msgstr "Sredstvo-cilj"
 
@@ -5017,7 +5021,7 @@ msgstr "Vir"
 msgid "Task"
 msgstr "Naloga"
 
-#: objects/Istar/other.c:539
+#: objects/Istar/other.c:541
 msgid "i* other"
 msgstr "i* - drugo"
 
@@ -5033,8 +5037,8 @@ msgstr "Oblikovana domena"
 msgid "Machine Domain"
 msgstr "Strojna domena"
 
-#: objects/Jackson/domain.c:92 objects/UML/association.c:226
-#: objects/UML/association.c:232
+#: objects/Jackson/domain.c:92 objects/UML/association.c:229
+#: objects/UML/association.c:235
 msgid "None"
 msgstr "Brez"
 
@@ -5050,19 +5054,19 @@ msgstr "Pokoren"
 msgid "Lexical"
 msgstr "Slovarski"
 
-#: objects/Jackson/domain.c:177 objects/Jackson/domain.c:178
+#: objects/Jackson/domain.c:180 objects/Jackson/domain.c:181
 msgid "Domain Type"
 msgstr "Vrsta domene"
 
-#: objects/Jackson/domain.c:182
+#: objects/Jackson/domain.c:185
 msgid "Domain Kind"
 msgstr "Vrsta domene"
 
-#: objects/Jackson/domain.c:183
+#: objects/Jackson/domain.c:186
 msgid "Optional kind which appears in the lower-right corner of the Domain"
 msgstr "Neobvezna vrsta, ki se pojavlja v spodnjem desnem kotu domene"
 
-#: objects/Jackson/domain.c:628
+#: objects/Jackson/domain.c:625
 msgid "Jackson domain"
 msgstr "Jacksonova domena"
 
@@ -5070,17 +5074,17 @@ msgstr "Jacksonova domena"
 msgid "Jackson diagram"
 msgstr "Jacksonov diagram"
 
-#: objects/Jackson/phenomenon.c:133
+#: objects/Jackson/phenomenon.c:137
 msgid "Shared"
 msgstr "Deljeno"
 
-#: objects/Jackson/phenomenon.c:134 objects/KAOS/goal.c:80
+#: objects/Jackson/phenomenon.c:138 objects/KAOS/goal.c:80
 msgid "Requirement"
 msgstr "Zahteva"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: objects/Jackson/phenomenon.c:141 objects/UML/message.c:147
+#: objects/Jackson/phenomenon.c:145 objects/UML/message.c:147
 #: objects/UML/message.c:149
 msgid "Message:"
 msgstr "Sporočilo:"
@@ -5093,7 +5097,7 @@ msgstr "Domneva"
 msgid "Obstacle"
 msgstr "Ovira"
 
-#: objects/KAOS/goal.c:670
+#: objects/KAOS/goal.c:663
 msgid "KAOS goal"
 msgstr "Cilj KAOS"
 
@@ -5101,63 +5105,63 @@ msgstr "Cilj KAOS"
 msgid "KAOS diagram"
 msgstr "Diagram KAOS"
 
-#: objects/KAOS/metaandorrel.c:150
+#: objects/KAOS/metaandorrel.c:154
 msgid "AND Refinement"
 msgstr "Izboljšava IN"
 
-#: objects/KAOS/metaandorrel.c:151
+#: objects/KAOS/metaandorrel.c:155
 msgid "Complete AND Refinement"
 msgstr "Popolno IN izboljšano"
 
-#: objects/KAOS/metaandorrel.c:152
+#: objects/KAOS/metaandorrel.c:156
 msgid "OR Refinement"
 msgstr "Izboljšava ALI"
 
-#: objects/KAOS/metaandorrel.c:153
+#: objects/KAOS/metaandorrel.c:157
 msgid "Operationalization"
 msgstr "Operacionalizacija"
 
-#: objects/KAOS/metaandorrel.c:160
+#: objects/KAOS/metaandorrel.c:164
 msgid "Text:"
 msgstr "Besedilo:"
 
-#: objects/KAOS/metabinrel.c:154
+#: objects/KAOS/metabinrel.c:157
 msgid "Contributes"
 msgstr "Prispeva"
 
-#: objects/KAOS/metabinrel.c:155
+#: objects/KAOS/metabinrel.c:158
 msgid "Obstructs"
 msgstr "Ovira"
 
-#: objects/KAOS/metabinrel.c:156
+#: objects/KAOS/metabinrel.c:159
 msgid "Conflicts"
 msgstr "Spori"
 
-#: objects/KAOS/metabinrel.c:157
+#: objects/KAOS/metabinrel.c:160
 msgid "Responsibility"
 msgstr "Odgovornost"
 
-#: objects/KAOS/metabinrel.c:158
+#: objects/KAOS/metabinrel.c:161
 msgid "Monitors"
 msgstr "Spremlja"
 
-#: objects/KAOS/metabinrel.c:159
+#: objects/KAOS/metabinrel.c:162
 msgid "Controls"
 msgstr "Nadzira"
 
-#: objects/KAOS/metabinrel.c:160
+#: objects/KAOS/metabinrel.c:163
 msgid "CapableOf"
 msgstr "Zmožen"
 
-#: objects/KAOS/metabinrel.c:161
+#: objects/KAOS/metabinrel.c:164
 msgid "Performs"
 msgstr "Deluje"
 
-#: objects/KAOS/metabinrel.c:163
+#: objects/KAOS/metabinrel.c:166
 msgid "Output"
 msgstr "Izhod"
 
-#: objects/KAOS/other.c:609
+#: objects/KAOS/other.c:605
 msgid "KAOS other"
 msgstr "KAOS - drugo"
 
@@ -5709,52 +5713,52 @@ msgstr "Nadgradi v Bezierjevo krivuljo"
 msgid "Actor"
 msgstr "Igralec/vršilec"
 
-#: objects/UML/association.c:227
+#: objects/UML/association.c:230
 msgid "From A to B"
 msgstr "Od A do B"
 
-#: objects/UML/association.c:228
+#: objects/UML/association.c:231
 msgid "From B to A"
 msgstr "Od B do A"
 
-#: objects/UML/association.c:233
+#: objects/UML/association.c:236
 msgid "Aggregation"
 msgstr "Agregacija"
 
-#: objects/UML/association.c:234
+#: objects/UML/association.c:237
 msgid "Composition"
 msgstr "Kompozicija"
 
-#: objects/UML/association.c:244
+#: objects/UML/association.c:247
 msgid "Direction"
 msgstr "Smer"
 
-#: objects/UML/association.c:246
+#: objects/UML/association.c:249
 msgid "Show direction"
 msgstr "Pokaži smer"
 
-#: objects/UML/association.c:246
+#: objects/UML/association.c:249
 msgid "Show the small arrow denoting the reading direction"
 msgstr "Pokaži majhno puščico, ki nakazuje smer branja"
 
-#: objects/UML/association.c:253
+#: objects/UML/association.c:256
 msgid "Side A"
 msgstr "Stran A"
 
-#: objects/UML/association.c:257
+#: objects/UML/association.c:260
 msgid "Multiplicity"
 msgstr "Pomnoženost"
 
-#: objects/UML/association.c:259 objects/UML/umlattribute.c:45
+#: objects/UML/association.c:262 objects/UML/umlattribute.c:45
 #: objects/UML/umloperation.c:71
 msgid "Visibility"
 msgstr "Vidnost"
 
-#: objects/UML/association.c:261
+#: objects/UML/association.c:264
 msgid "Show arrow"
 msgstr "Kaži puščico"
 
-#: objects/UML/association.c:264
+#: objects/UML/association.c:267
 msgid "Side B"
 msgstr "Stran B"
 
@@ -5824,86 +5828,86 @@ msgstr "Izvedba"
 msgid "Class scope"
 msgstr "Področje razreda"
 
-#: objects/UML/class.c:151 objects/UML/class.c:364 objects/UML/class.c:1938
+#: objects/UML/class.c:154 objects/UML/class.c:367 objects/UML/class.c:1941
 #: sheets/UML.sheet:7
 msgid "Class"
 msgstr "Razred"
 
 #. how it used to be before 0.96+SVN
 #. one name, one type: but breaks forward-compatibiliy so kind of reverted
-#: objects/UML/class.c:155 objects/UML/classicon.c:134
+#: objects/UML/class.c:158 objects/UML/classicon.c:134
 #: objects/UML/classicon.c:136 objects/UML/component.c:127
 #: objects/UML/large_package.c:136 objects/UML/object.c:144
 #: objects/UML/small_package.c:123 objects/UML/umloperation.c:68
 msgid "Stereotype"
 msgstr "Stereotip"
 
-#: objects/UML/class.c:162 objects/UML/class.c:218
+#: objects/UML/class.c:165 objects/UML/class.c:221
 #: objects/UML/class_dialog.c:393 objects/UML/class_dialog.c:510
 #: objects/UML/class_operations_dialog.c:943 objects/UML/umlattribute.c:48
 #: objects/UML/uml.c:109
 msgid "Abstract"
 msgstr "Izvleček"
 
-#: objects/UML/class.c:164
+#: objects/UML/class.c:167
 msgid "Visible Attributes"
 msgstr "Vidni atributi"
 
-#: objects/UML/class.c:166
+#: objects/UML/class.c:169
 msgid "Visible Operations"
 msgstr "Vidne operacije"
 
-#: objects/UML/class.c:168 objects/UML/class_dialog.c:419
+#: objects/UML/class.c:171 objects/UML/class_dialog.c:419
 msgid "Wrap Operations"
 msgstr "Operacije preloma vrstic"
 
-#: objects/UML/class.c:170
+#: objects/UML/class.c:173
 msgid "Visible Comments"
 msgstr "Vidne opombe"
 
-#: objects/UML/class.c:174 objects/UML/class.c:359
+#: objects/UML/class.c:177 objects/UML/class.c:362
 msgid "Allow resizing"
 msgstr "Dovoli spreminjanje velikosti"
 
-#: objects/UML/class.c:178 objects/UML/class.c:1935
+#: objects/UML/class.c:181 objects/UML/class.c:1938
 msgid "Template"
 msgstr "Predloga"
 
-#: objects/UML/class.c:180 objects/UML/class_dialog.c:402
+#: objects/UML/class.c:183 objects/UML/class_dialog.c:402
 msgid "Suppress Attributes"
 msgstr "Prepreči atribute"
 
-#: objects/UML/class.c:182
+#: objects/UML/class.c:185
 msgid "Suppress Operations"
 msgstr "Prepreči operacije"
 
-#: objects/UML/class.c:184
+#: objects/UML/class.c:187
 msgid "Wrap after char"
 msgstr "Prelomi po znaku"
 
-#: objects/UML/class.c:186
+#: objects/UML/class.c:189
 msgid "Comment line length"
 msgstr "Dolžina vrstice opombe"
 
 #. umlattribute_extra
-#: objects/UML/class.c:199
+#: objects/UML/class.c:202
 msgid "Operations"
 msgstr "Operacije"
 
 #. umloperations_extra
-#: objects/UML/class.c:203
+#: objects/UML/class.c:206
 msgid "Template Parameters"
 msgstr "Parametri predloge"
 
-#: objects/UML/class.c:216 objects/UML/class_dialog.c:505
+#: objects/UML/class.c:219 objects/UML/class_dialog.c:505
 msgid "Polymorphic"
 msgstr "Polimorfni"
 
-#: objects/UML/class.c:220 objects/UML/class_dialog.c:515
+#: objects/UML/class.c:223 objects/UML/class_dialog.c:515
 msgid "Class Name"
 msgstr "Ime razreda"
 
-#: objects/UML/class.c:222
+#: objects/UML/class.c:225
 msgid "Abstract Class Name"
 msgstr "Abstraktno ime razreda"
 
@@ -6112,19 +6116,19 @@ msgstr "Premakni formalni parameter navzdol"
 msgid "Formal parameter data"
 msgstr "Podatki formalnih parametrov"
 
-#: objects/UML/component_feature.c:147 sheets/UML.sheet:63
+#: objects/UML/component_feature.c:150 sheets/UML.sheet:63
 msgid "Facet"
 msgstr "Faseta"
 
-#: objects/UML/component_feature.c:148 sheets/UML.sheet:66
+#: objects/UML/component_feature.c:151 sheets/UML.sheet:66
 msgid "Receptacle"
 msgstr "Zbiralnik"
 
-#: objects/UML/component_feature.c:149 sheets/UML.sheet:70
+#: objects/UML/component_feature.c:152 sheets/UML.sheet:70
 msgid "Event Source"
 msgstr "Vir dogodka"
 
-#: objects/UML/component_feature.c:150 sheets/UML.sheet:74
+#: objects/UML/component_feature.c:153 sheets/UML.sheet:74
 msgid "Event Sink"
 msgstr "Dogodkovni odtok"
 
@@ -6382,7 +6386,7 @@ msgstr "DRS (DiaRenderScript)"
 msgid "DiaRenderScript filter"
 msgstr "Filter za upodobitveni skript Dia (DRS)"
 
-#: plug-ins/drs/dia-render-script-import.c:513
+#: plug-ins/drs/dia-render-script-import.c:514
 msgid "Broken file?"
 msgstr "Je datoteka okvarjena?"
 
