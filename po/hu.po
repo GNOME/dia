@@ -15,16 +15,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
-"POT-Creation-Date: 2024-02-19 17:31+0000\n"
-"PO-Revision-Date: 2024-02-19 19:38+0100\n"
-"Last-Translator: Meskó Balázs <mesko.balazs@fsf.hu>\n"
+"POT-Creation-Date: 2024-03-08 02:41+0000\n"
+"PO-Revision-Date: 2024-03-10 17:19+0100\n"
+"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #. This is not an errror
 #: app/app_procs.c:164
@@ -542,7 +542,7 @@ msgstr "Csoportosítási kísérlet kijelölt objektumok nélkül."
 msgid "Diagram"
 msgstr "Diagram"
 
-#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:521
+#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:522
 msgid "Layer"
 msgstr "Réteg"
 
@@ -2317,6 +2317,10 @@ msgstr "Diagramszerkesztő"
 #: data/org.gnome.Dia.desktop.in:5
 msgid "Edit your Diagrams"
 msgstr "Diagramok szerkesztése"
+
+#: data/org.gnome.Dia.desktop.in:14
+msgid "graphic;diagram;vector;layout;"
+msgstr "grafikon;diagram;vektor;réteg;"
 
 #: data/ui/preferences-dialog.ui:157
 msgid "_Reset tools after create"
@@ -6417,7 +6421,7 @@ msgstr "DiaRenderScript"
 msgid "DiaRenderScript filter"
 msgstr "DiaRenderScript szűrő"
 
-#: plug-ins/drs/dia-render-script-import.c:513
+#: plug-ins/drs/dia-render-script-import.c:514
 msgid "Broken file?"
 msgstr "A fájl sérült?"
 
