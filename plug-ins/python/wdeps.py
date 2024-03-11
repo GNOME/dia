@@ -30,7 +30,7 @@ Operators = { "2" : " new", "3" : " delete",
 			  "4" : "=", "5" : ">>", "6" : "<<", "7" : "!", "8" : "==", "9" : "!=",
 			  "C" : "->", "Z" : "-", "F" : "--", "G" : "-", "H" : "+", "D" : "*", "E" : "++",
 			  "M" : "<", "Y" : "+=", "A" : "[]", "B" : " char const *", "K" : "/" }
-rDemangle = re.compile ("\?(?P<tor>\?[01" + "".join(list(Operators.keys())) + "])*(?P<sym>[\w@_]+?(?=@))@@")
+rDemangle = re.compile (r"\?(?P<tor>\?[01" + "".join(list(Operators.keys())) + "])*(?P<sym>[\w@_]+?(?=@))@@")
 # still NOT handling
 '''
 d:\Projects>undname ?ReleaseAccess@?$CWriteAccess@VCDocEx@app@@@utl@@UAEXXZ
@@ -1013,9 +1013,9 @@ def ImportDump (sfDump, deps) :
 	deps = {}
 	f = open (sfDump)
 	s = f.readline()
-	rNode = re.compile ("^([\w_-]+\.\w+)$")
-	rEdge = re.compile ("^\t([\w_-]+\.\w+) -> ([\w_-]+\.\w+)$")
-	rSym = re.compile ("^\t\t(.*)$")
+	rNode = re.compile (r"^([\w_-]+\.\w+)$")
+	rEdge = re.compile (r"^\t([\w_-]+\.\w+) -> ([\w_-]+\.\w+)$")
+	rSym = re.compile (r"^\t\t(.*)$")
 	curNode = None
 	curEdge = None
 	symbols = []

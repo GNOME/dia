@@ -44,9 +44,9 @@ rColor = re.compile(r"rgb\s*\(\s*(\d+)[, ]+(\d+)[, +](\d+)\s*\)")
 # not really parsing numbers (Scaled will deal with more)
 rTranslate = re.compile(r"translate\s*\(\s*([^,]+),([^)]+)\s*\)")
 #FIXME: parse more - e.g. AQT - of the strange path data
-rPathWhat = re.compile("[MmLlCcSsZz]")   # what
-rPathData = re.compile("[^MmLlCcSsZz]+") # data
-rPathValue = re.compile("[\s,]+") # values
+rPathWhat = re.compile(r"[MmLlCcSsZz]")   # what
+rPathData = re.compile(r"[^MmLlCcSsZz]+") # data
+rPathValue = re.compile(r"[\s,]+") # values
 
 def Scaled(s) :
 	# em, ex, px, pt, pc, cm, mm, in, and percentages

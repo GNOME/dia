@@ -68,7 +68,7 @@ class CStripCommentsAndBlankLines :
 		x1 = -1
 		x2 = -1
 		incom = 0
-		r = re.compile("^\s*$") # to remove empty lines
+		r = re.compile(r"^\s*$") # to remove empty lines
 		for s in lines :
 			x1 = '/*'.find (s)
 			x2 = '*/'.find (s)
@@ -128,7 +128,7 @@ no_klass_headers = []
 #
 # #define GDK_DRAWABLE(object) (G_TYPE_CHECK_INSTANCE_CAST ((object), GDK_TYPE_DRAWABLE, GdkDrawable))
 #
-rClassCast = re.compile ("^#define " + sPkg.upper () + "_(?P<n1>\w+)" \
+rClassCast = re.compile (r"^#define " + sPkg.upper () + "_(?P<n1>\w+)" \
 				 "\((?P<par>\w+)\)\s+\(" \
 				 "((G_TYPE_CHECK_INSTANCE_CAST)|(GTK_CHECK_CAST))\s+" \
 				 "\(\((?P=par)\),\s*(?P<type>\w+),\s+" \
@@ -137,9 +137,9 @@ rClassCast = re.compile ("^#define " + sPkg.upper () + "_(?P<n1>\w+)" \
 # m.group('type') == 'GDK_TYPE_DRAWABLE'
 # m.group('name') == 'GdkTypeDrawable'
 #
-rVarDecl = re.compile ("\s*(?P<type>(unsigned)*\s*\w+\s*\**)\s*(?P<name>\w+)\s*:*\s*\d*\s*;\.*")
+rVarDecl = re.compile (r"\s*(?P<type>(unsigned)*\s*\w+\s*\**)\s*(?P<name>\w+)\s*:*\s*\d*\s*;\.*")
 rSignal = rVarDecl #FIXME: signals are 'methods' to be registered
-rMethod = re.compile ("\s*(?P<type>\w+\s+\**)\s*" \
+rMethod = re.compile (r"\s*(?P<type>\w+\s+\**)\s*" \
 			    "\(\*\s*(?P<name>\w+)\)\s*\(" \
 			    "(?P<ptype>\w+\s*\**)\s*(?P<pname>\w+),*" \
 			    "(?P<done>(\);)*)")
@@ -147,7 +147,7 @@ rMethod = re.compile ("\s*(?P<type>\w+\s+\**)\s*" \
 # m.group('name')
 # m.group('ptype'), m.group('pname')
 # m.group('done')
-rPar = re.compile ("\s*(const\s*)*(?P<ptype>\w+\s*\**)\s*(?P<pname>\w+),*" \
+rPar = re.compile (r"\s*(const\s*)*(?P<ptype>\w+\s*\**)\s*(?P<pname>\w+),*" \
 			 "(?P<done>(\);)*)")
 
 fout = open (sPkg + '-generated.log', 'w')
@@ -175,8 +175,8 @@ for sF in lst :
 			sK = klass.name
 			# start from the beginning
 			fin.seek (0)
-			rObject = re.compile ("struct\s+_" + sK + "\s*(?P<p>\{*)\s*$")
-			rKlass  = re.compile ("struct\s+_" + sK + "Class\s*(?P<p>\{*)\s*$")
+			rObject = re.compile (r"struct\s+_" + sK + "\s*(?P<p>\{*)\s*$")
+			rKlass  = re.compile (r"struct\s+_" + sK + "Class\s*(?P<p>\{*)\s*$")
 			s = fin.readline ()
 			meth = None
 			while s :
