@@ -13,17 +13,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues\n"
-"POT-Creation-Date: 2023-10-16 13:24+0000\n"
-"PO-Revision-Date: 2023-10-24 02:34+0300\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
+"POT-Creation-Date: 2024-03-08 02:41+0000\n"
+"PO-Revision-Date: 2024-03-13 19:24+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. This is not an errror
 #: app/app_procs.c:164
@@ -525,7 +525,7 @@ msgstr "Seçili nesneler olmadan gruplanmaya çalışılıyor."
 msgid "Diagram"
 msgstr "Diyagram"
 
-#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:521
+#: app/diagram_tree_view.c:179 plug-ins/drs/dia-render-script-import.c:522
 msgid "Layer"
 msgstr "Katman"
 
@@ -538,9 +538,9 @@ msgstr[0] "%d Katman"
 #: app/diagram_tree_view.c:198 app/diagram_tree_view.c:552
 #: data/ui/preferences-dialog.ui:1476 data/ui/sheets-new-dialog.ui:204
 #: data/ui/sheets-remove-dialog.ui:150 objects/Database/table.c:180
-#: objects/Istar/actor.c:140 objects/Istar/actor.c:141
-#: objects/Istar/other.c:149 objects/Istar/other.c:150 objects/KAOS/other.c:154
-#: objects/KAOS/other.c:155 objects/UML/association.c:248
+#: objects/Istar/actor.c:144 objects/Istar/actor.c:145
+#: objects/Istar/other.c:153 objects/Istar/other.c:154 objects/KAOS/other.c:152
+#: objects/KAOS/other.c:153 objects/UML/association.c:251
 #: objects/UML/umlattribute.c:39 objects/UML/umlformalparameter.c:37
 #: objects/UML/umloperation.c:64 objects/UML/umlparameter.c:45
 msgid "Type"
@@ -575,8 +575,8 @@ msgstr "Özellikler"
 
 #: app/diagram_tree_view.c:535 app/exit_dialog.c:274 app/plugin-manager.c:269
 #: objects/Database/table.c:178 objects/Database/table.c:221
-#: objects/Misc/n_gon.c:137 objects/UML/association.c:242
-#: objects/UML/class.c:153 objects/UML/large_package.c:134
+#: objects/Misc/n_gon.c:137 objects/UML/association.c:245
+#: objects/UML/class.c:156 objects/UML/large_package.c:134
 #: objects/UML/umlattribute.c:37 objects/UML/umlformalparameter.c:35
 #: objects/UML/umloperation.c:62 objects/UML/umlparameter.c:43
 msgid "Name"
@@ -588,11 +588,11 @@ msgstr "Diyagram Ağacı"
 
 #: app/dia-colour-area.c:180 app/dia-colour-area.c:188
 msgid "Select foreground color"
-msgstr "Önalan rengini seç"
+msgstr "Ön plan rengini seç"
 
 #: app/dia-colour-area.c:180 app/dia-colour-area.c:188
 msgid "Select background color"
-msgstr "Artalan rengini seç"
+msgstr "Arka plan rengini seç"
 
 #. Can we be sure that the filename is the 'proper title'?
 #: app/dia-diagram-properties-dialog.c:322
@@ -639,7 +639,7 @@ msgstr "Izgara"
 
 #: app/dia-diagram-properties-dialog.ui:310 lib/diagramdata.c:149
 msgid "Background"
-msgstr "Artalan"
+msgstr "Arka plan"
 
 #: app/dia-diagram-properties-dialog.ui:322
 msgid "Grid Lines"
@@ -1296,7 +1296,7 @@ msgstr "_Diyagram Özellikleri"
 
 #: app/menus.c:115
 msgid "Modify diagram properties (grid, background)"
-msgstr "Diyagram özelliklerini düzenle (ızgara, artalan)"
+msgstr "Diyagram özelliklerini düzenle (ızgara, arka plan)"
 
 #: app/menus.c:116
 msgid "Page Set_up…"
@@ -2109,10 +2109,10 @@ msgstr "Diyagramda Gezin"
 #. new name matching "same name, same type"  rule
 #: app/toolbox.c:128 lib/properties.c:96 lib/properties.h:697
 #: objects/AADL/aadlbox.c:165 objects/custom/custom_object.c:244
-#: objects/Jackson/requirement.c:128 objects/network/basestation.c:132
+#: objects/Jackson/requirement.c:126 objects/network/basestation.c:132
 #: objects/network/radiocell.c:129 objects/UML/activity.c:127
 #: objects/UML/actor.c:123 objects/UML/classicon.c:143
-#: objects/UML/component.c:131 objects/UML/component_feature.c:157
+#: objects/UML/component.c:131 objects/UML/component_feature.c:160
 #: objects/UML/node.c:125 objects/UML/node.c:127 objects/UML/note.c:116
 #: objects/UML/object.c:162 objects/UML/small_package.c:127
 #: objects/UML/state.c:152 objects/UML/usecase.c:134
@@ -2197,7 +2197,7 @@ msgid ""
 "squares reset colors.  The small arrows swap colors.  Double-click to change "
 "colors."
 msgstr ""
-"Yeni nesneler için önalan ve artalan renkleri. Küçük siyah beyaz kareler "
+"Yeni nesneler için ön plan ve arka plan renkleri. Küçük siyah beyaz kareler "
 "renkleri sıfırlar. Küçük oklar renkleri değiştirir. Renkleri değiştirmek "
 "için çift tıklayın."
 
@@ -2297,6 +2297,10 @@ msgstr "Diyagram Düzenleyici"
 msgid "Edit your Diagrams"
 msgstr "Diyagramlarınızı Düzenleyin"
 
+#: data/org.gnome.Dia.desktop.in:14
+msgid "graphic;diagram;vector;layout;"
+msgstr ""
+
 #: data/ui/preferences-dialog.ui:157
 msgid "_Reset tools after create"
 msgstr "Oluşturduktan sonra araçları _sıfırla"
@@ -2352,7 +2356,7 @@ msgstr "Kağıt _Türü"
 
 #: data/ui/preferences-dialog.ui:478
 msgid "_Background Color"
-msgstr "_Artalan Rengi"
+msgstr "_Arka Plan Rengi"
 
 #: data/ui/preferences-dialog.ui:490
 msgid "_Compress saved files"
@@ -2469,7 +2473,7 @@ msgid "DiaObject"
 msgstr "DiaNesneleri"
 
 #: data/ui/sheets-edit-dialog.ui:166 objects/ER/attribute.c:151
-#: objects/ER/entity.c:132 objects/ER/relationship.c:136
+#: objects/ER/entity.c:137 objects/ER/relationship.c:136
 #: objects/UML/class_attributes_dialog.c:675
 #: objects/UML/class_operations_dialog.c:880
 #: objects/UML/class_operations_dialog.c:1289
@@ -2971,7 +2975,7 @@ msgstr "dia_plugin_init() çağrısı başarısız oldu"
 msgid "Plugin Configuration"
 msgstr "Eklenti Yapılandırması"
 
-#: lib/propdialogs.c:374 objects/UML/association.c:240 objects/UML/object.c:142
+#: lib/propdialogs.c:374 objects/UML/association.c:243 objects/UML/object.c:142
 msgid "General"
 msgstr "Genel"
 
@@ -3075,7 +3079,7 @@ msgstr "Dolgu rengi"
 #: lib/properties.c:93 lib/properties.h:683 lib/properties.h:686
 #: lib/standard-path.c:138
 msgid "Draw background"
-msgstr "Artalanı boya"
+msgstr "Arka planı boya"
 
 #: lib/properties.c:94 lib/properties.h:690
 msgid "Start arrow"
@@ -3091,20 +3095,20 @@ msgstr "Metin hizalama"
 
 #: lib/properties.c:98 lib/properties.h:708 objects/chronogram/chronoline.c:183
 #: objects/chronogram/chronoref.c:164 objects/Database/reference.c:135
-#: objects/GRAFCET/condition.c:139 objects/GRAFCET/step.c:174
+#: objects/GRAFCET/condition.c:139 objects/GRAFCET/step.c:179
 #: objects/GRAFCET/transition.c:149 objects/UML/class_dialog.c:494
 msgid "Font"
 msgstr "Yazı tipi"
 
 #: lib/properties.c:99 lib/properties.h:716 objects/chronogram/chronoline.c:185
 #: objects/chronogram/chronoref.c:166 objects/GRAFCET/condition.c:141
-#: objects/GRAFCET/step.c:176 objects/GRAFCET/transition.c:151
+#: objects/GRAFCET/step.c:181 objects/GRAFCET/transition.c:151
 msgid "Font size"
 msgstr "Yazı tipi boyutu"
 
 #: lib/properties.c:100 lib/properties.h:722
 #: objects/chronogram/chronoline.c:187 objects/chronogram/chronoref.c:168
-#: objects/GRAFCET/step.c:178
+#: objects/GRAFCET/step.c:183
 msgid "Text color"
 msgstr "Metin rengi"
 
@@ -3187,7 +3191,7 @@ msgid ""
 "or remove '%s', using the 'Sheets and Objects' dialog."
 msgstr ""
 
-#: lib/sheet.c:426
+#: lib/sheet.c:425
 #, c-format
 msgid "%s: you should use object tags rather than shape tags now"
 msgstr "%s: şekil etiketleri yerine nesne etiketleri kullanın"
@@ -3574,18 +3578,18 @@ msgstr "Açıklamayı sonlandır"
 # Hata: Boş çevrilebilir değer!
 #: objects/Database/reference.c:138 objects/Database/table.c:254
 #: objects/Database/table.c:256 objects/Database/table.c:258
-#: objects/UML/association.c:253 objects/UML/association.c:264
-#: objects/UML/association.c:266 objects/UML/association.c:268
-#: objects/UML/association.c:270 objects/UML/association.c:272
-#: objects/UML/class.c:228 objects/UML/class.c:230 objects/UML/class.c:232
-#: objects/UML/class.c:234 objects/UML/class.c:236 objects/UML/class.c:238
+#: objects/UML/association.c:256 objects/UML/association.c:267
+#: objects/UML/association.c:269 objects/UML/association.c:271
+#: objects/UML/association.c:273 objects/UML/association.c:275
+#: objects/UML/class.c:231 objects/UML/class.c:233 objects/UML/class.c:235
+#: objects/UML/class.c:237 objects/UML/class.c:239 objects/UML/class.c:241
 msgid " "
 msgstr " "
 
 #: objects/Database/reference.c:162 objects/ER/participation.c:427
 #: objects/FS/flow-ortho.c:684 objects/GRAFCET/vector.c:326
 #: objects/SADT/arrow.c:496 objects/standard/zigzagline.c:464
-#: objects/UML/association.c:918 objects/UML/component_feature.c:196
+#: objects/UML/association.c:921 objects/UML/component_feature.c:199
 #: objects/UML/dependency.c:402 objects/UML/generalization.c:399
 #: objects/UML/realizes.c:397 objects/UML/transition.c:173
 msgid "Add segment"
@@ -3594,7 +3598,7 @@ msgstr "Bölüm ekle"
 #: objects/Database/reference.c:163 objects/ER/participation.c:428
 #: objects/FS/flow-ortho.c:685 objects/GRAFCET/vector.c:327
 #: objects/SADT/arrow.c:497 objects/standard/zigzagline.c:465
-#: objects/UML/association.c:919 objects/UML/component_feature.c:197
+#: objects/UML/association.c:922 objects/UML/component_feature.c:200
 #: objects/UML/dependency.c:403 objects/UML/generalization.c:400
 #: objects/UML/realizes.c:398 objects/UML/transition.c:174
 msgid "Delete segment"
@@ -3605,7 +3609,7 @@ msgid "Reference"
 msgstr "Referans"
 
 #: objects/Database/table.c:182 objects/Database/table.c:223
-#: objects/Database/table.c:251 objects/UML/class.c:157 objects/UML/class.c:224
+#: objects/Database/table.c:251 objects/UML/class.c:160 objects/UML/class.c:227
 #: objects/UML/class_dialog.c:525 objects/UML/umlattribute.c:43
 #: objects/UML/umloperation.c:66 objects/UML/umlparameter.c:49
 #: sheets/SDL.sheet:52
@@ -3650,7 +3654,7 @@ msgstr "Görünür yorumlar"
 msgid "Underline primary keys"
 msgstr "Birincil tuşların altını çiz"
 
-#: objects/Database/table.c:233 objects/UML/class.c:172
+#: objects/Database/table.c:233 objects/UML/class.c:175
 msgid "Comment tagging"
 msgstr "Yorum etiketleme"
 
@@ -3658,25 +3662,25 @@ msgstr "Yorum etiketleme"
 msgid "Use bold font for primary keys"
 msgstr "Birincil tuşlar için kalın yazı tipi kullan"
 
-#: objects/Database/table.c:238 objects/UML/class.c:194
+#: objects/Database/table.c:238 objects/UML/class.c:197
 #: objects/UML/object.c:148
 msgid "Attributes"
 msgstr "Öznitelikler"
 
 #. umlformalparameters_extra
 #. all this just to make the defaults selectable ...
-#: objects/Database/table.c:242 objects/UML/association.c:275
-#: objects/UML/class.c:209 objects/UML/object.c:157
+#: objects/Database/table.c:242 objects/UML/association.c:278
+#: objects/UML/class.c:212 objects/UML/object.c:157
 msgid "Style"
 msgstr "Tip"
 
-#: objects/Database/table.c:243 objects/UML/class.c:210
+#: objects/Database/table.c:243 objects/UML/class.c:213
 msgid "Fonts"
 msgstr "Yazı Tipleri"
 
 #. property rows
 #: objects/Database/table.c:247 objects/SADT/arrow.c:138
-#: objects/UML/class.c:214 objects/UML/class_dialog.c:500
+#: objects/UML/class.c:217 objects/UML/class_dialog.c:500
 msgid "Normal"
 msgstr "Normal"
 
@@ -3685,7 +3689,7 @@ msgid "Table name"
 msgstr "Tablo ismi"
 
 # Komut olması sebebiyle Başlık Düzeni tercih edildi
-#: objects/Database/table.c:304 objects/UML/class.c:357
+#: objects/Database/table.c:304 objects/UML/class.c:360
 msgid "Show comments"
 msgstr "Yorumları Göster"
 
@@ -3709,15 +3713,15 @@ msgstr "Çoklu değer:"
 msgid "Attribute"
 msgstr "Öznitelik"
 
-#: objects/ER/entity.c:134
+#: objects/ER/entity.c:139
 msgid "Weak:"
 msgstr "Zayıf:"
 
-#: objects/ER/entity.c:136
+#: objects/ER/entity.c:141
 msgid "Associative:"
 msgstr "Çağrışımsal:"
 
-#: objects/ER/entity.c:416 objects/UML/classicon.c:127 sheets/ER.sheet:7
+#: objects/ER/entity.c:421 objects/UML/classicon.c:127 sheets/ER.sheet:7
 msgid "Entity"
 msgstr "Varlık"
 
@@ -3780,9 +3784,9 @@ msgstr "Madde"
 msgid "Signal"
 msgstr "Sinyal"
 
-#: objects/FS/flow.c:144 objects/FS/flow-ortho.c:179 objects/Istar/link.c:159
-#: objects/Jackson/phenomenon.c:143 objects/KAOS/metaandorrel.c:163
-#: objects/KAOS/metabinrel.c:170 objects/UML/class_attributes_dialog.c:689
+#: objects/FS/flow.c:144 objects/FS/flow-ortho.c:179 objects/Istar/link.c:162
+#: objects/Jackson/phenomenon.c:147 objects/KAOS/metaandorrel.c:167
+#: objects/KAOS/metabinrel.c:173 objects/UML/class_attributes_dialog.c:689
 #: objects/UML/class_operations_dialog.c:892
 #: objects/UML/class_operations_dialog.c:1301
 #: objects/UML/class_templates_dialog.c:531
@@ -3815,7 +3819,7 @@ msgid "Channel"
 msgstr "Kanal"
 
 #. Translators: Menu item Verb/Channel/Import/Input
-#: objects/FS/function.c:742 objects/KAOS/metabinrel.c:162
+#: objects/FS/function.c:742 objects/KAOS/metabinrel.c:165
 msgid "Input"
 msgstr "Girdi"
 
@@ -4845,51 +4849,51 @@ msgstr "Koşulun rengi"
 msgid "GRAFCET diagram objects"
 msgstr "GRAFCET Diyagram Nesneleri"
 
-#: objects/GRAFCET/step.c:153 sheets/GRAFCET.sheet:7
+#: objects/GRAFCET/step.c:158 sheets/GRAFCET.sheet:7
 msgid "Regular step"
 msgstr "Kurallı Adım"
 
-#: objects/GRAFCET/step.c:154 sheets/GRAFCET.sheet:10
+#: objects/GRAFCET/step.c:159 sheets/GRAFCET.sheet:10
 msgid "Initial step"
 msgstr "İlk Adım"
 
-#: objects/GRAFCET/step.c:155 sheets/GRAFCET.sheet:14
+#: objects/GRAFCET/step.c:160 sheets/GRAFCET.sheet:14
 msgid "Macro entry step"
 msgstr "Makro Başlangıç Adımı"
 
-#: objects/GRAFCET/step.c:156 sheets/GRAFCET.sheet:18
+#: objects/GRAFCET/step.c:161 sheets/GRAFCET.sheet:18
 msgid "Macro exit step"
 msgstr "Makro Bitiş Adımı"
 
-#: objects/GRAFCET/step.c:157 sheets/GRAFCET.sheet:22
+#: objects/GRAFCET/step.c:162 sheets/GRAFCET.sheet:22
 msgid "Macro call step"
 msgstr "Makro Çağrı Adımı"
 
-#: objects/GRAFCET/step.c:158
+#: objects/GRAFCET/step.c:163
 msgid "Subprogram call step"
 msgstr "Alt İşlem Çağrı Adımı"
 
-#: objects/GRAFCET/step.c:167
+#: objects/GRAFCET/step.c:172
 msgid "Step name"
 msgstr "Adım adı"
 
-#: objects/GRAFCET/step.c:167
+#: objects/GRAFCET/step.c:172
 msgid "The name of the step"
 msgstr "Adımın adı"
 
-#: objects/GRAFCET/step.c:170
+#: objects/GRAFCET/step.c:175
 msgid "Step type"
 msgstr "Adım türü"
 
-#: objects/GRAFCET/step.c:170
+#: objects/GRAFCET/step.c:175
 msgid "The kind of step"
 msgstr "Adımın türü"
 
-#: objects/GRAFCET/step.c:172
+#: objects/GRAFCET/step.c:177
 msgid "Active"
 msgstr "Etkin"
 
-#: objects/GRAFCET/step.c:172
+#: objects/GRAFCET/step.c:177
 msgid "Shows a red dot to figure the step's activity"
 msgstr "Adımın etkinliğini belirtmek için kırmızı bir nokta gösterir"
 
@@ -4931,35 +4935,35 @@ msgstr "Güney noktası"
 msgid "Draw arrow heads on upward arcs:"
 msgstr "Üste gösteren oklarda ok-başlarını göster:"
 
-#: objects/GRAFCET/vergent.c:127
+#: objects/GRAFCET/vergent.c:132
 msgid "OR"
 msgstr "VEYA (OR)"
 
-#: objects/GRAFCET/vergent.c:128
+#: objects/GRAFCET/vergent.c:133
 msgid "AND"
 msgstr "VE (AND)"
 
-#: objects/GRAFCET/vergent.c:140
+#: objects/GRAFCET/vergent.c:145
 msgid "Vergent type:"
 msgstr "Kenar türü:"
 
-#: objects/GRAFCET/vergent.c:466 objects/Istar/other.c:532
-#: objects/Jackson/domain.c:621 objects/KAOS/goal.c:664
-#: objects/KAOS/other.c:603 objects/SADT/box.c:499 objects/standard/line.c:330
+#: objects/GRAFCET/vergent.c:471 objects/Istar/other.c:534
+#: objects/Jackson/domain.c:618 objects/KAOS/goal.c:657
+#: objects/KAOS/other.c:599 objects/SADT/box.c:499 objects/standard/line.c:330
 msgid "Add connection point"
 msgstr "Bağlantı noktası ekle"
 
-#: objects/GRAFCET/vergent.c:467 objects/Istar/other.c:533
-#: objects/Jackson/domain.c:622 objects/KAOS/goal.c:665
-#: objects/KAOS/other.c:604 objects/SADT/box.c:500 objects/standard/line.c:331
+#: objects/GRAFCET/vergent.c:472 objects/Istar/other.c:535
+#: objects/Jackson/domain.c:619 objects/KAOS/goal.c:658
+#: objects/KAOS/other.c:600 objects/SADT/box.c:500 objects/standard/line.c:331
 msgid "Delete connection point"
 msgstr "Bağlantı noktasını sil"
 
-#: objects/GRAFCET/vergent.c:472
+#: objects/GRAFCET/vergent.c:477
 msgid "GRAFCET OR/AND vergent"
 msgstr "GRAFCET VEYA/VE (OR/AND) Kenarı"
 
-#: objects/Istar/actor.c:64 objects/Istar/link.c:147
+#: objects/Istar/actor.c:64 objects/Istar/link.c:150
 msgid "Unspecified"
 msgstr "Belirtilmemiş"
 
@@ -4967,7 +4971,7 @@ msgstr "Belirtilmemiş"
 msgid "Agent"
 msgstr "Aracı"
 
-#: objects/Istar/actor.c:67 objects/UML/association.c:255
+#: objects/Istar/actor.c:67 objects/UML/association.c:258
 msgid "Role"
 msgstr "Rol"
 
@@ -4979,8 +4983,8 @@ msgstr "Yumuşak hedef"
 msgid "Goal"
 msgstr "Hedef"
 
-#: objects/Istar/goal.c:151 objects/Istar/goal.c:152 objects/KAOS/goal.c:169
-#: objects/KAOS/goal.c:170
+#: objects/Istar/goal.c:155 objects/Istar/goal.c:156 objects/KAOS/goal.c:168
+#: objects/KAOS/goal.c:169
 msgid "Goal Type"
 msgstr "Hedef Türü"
 
@@ -4988,23 +4992,23 @@ msgstr "Hedef Türü"
 msgid "Istar diagram"
 msgstr "Istar diyagramı"
 
-#: objects/Istar/link.c:148
+#: objects/Istar/link.c:151
 msgid "Positive contrib"
 msgstr "Olumlu katkı"
 
-#: objects/Istar/link.c:149
+#: objects/Istar/link.c:152
 msgid "Negative contrib"
 msgstr "Olumsuz katkı"
 
-#: objects/Istar/link.c:150 sheets/UML.sheet:17
+#: objects/Istar/link.c:153 sheets/UML.sheet:17
 msgid "Dependency"
 msgstr "Bağımlılık"
 
-#: objects/Istar/link.c:151
+#: objects/Istar/link.c:154
 msgid "Decomposition"
 msgstr "Ayrıştırma"
 
-#: objects/Istar/link.c:152
+#: objects/Istar/link.c:155
 msgid "Means-Ends"
 msgstr ""
 
@@ -5016,7 +5020,7 @@ msgstr "Kaynak"
 msgid "Task"
 msgstr "Görev"
 
-#: objects/Istar/other.c:539
+#: objects/Istar/other.c:541
 msgid "i* other"
 msgstr ""
 
@@ -5032,8 +5036,8 @@ msgstr ""
 msgid "Machine Domain"
 msgstr ""
 
-#: objects/Jackson/domain.c:92 objects/UML/association.c:226
-#: objects/UML/association.c:232
+#: objects/Jackson/domain.c:92 objects/UML/association.c:229
+#: objects/UML/association.c:235
 msgid "None"
 msgstr "Hiçbiri"
 
@@ -5052,22 +5056,22 @@ msgstr "Dosya"
 msgid "Lexical"
 msgstr "Kimyasal"
 
-#: objects/Jackson/domain.c:177 objects/Jackson/domain.c:178
+#: objects/Jackson/domain.c:180 objects/Jackson/domain.c:181
 #, fuzzy
 msgid "Domain Type"
 msgstr "Alan Adı Türü"
 
-#: objects/Jackson/domain.c:182
+#: objects/Jackson/domain.c:185
 #, fuzzy
 msgid "Domain Kind"
 msgstr "Alan Adı Cinsi"
 
-#: objects/Jackson/domain.c:183
+#: objects/Jackson/domain.c:186
 #, fuzzy
 msgid "Optional kind which appears in the lower-right corner of the Domain"
 msgstr "Etki Alanının sağ alt köşesinde görünen isteğe bağlı tür"
 
-#: objects/Jackson/domain.c:628
+#: objects/Jackson/domain.c:625
 msgid "Jackson domain"
 msgstr ""
 
@@ -5075,17 +5079,17 @@ msgstr ""
 msgid "Jackson diagram"
 msgstr "Jackson diyagramı"
 
-#: objects/Jackson/phenomenon.c:133
+#: objects/Jackson/phenomenon.c:137
 msgid "Shared"
 msgstr "Paylaşılan"
 
-#: objects/Jackson/phenomenon.c:134 objects/KAOS/goal.c:80
+#: objects/Jackson/phenomenon.c:138 objects/KAOS/goal.c:80
 msgid "Requirement"
 msgstr "Gereksinim"
 
 #. how it used to be before 0.96+SVN
 #. new name matching "same name, same type"  rule
-#: objects/Jackson/phenomenon.c:141 objects/UML/message.c:147
+#: objects/Jackson/phenomenon.c:145 objects/UML/message.c:147
 #: objects/UML/message.c:149
 msgid "Message:"
 msgstr "Ileti:"
@@ -5098,7 +5102,7 @@ msgstr "Varsayım"
 msgid "Obstacle"
 msgstr "Engel"
 
-#: objects/KAOS/goal.c:670
+#: objects/KAOS/goal.c:663
 msgid "KAOS goal"
 msgstr "KAOS Hedefi"
 
@@ -5106,64 +5110,64 @@ msgstr "KAOS Hedefi"
 msgid "KAOS diagram"
 msgstr "KAOS Diyagramı"
 
-#: objects/KAOS/metaandorrel.c:150
+#: objects/KAOS/metaandorrel.c:154
 msgid "AND Refinement"
 msgstr "VE (AND) Saflaştırması"
 
-#: objects/KAOS/metaandorrel.c:151
+#: objects/KAOS/metaandorrel.c:155
 msgid "Complete AND Refinement"
 msgstr "VE (AND) Saflaştırmasını Tamamla"
 
-#: objects/KAOS/metaandorrel.c:152
+#: objects/KAOS/metaandorrel.c:156
 msgid "OR Refinement"
 msgstr "VEYA (OR) Saflaştırması"
 
-#: objects/KAOS/metaandorrel.c:153
+#: objects/KAOS/metaandorrel.c:157
 msgid "Operationalization"
 msgstr "Hazır Hale Getirme"
 
-#: objects/KAOS/metaandorrel.c:160
+#: objects/KAOS/metaandorrel.c:164
 msgid "Text:"
 msgstr "Metin:"
 
-#: objects/KAOS/metabinrel.c:154
+#: objects/KAOS/metabinrel.c:157
 msgid "Contributes"
 msgstr "Katkılar"
 
-#: objects/KAOS/metabinrel.c:155
+#: objects/KAOS/metabinrel.c:158
 msgid "Obstructs"
 msgstr "Engeller"
 
-#: objects/KAOS/metabinrel.c:156
+#: objects/KAOS/metabinrel.c:159
 msgid "Conflicts"
 msgstr "Çakışmalar"
 
-#: objects/KAOS/metabinrel.c:157
+#: objects/KAOS/metabinrel.c:160
 msgid "Responsibility"
 msgstr "Sorumluluk"
 
-#: objects/KAOS/metabinrel.c:158
+#: objects/KAOS/metabinrel.c:161
 msgid "Monitors"
 msgstr "Ekranlar"
 
-#: objects/KAOS/metabinrel.c:159
+#: objects/KAOS/metabinrel.c:162
 msgid "Controls"
 msgstr "Denetimler"
 
 # Fuzzy: hatalı ingilizce imla
-#: objects/KAOS/metabinrel.c:160
+#: objects/KAOS/metabinrel.c:163
 msgid "CapableOf"
 msgstr "Yetenekler"
 
-#: objects/KAOS/metabinrel.c:161
+#: objects/KAOS/metabinrel.c:164
 msgid "Performs"
 msgstr "Gerçekleştirmeler"
 
-#: objects/KAOS/metabinrel.c:163
+#: objects/KAOS/metabinrel.c:166
 msgid "Output"
 msgstr "Çıktı"
 
-#: objects/KAOS/other.c:609
+#: objects/KAOS/other.c:605
 msgid "KAOS other"
 msgstr "KAOS Diğer"
 
@@ -5713,52 +5717,52 @@ msgstr "Bezyer Çizgisine Güncelle"
 msgid "Actor"
 msgstr "Eylemci"
 
-#: objects/UML/association.c:227
+#: objects/UML/association.c:230
 msgid "From A to B"
 msgstr "A'den B'ye"
 
-#: objects/UML/association.c:228
+#: objects/UML/association.c:231
 msgid "From B to A"
 msgstr "B'den A'ya"
 
-#: objects/UML/association.c:233
+#: objects/UML/association.c:236
 msgid "Aggregation"
 msgstr "Toplama"
 
-#: objects/UML/association.c:234
+#: objects/UML/association.c:237
 msgid "Composition"
 msgstr "Kompozisyon"
 
-#: objects/UML/association.c:244
+#: objects/UML/association.c:247
 msgid "Direction"
 msgstr "Yön"
 
-#: objects/UML/association.c:246
+#: objects/UML/association.c:249
 msgid "Show direction"
 msgstr "Yön göster"
 
-#: objects/UML/association.c:246
+#: objects/UML/association.c:249
 msgid "Show the small arrow denoting the reading direction"
 msgstr "Okuma yönünü işaret eden küçük oku göster"
 
-#: objects/UML/association.c:253
+#: objects/UML/association.c:256
 msgid "Side A"
 msgstr "Taraf A"
 
-#: objects/UML/association.c:257
+#: objects/UML/association.c:260
 msgid "Multiplicity"
 msgstr "Çoklu oluşum"
 
-#: objects/UML/association.c:259 objects/UML/umlattribute.c:45
+#: objects/UML/association.c:262 objects/UML/umlattribute.c:45
 #: objects/UML/umloperation.c:71
 msgid "Visibility"
 msgstr "Görünürlük"
 
-#: objects/UML/association.c:261
+#: objects/UML/association.c:264
 msgid "Show arrow"
 msgstr "Ok göster"
 
-#: objects/UML/association.c:264
+#: objects/UML/association.c:267
 msgid "Side B"
 msgstr "Taraf B"
 
@@ -5828,14 +5832,14 @@ msgstr "Gerçekleme"
 msgid "Class scope"
 msgstr "Sınıf kapsamı"
 
-#: objects/UML/class.c:151 objects/UML/class.c:364 objects/UML/class.c:1938
+#: objects/UML/class.c:154 objects/UML/class.c:367 objects/UML/class.c:1941
 #: sheets/UML.sheet:7
 msgid "Class"
 msgstr "Sınıf"
 
 #. how it used to be before 0.96+SVN
 #. one name, one type: but breaks forward-compatibiliy so kind of reverted
-#: objects/UML/class.c:155 objects/UML/classicon.c:134
+#: objects/UML/class.c:158 objects/UML/classicon.c:134
 #: objects/UML/classicon.c:136 objects/UML/component.c:127
 #: objects/UML/large_package.c:136 objects/UML/object.c:144
 #: objects/UML/small_package.c:123 objects/UML/umloperation.c:68
@@ -5843,73 +5847,73 @@ msgid "Stereotype"
 msgstr "Stereotip:"
 
 # Abstract Class bağlamında
-#: objects/UML/class.c:162 objects/UML/class.c:218
+#: objects/UML/class.c:165 objects/UML/class.c:221
 #: objects/UML/class_dialog.c:393 objects/UML/class_dialog.c:510
 #: objects/UML/class_operations_dialog.c:943 objects/UML/umlattribute.c:48
 #: objects/UML/uml.c:109
 msgid "Abstract"
 msgstr "Soyut"
 
-#: objects/UML/class.c:164
+#: objects/UML/class.c:167
 msgid "Visible Attributes"
 msgstr "Görünür Öznitelikler"
 
-#: objects/UML/class.c:166
+#: objects/UML/class.c:169
 msgid "Visible Operations"
 msgstr "Görünür İşlemler"
 
-#: objects/UML/class.c:168 objects/UML/class_dialog.c:419
+#: objects/UML/class.c:171 objects/UML/class_dialog.c:419
 msgid "Wrap Operations"
 msgstr "Sarma Işlemleri"
 
-#: objects/UML/class.c:170
+#: objects/UML/class.c:173
 msgid "Visible Comments"
 msgstr "Görünür Yorumlar"
 
 # Komut olması sebebiyle Başlık Düzeni tercih edildi
-#: objects/UML/class.c:174 objects/UML/class.c:359
+#: objects/UML/class.c:177 objects/UML/class.c:362
 msgid "Allow resizing"
 msgstr "Boyutlandırmaya İzin Ver"
 
-#: objects/UML/class.c:178 objects/UML/class.c:1935
+#: objects/UML/class.c:181 objects/UML/class.c:1938
 msgid "Template"
 msgstr "Şablon"
 
-#: objects/UML/class.c:180 objects/UML/class_dialog.c:402
+#: objects/UML/class.c:183 objects/UML/class_dialog.c:402
 msgid "Suppress Attributes"
 msgstr "Öznitelikleri Gizle"
 
-#: objects/UML/class.c:182
+#: objects/UML/class.c:185
 msgid "Suppress Operations"
 msgstr "İşlemleri Gizle"
 
-#: objects/UML/class.c:184
+#: objects/UML/class.c:187
 msgid "Wrap after char"
 msgstr ""
 
-#: objects/UML/class.c:186
+#: objects/UML/class.c:189
 msgid "Comment line length"
 msgstr "Yorum çizgisi uzunluğu"
 
 #. umlattribute_extra
-#: objects/UML/class.c:199
+#: objects/UML/class.c:202
 msgid "Operations"
 msgstr "Işlemler"
 
 #. umloperations_extra
-#: objects/UML/class.c:203
+#: objects/UML/class.c:206
 msgid "Template Parameters"
 msgstr "Şablon Parametreleri"
 
-#: objects/UML/class.c:216 objects/UML/class_dialog.c:505
+#: objects/UML/class.c:219 objects/UML/class_dialog.c:505
 msgid "Polymorphic"
 msgstr "Çok Biçimli"
 
-#: objects/UML/class.c:220 objects/UML/class_dialog.c:515
+#: objects/UML/class.c:223 objects/UML/class_dialog.c:515
 msgid "Class Name"
 msgstr "Sınıf Adı"
 
-#: objects/UML/class.c:222
+#: objects/UML/class.c:225
 msgid "Abstract Class Name"
 msgstr "Soyut Sınıf Adı"
 
@@ -5985,11 +5989,11 @@ msgstr "Metin Rengi"
 
 #: objects/UML/class_dialog.c:559
 msgid "Foreground Color"
-msgstr "Önalan Rengi"
+msgstr "Ön Plan Rengi"
 
 #: objects/UML/class_dialog.c:570
 msgid "Background Color"
-msgstr "Artalan Rengi"
+msgstr "Arka Plan Rengi"
 
 #: objects/UML/classicon.c:126
 msgid "Boundary"
@@ -6119,19 +6123,19 @@ msgstr "Formal Parametreyi Aşağı Taşı"
 msgid "Formal parameter data"
 msgstr "Formal parametre verisi"
 
-#: objects/UML/component_feature.c:147 sheets/UML.sheet:63
+#: objects/UML/component_feature.c:150 sheets/UML.sheet:63
 msgid "Facet"
 msgstr "Taraf"
 
-#: objects/UML/component_feature.c:148 sheets/UML.sheet:66
+#: objects/UML/component_feature.c:151 sheets/UML.sheet:66
 msgid "Receptacle"
 msgstr "Kap"
 
-#: objects/UML/component_feature.c:149 sheets/UML.sheet:70
+#: objects/UML/component_feature.c:152 sheets/UML.sheet:70
 msgid "Event Source"
 msgstr "Olay Kaynağı"
 
-#: objects/UML/component_feature.c:150 sheets/UML.sheet:74
+#: objects/UML/component_feature.c:153 sheets/UML.sheet:74
 msgid "Event Sink"
 msgstr "Olay Alıcısı"
 
@@ -6390,7 +6394,7 @@ msgstr "DiaRenderScript"
 msgid "DiaRenderScript filter"
 msgstr "DiaRenderScript filtresi"
 
-#: plug-ins/drs/dia-render-script-import.c:513
+#: plug-ins/drs/dia-render-script-import.c:514
 msgid "Broken file?"
 msgstr "Bozuk dosya?"
 
