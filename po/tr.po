@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dia master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dia/issues/\n"
-"POT-Creation-Date: 2024-03-08 02:41+0000\n"
-"PO-Revision-Date: 2024-03-13 19:24+0300\n"
+"POT-Creation-Date: 2024-03-15 13:07+0000\n"
+"PO-Revision-Date: 2024-03-25 17:18+0300\n"
 "Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -1082,7 +1082,7 @@ msgid "You must specify a file, not a directory."
 msgstr "Lütfen bir dosya adı belirtin, dizin değil."
 
 #: app/load_save.c:425 plug-ins/dxf/dxf-import.c:1327
-#: plug-ins/wpg/wpg-import.c:519 plug-ins/xfig/xfig-import.c:1320
+#: plug-ins/wpg/wpg-import.c:519 plug-ins/xfig/xfig-import.c:1322
 #: plug-ins/xslt/xslt.c:101
 #, c-format
 msgid "Couldn't open: '%s' for reading.\n"
@@ -1148,8 +1148,8 @@ msgid "Not allowed to write temporary files in %s\n"
 msgstr "Geçici dosyaların %s içine yazılmasına izin verilmedi\n"
 
 #: app/load_save.c:1237 plug-ins/cgm/cgm.c:1104 plug-ins/dxf/dxf-export.c:610
-#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1362
-#: plug-ins/pstricks/render_pstricks.c:977 plug-ins/vdx/vdx-export.c:1781
+#: plug-ins/metapost/render_metapost.c:1113 plug-ins/pgf/render_pgf.c:1384
+#: plug-ins/pstricks/render_pstricks.c:999 plug-ins/vdx/vdx-export.c:1781
 #: plug-ins/wmf/wmf.cpp:1434 plug-ins/wpg/wpg.c:1147
 #: plug-ins/xfig/xfig-export.c:1272
 #, c-format
@@ -1169,11 +1169,11 @@ msgstr "%d iç hatası, %s dosyası yazdırılırken\n"
 msgid "Can't rename %s to final output file %s"
 msgstr "%s dosyası %s olarak adlandırılamıyor"
 
-#: app/load_save.c:1384 app/load_save.c:1395
+#: app/load_save.c:1386 app/load_save.c:1397
 msgid "Auto save"
 msgstr "Otomatik kaydet"
 
-#: app/load_save.c:1419 app/load_save.c:1424
+#: app/load_save.c:1421 app/load_save.c:1426
 msgid "Dia Diagram File"
 msgstr "Dia Diyagram Dosyası"
 
@@ -2887,12 +2887,12 @@ msgstr "Dosyada hata: dizge # ile başlamıyor"
 msgid "Taking font value of non-font node."
 msgstr "Yazı tipi olmayan düğümün yazı tipi değeri alınıyor."
 
-#: lib/filter.c:181
+#: lib/filter.c:184
 #, c-format
 msgid "Multiple export filters with unique name %s"
 msgstr "%s benzersiz adında birden çok dışa aktarma filtresi var"
 
-#: lib/filter.c:199
+#: lib/filter.c:202
 #, c-format
 msgid "Multiple import filters with unique name %s"
 msgstr "%s benzersiz adında birden çok içe aktarma filtresi var"
@@ -3126,7 +3126,7 @@ msgstr "Metin sığdırma"
 
 #: lib/properties.h:735 lib/standard-path.c:140
 msgid "Pattern"
-msgstr "Desen"
+msgstr "Örüntü"
 
 #: lib/prop_inttypes.c:562
 msgid "Property cast from int to enum out of range"
@@ -6499,7 +6499,7 @@ msgid "TeX Metapost export filter"
 msgstr "TeX Metapost dışa aktarma filtresi"
 
 #: plug-ins/metapost/render_metapost.c:909
-#: plug-ins/pstricks/render_pstricks.c:879 plug-ins/wpg/wpg.c:920
+#: plug-ins/pstricks/render_pstricks.c:901 plug-ins/wpg/wpg.c:920
 msgid "Not enough memory for image drawing."
 msgstr "Resim çizmek için yeterli bellek yok."
 
@@ -6541,7 +6541,7 @@ msgstr "LaTeX PGF dışa aktarma filtresi"
 msgid "Not valid UTF-8"
 msgstr "Geçerli UTF-8 değil"
 
-#: plug-ins/pgf/render_pgf.c:1422
+#: plug-ins/pgf/render_pgf.c:1444
 msgid "LaTeX PGF macros"
 msgstr "LaTeX PGF makrosu"
 
@@ -6581,7 +6581,7 @@ msgstr "gdk-pixbuf temelli biteşlem dışa aktar/içe aktar"
 msgid "TeX PSTricks export filter"
 msgstr "TeX PSTricks dışa aktarma filtresi"
 
-#: plug-ins/pstricks/render_pstricks.c:1047
+#: plug-ins/pstricks/render_pstricks.c:1069
 msgid "TeX PSTricks macros"
 msgstr "TeX PSTricks makroları"
 
@@ -6817,7 +6817,7 @@ msgstr "PNG simge dışa aktarma eklentisi olmadan dışa aktarılamıyor."
 msgid "Dia Shape File"
 msgstr "Dia Şekil Dosyası"
 
-#: plug-ins/svg/render_svg.c:701 plug-ins/svg/svg-import.c:2277
+#: plug-ins/svg/render_svg.c:701 plug-ins/svg/svg-import.c:2281
 msgid "Scalable Vector Graphics"
 msgstr "Ölçeklenebilir Vektör Grafikleri (SVG)"
 
@@ -6836,16 +6836,16 @@ msgid ""
 "svg:path data must start with moveto."
 msgstr ""
 
-#: plug-ins/svg/svg-import.c:2043
+#: plug-ins/svg/svg-import.c:2047
 msgid "'Shape Design' shapes missing."
 msgstr "'Şekil Tasarım' şekilleri kayıp."
 
-#: plug-ins/svg/svg-import.c:2077
+#: plug-ins/svg/svg-import.c:2081
 #, c-format
 msgid "Object '%s' creation failed"
 msgstr "'%s' nesnesi oluşturulamadı"
 
-#: plug-ins/svg/svg-import.c:2106
+#: plug-ins/svg/svg-import.c:2110
 #, c-format
 msgid ""
 "Parse error for memory block.\n"
@@ -6854,7 +6854,7 @@ msgstr ""
 "Bellek bloğu ayrıştırma hatası.\n"
 "%s"
 
-#: plug-ins/svg/svg-import.c:2124
+#: plug-ins/svg/svg-import.c:2128
 #, c-format
 msgid ""
 "SVG parser error for %s\n"
@@ -6864,7 +6864,7 @@ msgstr ""
 "%s"
 
 #. just a warning
-#: plug-ins/svg/svg-import.c:2130
+#: plug-ins/svg/svg-import.c:2134
 #, c-format
 msgid ""
 "SVG parser warning for %s\n"
@@ -6873,11 +6873,11 @@ msgstr ""
 "%s için SVG ayrıştırıcı uyarısı\n"
 "%s"
 
-#: plug-ins/svg/svg-import.c:2163
+#: plug-ins/svg/svg-import.c:2167
 msgid "Expected SVG name-space not found in file"
 msgstr ""
 
-#: plug-ins/svg/svg-import.c:2183
+#: plug-ins/svg/svg-import.c:2187
 #, c-format
 msgid "root element was '%s' -- expecting 'svg'."
 msgstr ""
@@ -6905,29 +6905,29 @@ msgstr "Renk okunamadı: %s"
 msgid "Couldn't find shape %d"
 msgstr "Şekil %d bulunamadı"
 
-#: plug-ins/vdx/vdx-import.c:1071
+#: plug-ins/vdx/vdx-import.c:1072
 #, c-format
 msgid "Unexpected Ellipse object: %s"
 msgstr "Beklenmedik Elips nesnesi: %s"
 
-#: plug-ins/vdx/vdx-import.c:1085
+#: plug-ins/vdx/vdx-import.c:1086
 msgid "Can't rotate ellipse"
 msgstr "Elips döndürülemiyor"
 
-#: plug-ins/vdx/vdx-import.c:1416
+#: plug-ins/vdx/vdx-import.c:1417
 msgid "MoveTo not at start of Bezier"
 msgstr ""
 
-#: plug-ins/vdx/vdx-import.c:1766
+#: plug-ins/vdx/vdx-import.c:1767
 msgid "Invalid NURBS formula"
 msgstr "Geçersiz NURBS formülü"
 
-#: plug-ins/vdx/vdx-import.c:2025
+#: plug-ins/vdx/vdx-import.c:2027
 #, c-format
 msgid "Couldn't handle foreign object type %s"
 msgstr "Yabancı nesne türü %s işlenemedi"
 
-#: plug-ins/vdx/vdx-import.c:2960
+#: plug-ins/vdx/vdx-import.c:2963
 #, c-format
 msgid ""
 "VDX parser error for %s\n"
@@ -6936,16 +6936,16 @@ msgstr ""
 "%s için VDK ayrıştırıcı hatası\n"
 "%s"
 
-#: plug-ins/vdx/vdx-import.c:2972
+#: plug-ins/vdx/vdx-import.c:2975
 msgid "Nothing in document!"
 msgstr "Belgede hiçbir şey yok!"
 
-#: plug-ins/vdx/vdx-import.c:2977
+#: plug-ins/vdx/vdx-import.c:2980
 #, c-format
 msgid "Expecting VisioDocument, got %s"
 msgstr "Beklenen VisioDocument, alınan %s"
 
-#: plug-ins/vdx/vdx-import.c:3061
+#: plug-ins/vdx/vdx-import.c:3064
 msgid "Visio XML File Format"
 msgstr "Visio XML Dosya Biçimi"
 
@@ -7046,7 +7046,7 @@ msgstr ""
 
 #: plug-ins/xfig/xfig-import.c:140
 msgid "Patterns are not supported by Dia"
-msgstr "Patern'ler henüz Dia tarafından desteklenmiyor"
+msgstr "Örüntüler henüz Dia tarafından desteklenmiyor"
 
 #: plug-ins/xfig/xfig-import.c:169
 msgid "Triple-dotted lines are not supported by Dia; using double-dotted"
@@ -7103,146 +7103,146 @@ msgstr "Eksi köşe yarıçapı, eksileştiriliyor"
 msgid "Unknown polyline subtype: %d\n"
 msgstr "Bilinmeyen çoklu çizgi alt türü: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:749 plug-ins/xfig/xfig-import.c:781
+#: plug-ins/xfig/xfig-import.c:750 plug-ins/xfig/xfig-import.c:782
 msgid "Couldn't read spline info."
 msgstr "Şerit bilgisi okunamadı."
 
 #. Open approximated spline
 #. Closed approximated spline
-#: plug-ins/xfig/xfig-import.c:768 plug-ins/xfig/xfig-import.c:785
+#: plug-ins/xfig/xfig-import.c:769 plug-ins/xfig/xfig-import.c:786
 #, fuzzy
 msgid "Cannot convert approximated spline yet."
 msgstr "Yaklaşımsal şerit henüz dönüştürülemiyor."
 
-#: plug-ins/xfig/xfig-import.c:823
+#: plug-ins/xfig/xfig-import.c:825
 #, c-format
 msgid "Unknown spline subtype: %d\n"
 msgstr "Bilinmeyen şerit alt türü: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:888
+#: plug-ins/xfig/xfig-import.c:890
 msgid "Couldn't read arc info."
 msgstr "Yay bilgisi okunamadı."
 
 #. set new fill property on arc?
-#: plug-ins/xfig/xfig-import.c:916
+#: plug-ins/xfig/xfig-import.c:918
 msgid "Filled arc treated as unfilled"
 msgstr "Yay doldurulmamış olarak davranıldı"
 
-#: plug-ins/xfig/xfig-import.c:920
+#: plug-ins/xfig/xfig-import.c:922
 #, c-format
 msgid "Unknown polyline arc: %d\n"
 msgstr "Bilinmeyen çoklu çizgi yayı: %d\n"
 
-#: plug-ins/xfig/xfig-import.c:985
+#: plug-ins/xfig/xfig-import.c:987
 msgid "Couldn't read text info."
 msgstr "Metin bilgisi okunamadı."
 
-#: plug-ins/xfig/xfig-import.c:1013
+#: plug-ins/xfig/xfig-import.c:1015
 #, c-format
 msgid "Can't find LaTeX font nr. %d, using sans"
 msgstr "LaTeX yazı tipi no: %d bulunamıyor, sans kullanılacak"
 
-#: plug-ins/xfig/xfig-import.c:1021
+#: plug-ins/xfig/xfig-import.c:1023
 #, c-format
 msgid "Can't find PostScript font nr. %d, using sans"
 msgstr "PostScript yazı tipi no: %d bulunamıyor, sans kullanılacak"
 
-#: plug-ins/xfig/xfig-import.c:1050
+#: plug-ins/xfig/xfig-import.c:1052
 msgid "Couldn't identify Fig object."
 msgstr "Fig nesnesi tanınamadı."
 
-#: plug-ins/xfig/xfig-import.c:1058
+#: plug-ins/xfig/xfig-import.c:1060
 msgid "Compound end outside compound\n"
 msgstr "Bileşik ve dış bileşik\n"
 
-#: plug-ins/xfig/xfig-import.c:1080
+#: plug-ins/xfig/xfig-import.c:1082
 msgid "Couldn't read color\n"
 msgstr "Renk okunamadı\n"
 
-#: plug-ins/xfig/xfig-import.c:1085
+#: plug-ins/xfig/xfig-import.c:1087
 #, c-format
 msgid "Color number %d out of range 0..%d.  Discarding color.\n"
 msgstr "Renk sayısı %d 0..%d eriminin dışında. Renk gözden çıkarılıyor.\n"
 
-#: plug-ins/xfig/xfig-import.c:1132
+#: plug-ins/xfig/xfig-import.c:1134
 msgid "Couldn't read group extent."
 msgstr "Grup uzatması okunamadı."
 
-#: plug-ins/xfig/xfig-import.c:1143
+#: plug-ins/xfig/xfig-import.c:1145
 #, c-format
 msgid "Unknown object type %d\n"
 msgstr "Bilinmeyen nesne türü %d\n"
 
 # Fuzzy: Sanki split sentence ve kelime araya sokuluyor.
-#: plug-ins/xfig/xfig-import.c:1170
+#: plug-ins/xfig/xfig-import.c:1172
 #, fuzzy, c-format
 #| msgid "`%s' is not one of `%s' or `%s'\n"
 msgid "“%s” is not one of “%s” or “%s”\n"
 msgstr "'%s' '%s'lerden biri değil veya '%s'\n"
 
-#: plug-ins/xfig/xfig-import.c:1185
+#: plug-ins/xfig/xfig-import.c:1187
 msgid "Error reading paper size."
 msgstr "Kağıt boyutu okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1197
+#: plug-ins/xfig/xfig-import.c:1199
 #, fuzzy, c-format
 #| msgid "Unknown paper size `%s', using default\n"
 msgid "Unknown paper size “%s”, using default\n"
 msgstr "Bilinmeyen kağıt boyutu '%s', öntanımlı boyut kullanılıyor\n"
 
-#: plug-ins/xfig/xfig-import.c:1213
+#: plug-ins/xfig/xfig-import.c:1215
 msgid "Error reading paper orientation."
 msgstr "Kağıt yönü okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1223
+#: plug-ins/xfig/xfig-import.c:1225
 msgid "Error reading justification."
 msgstr "Hizalama okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1233
+#: plug-ins/xfig/xfig-import.c:1235
 msgid "Error reading units."
 msgstr "Birimler okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1249
+#: plug-ins/xfig/xfig-import.c:1251
 msgid "Error reading magnification."
 msgstr "Büyültme okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1262
+#: plug-ins/xfig/xfig-import.c:1264
 msgid "Error reading multipage indicator."
 msgstr "Çoklu sayfa göstergesi okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1273
+#: plug-ins/xfig/xfig-import.c:1275
 msgid "Error reading transparent color."
 msgstr "Saydam renk okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1282 plug-ins/xfig/xfig-import.c:1343
-#: plug-ins/xfig/xfig-import.c:1363
+#: plug-ins/xfig/xfig-import.c:1284 plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1365
 msgid "Error reading Fig file."
 msgstr "Fig dosyası okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1284
+#: plug-ins/xfig/xfig-import.c:1286
 msgid "Premature end of Fig file\n"
 msgstr "Fig dosyası erken bitişi\n"
 
-#: plug-ins/xfig/xfig-import.c:1293
+#: plug-ins/xfig/xfig-import.c:1295
 msgid "Error reading resolution."
 msgstr "Çözünürlük okunurken hata."
 
-#: plug-ins/xfig/xfig-import.c:1329
+#: plug-ins/xfig/xfig-import.c:1331
 msgid "Doesn't look like a Fig file"
 msgstr "Fig dosyası gibi görünmüyor"
 
-#: plug-ins/xfig/xfig-import.c:1335
+#: plug-ins/xfig/xfig-import.c:1337
 #, c-format
 msgid ""
 "This is a Fig version %d.%d file.\n"
 " It may not be importable."
 msgstr ""
 
-#: plug-ins/xfig/xfig-import.c:1345
+#: plug-ins/xfig/xfig-import.c:1347
 msgid "Premature end of Fig file"
 msgstr "Fig dosyası erken bitişi"
 
-#: plug-ins/xfig/xfig-import.c:1390
+#: plug-ins/xfig/xfig-import.c:1392
 msgid "Xfig File Format"
 msgstr "XFig Dosya Biçimi"
 
