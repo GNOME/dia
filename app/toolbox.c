@@ -304,7 +304,7 @@ fill_sheet_wbox(Sheet *sheet)
       } else {
         pixbuf = gdk_pixbuf_new_from_xpm_data (sheet_obj->pixmap);
         if (pixbuf == NULL) {
-          g_warning ("Problem with: %s", (const char *) sheet_obj->pixmap);
+          g_warning ("Problem loading icon for ‘%s’", sheet_obj->description);
           pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
                                              "image-missing",
                                              22,
